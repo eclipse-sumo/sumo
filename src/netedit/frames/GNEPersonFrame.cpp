@@ -20,20 +20,13 @@
 // ===========================================================================
 #include <config.h>
 
-#include <utils/gui/windows/GUIAppEnum.h>
 #include <utils/gui/div/GUIDesigns.h>
-#include <netedit/netelements/GNEEdge.h>
-#include <netedit/netelements/GNELane.h>
 #include <netedit/demandelements/GNEPerson.h>
 #include <netedit/demandelements/GNERouteHandler.h>
 #include <netedit/GNENet.h>
 #include <netedit/GNEViewNet.h>
-#include <netedit/GNEViewParent.h>
-#include <netedit/GNEApplicationWindow.h>
 #include <utils/xml/SUMOSAXAttributesImpl_Cached.h>
 #include <utils/vehicle/SUMOVehicleParserHelper.h>
-#include <utils/gui/div/GLHelper.h>
-#include <utils/gui/globjects/GLIncludes.h>
 
 #include "GNEPersonFrame.h"
 

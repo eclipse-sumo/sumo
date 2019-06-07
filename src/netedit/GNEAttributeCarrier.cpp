@@ -25,7 +25,6 @@
 #include <utils/common/StringTokenizer.h>
 #include <utils/emissions/PollutantsInterface.h>
 #include <utils/geom/GeomConvHelper.h>
-#include <utils/gui/images/GUIIconSubSys.h>
 #include <utils/options/OptionsCont.h>
 
 #include "GNEAttributeCarrier.h"

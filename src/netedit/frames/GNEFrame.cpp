@@ -21,8 +21,6 @@
 
 #include <config.h>
 
-#include <netbuild/NBNetBuilder.h>
-#include <netbuild/NBVehicle.h>
 #include <netedit/GNEApplicationWindow.h>
 #include <netedit/GNENet.h>
 #include <netedit/GNEUndoList.h>
@@ -30,10 +28,7 @@
 #include <netedit/GNEViewParent.h>
 #include <netedit/additionals/GNEPOI.h>
 #include <netedit/additionals/GNETAZ.h>
-#include <netedit/changes/GNEChange_DemandElement.h>
 #include <netedit/demandelements/GNEDemandElement.h>
-#include <netedit/demandelements/GNERouteHandler.h>
-#include <netedit/demandelements/GNEVehicle.h>
 #include <netedit/dialogs/GNEDialog_AllowDisallow.h>
 #include <netedit/dialogs/GNEGenericParameterDialog.h>
 #include <netedit/netelements/GNEConnection.h>
@@ -41,19 +36,13 @@
 #include <netedit/netelements/GNEEdge.h>
 #include <netedit/netelements/GNEJunction.h>
 #include <netedit/netelements/GNELane.h>
-#include <utils/common/SUMOVehicleClass.h>
 #include <utils/common/StringTokenizer.h>
 #include <utils/foxtools/MFXMenuHeader.h>
 #include <utils/gui/div/GLHelper.h>
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/gui/globjects/GLIncludes.h>
-#include <utils/gui/images/GUIIconSubSys.h>
 #include <utils/gui/images/GUITexturesHelper.h>
 #include <utils/gui/windows/GUIAppEnum.h>
-#include <utils/gui/windows/GUIMainWindow.h>
-#include <utils/vehicle/SUMOVehicle.h>
-#include <utils/vehicle/SUMOVehicleParserHelper.h>
-#include <utils/xml/SUMOSAXAttributesImpl_Cached.h>
 
 #include "GNEFrame.h"
 #include "GNEInspectorFrame.h"
