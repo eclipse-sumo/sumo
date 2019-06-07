@@ -83,8 +83,8 @@ public:
         /// @brief pointer to Frame Parent
         GNEFrame* myFrameParent;
 
-        /// @brief comboBox with the list of elements type
-        FXComboBox* myTypeMatchBox;
+        /// @brief comboBox with the list of tags
+        FXComboBox* myTagsMatchBox;
 
         /// @brief current tag properties
         GNEAttributeCarrier::TagProperties myCurrentTagProperties;
@@ -138,7 +138,7 @@ public:
         GNEFrame* myFrameParent;
 
         /// @brief comboBox with the list of elements type
-        FXComboBox* myTypeMatchBox;
+        FXComboBox* myVTypesMatchBox;
 
         /// @brief current vehicle type
         GNEDemandElement* myCurrentVType;

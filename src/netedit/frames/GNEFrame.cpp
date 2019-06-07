@@ -112,14 +112,14 @@ FXDEFMAP(GNEFrame::NeteditAttributes) NeteditAttributesMap[] = {
 };
 
 // Object implementation
-FXIMPLEMENT(GNEFrame::TagSelector,                             FXGroupBox,         TagSelectorMap,                ARRAYNUMBER(TagSelectorMap))
+FXIMPLEMENT(GNEFrame::TagSelector,                              FXGroupBox,         TagSelectorMap,                 ARRAYNUMBER(TagSelectorMap))
 FXIMPLEMENT(GNEFrame::VTypeSelector,                            FXGroupBox,         VTypeSelectorMap,               ARRAYNUMBER(VTypeSelectorMap))
 FXIMPLEMENT(GNEFrame::AttributesCreator,                        FXGroupBox,         AttributesCreatorMap,           ARRAYNUMBER(AttributesCreatorMap))
 FXIMPLEMENT(GNEFrame::AttributesCreator::AttributesCreatorRow,  FXHorizontalFrame,  RowCreatorMap,                  ARRAYNUMBER(RowCreatorMap))
 FXIMPLEMENT(GNEFrame::AttributesEditor,                         FXGroupBox,         AttributesEditorMap,            ARRAYNUMBER(AttributesEditorMap))
 FXIMPLEMENT(GNEFrame::AttributesEditor::AttributesEditorRow,    FXHorizontalFrame,  AttributesEditorRowMap,         ARRAYNUMBER(AttributesEditorRowMap))
 FXIMPLEMENT(GNEFrame::AttributesEditorExtended,                 FXGroupBox,         AttributesEditorExtendedMap,    ARRAYNUMBER(AttributesEditorExtendedMap))
-FXIMPLEMENT(GNEFrame::AttributeCarrierHierarchy,                              FXGroupBox,         AttributeCarrierHierarchyMap,                 ARRAYNUMBER(AttributeCarrierHierarchyMap))
+FXIMPLEMENT(GNEFrame::AttributeCarrierHierarchy,                FXGroupBox,         AttributeCarrierHierarchyMap,   ARRAYNUMBER(AttributeCarrierHierarchyMap))
 FXIMPLEMENT(GNEFrame::GenericParametersEditor,                  FXGroupBox,         GenericParametersEditorMap,     ARRAYNUMBER(GenericParametersEditorMap))
 FXIMPLEMENT(GNEFrame::DrawingShape,                             FXGroupBox,         DrawingShapeMap,                ARRAYNUMBER(DrawingShapeMap))
 FXIMPLEMENT(GNEFrame::NeteditAttributes,                        FXGroupBox,         NeteditAttributesMap,           ARRAYNUMBER(NeteditAttributesMap))
@@ -182,13 +182,13 @@ GNEFrame::TagSelector::TagSelector(GNEFrame* frameParent, GNEAttributeCarrier::T
     // fill myListOfTags
     myListOfTags = GNEAttributeCarrier::allowedTagsByCategory(type, onlyDrawables);
     // Create FXComboBox
-    myTypeMatchBox = new FXComboBox(this, GUIDesignComboBoxNCol, this, MID_GNE_SET_TYPE, GUIDesignComboBox);
+    myTagsMatchBox = new FXComboBox(this, GUIDesignComboBoxNCol, this, MID_GNE_SET_TYPE, GUIDesignComboBox);
     // fill myTypeMatchBox with list of tags
     for (const auto& i : myListOfTags) {
-        myTypeMatchBox->appendItem(toString(i).c_str());
+        myTagsMatchBox->appendItem(toString(i).c_str());
     }
     // Set visible items
-    myTypeMatchBox->setNumVisible((int)myTypeMatchBox->getNumItems());
+    myTagsMatchBox->setNumVisible((int)myTagsMatchBox->getNumItems());
     // TagSelector is always shown
     show();
 }
@@ -225,9 +225,9 @@ GNEFrame::TagSelector::setCurrentTypeTag(SumoXMLTag typeTag) {
     // set empty tag properties
     myCurrentTagProperties = GNEAttributeCarrier::TagProperties();
     // make sure that tag is in myTypeMatchBox
-    for (int i = 0; i < (int)myTypeMatchBox->getNumItems(); i++) {
-        if (myTypeMatchBox->getItem(i).text() == toString(typeTag)) {
-            myTypeMatchBox->setCurrentItem(i);
+    for (int i = 0; i < (int)myTagsMatchBox->getNumItems(); i++) {
+        if (myTagsMatchBox->getItem(i).text() == toString(typeTag)) {
+            myTagsMatchBox->setCurrentItem(i);
             // Set new current type
             myCurrentTagProperties = GNEAttributeCarrier::getTagProperties(typeTag);
         }
@@ -254,15 +254,15 @@ long
 GNEFrame::TagSelector::onCmdSelectItem(FXObject*, FXSelector, void*) {
     // Check if value of myTypeMatchBox correspond of an allowed additional tags
     for (const auto& i : myListOfTags) {
-        if (toString(i) == myTypeMatchBox->getText().text()) {
+        if (toString(i) == myTagsMatchBox->getText().text()) {
             // set color of myTypeMatchBox to black (valid)
-            myTypeMatchBox->setTextColor(FXRGB(0, 0, 0));
+            myTagsMatchBox->setTextColor(FXRGB(0, 0, 0));
             // Set new current type
             myCurrentTagProperties = GNEAttributeCarrier::getTagProperties(i);
             // show moduls if selected item is valid
             myFrameParent->enableModuls(myCurrentTagProperties);
             // Write Warning in console if we're in testing mode
-            WRITE_DEBUG(("Selected item '" + myTypeMatchBox->getText() + "' in TagSelector").text());
+            WRITE_DEBUG(("Selected item '" + myTagsMatchBox->getText() + "' in TagSelector").text());
             return 1;
         }
     }
@@ -271,7 +271,7 @@ GNEFrame::TagSelector::onCmdSelectItem(FXObject*, FXSelector, void*) {
     // hide all moduls if selected item isn't valid
     myFrameParent->disableModuls();
     // set color of myTypeMatchBox to red (invalid)
-    myTypeMatchBox->setTextColor(FXRGB(255, 0, 0));
+    myTagsMatchBox->setTextColor(FXRGB(255, 0, 0));
     // Write Warning in console if we're in testing mode
     WRITE_DEBUG("Selected invalid item in TagSelector");
     return 1;
@@ -287,7 +287,7 @@ GNEFrame::VTypeSelector::VTypeSelector(GNEFrame* frameParent) :
     myFrameParent(frameParent),
     myCurrentVType(nullptr) {
     // Create FXComboBox
-    myTypeMatchBox = new FXComboBox(this, GUIDesignComboBoxNCol, this, MID_GNE_SET_TYPE, GUIDesignComboBox);
+    myVTypesMatchBox = new FXComboBox(this, GUIDesignComboBoxNCol, this, MID_GNE_SET_TYPE, GUIDesignComboBox);
     // refresh TypeMatchBox
     refreshVTypeSelector();
     // VTypeSelector is always shown
@@ -310,9 +310,9 @@ GNEFrame::VTypeSelector::showVTypeSelector(const GNEAttributeCarrier::TagPropert
     // if current selected item isn't valid, set DEFAULT_VEHTYPE
     if (myCurrentVType) {
         // set DEFAULT_VTYPE as current VType
-        myTypeMatchBox->setText(myCurrentVType->getID().c_str());
+        myVTypesMatchBox->setText(myCurrentVType->getID().c_str());
     } else {
-        myTypeMatchBox->setText(DEFAULT_VTYPE_ID.c_str());
+        myVTypesMatchBox->setText(DEFAULT_VTYPE_ID.c_str());
     }
     onCmdSelectVType(nullptr, 0, nullptr);
 }
@@ -327,33 +327,29 @@ GNEFrame::VTypeSelector::hideVTypeSelector() {
 void
 GNEFrame::VTypeSelector::refreshVTypeSelector() {
     // clear comboBox
-    myTypeMatchBox->clearItems();
-    // get list of VTypes
-    const auto& vTypes = myFrameParent->getViewNet()->getNet()->getAttributeCarriers().demandElements.at(SUMO_TAG_VTYPE);
-    // fill myTypeMatchBox with list of tags
-    for (const auto& i : vTypes) {
-        myTypeMatchBox->appendItem(i.first.c_str());
+    myVTypesMatchBox->clearItems();
+    // fill myTypeMatchBox with list of vtypes
+    for (const auto& i : myFrameParent->getViewNet()->getNet()->getAttributeCarriers().demandElements.at(SUMO_TAG_VTYPE)) {
+        myVTypesMatchBox->appendItem(i.first.c_str());
     }
     // Set visible items
-    myTypeMatchBox->setNumVisible((int)myTypeMatchBox->getNumItems());
+    myVTypesMatchBox->setNumVisible((int)myVTypesMatchBox->getNumItems());
 }
 
 
 long
 GNEFrame::VTypeSelector::onCmdSelectVType(FXObject*, FXSelector, void*) {
-    // get list of VTypes
-    const auto& vTypes = myFrameParent->getViewNet()->getNet()->getAttributeCarriers().demandElements.at(SUMO_TAG_VTYPE);
     // Check if value of myTypeMatchBox correspond to a VType
-    for (const auto& i : vTypes) {
-        if (i.first == myTypeMatchBox->getText().text()) {
+    for (const auto& i : myFrameParent->getViewNet()->getNet()->getAttributeCarriers().demandElements.at(SUMO_TAG_VTYPE)) {
+        if (i.first == myVTypesMatchBox->getText().text()) {
             // set color of myTypeMatchBox to black (valid)
-            myTypeMatchBox->setTextColor(FXRGB(0, 0, 0));
+            myVTypesMatchBox->setTextColor(FXRGB(0, 0, 0));
             // Set new current VType
             myCurrentVType = i.second;
             // call selectedVType
             myFrameParent->selectedVType(true);
             // Write Warning in console if we're in testing mode
-            WRITE_DEBUG(("Selected item '" + myTypeMatchBox->getText() + "' in VTypeSelector").text());
+            WRITE_DEBUG(("Selected item '" + myVTypesMatchBox->getText() + "' in VTypeSelector").text());
             return 1;
         }
     }
@@ -362,7 +358,7 @@ GNEFrame::VTypeSelector::onCmdSelectVType(FXObject*, FXSelector, void*) {
     // call selectedVType
     myFrameParent->selectedVType(false);
     // set color of myTypeMatchBox to red (invalid)
-    myTypeMatchBox->setTextColor(FXRGB(255, 0, 0));
+    myVTypesMatchBox->setTextColor(FXRGB(255, 0, 0));
     // Write Warning in console if we're in testing mode
     WRITE_DEBUG("Selected invalid item in VTypeSelector");
     return 1;
