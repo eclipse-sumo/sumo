@@ -768,6 +768,12 @@ GNEAttributeCarrier::TagProperties::isPersonPlan() const {
 
 
 bool
+GNEAttributeCarrier::TagProperties::isPersonTrip() const {
+    return (myTagType & TAGTYPE_PERSONTRIP) != 0;
+}
+
+
+bool
 GNEAttributeCarrier::TagProperties::isWalk() const {
     return (myTagType & TAGTYPE_WALK) != 0;
 }
@@ -1321,6 +1327,14 @@ GNEAttributeCarrier::allowedTagsByCategory(int tagPropertyCategory, bool onlyDra
         // fill demand tags
         for (const auto& i : myTagProperties) {
             if (i.second.isPersonPlan() && (!onlyDrawables || i.second.isDrawable())) {
+                allowedTags.push_back(i.first);
+            }
+        }
+    }
+    if (tagPropertyCategory & TAGTYPE_PERSONTRIP) {
+        // fill demand tags
+        for (const auto& i : myTagProperties) {
+            if (i.second.isPersonTrip() && (!onlyDrawables || i.second.isDrawable())) {
                 allowedTags.push_back(i.first);
             }
         }
@@ -4402,7 +4416,7 @@ GNEAttributeCarrier::fillPersonElements() {
     currentTag = SUMO_TAG_PERSONTRIP_FROMTO;
     {
         // set values of tag
-        myTagProperties[currentTag] = TagProperties(currentTag, TAGTYPE_DEMANDELEMENT | TAGTYPE_RIDE, TAGPROPERTY_DRAWABLE | TAGPROPERTY_SELECTABLE | TAGPROPERTY_PARENT, ICON_PERSONTRIP_FROMTO);
+        myTagProperties[currentTag] = TagProperties(currentTag, TAGTYPE_DEMANDELEMENT | TAGTYPE_PERSONPLAN | TAGTYPE_PERSONTRIP, TAGPROPERTY_DRAWABLE | TAGPROPERTY_SELECTABLE | TAGPROPERTY_PARENT, ICON_PERSONTRIP_FROMTO);
         // set values of attributes
         attrProperty = AttributeProperties(SUMO_ATTR_FROM,
                                            ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_UPDATEGEOMETRY,
@@ -4438,7 +4452,7 @@ GNEAttributeCarrier::fillPersonElements() {
     currentTag = SUMO_TAG_PERSONTRIP_BUSSTOP;
     {
         // set values of tag
-        myTagProperties[currentTag] = TagProperties(currentTag, TAGTYPE_DEMANDELEMENT | TAGTYPE_RIDE, TAGPROPERTY_DRAWABLE | TAGPROPERTY_SELECTABLE | TAGPROPERTY_PARENT, ICON_PERSONTRIP_BUSSTOP);
+        myTagProperties[currentTag] = TagProperties(currentTag, TAGTYPE_DEMANDELEMENT | TAGTYPE_PERSONPLAN | TAGTYPE_PERSONTRIP, TAGPROPERTY_DRAWABLE | TAGPROPERTY_SELECTABLE | TAGPROPERTY_PARENT, ICON_PERSONTRIP_BUSSTOP);
         // set values of attributes
         attrProperty = AttributeProperties(SUMO_ATTR_BUS_STOP,
                                            ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_UPDATEGEOMETRY,
@@ -4458,7 +4472,7 @@ GNEAttributeCarrier::fillPersonElements() {
     currentTag = SUMO_TAG_RIDE_FROMTO;
     {
         // set values of tag
-        myTagProperties[currentTag] = TagProperties(currentTag, TAGTYPE_DEMANDELEMENT | TAGTYPE_RIDE, TAGPROPERTY_DRAWABLE | TAGPROPERTY_SELECTABLE | TAGPROPERTY_PARENT, ICON_RIDE_FROMTO);
+        myTagProperties[currentTag] = TagProperties(currentTag, TAGTYPE_DEMANDELEMENT | TAGTYPE_PERSONPLAN | TAGTYPE_RIDE, TAGPROPERTY_DRAWABLE | TAGPROPERTY_SELECTABLE | TAGPROPERTY_PARENT, ICON_RIDE_FROMTO);
         // set values of attributes
         attrProperty = AttributeProperties(SUMO_ATTR_FROM,
                                            ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_UPDATEGEOMETRY,
@@ -4484,7 +4498,7 @@ GNEAttributeCarrier::fillPersonElements() {
     currentTag = SUMO_TAG_RIDE_BUSSTOP;
     {
         // set values of tag
-        myTagProperties[currentTag] = TagProperties(currentTag, TAGTYPE_DEMANDELEMENT | TAGTYPE_RIDE, TAGPROPERTY_DRAWABLE | TAGPROPERTY_SELECTABLE | TAGPROPERTY_PARENT, ICON_RIDE_BUSSTOP);
+        myTagProperties[currentTag] = TagProperties(currentTag, TAGTYPE_DEMANDELEMENT | TAGTYPE_PERSONPLAN | TAGTYPE_RIDE, TAGPROPERTY_DRAWABLE | TAGPROPERTY_SELECTABLE | TAGPROPERTY_PARENT, ICON_RIDE_BUSSTOP);
         // set values of attributes
         attrProperty = AttributeProperties(SUMO_ATTR_FROM,
                                            ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_UPDATEGEOMETRY,
@@ -4504,7 +4518,7 @@ GNEAttributeCarrier::fillPersonElements() {
     currentTag = SUMO_TAG_WALK_EDGES;
     {
         // set values of tag
-        myTagProperties[currentTag] = TagProperties(currentTag, TAGTYPE_DEMANDELEMENT | TAGTYPE_WALK, TAGPROPERTY_DRAWABLE | TAGPROPERTY_SELECTABLE | TAGPROPERTY_PARENT, ICON_WALK_EDGES);
+        myTagProperties[currentTag] = TagProperties(currentTag, TAGTYPE_DEMANDELEMENT | TAGTYPE_PERSONPLAN | TAGTYPE_WALK, TAGPROPERTY_DRAWABLE | TAGPROPERTY_SELECTABLE | TAGPROPERTY_PARENT, ICON_WALK_EDGES);
         // set values of attributes
         attrProperty = AttributeProperties(SUMO_ATTR_EDGES,
                                            ATTRPROPERTY_STRING | ATTRPROPERTY_LIST | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_UPDATEGEOMETRY,
@@ -4521,7 +4535,7 @@ GNEAttributeCarrier::fillPersonElements() {
     currentTag = SUMO_TAG_WALK_ROUTE;
     {
         // set values of tag
-        myTagProperties[currentTag] = TagProperties(currentTag, TAGTYPE_DEMANDELEMENT | TAGTYPE_WALK, TAGPROPERTY_DRAWABLE | TAGPROPERTY_SELECTABLE | TAGPROPERTY_PARENT, ICON_WALK_ROUTE);
+        myTagProperties[currentTag] = TagProperties(currentTag, TAGTYPE_DEMANDELEMENT | TAGTYPE_PERSONPLAN | TAGTYPE_WALK, TAGPROPERTY_DRAWABLE | TAGPROPERTY_SELECTABLE | TAGPROPERTY_PARENT, ICON_WALK_ROUTE);
         // set values of attributes
         attrProperty = AttributeProperties(SUMO_ATTR_ROUTE,
                                            ATTRPROPERTY_STRING | ATTRPROPERTY_LIST | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_UPDATEGEOMETRY,
@@ -4537,7 +4551,7 @@ GNEAttributeCarrier::fillPersonElements() {
     currentTag = SUMO_TAG_WALK_FROMTO;
     {
         // set values of tag
-        myTagProperties[currentTag] = TagProperties(currentTag, TAGTYPE_DEMANDELEMENT | TAGTYPE_WALK, TAGPROPERTY_DRAWABLE | TAGPROPERTY_SELECTABLE | TAGPROPERTY_PARENT, ICON_WALK_FROMTO);
+        myTagProperties[currentTag] = TagProperties(currentTag, TAGTYPE_DEMANDELEMENT | TAGTYPE_PERSONPLAN | TAGTYPE_WALK, TAGPROPERTY_DRAWABLE | TAGPROPERTY_SELECTABLE | TAGPROPERTY_PARENT, ICON_WALK_FROMTO);
         // set values of attributes
         attrProperty = AttributeProperties(SUMO_ATTR_FROM,
                                            ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_UPDATEGEOMETRY,
@@ -4559,7 +4573,7 @@ GNEAttributeCarrier::fillPersonElements() {
     currentTag = SUMO_TAG_WALK_BUSSTOP;
     {
         // set values of tag
-        myTagProperties[currentTag] = TagProperties(currentTag, TAGTYPE_DEMANDELEMENT | TAGTYPE_WALK, TAGPROPERTY_DRAWABLE | TAGPROPERTY_SELECTABLE | TAGPROPERTY_PARENT, ICON_WALK_BUSSTOP);
+        myTagProperties[currentTag] = TagProperties(currentTag, TAGTYPE_DEMANDELEMENT | TAGTYPE_PERSONPLAN | TAGTYPE_WALK, TAGPROPERTY_DRAWABLE | TAGPROPERTY_SELECTABLE | TAGPROPERTY_PARENT, ICON_WALK_BUSSTOP);
         // set values of attributes
         attrProperty = AttributeProperties(SUMO_ATTR_FROM,
                                            ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_UPDATEGEOMETRY,

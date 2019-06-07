@@ -288,9 +288,10 @@ public:
         TAGTYPE_STOP =          1 << 9,   // Stops
         TAGTYPE_PERSON =        1 << 10,  // Persons
         TAGTYPE_PERSONPLAN =    1 << 11,  // Person plans (Walks, rides, ...)
-        TAGTYPE_WALK =          1 << 12,  // Walks
-        TAGTYPE_RIDE =          1 << 13,  // Rides
-        TAGTYPE_PERSONSTOP =    1 << 14,  // Person stops
+        TAGTYPE_PERSONTRIP =    1 << 12,  // Walks
+        TAGTYPE_WALK =          1 << 13,  // Walks
+        TAGTYPE_RIDE =          1 << 14,  // Rides
+        TAGTYPE_PERSONSTOP =    1 << 15,  // Person stops
     };
 
     enum TAGProperty {
@@ -411,6 +412,9 @@ public:
         
         /// @brief return true if tag correspond to a person plan
         bool isPersonPlan() const;
+
+        /// @brief return true if tag correspond to a person trip
+        bool isPersonTrip() const;
 
         /// @brief return true if tag correspond to a walk element
         bool isWalk() const;
