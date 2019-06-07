@@ -110,19 +110,7 @@ public:
     };
 
     /// @brief default constructor for persons and routeFlows without embedded routes
-    GNEPerson(SumoXMLTag tag, GNEViewNet* viewNet, const std::string& personID, GNEDemandElement* personType, GNEDemandElement* route);
-
-    /// @brief parameter constructor for persons and routeFlows without embedded routes
-    GNEPerson(GNEViewNet* viewNet, GNEDemandElement* personType, GNEDemandElement* route, const SUMOVehicleParameter& personParameters);
-
-    /// @brief parameter constructor for persons and routeFlows with embedded routes (note: After creation create immediately a embedded route referencing this person)
-    GNEPerson(GNEViewNet* viewNet, GNEDemandElement* personType, const SUMOVehicleParameter& personParameters);
-
-    /// @brief default constructor for trips and Flows (note: Edges : from + via + to)
-    GNEPerson(SumoXMLTag tag, GNEViewNet* viewNet, const std::string& personID, GNEDemandElement* personType, const std::vector<GNEEdge*>& edges);
-
-    /// @brief parameter constructor for trips and Flows (note: Edges : from + via + to)
-    GNEPerson(GNEViewNet* viewNet, GNEDemandElement* personType, const std::vector<GNEEdge*>& edges, const SUMOVehicleParameter& personParameters);
+    GNEPerson(SumoXMLTag tag, GNEViewNet* viewNet, const std::string& personID, GNEDemandElement* VType);
 
     /// @brief destructor
     ~GNEPerson();
@@ -262,6 +250,20 @@ public:
 protected:
     /// @brief sets the color according to the currente settings
     void setColor(const GUIVisualizationSettings& s) const;
+
+    /// @brief gets the color value according to the current scheme index
+    double getColorValue(const GUIVisualizationSettings& s, int activeScheme) const;
+
+    /// @brief sets the color according to the current scheme index and some vehicle function
+    bool setFunctionalColor(int activeScheme) const;
+
+    /// @name drawing helper methods
+    /// @{
+    void drawAction_drawAsTriangle(const GUIVisualizationSettings& s) const;
+    void drawAction_drawAsCircle(const GUIVisualizationSettings& s) const;
+    void drawAction_drawAsPoly(const GUIVisualizationSettings& s) const;
+    void drawAction_drawAsImage(const GUIVisualizationSettings& s) const;
+    /// @}
 
 private:
     /// @brief method for setting the attribute and nothing else
