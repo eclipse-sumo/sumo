@@ -110,12 +110,11 @@ class Edge:
             result = {}
             for e, conns in self._outgoing.items():
                 allowedConns = [c for c in conns if
-                        c.getFromLane().allows(vClass) and
-                        c.getToLane().allows(vClass)]
+                                c.getFromLane().allows(vClass) and
+                                c.getToLane().allows(vClass)]
                 if allowedConns:
                     result[e] = allowedConns
-            return result;
-
+            return result
 
     def getConnections(self, toEdge):
         """Returns all connections to the given target edge"""

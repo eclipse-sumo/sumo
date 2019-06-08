@@ -68,10 +68,9 @@ def row2vehicle_and_route(row, tag):
         return row2xml(row, tag)
     else:
         edges = row.get("route_edges", "MISSING_VALUE")
-        return (u'    <%s %s>\n        <route edges="%s"/>\n    </%s>\n' % (tag,
-            ' '.join(['%s="%s"' % (a[len(tag) + 1:], v)
-                      for a, v in sorted(row.items()) if v != "" and a != "route_edges"]),
-            edges, tag))
+        attrs = ' '.join(['%s="%s"' % (a[len(tag) + 1:], v)
+                          for a, v in sorted(row.items()) if v != "" and a != "route_edges"])
+        return (u'    <%s %s>\n        <route edges="%s"/>\n    </%s>\n' % (tag, attrs, edges, tag))
 
 
 def write_xml(toptag, tag, options, printer=row2xml):

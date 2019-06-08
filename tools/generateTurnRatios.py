@@ -52,7 +52,7 @@ def get_options(args=None):
         sys.exit()
 
     return options
-    
+
 
 def getFlows(routeFiles, verbose):
     # get flows for each edge pair
@@ -83,21 +83,24 @@ def main(options):
         outf.write('<turns xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/turns_file.xsd">\n')
         outf.write('    <interval begin="0" end="86400">\n')
         for from_edge in edgePairFlowsMap:
-            outf.write('        <fromEdge id="%s">\n' %from_edge)
+            outf.write('        <fromEdge id="%s">\n' % from_edge)
             if options.prob:
                 sum = 0.
                 for to_edge in edgePairFlowsMap[from_edge]:
                     sum += edgePairFlowsMap[from_edge][to_edge]
                 for to_edge in edgePairFlowsMap[from_edge]:
-                    outf.write('            <toEdge id="%s" probability="%.2f">\n' %(to_edge, edgePairFlowsMap[from_edge][to_edge]/sum))
+                    outf.write('            <toEdge id="%s" probability="%.2f">\n' %
+                               (to_edge, edgePairFlowsMap[from_edge][to_edge]/sum))
             else:
                 for to_edge in edgePairFlowsMap[from_edge]:
-                    outf.write('            <toEdge id="%s" probability="%s">\n' %(to_edge, edgePairFlowsMap[from_edge][to_edge]))
+                    outf.write('            <toEdge id="%s" probability="%s">\n' %
+                               (to_edge, edgePairFlowsMap[from_edge][to_edge]))
             outf.write('        </fromEdge>\n')
 
         outf.write('    </interval>\n')
         outf.write('</turns>\n')
     outf.close()
+
 
 if __name__ == "__main__":
     options = get_options(sys.argv)

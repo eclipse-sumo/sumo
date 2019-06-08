@@ -269,7 +269,7 @@ def get_prob_fun(options, fringe_bonus, fringe_forbidden):
             nx, ny = options.angle_center
             edgeAngle = naviDegree(math.atan2(ey - ny, ex - nx))
             angleDiff = minAngleDegreeDiff(options.angle, edgeAngle)
-            #print("e=%s nc=%s ec=%s ea=%s a=%s ad=%s" % (
+            # print("e=%s nc=%s ec=%s ea=%s a=%s ad=%s" % (
             #    edge.getID(), options.angle_center, (ex,ey), edgeAngle,
             #    options.angle, angleDiff))
             #relDist = 2 * euclidean((ex, ey), options.angle_center) / max(xmax - xmin, ymax - ymin)
@@ -427,7 +427,7 @@ def main(options):
             options.intermediate, options.min_distance, net.getBBoxDiameter()))
 
     if options.angle_weight != 1:
-        xmin,ymin,xmax,ymax = net.getBoundary()
+        xmin, ymin, xmax, ymax = net.getBoundary()
         options.angle_center = (xmin + xmax) / 2, (ymin + ymax) / 2
 
     trip_generator = buildTripGenerator(net, options)

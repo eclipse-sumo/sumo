@@ -153,7 +153,8 @@ def naviDegree(rad):
 
 
 def fromNaviDegree(degrees):
-    return math.pi / 2. - math.radians(degrees);
+    return math.pi / 2. - math.radians(degrees)
+
 
 def normalizeAngle(a, lower, upper, circle):
     while a < lower:
@@ -162,9 +163,11 @@ def normalizeAngle(a, lower, upper, circle):
         a = a - circle
     return a
 
+
 def minAngleDegreeDiff(d1, d2):
     return min(normalizeAngle(d1 - d2, 0, 360, 360),
                normalizeAngle(d2 - d1, 0, 360, 360))
+
 
 def isWithin(pos, shape):
     angle = 0.

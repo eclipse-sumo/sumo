@@ -151,7 +151,7 @@ class CSVWriter(NestingHandler):
                         options.source)[0] + "%s.csv" % root
                 self.outfiles[root] = getOutStream(outfilename)
             self.outfiles[root].write(
-                    options.separator.join(map(self.quote, attrFinder.attrs[root])) + u"\n")
+                options.separator.join(map(self.quote, attrFinder.attrs[root])) + u"\n")
 
     def quote(self, s):
         return "%s%s%s" % (self.options.quotechar, s, self.options.quotechar)
@@ -191,7 +191,7 @@ class CSVWriter(NestingHandler):
             if name in self.attrFinder.depthTags[root][self.depth()]:
                 if self.haveUnsavedValues:
                     self.outfiles[root].write(self.options.separator.join(
-                            [self.quote(self.currentValues[a]) for a in self.attrFinder.attrs[root]]) + u"\n")
+                        [self.quote(self.currentValues[a]) for a in self.attrFinder.attrs[root]]) + u"\n")
                     self.haveUnsavedValues = False
                 for a in self.attrFinder.tagAttrs[name]:
                     a2 = self.attrFinder.renamedAttrs.get((name, a), a)

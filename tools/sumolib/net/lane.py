@@ -216,7 +216,7 @@ class Lane:
             for l in lanes:
                 if l.getID()[0] == ":":
                     hasInternal = True
-                    break;
+                    break
             if hasInternal:
                 return [l for l in lanes if l.getID()[0] == ":" and
                         l.getOutgoing()[0].getViaLaneID() == ""]

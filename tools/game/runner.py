@@ -517,7 +517,6 @@ base = os.path.dirname(sys.argv[0])
 high = loadHighscore()
 
 
-
 guisimPath = sumolib.checkBinary("sumo-gui")
 haveOSG = "OSG" in subprocess.check_output(sumolib.checkBinary("sumo"), universal_newlines=True)
 

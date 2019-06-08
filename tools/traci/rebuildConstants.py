@@ -57,7 +57,8 @@ fdo = open(options.output, "w")
 if options.java:
     sep = "/%s/" % (76 * "*")
     print(sep, file=fdo)
-    print(header.replace("\n# @file", sep + "\n/// @file").replace("# @", "/// @").replace("#", "//").replace('\n"""\n', "///\n// "), file=fdo)
+    h = header.replace("\n# @file", sep + "\n/// @file").replace("# @", "/// @")
+    print(h.replace("#", "//").replace('\n"""\n', "///\n// "), file=fdo)
     print(sep, file=fdo)
     className = options.java
     if "." in className:

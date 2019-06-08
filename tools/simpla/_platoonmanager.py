@@ -196,7 +196,7 @@ class PlatoonManager(traci.StepListener):
         self._subscriptionResults = traci.vehicle.getAllSubscriptionResults()
         for veh in self._connectedVehicles.values():
             if (veh.getID() not in self._subscriptionResults):
-                # FIXME: For some reason, this is in rare occasions called with vehicles, 
+                # FIXME: For some reason, this is in rare occasions called with vehicles,
                 #        which have no subscription results.
                 return
             veh.state.speed = self._subscriptionResults[veh.getID()][tc.VAR_SPEED]

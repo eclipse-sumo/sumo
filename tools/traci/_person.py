@@ -20,7 +20,6 @@ from . import constants as tc
 from . import _simulation as simulation
 
 
-
 _RETURN_VALUE_FUNC = {tc.TRACI_ID_LIST: Storage.readStringList,
                       tc.ID_COUNT: Storage.readInt,
                       tc.VAR_SPEED: Storage.readDouble,
@@ -188,6 +187,7 @@ class PersonDomain(Domain):
                                                 tc.TYPE_INTEGER, nextStageIndex)
         return simulation._readStage(self._connection._checkResult(tc.CMD_GET_PERSON_VARIABLE,
                                                                    tc.VAR_STAGE, personID))
+
     def getRemainingStages(self, personID):
         """getStage(string) -> int
         Returns the number of remaining stages (at least 1)

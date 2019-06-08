@@ -403,7 +403,7 @@ def main(options):
                 options.mincycle = max(cycleList)
                 options.restrict = True
                 if options.verbose:
-                    print("The maximal optimized cycle length is %s." %  max(cycleList))
+                    print("The maximal optimized cycle length is %s." % max(cycleList))
                     print(" It will be used for calculating the green splits for all intersections.")
 
             # calculate the green splits; the optimal length will be also calculate if options.unicycle is set as false.
