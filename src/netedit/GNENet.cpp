@@ -1448,7 +1448,7 @@ GNENet::computeEverything(GNEApplicationWindow* window, bool force, bool volatil
             myAttributeCarriers.additionals.insert(std::make_pair(i, std::map<std::string, GNEAdditional*>()));
         }
         // Create additional handler
-        GNEAdditionalHandler additionalHandler(additionalPath, myViewNet, false);
+        GNEAdditionalHandler additionalHandler(additionalPath, myViewNet);
         // Run parser
         if (!XMLSubSys::runParser(additionalHandler, additionalPath, false)) {
             WRITE_MESSAGE("Loading of " + additionalPath + " failed.");

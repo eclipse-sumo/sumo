@@ -57,7 +57,7 @@ public:
 
     public:
         /// @brief constructor
-        GenericParametersValues(FXHorizontalFrame* frame, GNEGenericParameterDialog* genericParameterDialogParent, std::vector<std::pair<std::string, std::string> >* genericParameters);
+        GenericParametersValues(FXHorizontalFrame* frame, std::vector<std::pair<std::string, std::string> >* genericParameters);
 
         /// @brief destructor
         ~GenericParametersValues();
@@ -136,9 +136,6 @@ public:
             FXHorizontalFrame* horizontalFrame;
         };
 
-        /// @brief pointer to Shape Frame Parent
-        GNEGenericParameterDialog* myGenericParameterDialogParent;
-
         /// @brief label for key (its neccesary because has to be resized in every onPaint() iteration)
         FXLabel* myKeyLabel;
 
@@ -215,9 +212,6 @@ public:
         private:
             /// @brief pointer to genericParameterDialog parent
             GNEGenericParameterDialog* myGenericParameterDialogParent;
-
-            /// @brief flag to check if Warning with the maximum number of attributes was shown
-            bool myMaximumNumberOfAttributesShown;
         };
 
         /// @brief pointer to Shape Frame Parent

@@ -107,11 +107,11 @@ public:
         GNESelectedVehiclesPopupMenu() { }
 
     private:
-        /// @brief tag of clicked vehicle
-        SumoXMLTag myVehicleTag;
-
         /// @brief current selected vehicles
         std::vector<GNEVehicle*> mySelectedVehicles;
+
+        /// @brief tag of clicked vehicle
+        SumoXMLTag myVehicleTag;
 
         /// @brief menu command for transform to vehicle
         FXMenuCommand* myTransformToVehicle;

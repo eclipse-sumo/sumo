@@ -61,11 +61,9 @@
 // GNEAdditionalHandler method definitions
 // ===========================================================================
 
-GNEAdditionalHandler::GNEAdditionalHandler(const std::string& file, GNEViewNet* viewNet, bool undoAdditionals, GNEAdditional* additionalParent) :
+GNEAdditionalHandler::GNEAdditionalHandler(const std::string& file, GNEViewNet* viewNet, GNEAdditional* additionalParent) :
     ShapeHandler(file, *viewNet->getNet()),
-    myViewNet(viewNet),
-    myUndoAdditionals(undoAdditionals),
-    myAdditionalParent(additionalParent) {
+    myViewNet(viewNet) {
     // check if we're loading values of another additionals (example: Rerouter values)
     if (additionalParent) {
         myHierarchyInsertedAdditionals.insertElement(additionalParent->getTagProperty().getTag());
@@ -599,7 +597,7 @@ GNEAdditionalHandler::buildRerouter(GNEViewNet* viewNet, bool allowUndoRedo, con
             // we assume that rerouter values files is placed in the same folder as the additional file
             std::string currentAdditionalFilename = FileHelpers::getFilePath(OptionsCont::getOptions().getString("additional-files"));
             // Create additional handler for parse rerouter values
-            GNEAdditionalHandler rerouterValuesHandler(currentAdditionalFilename + file, viewNet, allowUndoRedo, rerouter);
+            GNEAdditionalHandler rerouterValuesHandler(currentAdditionalFilename + file, viewNet, rerouter);
             // disable validation for rerouters
             XMLSubSys::setValidation("never", "auto");
             // Run parser

@@ -61,7 +61,7 @@ Person::getIDList() {
             ids.push_back(i->first);
         }
     }
-    return std::move(ids);
+    return ids;
 }
 
 

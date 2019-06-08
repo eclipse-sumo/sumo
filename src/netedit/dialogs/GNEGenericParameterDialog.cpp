@@ -77,9 +77,8 @@ FXIMPLEMENT(GNEGenericParameterDialog::GenericParametersOptions, FXGroupBox, Gen
 // GNEGenericParameterDialog::GenericParametersValues - methods
 // ---------------------------------------------------------------------------
 
-GNEGenericParameterDialog::GenericParametersValues::GenericParametersValues(FXHorizontalFrame* frame, GNEGenericParameterDialog* genericParameterDialogParent, std::vector<std::pair<std::string, std::string> >* genericParameters) :
+GNEGenericParameterDialog::GenericParametersValues::GenericParametersValues(FXHorizontalFrame* frame, std::vector<std::pair<std::string, std::string> >* genericParameters) :
     FXGroupBox(frame, "Generic Parameters", GUIDesignGroupBoxFrameFill),
-    myGenericParameterDialogParent(genericParameterDialogParent),
     myGenericParameters(genericParameters) {
     // create labels for keys and values
     FXHorizontalFrame* horizontalFrameLabels = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
@@ -451,8 +450,7 @@ GNEGenericParameterDialog::GenericParametersOptions::onCmdHelpGenericParameter(F
 
 GNEGenericParameterDialog::GenericParametersOptions::GNEGenericParameterHandler::GNEGenericParameterHandler(GNEGenericParameterDialog* genericParameterDialogParent, const std::string& file) :
     SUMOSAXHandler(file),
-    myGenericParameterDialogParent(genericParameterDialogParent),
-    myMaximumNumberOfAttributesShown(false) {
+    myGenericParameterDialogParent(genericParameterDialogParent) {
 }
 
 
@@ -514,7 +512,7 @@ GNEGenericParameterDialog::GNEGenericParameterDialog(GNEViewNet* viewNet, std::v
     // create frame for Generic Parameters and options
     FXHorizontalFrame* horizontalFrameGenericParametersAndOptions = new FXHorizontalFrame(mainFrame, GUIDesignAuxiliarFrame);
     // create generic parameters values
-    myGenericParametersValues = new GenericParametersValues(horizontalFrameGenericParametersAndOptions, this, genericParameters);
+    myGenericParametersValues = new GenericParametersValues(horizontalFrameGenericParametersAndOptions, genericParameters);
     // create generic parameters options
     myGenericParametersOptions = new GenericParametersOptions(horizontalFrameGenericParametersAndOptions, this);
     // add separator

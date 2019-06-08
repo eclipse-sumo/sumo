@@ -72,7 +72,7 @@ public:
     };
 
     /// @brief Constructor
-    GNEAdditionalHandler(const std::string& file, GNEViewNet* viewNet, bool undoAdditionals = true, GNEAdditional* additionalParent = nullptr);
+    GNEAdditionalHandler(const std::string& file, GNEViewNet* viewNet, GNEAdditional* additionalParent=nullptr);
 
     /// @brief Destructor
     ~GNEAdditionalHandler();
@@ -732,12 +732,6 @@ private:
 
     /// @brief pointer to View's Net
     GNEViewNet* myViewNet;
-
-    /// @brief flag to check if created additionals must be undo and redo
-    bool myUndoAdditionals;
-
-    /// @brief pointer to parent additional (used for loading additional childs placed in a different XML)
-    GNEAdditional* myAdditionalParent;
 
     /// @brief HierarchyInsertedAdditionals used for insert childs
     HierarchyInsertedAdditionals myHierarchyInsertedAdditionals;
