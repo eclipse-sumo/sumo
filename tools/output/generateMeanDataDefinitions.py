@@ -11,7 +11,7 @@
 # @author  Karol Stosiek
 # @author  Michael Behrisch
 # @date    2011-10-25
-# @version $Id$
+# @version $Id$  # noqa
 
 from __future__ import absolute_import
 

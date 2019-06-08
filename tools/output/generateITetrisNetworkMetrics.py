@@ -11,7 +11,7 @@
 # @author  Daniel Krajzewicz
 # @author  Michael Behrisch
 # @date    2007-10-25
-# @version $Id$
+# @version $Id$  # noqa
 
 from __future__ import absolute_import
 from __future__ import print_function

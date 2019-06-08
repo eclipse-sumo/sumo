@@ -50,13 +50,16 @@ Here is an example ``.pflow.xml`` :
 
 The example above allows to generate two flows of persons :
 
--The first flow consists of persons taking a bus from stop 1 to either stop 2 or stop 3 (with a 50% chance for each).
-The persons of this flow are spawned in 7 waves (equally separated in time) and each wave consists of 10 persons.
-For the persons going to bus stop 2, there's a 50% chance they'll stay there during 10 ticks.
-The route followed by the persons of this flow is defined separately in a ``<personRoute>`` element and referenced by its ID.
--The second flow consists of persons taking a bus from stop 3 to stop 1 and then stopping there for 50 ticks.
-The persons of this flow are spawned in periodic waves with 10 persons pere wave.
-The route followed by the persons is defined directly under the ``<personFlow>``
+- The first flow consists of persons taking a bus from stop 1 to either stop 2 or stop 3
+  (with a 50% chance for each). The persons of this flow are spawned in 7 waves (equally
+  separated in time) and each wave consists of 10 persons. For the persons going to bus
+  stop 2, there's a 50% chance they'll stay there during 10 ticks. The route followed by
+  the persons of this flow is defined separately in a ``<personRoute>`` element and
+  referenced by its ID.
+- The second flow consists of persons taking a bus from stop 3 to stop 1 and then
+  stopping there for 50 ticks. The persons of this flow are spawned in periodic waves
+  with 10 persons pere wave. The route followed by the persons is defined directly under
+  the ``<personFlow>``
 
 How to Use
 ----------

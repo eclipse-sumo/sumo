@@ -11,12 +11,11 @@
 # @author  Daniel Krajzewicz
 # @author  Laura Bieker
 # @date    2013-11-11
-# @version $Id$
+# @version $Id$  # noqa
 
 """
 This script plots measures from the tripinfo output, classified into bins
 matplotlib (http://matplotlib.org/) has to be installed for this purpose
-
 """
 from __future__ import absolute_import
 from __future__ import print_function
