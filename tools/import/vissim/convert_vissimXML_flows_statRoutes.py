@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2009-2019 German Aerospace Center (DLR) and others.
+# Copyright (C) 2015-2019 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials
 # are made available under the terms of the Eclipse Public License v2.0
 # which accompanies this distribution, and is available at
@@ -12,7 +12,7 @@
 # @author  Lukas Grohmann <Lukas.Grohmann@ait.ac.at>
 # @author  Gerald Richter <Gerald.Richter@ait.ac.at>
 # @date    Jun 09 2015
-# @version $Id$
+# @version $Id$  # noqa
 
 """
 Parses flows and static routes from a VISSIM .inpx file

@@ -10,7 +10,7 @@
 # @file    generateParkingAreaRerouters.py
 # @author  Lara CODECA
 # @date    11-3-2019
-# @version $Id$
+# @version $Id$  # noqa
 
 """ Generate parking area rerouters from the parking area definition. """
 

@@ -64,12 +64,13 @@ def addGenericOptions(argParser):
     argParser.add_argument("-q", "--meso-multiqueue", action="store_true", default=False,
                            help="Enable multiple queues at edge ends")
     argParser.add_argument("--meso-recheck", type=int, default=0,
-                           help="Delay before checking whether a jam is gone. (higher values can lead to a big speed " +
-                                "increase)")
+                           help="Delay before checking whether a jam is gone. " +
+                                "(higher values can lead to a big speed increase)")
     argParser.add_argument("--meso-tls-penalty", type=float,
                            help="Apply scaled time penalties when driving across tls controlled junctions")
     argParser.add_argument("--meso-minor-penalty", type=int,
-                           help="Apply fixed time penalty when driving across a minor link; cannot active when using -L")
+                           help="Apply fixed time penalty when driving across a minor link; " +
+                                "do not use together with --meso-junctioncontrollimited")
     argParser.add_argument("-Q", "--eco-measure", choices=['CO', 'CO2', 'PMx', 'HC', 'NOx', 'fuel', 'noise'],
                            help="define the applied eco measure, e.g. fuel, CO2, noise")
     argParser.add_argument("--eager-insert", action="store_true",

@@ -30,7 +30,7 @@ if 'SUMO_HOME' in os.environ:
     sys.path.append(os.path.join(os.environ['SUMO_HOME'], 'tools'))
 import sumolib  # noqa
 from sumolib.miscutils import euclidean  # noqa
-from sumolib.geomhelper import naviDegree, minAngleDegreeDiff, angle2D
+from sumolib.geomhelper import naviDegree, minAngleDegreeDiff  # noqa
 
 DUAROUTER = sumolib.checkBinary('duarouter')
 
@@ -272,8 +272,8 @@ def get_prob_fun(options, fringe_bonus, fringe_forbidden):
             # print("e=%s nc=%s ec=%s ea=%s a=%s ad=%s" % (
             #    edge.getID(), options.angle_center, (ex,ey), edgeAngle,
             #    options.angle, angleDiff))
-            #relDist = 2 * euclidean((ex, ey), options.angle_center) / max(xmax - xmin, ymax - ymin)
-            #prob *= (relDist * (options.angle_weight - 1) + 1)
+            # relDist = 2 * euclidean((ex, ey), options.angle_center) / max(xmax - xmin, ymax - ymin)
+            # prob *= (relDist * (options.angle_weight - 1) + 1)
             if fringe_bonus == "_incoming":
                 # source edge
                 prob *= (angleDiff * (options.angle_weight - 1) + 1)

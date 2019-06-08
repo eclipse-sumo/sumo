@@ -104,7 +104,7 @@ def main(netFile, outFile, radius, travelDist, symmetrical):
     net = sumolib.net.readNet(netFile, withConnections=False, withFoes=False)
     with open(outFile, 'w') as outf:
         sumolib.writeXMLHeader(
-            outf, "$Id$")
+            outf, "$Id$")  # noqa
         outf.write('<tazs>\n')
         for taz, edges in computeAllBidiTaz(net, radius, travelDist, symmetrical):
             outf.write('    <taz id="%s" edges="%s"/>\n' % (

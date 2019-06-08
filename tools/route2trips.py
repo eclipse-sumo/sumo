@@ -72,7 +72,7 @@ class RouteReader(handler.ContentHandler):
         elif name == 'routes':
             sumolib.writeXMLHeader(
                 self.outfile,
-                "$Id$%s" % self.calledBy,
+                "$Id$%s" % self.calledBy,  # noqa
                 "routes")
 
     def endElement(self, name):

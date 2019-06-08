@@ -10,7 +10,7 @@
 # @file    showDepartsAndArrivalsPerEdge.py
 # @author  Jakob Erdmann
 # @date    2015-08-05
-# @version $Id$
+# @version $Id$  # noqa
 
 from __future__ import print_function
 import sys
@@ -28,7 +28,8 @@ def parse_args():
     optParser.add_option("--subpart",
                          help="Restrict counts to routes that contain the given consecutive edge sequence")
     optParser.add_option("--subpart-file", dest="subpart_file",
-                         help="Restrict counts to routes that one of the consecutive edge sequence in the given input file (one sequence per line)")
+                         help="Restrict counts to routes that contain one of the consecutive edge sequences " +
+                              "in the given input file (one sequence per line)")
     optParser.add_option("-i", "--intermediate", action="store_true", default=False,
                          help="count all edges of a route")
     optParser.add_option("--taz", action="store_true", default=False,

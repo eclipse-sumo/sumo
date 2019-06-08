@@ -12,7 +12,7 @@
 # @author  Lukas Grohmann <Lukas.Grohmann@ait.ac.at>
 # @author  Gerald Richter <Gerald.Richter@ait.ac.at>
 # @date    Jun 11 2015
-# @version $Id$
+# @version $Id$  # noqa
 
 """
 Converts a VISSIM-tls-description into a SUMO-tls-description and writes
