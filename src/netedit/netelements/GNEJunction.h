@@ -301,7 +301,7 @@ private:
     RGBColor setColor(const GUIVisualizationSettings& s, bool bubble) const;
 
     /// @brief determines color value
-    double getColorValue(const GUIVisualizationSettings& s, bool bubble) const;
+    double getColorValue(const GUIVisualizationSettings& s, int activeScheme) const;
 
     /// @brief adds a traffic light
     void addTrafficLight(NBTrafficLightDefinition* tlDef, bool forceInsert);

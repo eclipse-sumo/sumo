@@ -1296,11 +1296,11 @@ GNEJunction::setAttribute(SumoXMLAttr key, const std::string& value) {
 
 
 double
-GNEJunction::getColorValue(const GUIVisualizationSettings& s, bool bubble) const {
-    switch (s.junctionColorer.getActive()) {
+GNEJunction::getColorValue(const GUIVisualizationSettings& /* s */, int activeScheme) const {
+    switch (activeScheme) {
         case 0:
             // ensure visibility of red connections
-            if (bubble && !(myNet->getViewNet()->getEditModes().networkEditMode == GNE_NMODE_TLS && myNBNode.isTLControlled())) {
+            if (!(myNet->getViewNet()->getEditModes().networkEditMode == GNE_NMODE_TLS && myNBNode.isTLControlled())) {
                 return 1;
             } else {
                 return 0;
@@ -1387,9 +1387,13 @@ GNEJunction::moveJunctionGeometry(const Position& pos) {
 
 RGBColor
 GNEJunction::setColor(const GUIVisualizationSettings& s, bool bubble) const {
-    RGBColor color = s.junctionColorer.getScheme().getColor(getColorValue(s, bubble));
+    const int scheme = s.junctionColorer.getActive();
+    RGBColor color = s.junctionColorer.getScheme().getColor(getColorValue(s, scheme));
+    if (!bubble && scheme == 0) {
+        color = s.junctionColorer.getScheme().getColor(0.);
+    }
     // override with special colors (unless the color scheme is based on selection)
-    if (drawUsingSelectColor() && s.junctionColorer.getActive() != 1) {
+    if (drawUsingSelectColor() && scheme != 1) {
         color = s.selectionColor;
     }
     if (myAmCreateEdgeSource) {
@@ -1398,6 +1402,7 @@ GNEJunction::setColor(const GUIVisualizationSettings& s, bool bubble) const {
     GLHelper::setColor(color);
     return color;
 }
+
 
 void
 GNEJunction::addTrafficLight(NBTrafficLightDefinition* tlDef, bool forceInsert) {
