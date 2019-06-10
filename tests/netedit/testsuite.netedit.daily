@@ -2,7 +2,7 @@
 basic
 
 # tests for net elements (Junctions, edges, crossings, etc..)
-#netElements
+netElements
 
 # tests for additional elements (Busstops, charging stations, etc.)
 #additionalElements
