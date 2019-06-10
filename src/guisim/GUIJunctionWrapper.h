@@ -140,7 +140,7 @@ public:
 #endif
 
 private:
-    double getColorValue(const GUIVisualizationSettings& s) const;
+    double getColorValue(const GUIVisualizationSettings& s, int activeScheme) const;
 
 private:
     /// @brief A reference to the represented junction

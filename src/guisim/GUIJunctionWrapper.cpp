@@ -137,7 +137,7 @@ GUIJunctionWrapper::drawGL(const GUIVisualizationSettings& s) const {
         if (s.scale * exaggeration >= s.junctionSize.minSize) {
             glPushMatrix();
             glPushName(getGlID());
-            const double colorValue = getColorValue(s);
+            const double colorValue = getColorValue(s, s.junctionColorer.getActive());
             const RGBColor color = s.junctionColorer.getScheme().getColor(colorValue);
             GLHelper::setColor(color);
 
@@ -186,8 +186,8 @@ GUIJunctionWrapper::drawGL(const GUIVisualizationSettings& s) const {
 
 
 double
-GUIJunctionWrapper::getColorValue(const GUIVisualizationSettings& s) const {
-    switch (s.junctionColorer.getActive()) {
+GUIJunctionWrapper::getColorValue(const GUIVisualizationSettings& /* s */, int activeScheme) const {
+    switch (activeScheme) {
         case 0:
             if (myAmWaterway) {
                 return 1;
@@ -243,7 +243,7 @@ GUIJunctionWrapper::getColorValue(const GUIVisualizationSettings& s) const {
 #ifdef HAVE_OSG
 void
 GUIJunctionWrapper::updateColor(const GUIVisualizationSettings& s) {
-    const double colorValue = getColorValue(s);
+    const double colorValue = getColorValue(s, s.junctionColorer.getActive());
     const RGBColor& col = s.junctionColorer.getScheme().getColor(colorValue);
     osg::Vec4ubArray* colors = dynamic_cast<osg::Vec4ubArray*>(myGeom->getColorArray());
     (*colors)[0].set(col.red(), col.green(), col.blue(), col.alpha());
