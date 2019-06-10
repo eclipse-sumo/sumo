@@ -1,6 +1,7 @@
 import_config_file:../config_all
 binary:test.py
 use_case_record_mode:GUI
+virtual_display_wm_executable:fluxbox
 config_module:default
 
 copy_test_path:test.py
