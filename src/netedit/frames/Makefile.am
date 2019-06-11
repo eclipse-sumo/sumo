@@ -17,4 +17,5 @@ GNEPersonFrame.cpp GNEPersonFrame.h \
 GNEPersonPlanFrame.cpp GNEPersonPlanFrame.h \
 GNEVehicleFrame.cpp GNEVehicleFrame.h \
 GNEVehicleTypeFrame.cpp GNEVehicleTypeFrame.h \
+GNEPersonTypeFrame.cpp GNEPersonTypeFrame.h \
 GNEProhibitionFrame.cpp GNEProhibitionFrame.h

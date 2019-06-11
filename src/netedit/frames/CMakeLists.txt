@@ -33,6 +33,8 @@ set(netedit_frames_SRCS
    GNEVehicleFrame.cpp
    GNEVehicleTypeFrame.h
    GNEVehicleTypeFrame.cpp
+   GNEPersonTypeFrame.h
+   GNEPersonTypeFrame.cpp
    GNEProhibitionFrame.h
    GNEProhibitionFrame.cpp
    )
