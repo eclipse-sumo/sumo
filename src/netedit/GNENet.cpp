@@ -980,19 +980,19 @@ GNENet::setViewNet(GNEViewNet* viewNet) {
     myViewNet = viewNet;
 
     // Create default vehicle Type (it has to be created here due myViewNet was previously nullptr)
-    GNEVehicleType* defaultVehicleType = new GNEVehicleType(myViewNet, DEFAULT_VTYPE_ID, SVC_PASSENGER);
+    GNEVehicleType* defaultVehicleType = new GNEVehicleType(myViewNet, DEFAULT_VTYPE_ID, SVC_PASSENGER, SUMO_TAG_VTYPE);
     myAttributeCarriers.demandElements.at(defaultVehicleType->getTagProperty().getTag()).insert(std::make_pair(defaultVehicleType->getID(), defaultVehicleType));
     defaultVehicleType->incRef("GNENet::DEFAULT_VEHTYPE");
 
-    // Create default pedestrian Type (it has to be created here due myViewNet was previously nullptr)
-    GNEVehicleType* defaultPedestrianType = new GNEVehicleType(myViewNet, DEFAULT_PEDTYPE_ID, SVC_PEDESTRIAN);
-    myAttributeCarriers.demandElements.at(defaultPedestrianType->getTagProperty().getTag()).insert(std::make_pair(defaultPedestrianType->getID(), defaultPedestrianType));
-    defaultPedestrianType->incRef("GNENet::DEFAULT_PEDTYPE_ID");
-
     // Create default Bike Type (it has to be created here due myViewNet was previously nullptr)
-    GNEVehicleType* defaultBikeType = new GNEVehicleType(myViewNet, DEFAULT_BIKETYPE_ID, SVC_BICYCLE);
+    GNEVehicleType* defaultBikeType = new GNEVehicleType(myViewNet, DEFAULT_BIKETYPE_ID, SVC_BICYCLE, SUMO_TAG_VTYPE);
     myAttributeCarriers.demandElements.at(defaultBikeType->getTagProperty().getTag()).insert(std::make_pair(defaultBikeType->getID(), defaultBikeType));
     defaultBikeType->incRef("GNENet::DEFAULT_BIKETYPE_ID");
+
+    // Create default person Type (it has to be created here due myViewNet was previously nullptr)
+    GNEVehicleType* defaultPersonType = new GNEVehicleType(myViewNet, DEFAULT_PEDTYPE_ID, SVC_PEDESTRIAN, SUMO_TAG_PTYPE);
+    myAttributeCarriers.demandElements.at(defaultPersonType->getTagProperty().getTag()).insert(std::make_pair(defaultPersonType->getID(), defaultPersonType));
+    defaultPersonType->incRef("GNENet::DEFAULT_PEDTYPE_ID");
 
     // create instance of RouteCalculator
     GNEDemandElement::createRouteCalculatorInstance(this);
@@ -2464,20 +2464,16 @@ GNENet::saveDemandElementsConfirmed(const std::string& filename) {
     OutputDevice& device = OutputDevice::getDevice(filename);
     device.writeXMLHeader("routes", "routes_file.xsd");
     // first write all routes (and their associated stops)
-    for (auto i : myAttributeCarriers.demandElements) {
-        if (i.first == SUMO_TAG_ROUTE) {
-            for (auto j : i.second) {
-                j.second->writeDemandElement(device);
-            }
-        }
+    for (auto i : myAttributeCarriers.demandElements.at(SUMO_TAG_ROUTE)) {
+        i.second->writeDemandElement(device);
     }
     // now  write all vehicle types
-    for (auto i : myAttributeCarriers.demandElements) {
-        if (i.first == SUMO_TAG_VTYPE) {
-            for (auto j : i.second) {
-                j.second->writeDemandElement(device);
-            }
-        }
+    for (auto i : myAttributeCarriers.demandElements.at(SUMO_TAG_VTYPE)) {
+        i.second->writeDemandElement(device);
+    }
+    // now  write all person types
+    for (auto i : myAttributeCarriers.demandElements.at(SUMO_TAG_PTYPE)) {
+        i.second->writeDemandElement(device);
     }
     // finally write all vehicles sorted by depart time (and their associated stops)
     for (auto i : myAttributeCarriers.vehicleDepartures) {

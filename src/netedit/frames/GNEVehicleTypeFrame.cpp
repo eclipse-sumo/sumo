@@ -239,7 +239,7 @@ GNEVehicleTypeFrame::VehicleTypeEditor::onCmdCreateVehicleType(FXObject*, FXSele
     // obtain a new valid Vehicle Type ID
     std::string vehicleTypeID = myVehicleTypeFrameParent->myViewNet->getNet()->generateDemandElementID("", SUMO_TAG_VTYPE);
     // create new vehicle type
-    GNEDemandElement* vehicleType = new GNEVehicleType(myVehicleTypeFrameParent->myViewNet, vehicleTypeID);
+    GNEDemandElement* vehicleType = new GNEVehicleType(myVehicleTypeFrameParent->myViewNet, vehicleTypeID, SUMO_TAG_VTYPE);
     // add it using undoList (to allow undo-redo)
     myVehicleTypeFrameParent->myViewNet->getUndoList()->p_begin("create vehicle type");
     myVehicleTypeFrameParent->myViewNet->getUndoList()->add(new GNEChange_DemandElement(vehicleType, true), true);
@@ -308,8 +308,6 @@ GNEVehicleTypeFrame::VehicleTypeEditor::onCmdResetVehicleType(FXObject*, FXSelec
     // change manually VClass (because it depends of Default VType)
     if (myVehicleTypeFrameParent->myVehicleTypeSelector->getCurrentVehicleType()->getAttribute(SUMO_ATTR_ID) == DEFAULT_VTYPE_ID) {
         myVehicleTypeFrameParent->myVehicleTypeSelector->getCurrentVehicleType()->setAttribute(SUMO_ATTR_VCLASS, toString(SVC_PASSENGER), myVehicleTypeFrameParent->myViewNet->getUndoList());
-    } else if (myVehicleTypeFrameParent->myVehicleTypeSelector->getCurrentVehicleType()->getAttribute(SUMO_ATTR_ID) == DEFAULT_PEDTYPE_ID) {
-        myVehicleTypeFrameParent->myVehicleTypeSelector->getCurrentVehicleType()->setAttribute(SUMO_ATTR_VCLASS, toString(SVC_PEDESTRIAN), myVehicleTypeFrameParent->myViewNet->getUndoList());
     } else if (myVehicleTypeFrameParent->myVehicleTypeSelector->getCurrentVehicleType()->getAttribute(SUMO_ATTR_ID) == DEFAULT_BIKETYPE_ID) {
         myVehicleTypeFrameParent->myVehicleTypeSelector->getCurrentVehicleType()->setAttribute(SUMO_ATTR_VCLASS, toString(SVC_BICYCLE), myVehicleTypeFrameParent->myViewNet->getUndoList());
     }

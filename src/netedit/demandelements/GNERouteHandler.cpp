@@ -858,8 +858,10 @@ GNERouteHandler::closeVType() {
         } else if (myViewNet->getNet()->retrieveDemandElement(SUMO_TAG_VTYPE, myCurrentVType->id, false) != nullptr) {
             WRITE_ERROR("There is another " + toString(SUMO_TAG_VTYPE) + " with the same ID='" + myCurrentVType->id + "'.");
         } else {
+            // check if we're creating a vType or a pType
+            SumoXMLTag vTypeTag = (myCurrentVType->vehicleClass == SVC_PEDESTRIAN)? SUMO_TAG_PTYPE : SUMO_TAG_VTYPE;
             // create VType using myCurrentVType
-            GNEVehicleType* vType = new GNEVehicleType(myViewNet, *myCurrentVType);
+            GNEVehicleType* vType = new GNEVehicleType(myViewNet, *myCurrentVType, vTypeTag);
             if (myUndoDemandElements) {
                 myViewNet->getUndoList()->p_begin("add " + vType->getTagStr());
                 myViewNet->getUndoList()->add(new GNEChange_DemandElement(vType, true), true);
