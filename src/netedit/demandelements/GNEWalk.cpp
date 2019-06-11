@@ -24,6 +24,7 @@
 #include <utils/gui/div/GLHelper.h>
 #include <utils/gui/globjects/GLIncludes.h>
 #include <utils/gui/windows/GUIAppEnum.h>
+#include <netedit/additionals/GNEAdditional.h>
 #include <netedit/changes/GNEChange_Attribute.h>
 #include <netedit/GNENet.h>
 #include <netedit/GNEUndoList.h>
@@ -43,19 +44,19 @@
 // method definitions
 // ===========================================================================
 
-GNEWalk::GNEWalk(GNEViewNet* viewNet) :
+GNEWalk::GNEWalk(GNEViewNet* viewNet, GNEDemandElement *personParent, const std::vector<GNEEdge*>& edges, double arrivalPosition, const std::vector<std::string> &lines) :
     GNEDemandElement(viewNet->getNet()->generateDemandElementID("", SUMO_TAG_WALK), viewNet, GLO_WALK, SUMO_TAG_WALK,
-    {}, {}, {}, {}, {}, {}, {}, {}, {}, {}),
-    myColor(RGBColor::YELLOW),
-    myVClass(SVC_PASSENGER) {
+    edges, {}, {}, {}, {personParent}, {}, {}, {}, {}, {}),
+    myLines(lines),
+    myArrivalPosition(arrivalPosition) {
 }
 
 
-GNEWalk::GNEWalk(GNEViewNet* viewNet, const std::string& walkID, const std::vector<GNEEdge*>& edges, const RGBColor& color, const SUMOVehicleClass VClass) :
-    GNEDemandElement(walkID, viewNet, GLO_WALK, SUMO_TAG_WALK,
-    edges, {}, {}, {}, {}, {}, {}, {}, {}, {}),
-    myColor(color),
-    myVClass(VClass) {
+GNEWalk::GNEWalk(GNEViewNet* viewNet, GNEDemandElement *personParent, const std::vector<GNEEdge*>& edges, GNEAdditional *busStop, const std::vector<std::string> &lines) :
+    GNEDemandElement(viewNet->getNet()->generateDemandElementID("", SUMO_TAG_WALK), viewNet, GLO_WALK, SUMO_TAG_WALK,
+    edges, {}, {}, {busStop}, {personParent}, {}, {}, {}, {}, {}),
+    myLines(lines),
+    myArrivalPosition(-1) {
 }
 
 
@@ -64,7 +65,7 @@ GNEWalk::~GNEWalk() {}
 
 SUMOVehicleClass 
 GNEWalk::getVClass() const {
-    return myVClass;
+    return getDemandElementParents().front()->getVClass();
 }
 
 
@@ -92,26 +93,26 @@ GNEWalk::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     return ret;
 }
 
+
 const RGBColor&
 GNEWalk::getColor() const {
-    return myColor;
+    return getDemandElementParents().front()->getColor();
 }
 
 
 void
 GNEWalk::writeDemandElement(OutputDevice& device) const {
     device.openTag(SUMO_TAG_WALK);
-    device.writeAttr(SUMO_ATTR_EDGES, parseIDs(getEdgeParents()));
-    device.writeAttr(SUMO_ATTR_COLOR, toString(myColor));
-    // write extra attributes depending if is an embedded walk
-    if(myTagProperty.getTag() == SUMO_TAG_WALK) {
-        device.writeAttr(SUMO_ATTR_ID, getDemandElementID());
-        // write stops associated to this walk
-        for (const auto& i : getDemandElementChilds()) {
-            if (i->getTagProperty().isStop()) {
-                i->writeDemandElement(device);
-            }
-        }
+    device.writeAttr(SUMO_ATTR_FROM, getEdgeParents().front());
+    // check if write busStop or edge to
+    if (getAdditionalParents().size() > 0) {
+        device.writeAttr(SUMO_ATTR_BUS_STOP, getAdditionalParents().front());
+    } else {
+        device.writeAttr(SUMO_ATTR_TO, getEdgeParents());
+    }
+    // only write arrivalPos if is different of -1
+    if (myArrivalPosition != -1) {
+        device.writeAttr(SUMO_ATTR_ARRIVALPOS, myArrivalPosition);
     }
     device.closeTag();
 }
@@ -126,7 +127,7 @@ GNEWalk::isDemandElementValid() const {
     } else {
         // check if exist at least a connection between every edge
         for (int i = 1; i < (int)getEdgeParents().size(); i++) {
-            if (getRouteCalculatorInstance()->areEdgesConsecutives(myVClass, getEdgeParents().at((int)i - 1), getEdgeParents().at(i)) == false) {
+            if (getRouteCalculatorInstance()->areEdgesConsecutives(getDemandElementParents().front()->getVClass(), getEdgeParents().at((int)i - 1), getEdgeParents().at(i)) == false) {
                 return false;
             }
         }
@@ -143,7 +144,7 @@ GNEWalk::getDemandElementProblem() const {
     } else {
         // check if exist at least a connection between every edge
         for (int i = 1; i < (int)getEdgeParents().size(); i++) {
-            if (getRouteCalculatorInstance()->areEdgesConsecutives(myVClass, getEdgeParents().at((int)i - 1), getEdgeParents().at(i)) == false) {
+            if (getRouteCalculatorInstance()->areEdgesConsecutives(getDemandElementParents().front()->getVClass(), getEdgeParents().at((int)i - 1), getEdgeParents().at(i)) == false) {
                 return ("Edge '" + getEdgeParents().at((int)i - 1)->getID() + "' and edge '" + getEdgeParents().at(i)->getID() + "' aren't consecutives");
             }
         }
@@ -262,10 +263,16 @@ GNEWalk::getAttribute(SumoXMLAttr key) const {
     switch (key) {
         case SUMO_ATTR_ID:
             return getDemandElementID();
-        case SUMO_ATTR_EDGES:
-            return parseIDs(getEdgeParents());
-        case SUMO_ATTR_COLOR:
-            return toString(myColor);
+        case SUMO_ATTR_FROM:
+            return getEdgeParents().front()->getID();
+        case SUMO_ATTR_TO:
+            return getEdgeParents().back()->getID();
+        case SUMO_ATTR_BUS_STOP:
+            return getAdditionalParents().front()->getID();
+        case SUMO_ATTR_LINES:
+            return joinToString(myLines, " ");
+        case SUMO_ATTR_ARRIVALPOS:
+            return toString(myArrivalPosition);
         case GNE_ATTR_SELECTED:
             return toString(isAttributeCarrierSelected());
         case GNE_ATTR_GENERIC:
@@ -282,9 +289,11 @@ GNEWalk::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* un
         return; //avoid needless changes, later logic relies on the fact that attributes have changed
     }
     switch (key) {
-        case SUMO_ATTR_ID:
-        case SUMO_ATTR_EDGES:
-        case SUMO_ATTR_COLOR:
+        case SUMO_ATTR_FROM:
+        case SUMO_ATTR_TO:
+        case SUMO_ATTR_BUS_STOP:
+        case SUMO_ATTR_LINES:
+        case SUMO_ATTR_ARRIVALPOS:
         case GNE_ATTR_SELECTED:
         case GNE_ATTR_GENERIC:
             undoList->p_add(new GNEChange_Attribute(this, myViewNet->getNet(), key, value));
@@ -298,17 +307,25 @@ GNEWalk::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* un
 bool
 GNEWalk::isValid(SumoXMLAttr key, const std::string& value) {
     switch (key) {
-        case SUMO_ATTR_ID:
-            return isValidDemandElementID(value);
-        case SUMO_ATTR_EDGES:
-            if (canParse<std::vector<GNEEdge*> >(myViewNet->getNet(), value, false)) {
-                // all edges exist, then check if compounds a valid walk
-                return GNEDemandElement::isRouteValid(parse<std::vector<GNEEdge*> >(myViewNet->getNet(), value), false);
+        case SUMO_ATTR_FROM:
+        case SUMO_ATTR_TO:
+            return SUMOXMLDefinitions::isValidNetID(value) && (myViewNet->getNet()->retrieveEdge(value, false) != nullptr);
+        case SUMO_ATTR_BUS_STOP:
+            return (myViewNet->getNet()->retrieveAdditional(SUMO_TAG_BUS_STOP, value, false) != nullptr);
+        case SUMO_ATTR_LINES:
+            return canParse<std::vector<std::string> >(value);
+        case SUMO_ATTR_ARRIVALPOS:
+            if (canParse<double>(value)) {
+                double parsedValue = canParse<double>(value);
+                // a arrival pos with value -1 means that it will be ignored
+                if (parsedValue == -1) {
+                    return true;
+                } else {
+                    return parsedValue >= 0;
+                }
             } else {
                 return false;
             }
-        case SUMO_ATTR_COLOR:
-            return canParse<RGBColor>(value);
         case GNE_ATTR_SELECTED:
             return canParse<bool>(value);
         case GNE_ATTR_GENERIC:
@@ -343,14 +360,37 @@ GNEWalk::getHierarchyName() const {
 void
 GNEWalk::setAttribute(SumoXMLAttr key, const std::string& value) {
     switch (key) {
-        case SUMO_ATTR_ID:
-            changeDemandElementID(value);
+        case SUMO_ATTR_FROM: {
+            // declare a from-via-to edges vector
+            std::vector<std::string> FromViaToEdges;
+            // add from edge
+            FromViaToEdges.push_back(value);
+            // add to edge
+            FromViaToEdges.push_back(getEdgeParents().back()->getID());
+            // calculate route
+            std::vector<GNEEdge*> route = getRouteCalculatorInstance()->calculateDijkstraRoute(myViewNet->getNet(), getDemandElementParents().at(0)->getVClass(), FromViaToEdges);
+            // change edge parents
+            changeEdgeParents(this, toString(route));
             break;
-        case SUMO_ATTR_EDGES:
-            changeEdgeParents(this, value);
+        }
+        case SUMO_ATTR_TO: {
+            // declare a from-via-to edges vector
+            std::vector<std::string> FromViaToEdges;
+            // add from edge
+            FromViaToEdges.push_back(getEdgeParents().front()->getID());
+            // add to edge
+            FromViaToEdges.push_back(value);
+            // calculate route
+            std::vector<GNEEdge*> route = getRouteCalculatorInstance()->calculateDijkstraRoute(myViewNet->getNet(), getDemandElementParents().at(0)->getVClass(), FromViaToEdges);
+            // change edge parents
+            changeEdgeParents(this, toString(route));
             break;
-        case SUMO_ATTR_COLOR:
-            myColor = parse<RGBColor>(value);
+        }
+        case SUMO_ATTR_BUS_STOP:
+            changeAdditionalParent(this, value, 0);
+            break;
+        case SUMO_ATTR_LINES:
+            myLines = GNEAttributeCarrier::parse<std::vector<std::string> >(value);
             break;
         case GNE_ATTR_SELECTED:
             if (parse<bool>(value)) {

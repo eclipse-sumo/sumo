@@ -37,20 +37,25 @@ class GNEVehicle;
 // ===========================================================================
 
 class GNEWalk : public GNEDemandElement {
+
 public:
-    /**@brief default constructor
+    /**@brief parameter constructor
      * @param[in] viewNet view in which this Walk is placed
+     * @param[in] personParent person parent
+     * @param[in] edges list of consecutive edges of this walk
+     * @param[in] arrivalPosition arrival position on the destination edge 
+     * @param[in] lines valid line or vehicle ids or ANY
      */
-    GNEWalk(GNEViewNet* viewNet);
+    GNEWalk(GNEViewNet* viewNet, GNEDemandElement *personParent, const std::vector<GNEEdge*>& edges, double arrivalPosition, const std::vector<std::string> &lines);
 
     /**@brief parameter constructor
      * @param[in] viewNet view in which this Walk is placed
-     * @param[in] walkID unique walk ID
+     * @param[in] personParent person parent
      * @param[in] edges list of consecutive edges of this walk
-     * @param[in] color RGBColor of this walk
-     * @param[in] VClass Vehicle Class that will be use this walk (only for visualization)
+     * @param[in] busStop destination busStop 
+     * @param[in] lines valid line or vehicle ids or ANY
      */
-    GNEWalk(GNEViewNet* viewNet, const std::string& walkID, const std::vector<GNEEdge*>& edges, const RGBColor& color, const SUMOVehicleClass VClass);
+    GNEWalk(GNEViewNet* viewNet, GNEDemandElement *personParent, const std::vector<GNEEdge*>& edges, GNEAdditional *busStop, const std::vector<std::string> &lines);
 
     /// @brief destructor
     ~GNEWalk();
@@ -171,11 +176,11 @@ public:
     /// @}
 
 protected:
-    /// @brief walk color
-    RGBColor myColor;
+    /// @brief valid line or vehicle ids or ANY
+    std::vector<std::string> myLines;
 
-    /// @brief SUMOVehicleClass (Only used for drawing) 
-    SUMOVehicleClass myVClass;
+    /// @brief arrival position 
+    double myArrivalPosition;
 
 private:
     /// @brief method for setting the attribute and nothing else
