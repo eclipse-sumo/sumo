@@ -121,6 +121,10 @@ netedit_icon16.xpm \
 netedit_icon64.xpm \
 neteditarrowleft.xpm \
 neteditarrowright.xpm \
+arrowup.xpm \
+arrowdown.xpm \
+arrowleft.xpm \
+arrowright.xpm \
 netopen.xpm \
 new_window.xpm \
 new_window_3d.xpm \

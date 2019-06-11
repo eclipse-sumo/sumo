@@ -186,6 +186,14 @@ enum GUIIcon {
     ICON_NETEDITARROWLEFT,
     ICON_NETEDITARROWRIGHT,
     /// @}
+    
+    /// @name arrows
+    /// @{
+    ICON_ARROW_UP,
+    ICON_ARROW_DOWN,
+    ICON_ARROW_LEFT,
+    ICON_ARROW_RIGHT,
+    /// @}
 
     /// @name lane icons
     /// @{
