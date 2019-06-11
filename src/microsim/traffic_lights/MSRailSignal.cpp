@@ -759,8 +759,9 @@ MSRailSignal::DriveWay::buildRoute(MSLink* origin, double length,
         const MSLinkCont& links = toLane->getLinkCont();
         toLane = nullptr;
         for (MSLink* link : links) {
-            if ((next != end && &link->getLane()->getEdge() == *next) ||
-                    (next == end && link->getDirection() != LINKDIR_TURN)) {
+            if (((next != end && &link->getLane()->getEdge() == *next) ||
+                    (next == end && link->getDirection() != LINKDIR_TURN))
+                    && isRailway(link->getViaLaneOrLane()->getPermissions())) {
                 toLane = link->getViaLaneOrLane();
                 if (link->getTLLogic() != nullptr) {
                     if (link->getTLLogic() == origin->getTLLogic()) {
