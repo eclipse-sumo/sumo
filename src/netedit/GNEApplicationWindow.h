@@ -552,6 +552,9 @@ private:
             /// @brief menu command for stop mode
             FXMenuCommand* stopMode;
 
+            /// @brief menu command for person type mode
+            FXMenuCommand* personTypeMode;
+
             /// @brief menu command for person mode
             FXMenuCommand* personMode;
 

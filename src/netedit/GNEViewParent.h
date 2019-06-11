@@ -52,6 +52,7 @@ class GNEUndoList;
 class GNEVehicleFrame;
 class GNEVehicleTypeFrame;
 class GNEStopFrame;
+class GNEPersonTypeFrame;
 class GNEPersonFrame;
 class GNEPersonPlanFrame;
 
@@ -147,6 +148,9 @@ public:
 
     /// @brief get frame for GNE_DMODE_STOP
     GNEStopFrame* getStopFrame() const;
+
+    /// @brief get frame for GNE_DMODE_PERSONTYPE
+    GNEPersonTypeFrame* getPersonTypeFrame() const;
 
     /// @brief get frame for GNE_DMODE_PERSON
     GNEPersonFrame* getPersonFrame() const;
@@ -255,6 +259,9 @@ private:
 
         /// @brief frame for GNE_DMODE_VEHICLETYPE
         GNEVehicleTypeFrame* vehicleTypeFrame;
+
+        /// @brief frame for GNE_DMODE_PERSONTYPE
+        GNEPersonTypeFrame* personTypeFrame;
 
         /// @brief frame for GNE_DMODE_STOP
         GNEStopFrame* stopFrame;

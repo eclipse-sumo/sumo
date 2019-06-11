@@ -40,6 +40,7 @@
 #include <netedit/frames/GNEVehicleFrame.h>
 #include <netedit/frames/GNEVehicleTypeFrame.h>
 #include <netedit/frames/GNEStopFrame.h>
+#include <netedit/frames/GNEPersonTypeFrame.h>
 #include <netedit/frames/GNEPersonFrame.h>
 #include <netedit/frames/GNEPersonPlanFrame.h>
 #include <netedit/netelements/GNEEdge.h>
@@ -136,6 +137,7 @@ GNEViewParent::GNEViewParent(FXMDIClient* p, FXMDIMenu* mdimenu, const FXString&
     myFrames.vehicleFrame = new GNEVehicleFrame(myFramesArea, viewNet);
     myFrames.vehicleTypeFrame = new GNEVehicleTypeFrame(myFramesArea, viewNet);
     myFrames.stopFrame = new GNEStopFrame(myFramesArea, viewNet);
+    myFrames.personTypeFrame = new GNEPersonTypeFrame(myFramesArea, viewNet);
     myFrames.personFrame = new GNEPersonFrame(myFramesArea, viewNet);
     myFrames.personPlanFrame = new GNEPersonPlanFrame(myFramesArea, viewNet);
 
@@ -260,6 +262,12 @@ GNEViewParent::getVehicleTypeFrame() const {
 GNEStopFrame*
 GNEViewParent::getStopFrame() const {
     return myFrames.stopFrame;
+}
+
+
+GNEPersonTypeFrame*
+GNEViewParent::getPersonTypeFrame() const {
+    return myFrames.personTypeFrame;
 }
 
 
@@ -607,6 +615,7 @@ GNEViewParent::Frames::Frames() :
     vehicleFrame(nullptr),
     vehicleTypeFrame(nullptr),
     stopFrame(nullptr),
+    personTypeFrame(nullptr),
     personFrame(nullptr),
     personPlanFrame(nullptr) {
 }
@@ -631,6 +640,7 @@ GNEViewParent::Frames::hideFrames() {
     vehicleFrame->hide();
     vehicleTypeFrame->hide();
     stopFrame->hide();
+    personTypeFrame->hide();
     personFrame->hide();
     personPlanFrame->hide();
 }
@@ -656,6 +666,7 @@ GNEViewParent::Frames::setWidth(int frameWidth) {
     vehicleFrame->setFrameWidth(frameWidth);
     vehicleTypeFrame->setFrameWidth(frameWidth);
     stopFrame->setFrameWidth(frameWidth);
+    personTypeFrame->setFrameWidth(frameWidth);
     personFrame->setFrameWidth(frameWidth);
     personPlanFrame->setFrameWidth(frameWidth);
 }
@@ -695,6 +706,8 @@ GNEViewParent::Frames::isFrameShown() const {
     } else if (vehicleTypeFrame->shown()) {
         return true;
     } else if (stopFrame->shown()) {
+        return true;
+    } else if (personTypeFrame->shown()) {
         return true;
     } else if (personFrame->shown()) {
         return true;
@@ -739,6 +752,8 @@ GNEViewParent::Frames::getCurrentShownFrame() const {
         return vehicleFrame;
     } else if (vehicleTypeFrame->shown()) {
         return vehicleTypeFrame;
+    } else if (personTypeFrame->shown()) {
+        return personTypeFrame;
     } else if (stopFrame->shown()) {
         return stopFrame;
     } else if (personFrame->shown()) {

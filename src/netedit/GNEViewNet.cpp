@@ -40,6 +40,7 @@
 #include <netedit/frames/GNEVehicleFrame.h>
 #include <netedit/frames/GNEVehicleTypeFrame.h>
 #include <netedit/frames/GNEStopFrame.h>
+#include <netedit/frames/GNEPersonTypeFrame.h>
 #include <netedit/frames/GNEPersonFrame.h>
 #include <netedit/frames/GNEPersonPlanFrame.h>
 #include <netedit/netelements/GNEConnection.h>
@@ -86,7 +87,7 @@ FXDEFMAP(GNEViewNet) GNEViewNetMap[] = {
     FXMAPFUNC(SEL_COMMAND, MID_HOTKEY_Z_TAZMODE,                            GNEViewNet::onCmdSetMode),
     FXMAPFUNC(SEL_COMMAND, MID_HOTKEY_P_POLYGONMODE_PERSONMODE,             GNEViewNet::onCmdSetMode),
     FXMAPFUNC(SEL_COMMAND, MID_HOTKEY_V_VEHICLEMODE,                        GNEViewNet::onCmdSetMode),
-    FXMAPFUNC(SEL_COMMAND, MID_HOTKEY_W_PROHIBITIONMODE_PERSONTYPEMODE,                    GNEViewNet::onCmdSetMode),
+    FXMAPFUNC(SEL_COMMAND, MID_HOTKEY_W_PROHIBITIONMODE_PERSONTYPEMODE,     GNEViewNet::onCmdSetMode),
     // View Options Network
     FXMAPFUNC(SEL_COMMAND, MID_GNE_VIEWOPTIONSNETWORK_SHOWDEMANDELEMENTS,   GNEViewNet::onCmdToogleShowDemandElements),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_VIEWOPTIONSNETWORK_SELECTEDGES,          GNEViewNet::onCmdToogleSelectEdges),
@@ -1135,6 +1136,9 @@ GNEViewNet::onCmdSetMode(FXObject*, FXSelector sel, void*) {
                 break;
             case MID_HOTKEY_A_ADDITIONALMODE_STOPMODE:
                 myEditModes.setDemandEditMode(GNE_DMODE_STOP);
+                break;
+                case MID_HOTKEY_W_PROHIBITIONMODE_PERSONTYPEMODE:
+                myEditModes.setDemandEditMode(GNE_DMODE_PERSONTYPES);
                 break;
             case MID_HOTKEY_P_POLYGONMODE_PERSONMODE:
                 myEditModes.setDemandEditMode(GNE_DMODE_PERSON);
@@ -2434,6 +2438,14 @@ GNEViewNet::updateDemandModeSpecificControls() {
             myViewParent->getStopFrame()->focusUpperElement();
             myCurrentFrame = myViewParent->getStopFrame();
             myDemandCheckableButtons.stopButton->setChecked(true);
+            // hide toolbar grip of view options
+            myViewParent->getGNEAppWindows()->getToolbarsGrip().modeOptions->hide();
+            break;
+        case GNE_DMODE_PERSONTYPES:
+            myViewParent->getPersonTypeFrame()->show();
+            myViewParent->getPersonTypeFrame()->focusUpperElement();
+            myCurrentFrame = myViewParent->getPersonTypeFrame();
+            myDemandCheckableButtons.personTypeButton->setChecked(true);
             // hide toolbar grip of view options
             myViewParent->getGNEAppWindows()->getToolbarsGrip().modeOptions->hide();
             break;
