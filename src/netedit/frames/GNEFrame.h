@@ -97,25 +97,25 @@ public:
     };
 
     // ===========================================================================
-    // class VTypeSelector
+    // class DemandElementSelector
     // ===========================================================================
 
-    class VTypeSelector : protected FXGroupBox {
+    class DemandElementSelector : protected FXGroupBox {
         /// @brief FOX-declaration
-        FXDECLARE(GNEFrame::VTypeSelector)
+        FXDECLARE(GNEFrame::DemandElementSelector)
 
     public:
         /// @brief constructor
-        VTypeSelector(GNEFrame* frameParent);
+        DemandElementSelector(GNEFrame* frameParent, SumoXMLTag demandElementTagType);
 
         /// @brief destructor
-        ~VTypeSelector();
+        ~DemandElementSelector();
 
-        /// @brief get current vehicle Type
-        const GNEDemandElement* getCurrentVType() const;
+        /// @brief get current demand element
+        const GNEDemandElement* getCurrentDemandElement() const;
 
         /// @brief show VType selector
-        void showVTypeSelector(const GNEAttributeCarrier::TagProperties& tagProperties);
+        void showVTypeSelector();
 
         /// @brief hide VType selector
         void hideVTypeSelector();
@@ -131,7 +131,7 @@ public:
 
     protected:
         /// @brief FOX needs this
-        VTypeSelector() {}
+        DemandElementSelector() {}
 
     private:
         /// @brief pointer to frame Parent
@@ -140,8 +140,11 @@ public:
         /// @brief comboBox with the list of elements type
         FXComboBox* myVTypesMatchBox;
 
-        /// @brief current vehicle type
-        GNEDemandElement* myCurrentVType;
+        /// @brief current demand element
+        GNEDemandElement* myCurrentDemandElement;
+
+        /// @brief demand element tag type
+        SumoXMLTag myDemandElementTagType;
     };
 
     // ===========================================================================
@@ -980,7 +983,7 @@ protected:
     /// @brief open AttributesCreator extended dialog (can be reimplemented in frame childs)
     virtual void openAttributesEditorExtendedDialog();
 
-    /// @brief selected vehicle type in VTypeSelector (can be reimplemented in frame childs)
+    /// @brief selected vehicle type in DemandElementSelector (can be reimplemented in frame childs)
     virtual void selectedVType(bool validVType);
 
     /// @brief finish edge path creation (can be reimplemented in frame childs)

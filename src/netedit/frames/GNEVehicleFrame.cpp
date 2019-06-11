@@ -106,7 +106,7 @@ GNEVehicleFrame::GNEVehicleFrame(FXHorizontalFrame* horizontalFrameParent, GNEVi
     myVehicleTagSelector = new TagSelector(this, GNEAttributeCarrier::TagType::TAGTYPE_VEHICLE);
 
     // Create vehicle type selector
-    myVTypeSelector = new VTypeSelector(this);
+    myVTypeSelector = new DemandElementSelector(this, SUMO_TAG_VTYPE);
 
     // Create vehicle parameters
     myVehicleAttributes = new AttributesCreator(this);
@@ -144,7 +144,7 @@ GNEVehicleFrame::addVehicle(const GNEViewNetHelper::ObjectsUnderCursor& objectsU
         return false;
     }
     // now check if VType is valid
-    if (myVTypeSelector->getCurrentVType() == nullptr) {
+    if (myVTypeSelector->getCurrentDemandElement() == nullptr) {
         myViewNet->setStatusBarText("Current selected vehicle type isn't valid.");
         return false;
     }
@@ -153,7 +153,7 @@ GNEVehicleFrame::addVehicle(const GNEViewNetHelper::ObjectsUnderCursor& objectsU
     // add ID parameter
     valuesMap[SUMO_ATTR_ID] = myViewNet->getNet()->generateDemandElementID("", vehicleTag);
     // add VType
-    valuesMap[SUMO_ATTR_TYPE] = myVTypeSelector->getCurrentVType()->getID();
+    valuesMap[SUMO_ATTR_TYPE] = myVTypeSelector->getCurrentDemandElement()->getID();
     // set route or edges depending of vehicle type
     if ((vehicleTag == SUMO_TAG_VEHICLE) || (vehicleTag == SUMO_TAG_ROUTEFLOW)) {
         if (objectsUnderCursor.getDemandElementFront() && (objectsUnderCursor.getDemandElementFront()->getTagProperty().isRoute())) {
@@ -223,9 +223,9 @@ GNEVehicleFrame::getEdgePathCreator() const {
 // ===========================================================================
 
 void
-GNEVehicleFrame::enableModuls(const GNEAttributeCarrier::TagProperties& tagProperties) {
+GNEVehicleFrame::enableModuls(const GNEAttributeCarrier::TagProperties& /*tagProperties*/) {
     // show vehicle type selector modul
-    myVTypeSelector->showVTypeSelector(tagProperties);
+    myVTypeSelector->showVTypeSelector();
     // show AutoRute creator if we're editing a trip
     if ((myVehicleTagSelector->getCurrentTagProperties().getTag() == SUMO_TAG_TRIP) || (myVehicleTagSelector->getCurrentTagProperties().getTag() == SUMO_TAG_FLOW)) {
         myEdgePathCreator->showEdgePathCreator();
@@ -250,7 +250,7 @@ GNEVehicleFrame::selectedVType(bool validVType) {
         // show vehicle attributes modul
         myVehicleAttributes->showAttributesCreatorModul(myVehicleTagSelector->getCurrentTagProperties());
         // set current VTypeClass in TripCreator
-        myEdgePathCreator->setVClass(myVTypeSelector->getCurrentVType()->getVClass());
+        myEdgePathCreator->setVClass(myVTypeSelector->getCurrentDemandElement()->getVClass());
         // show help creation
         myHelpCreation->showHelpCreation();
     } else {

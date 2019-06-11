@@ -56,8 +56,8 @@ FXDEFMAP(GNEFrame::TagSelector) TagSelectorMap[] = {
     FXMAPFUNC(SEL_COMMAND, MID_GNE_SET_TYPE,    GNEFrame::TagSelector::onCmdSelectItem)
 };
 
-FXDEFMAP(GNEFrame::VTypeSelector) VTypeSelectorMap[] = {
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_SET_TYPE,    GNEFrame::VTypeSelector::onCmdSelectVType),
+FXDEFMAP(GNEFrame::DemandElementSelector) VTypeSelectorMap[] = {
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_SET_TYPE,    GNEFrame::DemandElementSelector::onCmdSelectVType),
 };
 
 FXDEFMAP(GNEFrame::EdgePathCreator) EdgePathCreatorMap[] = {
@@ -117,7 +117,7 @@ FXDEFMAP(GNEFrame::NeteditAttributes) NeteditAttributesMap[] = {
 
 // Object implementation
 FXIMPLEMENT(GNEFrame::TagSelector,                              FXGroupBox,         TagSelectorMap,                 ARRAYNUMBER(TagSelectorMap))
-FXIMPLEMENT(GNEFrame::VTypeSelector,                            FXGroupBox,         VTypeSelectorMap,               ARRAYNUMBER(VTypeSelectorMap))
+FXIMPLEMENT(GNEFrame::DemandElementSelector,                            FXGroupBox,         VTypeSelectorMap,               ARRAYNUMBER(VTypeSelectorMap))
 FXIMPLEMENT(GNEFrame::EdgePathCreator,                         FXGroupBox,         EdgePathCreatorMap,            ARRAYNUMBER(EdgePathCreatorMap))
 FXIMPLEMENT(GNEFrame::AttributesCreator,                        FXGroupBox,         AttributesCreatorMap,           ARRAYNUMBER(AttributesCreatorMap))
 FXIMPLEMENT(GNEFrame::AttributesCreator::AttributesCreatorRow,  FXHorizontalFrame,  RowCreatorMap,                  ARRAYNUMBER(RowCreatorMap))
@@ -286,57 +286,59 @@ GNEFrame::TagSelector::onCmdSelectItem(FXObject*, FXSelector, void*) {
 }
 
 // ---------------------------------------------------------------------------
-// GNEFrame::VTypeSelector - methods
+// GNEFrame::DemandElementSelector - methods
 // ---------------------------------------------------------------------------
 
-GNEFrame::VTypeSelector::VTypeSelector(GNEFrame* frameParent) :
+GNEFrame::DemandElementSelector::DemandElementSelector(GNEFrame* frameParent, SumoXMLTag demandElementTagType) :
     FXGroupBox(frameParent->myContentFrame, "Person Type", GUIDesignGroupBoxFrame),
     myFrameParent(frameParent),
-    myCurrentVType(nullptr) {
+    myCurrentDemandElement(nullptr),
+    myDemandElementTagType(demandElementTagType) {
     // Create FXComboBox
     myVTypesMatchBox = new FXComboBox(this, GUIDesignComboBoxNCol, this, MID_GNE_SET_TYPE, GUIDesignComboBox);
     // refresh TypeMatchBox
     refreshVTypeSelector();
-    // VTypeSelector is always shown
+    // DemandElementSelector is always shown
     show();
 }
 
 
-GNEFrame::VTypeSelector::~VTypeSelector() {}
+GNEFrame::DemandElementSelector::~DemandElementSelector() {}
 
 
 const GNEDemandElement*
-GNEFrame::VTypeSelector::getCurrentVType() const {
-    return myCurrentVType;
+GNEFrame::DemandElementSelector::getCurrentDemandElement() const {
+    return myCurrentDemandElement;
 }
 
 
 void
-GNEFrame::VTypeSelector::showVTypeSelector(const GNEAttributeCarrier::TagProperties& /*tagProperties*/) {
+GNEFrame::DemandElementSelector::showVTypeSelector() {
     refreshVTypeSelector();
-    // if current selected item isn't valid, set DEFAULT_VEHTYPE
-    if (myCurrentVType) {
-        // set DEFAULT_VTYPE as current VType
-        myVTypesMatchBox->setText(myCurrentVType->getID().c_str());
-    } else {
+    // if current selected item isn't valid, set DEFAULT_VTYPE_ID or DEFAULT_PEDTYPE_ID
+    if (myCurrentDemandElement) {
+        myVTypesMatchBox->setText(myCurrentDemandElement->getID().c_str());
+    } else if (myDemandElementTagType == SUMO_TAG_VTYPE) {
         myVTypesMatchBox->setText(DEFAULT_VTYPE_ID.c_str());
+    } else if (myDemandElementTagType == SUMO_TAG_VTYPE) {
+        myVTypesMatchBox->setText(DEFAULT_PEDTYPE_ID.c_str());
     }
     onCmdSelectVType(nullptr, 0, nullptr);
 }
 
 
 void
-GNEFrame::VTypeSelector::hideVTypeSelector() {
+GNEFrame::DemandElementSelector::hideVTypeSelector() {
     hide();
 }
 
 
 void
-GNEFrame::VTypeSelector::refreshVTypeSelector() {
+GNEFrame::DemandElementSelector::refreshVTypeSelector() {
     // clear comboBox
     myVTypesMatchBox->clearItems();
     // fill myTypeMatchBox with list of vtypes
-    for (const auto& i : myFrameParent->getViewNet()->getNet()->getAttributeCarriers().demandElements.at(SUMO_TAG_VTYPE)) {
+    for (const auto& i : myFrameParent->getViewNet()->getNet()->getAttributeCarriers().demandElements.at(myDemandElementTagType)) {
         myVTypesMatchBox->appendItem(i.first.c_str());
     }
     // Set visible items
@@ -345,29 +347,29 @@ GNEFrame::VTypeSelector::refreshVTypeSelector() {
 
 
 long
-GNEFrame::VTypeSelector::onCmdSelectVType(FXObject*, FXSelector, void*) {
+GNEFrame::DemandElementSelector::onCmdSelectVType(FXObject*, FXSelector, void*) {
     // Check if value of myTypeMatchBox correspond to a VType
-    for (const auto& i : myFrameParent->getViewNet()->getNet()->getAttributeCarriers().demandElements.at(SUMO_TAG_VTYPE)) {
+    for (const auto& i : myFrameParent->getViewNet()->getNet()->getAttributeCarriers().demandElements.at(myDemandElementTagType)) {
         if (i.first == myVTypesMatchBox->getText().text()) {
             // set color of myTypeMatchBox to black (valid)
             myVTypesMatchBox->setTextColor(FXRGB(0, 0, 0));
             // Set new current VType
-            myCurrentVType = i.second;
+            myCurrentDemandElement = i.second;
             // call selectedVType
             myFrameParent->selectedVType(true);
             // Write Warning in console if we're in testing mode
-            WRITE_DEBUG(("Selected item '" + myVTypesMatchBox->getText() + "' in VTypeSelector").text());
+            WRITE_DEBUG(("Selected item '" + myVTypesMatchBox->getText() + "' in DemandElementSelector").text());
             return 1;
         }
     }
     // if VType selected is invalid, set VTyoe a snull
-    myCurrentVType = nullptr;
+    myCurrentDemandElement = nullptr;
     // call selectedVType
     myFrameParent->selectedVType(false);
     // set color of myTypeMatchBox to red (invalid)
     myVTypesMatchBox->setTextColor(FXRGB(255, 0, 0));
     // Write Warning in console if we're in testing mode
-    WRITE_DEBUG("Selected invalid item in VTypeSelector");
+    WRITE_DEBUG("Selected invalid item in DemandElementSelector");
     return 1;
 }
 
@@ -3437,7 +3439,7 @@ GNEFrame::openAttributesEditorExtendedDialog()  {
 
 void
 GNEFrame::selectedVType(bool /*validVType*/) {
-    // this function has to be reimplemente in all child frames that uses a VTypeSelector
+    // this function has to be reimplemente in all child frames that uses a DemandElementSelector
 }
 
 

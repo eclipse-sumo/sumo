@@ -92,16 +92,22 @@ GNEPersonFrame::HelpCreation::updateHelpCreation() {
 GNEPersonFrame::GNEPersonFrame(FXHorizontalFrame* horizontalFrameParent, GNEViewNet* viewNet) :
     GNEFrame(horizontalFrameParent, viewNet, "Persons") {
 
-    // Create item Selector modul for persons
+    // create tag Selector modul for persons
     myPersonTagSelector = new TagSelector(this, GNEAttributeCarrier::TagType::TAGTYPE_PERSON);
 
-    // Create vehicle parameters
+    // create person types selector modul
+    myPTypeSelector = new DemandElementSelector(this, SUMO_TAG_PTYPE);
+
+    // create tag Selector modul for person plans
+    myPersonPlanSelector = new TagSelector(this, GNEAttributeCarrier::TagType::TAGTYPE_PERSONPLAN);
+
+    // create vehicle parameters
     myPersonAttributes = new AttributesCreator(this);
 
     // create EdgePathCreator Modul
     myEdgePathCreator = new EdgePathCreator(this);
 
-    // Create Help Creation Modul
+    // create Help Creation Modul
     myHelpCreation = new HelpCreation(this);
 
     // set Person as default vehicle
@@ -203,7 +209,7 @@ GNEPersonFrame::getEdgePathCreator() const {
 // ===========================================================================
 
 void
-GNEPersonFrame::enableModuls(const GNEAttributeCarrier::TagProperties& tagProperties) {
+GNEPersonFrame::enableModuls(const GNEAttributeCarrier::TagProperties& /*tagProperties*/) {
     // show AutoRute creator if we're editing a trip
     if ((myPersonTagSelector->getCurrentTagProperties().getTag() == SUMO_TAG_TRIP) || (myPersonTagSelector->getCurrentTagProperties().getTag() == SUMO_TAG_FLOW)) {
         myEdgePathCreator->showEdgePathCreator();

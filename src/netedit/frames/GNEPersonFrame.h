@@ -97,6 +97,12 @@ protected:
 private:
     /// @brief person tag selector (used to select diffent kind of persons)
     TagSelector* myPersonTagSelector;
+    
+    /// @brief Person Type selectors
+    DemandElementSelector* myPTypeSelector;
+
+    /// @brief person plan selector (used to select diffent kind of person plan)
+    TagSelector* myPersonPlanSelector;
 
     /// @brief internal vehicle attributes
     AttributesCreator* myPersonAttributes;

@@ -92,7 +92,7 @@ protected:
     /// @brief disable moduls if element selected in itemSelector isn't valid
     void disableModuls();
 
-    /// @brief selected vehicle type in VTypeSelector (can be reimplemented in frame childs)
+    /// @brief selected vehicle type in DemandElementSelector (can be reimplemented in frame childs)
     void selectedVType(bool validVType);
 
     /// @brief finish edge path creation
@@ -103,7 +103,7 @@ private:
     TagSelector* myVehicleTagSelector;
 
     /// @brief Vehicle Type selectors
-    VTypeSelector* myVTypeSelector;
+    DemandElementSelector* myVTypeSelector;
 
     /// @brief internal vehicle attributes
     AttributesCreator* myVehicleAttributes;
