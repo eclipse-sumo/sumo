@@ -45,6 +45,7 @@ HelpersEnergy::HelpersEnergy() : PollutantsInterface::Helper("Energy") {
     myDefaultParameter[SUMO_ATTR_CONSTANTPOWERINTAKE] = 100.;
     myDefaultParameter[SUMO_ATTR_PROPULSIONEFFICIENCY] = 0.9;
     myDefaultParameter[SUMO_ATTR_RECUPERATIONEFFICIENCY] = 0.8;
+    myDefaultParameter[SUMO_ATTR_RECUPERATIONEFFICIENCY_BY_DECELERATION] = 0.0;
     myDefaultParameter[SUMO_ATTR_ANGLE] = 0.;
 }
 
@@ -115,6 +116,13 @@ HelpersEnergy::compute(const SUMOEmissionClass /* c */, const PollutantsInterfac
     } else {
         // Assumption: Efficiency of myRecuperationEfficiency when recuperating
         energyDiff *= param->find(SUMO_ATTR_RECUPERATIONEFFICIENCY)->second;
+        if (a != 0) {
+            // Fiori, Chiara & Ahn, Kyoungho & Rakha, Hesham. (2016).
+            // Power-based electric vehicle energy consumption model: Model
+            // development and validation. Applied Energy. 168. 257-268.
+            // 10.1016/j.apenergy.2016.01.097.
+            energyDiff *= (1 / exp(param->find(SUMO_ATTR_RECUPERATIONEFFICIENCY_BY_DECELERATION)->second / fabs(a)));
+        }
     }
 
     // convert from [Ws] to [Wh] (3600s / 1h):

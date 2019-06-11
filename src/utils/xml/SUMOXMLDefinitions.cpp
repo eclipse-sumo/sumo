@@ -319,6 +319,7 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "constantPowerIntake",    SUMO_ATTR_CONSTANTPOWERINTAKE },
     { "propulsionEfficiency",   SUMO_ATTR_PROPULSIONEFFICIENCY },
     { "recuperationEfficiency", SUMO_ATTR_RECUPERATIONEFFICIENCY },
+    { "recuperationEfficiencyByDecel", SUMO_ATTR_RECUPERATIONEFFICIENCY_BY_DECELERATION },
     { "stoppingTreshold",       SUMO_ATTR_STOPPINGTRESHOLD },
     // MSBatteryExport
     { "energyConsumed",         SUMO_ATTR_ENERGYCONSUMED },
