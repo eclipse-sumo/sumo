@@ -283,15 +283,16 @@ public:
         TAGTYPE_TAZ =           1 << 4,   // Traffic Assignment Zones
         TAGTYPE_STOPPINGPLACE = 1 << 5,   // StoppingPlaces (BusStops, ChargingStations...)
         TAGTYPE_DETECTOR =      1 << 6,   // Detectors (E1, E2...)
-        TAGTYPE_VEHICLE =       1 << 7,   // Vehicles (Flows, trips...)
-        TAGTYPE_ROUTE =         1 << 8,   // Routes and embedded routes
-        TAGTYPE_STOP =          1 << 9,   // Stops
-        TAGTYPE_PERSON =        1 << 10,  // Persons
-        TAGTYPE_PERSONPLAN =    1 << 11,  // Person plans (Walks, rides, ...)
-        TAGTYPE_PERSONTRIP =    1 << 12,  // Walks
-        TAGTYPE_WALK =          1 << 13,  // Walks
-        TAGTYPE_RIDE =          1 << 14,  // Rides
-        TAGTYPE_PERSONSTOP =    1 << 15,  // Person stops
+        TAGTYPE_VTYPE =         1 << 7,   // Vehicle types (vType and pTye)
+        TAGTYPE_VEHICLE =       1 << 8,   // Vehicles (Flows, trips...)
+        TAGTYPE_ROUTE =         1 << 9,   // Routes and embedded routes
+        TAGTYPE_STOP =          1 << 10,  // Stops
+        TAGTYPE_PERSON =        1 << 11,  // Persons
+        TAGTYPE_PERSONPLAN =    1 << 12,  // Person plans (Walks, rides, ...)
+        TAGTYPE_PERSONTRIP =    1 << 13,  // Walks
+        TAGTYPE_WALK =          1 << 14,  // Walks
+        TAGTYPE_RIDE =          1 << 15,  // Rides
+        TAGTYPE_PERSONSTOP =    1 << 16,  // Person stops
     };
 
     enum TAGProperty {
@@ -397,6 +398,9 @@ public:
 
         /// @brief return true if tag correspond to a shape (Only used to group all detectors in the XML)
         bool isDetector() const;
+
+        /// @brief return true if tag correspond to a vehicle type element
+        bool isVehicleType() const;
 
         /// @brief return true if tag correspond to a vehicle element
         bool isVehicle() const;
@@ -848,11 +852,11 @@ private:
     /// @brief fill PersonStop elements
     static void fillPersonStopElements();
 
-    /// @brief fill Car Following Model of Vehicle Types
-    static void fillCarFollowingModelAttributes();
+    /// @brief fill Car Following Model of Vehicle/Person Types
+    static void fillCarFollowingModelAttributes(SumoXMLTag currentTag);
 
-    /// @brief fill Junction Model Attronites of Vehicle Types
-    static void fillJunctionModelAttributes();
+    /// @brief fill Junction Model Attronites of Vehicle/Person Types
+    static void fillJunctionModelAttributes(SumoXMLTag currentTag);
 
     /// @brief parse and check attribute (note: This function is only to improve legilibility)
     static bool checkParsedAttribute(const TagProperties& tagProperties, const AttributeProperties& attrProperties, const SumoXMLAttr attribute,
