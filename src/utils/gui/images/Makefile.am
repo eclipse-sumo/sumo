@@ -234,6 +234,7 @@ view2.xpm \
 view3.xpm \
 vssstep.xpm \
 vtype.xpm \
+ptype.xpm \
 warning.xpm \
 windows_cascade.xpm \
 windows_tile_horizontally.xpm \

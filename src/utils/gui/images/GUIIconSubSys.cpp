@@ -205,6 +205,7 @@
 
 #include "route.xpm"
 #include "vtype.xpm"
+#include "ptype.xpm"
 #include "vehicle.xpm"
 #include "trip.xpm"
 #include "flow.xpm"
@@ -484,6 +485,7 @@ GUIIconSubSys::GUIIconSubSys(FXApp* a) {
 
     myIcons[ICON_ROUTE] = new FXXPMIcon(a, route_xpm);
     myIcons[ICON_VTYPE] = new FXXPMIcon(a, vtype_xpm);
+    myIcons[ICON_PTYPE] = new FXXPMIcon(a, ptype_xpm);
     myIcons[ICON_VEHICLE] = new FXXPMIcon(a, vehicle_xpm);
     myIcons[ICON_TRIP] = new FXXPMIcon(a, trip_xpm);
     myIcons[ICON_FLOW] = new FXXPMIcon(a, flow_xpm);

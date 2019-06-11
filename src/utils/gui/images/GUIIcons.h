@@ -290,6 +290,7 @@ enum GUIIcon {
     /// @{
     ICON_ROUTE,
     ICON_VTYPE,
+    ICON_PTYPE,
     ICON_VEHICLE,
     ICON_TRIP,
     ICON_FLOW,
