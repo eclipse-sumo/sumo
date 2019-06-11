@@ -114,7 +114,9 @@ modetaz.xpm \
 modetrafficlight.xpm \
 moderoute.xpm \
 modevehicle.xpm \
+modevehicletype.xpm \
 modestop.xpm \
+modepersontype.xpm \
 modeperson.xpm \
 modepersonplan.xpm \
 netedit_icon16.xpm \

@@ -158,6 +158,7 @@
 #include "modevehicle.xpm"
 #include "modevehicletype.xpm"
 #include "modestop.xpm"
+#include "modepersontype.xpm"
 #include "modeperson.xpm"
 #include "modepersonplan.xpm"
 
@@ -435,6 +436,7 @@ GUIIconSubSys::GUIIconSubSys(FXApp* a) {
     myIcons[ICON_MODEVEHICLE] = new FXXPMIcon(a, modevehicle_xpm);
     myIcons[ICON_MODEVEHICLETYPE] = new FXXPMIcon(a, modevehicletype_xpm);
     myIcons[ICON_MODESTOP] = new FXXPMIcon(a, modestop_xpm);
+    myIcons[ICON_MODEPERSONTYPE] = new FXXPMIcon(a, modepersontype_xpm);
     myIcons[ICON_MODEPERSON] = new FXXPMIcon(a, modeperson_xpm);
     myIcons[ICON_MODEPERSONPLAN] = new FXXPMIcon(a, modepersonplan_xpm);
 
