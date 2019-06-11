@@ -46,7 +46,7 @@
 
 GNERide::GNERide(GNEViewNet* viewNet, GNEDemandElement *personParent, const std::vector<GNEEdge*>& edges, double arrivalPosition, const std::vector<std::string> &lines) :
     GNEDemandElement(viewNet->getNet()->generateDemandElementID("", SUMO_TAG_RIDE), viewNet, GLO_RIDE, SUMO_TAG_RIDE,
-    {}, {}, {}, {}, {personParent}, {}, {}, {}, {}, {}),
+    edges, {}, {}, {}, {personParent}, {}, {}, {}, {}, {}),
     myLines(lines),
     myArrivalPosition(arrivalPosition) {
 }
@@ -54,7 +54,7 @@ GNERide::GNERide(GNEViewNet* viewNet, GNEDemandElement *personParent, const std:
 
 GNERide::GNERide(GNEViewNet* viewNet, GNEDemandElement *personParent, const std::vector<GNEEdge*>& edges, GNEAdditional *busStop, const std::vector<std::string> &lines) :
     GNEDemandElement(viewNet->getNet()->generateDemandElementID("", SUMO_TAG_RIDE), viewNet, GLO_RIDE, SUMO_TAG_RIDE,
-    {}, {}, {}, {busStop}, {personParent}, {}, {}, {}, {}, {}),
+    edges, {}, {}, {busStop}, {personParent}, {}, {}, {}, {}, {}),
     myLines(lines),
     myArrivalPosition(-1) {
 }
@@ -103,8 +103,17 @@ GNERide::getColor() const {
 void
 GNERide::writeDemandElement(OutputDevice& device) const {
     device.openTag(SUMO_TAG_RIDE);
-    device.writeAttr(SUMO_ATTR_EDGES, parseIDs(getEdgeParents()));
-
+    device.writeAttr(SUMO_ATTR_FROM, getEdgeParents().front());
+    // check if write busStop or edge to
+    if (getAdditionalParents().size() > 0) {
+        device.writeAttr(SUMO_ATTR_BUS_STOP, getAdditionalParents().front());
+    } else {
+        device.writeAttr(SUMO_ATTR_TO, getEdgeParents());
+    }
+    // only write arrivalPos if is different of -1
+    if (myArrivalPosition != -1) {
+        device.writeAttr(SUMO_ATTR_ARRIVALPOS, myArrivalPosition);
+    }
     device.closeTag();
 }
 
@@ -306,7 +315,17 @@ GNERide::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_LINES:
             return canParse<std::vector<std::string> >(value);
         case SUMO_ATTR_ARRIVALPOS:
-            return canParse<double>(value);
+            if (canParse<double>(value)) {
+                double parsedValue = canParse<double>(value);
+                // a arrival pos with value -1 means that it will be ignored
+                if (parsedValue == -1) {
+                    return true;
+                } else {
+                    return parsedValue >= 0;
+                }
+            } else {
+                return false;
+            }
         case GNE_ATTR_SELECTED:
             return canParse<bool>(value);
         case GNE_ATTR_GENERIC:
