@@ -86,7 +86,7 @@ FXDEFMAP(GNEViewNet) GNEViewNetMap[] = {
     FXMAPFUNC(SEL_COMMAND, MID_HOTKEY_Z_TAZMODE,                            GNEViewNet::onCmdSetMode),
     FXMAPFUNC(SEL_COMMAND, MID_HOTKEY_P_POLYGONMODE_PERSONMODE,             GNEViewNet::onCmdSetMode),
     FXMAPFUNC(SEL_COMMAND, MID_HOTKEY_V_VEHICLEMODE,                        GNEViewNet::onCmdSetMode),
-    FXMAPFUNC(SEL_COMMAND, MID_HOTKEY_W_PROHIBITIONMODE,                    GNEViewNet::onCmdSetMode),
+    FXMAPFUNC(SEL_COMMAND, MID_HOTKEY_W_PROHIBITIONMODE_PERSONTYPEMODE,                    GNEViewNet::onCmdSetMode),
     // View Options Network
     FXMAPFUNC(SEL_COMMAND, MID_GNE_VIEWOPTIONSNETWORK_SHOWDEMANDELEMENTS,   GNEViewNet::onCmdToogleShowDemandElements),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_VIEWOPTIONSNETWORK_SELECTEDGES,          GNEViewNet::onCmdToogleSelectEdges),
@@ -1103,7 +1103,7 @@ GNEViewNet::onCmdSetMode(FXObject*, FXSelector sel, void*) {
             case MID_HOTKEY_P_POLYGONMODE_PERSONMODE:
                 myEditModes.setNetworkEditMode(GNE_NMODE_POLYGON);
                 break;
-            case MID_HOTKEY_W_PROHIBITIONMODE:
+            case MID_HOTKEY_W_PROHIBITIONMODE_PERSONTYPEMODE:
                 myEditModes.setNetworkEditMode(GNE_NMODE_PROHIBITION);
                 break;
             default:
