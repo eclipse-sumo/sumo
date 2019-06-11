@@ -36,11 +36,11 @@
 // FOX callback mapping
 // ===========================================================================
 
-FXDEFMAP(GNEPersonTypeFrame::PersonTypeSelector) vehicleTypeSelectorMap[] = {
+FXDEFMAP(GNEPersonTypeFrame::PersonTypeSelector) personTypeSelectorMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_TYPE,   GNEPersonTypeFrame::PersonTypeSelector::onCmdSelectItem)
 };
 
-FXDEFMAP(GNEPersonTypeFrame::PersonTypeEditor) vehicleTypeEditorMap[] = {
+FXDEFMAP(GNEPersonTypeFrame::PersonTypeEditor) personTypeEditorMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_VEHICLETYPEFRAME_CREATE,    GNEPersonTypeFrame::PersonTypeEditor::onCmdCreatePersonType),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_VEHICLETYPEFRAME_DELETE,    GNEPersonTypeFrame::PersonTypeEditor::onCmdDeletePersonType),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_VEHICLETYPEFRAME_RESET,     GNEPersonTypeFrame::PersonTypeEditor::onCmdResetPersonType),
@@ -48,8 +48,8 @@ FXDEFMAP(GNEPersonTypeFrame::PersonTypeEditor) vehicleTypeEditorMap[] = {
 };
 
 // Object implementation
-FXIMPLEMENT(GNEPersonTypeFrame::PersonTypeSelector,   FXGroupBox,     vehicleTypeSelectorMap,     ARRAYNUMBER(vehicleTypeSelectorMap))
-FXIMPLEMENT(GNEPersonTypeFrame::PersonTypeEditor,     FXGroupBox,     vehicleTypeEditorMap,       ARRAYNUMBER(vehicleTypeEditorMap))
+FXIMPLEMENT(GNEPersonTypeFrame::PersonTypeSelector,   FXGroupBox,     personTypeSelectorMap,     ARRAYNUMBER(personTypeSelectorMap))
+FXIMPLEMENT(GNEPersonTypeFrame::PersonTypeEditor,     FXGroupBox,     personTypeEditorMap,       ARRAYNUMBER(personTypeEditorMap))
 
 // ===========================================================================
 // method definitions
@@ -59,9 +59,9 @@ FXIMPLEMENT(GNEPersonTypeFrame::PersonTypeEditor,     FXGroupBox,     vehicleTyp
 // GNEPersonTypeFrame::PersonTypeSelector - methods
 // ---------------------------------------------------------------------------
 
-GNEPersonTypeFrame::PersonTypeSelector::PersonTypeSelector(GNEPersonTypeFrame* vehicleTypeFrameParent) :
-    FXGroupBox(vehicleTypeFrameParent->myContentFrame, "Current Vehicle Type", GUIDesignGroupBoxFrame),
-    myPersonTypeFrameParent(vehicleTypeFrameParent),
+GNEPersonTypeFrame::PersonTypeSelector::PersonTypeSelector(GNEPersonTypeFrame* personTypeFrameParent) :
+    FXGroupBox(personTypeFrameParent->myContentFrame, "Current Person Type", GUIDesignGroupBoxFrame),
+    myPersonTypeFrameParent(personTypeFrameParent),
     myCurrentPersonType(nullptr) {
     // Create FXComboBox
     myTypeMatchBox = new FXComboBox(this, GUIDesignComboBoxNCol, this, MID_GNE_SET_TYPE, GUIDesignComboBox);
@@ -69,8 +69,8 @@ GNEPersonTypeFrame::PersonTypeSelector::PersonTypeSelector(GNEPersonTypeFrame* v
     for (const auto& i : myPersonTypeFrameParent->getViewNet()->getNet()->getAttributeCarriers().demandElements.at(SUMO_TAG_VTYPE)) {
         myTypeMatchBox->appendItem(i.first.c_str());
     }
-    // set DEFAULT_VEHTYPE as default VType
-    myCurrentPersonType = myPersonTypeFrameParent->getViewNet()->getNet()->retrieveDemandElement(SUMO_TAG_VTYPE, DEFAULT_VTYPE_ID);
+    // set DEFAULT_PEDTYPE_ID as default VType
+    myCurrentPersonType = myPersonTypeFrameParent->getViewNet()->getNet()->retrieveDemandElement(SUMO_TAG_VTYPE, DEFAULT_PEDTYPE_ID);
     // Set visible items
     if (myTypeMatchBox->getNumItems() <= 20) {
         myTypeMatchBox->setNumVisible((int)myTypeMatchBox->getNumItems());
@@ -130,7 +130,7 @@ GNEPersonTypeFrame::PersonTypeSelector::refreshPersonTypeSelector() {
             }
         }
     }
-    // refresh vehicle type editor modul
+    // refresh person type editor modul
     myPersonTypeFrameParent->myPersonTypeEditor->refreshPersonTypeEditorModul();
     // show Attribute Editor modul if selected item is valid
     myPersonTypeFrameParent->myPersonTypeAttributesEditor->showAttributeEditorModul({myCurrentPersonType}, false);
@@ -146,7 +146,7 @@ GNEPersonTypeFrame::PersonTypeSelector::onCmdSelectItem(FXObject*, FXSelector, v
             myCurrentPersonType = i.second;
             // set color of myTypeMatchBox to black (valid)
             myTypeMatchBox->setTextColor(FXRGB(0, 0, 0));
-            // refresh vehicle type editor modul
+            // refresh person type editor modul
             myPersonTypeFrameParent->myPersonTypeEditor->refreshPersonTypeEditorModul();
             // show moduls if selected item is valid
             myPersonTypeFrameParent->myPersonTypeAttributesEditor->showAttributeEditorModul({myCurrentPersonType}, false);
@@ -156,7 +156,7 @@ GNEPersonTypeFrame::PersonTypeSelector::onCmdSelectItem(FXObject*, FXSelector, v
         }
     }
     myCurrentPersonType = nullptr;
-    // refresh vehicle type editor modul
+    // refresh person type editor modul
     myPersonTypeFrameParent->myPersonTypeEditor->refreshPersonTypeEditorModul();
     // hide all moduls if selected item isn't valid
     myPersonTypeFrameParent->myPersonTypeAttributesEditor->hideAttributesEditorModul();
@@ -171,17 +171,17 @@ GNEPersonTypeFrame::PersonTypeSelector::onCmdSelectItem(FXObject*, FXSelector, v
 // GNEPersonTypeFrame::PersonTypeEditor - methods
 // ---------------------------------------------------------------------------
 
-GNEPersonTypeFrame::PersonTypeEditor::PersonTypeEditor(GNEPersonTypeFrame* vehicleTypeFrameParent) :
-    FXGroupBox(vehicleTypeFrameParent->myContentFrame, "Vehicle Type Editor", GUIDesignGroupBoxFrame),
-    myPersonTypeFrameParent(vehicleTypeFrameParent) {
-    // Create new vehicle type
-    myCreatePersonTypeButton = new FXButton(this, "Create Vehicle Type", nullptr, this, MID_GNE_VEHICLETYPEFRAME_CREATE, GUIDesignButton);
-    // Create delete vehicle type
-    myDeletePersonTypeButton = new FXButton(this, "Delete Vehicle Type", nullptr, this, MID_GNE_VEHICLETYPEFRAME_DELETE, GUIDesignButton);
-    // Create reset vehicle type
-    myResetDefaultPersonTypeButton = new FXButton(this, "Reset default Vehicle Type", nullptr, this, MID_GNE_VEHICLETYPEFRAME_RESET, GUIDesignButton);
-    // Create copy vehicle type
-    myCopyPersonTypeButton = new FXButton(this, "Copy Vehicle Type", nullptr, this, MID_GNE_VEHICLETYPEFRAME_COPY, GUIDesignButton);
+GNEPersonTypeFrame::PersonTypeEditor::PersonTypeEditor(GNEPersonTypeFrame* personTypeFrameParent) :
+    FXGroupBox(personTypeFrameParent->myContentFrame, "Person Type Editor", GUIDesignGroupBoxFrame),
+    myPersonTypeFrameParent(personTypeFrameParent) {
+    // Create new person type
+    myCreatePersonTypeButton = new FXButton(this, "Create Person Type", nullptr, this, MID_GNE_VEHICLETYPEFRAME_CREATE, GUIDesignButton);
+    // Create delete person type
+    myDeletePersonTypeButton = new FXButton(this, "Delete Person Type", nullptr, this, MID_GNE_VEHICLETYPEFRAME_DELETE, GUIDesignButton);
+    // Create reset person type
+    myResetDefaultPersonTypeButton = new FXButton(this, "Reset default Person Type", nullptr, this, MID_GNE_VEHICLETYPEFRAME_RESET, GUIDesignButton);
+    // Create copy person type
+    myCopyPersonTypeButton = new FXButton(this, "Copy Person Type", nullptr, this, MID_GNE_VEHICLETYPEFRAME_COPY, GUIDesignButton);
 }
 
 
@@ -212,10 +212,10 @@ GNEPersonTypeFrame::PersonTypeEditor::refreshPersonTypeEditorModul() {
     } else if (GNEAttributeCarrier::parse<bool>(myPersonTypeFrameParent->myPersonTypeSelector->getCurrentPersonType()->getAttribute(GNE_ATTR_DEFAULT_VTYPE))) {
         // enable copy button
         myCopyPersonTypeButton->enable();
-        // hide delete vehicle type buttond and show reset default vehicle type button
+        // hide delete person type buttond and show reset default person type button
         myDeletePersonTypeButton->hide();
         myResetDefaultPersonTypeButton->show();
-        // check if reset default vehicle type button has to be enabled or disabled
+        // check if reset default person type button has to be enabled or disabled
         if (GNEAttributeCarrier::parse<bool>(myPersonTypeFrameParent->myPersonTypeSelector->getCurrentPersonType()->getAttribute(GNE_ATTR_DEFAULT_VTYPE_MODIFIED))) {
             myResetDefaultPersonTypeButton->enable();
         } else {
@@ -224,7 +224,7 @@ GNEPersonTypeFrame::PersonTypeEditor::refreshPersonTypeEditorModul() {
     } else {
         // enable copy button
         myCopyPersonTypeButton->enable();
-        // show delete vehicle type button and hide reset default vehicle type button
+        // show delete person type button and hide reset default person type button
         myDeletePersonTypeButton->show();
         myDeletePersonTypeButton->enable();
         myResetDefaultPersonTypeButton->hide();
@@ -237,14 +237,14 @@ GNEPersonTypeFrame::PersonTypeEditor::refreshPersonTypeEditorModul() {
 long
 GNEPersonTypeFrame::PersonTypeEditor::onCmdCreatePersonType(FXObject*, FXSelector, void*) {
     // obtain a new valid Vehicle Type ID
-    std::string vehicleTypeID = myPersonTypeFrameParent->myViewNet->getNet()->generateDemandElementID("", SUMO_TAG_VTYPE);
-    // create new vehicle type
-    GNEDemandElement* personType = new GNEVehicleType(myPersonTypeFrameParent->myViewNet, vehicleTypeID);
+    std::string personTypeID = myPersonTypeFrameParent->myViewNet->getNet()->generateDemandElementID("", SUMO_TAG_VTYPE);
+    // create new person type
+    GNEDemandElement* personType = new GNEVehicleType(myPersonTypeFrameParent->myViewNet, personTypeID);
     // add it using undoList (to allow undo-redo)
     myPersonTypeFrameParent->myViewNet->getUndoList()->p_begin("create person type");
     myPersonTypeFrameParent->myViewNet->getUndoList()->add(new GNEChange_DemandElement(personType, true), true);
     myPersonTypeFrameParent->myViewNet->getUndoList()->p_end();
-    // set created vehicle type in selector
+    // set created person type in selector
     myPersonTypeFrameParent->myPersonTypeSelector->setCurrentPersonType(personType);
     // refresh PersonType Editor Modul
     myPersonTypeFrameParent->myPersonTypeEditor->refreshPersonTypeEditorModul();
@@ -254,7 +254,7 @@ GNEPersonTypeFrame::PersonTypeEditor::onCmdCreatePersonType(FXObject*, FXSelecto
 
 long
 GNEPersonTypeFrame::PersonTypeEditor::onCmdDeletePersonType(FXObject*, FXSelector, void*) {
-    // show question dialog if vtype has already assigned vehicles
+    // show question dialog if vtype has already assigned persons
     if (myPersonTypeFrameParent->myPersonTypeSelector->getCurrentPersonType()->getDemandElementChilds().size() > 0) {
         std::string plural = myPersonTypeFrameParent->myPersonTypeSelector->getCurrentPersonType()->getDemandElementChilds().size() == 1 ? ("") : ("s");
         // show warning in gui testing debug mode
@@ -264,7 +264,7 @@ GNEPersonTypeFrame::PersonTypeEditor::onCmdDeletePersonType(FXObject*, FXSelecto
                                                ("Remove " + toString(SUMO_TAG_VTYPE) + "s").c_str(), "%s",
                                                ("Delete " + toString(SUMO_TAG_VTYPE) + " '" + myPersonTypeFrameParent->myPersonTypeSelector->getCurrentPersonType()->getID() +
                                                 "' will remove " + toString(myPersonTypeFrameParent->myPersonTypeSelector->getCurrentPersonType()->getDemandElementChilds().size()) +
-                                                " vehicle" + plural + ". Continue?").c_str());
+                                                " person" + plural + ". Continue?").c_str());
         if (answer != 1) { // 1:yes, 2:no, 4:esc
             // write warning if netedit is running in testing mode
             if (answer == 2) {
@@ -274,8 +274,8 @@ GNEPersonTypeFrame::PersonTypeEditor::onCmdDeletePersonType(FXObject*, FXSelecto
             }
         } else {
             // begin undo list operation
-            myPersonTypeFrameParent->myViewNet->getUndoList()->p_begin("delete vehicle type");
-            // remove vehicle type (and all of their childs)
+            myPersonTypeFrameParent->myViewNet->getUndoList()->p_begin("delete person type");
+            // remove person type (and all of their childs)
             myPersonTypeFrameParent->myViewNet->getNet()->deleteDemandElement(myPersonTypeFrameParent->myPersonTypeSelector->getCurrentPersonType(),
                 myPersonTypeFrameParent->myViewNet->getUndoList());
             // end undo list operation
@@ -283,8 +283,8 @@ GNEPersonTypeFrame::PersonTypeEditor::onCmdDeletePersonType(FXObject*, FXSelecto
         }
     } else {
         // begin undo list operation
-        myPersonTypeFrameParent->myViewNet->getUndoList()->p_begin("delete vehicle type");
-        // remove vehicle type (and all of their childs)
+        myPersonTypeFrameParent->myViewNet->getUndoList()->p_begin("delete person type");
+        // remove person type (and all of their childs)
         myPersonTypeFrameParent->myViewNet->getNet()->deleteDemandElement(myPersonTypeFrameParent->myPersonTypeSelector->getCurrentPersonType(),
             myPersonTypeFrameParent->myViewNet->getUndoList());
         // end undo list operation
@@ -296,9 +296,9 @@ GNEPersonTypeFrame::PersonTypeEditor::onCmdDeletePersonType(FXObject*, FXSelecto
 
 long
 GNEPersonTypeFrame::PersonTypeEditor::onCmdResetPersonType(FXObject*, FXSelector, void*) {
-    // begin reset default vehicle type values
-    myPersonTypeFrameParent->getViewNet()->getUndoList()->p_begin("reset default vehicle type values");
-    // reset all values of default vehicle type
+    // begin reset default person type values
+    myPersonTypeFrameParent->getViewNet()->getUndoList()->p_begin("reset default person type values");
+    // reset all values of default person type
     for (const auto& i : GNEAttributeCarrier::getTagProperties(SUMO_TAG_VTYPE)) {
         // change all attributes with "" to reset it (except ID and vClass)
         if ((i.first != SUMO_ATTR_ID) && (i.first != SUMO_ATTR_VCLASS)) {
@@ -315,7 +315,7 @@ GNEPersonTypeFrame::PersonTypeEditor::onCmdResetPersonType(FXObject*, FXSelector
     }
     // change special attribute GNE_ATTR_DEFAULT_VTYPE_MODIFIED
     myPersonTypeFrameParent->myPersonTypeSelector->getCurrentPersonType()->setAttribute(GNE_ATTR_DEFAULT_VTYPE_MODIFIED, "false", myPersonTypeFrameParent->myViewNet->getUndoList());
-    // finish reset default vehicle type values
+    // finish reset default person type values
     myPersonTypeFrameParent->getViewNet()->getUndoList()->p_end();
     // refresh PersonTypeSelector
     myPersonTypeFrameParent->myPersonTypeSelector->refreshPersonTypeSelector();
@@ -325,23 +325,23 @@ GNEPersonTypeFrame::PersonTypeEditor::onCmdResetPersonType(FXObject*, FXSelector
 
 long
 GNEPersonTypeFrame::PersonTypeEditor::onCmdCopyPersonType(FXObject*, FXSelector, void*) {
-    // obtain a new valid Vehicle Type ID
-    std::string vehicleTypeID = myPersonTypeFrameParent->myViewNet->getNet()->generateDemandElementID("", SUMO_TAG_VTYPE);
-    // obtain vehicle type in which new vehicle Type will be based
+    // obtain a new valid person Type ID
+    std::string personTypeID = myPersonTypeFrameParent->myViewNet->getNet()->generateDemandElementID("", SUMO_TAG_VTYPE);
+    // obtain person type in which new person Type will be based
     GNEVehicleType* vType = dynamic_cast<GNEVehicleType*>(myPersonTypeFrameParent->myPersonTypeSelector->getCurrentPersonType());
     // check that vType exist
     if (vType) {
-        // create a new Vehicle Type based on the current selected vehicle type
-        GNEDemandElement* personTypeCopy = new GNEVehicleType(myPersonTypeFrameParent->myViewNet, vehicleTypeID, vType);
+        // create a new person Type based on the current selected person type
+        GNEDemandElement* personTypeCopy = new GNEVehicleType(myPersonTypeFrameParent->myViewNet, personTypeID, vType);
         // begin undo list operation
-        myPersonTypeFrameParent->myViewNet->getUndoList()->p_begin("copy vehicle type");
+        myPersonTypeFrameParent->myViewNet->getUndoList()->p_begin("copy person type");
         // add it using undoList (to allow undo-redo)
         myPersonTypeFrameParent->myViewNet->getUndoList()->add(new GNEChange_DemandElement(personTypeCopy, true), true);
         // end undo list operation
         myPersonTypeFrameParent->myViewNet->getUndoList()->p_end();
         // refresh Vehicle Type Selector (to show the new VType)
         myPersonTypeFrameParent->myPersonTypeSelector->refreshPersonTypeSelector();
-        // set created vehicle type in selector
+        // set created person type in selector
         myPersonTypeFrameParent->myPersonTypeSelector->setCurrentPersonType(personTypeCopy);
         // refresh PersonType Editor Modul
         myPersonTypeFrameParent->myPersonTypeEditor->refreshPersonTypeEditorModul();
@@ -356,19 +356,19 @@ GNEPersonTypeFrame::PersonTypeEditor::onCmdCopyPersonType(FXObject*, FXSelector,
 GNEPersonTypeFrame::GNEPersonTypeFrame(FXHorizontalFrame* horizontalFrameParent, GNEViewNet* viewNet) :
     GNEFrame(horizontalFrameParent, viewNet, "Vehicle Types") {
 
-    // create modul for edit vehicle types (Create, copy, etc.)
+    // create modul for edit person types (Create, copy, etc.)
     myPersonTypeEditor = new PersonTypeEditor(this);
 
-    // create vehicle type selector
+    // create person type selector
     myPersonTypeSelector = new PersonTypeSelector(this);
 
-    // Create vehicle type attributes editor
+    // Create person type attributes editor
     myPersonTypeAttributesEditor = new AttributesEditor(this);
 
     // create modul for open extended attributes dialog
     myAttributesEditorExtended = new AttributesEditorExtended(this);
 
-    // set "VTYPE_DEFAULT" as default vehicle Type
+    // set "VTYPE_DEFAULT" as default person Type
     myPersonTypeSelector->setCurrentPersonType(myViewNet->getNet()->retrieveDemandElement(SUMO_TAG_VTYPE, DEFAULT_VTYPE_ID));
 }
 
@@ -378,9 +378,9 @@ GNEPersonTypeFrame::~GNEPersonTypeFrame() {}
 
 void
 GNEPersonTypeFrame::show() {
-    // refresh vehicle type and Attribute Editor
+    // refresh person type and Attribute Editor
     myPersonTypeSelector->refreshPersonTypeSelector();
-    // show vehicle type attributes editor (except extended attributes)
+    // show person type attributes editor (except extended attributes)
     myPersonTypeAttributesEditor->showAttributeEditorModul({myPersonTypeSelector->getCurrentPersonType()}, false);
     // show frame
     GNEFrame::show();
@@ -401,7 +401,7 @@ GNEPersonTypeFrame::updateFrameAfterChangeAttribute() {
 
 void
 GNEPersonTypeFrame::openAttributesEditorExtendedDialog() {
-    // open vehicle type dialog
+    // open person type dialog
     if (myPersonTypeSelector->getCurrentPersonType()) {
         GNEVehicleTypeDialog(myPersonTypeSelector->getCurrentPersonType(), true);
         // call "showAttributeEditorModul" to refresh attribute list

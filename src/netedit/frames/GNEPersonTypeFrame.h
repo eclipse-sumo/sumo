@@ -49,7 +49,7 @@ public:
 
     public:
         /// @brief constructor
-        PersonTypeSelector(GNEPersonTypeFrame* vehicleTypeFrameParent);
+        PersonTypeSelector(GNEPersonTypeFrame* personTypeFrameParent);
 
         /// @brief destructor
         ~PersonTypeSelector();
@@ -60,7 +60,7 @@ public:
         /// @brief set current Vehicle Type
         void setCurrentPersonType(GNEDemandElement* vType);
 
-        /// @brief refresh vehicle type
+        /// @brief refresh person type
         void refreshPersonTypeSelector();
 
         /// @name FOX-callbacks
@@ -77,7 +77,7 @@ public:
         /// @brief pointer to Frame Parent
         GNEPersonTypeFrame* myPersonTypeFrameParent;
 
-        /// @brief pointer to current vehicle type
+        /// @brief pointer to current person type
         GNEDemandElement* myCurrentPersonType;
 
         /// @brief comboBox with the list of elements type
@@ -94,7 +94,7 @@ public:
 
     public:
         /// @brief constructor
-        PersonTypeEditor(GNEPersonTypeFrame* vehicleTypeFrameParent);
+        PersonTypeEditor(GNEPersonTypeFrame* personTypeFrameParent);
 
         /// @brief destructor
         ~PersonTypeEditor();
@@ -128,19 +128,19 @@ public:
         PersonTypeEditor() {};
 
     private:
-        /// @brief pointer to vehicle type Frame Parent
+        /// @brief pointer to person type Frame Parent
         GNEPersonTypeFrame* myPersonTypeFrameParent;
 
-        /// @brief "create vehicle type" button
+        /// @brief "create person type" button
         FXButton* myCreatePersonTypeButton;
 
-        /// @brief "delete vehicle type" button
+        /// @brief "delete person type" button
         FXButton* myDeletePersonTypeButton;
 
-        /// @brief "delete default vehicle type" button
+        /// @brief "delete default person type" button
         FXButton* myResetDefaultPersonTypeButton;
 
-        /// @brief "copy vehicle type"
+        /// @brief "copy person type"
         FXButton* myCopyPersonTypeButton;
     };
 
@@ -156,7 +156,7 @@ public:
     /// @brief show Frame
     void show();
 
-    /// @brief get vehicle type selector
+    /// @brief get person type selector
     PersonTypeSelector* getPersonTypeSelector() const;
 
 protected:
@@ -167,10 +167,10 @@ protected:
     void openAttributesEditorExtendedDialog();
 
 private:
-    /// @brief vehicle type selector
+    /// @brief person type selector
     PersonTypeSelector* myPersonTypeSelector;
 
-    /// @brief editorinternal vehicle type attributes
+    /// @brief editorinternal person type attributes
     AttributesEditor* myPersonTypeAttributesEditor;
 
     /// @brief modul for open extended attributes dialog
