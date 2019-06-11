@@ -987,10 +987,20 @@ TraCIAPI::JunctionScope::getIDList() const {
     return myParent.getStringVector(libsumo::CMD_GET_JUNCTION_VARIABLE, libsumo::TRACI_ID_LIST, "");
 }
 
+int
+TraCIAPI::JunctionScope::getIDCount() const {
+    return myParent.getInt(libsumo::CMD_GET_JUNCTION_VARIABLE, libsumo::ID_COUNT, "");
+}
+
 
 libsumo::TraCIPosition
 TraCIAPI::JunctionScope::getPosition(const std::string& junctionID) const {
     return myParent.getPosition(libsumo::CMD_GET_JUNCTION_VARIABLE, libsumo::VAR_POSITION, junctionID);
+}
+
+libsumo::TraCIPositionVector
+TraCIAPI::JunctionScope::getShape(const std::string& junctionID) const {
+    return myParent.getPolygon(libsumo::CMD_GET_JUNCTION_VARIABLE, libsumo::VAR_SHAPE, junctionID);
 }
 
 

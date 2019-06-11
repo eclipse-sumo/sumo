@@ -1,4 +1,4 @@
-TraCITestClient output file. Date: Tue Jun  4 12:59:18 2019
+TraCITestClient output file. Date: Tue Jun 11 13:05:13 2019
 
 
 -> Command sent: <SetOrder>:
@@ -41,6 +41,10 @@ testAPI:
     getShape: TraCIPosition(800,1000,0) TraCIPosition(1200,1000,0) TraCIPosition(1200,900,0) TraCIPosition(800,900,0) 
     getColor: TraCIColor(0,255,255,255)
     getShape after modification: TraCIPosition(42,1000,0) TraCIPosition(1200,1000,0) TraCIPosition(1200,900,0) TraCIPosition(800,900,0) 
+  junction:
+    getIDList: :n_m4_7_0 n_m0 n_m1 n_m2 n_m3 n_m4 n_m5 n_m6 n_m7 n_o0 n_o1 n_o2 n_u0 n_u1 n_u2 n_x0 n_x1 n_x2
+    getIDCount: 18
+    getShape: TraCIPosition(1993.45,501.45,0) TraCIPosition(1999.95,501.45,0) TraCIPosition(2008.05,499.95,0) TraCIPosition(2008.05,490.15,0) TraCIPosition(2006.55,488.65,0) TraCIPosition(2000.05,488.65,0) TraCIPosition(1991.95,490.15,0) TraCIPosition(1991.95,499.95,0) TraCIPosition(1993.45,501.45,0) 
   route:
     add:
     getIDList: e_m4 e_u1 r1

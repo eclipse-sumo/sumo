@@ -720,6 +720,17 @@ TraCITestClient::testAPI() {
     }
     answerLog << "    getShape after modification: " << shapeStr2 << "\n";
 
+    // junction
+    answerLog << "  junction:\n";
+    answerLog << "    getIDList: " << joinToString(junction.getIDList(), " ") << "\n";
+    answerLog << "    getIDCount: " << junction.getIDCount() << "\n";
+    std::vector<libsumo::TraCIPosition> junctionShape = junction.getShape("n_m4");
+    std::string junctionShapeStr;
+    for (auto pos : junctionShape) {
+        junctionShapeStr += pos.getString() + " ";
+    }
+    answerLog << "    getShape: " << junctionShapeStr << "\n";
+
     // route
     answerLog << "  route:\n";
     answerLog << "    add:\n";

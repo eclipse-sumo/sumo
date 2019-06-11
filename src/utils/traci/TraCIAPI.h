@@ -288,7 +288,9 @@ public:
         virtual ~JunctionScope() {}
 
         std::vector<std::string> getIDList() const;
+        int getIDCount() const;
         libsumo::TraCIPosition getPosition(const std::string& junctionID) const;
+        libsumo::TraCIPositionVector getShape(const std::string& junctionID) const;
 
     private:
         /// @brief invalidated copy constructor
