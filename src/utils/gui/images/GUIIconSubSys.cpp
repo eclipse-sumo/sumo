@@ -121,13 +121,14 @@
 #include "lock.xpm"
 #include "add.xpm"
 #include "remove.xpm"
-#include "neteditarrowleft.xpm"
-#include "neteditarrowright.xpm"
 
 #include "arrowup.xpm"
 #include "arrowdown.xpm"
 #include "arrowleft.xpm"
 #include "arrowright.xpm"
+
+#include "bigarrowleft.xpm"
+#include "bigarrowright.xpm"
 
 #include "lanebike.xpm"
 #include "lanebus.xpm"
@@ -398,8 +399,8 @@ GUIIconSubSys::GUIIconSubSys(FXApp* a) {
     myIcons[ICON_LOCK] = new FXXPMIcon(a, lock_xpm);
     myIcons[ICON_ADD] = new FXXPMIcon(a, add_xpm);
     myIcons[ICON_REMOVE] = new FXXPMIcon(a, remove_xpm);
-    myIcons[ICON_NETEDITARROWLEFT] = new FXXPMIcon(a, neteditarrowleft_xmp);
-    myIcons[ICON_NETEDITARROWRIGHT] = new FXXPMIcon(a, neteditarrowright_xmp);
+    myIcons[ICON_BIGARROWLEFT] = new FXXPMIcon(a, bigarrowleft_xmp);
+    myIcons[ICON_BIGARROWRIGHT] = new FXXPMIcon(a, bigarrowright_xmp);
 
     myIcons[ICON_ARROW_UP] = new FXXPMIcon(a, arrowup_xpm);
     myIcons[ICON_ARROW_DOWN] = new FXXPMIcon(a, arrowdown_xpm);

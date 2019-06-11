@@ -183,8 +183,8 @@ enum GUIIcon {
     ICON_LOCK,
     ICON_ADD,
     ICON_REMOVE,
-    ICON_NETEDITARROWLEFT,
-    ICON_NETEDITARROWRIGHT,
+    ICON_BIGARROWLEFT,
+    ICON_BIGARROWRIGHT,
     /// @}
     
     /// @name arrows
