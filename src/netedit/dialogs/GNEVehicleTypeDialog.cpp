@@ -74,15 +74,18 @@ GNEVehicleTypeDialog::VTypeAtributes::VClassRow::VClassRow(VTypeAtributes* VType
                                       VTypeAtributesParent, MID_GNE_SET_ATTRIBUTE, GUIDesignComboBox);
     myComboBoxVClassLabelImage = new FXLabel(this, "", nullptr, GUIDesignLabelTickedIcon180x46);
     myComboBoxVClassLabelImage->setBackColor(FXRGBA(255, 255, 255, 255));
-    // fill combo Box with all VClass
-    std::vector<std::string> VClassStrings = SumoVehicleClassStrings.getStrings();
-    for (auto i : VClassStrings) {
+    // fill combo Box with all allowed VClass for the current edited VType
+    for (const auto &i : myVTypeAtributesParent->myVehicleTypeDialog->getEditedDemandElement()->getTagProperty().getAttributeProperties(SUMO_ATTR_VCLASS).getDiscreteValues()) {
         if (i != SumoVehicleClassStrings.getString(SVC_IGNORING)) {
             myComboBoxVClass->appendItem(i.c_str());
         }
     }
-    // only show 10 VClasses
-    myComboBoxVClass->setNumVisible(10);
+    // only show as maximum 10 VClasses
+    if (myComboBoxVClass->getNumItems() > 10) {
+        myComboBoxVClass->setNumVisible(10);
+    } else {
+        myComboBoxVClass->setNumVisible(myComboBoxVClass->getNumItems());
+    }
 }
 
 
