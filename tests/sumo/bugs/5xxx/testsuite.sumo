@@ -24,3 +24,6 @@ ticket5704
 
 # ensure that the fix for 5074 does not impact the use case with device.rerouting.pre-period 0 and scale 1
 ticket5704b
+
+# sumo-gui freezes
+ticket5740
