@@ -634,9 +634,10 @@ GUILane::drawGL(const GUIVisualizationSettings& s) const {
                     if ((!isInternal || isCrossing)) {
                         if (MSGlobals::gLateralResolution > 0 && s.showSublanes && !hiddenBidi && !isCrossing) {
                             // draw sublane-borders
+                            const double offsetSign = MSNet::getInstance()->lefthand() ? -1 : 1;
                             GLHelper::setColor(GLHelper::getColor().changedBrightness(51));
                             for (double offset = -myHalfLaneWidth; offset < myHalfLaneWidth; offset += MSGlobals::gLateralResolution) {
-                                GLHelper::drawBoxLines(myShape, myShapeRotations, myShapeLengths, 0.01, 0, -offset);
+                                GLHelper::drawBoxLines(myShape, myShapeRotations, myShapeLengths, 0.01, 0, -offset * offsetSign);
                             }
                         }
                         if (s.showLinkDecals && !drawAsRailway(s) && !drawAsWaterway(s) && myPermissions != SVC_PEDESTRIAN) {
