@@ -45,11 +45,11 @@ FXDEFMAP(GNEInspectorFrame) GNEInspectorFrameMap[] = {
 };
 
 FXDEFMAP(GNEInspectorFrame::OverlappedInspection) OverlappedInspectionMap[] = {
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_INSPECTORFRAME_NEXT,            GNEInspectorFrame::OverlappedInspection::onCmdNextElement),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_INSPECTORFRAME_PREVIOUS,        GNEInspectorFrame::OverlappedInspection::onCmdPreviousElement),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_INSPECTORFRAME_SHOWLIST,        GNEInspectorFrame::OverlappedInspection::onCmdShowList),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_INSPECTORFRAME_ITEMSELECTED,    GNEInspectorFrame::OverlappedInspection::onCmdListItemSelected),
-    FXMAPFUNC(SEL_COMMAND,  MID_HELP,                               GNEInspectorFrame::OverlappedInspection::onCmdOverlappingHelp)
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_OVERLAPPED_NEXT,            GNEInspectorFrame::OverlappedInspection::onCmdNextElement),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_OVERLAPPED_PREVIOUS,        GNEInspectorFrame::OverlappedInspection::onCmdPreviousElement),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_OVERLAPPED_SHOWLIST,        GNEInspectorFrame::OverlappedInspection::onCmdShowList),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_OVERLAPPED_ITEMSELECTED,    GNEInspectorFrame::OverlappedInspection::onCmdListItemSelected),
+    FXMAPFUNC(SEL_COMMAND,  MID_HELP,                           GNEInspectorFrame::OverlappedInspection::onCmdOverlappingHelp)
 };
 
 FXDEFMAP(GNEInspectorFrame::NeteditAttributesEditor) NeteditAttributesEditorMap[] = {
@@ -63,9 +63,9 @@ FXDEFMAP(GNEInspectorFrame::GEOAttributesEditor) GEOAttributesEditorMap[] = {
 };
 
 FXDEFMAP(GNEInspectorFrame::TemplateEditor) TemplateEditorMap[] = {
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_INSPECTORFRAME_COPYTEMPLATE,    GNEInspectorFrame::TemplateEditor::onCmdCopyTemplate),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_INSPECTORFRAME_SETTEMPLATE,     GNEInspectorFrame::TemplateEditor::onCmdSetTemplate),
-    FXMAPFUNC(SEL_UPDATE,   MID_GNE_INSPECTORFRAME_COPYTEMPLATE,    GNEInspectorFrame::TemplateEditor::onUpdCopyTemplate)
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_TEMPLATE_COPY,  GNEInspectorFrame::TemplateEditor::onCmdCopyTemplate),
+    FXMAPFUNC(SEL_UPDATE,   MID_GNE_TEMPLATE_COPY,  GNEInspectorFrame::TemplateEditor::onUpdCopyTemplate),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_TEMPLATE_SET,   GNEInspectorFrame::TemplateEditor::onCmdSetTemplate)
 };
 
 // Object implementation
@@ -412,13 +412,13 @@ GNEInspectorFrame::OverlappedInspection::OverlappedInspection(GNEInspectorFrame*
     myItemIndex(0) {
     FXHorizontalFrame* frameButtons = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
     // Create previous Item Button
-    myPreviousElement = new FXButton(frameButtons, "", GUIIconSubSys::getIcon(ICON_BIGARROWLEFT), this, MID_GNE_INSPECTORFRAME_PREVIOUS, GUIDesignButtonIconRectangular);
+    myPreviousElement = new FXButton(frameButtons, "", GUIIconSubSys::getIcon(ICON_BIGARROWLEFT), this, MID_GNE_OVERLAPPED_PREVIOUS, GUIDesignButtonIconRectangular);
     // create current index button
-    myCurrentIndexButton = new FXButton(frameButtons, "", nullptr, this, MID_GNE_INSPECTORFRAME_SHOWLIST, GUIDesignButton);
+    myCurrentIndexButton = new FXButton(frameButtons, "", nullptr, this, MID_GNE_OVERLAPPED_SHOWLIST, GUIDesignButton);
     // Create next Item Button
-    myNextElement = new FXButton(frameButtons, "", GUIIconSubSys::getIcon(ICON_BIGARROWRIGHT), this, MID_GNE_INSPECTORFRAME_NEXT, GUIDesignButtonIconRectangular);
+    myNextElement = new FXButton(frameButtons, "", GUIIconSubSys::getIcon(ICON_BIGARROWRIGHT), this, MID_GNE_OVERLAPPED_NEXT, GUIDesignButtonIconRectangular);
     // Create list of overlapped elements (by default hidden)
-    myOverlappedElementList = new FXList(this, this, MID_GNE_INSPECTORFRAME_ITEMSELECTED, GUIDesignListSingleElement);
+    myOverlappedElementList = new FXList(this, this, MID_GNE_OVERLAPPED_ITEMSELECTED, GUIDesignListSingleElement);
     // disable vertical scrolling
     myOverlappedElementList->setScrollStyle(VSCROLLING_OFF);
     // by default list of overlapped elements is hidden)
@@ -1079,11 +1079,11 @@ GNEInspectorFrame::TemplateEditor::TemplateEditor(GNEInspectorFrame* inspectorFr
     myEdgeTemplate(nullptr) {
 
     // Create copy template button
-    myCopyTemplateButton = new FXButton(this, "", nullptr, this, MID_GNE_INSPECTORFRAME_COPYTEMPLATE, GUIDesignButton);
+    myCopyTemplateButton = new FXButton(this, "", nullptr, this, MID_GNE_TEMPLATE_COPY, GUIDesignButton);
     myCopyTemplateButton->hide();
 
     // Create set template button
-    mySetTemplateButton = new FXButton(this, "Set as Template\t\t", nullptr, this, MID_GNE_INSPECTORFRAME_SETTEMPLATE, GUIDesignButton);
+    mySetTemplateButton = new FXButton(this, "Set as Template\t\t", nullptr, this, MID_GNE_TEMPLATE_SET, GUIDesignButton);
     mySetTemplateButton->hide();
 }
 

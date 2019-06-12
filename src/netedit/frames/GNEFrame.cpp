@@ -56,7 +56,7 @@ FXDEFMAP(GNEFrame::TagSelector) TagSelectorMap[] = {
     FXMAPFUNC(SEL_COMMAND, MID_GNE_SET_TYPE,    GNEFrame::TagSelector::onCmdSelectItem)
 };
 
-FXDEFMAP(GNEFrame::DemandElementSelector) VTypeSelectorMap[] = {
+FXDEFMAP(GNEFrame::DemandElementSelector) DemandElementSelectorMap[] = {
     FXMAPFUNC(SEL_COMMAND, MID_GNE_SET_TYPE,    GNEFrame::DemandElementSelector::onCmdSelectVType),
 };
 
@@ -93,10 +93,10 @@ FXDEFMAP(GNEFrame::AttributesEditorExtended) AttributesEditorExtendedMap[] = {
 };
 
 FXDEFMAP(GNEFrame::AttributeCarrierHierarchy) AttributeCarrierHierarchyMap[] = {
-    FXMAPFUNC(SEL_COMMAND,              MID_GNE_INSPECTORFRAME_CENTER,      GNEFrame::AttributeCarrierHierarchy::onCmdCenterItem),
-    FXMAPFUNC(SEL_COMMAND,              MID_GNE_INSPECTORFRAME_INSPECT,     GNEFrame::AttributeCarrierHierarchy::onCmdInspectItem),
-    FXMAPFUNC(SEL_COMMAND,              MID_GNE_INSPECTORFRAME_DELETE,      GNEFrame::AttributeCarrierHierarchy::onCmdDeleteItem),
-    FXMAPFUNC(SEL_RIGHTBUTTONRELEASE,   MID_GNE_DELETEFRAME_CHILDS,         GNEFrame::AttributeCarrierHierarchy::onCmdShowChildMenu)
+    FXMAPFUNC(SEL_COMMAND,              MID_GNE_CENTER_ITEM,    GNEFrame::AttributeCarrierHierarchy::onCmdCenterItem),
+    FXMAPFUNC(SEL_COMMAND,              MID_GNE_INSPECT_ITEM,   GNEFrame::AttributeCarrierHierarchy::onCmdInspectItem),
+    FXMAPFUNC(SEL_COMMAND,              MID_GNE_DELETE_ITEM,    GNEFrame::AttributeCarrierHierarchy::onCmdDeleteItem),
+    FXMAPFUNC(SEL_RIGHTBUTTONRELEASE,   MID_GNE_SHOWCHILDMENU,  GNEFrame::AttributeCarrierHierarchy::onCmdShowChildMenu)
 };
 
 FXDEFMAP(GNEFrame::GenericParametersEditor) GenericParametersEditorMap[] = {
@@ -117,8 +117,8 @@ FXDEFMAP(GNEFrame::NeteditAttributes) NeteditAttributesMap[] = {
 
 // Object implementation
 FXIMPLEMENT(GNEFrame::TagSelector,                              FXGroupBox,         TagSelectorMap,                 ARRAYNUMBER(TagSelectorMap))
-FXIMPLEMENT(GNEFrame::DemandElementSelector,                            FXGroupBox,         VTypeSelectorMap,               ARRAYNUMBER(VTypeSelectorMap))
-FXIMPLEMENT(GNEFrame::EdgePathCreator,                         FXGroupBox,         EdgePathCreatorMap,            ARRAYNUMBER(EdgePathCreatorMap))
+FXIMPLEMENT(GNEFrame::DemandElementSelector,                    FXGroupBox,         DemandElementSelectorMap,       ARRAYNUMBER(DemandElementSelectorMap))
+FXIMPLEMENT(GNEFrame::EdgePathCreator,                          FXGroupBox,         EdgePathCreatorMap,             ARRAYNUMBER(EdgePathCreatorMap))
 FXIMPLEMENT(GNEFrame::AttributesCreator,                        FXGroupBox,         AttributesCreatorMap,           ARRAYNUMBER(AttributesCreatorMap))
 FXIMPLEMENT(GNEFrame::AttributesCreator::AttributesCreatorRow,  FXHorizontalFrame,  RowCreatorMap,                  ARRAYNUMBER(RowCreatorMap))
 FXIMPLEMENT(GNEFrame::AttributesEditor,                         FXGroupBox,         AttributesEditorMap,            ARRAYNUMBER(AttributesEditorMap))
@@ -1933,7 +1933,7 @@ GNEFrame::AttributeCarrierHierarchy::AttributeCarrierHierarchy(GNEFrame* framePa
     myFrameParent(frameParent),
     myAC(nullptr) {
     // Create three list
-    myTreelist = new FXTreeList(this, this, MID_GNE_DELETEFRAME_CHILDS, GUIDesignTreeListFrame);
+    myTreelist = new FXTreeList(this, this, MID_GNE_SHOWCHILDMENU, GUIDesignTreeListFrame);
     hide();
 }
 
@@ -2065,9 +2065,9 @@ GNEFrame::AttributeCarrierHierarchy::createPopUpMenu(int X, int Y, GNEAttributeC
         new MFXMenuHeader(pane, myFrameParent->myViewNet->getViewParent()->getGUIMainWindow()->getBoldFont(), myRightClickedAC->getPopUpID().c_str(), myRightClickedAC->getIcon());
         new FXMenuSeparator(pane);
         // Fill FXMenuCommand
-        new FXMenuCommand(pane, "Center", GUIIconSubSys::getIcon(ICON_RECENTERVIEW), this, MID_GNE_INSPECTORFRAME_CENTER);
-        FXMenuCommand* inspectMenuCommand = new FXMenuCommand(pane, "Inspect", GUIIconSubSys::getIcon(ICON_MODEINSPECT), this, MID_GNE_INSPECTORFRAME_INSPECT);
-        FXMenuCommand* deleteMenuCommand = new FXMenuCommand(pane, "Delete", GUIIconSubSys::getIcon(ICON_MODEDELETE), this, MID_GNE_INSPECTORFRAME_DELETE);
+        new FXMenuCommand(pane, "Center", GUIIconSubSys::getIcon(ICON_RECENTERVIEW), this, MID_GNE_CENTER_ITEM);
+        FXMenuCommand* inspectMenuCommand = new FXMenuCommand(pane, "Inspect", GUIIconSubSys::getIcon(ICON_MODEINSPECT), this, MID_GNE_INSPECT_ITEM);
+        FXMenuCommand* deleteMenuCommand = new FXMenuCommand(pane, "Delete", GUIIconSubSys::getIcon(ICON_MODEDELETE), this, MID_GNE_DELETE_ITEM);
         // check if inspect and delete menu commands has to be disabled
         if ((myRightClickedAC->getTagProperty().isNetElement() && (myFrameParent->myViewNet->getEditModes().currentSupermode == GNE_SUPERMODE_DEMAND)) ||
             (myRightClickedAC->getTagProperty().isDemandElement() && (myFrameParent->myViewNet->getEditModes().currentSupermode == GNE_SUPERMODE_NETWORK))) {

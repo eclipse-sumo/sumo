@@ -496,19 +496,6 @@ enum {
     MID_CHOOSEN_NAME,
     /// @}
 
-    /// NETEDIT
-
-    /// @brief tree list with the childs
-    MID_GNE_DELETEFRAME_CHILDS,
-    /// @brief In GNEDeleteFrame, center element
-    MID_GNE_DELETEFRAME_CENTER,
-    /// @brief In GNEDeleteFrame, inspect element
-    MID_GNE_DELETEFRAME_INSPECT,
-    /// @brief In GNEDeleteFrame, delete element
-    MID_GNE_DELETEFRAME_DELETE,
-    /// @}
-
-
     /// @name IDs for visualization settings - Dialog
     /// @{
 
@@ -625,6 +612,18 @@ enum {
     MID_GNE_EDGEPATH_FINISH,
     /// @brief remove last inserted edge of edge path
     MID_GNE_EDGEPATH_REMOVELASTEDGE,
+    /// @brief In AttributeCarrierHierarchy or deleteFrame, center element
+    MID_GNE_CENTER_ITEM,
+    /// @brief In AttributeCarrierHierarchy or deleteFrame, inspect element
+    MID_GNE_INSPECT_ITEM,
+    /// @brief In AttributeCarrierHierarchy or deleteFrame, delete element
+    MID_GNE_DELETE_ITEM,
+    /// @brief In AttributeCarrierHierarchy show child menu
+    MID_GNE_SHOWCHILDMENU,
+    /// @brief set object as template
+    MID_GNE_TEMPLATE_SET,
+    /// @brief copy template
+    MID_GNE_TEMPLATE_COPY,
     /// @}
 
 
@@ -664,27 +663,16 @@ enum {
 
     /// @name GNEInspectorFrame messages
     /// @{
-
-    /// @brief In GNEINSPECTORFRAME, center element
-    MID_GNE_INSPECTORFRAME_CENTER,
-    /// @brief In GNEINSPECTORFRAME, inspect element
-    MID_GNE_INSPECTORFRAME_INSPECT,
-    /// @brief In GNEINSPECTORFRAME, delete element
-    MID_GNE_INSPECTORFRAME_DELETE,
-    /// @brief set object as template
-    MID_GNE_INSPECTORFRAME_SETTEMPLATE,
-    /// @brief copy template
-    MID_GNE_INSPECTORFRAME_COPYTEMPLATE,
     /// @brief go back to the previous element
     MID_GNE_INSPECTORFRAME_GOBACK,
-    /// @brief inspect next element
-    MID_GNE_INSPECTORFRAME_NEXT,
-    /// @brief inspect previous element
-    MID_GNE_INSPECTORFRAME_PREVIOUS,
+    /// @brief inspect next element in overlapped modul
+    MID_GNE_OVERLAPPED_NEXT,
+    /// @brief inspect previous element in overlapped modul
+    MID_GNE_OVERLAPPED_PREVIOUS,
     /// @brief show list of overlapped elements
-    MID_GNE_INSPECTORFRAME_SHOWLIST,
-    /// @brief list item selected
-    MID_GNE_INSPECTORFRAME_ITEMSELECTED,
+    MID_GNE_OVERLAPPED_SHOWLIST,
+    /// @brief list item selected in overlapped modul
+    MID_GNE_OVERLAPPED_ITEMSELECTED,
     /// @}
 
 
