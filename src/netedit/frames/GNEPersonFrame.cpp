@@ -138,7 +138,7 @@ GNEPersonFrame::GNEPersonFrame(FXHorizontalFrame* horizontalFrameParent, GNEView
     myPersonPlanAttributes = new AttributesCreator(this);
 
     // create EdgePathCreator Modul
-    myEdgePathCreator = new EdgePathCreator(this);
+    myEdgePathCreator = new EdgePathCreator(this, EdgePathCreator::EdgePathCreatorModes::GNE_EDGEPATHCREATOR_FROM_TO_VIA);
 
     // create Help Creation Modul
     myHelpCreation = new HelpCreation(this);

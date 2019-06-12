@@ -372,10 +372,11 @@ GNEFrame::DemandElementSelector::onCmdSelectDemandElement(FXObject*, FXSelector,
 // GNEFrame::EdgePathCreator - methods
 // ---------------------------------------------------------------------------
 
-GNEFrame::EdgePathCreator::EdgePathCreator(GNEFrame* frameParent) :
+GNEFrame::EdgePathCreator::EdgePathCreator(GNEFrame* frameParent, int edgePathCreatorModes) :
     FXGroupBox(frameParent->myContentFrame, "Route creator", GUIDesignGroupBoxFrame),
+    myFrameParent(frameParent),
     myVClass(SVC_PASSENGER),
-    myFrameParent(frameParent) {
+    myEdgePathCreatorModes(edgePathCreatorModes) {
 
     // create button for create GEO POIs
     myFinishCreationButton = new FXButton(this, "Finish route creation", nullptr, this, MID_GNE_EDGEPATH_FINISH, GUIDesignButton);
@@ -391,8 +392,8 @@ GNEFrame::EdgePathCreator::EdgePathCreator(GNEFrame* frameParent) :
 }
 
 
-GNEFrame::EdgePathCreator::~EdgePathCreator() {
-}
+GNEFrame::EdgePathCreator::~EdgePathCreator() {}
+
 
 void 
 GNEFrame::EdgePathCreator::edgePathCreatorName(const std::string &name) {
@@ -427,6 +428,12 @@ GNEFrame::EdgePathCreator::setVClass(SUMOVehicleClass vClass) {
 }
 
 
+void
+GNEFrame::EdgePathCreator::setEdgePathCreatorModes(int edgePathCreatorModes) {
+    myEdgePathCreatorModes = edgePathCreatorModes;
+}
+
+
 std::vector<GNEEdge*>
 GNEFrame::EdgePathCreator::getSelectedEdges() const {
     return mySelectedEdges;
@@ -455,6 +462,12 @@ GNEFrame::EdgePathCreator::addEdge(GNEEdge* edge) {
             myTemporalRoute = GNEDemandElement::getRouteCalculatorInstance()->calculateDijkstraRoute(myVClass, mySelectedEdges);
         }
     }
+}
+
+
+void 
+GNEFrame::EdgePathCreator::addBusStop(GNEAdditional* /*busStop*/) {
+
 }
 
 

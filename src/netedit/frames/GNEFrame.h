@@ -156,8 +156,17 @@ public:
         FXDECLARE(GNEFrame::EdgePathCreator)
 
     public:
+
+        /// @brief list of the edge path creator modes
+        enum EdgePathCreatorModes {
+            GNE_EDGEPATHCREATOR_CONSECUTIVE =   1 << 0,     // Path must be consecutive
+            GNE_EDGEPATHCREATOR_FROM_TO_VIA =   1 << 1,     // Path requieres a from-via-to edges
+            GNE_EDGEPATHCREATOR_FROM_BUSSTOP =  1 << 2,     // Path start in a BusStop
+            GNE_EDGEPATHCREATOR_TO_BUSSTOP =    1 << 3,     // Path ends in a BusStop
+        };
+
         /// @brief default constructor
-        EdgePathCreator(GNEFrame* frameParent);
+        EdgePathCreator(GNEFrame* frameParent, int edgePathCreatorModes);
 
         /// @brief destructor
         ~EdgePathCreator();
@@ -174,11 +183,17 @@ public:
         /// @brief set SUMOVehicleClass
         void setVClass(SUMOVehicleClass vClass);
 
+        /// @brief set EdgePathCreatorModes
+        void setEdgePathCreatorModes(int edgePathCreatorModes);
+
         /// @brief get current selected edgesm
         std::vector<GNEEdge*> getSelectedEdges() const;
 
-        /// @brief set edge from (and change color)
+        /// @brief add edge to route
         void addEdge(GNEEdge* edge);
+
+        /// @brief add busStop to route
+        void addBusStop(GNEAdditional* busStop);
 
         /// @brief clear edges (and restore colors)
         void clearEdges();
@@ -215,6 +230,15 @@ public:
         /// @brief pointer to GNEFrame Parent
         GNEFrame* myFrameParent;
 
+        /// @brief button for finish route creation
+        FXButton* myFinishCreationButton;
+
+        /// @brief button for abort route creation
+        FXButton* myAbortCreationButton;
+
+        /// @brief button for removing last inserted edge
+        FXButton* myRemoveLastInsertedEdge;
+
         /// @brief VClass used for this trip
         SUMOVehicleClass myVClass;
 
@@ -224,14 +248,8 @@ public:
         /// @brief vector with temporal route edges
         std::vector<GNEEdge*> myTemporalRoute;
 
-        /// @brief button for finish route creation
-        FXButton* myFinishCreationButton;
-
-        /// @brief button for abort route creation
-        FXButton* myAbortCreationButton;
-
-        /// @brief button for removing last inserted edge
-        FXButton* myRemoveLastInsertedEdge;
+        /// @brief current edge path creator modes
+        int myEdgePathCreatorModes;
     };
 
     // ===========================================================================
