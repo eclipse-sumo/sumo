@@ -394,6 +394,16 @@ GNEFrame::EdgePathCreator::EdgePathCreator(GNEFrame* frameParent) :
 GNEFrame::EdgePathCreator::~EdgePathCreator() {
 }
 
+void 
+GNEFrame::EdgePathCreator::edgePathCreatorName(const std::string &name) {
+    // header needs the first capitalized letter
+    std::string nameWithFirstCapitalizedLetter = name;
+    nameWithFirstCapitalizedLetter[0] = (char)toupper(nameWithFirstCapitalizedLetter.at(0));
+    setText((nameWithFirstCapitalizedLetter + " creator").c_str());
+    myFinishCreationButton->setText(("Finish " + name + " creation").c_str());
+    myAbortCreationButton->setText(("Abort " + name + " creation").c_str());
+}
+
 
 void
 GNEFrame::EdgePathCreator::showEdgePathCreator() {

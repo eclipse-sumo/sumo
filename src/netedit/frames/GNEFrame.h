@@ -162,6 +162,9 @@ public:
         /// @brief destructor
         ~EdgePathCreator();
 
+        /// @brief update EdgePathCreator name
+        void edgePathCreatorName(const std::string &name);
+
         /// @brief show EdgePathCreator
         void showEdgePathCreator();
 
