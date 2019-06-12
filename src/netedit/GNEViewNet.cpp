@@ -762,7 +762,9 @@ GNEViewNet::abortOperation(bool clearSelection) {
         } else if (myEditModes.demandEditMode == GNE_DMODE_ROUTE) {
             myViewParent->getRouteFrame()->hotkeyEsc();
         } else if (myEditModes.demandEditMode == GNE_DMODE_VEHICLE) {
-            myViewParent->getVehicleFrame()->getEdgePathCreator()->onCmdAbortRouteCreation(0, 0, 0);
+            myViewParent->getVehicleFrame()->getEdgePathCreator()->abortEdgePathCreation();
+        } else if (myEditModes.demandEditMode == GNE_DMODE_PERSON) {
+            myViewParent->getPersonFrame()->getEdgePathCreator()->abortEdgePathCreation();
         }
     }
     // abort undo list
@@ -841,7 +843,9 @@ GNEViewNet::hotkeyEnter() {
         if (myEditModes.demandEditMode == GNE_DMODE_ROUTE) {
             myViewParent->getRouteFrame()->hotkeyEnter();
         } else if (myEditModes.demandEditMode == GNE_DMODE_VEHICLE) {
-            myViewParent->getVehicleFrame()->getEdgePathCreator()->onCmdFinishRouteCreation(0, 0, 0);
+            myViewParent->getVehicleFrame()->getEdgePathCreator()->finishEdgePathCreation();
+        } else if (myEditModes.demandEditMode == GNE_DMODE_PERSON) {
+            myViewParent->getPersonFrame()->getEdgePathCreator()->finishEdgePathCreation();
         }
     }
 }
@@ -855,7 +859,9 @@ GNEViewNet::hotkeyBackSpace() {
         if (myEditModes.demandEditMode == GNE_DMODE_ROUTE) {
             myViewParent->getRouteFrame()->hotkeyBackSpace();
         } else if (myEditModes.demandEditMode == GNE_DMODE_VEHICLE) {
-            myViewParent->getVehicleFrame()->getEdgePathCreator()->onCmdRemoveLastRouteEdge(0, 0, 0);
+            myViewParent->getVehicleFrame()->getEdgePathCreator()->removeLastAddedRoute();
+        } else if (myEditModes.demandEditMode == GNE_DMODE_PERSON) {
+            myViewParent->getPersonFrame()->getEdgePathCreator()->removeLastAddedRoute();
         }
     }
 }

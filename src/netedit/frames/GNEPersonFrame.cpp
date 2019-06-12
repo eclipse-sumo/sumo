@@ -66,17 +66,47 @@ void
 GNEPersonFrame::HelpCreation::updateHelpCreation() {
     // create information label
     std::ostringstream information;
-    // set text depending of selected vehicle type
-    switch (myPersonFrameParent->myPersonTagSelector->getCurrentTagProperties().getTag()) {
-        case SUMO_TAG_PERSON:
+    // set text depending of selected person plan
+    switch (myPersonFrameParent->myPersonPlanSelector->getCurrentTagProperties().getTag()) {
+        case SUMO_TAG_PERSONTRIP_FROMTO:
             information
-                    << "- Click over a route to\n"
-                    << "  create a vehicle.";
+                << "- Click over edges to\n"
+                << "  create a trip.";
             break;
-        case SUMO_TAG_PERSONFLOW:
+        case SUMO_TAG_PERSONTRIP_BUSSTOP:
             information
-                    << "- Select two edges to\n"
-                    << "  create a Trip.";
+                << "- Click over an edge and\n"
+                << "  a bus to create a trip.";
+            break;
+        case SUMO_TAG_WALK_EDGES:
+            information
+                << "- Click over a sequenz of\n"
+                << "  consecutive edges to\n"
+                << "  create a walk.";
+            break;
+        case SUMO_TAG_WALK_FROMTO:
+            information
+                << "- Click over edges to\n"
+                << "  create a walk.";
+            break;
+        case SUMO_TAG_WALK_BUSSTOP:
+            information
+                << "- Click over an edge and\n"
+                << "  a bus to create a walk.";
+            break;
+        case SUMO_TAG_WALK_ROUTE:
+            information
+                << "- Click over a route";
+            break;
+        case SUMO_TAG_RIDE_FROMTO:
+            information
+                << "- Click over edges to\n"
+                << "  create a ride.";
+            break;
+        case SUMO_TAG_RIDE_BUSSTOP:
+            information
+                << "- Click over an edge and\n"
+                << "  a bus to create a ride";
             break;
         default:
             break;

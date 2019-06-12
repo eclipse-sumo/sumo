@@ -186,6 +186,15 @@ public:
         /// @brief draw temporal route
         void drawTemporalRoute() const;
 
+        /// @brief abort edge path creation
+        void abortEdgePathCreation();
+
+        /// @brief finish edge path creation
+        void finishEdgePathCreation();
+
+        /// @brief remove last added edge
+        void removeLastAddedRoute();
+
         /// @name FOX-callbacks
         /// @{
         /// @brief Called when the user click over button "Abort route creation"

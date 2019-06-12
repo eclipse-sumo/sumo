@@ -502,12 +502,36 @@ GNEFrame::EdgePathCreator::drawTemporalRoute() const {
 }
 
 
+void 
+GNEFrame::EdgePathCreator::abortEdgePathCreation() {
+    if (myAbortCreationButton->isEnabled()) {
+        onCmdAbortRouteCreation(nullptr, 0, nullptr);
+    }
+}
+
+
+void 
+GNEFrame::EdgePathCreator::finishEdgePathCreation() {
+    if (myFinishCreationButton->isEnabled()) {
+        onCmdFinishRouteCreation(nullptr, 0, nullptr);
+    }
+}
+
+
+void 
+GNEFrame::EdgePathCreator::removeLastAddedRoute() {
+    if (myRemoveLastInsertedEdge->isEnabled()) {
+        onCmdRemoveLastRouteEdge(nullptr, 0, nullptr);
+    }
+}
+
+
 long
 GNEFrame::EdgePathCreator::onCmdAbortRouteCreation(FXObject*, FXSelector, void*) {
     clearEdges();
     // disable buttons
-    myFinishCreationButton->disable();
     myAbortCreationButton->disable();
+    myFinishCreationButton->disable();
     myRemoveLastInsertedEdge->disable();
     return 1;
 }
