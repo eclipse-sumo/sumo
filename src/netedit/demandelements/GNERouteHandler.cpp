@@ -398,6 +398,66 @@ GNERouteHandler::buildStop(GNEViewNet* viewNet, bool undoDemandElements, const S
 
 
 void 
+GNERouteHandler::buildPerson(GNEViewNet* viewNet, bool undoDemandElements, const SUMOVehicleParameter &personParameters) {
+    //
+}
+
+
+void 
+GNERouteHandler::buildPersonFlow(GNEViewNet* viewNet, bool undoDemandElements, const SUMOVehicleParameter &personFlowParameters) {
+    //
+}
+
+
+void 
+GNERouteHandler::personTripFromTo(GNEViewNet* viewNet, GNEDemandElement* personParent, const std::vector<GNEEdge*>& edges) {
+    //
+}
+
+
+void
+GNERouteHandler::personTripBusStop(GNEViewNet* viewNet, GNEDemandElement* personParent, const std::vector<GNEEdge*>& edges) {
+    //
+}
+
+
+void 
+GNERouteHandler::walkEdges(GNEViewNet* viewNet, GNEDemandElement* personParent, const std::vector<GNEEdge*>& edges) {
+    //
+}
+
+
+void 
+GNERouteHandler::walkFromTo(GNEViewNet* viewNet, GNEDemandElement* personParent, const std::vector<GNEEdge*>& edges) {
+    //
+}
+
+
+void 
+GNERouteHandler::walkBusStop(GNEViewNet* viewNet, GNEDemandElement* personParent, const std::vector<GNEEdge*>& edges) {
+    //
+}
+
+
+void 
+GNERouteHandler::walkRoute(GNEViewNet* viewNet, GNEDemandElement* personParent, GNEDemandElement* routeParent) {
+    //
+}
+
+
+void 
+GNERouteHandler::rideFromTo(GNEViewNet* viewNet, GNEDemandElement* personParent, const std::vector<GNEEdge*>& edges) {
+    //
+}
+
+
+void 
+GNERouteHandler::rideBusStop(GNEViewNet* viewNet, GNEDemandElement* personParent, const std::vector<GNEEdge*>& edges) {
+    //
+}
+
+
+void 
 GNERouteHandler::transformToVehicle(GNEVehicle* originalVehicle, bool createEmbeddedRoute) {
     // first check that given vehicle isn't already a vehicle
     if (originalVehicle->getTagProperty().getTag() != SUMO_TAG_VEHICLE) {
