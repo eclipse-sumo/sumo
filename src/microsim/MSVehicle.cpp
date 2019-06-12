@@ -1496,7 +1496,7 @@ MSVehicle::computeAngle() const {
 
 const Position
 MSVehicle::getBackPosition() const {
-    const double posLat = -myState.myPosLat; // @todo get rid of the '-'
+    const double posLat = MSNet::getInstance()->lefthand() ? myState.myPosLat : -myState.myPosLat;
     if (myState.myPos >= myType->getLength()) {
         // vehicle is fully on the new lane
         return myLane->geometryPositionAtOffset(myState.myPos - myType->getLength(), posLat);
@@ -1516,7 +1516,7 @@ MSVehicle::getBackPosition() const {
             }
 #endif
             return myFurtherLanes.size() > 0 && !getLaneChangeModel().isChangingLanes()
-                   ? myFurtherLanes.back()->geometryPositionAtOffset(getBackPositionOnLane(myFurtherLanes.back()), -myFurtherLanesPosLat.back())
+                   ? myFurtherLanes.back()->geometryPositionAtOffset(getBackPositionOnLane(myFurtherLanes.back()), -myFurtherLanesPosLat.back() * (MSNet::getInstance()->lefthand() ? -1 : 1))
                    : myLane->geometryPositionAtOffset(0, posLat);
         }
     }
