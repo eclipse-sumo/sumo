@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vType id="car" length="3.85" minGap="0.50" maxSpeed="16.67" speedFactor="normc(1.00,0.10,0.20,2.00)" guiShape="passenger/sedan" width="1.70" color="magenta" latAlignment="arbitrary" minGapLat="0.10" accel="3.5" decel="4.5" sigma="0.5" tau="1"/>
+    <vehicle id="ego" type="car" depart="25.00" departLane="1" departPos="-10" departPosLat="-0.75">
+        <route edges="J018_L04 -J018_L02"/>
+    </vehicle>
+    <vehicle id="foe" type="car" depart="25.00" departLane="1" departPos="-60" departSpeed="max" departPosLat="1.27">
+        <route edges="J018_L04 -J018_L03"/>
+    </vehicle>
+    <vehicle id="foe2" type="car" depart="27.00" departLane="1" departPos="-60" departSpeed="max" departPosLat="1.27">
+        <route edges="J018_L04 -J018_L03"/>
+    </vehicle>
+</routes>

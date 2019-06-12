@@ -40,3 +40,4 @@ turnAlignment
 
 # test lane changing while on an intersection with turning lanes joined into one edge
 2lanes_turn_joined
+lefthand
