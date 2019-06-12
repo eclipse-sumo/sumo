@@ -212,17 +212,57 @@ GNEPersonFrame::getEdgePathCreator() const {
 
 void 
 GNEPersonFrame::tagSelected() {
+    // first check if person is valid
     if (myPersonTagSelector->getCurrentTagProperties().getTag() != SUMO_TAG_NOTHING) {
-        // show AutoRute creator if we're editing a trip
-        if ((myPersonTagSelector->getCurrentTagProperties().getTag() == SUMO_TAG_TRIP) || 
-            (myPersonTagSelector->getCurrentTagProperties().getTag() == SUMO_TAG_FLOW)) {
-            myEdgePathCreator->showEdgePathCreator();
+        // show PType selector and person plan selector
+        myPTypeSelector->showDemandElementSelector();
+        if (myPTypeSelector->getCurrentDemandElement()) {
+            myPersonPlanSelector->showTagSelector();
+            // now check if person plan selected is valid
+            if (myPersonPlanSelector->getCurrentTagProperties().getTag() != SUMO_TAG_NOTHING) {
+                myPersonAttributes->showAttributesCreatorModul(myPersonTagSelector->getCurrentTagProperties());
+                myEdgePathCreator->showEdgePathCreator();
+                myHelpCreation->showHelpCreation();
+            } else {
+                myPersonAttributes->hideAttributesCreatorModul();
+                myEdgePathCreator->hideEdgePathCreator();
+                myHelpCreation->hideHelpCreation();
+            }
         } else {
+            myPersonPlanSelector->hideTagSelector();
+            myPersonAttributes->hideAttributesCreatorModul();
             myEdgePathCreator->hideEdgePathCreator();
+            myHelpCreation->hideHelpCreation();
         }
     } else {
-        // hide all moduls if vehicle isn't valid
+        // hide all moduls if person isn't valid
+        myPTypeSelector->hideDemandElementSelector();
+        myPersonPlanSelector->hideTagSelector();
         myPersonAttributes->hideAttributesCreatorModul();
+        myEdgePathCreator->hideEdgePathCreator();
+        myHelpCreation->hideHelpCreation();
+    }
+}
+
+
+void 
+GNEPersonFrame::demandElementSelected() {
+    if (myPTypeSelector->getCurrentDemandElement()) {
+        myPersonPlanSelector->showTagSelector();
+        // now check if person plan selected is valid
+        if (myPersonPlanSelector->getCurrentTagProperties().getTag() != SUMO_TAG_NOTHING) {
+            myPersonAttributes->showAttributesCreatorModul(myPersonTagSelector->getCurrentTagProperties());
+            myEdgePathCreator->showEdgePathCreator();
+            myHelpCreation->showHelpCreation();
+        } else {
+            myPersonAttributes->hideAttributesCreatorModul();
+            myEdgePathCreator->hideEdgePathCreator();
+            myHelpCreation->hideHelpCreation();
+        }
+    } else {
+        myPersonPlanSelector->hideTagSelector();
+        myPersonAttributes->hideAttributesCreatorModul();
+        myEdgePathCreator->hideEdgePathCreator();
         myHelpCreation->hideHelpCreation();
     }
 }

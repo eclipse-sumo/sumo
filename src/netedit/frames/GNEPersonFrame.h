@@ -85,8 +85,11 @@ public:
     EdgePathCreator* getEdgePathCreator() const;
 
 protected:
-    /// @brief Tag selected in TagSelector (can be reimplemented in frame childs)
+    /// @brief Tag selected in TagSelector
     void tagSelected();
+
+    /// @brief selected demand element in DemandElementSelector
+    void demandElementSelected();
 
     /// @brief finish edge path creation
     void edgePathCreated();
