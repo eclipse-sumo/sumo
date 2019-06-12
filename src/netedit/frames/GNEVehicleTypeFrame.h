@@ -161,10 +161,10 @@ public:
 
 protected:
     /// @brief function called after set a valid attribute in AttributeCreator/AttributeEditor/GenericParametersEditor/...
-    void updateFrameAfterChangeAttribute();
+    void attributeUpdated();
 
     /// @brief open AttributesCreator extended dialog (used for editing advance attributes of Vehicle Types)
-    void openAttributesEditorExtendedDialog();
+    void attributesEditorExtendedDialogOpened();
 
 private:
     /// @brief vehicle type selector

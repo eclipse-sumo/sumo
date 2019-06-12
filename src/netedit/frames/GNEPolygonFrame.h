@@ -132,13 +132,10 @@ protected:
      * return true if was sucesfully created
      * @note called when user stop drawing polygon
      */
-    bool buildShape();
+    bool shapeDrawed();
 
-    /// @brief enable moduls depending of item selected in TagSelector
-    void enableModuls(const GNEAttributeCarrier::TagProperties& tagProperties);
-
-    /// @brief disable moduls if element selected in itemSelector isn't valid
-    void disableModuls();
+    /// @brief Tag selected in TagSelector
+    void tagSelected();
 
     /// @brief add Polygon
     bool addPolygon(const std::map<SumoXMLAttr, std::string>& POIValues);

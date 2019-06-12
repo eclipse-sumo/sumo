@@ -345,7 +345,7 @@ GNEPolygonFrame::getDrawingShapeModul() const {
 
 
 bool
-GNEPolygonFrame::buildShape() {
+GNEPolygonFrame::shapeDrawed() {
     // show warning dialogbox and stop check if input parameters are valid
     if (myShapeAttributes->areValuesValid() == false) {
         myShapeAttributes->showWarningMessage();
@@ -379,34 +379,32 @@ GNEPolygonFrame::buildShape() {
 }
 
 
-void
-GNEPolygonFrame::enableModuls(const GNEAttributeCarrier::TagProperties& tagProperties) {
-    // if there are parmeters, show and Recalc groupBox
-    myShapeAttributes->showAttributesCreatorModul(tagProperties);
-    // show netedit attributes
-    myNeteditAttributes->showNeteditAttributesModul(tagProperties);
-    // Check if drawing mode has to be shown
-    if (myShapeTagSelector->getCurrentTagProperties().getTag() == SUMO_TAG_POLY) {
-        myDrawingShape->showDrawingShape();
+void 
+GNEPolygonFrame::tagSelected() {
+    if (myShapeTagSelector->getCurrentTagProperties().getTag() != SUMO_TAG_NOTHING) {
+        // if there are parmeters, show and Recalc groupBox
+        myShapeAttributes->showAttributesCreatorModul(myShapeTagSelector->getCurrentTagProperties());
+        // show netedit attributes
+        myNeteditAttributes->showNeteditAttributesModul(myShapeTagSelector->getCurrentTagProperties());
+        // Check if drawing mode has to be shown
+        if (myShapeTagSelector->getCurrentTagProperties().getTag() == SUMO_TAG_POLY) {
+            myDrawingShape->showDrawingShape();
+        } else {
+            myDrawingShape->hideDrawingShape();
+        }
+        // Check if GEO POI Creator has to be shown
+        if (myShapeTagSelector->getCurrentTagProperties().getTag() == SUMO_TAG_POI) {
+            myGEOPOICreator->showGEOPOICreatorModul();
+        } else {
+            myGEOPOICreator->hideGEOPOICreatorModul();
+        }
     } else {
+        // hide all widgets
+        myShapeAttributes->hideAttributesCreatorModul();
+        myNeteditAttributes->hideNeteditAttributesModul();
         myDrawingShape->hideDrawingShape();
-    }
-    // Check if GEO POI Creator has to be shown
-    if (myShapeTagSelector->getCurrentTagProperties().getTag() == SUMO_TAG_POI) {
-        myGEOPOICreator->showGEOPOICreatorModul();
-    } else {
         myGEOPOICreator->hideGEOPOICreatorModul();
     }
-}
-
-
-void
-GNEPolygonFrame::disableModuls() {
-    // hide all widgets
-    myShapeAttributes->hideAttributesCreatorModul();
-    myNeteditAttributes->hideNeteditAttributesModul();
-    myDrawingShape->hideDrawingShape();
-    myGEOPOICreator->hideGEOPOICreatorModul();
 }
 
 

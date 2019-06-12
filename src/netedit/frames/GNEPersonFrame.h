@@ -85,14 +85,11 @@ public:
     EdgePathCreator* getEdgePathCreator() const;
 
 protected:
-    /// @brief enable moduls depending of item selected in TagSelector
-    void enableModuls(const GNEAttributeCarrier::TagProperties& tagProperties);
-
-    /// @brief disable moduls if element selected in itemSelector isn't valid
-    void disableModuls();
+    /// @brief Tag selected in TagSelector (can be reimplemented in frame childs)
+    void tagSelected();
 
     /// @brief finish edge path creation
-    void finishEdgePathCreation();
+    void edgePathCreated();
 
 private:
     /// @brief person tag selector (used to select diffent kind of persons)

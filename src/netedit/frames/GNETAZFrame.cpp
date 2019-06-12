@@ -1468,7 +1468,7 @@ GNETAZFrame::getTAZSaveChangesModul() const {
 
 
 bool
-GNETAZFrame::buildShape() {
+GNETAZFrame::shapeDrawed() {
     // show warning dialogbox and stop check if input parameters are valid
     if (!myTAZParameters->isCurrentParametersValid()) {
         return false;

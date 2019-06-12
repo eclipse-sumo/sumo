@@ -543,7 +543,7 @@ protected:
      * return true if was sucesfully created
      * @note called when user stop drawing shape
      */
-    bool buildShape();
+    bool shapeDrawed();
 
     /// @brief add or remove a TAZSource and a TAZSink, or remove it if edge is in the list of TAZ Childs
     bool addOrRemoveTAZMember(GNEEdge* edge);

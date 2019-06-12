@@ -219,22 +219,21 @@ GNEPersonPlanFrame::getEdgePathCreator() const {
 // protected
 // ===========================================================================
 
-void
-GNEPersonPlanFrame::enableModuls(const GNEAttributeCarrier::TagProperties& tagProperties) {
-    // show AutoRute creator if we're editing a trip
-    if ((myTagSelector->getCurrentTagProperties().getTag() == SUMO_TAG_TRIP) || (myTagSelector->getCurrentTagProperties().getTag() == SUMO_TAG_FLOW)) {
-        myEdgePathCreator->showEdgePathCreator();
+void 
+GNEPersonPlanFrame::tagSelected() {
+    if (myTagSelector->getCurrentTagProperties().getTag() != SUMO_TAG_NOTHING) {
+        // show AutoRute creator if we're editing a trip
+        if ((myTagSelector->getCurrentTagProperties().getTag() == SUMO_TAG_TRIP) || 
+            (myTagSelector->getCurrentTagProperties().getTag() == SUMO_TAG_FLOW)) {
+            myEdgePathCreator->showEdgePathCreator();
+        } else {
+            myEdgePathCreator->hideEdgePathCreator();
+        }
     } else {
-        myEdgePathCreator->hideEdgePathCreator();
+        // hide all moduls if vehicle isn't valid
+        myPersonPlanAttributes->hideAttributesCreatorModul();
+        myHelpCreation->hideHelpCreation();
     }
-}
-
-
-void
-GNEPersonPlanFrame::disableModuls() {
-    // hide all moduls if vehicle isn't valid
-    myPersonPlanAttributes->hideAttributesCreatorModul();
-    myHelpCreation->hideHelpCreation();
 }
 
 /****************************************************************************/

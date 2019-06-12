@@ -206,19 +206,14 @@ GNEFrame::TagSelector::~TagSelector() {}
 
 
 void
-GNEFrame::TagSelector::showTagSelector(bool enableModuls) {
+GNEFrame::TagSelector::showTagSelector() {
     show();
-    // check if parent moduls has to be enabled
-    if (enableModuls && (myCurrentTagProperties.getTag() != SUMO_TAG_NOTHING)) {
-        myFrameParent->enableModuls(myCurrentTagProperties);
-    }
 }
 
 
 void
 GNEFrame::TagSelector::hideTagSelector() {
     hide();
-    myFrameParent->disableModuls();
 }
 
 
@@ -240,14 +235,8 @@ GNEFrame::TagSelector::setCurrentTypeTag(SumoXMLTag typeTag) {
             myCurrentTagProperties = GNEAttributeCarrier::getTagProperties(typeTag);
         }
     }
-    // Check that typeTag type is valid
-    if (myCurrentTagProperties.getTag() != SUMO_TAG_NOTHING) {
-        // show moduls if selected item is valid
-        myFrameParent->enableModuls(myCurrentTagProperties);
-    } else {
-        // hide all moduls if selected item isn't valid
-        myFrameParent->disableModuls();
-    }
+    // call tag selected function
+    myFrameParent->tagSelected();
 }
 
 
@@ -267,8 +256,8 @@ GNEFrame::TagSelector::onCmdSelectItem(FXObject*, FXSelector, void*) {
             myTagsMatchBox->setTextColor(FXRGB(0, 0, 0));
             // Set new current type
             myCurrentTagProperties = GNEAttributeCarrier::getTagProperties(i);
-            // show moduls if selected item is valid
-            myFrameParent->enableModuls(myCurrentTagProperties);
+            // call tag selected function
+            myFrameParent->tagSelected();
             // Write Warning in console if we're in testing mode
             WRITE_DEBUG(("Selected item '" + myTagsMatchBox->getText() + "' in TagSelector").text());
             return 1;
@@ -276,8 +265,8 @@ GNEFrame::TagSelector::onCmdSelectItem(FXObject*, FXSelector, void*) {
     }
     // if additional name isn't correct, set SUMO_TAG_NOTHING as current type
     myCurrentTagProperties = myInvalidTagProperty;
-    // hide all moduls if selected item isn't valid
-    myFrameParent->disableModuls();
+            // call tag selected function
+            myFrameParent->tagSelected();
     // set color of myTypeMatchBox to red (invalid)
     myTagsMatchBox->setTextColor(FXRGB(255, 0, 0));
     // Write Warning in console if we're in testing mode
@@ -324,6 +313,7 @@ GNEFrame::DemandElementSelector::showVTypeSelector() {
         myVTypesMatchBox->setText(DEFAULT_PEDTYPE_ID.c_str());
     }
     onCmdSelectVType(nullptr, 0, nullptr);
+    show();
 }
 
 
@@ -355,17 +345,17 @@ GNEFrame::DemandElementSelector::onCmdSelectVType(FXObject*, FXSelector, void*) 
             myVTypesMatchBox->setTextColor(FXRGB(0, 0, 0));
             // Set new current VType
             myCurrentDemandElement = i.second;
-            // call selectedVType
-            myFrameParent->selectedVType(true);
+            // call demandElementSelected function
+            myFrameParent->demandElementSelected();
             // Write Warning in console if we're in testing mode
             WRITE_DEBUG(("Selected item '" + myVTypesMatchBox->getText() + "' in DemandElementSelector").text());
             return 1;
         }
     }
-    // if VType selected is invalid, set VTyoe a snull
+    // if VType selected is invalid, set demand element as null
     myCurrentDemandElement = nullptr;
-    // call selectedVType
-    myFrameParent->selectedVType(false);
+    // call demandElementSelected function
+    myFrameParent->demandElementSelected();
     // set color of myTypeMatchBox to red (invalid)
     myVTypesMatchBox->setTextColor(FXRGB(255, 0, 0));
     // Write Warning in console if we're in testing mode
@@ -513,8 +503,8 @@ long
 GNEFrame::EdgePathCreator::onCmdFinishRouteCreation(FXObject*, FXSelector, void*) {
     // only create route if there is more than two edges
     if (mySelectedEdges.size() > 1) {
-        // call finishEdgePathCreation
-        myFrameParent->finishEdgePathCreation();
+        // call edgePathCreated
+        myFrameParent->edgePathCreated();
         // update view
         myFrameParent->myViewNet->update();
         // clear edges after creation
@@ -1564,7 +1554,7 @@ GNEFrame::AttributesEditor::AttributesEditorRow::onCmdOpenAttributeDialog(FXObje
             myAttributesEditorParent->myFrameParent->myViewNet->getUndoList()->p_end();
         }
         // update frame parent after attribute sucesfully set
-        myAttributesEditorParent->myFrameParent->updateFrameAfterChangeAttribute();
+        myAttributesEditorParent->myFrameParent->attributeUpdated();
         return 1;
     } else {
         throw ProcessError("Invalid call to onCmdOpenAttributeDialog");
@@ -1678,7 +1668,7 @@ GNEFrame::AttributesEditor::AttributesEditorRow::onCmdSetAttribute(FXObject*, FX
             myValueTextFieldStrings->killFocus();
         }
         // update frame parent after attribute sucesfully set
-        myAttributesEditorParent->myFrameParent->updateFrameAfterChangeAttribute();
+        myAttributesEditorParent->myFrameParent->attributeUpdated();
     } else {
         // If value of TextField isn't valid, change color to Red depending of type
         if (myACAttr.isCombinable()) {
@@ -1930,7 +1920,7 @@ GNEFrame::AttributesEditorExtended::hideAttributesEditorExtendedModul() {
 long
 GNEFrame::AttributesEditorExtended::onCmdOpenDialog(FXObject*, FXSelector, void*) {
     // open AttributesCreator extended dialog
-    myFrameParent->openAttributesEditorExtendedDialog();
+    myFrameParent->attributesEditorExtendedDialogOpened();
     return 1;
 }
 
@@ -2673,7 +2663,7 @@ GNEFrame::GenericParametersEditor::onCmdEditGenericParameter(FXObject*, FXSelect
             }
             myFrameParent->myViewNet->getUndoList()->p_end();
             // update frame parent after attribute sucesfully set
-            myFrameParent->updateFrameAfterChangeAttribute();
+            myFrameParent->attributeUpdated();
         }
         // Refresh parameter editor
         refreshGenericParametersEditor();
@@ -2746,7 +2736,7 @@ GNEFrame::GenericParametersEditor::onCmdSetGenericParameter(FXObject*, FXSelecto
         }
         myFrameParent->myViewNet->getUndoList()->p_end();
         // update frame parent after attribute sucesfully set
-        myFrameParent->updateFrameAfterChangeAttribute();
+        myFrameParent->attributeUpdated();
     }
     return 1;
 }
@@ -2816,7 +2806,7 @@ GNEFrame::DrawingShape::startDrawing() {
 void
 GNEFrame::DrawingShape::stopDrawing() {
     // try to build shape
-    if (myFrameParent->buildShape()) {
+    if (myFrameParent->shapeDrawed()) {
         // clear created points
         myTemporalShapeShape.clear();
         myFrameParent->myViewNet->update();
@@ -3406,46 +3396,40 @@ GNEFrame::updateFrameAfterUndoRedo() {
 // GNEFrame - protected methods
 // ---------------------------------------------------------------------------
 
+void
+GNEFrame::tagSelected() {
+    // this function has to be reimplemente in all child frames that uses a TagSelector modul
+}
+
+
+void
+GNEFrame::demandElementSelected() {
+    // this function has to be reimplemente in all child frames that uses a DemandElementSelector
+}
+
+
+void
+GNEFrame::edgePathCreated() {
+    // this function has to be reimplemente in all child frames that uses a EdgePathCreator
+}
+
+
 bool
-GNEFrame::buildShape() {
+GNEFrame::shapeDrawed() {
     // this function has to be reimplemente in all child frames that needs to draw a polygon (for example, GNEFrame or GNETAZFrame)
     return false;
 }
 
 
 void
-GNEFrame::enableModuls(const GNEAttributeCarrier::TagProperties&) {
+GNEFrame::attributeUpdated() {
     // this function has to be reimplemente in all child frames that uses a TagSelector modul
 }
 
 
 void
-GNEFrame::disableModuls() {
-    // this function has to be reimplemente in all child frames that uses a TagSelector modul
-}
-
-
-void
-GNEFrame::updateFrameAfterChangeAttribute() {
-    // this function has to be reimplemente in all child frames that uses a TagSelector modul
-}
-
-
-void
-GNEFrame::openAttributesEditorExtendedDialog()  {
+GNEFrame::attributesEditorExtendedDialogOpened()  {
     // this function has to be reimplemente in all child frames that uses a AttributesCreator editor with extended attributes
-}
-
-
-void
-GNEFrame::selectedVType(bool /*validVType*/) {
-    // this function has to be reimplemente in all child frames that uses a DemandElementSelector
-}
-
-
-void
-GNEFrame::finishEdgePathCreation() {
-    // this function has to be reimplemente in all child frames that uses a EdgePathCreator
 }
 
 

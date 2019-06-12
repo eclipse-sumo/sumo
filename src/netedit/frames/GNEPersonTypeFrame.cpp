@@ -390,13 +390,13 @@ GNEPersonTypeFrame::getPersonTypeSelector() const {
 
 
 void
-GNEPersonTypeFrame::updateFrameAfterChangeAttribute() {
+GNEPersonTypeFrame::attributeUpdated() {
     myPersonTypeSelector->refreshPersonTypeSelector();
 }
 
 
 void
-GNEPersonTypeFrame::openAttributesEditorExtendedDialog() {
+GNEPersonTypeFrame::attributesEditorExtendedDialogOpened() {
     // open person type dialog
     if (myPersonTypeSelector->getCurrentPersonType()) {
         GNEVehicleTypeDialog(myPersonTypeSelector->getCurrentPersonType(), true);

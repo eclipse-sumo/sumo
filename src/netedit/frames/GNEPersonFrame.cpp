@@ -122,6 +122,8 @@ void
 GNEPersonFrame::show() {
     // refresh item selector
     myPersonTagSelector->refreshTagProperties();
+    myPTypeSelector->refreshVTypeSelector();
+    myPersonPlanSelector->refreshTagProperties();
     // show frame
     GNEFrame::show();
 }
@@ -208,27 +210,26 @@ GNEPersonFrame::getEdgePathCreator() const {
 // protected
 // ===========================================================================
 
-void
-GNEPersonFrame::enableModuls(const GNEAttributeCarrier::TagProperties& /*tagProperties*/) {
-    // show AutoRute creator if we're editing a trip
-    if ((myPersonTagSelector->getCurrentTagProperties().getTag() == SUMO_TAG_TRIP) || (myPersonTagSelector->getCurrentTagProperties().getTag() == SUMO_TAG_FLOW)) {
-        myEdgePathCreator->showEdgePathCreator();
+void 
+GNEPersonFrame::tagSelected() {
+    if (myPersonTagSelector->getCurrentTagProperties().getTag() != SUMO_TAG_NOTHING) {
+        // show AutoRute creator if we're editing a trip
+        if ((myPersonTagSelector->getCurrentTagProperties().getTag() == SUMO_TAG_TRIP) || 
+            (myPersonTagSelector->getCurrentTagProperties().getTag() == SUMO_TAG_FLOW)) {
+            myEdgePathCreator->showEdgePathCreator();
+        } else {
+            myEdgePathCreator->hideEdgePathCreator();
+        }
     } else {
-        myEdgePathCreator->hideEdgePathCreator();
+        // hide all moduls if vehicle isn't valid
+        myPersonAttributes->hideAttributesCreatorModul();
+        myHelpCreation->hideHelpCreation();
     }
 }
 
 
 void
-GNEPersonFrame::disableModuls() {
-    // hide all moduls if vehicle isn't valid
-    myPersonAttributes->hideAttributesCreatorModul();
-    myHelpCreation->hideHelpCreation();
-}
-
-
-void
-GNEPersonFrame::finishEdgePathCreation() {
+GNEPersonFrame::edgePathCreated() {
 
 }
 

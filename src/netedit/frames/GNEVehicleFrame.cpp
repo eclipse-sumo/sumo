@@ -222,31 +222,30 @@ GNEVehicleFrame::getEdgePathCreator() const {
 // protected
 // ===========================================================================
 
-void
-GNEVehicleFrame::enableModuls(const GNEAttributeCarrier::TagProperties& /*tagProperties*/) {
-    // show vehicle type selector modul
-    myVTypeSelector->showVTypeSelector();
-    // show AutoRute creator if we're editing a trip
-    if ((myVehicleTagSelector->getCurrentTagProperties().getTag() == SUMO_TAG_TRIP) || (myVehicleTagSelector->getCurrentTagProperties().getTag() == SUMO_TAG_FLOW)) {
-        myEdgePathCreator->showEdgePathCreator();
+void 
+GNEVehicleFrame::tagSelected() {
+    if (myVehicleTagSelector->getCurrentTagProperties().getTag() != SUMO_TAG_NOTHING) {
+        // show vehicle type selector modul
+        myVTypeSelector->showVTypeSelector();
+        // show AutoRute creator if we're editing a trip
+        if ((myVehicleTagSelector->getCurrentTagProperties().getTag() == SUMO_TAG_TRIP) || 
+            (myVehicleTagSelector->getCurrentTagProperties().getTag() == SUMO_TAG_FLOW)) {
+            myEdgePathCreator->showEdgePathCreator();
+        } else {
+            myEdgePathCreator->hideEdgePathCreator();
+        }
     } else {
-        myEdgePathCreator->hideEdgePathCreator();
+        // hide all moduls if vehicle isn't valid
+        myVTypeSelector->hideVTypeSelector();
+        myVehicleAttributes->hideAttributesCreatorModul();
+        myHelpCreation->hideHelpCreation();
     }
 }
 
 
-void
-GNEVehicleFrame::disableModuls() {
-    // hide all moduls if vehicle isn't valid
-    myVTypeSelector->hideVTypeSelector();
-    myVehicleAttributes->hideAttributesCreatorModul();
-    myHelpCreation->hideHelpCreation();
-}
-
-
 void 
-GNEVehicleFrame::selectedVType(bool validVType) {
-    if (validVType) {
+GNEVehicleFrame::demandElementSelected() {
+    if (myVTypeSelector->getCurrentDemandElement()) {
         // show vehicle attributes modul
         myVehicleAttributes->showAttributesCreatorModul(myVehicleTagSelector->getCurrentTagProperties());
         // set current VTypeClass in TripCreator
@@ -264,7 +263,7 @@ GNEVehicleFrame::selectedVType(bool validVType) {
 
 
 void
-GNEVehicleFrame::finishEdgePathCreation() {
+GNEVehicleFrame::edgePathCreated() {
     // obtain tag (only for improve code legibility)
     SumoXMLTag vehicleTag = myVehicleTagSelector->getCurrentTagProperties().getTag();
     // Declare map to keep attributes from Frames from Frame

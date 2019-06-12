@@ -392,13 +392,13 @@ GNEVehicleTypeFrame::getVehicleTypeSelector() const {
 
 
 void
-GNEVehicleTypeFrame::updateFrameAfterChangeAttribute() {
+GNEVehicleTypeFrame::attributeUpdated() {
     myVehicleTypeSelector->refreshVehicleTypeSelector();
 }
 
 
 void
-GNEVehicleTypeFrame::openAttributesEditorExtendedDialog() {
+GNEVehicleTypeFrame::attributesEditorExtendedDialogOpened() {
     // open vehicle type dialog
     if (myVehicleTypeSelector->getCurrentVehicleType()) {
         GNEVehicleTypeDialog(myVehicleTypeSelector->getCurrentVehicleType(), true);

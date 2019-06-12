@@ -153,7 +153,7 @@ GNEStopFrame::StopParentSelector::refreshStopParentSelector() {
     }
     // show moduls depending of found
     if (found) {
-        myStopFrameParent->myStopTagSelector->showTagSelector(true);
+        myStopFrameParent->myStopTagSelector->showTagSelector();
     } else {
         // disable combo box and moduls if there isn't candidate stop parents in net
         if (myStopParentCandidates.size() > 0) {
@@ -176,7 +176,7 @@ GNEStopFrame::StopParentSelector::onCmdSelectStopParent(FXObject*, FXSelector, v
             // Set new current VType
             myCurrentStopParent = myStopParentCandidates.at(i);
             // show Stop selector, attributes and help creation moduls
-            myStopFrameParent->myStopTagSelector->showTagSelector(true);
+            myStopFrameParent->myStopTagSelector->showTagSelector();
             // Write Warning in console if we're in testing mode
             WRITE_DEBUG(("Selected item '" + myStopParentMatchBox->getText() + "' in StopParentSelector").text());
             return 1;
@@ -486,21 +486,19 @@ GNEStopFrame::addStop(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCu
 // protected
 // ===========================================================================
 
-void
-GNEStopFrame::enableModuls(const GNEAttributeCarrier::TagProperties& tagProperties) {
-    // show Stop type selector modul
-    myStopAttributes->showAttributesCreatorModul(tagProperties);
-    myNeteditAttributes->showNeteditAttributesModul(tagProperties);
-    myHelpCreation->showHelpCreation();
-}
-
-
-void
-GNEStopFrame::disableModuls() {
-    // hide all moduls if stop parent isn't valid
-    myStopAttributes->hideAttributesCreatorModul();
-    myNeteditAttributes->hideNeteditAttributesModul();
-    myHelpCreation->hideHelpCreation();
+void 
+GNEStopFrame::tagSelected() {
+    if (myStopTagSelector->getCurrentTagProperties().getTag() != SUMO_TAG_NOTHING) {
+        // show Stop type selector modul
+        myStopAttributes->showAttributesCreatorModul(myStopTagSelector->getCurrentTagProperties());
+        myNeteditAttributes->showNeteditAttributesModul(myStopTagSelector->getCurrentTagProperties());
+        myHelpCreation->showHelpCreation();
+    } else {
+        // hide all moduls if stop parent isn't valid
+        myStopAttributes->hideAttributesCreatorModul();
+        myNeteditAttributes->hideNeteditAttributesModul();
+        myHelpCreation->hideHelpCreation();
+    }
 }
 
 /****************************************************************************/

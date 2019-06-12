@@ -697,51 +697,50 @@ GNEAdditionalFrame::getConsecutiveLaneSelector() const {
 }
 
 
-void
-GNEAdditionalFrame::enableModuls(const GNEAttributeCarrier::TagProperties& tagProperties) {
-    // show additional attributes modul
-    myAdditionalAttributes->showAttributesCreatorModul(tagProperties);
-    // show netedit attributes
-    myNeteditAttributes->showNeteditAttributesModul(tagProperties);
-    // Show myAdditionalFrameParent if we're adding a additional with parent
-    if (tagProperties.hasParent()) {
-        myAdditionalParent->showSelectorParentModul(tagProperties.getParentTag());
-    } else {
-        myAdditionalParent->hideSelectorParentModul();
-    }
-    // Show SelectorEdgeChilds if we're adding an additional that own the attribute SUMO_ATTR_EDGES
-    if (tagProperties.hasAttribute(SUMO_ATTR_EDGES)) {
-        mySelectorEdgeChilds->showSelectorEdgeChildsModul();
-    } else {
-        mySelectorEdgeChilds->hideSelectorEdgeChildsModul();
-    }
-    // Show SelectorLaneChilds or consecutive lane selector if we're adding an additional that own the attribute SUMO_ATTR_LANES
-    if (tagProperties.hasAttribute(SUMO_ATTR_LANES)) {
-        if (tagProperties.hasParent() && tagProperties.getParentTag() == SUMO_TAG_LANE) {
-            // show selector lane parent and hide selector lane child
-            mySelectorLaneParents->showSelectorLaneParentsModul();
-            mySelectorLaneChilds->hideSelectorLaneChildsModul();
+void 
+GNEAdditionalFrame::tagSelected() {
+    if (myAdditionalTagSelector->getCurrentTagProperties().getTag() != SUMO_TAG_NOTHING) {
+        // show additional attributes modul
+        myAdditionalAttributes->showAttributesCreatorModul(myAdditionalTagSelector->getCurrentTagProperties());
+        // show netedit attributes
+        myNeteditAttributes->showNeteditAttributesModul(myAdditionalTagSelector->getCurrentTagProperties());
+        // Show myAdditionalFrameParent if we're adding a additional with parent
+        if (myAdditionalTagSelector->getCurrentTagProperties().hasParent()) {
+            myAdditionalParent->showSelectorParentModul(myAdditionalTagSelector->getCurrentTagProperties().getParentTag());
         } else {
-            // show selector lane child and hide selector lane parent
-            mySelectorLaneChilds->showSelectorLaneChildsModul();
+            myAdditionalParent->hideSelectorParentModul();
+        }
+        // Show SelectorEdgeChilds if we're adding an additional that own the attribute SUMO_ATTR_EDGES
+        if (myAdditionalTagSelector->getCurrentTagProperties().hasAttribute(SUMO_ATTR_EDGES)) {
+            mySelectorEdgeChilds->showSelectorEdgeChildsModul();
+        } else {
+            mySelectorEdgeChilds->hideSelectorEdgeChildsModul();
+        }
+        // Show SelectorLaneChilds or consecutive lane selector if we're adding an additional that own the attribute SUMO_ATTR_LANES
+        if (myAdditionalTagSelector->getCurrentTagProperties().hasAttribute(SUMO_ATTR_LANES)) {
+            if (myAdditionalTagSelector->getCurrentTagProperties().hasParent() && 
+                (myAdditionalTagSelector->getCurrentTagProperties().getParentTag() == SUMO_TAG_LANE)) {
+                // show selector lane parent and hide selector lane child
+                mySelectorLaneParents->showSelectorLaneParentsModul();
+                mySelectorLaneChilds->hideSelectorLaneChildsModul();
+            } else {
+                // show selector lane child and hide selector lane parent
+                mySelectorLaneChilds->showSelectorLaneChildsModul();
+                mySelectorLaneParents->hideSelectorLaneParentsModul();
+            }
+        } else {
+            mySelectorLaneChilds->hideSelectorLaneChildsModul();
             mySelectorLaneParents->hideSelectorLaneParentsModul();
         }
     } else {
+        // hide all moduls if additional isn't valid
+        myAdditionalAttributes->hideAttributesCreatorModul();
+        myNeteditAttributes->hideNeteditAttributesModul();
+        myAdditionalParent->hideSelectorParentModul();
+        mySelectorEdgeChilds->hideSelectorEdgeChildsModul();
         mySelectorLaneChilds->hideSelectorLaneChildsModul();
         mySelectorLaneParents->hideSelectorLaneParentsModul();
     }
-}
-
-
-void
-GNEAdditionalFrame::disableModuls() {
-    // hide all moduls if additional isn't valid
-    myAdditionalAttributes->hideAttributesCreatorModul();
-    myNeteditAttributes->hideNeteditAttributesModul();
-    myAdditionalParent->hideSelectorParentModul();
-    mySelectorEdgeChilds->hideSelectorEdgeChildsModul();
-    mySelectorLaneChilds->hideSelectorLaneChildsModul();
-    mySelectorLaneParents->hideSelectorLaneParentsModul();
 }
 
 

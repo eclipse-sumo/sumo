@@ -86,17 +86,14 @@ public:
     EdgePathCreator* getEdgePathCreator() const;
 
 protected:
-    /// @brief enable moduls depending of item selected in TagSelector
-    void enableModuls(const GNEAttributeCarrier::TagProperties& tagProperties);
+    /// @brief Tag selected in TagSelector
+    void tagSelected();
 
-    /// @brief disable moduls if element selected in itemSelector isn't valid
-    void disableModuls();
-
-    /// @brief selected vehicle type in DemandElementSelector (can be reimplemented in frame childs)
-    void selectedVType(bool validVType);
+    /// @brief selected vehicle type in DemandElementSelector
+    void demandElementSelected();
 
     /// @brief finish edge path creation
-    void finishEdgePathCreation();
+    void edgePathCreated();
 
 private:
     /// @brief vehicle tag selector (used to select diffent kind of vehicles)

@@ -284,11 +284,8 @@ public:
     GNEAdditionalFrame::SelectorLaneParents* getConsecutiveLaneSelector() const;
 
 protected:
-    /// @brief enable moduls depending of item selected in TagSelector
-    void enableModuls(const GNEAttributeCarrier::TagProperties& tagProperties);
-
-    /// @brief disable moduls if element selected in itemSelector isn't valid
-    void disableModuls();
+    /// @brief Tag selected in TagSelector
+    void tagSelected();
 
 private:
     /// @brief generate a ID for an additiona element

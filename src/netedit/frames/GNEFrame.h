@@ -55,7 +55,7 @@ public:
         ~TagSelector();
 
         /// @brief show item selector
-        void showTagSelector(bool enableModuls);
+        void showTagSelector();
 
         /// @brief hide item selector
         void hideTagSelector();
@@ -965,29 +965,28 @@ protected:
     /// @brief FOX needs this
     GNEFrame() {}
 
-    /**@brief build a shaped element using the drawed shape (can be reimplemented in frame childs)
-     * return true if was sucesfully created
-     * @note called when user stop drawing shape
-     */
-    virtual bool buildShape();
+    /// @name functions called by moduls that can be reimplemented in frame childs
+    /// @{
 
-    /// @brief enable moduls depending of item selected in TagSelector (can be reimplemented in frame childs)
-    virtual void enableModuls(const GNEAttributeCarrier::TagProperties& tagProperties);
+    /// @brief Tag selected in TagSelector
+    virtual void tagSelected();
+    
+    /// @brief selected demand element in DemandElementSelector
+    virtual void demandElementSelected();
 
-    /// @brief disable moduls if element selected in itemSelector isn't valid (can be reimplemented in frame childs)
-    virtual void disableModuls();
+    /// @brief finish edge path creation
+    virtual void edgePathCreated();
 
+    /// @brief build a shaped element using the drawed shape (can be reimplemented in frame childs)
+    virtual bool shapeDrawed();
+    
     /// @brief function called after set a valid attribute in AttributeCreator/AttributeEditor/GenericParametersEditor/...
-    virtual void updateFrameAfterChangeAttribute();
+    virtual void attributeUpdated();
 
     /// @brief open AttributesCreator extended dialog (can be reimplemented in frame childs)
-    virtual void openAttributesEditorExtendedDialog();
+    virtual void attributesEditorExtendedDialogOpened();
 
-    /// @brief selected vehicle type in DemandElementSelector (can be reimplemented in frame childs)
-    virtual void selectedVType(bool validVType);
-
-    /// @brief finish edge path creation (can be reimplemented in frame childs)
-    virtual void finishEdgePathCreation();
+    /// @}
 
     /// @brief Open help attributes dialog
     void openHelpAttributesDialog(const GNEAttributeCarrier::TagProperties& tagProperties) const;
@@ -1001,7 +1000,7 @@ protected:
     /// @brief get predefinedTagsMML
     const std::map<int, std::string>& getPredefinedTagsMML() const;
 
-    /// @brief View Net for changes
+    /// @brief View Net
     GNEViewNet* myViewNet;
 
     /// @brief Vertical frame that holds all widgets of frame
