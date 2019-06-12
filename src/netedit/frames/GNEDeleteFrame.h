@@ -56,9 +56,6 @@ public:
         bool protectDemandElements() const;
 
     private:
-        /// @brief pointer to delete Frame Parent
-        GNEDeleteFrame* myDeleteFrameParent;
-
         /// @brief checkbox for enable/disable automatic deletion of additionals childs
         FXCheckButton* myForceDeleteAdditionals;
 
@@ -106,12 +103,6 @@ private:
 
     /// @brief modul for hierarchy
     ACHierarchy* myACHierarchy;
-
-    /// @brief pointer to marked attributeCarrier (element)
-    GNEAttributeCarrier* myMarkedAC;
-
-    /// @brief current attribute carrier selected in three
-    GNEAttributeCarrier* myClickedAC;
 };
 
 

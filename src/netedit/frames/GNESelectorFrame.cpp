@@ -594,7 +594,6 @@ GNESelectorFrame::LockGLObjectTypes::ObjectTypeEntry::onCmdSetCheckBox(FXObject*
 
 GNESelectorFrame::ModificationMode::ModificationMode(GNESelectorFrame* selectorFrameParent) :
     FXGroupBox(selectorFrameParent->myContentFrame, "Modification Mode", GUIDesignGroupBoxFrame),
-    mySelectorFrameParent(selectorFrameParent),
     myModificationModeType(SET_ADD) {
     // Create all options buttons
     myAddRadioButton = new FXRadioButton(this, "add\t\tSelected objects are added to the previous selection",

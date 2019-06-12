@@ -100,9 +100,6 @@ public:
         ~TLSDefinition();
 
     private:
-        /// @brief pointer to TLSEditor Parent
-        GNETLSEditorFrame* myTLSEditorParent;
-
         /// @brief button for create new Traffic light program
         FXButton* myNewTLProgram;
 

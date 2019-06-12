@@ -155,9 +155,6 @@ public:
         ModificationMode() {}
 
     private:
-        /// @brief pointer to Selector Frame Parent
-        GNESelectorFrame* mySelectorFrameParent;
-
         /// @brief add radio button
         FXRadioButton* myAddRadioButton;
 

@@ -983,8 +983,7 @@ GNETLSEditorFrame::TLSJunction::updateJunctionDescription() const {
 // ---------------------------------------------------------------------------
 
 GNETLSEditorFrame::TLSDefinition::TLSDefinition(GNETLSEditorFrame* TLSEditorParent) :
-    FXGroupBox(TLSEditorParent->myContentFrame, "Traffic lights definition", GUIDesignGroupBoxFrame),
-    myTLSEditorParent(TLSEditorParent) {
+    FXGroupBox(TLSEditorParent->myContentFrame, "Traffic lights definition", GUIDesignGroupBoxFrame) {
     // create create tlDef button
     myNewTLProgram = new FXButton(this, "Create TLS\t\tCreate a new traffic light program",
                                   GUIIconSubSys::getIcon(ICON_MODETLS), TLSEditorParent, MID_GNE_TLSFRAME_CREATE, GUIDesignButton);

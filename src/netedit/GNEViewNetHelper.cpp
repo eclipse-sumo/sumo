@@ -992,6 +992,7 @@ GNEViewNetHelper::VehicleOptions::VehicleOptions(GNEViewNet* viewNet) :
 
 void
 GNEViewNetHelper::VehicleOptions::buildVehicleOptionsMenuChecks() {
+    UNUSED_PARAMETER(myViewNet);
     // currently unused
 }
 
@@ -1012,6 +1013,7 @@ GNEViewNetHelper::VehicleTypeOptions::VehicleTypeOptions(GNEViewNet* viewNet) :
 
 void
 GNEViewNetHelper::VehicleTypeOptions::buildVehicleTypeOptionsMenuChecks() {
+    UNUSED_PARAMETER(myViewNet);
     // currently unused
 }
 
