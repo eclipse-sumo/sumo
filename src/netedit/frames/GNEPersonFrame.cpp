@@ -110,6 +110,9 @@ GNEPersonFrame::GNEPersonFrame(FXHorizontalFrame* horizontalFrameParent, GNEView
     // create Help Creation Modul
     myHelpCreation = new HelpCreation(this);
 
+    // limit path creator to pedestrians
+    myEdgePathCreator->setVClass(SVC_PEDESTRIAN);
+
     // set Person as default vehicle
     myPersonTagSelector->setCurrentTypeTag(SUMO_TAG_PERSON);
 }
@@ -132,72 +135,27 @@ GNEPersonFrame::show() {
 bool
 GNEPersonFrame::addPerson(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor) {
     // obtain tag (only for improve code legibility)
-    SumoXMLTag vehicleTag = myPersonTagSelector->getCurrentTagProperties().getTag();
-    // first check that current selected vehicle is valid
-    if (vehicleTag == SUMO_TAG_NOTHING) {
-        myViewNet->setStatusBarText("Current selected vehicle isn't valid.");
+    SumoXMLTag personTag = myPersonTagSelector->getCurrentTagProperties().getTag();
+    // first check that current selected person is valid
+    if (personTag == SUMO_TAG_NOTHING) {
+        myViewNet->setStatusBarText("Current selected person isn't valid.");
         return false;
     }
-    // Declare map to keep attributes from Frames from Frame
-    std::map<SumoXMLAttr, std::string> valuesMap = myPersonAttributes->getAttributesAndValues(false);
-    // add ID parameter
-    valuesMap[SUMO_ATTR_ID] = myViewNet->getNet()->generateDemandElementID("", vehicleTag);
-    // set route or edges depending of vehicle type
-    if ((vehicleTag == SUMO_TAG_VEHICLE) || (vehicleTag == SUMO_TAG_ROUTEFLOW)) {
-        if (objectsUnderCursor.getDemandElementFront() && (objectsUnderCursor.getDemandElementFront()->getTagProperty().isRoute())) {
-            // obtain route
-            valuesMap[SUMO_ATTR_ROUTE] = (objectsUnderCursor.getDemandElementFront()->getTagProperty().getTag() == SUMO_TAG_ROUTE)? objectsUnderCursor.getDemandElementFront()->getID() : "embedded";
-            // check if we're creating a vehicle or a flow
-            if (vehicleTag == SUMO_TAG_VEHICLE) {
-                // Add parameter departure
-                if (valuesMap[SUMO_ATTR_DEPART].empty()) {
-                    valuesMap[SUMO_ATTR_DEPART] = "0";
-                }
-                // declare SUMOSAXAttributesImpl_Cached to convert valuesMap into SUMOSAXAttributes
-                SUMOSAXAttributesImpl_Cached SUMOSAXAttrs(valuesMap, getPredefinedTagsMML(), toString(vehicleTag));
-                // obtain vehicle parameters in vehicleParameters
-                SUMOVehicleParameter* vehicleParameters = SUMOVehicleParserHelper::parseVehicleAttributes(SUMOSAXAttrs);
-                // check if we're creating a vehicle over a existent route or over a embedded route
-                if (objectsUnderCursor.getDemandElementFront()->getTagProperty().getTag() == SUMO_TAG_ROUTE) {
-                    GNERouteHandler::buildVehicleOverRoute(myViewNet, true, *vehicleParameters);
-                } else {
-                    GNERouteHandler::buildVehicleWithEmbeddedRoute(myViewNet, true, *vehicleParameters, objectsUnderCursor.getDemandElementFront());
-                }
-                // delete vehicleParameters
-                delete vehicleParameters;
-            } else {
-                // set begin and end attributes
-                if (valuesMap[SUMO_ATTR_BEGIN].empty()) {
-                    valuesMap[SUMO_ATTR_BEGIN] = "0";
-                }
-                if (valuesMap[SUMO_ATTR_END].empty()) {
-                    valuesMap[SUMO_ATTR_END] = "3600";
-                }
-                // declare SUMOSAXAttributesImpl_Cached to convert valuesMap into SUMOSAXAttributes
-                SUMOSAXAttributesImpl_Cached SUMOSAXAttrs(valuesMap, getPredefinedTagsMML(), toString(vehicleTag));
-                // obtain routeFlow parameters in routeFlowParameters
-                SUMOVehicleParameter* routeFlowParameters = SUMOVehicleParserHelper::parseFlowAttributes(SUMOSAXAttrs, 0, SUMOTime_MAX);
-                // check if we're creating a vehicle over a existent route or over a embedded route
-                if (objectsUnderCursor.getDemandElementFront()->getTagProperty().getTag() == SUMO_TAG_ROUTE) {
-                    GNERouteHandler::buildFlowOverRoute(myViewNet, true, *routeFlowParameters);
-                } else {
-                    GNERouteHandler::buildFlowWithEmbeddedRoute(myViewNet, true, *routeFlowParameters, objectsUnderCursor.getDemandElementFront());
-                }
-                // delete routeFlowParameters
-                delete routeFlowParameters;
-            }
-            // all ok, then return true;
-            return true;
-        } else {
-            myViewNet->setStatusBarText(toString(vehicleTag) + " has to be placed within a route.");
-            return false;
-        }
-    } else if (((vehicleTag == SUMO_TAG_TRIP) || (vehicleTag == SUMO_TAG_FLOW)) && objectsUnderCursor.getEdgeFront()) {
-        // add clicked edge in EdgePathCreator
+    // now check that pType is valid
+    if (myPTypeSelector->getCurrentDemandElement() == nullptr) {
+        myViewNet->setStatusBarText("Current selected person type isn't valid.");
+        return false;
+    }
+    // finally check that person plan selected is valid
+    if (myPersonPlanSelector->getCurrentTagProperties().getTag() == SUMO_TAG_NOTHING) {
+        myViewNet->setStatusBarText("Current selected person plan isn't valid.");
+        return false;
+    }
+    // add clicked edge in EdgePathCreator
+    if (objectsUnderCursor.getEdgeFront()) {
         myEdgePathCreator->addEdge(objectsUnderCursor.getEdgeFront());
     }
-    // nothing crated
-    return false;
+    return true;
 }
 
 
@@ -286,6 +244,7 @@ GNEPersonFrame::demandElementSelected() {
 
 void
 GNEPersonFrame::edgePathCreated() {
+
 
 }
 

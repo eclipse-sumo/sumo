@@ -545,7 +545,6 @@ GNEViewNet::doPaintGL(int mode, const Boundary& bound) {
             myViewOptionsNetwork.menuCheckShowGrid->setCheck(false);
         }
         myViewOptionsNetwork.menuCheckShowConnections->setCheck(myVisualizationSettings->showLane2Lane);
-
     }
     // draw temporal elements
     if (!myVisualizationSettings->drawForSelecting) {
@@ -553,8 +552,10 @@ GNEViewNet::doPaintGL(int mode, const Boundary& bound) {
         drawLaneCandidates();
         // draw testing elements
         myTestingMode.drawTestingElements(myApp);
-        // draw temporal trip route
+        // draw temporal trip/flow route
         myViewParent->getVehicleFrame()->getEdgePathCreator()->drawTemporalRoute();
+        // draw temporal person plan route
+        myViewParent->getPersonFrame()->getEdgePathCreator()->drawTemporalRoute();
         // draw temporal non consecutive edge
         myViewParent->getRouteFrame()->drawTemporalRoute();
     }
@@ -3187,6 +3188,16 @@ GNEViewNet::processLeftButtonPressDemand(void* eventData) {
             if (!myKeyPressed.controlKeyPressed()) {
                 // Handle click
                 myViewParent->getStopFrame()->addStop(myObjectsUnderCursor, myKeyPressed.shiftKeyPressed());
+            }
+            // process click
+            processClick(eventData);
+            break;
+        }
+        case GNE_DMODE_PERSON: {
+            // make sure that Control key isn't pressed
+            if (!myKeyPressed.controlKeyPressed()) {
+                // Handle click
+                myViewParent->getPersonFrame()->addPerson(myObjectsUnderCursor);
             }
             // process click
             processClick(eventData);
