@@ -107,6 +107,9 @@ private:
     /// @brief internal vehicle attributes
     AttributesCreator* myPersonAttributes;
 
+    /// @brief internal person plan attributes
+    AttributesCreator* myPersonPlanAttributes;
+
     /// @brief edge path creator (used for Walks, rides and trips)
     EdgePathCreator* myEdgePathCreator;
 
