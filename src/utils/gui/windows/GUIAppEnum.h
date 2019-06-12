@@ -523,8 +523,11 @@ enum {
     /// @name dynamic interaction with the simulation via SUMO-GUI
     /// @{
 
+    /// @brief close lane
     MID_CLOSE_LANE,
+    /// @brief close edge
     MID_CLOSE_EDGE,
+    /// @brief add rerouter
     MID_ADD_REROUTER,
     /// @}
 
@@ -592,8 +595,20 @@ enum {
     MID_GNE_REMOVE_ATTRIBUTE,
     /// @brief attribute edited
     MID_GNE_SET_ATTRIBUTE,
-    /// @brief create something
+    /// @brief create element
     MID_GNE_CREATE,
+    /// @brief delete element
+    MID_GNE_DELETE,
+    /// @brief inspect element
+    MID_GNE_INSPECT,
+    /// @brief reset element
+    MID_GNE_RESET,
+    /// @brief center element
+    MID_GNE_CENTER,
+    /// @brief copy element
+    MID_GNE_COPY,
+    /// @brief select element
+    MID_GNE_SELECT,
     /// @brief used to select a type of element in a combo box
     MID_GNE_SET_TYPE,
     /// @brief text attribute edited
@@ -604,26 +619,32 @@ enum {
     MID_GNE_SET_ATTRIBUTE_DIALOG,
     /// @brief attribute selected using a radio button
     MID_GNE_SET_ATTRIBUTE_RADIOBUTTON,
-    /// @brief select items
-    MID_GNE_SELECT,
     /// @brief abort edge path creation
     MID_GNE_EDGEPATH_ABORT,
     /// @brief finish edge path creation
     MID_GNE_EDGEPATH_FINISH,
     /// @brief remove last inserted edge of edge path
     MID_GNE_EDGEPATH_REMOVELASTEDGE,
-    /// @brief In AttributeCarrierHierarchy or deleteFrame, center element
-    MID_GNE_CENTER_ITEM,
-    /// @brief In AttributeCarrierHierarchy or deleteFrame, inspect element
-    MID_GNE_INSPECT_ITEM,
-    /// @brief In AttributeCarrierHierarchy or deleteFrame, delete element
-    MID_GNE_DELETE_ITEM,
     /// @brief In AttributeCarrierHierarchy show child menu
     MID_GNE_SHOWCHILDMENU,
     /// @brief set object as template
     MID_GNE_TEMPLATE_SET,
     /// @brief copy template
     MID_GNE_TEMPLATE_COPY,
+    /// @brief start drawing polygon
+    MID_GNE_STARTDRAWING,
+    /// @brief stop drawing polygon
+    MID_GNE_STOPDRAWING,
+    /// @brief abort drawing polygon
+    MID_GNE_ABORTDRAWING,
+    /// @brief inspect next element in overlapped modul
+    MID_GNE_OVERLAPPED_NEXT,
+    /// @brief inspect previous element in overlapped modul
+    MID_GNE_OVERLAPPED_PREVIOUS,
+    /// @brief show list of overlapped elements
+    MID_GNE_OVERLAPPED_SHOWLIST,
+    /// @brief list item selected in overlapped modul
+    MID_GNE_OVERLAPPED_ITEMSELECTED,
     /// @}
 
 
@@ -638,12 +659,6 @@ enum {
     MID_GNE_SELECTORFRAME_PROCESSSTRING,
     /// @brief changes the visual scaling of selected items
     MID_GNE_SELECTORFRAME_SELECTSCALE,
-    /// @brief start drawing polygon
-    MID_GNE_STARTDRAWING,
-    /// @brief stop drawing polygon
-    MID_GNE_STOPDRAWING,
-    /// @brief abort drawing polygon
-    MID_GNE_ABORTDRAWING,
     /// @}
 
 
@@ -665,14 +680,6 @@ enum {
     /// @{
     /// @brief go back to the previous element
     MID_GNE_INSPECTORFRAME_GOBACK,
-    /// @brief inspect next element in overlapped modul
-    MID_GNE_OVERLAPPED_NEXT,
-    /// @brief inspect previous element in overlapped modul
-    MID_GNE_OVERLAPPED_PREVIOUS,
-    /// @brief show list of overlapped elements
-    MID_GNE_OVERLAPPED_SHOWLIST,
-    /// @brief list item selected in overlapped modul
-    MID_GNE_OVERLAPPED_ITEMSELECTED,
     /// @}
 
 
@@ -717,26 +724,6 @@ enum {
     MID_GNE_TLSFRAME_SAVE_PROGRAM,
     /// @}
 
-
-    /// @name GNETLSEditorFrame messages
-    /// @{
-    /// @brief create vehicle types
-    MID_GNE_VEHICLETYPEFRAME_CREATE,
-    /// @brief delete a vehicle type
-    MID_GNE_VEHICLETYPEFRAME_DELETE,
-    /// @brief reset a default vehicle type
-    MID_GNE_VEHICLETYPEFRAME_RESET,
-    /// @brief copy a vehicle type
-    MID_GNE_VEHICLETYPEFRAME_COPY,
-    /// @}
-
-
-    /// @name GNECrossingFrame messages
-    /// @{
-
-    /// @brief Create crossing
-    MID_GNE_CROSSINGFRAME_CREATECROSSING,
-    /// @}
 
     /// @name GNEAdditionalFrame messages
     /// @{

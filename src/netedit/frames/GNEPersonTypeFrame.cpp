@@ -41,10 +41,10 @@ FXDEFMAP(GNEPersonTypeFrame::PersonTypeSelector) personTypeSelectorMap[] = {
 };
 
 FXDEFMAP(GNEPersonTypeFrame::PersonTypeEditor) personTypeEditorMap[] = {
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_VEHICLETYPEFRAME_CREATE,    GNEPersonTypeFrame::PersonTypeEditor::onCmdCreatePersonType),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_VEHICLETYPEFRAME_DELETE,    GNEPersonTypeFrame::PersonTypeEditor::onCmdDeletePersonType),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_VEHICLETYPEFRAME_RESET,     GNEPersonTypeFrame::PersonTypeEditor::onCmdResetPersonType),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_VEHICLETYPEFRAME_COPY,      GNEPersonTypeFrame::PersonTypeEditor::onCmdCopyPersonType)
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_CREATE,    GNEPersonTypeFrame::PersonTypeEditor::onCmdCreatePersonType),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_DELETE,    GNEPersonTypeFrame::PersonTypeEditor::onCmdDeletePersonType),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_RESET,     GNEPersonTypeFrame::PersonTypeEditor::onCmdResetPersonType),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_COPY,      GNEPersonTypeFrame::PersonTypeEditor::onCmdCopyPersonType)
 };
 
 // Object implementation
@@ -175,13 +175,13 @@ GNEPersonTypeFrame::PersonTypeEditor::PersonTypeEditor(GNEPersonTypeFrame* perso
     FXGroupBox(personTypeFrameParent->myContentFrame, "Person Type Editor", GUIDesignGroupBoxFrame),
     myPersonTypeFrameParent(personTypeFrameParent) {
     // Create new person type
-    myCreatePersonTypeButton = new FXButton(this, "Create Person Type", nullptr, this, MID_GNE_VEHICLETYPEFRAME_CREATE, GUIDesignButton);
+    myCreatePersonTypeButton = new FXButton(this, "Create Person Type", nullptr, this, MID_GNE_CREATE, GUIDesignButton);
     // Create delete person type
-    myDeletePersonTypeButton = new FXButton(this, "Delete Person Type", nullptr, this, MID_GNE_VEHICLETYPEFRAME_DELETE, GUIDesignButton);
+    myDeletePersonTypeButton = new FXButton(this, "Delete Person Type", nullptr, this, MID_GNE_DELETE, GUIDesignButton);
     // Create reset person type
-    myResetDefaultPersonTypeButton = new FXButton(this, "Reset default Person Type", nullptr, this, MID_GNE_VEHICLETYPEFRAME_RESET, GUIDesignButton);
+    myResetDefaultPersonTypeButton = new FXButton(this, "Reset default Person Type", nullptr, this, MID_GNE_RESET, GUIDesignButton);
     // Create copy person type
-    myCopyPersonTypeButton = new FXButton(this, "Copy Person Type", nullptr, this, MID_GNE_VEHICLETYPEFRAME_COPY, GUIDesignButton);
+    myCopyPersonTypeButton = new FXButton(this, "Copy Person Type", nullptr, this, MID_GNE_COPY, GUIDesignButton);
 }
 
 

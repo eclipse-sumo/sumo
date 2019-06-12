@@ -41,10 +41,10 @@ FXDEFMAP(GNEVehicleTypeFrame::VehicleTypeSelector) vehicleTypeSelectorMap[] = {
 };
 
 FXDEFMAP(GNEVehicleTypeFrame::VehicleTypeEditor) vehicleTypeEditorMap[] = {
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_VEHICLETYPEFRAME_CREATE,    GNEVehicleTypeFrame::VehicleTypeEditor::onCmdCreateVehicleType),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_VEHICLETYPEFRAME_DELETE,    GNEVehicleTypeFrame::VehicleTypeEditor::onCmdDeleteVehicleType),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_VEHICLETYPEFRAME_RESET,     GNEVehicleTypeFrame::VehicleTypeEditor::onCmdResetVehicleType),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_VEHICLETYPEFRAME_COPY,      GNEVehicleTypeFrame::VehicleTypeEditor::onCmdCopyVehicleType)
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_CREATE,    GNEVehicleTypeFrame::VehicleTypeEditor::onCmdCreateVehicleType),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_DELETE,    GNEVehicleTypeFrame::VehicleTypeEditor::onCmdDeleteVehicleType),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_RESET,     GNEVehicleTypeFrame::VehicleTypeEditor::onCmdResetVehicleType),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_COPY,      GNEVehicleTypeFrame::VehicleTypeEditor::onCmdCopyVehicleType)
 };
 
 // Object implementation
@@ -175,13 +175,13 @@ GNEVehicleTypeFrame::VehicleTypeEditor::VehicleTypeEditor(GNEVehicleTypeFrame* v
     FXGroupBox(vehicleTypeFrameParent->myContentFrame, "Vehicle Type Editor", GUIDesignGroupBoxFrame),
     myVehicleTypeFrameParent(vehicleTypeFrameParent) {
     // Create new vehicle type
-    myCreateVehicleTypeButton = new FXButton(this, "Create Vehicle Type", nullptr, this, MID_GNE_VEHICLETYPEFRAME_CREATE, GUIDesignButton);
+    myCreateVehicleTypeButton = new FXButton(this, "Create Vehicle Type", nullptr, this, MID_GNE_CREATE, GUIDesignButton);
     // Create delete vehicle type
-    myDeleteVehicleTypeButton = new FXButton(this, "Delete Vehicle Type", nullptr, this, MID_GNE_VEHICLETYPEFRAME_DELETE, GUIDesignButton);
+    myDeleteVehicleTypeButton = new FXButton(this, "Delete Vehicle Type", nullptr, this, MID_GNE_DELETE, GUIDesignButton);
     // Create reset vehicle type
-    myResetDefaultVehicleTypeButton = new FXButton(this, "Reset default Vehicle Type", nullptr, this, MID_GNE_VEHICLETYPEFRAME_RESET, GUIDesignButton);
+    myResetDefaultVehicleTypeButton = new FXButton(this, "Reset default Vehicle Type", nullptr, this, MID_GNE_RESET, GUIDesignButton);
     // Create copy vehicle type
-    myCopyVehicleTypeButton = new FXButton(this, "Copy Vehicle Type", nullptr, this, MID_GNE_VEHICLETYPEFRAME_COPY, GUIDesignButton);
+    myCopyVehicleTypeButton = new FXButton(this, "Copy Vehicle Type", nullptr, this, MID_GNE_COPY, GUIDesignButton);
 }
 
 

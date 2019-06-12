@@ -122,7 +122,7 @@ void
 GNEPersonFrame::show() {
     // refresh item selector
     myPersonTagSelector->refreshTagProperties();
-    myPTypeSelector->refreshVTypeSelector();
+    myPTypeSelector->refreshDemandElementSelector();
     myPersonPlanSelector->refreshTagProperties();
     // show frame
     GNEFrame::show();

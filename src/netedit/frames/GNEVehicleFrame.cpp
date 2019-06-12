@@ -226,7 +226,7 @@ void
 GNEVehicleFrame::tagSelected() {
     if (myVehicleTagSelector->getCurrentTagProperties().getTag() != SUMO_TAG_NOTHING) {
         // show vehicle type selector modul
-        myVTypeSelector->showVTypeSelector();
+        myVTypeSelector->showDemandElementSelector();
         // show AutoRute creator if we're editing a trip
         if ((myVehicleTagSelector->getCurrentTagProperties().getTag() == SUMO_TAG_TRIP) || 
             (myVehicleTagSelector->getCurrentTagProperties().getTag() == SUMO_TAG_FLOW)) {
@@ -236,7 +236,7 @@ GNEVehicleFrame::tagSelected() {
         }
     } else {
         // hide all moduls if vehicle isn't valid
-        myVTypeSelector->hideVTypeSelector();
+        myVTypeSelector->hideDemandElementSelector();
         myVehicleAttributes->hideAttributesCreatorModul();
         myHelpCreation->hideHelpCreation();
     }

@@ -49,7 +49,7 @@ FXDEFMAP(GNECrossingFrame::CrossingParameters) CrossingParametersMap[] = {
 };
 
 FXDEFMAP(GNECrossingFrame::CreateCrossing) CreateCrossingMap[] = {
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_CROSSINGFRAME_CREATECROSSING,    GNECrossingFrame::CreateCrossing::onCmdCreateCrossing),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_CREATE,  GNECrossingFrame::CreateCrossing::onCmdCreateCrossing),
 };
 
 // Object implementation
@@ -455,7 +455,7 @@ GNECrossingFrame::CreateCrossing::CreateCrossing(GNECrossingFrame* crossingFrame
     FXGroupBox(crossingFrameParent->myContentFrame, "Create", GUIDesignGroupBoxFrame),
     myCrossingFrameParent(crossingFrameParent) {
     // Create groupbox for create crossings
-    myCreateCrossingButton = new FXButton(this, "Create crossing", 0, this, MID_GNE_CROSSINGFRAME_CREATECROSSING, GUIDesignButton);
+    myCreateCrossingButton = new FXButton(this, "Create crossing", 0, this, MID_GNE_CREATE, GUIDesignButton);
     myCreateCrossingButton->disable();
 }
 

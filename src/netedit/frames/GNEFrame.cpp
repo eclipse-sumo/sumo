@@ -57,7 +57,7 @@ FXDEFMAP(GNEFrame::TagSelector) TagSelectorMap[] = {
 };
 
 FXDEFMAP(GNEFrame::DemandElementSelector) DemandElementSelectorMap[] = {
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_SET_TYPE,    GNEFrame::DemandElementSelector::onCmdSelectVType),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_SET_TYPE,    GNEFrame::DemandElementSelector::onCmdSelectDemandElement),
 };
 
 FXDEFMAP(GNEFrame::EdgePathCreator) EdgePathCreatorMap[] = {
@@ -93,9 +93,9 @@ FXDEFMAP(GNEFrame::AttributesEditorExtended) AttributesEditorExtendedMap[] = {
 };
 
 FXDEFMAP(GNEFrame::AttributeCarrierHierarchy) AttributeCarrierHierarchyMap[] = {
-    FXMAPFUNC(SEL_COMMAND,              MID_GNE_CENTER_ITEM,    GNEFrame::AttributeCarrierHierarchy::onCmdCenterItem),
-    FXMAPFUNC(SEL_COMMAND,              MID_GNE_INSPECT_ITEM,   GNEFrame::AttributeCarrierHierarchy::onCmdInspectItem),
-    FXMAPFUNC(SEL_COMMAND,              MID_GNE_DELETE_ITEM,    GNEFrame::AttributeCarrierHierarchy::onCmdDeleteItem),
+    FXMAPFUNC(SEL_COMMAND,              MID_GNE_CENTER,         GNEFrame::AttributeCarrierHierarchy::onCmdCenterItem),
+    FXMAPFUNC(SEL_COMMAND,              MID_GNE_INSPECT,        GNEFrame::AttributeCarrierHierarchy::onCmdInspectItem),
+    FXMAPFUNC(SEL_COMMAND,              MID_GNE_DELETE,         GNEFrame::AttributeCarrierHierarchy::onCmdDeleteItem),
     FXMAPFUNC(SEL_RIGHTBUTTONRELEASE,   MID_GNE_SHOWCHILDMENU,  GNEFrame::AttributeCarrierHierarchy::onCmdShowChildMenu)
 };
 
@@ -284,10 +284,10 @@ GNEFrame::DemandElementSelector::DemandElementSelector(GNEFrame* frameParent, Su
     myCurrentDemandElement(nullptr),
     myDemandElementTagType(demandElementTagType) {
     // Create FXComboBox
-    myVTypesMatchBox = new FXComboBox(this, GUIDesignComboBoxNCol, this, MID_GNE_SET_TYPE, GUIDesignComboBox);
-    // refresh TypeMatchBox
-    refreshVTypeSelector();
-    // DemandElementSelector is always shown
+    myDemandElementsMatchBox = new FXComboBox(this, GUIDesignComboBoxNCol, this, MID_GNE_SET_TYPE, GUIDesignComboBox);
+    // refresh demand element MatchBox
+    refreshDemandElementSelector();
+    // shown after creation
     show();
 }
 
@@ -302,67 +302,71 @@ GNEFrame::DemandElementSelector::getCurrentDemandElement() const {
 
 
 void
-GNEFrame::DemandElementSelector::showVTypeSelector() {
-    refreshVTypeSelector();
+GNEFrame::DemandElementSelector::showDemandElementSelector() {
+    // first refresh modul
+    refreshDemandElementSelector();
     // if current selected item isn't valid, set DEFAULT_VTYPE_ID or DEFAULT_PEDTYPE_ID
     if (myCurrentDemandElement) {
-        myVTypesMatchBox->setText(myCurrentDemandElement->getID().c_str());
+        myDemandElementsMatchBox->setText(myCurrentDemandElement->getID().c_str());
     } else if (myDemandElementTagType == SUMO_TAG_VTYPE) {
-        myVTypesMatchBox->setText(DEFAULT_VTYPE_ID.c_str());
+        myDemandElementsMatchBox->setText(DEFAULT_VTYPE_ID.c_str());
     } else if (myDemandElementTagType == SUMO_TAG_VTYPE) {
-        myVTypesMatchBox->setText(DEFAULT_PEDTYPE_ID.c_str());
+        myDemandElementsMatchBox->setText(DEFAULT_PEDTYPE_ID.c_str());
     }
-    onCmdSelectVType(nullptr, 0, nullptr);
+    onCmdSelectDemandElement(nullptr, 0, nullptr);
     show();
 }
 
 
 void
-GNEFrame::DemandElementSelector::hideVTypeSelector() {
+GNEFrame::DemandElementSelector::hideDemandElementSelector() {
     hide();
 }
 
 
 void
-GNEFrame::DemandElementSelector::refreshVTypeSelector() {
-    // clear comboBox
-    myVTypesMatchBox->clearItems();
+GNEFrame::DemandElementSelector::refreshDemandElementSelector() {
+    // clear demand elements comboBox
+    myDemandElementsMatchBox->clearItems();
     // fill myTypeMatchBox with list of vtypes
     for (const auto& i : myFrameParent->getViewNet()->getNet()->getAttributeCarriers().demandElements.at(myDemandElementTagType)) {
-        myVTypesMatchBox->appendItem(i.first.c_str());
+        myDemandElementsMatchBox->appendItem(i.first.c_str());
     }
-    // Set visible items
-    myVTypesMatchBox->setNumVisible((int)myVTypesMatchBox->getNumItems());
+    // Set number of  items (maximum 10)
+    if (myDemandElementsMatchBox->getNumItems() < 10) {
+        myDemandElementsMatchBox->setNumVisible((int)myDemandElementsMatchBox->getNumItems());
+    } else {
+        myDemandElementsMatchBox->setNumVisible(10);
+    }
 }
 
 
 long
-GNEFrame::DemandElementSelector::onCmdSelectVType(FXObject*, FXSelector, void*) {
-    // Check if value of myTypeMatchBox correspond to a VType
+GNEFrame::DemandElementSelector::onCmdSelectDemandElement(FXObject*, FXSelector, void*) {
+    // Check if value of myTypeMatchBox correspond to a demand element
     for (const auto& i : myFrameParent->getViewNet()->getNet()->getAttributeCarriers().demandElements.at(myDemandElementTagType)) {
-        if (i.first == myVTypesMatchBox->getText().text()) {
+        if (i.first == myDemandElementsMatchBox->getText().text()) {
             // set color of myTypeMatchBox to black (valid)
-            myVTypesMatchBox->setTextColor(FXRGB(0, 0, 0));
-            // Set new current VType
+            myDemandElementsMatchBox->setTextColor(FXRGB(0, 0, 0));
+            // Set new current demand element
             myCurrentDemandElement = i.second;
             // call demandElementSelected function
             myFrameParent->demandElementSelected();
             // Write Warning in console if we're in testing mode
-            WRITE_DEBUG(("Selected item '" + myVTypesMatchBox->getText() + "' in DemandElementSelector").text());
+            WRITE_DEBUG(("Selected item '" + myDemandElementsMatchBox->getText() + "' in DemandElementSelector").text());
             return 1;
         }
     }
-    // if VType selected is invalid, set demand element as null
+    // if demand element selected is invalid, set demand element as null
     myCurrentDemandElement = nullptr;
     // call demandElementSelected function
     myFrameParent->demandElementSelected();
-    // set color of myTypeMatchBox to red (invalid)
-    myVTypesMatchBox->setTextColor(FXRGB(255, 0, 0));
+    // change color of myDemandElementsMatchBox to red (invalid)
+    myDemandElementsMatchBox->setTextColor(FXRGB(255, 0, 0));
     // Write Warning in console if we're in testing mode
     WRITE_DEBUG("Selected invalid item in DemandElementSelector");
     return 1;
 }
-
 
 // ---------------------------------------------------------------------------
 // GNEFrame::EdgePathCreator - methods
@@ -2065,9 +2069,9 @@ GNEFrame::AttributeCarrierHierarchy::createPopUpMenu(int X, int Y, GNEAttributeC
         new MFXMenuHeader(pane, myFrameParent->myViewNet->getViewParent()->getGUIMainWindow()->getBoldFont(), myRightClickedAC->getPopUpID().c_str(), myRightClickedAC->getIcon());
         new FXMenuSeparator(pane);
         // Fill FXMenuCommand
-        new FXMenuCommand(pane, "Center", GUIIconSubSys::getIcon(ICON_RECENTERVIEW), this, MID_GNE_CENTER_ITEM);
-        FXMenuCommand* inspectMenuCommand = new FXMenuCommand(pane, "Inspect", GUIIconSubSys::getIcon(ICON_MODEINSPECT), this, MID_GNE_INSPECT_ITEM);
-        FXMenuCommand* deleteMenuCommand = new FXMenuCommand(pane, "Delete", GUIIconSubSys::getIcon(ICON_MODEDELETE), this, MID_GNE_DELETE_ITEM);
+        new FXMenuCommand(pane, "Center", GUIIconSubSys::getIcon(ICON_RECENTERVIEW), this, MID_GNE_CENTER);
+        FXMenuCommand* inspectMenuCommand = new FXMenuCommand(pane, "Inspect", GUIIconSubSys::getIcon(ICON_MODEINSPECT), this, MID_GNE_INSPECT);
+        FXMenuCommand* deleteMenuCommand = new FXMenuCommand(pane, "Delete", GUIIconSubSys::getIcon(ICON_MODEDELETE), this, MID_GNE_DELETE);
         // check if inspect and delete menu commands has to be disabled
         if ((myRightClickedAC->getTagProperty().isNetElement() && (myFrameParent->myViewNet->getEditModes().currentSupermode == GNE_SUPERMODE_DEMAND)) ||
             (myRightClickedAC->getTagProperty().isDemandElement() && (myFrameParent->myViewNet->getEditModes().currentSupermode == GNE_SUPERMODE_NETWORK))) {

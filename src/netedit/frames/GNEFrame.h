@@ -114,19 +114,19 @@ public:
         /// @brief get current demand element
         const GNEDemandElement* getCurrentDemandElement() const;
 
-        /// @brief show VType selector
-        void showVTypeSelector();
+        /// @brief show demand element selector
+        void showDemandElementSelector();
 
-        /// @brief hide VType selector
-        void hideVTypeSelector();
+        /// @brief hide demand element selector
+        void hideDemandElementSelector();
 
-        /// @brief refresh VType selector
-        void refreshVTypeSelector();
+        /// @brief refresh demand element selector
+        void refreshDemandElementSelector();
 
         /// @name FOX-callbacks
         /// @{
-        /// @brief Called when the user select another element in ComboBox
-        long onCmdSelectVType(FXObject*, FXSelector, void*);
+        /// @brief Called when the user select another demand elementelement in ComboBox
+        long onCmdSelectDemandElement(FXObject*, FXSelector, void*);
         /// @}
 
     protected:
@@ -138,7 +138,7 @@ public:
         GNEFrame* myFrameParent;
 
         /// @brief comboBox with the list of elements type
-        FXComboBox* myVTypesMatchBox;
+        FXComboBox* myDemandElementsMatchBox;
 
         /// @brief current demand element
         GNEDemandElement* myCurrentDemandElement;
