@@ -190,10 +190,10 @@ public:
         std::vector<GNEEdge*> getSelectedEdges() const;
 
         /// @brief add edge to route
-        void addEdge(GNEEdge* edge);
+        bool addEdge(GNEEdge* edge);
 
         /// @brief add busStop to route
-        void addBusStop(GNEAdditional* busStop);
+        bool addBusStop(GNEAdditional* busStop);
 
         /// @brief clear edges (and restore colors)
         void clearEdges();

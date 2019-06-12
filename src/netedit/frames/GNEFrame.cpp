@@ -440,7 +440,7 @@ GNEFrame::EdgePathCreator::getSelectedEdges() const {
 }
 
 
-void
+bool
 GNEFrame::EdgePathCreator::addEdge(GNEEdge* edge) {
     if (mySelectedEdges.empty() || ((mySelectedEdges.size() > 0) && (mySelectedEdges.back() != edge))) {
         mySelectedEdges.push_back(edge);
@@ -461,13 +461,16 @@ GNEFrame::EdgePathCreator::addEdge(GNEEdge* edge) {
             // calculate temporal route
             myTemporalRoute = GNEDemandElement::getRouteCalculatorInstance()->calculateDijkstraRoute(myVClass, mySelectedEdges);
         }
+        return true;
+    } else {
+        return false;
     }
 }
 
 
-void 
+bool 
 GNEFrame::EdgePathCreator::addBusStop(GNEAdditional* /*busStop*/) {
-
+    return false;
 }
 
 

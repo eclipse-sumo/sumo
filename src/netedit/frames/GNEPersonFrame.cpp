@@ -186,9 +186,10 @@ GNEPersonFrame::addPerson(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnd
     }
     // add clicked edge in EdgePathCreator
     if (objectsUnderCursor.getEdgeFront()) {
-        myEdgePathCreator->addEdge(objectsUnderCursor.getEdgeFront());
+        return myEdgePathCreator->addEdge(objectsUnderCursor.getEdgeFront());
+    } else {
+        return false;
     }
-    return true;
 }
 
 

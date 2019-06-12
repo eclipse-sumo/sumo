@@ -206,10 +206,10 @@ GNEVehicleFrame::addVehicle(const GNEViewNetHelper::ObjectsUnderCursor& objectsU
         }
     } else if (((vehicleTag == SUMO_TAG_TRIP) || (vehicleTag == SUMO_TAG_FLOW)) && objectsUnderCursor.getEdgeFront()) {
         // add clicked edge in EdgePathCreator
-        myEdgePathCreator->addEdge(objectsUnderCursor.getEdgeFront());
+        return myEdgePathCreator->addEdge(objectsUnderCursor.getEdgeFront());
+    } else {
+        return false;
     }
-    // nothing crated
-    return false;
 }
 
 
