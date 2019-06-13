@@ -265,6 +265,9 @@ public:
             myLastFollowerSecureGap = NO_NEIGHBOR;
             myLastOrigLeaderGap = NO_NEIGHBOR;
             myLastOrigLeaderSecureGap = NO_NEIGHBOR;
+            myLastLeaderSpeed = NO_NEIGHBOR;
+            myLastFollowerSpeed = NO_NEIGHBOR;
+            myLastOrigLeaderSpeed = NO_NEIGHBOR;
         }
         myCommittedSpeed = 0;
     }
@@ -698,6 +701,10 @@ protected:
     /// @brief acutal and secure distance to closest leader vehicle on the original when performing lane change
     double myLastOrigLeaderGap;
     double myLastOrigLeaderSecureGap;
+    /// @brief speeds of surrounding vehicles at the time of lane change
+    double myLastLeaderSpeed;
+    double myLastFollowerSpeed;
+    double myLastOrigLeaderSpeed;
 
     /// @brief Flag to prevent resetting the memorized values for LC relevant gaps until the LC output is triggered
     ///        in the case of continuous LC.

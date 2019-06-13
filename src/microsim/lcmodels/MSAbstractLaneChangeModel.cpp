@@ -115,6 +115,9 @@ MSAbstractLaneChangeModel::MSAbstractLaneChangeModel(MSVehicle& v, const LaneCha
     myLastFollowerSecureGap(0.),
     myLastOrigLeaderGap(0.),
     myLastOrigLeaderSecureGap(0.),
+    myLastLeaderSpeed(0),
+    myLastFollowerSpeed(0),
+    myLastOrigLeaderSpeed(0),
     myDontResetLCGaps(false),
     myMaxSpeedLatStanding(v.getVehicleType().getParameter().getLCParam(SUMO_ATTR_LCA_MAXSPEEDLATSTANDING, v.getVehicleType().getMaxSpeedLat())),
     myMaxSpeedLatFactor(v.getVehicleType().getParameter().getLCParam(SUMO_ATTR_LCA_MAXSPEEDLATFACTOR, 1)),
@@ -326,10 +329,13 @@ MSAbstractLaneChangeModel::laneChangeOutput(const std::string& tag, MSLane* sour
                                             | LCA_AMBACKBLOCKER | LCA_AMBACKBLOCKER_STANDING))));
         of.writeAttr("leaderGap", myLastLeaderGap == NO_NEIGHBOR ? "None" : toString(myLastLeaderGap));
         of.writeAttr("leaderSecureGap", myLastLeaderSecureGap == NO_NEIGHBOR ? "None" : toString(myLastLeaderSecureGap));
+        of.writeAttr("leaderSpeed", myLastLeaderSpeed == NO_NEIGHBOR ? "None" : toString(myLastLeaderSpeed));
         of.writeAttr("followerGap", myLastFollowerGap == NO_NEIGHBOR ? "None" : toString(myLastFollowerGap));
         of.writeAttr("followerSecureGap", myLastFollowerSecureGap == NO_NEIGHBOR ? "None" : toString(myLastFollowerSecureGap));
+        of.writeAttr("followerSpeed", myLastFollowerSpeed == NO_NEIGHBOR ? "None" : toString(myLastFollowerSpeed));
         of.writeAttr("origLeaderGap", myLastOrigLeaderGap == NO_NEIGHBOR ? "None" : toString(myLastOrigLeaderGap));
         of.writeAttr("origLeaderSecureGap", myLastOrigLeaderSecureGap == NO_NEIGHBOR ? "None" : toString(myLastOrigLeaderSecureGap));
+        of.writeAttr("origLeaderSpeed", myLastOrigLeaderSpeed == NO_NEIGHBOR ? "None" : toString(myLastOrigLeaderSpeed));
         if (MSGlobals::gLateralResolution > 0) {
             const double latGap = direction < 0 ? myLastLateralGapRight : myLastLateralGapLeft;
             of.writeAttr("latGap", latGap == NO_NEIGHBOR ? "None" : toString(latGap));
@@ -827,6 +833,7 @@ MSAbstractLaneChangeModel::setFollowerGaps(CLeaderDist follower, double secGap) 
     if (follower.first != 0) {
         myLastFollowerGap = follower.second + follower.first->getVehicleType().getMinGap();
         myLastFollowerSecureGap = secGap;
+        myLastFollowerSpeed = follower.first->getSpeed();
     }
 }
 
@@ -835,6 +842,7 @@ MSAbstractLaneChangeModel::setLeaderGaps(CLeaderDist leader, double secGap) {
     if (leader.first != 0) {
         myLastLeaderGap = leader.second + myVehicle.getVehicleType().getMinGap();
         myLastLeaderSecureGap = secGap;
+        myLastLeaderSpeed = leader.first->getSpeed();
     }
 }
 
@@ -843,6 +851,7 @@ MSAbstractLaneChangeModel::setOrigLeaderGaps(CLeaderDist leader, double secGap) 
     if (leader.first != 0) {
         myLastOrigLeaderGap = leader.second + myVehicle.getVehicleType().getMinGap();
         myLastOrigLeaderSecureGap = secGap;
+        myLastOrigLeaderSpeed = leader.first->getSpeed();
     }
 }
 
@@ -860,6 +869,7 @@ MSAbstractLaneChangeModel::setFollowerGaps(const MSLeaderDistanceInfo& vehicles)
             if (netGap < myLastFollowerGap && netGap >= 0) {
                 myLastFollowerGap = netGap;
                 myLastFollowerSecureGap = follower->getCarFollowModel().getSecureGap(follower->getSpeed(), leader->getSpeed(), leader->getCarFollowModel().getMaxDecel());
+                myLastFollowerSpeed = follower->getSpeed();
             }
         }
     }
@@ -879,6 +889,7 @@ MSAbstractLaneChangeModel::setLeaderGaps(const MSLeaderDistanceInfo& vehicles) {
             if (netGap < myLastLeaderGap && netGap >= 0) {
                 myLastLeaderGap = netGap;
                 myLastLeaderSecureGap = follower->getCarFollowModel().getSecureGap(follower->getSpeed(), leader->getSpeed(), leader->getCarFollowModel().getMaxDecel());
+                myLastLeaderSpeed = leader->getSpeed();
             }
         }
     }
@@ -898,6 +909,7 @@ MSAbstractLaneChangeModel::setOrigLeaderGaps(const MSLeaderDistanceInfo& vehicle
             if (netGap < myLastOrigLeaderGap && netGap >= 0) {
                 myLastOrigLeaderGap = netGap;
                 myLastOrigLeaderSecureGap = follower->getCarFollowModel().getSecureGap(follower->getSpeed(), leader->getSpeed(), leader->getCarFollowModel().getMaxDecel());
+                myLastOrigLeaderSpeed = leader->getSpeed();
             }
         }
     }
