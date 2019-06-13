@@ -3745,10 +3745,13 @@ NBEdge::getViaSuccessors(SUMOVehicleClass vClass) const {
     myViaSuccessors.clear();
     for (const Connection& con : myConnections) {
         std::pair<const NBEdge*, const Connection*> pair(con.toEdge, nullptr);
-        if (con.fromLane >= 0 && con.toLane >= 0 && con.toEdge != nullptr &&
-                (getPermissions(con.fromLane)
-                 & con.toEdge->getPermissions(con.toLane) & vClass) != 0) {
-                // ignore duplicates
+        // special case for Persons in Netedit
+        if (vClass == SVC_PEDESTRIAN) {         //
+            myViaSuccessors.push_back(pair);    //
+        } else if (con.fromLane >= 0 && con.toLane >= 0 && 
+                   con.toEdge != nullptr &&
+                   (getPermissions(con.fromLane) & con.toEdge->getPermissions(con.toLane) & vClass) != 0) {
+            // ignore duplicates
             if (con.getLength() > 0) {
                 pair.second = &con;
             }
