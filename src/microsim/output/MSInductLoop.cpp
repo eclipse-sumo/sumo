@@ -108,7 +108,8 @@ MSInductLoop::notifyMove(SUMOTrafficObject& veh, double oldPos,
     double newBackPos = newPos - veh.getVehicleType().getLength();
     if (newBackPos > myPosition) {
         // vehicle passed the detector (it may have changed onto this lane somewhere past the detector)
-        assert(!MSGlobals::gSemiImplicitEulerUpdate || newSpeed > 0 || myVehiclesOnDet.find(&veh) == myVehiclesOnDet.end());
+        // assert(!MSGlobals::gSemiImplicitEulerUpdate || newSpeed > 0 || myVehiclesOnDet.find(&veh) == myVehiclesOnDet.end());
+        // assertion is invalid in case of teleportation
         if (oldBackPos <= myPosition) {
             const double timeBeforeLeave = MSCFModel::passingTime(oldBackPos, myPosition, newBackPos, oldSpeed, newSpeed);
             const double leaveTime = SIMTIME + timeBeforeLeave;
