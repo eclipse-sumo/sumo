@@ -602,7 +602,7 @@ GNERouteHandler::buildWalkBusStop(GNEViewNet* viewNet, bool undoDemandElements, 
 void 
 GNERouteHandler::buildWalkRoute(GNEViewNet* viewNet, bool undoDemandElements, GNEDemandElement* personParent, GNEDemandElement* routeParent, double arrivalPos) {
     // create walkRoute
-    GNEWalk* walkRoute = new GNEWalk(viewNet, personParent, routeParent);
+    GNEWalk* walkRoute = new GNEWalk(viewNet, personParent, routeParent, arrivalPos);
     // add element using undo list or directly, depending of undoDemandElements flag
     if (undoDemandElements) {
         viewNet->getUndoList()->p_begin("add " + toString(SUMO_TAG_WALK_ROUTE) + " within person '" + personParent->getID() + "'");

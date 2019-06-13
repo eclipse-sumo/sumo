@@ -58,10 +58,10 @@ GNEWalk::GNEWalk(GNEViewNet* viewNet, GNEDemandElement *personParent, const std:
 }
 
 
-GNEWalk::GNEWalk(GNEViewNet* viewNet, GNEDemandElement *personParent, GNEDemandElement *routeParent) :
+GNEWalk::GNEWalk(GNEViewNet* viewNet, GNEDemandElement *personParent, GNEDemandElement *routeParent, double arrivalPosition) :
     GNEDemandElement(viewNet->getNet()->generateDemandElementID("", SUMO_TAG_WALK_ROUTE), viewNet, GLO_WALK, SUMO_TAG_WALK_ROUTE,
     {}, {}, {}, {}, {personParent, routeParent}, {}, {}, {}, {}, {}),
-    myArrivalPosition(-1) {
+    myArrivalPosition(arrivalPosition) {
 }
 
 

@@ -59,8 +59,9 @@ public:
      * @param[in] viewNet view in which this Walk is placed
      * @param[in] personParent person parent
      * @param[in] personParent route parent
+     * @param[in] arrivalPosition arrival position on the last route's edge 
      */
-    GNEWalk(GNEViewNet* viewNet, GNEDemandElement *personParent, GNEDemandElement *routeParent);
+    GNEWalk(GNEViewNet* viewNet, GNEDemandElement *personParent, GNEDemandElement *routeParent, double arrivalPosition);
 
     /// @brief destructor
     ~GNEWalk();
