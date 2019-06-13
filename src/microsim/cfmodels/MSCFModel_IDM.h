@@ -122,7 +122,7 @@ public:
      * @param[in] predSpeed The speed of LEADER
      * @return EGO's safe speed
      */
-    double insertionFollowSpeed(const MSVehicle* const veh, double speed, double gap2pred, double predSpeed, double predMaxDecel) const;
+    double insertionFollowSpeed(const MSVehicle* const veh, double speed, double gap2pred, double predSpeed, double predMaxDecel, const MSVehicle* const pred = 0) const;
 
 
     /** @brief Returns the minimum gap to reserve if the leader is braking at maximum (>=0)

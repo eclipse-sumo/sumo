@@ -67,7 +67,7 @@ MSCFModel_IDM::followSpeed(const MSVehicle* const veh, double speed, double gap2
 
 
 double
-MSCFModel_IDM::insertionFollowSpeed(const MSVehicle* const v, double speed, double gap2pred, double predSpeed, double predMaxDecel) const {
+MSCFModel_IDM::insertionFollowSpeed(const MSVehicle* const v, double speed, double gap2pred, double predSpeed, double predMaxDecel, const MSVehicle* const /*pred*/ ) const {
     const double vMax = v->getLane()->getVehicleMaxSpeed(v);
     // see definition of s in _v()
     double s = MAX2(0., vMax * myHeadwayTime + vMax * (vMax - predSpeed) / myTwoSqrtAccelDecel);

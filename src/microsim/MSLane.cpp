@@ -416,7 +416,7 @@ MSLane::freeInsertion(MSVehicle& veh, double mspeed, double posLat,
         const double speed = adaptableSpeed ? leader->getSpeed() : mspeed;
         const double frontGapNeeded = veh.getCarFollowModel().getSecureGap(speed, leader->getSpeed(), leader->getCarFollowModel().getMaxDecel()) + veh.getVehicleType().getMinGap();
         if (leaderPos >= frontGapNeeded) {
-            const double tspeed = MIN2(veh.getCarFollowModel().insertionFollowSpeed(&veh, mspeed, frontGapNeeded, leader->getSpeed(), leader->getCarFollowModel().getMaxDecel()), mspeed);
+            const double tspeed = MIN2(veh.getCarFollowModel().insertionFollowSpeed(&veh, mspeed, frontGapNeeded, leader->getSpeed(), leader->getCarFollowModel().getMaxDecel(), leader), mspeed);
             // check whether we can insert our vehicle behind the last vehicle on the lane
             if (isInsertionSuccess(&veh, tspeed, minPos, posLat, adaptableSpeed, notification)) {
                 //std::cout << SIMTIME << " freeInsertion lane=" << getID() << " veh=" << veh.getID() << " pos=" << minPos<< " speed=" << speed  << " tspeed=" << tspeed << " frontGapNeeded=" << frontGapNeeded << " lead=" << leader->getID() << " lPos=" << leaderPos << "\n   vehsOnLane=" << toString(myVehicles) << " @(358)\n";
@@ -1025,7 +1025,7 @@ MSLane::safeInsertionSpeed(const MSVehicle* veh, double seen, const MSLeaderInfo
                 return INVALID_SPEED;
             }
             nspeed = MIN2(nspeed,
-                          veh->getCarFollowModel().insertionFollowSpeed(veh, speed, gap, leader->getSpeed(), leader->getCarFollowModel().getMaxDecel()));
+                          veh->getCarFollowModel().insertionFollowSpeed(veh, speed, gap, leader->getSpeed(), leader->getCarFollowModel().getMaxDecel(), leader));
 #ifdef DEBUG_INSERTION
             if (DEBUG_COND2(veh)) {
                 std::cout << "    leader=" << leader->getID() << " nspeed=" << nspeed << "\n";
@@ -2505,7 +2505,7 @@ MSLane::getCriticalLeader(double dist, double seen, double speed, const MSVehicl
         MSVehicle* leader = nextLane->getLastAnyVehicle();
         if (leader != nullptr && leader != result.first) {
             const double gap = seen + leader->getBackPositionOnLane(nextLane) - veh.getVehicleType().getMinGap();
-            const double tmpSpeed = veh.getCarFollowModel().insertionFollowSpeed(&veh, speed, gap, leader->getSpeed(), leader->getCarFollowModel().getMaxDecel());
+            const double tmpSpeed = veh.getCarFollowModel().insertionFollowSpeed(&veh, speed, gap, leader->getSpeed(), leader->getCarFollowModel().getMaxDecel(), leader);
             if (tmpSpeed < safeSpeed) {
                 safeSpeed = tmpSpeed;
                 result = std::make_pair(leader, gap);

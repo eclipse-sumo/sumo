@@ -212,7 +212,7 @@ MSCFModel_CC::followSpeed(const MSVehicle* const veh, double speed, double gap2p
 }
 
 double
-MSCFModel_CC::insertionFollowSpeed(const MSVehicle* const veh, double speed, double gap2pred, double predSpeed, double predMaxDecel) const {
+MSCFModel_CC::insertionFollowSpeed(const MSVehicle* const veh, double speed, double gap2pred, double predSpeed, double predMaxDecel, const MSVehicle* const /*pred*/ ) const {
     UNUSED_PARAMETER(veh);
     UNUSED_PARAMETER(gap2pred);
     UNUSED_PARAMETER(predSpeed);

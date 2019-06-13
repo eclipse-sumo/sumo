@@ -94,7 +94,7 @@ public:
      * @param[in] predSpeed The speed of LEADER
      * @return EGO's safe speed
      */
-    double insertionFollowSpeed(const MSVehicle* const v, double speed, double gap2pred, double predSpeed, double predMaxDecel) const;
+    double insertionFollowSpeed(const MSVehicle* const v, double speed, double gap2pred, double predSpeed, double predMaxDecel, const MSVehicle* const pred = 0) const;
 
 
     /** @brief Returns the maximum gap at which an interaction between both vehicles occurs
