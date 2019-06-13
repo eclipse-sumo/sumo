@@ -353,9 +353,10 @@ void
 GNEPerson::drawGL(const GUIVisualizationSettings& s) const {
     // only drawn in super mode demand
     if (myViewNet->getViewOptionsNetwork().showDemandElements() && myViewNet->getViewOptionsDemand().showNonInspectedDemandElements(this)) {
+
         glPushName(getGlID());
         glPushMatrix();
-        Position p1 = getPositionInView();
+        Position p1 = getDemandElementChilds().front()->getEdgeParents().front()->getLanes().front()->getGeometry().shape.front();
         glTranslated(p1.x(), p1.y(), getType());
         glRotated(90, 0, 0, 1);
         // set person color
@@ -794,10 +795,9 @@ GNEPerson::setFunctionalColor(int activeScheme) const {
 
 void
 GNEPerson::drawAction_drawAsTriangle(const GUIVisualizationSettings& /* s */) const {
-    /*
     // draw triangle pointing forward
-    glRotated(RAD2DEG(getAngle() + M_PI / 2.), 0, 0, 1);
-    glScaled(getVehicleType().getLength(), getVehicleType().getWidth(), 1);
+    // glRotated(RAD2DEG(getAngle() + M_PI / 2.), 0, 0, 1);
+    // glScaled(getVehicleType().getLength(), getVehicleType().getWidth(), 1);
     glBegin(GL_TRIANGLES);
     glVertex2d(0., 0.);
     glVertex2d(1, -0.5);
@@ -812,25 +812,21 @@ GNEPerson::drawAction_drawAsTriangle(const GUIVisualizationSettings& /* s */) co
     glVertex2d(0.5, 0.25);
     glEnd();
     glTranslated(0, 0, -.045);
-    */
 }
 
 
 void
 GNEPerson::drawAction_drawAsCircle(const GUIVisualizationSettings& /* s */) const {
-    /*
-    glScaled(getVehicleType().getLength(), getVehicleType().getLength(), 1);
+    //glScaled(getVehicleType().getLength(), getVehicleType().getLength(), 1);
     GLHelper::drawFilledCircle(0.8);
-    */
 }
 
 
 void
 GNEPerson::drawAction_drawAsPoly(const GUIVisualizationSettings& /* s */) const {
-    /*
     // draw pedestrian shape
-    glRotated(GeomHelper::naviDegree(getAngle()) - 180, 0, 0, -1);
-    glScaled(getVehicleType().getLength(), getVehicleType().getWidth(), 1);
+    // glRotated(GeomHelper::naviDegree(getAngle()) - 180, 0, 0, -1);
+    // glScaled(getVehicleType().getLength(), getVehicleType().getWidth(), 1);
     RGBColor lighter = GLHelper::getColor().changedBrightness(51);
     glTranslated(0, 0, .045);
     // head
@@ -849,7 +845,6 @@ GNEPerson::drawAction_drawAsPoly(const GUIVisualizationSettings& /* s */) const 
     GLHelper::setColor(lighter);
     GLHelper::drawFilledCircle(0.5);
     glTranslated(0, 0, -.04);
-    */
 }
 
 
