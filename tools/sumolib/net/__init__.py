@@ -497,7 +497,7 @@ class Net:
                     if self.hasInternal:
                         minInternalCost = 1e400
                         for c in conn:
-                            if c.getViaLaneID() is not None:
+                            if c.getViaLaneID() != "":
                                 minInternalCost = min(minInternalCost, self.getLane(c.getViaLaneID()).getLength())
                         if minInternalCost < 1e400:
                             newCost += minInternalCost
