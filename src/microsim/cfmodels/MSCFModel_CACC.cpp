@@ -86,7 +86,7 @@ double
 MSCFModel_CACC::followSpeed(const MSVehicle* const veh, double speed, double gap2pred, double predSpeed, double predMaxDecel, const MSVehicle* const pred) const {
 
     const double desSpeed = veh->getLane()->getVehicleMaxSpeed(veh);
-    const double vCACC = _v(veh, gap2pred, speed, predSpeed, desSpeed, true);
+    const double vCACC = _v(veh, pred, gap2pred, speed, predSpeed, desSpeed, true);
     //gDebugFlag1 = DEBUG_COND;
     const double vSafe = maximumSafeFollowSpeed(gap2pred, speed, predSpeed, predMaxDecel);
     //gDebugFlag1 = false;
@@ -127,7 +127,7 @@ MSCFModel_CACC::getSecureGap(const double speed, const double leaderSpeed, const
 }
 
 double
-MSCFModel_CACC::insertionFollowSpeed(const MSVehicle* const veh, double speed, double gap2pred, double predSpeed, double predMaxDecel, const MSVehicle* const /*pred*/ ) const {
+MSCFModel_CACC::insertionFollowSpeed(const MSVehicle* const veh, double speed, double gap2pred, double predSpeed, double predMaxDecel, const MSVehicle* const pred) const {
 #if DEBUG_CACC_INSERTION_FOLLOW_SPEED == 1
     if (DEBUG_COND) std::cout << "MSCFModel_ACC::insertionFollowSpeed(), speed=" << speed << " gap2pred=" << gap2pred << " predSpeed=" << predSpeed << "\n";
 #endif
@@ -141,7 +141,7 @@ MSCFModel_CACC::insertionFollowSpeed(const MSVehicle* const veh, double speed, d
     double res = speed;
     while (n_iter < max_iter) {
         // proposed acceleration
-        const double vCACC = _v(veh, gap2pred, speed, predSpeed, speed, true);
+        const double vCACC = _v(veh, pred, gap2pred, speed, predSpeed, speed, true);
         const double vSafe = maximumSafeFollowSpeed(gap2pred, speed, predSpeed, predMaxDecel, true);
         const double a = MIN2(vCACC, vSafe) - res;
         res = res + damping * a;
@@ -176,13 +176,14 @@ double MSCFModel_CACC::speedSpeedContol(const double speed, double vErr) const {
 }
 
 double MSCFModel_CACC::speedGapControl(const MSVehicle* const veh, const double gap2pred,
-                                       const double speed, const double predSpeed, const double desSpeed, double vErr) const {
+                                       const double speed, const double predSpeed, const double desSpeed, double vErr,
+                                       const MSVehicle* const pred) const 
+{
     // Gap control law
     double newSpeed = 0.0;
 
-    std::pair<const MSVehicle* const, double> leaderInfo = veh->getLeader(100);
-    if (leaderInfo.first) {
-        if (leaderInfo.first->getCarFollowModel().getModelID() != SUMO_TAG_CF_CACC) {
+    if (pred != nullptr) {
+        if (pred->getCarFollowModel().getModelID() != SUMO_TAG_CF_CACC) {
             //ACC control mode
             newSpeed = acc_CFM._v(veh, gap2pred, speed, predSpeed, desSpeed, true);
 #if DEBUG_CACC == 1
@@ -235,9 +236,9 @@ double MSCFModel_CACC::speedGapControl(const MSVehicle* const veh, const double 
 }
 
 double
-MSCFModel_CACC::_v(const MSVehicle* const veh, const double gap2pred, const double speed,
-                   const double predSpeed, const double desSpeed, const bool /* respectMinGap */) const {
-
+MSCFModel_CACC::_v(const MSVehicle* const veh, const MSVehicle* const pred, const double gap2pred, const double speed,
+                   const double predSpeed, const double desSpeed, const bool /* respectMinGap */) const 
+{
     double newSpeed = 0.0;
 
 #if DEBUG_CACC == 1
@@ -273,7 +274,7 @@ MSCFModel_CACC::_v(const MSVehicle* const veh, const double gap2pred, const doub
 #if DEBUG_CACC == 1
         if DEBUG_COND std::cout << "        speedGapControl" << std::endl;
 #endif
-        newSpeed = speedGapControl(veh, gap2pred, speed, predSpeed, desSpeed, vErr);
+        newSpeed = speedGapControl(veh, gap2pred, speed, predSpeed, desSpeed, vErr, pred);
         // Set cl to vehicle parameters
         if (setControlMode) {
             vars->CACC_ControlMode = 1;
@@ -291,7 +292,7 @@ MSCFModel_CACC::_v(const MSVehicle* const veh, const double gap2pred, const doub
 #if DEBUG_CACC == 1
             if DEBUG_COND std::cout << "        previous speedGapControl" << std::endl;
 #endif
-            newSpeed = speedGapControl(veh, gap2pred, speed, predSpeed, desSpeed, vErr);
+            newSpeed = speedGapControl(veh, gap2pred, speed, predSpeed, desSpeed, vErr, pred);
         }
     }
 
