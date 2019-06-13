@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Oct 18 15:19:11 2017 by SUMO Version dev-SVN-r26551
+<!-- generated on Thu Jun 13 08:48:51 2019 by Eclipse SUMO Version v1_2_0+0252-83989c2
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -15,8 +15,13 @@ SPDX-License-Identifier: EPL-2.0
     </input>
 
     <output>
+        <write-license value="true"/>
         <lanechange-output value="lanechanges.xml"/>
     </output>
+
+    <processing>
+        <default.speeddev value="0"/>
+    </processing>
 
     <report>
         <verbose value="true"/>
@@ -29,8 +34,8 @@ SPDX-License-Identifier: EPL-2.0
 -->
 
 <lanechanges>
-    <change id="ego" type="ego" time="29.00" from="beg_0" to="beg_1" dir="1" speed="13.16" pos="407.18" reason="speedGain" leaderGap="219.82" leaderSecureGap="22.48" followerGap="None" followerSecureGap="None" origLeaderGap="19.82" origLeaderSecureGap="22.48"/>
-    <change id="ego" type="ego" time="69.00" from="beg_1" to="beg_0" dir="-1" speed="8.28" pos="936.22" reason="speedGain" leaderGap="210.78" leaderSecureGap="8.55" followerGap="179.22" followerSecureGap="7.72" origLeaderGap="10.78" origLeaderSecureGap="8.55"/>
-    <change id="ego" type="ego" time="103.00" from="beg_0" to="beg_1" dir="1" speed="11.61" pos="1402.29" reason="speedGain" leaderGap="216.71" leaderSecureGap="17.82" followerGap="173.29" followerSecureGap="1.79" origLeaderGap="16.71" origLeaderSecureGap="17.82"/>
-    <change id="ego" type="ego" time="142.00" from="beg_1" to="beg_0" dir="-1" speed="8.38" pos="1920.11" reason="speedGain" leaderGap="None" leaderSecureGap="None" followerGap="179.11" followerSecureGap="7.62" origLeaderGap="10.89" origLeaderSecureGap="8.77"/>
+    <change id="ego" type="ego" time="29.00" from="beg_0" to="beg_1" dir="1" speed="13.16" pos="407.18" reason="speedGain" leaderGap="219.82" leaderSecureGap="22.48" leaderSpeed="8.00" followerGap="None" followerSecureGap="None" followerSpeed="None" origLeaderGap="19.82" origLeaderSecureGap="22.48" origLeaderSpeed="8.00"/>
+    <change id="ego" type="ego" time="69.00" from="beg_1" to="beg_0" dir="-1" speed="8.28" pos="936.22" reason="speedGain" leaderGap="210.78" leaderSecureGap="8.55" leaderSpeed="8.00" followerGap="179.22" followerSecureGap="7.72" followerSpeed="8.00" origLeaderGap="10.78" origLeaderSecureGap="8.55" origLeaderSpeed="8.00"/>
+    <change id="ego" type="ego" time="103.00" from="beg_0" to="beg_1" dir="1" speed="11.61" pos="1402.29" reason="speedGain" leaderGap="216.71" leaderSecureGap="17.82" leaderSpeed="8.00" followerGap="173.29" followerSecureGap="1.79" followerSpeed="8.00" origLeaderGap="16.71" origLeaderSecureGap="17.82" origLeaderSpeed="8.00"/>
+    <change id="ego" type="ego" time="142.00" from="beg_1" to="beg_0" dir="-1" speed="8.38" pos="1920.11" reason="speedGain" leaderGap="None" leaderSecureGap="None" leaderSpeed="None" followerGap="179.11" followerSecureGap="7.62" followerSpeed="8.00" origLeaderGap="10.89" origLeaderSecureGap="8.77" origLeaderSpeed="8.00"/>
 </lanechanges>
