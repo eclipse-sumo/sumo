@@ -354,8 +354,7 @@ GNEPersonFrame::edgePathCreated() {
                 GNEAdditional *busStop = myViewNet->getNet()->retrieveAdditional(SUMO_TAG_BUS_STOP, valuesMap[SUMO_ATTR_BUS_STOP]);
                 std::vector<std::string> types = GNEAttributeCarrier::parse<std::vector<std::string> >(valuesMap[SUMO_ATTR_VTYPES]);
                 std::vector<std::string> modes = GNEAttributeCarrier::parse<std::vector<std::string> >(valuesMap[SUMO_ATTR_MODES]);
-                double arrivalPos = GNEAttributeCarrier::parse<double>(valuesMap[SUMO_ATTR_ARRIVALPOS]);
-                GNERouteHandler::buildPersonTripBusStop(myViewNet, true, createdPerson, myEdgePathCreator->getSelectedEdges(), busStop, types, modes, arrivalPos);
+                GNERouteHandler::buildPersonTripBusStop(myViewNet, true, createdPerson, myEdgePathCreator->getSelectedEdges(), busStop, types, modes);
                 break;
             }
             case SUMO_TAG_WALK_EDGES: {
@@ -370,8 +369,7 @@ GNEPersonFrame::edgePathCreated() {
             }
             case SUMO_TAG_WALK_BUSSTOP: {
                 GNEAdditional *busStop = myViewNet->getNet()->retrieveAdditional(SUMO_TAG_BUS_STOP, valuesMap[SUMO_ATTR_BUS_STOP]);
-                double arrivalPos = GNEAttributeCarrier::parse<double>(valuesMap[SUMO_ATTR_ARRIVALPOS]);
-                GNERouteHandler::buildWalkBusStop(myViewNet, true, createdPerson, myEdgePathCreator->getSelectedEdges(), busStop, arrivalPos);
+                GNERouteHandler::buildWalkBusStop(myViewNet, true, createdPerson, myEdgePathCreator->getSelectedEdges(), busStop);
                 break;
             }
             case SUMO_TAG_WALK_ROUTE: {
@@ -389,8 +387,7 @@ GNEPersonFrame::edgePathCreated() {
             case SUMO_TAG_RIDE_BUSSTOP: {
                 GNEAdditional *busStop = myViewNet->getNet()->retrieveAdditional(SUMO_TAG_BUS_STOP, valuesMap[SUMO_ATTR_BUS_STOP]);
                 std::vector<std::string> lines = GNEAttributeCarrier::parse<std::vector<std::string> >(valuesMap[SUMO_ATTR_LINES]);
-                double arrivalPos = GNEAttributeCarrier::parse<double>(valuesMap[SUMO_ATTR_ARRIVALPOS]);
-                GNERouteHandler::buildRideBusStop(myViewNet, true, createdPerson, myEdgePathCreator->getSelectedEdges(), busStop, lines, arrivalPos);
+                GNERouteHandler::buildRideBusStop(myViewNet, true, createdPerson, myEdgePathCreator->getSelectedEdges(), busStop, lines);
                 break;
             }
             default:

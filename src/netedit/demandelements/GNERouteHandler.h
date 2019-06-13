@@ -94,7 +94,7 @@ public:
 
     /// @brief build trip using a from edge and a busStop
     static void buildPersonTripBusStop(GNEViewNet* viewNet, bool undoDemandElements, GNEDemandElement* personParent, const std::vector<GNEEdge*>& edges, 
-                                       GNEAdditional *busStop, const std::vector<std::string> &types, const std::vector<std::string> &modes, double arrivalPos);
+                                       GNEAdditional *busStop, const std::vector<std::string> &types, const std::vector<std::string> &modes);
 
     /// @brief build walk using a list of consecutive edges
     static void buildWalkEdges(GNEViewNet* viewNet, bool undoDemandElements, GNEDemandElement* personParent, const std::vector<GNEEdge*>& edges, double arrivalPos);
@@ -103,8 +103,7 @@ public:
     static void buildWalkFromTo(GNEViewNet* viewNet, bool undoDemandElements, GNEDemandElement* personParent, const std::vector<GNEEdge*>& edges, double arrivalPos);
 
     /// @brief build walk using a form edge an a busStop
-    static void buildWalkBusStop(GNEViewNet* viewNet, bool undoDemandElements, GNEDemandElement* personParent, const std::vector<GNEEdge*>& edges, 
-                                 GNEAdditional *busStop, double arrivalPos);
+    static void buildWalkBusStop(GNEViewNet* viewNet, bool undoDemandElements, GNEDemandElement* personParent, const std::vector<GNEEdge*>& edges, GNEAdditional *busStop);
 
     /// @brief build walk using a list of consecutive edges
     static void buildWalkRoute(GNEViewNet* viewNet, bool undoDemandElements, GNEDemandElement* personParent, GNEDemandElement* routeParent, double arrivalPos);
@@ -115,7 +114,7 @@ public:
 
     /// @brief build ride using a from edge and a busStop
     static void buildRideBusStop(GNEViewNet* viewNet, bool undoDemandElements, GNEDemandElement* personParent, const std::vector<GNEEdge*>& edges, 
-                                 GNEAdditional *busStop, const std::vector<std::string> &lines, double arrivalPos);
+                                 GNEAdditional *busStop, const std::vector<std::string> &lines);
 
     /// @}
 
