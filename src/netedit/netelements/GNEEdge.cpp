@@ -573,6 +573,31 @@ GNEEdge::drawGL(const GUIVisualizationSettings& s) const {
             // Pop name
             glPopName();
         }
+        // draw partial person plan elements
+        for (const auto &i : getSortedDemandElementChildsByType(SUMO_TAG_PERSONTRIP_FROMTO)) {
+            drawPartialPersonPlan(s, i, RGBColor::MAGENTA);
+        }
+        for (const auto &i : getSortedDemandElementChildsByType(SUMO_TAG_PERSONTRIP_BUSSTOP)) {
+            drawPartialPersonPlan(s, i, RGBColor::MAGENTA);
+        }
+        for (const auto &i : getSortedDemandElementChildsByType(SUMO_TAG_WALK_EDGES)) {
+            drawPartialPersonPlan(s, i, RGBColor::MAGENTA);
+        }
+        for (const auto &i : getSortedDemandElementChildsByType(SUMO_TAG_WALK_FROMTO)) {
+            drawPartialPersonPlan(s, i, RGBColor::MAGENTA);
+        }
+        for (const auto &i : getSortedDemandElementChildsByType(SUMO_TAG_WALK_BUSSTOP)) {
+            drawPartialPersonPlan(s, i, RGBColor::MAGENTA);
+        }
+        for (const auto &i : getSortedDemandElementChildsByType(SUMO_TAG_WALK_ROUTE)) {
+            drawPartialPersonPlan(s, i, RGBColor::MAGENTA);
+        }
+        for (const auto &i : getSortedDemandElementChildsByType(SUMO_TAG_RIDE_FROMTO)) {
+            drawPartialPersonPlan(s, i, RGBColor::MAGENTA);
+        }
+        for (const auto &i : getSortedDemandElementChildsByType(SUMO_TAG_RIDE_BUSSTOP)) {
+            drawPartialPersonPlan(s, i, RGBColor::MAGENTA);
+        }
     }
     // draw geometry points if isnt's too small
     if (s.scale > 8.0) {
@@ -2011,6 +2036,82 @@ GNEEdge::drawPartialTripFromTo(const GUIVisualizationSettings& s, GNEDemandEleme
     }
     // Pop name
     glPopName();
+}
+
+
+void 
+GNEEdge::drawPartialPersonPlan(const GUIVisualizationSettings& s, GNEDemandElement *personPlan, const RGBColor &color) const {
+    // calculate personPlan width
+    double personPlanWidth = s.addSize.getExaggeration(s, this) * 0.50;
+    // Start drawing adding an gl identificator
+    glPushName(personPlan->getGlID());
+    // Add a draw matrix
+    glPushMatrix();
+    // Start with the drawing of the area traslating matrix to origin
+    glTranslated(0, 0, personPlan->getType());
+    // Set color of the base
+    if (personPlan->drawUsingSelectColor()) {
+        GLHelper::setColor(s.selectedAdditionalColor);
+    } else {
+        GLHelper::setColor(color);
+    }
+    // obtain edge geometry limits
+    const GNEHierarchicalElementParents::EdgeGeometryLimits &edgeGeometryLimits = personPlan->getEdgeGeometryLimits(this);
+    // calculate line between this and the next edge
+    GNEHierarchicalElementParents::LineGeometry lineToNetxtEdge = personPlan->getLinetoNextEdge(this, edgeGeometryLimits.indexEnd);
+    // check if both limits have the same value
+    if (edgeGeometryLimits.indexBegin == edgeGeometryLimits.indexEnd) {
+        // if both limits have the same value, then drawn partial personPlan over the same lane
+        GLHelper::drawBoxLines(
+            myLanes.at(edgeGeometryLimits.indexBegin)->getGeometry().shape, 
+            myLanes.at(edgeGeometryLimits.indexBegin)->getGeometry().shapeRotations, 
+            myLanes.at(edgeGeometryLimits.indexBegin)->getGeometry().shapeLengths, personPlanWidth);
+    } else {
+        // draw partial personPlan except the last segment
+        for (int i = 0; i < ((int)myLanes.at(edgeGeometryLimits.indexBegin)->getGeometry().shape.size() - 2); i++) {
+            GLHelper::drawBoxLine(
+                myLanes.at(edgeGeometryLimits.indexBegin)->getGeometry().shape[i], 
+                myLanes.at(edgeGeometryLimits.indexBegin)->getGeometry().shapeRotations[i], 
+                myLanes.at(edgeGeometryLimits.indexBegin)->getGeometry().shapeLengths[i], personPlanWidth);
+        }
+        // calculate last segment
+        Position lastSegmentBegin = myLanes.at(edgeGeometryLimits.indexBegin)->getGeometry().shape[(int)myLanes.at(edgeGeometryLimits.indexBegin)->getGeometry().shape.size() - 2];
+        Position lastSegmentEnd = myLanes.at(edgeGeometryLimits.indexEnd)->getGeometry().shape.back();
+        GNEHierarchicalElementParents::LineGeometry lastSegment(lastSegmentBegin);
+        lastSegment.calculateRotationsAndLength(lastSegmentEnd);
+        // draw last segment
+        GLHelper::drawBoxLine(lastSegment.firstPoint, lastSegment.rotation, lastSegment.lenght, personPlanWidth);
+    }
+    // draw next connection shape (or a single line)
+    if (edgeGeometryLimits.nextConnection && (edgeGeometryLimits.nextConnection->getEdgeFrom()->getGNEJunctionDestiny()->getNBNode()->getShape().size() > 0)) {
+        GLHelper::drawBoxLines(edgeGeometryLimits.nextConnection->getGeometry().shape, 
+            edgeGeometryLimits.nextConnection->getGeometry().shapeRotations, 
+            edgeGeometryLimits.nextConnection->getGeometry().shapeLengths, personPlanWidth);
+    } else {
+        GLHelper::drawBoxLine(lineToNetxtEdge.firstPoint, lineToNetxtEdge.rotation, lineToNetxtEdge.lenght, personPlanWidth);
+    }
+    // Pop last matrix
+    glPopMatrix();
+    // Draw name if isn't being drawn for selecting
+    if (!s.drawForSelecting) {
+        drawName(getCenteringBoundary().getCenter(), s.scale, s.addName);
+    }
+    /*
+    // check if dotted contour has to be drawn
+    if (!s.drawForSelecting && (myNet->getViewNet()->getDottedAC() == personPlan)) {
+        GLHelper::drawShapeDottedContour(getType(), personPlan->myGeometry.shape, personPlanWidth);
+    }
+    */
+    // Pop name
+    glPopName();
+    // draw person if this edge correspond to the first edge of first Person's person plan
+    if (personPlan->getDemandElementParents().front()->getDemandElementChilds().front()->getEdgeParents().front() == this) {
+        personPlan->getDemandElementParents().front()->drawGL(s);
+    }
+    // draw personPlan childs
+    for (const auto &i : personPlan->getDemandElementChilds()) {
+        i->drawGL(s);
+    }
 }
 
 /****************************************************************************/
