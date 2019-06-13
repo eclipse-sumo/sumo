@@ -340,9 +340,9 @@ GNEPersonFrame::edgePathCreated() {
         // obtain created person
         GNEDemandElement *createdPerson = myViewNet->getNet()->retrieveDemandElement(personTag, valuesMap[SUMO_ATTR_ID]);
         // Declare map to keep attributes from myPersonPlanAttributes
-        valuesMap = myPersonPlanAttributes->getAttributesAndValues(false);
+        valuesMap = myPersonPlanAttributes->getAttributesAndValues(true);
         // check what PersonPlan we're creating
-        switch (personTag) {
+        switch (personPlanTag) {
             case SUMO_TAG_PERSONTRIP_FROMTO: {
                 std::vector<std::string> types = GNEAttributeCarrier::parse<std::vector<std::string> >(valuesMap[SUMO_ATTR_VTYPES]);
                 std::vector<std::string> modes = GNEAttributeCarrier::parse<std::vector<std::string> >(valuesMap[SUMO_ATTR_MODES]);

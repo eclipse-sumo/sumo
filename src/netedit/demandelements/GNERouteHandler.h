@@ -59,6 +59,9 @@ public:
     /// @brief check if there is already a vehicle (Vehicle, Trip, Flow or Flow) with the given ID
     static bool isVehicleIdDuplicated(GNEViewNet* viewNet, const std::string& id); 
 
+    /// @brief check if there is already a person (Person or PersonFlow) with the given ID
+    static bool isPersonIdDuplicated(GNEViewNet* viewNet, const std::string& id); 
+
     /// @brief build functions
     /// @{
     /// @brief build a vehicle over an existent route
