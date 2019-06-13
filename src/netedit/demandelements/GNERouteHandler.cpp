@@ -410,49 +410,54 @@ GNERouteHandler::buildPersonFlow(GNEViewNet* viewNet, bool undoDemandElements, c
 
 
 void 
-GNERouteHandler::personTripFromTo(GNEViewNet* viewNet, GNEDemandElement* personParent, const std::vector<GNEEdge*>& edges) {
+GNERouteHandler::buildPersonTripFromTo(GNEViewNet* viewNet, bool undoDemandElements, GNEDemandElement* personParent, const std::vector<GNEEdge*>& edges, 
+    const std::vector<std::string> &types, const std::vector<std::string> &modes, double arrivalPos) {
     //
 }
 
 
 void
-GNERouteHandler::personTripBusStop(GNEViewNet* viewNet, GNEDemandElement* personParent, const std::vector<GNEEdge*>& edges) {
+GNERouteHandler::buildPersonTripBusStop(GNEViewNet* viewNet, bool undoDemandElements, GNEDemandElement* personParent, const std::vector<GNEEdge*>& edges, 
+    GNEAdditional *busStop, const std::vector<std::string> &types, const std::vector<std::string> &modes, double arrivalPos) {
     //
 }
 
 
 void 
-GNERouteHandler::walkEdges(GNEViewNet* viewNet, GNEDemandElement* personParent, const std::vector<GNEEdge*>& edges) {
+GNERouteHandler::buildWalkEdges(GNEViewNet* viewNet, bool undoDemandElements, GNEDemandElement* personParent, const std::vector<GNEEdge*>& edges, double arrivalPos) {
     //
 }
 
 
 void 
-GNERouteHandler::walkFromTo(GNEViewNet* viewNet, GNEDemandElement* personParent, const std::vector<GNEEdge*>& edges) {
+GNERouteHandler::buildWalkFromTo(GNEViewNet* viewNet, bool undoDemandElements, GNEDemandElement* personParent, const std::vector<GNEEdge*>& edges, double arrivalPos) {
     //
 }
 
 
 void 
-GNERouteHandler::walkBusStop(GNEViewNet* viewNet, GNEDemandElement* personParent, const std::vector<GNEEdge*>& edges) {
+GNERouteHandler::buildWalkBusStop(GNEViewNet* viewNet, bool undoDemandElements, GNEDemandElement* personParent, const std::vector<GNEEdge*>& edges, 
+    GNEAdditional *busStop, double arrivalPos) {
     //
 }
 
 
 void 
-GNERouteHandler::walkRoute(GNEViewNet* viewNet, GNEDemandElement* personParent, GNEDemandElement* routeParent) {
+GNERouteHandler::buildWalkRoute(GNEViewNet* viewNet, bool undoDemandElements, GNEDemandElement* personParent, GNEDemandElement* routeParent, double arrivalPos) {
     //
 }
 
 
 void 
-GNERouteHandler::rideFromTo(GNEViewNet* viewNet, GNEDemandElement* personParent, const std::vector<GNEEdge*>& edges) {
+GNERouteHandler::buildRideFromTo(GNEViewNet* viewNet, bool undoDemandElements, GNEDemandElement* personParent, const std::vector<GNEEdge*>& edges, 
+    const std::vector<std::string> &lines, double arrivalPos) {
     //
 }
 
 
 void 
-GNERouteHandler::rideBusStop(GNEViewNet* viewNet, GNEDemandElement* personParent, const std::vector<GNEEdge*>& edges) {
+GNERouteHandler::buildRideBusStop(GNEViewNet* viewNet, bool undoDemandElements, GNEDemandElement* personParent, const std::vector<GNEEdge*>& edges, 
+    const std::vector<std::string> &lines, double arrivalPos) {
     //
 }
 
