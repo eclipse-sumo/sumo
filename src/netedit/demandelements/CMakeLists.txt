@@ -15,6 +15,8 @@ set(netedit_demandelements_SRCS
    GNEWalk.cpp
    GNERide.h
    GNERide.cpp
+   GNEPersonTrip.h
+   GNEPersonTrip.cpp
    GNEPerson.h
    GNEPerson.cpp
    )
