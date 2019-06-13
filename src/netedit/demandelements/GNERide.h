@@ -176,6 +176,9 @@ public:
     /// @}
 
 protected:
+    /// @brief List of the via-edges that Person must visit
+    std::vector<std::string> myVia;
+
     /// @brief valid line or vehicle ids or ANY
     std::vector<std::string> myLines;
 

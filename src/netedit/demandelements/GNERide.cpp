@@ -267,6 +267,8 @@ GNERide::getAttribute(SumoXMLAttr key) const {
             return getEdgeParents().front()->getID();
         case SUMO_ATTR_TO:
             return getEdgeParents().back()->getID();
+        case SUMO_ATTR_VIA:
+            return toString(myVia);
         case SUMO_ATTR_BUS_STOP:
             return getAdditionalParents().front()->getID();
         case SUMO_ATTR_LINES:
@@ -291,6 +293,7 @@ GNERide::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* un
     switch (key) {
         case SUMO_ATTR_FROM:
         case SUMO_ATTR_TO:
+        case SUMO_ATTR_VIA:
         case SUMO_ATTR_BUS_STOP:
         case SUMO_ATTR_LINES:
         case SUMO_ATTR_ARRIVALPOS:
@@ -310,6 +313,12 @@ GNERide::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_FROM:
         case SUMO_ATTR_TO:
             return SUMOXMLDefinitions::isValidNetID(value) && (myViewNet->getNet()->retrieveEdge(value, false) != nullptr);
+        case SUMO_ATTR_VIA:
+            if (value.empty()) {
+                return true;
+            } else {
+                return canParse<std::vector<GNEEdge*> >(myViewNet->getNet(), value, false);
+            }
         case SUMO_ATTR_BUS_STOP:
             return (myViewNet->getNet()->retrieveAdditional(SUMO_TAG_BUS_STOP, value, false) != nullptr);
         case SUMO_ATTR_LINES:
@@ -365,6 +374,8 @@ GNERide::setAttribute(SumoXMLAttr key, const std::string& value) {
             std::vector<std::string> FromViaToEdges;
             // add from edge
             FromViaToEdges.push_back(value);
+            // add via edges
+            FromViaToEdges.insert(FromViaToEdges.end(), myVia.begin(), myVia.end());
             // add to edge
             FromViaToEdges.push_back(getEdgeParents().back()->getID());
             // calculate route
@@ -378,8 +389,32 @@ GNERide::setAttribute(SumoXMLAttr key, const std::string& value) {
             std::vector<std::string> FromViaToEdges;
             // add from edge
             FromViaToEdges.push_back(getEdgeParents().front()->getID());
+            // add via edges
+            FromViaToEdges.insert(FromViaToEdges.end(), myVia.begin(), myVia.end());
             // add to edge
             FromViaToEdges.push_back(value);
+            // calculate route
+            std::vector<GNEEdge*> route = getRouteCalculatorInstance()->calculateDijkstraRoute(myViewNet->getNet(), getDemandElementParents().at(0)->getVClass(), FromViaToEdges);
+            // change edge parents
+            changeEdgeParents(this, toString(route));
+            break;
+        }
+        case SUMO_ATTR_VIA: {
+            if (!value.empty()) {
+                // set new via edges
+                myVia = parse< std::vector<std::string> >(value);
+            } else {
+                // clear via
+                myVia.clear();
+            }
+            // declare a from-via-to edges vector
+            std::vector<std::string> FromViaToEdges;
+            // add from edge
+            FromViaToEdges.push_back(getEdgeParents().front()->getID());
+            // add via edges
+            FromViaToEdges.insert(FromViaToEdges.end(), myVia.begin(), myVia.end());
+            // add to edge
+            FromViaToEdges.push_back(getEdgeParents().back()->getID());
             // calculate route
             std::vector<GNEEdge*> route = getRouteCalculatorInstance()->calculateDijkstraRoute(myViewNet->getNet(), getDemandElementParents().at(0)->getVClass(), FromViaToEdges);
             // change edge parents

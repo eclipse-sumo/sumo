@@ -182,6 +182,9 @@ public:
     /// @}
 
 protected:
+    /// @brief List of the via-edges that Person must visit
+    std::vector<std::string> myVia;
+
     /// @brief arrival position 
     double myArrivalPosition;
 
