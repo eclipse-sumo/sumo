@@ -569,7 +569,7 @@ MSVehicle::Influencer::gapControlSpeed(SUMOTime currentTime, const SUMOVehicle* 
             const double origTau = cfm->getHeadwayTime();
             cfm->setHeadwayTime(myGapControlState->tauCurrent);
             gapControlSpeed = MIN2(gapControlSpeed, cfm->followSpeed(msVeh, currentSpeed, fakeDist, leaderInfo.first->getSpeed(),
-                                   leaderInfo.first->getVehicleType().getCarFollowModel().getApparentDecel(), nullptr));
+                                   leaderInfo.first->getCurrentApparentDecel(), nullptr));
             cfm->setHeadwayTime(origTau);
 #ifdef DEBUG_TRACI
             if DEBUG_COND2(veh) {
@@ -2889,7 +2889,7 @@ MSVehicle::getSafeFollowSpeed(const std::pair<const MSVehicle*, double> leaderIn
         vsafeLeader = -std::numeric_limits<double>::max();
     }
     if (leaderInfo.second >= 0) {
-        vsafeLeader = cfModel.followSpeed(this, getSpeed(), leaderInfo.second, leaderInfo.first->getSpeed(), leaderInfo.first->getCarFollowModel().getApparentDecel(), leaderInfo.first);
+        vsafeLeader = cfModel.followSpeed(this, getSpeed(), leaderInfo.second, leaderInfo.first->getSpeed(), leaderInfo.first->getCurrentApparentDecel(), leaderInfo.first);
     } else {
         // the leading, in-lapping vehicle is occupying the complete next lane
         // stop before entering this lane
@@ -6114,5 +6114,13 @@ std::shared_ptr<MSSimpleDriverState>
 MSVehicle::getDriverState() const {
     return myDriverState->getDriverState();
 }
+
+
+double
+MSVehicle::getCurrentApparentDecel() const {
+        //return MAX2(-myAcceleration, getCarFollowModel().getApparentDecel());
+    return getCarFollowModel().getApparentDecel();
+}
+
 
 /****************************************************************************/

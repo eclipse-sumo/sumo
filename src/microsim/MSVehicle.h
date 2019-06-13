@@ -502,6 +502,8 @@ public:
         return myAcceleration;
     }
 
+    /// @brief get apparent deceleration based on vType parameters and current acceleration
+    double getCurrentApparentDecel() const;
 
     /** @brief Returns the vehicle's action step length in millisecs,
      *         i.e. the interval between two action points.
