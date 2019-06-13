@@ -44,12 +44,17 @@
 // ===========================================================================
 // FOX callback mapping
 // ===========================================================================
-FXDEFMAP(GNEPerson::GNEPersonPopupMenu) GNEPersonPopupMenuMap[] = {
+FXDEFMAP(GNEPerson::GNEPersonPopupMenu) personPopupMenuMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_PERSON_TRANSFORM,   GNEPerson::GNEPersonPopupMenu::onCmdTransform),
 };
 
+FXDEFMAP(GNEPerson::GNESelectedPersonsPopupMenu) selectedPersonsPopupMenuMap[] = {
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_PERSON_TRANSFORM,   GNEPerson::GNESelectedPersonsPopupMenu::onCmdTransform),
+};
+
 // Object implementation
-FXIMPLEMENT(GNEPerson::GNEPersonPopupMenu, GUIGLObjectPopupMenu, GNEPersonPopupMenuMap, ARRAYNUMBER(GNEPersonPopupMenuMap))
+FXIMPLEMENT(GNEPerson::GNEPersonPopupMenu,          GUIGLObjectPopupMenu, personPopupMenuMap,           ARRAYNUMBER(personPopupMenuMap))
+FXIMPLEMENT(GNEPerson::GNESelectedPersonsPopupMenu, GUIGLObjectPopupMenu, selectedPersonsPopupMenuMap,  ARRAYNUMBER(selectedPersonsPopupMenuMap))
 
 // ===========================================================================
 // GNEPerson::GNEPersonPopupMenu
@@ -162,14 +167,12 @@ GNEPerson::GNESelectedPersonsPopupMenu::onCmdTransform(FXObject* obj, FXSelector
 // member method definitions
 // ===========================================================================
 
-GNEPerson::GNEPerson(SumoXMLTag tag, GNEViewNet* viewNet, const std::string& personID, GNEDemandElement* personType) :
-    GNEDemandElement(personID, viewNet, (tag == SUMO_TAG_PERSONFLOW) ? GLO_PERSONFLOW : GLO_PERSON, tag,
-    {}, {}, {}, {}, {personType}, {}, {}, {}, {}, {}),
-    SUMOVehicleParameter() {
-    // SUMOVehicleParameter ID has to be set manually
-    id = personID;
+GNEPerson::GNEPerson(SumoXMLTag tag, GNEViewNet* viewNet, GNEDemandElement* pType, const SUMOVehicleParameter& personparameters) :
+    GNEDemandElement(personparameters.id, viewNet, (tag == SUMO_TAG_PERSONFLOW) ? GLO_PERSONFLOW : GLO_PERSON, tag,
+    {}, {}, {}, {}, {pType}, {}, {}, {}, {}, {}),
+    SUMOVehicleParameter(personparameters) {
     // set manually vtypeID (needed for saving)
-    vtypeid = personType->getID();
+    vtypeid = pType->getID();
 }
 
 

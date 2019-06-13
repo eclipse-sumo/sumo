@@ -109,8 +109,8 @@ public:
         FXMenuCommand* myTransformToPersonFlow;
     };
 
-    /// @brief default constructor for persons and routeFlows without embedded routes
-    GNEPerson(SumoXMLTag tag, GNEViewNet* viewNet, const std::string& personID, GNEDemandElement* VType);
+    /// @brief constructor for persons
+    GNEPerson(SumoXMLTag tag, GNEViewNet* viewNet, GNEDemandElement* pType, const SUMOVehicleParameter& personparameters);
 
     /// @brief destructor
     ~GNEPerson();
