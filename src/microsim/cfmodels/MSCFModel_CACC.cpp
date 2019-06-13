@@ -43,7 +43,10 @@
 // debug flags
 // ===========================================================================
 #define DEBUG_CACC 0
+#define DEBUG_CACC_INSERTION_FOLLOW_SPEED 0
 #define DEBUG_COND (veh->isSelected())
+//#define DEBUG_COND (veh->getID() == "AVflowToC1.13")
+//#define DEBUG_COND (veh->getID() == "CVflowToC2.11")
 
 
 // ===========================================================================
@@ -80,18 +83,24 @@ MSCFModel_CACC::~MSCFModel_CACC() {}
 
 
 double
-MSCFModel_CACC::followSpeed(const MSVehicle* const veh, double speed, double gap2pred, double predSpeed, double predMaxDecel, const MSVehicle* const /*pred*/) const {
+MSCFModel_CACC::followSpeed(const MSVehicle* const veh, double speed, double gap2pred, double predSpeed, double predMaxDecel, const MSVehicle* const pred) const {
 
-    const double desSpeed = MIN2(veh->getLane()->getSpeedLimit(), veh->getMaxSpeed());
+    const double desSpeed = veh->getLane()->getVehicleMaxSpeed(veh);
     const double vCACC = _v(veh, gap2pred, speed, predSpeed, desSpeed, true);
+    //gDebugFlag1 = DEBUG_COND;
     const double vSafe = maximumSafeFollowSpeed(gap2pred, speed, predSpeed, predMaxDecel);
+    //gDebugFlag1 = false;
+#ifdef DEBUG_CACC
+    if (DEBUG_COND) { 
+        std::cout << SIMTIME << " veh=" << veh->getID() << " pred=" << Named::getIDSecure(pred)  
+            << " v=" << speed << " vL=" << predSpeed << " gap=" << gap2pred 
+            << " predDecel=" << predMaxDecel << " vCACC=" << vCACC << " vSafe=" << vSafe << "\n";
+    }
+#endif
     if (vSafe + DEFAULT_EMERGENCY_OVERRIDE_THRESHOLD < vCACC) {
-        if DEBUG_COND {
-        CACCVehicleVariables* vars = (CACCVehicleVariables*)veh->getCarFollowVariables();
-            std::cout << "\n";
-            std::cout << "Apply Safe speed" << "\n";
-            std::cout << SIMTIME << " veh=" << veh->getID() << " v=" << speed << " vL=" << predSpeed << " gap=" << gap2pred << " vCACC=" << vCACC << " vSafe=" << vSafe << " cm=" << vars->CACC_ControlMode << "\n";
-        }
+#ifdef DEBUG_CACC
+        if DEBUG_COND std::cout << "Apply Safe speed" << "\n";
+#endif
         return vSafe + DEFAULT_EMERGENCY_OVERRIDE_THRESHOLD;
     }
     return vCACC;
@@ -116,25 +125,28 @@ MSCFModel_CACC::getSecureGap(const double speed, const double leaderSpeed, const
 }
 
 double
-MSCFModel_CACC::insertionFollowSpeed(const MSVehicle* const v, double speed, double gap2pred, double predSpeed, double predMaxDecel) const {
-//#ifdef DEBUG_CACC
-//        std::cout << "MSCFModel_ACC::insertionFollowSpeed(), speed="<<speed<< std::endl;
-//#endif
+MSCFModel_CACC::insertionFollowSpeed(const MSVehicle* const veh, double speed, double gap2pred, double predSpeed, double predMaxDecel) const {
+#ifdef DEBUG_CACC_INSERTION_FOLLOW_SPEED
+    if (DEBUG_COND) std::cout << "MSCFModel_ACC::insertionFollowSpeed(), speed=" << speed << " gap2pred=" << gap2pred << " predSpeed=" << predSpeed << "\n";
+#endif
     // iterate to find a stationary value for
     //    speed = followSpeed(v, speed, gap2pred, predSpeed, predMaxDecel, nullptr)
     const int max_iter = 50;
     int n_iter = 0;
     const double tol = 0.1;
-    const double damping = 0.1;
+    double damping = 0.8;
 
     double res = speed;
     while (n_iter < max_iter) {
         // proposed acceleration
-        const double a = SPEED2ACCEL(followSpeed(v, res, gap2pred, predSpeed, predMaxDecel, nullptr) - res);
+        const double vCACC = _v(veh, gap2pred, speed, predSpeed, speed, true);
+        const double vSafe = maximumSafeFollowSpeed(gap2pred, speed, predSpeed, predMaxDecel, true);
+        const double a = MIN2(vCACC, vSafe) - res;
         res = res + damping * a;
-//#ifdef DEBUG_CACC
-//        std::cout << "   n_iter=" << n_iter << ", a=" << a << ", res=" << res << std::endl;
-//#endif
+#ifdef DEBUG_CACC_INSERTION_FOLLOW_SPEED
+        if (DEBUG_COND) std::cout << "   n_iter=" << n_iter << " a=" << a << " damping=" << damping << " res=" << res << std::endl;
+#endif
+        damping *= 0.9;
         if (fabs(a) < tol) {
             break;
         } else {
