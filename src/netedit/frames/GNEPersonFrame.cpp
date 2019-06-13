@@ -290,8 +290,12 @@ GNEPersonFrame::demandElementSelected() {
 void
 GNEPersonFrame::edgePathCreated() {
     // first check that all attributes are valid
-    if (myPersonAttributes->areValuesValid()) {
-        // obtain tag (only for improve code legibility)
+    if (!myPersonAttributes->areValuesValid()) {
+        myViewNet->setStatusBarText("Invalid person parameters.");
+    } else if (!myPersonPlanAttributes->areValuesValid()) {
+        myViewNet->setStatusBarText("Invalid " + myPersonPlanSelector->getCurrentTagProperties().getTagStr() + " parameters.");
+    } else {
+        // obtain person tag (only for improve code legibility)
         SumoXMLTag personTag = myPersonTagSelector->getCurrentTagProperties().getTag();
         // Declare map to keep attributes from myPersonAttributes
         std::map<SumoXMLAttr, std::string> valuesMap = myPersonAttributes->getAttributesAndValues(false);
@@ -308,7 +312,7 @@ GNEPersonFrame::edgePathCreated() {
             // obtain person parameters
             SUMOVehicleParameter* personParameters = SUMOVehicleParserHelper::parseVehicleAttributes(SUMOSAXAttrs, false, false, true);
             // build person in GNERouteHandler
-            GNERouteHandler::buildTrip(myViewNet, true, *personParameters, myEdgePathCreator->getSelectedEdges());
+            GNERouteHandler::buildPerson(myViewNet, true, *personParameters);
             // delete personParameters
             delete personParameters;
         } else {
@@ -324,12 +328,71 @@ GNEPersonFrame::edgePathCreated() {
             // obtain personFlow parameters
             SUMOVehicleParameter* personFlowParameters = SUMOVehicleParserHelper::parseFlowAttributes(SUMOSAXAttrs, 0, SUMOTime_MAX, true);
             // build personFlow in GNERouteHandler
-            GNERouteHandler::buildFlow(myViewNet, true, *personFlowParameters, myEdgePathCreator->getSelectedEdges());
+            GNERouteHandler::buildPersonFlow(myViewNet, true, *personFlowParameters);
             // delete personFlowParameters
             delete personFlowParameters;
         }
-    } else {
-        myViewNet->setStatusBarText("Invalid person parameters.");
+        // obtain created person
+        GNEDemandElement *createdPerson = myViewNet->getNet()->retrieveDemandElement(personTag, valuesMap[SUMO_ATTR_ID]);
+        // obtain person plan tag (only for improve code legibility)
+        SumoXMLTag personPlanTag = myPersonPlanSelector->getCurrentTagProperties().getTag();
+        // Declare map to keep attributes from myPersonPlanAttributes
+        valuesMap = myPersonPlanAttributes->getAttributesAndValues(false);
+        // check what PersonPlan we're creating
+        switch (personTag) {
+            case SUMO_TAG_PERSONTRIP_FROMTO: {
+                std::vector<std::string> types = GNEAttributeCarrier::parse<std::vector<std::string> >(valuesMap[SUMO_ATTR_VTYPES]);
+                std::vector<std::string> modes = GNEAttributeCarrier::parse<std::vector<std::string> >(valuesMap[SUMO_ATTR_MODES]);
+                double arrivalPos = GNEAttributeCarrier::parse<double>(valuesMap[SUMO_ATTR_ARRIVALPOS]);
+                GNERouteHandler::buildPersonTripFromTo(myViewNet, true, createdPerson, myEdgePathCreator->getSelectedEdges(), types, modes, arrivalPos);
+                break;
+            }
+            case SUMO_TAG_PERSONTRIP_BUSSTOP: {
+                GNEAdditional *busStop = myViewNet->getNet()->retrieveAdditional(SUMO_TAG_BUS_STOP, valuesMap[SUMO_ATTR_BUS_STOP]);
+                std::vector<std::string> types = GNEAttributeCarrier::parse<std::vector<std::string> >(valuesMap[SUMO_ATTR_VTYPES]);
+                std::vector<std::string> modes = GNEAttributeCarrier::parse<std::vector<std::string> >(valuesMap[SUMO_ATTR_MODES]);
+                double arrivalPos = GNEAttributeCarrier::parse<double>(valuesMap[SUMO_ATTR_ARRIVALPOS]);
+                GNERouteHandler::buildPersonTripBusStop(myViewNet, true, createdPerson, myEdgePathCreator->getSelectedEdges(), busStop, types, modes, arrivalPos);
+                break;
+            }
+            case SUMO_TAG_WALK_EDGES: {
+                double arrivalPos = GNEAttributeCarrier::parse<double>(valuesMap[SUMO_ATTR_ARRIVALPOS]);
+                GNERouteHandler::buildWalkEdges(myViewNet, true, createdPerson, myEdgePathCreator->getSelectedEdges(), arrivalPos);
+                break;
+            }
+            case SUMO_TAG_WALK_FROMTO: {
+                double arrivalPos = GNEAttributeCarrier::parse<double>(valuesMap[SUMO_ATTR_ARRIVALPOS]);
+                GNERouteHandler::buildWalkFromTo(myViewNet, true, createdPerson, myEdgePathCreator->getSelectedEdges(), arrivalPos);
+                break;
+            }
+            case SUMO_TAG_WALK_BUSSTOP: {
+                GNEAdditional *busStop = myViewNet->getNet()->retrieveAdditional(SUMO_TAG_BUS_STOP, valuesMap[SUMO_ATTR_BUS_STOP]);
+                double arrivalPos = GNEAttributeCarrier::parse<double>(valuesMap[SUMO_ATTR_ARRIVALPOS]);
+                GNERouteHandler::buildWalkBusStop(myViewNet, true, createdPerson, myEdgePathCreator->getSelectedEdges(), busStop, arrivalPos);
+                break;
+            }
+            case SUMO_TAG_WALK_ROUTE: {
+                GNEDemandElement *route = myViewNet->getNet()->retrieveDemandElement(SUMO_TAG_ROUTE, valuesMap[SUMO_ATTR_ROUTE]);
+                double arrivalPos = GNEAttributeCarrier::parse<double>(valuesMap[SUMO_ATTR_ARRIVALPOS]);
+                GNERouteHandler::buildWalkRoute(myViewNet, true, createdPerson, route, arrivalPos);
+                break;
+            }
+            case SUMO_TAG_RIDE_FROMTO: {
+                std::vector<std::string> lines = GNEAttributeCarrier::parse<std::vector<std::string> >(valuesMap[SUMO_ATTR_LINES]);
+                double arrivalPos = GNEAttributeCarrier::parse<double>(valuesMap[SUMO_ATTR_ARRIVALPOS]);
+                GNERouteHandler::buildRideFromTo(myViewNet, true, createdPerson, myEdgePathCreator->getSelectedEdges(), lines, arrivalPos);
+                break;
+            }
+            case SUMO_TAG_RIDE_BUSSTOP: {
+                GNEAdditional *busStop = myViewNet->getNet()->retrieveAdditional(SUMO_TAG_BUS_STOP, valuesMap[SUMO_ATTR_BUS_STOP]);
+                std::vector<std::string> lines = GNEAttributeCarrier::parse<std::vector<std::string> >(valuesMap[SUMO_ATTR_LINES]);
+                double arrivalPos = GNEAttributeCarrier::parse<double>(valuesMap[SUMO_ATTR_ARRIVALPOS]);
+                GNERouteHandler::buildRideBusStop(myViewNet, true, createdPerson, myEdgePathCreator->getSelectedEdges(), busStop, lines, arrivalPos);
+                break;
+            }
+            default:
+                throw InvalidArgument("Invalid person plan tag");
+        }
     }
 }
 
