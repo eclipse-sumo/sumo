@@ -44,18 +44,23 @@ public:
      * @param[in] personParent person parent
      * @param[in] edges list of consecutive edges of this walk
      * @param[in] arrivalPosition arrival position on the destination edge 
-     * @param[in] lines valid line or vehicle ids or ANY
      */
-    GNEWalk(GNEViewNet* viewNet, GNEDemandElement *personParent, const std::vector<GNEEdge*>& edges, double arrivalPosition, const std::vector<std::string> &lines);
+    GNEWalk(GNEViewNet* viewNet, GNEDemandElement *personParent, const std::vector<GNEEdge*>& edges, double arrivalPosition);
 
     /**@brief parameter constructor
      * @param[in] viewNet view in which this Walk is placed
      * @param[in] personParent person parent
      * @param[in] edges list of consecutive edges of this walk
      * @param[in] busStop destination busStop 
-     * @param[in] lines valid line or vehicle ids or ANY
      */
-    GNEWalk(GNEViewNet* viewNet, GNEDemandElement *personParent, const std::vector<GNEEdge*>& edges, GNEAdditional *busStop, const std::vector<std::string> &lines);
+    GNEWalk(GNEViewNet* viewNet, GNEDemandElement *personParent, const std::vector<GNEEdge*>& edges, GNEAdditional *busStop);
+
+    /**@brief parameter constructor
+     * @param[in] viewNet view in which this Walk is placed
+     * @param[in] personParent person parent
+     * @param[in] personParent route parent
+     */
+    GNEWalk(GNEViewNet* viewNet, GNEDemandElement *personParent, GNEDemandElement *routeParent);
 
     /// @brief destructor
     ~GNEWalk();
@@ -176,9 +181,6 @@ public:
     /// @}
 
 protected:
-    /// @brief valid line or vehicle ids or ANY
-    std::vector<std::string> myLines;
-
     /// @brief arrival position 
     double myArrivalPosition;
 

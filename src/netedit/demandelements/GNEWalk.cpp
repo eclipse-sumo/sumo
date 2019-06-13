@@ -44,18 +44,23 @@
 // method definitions
 // ===========================================================================
 
-GNEWalk::GNEWalk(GNEViewNet* viewNet, GNEDemandElement *personParent, const std::vector<GNEEdge*>& edges, double arrivalPosition, const std::vector<std::string> &lines) :
-    GNEDemandElement(viewNet->getNet()->generateDemandElementID("", SUMO_TAG_WALK), viewNet, GLO_WALK, SUMO_TAG_WALK,
+GNEWalk::GNEWalk(GNEViewNet* viewNet, GNEDemandElement *personParent, const std::vector<GNEEdge*>& edges, double arrivalPosition) :
+    GNEDemandElement(viewNet->getNet()->generateDemandElementID("", SUMO_TAG_WALK_FROMTO), viewNet, GLO_WALK, SUMO_TAG_WALK_FROMTO,
     edges, {}, {}, {}, {personParent}, {}, {}, {}, {}, {}),
-    myLines(lines),
     myArrivalPosition(arrivalPosition) {
 }
 
 
-GNEWalk::GNEWalk(GNEViewNet* viewNet, GNEDemandElement *personParent, const std::vector<GNEEdge*>& edges, GNEAdditional *busStop, const std::vector<std::string> &lines) :
-    GNEDemandElement(viewNet->getNet()->generateDemandElementID("", SUMO_TAG_WALK), viewNet, GLO_WALK, SUMO_TAG_WALK,
+GNEWalk::GNEWalk(GNEViewNet* viewNet, GNEDemandElement *personParent, const std::vector<GNEEdge*>& edges, GNEAdditional *busStop) :
+    GNEDemandElement(viewNet->getNet()->generateDemandElementID("", SUMO_TAG_WALK_BUSSTOP), viewNet, GLO_WALK, SUMO_TAG_WALK_BUSSTOP,
     edges, {}, {}, {busStop}, {personParent}, {}, {}, {}, {}, {}),
-    myLines(lines),
+    myArrivalPosition(-1) {
+}
+
+
+GNEWalk::GNEWalk(GNEViewNet* viewNet, GNEDemandElement *personParent, GNEDemandElement *routeParent) :
+    GNEDemandElement(viewNet->getNet()->generateDemandElementID("", SUMO_TAG_WALK_ROUTE), viewNet, GLO_WALK, SUMO_TAG_WALK_ROUTE,
+    {}, {}, {}, {}, {personParent, routeParent}, {}, {}, {}, {}, {}),
     myArrivalPosition(-1) {
 }
 
@@ -269,8 +274,6 @@ GNEWalk::getAttribute(SumoXMLAttr key) const {
             return getEdgeParents().back()->getID();
         case SUMO_ATTR_BUS_STOP:
             return getAdditionalParents().front()->getID();
-        case SUMO_ATTR_LINES:
-            return joinToString(myLines, " ");
         case SUMO_ATTR_ARRIVALPOS:
             return toString(myArrivalPosition);
         case GNE_ATTR_SELECTED:
@@ -292,7 +295,6 @@ GNEWalk::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* un
         case SUMO_ATTR_FROM:
         case SUMO_ATTR_TO:
         case SUMO_ATTR_BUS_STOP:
-        case SUMO_ATTR_LINES:
         case SUMO_ATTR_ARRIVALPOS:
         case GNE_ATTR_SELECTED:
         case GNE_ATTR_GENERIC:
@@ -312,8 +314,6 @@ GNEWalk::isValid(SumoXMLAttr key, const std::string& value) {
             return SUMOXMLDefinitions::isValidNetID(value) && (myViewNet->getNet()->retrieveEdge(value, false) != nullptr);
         case SUMO_ATTR_BUS_STOP:
             return (myViewNet->getNet()->retrieveAdditional(SUMO_TAG_BUS_STOP, value, false) != nullptr);
-        case SUMO_ATTR_LINES:
-            return canParse<std::vector<std::string> >(value);
         case SUMO_ATTR_ARRIVALPOS:
             if (canParse<double>(value)) {
                 double parsedValue = canParse<double>(value);
@@ -388,9 +388,6 @@ GNEWalk::setAttribute(SumoXMLAttr key, const std::string& value) {
         }
         case SUMO_ATTR_BUS_STOP:
             changeAdditionalParent(this, value, 0);
-            break;
-        case SUMO_ATTR_LINES:
-            myLines = GNEAttributeCarrier::parse<std::vector<std::string> >(value);
             break;
         case GNE_ATTR_SELECTED:
             if (parse<bool>(value)) {
