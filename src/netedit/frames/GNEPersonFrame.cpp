@@ -25,6 +25,7 @@
 #include <netedit/demandelements/GNERouteHandler.h>
 #include <netedit/GNENet.h>
 #include <netedit/GNEViewNet.h>
+#include <netedit/GNEUndoList.h>
 #include <utils/xml/SUMOSAXAttributesImpl_Cached.h>
 #include <utils/vehicle/SUMOVehicleParserHelper.h>
 
@@ -297,6 +298,10 @@ GNEPersonFrame::edgePathCreated() {
     } else {
         // obtain person tag (only for improve code legibility)
         SumoXMLTag personTag = myPersonTagSelector->getCurrentTagProperties().getTag();
+        // obtain person plan tag (only for improve code legibility)
+        SumoXMLTag personPlanTag = myPersonPlanSelector->getCurrentTagProperties().getTag();
+        // begin undo-redo operation
+        myViewNet->getUndoList()->p_begin("create " + toString(personTag) + " and " + toString(personPlanTag));
         // Declare map to keep attributes from myPersonAttributes
         std::map<SumoXMLAttr, std::string> valuesMap = myPersonAttributes->getAttributesAndValues(false);
         // add ID parameter
@@ -334,8 +339,6 @@ GNEPersonFrame::edgePathCreated() {
         }
         // obtain created person
         GNEDemandElement *createdPerson = myViewNet->getNet()->retrieveDemandElement(personTag, valuesMap[SUMO_ATTR_ID]);
-        // obtain person plan tag (only for improve code legibility)
-        SumoXMLTag personPlanTag = myPersonPlanSelector->getCurrentTagProperties().getTag();
         // Declare map to keep attributes from myPersonPlanAttributes
         valuesMap = myPersonPlanAttributes->getAttributesAndValues(false);
         // check what PersonPlan we're creating
@@ -393,6 +396,8 @@ GNEPersonFrame::edgePathCreated() {
             default:
                 throw InvalidArgument("Invalid person plan tag");
         }
+        // end undo-redo operation
+        myViewNet->getUndoList()->p_end();
     }
 }
 

@@ -115,7 +115,7 @@ public:
 
     /// @brief build ride using a from edge and a busStop
     static void buildRideBusStop(GNEViewNet* viewNet, bool undoDemandElements, GNEDemandElement* personParent, const std::vector<GNEEdge*>& edges, 
-                                 const std::vector<std::string> &lines, double arrivalPos);
+                                 GNEAdditional *busStop, const std::vector<std::string> &lines, double arrivalPos);
 
     /// @}
 

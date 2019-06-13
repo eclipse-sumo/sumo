@@ -40,6 +40,8 @@
 #include "GNEStop.h"
 #include "GNEVehicle.h"
 #include "GNEVehicleType.h"
+#include "GNEWalk.h"
+#include "GNERide.h"
 
 
 // ===========================================================================
@@ -419,7 +421,6 @@ GNERouteHandler::buildPersonTripFromTo(GNEViewNet* viewNet, bool undoDemandEleme
 void
 GNERouteHandler::buildPersonTripBusStop(GNEViewNet* viewNet, bool undoDemandElements, GNEDemandElement* personParent, const std::vector<GNEEdge*>& edges, 
     GNEAdditional *busStop, const std::vector<std::string> &types, const std::vector<std::string> &modes, double arrivalPos) {
-    //
 }
 
 
@@ -457,7 +458,7 @@ GNERouteHandler::buildRideFromTo(GNEViewNet* viewNet, bool undoDemandElements, G
 
 void 
 GNERouteHandler::buildRideBusStop(GNEViewNet* viewNet, bool undoDemandElements, GNEDemandElement* personParent, const std::vector<GNEEdge*>& edges, 
-    const std::vector<std::string> &lines, double arrivalPos) {
+    GNEAdditional *busStop, const std::vector<std::string> &lines, double arrivalPos) {
     //
 }
 
