@@ -44,8 +44,8 @@
 // ===========================================================================
 #define DEBUG_CACC 0
 #define DEBUG_CACC_INSERTION_FOLLOW_SPEED 0
-//#define DEBUG_COND (veh->isSelected())
-//#define DEBUG_COND (veh->getID() == "CVflowToC2.0")
+#define DEBUG_COND (veh->isSelected())
+//#define DEBUG_COND (veh->getID() == "flow.0")
 //#define DEBUG_COND (veh->getID() == "CVflowToC2.11")
 
 
@@ -212,7 +212,7 @@ double MSCFModel_CACC::speedGapControl(const MSVehicle* const veh, const double 
                 // collision avoidance mode
                 //newSpeed = speed + 0.45 * spacingErr + 0.05 *spacingErr1;
 #if DEBUG_CACC == 1
-                if DEBUG_COND  std::cout << "        applying collision avoidance" << std::endl;
+                if DEBUG_COND  std::cout << "        applying collision avoidance err=" << spacingErr << " err1=" << spacingErr1 << "\n";
 #endif
                 newSpeed = speed + myCollisionAvoidanceGainGap * spacingErr + myCollisionAvoidanceGainGapDot * spacingErr1;
             } else {
