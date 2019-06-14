@@ -17,7 +17,7 @@
     </output>
 
     <time>
-        <end value="1800"/>
+        <end value="2400"/>
         <step-length value="0.2"/>
     </time>
 
