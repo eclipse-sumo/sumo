@@ -586,7 +586,7 @@ GUIVehicle::drawBestLanes() const {
 
 void
 GUIVehicle::drawRouteHelper(const GUIVisualizationSettings& s, const MSRoute& r, bool future) const {
-    const double exaggeration = s.vehicleSize.getExaggeration(s, this);
+    const double exaggeration = s.vehicleSize.getExaggeration(s, this) * (s.gaming ? 0.5 : 1);
     MSRouteIterator i = future ? myCurrEdge : r.begin();
     const std::vector<MSLane*>& bestLaneConts = getBestLanesContinuation();
     // draw continuation lanes when drawing the current route where available
