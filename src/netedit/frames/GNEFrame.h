@@ -105,14 +105,20 @@ public:
         FXDECLARE(GNEFrame::DemandElementSelector)
 
     public:
-        /// @brief constructor
-        DemandElementSelector(GNEFrame* frameParent, SumoXMLTag demandElementTagType);
+        /// @brief constructor with a single tag
+        DemandElementSelector(GNEFrame* frameParent, SumoXMLTag demandElementTag);
+
+        /// @brief constructor with tag type
+        DemandElementSelector(GNEFrame* frameParent, const std::vector<GNEAttributeCarrier::TagType> &tagTypes);
 
         /// @brief destructor
         ~DemandElementSelector();
 
         /// @brief get current demand element
-        const GNEDemandElement* getCurrentDemandElement() const;
+        GNEDemandElement* getCurrentDemandElement() const;
+
+        /// @brief set current demand element
+        void setDemandElement(GNEDemandElement* demandElement);
 
         /// @brief show demand element selector
         void showDemandElementSelector();
@@ -143,8 +149,8 @@ public:
         /// @brief current demand element
         GNEDemandElement* myCurrentDemandElement;
 
-        /// @brief demand element tag type
-        SumoXMLTag myDemandElementTagType;
+        /// @brief demand element tags
+        std::vector<SumoXMLTag> myDemandElementTags;
     };
 
     // ===========================================================================

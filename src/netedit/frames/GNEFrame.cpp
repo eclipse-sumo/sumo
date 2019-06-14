@@ -149,7 +149,7 @@ GNEFrame::TagSelector::TagSelector(GNEFrame* frameParent, GNEAttributeCarrier::T
     FXGroupBox(frameParent->myContentFrame, "Element", GUIDesignGroupBoxFrame),
     myFrameParent(frameParent) {
     // first check that property is valid
-    switch (type)     {
+    switch (type) {
         case GNEAttributeCarrier::TagType::TAGTYPE_NETELEMENT:
             setText("Net elements");
             break;
@@ -280,11 +280,29 @@ GNEFrame::TagSelector::onCmdSelectItem(FXObject*, FXSelector, void*) {
 // GNEFrame::DemandElementSelector - methods
 // ---------------------------------------------------------------------------
 
-GNEFrame::DemandElementSelector::DemandElementSelector(GNEFrame* frameParent, SumoXMLTag demandElementTagType) :
-    FXGroupBox(frameParent->myContentFrame, "Person Type", GUIDesignGroupBoxFrame),
+GNEFrame::DemandElementSelector::DemandElementSelector(GNEFrame* frameParent, SumoXMLTag demandElementTag) :
+    FXGroupBox(frameParent->myContentFrame, ("Parent " + toString(demandElementTag)).c_str(), GUIDesignGroupBoxFrame),
     myFrameParent(frameParent),
     myCurrentDemandElement(nullptr),
-    myDemandElementTagType(demandElementTagType) {
+    myDemandElementTags({demandElementTag}) {
+    // Create FXComboBox
+    myDemandElementsMatchBox = new FXComboBox(this, GUIDesignComboBoxNCol, this, MID_GNE_SET_TYPE, GUIDesignComboBox);
+    // refresh demand element MatchBox
+    refreshDemandElementSelector();
+    // shown after creation
+    show();
+}
+
+
+GNEFrame::DemandElementSelector::DemandElementSelector(GNEFrame* frameParent, const std::vector<GNEAttributeCarrier::TagType> &tagTypes) :
+        FXGroupBox(frameParent->myContentFrame, "Parent element", GUIDesignGroupBoxFrame),
+    myFrameParent(frameParent),
+    myCurrentDemandElement(nullptr) {
+    // fill myDemandElementTags
+    for (const auto &i : tagTypes) {
+        auto tags = GNEAttributeCarrier::allowedTagsByCategory(i, false);
+        myDemandElementTags.insert(myDemandElementTags.end(), tags.begin(), tags.end());
+    }
     // Create FXComboBox
     myDemandElementsMatchBox = new FXComboBox(this, GUIDesignComboBoxNCol, this, MID_GNE_SET_TYPE, GUIDesignComboBox);
     // refresh demand element MatchBox
@@ -297,9 +315,18 @@ GNEFrame::DemandElementSelector::DemandElementSelector(GNEFrame* frameParent, Su
 GNEFrame::DemandElementSelector::~DemandElementSelector() {}
 
 
-const GNEDemandElement*
+GNEDemandElement*
 GNEFrame::DemandElementSelector::getCurrentDemandElement() const {
     return myCurrentDemandElement;
+}
+
+
+void 
+GNEFrame::DemandElementSelector::setDemandElement(GNEDemandElement* demandElement) {
+    // first check tag
+    if (std::find(myDemandElementTags.begin(), myDemandElementTags.end(), demandElement->getTagProperty().getTag()) != myDemandElementTags.end()) {
+        myDemandElementsMatchBox->setText(demandElement->getID().c_str());
+    }
 }
 
 
@@ -310,10 +337,12 @@ GNEFrame::DemandElementSelector::showDemandElementSelector() {
     // if current selected item isn't valid, set DEFAULT_VTYPE_ID or DEFAULT_PEDTYPE_ID
     if (myCurrentDemandElement) {
         myDemandElementsMatchBox->setText(myCurrentDemandElement->getID().c_str());
-    } else if (myDemandElementTagType == SUMO_TAG_VTYPE) {
-        myDemandElementsMatchBox->setText(DEFAULT_VTYPE_ID.c_str());
-    } else if (myDemandElementTagType == SUMO_TAG_VTYPE) {
-        myDemandElementsMatchBox->setText(DEFAULT_PEDTYPE_ID.c_str());
+    } else if (myDemandElementTags.size() == 1) {
+        if (myDemandElementTags.at(0) == SUMO_TAG_VTYPE) {
+            myDemandElementsMatchBox->setText(DEFAULT_VTYPE_ID.c_str());
+        } else if (myDemandElementTags.at(0) == SUMO_TAG_PTYPE) {
+            myDemandElementsMatchBox->setText(DEFAULT_PEDTYPE_ID.c_str());
+        }
     }
     onCmdSelectDemandElement(nullptr, 0, nullptr);
     show();
@@ -331,8 +360,10 @@ GNEFrame::DemandElementSelector::refreshDemandElementSelector() {
     // clear demand elements comboBox
     myDemandElementsMatchBox->clearItems();
     // fill myTypeMatchBox with list of vtypes
-    for (const auto& i : myFrameParent->getViewNet()->getNet()->getAttributeCarriers().demandElements.at(myDemandElementTagType)) {
-        myDemandElementsMatchBox->appendItem(i.first.c_str());
+    for (const auto& i : myDemandElementTags) {
+        for (const auto& j : myFrameParent->getViewNet()->getNet()->getAttributeCarriers().demandElements.at(i)) {
+            myDemandElementsMatchBox->appendItem(j.first.c_str());
+        }
     }
     // Set number of  items (maximum 10)
     if (myDemandElementsMatchBox->getNumItems() < 10) {
@@ -346,17 +377,19 @@ GNEFrame::DemandElementSelector::refreshDemandElementSelector() {
 long
 GNEFrame::DemandElementSelector::onCmdSelectDemandElement(FXObject*, FXSelector, void*) {
     // Check if value of myTypeMatchBox correspond to a demand element
-    for (const auto& i : myFrameParent->getViewNet()->getNet()->getAttributeCarriers().demandElements.at(myDemandElementTagType)) {
-        if (i.first == myDemandElementsMatchBox->getText().text()) {
-            // set color of myTypeMatchBox to black (valid)
-            myDemandElementsMatchBox->setTextColor(FXRGB(0, 0, 0));
-            // Set new current demand element
-            myCurrentDemandElement = i.second;
-            // call demandElementSelected function
-            myFrameParent->demandElementSelected();
-            // Write Warning in console if we're in testing mode
-            WRITE_DEBUG(("Selected item '" + myDemandElementsMatchBox->getText() + "' in DemandElementSelector").text());
-            return 1;
+    for (const auto& i : myDemandElementTags) {
+        for (const auto& j : myFrameParent->getViewNet()->getNet()->getAttributeCarriers().demandElements.at(i)) {
+            if (j.first == myDemandElementsMatchBox->getText().text()) {
+                // set color of myTypeMatchBox to black (valid)
+                myDemandElementsMatchBox->setTextColor(FXRGB(0, 0, 0));
+                // Set new current demand element
+                myCurrentDemandElement = j.second;
+                // call demandElementSelected function
+                myFrameParent->demandElementSelected();
+                // Write Warning in console if we're in testing mode
+                WRITE_DEBUG(("Selected item '" + myDemandElementsMatchBox->getText() + "' in DemandElementSelector").text());
+                return 1;
+            }
         }
     }
     // if demand element selected is invalid, set demand element as null
