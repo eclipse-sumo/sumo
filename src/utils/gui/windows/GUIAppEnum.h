@@ -625,8 +625,12 @@ enum {
     MID_GNE_EDGEPATH_FINISH,
     /// @brief remove last inserted edge of edge path
     MID_GNE_EDGEPATH_REMOVELASTEDGE,
-    /// @brief In AttributeCarrierHierarchy show child menu
-    MID_GNE_SHOWCHILDMENU,
+    /// @brief In AttributeCarrierHierarchy list, show child menu
+    MID_GNE_ACHIERARCHY_SHOWCHILDMENU,
+    /// @brief In AttributeCarrierHierarchy list, move element to up
+    MID_GNE_ACHIERARCHY_MOVEUP,
+    /// @brief In AttributeCarrierHierarchy list, move element to down
+    MID_GNE_ACHIERARCHY_MOVEDOWN,
     /// @brief set object as template
     MID_GNE_TEMPLATE_SET,
     /// @brief copy template

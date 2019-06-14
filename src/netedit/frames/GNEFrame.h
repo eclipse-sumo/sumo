@@ -622,14 +622,20 @@ public:
         /// @brief called when user press right click over an item of list of children
         long onCmdShowChildMenu(FXObject*, FXSelector, void* data);
 
-        /// @brief called when user select option "center item" of child Menu
+        /// @brief called when user click over option "center" of child Menu
         long onCmdCenterItem(FXObject*, FXSelector, void*);
 
-        /// @brief called when user select option "inspect item" of child menu
+        /// @brief called when user click over option "inspect" of child menu
         long onCmdInspectItem(FXObject*, FXSelector, void*);
 
-        /// @brief called when user select option "delte item" of child menu
+        /// @brief called when user click over option "delete" of child menu
         long onCmdDeleteItem(FXObject*, FXSelector, void*);
+
+        /// @brief called when user click over option "Move up" of child menu
+        long onCmdMoveItemUp(FXObject*, FXSelector, void*);
+
+        /// @brief called when user click over option "Move down" of child menu
+        long onCmdMoveItemDown(FXObject*, FXSelector, void*);
         /// @}
 
     protected:

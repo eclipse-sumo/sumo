@@ -93,10 +93,12 @@ FXDEFMAP(GNEFrame::AttributesEditorExtended) AttributesEditorExtendedMap[] = {
 };
 
 FXDEFMAP(GNEFrame::AttributeCarrierHierarchy) AttributeCarrierHierarchyMap[] = {
-    FXMAPFUNC(SEL_COMMAND,              MID_GNE_CENTER,         GNEFrame::AttributeCarrierHierarchy::onCmdCenterItem),
-    FXMAPFUNC(SEL_COMMAND,              MID_GNE_INSPECT,        GNEFrame::AttributeCarrierHierarchy::onCmdInspectItem),
-    FXMAPFUNC(SEL_COMMAND,              MID_GNE_DELETE,         GNEFrame::AttributeCarrierHierarchy::onCmdDeleteItem),
-    FXMAPFUNC(SEL_RIGHTBUTTONRELEASE,   MID_GNE_SHOWCHILDMENU,  GNEFrame::AttributeCarrierHierarchy::onCmdShowChildMenu)
+    FXMAPFUNC(SEL_COMMAND,              MID_GNE_CENTER,                     GNEFrame::AttributeCarrierHierarchy::onCmdCenterItem),
+    FXMAPFUNC(SEL_COMMAND,              MID_GNE_INSPECT,                    GNEFrame::AttributeCarrierHierarchy::onCmdInspectItem),
+    FXMAPFUNC(SEL_COMMAND,              MID_GNE_DELETE,                     GNEFrame::AttributeCarrierHierarchy::onCmdDeleteItem),
+    FXMAPFUNC(SEL_COMMAND,              MID_GNE_ACHIERARCHY_MOVEUP,         GNEFrame::AttributeCarrierHierarchy::onCmdMoveItemUp),
+    FXMAPFUNC(SEL_COMMAND,              MID_GNE_ACHIERARCHY_MOVEDOWN,       GNEFrame::AttributeCarrierHierarchy::onCmdMoveItemDown),
+    FXMAPFUNC(SEL_RIGHTBUTTONRELEASE,   MID_GNE_ACHIERARCHY_SHOWCHILDMENU,  GNEFrame::AttributeCarrierHierarchy::onCmdShowChildMenu)
 };
 
 FXDEFMAP(GNEFrame::GenericParametersEditor) GenericParametersEditorMap[] = {
@@ -1987,7 +1989,7 @@ GNEFrame::AttributeCarrierHierarchy::AttributeCarrierHierarchy(GNEFrame* framePa
     myFrameParent(frameParent),
     myAC(nullptr) {
     // Create three list
-    myTreelist = new FXTreeList(this, this, MID_GNE_SHOWCHILDMENU, GUIDesignTreeListFrame);
+    myTreelist = new FXTreeList(this, this, MID_GNE_ACHIERARCHY_SHOWCHILDMENU, GUIDesignTreeListFrame);
     hide();
 }
 
@@ -2107,6 +2109,26 @@ GNEFrame::AttributeCarrierHierarchy::onCmdDeleteItem(FXObject*, FXSelector, void
 }
 
 
+long 
+GNEFrame::AttributeCarrierHierarchy::onCmdMoveItemUp(FXObject*, FXSelector, void*) {
+    GNEDemandElement *demandElement = dynamic_cast<GNEDemandElement*>(myAC);
+    if(demandElement) {
+        demandElement->getDemandElementParents().at(0)->moveDemandElementChildUp(demandElement);
+    }
+    return 1;
+}
+
+
+long 
+GNEFrame::AttributeCarrierHierarchy::onCmdMoveItemDown(FXObject*, FXSelector, void*) {
+    GNEDemandElement *demandElement = dynamic_cast<GNEDemandElement*>(myAC);
+    if(demandElement) {
+        demandElement->getDemandElementParents().at(0)->moveDemandElementChildDown(demandElement);
+    }
+    return 1;
+}
+
+
 void
 GNEFrame::AttributeCarrierHierarchy::createPopUpMenu(int X, int Y, GNEAttributeCarrier* ac) {
     // first check that AC exist
@@ -2127,6 +2149,19 @@ GNEFrame::AttributeCarrierHierarchy::createPopUpMenu(int X, int Y, GNEAttributeC
             (myRightClickedAC->getTagProperty().isDemandElement() && (myFrameParent->myViewNet->getEditModes().currentSupermode == GNE_SUPERMODE_NETWORK))) {
             inspectMenuCommand->disable();
             deleteMenuCommand->disable();
+        }
+        // now chec if given AC support manually moving of their item up and down
+        if (ac->getTagProperty().canBeSortedManually()) {
+            new FXMenuSeparator(pane);
+            FXMenuCommand* moveUpMenuCommand = new FXMenuCommand(pane, "Move up", GUIIconSubSys::getIcon(ICON_ARROW_UP), this, MID_GNE_ACHIERARCHY_MOVEUP);
+            FXMenuCommand* moveDownMenuCommand = new FXMenuCommand(pane, "Move down", GUIIconSubSys::getIcon(ICON_ARROW_DOWN), this, MID_GNE_ACHIERARCHY_MOVEDOWN);
+            // check if menu commands has to be disabled
+            if (GNEAttributeCarrier::parse<bool>(ac->getAttribute(GNE_ATTR_FIRST_CHILD))) {
+                moveUpMenuCommand->disable();
+            }
+            if (GNEAttributeCarrier::parse<bool>(ac->getAttribute(GNE_ATTR_LAST_CHILD))) {
+                moveDownMenuCommand->disable();
+            }
         }
         // Center in the mouse position and create pane
         pane->setX(X);
