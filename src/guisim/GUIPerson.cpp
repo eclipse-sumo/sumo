@@ -26,7 +26,7 @@
 #include <cmath>
 #include <vector>
 #include <string>
-#include <microsim/MSVehicleControl.h>
+#include <microsim/MSTransportableControl.h>
 #include <microsim/MSVehicleType.h>
 #include <microsim/pedestrians/MSPerson.h>
 #include <microsim/pedestrians/MSPModel_Striping.h>
@@ -65,6 +65,7 @@ FXDEFMAP(GUIPerson::GUIPersonPopupMenu) GUIPersonPopupMenuMap[] = {
     FXMAPFUNC(SEL_COMMAND, MID_SHOWPLAN,              GUIPerson::GUIPersonPopupMenu::onCmdShowPlan),
     FXMAPFUNC(SEL_COMMAND, MID_START_TRACK,           GUIPerson::GUIPersonPopupMenu::onCmdStartTrack),
     FXMAPFUNC(SEL_COMMAND, MID_STOP_TRACK,            GUIPerson::GUIPersonPopupMenu::onCmdStopTrack),
+    FXMAPFUNC(SEL_COMMAND, MID_REMOVE_OBJECT,         GUIPerson::GUIPersonPopupMenu::onCmdRemoveObject),
 };
 
 // Object implementation
@@ -157,6 +158,20 @@ GUIPerson::GUIPersonPopupMenu::onCmdStopTrack(FXObject*, FXSelector, void*) {
     return 1;
 }
 
+long
+GUIPerson::GUIPersonPopupMenu::onCmdRemoveObject(FXObject*, FXSelector, void*){
+    GUIPerson* person = static_cast<GUIPerson*>(myObject);
+    MSTransportable::Stage* stage = person->getCurrentStage();
+    stage->abort(person);
+    stage->getEdge()->removePerson(person);
+    if (stage->getDestinationStop() != nullptr) {
+        stage->getDestinationStop()->removeTransportable(person);
+    }
+    MSNet::getInstance()->getPersonControl().erase(person);
+    myParent->update();
+    return 1;
+}
+
 
 
 
@@ -206,6 +221,7 @@ GUIPerson::getPopUpMenu(GUIMainWindow& app,
     } else {
         new FXMenuCommand(ret, "Stop Tracking", nullptr, ret, MID_STOP_TRACK);
     }
+    new FXMenuCommand(ret, "Remove", nullptr, ret, MID_REMOVE_OBJECT);
     new FXMenuSeparator(ret);
     //
     buildShowParamsPopupEntry(ret);

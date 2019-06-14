@@ -74,6 +74,9 @@ public:
      */
     void removeLeaderCar(MEVehicle* v);
 
+    /** @brief remove the given car and clean up the relevant data structures */
+    void vaporizeCar(MEVehicle* v);
+
     /** @brief Compute number of segments per edge (best value stay close to the configured segment length) */
     static int numSegmentsFor(const double length, const double slength);
 

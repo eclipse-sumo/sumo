@@ -40,6 +40,8 @@
 #include <utils/gui/div/GLHelper.h>
 #include <utils/gui/div/GUIGlobalSelection.h>
 #include <utils/gui/div/GUIBaseVehicleHelper.h>
+#include <mesosim/MEVehicle.h>
+#include <mesosim/MELoop.h>
 #include <microsim/MSVehicle.h>
 #include <microsim/MSLane.h>
 #include <microsim/logging/CastingFunctionBinding.h>
@@ -78,6 +80,7 @@ FXDEFMAP(GUIBaseVehicle::GUIBaseVehiclePopupMenu) GUIBaseVehiclePopupMenuMap[] =
     FXMAPFUNC(SEL_COMMAND, MID_SHOW_LFLINKITEMS, GUIBaseVehicle::GUIBaseVehiclePopupMenu::onCmdShowLFLinkItems),
     FXMAPFUNC(SEL_COMMAND, MID_HIDE_LFLINKITEMS, GUIBaseVehicle::GUIBaseVehiclePopupMenu::onCmdHideLFLinkItems),
     FXMAPFUNC(SEL_COMMAND, MID_SHOW_FOES, GUIBaseVehicle::GUIBaseVehiclePopupMenu::onCmdShowFoes),
+    FXMAPFUNC(SEL_COMMAND, MID_REMOVE_OBJECT, GUIBaseVehicle::GUIBaseVehiclePopupMenu::onCmdRemoveObject),
 };
 
 // Object implementation
@@ -209,6 +212,25 @@ GUIBaseVehicle::GUIBaseVehiclePopupMenu::onCmdShowFoes(FXObject*, FXSelector, vo
 }
 
 
+long
+GUIBaseVehicle::GUIBaseVehiclePopupMenu::onCmdRemoveObject(FXObject*, FXSelector, void*){
+    GUIBaseVehicle* baseVeh = static_cast<GUIBaseVehicle*>(myObject);
+    MSVehicle* microVeh = dynamic_cast<MSVehicle*>(&baseVeh->myVehicle);
+    if (microVeh != nullptr) {
+        microVeh->onRemovalFromNet(MSMoveReminder::NOTIFICATION_VAPORIZED);
+        if (microVeh->getLane() != nullptr) {
+            microVeh->getLane()->removeVehicle(microVeh, MSMoveReminder::NOTIFICATION_VAPORIZED);
+        }
+    } else {
+        MEVehicle* mesoVeh = dynamic_cast<MEVehicle*>(&baseVeh->myVehicle);
+        MSGlobals::gMesoNet->vaporizeCar(mesoVeh);
+    }
+    MSNet::getInstance()->getVehicleControl().scheduleVehicleRemoval(&baseVeh->myVehicle);
+    myParent->update();
+    return 1;
+}
+
+
 /* -------------------------------------------------------------------------
  * GUIBaseVehicle - methods
  * ----------------------------------------------------------------------- */
@@ -277,6 +299,9 @@ GUIBaseVehicle::getPopUpMenu(GUIMainWindow& app,
         new FXMenuCommand(ret, "Stop Tracking", nullptr, ret, MID_STOP_TRACK);
     }
     new FXMenuCommand(ret, "Select Foes", nullptr, ret, MID_SHOW_FOES);
+
+    
+    new FXMenuCommand(ret, "Remove", nullptr, ret, MID_REMOVE_OBJECT);
 
     new FXMenuSeparator(ret);
     //

@@ -271,6 +271,8 @@ public:
         long onCmdHideLFLinkItems(FXObject*, FXSelector, void*);
         /// @brief Called when show a vehicles foes
         long onCmdShowFoes(FXObject*, FXSelector, void*);
+        /// @brief Called when removing the vehicle
+        long onCmdRemoveObject(FXObject*, FXSelector, void*);
 
     protected:
         /// @brief Information which additional visualisations are enabled (per view)

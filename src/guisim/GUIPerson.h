@@ -182,6 +182,8 @@ public:
         long onCmdStartTrack(FXObject*, FXSelector, void*);
         /// @brief Called if the person shall not be tracked any longer
         long onCmdStopTrack(FXObject*, FXSelector, void*);
+        /// @brief Called when removing the person
+        long onCmdRemoveObject(FXObject*, FXSelector, void*);
 
 
     protected:
