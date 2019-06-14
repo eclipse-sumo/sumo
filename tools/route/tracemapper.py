@@ -67,7 +67,7 @@ if __name__ == "__main__":
     optParser.add_option("-n", "--net",
                          help="SUMO network to use (mandatory)", metavar="FILE")
     optParser.add_option("-t", "--trace",
-                         help="trace file to use (mandatory)", metavar="FILE")
+                         help="trace files to use (mandatory), separated by comma", metavar="FILE")
     optParser.add_option("-d", "--delta", default=1,
                          type="float", help="maximum distance between edge and trace points")
     optParser.add_option("-a", "--air-dist-factor", default=2, type="float",
@@ -76,7 +76,7 @@ if __name__ == "__main__":
                          help="route output (mandatory)", metavar="FILE")
     optParser.add_option("-p", "--poi-output",
                          help="generate POI output for the trace", metavar="FILE")
-    optParser.add_option("-l", "--polygon-output",
+    optParser.add_option("-y", "--polygon-output",
                          help="generate polygon output for the mapped edges", metavar="FILE")
     optParser.add_option("--geo", action="store_true",
                          default=False, help="read trace with geo-coordinates")
@@ -85,6 +85,12 @@ if __name__ == "__main__":
     optParser.add_option("-g", "--gap-penalty", default=-1, type="float",
                          help="penalty to add for disconnected routes " +
                               "(default of -1 adds the distance between the two endpoints as penalty)")
+    optParser.add_option("--internal", action="store_true",
+                         default=False, help="include internal edges in generated shapes")
+    optParser.add_option("--spread", type="float", help="spread polygons laterally to avoid overlap")
+    optParser.add_option("--blur", type="float",
+                         default=0, help="maximum random disturbance to route geometry")
+    optParser.add_option("-l", "--layer", default=100, help="layer for generated polygons")
     (options, args) = optParser.parse_args()
 
     if not options.output or not options.net:
@@ -96,40 +102,58 @@ if __name__ == "__main__":
 
     if options.verbose:
         print("Reading traces ...")
-
-    with open(options.output, "w") as outf:
-        outf.write('<routes>\n')
-        poiOut = None
-        if options.poi_output is not None:
-            poiOut = open(options.poi_output, "w")
-            poiOut.write('<pois>\n')
-        polyOut = None
-        if options.polygon_output is not None:
-            polyOut = open(options.polygon_output, "w")
-            polyOut.write('<polygons>\n')
-            colorgen = sumolib.miscutils.Colorgen(('random', 1, 1))
-        # determine file type by reading the first 10000 bytes
-        head = open(options.trace).read(10000)
-        if "<poi" in head:
-            traces = readPOI(options.trace, net)
-        elif "<fcd" in head:
-            traces = readFCD(options.trace, net, options.geo)
+        
+    tracefiles = options.trace.split(',')
+    for t in tracefiles:
+        if len(tracefiles) == 1:
+            outfile = options.output
         else:
-            traces = readLines(options.trace, net, options.geo)
-        mapOpts = (options.delta, options.verbose, options.air_dist_factor,
-                   options.fill_gaps, options.gap_penalty)
-        for tid, trace in traces:
+            outfile = os.path.basename(t).split('.')[0] + '.tc.xml'
+        with open(outfile, "w") as outf:
+            outf.write('<routes>\n')
+            poiOut = None
+            if options.poi_output is not None:
+                if len(tracefiles) == 1:
+                    poi_output = options.poi_output
+                else:
+                    poi_output = os.path.basename(t).split('.')[0] + '.poi.xml'
+                poiOut = open(poi_output, "w")
+                poiOut.write('<pois>\n')
+            polyOut = None
+            if options.polygon_output is not None:
+                if len(tracefiles) == 1:
+                    polygon_output = options.polygon_output
+                else:
+                    polygon_output = os.path.basename(t).split('.')[0] + '.poly.xml'
+                polyOut = open(polygon_output, "w")
+                polyOut.write('<polygons>\n')
+                colorgen = sumolib.miscutils.Colorgen(('random', 1, 1))
+            # determine file type by reading the first 10000 bytes
+            head = open(t).read(10000)
+            if "<poi" in head:
+                traces = readPOI(t, net)
+            elif "<fcd" in head:
+                traces = readFCD(t, net, options.geo)
+            else:
+                traces = readLines(t, net, options.geo)
+            mapOpts = (options.delta, options.verbose, options.air_dist_factor,
+                       options.fill_gaps, options.gap_penalty)
+            for tid, trace in traces:
+                if poiOut is not None:
+                    for idx, pos in enumerate(trace):
+                        poiOut.write('<poi id="%s:%s" x="%s" y="%s"/>\n' % (tid, idx, pos[0], pos[1]))
+                edges = [e.getID() for e in sumolib.route.mapTrace(trace, net, *mapOpts) if e.getFunction() != "internal"]
+                if polyOut is not None and edges:
+                    route2poly.generate_poly(options, net, tid, colorgen(), edges, polyOut)
+                if edges:
+                    outf.write('    <route id="%s" edges="%s"/>\n' % (tid, " ".join(edges)))
+                elif options.verbose:
+                    print("No edges are found for %s." % (tid))
+                    
+            outf.write('</routes>\n')
             if poiOut is not None:
-                for idx, pos in enumerate(trace):
-                    poiOut.write('<poi id="%s:%s" x="%s" y="%s"/>\n' % (tid, idx, pos[0], pos[1]))
-            edges = [e.getID() for e in sumolib.route.mapTrace(trace, net, *mapOpts) if e.getFunction() != "internal"]
+                poiOut.write('</pois>\n')
+                poiOut.close()
             if polyOut is not None:
-                route2poly.generate_poly(net, tid, colorgen(), 10, True, edges, False, polyOut)
-            outf.write('    <route id="%s" edges="%s"/>\n' % (tid, " ".join(edges)))
-        outf.write('</routes>\n')
-        if poiOut is not None:
-            poiOut.write('</pois>\n')
-            poiOut.close()
-        if polyOut is not None:
-            polyOut.write('</polygons>\n')
-            polyOut.close()
+                polyOut.write('</polygons>\n')
+                polyOut.close()
