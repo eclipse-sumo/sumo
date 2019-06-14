@@ -468,11 +468,11 @@ void
 MSPerson::MSPersonStage_Driving::tripInfoOutput(OutputDevice& os, const MSTransportable* const) const {
     const SUMOTime now = MSNet::getInstance()->getCurrentTimeStep();
     const SUMOTime departed = myDeparted >= 0 ? myDeparted : now;
-    const SUMOTime waitingTime = departed - myWaitingSince;
+    const SUMOTime waitingTime = myWaitingSince >= 0 && myDeparted >= 0 ? departed - myWaitingSince : -1;
     const SUMOTime duration = myArrived - myDeparted;
     MSDevice_Tripinfo::addRideData(myVehicleDistance, duration, myVehicleVClass, myVehicleLine, waitingTime);
     os.openTag("ride");
-    os.writeAttr("waitingTime", time2string(waitingTime));
+    os.writeAttr("waitingTime", waitingTime >= 0 ? time2string(waitingTime) : "-1");
     os.writeAttr("vehicle", myVehicleID);
     os.writeAttr("depart", myDeparted >= 0 ? time2string(myDeparted) : "-1");
     os.writeAttr("arrival", myArrived >= 0 ? time2string(myArrived) : "-1");
