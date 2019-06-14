@@ -102,7 +102,7 @@ execute_process(COMMAND ${PYTHON_EXECUTABLE} -c "import setuptools" RESULT_VARIA
 #http://stackoverflow.com/questions/1487752/how-do-i-instruct-cmake-to-look-for-libraries-installed-by-macports
 if (APPLE)
     link_directories(/opt/X11/lib)
-    include_directories(/opt/X11/include)
+    include_directories(SYSTEM /opt/X11/include)
     # Detect if the "port" command is valid on this system; if so, return full path
     execute_process(COMMAND which port RESULT_VARIABLE DETECT_MACPORTS OUTPUT_VARIABLE MACPORTS_PREFIX ERROR_QUIET OUTPUT_STRIP_TRAILING_WHITESPACE)
     if (${DETECT_MACPORTS} EQUAL 0)
