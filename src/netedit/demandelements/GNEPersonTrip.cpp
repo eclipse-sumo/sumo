@@ -44,20 +44,20 @@
 // method definitions
 // ===========================================================================
 
-GNEPersonTrip::GNEPersonTrip(GNEViewNet* viewNet, GNEDemandElement *personParent, GNEEdge* from, GNEEdge* to, const std::vector<std::string> &types, 
+GNEPersonTrip::GNEPersonTrip(GNEViewNet* viewNet, GNEDemandElement *personParent, const std::vector<GNEEdge*>& edges, const std::vector<std::string> &types, 
     const std::vector<std::string> &modes, double arrivalPosition) :
     GNEDemandElement(viewNet->getNet()->generateDemandElementID("", SUMO_TAG_PERSONTRIP_FROMTO), viewNet, GLO_PERSONTRIP, SUMO_TAG_PERSONTRIP_FROMTO,
-    {from, to}, {}, {}, {}, {personParent}, {}, {}, {}, {}, {}),
+    edges, {}, {}, {}, {personParent}, {}, {}, {}, {}, {}),
     myVTypes(types),
     myModes(modes),
     myArrivalPosition(arrivalPosition) {
 }
 
 
-GNEPersonTrip::GNEPersonTrip(GNEViewNet* viewNet, GNEDemandElement *personParent, GNEEdge* from, GNEAdditional *busStop, 
+GNEPersonTrip::GNEPersonTrip(GNEViewNet* viewNet, GNEDemandElement *personParent, const std::vector<GNEEdge*>& edges, GNEAdditional *busStop, 
     const std::vector<std::string> &types, const std::vector<std::string> &modes) :
     GNEDemandElement(viewNet->getNet()->generateDemandElementID("", SUMO_TAG_PERSONTRIP_BUSSTOP), viewNet, GLO_PERSONTRIP, SUMO_TAG_PERSONTRIP_BUSSTOP,
-    {from}, {}, {}, {busStop}, {personParent}, {}, {}, {}, {}, {}),
+    edges, {}, {}, {busStop}, {personParent}, {}, {}, {}, {}, {}),
     myVTypes(types),
     myModes(modes),
     myArrivalPosition(-1) {
@@ -375,27 +375,29 @@ void
 GNEPersonTrip::setAttribute(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_FROM: {
-            // create a string vector with new from-to edges
-            std::vector<std::string> newEdges;
-            // add edges depending if trip as a from-to edges or a from-busStop
-            if (getEdgeParents().size() == 2) {
-                newEdges.push_back(myViewNet->getNet()->retrieveEdge(value, false)->getID());
-            }
-            newEdges.push_back(getEdgeParents().back()->getID());
+            // declare a from-via-to edges vector
+            std::vector<std::string> FromViaToEdges;
+            // add from edge
+            FromViaToEdges.push_back(value);
+            // add to edge
+            FromViaToEdges.push_back(getEdgeParents().back()->getID());
+            // calculate route
+            std::vector<GNEEdge*> route = getRouteCalculatorInstance()->calculateDijkstraRoute(myViewNet->getNet(), getDemandElementParents().at(0)->getVClass(), FromViaToEdges);
             // change edge parents
-            changeEdgeParents(this, toString(newEdges));
+            changeEdgeParents(this, toString(route));
             break;
         }
         case SUMO_ATTR_TO: {
-            // create a string vector with new from-to edges
-            std::vector<std::string> newEdges;
-            // add edges depending if trip as a from-to edges or a from-busStop
-            newEdges.push_back(getEdgeParents().front()->getID());
-            if (getEdgeParents().size() == 2) {
-                newEdges.push_back(myViewNet->getNet()->retrieveEdge(value, false)->getID());
-            }
+            // declare a from-via-to edges vector
+            std::vector<std::string> FromViaToEdges;
+            // add from edge
+            FromViaToEdges.push_back(getEdgeParents().front()->getID());
+            // add to edge
+            FromViaToEdges.push_back(value);
+            // calculate route
+            std::vector<GNEEdge*> route = getRouteCalculatorInstance()->calculateDijkstraRoute(myViewNet->getNet(), getDemandElementParents().at(0)->getVClass(), FromViaToEdges);
             // change edge parents
-            changeEdgeParents(this, toString(newEdges));
+            changeEdgeParents(this, toString(route));
             break;
         }
         case SUMO_ATTR_BUS_STOP:

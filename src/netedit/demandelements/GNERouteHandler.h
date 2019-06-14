@@ -92,12 +92,12 @@ public:
     static void buildPersonFlow(GNEViewNet* viewNet, bool undoDemandElements, const SUMOVehicleParameter &personFlowParameters);
     
     /// @brief build trip using a from-to edges
-    static void buildPersonTripFromTo(GNEViewNet* viewNet, bool undoDemandElements, GNEDemandElement* personParent, GNEEdge* from, GNEEdge* to, 
+    static void buildPersonTripFromTo(GNEViewNet* viewNet, bool undoDemandElements, GNEDemandElement* personParent, const std::vector<GNEEdge*>& edges, 
                                       const std::vector<std::string> &types, const std::vector<std::string> &modes, double arrivalPos);
 
     /// @brief build trip using a from edge and a busStop
-    static void buildPersonTripBusStop(GNEViewNet* viewNet, bool undoDemandElements, GNEDemandElement* personParent, GNEEdge* from, GNEAdditional *busStop, 
-                                       const std::vector<std::string> &types, const std::vector<std::string> &modes);
+    static void buildPersonTripBusStop(GNEViewNet* viewNet, bool undoDemandElements, GNEDemandElement* personParent, const std::vector<GNEEdge*>& edges, 
+                                       GNEAdditional *busStop, const std::vector<std::string> &types, const std::vector<std::string> &modes);
 
     /// @brief build walk using a list of consecutive edges
     static void buildWalkEdges(GNEViewNet* viewNet, bool undoDemandElements, GNEDemandElement* personParent, const std::vector<GNEEdge*>& edges, double arrivalPos);
@@ -112,12 +112,12 @@ public:
     static void buildWalkRoute(GNEViewNet* viewNet, bool undoDemandElements, GNEDemandElement* personParent, GNEDemandElement* routeParent, double arrivalPos);
 
     /// @brief build ride using a from-to edges 
-    static void buildRideFromTo(GNEViewNet* viewNet, bool undoDemandElements, GNEDemandElement* personParent, GNEEdge* from, GNEEdge* to, 
+    static void buildRideFromTo(GNEViewNet* viewNet, bool undoDemandElements, GNEDemandElement* personParent, const std::vector<GNEEdge*>& edges, 
                                 const std::vector<std::string> &lines, double arrivalPos);
 
     /// @brief build ride using a from edge and a busStop
-    static void buildRideBusStop(GNEViewNet* viewNet, bool undoDemandElements, GNEDemandElement* personParent, GNEEdge* from, GNEAdditional *busStop, 
-                                 const std::vector<std::string> &lines);
+    static void buildRideBusStop(GNEViewNet* viewNet, bool undoDemandElements, GNEDemandElement* personParent, const std::vector<GNEEdge*>& edges, 
+                                 GNEAdditional *busStop, const std::vector<std::string> &lines);
 
     /// @}
 
