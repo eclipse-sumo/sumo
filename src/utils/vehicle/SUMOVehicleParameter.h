@@ -188,8 +188,12 @@ enum DepartSpeedDefinition {
     DEPART_SPEED_GIVEN,
     /// @brief The speed is chosen randomly
     DEPART_SPEED_RANDOM,
-    /// @brief The maximum speed is used
+    /// @brief The maximum safe speed is used
     DEPART_SPEED_MAX,
+    /// @brief The maximum lane speed is used (speedLimit * speedFactor)
+    DEPART_SPEED_DESIRED,
+    /// @brief The maximum lane speed is used (speedLimit)
+    DEPART_SPEED_LIMIT,
     /// @brief Tag for the last element in the enum for safe int casting
     DEPART_SPEED_DEF_MAX
 };

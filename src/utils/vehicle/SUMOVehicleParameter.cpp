@@ -329,6 +329,10 @@ SUMOVehicleParameter::parseDepartSpeed(const std::string& val, const std::string
         dsd = DEPART_SPEED_RANDOM;
     } else if (val == "max") {
         dsd = DEPART_SPEED_MAX;
+    } else if (val == "desired") {
+        dsd = DEPART_SPEED_DESIRED;
+    } else if (val == "speedLimit") {
+        dsd = DEPART_SPEED_LIMIT;
     } else {
         try {
             speed = StringUtils::toDouble(val);
@@ -575,6 +579,12 @@ SUMOVehicleParameter::getDepartSpeed() const {
             break;
         case DEPART_SPEED_MAX:
             val = "max";
+            break;
+        case DEPART_SPEED_DESIRED:
+            val = "desired";
+            break;
+        case DEPART_SPEED_LIMIT:
+            val = "speedLimit";
             break;
         case DEPART_SPEED_DEFAULT:
         default:

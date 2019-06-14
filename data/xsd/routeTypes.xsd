@@ -469,6 +469,8 @@
                 <xsd:restriction base="xsd:string">
                     <xsd:enumeration value="random"/>
                     <xsd:enumeration value="max"/>
+                    <xsd:enumeration value="desired"/>
+                    <xsd:enumeration value="speedLimit"/>
                 </xsd:restriction>
             </xsd:simpleType> 
         </xsd:union>

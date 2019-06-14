@@ -480,11 +480,19 @@ MSLane::getDepartSpeed(const MSVehicle& veh, bool& patchSpeed) {
             break;
         case DEPART_SPEED_RANDOM:
             speed = RandHelper::rand(getVehicleMaxSpeed(&veh));
-            patchSpeed = true; // @todo check
+            patchSpeed = true;
             break;
         case DEPART_SPEED_MAX:
             speed = getVehicleMaxSpeed(&veh);
-            patchSpeed = true; // @todo check
+            patchSpeed = true;
+            break;
+        case DEPART_SPEED_DESIRED:
+            speed = getVehicleMaxSpeed(&veh);
+            patchSpeed = false;
+            break;
+        case DEPART_SPEED_LIMIT:
+            speed = getVehicleMaxSpeed(&veh) / veh.getChosenSpeedFactor();
+            patchSpeed = false;
             break;
         case DEPART_SPEED_DEFAULT:
         default:
