@@ -44,6 +44,7 @@
 // ===========================================================================
 #define DEBUG_CACC 0
 #define DEBUG_CACC_INSERTION_FOLLOW_SPEED 0
+#define DEBUG_CACC_SECURE_GAP 0
 #define DEBUG_COND (veh->isSelected())
 //#define DEBUG_COND (veh->getID() == "flow.0")
 //#define DEBUG_COND (veh->getID() == "CVflowToC2.11")
@@ -99,11 +100,12 @@ MSCFModel_CACC::followSpeed(const MSVehicle* const veh, double speed, double gap
 #else
     UNUSED_PARAMETER(pred);
 #endif
-    if (vSafe + DEFAULT_EMERGENCY_OVERRIDE_THRESHOLD < vCACC) {
+    const double speedOverride = MIN2(DEFAULT_EMERGENCY_OVERRIDE_THRESHOLD, gap2pred);
+    if (vSafe + speedOverride < vCACC) {
 #if DEBUG_CACC == 1
-        if DEBUG_COND std::cout << "Apply Safe speed" << "\n";
+        if DEBUG_COND std::cout << "Apply Safe speed, override=" << speedOverride << "\n";
 #endif
-        return vSafe + DEFAULT_EMERGENCY_OVERRIDE_THRESHOLD;
+        return vSafe + speedOverride;
     }
     return vCACC;
 }
@@ -118,12 +120,17 @@ MSCFModel_CACC::stopSpeed(const MSVehicle* const veh, const double speed, double
 }
 
 double
-MSCFModel_CACC::getSecureGap(const double speed, const double leaderSpeed, const double /* leaderMaxDecel */) const {
+MSCFModel_CACC::getSecureGap(const double speed, const double leaderSpeed, const double leaderMaxDecel) const {
     // Accel in gap mode should vanish:
     //      0 = myGapControlGainSpeed * (leaderSpeed - speed) + myGapControlGainSpace * (g - myHeadwayTime * speed);
     // <=>  myGapControlGainSpace * g = - myGapControlGainSpeed * (leaderSpeed - speed) + myGapControlGainSpace * myHeadwayTime * speed;
     // <=>  g = - myGapControlGainSpeed * (leaderSpeed - speed) / myGapControlGainSpace + myHeadwayTime * speed;
-    return acc_CFM.myGapControlGainSpeed * (speed - leaderSpeed) / acc_CFM.myGapControlGainSpace + myHeadwayTime * speed;
+    const double desSpacing = myHeadwayTime * speed; // speedGapControl
+    const double desSpacingACC = acc_CFM.myGapControlGainSpeed * (speed - leaderSpeed) / acc_CFM.myGapControlGainSpace + myHeadwayTime * speed; // MSCFModel_ACC::accelGapControl
+#if DEBUG_CACC_SECURE_GAP == 1
+    std::cout << SIMTIME << "MSCFModel_ACC::getSecureGap speed=" << speed << " leaderSpeed=" << leaderSpeed << " desSpacing=" << desSpacing << " desSpacingACC=" << desSpacingACC << "\n";
+#endif
+    return MAX3(desSpacing, desSpacingACC, MSCFModel::getSecureGap(speed, leaderSpeed, leaderMaxDecel));
 }
 
 double
@@ -141,8 +148,8 @@ MSCFModel_CACC::insertionFollowSpeed(const MSVehicle* const veh, double speed, d
     double res = speed;
     while (n_iter < max_iter) {
         // proposed acceleration
-        const double vCACC = _v(veh, pred, gap2pred, speed, predSpeed, speed, true);
-        const double vSafe = maximumSafeFollowSpeed(gap2pred, speed, predSpeed, predMaxDecel, true);
+        const double vCACC = _v(veh, pred, gap2pred, res, predSpeed, speed, true);
+        const double vSafe = maximumSafeFollowSpeed(gap2pred, res, predSpeed, predMaxDecel, true);
         const double a = MIN2(vCACC, vSafe) - res;
         res = res + damping * a;
 #if DEBUG_CACC_INSERTION_FOLLOW_SPEED == 1
@@ -285,12 +292,12 @@ MSCFModel_CACC::_v(const MSVehicle* const veh, const MSVehicle* const pred, cons
         if (!cm) {
 
 #if DEBUG_CACC == 1
-            if DEBUG_COND std::cout << "        applying speedControl" << std::endl;
+            if DEBUG_COND std::cout << "        applying speedControl (previous)" << std::endl;
 #endif
             newSpeed = speedSpeedContol(speed, vErr);
         } else {
 #if DEBUG_CACC == 1
-            if DEBUG_COND std::cout << "        previous speedGapControl" << std::endl;
+            if DEBUG_COND std::cout << "        previous speedGapControl (previous)" << std::endl;
 #endif
             newSpeed = speedGapControl(veh, gap2pred, speed, predSpeed, desSpeed, vErr, pred);
         }
