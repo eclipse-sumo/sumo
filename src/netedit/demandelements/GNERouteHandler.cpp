@@ -471,8 +471,14 @@ GNERouteHandler::buildPersonTripFromTo(GNEViewNet* viewNet, bool undoDemandEleme
     if (edges.size() == 0) {
         WRITE_ERROR("A personTrip needs at least one edge. " + toString(SUMO_TAG_PERSONTRIP_FROMTO) + " within person with ID='" + personParent->getID() + "' cannot be created");
     } else {
+        // obtain path between edges
+        std::vector<GNEEdge*> pathEdges = GNEDemandElement::getRouteCalculatorInstance()->calculateDijkstraRoute(personParent->getVClass(), edges);
+        // check if obtained path is valid
+        if (pathEdges.size() == 0) {
+            pathEdges = edges;
+        }
         // create personTripFromTo
-        GNEPersonTrip* personTripFromTo = new GNEPersonTrip(viewNet, personParent, edges, types, modes, arrivalPos);
+        GNEPersonTrip* personTripFromTo = new GNEPersonTrip(viewNet, personParent, pathEdges, types, modes, arrivalPos);
         // add element using undo list or directly, depending of undoDemandElements flag
         if (undoDemandElements) {
             viewNet->getUndoList()->p_begin("add " + toString(SUMO_TAG_PERSONTRIP_FROMTO) + " within person '" + personParent->getID() + "'");
@@ -495,8 +501,14 @@ GNERouteHandler::buildPersonTripBusStop(GNEViewNet* viewNet, bool undoDemandElem
     if (edges.size() == 0) {
         WRITE_ERROR("A personTrip needs at least one edge. " + toString(SUMO_TAG_PERSONTRIP_BUSSTOP) + " within person with ID='" + personParent->getID() + "' cannot be created");
     } else {
+        // obtain path between edges
+        std::vector<GNEEdge*> pathEdges = GNEDemandElement::getRouteCalculatorInstance()->calculateDijkstraRoute(personParent->getVClass(), edges);
+        // check if obtained path is valid
+        if (pathEdges.size() == 0) {
+            pathEdges = edges;
+        }
         // create personTripBusStop
-        GNEPersonTrip* personTripBusStop = new GNEPersonTrip(viewNet, personParent, edges, busStop, types, modes);
+        GNEPersonTrip* personTripBusStop = new GNEPersonTrip(viewNet, personParent, pathEdges, busStop, types, modes);
         // add element using undo list or directly, depending of undoDemandElements flag
         if (undoDemandElements) {
             viewNet->getUndoList()->p_begin("add " + toString(SUMO_TAG_PERSONTRIP_BUSSTOP) + " within person '" + personParent->getID() + "'");
@@ -523,8 +535,14 @@ GNERouteHandler::buildWalkEdges(GNEViewNet* viewNet, bool undoDemandElements, GN
     if (edges.size() == 0) {
         WRITE_ERROR("A walk needs at least one edge. " + toString(SUMO_TAG_WALK_EDGES) + " within person with ID='" + personParent->getID() + "' cannot be created");
     } else {
+        // obtain path between edges
+        std::vector<GNEEdge*> pathEdges = GNEDemandElement::getRouteCalculatorInstance()->calculateDijkstraRoute(personParent->getVClass(), edges);
+        // check if obtained path is valid
+        if (pathEdges.size() == 0) {
+            pathEdges = edges;
+        }
         // create walkEdges
-        GNEWalk* walkEdges = new GNEWalk(viewNet, personParent, edges, arrivalPos);
+        GNEWalk* walkEdges = new GNEWalk(viewNet, personParent, pathEdges, arrivalPos);
         // add element using undo list or directly, depending of undoDemandElements flag
         if (undoDemandElements) {
             viewNet->getUndoList()->p_begin("add " + toString(SUMO_TAG_WALK_EDGES) + " within person '" + personParent->getID() + "'");
@@ -550,8 +568,14 @@ GNERouteHandler::buildWalkFromTo(GNEViewNet* viewNet, bool undoDemandElements, G
     if (edges.size() == 0) {
         WRITE_ERROR("A walk needs at least one edge. " + toString(SUMO_TAG_WALK_FROMTO) + " within person with ID='" + personParent->getID() + "' cannot be created");
     } else {
+        // obtain path between edges
+        std::vector<GNEEdge*> pathEdges = GNEDemandElement::getRouteCalculatorInstance()->calculateDijkstraRoute(personParent->getVClass(), edges);
+        // check if obtained path is valid
+        if (pathEdges.size() == 0) {
+            pathEdges = edges;
+        }
         // create walkFromTo
-        GNEWalk* walkFromTo = new GNEWalk(viewNet, personParent, edges, arrivalPos);
+        GNEWalk* walkFromTo = new GNEWalk(viewNet, personParent, pathEdges, arrivalPos);
         // add element using undo list or directly, depending of undoDemandElements flag
         if (undoDemandElements) {
             viewNet->getUndoList()->p_begin("add " + toString(SUMO_TAG_WALK_FROMTO) + " within person '" + personParent->getID() + "'");
@@ -577,8 +601,14 @@ GNERouteHandler::buildWalkBusStop(GNEViewNet* viewNet, bool undoDemandElements, 
     if (edges.size() == 0) {
         WRITE_ERROR("A walk needs at least one edge. " + toString(SUMO_TAG_WALK_BUSSTOP) + " within person with ID='" + personParent->getID() + "' cannot be created");
     } else {
+        // obtain path between edges
+        std::vector<GNEEdge*> pathEdges = GNEDemandElement::getRouteCalculatorInstance()->calculateDijkstraRoute(personParent->getVClass(), edges);
+        // check if obtained path is valid
+        if (pathEdges.size() == 0) {
+            pathEdges = edges;
+        }
         // create walkBusStop
-        GNEWalk* walkBusStop = new GNEWalk(viewNet, personParent, edges, busStop);
+        GNEWalk* walkBusStop = new GNEWalk(viewNet, personParent, pathEdges, busStop);
         // add element using undo list or directly, depending of undoDemandElements flag
         if (undoDemandElements) {
             viewNet->getUndoList()->p_begin("add " + toString(SUMO_TAG_WALK_BUSSTOP) + " within person '" + personParent->getID() + "'");
@@ -625,8 +655,14 @@ GNERouteHandler::buildRideFromTo(GNEViewNet* viewNet, bool undoDemandElements, G
     if (edges.size() == 0) {
         WRITE_ERROR("A ride needs at least one edge. " + toString(SUMO_TAG_RIDE_FROMTO) + " within person with ID='" + personParent->getID() + "' cannot be created");
     } else {
+        // obtain path between edges
+        std::vector<GNEEdge*> pathEdges = GNEDemandElement::getRouteCalculatorInstance()->calculateDijkstraRoute(personParent->getVClass(), edges);
+        // check if obtained path is valid
+        if (pathEdges.size() == 0) {
+            pathEdges = edges;
+        }
         // create rideFromTo
-        GNERide* rideFromTo = new GNERide(viewNet, personParent, edges, arrivalPos, lines);
+        GNERide* rideFromTo = new GNERide(viewNet, personParent, pathEdges, arrivalPos, lines);
         // add element using undo list or directly, depending of undoDemandElements flag
         if (undoDemandElements) {
             viewNet->getUndoList()->p_begin("add " + toString(SUMO_TAG_RIDE_FROMTO) + " within person '" + personParent->getID() + "'");
@@ -653,8 +689,14 @@ GNERouteHandler::buildRideBusStop(GNEViewNet* viewNet, bool undoDemandElements, 
     if (edges.size() == 0) {
         WRITE_ERROR("A ride needs at least one edge. " + toString(SUMO_TAG_RIDE_BUSSTOP) + " within person with ID='" + personParent->getID() + "' cannot be created");
     } else {
+        // obtain path between edges
+        std::vector<GNEEdge*> pathEdges = GNEDemandElement::getRouteCalculatorInstance()->calculateDijkstraRoute(personParent->getVClass(), edges);
+        // check if obtained path is valid
+        if (pathEdges.size() == 0) {
+            pathEdges = edges;
+        }
         // create rideBusStop
-        GNERide* rideBusStop = new GNERide(viewNet, personParent, edges, busStop, lines);
+        GNERide* rideBusStop = new GNERide(viewNet, personParent, pathEdges, busStop, lines);
         // add element using undo list or directly, depending of undoDemandElements flag
         if (undoDemandElements) {
             viewNet->getUndoList()->p_begin("add " + toString(SUMO_TAG_RIDE_BUSSTOP) + " within person '" + personParent->getID() + "'");
