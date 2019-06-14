@@ -296,26 +296,26 @@ public:
     };
 
     enum TAGProperty {
-        TAGPROPERTY_DRAWABLE =            1 << 0,   // Element can be drawed in view
-        TAGPROPERTY_BLOCKMOVEMENT =       1 << 1,   // Element can block their movement
-        TAGPROPERTY_BLOCKSHAPE =          1 << 2,   // Element can block their shape
-        TAGPROPERTY_CLOSESHAPE =          1 << 3,   // Element can close their shape
-        TAGPROPERTY_GEOPOSITION =         1 << 4,   // Element's position can be defined using a GEO position
-        TAGPROPERTY_GEOSHAPE =            1 << 5,   // Element's shape acn be defined using a GEO Shape
-        TAGPROPERTY_DIALOG =              1 << 6,   // Element can be edited using a dialog (GNECalibratorDialog, GNERerouterDialog...)
-        TAGPROPERTY_PARENT =              1 << 7,   // Element will be writed in XML as child of another element (E3Entry -> E3Detector...)
-        TAGPROPERTY_MINIMUMCHILDREN =       1 << 8,   // Element will be only writed in XML if has a minimum number of children
-        TAGPROPERTY_REPARENT =            1 << 9,   // Element can be reparent
-        TAGPROPERTY_SYNONYM =             1 << 10,  // Element will be written with a different name in der XML
-        TAGPROPERTY_AUTOMATICSORTING =    1 << 11,  // Element sort automatic their Children (used by Additionals)
-        TAGPROPERTY_SELECTABLE =          1 << 12,  // Element is selectable
-        TAGPROPERTY_MASKSTARTENDPOS =     1 << 13,  // Element mask attributes StartPos and EndPos as "lenght" (Only used in the appropiate GNEFrame)
-        TAGPROPERTY_MASKXYZPOSITION =     1 << 14,  // Element mask attributes X, Y and Z as "Position"
-        TAGPROPERTY_WRITECHILDRENSEPARATE = 1 << 15,  // Element writes their children in a separated filename
-        TAGPROPERTY_NOGENERICPARAMETERS = 1 << 16,  // Element doesn't accept Generic Parameters (by default all tags supports generic parameters)
-        TAGPROPERTY_DISJOINTATTRIBUTES =  1 << 17,  // Element owns attributes that cannot be defined together
-        TAGPROPERTY_RTREE =               1 << 18,  // Element is placed in RTREE
-        TAGPROPERTY_SORTINGCHILDREN =       1 << 19,  // Element can sort their children manually (in ACHierarchy)
+        TAGPROPERTY_DRAWABLE =              1 << 0,     // Element can be drawed in view
+        TAGPROPERTY_BLOCKMOVEMENT =         1 << 1,     // Element can block their movement
+        TAGPROPERTY_BLOCKSHAPE =            1 << 2,     // Element can block their shape
+        TAGPROPERTY_CLOSESHAPE =            1 << 3,     // Element can close their shape
+        TAGPROPERTY_GEOPOSITION =           1 << 4,     // Element's position can be defined using a GEO position
+        TAGPROPERTY_GEOSHAPE =              1 << 5,     // Element's shape acn be defined using a GEO Shape
+        TAGPROPERTY_DIALOG =                1 << 6,     // Element can be edited using a dialog (GNECalibratorDialog, GNERerouterDialog...)
+        TAGPROPERTY_PARENT =                1 << 7,     // Element will be writed in XML as child of another element (E3Entry -> E3Detector...)
+        TAGPROPERTY_MINIMUMCHILDREN =       1 << 8,     // Element will be only writed in XML if has a minimum number of children
+        TAGPROPERTY_REPARENT =              1 << 9,     // Element can be reparent
+        TAGPROPERTY_SYNONYM =               1 << 10,    // Element will be written with a different name in der XML
+        TAGPROPERTY_AUTOMATICSORTING =      1 << 11,    // Element sort automatic their Children (used by Additionals)
+        TAGPROPERTY_SELECTABLE =            1 << 12,    // Element is selectable
+        TAGPROPERTY_MASKSTARTENDPOS =       1 << 13,    // Element mask attributes StartPos and EndPos as "lenght" (Only used in the appropiate GNEFrame)
+        TAGPROPERTY_MASKXYZPOSITION =       1 << 14,    // Element mask attributes X, Y and Z as "Position"
+        TAGPROPERTY_WRITECHILDRENSEPARATE = 1 << 15,    // Element writes their children in a separated filename
+        TAGPROPERTY_NOGENERICPARAMETERS =   1 << 16,    // Element doesn't accept Generic Parameters (by default all tags supports generic parameters)
+        TAGPROPERTY_DISJOINTATTRIBUTES =    1 << 17,    // Element owns attributes that cannot be defined together
+        TAGPROPERTY_RTREE =                 1 << 18,    // Element is placed in RTREE
+        TAGPROPERTY_SORTINGCHILDREN =       1 << 19,    // Element can be sorted in their parent element manually (in ACHierarchy)
     };
 
     /// @brief struct with the attribute Properties
@@ -471,8 +471,8 @@ public:
         /// @brief return true if Tag correspond to an element that has has to be placed in RTREE
         bool isPlacedInRTree() const;
 
-        /// @brief return true if Tag correspond to an element that can sort their children manually
-        bool canSortTheirChildrenManually() const;
+        /// @brief return true if Tag correspond to an element that can be sorted within their parent
+        bool canBeSortedManually() const;
 
         /// @brief return true if tag correspond to an element that can be reparent
         bool canBeReparent() const;
