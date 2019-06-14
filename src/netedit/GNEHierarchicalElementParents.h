@@ -193,7 +193,7 @@ public:
     /// @}
 
 protected:
-    /// @brief struct for pack all variables and functions relative to connections between hierarchical element and their childs
+    /// @brief struct for pack all variables and functions relative to connections between hierarchical element and their children
     struct ParentConnections {
         /// @brief constructor
         ParentConnections(GNEHierarchicalElementParents* hierarchicalElement);
@@ -207,7 +207,7 @@ protected:
         /// @brief position and rotation of every symbol over lane
         std::vector<std::pair<Position, double> > symbolsPositionAndRotation;
 
-        /// @brief Matrix with the Vertex's positions of connections between parents an their childs
+        /// @brief Matrix with the Vertex's positions of connections between parents an their children
         std::vector<PositionVector> connectionPositions;
 
     private:

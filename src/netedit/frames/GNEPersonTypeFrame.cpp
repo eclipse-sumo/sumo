@@ -255,15 +255,15 @@ GNEPersonTypeFrame::PersonTypeEditor::onCmdCreatePersonType(FXObject*, FXSelecto
 long
 GNEPersonTypeFrame::PersonTypeEditor::onCmdDeletePersonType(FXObject*, FXSelector, void*) {
     // show question dialog if vtype has already assigned persons
-    if (myPersonTypeFrameParent->myPersonTypeSelector->getCurrentPersonType()->getDemandElementChilds().size() > 0) {
-        std::string plural = myPersonTypeFrameParent->myPersonTypeSelector->getCurrentPersonType()->getDemandElementChilds().size() == 1 ? ("") : ("s");
+    if (myPersonTypeFrameParent->myPersonTypeSelector->getCurrentPersonType()->getDemandElementChildren().size() > 0) {
+        std::string plural = myPersonTypeFrameParent->myPersonTypeSelector->getCurrentPersonType()->getDemandElementChildren().size() == 1 ? ("") : ("s");
         // show warning in gui testing debug mode
         WRITE_DEBUG("Opening FXMessageBox 'remove vType'");
         // Ask confirmation to user
         FXuint answer = FXMessageBox::question(getApp(), MBOX_YES_NO,
                                                ("Remove " + toString(SUMO_TAG_PTYPE) + "s").c_str(), "%s",
                                                ("Delete " + toString(SUMO_TAG_PTYPE) + " '" + myPersonTypeFrameParent->myPersonTypeSelector->getCurrentPersonType()->getID() +
-                                                "' will remove " + toString(myPersonTypeFrameParent->myPersonTypeSelector->getCurrentPersonType()->getDemandElementChilds().size()) +
+                                                "' will remove " + toString(myPersonTypeFrameParent->myPersonTypeSelector->getCurrentPersonType()->getDemandElementChildren().size()) +
                                                 " person" + plural + ". Continue?").c_str());
         if (answer != 1) { // 1:yes, 2:no, 4:esc
             // write warning if netedit is running in testing mode
@@ -275,7 +275,7 @@ GNEPersonTypeFrame::PersonTypeEditor::onCmdDeletePersonType(FXObject*, FXSelecto
         } else {
             // begin undo list operation
             myPersonTypeFrameParent->myViewNet->getUndoList()->p_begin("delete person type");
-            // remove person type (and all of their childs)
+            // remove person type (and all of their children)
             myPersonTypeFrameParent->myViewNet->getNet()->deleteDemandElement(myPersonTypeFrameParent->myPersonTypeSelector->getCurrentPersonType(),
                 myPersonTypeFrameParent->myViewNet->getUndoList());
             // end undo list operation
@@ -284,7 +284,7 @@ GNEPersonTypeFrame::PersonTypeEditor::onCmdDeletePersonType(FXObject*, FXSelecto
     } else {
         // begin undo list operation
         myPersonTypeFrameParent->myViewNet->getUndoList()->p_begin("delete person type");
-        // remove person type (and all of their childs)
+        // remove person type (and all of their children)
         myPersonTypeFrameParent->myViewNet->getNet()->deleteDemandElement(myPersonTypeFrameParent->myPersonTypeSelector->getCurrentPersonType(),
             myPersonTypeFrameParent->myViewNet->getUndoList());
         // end undo list operation

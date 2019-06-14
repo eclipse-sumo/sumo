@@ -390,8 +390,8 @@ GNEVehicle::writeDemandElement(OutputDevice& device) const {
             device.writeAttr(SUMO_ATTR_PROB, repetitionProbability);
         }
     }
-    // write demand element childs associated to this vehicle
-    for (const auto& i : getDemandElementChilds()) {
+    // write demand element children associated to this vehicle
+    for (const auto& i : getDemandElementChildren()) {
         i->writeDemandElement(device);
     }
     // close vehicle tag
@@ -479,8 +479,8 @@ GNEVehicle::getPositionInView() const {
         lane = getDemandElementParents().at(1)->getEdgeParents().at(0)->getLanes().front();
     } else if (getEdgeParents().size() > 0) {
         lane = getEdgeParents().front()->getLanes().front();
-    } else if (getDemandElementChilds().size() == 1) {
-        lane = getDemandElementChilds().at(0)->getEdgeParents().at(0)->getLanes().front();
+    } else if (getDemandElementChildren().size() == 1) {
+        lane = getDemandElementChildren().at(0)->getEdgeParents().at(0)->getLanes().front();
     } else {
         throw ProcessError("Invalid vehicle tag");
     }
@@ -565,10 +565,10 @@ GNEVehicle::drawGL(const GUIVisualizationSettings& s) const {
             // obtain position and rotation of from route
             vehiclePosition = getEdgeParents().at(0)->getLanes().front()->getGeometry().shape.front();
             vehicleRotation = getEdgeParents().at(0)->getLanes().front()->getGeometry().shapeRotations.front();
-        } else if (getDemandElementChilds().size() > 0) {
+        } else if (getDemandElementChildren().size() > 0) {
             // obtain position and rotation of embedded route
-            vehiclePosition = getDemandElementChilds().at(0)->getEdgeParents().at(0)->getLanes().front()->getGeometry().shape.front();
-            vehicleRotation = getDemandElementChilds().at(0)->getEdgeParents().at(0)->getLanes().front()->getGeometry().shapeRotations.front();
+            vehiclePosition = getDemandElementChildren().at(0)->getEdgeParents().at(0)->getLanes().front()->getGeometry().shape.front();
+            vehicleRotation = getDemandElementChildren().at(0)->getEdgeParents().at(0)->getLanes().front()->getGeometry().shapeRotations.front();
         }
         // first check if if mouse is enought near to this vehicle to draw it
         if (s.drawForSelecting && (myViewNet->getPositionInformation().distanceSquaredTo2D(vehiclePosition) >= (vehicleSizeSquared + 2))) {

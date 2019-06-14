@@ -245,8 +245,8 @@ GNEPerson::writeDemandElement(OutputDevice& device) const {
             device.writeAttr(SUMO_ATTR_PROB, repetitionProbability);
         }
     }
-    // write demand element childs associated to this person (Rides, Walks...)
-    for (const auto& i : getDemandElementChilds()) {
+    // write demand element children associated to this person (Rides, Walks...)
+    for (const auto& i : getDemandElementChildren()) {
         i->writeDemandElement(device);
     }
     // close person tag
@@ -263,7 +263,7 @@ GNEPerson::isDemandElementValid() const {
 
 std::string 
 GNEPerson::getDemandElementProblem() const {
-    // A single person cannot habe problem (but their childs)
+    // A single person cannot habe problem (but their children)
     return "";
 }
 
@@ -307,8 +307,8 @@ GNEPerson::updateGeometry() {
 Position
 GNEPerson::getPositionInView() const {
     // Position in view depend of first child element
-    if (getDemandElementChilds().size() > 0) {
-        GNELane* lane = getDemandElementChilds().at(0)->getEdgeParents().at(0)->getLanes().front();
+    if (getDemandElementChildren().size() > 0) {
+        GNELane* lane = getDemandElementChildren().at(0)->getEdgeParents().at(0)->getLanes().front();
         if (lane->getGeometry().shape.length() < 2.5) {
             return lane->getGeometry().shape.front();
         } else {
@@ -339,8 +339,8 @@ GNEPerson::getParentName() const {
 Boundary
 GNEPerson::getCenteringBoundary() const {
     Boundary personBoundary;
-    if (getDemandElementChilds().size() > 0) {
-        personBoundary.add(getDemandElementChilds().at(1)->getEdgeParents().at(0)->getLanes().front()->getGeometry().shape.front());
+    if (getDemandElementChildren().size() > 0) {
+        personBoundary.add(getDemandElementChildren().at(1)->getEdgeParents().at(0)->getLanes().front()->getGeometry().shape.front());
     } else {
         personBoundary = Boundary(-0.1, -0.1, 0.1, 0.1);
     }
@@ -356,7 +356,7 @@ GNEPerson::drawGL(const GUIVisualizationSettings& s) const {
 
         glPushName(getGlID());
         glPushMatrix();
-        Position p1 = getDemandElementChilds().front()->getEdgeParents().front()->getLanes().front()->getGeometry().shape.front();
+        Position p1 = getDemandElementChildren().front()->getEdgeParents().front()->getLanes().front()->getGeometry().shape.front();
         glTranslated(p1.x(), p1.y(), getType());
         glRotated(90, 0, 0, 1);
         // set person color

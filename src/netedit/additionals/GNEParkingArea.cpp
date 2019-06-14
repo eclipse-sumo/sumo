@@ -193,8 +193,8 @@ GNEParkingArea::drawGL(const GUIVisualizationSettings& s) const {
     }
     // Pop name matrix
     glPopName();
-    // draw demand element childs
-    for (const auto &i : getDemandElementChilds()) {
+    // draw demand element children
+    for (const auto &i : getDemandElementChildren()) {
         if (!i->getTagProperty().isPlacedInRTree()) {
             i->drawGL(s);
         }
@@ -249,7 +249,7 @@ GNEParkingArea::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoL
             // change ID of Entry
             undoList->p_add(new GNEChange_Attribute(this, myViewNet->getNet(), key, value));
             // Change Ids of all Parking Spaces
-            for (auto i : getAdditionalChilds()) {
+            for (auto i : getAdditionalChildren()) {
                 i->setAttribute(SUMO_ATTR_ID, generateChildID(SUMO_TAG_PARKING_SPACE), undoList);
             }
             break;

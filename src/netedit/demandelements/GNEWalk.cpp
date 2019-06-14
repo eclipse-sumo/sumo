@@ -191,8 +191,8 @@ GNEWalk::commitGeometryMoving(GNEUndoList*) {
 
 void
 GNEWalk::updateGeometry() {
-    // only update demand element childs, because Walk uses the geometry of lane parent
-    for (const auto& i : getDemandElementChilds()) {
+    // only update demand element children, because Walk uses the geometry of lane parent
+    for (const auto& i : getDemandElementChildren()) {
         i->updateGeometry();
     }
 }

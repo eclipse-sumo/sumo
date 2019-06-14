@@ -387,7 +387,7 @@ public:
     long onCmdGoBack(FXObject*, FXSelector, void*);
     /// @}
 
-    /// @brief function called after undo/redo in the current frame (can be reimplemented in frame childs)
+    /// @brief function called after undo/redo in the current frame (can be reimplemented in frame children)
     void updateFrameAfterUndoRedo();
 
 protected:

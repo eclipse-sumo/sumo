@@ -1225,7 +1225,7 @@ GNEJunction::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         }
         case SUMO_ATTR_POSITION: {
-            // start geometry moving (because new position affect all junction childs)
+            // start geometry moving (because new position affect all junction children)
             startGeometryMoving();
             // set new position in NBNode without updating grid
             moveJunctionGeometry(parse<Position>(value));
@@ -1247,7 +1247,7 @@ GNEJunction::setAttribute(SumoXMLAttr key, const std::string& value) {
             myLogicStatus = value;
             break;
         case SUMO_ATTR_SHAPE: {
-            // start geometry moving (because new position affect all junction childs)
+            // start geometry moving (because new position affect all junction children)
             startGeometryMoving();
             // set new shape (without updating grid)
             const PositionVector shape = parse<PositionVector>(value);

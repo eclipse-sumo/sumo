@@ -56,13 +56,13 @@ public:
         bool protectDemandElements() const;
 
     private:
-        /// @brief checkbox for enable/disable automatic deletion of additionals childs
+        /// @brief checkbox for enable/disable automatic deletion of additionals children
         FXCheckButton* myForceDeleteAdditionals;
 
         /// @brief checkbox for enable/disable delete only geometry points
         FXCheckButton* myDeleteOnlyGeometryPoints;
 
-        /// @brief checkbox for enable/disable automatic deletion of demand childs
+        /// @brief checkbox for enable/disable automatic deletion of demand children
         FXCheckButton* myProtectDemandElements;
     };
 

@@ -96,31 +96,31 @@ GNERerouterIntervalDialog::GNERerouterIntervalDialog(GNEAdditional* rerouterInte
     myParkingAreaReroutesValid(true),
     myRouteProbReroutesValid(true) {
     // fill closing Reroutes
-    for (auto i : myEditedAdditional->getAdditionalChilds()) {
+    for (auto i : myEditedAdditional->getAdditionalChildren()) {
         if (i->getTagProperty().getTag() == SUMO_TAG_CLOSING_REROUTE) {
             myClosingReroutesEdited.push_back(i);
         }
     }
     // fill closing Lane Reroutes
-    for (auto i : myEditedAdditional->getAdditionalChilds()) {
+    for (auto i : myEditedAdditional->getAdditionalChildren()) {
         if (i->getTagProperty().getTag() == SUMO_TAG_CLOSING_LANE_REROUTE) {
             myClosingLaneReroutesEdited.push_back(i);
         }
     }
     // fill Dest Prob Reroutes
-    for (auto i : myEditedAdditional->getAdditionalChilds()) {
+    for (auto i : myEditedAdditional->getAdditionalChildren()) {
         if (i->getTagProperty().getTag() == SUMO_TAG_DEST_PROB_REROUTE) {
             myDestProbReroutesEdited.push_back(i);
         }
     }
     // fill Route Prob Reroutes
-    for (auto i : myEditedAdditional->getAdditionalChilds()) {
+    for (auto i : myEditedAdditional->getAdditionalChildren()) {
         if (i->getTagProperty().getTag() == SUMO_TAG_ROUTE_PROB_REROUTE) {
             myRouteProbReroutesEdited.push_back(i);
         }
     }
     // fill Parking Area reroutes
-    for (auto i : myEditedAdditional->getAdditionalChilds()) {
+    for (auto i : myEditedAdditional->getAdditionalChildren()) {
         if (i->getTagProperty().getTag() == SUMO_TAG_PARKING_ZONE_REROUTE) {
             myParkingAreaRerouteEdited.push_back(i);
         }
@@ -190,7 +190,7 @@ GNERerouterIntervalDialog::GNERerouterIntervalDialog(GNEAdditional* rerouterInte
     }
 
     // disable add routeProbReroute Button and change label if the rerouter has multiple edges (random routes can only work from one edge)
-    if (rerouterInterval->getAdditionalParents().at(0)->getEdgeChilds().size() > 1) {
+    if (rerouterInterval->getAdditionalParents().at(0)->getEdgeChildren().size() > 1) {
         myAddRouteProbReroute->disable();
         routeProbRerouteLabel->setText("Rerouter has more than one edge");
     }
@@ -628,7 +628,7 @@ GNERerouterIntervalDialog::onCmdChangeBeginEnd(FXObject*, FXSelector, void*) {
         myEditedAdditional->setAttribute(SUMO_ATTR_BEGIN, myBeginTextField->getText().text(), myEditedAdditional->getViewNet()->getUndoList());
         myEditedAdditional->setAttribute(SUMO_ATTR_END, myEndTextField->getText().text(), myEditedAdditional->getViewNet()->getUndoList());
         // sort intervals of rerouter
-        myEditedAdditional->sortAdditionalChilds();
+        myEditedAdditional->sortAdditionalChildren();
         // change icon
         myBeginEndValid = true;
         myCheckLabel->setIcon(GUIIconSubSys::getIcon(ICON_CORRECT));

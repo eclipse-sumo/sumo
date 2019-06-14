@@ -7,15 +7,15 @@
 // http://www.eclipse.org/legal/epl-v20.html
 // SPDX-License-Identifier: EPL-2.0
 /****************************************************************************/
-/// @file    GNEHierarchicalElementChilds.h
+/// @file    GNEHierarchicalElementChildren.h
 /// @author  Pablo Alvarez Lopez
 /// @date    March 2019
 /// @version $Id$
 ///
 // A abstract class for representation of Hierarchical Elements
 /****************************************************************************/
-#ifndef GNEHierarchicalElementChilds_h
-#define GNEHierarchicalElementChilds_h
+#ifndef GNEHierarchicalElementChildren_h
+#define GNEHierarchicalElementChildren_h
 
 // ===========================================================================
 // included modules
@@ -40,28 +40,28 @@ class GNEShape;
 // ===========================================================================
 
 /**
- * @class GNEHierarchicalElementChilds
+ * @class GNEHierarchicalElementChildren
  * @brief An special type of Attribute carrier that owns hierarchical elements
  */
-class GNEHierarchicalElementChilds {
+class GNEHierarchicalElementChildren {
 
 public:
     /**@brief Parameter Constructor
-     * @param[in] edgeChilds vector of edge childs
-     * @param[in] laneChilds vector of lane childs
-     * @param[in] shapeChilds vector of shape childs
-     * @param[in] additionalChilds vector of additional childs
-     * @param[in] demandElementChilds vector of demand element childs
+     * @param[in] edgeChildren vector of edge children
+     * @param[in] laneChildren vector of lane children
+     * @param[in] shapeChildren vector of shape children
+     * @param[in] additionalChildren vector of additional children
+     * @param[in] demandElementChildren vector of demand element children
      */
-    GNEHierarchicalElementChilds(GNEAttributeCarrier* AC,
-                                 const std::vector<GNEEdge*>& edgeChilds,
-                                 const std::vector<GNELane*>& laneChilds,
-                                 const std::vector<GNEShape*>& shapeChilds,
-                                 const std::vector<GNEAdditional*>& additionalChilds,
-                                 const std::vector<GNEDemandElement*>& demandElementChilds);
+    GNEHierarchicalElementChildren(GNEAttributeCarrier* AC,
+                                 const std::vector<GNEEdge*>& edgeChildren,
+                                 const std::vector<GNELane*>& laneChildren,
+                                 const std::vector<GNEShape*>& shapeChildren,
+                                 const std::vector<GNEAdditional*>& additionalChildren,
+                                 const std::vector<GNEDemandElement*>& demandElementChildren);
 
     /// @brief Destructor
-    ~GNEHierarchicalElementChilds();
+    ~GNEHierarchicalElementChildren();
 
     /// @brief get child position calculated in ChildConnections
     const Position &getChildPosition(const GNELane* lane);
@@ -72,7 +72,7 @@ public:
     /// @brief update child connections
     void updateChildConnections();
     
-    // Draw connections between parent and childs
+    // Draw connections between parent and children
     void drawChildConnections(GUIGlObjectType GLTypeParent) const;
 
     /// @brief gererate a new ID for an element child
@@ -87,7 +87,7 @@ public:
     virtual Position getPositionInView() const = 0;
     /// @}
 
-    /// @name members and functions related to edge childs
+    /// @name members and functions related to edge children
     /// @{
     /// @brief add edge child
     void addEdgeChild(GNEEdge* edge);
@@ -96,11 +96,11 @@ public:
     void removeEdgeChild(GNEEdge* edge);
 
     /// @brief get edge chidls
-    const std::vector<GNEEdge*>& getEdgeChilds() const;
+    const std::vector<GNEEdge*>& getEdgeChildren() const;
 
     /// @}
 
-    /// @name members and functions related to lane childs
+    /// @name members and functions related to lane children
     /// @{
     /// @brief add lane child
     void addLaneChild(GNELane* lane);
@@ -109,11 +109,11 @@ public:
     void removeLaneChild(GNELane* lane);
 
     /// @brief get lanes of VSS
-    const std::vector<GNELane*>& getLaneChilds() const;
+    const std::vector<GNELane*>& getLaneChildren() const;
 
     /// @}
 
-    /// @name members and functions related to shape childs
+    /// @name members and functions related to shape children
     /// @{
     /// @brief add shape child
     void addShapeChild(GNEShape* shape);
@@ -122,11 +122,11 @@ public:
     void removeShapeChild(GNEShape* shape);
 
     /// @brief get shapes of VSS
-    const std::vector<GNEShape*>& getShapeChilds() const;
+    const std::vector<GNEShape*>& getShapeChildren() const;
 
     /// @}
 
-    /// @name members and functions related to additional childs
+    /// @name members and functions related to additional children
     /// @{
     /// @brief add additional child to this additional
     void addAdditionalChild(GNEAdditional* additional);
@@ -135,17 +135,17 @@ public:
     void removeAdditionalChild(GNEAdditional* additional);
 
     /// @brief return vector of additionals that have as Parent this edge (For example, Calibrators)
-    const std::vector<GNEAdditional*>& getAdditionalChilds() const;
+    const std::vector<GNEAdditional*>& getAdditionalChildren() const;
 
-    /// @brief sort childs (used by Rerouters, VSS, TAZs...)
-    void sortAdditionalChilds();
+    /// @brief sort children (used by Rerouters, VSS, TAZs...)
+    void sortAdditionalChildren();
 
-    /// @brief check if childs are overlapped (Used by Rerouters)
-    bool checkAdditionalChildsOverlapping() const;
+    /// @brief check if children are overlapped (Used by Rerouters)
+    bool checkAdditionalChildrenOverlapping() const;
 
     /// @}
 
-    /// @name members and functions related to demand element childs
+    /// @name members and functions related to demand element children
     /// @{
     /// @brief add demand element child to this demand element
     void addDemandElementChild(GNEDemandElement* demandElement);
@@ -154,27 +154,27 @@ public:
     void removeDemandElementChild(GNEDemandElement* demandElement);
 
     /// @brief return vector of demand elements that have as Parent this edge (For example, Calibrators)
-    const std::vector<GNEDemandElement*>& getDemandElementChilds() const;
+    const std::vector<GNEDemandElement*>& getDemandElementChildren() const;
 
     /// @brief return vector of demand elements that have as Parent this edge (For example, Calibrators)
-    const std::set<GNEDemandElement*>& getSortedDemandElementChildsByType(SumoXMLTag tag) const;
+    const std::set<GNEDemandElement*>& getSortedDemandElementChildrenByType(SumoXMLTag tag) const;
 
-    /// @brief sort childs (used by Rerouters, VSS, TAZs...)
-    void sortDemandElementChilds();
+    /// @brief sort children (used by Rerouters, VSS, TAZs...)
+    void sortDemandElementChildren();
 
-    /// @brief check if childs are overlapped (Used by Rerouters)
-    bool checkDemandElementChildsOverlapping() const;
+    /// @brief check if children are overlapped (Used by Rerouters)
+    bool checkDemandElementChildrenOverlapping() const;
 
-    /// @brief move given demand element child one position up in demand element childs vector
+    /// @brief move given demand element child one position up in demand element children vector
     void moveDemandElementChildUp(GNEDemandElement* demandElement);
     
-    /// @brief move given demand element child one position down in demand element childs vector
+    /// @brief move given demand element child one position down in demand element children vector
     void moveDemandElementChildDown(GNEDemandElement* demandElement);
 
-    /// @brief return true if given demand element child is the first element in demand element childs vector
+    /// @brief return true if given demand element child is the first element in demand element children vector
     bool isFirstDemandElementChild(GNEDemandElement* demandElement);
 
-    /// @brief return true if given demand element child is the last element in demand element childs vector
+    /// @brief return true if given demand element child is the last element in demand element children vector
     bool isLastDemandElementChild(GNEDemandElement* demandElement);
 
     /// @}
@@ -187,7 +187,7 @@ public:
 
 protected:
 
-    /// @brief struct for pack all variables and functions relative to connections between hierarchical element and their childs
+    /// @brief struct for pack all variables and functions relative to connections between hierarchical element and their children
     struct ChildConnections {
 
     private:
@@ -211,7 +211,7 @@ protected:
 
     public:
         /// @brief constructor
-        ChildConnections(GNEHierarchicalElementChilds* hierarchicalElement);
+        ChildConnections(GNEHierarchicalElementChildren* hierarchicalElement);
 
         /// @brief update Connection's geometry
         void update();
@@ -222,50 +222,50 @@ protected:
         /// @brief position and rotation of every symbol over lane
         std::vector<ConnectionGeometry> symbolsPositionAndRotation;
 
-        /// @brief Matrix with the Vertex's positions of connections between parents an their childs
+        /// @brief Matrix with the Vertex's positions of connections between parents an their children
         std::vector<PositionVector> connectionPositions;
 
     private:
         /// @brief pointer to hierarchical element parent
-        GNEHierarchicalElementChilds* myHierarchicalElement;
+        GNEHierarchicalElementChildren* myHierarchicalElement;
     };
 
-    /// @brief change edge childs of an additional
-    void changeEdgeChilds(GNEAdditional* elementChild, const std::string& newEdgeIDs);
+    /// @brief change edge children of an additional
+    void changeEdgeChildren(GNEAdditional* elementChild, const std::string& newEdgeIDs);
 
-    /// @brief change edge childs of an additional
-    void changeLaneChilds(GNEAdditional* elementChild, const std::string& newEdgeIDs);
+    /// @brief change edge children of an additional
+    void changeLaneChildren(GNEAdditional* elementChild, const std::string& newEdgeIDs);
 
     /// @brief variable ChildConnections
     ChildConnections myChildConnections;
 
 private:
-    /// @brief vector with the edge childs of this element
-    std::vector<GNEEdge*> myEdgeChilds;
+    /// @brief vector with the edge children of this element
+    std::vector<GNEEdge*> myEdgeChildren;
 
-    /// @brief vector with the lane childs of this element
-    std::vector<GNELane*> myLaneChilds;
+    /// @brief vector with the lane children of this element
+    std::vector<GNELane*> myLaneChildren;
 
-    /// @brief vector with the lane childs of this element
-    std::vector<GNEShape*> myShapeChilds;
+    /// @brief vector with the lane children of this element
+    std::vector<GNEShape*> myShapeChildren;
 
-    /// @brief vector with the additional childs
-    std::vector<GNEAdditional*> myAdditionalChilds;
+    /// @brief vector with the additional children
+    std::vector<GNEAdditional*> myAdditionalChildren;
 
-    /// @brief vector with the demand elements childs
-    std::vector<GNEDemandElement*> myDemandElementChilds;
+    /// @brief vector with the demand elements children
+    std::vector<GNEDemandElement*> myDemandElementChildren;
 
-    /// @brief vector with the demand elements childs sorted by type and filtered (to avoid duplicated
-    std::map<SumoXMLTag, std::set<GNEDemandElement*> > mySortedDemandElementChildsByType;
+    /// @brief vector with the demand elements children sorted by type and filtered (to avoid duplicated
+    std::map<SumoXMLTag, std::set<GNEDemandElement*> > mySortedDemandElementChildrenByType;
 
     /// @brief pointer to AC (needed to avoid diamond problem)
     GNEAttributeCarrier* myAC;
 
     /// @brief Invalidated copy constructor.
-    GNEHierarchicalElementChilds(const GNEHierarchicalElementChilds&) = delete;
+    GNEHierarchicalElementChildren(const GNEHierarchicalElementChildren&) = delete;
 
     /// @brief Invalidated assignment operator.
-    GNEHierarchicalElementChilds& operator=(const GNEHierarchicalElementChilds&) = delete;
+    GNEHierarchicalElementChildren& operator=(const GNEHierarchicalElementChildren&) = delete;
 };
 
 #endif

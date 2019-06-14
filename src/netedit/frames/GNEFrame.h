@@ -619,7 +619,7 @@ public:
 
         /// @name FOX-callbacks
         /// @{
-        /// @brief called when user press right click over an item of list of childs
+        /// @brief called when user press right click over an item of list of children
         long onCmdShowChildMenu(FXObject*, FXSelector, void* data);
 
         /// @brief called when user select option "center item" of child Menu
@@ -643,7 +643,7 @@ public:
         FXTreeItem* showAttributeCarrierParents();
 
         /// @brief show child of current attributeCarrier
-        void showAttributeCarrierChilds(GNEAttributeCarrier* AC, FXTreeItem* itemParent);
+        void showAttributeCarrierChildren(GNEAttributeCarrier* AC, FXTreeItem* itemParent);
 
         /// @brief add item into list
         FXTreeItem* addListItem(GNEAttributeCarrier* AC, FXTreeItem* itemParent = nullptr, std::string prefix = "", std::string sufix = "");
@@ -657,7 +657,7 @@ public:
         /// @brief Attribute carrier
         GNEAttributeCarrier* myAC;
 
-        /// @brief tree list to show the childs of the element to erase
+        /// @brief tree list to show the children of the element to erase
         FXTreeList* myTreelist;
 
         /// @brief map used to save the Tree items with their AC
@@ -988,14 +988,14 @@ public:
     /// @brief get font of the header's frame
     FXFont* getFrameHeaderFont() const;
 
-    /// @brief function called after undo/redo in the current frame (can be reimplemented in frame childs)
+    /// @brief function called after undo/redo in the current frame (can be reimplemented in frame children)
     virtual void updateFrameAfterUndoRedo();
 
 protected:
     /// @brief FOX needs this
     GNEFrame() {}
 
-    /// @name functions called by moduls that can be reimplemented in frame childs
+    /// @name functions called by moduls that can be reimplemented in frame children
     /// @{
 
     /// @brief Tag selected in TagSelector
@@ -1007,13 +1007,13 @@ protected:
     /// @brief finish edge path creation
     virtual void edgePathCreated();
 
-    /// @brief build a shaped element using the drawed shape (can be reimplemented in frame childs)
+    /// @brief build a shaped element using the drawed shape (can be reimplemented in frame children)
     virtual bool shapeDrawed();
     
     /// @brief function called after set a valid attribute in AttributeCreator/AttributeEditor/GenericParametersEditor/...
     virtual void attributeUpdated();
 
-    /// @brief open AttributesCreator extended dialog (can be reimplemented in frame childs)
+    /// @brief open AttributesCreator extended dialog (can be reimplemented in frame children)
     virtual void attributesEditorExtendedDialogOpened();
 
     /// @}

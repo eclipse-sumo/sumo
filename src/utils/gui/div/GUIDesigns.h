@@ -517,7 +517,7 @@
 /// @}
 
 
-/// @brief Tree list used in frames to represent childs of elements
+/// @brief Tree list used in frames to represent elements children
 #define GUIDesignTreeListFrame                  (TREELIST_SHOWS_LINES | TREELIST_SHOWS_BOXES | TREELIST_SINGLESELECT | FRAME_SUNKEN | FRAME_THICK | LAYOUT_FILL_X | LAYOUT_FIX_HEIGHT), 0, 0, 0, 200
 
 /// @brief design for FXLists

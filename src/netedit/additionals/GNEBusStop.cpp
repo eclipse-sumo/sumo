@@ -73,8 +73,8 @@ GNEBusStop::updateGeometry() {
     // Set block icon rotation, and using their rotation for sign
     myBlockIcon.setRotation(getLaneParents().front());
 
-    // update demand element childs (GNEStops)
-    for (const auto& i : getDemandElementChilds()) {
+    // update demand element children (GNEStops)
+    for (const auto& i : getDemandElementChildren()) {
         i->updateGeometry();
     }
 }
@@ -125,7 +125,7 @@ GNEBusStop::drawGL(const GUIVisualizationSettings& s) const {
         }
     } else if (s.scale * exaggeration >= 10) {
         // draw lines between BusStops and Acces
-        for (auto i : getAdditionalChilds()) {
+        for (auto i : getAdditionalChildren()) {
             GLHelper::drawBoxLine(i->getShape()[0], RAD2DEG(mySignPos.angleTo2D(i->getShape()[0])) - 90, mySignPos.distanceTo2D(i->getShape()[0]), .05);
         }
         // Add a draw matrix for details
@@ -194,8 +194,8 @@ GNEBusStop::drawGL(const GUIVisualizationSettings& s) const {
     }
     // Pop name
     glPopName();
-    // draw demand element childs
-    for (const auto &i : getDemandElementChilds()) {
+    // draw demand element children
+    for (const auto &i : getDemandElementChildren()) {
         if (!i->getTagProperty().isPlacedInRTree()) {
             i->drawGL(s);
         }
@@ -243,8 +243,8 @@ GNEBusStop::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList*
         case SUMO_ATTR_ID: {
             // change ID of BusStop
             undoList->p_add(new GNEChange_Attribute(this, myViewNet->getNet(), key, value));
-            // Change Ids of all Acces childs
-            for (auto i : getAdditionalChilds()) {
+            // Change Ids of all Acces children
+            for (auto i : getAdditionalChildren()) {
                 i->setAttribute(SUMO_ATTR_ID, generateChildID(SUMO_TAG_ACCESS), undoList);
             }
             break;

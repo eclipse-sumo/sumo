@@ -990,11 +990,11 @@ GNERouteHandler::embebbeRoute(GNEVehicle* vehicle, GNEUndoList* undoList) {
 GNEVehicle* 
 GNERouteHandler::separateEmbeddedRoute(GNEVehicle* vehicle, GNEUndoList* undoList) {
     // first create a Route based on the parameters of vehicle's embedded route
-    GNERoute* nonEmbeddedRoute = new GNERoute(vehicle->getDemandElementChilds().at(0));
+    GNERoute* nonEmbeddedRoute = new GNERoute(vehicle->getDemandElementChildren().at(0));
     // create a copy of vehicle with the same attributes but with the nonEmbeddedRoute
     GNEVehicle* vehicleWithoutEmbebbeRoute = new GNEVehicle(vehicle->getViewNet(), vehicle->getDemandElementParents().at(0), nonEmbeddedRoute, *vehicle);
     // remove embedded route andvehicle (because a embebbbed route without vehicle cannot exist)
-    undoList->add(new GNEChange_DemandElement(vehicle->getDemandElementChilds().at(0), false), true);
+    undoList->add(new GNEChange_DemandElement(vehicle->getDemandElementChildren().at(0), false), true);
     undoList->add(new GNEChange_DemandElement(vehicle, false), true);
     // now add bot nonEmbeddedRoute and vehicleWithoutEmbebbeRoute
     undoList->add(new GNEChange_DemandElement(nonEmbeddedRoute, true), true);

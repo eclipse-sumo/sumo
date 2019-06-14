@@ -116,7 +116,7 @@ public:
     std::string getHierarchyName() const;
     /// @}
 
-    /// @name inherited from GNEHierarchicalElementChilds
+    /// @name inherited from GNEHierarchicalElementChildren
     /// @{
     /// @brief update parent after add or remove a child
     void updateAdditionalParent();
@@ -142,7 +142,7 @@ protected:
     double mySpeedThreshold;
 
 private:
-    /// @brief check restriction with the number of childs
+    /// @brief check restriction with the number of children
     bool checkAdditionalChildRestriction() const;
 
     /// @brief set attribute after validation

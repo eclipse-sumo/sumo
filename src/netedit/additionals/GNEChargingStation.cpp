@@ -179,8 +179,8 @@ GNEChargingStation::drawGL(const GUIVisualizationSettings& s) const {
     }
     // Pop name matrix
     glPopName();
-    // draw demand element childs
-    for (const auto &i : getDemandElementChilds()) {
+    // draw demand element children
+    for (const auto &i : getDemandElementChildren()) {
         if (!i->getTagProperty().isPlacedInRTree()) {
             i->drawGL(s);
         }

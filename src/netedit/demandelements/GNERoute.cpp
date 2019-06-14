@@ -134,7 +134,7 @@ GNERoute::writeDemandElement(OutputDevice& device) const {
     if(myTagProperty.getTag() == SUMO_TAG_ROUTE) {
         device.writeAttr(SUMO_ATTR_ID, getDemandElementID());
         // write stops associated to this route
-        for (const auto& i : getDemandElementChilds()) {
+        for (const auto& i : getDemandElementChildren()) {
             if (i->getTagProperty().isStop()) {
                 i->writeDemandElement(device);
             }
@@ -214,8 +214,8 @@ void
 GNERoute::updateGeometry() {
     // recalculate edge geometry limits
     recalculateEdgeGeometryLimits();
-    // only update demand element childs, because Route uses the geometry of lane parent
-    for (const auto& i : getDemandElementChilds()) {
+    // only update demand element children, because Route uses the geometry of lane parent
+    for (const auto& i : getDemandElementChildren()) {
         i->updateGeometry();
     }
 }

@@ -42,14 +42,14 @@ GNEShape::GNEShape(GNENet* net, SumoXMLTag tag, bool movementBlocked,
                    const std::vector<GNEShape*>& shapeParents,
                    const std::vector<GNEAdditional*>& additionalParents,
                    const std::vector<GNEDemandElement*>& demandElementParents,
-                   const std::vector<GNEEdge*>& edgeChilds,
-                   const std::vector<GNELane*>& laneChilds,
-                   const std::vector<GNEShape*>& shapeChilds,
-                   const std::vector<GNEAdditional*>& additionalChilds,
-                   const std::vector<GNEDemandElement*>& demandElementChilds) :
+                   const std::vector<GNEEdge*>& edgeChildren,
+                   const std::vector<GNELane*>& laneChildren,
+                   const std::vector<GNEShape*>& shapeChildren,
+                   const std::vector<GNEAdditional*>& additionalChildren,
+                   const std::vector<GNEDemandElement*>& demandElementChildren) :
     GNEAttributeCarrier(tag),
     GNEHierarchicalElementParents(this, edgeParents, laneParents, shapeParents, additionalParents, demandElementParents),
-    GNEHierarchicalElementChilds(this, edgeChilds, laneChilds, shapeChilds, additionalChilds, demandElementChilds),
+    GNEHierarchicalElementChildren(this, edgeChildren, laneChildren, shapeChildren, additionalChildren, demandElementChildren),
     myNet(net),
     myBlockMovement(movementBlocked) {
 }

@@ -148,16 +148,16 @@ GNEDemandElement::GNEDemandElement(const std::string& id, GNEViewNet* viewNet, G
                                    const std::vector<GNEShape*>& shapeParents,
                                    const std::vector<GNEAdditional*>& additionalParents,
                                    const std::vector<GNEDemandElement*>& demandElementParents,
-                                   const std::vector<GNEEdge*>& edgeChilds,
-                                   const std::vector<GNELane*>& laneChilds,
-                                   const std::vector<GNEShape*>& shapeChilds,
-                                   const std::vector<GNEAdditional*>& additionalChilds,
-                                   const std::vector<GNEDemandElement*>& demandElementChilds) :
+                                   const std::vector<GNEEdge*>& edgeChildren,
+                                   const std::vector<GNELane*>& laneChildren,
+                                   const std::vector<GNEShape*>& shapeChildren,
+                                   const std::vector<GNEAdditional*>& additionalChildren,
+                                   const std::vector<GNEDemandElement*>& demandElementChildren) :
     GUIGlObject(type, id),
     GNEAttributeCarrier(tag),
     Parameterised(),
     GNEHierarchicalElementParents(this, edgeParents, laneParents, shapeParents, additionalParents, demandElementParents),
-    GNEHierarchicalElementChilds(this, edgeChilds, laneChilds, shapeChilds, additionalChilds, demandElementChilds),
+    GNEHierarchicalElementChildren(this, edgeChildren, laneChildren, shapeChildren, additionalChildren, demandElementChildren),
     myViewNet(viewNet) {
 }
 
@@ -168,23 +168,23 @@ GNEDemandElement::GNEDemandElement(GNEDemandElement* demandElementParent, GNEVie
                                    const std::vector<GNEShape*>& shapeParents,
                                    const std::vector<GNEAdditional*>& additionalParents,
                                    const std::vector<GNEDemandElement*>& demandElementParents,
-                                   const std::vector<GNEEdge*>& edgeChilds,
-                                   const std::vector<GNELane*>& laneChilds,
-                                   const std::vector<GNEShape*>& shapeChilds,
-                                   const std::vector<GNEAdditional*>& additionalChilds,
-                                   const std::vector<GNEDemandElement*>& demandElementChilds) :
+                                   const std::vector<GNEEdge*>& edgeChildren,
+                                   const std::vector<GNELane*>& laneChildren,
+                                   const std::vector<GNEShape*>& shapeChildren,
+                                   const std::vector<GNEAdditional*>& additionalChildren,
+                                   const std::vector<GNEDemandElement*>& demandElementChildren) :
     GUIGlObject(type, demandElementParent->generateChildID(tag)),
     GNEAttributeCarrier(tag),
     Parameterised(),
     GNEHierarchicalElementParents(this, edgeParents, laneParents, shapeParents, additionalParents, demandElementParents),
-    GNEHierarchicalElementChilds(this, edgeChilds, laneChilds, shapeChilds, additionalChilds, demandElementChilds),
+    GNEHierarchicalElementChildren(this, edgeChildren, laneChildren, shapeChildren, additionalChildren, demandElementChildren),
     myViewNet(viewNet) {
 }
 
 
 std::string
 GNEDemandElement::generateChildID(SumoXMLTag childTag) {
-    int counter = (int)getDemandElementChilds().size();
+    int counter = (int)getDemandElementChildren().size();
     while (myViewNet->getNet()->retrieveDemandElement(childTag, getID() + toString(childTag) + toString(counter), false) != nullptr) {
         counter++;
     }

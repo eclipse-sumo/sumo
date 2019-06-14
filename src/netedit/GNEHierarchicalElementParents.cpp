@@ -580,11 +580,11 @@ GNEHierarchicalElementParents::changeAdditionalParent(GNEShape* shapeTobeChanged
     if ((int)myAdditionalParents.size() < additionalParentIndex) {
         throw InvalidArgument(myAC->getTagStr() + " with ID '" + myAC->getID() + "' doesn't have " + toString(additionalParentIndex) + " additional parents");
     } else {
-        // remove additional of the childs of parent additional
+        // remove additional of the children of parent additional
         myAdditionalParents.at(additionalParentIndex)->removeShapeChild(shapeTobeChanged);
         // set new additional parent
         myAdditionalParents.at(additionalParentIndex) = shapeTobeChanged->getNet()->retrieveAdditional(myAdditionalParents.at(additionalParentIndex)->getTagProperty().getTag(), newAdditionalParentID);
-        // add additional int the childs of parent additional
+        // add additional int the children of parent additional
         myAdditionalParents.at(additionalParentIndex)->addShapeChild(shapeTobeChanged);
         // update geometry after inserting
         shapeTobeChanged->updateGeometry();
@@ -597,11 +597,11 @@ GNEHierarchicalElementParents::changeAdditionalParent(GNEAdditional* additionalT
     if ((int)myAdditionalParents.size() < additionalParentIndex) {
         throw InvalidArgument(myAC->getTagStr() + " with ID '" + myAC->getID() + "' doesn't have " + toString(additionalParentIndex) + " additional parents");
     } else {
-        // remove additional of the childs of parent additional
+        // remove additional of the children of parent additional
         myAdditionalParents.at(additionalParentIndex)->removeAdditionalChild(additionalTobeChanged);
         // set new additional parent
         myAdditionalParents.at(additionalParentIndex) = additionalTobeChanged->getViewNet()->getNet()->retrieveAdditional(myAdditionalParents.at(additionalParentIndex)->getTagProperty().getTag(), newAdditionalParentID);
-        // add additional int the childs of parent additional
+        // add additional int the children of parent additional
         myAdditionalParents.at(additionalParentIndex)->addAdditionalChild(additionalTobeChanged);
         // update geometry after inserting
         additionalTobeChanged->updateGeometry();
@@ -614,11 +614,11 @@ GNEHierarchicalElementParents::changeAdditionalParent(GNEDemandElement* demandEl
     if ((int)myAdditionalParents.size() < additionalParentIndex) {
         throw InvalidArgument(myAC->getTagStr() + " with ID '" + myAC->getID() + "' doesn't have " + toString(additionalParentIndex) + " additional parents");
     } else {
-        // remove demand element of the childs of parent additional
+        // remove demand element of the children of parent additional
         myAdditionalParents.at(additionalParentIndex)->removeDemandElementChild(demandElementTobeChanged);
         // set new demand element parent
         myAdditionalParents.at(additionalParentIndex) = demandElementTobeChanged->getViewNet()->getNet()->retrieveAdditional(myAdditionalParents.at(additionalParentIndex)->getTagProperty().getTag(), newAdditionalParentID);
-        // add demand element int the childs of parent additional
+        // add demand element int the children of parent additional
         myAdditionalParents.at(additionalParentIndex)->removeDemandElementChild(demandElementTobeChanged);
         // update geometry after inserting
         demandElementTobeChanged->updateGeometry();
@@ -631,11 +631,11 @@ GNEHierarchicalElementParents::changeDemandElementParent(GNEShape* shapeTobeChan
     if ((int)myDemandElementParents.size() < demandElementParentIndex) {
         throw InvalidArgument(myAC->getTagStr() + " with ID '" + myAC->getID() + "' doesn't have " + toString(demandElementParentIndex) + " demand element parents");
     } else {
-        // remove demand element of the childs of parent additional
+        // remove demand element of the children of parent additional
         myDemandElementParents.at(demandElementParentIndex)->removeShapeChild(shapeTobeChanged);
         // set new demand element parent
         myDemandElementParents.at(demandElementParentIndex) = shapeTobeChanged->getNet()->retrieveDemandElement(myDemandElementParents.at(demandElementParentIndex)->getTagProperty().getTag(), newDemandElementParentID);
-        // add demand element int the childs of parent additional
+        // add demand element int the children of parent additional
         myDemandElementParents.at(demandElementParentIndex)->addShapeChild(shapeTobeChanged);
         // update geometry after inserting
         shapeTobeChanged->updateGeometry();
@@ -648,11 +648,11 @@ GNEHierarchicalElementParents::changeDemandElementParent(GNEAdditional* addition
     if ((int)myDemandElementParents.size() < demandElementParentIndex) {
         throw InvalidArgument(myAC->getTagStr() + " with ID '" + myAC->getID() + "' doesn't have " + toString(demandElementParentIndex) + " demand element parents");
     } else {
-        // remove demand element of the childs of parent additional
+        // remove demand element of the children of parent additional
         myDemandElementParents.at(demandElementParentIndex)->removeAdditionalChild(additionalTobeChanged);
         // set new demand element parent
         myDemandElementParents.at(demandElementParentIndex) = additionalTobeChanged->getViewNet()->getNet()->retrieveDemandElement(myDemandElementParents.at(demandElementParentIndex)->getTagProperty().getTag(), newDemandElementParentID);
-        // add demand element int the childs of parent additional
+        // add demand element int the children of parent additional
         myDemandElementParents.at(demandElementParentIndex)->addAdditionalChild(additionalTobeChanged);
         // update geometry after inserting
         additionalTobeChanged->updateGeometry();
@@ -665,11 +665,11 @@ GNEHierarchicalElementParents::changeDemandElementParent(GNEDemandElement* deman
     if ((int)myDemandElementParents.size() < demandElementParentIndex) {
         throw InvalidArgument(myAC->getTagStr() + " with ID '" + myAC->getID() + "' doesn't have " + toString(demandElementParentIndex) + " demand element parents");
     } else {
-        // remove additional of the childs of parent additional
+        // remove additional of the children of parent additional
         myDemandElementParents.at(demandElementParentIndex)->removeDemandElementChild(demandElementTobeChanged);
         // set new additional parent
         myDemandElementParents.at(demandElementParentIndex) = demandElementTobeChanged->getViewNet()->getNet()->retrieveDemandElement(myDemandElementParents.at(demandElementParentIndex)->getTagProperty().getTag(), newDemandElementParentID);
-        // add additional int the childs of parent additional
+        // add additional int the children of parent additional
         myDemandElementParents.at(demandElementParentIndex)->addDemandElementChild(demandElementTobeChanged);
         // update geometry after inserting
         demandElementTobeChanged->updateGeometry();

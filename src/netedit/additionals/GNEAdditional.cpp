@@ -135,16 +135,16 @@ GNEAdditional::GNEAdditional(const std::string& id, GNEViewNet* viewNet, GUIGlOb
                              const std::vector<GNEShape*>& shapeParents,
                              const std::vector<GNEAdditional*>& additionalParents,
                              const std::vector<GNEDemandElement*>& demandElementParents,
-                             const std::vector<GNEEdge*>& edgeChilds,
-                             const std::vector<GNELane*>& laneChilds,
-                             const std::vector<GNEShape*>& shapeChilds,
-                             const std::vector<GNEAdditional*>& additionalChilds,
-                             const std::vector<GNEDemandElement*>& demandElementChilds) :
+                             const std::vector<GNEEdge*>& edgeChildren,
+                             const std::vector<GNELane*>& laneChildren,
+                             const std::vector<GNEShape*>& shapeChildren,
+                             const std::vector<GNEAdditional*>& additionalChildren,
+                             const std::vector<GNEDemandElement*>& demandElementChildren) :
     GUIGlObject(type, id),
     GNEAttributeCarrier(tag),
     Parameterised(),
     GNEHierarchicalElementParents(this, edgeParents, laneParents, shapeParents, additionalParents, demandElementParents),
-    GNEHierarchicalElementChilds(this, edgeChilds, laneChilds, shapeChilds, additionalChilds, demandElementChilds),
+    GNEHierarchicalElementChildren(this, edgeChildren, laneChildren, shapeChildren, additionalChildren, demandElementChildren),
     myViewNet(viewNet),
     myAdditionalName(additionalName),
     myBlockMovement(blockMovement),
@@ -158,16 +158,16 @@ GNEAdditional::GNEAdditional(GNEAdditional* additionalParent, GNEViewNet* viewNe
                              const std::vector<GNEShape*>& shapeParents,
                              const std::vector<GNEAdditional*>& additionalParents,
                              const std::vector<GNEDemandElement*>& demandElementParents,
-                             const std::vector<GNEEdge*>& edgeChilds,
-                             const std::vector<GNELane*>& laneChilds,
-                             const std::vector<GNEShape*>& shapeChilds,
-                             const std::vector<GNEAdditional*>& additionalChilds,
-                             const std::vector<GNEDemandElement*>& demandElementChilds) :
+                             const std::vector<GNEEdge*>& edgeChildren,
+                             const std::vector<GNELane*>& laneChildren,
+                             const std::vector<GNEShape*>& shapeChildren,
+                             const std::vector<GNEAdditional*>& additionalChildren,
+                             const std::vector<GNEDemandElement*>& demandElementChildren) :
     GUIGlObject(type, additionalParent->generateChildID(tag)),
     GNEAttributeCarrier(tag),
     Parameterised(),
     GNEHierarchicalElementParents(this, edgeParents, laneParents, shapeParents, additionalParents, demandElementParents),
-    GNEHierarchicalElementChilds(this, edgeChilds, laneChilds, shapeChilds, additionalChilds, demandElementChilds),
+    GNEHierarchicalElementChildren(this, edgeChildren, laneChildren, shapeChildren, additionalChildren, demandElementChildren),
     myViewNet(viewNet),
     myAdditionalName(additionalName),
     myBlockMovement(blockMovement),
@@ -180,7 +180,7 @@ GNEAdditional::~GNEAdditional() {}
 
 std::string
 GNEAdditional::generateChildID(SumoXMLTag childTag) {
-    int counter = (int)getAdditionalChilds().size();
+    int counter = (int)getAdditionalChildren().size();
     while (myViewNet->getNet()->retrieveAdditional(childTag, getID() + toString(childTag) + toString(counter), false) != nullptr) {
         counter++;
     }
@@ -196,8 +196,8 @@ GNEAdditional::getAdditionalGeometry() const {
 
 void
 GNEAdditional::writeAdditional(OutputDevice& device) const {
-    // first check if minimum number of childs is correct
-    if ((myTagProperty.hasMinimumNumberOfChilds() || myTagProperty.hasMinimumNumberOfChilds()) && !checkAdditionalChildRestriction()) {
+    // first check if minimum number of children is correct
+    if ((myTagProperty.hasMinimumNumberOfChildren() || myTagProperty.hasMinimumNumberOfChildren()) && !checkAdditionalChildRestriction()) {
         WRITE_WARNING(getTagStr() + " with ID='" + getID() + "' cannot be written");
     } else {
         // Open Tag or synonym Tag
@@ -263,23 +263,23 @@ GNEAdditional::writeAdditional(OutputDevice& device) const {
                 }
             }
         }
-        // iterate over childs and write it in XML (or in a different file)
-        if (myTagProperty.canWriteChildsSeparate() && myTagProperty.hasAttribute(SUMO_ATTR_FILE) && !getAttribute(SUMO_ATTR_FILE).empty()) {
+        // iterate over children and write it in XML (or in a different file)
+        if (myTagProperty.canWriteChildrenSeparate() && myTagProperty.hasAttribute(SUMO_ATTR_FILE) && !getAttribute(SUMO_ATTR_FILE).empty()) {
             // we assume that rerouter values files is placed in the same folder as the additional file
-            OutputDevice& deviceChilds = OutputDevice::getDevice(FileHelpers::getFilePath(OptionsCont::getOptions().getString("additional-files")) + getAttribute(SUMO_ATTR_FILE));
-            deviceChilds.writeXMLHeader("rerouterValue", "additional_file.xsd");
-            // save childs in a different filename
-            for (auto i : getAdditionalChilds()) {
+            OutputDevice& deviceChildren = OutputDevice::getDevice(FileHelpers::getFilePath(OptionsCont::getOptions().getString("additional-files")) + getAttribute(SUMO_ATTR_FILE));
+            deviceChildren.writeXMLHeader("rerouterValue", "additional_file.xsd");
+            // save children in a different filename
+            for (auto i : getAdditionalChildren()) {
                 // avoid to write two times additionals that haben two parents (Only write as child of first parent)
                 if (i->getAdditionalParents().size() < 1) {
-                    i->writeAdditional(deviceChilds);
+                    i->writeAdditional(deviceChildren);
                 } else if (myTagProperty.getTag() == i->getTagProperty().getParentTag()) {
-                    i->writeAdditional(deviceChilds);
+                    i->writeAdditional(deviceChildren);
                 }
             }
-            deviceChilds.close();
+            deviceChildren.close();
         } else {
-            for (auto i : getAdditionalChilds()) {
+            for (auto i : getAdditionalChildren()) {
                 // avoid to write two times additionals that haben two parents (Only write as child of first parent)
                 if (i->getAdditionalParents().size() < 2) {
                     i->writeAdditional(device);
@@ -288,7 +288,7 @@ GNEAdditional::writeAdditional(OutputDevice& device) const {
                 }
             }
         }
-        // save generic parameters (Always after childs to avoid problems with additionals.xsd)
+        // save generic parameters (Always after children to avoid problems with additionals.xsd)
         writeParams(device);
         // Close tag
         device.closeTag();
@@ -347,8 +347,8 @@ GNEAdditional::startGeometryMoving() {
         if (myTagProperty.isPlacedInRTree()) {
             myMove.movingGeometryBoundary = getCenteringBoundary();
         }
-        // start geometry in all childs
-        for (const auto& i : getDemandElementChilds()) {
+        // start geometry in all children
+        for (const auto& i : getDemandElementChildren()) {
             i->startGeometryMoving();
         }
     }
@@ -368,8 +368,8 @@ GNEAdditional::endGeometryMoving() {
             // add object into grid again (using the new centering boundary)
             myViewNet->getNet()->addGLObjectIntoGrid(this);
         }
-        // end geometry in all childs
-        for (const auto& i : getDemandElementChilds()) {
+        // end geometry in all children
+        for (const auto& i : getDemandElementChildren()) {
             i->endGeometryMoving();
         }
     }

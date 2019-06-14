@@ -857,8 +857,8 @@ GNEAttributeCarrier::TagProperties::hasDialog() const {
 
 
 bool
-GNEAttributeCarrier::TagProperties::hasMinimumNumberOfChilds() const {
-    return (myTagProperty & TAGPROPERTY_MINIMUMCHILDS) != 0;
+GNEAttributeCarrier::TagProperties::hasMinimumNumberOfChildren() const {
+    return (myTagProperty & TAGPROPERTY_MINIMUMCHILDREN) != 0;
 }
 
 
@@ -883,8 +883,8 @@ GNEAttributeCarrier::TagProperties::isPlacedInRTree() const {
 
 
 bool
-GNEAttributeCarrier::TagProperties::canSortTheirChildsManually() const {
-        return (myTagProperty & TAGPROPERTY_SORTINGCHILDS) != 0;
+GNEAttributeCarrier::TagProperties::canSortTheirChildrenManually() const {
+        return (myTagProperty & TAGPROPERTY_SORTINGCHILDREN) != 0;
 }
 
 
@@ -895,14 +895,14 @@ GNEAttributeCarrier::TagProperties::canBeReparent() const {
 
 
 bool
-GNEAttributeCarrier::TagProperties::canAutomaticSortChilds() const {
+GNEAttributeCarrier::TagProperties::canAutomaticSortChildren() const {
     return (myTagProperty & TAGPROPERTY_AUTOMATICSORTING) != 0;
 }
 
 
 bool
-GNEAttributeCarrier::TagProperties::canWriteChildsSeparate() const {
-    return (myTagProperty & TAGPROPERTY_WRITECHILDSSEPARATE) != 0;
+GNEAttributeCarrier::TagProperties::canWriteChildrenSeparate() const {
+    return (myTagProperty & TAGPROPERTY_WRITECHILDRENSEPARATE) != 0;
 }
 
 
@@ -2304,7 +2304,7 @@ GNEAttributeCarrier::fillAdditionals() {
     currentTag = SUMO_TAG_E3DETECTOR;
     {
         // set values of tag
-        myTagProperties[currentTag] = TagProperties(currentTag, TAGTYPE_ADDITIONAL | TAGTYPE_DETECTOR, TAGPROPERTY_DRAWABLE | TAGPROPERTY_RTREE | TAGPROPERTY_SELECTABLE | TAGPROPERTY_BLOCKMOVEMENT | TAGPROPERTY_MINIMUMCHILDS | TAGPROPERTY_AUTOMATICSORTING, ICON_E3);
+        myTagProperties[currentTag] = TagProperties(currentTag, TAGTYPE_ADDITIONAL | TAGTYPE_DETECTOR, TAGPROPERTY_DRAWABLE | TAGPROPERTY_RTREE | TAGPROPERTY_SELECTABLE | TAGPROPERTY_BLOCKMOVEMENT | TAGPROPERTY_MINIMUMCHILDREN | TAGPROPERTY_AUTOMATICSORTING, ICON_E3);
         // set values of attributes
         attrProperty = AttributeProperties(SUMO_ATTR_ID,
                                            ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE,
@@ -2684,7 +2684,7 @@ GNEAttributeCarrier::fillAdditionals() {
     currentTag = SUMO_TAG_REROUTER;
     {
         // set values of tag
-        myTagProperties[currentTag] = TagProperties(currentTag, TAGTYPE_ADDITIONAL, TAGPROPERTY_DRAWABLE | TAGPROPERTY_RTREE | TAGPROPERTY_SELECTABLE | TAGPROPERTY_BLOCKMOVEMENT | TAGPROPERTY_DIALOG | TAGPROPERTY_WRITECHILDSSEPARATE, ICON_REROUTER);
+        myTagProperties[currentTag] = TagProperties(currentTag, TAGTYPE_ADDITIONAL, TAGPROPERTY_DRAWABLE | TAGPROPERTY_RTREE | TAGPROPERTY_SELECTABLE | TAGPROPERTY_BLOCKMOVEMENT | TAGPROPERTY_DIALOG | TAGPROPERTY_WRITECHILDRENSEPARATE, ICON_REROUTER);
         // set values of attributes
         attrProperty = AttributeProperties(SUMO_ATTR_ID,
                                            ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE,
@@ -4507,7 +4507,7 @@ GNEAttributeCarrier::fillPersonElements() {
     SumoXMLTag currentTag = SUMO_TAG_PERSON;
     {
         // set values of tag
-        myTagProperties[currentTag] = TagProperties(currentTag, TAGTYPE_DEMANDELEMENT | TAGTYPE_PERSON, TAGPROPERTY_DRAWABLE | TAGPROPERTY_SELECTABLE | TAGPROPERTY_SORTINGCHILDS, ICON_PERSON);
+        myTagProperties[currentTag] = TagProperties(currentTag, TAGTYPE_DEMANDELEMENT | TAGTYPE_PERSON, TAGPROPERTY_DRAWABLE | TAGPROPERTY_SELECTABLE | TAGPROPERTY_SORTINGCHILDREN, ICON_PERSON);
         // set values of attributes
         attrProperty = AttributeProperties(SUMO_ATTR_ID,
                                            ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE,
@@ -4541,7 +4541,7 @@ GNEAttributeCarrier::fillPersonElements() {
     currentTag = SUMO_TAG_PERSONFLOW;
     {
         // set values of tag
-        myTagProperties[currentTag] = TagProperties(currentTag, TAGTYPE_DEMANDELEMENT | TAGTYPE_PERSON, TAGPROPERTY_DRAWABLE | TAGPROPERTY_SELECTABLE | TAGPROPERTY_SORTINGCHILDS, ICON_PERSONFLOW);
+        myTagProperties[currentTag] = TagProperties(currentTag, TAGTYPE_DEMANDELEMENT | TAGTYPE_PERSON, TAGPROPERTY_DRAWABLE | TAGPROPERTY_SELECTABLE | TAGPROPERTY_SORTINGCHILDREN, ICON_PERSONFLOW);
         // set values of attributes
         attrProperty = AttributeProperties(SUMO_ATTR_ID,
                                            ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE,

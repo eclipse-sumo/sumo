@@ -353,7 +353,7 @@ GNETAZ::getAttribute(SumoXMLAttr key) const {
             return toString(myColor);
         case SUMO_ATTR_EDGES: {
             std::vector<std::string> edgeIDs;
-            for (auto i : getAdditionalChilds()) {
+            for (auto i : getAdditionalChildren()) {
                 edgeIDs.push_back(i->getAttribute(SUMO_ATTR_EDGE));
             }
             return toString(edgeIDs);
@@ -456,11 +456,11 @@ GNETAZ::updateAdditionalParent() {
     myMaxWeightSink = 0;
     myMinWeightSink = -1;
     myAverageWeightSink = 0;
-    // declare an extra variables for saving number of childs
+    // declare an extra variables for saving number of children
     int numberOfSources = 0;
     int numberOfSinks = 0;
-    // iterate over additional childs
-    for (auto i : getAdditionalChilds()) {
+    // iterate over additional children
+    for (auto i : getAdditionalChildren()) {
         if (i->getTagProperty().getTag() == SUMO_TAG_TAZSOURCE) {
             double weight = parse<double>(i->getAttribute(SUMO_ATTR_WEIGHT));
             // check max Weight

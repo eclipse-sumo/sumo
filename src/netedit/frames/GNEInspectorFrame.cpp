@@ -284,7 +284,7 @@ GNEInspectorFrame::inspectMultisection(const std::vector<GNEAttributeCarrier*>& 
         // If attributes correspond to an Edge and we aren't in demand mode, show template editor
         myTemplateEditor->showTemplateEditor();
 
-        // if we inspect a single Attribute carrier vector, show their childs
+        // if we inspect a single Attribute carrier vector, show their children
         if (ACs.size() == 1) {
             myAttributeCarrierHierarchy->showAttributeCarrierHierarchy(ACs.front());
         }

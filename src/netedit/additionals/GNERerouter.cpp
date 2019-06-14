@@ -148,7 +148,7 @@ GNERerouter::drawGL(const GUIVisualizationSettings& s) const {
     }
     // Pop draw matrix
     glPopMatrix();
-    // Only lock and childs if isn't being drawn for selecting
+    // Only lock and children if isn't being drawn for selecting
     if (!s.drawForSelecting) {
         // Show Lock icon depending of the Edit mode
         myBlockIcon.draw(0.4);
@@ -176,7 +176,7 @@ GNERerouter::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_ID:
             return getAdditionalID();
         case SUMO_ATTR_EDGES:
-            return parseIDs(getEdgeChilds());
+            return parseIDs(getEdgeChildren());
         case SUMO_ATTR_POSITION:
             return toString(myPosition);
         case SUMO_ATTR_NAME:
@@ -212,8 +212,8 @@ GNERerouter::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList
         case SUMO_ATTR_ID: {
             // change ID of Rerouter Interval
             undoList->p_add(new GNEChange_Attribute(this, myViewNet->getNet(), key, value));
-            // Change Ids of all Rerouter interval childs
-            for (auto i : getAdditionalChilds()) {
+            // Change Ids of all Rerouter interval children
+            for (auto i : getAdditionalChildren()) {
                 i->setAttribute(SUMO_ATTR_ID, generateChildID(SUMO_TAG_INTERVAL), undoList);
             }
             break;
@@ -300,7 +300,7 @@ GNERerouter::setAttribute(SumoXMLAttr key, const std::string& value) {
             changeAdditionalID(value);
             break;
         case SUMO_ATTR_EDGES:
-            changeEdgeChilds(this, value);
+            changeEdgeChildren(this, value);
             break;
         case SUMO_ATTR_POSITION:
             myViewNet->getNet()->removeGLObjectFromGrid(this);

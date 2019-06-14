@@ -186,8 +186,8 @@ GNERide::commitGeometryMoving(GNEUndoList*) {
 
 void
 GNERide::updateGeometry() {
-    // only update demand element childs, because Ride uses the geometry of lane parent
-    for (const auto& i : getDemandElementChilds()) {
+    // only update demand element children, because Ride uses the geometry of lane parent
+    for (const auto& i : getDemandElementChildren()) {
         i->updateGeometry();
     }
 }

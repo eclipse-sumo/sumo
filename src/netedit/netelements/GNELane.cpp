@@ -99,15 +99,15 @@ GNELane::updateGeometry() {
     for (auto i : getShapeParents()) {
         i->updateGeometry();
     }
-    // update shape childs associated with this lane
-    for (auto i : getShapeChilds()) {
+    // update shape children associated with this lane
+    for (auto i : getShapeChildren()) {
         i->updateGeometry();
     }
     // update additionals parents associated with this lane
-    for (auto i : getAdditionalChilds()) {
+    for (auto i : getAdditionalChildren()) {
         i->updateGeometry();
     }
-    // update additionals childs associated with this lane
+    // update additionals children associated with this lane
     for (auto i : getAdditionalParents()) {
         i->updateGeometry();
     }
@@ -115,8 +115,8 @@ GNELane::updateGeometry() {
     for (auto i : getDemandElementParents()) {
         i->updateGeometry();
     }
-    // update demand elements childs associated with this lane
-    for (auto i : getDemandElementChilds()) {
+    // update demand elements children associated with this lane
+    for (auto i : getDemandElementChildren()) {
         i->updateGeometry();
     }
     // In Move mode, connections aren't updated
@@ -485,19 +485,19 @@ GNELane::drawGL(const GUIVisualizationSettings& s) const {
                 drawVSSSymbol(s, i);
             }
         }
-        // draw shape childs
-        for (const auto &i : getShapeChilds()) {
+        // draw shape children
+        for (const auto &i : getShapeChildren()) {
             i->drawGL(s);
         }
-        // draw additional childs
-        for (const auto &i : getAdditionalChilds()) {
+        // draw additional children
+        for (const auto &i : getAdditionalChildren()) {
             // check that ParkingAreas aren't draw two times
             if (!i->getTagProperty().isPlacedInRTree()) {
                 i->drawGL(s);
             }
         }
-        // draw demand element childs
-        for (const auto &i : getDemandElementChilds()) {
+        // draw demand element children
+        for (const auto &i : getDemandElementChildren()) {
             if (!i->getTagProperty().isPlacedInRTree()) {
                 i->drawGL(s);
             }
@@ -1360,24 +1360,24 @@ GNELane::getLengthGeometryFactor() const {
 void
 GNELane::startGeometryMoving() {
     // Lanes don't need to save the current Centering Boundary, due they are parts of an Edge
-    // Save current centering boundary of shape childs
-    for (auto i : getShapeChilds()) {
+    // Save current centering boundary of shape children
+    for (auto i : getShapeChildren()) {
         i->startGeometryMoving();
     }
     // Save current centering boundary of shapes with this lane as chid
     for (auto i : getShapeParents()) {
         i->startGeometryMoving();
     }
-    // Save current centering boundary of additional childs
-    for (auto i : getAdditionalChilds()) {
+    // Save current centering boundary of additional children
+    for (auto i : getAdditionalChildren()) {
         i->startGeometryMoving();
     }
     // Save current centering boundary of additionals with this lane as chid
     for (auto i : getAdditionalParents()) {
         i->startGeometryMoving();
     }
-    // Save current centering boundary of demand element childs
-    for (auto i : getDemandElementChilds()) {
+    // Save current centering boundary of demand element children
+    for (auto i : getDemandElementChildren()) {
         i->startGeometryMoving();
     }
     // Save current centering boundary of demand element with this lane as chid
@@ -1391,7 +1391,7 @@ void
 GNELane::endGeometryMoving() {
     // Lanes don't need to save the current Centering Boundary, due they are parts of an Edge
     // Restore centering boundary of shapes with this lane as chid
-    for (auto i : getShapeChilds()) {
+    for (auto i : getShapeChildren()) {
         i->endGeometryMoving();
     }
     // Restore centering boundary of shapes with this lane as chid
@@ -1399,7 +1399,7 @@ GNELane::endGeometryMoving() {
         i->endGeometryMoving();
     }
     // Restore centering boundary of additionals with this lane as chid
-    for (auto i : getAdditionalChilds()) {
+    for (auto i : getAdditionalChildren()) {
         i->endGeometryMoving();
     }
     // Restore centering boundary of additionals with this lane as chid
@@ -1407,7 +1407,7 @@ GNELane::endGeometryMoving() {
         i->endGeometryMoving();
     }
     // Restore centering boundary of demand elements with this lane as chid
-    for (auto i : getDemandElementChilds()) {
+    for (auto i : getDemandElementChildren()) {
         i->endGeometryMoving();
     }
     // Restore centering boundary of demand elements with this lane as chid

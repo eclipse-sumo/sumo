@@ -255,15 +255,15 @@ GNEVehicleTypeFrame::VehicleTypeEditor::onCmdCreateVehicleType(FXObject*, FXSele
 long
 GNEVehicleTypeFrame::VehicleTypeEditor::onCmdDeleteVehicleType(FXObject*, FXSelector, void*) {
     // show question dialog if vtype has already assigned vehicles
-    if (myVehicleTypeFrameParent->myVehicleTypeSelector->getCurrentVehicleType()->getDemandElementChilds().size() > 0) {
-        std::string plural = myVehicleTypeFrameParent->myVehicleTypeSelector->getCurrentVehicleType()->getDemandElementChilds().size() == 1 ? ("") : ("s");
+    if (myVehicleTypeFrameParent->myVehicleTypeSelector->getCurrentVehicleType()->getDemandElementChildren().size() > 0) {
+        std::string plural = myVehicleTypeFrameParent->myVehicleTypeSelector->getCurrentVehicleType()->getDemandElementChildren().size() == 1 ? ("") : ("s");
         // show warning in gui testing debug mode
         WRITE_DEBUG("Opening FXMessageBox 'remove vType'");
         // Ask confirmation to user
         FXuint answer = FXMessageBox::question(getApp(), MBOX_YES_NO,
                                                ("Remove " + toString(SUMO_TAG_VTYPE) + "s").c_str(), "%s",
                                                ("Delete " + toString(SUMO_TAG_VTYPE) + " '" + myVehicleTypeFrameParent->myVehicleTypeSelector->getCurrentVehicleType()->getID() +
-                                                "' will remove " + toString(myVehicleTypeFrameParent->myVehicleTypeSelector->getCurrentVehicleType()->getDemandElementChilds().size()) +
+                                                "' will remove " + toString(myVehicleTypeFrameParent->myVehicleTypeSelector->getCurrentVehicleType()->getDemandElementChildren().size()) +
                                                 " vehicle" + plural + ". Continue?").c_str());
         if (answer != 1) { // 1:yes, 2:no, 4:esc
             // write warning if netedit is running in testing mode
@@ -275,7 +275,7 @@ GNEVehicleTypeFrame::VehicleTypeEditor::onCmdDeleteVehicleType(FXObject*, FXSele
         } else {
             // begin undo list operation
             myVehicleTypeFrameParent->myViewNet->getUndoList()->p_begin("delete vehicle type");
-            // remove vehicle type (and all of their childs)
+            // remove vehicle type (and all of their children)
             myVehicleTypeFrameParent->myViewNet->getNet()->deleteDemandElement(myVehicleTypeFrameParent->myVehicleTypeSelector->getCurrentVehicleType(),
                 myVehicleTypeFrameParent->myViewNet->getUndoList());
             // end undo list operation
@@ -284,7 +284,7 @@ GNEVehicleTypeFrame::VehicleTypeEditor::onCmdDeleteVehicleType(FXObject*, FXSele
     } else {
         // begin undo list operation
         myVehicleTypeFrameParent->myViewNet->getUndoList()->p_begin("delete vehicle type");
-        // remove vehicle type (and all of their childs)
+        // remove vehicle type (and all of their children)
         myVehicleTypeFrameParent->myViewNet->getNet()->deleteDemandElement(myVehicleTypeFrameParent->myVehicleTypeSelector->getCurrentVehicleType(),
             myVehicleTypeFrameParent->myViewNet->getUndoList());
         // end undo list operation

@@ -142,7 +142,7 @@ GNEVariableSpeedSign::drawGL(const GUIVisualizationSettings& s) const {
     }
     // Pop draw icon matrix
     glPopMatrix();
-    // Only lock and childs if isn't being drawn for selecting
+    // Only lock and children if isn't being drawn for selecting
     if (!s.drawForSelecting) {
         // Show Lock icon depending of the Edit mode
         myBlockIcon.draw(0.4);
@@ -172,7 +172,7 @@ GNEVariableSpeedSign::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_ID:
             return getAdditionalID();
         case SUMO_ATTR_LANES:
-            return parseIDs(getLaneChilds());
+            return parseIDs(getLaneChildren());
         case SUMO_ATTR_POSITION:
             return toString(myPosition);
         case SUMO_ATTR_NAME:
@@ -199,7 +199,7 @@ GNEVariableSpeedSign::setAttribute(SumoXMLAttr key, const std::string& value, GN
             // change ID of Rerouter Interval
             undoList->p_add(new GNEChange_Attribute(this, myViewNet->getNet(), key, value));
             // Change Ids of all Variable Speed Sign
-            for (auto i : getAdditionalChilds()) {
+            for (auto i : getAdditionalChildren()) {
                 i->setAttribute(SUMO_ATTR_ID, generateChildID(SUMO_TAG_STEP), undoList);
             }
             break;
@@ -267,7 +267,7 @@ GNEVariableSpeedSign::setAttribute(SumoXMLAttr key, const std::string& value) {
             changeAdditionalID(value);
             break;
         case SUMO_ATTR_LANES:
-            changeLaneChilds(this, value);
+            changeLaneChildren(this, value);
             break;
         case SUMO_ATTR_POSITION:
             myViewNet->getNet()->removeGLObjectFromGrid(this);

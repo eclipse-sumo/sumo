@@ -75,13 +75,13 @@ public:
      */
     void writeDemandElement(OutputDevice& device) const;
 
-    /// @brief check if current demand element is valid to be writed into XML (by default true, can be reimplemented in childs)
+    /// @brief check if current demand element is valid to be writed into XML (by default true, can be reimplemented in children)
     bool isDemandElementValid() const;
 
-    /// @brief return a string with the current demand element problem (by default empty, can be reimplemented in childs)
+    /// @brief return a string with the current demand element problem (by default empty, can be reimplemented in children)
     std::string getDemandElementProblem() const;
 
-    /// @brief fix demand element problem (by default throw an exception, has to be reimplemented in childs)
+    /// @brief fix demand element problem (by default throw an exception, has to be reimplemented in children)
     void fixDemandElementProblem();
 
     /// @name Functions related with geometry of element

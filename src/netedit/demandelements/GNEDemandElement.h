@@ -24,7 +24,7 @@
 #include <config.h>
 
 #include <netedit/GNEHierarchicalElementParents.h>
-#include <netedit/GNEHierarchicalElementChilds.h>
+#include <netedit/GNEHierarchicalElementChildren.h>
 #include <utils/common/Parameterised.h>
 #include <utils/geom/PositionVector.h>
 #include <utils/gui/globjects/GUIGlObject.h>
@@ -50,7 +50,7 @@ class GNEDemandElement;
  * @class GNEDemandElement
  * @brief An Element which don't belongs to GNENet but has influency in the simulation
  */
-class GNEDemandElement : public GUIGlObject, public GNEAttributeCarrier, public Parameterised, public GNEHierarchicalElementParents, public GNEHierarchicalElementChilds {
+class GNEDemandElement : public GUIGlObject, public GNEAttributeCarrier, public Parameterised, public GNEHierarchicalElementParents, public GNEHierarchicalElementChildren {
 
 public:
     /// @brief class used to calculate routes in nets
@@ -92,12 +92,12 @@ public:
      * @param[in] laneParents vector of lane parents
      * @param[in] shapeParents vector of shape parents
      * @param[in] additionalParents vector of additional parents
-     * @param[in] demandElementChilds vector of demandElement parents
-     * @param[in] edgeChilds vector of edge childs
-     * @param[in] laneChilds vector of lane childs
-     * @param[in] shapeChilds vector of shape childs
-     * @param[in] additionalChilds vector of additional childs
-     * @param[in] demandElementChilds vector of demandElement childs
+     * @param[in] demandElementChildren vector of demandElement parents
+     * @param[in] edgeChildren vector of edge children
+     * @param[in] laneChildren vector of lane children
+     * @param[in] shapeChildren vector of shape children
+     * @param[in] additionalChildren vector of additional children
+     * @param[in] demandElementChildren vector of demandElement children
      */
     GNEDemandElement(const std::string& id, GNEViewNet* viewNet, GUIGlObjectType type, SumoXMLTag tag,
                      const std::vector<GNEEdge*>& edgeParents,
@@ -105,11 +105,11 @@ public:
                      const std::vector<GNEShape*>& shapeParents,
                      const std::vector<GNEAdditional*>& additionalParents,
                      const std::vector<GNEDemandElement*>& demandElementParents,
-                     const std::vector<GNEEdge*>& edgeChilds,
-                     const std::vector<GNELane*>& laneChilds,
-                     const std::vector<GNEShape*>& shapeChilds,
-                     const std::vector<GNEAdditional*>& additionalChilds,
-                     const std::vector<GNEDemandElement*>& demandElementChilds);
+                     const std::vector<GNEEdge*>& edgeChildren,
+                     const std::vector<GNELane*>& laneChildren,
+                     const std::vector<GNEShape*>& shapeChildren,
+                     const std::vector<GNEAdditional*>& additionalChildren,
+                     const std::vector<GNEDemandElement*>& demandElementChildren);
 
     /**@brief Constructor
      * @param[in] demandElementParent pointer to demand element parent pointer (used to generate an ID)
@@ -120,12 +120,12 @@ public:
      * @param[in] laneParents vector of lane parents
      * @param[in] shapeParents vector of shape parents
      * @param[in] additionalParents vector of additional parents
-     * @param[in] demandElementChilds vector of demandElement parents
-     * @param[in] edgeChilds vector of edge childs
-     * @param[in] laneChilds vector of lane childs
-     * @param[in] shapeChilds vector of shape childs
-     * @param[in] additionalChilds vector of additional childs
-     * @param[in] demandElementChilds vector of demandElement childs
+     * @param[in] demandElementChildren vector of demandElement parents
+     * @param[in] edgeChildren vector of edge children
+     * @param[in] laneChildren vector of lane children
+     * @param[in] shapeChildren vector of shape children
+     * @param[in] additionalChildren vector of additional children
+     * @param[in] demandElementChildren vector of demandElement children
      */
     GNEDemandElement(GNEDemandElement* demandElementParent, GNEViewNet* viewNet, GUIGlObjectType type, SumoXMLTag tag,
                      const std::vector<GNEEdge*>& edgeParents,
@@ -133,11 +133,11 @@ public:
                      const std::vector<GNEShape*>& shapeParents,
                      const std::vector<GNEAdditional*>& additionalParents,
                      const std::vector<GNEDemandElement*>& demandElementParents,
-                     const std::vector<GNEEdge*>& edgeChilds,
-                     const std::vector<GNELane*>& laneChilds,
-                     const std::vector<GNEShape*>& shapeChilds,
-                     const std::vector<GNEAdditional*>& additionalChilds,
-                     const std::vector<GNEDemandElement*>& demandElementChilds);
+                     const std::vector<GNEEdge*>& edgeChildren,
+                     const std::vector<GNELane*>& laneChildren,
+                     const std::vector<GNEShape*>& shapeChildren,
+                     const std::vector<GNEAdditional*>& additionalChildren,
+                     const std::vector<GNEDemandElement*>& demandElementChildren);
 
     /// @brief Destructor
     ~GNEDemandElement();
@@ -155,13 +155,13 @@ public:
      */
     virtual void writeDemandElement(OutputDevice& device) const = 0;
 
-    /// @brief check if current demand element is valid to be writed into XML (by default true, can be reimplemented in childs)
+    /// @brief check if current demand element is valid to be writed into XML (by default true, can be reimplemented in children)
     virtual bool isDemandElementValid() const;
 
-    /// @brief return a string with the current demand element problem (by default empty, can be reimplemented in childs)
+    /// @brief return a string with the current demand element problem (by default empty, can be reimplemented in children)
     virtual std::string getDemandElementProblem() const;
 
-    /// @brief fix demand element problem (by default throw an exception, has to be reimplemented in childs)
+    /// @brief fix demand element problem (by default throw an exception, has to be reimplemented in children)
     virtual void fixDemandElementProblem();
     /// @}
 
@@ -172,7 +172,7 @@ public:
     virtual void openDemandElementDialog();
 
     /**@brief get begin time of demand element
-     * @note: used by demand elements of type "Vehicle", and it has to be implemented as childs
+     * @note: used by demand elements of type "Vehicle", and it has to be implemented as children
      * @throw invalid argument if demand element doesn't has a begin time
      */
     virtual std::string getBegin() const;
@@ -343,7 +343,7 @@ protected:
     /// @}
 
 private:
-    /**@brief check restriction with the number of childs
+    /**@brief check restriction with the number of children
      * @throw ProcessError if itis called without be reimplemented in child class
      */
     virtual bool checkDemandElementChildRestriction() const;

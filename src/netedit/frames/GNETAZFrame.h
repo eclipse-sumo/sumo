@@ -327,20 +327,20 @@ public:
         /// @brief hide TAZ Selection Statistics Modul
         void hideTAZSelectionStatisticsModul();
 
-        /// @brief add an edge and their TAZ Childs in the list of selected items
+        /// @brief add an edge and their TAZ Children in the list of selected items
         bool selectEdge(const TAZCurrent::TAZEdge& edge);
 
-        /// @brief un select an edge (and their TAZ Childs)
+        /// @brief un select an edge (and their TAZ Children)
         bool unselectEdge(GNEEdge* edge);
 
         /// @brief check if an edge is selected
         bool isEdgeSelected(GNEEdge* edge);
 
-        /// @brief clear current TAZ childs
+        /// @brief clear current TAZ children
         void clearSelectedEdges();
 
-        /// @brief get map with edge and TAZChilds
-        const std::vector<TAZCurrent::TAZEdge>& getEdgeAndTAZChildsSelected() const;
+        /// @brief get map with edge and TAZChildren
+        const std::vector<TAZCurrent::TAZEdge>& getEdgeAndTAZChildrenSelected() const;
 
         /// @name FOX-callbacks
         /// @{
@@ -377,8 +377,8 @@ public:
         /// @brief Statistics labels
         FXLabel* myStatisticsLabel;
 
-        /// @brief vector with the current selected edges and their associated childs
-        std::vector<TAZCurrent::TAZEdge> myEdgeAndTAZChildsSelected;
+        /// @brief vector with the current selected edges and their associated children
+        std::vector<TAZCurrent::TAZEdge> myEdgeAndTAZChildrenSelected;
     };
 
     // ===========================================================================
@@ -545,7 +545,7 @@ protected:
      */
     bool shapeDrawed();
 
-    /// @brief add or remove a TAZSource and a TAZSink, or remove it if edge is in the list of TAZ Childs
+    /// @brief add or remove a TAZSource and a TAZSink, or remove it if edge is in the list of TAZ Children
     bool addOrRemoveTAZMember(GNEEdge* edge);
 
     /// @brief drop all TAZSources and TAZ Sinks of current TAZ

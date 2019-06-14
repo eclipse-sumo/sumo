@@ -1630,8 +1630,8 @@ GNEViewNetHelper::ViewOptionsDemand::showNonInspectedDemandElements(const GNEDem
                 // if inspected element correspond to demandElement, return true
                 return true;
             } else {
-                // if demandElement is a route, check if dottedAC is one of their childs (Vehicle or Stop)
-                for (const auto &i : demandElement->getDemandElementChilds()) {
+                // if demandElement is a route, check if dottedAC is one of their children (Vehicle or Stop)
+                for (const auto &i : demandElement->getDemandElementChildren()) {
                     if (i == myViewNet->getDottedAC()) {
                         return true;
                     }

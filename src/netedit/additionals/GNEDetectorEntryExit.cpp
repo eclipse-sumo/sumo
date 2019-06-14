@@ -140,7 +140,7 @@ GNEDetectorEntryExit::updateGeometry() {
     // Set block icon rotation, and using their rotation for logo
     myBlockIcon.setRotation(getLaneParents().front());
 
-    // update E3 parent childs
+    // update E3 parent children
     getAdditionalParents().at(0)->updateChildConnections();
 }
 

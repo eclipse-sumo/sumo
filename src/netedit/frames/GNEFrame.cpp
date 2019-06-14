@@ -2019,9 +2019,9 @@ GNEFrame::AttributeCarrierHierarchy::refreshAttributeCarrierHierarchy() {
     myTreelist->clearItems();
     myTreeItemToACMap.clear();
     myTreeItemsConnections.clear();
-    // show ACChilds of myAC
+    // show ACChildren of myAC
     if (myAC) {
-        showAttributeCarrierChilds(myAC, showAttributeCarrierParents());
+        showAttributeCarrierChildren(myAC, showAttributeCarrierParents());
     }
 }
 
@@ -2392,7 +2392,7 @@ GNEFrame::AttributeCarrierHierarchy::showAttributeCarrierParents() {
 
 
 void
-GNEFrame::AttributeCarrierHierarchy::showAttributeCarrierChilds(GNEAttributeCarrier* AC, FXTreeItem* itemParent) {
+GNEFrame::AttributeCarrierHierarchy::showAttributeCarrierChildren(GNEAttributeCarrier* AC, FXTreeItem* itemParent) {
     if (AC->getTagProperty().isNetElement()) {
         // Switch gl type of ac
         switch (AC->getTagProperty().getTag()) {
@@ -2404,11 +2404,11 @@ GNEFrame::AttributeCarrierHierarchy::showAttributeCarrierChilds(GNEAttributeCarr
                     FXTreeItem* junctionItem = addListItem(AC, itemParent);
                     // insert edges
                     for (auto i : junction->getGNEEdges()) {
-                        showAttributeCarrierChilds(i, junctionItem);
+                        showAttributeCarrierChildren(i, junctionItem);
                     }
                     // insert crossings
                     for (auto i : junction->getGNECrossings()) {
-                        showAttributeCarrierChilds(i, junctionItem);
+                        showAttributeCarrierChildren(i, junctionItem);
                     }
                 }
                 break;
@@ -2421,25 +2421,25 @@ GNEFrame::AttributeCarrierHierarchy::showAttributeCarrierChilds(GNEAttributeCarr
                     FXTreeItem* edgeItem = addListItem(AC, itemParent);
                     // insert lanes
                     for (const auto& i : edge->getLanes()) {
-                        showAttributeCarrierChilds(i, edgeItem);
+                        showAttributeCarrierChildren(i, edgeItem);
                     }
-                    // insert shape childs
-                    for (const auto& i : edge->getShapeChilds()) {
-                        showAttributeCarrierChilds(i, edgeItem);
+                    // insert shape children
+                    for (const auto& i : edge->getShapeChildren()) {
+                        showAttributeCarrierChildren(i, edgeItem);
                     }
-                    // insert additional childs
-                    for (const auto& i : edge->getAdditionalChilds()) {
-                        showAttributeCarrierChilds(i, edgeItem);
+                    // insert additional children
+                    for (const auto& i : edge->getAdditionalChildren()) {
+                        showAttributeCarrierChildren(i, edgeItem);
                     }
-                    // insert demand elements childs (note: use getSortedDemandElementChildsByType to avoid duplicated elements)
-                    for (const auto &i : edge->getSortedDemandElementChildsByType(SUMO_TAG_ROUTE)) {
-                        showAttributeCarrierChilds(i, edgeItem);
+                    // insert demand elements children (note: use getSortedDemandElementChildrenByType to avoid duplicated elements)
+                    for (const auto &i : edge->getSortedDemandElementChildrenByType(SUMO_TAG_ROUTE)) {
+                        showAttributeCarrierChildren(i, edgeItem);
                     }
-                    for (const auto &i : edge->getSortedDemandElementChildsByType(SUMO_TAG_TRIP)) {
-                        showAttributeCarrierChilds(i, edgeItem);
+                    for (const auto &i : edge->getSortedDemandElementChildrenByType(SUMO_TAG_TRIP)) {
+                        showAttributeCarrierChildren(i, edgeItem);
                     }
-                    for (const auto &i : edge->getSortedDemandElementChildsByType(SUMO_TAG_FLOW)) {
-                        showAttributeCarrierChilds(i, edgeItem);
+                    for (const auto &i : edge->getSortedDemandElementChildrenByType(SUMO_TAG_FLOW)) {
+                        showAttributeCarrierChildren(i, edgeItem);
                     }
                 }
                 break;
@@ -2450,17 +2450,17 @@ GNEFrame::AttributeCarrierHierarchy::showAttributeCarrierChilds(GNEAttributeCarr
                 if (lane) {
                     // insert lane item
                     FXTreeItem* laneItem = addListItem(AC, itemParent);
-                    // insert shape childs
-                    for (const auto& i : lane->getShapeChilds()) {
-                        showAttributeCarrierChilds(i, laneItem);
+                    // insert shape children
+                    for (const auto& i : lane->getShapeChildren()) {
+                        showAttributeCarrierChildren(i, laneItem);
                     }
-                    // insert additional childs
-                    for (const auto& i : lane->getAdditionalChilds()) {
-                        showAttributeCarrierChilds(i, laneItem);
+                    // insert additional children
+                    for (const auto& i : lane->getAdditionalChildren()) {
+                        showAttributeCarrierChildren(i, laneItem);
                     }
-                    // insert demand elements childs
-                    for (const auto& i : lane->getDemandElementChilds()) {
-                        showAttributeCarrierChilds(i, laneItem);
+                    // insert demand elements children
+                    for (const auto& i : lane->getDemandElementChildren()) {
+                        showAttributeCarrierChildren(i, laneItem);
                     }
                     // insert incoming connections of lanes (by default isn't expanded)
                     if (lane->getGNEIncomingConnections().size() > 0) {
@@ -2469,7 +2469,7 @@ GNEFrame::AttributeCarrierHierarchy::showAttributeCarrierChilds(GNEAttributeCarr
                         FXTreeItem* incomingConnections = addListItem(laneItem, "Incomings", incomingLaneConnections.front()->getIcon(), false);
                         // insert incoming connections
                         for (auto i : incomingLaneConnections) {
-                            showAttributeCarrierChilds(i, incomingConnections);
+                            showAttributeCarrierChildren(i, incomingConnections);
                         }
                     }
                     // insert outcoming connections of lanes (by default isn't expanded)
@@ -2479,7 +2479,7 @@ GNEFrame::AttributeCarrierHierarchy::showAttributeCarrierChilds(GNEAttributeCarr
                         FXTreeItem* outgoingConnections = addListItem(laneItem, "Outgoing", outcomingLaneConnections.front()->getIcon(), false);
                         // insert outcoming connections
                         for (auto i : outcomingLaneConnections) {
-                            showAttributeCarrierChilds(i, outgoingConnections);
+                            showAttributeCarrierChildren(i, outgoingConnections);
                         }
                     }
                 }
@@ -2503,25 +2503,25 @@ GNEFrame::AttributeCarrierHierarchy::showAttributeCarrierChilds(GNEAttributeCarr
         if (additional) {
             // insert additional item
             FXTreeItem* additionalItem = addListItem(AC, itemParent);
-            // insert edge childs
-            for (const auto& i : additional->getEdgeChilds()) {
-                showAttributeCarrierChilds(i, additionalItem);
+            // insert edge children
+            for (const auto& i : additional->getEdgeChildren()) {
+                showAttributeCarrierChildren(i, additionalItem);
             }
-            // insert lane childs
-            for (const auto& i : additional->getLaneChilds()) {
-                showAttributeCarrierChilds(i, additionalItem);
+            // insert lane children
+            for (const auto& i : additional->getLaneChildren()) {
+                showAttributeCarrierChildren(i, additionalItem);
             }
-            // insert shape childs
-            for (const auto& i : additional->getShapeChilds()) {
-                showAttributeCarrierChilds(i, additionalItem);
+            // insert shape children
+            for (const auto& i : additional->getShapeChildren()) {
+                showAttributeCarrierChildren(i, additionalItem);
             }
-            // insert additionals childs
-            for (const auto& i : additional->getAdditionalChilds()) {
-                showAttributeCarrierChilds(i, additionalItem);
+            // insert additionals children
+            for (const auto& i : additional->getAdditionalChildren()) {
+                showAttributeCarrierChildren(i, additionalItem);
             }
-            // insert demand element childs
-            for (const auto& i : additional->getDemandElementChilds()) {
-                showAttributeCarrierChilds(i, additionalItem);
+            // insert demand element children
+            for (const auto& i : additional->getDemandElementChildren()) {
+                showAttributeCarrierChildren(i, additionalItem);
             }
         }
     } else if (AC->getTagProperty().isDemandElement()) {
@@ -2530,25 +2530,25 @@ GNEFrame::AttributeCarrierHierarchy::showAttributeCarrierChilds(GNEAttributeCarr
         if (demandElement) {
             // insert demandElement item
             FXTreeItem* demandElementItem = addListItem(AC, itemParent);
-            // insert edge childs
-            for (const auto& i : demandElement->getEdgeChilds()) {
-                showAttributeCarrierChilds(i, demandElementItem);
+            // insert edge children
+            for (const auto& i : demandElement->getEdgeChildren()) {
+                showAttributeCarrierChildren(i, demandElementItem);
             }
-            // insert lane childs
-            for (const auto& i : demandElement->getLaneChilds()) {
-                showAttributeCarrierChilds(i, demandElementItem);
+            // insert lane children
+            for (const auto& i : demandElement->getLaneChildren()) {
+                showAttributeCarrierChildren(i, demandElementItem);
             }
-            // insert shape childs
-            for (const auto& i : demandElement->getShapeChilds()) {
-                showAttributeCarrierChilds(i, demandElementItem);
+            // insert shape children
+            for (const auto& i : demandElement->getShapeChildren()) {
+                showAttributeCarrierChildren(i, demandElementItem);
             }
-            // insert additionals childs
-            for (const auto& i : demandElement->getAdditionalChilds()) {
-                showAttributeCarrierChilds(i, demandElementItem);
+            // insert additionals children
+            for (const auto& i : demandElement->getAdditionalChildren()) {
+                showAttributeCarrierChildren(i, demandElementItem);
             }
-            // insert demand element childs
-            for (const auto& i : demandElement->getDemandElementChilds()) {
-                showAttributeCarrierChilds(i, demandElementItem);
+            // insert demand element children
+            for (const auto& i : demandElement->getDemandElementChildren()) {
+                showAttributeCarrierChildren(i, demandElementItem);
             }
         }
     }

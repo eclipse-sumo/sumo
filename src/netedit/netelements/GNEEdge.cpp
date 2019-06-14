@@ -135,16 +135,16 @@ GNEEdge::updateGeometry() {
             i->updateGeometry();
         }
     }
-    // Update geometry of additionals childs vinculated to this edge
-    for (auto i : getAdditionalChilds()) {
+    // Update geometry of additionals children vinculated to this edge
+    for (auto i : getAdditionalChildren()) {
         i->updateGeometry();
     }
     // Update geometry of additional parents that have this edge as parent
     for (auto i : getAdditionalParents()) {
         i->updateGeometry();
     }
-    // Update geometry of demand elements childs vinculated to this edge
-    for (auto i : getDemandElementChilds()) {
+    // Update geometry of demand elements children vinculated to this edge
+    for (auto i : getDemandElementChildren()) {
         i->updateGeometry();
     }
     // Update geometry of demand elements parents that have this edge as parent
@@ -247,20 +247,20 @@ void
 GNEEdge::startGeometryMoving() {
     // save current centering boundary
     myMovingGeometryBoundary = getCenteringBoundary();
-    // Save current centering boundary of lanes (and their childs)
+    // Save current centering boundary of lanes (and their children)
     for (auto i : myLanes) {
         i->startGeometryMoving();
     }
-    // Save current centering boundary of additionals childs vinculated to this edge
-    for (auto i : getAdditionalChilds()) {
+    // Save current centering boundary of additionals children vinculated to this edge
+    for (auto i : getAdditionalChildren()) {
         i->startGeometryMoving();
     }
     // Save current centering boundary of additional parents that have this edge as parent
     for (auto i : getAdditionalParents()) {
         i->startGeometryMoving();
     }
-    // Save current centering boundary of demand elements childs vinculated to this edge
-    for (auto i : getDemandElementChilds()) {
+    // Save current centering boundary of demand elements children vinculated to this edge
+    for (auto i : getDemandElementChildren()) {
         i->startGeometryMoving();
     }
     // Save current centering boundary of demand elements parents that have this edge as parent
@@ -278,20 +278,20 @@ GNEEdge::endGeometryMoving() {
         myNet->removeGLObjectFromGrid(this);
         // reset myMovingGeometryBoundary
         myMovingGeometryBoundary.reset();
-        // Restore centering boundary of lanes (and their childs)
+        // Restore centering boundary of lanes (and their children)
         for (auto i : myLanes) {
             i->endGeometryMoving();
         }
-        // Restore centering boundary of additionals childs vinculated to this edge
-        for (auto i : getAdditionalChilds()) {
+        // Restore centering boundary of additionals children vinculated to this edge
+        for (auto i : getAdditionalChildren()) {
             i->endGeometryMoving();
         }
         // Restore centering boundary of additional parents that have this edge as parent
         for (auto i : getAdditionalParents()) {
             i->endGeometryMoving();
         }
-        // Restore centering boundary of demand elements childs vinculated to this edge
-        for (auto i : getDemandElementChilds()) {
+        // Restore centering boundary of demand elements children vinculated to this edge
+        for (auto i : getDemandElementChildren()) {
             i->endGeometryMoving();
         }
         // Restore centering boundary of demand elements parents that have this edge as parent
@@ -525,28 +525,28 @@ GNEEdge::drawGL(const GUIVisualizationSettings& s) const {
             drawRerouterSymbol(s, i);
         }
     }
-    // draw additional childs
-    for (const auto &i : getAdditionalChilds()) {
+    // draw additional children
+    for (const auto &i : getAdditionalChildren()) {
         i->drawGL(s);
     }
     // draw edge child
     if (myNet->getViewNet()->getViewOptionsNetwork().showDemandElements()) {
-        // certain demand elements childs can contain loops (for example, routes) and it causes overlapping problems. It's needed to filter it before drawing
-        for (const auto &i : getSortedDemandElementChildsByType(SUMO_TAG_ROUTE)) {
+        // certain demand elements children can contain loops (for example, routes) and it causes overlapping problems. It's needed to filter it before drawing
+        for (const auto &i : getSortedDemandElementChildrenByType(SUMO_TAG_ROUTE)) {
             // first check if route can be drawn
             if (myNet->getViewNet()->getViewOptionsDemand().showNonInspectedDemandElements(i)) {
                 // draw partial route
                 drawPartialRoute(s, i);
             }
         }
-        for (const auto &i : getSortedDemandElementChildsByType(SUMO_TAG_EMBEDDEDROUTE)) {
+        for (const auto &i : getSortedDemandElementChildrenByType(SUMO_TAG_EMBEDDEDROUTE)) {
             // first check if embedded route can be drawn
             if (myNet->getViewNet()->getViewOptionsDemand().showNonInspectedDemandElements(i)) {
                 // draw partial route
                 drawPartialRoute(s, i);
             }
         }
-        for (const auto &i : getSortedDemandElementChildsByType(SUMO_TAG_TRIP)) {
+        for (const auto &i : getSortedDemandElementChildrenByType(SUMO_TAG_TRIP)) {
             // Start drawing adding an gl identificator
             glPushName(i->getGlID());
             // draw partial trip only if is being inspected or selected
@@ -560,7 +560,7 @@ GNEEdge::drawGL(const GUIVisualizationSettings& s) const {
             // Pop name
             glPopName();
         }
-        for (const auto &i : getSortedDemandElementChildsByType(SUMO_TAG_FLOW)) {
+        for (const auto &i : getSortedDemandElementChildrenByType(SUMO_TAG_FLOW)) {
             // Start drawing adding an gl identificator
             glPushName(i->getGlID());
             // draw partial trip only if is being inspected or selected
@@ -575,28 +575,28 @@ GNEEdge::drawGL(const GUIVisualizationSettings& s) const {
             glPopName();
         }
         // draw partial person plan elements
-        for (const auto &i : getSortedDemandElementChildsByType(SUMO_TAG_PERSONTRIP_FROMTO)) {
+        for (const auto &i : getSortedDemandElementChildrenByType(SUMO_TAG_PERSONTRIP_FROMTO)) {
             drawPartialPersonPlan(s, i);
         }
-        for (const auto &i : getSortedDemandElementChildsByType(SUMO_TAG_PERSONTRIP_BUSSTOP)) {
+        for (const auto &i : getSortedDemandElementChildrenByType(SUMO_TAG_PERSONTRIP_BUSSTOP)) {
             drawPartialPersonPlan(s, i);
         }
-        for (const auto &i : getSortedDemandElementChildsByType(SUMO_TAG_WALK_EDGES)) {
+        for (const auto &i : getSortedDemandElementChildrenByType(SUMO_TAG_WALK_EDGES)) {
             drawPartialPersonPlan(s, i);
         }
-        for (const auto &i : getSortedDemandElementChildsByType(SUMO_TAG_WALK_FROMTO)) {
+        for (const auto &i : getSortedDemandElementChildrenByType(SUMO_TAG_WALK_FROMTO)) {
             drawPartialPersonPlan(s, i);
         }
-        for (const auto &i : getSortedDemandElementChildsByType(SUMO_TAG_WALK_BUSSTOP)) {
+        for (const auto &i : getSortedDemandElementChildrenByType(SUMO_TAG_WALK_BUSSTOP)) {
             drawPartialPersonPlan(s, i);
         }
-        for (const auto &i : getSortedDemandElementChildsByType(SUMO_TAG_WALK_ROUTE)) {
+        for (const auto &i : getSortedDemandElementChildrenByType(SUMO_TAG_WALK_ROUTE)) {
             drawPartialPersonPlan(s, i);
         }
-        for (const auto &i : getSortedDemandElementChildsByType(SUMO_TAG_RIDE_FROMTO)) {
+        for (const auto &i : getSortedDemandElementChildrenByType(SUMO_TAG_RIDE_FROMTO)) {
             drawPartialPersonPlan(s, i);
         }
-        for (const auto &i : getSortedDemandElementChildsByType(SUMO_TAG_RIDE_BUSSTOP)) {
+        for (const auto &i : getSortedDemandElementChildrenByType(SUMO_TAG_RIDE_BUSSTOP)) {
             drawPartialPersonPlan(s, i);
         }
     }
@@ -768,7 +768,7 @@ GNEEdge::clearGNEConnections() {
 int
 GNEEdge::getRouteProbeRelativePosition(GNERouteProbe* routeProbe) const {
     std::vector<GNEAdditional*> routeProbes;
-    for (auto i : getAdditionalChilds()) {
+    for (auto i : getAdditionalChildren()) {
         if (i->getTagProperty().getTag() == routeProbe->getTagProperty().getTag()) {
             routeProbes.push_back(i);
         }
@@ -1221,11 +1221,11 @@ GNEEdge::setAttribute(SumoXMLAttr key, const std::string& value) {
             myNBEdge.myType = value;
             break;
         case SUMO_ATTR_SHAPE:
-            // start geometry moving (because a new shape affect all edge childs)
+            // start geometry moving (because a new shape affect all edge children)
             startGeometryMoving();
             // set new geometry
             setGeometry(parse<PositionVector>(value), true);
-            // start geometry moving (because a new shape affect all edge childs)
+            // start geometry moving (because a new shape affect all edge children)
             endGeometryMoving();
             break;
         case SUMO_ATTR_SPREADTYPE:
@@ -1269,7 +1269,7 @@ GNEEdge::setAttribute(SumoXMLAttr key, const std::string& value) {
             } else {
                 newShapeStart = parse<Position>(value);
             }
-            // start geometry moving (because a new shape affect all edge childs)
+            // start geometry moving (because a new shape affect all edge children)
             startGeometryMoving();
             // set shape start position
             setShapeStartPos(newShapeStart);
@@ -1285,7 +1285,7 @@ GNEEdge::setAttribute(SumoXMLAttr key, const std::string& value) {
             } else {
                 newShapeEnd = parse<Position>(value);
             }
-            // start geometry moving (because a new shape affect all edge childs)
+            // start geometry moving (because a new shape affect all edge children)
             startGeometryMoving();
             // set shape end position
             setShapeEndPos(newShapeEnd);
@@ -1453,13 +1453,13 @@ GNEEdge::addConnection(NBEdge::Connection nbCon, bool selectAfterCreation) {
         // update geometry
         con->updateGeometry();
         // iterate over all additionals from "from" lane and check E2 multilane integrity
-        for (auto i : con->getLaneFrom()->getAdditionalChilds()) {
+        for (auto i : con->getLaneFrom()->getAdditionalChildren()) {
             if (i->getTagProperty().getTag() == SUMO_TAG_E2DETECTOR_MULTILANE) {
                 dynamic_cast<GNEDetectorE2*>(i)->checkE2MultilaneIntegrity();
             }
         }
         // iterate over all additionals from "to" lane and check E2 multilane integrity
-        for (auto i : con->getLaneTo()->getAdditionalChilds()) {
+        for (auto i : con->getLaneTo()->getAdditionalChildren()) {
             if (i->getTagProperty().getTag() == SUMO_TAG_E2DETECTOR_MULTILANE) {
                 dynamic_cast<GNEDetectorE2*>(i)->checkE2MultilaneIntegrity();
             }
@@ -1484,13 +1484,13 @@ GNEEdge::removeConnection(NBEdge::Connection nbCon) {
         con->decRef("GNEEdge::removeConnection");
         myGNEConnections.erase(std::find(myGNEConnections.begin(), myGNEConnections.end(), con));
         // iterate over all additionals from "from" lane and check E2 multilane integrity
-        for (auto i : con->getLaneFrom()->getAdditionalChilds()) {
+        for (auto i : con->getLaneFrom()->getAdditionalChildren()) {
             if (i->getTagProperty().getTag() == SUMO_TAG_E2DETECTOR_MULTILANE) {
                 dynamic_cast<GNEDetectorE2*>(i)->checkE2MultilaneIntegrity();
             }
         }
         // iterate over all additionals from "to" lane and check E2 multilane integrity
-        for (auto i : con->getLaneTo()->getAdditionalChilds()) {
+        for (auto i : con->getLaneTo()->getAdditionalChildren()) {
             if (i->getTagProperty().getTag() == SUMO_TAG_E2DETECTOR_MULTILANE) {
                 dynamic_cast<GNEDetectorE2*>(i)->checkE2MultilaneIntegrity();
             }
@@ -1523,13 +1523,13 @@ GNEEdge::retrieveGNEConnection(int fromLane, NBEdge* to, int toLane, bool create
         // show extra information for tests
         WRITE_DEBUG("Created " + createdConnection->getTagStr() + " '" + createdConnection->getID() + "' in retrieveGNEConnection()");
         // iterate over all additionals from "from" lane and check E2 multilane integrity
-        for (auto i : createdConnection->getLaneFrom()->getAdditionalChilds()) {
+        for (auto i : createdConnection->getLaneFrom()->getAdditionalChildren()) {
             if (i->getTagProperty().getTag() == SUMO_TAG_E2DETECTOR_MULTILANE) {
                 dynamic_cast<GNEDetectorE2*>(i)->checkE2MultilaneIntegrity();
             }
         }
         // iterate over all additionals from "to" lane and check E2 multilane integrity
-        for (auto i : createdConnection->getLaneTo()->getAdditionalChilds()) {
+        for (auto i : createdConnection->getLaneTo()->getAdditionalChildren()) {
             if (i->getTagProperty().getTag() == SUMO_TAG_E2DETECTOR_MULTILANE) {
                 dynamic_cast<GNEDetectorE2*>(i)->checkE2MultilaneIntegrity();
             }
@@ -1968,8 +1968,8 @@ GNEEdge::drawPartialRoute(const GUIVisualizationSettings& s, GNEDemandElement *r
     */
     // Pop name
     glPopName();
-    // draw route childs
-    for (const auto &i : route->getDemandElementChilds()) {
+    // draw route children
+    for (const auto &i : route->getDemandElementChildren()) {
         i->drawGL(s);
     }
     // special case for embedded routes
@@ -2118,11 +2118,11 @@ GNEEdge::drawPartialPersonPlan(const GUIVisualizationSettings& s, GNEDemandEleme
     // Pop name
     glPopName();
     // draw person if this edge correspond to the first edge of first Person's person plan
-    if (personPlan->getDemandElementParents().front()->getDemandElementChilds().front()->getEdgeParents().front() == this) {
+    if (personPlan->getDemandElementParents().front()->getDemandElementChildren().front()->getEdgeParents().front() == this) {
         personPlan->getDemandElementParents().front()->drawGL(s);
     }
-    // draw personPlan childs
-    for (const auto &i : personPlan->getDemandElementChilds()) {
+    // draw personPlan children
+    for (const auto &i : personPlan->getDemandElementChildren()) {
         i->drawGL(s);
     }
 }

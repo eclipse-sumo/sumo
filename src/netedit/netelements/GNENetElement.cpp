@@ -84,7 +84,7 @@ GNENetElement::GNENetElement(GNENet* net, const std::string& id, GUIGlObjectType
     GUIGlObject(type, id),
     GNEAttributeCarrier(tag),
     GNEHierarchicalElementParents(this, {}, {}, {}, {}, {}),
-    GNEHierarchicalElementChilds(this, {}, {}, {}, {}, {}),
+    GNEHierarchicalElementChildren(this, {}, {}, {}, {}, {}),
     myNet(net),
     myMovingGeometryBoundary() {
 }

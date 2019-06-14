@@ -997,7 +997,7 @@ enum SumoXMLAttr {
     GNE_ATTR_AVERAGE_SOURCE,
     /// @brief average sink (used only by TAZs)
     GNE_ATTR_AVERAGE_SINK,
-    /// @brief Color of TAZSources/TAZChilds
+    /// @brief Color of TAZSources/TAZSinks
     GNE_ATTR_TAZCOLOR,
     /// @brief Flag to check if VType is a default VType
     GNE_ATTR_DEFAULT_VTYPE,
