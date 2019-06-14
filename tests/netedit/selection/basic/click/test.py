@@ -41,7 +41,7 @@ netedit.selectMode()
 netedit.leftClickControl(referencePosition, 210, 210)
 
 # toogle edges selection
-netedit.toogleSelectEdges()
+netedit.changeEditMode('2')
 
 # select lane using a simple click
 netedit.leftClickControl(referencePosition, 210, 240)

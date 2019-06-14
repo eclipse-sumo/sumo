@@ -18,6 +18,7 @@ Debug: Created connection 'from8_0to2_0' in retrieveGNEConnection()
 Debug: Created connection 'from8_0to3_0' in retrieveGNEConnection()
 Debug: Created connection 'from8_1to3_1' in retrieveGNEConnection()
 Debug: Created connection 'from8_1to1_1' in retrieveGNEConnection()
+Debug: Enabled show connections throught alt + 3
 Debug: Setting new attribute selected 'true' into junction 'A'
 Debug: Setting new attribute selected 'true' into edge '1'
 Debug: Setting new attribute selected 'true' into junction 'B'

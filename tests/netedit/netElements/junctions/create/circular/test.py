@@ -29,7 +29,7 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot, ['--n
 netedit.createEdgeMode()
 
 # select chain mode
-netedit.changeChainOption()
+netedit.changeEditMode('3')
 
 # create a circular road
 netedit.leftClick(referencePosition, 300, 150)

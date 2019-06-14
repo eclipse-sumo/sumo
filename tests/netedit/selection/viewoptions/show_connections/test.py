@@ -32,7 +32,7 @@ netedit.rebuildNetwork()
 netedit.selectMode()
 
 # show connections
-netedit.toogleShowConnections()
+netedit.changeEditMode('3')
 
 # use a rectangle to check add mode
 netedit.selectionRectangle(referencePosition, 25, 0, 550, 470)
@@ -41,7 +41,7 @@ netedit.selectionRectangle(referencePosition, 25, 0, 550, 470)
 netedit.selectionClear()
 
 # hidde connections
-netedit.toogleShowConnections()
+netedit.changeEditMode('3')
 
 # use a rectangle to check add mode
 netedit.selectionRectangle(referencePosition, 25, 0, 550, 470)

@@ -29,7 +29,7 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 netedit.rebuildNetwork()
 
 # show connections
-netedit.toogleShowConnections()
+netedit.changeEditMode('3')
 
 # inspect connection
 netedit.leftClick(referencePosition, 250, 138)

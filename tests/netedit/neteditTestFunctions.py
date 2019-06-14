@@ -635,6 +635,15 @@ def savePlainXML(waitTime=2):
     # wait for loading
     time.sleep(waitTime)
 
+"""
+@brief Change edit mode (alt+1-9)
+"""
+
+
+def changeEditMode(key):
+    typeTwoKeys('alt', key)
+
+
 #################################################
 # Create nodes and edges
 #################################################
@@ -658,23 +667,6 @@ def cancelEdge():
     # type ESC to cancel current edge
     typeEscape()
 
-
-"""
-@brief Change chain option
-"""
-
-
-def changeChainOption():
-    typeThreeKeys('ctrl', 'shift', 'j')
-
-
-"""
-@brief Change two-way mode
-"""
-
-
-def changeTwoWayOption():
-    typeThreeKeys('ctrl', 'shift', 'l')
 
 #################################################
 # Inspect mode
@@ -865,15 +857,6 @@ def crossingInvertEdges(useSelectedEdges=False, thereIsSelectedEdges=False):
 
 def connectionMode():
     typeKey('c')
-
-
-"""
-@brief show connections (Note: Inspector mode has to be enabled)
-"""
-
-
-def toogleShowConnections():
-    typeThreeKeys('ctrl', 'shift', 'c')
 
 
 """
@@ -1141,15 +1124,6 @@ def selectMode():
 def abortSelection():
     # type ESC to abort current selection
     typeEscape()
-
-
-"""
-@brief toogle select edges (using hotkey)
-"""
-
-
-def toogleSelectEdges():
-    typeThreeKeys('ctrl', 'shift', 'i')
 
 
 """

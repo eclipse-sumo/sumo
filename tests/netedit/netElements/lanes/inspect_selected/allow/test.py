@@ -29,7 +29,7 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 netedit.rebuildNetwork()
 
 # toogle select lanes
-netedit.toogleSelectEdges()
+netedit.changeEditMode('2')
 
 # go to select mode
 netedit.selectMode()
