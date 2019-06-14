@@ -277,6 +277,10 @@ GNERide::getAttribute(SumoXMLAttr key) const {
             return toString(isAttributeCarrierSelected());
         case GNE_ATTR_GENERIC:
             return getGenericParametersStr();
+        case GNE_ATTR_FIRST_CHILD:
+            return toString(getDemandElementParents().front()->isFirstDemandElementChild(this));
+        case GNE_ATTR_LAST_CHILD:
+            return toString(getDemandElementParents().front()->isLastDemandElementChild(this));
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }

@@ -172,10 +172,10 @@ public:
     void moveDemandElementChildDown(GNEDemandElement* demandElement);
 
     /// @brief return true if given demand element child is the first element in demand element children vector
-    bool isFirstDemandElementChild(GNEDemandElement* demandElement);
+    bool isFirstDemandElementChild(const GNEDemandElement* demandElement) const ;
 
     /// @brief return true if given demand element child is the last element in demand element children vector
-    bool isLastDemandElementChild(GNEDemandElement* demandElement);
+    bool isLastDemandElementChild(const GNEDemandElement* demandElement) const ;
 
     /// @}
 

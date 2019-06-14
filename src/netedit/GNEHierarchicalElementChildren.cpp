@@ -355,7 +355,7 @@ GNEHierarchicalElementChildren::moveDemandElementChildDown(GNEDemandElement* dem
 
 
 bool 
-GNEHierarchicalElementChildren::isFirstDemandElementChild(GNEDemandElement* demandElement) {
+GNEHierarchicalElementChildren::isFirstDemandElementChild(const GNEDemandElement* demandElement) const {
     // First check that demandElement was already inserted
     auto it = std::find(myDemandElementChildren.begin(), myDemandElementChildren.end(), demandElement);
     if (it == myDemandElementChildren.end()) {
@@ -367,7 +367,7 @@ GNEHierarchicalElementChildren::isFirstDemandElementChild(GNEDemandElement* dema
 
 
 bool 
-GNEHierarchicalElementChildren::isLastDemandElementChild(GNEDemandElement* demandElement) {
+GNEHierarchicalElementChildren::isLastDemandElementChild(const GNEDemandElement* demandElement) const {
     // First check that demandElement was already inserted
     auto it = std::find(myDemandElementChildren.begin(), myDemandElementChildren.end(), demandElement);
     if (it == myDemandElementChildren.end()) {
