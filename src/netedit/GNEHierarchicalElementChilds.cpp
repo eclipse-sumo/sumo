@@ -328,6 +328,56 @@ GNEHierarchicalElementChilds::checkDemandElementChildsOverlapping() const {
 }
 
 
+void 
+GNEHierarchicalElementChilds::moveDemandElementChildUp(GNEDemandElement* demandElement) {
+    // First check that demandElement was already inserted
+    auto it = std::find(myDemandElementChilds.begin(), myDemandElementChilds.end(), demandElement);
+    if (it == myDemandElementChilds.end()) {
+        throw ProcessError(demandElement->getTagStr() + " with ID='" + demandElement->getID() + "' doesn't exist in " + myAC->getTagStr() + " with ID='" + myAC->getID() + "'");
+    } else if (it != myDemandElementChilds.begin()) {
+        // simply swap it element with their previous element
+        std::swap(*it, *(it-1));
+    }
+}
+    
+
+void 
+GNEHierarchicalElementChilds::moveDemandElementChildDown(GNEDemandElement* demandElement) {
+    // First check that demandElement was already inserted
+    auto it = std::find(myDemandElementChilds.begin(), myDemandElementChilds.end(), demandElement);
+    if (it == myDemandElementChilds.end()) {
+        throw ProcessError(demandElement->getTagStr() + " with ID='" + demandElement->getID() + "' doesn't exist in " + myAC->getTagStr() + " with ID='" + myAC->getID() + "'");
+    } else if (it != (myDemandElementChilds.end()-1)) {
+        // simply swap it element with their next element
+        std::swap(*it, *(it+1));
+    }
+}
+
+
+bool 
+GNEHierarchicalElementChilds::isFirstDemandElementChild(GNEDemandElement* demandElement) {
+    // First check that demandElement was already inserted
+    auto it = std::find(myDemandElementChilds.begin(), myDemandElementChilds.end(), demandElement);
+    if (it == myDemandElementChilds.end()) {
+        throw ProcessError(demandElement->getTagStr() + " with ID='" + demandElement->getID() + "' doesn't exist in " + myAC->getTagStr() + " with ID='" + myAC->getID() + "'");
+    } else {
+        return (it == myDemandElementChilds.begin());
+    }
+}
+
+
+bool 
+GNEHierarchicalElementChilds::isLastDemandElementChild(GNEDemandElement* demandElement) {
+    // First check that demandElement was already inserted
+    auto it = std::find(myDemandElementChilds.begin(), myDemandElementChilds.end(), demandElement);
+    if (it == myDemandElementChilds.end()) {
+        throw ProcessError(demandElement->getTagStr() + " with ID='" + demandElement->getID() + "' doesn't exist in " + myAC->getTagStr() + " with ID='" + myAC->getID() + "'");
+    } else {
+        return (it == (myDemandElementChilds.end()-1));
+    }
+}
+
+
 void
 GNEHierarchicalElementChilds::addEdgeChild(GNEEdge* edge) {
     // Check that edge is valid and doesn't exist previously

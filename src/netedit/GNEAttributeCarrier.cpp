@@ -4507,7 +4507,7 @@ GNEAttributeCarrier::fillPersonElements() {
     SumoXMLTag currentTag = SUMO_TAG_PERSON;
     {
         // set values of tag
-        myTagProperties[currentTag] = TagProperties(currentTag, TAGTYPE_DEMANDELEMENT | TAGTYPE_PERSON, TAGPROPERTY_DRAWABLE | TAGPROPERTY_SELECTABLE, ICON_PERSON);
+        myTagProperties[currentTag] = TagProperties(currentTag, TAGTYPE_DEMANDELEMENT | TAGTYPE_PERSON, TAGPROPERTY_DRAWABLE | TAGPROPERTY_SELECTABLE | TAGPROPERTY_SORTINGCHILDS, ICON_PERSON);
         // set values of attributes
         attrProperty = AttributeProperties(SUMO_ATTR_ID,
                                            ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE,
@@ -4541,7 +4541,7 @@ GNEAttributeCarrier::fillPersonElements() {
     currentTag = SUMO_TAG_PERSONFLOW;
     {
         // set values of tag
-        myTagProperties[currentTag] = TagProperties(currentTag, TAGTYPE_DEMANDELEMENT | TAGTYPE_PERSON, TAGPROPERTY_DRAWABLE | TAGPROPERTY_SELECTABLE, ICON_PERSONFLOW);
+        myTagProperties[currentTag] = TagProperties(currentTag, TAGTYPE_DEMANDELEMENT | TAGTYPE_PERSON, TAGPROPERTY_DRAWABLE | TAGPROPERTY_SELECTABLE | TAGPROPERTY_SORTINGCHILDS, ICON_PERSONFLOW);
         // set values of attributes
         attrProperty = AttributeProperties(SUMO_ATTR_ID,
                                            ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE,

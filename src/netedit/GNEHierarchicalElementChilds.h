@@ -165,6 +165,18 @@ public:
     /// @brief check if childs are overlapped (Used by Rerouters)
     bool checkDemandElementChildsOverlapping() const;
 
+    /// @brief move given demand element child one position up in demand element childs vector
+    void moveDemandElementChildUp(GNEDemandElement* demandElement);
+    
+    /// @brief move given demand element child one position down in demand element childs vector
+    void moveDemandElementChildDown(GNEDemandElement* demandElement);
+
+    /// @brief return true if given demand element child is the first element in demand element childs vector
+    bool isFirstDemandElementChild(GNEDemandElement* demandElement);
+
+    /// @brief return true if given demand element child is the last element in demand element childs vector
+    bool isLastDemandElementChild(GNEDemandElement* demandElement);
+
     /// @}
 
     /// @brief update parent after add or remove a child (can be reimplemented, for example used for statistics)
