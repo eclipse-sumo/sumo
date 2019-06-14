@@ -381,7 +381,7 @@ private:
     void drawPartialTripFromTo(const GUIVisualizationSettings& s, GNEDemandElement *tripOrFromTo) const;
 
     /// @brief draw partial person plan
-    void drawPartialPersonPlan(const GUIVisualizationSettings& s, GNEDemandElement *personPlan, const RGBColor &color) const;
+    void drawPartialPersonPlan(const GUIVisualizationSettings& s, GNEDemandElement *personPlan) const;
 
     /// @brief invalidated copy constructor
     GNEEdge(const GNEEdge& s) = delete;

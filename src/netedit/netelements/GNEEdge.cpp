@@ -22,21 +22,22 @@
 // ===========================================================================
 #include <config.h>
 
-#include <utils/common/StringTokenizer.h>
-#include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
-#include <utils/gui/div/GLHelper.h>
+#include <netedit/GNENet.h>
+#include <netedit/GNEUndoList.h>
+#include <netedit/GNEViewNet.h>
+#include <netedit/additionals/GNEDetectorE2.h>
+#include <netedit/additionals/GNERouteProbe.h>
+#include <netedit/changes/GNEChange_Additional.h>
 #include <netedit/changes/GNEChange_Attribute.h>
 #include <netedit/changes/GNEChange_Lane.h>
-#include <netedit/changes/GNEChange_Additional.h>
-#include <netedit/GNENet.h>
-#include <netedit/GNEViewNet.h>
-#include <netedit/GNEUndoList.h>
-#include <netedit/additionals/GNERouteProbe.h>
-#include <netedit/additionals/GNEDetectorE2.h>
 #include <netedit/demandelements/GNEDemandElement.h>
 #include <netedit/demandelements/GNERoute.h>
-#include <utils/options/OptionsCont.h>
+#include <utils/common/StringTokenizer.h>
+#include <utils/gui/div/GLHelper.h>
 #include <utils/gui/globjects/GLIncludes.h>
+#include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
+#include <utils/gui/settings/GUIVisualizationSettings.h>
+#include <utils/options/OptionsCont.h>
 
 #include "GNEConnection.h"
 #include "GNECrossing.h"
@@ -575,28 +576,28 @@ GNEEdge::drawGL(const GUIVisualizationSettings& s) const {
         }
         // draw partial person plan elements
         for (const auto &i : getSortedDemandElementChildsByType(SUMO_TAG_PERSONTRIP_FROMTO)) {
-            drawPartialPersonPlan(s, i, RGBColor::MAGENTA);
+            drawPartialPersonPlan(s, i);
         }
         for (const auto &i : getSortedDemandElementChildsByType(SUMO_TAG_PERSONTRIP_BUSSTOP)) {
-            drawPartialPersonPlan(s, i, RGBColor::MAGENTA);
+            drawPartialPersonPlan(s, i);
         }
         for (const auto &i : getSortedDemandElementChildsByType(SUMO_TAG_WALK_EDGES)) {
-            drawPartialPersonPlan(s, i, RGBColor::MAGENTA);
+            drawPartialPersonPlan(s, i);
         }
         for (const auto &i : getSortedDemandElementChildsByType(SUMO_TAG_WALK_FROMTO)) {
-            drawPartialPersonPlan(s, i, RGBColor::MAGENTA);
+            drawPartialPersonPlan(s, i);
         }
         for (const auto &i : getSortedDemandElementChildsByType(SUMO_TAG_WALK_BUSSTOP)) {
-            drawPartialPersonPlan(s, i, RGBColor::MAGENTA);
+            drawPartialPersonPlan(s, i);
         }
         for (const auto &i : getSortedDemandElementChildsByType(SUMO_TAG_WALK_ROUTE)) {
-            drawPartialPersonPlan(s, i, RGBColor::MAGENTA);
+            drawPartialPersonPlan(s, i);
         }
         for (const auto &i : getSortedDemandElementChildsByType(SUMO_TAG_RIDE_FROMTO)) {
-            drawPartialPersonPlan(s, i, RGBColor::MAGENTA);
+            drawPartialPersonPlan(s, i);
         }
         for (const auto &i : getSortedDemandElementChildsByType(SUMO_TAG_RIDE_BUSSTOP)) {
-            drawPartialPersonPlan(s, i, RGBColor::MAGENTA);
+            drawPartialPersonPlan(s, i);
         }
     }
     // draw geometry points if isnt's too small
@@ -1905,7 +1906,7 @@ GNEEdge::drawRerouterSymbol(const GUIVisualizationSettings& s, GNEAdditional *re
 void 
 GNEEdge::drawPartialRoute(const GUIVisualizationSettings& s, GNEDemandElement *route) const {
     // calculate route width
-    double routeWidth = s.addSize.getExaggeration(s, this) * 0.66;
+    double routeWidth = s.addSize.getExaggeration(s, this) * s.SUMO_width_route;
     // Start drawing adding an gl identificator
     glPushName(route->getGlID());
     // Add a draw matrix
@@ -1982,7 +1983,7 @@ GNEEdge::drawPartialRoute(const GUIVisualizationSettings& s, GNEDemandElement *r
 void 
 GNEEdge::drawPartialTripFromTo(const GUIVisualizationSettings& s, GNEDemandElement *tripOrFromTo) const {
     // calculate tripOrFromTo width
-    double tripOrFromToWidth = s.addSize.getExaggeration(s, this) * 0.2;
+    double tripOrFromToWidth = s.addSize.getExaggeration(s, this) * s.SUMO_width_trip;
     // Add a draw matrix
     glPushMatrix();
     // Start with the drawing of the area traslating matrix to origin
@@ -2040,20 +2041,32 @@ GNEEdge::drawPartialTripFromTo(const GUIVisualizationSettings& s, GNEDemandEleme
 
 
 void 
-GNEEdge::drawPartialPersonPlan(const GUIVisualizationSettings& s, GNEDemandElement *personPlan, const RGBColor &color) const {
+GNEEdge::drawPartialPersonPlan(const GUIVisualizationSettings& s, GNEDemandElement *personPlan) const {
     // calculate personPlan width
-    double personPlanWidth = s.addSize.getExaggeration(s, this) * 0.50;
+    double personPlanWidth = 0;
     // Start drawing adding an gl identificator
     glPushName(personPlan->getGlID());
     // Add a draw matrix
     glPushMatrix();
     // Start with the drawing of the area traslating matrix to origin
     glTranslated(0, 0, personPlan->getType());
-    // Set color of the base
+    // Set color depending of person plan type
     if (personPlan->drawUsingSelectColor()) {
         GLHelper::setColor(s.selectedAdditionalColor);
-    } else {
-        GLHelper::setColor(color);
+    } else if (personPlan->getTagProperty().isPersonTrip()) {
+        GLHelper::setColor(s.SUMO_color_personTrip);
+    } else if (personPlan->getTagProperty().isWalk()) {
+        GLHelper::setColor(s.SUMO_color_walk);
+    } else if (personPlan->getTagProperty().isRide()) {
+        GLHelper::setColor(s.SUMO_color_ride);
+    }
+    // Set width depending of person plan type
+    if (personPlan->getTagProperty().isPersonTrip()) {
+        personPlanWidth = s.addSize.getExaggeration(s, this) * s.SUMO_width_personTrip;
+    } else if (personPlan->getTagProperty().isWalk()) {
+        personPlanWidth = s.addSize.getExaggeration(s, this) * s.SUMO_width_walk;
+    } else if (personPlan->getTagProperty().isRide()) {
+        personPlanWidth = s.addSize.getExaggeration(s, this) * s.SUMO_width_ride;
     }
     // obtain edge geometry limits
     const GNEHierarchicalElementParents::EdgeGeometryLimits &edgeGeometryLimits = personPlan->getEdgeGeometryLimits(this);

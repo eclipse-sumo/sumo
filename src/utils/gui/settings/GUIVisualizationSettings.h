@@ -420,6 +420,30 @@ public:
     /// @brief color for personStops
     static const RGBColor SUMO_color_personStops;
 
+    /// @brief color for personStops
+    static const RGBColor SUMO_color_personTrip;
+
+    /// @brief color for walks
+    static const RGBColor SUMO_color_walk;
+
+    /// @brief color for rides
+    static const RGBColor SUMO_color_ride;
+
+    /// @brief width for personStops
+    static const double SUMO_width_route;
+
+    /// @brief width for trips
+    static const double SUMO_width_trip;
+
+    /// @brief width for personStops
+    static const double SUMO_width_personTrip;
+
+    /// @brief width for walks
+    static const double SUMO_width_walk;
+
+    /// @brief width for rides
+    static const double SUMO_width_ride;
+
     // @brief scheme names
     static const std::string SCHEME_NAME_EDGE_PARAM_NUMERICAL;
     static const std::string SCHEME_NAME_LANE_PARAM_NUMERICAL;

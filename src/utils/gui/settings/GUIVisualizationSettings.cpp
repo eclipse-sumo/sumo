@@ -72,6 +72,19 @@ const RGBColor GUIVisualizationSettings::SUMO_color_E3Entry(0, 92, 64);
 const RGBColor GUIVisualizationSettings::SUMO_color_E3Exit(92, 0, 0);
 const RGBColor GUIVisualizationSettings::SUMO_color_stops(220, 20, 30);
 const RGBColor GUIVisualizationSettings::SUMO_color_personStops(30, 20, 220);
+const RGBColor GUIVisualizationSettings::SUMO_color_personTrip(197, 252, 7);
+const RGBColor GUIVisualizationSettings::SUMO_color_walk(27, 233, 73);
+const RGBColor GUIVisualizationSettings::SUMO_color_ride(174, 180, 80);
+
+// -------------------------------------------------------------------------
+// widths of certain NETEDIT objects
+// -------------------------------------------------------------------------
+
+const double GUIVisualizationSettings::SUMO_width_route(0.66);
+const double GUIVisualizationSettings::SUMO_width_trip( 0.2);
+const double GUIVisualizationSettings::SUMO_width_personTrip(0.50);
+const double GUIVisualizationSettings::SUMO_width_walk(0.50);
+const double GUIVisualizationSettings::SUMO_width_ride(0.50);
 
 // -------------------------------------------------------------------------
 // scheme names
