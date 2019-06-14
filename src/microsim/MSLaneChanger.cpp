@@ -755,24 +755,20 @@ MSLaneChanger::checkChange(
         // !!! eigentlich: vsafe braucht die Max. Geschwindigkeit beider Spuren
         secureBackGap = neighFollow.first->getCarFollowModel().getSecureGap(vNextFollower,
                         vNextLeader, vehicle->getCarFollowModel().getMaxDecel());
+#ifdef DEBUG_CHECK_CHANGE
+        if (DEBUG_COND) {
+            std::cout << SIMTIME
+                << " backGap=" << neighFollow.second
+                << " vNextFollower=" << vNextFollower
+                << " vNextEgo=" << vNextLeader
+                << " secureGap=" << secureBackGap
+                << " safetyFactor=" << vehicle->getLaneChangeModel().getSafetyFactor()
+                << " blocked=" << (neighFollow.second < secureBackGap * vehicle->getLaneChangeModel().getSafetyFactor())
+                << "\n";
+        }
+#endif
         if (neighFollow.second < secureBackGap * vehicle->getLaneChangeModel().getSafetyFactor()) {
             blocked |= blockedByFollower;
-
-            // Debug (Leo)
-#ifdef DEBUG_CHECK_CHANGE
-            if (DEBUG_COND) {
-                std::cout << SIMTIME
-                          << " back gap unsafe: "
-                          << "gap = " << neighFollow.second
-                          << " vNextFollower=" << vNextFollower
-                          << " vNextEgo=" << vNextLeader
-                          << ", secureGap = "
-                          << neighFollow.first->getCarFollowModel().getSecureGap(vNextFollower,
-                                  vNextLeader, vehicle->getCarFollowModel().getMaxDecel())
-                          << std::endl;
-            }
-#endif
-
         }
     }
 
@@ -790,24 +786,20 @@ MSLaneChanger::checkChange(
         // !!! eigentlich: vsafe braucht die Max. Geschwindigkeit beider Spuren
         secureFrontGap = vehicle->getCarFollowModel().getSecureGap(vNextFollower,
                          vNextLeader, neighLead.first->getCarFollowModel().getMaxDecel());
+#ifdef DEBUG_CHECK_CHANGE
+        if (DEBUG_COND) {
+            std::cout << SIMTIME
+                << " frontGap=" << neighFollow.second
+                << " vNextEgo=" << vNextFollower
+                << " vNextLeader=" << vNextLeader
+                << " secureGap=" << secureFrontGap
+                << " safetyFactor=" << vehicle->getLaneChangeModel().getSafetyFactor()
+                << " blocked=" << (neighLead.second < secureFrontGap * vehicle->getLaneChangeModel().getSafetyFactor())
+                << "\n";
+        }
+#endif
         if (neighLead.second < secureFrontGap * vehicle->getLaneChangeModel().getSafetyFactor()) {
             blocked |= blockedByLeader;
-
-            // Debug (Leo)
-#ifdef DEBUG_CHECK_CHANGE
-            if (DEBUG_COND) {
-                std::cout << SIMTIME
-                          << " front gap unsafe: "
-                          << "gap = " << neighLead.second
-                          << " vNextLeader=" << vNextLeader
-                          << " vNextEgo=" << vNextFollower
-                          << ", secureGap = "
-                          << vehicle->getCarFollowModel().getSecureGap(vNextFollower,
-                                  vNextLeader, neighLead.first->getCarFollowModel().getMaxDecel())
-                          << std::endl;
-            }
-#endif
-
         }
     }
     if (blocked == 0 && MSPModel::getModel()->hasPedestrians(targetLane)) {
