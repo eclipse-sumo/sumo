@@ -12,3 +12,6 @@ ticket1502b
 ticket2244
 ticket2246
 ticket2769
+
+# invalid edgedata when vehicles are jammed completely
+ticket5722
