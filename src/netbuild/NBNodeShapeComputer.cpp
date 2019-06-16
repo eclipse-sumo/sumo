@@ -83,7 +83,7 @@ NBNodeShapeComputer::compute() {
     // check whether the node is a just something like a geometry
     //  node (one in and one out or two in and two out, pair-wise continuations)
     // also in this case "computeNodeShapeSmall" is used
-    bool geometryLike = myNode.isSimpleContinuation();
+    bool geometryLike = myNode.isSimpleContinuation(true, true);
     if (geometryLike) {
         // additionally, the angle between the edges must not be larger than 45 degrees
         //  (otherwise, we will try to compute the shape in a different way)

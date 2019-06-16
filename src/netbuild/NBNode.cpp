@@ -465,11 +465,14 @@ NBNode::addOutgoingEdge(NBEdge* edge) {
 
 
 bool
-NBNode::isSimpleContinuation(bool checkLaneNumbers) const {
+NBNode::isSimpleContinuation(bool checkLaneNumbers, bool checkWidth) const {
     // one in, one out->continuation
     if (myIncomingEdges.size() == 1 && myOutgoingEdges.size() == 1) {
+        NBEdge* in = myIncomingEdges.front();
+        NBEdge* out = myOutgoingEdges.front();
         // both must have the same number of lanes
-        return !checkLaneNumbers || ((*(myIncomingEdges.begin()))->getNumLanes() == (*(myOutgoingEdges.begin()))->getNumLanes());
+        return ((!checkLaneNumbers || in->getNumLanes() == out->getNumLanes())
+                && (!checkWidth || in->getTotalWidth() == out->getTotalWidth()));
     }
     // two in and two out and both in reverse direction
     if (myIncomingEdges.size() == 2 && myOutgoingEdges.size() == 2) {
@@ -483,6 +486,9 @@ NBNode::isSimpleContinuation(bool checkLaneNumbers) const {
             // both must have the same number of lanes
             NBContHelper::nextCW(myOutgoingEdges, opposite);
             if (checkLaneNumbers && in->getNumLanes() != (*opposite)->getNumLanes()) {
+                return false;
+            }
+            if (checkWidth && in->getTotalWidth() != (*opposite)->getTotalWidth()) {
                 return false;
             }
         }

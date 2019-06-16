@@ -751,7 +751,7 @@ public:
     static bool isTrafficLight(SumoXMLNodeType type);
 
     /// @brief check if node is a simple continuation
-    bool isSimpleContinuation(bool checkLaneNumbers = true) const;
+    bool isSimpleContinuation(bool checkLaneNumbers = true, bool checkWidth = false) const;
 
     /// @brief mark whether a priority road turns at this node
     void markBentPriority(bool isBent) {
