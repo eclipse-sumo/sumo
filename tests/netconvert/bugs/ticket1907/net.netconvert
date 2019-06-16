@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Apr 29 23:25:18 2019 by Eclipse SUMO netconvert Version v1_2_0+0149-6b40db9d1b
+<!-- generated on Sun Jun 16 13:37:08 2019 by Eclipse SUMO netconvert Version v1_2_0+0149-6b40db9d1b
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -211,11 +211,11 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":3314305186_w0_0" index="0" allow="pedestrian" speed="1.00" length="0.10" width="2.00" shape="225.82,511.93 224.83,510.19 224.96,510.15 225.55,512.06"/>
     </edge>
     <edge id=":337270654_0" function="internal">
-        <lane id=":337270654_0_0" index="0" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship" speed="11.11" length="3.70" shape="173.15,523.75 172.86,522.88 172.75,522.22 172.55,521.63 171.99,520.96"/>
-        <lane id=":337270654_0_1" index="1" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship" speed="11.11" length="3.70" shape="176.05,522.40 175.59,521.19 175.35,520.31 174.98,519.52 174.15,518.60"/>
+        <lane id=":337270654_0_0" index="0" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship" speed="11.11" length="5.37" shape="173.78,525.11 173.31,523.77 173.10,522.78 172.76,521.88 171.87,520.85"/>
+        <lane id=":337270654_0_1" index="1" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship" speed="11.11" length="5.37" shape="176.68,523.76 176.05,522.09 175.71,520.87 175.19,519.77 174.03,518.49"/>
     </edge>
     <edge id=":337270654_w0" function="walkingarea">
-        <lane id=":337270654_w0_0" index="0" allow="pedestrian" speed="1.00" length="1.82" width="3.00" shape="170.92,522.15 168.89,524.36 169.88,525.26 171.70,524.42"/>
+        <lane id=":337270654_w0_0" index="0" allow="pedestrian" speed="1.00" length="3.47" width="3.00" shape="170.79,522.04 168.77,524.25 170.51,526.62 172.33,525.78"/>
     </edge>
     <edge id=":337272586_w0" function="walkingarea">
         <lane id=":337272586_w0_0" index="0" allow="pedestrian" speed="1.00" length="9.40" width="3.00" shape="343.57,332.86 346.14,334.41 335.52,328.01 338.09,329.56"/>
@@ -377,9 +377,9 @@ SPDX-License-Identifier: EPL-2.0
         <lane id="175999132#2_2" index="2" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship" speed="11.11" length="0.20" shape="196.87,530.50 196.86,530.70"/>
     </edge>
     <edge id="175999142" from="337745510" to="337270654" name="Avenida de Escaleritas" priority="5" type="highway.tertiary_link" spreadType="center" shape="148.86,611.86 157.02,592.34 163.89,577.40 173.13,560.90 178.57,547.96 179.36,539.29 177.58,531.86 172.16,520.20">
-        <lane id="175999142_0" index="0" allow="pedestrian" speed="11.11" length="95.32" width="2.00" shape="146.20,609.93 154.09,591.05 161.04,575.95 170.25,559.49 175.43,547.18 176.13,539.52 174.54,532.92 170.79,524.84"/>
-        <lane id="175999142_1" index="1" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship" speed="11.11" length="95.32" shape="148.49,611.18 156.47,592.10 163.35,577.13 172.59,560.64 177.98,547.81 178.75,539.33 177.01,532.06 173.15,523.75"/>
-        <lane id="175999142_2" index="2" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship" speed="11.11" length="95.32" shape="151.32,612.72 159.40,593.38 166.21,578.58 175.47,562.04 181.12,548.60 181.99,539.10 180.05,531.00 176.05,522.40"/>
+        <lane id="175999142_0" index="0" allow="pedestrian" speed="11.11" length="93.82" width="2.00" shape="146.20,609.93 154.09,591.05 161.04,575.95 170.25,559.49 175.43,547.18 176.13,539.52 174.54,532.92 171.42,526.20"/>
+        <lane id="175999142_1" index="1" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship" speed="11.11" length="93.82" shape="148.49,611.18 156.47,592.10 163.35,577.13 172.59,560.64 177.98,547.81 178.75,539.33 177.01,532.06 173.78,525.11"/>
+        <lane id="175999142_2" index="2" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship" speed="11.11" length="93.82" shape="151.32,612.72 159.40,593.38 166.21,578.58 175.47,562.04 181.12,548.60 181.99,539.10 180.05,531.00 176.68,523.76"/>
     </edge>
     <edge id="175999143#0" from="cluster_1865620626_3314305185" to="3526736114" name="Avenida de Escaleritas" priority="5" type="highway.tertiary_link" spreadType="center" shape="165.39,497.55 174.63,504.31 181.95,510.19 190.07,514.84 195.71,518.13 202.56,519.11 210.51,519.08 220.11,516.07">
         <lane id="175999143#0_0" index="0" allow="pedestrian" speed="11.11" length="53.83" width="2.00" shape="169.35,496.48 176.58,501.77 183.76,507.54 191.67,512.07 196.78,515.05 202.78,515.91 210.01,515.88 214.50,514.48"/>
@@ -396,9 +396,9 @@ SPDX-License-Identifier: EPL-2.0
         <lane id="175999152_1" index="1" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship" speed="11.11" length="62.59" shape="159.34,490.81 168.46,497.74 176.19,503.83 185.82,508.77 194.87,511.26 201.23,511.96 209.21,511.04 216.23,508.61 216.90,508.28"/>
     </edge>
     <edge id="176906141#0" from="337270654" to="1921719395" name="Avenida de Escaleritas" priority="6" type="highway.tertiary" spreadType="center" shape="172.06,520.89 155.06,505.40 126.35,478.13">
-        <lane id="176906141#0_0" index="0" allow="pedestrian" speed="11.11" length="58.80" width="3.00" shape="169.90,523.26 152.88,507.74 127.29,483.44"/>
-        <lane id="176906141#0_1" index="1" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship" speed="11.11" length="58.80" shape="171.99,520.96 154.99,505.47 129.04,480.82"/>
-        <lane id="176906141#0_2" index="2" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship" speed="11.11" length="58.80" shape="174.15,518.60 157.17,503.13 130.84,478.12"/>
+        <lane id="176906141#0_0" index="0" allow="pedestrian" speed="11.11" length="58.63" width="3.00" shape="169.78,523.15 152.88,507.74 127.29,483.44"/>
+        <lane id="176906141#0_1" index="1" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship" speed="11.11" length="58.63" shape="171.87,520.85 154.99,505.47 129.04,480.82"/>
+        <lane id="176906141#0_2" index="2" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship" speed="11.11" length="58.63" shape="174.03,518.49 157.17,503.13 130.84,478.12"/>
     </edge>
     <edge id="176906141#1" from="1921719395" to="3188465579" name="Avenida de Escaleritas" priority="6" type="highway.tertiary" spreadType="center" shape="126.35,478.13 78.86,433.01 67.91,420.09 62.59,412.37 58.64,404.08 55.77,396.62 53.53,386.01 52.32,378.09 52.41,368.63 52.89,355.40 54.77,344.29 57.12,331.35 61.74,314.01 65.88,296.79 68.05,287.52 70.55,279.31 72.64,271.80 75.88,254.98 77.82,246.94 79.62,235.45 80.56,230.15 82.19,221.07 83.69,204.51 82.36,192.95 79.56,179.20 76.38,166.35">
         <lane id="176906141#1_0" index="0" allow="pedestrian" speed="11.11" length="340.33" width="3.00" shape="121.68,478.11 76.53,435.21 65.37,422.04 59.81,413.98 55.70,405.34 52.69,397.53 50.38,386.58 49.12,378.32 49.21,368.56 49.70,355.07 51.62,343.74 53.99,330.65 58.64,313.22 62.77,296.05 64.96,286.69 67.48,278.41 69.52,271.07 72.75,254.30 74.68,246.32 76.46,234.92 77.41,229.59 79.02,220.64 80.47,204.55 79.20,193.45 76.44,179.90 73.27,167.12"/>
@@ -508,7 +508,7 @@ SPDX-License-Identifier: EPL-2.0
         <request index="0" response="00" foes="00" cont="0"/>
         <request index="1" response="00" foes="00" cont="0"/>
     </junction>
-    <junction id="337270654" type="priority" x="173.07" y="519.78" incLanes="175999142_0 175999142_1 175999142_2" intLanes=":337270654_0_0 :337270654_0_1" shape="169.88,525.26 177.50,521.72 175.23,517.42 168.89,524.36">
+    <junction id="337270654" type="priority" x="173.07" y="519.78" incLanes="175999142_0 175999142_1 175999142_2" intLanes=":337270654_0_0 :337270654_0_1" shape="170.51,526.62 178.13,523.08 175.10,517.31 168.77,524.25">
         <request index="0" response="00" foes="00" cont="0"/>
         <request index="1" response="00" foes="00" cont="0"/>
     </junction>
