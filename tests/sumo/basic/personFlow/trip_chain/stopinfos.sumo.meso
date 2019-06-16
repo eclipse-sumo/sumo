@@ -9,13 +9,15 @@ SPDX-License-Identifier: EPL-2.0
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
-        <net-file value="three_split.net.xml"/>
+        <net-file value="net.net.xml"/>
         <route-files value="input_routes.rou.xml"/>
+        <additional-files value="input_additional.add.xml"/>
     </input>
 
     <output>
         <write-license value="true"/>
         <tripinfo-output value="tripinfos.xml"/>
+        <stop-output value="stopinfos.xml"/>
     </output>
 
     <processing>
@@ -24,8 +26,8 @@ SPDX-License-Identifier: EPL-2.0
     </processing>
 
     <report>
+        <verbose value="true"/>
         <xml-validation value="never"/>
-        <duration-log.disable value="true"/>
         <no-step-log value="true"/>
     </report>
 
@@ -36,9 +38,7 @@ SPDX-License-Identifier: EPL-2.0
 </configuration>
 -->
 
-<tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
-    <tripinfo id="v1" depart="0.00" departLane="" departPos="0.00" departSpeed="27.80" departDelay="0.00" arrival="181.00" arrivalLane="" arrivalPos="500.00" arrivalSpeed="27.80" duration="181.00" routeLength="3012.36" waitingTime="0.00" waitingCount="0" stopTime="-0.00" timeLoss="-0.00" rerouteNo="0" devices="tripinfo_v1" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
-    <containerinfo id="c1" depart="50.00">
-        <transport waitingTime="132.00" vehicle="NULL" depart="-1" arrival="-1" arrivalPos="500.00" duration="-1" routeLength="-1.00"/>
-    </containerinfo>
-</tripinfos>
+<stops xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/stopinfo_file.xsd">
+    <stopinfo id="train0" type="DEFAULT_VEHTYPE" edge="1/3to0/3" pos="0.00" parking="0" started="127.00" ended="127.00" delay="7.00" initialPersons="0" loadedPersons="1" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" busStop="busStop0"/>
+    <stopinfo id="train0" type="DEFAULT_VEHTYPE" edge="0/4to1/4" pos="0.00" parking="0" started="187.00" ended="187.00" delay="7.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" busStop="busStop1"/>
+</stops>

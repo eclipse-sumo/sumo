@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Nov  2 15:37:59 2017 by SUMO Version v0_31_0-870-g7affc8e
+<!-- generated on Sun Jun 16 22:44:39 2019 by Eclipse SUMO Version v1_2_0+0149-6b40db9d1b
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -14,8 +14,14 @@ SPDX-License-Identifier: EPL-2.0
         <additional-files value="input_additional.add.xml"/>
     </input>
 
+    <output>
+        <write-license value="true"/>
+    </output>
+
     <processing>
         <max-depart-delay value="1"/>
+        <default.speeddev value="0"/>
+        <pedestrian.model value="nonInteracting"/>
     </processing>
 
     <report>
@@ -35,8 +41,8 @@ SPDX-License-Identifier: EPL-2.0
 -->
 
 <detector xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/det_e1meso_file.xsd">
-    <interval begin="0.00" end="900.00" id="end2_0" sampledSeconds="1883.38" density="21.63" occupancy="6.49" waitingTime="0.00" speed="28.72" departed="0" arrived="558" entered="561" left="0"/>
-    <interval begin="900.00" end="1800.00" id="end2_0" sampledSeconds="1977.12" density="22.71" occupancy="6.81" waitingTime="0.00" speed="28.77" departed="2" arrived="587" entered="587" left="0"/>
-    <interval begin="1800.00" end="2700.00" id="end2_0" sampledSeconds="1687.61" density="19.39" occupancy="5.82" waitingTime="0.00" speed="30.31" departed="0" arrived="531" entered="526" left="0"/>
-    <interval begin="2700.00" end="2904.00" id="end2_0" sampledSeconds="428.20" density="21.70" occupancy="6.51" waitingTime="0.00" speed="28.01" departed="0" arrived="124" entered="124" left="0"/>
+    <interval begin="0.00" end="900.00" id="end2_0" sampledSeconds="1693.27" density="19.47" occupancy="5.84" waitingTime="0.00" speed="29.53" departed="0" arrived="516" entered="518" left="0"/>
+    <interval begin="900.00" end="1800.00" id="end2_0" sampledSeconds="1945.05" density="22.36" occupancy="6.71" waitingTime="0.00" speed="28.88" departed="3" arrived="581" entered="579" left="0"/>
+    <interval begin="1800.00" end="2700.00" id="end2_0" sampledSeconds="1796.26" density="20.65" occupancy="6.20" waitingTime="0.00" speed="30.19" departed="0" arrived="562" entered="561" left="0"/>
+    <interval begin="2700.00" end="2933.00" id="end2_0" sampledSeconds="478.29" density="21.24" occupancy="6.37" waitingTime="0.00" speed="28.35" departed="0" arrived="141" entered="139" left="0"/>
 </detector>
