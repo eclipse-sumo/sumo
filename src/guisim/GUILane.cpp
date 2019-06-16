@@ -1053,7 +1053,8 @@ GUILane::getColorValue(const GUIVisualizationSettings& s, int activeScheme) cons
                 case SVC_BICYCLE:
                     return 2;
                 case 0:
-                    return 3;
+                    // forbidden road or green verge
+                    return myEdge->getPermissions() == 0 ? 9 : 3;
                 case SVC_SHIP:
                     return 4;
                 case SVC_AUTHORITY:
