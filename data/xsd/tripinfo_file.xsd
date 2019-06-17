@@ -108,7 +108,7 @@
 
     <xsd:element name="ride">
         <xsd:complexType>
-            <xsd:attribute name="waitingTime" use="required" type="nonNegativeFloatType"/>
+            <xsd:attribute name="waitingTime" use="required" type="nonNegativeFloatTypeWithErrorValue"/>
             <xsd:attribute name="vehicle" use="required" type="xsd:string"/>
             <xsd:attribute name="depart" use="required" type="nonNegativeFloatTypeWithErrorValue"/>
             <xsd:attribute name="arrival" use="required" type="nonNegativeFloatTypeWithErrorValue"/>
@@ -141,7 +141,7 @@
 
     <xsd:element name="transport">
         <xsd:complexType>
-            <xsd:attribute name="waitingTime" use="required" type="nonNegativeFloatType"/>
+            <xsd:attribute name="waitingTime" use="required" type="nonNegativeFloatTypeWithErrorValue"/>
             <xsd:attribute name="vehicle" use="required" type="xsd:string"/>
             <xsd:attribute name="depart" use="required" type="nonNegativeFloatTypeWithErrorValue"/>
             <xsd:attribute name="arrival" use="required" type="nonNegativeFloatTypeWithErrorValue"/>
