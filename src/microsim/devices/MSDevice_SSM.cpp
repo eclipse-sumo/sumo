@@ -54,8 +54,8 @@
 //#define DEBUG_COND1(ego) MSNet::getInstance()->getCurrentTimeStep() > 308000
 //#define DEBUG_COND1(ego) ego!=nullptr && ego->isSelected()
 
-#define DEBUG_EGO_ID "ego1"
-#define DEBUG_FOE_ID "foe1"
+#define DEBUG_EGO_ID "Pkw.33.4"
+#define DEBUG_FOE_ID "Pkw.25.4"
 
 #define DEBUG_COND1(ego) ((ego)!=nullptr && (ego)->getID() == DEBUG_EGO_ID)
 #define DEBUG_COND false
@@ -1458,22 +1458,22 @@ MSDevice_SSM::checkConflictEntryAndExit(EncounterApproachInfo& eInfo) {
     // determine exact entry and exit times
     Encounter* e = eInfo.encounter;
 
-#ifdef DEBUG_ENCOUNTER
-    if (DEBUG_COND_ENCOUNTER(e)) std::cout << SIMTIME << " checkConflictEntryAndExit() for encounter of vehicles '" << e->egoID << "' and '" << e->foeID << "'" << std::endl;
-#endif
-//#ifdef DEBUG_ENCOUNTER
-//    if (DEBUG_COND_ENCOUNTER(eInfo.encounter))
-//        std::cout << "\nEgo's distance to conflict entry: " << eInfo.egoConflictEntryDist
-//                  << "\nEgo's distance to conflict exit:  " << eInfo.egoConflictExitDist
-//                  << "\nFoe's distance to conflict entry: " << eInfo.foeConflictEntryDist
-//                  << "\nFoe's distance to conflict exit:  " << eInfo.foeConflictExitDist
-//                  << std::endl;
-//#endif
 
     const bool foePastConflictEntry = eInfo.foeConflictEntryDist < 0.0;
     const bool egoPastConflictEntry = eInfo.egoConflictEntryDist < 0.0;
     const bool foePastConflictExit = eInfo.foeConflictExitDist < 0.0;
     const bool egoPastConflictExit = eInfo.egoConflictExitDist < 0.0;
+
+#ifdef DEBUG_ENCOUNTER
+    if (DEBUG_COND_ENCOUNTER(e)) { 
+        std::cout << SIMTIME << " checkConflictEntryAndExit() for encounter of vehicles '" << e->egoID << "' and '" << e->foeID << "'"
+            << "  foeEntryDist=" << eInfo.foeConflictEntryDist
+            << "  egoEntryDist=" << eInfo.egoConflictEntryDist
+            << "  foeExitDist=" << eInfo.foeConflictExitDist
+            << "  egoExitDist=" << eInfo.egoConflictExitDist
+            << "\n";
+    }
+#endif
 
 
     if (e->size() == 0) {
@@ -2037,8 +2037,24 @@ MSDevice_SSM::classifyEncounter(const FoeInfo* foeInfo, EncounterApproachInfo& e
             } else if (&(foeEntryLink->getLane()->getEdge()) == &(egoEntryLink->getLane()->getEdge())) {
                 if (foeEntryLink->getLane() == egoEntryLink->getLane()) {
                     type = ENCOUNTER_TYPE_MERGING;
+                    assert(egoConflictLane->isInternal());
+                    assert(foeConflictLane->isInternal());
                     eInfo.egoConflictEntryDist = egoDistToConflictLane + egoEntryLink->getInternalLengthsAfter();
                     eInfo.foeConflictEntryDist = foeDistToConflictLane + foeEntryLink->getInternalLengthsAfter();
+
+                    MSLink* egoEntryLinkSucc = egoEntryLink->getViaLane()->getLinkCont().front();
+                    if (egoEntryLinkSucc->isInternalJunctionLink() && e->ego->getLane() == egoEntryLinkSucc->getViaLane()) {
+                        // ego is already past the internal junction
+                        eInfo.egoConflictEntryDist -= egoEntryLink->getViaLane()->getLength();
+                        eInfo.egoConflictExitDist -= egoEntryLink->getViaLane()->getLength();
+                    }
+                    MSLink* foeEntryLinkSucc = foeEntryLink->getViaLane()->getLinkCont().front();
+                    if (foeEntryLinkSucc->isInternalJunctionLink() && e->foe->getLane() == foeEntryLinkSucc->getViaLane()) {
+                        // foe is already past the internal junction
+                        eInfo.foeConflictEntryDist -= foeEntryLink->getViaLane()->getLength();
+                        eInfo.foeConflictExitDist -= foeEntryLink->getViaLane()->getLength();
+                    }
+
 #ifdef DEBUG_ENCOUNTER
                     if (DEBUG_COND_ENCOUNTER(eInfo.encounter)) 
                         std::cout << "-> Encounter type: Merging situation of ego '" << e->ego->getID() << "' on lane '" << egoLane->getID() << "' and foe '"
