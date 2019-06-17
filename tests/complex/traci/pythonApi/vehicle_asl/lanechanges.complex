@@ -1,11 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mi 06 Dez 2017 16:50:50 CET by SUMO gui Version UNKNOWN
-This data file and the accompanying materials
-are made available under the terms of the Eclipse Public License v2.0
-which accompanies this distribution, and is available at
-http://www.eclipse.org/legal/epl-v20.html
-SPDX-License-Identifier: EPL-2.0
+<!-- generated on Mon Jun 17 08:28:35 2019 by Eclipse SUMO Version v1_2_0+0252-83989c2
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -27,6 +22,7 @@ SPDX-License-Identifier: EPL-2.0
 
     <processing>
         <default.action-step-length value="1"/>
+        <default.speeddev value="0"/>
     </processing>
 
     <report>
@@ -34,7 +30,7 @@ SPDX-License-Identifier: EPL-2.0
     </report>
 
     <traci_server>
-        <remote-port value="42171"/>
+        <remote-port value="45939"/>
     </traci_server>
 
     <gui_only>
@@ -45,6 +41,6 @@ SPDX-License-Identifier: EPL-2.0
 -->
 
 <lanechanges>
-    <change id="v0" type="t0" time="0.10" from="beg_0" to="beg_1" dir="1" speed="0.26" pos="5.11" reason="traci|urgent" leaderGap="None" leaderSecureGap="None" followerGap="None" followerSecureGap="None" origLeaderGap="None" origLeaderSecureGap="None"/>
-    <change id="v0" type="t0" time="30.60" from="beg_1" to="beg_0" dir="-1" speed="13.89" pos="237.88" reason="traci|urgent" leaderGap="None" leaderSecureGap="None" followerGap="None" followerSecureGap="None" origLeaderGap="None" origLeaderSecureGap="None"/>
+    <change id="v0" type="t0" time="0.10" from="beg_0" to="beg_1" dir="1" speed="0.26" pos="5.11" reason="traci|urgent" leaderGap="None" leaderSecureGap="None" leaderSpeed="None" followerGap="None" followerSecureGap="None" followerSpeed="None" origLeaderGap="None" origLeaderSecureGap="None" origLeaderSpeed="None"/>
+    <change id="v0" type="t0" time="30.60" from="beg_1" to="beg_0" dir="-1" speed="13.89" pos="237.88" reason="traci|urgent" leaderGap="None" leaderSecureGap="None" leaderSpeed="None" followerGap="None" followerSecureGap="None" followerSpeed="None" origLeaderGap="None" origLeaderSecureGap="None" origLeaderSpeed="None"/>
 </lanechanges>
