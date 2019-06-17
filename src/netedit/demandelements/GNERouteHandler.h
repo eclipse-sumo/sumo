@@ -231,6 +231,96 @@ protected:
     void addTranship(const SUMOSAXAttributes& attrs);
 
 private:
+    /// @brief struct used for load person trips
+    struct PersonTripValues {
+        /// @brief default constructor
+        PersonTripValues();
+
+        /// @brief walk tag
+        SumoXMLTag tag;
+
+        /// @brief from edge
+        GNEEdge *from;
+
+        /// @brief to edge
+        GNEEdge *to;
+
+        /// @brief busStop 
+        GNEAdditional* busStop;
+
+        /// @brief vehicle types
+        std::vector<std::string> vTypes;
+
+        /// @brief modes
+        std::vector<std::string> modes;
+
+        /// @brief arrival pos
+        double arrivalPos;
+    };
+
+    /// @brief struct used for load rides
+    struct RideValues {
+        /// @brief default constructor
+        RideValues();
+
+        /// @brief walk tag
+        SumoXMLTag tag;
+
+        /// @brief from edge
+        GNEEdge *from;
+
+        /// @brief to edge
+        GNEEdge *to;
+
+        /// @brief busStop 
+        GNEAdditional* busStop;
+
+        /// @brief lines
+        std::vector<std::string> lines;
+
+        /// @brief arrival pos
+        double arrivalPos;
+    };
+
+    /// @brief struct used for load walks
+    struct WalkValues {
+        /// @brief default constructor
+        WalkValues();
+
+        /// @brief walk tag
+        SumoXMLTag tag;
+
+        /// @brief from edge
+        GNEEdge *from;
+
+        /// @brief to edge
+        GNEEdge *to;
+
+        /// @brief via edges
+        std::vector<GNEEdge*> via;
+
+        /// @brief list of edges
+        std::vector<GNEEdge*> edges;
+
+        /// @brief busStop 
+        GNEAdditional* busStop;
+
+        /// @brief arrival route
+        GNEDemandElement* route;
+
+        /// @brief arrival pos
+        double arrivalPos;
+    };
+    
+    /// @brief container for person trip loaded values
+    std::vector<PersonTripValues> myPersontripValues;
+
+    /// @brief container for ride loaded values
+    std::vector<RideValues> myRideValues;
+
+    /// @breif container for walk loaded values
+    std::vector<WalkValues> myWalkValues;
+
     /// @brief flag used for parsing route attribute
     bool myAbort;
 

@@ -4602,8 +4602,6 @@ GNEAttributeCarrier::fillPersonElements() {
                                            "0.5");
         myTagProperties[currentTag].addAttribute(attrProperty);
     }
-
-
     currentTag = SUMO_TAG_PERSONTRIP_FROMTO;
     {
         // set values of tag

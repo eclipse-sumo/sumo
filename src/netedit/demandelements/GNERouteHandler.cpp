@@ -1197,12 +1197,26 @@ GNERouteHandler::closeVType() {
 
 void
 GNERouteHandler::closePerson() {
-    // currently unused
+    // first check if myVehicleParameter was sucesfully created
+    if(myVehicleParameter) {
+        // we need to build the vehicle and all of their Person plan childs
+        // build person
+        buildPerson(myViewNet, myUndoDemandElements, *myVehicleParameter);
+
+    }
+    // clear person trip values containers
+    myPersontripValues.clear();
+    myRideValues.clear();
+    myWalkValues.clear();
 }
 
 void
 GNERouteHandler::closePersonFlow() {
-    // currently unused
+    // first check if myVehicleParameter was sucesfully created
+    if(myVehicleParameter) {
+        // build person flow
+        buildPersonFlow(myViewNet, myUndoDemandElements, *myVehicleParameter);
+    }
 }
 
 void
@@ -1375,14 +1389,27 @@ GNERouteHandler::addStop(const SUMOSAXAttributes& attrs) {
 
 
 void
-GNERouteHandler::addPersonTrip(const SUMOSAXAttributes& /*attrs*/) {
-    // currently unused
+GNERouteHandler::addPersonTrip(const SUMOSAXAttributes& attrs) {
+    // declare value for saving loaded values
+    PersonTripValues personTripValuesLoaded;
+    /*
+    // parse attribute of routes
+     = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", SUMO_TAG_ROUTE, SUMO_ATTR_ID, myAbort);
+     = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, myRouteID, SUMO_TAG_ROUTE, SUMO_ATTR_EDGES, myAbort);
+     = GNEAttributeCarrier::parseAttributeFromXML<RGBColor>(attrs, myRouteID, SUMO_TAG_ROUTE, SUMO_ATTR_COLOR, myAbort);
+     */
+    // save loaded values in container
+    myPersontripValues.push_back(personTripValuesLoaded);
 }
 
 
 void
 GNERouteHandler::addWalk(const SUMOSAXAttributes& /*attrs*/) {
-    // currently unused
+    // declare value for saving loaded values
+    WalkValues walkValuesLoaded;
+
+    // save loaded values in container
+    myWalkValues.push_back(walkValuesLoaded);
 }
 
 
@@ -1399,8 +1426,12 @@ GNERouteHandler::addContainer(const SUMOSAXAttributes& /*attrs*/) {
 
 
 void
-GNERouteHandler::addRide(const SUMOSAXAttributes& /*attrs*/) {
-    // currently unused
+GNERouteHandler::addRide(const SUMOSAXAttributes& attrs) {
+    // declare value for saving loaded values
+    RideValues rideValuesLoaded;
+
+    // save loaded values in container
+    myRideValues.push_back(rideValuesLoaded);
 }
 
 
@@ -1413,6 +1444,37 @@ GNERouteHandler::addTransport(const SUMOSAXAttributes& /*attrs*/) {
 void
 GNERouteHandler::addTranship(const SUMOSAXAttributes& /*attrs*/) {
     // currently unused
+}
+
+// ===========================================================================
+// private members
+// ===========================================================================
+
+GNERouteHandler::PersonTripValues::PersonTripValues() :
+    tag(SUMO_TAG_NOTHING),
+    from(nullptr),
+    to(nullptr),
+    busStop(nullptr),
+    arrivalPos(-1) {
+}
+
+
+GNERouteHandler::RideValues::RideValues() :
+    tag(SUMO_TAG_NOTHING),
+    from(nullptr),
+    to(nullptr),
+    busStop(nullptr),
+    arrivalPos(-1) {
+}
+
+
+GNERouteHandler:: WalkValues::WalkValues() :
+    tag(SUMO_TAG_NOTHING),
+    from(nullptr),
+    to(nullptr),
+    busStop(nullptr),
+    route(nullptr),
+    arrivalPos(-1) {
 }
 
 /****************************************************************************/
