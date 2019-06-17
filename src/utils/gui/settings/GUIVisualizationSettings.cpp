@@ -111,7 +111,9 @@ GUIVisualizationSettings::GUIVisualizationSettings(bool _netedit) :
     laneParam("LANE_KEY"),
     edgeData("speed"),
     vehicleQuality(0), showBlinker(true),
-    drawLaneChangePreference(false), drawMinGap(false),
+    drawLaneChangePreference(false), 
+    drawMinGap(false),
+    drawBrakeGap(false),
     showBTRange(false), vehicleSize(1),
     vehicleName(false, 60, RGBColor(204, 153, 0, 255)),
     vehicleValue(false, 80, RGBColor::CYAN),
@@ -1025,6 +1027,7 @@ GUIVisualizationSettings::save(OutputDevice& dev) const {
     vehicleSize.print(dev, "vehicle");
     dev.writeAttr("showBlinker", showBlinker);
     dev.writeAttr("drawMinGap", drawMinGap);
+    dev.writeAttr("drawBrakeGap", drawBrakeGap);
     dev.lf();
     dev << "                 ";
     vehicleName.print(dev, "vehicleName");
@@ -1240,6 +1243,9 @@ GUIVisualizationSettings::operator==(const GUIVisualizationSettings& v2) {
         return false;
     }
     if (drawMinGap != v2.drawMinGap) {
+        return false;
+    }
+    if (drawBrakeGap != v2.drawBrakeGap) {
         return false;
     }
     if (showBTRange != v2.showBTRange) {

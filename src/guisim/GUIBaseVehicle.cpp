@@ -388,6 +388,16 @@ GUIBaseVehicle::drawOnPos(const GUIVisualizationSettings& s, const Position& pos
         glVertex2d(.5, minGap);
         glEnd();
     }
+    if (s.drawBrakeGap && !MSGlobals::gUseMesoSim) {
+        const double brakeGap = -static_cast<MSVehicle&>(myVehicle).getCarFollowModel().brakeGap(myVehicle.getSpeed());
+        glColor3d(1., 0., 0.);
+        glBegin(GL_LINES);
+        glVertex2d(0., 0);
+        glVertex2d(0., brakeGap);
+        glVertex2d(-.5, brakeGap);
+        glVertex2d(.5, brakeGap);
+        glEnd();
+    }
     MSDevice_BTreceiver* dev = static_cast<MSDevice_BTreceiver*>(myVehicle.getDevice(typeid(MSDevice_BTreceiver)));
     if (dev != nullptr && s.showBTRange) {
         glColor3d(1., 0., 0.);
