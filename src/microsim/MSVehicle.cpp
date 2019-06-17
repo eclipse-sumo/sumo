@@ -5615,12 +5615,17 @@ MSVehicle::addTraciStop(MSLane* const lane, const double startPos, const double 
     //if the stop exists update the duration
     for (std::list<Stop>::iterator iter = myStops.begin(); iter != myStops.end(); iter++) {
         if (iter->lane == lane && fabs(iter->pars.endPos - endPos) < POSITION_EPS) {
-            if (duration == 0 && !iter->reached) {
+            // update existing stop
+            if (duration == 0 && until < 0 && !iter->reached) {
                 myStops.erase(iter);
                 // XXX also erase from myParameter->stops ?
                 updateBestLanes(true);
             } else {
                 iter->duration = duration;
+                iter->triggered = triggered;
+                iter->containerTriggered = containerTriggered;
+                const_cast<SUMOVehicleParameter::Stop&>(iter->pars).until = until;
+                const_cast<SUMOVehicleParameter::Stop&>(iter->pars).parking = parking;
             }
             return true;
         }
