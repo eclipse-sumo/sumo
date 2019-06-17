@@ -145,6 +145,9 @@ GNEPersonPlanFrame::GNEPersonPlanFrame(FXHorizontalFrame* horizontalFrameParent,
     // Create Help Creation Modul
     myHelpCreation = new HelpCreation(this);
 
+    // Create AttributeCarrierHierarchy modul
+    myPersonHierarchy = new GNEFrame::AttributeCarrierHierarchy(this);
+
     // set PersonPlan as default vehicle
     myPersonPlanTagSelector->setCurrentTypeTag(SUMO_TAG_VEHICLE);
 }
@@ -252,6 +255,8 @@ GNEPersonPlanFrame::tagSelected() {
 void 
 GNEPersonPlanFrame::demandElementSelected() {
     if (myPersonSelector->getCurrentDemandElement()) {
+        //  Show their children
+        myPersonHierarchy->showAttributeCarrierHierarchy(myPersonSelector->getCurrentDemandElement());
         // show person attributes
         myPersonPlanAttributes->showAttributesCreatorModul(myPersonPlanTagSelector->getCurrentTagProperties());
         // show person plan tag selector
@@ -276,6 +281,7 @@ GNEPersonPlanFrame::demandElementSelected() {
             myHelpCreation->hideHelpCreation();
         }
     } else {
+        myPersonHierarchy->hideAttributeCarrierHierarchy();
         myPersonPlanTagSelector->hideTagSelector();
         myPersonPlanAttributes->hideAttributesCreatorModul();
         myPersonPlanAttributes->hideAttributesCreatorModul();
@@ -351,6 +357,8 @@ GNEPersonPlanFrame::edgePathCreated() {
         }
         // end undo-redo operation
         myViewNet->getUndoList()->p_end();
+        // refresh AttributeCarrierHierarchy
+        myPersonHierarchy->refreshAttributeCarrierHierarchy();
     }
 }
 

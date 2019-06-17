@@ -2144,20 +2144,24 @@ GNEFrame::AttributeCarrierHierarchy::onCmdDeleteItem(FXObject*, FXSelector, void
 
 long 
 GNEFrame::AttributeCarrierHierarchy::onCmdMoveItemUp(FXObject*, FXSelector, void*) {
-    GNEDemandElement *demandElement = dynamic_cast<GNEDemandElement*>(myAC);
+    GNEDemandElement *demandElement = dynamic_cast<GNEDemandElement*>(myRightClickedAC);
     if(demandElement) {
         demandElement->getDemandElementParents().at(0)->moveDemandElementChildUp(demandElement);
     }
+    // refresh after moving child
+    refreshAttributeCarrierHierarchy();
     return 1;
 }
 
 
 long 
 GNEFrame::AttributeCarrierHierarchy::onCmdMoveItemDown(FXObject*, FXSelector, void*) {
-    GNEDemandElement *demandElement = dynamic_cast<GNEDemandElement*>(myAC);
+    GNEDemandElement *demandElement = dynamic_cast<GNEDemandElement*>(myRightClickedAC);
     if(demandElement) {
         demandElement->getDemandElementParents().at(0)->moveDemandElementChildDown(demandElement);
     }
+    // refresh after moving child
+    refreshAttributeCarrierHierarchy();
     return 1;
 }
 

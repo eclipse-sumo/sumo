@@ -107,6 +107,9 @@ private:
     /// @brief EdgePathCreator
     EdgePathCreator* myEdgePathCreator;
 
+    /// @brief Person Hierarchy
+    AttributeCarrierHierarchy* myPersonHierarchy;
+
     /// @brief Help creation
     HelpCreation* myHelpCreation;
 };
