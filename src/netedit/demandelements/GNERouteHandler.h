@@ -313,7 +313,7 @@ private:
     };
     
     /// @brief container for person trip loaded values
-    std::vector<PersonTripValues> myPersontripValues;
+    std::vector<PersonTripValues> myPersonTripValues;
 
     /// @brief container for ride loaded values
     std::vector<RideValues> myRideValues;

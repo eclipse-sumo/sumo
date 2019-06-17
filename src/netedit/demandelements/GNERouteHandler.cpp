@@ -1199,13 +1199,53 @@ void
 GNERouteHandler::closePerson() {
     // first check if myVehicleParameter was sucesfully created
     if(myVehicleParameter) {
-        // we need to build the vehicle and all of their Person plan childs
-        // build person
-        buildPerson(myViewNet, myUndoDemandElements, *myVehicleParameter);
+        // first check if ID is duplicated
+        if (!isPersonIdDuplicated(myViewNet, myVehicleParameter->id)) {
+            // obtain ptype
+            GNEDemandElement* pType = myViewNet->getNet()->retrieveDemandElement(SUMO_TAG_PTYPE, myVehicleParameter->vtypeid, false);
+            if (pType == nullptr) {
+                WRITE_ERROR("Invalid person type '" + myVehicleParameter->vtypeid + "' used in " + toString(myVehicleParameter->tag) + " '" + myVehicleParameter->vtypeid + "'.");
+            } else {
+                // create person using personParameters
+                GNEPerson* person = new GNEPerson(SUMO_TAG_PERSON, myViewNet, pType, *myVehicleParameter);
+                // begin undo-list creation
+                myViewNet->getUndoList()->p_begin("add " + person->getTagStr());
+                // add person
+                myViewNet->getUndoList()->add(new GNEChange_DemandElement(person, true), true);
+                // iterate over all personplan childs and add it
+                for (const auto &i : myPersonTripValues) {
+                    if (i.tag == SUMO_TAG_PERSONTRIP_FROMTO) {
+                        myViewNet->getUndoList()->add(new GNEChange_DemandElement(new GNEPersonTrip(myViewNet, person, {i.from, i.to}, i.vTypes, i.modes, i.arrivalPos), true), true);
+                    } else if (i.tag == SUMO_TAG_PERSONTRIP_BUSSTOP) {
+                        myViewNet->getUndoList()->add(new GNEChange_DemandElement(new GNEPersonTrip(myViewNet, person, {i.from, i.to}, i.busStop, i.vTypes, i.modes), true), true);
+                    }
+                }
+                for (const auto &i : myRideValues) {
+                    if (i.tag == SUMO_TAG_RIDE_FROMTO) {
+                        myViewNet->getUndoList()->add(new GNEChange_DemandElement(new GNERide(myViewNet, person, {i.from, i.to}, i.arrivalPos, i.lines), true), true);
+                    } else if (i.tag == SUMO_TAG_RIDE_BUSSTOP) {
+                        myViewNet->getUndoList()->add(new GNEChange_DemandElement(new GNERide(myViewNet, person, {i.from, i.to}, i.busStop, i.lines), true), true);
+                    }
+                }
+                for (const auto &i : myWalkValues) {
+                    if (i.tag == SUMO_TAG_WALK_EDGES) {
+                        myViewNet->getUndoList()->add(new GNEChange_DemandElement(new GNEWalk(myViewNet, person, i.edges, i.arrivalPos), true), true);
+                    } else if (i.tag == SUMO_TAG_WALK_FROMTO) {
+                        myViewNet->getUndoList()->add(new GNEChange_DemandElement(new GNEWalk(myViewNet, person, {i.from, i.to}, i.arrivalPos), true), true);
+                    } else if (i.tag == SUMO_TAG_WALK_BUSSTOP) {
+                        myViewNet->getUndoList()->add(new GNEChange_DemandElement(new GNEWalk(myViewNet, person, {i.from, i.to}, i.busStop), true), true);
+                    } else if (i.tag == SUMO_TAG_WALK_ROUTE) {
+                        myViewNet->getUndoList()->add(new GNEChange_DemandElement(new GNEWalk(myViewNet, person, i.route, i.arrivalPos), true), true);
+                    }
+                }
+                // end undo-list
+                myViewNet->getUndoList()->p_end();
+            }
+        }
 
     }
     // clear person trip values containers
-    myPersontripValues.clear();
+    myPersonTripValues.clear();
     myRideValues.clear();
     myWalkValues.clear();
 }
@@ -1392,24 +1432,122 @@ void
 GNERouteHandler::addPersonTrip(const SUMOSAXAttributes& attrs) {
     // declare value for saving loaded values
     PersonTripValues personTripValuesLoaded;
-    /*
-    // parse attribute of routes
-     = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", SUMO_TAG_ROUTE, SUMO_ATTR_ID, myAbort);
-     = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, myRouteID, SUMO_TAG_ROUTE, SUMO_ATTR_EDGES, myAbort);
-     = GNEAttributeCarrier::parseAttributeFromXML<RGBColor>(attrs, myRouteID, SUMO_TAG_ROUTE, SUMO_ATTR_COLOR, myAbort);
-     */
-    // save loaded values in container
-    myPersontripValues.push_back(personTripValuesLoaded);
+    // first set tag
+    if (attrs.hasAttribute(SUMO_ATTR_FROM) && attrs.hasAttribute(SUMO_ATTR_TO)) {
+        // set tag
+        personTripValuesLoaded.tag = SUMO_TAG_PERSONTRIP_FROMTO;
+        // extract rest of parameters
+        personTripValuesLoaded.from = myViewNet->getNet()->retrieveEdge(GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", personTripValuesLoaded.tag, SUMO_ATTR_FROM, myAbort), false);
+        personTripValuesLoaded.to = myViewNet->getNet()->retrieveEdge(GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", personTripValuesLoaded.tag, SUMO_ATTR_TO, myAbort), false);
+        personTripValuesLoaded.vTypes = GNEAttributeCarrier::parseAttributeFromXML<std::vector<std::string> >(attrs, "", personTripValuesLoaded.tag, SUMO_ATTR_VTYPES, myAbort);
+        personTripValuesLoaded.modes = GNEAttributeCarrier::parseAttributeFromXML<std::vector<std::string> >(attrs, "", personTripValuesLoaded.tag, SUMO_ATTR_MODES, myAbort);
+        personTripValuesLoaded.arrivalPos = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, "", personTripValuesLoaded.tag, SUMO_ATTR_ARRIVALPOS, myAbort);
+        // check that all parameters are correct
+        if (personTripValuesLoaded.from == nullptr) {
+            WRITE_ERROR("Invalid edge from in " + toString(personTripValuesLoaded.tag));
+        } else if (personTripValuesLoaded.to == nullptr) {
+            WRITE_ERROR("Invalid edge to in " + toString(personTripValuesLoaded.tag));
+        } else {
+            // save loaded values in container
+            myPersonTripValues.push_back(personTripValuesLoaded);
+        }
+    } else if (attrs.hasAttribute(SUMO_ATTR_FROM) && attrs.hasAttribute(SUMO_ATTR_BUS_STOP)) {
+        // set tag
+        personTripValuesLoaded.tag = SUMO_TAG_PERSONTRIP_BUSSTOP;
+        // extract rest of parameters
+        personTripValuesLoaded.from = myViewNet->getNet()->retrieveEdge(GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", personTripValuesLoaded.tag, SUMO_ATTR_FROM, myAbort), false);
+        personTripValuesLoaded.busStop = myViewNet->getNet()->retrieveAdditional(SUMO_TAG_BUS_STOP, GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", personTripValuesLoaded.tag, SUMO_ATTR_TO, myAbort), false);
+        personTripValuesLoaded.vTypes = GNEAttributeCarrier::parseAttributeFromXML<std::vector<std::string> >(attrs, "", personTripValuesLoaded.tag, SUMO_ATTR_VTYPES, myAbort);
+        personTripValuesLoaded.modes = GNEAttributeCarrier::parseAttributeFromXML<std::vector<std::string> >(attrs, "", personTripValuesLoaded.tag, SUMO_ATTR_MODES, myAbort);
+        personTripValuesLoaded.arrivalPos = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, "", personTripValuesLoaded.tag, SUMO_ATTR_ARRIVALPOS, myAbort);
+        // check that all parameters are correct
+        if (personTripValuesLoaded.from == nullptr) {
+            WRITE_ERROR("Invalid edge from in " + toString(personTripValuesLoaded.tag));
+        } else if (personTripValuesLoaded.busStop == nullptr) {
+            WRITE_ERROR("Invalid busStop to in " + toString(personTripValuesLoaded.tag));
+        } else {
+            // save loaded values in container
+            myPersonTripValues.push_back(personTripValuesLoaded);
+        }
+    } else {
+        WRITE_ERROR("A personTrip requieres either a from-to edges or a from edge and a busStop");
+    }
 }
 
 
 void
-GNERouteHandler::addWalk(const SUMOSAXAttributes& /*attrs*/) {
+GNERouteHandler::addWalk(const SUMOSAXAttributes& attrs) {
     // declare value for saving loaded values
     WalkValues walkValuesLoaded;
-
-    // save loaded values in container
-    myWalkValues.push_back(walkValuesLoaded);
+    // first set tag
+    if (attrs.hasAttribute(SUMO_ATTR_EDGES)) {
+        // set tag
+        walkValuesLoaded.tag = SUMO_TAG_WALK_EDGES;
+        // parse edges
+        std::vector<std::string> edgeIDs = GNEAttributeCarrier::parseAttributeFromXML<std::vector<std::string> >(attrs, "", walkValuesLoaded.tag, SUMO_ATTR_EDGES, myAbort);
+        if (GNEAttributeCarrier::canParse<std::vector<GNEEdge*> >(myViewNet->getNet(), myEdgeIDs, true)) {
+            walkValuesLoaded.edges = GNEAttributeCarrier::parse<std::vector<GNEEdge*> >(myViewNet->getNet(), myEdgeIDs);
+        }
+        // extract rest of parameters
+        walkValuesLoaded.from = myViewNet->getNet()->retrieveEdge(GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", walkValuesLoaded.tag, SUMO_ATTR_FROM, myAbort), false);
+        walkValuesLoaded.to = myViewNet->getNet()->retrieveEdge(GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", walkValuesLoaded.tag, SUMO_ATTR_TO, myAbort), false);
+        walkValuesLoaded.arrivalPos = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, "", walkValuesLoaded.tag, SUMO_ATTR_ARRIVALPOS, myAbort);
+        // check that all parameters are correct
+        if (walkValuesLoaded.edges.empty()) {
+            WRITE_ERROR("Invalid edges from in " + toString(walkValuesLoaded.tag));
+        } else {
+            // save loaded values in container
+            myWalkValues.push_back(walkValuesLoaded);
+        }
+    } else if (attrs.hasAttribute(SUMO_ATTR_FROM) && attrs.hasAttribute(SUMO_ATTR_TO)) {
+        // set tag
+        walkValuesLoaded.tag = SUMO_TAG_WALK_FROMTO;
+        // extract rest of parameters
+        walkValuesLoaded.from = myViewNet->getNet()->retrieveEdge(GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", walkValuesLoaded.tag, SUMO_ATTR_FROM, myAbort), false);
+        walkValuesLoaded.to = myViewNet->getNet()->retrieveEdge(GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", walkValuesLoaded.tag, SUMO_ATTR_TO, myAbort), false);
+        walkValuesLoaded.arrivalPos = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, "", walkValuesLoaded.tag, SUMO_ATTR_ARRIVALPOS, myAbort);
+        // check that all parameters are correct
+        if (walkValuesLoaded.from == nullptr) {
+            WRITE_ERROR("Invalid edge from in " + toString(walkValuesLoaded.tag));
+        } else if (walkValuesLoaded.to == nullptr) {
+            WRITE_ERROR("Invalid edge to in " + toString(walkValuesLoaded.tag));
+        } else {
+            // save loaded values in container
+            myWalkValues.push_back(walkValuesLoaded);
+        }
+    } else if (attrs.hasAttribute(SUMO_ATTR_FROM) && attrs.hasAttribute(SUMO_ATTR_BUS_STOP)) {
+        // set tag
+        walkValuesLoaded.tag = SUMO_TAG_WALK_BUSSTOP;
+        // extract rest of parameters
+        walkValuesLoaded.from = myViewNet->getNet()->retrieveEdge(GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", walkValuesLoaded.tag, SUMO_ATTR_FROM, myAbort), false);
+        walkValuesLoaded.busStop = myViewNet->getNet()->retrieveAdditional(SUMO_TAG_BUS_STOP, GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", walkValuesLoaded.tag, SUMO_ATTR_TO, myAbort), false);
+        walkValuesLoaded.arrivalPos = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, "", walkValuesLoaded.tag, SUMO_ATTR_ARRIVALPOS, myAbort);
+        // check that all parameters are correct
+        if (walkValuesLoaded.from == nullptr) {
+            WRITE_ERROR("Invalid edge from in " + toString(walkValuesLoaded.tag));
+        } else if (walkValuesLoaded.busStop == nullptr) {
+            WRITE_ERROR("Invalid busStop to in " + toString(walkValuesLoaded.tag));
+        } else {
+            // save loaded values in container
+            myWalkValues.push_back(walkValuesLoaded);
+        }
+    } else if (attrs.hasAttribute(SUMO_ATTR_ROUTE)) {
+        // set tag
+        walkValuesLoaded.tag = SUMO_TAG_WALK_ROUTE;
+        // extract rest of parameters
+        walkValuesLoaded.from = myViewNet->getNet()->retrieveEdge(GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", walkValuesLoaded.tag, SUMO_ATTR_FROM, myAbort), false);
+        walkValuesLoaded.route = myViewNet->getNet()->retrieveDemandElement(SUMO_TAG_ROUTE, GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", walkValuesLoaded.tag, SUMO_ATTR_TO, myAbort), false);
+        walkValuesLoaded.arrivalPos = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, "", walkValuesLoaded.tag, SUMO_ATTR_ARRIVALPOS, myAbort);
+        // check that all parameters are correct
+        if (walkValuesLoaded.route == nullptr) {
+            WRITE_ERROR("Invalid route from in " + toString(walkValuesLoaded.tag));
+        } else {
+            // save loaded values in container
+            myWalkValues.push_back(walkValuesLoaded);
+        }
+    } else {
+        WRITE_ERROR("A walk requieres either a from-to edges, a from edge and a busStop or a route");
+    }
 }
 
 
@@ -1429,9 +1567,44 @@ void
 GNERouteHandler::addRide(const SUMOSAXAttributes& attrs) {
     // declare value for saving loaded values
     RideValues rideValuesLoaded;
-
-    // save loaded values in container
-    myRideValues.push_back(rideValuesLoaded);
+    // first set tag
+    if (attrs.hasAttribute(SUMO_ATTR_FROM) && attrs.hasAttribute(SUMO_ATTR_TO)) {
+        // set tag
+        rideValuesLoaded.tag = SUMO_TAG_RIDE_FROMTO;
+        // extract rest of parameters
+        rideValuesLoaded.from = myViewNet->getNet()->retrieveEdge(GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", rideValuesLoaded.tag, SUMO_ATTR_FROM, myAbort), false);
+        rideValuesLoaded.to = myViewNet->getNet()->retrieveEdge(GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", rideValuesLoaded.tag, SUMO_ATTR_TO, myAbort), false);
+        rideValuesLoaded.lines = GNEAttributeCarrier::parseAttributeFromXML<std::vector<std::string> >(attrs, "", rideValuesLoaded.tag, SUMO_ATTR_LINES, myAbort);
+        rideValuesLoaded.arrivalPos = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, "", rideValuesLoaded.tag, SUMO_ATTR_ARRIVALPOS, myAbort);
+        // check that all parameters are correct
+        if (rideValuesLoaded.from == nullptr) {
+            WRITE_ERROR("Invalid edge from in " + toString(rideValuesLoaded.tag));
+        } else if (rideValuesLoaded.to == nullptr) {
+            WRITE_ERROR("Invalid edge to in " + toString(rideValuesLoaded.tag));
+        } else {
+            // save loaded values in container
+            myRideValues.push_back(rideValuesLoaded);
+        }
+    } else if (attrs.hasAttribute(SUMO_ATTR_FROM) && attrs.hasAttribute(SUMO_ATTR_BUS_STOP)) {
+        // set tag
+        rideValuesLoaded.tag = SUMO_TAG_RIDE_BUSSTOP;
+        // extract rest of parameters
+        rideValuesLoaded.from = myViewNet->getNet()->retrieveEdge(GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", rideValuesLoaded.tag, SUMO_ATTR_FROM, myAbort), false);
+        rideValuesLoaded.busStop = myViewNet->getNet()->retrieveAdditional(SUMO_TAG_BUS_STOP, GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", rideValuesLoaded.tag, SUMO_ATTR_TO, myAbort), false);
+        rideValuesLoaded.lines = GNEAttributeCarrier::parseAttributeFromXML<std::vector<std::string> >(attrs, "", rideValuesLoaded.tag, SUMO_ATTR_LINES, myAbort);
+        rideValuesLoaded.arrivalPos = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, "", rideValuesLoaded.tag, SUMO_ATTR_ARRIVALPOS, myAbort);
+        // check that all parameters are correct
+        if (rideValuesLoaded.from == nullptr) {
+            WRITE_ERROR("Invalid edge from in " + toString(rideValuesLoaded.tag));
+        } else if (rideValuesLoaded.busStop == nullptr) {
+            WRITE_ERROR("Invalid busStop to in " + toString(rideValuesLoaded.tag));
+        } else {
+            // save loaded values in container
+            myRideValues.push_back(rideValuesLoaded);
+        }
+    } else {
+        WRITE_ERROR("A ride requieres either a from-to edges or a from edge and a busStop");
+    }
 }
 
 
