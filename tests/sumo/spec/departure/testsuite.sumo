@@ -119,6 +119,14 @@ speed_random__lanelimit
 # checks using the random speed (bounded by veh's vmax)
 speed_random__vehlimit
 
+# departSpeed="desired" 
+# (should not lower speed)
+speed_desired
+
+# departSpeed="speedLimit" 
+# (should not lower speed)
+speed_speedLimit
+
 # test option --random-depart-offset
 depart_random
 
