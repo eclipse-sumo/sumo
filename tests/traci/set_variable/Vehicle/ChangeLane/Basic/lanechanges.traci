@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Oct 18 15:16:00 2017 by SUMO Version dev-SVN-r26551
+<!-- generated on Mon Jun 17 08:24:29 2019 by Eclipse SUMO Version v1_2_0+0252-83989c2
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -14,6 +14,7 @@ SPDX-License-Identifier: EPL-2.0
     </input>
 
     <output>
+        <write-license value="true"/>
         <netstate-dump value="netstate_dump.xml"/>
         <lanechange-output value="lanechanges.xml"/>
     </output>
@@ -24,12 +25,12 @@ SPDX-License-Identifier: EPL-2.0
     </report>
 
     <traci_server>
-        <remote-port value="48451"/>
+        <remote-port value="49601"/>
     </traci_server>
 
 </configuration>
 -->
 
 <lanechanges>
-    <change id="veh0" type="SUMO_DEFAULT_TYPE" time="32.00" from="1si_1" to="1si_0" dir="-1" speed="10.00" pos="10.41" reason="traci|urgent" leaderGap="None" leaderSecureGap="None" followerGap="None" followerSecureGap="None" origLeaderGap="None" origLeaderSecureGap="None"/>
+    <change id="veh0" type="SUMO_DEFAULT_TYPE" time="32.00" from="1si_1" to="1si_0" dir="-1" speed="10.00" pos="10.41" reason="traci|urgent" leaderGap="None" leaderSecureGap="None" leaderSpeed="None" followerGap="None" followerSecureGap="None" followerSpeed="None" origLeaderGap="None" origLeaderSecureGap="None" origLeaderSpeed="None"/>
 </lanechanges>
