@@ -635,6 +635,7 @@ def savePlainXML(waitTime=2):
     # wait for loading
     time.sleep(waitTime)
 
+
 """
 @brief Change edit mode (alt+1-9)
 """
