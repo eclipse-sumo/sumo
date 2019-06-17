@@ -556,6 +556,7 @@ GNEViewNet::doPaintGL(int mode, const Boundary& bound) {
         myViewParent->getVehicleFrame()->getEdgePathCreator()->drawTemporalRoute();
         // draw temporal person plan route
         myViewParent->getPersonFrame()->getEdgePathCreator()->drawTemporalRoute();
+        myViewParent->getPersonPlanFrame()->getEdgePathCreator()->drawTemporalRoute();
         // draw temporal non consecutive edge
         myViewParent->getRouteFrame()->drawTemporalRoute();
     }
@@ -765,6 +766,8 @@ GNEViewNet::abortOperation(bool clearSelection) {
             myViewParent->getVehicleFrame()->getEdgePathCreator()->abortEdgePathCreation();
         } else if (myEditModes.demandEditMode == GNE_DMODE_PERSON) {
             myViewParent->getPersonFrame()->getEdgePathCreator()->abortEdgePathCreation();
+        } else if (myEditModes.demandEditMode == GNE_DMODE_PERSONPLAN) {
+            myViewParent->getPersonPlanFrame()->getEdgePathCreator()->abortEdgePathCreation();
         }
     }
     // abort undo list
@@ -846,6 +849,8 @@ GNEViewNet::hotkeyEnter() {
             myViewParent->getVehicleFrame()->getEdgePathCreator()->finishEdgePathCreation();
         } else if (myEditModes.demandEditMode == GNE_DMODE_PERSON) {
             myViewParent->getPersonFrame()->getEdgePathCreator()->finishEdgePathCreation();
+        } else if (myEditModes.demandEditMode == GNE_DMODE_PERSONPLAN) {
+            myViewParent->getPersonPlanFrame()->getEdgePathCreator()->finishEdgePathCreation();
         }
     }
 }
@@ -862,6 +867,8 @@ GNEViewNet::hotkeyBackSpace() {
             myViewParent->getVehicleFrame()->getEdgePathCreator()->removeLastAddedRoute();
         } else if (myEditModes.demandEditMode == GNE_DMODE_PERSON) {
             myViewParent->getPersonFrame()->getEdgePathCreator()->removeLastAddedRoute();
+        } else if (myEditModes.demandEditMode == GNE_DMODE_PERSONPLAN) {
+            myViewParent->getPersonPlanFrame()->getEdgePathCreator()->removeLastAddedRoute();
         }
     }
 }
@@ -3204,6 +3211,16 @@ GNEViewNet::processLeftButtonPressDemand(void* eventData) {
             if (!myKeyPressed.controlKeyPressed()) {
                 // Handle click
                 myViewParent->getPersonFrame()->addPerson(myObjectsUnderCursor);
+            }
+            // process click
+            processClick(eventData);
+            break;
+        }
+        case GNE_DMODE_PERSONPLAN: {
+            // make sure that Control key isn't pressed
+            if (!myKeyPressed.controlKeyPressed()) {
+                // Handle click
+                myViewParent->getPersonPlanFrame()->addPersonPlan(myObjectsUnderCursor);
             }
             // process click
             processClick(eventData);

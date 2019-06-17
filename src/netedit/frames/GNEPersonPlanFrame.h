@@ -88,9 +88,18 @@ protected:
     /// @brief Tag selected in TagSelector
     void tagSelected();
 
+    /// @brief selected demand element in DemandElementSelector
+    void demandElementSelected();
+
+    /// @brief finish edge path creation
+    void edgePathCreated();
+
 private:
-    /// @brief item selector (used to select diffent kind of vehicles)
-    TagSelector* myTagSelector;
+    /// @brief Person selectors
+    DemandElementSelector* myPersonSelector;
+
+    /// @brief personPlan selector
+    TagSelector* myPersonPlanTagSelector;
 
     /// @brief internal vehicle attributes
     AttributesCreator* myPersonPlanAttributes;

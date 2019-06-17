@@ -20,20 +20,21 @@
 // ===========================================================================
 #include <config.h>
 
-#include <utils/gui/windows/GUIAppEnum.h>
-#include <utils/gui/div/GUIDesigns.h>
-#include <netedit/netelements/GNEEdge.h>
-#include <netedit/netelements/GNELane.h>
-#include <netedit/demandelements/GNEPerson.h>
-#include <netedit/demandelements/GNERouteHandler.h>
+#include <netedit/GNEApplicationWindow.h>
 #include <netedit/GNENet.h>
+#include <netedit/GNEUndoList.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNEViewParent.h>
-#include <netedit/GNEApplicationWindow.h>
-#include <utils/xml/SUMOSAXAttributesImpl_Cached.h>
-#include <utils/vehicle/SUMOVehicleParserHelper.h>
+#include <netedit/demandelements/GNEPerson.h>
+#include <netedit/demandelements/GNERouteHandler.h>
+#include <netedit/netelements/GNEEdge.h>
+#include <netedit/netelements/GNELane.h>
 #include <utils/gui/div/GLHelper.h>
+#include <utils/gui/div/GUIDesigns.h>
 #include <utils/gui/globjects/GLIncludes.h>
+#include <utils/gui/windows/GUIAppEnum.h>
+#include <utils/vehicle/SUMOVehicleParserHelper.h>
+#include <utils/xml/SUMOSAXAttributesImpl_Cached.h>
 
 #include "GNEPersonPlanFrame.h"
 
@@ -73,27 +74,47 @@ void
 GNEPersonPlanFrame::HelpCreation::updateHelpCreation() {
     // create information label
     std::ostringstream information;
-    // set text depending of selected vehicle type
-    switch (myPersonPlanFrameParent->myTagSelector->getCurrentTagProperties().getTag()) {
-        case SUMO_TAG_VEHICLE:
+    // set text depending of selected person plan
+    switch (myPersonPlanFrameParent->myPersonPlanTagSelector->getCurrentTagProperties().getTag()) {
+        case SUMO_TAG_PERSONTRIP_FROMTO:
             information
-                    << "- Click over a route to\n"
-                    << "  create a vehicle.";
+                << "- Click over edges to\n"
+                << "  create a trip.";
             break;
-        case SUMO_TAG_TRIP:
+        case SUMO_TAG_PERSONTRIP_BUSSTOP:
             information
-                    << "- Select two edges to\n"
-                    << "  create a Trip.";
+                << "- Click over an edge and\n"
+                << "  a bus to create a trip.";
             break;
-        case SUMO_TAG_ROUTEFLOW:
+        case SUMO_TAG_WALK_EDGES:
             information
-                    << "- Click over a route to\n"
-                    << "  create a routeFlow.";
+                << "- Click over a sequenz of\n"
+                << "  consecutive edges to\n"
+                << "  create a walk.";
             break;
-        case SUMO_TAG_FLOW:
+        case SUMO_TAG_WALK_FROMTO:
             information
-                    << "- Select two edges to\n"
-                    << "  create a flow.";
+                << "- Click over edges to\n"
+                << "  create a walk.";
+            break;
+        case SUMO_TAG_WALK_BUSSTOP:
+            information
+                << "- Click over an edge and\n"
+                << "  a bus to create a walk.";
+            break;
+        case SUMO_TAG_WALK_ROUTE:
+            information
+                << "- Click over a route";
+            break;
+        case SUMO_TAG_RIDE_FROMTO:
+            information
+                << "- Click over edges to\n"
+                << "  create a ride.";
+            break;
+        case SUMO_TAG_RIDE_BUSSTOP:
+            information
+                << "- Click over an edge and\n"
+                << "  a bus to create a ride";
             break;
         default:
             break;
@@ -109,8 +130,11 @@ GNEPersonPlanFrame::HelpCreation::updateHelpCreation() {
 GNEPersonPlanFrame::GNEPersonPlanFrame(FXHorizontalFrame* horizontalFrameParent, GNEViewNet* viewNet) :
     GNEFrame(horizontalFrameParent, viewNet, "PersonPlans") {
 
+    // create person types selector modul
+    myPersonSelector = new DemandElementSelector(this, {GNEAttributeCarrier::TagType::TAGTYPE_PERSON});
+
     // Create tag selector for person plan
-    myTagSelector = new TagSelector(this, GNEAttributeCarrier::TagType::TAGTYPE_PERSONPLAN);
+    myPersonPlanTagSelector = new TagSelector(this, GNEAttributeCarrier::TagType::TAGTYPE_PERSONPLAN);
 
     // Create person parameters
     myPersonPlanAttributes = new AttributesCreator(this);
@@ -122,7 +146,7 @@ GNEPersonPlanFrame::GNEPersonPlanFrame(FXHorizontalFrame* horizontalFrameParent,
     myHelpCreation = new HelpCreation(this);
 
     // set PersonPlan as default vehicle
-    myTagSelector->setCurrentTypeTag(SUMO_TAG_VEHICLE);
+    myPersonPlanTagSelector->setCurrentTypeTag(SUMO_TAG_VEHICLE);
 }
 
 
@@ -131,8 +155,16 @@ GNEPersonPlanFrame::~GNEPersonPlanFrame() {}
 
 void
 GNEPersonPlanFrame::show() {
-    // refresh item selector
-    myTagSelector->refreshTagProperties();
+    // Only show moduls if there is at least one person
+    if ((myViewNet->getNet()->getAttributeCarriers().demandElements.at(SUMO_TAG_PERSON).size() > 0) ||
+        (myViewNet->getNet()->getAttributeCarriers().demandElements.at(SUMO_TAG_PERSONFLOW).size() > 0)) {
+        // refresh demand element selector
+        myPersonSelector->refreshDemandElementSelector();
+        // refresh item selector
+        myPersonPlanTagSelector->refreshTagProperties();
+    } else {
+        // hide all moduls
+    }
     // show frame
     GNEFrame::show();
 }
@@ -140,69 +172,18 @@ GNEPersonPlanFrame::show() {
 
 bool
 GNEPersonPlanFrame::addPersonPlan(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor) {
-    // obtain tag (only for improve code legibility)
-    SumoXMLTag vehicleTag = myTagSelector->getCurrentTagProperties().getTag();
-    // first check that current selected vehicle is valid
-    if (vehicleTag == SUMO_TAG_NOTHING) {
-        myViewNet->setStatusBarText("Current selected vehicle isn't valid.");
+    // first check if person selected is valid
+    if (myPersonSelector->getCurrentDemandElement() == nullptr) {
+        myViewNet->setStatusBarText("Current selected person isn't valid.");
         return false;
     }
-    // Declare map to keep attributes from Frames from Frame
-    std::map<SumoXMLAttr, std::string> valuesMap = myPersonPlanAttributes->getAttributesAndValues(false);
-    // add ID parameter
-    valuesMap[SUMO_ATTR_ID] = myViewNet->getNet()->generateDemandElementID("", vehicleTag);
-    // set route or edges depending of vehicle type
-    if ((vehicleTag == SUMO_TAG_VEHICLE) || (vehicleTag == SUMO_TAG_ROUTEFLOW)) {
-        if (objectsUnderCursor.getDemandElementFront() && (objectsUnderCursor.getDemandElementFront()->getTagProperty().isRoute())) {
-            // obtain route
-            valuesMap[SUMO_ATTR_ROUTE] = (objectsUnderCursor.getDemandElementFront()->getTagProperty().getTag() == SUMO_TAG_ROUTE)? objectsUnderCursor.getDemandElementFront()->getID() : "embedded";
-            // check if we're creating a vehicle or a flow
-            if (vehicleTag == SUMO_TAG_VEHICLE) {
-                // Add parameter departure
-                if (valuesMap[SUMO_ATTR_DEPART].empty()) {
-                    valuesMap[SUMO_ATTR_DEPART] = "0";
-                }
-                // declare SUMOSAXAttributesImpl_Cached to convert valuesMap into SUMOSAXAttributes
-                SUMOSAXAttributesImpl_Cached SUMOSAXAttrs(valuesMap, getPredefinedTagsMML(), toString(vehicleTag));
-                // obtain vehicle parameters in vehicleParameters
-                SUMOVehicleParameter* vehicleParameters = SUMOVehicleParserHelper::parseVehicleAttributes(SUMOSAXAttrs);
-                // check if we're creating a vehicle over a existent route or over a embedded route
-                if (objectsUnderCursor.getDemandElementFront()->getTagProperty().getTag() == SUMO_TAG_ROUTE) {
-                    GNERouteHandler::buildVehicleOverRoute(myViewNet, true, *vehicleParameters);
-                } else {
-                    GNERouteHandler::buildVehicleWithEmbeddedRoute(myViewNet, true, *vehicleParameters, objectsUnderCursor.getDemandElementFront());
-                }
-                // delete vehicleParameters
-                delete vehicleParameters;
-            } else {
-                // set begin and end attributes
-                if (valuesMap[SUMO_ATTR_BEGIN].empty()) {
-                    valuesMap[SUMO_ATTR_BEGIN] = "0";
-                }
-                if (valuesMap[SUMO_ATTR_END].empty()) {
-                    valuesMap[SUMO_ATTR_END] = "3600";
-                }
-                // declare SUMOSAXAttributesImpl_Cached to convert valuesMap into SUMOSAXAttributes
-                SUMOSAXAttributesImpl_Cached SUMOSAXAttrs(valuesMap, getPredefinedTagsMML(), toString(vehicleTag));
-                // obtain routeFlow parameters in routeFlowParameters
-                SUMOVehicleParameter* routeFlowParameters = SUMOVehicleParserHelper::parseFlowAttributes(SUMOSAXAttrs, 0, SUMOTime_MAX);
-                // check if we're creating a vehicle over a existent route or over a embedded route
-                if (objectsUnderCursor.getDemandElementFront()->getTagProperty().getTag() == SUMO_TAG_ROUTE) {
-                    GNERouteHandler::buildFlowOverRoute(myViewNet, true, *routeFlowParameters);
-                } else {
-                    GNERouteHandler::buildFlowWithEmbeddedRoute(myViewNet, true, *routeFlowParameters, objectsUnderCursor.getDemandElementFront());
-                }
-                // delete routeFlowParameters
-                delete routeFlowParameters;
-            }
-            // all ok, then return true;
-            return true;
-        } else {
-            myViewNet->setStatusBarText(toString(vehicleTag) + " has to be placed within a route.");
-            return false;
-        }
-    } else if (((vehicleTag == SUMO_TAG_TRIP) || (vehicleTag == SUMO_TAG_FLOW)) && objectsUnderCursor.getEdgeFront()) {
-        // add clicked edge in EdgePathCreator
+    // finally check that person plan selected is valid
+    if (myPersonPlanTagSelector->getCurrentTagProperties().getTag() == SUMO_TAG_NOTHING) {
+        myViewNet->setStatusBarText("Current selected person plan isn't valid.");
+        return false;
+    }
+    // add clicked edge in EdgePathCreator
+    if (objectsUnderCursor.getEdgeFront()) {
         return myEdgePathCreator->addEdge(objectsUnderCursor.getEdgeFront());
     } else {
         return false;
@@ -221,19 +202,157 @@ GNEPersonPlanFrame::getEdgePathCreator() const {
 
 void 
 GNEPersonPlanFrame::tagSelected() {
-    if (myTagSelector->getCurrentTagProperties().getTag() != SUMO_TAG_NOTHING) {
-        // show AutoRute creator if we're editing a trip
-        if ((myTagSelector->getCurrentTagProperties().getTag() == SUMO_TAG_TRIP) || 
-            (myTagSelector->getCurrentTagProperties().getTag() == SUMO_TAG_FLOW)) {
-            myEdgePathCreator->showEdgePathCreator();
+    // first check if person is valid
+    if (myPersonPlanTagSelector->getCurrentTagProperties().getTag() != SUMO_TAG_NOTHING) {
+        // show person selector and person plan selector
+        myPersonSelector->showDemandElementSelector();
+        if (myPersonSelector->getCurrentDemandElement()) {
+            // show person attributes
+            myPersonPlanAttributes->showAttributesCreatorModul(myPersonPlanTagSelector->getCurrentTagProperties());
+            // show person plan tag selector
+            myPersonPlanTagSelector->showTagSelector();
+            // now check if person plan selected is valid
+            if (myPersonPlanTagSelector->getCurrentTagProperties().getTag() != SUMO_TAG_NOTHING) {
+                // show person plan attributes
+                myPersonPlanAttributes->showAttributesCreatorModul(myPersonPlanTagSelector->getCurrentTagProperties());
+                // set edge path creator name
+                if (myPersonPlanTagSelector->getCurrentTagProperties().isPersonTrip()) {
+                    myEdgePathCreator->edgePathCreatorName("person trip");
+                } else if (myPersonPlanTagSelector->getCurrentTagProperties().isWalk()) {
+                    myEdgePathCreator->edgePathCreatorName("walk");
+                } else if (myPersonPlanTagSelector->getCurrentTagProperties().isRide()) {
+                    myEdgePathCreator->edgePathCreatorName("ride");
+                }
+                myEdgePathCreator->showEdgePathCreator();
+                myHelpCreation->showHelpCreation();
+            } else {
+                myPersonPlanAttributes->hideAttributesCreatorModul();
+                myEdgePathCreator->hideEdgePathCreator();
+                myHelpCreation->hideHelpCreation();
+            }
         } else {
+            myPersonPlanTagSelector->hideTagSelector();
+            myPersonPlanAttributes->hideAttributesCreatorModul();
+            myPersonPlanAttributes->hideAttributesCreatorModul();
             myEdgePathCreator->hideEdgePathCreator();
+            myHelpCreation->hideHelpCreation();
         }
     } else {
-        // hide all moduls if vehicle isn't valid
+        // hide all moduls if person isn't valid
+        myPersonSelector->hideDemandElementSelector();
+        myPersonPlanTagSelector->hideTagSelector();
         myPersonPlanAttributes->hideAttributesCreatorModul();
+        myPersonPlanAttributes->hideAttributesCreatorModul();
+        myEdgePathCreator->hideEdgePathCreator();
         myHelpCreation->hideHelpCreation();
     }
 }
+
+
+void 
+GNEPersonPlanFrame::demandElementSelected() {
+    if (myPersonSelector->getCurrentDemandElement()) {
+        // show person attributes
+        myPersonPlanAttributes->showAttributesCreatorModul(myPersonPlanTagSelector->getCurrentTagProperties());
+        // show person plan tag selector
+        myPersonPlanTagSelector->showTagSelector();
+        // now check if person plan selected is valid
+        if (myPersonPlanTagSelector->getCurrentTagProperties().getTag() != SUMO_TAG_NOTHING) {
+            // show person plan attributes
+            myPersonPlanAttributes->showAttributesCreatorModul(myPersonPlanTagSelector->getCurrentTagProperties());
+            // set edge path creator name
+            if (myPersonPlanTagSelector->getCurrentTagProperties().isPersonTrip()) {
+                myEdgePathCreator->edgePathCreatorName("person trip");
+            } else if (myPersonPlanTagSelector->getCurrentTagProperties().isWalk()) {
+                myEdgePathCreator->edgePathCreatorName("walk");
+            } else if (myPersonPlanTagSelector->getCurrentTagProperties().isRide()) {
+                myEdgePathCreator->edgePathCreatorName("ride");
+            }
+            myEdgePathCreator->showEdgePathCreator();
+            myHelpCreation->showHelpCreation();
+        } else {
+            myPersonPlanAttributes->hideAttributesCreatorModul();
+            myEdgePathCreator->hideEdgePathCreator();
+            myHelpCreation->hideHelpCreation();
+        }
+    } else {
+        myPersonPlanTagSelector->hideTagSelector();
+        myPersonPlanAttributes->hideAttributesCreatorModul();
+        myPersonPlanAttributes->hideAttributesCreatorModul();
+        myEdgePathCreator->hideEdgePathCreator();
+        myHelpCreation->hideHelpCreation();
+    }
+}
+
+
+void
+GNEPersonPlanFrame::edgePathCreated() {
+    // first check that all attributes are valid
+    if (!myPersonPlanAttributes->areValuesValid()) {
+        myViewNet->setStatusBarText("Invalid person parameters.");
+    } else if (!myPersonPlanAttributes->areValuesValid()) {
+        myViewNet->setStatusBarText("Invalid " + myPersonPlanTagSelector->getCurrentTagProperties().getTagStr() + " parameters.");
+    } else {
+        // begin undo-redo operation
+        myViewNet->getUndoList()->p_begin("create and " + myPersonPlanTagSelector->getCurrentTagProperties().getTagStr());
+        // Declare map to keep attributes from myPersonPlanAttributes
+        std::map<SumoXMLAttr, std::string> valuesMap = myPersonPlanAttributes->getAttributesAndValues(true);
+        // check what PersonPlan we're creating
+        switch (myPersonPlanTagSelector->getCurrentTagProperties().getTag()) {
+            case SUMO_TAG_PERSONTRIP_FROMTO: {
+                std::vector<std::string> types = GNEAttributeCarrier::parse<std::vector<std::string> >(valuesMap[SUMO_ATTR_VTYPES]);
+                std::vector<std::string> modes = GNEAttributeCarrier::parse<std::vector<std::string> >(valuesMap[SUMO_ATTR_MODES]);
+                double arrivalPos = GNEAttributeCarrier::parse<double>(valuesMap[SUMO_ATTR_ARRIVALPOS]);
+                GNERouteHandler::buildPersonTripFromTo(myViewNet, true, myPersonSelector->getCurrentDemandElement(), myEdgePathCreator->getSelectedEdges(), types, modes, arrivalPos);
+                break;
+            }
+            case SUMO_TAG_PERSONTRIP_BUSSTOP: {
+                GNEAdditional *busStop = myViewNet->getNet()->retrieveAdditional(SUMO_TAG_BUS_STOP, valuesMap[SUMO_ATTR_BUS_STOP]);
+                std::vector<std::string> types = GNEAttributeCarrier::parse<std::vector<std::string> >(valuesMap[SUMO_ATTR_VTYPES]);
+                std::vector<std::string> modes = GNEAttributeCarrier::parse<std::vector<std::string> >(valuesMap[SUMO_ATTR_MODES]);
+                GNERouteHandler::buildPersonTripBusStop(myViewNet, true, myPersonSelector->getCurrentDemandElement(), myEdgePathCreator->getSelectedEdges(), busStop, types, modes);
+                break;
+            }
+            case SUMO_TAG_WALK_EDGES: {
+                double arrivalPos = GNEAttributeCarrier::parse<double>(valuesMap[SUMO_ATTR_ARRIVALPOS]);
+                GNERouteHandler::buildWalkEdges(myViewNet, true, myPersonSelector->getCurrentDemandElement(), myEdgePathCreator->getSelectedEdges(), arrivalPos);
+                break;
+            }
+            case SUMO_TAG_WALK_FROMTO: {
+                double arrivalPos = GNEAttributeCarrier::parse<double>(valuesMap[SUMO_ATTR_ARRIVALPOS]);
+                GNERouteHandler::buildWalkFromTo(myViewNet, true, myPersonSelector->getCurrentDemandElement(), myEdgePathCreator->getSelectedEdges(), arrivalPos);
+                break;
+            }
+            case SUMO_TAG_WALK_BUSSTOP: {
+                GNEAdditional *busStop = myViewNet->getNet()->retrieveAdditional(SUMO_TAG_BUS_STOP, valuesMap[SUMO_ATTR_BUS_STOP]);
+                GNERouteHandler::buildWalkBusStop(myViewNet, true, myPersonSelector->getCurrentDemandElement(), myEdgePathCreator->getSelectedEdges(), busStop);
+                break;
+            }
+            case SUMO_TAG_WALK_ROUTE: {
+                GNEDemandElement *route = myViewNet->getNet()->retrieveDemandElement(SUMO_TAG_ROUTE, valuesMap[SUMO_ATTR_ROUTE]);
+                double arrivalPos = GNEAttributeCarrier::parse<double>(valuesMap[SUMO_ATTR_ARRIVALPOS]);
+                GNERouteHandler::buildWalkRoute(myViewNet, true, myPersonSelector->getCurrentDemandElement(), route, arrivalPos);
+                break;
+            }
+            case SUMO_TAG_RIDE_FROMTO: {
+                std::vector<std::string> lines = GNEAttributeCarrier::parse<std::vector<std::string> >(valuesMap[SUMO_ATTR_LINES]);
+                double arrivalPos = GNEAttributeCarrier::parse<double>(valuesMap[SUMO_ATTR_ARRIVALPOS]);
+                GNERouteHandler::buildRideFromTo(myViewNet, true, myPersonSelector->getCurrentDemandElement(), myEdgePathCreator->getSelectedEdges(), lines, arrivalPos);
+                break;
+            }
+            case SUMO_TAG_RIDE_BUSSTOP: {
+                GNEAdditional *busStop = myViewNet->getNet()->retrieveAdditional(SUMO_TAG_BUS_STOP, valuesMap[SUMO_ATTR_BUS_STOP]);
+                std::vector<std::string> lines = GNEAttributeCarrier::parse<std::vector<std::string> >(valuesMap[SUMO_ATTR_LINES]);
+                GNERouteHandler::buildRideBusStop(myViewNet, true, myPersonSelector->getCurrentDemandElement(), myEdgePathCreator->getSelectedEdges(), busStop, lines);
+                break;
+            }
+            default:
+                throw InvalidArgument("Invalid person plan tag");
+        }
+        // end undo-redo operation
+        myViewNet->getUndoList()->p_end();
+    }
+}
+
 
 /****************************************************************************/
