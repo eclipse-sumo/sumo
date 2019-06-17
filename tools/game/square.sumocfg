@@ -6,6 +6,11 @@
         <route-files value="square/square.rou.xml"/>
         <additional-files value="input_additional.add.xml"/>
     </input>
+    
+    <output>
+        <human-readable-time value="false"/>
+        <tripinfo-output value="tripinfos.xml"/>
+    </output>
 
     <time>
         <begin value="0"/>
