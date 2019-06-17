@@ -1650,4 +1650,9 @@ GNERouteHandler:: WalkValues::WalkValues() :
     arrivalPos(-1) {
 }
 
+
+GNERouteHandler:: PersonStopValues::PersonStopValues() :
+    tag(SUMO_TAG_NOTHING) {
+}
+
 /****************************************************************************/

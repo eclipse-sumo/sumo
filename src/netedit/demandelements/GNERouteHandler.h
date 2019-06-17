@@ -311,15 +311,30 @@ private:
         /// @brief arrival pos
         double arrivalPos;
     };
+
+    /// @brief struct used for load personStops
+    struct PersonStopValues {
+        /// @brief default constructor
+        PersonStopValues();
+
+        /// @brief stop tag
+        SumoXMLTag tag;
+
+        /// @brief stop parameters
+        SUMOVehicleParameter::Stop stopParameters;
+    };
     
-    /// @brief container for person trip loaded values
+    /// @brief container for person trips loaded values
     std::vector<PersonTripValues> myPersonTripValues;
 
-    /// @brief container for ride loaded values
+    /// @brief container for rides loaded values
     std::vector<RideValues> myRideValues;
 
-    /// @breif container for walk loaded values
+    /// @breif container for walks loaded values
     std::vector<WalkValues> myWalkValues;
+
+    /// @breif container for personStops loaded values
+    std::vector<PersonStopValues> myPersonStopValues;
 
     /// @brief flag used for parsing route attribute
     bool myAbort;
