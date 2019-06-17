@@ -874,9 +874,13 @@ Helper::moveToXYMap(const Position& pos, double maxRouteDistance, bool mayLeaveN
             double langle = 180.;
             double dist = FAR_AWAY;
             double perpendicularDist = FAR_AWAY;
-            double off = lane->getShape().nearest_offset_to_point2D(pos, true);
+            // add some slack to avoid issues from tiny gaps between consecutive lanes
+            const double slack = POSITION_EPS;
+            PositionVector shape = lane->getShape();
+            shape.extrapolate2D(slack);
+            double off = shape.nearest_offset_to_point2D(pos, true);
             if (off != GeomHelper::INVALID_OFFSET) {
-                perpendicularDist = lane->getShape().distance2D(pos, true);
+                perpendicularDist = shape.distance2D(pos, true);
             }
             off = lane->getShape().nearest_offset_to_point2D(pos, perpendicular);
             if (off != GeomHelper::INVALID_OFFSET) {
@@ -892,15 +896,16 @@ Helper::moveToXYMap(const Position& pos, double maxRouteDistance, bool mayLeaveN
             }
             */
             double dist2 = dist;
-            if (mayLeaveNetwork && dist != perpendicularDist) {
+            if (mayLeaveNetwork && fabs(dist - perpendicularDist) > slack) {
                 // ambiguous mapping. Don't trust this
                 dist2 = FAR_AWAY;
             }
             const double angleDiff = (angle == INVALID_DOUBLE_VALUE ? 0 : GeomHelper::getMinAngleDiff(angle, langle));
 #ifdef DEBUG_MOVEXY_ANGLE
-            std::cout << lane->getID() << " lAngle:" << langle << " lLength=" << lane->getLength()
-                      << " angleDiff:" << angleDiff
-                      << " off:" << off
+            std::cout << std::setprecision(gPrecision)
+                      << " candLane=" << lane->getID() << " lAngle=" << langle << " lLength=" << lane->getLength()
+                      << " angleDiff=" << angleDiff
+                      << " off=" << off
                       << " pDist=" << perpendicularDist
                       << " dist=" << dist
                       << " dist2=" << dist2
