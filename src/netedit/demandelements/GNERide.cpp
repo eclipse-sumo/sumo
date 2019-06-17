@@ -45,7 +45,7 @@
 // ===========================================================================
 
 GNERide::GNERide(GNEViewNet* viewNet, GNEDemandElement *personParent, const std::vector<GNEEdge*>& edges, double arrivalPosition, const std::vector<std::string> &lines) :
-    GNEDemandElement(viewNet->getNet()->generateDemandElementID("", SUMO_TAG_RIDE), viewNet, GLO_RIDE, SUMO_TAG_RIDE,
+    GNEDemandElement(viewNet->getNet()->generateDemandElementID("", SUMO_TAG_RIDE_FROMTO), viewNet, GLO_RIDE, SUMO_TAG_RIDE_FROMTO,
     edges, {}, {}, {}, {personParent}, {}, {}, {}, {}, {}),
     myLines(lines),
     myArrivalPosition(arrivalPosition) {
@@ -53,7 +53,7 @@ GNERide::GNERide(GNEViewNet* viewNet, GNEDemandElement *personParent, const std:
 
 
 GNERide::GNERide(GNEViewNet* viewNet, GNEDemandElement *personParent, const std::vector<GNEEdge*>& edges, GNEAdditional *busStop, const std::vector<std::string> &lines) :
-    GNEDemandElement(viewNet->getNet()->generateDemandElementID("", SUMO_TAG_RIDE), viewNet, GLO_RIDE, SUMO_TAG_RIDE,
+    GNEDemandElement(viewNet->getNet()->generateDemandElementID("", SUMO_TAG_RIDE_BUSSTOP), viewNet, GLO_RIDE, SUMO_TAG_RIDE_BUSSTOP,
     edges, {}, {}, {busStop}, {personParent}, {}, {}, {}, {}, {}),
     myLines(lines),
     myArrivalPosition(-1) {
