@@ -102,7 +102,7 @@ private:
     DemandElementSelector* myPTypeSelector;
 
     /// @brief person plan selector (used to select diffent kind of person plan)
-    TagSelector* myPersonPlanSelector;
+    TagSelector* myPersonPlanTagSelector;
 
     /// @brief internal vehicle attributes
     AttributesCreator* myPersonAttributes;

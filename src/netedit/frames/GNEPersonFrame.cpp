@@ -63,12 +63,13 @@ GNEPersonFrame::HelpCreation::hideHelpCreation() {
     hide();
 }
 
+
 void
 GNEPersonFrame::HelpCreation::updateHelpCreation() {
     // create information label
     std::ostringstream information;
     // set text depending of selected person plan
-    switch (myPersonFrameParent->myPersonPlanSelector->getCurrentTagProperties().getTag()) {
+    switch (myPersonFrameParent->myPersonPlanTagSelector->getCurrentTagProperties().getTag()) {
         case SUMO_TAG_PERSONTRIP_FROMTO:
             information
                 << "- Click over edges to\n"
@@ -133,7 +134,7 @@ GNEPersonFrame::GNEPersonFrame(FXHorizontalFrame* horizontalFrameParent, GNEView
     myPersonAttributes = new AttributesCreator(this);
 
     // create tag Selector modul for person plans
-    myPersonPlanSelector = new TagSelector(this, GNEAttributeCarrier::TagType::TAGTYPE_PERSONPLAN);
+    myPersonPlanTagSelector = new TagSelector(this, GNEAttributeCarrier::TagType::TAGTYPE_PERSONPLAN);
 
     // create person plan attribuets
     myPersonPlanAttributes = new AttributesCreator(this);
@@ -160,7 +161,7 @@ GNEPersonFrame::show() {
     // refresh item selector
     myPersonTagSelector->refreshTagProperties();
     myPTypeSelector->refreshDemandElementSelector();
-    myPersonPlanSelector->refreshTagProperties();
+    myPersonPlanTagSelector->refreshTagProperties();
     // show frame
     GNEFrame::show();
 }
@@ -181,7 +182,7 @@ GNEPersonFrame::addPerson(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnd
         return false;
     }
     // finally check that person plan selected is valid
-    if (myPersonPlanSelector->getCurrentTagProperties().getTag() == SUMO_TAG_NOTHING) {
+    if (myPersonPlanTagSelector->getCurrentTagProperties().getTag() == SUMO_TAG_NOTHING) {
         myViewNet->setStatusBarText("Current selected person plan isn't valid.");
         return false;
     }
@@ -213,17 +214,17 @@ GNEPersonFrame::tagSelected() {
             // show person attributes
             myPersonAttributes->showAttributesCreatorModul(myPersonTagSelector->getCurrentTagProperties());
             // show person plan tag selector
-            myPersonPlanSelector->showTagSelector();
+            myPersonPlanTagSelector->showTagSelector();
             // now check if person plan selected is valid
-            if (myPersonPlanSelector->getCurrentTagProperties().getTag() != SUMO_TAG_NOTHING) {
+            if (myPersonPlanTagSelector->getCurrentTagProperties().getTag() != SUMO_TAG_NOTHING) {
                 // show person plan attributes
-                myPersonPlanAttributes->showAttributesCreatorModul(myPersonPlanSelector->getCurrentTagProperties());
+                myPersonPlanAttributes->showAttributesCreatorModul(myPersonPlanTagSelector->getCurrentTagProperties());
                 // set edge path creator name
-                if (myPersonPlanSelector->getCurrentTagProperties().isPersonTrip()) {
+                if (myPersonPlanTagSelector->getCurrentTagProperties().isPersonTrip()) {
                     myEdgePathCreator->edgePathCreatorName("person trip");
-                } else if (myPersonPlanSelector->getCurrentTagProperties().isWalk()) {
+                } else if (myPersonPlanTagSelector->getCurrentTagProperties().isWalk()) {
                     myEdgePathCreator->edgePathCreatorName("walk");
-                } else if (myPersonPlanSelector->getCurrentTagProperties().isRide()) {
+                } else if (myPersonPlanTagSelector->getCurrentTagProperties().isRide()) {
                     myEdgePathCreator->edgePathCreatorName("ride");
                 }
                 myEdgePathCreator->showEdgePathCreator();
@@ -234,7 +235,7 @@ GNEPersonFrame::tagSelected() {
                 myHelpCreation->hideHelpCreation();
             }
         } else {
-            myPersonPlanSelector->hideTagSelector();
+            myPersonPlanTagSelector->hideTagSelector();
             myPersonAttributes->hideAttributesCreatorModul();
             myPersonPlanAttributes->hideAttributesCreatorModul();
             myEdgePathCreator->hideEdgePathCreator();
@@ -243,7 +244,7 @@ GNEPersonFrame::tagSelected() {
     } else {
         // hide all moduls if person isn't valid
         myPTypeSelector->hideDemandElementSelector();
-        myPersonPlanSelector->hideTagSelector();
+        myPersonPlanTagSelector->hideTagSelector();
         myPersonAttributes->hideAttributesCreatorModul();
         myPersonPlanAttributes->hideAttributesCreatorModul();
         myEdgePathCreator->hideEdgePathCreator();
@@ -258,17 +259,17 @@ GNEPersonFrame::demandElementSelected() {
         // show person attributes
         myPersonAttributes->showAttributesCreatorModul(myPersonTagSelector->getCurrentTagProperties());
         // show person plan tag selector
-        myPersonPlanSelector->showTagSelector();
+        myPersonPlanTagSelector->showTagSelector();
         // now check if person plan selected is valid
-        if (myPersonPlanSelector->getCurrentTagProperties().getTag() != SUMO_TAG_NOTHING) {
+        if (myPersonPlanTagSelector->getCurrentTagProperties().getTag() != SUMO_TAG_NOTHING) {
             // show person plan attributes
-            myPersonPlanAttributes->showAttributesCreatorModul(myPersonPlanSelector->getCurrentTagProperties());
+            myPersonPlanAttributes->showAttributesCreatorModul(myPersonPlanTagSelector->getCurrentTagProperties());
             // set edge path creator name
-            if (myPersonPlanSelector->getCurrentTagProperties().isPersonTrip()) {
+            if (myPersonPlanTagSelector->getCurrentTagProperties().isPersonTrip()) {
                 myEdgePathCreator->edgePathCreatorName("person trip");
-            } else if (myPersonPlanSelector->getCurrentTagProperties().isWalk()) {
+            } else if (myPersonPlanTagSelector->getCurrentTagProperties().isWalk()) {
                 myEdgePathCreator->edgePathCreatorName("walk");
-            } else if (myPersonPlanSelector->getCurrentTagProperties().isRide()) {
+            } else if (myPersonPlanTagSelector->getCurrentTagProperties().isRide()) {
                 myEdgePathCreator->edgePathCreatorName("ride");
             }
             myEdgePathCreator->showEdgePathCreator();
@@ -279,7 +280,7 @@ GNEPersonFrame::demandElementSelected() {
             myHelpCreation->hideHelpCreation();
         }
     } else {
-        myPersonPlanSelector->hideTagSelector();
+        myPersonPlanTagSelector->hideTagSelector();
         myPersonAttributes->hideAttributesCreatorModul();
         myPersonPlanAttributes->hideAttributesCreatorModul();
         myEdgePathCreator->hideEdgePathCreator();
@@ -294,12 +295,12 @@ GNEPersonFrame::edgePathCreated() {
     if (!myPersonAttributes->areValuesValid()) {
         myViewNet->setStatusBarText("Invalid person parameters.");
     } else if (!myPersonPlanAttributes->areValuesValid()) {
-        myViewNet->setStatusBarText("Invalid " + myPersonPlanSelector->getCurrentTagProperties().getTagStr() + " parameters.");
+        myViewNet->setStatusBarText("Invalid " + myPersonPlanTagSelector->getCurrentTagProperties().getTagStr() + " parameters.");
     } else {
         // obtain person tag (only for improve code legibility)
         SumoXMLTag personTag = myPersonTagSelector->getCurrentTagProperties().getTag();
         // obtain person plan tag (only for improve code legibility)
-        SumoXMLTag personPlanTag = myPersonPlanSelector->getCurrentTagProperties().getTag();
+        SumoXMLTag personPlanTag = myPersonPlanTagSelector->getCurrentTagProperties().getTag();
         // begin undo-redo operation
         myViewNet->getUndoList()->p_begin("create " + toString(personTag) + " and " + toString(personPlanTag));
         // Declare map to keep attributes from myPersonAttributes
