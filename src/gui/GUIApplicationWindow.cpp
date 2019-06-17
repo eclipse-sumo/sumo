@@ -216,6 +216,7 @@ GUIApplicationWindow::GUIApplicationWindow(FXApp* a, const std::string& configPa
     myPreviousCollisionNumber(0),
     myWaitingTime(0),
     myTimeLoss(0),
+    myEmergencyVehicleCount(0),
     myTotalDistance(0) {
     // init icons
     GUIIconSubSys::initIcons(a);
@@ -274,6 +275,7 @@ GUIApplicationWindow::dependentBuild() {
     myToolBar6->hide();
     myToolBar7->hide();
     myToolBar9->hide();
+    myToolBar10->hide();
     // build additional threads
     myLoadThread = new GUILoadThread(getApp(), this, myEvents, myLoadThreadEvent);
     myRunThread = new GUIRunThread(getApp(), this, mySimDelay, myEvents, myRunThreadEvent);
@@ -699,6 +701,18 @@ GUIApplicationWindow::buildToolBars() {
         myTotalDistanceLabel->setThickness(2);
         myTotalDistanceLabel->setGroove(2);
         myTotalDistanceLabel->setText("-------------");
+
+        // emergency vehicle counts
+        myToolBarDrag10 = new FXToolBarShell(this, GUIDesignToolBar);
+        myToolBar10 = new FXToolBar(myTopDock, myToolBarDrag10, GUIDesignToolBarRaisedSameTop);
+        new FXToolBarGrip(myToolBar10, myToolBar10, FXToolBar::ID_TOOLBARGRIP, GUIDesignToolBarGrip);
+        new FXLabel(myToolBar10, "Emergency Vehicle waiting time:\t\tTime spent waiting accumulated for emergency vehicles", nullptr, LAYOUT_TOP | LAYOUT_LEFT);
+        myEmergencyVehicleLabel = new FXEX::FXLCDLabel(myToolBar10, 13, nullptr, 0, JUSTIFY_RIGHT);
+        myEmergencyVehicleLabel->setHorizontal(2);
+        myEmergencyVehicleLabel->setVertical(6);
+        myEmergencyVehicleLabel->setThickness(2);
+        myEmergencyVehicleLabel->setGroove(2);
+        myEmergencyVehicleLabel->setText("-------------");
     }
 }
 
@@ -1179,6 +1193,7 @@ GUIApplicationWindow::onCmdGaming(FXObject*, FXSelector, void*) {
         myToolBar5->hide();
         myToolBar6->show();
         myToolBar8->hide();
+        myToolBar10->show();
         if (myTLSGame) {
             myToolBar7->show();
         } else {
@@ -1188,6 +1203,7 @@ GUIApplicationWindow::onCmdGaming(FXObject*, FXSelector, void*) {
         myLCDLabel->setFgColor(MFXUtils::getFXColor(RGBColor::RED));
         myWaitingTimeLabel->setFgColor(MFXUtils::getFXColor(RGBColor::RED));
         myTimeLossLabel->setFgColor(MFXUtils::getFXColor(RGBColor::RED));
+        myEmergencyVehicleLabel->setFgColor(MFXUtils::getFXColor(RGBColor::RED));
         myTotalDistanceLabel->setFgColor(MFXUtils::getFXColor(RGBColor::RED));
     } else {
         myMenuBar->show();
@@ -1200,6 +1216,7 @@ GUIApplicationWindow::onCmdGaming(FXObject*, FXSelector, void*) {
         myToolBar7->hide();
         myToolBar8->show();
         myToolBar9->hide();
+        myToolBar10->hide();
         myMessageWindow->show();
         myLCDLabel->setFgColor(MFXUtils::getFXColor(RGBColor::GREEN));
     }
@@ -1608,12 +1625,17 @@ GUIApplicationWindow::checkGamingEvents() {
             const double vmax = MIN2(veh->getVehicleType().getMaxSpeed(), veh->getEdge()->getSpeedLimit());
             if (veh->getSpeed() < SUMO_const_haltingSpeed) {
                 myWaitingTime += DELTA_T;
+                if (veh->getID().rfind("emergency", 0) == 0) {
+                    myEmergencyVehicleCount += DELTA_T;
+                }
             }
             myTimeLoss += TIME2STEPS(TS * (vmax - veh->getSpeed()) / vmax); // may be negative with speedFactor > 1
         }
+
     }
     myWaitingTimeLabel->setText(time2string(myWaitingTime).c_str());
     myTimeLossLabel->setText(time2string(myTimeLoss).c_str());
+    myEmergencyVehicleLabel->setText(time2string(myEmergencyVehicleCount).c_str());
 }
 
 void

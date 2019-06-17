@@ -437,11 +437,13 @@ protected:
     FXEX::FXLCDLabel* myWaitingTimeLabel;
     FXEX::FXLCDLabel* myTimeLossLabel;
     FXEX::FXLCDLabel* myTotalDistanceLabel;
+    FXEX::FXLCDLabel* myEmergencyVehicleLabel;
     SUMOTime myWaitingTime;
     SUMOTime myTimeLoss;
+    SUMOTime myEmergencyVehicleCount;
     double myTotalDistance;
-    FXToolBar* myToolBar6, *myToolBar7, *myToolBar9;
-    FXToolBarShell* myToolBarDrag6, *myToolBarDrag7, *myToolBarDrag9;
+    FXToolBar* myToolBar6, *myToolBar7, *myToolBar9, *myToolBar10;
+    FXToolBarShell* myToolBarDrag6, *myToolBarDrag7, *myToolBarDrag9, *myToolBarDrag10;
     ////}
 
 };
