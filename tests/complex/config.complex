@@ -63,6 +63,7 @@ png:out.png
 png2:out2.png
 detector:detector.xml
 tocs:tocs.xml
+stops:stops.xml
 
 [run_dependent_text]
 output:<!--{[->]}-->
@@ -86,6 +87,7 @@ vehroutes2:<!--{[->]}-->
 tripinfo:<!--{[->]}-->
 rawdump:<!--{[->]}-->
 fcd:<!--{[->]}-->
+stops:<!--{[->]}-->
 lanechanges:<!--{[->]}-->
 state:<!--{[->]}-->
 tls_state:<!--{[->]}-->

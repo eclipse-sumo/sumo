@@ -86,3 +86,7 @@ ticket5620
 
 # crash when calling getPosition on a personTrip before departure
 ticket5674
+
+# stop with duration=0 and until < 0 should trigger removal
+# stop with duraiton=0 and until >= 0 should not trigger removal 
+ticket5712
