@@ -107,12 +107,20 @@ GNEPersonTrip::getColor() const {
 void
 GNEPersonTrip::writeDemandElement(OutputDevice& device) const {
     device.openTag(SUMO_TAG_PERSONTRIP);
-    device.writeAttr(SUMO_ATTR_FROM, getEdgeParents().front());
+    device.writeAttr(SUMO_ATTR_FROM, getEdgeParents().front()->getID());
     // check if write busStop or edge to
     if (getAdditionalParents().size() > 0) {
-        device.writeAttr(SUMO_ATTR_BUS_STOP, getAdditionalParents().front());
+        device.writeAttr(SUMO_ATTR_BUS_STOP, getAdditionalParents().front()->getID());
     } else {
-        device.writeAttr(SUMO_ATTR_TO, getEdgeParents());
+        device.writeAttr(SUMO_ATTR_TO, getEdgeParents().back()->getID());
+    }
+    // write modes
+    if (myModes.size() > 0) {
+        device.writeAttr(SUMO_ATTR_MODES, myModes);
+    }
+    // write vTypes
+    if (myVTypes.size() > 0) {
+        device.writeAttr(SUMO_ATTR_VTYPES, myVTypes);
     }
     // only write arrivalPos if is different of -1
     if (myArrivalPosition != -1) {

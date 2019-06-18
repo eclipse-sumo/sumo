@@ -103,12 +103,16 @@ GNERide::getColor() const {
 void
 GNERide::writeDemandElement(OutputDevice& device) const {
     device.openTag(SUMO_TAG_RIDE);
-    device.writeAttr(SUMO_ATTR_FROM, getEdgeParents().front());
+    device.writeAttr(SUMO_ATTR_FROM, getEdgeParents().front()->getID());
     // check if write busStop or edge to
     if (getAdditionalParents().size() > 0) {
-        device.writeAttr(SUMO_ATTR_BUS_STOP, getAdditionalParents().front());
+        device.writeAttr(SUMO_ATTR_BUS_STOP, getAdditionalParents().front()->getID());
     } else {
-        device.writeAttr(SUMO_ATTR_TO, getEdgeParents());
+        device.writeAttr(SUMO_ATTR_TO, getEdgeParents().back()->getID());
+    }
+    // write lines
+    if (myLines.size() > 0) {
+        device.writeAttr(SUMO_ATTR_LINES, myLines);
     }
     // only write arrivalPos if is different of -1
     if (myArrivalPosition != -1) {

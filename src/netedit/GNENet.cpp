@@ -2463,19 +2463,19 @@ void
 GNENet::saveDemandElementsConfirmed(const std::string& filename) {
     OutputDevice& device = OutputDevice::getDevice(filename);
     device.writeXMLHeader("routes", "routes_file.xsd");
-    // first write all routes (and their associated stops)
-    for (auto i : myAttributeCarriers.demandElements.at(SUMO_TAG_ROUTE)) {
-        i.second->writeDemandElement(device);
-    }
-    // now  write all vehicle types
+    // first  write all vehicle types
     for (auto i : myAttributeCarriers.demandElements.at(SUMO_TAG_VTYPE)) {
         i.second->writeDemandElement(device);
     }
-    // now  write all person types
+    // first  write all person types
     for (auto i : myAttributeCarriers.demandElements.at(SUMO_TAG_PTYPE)) {
         i.second->writeDemandElement(device);
     }
-    // finally write all vehicles sorted by depart time (and their associated stops)
+    // now write all routes (and their associated stops)
+    for (auto i : myAttributeCarriers.demandElements.at(SUMO_TAG_ROUTE)) {
+        i.second->writeDemandElement(device);
+    }
+    // finally write all vehicles and persons sorted by depart time (and their associated stops, personPlans, etc.)
     for (auto i : myAttributeCarriers.vehicleDepartures) {
         i.second->writeDemandElement(device);
     }
@@ -2698,8 +2698,8 @@ GNENet::insertDemandElement(GNEDemandElement* demandElement) {
     if (!demandElementExist(demandElement)) {
         // insert in demandElements container
         myAttributeCarriers.demandElements.at(demandElement->getTagProperty().getTag()).insert(std::make_pair(demandElement->getID(), demandElement));
-        // also insert in vehicleDepartures container
-        if (demandElement->getTagProperty().isVehicle()) {
+        // also insert in vehicleDepartures container if it's either a vehicle or a person
+        if (demandElement->getTagProperty().isVehicle() || demandElement->getTagProperty().isPerson()) {
             if (myAttributeCarriers.vehicleDepartures.count(demandElement->getBegin() + "_" + demandElement->getID()) != 0) {
                 throw ProcessError(demandElement->getTagStr() + " with departure ='" + demandElement->getBegin() + "_" + demandElement->getID() + "' already inserted");
             } else {
@@ -2735,8 +2735,8 @@ GNENet::deleteDemandElement(GNEDemandElement* demandElement, bool updateViewAfte
         myAttributeCarriers.demandElements.at(demandElement->getTagProperty().getTag()).erase(it);
         // remove it from Inspector Frame
         myViewNet->getViewParent()->getInspectorFrame()->getAttributesEditor()->removeEditedAC(demandElement);
-        // also remove fromvehicleDepartures container
-        if (demandElement->getTagProperty().isVehicle()) {
+        // also remove fromvehicleDepartures container if it's either a vehicle or a person
+        if (demandElement->getTagProperty().isVehicle() || demandElement->getTagProperty().isPerson()) {
             if (myAttributeCarriers.vehicleDepartures.count(demandElement->getBegin() + "_" + demandElement->getID()) == 0) {
                 throw ProcessError(demandElement->getTagStr() + " with departure ='" + demandElement->getBegin() + "_" + demandElement->getID() + "' doesn't exist");
             } else {

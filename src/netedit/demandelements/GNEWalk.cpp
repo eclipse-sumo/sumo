@@ -108,12 +108,18 @@ GNEWalk::getColor() const {
 void
 GNEWalk::writeDemandElement(OutputDevice& device) const {
     device.openTag(SUMO_TAG_WALK);
-    device.writeAttr(SUMO_ATTR_FROM, getEdgeParents().front());
-    // check if write busStop or edge to
-    if (getAdditionalParents().size() > 0) {
-        device.writeAttr(SUMO_ATTR_BUS_STOP, getAdditionalParents().front());
+    if (myTagProperty.getTag() == SUMO_TAG_WALK_ROUTE) {
+        device.writeAttr(SUMO_ATTR_ROUTE, getDemandElementParents().at(1));
+    } else if (myTagProperty.getTag() == SUMO_TAG_WALK_EDGES) {
+        device.writeAttr(SUMO_ATTR_EDGES, getEdgeParentsStr());
     } else {
-        device.writeAttr(SUMO_ATTR_TO, getEdgeParents());
+        device.writeAttr(SUMO_ATTR_FROM, getEdgeParents().front()->getID());
+        // check if write busStop or edge to
+        if (getAdditionalParents().size() > 0) {
+            device.writeAttr(SUMO_ATTR_BUS_STOP, getAdditionalParents().front()->getID());
+        } else {
+            device.writeAttr(SUMO_ATTR_TO, getEdgeParents().back()->getID());
+        }
     }
     // only write arrivalPos if is different of -1
     if (myArrivalPosition != -1) {
