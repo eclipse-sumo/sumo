@@ -1238,6 +1238,13 @@ GNERouteHandler::closePerson() {
                         myViewNet->getUndoList()->add(new GNEChange_DemandElement(new GNEWalk(myViewNet, person, i.route, i.arrivalPos), true), true);
                     }
                 }
+                for (const auto &i : myPersonStopValues) {
+                    if (i.lane) {
+                        myViewNet->getUndoList()->add(new GNEChange_DemandElement(new GNEStop(myViewNet, i.stopParameters, i.lane, i.friendlyPos, person), true), true);
+                    } else if (i.stoppingPlace) {
+                        myViewNet->getUndoList()->add(new GNEChange_DemandElement(new GNEStop(i.tag, myViewNet, i.stopParameters, i.stoppingPlace, person), true), true);
+                    }
+                }
                 // end undo-list
                 myViewNet->getUndoList()->p_end();
             }
@@ -1248,6 +1255,7 @@ GNERouteHandler::closePerson() {
     myPersonTripValues.clear();
     myRideValues.clear();
     myWalkValues.clear();
+    myPersonStopValues.clear();
 }
 
 void
@@ -1652,7 +1660,10 @@ GNERouteHandler:: WalkValues::WalkValues() :
 
 
 GNERouteHandler:: PersonStopValues::PersonStopValues() :
-    tag(SUMO_TAG_NOTHING) {
+    tag(SUMO_TAG_NOTHING), 
+    lane(nullptr),
+    friendlyPos(false),
+    stoppingPlace(nullptr) {
 }
 
 /****************************************************************************/

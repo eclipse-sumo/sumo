@@ -238,7 +238,9 @@ SUMOVehicleParserHelper::parseVehicleAttributes(const SUMOSAXAttributes& attrs,
         throw;
     }
     // set tag
-    if (ret->routeid.empty()) {
+    if (isPerson) {
+        ret->tag = SUMO_TAG_PERSON;
+    } else if (ret->routeid.empty()) {
         ret->tag = SUMO_TAG_TRIP;
     } else {
         ret->tag = SUMO_TAG_VEHICLE;

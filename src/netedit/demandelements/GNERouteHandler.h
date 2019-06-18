@@ -322,6 +322,15 @@ private:
 
         /// @brief stop parameters
         SUMOVehicleParameter::Stop stopParameters;
+
+        /// @brief lane
+        GNELane *lane;
+
+        /// @brief friendly position
+        bool friendlyPos;
+
+        /// @brief stopping place
+        GNEAdditional* stoppingPlace;
     };
     
     /// @brief container for person trips loaded values
