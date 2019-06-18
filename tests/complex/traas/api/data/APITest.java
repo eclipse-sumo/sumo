@@ -94,8 +94,8 @@ public class APITest {
                     System.out.println(String.format("  veh=%s len=%s entry=%s leave=%s type=%s", d.vehID, d.length, d.entry_time, d.leave_time, d.typeID));
                 }
                 if (i == 10) {
-                    SumoStopFlags flags = new SumoStopFlags(false, false, false, false, false);
-                    conn.do_job_set(Vehicle.setStop("v0", "gneE0", 200, (byte)0, 10, flags));
+                    SumoStopFlags flags = new SumoStopFlags(false, false, false, false, false, false, false);
+                    conn.do_job_set(Vehicle.setStop("v0", "gneE0", 200, (byte)0, 10, flags, 10, -1));
                 }
                 conn.do_job_set(Person.add("p" + i, "gneE2", 10.0, 0, "DEFAULT_PEDTYPE"));
                 conn.do_job_set(Person.appendWalkingStage("p" + i, walk, 50.0, -1, -1.0, ""));

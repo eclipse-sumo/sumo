@@ -96,7 +96,7 @@ public class Traci {
     }
 
     @WebMethod(action = "Vehicle: changeLane")
-    public void Vehicle_changeLane(@WebParam(name = "vehID") String vehID, @WebParam(name = "laneIndex") byte laneIndex, @WebParam(name = "duration") int duration) {
+    public void Vehicle_changeLane(@WebParam(name = "vehID") String vehID, @WebParam(name = "laneIndex") byte laneIndex, @WebParam(name = "duration") double duration) {
         this.sumo.set_cmd(Vehicle.changeLane(vehID, laneIndex, duration));
     }
 
@@ -205,9 +205,16 @@ public class Traci {
         this.sumo.set_cmd(Vehicle.setSpeedFactor(vehID, factor));
     }
 
-    @WebMethod(action = "Vehicle: setStop")
-    public void Vehicle_setStop(@WebParam(name = "vehID") String vehID, @WebParam(name = "edgeID") String edgeID, @WebParam(name = "pos") double pos, @WebParam(name = "laneIndex") byte laneIndex, @WebParam(name = "duration") int duration, @WebParam(name = "stopType") SumoStopFlags stopType) {
-        this.sumo.set_cmd(Vehicle.setStop(vehID, edgeID, pos, laneIndex, duration, stopType));
+    @WebMethod(action="Vehicle: setStop")
+    public void Vehicle_setStop(@WebParam(name = "vehID") String vehID, 
+            @WebParam(name = "edgeID") String edgeID, 
+            @WebParam(name = "pos") double pos, 
+            @WebParam(name = "laneIndex") byte laneIndex, 
+            @WebParam(name = "duration") double duration,
+            @WebParam(name = "stopType") SumoStopFlags stopType,
+            @WebParam(name = "startPos") double startPos,
+            @WebParam(name = "until") double until){
+        this.sumo.set_cmd(Vehicle.setStop(vehID, edgeID, pos, laneIndex, duration,stopType, startPos, until));
     }
 
     @WebMethod(action = "Vehicle: setResume")
@@ -925,7 +932,7 @@ public class Traci {
     }
 
     @WebMethod(action = "Vehicle: slowDown")
-    public void Vehicle_slowDown(@WebParam(name = "vehID") String vehID, @WebParam(name = "speed") double speed, @WebParam(name = "duration") int duration) {
+    public void Vehicle_slowDown(@WebParam(name = "vehID") String vehID, @WebParam(name = "speed") double speed, @WebParam(name = "duration") double duration) {
         this.sumo.set_cmd(Vehicle.slowDown(vehID, speed, duration));
     }
 

@@ -948,20 +948,6 @@ public class Vehicle {
     }
 
     /**
-     *  Adds or modifies a stop at a parkingArea with the given parameters. The duration and the until attribute are
-            in milliseconds.
-     * @param vehID vehicle id
-     * @param stopID stopID
-     * @param duration duration
-     * @return SumoCommand
-     */
-    public static SumoCommand setParkingAreaStop(String vehID, String stopID, double duration) {
-        SumoStopFlags sf = new SumoStopFlags(true, false, false, false, false);
-        return setStop(vehID, stopID, 1, (byte) 0, duration, sf);
-    }
-
-
-    /**
      * Moves the vehicle to a new position.
 
      * @param vehID vehicle id
@@ -1391,16 +1377,14 @@ public class Vehicle {
      * @param sf stop flags
      * @return SumoCommand
      */
-    public static SumoCommand setStop(String vehID, String edgeID, double pos, byte laneIndex, double duration, SumoStopFlags sf) {
+    public static SumoCommand setStop(String vehID, String edgeID, double pos, byte laneIndex, double duration, SumoStopFlags sf, double startPos, double until) {
 
-        Object[] array = new Object[] {edgeID, pos, laneIndex, duration, sf};
+        Object[] array = new Object[] {edgeID, pos, laneIndex, duration, sf, startPos, until};
         return new SumoCommand(Constants.CMD_SET_VEHICLE_VARIABLE, Constants.CMD_STOP, vehID, array);
     }
 
     /**
-     *  Adds or modifies a stop at a chargingStation with the given parameters. The duration and the until attribute are
-        in milliseconds.
-
+     *  Adds or modifies a stop at a chargingStation with the given parameters. The duration and the until attribute are in seconds.
      * @param vehID
      * @param stopID
      * @param duration
@@ -1408,29 +1392,28 @@ public class Vehicle {
      * @return SumoCommand
      */
 
-    public static SumoCommand setChargingStationStop(String vehID, String stopID, double duration, int until) {
-        SumoStopFlags sf = new SumoStopFlags(false, false, false, true, false);
-        return setStop(vehID, stopID, 1, (byte) 0, duration, sf);
+    public static SumoCommand setChargingStationStop(String vehID, String stopID, double duration, double until) {
+        SumoStopFlags sf = new SumoStopFlags(false, false, false, false, false, true, false);
+        return setStop(vehID, stopID, 1, (byte) 0, duration, sf, Constants.INVALID_DOUBLE_VALUE, until);
     }
 
 
     /**
-     * Adds or modifies a bus stop with the given parameters. The duration and the until attribute are in milliseconds.
+     * Adds or modifies a bus stop with the given parameters. The duration and the until attribute are in seconds.
      * @param vehID id of the vehicle
      * @param stopID
      * @param duration
      * @param until
      * @return SumoCommand
      */
-    public static SumoCommand setBusStop(String vehID, String stopID, double duration, int until) {
-        SumoStopFlags sf = new SumoStopFlags(false, false, false, true, false);
-        return setStop(vehID, stopID, 1, (byte) 0, duration, sf);
+    public static SumoCommand setBusStop(String vehID, String stopID, double duration, double until) {
+        SumoStopFlags sf = new SumoStopFlags(false, false, false, true, false, false, false);
+        return setStop(vehID, stopID, 1, (byte) 0, duration, sf, Constants.INVALID_DOUBLE_VALUE, until);
     }
 
 
     /**
-     *  Adds or modifies a container stop with the given parameters. The duration and the until attribute are
-        in milliseconds.
+     *  Adds or modifies a container stop with the given parameters. The duration and the until attribute are in seconds.
 
      * @param vehID id of the vehicle
      * @param stopID
@@ -1438,10 +1421,24 @@ public class Vehicle {
      * @param until
      * @return SumoCommand
      */
-    public static SumoCommand setContainerStop(String vehID, String stopID, double duration, int until) {
-        SumoStopFlags sf = new SumoStopFlags(false, false, false, false, true);
-        return setStop(vehID, stopID, 1, (byte) 0, duration, sf);
+    public static SumoCommand setContainerStop(String vehID, String stopID, double duration, double until) {
+        SumoStopFlags sf = new SumoStopFlags(false, false, false, false, true, false, false);
+        return setStop(vehID, stopID, 1, (byte) 0, duration, sf, Constants.INVALID_DOUBLE_VALUE, until);
     }
+
+
+    /**
+     *  Adds or modifies a stop at a parkingArea with the given parameters. The duration and the until attribute are in seconds.
+     * @param vehID vehicle id
+     * @param stopID stopID
+     * @param duration duration
+     * @return SumoCommand
+     */
+    public static SumoCommand setParkingAreaStop(String vehID, String stopID, double duration, double until) {
+        SumoStopFlags sf = new SumoStopFlags(true, false, false, false, false, false, true);
+        return setStop(vehID, stopID, 1, (byte) 0, duration, sf, Constants.INVALID_DOUBLE_VALUE, until);
+    }
+
 
     /**
      * Continue after a stop
