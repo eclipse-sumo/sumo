@@ -1480,13 +1480,38 @@ GNERouteHandler::addPersonTrip(const SUMOSAXAttributes& attrs) {
         personTripValuesLoaded.vTypes = GNEAttributeCarrier::parseAttributeFromXML<std::vector<std::string> >(attrs, "", personTripValuesLoaded.tag, SUMO_ATTR_VTYPES, myAbort);
         personTripValuesLoaded.modes = GNEAttributeCarrier::parseAttributeFromXML<std::vector<std::string> >(attrs, "", personTripValuesLoaded.tag, SUMO_ATTR_MODES, myAbort);
         personTripValuesLoaded.arrivalPos = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, "", personTripValuesLoaded.tag, SUMO_ATTR_ARRIVALPOS, myAbort);
+        // declare a flag to check if values are valid
+        bool validValues = true;
         // check that all parameters are correct
         if (personTripValuesLoaded.from == nullptr) {
             WRITE_ERROR("Invalid edge from in " + toString(personTripValuesLoaded.tag));
-        } else if (personTripValuesLoaded.to == nullptr) {
+            validValues = false;
+        }
+        if (personTripValuesLoaded.to == nullptr) {
             WRITE_ERROR("Invalid edge to in " + toString(personTripValuesLoaded.tag));
+            validValues = false;
+        }
+        // check modes
+        for (const auto &i : personTripValuesLoaded.modes) {
+            if ((i != "public") && (i != "car") && (i != "bicycle")) {
+                validValues = false;
+            }
+        }
+        if (validValues) {
+            // remove duplicated modes
+            std::sort( personTripValuesLoaded.modes.begin(), personTripValuesLoaded.modes.end() );
+            personTripValuesLoaded.modes.erase(unique(personTripValuesLoaded.modes.begin(), personTripValuesLoaded.modes.end()), personTripValuesLoaded.modes.end());
         } else {
-            // save loaded values in container
+            WRITE_ERROR("A person trip mode can be only a combination of 'public', 'car' or 'bicycle'");
+        }
+        for (const auto &i : personTripValuesLoaded.vTypes) {
+            if(!SUMOXMLDefinitions::isValidTypeID(i)) {
+                WRITE_ERROR("Invalid vehicle type '" + i + "' used in " + toString(personTripValuesLoaded.tag));
+                validValues = false;
+            }
+        }
+        // save loaded values in container only if all parameters are valid
+        if (validValues) {
             myPersonPlanValues.push_back(personTripValuesLoaded);
         }
     } else if (attrs.hasAttribute(SUMO_ATTR_FROM) && attrs.hasAttribute(SUMO_ATTR_BUS_STOP)) {
@@ -1498,13 +1523,38 @@ GNERouteHandler::addPersonTrip(const SUMOSAXAttributes& attrs) {
         personTripValuesLoaded.vTypes = GNEAttributeCarrier::parseAttributeFromXML<std::vector<std::string> >(attrs, "", personTripValuesLoaded.tag, SUMO_ATTR_VTYPES, myAbort);
         personTripValuesLoaded.modes = GNEAttributeCarrier::parseAttributeFromXML<std::vector<std::string> >(attrs, "", personTripValuesLoaded.tag, SUMO_ATTR_MODES, myAbort);
         personTripValuesLoaded.arrivalPos = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, "", personTripValuesLoaded.tag, SUMO_ATTR_ARRIVALPOS, myAbort);
+        // declare a flag to check if values are valid
+        bool validValues = true;
         // check that all parameters are correct
         if (personTripValuesLoaded.from == nullptr) {
             WRITE_ERROR("Invalid edge from in " + toString(personTripValuesLoaded.tag));
-        } else if (personTripValuesLoaded.stoppingPlace == nullptr) {
+            validValues = false;
+        }
+        if (personTripValuesLoaded.stoppingPlace == nullptr) {
             WRITE_ERROR("Invalid busStop to in " + toString(personTripValuesLoaded.tag));
+            validValues = false;
+        }
+        // check modes
+        for (const auto &i : personTripValuesLoaded.modes) {
+            if ((i != "public") && (i != "car") && (i != "bicycle")) {
+                validValues = false;
+            }
+        }
+        if (validValues) {
+            // remove duplicated modes
+            std::sort( personTripValuesLoaded.modes.begin(), personTripValuesLoaded.modes.end() );
+            personTripValuesLoaded.modes.erase(unique(personTripValuesLoaded.modes.begin(), personTripValuesLoaded.modes.end()), personTripValuesLoaded.modes.end());
         } else {
-            // save loaded values in container
+            WRITE_ERROR("A person trip mode can be only a combination of 'public', 'car' or 'bicycle'");
+        }
+        for (const auto &i : personTripValuesLoaded.vTypes) {
+            if(!SUMOXMLDefinitions::isValidTypeID(i)) {
+                WRITE_ERROR("Invalid vehicle type '" + i + "' used in " + toString(personTripValuesLoaded.tag));
+                validValues = false;
+            }
+        }
+        // save loaded values in container only if all parameters are valid
+        if (validValues) {
             myPersonPlanValues.push_back(personTripValuesLoaded);
         }
     } else {
@@ -1614,6 +1664,10 @@ GNERouteHandler::addRide(const SUMOSAXAttributes& attrs) {
         rideValuesLoaded.to = myViewNet->getNet()->retrieveEdge(GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", rideValuesLoaded.tag, SUMO_ATTR_TO, myAbort), false);
         rideValuesLoaded.lines = GNEAttributeCarrier::parseAttributeFromXML<std::vector<std::string> >(attrs, "", rideValuesLoaded.tag, SUMO_ATTR_LINES, myAbort);
         rideValuesLoaded.arrivalPos = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, "", rideValuesLoaded.tag, SUMO_ATTR_ARRIVALPOS, myAbort);
+        // check lines
+        if (rideValuesLoaded.lines.empty()) {
+            rideValuesLoaded.lines.push_back("ANY");
+        }
         // check that all parameters are correct
         if (rideValuesLoaded.from == nullptr) {
             WRITE_ERROR("Invalid edge from in " + toString(rideValuesLoaded.tag));
@@ -1631,6 +1685,10 @@ GNERouteHandler::addRide(const SUMOSAXAttributes& attrs) {
         rideValuesLoaded.stoppingPlace = myViewNet->getNet()->retrieveAdditional(SUMO_TAG_BUS_STOP, GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", rideValuesLoaded.tag, SUMO_ATTR_TO, myAbort), false);
         rideValuesLoaded.lines = GNEAttributeCarrier::parseAttributeFromXML<std::vector<std::string> >(attrs, "", rideValuesLoaded.tag, SUMO_ATTR_LINES, myAbort);
         rideValuesLoaded.arrivalPos = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, "", rideValuesLoaded.tag, SUMO_ATTR_ARRIVALPOS, myAbort);
+        // check lines
+        if (rideValuesLoaded.lines.empty()) {
+            rideValuesLoaded.lines.push_back("ANY");
+        }
         // check that all parameters are correct
         if (rideValuesLoaded.from == nullptr) {
             WRITE_ERROR("Invalid edge from in " + toString(rideValuesLoaded.tag));
