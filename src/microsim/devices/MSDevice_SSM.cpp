@@ -2526,7 +2526,7 @@ MSDevice_SSM::MSDevice_SSM(SUMOVehicle& holder, const std::string& id, std::stri
 //    TODO: make xsd, include header
 //    myOutputFile.writeXMLHeader("SSMLog", "SSMLog.xsd");
     if (createdOutputFiles.count(outputFilename) == 0) {
-        myOutputFile->openTag("SSMLog");
+        myOutputFile->writeXMLHeader("SSMLog", "");
         createdOutputFiles.insert(outputFilename);
     }
     // register at static instance container
