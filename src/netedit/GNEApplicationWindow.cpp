@@ -471,106 +471,118 @@ GNEApplicationWindow::onCmdEditChosen(FXObject*, FXSelector, void*) {
 
 long
 GNEApplicationWindow::onCmdNewNetwork(FXObject*, FXSelector, void*) {
-    // ask before we clobber options
-    if (!continueWithUnsavedChanges()) {
+    // first check that current edited Net can be closed (und therefore the undo-list cleared, see #5753)
+    if (myViewNet && !onCmdClose(0,0,0)) {
+        return 1;
+    } else {
+        OptionsCont& oc = OptionsCont::getOptions();
+        GNELoadThread::fillOptions(oc);
+        GNELoadThread::setDefaultOptions(oc);
+        loadConfigOrNet("", true, false, true, true);
         return 1;
     }
-    OptionsCont& oc = OptionsCont::getOptions();
-    GNELoadThread::fillOptions(oc);
-    GNELoadThread::setDefaultOptions(oc);
-    loadConfigOrNet("", true, false, true, true);
-    return 1;
 }
 
 
 long
 GNEApplicationWindow::onCmdOpenConfiguration(FXObject*, FXSelector, void*) {
-    // get the new file name
-    FXFileDialog opendialog(this, "Open Netconvert Configuration");
-    opendialog.setIcon(GUIIconSubSys::getIcon(ICON_MODECREATEEDGE));
-    opendialog.setSelectMode(SELECTFILE_EXISTING);
-    opendialog.setPatternList(myConfigPattern.c_str());
-    if (gCurrentFolder.length() != 0) {
-        opendialog.setDirectory(gCurrentFolder);
+    // first check that current edited Net can be closed (und therefore the undo-list cleared, see #5753)
+    if (myViewNet && !onCmdClose(0,0,0)) {
+        return 1;
+    } else {
+        // get the new file name
+        FXFileDialog opendialog(this, "Open Netconvert Configuration");
+        opendialog.setIcon(GUIIconSubSys::getIcon(ICON_MODECREATEEDGE));
+        opendialog.setSelectMode(SELECTFILE_EXISTING);
+        opendialog.setPatternList(myConfigPattern.c_str());
+        if (gCurrentFolder.length() != 0) {
+            opendialog.setDirectory(gCurrentFolder);
+        }
+        if (opendialog.execute()) {
+            gCurrentFolder = opendialog.getDirectory();
+            std::string file = opendialog.getFilename().text();
+            loadConfigOrNet(file, false);
+            // add it into recent configs
+            myMenuBarFile.myRecentConfigs.appendFile(file.c_str());
+        }
+        return 1;
     }
-    if (opendialog.execute()) {
-        gCurrentFolder = opendialog.getDirectory();
-        std::string file = opendialog.getFilename().text();
-        loadConfigOrNet(file, false);
-        // add it into recent configs
-        myMenuBarFile.myRecentConfigs.appendFile(file.c_str());
-    }
-    return 1;
 }
 
 
 long
 GNEApplicationWindow::onCmdOpenNetwork(FXObject*, FXSelector, void*) {
-    // get the new file name
-    FXFileDialog opendialog(this, "Open Network");
-    opendialog.setIcon(GUIIconSubSys::getIcon(ICON_MODECREATEEDGE));
-    opendialog.setSelectMode(SELECTFILE_EXISTING);
-    opendialog.setPatternList("SUMO nets (*.net.xml)\nAll files (*)");
-    if (gCurrentFolder.length() != 0) {
-        opendialog.setDirectory(gCurrentFolder);
+    // first check that current edited Net can be closed (und therefore the undo-list cleared, see #5753)
+    if (myViewNet && !onCmdClose(0,0,0)) {
+        return 1;
+    } else {
+        // get the new file name
+        FXFileDialog opendialog(this, "Open Network");
+        opendialog.setIcon(GUIIconSubSys::getIcon(ICON_MODECREATEEDGE));
+        opendialog.setSelectMode(SELECTFILE_EXISTING);
+        opendialog.setPatternList("SUMO nets (*.net.xml)\nAll files (*)");
+        if (gCurrentFolder.length() != 0) {
+            opendialog.setDirectory(gCurrentFolder);
+        }
+        if (opendialog.execute()) {
+            gCurrentFolder = opendialog.getDirectory();
+            std::string file = opendialog.getFilename().text();
+            loadConfigOrNet(file, true);
+            // add it into recent nets
+            myMenuBarFile.myRecentNets.appendFile(file.c_str());
+            // when a net is loaded, save additionals and TLSPrograms are disabled
+            disableSaveAdditionalsMenu();
+            myFileMenuCommands.saveTLSPrograms->disable();
+        }
+        return 1;
     }
-    if (opendialog.execute()) {
-        gCurrentFolder = opendialog.getDirectory();
-        std::string file = opendialog.getFilename().text();
-        loadConfigOrNet(file, true);
-        // add it into recent nets
-        myMenuBarFile.myRecentNets.appendFile(file.c_str());
-        // when a net is loaded, save additionals and TLSPrograms are disabled
-        disableSaveAdditionalsMenu();
-        myFileMenuCommands.saveTLSPrograms->disable();
-    }
-    return 1;
 }
 
 
 long
 GNEApplicationWindow::onCmdOpenForeign(FXObject*, FXSelector, void*) {
-    // ask before we clobber options
-    if (!continueWithUnsavedChanges()) {
+    // first check that current edited Net can be closed (und therefore the undo-list cleared, see #5753)
+    if (myViewNet && !onCmdClose(0,0,0)) {
+        return 1;
+    } else {
+        // get the new file name
+        FXFileDialog opendialog(this, "Import Foreign Network");
+        opendialog.setIcon(GUIIconSubSys::getIcon(ICON_MODECREATEEDGE));
+        opendialog.setSelectMode(SELECTFILE_EXISTING);
+        FXString osmPattern("OSM net (*.osm.xml,*.osm)");
+        opendialog.setPatternText(0, osmPattern);
+        if (gCurrentFolder.length() != 0) {
+            opendialog.setDirectory(gCurrentFolder);
+        }
+        if (opendialog.execute()) {
+            gCurrentFolder = opendialog.getDirectory();
+            std::string file = opendialog.getFilename().text();
+
+            OptionsCont& oc = OptionsCont::getOptions();
+            GNELoadThread::fillOptions(oc);
+            if (osmPattern.contains(opendialog.getPattern())) {
+                // recommended osm options
+                // https://sumo.dlr.de/wiki/Networks/Import/OpenStreetMap#Recommended_NETCONVERT_Options
+                oc.set("osm-files", file);
+                oc.set("geometry.remove", "true");
+                oc.set("ramps.guess", "true");
+                oc.set("junctions.join", "true");
+                oc.set("tls.guess-signals", "true");
+                oc.set("tls.discard-simple", "true");
+            } else {
+                throw ProcessError("Attempted to import unknown file format '" + file + "'.");
+            }
+
+            GUIDialog_Options* wizard =
+                new GUIDialog_Options(this, "Select Import Options", getWidth(), getHeight());
+
+            if (wizard->execute()) {
+                NIFrame::checkOptions(); // needed to set projection parameters
+                loadConfigOrNet("", false, false, false);
+            }
+        }
         return 1;
     }
-    // get the new file name
-    FXFileDialog opendialog(this, "Import Foreign Network");
-    opendialog.setIcon(GUIIconSubSys::getIcon(ICON_MODECREATEEDGE));
-    opendialog.setSelectMode(SELECTFILE_EXISTING);
-    FXString osmPattern("OSM net (*.osm.xml,*.osm)");
-    opendialog.setPatternText(0, osmPattern);
-    if (gCurrentFolder.length() != 0) {
-        opendialog.setDirectory(gCurrentFolder);
-    }
-    if (opendialog.execute()) {
-        gCurrentFolder = opendialog.getDirectory();
-        std::string file = opendialog.getFilename().text();
-
-        OptionsCont& oc = OptionsCont::getOptions();
-        GNELoadThread::fillOptions(oc);
-        if (osmPattern.contains(opendialog.getPattern())) {
-            // recommended osm options
-            // https://sumo.dlr.de/wiki/Networks/Import/OpenStreetMap#Recommended_NETCONVERT_Options
-            oc.set("osm-files", file);
-            oc.set("geometry.remove", "true");
-            oc.set("ramps.guess", "true");
-            oc.set("junctions.join", "true");
-            oc.set("tls.guess-signals", "true");
-            oc.set("tls.discard-simple", "true");
-        } else {
-            throw ProcessError("Attempted to import unknown file format '" + file + "'.");
-        }
-
-        GUIDialog_Options* wizard =
-            new GUIDialog_Options(this, "Select Import Options", getWidth(), getHeight());
-
-        if (wizard->execute()) {
-            NIFrame::checkOptions(); // needed to set projection parameters
-            loadConfigOrNet("", false, false, false);
-        }
-    }
-    return 1;
 }
 
 
@@ -671,21 +683,30 @@ GNEApplicationWindow::onCmdOpenDemandElements(FXObject*, FXSelector, void*) {
 
 long
 GNEApplicationWindow::onCmdOpenRecent(FXObject* sender, FXSelector, void* fileData) {
-    if (myAmLoading) {
+    // first check that current edited Net can be closed (und therefore the undo-list cleared, see #5753)
+    if (myViewNet && !onCmdClose(0,0,0)) {
+        return 1;
+    } else if (myAmLoading) {
         myStatusbar->getStatusLine()->setText("Already loading!");
         return 1;
+    } else {
+        std::string file((const char*)fileData);
+        loadConfigOrNet(file, sender == &myMenuBarFile.myRecentNets);
+        return 1;
     }
-    std::string file((const char*)fileData);
-    loadConfigOrNet(file, sender == &myMenuBarFile.myRecentNets);
-    return 1;
 }
 
 
 long
 GNEApplicationWindow::onCmdReload(FXObject*, FXSelector, void*) {
-    // @note. If another network has been load during this session, it might not be desirable to set useStartupOptions
-    loadConfigOrNet(OptionsCont::getOptions().getString("sumo-net-file"), true, true);
-    return 1;
+    // first check that current edited Net can be closed (und therefore the undo-list cleared, see #5753)
+    if (myViewNet && !onCmdClose(0,0,0)) {
+        return 1;
+    } else {
+        // @note. If another network has been load during this session, it might not be desirable to set useStartupOptions
+        loadConfigOrNet(OptionsCont::getOptions().getString("sumo-net-file"), true, true);
+        return 1;
+    }
 }
 
 
