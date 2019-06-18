@@ -231,61 +231,10 @@ protected:
     void addTranship(const SUMOSAXAttributes& attrs);
 
 private:
-    /// @brief struct used for load person trips
-    struct PersonTripValues {
+    /// @brief struct used for load person plans (Rides, Walks, etc.)
+    struct PersonPlansValues {
         /// @brief default constructor
-        PersonTripValues();
-
-        /// @brief walk tag
-        SumoXMLTag tag;
-
-        /// @brief from edge
-        GNEEdge *from;
-
-        /// @brief to edge
-        GNEEdge *to;
-
-        /// @brief busStop 
-        GNEAdditional* busStop;
-
-        /// @brief vehicle types
-        std::vector<std::string> vTypes;
-
-        /// @brief modes
-        std::vector<std::string> modes;
-
-        /// @brief arrival pos
-        double arrivalPos;
-    };
-
-    /// @brief struct used for load rides
-    struct RideValues {
-        /// @brief default constructor
-        RideValues();
-
-        /// @brief walk tag
-        SumoXMLTag tag;
-
-        /// @brief from edge
-        GNEEdge *from;
-
-        /// @brief to edge
-        GNEEdge *to;
-
-        /// @brief busStop 
-        GNEAdditional* busStop;
-
-        /// @brief lines
-        std::vector<std::string> lines;
-
-        /// @brief arrival pos
-        double arrivalPos;
-    };
-
-    /// @brief struct used for load walks
-    struct WalkValues {
-        /// @brief default constructor
-        WalkValues();
+        PersonPlansValues();
 
         /// @brief walk tag
         SumoXMLTag tag;
@@ -302,48 +251,36 @@ private:
         /// @brief list of edges
         std::vector<GNEEdge*> edges;
 
-        /// @brief busStop 
-        GNEAdditional* busStop;
+        /// @brief stopping place
+        GNEAdditional* stoppingPlace;
 
         /// @brief arrival route
         GNEDemandElement* route;
 
+        /// @brief vehicle types
+        std::vector<std::string> vTypes;
+
+        /// @brief modes
+        std::vector<std::string> modes;
+
+        /// @brief lines
+        std::vector<std::string> lines;
+
         /// @brief arrival pos
         double arrivalPos;
-    };
-
-    /// @brief struct used for load personStops
-    struct PersonStopValues {
-        /// @brief default constructor
-        PersonStopValues();
-
-        /// @brief stop tag
-        SumoXMLTag tag;
-
-        /// @brief stop parameters
-        SUMOVehicleParameter::Stop stopParameters;
 
         /// @brief lane
         GNELane *lane;
 
         /// @brief friendly position
         bool friendlyPos;
-
-        /// @brief stopping place
-        GNEAdditional* stoppingPlace;
+        
+        /// @brief stop parameters
+        SUMOVehicleParameter::Stop stopParameters;
     };
-    
+
     /// @brief container for person trips loaded values
-    std::vector<PersonTripValues> myPersonTripValues;
-
-    /// @brief container for rides loaded values
-    std::vector<RideValues> myRideValues;
-
-    /// @breif container for walks loaded values
-    std::vector<WalkValues> myWalkValues;
-
-    /// @breif container for personStops loaded values
-    std::vector<PersonStopValues> myPersonStopValues;
+    std::vector<PersonPlansValues> myPersonPlanValues;
 
     /// @brief flag used for parsing route attribute
     bool myAbort;

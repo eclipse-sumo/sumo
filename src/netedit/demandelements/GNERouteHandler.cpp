@@ -1213,37 +1213,44 @@ GNERouteHandler::closePerson() {
                 // add person
                 myViewNet->getUndoList()->add(new GNEChange_DemandElement(person, true), true);
                 // iterate over all personplan childs and add it
-                for (const auto &i : myPersonTripValues) {
-                    if (i.tag == SUMO_TAG_PERSONTRIP_FROMTO) {
-                        myViewNet->getUndoList()->add(new GNEChange_DemandElement(new GNEPersonTrip(myViewNet, person, {i.from, i.to}, i.vTypes, i.modes, i.arrivalPos), true), true);
-                    } else if (i.tag == SUMO_TAG_PERSONTRIP_BUSSTOP) {
-                        myViewNet->getUndoList()->add(new GNEChange_DemandElement(new GNEPersonTrip(myViewNet, person, {i.from, i.to}, i.busStop, i.vTypes, i.modes), true), true);
-                    }
-                }
-                for (const auto &i : myRideValues) {
-                    if (i.tag == SUMO_TAG_RIDE_FROMTO) {
-                        myViewNet->getUndoList()->add(new GNEChange_DemandElement(new GNERide(myViewNet, person, {i.from, i.to}, i.arrivalPos, i.lines), true), true);
-                    } else if (i.tag == SUMO_TAG_RIDE_BUSSTOP) {
-                        myViewNet->getUndoList()->add(new GNEChange_DemandElement(new GNERide(myViewNet, person, {i.from, i.to}, i.busStop, i.lines), true), true);
-                    }
-                }
-                for (const auto &i : myWalkValues) {
-                    if (i.tag == SUMO_TAG_WALK_EDGES) {
-                        myViewNet->getUndoList()->add(new GNEChange_DemandElement(new GNEWalk(myViewNet, person, i.edges, i.arrivalPos), true), true);
-                    } else if (i.tag == SUMO_TAG_WALK_FROMTO) {
-                        myViewNet->getUndoList()->add(new GNEChange_DemandElement(new GNEWalk(myViewNet, person, {i.from, i.to}, i.arrivalPos), true), true);
-                    } else if (i.tag == SUMO_TAG_WALK_BUSSTOP) {
-                        myViewNet->getUndoList()->add(new GNEChange_DemandElement(new GNEWalk(myViewNet, person, {i.from, i.to}, i.busStop), true), true);
-                    } else if (i.tag == SUMO_TAG_WALK_ROUTE) {
-                        myViewNet->getUndoList()->add(new GNEChange_DemandElement(new GNEWalk(myViewNet, person, i.route, i.arrivalPos), true), true);
-                    }
-                }
-                for (const auto &i : myPersonStopValues) {
-                    if (i.lane) {
-                        myViewNet->getUndoList()->add(new GNEChange_DemandElement(new GNEStop(myViewNet, i.stopParameters, i.lane, i.friendlyPos, person), true), true);
-                    } else if (i.stoppingPlace) {
-                        myViewNet->getUndoList()->add(new GNEChange_DemandElement(new GNEStop(i.tag, myViewNet, i.stopParameters, i.stoppingPlace, person), true), true);
-                    }
+                for (const auto &i : myPersonPlanValues) {
+                    switch (i.tag) {
+                        case SUMO_TAG_PERSONTRIP_FROMTO:
+                            myViewNet->getUndoList()->add(new GNEChange_DemandElement(new GNEPersonTrip(myViewNet, person, {i.from, i.to}, i.vTypes, i.modes, i.arrivalPos), true), true);
+                            break;
+                        case SUMO_TAG_PERSONTRIP_BUSSTOP:
+                            myViewNet->getUndoList()->add(new GNEChange_DemandElement(new GNEPersonTrip(myViewNet, person, {i.from, i.to}, i.stoppingPlace, i.vTypes, i.modes), true), true);
+                            break;
+                        case SUMO_TAG_RIDE_FROMTO:
+                            myViewNet->getUndoList()->add(new GNEChange_DemandElement(new GNERide(myViewNet, person, {i.from, i.to}, i.arrivalPos, i.lines), true), true);
+                            break;
+                        case SUMO_TAG_RIDE_BUSSTOP:
+                            myViewNet->getUndoList()->add(new GNEChange_DemandElement(new GNERide(myViewNet, person, {i.from, i.to}, i.stoppingPlace, i.lines), true), true);
+                            break;
+                        case SUMO_TAG_WALK_EDGES:
+                            myViewNet->getUndoList()->add(new GNEChange_DemandElement(new GNEWalk(myViewNet, person, i.edges, i.arrivalPos), true), true);
+                            break;
+                        case SUMO_TAG_WALK_FROMTO:
+                            myViewNet->getUndoList()->add(new GNEChange_DemandElement(new GNEWalk(myViewNet, person, {i.from, i.to}, i.arrivalPos), true), true);
+                            break;
+                        case SUMO_TAG_WALK_BUSSTOP:
+                            myViewNet->getUndoList()->add(new GNEChange_DemandElement(new GNEWalk(myViewNet, person, {i.from, i.to}, i.stoppingPlace), true), true);
+                            break;
+                        case SUMO_TAG_WALK_ROUTE:
+                            myViewNet->getUndoList()->add(new GNEChange_DemandElement(new GNEWalk(myViewNet, person, i.route, i.arrivalPos), true), true);
+                            break;
+                        case SUMO_TAG_STOP_LANE:
+                            myViewNet->getUndoList()->add(new GNEChange_DemandElement(new GNEStop(myViewNet, i.stopParameters, i.lane, i.friendlyPos, person), true), true);
+                            break;
+                        case SUMO_TAG_STOP_BUSSTOP:
+                        case SUMO_TAG_STOP_CONTAINERSTOP:
+                        case SUMO_TAG_STOP_CHARGINGSTATION:
+                        case SUMO_TAG_STOP_PARKINGAREA:
+                            myViewNet->getUndoList()->add(new GNEChange_DemandElement(new GNEStop(i.tag, myViewNet, i.stopParameters, i.stoppingPlace, person), true), true);
+                            break;
+                        default:
+                            break;
+                        }
                 }
                 // end undo-list
                 myViewNet->getUndoList()->p_end();
@@ -1251,11 +1258,8 @@ GNERouteHandler::closePerson() {
         }
 
     }
-    // clear person trip values containers
-    myPersonTripValues.clear();
-    myRideValues.clear();
-    myWalkValues.clear();
-    myPersonStopValues.clear();
+    // clear person plan values clear
+    myPersonPlanValues.clear();
 }
 
 void
@@ -1353,62 +1357,82 @@ GNERouteHandler::closeTrip() {
 
 void
 GNERouteHandler::addStop(const SUMOSAXAttributes& attrs) {
+    // declare a personStop
+    PersonPlansValues stop;
     std::string errorSuffix;
     if (myVehicleParameter != nullptr) {
         errorSuffix = " in vehicle '" + myVehicleParameter->id + "'.";
     } else {
         errorSuffix = " in route '" + myActiveRouteID + "'.";
     }
-    SUMOVehicleParameter::Stop stop;
-    bool ok = parseStop(stop, attrs, errorSuffix, MsgHandler::getErrorInstance());
+    bool ok = parseStop(stop.stopParameters, attrs, errorSuffix, MsgHandler::getErrorInstance());
     if (!ok) {
         return;
     }
     // try to parse the assigned bus stop
-    if (stop.busstop != "") {
+    if (stop.stopParameters.busstop != "") {
         // ok, we have a bus stop
-        GNEBusStop* bs = dynamic_cast<GNEBusStop*>(myViewNet->getNet()->retrieveAdditional(SUMO_TAG_BUS_STOP, stop.busstop, false));
+        GNEBusStop* bs = dynamic_cast<GNEBusStop*>(myViewNet->getNet()->retrieveAdditional(SUMO_TAG_BUS_STOP, stop.stopParameters.busstop, false));
         if (bs == nullptr) {
-            WRITE_ERROR("The busStop '" + stop.busstop + "' is not known" + errorSuffix);
+            WRITE_ERROR("The busStop '" + stop.stopParameters.busstop + "' is not known" + errorSuffix);
             return;
         }
-        // obtain lane
-        stop.lane = bs->getAttribute(SUMO_ATTR_LANE);
+        // save lane
+        stop.stopParameters.lane = bs->getAttribute(SUMO_ATTR_LANE);
+        // save stoping place in stop
+        stop.stoppingPlace = bs;
+        // set tag
+        stop.tag = SUMO_TAG_STOP_BUSSTOP;
     } //try to parse the assigned container stop
-    else if (stop.containerstop != "") {
+    else if (stop.stopParameters.containerstop != "") {
         // ok, we have obviously a container stop
-        GNEAdditional* cs = myViewNet->getNet()->retrieveAdditional(SUMO_TAG_CONTAINER_STOP, stop.containerstop, false);
+        GNEAdditional* cs = myViewNet->getNet()->retrieveAdditional(SUMO_TAG_CONTAINER_STOP, stop.stopParameters.containerstop, false);
         if (cs == nullptr) {
-            WRITE_ERROR("The containerStop '" + stop.containerstop + "' is not known" + errorSuffix);
+            WRITE_ERROR("The containerStop '" + stop.stopParameters.containerstop + "' is not known" + errorSuffix);
             return;
         }
-        stop.lane = cs->getAttribute(SUMO_ATTR_LANE);
+        // save lane
+        stop.stopParameters.lane = cs->getAttribute(SUMO_ATTR_LANE);
+        // save stoping place in stop
+        stop.stoppingPlace = cs;
+        // set tag
+        stop.tag = SUMO_TAG_STOP_CONTAINERSTOP;
     } //try to parse the assigned parking area
-    else if (stop.parkingarea != "") {
+    else if (stop.stopParameters.parkingarea != "") {
         // ok, we have obviously a parking area
-        GNEAdditional* pa = myViewNet->getNet()->retrieveAdditional(SUMO_TAG_PARKING_AREA, stop.parkingarea, false);
+        GNEAdditional* pa = myViewNet->getNet()->retrieveAdditional(SUMO_TAG_PARKING_AREA, stop.stopParameters.parkingarea, false);
         if (pa == nullptr) {
-            WRITE_ERROR("The parkingArea '" + stop.parkingarea + "' is not known" + errorSuffix);
+            WRITE_ERROR("The parkingArea '" + stop.stopParameters.parkingarea + "' is not known" + errorSuffix);
             return;
         }
-        stop.lane = pa->getAttribute(SUMO_ATTR_LANE);
-    } else if (stop.chargingStation != "") {
+        // save lane
+        stop.stopParameters.lane = pa->getAttribute(SUMO_ATTR_LANE);
+        // save stoping place in stop
+        stop.stoppingPlace = pa;
+        // set tag
+        stop.tag = SUMO_TAG_STOP_PARKINGAREA;
+    } else if (stop.stopParameters.chargingStation != "") {
         // ok, we have a charging station
-        GNEAdditional* cs = myViewNet->getNet()->retrieveAdditional(SUMO_TAG_CHARGING_STATION, stop.chargingStation, false);
+        GNEAdditional* cs = myViewNet->getNet()->retrieveAdditional(SUMO_TAG_CHARGING_STATION, stop.stopParameters.chargingStation, false);
         if (cs == nullptr) {
-            WRITE_ERROR("The chargingStation '" + stop.chargingStation + "' is not known" + errorSuffix);
+            WRITE_ERROR("The chargingStation '" + stop.stopParameters.chargingStation + "' is not known" + errorSuffix);
             return;
         }
-        stop.lane = cs->getAttribute(SUMO_ATTR_LANE);
+        // save lane
+        stop.stopParameters.lane = cs->getAttribute(SUMO_ATTR_LANE);
+        // save stoping place in stop
+        stop.stoppingPlace = cs;
+        // set tag
+        stop.tag = SUMO_TAG_STOP_CHARGINGSTATION;
     } else {
         // no, the lane and the position should be given
         // get the lane
-        stop.lane = attrs.getOpt<std::string>(SUMO_ATTR_LANE, nullptr, ok, "");
-        GNELane* lane = myViewNet->getNet()->retrieveLane(stop.lane, false);
+        stop.stopParameters.lane = attrs.getOpt<std::string>(SUMO_ATTR_LANE, nullptr, ok, "");
+        stop.lane = myViewNet->getNet()->retrieveLane(stop.stopParameters.lane, false);
         // check if lane is valid
-        if (ok && stop.lane != "") {
-            if (lane == nullptr) {
-                WRITE_ERROR("The lane '" + stop.lane + "' for a stop is not known" + errorSuffix);
+        if (ok && stop.stopParameters.lane != "") {
+            if (stop.lane == nullptr) {
+                WRITE_ERROR("The lane '" + stop.stopParameters.lane + "' for a stop is not known" + errorSuffix);
                 return;
             }
         } else {
@@ -1416,22 +1440,28 @@ GNERouteHandler::addStop(const SUMOSAXAttributes& attrs) {
             return;
         }
         // calculate start and end position
-        stop.endPos = attrs.getOpt<double>(SUMO_ATTR_ENDPOS, nullptr, ok, lane->getLaneParametricLength());
+        stop.stopParameters.endPos = attrs.getOpt<double>(SUMO_ATTR_ENDPOS, nullptr, ok, stop.lane->getLaneParametricLength());
         if (attrs.hasAttribute(SUMO_ATTR_POSITION)) {
             WRITE_ERROR("Deprecated attribute 'pos' in description of stop" + errorSuffix);
-            stop.endPos = attrs.getOpt<double>(SUMO_ATTR_POSITION, nullptr, ok, stop.endPos);
+            stop.stopParameters.endPos = attrs.getOpt<double>(SUMO_ATTR_POSITION, nullptr, ok, stop.stopParameters.endPos);
         }
-        stop.startPos = attrs.getOpt<double>(SUMO_ATTR_STARTPOS, nullptr, ok, MAX2(0., stop.endPos - 2 * POSITION_EPS));
+        stop.stopParameters.startPos = attrs.getOpt<double>(SUMO_ATTR_STARTPOS, nullptr, ok, MAX2(0., stop.stopParameters.endPos - 2 * POSITION_EPS));
         const bool friendlyPos = attrs.getOpt<bool>(SUMO_ATTR_FRIENDLY_POS, nullptr, ok, false);
-        if (!ok || !checkStopPos(stop.startPos, stop.endPos, lane->getLaneParametricLength(), POSITION_EPS, friendlyPos)) {
-            WRITE_ERROR("Invalid start or end position for stop on lane '" + stop.lane + "'" + errorSuffix);
+        if (!ok || !checkStopPos(stop.stopParameters.startPos, stop.stopParameters.endPos, stop.lane->getLaneParametricLength(), POSITION_EPS, friendlyPos)) {
+            WRITE_ERROR("Invalid start or end position for stop on lane '" + stop.stopParameters.lane + "'" + errorSuffix);
             return;
         }
+        // set tag
+        stop.tag = SUMO_TAG_STOP_LANE;
     }
     if (myVehicleParameter != nullptr) {
-        myVehicleParameter->stops.push_back(stop);
+        if (myVehicleParameter->tag == SUMO_TAG_PERSON) {
+            myPersonPlanValues.push_back(stop);
+        } else {
+            myVehicleParameter->stops.push_back(stop.stopParameters);
+        }
     } else {
-        myActiveRouteStops.push_back(stop);
+        myActiveRouteStops.push_back(stop.stopParameters);
     }
 }
 
@@ -1439,7 +1469,7 @@ GNERouteHandler::addStop(const SUMOSAXAttributes& attrs) {
 void
 GNERouteHandler::addPersonTrip(const SUMOSAXAttributes& attrs) {
     // declare value for saving loaded values
-    PersonTripValues personTripValuesLoaded;
+    PersonPlansValues personTripValuesLoaded;
     // first set tag
     if (attrs.hasAttribute(SUMO_ATTR_FROM) && attrs.hasAttribute(SUMO_ATTR_TO)) {
         // set tag
@@ -1457,25 +1487,25 @@ GNERouteHandler::addPersonTrip(const SUMOSAXAttributes& attrs) {
             WRITE_ERROR("Invalid edge to in " + toString(personTripValuesLoaded.tag));
         } else {
             // save loaded values in container
-            myPersonTripValues.push_back(personTripValuesLoaded);
+            myPersonPlanValues.push_back(personTripValuesLoaded);
         }
     } else if (attrs.hasAttribute(SUMO_ATTR_FROM) && attrs.hasAttribute(SUMO_ATTR_BUS_STOP)) {
         // set tag
         personTripValuesLoaded.tag = SUMO_TAG_PERSONTRIP_BUSSTOP;
         // extract rest of parameters
         personTripValuesLoaded.from = myViewNet->getNet()->retrieveEdge(GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", personTripValuesLoaded.tag, SUMO_ATTR_FROM, myAbort), false);
-        personTripValuesLoaded.busStop = myViewNet->getNet()->retrieveAdditional(SUMO_TAG_BUS_STOP, GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", personTripValuesLoaded.tag, SUMO_ATTR_TO, myAbort), false);
+        personTripValuesLoaded.stoppingPlace = myViewNet->getNet()->retrieveAdditional(SUMO_TAG_BUS_STOP, GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", personTripValuesLoaded.tag, SUMO_ATTR_TO, myAbort), false);
         personTripValuesLoaded.vTypes = GNEAttributeCarrier::parseAttributeFromXML<std::vector<std::string> >(attrs, "", personTripValuesLoaded.tag, SUMO_ATTR_VTYPES, myAbort);
         personTripValuesLoaded.modes = GNEAttributeCarrier::parseAttributeFromXML<std::vector<std::string> >(attrs, "", personTripValuesLoaded.tag, SUMO_ATTR_MODES, myAbort);
         personTripValuesLoaded.arrivalPos = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, "", personTripValuesLoaded.tag, SUMO_ATTR_ARRIVALPOS, myAbort);
         // check that all parameters are correct
         if (personTripValuesLoaded.from == nullptr) {
             WRITE_ERROR("Invalid edge from in " + toString(personTripValuesLoaded.tag));
-        } else if (personTripValuesLoaded.busStop == nullptr) {
+        } else if (personTripValuesLoaded.stoppingPlace == nullptr) {
             WRITE_ERROR("Invalid busStop to in " + toString(personTripValuesLoaded.tag));
         } else {
             // save loaded values in container
-            myPersonTripValues.push_back(personTripValuesLoaded);
+            myPersonPlanValues.push_back(personTripValuesLoaded);
         }
     } else {
         WRITE_ERROR("A personTrip requieres either a from-to edges or a from edge and a busStop");
@@ -1486,7 +1516,7 @@ GNERouteHandler::addPersonTrip(const SUMOSAXAttributes& attrs) {
 void
 GNERouteHandler::addWalk(const SUMOSAXAttributes& attrs) {
     // declare value for saving loaded values
-    WalkValues walkValuesLoaded;
+    PersonPlansValues walkValuesLoaded;
     // first set tag
     if (attrs.hasAttribute(SUMO_ATTR_EDGES)) {
         // set tag
@@ -1505,7 +1535,7 @@ GNERouteHandler::addWalk(const SUMOSAXAttributes& attrs) {
             WRITE_ERROR("Invalid edges from in " + toString(walkValuesLoaded.tag));
         } else {
             // save loaded values in container
-            myWalkValues.push_back(walkValuesLoaded);
+            myPersonPlanValues.push_back(walkValuesLoaded);
         }
     } else if (attrs.hasAttribute(SUMO_ATTR_FROM) && attrs.hasAttribute(SUMO_ATTR_TO)) {
         // set tag
@@ -1521,23 +1551,23 @@ GNERouteHandler::addWalk(const SUMOSAXAttributes& attrs) {
             WRITE_ERROR("Invalid edge to in " + toString(walkValuesLoaded.tag));
         } else {
             // save loaded values in container
-            myWalkValues.push_back(walkValuesLoaded);
+            myPersonPlanValues.push_back(walkValuesLoaded);
         }
     } else if (attrs.hasAttribute(SUMO_ATTR_FROM) && attrs.hasAttribute(SUMO_ATTR_BUS_STOP)) {
         // set tag
         walkValuesLoaded.tag = SUMO_TAG_WALK_BUSSTOP;
         // extract rest of parameters
         walkValuesLoaded.from = myViewNet->getNet()->retrieveEdge(GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", walkValuesLoaded.tag, SUMO_ATTR_FROM, myAbort), false);
-        walkValuesLoaded.busStop = myViewNet->getNet()->retrieveAdditional(SUMO_TAG_BUS_STOP, GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", walkValuesLoaded.tag, SUMO_ATTR_TO, myAbort), false);
+        walkValuesLoaded.stoppingPlace = myViewNet->getNet()->retrieveAdditional(SUMO_TAG_BUS_STOP, GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", walkValuesLoaded.tag, SUMO_ATTR_TO, myAbort), false);
         walkValuesLoaded.arrivalPos = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, "", walkValuesLoaded.tag, SUMO_ATTR_ARRIVALPOS, myAbort);
         // check that all parameters are correct
         if (walkValuesLoaded.from == nullptr) {
             WRITE_ERROR("Invalid edge from in " + toString(walkValuesLoaded.tag));
-        } else if (walkValuesLoaded.busStop == nullptr) {
+        } else if (walkValuesLoaded.stoppingPlace == nullptr) {
             WRITE_ERROR("Invalid busStop to in " + toString(walkValuesLoaded.tag));
         } else {
             // save loaded values in container
-            myWalkValues.push_back(walkValuesLoaded);
+            myPersonPlanValues.push_back(walkValuesLoaded);
         }
     } else if (attrs.hasAttribute(SUMO_ATTR_ROUTE)) {
         // set tag
@@ -1551,7 +1581,7 @@ GNERouteHandler::addWalk(const SUMOSAXAttributes& attrs) {
             WRITE_ERROR("Invalid route from in " + toString(walkValuesLoaded.tag));
         } else {
             // save loaded values in container
-            myWalkValues.push_back(walkValuesLoaded);
+            myPersonPlanValues.push_back(walkValuesLoaded);
         }
     } else {
         WRITE_ERROR("A walk requieres either a from-to edges, a from edge and a busStop or a route");
@@ -1574,7 +1604,7 @@ GNERouteHandler::addContainer(const SUMOSAXAttributes& /*attrs*/) {
 void
 GNERouteHandler::addRide(const SUMOSAXAttributes& attrs) {
     // declare value for saving loaded values
-    RideValues rideValuesLoaded;
+    PersonPlansValues rideValuesLoaded;
     // first set tag
     if (attrs.hasAttribute(SUMO_ATTR_FROM) && attrs.hasAttribute(SUMO_ATTR_TO)) {
         // set tag
@@ -1591,24 +1621,24 @@ GNERouteHandler::addRide(const SUMOSAXAttributes& attrs) {
             WRITE_ERROR("Invalid edge to in " + toString(rideValuesLoaded.tag));
         } else {
             // save loaded values in container
-            myRideValues.push_back(rideValuesLoaded);
+            myPersonPlanValues.push_back(rideValuesLoaded);
         }
     } else if (attrs.hasAttribute(SUMO_ATTR_FROM) && attrs.hasAttribute(SUMO_ATTR_BUS_STOP)) {
         // set tag
         rideValuesLoaded.tag = SUMO_TAG_RIDE_BUSSTOP;
         // extract rest of parameters
         rideValuesLoaded.from = myViewNet->getNet()->retrieveEdge(GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", rideValuesLoaded.tag, SUMO_ATTR_FROM, myAbort), false);
-        rideValuesLoaded.busStop = myViewNet->getNet()->retrieveAdditional(SUMO_TAG_BUS_STOP, GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", rideValuesLoaded.tag, SUMO_ATTR_TO, myAbort), false);
+        rideValuesLoaded.stoppingPlace = myViewNet->getNet()->retrieveAdditional(SUMO_TAG_BUS_STOP, GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", rideValuesLoaded.tag, SUMO_ATTR_TO, myAbort), false);
         rideValuesLoaded.lines = GNEAttributeCarrier::parseAttributeFromXML<std::vector<std::string> >(attrs, "", rideValuesLoaded.tag, SUMO_ATTR_LINES, myAbort);
         rideValuesLoaded.arrivalPos = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, "", rideValuesLoaded.tag, SUMO_ATTR_ARRIVALPOS, myAbort);
         // check that all parameters are correct
         if (rideValuesLoaded.from == nullptr) {
             WRITE_ERROR("Invalid edge from in " + toString(rideValuesLoaded.tag));
-        } else if (rideValuesLoaded.busStop == nullptr) {
+        } else if (rideValuesLoaded.stoppingPlace == nullptr) {
             WRITE_ERROR("Invalid busStop to in " + toString(rideValuesLoaded.tag));
         } else {
             // save loaded values in container
-            myRideValues.push_back(rideValuesLoaded);
+            myPersonPlanValues.push_back(rideValuesLoaded);
         }
     } else {
         WRITE_ERROR("A ride requieres either a from-to edges or a from edge and a busStop");
@@ -1631,39 +1661,15 @@ GNERouteHandler::addTranship(const SUMOSAXAttributes& /*attrs*/) {
 // private members
 // ===========================================================================
 
-GNERouteHandler::PersonTripValues::PersonTripValues() :
+GNERouteHandler::PersonPlansValues::PersonPlansValues() :
     tag(SUMO_TAG_NOTHING),
     from(nullptr),
     to(nullptr),
-    busStop(nullptr),
-    arrivalPos(-1) {
-}
-
-
-GNERouteHandler::RideValues::RideValues() :
-    tag(SUMO_TAG_NOTHING),
-    from(nullptr),
-    to(nullptr),
-    busStop(nullptr),
-    arrivalPos(-1) {
-}
-
-
-GNERouteHandler:: WalkValues::WalkValues() :
-    tag(SUMO_TAG_NOTHING),
-    from(nullptr),
-    to(nullptr),
-    busStop(nullptr),
+    stoppingPlace(nullptr),
     route(nullptr),
-    arrivalPos(-1) {
-}
-
-
-GNERouteHandler:: PersonStopValues::PersonStopValues() :
-    tag(SUMO_TAG_NOTHING), 
     lane(nullptr),
-    friendlyPos(false),
-    stoppingPlace(nullptr) {
+    arrivalPos(-1),
+    friendlyPos(false) {
 }
 
 /****************************************************************************/
