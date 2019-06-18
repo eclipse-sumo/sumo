@@ -248,7 +248,7 @@ NIImporter_ArcView::load() {
 
         PositionVector shape;
         for (int j = 0; j < cgeom->getNumPoints(); j++) {
-            Position pos((double) cgeom->getX(j), (double) cgeom->getY(j));
+            Position pos((double) cgeom->getX(j), (double) cgeom->getY(j), (double) cgeom->getZ(j));
             if (!NBNetBuilder::transformCoordinate(pos)) {
                 WRITE_WARNING("Unable to project coordinates for edge '" + id + "'.");
             }
