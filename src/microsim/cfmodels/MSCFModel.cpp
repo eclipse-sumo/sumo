@@ -622,6 +622,9 @@ MSCFModel::passingTime(const double lastPos, const double passedPos, const doubl
 
     if (MSGlobals::gSemiImplicitEulerUpdate) {
         // euler update (constantly moving with currentSpeed during [0,TS])
+        if (currentSpeed == 0) {
+            return TS;
+        }
         const double t = distanceOldToPassed / currentSpeed;
         return MIN2(TS, MAX2(0., t)); //rounding errors could give results out of the admissible result range
 
