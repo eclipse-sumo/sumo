@@ -376,7 +376,11 @@ GNEPersonTrip::getPopUpID() const {
 
 std::string
 GNEPersonTrip::getHierarchyName() const {
-    return getTagStr() + ": " + getAttribute(SUMO_ATTR_ID) ;
+    if (myTagProperty.getTag() == SUMO_TAG_PERSONTRIP_FROMTO) {
+        return "PersonTrip: " + getEdgeParents().front()->getID() + " -> " + getEdgeParents().back()->getID();
+    } else {
+        return "PersonTrip: " + getEdgeParents().front()->getID() + " -> " + getAdditionalParents().front()->getID();
+    }
 }
 
 // ===========================================================================

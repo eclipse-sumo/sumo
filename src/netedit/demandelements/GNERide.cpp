@@ -358,7 +358,11 @@ GNERide::getPopUpID() const {
 
 std::string
 GNERide::getHierarchyName() const {
-    return getTagStr() + ": " + getAttribute(SUMO_ATTR_ID) ;
+    if (myTagProperty.getTag() == SUMO_TAG_RIDE_FROMTO) {
+        return "Ride: " + getEdgeParents().front()->getID() + " -> " + getEdgeParents().back()->getID();
+    } else {
+        return "Ride: " + getEdgeParents().front()->getID() + " -> " + getAdditionalParents().front()->getID();
+    }
 }
 
 // ===========================================================================

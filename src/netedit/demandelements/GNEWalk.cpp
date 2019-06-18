@@ -369,7 +369,13 @@ GNEWalk::getPopUpID() const {
 
 std::string
 GNEWalk::getHierarchyName() const {
-    return getTagStr() + ": " + getAttribute(SUMO_ATTR_ID) ;
+    if ((myTagProperty.getTag() == SUMO_TAG_WALK_FROMTO) || (myTagProperty.getTag() == SUMO_TAG_WALK_EDGES)) {
+        return "Walk: " + getEdgeParents().front()->getID() + " -> " + getEdgeParents().back()->getID();
+    } else  if (myTagProperty.getTag() == SUMO_TAG_WALK_BUSSTOP) {
+        return "Walk: " + getEdgeParents().front()->getID() + " -> " + getAdditionalParents().front()->getID();
+    } else {
+        return "Walk: " + getDemandElementParents().at(1)->getID();
+    }
 }
 
 // ===========================================================================
