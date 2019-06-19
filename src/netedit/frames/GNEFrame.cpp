@@ -516,7 +516,7 @@ GNEFrame::AttributesCreator::AttributesCreatorRow::showParameter(const GNEAttrib
         if (myAttributeCheckButton->shown() && (myAttributeCheckButton->getCheck() == FALSE)) {
             myValueTextFieldInt->disable();
         }
-    } else if (myAttrProperties.isFloat()) {
+    } else if (myAttrProperties.isFloat() || myAttrProperties.isSUMOTime()) {
         myValueTextFieldReal->setTextColor(FXRGB(0, 0, 0));
         myValueTextFieldReal->setText(attrProperties.getDefaultValue().c_str());
         myValueTextFieldReal->show();
