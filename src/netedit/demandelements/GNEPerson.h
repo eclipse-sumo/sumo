@@ -251,16 +251,11 @@ protected:
     /// @brief sets the color according to the currente settings
     void setColor(const GUIVisualizationSettings& s) const;
 
-    /// @brief gets the color value according to the current scheme index
-    double getColorValue(const GUIVisualizationSettings& s, int activeScheme) const;
-
     /// @brief sets the color according to the current scheme index and some vehicle function
     bool setFunctionalColor(int activeScheme) const;
 
     /// @name drawing helper methods
     /// @{
-    void drawAction_drawAsTriangle(const GUIVisualizationSettings& s) const;
-    void drawAction_drawAsCircle(const GUIVisualizationSettings& s) const;
     void drawAction_drawAsPoly(const GUIVisualizationSettings& s) const;
     void drawAction_drawAsImage(const GUIVisualizationSettings& s) const;
     /// @}

@@ -32,9 +32,10 @@
 #include <netedit/netelements/GNELane.h>
 #include <utils/geom/GeomHelper.h>
 #include <utils/gui/div/GLHelper.h>
-#include <utils/gui/div/GUIGlobalSelection.h>
 #include <utils/gui/div/GUIBaseVehicleHelper.h>
+#include <utils/gui/div/GUIGlobalSelection.h>
 #include <utils/gui/globjects/GLIncludes.h>
+#include <utils/gui/images/GUITexturesHelper.h>
 #include <utils/gui/windows/GUIAppEnum.h>
 
 #include "GNEPerson.h"
@@ -353,7 +354,6 @@ void
 GNEPerson::drawGL(const GUIVisualizationSettings& s) const {
     // only drawn in super mode demand
     if (myViewNet->getViewOptionsNetwork().showDemandElements() && myViewNet->getViewOptionsDemand().showNonInspectedDemandElements(this)) {
-
         glPushName(getGlID());
         glPushMatrix();
         Position p1 = getDemandElementChildren().front()->getEdgeParents().front()->getLanes().front()->getGeometry().shape.front();
@@ -364,25 +364,10 @@ GNEPerson::drawGL(const GUIVisualizationSettings& s) const {
         // scale
         const double upscale = s.personSize.getExaggeration(s, this, 80);
         glScaled(upscale, upscale, 1);
-        switch (s.personQuality) {
-            case 0:
-                drawAction_drawAsTriangle(s);
-                break;
-            case 1:
-                drawAction_drawAsCircle(s);
-                break;
-            case 2:
-                drawAction_drawAsPoly(s);
-                break;
-            case 3:
-            default:
-                drawAction_drawAsImage(s);
-                break;
-        }
+        // draw person as poly
+        drawAction_drawAsPoly(s);
+        // pop matrix
         glPopMatrix();
-    #ifdef GUIPerson_DEBUG_DRAW_WALKINGAREA_PATHS
-        drawAction_drawWalkingareaPath(s);
-    #endif
         drawName(p1, s.scale, s.personName, s.angle);
         if (s.personValue.show) {
             Position p2 = p1 + Position(0, 0.6 * s.personName.scaledSize(s.scale));
@@ -722,29 +707,6 @@ GNEPerson::setColor(const GUIVisualizationSettings& s) const {
 }
 
 
-double
-GNEPerson::getColorValue(const GUIVisualizationSettings& /* s */, int activeScheme) const {
-    /*
-    switch (activeScheme) {
-        case 4:
-            return getSpeed();
-        case 5:
-            if (isWaiting4Vehicle()) {
-                return 5;
-            } else {
-                return (double)getCurrentStageType();
-            }
-        case 6:
-            return getWaitingSeconds();
-        case 7:
-            return gSelected.isSelected(GLO_PERSON, getGlID());
-    }
-    return 0;
-    */
-    return 0;
-}
-
-
 bool
 GNEPerson::setFunctionalColor(int activeScheme) const {
     /*
@@ -794,39 +756,8 @@ GNEPerson::setFunctionalColor(int activeScheme) const {
 
 
 void
-GNEPerson::drawAction_drawAsTriangle(const GUIVisualizationSettings& /* s */) const {
-    // draw triangle pointing forward
-    // glRotated(RAD2DEG(getAngle() + M_PI / 2.), 0, 0, 1);
-    // glScaled(getVehicleType().getLength(), getVehicleType().getWidth(), 1);
-    glBegin(GL_TRIANGLES);
-    glVertex2d(0., 0.);
-    glVertex2d(1, -0.5);
-    glVertex2d(1, 0.5);
-    glEnd();
-    // draw a smaller triangle to indicate facing
-    GLHelper::setColor(GLHelper::getColor().changedBrightness(-64));
-    glTranslated(0, 0, .045);
-    glBegin(GL_TRIANGLES);
-    glVertex2d(0., 0.);
-    glVertex2d(0.5, -0.25);
-    glVertex2d(0.5, 0.25);
-    glEnd();
-    glTranslated(0, 0, -.045);
-}
-
-
-void
-GNEPerson::drawAction_drawAsCircle(const GUIVisualizationSettings& /* s */) const {
-    //glScaled(getVehicleType().getLength(), getVehicleType().getLength(), 1);
-    GLHelper::drawFilledCircle(0.8);
-}
-
-
-void
 GNEPerson::drawAction_drawAsPoly(const GUIVisualizationSettings& /* s */) const {
     // draw pedestrian shape
-    // glRotated(GeomHelper::naviDegree(getAngle()) - 180, 0, 0, -1);
-    // glScaled(getVehicleType().getLength(), getVehicleType().getWidth(), 1);
     RGBColor lighter = GLHelper::getColor().changedBrightness(51);
     glTranslated(0, 0, .045);
     // head
@@ -850,24 +781,21 @@ GNEPerson::drawAction_drawAsPoly(const GUIVisualizationSettings& /* s */) const 
 
 void
 GNEPerson::drawAction_drawAsImage(const GUIVisualizationSettings& s) const {
-    /*
-    const std::string& file = getVehicleType().getImgFile();
+    const std::string& file = getDemandElementParents().at(0)->getAttribute(SUMO_ATTR_IMGFILE);
     if (file != "") {
-        if (getVehicleType().getGuiShape() == SVS_PEDESTRIAN) {
-            glRotated(RAD2DEG(getAngle() + M_PI / 2.), 0, 0, 1);
-        }
         int textureID = GUITexturesHelper::getTextureID(file);
         if (textureID > 0) {
+            /*
             const double exaggeration = s.personSize.getExaggeration(s, this);
             const double halfLength = getVehicleType().getLength() / 2.0 * exaggeration;
             const double halfWidth = getVehicleType().getWidth() / 2.0 * exaggeration;
             GUITexturesHelper::drawTexturedBox(textureID, -halfWidth, -halfLength, halfWidth, halfLength);
+            */
         }
     } else {
         // fallback if no image is defined
         drawAction_drawAsPoly(s);
     }
-    */
 }
 
 // ===========================================================================
