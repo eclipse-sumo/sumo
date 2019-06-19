@@ -611,6 +611,10 @@ enum {
     MID_GNE_SELECT,
     /// @brief used to select a type of element in a combo box
     MID_GNE_SET_TYPE,
+    /// @brief tag type selected in ComboBox
+    MID_GNE_TAGTYPE_SELECTED,
+    /// @brief tag selected in ComboBox
+    MID_GNE_TAG_SELECTED,
     /// @brief text attribute edited
     MID_GNE_SET_ATTRIBUTE_TEXT,
     /// @brief bool attribute edited

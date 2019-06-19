@@ -148,8 +148,8 @@ GNEPersonPlanFrame::GNEPersonPlanFrame(FXHorizontalFrame* horizontalFrameParent,
     // Create AttributeCarrierHierarchy modul
     myPersonHierarchy = new GNEFrame::AttributeCarrierHierarchy(this);
 
-    // set PersonPlan as default vehicle
-    myPersonPlanTagSelector->setCurrentTypeTag(SUMO_TAG_VEHICLE);
+    // set PersonPlan tag type in tag selector
+    myPersonPlanTagSelector->setCurrentTagType(GNEAttributeCarrier::TagType::TAGTYPE_PERSONPLAN);
 }
 
 
@@ -165,6 +165,12 @@ GNEPersonPlanFrame::show() {
         myPersonSelector->refreshDemandElementSelector();
         // refresh item selector
         myPersonPlanTagSelector->refreshTagProperties();
+        // set first person as demand element
+        if (myViewNet->getNet()->getAttributeCarriers().demandElements.at(SUMO_TAG_PERSON).size() > 0) {
+            myPersonSelector->setDemandElement(myViewNet->getNet()->getAttributeCarriers().demandElements.at(SUMO_TAG_PERSON).begin()->second);
+        } else {
+            myPersonSelector->setDemandElement(myViewNet->getNet()->getAttributeCarriers().demandElements.at(SUMO_TAG_PERSONFLOW).begin()->second);
+        }
     } else {
         // hide all moduls
     }
@@ -207,64 +213,40 @@ void
 GNEPersonPlanFrame::tagSelected() {
     // first check if person is valid
     if (myPersonPlanTagSelector->getCurrentTagProperties().getTag() != SUMO_TAG_NOTHING) {
-        // show person selector and person plan selector
-        myPersonSelector->showDemandElementSelector();
-        if (myPersonSelector->getCurrentDemandElement()) {
-            // show person attributes
-            myPersonPlanAttributes->showAttributesCreatorModul(myPersonPlanTagSelector->getCurrentTagProperties());
-            // show person plan tag selector
-            myPersonPlanTagSelector->showTagSelector();
-            // now check if person plan selected is valid
-            if (myPersonPlanTagSelector->getCurrentTagProperties().getTag() != SUMO_TAG_NOTHING) {
-                // show person plan attributes
-                myPersonPlanAttributes->showAttributesCreatorModul(myPersonPlanTagSelector->getCurrentTagProperties());
-                // set edge path creator name
-                if (myPersonPlanTagSelector->getCurrentTagProperties().isPersonTrip()) {
-                    myEdgePathCreator->edgePathCreatorName("person trip");
-                } else if (myPersonPlanTagSelector->getCurrentTagProperties().isWalk()) {
-                    myEdgePathCreator->edgePathCreatorName("walk");
-                } else if (myPersonPlanTagSelector->getCurrentTagProperties().isRide()) {
-                    myEdgePathCreator->edgePathCreatorName("ride");
-                }
-                myEdgePathCreator->showEdgePathCreator();
-                myHelpCreation->showHelpCreation();
-            } else {
-                myPersonPlanAttributes->hideAttributesCreatorModul();
-                myEdgePathCreator->hideEdgePathCreator();
-                myHelpCreation->hideHelpCreation();
-            }
-        } else {
-            myPersonPlanTagSelector->hideTagSelector();
-            myPersonPlanAttributes->hideAttributesCreatorModul();
-            myPersonPlanAttributes->hideAttributesCreatorModul();
-            myEdgePathCreator->hideEdgePathCreator();
-            myHelpCreation->hideHelpCreation();
+        // set edge path creator name
+        if (myPersonPlanTagSelector->getCurrentTagProperties().isPersonTrip()) {
+            myEdgePathCreator->edgePathCreatorName("person trip");
+        } else if (myPersonPlanTagSelector->getCurrentTagProperties().isWalk()) {
+            myEdgePathCreator->edgePathCreatorName("walk");
+        } else if (myPersonPlanTagSelector->getCurrentTagProperties().isRide()) {
+            myEdgePathCreator->edgePathCreatorName("ride");
         }
+        // show person attributes
+        myPersonPlanAttributes->showAttributesCreatorModul(myPersonPlanTagSelector->getCurrentTagProperties());
+        // show edge path creator
+        myEdgePathCreator->showEdgePathCreator();
+        // show help creation
+        myHelpCreation->showHelpCreation();
+        // show person hierarchy
+        myPersonHierarchy->showAttributeCarrierHierarchy(myPersonSelector->getCurrentDemandElement());
     } else {
-        // hide all moduls if person isn't valid
-        myPersonSelector->hideDemandElementSelector();
-        myPersonPlanTagSelector->hideTagSelector();
-        myPersonPlanAttributes->hideAttributesCreatorModul();
+        // hide moduls if tag selecte isn't valid
         myPersonPlanAttributes->hideAttributesCreatorModul();
         myEdgePathCreator->hideEdgePathCreator();
         myHelpCreation->hideHelpCreation();
+        myPersonHierarchy->hideAttributeCarrierHierarchy();
     }
 }
 
 
 void 
 GNEPersonPlanFrame::demandElementSelected() {
+    // check if a valid person was selected
     if (myPersonSelector->getCurrentDemandElement()) {
-        //  Show their children
-        myPersonHierarchy->showAttributeCarrierHierarchy(myPersonSelector->getCurrentDemandElement());
-        // show person attributes
-        myPersonPlanAttributes->showAttributesCreatorModul(myPersonPlanTagSelector->getCurrentTagProperties());
         // show person plan tag selector
         myPersonPlanTagSelector->showTagSelector();
         // now check if person plan selected is valid
         if (myPersonPlanTagSelector->getCurrentTagProperties().getTag() != SUMO_TAG_NOTHING) {
-            // show person plan attributes
-            myPersonPlanAttributes->showAttributesCreatorModul(myPersonPlanTagSelector->getCurrentTagProperties());
             // set edge path creator name
             if (myPersonPlanTagSelector->getCurrentTagProperties().isPersonTrip()) {
                 myEdgePathCreator->edgePathCreatorName("person trip");
@@ -273,20 +255,27 @@ GNEPersonPlanFrame::demandElementSelected() {
             } else if (myPersonPlanTagSelector->getCurrentTagProperties().isRide()) {
                 myEdgePathCreator->edgePathCreatorName("ride");
             }
+            // show person plan attributes
+            myPersonPlanAttributes->showAttributesCreatorModul(myPersonPlanTagSelector->getCurrentTagProperties());
+            // show edge path creator
             myEdgePathCreator->showEdgePathCreator();
+            // show help creation
             myHelpCreation->showHelpCreation();
+            // Show the person's children
+            myPersonHierarchy->showAttributeCarrierHierarchy(myPersonSelector->getCurrentDemandElement());
         } else {
             myPersonPlanAttributes->hideAttributesCreatorModul();
             myEdgePathCreator->hideEdgePathCreator();
             myHelpCreation->hideHelpCreation();
+            myPersonHierarchy->hideAttributeCarrierHierarchy();
         }
     } else {
-        myPersonHierarchy->hideAttributeCarrierHierarchy();
+        // hide moduls if person selected isn't valid
         myPersonPlanTagSelector->hideTagSelector();
-        myPersonPlanAttributes->hideAttributesCreatorModul();
         myPersonPlanAttributes->hideAttributesCreatorModul();
         myEdgePathCreator->hideEdgePathCreator();
         myHelpCreation->hideHelpCreation();
+        myPersonHierarchy->hideAttributeCarrierHierarchy();
     }
 }
 

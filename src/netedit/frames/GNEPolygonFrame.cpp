@@ -231,7 +231,7 @@ GNEPolygonFrame::GNEPolygonFrame(FXHorizontalFrame* horizontalFrameParent, GNEVi
     myGEOPOICreator = new GEOPOICreator(this);
 
     // set polygon as default shape
-    myShapeTagSelector->setCurrentTypeTag(SUMO_TAG_POLY);
+    myShapeTagSelector->setCurrentTag(SUMO_TAG_POLY);
 }
 
 

@@ -118,7 +118,7 @@ GNEVehicleFrame::GNEVehicleFrame(FXHorizontalFrame* horizontalFrameParent, GNEVi
     myHelpCreation = new HelpCreation(this);
 
     // set Vehicle as default vehicle
-    myVehicleTagSelector->setCurrentTypeTag(SUMO_TAG_VEHICLE);
+    myVehicleTagSelector->setCurrentTag(SUMO_TAG_VEHICLE);
 }
 
 

@@ -53,7 +53,8 @@
 // ===========================================================================
 
 FXDEFMAP(GNEFrame::TagSelector) TagSelectorMap[] = {
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_SET_TYPE,    GNEFrame::TagSelector::onCmdSelectItem)
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_TAGTYPE_SELECTED,    GNEFrame::TagSelector::onCmdSelectTagType),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_TAG_SELECTED,        GNEFrame::TagSelector::onCmdSelectTag)
 };
 
 FXDEFMAP(GNEFrame::DemandElementSelector) DemandElementSelectorMap[] = {
@@ -173,6 +174,11 @@ GNEFrame::TagSelector::TagSelector(GNEFrame* frameParent, GNEAttributeCarrier::T
             break;
         case GNEAttributeCarrier::TagType::TAGTYPE_PERSONPLAN:
             setText("Person plans");
+            // person plan type has four sub-groups
+            myListOfTagTypes.push_back(std::make_pair("person trips", GNEAttributeCarrier::TagType::TAGTYPE_PERSONTRIP));
+            myListOfTagTypes.push_back(std::make_pair("walks", GNEAttributeCarrier::TagType::TAGTYPE_WALK));
+            myListOfTagTypes.push_back(std::make_pair("rides", GNEAttributeCarrier::TagType::TAGTYPE_RIDE));
+            myListOfTagTypes.push_back(std::make_pair("stops", GNEAttributeCarrier::TagType::TAGTYPE_PERSONSTOP));
             break;
         case GNEAttributeCarrier::TagType::TAGTYPE_PERSONTRIP:
             setText("Person trips");
@@ -189,10 +195,27 @@ GNEFrame::TagSelector::TagSelector(GNEFrame* frameParent, GNEAttributeCarrier::T
         default:
             throw ProcessError("invalid tag property");
     }
-    // fill myListOfTags
-    myListOfTags = GNEAttributeCarrier::allowedTagsByCategory(type, onlyDrawables);
+
     // Create FXComboBox
-    myTagsMatchBox = new FXComboBox(this, GUIDesignComboBoxNCol, this, MID_GNE_SET_TYPE, GUIDesignComboBox);
+    myTagTypesMatchBox = new FXComboBox(this, GUIDesignComboBoxNCol, this, MID_GNE_TAGTYPE_SELECTED, GUIDesignComboBox);
+    // Create FXComboBox
+    myTagsMatchBox = new FXComboBox(this, GUIDesignComboBoxNCol, this, MID_GNE_TAG_SELECTED, GUIDesignComboBox);
+    // Fill comboBox depending of TagTypes
+    if (myListOfTagTypes.size() > 0) {
+        // fill myTypeMatchBox with list of tags
+        for (const auto& i : myListOfTagTypes) {
+            myTagTypesMatchBox->appendItem(i.first.c_str());
+        }
+        // Set visible items
+        myTagTypesMatchBox->setNumVisible((int)myTagTypesMatchBox->getNumItems());
+        // fill myListOfTags with personTrips (the first Tag Type)
+        myListOfTags = GNEAttributeCarrier::allowedTagsByCategory(GNEAttributeCarrier::TagType::TAGTYPE_PERSONTRIP, onlyDrawables);
+    } else {
+        myTagTypesMatchBox->hide();
+        // fill myListOfTags
+        myListOfTags = GNEAttributeCarrier::allowedTagsByCategory(type, onlyDrawables);
+
+    }
     // fill myTypeMatchBox with list of tags
     for (const auto& i : myListOfTags) {
         myTagsMatchBox->appendItem(toString(i).c_str());
@@ -225,16 +248,41 @@ GNEFrame::TagSelector::getCurrentTagProperties() const {
 }
 
 
-void
-GNEFrame::TagSelector::setCurrentTypeTag(SumoXMLTag typeTag) {
+void 
+GNEFrame::TagSelector::setCurrentTagType(GNEAttributeCarrier::TagType tagType) {
     // set empty tag properties
     myCurrentTagProperties = GNEAttributeCarrier::TagProperties();
     // make sure that tag is in myTypeMatchBox
     for (int i = 0; i < (int)myTagsMatchBox->getNumItems(); i++) {
-        if (myTagsMatchBox->getItem(i).text() == toString(typeTag)) {
+        if (myTagsMatchBox->getItem(i).text() == toString(tagType)) {
+            myTagsMatchBox->setCurrentItem(i);
+            // fill myListOfTags with personTrips (the first Tag Type)
+            myListOfTags = GNEAttributeCarrier::allowedTagsByCategory(GNEAttributeCarrier::TagType::TAGTYPE_PERSONTRIP, true);
+            // clear myTagsMatchBox
+            myTagsMatchBox->clearItems();
+            // fill myTypeMatchBox with list of tags
+            for (const auto& i : myListOfTags) {
+                myTagsMatchBox->appendItem(toString(i).c_str());
+            }
+            // Set visible items
+            myTagsMatchBox->setNumVisible((int)myTagsMatchBox->getNumItems());
+        }
+    }
+    // call tag selected function
+    myFrameParent->tagSelected();
+}
+
+
+void
+GNEFrame::TagSelector::setCurrentTag(SumoXMLTag tag) {
+    // set empty tag properties
+    myCurrentTagProperties = GNEAttributeCarrier::TagProperties();
+    // make sure that tag is in myTypeMatchBox
+    for (int i = 0; i < (int)myTagsMatchBox->getNumItems(); i++) {
+        if (myTagsMatchBox->getItem(i).text() == toString(tag)) {
             myTagsMatchBox->setCurrentItem(i);
             // Set new current type
-            myCurrentTagProperties = GNEAttributeCarrier::getTagProperties(typeTag);
+            myCurrentTagProperties = GNEAttributeCarrier::getTagProperties(tag);
         }
     }
     // call tag selected function
@@ -245,12 +293,49 @@ GNEFrame::TagSelector::setCurrentTypeTag(SumoXMLTag typeTag) {
 void
 GNEFrame::TagSelector::refreshTagProperties() {
     // simply call onCmdSelectItem (to avoid duplicated code)
-    onCmdSelectItem(0, 0, 0);
+    onCmdSelectTag(0, 0, 0);
+}
+
+
+long GNEFrame::TagSelector::onCmdSelectTagType(FXObject*, FXSelector, void*) {
+    // Check if value of myTypeMatchBox correspond of an allowed additional tags
+    for (const auto& i : myListOfTagTypes) {
+        if (i.first == myTagTypesMatchBox->getText().text()) {
+            // set color of myTagTypesMatchBox to black (valid)
+            myTagTypesMatchBox->setTextColor(FXRGB(0, 0, 0));
+            // fill myListOfTags with personTrips (the first Tag Type)
+            myListOfTags = GNEAttributeCarrier::allowedTagsByCategory(i.second, true);
+            // show and clear myTagsMatchBox
+            myTagsMatchBox->show();
+            myTagsMatchBox->clearItems();
+            // fill myTypeMatchBox with list of tags
+            for (const auto& i : myListOfTags) {
+                myTagsMatchBox->appendItem(toString(i).c_str());
+            }
+            // Set visible items
+            myTagsMatchBox->setNumVisible((int)myTagsMatchBox->getNumItems());
+            // Write Warning in console if we're in testing mode
+            WRITE_DEBUG(("Selected item '" + myTagsMatchBox->getText() + "' in TagTypeSelector").text());
+            // call onCmdSelectTag
+            return onCmdSelectTag(nullptr, 0, nullptr);
+        }
+    }
+    // if TagType isn't valid, hide myTagsMatchBox
+    myTagsMatchBox->hide();
+    // if additional name isn't correct, set SUMO_TAG_NOTHING as current type
+    myCurrentTagProperties = myInvalidTagProperty;
+    // call tag selected function
+    myFrameParent->tagSelected();
+    // set color of myTagTypesMatchBox to red (invalid)
+    myTagTypesMatchBox->setTextColor(FXRGB(255, 0, 0));
+    // Write Warning in console if we're in testing mode
+    WRITE_DEBUG("Selected invalid item in TagTypeSelector");
+    return 1;
 }
 
 
 long
-GNEFrame::TagSelector::onCmdSelectItem(FXObject*, FXSelector, void*) {
+GNEFrame::TagSelector::onCmdSelectTag(FXObject*, FXSelector, void*) {
     // Check if value of myTypeMatchBox correspond of an allowed additional tags
     for (const auto& i : myListOfTags) {
         if (toString(i) == myTagsMatchBox->getText().text()) {
@@ -267,8 +352,8 @@ GNEFrame::TagSelector::onCmdSelectItem(FXObject*, FXSelector, void*) {
     }
     // if additional name isn't correct, set SUMO_TAG_NOTHING as current type
     myCurrentTagProperties = myInvalidTagProperty;
-            // call tag selected function
-            myFrameParent->tagSelected();
+    // call tag selected function
+    myFrameParent->tagSelected();
     // set color of myTypeMatchBox to red (invalid)
     myTagsMatchBox->setTextColor(FXRGB(255, 0, 0));
     // Write Warning in console if we're in testing mode
@@ -323,9 +408,14 @@ GNEFrame::DemandElementSelector::getCurrentDemandElement() const {
 
 void 
 GNEFrame::DemandElementSelector::setDemandElement(GNEDemandElement* demandElement) {
-    // first check tag
+    // first check that demandElement tag correspond to a tag of myDemandElementTags
     if (std::find(myDemandElementTags.begin(), myDemandElementTags.end(), demandElement->getTagProperty().getTag()) != myDemandElementTags.end()) {
+        // update text of myDemandElementsMatchBox
         myDemandElementsMatchBox->setText(demandElement->getID().c_str());
+        // Set new current demand element
+        myCurrentDemandElement = demandElement;
+        // call demandElementSelected function
+        myFrameParent->demandElementSelected();
     }
 }
 

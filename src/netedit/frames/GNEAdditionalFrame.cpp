@@ -628,7 +628,7 @@ GNEAdditionalFrame::GNEAdditionalFrame(FXHorizontalFrame* horizontalFrameParent,
     mySelectorLaneChildren = new SelectorLaneChildren(this);
 
     // set BusStop as default additional
-    myAdditionalTagSelector->setCurrentTypeTag(SUMO_TAG_BUS_STOP);
+    myAdditionalTagSelector->setCurrentTag(SUMO_TAG_BUS_STOP);
 }
 
 

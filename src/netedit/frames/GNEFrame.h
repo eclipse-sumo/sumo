@@ -64,15 +64,21 @@ public:
         const GNEAttributeCarrier::TagProperties& getCurrentTagProperties() const;
 
         /// @brief set current type manually
-        void setCurrentTypeTag(SumoXMLTag typeTag);
+        void setCurrentTagType(GNEAttributeCarrier::TagType tagType);
+
+        /// @brief set current type manually
+        void setCurrentTag(SumoXMLTag tag);
 
         /// @brief due myCurrentTagProperties is a Reference, we need to refresh it when frameParent is show
         void refreshTagProperties();
 
         /// @name FOX-callbacks
         /// @{
-        /// @brief Called when the user select another element in ComboBox
-        long onCmdSelectItem(FXObject*, FXSelector, void*);
+        /// @brief Called when the user select an group in ComboBox
+        long onCmdSelectTagType(FXObject*, FXSelector, void*);
+
+        /// @brief Called when the user select an elementin ComboBox
+        long onCmdSelectTag(FXObject*, FXSelector, void*);
         /// @}
 
     protected:
@@ -83,11 +89,17 @@ public:
         /// @brief pointer to Frame Parent
         GNEFrame* myFrameParent;
 
+        /// @brief comboBox with tag type
+        FXComboBox* myTagTypesMatchBox;
+
         /// @brief comboBox with the list of tags
         FXComboBox* myTagsMatchBox;
 
         /// @brief current tag properties
         GNEAttributeCarrier::TagProperties myCurrentTagProperties;
+
+        /// @brief list of tags types that will be shown in Match Box
+        std::vector<std::pair<std::string, GNEAttributeCarrier::TagType> > myListOfTagTypes;
 
         /// @brief list of tags that will be shown in Match Box
         std::vector<SumoXMLTag> myListOfTags;

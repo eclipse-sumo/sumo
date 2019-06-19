@@ -149,7 +149,7 @@ GNEPersonFrame::GNEPersonFrame(FXHorizontalFrame* horizontalFrameParent, GNEView
     myEdgePathCreator->setVClass(SVC_PEDESTRIAN);
 
     // set Person as default vehicle
-    myPersonTagSelector->setCurrentTypeTag(SUMO_TAG_PERSON);
+    myPersonTagSelector->setCurrentTag(SUMO_TAG_PERSON);
 }
 
 
