@@ -556,7 +556,7 @@ GNEViewNet::doPaintGL(int mode, const Boundary& bound) {
         myViewParent->getVehicleFrame()->getEdgePathCreator()->drawTemporalRoute();
         // draw temporal person plan route
         myViewParent->getPersonFrame()->getEdgePathCreator()->drawTemporalRoute();
-        myViewParent->getPersonPlanFrame()->getEdgePathCreator()->drawTemporalRoute();
+        myViewParent->getPersonPlanFrame()->getPersonPlanCreator()->drawTemporalRoute();
         // draw temporal non consecutive edge
         myViewParent->getRouteFrame()->drawTemporalRoute();
     }
@@ -767,7 +767,7 @@ GNEViewNet::abortOperation(bool clearSelection) {
         } else if (myEditModes.demandEditMode == GNE_DMODE_PERSON) {
             myViewParent->getPersonFrame()->getEdgePathCreator()->abortEdgePathCreation();
         } else if (myEditModes.demandEditMode == GNE_DMODE_PERSONPLAN) {
-            myViewParent->getPersonPlanFrame()->getEdgePathCreator()->abortEdgePathCreation();
+            myViewParent->getPersonPlanFrame()->getPersonPlanCreator()->abortEdgePathCreation();
         }
     }
     // abort undo list
@@ -850,7 +850,7 @@ GNEViewNet::hotkeyEnter() {
         } else if (myEditModes.demandEditMode == GNE_DMODE_PERSON) {
             myViewParent->getPersonFrame()->getEdgePathCreator()->finishEdgePathCreation();
         } else if (myEditModes.demandEditMode == GNE_DMODE_PERSONPLAN) {
-            myViewParent->getPersonPlanFrame()->getEdgePathCreator()->finishEdgePathCreation();
+            myViewParent->getPersonPlanFrame()->getPersonPlanCreator()->finishEdgePathCreation();
         }
     }
 }
@@ -868,7 +868,7 @@ GNEViewNet::hotkeyBackSpace() {
         } else if (myEditModes.demandEditMode == GNE_DMODE_PERSON) {
             myViewParent->getPersonFrame()->getEdgePathCreator()->removeLastAddedRoute();
         } else if (myEditModes.demandEditMode == GNE_DMODE_PERSONPLAN) {
-            myViewParent->getPersonPlanFrame()->getEdgePathCreator()->removeLastAddedRoute();
+            myViewParent->getPersonPlanFrame()->getPersonPlanCreator()->removeLastAddedRoute();
         }
     }
 }
