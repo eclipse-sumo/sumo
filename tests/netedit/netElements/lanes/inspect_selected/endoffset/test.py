@@ -31,12 +31,6 @@ netedit.rebuildNetwork()
 # toogle select lanes
 netedit.changeEditMode('2')
 
-# recompute
-netedit.rebuildNetwork()
-
-# toogle select lanes
-netedit.changeEditMode('2')
-
 # go to select mode
 netedit.selectMode()
 
