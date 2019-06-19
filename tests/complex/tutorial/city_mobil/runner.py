@@ -28,7 +28,3 @@ import createNet  # noqa
 vehicleControl.init(simpleManager.SimpleManager(), True)
 # perform agent scenario
 vehicleControl.init(agentManager.AgentManager(), True)
-try:
-    shutil.copy("all-the-results.txt", "../result2")
-except IOError:
-    print("Missing 'all-the-results.txt'")

@@ -75,8 +75,7 @@ def evaluate(forTest=False):
         if forTest:
             print(route, timeArray.max() < 1000, timeArray.mean() < 1000, math.sqrt(timeArray.var()) < 100)
         else:
-            print(route, timeArray.max(), timeArray.mean(),
-                  math.sqrt(timeArray.var()))
+            print(route, timeArray.max(), timeArray.mean(), math.sqrt(timeArray.var()))
 
     co2 = 0.
     for line in open("aggregated.xml"):
