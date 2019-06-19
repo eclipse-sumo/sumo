@@ -430,6 +430,41 @@ GNEVehicleType::getAttribute(SumoXMLAttr key) const {
 }
 
 
+double 
+GNEVehicleType::getAttributeDouble(SumoXMLAttr key) const {
+    // obtain default values depending of vehicle class
+    VClassDefaultValues defaultValues(vehicleClass);
+    switch (key) {
+        case SUMO_ATTR_LENGTH:
+            if (wasSet(VTYPEPARS_LENGTH_SET)) {
+                return length;
+            } else {
+                return defaultValues.length;
+            }
+        case SUMO_ATTR_MINGAP:
+            if (wasSet(VTYPEPARS_MINGAP_SET)) {
+                return minGap;
+            } else {
+                return defaultValues.minGap;
+            }
+        case SUMO_ATTR_WIDTH:
+            if (wasSet(VTYPEPARS_WIDTH_SET)) {
+                return width;
+            } else {
+                return 0;
+            }
+        case SUMO_ATTR_HEIGHT:
+            if (wasSet(VTYPEPARS_HEIGHT_SET)) {
+                return height;
+            } else {
+                return 0;
+            }
+        default:
+            throw InvalidArgument(getTagStr() + " doesn't have a double attribute of type '" + toString(key) + "'");
+    }
+}
+
+
 void
 GNEVehicleType::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList) {
     if (value == getAttribute(key)) {

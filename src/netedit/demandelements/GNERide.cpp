@@ -291,6 +291,12 @@ GNERide::getAttribute(SumoXMLAttr key) const {
 }
 
 
+double 
+GNERide::getAttributeDouble(SumoXMLAttr /*key*/) const {
+    return 0;
+}
+
+
 void
 GNERide::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList) {
     if (value == getAttribute(key)) {
@@ -359,9 +365,9 @@ GNERide::getPopUpID() const {
 std::string
 GNERide::getHierarchyName() const {
     if (myTagProperty.getTag() == SUMO_TAG_RIDE_FROMTO) {
-        return "Ride: " + getEdgeParents().front()->getID() + " -> " + getEdgeParents().back()->getID();
+        return "ride: " + getEdgeParents().front()->getID() + " -> " + getEdgeParents().back()->getID();
     } else {
-        return "Ride: " + getEdgeParents().front()->getID() + " -> " + getAdditionalParents().front()->getID();
+        return "ride: " + getEdgeParents().front()->getID() + " -> " + getAdditionalParents().front()->getID();
     }
 }
 

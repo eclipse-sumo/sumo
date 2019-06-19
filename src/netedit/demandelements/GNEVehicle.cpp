@@ -549,8 +549,8 @@ GNEVehicle::drawGL(const GUIVisualizationSettings& s) const {
     if (myViewNet->getViewOptionsNetwork().showDemandElements() && myViewNet->getViewOptionsDemand().showNonInspectedDemandElements(this)) {
         // declare common attributes
         const double upscale = s.vehicleSize.getExaggeration(s, this);
-        const double width = parse<double>(getDemandElementParents().at(0)->getAttribute(SUMO_ATTR_WIDTH));
-        const double length = parse<double>(getDemandElementParents().at(0)->getAttribute(SUMO_ATTR_LENGTH));
+        const double width = getDemandElementParents().at(0)->getAttributeDouble(SUMO_ATTR_WIDTH);
+        const double length = getDemandElementParents().at(0)->getAttributeDouble(SUMO_ATTR_LENGTH);
         double vehicleSizeSquared = width * length * upscale * width * length * upscale;
         // declare a flag to check if glPushName() / glPopName() has to be added (needed due GNEEdge::drawGL(...))
         const bool pushName = (myTagProperty.getTag() != SUMO_TAG_FLOW) && (myTagProperty.getTag() != SUMO_TAG_TRIP);
@@ -628,7 +628,7 @@ GNEVehicle::drawGL(const GUIVisualizationSettings& s) const {
                 }
                 // check if min gap has to be drawn
                 if (s.drawMinGap) {
-                    const double minGap = -1 * parse<double>(getDemandElementParents().at(0)->getAttribute(SUMO_ATTR_MINGAP));
+                    const double minGap = -1 * getDemandElementParents().at(0)->getAttributeDouble(SUMO_ATTR_MINGAP);
                     glColor3d(0., 1., 0.);
                     glBegin(GL_LINES);
                     glVertex2d(0., 0);
@@ -818,6 +818,12 @@ GNEVehicle::getAttribute(SumoXMLAttr key) const {
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
+}
+
+
+double 
+GNEVehicle::getAttributeDouble(SumoXMLAttr /*key*/) const {
+    return 0;
 }
 
 

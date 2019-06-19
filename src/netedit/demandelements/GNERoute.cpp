@@ -305,6 +305,12 @@ GNERoute::getAttribute(SumoXMLAttr key) const {
 }
 
 
+double 
+GNERoute::getAttributeDouble(SumoXMLAttr /*key*/) const {
+    return 0;
+}
+
+
 void
 GNERoute::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList) {
     if (value == getAttribute(key)) {

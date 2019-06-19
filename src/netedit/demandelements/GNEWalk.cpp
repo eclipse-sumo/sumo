@@ -298,6 +298,12 @@ GNEWalk::getAttribute(SumoXMLAttr key) const {
 }
 
 
+double 
+GNEWalk::getAttributeDouble(SumoXMLAttr /*key*/) const {
+    return 0;
+}
+
+
 void
 GNEWalk::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList) {
     if (value == getAttribute(key)) {
@@ -370,11 +376,11 @@ GNEWalk::getPopUpID() const {
 std::string
 GNEWalk::getHierarchyName() const {
     if ((myTagProperty.getTag() == SUMO_TAG_WALK_FROMTO) || (myTagProperty.getTag() == SUMO_TAG_WALK_EDGES)) {
-        return "Walk: " + getEdgeParents().front()->getID() + " -> " + getEdgeParents().back()->getID();
+        return "walk: " + getEdgeParents().front()->getID() + " -> " + getEdgeParents().back()->getID();
     } else  if (myTagProperty.getTag() == SUMO_TAG_WALK_BUSSTOP) {
-        return "Walk: " + getEdgeParents().front()->getID() + " -> " + getAdditionalParents().front()->getID();
+        return "walk: " + getEdgeParents().front()->getID() + " -> " + getAdditionalParents().front()->getID();
     } else {
-        return "Walk: " + getDemandElementParents().at(1)->getID();
+        return "walk: " + getDemandElementParents().at(1)->getID();
     }
 }
 

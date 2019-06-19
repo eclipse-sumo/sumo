@@ -301,6 +301,12 @@ GNEPersonTrip::getAttribute(SumoXMLAttr key) const {
 }
 
 
+double 
+GNEPersonTrip::getAttributeDouble(SumoXMLAttr /*key*/) const {
+    return 0;
+}
+
+
 void
 GNEPersonTrip::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList) {
     if (value == getAttribute(key)) {
@@ -377,9 +383,9 @@ GNEPersonTrip::getPopUpID() const {
 std::string
 GNEPersonTrip::getHierarchyName() const {
     if (myTagProperty.getTag() == SUMO_TAG_PERSONTRIP_FROMTO) {
-        return "PersonTrip: " + getEdgeParents().front()->getID() + " -> " + getEdgeParents().back()->getID();
+        return "personTrip: " + getEdgeParents().front()->getID() + " -> " + getEdgeParents().back()->getID();
     } else {
-        return "PersonTrip: " + getEdgeParents().front()->getID() + " -> " + getAdditionalParents().front()->getID();
+        return "personTrip: " + getEdgeParents().front()->getID() + " -> " + getAdditionalParents().front()->getID();
     }
 }
 

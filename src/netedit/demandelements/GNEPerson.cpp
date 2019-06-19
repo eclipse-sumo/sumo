@@ -458,6 +458,12 @@ GNEPerson::getAttribute(SumoXMLAttr key) const {
 }
 
 
+double 
+GNEPerson::getAttributeDouble(SumoXMLAttr /*key*/) const {
+    return 0;
+}
+
+
 void
 GNEPerson::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList) {
     if (value == getAttribute(key)) {
@@ -785,12 +791,10 @@ GNEPerson::drawAction_drawAsImage(const GUIVisualizationSettings& s) const {
     if (file != "") {
         int textureID = GUITexturesHelper::getTextureID(file);
         if (textureID > 0) {
-            /*
             const double exaggeration = s.personSize.getExaggeration(s, this);
-            const double halfLength = getVehicleType().getLength() / 2.0 * exaggeration;
-            const double halfWidth = getVehicleType().getWidth() / 2.0 * exaggeration;
+            const double halfLength = getDemandElementParents().at(0)->getAttributeDouble(SUMO_ATTR_LENGTH) / 2.0 * exaggeration;
+            const double halfWidth = getDemandElementParents().at(0)->getAttributeDouble(SUMO_ATTR_WIDTH) / 2.0 * exaggeration;
             GUITexturesHelper::drawTexturedBox(textureID, -halfWidth, -halfLength, halfWidth, halfLength);
-            */
         }
     } else {
         // fallback if no image is defined
