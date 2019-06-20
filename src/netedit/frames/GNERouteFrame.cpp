@@ -48,15 +48,15 @@ FXDEFMAP(GNERouteFrame::RouteModeSelector) RouteModeSelectorMap[] = {
 };
 
 FXDEFMAP(GNERouteFrame::ConsecutiveEdges) ConsecutiveEdgesMap[] = {
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_EDGEPATH_ABORT,          GNERouteFrame::ConsecutiveEdges::onCmdAbortRoute),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_EDGEPATH_FINISH,         GNERouteFrame::ConsecutiveEdges::onCmdCreateRoute),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_EDGEPATH_REMOVELASTEDGE, GNERouteFrame::ConsecutiveEdges::onCmdRemoveLastRouteEdge)
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_EDGEPATH_ABORT,      GNERouteFrame::ConsecutiveEdges::onCmdAbortRoute),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_EDGEPATH_FINISH,     GNERouteFrame::ConsecutiveEdges::onCmdCreateRoute),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_EDGEPATH_REMOVELAST, GNERouteFrame::ConsecutiveEdges::onCmdRemoveLastRouteEdge)
 };
 
 FXDEFMAP(GNERouteFrame::NonConsecutiveEdges) NonConsecutiveEdgesMap[] = {
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_EDGEPATH_ABORT,          GNERouteFrame::NonConsecutiveEdges::onCmdAbortRoute),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_EDGEPATH_FINISH,         GNERouteFrame::NonConsecutiveEdges::onCmdCreateRoute),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_EDGEPATH_REMOVELASTEDGE, GNERouteFrame::NonConsecutiveEdges::onCmdRemoveLastRouteEdge)
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_EDGEPATH_ABORT,      GNERouteFrame::NonConsecutiveEdges::onCmdAbortRoute),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_EDGEPATH_FINISH,     GNERouteFrame::NonConsecutiveEdges::onCmdCreateRoute),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_EDGEPATH_REMOVELAST, GNERouteFrame::NonConsecutiveEdges::onCmdRemoveLastRouteEdge)
 };
 
 // Object implementation
@@ -250,7 +250,7 @@ GNERouteFrame::ConsecutiveEdges::ConsecutiveEdges(GNERouteFrame* routeFrameParen
     myAbortCreationButton = new FXButton(this, "Abort creation", 0, this, MID_GNE_EDGEPATH_ABORT, GUIDesignButton);
     myAbortCreationButton->disable();
     // create button for remove last inserted edge
-    myRemoveLastInsertedEdge = new FXButton(this, "Remove last inserted edge", nullptr, this, MID_GNE_EDGEPATH_REMOVELASTEDGE, GUIDesignButton);
+    myRemoveLastInsertedEdge = new FXButton(this, "Remove last inserted edge", nullptr, this, MID_GNE_EDGEPATH_REMOVELAST, GUIDesignButton);
     myRemoveLastInsertedEdge->disable();
     // ConsecutiveEdges is by default shown
     show();
@@ -496,7 +496,7 @@ GNERouteFrame::NonConsecutiveEdges::NonConsecutiveEdges(GNERouteFrame* routeFram
     myAbortCreationButton = new FXButton(this, "Abort route creation", nullptr, this, MID_GNE_EDGEPATH_ABORT, GUIDesignButton);
     myAbortCreationButton->disable();
     // create button for remove last inserted edge
-    myRemoveLastInsertedEdge = new FXButton(this, "Remove last inserted edge", nullptr, this, MID_GNE_EDGEPATH_REMOVELASTEDGE, GUIDesignButton);
+    myRemoveLastInsertedEdge = new FXButton(this, "Remove last inserted edge", nullptr, this, MID_GNE_EDGEPATH_REMOVELAST, GUIDesignButton);
     myRemoveLastInsertedEdge->disable();
 }
 

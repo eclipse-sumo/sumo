@@ -20,14 +20,15 @@
 // ===========================================================================
 #include <config.h>
 
-#include <utils/gui/div/GUIDesigns.h>
+#include <netedit/GNENet.h>
+#include <netedit/GNEUndoList.h>
+#include <netedit/GNEViewNet.h>
+#include <netedit/additionals/GNEAdditional.h>
 #include <netedit/demandelements/GNEPerson.h>
 #include <netedit/demandelements/GNERouteHandler.h>
-#include <netedit/GNENet.h>
-#include <netedit/GNEViewNet.h>
-#include <netedit/GNEUndoList.h>
-#include <utils/xml/SUMOSAXAttributesImpl_Cached.h>
+#include <utils/gui/div/GUIDesigns.h>
 #include <utils/vehicle/SUMOVehicleParserHelper.h>
+#include <utils/xml/SUMOSAXAttributesImpl_Cached.h>
 
 #include "GNEPersonFrame.h"
 
@@ -187,7 +188,9 @@ GNEPersonFrame::addPerson(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnd
         return false;
     }
     // add clicked edge in EdgePathCreator
-    if (objectsUnderCursor.getEdgeFront()) {
+    if (objectsUnderCursor.getAdditionalFront() && (objectsUnderCursor.getAdditionalFront()->getTagProperty().getTag() == SUMO_TAG_BUS_STOP)) {
+        return myEdgePathCreator->addBusStop(objectsUnderCursor.getAdditionalFront());
+    } else if (objectsUnderCursor.getEdgeFront()) {
         return myEdgePathCreator->addEdge(objectsUnderCursor.getEdgeFront());
     } else {
         return false;

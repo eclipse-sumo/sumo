@@ -864,9 +864,9 @@ GNEViewNet::hotkeyBackSpace() {
         if (myEditModes.demandEditMode == GNE_DMODE_ROUTE) {
             myViewParent->getRouteFrame()->hotkeyBackSpace();
         } else if (myEditModes.demandEditMode == GNE_DMODE_VEHICLE) {
-            myViewParent->getVehicleFrame()->getEdgePathCreator()->removeLastAddedEdge();
+            myViewParent->getVehicleFrame()->getEdgePathCreator()->removeLastInsertedElement();
         } else if (myEditModes.demandEditMode == GNE_DMODE_PERSON) {
-            myViewParent->getPersonFrame()->getEdgePathCreator()->removeLastAddedEdge();
+            myViewParent->getPersonFrame()->getEdgePathCreator()->removeLastInsertedElement();
         } else if (myEditModes.demandEditMode == GNE_DMODE_PERSONPLAN) {
             myViewParent->getPersonPlanFrame()->getPersonPlanCreator()->removeLastAddedElement();
         }

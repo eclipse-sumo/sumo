@@ -62,9 +62,9 @@ FXDEFMAP(GNEFrame::DemandElementSelector) DemandElementSelectorMap[] = {
 };
 
 FXDEFMAP(GNEFrame::EdgePathCreator) EdgePathCreatorMap[] = {
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_EDGEPATH_ABORT,          GNEFrame::EdgePathCreator::onCmdAbortRouteCreation),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_EDGEPATH_FINISH,         GNEFrame::EdgePathCreator::onCmdFinishRouteCreation),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_EDGEPATH_REMOVELASTEDGE, GNEFrame::EdgePathCreator::onCmdRemoveLastRouteEdge)
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_EDGEPATH_ABORT,      GNEFrame::EdgePathCreator::onCmdAbortRouteCreation),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_EDGEPATH_FINISH,     GNEFrame::EdgePathCreator::onCmdFinishRouteCreation),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_EDGEPATH_REMOVELAST, GNEFrame::EdgePathCreator::onCmdRemoveLastInsertedElement)
 };
 
 FXDEFMAP(GNEFrame::AttributesCreator) AttributesCreatorMap[] = {
@@ -501,7 +501,8 @@ GNEFrame::EdgePathCreator::EdgePathCreator(GNEFrame* frameParent, int edgePathCr
     FXGroupBox(frameParent->myContentFrame, "Route creator", GUIDesignGroupBoxFrame),
     myFrameParent(frameParent),
     myVClass(SVC_PASSENGER),
-    myEdgePathCreatorModes(edgePathCreatorModes) {
+    myEdgePathCreatorModes(edgePathCreatorModes),
+    mySelectedBusStop(nullptr) {
 
     // create button for create GEO POIs
     myFinishCreationButton = new FXButton(this, "Finish route creation", nullptr, this, MID_GNE_EDGEPATH_FINISH, GUIDesignButton);
@@ -512,7 +513,7 @@ GNEFrame::EdgePathCreator::EdgePathCreator(GNEFrame* frameParent, int edgePathCr
     myAbortCreationButton->disable();
 
     // create button for create GEO POIs
-    myRemoveLastInsertedEdge = new FXButton(this, "Remove last inserted edge", nullptr, this, MID_GNE_EDGEPATH_REMOVELASTEDGE, GUIDesignButton);
+    myRemoveLastInsertedEdge = new FXButton(this, "Remove last inserted edge", nullptr, this, MID_GNE_EDGEPATH_REMOVELAST, GUIDesignButton);
     myRemoveLastInsertedEdge->disable();
 }
 
@@ -594,7 +595,11 @@ GNEFrame::EdgePathCreator::addEdge(GNEEdge* edge) {
 
 
 bool 
-GNEFrame::EdgePathCreator::addBusStop(GNEAdditional* /*busStop*/) {
+GNEFrame::EdgePathCreator::addBusStop(GNEAdditional* busStop) {
+    if (mySelectedBusStop == nullptr) {
+        mySelectedBusStop = busStop;
+        mySelectedBusStop->setSpecialColor(&myFrameParent->getEdgeCandidateSelectedColor());
+    }
     return false;
 }
 
@@ -610,6 +615,9 @@ GNEFrame::EdgePathCreator::clearEdges() {
     // clear edges
     mySelectedEdges.clear();
     myTemporalRoute.clear();
+    // clear busStop
+    mySelectedBusStop->setSpecialColor(&myFrameParent->getEdgeCandidateSelectedColor());
+    mySelectedBusStop = nullptr;
     // enable undo/redo
     myFrameParent->myViewNet->getViewParent()->getGNEAppWindows()->enableUndoRedo();
 }
@@ -660,9 +668,9 @@ GNEFrame::EdgePathCreator::finishEdgePathCreation() {
 
 
 void 
-GNEFrame::EdgePathCreator::removeLastAddedEdge() {
+GNEFrame::EdgePathCreator::removeLastInsertedElement() {
     if (myRemoveLastInsertedEdge->isEnabled()) {
-        onCmdRemoveLastRouteEdge(nullptr, 0, nullptr);
+        onCmdRemoveLastInsertedElement(nullptr, 0, nullptr);
     }
 }
 
@@ -698,7 +706,7 @@ GNEFrame::EdgePathCreator::onCmdFinishRouteCreation(FXObject*, FXSelector, void*
 
 
 long
-GNEFrame::EdgePathCreator::onCmdRemoveLastRouteEdge(FXObject*, FXSelector, void*) {
+GNEFrame::EdgePathCreator::onCmdRemoveLastInsertedElement(FXObject*, FXSelector, void*) {
     if (mySelectedEdges.size() > 1) {
         // remove last edge
         mySelectedEdges.pop_back();

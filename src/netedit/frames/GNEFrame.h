@@ -225,8 +225,8 @@ public:
         /// @brief finish edge path creation
         void finishEdgePathCreation();
 
-        /// @brief remove last added edge
-        void removeLastAddedEdge();
+        /// @brief remove last added element (either a BusStop or an edge)
+        void removeLastInsertedElement();
 
         /// @name FOX-callbacks
         /// @{
@@ -236,8 +236,8 @@ public:
         /// @brief Called when the user click over button "Finish route creation"
         long onCmdFinishRouteCreation(FXObject*, FXSelector, void*);
 
-        /// @brief Called when the user click over button "Remove las inserted edge"
-        long onCmdRemoveLastRouteEdge(FXObject*, FXSelector, void*);
+        /// @brief Called when the user click over button "Remove las inserted edge/busStop"
+        long onCmdRemoveLastInsertedElement(FXObject*, FXSelector, void*);
         /// @}
 
     protected:
@@ -262,6 +262,9 @@ public:
 
         /// @brief current selected edges
         std::vector<GNEEdge*> mySelectedEdges;
+
+        /// @brief pointer to selected busStop
+        GNEAdditional *mySelectedBusStop;
 
         /// @brief vector with temporal route edges
         std::vector<GNEEdge*> myTemporalRoute;

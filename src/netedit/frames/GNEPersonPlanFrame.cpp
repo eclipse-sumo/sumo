@@ -44,9 +44,9 @@
 // ===========================================================================
 
 FXDEFMAP(GNEPersonPlanFrame::PersonPlanCreator) PersonPlanCreatorMap[] = {
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_EDGEPATH_ABORT,          GNEPersonPlanFrame::PersonPlanCreator::onCmdAbortPersonPlanCreation),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_EDGEPATH_FINISH,         GNEPersonPlanFrame::PersonPlanCreator::onCmdFinishPersonPlanCreation),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_EDGEPATH_REMOVELASTEDGE, GNEPersonPlanFrame::PersonPlanCreator::onCmdRemoveLastElement)
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_EDGEPATH_ABORT,      GNEPersonPlanFrame::PersonPlanCreator::onCmdAbortPersonPlanCreation),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_EDGEPATH_FINISH,     GNEPersonPlanFrame::PersonPlanCreator::onCmdFinishPersonPlanCreation),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_EDGEPATH_REMOVELAST, GNEPersonPlanFrame::PersonPlanCreator::onCmdRemoveLastElement)
 };
 
 // Object implementation
@@ -156,7 +156,7 @@ GNEPersonPlanFrame::PersonPlanCreator::PersonPlanCreator(GNEPersonPlanFrame* fra
     myAbortCreationButton->disable();
 
     // create button for create GEO POIs
-    myRemoveLastInsertedEdge = new FXButton(this, "Remove last inserted edge", nullptr, this, MID_GNE_EDGEPATH_REMOVELASTEDGE, GUIDesignButton);
+    myRemoveLastInsertedEdge = new FXButton(this, "Remove last inserted edge", nullptr, this, MID_GNE_EDGEPATH_REMOVELAST, GUIDesignButton);
     myRemoveLastInsertedEdge->disable();
 }
 

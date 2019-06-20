@@ -627,8 +627,8 @@ enum {
     MID_GNE_EDGEPATH_ABORT,
     /// @brief finish edge path creation
     MID_GNE_EDGEPATH_FINISH,
-    /// @brief remove last inserted edge of edge path
-    MID_GNE_EDGEPATH_REMOVELASTEDGE,
+    /// @brief remove last inserted element in path
+    MID_GNE_EDGEPATH_REMOVELAST,
     /// @brief In AttributeCarrierHierarchy list, show child menu
     MID_GNE_ACHIERARCHY_SHOWCHILDMENU,
     /// @brief In AttributeCarrierHierarchy list, move element to up
