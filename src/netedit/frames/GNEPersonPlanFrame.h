@@ -97,31 +97,31 @@ public:
         /// @brief add busStop to route
         bool addBusStop(GNEAdditional* busStop);
 
-        /// @brief clear edges (and restore colors)
-        void clearEdges();
+        /// @brief clear edges and Busstop (and restore colors)
+        void clearEdgesAndBusStop();
 
         /// @brief draw temporal route
         void drawTemporalRoute() const;
 
-        /// @brief abort edge path creation
-        void abortEdgePathCreation();
+        /// @brief abort person plan creation
+        void abortPersonPlanCreation();
 
-        /// @brief finish edge path creation
-        void finishEdgePathCreation();
+        /// @brief finish person plan creation
+        void finishPersonPlanCreation();
 
-        /// @brief remove last added edge
-        void removeLastAddedRoute();
+        /// @brief remove last added element
+        void removeLastAddedElement();
 
         /// @name FOX-callbacks
         /// @{
         /// @brief Called when the user click over button "Abort route creation"
-        long onCmdAbortRouteCreation(FXObject*, FXSelector, void*);
+        long onCmdAbortPersonPlanCreation(FXObject*, FXSelector, void*);
 
         /// @brief Called when the user click over button "Finish route creation"
-        long onCmdFinishRouteCreation(FXObject*, FXSelector, void*);
+        long onCmdFinishPersonPlanCreation(FXObject*, FXSelector, void*);
 
         /// @brief Called when the user click over button "Remove las inserted edge"
-        long onCmdRemoveLastRouteEdge(FXObject*, FXSelector, void*);
+        long onCmdRemoveLastElement(FXObject*, FXSelector, void*);
         /// @}º
 
     protected:
@@ -146,6 +146,9 @@ public:
 
         /// @brief vector with temporal route edges
         std::vector<GNEEdge*> myTemporalRoute;
+
+        /// @brief busStop
+        GNEAdditional* myBusStop;
     };
 
     /**@brief Constructor
@@ -176,8 +179,8 @@ protected:
     /// @brief selected demand element in DemandElementSelector
     void demandElementSelected();
 
-    /// @brief finish edge path creation
-    void edgePathCreated();
+    /// @brief finish person plan creation
+    void personPlanCreated();
 
 private:
     /// @brief Person selectors

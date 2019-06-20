@@ -25,6 +25,7 @@
 #include <netedit/GNEUndoList.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNEViewParent.h>
+#include <netedit/additionals/GNEBusStop.h>
 #include <netedit/demandelements/GNEPerson.h>
 #include <netedit/demandelements/GNERouteHandler.h>
 #include <netedit/netelements/GNEEdge.h>
@@ -43,9 +44,9 @@
 // ===========================================================================
 
 FXDEFMAP(GNEPersonPlanFrame::PersonPlanCreator) PersonPlanCreatorMap[] = {
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_EDGEPATH_ABORT,          GNEPersonPlanFrame::PersonPlanCreator::onCmdAbortRouteCreation),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_EDGEPATH_FINISH,         GNEPersonPlanFrame::PersonPlanCreator::onCmdFinishRouteCreation),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_EDGEPATH_REMOVELASTEDGE, GNEPersonPlanFrame::PersonPlanCreator::onCmdRemoveLastRouteEdge)
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_EDGEPATH_ABORT,          GNEPersonPlanFrame::PersonPlanCreator::onCmdAbortPersonPlanCreation),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_EDGEPATH_FINISH,         GNEPersonPlanFrame::PersonPlanCreator::onCmdFinishPersonPlanCreation),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_EDGEPATH_REMOVELASTEDGE, GNEPersonPlanFrame::PersonPlanCreator::onCmdRemoveLastElement)
 };
 
 // Object implementation
@@ -143,7 +144,8 @@ GNEPersonPlanFrame::HelpCreation::updateHelpCreation() {
 
 GNEPersonPlanFrame::PersonPlanCreator::PersonPlanCreator(GNEPersonPlanFrame* frameParent) :
     FXGroupBox(frameParent->myContentFrame, "Route creator", GUIDesignGroupBoxFrame),
-    myFrameParent(frameParent) {
+    myFrameParent(frameParent),
+    myBusStop(nullptr) {
 
     // create button for create GEO POIs
     myFinishCreationButton = new FXButton(this, "Finish route creation", nullptr, this, MID_GNE_EDGEPATH_FINISH, GUIDesignButton);
@@ -197,7 +199,10 @@ GNEPersonPlanFrame::PersonPlanCreator::getSelectedEdges() const {
 
 bool
 GNEPersonPlanFrame::PersonPlanCreator::addEdge(GNEEdge* edge) {
-    if (mySelectedEdges.empty() || ((mySelectedEdges.size() > 0) && (mySelectedEdges.back() != edge))) {
+    // if a certain BusStop was already defined, a new edge cannot be added
+    if(myBusStop) {
+        return false;
+    } else if (mySelectedEdges.empty() || ((mySelectedEdges.size() > 0) && (mySelectedEdges.back() != edge))) {
         mySelectedEdges.push_back(edge);
         // enable abort route button
         myAbortCreationButton->enable();
@@ -224,13 +229,18 @@ GNEPersonPlanFrame::PersonPlanCreator::addEdge(GNEEdge* edge) {
 
 
 bool 
-GNEPersonPlanFrame::PersonPlanCreator::addBusStop(GNEAdditional* /*busStop*/) {
-    return false;
+GNEPersonPlanFrame::PersonPlanCreator::addBusStop(GNEAdditional* busStop) {
+    if (myBusStop) {
+        return false;
+    } else {
+        myBusStop = busStop;
+        return true;
+    }
 }
 
 
 void
-GNEPersonPlanFrame::PersonPlanCreator::clearEdges() {
+GNEPersonPlanFrame::PersonPlanCreator::clearEdgesAndBusStop() {
     // restore colors
     for (const auto& i : mySelectedEdges) {
         for (const auto& j : i->getLanes()) {
@@ -240,6 +250,8 @@ GNEPersonPlanFrame::PersonPlanCreator::clearEdges() {
     // clear edges
     mySelectedEdges.clear();
     myTemporalRoute.clear();
+    // clear BusStop
+    myBusStop = nullptr;
     // enable undo/redo
     myFrameParent->myViewNet->getViewParent()->getGNEAppWindows()->enableUndoRedo();
 }
@@ -274,32 +286,32 @@ GNEPersonPlanFrame::PersonPlanCreator::drawTemporalRoute() const {
 
 
 void 
-GNEPersonPlanFrame::PersonPlanCreator::abortEdgePathCreation() {
+GNEPersonPlanFrame::PersonPlanCreator::abortPersonPlanCreation() {
     if (myAbortCreationButton->isEnabled()) {
-        onCmdAbortRouteCreation(nullptr, 0, nullptr);
+        onCmdAbortPersonPlanCreation(nullptr, 0, nullptr);
     }
 }
 
 
 void 
-GNEPersonPlanFrame::PersonPlanCreator::finishEdgePathCreation() {
+GNEPersonPlanFrame::PersonPlanCreator::finishPersonPlanCreation() {
     if (myFinishCreationButton->isEnabled()) {
-        onCmdFinishRouteCreation(nullptr, 0, nullptr);
+        onCmdFinishPersonPlanCreation(nullptr, 0, nullptr);
     }
 }
 
 
 void 
-GNEPersonPlanFrame::PersonPlanCreator::removeLastAddedRoute() {
+GNEPersonPlanFrame::PersonPlanCreator::removeLastAddedElement() {
     if (myRemoveLastInsertedEdge->isEnabled()) {
-        onCmdRemoveLastRouteEdge(nullptr, 0, nullptr);
+        onCmdRemoveLastElement(nullptr, 0, nullptr);
     }
 }
 
 
 long
-GNEPersonPlanFrame::PersonPlanCreator::onCmdAbortRouteCreation(FXObject*, FXSelector, void*) {
-    clearEdges();
+GNEPersonPlanFrame::PersonPlanCreator::onCmdAbortPersonPlanCreation(FXObject*, FXSelector, void*) {
+    clearEdgesAndBusStop();
     // disable buttons
     myAbortCreationButton->disable();
     myFinishCreationButton->disable();
@@ -309,7 +321,7 @@ GNEPersonPlanFrame::PersonPlanCreator::onCmdAbortRouteCreation(FXObject*, FXSele
 
 
 long
-GNEPersonPlanFrame::PersonPlanCreator::onCmdFinishRouteCreation(FXObject*, FXSelector, void*) {
+GNEPersonPlanFrame::PersonPlanCreator::onCmdFinishPersonPlanCreation(FXObject*, FXSelector, void*) {
     // only create route if there is more than two edges
     if (mySelectedEdges.size() > 1) {
         // call edgePathCreated
@@ -317,7 +329,7 @@ GNEPersonPlanFrame::PersonPlanCreator::onCmdFinishRouteCreation(FXObject*, FXSel
         // update view
         myFrameParent->myViewNet->update();
         // clear edges after creation
-        clearEdges();
+        clearEdgesAndBusStop();
         // disable buttons
         myFinishCreationButton->disable();
         myAbortCreationButton->disable();
@@ -328,7 +340,7 @@ GNEPersonPlanFrame::PersonPlanCreator::onCmdFinishRouteCreation(FXObject*, FXSel
 
 
 long
-GNEPersonPlanFrame::PersonPlanCreator::onCmdRemoveLastRouteEdge(FXObject*, FXSelector, void*) {
+GNEPersonPlanFrame::PersonPlanCreator::onCmdRemoveLastElement(FXObject*, FXSelector, void*) {
     if (mySelectedEdges.size() > 1) {
         // remove last edge
         mySelectedEdges.pop_back();
@@ -406,9 +418,11 @@ GNEPersonPlanFrame::addPersonPlan(const GNEViewNetHelper::ObjectsUnderCursor& ob
         myViewNet->setStatusBarText("Current selected person plan isn't valid.");
         return false;
     }
-    // add clicked edge in PersonPlanCreator
+    // add clicked edge or busStop in PersonPlanCreator
     if (objectsUnderCursor.getEdgeFront()) {
         return myPersonPlanCreator->addEdge(objectsUnderCursor.getEdgeFront());
+    } else if (objectsUnderCursor.getAdditionalFront() && (objectsUnderCursor.getAdditionalFront()->getTagProperty().getTag() == SUMO_TAG_BUS_STOP)) {
+        return myPersonPlanCreator->addBusStop(objectsUnderCursor.getAdditionalFront());
     } else {
         return false;
     }
@@ -496,7 +510,7 @@ GNEPersonPlanFrame::demandElementSelected() {
 
 
 void
-GNEPersonPlanFrame::edgePathCreated() {
+GNEPersonPlanFrame::personPlanCreated() {
     // first check that all attributes are valid
     if (!myPersonPlanAttributes->areValuesValid()) {
         myViewNet->setStatusBarText("Invalid person parameters.");

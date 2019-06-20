@@ -660,7 +660,7 @@ GNEFrame::EdgePathCreator::finishEdgePathCreation() {
 
 
 void 
-GNEFrame::EdgePathCreator::removeLastAddedRoute() {
+GNEFrame::EdgePathCreator::removeLastAddedEdge() {
     if (myRemoveLastInsertedEdge->isEnabled()) {
         onCmdRemoveLastRouteEdge(nullptr, 0, nullptr);
     }

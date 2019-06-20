@@ -226,7 +226,7 @@ public:
         void finishEdgePathCreation();
 
         /// @brief remove last added edge
-        void removeLastAddedRoute();
+        void removeLastAddedEdge();
 
         /// @name FOX-callbacks
         /// @{
