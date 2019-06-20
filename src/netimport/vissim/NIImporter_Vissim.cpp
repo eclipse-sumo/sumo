@@ -321,12 +321,6 @@ NIImporter_Vissim::NIVissimXMLHandler_Streckendefinition::myEndElement(int eleme
                                                   StringUtils::toDouble(myElemData["zuschlag2"].front()),
                                                   length, geom, clv);
             NIVissimEdge::dictionary(id, edge);
-            if (id == 85 || id == 91) {
-                std::cout << id << "\n";
-                std::cout << myElemData["width"].size() << "\n";
-                std::cout << length << "\n";
-                std::cout << geom << "\n";
-            }
         } else {
             int numLanes = (int)myElemData["width"].size();
             std::vector<int> laneVec(numLanes);
