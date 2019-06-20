@@ -59,9 +59,6 @@ public:
      */
     static void buildVehicleDevices(SUMOVehicle& v, std::vector<MSVehicleDevice*>& into);
 
-    /// @brief update tripinfo statistics
-    void updateStatistics(SUMOTime timeLoss) const;
-
     /// @brief generate output for vehicles which are still in the network
     static void generateOutputForUnfinished();
 
@@ -170,14 +167,6 @@ private:
     MSDevice_Tripinfo(SUMOVehicle& holder, const std::string& id);
 
 
-    /// @brief dummy constructor
-    MSDevice_Tripinfo();
-
-
-    /* @brief compute trip length and duration (depending on whether the
-       vehicle arrived or not */
-    void computeLengthAndDuration(double& routeLength, SUMOTime& duration) const;
-
 protected:
     /** @brief Internal notification about the vehicle moves, see MSMoveReminder::notifyMoveInternal()
      *
@@ -233,6 +222,9 @@ private:
 
     /// @brief The time loss when compared to the desired and allowed speed
     SUMOTime myMesoTimeLoss;
+
+    /// @brief The route length
+    double myRouteLength;
 
     /// @brief devices which may still need to produce output
     static std::set<const MSDevice_Tripinfo*, ComparatorNumericalIdLess> myPendingOutput;
