@@ -148,7 +148,8 @@ GNEAdditional::GNEAdditional(const std::string& id, GNEViewNet* viewNet, GUIGlOb
     myViewNet(viewNet),
     myAdditionalName(additionalName),
     myBlockMovement(blockMovement),
-    myBlockIcon(this) {
+    myBlockIcon(this),
+    mySpecialColor(nullptr) {
 }
 
 
@@ -171,7 +172,8 @@ GNEAdditional::GNEAdditional(GNEAdditional* additionalParent, GNEViewNet* viewNe
     myViewNet(viewNet),
     myAdditionalName(additionalName),
     myBlockMovement(blockMovement),
-    myBlockIcon(this) {
+    myBlockIcon(this),
+    mySpecialColor(nullptr) {
 }
 
 
@@ -191,6 +193,12 @@ GNEAdditional::generateChildID(SumoXMLTag childTag) {
 const GNEAdditional::AdditionalGeometry&
 GNEAdditional::getAdditionalGeometry() const {
     return myGeometry;
+}
+
+
+void 
+GNEAdditional::setSpecialColor(const RGBColor* color) {
+    mySpecialColor = color;
 }
 
 

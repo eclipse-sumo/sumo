@@ -155,6 +155,9 @@ public:
     /// @brief obtain AdditionalGeometry
     const AdditionalGeometry& getAdditionalGeometry() const;
 
+    /// @brief set special color 
+    void setSpecialColor(const RGBColor* color);
+
     /// @name members and functions relative to write additionals into XML
     /// @{
     /**@brief writte additional element into a xml file
@@ -366,6 +369,9 @@ protected:
     /// @brief boolean to check if additional element is blocked (i.e. cannot be moved with mouse)
     bool myBlockMovement;
 
+    /// @brief pointer to special color (used for drawing Additional with a certain color, mainly used for selections)
+    const RGBColor *mySpecialColor;
+
     /// @brief variable BlockIcon
     BlockIcon myBlockIcon;
 
@@ -374,7 +380,6 @@ protected:
 
     /// @name Functions relative to change values in setAttribute(...)
     /// @{
-
     /// @brief returns Additional ID
     const std::string& getAdditionalID() const;
 

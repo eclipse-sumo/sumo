@@ -99,7 +99,9 @@ GNEBusStop::drawGL(const GUIVisualizationSettings& s) const {
     // Start with the drawing of the area traslating matrix to origin
     glTranslated(0, 0, getType());
     // Set color of the base
-    if (drawUsingSelectColor()) {
+    if (mySpecialColor) {
+        GLHelper::setColor(*mySpecialColor);
+    } else if (drawUsingSelectColor()) {
         GLHelper::setColor(s.selectedAdditionalColor);
     } else {
         GLHelper::setColor(s.SUMO_color_busStop);
