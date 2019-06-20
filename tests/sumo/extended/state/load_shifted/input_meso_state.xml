@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Jun  6 08:22:27 2018 by Eclipse SUMO Version b33bf5f
+<!-- generated on 06/20/19 11:20:17 by Eclipse SUMO Version v1_2_0+0771-4380e3528ec
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+SPDX-License-Identifier: EPL-2.0
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -9,6 +14,7 @@
     </input>
 
     <output>
+        <write-license value="true"/>
         <tripinfo-output value="tripinfos.xml"/>
         <save-state.times value="1000"/>
         <save-state.files value="input_meso_state.xml"/>
@@ -19,6 +25,7 @@
     </time>
 
     <processing>
+        <default.speeddev value="0"/>
         <pedestrian.model value="nonInteracting"/>
     </processing>
 
@@ -35,7 +42,7 @@
 </configuration>
 -->
 
-<snapshot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd" version="b33bf5f" time="1000.00">
+<snapshot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd" version="v1_2_0+0771-4380e3528ec" time="1000.00">
     <route id="r0" state="1" edges="beg middle end"/>
     <delay number="1" begin="3" end="0" depart="0.00" time="0.00"/>
     <vType id="DEFAULT_BIKETYPE" vClass="bicycle"/>
@@ -43,13 +50,13 @@
     <vType id="DEFAULT_VEHTYPE"/>
     <vType id="type0" sigma="0"/>
     <vehicle id="v0" type="type0" depart="1000.00" route="r0" speedFactor="1.00" state="9223372036854775807 0 -1 0 -9223372036854775808 -9223372036854775808 9223372036854775807">
-        <device id="tripinfo_v0" state=" 0.00 -1.00"/>
+        <device id="tripinfo_v0" state=" 0.00 -1.00 0.00"/>
     </vehicle>
     <vehicle id="v1" type="type0" depart="990.00" route="r0" speedFactor="1.00" state="990000 1 0 0 1004199 997000 9223372036854775807">
-        <device id="tripinfo_v1" state=" 0.00 1.00"/>
+        <device id="tripinfo_v1" state=" 0.00 1.00 7.00"/>
     </vehicle>
     <vehicle id="v2" type="type0" depart="1100.00" route="r0" speedFactor="1.00" state="9223372036854775807 0 -1 0 -9223372036854775808 -9223372036854775808 9223372036854775807">
-        <device id="tripinfo_v2" state=" 0.00 -1.00"/>
+        <device id="tripinfo_v2" state=" 0.00 -1.00 0.00"/>
     </vehicle>
     <segment>
         <vehicles time="998669" value=""/>

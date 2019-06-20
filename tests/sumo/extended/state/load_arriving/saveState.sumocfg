@@ -1,5 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<!-- generated on 06/20/19 11:19:20 by Eclipse SUMO Version v1_2_0+0771-4380e3528ec
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+SPDX-License-Identifier: EPL-2.0
+-->
+
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -8,14 +16,19 @@
     </input>
 
     <output>
+        <write-license value="true"/>
+        <tripinfo-output value="tripinfos.xml"/>
         <save-state.times value="26"/>
         <save-state.files value="input_state.xml"/>
-		<tripinfo-output value="tripinfos.xml"/>
     </output>
 
     <time>
         <begin value="0"/>
     </time>
+
+    <processing>
+        <default.speeddev value="0"/>
+    </processing>
 
     <report>
         <verbose value="true"/>
