@@ -204,8 +204,11 @@ public:
         /// @brief set EdgePathCreatorModes
         void setEdgePathCreatorModes(int edgePathCreatorModes);
 
-        /// @brief get current selected edgesm
-        std::vector<GNEEdge*> getSelectedEdges() const;
+        /// @brief get current clicked edges
+        std::vector<GNEEdge*> getClickedEdges() const;
+
+        /// @brief get current clicked edges
+        GNEAdditional *getClickedBusStop() const;
 
         /// @brief add edge to route
         bool addEdge(GNEEdge* edge);
@@ -260,8 +263,8 @@ public:
         /// @brief VClass used for this trip
         SUMOVehicleClass myVClass;
 
-        /// @brief current selected edges
-        std::vector<GNEEdge*> mySelectedEdges;
+        /// @brief current clicked edges
+        std::vector<GNEEdge*> myClickedEdges;
 
         /// @brief pointer to selected busStop
         GNEAdditional *mySelectedBusStop;

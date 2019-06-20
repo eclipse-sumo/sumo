@@ -561,15 +561,21 @@ GNEFrame::EdgePathCreator::setEdgePathCreatorModes(int edgePathCreatorModes) {
 
 
 std::vector<GNEEdge*>
-GNEFrame::EdgePathCreator::getSelectedEdges() const {
-    return mySelectedEdges;
+GNEFrame::EdgePathCreator::getClickedEdges() const {
+    return myClickedEdges;
+}
+
+
+GNEAdditional*
+GNEFrame::EdgePathCreator::getClickedBusStop() const {
+    return mySelectedBusStop;
 }
 
 
 bool
 GNEFrame::EdgePathCreator::addEdge(GNEEdge* edge) {
-    if (mySelectedEdges.empty() || ((mySelectedEdges.size() > 0) && (mySelectedEdges.back() != edge))) {
-        mySelectedEdges.push_back(edge);
+    if ((mySelectedBusStop == nullptr) && (myClickedEdges.empty() || ((myClickedEdges.size() > 0) && (myClickedEdges.back() != edge)))) {
+        myClickedEdges.push_back(edge);
         // enable abort route button
         myAbortCreationButton->enable();
         // disable undo/redo
@@ -579,13 +585,13 @@ GNEFrame::EdgePathCreator::addEdge(GNEEdge* edge) {
             i->setSpecialColor(&myFrameParent->getEdgeCandidateSelectedColor());
         }
         // calculate route if there is more than two edges
-        if (mySelectedEdges.size() > 1) {
+        if (myClickedEdges.size() > 1) {
             // enable remove last edge button
             myRemoveLastInsertedEdge->enable();
             // enable finish button
             myFinishCreationButton->enable();
             // calculate temporal route
-            myTemporalRoute = GNEDemandElement::getRouteCalculatorInstance()->calculateDijkstraRoute(myVClass, mySelectedEdges);
+            myTemporalRoute = GNEDemandElement::getRouteCalculatorInstance()->calculateDijkstraRoute(myVClass, myClickedEdges);
         }
         return true;
     } else {
@@ -596,7 +602,8 @@ GNEFrame::EdgePathCreator::addEdge(GNEEdge* edge) {
 
 bool 
 GNEFrame::EdgePathCreator::addBusStop(GNEAdditional* busStop) {
-    if (mySelectedBusStop == nullptr) {
+    // check that at least there is a selected edge
+    if (!myClickedEdges.empty() && (mySelectedBusStop == nullptr)) {
         mySelectedBusStop = busStop;
         mySelectedBusStop->setSpecialColor(&myFrameParent->getEdgeCandidateSelectedColor());
     }
@@ -607,17 +614,19 @@ GNEFrame::EdgePathCreator::addBusStop(GNEAdditional* busStop) {
 void
 GNEFrame::EdgePathCreator::clearEdges() {
     // restore colors
-    for (const auto& i : mySelectedEdges) {
+    for (const auto& i : myClickedEdges) {
         for (const auto& j : i->getLanes()) {
             j->setSpecialColor(nullptr);
         }
     }
     // clear edges
-    mySelectedEdges.clear();
+    myClickedEdges.clear();
     myTemporalRoute.clear();
     // clear busStop
-    mySelectedBusStop->setSpecialColor(&myFrameParent->getEdgeCandidateSelectedColor());
-    mySelectedBusStop = nullptr;
+    if (mySelectedBusStop) {
+        mySelectedBusStop->setSpecialColor(nullptr);
+        mySelectedBusStop = nullptr;
+    }
     // enable undo/redo
     myFrameParent->myViewNet->getViewParent()->getGNEAppWindows()->enableUndoRedo();
 }
@@ -625,8 +634,27 @@ GNEFrame::EdgePathCreator::clearEdges() {
 
 void
 GNEFrame::EdgePathCreator::drawTemporalRoute() const {
-    // only draw if there is at least two edges
-    if (myTemporalRoute.size() > 1) {
+    // draw depending of number of edges
+    if (myClickedEdges.size() == 1) {
+        // Add a draw matrix
+        glPushMatrix();
+        // Start with the drawing of the area traslating matrix to origin
+        glTranslated(0, 0, GLO_MAX);
+        // set orange color
+        GLHelper::setColor(RGBColor::ORANGE);
+        // set line width
+        glLineWidth(5);
+        // draw line in first selected edge edge
+        GLHelper::drawLine(myClickedEdges.front()->getNBEdge()->getLanes().front().shape.front(),
+                           myClickedEdges.front()->getNBEdge()->getLanes().front().shape.back());
+        // draw line to center of selected bus
+        if (mySelectedBusStop) {
+            GLHelper::drawLine(myClickedEdges.front()->getNBEdge()->getLanes().front().shape.back(), 
+                               mySelectedBusStop->getAdditionalGeometry().shape.getLineCenter());
+        }
+        // Pop last matrix
+        glPopMatrix();
+    } else if (myTemporalRoute.size() > 1) {
         // Add a draw matrix
         glPushMatrix();
         // Start with the drawing of the area traslating matrix to origin
@@ -644,6 +672,11 @@ GNEFrame::EdgePathCreator::drawTemporalRoute() const {
                                myTemporalRoute.at(i)->getNBEdge()->getLanes().front().shape.front());
             GLHelper::drawLine(myTemporalRoute.at(i)->getNBEdge()->getLanes().front().shape.front(),
                                myTemporalRoute.at(i)->getNBEdge()->getLanes().front().shape.back());
+        }    
+        // draw a line to center of selected bus
+        if (mySelectedBusStop) {
+            GLHelper::drawLine(myTemporalRoute.back()->getNBEdge()->getLanes().front().shape.back(), 
+                               mySelectedBusStop->getAdditionalGeometry().shape.getLineCenter());
         }
         // Pop last matrix
         glPopMatrix();
@@ -689,7 +722,7 @@ GNEFrame::EdgePathCreator::onCmdAbortRouteCreation(FXObject*, FXSelector, void*)
 long
 GNEFrame::EdgePathCreator::onCmdFinishRouteCreation(FXObject*, FXSelector, void*) {
     // only create route if there is more than two edges
-    if (mySelectedEdges.size() > 1) {
+    if (myClickedEdges.size() > 1) {
         // call edgePathCreated
         myFrameParent->edgePathCreated();
         // update view
@@ -707,11 +740,11 @@ GNEFrame::EdgePathCreator::onCmdFinishRouteCreation(FXObject*, FXSelector, void*
 
 long
 GNEFrame::EdgePathCreator::onCmdRemoveLastInsertedElement(FXObject*, FXSelector, void*) {
-    if (mySelectedEdges.size() > 1) {
+    if (myClickedEdges.size() > 1) {
         // remove last edge
-        mySelectedEdges.pop_back();
+        myClickedEdges.pop_back();
         // calculate temporal route
-        myTemporalRoute = GNEDemandElement::getRouteCalculatorInstance()->calculateDijkstraRoute(myVClass, mySelectedEdges);
+        myTemporalRoute = GNEDemandElement::getRouteCalculatorInstance()->calculateDijkstraRoute(myVClass, myClickedEdges);
     }
     return 1;
 }

@@ -281,7 +281,7 @@ GNEVehicleFrame::edgePathCreated() {
         // obtain trip parameters
         SUMOVehicleParameter* tripParameters = SUMOVehicleParserHelper::parseVehicleAttributes(SUMOSAXAttrs);
         // build trip in GNERouteHandler
-        GNERouteHandler::buildTrip(myViewNet, true, *tripParameters, myEdgePathCreator->getSelectedEdges());
+        GNERouteHandler::buildTrip(myViewNet, true, *tripParameters, myEdgePathCreator->getClickedEdges());
         // delete tripParameters
         delete tripParameters;
     } else {
@@ -297,7 +297,7 @@ GNEVehicleFrame::edgePathCreated() {
         // obtain flow parameters
         SUMOVehicleParameter* flowParameters = SUMOVehicleParserHelper::parseFlowAttributes(SUMOSAXAttrs, 0, SUMOTime_MAX);
         // build flow in GNERouteHandler
-        GNERouteHandler::buildFlow(myViewNet, true, *flowParameters, myEdgePathCreator->getSelectedEdges());
+        GNERouteHandler::buildFlow(myViewNet, true, *flowParameters, myEdgePathCreator->getClickedEdges());
         // delete flowParameters
         delete flowParameters;
     }
