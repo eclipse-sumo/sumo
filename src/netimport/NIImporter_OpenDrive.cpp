@@ -1059,12 +1059,12 @@ NIImporter_OpenDrive::setNodeSecure(NBNodeCont& nc, OpenDriveEdge& e,
     }
     if (lt == OPENDRIVE_LT_SUCCESSOR) {
         if (e.to != nullptr && e.to != n) {
-            throw ProcessError("Edge '" + e.id + "' has two end nodes.");
+            throw ProcessError("Edge '" + e.id + "' has two end nodes ('" + e.to->getID() + "' and '" + nodeID + "').");
         }
         e.to = n;
     } else {
         if (e.from != nullptr && e.from != n) {
-            throw ProcessError("Edge '" + e.id + "' has two start nodes.");
+            throw ProcessError("Edge '" + e.id + "' has two start nodes ('" + e.from->getID() + "' and '" + nodeID + "').");
         }
         e.from = n;
     }
@@ -1964,6 +1964,10 @@ NIImporter_OpenDrive::myStartElement(int element,
         }
         break;
         case OPENDRIVE_TAG_OBJECT: {
+            if (!attrs.hasAttribute(OPENDRIVE_ATTR_ID)) {
+                WRITE_WARNING("Ignoring object without id at edge '" + toString(myCurrentEdge.id) + "'.");
+                break;
+            }
             OpenDriveObject o;
             o.id = attrs.get<std::string>(OPENDRIVE_ATTR_ID, 0, ok);
             o.type = attrs.getOpt<std::string>(OPENDRIVE_ATTR_TYPE, o.id.c_str(), ok, "", false);
@@ -1979,7 +1983,7 @@ NIImporter_OpenDrive::myStartElement(int element,
         break;
         case OPENDRIVE_TAG_REPEAT: {
             if (myCurrentEdge.objects.empty()) {
-                WRITE_ERROR("Repeat without object at edge '" + toString(myCurrentEdge.id) + "'");
+                WRITE_ERROR("Repeat without object at edge '" + toString(myCurrentEdge.id) + "'.");
                 ok = false;
             } else {
                 OpenDriveObject o = myCurrentEdge.objects.back();
