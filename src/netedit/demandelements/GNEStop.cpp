@@ -45,7 +45,7 @@
 // ===========================================================================
 
 GNEStop::GNEStop(SumoXMLTag tag, GNEViewNet* viewNet, const SUMOVehicleParameter::Stop& stopParameter, GNEAdditional* stoppingPlace, GNEDemandElement* stopParent) :
-    GNEDemandElement(stopParent, viewNet, GLO_STOP, tag, 
+    GNEDemandElement(stopParent, viewNet, stopParent->getTagProperty().isPerson()? GLO_PERSONSTOP : GLO_STOP, tag, 
     {}, {}, {}, {stoppingPlace}, {stopParent}, {}, {}, {}, {}, {}),
     SUMOVehicleParameter::Stop(stopParameter),
     myFriendlyPosition(false) {
@@ -53,7 +53,9 @@ GNEStop::GNEStop(SumoXMLTag tag, GNEViewNet* viewNet, const SUMOVehicleParameter
 
 
 GNEStop::GNEStop(GNEViewNet* viewNet, const SUMOVehicleParameter::Stop& stopParameter, GNELane* lane, bool friendlyPosition, GNEDemandElement* stopParent) :
-    GNEDemandElement(stopParent, viewNet, GLO_STOP, SUMO_TAG_STOP_LANE, 
+    GNEDemandElement(stopParent, viewNet, 
+        stopParent->getTagProperty().isPerson()? GLO_PERSONSTOP : GLO_STOP, 
+        stopParent->getTagProperty().isPerson()? SUMO_TAG_PERSONSTOP_LANE : SUMO_TAG_STOP_LANE,
     {}, {lane}, {}, {}, {stopParent}, {}, {}, {}, {}, {}),
     SUMOVehicleParameter::Stop(stopParameter),
     myFriendlyPosition(friendlyPosition) {
@@ -751,10 +753,17 @@ GNEStop::getPopUpID() const {
 
 std::string
 GNEStop::getHierarchyName() const {
-    if (getAdditionalParents().size() > 0) {
-        return "stop: " + getAdditionalParents().front()->getTagStr();
+    std::string stopType;
+    // first distinguish between person stops and vehicles stops
+    if (getDemandElementParents().front()->getTagProperty().isPerson()) {
+        stopType ="person stop";
     } else {
-        return "stop: lane";
+        stopType ="vehicle stop";
+    }
+    if (getAdditionalParents().size() > 0) {
+        return stopType + ": " + getAdditionalParents().front()->getTagStr();
+    } else {
+        return stopType + ": lane";
     }
 }
 
