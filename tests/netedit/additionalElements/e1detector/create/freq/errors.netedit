@@ -4,9 +4,9 @@ Debug: Current saving Status: net unsaved, additionals saved, demand elements sa
 Debug: Selected item 'busStop' in ItemSelector
 Debug: Selected item 'e1Detector' in ItemSelector
 Debug: ObjectsUnderCursor: GUIGlObjects: 1, AttributeCarriers: 1, NetElements: 1, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 1, Lanes: 1, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
-Debug: Invalid input parameter of e1Detector: 'freq' doesn't have a valid 'time' format
+Debug: Invalid input parameter of e1Detector: 'freq' doesn't have a valid SUMOTime format
 Debug: ObjectsUnderCursor: GUIGlObjects: 1, AttributeCarriers: 1, NetElements: 1, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 1, Lanes: 1, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
-Debug: Invalid input parameter of e1Detector: 'freq' cannot be negative
+Debug: Invalid input parameter of e1Detector: 'freq' doesn't have a valid SUMOTime format
 Debug: ObjectsUnderCursor: GUIGlObjects: 1, AttributeCarriers: 1, NetElements: 1, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 1, Lanes: 1, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 Debug: Adding e1Detector 'e1Detector_gneE0_0_0' in GNEChange_Additional
 Debug: Additionals has to be saved
