@@ -449,7 +449,7 @@ void
 GNEFrame::DemandElementSelector::refreshDemandElementSelector() {
     // clear demand elements comboBox
     myDemandElementsMatchBox->clearItems();
-    // fill myTypeMatchBox with list of vtypes
+    // fill myTypeMatchBox with list of demand elements
     for (const auto& i : myDemandElementTags) {
         for (const auto& j : myFrameParent->getViewNet()->getNet()->getAttributeCarriers().demandElements.at(i)) {
             myDemandElementsMatchBox->appendItem(j.first.c_str());
@@ -460,6 +460,19 @@ GNEFrame::DemandElementSelector::refreshDemandElementSelector() {
         myDemandElementsMatchBox->setNumVisible((int)myDemandElementsMatchBox->getNumItems());
     } else {
         myDemandElementsMatchBox->setNumVisible(10);
+    }
+    // update myCurrentDemandElement
+    if (myDemandElementsMatchBox->getNumItems() == 0) {
+        myCurrentDemandElement = nullptr;
+    } else if (myCurrentDemandElement) {
+        for (int i = 0; i < myDemandElementsMatchBox->getNumItems(); i++) {
+            if (myDemandElementsMatchBox->getItem(i).text() == myCurrentDemandElement->getID()) {
+                myDemandElementsMatchBox->setCurrentItem(i, FALSE);
+            }
+        }
+    } else {
+        // set first element in the list as myCurrentDemandElement
+        myCurrentDemandElement = myFrameParent->getViewNet()->getNet()->getAttributeCarriers().demandElements.at(myDemandElementTags.front()).begin()->second;
     }
 }
 

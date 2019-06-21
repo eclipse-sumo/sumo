@@ -144,7 +144,7 @@ GNEPersonPlanFrame::HelpCreation::updateHelpCreation() {
 
 GNEPersonPlanFrame::PersonPlanCreator::PersonPlanCreator(GNEPersonPlanFrame* frameParent) :
     FXGroupBox(frameParent->myContentFrame, "Route creator", GUIDesignGroupBoxFrame),
-    myFrameParent(frameParent),
+    myPersonPlanFrameParent(frameParent),
     myBusStop(nullptr) {
 
     // create button for create GEO POIs
@@ -181,7 +181,27 @@ GNEPersonPlanFrame::PersonPlanCreator::showPersonPlanCreator() {
     myFinishCreationButton->disable();
     myAbortCreationButton->disable();
     myRemoveLastInsertedEdge->disable();
-    show();
+    // first check if person has already demand element children
+    if (myPersonPlanFrameParent->myPersonSelector->getCurrentDemandElement()->getDemandElementChildren().size()) {
+        // obtain last person plan element tag and pointer (to improve code legibliy)
+        SumoXMLTag lastPersonPlanElementTag = myPersonPlanFrameParent->myPersonSelector->getCurrentDemandElement()->getDemandElementChildren().back()->getTagProperty().getTag();
+        GNEDemandElement* lastPersonPlanElement = myPersonPlanFrameParent->myPersonSelector->getCurrentDemandElement()->getDemandElementChildren().back();
+        // add edge of last person plan of current edited person
+        if (lastPersonPlanElementTag == SUMO_TAG_PERSONSTOP_LANE) {
+            // obtan edge's lane of stop lane
+            addEdge(&lastPersonPlanElement->getLaneParents().front()->getParentEdge());
+        } else if ((lastPersonPlanElementTag == SUMO_TAG_PERSONSTOP_BUSSTOP) || (lastPersonPlanElementTag == SUMO_TAG_PERSONSTOP_CONTAINERSTOP)) {
+            // obtan edge's lane of stop stopping place
+            addEdge(&lastPersonPlanElement->getAdditionalParents().front()->getLaneParents().front()->getParentEdge());
+        } else if ((lastPersonPlanElementTag == SUMO_TAG_PERSONTRIP_BUSSTOP) || (lastPersonPlanElementTag == SUMO_TAG_WALK_BUSSTOP) || (lastPersonPlanElementTag == SUMO_TAG_RIDE_BUSSTOP)) {
+            // obtan edge's lane of Person Plans placed over stopping places
+            addEdge(&lastPersonPlanElement->getAdditionalParents().front()->getLaneParents().front()->getParentEdge());
+        } else {
+            // all rest of person plans have edge childrens
+            addEdge(lastPersonPlanElement->getEdgeChildren().back());
+        }
+        show();
+    }
 }
 
 
@@ -207,10 +227,10 @@ GNEPersonPlanFrame::PersonPlanCreator::addEdge(GNEEdge* edge) {
         // enable abort route button
         myAbortCreationButton->enable();
         // disable undo/redo
-        myFrameParent->myViewNet->getViewParent()->getGNEAppWindows()->disableUndoRedo("trip creation");
+        myPersonPlanFrameParent->myViewNet->getViewParent()->getGNEAppWindows()->disableUndoRedo("trip creation");
         // set special color
         for (auto i : edge->getLanes()) {
-            i->setSpecialColor(&myFrameParent->getEdgeCandidateSelectedColor());
+            i->setSpecialColor(&myPersonPlanFrameParent->getEdgeCandidateSelectedColor());
         }
         // calculate route if there is more than two edges
         if (mySelectedEdges.size() > 1) {
@@ -253,7 +273,7 @@ GNEPersonPlanFrame::PersonPlanCreator::clearEdgesAndBusStop() {
     // clear BusStop
     myBusStop = nullptr;
     // enable undo/redo
-    myFrameParent->myViewNet->getViewParent()->getGNEAppWindows()->enableUndoRedo();
+    myPersonPlanFrameParent->myViewNet->getViewParent()->getGNEAppWindows()->enableUndoRedo();
 }
 
 
@@ -325,9 +345,9 @@ GNEPersonPlanFrame::PersonPlanCreator::onCmdFinishPersonPlanCreation(FXObject*, 
     // only create route if there is more than two edges
     if (mySelectedEdges.size() > 1) {
         // call edgePathCreated
-        myFrameParent->edgePathCreated();
+        myPersonPlanFrameParent->edgePathCreated();
         // update view
-        myFrameParent->myViewNet->update();
+        myPersonPlanFrameParent->myViewNet->update();
         // clear edges after creation
         clearEdgesAndBusStop();
         // disable buttons

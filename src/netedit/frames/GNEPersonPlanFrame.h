@@ -129,8 +129,8 @@ public:
         PersonPlanCreator() {}
 
     private:
-        /// @brief pointer to GNEFrame Parent
-        GNEPersonPlanFrame* myFrameParent;
+        /// @brief pointer to Person Plan Frame Parent
+        GNEPersonPlanFrame* myPersonPlanFrameParent;
 
         /// @brief button for finish route creation
         FXButton* myFinishCreationButton;
