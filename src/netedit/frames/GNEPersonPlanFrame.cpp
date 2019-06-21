@@ -145,7 +145,11 @@ GNEPersonPlanFrame::HelpCreation::updateHelpCreation() {
 GNEPersonPlanFrame::PersonPlanCreator::PersonPlanCreator(GNEPersonPlanFrame* frameParent) :
     FXGroupBox(frameParent->myContentFrame, "Route creator", GUIDesignGroupBoxFrame),
     myPersonPlanFrameParent(frameParent),
-    myBusStop(nullptr) {
+    myClickedBusStop(nullptr),
+    myClickedRoute(nullptr) {
+    // create label for curren begin element
+    new FXLabel(this, "Current from edge:", 0, GUIDesignLabelCenterThick);
+    myCurrentBeginElementLabel = new FXLabel(this, "", 0, GUIDesignLabelCenterThick);
 
     // create button for create GEO POIs
     myFinishCreationButton = new FXButton(this, "Finish route creation", nullptr, this, MID_GNE_EDGEPATH_FINISH, GUIDesignButton);
@@ -177,10 +181,36 @@ GNEPersonPlanFrame::PersonPlanCreator::edgePathCreatorName(const std::string &na
 
 void
 GNEPersonPlanFrame::PersonPlanCreator::showPersonPlanCreator() {
+    refreshPersonPlanCreator();
+}
+
+
+void
+GNEPersonPlanFrame::PersonPlanCreator::hidePersonPlanCreator() {
+    hide();
+}
+
+
+void 
+GNEPersonPlanFrame::PersonPlanCreator::refreshPersonPlanCreator() {
     // disable buttons
     myFinishCreationButton->disable();
     myAbortCreationButton->disable();
     myRemoveLastInsertedEdge->disable();
+    // restore colors
+    for (const auto& i : myClickedEdges) {
+        for (const auto& j : i->getLanes()) {
+            j->setSpecialColor(nullptr);
+        }
+    }
+    // clear edges
+    myClickedEdges.clear();
+    myTemporalEdgePath.clear();
+    // clear clicked busStop
+    if (myClickedBusStop) {
+        myClickedBusStop->setSpecialColor(nullptr);
+        myClickedBusStop = nullptr;
+    }
     // first check if person has already demand element children
     if (myPersonPlanFrameParent->myPersonSelector->getCurrentDemandElement()->getDemandElementChildren().size()) {
         // obtain last person plan element tag and pointer (to improve code legibliy)
@@ -197,33 +227,50 @@ GNEPersonPlanFrame::PersonPlanCreator::showPersonPlanCreator() {
             // obtan edge's lane of Person Plans placed over stopping places
             addEdge(&lastPersonPlanElement->getAdditionalParents().front()->getLaneParents().front()->getParentEdge());
         } else {
-            // all rest of person plans have edge childrens
-            addEdge(lastPersonPlanElement->getEdgeChildren().back());
+            // all rest of person plans have edge parents
+            addEdge(lastPersonPlanElement->getEdgeParents().back());
         }
+        // set current begin element information
+        myCurrentBeginElementLabel->setText((myClickedEdges.front()->getID()).c_str());
+        // show label
         show();
+    } else {
+        hide();
     }
 }
 
 
-void
-GNEPersonPlanFrame::PersonPlanCreator::hidePersonPlanCreator() {
-    hide();
+std::vector<GNEEdge*>
+GNEPersonPlanFrame::PersonPlanCreator::getClickedEdges() const {
+    return myClickedEdges;
 }
 
 
-std::vector<GNEEdge*>
-GNEPersonPlanFrame::PersonPlanCreator::getSelectedEdges() const {
-    return mySelectedEdges;
+const std::vector<GNEEdge*>&
+GNEPersonPlanFrame::PersonPlanCreator::getEdgePath() const {
+    return myTemporalEdgePath;
+}
+
+
+GNEAdditional* 
+GNEPersonPlanFrame::PersonPlanCreator::getClickedBusStop() const {
+    return myClickedBusStop;
+}
+
+
+GNEDemandElement* 
+GNEPersonPlanFrame::PersonPlanCreator::getClickedRoute() const {
+    return myClickedRoute;
 }
 
 
 bool
 GNEPersonPlanFrame::PersonPlanCreator::addEdge(GNEEdge* edge) {
     // if a certain BusStop was already defined, a new edge cannot be added
-    if(myBusStop) {
+    if(myClickedBusStop) {
         return false;
-    } else if (mySelectedEdges.empty() || ((mySelectedEdges.size() > 0) && (mySelectedEdges.back() != edge))) {
-        mySelectedEdges.push_back(edge);
+    } else if (myClickedEdges.empty() || ((myClickedEdges.size() > 0) && (myClickedEdges.back() != edge))) {
+        myClickedEdges.push_back(edge);
         // enable abort route button
         myAbortCreationButton->enable();
         // disable undo/redo
@@ -233,13 +280,13 @@ GNEPersonPlanFrame::PersonPlanCreator::addEdge(GNEEdge* edge) {
             i->setSpecialColor(&myPersonPlanFrameParent->getEdgeCandidateSelectedColor());
         }
         // calculate route if there is more than two edges
-        if (mySelectedEdges.size() > 1) {
+        if (myClickedEdges.size() > 1) {
             // enable remove last edge button
             myRemoveLastInsertedEdge->enable();
             // enable finish button
             myFinishCreationButton->enable();
             // calculate temporal route
-            myTemporalRoute = GNEDemandElement::getRouteCalculatorInstance()->calculateDijkstraRoute(SVC_PEDESTRIAN, mySelectedEdges);
+            myTemporalEdgePath = GNEDemandElement::getRouteCalculatorInstance()->calculateDijkstraRoute(SVC_PEDESTRIAN, myClickedEdges);
         }
         return true;
     } else {
@@ -250,37 +297,22 @@ GNEPersonPlanFrame::PersonPlanCreator::addEdge(GNEEdge* edge) {
 
 bool 
 GNEPersonPlanFrame::PersonPlanCreator::addBusStop(GNEAdditional* busStop) {
-    if (myBusStop) {
+    if (myClickedBusStop) {
         return false;
     } else {
-        myBusStop = busStop;
+        // add parent edge of busStop's lane
+        addEdge(&busStop->getLaneParents().front()->getParentEdge());
+        // set myBusStop
+        myClickedBusStop = busStop;
         return true;
     }
 }
 
 
 void
-GNEPersonPlanFrame::PersonPlanCreator::clearEdgesAndBusStop() {
-    // restore colors
-    for (const auto& i : mySelectedEdges) {
-        for (const auto& j : i->getLanes()) {
-            j->setSpecialColor(nullptr);
-        }
-    }
-    // clear edges
-    mySelectedEdges.clear();
-    myTemporalRoute.clear();
-    // clear BusStop
-    myBusStop = nullptr;
-    // enable undo/redo
-    myPersonPlanFrameParent->myViewNet->getViewParent()->getGNEAppWindows()->enableUndoRedo();
-}
-
-
-void
 GNEPersonPlanFrame::PersonPlanCreator::drawTemporalRoute() const {
     // only draw if there is at least two edges
-    if (myTemporalRoute.size() > 1) {
+    if (myTemporalEdgePath.size() > 1) {
         // Add a draw matrix
         glPushMatrix();
         // Start with the drawing of the area traslating matrix to origin
@@ -290,14 +322,14 @@ GNEPersonPlanFrame::PersonPlanCreator::drawTemporalRoute() const {
         // set line width
         glLineWidth(5);
         // draw first line
-        GLHelper::drawLine(myTemporalRoute.at(0)->getNBEdge()->getLanes().front().shape.front(),
-                           myTemporalRoute.at(0)->getNBEdge()->getLanes().front().shape.back());
+        GLHelper::drawLine(myTemporalEdgePath.at(0)->getNBEdge()->getLanes().front().shape.front(),
+                           myTemporalEdgePath.at(0)->getNBEdge()->getLanes().front().shape.back());
         // draw rest of lines
-        for (int i = 1; i < (int)myTemporalRoute.size(); i++) {
-            GLHelper::drawLine(myTemporalRoute.at(i - 1)->getNBEdge()->getLanes().front().shape.back(),
-                               myTemporalRoute.at(i)->getNBEdge()->getLanes().front().shape.front());
-            GLHelper::drawLine(myTemporalRoute.at(i)->getNBEdge()->getLanes().front().shape.front(),
-                               myTemporalRoute.at(i)->getNBEdge()->getLanes().front().shape.back());
+        for (int i = 1; i < (int)myTemporalEdgePath.size(); i++) {
+            GLHelper::drawLine(myTemporalEdgePath.at(i - 1)->getNBEdge()->getLanes().front().shape.back(),
+                               myTemporalEdgePath.at(i)->getNBEdge()->getLanes().front().shape.front());
+            GLHelper::drawLine(myTemporalEdgePath.at(i)->getNBEdge()->getLanes().front().shape.front(),
+                               myTemporalEdgePath.at(i)->getNBEdge()->getLanes().front().shape.back());
         }
         // Pop last matrix
         glPopMatrix();
@@ -315,9 +347,9 @@ GNEPersonPlanFrame::PersonPlanCreator::abortPersonPlanCreation() {
 
 void 
 GNEPersonPlanFrame::PersonPlanCreator::finishPersonPlanCreation() {
-    if (myFinishCreationButton->isEnabled()) {
+    /*if (myFinishCreationButton->isEnabled()) {*/
         onCmdFinishPersonPlanCreation(nullptr, 0, nullptr);
-    }
+    /*}*/
 }
 
 
@@ -331,11 +363,12 @@ GNEPersonPlanFrame::PersonPlanCreator::removeLastAddedElement() {
 
 long
 GNEPersonPlanFrame::PersonPlanCreator::onCmdAbortPersonPlanCreation(FXObject*, FXSelector, void*) {
-    clearEdgesAndBusStop();
     // disable buttons
     myAbortCreationButton->disable();
     myFinishCreationButton->disable();
     myRemoveLastInsertedEdge->disable();
+    // enable undo/redo
+    myPersonPlanFrameParent->myViewNet->getViewParent()->getGNEAppWindows()->enableUndoRedo();
     return 1;
 }
 
@@ -343,17 +376,15 @@ GNEPersonPlanFrame::PersonPlanCreator::onCmdAbortPersonPlanCreation(FXObject*, F
 long
 GNEPersonPlanFrame::PersonPlanCreator::onCmdFinishPersonPlanCreation(FXObject*, FXSelector, void*) {
     // only create route if there is more than two edges
-    if (mySelectedEdges.size() > 1) {
+    if (myClickedEdges.size() > 1) {
         // call edgePathCreated
-        myPersonPlanFrameParent->edgePathCreated();
+        myPersonPlanFrameParent->personPlanCreated();
         // update view
         myPersonPlanFrameParent->myViewNet->update();
-        // clear edges after creation
-        clearEdgesAndBusStop();
-        // disable buttons
-        myFinishCreationButton->disable();
-        myAbortCreationButton->disable();
-        myRemoveLastInsertedEdge->disable();
+        // refresh person plan creator
+        refreshPersonPlanCreator();
+        // enable undo/redo
+        myPersonPlanFrameParent->myViewNet->getViewParent()->getGNEAppWindows()->enableUndoRedo();
     }
     return 1;
 }
@@ -361,11 +392,11 @@ GNEPersonPlanFrame::PersonPlanCreator::onCmdFinishPersonPlanCreation(FXObject*, 
 
 long
 GNEPersonPlanFrame::PersonPlanCreator::onCmdRemoveLastElement(FXObject*, FXSelector, void*) {
-    if (mySelectedEdges.size() > 1) {
+    if (myClickedEdges.size() > 1) {
         // remove last edge
-        mySelectedEdges.pop_back();
+        myClickedEdges.pop_back();
         // calculate temporal route
-        myTemporalRoute = GNEDemandElement::getRouteCalculatorInstance()->calculateDijkstraRoute(SVC_PEDESTRIAN, mySelectedEdges);
+        myTemporalEdgePath = GNEDemandElement::getRouteCalculatorInstance()->calculateDijkstraRoute(SVC_PEDESTRIAN, myClickedEdges);
     }
     return 1;
 }
@@ -533,12 +564,8 @@ void
 GNEPersonPlanFrame::personPlanCreated() {
     // first check that all attributes are valid
     if (!myPersonPlanAttributes->areValuesValid()) {
-        myViewNet->setStatusBarText("Invalid person parameters.");
-    } else if (!myPersonPlanAttributes->areValuesValid()) {
         myViewNet->setStatusBarText("Invalid " + myPersonPlanTagSelector->getCurrentTagProperties().getTagStr() + " parameters.");
     } else {
-        // begin undo-redo operation
-        myViewNet->getUndoList()->p_begin("create and " + myPersonPlanTagSelector->getCurrentTagProperties().getTagStr());
         // Declare map to keep attributes from myPersonPlanAttributes
         std::map<SumoXMLAttr, std::string> valuesMap = myPersonPlanAttributes->getAttributesAndValues(true);
         // check what PersonPlan we're creating
@@ -547,56 +574,113 @@ GNEPersonPlanFrame::personPlanCreated() {
                 std::vector<std::string> types = GNEAttributeCarrier::parse<std::vector<std::string> >(valuesMap[SUMO_ATTR_VTYPES]);
                 std::vector<std::string> modes = GNEAttributeCarrier::parse<std::vector<std::string> >(valuesMap[SUMO_ATTR_MODES]);
                 double arrivalPos = GNEAttributeCarrier::parse<double>(valuesMap[SUMO_ATTR_ARRIVALPOS]);
-                GNERouteHandler::buildPersonTripFromTo(myViewNet, true, myPersonSelector->getCurrentDemandElement(), myPersonPlanCreator->getSelectedEdges(), types, modes, arrivalPos);
+                // check if person trip fromto can be created
+                if (myPersonPlanCreator->getEdgePath().size() > 0) {
+                    GNERouteHandler::buildPersonTripFromTo(myViewNet, true, myPersonSelector->getCurrentDemandElement(), myPersonPlanCreator->getEdgePath(), types, modes, arrivalPos);
+                } else if ((myPersonPlanCreator->getClickedEdges().size() == 1) || (myPersonPlanCreator->getClickedEdges().size() == 2)) {
+                    GNERouteHandler::buildPersonTripFromTo(myViewNet, true, myPersonSelector->getCurrentDemandElement(), myPersonPlanCreator->getClickedEdges(), types, modes, arrivalPos);
+                } else {
+                    myViewNet->setStatusBarText("A person trip with from-to attributes needs at least one edge.");
+                }
                 break;
             }
             case SUMO_TAG_PERSONTRIP_BUSSTOP: {
-                GNEAdditional *busStop = myViewNet->getNet()->retrieveAdditional(SUMO_TAG_BUS_STOP, valuesMap[SUMO_ATTR_BUS_STOP]);
                 std::vector<std::string> types = GNEAttributeCarrier::parse<std::vector<std::string> >(valuesMap[SUMO_ATTR_VTYPES]);
                 std::vector<std::string> modes = GNEAttributeCarrier::parse<std::vector<std::string> >(valuesMap[SUMO_ATTR_MODES]);
-                GNERouteHandler::buildPersonTripBusStop(myViewNet, true, myPersonSelector->getCurrentDemandElement(), myPersonPlanCreator->getSelectedEdges(), busStop, types, modes);
+                // check if person trip busstop can be created
+                if (myPersonPlanCreator->getClickedBusStop() == nullptr) {
+                    myViewNet->setStatusBarText("A person trip with from and busStop attributes needs one edge and one busStop");
+                } else if (myPersonPlanCreator->getEdgePath().size() > 0) {
+                    GNERouteHandler::buildPersonTripBusStop(myViewNet, true, myPersonSelector->getCurrentDemandElement(), myPersonPlanCreator->getEdgePath(), myPersonPlanCreator->getClickedBusStop(), types, modes);
+                } else if ((myPersonPlanCreator->getClickedEdges().size() == 1) || (myPersonPlanCreator->getClickedEdges().size() == 2)) {
+                    GNERouteHandler::buildPersonTripBusStop(myViewNet, true, myPersonSelector->getCurrentDemandElement(), myPersonPlanCreator->getClickedEdges(), myPersonPlanCreator->getClickedBusStop(), types, modes);
+                } else {
+                    myViewNet->setStatusBarText("A person trip with from and busStop attributes needs one edge and one busStop");
+                }
                 break;
             }
             case SUMO_TAG_WALK_EDGES: {
                 double arrivalPos = GNEAttributeCarrier::parse<double>(valuesMap[SUMO_ATTR_ARRIVALPOS]);
-                GNERouteHandler::buildWalkEdges(myViewNet, true, myPersonSelector->getCurrentDemandElement(), myPersonPlanCreator->getSelectedEdges(), arrivalPos);
+                // check if walk edges can be created
+                if (myPersonPlanCreator->getEdgePath().size() > 0) {
+                    GNERouteHandler::buildWalkEdges(myViewNet, true, myPersonSelector->getCurrentDemandElement(), myPersonPlanCreator->getEdgePath(), arrivalPos);
+                } else if ((myPersonPlanCreator->getClickedEdges().size() == 1) || (myPersonPlanCreator->getClickedEdges().size() == 2)) {
+                    GNERouteHandler::buildWalkEdges(myViewNet, true, myPersonSelector->getCurrentDemandElement(), myPersonPlanCreator->getClickedEdges(), arrivalPos);
+                } else {
+                    myViewNet->setStatusBarText("A walk with edges attribute needs a list of edges");
+                }
                 break;
             }
             case SUMO_TAG_WALK_FROMTO: {
                 double arrivalPos = GNEAttributeCarrier::parse<double>(valuesMap[SUMO_ATTR_ARRIVALPOS]);
-                GNERouteHandler::buildWalkFromTo(myViewNet, true, myPersonSelector->getCurrentDemandElement(), myPersonPlanCreator->getSelectedEdges(), arrivalPos);
+                // check if walk fromto can be created
+                if (myPersonPlanCreator->getEdgePath().size() > 0) {
+                    GNERouteHandler::buildWalkFromTo(myViewNet, true, myPersonSelector->getCurrentDemandElement(), myPersonPlanCreator->getEdgePath(), arrivalPos);
+                } else if ((myPersonPlanCreator->getClickedEdges().size() == 1) || (myPersonPlanCreator->getClickedEdges().size() == 2)) {
+                    GNERouteHandler::buildWalkFromTo(myViewNet, true, myPersonSelector->getCurrentDemandElement(), myPersonPlanCreator->getClickedEdges(), arrivalPos);
+                } else {
+                    myViewNet->setStatusBarText("A walk with from-to attributes needs at least one edge.");
+                }
+
                 break;
             }
             case SUMO_TAG_WALK_BUSSTOP: {
-                GNEAdditional *busStop = myViewNet->getNet()->retrieveAdditional(SUMO_TAG_BUS_STOP, valuesMap[SUMO_ATTR_BUS_STOP]);
-                GNERouteHandler::buildWalkBusStop(myViewNet, true, myPersonSelector->getCurrentDemandElement(), myPersonPlanCreator->getSelectedEdges(), busStop);
+                // check if walk busstop can be created
+                if (myPersonPlanCreator->getClickedBusStop() == nullptr) {
+                    myViewNet->setStatusBarText("A walk with from and busStop attributes needs one edge and one busStop");
+                } else if (myPersonPlanCreator->getEdgePath().size() > 0) {
+                    GNERouteHandler::buildWalkBusStop(myViewNet, true, myPersonSelector->getCurrentDemandElement(), myPersonPlanCreator->getEdgePath(), myPersonPlanCreator->getClickedBusStop());
+                } else if ((myPersonPlanCreator->getClickedEdges().size() == 1) || (myPersonPlanCreator->getClickedEdges().size() == 2)) {
+                    GNERouteHandler::buildWalkBusStop(myViewNet, true, myPersonSelector->getCurrentDemandElement(), myPersonPlanCreator->getClickedEdges(), myPersonPlanCreator->getClickedBusStop());
+                } else {
+                    myViewNet->setStatusBarText("A walk with from and busStop attributes needs one edge and one busStop");
+                }
                 break;
             }
             case SUMO_TAG_WALK_ROUTE: {
-                GNEDemandElement *route = myViewNet->getNet()->retrieveDemandElement(SUMO_TAG_ROUTE, valuesMap[SUMO_ATTR_ROUTE]);
                 double arrivalPos = GNEAttributeCarrier::parse<double>(valuesMap[SUMO_ATTR_ARRIVALPOS]);
-                GNERouteHandler::buildWalkRoute(myViewNet, true, myPersonSelector->getCurrentDemandElement(), route, arrivalPos);
+                // check if walk route can be created
+                if (myPersonPlanCreator->getClickedRoute() != nullptr) {
+                    GNERouteHandler::buildWalkRoute(myViewNet, true, myPersonSelector->getCurrentDemandElement(), myPersonPlanCreator->getClickedRoute(), arrivalPos);
+                } else {
+                    myViewNet->setStatusBarText("A ride with route attributes needs one route");
+                }
                 break;
             }
             case SUMO_TAG_RIDE_FROMTO: {
                 std::vector<std::string> lines = GNEAttributeCarrier::parse<std::vector<std::string> >(valuesMap[SUMO_ATTR_LINES]);
                 double arrivalPos = GNEAttributeCarrier::parse<double>(valuesMap[SUMO_ATTR_ARRIVALPOS]);
-                GNERouteHandler::buildRideFromTo(myViewNet, true, myPersonSelector->getCurrentDemandElement(), myPersonPlanCreator->getSelectedEdges(), lines, arrivalPos);
+                // check if ride fromto can be created
+                if (myPersonPlanCreator->getEdgePath().size() > 0) {
+                    GNERouteHandler::buildRideFromTo(myViewNet, true, myPersonSelector->getCurrentDemandElement(), myPersonPlanCreator->getEdgePath(), lines, arrivalPos);
+                } else if ((myPersonPlanCreator->getClickedEdges().size() == 1) || (myPersonPlanCreator->getClickedEdges().size() == 2)) {
+                    GNERouteHandler::buildRideFromTo(myViewNet, true, myPersonSelector->getCurrentDemandElement(), myPersonPlanCreator->getClickedEdges(), lines, arrivalPos);
+                } else {
+                    myViewNet->setStatusBarText("A ride with from-to attributes needs at least one edge.");
+                }
                 break;
             }
             case SUMO_TAG_RIDE_BUSSTOP: {
-                GNEAdditional *busStop = myViewNet->getNet()->retrieveAdditional(SUMO_TAG_BUS_STOP, valuesMap[SUMO_ATTR_BUS_STOP]);
                 std::vector<std::string> lines = GNEAttributeCarrier::parse<std::vector<std::string> >(valuesMap[SUMO_ATTR_LINES]);
-                GNERouteHandler::buildRideBusStop(myViewNet, true, myPersonSelector->getCurrentDemandElement(), myPersonPlanCreator->getSelectedEdges(), busStop, lines);
+                // check if ride busstop can be created
+                if (myPersonPlanCreator->getClickedBusStop() == nullptr) {
+                    myViewNet->setStatusBarText("A ride with from and busStop attributes needs one edge and one busStop");
+                } else if (myPersonPlanCreator->getEdgePath().size() > 0) {
+                    GNERouteHandler::buildRideBusStop(myViewNet, true, myPersonSelector->getCurrentDemandElement(), myPersonPlanCreator->getEdgePath(), myPersonPlanCreator->getClickedBusStop(), lines);
+                } else if ((myPersonPlanCreator->getClickedEdges().size() == 1) || (myPersonPlanCreator->getClickedEdges().size() == 2)) {
+                    GNERouteHandler::buildRideBusStop(myViewNet, true, myPersonSelector->getCurrentDemandElement(), myPersonPlanCreator->getClickedEdges(), myPersonPlanCreator->getClickedBusStop(), lines);
+                } else {
+                    myViewNet->setStatusBarText("A ride with from and busStop attributes needs one edge and one busStop");
+                }
                 break;
             }
             default:
                 throw InvalidArgument("Invalid person plan tag");
         }
-        // end undo-redo operation
-        myViewNet->getUndoList()->p_end();
         // refresh AttributeCarrierHierarchy
         myPersonHierarchy->refreshAttributeCarrierHierarchy();
+        // refresh also Person Plan creator
+        myPersonPlanCreator->refreshPersonPlanCreator();
     }
 }
 

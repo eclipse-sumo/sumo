@@ -88,17 +88,26 @@ public:
         /// @brief show PersonPlanCreator
         void hidePersonPlanCreator();
 
-        /// @brief get current selected edgesm
-        std::vector<GNEEdge*> getSelectedEdges() const;
+        /// @brief show PersonPlanCreator
+        void refreshPersonPlanCreator();
+
+        /// @brief get clicked edges
+        std::vector<GNEEdge*> getClickedEdges() const;
+
+        /// @brief get current edge path
+        const std::vector<GNEEdge*> &getEdgePath() const;
+
+        /// @brief get clicked busStop
+        GNEAdditional* getClickedBusStop() const;
+
+        /// @brief get clicked route
+        GNEDemandElement* getClickedRoute() const;
 
         /// @brief add edge to route
         bool addEdge(GNEEdge* edge);
 
         /// @brief add busStop to route
         bool addBusStop(GNEAdditional* busStop);
-
-        /// @brief clear edges and Busstop (and restore colors)
-        void clearEdgesAndBusStop();
 
         /// @brief draw temporal route
         void drawTemporalRoute() const;
@@ -132,6 +141,9 @@ public:
         /// @brief pointer to Person Plan Frame Parent
         GNEPersonPlanFrame* myPersonPlanFrameParent;
 
+        /// @brief Label with current begin element
+        FXLabel* myCurrentBeginElementLabel;
+
         /// @brief button for finish route creation
         FXButton* myFinishCreationButton;
 
@@ -141,14 +153,17 @@ public:
         /// @brief button for removing last inserted edge
         FXButton* myRemoveLastInsertedEdge;
 
-        /// @brief current selected edges
-        std::vector<GNEEdge*> mySelectedEdges;
+        /// @brief current clicked edges
+        std::vector<GNEEdge*> myClickedEdges;
 
-        /// @brief vector with temporal route edges
-        std::vector<GNEEdge*> myTemporalRoute;
+        /// @brief vector with temporal edge path
+        std::vector<GNEEdge*> myTemporalEdgePath;
 
-        /// @brief busStop
-        GNEAdditional* myBusStop;
+        /// @brief clicked busStop
+        GNEAdditional* myClickedBusStop;
+
+        /// @brief clicked route
+        GNEDemandElement* myClickedRoute;
     };
 
     /**@brief Constructor
