@@ -38,6 +38,7 @@
 #include <microsim/MSEdge.h>
 #include <microsim/MSVehicle.h>
 #include <microsim/MSVehicleControl.h>
+#include <microsim/lcmodels/MSAbstractLaneChangeModel.h>
 #include <utils/geom/Position.h>
 #include <utils/geom/GeoConvHelper.h>
 #include "MSDevice_SSM.h"
@@ -2209,7 +2210,6 @@ MSDevice_SSM::classifyEncounter(const FoeInfo* foeInfo, EncounterApproachInfo& e
 
 const MSLane*
 MSDevice_SSM::findFoeConflictLane(const MSVehicle* foe, const MSLane* egoConflictLane, double& distToConflictLane) const {
-
 #ifdef DEBUG_SSM
     if (DEBUG_COND(myHolderMS))
         std::cout << SIMTIME << " findFoeConflictLane() for foe '"
@@ -2218,6 +2218,11 @@ MSDevice_SSM::findFoeConflictLane(const MSVehicle* foe, const MSLane* egoConflic
                   << ")\nfoeBestLanes: " << ::toString(foe->getBestLanesContinuation())
                   << std::endl;
 #endif
+    if (foe->getLaneChangeModel().isOpposite()) {
+        // see #5231
+        WRITE_WARNING("Cannot detect conflicts for vehicle '" + foe->getID() + "' which is driving on the opposite lane");
+        return nullptr;
+    }
     MSLane* foeLane = foe->getLane();
     std::vector<MSLane*>::const_iterator laneIter = foe->getBestLanesContinuation().begin();
     std::vector<MSLane*>::const_iterator foeBestLanesEnd = foe->getBestLanesContinuation().end();
@@ -2256,7 +2261,7 @@ MSDevice_SSM::findFoeConflictLane(const MSVehicle* foe, const MSLane* egoConflic
     // Look for the junction downstream along foeBestLanes
     while (laneIter != foeBestLanesEnd && distToConflictLane <= myRange) {
         // Eventual internal lanes were skipped
-        assert(*laneIter == foeLane || foeLane == 0);
+        assert(*laneIter == foeLane || foeLane == nullptr);
         foeLane = *laneIter;
         assert(!foeLane->isInternal());
         if (&foeLane->getEdge() == &egoConflictLane->getEdge()) {
@@ -2280,7 +2285,7 @@ MSDevice_SSM::findFoeConflictLane(const MSVehicle* foe, const MSLane* egoConflic
         MSLink* link = foeLane->getLinkTo(nextNonInternalLane);
         // Set foeLane to first internal lane on the next junction
         foeLane = link->getViaLane();
-        assert(foeLane == 0 || foeLane->isInternal());
+        assert(foeLane == nullptr || foeLane->isInternal());
         if (foeLane == nullptr) {
             foeLane = nextNonInternalLane;
             continue;
@@ -2613,6 +2618,11 @@ MSDevice_SSM::findSurroundingVehicles(const MSVehicle& veh, double range, FoeInf
     if (!veh.isOnRoad()) {
         return;
     }
+    if (veh.getLaneChangeModel().isOpposite()) {
+        // see #5231
+        WRITE_WARNING("Cannot detect conflicts for vehicle '" + veh.getID() + "' which is driving on the opposite lane");
+        return;
+    }
 
     // The requesting vehicle's current route
     // XXX: Restriction to route scanning may have to be generalized to scanning of possible continuations when
@@ -2631,7 +2641,7 @@ MSDevice_SSM::findSurroundingVehicles(const MSVehicle& veh, double range, FoeInf
     // current lane in loop below
     const MSLane* lane = veh.getLane();
     assert(lane->isInternal() || lane == *laneIter);
-    assert(lane != 0);
+    assert(lane != nullptr);
     // next non-internal lane on the route
     const MSLane* nextNonInternalLane = nullptr;
 
@@ -2700,7 +2710,7 @@ MSDevice_SSM::findSurroundingVehicles(const MSVehicle& veh, double range, FoeInf
         upstreamScanStartPositions.push_back(UpstreamScanStartInfo(edge, pos, range + veh.getLength(), distToConflictLane, lane));
     }
 
-    assert(lane != 0);
+    assert(lane != nullptr);
     assert(!lane->isInternal());
 
     // Advance downstream the ego vehicle's route for distance 'range'.
@@ -2732,7 +2742,7 @@ MSDevice_SSM::findSurroundingVehicles(const MSVehicle& veh, double range, FoeInf
 
             // proceed to next non-internal lane
             ++laneIter;
-            assert(laneIter == egoBestLanes.end() || *laneIter != 0);
+            assert(laneIter == egoBestLanes.end() || *laneIter != nullptr);
 
             // If the vehicle's best lanes go on, collect vehicles on the upcoming junction
             if (laneIter != egoBestLanes.end()) {
@@ -2742,7 +2752,7 @@ MSDevice_SSM::findSurroundingVehicles(const MSVehicle& veh, double range, FoeInf
                 // Find connection for ego on the junction
                 nextNonInternalLane = *laneIter;
                 MSLink* link = lane->getLinkTo(nextNonInternalLane);
-                assert(link != 0 || link->getLength() == 0.);
+                assert(link != nullptr || link->getLength() == 0.);
 
                 // First lane of the connection
                 lane = link->getViaLane();
