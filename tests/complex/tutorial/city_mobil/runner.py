@@ -19,8 +19,9 @@ from __future__ import print_function
 import vehicleControl
 import simpleManager
 import agentManager
-import createNet  # build/check network
 
+# build/check network
+import createNet  # noqa
 # perform simple scenario
 vehicleControl.init(simpleManager.SimpleManager(), True)
 # perform agent scenario
