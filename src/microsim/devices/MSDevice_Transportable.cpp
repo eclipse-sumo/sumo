@@ -58,7 +58,8 @@ MSDevice_Transportable::MSDevice_Transportable(SUMOVehicle& holder, const std::s
 
 MSDevice_Transportable::~MSDevice_Transportable() {
     // flush any unfortunate riders still remaining
-    for (MSTransportable* transportable : myTransportables) {
+    while (!myTransportables.empty()) {
+        MSTransportable* transportable = myTransportables.front();
         WRITE_WARNING((myAmContainer ? "Removing container '" : "Removing person '") + transportable->getID() +
                       "' at removal of vehicle '" + myHolder.getID() + "'");
         if (myAmContainer) {
