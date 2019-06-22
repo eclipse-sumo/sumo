@@ -97,9 +97,10 @@ MSDevice_Tripinfo::MSDevice_Tripinfo(SUMOVehicle& holder, const std::string& id)
     myArrivalTime(NOT_ARRIVED),
     myArrivalLane(""),
     myArrivalPos(-1),
-    myArrivalPosLat(0),
+    myArrivalPosLat(0.),
     myArrivalSpeed(-1),
-    myMesoTimeLoss(0) {
+    myMesoTimeLoss(0),
+    myRouteLength(0.) {
 }
 
 
