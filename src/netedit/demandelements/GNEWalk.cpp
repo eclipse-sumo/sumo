@@ -109,7 +109,7 @@ void
 GNEWalk::writeDemandElement(OutputDevice& device) const {
     device.openTag(SUMO_TAG_WALK);
     if (myTagProperty.getTag() == SUMO_TAG_WALK_ROUTE) {
-        device.writeAttr(SUMO_ATTR_ROUTE, getDemandElementParents().at(1));
+        device.writeAttr(SUMO_ATTR_ROUTE, getDemandElementParents().at(1)->getID());
     } else if (myTagProperty.getTag() == SUMO_TAG_WALK_EDGES) {
         device.writeAttr(SUMO_ATTR_EDGES, getEdgeParentsStr());
     } else {
