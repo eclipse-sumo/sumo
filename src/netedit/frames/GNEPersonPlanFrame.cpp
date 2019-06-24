@@ -574,13 +574,17 @@ GNEPersonPlanFrame::personPlanCreated(GNEAdditional* busStop, GNEDemandElement* 
                 if (busStop == nullptr) {
                     myViewNet->setStatusBarText("A person trip with from and busStop attributes needs one edge and one busStop");
                     return false;
-                } else if (myPersonPlanCreator->getEdgePath().size() > 0) {
-                    GNERouteHandler::buildPersonTripBusStop(myViewNet, true, myPersonSelector->getCurrentDemandElement(), myPersonPlanCreator->getEdgePath(), busStop, types, modes);
-                } else if ((myPersonPlanCreator->getClickedEdges().size() == 1) || (myPersonPlanCreator->getClickedEdges().size() == 2)) {
-                    GNERouteHandler::buildPersonTripBusStop(myViewNet, true, myPersonSelector->getCurrentDemandElement(), myPersonPlanCreator->getClickedEdges(), busStop, types, modes);
                 } else {
-                    myViewNet->setStatusBarText("A person trip with from and busStop attributes needs one edge and one busStop");
-                    return false;
+                    // add busstop's edge to personPlan creator (To calculate a temporal route)
+                    myPersonPlanCreator->addEdge(&busStop->getLaneParents().front()->getParentEdge());
+                    if (myPersonPlanCreator->getEdgePath().size() > 0) {
+                        GNERouteHandler::buildPersonTripBusStop(myViewNet, true, myPersonSelector->getCurrentDemandElement(), myPersonPlanCreator->getEdgePath(), busStop, types, modes);
+                    } else if ((myPersonPlanCreator->getClickedEdges().size() == 1) || (myPersonPlanCreator->getClickedEdges().size() == 2)) {
+                        GNERouteHandler::buildPersonTripBusStop(myViewNet, true, myPersonSelector->getCurrentDemandElement(), myPersonPlanCreator->getClickedEdges(), busStop, types, modes);
+                    } else {
+                        myViewNet->setStatusBarText("A person trip with from and busStop attributes needs one edge and one busStop");
+                        return false;
+                    }
                 }
                 break;
             }
@@ -614,13 +618,17 @@ GNEPersonPlanFrame::personPlanCreated(GNEAdditional* busStop, GNEDemandElement* 
                 // check if walk busstop can be created
                 if (busStop == nullptr) {
                     myViewNet->setStatusBarText("A walk with from and busStop attributes needs one edge and one busStop");
-                } else if (myPersonPlanCreator->getEdgePath().size() > 0) {
-                    GNERouteHandler::buildWalkBusStop(myViewNet, true, myPersonSelector->getCurrentDemandElement(), myPersonPlanCreator->getEdgePath(), busStop);
-                } else if ((myPersonPlanCreator->getClickedEdges().size() == 1) || (myPersonPlanCreator->getClickedEdges().size() == 2)) {
-                    GNERouteHandler::buildWalkBusStop(myViewNet, true, myPersonSelector->getCurrentDemandElement(), myPersonPlanCreator->getClickedEdges(), busStop);
                 } else {
-                    myViewNet->setStatusBarText("A walk with from and busStop attributes needs one edge and one busStop");
-                    return false;
+                    // add busstop's edge to personPlan creator (To calculate a temporal route)
+                    myPersonPlanCreator->addEdge(&busStop->getLaneParents().front()->getParentEdge());
+                    if (myPersonPlanCreator->getEdgePath().size() > 0) {
+                        GNERouteHandler::buildWalkBusStop(myViewNet, true, myPersonSelector->getCurrentDemandElement(), myPersonPlanCreator->getEdgePath(), busStop);
+                    } else if ((myPersonPlanCreator->getClickedEdges().size() == 1) || (myPersonPlanCreator->getClickedEdges().size() == 2)) {
+                        GNERouteHandler::buildWalkBusStop(myViewNet, true, myPersonSelector->getCurrentDemandElement(), myPersonPlanCreator->getClickedEdges(), busStop);
+                    } else {
+                        myViewNet->setStatusBarText("A walk with from and busStop attributes needs one edge and one busStop");
+                        return false;
+                    }
                 }
                 break;
             }
@@ -654,13 +662,17 @@ GNEPersonPlanFrame::personPlanCreated(GNEAdditional* busStop, GNEDemandElement* 
                 // check if ride busstop can be created
                 if (busStop == nullptr) {
                     myViewNet->setStatusBarText("A ride with from and busStop attributes needs one edge and one busStop");
-                } else if (myPersonPlanCreator->getEdgePath().size() > 0) {
-                    GNERouteHandler::buildRideBusStop(myViewNet, true, myPersonSelector->getCurrentDemandElement(), myPersonPlanCreator->getEdgePath(), busStop, lines);
-                } else if ((myPersonPlanCreator->getClickedEdges().size() == 1) || (myPersonPlanCreator->getClickedEdges().size() == 2)) {
-                    GNERouteHandler::buildRideBusStop(myViewNet, true, myPersonSelector->getCurrentDemandElement(), myPersonPlanCreator->getClickedEdges(), busStop, lines);
                 } else {
-                    myViewNet->setStatusBarText("A ride with from and busStop attributes needs one edge and one busStop");
-                    return false;
+                    // add busstop's edge to personPlan creator (To calculate a temporal route)
+                    myPersonPlanCreator->addEdge(&busStop->getLaneParents().front()->getParentEdge());
+                    if (myPersonPlanCreator->getEdgePath().size() > 0) {
+                        GNERouteHandler::buildRideBusStop(myViewNet, true, myPersonSelector->getCurrentDemandElement(), myPersonPlanCreator->getEdgePath(), busStop, lines);
+                    } else if ((myPersonPlanCreator->getClickedEdges().size() == 1) || (myPersonPlanCreator->getClickedEdges().size() == 2)) {
+                        GNERouteHandler::buildRideBusStop(myViewNet, true, myPersonSelector->getCurrentDemandElement(), myPersonPlanCreator->getClickedEdges(), busStop, lines);
+                    } else {
+                        myViewNet->setStatusBarText("A ride with from and busStop attributes needs one edge and one busStop");
+                        return false;
+                    }
                 }
                 break;
             }
