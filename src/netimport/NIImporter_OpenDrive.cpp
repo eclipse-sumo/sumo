@@ -351,7 +351,7 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
     // build edges
     for (std::map<std::string, OpenDriveEdge*>::iterator i = outerEdges.begin(); i != outerEdges.end(); ++i) {
         OpenDriveEdge* e = (*i).second;
-        if (e->geom.size() == 0) {
+        if (e->geom.size() < 2) {
             WRITE_WARNING("Ignoring road '" + e->id + "' without geometry.");
             continue;
         }
@@ -1091,6 +1091,7 @@ NIImporter_OpenDrive::computeShapes(std::map<std::string, OpenDriveEdge*>& edges
         OpenDriveEdge& e = *(*i).second;
         GeometryType prevType = OPENDRIVE_GT_UNKNOWN;
         const double lineRes = hasNonLinearElevation(e) ? res : -1;
+        Position last;
         for (std::vector<OpenDriveGeometry>::iterator j = e.geometries.begin(); j != e.geometries.end(); ++j) {
             OpenDriveGeometry& g = *j;
             PositionVector geom;
@@ -1127,9 +1128,14 @@ NIImporter_OpenDrive::computeShapes(std::map<std::string, OpenDriveEdge*>& edges
             }
             //std::cout << " adding geometry to road=" << e.id << " old=" << e.geom << " new=" << geom << "\n";
             for (PositionVector::iterator k = geom.begin(); k != geom.end(); ++k) {
+                last = *k;
                 e.geom.push_back_noDoublePos(*k);
             }
             prevType = g.type;
+        }
+        if (e.geom.size() == 1 && e.geom.front() != last) {
+            // avoid length-1 geometry due to almostSame check
+            e.geom.push_back(last);
         }
         if (oc.exists("geometry.min-dist") && !oc.isDefault("geometry.min-dist")) {
             e.geom.removeDoublePoints(oc.getFloat("geometry.min-dist"), true);
