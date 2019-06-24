@@ -19,6 +19,9 @@ default_spec
 # The equipped vehicle's vType must initially either be the specified manual or automated type.
 invalid_vType
 
+# The equipped vehicle's vType must initially either be the specified manual or automated type.
+invalid_vType_param
+
 # Starting in manual mode and repeatedly requesting ToCs.
 start_manual
 

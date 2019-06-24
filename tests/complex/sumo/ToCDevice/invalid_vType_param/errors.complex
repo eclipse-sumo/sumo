@@ -1,0 +1,14 @@
+Error: The automated vehicle type 'blub' of vehicle 'ToC_veh' is not known.
+Quitting (on error).
+Traceback (most recent call last):
+  File "D:/behr_mi/Projekte/sumo/git/tests\..\tests/complex/sumo/ToCDevice/invalid_vType_param/runner.py", line 96, in <module>
+    traci.start([sumoBinary, "-n", "input_net.net.xml", "-r", "input_routes.rou.xml", "--no-step-log", "true"])
+  File "D:\behr_mi\Projekte\sumo\git\tools\traci\__init__.py", line 98, in start
+    return getVersion()
+  File "D:\behr_mi\Projekte\sumo\git\tools\traci\__init__.py", line 207, in getVersion
+    return _connections[""].getVersion()
+  File "D:\behr_mi\Projekte\sumo\git\tools\traci\connection.py", line 343, in getVersion
+    result = self._sendExact()
+  File "D:\behr_mi\Projekte\sumo\git\tools\traci\connection.py", line 105, in _sendExact
+    raise FatalTraCIError("connection closed by SUMO")
+traci.exceptions.FatalTraCIError: connection closed by SUMO
