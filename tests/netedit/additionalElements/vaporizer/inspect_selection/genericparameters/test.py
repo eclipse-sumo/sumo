@@ -25,6 +25,9 @@ import neteditTestFunctions as netedit  # noqa
 # Open netedit
 neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot, ['--gui-testing-debug-gl'])
 
+# recompute (needed for vertical position)
+netedit.rebuildNetwork()
+
 # go to select mode
 netedit.selectMode()
 

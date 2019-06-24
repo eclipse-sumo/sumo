@@ -34,17 +34,20 @@ netedit.changeAdditional("routeProbe")
 # create routeProbe
 netedit.leftClick(referencePosition, 250, 135)
 
+# recompute (needed for vertical position)
+netedit.rebuildNetwork()
+
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect first routeProbe
-netedit.leftClick(referencePosition, 310, 215)
+netedit.leftClick(referencePosition, 310, 210)
 
 # Change parameter 3 with an non valid value
-netedit.modifyAttribute(3, "%%%;:..&&%$%$", False)
+netedit.modifyAttribute(3, "%%%;:..&&%$%$", True)
 
 # Change parameter 3 with a duplicated value
-netedit.modifyAttribute(3, "customName", False)
+netedit.modifyAttribute(3, "customName", True)
 
 # Check undos and redos
 netedit.undo(referencePosition, 2)

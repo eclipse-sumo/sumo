@@ -34,17 +34,20 @@ netedit.changeAdditional("routeProbe")
 # create routeProbe
 netedit.leftClick(referencePosition, 250, 135)
 
+# recompute (needed for vertical position)
+netedit.rebuildNetwork()
+
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect first routeProbe
-netedit.leftClick(referencePosition, 310, 215)
+netedit.leftClick(referencePosition, 310, 210)
 
 # Change parameter 1 with a non valid value (dummy edge)
-netedit.modifyAttribute(1, "dummyEdge", False)
+netedit.modifyAttribute(1, "dummyEdge", True)
 
 # Change parameter 1 with a valid value (different edge)
-netedit.modifyAttribute(1, "gneE0", False)
+netedit.modifyAttribute(1, "gneE0", True)
 
 # Check undos and redos
 netedit.undo(referencePosition, 2)

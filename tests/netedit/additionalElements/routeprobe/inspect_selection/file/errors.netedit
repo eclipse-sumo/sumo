@@ -11,10 +11,15 @@ Debug: Inserting generic parameter 'KeyB3|valueB2' into additional routeProbe.
 Debug: Inserting generic parameter 'KeyB2|valueB3' into additional routeProbe.
 Debug: net has to be saved
 Debug: Current saving Status: net unsaved, additionals unsaved, demand elements saved
+Debug: Key F5 (Compute) pressed
+Debug: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
+Debug: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
 Debug: Setting new attribute selected 'true' into junction 'gneJ0'
 Debug: Setting new attribute selected 'true' into edge 'gneE1'
+Debug: Setting new attribute selected 'true' into connection 'fromgneE1_0togneE0_0'
 Debug: Setting new attribute selected 'true' into junction 'gneJ1'
 Debug: Setting new attribute selected 'true' into edge 'gneE0'
+Debug: Setting new attribute selected 'true' into connection 'fromgneE0_0togneE1_0'
 Debug: Setting new attribute selected 'true' into routeProbe 'routeProbe_01'
 Debug: Setting new attribute selected 'true' into routeProbe 'routeProbe_02'
 Debug: ObjectsUnderCursor: GUIGlObjects: 1, AttributeCarriers: 1, NetElements: 0, Additionals: 1, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
@@ -26,8 +31,10 @@ Debug: Setting previous attribute file 'fileB.txt' into routeProbe 'routeProbe_0
 Debug: Keys Ctrl + Z (Undo) pressed
 Debug: Setting previous attribute selected '0' into routeProbe 'routeProbe_02'
 Debug: Setting previous attribute selected '0' into routeProbe 'routeProbe_01'
+Debug: Setting previous attribute selected '0' into connection 'fromgneE0_0togneE1_0'
 Debug: Setting previous attribute selected '0' into edge 'gneE0'
 Debug: Setting previous attribute selected '0' into junction 'gneJ1'
+Debug: Setting previous attribute selected '0' into connection 'fromgneE1_0togneE0_0'
 Debug: Setting previous attribute selected '0' into edge 'gneE1'
 Debug: Setting previous attribute selected '0' into junction 'gneJ0'
 Debug: Keys Ctrl + Z (Undo) pressed
@@ -42,15 +49,15 @@ Debug: Adding routeProbe 'routeProbe_02' in GNEChange_Additional
 Debug: Keys Ctrl + Y (Redo) pressed
 Debug: Setting new attribute selected 'true' into junction 'gneJ0'
 Debug: Setting new attribute selected 'true' into edge 'gneE1'
+Debug: Setting new attribute selected 'true' into connection 'fromgneE1_0togneE0_0'
 Debug: Setting new attribute selected 'true' into junction 'gneJ1'
 Debug: Setting new attribute selected 'true' into edge 'gneE0'
+Debug: Setting new attribute selected 'true' into connection 'fromgneE0_0togneE1_0'
 Debug: Setting new attribute selected 'true' into routeProbe 'routeProbe_01'
 Debug: Setting new attribute selected 'true' into routeProbe 'routeProbe_02'
 Debug: Keys Ctrl + Y (Redo) pressed
 Debug: Setting new attribute file 'fileA.txt' into routeProbe 'routeProbe_02'
 Debug: Additionals saved
-Debug: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
-Debug: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
 Debug: Deleting unreferenced routeProbe 'routeProbe_02'
 Debug: Additionals has to be saved
 Debug: Current saving Status: net saved, additionals unsaved, demand elements saved

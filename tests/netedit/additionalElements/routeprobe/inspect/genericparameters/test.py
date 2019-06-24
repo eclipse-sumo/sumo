@@ -34,41 +34,44 @@ netedit.changeAdditional("routeProbe")
 # create routeProbe
 netedit.leftClick(referencePosition, 250, 120)
 
+# recompute (needed for vertical position)
+netedit.rebuildNetwork()
+
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect first routeProbe
-netedit.leftClick(referencePosition, 310, 215)
+netedit.leftClick(referencePosition, 310, 210)
 
 # Change generic parameters with a dummy value
-netedit.modifyAttribute(7, "dummyGenericParameters", False)
+netedit.modifyAttribute(7, "dummyGenericParameters", True)
 
 # Change generic parameters with a invalid format
-netedit.modifyAttribute(7, "key1|key2|key3", False)
+netedit.modifyAttribute(7, "key1|key2|key3", True)
 
 # Change generic parameters with a valid value
-netedit.modifyAttribute(7, "key1=value1|key2=value2|key3=value3", False)
+netedit.modifyAttribute(7, "key1=value1|key2=value2|key3=value3", True)
 
 # Change generic parameters with a valid value (empty values)
-netedit.modifyAttribute(7, "key1=|key2=|key3=", False)
+netedit.modifyAttribute(7, "key1=|key2=|key3=", True)
 
 # Change generic parameters with a valid value (all empty)
-netedit.modifyAttribute(7, "", False)
+netedit.modifyAttribute(7, "", True)
 
 # Change generic parameters with an invalid value (duplicated)
-netedit.modifyAttribute(7, "key1duplicated=value1|key1duplicated=value2|key3=value3", False)
+netedit.modifyAttribute(7, "key1duplicated=value1|key1duplicated=value2|key3=value3", True)
 
 # Change generic parameters with a valid value
-netedit.modifyAttribute(7, "key1=valueDuplicated|key2=valueDuplicated|key3=valueDuplicated", False)
+netedit.modifyAttribute(7, "key1=valueDuplicated|key2=valueDuplicated|key3=valueDuplicated", True)
 
 # Change generic parameters with an invalid value (invalid key characters)
-netedit.modifyAttribute(7, "keyInvalid.;%>%$$=value1|key2=value2|key3=value3", False)
+netedit.modifyAttribute(7, "keyInvalid.;%>%$$=value1|key2=value2|key3=value3", True)
 
 # Change generic parameters with a invalid value (invalid value characters)
-netedit.modifyAttribute(7, "key1=valueInvalid%;%$<>$$%|key2=value2|key3=value3", False)
+netedit.modifyAttribute(7, "key1=valueInvalid%;%$<>$$%|key2=value2|key3=value3", True)
 
 # Change generic parameters with a valid value
-netedit.modifyAttribute(7, "keyFinal1=value1|keyFinal2=value2|keyFinal3=value3", False)
+netedit.modifyAttribute(7, "keyFinal1=value1|keyFinal2=value2|keyFinal3=value3", True)
 
 # Check undo redo
 netedit.undo(referencePosition, 7)

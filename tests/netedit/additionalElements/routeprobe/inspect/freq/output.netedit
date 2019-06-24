@@ -3,7 +3,7 @@ Finding reference
 TestFunctions: 'reference.png' found. Position: 304 - 168
 routeProbe
 TestFunctions: Clicked over position 554 - 303
-TestFunctions: Clicked over position 614 - 383
+TestFunctions: Clicked over position 614 - 378
 dummy
 -50
 150
