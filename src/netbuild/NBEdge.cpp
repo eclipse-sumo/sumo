@@ -450,7 +450,7 @@ NBEdge::init(int noLanes, bool tryIgnoreNodePositions, const std::string& origID
     // revisit geometry
     //  should have at least two points at the end...
     //  and in dome cases, the node positions must be added
-    myGeom.removeDoublePoints();
+    myGeom.removeDoublePoints(myGeom.size() > 2 ? POSITION_EPS : NUMERICAL_EPS);
     if (!tryIgnoreNodePositions || myGeom.size() < 2) {
         if (myGeom.size() == 0) {
             myGeom.push_back(myFrom->getPosition());
