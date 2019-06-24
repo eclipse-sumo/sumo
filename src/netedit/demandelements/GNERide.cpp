@@ -111,9 +111,7 @@ GNERide::writeDemandElement(OutputDevice& device) const {
         device.writeAttr(SUMO_ATTR_TO, getEdgeParents().back()->getID());
     }
     // write lines
-    if (myLines.size() > 0) {
-        device.writeAttr(SUMO_ATTR_LINES, myLines);
-    }
+    device.writeAttr(SUMO_ATTR_LINES, myLines);
     // only write arrivalPos if is different of -1
     if (myArrivalPosition != -1) {
         device.writeAttr(SUMO_ATTR_ARRIVALPOS, myArrivalPosition);
