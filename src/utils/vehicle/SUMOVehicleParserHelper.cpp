@@ -726,6 +726,7 @@ SUMOVehicleParserHelper::getAllowedCFModelAttrs() {
         CACCParams.insert(SUMO_ATTR_GC_GAIN_SPACE);
         CACCParams.insert(SUMO_ATTR_CA_GAIN_SPEED);
         CACCParams.insert(SUMO_ATTR_CA_GAIN_SPACE);
+        CACCParams.insert(SUMO_ATTR_HEADWAY_TIME_CACC_TO_ACC);
         allowedCFModelAttrs[SUMO_TAG_CF_CACC] = CACCParams;
         allParams.insert(CACCParams.begin(), CACCParams.end());
 

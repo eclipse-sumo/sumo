@@ -359,6 +359,7 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "gapClosingControlGainGapDot", SUMO_ATTR_GCC_GAIN_GAP_DOT_CACC },
     { "gapControlGainGap", SUMO_ATTR_GC_GAIN_GAP_CACC },
     { "gapControlGainGapDot", SUMO_ATTR_GC_GAIN_GAP_DOT_CACC },
+    { "tauCACCToACC", SUMO_ATTR_HEADWAY_TIME_CACC_TO_ACC },
     { "collisionAvoidanceGainGap", SUMO_ATTR_CA_GAIN_GAP_CACC },
     { "collisionAvoidanceGainGapDot", SUMO_ATTR_CA_GAIN_GAP_DOT_CACC },
 

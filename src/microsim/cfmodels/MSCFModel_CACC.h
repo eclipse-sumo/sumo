@@ -164,6 +164,7 @@ private:
     double myGapControlGainGapDot;
     double myCollisionAvoidanceGainGap;
     double myCollisionAvoidanceGainGapDot;
+    double myHeadwayTimeACC;
 
 private:
     /// @brief Invalidated assignment operator
