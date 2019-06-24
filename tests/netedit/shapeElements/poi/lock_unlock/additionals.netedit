@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 24.01.2019 11:20:10 by Eclipse SUMO netedit Version v1_1_0+0076-a16c2aae75
+<!-- generated on 24.06.2019 14:28:33 by Eclipse SUMO netedit Version v1_2_0+0838-84b6728507
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.2_from_24Jan111638.1400/netedit.gui/shapeElements/poi/lock_unlock\input_net.net.xml"/>
+        <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.2_from_24Jun141658.2064/netedit.gui/shapeElements/poi/lock_unlock\input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.2_from_24Jan111638.1400/netedit.gui/shapeElements/poi/lock_unlock\net.net.xml"/>
+        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.2_from_24Jun141658.2064/netedit.gui/shapeElements/poi/lock_unlock\net.net.xml"/>
     </output>
 
     <processing>
@@ -29,12 +29,14 @@
     </pedestrian>
 
     <netedit>
-        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.2_from_24Jan111638.1400/netedit.gui/shapeElements/poi/lock_unlock\additionals.xml"/>
-        <demandelements-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.2_from_24Jan111638.1400/netedit.gui/shapeElements/poi/lock_unlock\routes.xml"/>
+        <additional-files value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.2_from_24Jun141658.2064/netedit.gui/shapeElements/poi/lock_unlock\additionals.xml"/>
+        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.2_from_24Jun141658.2064/netedit.gui/shapeElements/poi/lock_unlock\additionals.xml"/>
+        <route-files value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.2_from_24Jun141658.2064/netedit.gui/shapeElements/poi/lock_unlock\routes.xml"/>
+        <demandelements-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.2_from_24Jun141658.2064/netedit.gui/shapeElements/poi/lock_unlock\routes.xml"/>
     </netedit>
 
     <visualisation>
-        <gui-settings-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.2_from_24Jan111638.1400/netedit.gui/shapeElements/poi/lock_unlock\gui-settings.xml"/>
+        <gui-settings-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.2_from_24Jun141658.2064/netedit.gui/shapeElements/poi/lock_unlock\gui-settings.xml"/>
         <window-size value="700,500"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
@@ -43,13 +45,13 @@
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.2_from_24Jan111638.1400/netedit.gui/shapeElements/poi/lock_unlock\log.txt"/>
+        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.2_from_24Jun141658.2064/netedit.gui/shapeElements/poi/lock_unlock\log.txt"/>
     </report>
 
 </configuration>
 -->
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
-    <poi id="POI_0" color="red" layer="202.00" x="23.00" y="13.00"/>
+    <poi id="POI_0" color="red" layer="202.00" x="23.00" y="14.00"/>
     <poi id="POI_1" color="white" layer="202.00" x="23.00" y="-5.00" imgFile="berlin_icon.ico" width="10.00" height="10.00"/>
 </additional>
