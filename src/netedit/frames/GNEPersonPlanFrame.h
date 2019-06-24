@@ -97,17 +97,8 @@ public:
         /// @brief get current edge path
         const std::vector<GNEEdge*> &getEdgePath() const;
 
-        /// @brief get clicked busStop
-        GNEAdditional* getClickedBusStop() const;
-
-        /// @brief get clicked route
-        GNEDemandElement* getClickedRoute() const;
-
         /// @brief add edge to route
         bool addEdge(GNEEdge* edge);
-
-        /// @brief add busStop to route
-        bool addBusStop(GNEAdditional* busStop);
 
         /// @brief draw temporal route
         void drawTemporalRoute() const;
@@ -150,20 +141,14 @@ public:
         /// @brief button for abort route creation
         FXButton* myAbortCreationButton;
 
-        /// @brief button for removing last inserted edge
-        FXButton* myRemoveLastInsertedEdge;
+        /// @brief button for removing last edge
+        FXButton* myRemoveLastEdge;
 
         /// @brief current clicked edges
         std::vector<GNEEdge*> myClickedEdges;
 
         /// @brief vector with temporal edge path
         std::vector<GNEEdge*> myTemporalEdgePath;
-
-        /// @brief clicked busStop
-        GNEAdditional* myClickedBusStop;
-
-        /// @brief clicked route
-        GNEDemandElement* myClickedRoute;
     };
 
     /**@brief Constructor
@@ -195,7 +180,7 @@ protected:
     void demandElementSelected();
 
     /// @brief finish person plan creation
-    void personPlanCreated();
+    bool personPlanCreated(GNEAdditional* busStop, GNEDemandElement* route);
 
 private:
     /// @brief Person selectors
