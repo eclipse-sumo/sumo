@@ -99,12 +99,23 @@ MSBaseVehicle::MSBaseVehicle(SUMOVehicleParameter* pars, const MSRoute* route,
         if (MSGlobals::gCheckRoutes) {
             std::string msg;
             if (!hasValidRoute(msg)) {
+                myRoute->release();
+                delete myParameter;
                 throw ProcessError("Vehicle '" + pars->id + "' has no valid route. " + msg);
             }
         }
     }
     // init devices
-    MSDevice::buildVehicleDevices(*this, myDevices);
+    try {
+        MSDevice::buildVehicleDevices(*this, myDevices);
+    } catch (ProcessError&) {
+        myRoute->release();
+        for (MSVehicleDevice* dev : myDevices) {
+            delete dev;
+        }
+        delete myParameter;
+        throw;
+    }
     for (MSVehicleDevice* dev : myDevices) {
         myMoveReminders.push_back(std::make_pair(dev, 0.));
     }

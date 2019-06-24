@@ -361,7 +361,7 @@ MSVehicleControl::insertVTypeIDs(std::vector<std::string>& into) const {
 }
 
 
-std::set<std::string>
+const std::set<std::string>
 MSVehicleControl::getVTypeDistributionMembership(const std::string& id) const {
     std::map<std::string, std::set<std::string>>::const_iterator it = myVTypeToDist.find(id);
     if (it == myVTypeToDist.end()) {

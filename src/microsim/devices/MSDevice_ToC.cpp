@@ -356,8 +356,6 @@ MSDevice_ToC::MSDevice_ToC(SUMOVehicle& holder, const std::string& id, const std
             createdOutputFiles.insert(outputFilename);
         }
     }
-    // register at static instance container
-    instances.insert(this);
 
     // Check if the given vTypes for the ToC Device are vTypeDistributions
     MSVehicleControl& vehCtrl = MSNet::getInstance()->getVehicleControl();
@@ -370,20 +368,27 @@ MSDevice_ToC::MSDevice_ToC(SUMOVehicle& holder, const std::string& id, const std
         myState = ToCState::MANUAL;
     } else if (holderVTypeID == myAutomatedTypeID) {
         myState = ToCState::AUTOMATED;
-    } else if (manualVTypeIsDist && holderVTypeID.find(myManualTypeID) == 0) {
-        // Holder type id starts with type distribution name.
-        // We assume that this means that it is from the given distribution.
+    } else if (manualVTypeIsDist && vehCtrl.getVTypeDistributionMembership(holderVTypeID).count(myManualTypeID) > 0) {
+        // Holder type id is from the given manual type distribution.
         myState = ToCState::MANUAL;
         myManualTypeID = holderVTypeID;
-    } else if (automatedVTypeIsDist && holderVTypeID.find(myAutomatedTypeID) == 0) {
-        // Holder type id starts with type distribution name.
-        // We assume that this means that it is from the given distribution.
+    } else if (automatedVTypeIsDist && vehCtrl.getVTypeDistributionMembership(holderVTypeID).count(myAutomatedTypeID) > 0) {
+        // Holder type id is from the given automated type distribution.
         myState = ToCState::AUTOMATED;
         myAutomatedTypeID = holderVTypeID;
     } else {
-        throw ProcessError("Vehicle type of vehicle '" + holder.getID() + "' ('" + holder.getVehicleType().getID()
-                           + "') must coincide with manualType ('" + manualType + "') or automatedType ('" + automatedType
-                           + "') specified for its ToC-device (or drawn from the specified vTypeDistributions).");
+        throw ProcessError("Vehicle type of vehicle '" + holder.getID() + "' ('" + 
+                           holder.getVehicleType().getID() + "') must coincide with manualType ('" + 
+                           manualType + "') or automatedType ('" + automatedType + 
+                           "') specified for its ToC-device (or drawn from the specified vTypeDistributions).");
+    }
+    if (!vehCtrl.hasVType(myAutomatedTypeID)) {
+        throw ProcessError("The automated vehicle type '" + myAutomatedTypeID +
+                           "' of vehicle '" + holder.getID() + "' is not known.");
+    }
+    if (!vehCtrl.hasVType(myManualTypeID)) {
+        throw ProcessError("The manual vehicle type '" + myManualTypeID +
+                           "' of vehicle '" + holder.getID() + "' is not known.");
     }
 
     // Eventually instantiate given vTypes from distributions
@@ -393,6 +398,8 @@ MSDevice_ToC::MSDevice_ToC(SUMOVehicle& holder, const std::string& id, const std
         myManualTypeID = vehCtrl.getVType(myManualTypeID, MSRouteHandler::getParsingRNG())->getID();
     }
 
+    // register at static instance container
+    instances.insert(this);
     initColorScheme();
 
 #ifdef DEBUG_TOC
