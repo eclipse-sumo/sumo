@@ -221,7 +221,7 @@ GNEPersonPlanFrame::PersonPlanCreator::refreshPersonPlanCreator() {
             addEdge(&lastPersonPlanElement->getAdditionalParents().front()->getLaneParents().front()->getParentEdge());
         } else if (lastPersonPlanElementTag == SUMO_TAG_WALK_ROUTE) {
             // obtan edge's lane of Person Plans placed over stopping places
-            addEdge(&lastPersonPlanElement->getAdditionalParents().front()->getLaneParents().front()->getParentEdge());
+            addEdge(lastPersonPlanElement->getDemandElementParents().back()->getEdgeParents().back());
         } else {
             // all rest of person plans have edge parents
             addEdge(lastPersonPlanElement->getEdgeParents().back());
