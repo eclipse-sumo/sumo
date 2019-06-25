@@ -46,17 +46,17 @@
 // ===========================================================================
 // Debug constants
 // ===========================================================================
-//#define DEBUG_SSM
-//#define DEBUG_SSM_OPPOSITE
-//#define DEBUG_ENCOUNTER
-//#define DEBUG_SSM_SURROUNDING
+#define DEBUG_SSM
+#define DEBUG_SSM_OPPOSITE
+#define DEBUG_ENCOUNTER
 //#define DEBUG_SSM_DRAC
+#define DEBUG_SSM_SURROUNDING
 //#define DEBUG_SSM_NOTIFICATIONS
 //#define DEBUG_COND(ego) MSNet::getInstance()->getCurrentTimeStep() > 308000
 //#define DEBUG_COND(ego) ego!=nullptr && ego->isSelected()
 
-#define DEBUG_EGO_ID "EW.3"
-#define DEBUG_FOE_ID "WE.0"
+#define DEBUG_EGO_ID "EW.0"
+#define DEBUG_FOE_ID "EW.1"
 
 #define DEBUG_COND(ego) ((ego)!=nullptr && (ego)->getID() == DEBUG_EGO_ID)
 
@@ -160,9 +160,6 @@ std::ostream& operator<<(std::ostream& out, MSDevice_SSM::EncounterType type) {
         // Collision (currently unused, might be differentiated further)
         case MSDevice_SSM::ENCOUNTER_TYPE_COLLISION:
             out << "COLLISION";
-            break;
-        case MSDevice_SSM::ENCOUNTER_TYPE_ONCOMING:
-            out << "ONCOMING";
             break;
         default:
             out << "unknown type (" << int(type) << ")";
@@ -822,8 +819,6 @@ MSDevice_SSM::determineConflictPoint(EncounterApproachInfo& eInfo) {
         eInfo.conflictPoint = e->foe->getPosition(-e->foe->getLength());
     } else if (type == ENCOUNTER_TYPE_FOLLOWING_LEADER) {
         eInfo.conflictPoint = e->ego->getPosition(-e->ego->getLength());
-    } else if (type == ENCOUNTER_TYPE_ONCOMING) {
-        eInfo.conflictPoint = (e->ego->getPosition() + e->foe->getPosition()) * 0.5;
     } else {
 #ifdef DEBUG_SSM
         if (DEBUG_COND(eInfo.encounter->ego)) {
@@ -877,11 +872,10 @@ MSDevice_SSM::estimateConflictTimes(EncounterApproachInfo& eInfo) {
            || type == ENCOUNTER_TYPE_EGO_LEFT_CONFLICT_AREA
            || type == ENCOUNTER_TYPE_FOE_LEFT_CONFLICT_AREA
            || type == ENCOUNTER_TYPE_BOTH_ENTERED_CONFLICT_AREA
-           || type == ENCOUNTER_TYPE_BOTH_LEFT_CONFLICT_AREA
-           || type == ENCOUNTER_TYPE_ONCOMING);
+           || type == ENCOUNTER_TYPE_BOTH_LEFT_CONFLICT_AREA);
 
     // Determine exit distances
-    if (type == ENCOUNTER_TYPE_MERGING || type == ENCOUNTER_TYPE_ONCOMING)  {
+    if (type == ENCOUNTER_TYPE_MERGING)  {
         eInfo.egoConflictExitDist = eInfo.egoConflictEntryDist + e->ego->getVehicleType().getLength();
         eInfo.foeConflictExitDist = eInfo.foeConflictEntryDist + e->foe->getVehicleType().getLength();
     } else {
@@ -905,11 +899,6 @@ MSDevice_SSM::estimateConflictTimes(EncounterApproachInfo& eInfo) {
         eInfo.foeEstimatedConflictEntryTime = 0.;
     }
 
-    if (type == ENCOUNTER_TYPE_ONCOMING) {
-        eInfo.egoEstimatedConflictEntryTime = eInfo.egoConflictEntryDist / (e->ego->getSpeed()+ e->foe->getSpeed());
-        eInfo.foeEstimatedConflictEntryTime = eInfo.egoEstimatedConflictEntryTime;
-    }
-
 #ifdef DEBUG_SSM
     if (DEBUG_COND(e->ego))
         std::cout << "    Conflict type: " << toString(type) << "\n"
@@ -930,10 +919,6 @@ MSDevice_SSM::estimateConflictTimes(EncounterApproachInfo& eInfo) {
         eInfo.foeEstimatedConflictExitTime = 0.;
     }
 
-    if (type == ENCOUNTER_TYPE_ONCOMING) {
-        eInfo.egoEstimatedConflictExitTime = eInfo.egoEstimatedConflictEntryTime;
-        eInfo.foeEstimatedConflictExitTime = eInfo.egoEstimatedConflictEntryTime;
-    }
 
     if (type != ENCOUNTER_TYPE_MERGING && type != ENCOUNTER_TYPE_CROSSING) {
         // this call is issued in context of an ongoing conflict, therefore complete type is already known for the encounter
@@ -990,8 +975,7 @@ MSDevice_SSM::computeSSMs(EncounterApproachInfo& eInfo) const {
     if (type == ENCOUNTER_TYPE_CROSSING_FOLLOWER || type == ENCOUNTER_TYPE_CROSSING_LEADER
             || type == ENCOUNTER_TYPE_EGO_ENTERED_CONFLICT_AREA || type == ENCOUNTER_TYPE_FOE_ENTERED_CONFLICT_AREA
             || type == ENCOUNTER_TYPE_MERGING_FOLLOWER || type == ENCOUNTER_TYPE_MERGING_LEADER
-            || type == ENCOUNTER_TYPE_FOLLOWING_FOLLOWER || type == ENCOUNTER_TYPE_FOLLOWING_LEADER
-            || type == ENCOUNTER_TYPE_ONCOMING) {
+            || type == ENCOUNTER_TYPE_FOLLOWING_FOLLOWER || type == ENCOUNTER_TYPE_FOLLOWING_LEADER) {
         if (myComputeTTC || myComputeDRAC) {
             determineTTCandDRAC(eInfo);
         }
@@ -1161,13 +1145,6 @@ MSDevice_SSM::determineTTCandDRAC(EncounterApproachInfo& eInfo) const {
         }
         if (myComputeDRAC) {
             drac = computeDRAC(gap, e->foe->getSpeed(), e->ego->getSpeed());
-        }
-    } else if (type == ENCOUNTER_TYPE_ONCOMING) {
-        if (myComputeTTC) {
-            const double dv = e->ego->getSpeed() + e->foe->getSpeed();
-            if (dv > 0) {
-                ttc = eInfo.egoConflictEntryDist / dv;
-            }
         }
     } else if (type == ENCOUNTER_TYPE_MERGING_FOLLOWER || type == ENCOUNTER_TYPE_MERGING_LEADER) {
         // TODO: calculate more specifically whether a following situation in the merge conflict area
@@ -1805,10 +1782,10 @@ MSDevice_SSM::classifyEncounter(const FoeInfo* foeInfo, EncounterApproachInfo& e
 
 #ifdef DEBUG_ENCOUNTER
     if (DEBUG_COND_ENCOUNTER(eInfo.encounter)) 
-        std::cout << "  egoConflictLane='" << (egoConflictLane == 0 ? "NULL" : egoConflictLane->getID()) << "'\n"
-                  << "  foeConflictLane='" << (foeConflictLane == 0 ? "NULL" : foeConflictLane->getID()) << "'\n"
-                  << "  egoDistToConflictLane=" << egoDistToConflictLane
-                  << "  foeDistToConflictLane=" << foeDistToConflictLane
+        std::cout << "egoConflictLane: '" << (egoConflictLane == 0 ? "NULL" : egoConflictLane->getID()) << "'\n"
+                  << "foeConflictLane: '" << (foeConflictLane == 0 ? "NULL" : foeConflictLane->getID()) << "'"
+                  << "\nEgo's distance to conflict lane: " << egoDistToConflictLane
+                  << "\nFoe's distance to conflict lane: " << foeDistToConflictLane
                   << std::endl;
 #endif
 
@@ -1835,53 +1812,16 @@ MSDevice_SSM::classifyEncounter(const FoeInfo* foeInfo, EncounterApproachInfo& e
             // The conflict point is on the ego's current lane.
             if (foeLane == egoLane) {
                 // Foe is on the same non-internal lane
-                const bool egoOpposite = e->ego->getLaneChangeModel().isOpposite();
-                const bool foeOpposite = e->foe->getLaneChangeModel().isOpposite();
-                if (!egoOpposite && !foeOpposite) {
-                    if (e->ego->getPositionOnLane() > e->foe->getPositionOnLane()) {
-                        type = ENCOUNTER_TYPE_FOLLOWING_LEADER;
-                        eInfo.foeConflictEntryDist = e->ego->getBackPositionOnLane() - e->foe->getPositionOnLane();
-                    } else {
-                        type = ENCOUNTER_TYPE_FOLLOWING_FOLLOWER;
-                        eInfo.egoConflictEntryDist = e->foe->getBackPositionOnLane() - e->ego->getPositionOnLane();
-                    }
-#ifdef DEBUG_ENCOUNTER
-                    if (DEBUG_COND_ENCOUNTER(eInfo.encounter)) std::cout << "-> Encounter type: Lead/follow-situation on non-internal lane '" << egoLane->getID() << "'\n";
-#endif
-                } else if (egoOpposite && foeOpposite) {
-                    if (e->ego->getPositionOnLane() < e->foe->getPositionOnLane()) {
-                        type = ENCOUNTER_TYPE_FOLLOWING_LEADER;
-                        eInfo.foeConflictEntryDist = -(e->ego->getBackPositionOnLane() - e->foe->getPositionOnLane());
-                    } else {
-                        type = ENCOUNTER_TYPE_FOLLOWING_FOLLOWER;
-                        eInfo.egoConflictEntryDist = -(e->foe->getBackPositionOnLane() - e->ego->getPositionOnLane());
-                    }
-#ifdef DEBUG_ENCOUNTER
-                    if (DEBUG_COND_ENCOUNTER(eInfo.encounter)) std::cout << "-> Encounter type: Lead/follow-situation  while both are driving in the opposite direction on non-internal lane '" << egoLane->getID() << "'\n";
-#endif
-                } else { 
-                    type = ENCOUNTER_TYPE_ONCOMING;
-                    const double gap = e->ego->getPositionOnLane() - e->foe->getPositionOnLane();
-                    if (egoOpposite) {
-                        if (e->ego->getPositionOnLane() > e->foe->getPositionOnLane()) {
-                            eInfo.egoConflictEntryDist = gap;
-                            eInfo.foeConflictEntryDist = gap;
-                        } else {
-                            type = ENCOUNTER_TYPE_NOCONFLICT_AHEAD;
-                        }
-                    } else {
-                        if (e->ego->getPositionOnLane() < e->foe->getPositionOnLane()) {
-                            eInfo.egoConflictEntryDist = -gap;
-                            eInfo.foeConflictEntryDist = -gap;
-                        } else {
-                            type = ENCOUNTER_TYPE_NOCONFLICT_AHEAD;
-                        }
-                    }
-#ifdef DEBUG_ENCOUNTER
-                    if (DEBUG_COND_ENCOUNTER(eInfo.encounter)) std::cout << "-> Encounter type: oncoming on non-internal lane '" << egoLane->getID() << "'\n";
-#endif
-
+                if (e->ego->getPositionOnLane() > e->foe->getPositionOnLane()) {
+                    type = ENCOUNTER_TYPE_FOLLOWING_LEADER;
+                    eInfo.foeConflictEntryDist = e->ego->getBackPositionOnLane() - e->foe->getPositionOnLane();
+                } else {
+                    type = ENCOUNTER_TYPE_FOLLOWING_FOLLOWER;
+                    eInfo.egoConflictEntryDist = e->foe->getBackPositionOnLane() - e->ego->getPositionOnLane();
                 }
+#ifdef DEBUG_ENCOUNTER
+                if (DEBUG_COND_ENCOUNTER(eInfo.encounter)) std::cout << "-> Encounter type: Lead/follow-situation on non-internal lane '" << egoLane->getID() << "'\n";
+#endif
             } else if (&(foeLane->getEdge()) == &(egoLane->getEdge())) {
                 // Foe is on the same non-internal edge but not on the same lane. Treat this as no conflict for now
                 // XXX: this disregards conflicts for vehicles on adjacent lanes
@@ -1976,17 +1916,6 @@ MSDevice_SSM::classifyEncounter(const FoeInfo* foeInfo, EncounterApproachInfo& e
                                   << e->foe->getID() << "' on lane '" << foeLane->getID() << "'"
                                   << " (gap = " << eInfo.egoConflictEntryDist << ", case2)\n";
 #endif
-                } else if (e->ego->getLaneChangeModel().isOpposite() || e->foe->getLaneChangeModel().isOpposite()) {
-                    type = ENCOUNTER_TYPE_MERGING;
-                    eInfo.foeConflictEntryDist = foeDistToConflictLane;
-                    eInfo.egoConflictEntryDist = egoDistToConflictLane;
-#ifdef DEBUG_ENCOUNTER
-                    if (DEBUG_COND_ENCOUNTER(eInfo.encounter)) 
-                        std::cout << "-> Encounter type: Ego '" << e->ego->getID() << "' on lane '" << egoLane->getID() << "' merges with foe '"
-                                  << e->foe->getID() << "' on lane '" << foeLane->getID() << "'"
-                                  << " (gap = " << eInfo.egoConflictEntryDist << ", case5)\n";
-#endif
-
                 } else {
                     // Both must be already on the junction in a lead / follow situation on a connection
                     // (since they approach via the same link, findSurroundingVehicles() would have determined a
@@ -2765,7 +2694,7 @@ MSDevice_SSM::findSurroundingVehicles(const MSVehicle& veh, double range, FoeInf
     // remainingDownstreamRange is the range minus the distance that is already scanned downstream along the vehicles route
     double remainingDownstreamRange = range;
     // distToConflictLane is the distance of the ego vehicle to the start of the currently considered potential conflict lane (can be negative for its current lane)
-    double distToConflictLane = isOpposite ? pos - veh.getLane()->getLength() : -pos;
+    double distToConflictLane = -pos;
     // junctions that were encountered during downstream scan. Memorized to break search at re-scan in recurrent nets.
     std::set<const MSJunction*> seenJunctions;
     // Starting points for upstream scans to be executed after downstream scan is complete.
