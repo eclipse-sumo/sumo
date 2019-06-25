@@ -67,19 +67,19 @@ private:
 public:
     struct TripItem {
         TripItem(const std::string& _line = "") :
-            line(_line), intended(_line), depart(-1), traveltime(0.), cost(0.) {}
+            line(_line), intended(_line) {}
         std::string line;
-        std::string vType;
-        std::string destStop;
+        std::string vType = "";
+        std::string destStop = "";
         std::string intended; // intended public transport vehicle id
-        double depart; // intended public transport departure
+        double depart = -1.; // intended public transport departure
         std::vector<const E*> edges;
-        double traveltime;
-        double cost;
-        double length;
-        double departPos;
-        double arrivalPos;
-        std::string description;
+        double traveltime = 0.;
+        double cost = 0.;
+        double length = 0.;
+        double departPos = INVALID_DOUBLE;
+        double arrivalPos = INVALID_DOUBLE;
+        std::string description = "";
     };
 
     /// Constructor
