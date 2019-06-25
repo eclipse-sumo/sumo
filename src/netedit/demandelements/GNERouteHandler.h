@@ -236,6 +236,9 @@ private:
         /// @brief default constructor
         PersonPlansValues();
 
+        /// @brief return last valid edge (used to create consecutive person plans)
+        GNEEdge *getLastEdge() const;
+
         /// @brief walk tag
         SumoXMLTag tag;
 
@@ -269,8 +272,8 @@ private:
         /// @brief arrival pos
         double arrivalPos;
 
-        /// @brief lane
-        GNELane *lane;
+        /// @brief laneStop
+        GNELane *laneStop;
 
         /// @brief friendly position
         bool friendlyPos;
