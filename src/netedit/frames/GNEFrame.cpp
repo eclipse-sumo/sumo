@@ -445,6 +445,12 @@ GNEFrame::DemandElementSelector::hideDemandElementSelector() {
 }
 
 
+bool 
+GNEFrame::DemandElementSelector::isDemandElementSelectorShown() const {
+    return shown();
+}
+
+
 void
 GNEFrame::DemandElementSelector::refreshDemandElementSelector() {
     // clear demand elements comboBox

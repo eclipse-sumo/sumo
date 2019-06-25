@@ -89,50 +89,56 @@ void
 GNEPersonPlanFrame::HelpCreation::updateHelpCreation() {
     // create information label
     std::ostringstream information;
-    // set text depending of selected person plan
-    switch (myPersonPlanFrameParent->myPersonPlanTagSelector->getCurrentTagProperties().getTag()) {
-        case SUMO_TAG_PERSONTRIP_FROMTO:
-            information
-                << "- Click over edges to\n"
-                << "  create a trip.";
-            break;
-        case SUMO_TAG_PERSONTRIP_BUSSTOP:
-            information
-                << "- Click over an edge and\n"
-                << "  a bus to create a trip.";
-            break;
-        case SUMO_TAG_WALK_EDGES:
-            information
-                << "- Click over a sequenz of\n"
-                << "  consecutive edges to\n"
-                << "  create a walk.";
-            break;
-        case SUMO_TAG_WALK_FROMTO:
-            information
-                << "- Click over edges to\n"
-                << "  create a walk.";
-            break;
-        case SUMO_TAG_WALK_BUSSTOP:
-            information
-                << "- Click over an edge and\n"
-                << "  a bus to create a walk.";
-            break;
-        case SUMO_TAG_WALK_ROUTE:
-            information
-                << "- Click over a route";
-            break;
-        case SUMO_TAG_RIDE_FROMTO:
-            information
-                << "- Click over edges to\n"
-                << "  create a ride.";
-            break;
-        case SUMO_TAG_RIDE_BUSSTOP:
-            information
-                << "- Click over an edge and\n"
-                << "  a bus to create a ride";
-            break;
-        default:
-            break;
+    // first check if Person Plan selector is shown
+    if(myPersonPlanFrameParent->myPersonSelector->isDemandElementSelectorShown()) {
+        // set text depending of selected person plan
+        switch (myPersonPlanFrameParent->myPersonPlanTagSelector->getCurrentTagProperties().getTag()) {
+            case SUMO_TAG_PERSONTRIP_FROMTO:
+                information
+                    << "- Click over edges to\n"
+                    << "  create a trip.";
+                break;
+            case SUMO_TAG_PERSONTRIP_BUSSTOP:
+                information
+                    << "- Click over an edge and\n"
+                    << "  a bus to create a trip.";
+                break;
+            case SUMO_TAG_WALK_EDGES:
+                information
+                    << "- Click over a sequenz of\n"
+                    << "  consecutive edges to\n"
+                    << "  create a walk.";
+                break;
+            case SUMO_TAG_WALK_FROMTO:
+                information
+                    << "- Click over edges to\n"
+                    << "  create a walk.";
+                break;
+            case SUMO_TAG_WALK_BUSSTOP:
+                information
+                    << "- Click over an edge and\n"
+                    << "  a bus to create a walk.";
+                break;
+            case SUMO_TAG_WALK_ROUTE:
+                information
+                    << "- Click over a route";
+                break;
+            case SUMO_TAG_RIDE_FROMTO:
+                information
+                    << "- Click over edges to\n"
+                    << "  create a ride.";
+                break;
+            case SUMO_TAG_RIDE_BUSSTOP:
+                information
+                    << "- Click over an edge and\n"
+                    << "  a bus to create a ride";
+                break;
+            default:
+                break;
+        }
+    } else {
+        information << "-  There aren't persons or\n"
+                    << "   personFlows in network.";
     }
     // set information label
     myInformationLabel->setText(information.str().c_str());
@@ -418,7 +424,13 @@ GNEPersonPlanFrame::show() {
             myPersonSelector->setDemandElement(myViewNet->getNet()->getAttributeCarriers().demandElements.at(SUMO_TAG_PERSONFLOW).begin()->second);
         }
     } else {
-        // hide all moduls
+        // hide all moduls except helpCreation
+        myPersonSelector->hideDemandElementSelector();
+        myPersonPlanTagSelector->hideTagSelector();
+        myPersonPlanAttributes->hideAttributesCreatorModul();
+        myPersonPlanCreator->hidePersonPlanCreator();
+        myPersonHierarchy->hideAttributeCarrierHierarchy();
+        myHelpCreation->showHelpCreation();
     }
     // show frame
     GNEFrame::show();

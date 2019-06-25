@@ -138,6 +138,9 @@ public:
         /// @brief hide demand element selector
         void hideDemandElementSelector();
 
+        /// @brief check if demand element selector is shown
+        bool isDemandElementSelectorShown() const;
+
         /// @brief refresh demand element selector
         void refreshDemandElementSelector();
 
