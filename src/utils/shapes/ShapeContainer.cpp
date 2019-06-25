@@ -290,12 +290,12 @@ ShapeContainer::removeTrackers(std::string objectID) {
 #ifdef DEBUG_DYNAMIC_SHAPES
         std::cout << " Removing tracking polygons for object '" << objectID << "'" << std::endl;
 #endif
-        for (const SUMOPolygon* p : i->second) {
-            removePolygon(p->getID());
+        while(!i->second.empty()) {
+            removePolygon((*i->second.begin())->getID());
         }
         myTrackingPolygons.erase(i);
     }
 }
 
-/****************************************************************************/
 
+/****************************************************************************/
