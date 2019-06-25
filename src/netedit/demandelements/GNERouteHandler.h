@@ -251,8 +251,8 @@ private:
         /// @brief list of edges
         std::vector<GNEEdge*> edges;
 
-        /// @brief stopping place
-        GNEAdditional* stoppingPlace;
+        /// @brief busStop
+        GNEAdditional* busStop;
 
         /// @brief arrival route
         GNEDemandElement* route;
