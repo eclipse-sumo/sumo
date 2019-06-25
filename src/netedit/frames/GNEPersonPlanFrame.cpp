@@ -213,7 +213,7 @@ GNEPersonPlanFrame::PersonPlanCreator::refreshPersonPlanCreator() {
         if (lastPersonPlanElementTag == SUMO_TAG_PERSONSTOP_LANE) {
             // obtan edge's lane of stop lane
             addEdge(&lastPersonPlanElement->getLaneParents().front()->getParentEdge());
-        } else if ((lastPersonPlanElementTag == SUMO_TAG_PERSONSTOP_BUSSTOP) || (lastPersonPlanElementTag == SUMO_TAG_PERSONSTOP_CONTAINERSTOP)) {
+        } else if (lastPersonPlanElementTag == SUMO_TAG_PERSONSTOP_BUSSTOP) {
             // obtan edge's lane of stop stopping place
             addEdge(&lastPersonPlanElement->getAdditionalParents().front()->getLaneParents().front()->getParentEdge());
         } else if ((lastPersonPlanElementTag == SUMO_TAG_PERSONTRIP_BUSSTOP) || (lastPersonPlanElementTag == SUMO_TAG_WALK_BUSSTOP) || (lastPersonPlanElementTag == SUMO_TAG_RIDE_BUSSTOP)) {
@@ -443,7 +443,6 @@ GNEPersonPlanFrame::addPersonPlan(const GNEViewNetHelper::ObjectsUnderCursor& ob
     /*SUMO_TAG_PERSONSTOP_LANE;*/
     bool requireRoute = (personPlanTag == SUMO_TAG_WALK_ROUTE);
     bool requireLaneAndPos = false;
-    bool requireContainerStop = (personPlanTag == SUMO_TAG_PERSONSTOP_CONTAINERSTOP);
     bool requireBusStop = ((personPlanTag == SUMO_TAG_PERSONTRIP_BUSSTOP) || (personPlanTag == SUMO_TAG_WALK_BUSSTOP) || 
                            (personPlanTag == SUMO_TAG_RIDE_BUSSTOP) || (personPlanTag == SUMO_TAG_PERSONSTOP_BUSSTOP));
     bool requireEdge = ((personPlanTag == SUMO_TAG_PERSONTRIP_FROMTO) || (personPlanTag == SUMO_TAG_WALK_EDGES) || 
