@@ -1238,6 +1238,8 @@ GNERouteHandler::closePerson() {
             if (pType == nullptr) {
                 WRITE_ERROR("Invalid person type '" + myVehicleParameter->vtypeid + "' used in " + toString(myVehicleParameter->tag) + " '" + myVehicleParameter->vtypeid + "'.");
             } else {
+                // declare flag to abort person plans creation
+                bool abortPersonPlans = false;
                 // create person using personParameters
                 GNEPerson* person = new GNEPerson(SUMO_TAG_PERSON, myViewNet, pType, *myVehicleParameter);
                 // begin undo-list creation
@@ -1245,7 +1247,7 @@ GNERouteHandler::closePerson() {
                 // add person
                 myViewNet->getUndoList()->add(new GNEChange_DemandElement(person, true), true);
                 // iterate over all personplan childs and add it
-                for (auto i = myPersonPlanValues.begin(); i != myPersonPlanValues.end(); i++) {
+                for (auto i = myPersonPlanValues.begin(); (i != myPersonPlanValues.end()) && !abortPersonPlans; i++) {
                     switch (i->tag) {
                         case SUMO_TAG_PERSONTRIP_FROMTO:
                             // check if "from" attribute was loaded, or it must be taked fron previous personPlan values
@@ -1255,6 +1257,12 @@ GNERouteHandler::closePerson() {
                                 // update 'from' edge using 'to' edge of last personPlan element
                                 i->from = (i-1)->getLastEdge();
                                 myViewNet->getUndoList()->add(new GNEChange_DemandElement(new GNEPersonTrip(myViewNet, person, i->calculateEdgePath(), i->vTypes, i->modes, i->arrivalPos), true), true);
+                            } else {
+                                WRITE_ERROR("The first person plan of type '" + toString(i->tag) + "' needs a from edge. Person cannot be created.");
+                                // abort last command group (to remove created person)
+                                myViewNet->getUndoList()->p_abortLastCommandGroup();
+                                // abort person plan creation
+                                abortPersonPlans = true;
                             }
                             break;
                         case SUMO_TAG_PERSONTRIP_BUSSTOP:
@@ -1265,6 +1273,12 @@ GNERouteHandler::closePerson() {
                                 // update 'from' edge using 'to' edge of last personPlan element
                                 i->from = (i-1)->getLastEdge();
                                 myViewNet->getUndoList()->add(new GNEChange_DemandElement(new GNEPersonTrip(myViewNet, person, i->calculateEdgePath(), i->busStop, i->vTypes, i->modes), true), true);
+                            } else {
+                                WRITE_ERROR("The first person plan of type '" + toString(i->tag) + "' needs a from edge. Person cannot be created.");
+                                // abort last command group (to remove created person)
+                                myViewNet->getUndoList()->p_abortLastCommandGroup();
+                                // abort person plan creation
+                                abortPersonPlans = true;
                             }
                             break;
                         case SUMO_TAG_RIDE_FROMTO:
@@ -1275,6 +1289,12 @@ GNERouteHandler::closePerson() {
                                 // update 'from' edge using 'to' edge of last personPlan element
                                 i->from = (i-1)->getLastEdge();
                                 myViewNet->getUndoList()->add(new GNEChange_DemandElement(new GNERide(myViewNet, person, i->calculateEdgePath(), i->arrivalPos, i->lines), true), true);
+                            } else {
+                                WRITE_ERROR("The first person plan of type '" + toString(i->tag) + "' needs a from edge. Person cannot be created.");
+                                // abort last command group (to remove created person)
+                                myViewNet->getUndoList()->p_abortLastCommandGroup();
+                                // abort person plan creation
+                                abortPersonPlans = true;
                             }
                             break;
                         case SUMO_TAG_RIDE_BUSSTOP:
@@ -1285,6 +1305,12 @@ GNERouteHandler::closePerson() {
                                 // update 'from' edge using 'to' edge of last personPlan element
                                 i->from = (i-1)->getLastEdge();
                                 myViewNet->getUndoList()->add(new GNEChange_DemandElement(new GNERide(myViewNet, person, i->calculateEdgePath(), i->busStop, i->lines), true), true);
+                            } else {
+                                WRITE_ERROR("The first person plan of type '" + toString(i->tag) + "' needs a from edge. Person cannot be created.");
+                                // abort last command group (to remove created person)
+                                myViewNet->getUndoList()->p_abortLastCommandGroup();
+                                // abort person plan creation
+                                abortPersonPlans = true;
                             }
                             break;
                         case SUMO_TAG_WALK_EDGES:
@@ -1298,6 +1324,12 @@ GNERouteHandler::closePerson() {
                                 // update 'from' edge using 'to' edge of last personPlan element
                                 i->from = (i-1)->getLastEdge();
                                 myViewNet->getUndoList()->add(new GNEChange_DemandElement(new GNEWalk(myViewNet, person, i->calculateEdgePath(), i->arrivalPos), true), true);
+                            } else {
+                                WRITE_ERROR("The first person plan of type '" + toString(i->tag) + "' needs a from edge. Person cannot be created.");
+                                // abort last command group (to remove created person)
+                                myViewNet->getUndoList()->p_abortLastCommandGroup();
+                                // abort person plan creation
+                                abortPersonPlans = true;
                             }
                             break;
                         case SUMO_TAG_WALK_BUSSTOP:
@@ -1308,6 +1340,12 @@ GNERouteHandler::closePerson() {
                                 // update 'from' edge using 'to' edge of last personPlan element
                                 i->from = (i-1)->getLastEdge();
                                 myViewNet->getUndoList()->add(new GNEChange_DemandElement(new GNEWalk(myViewNet, person, i->calculateEdgePath(), i->busStop), true), true);
+                            } else {
+                                WRITE_ERROR("The first person plan of type '" + toString(i->tag) + "' needs a from edge. Person cannot be created.");
+                                // abort last command group (to remove created person)
+                                myViewNet->getUndoList()->p_abortLastCommandGroup();
+                                // abort person plan creation
+                                abortPersonPlans = true;
                             }
                             break;
                         case SUMO_TAG_WALK_ROUTE:
@@ -1323,8 +1361,10 @@ GNERouteHandler::closePerson() {
                             break;
                         }
                 }
-                // end undo-list
-                myViewNet->getUndoList()->p_end();
+                // end undo-list depending of abortPersonPlans
+                if (!abortPersonPlans) {
+                    myViewNet->getUndoList()->p_end();
+                }
             }
         }
 
