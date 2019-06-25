@@ -276,6 +276,11 @@ class PersonDomain(Domain):
         self._connection._packString(stopID)
         self._connection._sendExact()
 
+    def appendStage(self, personID, stage):
+        self._connection._beginMessage(tc.CMD_SET_PERSON_VARIABLE, tc.APPEND_STAGE, personID, simulation._stageSize(stage))
+        simulation._writeStage(stage, self._connection)
+        self._connection._sendExact()
+
     def appendDrivingStage(self, personID, toEdge, lines, stopID=""):
         """appendDrivingStage(string, string, string, string)
         Appends a driving stage to the plan of the given person

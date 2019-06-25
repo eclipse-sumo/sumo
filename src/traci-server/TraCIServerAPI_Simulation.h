@@ -59,6 +59,7 @@ public:
                            tcpip::Storage& outputStorage);
 
     static void writeStage(tcpip::Storage& outputStorage, const libsumo::TraCIStage& stage);
+    static libsumo::TraCIStage* readStage(TraCIServer& server, tcpip::Storage& inputStorage);
 
 private:
     /**
