@@ -351,6 +351,7 @@ MSVehicle::Influencer::GapControlState::deactivate() {
  * ----------------------------------------------------------------------- */
 MSVehicle::Influencer::Influencer() :
     myGapControlState(nullptr),
+    myOriginalSpeed(-1),
     myLatDist(0),
     mySpeedAdaptationStarted(true),
     myConsiderSafeVelocity(true),
