@@ -119,6 +119,7 @@ MSVehicleControl::scheduleVehicleRemoval(SUMOVehicle* veh) {
 
 void
 MSVehicleControl::removePending() {
+    OutputDevice* tripinfoOut = OptionsCont::getOptions().isSet("tripinfo-output") ? &OutputDevice::getDeviceByOption("tripinfo-output") : nullptr;
 #ifdef HAVE_FOX
     std::vector<SUMOVehicle*>& vehs = myPendingRemovals.getContainer();
 #else
@@ -132,13 +133,17 @@ MSVehicleControl::removePending() {
         for (MSVehicleDevice* const dev : veh->getDevices()) {
             dev->generateOutput();
         }
-        if (OptionsCont::getOptions().isSet("tripinfo-output")) {
+        if (tripinfoOut != nullptr) {
             // close tag after tripinfo (possibly including emissions from another device) have been written
-            OutputDevice::getDeviceByOption("tripinfo-output").closeTag();
+            tripinfoOut->closeTag();
         }
         deleteVehicle(veh);
     }
     vehs.clear();
+    if (tripinfoOut != nullptr) {
+        // there seem to be people who think reading an unfinished xml is a good idea ;-)
+        tripinfoOut->flush();
+    }
 #ifdef HAVE_FOX
     myPendingRemovals.unlock();
 #endif
