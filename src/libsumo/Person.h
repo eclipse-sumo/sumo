@@ -27,7 +27,7 @@
 #include <libsumo/TraCIDefs.h>
 #include <libsumo/VehicleType.h>
 #include <libsumo/TraCIConstants.h>
-
+#include <microsim/MSTransportable.h>
 
 // ===========================================================================
 // class declarations
@@ -70,6 +70,7 @@ public:
     LIBSUMO_VEHICLE_TYPE_GETTER
 
     static void add(const std::string& personID, const std::string& edgeID, double pos, double depart = DEPARTFLAG_NOW, const std::string typeID = "DEFAULT_PEDTYPE");
+    static void appendStage(const TraCIStage& stage, const std::string& personID);
     static void appendWaitingStage(const std::string& personID, double duration, const std::string& description = "waiting", const std::string& stopID = "");
     static void appendWalkingStage(const std::string& personID, const std::vector<std::string>& edgeIDs, double arrivalPos, double duration = -1, double speed = -1, const std::string& stopID = "");
     static void appendDrivingStage(const std::string& personID, const std::string& toEdge, const std::string& lines, const std::string& stopID = "");
@@ -97,6 +98,7 @@ public:
 
 private:
     static MSPerson* getPerson(const std::string& id);
+    static MSTransportable::Stage* convertTraCIStage(const TraCIStage& stage, const std::string personID);
 
 private:
     static SubscriptionResults mySubscriptionResults;
