@@ -239,6 +239,9 @@ private:
         /// @brief return last valid edge (used to create consecutive person plans)
         GNEEdge *getLastEdge() const;
 
+        /// @brief calculate ege path between from-to edges
+        std::vector<GNEEdge*> calculateEdgePath() const;
+
         /// @brief walk tag
         SumoXMLTag tag;
 
