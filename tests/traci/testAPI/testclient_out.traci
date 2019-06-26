@@ -1,4 +1,4 @@
-TraCITestClient output file. Date: Wed Jun 26 12:27:14 2019
+TraCITestClient output file. Date: Wed Jun 26 16:22:55 2019
 
 
 -> Command sent: <SetOrder>:
@@ -129,6 +129,9 @@ testAPI:
     context subscription results:
       vehicle=1 pos=11.4581
       vehicle=2 pos=16.3564
+    subscribe to vehicles around vehicle '1':
+    context subscription results:
+      vehicle=2
   person:
     getIDList: p0 pWaiting
     getRoadID: e_m3
@@ -139,15 +142,15 @@ testAPI:
     getRemainingStages: 1
     getVehicle: 
     getEdges: e_m3 e_m4
-    getPosition: TraCIPosition(1500,490.47,0)
-    getPosition3D: TraCIPosition(1500,490.47,0)
+    getPosition: TraCIPosition(1501.64,490.47,0)
+    getPosition3D: TraCIPosition(1501.64,490.47,0)
     getAngle: 90.00
     getSlope: 0.00
-    getLanePosition: 0.00
+    getLanePosition: 1.64
     getLength: 0.21
     getColor: TraCIColor(255,255,0,128)
     param: bar
-    getSpeed: 2.47
+    getSpeed: 2.57
     getRemainingStages: 4
     getRemainingStages: 3
     getRemainingStages: 1
@@ -161,7 +164,7 @@ testAPI:
     phase: 0
     phaseName: nameSetByTraCI
     phaseDuration: 12.00
-    nextSwitch: 24.00
+    nextSwitch: 25.00
     controlledLanes: e_vo0_0 e_vo0_1 e_vu0_0 e_vu0_1 e_m3_0 e_m3_1 e_m3_2
     controlledLinks:
       index=0 link=0 fromLane=e_vo0_0 viaLane=:n_m4_0_0 toLane=e_m4_1

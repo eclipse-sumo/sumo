@@ -897,6 +897,28 @@ TraCITestClient::testAPI() {
         answerLog << "      vehicle=" << it->first << " pos=" << it->second[libsumo::VAR_LANEPOSITION]->getString() << "\n";
     }
 
+    answerLog << "    subscribe to vehicles around vehicle '1':\n";
+    std::vector<int> vars3;
+    vars3.push_back(libsumo::VAR_SPEED);
+    vehicle.subscribeContext("1", libsumo::CMD_GET_VEHICLE_VARIABLE, 1000, vars3, 0, 100);
+    //vehicle.addSubscriptionFilterTurn();
+    //vehicle.addSubscriptionFilterDownstreamDistance(1000);
+    //vehicle.addSubscriptionFilterUpstreamDistance(1000);
+    //vehicle.addSubscriptionFilterVClass(std::vector<std::string>({"passenger"}));
+    //vehicle.addSubscriptionFilterLanes(std::vector<int>({0, 1, 2}));
+    //vehicle.addSubscriptionFilterLeadFollow(std::vector<int>({0, 1, 2}));
+    //vehicle.addSubscriptionFilterLanes(std::vector<int>({0}));
+    //vehicle.addSubscriptionFilterLeadFollow(std::vector<int>({0}));
+    //vehicle.addSubscriptionFilterCFManeuver();
+    vehicle.addSubscriptionFilterLCManeuver(1);
+    
+    simulationStep();
+    answerLog << "    context subscription results:\n";
+    libsumo::SubscriptionResults result5 = vehicle.getContextSubscriptionResults("1");
+    for (auto item : result5) {
+        answerLog << "      vehicle=" << item.first << "\n";
+    }
+
     // person
     answerLog << "  person:\n";
     person.setWidth("p0", 1);

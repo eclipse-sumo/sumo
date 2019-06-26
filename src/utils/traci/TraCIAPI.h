@@ -808,7 +808,58 @@ public:
         void setMaxSpeed(const std::string& vehicleID, double speed) const;
         /// @}
 
+        /// @name subscription filtering
+        /* @brief Filters are added to the last modified vehicle context
+         *  subscription (call these fucntions right after subscribing) */
+        /// @{
+        
+        /* @brief Adds a lane-filter, lanes is a list of relative lane indices (-1 -> right neighboring lane of the ego, 0 -> ego lane, etc.)
+         * noOpposite specifies whether vehicles on opposite direction lanes shall be returned
+         * downstreamDist and upstreamDist specify the range of the search for surrounding vehicles along the road net. */
+        void addSubscriptionFilterLanes(const std::vector<int>& lanes, 
+                bool noOpposite=false, double downstreamDist=-1, double upstreamDist=-1) const;
+
+        /* @brief Omits vehicles on other edges than the ego's */
+        void addSubscriptionFilterNoOpposite() const;
+
+        /* @brief Limits the downstream distance for resulting vehicles */
+        void addSubscriptionFilterDownstreamDistance(double dist) const;
+
+        /* @brief Limits the updstream distance for resulting vehicles */
+        void addSubscriptionFilterUpstreamDistance(double dist) const;
+
+        /* @brief Restricts vehicles returned by the last modified vehicle context subscription to leader and follower of the ego.
+         * downstreamDist and upstreamDist specify the range of the search for leader and follower along the road net. */
+        void addSubscriptionFilterCFManeuver(double downstreamDist=-1, double upstreamDist=-1) const;
+
+        /* @brief Restricts returned vehicles to neighbor and ego-lane leader
+         *  and follower of the ego in the given direction 
+         * noOpposite specifies whether vehicles on opposite direction lanes shall be returned
+         * downstreamDist and upstreamDist specify the range of the search for leader and follower along the road net.
+         * Combine with: distance filters; vClass/vType filter. */
+        void addSubscriptionFilterLCManeuver(int direction, bool noOpposite=false, double downstreamDist=-1, double upstreamDist=-1) const;
+
+        /* @brief Restricts returned vehicles to neighbor and ego-lane leader and follower of the ego.
+         * Combine with: lanes-filter to restrict to one direction; distance filters; vClass/vType filter. */
+        void addSubscriptionFilterLeadFollow(const std::vector<int>& lanes) const; 
+
+        /* @brief Restricts returned vehicles to foes on an upcoming junction */
+        void addSubscriptionFilterTurn(double downstreamDist=-1, double upstreamDist=-1) const; 
+
+        /* @brief Restricts returned vehicles to the given classes */
+        void addSubscriptionFilterVClass(const std::vector<std::string>& vClasses) const;
+
+        /* @brief Restricts returned vehicles to the given types */
+        void addSubscriptionFilterVType(const std::vector<std::string>& vTypes) const;
+
+        /// @}
+
     private:
+        void addSubscriptionFilterEmpty(int filterType) const;
+        void addSubscriptionFilterFloat(int filterType, double val) const;
+        void addSubscriptionFilterStringList(int filterType, const std::vector<std::string>& vals) const;
+        void addSubscriptionFilterByteList(int filterType, const std::vector<int>& vals) const;
+
         /// @brief invalidated copy constructor
         VehicleScope(const VehicleScope& src);
 
@@ -934,6 +985,7 @@ protected:
      * @param[in] add Optional additional parameter
      */
     void createCommand(int cmdID, int varID, const std::string& objID, tcpip::Storage* add = nullptr) const;
+    void createFilterCommand(int cmdID, int varID, tcpip::Storage* add = nullptr) const;
 
 
     /** @brief Sends a SubscribeVariable request
