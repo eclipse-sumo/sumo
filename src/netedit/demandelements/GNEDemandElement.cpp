@@ -45,24 +45,29 @@ GNEDemandElement::RouteCalculator* GNEDemandElement::myRouteCalculatorInstance =
 // ===========================================================================
 
 // ---------------------------------------------------------------------------
+// GNEDemandElement::DemandElementGeometry::Segment - methods
+// ---------------------------------------------------------------------------
+
+GNEDemandElement::DemandElementGeometry::Segment::Segment(const GNEEdge* _edge, const Position _pos) :
+    edge(_edge),
+    pos(_pos),
+    lenght(0),
+    rotation(0) {
+}
+
+// ---------------------------------------------------------------------------
 // GNEDemandElement::DemandElementGeometry - methods
 // ---------------------------------------------------------------------------
 
 GNEDemandElement::DemandElementGeometry::Segment::Segment() :
     edge(nullptr),
-    type(GLO_NETWORK) {
+    pos(Position::INVALID),
+    lenght(0),
+    rotation(0) {
 }
 
 
 GNEDemandElement::DemandElementGeometry::DemandElementGeometry() {}
-
-
-void
-GNEDemandElement::DemandElementGeometry::clearGeometry() {
-    shape.clear();
-    shapeRotations.clear();
-    shapeLengths.clear();
-}
 
 
 void
@@ -71,9 +76,6 @@ GNEDemandElement::DemandElementGeometry::calculateShapeRotationsAndLengths() {
     int numberOfSegments = (int)shape.size() - 1;
     // If number of segments is more than 0
     if (numberOfSegments >= 0) {
-        // Reserve memory (To improve efficiency)
-        shapeRotations.reserve(numberOfSegments);
-        shapeLengths.reserve(numberOfSegments);
         // For every part of the shape
         for (int i = 0; i < numberOfSegments; ++i) {
             // Obtain first position
@@ -81,9 +83,9 @@ GNEDemandElement::DemandElementGeometry::calculateShapeRotationsAndLengths() {
             // Obtain next position
             const Position& s = shape[i + 1].pos;
             // Save distance between position into myShapeLengths
-            shapeLengths.push_back(f.distanceTo(s));
+            shape[i].lenght = f.distanceTo2D(s);
             // Save rotation (angle) of the vector constructed by points f and s
-            shapeRotations.push_back((double)atan2((s.x() - f.x()), (f.y() - s.y())) * (double) 180.0 / (double)M_PI);
+            shape[i].rotation = ((double)atan2((s.x() - f.x()), (f.y() - s.y())) * (double) 180.0 / (double)M_PI);
         }
     }
 }

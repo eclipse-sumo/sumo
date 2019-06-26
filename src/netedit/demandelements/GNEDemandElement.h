@@ -57,29 +57,34 @@ public:
     struct DemandElementGeometry {
 
         struct Segment {
+            /// @brief parameter constructor
+            Segment(const GNEEdge* _edge, const Position _pos);
+
+            /// @brief edge
+            const GNEEdge* edge;
+
+            /// @brief position
+            const Position pos;
+
+            /// @brief rotation
+            double rotation;
+
+            /// @brief lenght
+            double lenght;
+
+        private:
+            /// @brief default constructor (disabled)
             Segment();
-            GNEEdge* edge;
-            GUIGlObjectType type;
-            Position pos;
         };
 
         /// @brief constructor
         DemandElementGeometry();
-
-        /// @brief reset geometry
-        void clearGeometry();
 
         /// @brief calculate shape rotations and lenghts
         void calculateShapeRotationsAndLengths();
 
         /// @brief demand element shape
         std::vector<Segment> shape;
-
-        /// @brief The rotations of the single shape parts
-        std::vector<double> shapeRotations;
-
-        /// @brief The lengths of the single shape parts
-        std::vector<double> shapeLengths;
     };
 
     /// @brief class used to calculate routes in nets
