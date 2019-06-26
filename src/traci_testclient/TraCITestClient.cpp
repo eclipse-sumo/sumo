@@ -933,7 +933,13 @@ TraCITestClient::testAPI() {
     person.appendWalkingStage("p1", walkEdges, -20);
     person.appendWaitingStage("p1", 5);
     person.appendDrivingStage("p1", "e_vu2", "BusLine42");
-    // expect 4 stages due to the initial waiting-for-departure stage
+    libsumo::TraCIStage stage(libsumo::STAGE_WALKING);
+    stage.edges.push_back("e_vu2");
+    stage.edges.push_back("e_vo2");
+    stage.arrivalPos = -10;
+    person.appendStage("p1", stage);
+    simulationStep();
+    // expect 5 stages due to the initial waiting-for-departure stage
     answerLog << "    getRemainingStages: " << person.getRemainingStages("p1") << "\n";
     person.removeStage("p1", 3);
     answerLog << "    getRemainingStages: " << person.getRemainingStages("p1") << "\n";

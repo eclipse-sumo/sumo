@@ -3259,8 +3259,43 @@ TraCIAPI::PersonScope::add(const std::string& personID, const std::string& edgeI
 }
 
 void
+TraCIAPI::PersonScope::appendStage(const std::string& personID, const libsumo::TraCIStage& stage) {
+    tcpip::Storage content;
+    content.writeUnsignedByte(libsumo::TYPE_COMPOUND);
+    content.writeInt(13);
+    content.writeUnsignedByte(libsumo::TYPE_INTEGER);
+    content.writeInt(stage.type);
+    content.writeUnsignedByte(libsumo::TYPE_STRING);
+    content.writeString(stage.vType);
+    content.writeUnsignedByte(libsumo::TYPE_STRING);
+    content.writeString(stage.line);
+    content.writeUnsignedByte(libsumo::TYPE_STRING);
+    content.writeString(stage.destStop);
+    content.writeUnsignedByte(libsumo::TYPE_STRINGLIST);
+    content.writeStringList(stage.edges);
+    content.writeUnsignedByte(libsumo::TYPE_DOUBLE);
+    content.writeDouble(stage.travelTime);
+    content.writeUnsignedByte(libsumo::TYPE_DOUBLE);
+    content.writeDouble(stage.cost);
+    content.writeUnsignedByte(libsumo::TYPE_DOUBLE);
+    content.writeDouble(stage.length);
+    content.writeUnsignedByte(libsumo::TYPE_STRING);
+    content.writeString(stage.intended);
+    content.writeUnsignedByte(libsumo::TYPE_DOUBLE);
+    content.writeDouble(stage.depart);
+    content.writeUnsignedByte(libsumo::TYPE_DOUBLE);
+    content.writeDouble(stage.departPos);
+    content.writeUnsignedByte(libsumo::TYPE_DOUBLE);
+    content.writeDouble(stage.arrivalPos);
+    content.writeUnsignedByte(libsumo::TYPE_STRING);
+    content.writeString(stage.description);
+    myParent.createCommand(libsumo::CMD_SET_PERSON_VARIABLE, libsumo::APPEND_STAGE, personID, &content);
+    myParent.processSet(libsumo::CMD_SET_PERSON_VARIABLE);
+}
+
+
+void
 TraCIAPI::PersonScope::appendWaitingStage(const std::string& personID, double duration, const std::string& description, const std::string& stopID) {
-    duration *= 1000;
     tcpip::Storage content;
     content.writeUnsignedByte(libsumo::TYPE_COMPOUND);
     content.writeInt(4);
@@ -3278,9 +3313,6 @@ TraCIAPI::PersonScope::appendWaitingStage(const std::string& personID, double du
 
 void
 TraCIAPI::PersonScope::appendWalkingStage(const std::string& personID, const std::vector<std::string>& edges, double arrivalPos, double duration, double speed, const std::string& stopID) {
-    if (duration > 0) {
-        duration *= 1000;
-    }
     tcpip::Storage content;
     content.writeUnsignedByte(libsumo::TYPE_COMPOUND);
     content.writeInt(6);
