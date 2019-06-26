@@ -199,4 +199,21 @@ for i in range(5):
         traci.person.getRoadID(personTT2),
         traci.person.getLanePosition(personTT2)))
     step()
+
+
+# appendStage
+traci.person.add("p3", "1fi", -10)
+stage = traci._simulation.Stage(
+        type=traci.constants.STAGE_WALKING,
+        vType="", line="", destStop="",
+        edges=["1fi", "1si"],
+        travelTime=-1, cost=-1, length=-1,
+        intended="", depart=-1, departPos=-20, arrivalPos=10,
+        description="foo")
+
+traci.person.appendStage("p3", stage)
+for i in range(40):
+    traci.simulationStep()
+
+
 traci.close()
