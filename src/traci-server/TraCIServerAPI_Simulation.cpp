@@ -373,6 +373,24 @@ TraCIServerAPI_Simulation::writeStage(tcpip::Storage& outputStorage, const libsu
     outputStorage.writeString(stage.description);
 }
 
+libsumo::TraCIStage*
+TraCIServerAPI_Simulation::readStage(TraCIServer& server, tcpip::Storage& inputStorage) {
+    auto * stage = new libsumo::TraCIStage();
+    server.readTypeCheckingInt(inputStorage, stage->type);
+    server.readTypeCheckingString(inputStorage, stage->vType);
+    server.readTypeCheckingString(inputStorage, stage->line);
+    server.readTypeCheckingString(inputStorage, stage->destStop);
+    server.readTypeCheckingStringList(inputStorage, stage->edges);
+    server.readTypeCheckingDouble(inputStorage, stage->travelTime);
+    server.readTypeCheckingDouble(inputStorage, stage->cost);
+    server.readTypeCheckingDouble(inputStorage, stage->length);
+    server.readTypeCheckingString(inputStorage, stage->intended);
+    server.readTypeCheckingDouble(inputStorage, stage->depart);
+    server.readTypeCheckingDouble(inputStorage, stage->departPos);
+    server.readTypeCheckingDouble(inputStorage, stage->arrivalPos);
+    server.readTypeCheckingString(inputStorage, stage->description);
+    return stage;
+}
 
 bool
 TraCIServerAPI_Simulation::commandPositionConversion(TraCIServer& server, tcpip::Storage& inputStorage,

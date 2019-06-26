@@ -182,75 +182,81 @@ TraCIServerAPI_Person::processSet(TraCIServer& server, tcpip::Storage& inputStor
                     return server.writeErrorStatusCmd(libsumo::CMD_SET_PERSON_VARIABLE, "Adding a person stage requires a compound object.", outputStorage);
                 }
                 int numParameters = inputStorage.readInt();
-                int stageType;
-                if (!server.readTypeCheckingInt(inputStorage, stageType)) {
-                    return server.writeErrorStatusCmd(libsumo::CMD_SET_VEHICLE_VARIABLE, "The first parameter for adding a stage must be the stage type given as int.", outputStorage);
+                if(numParameters == 13) {
+                    libsumo::Person::appendStage(*TraCIServerAPI_Simulation::readStage(server, inputStorage), id);
                 }
-                if (stageType == MSTransportable::DRIVING) {
-                    // append driving stage
-                    if (numParameters != 4) {
-                        return server.writeErrorStatusCmd(libsumo::CMD_SET_PERSON_VARIABLE, "Adding a driving stage needs four parameters.", outputStorage);
+                else {
+                    int stageType;
+                    if (!server.readTypeCheckingInt(inputStorage, stageType)) {
+                        return server.writeErrorStatusCmd(libsumo::CMD_SET_VEHICLE_VARIABLE, "The first parameter for adding a stage must be the stage type given as int.", outputStorage);
                     }
-                    std::string edgeID;
-                    if (!server.readTypeCheckingString(inputStorage, edgeID)) {
-                        return server.writeErrorStatusCmd(libsumo::CMD_SET_PERSON_VARIABLE, "Second parameter (edge) requires a string.", outputStorage);
+                    if (stageType == MSTransportable::DRIVING) {
+                        // append driving stage
+                        if (numParameters != 4) {
+                            return server.writeErrorStatusCmd(libsumo::CMD_SET_PERSON_VARIABLE, "Adding a driving stage needs four parameters.", outputStorage);
+                        }
+                        std::string edgeID;
+                        if (!server.readTypeCheckingString(inputStorage, edgeID)) {
+                            return server.writeErrorStatusCmd(libsumo::CMD_SET_PERSON_VARIABLE, "Second parameter (edge) requires a string.", outputStorage);
+                        }
+                        std::string lines;
+                        if (!server.readTypeCheckingString(inputStorage, lines)) {
+                            return server.writeErrorStatusCmd(libsumo::CMD_SET_PERSON_VARIABLE, "Third parameter (lines) requires a string.", outputStorage);
+                        }
+                        std::string stopID;
+                        if (!server.readTypeCheckingString(inputStorage, stopID)) {
+                            return server.writeErrorStatusCmd(libsumo::CMD_SET_PERSON_VARIABLE, "Fourth parameter (stopID) requires a string.", outputStorage);
+                        }
+                        libsumo::Person::appendDrivingStage(id, edgeID, lines, stopID);
+                    } else if (stageType == MSTransportable::WAITING) {
+                        // append waiting stage
+                        if (numParameters != 4) {
+                            return server.writeErrorStatusCmd(libsumo::CMD_SET_PERSON_VARIABLE, "Adding a waiting stage needs four parameters.", outputStorage);
+                        }
+                        double duration;
+                        if (!server.readTypeCheckingDouble(inputStorage, duration)) {
+                            return server.writeErrorStatusCmd(libsumo::CMD_SET_PERSON_VARIABLE, "Second parameter (duration) requires a double.", outputStorage);
+                        }
+                        std::string description;
+                        if (!server.readTypeCheckingString(inputStorage, description)) {
+                            return server.writeErrorStatusCmd(libsumo::CMD_SET_PERSON_VARIABLE, "Third parameter (description) requires a string.", outputStorage);
+                        }
+                        std::string stopID;
+                        if (!server.readTypeCheckingString(inputStorage, stopID)) {
+                            return server.writeErrorStatusCmd(libsumo::CMD_SET_PERSON_VARIABLE, "Fourth parameter (stopID) requires a string.", outputStorage);
+                        }
+                        libsumo::Person::appendWaitingStage(id, duration, description, stopID);
+                    } else if (stageType == MSTransportable::MOVING_WITHOUT_VEHICLE) {
+                        // append walking stage
+                        if (numParameters != 6) {
+                            return server.writeErrorStatusCmd(libsumo::CMD_SET_PERSON_VARIABLE, "Adding a walking stage needs six parameters.", outputStorage);
+                        }
+                        std::vector<std::string> edgeIDs;
+                        if (!server.readTypeCheckingStringList(inputStorage, edgeIDs)) {
+                            return server.writeErrorStatusCmd(libsumo::CMD_SET_VEHICLE_VARIABLE, "Second parameter (edges) route must be defined as a list of edge ids.", outputStorage);
+                        }
+                        double arrivalPos;
+                        if (!server.readTypeCheckingDouble(inputStorage, arrivalPos)) {
+                            return server.writeErrorStatusCmd(libsumo::CMD_SET_PERSON_VARIABLE, "Third parameter (arrivalPos) requires a double.", outputStorage);
+                        }
+                        double duration;
+                        if (!server.readTypeCheckingDouble(inputStorage, duration)) {
+                            return server.writeErrorStatusCmd(libsumo::CMD_SET_PERSON_VARIABLE, "Fourth parameter (duration) requires a double.", outputStorage);
+                        }
+                        double speed;
+                        if (!server.readTypeCheckingDouble(inputStorage, speed)) {
+                            return server.writeErrorStatusCmd(libsumo::CMD_SET_PERSON_VARIABLE, "Fifth parameter (speed) requires a double.", outputStorage);
+                        }
+                        std::string stopID;
+                        if (!server.readTypeCheckingString(inputStorage, stopID)) {
+                            return server.writeErrorStatusCmd(libsumo::CMD_SET_PERSON_VARIABLE, "Fourth parameter (stopID) requires a string.", outputStorage);
+                        }
+                        libsumo::Person::appendWalkingStage(id, edgeIDs, arrivalPos, duration, speed, stopID);
+                    } else {
+                        return server.writeErrorStatusCmd(libsumo::CMD_SET_PERSON_VARIABLE, "Invalid stage type for person '" + id + "'", outputStorage);
                     }
-                    std::string lines;
-                    if (!server.readTypeCheckingString(inputStorage, lines)) {
-                        return server.writeErrorStatusCmd(libsumo::CMD_SET_PERSON_VARIABLE, "Third parameter (lines) requires a string.", outputStorage);
-                    }
-                    std::string stopID;
-                    if (!server.readTypeCheckingString(inputStorage, stopID)) {
-                        return server.writeErrorStatusCmd(libsumo::CMD_SET_PERSON_VARIABLE, "Fourth parameter (stopID) requires a string.", outputStorage);
-                    }
-                    libsumo::Person::appendDrivingStage(id, edgeID, lines, stopID);
-                } else if (stageType == MSTransportable::WAITING) {
-                    // append waiting stage
-                    if (numParameters != 4) {
-                        return server.writeErrorStatusCmd(libsumo::CMD_SET_PERSON_VARIABLE, "Adding a waiting stage needs four parameters.", outputStorage);
-                    }
-                    double duration;
-                    if (!server.readTypeCheckingDouble(inputStorage, duration)) {
-                        return server.writeErrorStatusCmd(libsumo::CMD_SET_PERSON_VARIABLE, "Second parameter (duration) requires a double.", outputStorage);
-                    }
-                    std::string description;
-                    if (!server.readTypeCheckingString(inputStorage, description)) {
-                        return server.writeErrorStatusCmd(libsumo::CMD_SET_PERSON_VARIABLE, "Third parameter (description) requires a string.", outputStorage);
-                    }
-                    std::string stopID;
-                    if (!server.readTypeCheckingString(inputStorage, stopID)) {
-                        return server.writeErrorStatusCmd(libsumo::CMD_SET_PERSON_VARIABLE, "Fourth parameter (stopID) requires a string.", outputStorage);
-                    }
-                    libsumo::Person::appendWaitingStage(id, duration, description, stopID);
-                } else if (stageType == MSTransportable::MOVING_WITHOUT_VEHICLE) {
-                    // append walking stage
-                    if (numParameters != 6) {
-                        return server.writeErrorStatusCmd(libsumo::CMD_SET_PERSON_VARIABLE, "Adding a walking stage needs six parameters.", outputStorage);
-                    }
-                    std::vector<std::string> edgeIDs;
-                    if (!server.readTypeCheckingStringList(inputStorage, edgeIDs)) {
-                        return server.writeErrorStatusCmd(libsumo::CMD_SET_VEHICLE_VARIABLE, "Second parameter (edges) route must be defined as a list of edge ids.", outputStorage);
-                    }
-                    double arrivalPos;
-                    if (!server.readTypeCheckingDouble(inputStorage, arrivalPos)) {
-                        return server.writeErrorStatusCmd(libsumo::CMD_SET_PERSON_VARIABLE, "Third parameter (arrivalPos) requires a double.", outputStorage);
-                    }
-                    double duration;
-                    if (!server.readTypeCheckingDouble(inputStorage, duration)) {
-                        return server.writeErrorStatusCmd(libsumo::CMD_SET_PERSON_VARIABLE, "Fourth parameter (duration) requires a double.", outputStorage);
-                    }
-                    double speed;
-                    if (!server.readTypeCheckingDouble(inputStorage, speed)) {
-                        return server.writeErrorStatusCmd(libsumo::CMD_SET_PERSON_VARIABLE, "Fifth parameter (speed) requires a double.", outputStorage);
-                    }
-                    std::string stopID;
-                    if (!server.readTypeCheckingString(inputStorage, stopID)) {
-                        return server.writeErrorStatusCmd(libsumo::CMD_SET_PERSON_VARIABLE, "Fourth parameter (stopID) requires a string.", outputStorage);
-                    }
-                    libsumo::Person::appendWalkingStage(id, edgeIDs, arrivalPos, duration, speed, stopID);
-                } else {
-                    return server.writeErrorStatusCmd(libsumo::CMD_SET_PERSON_VARIABLE, "Invalid stage type for person '" + id + "'", outputStorage);
                 }
+
             }
             break;
             case libsumo::REMOVE_STAGE: {

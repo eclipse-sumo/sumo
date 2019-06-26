@@ -46,6 +46,44 @@ def _readStage(result):
                  length, intended, depart, departPos, arrivalPos, description)
 
 
+def _stageSize(stage):
+    size = 1 + 4  # compound
+    size += 1 + 4  # stage type
+    size += 1 + 4 + len(stage.vType)  # vType
+    size += 1 + 4 + len(stage.line)  # line
+    size += 1 + 4 + len(stage.destStop)  # destStop
+    size += 1 + 4 + sum(map(len, stage.edges)) + 4 * len(stage.edges)  # edges
+    size += 1 + 8  # travelTime
+    size += 1 + 8  # cost
+    size += 1 + 8  # length
+    size += 1 + 4 + len(stage.intended)  # intended
+    size += 1 + 8  # depart
+    size += 1 + 8  # departPos
+    size += 1 + 8  # arrivalPos
+    size += 1 + 4 + len(stage.description)
+    return size
+
+
+def _writeStage(stage, connection):
+    assert(isinstance(stage, Stage))
+    connection._string += struct.pack("!Bi", tc.TYPE_COMPOUND, 13)
+    connection._string += struct.pack("!Bi", tc.TYPE_INTEGER, stage.type)
+    connection._packString(stage.vType)
+    connection._packString(stage.line)
+    connection._packString(stage.destStop)
+    connection._packStringList(stage.edges)
+    connection._string += struct.pack("!Bd", tc.TYPE_DOUBLE, stage.travelTime)
+    connection._string += struct.pack("!Bd", tc.TYPE_DOUBLE, stage.cost)
+    connection._string += struct.pack("!Bd", tc.TYPE_DOUBLE, stage.length)
+    connection._packString(stage.intended)
+    connection._string += struct.pack("!Bd", tc.TYPE_DOUBLE, stage.depart)
+    connection._string += struct.pack("!Bd", tc.TYPE_DOUBLE, stage.departPos)
+    connection._string += struct.pack("!Bd", tc.TYPE_DOUBLE, stage.arrivalPos)
+    connection._packString(stage.description)
+
+
+
+
 _RETURN_VALUE_FUNC = {tc.VAR_TIME: Storage.readDouble,
                       tc.VAR_TIME_STEP: Storage.readInt,
                       tc.VAR_LOADED_VEHICLES_NUMBER: Storage.readInt,
@@ -84,6 +122,11 @@ class SimulationDomain(Domain):
                         tc.CMD_SUBSCRIBE_SIM_VARIABLE, tc.RESPONSE_SUBSCRIBE_SIM_VARIABLE,
                         tc.CMD_SUBSCRIBE_SIM_CONTEXT, tc.RESPONSE_SUBSCRIBE_SIM_CONTEXT,
                         _RETURN_VALUE_FUNC)
+
+    @staticmethod
+    def walkingStage(edges, arrivalPos, destStop="", description=""):
+        return Stage(2, "", "", destStop, edges, 0, 0, 0, "", 0, 0, arrivalPos, description)
+
 
     def getTime(self):
         """getTime() -> double
