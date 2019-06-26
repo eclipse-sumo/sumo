@@ -18,7 +18,7 @@
     -->
 
     <!-- discarded -->
-    <type id="none"          priority="0"  speed="1.39" width="1.0"   disallow="all"          discard="true"/> <!-- non-lane spacing. gives ugly junction shapes when present on the outside of edges (as seen in official examples) -->
+    <type id="none"          priority="0"  speed="1.39" width="1.0"   disallow="all"          discard="true"/>
     <type id="shoulder"      priority="0"  speed="1.39" width="1.0"   disallow="all"          discard="true"/>
     <type id="border"        priority="0"  speed="1.39" width="0.1"   disallow="all"          discard="true"/>
     <type id="median"        priority="0"  speed="1.39" width="0.1"   disallow="all"          discard="true"/>
