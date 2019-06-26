@@ -261,8 +261,8 @@ GNEFrame::TagSelector::setCurrentTagType(GNEAttributeCarrier::TagType tagType) {
             // clear myTagsMatchBox
             myTagsMatchBox->clearItems();
             // fill myTypeMatchBox with list of tags
-            for (const auto& i : myListOfTags) {
-                myTagsMatchBox->appendItem(toString(i).c_str());
+            for (const auto& j : myListOfTags) {
+                myTagsMatchBox->appendItem(toString(j).c_str());
             }
             // Set visible items
             myTagsMatchBox->setNumVisible((int)myTagsMatchBox->getNumItems());
@@ -274,15 +274,15 @@ GNEFrame::TagSelector::setCurrentTagType(GNEAttributeCarrier::TagType tagType) {
 
 
 void
-GNEFrame::TagSelector::setCurrentTag(SumoXMLTag tag) {
+GNEFrame::TagSelector::setCurrentTag(SumoXMLTag newTag) {
     // set empty tag properties
     myCurrentTagProperties = GNEAttributeCarrier::TagProperties();
     // make sure that tag is in myTypeMatchBox
     for (int i = 0; i < (int)myTagsMatchBox->getNumItems(); i++) {
-        if (myTagsMatchBox->getItem(i).text() == toString(tag)) {
+        if (myTagsMatchBox->getItem(i).text() == toString(newTag)) {
             myTagsMatchBox->setCurrentItem(i);
             // Set new current type
-            myCurrentTagProperties = GNEAttributeCarrier::getTagProperties(tag);
+            myCurrentTagProperties = GNEAttributeCarrier::getTagProperties(newTag);
         }
     }
     // call tag selected function
@@ -309,8 +309,8 @@ long GNEFrame::TagSelector::onCmdSelectTagType(FXObject*, FXSelector, void*) {
             myTagsMatchBox->show();
             myTagsMatchBox->clearItems();
             // fill myTypeMatchBox with list of tags
-            for (const auto& i : myListOfTags) {
-                myTagsMatchBox->appendItem(toString(i).c_str());
+            for (const auto& j : myListOfTags) {
+                myTagsMatchBox->appendItem(toString(j).c_str());
             }
             // Set visible items
             myTagsMatchBox->setNumVisible((int)myTagsMatchBox->getNumItems());

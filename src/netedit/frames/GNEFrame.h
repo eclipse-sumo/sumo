@@ -67,7 +67,7 @@ public:
         void setCurrentTagType(GNEAttributeCarrier::TagType tagType);
 
         /// @brief set current type manually
-        void setCurrentTag(SumoXMLTag tag);
+        void setCurrentTag(SumoXMLTag newTag);
 
         /// @brief due myCurrentTagProperties is a Reference, we need to refresh it when frameParent is show
         void refreshTagProperties();
