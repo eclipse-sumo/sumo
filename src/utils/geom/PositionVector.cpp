@@ -381,8 +381,8 @@ PositionVector::positionAtOffset2D(const Position& p1, const Position& p2, doubl
 Boundary
 PositionVector::getBoxBoundary() const {
     Boundary ret;
-    for (const_iterator i = begin(); i != end(); i++) {
-        ret.add(*i);
+    for (const Position& i : *this) {
+        ret.add(i);
     }
     return ret;
 }
@@ -393,10 +393,10 @@ PositionVector::getPolygonCenter() const {
     double x = 0;
     double y = 0;
     double z = 0;
-    for (const_iterator i = begin(); i != end(); i++) {
-        x += (*i).x();
-        y += (*i).y();
-        z += (*i).z();
+    for (const Position& i : *this) {
+        x += i.x();
+        y += i.y();
+        z += i.z();
     }
     return Position(x / (double) size(), y / (double) size(), z / (double)size());
 }

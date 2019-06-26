@@ -117,15 +117,16 @@ PolygonDynamics::update(SUMOTime t) {
                 std::cout << " Tracked object '" << myTrackedObject->getID() << "' is on the road. Tracked position=" << objPos << std::endl;
 #endif
                 // Update polygon's shape
-                myPolygon->myShape = *myOriginalShape;
+                PositionVector newShape(*myOriginalShape);
                 if (rotate) {
-                	const double relRotation = myTrackedObject->getAngle() - myTrackedObjectsInitialAngle;
-                	myPolygon->myShape.rotate2D(relRotation);
+                    const double relRotation = myTrackedObject->getAngle() - myTrackedObjectsInitialAngle;
+                    newShape.rotate2D(relRotation);
 #ifdef DEBUG_DYNAMIC_SHAPES
-                	std::cout << " Relative rotation wrt original rotation: " << relRotation << std::endl;
+                    std::cout << " Relative rotation wrt original rotation: " << relRotation << std::endl;
 #endif
                 }
-                myPolygon->myShape.add(objPos);
+                newShape.add(objPos);
+                myPolygon->setShape(newShape);
             }
 #ifdef DEBUG_DYNAMIC_SHAPES
             else {

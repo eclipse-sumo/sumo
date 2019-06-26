@@ -129,6 +129,7 @@
         <xsd:attribute name="gapControlGainSpace" type="xsd:float"/>
         <xsd:attribute name="collisionAvoidanceGainSpeed" type="xsd:float"/>
         <xsd:attribute name="collisionAvoidanceGainSpace" type="xsd:float"/>
+        <xsd:attribute name="tauCACCToACC" type="xsd:float"/>
         <xsd:attribute name="carFollowModel" type="xsd:string"/>
         <xsd:attribute name="trainType">
             <xsd:simpleType>

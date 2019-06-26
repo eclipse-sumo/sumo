@@ -27,13 +27,7 @@ import sumolib  # noqa
 import simpla  # noqa
 from simpla import SimplaException  # noqa
 
-sumoBinary = sumolib.checkBinary('sumo')
-
-PORT = sumolib.miscutils.getFreeSocketPort()
-sumoProcess = subprocess.Popen([sumoBinary,
-                                '-c', 'sumo.sumocfg',
-                                '--remote-port', str(PORT)], stdout=sys.stdout)
-traci.init(PORT)
+traci.start([sumolib.checkBinary('sumo'), '-c', 'sumo.sumocfg'])
 simpla._utils.DEBUG_GAP_CONTROL = True
 
 
@@ -154,4 +148,3 @@ runSteps(100)
 
 # done
 traci.close()
-sumoProcess.wait()
