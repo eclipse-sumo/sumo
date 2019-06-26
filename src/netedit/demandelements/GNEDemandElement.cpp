@@ -45,6 +45,50 @@ GNEDemandElement::RouteCalculator* GNEDemandElement::myRouteCalculatorInstance =
 // ===========================================================================
 
 // ---------------------------------------------------------------------------
+// GNEDemandElement::DemandElementGeometry - methods
+// ---------------------------------------------------------------------------
+
+GNEDemandElement::DemandElementGeometry::Segment::Segment() :
+    edge(nullptr),
+    type(GLO_NETWORK) {
+}
+
+
+GNEDemandElement::DemandElementGeometry::DemandElementGeometry() {}
+
+
+void
+GNEDemandElement::DemandElementGeometry::clearGeometry() {
+    shape.clear();
+    shapeRotations.clear();
+    shapeLengths.clear();
+}
+
+
+void
+GNEDemandElement::DemandElementGeometry::calculateShapeRotationsAndLengths() {
+    // Get number of parts of the shape
+    int numberOfSegments = (int)shape.size() - 1;
+    // If number of segments is more than 0
+    if (numberOfSegments >= 0) {
+        // Reserve memory (To improve efficiency)
+        shapeRotations.reserve(numberOfSegments);
+        shapeLengths.reserve(numberOfSegments);
+        // For every part of the shape
+        for (int i = 0; i < numberOfSegments; ++i) {
+            // Obtain first position
+            const Position& f = shape[i].pos;
+            // Obtain next position
+            const Position& s = shape[i + 1].pos;
+            // Save distance between position into myShapeLengths
+            shapeLengths.push_back(f.distanceTo(s));
+            // Save rotation (angle) of the vector constructed by points f and s
+            shapeRotations.push_back((double)atan2((s.x() - f.x()), (f.y() - s.y())) * (double) 180.0 / (double)M_PI);
+        }
+    }
+}
+
+// ---------------------------------------------------------------------------
 // GNEDemandElement::RouteCalculator - methods
 // ---------------------------------------------------------------------------
 
@@ -193,6 +237,12 @@ GNEDemandElement::generateChildID(SumoXMLTag childTag) {
 
 
 GNEDemandElement::~GNEDemandElement() {}
+
+
+const GNEDemandElement::DemandElementGeometry &
+GNEDemandElement::getDemandElementGeometry() const {
+    return myDemandElementGeometry;
+}
 
 
 bool

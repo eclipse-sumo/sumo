@@ -300,8 +300,26 @@ GNEPerson::commitGeometryMoving(GNEUndoList*) {
 
 
 void
-GNEPerson::updateGeometry() {    
-    // persons use the geometry of lane parent
+GNEPerson::updateGeometry() {
+    // first clear geometry
+    myDemandElementGeometry.clearGeometry();
+    // iterate over every demand element children
+    for (const auto &i : getDemandElementChildren()) {
+        // iterate over every edge parent of every demand element children
+        for (const auto &j : i->getEdgeParents()) {
+            // iterate over shape of first lane
+            for (const auto &k : j->getLanes().front()->getGeometry().shape) {
+                // declare a segment
+                DemandElementGeometry::Segment segment;
+                segment.type = i->getType();
+                segment.edge = j;
+                segment.pos = k;
+                myDemandElementGeometry.shape.push_back(segment);
+            }
+        }
+    }
+    // calculate shape rotations and lenghts
+    myDemandElementGeometry.calculateShapeRotationsAndLengths();
 }
 
 

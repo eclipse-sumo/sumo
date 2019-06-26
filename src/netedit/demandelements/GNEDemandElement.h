@@ -53,6 +53,35 @@ class GNEDemandElement;
 class GNEDemandElement : public GUIGlObject, public GNEAttributeCarrier, public Parameterised, public GNEHierarchicalElementParents, public GNEHierarchicalElementChildren {
 
 public:
+    /// @brief struct for pack all variables related with geometry of elemement
+    struct DemandElementGeometry {
+
+        struct Segment {
+            Segment();
+            GNEEdge* edge;
+            GUIGlObjectType type;
+            Position pos;
+        };
+
+        /// @brief constructor
+        DemandElementGeometry();
+
+        /// @brief reset geometry
+        void clearGeometry();
+
+        /// @brief calculate shape rotations and lenghts
+        void calculateShapeRotationsAndLengths();
+
+        /// @brief demand element shape
+        std::vector<Segment> shape;
+
+        /// @brief The rotations of the single shape parts
+        std::vector<double> shapeRotations;
+
+        /// @brief The lengths of the single shape parts
+        std::vector<double> shapeLengths;
+    };
+
     /// @brief class used to calculate routes in nets
     class RouteCalculator {
 
@@ -141,6 +170,9 @@ public:
 
     /// @brief Destructor
     ~GNEDemandElement();
+
+    /// @brief get demand element geometry
+    const DemandElementGeometry &getDemandElementGeometry() const;
 
     /// @brief obtain VClass related with this demand element
     virtual SUMOVehicleClass getVClass() const = 0;
@@ -330,6 +362,9 @@ public:
 protected:
     /// @brief The GNEViewNet this demand element element belongs
     GNEViewNet* myViewNet;
+    
+    /// @brief demand element geometry
+    DemandElementGeometry myDemandElementGeometry;
 
     /// @name Functions relative to change values in setAttribute(...)
     /// @{
