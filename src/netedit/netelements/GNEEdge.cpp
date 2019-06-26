@@ -2068,40 +2068,14 @@ GNEEdge::drawPartialPersonPlan(const GUIVisualizationSettings& s, GNEDemandEleme
     } else if (personPlan->getTagProperty().isRide()) {
         personPlanWidth = s.addSize.getExaggeration(s, this) * s.SUMO_width_ride;
     }
-    // obtain edge geometry limits
-    const GNEHierarchicalElementParents::EdgeGeometryLimits &edgeGeometryLimits = personPlan->getEdgeGeometryLimits(this);
-    // calculate line between this and the next edge
-    GNEHierarchicalElementParents::LineGeometry lineToNetxtEdge = personPlan->getLinetoNextEdge(this, edgeGeometryLimits.indexEnd);
-    // check if both limits have the same value
-    if (edgeGeometryLimits.indexBegin == edgeGeometryLimits.indexEnd) {
-        // if both limits have the same value, then drawn partial personPlan over the same lane
-        GLHelper::drawBoxLines(
-            myLanes.at(edgeGeometryLimits.indexBegin)->getGeometry().shape, 
-            myLanes.at(edgeGeometryLimits.indexBegin)->getGeometry().shapeRotations, 
-            myLanes.at(edgeGeometryLimits.indexBegin)->getGeometry().shapeLengths, personPlanWidth);
-    } else {
-        // draw partial personPlan except the last segment
-        for (int i = 0; i < ((int)myLanes.at(edgeGeometryLimits.indexBegin)->getGeometry().shape.size() - 2); i++) {
-            GLHelper::drawBoxLine(
-                myLanes.at(edgeGeometryLimits.indexBegin)->getGeometry().shape[i], 
-                myLanes.at(edgeGeometryLimits.indexBegin)->getGeometry().shapeRotations[i], 
-                myLanes.at(edgeGeometryLimits.indexBegin)->getGeometry().shapeLengths[i], personPlanWidth);
+    // draw person plan
+    for (int i = 0; i < ((int)personPlan->getDemandElementParents().front()->getDemandElementGeometry().shape.size()-1); i++) {
+        // draw partial personPlan
+        if (personPlan->getDemandElementParents().front()->getDemandElementGeometry().shape[i].edge == this) {
+            GLHelper::drawBoxLine(personPlan->getDemandElementParents().front()->getDemandElementGeometry().shape[i].pos, 
+                personPlan->getDemandElementParents().front()->getDemandElementGeometry().shape[i].rotation, 
+                personPlan->getDemandElementParents().front()->getDemandElementGeometry().shape[i].lenght, personPlanWidth, 0);
         }
-        // calculate last segment
-        Position lastSegmentBegin = myLanes.at(edgeGeometryLimits.indexBegin)->getGeometry().shape[(int)myLanes.at(edgeGeometryLimits.indexBegin)->getGeometry().shape.size() - 2];
-        Position lastSegmentEnd = myLanes.at(edgeGeometryLimits.indexEnd)->getGeometry().shape.back();
-        GNEHierarchicalElementParents::LineGeometry lastSegment(lastSegmentBegin);
-        lastSegment.calculateRotationsAndLength(lastSegmentEnd);
-        // draw last segment
-        GLHelper::drawBoxLine(lastSegment.firstPoint, lastSegment.rotation, lastSegment.lenght, personPlanWidth);
-    }
-    // draw next connection shape (or a single line)
-    if (edgeGeometryLimits.nextConnection && (edgeGeometryLimits.nextConnection->getEdgeFrom()->getGNEJunctionDestiny()->getNBNode()->getShape().size() > 0)) {
-        GLHelper::drawBoxLines(edgeGeometryLimits.nextConnection->getGeometry().shape, 
-            edgeGeometryLimits.nextConnection->getGeometry().shapeRotations, 
-            edgeGeometryLimits.nextConnection->getGeometry().shapeLengths, personPlanWidth);
-    } else {
-        GLHelper::drawBoxLine(lineToNetxtEdge.firstPoint, lineToNetxtEdge.rotation, lineToNetxtEdge.lenght, personPlanWidth);
     }
     // Pop last matrix
     glPopMatrix();

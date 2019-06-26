@@ -198,7 +198,8 @@ GNEPersonTrip::commitGeometryMoving(GNEUndoList*) {
 
 void
 GNEPersonTrip::updateGeometry() {
-    // only update demand element children, because PersonTrip uses the geometry of lane parent
+    getDemandElementParents().front()->updateGeometry();
+    // update demand element childs
     for (const auto& i : getDemandElementChildren()) {
         i->updateGeometry();
     }

@@ -22,21 +22,27 @@
 #include <cmath>
 #include <microsim/MSVehicle.h>
 #include <microsim/devices/MSDevice_BTreceiver.h>
+#include <netbuild/NBLoadedSUMOTLDef.h>
 #include <netedit/GNENet.h>
 #include <netedit/GNEUndoList.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNEViewParent.h>
 #include <netedit/changes/GNEChange_Attribute.h>
+#include <netedit/changes/GNEChange_TLS.h>
 #include <netedit/frames/GNESelectorFrame.h>
 #include <netedit/netelements/GNEEdge.h>
+#include <netedit/netelements/GNEJunction.h>
 #include <netedit/netelements/GNELane.h>
+#include <utils/common/StringTokenizer.h>
 #include <utils/geom/GeomHelper.h>
 #include <utils/gui/div/GLHelper.h>
 #include <utils/gui/div/GUIBaseVehicleHelper.h>
 #include <utils/gui/div/GUIGlobalSelection.h>
 #include <utils/gui/globjects/GLIncludes.h>
+#include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
 #include <utils/gui/images/GUITexturesHelper.h>
 #include <utils/gui/windows/GUIAppEnum.h>
+#include <utils/options/OptionsCont.h>
 
 #include "GNEPerson.h"
 #include "GNERouteHandler.h"
@@ -302,22 +308,37 @@ GNEPerson::commitGeometryMoving(GNEUndoList*) {
 void
 GNEPerson::updateGeometry() {
     // first clear geometry
-    myDemandElementGeometry.clearGeometry();
+    myDemandElementGeometry.shape.clear();
+    // declare a position to save 
     // iterate over every demand element children
     for (const auto &i : getDemandElementChildren()) {
         // iterate over every edge parent of every demand element children
-        for (const auto &j : i->getEdgeParents()) {
-            // iterate over shape of first lane
-            for (const auto &k : j->getLanes().front()->getGeometry().shape) {
-                // declare a segment
-                DemandElementGeometry::Segment segment;
-                segment.type = i->getType();
-                segment.edge = j;
-                segment.pos = k;
-                myDemandElementGeometry.shape.push_back(segment);
+        for (int j = 0; j < (int)i->getEdgeParents().size(); j++) {
+            // declare edge pointers 
+            GNEEdge* currentEdge = i->getEdgeParents().at(j);
+            GNEEdge* nextEdge = (j+1) != i->getEdgeParents().size()? i->getEdgeParents().at(j+1) : nullptr;
+            // iterate over middle shape of first currentEdge's lane
+            for (const auto &k : currentEdge->getLanes().front()->getGeometry().shape) {
+                // save segment
+                myDemandElementGeometry.shape.push_back(DemandElementGeometry::Segment(currentEdge, k));
+            }
+            // declare a vector to calculate the smooth shape
+            if(nextEdge) {
+                // calculate smootshape between two lanes
+                PositionVector smootshape = currentEdge->getNBEdge()->getToNode()->computeSmoothShape(
+                    currentEdge->getLanes().front()->getGeometry().shape, 
+                    nextEdge->getLanes().front()->getGeometry().shape, 
+                    5, false,
+                    (double) 5. * (double) currentEdge->getNBEdge()->getNumLanes(),
+                    (double) 5. * (double) nextEdge->getNBEdge()->getNumLanes());
+                // add smootshape in shape
+                for (const auto &k : smootshape) {
+                    myDemandElementGeometry.shape.push_back(DemandElementGeometry::Segment(currentEdge, k));
+                }
             }
         }
     }
+
     // calculate shape rotations and lenghts
     myDemandElementGeometry.calculateShapeRotationsAndLengths();
 }
