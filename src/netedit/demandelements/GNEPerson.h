@@ -274,11 +274,11 @@ private:
     void setDisjointAttribute(const int newParameterSet);
 
     /// @brief calculate smooth shape between personPlans
-    PositionVector calculateSmootPersonPlanConnection(const GNEEdge *edgeFrom, const GNEEdge *edgeTo) const ;
+    void calculateSmoothPersonPlanConnection(GNEDemandElement* personPlanElement, const GNEEdge *edgeFrom, const GNEEdge *edgeTo);
 
-    PositionVector toBusStop(GNEEdge* edge, GNEAdditional* additional);
+    PositionVector calculatePersonPlanConnectionFromLaneToBusStop(GNEEdge* edge, GNEAdditional* busStop);
 
-    PositionVector fromBusStop(GNEEdge* edge, GNEAdditional* additional);
+    PositionVector calculatePersonPlanConnectionFromBusStopToLane(GNEEdge* edge, GNEAdditional* busStop);
 
     /// @brief Invalidated copy constructor.
     GNEPerson(const GNEPerson&) = delete;

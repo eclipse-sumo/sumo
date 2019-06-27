@@ -315,9 +315,10 @@ GNEPerson::updateGeometry() {
         // declare pointer to first edge
         GNEEdge *firstEdge = getDemandElementChildren().front()->getEdgeParents().at(0);
         // start with the first edge of first demand element children
-        if (getDemandElementChildren().front()->getAdditionalParents().size() > 0) {
+        if ((getDemandElementChildren().front()->getAdditionalParents().size() > 0) && 
+            (firstEdge == &getDemandElementChildren().front()->getAdditionalParents().front()->getLaneParents().front()->getParentEdge())) {
             // add special busStop shape
-            PositionVector shapeToBusStop = toBusStop(firstEdge, getDemandElementChildren().front()->getAdditionalParents().front());
+            PositionVector shapeToBusStop = calculatePersonPlanConnectionFromLaneToBusStop(firstEdge, getDemandElementChildren().front()->getAdditionalParents().front());
             // calculate special busStop shape in personPlan shape
             for (const auto &i : shapeToBusStop) {
                 myDemandElementGeometry.shape.push_back(DemandElementGeometry::Segment(getDemandElementChildren().front(), firstEdge, i));
@@ -339,26 +340,35 @@ GNEPerson::updateGeometry() {
                     myDemandElementGeometry.shape.push_back(DemandElementGeometry::Segment(i, uniqueEdge, k));
                 }
             } else {
-                // iterate from second parent
-                for (int j = 1; j < i->getEdgeParents().size(); j++) {
+                // iterate over second edge parent
+                for (auto j = (i->getEdgeParents().begin() + 1); j != i->getEdgeParents().end(); j++) {
                     // first check that this edge isnt' the same edge of busStop
-                    if ((!i->getDemandElementParents().empty()) || (j < ((int)i->getEdgeParents().size()-1))) {
-                        // obtain pointers to previous and current edge
-                        GNEEdge* previousEdge = i->getEdgeParents().at(j-1);
-                        GNEEdge* currentEdge = i->getEdgeParents().at(j);
+                    if ((i->getAdditionalParents().size() > 0) && ((*j) == &i->getAdditionalParents().front()->getLaneParents().front()->getParentEdge())) {
+                        // add special busStop shape
+                        PositionVector shapeToBusStop = calculatePersonPlanConnectionFromLaneToBusStop(*j, i->getAdditionalParents().front());
+                        // calculate special busStop shape in personPlan shape
+                        for (const auto &i : shapeToBusStop) {
+                            myDemandElementGeometry.shape.push_back(DemandElementGeometry::Segment(getDemandElementChildren().front(), *j, i));
+                        }
+                    } else {
+                        // obtain pointers to previous, current and next edge
+                        GNEEdge* previousEdge = *(j-1);
+                        GNEEdge* currentEdge = *j;
+                        GNEEdge* nextEdge = ((j+1) != i->getEdgeParents().end())? *(j+1) : nullptr;
                         // calculate smootShape between previous and current edge
-                        if (j == 1) {
-                            // calculate smootshape between the previous and the next edge
-                            PositionVector smootshape = calculateSmootPersonPlanConnection(previousEdge, currentEdge);
-                            // add smootshape in personPlan shape
-                            for (const auto &k : smootshape) {
-                                myDemandElementGeometry.shape.push_back(DemandElementGeometry::Segment(i, currentEdge, k));
-                            }
+                        if (j == (i->getEdgeParents().begin() + 1)) {
+                            // calculate smootshape between the previous and the next edge and ad it in personPlan shape
+                            calculateSmoothPersonPlanConnection(i, previousEdge, currentEdge);
                         }
                         // add lane shape over personPlan shape
                         for (const auto &k : currentEdge->getLanes().front()->getGeometry().shape) {
                             // save segment
                             myDemandElementGeometry.shape.push_back(DemandElementGeometry::Segment(i, currentEdge, k));
+                        }
+                        // check if next smootShape can be calculated
+                        if (nextEdge) {
+                            // calculate smootshape between the previous and the next edge and ad it in personPlan shape
+                            calculateSmoothPersonPlanConnection(i, currentEdge, nextEdge);
                         }
                     }
                 }
@@ -960,61 +970,58 @@ GNEPerson::setDisjointAttribute(const int newParameterSet) {
 }
 
 
-PositionVector 
-GNEPerson::calculateSmootPersonPlanConnection(const GNEEdge *edgeFrom, const GNEEdge *edgeTo) const {
-    return edgeFrom->getNBEdge()->getToNode()->computeSmoothShape(
+void 
+GNEPerson::calculateSmoothPersonPlanConnection(GNEDemandElement* personPlanElement, const GNEEdge *edgeFrom, const GNEEdge *edgeTo) {
+    // calculate smooth shape
+    PositionVector smoothShape = edgeFrom->getNBEdge()->getToNode()->computeSmoothShape(
         edgeFrom->getLanes().front()->getGeometry().shape, 
         edgeTo->getLanes().front()->getGeometry().shape, 
         5, false,
         (double) 5. * (double) edgeFrom->getNBEdge()->getNumLanes(),
         (double) 5. * (double) edgeTo->getNBEdge()->getNumLanes());
+    // add smootshape in personPlan shape
+    for (const auto &i : smoothShape) {
+        myDemandElementGeometry.shape.push_back(DemandElementGeometry::Segment(personPlanElement, edgeTo, i));
+    }
 }
 
 
 PositionVector 
-GNEPerson::toBusStop(GNEEdge* edge, GNEAdditional* additional) {
+GNEPerson::calculatePersonPlanConnectionFromLaneToBusStop(GNEEdge* edge, GNEAdditional* busStop) {
     PositionVector result;
     // declare a reference to lane shape
     const PositionVector &laneShape = edge->getLanes().front()->getGeometry().shape;
     // obtain first position values of busStop shape
-    const Position &firstBusStopShapePosition = additional->getAdditionalGeometry().shape.front();
+    const Position &firstBusStopShapePosition = busStop->getAdditionalGeometry().shape.front();
     double offsetFirstPosition = laneShape.nearest_offset_to_point2D(firstBusStopShapePosition, false);
     int indexFirstPosition = laneShape.indexOfClosest(firstBusStopShapePosition);
-    // obtain second position of busStops
-    const Position &lastBusStopShapePosition = additional->getAdditionalGeometry().shape.back();
-    double offsetLastPosition = laneShape.nearest_offset_to_point2D(lastBusStopShapePosition, false);
-    int indexLastPosition = laneShape.indexOfClosest(firstBusStopShapePosition);
-    // split lane shape using as reference the offsetFirstPosition
-    PositionVector splittedEdge = laneShape.splitAt(offsetFirstPosition, true).first;
     // fill result position vector
     for (int i = 0; i <= indexFirstPosition; i++) {
         result.push_back(laneShape[i]);
     }
+    // now add lane position
     result.push_back(laneShape.positionAtOffset(offsetFirstPosition));
+    // finally add first BusStop shape position
     result.push_back(firstBusStopShapePosition);
     return result;
 }
 
 
 PositionVector 
-GNEPerson::fromBusStop(GNEEdge* edge, GNEAdditional* additional) {
+GNEPerson::calculatePersonPlanConnectionFromBusStopToLane(GNEEdge* edge, GNEAdditional* busStop) {
     PositionVector result;
     // declare a reference to lane shape
     const PositionVector &laneShape = edge->getLanes().front()->getGeometry().shape;
-    // obtain first position values of busStop shape
-    const Position &firstBusStopShapePosition = additional->getAdditionalGeometry().shape.front();
-    double offsetFirstPosition = laneShape.nearest_offset_to_point2D(firstBusStopShapePosition, false);
-    int indexFirstPosition = laneShape.indexOfClosest(firstBusStopShapePosition);
     // obtain second position of busStops
-    const Position &lastBusStopShapePosition = additional->getAdditionalGeometry().shape.back();
+    const Position &lastBusStopShapePosition = busStop->getAdditionalGeometry().shape.back();
     double offsetLastPosition = laneShape.nearest_offset_to_point2D(lastBusStopShapePosition, false);
-    int indexLastPosition = laneShape.indexOfClosest(firstBusStopShapePosition);
-    // split lane shape using as reference the offsetFirstPosition
-    PositionVector splittedEdge = laneShape.splitAt(offsetFirstPosition, true).first;
-    // fill result position vector
+    int indexLastPosition = laneShape.indexOfClosest(lastBusStopShapePosition);
+    // first add last BusStop shape position
     result.push_back(lastBusStopShapePosition);
+    // now add lane posiiton
     result.push_back(laneShape.positionAtOffset(offsetLastPosition));
-    for (int i = indexLastPosition; i < laneShape.size(); i++) {
+    // finally fill result position vector
+    for (int i = (indexLastPosition+1); i < laneShape.size(); i++) {
         result.push_back(laneShape[i]);
     }
     return result;
