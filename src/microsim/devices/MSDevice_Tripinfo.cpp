@@ -488,8 +488,10 @@ MSDevice_Tripinfo::saveState(OutputDevice& out) const {
     out.openTag(SUMO_TAG_DEVICE);
     out.writeAttr(SUMO_ATTR_ID, getID());
     std::vector<std::string> internals;
-    internals.push_back(myDepartLane);
-    internals.push_back(toString(myDepartPosLat));
+    if (!MSGlobals::gUseMesoSim) {
+        internals.push_back(myDepartLane);
+        internals.push_back(toString(myDepartPosLat));
+    }
     internals.push_back(toString(myDepartSpeed));
     internals.push_back(toString(myRouteLength));
     out.writeAttr(SUMO_ATTR_STATE, toString(internals));
@@ -500,8 +502,10 @@ MSDevice_Tripinfo::saveState(OutputDevice& out) const {
 void
 MSDevice_Tripinfo::loadState(const SUMOSAXAttributes& attrs) {
     std::istringstream bis(attrs.getString(SUMO_ATTR_STATE));
-    bis >> myDepartLane;
-    bis >> myDepartPosLat;
+    if (!MSGlobals::gUseMesoSim) {
+        bis >> myDepartLane;
+        bis >> myDepartPosLat;
+    }
     bis >> myDepartSpeed;
     bis >> myRouteLength;
 }
