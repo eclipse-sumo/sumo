@@ -2073,7 +2073,7 @@ GNEEdge::drawPartialPersonPlan(const GUIVisualizationSettings& s, GNEDemandEleme
         // obtain segment (to improve code legibly)
         const GNEDemandElement::DemandElementGeometry::Segment &segment = personPlan->getDemandElementParents().front()->getDemandElementGeometry().shape[i];
         // draw partial segment
-        if (segment.visible && (segment.edge == this)) {
+        if (segment.visible && (segment.edge == this) && (segment.element == personPlan)) {
             GLHelper::drawBoxLine(segment.pos, segment.rotation, segment.lenght, personPlanWidth, 0);
         }
     }

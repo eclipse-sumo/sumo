@@ -276,6 +276,10 @@ private:
     /// @brief calculate smooth shape between personPlans
     PositionVector calculateSmootPersonPlanConnection(const GNEEdge *edgeFrom, const GNEEdge *edgeTo) const ;
 
+    PositionVector toBusStop(GNEEdge* edge, GNEAdditional* additional);
+
+    PositionVector fromBusStop(GNEEdge* edge, GNEAdditional* additional);
+
     /// @brief Invalidated copy constructor.
     GNEPerson(const GNEPerson&) = delete;
 

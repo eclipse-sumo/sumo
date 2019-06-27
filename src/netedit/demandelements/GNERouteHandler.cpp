@@ -1252,7 +1252,7 @@ GNERouteHandler::closePerson() {
                         case SUMO_TAG_PERSONTRIP_FROMTO:
                             // check if "from" attribute was loaded, or it must be taked fron previous personPlan values
                             if (i->from) {
-                                myViewNet->getUndoList()->add(new GNEChange_DemandElement(new GNEPersonTrip(myViewNet, person, {i->from, i->to}, i->vTypes, i->modes, i->arrivalPos), true), true);
+                                myViewNet->getUndoList()->add(new GNEChange_DemandElement(new GNEPersonTrip(myViewNet, person, i->calculateEdgePath(), i->vTypes, i->modes, i->arrivalPos), true), true);
                             } else if (i != myPersonPlanValues.begin()) {
                                 // update 'from' edge using 'to' edge of last personPlan element
                                 i->from = (i-1)->getLastEdge();
@@ -1268,7 +1268,7 @@ GNERouteHandler::closePerson() {
                         case SUMO_TAG_PERSONTRIP_BUSSTOP:
                             // check if "from" attribute was loaded, or it must be taked fron previous personPlan values
                             if (i->from) {
-                                myViewNet->getUndoList()->add(new GNEChange_DemandElement(new GNEPersonTrip(myViewNet, person, {i->from, i->to}, i->busStop, i->vTypes, i->modes), true), true);
+                                myViewNet->getUndoList()->add(new GNEChange_DemandElement(new GNEPersonTrip(myViewNet, person, i->calculateEdgePath(), i->busStop, i->vTypes, i->modes), true), true);
                             } else if (i != myPersonPlanValues.begin()) {
                                 // update 'from' edge using 'to' edge of last personPlan element
                                 i->from = (i-1)->getLastEdge();
@@ -1284,7 +1284,7 @@ GNERouteHandler::closePerson() {
                         case SUMO_TAG_RIDE_FROMTO:
                             // check if "from" attribute was loaded, or it must be taked fron previous personPlan values
                             if (i->from) {
-                                myViewNet->getUndoList()->add(new GNEChange_DemandElement(new GNERide(myViewNet, person, {i->from, i->to}, i->arrivalPos, i->lines), true), true);
+                                myViewNet->getUndoList()->add(new GNEChange_DemandElement(new GNERide(myViewNet, person, i->calculateEdgePath(), i->arrivalPos, i->lines), true), true);
                             } else if (i != myPersonPlanValues.begin()) {
                                 // update 'from' edge using 'to' edge of last personPlan element
                                 i->from = (i-1)->getLastEdge();
@@ -1300,7 +1300,7 @@ GNERouteHandler::closePerson() {
                         case SUMO_TAG_RIDE_BUSSTOP:
                             // check if "from" attribute was loaded, or it must be taked fron previous personPlan values
                             if (i->from) {
-                                myViewNet->getUndoList()->add(new GNEChange_DemandElement(new GNERide(myViewNet, person, {i->from, i->to}, i->busStop, i->lines), true), true);
+                                myViewNet->getUndoList()->add(new GNEChange_DemandElement(new GNERide(myViewNet, person, i->calculateEdgePath(), i->busStop, i->lines), true), true);
                             } else if (i != myPersonPlanValues.begin()) {
                                 // update 'from' edge using 'to' edge of last personPlan element
                                 i->from = (i-1)->getLastEdge();
@@ -1319,7 +1319,7 @@ GNERouteHandler::closePerson() {
                         case SUMO_TAG_WALK_FROMTO:
                             // check if "from" attribute was loaded, or it must be taked fron previous personPlan values
                             if (i->from) {
-                                myViewNet->getUndoList()->add(new GNEChange_DemandElement(new GNEWalk(myViewNet, person, {i->from, i->to}, i->arrivalPos), true), true);
+                                myViewNet->getUndoList()->add(new GNEChange_DemandElement(new GNEWalk(myViewNet, person, i->calculateEdgePath(), i->arrivalPos), true), true);
                             } else if (i != myPersonPlanValues.begin()) {
                                 // update 'from' edge using 'to' edge of last personPlan element
                                 i->from = (i-1)->getLastEdge();
@@ -1335,7 +1335,7 @@ GNERouteHandler::closePerson() {
                         case SUMO_TAG_WALK_BUSSTOP:
                             // check if "from" attribute was loaded, or it must be taked fron previous personPlan values
                             if (i->from) {
-                                myViewNet->getUndoList()->add(new GNEChange_DemandElement(new GNEWalk(myViewNet, person, {i->from, i->to}, i->busStop), true), true);
+                                myViewNet->getUndoList()->add(new GNEChange_DemandElement(new GNEWalk(myViewNet, person, i->calculateEdgePath(), i->busStop), true), true);
                             } else if (i != myPersonPlanValues.begin()) {
                                 // update 'from' edge using 'to' edge of last personPlan element
                                 i->from = (i-1)->getLastEdge();
@@ -1702,6 +1702,7 @@ GNERouteHandler::addWalk(const SUMOSAXAttributes& attrs) {
             } 
         }
         walkValuesLoaded.busStop = myViewNet->getNet()->retrieveAdditional(SUMO_TAG_BUS_STOP, GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", walkValuesLoaded.tag, SUMO_ATTR_BUS_STOP, myAbort), false);
+        // use edge of busstop's lane as to edge
         if (attrs.hasAttribute(SUMO_ATTR_ARRIVALPOS)) {
             walkValuesLoaded.arrivalPos = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, "", walkValuesLoaded.tag, SUMO_ATTR_ARRIVALPOS, myAbort);
         }
