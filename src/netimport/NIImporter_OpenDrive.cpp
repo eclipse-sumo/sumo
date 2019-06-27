@@ -426,20 +426,7 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
                     std::map<int, int>::const_iterator lp = (*j).laneMap.find((*k).id);
                     if (lp != (*j).laneMap.end()) {
                         int sumoLaneIndex = lp->second;
-                        NBEdge::Lane& sumoLane = currRight->getLaneStruct(sumoLaneIndex);
-                        const OpenDriveLane& odLane = *k;
-                        if (saveOrigIDs) {
-                            sumoLane.setParameter(SUMO_PARAM_ORIGID, e->id + "_" + toString((*k).id));
-                        }
-                        sumoLane.speed = odLane.speed != 0 ? odLane.speed : tc.getSpeed(odLane.type);
-                        sumoLane.permissions = tc.getPermissions(odLane.type);
-                        sumoLane.width = myImportWidths && odLane.width != NBEdge::UNSPECIFIED_WIDTH ? odLane.width : tc.getWidth(odLane.type);
-                        if (sumoLane.width < myMinWidth
-                                && (sumoLane.permissions & SVC_PASSENGER) != 0
-                                && sumoLane.width < tc.getWidth(odLane.type)) {
-                            // avoid narrow passenger car lanes (especially at sections with varying width)
-                            sumoLane.permissions = SVC_EMERGENCY | SVC_AUTHORITY;
-                        }
+                        setLaneAttributes(e, currRight->getLaneStruct(sumoLaneIndex), *k, saveOrigIDs, tc);
                     }
                 }
                 if (!nb.getEdgeCont().insert(currRight, myImportAllTypes)) {
@@ -475,20 +462,7 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
                     std::map<int, int>::const_iterator lp = (*j).laneMap.find((*k).id);
                     if (lp != (*j).laneMap.end()) {
                         int sumoLaneIndex = lp->second;
-                        NBEdge::Lane& sumoLane = currLeft->getLaneStruct(sumoLaneIndex);
-                        const OpenDriveLane& odLane = *k;
-                        if (saveOrigIDs) {
-                            sumoLane.setParameter(SUMO_PARAM_ORIGID, e->id + "_" + toString((*k).id));
-                        }
-                        sumoLane.speed = odLane.speed != 0 ? odLane.speed : tc.getSpeed(odLane.type);
-                        sumoLane.permissions = tc.getPermissions(odLane.type);
-                        sumoLane.width = myImportWidths && odLane.width != NBEdge::UNSPECIFIED_WIDTH ? odLane.width : tc.getWidth(odLane.type);
-                        if (sumoLane.width < myMinWidth
-                                && (sumoLane.permissions & SVC_PASSENGER) != 0
-                                && sumoLane.width < tc.getWidth(odLane.type)) {
-                            // avoid narrow passenger car lanes (especially at sections with varying width)
-                            sumoLane.permissions = SVC_EMERGENCY | SVC_AUTHORITY;
-                        }
+                        setLaneAttributes(e, currLeft->getLaneStruct(sumoLaneIndex), *k, saveOrigIDs, tc);
                     }
                 }
                 if (!nb.getEdgeCont().insert(currLeft, myImportAllTypes)) {
@@ -771,6 +745,42 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
     }
 }
 
+void
+NIImporter_OpenDrive::setLaneAttributes(const OpenDriveEdge* e, NBEdge::Lane& sumoLane, const OpenDriveLane& odLane, bool saveOrigIDs, const NBTypeCont& tc) {
+    if (saveOrigIDs) {
+        sumoLane.setParameter(SUMO_PARAM_ORIGID, e->id + "_" + toString(odLane.id));
+    }
+    sumoLane.speed = odLane.speed != 0 ? odLane.speed : tc.getSpeed(odLane.type);
+    sumoLane.permissions = tc.getPermissions(odLane.type);
+    sumoLane.width = myImportWidths && odLane.width != NBEdge::UNSPECIFIED_WIDTH ? odLane.width : tc.getWidth(odLane.type);
+
+    const double widthResolution = tc.getWidthResolution(odLane.type);
+    const double maxWidth = tc.getMaxWidth(odLane.type);
+
+    const bool forbiddenNarrow = (sumoLane.width < myMinWidth
+            && (sumoLane.permissions & SVC_PASSENGER) != 0
+            && sumoLane.width < tc.getWidth(odLane.type));
+
+    if (sumoLane.width >= 0 && widthResolution > 0) {
+        sumoLane.width = floor(sumoLane.width / widthResolution + 0.5) * widthResolution;
+        if (forbiddenNarrow && sumoLane.width >= myMinWidth) {
+            sumoLane.width -= widthResolution;
+            if (sumoLane.width <= 0) {
+                sumoLane.width = MAX2(POSITION_EPS, myMinWidth - POSITION_EPS);
+            }
+        } else if (sumoLane.width == 0) {
+            // round up when close to 0
+            sumoLane.width = widthResolution;
+        }
+    }
+    if (maxWidth > 0) {
+        sumoLane.width = MIN2(sumoLane.width, maxWidth);
+    }
+    if (forbiddenNarrow) {
+        // avoid narrow passenger car lanes (especially at sections with varying width)
+        sumoLane.permissions = SVC_EMERGENCY | SVC_AUTHORITY;
+    }
+}
 
 void
 NIImporter_OpenDrive::buildConnectionsToOuter(const Connection& c, const std::map<std::string, OpenDriveEdge*>& innerEdges, std::vector<Connection>& into, std::set<Connection>& seen) {
