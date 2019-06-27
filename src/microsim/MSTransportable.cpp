@@ -616,6 +616,13 @@ MSTransportable::Stage_Driving::setVehicle(SUMOVehicle* v) {
 }
 
 void
+MSTransportable::Stage_Driving::setLines(const std::set<std::string>& lines) {
+    myLines.clear();
+    for (std::set<std::string>::const_iterator p = lines.begin( );p != lines.end( ); ++p)
+        myLines.insert(*p);
+}
+
+void
 MSTransportable::Stage_Driving::abort(MSTransportable* t) {
     if (myVehicle != nullptr) {
         // jumping out of a moving vehicle!

@@ -117,7 +117,7 @@ TraCIServerAPI_Person::processSet(TraCIServer& server, tcpip::Storage& inputStor
         // id
         std::string id = inputStorage.readString();
         // TODO: remove declaration of p after completion
-        const bool shouldExist = variable != libsumo::ADD;
+        const bool shouldExist = variable != libsumo::ADD && variable != libsumo::VAR_PARAMETER;
         MSTransportable* p = c.get(id);
         if (p == nullptr && shouldExist) {
             return server.writeErrorStatusCmd(libsumo::CMD_SET_PERSON_VARIABLE, "Person '" + id + "' is not known", outputStorage);

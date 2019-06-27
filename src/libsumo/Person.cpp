@@ -28,6 +28,7 @@
 #include <microsim/pedestrians/MSPerson.h>
 #include <libsumo/TraCIConstants.h>
 #include <utils/geom/GeomHelper.h>
+#include <utils/common/StringUtils.h>
 #include <utils/common/StringTokenizer.h>
 #include <utils/common/SUMOTime.h>
 #include <utils/emissions/PollutantsInterface.h>
@@ -819,8 +820,36 @@ Person::moveToXY(const std::string& personID, const std::string& edgeID, const d
 
 void
 Person::setParameter(const std::string& personID, const std::string& key, const std::string& value) {
-    MSTransportable* p = getPerson(personID);
-    ((SUMOVehicleParameter&)p->getParameter()).setParameter(key, value);
+    MSPerson* p;
+    if(key == "drivingStage.lines") {
+        size_t splitting_pos = personID.find_last_of('.');
+        if(splitting_pos == std::string::npos) {
+            throw TraCIException("the given ID should be of the form <personId>.<stageIndex>");
+        }
+        p = getPerson(personID.substr(0, splitting_pos));
+        int stageIndex;
+        try {
+            stageIndex= StringUtils::toInt(personID.substr(splitting_pos+1));
+        }catch (NumberFormatException& e) {
+            throw TraCIException("The given ID should be of the form <personId>.<stageIndex>");
+        }
+        if(stageIndex >= p->getNumRemainingStages()) {
+            throw TraCIException("The given stage index is not valid");
+        }
+        if (p->getStageType(stageIndex) == MSTransportable::StageType::DRIVING) {
+            auto * stage = dynamic_cast<MSPerson::MSPersonStage_Driving *>(p->getNextStage(stageIndex));
+            std::vector<std::string> vector = StringTokenizer(value).getVector();
+            std::set<std::string> lines = std::set<std::string>(vector.begin(), vector.end());
+            stage->setLines(lines);
+        }
+        else {
+            throw TraCIException("The specified stage is not a driving stage");
+        }
+    }
+    else {
+        p = getPerson(personID);
+        ((SUMOVehicleParameter&)p->getParameter()).setParameter(key, value);
+    }
 }
 
 void

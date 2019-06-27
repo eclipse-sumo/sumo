@@ -483,6 +483,8 @@ public:
 
         void setVehicle(SUMOVehicle* v);
 
+        void setLines(const std::set<std::string>& lines);
+
         /// @brief marks arrival time and records driven distance
         void setArrived(MSNet* net, MSTransportable* transportable, SUMOTime now);
 
@@ -512,7 +514,7 @@ public:
 
     protected:
         /// the lines  to choose from
-        const std::set<std::string> myLines;
+        std::set<std::string> myLines;
 
         /// @brief The taken vehicle
         SUMOVehicle* myVehicle;
