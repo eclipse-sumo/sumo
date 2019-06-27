@@ -168,7 +168,7 @@ for platform, dllDir in platformDlls:
     binDir = "sumo-git/bin/"
 
     toClean = [makeLog, makeAllLog]
-    for ext in ("*.exe", "*.ilk", "*.pdb", "*.py", "*.pyd"):
+    for ext in ("*.exe", "*.ilk", "*.pdb", "*.py", "*.pyd", "*.dll", "*.jar"):
         toClean += glob.glob(os.path.join(options.rootDir, options.binDir, ext))
     for f in toClean:
         try:
@@ -181,6 +181,10 @@ for platform, dllDir in platformDlls:
             generator += " Win64"
         buildDir = generateCMake(generator, log, options.suffix == "extra", options.python)
         ret = subprocess.call(["cmake", "--build", ".", "--config", "Release"],
+                              cwd=buildDir, stdout=log, stderr=subprocess.STDOUT)
+        ret = subprocess.call(["cmake", "--build", ".", "--target", "cadyts"],
+                              cwd=buildDir, stdout=log, stderr=subprocess.STDOUT)
+        ret = subprocess.call(["cmake", "--build", ".", "--target", "lisum-gui"],
                               cwd=buildDir, stdout=log, stderr=subprocess.STDOUT)
     envSuffix = ""
     if platform == "x64":
