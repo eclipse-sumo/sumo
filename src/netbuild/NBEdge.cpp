@@ -2934,6 +2934,10 @@ NBEdge::expandableBy(NBEdge* possContinuation, std::string& reason) const {
         reason = "laneNumber";
         return false;
     }
+    const double minLength = OptionsCont::getOptions().getFloat("geometry.remove.min-length");
+    if (minLength > 0 && (possContinuation->getLoadedLength() < minLength || getLoadedLength() < minLength)) {
+        return true;
+    }
     // the priority, too (?)
     if (getPriority() != possContinuation->getPriority()) {
         reason = "priority";
@@ -3038,6 +3042,13 @@ NBEdge::append(NBEdge* e) {
             }
         }
         myLanes[i].connectionsDone = e->myLanes[i].connectionsDone;
+    }
+    if (e->getLength() > myLength) {
+        // possibly some lane attributes differ (when using option geometry.remove.min-length)
+        // make sure to use the attributes from the longer edge
+        for (int i = 0; i < (int)myLanes.size(); i++) {
+            myLanes[i].width = e->myLanes[i].width;
+        }
     }
     // recompute length
     myLength += e->myLength;

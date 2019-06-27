@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu May  9 22:30:23 2019 by Eclipse SUMO netconvert Version v1_2_0+0149-6b40db9d1b
+<!-- generated on Thu Jun 27 14:11:38 2019 by Eclipse SUMO netconvert Version v1_2_0+0252-83989c2
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -224,6 +224,9 @@
 
         <!-- Ensure that the edges in FILE are not modified (Each id on a single line. Selection files from SUMO-GUI are also supported) -->
         <geometry.remove.keep-edges.input-file value="" type="FILE"/>
+
+        <!-- Allow merging edges with differing attributes with their length is below min-length -->
+        <geometry.remove.min-length value="0" type="FLOAT"/>
 
         <!-- splits geometry to restrict segment length -->
         <geometry.max-segment-length value="0" type="FLOAT"/>
