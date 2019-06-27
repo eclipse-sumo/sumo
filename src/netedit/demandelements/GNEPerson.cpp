@@ -30,6 +30,7 @@
 #include <netedit/changes/GNEChange_Attribute.h>
 #include <netedit/changes/GNEChange_TLS.h>
 #include <netedit/frames/GNESelectorFrame.h>
+#include <netedit/additionals/GNEAdditional.h>
 #include <netedit/netelements/GNEEdge.h>
 #include <netedit/netelements/GNEJunction.h>
 #include <netedit/netelements/GNELane.h>
@@ -309,33 +310,79 @@ void
 GNEPerson::updateGeometry() {
     // first clear geometry
     myDemandElementGeometry.shape.clear();
-    // declare a position to save 
+    double firstPersonPlanChild = 0;
     // iterate over every demand element children
     for (const auto &i : getDemandElementChildren()) {
         // iterate over every edge parent of every demand element children
-        for (int j = 0; j < (int)i->getEdgeParents().size(); j++) {
+        for (int j = firstPersonPlanChild; j < (int)i->getEdgeParents().size(); j++) {
             // declare edge pointers 
             GNEEdge* currentEdge = i->getEdgeParents().at(j);
             GNEEdge* nextEdge = (j+1) != i->getEdgeParents().size()? i->getEdgeParents().at(j+1) : nullptr;
-            // iterate over middle shape of first currentEdge's lane
-            for (const auto &k : currentEdge->getLanes().front()->getGeometry().shape) {
-                // save segment
-                myDemandElementGeometry.shape.push_back(DemandElementGeometry::Segment(currentEdge, k));
-            }
-            // declare a vector to calculate the smooth shape
-            if(nextEdge) {
-                // calculate smootshape between two lanes
-                PositionVector smootshape = currentEdge->getNBEdge()->getToNode()->computeSmoothShape(
-                    currentEdge->getLanes().front()->getGeometry().shape, 
-                    nextEdge->getLanes().front()->getGeometry().shape, 
-                    5, false,
-                    (double) 5. * (double) currentEdge->getNBEdge()->getNumLanes(),
-                    (double) 5. * (double) nextEdge->getNBEdge()->getNumLanes());
-                // add smootshape in shape
-                for (const auto &k : smootshape) {
+            // check if this is a middle edge or the final edge
+            if (j != ((int)i->getEdgeParents().size()-1)) {
+                // iterate over middle shape of first currentEdge's lane
+                for (const auto &k : currentEdge->getLanes().front()->getGeometry().shape) {
+                    // save segment
                     myDemandElementGeometry.shape.push_back(DemandElementGeometry::Segment(currentEdge, k));
                 }
+                // declare a vector to calculate the smooth shape
+                if(nextEdge) {
+                    // calculate smootshape between two lanes
+                    PositionVector smootshape = calculateSmootPersonPlanConnection(currentEdge, nextEdge);
+                    // add smootshape in shape
+                    for (const auto &k : smootshape) {
+                        myDemandElementGeometry.shape.push_back(DemandElementGeometry::Segment(currentEdge, k));
+                    }
+                }
+            } else {
+                // check if current PersonPlan ends in a BusStop
+                if ((i->getTagProperty().getTag() == SUMO_TAG_PERSONTRIP_BUSSTOP) ||
+                    (i->getTagProperty().getTag() == SUMO_TAG_WALK_BUSSTOP) ||
+                    (i->getTagProperty().getTag() == SUMO_TAG_RIDE_BUSSTOP) ||
+                    (i->getTagProperty().getTag() == SUMO_TAG_PERSONSTOP_BUSSTOP)) {
+                        // obtain first position of busStop shape
+                        const Position &firstBusStopShapePosition = i->getAdditionalParents().front()->getAdditionalGeometry().shape.front();
+                        const Position &lastBusStopShapePosition = i->getAdditionalParents().front()->getAdditionalGeometry().shape.back();
+                        double offsetFirstPosition = currentEdge->getLanes().front()->getGeometry().shape.nearest_offset_to_point2D(firstBusStopShapePosition) ;
+                        double offsetLastPosition = currentEdge->getLanes().front()->getGeometry().shape.nearest_offset_to_point2D(lastBusStopShapePosition) ;
+                        auto subParts = currentEdge->getLanes().front()->getGeometry().shape.splitAt(offsetFirstPosition, true);
+                        // iterate over first lane subpart
+                        for (const auto &k : subParts.first) {
+                            // save segment
+                            myDemandElementGeometry.shape.push_back(DemandElementGeometry::Segment(currentEdge, k));
+                        }
+                        // add an extra invisible segment with the first position of busStop shape
+                        myDemandElementGeometry.shape.push_back(DemandElementGeometry::Segment(currentEdge, firstBusStopShapePosition, false));
+                        // add an extra segment with the last position of busStop shape
+                        myDemandElementGeometry.shape.push_back(DemandElementGeometry::Segment(currentEdge, lastBusStopShapePosition));
+                        if (subParts.second.size() > 1) {
+                            subParts.second[0] = currentEdge->getLanes().front()->getGeometry().shape.positionAtOffset2D(offsetLastPosition);
+                            // iterate over second lane subpart
+                            for (const auto &k : subParts.second) {
+                                // save segment
+                                myDemandElementGeometry.shape.push_back(DemandElementGeometry::Segment(currentEdge, k));
+                            }
+                        }
+                } else {
+                    // iterate over lane shaep
+                    for (const auto &k : currentEdge->getLanes().front()->getGeometry().shape) {
+                        // save segment
+                        myDemandElementGeometry.shape.push_back(DemandElementGeometry::Segment(currentEdge, k));
+                    }
+                }
+                // if next edge exist, calculate a smooth shape between current and next edge
+                if(nextEdge) {
+                    // calculate smootshape between two lanes
+                    PositionVector smootshape = calculateSmootPersonPlanConnection(currentEdge, nextEdge);
+                    // add smootshape in shape
+                    for (const auto &k : smootshape) {
+                        myDemandElementGeometry.shape.push_back(DemandElementGeometry::Segment(currentEdge, k));
+                    }
+                }
             }
+        }
+        if (firstPersonPlanChild == 0) {
+            firstPersonPlanChild = 1;
         }
     }
 
@@ -931,6 +978,17 @@ GNEPerson::setAttribute(SumoXMLAttr key, const std::string& value) {
 void 
 GNEPerson::setDisjointAttribute(const int newParameterSet) {
     parametersSet = newParameterSet;
+}
+
+
+PositionVector 
+GNEPerson::calculateSmootPersonPlanConnection(const GNEEdge *edgeFrom, const GNEEdge *edgeTo) const {
+    return edgeFrom->getNBEdge()->getToNode()->computeSmoothShape(
+        edgeFrom->getLanes().front()->getGeometry().shape, 
+        edgeTo->getLanes().front()->getGeometry().shape, 
+        5, false,
+        (double) 5. * (double) edgeFrom->getNBEdge()->getNumLanes(),
+        (double) 5. * (double) edgeTo->getNBEdge()->getNumLanes());
 }
 
 /****************************************************************************/

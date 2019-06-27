@@ -2070,11 +2070,11 @@ GNEEdge::drawPartialPersonPlan(const GUIVisualizationSettings& s, GNEDemandEleme
     }
     // draw person plan
     for (int i = 0; i < ((int)personPlan->getDemandElementParents().front()->getDemandElementGeometry().shape.size()-1); i++) {
-        // draw partial personPlan
-        if (personPlan->getDemandElementParents().front()->getDemandElementGeometry().shape[i].edge == this) {
-            GLHelper::drawBoxLine(personPlan->getDemandElementParents().front()->getDemandElementGeometry().shape[i].pos, 
-                personPlan->getDemandElementParents().front()->getDemandElementGeometry().shape[i].rotation, 
-                personPlan->getDemandElementParents().front()->getDemandElementGeometry().shape[i].lenght, personPlanWidth, 0);
+        // obtain segment (to improve code legibly)
+        const GNEDemandElement::DemandElementGeometry::Segment &segment = personPlan->getDemandElementParents().front()->getDemandElementGeometry().shape[i];
+        // draw partial segment
+        if (segment.visible && (segment.edge == this)) {
+            GLHelper::drawBoxLine(segment.pos, segment.rotation, segment.lenght, personPlanWidth, 0);
         }
     }
     // Pop last matrix

@@ -273,6 +273,9 @@ private:
     /// @brief method for setting the disjoint attribute and nothing else (used in GNEChange_Attribute)
     void setDisjointAttribute(const int newParameterSet);
 
+    /// @brief calculate smooth shape between personPlans
+    PositionVector calculateSmootPersonPlanConnection(const GNEEdge *edgeFrom, const GNEEdge *edgeTo) const ;
+
     /// @brief Invalidated copy constructor.
     GNEPerson(const GNEPerson&) = delete;
 

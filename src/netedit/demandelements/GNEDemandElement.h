@@ -58,7 +58,7 @@ public:
 
         struct Segment {
             /// @brief parameter constructor
-            Segment(const GNEEdge* _edge, const Position _pos);
+            Segment(const GNEEdge* _edge, const Position _pos, bool _visible = true);
 
             /// @brief edge
             const GNEEdge* edge;
@@ -71,6 +71,9 @@ public:
 
             /// @brief lenght
             double lenght;
+
+            /// @brief visible
+            bool visible;
 
         private:
             /// @brief default constructor (disabled)
