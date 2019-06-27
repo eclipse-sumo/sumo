@@ -147,6 +147,15 @@ MSDevice_Bluelight::notifyMove(SUMOTrafficObject& veh, double /* oldPos */,
                 continue;
             }
             double distanceDelta = veh.getPosition().distanceTo(veh2->getPosition());
+            //emergency vehicle has to slow down when entering the resuce lane 
+            if (distanceDelta <= 10 && veh.getID() != veh2->getID() && influencedVehicles.count(veh2->getID()) > 0 && veh2->getSpeed() < 1) {
+                // set ev speed to 20 km/h 0 5.56 m/s
+                std::vector<std::pair<SUMOTime, double> > speedTimeLine;
+                speedTimeLine.push_back(std::make_pair(MSNet::getInstance()->getCurrentTimeStep(), veh.getSpeed()));
+                speedTimeLine.push_back(std::make_pair(MSNet::getInstance()->getCurrentTimeStep() + TIME2STEPS(2), 5.56));
+                redLight.setSpeedTimeLine(speedTimeLine);
+            }
+
             // the perception of the sound of the siren should be around 25 meters
             // todo only vehicles in front of the emergency vehicle should react
             if (distanceDelta <= 25 && veh.getID() != veh2->getID() && influencedVehicles.count(veh2->getID()) == 0) {
