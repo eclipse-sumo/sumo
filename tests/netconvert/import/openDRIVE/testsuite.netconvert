@@ -10,7 +10,6 @@ simple2_right_nt
 
 # a larger test
 adlershof_dlr
-
 error_simple1_nolanes
 
 # convert osm to openDrive
@@ -45,6 +44,9 @@ roadMark
 
 # import paramPoly3 with specified pRange attribute
 pRange
+
+# resample line geometry for smooth z-data
+ticket5314
 
 # tests for importin connectivity
 connections
