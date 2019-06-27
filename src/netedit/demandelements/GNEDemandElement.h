@@ -58,7 +58,10 @@ public:
 
         struct Segment {
             /// @brief parameter constructor
-            Segment(const GNEEdge* _edge, const Position _pos, bool _visible = true);
+            Segment(const GNEDemandElement* _element, const GNEEdge* _edge, const Position _pos, bool _visible = true);
+
+            /// @brief element
+            const GNEDemandElement* element;
 
             /// @brief edge
             const GNEEdge* edge;

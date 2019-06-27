@@ -48,7 +48,8 @@ GNEDemandElement::RouteCalculator* GNEDemandElement::myRouteCalculatorInstance =
 // GNEDemandElement::DemandElementGeometry::Segment - methods
 // ---------------------------------------------------------------------------
 
-GNEDemandElement::DemandElementGeometry::Segment::Segment(const GNEEdge* _edge, const Position _pos, bool _visible) :
+GNEDemandElement::DemandElementGeometry::Segment::Segment(const GNEDemandElement* _element, const GNEEdge* _edge, const Position _pos, bool _visible) :
+    element(_element),
     edge(_edge),
     pos(_pos),
     lenght(0),
@@ -58,6 +59,7 @@ GNEDemandElement::DemandElementGeometry::Segment::Segment(const GNEEdge* _edge, 
 
 
 GNEDemandElement::DemandElementGeometry::Segment::Segment() :
+    element(nullptr),
     edge(nullptr),
     pos(Position::INVALID),
     lenght(0),
