@@ -3258,10 +3258,11 @@ TraCIAPI::VehicleScope::addSubscriptionFilterStringList(int filterType, const st
     myParent.processSet(libsumo::CMD_ADD_SUBSCRIPTION_FILTER);
 }
 
+
 void 
 TraCIAPI::VehicleScope::addSubscriptionFilterByteList(int filterType, const std::vector<int>& vals) const {
     tcpip::Storage content;
-    content.writeUnsignedByte(vals.size());
+    content.writeUnsignedByte((int)vals.size());
     for (int i : vals)  {
         content.writeByte(i);
     }
