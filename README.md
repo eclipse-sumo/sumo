@@ -1,6 +1,6 @@
 [![Linux and MacOS Build Status](https://travis-ci.org/eclipse/sumo.svg?branch=master)](https://travis-ci.org/eclipse/sumo)
 [![Windows Build status](https://ci.appveyor.com/api/projects/status/github/eclipse/sumo?svg=true)](https://ci.appveyor.com/project/eclipsewebmaster/sumo)
-
+![Repo Size](https://img.shields.io/github/repo-size/eclipse/sumo.svg)
 
 
 Eclipse SUMO - Simulation of Urban MObility 
@@ -32,12 +32,12 @@ the following command should work:
 Contact
 -------
 
-To stay informed, we have a mailing list for SUMO. You can subscribe at
-https://dev.eclipse.org/mailman/listinfo/sumo-user.
+To stay informed, we have a mailing list for SUMO
+[you can subscribe](https://dev.eclipse.org/mailman/listinfo/sumo-user) to.
 Messages to the list can be sent to sumo-user@eclipse.org.
 SUMO announcements will be made through the sumo-announce@eclipse.org list;
-you can subscribe to this list at https://dev.eclipse.org/mailman/listinfo/sumo-announce.
-For further contact information have a look at https://sumo.dlr.de/wiki/Contact.
+[you can subscribe](https://dev.eclipse.org/mailman/listinfo/sumo-announce) to as well.
+For further contact information have a look at the [wiki page](https://sumo.dlr.de/wiki/Contact).
 
 
 Build and Installation
@@ -49,7 +49,7 @@ If you want to develop under Windows, please also clone the dependent libraries 
         git clone --recursive https://github.com/DLR-TS/SUMOLibraries
 
 Using Linux you should have a look whether your distribution already contains sumo.
-There is also a [ppa for ubuntu users](https://launchpad.net/~sumo) and a
+There is also a [ppa for ubuntu users](https://launchpad.net/~sumo) and an
 [open build service instance](https://build.opensuse.org/project/show?project=home%3Abehrisch).
 If you want to build yourself, the steps for ubuntu are:
 
@@ -58,7 +58,7 @@ If you want to build yourself, the steps for ubuntu are:
         export SUMO_HOME="$PWD"
         mkdir build/cmake-build && cd build/cmake-build
         cmake ../..
-        make -j8
+        make -j`nproc`
 
 For [detailed build instructions have a look at our wiki](https://sumo.dlr.de/wiki/Developer/Main#Build_instructions).
 
