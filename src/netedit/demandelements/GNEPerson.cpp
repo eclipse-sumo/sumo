@@ -314,10 +314,10 @@ GNEPerson::updateGeometry() {
     if (getDemandElementChildren().size() > 0) {
         // declare pointer to first person plan
         GNEDemandElement *firstPersonPlanElement = getDemandElementChildren().front();
-        // obtain next person plan (if exist)
-        GNEDemandElement *nextPersonPlanElement = (getDemandElementChildren().size() > 1)? getDemandElementChildren().at(1) : nullptr;
-        // obtain pointer to busStop end (if exist)
-        GNEAdditional* busStop = (firstPersonPlanElement->getAdditionalParents().size() > 0)? firstPersonPlanElement->getAdditionalParents().front() : nullptr;
+        // obtain second person plan (if exist)
+        GNEDemandElement *secondPersonPlanElement = (getDemandElementChildren().size() > 1)? getDemandElementChildren().at(1) : nullptr;
+        // obtain pointer to first busStop end (if exist)
+        GNEAdditional* firstBusStop = (firstPersonPlanElement->getAdditionalParents().size() > 0)? firstPersonPlanElement->getAdditionalParents().front() : nullptr;
         // declare pointer to first edge
         GNEEdge *firstEdge = nullptr;
         // set first edge
@@ -331,11 +331,11 @@ GNEPerson::updateGeometry() {
             firstEdge = firstPersonPlanElement->getEdgeParents().at(0);
         }
         // start with the first edge of first demand element children
-        if (busStop && (&busStop->getLaneParents().front()->getParentEdge() == firstEdge)) {
+        if (firstBusStop && (&firstBusStop->getLaneParents().front()->getParentEdge() == firstEdge)) {
             // add first segment
             myDemandElementGeometry.shape.push_back(DemandElementGeometry::Segment(firstPersonPlanElement, firstEdge, firstEdge->getLanes().front()->getGeometry().shape.front()));
             // calculate special shape busStop
-            auto shapeBusStop = calculatePersonPlanConnectionBusStop(firstEdge, busStop);
+            auto shapeBusStop = calculatePersonPlanConnectionBusStop(firstEdge, firstBusStop);
             // add first shape busStop in geometry
             for (const auto &shapeBusStopPos : shapeBusStop.first) {
                 // last segment must be invisible
@@ -346,10 +346,10 @@ GNEPerson::updateGeometry() {
                 }
             }
             // add the rest of shape in next person plan element
-            if (nextPersonPlanElement) {
+            if (secondPersonPlanElement) {
                 // add second shape busStop in geometry referencing add first shape busStop in geometry 
                 for (const auto &shapeBusStopPos : shapeBusStop.second) {
-                    myDemandElementGeometry.shape.push_back(DemandElementGeometry::Segment(nextPersonPlanElement, firstEdge, shapeBusStopPos));
+                    myDemandElementGeometry.shape.push_back(DemandElementGeometry::Segment(secondPersonPlanElement, firstEdge, shapeBusStopPos));
                 }
             }
         } else if (firstPersonPlanElement->getTagProperty().isPersonStop() && (&firstPersonPlanElement->getLaneParents().front()->getParentEdge() == firstEdge)) {
@@ -367,10 +367,10 @@ GNEPerson::updateGeometry() {
                 }
             }
             // add the rest of shape in next person plan element
-            if (nextPersonPlanElement) {
+            if (secondPersonPlanElement) {
                 // add second shape stop in geometry referencing add first shape stop in geometry 
                 for (const auto &shapeStopPos : shapeStop.second) {
-                    myDemandElementGeometry.shape.push_back(DemandElementGeometry::Segment(nextPersonPlanElement, firstEdge, shapeStopPos));
+                    myDemandElementGeometry.shape.push_back(DemandElementGeometry::Segment(secondPersonPlanElement, firstEdge, shapeStopPos));
                 }
             }
         } else {
@@ -393,8 +393,32 @@ GNEPerson::updateGeometry() {
                     myDemandElementGeometry.shape.push_back(DemandElementGeometry::Segment(currentPersonPlanElement, uniqueEdge, shapeLanePos));
                 }
             } else if (currentPersonPlanElement->getTagProperty().isPersonStop()) {
+                // obtain edge stop
+                GNEEdge* edgeStop = nullptr;
+                // set first edge
+                if (currentPersonPlanElement->getTagProperty().getTag() == SUMO_TAG_PERSONSTOP_LANE) {
+                    edgeStop = &currentPersonPlanElement->getLaneParents().front()->getParentEdge();
+                } else {
+                    edgeStop = &currentPersonPlanElement->getAdditionalParents().front()->getLaneParents().front()->getParentEdge();
+                }
                 // calculate special shape stop
-                auto shapeBusStop = calculatePersonPlanConnectionStop(currentPersonPlanElement);
+                auto shapeStop = calculatePersonPlanConnectionStop(currentPersonPlanElement);
+                // add first shape busStop in geometry
+                for (const auto &shapeStopPos : shapeStop.first) {
+                    // last segment must be invisible
+                    if (shapeStopPos == shapeStop.first.back()) {
+                        myDemandElementGeometry.shape.push_back(DemandElementGeometry::Segment(currentPersonPlanElement, edgeStop, shapeStopPos, false));
+                    } else {
+                        myDemandElementGeometry.shape.push_back(DemandElementGeometry::Segment(currentPersonPlanElement, edgeStop, shapeStopPos, false));
+                    }
+                }
+                // add the rest of shape in next person plan element
+                if (nextPersonPlanElement) {
+                    // add second shape busStop in geometry referencing add first shape busStop in geometry 
+                    for (const auto &shapeStopPos : shapeStop.second) {
+                        myDemandElementGeometry.shape.push_back(DemandElementGeometry::Segment(nextPersonPlanElement, edgeStop, shapeStopPos));
+                    }
+                }
             } else {
                 // iterate from second edge parent until final 
                 for (auto j = (currentPersonPlanElement->getEdgeParents().begin() + 1); j != currentPersonPlanElement->getEdgeParents().end(); j++) {
@@ -427,6 +451,26 @@ GNEPerson::updateGeometry() {
                             // add second shape busStop in geometry referencing add first shape busStop in geometry 
                             for (const auto &shapeBusStopPos : shapeBusStop.second) {
                                 myDemandElementGeometry.shape.push_back(DemandElementGeometry::Segment(nextPersonPlanElement, currentEdge, shapeBusStopPos));
+                            }
+                        }
+                    } else if (nextPersonPlanElement && secondPersonPlanElement->getTagProperty().isPersonStop()) {
+                        // obtain edge stop
+                        GNEEdge* edgeStop = nullptr;
+                        // set first edge
+                        if (nextPersonPlanElement->getTagProperty().getTag() == SUMO_TAG_PERSONSTOP_LANE) {
+                            edgeStop = &nextPersonPlanElement->getLaneParents().front()->getParentEdge();
+                        } else {
+                            edgeStop = &nextPersonPlanElement->getAdditionalParents().front()->getLaneParents().front()->getParentEdge();
+                        }
+                        // calculate special shape stop of nextPersonPlanElement
+                        auto shapeStop = calculatePersonPlanConnectionStop(nextPersonPlanElement);
+                        // add first shape busStop in geometry
+                        for (const auto &shapeStopPos : shapeStop.first) {
+                            // last segment must be invisible
+                            if (shapeStopPos == shapeStop.first.back()) {
+                                myDemandElementGeometry.shape.push_back(DemandElementGeometry::Segment(currentPersonPlanElement, edgeStop, shapeStopPos, false));
+                            } else {
+                                myDemandElementGeometry.shape.push_back(DemandElementGeometry::Segment(currentPersonPlanElement, edgeStop, shapeStopPos));
                             }
                         }
                     } else {
