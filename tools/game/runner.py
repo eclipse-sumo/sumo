@@ -220,7 +220,7 @@ def computeScoreDRT(gamename):
     else:
         avgWT = rideWaitingTime / rideCount
         avgDur = 0 if rideStarted == 0 else rideDuration / rideStarted
-        score = 2000 - int(avgWT + avgDur)
+        score = 5000 - int(avgWT + avgDur)
         if _DEBUG:
             print("rideWaitingTime=%s rideDuration=%s persons=%s started=%s finished=%s avgWT=%s avgDur=%s" % (
                 rideWaitingTime, rideDuration, rideCount, rideStarted, rideFinished, avgWT, avgDur))
