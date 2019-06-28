@@ -21,6 +21,8 @@ set(microsim_cfmodels_STAT_SRCS
    MSCFModel_SmartSK.h
    MSCFModel_Wiedemann.cpp
    MSCFModel_Wiedemann.h
+   MSCFModel_W99.cpp
+   MSCFModel_W99.h
    MSCFModel_ACC.cpp
    MSCFModel_ACC.h
    MSCFModel_CACC.cpp

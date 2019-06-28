@@ -18,6 +18,7 @@
                     <xsd:element name="carFollowing-PWagner2009" type="cfPWagType"/>
                     <xsd:element name="carFollowing-BKerner" type="cfBKernerType"/>
                     <xsd:element name="carFollowing-Wiedemann" type="cfWiedemannType"/>
+                    <xsd:element name="carFollowing-W99" type="cfW99Type"/>
                     <xsd:element name="carFollowing-ACC" type="cfACCType"/>
                 </xsd:choice>
                 <xsd:element name="param" type="paramType" minOccurs="0" maxOccurs="unbounded"/>
@@ -272,6 +273,16 @@
         <xsd:attribute name="tau" type="positiveFloatType"/>
         <xsd:attribute name="security" type="xsd:float"/>
         <xsd:attribute name="estimation" type="xsd:float"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="cfW99Type">
+        <xsd:attribute name="cc2" type="xsd:float"/>
+        <xsd:attribute name="cc3" type="xsd:float"/>
+        <xsd:attribute name="cc4" type="xsd:float"/>
+        <xsd:attribute name="cc5" type="xsd:float"/>
+        <xsd:attribute name="cc6" type="xsd:float"/>
+        <xsd:attribute name="cc7" type="xsd:float"/>
+        <xsd:attribute name="cc9" type="xsd:float"/>
     </xsd:complexType>
     
     <xsd:complexType name="cfACCType">

@@ -181,6 +181,7 @@ StringBijection<int>::Entry SUMOXMLDefinitions::tags[] = {
     { "carFollowing-PWagner2009",   SUMO_TAG_CF_PWAGNER2009 },
     { "carFollowing-BKerner",       SUMO_TAG_CF_BKERNER },
     { "carFollowing-Wiedemann",     SUMO_TAG_CF_WIEDEMANN },
+    { "carFollowing-W99",           SUMO_TAG_CF_W99 },
     { "carFollowing-Rail",          SUMO_TAG_CF_RAIL },
     { "carFollowing-ACC",           SUMO_TAG_CF_ACC },
     { "carFollowing-CACC",          SUMO_TAG_CF_CACC },
@@ -568,6 +569,15 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
 
     { "security",               SUMO_ATTR_CF_WIEDEMANN_SECURITY },
     { "estimation",             SUMO_ATTR_CF_WIEDEMANN_ESTIMATION },
+    { "cc1",                    SUMO_ATTR_CF_W99_CC1 },
+    { "cc2",                    SUMO_ATTR_CF_W99_CC2 },
+    { "cc3",                    SUMO_ATTR_CF_W99_CC3 },
+    { "cc4",                    SUMO_ATTR_CF_W99_CC4 },
+    { "cc5",                    SUMO_ATTR_CF_W99_CC5 },
+    { "cc6",                    SUMO_ATTR_CF_W99_CC6 },
+    { "cc7",                    SUMO_ATTR_CF_W99_CC7 },
+    { "cc8",                    SUMO_ATTR_CF_W99_CC8 },
+    { "cc9",                    SUMO_ATTR_CF_W99_CC9 },
 
     { "ccDecel",                SUMO_ATTR_CF_CC_CCDECEL },
     { "constSpacing",           SUMO_ATTR_CF_CC_CONSTSPACING },
@@ -827,6 +837,7 @@ StringBijection<SumoXMLTag>::Entry SUMOXMLDefinitions::carFollowModelValues[] = 
     { "CC",          SUMO_TAG_CF_CC },
     { "ACC",         SUMO_TAG_CF_ACC },
     { "CACC",        SUMO_TAG_CF_CACC },
+    { "W99",         SUMO_TAG_CF_W99 },
     { "Wiedemann",   SUMO_TAG_CF_WIEDEMANN } //< must be the last one
 };
 

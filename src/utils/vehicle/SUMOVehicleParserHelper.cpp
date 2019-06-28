@@ -686,6 +686,19 @@ SUMOVehicleParserHelper::getAllowedCFModelAttrs() {
         allowedCFModelAttrs[SUMO_TAG_CF_WIEDEMANN] = wiedemannParams;
         allParams.insert(wiedemannParams.begin(), wiedemannParams.end());
 
+        std::set<SumoXMLAttr> w99Params;
+        w99Params.insert(SUMO_ATTR_CF_W99_CC1);
+        w99Params.insert(SUMO_ATTR_CF_W99_CC2);
+        w99Params.insert(SUMO_ATTR_CF_W99_CC3);
+        w99Params.insert(SUMO_ATTR_CF_W99_CC4);
+        w99Params.insert(SUMO_ATTR_CF_W99_CC5);
+        w99Params.insert(SUMO_ATTR_CF_W99_CC6);
+        w99Params.insert(SUMO_ATTR_CF_W99_CC7);
+        w99Params.insert(SUMO_ATTR_CF_W99_CC8);
+        w99Params.insert(SUMO_ATTR_CF_W99_CC9);
+        allowedCFModelAttrs[SUMO_TAG_CF_W99] = w99Params;
+        allParams.insert(w99Params.begin(), w99Params.end());
+
         std::set<SumoXMLAttr> railParams;
         railParams.insert(SUMO_ATTR_TRAIN_TYPE);
         allowedCFModelAttrs[SUMO_TAG_CF_RAIL] = railParams;
