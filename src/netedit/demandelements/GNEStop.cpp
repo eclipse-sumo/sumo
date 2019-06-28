@@ -538,8 +538,23 @@ GNEStop::getAttribute(SumoXMLAttr key) const {
 
 
 double 
-GNEStop::getAttributeDouble(SumoXMLAttr /*key*/) const {
-    return 0;
+GNEStop::getAttributeDouble(SumoXMLAttr key) const {
+    switch (key) {
+        case SUMO_ATTR_STARTPOS:
+            if (parametersSet & STOP_START_SET) {
+                return startPos;
+            } else {
+                return 0;
+            }
+        case SUMO_ATTR_ENDPOS:
+            if (parametersSet & STOP_END_SET) {
+                return endPos;
+            } else {
+                return getLaneParents().front()->getParentEdge().getNBEdge()->getFinalLength();
+            }
+        default:
+            throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
+    }
 }
 
 

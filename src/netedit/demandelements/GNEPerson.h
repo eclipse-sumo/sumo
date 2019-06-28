@@ -276,8 +276,11 @@ private:
     /// @brief calculate smooth shape between personPlans
     void calculateSmoothPersonPlanConnection(GNEDemandElement* personPlanElement, const GNEEdge *edgeFrom, const GNEEdge *edgeTo);
 
+    /// @brief return two shapes used for calculate person plan conections between busStops
     std::pair<PositionVector, PositionVector> calculatePersonPlanConnectionBusStop(GNEEdge* edge, GNEAdditional* busStop);
 
+    /// @brief return two shapes used for calculate person plan conections between stops
+    std::pair<PositionVector, PositionVector> calculatePersonPlanConnectionStop(GNEDemandElement* stop);
 
     /// @brief Invalidated copy constructor.
     GNEPerson(const GNEPerson&) = delete;

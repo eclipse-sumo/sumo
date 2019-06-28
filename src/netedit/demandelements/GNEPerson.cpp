@@ -314,12 +314,22 @@ GNEPerson::updateGeometry() {
     if (getDemandElementChildren().size() > 0) {
         // declare pointer to first person plan
         GNEDemandElement *firstPersonPlanElement = getDemandElementChildren().front();
-        // declare pointer to first edge
-        GNEEdge *firstEdge = firstPersonPlanElement->getEdgeParents().at(0);
         // obtain next person plan (if exist)
         GNEDemandElement *nextPersonPlanElement = (getDemandElementChildren().size() > 1)? getDemandElementChildren().at(1) : nullptr;
         // obtain pointer to busStop end (if exist)
         GNEAdditional* busStop = (firstPersonPlanElement->getAdditionalParents().size() > 0)? firstPersonPlanElement->getAdditionalParents().front() : nullptr;
+        // declare pointer to first edge
+        GNEEdge *firstEdge = nullptr;
+        // set first edge
+        if (firstPersonPlanElement->getTagProperty().isPersonStop()) {
+            if (firstPersonPlanElement->getTagProperty().getTag() == SUMO_TAG_PERSONSTOP_LANE) {
+                firstEdge = &firstPersonPlanElement->getLaneParents().front()->getParentEdge();
+            } else {
+                firstEdge = &firstPersonPlanElement->getAdditionalParents().front()->getLaneParents().front()->getParentEdge();
+            }
+        } else {
+            firstEdge = firstPersonPlanElement->getEdgeParents().at(0);
+        }
         // start with the first edge of first demand element children
         if (busStop && (&busStop->getLaneParents().front()->getParentEdge() == firstEdge)) {
             // add first segment
@@ -342,6 +352,27 @@ GNEPerson::updateGeometry() {
                     myDemandElementGeometry.shape.push_back(DemandElementGeometry::Segment(nextPersonPlanElement, firstEdge, shapeBusStopPos));
                 }
             }
+        } else if (firstPersonPlanElement->getTagProperty().isPersonStop() && (&firstPersonPlanElement->getLaneParents().front()->getParentEdge() == firstEdge)) {
+            // add first segment
+            myDemandElementGeometry.shape.push_back(DemandElementGeometry::Segment(firstPersonPlanElement, firstEdge, firstEdge->getLanes().front()->getGeometry().shape.front()));
+            // calculate special shape stop
+            auto shapeStop = calculatePersonPlanConnectionStop(firstPersonPlanElement);
+            // add first shape stop in geometry
+            for (const auto &shapeStopPos : shapeStop.first) {
+                // last segment must be invisible
+                if (shapeStopPos == shapeStop.first.back()) {
+                    myDemandElementGeometry.shape.push_back(DemandElementGeometry::Segment(firstPersonPlanElement, firstEdge, shapeStopPos, false));
+                } else {
+                    myDemandElementGeometry.shape.push_back(DemandElementGeometry::Segment(firstPersonPlanElement, firstEdge, shapeStopPos));
+                }
+            }
+            // add the rest of shape in next person plan element
+            if (nextPersonPlanElement) {
+                // add second shape stop in geometry referencing add first shape stop in geometry 
+                for (const auto &shapeStopPos : shapeStop.second) {
+                    myDemandElementGeometry.shape.push_back(DemandElementGeometry::Segment(nextPersonPlanElement, firstEdge, shapeStopPos));
+                }
+            }
         } else {
             // add lane shape in personPlan shape
             for (const auto &shapeLanePos : firstEdge->getLanes().front()->getGeometry().shape) {
@@ -361,6 +392,9 @@ GNEPerson::updateGeometry() {
                 for (const auto &shapeLanePos : uniqueEdge->getLanes().front()->getGeometry().shape) {
                     myDemandElementGeometry.shape.push_back(DemandElementGeometry::Segment(currentPersonPlanElement, uniqueEdge, shapeLanePos));
                 }
+            } else if (currentPersonPlanElement->getTagProperty().isPersonStop()) {
+                // calculate special shape stop
+                auto shapeBusStop = calculatePersonPlanConnectionStop(currentPersonPlanElement);
             } else {
                 // iterate from second edge parent until final 
                 for (auto j = (currentPersonPlanElement->getEdgeParents().begin() + 1); j != currentPersonPlanElement->getEdgeParents().end(); j++) {
@@ -464,10 +498,21 @@ GNEPerson::getCenteringBoundary() const {
 void
 GNEPerson::drawGL(const GUIVisualizationSettings& s) const {
     // only drawn in super mode demand
-    if (myViewNet->getViewOptionsNetwork().showDemandElements() && myViewNet->getViewOptionsDemand().showNonInspectedDemandElements(this)) {
+    if (myViewNet->getViewOptionsNetwork().showDemandElements() && myViewNet->getViewOptionsDemand().showNonInspectedDemandElements(this) && (getDemandElementChildren().size() > 0)) {
         glPushName(getGlID());
         glPushMatrix();
-        Position p1 = getDemandElementChildren().front()->getEdgeParents().front()->getLanes().front()->getGeometry().shape.front();
+        Position p1;
+        // obtain position depending of first PersonPlan child
+        if (getDemandElementChildren().front()->getTagProperty().isPersonStop()) {
+            // obtain position of stop center
+            p1 = getDemandElementChildren().front()->getPositionInView();
+        } else if (getDemandElementChildren().front()->getTagProperty().getTag() == SUMO_TAG_WALK_ROUTE) {
+            // obtain position of first route's edge
+            p1 = getDemandElementChildren().front()->getDemandElementParents().at(1)->getEdgeParents().front()->getLanes().front()->getGeometry().shape.front();
+        } else {
+            // obtain position of first edge
+            p1 = getDemandElementChildren().front()->getEdgeParents().front()->getLanes().front()->getGeometry().shape.front();
+        }
         glTranslated(p1.x(), p1.y(), getType());
         glRotated(90, 0, 0, 1);
         // set person color
@@ -1024,6 +1069,7 @@ GNEPerson::calculateSmoothPersonPlanConnection(GNEDemandElement* personPlanEleme
 
 std::pair<PositionVector, PositionVector> 
 GNEPerson::calculatePersonPlanConnectionBusStop(GNEEdge* edge, GNEAdditional* busStop) {
+    // declare a pair of PositionVectors to save result
     std::pair<PositionVector, PositionVector> result;
     // declare a reference to lane shape
     const PositionVector &laneShape = edge->getLanes().front()->getGeometry().shape;
@@ -1052,5 +1098,23 @@ GNEPerson::calculatePersonPlanConnectionBusStop(GNEEdge* edge, GNEAdditional* bu
     return result;
 }
 
+
+std::pair<PositionVector, PositionVector> 
+GNEPerson::calculatePersonPlanConnectionStop(GNEDemandElement* stop) {
+    // reuse calculatePersonPlanConnectionBusStop(...) if stop is placed over a busStop
+    if (stop->getTagProperty().getTag() == SUMO_TAG_PERSONSTOP_BUSSTOP) {
+        return calculatePersonPlanConnectionBusStop(&stop->getLaneParents().front()->getParentEdge(), stop->getAdditionalParents().front());
+    } else {
+        // declare a pair of PositionVectors to save result
+        std::pair<PositionVector, PositionVector> result;
+        // declare a reference to lane shape
+        const PositionVector &laneShape = stop->getLaneParents().front()->getParentEdge().getLanes().front()->getGeometry().shape;
+        // split laneShape and save it in first result variable
+        result.first = laneShape.splitAt(stop->getAttributeDouble(SUMO_ATTR_STARTPOS), true).first;
+        // split laneShape and save it in second result variable
+        result.second = laneShape.splitAt(stop->getAttributeDouble(SUMO_ATTR_ENDPOS), true).second;
+        return result;
+    }
+}
 
 /****************************************************************************/

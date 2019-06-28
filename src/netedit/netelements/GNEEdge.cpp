@@ -2092,7 +2092,23 @@ GNEEdge::drawPartialPersonPlan(const GUIVisualizationSettings& s, GNEDemandEleme
     // Pop name
     glPopName();
     // draw person if this edge correspond to the first edge of first Person's person plan
-    if (personPlan->getDemandElementParents().front()->getDemandElementChildren().front()->getEdgeParents().front() == this) {
+    GNEEdge *firstEdge = nullptr;
+    if (personPlan->getDemandElementParents().front()->getDemandElementChildren().front()->getTagProperty().isPersonStop()) {
+        if (personPlan->getDemandElementParents().front()->getDemandElementChildren().front()->getTagProperty().getTag() == SUMO_TAG_PERSONSTOP_LANE) {
+            // obtain edge of lane parent
+            firstEdge = &personPlan->getDemandElementParents().front()->getDemandElementChildren().front()->getLaneParents().front()->getParentEdge();
+        } else  {
+            // obtain edge of busstop's lane parent
+            firstEdge = &personPlan->getDemandElementParents().front()->getDemandElementChildren().front()->getAdditionalParents().front()->getLaneParents().front()->getParentEdge();
+        }
+    } else if (personPlan->getDemandElementParents().front()->getDemandElementChildren().front()->getTagProperty().getTag() == SUMO_TAG_WALK_ROUTE) {
+        // obtain first rute edge
+        firstEdge = personPlan->getDemandElementParents().front()->getDemandElementChildren().front()->getDemandElementParents().front()->getEdgeParents().front();
+    } else {
+        // obtain first edge parent
+        firstEdge = personPlan->getDemandElementParents().front()->getDemandElementChildren().front()->getEdgeParents().front();
+    }
+    if (firstEdge == this) {
         personPlan->getDemandElementParents().front()->drawGL(s);
     }
     // draw personPlan children
