@@ -22,6 +22,9 @@ kraussPS
 # wiedemann model test
 wiedemann
 
+# alternative wiedemann model test
+W99
+
 # the standard structure for model tests
 kraussX
 ACC
