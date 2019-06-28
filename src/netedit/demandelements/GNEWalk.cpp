@@ -107,13 +107,18 @@ GNEWalk::getColor() const {
 
 void
 GNEWalk::writeDemandElement(OutputDevice& device) const {
+    // open tag
     device.openTag(SUMO_TAG_WALK);
+    // write attributes depending  of walk type
     if (myTagProperty.getTag() == SUMO_TAG_WALK_ROUTE) {
         device.writeAttr(SUMO_ATTR_ROUTE, getDemandElementParents().at(1)->getID());
     } else if (myTagProperty.getTag() == SUMO_TAG_WALK_EDGES) {
         device.writeAttr(SUMO_ATTR_EDGES, getEdgeParentsStr());
     } else {
-        device.writeAttr(SUMO_ATTR_FROM, getEdgeParents().front()->getID());
+        // only write From attribute if this is the first Person Plan
+        if (getDemandElementParents().front()->isFirstDemandElementChild(this)) {
+            device.writeAttr(SUMO_ATTR_FROM, getEdgeParents().front()->getID());
+        }
         // check if write busStop or edge to
         if (getAdditionalParents().size() > 0) {
             device.writeAttr(SUMO_ATTR_BUS_STOP, getAdditionalParents().front()->getID());
@@ -125,6 +130,7 @@ GNEWalk::writeDemandElement(OutputDevice& device) const {
     if (myArrivalPosition != -1) {
         device.writeAttr(SUMO_ATTR_ARRIVALPOS, myArrivalPosition);
     }
+    // close tag
     device.closeTag();
 }
 

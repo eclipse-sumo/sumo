@@ -102,8 +102,12 @@ GNERide::getColor() const {
 
 void
 GNERide::writeDemandElement(OutputDevice& device) const {
+    // open tag
     device.openTag(SUMO_TAG_RIDE);
-    device.writeAttr(SUMO_ATTR_FROM, getEdgeParents().front()->getID());
+    // only write From attribute if this is the first Person Plan
+    if (getDemandElementParents().front()->isFirstDemandElementChild(this)) {
+        device.writeAttr(SUMO_ATTR_FROM, getEdgeParents().front()->getID());
+    }
     // check if write busStop or edge to
     if (getAdditionalParents().size() > 0) {
         device.writeAttr(SUMO_ATTR_BUS_STOP, getAdditionalParents().front()->getID());
@@ -116,6 +120,7 @@ GNERide::writeDemandElement(OutputDevice& device) const {
     if (myArrivalPosition != -1) {
         device.writeAttr(SUMO_ATTR_ARRIVALPOS, myArrivalPosition);
     }
+    // close tag
     device.closeTag();
 }
 
