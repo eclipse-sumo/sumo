@@ -295,7 +295,7 @@ private:
     void calculateSmoothPersonPlanConnection(GNEDemandElement* personPlanElement, const GNEEdge *edgeFrom, const GNEEdge *edgeTo);
 
     /// @brief return two shapes used for calculate person plan conections between busStops
-    std::pair<PositionVector, PositionVector> calculatePersonPlanConnectionBusStop(GNEEdge* edge, GNEAdditional* busStop);
+    std::pair<PositionVector, PositionVector> calculatePersonPlanConnectionBusStop(GNEAdditional* busStop);
 
     /// @brief return two shapes used for calculate person plan conections between stops
     std::pair<PositionVector, PositionVector> calculatePersonPlanConnectionStop(GNEDemandElement* stop);

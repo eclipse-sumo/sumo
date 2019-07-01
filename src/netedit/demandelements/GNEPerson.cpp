@@ -309,8 +309,7 @@ GNEPerson::commitGeometryMoving(GNEUndoList*) {
 void
 GNEPerson::updateGeometry() {
     // first clear geometry
-    myDemandElementGeometry.shape.clear();
-
+    myDemandElementGeometry.shapeSegments.clear();
     // only calculate new shape if there is demand element childrens
     if (getDemandElementChildren().size() > 0) {
         std::vector<personPlanSegment> personPlanSegments;
@@ -353,7 +352,7 @@ GNEPerson::updateGeometry() {
         }
         // now filter personPlanSegments
         auto it = personPlanSegments.begin();
-        // iterate voer segment plan
+        // iterate over segment plan
         while ((it != personPlanSegments.end()) && (it != (personPlanSegments.end()-1))) {
             if (it->edge == (it+1)->edge) {
                 // copy all busStops from next segment to previous segment
@@ -368,26 +367,49 @@ GNEPerson::updateGeometry() {
                 it++;
             }
         }
-        // now create shapes
+        // now set shape
         for (auto i = personPlanSegments.begin(); i != personPlanSegments.end(); i++) {
             if (i->stops.size() > 0) {
+                // iterate over all stops
                 for (const auto &stop : i->stops) {
                     // obtain stop shapes
                     auto shapesStop = calculatePersonPlanConnectionStop (stop);
-                    if (i != personPlanSegments.begin()) {
-                        for (const auto &shapesStopPos : shapesStop.first) {
-                            // last segment must be invisible
-                            if (shapesStopPos == shapesStop.first.back()) {
-                                myDemandElementGeometry.shape.push_back(DemandElementGeometry::Segment((i-1)->personPlan, i->edge, shapesStopPos, false));
-                            } else {
-                                myDemandElementGeometry.shape.push_back(DemandElementGeometry::Segment((i-1)->personPlan, i->edge, shapesStopPos));
-                            }
+                    // add first shape
+                    for (const auto &shapesStopPos : shapesStop.first) {
+                        // last segment must be invisible
+                        if (shapesStopPos == shapesStop.first.back()) {
+                            myDemandElementGeometry.shapeSegments.push_back(DemandElementGeometry::Segment(i->personPlan, i->edge, shapesStopPos, false));
+                        } else {
+                            myDemandElementGeometry.shapeSegments.push_back(DemandElementGeometry::Segment(i->personPlan, i->edge, shapesStopPos));
                         }
                     }
+                    // check that next person plan segment isn't the last
                     if ((i+1) != personPlanSegments.end()) {
+                        // add second shape
                         for (const auto &shapesStopPos : shapesStop.second) {
-                            // save segment
-                            myDemandElementGeometry.shape.push_back(DemandElementGeometry::Segment((i+1)->personPlan, i->edge, shapesStopPos));
+                            myDemandElementGeometry.shapeSegments.push_back(DemandElementGeometry::Segment((i+1)->personPlan, i->edge, shapesStopPos));
+                        }
+                    }
+                }
+            } else if (i->busStops.size() > 0) {
+                // iterate over all busStops
+                for (const auto &busStop : i->busStops) {
+                    // obtain busStop shapes
+                    auto shapesBusStop = calculatePersonPlanConnectionBusStop(busStop);
+                    // add first shape
+                    for (const auto &shapeBusStopPos : shapesBusStop.first) {
+                        // last segment must be invisible
+                        if (shapeBusStopPos == shapesBusStop.first.back()) {
+                            myDemandElementGeometry.shapeSegments.push_back(DemandElementGeometry::Segment(i->personPlan, i->edge, shapeBusStopPos, false));
+                        } else {
+                            myDemandElementGeometry.shapeSegments.push_back(DemandElementGeometry::Segment(i->personPlan, i->edge, shapeBusStopPos));
+                        }
+                    }
+                    // check that next person plan segment isn't the last
+                    if ((i+1) != personPlanSegments.end()) {
+                        // add second shape
+                        for (const auto &shapeBusStopPos : shapesBusStop.second) {
+                            myDemandElementGeometry.shapeSegments.push_back(DemandElementGeometry::Segment((i+1)->personPlan, i->edge, shapeBusStopPos));
                         }
                     }
                 }
@@ -395,197 +417,16 @@ GNEPerson::updateGeometry() {
                 // add lane shape over personPlan shape
                 for (const auto &shapeLanePos : i->edge->getLanes().front()->getGeometry().shape) {
                     // save segment
-                    myDemandElementGeometry.shape.push_back(DemandElementGeometry::Segment(i->personPlan, i->edge, shapeLanePos));
+                    myDemandElementGeometry.shapeSegments.push_back(DemandElementGeometry::Segment(i->personPlan, i->edge, shapeLanePos));
                 }
             }
+            // if this isn't the last person plan segment, calculate a smooth shape connection
             if ((i+1) != personPlanSegments.end()) {
                 calculateSmoothPersonPlanConnection((i+1)->personPlan, i->edge, (i+1)->edge);
             }
         }
-
-
-        /*
-        // declare pointer to first person plan
-        GNEDemandElement *firstPersonPlanElement = getDemandElementChildren().front();
-        // obtain second person plan (if exist)
-        GNEDemandElement *secondPersonPlanElement = (getDemandElementChildren().size() > 1)? getDemandElementChildren().at(1) : nullptr;
-        // obtain pointer to first busStop end (if exist)
-        GNEAdditional* firstBusStop = (firstPersonPlanElement->getAdditionalParents().size() > 0)? firstPersonPlanElement->getAdditionalParents().front() : nullptr;
-        // declare pointer to first edge
-        GNEEdge *firstEdge = nullptr;
-        // set first edge
-        if (firstPersonPlanElement->getTagProperty().isPersonStop()) {
-            if (firstPersonPlanElement->getTagProperty().getTag() == SUMO_TAG_PERSONSTOP_LANE) {
-                firstEdge = &firstPersonPlanElement->getLaneParents().front()->getParentEdge();
-            } else {
-                firstEdge = &firstPersonPlanElement->getAdditionalParents().front()->getLaneParents().front()->getParentEdge();
-            }
-        } else {
-            firstEdge = firstPersonPlanElement->getEdgeParents().at(0);
-        }
-        // start with the first edge of first demand element children
-        if (firstBusStop && (&firstBusStop->getLaneParents().front()->getParentEdge() == firstEdge)) {
-            // add first segment
-            myDemandElementGeometry.shape.push_back(DemandElementGeometry::Segment(firstPersonPlanElement, firstEdge, firstEdge->getLanes().front()->getGeometry().shape.front()));
-            // calculate special shape busStop
-            auto shapeBusStop = calculatePersonPlanConnectionBusStop(firstEdge, firstBusStop);
-            // add first shape busStop in geometry
-            for (const auto &shapeBusStopPos : shapeBusStop.first) {
-                // last segment must be invisible
-                if (shapeBusStopPos == shapeBusStop.first.back()) {
-                    myDemandElementGeometry.shape.push_back(DemandElementGeometry::Segment(firstPersonPlanElement, firstEdge, shapeBusStopPos, false));
-                } else {
-                    myDemandElementGeometry.shape.push_back(DemandElementGeometry::Segment(firstPersonPlanElement, firstEdge, shapeBusStopPos));
-                }
-            }
-            // add the rest of shape in next person plan element
-            if (secondPersonPlanElement) {
-                // add second shape busStop in geometry referencing add first shape busStop in geometry 
-                for (const auto &shapeBusStopPos : shapeBusStop.second) {
-                    myDemandElementGeometry.shape.push_back(DemandElementGeometry::Segment(secondPersonPlanElement, firstEdge, shapeBusStopPos));
-                }
-            }
-        } else if (firstPersonPlanElement->getTagProperty().isPersonStop() && (&firstPersonPlanElement->getLaneParents().front()->getParentEdge() == firstEdge)) {
-            // add first segment
-            myDemandElementGeometry.shape.push_back(DemandElementGeometry::Segment(firstPersonPlanElement, firstEdge, firstEdge->getLanes().front()->getGeometry().shape.front()));
-            // calculate special shape stop
-            auto shapeStop = calculatePersonPlanConnectionStop(firstPersonPlanElement);
-            // add first shape stop in geometry
-            for (const auto &shapeStopPos : shapeStop.first) {
-                // last segment must be invisible
-                if (shapeStopPos == shapeStop.first.back()) {
-                    myDemandElementGeometry.shape.push_back(DemandElementGeometry::Segment(firstPersonPlanElement, firstEdge, shapeStopPos, false));
-                } else {
-                    myDemandElementGeometry.shape.push_back(DemandElementGeometry::Segment(firstPersonPlanElement, firstEdge, shapeStopPos));
-                }
-            }
-            // add the rest of shape in next person plan element
-            if (secondPersonPlanElement) {
-                // add second shape stop in geometry referencing add first shape stop in geometry 
-                for (const auto &shapeStopPos : shapeStop.second) {
-                    myDemandElementGeometry.shape.push_back(DemandElementGeometry::Segment(secondPersonPlanElement, firstEdge, shapeStopPos));
-                }
-            }
-        } else {
-            // add lane shape in personPlan shape
-            for (const auto &shapeLanePos : firstEdge->getLanes().front()->getGeometry().shape) {
-                myDemandElementGeometry.shape.push_back(DemandElementGeometry::Segment(firstPersonPlanElement, firstEdge, shapeLanePos));
-            }
-        }
-        // iterate over every demand element children
-        for (auto i = getDemandElementChildren().begin(); i != getDemandElementChildren().end(); i++) {
-            // declare pointers with the current and next person plan elements (to improve code Legibility)
-            GNEDemandElement *currentPersonPlanElement = (*i);
-            GNEDemandElement *nextPersonPlanElement = ((i+1) != getDemandElementChildren().end())? *(i+1) : nullptr;
-            // special case for person plan with an unique edge
-            if ((currentPersonPlanElement->getEdgeParents().size() == 1) && currentPersonPlanElement->getDemandElementParents().empty()) {
-                // obtain pointers to unique edge
-                GNEEdge* uniqueEdge = currentPersonPlanElement->getEdgeParents().at(0);
-                // add lane shape in personPlan shape
-                for (const auto &shapeLanePos : uniqueEdge->getLanes().front()->getGeometry().shape) {
-                    myDemandElementGeometry.shape.push_back(DemandElementGeometry::Segment(currentPersonPlanElement, uniqueEdge, shapeLanePos));
-                }
-            } else if (currentPersonPlanElement->getTagProperty().isPersonStop()) {
-                // obtain edge stop
-                GNEEdge* edgeStop = nullptr;
-                // set first edge
-                if (currentPersonPlanElement->getTagProperty().getTag() == SUMO_TAG_PERSONSTOP_LANE) {
-                    edgeStop = &currentPersonPlanElement->getLaneParents().front()->getParentEdge();
-                } else {
-                    edgeStop = &currentPersonPlanElement->getAdditionalParents().front()->getLaneParents().front()->getParentEdge();
-                }
-                // calculate special shape stop
-                auto shapeStop = calculatePersonPlanConnectionStop(currentPersonPlanElement);
-                // add first shape busStop in geometry
-                for (const auto &shapeStopPos : shapeStop.first) {
-                    // last segment must be invisible
-                    if (shapeStopPos == shapeStop.first.back()) {
-                        myDemandElementGeometry.shape.push_back(DemandElementGeometry::Segment(currentPersonPlanElement, edgeStop, shapeStopPos, false));
-                    } else {
-                        myDemandElementGeometry.shape.push_back(DemandElementGeometry::Segment(currentPersonPlanElement, edgeStop, shapeStopPos, false));
-                    }
-                }
-                // add the rest of shape in next person plan element
-                if (nextPersonPlanElement) {
-                    // add second shape busStop in geometry referencing add first shape busStop in geometry 
-                    for (const auto &shapeStopPos : shapeStop.second) {
-                        myDemandElementGeometry.shape.push_back(DemandElementGeometry::Segment(nextPersonPlanElement, edgeStop, shapeStopPos));
-                    }
-                }
-            } else {
-                // iterate from second edge parent until final 
-                for (auto j = (currentPersonPlanElement->getEdgeParents().begin() + 1); j != currentPersonPlanElement->getEdgeParents().end(); j++) {
-                    // obtain pointers to previous, current and next edge
-                    GNEEdge* previousEdge = *(j-1);
-                    GNEEdge* currentEdge = *j;
-                    GNEEdge* nextEdge = ((j+1) != currentPersonPlanElement->getEdgeParents().end())? *(j+1) : nullptr;
-                    // obtain pointer to busStop end (if exist)
-                    GNEAdditional* busStop = (currentPersonPlanElement->getAdditionalParents().size() > 0)? currentPersonPlanElement->getAdditionalParents().front() : nullptr;
-                    // first calculate smootShape between previous and current edge
-                    if (j == (currentPersonPlanElement->getEdgeParents().begin() + 1)) {
-                        // calculate smootshape between the previous and the next edge and ad it in personPlan shape
-                        calculateSmoothPersonPlanConnection(currentPersonPlanElement, previousEdge, currentEdge);
-                    }
-                    // now check if we have to draw the special lane for busStops or lane
-                    if (busStop && (&busStop->getLaneParents().front()->getParentEdge() == currentEdge)) {
-                        // calculate special shape busStop
-                        auto shapeBusStop = calculatePersonPlanConnectionBusStop(currentEdge, busStop);
-                        // add first shape busStop in geometry
-                        for (const auto &shapeBusStopPos : shapeBusStop.first) {
-                            // last segment must be invisible
-                            if (shapeBusStopPos == shapeBusStop.first.back()) {
-                                myDemandElementGeometry.shape.push_back(DemandElementGeometry::Segment(currentPersonPlanElement, currentEdge, shapeBusStopPos, false));
-                            } else {
-                                myDemandElementGeometry.shape.push_back(DemandElementGeometry::Segment(currentPersonPlanElement, currentEdge, shapeBusStopPos));
-                            }
-                        }
-                        // add the rest of shape in next person plan element
-                        if (nextPersonPlanElement) {
-                            // add second shape busStop in geometry referencing add first shape busStop in geometry 
-                            for (const auto &shapeBusStopPos : shapeBusStop.second) {
-                                myDemandElementGeometry.shape.push_back(DemandElementGeometry::Segment(nextPersonPlanElement, currentEdge, shapeBusStopPos));
-                            }
-                        }
-                    } else if (nextPersonPlanElement && secondPersonPlanElement->getTagProperty().isPersonStop()) {
-                        // obtain edge stop
-                        GNEEdge* edgeStop = nullptr;
-                        // set first edge
-                        if (nextPersonPlanElement->getTagProperty().getTag() == SUMO_TAG_PERSONSTOP_LANE) {
-                            edgeStop = &nextPersonPlanElement->getLaneParents().front()->getParentEdge();
-                        } else {
-                            edgeStop = &nextPersonPlanElement->getAdditionalParents().front()->getLaneParents().front()->getParentEdge();
-                        }
-                        // calculate special shape stop of nextPersonPlanElement
-                        auto shapeStop = calculatePersonPlanConnectionStop(nextPersonPlanElement);
-                        // add first shape busStop in geometry
-                        for (const auto &shapeStopPos : shapeStop.first) {
-                            // last segment must be invisible
-                            if (shapeStopPos == shapeStop.first.back()) {
-                                myDemandElementGeometry.shape.push_back(DemandElementGeometry::Segment(currentPersonPlanElement, edgeStop, shapeStopPos, false));
-                            } else {
-                                myDemandElementGeometry.shape.push_back(DemandElementGeometry::Segment(currentPersonPlanElement, edgeStop, shapeStopPos));
-                            }
-                        }
-                    } else {
-                        // add lane shape over personPlan shape
-                        for (const auto &shapeLanePos : currentEdge->getLanes().front()->getGeometry().shape) {
-                            // save segment
-                            myDemandElementGeometry.shape.push_back(DemandElementGeometry::Segment(currentPersonPlanElement, currentEdge, shapeLanePos));
-                        }
-                        // check if next smootShape can be calculated
-                        if (nextEdge) {
-                            // calculate smootshape between the previous and the next edge and ad it in personPlan shape
-                            calculateSmoothPersonPlanConnection(currentPersonPlanElement, currentEdge, nextEdge);
-                        }
-                    }
-                }
-            }
-        }
-    }
-
-    */
-    // calculate shape rotations and lenghts
-    myDemandElementGeometry.calculateShapeRotationsAndLengths();
+        // calculate shape rotations and lenghts
+        myDemandElementGeometry.calculateShapeRotationsAndLengths();
     }
 }
 
@@ -1208,17 +1049,17 @@ GNEPerson::calculateSmoothPersonPlanConnection(GNEDemandElement* personPlanEleme
         (double) 5. * (double) edgeTo->getNBEdge()->getNumLanes());
     // add smootshape in personPlan shape
     for (const auto &i : smoothShape) {
-        myDemandElementGeometry.shape.push_back(DemandElementGeometry::Segment(personPlanElement, edgeTo, i));
+        myDemandElementGeometry.shapeSegments.push_back(DemandElementGeometry::Segment(personPlanElement, edgeTo, i));
     }
 }
 
 
 std::pair<PositionVector, PositionVector> 
-GNEPerson::calculatePersonPlanConnectionBusStop(GNEEdge* edge, GNEAdditional* busStop) {
+GNEPerson::calculatePersonPlanConnectionBusStop(GNEAdditional* busStop) {
     // declare a pair of PositionVectors to save result
     std::pair<PositionVector, PositionVector> result;
     // declare a reference to lane shape
-    const PositionVector &laneShape = edge->getLanes().front()->getGeometry().shape;
+    const PositionVector &laneShape = busStop->getLaneParents().front()->getGeometry().shape;
     // obtain first position values of busStop shape
     const Position &firstBusStopShapePosition = busStop->getAdditionalGeometry().shape.front();
     double offsetFirstPosition = laneShape.nearest_offset_to_point2D(firstBusStopShapePosition, false);
@@ -1249,7 +1090,7 @@ std::pair<PositionVector, PositionVector>
 GNEPerson::calculatePersonPlanConnectionStop(GNEDemandElement* stop) {
     // reuse calculatePersonPlanConnectionBusStop(...) if stop is placed over a busStop
     if (stop->getTagProperty().getTag() == SUMO_TAG_PERSONSTOP_BUSSTOP) {
-        return calculatePersonPlanConnectionBusStop(&stop->getLaneParents().front()->getParentEdge(), stop->getAdditionalParents().front());
+        return calculatePersonPlanConnectionBusStop(stop->getAdditionalParents().front());
     } else {
         // declare a pair of PositionVectors to save result
         std::pair<PositionVector, PositionVector> result;
