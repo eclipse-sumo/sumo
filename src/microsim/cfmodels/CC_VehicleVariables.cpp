@@ -48,7 +48,7 @@ CC_VehicleVariables::CC_VehicleVariables() :
     leaderAcceleration(0), leaderControllerAcceleration(0), leaderDataReadTime(0), leaderAngle(0),
     leaderInitialized(false), caccInitialized(false),
     useFixedAcceleration(0), fixedAcceleration(0),
-    crashed(false), crashedVictim(false),
+    crashed(false),
     ccDesiredSpeed(14), ccKp(1), activeController(Plexe::DRIVER),
     nInitialized(0), position(-1), nCars(8),
     caccXi(-1), caccOmegaN(-1), caccC1(-1), caccAlpha1(-1), caccAlpha2(-1),
