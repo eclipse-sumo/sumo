@@ -45,5 +45,8 @@ bestOffset2_reserve
 bestOffset2_noReserve
 future_braking
 
+# test usage of a rescue lane. see also #5783
+rescueLane
+
 # tests for various tickets
 bugs

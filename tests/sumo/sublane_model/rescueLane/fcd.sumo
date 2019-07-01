@@ -1,0 +1,268 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Mon Jul  1 14:43:49 2019 by Eclipse SUMO Version v1_2_0+0892-31e93e8
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+SPDX-License-Identifier: EPL-2.0
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <fcd-output value="fcd.xml"/>
+    </output>
+
+    <processing>
+        <lateral-resolution value="0.64"/>
+        <default.speeddev value="0"/>
+    </processing>
+
+    <report>
+        <xml-validation value="never"/>
+        <no-step-log value="true"/>
+    </report>
+
+    <fcd_device>
+        <device.fcd.explicit value="rescue"/>
+    </fcd_device>
+
+</configuration>
+-->
+
+<fcd-export xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/fcd_file.xsd">
+    <timestep time="0.00"/>
+    <timestep time="1.00"/>
+    <timestep time="2.00"/>
+    <timestep time="3.00"/>
+    <timestep time="4.00"/>
+    <timestep time="5.00"/>
+    <timestep time="6.00"/>
+    <timestep time="7.00"/>
+    <timestep time="8.00"/>
+    <timestep time="9.00"/>
+    <timestep time="10.00"/>
+    <timestep time="11.00"/>
+    <timestep time="12.00"/>
+    <timestep time="13.00"/>
+    <timestep time="14.00"/>
+    <timestep time="15.00"/>
+    <timestep time="16.00"/>
+    <timestep time="17.00"/>
+    <timestep time="18.00"/>
+    <timestep time="19.00"/>
+    <timestep time="20.00"/>
+    <timestep time="21.00"/>
+    <timestep time="22.00"/>
+    <timestep time="23.00"/>
+    <timestep time="24.00"/>
+    <timestep time="25.00"/>
+    <timestep time="26.00"/>
+    <timestep time="27.00"/>
+    <timestep time="28.00"/>
+    <timestep time="29.00"/>
+    <timestep time="30.00"/>
+    <timestep time="31.00"/>
+    <timestep time="32.00"/>
+    <timestep time="33.00"/>
+    <timestep time="34.00"/>
+    <timestep time="35.00"/>
+    <timestep time="36.00"/>
+    <timestep time="37.00"/>
+    <timestep time="38.00"/>
+    <timestep time="39.00"/>
+    <timestep time="40.00"/>
+    <timestep time="41.00"/>
+    <timestep time="42.00"/>
+    <timestep time="43.00"/>
+    <timestep time="44.00"/>
+    <timestep time="45.00"/>
+    <timestep time="46.00"/>
+    <timestep time="47.00"/>
+    <timestep time="48.00"/>
+    <timestep time="49.00"/>
+    <timestep time="50.00"/>
+    <timestep time="51.00">
+        <vehicle id="rescue" x="104.80" y="0.00" angle="0.00" type="rescue" speed="0.00" pos="0.00" lane="SC_0" slope="0.00"/>
+    </timestep>
+    <timestep time="52.00">
+        <vehicle id="rescue" x="105.50" y="1.00" angle="6.65" type="rescue" speed="1.00" pos="1.00" lane="SC_0" slope="0.00"/>
+    </timestep>
+    <timestep time="53.00">
+        <vehicle id="rescue" x="105.50" y="4.60" angle="0.00" type="rescue" speed="3.60" pos="4.60" lane="SC_0" slope="0.00"/>
+    </timestep>
+    <timestep time="54.00">
+        <vehicle id="rescue" x="105.50" y="10.80" angle="0.00" type="rescue" speed="6.20" pos="10.80" lane="SC_0" slope="0.00"/>
+    </timestep>
+    <timestep time="55.00">
+        <vehicle id="rescue" x="105.50" y="19.60" angle="0.00" type="rescue" speed="8.80" pos="19.60" lane="SC_0" slope="0.00"/>
+    </timestep>
+    <timestep time="56.00">
+        <vehicle id="rescue" x="105.50" y="31.00" angle="0.00" type="rescue" speed="11.40" pos="31.00" lane="SC_0" slope="0.00"/>
+    </timestep>
+    <timestep time="57.00">
+        <vehicle id="rescue" x="105.50" y="39.54" angle="0.00" type="rescue" speed="8.55" pos="39.54" lane="SC_0" slope="0.00"/>
+    </timestep>
+    <timestep time="58.00">
+        <vehicle id="rescue" x="105.50" y="43.59" angle="0.00" type="rescue" speed="4.05" pos="43.59" lane="SC_0" slope="0.00"/>
+    </timestep>
+    <timestep time="59.00">
+        <vehicle id="rescue" x="105.50" y="43.59" angle="0.00" type="rescue" speed="0.00" pos="43.59" lane="SC_0" slope="0.00"/>
+    </timestep>
+    <timestep time="60.00">
+        <vehicle id="rescue" x="105.50" y="43.59" angle="0.00" type="rescue" speed="0.00" pos="43.59" lane="SC_0" slope="0.00"/>
+    </timestep>
+    <timestep time="61.00">
+        <vehicle id="rescue" x="105.50" y="43.59" angle="0.00" type="rescue" speed="0.00" pos="43.59" lane="SC_0" slope="0.00"/>
+    </timestep>
+    <timestep time="62.00">
+        <vehicle id="rescue" x="105.50" y="43.59" angle="0.00" type="rescue" speed="0.00" pos="43.59" lane="SC_0" slope="0.00"/>
+    </timestep>
+    <timestep time="63.00">
+        <vehicle id="rescue" x="105.50" y="43.59" angle="0.00" type="rescue" speed="0.00" pos="43.59" lane="SC_0" slope="0.00"/>
+    </timestep>
+    <timestep time="64.00">
+        <vehicle id="rescue" x="105.50" y="43.59" angle="0.00" type="rescue" speed="0.00" pos="43.59" lane="SC_0" slope="0.00"/>
+    </timestep>
+    <timestep time="65.00">
+        <vehicle id="rescue" x="105.50" y="43.59" angle="0.00" type="rescue" speed="0.00" pos="43.59" lane="SC_0" slope="0.00"/>
+    </timestep>
+    <timestep time="66.00">
+        <vehicle id="rescue" x="105.50" y="43.59" angle="0.00" type="rescue" speed="0.00" pos="43.59" lane="SC_0" slope="0.00"/>
+    </timestep>
+    <timestep time="67.00">
+        <vehicle id="rescue" x="105.50" y="43.59" angle="0.00" type="rescue" speed="0.00" pos="43.59" lane="SC_0" slope="0.00"/>
+    </timestep>
+    <timestep time="68.00">
+        <vehicle id="rescue" x="105.50" y="43.59" angle="0.00" type="rescue" speed="0.00" pos="43.59" lane="SC_0" slope="0.00"/>
+    </timestep>
+    <timestep time="69.00">
+        <vehicle id="rescue" x="105.50" y="43.59" angle="0.00" type="rescue" speed="0.00" pos="43.59" lane="SC_0" slope="0.00"/>
+    </timestep>
+    <timestep time="70.00">
+        <vehicle id="rescue" x="105.50" y="43.59" angle="0.00" type="rescue" speed="0.00" pos="43.59" lane="SC_0" slope="0.00"/>
+    </timestep>
+    <timestep time="71.00">
+        <vehicle id="rescue" x="105.50" y="43.59" angle="0.00" type="rescue" speed="0.00" pos="43.59" lane="SC_0" slope="0.00"/>
+    </timestep>
+    <timestep time="72.00">
+        <vehicle id="rescue" x="105.50" y="43.59" angle="0.00" type="rescue" speed="0.00" pos="43.59" lane="SC_0" slope="0.00"/>
+    </timestep>
+    <timestep time="73.00">
+        <vehicle id="rescue" x="105.50" y="43.59" angle="0.00" type="rescue" speed="0.00" pos="43.59" lane="SC_0" slope="0.00"/>
+    </timestep>
+    <timestep time="74.00">
+        <vehicle id="rescue" x="105.50" y="43.59" angle="0.00" type="rescue" speed="0.00" pos="43.59" lane="SC_0" slope="0.00"/>
+    </timestep>
+    <timestep time="75.00">
+        <vehicle id="rescue" x="105.50" y="43.59" angle="0.00" type="rescue" speed="0.00" pos="43.59" lane="SC_0" slope="0.00"/>
+    </timestep>
+    <timestep time="76.00">
+        <vehicle id="rescue" x="105.50" y="43.59" angle="0.00" type="rescue" speed="0.00" pos="43.59" lane="SC_0" slope="0.00"/>
+    </timestep>
+    <timestep time="77.00">
+        <vehicle id="rescue" x="105.50" y="43.59" angle="0.00" type="rescue" speed="0.00" pos="43.59" lane="SC_0" slope="0.00"/>
+    </timestep>
+    <timestep time="78.00">
+        <vehicle id="rescue" x="105.50" y="43.59" angle="0.00" type="rescue" speed="0.00" pos="43.59" lane="SC_0" slope="0.00"/>
+    </timestep>
+    <timestep time="79.00">
+        <vehicle id="rescue" x="105.50" y="43.59" angle="0.00" type="rescue" speed="0.00" pos="43.59" lane="SC_0" slope="0.00"/>
+    </timestep>
+    <timestep time="80.00">
+        <vehicle id="rescue" x="105.50" y="43.59" angle="0.00" type="rescue" speed="0.00" pos="43.59" lane="SC_0" slope="0.00"/>
+    </timestep>
+    <timestep time="81.00">
+        <vehicle id="rescue" x="105.50" y="43.59" angle="0.00" type="rescue" speed="0.00" pos="43.59" lane="SC_0" slope="0.00"/>
+    </timestep>
+    <timestep time="82.00">
+        <vehicle id="rescue" x="105.50" y="43.59" angle="0.00" type="rescue" speed="0.00" pos="43.59" lane="SC_0" slope="0.00"/>
+    </timestep>
+    <timestep time="83.00">
+        <vehicle id="rescue" x="105.50" y="43.59" angle="0.00" type="rescue" speed="0.00" pos="43.59" lane="SC_0" slope="0.00"/>
+    </timestep>
+    <timestep time="84.00">
+        <vehicle id="rescue" x="105.50" y="43.59" angle="0.00" type="rescue" speed="0.00" pos="43.59" lane="SC_0" slope="0.00"/>
+    </timestep>
+    <timestep time="85.00">
+        <vehicle id="rescue" x="105.50" y="43.59" angle="0.00" type="rescue" speed="0.00" pos="43.59" lane="SC_0" slope="0.00"/>
+    </timestep>
+    <timestep time="86.00">
+        <vehicle id="rescue" x="105.50" y="43.59" angle="0.00" type="rescue" speed="0.00" pos="43.59" lane="SC_0" slope="0.00"/>
+    </timestep>
+    <timestep time="87.00">
+        <vehicle id="rescue" x="105.50" y="43.59" angle="0.00" type="rescue" speed="0.00" pos="43.59" lane="SC_0" slope="0.00"/>
+    </timestep>
+    <timestep time="88.00">
+        <vehicle id="rescue" x="105.50" y="43.59" angle="0.00" type="rescue" speed="0.00" pos="43.59" lane="SC_0" slope="0.00"/>
+    </timestep>
+    <timestep time="89.00">
+        <vehicle id="rescue" x="105.50" y="43.59" angle="0.00" type="rescue" speed="0.00" pos="43.59" lane="SC_0" slope="0.00"/>
+    </timestep>
+    <timestep time="90.00">
+        <vehicle id="rescue" x="104.50" y="43.59" angle="348.69" type="rescue" speed="0.00" pos="43.59" lane="SC_0" slope="0.00"/>
+    </timestep>
+    <timestep time="91.00">
+        <vehicle id="rescue" x="103.50" y="43.59" angle="348.69" type="rescue" speed="0.00" pos="43.59" lane="SC_0" slope="0.00"/>
+    </timestep>
+    <timestep time="92.00">
+        <vehicle id="rescue" x="103.20" y="46.19" angle="357.74" type="rescue" speed="2.60" pos="46.19" lane="SC_0" slope="0.00"/>
+    </timestep>
+    <timestep time="93.00">
+        <vehicle id="rescue" x="103.20" y="51.39" angle="0.00" type="rescue" speed="5.20" pos="51.39" lane="SC_0" slope="0.00"/>
+    </timestep>
+    <timestep time="94.00">
+        <vehicle id="rescue" x="103.20" y="59.19" angle="0.00" type="rescue" speed="7.80" pos="59.19" lane="SC_0" slope="0.00"/>
+    </timestep>
+    <timestep time="95.00">
+        <vehicle id="rescue" x="103.20" y="69.59" angle="0.00" type="rescue" speed="10.40" pos="69.59" lane="SC_0" slope="0.00"/>
+    </timestep>
+    <timestep time="96.00">
+        <vehicle id="rescue" x="103.42" y="80.55" angle="0.80" type="rescue" speed="10.96" pos="80.55" lane="SC_0" slope="0.00"/>
+    </timestep>
+    <timestep time="97.00">
+        <vehicle id="rescue" x="103.42" y="88.47" angle="0.00" type="rescue" speed="7.92" pos="88.47" lane="SC_0" slope="0.00"/>
+    </timestep>
+    <timestep time="98.00">
+        <vehicle id="rescue" x="103.42" y="89.50" angle="0.00" type="rescue" speed="1.03" pos="89.50" lane="SC_0" slope="0.00"/>
+    </timestep>
+    <timestep time="99.00">
+        <vehicle id="rescue" x="103.42" y="93.13" angle="0.00" type="rescue" speed="3.63" pos="3.53" lane=":C_10_0" slope="0.00"/>
+    </timestep>
+    <timestep time="100.00">
+        <vehicle id="rescue" x="104.22" y="93.13" angle="9.07" type="rescue" speed="0.00" pos="3.53" lane=":C_10_0" slope="0.00"/>
+    </timestep>
+    <timestep time="101.00">
+        <vehicle id="rescue" x="104.86" y="95.73" angle="4.81" type="rescue" speed="2.60" pos="6.13" lane=":C_10_0" slope="0.00"/>
+    </timestep>
+    <timestep time="102.00">
+        <vehicle id="rescue" x="105.50" y="100.93" angle="3.59" type="rescue" speed="5.20" pos="11.33" lane=":C_10_0" slope="0.00"/>
+    </timestep>
+    <timestep time="103.00">
+        <vehicle id="rescue" x="105.50" y="108.73" angle="0.00" type="rescue" speed="7.80" pos="19.13" lane=":C_10_0" slope="0.00"/>
+    </timestep>
+    <timestep time="104.00">
+        <vehicle id="rescue" x="105.50" y="119.13" angle="0.00" type="rescue" speed="10.40" pos="8.73" lane="CN_0" slope="0.00"/>
+    </timestep>
+    <timestep time="105.00">
+        <vehicle id="rescue" x="105.50" y="132.13" angle="0.00" type="rescue" speed="13.00" pos="21.73" lane="CN_0" slope="0.00"/>
+    </timestep>
+    <timestep time="106.00">
+        <vehicle id="rescue" x="105.50" y="146.02" angle="0.00" type="rescue" speed="13.89" pos="35.62" lane="CN_0" slope="0.00"/>
+    </timestep>
+    <timestep time="107.00">
+        <vehicle id="rescue" x="105.50" y="159.91" angle="0.00" type="rescue" speed="13.89" pos="49.51" lane="CN_0" slope="0.00"/>
+    </timestep>
+    <timestep time="108.00">
+        <vehicle id="rescue" x="105.50" y="173.80" angle="0.00" type="rescue" speed="13.89" pos="63.40" lane="CN_0" slope="0.00"/>
+    </timestep>
+    <timestep time="109.00">
+        <vehicle id="rescue" x="105.50" y="187.69" angle="0.00" type="rescue" speed="13.89" pos="77.29" lane="CN_0" slope="0.00"/>
+    </timestep>
+    <timestep time="110.00"/>
+</fcd-export>

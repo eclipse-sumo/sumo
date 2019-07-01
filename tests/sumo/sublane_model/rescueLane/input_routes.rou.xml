@@ -1,0 +1,27 @@
+<routes>
+    <vType id="left"  sigma="0"  latAlignment="left"/> <!-- latAlignment="left"-->
+    <vType id="right" sigma="0"  latAlignment="right"/>
+    <vType id="rescue" sigma="0" latAlignment="compact" guiShape="emergency" > <!--vClass="emergency" speedFactor="2"  width="1.5"-->
+        <!--param key="has.bluelight.device" value="true"/-->
+    </vType>
+    
+    
+    <route id="r0" edges="SC CN"/>
+    <route id="r" edges="SC CE"/>
+    <route id="l" edges="SC CW"/>
+    <vehicle id="left1"   type="left"   route="r" depart="35" departLane="1" departPos="0"/>
+    <vehicle id="right1"  type="right"  route="l" depart="35" departLane="0" departPos="0"/>
+    <vehicle id="left2"   type="left"   route="l" depart="37" departLane="1" departPos="0"/>
+    <vehicle id="right2"  type="right"  route="r" depart="37" departLane="0" departPos="0"/>
+    <vehicle id="left3"   type="left"   route="l" depart="39" departLane="1" departPos="0"/>
+    <vehicle id="right3"  type="right"  route="r" depart="39" departLane="0" departPos="0"/>
+    <vehicle id="left4"   type="left"   route="l" depart="41" departLane="1" departPos="0"/>
+    <vehicle id="right4"  type="right"  route="r" depart="41" departLane="0" departPos="0"/>
+    <vehicle id="left5"   type="left"   route="l" depart="42" departLane="1" departPos="0"/>
+    <vehicle id="right5"  type="right"  route="r" depart="42" departLane="0" departPos="0"/>
+    <vehicle id="left6"   type="left"   route="l" depart="43" departLane="1" departPos="0"/>
+    <vehicle id="right6"  type="right"  route="r" depart="43" departLane="0" departPos="0"/>
+    <vehicle id="rescue" type="rescue" route="r0" depart="44" departLane="0" departPos="0"/>
+    <!--vehicle id="rescue2" type="rescue" route="r0" depart="38" departLane="1" departPos="0"/-->
+
+</routes>
