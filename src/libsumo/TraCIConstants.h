@@ -606,6 +606,9 @@ TRACI_CONST int VAR_SLOPE = 0x36;
 // speed (get: vehicle)
 TRACI_CONST int VAR_SPEED = 0x40;
 
+// lateral speed (get: vehicle)
+TRACI_CONST int VAR_SPEED_LAT = 0x32;
+
 // maximum allowed/possible speed (get: vehicle types, lanes, set: edges, lanes)
 TRACI_CONST int VAR_MAXSPEED = 0x41;
 

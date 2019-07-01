@@ -117,6 +117,12 @@ Vehicle::getSpeed(const std::string& vehicleID) {
     return isVisible(veh) ? veh->getSpeed() : INVALID_DOUBLE_VALUE;
 }
 
+double
+Vehicle::getLateralSpeed(const std::string& vehicleID) {
+    MSVehicle* veh = getVehicle(vehicleID);
+    return isVisible(veh) ? veh->getLaneChangeModel().getSpeedLat() : INVALID_DOUBLE_VALUE;
+}
+
 
 double
 Vehicle::getAcceleration(const std::string& vehicleID) {
@@ -1809,6 +1815,8 @@ Vehicle::handleVariable(const std::string& objID, const int variable, VariableWr
             return wrapper->wrapDouble(objID, variable, getAngle(objID));
         case VAR_SPEED:
             return wrapper->wrapDouble(objID, variable, getSpeed(objID));
+        case VAR_SPEED_LAT:
+            return wrapper->wrapDouble(objID, variable, getLateralSpeed(objID));
         case VAR_ROAD_ID:
             return wrapper->wrapString(objID, variable, getRoadID(objID));
         case VAR_SPEED_WITHOUT_TRACI:

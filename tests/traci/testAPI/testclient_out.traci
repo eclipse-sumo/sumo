@@ -1,4 +1,4 @@
-TraCITestClient output file. Date: Wed Jun 26 16:22:55 2019
+TraCITestClient output file. Date: Mon Jul  1 16:34:01 2019
 
 
 -> Command sent: <SetOrder>:
@@ -70,6 +70,7 @@ testAPI:
     getLanePosition: 140.00
     getLateralLanePosition: 0.00
     getSpeed: 10.00
+    getLateralSpeed: 0.00
     getAcceleration: 0.00
     getSpeedMode: 31
     getSlope: 0.00

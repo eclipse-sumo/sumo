@@ -53,6 +53,7 @@ def check(vehID):
     print("vehicle count", traci.vehicle.getIDCount())
     print("examining", vehID)
     print("speed", traci.vehicle.getSpeed(vehID))
+    print("speedLat", traci.vehicle.getLateralSpeed(vehID))
     print("speed w/o traci", traci.vehicle.getSpeedWithoutTraCI(vehID))
     print("acceleration", traci.vehicle.getAcceleration(vehID))
     print("pos", posToString(traci.vehicle.getPosition(vehID)))

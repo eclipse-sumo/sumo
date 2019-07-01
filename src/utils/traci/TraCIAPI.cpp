@@ -2390,6 +2390,11 @@ TraCIAPI::VehicleScope::getSpeed(const std::string& vehicleID) const {
 }
 
 double
+TraCIAPI::VehicleScope::getLateralSpeed(const std::string& vehicleID) const {
+    return myParent.getDouble(libsumo::CMD_GET_VEHICLE_VARIABLE, libsumo::VAR_SPEED_LAT, vehicleID);
+}
+
+double
 TraCIAPI::VehicleScope::getAcceleration(const std::string& vehicleID) const {
     return myParent.getDouble(libsumo::CMD_GET_VEHICLE_VARIABLE, libsumo::VAR_ACCELERATION, vehicleID);
 }

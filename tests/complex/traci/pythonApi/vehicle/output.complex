@@ -7,6 +7,7 @@ vehicles ('horiz',)
 vehicle count 1
 examining horiz
 speed 4.03334372395
+speedLat 0.0
 speed w/o traci 4.03334372395
 acceleration 2.59949394504
 pos (989.4962096581543, 501.65)
@@ -86,6 +87,7 @@ vehicles ('horiz',)
 vehicle count 1
 examining horiz
 speed 10.5458580181
+speedLat 0.0
 speed w/o traci 10.5458580181
 acceleration 1.91336914733
 pos (964.2637932489363, 501.65)
@@ -165,6 +167,7 @@ vehicles ('horiz',)
 vehicle count 1
 examining 1
 speed -1073741824.0
+speedLat -1073741824.0
 speed w/o traci -1073741824.0
 acceleration -1073741824.0
 pos invalid
@@ -258,6 +261,7 @@ vehicles ('1', '2', 'horiz')
 vehicle count 3
 examining 2
 speed 3.95381717598
+speedLat 0.0
 speed w/o traci 3.95381717598
 acceleration 2.27560119752
 pos (989.3323590444884, 501.65)
@@ -575,6 +579,7 @@ vehicles ('2', 'block_2si', 'blocker', 'bus', 'collider', 'departInTheFuture', '
 vehicle count 17
 examining movedVeh
 speed 13.89
+speedLat 0.0
 speed w/o traci 13.89
 acceleration 13.89
 pos (438.839014, 491.75)
@@ -706,6 +711,7 @@ vehicles ('2', 'block_2si', 'blocker', 'bus', 'collider', 'departInTheFuture', '
 vehicle count 21
 examining elVeh
 speed -1073741824.0
+speedLat -1073741824.0
 speed w/o traci -1073741824.0
 acceleration -1073741824.0
 pos invalid
@@ -777,6 +783,7 @@ vehicles ('2', 'block_2si', 'blocker', 'bus', 'collider', 'departInTheFuture', '
 vehicle count 21
 examining elVeh
 speed -1073741824.0
+speedLat -1073741824.0
 speed w/o traci -1073741824.0
 acceleration -1073741824.0
 pos invalid
@@ -848,6 +855,7 @@ vehicles ('2', 'block_2si', 'blocker', 'bus', 'collider', 'departInTheFuture', '
 vehicle count 21
 examining elVeh
 speed -1073741824.0
+speedLat -1073741824.0
 speed w/o traci -1073741824.0
 acceleration -1073741824.0
 pos invalid
@@ -919,6 +927,7 @@ vehicles ('2', 'block_2si', 'blocker', 'bus', 'collider', 'departInTheFuture', '
 vehicle count 21
 examining elVeh
 speed -1073741824.0
+speedLat -1073741824.0
 speed w/o traci -1073741824.0
 acceleration -1073741824.0
 pos invalid

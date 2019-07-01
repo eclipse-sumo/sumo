@@ -102,6 +102,7 @@ def _readNextStops(result):
 
 
 _RETURN_VALUE_FUNC = {tc.VAR_SPEED: Storage.readDouble,
+                      tc.VAR_SPEED_LAT: Storage.readDouble,
                       tc.VAR_SPEED_WITHOUT_TRACI: Storage.readDouble,
                       tc.VAR_ACCELERATION: Storage.readDouble,
                       tc.VAR_POSITION: lambda result: result.read("!dd"),
@@ -202,9 +203,16 @@ class VehicleDomain(Domain):
     def getSpeed(self, vehID):
         """getSpeed(string) -> double
 
-        Returns the speed in m/s of the named vehicle within the last step.
+        Returns the (longitudinal) speed in m/s of the named vehicle within the last step.
         """
         return self._getUniversal(tc.VAR_SPEED, vehID)
+
+    def getLateralSpeed(self, vehID):
+        """getLateralSpeed(string) -> double
+
+        Returns the lateral speed in m/s of the named vehicle within the last step.
+        """
+        return self._getUniversal(tc.VAR_SPEED_LAT, vehID)
 
     def getAcceleration(self, vehID):
         """getAcceleration(string) -> double
