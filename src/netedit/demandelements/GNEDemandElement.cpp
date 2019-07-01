@@ -76,20 +76,20 @@ GNEDemandElement::DemandElementGeometry::DemandElementGeometry() {}
 
 void
 GNEDemandElement::DemandElementGeometry::calculateShapeRotationsAndLengths() {
-    // Get number of parts of the shape
-    int numberOfSegments = (int)shape.size() - 1;
+    // Get number of parts of the shapeSegments
+    int numberOfSegments = (int)shapeSegments.size() - 1;
     // If number of segments is more than 0
     if (numberOfSegments >= 0) {
-        // For every part of the shape
+        // For every part of the shapeSegments
         for (int i = 0; i < numberOfSegments; ++i) {
             // Obtain first position
-            const Position& f = shape[i].pos;
+            const Position& f = shapeSegments[i].pos;
             // Obtain next position
-            const Position& s = shape[i + 1].pos;
+            const Position& s = shapeSegments[i + 1].pos;
             // Save distance between position into myShapeLengths
-            shape[i].lenght = f.distanceTo2D(s);
+            shapeSegments[i].lenght = f.distanceTo2D(s);
             // Save rotation (angle) of the vector constructed by points f and s
-            shape[i].rotation = ((double)atan2((s.x() - f.x()), (f.y() - s.y())) * (double) 180.0 / (double)M_PI);
+            shapeSegments[i].rotation = ((double)atan2((s.x() - f.x()), (f.y() - s.y())) * (double) 180.0 / (double)M_PI);
         }
     }
 }

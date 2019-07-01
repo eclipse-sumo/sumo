@@ -56,6 +56,7 @@ public:
     /// @brief struct for pack all variables related with geometry of elemement
     struct DemandElementGeometry {
 
+        /// @brief struct used for represent segments of demand element geometry
         struct Segment {
             /// @brief parameter constructor
             Segment(const GNEDemandElement* _element, const GNEEdge* _edge, const Position _pos, bool _visible = true);
@@ -90,7 +91,7 @@ public:
         void calculateShapeRotationsAndLengths();
 
         /// @brief demand element shape
-        std::vector<Segment> shape;
+        std::vector<Segment> shapeSegments;
     };
 
     /// @brief class used to calculate routes in nets

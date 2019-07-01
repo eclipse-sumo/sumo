@@ -2069,9 +2069,9 @@ GNEEdge::drawPartialPersonPlan(const GUIVisualizationSettings& s, GNEDemandEleme
         personPlanWidth = s.addSize.getExaggeration(s, this) * s.SUMO_width_ride;
     }
     // draw person plan
-    for (int i = 0; i < ((int)personPlan->getDemandElementParents().front()->getDemandElementGeometry().shape.size()-1); i++) {
+    for (int i = 0; i < ((int)personPlan->getDemandElementParents().front()->getDemandElementGeometry().shapeSegments.size()-1); i++) {
         // obtain segment (to improve code legibly)
-        const GNEDemandElement::DemandElementGeometry::Segment &segment = personPlan->getDemandElementParents().front()->getDemandElementGeometry().shape[i];
+        const GNEDemandElement::DemandElementGeometry::Segment &segment = personPlan->getDemandElementParents().front()->getDemandElementGeometry().shapeSegments[i];
         // draw partial segment
         if (segment.visible && (segment.edge == this) && (segment.element == personPlan)) {
             GLHelper::drawBoxLine(segment.pos, segment.rotation, segment.lenght, personPlanWidth, 0);
