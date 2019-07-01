@@ -407,6 +407,10 @@ GNEStop::drawGL(const GUIVisualizationSettings& s) const {
         }
         // Pop name
         glPopName();
+        // draw person parent if this stop if their first person plan child
+        if ((getDemandElementParents().size() == 1) && getDemandElementParents().front()->isFirstDemandElementChild(this)) {
+            getDemandElementParents().front()->drawGL(s);
+        }
     }
 }
 
