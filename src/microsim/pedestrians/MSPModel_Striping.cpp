@@ -1216,16 +1216,17 @@ MSPModel_Striping::getVehicleObstacles(const MSLane* lane, int dir, PState* ped)
             const double vehYmax = 0.5 * (lane->getWidth() + veh->getVehicleType().getWidth() - stripeWidth) - veh->getLateralPositionOnLane();
             const double vehYmin = vehYmax - veh->getVehicleType().getWidth();
             for (int s = MAX2(0, PState::stripe(vehYmin)); s < MIN2(PState::stripe(vehYmax) + 1, stripes); ++s) {
+                Obstacle prior = vehObs[s];
                 vehObs[s] = vo;
                 if (s == current && vehFront + SAFETY_GAP < minX) {
                     // ignore if aleady overlapping while vehicle is still behind
                     if (pRelY - pWidth < vehYmax &&
                             pRelY + pWidth > vehYmin && dir == FORWARD) {
                         if (debug) {
-                            std::cout << "   ignoring vehicle on stripe " << s << "\n";
+                            std::cout << "   ignoring vehicle '" << veh->getID() << " on stripe " << s << " vehFrontSG=" << vehFront + SAFETY_GAP << " minX=" << minX << "\n";
                         }
                         if (dir == FORWARD) {
-                            vehObs[s] = Obstacle(dir);
+                            vehObs[s] = prior;
                         } else {
                             vehObs[s].xFwd = MIN2(vo.xFwd, vehFront + SAFETY_GAP);
                         }
@@ -1241,6 +1242,8 @@ MSPModel_Striping::getVehicleObstacles(const MSLane* lane, int dir, PState* ped)
                           << " smax=" << PState::stripe(vehYmax)
                           << " relY=" << pRelY
                           << " current=" << current
+                          << " vo.xFwd=" << vo.xFwd
+                          << " vo.xBack=" << vo.xBack
                           << "\n";
             }
         }
