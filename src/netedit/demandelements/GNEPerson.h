@@ -267,6 +267,24 @@ protected:
     /// @}
 
 private:
+    // @brief struct used for calculating person plan geometry segments
+    struct personPlanSegment {
+        /// @brief constructor
+        personPlanSegment();
+
+        /// @brief edge
+        GNEEdge *edge;
+
+        /// @brief person plan
+        GNEDemandElement *personPlan;
+
+        /// @brief busStops placed in this segment
+        std::vector<GNEAdditional*> busStops;
+
+        /// @brief stops placed in this segment
+        std::vector<GNEDemandElement*> stops;
+    };
+
     /// @brief method for setting the attribute and nothing else
     void setAttribute(SumoXMLAttr key, const std::string& value);
 
