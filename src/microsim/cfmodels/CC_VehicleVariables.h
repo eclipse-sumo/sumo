@@ -143,7 +143,6 @@ public:
 
     //car collided in the last timestep
     bool crashed;
-    bool crashedVictim;
 
     /// @brief CC desired speed
     double ccDesiredSpeed;

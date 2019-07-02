@@ -243,15 +243,6 @@ public:
     void getRadarMeasurements(const MSVehicle* veh, double& distance, double& relativeSpeed) const;
 
     /**
-     * @brief tells the module that in the last timestep the car has crashed (or not)
-     *
-     * @param[in] veh the vehicle
-     * @param[in] crashed whether the car has crashed or not
-     * @param[in] victim whether the car was the victim or not
-     */
-    void setCrashed(const MSVehicle* veh, bool crashed, bool victim = false) const;
-
-    /**
      * @brief returns the ACC computed acceleration when the faked
      * CACC is controlling the car. This can be used to check for
      * vehicles in front
