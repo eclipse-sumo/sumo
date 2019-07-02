@@ -1764,6 +1764,15 @@ MSLCM_SL2015::_wantsChangeSublane(
                                            << "\n";
 #endif
             ret |= LCA_SUBLANE;
+            // include prior motivation when sublane-change is part of finishing an ongoing maneuver in the same direction
+            if (myManeuverDist * latDist > 0) {
+                int priorReason = (myPreviousState & LCA_CHANGE_REASONS & ~LCA_SUBLANE);
+                ret |= priorReason;
+#ifdef DEBUG_WANTSCHANGE
+                if (gDebugFlag2 && priorReason != 0) std::cout << "   including prior reason " << toString((LaneChangeAction)priorReason) 
+                    << " maneuverDist=" << myManeuverDist << "\n";
+#endif
+            }
             if (!cancelRequest(ret, laneOffset)) {
                 blocked = checkBlocking(neighLane, latDist, maneuverDist, laneOffset,
                                         leaders, followers, blockers,
