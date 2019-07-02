@@ -69,7 +69,6 @@ public:
         /// @brief menu command for transform to personFlow
         FXMenuCommand* myTransformToPersonFlow;
     };
-
     
     /// @brief class used in GUIGLObjectPopupMenu for single person transformations
     class GNESelectedPersonsPopupMenu : public GUIGLObjectPopupMenu {
@@ -268,20 +267,27 @@ protected:
 private:
     // @brief struct used for calculating person plan geometry segments
     struct personPlanSegment {
-        /// @brief constructor
-        personPlanSegment();
+        /// @brief parameter constructor
+        personPlanSegment(GNEDemandElement *_personPlan);
+
+        /// @brief person plan
+        const GNEDemandElement *personPlan;
 
         /// @brief edge
         GNEEdge *edge;
-
-        /// @brief person plan
-        GNEDemandElement *personPlan;
 
         /// @brief busStops placed in this segment
         std::vector<GNEAdditional*> busStops;
 
         /// @brief stops placed in this segment
         std::vector<GNEDemandElement*> stops;
+
+        /// @brief arrival position 
+        double arrivalPos;
+
+    private:
+        /// @brief constructor
+        personPlanSegment();
     };
 
     /// @brief method for setting the attribute and nothing else
@@ -291,7 +297,7 @@ private:
     void setDisjointAttribute(const int newParameterSet);
 
     /// @brief calculate smooth shape between personPlans
-    void calculateSmoothPersonPlanConnection(GNEDemandElement* personPlanElement, const GNEEdge *edgeFrom, const GNEEdge *edgeTo);
+    void calculateSmoothPersonPlanConnection(const GNEDemandElement* personPlanElement, const GNEEdge *edgeFrom, const GNEEdge *edgeTo);
 
     /// @brief return two shapes used for calculate person plan conections between busStops
     std::pair<PositionVector, PositionVector> calculatePersonPlanConnectionBusStop(GNEAdditional* busStop);

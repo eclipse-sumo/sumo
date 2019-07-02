@@ -319,9 +319,7 @@ GNEPerson::updateGeometry() {
             // special case for person stops
             if (i->getTagProperty().isPersonStop()) {
                 // declare a segment
-                personPlanSegment segment;
-                // set person plan in segment
-                segment.personPlan = i;
+                personPlanSegment segment(i);
                 // set stop in segment
                 segment.stops.push_back(i);
                 // set edge depending of stop type
@@ -332,18 +330,38 @@ GNEPerson::updateGeometry() {
                 }
                 // add segment to personPlanSegments
                 personPlanSegments.push_back(segment);
-            } else {
-                // iterate over all demand element's edges
-                for (const auto &j : i->getEdgeParents()) {
+            } else if (i->getTagProperty().getTag() == SUMO_TAG_WALK_ROUTE) {
+                // iterate over all demand element's route edges
+                for (const auto &j : i->getDemandElementParents().at(1)->getEdgeParents()) {
                     // declare a segment
-                    personPlanSegment segment;
-                     // set person plan in segment
-                    segment.personPlan = i;
+                    personPlanSegment segment(i);
                     // set edge in segment
                     segment.edge = j;
                     // check if busStop can be set
                     if (busStop && (&busStop->getLaneParents().front()->getParentEdge() == segment.edge)) {
                         segment.busStops.push_back(busStop);
+                    }
+                    // check if arrivalPos has to be set
+                    if (i->getTagProperty().hasAttribute(SUMO_ATTR_ARRIVALPOS) && (i->getDemandElementParents().at(1)->getEdgeParents().back() == j)) {
+                        segment.arrivalPos = i->getAttributeDouble(SUMO_ATTR_ARRIVALPOS);
+                    }
+                    // add segment to personPlanSegments
+                    personPlanSegments.push_back(segment);
+                }
+            } else {
+                // iterate over all demand element's edges
+                for (const auto &j : i->getEdgeParents()) {
+                    // declare a segment
+                    personPlanSegment segment(i);
+                    // set edge in segment
+                    segment.edge = j;
+                    // check if busStop can be set
+                    if (busStop && (&busStop->getLaneParents().front()->getParentEdge() == segment.edge)) {
+                        segment.busStops.push_back(busStop);
+                    }
+                    // check if arrivalPos has to be set
+                    if (i->getTagProperty().hasAttribute(SUMO_ATTR_ARRIVALPOS) && (i->getEdgeParents().back() == j)) {
+                        segment.arrivalPos = i->getAttributeDouble(SUMO_ATTR_ARRIVALPOS);
                     }
                     // add segment to personPlanSegments
                     personPlanSegments.push_back(segment);
@@ -943,9 +961,17 @@ GNEPerson::drawAction_drawAsImage(const GUIVisualizationSettings& s) const {
 // private
 // ===========================================================================
 
-GNEPerson::personPlanSegment::personPlanSegment() :
+GNEPerson::personPlanSegment::personPlanSegment(GNEDemandElement *_personPlan) :
+    personPlan(_personPlan),
     edge(nullptr),
-    personPlan(nullptr) {
+    arrivalPos(-1) {
+}
+
+
+GNEPerson::personPlanSegment::personPlanSegment() :
+    personPlan(nullptr),
+    edge(nullptr),
+    arrivalPos(-1) {
 }
 
 
@@ -1039,7 +1065,7 @@ GNEPerson::setDisjointAttribute(const int newParameterSet) {
 
 
 void 
-GNEPerson::calculateSmoothPersonPlanConnection(GNEDemandElement* personPlanElement, const GNEEdge *edgeFrom, const GNEEdge *edgeTo) {
+GNEPerson::calculateSmoothPersonPlanConnection(const GNEDemandElement* personPlanElement, const GNEEdge *edgeFrom, const GNEEdge *edgeTo) {
     // calculate smooth shape
     PositionVector smoothShape = edgeFrom->getNBEdge()->getToNode()->computeSmoothShape(
         edgeFrom->getLanes().front()->getGeometry().shape, 
