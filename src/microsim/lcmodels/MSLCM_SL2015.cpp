@@ -1956,8 +1956,11 @@ MSLCM_SL2015::updateExpectedSublaneSpeeds(const MSLeaderDistanceInfo& ahead, int
 #endif
                     const double deltaV = vMax - leader->getSpeed();
                     if (deltaV > 0 && gap / deltaV < 5) {
-                        // anticipate future braking
-                        vSafe = MIN2(vSafe, leader->getSpeed());
+                        // anticipate future braking by computing the average
+                        // speed over the next few seconds
+                        const double foreCastTime = 10;
+                        const double gapClosingTime = gap / deltaV;
+                        vSafe = (gapClosingTime * vSafe + (foreCastTime - gapClosingTime) * leader->getSpeed()) / foreCastTime;
                     }
                 }
             }
