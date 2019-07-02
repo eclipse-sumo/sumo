@@ -73,7 +73,9 @@ GNEDemandElement::DemandElementGeometry::Segment::Segment() :
 // GNEDemandElement::DemandElementGeometry - methods
 // ---------------------------------------------------------------------------
 
-GNEDemandElement::DemandElementGeometry::DemandElementGeometry() {}
+GNEDemandElement::DemandElementGeometry::DemandElementGeometry() :
+    geometryDeprecated(true) {
+}
 
 
 void
@@ -250,6 +252,12 @@ GNEDemandElement::~GNEDemandElement() {}
 const GNEDemandElement::DemandElementGeometry &
 GNEDemandElement::getDemandElementGeometry() const {
     return myDemandElementGeometry;
+}
+
+
+void 
+GNEDemandElement::markGeometryDeprecated() {
+    myDemandElementGeometry.geometryDeprecated = true;
 }
 
 

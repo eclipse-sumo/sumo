@@ -95,6 +95,9 @@ public:
 
         /// @brief demand element shape
         std::vector<Segment> shapeSegments;
+
+        /// @brief mark geometry as deprecated (used to avoid multipls updates)
+        bool geometryDeprecated;
     };
     
     /// @brief struct for pack all variables related with Demand Element moving
@@ -203,6 +206,9 @@ public:
 
     /// @brief get demand element geometry
     const DemandElementGeometry &getDemandElementGeometry() const;
+
+    /// @brief mark demand element geometry as deprecated
+    void markGeometryDeprecated();
 
     /// @brief obtain VClass related with this demand element
     virtual SUMOVehicleClass getVClass() const = 0;

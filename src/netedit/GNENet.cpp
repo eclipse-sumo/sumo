@@ -1489,6 +1489,13 @@ GNENet::computeEverything(GNEApplicationWindow* window, bool force, bool volatil
 
 void
 GNENet::updateGeometryDemandElements() {
+    // first mark all geometries as deprecated
+    for (const auto& i : myAttributeCarriers.demandElements) {
+        for (const auto& j : i.second) {
+            j.second->markGeometryDeprecated();
+        }
+    }
+    // now update all geometries
     for (const auto& i : myAttributeCarriers.demandElements) {
         for (const auto& j : i.second) {
             j.second->updateGeometry();

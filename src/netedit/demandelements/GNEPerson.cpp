@@ -308,158 +308,163 @@ GNEPerson::commitGeometryMoving(GNEUndoList*) {
 
 void
 GNEPerson::updateGeometry() {
-    // first clear geometry
-    myDemandElementGeometry.shapeSegments.clear();
-    // only calculate new shape if there is demand element childrens
-    if (getDemandElementChildren().size() > 0) {
-        std::vector<personPlanSegment> personPlanSegments;
-        // iterate over all demand element childrens
-        for (const auto &i : getDemandElementChildren()) {
-            GNEAdditional* busStop = (i->getAdditionalParents().size() > 0)? i->getAdditionalParents().front() : nullptr;
-            // special case for person stops
-            if (i->getTagProperty().isPersonStop()) {
-                // declare a segment
-                personPlanSegment segment(i);
-                // set stop in segment
-                segment.stops.push_back(i);
-                // set edge depending of stop type
-                if (i->getTagProperty().getTag() == SUMO_TAG_PERSONSTOP_LANE) {
-                    segment.edge = &i->getLaneParents().front()->getParentEdge();
+    // first check if geometry is deprecated
+    if (myDemandElementGeometry.geometryDeprecated) {
+        // first clear geometry
+        myDemandElementGeometry.shapeSegments.clear();
+        // only calculate new shape if there is demand element childrens
+        if (getDemandElementChildren().size() > 0) {
+            std::vector<personPlanSegment> personPlanSegments;
+            // iterate over all demand element childrens
+            for (const auto &i : getDemandElementChildren()) {
+                GNEAdditional* busStop = (i->getAdditionalParents().size() > 0)? i->getAdditionalParents().front() : nullptr;
+                // special case for person stops
+                if (i->getTagProperty().isPersonStop()) {
+                    // declare a segment
+                    personPlanSegment segment(i);
+                    // set stop in segment
+                    segment.stops.push_back(i);
+                    // set edge depending of stop type
+                    if (i->getTagProperty().getTag() == SUMO_TAG_PERSONSTOP_LANE) {
+                        segment.edge = &i->getLaneParents().front()->getParentEdge();
+                    } else {
+                        segment.edge = &i->getAdditionalParents().front()->getLaneParents().front()->getParentEdge();
+                    }
+                    // add segment to personPlanSegments
+                    personPlanSegments.push_back(segment);
+                } else if (i->getTagProperty().getTag() == SUMO_TAG_WALK_ROUTE) {
+                    // iterate over all demand element's route edges
+                    for (const auto &j : i->getDemandElementParents().at(1)->getEdgeParents()) {
+                        // declare a segment
+                        personPlanSegment segment(i);
+                        // set edge in segment
+                        segment.edge = j;
+                        // check if busStop can be set
+                        if (busStop && (&busStop->getLaneParents().front()->getParentEdge() == segment.edge)) {
+                            segment.busStops.push_back(busStop);
+                        }
+                        // check if arrivalPos has to be set
+                        if (i->getTagProperty().hasAttribute(SUMO_ATTR_ARRIVALPOS) && (i->getDemandElementParents().at(1)->getEdgeParents().back() == j)) {
+                            segment.arrivalPos = i->getAttributeDouble(SUMO_ATTR_ARRIVALPOS);
+                        }
+                        // add segment to personPlanSegments
+                        personPlanSegments.push_back(segment);
+                    }
                 } else {
-                    segment.edge = &i->getAdditionalParents().front()->getLaneParents().front()->getParentEdge();
-                }
-                // add segment to personPlanSegments
-                personPlanSegments.push_back(segment);
-            } else if (i->getTagProperty().getTag() == SUMO_TAG_WALK_ROUTE) {
-                // iterate over all demand element's route edges
-                for (const auto &j : i->getDemandElementParents().at(1)->getEdgeParents()) {
-                    // declare a segment
-                    personPlanSegment segment(i);
-                    // set edge in segment
-                    segment.edge = j;
-                    // check if busStop can be set
-                    if (busStop && (&busStop->getLaneParents().front()->getParentEdge() == segment.edge)) {
-                        segment.busStops.push_back(busStop);
+                    // iterate over all demand element's edges
+                    for (const auto &j : i->getEdgeParents()) {
+                        // declare a segment
+                        personPlanSegment segment(i);
+                        // set edge in segment
+                        segment.edge = j;
+                        // check if busStop can be set
+                        if (busStop && (&busStop->getLaneParents().front()->getParentEdge() == segment.edge)) {
+                            segment.busStops.push_back(busStop);
+                        }
+                        // check if arrivalPos has to be set
+                        if (i->getTagProperty().hasAttribute(SUMO_ATTR_ARRIVALPOS) && (i->getEdgeParents().back() == j)) {
+                            segment.arrivalPos = i->getAttributeDouble(SUMO_ATTR_ARRIVALPOS);
+                        }
+                        // add segment to personPlanSegments
+                        personPlanSegments.push_back(segment);
                     }
-                    // check if arrivalPos has to be set
-                    if (i->getTagProperty().hasAttribute(SUMO_ATTR_ARRIVALPOS) && (i->getDemandElementParents().at(1)->getEdgeParents().back() == j)) {
-                        segment.arrivalPos = i->getAttributeDouble(SUMO_ATTR_ARRIVALPOS);
-                    }
-                    // add segment to personPlanSegments
-                    personPlanSegments.push_back(segment);
-                }
-            } else {
-                // iterate over all demand element's edges
-                for (const auto &j : i->getEdgeParents()) {
-                    // declare a segment
-                    personPlanSegment segment(i);
-                    // set edge in segment
-                    segment.edge = j;
-                    // check if busStop can be set
-                    if (busStop && (&busStop->getLaneParents().front()->getParentEdge() == segment.edge)) {
-                        segment.busStops.push_back(busStop);
-                    }
-                    // check if arrivalPos has to be set
-                    if (i->getTagProperty().hasAttribute(SUMO_ATTR_ARRIVALPOS) && (i->getEdgeParents().back() == j)) {
-                        segment.arrivalPos = i->getAttributeDouble(SUMO_ATTR_ARRIVALPOS);
-                    }
-                    // add segment to personPlanSegments
-                    personPlanSegments.push_back(segment);
                 }
             }
-        }
-        // now filter personPlanSegments
-        auto it = personPlanSegments.begin();
-        // iterate over segment plan
-        while ((it != personPlanSegments.end()) && (it != (personPlanSegments.end()-1))) {
-            // check if this element and next element shares the same edge
-            if (it->edge == (it+1)->edge) {
-                // copy all busStops from next segment to previous segment
-                it->busStops.insert(it->busStops.end(), (it+1)->busStops.begin(), (it+1)->busStops.end());
-                // copy all stops from next segment to previous segment
-                it->stops.insert(it->stops.end(), (it+1)->stops.begin(), (it+1)->stops.end());
-                // erase next segment (note: don't copy arrival position)
-                personPlanSegments.erase(it+1);
-                // start again
-                it = personPlanSegments.begin();
-            } else {
-                it++;
-            }
-        }
-        // now set shape
-        for (auto i = personPlanSegments.begin(); i != personPlanSegments.end(); i++) {
-            if (i->stops.size() > 0) {
-                // iterate over all stops
-                for (const auto &stop : i->stops) {
-                    // obtain stop shapes
-                    auto shapesStop = calculatePersonPlanConnectionStop (stop);
-                    // add first shape
-                    for (const auto &shapesStopPos : shapesStop.first) {
-                        // last segment must be invisible
-                        if (shapesStopPos == shapesStop.first.back()) {
-                            myDemandElementGeometry.shapeSegments.push_back(DemandElementGeometry::Segment(i->personPlan, i->edge, shapesStopPos, false, true));
-                        } else {
-                            myDemandElementGeometry.shapeSegments.push_back(DemandElementGeometry::Segment(i->personPlan, i->edge, shapesStopPos, true, true));
-                        }
-                    }
-                    // check that next person plan segment isn't the last
-                    if ((i+1) != personPlanSegments.end()) {
-                        // add second shape
-                        for (const auto &shapesStopPos : shapesStop.second) {
-                            myDemandElementGeometry.shapeSegments.push_back(DemandElementGeometry::Segment((i+1)->personPlan, i->edge, shapesStopPos, true, true));
-                        }
-                    }
+            // now filter personPlanSegments
+            auto it = personPlanSegments.begin();
+            // iterate over segment plan
+            while ((it != personPlanSegments.end()) && (it != (personPlanSegments.end()-1))) {
+                // check if this element and next element shares the same edge
+                if (it->edge == (it+1)->edge) {
+                    // copy all busStops from next segment to previous segment
+                    it->busStops.insert(it->busStops.end(), (it+1)->busStops.begin(), (it+1)->busStops.end());
+                    // copy all stops from next segment to previous segment
+                    it->stops.insert(it->stops.end(), (it+1)->stops.begin(), (it+1)->stops.end());
+                    // erase next segment (note: don't copy arrival position)
+                    personPlanSegments.erase(it+1);
+                    // start again
+                    it = personPlanSegments.begin();
+                } else {
+                    it++;
                 }
-            } else if (i->busStops.size() > 0) {
-                // iterate over all busStops
-                for (const auto &busStop : i->busStops) {
+            }
+            // now set shape
+            for (auto i = personPlanSegments.begin(); i != personPlanSegments.end(); i++) {
+                if (i->stops.size() > 0) {
+                    // iterate over all stops
+                    for (const auto &stop : i->stops) {
+                        // obtain stop shapes
+                        auto shapesStop = calculatePersonPlanConnectionStop (stop);
+                        // add first shape
+                        for (const auto &shapesStopPos : shapesStop.first) {
+                            // last segment must be invisible
+                            if (shapesStopPos == shapesStop.first.back()) {
+                                myDemandElementGeometry.shapeSegments.push_back(DemandElementGeometry::Segment(i->personPlan, i->edge, shapesStopPos, false, true));
+                            } else {
+                                myDemandElementGeometry.shapeSegments.push_back(DemandElementGeometry::Segment(i->personPlan, i->edge, shapesStopPos, true, true));
+                            }
+                        }
+                        // check that next person plan segment isn't the last
+                        if ((i+1) != personPlanSegments.end()) {
+                            // add second shape
+                            for (const auto &shapesStopPos : shapesStop.second) {
+                                myDemandElementGeometry.shapeSegments.push_back(DemandElementGeometry::Segment((i+1)->personPlan, i->edge, shapesStopPos, true, true));
+                            }
+                        }
+                    }
+                } else if (i->busStops.size() > 0) {
+                    // iterate over all busStops
+                    for (const auto &busStop : i->busStops) {
+                        // obtain busStop shapes
+                        auto shapesBusStop = calculatePersonPlanConnectionBusStop(busStop);
+                        // add first shape
+                        for (const auto &shapeBusStopPos : shapesBusStop.first) {
+                            // last segment must be invisible
+                            if (shapeBusStopPos == shapesBusStop.first.back()) {
+                                myDemandElementGeometry.shapeSegments.push_back(DemandElementGeometry::Segment(i->personPlan, i->edge, shapeBusStopPos, false, true));
+                            } else {
+                                myDemandElementGeometry.shapeSegments.push_back(DemandElementGeometry::Segment(i->personPlan, i->edge, shapeBusStopPos, true, true));
+                            }
+                        }
+                        // check that next person plan segment isn't the last
+                        if ((i+1) != personPlanSegments.end()) {
+                            // add second shape
+                            for (const auto &shapeBusStopPos : shapesBusStop.second) {
+                                myDemandElementGeometry.shapeSegments.push_back(DemandElementGeometry::Segment((i+1)->personPlan, i->edge, shapeBusStopPos, true, true));
+                            }
+                        }
+                    }
+                } else if (i->arrivalPos != -1) {
                     // obtain busStop shapes
-                    auto shapesBusStop = calculatePersonPlanConnectionBusStop(busStop);
+                    auto shapeArrival = calculatePersonPlanConnectionArrivalPos(i->edge, i->arrivalPos);
                     // add first shape
-                    for (const auto &shapeBusStopPos : shapesBusStop.first) {
-                        // last segment must be invisible
-                        if (shapeBusStopPos == shapesBusStop.first.back()) {
-                            myDemandElementGeometry.shapeSegments.push_back(DemandElementGeometry::Segment(i->personPlan, i->edge, shapeBusStopPos, false, true));
-                        } else {
-                            myDemandElementGeometry.shapeSegments.push_back(DemandElementGeometry::Segment(i->personPlan, i->edge, shapeBusStopPos, true, true));
-                        }
+                    for (const auto &shapeArrivalPos : shapeArrival.first) {
+                        myDemandElementGeometry.shapeSegments.push_back(DemandElementGeometry::Segment(i->personPlan, i->edge, shapeArrivalPos, true, true));
                     }
                     // check that next person plan segment isn't the last
                     if ((i+1) != personPlanSegments.end()) {
                         // add second shape
-                        for (const auto &shapeBusStopPos : shapesBusStop.second) {
-                            myDemandElementGeometry.shapeSegments.push_back(DemandElementGeometry::Segment((i+1)->personPlan, i->edge, shapeBusStopPos, true, true));
+                        for (const auto &shapeArrivalPos : shapeArrival.second) {
+                            myDemandElementGeometry.shapeSegments.push_back(DemandElementGeometry::Segment((i+1)->personPlan, i->edge, shapeArrivalPos, true, true));
                         }
                     }
-                }
-            } else if (i->arrivalPos != -1) {
-                // obtain busStop shapes
-                auto shapeArrival = calculatePersonPlanConnectionArrivalPos(i->edge, i->arrivalPos);
-                // add first shape
-                for (const auto &shapeArrivalPos : shapeArrival.first) {
-                    myDemandElementGeometry.shapeSegments.push_back(DemandElementGeometry::Segment(i->personPlan, i->edge, shapeArrivalPos, true, true));
-                }
-                // check that next person plan segment isn't the last
-                if ((i+1) != personPlanSegments.end()) {
-                    // add second shape
-                    for (const auto &shapeArrivalPos : shapeArrival.second) {
-                        myDemandElementGeometry.shapeSegments.push_back(DemandElementGeometry::Segment((i+1)->personPlan, i->edge, shapeArrivalPos, true, true));
+                } else {
+                    // add lane shape over personPlan shape
+                    for (const auto &shapeLanePos : i->edge->getLanes().front()->getGeometry().shape) {
+                        // save segment
+                        myDemandElementGeometry.shapeSegments.push_back(DemandElementGeometry::Segment(i->personPlan, i->edge, shapeLanePos, true, true));
                     }
                 }
-            } else {
-                // add lane shape over personPlan shape
-                for (const auto &shapeLanePos : i->edge->getLanes().front()->getGeometry().shape) {
-                    // save segment
-                    myDemandElementGeometry.shapeSegments.push_back(DemandElementGeometry::Segment(i->personPlan, i->edge, shapeLanePos, true, true));
+                // if this isn't the last person plan segment, calculate a smooth shape connection
+                if ((i+1) != personPlanSegments.end()) {
+                    calculateSmoothPersonPlanConnection((i+1)->personPlan, i->edge, (i+1)->edge);
                 }
             }
-            // if this isn't the last person plan segment, calculate a smooth shape connection
-            if ((i+1) != personPlanSegments.end()) {
-                calculateSmoothPersonPlanConnection((i+1)->personPlan, i->edge, (i+1)->edge);
-            }
+            // calculate shape rotations and lenghts
+            myDemandElementGeometry.calculateShapeRotationsAndLengths();
         }
-        // calculate shape rotations and lenghts
-        myDemandElementGeometry.calculateShapeRotationsAndLengths();
+        // mark demand element geometry as non-deprecated
+        myDemandElementGeometry.geometryDeprecated = false;
     }
 }
 
