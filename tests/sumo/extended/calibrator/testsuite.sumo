@@ -59,4 +59,7 @@ remove_from_all_queues
 
 # only calibrate a specific vehicle type
 vTypes
+
+# test insertion on a particular lane (see #5794)
+departLane_given
 errors
