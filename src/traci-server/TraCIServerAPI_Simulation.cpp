@@ -429,7 +429,7 @@ TraCIServerAPI_Simulation::commandPositionConversion(TraCIServer& server, tcpip:
             const int laneIdx = inputStorage.readUnsignedByte();
             try {
                 // convert edge,offset,laneIdx to cartesian position
-                cartesianPos = geoPos = libsumo::Helper::getLaneChecking(roadID, laneIdx, pos)->getShape().positionAtOffset(pos);
+                cartesianPos = geoPos = libsumo::Helper::getLaneChecking(roadID, laneIdx, pos)->geometryPositionAtOffset(pos);
                 z = cartesianPos.z();
                 GeoConvHelper::getFinal().cartesian2geo(geoPos);
             } catch (libsumo::TraCIException& e) {
@@ -515,7 +515,7 @@ TraCIServerAPI_Simulation::commandDistanceRequest(TraCIServer& server, tcpip::St
                 std::string roadID = inputStorage.readString();
                 roadPos1.second = inputStorage.readDouble();
                 roadPos1.first = libsumo::Helper::getLaneChecking(roadID, inputStorage.readUnsignedByte(), roadPos1.second);
-                pos1 = roadPos1.first->getShape().positionAtOffset(roadPos1.second);
+                pos1 = roadPos1.first->geometryPositionAtOffset(roadPos1.second);
             } catch (libsumo::TraCIException& e) {
                 server.writeStatusCmd(commandId, libsumo::RTYPE_ERR, e.what());
                 return false;
@@ -545,7 +545,7 @@ TraCIServerAPI_Simulation::commandDistanceRequest(TraCIServer& server, tcpip::St
                 std::string roadID = inputStorage.readString();
                 roadPos2.second = inputStorage.readDouble();
                 roadPos2.first = libsumo::Helper::getLaneChecking(roadID, inputStorage.readUnsignedByte(), roadPos2.second);
-                pos2 = roadPos2.first->getShape().positionAtOffset(roadPos2.second);
+                pos2 = roadPos2.first->geometryPositionAtOffset(roadPos2.second);
             } catch (libsumo::TraCIException& e) {
                 server.writeStatusCmd(commandId, libsumo::RTYPE_ERR, e.what());
                 return false;

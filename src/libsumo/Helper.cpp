@@ -306,6 +306,7 @@ Helper::convertCartesianToRoadMap(const Position& pos, const SUMOVehicleClass vC
         for (const std::string& laneID : laneIds) {
             MSLane* const lane = MSLane::dictionary(laneID);
             if (lane->allowsVehicleClass(vClass)) {
+                // @todo this may be a place where 3D is required but 2D is used
                 const double newDistance = lane->getShape().distance2D(pos);
                 if (newDistance < minDistance) {
                     minDistance = newDistance;
@@ -314,8 +315,7 @@ Helper::convertCartesianToRoadMap(const Position& pos, const SUMOVehicleClass vC
             }
         }
         if (minDistance < std::numeric_limits<double>::max()) {
-            // @todo this may be a place where 3D is required but 2D is delivered
-            result.second = result.first->getShape().nearest_offset_to_point2D(pos, false);
+            result.second = result.first->interpolateGeometryPosToLanePos(result.first->getShape().nearest_offset_to_point2D(pos, false));
             break;
         }
         range *= 2;

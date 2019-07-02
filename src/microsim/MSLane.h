@@ -500,7 +500,7 @@ public:
         return myShape.positionAtOffset(interpolateLanePosToGeometryPos(offset), lateralOffset);
     }
 
-    /* @brief fit the given geomtry position to a valid lane position
+    /* @brief fit the given geometry position to a valid lane position
      * (lane length might differ from geometry length) */
     inline double interpolateGeometryPosToLanePos(double geometryPos) const {
         return geometryPos / myLengthGeometryFactor;

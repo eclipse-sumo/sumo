@@ -314,7 +314,7 @@ Simulation::getMinExpectedNumber() {
 
 TraCIPosition
 Simulation::convert2D(const std::string& edgeID, double pos, int laneIndex, bool toGeo) {
-    Position result = Helper::getLaneChecking(edgeID, laneIndex, pos)->getShape().positionAtOffset(pos);
+    Position result = Helper::getLaneChecking(edgeID, laneIndex, pos)->geometryPositionAtOffset(pos);
     if (toGeo) {
         GeoConvHelper::getFinal().cartesian2geo(result);
     }
@@ -325,7 +325,7 @@ Simulation::convert2D(const std::string& edgeID, double pos, int laneIndex, bool
 
 TraCIPosition
 Simulation::convert3D(const std::string& edgeID, double pos, int laneIndex, bool toGeo) {
-    Position result = Helper::getLaneChecking(edgeID, laneIndex, pos)->getShape().positionAtOffset(pos);
+    Position result = Helper::getLaneChecking(edgeID, laneIndex, pos)->geometryPositionAtOffset(pos);
     if (toGeo) {
         GeoConvHelper::getFinal().cartesian2geo(result);
     }
@@ -422,8 +422,8 @@ Simulation::getDistanceRoad(const std::string& edgeID1, double pos1, const std::
             return distance + route.getDistanceBetween(roadPos1.second, roadPos2.second, &roadPos1.first->getEdge(), &roadPos2.first->getEdge());
         }
     } else {
-        Position pos1 = roadPos1.first->getShape().positionAtOffset(roadPos1.second);
-        Position pos2 = roadPos2.first->getShape().positionAtOffset(roadPos2.second);
+        const Position pos1 = roadPos1.first->geometryPositionAtOffset(roadPos1.second);
+        const Position pos2 = roadPos2.first->geometryPositionAtOffset(roadPos2.second);
         return pos1.distanceTo(pos2);
     }
 }
