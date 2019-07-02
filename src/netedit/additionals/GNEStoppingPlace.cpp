@@ -23,6 +23,7 @@
 #include <netedit/GNEUndoList.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/changes/GNEChange_Attribute.h>
+#include <netedit/demandelements/GNEDemandElement.h>
 #include <netedit/netelements/GNEEdge.h>
 #include <netedit/netelements/GNELane.h>
 #include <utils/options/OptionsCont.h>
@@ -261,6 +262,17 @@ GNEStoppingPlace::moveGeometry(const Position& offset) {
                 myEndPosition = toString(parse<double>(myMove.secondOriginalPosition) + offsetLane);
             }
         }
+        // update demand element children
+        for (const auto &i : getDemandElementChildren()) {
+            // if child is a person plan, update geometry of their person parent
+            if (i->getTagProperty().isPersonPlan()) {
+                i->getDemandElementParents().front()->markGeometryDeprecated();
+                i->getDemandElementParents().front()->updateGeometry();
+            } else {
+                i->markGeometryDeprecated();
+                i->updateGeometry();
+            }
+        }
         // Update geometry
         updateGeometry();
     }
@@ -279,6 +291,17 @@ GNEStoppingPlace::commitGeometryMoving(GNEUndoList* undoList) {
             undoList->p_add(new GNEChange_Attribute(this, myViewNet->getNet(), SUMO_ATTR_ENDPOS, myEndPosition, true, myMove.secondOriginalPosition));
         }
         undoList->p_end();
+        // update demand element children
+        for (const auto &i : getDemandElementChildren()) {
+            // if child is a person plan, update geometry of their person parent
+            if (i->getTagProperty().isPersonPlan()) {
+                i->getDemandElementParents().front()->markGeometryDeprecated();
+                i->getDemandElementParents().front()->updateGeometry();
+            } else {
+                i->markGeometryDeprecated();
+                i->updateGeometry();
+            }
+        }
     }
 }
 

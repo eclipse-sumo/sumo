@@ -113,7 +113,7 @@ GNEWalk::writeDemandElement(OutputDevice& device) const {
     if (myTagProperty.getTag() == SUMO_TAG_WALK_ROUTE) {
         device.writeAttr(SUMO_ATTR_ROUTE, getDemandElementParents().at(1)->getID());
     } else if (myTagProperty.getTag() == SUMO_TAG_WALK_EDGES) {
-        device.writeAttr(SUMO_ATTR_EDGES, getEdgeParentsStr());
+        device.writeAttr(SUMO_ATTR_EDGES, parseIDs(getEdgeParents()));
     } else {
         // only write From attribute if this is the first Person Plan
         if (getDemandElementParents().front()->isFirstDemandElementChild(this)) {

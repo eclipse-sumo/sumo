@@ -226,6 +226,9 @@ GNEStop::moveGeometry(const Position& offset) {
                 endPos = parse<double>(myStopMove.secondOriginalPosition) + offsetLane;
             }
         }
+        // update person or vehicle frame
+        getDemandElementParents().front()->markGeometryDeprecated();
+        getDemandElementParents().front()->updateGeometry();
         // Update geometry
         updateGeometry();
     }
@@ -244,6 +247,9 @@ GNEStop::commitGeometryMoving(GNEUndoList* undoList) {
             undoList->p_add(new GNEChange_Attribute(this, myViewNet->getNet(), SUMO_ATTR_ENDPOS, toString(endPos), true, myStopMove.secondOriginalPosition));
         }
         undoList->p_end();
+        // update person or vehicle frame
+        getDemandElementParents().front()->markGeometryDeprecated();
+        getDemandElementParents().front()->updateGeometry();
     }
 }
 

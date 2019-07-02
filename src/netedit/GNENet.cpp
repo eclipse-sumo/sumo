@@ -1800,7 +1800,7 @@ GNENet::joinRoutes(GNEUndoList* undoList) {
             }
         }
         if (!hasStops) {
-            mySortedRoutes.insert(std::make_pair(i.second->getEdgeParentsStr(), i.second));
+            mySortedRoutes.insert(std::make_pair(GNEAttributeCarrier::parseIDs(i.second->getEdgeParents()), i.second));
         }
     }
     // now declare a matrix in which organice routes to be merged
