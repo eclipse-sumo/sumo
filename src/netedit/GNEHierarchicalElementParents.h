@@ -126,18 +126,6 @@ public:
     /// @brief get edge parents
     const std::vector<GNEEdge*>& getEdgeParents() const;
 
-    /// @brief get edge parents in string format
-    std::string getEdgeParentsStr() const;
-
-    /// @brief get next LineGeometry to the next consecutive edge of the given edge
-    LineGeometry getLinetoNextEdge(const GNEEdge* edge, int nextEdgeLaneIndex) const;
-
-    /// @brief get edge geometry limits correspond to the given edge
-    const EdgeGeometryLimits &getEdgeGeometryLimits(const GNEEdge* edge) const;
-
-    /// @brief recalculate edge geometry limites
-    void recalculateEdgeGeometryLimits();
-
     /// @}
 
     /// @name members and functions related to lane parents
