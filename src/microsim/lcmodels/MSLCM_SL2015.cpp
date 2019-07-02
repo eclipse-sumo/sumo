@@ -1744,12 +1744,19 @@ MSLCM_SL2015::_wantsChangeSublane(
                 || (latDistSublane > 0 && mySpeedGainProbabilityLeft < mySpeedLossProbThreshold)
                 || computeSpeedGain(latDistSublane, defaultNextSpeed) < -mySublaneParam) {
             // do not risk losing speed
+#if defined(DEBUG_WANTSCHANGE)
+            if (gDebugFlag2) std::cout << "   aborting sublane change to avoid speed loss (mySpeedLossProbThreshold=" << mySpeedLossProbThreshold 
+                << " speedGain=" << computeSpeedGain(latDistSublane, defaultNextSpeed) << ")\n";
+#endif
             latDistSublane = 0;
         }
         // Ignore preferred lateral alignment if we are in the middle of an unfinished non-alignment maneuver into the opposite direction
         if (!myCanChangeFully
                 && (myPreviousState & (LCA_STRATEGIC | LCA_COOPERATIVE | LCA_KEEPRIGHT | LCA_SPEEDGAIN)) != 0
                 && ((myManeuverDist < 0 && latDistSublane > 0) || (myManeuverDist > 0 && latDistSublane < 0))) {
+#if defined(DEBUG_WANTSCHANGE)
+            if (gDebugFlag2) std::cout << "   aborting sublane change due to prior maneuver\n";
+#endif
             latDistSublane = 0;
         }
         latDist = latDistSublane;
