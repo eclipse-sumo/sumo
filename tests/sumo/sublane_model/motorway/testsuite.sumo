@@ -53,4 +53,7 @@ cooperative_change_highres
 
 # test given change reason in lanechange-output
 change_reason
+
+# test given change reason in lanechange-output
+change_reason2
 overtaking_right_forbidden
