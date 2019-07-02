@@ -328,6 +328,16 @@ GNEStop::drawGL(const GUIVisualizationSettings& s) const {
     if (myViewNet->getViewOptionsNetwork().showDemandElements() && myViewNet->getViewOptionsDemand().showNonInspectedDemandElements(this)) {
         // Obtain exaggeration of the draw
         const double exaggeration = s.addSize.getExaggeration(s, this);
+        // declare value to save stop color
+        RGBColor stopColor;
+        // Set color
+        if (drawUsingSelectColor()) {
+            stopColor = s.selectedAdditionalColor;
+        } else if (myTagProperty.isPersonStop()) {
+            stopColor = s.SUMO_color_personStops;
+        } else {
+            stopColor = s.SUMO_color_stops;
+        }
         // Start drawing adding an gl identificator
         glPushName(getGlID());
         // Add a draw matrix
@@ -337,6 +347,8 @@ GNEStop::drawGL(const GUIVisualizationSettings& s) const {
         // Set color of the base
         if (drawUsingSelectColor()) {
             GLHelper::setColor(s.selectedAdditionalColor);
+        } else if (myTagProperty.isPersonStop()) {
+            GLHelper::setColor(s.SUMO_color_personStops);
         } else {
             GLHelper::setColor(s.SUMO_color_stops);
         }
@@ -370,27 +382,35 @@ GNEStop::drawGL(const GUIVisualizationSettings& s) const {
         }
         // move to "S" position
         glTranslated(0, 1, 0);
+        // obtain text color
+
         // draw "S" symbol
-        GLHelper::drawText("S", Position(), .1, 2.8, s.SUMO_color_stops);
+        GLHelper::drawText("S", Position(), .1, 2.8, stopColor);
         // move to subtitle positin
         glTranslated(0, 1.4, 0);
         // draw subtitle depending of tag
         if (myTagProperty.getTag() == SUMO_TAG_STOP_BUSSTOP) {
-            GLHelper::drawText("busStop", Position(), .1, .5, s.SUMO_color_stops, 180);
+            GLHelper::drawText("busStop", Position(), .1, .5, stopColor, 180);
         } else if (myTagProperty.getTag() == SUMO_TAG_STOP_CONTAINERSTOP) {
-            GLHelper::drawText("container", Position(), .1, .5, s.SUMO_color_stops, 180);
+            GLHelper::drawText("container", Position(), .1, .5, stopColor, 180);
             glTranslated(0, 0.5, 0);
-            GLHelper::drawText("Stop", Position(), .1, .5, s.SUMO_color_stops, 180);
+            GLHelper::drawText("Stop", Position(), .1, .5, stopColor, 180);
         } else if (myTagProperty.getTag() == SUMO_TAG_STOP_CHARGINGSTATION) {
-            GLHelper::drawText("charging", Position(), .1, .5, s.SUMO_color_stops, 180);
+            GLHelper::drawText("charging", Position(), .1, .5, stopColor, 180);
             glTranslated(0, 0.5, 0);
-            GLHelper::drawText("Station", Position(), .1, .5, s.SUMO_color_stops, 180);
+            GLHelper::drawText("Station", Position(), .1, .5, stopColor, 180);
         } else if (myTagProperty.getTag() == SUMO_TAG_STOP_PARKINGAREA) {
-            GLHelper::drawText("parking", Position(), .1, .5, s.SUMO_color_stops, 180);
+            GLHelper::drawText("parking", Position(), .1, .5, stopColor, 180);
             glTranslated(0, 0.5, 0);
-            GLHelper::drawText("Area", Position(), .1, .5, s.SUMO_color_stops, 180);
+            GLHelper::drawText("Area", Position(), .1, .5, stopColor, 180);
         } else if (myTagProperty.getTag() == SUMO_TAG_STOP_LANE) {
-            GLHelper::drawText("lane", Position(), .1, 1, s.SUMO_color_stops, 180);
+            GLHelper::drawText("lane", Position(), .1, 1, stopColor, 180);
+        } else if (myTagProperty.getTag() == SUMO_TAG_PERSONSTOP_LANE) {
+            GLHelper::drawText("person", Position(), .1, .7, stopColor, 180);
+        } else if (myTagProperty.getTag() == SUMO_TAG_PERSONSTOP_BUSSTOP) {
+            GLHelper::drawText("person", Position(), .1, .5, stopColor, 180);
+            glTranslated(0, 0.5, 0);
+            GLHelper::drawText("busStop", Position(), .1, .5, stopColor, 180);
         }
         // pop draw matrix
         glPopMatrix();
@@ -789,8 +809,8 @@ GNEStop::getHierarchyName() const {
 
 double
 GNEStop::getStartGeometryPositionOverLane() const {
-    if (parametersSet & STOP_START_SET) {
-        double fixedPos = endPos;
+    if (parametersSet & STOP_END_SET) {
+        double fixedPos = startPos;
         const double len = getLaneParents().front()->getParentEdge().getNBEdge()->getFinalLength();
         if (fixedPos < 0) {
             fixedPos += len;
@@ -804,8 +824,8 @@ GNEStop::getStartGeometryPositionOverLane() const {
 
 double
 GNEStop::getEndGeometryPositionOverLane() const {
-    if (parametersSet & STOP_END_SET) {
-        double fixedPos = startPos;
+    if (parametersSet & STOP_START_SET) {
+        double fixedPos = endPos;
         const double len = getLaneParents().front()->getParentEdge().getNBEdge()->getFinalLength();
         if (fixedPos < 0) {
             fixedPos += len;
