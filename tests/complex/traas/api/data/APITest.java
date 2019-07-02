@@ -166,6 +166,7 @@ public class APITest {
             SumoPosition2D geoPos = (SumoPosition2D)conn.do_job_get(Simulation.convertGeo(505.38, -42.08, false));
             System.out.println("Simulation.convertGeo: " + geoPos);
 
+            System.out.println("Lane.getLinks: " + conn.do_job_get(Lane.getLinks(":gneJ1_6_0")));
             conn.close();
 
         } catch (Exception ex) {

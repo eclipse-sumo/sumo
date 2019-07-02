@@ -64,3 +64,4 @@ Trafficlight.getPhaseDuration: 50.0
 Trafficlight.getNextSwitch: 51.0
 Simulation.convertRoad: gneE2, 57.92, 0
 Simulation.convertGeo: 13.380492798007497,52.50047399595011
+Lane.getLinks: -gneE2_0##1#1#0#0.0#M#r#
