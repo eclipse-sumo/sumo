@@ -179,27 +179,55 @@ GNEPersonTrip::fixDemandElementProblem() {
 
 void 
 GNEPersonTrip::startGeometryMoving() {
-    // PersonTrips cannot be moved
+    // only start geometry moving if arrival position isn't -1
+    if (myArrivalPosition != -1) {
+        // always save original position over view
+        myPersonTripMove.originalViewPosition = getPositionInView();
+        // save arrival position
+        myPersonTripMove.firstOriginalLanePosition = getAttribute(SUMO_ATTR_ARRIVALPOS);
+        // save current centering boundary
+        myPersonTripMove.movingGeometryBoundary = getCenteringBoundary();
+    }
 }
 
 
 void 
 GNEPersonTrip::endGeometryMoving() {
-    // PersonTrips cannot be moved
+    // check that myArrivalPosition isn't -1 and endGeometryMoving was called only once
+    if ((myArrivalPosition != -1) && myPersonTripMove.movingGeometryBoundary.isInitialised()) {
+        // reset myMovingGeometryBoundary
+        myPersonTripMove.movingGeometryBoundary.reset();
+    }
 }
 
 
 void
-GNEPersonTrip::moveGeometry(const Position&) {
-    // PersonTrips cannot be moved
+GNEPersonTrip::moveGeometry(const Position& offset) {
+    // only move if myArrivalPosition isn't -1
+    if (myArrivalPosition != -1) {
+        // Calculate new position using old position
+        Position newPosition = myPersonTripMove.originalViewPosition;
+        newPosition.add(offset);
+        // filtern position using snap to active grid
+        newPosition = myViewNet->snapToActiveGrid(newPosition);
+        double offsetLane = getLaneParents().front()->getGeometry().shape.nearest_offset_to_point2D(newPosition, false) - getLaneParents().front()->getGeometry().shape.nearest_offset_to_point2D(myPersonTripMove.originalViewPosition, false);
+        // Update arrival Position
+        myArrivalPosition = parse<double>(myPersonTripMove.firstOriginalLanePosition) + offsetLane;
+        // Update geometry
+        updateGeometry();
+    }
 }
 
 
 void
-GNEPersonTrip::commitGeometryMoving(GNEUndoList*) {
-    // PersonTrips cannot be moved
+GNEPersonTrip::commitGeometryMoving(GNEUndoList* undoList) {
+    // only commit geometry moving if myArrivalPosition isn't -1
+    if (myArrivalPosition != -1) {
+        undoList->p_begin("arrivalPos of " + getTagStr());
+        undoList->p_add(new GNEChange_Attribute(this, myViewNet->getNet(), SUMO_ATTR_STARTPOS, toString(myArrivalPosition), true, myPersonTripMove.firstOriginalLanePosition));
+        undoList->p_end();
+    }
 }
-
 
 void
 GNEPersonTrip::updateGeometry() {
@@ -308,8 +336,13 @@ GNEPersonTrip::getAttribute(SumoXMLAttr key) const {
 
 
 double 
-GNEPersonTrip::getAttributeDouble(SumoXMLAttr /*key*/) const {
-    return 0;
+GNEPersonTrip::getAttributeDouble(SumoXMLAttr key) const {
+    switch (key) {
+        case SUMO_ATTR_ARRIVALPOS:
+            return myArrivalPosition;
+        default:
+            throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
+    }
 }
 
 

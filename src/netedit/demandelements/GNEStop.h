@@ -201,26 +201,11 @@ protected:
         std::vector<double> shapeLengths;
     };
 
-     /// @brief struct for pack all variables related with Stop moving
-    struct StopMove {
-        /// @brief boundary used during moving of elements (to avoid insertion in RTREE)
-        Boundary movingGeometryBoundary;
-
-        /// @brief value for saving first original position over lane before moving
-        Position originalViewPosition;
-
-        /// @brief value for saving first original position over lane before moving
-        std::string firstOriginalLanePosition;
-
-        /// @brief value for saving second original position over lane before moving
-        std::string secondOriginalPosition;
-    };
-
     /// @brief stop geometry (used by stops over lanes
     StopGeometry myStopGeometry;
     
-    /// @brief variable StopMove
-    StopMove myStopMove;
+    /// @brief variable demand element move
+    DemandElementMove myStopMove;
 
     /// @brief Flag for friendly position
     bool myFriendlyPosition;

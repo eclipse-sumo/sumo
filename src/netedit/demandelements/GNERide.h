@@ -182,6 +182,9 @@ public:
     /// @}
 
 protected:
+    /// @brief variable for move rides
+    DemandElementMove myRideMove;
+
     /// @brief valid line or vehicle ids or ANY
     std::vector<std::string> myLines;
 

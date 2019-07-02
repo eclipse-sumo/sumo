@@ -37,7 +37,6 @@
 class GNEPerson : public GNEDemandElement, public SUMOVehicleParameter {
 
 public:
-
     /// @brief class used in GUIGLObjectPopupMenu for person transformations
     class GNEPersonPopupMenu : public GUIGLObjectPopupMenu {
         FXDECLARE(GNEPersonPopupMenu)

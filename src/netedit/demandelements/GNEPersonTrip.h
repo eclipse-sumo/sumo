@@ -186,6 +186,9 @@ public:
     /// @}
 
 protected:
+    /// @brief variable for move person trips
+    DemandElementMove myPersonTripMove;
+
     /// @brief valid line or vehicle types
     std::vector<std::string> myVTypes;
 

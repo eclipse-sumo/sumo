@@ -188,6 +188,9 @@ public:
     /// @}
 
 protected:
+    /// @brief variable for move walks
+    DemandElementMove myWalkMove;
+
     /// @brief List of the via-edges that Person must visit
     std::vector<std::string> myVia;
 

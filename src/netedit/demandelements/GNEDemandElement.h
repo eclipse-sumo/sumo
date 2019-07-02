@@ -96,6 +96,21 @@ public:
         /// @brief demand element shape
         std::vector<Segment> shapeSegments;
     };
+    
+    /// @brief struct for pack all variables related with Demand Element moving
+    struct DemandElementMove {
+        /// @brief boundary used during moving of elements (to avoid insertion in RTREE)
+        Boundary movingGeometryBoundary;
+
+        /// @brief value for saving first original position over lane before moving
+        Position originalViewPosition;
+
+        /// @brief value for saving first original position over lane before moving
+        std::string firstOriginalLanePosition;
+
+        /// @brief value for saving second original position over lane before moving
+        std::string secondOriginalPosition;
+    };
 
     /// @brief class used to calculate routes in nets
     class RouteCalculator {

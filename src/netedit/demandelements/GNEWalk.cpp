@@ -179,25 +179,54 @@ GNEWalk::fixDemandElementProblem() {
 
 void 
 GNEWalk::startGeometryMoving() {
-    // Walks cannot be moved
+    // only start geometry moving if arrival position isn't -1
+    if (myArrivalPosition != -1) {
+        // always save original position over view
+        myWalkMove.originalViewPosition = getPositionInView();
+        // save arrival position
+        myWalkMove.firstOriginalLanePosition = getAttribute(SUMO_ATTR_ARRIVALPOS);
+        // save current centering boundary
+        myWalkMove.movingGeometryBoundary = getCenteringBoundary();
+    }
 }
 
 
 void 
 GNEWalk::endGeometryMoving() {
-    // Walks cannot be moved
+    // check that myArrivalPosition isn't -1 and endGeometryMoving was called only once
+    if ((myArrivalPosition != -1) && myWalkMove.movingGeometryBoundary.isInitialised()) {
+        // reset myMovingGeometryBoundary
+        myWalkMove.movingGeometryBoundary.reset();
+    }
 }
 
 
 void
-GNEWalk::moveGeometry(const Position&) {
-    // Walks cannot be moved
+GNEWalk::moveGeometry(const Position& offset) {
+    // only move if myArrivalPosition isn't -1
+    if (myArrivalPosition != -1) {
+        // Calculate new position using old position
+        Position newPosition = myWalkMove.originalViewPosition;
+        newPosition.add(offset);
+        // filtern position using snap to active grid
+        newPosition = myViewNet->snapToActiveGrid(newPosition);
+        double offsetLane = getLaneParents().front()->getGeometry().shape.nearest_offset_to_point2D(newPosition, false) - getLaneParents().front()->getGeometry().shape.nearest_offset_to_point2D(myWalkMove.originalViewPosition, false);
+        // Update arrival Position
+        myArrivalPosition = parse<double>(myWalkMove.firstOriginalLanePosition) + offsetLane;
+        // Update geometry
+        updateGeometry();
+    }
 }
 
 
 void
-GNEWalk::commitGeometryMoving(GNEUndoList*) {
-    // Walks cannot be moved
+GNEWalk::commitGeometryMoving(GNEUndoList* undoList) {
+    // only commit geometry moving if myArrivalPosition isn't -1
+    if (myArrivalPosition != -1) {
+        undoList->p_begin("arrivalPos of " + getTagStr());
+        undoList->p_add(new GNEChange_Attribute(this, myViewNet->getNet(), SUMO_ATTR_STARTPOS, toString(myArrivalPosition), true, myWalkMove.firstOriginalLanePosition));
+        undoList->p_end();
+    }
 }
 
 
@@ -307,8 +336,13 @@ GNEWalk::getAttribute(SumoXMLAttr key) const {
 
 
 double 
-GNEWalk::getAttributeDouble(SumoXMLAttr /*key*/) const {
-    return 0;
+GNEWalk::getAttributeDouble(SumoXMLAttr key) const {
+    switch (key) {
+        case SUMO_ATTR_ARRIVALPOS:
+            return myArrivalPosition;
+        default:
+            throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
+    }
 }
 
 
