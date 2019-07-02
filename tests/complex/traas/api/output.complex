@@ -48,6 +48,9 @@ Step 36.0, tlsPhase 0 (North-South)
 VehicleIDs: v0 v1 v10 v11 v12 v13 v14 v15 v16 v17 v18 v19 v2 v20 v21 v22 v3 v4 v5 v6 v7 v8 v9 
 vehicle.getParameter: vehValue
 Vehicletype.getAdaptedTraveltime: 200.0
+Vehicle.getRoute: [gneE0, gneE1]
+Vehicle.getRoute: [gneE0]
+Vehicle.getRoute: [gneE0, gneE1]
 Vehicletype.getParameter: vehtypeValue
 PersonIDs: p0 p1 p10 p11 p12 p13 p14 p15 p16 p17 p18 p19 p2 p20 p21 p22 p23 p24 p25 p26 p27 p28 p29 p3 p30 p31 p32 p33 p34 p4 p5 p6 p7 p8 p9 
 Person.getStage: 2

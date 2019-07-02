@@ -160,4 +160,7 @@ public class SumoStringList implements List<String>, Serializable, SumoObject {
         return list.iterator();
     }
 
+	public String toString() {
+		return list.toString();
+	}
 }

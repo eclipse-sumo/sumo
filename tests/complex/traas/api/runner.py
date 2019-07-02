@@ -30,5 +30,5 @@ traasJar = os.path.join(os.environ['SUMO_HOME'], "bin", "TraaS.jar")
 assert(os.path.exists(traasJar))
 
 subprocess.check_call(["javac", "-cp", traasJar, "data/APITest.java"])
-subprocess.check_call(["java", "-cp", traasJar + ":data", "APITest",
+subprocess.check_call(["java", "-cp", os.pathsep.join([traasJar, "data"]), "APITest",
                        checkBinary('sumo'), "data/config.sumocfg"])

@@ -113,6 +113,14 @@ public class APITest {
             conn.do_job_set(Vehicle.setAdaptedTraveltime("v0", 100, 200, "gneE0", 200));
             System.out.println("Vehicletype.getAdaptedTraveltime: " + (double)conn.do_job_get(Vehicle.getAdaptedTraveltime("v0", 150, "gneE0")));
 
+            System.out.println("Vehicle.getRoute: " + conn.do_job_get(Vehicle.getRoute("v0")));
+			SumoStringList route = new SumoStringList();
+			route.add("gneE0");
+            conn.do_job_set(Vehicle.setRoute("v0", route));
+            System.out.println("Vehicle.getRoute: " + conn.do_job_get(Vehicle.getRoute("v0")));
+            conn.do_job_set(Vehicle.setRouteID("v0", "r1"));
+            System.out.println("Vehicle.getRoute: " + conn.do_job_get(Vehicle.getRoute("v0")));
+
             conn.do_job_set(Vehicletype.setParameter("car", "vehtypeParam", "vehtypeValue"));
             System.out.println("Vehicletype.getParameter: " + (String)conn.do_job_get(Vehicletype.getParameter("car", "vehtypeParam")));
 

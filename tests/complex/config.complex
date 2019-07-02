@@ -104,6 +104,7 @@ errors:Could not find connection between
 errors:.*UserWarning: {REPLACE UserWarning: }
 errors:^Ran ([0-9]+) tests in ([0-9\.]*)s{REPLACE Ran \1 tests in <ELAPSED>s}
 errors:Traceback (most recent call last):{->}FatalTraCIError
+errors:data\\{REPLACE data/}
 ps:%%CreationDate
 
 [unordered_text]
