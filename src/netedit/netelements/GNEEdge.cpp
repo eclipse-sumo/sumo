@@ -2112,6 +2112,28 @@ GNEEdge::drawPartialPersonPlan(const GUIVisualizationSettings& s, GNEDemandEleme
     if ((firstEdge == this) && personPlan->getDemandElementParents().front()->isFirstDemandElementChild(personPlan)) {
         personPlan->getDemandElementParents().front()->drawGL(s);
     }
+    // check if person plan ArrivalPos attribute
+    if (personPlan->getTagProperty().hasAttribute(SUMO_ATTR_ARRIVALPOS)) {
+        // obtain arrival position
+        double arrivalPos = personPlan->getAttributeDouble(SUMO_ATTR_ARRIVALPOS);
+        // only draw arrival position point if isn't -1
+        if (arrivalPos != -1) {
+            // obtain position
+            Position pos = personPlan->getEdgeParents().back()->getLanes().front()->getGeometry().shape.positionAtOffset2D(arrivalPos);
+            // obtain circle width
+            double circleWidth = SNAP_RADIUS * MIN2((double)0.5, s.laneWidthExaggeration);
+            double circleWidthSquared = circleWidth * circleWidth;
+            if (!s.drawForSelecting || (myNet->getViewNet()->getPositionInformation().distanceSquaredTo2D(pos) <= (circleWidthSquared + 2))) {
+                glPushMatrix();
+                glTranslated(pos.x(), pos.y(), personPlan->getType() + 0.01);
+                // set person plan points color
+                GLHelper::setColor(s.SUMO_color_personPlanPoints);
+                // resolution of drawn circle depending of the zoom (To improve smothness)
+                GLHelper::drawFilledCircle(circleWidth, GNEAttributeCarrier::getCircleResolution(s));
+                glPopMatrix();
+            }
+        }
+    }
     // draw personPlan children
     for (const auto &i : personPlan->getDemandElementChildren()) {
         i->drawGL(s);

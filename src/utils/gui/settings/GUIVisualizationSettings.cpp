@@ -75,6 +75,7 @@ const RGBColor GUIVisualizationSettings::SUMO_color_personStops(255, 0, 0);
 const RGBColor GUIVisualizationSettings::SUMO_color_personTrip(200, 0, 255);
 const RGBColor GUIVisualizationSettings::SUMO_color_walk(0, 255, 0);
 const RGBColor GUIVisualizationSettings::SUMO_color_ride(0, 0, 255);
+const RGBColor GUIVisualizationSettings::SUMO_color_personPlanPoints(255, 0, 0);
 
 // -------------------------------------------------------------------------
 // widths of certain NETEDIT objects
