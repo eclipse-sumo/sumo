@@ -285,7 +285,7 @@ public:
     bool willPass(const MSEdge* const edge) const;
 
     int getRoutePosition() const;
-    void resetRoutePosition(int index);
+    void resetRoutePosition(int index, DepartLaneDefinition departLaneProcedure);
 
     /** @brief Returns the vehicle's internal edge travel times/efforts container
      *

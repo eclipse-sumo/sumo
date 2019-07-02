@@ -379,6 +379,7 @@ MSCalibrator::execute(SUMOTime currentTime) {
             newPars->id = getID() + "." + toString((int)STEPS2TIME(myCurrentStateInterval->begin)) + "." + toString(myInserted);
             newPars->depart = currentTime;
             newPars->routeid = route->getID();
+            newPars->departLaneProcedure = DEPART_LANE_FIRST_ALLOWED; // ensure successful vehicle creation
             MSVehicle* vehicle;
             try {
                 vehicle = dynamic_cast<MSVehicle*>(MSNet::getInstance()->getVehicleControl().buildVehicle(
@@ -395,7 +396,7 @@ MSCalibrator::execute(SUMOTime currentTime) {
 #ifdef MSCalibrator_DEBUG
             std::cout << " resetting route pos: " << routeIndex << "\n";
 #endif
-            vehicle->resetRoutePosition(routeIndex);
+            vehicle->resetRoutePosition(routeIndex, pars->departLaneProcedure);
             if (myEdge->insertVehicle(*vehicle, currentTime)) {
                 if (!MSNet::getInstance()->getVehicleControl().addVehicle(vehicle->getID(), vehicle)) {
                     throw ProcessError("Emission of vehicle '" + vehicle->getID() + "' in calibrator '" + getID() + "'failed!");

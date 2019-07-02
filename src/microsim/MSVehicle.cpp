@@ -1189,8 +1189,9 @@ MSVehicle::getRoutePosition() const {
 
 
 void
-MSVehicle::resetRoutePosition(int index) {
+MSVehicle::resetRoutePosition(int index, DepartLaneDefinition departLaneProcedure) {
     myCurrEdge = myRoute->begin() + index;
+    const_cast<SUMOVehicleParameter*>(myParameter)->departLaneProcedure = departLaneProcedure;
     // !!! hack
     myArrivalPos = (*(myRoute->end() - 1))->getLanes()[0]->getLength();
 }
