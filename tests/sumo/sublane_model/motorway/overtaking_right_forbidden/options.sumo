@@ -1,0 +1,7 @@
+--no-step-log --net-file=motorway.net.xml --routes=input_routes.rou.xml
+--lanechange-output lanechanges.xml
+--lanechange-output.started
+--lanechange-output.ended
+--lateral-resolution 3.2 
+--step-length 0.5
+--tripinfo-output tripinfos.xml
