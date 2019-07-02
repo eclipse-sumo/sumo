@@ -59,7 +59,7 @@ public:
         /// @brief struct used for represent segments of demand element geometry
         struct Segment {
             /// @brief parameter constructor
-            Segment(const GNEDemandElement* _element, const GNEEdge* _edge, const Position _pos, bool _visible = true);
+            Segment(const GNEDemandElement* _element, const GNEEdge* _edge, const Position _pos, const bool _visible, const bool _valid);
 
             /// @brief element
             const GNEDemandElement* element;
@@ -70,14 +70,17 @@ public:
             /// @brief position
             const Position pos;
 
+            /// @brief visible
+            const bool visible;
+
+            /// @brief invalid
+            const bool valid;
+
             /// @brief rotation
             double rotation;
 
             /// @brief lenght
             double lenght;
-
-            /// @brief visible
-            bool visible;
 
         private:
             /// @brief default constructor (disabled)
