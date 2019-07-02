@@ -144,8 +144,7 @@ assert(vehicle->getLane() == (*myCandi).lane);
 
 #ifdef DEBUG_ACTIONSTEPS
     if DEBUG_COND {
-    std::cout << "\n" << SIMTIME << " veh '" << vehicle->getID() << "' at plans sublane maneuver."
-                  << std::endl;
+        std::cout << "\n" << SIMTIME << " veh '" << vehicle->getID() << "'  plans lanechange maneuver." << std::endl;
     }
 #endif
     vehicle->updateBestLanes(); // needed?
@@ -184,7 +183,6 @@ assert(vehicle->getLane() == (*myCandi).lane);
     }
 #endif
     vehicle->getLaneChangeModel().setOwnState(decision.state);
-    vehicle->getLaneChangeModel().setManeuverDist(decision.maneuverDist);
     if ((decision.state & LCA_WANTS_LANECHANGE) != 0 && (decision.state & LCA_BLOCKED) == 0) {
         // change if the vehicle wants to and is allowed to change
 #ifdef DEBUG_MANEUVER
@@ -192,7 +190,7 @@ assert(vehicle->getLane() == (*myCandi).lane);
         std::cout << SIMTIME << " veh '" << vehicle->getID() << "' performing sublane change..." << std::endl;
         }
 #endif
-        return startChangeSublane(vehicle, myCandi, decision.latDist);
+        return startChangeSublane(vehicle, myCandi, decision.latDist, decision.maneuverDist);
     }
     // @note this assumes vehicles can instantly abort any maneuvre in case of emergency
     abortLCManeuver(vehicle);
@@ -214,6 +212,19 @@ MSLaneChangerSublane::abortLCManeuver(MSVehicle* vehicle) {
                   << std::endl;
     }
 #endif
+    const int priorReason = vehicle->getLaneChangeModel().getPrevState() & LCA_CHANGE_REASONS & ~LCA_SUBLANE;
+    const int reason = vehicle->getLaneChangeModel().getOwnState() & LCA_CHANGE_REASONS & ~LCA_SUBLANE;
+    if (priorReason != 0 && priorReason != reason && vehicle->getLaneChangeModel().getPreviousManeuverDist() != 0) {
+        // original from cannot be reconstructed
+        const int priorDirection = vehicle->getLaneChangeModel().getPreviousManeuverDist() > 0 ? 1 : -1;
+#ifdef DEBUG_MANEUVER
+        if DEBUG_COND {
+            std::cout << SIMTIME << " abortLCManeuver priorReason=" << toString((LaneChangeAction)priorReason)
+                << " reason=" << toString((LaneChangeAction)reason) << " veh=" << vehicle->getID() << "\n";
+        }
+#endif
+        outputLCEnded(vehicle, myCandi, myCandi, priorDirection);
+    }
     vehicle->getLaneChangeModel().setSpeedLat(0);
     vehicle->getLaneChangeModel().setManeuverDist(0.);
     registerUnchanged(vehicle);
@@ -257,13 +268,13 @@ MSLaneChangerSublane::continueChangeSublane(MSVehicle* vehicle, ChangerIt& from)
     }
 #endif
 
-    const bool changed = startChangeSublane(vehicle, from, nextLatDist);
+    const bool changed = startChangeSublane(vehicle, from, nextLatDist, remLatDist);
     return changed;
 }
 
 
 bool
-MSLaneChangerSublane::startChangeSublane(MSVehicle* vehicle, ChangerIt& from, double latDist) {
+MSLaneChangerSublane::startChangeSublane(MSVehicle* vehicle, ChangerIt& from, double latDist, double maneuverDist) {
     if (vehicle->isRemoteControlled()) {
         registerUnchanged(vehicle);
         return false;
@@ -300,7 +311,7 @@ MSLaneChangerSublane::startChangeSublane(MSVehicle* vehicle, ChangerIt& from, do
     vehicle->getLaneChangeModel().setSpeedLat(DIST2SPEED(latDist));
 #ifdef DEBUG_MANEUVER
     if DEBUG_COND {
-    std::cout << SIMTIME << " vehicle '" << vehicle->getID() << "' with maneuverDist=" << vehicle->getLaneChangeModel().getManeuverDist()
+    std::cout << SIMTIME << " vehicle '" << vehicle->getID() << "' with maneuverDist=" << maneuverDist
                   << " and committedSpeed=" << vehicle->getLaneChangeModel().getCommittedSpeed()
                   << " increments lateral position by latDist=" << latDist << std::endl;
     }
@@ -312,11 +323,42 @@ MSLaneChangerSublane::startChangeSublane(MSVehicle* vehicle, ChangerIt& from, do
                   << std::endl;
     }
 #endif
-    const bool completedManeuver = vehicle->getLaneChangeModel().getManeuverDist() - latDist == 0.;
+    const bool completedPriorManeuver = fabs(vehicle->getLaneChangeModel().getPreviousManeuverDist()) < NUMERICAL_EPS;
+    const bool completedManeuver = fabs(maneuverDist - latDist) < NUMERICAL_EPS;
     vehicle->getLaneChangeModel().updateSafeLatDist(latDist);
 
-    outputLCStarted(vehicle, from, to, direction);
-    vehicle->getLaneChangeModel().setManeuverDist(vehicle->getLaneChangeModel().getManeuverDist() - latDist);
+    // current maneuver is aborted when direction or reason changes
+    const int priorReason = vehicle->getLaneChangeModel().getPrevState() & LCA_CHANGE_REASONS & ~LCA_SUBLANE;
+    const int reason = vehicle->getLaneChangeModel().getOwnState() & LCA_CHANGE_REASONS & ~LCA_SUBLANE;
+#ifdef DEBUG_MANEUVER
+    if DEBUG_COND {
+        std::cout << SIMTIME << " vehicle '" << vehicle->getID()
+            << "' completedPriorManeuver=" << completedPriorManeuver
+            << " completedManeuver=" << completedManeuver
+            << " priorReason=" << toString((LaneChangeAction)priorReason)
+            << " reason=" << toString((LaneChangeAction)reason)
+            << " priorManeuverDist=" << vehicle->getLaneChangeModel().getPreviousManeuverDist()
+            << " maneuverDist=" << maneuverDist
+            << " latDist=" << latDist
+            << std::endl;
+    }
+#endif
+    if (!completedManeuver && !completedPriorManeuver && priorReason != 0 &&
+            (vehicle->getLaneChangeModel().getPreviousManeuverDist() * latDist < 0
+             || priorReason != reason)) {
+        const int priorDirection = vehicle->getLaneChangeModel().getPreviousManeuverDist() > 0 ? 1 : -1;
+        // original from cannot be reconstructed
+#ifdef DEBUG_MANEUVER
+        if DEBUG_COND {
+            std::cout << SIMTIME << " startChangeSublane abort priorReason=" << toString((LaneChangeAction)priorReason)
+                << " reason=" << toString((LaneChangeAction)reason) << " veh=" << vehicle->getID() << "\n";
+        }
+#endif
+        outputLCEnded(vehicle, from, from, priorDirection);
+    }
+
+    outputLCStarted(vehicle, from, to, direction, maneuverDist);
+    vehicle->getLaneChangeModel().setManeuverDist(maneuverDist - latDist);
     const bool changedToNewLane = checkChangeToNewLane(vehicle, direction, from, to);
 
     MSLane* oldShadowLane = vehicle->getLaneChangeModel().getShadowLane();
@@ -424,13 +466,14 @@ MSLaneChangerSublane::checkChangeToNewLane(MSVehicle* vehicle, const int directi
 }
 
 void
-MSLaneChangerSublane::outputLCStarted(MSVehicle* vehicle, ChangerIt& from, ChangerIt& to, int direction) {
+MSLaneChangerSublane::outputLCStarted(MSVehicle* vehicle, ChangerIt& from, ChangerIt& to, int direction, double maneuverDist) {
     if (MSAbstractLaneChangeModel::haveLCOutput() && MSAbstractLaneChangeModel::outputLCStarted()
             // non-sublane change started
             && ((vehicle->getLaneChangeModel().getOwnState() & (LCA_CHANGE_REASONS & ~LCA_SUBLANE)) != 0)
             && ((vehicle->getLaneChangeModel().getOwnState() & LCA_STAY) == 0)
-            // no changing in previous step (either not wanted or blocked)
-            && (((vehicle->getLaneChangeModel().getPrevState() & (LCA_CHANGE_REASONS & ~LCA_SUBLANE)) == 0)
+            // no changing for the same reason in previous step (either not wanted or blocked)
+            && ((vehicle->getLaneChangeModel().getPrevState() & LCA_CHANGE_REASONS & ~LCA_SUBLANE) !=
+                    (vehicle->getLaneChangeModel().getOwnState() & LCA_CHANGE_REASONS & ~LCA_SUBLANE)
                 || ((vehicle->getLaneChangeModel().getPrevState() & LCA_STAY) != 0)
                 || ((vehicle->getLaneChangeModel().getPrevState() & LCA_BLOCKED) != 0))
        ) {
@@ -446,7 +489,7 @@ MSLaneChangerSublane::outputLCStarted(MSVehicle* vehicle, ChangerIt& from, Chang
         vehicle->getLaneChangeModel().setLeaderGaps(to->aheadNext);
         vehicle->getLaneChangeModel().setFollowerGaps(to->lane->getFollowersOnConsecutive(vehicle, vehicle->getBackPositionOnLane(), true));
         vehicle->getLaneChangeModel().setOrigLeaderGaps(from->aheadNext);
-        vehicle->getLaneChangeModel().laneChangeOutput("changeStarted", from->lane, to->lane, direction, vehicle->getLaneChangeModel().getManeuverDist());
+        vehicle->getLaneChangeModel().laneChangeOutput("changeStarted", from->lane, to->lane, direction, maneuverDist);
     }
 }
 

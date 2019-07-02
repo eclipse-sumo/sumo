@@ -80,7 +80,7 @@ protected:
     bool continueChangeSublane(MSVehicle* vehicle, ChangerIt& from);
 
     ///  @brief change by the specified amount and return whether a new lane was entered
-    bool startChangeSublane(MSVehicle* vehicle, ChangerIt& from, double latDist);
+    bool startChangeSublane(MSVehicle* vehicle, ChangerIt& from, double latDist, double maneuverDist);
 
     /// @brief check whether the given vehicle has entered the new lane 'to->lane' during a sublane LC-step
     bool checkChangeToNewLane(MSVehicle* vehicle, const int direction, ChangerIt from, ChangerIt to);
@@ -96,7 +96,7 @@ protected:
     StateAndDist checkChangeHelper(MSVehicle* vehicle, int laneOffset, LaneChangeAction alternatives);
 
     /// @brief optional output for start of lane-change maneuvre
-    void outputLCStarted(MSVehicle* vehicle, ChangerIt& from, ChangerIt& to, int direction);
+    void outputLCStarted(MSVehicle* vehicle, ChangerIt& from, ChangerIt& to, int direction, double maneuverDist);
     /// @brief optional output for end of lane-change maneuvre
     void outputLCEnded(MSVehicle* vehicle, ChangerIt& from, ChangerIt& to, int direction);
 

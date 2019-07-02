@@ -229,6 +229,8 @@ protected:
     /// @brief decide in which direction to move in case both directions are desirable
     StateAndDist decideDirection(StateAndDist sd1, StateAndDist sd2) const;
 
+    /// @brief return the most important change reason
+    static int lowest_bit(int changeReason);
 
 protected:
 

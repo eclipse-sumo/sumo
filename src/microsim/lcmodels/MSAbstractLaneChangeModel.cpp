@@ -25,6 +25,7 @@
 // ===========================================================================
 //#define DEBUG_TARGET_LANE
 //#define DEBUG_SHADOWLANE
+#define DEBUG_MANEUVER
 #define DEBUG_COND (myVehicle.isSelected())
 
 
@@ -102,6 +103,7 @@ MSAbstractLaneChangeModel::MSAbstractLaneChangeModel(MSVehicle& v, const LaneCha
     myLaneChangeCompletion(1.0),
     myLaneChangeDirection(0),
     myManeuverDist(0.),
+    myPreviousManeuverDist(0.),
     myAlreadyChanged(false),
     myShadowLane(nullptr),
     myTargetLane(nullptr),
@@ -156,6 +158,8 @@ MSAbstractLaneChangeModel::setManeuverDist(const double dist) {
     }
 #endif
     myManeuverDist = fabs(dist) < NUMERICAL_EPS ? 0. : dist;
+    // store value which may be modified by the model during the next step
+    myPreviousManeuverDist = myManeuverDist;
 }
 
 
@@ -164,6 +168,10 @@ MSAbstractLaneChangeModel::getManeuverDist() const {
     return myManeuverDist;
 }
 
+double
+MSAbstractLaneChangeModel::getPreviousManeuverDist() const {
+    return myPreviousManeuverDist;
+}
 
 void
 MSAbstractLaneChangeModel::saveNeighbors(const int dir, const MSLeaderDistanceInfo& followers, const MSLeaderDistanceInfo& leaders) {

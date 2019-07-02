@@ -187,6 +187,7 @@ public:
     void setManeuverDist(const double dist);
     /// @brief Returns the remaining unblocked distance for the current maneuver. (only used by sublane model)
     double getManeuverDist() const;
+    double getPreviousManeuverDist() const;
 
     /// @brief Updates the value of safe lateral distances (in SL2015) during maneuver continuation in non-action steps
     virtual void updateSafeLatDist(const double travelledLatDist);
@@ -646,6 +647,9 @@ protected:
     /// @brief The complete lateral distance the vehicle wants to travel to finish its maneuver
     ///        Only used by sublane model, currently.
     double myManeuverDist;
+
+    /// @brief Maneuver distance from the previous simulation step
+    double myPreviousManeuverDist;
 
     /// @brief whether the vehicle has already moved this step
     bool myAlreadyChanged;

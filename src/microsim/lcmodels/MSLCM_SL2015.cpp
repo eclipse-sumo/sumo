@@ -1533,7 +1533,7 @@ MSLCM_SL2015::_wantsChangeSublane(
 
     if (!left) {
         // ONLY FOR CHANGING TO THE RIGHT
-        if (right && maxGain >= 0 && latDist <= 0) {
+        if (right && maxGainRight >= 0) {
             // honor the obligation to keep right (Rechtsfahrgebot)
             // XXX consider fast approaching followers on the current lane
             //const double vMax = myLookAheadSpeed;
@@ -1772,12 +1772,12 @@ MSLCM_SL2015::_wantsChangeSublane(
 #endif
             ret |= LCA_SUBLANE;
             // include prior motivation when sublane-change is part of finishing an ongoing maneuver in the same direction
-            if (myManeuverDist * latDist > 0) {
+            if (myPreviousManeuverDist * latDist > 0) {
                 int priorReason = (myPreviousState & LCA_CHANGE_REASONS & ~LCA_SUBLANE);
                 ret |= priorReason;
 #ifdef DEBUG_WANTSCHANGE
                 if (gDebugFlag2 && priorReason != 0) std::cout << "   including prior reason " << toString((LaneChangeAction)priorReason) 
-                    << " maneuverDist=" << myManeuverDist << "\n";
+                    << " prevManeuverDist=" << myPreviousManeuverDist << "\n";
 #endif
             }
             if (!cancelRequest(ret, laneOffset)) {
@@ -2385,6 +2385,27 @@ MSLCM_SL2015::overlap(double right, double left, double right2, double left2) {
 }
 
 
+int
+MSLCM_SL2015::lowest_bit(int changeReason) {
+    if ((changeReason & LCA_STRATEGIC) != 0) {
+        return LCA_STRATEGIC;
+    }
+    if ((changeReason & LCA_COOPERATIVE) != 0) {
+        return LCA_COOPERATIVE;
+    }
+    if ((changeReason & LCA_SPEEDGAIN) != 0) {
+        return LCA_SPEEDGAIN;
+    }
+    if ((changeReason & LCA_KEEPRIGHT) != 0) {
+        return LCA_KEEPRIGHT;
+    }
+    if ((changeReason & LCA_TRACI) != 0) {
+        return LCA_TRACI;
+    }
+    return changeReason;
+}
+
+
 MSLCM_SL2015::StateAndDist
 MSLCM_SL2015::decideDirection(StateAndDist sd1, StateAndDist sd2) const {
     // ignore dummy decisions (returned if mayChange() failes)
@@ -2398,6 +2419,8 @@ MSLCM_SL2015::decideDirection(StateAndDist sd1, StateAndDist sd2) const {
     const bool want2 = ((sd2.state & LCA_WANTS_LANECHANGE) != 0) || ((sd2.state & LCA_SUBLANE) != 0 && (sd2.state & LCA_STAY) != 0);
     const bool can1 = ((sd1.state & LCA_BLOCKED) == 0);
     const bool can2 = ((sd2.state & LCA_BLOCKED) == 0);
+    int reason1 = lowest_bit(sd1.state & LCA_CHANGE_REASONS);
+    int reason2 = lowest_bit(sd2.state & LCA_CHANGE_REASONS);
 #ifdef DEBUG_WANTSCHANGE
     if (DEBUG_COND) std::cout << SIMTIME
                                   << " veh=" << myVehicle.getID()
@@ -2409,16 +2432,18 @@ MSLCM_SL2015::decideDirection(StateAndDist sd1, StateAndDist sd2) const {
                                   << " want2=" << (sd2.state & LCA_WANTS_LANECHANGE)
                                   << " dist2=" << sd2.latDist
                                   << " dir2=" << sd2.dir
+                                  << " reason1=" << reason1
+                                  << " reason2=" << reason2
                                   << "\n";
 #endif
     if (want1) {
         if (want2) {
             // decide whether right or left has higher priority (lower value in enum LaneChangeAction)
-            if ((sd1.state & LCA_CHANGE_REASONS) < (sd2.state & LCA_CHANGE_REASONS)) {
+            if (reason1 < reason2) {
                 //if (DEBUG_COND) std::cout << "   " << (sd1.state & LCA_CHANGE_REASONS) << " < " << (sd2.state & LCA_CHANGE_REASONS) << "\n";
                 return (!can1 && can2 && sd1.sameDirection(sd2)) ? sd2 : sd1;
                 //return sd1;
-            } else if ((sd1.state & LCA_CHANGE_REASONS) > (sd2.state & LCA_CHANGE_REASONS)) {
+            } else if (reason1 > reason2) {
                 //if (DEBUG_COND) std::cout << "   " << (sd1.state & LCA_CHANGE_REASONS) << " > " << (sd2.state & LCA_CHANGE_REASONS) << "\n";
                 return (!can2 && can1 && sd1.sameDirection(sd2)) ? sd1 : sd2;
                 //return sd2;
