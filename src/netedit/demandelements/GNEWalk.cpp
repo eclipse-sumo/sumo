@@ -210,7 +210,11 @@ GNEWalk::moveGeometry(const Position& offset) {
         newPosition.add(offset);
         // filtern position using snap to active grid
         newPosition = myViewNet->snapToActiveGrid(newPosition);
-        double offsetLane = getLaneParents().front()->getGeometry().shape.nearest_offset_to_point2D(newPosition, false) - getLaneParents().front()->getGeometry().shape.nearest_offset_to_point2D(myWalkMove.originalViewPosition, false);
+        // obtain lane shape (to improve code legibility)
+        const PositionVector &laneShape = getEdgeParents().back()->getLanes().front()->getGeometry().shape;
+        // calculate offset lane
+        double offsetLane = laneShape.nearest_offset_to_point2D(newPosition, false) - laneShape.nearest_offset_to_point2D(myWalkMove.originalViewPosition, false);
+        std::cout << offsetLane << std::endl;
         // Update arrival Position
         myArrivalPosition = parse<double>(myWalkMove.firstOriginalLanePosition) + offsetLane;
         // Update geometry
@@ -224,7 +228,7 @@ GNEWalk::commitGeometryMoving(GNEUndoList* undoList) {
     // only commit geometry moving if myArrivalPosition isn't -1
     if (myArrivalPosition != -1) {
         undoList->p_begin("arrivalPos of " + getTagStr());
-        undoList->p_add(new GNEChange_Attribute(this, myViewNet->getNet(), SUMO_ATTR_STARTPOS, toString(myArrivalPosition), true, myWalkMove.firstOriginalLanePosition));
+        undoList->p_add(new GNEChange_Attribute(this, myViewNet->getNet(), SUMO_ATTR_ARRIVALPOS, toString(myArrivalPosition), true, myWalkMove.firstOriginalLanePosition));
         undoList->p_end();
     }
 }
@@ -487,6 +491,9 @@ GNEWalk::setAttribute(SumoXMLAttr key, const std::string& value) {
         }
         case SUMO_ATTR_BUS_STOP:
             changeAdditionalParent(this, value, 0);
+            break;
+        case SUMO_ATTR_ARRIVALPOS:
+            myArrivalPosition = parse<double>(value);
             break;
         case GNE_ATTR_SELECTED:
             if (parse<bool>(value)) {
