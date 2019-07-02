@@ -305,6 +305,9 @@ private:
     /// @brief return two shapes used for calculate person plan conections between stops
     std::pair<PositionVector, PositionVector> calculatePersonPlanConnectionStop(GNEDemandElement* stop);
 
+    /// @brief return two shapes used for calculate person plan conections between arrival position
+    std::pair<PositionVector, PositionVector> calculatePersonPlanConnectionArrivalPos(GNEEdge* edge, double arrivalPosPersonPlan);
+
     /// @brief Invalidated copy constructor.
     GNEPerson(const GNEPerson&) = delete;
 

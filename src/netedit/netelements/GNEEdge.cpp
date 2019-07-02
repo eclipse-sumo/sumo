@@ -2125,7 +2125,8 @@ GNEEdge::drawPartialPersonPlan(const GUIVisualizationSettings& s, GNEDemandEleme
             double circleWidthSquared = circleWidth * circleWidth;
             if (!s.drawForSelecting || (myNet->getViewNet()->getPositionInformation().distanceSquaredTo2D(pos) <= (circleWidthSquared + 2))) {
                 glPushMatrix();
-                glTranslated(pos.x(), pos.y(), personPlan->getType() + 0.01);
+                // translate to pos and move to upper using GLO_PERSONTRIP (to avoid overlapping)
+                glTranslated(pos.x(), pos.y(), GLO_PERSONTRIP + 0.01);
                 // set person plan points color
                 GLHelper::setColor(s.SUMO_color_personPlanPoints);
                 // resolution of drawn circle depending of the zoom (To improve smothness)

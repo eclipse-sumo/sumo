@@ -372,12 +372,13 @@ GNEPerson::updateGeometry() {
         auto it = personPlanSegments.begin();
         // iterate over segment plan
         while ((it != personPlanSegments.end()) && (it != (personPlanSegments.end()-1))) {
+            // check if this element and next element shares the same edge
             if (it->edge == (it+1)->edge) {
                 // copy all busStops from next segment to previous segment
                 it->busStops.insert(it->busStops.end(), (it+1)->busStops.begin(), (it+1)->busStops.end());
                 // copy all stops from next segment to previous segment
                 it->stops.insert(it->stops.end(), (it+1)->stops.begin(), (it+1)->stops.end());
-                // erase next segment
+                // erase next segment (note: don't copy arrival position)
                 personPlanSegments.erase(it+1);
                 // start again
                 it = personPlanSegments.begin();
@@ -429,6 +430,20 @@ GNEPerson::updateGeometry() {
                         for (const auto &shapeBusStopPos : shapesBusStop.second) {
                             myDemandElementGeometry.shapeSegments.push_back(DemandElementGeometry::Segment((i+1)->personPlan, i->edge, shapeBusStopPos, true, true));
                         }
+                    }
+                }
+            } else if (i->arrivalPos != -1) {
+                // obtain busStop shapes
+                auto shapeArrival = calculatePersonPlanConnectionArrivalPos(i->edge, i->arrivalPos);
+                // add first shape
+                for (const auto &shapeArrivalPos : shapeArrival.first) {
+                    myDemandElementGeometry.shapeSegments.push_back(DemandElementGeometry::Segment(i->personPlan, i->edge, shapeArrivalPos, true, true));
+                }
+                // check that next person plan segment isn't the last
+                if ((i+1) != personPlanSegments.end()) {
+                    // add second shape
+                    for (const auto &shapeArrivalPos : shapeArrival.second) {
+                        myDemandElementGeometry.shapeSegments.push_back(DemandElementGeometry::Segment((i+1)->personPlan, i->edge, shapeArrivalPos, true, true));
                     }
                 }
             } else {
@@ -1128,6 +1143,15 @@ GNEPerson::calculatePersonPlanConnectionStop(GNEDemandElement* stop) {
         result.second = laneShape.splitAt(stop->getAttributeDouble(SUMO_ATTR_ENDPOS), true).second;
         return result;
     }
+}
+
+
+std::pair<PositionVector, PositionVector> 
+GNEPerson::calculatePersonPlanConnectionArrivalPos(GNEEdge* edge, double arrivalPosPersonPlan) {
+    // declare a reference to lane shape
+    const PositionVector &laneShape = edge->getLanes().front()->getGeometry().shape;
+    // split laneShape in arrivalPos
+    return laneShape.splitAt(arrivalPosPersonPlan, true);
 }
 
 /****************************************************************************/
