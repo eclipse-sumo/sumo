@@ -212,10 +212,64 @@ GNERoute::commitGeometryMoving(GNEUndoList*) {
 
 void
 GNERoute::updateGeometry() {
-
-    /***********/
-
-    // only update demand element children, because Route uses the geometry of lane parent
+    // first clear geometry
+    myDemandElementGeometry.shapeSegments.clear();
+    // iterate over edge parents
+    for (auto i = getEdgeParents().begin(); i != (getEdgeParents().end()-1); i++) {
+        // obtain NBEdges from both edges
+        NBEdge* nbFrom = (*i)->getNBEdge();
+        NBEdge* nbTo = (*(i+1))->getNBEdge();
+        NBEdge* nbToNext = ((i+2) != getEdgeParents().end())?(*(i+2))->getNBEdge():nullptr;
+        // declare a flags
+        bool connectionFound = false;
+        // iterate over all connections of NBFrom
+        for (NBEdge::Connection c : nbFrom->getConnectionsFromLane(-1, nbTo, -1)) {
+            //check if given VClass is allowed for from and to lanes
+            if (!connectionFound && ((nbFrom->getPermissions(c.fromLane) & nbTo->getPermissions(c.toLane) & myVClass) == myVClass)) {
+                // check if this is the first edge
+                if (i == getEdgeParents().begin()) {
+                    // add shape of from lane
+                    for (const auto &j : nbFrom->getLaneStruct(c.fromLane).shape) {
+                        myDemandElementGeometry.shapeSegments.push_back(DemandElementGeometry::Segment(this, *i, j, true, true));
+                    }
+                }
+                // add connection shape 
+                for (const auto &j : c.shape) {
+                    myDemandElementGeometry.shapeSegments.push_back(DemandElementGeometry::Segment(this, *i, j, true, true));
+                }
+                // add shape of next lane
+                for (const auto &j : nbTo->getLaneStruct(c.toLane).shape) {
+                    myDemandElementGeometry.shapeSegments.push_back(DemandElementGeometry::Segment(this, *(i+1), j, true, true));
+                }
+                // change flag
+                connectionFound = true;
+            }
+        }
+        // check if connection was found
+        if (!connectionFound) {
+            // check if nbToNext exist
+            if(nbToNext) {
+                bool nextConnectionFound = false;
+                // iterate over all connections of nbTo
+                for (NBEdge::Connection c : nbTo->getConnectionsFromLane(-1, nbToNext, -1)) {
+                    //check if given VClass is allowed for from and to lanes
+                    if (!nextConnectionFound && ((nbTo->getPermissions(c.fromLane) & nbToNext->getPermissions(c.toLane) & myVClass) == myVClass)) {
+                        // add shape of from lane
+                        for (const auto &j : nbTo->getLaneStruct(c.fromLane).shape) {
+                            myDemandElementGeometry.shapeSegments.push_back(DemandElementGeometry::Segment(this, *i, j, true, true));
+                        }
+                        // change flag
+                        nextConnectionFound = true;
+                    }
+                }
+            } else {
+                //
+            }
+        }
+    }
+    // calculate shape rotations
+    myDemandElementGeometry.calculateShapeRotationsAndLengths();
+    // update demand element childrens
     for (const auto& i : getDemandElementChildren()) {
         i->updateGeometry();
     }

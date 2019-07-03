@@ -1931,7 +1931,7 @@ GNEEdge::drawPartialRoute(const GUIVisualizationSettings& s, GNEDemandElement *r
     // draw route
     for (int i = 0; i < ((int)route->getDemandElementGeometry().shapeSegments.size()-1); i++) {
         // obtain segment (to improve code legibly)
-        const GNEDemandElement::DemandElementGeometry::Segment &segment = route->getDemandElementParents().front()->getDemandElementGeometry().shapeSegments[i];
+        const GNEDemandElement::DemandElementGeometry::Segment &segment = route->getDemandElementGeometry().shapeSegments[i];
         // draw partial segment
         if (/*segment.visible && */(segment.edge == this) && (segment.element == route)) {
             GLHelper::drawBoxLine(segment.pos, segment.rotation, segment.lenght, routeWidth, 0);
