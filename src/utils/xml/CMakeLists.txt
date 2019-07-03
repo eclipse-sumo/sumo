@@ -1,6 +1,7 @@
 set(utils_xml_STAT_SRCS
    GenericSAXHandler.h
    GenericSAXHandler.cpp
+   IStreamInputSource.h
    SUMOSAXAttributes.cpp
    SUMOSAXAttributes.h
    SUMOSAXAttributesImpl_Binary.cpp

@@ -234,6 +234,11 @@ if (X11_FOUND)
 endif (X11_FOUND)
 
 if (CHECK_OPTIONAL_LIBS)
+    find_package(ZLIB)
+    if (ZLIB_FOUND)
+        set(HAVE_ZLIB 1)
+    endif ()
+
     find_package(GDAL)
     if (GDAL_FOUND)
         include_directories(${GDAL_INCLUDE_DIR})
@@ -286,7 +291,8 @@ include_directories(${CMAKE_SOURCE_DIR}/src)
 
 set(commonlibs
         utils_distribution utils_shapes utils_options
-        utils_xml utils_geom utils_common utils_importio utils_iodevices foreign_tcpip ${XercesC_LIBRARIES} ${PROJ_LIBRARY})
+        utils_xml utils_geom utils_common utils_importio utils_iodevices foreign_tcpip
+		${XercesC_LIBRARIES} ${ZLIB_LIBRARIES} ${PROJ_LIBRARY})
 if (MSVC)
     set(commonlibs ${commonlibs} ws2_32)
 endif ()

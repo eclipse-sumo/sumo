@@ -24,7 +24,7 @@
 // ===========================================================================
 #include <config.h>
 
-#include <fstream>
+#include <iostream>
 #include "OutputDevice.h"
 
 
@@ -44,7 +44,7 @@ public:
      * @param[in] strm The output stream to used
      * @exception IOError Should not be thrown by this implementation
      */
-    OutputDevice_File(const std::string& fullName, const bool binary);
+    OutputDevice_File(const std::string& fullName, const bool binary, const bool compressed=false);
 
 
     /// @brief Destructor
@@ -64,7 +64,7 @@ protected:
 
 private:
     /// The wrapped ofstream
-    std::ofstream* myFileStream;
+    std::ostream* myFileStream;
 
 };
 

@@ -26,6 +26,7 @@ from __future__ import absolute_import
 import sys
 import math
 import heapq
+import gzip
 from xml.sax import handler, parse
 from copy import copy
 from collections import defaultdict
@@ -738,5 +739,8 @@ def readNet(filename, **others):
         'withPedestrianConnections' : import connections between sidewalks, crossings (default False)
     """
     netreader = NetReader(**others)
-    parse(filename, netreader)
+    try:
+        parse(gzip.open(filename), netreader)
+    except IOError:
+        parse(filename, netreader)
     return netreader.getNet()

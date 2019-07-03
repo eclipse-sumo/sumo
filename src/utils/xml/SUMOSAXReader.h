@@ -38,6 +38,7 @@
 // ===========================================================================
 class GenericSAXHandler;
 class BinaryInputDevice;
+class IStreamInputSource;
 
 
 // ===========================================================================
@@ -114,6 +115,10 @@ private:
     XERCES_CPP_NAMESPACE::SAX2XMLReader* myXMLReader;
 
     BinaryInputDevice* myBinaryInput;
+
+    std::istream* myIStream;
+
+    IStreamInputSource* myInputStream;
 
     char mySbxVersion;
 

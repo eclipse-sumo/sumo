@@ -26,6 +26,9 @@
 #include <iostream>
 #include <cstring>
 #include <cerrno>
+#ifdef HAVE_ZLIB
+#include <foreign/zstr/zstr.hpp>
+#endif
 #include <utils/common/UtilExceptions.h>
 #include "OutputDevice_File.h"
 
@@ -33,14 +36,26 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-OutputDevice_File::OutputDevice_File(const std::string& fullName, const bool binary)
+OutputDevice_File::OutputDevice_File(const std::string& fullName, const bool binary, const bool compressed)
     : OutputDevice(binary, 0, fullName), myFileStream(nullptr) {
 #ifdef WIN32
     if (fullName == "/dev/null") {
         myFileStream = new std::ofstream("NUL");
     } else
 #endif
-        myFileStream = new std::ofstream(fullName.c_str(), binary ? std::ios::binary : std::ios_base::out);
+#ifdef HAVE_ZLIB
+        if (compressed) {
+            try {
+                myFileStream = new zstr::ofstream(fullName.c_str(), binary ? std::ios::binary : std::ios_base::out);
+            } catch (zstr::Exception& e) {
+                throw IOError("Could not build output file '" + fullName + "' (" + e.what() + ").");
+            }
+        } else {
+#endif
+            myFileStream = new std::ofstream(fullName.c_str(), binary ? std::ios::binary : std::ios_base::out);
+#ifdef HAVE_ZLIB
+    }
+#endif
     if (!myFileStream->good()) {
         delete myFileStream;
         throw IOError("Could not build output file '" + fullName + "' (" + std::strerror(errno) + ").");
@@ -49,7 +64,6 @@ OutputDevice_File::OutputDevice_File(const std::string& fullName, const bool bin
 
 
 OutputDevice_File::~OutputDevice_File() {
-    myFileStream->close();
     delete myFileStream;
 }
 

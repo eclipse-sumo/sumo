@@ -42,6 +42,9 @@
 /* defined if osg is available */
 #cmakedefine HAVE_OSG
 
+/* defined if zlib is available */
+#cmakedefine HAVE_ZLIB
+
 /* set to proj.h, proj_api.h or empty depending on which proj is available */
 #cmakedefine PROJ_API_FILE "@PROJ_API_FILE@"
 

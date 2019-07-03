@@ -36,6 +36,10 @@
 #include <utils/iodevices/BinaryInputDevice.h>
 #include "SUMOSAXAttributesImpl_Binary.h"
 #include "GenericSAXHandler.h"
+#ifdef HAVE_ZLIB
+#include <foreign/zstr/zstr.hpp>
+#endif
+#include "IStreamInputSource.h"
 #include "SUMOSAXReader.h"
 
 
@@ -43,7 +47,7 @@
 // method definitions
 // ===========================================================================
 SUMOSAXReader::SUMOSAXReader(GenericSAXHandler& handler, const XERCES_CPP_NAMESPACE::SAX2XMLReader::ValSchemes validationScheme)
-    : myHandler(nullptr), myValidationScheme(validationScheme), myXMLReader(nullptr), myBinaryInput(nullptr) {
+    : myHandler(nullptr), myValidationScheme(validationScheme), myXMLReader(nullptr), myBinaryInput(nullptr), myIStream(nullptr), myInputStream(nullptr) {
     setHandler(handler);
 }
 
@@ -93,7 +97,11 @@ SUMOSAXReader::parse(std::string systemID) {
         if (myXMLReader == nullptr) {
             myXMLReader = getSAXReader();
         }
+#ifdef HAVE_ZLIB
+        myXMLReader->parse(IStreamInputSource(zstr::ifstream(systemID.c_str(), std::fstream::in | std::fstream::binary)));
+#else
         myXMLReader->parse(systemID.c_str());
+#endif
     }
 }
 
@@ -142,7 +150,13 @@ SUMOSAXReader::parseFirst(std::string systemID) {
             myXMLReader = getSAXReader();
         }
         myToken = XERCES_CPP_NAMESPACE::XMLPScanToken();
+#ifdef HAVE_ZLIB
+        myIStream = new zstr::ifstream(systemID.c_str(), std::fstream::in | std::fstream::binary);
+        myInputStream = new IStreamInputSource(*myIStream);
+        return myXMLReader->parseFirst(*myInputStream, myToken);
+#else
         return myXMLReader->parseFirst(systemID.c_str(), myToken);
+#endif
     }
 }
 

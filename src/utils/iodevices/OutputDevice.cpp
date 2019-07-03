@@ -89,7 +89,7 @@ OutputDevice::getDevice(const std::string& name) {
             }
             name2 = FileHelpers::prependToLastPathComponent(prefix, name);
         }
-        dev = new OutputDevice_File(name2, len > 4 && name.substr(len - 4) == ".sbx");
+        dev = new OutputDevice_File(name2, len > 4 && name.substr(len - 4) == ".sbx", len > 3 && name.substr(len - 3) == ".gz");
     }
     dev->setPrecision();
     dev->getOStream() << std::setiosflags(std::ios::fixed);
