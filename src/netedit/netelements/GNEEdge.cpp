@@ -1946,7 +1946,7 @@ GNEEdge::drawPartialRoute(const GUIVisualizationSettings& s, GNEDemandElement *r
         // obtain segment (to improve code legibly)
         const GNEDemandElement::DemandElementGeometry::Segment &segment = route->getDemandElementGeometry().shapeSegments[i];
         // draw partial segment
-        if (/*segment.visible && */(segment.edge == this) && (segment.element == route)) {
+        if ((segment.edge == this) && (segment.element == route)) {
             GLHelper::drawBoxLine(segment.pos, segment.rotation, segment.lenght, routeWidth, 0);
         }
     }
@@ -1995,7 +1995,7 @@ GNEEdge::drawPartialTripFromTo(const GUIVisualizationSettings& s, GNEDemandEleme
         // obtain segment (to improve code legibly)
         const GNEDemandElement::DemandElementGeometry::Segment &segment = tripOrFromTo->getDemandElementParents().front()->getDemandElementGeometry().shapeSegments[i];
         // draw partial segment
-        if (/*segment.visible && */(segment.edge == this) && (segment.element == tripOrFromTo)) {
+        if ((segment.edge == this) && (segment.element == tripOrFromTo)) {
             GLHelper::drawBoxLine(segment.pos, segment.rotation, segment.lenght, tripOrFromToWidth, 0);
         }
     }
