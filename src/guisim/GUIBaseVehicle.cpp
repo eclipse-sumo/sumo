@@ -812,7 +812,7 @@ GUIBaseVehicle::computeSeats(const Position& front, const Position& back, int ma
     const double length = front.distanceTo2D(back);
     const double seatOffset = SUMO_const_waitingPersonWidth * exaggeration;
     const int rowSize = MAX2(1, (int)floor(vehWidth / seatOffset));
-    const double rowOffset = (length - 1) / ceil(maxSeats / rowSize);
+    const double rowOffset = (length - 1) / ceil((double)maxSeats / rowSize);
     const double sideOffset = (rowSize - 1) / 2 * seatOffset;
     double rowPos = 1 - rowOffset;
     for (int i = 0; requiredSeats > 0 && i < maxSeats; i++) {
