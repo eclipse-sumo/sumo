@@ -977,6 +977,9 @@ TRACI_CONST int VAR_VEHICLE = 0xc3;
 // append a person stage (person)
 TRACI_CONST int APPEND_STAGE = 0xc4;
 
+// replace a person stage (person)
+TRACI_CONST int REPLACE_STAGE = 0xcd;
+
 // append a person stage (person)
 TRACI_CONST int REMOVE_STAGE = 0xc5;
 

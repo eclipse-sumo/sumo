@@ -281,6 +281,13 @@ class PersonDomain(Domain):
         simulation._writeStage(stage, self._connection)
         self._connection._sendExact()
 
+    def replaceStage(self, personID, stageIndex, stage):
+        self._connection._beginMessage(tc.CMD_SET_PERSON_VARIABLE, tc.REPLACE_STAGE, personID, simulation._stageSize(stage))
+        self._connection._string += struct.pack("!Bi", tc.TYPE_COMPOUND, 2)
+        self._connection._string += struct.pack("!Bi", tc.TYPE_INTEGER, stageIndex)
+        simulation._writeStage(stage, self._connection)
+        self._connection._sendExact()
+
     def appendDrivingStage(self, personID, toEdge, lines, stopID=""):
         """appendDrivingStage(string, string, string, string)
         Appends a driving stage to the plan of the given person

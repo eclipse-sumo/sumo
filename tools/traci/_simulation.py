@@ -65,7 +65,6 @@ def _stageSize(stage):
 
 
 def _writeStage(stage, connection):
-    assert(isinstance(stage, Stage))
     connection._string += struct.pack("!Bi", tc.TYPE_COMPOUND, 13)
     connection._string += struct.pack("!Bi", tc.TYPE_INTEGER, stage.type)
     connection._packString(stage.vType)

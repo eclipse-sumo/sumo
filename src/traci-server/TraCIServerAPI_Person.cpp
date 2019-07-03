@@ -97,6 +97,7 @@ TraCIServerAPI_Person::processSet(TraCIServer& server, tcpip::Storage& inputStor
     if (variable != libsumo::VAR_PARAMETER
             && variable != libsumo::ADD
             && variable != libsumo::APPEND_STAGE
+            && variable != libsumo::REPLACE_STAGE
             && variable != libsumo::REMOVE_STAGE
             && variable != libsumo::CMD_REROUTE_TRAVELTIME
             && variable != libsumo::MOVE_TO_XY
@@ -259,6 +260,28 @@ TraCIServerAPI_Person::processSet(TraCIServer& server, tcpip::Storage& inputStor
 
             }
             break;
+
+            case libsumo::REPLACE_STAGE : {
+                if (inputStorage.readUnsignedByte() != libsumo::TYPE_COMPOUND) {
+                    return server.writeErrorStatusCmd(libsumo::CMD_SET_PERSON_VARIABLE, "Replacing a person stage requires a compound object.", outputStorage);
+                }
+                if (inputStorage.readInt() != 2) {
+                    return server.writeErrorStatusCmd(libsumo::CMD_SET_PERSON_VARIABLE, "Replacing a person stage requires a compound object of size 2.", outputStorage);
+                }
+                int nextStageIndex = 0;
+                if(!server.readTypeCheckingInt(inputStorage, nextStageIndex)) {
+                    return server.writeErrorStatusCmd(libsumo::CMD_SET_PERSON_VARIABLE, "First parameter of replace stage should be an integer", outputStorage);
+                }
+                if (inputStorage.readUnsignedByte() != libsumo::TYPE_COMPOUND) {
+                    return server.writeErrorStatusCmd(libsumo::CMD_SET_PERSON_VARIABLE, "Second parameter of replace stage should be a compound object", outputStorage);
+                }
+                if (inputStorage.readInt() != 13) {
+                    return server.writeErrorStatusCmd(libsumo::CMD_SET_PERSON_VARIABLE, "Second parameter of replace stage should be a compound object of size 13", outputStorage);
+                }
+                libsumo::Person::replaceStage(id, nextStageIndex, *TraCIServerAPI_Simulation::readStage(server, inputStorage));
+            }
+            break;
+
             case libsumo::REMOVE_STAGE: {
                 int nextStageIndex = 0;
                 if (!server.readTypeCheckingInt(inputStorage, nextStageIndex)) {
