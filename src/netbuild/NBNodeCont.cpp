@@ -1513,13 +1513,8 @@ NBNodeCont::guessTLs(OptionsCont& oc, NBTrafficLightLogicCont& tlc) {
         }
     }
 
-    // maybe no tls shall be guessed
-    if (!oc.getBool("tls.guess")) {
-        return;
-    }
-
     // guess joined tls first, if wished
-    if (oc.getBool("tls.join")) {
+    if (oc.getBool("tls.guess.joining")) {
         // get node clusters
         NodeClusters cands;
         generateNodeClusters(oc.getFloat("tls.join-dist"), cands);
@@ -1561,23 +1556,25 @@ NBNodeCont::guessTLs(OptionsCont& oc, NBTrafficLightLogicCont& tlc) {
         }
     }
 
-    // guess tls
-    for (NodeCont::iterator i = myNodes.begin(); i != myNodes.end(); i++) {
-        NBNode* cur = (*i).second;
-        //  do nothing if already is tl-controlled
-        if (cur->isTLControlled()) {
-            continue;
+    // guess single tls
+    if (oc.getBool("tls.guess")) {
+        for (NodeCont::iterator i = myNodes.begin(); i != myNodes.end(); i++) {
+            NBNode* cur = (*i).second;
+            //  do nothing if already is tl-controlled
+            if (cur->isTLControlled()) {
+                continue;
+            }
+            // do nothing if in the list of explicit non-controlled junctions
+            if (find(ncontrolled.begin(), ncontrolled.end(), cur) != ncontrolled.end()) {
+                continue;
+            }
+            NodeSet c;
+            c.insert(cur);
+            if (!shouldBeTLSControlled(c, laneSpeedThreshold) || cur->geometryLike()) {
+                continue;
+            }
+            setAsTLControlled((*i).second, tlc, type);
         }
-        // do nothing if in the list of explicit non-controlled junctions
-        if (find(ncontrolled.begin(), ncontrolled.end(), cur) != ncontrolled.end()) {
-            continue;
-        }
-        NodeSet c;
-        c.insert(cur);
-        if (!shouldBeTLSControlled(c, laneSpeedThreshold) || cur->geometryLike()) {
-            continue;
-        }
-        setAsTLControlled((*i).second, tlc, type);
     }
 }
 

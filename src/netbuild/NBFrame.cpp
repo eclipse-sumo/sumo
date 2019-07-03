@@ -351,8 +351,9 @@ NBFrame::fillOptions(bool forNetgen) {
         oc.addDescription("tls.taz-nodes", "TLS Building", "Sets district nodes as tls-controlled"); // !!! describe
     }
 
-    oc.doRegister("tls-guess.joining", new Option_Bool(false));
-    oc.addDescription("tls-guess.joining", "TLS Building", "Includes node clusters into guess"); // !!! describe
+    oc.doRegister("tls.guess.joining", new Option_Bool(false));
+    oc.addSynonyme("tls.guess.joining", "tls-guess.joining", true);
+    oc.addDescription("tls.guess.joining", "TLS Building", "Includes node clusters into guess"); // !!! describe
 
     oc.doRegister("tls.join", new Option_Bool(false));
     oc.addSynonyme("tls.join", "try-join-tls", true);
@@ -544,12 +545,6 @@ NBFrame::checkOptions() {
     OptionsCont& oc = OptionsCont::getOptions();
     bool ok = true;
     //
-    if (!oc.isDefault("tls-guess.joining")) {
-        WRITE_WARNING("'--tls-guess.joining' was joined with '--tls.join'.\n Please use '--tls.join' in future only.");
-        if (!oc.isSet("tls.join")) {
-            oc.set("tls.join", "true");
-        }
-    }
     if (!SUMOXMLDefinitions::TrafficLightTypes.hasString(oc.getString("tls.default-type"))) {
         WRITE_ERROR("unsupported value '" + oc.getString("tls.default-type") + "' for option '--tls.default-type'");
         ok = false;
