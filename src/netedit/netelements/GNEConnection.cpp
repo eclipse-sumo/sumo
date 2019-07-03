@@ -77,16 +77,16 @@ GNEConnection::updateGeometry() {
     // Get shape of from and to lanes
     NBEdge::Connection& nbCon = getNBEdgeConnection();
     if (myShapeDeprecated) {
-        // Clear containers
+        // Clear geometry
         myGeometry.clearGeometry();
-        // obtain lane shape rom
+        // obtain lane shape from
         PositionVector laneShapeFrom;
         if ((int)getEdgeFrom()->getNBEdge()->getLanes().size() > nbCon.fromLane) {
             laneShapeFrom = getEdgeFrom()->getNBEdge()->getLanes().at(nbCon.fromLane).shape;
         } else {
             return;
         }
-        // obtalin lane shape to
+        // obtain lane shape to
         PositionVector laneShapeTo;
         if ((int)nbCon.toEdge->getLanes().size() > nbCon.toLane) {
             laneShapeTo = nbCon.toEdge->getLanes().at(nbCon.toLane).shape;
