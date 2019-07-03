@@ -64,8 +64,8 @@ GUIMEVehicle::getParameterWindow(GUIMainWindow& app,
     GUIParameterTableWindow* ret =
         new GUIParameterTableWindow(app, *this, 21 + (int)getParameter().getParametersMap().size());
     // add items
-    ret->mkItem("edge [id]", false, getEdge()->getID());
-    ret->mkItem("segment [#]", false, getSegment()->getIndex());
+    ret->mkItem("edge [id]", true, new FunctionBindingString<GUIMEVehicle>(this, &GUIMEVehicle::getEdgeID));
+    ret->mkItem("segment [#]", true,  new FunctionBinding<GUIMEVehicle, int>(this, &GUIMEVehicle::getSegmentIndex));
     ret->mkItem("position [m]", true, new FunctionBinding<GUIMEVehicle, double>(this, &MEVehicle::getPositionOnLane));
     ret->mkItem("speed [m/s]", true, new FunctionBinding<GUIMEVehicle, double>(this, &MEVehicle::getSpeed));
     ret->mkItem("angle [degree]", true, new FunctionBinding<GUIMEVehicle, double>(this, &GUIBaseVehicle::getNaviDegree));
@@ -241,6 +241,16 @@ GUIMEVehicle::getStopInfo() const {
         return "";
     }
     return result;
+}
+
+std::string
+GUIMEVehicle::getEdgeID() const {
+    return getEdge()->getID();
+}
+
+int
+GUIMEVehicle::getSegmentIndex() const {
+    return getSegment()->getIndex();
 }
 
 

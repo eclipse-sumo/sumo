@@ -105,6 +105,10 @@ public:
     /// @brief retrieve information about the current stop state
     std::string getStopInfo() const;
 
+    std::string getEdgeID() const;
+
+    int getSegmentIndex() const;
+
     /// @brief adds the blocking foes to the current selection
     void selectBlockingFoes() const;
 

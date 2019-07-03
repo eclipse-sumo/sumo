@@ -146,6 +146,12 @@ public:
 
     /// @brief return the lanechange state
     std::string getLCStateRight() const;
+    std::string getLCStateLeft() const;
+
+    /// @brief return vehicle lane id 
+    std::string getLaneID() const;
+    std::string getShadowLaneID() const;
+    std::string getTargetLaneID() const;
 
     /// @brief return the lane-change maneuver distance
     double getManeuverDist() const;

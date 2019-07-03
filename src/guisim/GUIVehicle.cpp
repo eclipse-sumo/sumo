@@ -99,14 +99,12 @@ GUIVehicle::getParameterWindow(GUIMainWindow& app,
     GUIParameterTableWindow* ret =
         new GUIParameterTableWindow(app, *this, 39 + sublaneParams + (int)getParameter().getParametersMap().size());
     // add items
-    ret->mkItem("lane [id]", false, Named::getIDSecure(myLane, "n/a"));
+    ret->mkItem("lane [id]", true, new FunctionBindingString<GUIVehicle>(this, &GUIVehicle::getLaneID));
     if (MSAbstractLaneChangeModel::haveLateralDynamics()) {
-        const MSLane* shadowLane = getLaneChangeModel().getShadowLane();
-        ret->mkItem("shadow lane [id]", false, shadowLane == nullptr ? "" : shadowLane->getID());
+        ret->mkItem("shadow lane [id]", true, new FunctionBindingString<GUIVehicle>(this, &GUIVehicle::getShadowLaneID));
     }
     if (MSGlobals::gLateralResolution > 0) {
-        const MSLane* targetLane = getLaneChangeModel().getTargetLane();
-        ret->mkItem("target lane [id]", false, targetLane == nullptr ? "" : targetLane->getID());
+        ret->mkItem("target lane [id]", true, new FunctionBindingString<GUIVehicle>(this, &GUIVehicle::getTargetLaneID));
     }
     ret->mkItem("position [m]", true,
                 new FunctionBinding<GUIVehicle, double>(this, &MSVehicle::getPositionOnLane));
@@ -146,7 +144,7 @@ GUIVehicle::getParameterWindow(GUIMainWindow& app,
     if (getParameter().repetitionProbability > 0) {
         ret->mkItem("insertion probability", false, getParameter().repetitionProbability);
     }
-    ret->mkItem("stop info", false, getStopInfo());
+    ret->mkItem("stop info", true, new FunctionBindingString<GUIVehicle>(this, &GUIVehicle::getStopInfo));
     ret->mkItem("line", false, myParameter->line);
     ret->mkItem("CO2 [mg/s]", true,
                 new FunctionBinding<GUIVehicle, double>(this, &MSVehicle::getCO2Emissions));
@@ -171,7 +169,7 @@ GUIVehicle::getParameterWindow(GUIMainWindow& app,
                 new FunctionBinding<GUIVehicle, int>(this, &MSVehicle::getContainerNumber));
 
     ret->mkItem("lcState right", true, new FunctionBindingString<GUIVehicle>(this, &GUIVehicle::getLCStateRight));
-    ret->mkItem("lcState left", false, toString((LaneChangeAction)getLaneChangeModel().getSavedState(1).second));
+    ret->mkItem("lcState left", true, new FunctionBindingString<GUIVehicle>(this, &GUIVehicle::getLCStateLeft));
     // close building
     if (MSGlobals::gLateralResolution > 0) {
         ret->mkItem("right side on edge [m]", true, new FunctionBinding<GUIVehicle, double>(this, &GUIVehicle::getRightSideOnEdge2));
@@ -831,6 +829,25 @@ GUIVehicle::getLCStateRight() const {
     return toString((LaneChangeAction)getLaneChangeModel().getSavedState(-1).second);
 }
 
+std::string
+GUIVehicle::getLCStateLeft() const {
+    return toString((LaneChangeAction)getLaneChangeModel().getSavedState(1).second);
+}
+
+std::string
+GUIVehicle::getLaneID() const {
+    return Named::getIDSecure(myLane, "n/a");
+}
+
+std::string
+GUIVehicle::getShadowLaneID() const {
+    return Named::getIDSecure(getLaneChangeModel().getShadowLane(), "");
+}
+
+std::string
+GUIVehicle::getTargetLaneID() const {
+    return Named::getIDSecure(getLaneChangeModel().getTargetLane(), "");
+}
 
 double
 GUIVehicle::getManeuverDist() const {
