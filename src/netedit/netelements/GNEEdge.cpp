@@ -1189,6 +1189,19 @@ GNEEdge::setResponsible(bool newVal) {
     myAmResponsible = newVal;
 }
 
+
+GNELane *
+GNEEdge::getLaneByVClass(SUMOVehicleClass vClass) {
+    // iterate over all lanes
+    for (int i = 0; i < (int)myNBEdge.getLanes().size(); i++) {
+        // if given VClass is in permissions, return lane
+        if (myNBEdge.getLanes().at(i).permissions &vClass) {
+            return myLanes.at(i);
+        }
+    }
+    return nullptr;
+}
+
 // ===========================================================================
 // private
 // ===========================================================================

@@ -304,6 +304,9 @@ public:
     /// @brief return smoothed shape
     PositionVector smoothShape(const PositionVector& shape, bool forElevation);
 
+    /// @brief return first lane that allow the given VClass
+    GNELane *getLaneByVClass(SUMOVehicleClass vClass);
+
 protected:
     /// @brief the underlying NBEdge
     NBEdge& myNBEdge;

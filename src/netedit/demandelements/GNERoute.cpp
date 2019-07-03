@@ -21,19 +21,20 @@
 // ===========================================================================
 #include <config.h>
 
-#include <utils/gui/div/GLHelper.h>
-#include <utils/gui/globjects/GLIncludes.h>
-#include <utils/gui/windows/GUIAppEnum.h>
-#include <netedit/changes/GNEChange_Attribute.h>
+#include <netbuild/NBNode.h>
 #include <netedit/GNENet.h>
 #include <netedit/GNEUndoList.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNEViewParent.h>
-#include <netedit/netelements/GNELane.h>
-#include <netedit/netelements/GNEEdge.h>
-#include <netedit/netelements/GNEConnection.h>
+#include <netedit/changes/GNEChange_Attribute.h>
 #include <netedit/frames/GNESelectorFrame.h>
+#include <netedit/netelements/GNEConnection.h>
+#include <netedit/netelements/GNEEdge.h>
+#include <netedit/netelements/GNELane.h>
+#include <utils/gui/div/GLHelper.h>
 #include <utils/gui/div/GUIGlobalSelection.h>
+#include <utils/gui/globjects/GLIncludes.h>
+#include <utils/gui/windows/GUIAppEnum.h>
 
 #include "GNERoute.h"
 #include "GNEVehicle.h"
@@ -214,57 +215,68 @@ void
 GNERoute::updateGeometry() {
     // first clear geometry
     myDemandElementGeometry.shapeSegments.clear();
+    // declare vector for saving lane and connection shapes
+    std::vector<std::pair<GNEEdge*, PositionVector> > laneShapes;
+    std::vector<PositionVector> connectionShapes;
+    // obtain all lane shapes
+    for (const auto &i : getEdgeParents()) {
+        GNELane *lane = i->getLaneByVClass(myVClass);
+        if (lane) {
+            laneShapes.push_back(std::make_pair(i, lane->getGeometry().shape));
+        } else {
+            laneShapes.push_back(std::make_pair(i, i->getLanes().front()->getGeometry().shape));
+        }
+    }
+    // resize connectionShapes
+    connectionShapes.resize(laneShapes.size());
     // iterate over edge parents
-    for (auto i = getEdgeParents().begin(); i != (getEdgeParents().end()-1); i++) {
+    for (int i = 0; i < ((int)getEdgeParents().size()-1); i++) {
         // obtain NBEdges from both edges
-        NBEdge* nbFrom = (*i)->getNBEdge();
-        NBEdge* nbTo = (*(i+1))->getNBEdge();
-        NBEdge* nbToNext = ((i+2) != getEdgeParents().end())?(*(i+2))->getNBEdge():nullptr;
+        NBEdge* nbFrom = getEdgeParents().at(i)->getNBEdge();
+        NBEdge* nbTo = getEdgeParents().at(i+1)->getNBEdge();
         // declare a flags
         bool connectionFound = false;
         // iterate over all connections of NBFrom
         for (NBEdge::Connection c : nbFrom->getConnectionsFromLane(-1, nbTo, -1)) {
             //check if given VClass is allowed for from and to lanes
             if (!connectionFound && ((nbFrom->getPermissions(c.fromLane) & nbTo->getPermissions(c.toLane) & myVClass) == myVClass)) {
-                // check if this is the first edge
-                if (i == getEdgeParents().begin()) {
-                    // add shape of from lane
-                    for (const auto &j : nbFrom->getLaneStruct(c.fromLane).shape) {
-                        myDemandElementGeometry.shapeSegments.push_back(DemandElementGeometry::Segment(this, *i, j, true, true));
+                // save shape 
+                if (c.customShape.size() != 0) {
+                    connectionShapes.at(i) = c.customShape;
+                } else if (nbFrom->getToNode()->getShape().area() > 4) {
+                    if (c.shape.size() != 0) {
+                        connectionShapes.at(i) = c.shape;
+                        // only append via shape if it exists
+                        if (c.haveVia) {
+                            connectionShapes.at(i).append(c.viaShape);
+                        }
+                    } else {
+                        // manually calculate smooth shape
+                        PositionVector laneShapeFrom = nbFrom->getLanes().at(c.fromLane).shape;
+                        PositionVector laneShapeTo = c.toEdge->getLanes().at(c.toLane).shape;
+                        // Calculate shape so something can be drawn immidiately
+                        connectionShapes.at(i) = nbFrom->getToNode()->computeSmoothShape(
+                            laneShapeFrom,
+                            laneShapeTo,
+                            5, nbFrom->getTurnDestination() == c.toEdge,
+                            (double) 5. * (double) nbFrom->getNumLanes(),
+                            (double) 5. * (double) c.toEdge->getNumLanes());
                     }
-                }
-                // add connection shape 
-                for (const auto &j : c.shape) {
-                    myDemandElementGeometry.shapeSegments.push_back(DemandElementGeometry::Segment(this, *i, j, true, true));
-                }
-                // add shape of next lane
-                for (const auto &j : nbTo->getLaneStruct(c.toLane).shape) {
-                    myDemandElementGeometry.shapeSegments.push_back(DemandElementGeometry::Segment(this, *(i+1), j, true, true));
                 }
                 // change flag
                 connectionFound = true;
             }
         }
-        // check if connection was found
-        if (!connectionFound) {
-            // check if nbToNext exist
-            if(nbToNext) {
-                bool nextConnectionFound = false;
-                // iterate over all connections of nbTo
-                for (NBEdge::Connection c : nbTo->getConnectionsFromLane(-1, nbToNext, -1)) {
-                    //check if given VClass is allowed for from and to lanes
-                    if (!nextConnectionFound && ((nbTo->getPermissions(c.fromLane) & nbToNext->getPermissions(c.toLane) & myVClass) == myVClass)) {
-                        // add shape of from lane
-                        for (const auto &j : nbTo->getLaneStruct(c.fromLane).shape) {
-                            myDemandElementGeometry.shapeSegments.push_back(DemandElementGeometry::Segment(this, *i, j, true, true));
-                        }
-                        // change flag
-                        nextConnectionFound = true;
-                    }
-                }
-            } else {
-                //
-            }
+    }
+    // fill shapeSegments
+    for (int i = 0; i < (int)laneShapes.size(); i++) {
+        // set lane shapes
+        for (const auto &laneShapePos : laneShapes.at(i).second) {
+            myDemandElementGeometry.shapeSegments.push_back(DemandElementGeometry::Segment(this, laneShapes.at(i).first, laneShapePos, true, true));
+        }
+        // set connection shapes
+        for (const auto &connectionShapePos : connectionShapes.at(i)) {
+            myDemandElementGeometry.shapeSegments.push_back(DemandElementGeometry::Segment(this, laneShapes.at(i).first , connectionShapePos, true, true));
         }
     }
     // calculate shape rotations
