@@ -1,4 +1,4 @@
-TraCITestClient output file. Date: Mon Jul  1 16:34:01 2019
+TraCITestClient output file. Date: Wed Jul  3 09:00:14 2019
 
 
 -> Command sent: <SetOrder>:
@@ -110,12 +110,12 @@ testAPI:
     convert2DGeo: TraCIPosition(12.0501,48.0917,-1.07374e+09)
     convert3D: TraCIPosition(2508.05,491.75,0)
     convert3DGeo: TraCIPosition(12.0501,48.0917,0)
-    convertRoad: TraCIRoadPosition(:n_m5_0_1,2.44971)
-    convertRoadBus: TraCIRoadPosition(:n_m5_0_1,2.44971)
+    convertRoad: TraCIRoadPosition(:n_m5_0_1,3.02524)
+    convertRoadBus: TraCIRoadPosition(:n_m5_0_1,3.02524)
     convertGeo: TraCIPosition(12.05,48.0917,-1.07374e+09)
     convertCartesian: TraCIPosition(16227.4,435082,-1.07374e+09)
     getDistance2D_air: 500.00
-    getDistance2D_driving: 3368.41
+    getDistance2D_driving: 3367.88
     getDistanceRoad_air: 500.00
     getDistanceRoad_driving: 3370.76
     getCurrentTime: 7000
