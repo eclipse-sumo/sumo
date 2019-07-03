@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Jul  3 08:54:04 2019 by Eclipse SUMO netconvert Version v1_2_0+0918-6832705
+<!-- generated on Wed Jul  3 16:24:36 2019 by Eclipse SUMO netconvert Version v1_2_0+0934-563e953
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -355,7 +355,7 @@
         <tls.taz-nodes value="false" synonymes="tls-guess.district-nodes" type="BOOL"/>
 
         <!-- Includes node clusters into guess -->
-        <tls-guess.joining value="false" type="BOOL"/>
+        <tls.guess.joining value="false" synonymes="tls-guess.joining" type="BOOL"/>
 
         <!-- Tries to cluster tls-controlled nodes -->
         <tls.join value="false" synonymes="try-join-tls" type="BOOL"/>

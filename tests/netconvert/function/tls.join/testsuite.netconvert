@@ -13,6 +13,12 @@ guess
 # avoid joining a large dense cluster of junctions
 guess_large
 
+# activate option for including clusters into guess
+guess.joining
+
+# activate option for including clusters into guess
+guess.joining_join
+
 # test that edge lengths are used instead of junction positions for clustering
 # (important for big junction shapes)
 edge_length

@@ -1,4 +1,4 @@
-Eclipse SUMO netconvert Version v1_2_0+0918-6832705
+Eclipse SUMO netconvert Version v1_2_0+0934-563e953
  Copyright (C) 2001-2019 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 Network importer / builder for the microscopic, multi-modal traffic simulation
   SUMO.
@@ -213,7 +213,7 @@ TLS Building Options:
   --tls.guess.threshold FLOAT          Sets minimum value for the sum of all
                                          incoming lane speeds when guessing TLS
   --tls.taz-nodes                      Sets district nodes as tls-controlled
-  --tls-guess.joining                  Includes node clusters into guess
+  --tls.guess.joining                  Includes node clusters into guess
   --tls.join                           Tries to cluster tls-controlled nodes
   --tls.join-dist FLOAT                Determines the maximal distance for
                                          joining traffic lights (defaults to 20)
