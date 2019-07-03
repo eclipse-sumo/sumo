@@ -1,0 +1,8 @@
+--edge-files input_plain.edg.xml --node-files input_plain.nod.xml 
+--tls.guess.joining
+--tls.guess
+--output net.net.xml
+--ignore-errors.edge-type
+--no-internal-links
+--tls.join-dist 30
+--tls.guess.threshold 50
