@@ -216,7 +216,7 @@ GNERoute::updateGeometry() {
     // first check if geometry is deprecated
     if (myDemandElementGeometry.geometryDeprecated) {
         // first clear geometry
-        myDemandElementGeometry.shapeSegments.clear();
+        myDemandElementGeometry.clearDemandElementGeometry();
         // declare vector for saving lane and connection shapes
         std::vector<std::pair<GNEEdge*, PositionVector> > laneShapes;
         std::vector<PositionVector> connectionShapes;
@@ -281,8 +281,8 @@ GNERoute::updateGeometry() {
                 myDemandElementGeometry.shapeSegments.push_back(DemandElementGeometry::Segment(this, laneShapes.at(i).first , connectionShapePos, true, true));
             }
         }
-        // calculate shape rotations
-        myDemandElementGeometry.calculateShapeRotationsAndLengths();
+        // calculate entire shape, rotations and lenghts
+        myDemandElementGeometry.calculateShapeEntireRotationsAndLengths();
         // update demand element childrens
         for (const auto& i : getDemandElementChildren()) {
             i->updateGeometry();

@@ -311,7 +311,7 @@ GNEPerson::updateGeometry() {
     // first check if geometry is deprecated
     if (myDemandElementGeometry.geometryDeprecated) {
         // first clear geometry
-        myDemandElementGeometry.shapeSegments.clear();
+        myDemandElementGeometry.clearDemandElementGeometry();
         // only calculate new shape if there is demand element childrens
         if (getDemandElementChildren().size() > 0) {
             std::vector<personPlanSegment> personPlanSegments;
@@ -460,8 +460,8 @@ GNEPerson::updateGeometry() {
                     calculateSmoothPersonPlanConnection((i+1)->personPlan, i->edge, (i+1)->edge);
                 }
             }
-            // calculate shape rotations and lenghts
-            myDemandElementGeometry.calculateShapeRotationsAndLengths();
+            // calculate entire shape, rotations and lenghts
+            myDemandElementGeometry.calculateShapeEntireRotationsAndLengths();
         }
         // mark demand element geometry as non-deprecated
         myDemandElementGeometry.geometryDeprecated = false;

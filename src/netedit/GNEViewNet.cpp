@@ -568,13 +568,9 @@ GNEViewNet::doPaintGL(int mode, const Boundary& bound) {
     myVisualizationSettings->scale = lw;
     glEnable(GL_POLYGON_OFFSET_FILL);
     glEnable(GL_POLYGON_OFFSET_LINE);
+    // obtain objects included in minB and maxB
     int hits2 = myGrid->Search(minB, maxB, *myVisualizationSettings);
-
-    glTranslated(0, 0, GLO_ADDITIONAL);
-    for (auto i : myAdditionallyDrawn) {
-        i.first->drawGLAdditional(this, *myVisualizationSettings);
-    }
-
+    // pop draw matrix
     glPopMatrix();
     return hits2;
 }

@@ -90,13 +90,19 @@ public:
         /// @brief constructor
         DemandElementGeometry();
 
-        /// @brief calculate shape rotations and lenghts
-        void calculateShapeRotationsAndLengths();
+        /// @brief clear demand element geometry
+        void clearDemandElementGeometry();
 
-        /// @brief demand element shape
+        /// @brief calculate entire shape, shape rotations and lenghts
+        void calculateShapeEntireRotationsAndLengths();
+
+        /// @brief vector of segments that constitutes the shape
         std::vector<Segment> shapeSegments;
 
-        /// @brief mark geometry as deprecated (used to avoid multipls updates)
+        /// @brief entire shape (calculated using shapeSegments)
+        PositionVector entireShape;
+
+        /// @brief mark geometry as deprecated (used to avoid multiple updates)
         bool geometryDeprecated;
     };
     
