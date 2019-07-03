@@ -144,6 +144,8 @@ public:
     int getRightSublaneOnEdge() const;
     int getLeftSublaneOnEdge() const;
 
+    /// @brief return the lanechange state
+    std::string getLCStateRight() const;
 
     /// @brief return the lane-change maneuver distance
     double getManeuverDist() const;

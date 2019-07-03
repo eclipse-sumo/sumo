@@ -170,7 +170,7 @@ GUIVehicle::getParameterWindow(GUIMainWindow& app,
     ret->mkItem("containers", true,
                 new FunctionBinding<GUIVehicle, int>(this, &MSVehicle::getContainerNumber));
 
-    ret->mkItem("lcState right", false, toString((LaneChangeAction)getLaneChangeModel().getSavedState(-1).second));
+    ret->mkItem("lcState right", true, new FunctionBindingString<GUIVehicle>(this, &GUIVehicle::getLCStateRight));
     ret->mkItem("lcState left", false, toString((LaneChangeAction)getLaneChangeModel().getSavedState(1).second));
     // close building
     if (MSGlobals::gLateralResolution > 0) {
@@ -824,6 +824,13 @@ GUIVehicle::getLeftSublaneOnEdge() const {
     }
     return -1;
 }
+
+
+std::string
+GUIVehicle::getLCStateRight() const {
+    return toString((LaneChangeAction)getLaneChangeModel().getSavedState(-1).second);
+}
+
 
 double
 GUIVehicle::getManeuverDist() const {

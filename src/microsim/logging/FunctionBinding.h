@@ -79,6 +79,44 @@ private:
 
 };
 
+template<class T>
+class FunctionBindingString : public ValueSource<std::string> {
+public:
+    /// Type of the function to execute.
+    typedef std::string(T::* Operation)() const;
+
+    FunctionBindingString(T* const source, Operation operation) :
+        mySource(source),
+        myOperation(operation)
+    {}
+
+    /// Destructor.
+    ~FunctionBindingString() {}
+
+    std::string getValue() const {
+        return (mySource->*myOperation)();
+    }
+
+    ValueSource<std::string>* copy() const {
+        return new FunctionBindingString<T>(mySource, myOperation);
+    }
+
+    ValueSource<double>* makedoubleReturningCopy() const {
+        return nullptr;
+    }
+
+private:
+    /// The object the action is directed to.
+    T* mySource;
+
+    /// The object's operation to perform.
+    Operation myOperation;
+
+private:
+    /// @brief invalidated assignment operator
+    FunctionBindingString<T>& operator=(const FunctionBindingString<T>&);
+
+};
 
 #endif
 

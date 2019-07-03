@@ -133,24 +133,6 @@ public:
         init(dynamic, toString<T>(value));
     }
 
-    /** @brief Constructor for string-typed, non-changing (static) values
-     *
-     * @param[in] table The table this item belongs to
-     * @param[in] pos The row of the table this item fills
-     * @param[in] name The name of the represented value
-     * @param[in] dynamic Information whether this value changes over time
-     * @param[in] value The value
-     * @todo Consider using a reference to the table
-     * @todo Check whether the name should be stored in GUIParameterTableItemInterface
-     * @todo Should never be dynamic!?
-     */
-    GUIParameterTableItem(FXTable* table, unsigned pos, const std::string& name,
-                          bool dynamic, std::string value) :
-        myAmDynamic(dynamic), myName(name), myTablePosition((FXint) pos),
-        mySource(0), myValue(0), myTable(table) {
-        init(dynamic, value);
-    }
-
     /// @brief Destructor
     ~GUIParameterTableItem() {
         delete mySource;

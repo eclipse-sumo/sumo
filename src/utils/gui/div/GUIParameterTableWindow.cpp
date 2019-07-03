@@ -154,22 +154,24 @@ GUIParameterTableWindow::onRightButtonPress(FXObject* sender, FXSelector sel, vo
         return 1;
     }
 
-    GUIParam_PopupMenuInterface* p = new GUIParam_PopupMenuInterface(*myApplication, *this, *myObject, i->getName(), i->getdoubleSourceCopy());
-    new FXMenuCommand(p, "Open in new Tracker", nullptr, p, MID_OPENTRACKER);
-    // set geometry
-    p->setX(static_cast<FXEvent*>(eventData)->root_x);
-    p->setY(static_cast<FXEvent*>(eventData)->root_y);
-    p->create();
-    // show
-    p->show();
+    ValueSource<double>* doubleSource = i->getdoubleSourceCopy();
+    if (doubleSource != nullptr) {
+        GUIParam_PopupMenuInterface* p = new GUIParam_PopupMenuInterface(*myApplication, *this, *myObject, i->getName(), doubleSource );
+        new FXMenuCommand(p, "Open in new Tracker", nullptr, p, MID_OPENTRACKER);
+        // set geometry
+        p->setX(static_cast<FXEvent*>(eventData)->root_x);
+        p->setY(static_cast<FXEvent*>(eventData)->root_y);
+        p->create();
+        // show
+        p->show();
+    }
     return 1;
 }
 
 
 void
 GUIParameterTableWindow::mkItem(const char* name, bool dynamic, std::string value) {
-    // T = double is only a dummy type here
-    GUIParameterTableItemInterface* i = new GUIParameterTableItem<double>(myTable, myCurrentPos++, name, dynamic, value);
+    GUIParameterTableItemInterface* i = new GUIParameterTableItem<std::string>(myTable, myCurrentPos++, name, dynamic, value);
     myItems.push_back(i);
 }
 
