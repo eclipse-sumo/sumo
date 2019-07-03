@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Jul  3 10:49:17 2019 by Eclipse SUMO Version v1_2_0+0926-3d0141e
+<!-- generated on Wed Jul  3 11:59:11 2019 by Eclipse SUMO Version v1_2_0+0927-5e6ed18
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -20,7 +20,6 @@ SPDX-License-Identifier: EPL-2.0
 
     <processing>
         <default.speeddev value="0"/>
-        <pedestrian.model value="striping"/>
         <pedestrian.striping.dawdling value="0"/>
     </processing>
 
