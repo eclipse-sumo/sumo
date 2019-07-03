@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Jun 27 14:11:38 2019 by Eclipse SUMO netconvert Version v1_2_0+0252-83989c2
+<!-- generated on Wed Jul  3 08:54:04 2019 by Eclipse SUMO netconvert Version v1_2_0+0918-6832705
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -87,7 +87,7 @@
         <geometry.remove value="false" synonymes="R remove-geometry" type="BOOL" help="Replace nodes which only define edge geometry by geometry points (joins edges)"/>
         <geometry.remove.keep-edges.explicit value="" type="STR" help="Ensure that the given list of edges is not modified"/>
         <geometry.remove.keep-edges.input-file value="" type="FILE" help="Ensure that the edges in FILE are not modified (Each id on a single line. Selection files from SUMO-GUI are also supported)"/>
-        <geometry.remove.min-length value="0" type="FLOAT" help="Allow merging edges with differing attributes with their length is below min-length"/>
+        <geometry.remove.min-length value="0" type="FLOAT" help="Allow merging edges with differing attributes when their length is below min-length"/>
         <geometry.max-segment-length value="0" type="FLOAT" help="splits geometry to restrict segment length"/>
         <geometry.min-dist value="-1" type="FLOAT" help="reduces too similar geometry points"/>
         <geometry.max-angle value="99" type="FLOAT" help="Warn about edge geometries with an angle above DEGREES in successive segments"/>
