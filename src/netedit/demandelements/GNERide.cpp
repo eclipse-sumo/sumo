@@ -426,8 +426,8 @@ GNERide::setAttribute(SumoXMLAttr key, const std::string& value) {
             FromViaToEdges.push_back(value);
             // add to edge
             FromViaToEdges.push_back(getEdgeParents().back()->getID());
-            // calculate route
-            std::vector<GNEEdge*> route = getRouteCalculatorInstance()->calculateDijkstraRoute(myViewNet->getNet(), getDemandElementParents().at(0)->getVClass(), FromViaToEdges);
+            // calculate inverse route
+            std::vector<GNEEdge*> route = getRouteCalculatorInstance()->calculateDijkstraRoute(myViewNet->getNet(), getDemandElementParents().at(0)->getVClass(), FromViaToEdges, true);
             // change edge parents
             changeEdgeParents(this, toString(route));
             break;
@@ -439,8 +439,8 @@ GNERide::setAttribute(SumoXMLAttr key, const std::string& value) {
             FromViaToEdges.push_back(getEdgeParents().front()->getID());
             // add to edge
             FromViaToEdges.push_back(value);
-            // calculate route
-            std::vector<GNEEdge*> route = getRouteCalculatorInstance()->calculateDijkstraRoute(myViewNet->getNet(), getDemandElementParents().at(0)->getVClass(), FromViaToEdges);
+            // calculate inverse route
+            std::vector<GNEEdge*> route = getRouteCalculatorInstance()->calculateDijkstraRoute(myViewNet->getNet(), getDemandElementParents().at(0)->getVClass(), FromViaToEdges, true);
             // change edge parents
             changeEdgeParents(this, toString(route));
             break;

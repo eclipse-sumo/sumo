@@ -214,7 +214,6 @@ GNEWalk::moveGeometry(const Position& offset) {
         const PositionVector &laneShape = getEdgeParents().back()->getLanes().front()->getGeometry().shape;
         // calculate offset lane
         double offsetLane = laneShape.nearest_offset_to_point2D(newPosition, false) - laneShape.nearest_offset_to_point2D(myWalkMove.originalViewPosition, false);
-        std::cout << offsetLane << std::endl;
         // Update arrival Position
         myArrivalPosition = parse<double>(myWalkMove.firstOriginalLanePosition) + offsetLane;
         // Update geometry
@@ -447,7 +446,7 @@ GNEWalk::setAttribute(SumoXMLAttr key, const std::string& value) {
             // add to edge
             FromViaToEdges.push_back(getEdgeParents().back()->getID());
             // calculate route
-            std::vector<GNEEdge*> route = getRouteCalculatorInstance()->calculateDijkstraRoute(myViewNet->getNet(), getDemandElementParents().at(0)->getVClass(), FromViaToEdges);
+            std::vector<GNEEdge*> route = getRouteCalculatorInstance()->calculateDijkstraRoute(myViewNet->getNet(), getDemandElementParents().at(0)->getVClass(), FromViaToEdges, false);
             // change edge parents
             changeEdgeParents(this, toString(route));
             break;
@@ -462,7 +461,7 @@ GNEWalk::setAttribute(SumoXMLAttr key, const std::string& value) {
             // add to edge
             FromViaToEdges.push_back(value);
             // calculate route
-            std::vector<GNEEdge*> route = getRouteCalculatorInstance()->calculateDijkstraRoute(myViewNet->getNet(), getDemandElementParents().at(0)->getVClass(), FromViaToEdges);
+            std::vector<GNEEdge*> route = getRouteCalculatorInstance()->calculateDijkstraRoute(myViewNet->getNet(), getDemandElementParents().at(0)->getVClass(), FromViaToEdges, false);
             // change edge parents
             changeEdgeParents(this, toString(route));
             break;
@@ -484,7 +483,7 @@ GNEWalk::setAttribute(SumoXMLAttr key, const std::string& value) {
             // add to edge
             FromViaToEdges.push_back(getEdgeParents().back()->getID());
             // calculate route
-            std::vector<GNEEdge*> route = getRouteCalculatorInstance()->calculateDijkstraRoute(myViewNet->getNet(), getDemandElementParents().at(0)->getVClass(), FromViaToEdges);
+            std::vector<GNEEdge*> route = getRouteCalculatorInstance()->calculateDijkstraRoute(myViewNet->getNet(), getDemandElementParents().at(0)->getVClass(), FromViaToEdges, false);
             // change edge parents
             changeEdgeParents(this, toString(route));
             break;

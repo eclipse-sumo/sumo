@@ -240,7 +240,7 @@ private:
         GNEEdge *getLastEdge() const;
 
         /// @brief calculate ege path between from-to edges
-        std::vector<GNEEdge*> calculateEdgePath() const;
+        std::vector<GNEEdge*> calculateEdgePath(bool isRide) const;
 
         /// @brief walk tag
         SumoXMLTag tag;
