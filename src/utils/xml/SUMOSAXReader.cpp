@@ -98,7 +98,8 @@ SUMOSAXReader::parse(std::string systemID) {
             myXMLReader = getSAXReader();
         }
 #ifdef HAVE_ZLIB
-        myXMLReader->parse(IStreamInputSource(zstr::ifstream(systemID.c_str(), std::fstream::in | std::fstream::binary)));
+        zstr::ifstream istream(systemID.c_str(), std::fstream::in | std::fstream::binary);
+        myXMLReader->parse(IStreamInputSource(istream));
 #else
         myXMLReader->parse(systemID.c_str());
 #endif

@@ -6,6 +6,12 @@
 #include <cstring>
 #include <string>
 
+#ifndef _MSC_VER
+#define NOEXCEPT noexcept
+#else
+#define NOEXCEPT
+#endif
+
 /**
  * This namespace defines wrappers for std::ifstream, std::ofstream, and
  * std::fstream objects. The wrappers perform the following steps:
@@ -49,7 +55,7 @@ class Exception
 {
 public:
     Exception(const std::string& msg) : _msg(msg) {}
-    const char * what() const { return _msg.c_str(); }
+    const char * what() const NOEXCEPT { return _msg.c_str(); }
 private:
     std::string _msg;
 }; // class Exception

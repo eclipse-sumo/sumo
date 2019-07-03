@@ -52,7 +52,7 @@ public:
         _msg += zstrm_p->msg;
     }
     Exception(const std::string msg) : _msg(msg) {}
-    const char * what() const { return _msg.c_str(); }
+    const char * what() const NOEXCEPT { return _msg.c_str(); }
 private:
     std::string _msg;
 }; // class Exception
