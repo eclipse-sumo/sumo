@@ -31,3 +31,6 @@ ticket5257
 
 # dealing with short internal lanes
 ticket5661
+
+# consecutive stops at different positions on the same edge
+ticket5796
