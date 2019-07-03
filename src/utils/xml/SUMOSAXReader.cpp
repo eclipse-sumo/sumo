@@ -97,6 +97,9 @@ SUMOSAXReader::parse(std::string systemID) {
         if (myXMLReader == nullptr) {
             myXMLReader = getSAXReader();
         }
+        if (!FileHelpers::isReadable(systemID)) {
+            throw ProcessError("Cannot read file '" + systemID + "'!");
+        }
 #ifdef HAVE_ZLIB
         zstr::ifstream istream(systemID.c_str(), std::fstream::in | std::fstream::binary);
         myXMLReader->parse(IStreamInputSource(istream));
@@ -147,6 +150,9 @@ SUMOSAXReader::parseFirst(std::string systemID) {
         // !!! check followers here
         return parseNext();
     } else {
+        if (!FileHelpers::isReadable(systemID)) {
+            throw ProcessError("Cannot read file '" + systemID + "'!");
+        }
         if (myXMLReader == nullptr) {
             myXMLReader = getSAXReader();
         }
