@@ -81,12 +81,12 @@ GNEDemandElement::DemandElementGeometry::DemandElementGeometry() :
 void 
 GNEDemandElement::DemandElementGeometry::clearDemandElementGeometry() {
     shapeSegments.clear();
-    entireShape.clear();
+    partialShape.clear();
 }
 
 
 void
-GNEDemandElement::DemandElementGeometry::calculateShapeEntireRotationsAndLengths() {
+GNEDemandElement::DemandElementGeometry::calculatePartialShapeRotationsAndLengths() {
     // Get number of parts of the shapeSegments
     int numberOfSegments = (int)shapeSegments.size() - 1;
     // If number of segments is more than 0
@@ -103,9 +103,9 @@ GNEDemandElement::DemandElementGeometry::calculateShapeEntireRotationsAndLengths
             shapeSegments[i].rotation = ((double)atan2((s.x() - f.x()), (f.y() - s.y())) * (double) 180.0 / (double)M_PI);
         }
     }
-    // fill entire shape
+    // fill partial shape
     for (const auto &i : shapeSegments) {
-        entireShape.push_back(i.pos);
+        partialShape[i.element].push_back(i.pos);
     }
 }
 

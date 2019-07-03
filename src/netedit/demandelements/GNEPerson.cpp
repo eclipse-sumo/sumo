@@ -461,7 +461,7 @@ GNEPerson::updateGeometry() {
                 }
             }
             // calculate entire shape, rotations and lenghts
-            myDemandElementGeometry.calculateShapeEntireRotationsAndLengths();
+            myDemandElementGeometry.calculatePartialShapeRotationsAndLengths();
         }
         // mark demand element geometry as non-deprecated
         myDemandElementGeometry.geometryDeprecated = false;
@@ -549,6 +549,21 @@ GNEPerson::drawGL(const GUIVisualizationSettings& s) const {
             const double value = getColorValue(s, s.personColorer.getActive());
             GLHelper::drawTextSettings(s.personValue, toString(value), p2, s.scale, s.angle, GLO_MAX - getType());
         }
+        // check if dotted contour has to be drawn
+        if (!s.drawForSelecting && (myViewNet->getDottedAC() == this)) {
+            double exaggeration = s.addSize.getExaggeration(s, this);
+            // draw contour of all person plan childs
+            for (const auto &i : getDemandElementChildren()) {
+                if (i->getTagProperty().isWalk()) {
+                    GLHelper::drawShapeDottedContour(getType(), myDemandElementGeometry.partialShape.at(i), exaggeration * s.SUMO_width_walk);
+                } else if (i->getTagProperty().isPersonTrip()) {
+                    GLHelper::drawShapeDottedContour(getType(), myDemandElementGeometry.partialShape.at(i), exaggeration * s.SUMO_width_personTrip);
+                } else if (i->getTagProperty().isRide()) {
+                    GLHelper::drawShapeDottedContour(getType(), myDemandElementGeometry.partialShape.at(i), exaggeration * s.SUMO_width_ride);
+                }
+            }
+        }
+        // pop name
         glPopName();
     }
 }

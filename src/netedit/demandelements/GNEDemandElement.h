@@ -93,14 +93,14 @@ public:
         /// @brief clear demand element geometry
         void clearDemandElementGeometry();
 
-        /// @brief calculate entire shape, shape rotations and lenghts
-        void calculateShapeEntireRotationsAndLengths();
+        /// @brief calculate partial shape, rotations and lenghts
+        void calculatePartialShapeRotationsAndLengths();
 
         /// @brief vector of segments that constitutes the shape
         std::vector<Segment> shapeSegments;
 
-        /// @brief entire shape (calculated using shapeSegments)
-        PositionVector entireShape;
+        /// @brief partial shape (calculated using shapeSegments)
+        std::map<const GNEDemandElement*, PositionVector> partialShape;
 
         /// @brief mark geometry as deprecated (used to avoid multiple updates)
         bool geometryDeprecated;

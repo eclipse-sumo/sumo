@@ -282,7 +282,7 @@ GNERoute::updateGeometry() {
             }
         }
         // calculate entire shape, rotations and lenghts
-        myDemandElementGeometry.calculateShapeEntireRotationsAndLengths();
+        myDemandElementGeometry.calculatePartialShapeRotationsAndLengths();
         // update demand element childrens
         for (const auto& i : getDemandElementChildren()) {
             i->updateGeometry();
