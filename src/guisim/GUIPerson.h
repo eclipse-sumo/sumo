@@ -142,6 +142,12 @@ public:
     /// @brief the current speed of the person
     double getSpeed() const;
 
+    std::string getStageIndexDescription() const;
+    std::string getEdgeID() const;
+    std::string getFromEdgeID() const;
+    std::string getDestinationEdgeID() const;
+    double getStageArrivalPos() const;
+
     //@}
 
     /// @brief whether this person is selected in the GUI

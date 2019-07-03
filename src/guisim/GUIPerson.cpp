@@ -239,13 +239,13 @@ GUIPerson::getParameterWindow(GUIMainWindow& app,
     GUIParameterTableWindow* ret =
         new GUIParameterTableWindow(app, *this, 12 + (int)getParameter().getParametersMap().size());
     // add items
-    ret->mkItem("stage", false, getCurrentStageDescription());
+    ret->mkItem("stage", true, new FunctionBindingString<GUIPerson>(this, &MSTransportable::getCurrentStageDescription));
     // there is always the "start" stage which we do not count here because it is not strictly part of the plan
-    ret->mkItem("stage index", false, toString(getNumStages() - getNumRemainingStages()) + " of " + toString(getNumStages() - 1));
-    ret->mkItem("start edge [id]", false, getFromEdge()->getID());
-    ret->mkItem("dest edge [id]", false, getDestination()->getID());
-    ret->mkItem("arrivalPos [m]", false, toString(getCurrentStage()->getArrivalPos()));
-    ret->mkItem("edge [id]", false, getEdge()->getID());
+    ret->mkItem("stage index", true, new FunctionBindingString<GUIPerson>(this, &GUIPerson::getStageIndexDescription));
+    ret->mkItem("start edge [id]", true, new FunctionBindingString<GUIPerson>(this, &GUIPerson::getFromEdgeID));
+    ret->mkItem("dest edge [id]", true, new FunctionBindingString<GUIPerson>(this, &GUIPerson::getDestinationEdgeID));
+    ret->mkItem("arrivalPos [m]", true, new FunctionBinding<GUIPerson, double>(this, &GUIPerson::getStageArrivalPos));
+    ret->mkItem("edge [id]", true, new FunctionBindingString<GUIPerson>(this, &GUIPerson::getEdgeID));
     ret->mkItem("position [m]", true, new FunctionBinding<GUIPerson, double>(this, &GUIPerson::getEdgePos));
     ret->mkItem("speed [m/s]", true, new FunctionBinding<GUIPerson, double>(this, &GUIPerson::getSpeed));
     ret->mkItem("speed factor", false, getSpeedFactor());
@@ -495,6 +495,36 @@ GUIPerson::getSpeed() const {
     return MSPerson::getSpeed();
 }
 
+
+std::string
+GUIPerson::getStageIndexDescription() const {
+    FXMutexLock locker(myLock);
+    return toString(getNumStages() - getNumRemainingStages()) + " of " + toString(getNumStages() - 1);
+}
+
+std::string
+GUIPerson::getEdgeID() const {
+    FXMutexLock locker(myLock);
+    return  getEdge()->getID();
+}
+
+std::string
+GUIPerson::getFromEdgeID() const {
+    FXMutexLock locker(myLock);
+    return getFromEdge()->getID();
+}
+
+std::string
+GUIPerson::getDestinationEdgeID() const {
+    FXMutexLock locker(myLock);
+    return getDestination()->getID();
+}
+
+double
+GUIPerson::getStageArrivalPos() const {
+    FXMutexLock locker(myLock);
+    return getCurrentStage()->getArrivalPos();
+}
 
 void
 GUIPerson::drawAction_drawAsTriangle(const GUIVisualizationSettings& /* s */) const {
