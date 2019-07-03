@@ -140,6 +140,7 @@ MSDevice_Bluelight::notifyMove(SUMOTrafficObject& veh, double /* oldPos */,
     std::string currentEdgeID = veh.getEdge()->getID();
     for (MSVehicleControl::constVehIt it = vc.loadedVehBegin(); it != vc.loadedVehEnd(); ++it) {
         SUMOVehicle* veh2 = it->second;
+        int maxdist = 25; 
         //Vehicle only from edge should react
         if (currentEdgeID == veh2->getEdge()->getID()) {
             if (veh2->getDevice(typeid(MSDevice_Bluelight)) != nullptr) {
@@ -158,31 +159,36 @@ MSDevice_Bluelight::notifyMove(SUMOTrafficObject& veh, double /* oldPos */,
 
             // the perception of the sound of the siren should be around 25 meters
             // todo only vehicles in front of the emergency vehicle should react
-            if (distanceDelta <= 25 && veh.getID() != veh2->getID() && influencedVehicles.count(veh2->getID()) == 0) {
-                influencedVehicles.insert(static_cast<std::string>(veh2->getID()));
-                influencedTypes.insert(std::make_pair(static_cast<std::string>(veh2->getID()), veh2->getVehicleType().getID()));
-                //Vehicle gets a new Vehicletype to change the alignment and the lanechange options
-                MSVehicleType& t = static_cast<MSVehicle*>(veh2)->getSingularType();
-                MSVehicle::Influencer& lanechange = static_cast<MSVehicle*>(veh2)->getInfluencer();
+            if (distanceDelta <= maxdist && veh.getID() != veh2->getID() && influencedVehicles.count(veh2->getID()) == 0) {
+                //online a percentage of vehicles should react to the emergency vehicle to make the behaviour more realistic
+                double reaction = RandHelper::rand();
+                MSVehicle::Influencer& lanechange = static_cast<MSVehicle*>(veh2)->getInfluencer(); 
 
                 //other vehicle should not use the rescue lane so they should not make any lane changes
-                lanechange.setLaneChangeMode(1605);
+                lanechange.setLaneChangeMode(1605);//todo change lane back
                 const int numLanes = (int)veh2->getEdge()->getLanes().size();
-                //Setting the lateral alignment to build a rescue lane
-                if (veh2->getLane()->getIndex() == numLanes - 1) {
-                    t.setPreferredLateralAlignment(LATALIGN_LEFT);
-                    // the alignement is changet to left for the vehicle std::cout << "New alignment to left for vehicle: " << veh2->getID() << " " << veh2->getVehicleType().getPreferredLateralAlignment() << "\n";
-                } else {
-                    t.setPreferredLateralAlignment(LATALIGN_RIGHT);
-                    // the alignement is changet to right for the vehicle std::cout << "New alignment to right for vehicle: " << veh2->getID() << " " << veh2->getVehicleType().getPreferredLateralAlignment() << "\n";
-                }
+                if (reaction > 0.344) {
+                    influencedVehicles.insert(static_cast<std::string>(veh2->getID()));
+                    influencedTypes.insert(std::make_pair(static_cast<std::string>(veh2->getID()), veh2->getVehicleType().getID()));
 
+                    //Vehicle gets a new Vehicletype to change the alignment and the lanechange options
+                    MSVehicleType& t = static_cast<MSVehicle*>(veh2)->getSingularType();
+                    //Setting the lateral alignment to build a rescue lane
+                    if (veh2->getLane()->getIndex() == numLanes - 1) {
+                        t.setPreferredLateralAlignment(LATALIGN_LEFT);
+                        // the alignement is changet to left for the vehicle std::cout << "New alignment to left for vehicle: " << veh2->getID() << " " << veh2->getVehicleType().getPreferredLateralAlignment() << "\n";
+                    }
+                    else {
+                        t.setPreferredLateralAlignment(LATALIGN_RIGHT);
+                        // the alignement is changet to right for the vehicle std::cout << "New alignment to right for vehicle: " << veh2->getID() << " " << veh2->getVehicleType().getPreferredLateralAlignment() << "\n";
+                        }
+                }
             }
 
         } else { //if vehicle is passed all vehicles which had to react should get their state back after they leave the communication range
             if (influencedVehicles.count(veh2->getID()) > 0) {
                 double distanceDelta = veh.getPosition().distanceTo(veh2->getPosition());
-                if (distanceDelta > 25 && veh.getID() != veh2->getID()) {
+                if (distanceDelta > maxdist && veh.getID() != veh2->getID()) {
                     influencedVehicles.erase(veh2->getID());
                     std::map<std::string, std::string>::iterator it = influencedTypes.find(veh2->getID());
                     if (it != influencedTypes.end()) {
