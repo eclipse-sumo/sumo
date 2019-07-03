@@ -429,9 +429,6 @@ public:
     /// @brief color for rides
     static const RGBColor SUMO_color_ride;
 
-    /// @brief color for person plans points (ej: ArrivalPositions)
-    static const RGBColor SUMO_color_personPlanPoints;
-
     /// @brief width for personStops
     static const double SUMO_width_route;
 

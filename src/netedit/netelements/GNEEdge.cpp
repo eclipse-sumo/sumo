@@ -2093,8 +2093,16 @@ GNEEdge::drawPartialPersonPlan(const GUIVisualizationSettings& s, GNEDemandEleme
                 glPushMatrix();
                 // translate to pos and move to upper using GLO_PERSONTRIP (to avoid overlapping)
                 glTranslated(pos.x(), pos.y(), GLO_PERSONTRIP + 0.01);
-                // set person plan points color
-                GLHelper::setColor(s.SUMO_color_personPlanPoints);
+                // Set color depending of person plan type
+                if (personPlan->drawUsingSelectColor()) {
+                    GLHelper::setColor(s.selectedAdditionalColor);
+                } else if (personPlan->getTagProperty().isPersonTrip()) {
+                    GLHelper::setColor(s.SUMO_color_personTrip);
+                } else if (personPlan->getTagProperty().isWalk()) {
+                    GLHelper::setColor(s.SUMO_color_walk);
+                } else if (personPlan->getTagProperty().isRide()) {
+                    GLHelper::setColor(s.SUMO_color_ride);
+                }
                 // resolution of drawn circle depending of the zoom (To improve smothness)
                 GLHelper::drawFilledCircle(circleWidth, GNEAttributeCarrier::getCircleResolution(s));
                 glPopMatrix();
