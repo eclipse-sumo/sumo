@@ -1985,7 +1985,11 @@ GNEEdge::drawPartialRoute(const GUIVisualizationSettings& s, GNEDemandElement *r
     glPopName();
     // draw route children
     for (const auto &i : route->getDemandElementChildren()) {
-        i->drawGL(s);
+        if (i->getTagProperty().getTag() == SUMO_TAG_WALK_ROUTE) {
+            drawPartialPersonPlan(s, i);
+        } else {
+            i->drawGL(s);
+        }
     }
     // special case for embedded routes
     if ((route->getTagProperty().getTag() == SUMO_TAG_EMBEDDEDROUTE) && (route->getEdgeParents().front() == this)) {
@@ -2107,7 +2111,13 @@ GNEEdge::drawPartialPersonPlan(const GUIVisualizationSettings& s, GNEDemandEleme
         if (arrivalPos != -1) {
             // get lane in which arrival position will be drawn
             SUMOVehicleClass vClassPersonPlan = personPlan->getTagProperty().isRide()? SVC_PASSENGER : SVC_PEDESTRIAN;
-            GNELane *arrivalPosLane = personPlan->getEdgeParents().back()->getLaneByVClass(vClassPersonPlan);
+            GNELane *arrivalPosLane = nullptr;
+            // obtain arrivalPosLane depending if pesonPlan is a walk over a route
+            if (personPlan->getTagProperty().getTag() == SUMO_TAG_WALK_ROUTE) {
+                arrivalPosLane = personPlan->getDemandElementParents().at(1)->getEdgeParents().back()->getLaneByVClass(vClassPersonPlan);
+            } else {
+                arrivalPosLane = personPlan->getEdgeParents().back()->getLaneByVClass(vClassPersonPlan);
+            }
             // obtain position or ArrivalPos
             Position pos = arrivalPosLane->getGeometry().shape.positionAtOffset2D(arrivalPos);
             // obtain circle width

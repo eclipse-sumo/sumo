@@ -319,6 +319,8 @@ GNEWalk::getAttribute(SumoXMLAttr key) const {
             return getEdgeParents().front()->getID();
         case SUMO_ATTR_TO:
             return getEdgeParents().back()->getID();
+        case SUMO_ATTR_ROUTE:
+            return getDemandElementParents().at(1)->getID();
         case SUMO_ATTR_VIA:
             return toString(myVia);
         case SUMO_ATTR_BUS_STOP:
@@ -359,6 +361,7 @@ GNEWalk::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* un
         case SUMO_ATTR_FROM:
         case SUMO_ATTR_TO:
         case SUMO_ATTR_VIA:
+        case SUMO_ATTR_ROUTE:
         case SUMO_ATTR_BUS_STOP:
         case SUMO_ATTR_ARRIVALPOS:
         case GNE_ATTR_SELECTED:
@@ -385,6 +388,8 @@ GNEWalk::isValid(SumoXMLAttr key, const std::string& value) {
             }
         case SUMO_ATTR_BUS_STOP:
             return (myViewNet->getNet()->retrieveAdditional(SUMO_TAG_BUS_STOP, value, false) != nullptr);
+        case SUMO_ATTR_ROUTE:
+            return (myViewNet->getNet()->retrieveDemandElement(SUMO_TAG_ROUTE, value, false) != nullptr);
         case SUMO_ATTR_ARRIVALPOS:
             if (canParse<double>(value)) {
                 double parsedValue = canParse<double>(value);
@@ -489,6 +494,9 @@ GNEWalk::setAttribute(SumoXMLAttr key, const std::string& value) {
             changeEdgeParents(this, toString(route));
             break;
         }
+        case SUMO_ATTR_ROUTE:
+            changeDemandElementParent(this, value, 1);
+            break;
         case SUMO_ATTR_BUS_STOP:
             changeAdditionalParent(this, value, 0);
             break;
