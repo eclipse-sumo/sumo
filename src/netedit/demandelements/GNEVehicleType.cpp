@@ -314,19 +314,19 @@ GNEVehicleType::getAttribute(SumoXMLAttr key) const {
             if (wasSet(VTYPEPARS_SHAPE_SET)) {
                 return getVehicleShapeName(shape);
             } else {
-                return myTagProperty.getDefaultValue(SUMO_ATTR_GUISHAPE);
+                return getVehicleShapeName(defaultValues.shape);
             }
         case SUMO_ATTR_WIDTH:
             if (wasSet(VTYPEPARS_WIDTH_SET)) {
                 return toString(width);
             } else {
-                return myTagProperty.getDefaultValue(SUMO_ATTR_WIDTH);
+                return toString(defaultValues.width);
             }
         case SUMO_ATTR_HEIGHT:
             if (wasSet(VTYPEPARS_HEIGHT_SET)) {
                 return toString(height);
             } else {
-                return myTagProperty.getDefaultValue(SUMO_ATTR_HEIGHT);
+                return toString(defaultValues.height);
             }
         case SUMO_ATTR_IMGFILE:
             if (wasSet(VTYPEPARS_IMGFILE_SET)) {
@@ -451,13 +451,13 @@ GNEVehicleType::getAttributeDouble(SumoXMLAttr key) const {
             if (wasSet(VTYPEPARS_WIDTH_SET)) {
                 return width;
             } else {
-                return 0;
+                return defaultValues.width;
             }
         case SUMO_ATTR_HEIGHT:
             if (wasSet(VTYPEPARS_HEIGHT_SET)) {
                 return height;
             } else {
-                return 0;
+                return defaultValues.height;
             }
         default:
             throw InvalidArgument(getTagStr() + " doesn't have a double attribute of type '" + toString(key) + "'");

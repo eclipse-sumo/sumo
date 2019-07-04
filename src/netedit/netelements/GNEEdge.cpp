@@ -2016,7 +2016,7 @@ GNEEdge::drawPartialTripFromTo(const GUIVisualizationSettings& s, GNEDemandEleme
     // draw tripOrFromTo
     for (int i = 0; i < ((int)tripOrFromTo->getDemandElementSegmentGeometry().shapeSegments.size()-1); i++) {
         // obtain segment (to improve code legibly)
-        const GNEDemandElement::DemandElementSegmentGeometry::Segment &segment = tripOrFromTo->getDemandElementParents().front()->getDemandElementSegmentGeometry().shapeSegments[i];
+        const GNEDemandElement::DemandElementSegmentGeometry::Segment &segment = tripOrFromTo->getDemandElementSegmentGeometry().shapeSegments[i];
         // draw partial segment
         if ((segment.edge == this) && (segment.element == tripOrFromTo)) {
             GLHelper::drawBoxLine(segment.pos, segment.rotation, segment.lenght, tripOrFromToWidth, 0);
