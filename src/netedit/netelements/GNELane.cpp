@@ -617,7 +617,7 @@ GNELane::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
         new FXMenuCascade(ret, "edge operations", nullptr, edgeOperations);
         // create menu commands for all edge oeprations
         new FXMenuCommand(edgeOperations, "Split edge here", nullptr, &parent, MID_GNE_EDGE_SPLIT);
-        new FXMenuCommand(edgeOperations, "Split edge in both direction here", nullptr, &parent, MID_GNE_EDGE_SPLIT_BIDI);
+        new FXMenuCommand(edgeOperations, "Split edge in both directions here", nullptr, &parent, MID_GNE_EDGE_SPLIT_BIDI);
         new FXMenuCommand(edgeOperations, "Set geometry endpoint here (shift-click)", nullptr, &parent, MID_GNE_EDGE_EDIT_ENDPOINT);
         new FXMenuCommand(edgeOperations, "Restore geometry endpoint (shift-click)", nullptr, &parent, MID_GNE_EDGE_RESET_ENDPOINT);
         new FXMenuCommand(edgeOperations, ("Reverse " + edgeDescPossibleMulti).c_str(), nullptr, &parent, MID_GNE_EDGE_REVERSE);
