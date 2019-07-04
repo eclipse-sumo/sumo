@@ -673,7 +673,11 @@ MSE2Collector::notifyMove(SUMOTrafficObject& tObject, double oldPos,
 }
 
 bool
-MSE2Collector::notifyLeave(SUMOTrafficObject& veh, double /* lastPos */, MSMoveReminder::Notification reason, const MSLane* enteredLane) {
+MSE2Collector::notifyLeave(SUMOTrafficObject& tObject, double /* lastPos */, MSMoveReminder::Notification reason, const MSLane* enteredLane) {
+    if (!tObject.isVehicle()) {
+        return false;
+    }
+    SUMOVehicle& veh = static_cast<SUMOVehicle&>(tObject);
 #ifdef DEBUG_E2_NOTIFY_ENTER_AND_LEAVE
     if DEBUG_COND {
     std::cout << "\n" << SIMTIME << " notifyLeave() (detID = " << myID << "on lane '" << myLane->getID() << "')"
