@@ -1191,7 +1191,7 @@ GNEEdge::setResponsible(bool newVal) {
 
 
 GNELane *
-GNEEdge::getLaneByVClass(SUMOVehicleClass vClass) {
+GNEEdge::getLaneByVClass(SUMOVehicleClass vClass) const {
     // iterate over all lanes
     for (int i = 0; i < (int)myNBEdge.getLanes().size(); i++) {
         // if given VClass is in permissions, return lane
@@ -2084,8 +2084,13 @@ GNEEdge::drawPartialPersonPlan(const GUIVisualizationSettings& s, GNEDemandEleme
         double arrivalPos = personPlan->getAttributeDouble(SUMO_ATTR_ARRIVALPOS);
         // only draw arrival position point if isn't -1
         if (arrivalPos != -1) {
-            // obtain position
-            Position pos = personPlan->getEdgeParents().back()->getLanes().front()->getGeometry().shape.positionAtOffset2D(arrivalPos);
+            // get lane in which arrival position will be drawn
+            GNELane *arrivalPosLane = personPlan->getEdgeParents().back()->getLaneByVClass(personPlan->getTagProperty().isRide()? SVC_PASSENGER : SVC_PEDESTRIAN);
+            if (!arrivalPosLane) {
+                arrivalPosLane = personPlan->getEdgeParents().back()->getLanes().front();
+            }
+            // obtain position or ArrivalPos
+            Position pos = arrivalPosLane->getGeometry().shape.positionAtOffset2D(arrivalPos);
             // obtain circle width
             double circleWidth = SNAP_RADIUS * MIN2((double)0.5, s.laneWidthExaggeration);
             double circleWidthSquared = circleWidth * circleWidth;
