@@ -58,7 +58,7 @@ If you want to build yourself, the steps for ubuntu are:
         export SUMO_HOME="$PWD"
         mkdir build/cmake-build && cd build/cmake-build
         cmake ../..
-        make -j`nproc`
+        make -j$(nproc)
 
 For [detailed build instructions have a look at our wiki](https://sumo.dlr.de/wiki/Developer/Main#Build_instructions).
 
