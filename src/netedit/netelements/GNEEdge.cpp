@@ -1191,15 +1191,36 @@ GNEEdge::setResponsible(bool newVal) {
 
 
 GNELane *
-GNEEdge::getLaneByVClass(SUMOVehicleClass vClass) const {
-    // iterate over all lanes
+GNEEdge::getLaneByVClass(const SUMOVehicleClass vClass) const {
+    // iterate over all NBEdge lanes
     for (int i = 0; i < (int)myNBEdge.getLanes().size(); i++) {
         // if given VClass is in permissions, return lane
         if (myNBEdge.getLanes().at(i).permissions &vClass) {
+            // return GNELane
             return myLanes.at(i);
         }
     }
-    return nullptr;
+    // return first lane
+    return myLanes.front();
+}
+
+
+GNELane *
+GNEEdge::getLaneByVClass(const SUMOVehicleClass vClass, bool &found) const {
+    // iterate over all NBEdge lanes
+    for (int i = 0; i < (int)myNBEdge.getLanes().size(); i++) {
+        // if given VClass is in permissions, return lane
+        if (myNBEdge.getLanes().at(i).permissions &vClass) {
+            // change found flag to true
+            found = true;
+            // return GNELane
+            return myLanes.at(i);
+        }
+    }
+    // change found flag to false
+    found = false;
+    // return first lane
+    return myLanes.front();
 }
 
 // ===========================================================================
@@ -2085,10 +2106,8 @@ GNEEdge::drawPartialPersonPlan(const GUIVisualizationSettings& s, GNEDemandEleme
         // only draw arrival position point if isn't -1
         if (arrivalPos != -1) {
             // get lane in which arrival position will be drawn
-            GNELane *arrivalPosLane = personPlan->getEdgeParents().back()->getLaneByVClass(personPlan->getTagProperty().isRide()? SVC_PASSENGER : SVC_PEDESTRIAN);
-            if (!arrivalPosLane) {
-                arrivalPosLane = personPlan->getEdgeParents().back()->getLanes().front();
-            }
+            SUMOVehicleClass vClassPersonPlan = personPlan->getTagProperty().isRide()? SVC_PASSENGER : SVC_PEDESTRIAN;
+            GNELane *arrivalPosLane = personPlan->getEdgeParents().back()->getLaneByVClass(vClassPersonPlan);
             // obtain position or ArrivalPos
             Position pos = arrivalPosLane->getGeometry().shape.positionAtOffset2D(arrivalPos);
             // obtain circle width

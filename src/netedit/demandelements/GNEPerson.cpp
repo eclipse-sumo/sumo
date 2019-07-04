@@ -391,18 +391,14 @@ GNEPerson::updateGeometry() {
             // now set shape
             for (auto personPlanSegmentsIT = personPlanSegments.begin(); personPlanSegmentsIT != personPlanSegments.end(); personPlanSegmentsIT++) {
                 // obtain first lane (special case for rides)
-                GNELane *firstLane = personPlanSegmentsIT->edge->getLaneByVClass(personPlanSegmentsIT->personPlan->getTagProperty().isRide()? SVC_PASSENGER : SVC_PEDESTRIAN);
-                if (!firstLane) {
-                    firstLane = personPlanSegmentsIT->edge->getLanes().front();
-                }
+                SUMOVehicleClass vClassOfPersonPlanSegmentsIT = personPlanSegmentsIT->personPlan->getTagProperty().isRide()? SVC_PASSENGER : SVC_PEDESTRIAN;
+                GNELane *firstLane = personPlanSegmentsIT->edge->getLaneByVClass(vClassOfPersonPlanSegmentsIT);
                 // obtain next lane (special case for rides)
                 GNELane *nextLane = nullptr;
                 // check that next person plan segment isn't the last
                 if ((personPlanSegmentsIT+1) != personPlanSegments.end()) {
-                    nextLane = personPlanSegmentsIT->edge->getLaneByVClass((personPlanSegmentsIT+1)->personPlan->getTagProperty().isRide()? SVC_PASSENGER : SVC_PEDESTRIAN);
-                    if (!nextLane) {
-                        firstLane = personPlanSegmentsIT->edge->getLanes().front();
-                    }
+                    SUMOVehicleClass vClassOfNextPersonPlanSegmentsIT = (personPlanSegmentsIT+1)->personPlan->getTagProperty().isRide()? SVC_PASSENGER : SVC_PEDESTRIAN;
+                    nextLane = personPlanSegmentsIT->edge->getLaneByVClass(vClassOfNextPersonPlanSegmentsIT);
                 }
                 if (personPlanSegmentsIT->stops.size() > 0) {
                     // iterate over all stops
@@ -465,10 +461,7 @@ GNEPerson::updateGeometry() {
                     }
                 } else {
                     // obtain lane (special case due rides)
-                    GNELane *lane = personPlanSegmentsIT->edge->getLaneByVClass(personPlanSegmentsIT->personPlan->getTagProperty().isRide()? SVC_PASSENGER : SVC_PEDESTRIAN);
-                    if (!lane) {
-                        lane = personPlanSegmentsIT->edge->getLanes().front();
-                    }
+                    GNELane *lane = personPlanSegmentsIT->edge->getLaneByVClass(vClassOfPersonPlanSegmentsIT);
                     // add lane shape over personPlan shape
                     for (const auto &shapeLanePos : lane->getGeometry().shape) {
                         // save segment
@@ -494,10 +487,9 @@ GNEPerson::getPositionInView() const {
     // Position in view depend of first child element
     if (getDemandElementChildren().size() > 0) {
         // obtain lane (special case for rides)
-        GNELane *lane = getDemandElementChildren().at(0)->getEdgeParents().at(0)->getLaneByVClass(getDemandElementChildren().front()->getTagProperty().isRide()? SVC_PASSENGER : SVC_PEDESTRIAN);
-        if (!lane) {
-            lane = getDemandElementChildren().at(0)->getEdgeParents().at(0)->getLanes().front();
-        }
+        SUMOVehicleClass vClassEdgeFrom = getDemandElementChildren().front()->getTagProperty().isRide()? SVC_PASSENGER : SVC_PEDESTRIAN;
+        GNELane *lane = getDemandElementChildren().at(0)->getEdgeParents().at(0)->getLaneByVClass(vClassEdgeFrom);
+        // return position in view depending of lane
         if (lane->getGeometry().shape.length() < 2.5) {
             return lane->getGeometry().shape.front();
         } else {
@@ -1126,15 +1118,11 @@ GNEPerson::setDisjointAttribute(const int newParameterSet) {
 void 
 GNEPerson::calculateSmoothPersonPlanConnection(const GNEDemandElement* personPlanElement, const GNEEdge *edgeFrom, const GNEEdge *edgeTo) {
     // obtain lane from (special case due rides)
-    GNELane *laneFrom = edgeFrom->getLaneByVClass(personPlanElement->getTagProperty().isRide()? SVC_PASSENGER : SVC_PEDESTRIAN);
-    if (!laneFrom) {
-        laneFrom = edgeFrom->getLanes().front();
-    }
+    SUMOVehicleClass vClassEdgeFrom = personPlanElement->getTagProperty().isRide()? SVC_PASSENGER : SVC_PEDESTRIAN;
+    GNELane *laneFrom = edgeFrom->getLaneByVClass(vClassEdgeFrom);
     // obtain lane to (special case due rides)
-    GNELane *laneTo = edgeTo->getLaneByVClass(personPlanElement->getTagProperty().isRide()? SVC_PASSENGER : SVC_PEDESTRIAN);
-    if (!laneTo) {
-        laneTo = edgeFrom->getLanes().front();
-    }
+    SUMOVehicleClass vClassEdgeTo = personPlanElement->getTagProperty().isRide()? SVC_PASSENGER : SVC_PEDESTRIAN;
+    GNELane *laneTo = edgeTo->getLaneByVClass(vClassEdgeTo);
     // calculate smooth shape
     PositionVector smoothShape = edgeFrom->getNBEdge()->getToNode()->computeSmoothShape(
         laneFrom->getGeometry().shape, laneTo->getGeometry().shape, 

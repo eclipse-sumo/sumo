@@ -222,12 +222,7 @@ GNERoute::updateGeometry() {
         std::vector<PositionVector> connectionShapes;
         // obtain all lane shapes
         for (const auto &i : getEdgeParents()) {
-            GNELane *lane = i->getLaneByVClass(myVClass);
-            if (lane) {
-                laneShapes.push_back(std::make_pair(i, lane->getGeometry().shape));
-            } else {
-                laneShapes.push_back(std::make_pair(i, i->getLanes().front()->getGeometry().shape));
-            }
+            laneShapes.push_back(std::make_pair(i, i->getLaneByVClass(myVClass)->getGeometry().shape));
         }
         // resize connectionShapes
         connectionShapes.resize(laneShapes.size());

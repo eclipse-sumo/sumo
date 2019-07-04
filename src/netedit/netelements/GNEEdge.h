@@ -304,8 +304,13 @@ public:
     /// @brief return smoothed shape
     PositionVector smoothShape(const PositionVector& shape, bool forElevation);
 
-    /// @brief return first lane that allow the given VClass
-    GNELane *getLaneByVClass(SUMOVehicleClass vClass) const;
+    /// @brief return the first lane that allow a vehicle of type vClass (or the first lane, if none was found)
+    GNELane *getLaneByVClass(const SUMOVehicleClass vClass) const;
+
+    /**@brief return the first lane that allow a vehicle of type vClass (or the first lane, if none was found)
+     * @note flag "found" will be changed depending if lane was found
+     */
+    GNELane *getLaneByVClass(const SUMOVehicleClass vClass, bool &found) const;
 
 protected:
     /// @brief the underlying NBEdge
