@@ -163,6 +163,7 @@ NBNodesEdgesSorter::swapWhenReversed(const NBNode* const n,
 void
 NBNodeTypeComputer::computeNodeTypes(NBNodeCont& nc, NBTrafficLightLogicCont& tlc) {
     validateRailCrossings(nc, tlc);
+    const double rightBeforeLeftSpeed = OptionsCont::getOptions().getFloat("junctions.right-before-left.speed-threshold");
     for (std::map<std::string, NBNode*>::const_iterator i = nc.begin(); i != nc.end(); ++i) {
         NBNode* n = (*i).second;
         // the type may already be set from the data
@@ -203,11 +204,11 @@ NBNodeTypeComputer::computeNodeTypes(NBNodeCont& nc, NBTrafficLightLogicCont& tl
                 }
                 // @todo check against a legal document
                 // @todo figure out when NODETYPE_PRIORITY_STOP is appropriate
-                const double s1 = (*i)->getSpeed() * (double) 3.6;
-                const double s2 = (*j)->getSpeed() * (double) 3.6;
+                const double s1 = (*i)->getSpeed();
+                const double s2 = (*j)->getSpeed();
                 const int p1 = (*i)->getPriority();
                 const int p2 = (*j)->getPriority();
-                if (fabs(s1 - s2) > (double) 9.5 || MAX2(s1, s2) >= (double) 49. || p1 != p2) {
+                if (fabs(s1 - s2) > (9.5 / 3.6) || MAX2(s1, s2) >= rightBeforeLeftSpeed || p1 != p2) {
                     type = NODETYPE_PRIORITY;
                     break;
                 }
