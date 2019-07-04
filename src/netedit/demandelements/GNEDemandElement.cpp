@@ -139,7 +139,7 @@ GNEDemandElement::RouteCalculator::updateDijkstraRouter() {
 
 
 std::vector<GNEEdge*>
-GNEDemandElement::RouteCalculator::calculateDijkstraRoute(SUMOVehicleClass vClass, const std::vector<GNEEdge*>& partialEdges, bool inverse) const {
+GNEDemandElement::RouteCalculator::calculateDijkstraRoute(SUMOVehicleClass vClass, const std::vector<GNEEdge*>& partialEdges) const {
     // declare a solution vector
     std::vector<GNEEdge*> solution;
     // calculate route depending of number of partial edges
@@ -147,49 +147,18 @@ GNEDemandElement::RouteCalculator::calculateDijkstraRoute(SUMOVehicleClass vClas
         // if there is only one partialEdges, route has only one edge
         solution.push_back(partialEdges.front());
     } else {
-        // first check if this is an iverse route
-        if (!inverse) {
-            // declare temporal vehicle
-            NBVehicle tmpVehicle("temporalNBVehicle", vClass);
-            // obtain pointer to GNENet
-            GNENet* net = partialEdges.front()->getNet();
-            // iterate over every selected edges
-            for (int i = 1; i < (int)partialEdges.size(); i++) {
-                // declare a temporal route in which save route between two last edges
-                std::vector<const NBRouterEdge*> partialRoute;
-                myDijkstraRouter->compute(partialEdges.at(i - 1)->getNBEdge(), partialEdges.at(i)->getNBEdge(), &tmpVehicle, 10, partialRoute);
-                // save partial route in solution
-                for (const auto& j : partialRoute) {
-                    solution.push_back(net->retrieveEdge(j->getID()));
-                }
-            }
-        } else {
-            // Priority for inverse routes are Passengers -> Buses -> Bicycles
-            if (vClass == SVC_PEDESTRIAN) {
-                // update VClass
-                vClass = SVC_PASSENGER;
-                // calculate solution
-                solution = calculateDijkstraRoute(vClass, partialEdges, false);
-                // return it if is greather than 0
-                if (solution.size() > 0) {
-                    return solution;
-                }
-            }
-            if (vClass == SVC_PASSENGER) {
-                // update VClass
-                vClass = SVC_BUS;
-                // calculate solution
-                solution = calculateDijkstraRoute(vClass, partialEdges, false);
-                // return it if is greather than 0
-                if (solution.size() > 0) {
-                    return solution;
-                }
-            }
-            if (vClass == SVC_BICYCLE) {
-                // update VClass
-                vClass = SVC_BICYCLE;
-                // calculate solution
-                solution = calculateDijkstraRoute(vClass, partialEdges, false);
+        // declare temporal vehicle
+        NBVehicle tmpVehicle("temporalNBVehicle", vClass);
+        // obtain pointer to GNENet
+        GNENet* net = partialEdges.front()->getNet();
+        // iterate over every selected edges
+        for (int i = 1; i < (int)partialEdges.size(); i++) {
+            // declare a temporal route in which save route between two last edges
+            std::vector<const NBRouterEdge*> partialRoute;
+            myDijkstraRouter->compute(partialEdges.at(i - 1)->getNBEdge(), partialEdges.at(i)->getNBEdge(), &tmpVehicle, 10, partialRoute);
+            // save partial route in solution
+            for (const auto& j : partialRoute) {
+                solution.push_back(net->retrieveEdge(j->getID()));
             }
         }
     }
@@ -198,7 +167,7 @@ GNEDemandElement::RouteCalculator::calculateDijkstraRoute(SUMOVehicleClass vClas
 
 
 std::vector<GNEEdge*>
-GNEDemandElement::RouteCalculator::calculateDijkstraRoute(GNENet *net, SUMOVehicleClass vClass, const std::vector<std::string>& partialEdgesStr, bool inverse) const {
+GNEDemandElement::RouteCalculator::calculateDijkstraRoute(GNENet *net, SUMOVehicleClass vClass, const std::vector<std::string>& partialEdgesStr) const {
     // declare a vector of GNEEdges
     std::vector<GNEEdge*> partialEdges;
     partialEdges.reserve(partialEdgesStr.size());
@@ -207,7 +176,7 @@ GNEDemandElement::RouteCalculator::calculateDijkstraRoute(GNENet *net, SUMOVehic
         partialEdges.push_back(net->retrieveEdge(i));
     }
     // calculate DijkstraRoute using partialEdges
-    return calculateDijkstraRoute(vClass, partialEdges, inverse);
+    return calculateDijkstraRoute(vClass, partialEdges);
 }
 
 

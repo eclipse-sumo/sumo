@@ -610,7 +610,7 @@ GNEFrame::EdgePathCreator::addEdge(GNEEdge* edge) {
             // enable finish button
             myFinishCreationButton->enable();
             // calculate temporal route
-            myTemporalRoute = GNEDemandElement::getRouteCalculatorInstance()->calculateDijkstraRoute(myVClass, myClickedEdges, false);
+            myTemporalRoute = GNEDemandElement::getRouteCalculatorInstance()->calculateDijkstraRoute(myVClass, myClickedEdges);
         }
         return true;
     } else {
@@ -763,7 +763,7 @@ GNEFrame::EdgePathCreator::onCmdRemoveLastInsertedElement(FXObject*, FXSelector,
         // remove last edge
         myClickedEdges.pop_back();
         // calculate temporal route
-        myTemporalRoute = GNEDemandElement::getRouteCalculatorInstance()->calculateDijkstraRoute(myVClass, myClickedEdges, false);
+        myTemporalRoute = GNEDemandElement::getRouteCalculatorInstance()->calculateDijkstraRoute(myVClass, myClickedEdges);
     }
     return 1;
 }

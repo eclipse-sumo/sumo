@@ -134,19 +134,11 @@ public:
         /// @brief update DijkstraRoute (called when SuperMode Demand is selected)
         void updateDijkstraRouter();
 
-        /**@brief calculate Dijkstra route between a list of partial edges
-         * @param vClass Vehicle Class that will use this route
-         * @param partialEdges list of partial route edges (at least two, from and to)
-         * @param inverse enable or disable inverse route for given vClass (ej: for pedestrian, a route that doesn't use pedestrian walks)
-         */
-        std::vector<GNEEdge*> calculateDijkstraRoute(SUMOVehicleClass vClass, const std::vector<GNEEdge*>& partialEdges, bool inverse) const;
+        /// @brief calculate Dijkstra route between a list of partial edges
+        std::vector<GNEEdge*> calculateDijkstraRoute(SUMOVehicleClass vClass, const std::vector<GNEEdge*>& partialEdges) const;
 
-        /**@brief calculate Dijkstra route between a list of partial edges
-         * @param vClass Vehicle Class that will use this route
-         * @param partialEdges list of partial route edges in string format (at least two, from and to)
-         * @param inverse enable or disable inverse route for given vClass (ej: for pedestrian, a route that doesn't use pedestrian walks)
-         */
-        std::vector<GNEEdge*> calculateDijkstraRoute(GNENet *net, SUMOVehicleClass vClass, const std::vector<std::string>& partialEdgesStr, bool inverse) const;
+        /// @brief calculate Dijkstra route between a list of partial edges (in string format)
+        std::vector<GNEEdge*> calculateDijkstraRoute(GNENet *net, SUMOVehicleClass vClass, const std::vector<std::string>& partialEdgesStr) const;
 
         /// @brief check if exist a route between the two given consecutives edges
         bool areEdgesConsecutives(SUMOVehicleClass vClass, GNEEdge* from, GNEEdge* to) const;

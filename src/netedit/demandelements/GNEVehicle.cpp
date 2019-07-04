@@ -1461,7 +1461,7 @@ GNEVehicle::setAttribute(SumoXMLAttr key, const std::string& value) {
             // add to edge
             FromViaToEdges.push_back(getEdgeParents().back()->getID());
             // calculate route
-            std::vector<GNEEdge*> route = getRouteCalculatorInstance()->calculateDijkstraRoute(myViewNet->getNet(), getDemandElementParents().at(0)->getVClass(), FromViaToEdges, false);
+            std::vector<GNEEdge*> route = getRouteCalculatorInstance()->calculateDijkstraRoute(myViewNet->getNet(), getDemandElementParents().at(0)->getVClass(), FromViaToEdges);
             // change edge parents
             changeEdgeParents(this, toString(route));
             break;
@@ -1476,7 +1476,7 @@ GNEVehicle::setAttribute(SumoXMLAttr key, const std::string& value) {
             // add to edge
             FromViaToEdges.push_back(value);
             // calculate route
-            std::vector<GNEEdge*> route = getRouteCalculatorInstance()->calculateDijkstraRoute(myViewNet->getNet(), getDemandElementParents().at(0)->getVClass(), FromViaToEdges, false);
+            std::vector<GNEEdge*> route = getRouteCalculatorInstance()->calculateDijkstraRoute(myViewNet->getNet(), getDemandElementParents().at(0)->getVClass(), FromViaToEdges);
             // change edge parents
             changeEdgeParents(this, toString(route));
             break;
@@ -1502,7 +1502,7 @@ GNEVehicle::setAttribute(SumoXMLAttr key, const std::string& value) {
             // add to edge
             FromViaToEdges.push_back(getEdgeParents().back()->getID());
             // calculate route
-            std::vector<GNEEdge*> route = getRouteCalculatorInstance()->calculateDijkstraRoute(myViewNet->getNet(), getDemandElementParents().at(0)->getVClass(), FromViaToEdges, false);
+            std::vector<GNEEdge*> route = getRouteCalculatorInstance()->calculateDijkstraRoute(myViewNet->getNet(), getDemandElementParents().at(0)->getVClass(), FromViaToEdges);
             // change edge parents
             changeEdgeParents(this, toString(route));
             break;

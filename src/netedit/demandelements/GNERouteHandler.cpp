@@ -271,7 +271,7 @@ GNERouteHandler::buildTrip(GNEViewNet* viewNet, bool undoDemandElements, const S
                 vehicleParameters.via.push_back(edges.at(i)->getID());
             }
             // obtain route between edges
-            std::vector<GNEEdge*> routeEdges = GNEDemandElement::getRouteCalculatorInstance()->calculateDijkstraRoute(vType->getVClass(), edges, false);
+            std::vector<GNEEdge*> routeEdges = GNEDemandElement::getRouteCalculatorInstance()->calculateDijkstraRoute(vType->getVClass(), edges);
             // check if obtained routes correspond to a valid route
             if (routeEdges.size() == 0) {
                 routeEdges = edges;
@@ -323,7 +323,7 @@ GNERouteHandler::buildFlow(GNEViewNet* viewNet, bool undoDemandElements, const S
                 vehicleParameters.via.push_back(edges.at(i)->getID());
             }
             // obtain route between edges
-            std::vector<GNEEdge*> routeEdges = GNEDemandElement::getRouteCalculatorInstance()->calculateDijkstraRoute(vType->getVClass(), edges, false);
+            std::vector<GNEEdge*> routeEdges = GNEDemandElement::getRouteCalculatorInstance()->calculateDijkstraRoute(vType->getVClass(), edges);
             // create trip or flow using tripParameters
             GNEVehicle* flow = new GNEVehicle(viewNet, vType, routeEdges, vehicleParameters);
             if (undoDemandElements) {
@@ -504,7 +504,7 @@ GNERouteHandler::buildPersonTripFromTo(GNEViewNet* viewNet, bool undoDemandEleme
         WRITE_ERROR("A personTrip needs at least one edge. " + toString(SUMO_TAG_PERSONTRIP_FROMTO) + " within person with ID='" + personParent->getID() + "' cannot be created");
     } else {
         // obtain path between edges
-        std::vector<GNEEdge*> pathEdges = GNEDemandElement::getRouteCalculatorInstance()->calculateDijkstraRoute(personParent->getVClass(), edges, false);
+        std::vector<GNEEdge*> pathEdges = GNEDemandElement::getRouteCalculatorInstance()->calculateDijkstraRoute(personParent->getVClass(), edges);
         // check if obtained path is valid
         if (pathEdges.size() == 0) {
             pathEdges = edges;
@@ -534,7 +534,7 @@ GNERouteHandler::buildPersonTripBusStop(GNEViewNet* viewNet, bool undoDemandElem
         WRITE_ERROR("A personTrip needs at least one edge. " + toString(SUMO_TAG_PERSONTRIP_BUSSTOP) + " within person with ID='" + personParent->getID() + "' cannot be created");
     } else {
         // obtain path between edges
-        std::vector<GNEEdge*> pathEdges = GNEDemandElement::getRouteCalculatorInstance()->calculateDijkstraRoute(personParent->getVClass(), edges, false);
+        std::vector<GNEEdge*> pathEdges = GNEDemandElement::getRouteCalculatorInstance()->calculateDijkstraRoute(personParent->getVClass(), edges);
         // check if obtained path is valid
         if (pathEdges.size() == 0) {
             pathEdges = edges;
@@ -568,7 +568,7 @@ GNERouteHandler::buildWalkEdges(GNEViewNet* viewNet, bool undoDemandElements, GN
         WRITE_ERROR("A walk needs at least one edge. " + toString(SUMO_TAG_WALK_EDGES) + " within person with ID='" + personParent->getID() + "' cannot be created");
     } else {
         // obtain path between edges
-        std::vector<GNEEdge*> pathEdges = GNEDemandElement::getRouteCalculatorInstance()->calculateDijkstraRoute(personParent->getVClass(), edges, false);
+        std::vector<GNEEdge*> pathEdges = GNEDemandElement::getRouteCalculatorInstance()->calculateDijkstraRoute(personParent->getVClass(), edges);
         // check if obtained path is valid
         if (pathEdges.size() == 0) {
             pathEdges = edges;
@@ -601,7 +601,7 @@ GNERouteHandler::buildWalkFromTo(GNEViewNet* viewNet, bool undoDemandElements, G
         WRITE_ERROR("A walk needs at least one edge. " + toString(SUMO_TAG_WALK_FROMTO) + " within person with ID='" + personParent->getID() + "' cannot be created");
     } else {
         // obtain path between edges
-        std::vector<GNEEdge*> pathEdges = GNEDemandElement::getRouteCalculatorInstance()->calculateDijkstraRoute(personParent->getVClass(), edges, false);
+        std::vector<GNEEdge*> pathEdges = GNEDemandElement::getRouteCalculatorInstance()->calculateDijkstraRoute(personParent->getVClass(), edges);
         // check if obtained path is valid
         if (pathEdges.size() == 0) {
             pathEdges = edges;
@@ -634,7 +634,7 @@ GNERouteHandler::buildWalkBusStop(GNEViewNet* viewNet, bool undoDemandElements, 
         WRITE_ERROR("A walk needs at least one edge. " + toString(SUMO_TAG_WALK_BUSSTOP) + " within person with ID='" + personParent->getID() + "' cannot be created");
     } else {
         // obtain path between edges
-        std::vector<GNEEdge*> pathEdges = GNEDemandElement::getRouteCalculatorInstance()->calculateDijkstraRoute(personParent->getVClass(), edges, false);
+        std::vector<GNEEdge*> pathEdges = GNEDemandElement::getRouteCalculatorInstance()->calculateDijkstraRoute(personParent->getVClass(), edges);
         // check if obtained path is valid
         if (pathEdges.size() == 0) {
             pathEdges = edges;
@@ -688,7 +688,7 @@ GNERouteHandler::buildRideFromTo(GNEViewNet* viewNet, bool undoDemandElements, G
         WRITE_ERROR("A ride needs at least one edge. " + toString(SUMO_TAG_RIDE_FROMTO) + " within person with ID='" + personParent->getID() + "' cannot be created");
     } else {
         // obtain path between edges
-        std::vector<GNEEdge*> pathEdges = GNEDemandElement::getRouteCalculatorInstance()->calculateDijkstraRoute(personParent->getVClass(), edges, true);
+        std::vector<GNEEdge*> pathEdges = GNEDemandElement::getRouteCalculatorInstance()->calculateDijkstraRoute(personParent->getVClass(), edges);
         // check if obtained path is valid
         if (pathEdges.size() == 0) {
             pathEdges = edges;
@@ -722,7 +722,7 @@ GNERouteHandler::buildRideBusStop(GNEViewNet* viewNet, bool undoDemandElements, 
         WRITE_ERROR("A ride needs at least one edge. " + toString(SUMO_TAG_RIDE_BUSSTOP) + " within person with ID='" + personParent->getID() + "' cannot be created");
     } else {
         // obtain path between edges
-        std::vector<GNEEdge*> pathEdges = GNEDemandElement::getRouteCalculatorInstance()->calculateDijkstraRoute(personParent->getVClass(), edges, true);
+        std::vector<GNEEdge*> pathEdges = GNEDemandElement::getRouteCalculatorInstance()->calculateDijkstraRoute(personParent->getVClass(), edges);
         // check if obtained path is valid
         if (pathEdges.size() == 0) {
             pathEdges = edges;
@@ -1252,11 +1252,11 @@ GNERouteHandler::closePerson() {
                         case SUMO_TAG_PERSONTRIP_FROMTO:
                             // check if "from" attribute was loaded, or it must be taked fron previous personPlan values
                             if (i->from) {
-                                myViewNet->getUndoList()->add(new GNEChange_DemandElement(new GNEPersonTrip(myViewNet, person, i->calculateEdgePath(false), i->vTypes, i->modes, i->arrivalPos), true), true);
+                                myViewNet->getUndoList()->add(new GNEChange_DemandElement(new GNEPersonTrip(myViewNet, person, i->calculateEdgePath(), i->vTypes, i->modes, i->arrivalPos), true), true);
                             } else if (i != myPersonPlanValues.begin()) {
                                 // update 'from' edge using 'to' edge of last personPlan element
                                 i->from = (i-1)->getLastEdge();
-                                myViewNet->getUndoList()->add(new GNEChange_DemandElement(new GNEPersonTrip(myViewNet, person, i->calculateEdgePath(false), i->vTypes, i->modes, i->arrivalPos), true), true);
+                                myViewNet->getUndoList()->add(new GNEChange_DemandElement(new GNEPersonTrip(myViewNet, person, i->calculateEdgePath(), i->vTypes, i->modes, i->arrivalPos), true), true);
                             } else {
                                 WRITE_ERROR("The first person plan of type '" + toString(i->tag) + "' needs a from edge. Person cannot be created.");
                                 // abort last command group (to remove created person)
@@ -1268,11 +1268,11 @@ GNERouteHandler::closePerson() {
                         case SUMO_TAG_PERSONTRIP_BUSSTOP:
                             // check if "from" attribute was loaded, or it must be taked fron previous personPlan values
                             if (i->from) {
-                                myViewNet->getUndoList()->add(new GNEChange_DemandElement(new GNEPersonTrip(myViewNet, person, i->calculateEdgePath(false), i->busStop, i->vTypes, i->modes), true), true);
+                                myViewNet->getUndoList()->add(new GNEChange_DemandElement(new GNEPersonTrip(myViewNet, person, i->calculateEdgePath(), i->busStop, i->vTypes, i->modes), true), true);
                             } else if (i != myPersonPlanValues.begin()) {
                                 // update 'from' edge using 'to' edge of last personPlan element
                                 i->from = (i-1)->getLastEdge();
-                                myViewNet->getUndoList()->add(new GNEChange_DemandElement(new GNEPersonTrip(myViewNet, person, i->calculateEdgePath(false), i->busStop, i->vTypes, i->modes), true), true);
+                                myViewNet->getUndoList()->add(new GNEChange_DemandElement(new GNEPersonTrip(myViewNet, person, i->calculateEdgePath(), i->busStop, i->vTypes, i->modes), true), true);
                             } else {
                                 WRITE_ERROR("The first person plan of type '" + toString(i->tag) + "' needs a from edge. Person cannot be created.");
                                 // abort last command group (to remove created person)
@@ -1284,11 +1284,11 @@ GNERouteHandler::closePerson() {
                         case SUMO_TAG_RIDE_FROMTO:
                             // check if "from" attribute was loaded, or it must be taked fron previous personPlan values
                             if (i->from) {
-                                myViewNet->getUndoList()->add(new GNEChange_DemandElement(new GNERide(myViewNet, person, i->calculateEdgePath(true), i->arrivalPos, i->lines), true), true);
+                                myViewNet->getUndoList()->add(new GNEChange_DemandElement(new GNERide(myViewNet, person, i->calculateEdgePath(), i->arrivalPos, i->lines), true), true);
                             } else if (i != myPersonPlanValues.begin()) {
                                 // update 'from' edge using 'to' edge of last personPlan element
                                 i->from = (i-1)->getLastEdge();
-                                myViewNet->getUndoList()->add(new GNEChange_DemandElement(new GNERide(myViewNet, person, i->calculateEdgePath(true), i->arrivalPos, i->lines), true), true);
+                                myViewNet->getUndoList()->add(new GNEChange_DemandElement(new GNERide(myViewNet, person, i->calculateEdgePath(), i->arrivalPos, i->lines), true), true);
                             } else {
                                 WRITE_ERROR("The first person plan of type '" + toString(i->tag) + "' needs a from edge. Person cannot be created.");
                                 // abort last command group (to remove created person)
@@ -1300,11 +1300,11 @@ GNERouteHandler::closePerson() {
                         case SUMO_TAG_RIDE_BUSSTOP:
                             // check if "from" attribute was loaded, or it must be taked fron previous personPlan values
                             if (i->from) {
-                                myViewNet->getUndoList()->add(new GNEChange_DemandElement(new GNERide(myViewNet, person, i->calculateEdgePath(true), i->busStop, i->lines), true), true);
+                                myViewNet->getUndoList()->add(new GNEChange_DemandElement(new GNERide(myViewNet, person, i->calculateEdgePath(), i->busStop, i->lines), true), true);
                             } else if (i != myPersonPlanValues.begin()) {
                                 // update 'from' edge using 'to' edge of last personPlan element
                                 i->from = (i-1)->getLastEdge();
-                                myViewNet->getUndoList()->add(new GNEChange_DemandElement(new GNERide(myViewNet, person, i->calculateEdgePath(true), i->busStop, i->lines), true), true);
+                                myViewNet->getUndoList()->add(new GNEChange_DemandElement(new GNERide(myViewNet, person, i->calculateEdgePath(), i->busStop, i->lines), true), true);
                             } else {
                                 WRITE_ERROR("The first person plan of type '" + toString(i->tag) + "' needs a from edge. Person cannot be created.");
                                 // abort last command group (to remove created person)
@@ -1319,11 +1319,11 @@ GNERouteHandler::closePerson() {
                         case SUMO_TAG_WALK_FROMTO:
                             // check if "from" attribute was loaded, or it must be taked fron previous personPlan values
                             if (i->from) {
-                                myViewNet->getUndoList()->add(new GNEChange_DemandElement(new GNEWalk(myViewNet, person, i->calculateEdgePath(false), i->arrivalPos), true), true);
+                                myViewNet->getUndoList()->add(new GNEChange_DemandElement(new GNEWalk(myViewNet, person, i->calculateEdgePath(), i->arrivalPos), true), true);
                             } else if (i != myPersonPlanValues.begin()) {
                                 // update 'from' edge using 'to' edge of last personPlan element
                                 i->from = (i-1)->getLastEdge();
-                                myViewNet->getUndoList()->add(new GNEChange_DemandElement(new GNEWalk(myViewNet, person, i->calculateEdgePath(false), i->arrivalPos), true), true);
+                                myViewNet->getUndoList()->add(new GNEChange_DemandElement(new GNEWalk(myViewNet, person, i->calculateEdgePath(), i->arrivalPos), true), true);
                             } else {
                                 WRITE_ERROR("The first person plan of type '" + toString(i->tag) + "' needs a from edge. Person cannot be created.");
                                 // abort last command group (to remove created person)
@@ -1335,11 +1335,11 @@ GNERouteHandler::closePerson() {
                         case SUMO_TAG_WALK_BUSSTOP:
                             // check if "from" attribute was loaded, or it must be taked fron previous personPlan values
                             if (i->from) {
-                                myViewNet->getUndoList()->add(new GNEChange_DemandElement(new GNEWalk(myViewNet, person, i->calculateEdgePath(false), i->busStop), true), true);
+                                myViewNet->getUndoList()->add(new GNEChange_DemandElement(new GNEWalk(myViewNet, person, i->calculateEdgePath(), i->busStop), true), true);
                             } else if (i != myPersonPlanValues.begin()) {
                                 // update 'from' edge using 'to' edge of last personPlan element
                                 i->from = (i-1)->getLastEdge();
-                                myViewNet->getUndoList()->add(new GNEChange_DemandElement(new GNEWalk(myViewNet, person, i->calculateEdgePath(false), i->busStop), true), true);
+                                myViewNet->getUndoList()->add(new GNEChange_DemandElement(new GNEWalk(myViewNet, person, i->calculateEdgePath(), i->busStop), true), true);
                             } else {
                                 WRITE_ERROR("The first person plan of type '" + toString(i->tag) + "' needs a from edge. Person cannot be created.");
                                 // abort last command group (to remove created person)
@@ -1855,11 +1855,11 @@ GNERouteHandler::PersonPlansValues::getLastEdge() const {
 
 
 std::vector<GNEEdge*> 
-GNERouteHandler::PersonPlansValues::calculateEdgePath(bool isRide) const {
+GNERouteHandler::PersonPlansValues::calculateEdgePath() const {
     // first check that from and to exist and are differents
     if ((from && to) && (from != to)) {
         // calculate edge path between from and to eges
-        std::vector<GNEEdge*> edgePath = GNEDemandElement::getRouteCalculatorInstance()->calculateDijkstraRoute(SVC_PEDESTRIAN, {from, to}, isRide);
+        std::vector<GNEEdge*> edgePath = GNEDemandElement::getRouteCalculatorInstance()->calculateDijkstraRoute(SVC_PEDESTRIAN, {from, to});
         if (edgePath.empty()) {
             return {from, to};
         } else {
@@ -1867,7 +1867,7 @@ GNERouteHandler::PersonPlansValues::calculateEdgePath(bool isRide) const {
         }
     } else if (from && busStop) {
         // calculate edge path between from and busstop's lane
-        std::vector<GNEEdge*> edgePath = GNEDemandElement::getRouteCalculatorInstance()->calculateDijkstraRoute(SVC_PEDESTRIAN, {from, &busStop->getLaneParents().front()->getParentEdge()}, isRide);
+        std::vector<GNEEdge*> edgePath = GNEDemandElement::getRouteCalculatorInstance()->calculateDijkstraRoute(SVC_PEDESTRIAN, {from, &busStop->getLaneParents().front()->getParentEdge()});
         if (edgePath.empty()) {
             return {from, &busStop->getLaneParents().front()->getParentEdge()};
         } else {
