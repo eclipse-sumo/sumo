@@ -522,6 +522,9 @@ GNERouteHandler::buildPersonTripFromTo(GNEViewNet* viewNet, bool undoDemandEleme
             personParent->addDemandElementChild(personTripFromTo);
             personTripFromTo->incRef("buildPersonTripFromTo");
         }
+        // mark geometry of person plan parent deprecated and update geometry
+        personParent->markGeometryDeprecated();
+        personParent->updateGeometry();
     }
 }
 
@@ -557,6 +560,9 @@ GNERouteHandler::buildPersonTripBusStop(GNEViewNet* viewNet, bool undoDemandElem
             }
             personTripBusStop->incRef("buildPersonTripBusStop");
         }
+        // mark geometry of person plan parent deprecated and update geometry
+        personParent->markGeometryDeprecated();
+        personParent->updateGeometry();
     }
 }
 
@@ -590,6 +596,9 @@ GNERouteHandler::buildWalkEdges(GNEViewNet* viewNet, bool undoDemandElements, GN
             }
             walkEdges->incRef("buildWalkEdges");
         }
+        // mark geometry of person plan parent deprecated and update geometry
+        personParent->markGeometryDeprecated();
+        personParent->updateGeometry();
     }
 }
 
@@ -600,7 +609,7 @@ GNERouteHandler::buildWalkFromTo(GNEViewNet* viewNet, bool undoDemandElements, G
     if (edges.size() == 0) {
         WRITE_ERROR("A walk needs at least one edge. " + toString(SUMO_TAG_WALK_FROMTO) + " within person with ID='" + personParent->getID() + "' cannot be created");
     } else {
-        // obtain path between edges
+        // obtain path between edgespersonParent->markGeometryDeprecated();
         std::vector<GNEEdge*> pathEdges = GNEDemandElement::getRouteCalculatorInstance()->calculateDijkstraRoute(personParent->getVClass(), edges);
         // check if obtained path is valid
         if (pathEdges.size() == 0) {
@@ -623,6 +632,9 @@ GNERouteHandler::buildWalkFromTo(GNEViewNet* viewNet, bool undoDemandElements, G
             }
             walkFromTo->incRef("buildWalkFromTo");
         }
+        // mark geometry of person plan parent deprecated and update geometry
+        personParent->markGeometryDeprecated();
+        personParent->updateGeometry();
     }
 }
 
@@ -657,6 +669,9 @@ GNERouteHandler::buildWalkBusStop(GNEViewNet* viewNet, bool undoDemandElements, 
             }
             walkBusStop->incRef("buildWalkBusStop");
         }
+        // mark geometry of person plan parent deprecated and update geometry
+        personParent->markGeometryDeprecated();
+        personParent->updateGeometry();
     }
 }
 
@@ -677,6 +692,9 @@ GNERouteHandler::buildWalkRoute(GNEViewNet* viewNet, bool undoDemandElements, GN
         routeParent->addDemandElementChild(walkRoute);
         walkRoute->incRef("buildWalkRoute");
     }
+    // mark geometry of person plan parent deprecated and update geometry
+    personParent->markGeometryDeprecated();
+    personParent->updateGeometry();
 }
 
 
@@ -687,8 +705,8 @@ GNERouteHandler::buildRideFromTo(GNEViewNet* viewNet, bool undoDemandElements, G
     if (edges.size() == 0) {
         WRITE_ERROR("A ride needs at least one edge. " + toString(SUMO_TAG_RIDE_FROMTO) + " within person with ID='" + personParent->getID() + "' cannot be created");
     } else {
-        // obtain path between edges
-        std::vector<GNEEdge*> pathEdges = GNEDemandElement::getRouteCalculatorInstance()->calculateDijkstraRoute(personParent->getVClass(), edges);
+        // obtain path between edges (use SVC_PASSENGER instead SVC_PEDESTRIAN)
+        std::vector<GNEEdge*> pathEdges = GNEDemandElement::getRouteCalculatorInstance()->calculateDijkstraRoute(SVC_PASSENGER, edges);
         // check if obtained path is valid
         if (pathEdges.size() == 0) {
             pathEdges = edges;
@@ -710,6 +728,9 @@ GNERouteHandler::buildRideFromTo(GNEViewNet* viewNet, bool undoDemandElements, G
             }
             rideFromTo->incRef("buildRideFromTo");
         }
+        // mark geometry of person plan parent deprecated and update geometry
+        personParent->markGeometryDeprecated();
+        personParent->updateGeometry();
     }
 }
 
@@ -721,8 +742,8 @@ GNERouteHandler::buildRideBusStop(GNEViewNet* viewNet, bool undoDemandElements, 
     if (edges.size() == 0) {
         WRITE_ERROR("A ride needs at least one edge. " + toString(SUMO_TAG_RIDE_BUSSTOP) + " within person with ID='" + personParent->getID() + "' cannot be created");
     } else {
-        // obtain path between edges
-        std::vector<GNEEdge*> pathEdges = GNEDemandElement::getRouteCalculatorInstance()->calculateDijkstraRoute(personParent->getVClass(), edges);
+        // obtain path between (use SVC_PASSENGER instead SVC_PEDESTRIAN)
+        std::vector<GNEEdge*> pathEdges = GNEDemandElement::getRouteCalculatorInstance()->calculateDijkstraRoute(SVC_PASSENGER, edges);
         // check if obtained path is valid
         if (pathEdges.size() == 0) {
             pathEdges = edges;
@@ -745,6 +766,9 @@ GNERouteHandler::buildRideBusStop(GNEViewNet* viewNet, bool undoDemandElements, 
             }
             rideBusStop->incRef("buildRideBusStop");
         }
+        // mark geometry of person plan parent deprecated and update geometry
+        personParent->markGeometryDeprecated();
+        personParent->updateGeometry();
     }
 }
 

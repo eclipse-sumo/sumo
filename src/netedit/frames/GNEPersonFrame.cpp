@@ -163,6 +163,12 @@ GNEPersonFrame::show() {
     myPersonTagSelector->refreshTagProperties();
     myPTypeSelector->refreshDemandElementSelector();
     myPersonPlanTagSelector->refreshTagProperties();
+    // update VClass of myEdgePathCreator
+    if (myPersonPlanTagSelector->getCurrentTagProperties().isRide()) {
+        myEdgePathCreator->setVClass(SVC_PASSENGER);
+    } else {
+        myEdgePathCreator->setVClass(SVC_PEDESTRIAN);
+    }
     // show frame
     GNEFrame::show();
 }
@@ -230,14 +236,24 @@ GNEPersonFrame::tagSelected() {
                 } else if (myPersonPlanTagSelector->getCurrentTagProperties().isRide()) {
                     myEdgePathCreator->edgePathCreatorName("ride");
                 }
+                // update VClass of myEdgePathCreator
+                if (myPersonPlanTagSelector->getCurrentTagProperties().isRide()) {
+                    myEdgePathCreator->setVClass(SVC_PASSENGER);
+                } else {
+                    myEdgePathCreator->setVClass(SVC_PEDESTRIAN);
+                }
+                // show edge path creator modul
                 myEdgePathCreator->showEdgePathCreator();
+                // show help modul
                 myHelpCreation->showHelpCreation();
             } else {
+                // hide modules
                 myPersonPlanAttributes->hideAttributesCreatorModul();
                 myEdgePathCreator->hideEdgePathCreator();
                 myHelpCreation->hideHelpCreation();
             }
         } else {
+            // hide modules
             myPersonPlanTagSelector->hideTagSelector();
             myPersonAttributes->hideAttributesCreatorModul();
             myPersonPlanAttributes->hideAttributesCreatorModul();
@@ -275,14 +291,24 @@ GNEPersonFrame::demandElementSelected() {
             } else if (myPersonPlanTagSelector->getCurrentTagProperties().isRide()) {
                 myEdgePathCreator->edgePathCreatorName("ride");
             }
+            // update VClass of myEdgePathCreator
+            if (myPersonPlanTagSelector->getCurrentTagProperties().isRide()) {
+                myEdgePathCreator->setVClass(SVC_PASSENGER);
+            } else {
+                myEdgePathCreator->setVClass(SVC_PEDESTRIAN);
+            }
+            // show edge path creator modul
             myEdgePathCreator->showEdgePathCreator();
+            // show help modul
             myHelpCreation->showHelpCreation();
         } else {
+            // hide modules
             myPersonPlanAttributes->hideAttributesCreatorModul();
             myEdgePathCreator->hideEdgePathCreator();
             myHelpCreation->hideHelpCreation();
         }
     } else {
+        // hide modules
         myPersonPlanTagSelector->hideTagSelector();
         myPersonAttributes->hideAttributesCreatorModul();
         myPersonPlanAttributes->hideAttributesCreatorModul();
