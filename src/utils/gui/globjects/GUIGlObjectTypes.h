@@ -40,6 +40,7 @@
 enum GUIGlObjectType {
     /// @brief The network - empty
     GLO_NETWORK = 0,
+
     /// @brief reserved GLO type to pack all netElements
     GLO_NETELEMENT = 1,
     /// @brief an edge
@@ -54,6 +55,7 @@ enum GUIGlObjectType {
     GLO_CONNECTION = 6,
     /// @brief a tl-logic
     GLO_TLLOGIC = 8,
+
     /// @brief reserved GLO type to pack all additionals
     GLO_ADDITIONAL = 100,
     /// @brief a busStop
@@ -96,44 +98,70 @@ enum GUIGlObjectType {
     GLO_ACCESS = 119,
     /// @brief a TAZ
     GLO_TAZ = 120,
+
     /// @brief reserved GLO type to pack shapes
     GLO_SHAPE = 200,
     /// @brief a polygon
     GLO_POLYGON = 201,
     /// @brief a poi
     GLO_POI = 202,
-    /// @brief reserved GLO type to pack all RouteElments
+
+    /// @brief reserved GLO type to pack all RouteElements (note: In this case the sorting of GLO_<element> is important!)
     GLO_ROUTEELEMENT = 300,
+    GLO_VTYPE = 301,
+
+    /// @name routes
+    /// @{
     /// @brief a route
-    GLO_ROUTE = 301,
+    GLO_ROUTE = 310,
     /// @brief a embedded route
-    GLO_EMBEDDEDROUTE = 302,
-    /// @brief a vehicle type (currently unused)
-    GLO_VTYPE = 303,
-    /// @brief a vehicle
-    GLO_VEHICLE = 304,
-    /// @brief a trip
-    GLO_TRIP = 305,
-    /// @brief a flow
-    GLO_FLOW = 306,
-    /// @brief a routeFlow
-    GLO_ROUTEFLOW = 307,
-    /// @brief a container
-    GLO_CONTAINER = 308,
-    /// @brief a stop
-    GLO_STOP = 309,
+    GLO_EMBEDDEDROUTE = 311,
+    /// @}
+
+    /// @name Person plans
+    /// @{
     /// @brief a ride
-    GLO_RIDE = 310,
+    GLO_RIDE = 320,
     /// @brief a walk
-    GLO_WALK = 311,
-    /// @brief a person stop
-    GLO_PERSONSTOP = 312,
+    GLO_WALK = 321,
     /// @brief a person trip
-    GLO_PERSONTRIP = 313,
+    GLO_PERSONTRIP = 322,
+    /// @}
+
+    /// @name stops
+    /// @{
+    /// @brief a stop
+    GLO_STOP = 330,
+    /// @brief a person stop
+    GLO_PERSONSTOP = 331,
+    /// @}
+
+    /// @name vehicles
+    /// @{
+    /// @brief a vehicle
+    GLO_VEHICLE = 340,
+    /// @brief a trip
+    GLO_TRIP = 341,
+    /// @brief a flow
+    GLO_FLOW = 342,
+    /// @brief a routeFlow
+    GLO_ROUTEFLOW = 343,
+    /// @}
+
+    /// @name containers (carried by vehicles)
+    /// @{
+    /// @brief a container
+    GLO_CONTAINER = 350,
+    /// @}
+
+    /// @name persons
+    /// @{
     /// @brief a person
-    GLO_PERSON = 314,
+    GLO_PERSON = 360,
     /// @brief a person flow
-    GLO_PERSONFLOW = 315,
+    GLO_PERSONFLOW = 361,
+    /// @}
+
     /// @brief empty max
     GLO_MAX = 2048
 };

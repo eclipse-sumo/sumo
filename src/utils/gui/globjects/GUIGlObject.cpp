@@ -46,7 +46,8 @@
 // ===========================================================================
 
 StringBijection<GUIGlObjectType>::Entry GUIGlObject::GUIGlObjectTypeNamesInitializer[] = {
-    {"network",                 GLO_NETWORK},
+    {"network",             GLO_NETWORK},
+    //
     {"netElement",          GLO_NETELEMENT},
     {"edge",                GLO_EDGE},
     {"lane",                GLO_LANE},
@@ -54,6 +55,7 @@ StringBijection<GUIGlObjectType>::Entry GUIGlObject::GUIGlObjectTypeNamesInitial
     {"crossing",            GLO_CROSSING},
     {"connection",          GLO_CONNECTION},
     {"tlLogic",             GLO_TLLOGIC},
+    //
     {"additional",          GLO_ADDITIONAL},
     {"busStop",             GLO_BUS_STOP},
     {"access",              GLO_ACCESS},
@@ -75,23 +77,31 @@ StringBijection<GUIGlObjectType>::Entry GUIGlObject::GUIGlObjectTypeNamesInitial
     {"calibrator",          GLO_CALIBRATOR},
     {"routeProbe",          GLO_ROUTEPROBE},
     {"vaporizer",           GLO_VAPORIZER},
+    //
     {"shape",               GLO_SHAPE},
     {"polygon",             GLO_POLYGON},
     {"poi",                 GLO_POI},
+    //
     {"routeElement",        GLO_ROUTEELEMENT},
+    {"vType",               GLO_VTYPE},
+    //
     {"route",               GLO_ROUTE},
     {"embeddedRoute",       GLO_EMBEDDEDROUTE},
-    {"vType",               GLO_VTYPE},
+    //
+    {"ride",                GLO_RIDE},
+    {"walk",                GLO_WALK},
+    {"personTrip",          GLO_PERSONTRIP},
+    //
+    {"stop",                GLO_STOP},
+    {"personStop",          GLO_PERSONSTOP},
+    //
     {"vehicle",             GLO_VEHICLE},
     {"trip",                GLO_TRIP},
     {"flow",                GLO_FLOW},
     {"routeFlow",           GLO_ROUTEFLOW},
+    //
     {"container",           GLO_CONTAINER},
-    {"stop",                GLO_STOP},
-    {"ride",                GLO_RIDE},
-    {"walk",                GLO_WALK},
-    {"personStop",          GLO_PERSONSTOP},
-    {"personTrip",          GLO_PERSONTRIP},
+    //
     {"person",              GLO_PERSON},
     {"personFlow",          GLO_PERSONFLOW},
     {"undefined",           GLO_MAX}
