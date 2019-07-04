@@ -27,3 +27,6 @@ ticket5704b
 
 # sumo-gui freezes
 ticket5740
+
+# crash when person walks over e2Detector
+ticket5803
