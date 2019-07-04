@@ -66,6 +66,8 @@ def connect(port=8813, numRetries=10, host="localhost", proc=None):
         try:
             return Connection(host, port, proc)
         except socket.error as e:
+            if proc is not None and proc.poll() is not None:
+                raise TraCIException("TraCI server already finished")
             if wait > 1:
                 print("Could not connect to TraCI server at %s:%s" % (host, port), e)
             if wait < numRetries + 1:
@@ -90,10 +92,20 @@ def start(cmd, port=None, numRetries=10, label="default"):
     Start a sumo server using cmd, establish a connection to it and
     store it under the given label. This method is not thread-safe.
     """
-    if port is None:
-        port = sumolib.miscutils.getFreeSocketPort()
-    sumoProcess = subprocess.Popen(cmd + ["--remote-port", str(port)])
-    _connections[label] = connect(port, numRetries, "localhost", sumoProcess)
+    if label in _connections:
+        raise TraCIException("Connection '%s' is already active." % label)
+    while numRetries >= 0 and label not in _connections:
+        sumoPort = sumolib.miscutils.getFreeSocketPort() if port is None else port
+        sumoProcess = subprocess.Popen(cmd + ["--remote-port", str(sumoPort)])
+        try:
+            _connections[label] = connect(sumoPort, numRetries, "localhost", sumoProcess)
+        except TraCIException:
+            if port is not None:
+                break
+            warnings.warn("Could not connect to TraCI server using port %s. Retrying with different port." % sumoPort)
+            numRetries -= 1
+    if label not in _connections:
+        raise FatalTraCIError("Could not connect.")
     switch(label)
     return getVersion()
 
@@ -217,6 +229,7 @@ def close(wait=True):
     for listenerID in listenerIDs:
         removeStepListener(listenerID)
     _connections[""].close(wait)
+    del _connections[_currentLabel[0]]
 
 
 def switch(label):
