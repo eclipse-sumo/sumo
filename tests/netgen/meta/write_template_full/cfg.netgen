@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Jul  4 10:06:04 2019 by Eclipse SUMO netgenerate Version v1_2_0+0945-7949f7c
+<!-- generated on Thu Jul  4 10:40:51 2019 by Eclipse SUMO netgenerate Version v1_2_0+0948-8d469c0
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netgenerateConfiguration.xsd">
@@ -155,6 +155,7 @@
     </unregulated_nodes>
 
     <junctions>
+        <junctions.right-before-left.speed-threshold value="13.6111" type="FLOAT" help="Allow building right-before-left junctions when the incoming edge speeds are below FLOAT (m/s)"/>
         <no-internal-links value="false" type="BOOL" help="Omits internal links"/>
         <no-turnarounds value="false" type="BOOL" help="Disables building turnarounds"/>
         <no-turnarounds.tls value="false" synonymes="no-tls-turnarounds" type="BOOL" help="Disables building turnarounds at tls-controlled junctions"/>

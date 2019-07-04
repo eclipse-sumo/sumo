@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Jul  3 16:24:36 2019 by Eclipse SUMO netconvert Version v1_2_0+0934-563e953
+<!-- generated on Thu Jul  4 10:40:54 2019 by Eclipse SUMO netconvert Version v1_2_0+0948-8d469c0
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -513,6 +513,9 @@
     </unregulated_nodes>
 
     <junctions>
+        <!-- Allow building right-before-left junctions when the incoming edge speeds are below FLOAT (m/s) -->
+        <junctions.right-before-left.speed-threshold value="13.6111" type="FLOAT"/>
+
         <!-- Omits internal links -->
         <no-internal-links value="false" type="BOOL"/>
 
