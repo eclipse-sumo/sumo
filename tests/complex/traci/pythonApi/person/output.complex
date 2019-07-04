@@ -23,7 +23,7 @@ length 2.0
 MinGap 2.22
 width 1.11
 waiting time 0.0
-stage Stage(type=2, vType='', line='', destStop='', edges=('2fi', '2si', '1o'), travelTime=-1.0, cost=-1.0, length=766.537661434478, intended='', depart=-1073741824.0, departPos=238.5, arrivalPos=486.54, description='walking')
+stage Stage(type=2, edges=('2fi', '2si', '1o'), travelTime=-1.0, cost=-1.0, length=766.537661434, depart=-1073741824.0, departPos=238.5, arrivalPos=486.54, description=walking)
 remainingStages 1
 edges ('2fi', '2si', '1o')
 vehicle 
@@ -50,7 +50,7 @@ length 2.0
 MinGap 2.22
 width 1.11
 waiting time 0.0
-stage Stage(type=2, vType='', line='', destStop='', edges=('2fi', '2si', '1o'), travelTime=-1.0, cost=-1.0, length=766.537661434478, intended='', depart=-1073741824.0, departPos=238.5, arrivalPos=486.54, description='walking')
+stage Stage(type=2, edges=('2fi', '2si', '1o'), travelTime=-1.0, cost=-1.0, length=766.537661434, depart=-1073741824.0, departPos=238.5, arrivalPos=486.54, description=walking)
 remainingStages 1
 edges ('2fi', '2si', '1o')
 vehicle 
@@ -105,12 +105,12 @@ recovering from exception after asking for invalid stage index
 222 person=tripTest2 edge=2fi pos=19.0504063853
 223 person=tripTest2 edge=2fi pos=20.2967095385
 remaining stages for 'p3' (before replacement of current stage
-  0: Stage(type=2, vType='', line='', destStop='', edges=('1fi', '1si'), travelTime=-1.0, cost=-1.0, length=27.24982758415672, intended='', depart=-1073741824.0, departPos=238.5, arrivalPos=10.0, description='walking')
+  0: Stage(type=2, edges=('1fi', '1si'), travelTime=-1.0, cost=-1.0, length=27.2498275842, depart=-1073741824.0, departPos=238.5, arrivalPos=10.0, description=walking)
 remaining stages for 'p3' (after replacement
-  0: Stage(type=2, vType='', line='', destStop='', edges=('1fi', '1o'), travelTime=-1.0, cost=-1.0, length=495.25, intended='', depart=-1073741824.0, departPos=10.0, arrivalPos=10.0, description='walking')
+  0: Stage(type=2, edges=('1fi', '1o'), travelTime=-1.0, cost=-1.0, length=495.25, depart=-1073741824.0, departPos=10.0, arrivalPos=10.0, description=walking)
 remaining stages for 'p3' (before replacement of next stage
-  0: Stage(type=2, vType='', line='', destStop='', edges=('1fi', '1o'), travelTime=-1.0, cost=-1.0, length=495.25, intended='', depart=-1073741824.0, departPos=10.0, arrivalPos=10.0, description='walking')
-  1: Stage(type=2, vType='', line='', destStop='', edges=('1o', '3o'), travelTime=-1.0, cost=-1.0, length=39.991248085099585, intended='', depart=-1073741824.0, departPos=10.0, arrivalPos=10.0, description='walking')
+  0: Stage(type=2, edges=('1fi', '1o'), travelTime=-1.0, cost=-1.0, length=495.25, depart=-1073741824.0, departPos=10.0, arrivalPos=10.0, description=walking)
+  1: Stage(type=2, edges=('1o', '3o'), travelTime=-1.0, cost=-1.0, length=39.9912480851, depart=-1073741824.0, departPos=10.0, arrivalPos=10.0, description=walking)
 remaining stages for 'p3' (after replacement
-  0: Stage(type=2, vType='', line='', destStop='', edges=('1fi', '1o'), travelTime=-1.0, cost=-1.0, length=495.25, intended='', depart=-1073741824.0, departPos=10.0, arrivalPos=10.0, description='walking')
-  1: Stage(type=2, vType='', line='', destStop='', edges=('1o', '4o'), travelTime=-1.0, cost=-1.0, length=39.991248085099585, intended='', depart=-1073741824.0, departPos=10.0, arrivalPos=10.0, description='walking')
+  0: Stage(type=2, edges=('1fi', '1o'), travelTime=-1.0, cost=-1.0, length=495.25, depart=-1073741824.0, departPos=10.0, arrivalPos=10.0, description=walking)
+  1: Stage(type=2, edges=('1o', '4o'), travelTime=-1.0, cost=-1.0, length=39.9912480851, depart=-1073741824.0, departPos=10.0, arrivalPos=10.0, description=walking)
