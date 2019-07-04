@@ -38,6 +38,29 @@ class Stage(object):
         self.arrivalPos = arrivalPos
         self.description = description
 
+    def __attr_repr__(self, attrname, default=""):
+        if getattr(self, attrname) == default:
+            return ""
+        else:
+            return "%s=%s" % (attrname, getattr(self, attrname))
+
+    def __repr__(self):
+        return "Stage(%s)" % ', '.join([v for v in [
+            self.__attr_repr__("type"),
+            self.__attr_repr__("vType"),
+            self.__attr_repr__("line"),
+            self.__attr_repr__("destStop"),
+            self.__attr_repr__("edges"),
+            self.__attr_repr__("travelTime"),
+            self.__attr_repr__("cost"),
+            self.__attr_repr__("length"),
+            self.__attr_repr__("intended"),
+            self.__attr_repr__("depart"),
+            self.__attr_repr__("departPos"),
+            self.__attr_repr__("arrivalPos"),
+            self.__attr_repr__("description"),
+            ] if v != ""])
+
 
 def _readStage(result):
     # compound size and type
