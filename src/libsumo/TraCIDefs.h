@@ -225,7 +225,7 @@ public:
 
 
 #ifdef SWIG
-%template(TraCIPhaseVector) std::vector<libsumo::TraCIPhase>;
+%template(TraCIPhaseVector) std::vector<libsumo::TraCIPhase>; // *NOPAD*
 #endif
 
 
