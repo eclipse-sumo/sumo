@@ -167,7 +167,8 @@ MSDevice_Bluelight::notifyMove(SUMOTrafficObject& veh, double /* oldPos */,
                 //other vehicle should not use the rescue lane so they should not make any lane changes
                 lanechange.setLaneChangeMode(1605);//todo change lane back
                 const int numLanes = (int)veh2->getEdge()->getLanes().size();
-                if (reaction > 0.344) {
+                // the vehicles should react according to the distance to the emergency vehicle taken from real world data
+                if (reaction < (distanceDelta * -1.6 +100)/100){
                     influencedVehicles.insert(static_cast<std::string>(veh2->getID()));
                     influencedTypes.insert(std::make_pair(static_cast<std::string>(veh2->getID()), veh2->getVehicleType().getID()));
 
