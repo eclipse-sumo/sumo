@@ -16,6 +16,12 @@ guess_large
 # activate option for including clusters into guess
 guess.joining
 
+# activate option for including clusters into guess, real-world example
+guess.joining_rw1
+
+# activate option for including clusters into guess, real-world example
+guess.joining_rw2
+
 # activate option for including clusters into guess
 guess.joining_join
 
