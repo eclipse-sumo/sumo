@@ -16,14 +16,27 @@
 
 from __future__ import absolute_import
 import struct
-import collections
 import warnings
 from . import constants as tc
 from .domain import Domain
 from .storage import Storage
 
-Stage = collections.namedtuple('Stage', ['type', 'vType', 'line', 'destStop', 'edges', 'travelTime', 'cost',
-                                         'length', 'intended', 'depart', 'departPos', 'arrivalPos', 'description'])
+class Stage(object):
+
+    def __init__(self, type, vType, line, destStop, edges, travelTime, cost, length, intended, depart, departPos, arrivalPos, description):
+        self.type = type
+        self.vType = vType
+        self.line = line
+        self.destStop = destStop
+        self.edges = edges
+        self.travelTime = travelTime
+        self.cost = cost
+        self.length = length
+        self.intended = intended
+        self.depart = depart
+        self.departPos = departPos
+        self.arrivalPos = arrivalPos
+        self.description = description
 
 
 def _readStage(result):
