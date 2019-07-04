@@ -20,7 +20,6 @@
 // ===========================================================================
 
 #include <cmath>
-#include <microsim/MSVehicle.h>
 #include <microsim/devices/MSDevice_BTreceiver.h>
 #include <netbuild/NBNode.h>
 #include <netedit/GNENet.h>
@@ -29,10 +28,8 @@
 #include <netedit/GNEViewParent.h>
 #include <netedit/changes/GNEChange_Attribute.h>
 #include <netedit/frames/GNESelectorFrame.h>
-#include <netedit/netelements/GNEConnection.h>
 #include <netedit/netelements/GNEEdge.h>
 #include <netedit/netelements/GNELane.h>
-#include <utils/geom/GeomHelper.h>
 #include <utils/gui/div/GLHelper.h>
 #include <utils/gui/div/GUIBaseVehicleHelper.h>
 #include <utils/gui/div/GUIGlobalSelection.h>

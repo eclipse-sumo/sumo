@@ -19,20 +19,14 @@
 // included modules
 // ===========================================================================
 #include <config.h>
-#include <netbuild/NBNetBuilder.h>
-#include <netbuild/NBVehicle.h>
 #include <netedit/GNENet.h>
 #include <netedit/GNEUndoList.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/additionals/GNEBusStop.h>
-#include <netedit/additionals/GNEChargingStation.h>
-#include <netedit/additionals/GNEContainerStop.h>
-#include <netedit/additionals/GNEParkingArea.h>
 #include <netedit/changes/GNEChange_DemandElement.h>
 #include <netedit/changes/GNEChange_Attribute.h>
 #include <netedit/netelements/GNEEdge.h>
 #include <netedit/netelements/GNELane.h>
-#include <utils/router/DijkstraRouter.h>
 
 #include "GNEPerson.h"
 #include "GNEPersonTrip.h"

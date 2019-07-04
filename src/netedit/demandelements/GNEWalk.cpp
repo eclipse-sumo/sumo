@@ -21,8 +21,6 @@
 // ===========================================================================
 #include <config.h>
 
-#include <utils/gui/div/GLHelper.h>
-#include <utils/gui/globjects/GLIncludes.h>
 #include <utils/gui/windows/GUIAppEnum.h>
 #include <netedit/additionals/GNEAdditional.h>
 #include <netedit/changes/GNEChange_Attribute.h>
@@ -32,12 +30,10 @@
 #include <netedit/GNEViewParent.h>
 #include <netedit/netelements/GNELane.h>
 #include <netedit/netelements/GNEEdge.h>
-#include <netedit/netelements/GNEConnection.h>
 #include <netedit/frames/GNESelectorFrame.h>
 #include <utils/gui/div/GUIGlobalSelection.h>
 
 #include "GNEWalk.h"
-#include "GNEVehicle.h"
 
 
 // ===========================================================================
