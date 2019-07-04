@@ -37,6 +37,10 @@ def step():
     traci.simulationStep()
     return s
 
+def print_remaining_plan(personID, comment=""):
+    print("remaining stages for '%s' %s" % (personID, comment))
+    for i in range(traci.person.getRemainingStages(personID)):
+        print("  %s: %s" % (i, traci.person.getStage(personID, i)))
 
 traci.start([sumolib.checkBinary('sumo'), "-c", "sumo.sumocfg", "--fcd-output", "fcd.xml"])
 # add walking person
@@ -210,8 +214,44 @@ stage = traci._simulation.Stage(
         travelTime=-1, cost=-1, length=-1,
         intended="", depart=-1, departPos=-20, arrivalPos=10,
         description="foo")
+stage2 = traci._simulation.Stage(
+        type=traci.constants.STAGE_WALKING,
+        vType="car", line="", destStop="",
+        edges=["1fi", "1o"],
+        travelTime=-1, cost=-1, length=-1,
+        intended="", depart=-1, departPos=-20, arrivalPos=10,
+        description="foo")
+stage3 = traci._simulation.Stage(
+        type=traci.constants.STAGE_WALKING,
+        vType="car", line="", destStop="",
+        edges=["1o", "3o"],
+        travelTime=-1, cost=-1, length=-1,
+        intended="", depart=-1, departPos=-20, arrivalPos=10,
+        description="foo")
+stage4 = traci._simulation.Stage(
+        type=traci.constants.STAGE_WALKING,
+        vType="car", line="", destStop="",
+        edges=["1o", "4o"],
+        travelTime=-1, cost=-1, length=-1,
+        intended="", depart=-1, departPos=-20, arrivalPos=10,
+        description="foo")
 
 traci.person.appendStage("p3", stage)
+for i in range(10):
+    traci.simulationStep()
+
+remaining = traci.person.getRemainingStages("p3")
+assert(remaining == 1)
+# replace current stage
+print_remaining_plan("p3", "(before replacement of current stage")
+traci.person.replaceStage("p3", 0, stage2)
+print_remaining_plan("p3", "(after replacement")
+# replace later stage
+traci.person.appendStage("p3", stage3)
+print_remaining_plan("p3", "(before replacement of next stage")
+traci.person.replaceStage("p3", 1, stage4)
+print_remaining_plan("p3", "(after replacement")
+
 for i in range(40):
     traci.simulationStep()
 

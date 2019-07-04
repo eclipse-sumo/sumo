@@ -104,3 +104,13 @@ recovering from exception after asking for invalid stage index
 221 person=tripTest2 edge=2fi pos=17.7396310395
 222 person=tripTest2 edge=2fi pos=19.0504063853
 223 person=tripTest2 edge=2fi pos=20.2967095385
+remaining stages for 'p3' (before replacement of current stage
+  0: Stage(type=2, vType='', line='', destStop='', edges=('1fi', '1si'), travelTime=-1.0, cost=-1.0, length=27.24982758415672, intended='', depart=-1073741824.0, departPos=238.5, arrivalPos=10.0, description='walking')
+remaining stages for 'p3' (after replacement
+  0: Stage(type=2, vType='', line='', destStop='', edges=('1fi', '1o'), travelTime=-1.0, cost=-1.0, length=495.25, intended='', depart=-1073741824.0, departPos=10.0, arrivalPos=10.0, description='walking')
+remaining stages for 'p3' (before replacement of next stage
+  0: Stage(type=2, vType='', line='', destStop='', edges=('1fi', '1o'), travelTime=-1.0, cost=-1.0, length=495.25, intended='', depart=-1073741824.0, departPos=10.0, arrivalPos=10.0, description='walking')
+  1: Stage(type=2, vType='', line='', destStop='', edges=('1o', '3o'), travelTime=-1.0, cost=-1.0, length=39.991248085099585, intended='', depart=-1073741824.0, departPos=10.0, arrivalPos=10.0, description='walking')
+remaining stages for 'p3' (after replacement
+  0: Stage(type=2, vType='', line='', destStop='', edges=('1fi', '1o'), travelTime=-1.0, cost=-1.0, length=495.25, intended='', depart=-1073741824.0, departPos=10.0, arrivalPos=10.0, description='walking')
+  1: Stage(type=2, vType='', line='', destStop='', edges=('1o', '4o'), travelTime=-1.0, cost=-1.0, length=39.991248085099585, intended='', depart=-1073741824.0, departPos=10.0, arrivalPos=10.0, description='walking')
