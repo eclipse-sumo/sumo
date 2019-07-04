@@ -45,10 +45,48 @@ GNEDemandElement::RouteCalculator* GNEDemandElement::myRouteCalculatorInstance =
 // ===========================================================================
 
 // ---------------------------------------------------------------------------
-// GNEDemandElement::DemandElementGeometry::Segment - methods
+// GNEDemandElement::DemandElementGeometry - methods
 // ---------------------------------------------------------------------------
 
-GNEDemandElement::DemandElementGeometry::Segment::Segment(const GNEDemandElement* _element, const GNEEdge* _edge, const Position _pos, const bool _visible, const bool _valid) :
+GNEDemandElement::DemandElementGeometry::DemandElementGeometry() {}
+
+
+void
+GNEDemandElement::DemandElementGeometry::clearGeometry() {
+    shape.clear();
+    shapeRotations.clear();
+    shapeLengths.clear();
+}
+
+
+void
+GNEDemandElement::DemandElementGeometry::calculateShapeRotationsAndLengths() {
+    // Get number of parts of the shape
+    int numberOfSegments = (int)shape.size() - 1;
+    // If number of segments is more than 0
+    if (numberOfSegments >= 0) {
+        // Reserve memory (To improve efficiency)
+        shapeRotations.reserve(numberOfSegments);
+        shapeLengths.reserve(numberOfSegments);
+        // For every part of the shape
+        for (int i = 0; i < numberOfSegments; ++i) {
+            // Obtain first position
+            const Position& f = shape[i];
+            // Obtain next position
+            const Position& s = shape[i + 1];
+            // Save distance between position into myShapeLengths
+            shapeLengths.push_back(f.distanceTo(s));
+            // Save rotation (angle) of the vector constructed by points f and s
+            shapeRotations.push_back((double)atan2((s.x() - f.x()), (f.y() - s.y())) * (double) 180.0 / (double)M_PI);
+        }
+    }
+}
+
+// ---------------------------------------------------------------------------
+// GNEDemandElement::DemandElementSegmentGeometry::Segment - methods
+// ---------------------------------------------------------------------------
+
+GNEDemandElement::DemandElementSegmentGeometry::Segment::Segment(const GNEDemandElement* _element, const GNEEdge* _edge, const Position _pos, const bool _visible, const bool _valid) :
     element(_element),
     edge(_edge),
     pos(_pos),
@@ -59,7 +97,7 @@ GNEDemandElement::DemandElementGeometry::Segment::Segment(const GNEDemandElement
 }
 
 
-GNEDemandElement::DemandElementGeometry::Segment::Segment() :
+GNEDemandElement::DemandElementSegmentGeometry::Segment::Segment() :
     element(nullptr),
     edge(nullptr),
     pos(Position::INVALID),
@@ -73,20 +111,20 @@ GNEDemandElement::DemandElementGeometry::Segment::Segment() :
 // GNEDemandElement::DemandElementGeometry - methods
 // ---------------------------------------------------------------------------
 
-GNEDemandElement::DemandElementGeometry::DemandElementGeometry() :
+GNEDemandElement::DemandElementSegmentGeometry::DemandElementSegmentGeometry() :
     geometryDeprecated(true) {
 }
 
 
 void 
-GNEDemandElement::DemandElementGeometry::clearDemandElementGeometry() {
+GNEDemandElement::DemandElementSegmentGeometry::clearDemandElementSegmentGeometry() {
     shapeSegments.clear();
     partialShape.clear();
 }
 
 
 void
-GNEDemandElement::DemandElementGeometry::calculatePartialShapeRotationsAndLengths() {
+GNEDemandElement::DemandElementSegmentGeometry::calculatePartialShapeRotationsAndLengths() {
     // Get number of parts of the shapeSegments
     int numberOfSegments = (int)shapeSegments.size() - 1;
     // If number of segments is more than 0
@@ -266,9 +304,15 @@ GNEDemandElement::getDemandElementGeometry() const {
 }
 
 
+const GNEDemandElement::DemandElementSegmentGeometry &
+GNEDemandElement::getDemandElementSegmentGeometry() const {
+    return myDemandElementSegmentGeometry;
+}
+
+
 void 
-GNEDemandElement::markGeometryDeprecated() {
-    myDemandElementGeometry.geometryDeprecated = true;
+GNEDemandElement::markSegmentGeometryDeprecated() {
+    myDemandElementSegmentGeometry.geometryDeprecated = true;
 }
 
 

@@ -227,7 +227,7 @@ GNEStop::moveGeometry(const Position& offset) {
             }
         }
         // update person or vehicle frame
-        getDemandElementParents().front()->markGeometryDeprecated();
+        getDemandElementParents().front()->markSegmentGeometryDeprecated();
         getDemandElementParents().front()->updateGeometry();
         // Update geometry
         updateGeometry();
@@ -248,7 +248,7 @@ GNEStop::commitGeometryMoving(GNEUndoList* undoList) {
         }
         undoList->p_end();
         // update person or vehicle frame
-        getDemandElementParents().front()->markGeometryDeprecated();
+        getDemandElementParents().front()->markSegmentGeometryDeprecated();
         getDemandElementParents().front()->updateGeometry();
     }
 }
@@ -257,18 +257,18 @@ GNEStop::commitGeometryMoving(GNEUndoList* undoList) {
 void
 GNEStop::updateGeometry() {
     // Clear all containers
-    myStopGeometry.clearGeometry();
+    myDemandElementGeometry.clearGeometry();
     //only update Stops over lanes, because other uses the geometry of stopping place parent
     if (getLaneParents().size() > 0) {
         // Cut shape using as delimitators fixed start position and fixed end position
-        myStopGeometry.shape = getLaneParents().front()->getGeometry().shape.getSubpart(getStartGeometryPositionOverLane(), getEndGeometryPositionOverLane());
+        myDemandElementGeometry.shape = getLaneParents().front()->getGeometry().shape.getSubpart(getStartGeometryPositionOverLane(), getEndGeometryPositionOverLane());
         // Get calculate lenghts and rotations
-        myStopGeometry.calculateShapeRotationsAndLengths();
+        myDemandElementGeometry.calculateShapeRotationsAndLengths();
     } else if (getAdditionalParents().size() > 0) {
         // copy geometry of additional
-        myStopGeometry.shape = getAdditionalParents().at(0)->getAdditionalGeometry().shape;
-        myStopGeometry.shapeLengths = getAdditionalParents().at(0)->getAdditionalGeometry().shapeLengths;
-        myStopGeometry.shapeRotations = getAdditionalParents().at(0)->getAdditionalGeometry().shapeRotations;
+        myDemandElementGeometry.shape = getAdditionalParents().at(0)->getAdditionalGeometry().shape;
+        myDemandElementGeometry.shapeLengths = getAdditionalParents().at(0)->getAdditionalGeometry().shapeLengths;
+        myDemandElementGeometry.shapeRotations = getAdditionalParents().at(0)->getAdditionalGeometry().shapeRotations;
     }
 }
 
@@ -318,8 +318,8 @@ GNEStop::getCenteringBoundary() const {
         return getAdditionalParents().at(0)->getCenteringBoundary();
     } else if (myStopMove.movingGeometryBoundary.isInitialised()) {
         return myStopMove.movingGeometryBoundary;
-    } else if (myStopGeometry.shape.size() > 0) {
-        Boundary b = myStopGeometry.shape.getBoxBoundary();
+    } else if (myDemandElementGeometry.shape.size() > 0) {
+        Boundary b = myDemandElementGeometry.shape.getBoxBoundary();
         b.grow(20);
         return b;
     } else {
@@ -361,22 +361,22 @@ GNEStop::drawGL(const GUIVisualizationSettings& s) const {
         // draw lines depending if it's placed over a lane or over a stoppingPlace
         if (getLaneParents().size() > 0) {
             // Draw the area using shape, shapeRotations, shapeLengths and value of exaggeration
-            GLHelper::drawBoxLines(myStopGeometry.shape, myStopGeometry.shapeRotations, myStopGeometry.shapeLengths, exaggeration * 0.1, 0,
+            GLHelper::drawBoxLines(myDemandElementGeometry.shape, myDemandElementGeometry.shapeRotations, myDemandElementGeometry.shapeLengths, exaggeration * 0.1, 0,
                                    getLaneParents().front()->getParentEdge().getNBEdge()->getLaneWidth(getLaneParents().front()->getIndex()) * 0.5);
-            GLHelper::drawBoxLines(myStopGeometry.shape, myStopGeometry.shapeRotations, myStopGeometry.shapeLengths, exaggeration * 0.1, 0,
+            GLHelper::drawBoxLines(myDemandElementGeometry.shape, myDemandElementGeometry.shapeRotations, myDemandElementGeometry.shapeLengths, exaggeration * 0.1, 0,
                                    getLaneParents().front()->getParentEdge().getNBEdge()->getLaneWidth(getLaneParents().front()->getIndex()) * -0.5);
         } else {
             // Draw the area using shape, shapeRotations, shapeLengths and value of exaggeration
-            GLHelper::drawBoxLines(myStopGeometry.shape, myStopGeometry.shapeRotations, myStopGeometry.shapeLengths, exaggeration * 0.1, 0, exaggeration * -1);
-            GLHelper::drawBoxLines(myStopGeometry.shape, myStopGeometry.shapeRotations, myStopGeometry.shapeLengths, exaggeration * 0.1, 0, exaggeration);
+            GLHelper::drawBoxLines(myDemandElementGeometry.shape, myDemandElementGeometry.shapeRotations, myDemandElementGeometry.shapeLengths, exaggeration * 0.1, 0, exaggeration * -1);
+            GLHelper::drawBoxLines(myDemandElementGeometry.shape, myDemandElementGeometry.shapeRotations, myDemandElementGeometry.shapeLengths, exaggeration * 0.1, 0, exaggeration);
         }
         // pop draw matrix
         glPopMatrix();
         // Add a draw matrix
         glPushMatrix();
         // move to geometry front
-        glTranslated(myStopGeometry.shape.back().x(), myStopGeometry.shape.back().y(), getType());
-        glRotated(myStopGeometry.shapeRotations.back(), 0, 0, 1);
+        glTranslated(myDemandElementGeometry.shape.back().x(), myDemandElementGeometry.shape.back().y(), getType());
+        glRotated(myDemandElementGeometry.shapeRotations.back(), 0, 0, 1);
         // draw front of Stop depending if it's placed over a lane or over a stoppingPlace
         if (getLaneParents().size() > 0) {
             // draw front of Stop
@@ -426,9 +426,9 @@ GNEStop::drawGL(const GUIVisualizationSettings& s) const {
         if (!s.drawForSelecting && (myViewNet->getDottedAC() == this)) {
             // draw dooted contour depending if it's placed over a lane or over a stoppingPlace
             if (getLaneParents().size() > 0) {
-                GLHelper::drawShapeDottedContour(getType(), myStopGeometry.shape, getLaneParents().front()->getParentEdge().getNBEdge()->getLaneWidth(getLaneParents().front()->getIndex()) * 0.5);
+                GLHelper::drawShapeDottedContour(getType(), myDemandElementGeometry.shape, getLaneParents().front()->getParentEdge().getNBEdge()->getLaneWidth(getLaneParents().front()->getIndex()) * 0.5);
             } else {
-                GLHelper::drawShapeDottedContour(getType(), myStopGeometry.shape, exaggeration);
+                GLHelper::drawShapeDottedContour(getType(), myDemandElementGeometry.shape, exaggeration);
             }
         }
         // Pop name
@@ -839,44 +839,6 @@ GNEStop::getEndGeometryPositionOverLane() const {
         return fixedPos * getLaneParents().front()->getLengthGeometryFactor();
     } else {
         return 0;
-    }
-}
-
-// ---------------------------------------------------------------------------
-// GNEAdditional::StopGeometry - methods
-// ---------------------------------------------------------------------------
-
-GNEStop::StopGeometry::StopGeometry() {}
-
-
-void
-GNEStop::StopGeometry::clearGeometry() {
-    shape.clear();
-    shapeRotations.clear();
-    shapeLengths.clear();
-}
-
-
-void
-GNEStop::StopGeometry::calculateShapeRotationsAndLengths() {
-    // Get number of parts of the shape
-    int numberOfSegments = (int)shape.size() - 1;
-    // If number of segments is more than 0
-    if (numberOfSegments >= 0) {
-        // Reserve memory (To improve efficiency)
-        shapeRotations.reserve(numberOfSegments);
-        shapeLengths.reserve(numberOfSegments);
-        // For every part of the shape
-        for (int i = 0; i < numberOfSegments; ++i) {
-            // Obtain first position
-            const Position& f = shape[i];
-            // Obtain next position
-            const Position& s = shape[i + 1];
-            // Save distance between position into myShapeLengths
-            shapeLengths.push_back(f.distanceTo(s));
-            // Save rotation (angle) of the vector constructed by points f and s
-            shapeRotations.push_back((double)atan2((s.x() - f.x()), (f.y() - s.y())) * (double) 180.0 / (double)M_PI);
-        }
     }
 }
 

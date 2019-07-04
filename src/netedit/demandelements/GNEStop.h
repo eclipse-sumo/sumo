@@ -180,30 +180,6 @@ public:
     double getEndGeometryPositionOverLane() const;
 
 protected:
-    /// @brief struct for pack all variables related with geometry of stop
-    struct StopGeometry {
-        /// @brief constructor
-        StopGeometry();
-
-        /// @brief reset geometry
-        void clearGeometry();
-
-        /// @brief calculate shape rotations and lenghts
-        void calculateShapeRotationsAndLengths();
-
-        /// @brief The shape of the additional element
-        PositionVector shape;
-
-        /// @brief The rotations of the single shape parts
-        std::vector<double> shapeRotations;
-
-        /// @brief The lengths of the single shape parts
-        std::vector<double> shapeLengths;
-    };
-
-    /// @brief stop geometry (used by stops over lanes
-    StopGeometry myStopGeometry;
-    
     /// @brief variable demand element move
     DemandElementMove myStopMove;
 

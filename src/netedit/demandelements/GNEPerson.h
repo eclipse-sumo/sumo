@@ -300,10 +300,10 @@ private:
     void calculateSmoothPersonPlanConnection(const GNEDemandElement* personPlanElement, const GNEEdge *edgeFrom, const GNEEdge *edgeTo);
 
     /// @brief return two shapes used for calculate person plan conections between busStops
-    std::pair<PositionVector, PositionVector> calculatePersonPlanConnectionBusStop(GNEAdditional* busStop);
+    std::pair<PositionVector, PositionVector> calculatePersonPlanConnectionBusStop(GNELane* previousLane, GNEAdditional* busStop, GNELane* nextLane);
 
     /// @brief return two shapes used for calculate person plan conections between stops
-    std::pair<PositionVector, PositionVector> calculatePersonPlanConnectionStop(GNEDemandElement* stop);
+    std::pair<PositionVector, PositionVector> calculatePersonPlanConnectionStop(GNELane* previousLane, GNEDemandElement* stop, GNELane* nextLane);
 
     /// @brief return two shapes used for calculate person plan conections between arrival position
     std::pair<PositionVector, PositionVector> calculatePersonPlanConnectionArrivalPos(GNELane* previousLane, double arrivalPosPersonPlan, GNELane* nextLane);

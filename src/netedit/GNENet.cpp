@@ -1492,7 +1492,7 @@ GNENet::updateGeometryDemandElements() {
     // first mark all geometries as deprecated
     for (const auto& i : myAttributeCarriers.demandElements) {
         for (const auto& j : i.second) {
-            j.second->markGeometryDeprecated();
+            j.second->markSegmentGeometryDeprecated();
         }
     }
     // now update all geometries

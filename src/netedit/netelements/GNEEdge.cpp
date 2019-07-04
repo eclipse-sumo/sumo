@@ -147,9 +147,9 @@ GNEEdge::updateGeometry() {
     for (auto i : getDemandElementChildren()) {
         // if child is a person plan, mark the person parent
         if (i->getTagProperty().isPersonPlan()) {
-            i->getDemandElementParents().front()->markGeometryDeprecated();
+            i->getDemandElementParents().front()->markSegmentGeometryDeprecated();
         } else {
-            i->markGeometryDeprecated();
+            i->markSegmentGeometryDeprecated();
         }
     }
     // Update geometry of demand elements children vinculated to this edge
@@ -1942,9 +1942,9 @@ GNEEdge::drawPartialRoute(const GUIVisualizationSettings& s, GNEDemandElement *r
         GLHelper::setColor(route->getColor());
     }
     // draw route
-    for (int i = 0; i < ((int)route->getDemandElementGeometry().shapeSegments.size()-1); i++) {
+    for (int i = 0; i < ((int)route->getDemandElementSegmentGeometry().shapeSegments.size()-1); i++) {
         // obtain segment (to improve code legibly)
-        const GNEDemandElement::DemandElementGeometry::Segment &segment = route->getDemandElementGeometry().shapeSegments[i];
+        const GNEDemandElement::DemandElementSegmentGeometry::Segment &segment = route->getDemandElementSegmentGeometry().shapeSegments[i];
         // draw partial segment
         if ((segment.edge == this) && (segment.element == route)) {
             GLHelper::drawBoxLine(segment.pos, segment.rotation, segment.lenght, routeWidth, 0);
@@ -1958,7 +1958,7 @@ GNEEdge::drawPartialRoute(const GUIVisualizationSettings& s, GNEDemandElement *r
     }
     // check if dotted contour has to be drawn (note: drawShapeDottedContour are called many times in every interaction. fix it)
     if (!s.drawForSelecting && (myNet->getViewNet()->getDottedAC() == route)) {
-        GLHelper::drawShapeDottedContour(getType(), route->getDemandElementGeometry().partialShape.at(route), routeWidth);
+        GLHelper::drawShapeDottedContour(getType(), route->getDemandElementSegmentGeometry().partialShape.at(route), routeWidth);
     }
     // Pop name
     glPopName();
@@ -1989,9 +1989,9 @@ GNEEdge::drawPartialTripFromTo(const GUIVisualizationSettings& s, GNEDemandEleme
         GLHelper::setColor(RGBColor::ORANGE);
     }
     // draw tripOrFromTo
-    for (int i = 0; i < ((int)tripOrFromTo->getDemandElementGeometry().shapeSegments.size()-1); i++) {
+    for (int i = 0; i < ((int)tripOrFromTo->getDemandElementSegmentGeometry().shapeSegments.size()-1); i++) {
         // obtain segment (to improve code legibly)
-        const GNEDemandElement::DemandElementGeometry::Segment &segment = tripOrFromTo->getDemandElementParents().front()->getDemandElementGeometry().shapeSegments[i];
+        const GNEDemandElement::DemandElementSegmentGeometry::Segment &segment = tripOrFromTo->getDemandElementParents().front()->getDemandElementSegmentGeometry().shapeSegments[i];
         // draw partial segment
         if ((segment.edge == this) && (segment.element == tripOrFromTo)) {
             GLHelper::drawBoxLine(segment.pos, segment.rotation, segment.lenght, tripOrFromToWidth, 0);
@@ -2037,9 +2037,9 @@ GNEEdge::drawPartialPersonPlan(const GUIVisualizationSettings& s, GNEDemandEleme
         personPlanWidth = s.addSize.getExaggeration(s, this) * s.SUMO_width_ride;
     }
     // draw person plan
-    for (int i = 0; i < ((int)personPlan->getDemandElementParents().front()->getDemandElementGeometry().shapeSegments.size()-1); i++) {
+    for (int i = 0; i < ((int)personPlan->getDemandElementParents().front()->getDemandElementSegmentGeometry().shapeSegments.size()-1); i++) {
         // obtain segment (to improve code legibly)
-        const GNEDemandElement::DemandElementGeometry::Segment &segment = personPlan->getDemandElementParents().front()->getDemandElementGeometry().shapeSegments[i];
+        const GNEDemandElement::DemandElementSegmentGeometry::Segment &segment = personPlan->getDemandElementParents().front()->getDemandElementSegmentGeometry().shapeSegments[i];
         // draw partial segment
         if (segment.visible && (segment.edge == this) && (segment.element == personPlan)) {
             GLHelper::drawBoxLine(segment.pos, segment.rotation, segment.lenght, personPlanWidth, 0);
@@ -2053,7 +2053,7 @@ GNEEdge::drawPartialPersonPlan(const GUIVisualizationSettings& s, GNEDemandEleme
     }
     // check if dotted contour has to be drawn
     if (!s.drawForSelecting && (myNet->getViewNet()->getDottedAC() == personPlan)) {
-        GLHelper::drawShapeDottedContour(getType(), personPlan->getDemandElementParents().front()->getDemandElementGeometry().partialShape.at(personPlan), personPlanWidth);
+        GLHelper::drawShapeDottedContour(getType(), personPlan->getDemandElementParents().front()->getDemandElementSegmentGeometry().partialShape.at(personPlan), personPlanWidth);
     }
     // Pop name
     glPopName();

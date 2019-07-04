@@ -53,8 +53,30 @@ class GNEDemandElement;
 class GNEDemandElement : public GUIGlObject, public GNEAttributeCarrier, public Parameterised, public GNEHierarchicalElementParents, public GNEHierarchicalElementChildren {
 
 public:
-    /// @brief struct for pack all variables related with geometry of elemement
+    /// @brief struct for pack all variables related with geometry of stop
     struct DemandElementGeometry {
+
+        /// @brief constructor
+        DemandElementGeometry();
+
+        /// @brief reset geometry
+        void clearGeometry();
+
+        /// @brief calculate shape rotations and lenghts
+        void calculateShapeRotationsAndLengths();
+
+        /// @brief The shape of the additional element
+        PositionVector shape;
+
+        /// @brief The rotations of the single shape parts
+        std::vector<double> shapeRotations;
+
+        /// @brief The lengths of the single shape parts
+        std::vector<double> shapeLengths;
+    };
+
+    /// @brief struct for pack all variables related with geometry of elemements divided in segments
+    struct DemandElementSegmentGeometry {
 
         /// @brief struct used for represent segments of demand element geometry
         struct Segment {
@@ -88,10 +110,10 @@ public:
         };
 
         /// @brief constructor
-        DemandElementGeometry();
+        DemandElementSegmentGeometry();
 
         /// @brief clear demand element geometry
-        void clearDemandElementGeometry();
+        void clearDemandElementSegmentGeometry();
 
         /// @brief calculate partial shape, rotations and lenghts
         void calculatePartialShapeRotationsAndLengths();
@@ -213,8 +235,11 @@ public:
     /// @brief get demand element geometry
     const DemandElementGeometry &getDemandElementGeometry() const;
 
-    /// @brief mark demand element geometry as deprecated
-    void markGeometryDeprecated();
+    /// @brief get demand element segment geometry
+    const DemandElementSegmentGeometry &getDemandElementSegmentGeometry() const;
+
+    /// @brief mark demand element segment geometry as deprecated
+    void markSegmentGeometryDeprecated();
 
     /// @brief obtain VClass related with this demand element
     virtual SUMOVehicleClass getVClass() const = 0;
@@ -407,6 +432,9 @@ protected:
     
     /// @brief demand element geometry
     DemandElementGeometry myDemandElementGeometry;
+    
+    /// @brief demand element segment geometry
+    DemandElementSegmentGeometry myDemandElementSegmentGeometry;
 
     /// @name Functions relative to change values in setAttribute(...)
     /// @{
