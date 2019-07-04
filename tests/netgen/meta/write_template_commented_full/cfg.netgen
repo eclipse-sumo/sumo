@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Apr 25 21:45:44 2019 by Eclipse SUMO netgenerate Version v1_2_0+0022-5179cc2293
+<!-- generated on Thu Jul  4 10:06:04 2019 by Eclipse SUMO netgenerate Version v1_2_0+0945-7949f7c
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netgenerateConfiguration.xsd">
@@ -289,7 +289,7 @@
         <tls.guess.threshold value="69.4444" type="FLOAT"/>
 
         <!-- Includes node clusters into guess -->
-        <tls-guess.joining value="false" type="BOOL"/>
+        <tls.guess.joining value="false" synonymes="tls-guess.joining" type="BOOL"/>
 
         <!-- Tries to cluster tls-controlled nodes -->
         <tls.join value="false" synonymes="try-join-tls" type="BOOL"/>
