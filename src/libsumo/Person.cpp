@@ -543,9 +543,12 @@ Person::replaceStage(const std::string& personID, const int stageIndex, const Tr
         throw TraCIException("Specified stage index:  is not valid for person " + personID);
     }
     MSTransportable::Stage* personStage = convertTraCIStage(stage, personID);
+    // removing the current stage triggers abort+proceed so the replacement
+    // stage must be ready beforehand
+    p->appendStage(personStage, stageIndex + 1);
     p->removeStage(stageIndex);
-    p->appendStage(personStage, stageIndex);
 }
+
 
 void
 Person::appendDrivingStage(const std::string& personID, const std::string& toEdge, const std::string& lines, const std::string& stopID) {
