@@ -579,7 +579,7 @@ NBFrame::checkOptions() {
         // make sure the option is set so heuristics cannot ignore it
         oc.set("no-internal-links", "false");
     }
-    if (oc.getFloat("junctions.small-radius") > oc.getFloat("default.junctions.radius")) {
+    if (oc.getFloat("junctions.small-radius") > oc.getFloat("default.junctions.radius") && oc.getFloat("default.junctions.radius") >= 0) {
         WRITE_ERROR("option 'default.junctions.radius' cannot be smaller than option 'junctions.small-radius'");
         ok = false;
     }
