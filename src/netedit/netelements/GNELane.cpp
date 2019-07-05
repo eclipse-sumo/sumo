@@ -1295,6 +1295,12 @@ GNELane::getParentEdge() {
 }
 
 
+GNEEdge&
+GNELane::getParentEdge() const{
+    return myParentEdge;
+}
+
+
 std::vector<GNEConnection*>
 GNELane::getGNEIncomingConnections() {
     // Declare a vector to save incoming connections

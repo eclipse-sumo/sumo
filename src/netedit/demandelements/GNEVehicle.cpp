@@ -466,67 +466,112 @@ GNEVehicle::commitGeometryMoving(GNEUndoList*) {
 
 void
 GNEVehicle::updateGeometry() {    
-// first check if geometry is deprecated
+    // first check if geometry is deprecated
     if (myDemandElementSegmentGeometry.geometryDeprecated) {
-        // first clear geometry
+        // clear geometry
         myDemandElementSegmentGeometry.clearDemandElementSegmentGeometry();
-        // declare vector for saving lane and connection shapes
-        std::vector<std::pair<GNEEdge*, PositionVector> > laneShapes;
-        std::vector<PositionVector> connectionShapes;
-        // obtain all lane shapes
-        for (const auto &i : getEdgeParents()) {
-            laneShapes.push_back(std::make_pair(i, i->getLaneByVClass(getVClass())->getGeometry().shape));
-        }
-        // resize connectionShapes
-        connectionShapes.resize(laneShapes.size());
+        // declare a matrix to save found connections
+        std::vector<std::vector<ConnectionGeometry> > connectionGeometryMatrix;
         // iterate over edge parents
         for (int i = 0; i < ((int)getEdgeParents().size()-1); i++) {
+            // add a new connection vector in matrix
+            connectionGeometryMatrix.push_back(std::vector<ConnectionGeometry>());
             // obtain NBEdges from both edges
             NBEdge* nbFrom = getEdgeParents().at(i)->getNBEdge();
             NBEdge* nbTo = getEdgeParents().at(i+1)->getNBEdge();
-            // declare a flags
-            bool connectionFound = false;
             // iterate over all connections of NBFrom
             for (NBEdge::Connection c : nbFrom->getConnectionsFromLane(-1, nbTo, -1)) {
                 //check if given VClass is allowed for from and to lanes
-                if (!connectionFound && ((nbFrom->getPermissions(c.fromLane) & nbTo->getPermissions(c.toLane) & getVClass()) == getVClass())) {
-                    // save shape 
-                    if (c.customShape.size() != 0) {
-                        connectionShapes.at(i) = c.customShape;
-                    } else if (nbFrom->getToNode()->getShape().area() > 4) {
-                        if (c.shape.size() != 0) {
-                            connectionShapes.at(i) = c.shape;
-                            // only append via shape if it exists
-                            if (c.haveVia) {
-                                connectionShapes.at(i).append(c.viaShape);
-                            }
-                        } else {
-                            // manually calculate smooth shape
-                            PositionVector laneShapeFrom = nbFrom->getLanes().at(c.fromLane).shape;
-                            PositionVector laneShapeTo = c.toEdge->getLanes().at(c.toLane).shape;
-                            // Calculate shape so something can be drawn immidiately
-                            connectionShapes.at(i) = nbFrom->getToNode()->computeSmoothShape(
-                                laneShapeFrom,
-                                laneShapeTo,
-                                5, nbFrom->getTurnDestination() == c.toEdge,
-                                (double) 5. * (double) nbFrom->getNumLanes(),
-                                (double) 5. * (double) c.toEdge->getNumLanes());
-                        }
-                    }
-                    // change flag
-                    connectionFound = true;
+                if ((nbFrom->getPermissions(c.fromLane) & nbTo->getPermissions(c.toLane) & getVClass()) == getVClass()) {
+                    // save connectionGeometry in Matrix
+                    connectionGeometryMatrix.at(i).push_back(ConnectionGeometry(&c,
+                        getEdgeParents().at(i)->getLanes().at(c.fromLane), 
+                        getEdgeParents().at(i+1)->getLanes().at(c.toLane)));
                 }
             }
         }
-        // fill shapeSegments
-        for (int i = 0; i < (int)laneShapes.size(); i++) {
-            // set lane shapes
-            for (const auto &laneShapePos : laneShapes.at(i).second) {
-                myDemandElementSegmentGeometry.shapeSegments.push_back(DemandElementSegmentGeometry::Segment(this, laneShapes.at(i).first, laneShapePos, true, true));
+        // now filter connection geometry matrix
+        std::vector<ConnectionGeometry> connectionGeometriesFiltered;
+        // iterate over connection geometry matrix
+        for (int i = 0; i < connectionGeometryMatrix.size(); i++) {
+            // declare two "columns" (only to improve code legibility)
+            const auto &currentColumn = connectionGeometryMatrix.at(i);
+            const auto &nextColumn = ((i+1) < connectionGeometryMatrix.size())? connectionGeometryMatrix.at(i+1): std::vector<ConnectionGeometry>();
+            // obtain two from and to lanes
+            const GNELane *laneFrom = getEdgeParents().at(i)->getLaneByVClass(getVClass());
+            const GNELane *laneTo = getEdgeParents().at(i+1)->getLaneByVClass(getVClass());
+            // check if current matrix column has a connection geometry
+            if (currentColumn.empty()) {
+                // insert a connection Geometry without NBEdge::Connection
+                connectionGeometriesFiltered.push_back(ConnectionGeometry(laneFrom, laneTo));
+            } else if (currentColumn.size() == 1) {
+                // Nothing to filter
+                connectionGeometriesFiltered.push_back(currentColumn.front());
+            } else {
+                // declare a flag to stop loops
+                bool stop = false;
+                // iterate over  all connections and take the first connection that have the same from and to edge
+                for (auto currentConnection = currentColumn.begin(); currentConnection != currentColumn.end() && !stop; currentConnection++) {
+                    // obtain previous and next lanes
+                    const GNELane *previousLane = (connectionGeometriesFiltered.size() > 0)? connectionGeometriesFiltered.back().laneTo : nullptr;
+                    // check if previous lane exist
+                    if (previousLane) {
+                        // first case: exist a previous lane. Then try to find a connection between previousLane and next connection
+                        for (auto nextConnection = nextColumn.cbegin(); (nextConnection != nextColumn.cend()) && !stop; nextConnection++) {
+                            if ((previousLane == currentConnection->laneFrom)  && (currentConnection->laneTo == nextConnection->laneFrom)) {
+                                connectionGeometriesFiltered.push_back(*currentConnection);
+                                stop = true;
+                            }
+                        }
+                    } else {
+                        // first case: doesn't exist a previous lane. Then try to find a connection  with next connection with the same lane
+                        for (auto nextConnection = nextColumn.cbegin(); (nextConnection != nextColumn.cend()) && !stop; nextConnection++) {
+                            if (currentConnection->laneTo == nextConnection->laneFrom) {
+                                connectionGeometriesFiltered.push_back(*currentConnection);
+                                stop = true;
+                            }
+                        }
+                    }
+                }
+                // if none was found, insert a connection Geometry without NBEdge::Connection
+                if (!stop) {
+                    connectionGeometriesFiltered.push_back(ConnectionGeometry(laneFrom, laneTo));
+                }
             }
-            // set connection shapes
-            for (const auto &connectionShapePos : connectionShapes.at(i)) {
-                myDemandElementSegmentGeometry.shapeSegments.push_back(DemandElementSegmentGeometry::Segment(this, laneShapes.at(i).first , connectionShapePos, true, true));
+        }
+        // now iterate over all filtered connections to calculate shape segments
+        for (auto connectionGeometry = connectionGeometriesFiltered.begin(); connectionGeometry != connectionGeometriesFiltered.end(); connectionGeometry++) {
+            // first calculate connection shape
+            connectionGeometry->calculateConnectionShape();
+            // check if this is the first geometry connection
+            if (connectionGeometry == connectionGeometriesFiltered.begin()) {
+                // obtain lane shape
+                PositionVector laneShape = (connectionGeometry->laneFrom)? connectionGeometry->laneFrom->getGeometry().shape : getEdgeParents().at(0)->getLaneByVClass(getVClass())->getGeometry().shape;
+                // add lane shape in segments geometry
+                for (const auto &laneShapePos : laneShape) {
+                    myDemandElementSegmentGeometry.shapeSegments.push_back(DemandElementSegmentGeometry::Segment(this, getEdgeParents().at(0), laneShapePos, true, true));
+                }
+            }
+            // check if connection exist
+            if (connectionGeometry->con) {
+                // add connection shape in in segments geometry
+                for (const auto &connectionShapePos : connectionGeometry->connectionShape) {
+                    myDemandElementSegmentGeometry.shapeSegments.push_back(DemandElementSegmentGeometry::Segment(this, &connectionGeometry->laneFrom->getParentEdge(), connectionShapePos, true, true));
+                }
+                // add lane shape in segments geometry using laneTo of current correnction
+                for (const auto &laneShapePos : connectionGeometry->laneTo->getGeometry().shape) {
+                    myDemandElementSegmentGeometry.shapeSegments.push_back(DemandElementSegmentGeometry::Segment(this, &connectionGeometry->laneTo->getParentEdge(), laneShapePos, true, true));
+                }
+            } else if ((connectionGeometry+1) != connectionGeometriesFiltered.end()) {
+                // add lane shape in segments geometry using laneFrom of next connection
+                for (const auto &laneShapePos : (connectionGeometry+1)->laneFrom->getGeometry().shape) {
+                    myDemandElementSegmentGeometry.shapeSegments.push_back(DemandElementSegmentGeometry::Segment(this, &(connectionGeometry+1)->laneFrom->getParentEdge(), laneShapePos, true, true));
+                }
+            } else {
+                // due this is the last shape, add lane shape in segments geometry using laneTo of current connection geometry
+                for (const auto &laneShapePos : connectionGeometry->laneTo->getGeometry().shape) {
+                    myDemandElementSegmentGeometry.shapeSegments.push_back(DemandElementSegmentGeometry::Segment(this, &connectionGeometry->laneTo->getParentEdge(), laneShapePos, true, true));
+                }
             }
         }
         // calculate entire shape, rotations and lenghts
@@ -629,16 +674,16 @@ GNEVehicle::drawGL(const GUIVisualizationSettings& s) const {
         double vehicleRotation = 0;
         if (getDemandElementParents().size() == 2) {
             // obtain position and rotation of first edge route
-            vehiclePosition = getDemandElementParents().at(1)->getEdgeParents().at(0)->getLanes().front()->getGeometry().shape.front();
-            vehicleRotation = getDemandElementParents().at(1)->getEdgeParents().at(0)->getLanes().front()->getGeometry().shapeRotations.front();
+            vehiclePosition = getDemandElementParents().at(1)->getDemandElementSegmentGeometry().shapeSegments.front().pos;
+            vehicleRotation = getDemandElementParents().at(1)->getDemandElementSegmentGeometry().shapeSegments.front().rotation;
         } else if (getEdgeParents().size() > 0) {
-            // obtain position and rotation of from route
-            vehiclePosition = getEdgeParents().at(0)->getLanes().front()->getGeometry().shape.front();
-            vehicleRotation = getEdgeParents().at(0)->getLanes().front()->getGeometry().shapeRotations.front();
+            // obtain position and rotation of segments geometry
+            vehiclePosition = myDemandElementSegmentGeometry.shapeSegments.front().pos;
+            vehicleRotation = myDemandElementSegmentGeometry.shapeSegments.front().rotation;
         } else if (getDemandElementChildren().size() > 0) {
             // obtain position and rotation of embedded route
-            vehiclePosition = getDemandElementChildren().at(0)->getEdgeParents().at(0)->getLanes().front()->getGeometry().shape.front();
-            vehicleRotation = getDemandElementChildren().at(0)->getEdgeParents().at(0)->getLanes().front()->getGeometry().shapeRotations.front();
+            vehiclePosition = getDemandElementChildren().at(0)->getDemandElementSegmentGeometry().shapeSegments.front().pos;
+            vehicleRotation = getDemandElementChildren().at(0)->getDemandElementSegmentGeometry().shapeSegments.front().rotation;
         }
         // first check if if mouse is enought near to this vehicle to draw it
         if (s.drawForSelecting && (myViewNet->getPositionInformation().distanceSquaredTo2D(vehiclePosition) >= (vehicleSizeSquared + 2))) {
@@ -651,6 +696,8 @@ GNEVehicle::drawGL(const GUIVisualizationSettings& s) const {
             // translate to drawing position
             glTranslated(vehiclePosition.x(), vehiclePosition.y(), GLO_ROUTE + getType() + 0.1);
             glRotated(vehicleRotation, 0, 0, 1);
+            // extra translation needed to draw vehicle over edge (to avoid selecting problems)
+            glTranslated(0, (-1) * length, 0);
             GLHelper::drawBoxLine(Position(0, 1), 0, 2, 1);
             // Pop last matrix
             glPopMatrix();
@@ -669,6 +716,8 @@ GNEVehicle::drawGL(const GUIVisualizationSettings& s) const {
             // translate to drawing position
             glTranslated(vehiclePosition.x(), vehiclePosition.y(), GLO_ROUTE + getType() + 0.1);
             glRotated(vehicleRotation, 0, 0, 1);
+            // extra translation needed to draw vehicle over edge (to avoid selecting problems)
+            glTranslated(0, (-1) * length, 0);
             // set lane color
             setColor(s);
             double upscaleLength = upscale;
@@ -722,7 +771,7 @@ GNEVehicle::drawGL(const GUIVisualizationSettings& s) const {
             glPopMatrix();
             // check if dotted contour has to be drawn
             if (!s.drawForSelecting && (myViewNet->getDottedAC() == this)) {
-                GLHelper::drawShapeDottedContour(getType(), vehiclePosition, width, length, vehicleRotation, 0, length / 2);
+                GLHelper::drawShapeDottedContour(getType(), vehiclePosition, width, length, vehicleRotation, 0, length / (-2));
             }
             // pop name
             if (pushName) {
@@ -1228,6 +1277,58 @@ GNEVehicle::getHierarchyName() const {
 // ===========================================================================
 // protected
 // ===========================================================================
+
+
+GNEVehicle::ConnectionGeometry::ConnectionGeometry(const NBEdge::Connection *_con, const GNELane *_laneFrom, const GNELane *_laneTo) : 
+    con(_con),
+    laneFrom(_laneFrom),
+    laneTo(_laneTo) {
+}
+
+
+GNEVehicle::ConnectionGeometry::ConnectionGeometry(const GNELane *_laneFrom, const GNELane *_laneTo) : 
+    con(nullptr),
+    laneFrom(_laneFrom),
+    laneTo(_laneTo) {
+}
+
+
+void 
+GNEVehicle::ConnectionGeometry::calculateConnectionShape() {
+    // only calculate shape if connection is valid
+    if (con) {
+        // get NBEdge from
+        const NBEdge* NBEdgeFrom = laneFrom->getParentEdge().getNBEdge();
+        // save connection shape in connectionShapes 
+        if (con->customShape.size() != 0) {
+            connectionShape = con->customShape;
+        } else if (NBEdgeFrom->getToNode()->getShape().area() > 4) {
+            if (con->shape.size() != 0) {
+                connectionShape = con->shape;
+                // only append via shape if it exists
+                if (con->haveVia) {
+                    connectionShape.append(con->viaShape);
+                }
+            } else {
+                // Calculate shape so something can be drawn immidiately
+                connectionShape = NBEdgeFrom->getToNode()->computeSmoothShape(
+                    laneFrom->getGeometry().shape,
+                    laneTo->getGeometry().shape,
+                    5, NBEdgeFrom->getTurnDestination() == con->toEdge,
+                    (double) 5. * (double) NBEdgeFrom->getNumLanes(),
+                    (double) 5. * (double) con->toEdge->getNumLanes());
+            }
+        }
+    }
+}
+
+
+GNEVehicle::ConnectionGeometry::ConnectionGeometry() :
+    con(nullptr),
+    laneFrom(nullptr),
+    laneTo(nullptr) {
+}
+
 
 void
 GNEVehicle::setColor(const GUIVisualizationSettings& s) const {

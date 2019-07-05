@@ -307,6 +307,35 @@ public:
     /// @}
 
 protected:
+    /// @brief struct used for calculating routes
+    struct ConnectionGeometry {
+        
+        /// @brief parameter constructor with NBEdge::Connection
+        ConnectionGeometry(const NBEdge::Connection *_con, const GNELane *_laneFrom, const GNELane *_laneTo);
+
+        /// @brief parameter constructor without NBEdge::Connection
+        ConnectionGeometry(const GNELane *_laneFrom, const GNELane *_laneTo);
+
+        /// @brief calculate connection shape (note: Only calculated if 'con' isn't nullptr)
+        void calculateConnectionShape();
+        
+        /// @brief calculated connection shape
+        PositionVector connectionShape;
+
+        /// @brief Pointer to NBEdge::Connection
+        const NBEdge::Connection *con;
+
+        /// @brief lane from
+        const GNELane *laneFrom;
+
+        /// @brief lane to
+        const GNELane *laneTo;
+
+    private:
+        /// @brief default constructor (by default unused)
+        ConnectionGeometry();
+    };
+
     /// @brief sets the color according to the currente settings
     void setColor(const GUIVisualizationSettings& s) const;
 
