@@ -74,7 +74,8 @@ def write_csv(data, fname):
 
 
 def onpick(event):
-    print(event.label)
+    mevent = event.mouseevent
+    print("veh=%s x=%d y=%d" % (event.label, mevent.xdata, mevent.ydata))
 
 
 def main(options):
