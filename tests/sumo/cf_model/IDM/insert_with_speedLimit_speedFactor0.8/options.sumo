@@ -1,0 +1,5 @@
+-n net.net.xml
+-r input_routes.rou.xml
+--no-step-log
+--carfollow.model IDM
+--tripinfo-output tripinfos.xml
