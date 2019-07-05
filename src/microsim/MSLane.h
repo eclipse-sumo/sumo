@@ -202,7 +202,8 @@ public:
      */
     MSLane(const std::string& id, double maxSpeed, double length, MSEdge* const edge,
            int numericalID, const PositionVector& shape, double width,
-           SVCPermissions permissions, int index, bool isRampAccel);
+           SVCPermissions permissions, int index, bool isRampAccel,
+           const std::string& type);
 
 
     /// @brief Destructor
@@ -486,6 +487,11 @@ public:
     /// @brief return whether this lane is an acceleration lane
     inline bool isAccelLane() const {
         return myIsRampAccel;
+    }
+
+    /// @brief return the type of this lane
+    const std::string& getLaneType() const {
+        return myLaneType;
     }
 
     /* @brief fit the given lane position to a visibly suitable geometry position
@@ -1384,6 +1390,9 @@ protected:
 
     /// @brief whether this lane is an acceleration lane
     const bool myIsRampAccel;
+
+    /// @brief the type of this lane
+    const std::string myLaneType;
 
     /// @brief the combined width of all lanes with lower index on myEdge
     double myRightSideOnEdge;

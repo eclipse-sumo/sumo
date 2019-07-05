@@ -78,7 +78,8 @@ public:
                             double maxSpeed, double length,
                             const PositionVector& shape, double width,
                             SVCPermissions permissions,
-                            int index, bool isRampAccel);
+                            int index, bool isRampAccel,
+                            const std::string& type);
 
 
 

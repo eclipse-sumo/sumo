@@ -70,7 +70,7 @@ class MSCFModel_IDMTest : public testing::Test {
             //typeDefs.cfParameter[SUMO_ATTR_CF_IDM_STEPPING] = "1";
             ConstMSEdgeVector edges;
             MSEdge* edge = new MSEdge("dummy", 0, EDGEFUNC_NORMAL, "", "", -1, 0);
-            MSLane* lane = new MSLane("dummy_0", 50 / 3.6, 100, edge, 0, PositionVector(), SUMO_const_laneWidth, SVCAll, 0, false);
+            MSLane* lane = new MSLane("dummy_0", 50 / 3.6, 100, edge, 0, PositionVector(), SUMO_const_laneWidth, SVCAll, 0, false, "");
             std::vector<MSLane*> lanes;
             lanes.push_back(lane);
             edge->initialize(&lanes);
