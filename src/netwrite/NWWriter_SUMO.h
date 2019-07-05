@@ -137,7 +137,8 @@ private:
                           double startOffset, double endOffset,
                           std::map<SVCPermissions, double> stopOffsets, double width, PositionVector shape,
                           const Parameterised* params, double length, int index,
-                          const std::string& oppositeID, bool accelRamp = false,
+                          const std::string& oppositeID, const std::string& type,
+                          bool accelRamp = false,
                           bool customShape = false);
 
 

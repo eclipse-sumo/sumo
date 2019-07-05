@@ -233,6 +233,7 @@ NIImporter_SUMO::_loadNetwork(OptionsCont& oc) {
             nbe->setSpeed(fromLaneIndex, lane->maxSpeed);
             nbe->setAcceleration(fromLaneIndex, lane->accelRamp);
             nbe->getLaneStruct(fromLaneIndex).oppositeID = lane->oppositeID;
+            nbe->getLaneStruct(fromLaneIndex).type = lane->type;
             nbe->getLaneStruct(fromLaneIndex).updateParameter(lane->getParametersMap());
             if (lane->customShape) {
                 nbe->setLaneShape(fromLaneIndex, lane->shape);
@@ -592,6 +593,7 @@ NIImporter_SUMO::addLane(const SUMOSAXAttributes& attrs) {
     myLastParameterised.push_back(myCurrentLane);
     myCurrentLane->customShape = attrs.getOpt<bool>(SUMO_ATTR_CUSTOMSHAPE, nullptr, ok, false);
     myCurrentLane->shape = attrs.get<PositionVector>(SUMO_ATTR_SHAPE, id.c_str(), ok);
+    myCurrentLane->type = attrs.getOpt<std::string>(SUMO_ATTR_TYPE, id.c_str(), ok, "");
     if (myCurrentEdge->func == EDGEFUNC_CROSSING) {
         // save the width and the lane id of the crossing but don't do anything else
         std::vector<Crossing>& crossings = myPedestrianCrossings[SUMOXMLDefinitions::getJunctionIDFromInternalEdge(myCurrentEdge->id)];

@@ -170,6 +170,9 @@ public:
 
         /// @brief A custom shape for this lane set by the user
         PositionVector customShape;
+
+        /// @brief the type of this lane
+        std::string type;
     };
 
 
@@ -1062,6 +1065,9 @@ public:
     /// @brief whether lanes differ in width
     bool hasLaneSpecificWidth() const;
 
+    /// @brief whether lanes differ in type
+    bool hasLaneSpecificType() const;
+
     /// @brief whether lanes differ in offset
     bool hasLaneSpecificEndOffset() const;
 
@@ -1215,6 +1221,9 @@ public:
 
     /// @brief set lane specific width (negative lane implies set for all lanes)
     void setLaneWidth(int lane, double width);
+
+    /// @brief set lane specific type (negative lane implies set for all lanes)
+    void setLaneType(int lane, const std::string& type);
 
     /// @brief set lane specific end-offset (negative lane implies set for all lanes)
     void setEndOffset(int lane, double offset);

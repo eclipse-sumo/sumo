@@ -226,6 +226,8 @@ private:
         std::string oppositeID;
         /// @brief Whether this lane has a custom shape
         bool customShape;
+        /// @brief the type of this lane
+        std::string type;
     };
 
 

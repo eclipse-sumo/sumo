@@ -103,6 +103,7 @@
         <xsd:attribute name="acceleration" type="boolType" use="optional"/>
         <xsd:attribute name="shape" type="shapeTypeTwo" use="required"/>
         <xsd:attribute name="customShape" type="boolType" use="optional"/>
+        <xsd:attribute name="type" type="xsd:string" use="optional"/>
     </xsd:complexType>
 
     <xsd:complexType name="junctionType">

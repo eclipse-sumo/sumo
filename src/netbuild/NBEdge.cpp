@@ -2061,6 +2061,17 @@ NBEdge::hasLaneSpecificWidth() const {
 
 
 bool
+NBEdge::hasLaneSpecificType() const {
+    for (std::vector<Lane>::const_iterator i = myLanes.begin(); i != myLanes.end(); ++i) {
+        if (i->type != myLanes.begin()->type) {
+            return true;
+        }
+    }
+    return false;
+}
+
+
+bool
 NBEdge::hasLaneSpecificEndOffset() const {
     for (std::vector<Lane>::const_iterator i = myLanes.begin(); i != myLanes.end(); ++i) {
         if (i->endOffset != myLanes.begin()->endOffset) {
@@ -2122,6 +2133,7 @@ NBEdge::needsLaneSpecificOutput() const {
     return (hasLaneSpecificPermissions()
             || hasLaneSpecificSpeed()
             || hasLaneSpecificWidth()
+            || hasLaneSpecificType()
             || hasLaneSpecificEndOffset()
             || hasLaneSpecificStopOffsets()
             || hasAccelLane()
@@ -3255,6 +3267,19 @@ NBEdge::setLaneWidth(int lane, double width) {
     }
     assert(lane < (int)myLanes.size());
     myLanes[lane].width = width;
+}
+
+void
+NBEdge::setLaneType(int lane, const std::string& type) {
+    if (lane < 0) {
+        for (int i = 0; i < (int)myLanes.size(); i++) {
+            // ... do it for each lane
+            setLaneType(i, type);
+        }
+        return;
+    }
+    assert(lane < (int)myLanes.size());
+    myLanes[lane].type = type;
 }
 
 
