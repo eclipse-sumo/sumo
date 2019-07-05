@@ -222,6 +222,7 @@ for p in [
             continue
         oldWorkDir = os.getcwd()
         os.chdir(testPath)
+        haveConfig = False
         if app in ["dfrouter", "duarouter", "jtrrouter", "marouter", "netconvert",
                    "netgen", "netgenerate", "od2trips", "polyconvert", "sumo", "activitygen"]:
             appOptions += ['--save-configuration', '%s.%scfg' %
@@ -232,14 +233,17 @@ for p in [
             if options.verbose:
                 print(("calling %s for testPath '%s' with  options '%s'") %
                       (checkBinary(app), testPath, " ".join(appOptions)))
-            subprocess.call([checkBinary(app)] + appOptions)
-        elif app == "tools":
-            if os.name == "posix" or options.file:
-                tool = join("$SUMO_HOME", appOptions[-1])
-                open(nameBase + ".sh", "w").write(tool + " " + " ".join(appOptions[:-1]))
-            if os.name != "posix" or options.file:
-                tool = join("%SUMO_HOME%", appOptions[-1])
-                open(nameBase + ".bat", "w").write(tool + " " + " ".join(appOptions[:-1]))
+            try:
+                haveConfig = subprocess.call([checkBinary(app)] + appOptions) == 0
+            except OSError:
+                print("Executable %s not found, generating shell scripts instead of config." % app, file=sys.stderr)
+            if not haveConfig:
+                appOptions[-2:] = ["bin/" + app]
+        if not haveConfig:
+            tool = join("$SUMO_HOME", appOptions[-1])
+            open(nameBase + ".sh", "w").write(tool + " " + " ".join(appOptions[:-1]))
+            tool = join("%SUMO_HOME%", appOptions[-1])
+            open(nameBase + ".bat", "w").write(tool + " " + " ".join(appOptions[:-1]))
         os.chdir(oldWorkDir)
     if options.python_script:
         pyBatch.write(']:\n    if p.wait() != 0:\n        sys.exit(1)\n')
