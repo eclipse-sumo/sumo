@@ -91,7 +91,8 @@ public:
                 double sidewalkWidth,
                 double bikeLaneWidth,
                 double widthResolution,
-                double maxWidth);
+                double maxWidth,
+                double minWidth);
 
     /** @brief Returns the number of known types
      * @return The number of known edge types (excluding the default)
@@ -196,9 +197,18 @@ public:
      *
      * If the named type is not known, the default is returned
      * @param[in] type The name of the type to return the maximum width for
-     * @return The width resolution on edges of this type
+     * @return The maximum width on edges of this type
      */
     double getMaxWidth(const std::string& type) const;
+
+    /** @brief Returns the minimum edge/lane widths of the given
+     * type
+     *
+     * If the named type is not known, the default is returned
+     * @param[in] type The name of the type to return the maximum width for
+     * @return The minimum width on edges of this type
+     */
+    double getMinWidth(const std::string& type) const;
 
 
     /** @brief Returns whether an attribute of a type was set
@@ -256,6 +266,7 @@ private:
             width(NBEdge::UNSPECIFIED_WIDTH),
             widthResolution(0),
             maxWidth(0),
+            minWidth(0),
             sidewalkWidth(NBEdge::UNSPECIFIED_WIDTH),
             bikeLaneWidth(NBEdge::UNSPECIFIED_WIDTH) {
         }
@@ -266,13 +277,15 @@ private:
                        double _sideWalkWidth,
                        double _bikeLaneWidth,
                        double _widthResolution,
-                       double _maxWidth) :
+                       double _maxWidth,
+                       double _minWidth) :
             numLanes(_numLanes), speed(_speed), priority(_priority),
             permissions(_permissions),
             oneWay(_oneWay), discard(false), 
             width(_width),
             widthResolution(_widthResolution),
             maxWidth(_maxWidth),
+            minWidth(_minWidth),
             sidewalkWidth(_sideWalkWidth),
             bikeLaneWidth(_bikeLaneWidth) {
         }
@@ -295,6 +308,8 @@ private:
         double widthResolution;
         /// @brief The maximum width for lanes of this type [m]
         double maxWidth;
+        /// @brief The minimum width for lanes of this type [m]
+        double minWidth;
         /* @brief The width of the sidewalk that should be added as an additional lane
          * a value of NBEdge::UNSPECIFIED_WIDTH indicates that no sidewalk should be added */
         double sidewalkWidth;

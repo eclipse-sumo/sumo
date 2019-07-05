@@ -264,7 +264,7 @@ NIImporter_VISUM::parse_Types() {
     // try to retrieve the number of lanes
     const int numLanes = myCapacity2Lanes.get(getNamedFloat("Kap-IV", KEYS.getString(VISUM_CAPACITY)));
     // insert the type
-    myNetBuilder.getTypeCont().insert(myCurrentID, numLanes, speed / (double) 3.6, priority, permissions, NBEdge::UNSPECIFIED_WIDTH, false, NBEdge::UNSPECIFIED_WIDTH, NBEdge::UNSPECIFIED_WIDTH, 0, 0);
+    myNetBuilder.getTypeCont().insert(myCurrentID, numLanes, speed / (double) 3.6, priority, permissions, NBEdge::UNSPECIFIED_WIDTH, false, NBEdge::UNSPECIFIED_WIDTH, NBEdge::UNSPECIFIED_WIDTH, 0, 0, 0);
     myNetBuilder.getTypeCont().markAsSet(myCurrentID, SUMO_ATTR_NUMLANES);
     myNetBuilder.getTypeCont().markAsSet(myCurrentID, SUMO_ATTR_SPEED);
     myNetBuilder.getTypeCont().markAsSet(myCurrentID, SUMO_ATTR_PRIORITY);

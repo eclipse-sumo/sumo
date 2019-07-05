@@ -262,6 +262,7 @@
         <xsd:attribute name="width" type="xsd:float"/>
         <xsd:attribute name="widthResolution" type="nonNegativeFloatType"/>
         <xsd:attribute name="maxWidth" type="nonNegativeFloatType"/>
+        <xsd:attribute name="minWidth" type="nonNegativeFloatType"/>
         <xsd:attribute name="sidewalkWidth" type="xsd:float"/>
         <xsd:attribute name="bikeLaneWidth" type="xsd:float"/>
     </xsd:complexType>

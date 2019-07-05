@@ -1753,7 +1753,7 @@ NIImporter_OpenStreetMap::usableType(const std::string& type, const std::string&
 
         WRITE_MESSAGE("Adding new type '" + type + "' (first occurence for edge '" + id + "').");
         tc.insert(newType, numLanes, maxSpeed, prio, permissions, width, defaultIsOneWay, 
-                sidewalkWidth, bikelaneWidth, 0, 0);
+                sidewalkWidth, bikelaneWidth, 0, 0, 0);
         for (auto& type3 : types) {
             if (!tc.getShallBeDiscarded(type3)) {
                 tc.copyRestrictionsAndAttrs(type3, newType);

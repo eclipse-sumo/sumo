@@ -55,9 +55,10 @@ NBTypeCont::insert(const std::string& id, int numLanes, double maxSpeed, int pri
                    SVCPermissions permissions, double width, bool oneWayIsDefault, 
                    double sidewalkWidth, double bikeLaneWidth,
                    double widthResolution,
-                   double maxWidth) {
+                   double maxWidth,
+                   double minWidth) {
 
-    TypeDefinition newType(numLanes, maxSpeed, prio, width, permissions, oneWayIsDefault, sidewalkWidth, bikeLaneWidth, widthResolution, maxWidth);
+    TypeDefinition newType(numLanes, maxSpeed, prio, width, permissions, oneWayIsDefault, sidewalkWidth, bikeLaneWidth, widthResolution, maxWidth, minWidth);
     TypesCont::iterator old = myTypes.find(id);
     if (old != myTypes.end()) {
         newType.restrictions.insert(old->second.restrictions.begin(), old->second.restrictions.end());
@@ -204,6 +205,11 @@ NBTypeCont::getWidthResolution(const std::string& type) const {
 double
 NBTypeCont::getMaxWidth(const std::string& type) const {
     return getType(type).maxWidth;
+}
+
+double
+NBTypeCont::getMinWidth(const std::string& type) const {
+    return getType(type).minWidth;
 }
 
 bool

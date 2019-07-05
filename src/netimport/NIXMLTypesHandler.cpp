@@ -71,6 +71,7 @@ NIXMLTypesHandler::myStartElement(int element,
             const bool discard = attrs.getOpt<bool>(SUMO_ATTR_DISCARD, id, ok, false);
             const double width = attrs.getOpt<double>(SUMO_ATTR_WIDTH, id, ok, myTypeCont.getWidth(defType));
             const double maxWidth = attrs.getOpt<double>(SUMO_ATTR_MAXWIDTH, id, ok, myTypeCont.getMaxWidth(defType));
+            const double minWidth = attrs.getOpt<double>(SUMO_ATTR_MINWIDTH, id, ok, myTypeCont.getMinWidth(defType));
             const double widthResolution = attrs.getOpt<double>(SUMO_ATTR_WIDTHRESOLUTION, id, ok, myTypeCont.getWidthResolution(defType));
             const double sidewalkWidth = attrs.getOpt<double>(SUMO_ATTR_SIDEWALKWIDTH, id, ok, myTypeCont.getSidewalkWidth(defType));
             const double bikeLaneWidth = attrs.getOpt<double>(SUMO_ATTR_BIKELANEWIDTH, id, ok, myTypeCont.getBikeLaneWidth(defType));
@@ -82,7 +83,7 @@ NIXMLTypesHandler::myStartElement(int element,
             if (allowS != "" || disallowS != "") {
                 permissions = parseVehicleClasses(allowS, disallowS);
             }
-            myTypeCont.insert(myCurrentTypeID, numLanes, speed, priority, permissions, width, oneway, sidewalkWidth, bikeLaneWidth, widthResolution, maxWidth);
+            myTypeCont.insert(myCurrentTypeID, numLanes, speed, priority, permissions, width, oneway, sidewalkWidth, bikeLaneWidth, widthResolution, maxWidth, minWidth);
             if (discard) {
                 myTypeCont.markAsToDiscard(myCurrentTypeID);
             }
