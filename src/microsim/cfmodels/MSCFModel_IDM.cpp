@@ -68,12 +68,11 @@ MSCFModel_IDM::followSpeed(const MSVehicle* const veh, double speed, double gap2
 
 double
 MSCFModel_IDM::insertionFollowSpeed(const MSVehicle* const v, double speed, double gap2pred, double predSpeed, double predMaxDecel, const MSVehicle* const /*pred*/ ) const {
-    const double vMax = v->getLane()->getVehicleMaxSpeed(v);
     // see definition of s in _v()
-    double s = MAX2(0., vMax * myHeadwayTime + vMax * (vMax - predSpeed) / myTwoSqrtAccelDecel);
+    double s = MAX2(0., speed * myHeadwayTime + speed * (speed - predSpeed) / myTwoSqrtAccelDecel);
     if (gap2pred >= s) {
-        // followSpeed always stays below vMax because s*s / (gap2pred * gap2pred) > 0. This would prevent insertion with maximum speed at all distances
-        return vMax;
+        // followSpeed always stays below speed because s*s / (gap2pred * gap2pred) > 0. This would prevent insertion with maximum speed at all distances
+        return speed;
     } else {
         return followSpeed(v, speed, gap2pred, predSpeed, predMaxDecel);
     }
