@@ -69,6 +69,4 @@ print("logfile2 at last step: %s" % lastLine('log2'))
 traci.close()
 print("tripinfos2 after close: %s" % countWrittenTrips('tripinfos2.xml'))
 print("logfile2 after close: %s" % lastLine('log2'))
-
 # done
-traci.close()
