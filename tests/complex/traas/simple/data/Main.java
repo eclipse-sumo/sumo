@@ -25,27 +25,27 @@ import de.tudresden.ws.container.SumoVehicleData;
 
 public class Main {
 
-	static String sumo_bin = "sumo-gui";
-	static String config_file = "simulation/config.sumo.cfg";
-	static double step_length = 0.1;		
+    static String sumo_bin = "sumo";
+    static String config_file = "data/config.sumocfg";
+    static double step_length = 0.1;
 
-	public static void main(String[] args) {
-	
-		
-		try{
-			
-			SumoTraciConnection conn = new SumoTraciConnection(sumo_bin, config_file);
-			conn.addOption("step-length", step_length+"");
-			conn.addOption("start", "true"); //start sumo immediately
-		
-			//start Traci Server
-			conn.runServer();
+    public static void main(String[] args) {
+
+
+        try {
+
+            SumoTraciConnection conn = new SumoTraciConnection(sumo_bin, config_file);
+            conn.addOption("step-length", step_length + "");
+            conn.addOption("start", "true"); //start sumo immediately
+
+            //start Traci Server
+            conn.runServer();
             conn.setOrder(1);
-			
-			for(int i=0; i<3600; i++){
-			
-				conn.do_timestep();
-				conn.do_job_set(Vehicle.addFull("v"+i, "r1", "car", "now", "0", "0", "max", "current", "max", "current", "", "", "", 0, 0));
+
+            for (int i = 0; i < 3600; i++) {
+
+                conn.do_timestep();
+                conn.do_job_set(Vehicle.addFull("v" + i, "r1", "car", "now", "0", "0", "max", "current", "max", "current", "", "", "", 0, 0));
                 double timeSeconds = (double)conn.do_job_get(Simulation.getTime());
                 int tlsPhase = (int)conn.do_job_get(Trafficlight.getPhase("gneJ1"));
                 String tlsPhaseName = (String)conn.do_job_get(Trafficlight.getPhaseName("gneJ1"));
@@ -55,12 +55,14 @@ public class Main {
                 for (SumoVehicleData.VehicleData d : vehData.ll) {
                     System.out.println(String.format("  veh=%s len=%s entry=%s leave=%s type=%s", d.vehID, d.length, d.entry_time, d.leave_time, d.typeID));
                 }
-			}
-			
-			conn.close();
-			
-		}catch(Exception ex){ex.printStackTrace();}
-		
-	}
+            }
+
+            conn.close();
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+
+    }
 
 }

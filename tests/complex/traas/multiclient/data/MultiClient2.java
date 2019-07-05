@@ -25,24 +25,26 @@ import de.tudresden.ws.container.SumoVehicleData;
 
 public class MultiClient2 {
 
-	public static void main(String[] args) {
-	
-		
-		try{
-			
-			SumoTraciConnection conn = new SumoTraciConnection(9999);
+    public static void main(String[] args) {
+
+
+        try {
+
+            SumoTraciConnection conn = new SumoTraciConnection(9999);
             conn.setOrder(2);
-			
-			for(int i=0; i<3600; i++){
-				conn.do_timestep();
+
+            for (int i = 0; i < 3600; i++) {
+                conn.do_timestep();
                 double timeSeconds = (double)conn.do_job_get(Simulation.getTime());
                 System.out.println(String.format("Step %s", timeSeconds));
-			}
-			
-			conn.close();
-			
-		}catch(Exception ex){ex.printStackTrace();}
-		
-	}
+            }
+
+            conn.close();
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+
+    }
 
 }

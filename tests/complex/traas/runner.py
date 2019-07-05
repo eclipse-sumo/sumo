@@ -19,6 +19,7 @@ from __future__ import print_function
 import os
 import subprocess
 import sys
+import time
 if 'SUMO_HOME' in os.environ:
     tools = os.path.join(os.environ['SUMO_HOME'], 'tools')
     sys.path.append(tools)
@@ -29,6 +30,12 @@ from sumolib import checkBinary  # noqa
 traasJar = os.path.join(os.environ['SUMO_HOME'], "bin", "TraaS.jar")
 assert(os.path.exists(traasJar))
 
-subprocess.check_call([r"C:\Program Files\Java\jdk1.8.0_152\bin\javac.exe", "-cp", traasJar, "data/APITest.java"])
-subprocess.check_call(["java", "-cp", os.pathsep.join([traasJar, "data"]), "APITest",
-                       checkBinary('sumo'), "data/config.sumocfg"])
+for f in sys.argv[1:]:
+    subprocess.check_call(["javac", "-cp", traasJar, "data/%s.java" % f])
+procs = [subprocess.Popen(["java", "-cp", os.pathsep.join([traasJar, "data"]), sys.argv[1],
+                           checkBinary('sumo'), "data/config.sumocfg"])]
+if len(sys.argv) > 2:
+    time.sleep(10)  # give sumo some time to start
+    procs += [subprocess.Popen(["java", "-cp", os.pathsep.join([traasJar, "data"]), f]) for f in sys.argv[2:]]
+for p in procs:
+    p.wait()

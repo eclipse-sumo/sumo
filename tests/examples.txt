@@ -53,3 +53,4 @@ complex/tutorial/quickstart;../docs/tutorial/quickstart
 complex/tutorial/hello;../docs/tutorial/hello
 complex/tutorial/traci_tls/plain;../docs/tutorial/traci_tls
 complex/tutorial/manhattan;../docs/tutorial/manhattan
+complex/traas/simple;../docs/examples/traas

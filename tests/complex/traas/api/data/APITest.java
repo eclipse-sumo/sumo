@@ -41,7 +41,7 @@ import de.tudresden.ws.container.SumoTLSProgram;
 public class APITest {
 
     static String sumo_bin = "sumo";
-    static String config_file = "simulation/config.sumo.cfg";
+    static String config_file = "data/config.sumocfg";
     static double step_length = 1.0;
 
     public static void main(String[] args) {
@@ -114,8 +114,8 @@ public class APITest {
             System.out.println("Vehicletype.getAdaptedTraveltime: " + (double)conn.do_job_get(Vehicle.getAdaptedTraveltime("v0", 150, "gneE0")));
 
             System.out.println("Vehicle.getRoute: " + conn.do_job_get(Vehicle.getRoute("v0")));
-			SumoStringList route = new SumoStringList();
-			route.add("gneE0");
+            SumoStringList route = new SumoStringList();
+            route.add("gneE0");
             conn.do_job_set(Vehicle.setRoute("v0", route));
             System.out.println("Vehicle.getRoute: " + conn.do_job_get(Vehicle.getRoute("v0")));
             conn.do_job_set(Vehicle.setRouteID("v0", "r1"));
