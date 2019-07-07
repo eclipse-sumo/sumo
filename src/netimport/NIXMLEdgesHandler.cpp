@@ -394,6 +394,7 @@ NIXMLEdgesHandler::addLane(const SUMOSAXAttributes& attrs) {
     if (attrs.hasAttribute(SUMO_ATTR_TYPE)) {
         myCurrentEdge->setLaneType(lane, attrs.get<std::string>(SUMO_ATTR_TYPE, myCurrentID.c_str(), ok));
     }
+    myLastParameterised.push_back(&myCurrentEdge->getLaneStruct(lane));
 }
 
 
