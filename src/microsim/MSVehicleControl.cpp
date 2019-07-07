@@ -111,9 +111,17 @@ MSVehicleControl::buildVehicle(SUMOVehicleParameter* defs,
 
 
 void
-MSVehicleControl::scheduleVehicleRemoval(SUMOVehicle* veh) {
+MSVehicleControl::scheduleVehicleRemoval(SUMOVehicle* veh, bool checkDuplicate) {
     assert(myRunningVehNo > 0);
-    myPendingRemovals.push_back(veh);
+    if (!checkDuplicate || 
+#ifdef HAVE_FOX
+    std::find(myPendingRemovals.getContainer().begin(), myPendingRemovals.getContainer().end(), veh) == myPendingRemovals.getContainer().end()
+#else
+    std::find(myPendingRemovals.begin(), myPendingRemovals.end(), veh) == myPendingRemovals.end()
+#endif
+    ) {
+        myPendingRemovals.push_back(veh);
+    }
 }
 
 

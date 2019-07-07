@@ -155,7 +155,7 @@ public:
      *
      * @param[in] veh The vehicle to remove
      */
-    void scheduleVehicleRemoval(SUMOVehicle* veh);
+    void scheduleVehicleRemoval(SUMOVehicle* veh, bool checkDuplicate=false);
 
 
     /** @brief Removes a vehicle after it has ended

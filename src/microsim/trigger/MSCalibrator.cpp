@@ -271,7 +271,7 @@ MSCalibrator::removePending() {
             if (vehicle != nullptr) {
                 vehicle->onRemovalFromNet(MSMoveReminder::NOTIFICATION_VAPORIZED);
                 vehicle->getLane()->removeVehicle(vehicle, MSMoveReminder::NOTIFICATION_VAPORIZED);
-                vc.scheduleVehicleRemoval(vehicle);
+                vc.scheduleVehicleRemoval(vehicle, true);
             } else {
                 WRITE_WARNING("Calibrator '" + getID() + "' could not remove vehicle '" + *it + "'.");
             }
