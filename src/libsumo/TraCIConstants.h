@@ -805,6 +805,8 @@ TRACI_CONST int VAR_PERSON_NUMBER = 0x67;
 // person capacity (vehicle , vehicle type)
 TRACI_CONST int VAR_PERSON_CAPACITY = 0x38;
 
+TRACI_CONST int VAR_BUS_STOP_ID_LIST = 0x9f;
+
 // number of persons waiting at a defined bus stop (get: simulation)
 TRACI_CONST int VAR_BUS_STOP_WAITING = 0x67;
 

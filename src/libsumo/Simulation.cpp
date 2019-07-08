@@ -260,6 +260,14 @@ Simulation::getEndingTeleportIDList() {
     return Helper::getVehicleStateChanges(MSNet::VEHICLE_STATE_ENDING_TELEPORT);
 }
 
+std::vector<std::string>
+Simulation::getBusStopIDList() {
+    std::vector<std::string> result;
+    for(const auto pair : MSNet::getInstance()->getStoppingPlaces(SUMO_TAG_BUS_STOP)) {
+        result.push_back(pair.first);
+    }
+    return result;
+}
 
 int
 Simulation::getBusStopWaiting(const std::string& id) {

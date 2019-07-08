@@ -134,6 +134,9 @@ TraCIServerAPI_Simulation::processGet(TraCIServer& server, tcpip::Storage& input
                 server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_INTEGER);
                 server.getWrapperStorage().writeInt(libsumo::Simulation::getMinExpectedNumber());
                 break;
+            case libsumo::VAR_BUS_STOP_ID_LIST:
+                server.wrapStringList(id, variable, libsumo::Simulation::getBusStopIDList());
+                break;
             case libsumo::VAR_BUS_STOP_WAITING:
                 server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_INTEGER);
                 server.getWrapperStorage().writeInt(libsumo::Simulation::getBusStopWaiting(id));
