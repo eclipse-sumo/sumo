@@ -77,8 +77,8 @@ class ReroutersGeneration(object):
     def __init__(self, parking_areas, sumo_network, num_alternatives, dist_alternatives,
                  capacity_threshold, dist_threshold):
 
+        self._sumo_net = sumolib.net.readNet(sumo_network)
         self._load_parking_areas_from_file(parking_areas)
-        self._sumo_net = sumo_network
         self._num_alternatives = num_alternatives
         self._dist_alternatives = dist_alternatives
         self._capacity_threshold = capacity_threshold
@@ -91,7 +91,8 @@ class ReroutersGeneration(object):
         xml_tree = xml.etree.ElementTree.parse(filename).getroot()
         for child in xml_tree:
             self._parking_areas[child.attrib['id']] = child.attrib
-            self._parking_areas[child.attrib['id']]['edge'] = child.attrib['lane'].split('_')[0]
+            self._parking_areas[child.attrib['id']]['edge'] = self._sumo_net.getEdge(
+                child.attrib['lane'].split('_')[0])
 
     # ---------------------------------------------------------------------------------------- #
     #                                 Rerouter Generation                                      #
@@ -100,32 +101,16 @@ class ReroutersGeneration(object):
     def _generate_rerouters(self):
         """ Compute the rerouters for each parking lot for SUMO. """
 
-        traci.start([sumolib.checkBinary('sumo'), '--no-step-log', '-n', self._sumo_net])
-
         distances = collections.defaultdict(dict)
         for parking_a in self._parking_areas.values():
             for parking_b in self._parking_areas.values():
                 if parking_a['id'] == parking_b['id']:
                     continue
-                if parking_a['edge'] == parking_b['edge']:
+                if parking_a['edge'].getID() == parking_b['edge'].getID():
                     continue
-
-                route = None
-                try:
-                    route = traci.simulation.findRoute(
-                        parking_a['edge'], parking_b['edge'])
-                except traci.exceptions.TraCIException:
-                    route = None
-
-                cost = None
-                if route and route.edges:
-                    cost = route.travelTime
-                else:
-                    cost = None
-
-                distances[parking_a['id']][parking_b['id']] = cost
-
-        traci.close()
+                route, cost = self._sumo_net.getShortestPath(parking_a['edge'], parking_b['edge'])
+                if route:
+                    distances[parking_a['id']][parking_b['id']] = cost
 
         # select closest parking areas
         for pid, dists in distances.items():
@@ -144,7 +129,7 @@ class ReroutersGeneration(object):
 
             self._sumo_rerouters[pid] = {
                 'rid': pid,
-                'edge': self._parking_areas[pid]['edge'],
+                'edge': self._parking_areas[pid]['edge'].getID(),
                 'rerouters': rerouters,
             }
 
