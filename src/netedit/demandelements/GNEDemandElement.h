@@ -83,6 +83,9 @@ public:
             /// @brief parameter constructor for edges
             Segment(const GNEDemandElement* _element, const GNEEdge* _edge, const Position _pos, const bool _visible, const bool _valid);
 
+            /// @brief parameter constructor for edges
+            Segment(const GNEDemandElement* _element, const GNEEdge* _edge, const Position _pos, double _lenght, double _rotation, const bool _visible, const bool _valid);
+
             /// @brief parameter constructor for junctions
             Segment(const GNEDemandElement* _element, const GNEJunction* _junction, const Position _pos, const bool _visible, const bool _valid);
 
@@ -118,11 +121,14 @@ public:
         /// @brief constructor
         DemandElementSegmentGeometry();
 
-        /// @brief insert segment
-        void insertSegment(const GNEDemandElement* element, const GNEEdge* edge, const Position pos, const bool visible, const bool valid);
+        /// @brief insert edge segment
+        void insertEdgeSegment(const GNEDemandElement* element, const GNEEdge* edge, const Position pos, const bool visible, const bool valid);
 
-        /// @brief insert segment
-        void insertSegment(const GNEDemandElement* element, const GNEJunction* junction, const Position pos, const bool visible, const bool valid);
+        /// @brief insert edge segment with lenght and rotation (used to avoid unnecessary calculation in calculatePartialShapeRotationsAndLengths)
+        void insertEdgeLenghtRotSegment(const GNEDemandElement* element, const GNEEdge* edge, const Position pos, double lenght, double rotation, const bool visible, const bool valid);
+
+        /// @brief insert junction segment
+        void insertJunctionSegment(const GNEDemandElement* element, const GNEJunction* junction, const Position pos, const bool visible, const bool valid);
 
         /// @brief clear demand element geometry
         void clearDemandElementSegmentGeometry();

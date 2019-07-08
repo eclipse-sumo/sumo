@@ -213,15 +213,15 @@ GNERoute::updateGeometry() {
     if (myDemandElementSegmentGeometry.geometryDeprecated) {
         // first clear geometry
         myDemandElementSegmentGeometry.clearDemandElementSegmentGeometry();
-        // declare vector for saving lane and connection shapes
-        std::vector<std::pair<GNEEdge*, PositionVector> > laneShapes;
+        // declare vector for saving a reference to lane geometry and connection shapes
+        std::vector<std::pair<GNEEdge*, GNENetElement::NetElementGeometry> > laneGeometries;
         std::vector<PositionVector> connectionShapes;
         // obtain all lane shapes
         for (const auto &i : getEdgeParents()) {
-            laneShapes.push_back(std::make_pair(i, i->getLaneByVClass(myVClass)->getGeometry().shape));
+            laneGeometries.push_back(std::make_pair(i, i->getLaneByVClass(myVClass)->getGeometry()));
         }
         // resize connectionShapes
-        connectionShapes.resize(laneShapes.size());
+        connectionShapes.resize(laneGeometries.size());
         // iterate over edge parents
         for (int i = 0; i < ((int)getEdgeParents().size()-1); i++) {
             // obtain NBEdges from both edges
@@ -262,14 +262,22 @@ GNERoute::updateGeometry() {
             }
         }
         // fill shapeSegments
-        for (int i = 0; i < (int)laneShapes.size(); i++) {
+        for (int i = 0; i < (int)laneGeometries.size(); i++) {
             // set lane shapes
-            for (const auto &laneShapePos : laneShapes.at(i).second) {
-                myDemandElementSegmentGeometry.insertSegment(this, laneShapes.at(i).first, laneShapePos, true, true);
+            for (int j = 0; j < laneGeometries.at(i).second.shape.size(); j++) {
+                // save position and rotations (to avoid useless calculations)
+                if (j < (laneGeometries.at(i).second.shape.size()-1)) {
+                    myDemandElementSegmentGeometry.insertEdgeLenghtRotSegment(this, laneGeometries.at(i).first, 
+                        laneGeometries.at(i).second.shape[j], laneGeometries.at(i).second.shapeLengths[j], 
+                        laneGeometries.at(i).second.shapeRotations[j], true, true);
+                } else {
+                    myDemandElementSegmentGeometry.insertEdgeSegment(this, laneGeometries.at(i).first, 
+                        laneGeometries.at(i).second.shape[j], true, true);
+                }
             }
             // set connection shapes
             for (const auto &connectionShapePos : connectionShapes.at(i)) {
-                myDemandElementSegmentGeometry.insertSegment(this, laneShapes.at(i).first , connectionShapePos, true, true);
+                myDemandElementSegmentGeometry.insertJunctionSegment(this, laneGeometries.at(i).first->getGNEJunctionDestiny() , connectionShapePos, true, true);
             }
         }
         // calculate entire shape, rotations and lenghts

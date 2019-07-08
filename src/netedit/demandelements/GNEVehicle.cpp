@@ -545,32 +545,64 @@ GNEVehicle::updateGeometry() {
             connectionGeometry->calculateConnectionShape();
             // check if this is the first geometry connection
             if (connectionGeometry == connectionGeometriesFiltered.begin()) {
-                // obtain lane shape
-                PositionVector laneShape = (connectionGeometry->laneFrom)? connectionGeometry->laneFrom->getGeometry().shape : getEdgeParents().at(0)->getLaneByVClass(getVClass())->getGeometry().shape;
+                // obtain lane geometry
+                 auto laneGeometry = (connectionGeometry->laneFrom)? connectionGeometry->laneFrom->getGeometry() : getEdgeParents().at(0)->getLaneByVClass(getVClass())->getGeometry();
                 // add lane shape in segments geometry
-                for (const auto &laneShapePos : laneShape) {
-                    myDemandElementSegmentGeometry.insertSegment(this, getEdgeParents().at(0), laneShapePos, true, true);
+                for (int i = 0; i < laneGeometry.shape.size(); i++) {
+                    if (i < (laneGeometry.shape.size()-1)) {
+                        myDemandElementSegmentGeometry.insertEdgeLenghtRotSegment(this, getEdgeParents().at(0), 
+                            laneGeometry.shape[i],
+                            laneGeometry.shapeLengths[i],
+                            laneGeometry.shapeRotations[i], true, true);
+                    } else {
+                        myDemandElementSegmentGeometry.insertEdgeSegment(this, getEdgeParents().at(0), 
+                            laneGeometry.shape[i], true, true);
+                    }
                 }
             }
             // check if connection exist
             if (connectionGeometry->con) {
                 // add connection shape in in segments geometry
                 for (const auto &connectionShapePos : connectionGeometry->connectionShape) {
-                    myDemandElementSegmentGeometry.insertSegment(this, connectionGeometry->laneFrom->getParentEdge().getGNEJunctionDestiny(), connectionShapePos, true, true);
+                    myDemandElementSegmentGeometry.insertJunctionSegment(this, connectionGeometry->laneFrom->getParentEdge().getGNEJunctionDestiny(), connectionShapePos, true, true);
                 }
                 // add lane shape in segments geometry using laneTo of current correnction
-                for (const auto &laneShapePos : connectionGeometry->laneTo->getGeometry().shape) {
-                    myDemandElementSegmentGeometry.insertSegment(this, &connectionGeometry->laneTo->getParentEdge(), laneShapePos, true, true);
+                for (int i = 0; i < connectionGeometry->laneTo->getGeometry().shape.size(); i++) {
+                    if (i < (connectionGeometry->laneTo->getGeometry().shape.size()-1)) {
+                        myDemandElementSegmentGeometry.insertEdgeLenghtRotSegment(this, &connectionGeometry->laneTo->getParentEdge(), 
+                            connectionGeometry->laneTo->getGeometry().shape[i],
+                            connectionGeometry->laneTo->getGeometry().shapeLengths[i],
+                            connectionGeometry->laneTo->getGeometry().shapeRotations[i], true, true);
+                    } else {
+                        myDemandElementSegmentGeometry.insertEdgeSegment(this, &connectionGeometry->laneTo->getParentEdge(), 
+                            connectionGeometry->laneTo->getGeometry().shape[i], true, true);
+                    }
                 }
             } else if ((connectionGeometry+1) != connectionGeometriesFiltered.end()) {
                 // add lane shape in segments geometry using laneFrom of next connection
-                for (const auto &laneShapePos : (connectionGeometry+1)->laneFrom->getGeometry().shape) {
-                    myDemandElementSegmentGeometry.insertSegment(this, &(connectionGeometry+1)->laneFrom->getParentEdge(), laneShapePos, true, true);
+                for (int i = 0; i < (connectionGeometry+1)->laneFrom->getGeometry().shape.size(); i++) {
+                    if (i < ((connectionGeometry+1)->laneFrom->getGeometry().shape.size()-1)) {
+                        myDemandElementSegmentGeometry.insertEdgeLenghtRotSegment(this, &(connectionGeometry+1)->laneFrom->getParentEdge(), 
+                            (connectionGeometry+1)->laneFrom->getGeometry().shape[i],
+                            (connectionGeometry+1)->laneFrom->getGeometry().shapeLengths[i],
+                            (connectionGeometry+1)->laneFrom->getGeometry().shapeRotations[i], true, true);
+                    } else {
+                        myDemandElementSegmentGeometry.insertEdgeSegment(this, &(connectionGeometry+1)->laneFrom->getParentEdge(), 
+                            (connectionGeometry+1)->laneFrom->getGeometry().shape[i], true, true);
+                    }
                 }
             } else {
                 // due this is the last shape, add lane shape in segments geometry using laneTo of current connection geometry
-                for (const auto &laneShapePos : connectionGeometry->laneTo->getGeometry().shape) {
-                    myDemandElementSegmentGeometry.insertSegment(this, &connectionGeometry->laneTo->getParentEdge(), laneShapePos, true, true);
+                for (int i = 0; i < connectionGeometry->laneTo->getGeometry().shape.size(); i++) {
+                    if (i < (connectionGeometry->laneTo->getGeometry().shape.size()-1)) {
+                        myDemandElementSegmentGeometry.insertEdgeLenghtRotSegment(this, &connectionGeometry->laneTo->getParentEdge(), 
+                            connectionGeometry->laneTo->getGeometry().shape[i],
+                            connectionGeometry->laneTo->getGeometry().shapeLengths[i],
+                            connectionGeometry->laneTo->getGeometry().shapeRotations[i],true, true);
+                    } else {
+                        myDemandElementSegmentGeometry.insertEdgeSegment(this, &connectionGeometry->laneTo->getParentEdge(), 
+                            connectionGeometry->laneTo->getGeometry().shape[i], true, true);
+                    }
                 }
             }
         }

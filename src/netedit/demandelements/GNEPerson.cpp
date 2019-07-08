@@ -401,16 +401,16 @@ GNEPerson::updateGeometry() {
                         for (const auto &shapesStopPos : shapesStop.first) {
                             // last segment must be invisible
                             if (shapesStopPos == shapesStop.first.back()) {
-                                myDemandElementSegmentGeometry.insertSegment(personPlanSegmentsIT->personPlan, personPlanSegmentsIT->edge, shapesStopPos, false, true);
+                                myDemandElementSegmentGeometry.insertEdgeSegment(personPlanSegmentsIT->personPlan, personPlanSegmentsIT->edge, shapesStopPos, false, true);
                             } else {
-                                myDemandElementSegmentGeometry.insertSegment(personPlanSegmentsIT->personPlan, personPlanSegmentsIT->edge, shapesStopPos, true, true);
+                                myDemandElementSegmentGeometry.insertEdgeSegment(personPlanSegmentsIT->personPlan, personPlanSegmentsIT->edge, shapesStopPos, true, true);
                             }
                         }
                         // check that next person plan segment isn't the last
                         if ((personPlanSegmentsIT+1) != personPlanSegments.end()) {
                             // add second shape
                             for (const auto &shapesStopPos : shapesStop.second) {
-                                myDemandElementSegmentGeometry.insertSegment((personPlanSegmentsIT+1)->personPlan, personPlanSegmentsIT->edge, shapesStopPos, true, true);
+                                myDemandElementSegmentGeometry.insertEdgeSegment((personPlanSegmentsIT+1)->personPlan, personPlanSegmentsIT->edge, shapesStopPos, true, true);
                             }
                         }
                     }
@@ -423,16 +423,16 @@ GNEPerson::updateGeometry() {
                         for (const auto &shapeBusStopPos : shapesBusStop.first) {
                             // last segment must be invisible
                             if (shapeBusStopPos == shapesBusStop.first.back()) {
-                                myDemandElementSegmentGeometry.insertSegment(personPlanSegmentsIT->personPlan, personPlanSegmentsIT->edge, shapeBusStopPos, false, true);
+                                myDemandElementSegmentGeometry.insertEdgeSegment(personPlanSegmentsIT->personPlan, personPlanSegmentsIT->edge, shapeBusStopPos, false, true);
                             } else {
-                                myDemandElementSegmentGeometry.insertSegment(personPlanSegmentsIT->personPlan, personPlanSegmentsIT->edge, shapeBusStopPos, true, true);
+                                myDemandElementSegmentGeometry.insertEdgeSegment(personPlanSegmentsIT->personPlan, personPlanSegmentsIT->edge, shapeBusStopPos, true, true);
                             }
                         }
                         // check that next person plan segment isn't the last
                         if ((personPlanSegmentsIT+1) != personPlanSegments.end()) {
                             // add second shape
                             for (const auto &shapeBusStopPos : shapesBusStop.second) {
-                                myDemandElementSegmentGeometry.insertSegment((personPlanSegmentsIT+1)->personPlan, personPlanSegmentsIT->edge, shapeBusStopPos, true, true);
+                                myDemandElementSegmentGeometry.insertEdgeSegment((personPlanSegmentsIT+1)->personPlan, personPlanSegmentsIT->edge, shapeBusStopPos, true, true);
                             }
                         }
                     }
@@ -443,22 +443,31 @@ GNEPerson::updateGeometry() {
                     for (const auto &shapeArrivalPos : shapeArrival.first) {
                         // special case for the last segment
                         if ((shapeArrivalPos == shapeArrival.first.back()) && (shapeArrival.first.size() > 0) && (shapeArrival.second.size() > 0)) {
-                            myDemandElementSegmentGeometry.insertSegment((personPlanSegmentsIT+1)->personPlan, personPlanSegmentsIT->edge, shapeArrivalPos, true, true);
+                            myDemandElementSegmentGeometry.insertEdgeSegment((personPlanSegmentsIT+1)->personPlan, personPlanSegmentsIT->edge, shapeArrivalPos, true, true);
                         } else {
-                            myDemandElementSegmentGeometry.insertSegment(personPlanSegmentsIT->personPlan, personPlanSegmentsIT->edge, shapeArrivalPos, true, true);
+                            myDemandElementSegmentGeometry.insertEdgeSegment(personPlanSegmentsIT->personPlan, personPlanSegmentsIT->edge, shapeArrivalPos, true, true);
                         }
                     }
                     // add second shape
                     for (const auto &shapeArrivalPos : shapeArrival.second) {
-                        myDemandElementSegmentGeometry.insertSegment((personPlanSegmentsIT+1)->personPlan, personPlanSegmentsIT->edge, shapeArrivalPos, true, true);
+                        myDemandElementSegmentGeometry.insertEdgeSegment((personPlanSegmentsIT+1)->personPlan, personPlanSegmentsIT->edge, shapeArrivalPos, true, true);
                     }
                 } else {
                     // obtain lane (special case due rides)
                     GNELane *lane = personPlanSegmentsIT->edge->getLaneByVClass(vClassOfPersonPlanSegmentsIT);
                     // add lane shape over personPlan shape
-                    for (const auto &shapeLanePos : lane->getGeometry().shape) {
-                        // save segment
-                        myDemandElementSegmentGeometry.insertSegment(personPlanSegmentsIT->personPlan, personPlanSegmentsIT->edge, shapeLanePos, true, true);
+                    for (int i = 0; i < lane->getGeometry().shape.size(); i++) {
+                        // insert segment
+                        if (i < (lane->getGeometry().shape.size()-1)) {
+                            myDemandElementSegmentGeometry.insertEdgeLenghtRotSegment(personPlanSegmentsIT->personPlan, personPlanSegmentsIT->edge, 
+                                lane->getGeometry().shape[i], 
+                                lane->getGeometry().shapeLengths[i], 
+                                lane->getGeometry().shapeRotations[i], 
+                                true, true);
+                        } else {
+                            myDemandElementSegmentGeometry.insertEdgeSegment(personPlanSegmentsIT->personPlan, personPlanSegmentsIT->edge, 
+                                lane->getGeometry().shape[i], true, true);
+                        }
                     }
                 }
                 // if this isn't the last person plan segment, calculate a smooth shape connection
@@ -1126,7 +1135,7 @@ GNEPerson::calculateSmoothPersonPlanConnection(const GNEDemandElement* personPla
         (double) 5. * (double) edgeTo->getNBEdge()->getNumLanes());
     // add smootshape in personPlan shape
     for (const auto &i : smoothShape) {
-        myDemandElementSegmentGeometry.insertSegment(personPlanElement, edgeTo->getGNEJunctionSource(), i, true, true);
+        myDemandElementSegmentGeometry.insertJunctionSegment(personPlanElement, edgeTo->getGNEJunctionSource(), i, true, true);
     }
 }
 
