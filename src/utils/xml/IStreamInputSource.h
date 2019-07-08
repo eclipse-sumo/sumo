@@ -37,20 +37,20 @@
  */
 class IStreamBinInputStream : public XERCES_CPP_NAMESPACE::BinInputStream {
 public:
-	IStreamBinInputStream(std::istream& in) : myIn(in) { }
-	virtual ~IStreamBinInputStream(void) { }
-    virtual XMLFilePos curPos(void) const{
-		return myIn.tellg();
-	}
+    IStreamBinInputStream(std::istream& in) : myIn(in) { }
+    virtual ~IStreamBinInputStream(void) { }
+    virtual XMLFilePos curPos(void) const {
+        return myIn.tellg();
+    }
     virtual XMLSize_t readBytes(XMLByte* const buf, const XMLSize_t max) {
-		myIn.read((char*)buf, max);
-		return myIn.gcount();
-	}
+        myIn.read((char*)buf, max);
+        return (XMLSize_t)myIn.gcount();
+    }
     virtual const XMLCh* getContentType() const {
         return nullptr;
     }
 private:
-	std::istream& myIn;
+    std::istream& myIn;
 };
 
 
@@ -60,14 +60,14 @@ private:
  */
 class IStreamInputSource : public XERCES_CPP_NAMESPACE::InputSource {
 public:
-	IStreamInputSource(std::istream& in) :
+    IStreamInputSource(std::istream& in) :
         XERCES_CPP_NAMESPACE::InputSource("istream"), myIn(in) { }
-	virtual ~IStreamInputSource(void) { }
+    virtual ~IStreamInputSource(void) { }
     virtual XERCES_CPP_NAMESPACE::BinInputStream* makeStream(void) const {
-		return new IStreamBinInputStream(myIn);
-	}
+        return new IStreamBinInputStream(myIn);
+    }
 private:
-	std::istream& myIn;
+    std::istream& myIn;
 };
 
 

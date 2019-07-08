@@ -96,7 +96,7 @@ FileHelpers::addExtension(const std::string& path, const std::string& extension)
             it_path++;
             it_extension++;
         }
-        // if comparation was sucesfully, then it mean that path has already the extension
+        // if comparison was successful, then the path has already the extension
         return path;
     }
 }

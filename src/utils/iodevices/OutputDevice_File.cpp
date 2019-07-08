@@ -41,20 +41,26 @@ OutputDevice_File::OutputDevice_File(const std::string& fullName, const bool bin
 #ifdef WIN32
     if (fullName == "/dev/null") {
         myFileStream = new std::ofstream("NUL");
-    } else
-#endif
-#ifdef HAVE_ZLIB
-        if (compressed) {
-            try {
-                myFileStream = new zstr::ofstream(fullName.c_str(), binary ? std::ios::binary : std::ios_base::out);
-            } catch (zstr::Exception& e) {
-                throw IOError("Could not build output file '" + fullName + "' (" + e.what() + ").");
-            }
-        } else {
-#endif
-            myFileStream = new std::ofstream(fullName.c_str(), binary ? std::ios::binary : std::ios_base::out);
-#ifdef HAVE_ZLIB
+        if (!myFileStream->good()) {
+            delete myFileStream;
+            throw IOError("Could not redirect to NUL device (" + std::strerror(errno) + ").");
+        }
+        return;
     }
+#endif
+#ifdef HAVE_ZLIB
+    if (compressed) {
+        try {
+            myFileStream = new zstr::ofstream(fullName.c_str(), binary ? std::ios::binary : std::ios_base::out);
+        } catch (zstr::Exception& e) {
+            throw IOError("Could not build output file '" + fullName + "' (" + e.what() + ").");
+        }
+    } else {
+        myFileStream = new std::ofstream(fullName.c_str(), binary ? std::ios::binary : std::ios_base::out);
+    }
+#else
+    UNUSED_PARAMETER(compressed);
+    myFileStream = new std::ofstream(fullName.c_str(), binary ? std::ios::binary : std::ios_base::out);
 #endif
     if (!myFileStream->good()) {
         delete myFileStream;
