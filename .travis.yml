@@ -24,13 +24,12 @@ matrix:
 before_install:
   - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then sudo apt-get update; fi
   - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then sudo apt-get install cmake libxerces-c-dev libfox-1.6-dev libgdal-dev libproj-dev libgtest-dev libgl2ps-dev python3-dev swig openjdk-8-jdk maven; fi
-  - if [[ "$TOOLCHAIN" == "autotools" ]]; then sudo apt-get install autoconf automake libtool ant; fi
+  - if [[ "$TOOLCHAIN" == "autotools" ]]; then sudo apt-get install autoconf automake libtool; fi
   - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then pushd /usr/src/gtest; sudo mkdir build; cd build; sudo cmake ..; sudo make; sudo cp libgtest* /usr/lib/; popd; fi
   - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew update; fi
   - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew install xerces-c fox gl2ps; fi
 
 script:
-#  - if [[ "$CXX" == "clang++" ]]; then export CXXFLAGS="$CXXFLAGS -stdlib=libc++"; export LDFLAGS="$LDFLAGS -stdlib=libc++"; fi
   - if [[ "$TOOLCHAIN" == "autotools" ]]; then autoreconf -i && ./configure; fi
   - if [[ "$TOOLCHAIN" == "cmake" ]]; then mkdir cmake-build && cd cmake-build && cmake ..; fi
   - if [[ "$TOOLCHAIN" == "cmake-minimal" ]]; then mkdir cmake-build && cd cmake-build && cmake -DFOX_CONFIG= -DPROJ_LIBRARY= -DCHECK_OPTIONAL_LIBS=OFF ..; fi

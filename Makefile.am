@@ -113,8 +113,8 @@ examples:
 	tools/extractTest.py -x -f tests/examples.txt -p docs/examples/runAll.py
 
 traas:
-	ant -f tools/contributed/traas/build.xml clean release || true
-	cp tools/contributed/traas/dist/TraaS.jar bin || true
+	mvn --batch-mode -f tools/contributed/traas/pom.xml clean install || true
+	cp tools/contributed/traas/target/*dependencies.jar bin/TraaS.jar || true
 
 cadyts:
 	mvn --batch-mode -f tools/contributed/calibration/pom.xml clean install || true
