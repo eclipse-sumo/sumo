@@ -43,7 +43,7 @@ OutputDevice_File::OutputDevice_File(const std::string& fullName, const bool bin
         myFileStream = new std::ofstream("NUL");
         if (!myFileStream->good()) {
             delete myFileStream;
-            throw IOError("Could not redirect to NUL device (" + std::strerror(errno) + ").");
+            throw IOError("Could not redirect to NUL device (" + std::string(std::strerror(errno)) + ").");
         }
         return;
     }
