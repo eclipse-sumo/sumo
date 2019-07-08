@@ -80,14 +80,20 @@ public:
 
         /// @brief struct used for represent segments of demand element geometry
         struct Segment {
-            /// @brief parameter constructor
+            /// @brief parameter constructor for edges
             Segment(const GNEDemandElement* _element, const GNEEdge* _edge, const Position _pos, const bool _visible, const bool _valid);
+
+            /// @brief parameter constructor for junctions
+            Segment(const GNEDemandElement* _element, const GNEJunction* _junction, const Position _pos, const bool _visible, const bool _valid);
 
             /// @brief element
             const GNEDemandElement* element;
 
             /// @brief edge
             const GNEEdge* edge;
+
+            /// @brief junction
+            const GNEJunction* junction;
 
             /// @brief position
             const Position pos;

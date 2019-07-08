@@ -556,7 +556,7 @@ GNEVehicle::updateGeometry() {
             if (connectionGeometry->con) {
                 // add connection shape in in segments geometry
                 for (const auto &connectionShapePos : connectionGeometry->connectionShape) {
-                    myDemandElementSegmentGeometry.shapeSegments.push_back(DemandElementSegmentGeometry::Segment(this, &connectionGeometry->laneFrom->getParentEdge(), connectionShapePos, true, true));
+                    myDemandElementSegmentGeometry.shapeSegments.push_back(DemandElementSegmentGeometry::Segment(this, connectionGeometry->laneFrom->getParentEdge().getGNEJunctionDestiny(), connectionShapePos, true, true));
                 }
                 // add lane shape in segments geometry using laneTo of current correnction
                 for (const auto &laneShapePos : connectionGeometry->laneTo->getGeometry().shape) {

@@ -88,6 +88,19 @@ GNEDemandElement::DemandElementGeometry::calculateShapeRotationsAndLengths() {
 GNEDemandElement::DemandElementSegmentGeometry::Segment::Segment(const GNEDemandElement* _element, const GNEEdge* _edge, const Position _pos, const bool _visible, const bool _valid) :
     element(_element),
     edge(_edge),
+    junction(nullptr),
+    pos(_pos),
+    visible(_visible),
+    valid(_valid),
+    lenght(0),
+    rotation(0) {
+}
+
+
+GNEDemandElement::DemandElementSegmentGeometry::Segment::Segment(const GNEDemandElement* _element, const GNEJunction* _junction, const Position _pos, const bool _visible, const bool _valid) :
+    element(_element),
+    edge(nullptr),
+    junction(_junction),
     pos(_pos),
     visible(_visible),
     valid(_valid),
@@ -99,6 +112,7 @@ GNEDemandElement::DemandElementSegmentGeometry::Segment::Segment(const GNEDemand
 GNEDemandElement::DemandElementSegmentGeometry::Segment::Segment() :
     element(nullptr),
     edge(nullptr),
+    junction(nullptr),
     pos(Position::INVALID),
     visible(false),
     valid(false),

@@ -312,6 +312,15 @@ public:
      */
     GNELane *getLaneByVClass(const SUMOVehicleClass vClass, bool &found) const;
 
+    /// @brief draw partial route
+    void drawPartialRoute(const GUIVisualizationSettings& s, const GNEDemandElement *route, const GNEJunction* junction) const;
+
+    /// @brief draw partial trip and Flow
+    void drawPartialTripFromTo(const GUIVisualizationSettings& s, const GNEDemandElement *tripOrFromTo, const GNEJunction* junction) const;
+
+    /// @brief draw partial person plan
+    void drawPartialPersonPlan(const GUIVisualizationSettings& s, const GNEDemandElement *personPlan, const GNEJunction* junction) const;
+
 protected:
     /// @brief the underlying NBEdge
     NBEdge& myNBEdge;
@@ -381,15 +390,6 @@ private:
 
     /// @brief draw Rerouter symbols
     void drawRerouterSymbol(const GUIVisualizationSettings& s, GNEAdditional *rerouter) const;
-
-     /// @brief draw partial route
-    void drawPartialRoute(const GUIVisualizationSettings& s, GNEDemandElement *route) const;
-
-    /// @brief draw partial trip and Flow
-    void drawPartialTripFromTo(const GUIVisualizationSettings& s, GNEDemandElement *tripOrFromTo) const;
-
-    /// @brief draw partial person plan
-    void drawPartialPersonPlan(const GUIVisualizationSettings& s, GNEDemandElement *personPlan) const;
 
     /// @brief invalidated copy constructor
     GNEEdge(const GNEEdge& s) = delete;

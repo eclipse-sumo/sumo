@@ -22,22 +22,23 @@
 // ===========================================================================
 #include <config.h>
 
-#include <utils/common/StringTokenizer.h>
-#include <utils/gui/windows/GUIAppEnum.h>
-#include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
-#include <utils/gui/div/GLHelper.h>
-#include <utils/gui/images/GUITextureSubSys.h>
-#include <netbuild/NBOwnTLDef.h>
-#include <netbuild/NBLoadedSUMOTLDef.h>
 #include <netbuild/NBAlgorithms.h>
-#include <netedit/changes/GNEChange_Attribute.h>
-#include <netedit/changes/GNEChange_Connection.h>
-#include <netedit/changes/GNEChange_TLS.h>
+#include <netbuild/NBLoadedSUMOTLDef.h>
+#include <netbuild/NBNetBuilder.h>
+#include <netbuild/NBOwnTLDef.h>
 #include <netedit/GNENet.h>
 #include <netedit/GNEUndoList.h>
 #include <netedit/GNEViewNet.h>
-#include <netbuild/NBNetBuilder.h>
+#include <netedit/changes/GNEChange_Attribute.h>
+#include <netedit/changes/GNEChange_Connection.h>
+#include <netedit/changes/GNEChange_TLS.h>
+#include <netedit/demandelements/GNEDemandElement.h>
+#include <utils/common/StringTokenizer.h>
+#include <utils/gui/div/GLHelper.h>
 #include <utils/gui/globjects/GLIncludes.h>
+#include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
+#include <utils/gui/images/GUITextureSubSys.h>
+#include <utils/gui/windows/GUIAppEnum.h>
 #include <utils/options/OptionsCont.h>
 
 #include "GNEEdge.h"
@@ -357,10 +358,82 @@ GNEJunction::drawGL(const GUIVisualizationSettings& s) const {
                 i->drawGL(s);
             }
         }
-        // draw connections (Only for incoming edges)
+        // draw connections and route elements connections (Only for incoming edges)
         for (const auto &i : myGNEIncomingEdges) {
+            // first draw connections
             for (const auto &j : i->getGNEConnections()) {
                 j->drawGL(s);
+            }
+            // first check if Demand elements can be shown
+            if (myNet->getViewNet()->getViewOptionsNetwork().showDemandElements()) {
+                // certain demand elements children can contain loops (for example, routes) and it causes overlapping problems. It's needed to filter it before drawing
+                for (const auto &j : i->getSortedDemandElementChildrenByType(SUMO_TAG_ROUTE)) {
+                    // first check if route can be drawn
+                    if (myNet->getViewNet()->getViewOptionsDemand().showNonInspectedDemandElements(j)) {
+                        // draw partial route
+                        i->drawPartialRoute(s, j, this);
+                    }
+                }
+                for (const auto &j : i->getSortedDemandElementChildrenByType(SUMO_TAG_EMBEDDEDROUTE)) {
+                    // first check if embedded route can be drawn
+                    if (myNet->getViewNet()->getViewOptionsDemand().showNonInspectedDemandElements(j)) {
+                        // draw partial route
+                        i->drawPartialRoute(s, j, this);
+                    }
+                }
+                for (const auto &j : i->getSortedDemandElementChildrenByType(SUMO_TAG_TRIP)) {
+                    // Start drawing adding an gl identificator
+                    glPushName(j->getGlID());
+                    // draw partial trip only if is being inspected or selected
+                    if ((myNet->getViewNet()->getDottedAC() == j) || j->isAttributeCarrierSelected()) {
+                        i->drawPartialTripFromTo(s, j, this);
+                    }
+                    // only draw trip in the first edge
+                    if (j->getAttribute(SUMO_ATTR_FROM) == getID()) {
+                        j->drawGL(s);
+                    }
+                    // Pop name
+                    glPopName();
+                }
+                for (const auto &j : i->getSortedDemandElementChildrenByType(SUMO_TAG_FLOW)) {
+                    // Start drawing adding an gl identificator
+                    glPushName(j->getGlID());
+                    // draw partial trip only if is being inspected or selected
+                    if ((myNet->getViewNet()->getDottedAC() == j) || j->isAttributeCarrierSelected()) {
+                        i->drawPartialTripFromTo(s, j, this);
+                    }
+                    // only draw flow in the first edge
+                    if (j->getAttribute(SUMO_ATTR_FROM) == getID()) {
+                        j->drawGL(s);
+                    }
+                    // Pop name
+                    glPopName();
+                }
+                // draw partial person plan elements
+                for (const auto &j : i->getSortedDemandElementChildrenByType(SUMO_TAG_PERSONTRIP_FROMTO)) {
+                    i->drawPartialPersonPlan(s, j, this);
+                }
+                for (const auto &j : i->getSortedDemandElementChildrenByType(SUMO_TAG_PERSONTRIP_BUSSTOP)) {
+                    i->drawPartialPersonPlan(s, j, this);
+                }
+                for (const auto &j : i->getSortedDemandElementChildrenByType(SUMO_TAG_WALK_EDGES)) {
+                    i->drawPartialPersonPlan(s, j, this);
+                }
+                for (const auto &j : i->getSortedDemandElementChildrenByType(SUMO_TAG_WALK_FROMTO)) {
+                    i->drawPartialPersonPlan(s, j, this);
+                }
+                for (const auto &j : i->getSortedDemandElementChildrenByType(SUMO_TAG_WALK_BUSSTOP)) {
+                    i->drawPartialPersonPlan(s, j, this);
+                }
+                for (const auto &j : i->getSortedDemandElementChildrenByType(SUMO_TAG_WALK_ROUTE)) {
+                    i->drawPartialPersonPlan(s, j, this);
+                }
+                for (const auto &j : i->getSortedDemandElementChildrenByType(SUMO_TAG_RIDE_FROMTO)) {
+                    i->drawPartialPersonPlan(s, j, this);
+                }
+                for (const auto &j : i->getSortedDemandElementChildrenByType(SUMO_TAG_RIDE_BUSSTOP)) {
+                    i->drawPartialPersonPlan(s, j, this);
+                }
             }
         }
     }
