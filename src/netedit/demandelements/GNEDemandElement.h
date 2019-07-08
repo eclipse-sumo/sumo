@@ -145,9 +145,6 @@ public:
         /// @brief return first segment
         const Segment& firstSegment() const;
 
-        /// @brief partial shape (calculated using shapeSegments)
-        std::map<const GNEDemandElement*, PositionVector> partialShape;
-
         /// @brief mark geometry as deprecated (used to avoid multiple updates)
         bool geometryDeprecated;
 

@@ -164,7 +164,6 @@ void
 GNEDemandElement::DemandElementSegmentGeometry::clearDemandElementSegmentGeometry() {
     // clear segments
     myShapeSegments.clear();
-    partialShape.clear();
     // clear iterator maps
     edgesBeginIteratorsMap.clear();
     edgesEndIteratorsMap.clear();
@@ -190,10 +189,6 @@ GNEDemandElement::DemandElementSegmentGeometry::calculatePartialShapeRotationsAn
             // Save rotation (angle) of the vector constructed by points f and s
             myShapeSegments[i].rotation = ((double)atan2((s.x() - f.x()), (f.y() - s.y())) * (double) 180.0 / (double)M_PI);
         }
-    }
-    // fill partial shape
-    for (const auto &i : myShapeSegments) {
-        partialShape[i.element].push_back(i.pos);
     }
 }
 

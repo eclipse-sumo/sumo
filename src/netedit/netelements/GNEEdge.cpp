@@ -1264,10 +1264,12 @@ GNEEdge::drawPartialRoute(const GUIVisualizationSettings& s, const GNEDemandElem
     if (!s.drawForSelecting) {
         drawName(getCenteringBoundary().getCenter(), s.scale, s.addName);
     }
+    /*
     // check if dotted contour has to be drawn (note: drawShapeDottedContour are called many times in every interaction. fix it)
     if (!s.drawForSelecting && (myNet->getViewNet()->getDottedAC() == route)) {
         GLHelper::drawShapeDottedContour(getType(), route->getDemandElementSegmentGeometry().partialShape.at(route), routeWidth);
     }
+    */
     // Pop name
     glPopName();
     // draw route children
@@ -1385,10 +1387,12 @@ GNEEdge::drawPartialPersonPlan(const GUIVisualizationSettings& s, const GNEDeman
     if (!s.drawForSelecting) {
         drawName(getCenteringBoundary().getCenter(), s.scale, s.addName);
     }
+    /*
     // check if dotted contour has to be drawn
     if (!s.drawForSelecting && (myNet->getViewNet()->getDottedAC() == personPlan)) {
         GLHelper::drawShapeDottedContour(getType(), personPlan->getDemandElementParents().front()->getDemandElementSegmentGeometry().partialShape.at(personPlan), personPlanWidth);
     }
+    */
     // Pop name
     glPopName();
     // draw person if this edge correspond to the first edge of first Person's person plan

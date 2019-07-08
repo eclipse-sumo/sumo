@@ -558,6 +558,7 @@ GNEPerson::drawGL(const GUIVisualizationSettings& s) const {
             const double value = getColorValue(s, s.personColorer.getActive());
             GLHelper::drawTextSettings(s.personValue, toString(value), p2, s.scale, s.angle, GLO_MAX - getType());
         }
+        /*
         // check if dotted contour has to be drawn
         if (!s.drawForSelecting && (myViewNet->getDottedAC() == this)) {
             double exaggeration = s.addSize.getExaggeration(s, this);
@@ -572,6 +573,7 @@ GNEPerson::drawGL(const GUIVisualizationSettings& s) const {
                 }
             }
         }
+        */
         // pop name
         glPopName();
     }
