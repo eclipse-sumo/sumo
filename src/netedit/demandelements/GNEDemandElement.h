@@ -118,20 +118,42 @@ public:
         /// @brief constructor
         DemandElementSegmentGeometry();
 
+        /// @brief insert segment
+        void insertSegment(const GNEDemandElement* element, const GNEEdge* edge, const Position pos, const bool visible, const bool valid);
+
+        /// @brief insert segment
+        void insertSegment(const GNEDemandElement* element, const GNEJunction* junction, const Position pos, const bool visible, const bool valid);
+
         /// @brief clear demand element geometry
         void clearDemandElementSegmentGeometry();
 
         /// @brief calculate partial shape, rotations and lenghts
         void calculatePartialShapeRotationsAndLengths();
 
-        /// @brief vector of segments that constitutes the shape
-        std::vector<Segment> shapeSegments;
+        /// @brief begin iterator
+        std::vector<Segment>::const_iterator cbegin(const GNEJunction* junction) const;
+
+        /// @brief begin iterator
+        std::vector<Segment>::const_iterator cbegin(const GNEEdge* edge) const;
+        
+        /// @brief begin iterator
+        std::vector<Segment>::const_iterator cend(const GNEJunction* junction) const;
+
+        /// @brief begin iterator
+        std::vector<Segment>::const_iterator cend(const GNEEdge* edge) const;
+
+        /// @brief return first segment
+        const Segment& firstSegment() const;
 
         /// @brief partial shape (calculated using shapeSegments)
         std::map<const GNEDemandElement*, PositionVector> partialShape;
 
         /// @brief mark geometry as deprecated (used to avoid multiple updates)
         bool geometryDeprecated;
+
+    private:
+        /// @brief vector of segments that constitutes the shape
+        std::vector<Segment> myShapeSegments;
     };
     
     /// @brief struct for pack all variables related with Demand Element moving

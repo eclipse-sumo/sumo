@@ -549,28 +549,28 @@ GNEVehicle::updateGeometry() {
                 PositionVector laneShape = (connectionGeometry->laneFrom)? connectionGeometry->laneFrom->getGeometry().shape : getEdgeParents().at(0)->getLaneByVClass(getVClass())->getGeometry().shape;
                 // add lane shape in segments geometry
                 for (const auto &laneShapePos : laneShape) {
-                    myDemandElementSegmentGeometry.shapeSegments.push_back(DemandElementSegmentGeometry::Segment(this, getEdgeParents().at(0), laneShapePos, true, true));
+                    myDemandElementSegmentGeometry.insertSegment(this, getEdgeParents().at(0), laneShapePos, true, true);
                 }
             }
             // check if connection exist
             if (connectionGeometry->con) {
                 // add connection shape in in segments geometry
                 for (const auto &connectionShapePos : connectionGeometry->connectionShape) {
-                    myDemandElementSegmentGeometry.shapeSegments.push_back(DemandElementSegmentGeometry::Segment(this, connectionGeometry->laneFrom->getParentEdge().getGNEJunctionDestiny(), connectionShapePos, true, true));
+                    myDemandElementSegmentGeometry.insertSegment(this, connectionGeometry->laneFrom->getParentEdge().getGNEJunctionDestiny(), connectionShapePos, true, true);
                 }
                 // add lane shape in segments geometry using laneTo of current correnction
                 for (const auto &laneShapePos : connectionGeometry->laneTo->getGeometry().shape) {
-                    myDemandElementSegmentGeometry.shapeSegments.push_back(DemandElementSegmentGeometry::Segment(this, &connectionGeometry->laneTo->getParentEdge(), laneShapePos, true, true));
+                    myDemandElementSegmentGeometry.insertSegment(this, &connectionGeometry->laneTo->getParentEdge(), laneShapePos, true, true);
                 }
             } else if ((connectionGeometry+1) != connectionGeometriesFiltered.end()) {
                 // add lane shape in segments geometry using laneFrom of next connection
                 for (const auto &laneShapePos : (connectionGeometry+1)->laneFrom->getGeometry().shape) {
-                    myDemandElementSegmentGeometry.shapeSegments.push_back(DemandElementSegmentGeometry::Segment(this, &(connectionGeometry+1)->laneFrom->getParentEdge(), laneShapePos, true, true));
+                    myDemandElementSegmentGeometry.insertSegment(this, &(connectionGeometry+1)->laneFrom->getParentEdge(), laneShapePos, true, true);
                 }
             } else {
                 // due this is the last shape, add lane shape in segments geometry using laneTo of current connection geometry
                 for (const auto &laneShapePos : connectionGeometry->laneTo->getGeometry().shape) {
-                    myDemandElementSegmentGeometry.shapeSegments.push_back(DemandElementSegmentGeometry::Segment(this, &connectionGeometry->laneTo->getParentEdge(), laneShapePos, true, true));
+                    myDemandElementSegmentGeometry.insertSegment(this, &connectionGeometry->laneTo->getParentEdge(), laneShapePos, true, true);
                 }
             }
         }
@@ -674,16 +674,16 @@ GNEVehicle::drawGL(const GUIVisualizationSettings& s) const {
         double vehicleRotation = 0;
         if (getDemandElementParents().size() == 2) {
             // obtain position and rotation of first edge route
-            vehiclePosition = getDemandElementParents().at(1)->getDemandElementSegmentGeometry().shapeSegments.front().pos;
-            vehicleRotation = getDemandElementParents().at(1)->getDemandElementSegmentGeometry().shapeSegments.front().rotation;
+            vehiclePosition = getDemandElementParents().at(1)->getDemandElementSegmentGeometry().firstSegment().pos;
+            vehicleRotation = getDemandElementParents().at(1)->getDemandElementSegmentGeometry().firstSegment().rotation;
         } else if (getEdgeParents().size() > 0) {
             // obtain position and rotation of segments geometry
-            vehiclePosition = myDemandElementSegmentGeometry.shapeSegments.front().pos;
-            vehicleRotation = myDemandElementSegmentGeometry.shapeSegments.front().rotation;
+            vehiclePosition = myDemandElementSegmentGeometry.firstSegment().pos;
+            vehicleRotation = myDemandElementSegmentGeometry.firstSegment().rotation;
         } else if (getDemandElementChildren().size() > 0) {
             // obtain position and rotation of embedded route
-            vehiclePosition = getDemandElementChildren().at(0)->getDemandElementSegmentGeometry().shapeSegments.front().pos;
-            vehicleRotation = getDemandElementChildren().at(0)->getDemandElementSegmentGeometry().shapeSegments.front().rotation;
+            vehiclePosition = getDemandElementChildren().at(0)->getDemandElementSegmentGeometry().firstSegment().pos;
+            vehicleRotation = getDemandElementChildren().at(0)->getDemandElementSegmentGeometry().firstSegment().rotation;
         }
         // first check if if mouse is enought near to this vehicle to draw it
         if (s.drawForSelecting && (myViewNet->getPositionInformation().distanceSquaredTo2D(vehiclePosition) >= (vehicleSizeSquared + 2))) {

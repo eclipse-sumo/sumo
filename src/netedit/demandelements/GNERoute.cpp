@@ -265,11 +265,11 @@ GNERoute::updateGeometry() {
         for (int i = 0; i < (int)laneShapes.size(); i++) {
             // set lane shapes
             for (const auto &laneShapePos : laneShapes.at(i).second) {
-                myDemandElementSegmentGeometry.shapeSegments.push_back(DemandElementSegmentGeometry::Segment(this, laneShapes.at(i).first, laneShapePos, true, true));
+                myDemandElementSegmentGeometry.insertSegment(this, laneShapes.at(i).first, laneShapePos, true, true);
             }
             // set connection shapes
             for (const auto &connectionShapePos : connectionShapes.at(i)) {
-                myDemandElementSegmentGeometry.shapeSegments.push_back(DemandElementSegmentGeometry::Segment(this, laneShapes.at(i).first , connectionShapePos, true, true));
+                myDemandElementSegmentGeometry.insertSegment(this, laneShapes.at(i).first , connectionShapePos, true, true);
             }
         }
         // calculate entire shape, rotations and lenghts

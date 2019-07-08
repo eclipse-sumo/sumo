@@ -130,8 +130,20 @@ GNEDemandElement::DemandElementSegmentGeometry::DemandElementSegmentGeometry() :
 
 
 void 
+GNEDemandElement::DemandElementSegmentGeometry::insertSegment(const GNEDemandElement* element, const GNEEdge* edge, const Position pos, const bool visible, const bool valid) {
+    myShapeSegments.push_back(Segment(element, edge, pos, visible, valid));
+}
+
+
+void 
+GNEDemandElement::DemandElementSegmentGeometry::insertSegment(const GNEDemandElement* element, const GNEJunction* junction, const Position pos, const bool visible, const bool valid) {
+    myShapeSegments.push_back(Segment(element, junction, pos, visible, valid));
+}
+
+
+void 
 GNEDemandElement::DemandElementSegmentGeometry::clearDemandElementSegmentGeometry() {
-    shapeSegments.clear();
+    myShapeSegments.clear();
     partialShape.clear();
 }
 
@@ -139,25 +151,63 @@ GNEDemandElement::DemandElementSegmentGeometry::clearDemandElementSegmentGeometr
 void
 GNEDemandElement::DemandElementSegmentGeometry::calculatePartialShapeRotationsAndLengths() {
     // Get number of parts of the shapeSegments
-    int numberOfSegments = (int)shapeSegments.size() - 1;
+    int numberOfSegments = (int)myShapeSegments.size() - 1;
     // If number of segments is more than 0
     if (numberOfSegments >= 0) {
         // For every part of the shapeSegments
         for (int i = 0; i < numberOfSegments; ++i) {
             // Obtain first position
-            const Position& f = shapeSegments[i].pos;
+            const Position& f = myShapeSegments[i].pos;
             // Obtain next position
-            const Position& s = shapeSegments[i + 1].pos;
+            const Position& s = myShapeSegments[i + 1].pos;
             // Save distance between position into myShapeLengths
-            shapeSegments[i].lenght = f.distanceTo2D(s);
+            myShapeSegments[i].lenght = f.distanceTo2D(s);
             // Save rotation (angle) of the vector constructed by points f and s
-            shapeSegments[i].rotation = ((double)atan2((s.x() - f.x()), (f.y() - s.y())) * (double) 180.0 / (double)M_PI);
+            myShapeSegments[i].rotation = ((double)atan2((s.x() - f.x()), (f.y() - s.y())) * (double) 180.0 / (double)M_PI);
         }
     }
     // fill partial shape
-    for (const auto &i : shapeSegments) {
+    for (const auto &i : myShapeSegments) {
         partialShape[i.element].push_back(i.pos);
     }
+}
+
+
+std::vector<GNEDemandElement::DemandElementSegmentGeometry::Segment>::const_iterator 
+GNEDemandElement::DemandElementSegmentGeometry::cbegin(const GNEJunction* junction) const {
+    return myShapeSegments.cbegin();
+}
+
+
+std::vector<GNEDemandElement::DemandElementSegmentGeometry::Segment>::const_iterator 
+GNEDemandElement::DemandElementSegmentGeometry::cbegin(const GNEEdge* edge) const {
+    return myShapeSegments.cbegin();
+}
+        
+
+std::vector<GNEDemandElement::DemandElementSegmentGeometry::Segment>::const_iterator 
+GNEDemandElement::DemandElementSegmentGeometry::cend(const GNEJunction* junction) const {
+    if (myShapeSegments.size() > 0) {
+        return myShapeSegments.cend()-1;
+    } else {
+        return myShapeSegments.cend();
+    }
+}
+
+
+std::vector<GNEDemandElement::DemandElementSegmentGeometry::Segment>::const_iterator 
+GNEDemandElement::DemandElementSegmentGeometry::cend(const GNEEdge* edge) const {
+    if (myShapeSegments.size() > 0) {
+        return myShapeSegments.cend()-1;
+    } else {
+        return myShapeSegments.cend();
+    }
+}
+
+
+const GNEDemandElement::DemandElementSegmentGeometry::Segment& 
+GNEDemandElement::DemandElementSegmentGeometry::firstSegment() const {
+    return myShapeSegments.front();
 }
 
 // ---------------------------------------------------------------------------

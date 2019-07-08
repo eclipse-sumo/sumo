@@ -1241,15 +1241,21 @@ GNEEdge::drawPartialRoute(const GUIVisualizationSettings& s, const GNEDemandElem
         GLHelper::setColor(route->getColor());
     }
     // draw route
-    for (int i = 0; i < ((int)route->getDemandElementSegmentGeometry().shapeSegments.size()-1); i++) {
-        // obtain segment (to improve code legibly)
-        const GNEDemandElement::DemandElementSegmentGeometry::Segment &segment = route->getDemandElementSegmentGeometry().shapeSegments[i];
-        // obtain drawing flags
-        bool validEdge = (segment.edge == this);
-        bool validJunction = (junction == nullptr)? false : (junction == segment.junction);
-        // draw partial segment
-        if ((validEdge || validJunction) && (segment.element == route)) {
-            GLHelper::drawBoxLine(segment.pos, segment.rotation, segment.lenght, routeWidth, 0);
+    if (junction) {
+        // iterate over segments
+        for (auto segment = route->getDemandElementSegmentGeometry().cbegin(junction); segment != route->getDemandElementSegmentGeometry().cend(junction); segment++) {
+            // draw partial segment
+            if ((segment->junction == junction) && (segment->element == route) && segment->visible) {
+                GLHelper::drawBoxLine(segment->pos, segment->rotation, segment->lenght, routeWidth, 0);
+            }
+        }
+    } else {
+        // iterate over segments
+        for (auto segment = route->getDemandElementSegmentGeometry().cbegin(this); segment != route->getDemandElementSegmentGeometry().cend(this); segment++) {
+            // draw partial segment
+            if ((segment->edge == this) && (segment->element == route) && segment->visible) {
+                GLHelper::drawBoxLine(segment->pos, segment->rotation, segment->lenght, routeWidth, 0);
+            }
         }
     }
     // Pop last matrix
@@ -1267,7 +1273,7 @@ GNEEdge::drawPartialRoute(const GUIVisualizationSettings& s, const GNEDemandElem
     // draw route children
     for (const auto &i : route->getDemandElementChildren()) {
         if (i->getTagProperty().getTag() == SUMO_TAG_WALK_ROUTE) {
-            drawPartialPersonPlan(s, i, nullptr);
+            drawPartialPersonPlan(s, i, junction);
         } else {
             i->drawGL(s);
         }
@@ -1294,16 +1300,22 @@ GNEEdge::drawPartialTripFromTo(const GUIVisualizationSettings& s, const GNEDeman
     } else {
         GLHelper::setColor(RGBColor::ORANGE);
     }
-    // draw tripOrFromTo
-    for (int i = 0; i < ((int)tripOrFromTo->getDemandElementSegmentGeometry().shapeSegments.size()-1); i++) {
-        // obtain segment (to improve code legibly)
-        const GNEDemandElement::DemandElementSegmentGeometry::Segment &segment = tripOrFromTo->getDemandElementSegmentGeometry().shapeSegments[i];
-        // obtain drawing flags
-        bool validEdge = (segment.edge == this);
-        bool validJunction = (junction == nullptr)? false : (junction == segment.junction);
-        // draw partial segment
-        if ((validEdge || validJunction) && (segment.element == tripOrFromTo)) {
-            GLHelper::drawBoxLine(segment.pos, segment.rotation, segment.lenght, tripOrFromToWidth, 0);
+    // draw trip from to
+    if (junction) {
+        // iterate over segments
+        for (auto segment = tripOrFromTo->getDemandElementSegmentGeometry().cbegin(junction); segment != tripOrFromTo->getDemandElementSegmentGeometry().cend(junction); segment++) {
+            // draw partial segment
+            if ((segment->junction == junction) && (segment->element == tripOrFromTo) && segment->visible) {
+                GLHelper::drawBoxLine(segment->pos, segment->rotation, segment->lenght, tripOrFromToWidth, 0);
+            }
+        }
+    } else {
+        // iterate over segments
+        for (auto segment = tripOrFromTo->getDemandElementSegmentGeometry().cbegin(this); segment != tripOrFromTo->getDemandElementSegmentGeometry().cend(this); segment++) {
+            // draw partial segment
+            if ((segment->edge == this) && (segment->element == tripOrFromTo) && segment->visible) {
+                GLHelper::drawBoxLine(segment->pos, segment->rotation, segment->lenght, tripOrFromToWidth, 0);
+            }
         }
     }
     // Pop last matrix
@@ -1345,16 +1357,26 @@ GNEEdge::drawPartialPersonPlan(const GUIVisualizationSettings& s, const GNEDeman
     } else if (personPlan->getTagProperty().isRide()) {
         personPlanWidth = s.addSize.getExaggeration(s, this) * s.SUMO_width_ride;
     }
-    // draw person plan
-    for (int i = 0; i < ((int)personPlan->getDemandElementParents().front()->getDemandElementSegmentGeometry().shapeSegments.size()-1); i++) {
-        // obtain segment (to improve code legibly)
-        const GNEDemandElement::DemandElementSegmentGeometry::Segment &segment = personPlan->getDemandElementParents().front()->getDemandElementSegmentGeometry().shapeSegments[i];
-        // obtain drawing flags
-        bool validEdge = (segment.edge == this);
-        bool validJunction = (junction == nullptr)? false : (junction == segment.junction);
-        // draw partial segment
-        if (segment.visible && (validEdge || validJunction) && (segment.element == personPlan)) {
-            GLHelper::drawBoxLine(segment.pos, segment.rotation, segment.lenght, personPlanWidth, 0);
+    // draw route
+    if (junction) {
+        // iterate over segments
+        for (auto segment = personPlan->getDemandElementParents().front()->getDemandElementSegmentGeometry().cbegin(junction); 
+                segment != personPlan->getDemandElementParents().front()->getDemandElementSegmentGeometry().cend(junction); 
+                segment++) {
+            // draw partial segment
+            if ((segment->junction == junction) && (segment->element == personPlan) && segment->visible) {
+                GLHelper::drawBoxLine(segment->pos, segment->rotation, segment->lenght, personPlanWidth, 0);
+            }
+        }
+    } else {
+        // iterate over segments
+        for (auto segment = personPlan->getDemandElementParents().front()->getDemandElementSegmentGeometry().cbegin(this); 
+                segment != personPlan->getDemandElementParents().front()->getDemandElementSegmentGeometry().cend(this); 
+                segment++) {
+            // draw partial segment
+            if ((segment->edge == this) && (segment->element == personPlan) && segment->visible) {
+                GLHelper::drawBoxLine(segment->pos, segment->rotation, segment->lenght, personPlanWidth, 0);
+            }
         }
     }
     // Pop last matrix
@@ -1381,7 +1403,7 @@ GNEEdge::drawPartialPersonPlan(const GUIVisualizationSettings& s, const GNEDeman
         }
     } else if (personPlan->getDemandElementParents().front()->getDemandElementChildren().front()->getTagProperty().getTag() == SUMO_TAG_WALK_ROUTE) {
         // obtain first rute edge
-        firstEdge = personPlan->getDemandElementParents().front()->getDemandElementChildren().front()->getDemandElementParents().front()->getEdgeParents().front();
+        firstEdge = personPlan->getDemandElementParents().at(1)->getEdgeParents().front();
     } else {
         // obtain first edge parent
         firstEdge = personPlan->getDemandElementParents().front()->getDemandElementChildren().front()->getEdgeParents().front();
