@@ -786,6 +786,8 @@ VAR_PERSON_NUMBER = 0x67
 #  person capacity (vehicle , vehicle type)
 VAR_PERSON_CAPACITY = 0x38
 
+VAR_BUS_STOP_ID_LIST = 0x9f
+
 #  number of persons waiting at a defined bus stop (get: simulation)
 VAR_BUS_STOP_WAITING = 0x67
 

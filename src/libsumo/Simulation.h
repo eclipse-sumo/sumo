@@ -84,6 +84,7 @@ public:
     static int getEndingTeleportNumber();
     static std::vector<std::string> getEndingTeleportIDList();
 
+    static std::vector<std::string> getBusStopIDList();
     static int getBusStopWaiting(const std::string& id);
 
     /** @brief Returns the IDs of the transportables on a given bus stop.

@@ -140,6 +140,7 @@ _RETURN_VALUE_FUNC = {tc.VAR_TIME: Storage.readDouble,
                       tc.VAR_EMERGENCYSTOPPING_VEHICLES_NUMBER: Storage.readInt,
                       tc.VAR_EMERGENCYSTOPPING_VEHICLES_IDS: Storage.readStringList,
                       tc.VAR_MIN_EXPECTED_VEHICLES: Storage.readInt,
+                      tc.VAR_BUS_STOP_ID_LIST: Storage.readStringList,
                       tc.VAR_BUS_STOP_WAITING: Storage.readInt,
                       tc.VAR_BUS_STOP_WAITING_IDS: Storage.readStringList,
                       tc.VAR_TELEPORT_STARTING_VEHICLES_NUMBER: Storage.readInt,
@@ -325,6 +326,9 @@ class SimulationDomain(Domain):
         and all vehicles have left the network.
         """
         return self._getUniversal(tc.VAR_MIN_EXPECTED_VEHICLES)
+
+    def getBusStopIDList(self):
+        return self._getUniversal(tc.VAR_BUS_STOP_ID_LIST)
 
     def getBusStopWaiting(self, stopID):
         """getBusStopWaiting() -> integer
