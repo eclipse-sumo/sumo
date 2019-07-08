@@ -131,20 +131,45 @@ GNEDemandElement::DemandElementSegmentGeometry::DemandElementSegmentGeometry() :
 
 void 
 GNEDemandElement::DemandElementSegmentGeometry::insertSegment(const GNEDemandElement* element, const GNEEdge* edge, const Position pos, const bool visible, const bool valid) {
+    // obtain previous edge
+    const GNEEdge* previousEdge = (myShapeSegments.size() > 0)? myShapeSegments.back().edge : nullptr;
+    // add segment in myShapeSegments
     myShapeSegments.push_back(Segment(element, edge, pos, visible, valid));
+    // set iterators
+    if (previousEdge != edge) {
+        edgesBeginIteratorsMap[edge] = (myShapeSegments.begin() + myShapeSegments.size() - 1);
+    } else if (previousEdge == edge) {
+        edgesEndIteratorsMap[edge] = (myShapeSegments.begin() + myShapeSegments.size() - 1);
+    }
 }
 
 
 void 
 GNEDemandElement::DemandElementSegmentGeometry::insertSegment(const GNEDemandElement* element, const GNEJunction* junction, const Position pos, const bool visible, const bool valid) {
+    // obtain previous junction
+    const GNEJunction* previousJunction = (myShapeSegments.size() > 0)? myShapeSegments.back().junction : nullptr;
+    // add segment in myShapeSegments
     myShapeSegments.push_back(Segment(element, junction, pos, visible, valid));
+    // set iterators
+    if (junctionsBeginIteratorsMap.count(junction) == 0) {
+        junctionsBeginIteratorsMap[junction] = (myShapeSegments.begin() + myShapeSegments.size() - 1);
+    } 
+    if (previousJunction == junction) {
+        junctionsEndIteratorsMap[junction] = (myShapeSegments.begin() + myShapeSegments.size() - 1);
+    }
 }
 
 
 void 
 GNEDemandElement::DemandElementSegmentGeometry::clearDemandElementSegmentGeometry() {
+    // clear segments
     myShapeSegments.clear();
     partialShape.clear();
+    // clear iterator maps
+    edgesBeginIteratorsMap.clear();
+    edgesEndIteratorsMap.clear();
+    junctionsBeginIteratorsMap.clear();
+    junctionsEndIteratorsMap.clear();
 }
 
 
@@ -174,33 +199,33 @@ GNEDemandElement::DemandElementSegmentGeometry::calculatePartialShapeRotationsAn
 
 
 std::vector<GNEDemandElement::DemandElementSegmentGeometry::Segment>::const_iterator 
-GNEDemandElement::DemandElementSegmentGeometry::cbegin(const GNEJunction* junction) const {
-    return myShapeSegments.cbegin();
-}
-
-
-std::vector<GNEDemandElement::DemandElementSegmentGeometry::Segment>::const_iterator 
 GNEDemandElement::DemandElementSegmentGeometry::cbegin(const GNEEdge* edge) const {
-    return myShapeSegments.cbegin();
-}
-        
-
-std::vector<GNEDemandElement::DemandElementSegmentGeometry::Segment>::const_iterator 
-GNEDemandElement::DemandElementSegmentGeometry::cend(const GNEJunction* junction) const {
-    if (myShapeSegments.size() > 0) {
-        return myShapeSegments.cend()-1;
-    } else {
-        return myShapeSegments.cend();
-    }
+    return edgesBeginIteratorsMap.at(edge);
 }
 
 
 std::vector<GNEDemandElement::DemandElementSegmentGeometry::Segment>::const_iterator 
 GNEDemandElement::DemandElementSegmentGeometry::cend(const GNEEdge* edge) const {
-    if (myShapeSegments.size() > 0) {
-        return myShapeSegments.cend()-1;
+    return edgesEndIteratorsMap.at(edge);
+}
+
+
+std::vector<GNEDemandElement::DemandElementSegmentGeometry::Segment>::const_iterator 
+GNEDemandElement::DemandElementSegmentGeometry::cbegin(const GNEJunction* junction) const {
+    if (junctionsBeginIteratorsMap.count(junction) > 0) {
+        return junctionsBeginIteratorsMap.at(junction);
     } else {
-        return myShapeSegments.cend();
+        return myShapeSegments.end();
+    }
+}
+
+
+std::vector<GNEDemandElement::DemandElementSegmentGeometry::Segment>::const_iterator 
+GNEDemandElement::DemandElementSegmentGeometry::cend(const GNEJunction* junction) const {
+    if (junctionsEndIteratorsMap.count(junction) > 0) {
+        return junctionsEndIteratorsMap.at(junction);
+    } else {
+        return myShapeSegments.end();
     }
 }
 
