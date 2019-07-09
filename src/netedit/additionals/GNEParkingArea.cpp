@@ -107,8 +107,6 @@ GNEParkingArea::drawGL(const GUIVisualizationSettings& s) const {
     if(s.drawBoundaries) {
         GLHelper::drawBoundary(getCenteringBoundary());
     }
-    // obtain circle resolution
-    int circleResolution = getCircleResolution(s);
     // Obtain exaggeration of the draw
     const double exaggeration = s.addSize.getExaggeration(s, this);
     // Push name
@@ -138,7 +136,7 @@ GNEParkingArea::drawGL(const GUIVisualizationSettings& s) const {
             // set color
             GLHelper::setColor(s.colorSettings.busStop);
             // Draw circle
-            GLHelper::drawFilledCircle(myCircleWidth, circleResolution);
+            GLHelper::drawFilledCircle(myCircleWidth, s.getCircleResolution());
             // pop draw matrix
             glPopMatrix();
         }
@@ -156,7 +154,7 @@ GNEParkingArea::drawGL(const GUIVisualizationSettings& s) const {
             GLHelper::setColor(RGBColor(83, 89, 172, 255));
         }
         // Draw extern
-        GLHelper::drawFilledCircle(myCircleWidth, circleResolution);
+        GLHelper::drawFilledCircle(myCircleWidth, s.getCircleResolution());
         // Move to top
         glTranslated(0, 0, .1);
         // Set sign color
@@ -166,7 +164,7 @@ GNEParkingArea::drawGL(const GUIVisualizationSettings& s) const {
             GLHelper::setColor(RGBColor(177, 184, 186, 171));
         }
         // Draw internt sign
-        GLHelper::drawFilledCircle(myCircleInWidth, circleResolution);
+        GLHelper::drawFilledCircle(myCircleInWidth, s.getCircleResolution());
         // Draw sign 'C'
         if (s.drawDetail(s.detailSettings.stoppingPlaceText, exaggeration)) {
             if (drawUsingSelectColor()) {

@@ -88,8 +88,6 @@ GNEBusStop::getCenteringBoundary() const {
 
 void
 GNEBusStop::drawGL(const GUIVisualizationSettings& s) const {
-    // obtain circle resolution
-    int circleResolution = getCircleResolution(s);
     // Obtain exaggeration of the draw
     const double exaggeration = s.addSize.getExaggeration(s, this);
     // Start drawing adding an gl identificator
@@ -121,7 +119,7 @@ GNEBusStop::drawGL(const GUIVisualizationSettings& s) const {
             // set color
             GLHelper::setColor(s.colorSettings.busStop);
             // Draw circle
-            GLHelper::drawFilledCircle(myCircleWidth, circleResolution);
+            GLHelper::drawFilledCircle(myCircleWidth, s.getCircleResolution());
             // pop draw matrix
             glPopMatrix();
         }
@@ -159,7 +157,7 @@ GNEBusStop::drawGL(const GUIVisualizationSettings& s) const {
             GLHelper::setColor(s.colorSettings.busStop);
         }
         // Draw circle
-        GLHelper::drawFilledCircle(myCircleWidth, circleResolution);
+        GLHelper::drawFilledCircle(myCircleWidth, s.getCircleResolution());
         // Traslate to front
         glTranslated(0, 0, .1);
         // Set color of the interne circle
@@ -169,7 +167,7 @@ GNEBusStop::drawGL(const GUIVisualizationSettings& s) const {
             GLHelper::setColor(s.colorSettings.busStop_sign);
         }
         // draw another circle in the same position, but a little bit more small
-        GLHelper::drawFilledCircle(myCircleInWidth, circleResolution);
+        GLHelper::drawFilledCircle(myCircleInWidth, s.getCircleResolution());
         // If the scale * exageration is equal or more than 4.5, draw H
         if (s.drawDetail(s.detailSettings.stoppingPlaceText, exaggeration)) {
             if (drawUsingSelectColor()) {

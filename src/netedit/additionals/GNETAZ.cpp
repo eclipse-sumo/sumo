@@ -262,7 +262,6 @@ GNETAZ::drawGL(const GUIVisualizationSettings& s) const {
         return;
     }
     Boundary boundary = myGeometry.shape.getBoxBoundary();
-    int circleResolution = GNEAttributeCarrier::getCircleResolution(s);
     if (s.scale * MAX2(boundary.getWidth(), boundary.getHeight()) < s.polySize.minSize) {
         return;
     }
@@ -317,7 +316,7 @@ GNETAZ::drawGL(const GUIVisualizationSettings& s) const {
                     } else {
                         GLHelper::setColor(darkerColor);
                     }
-                    GLHelper::drawFilledCircle(myHintSize, circleResolution);
+                    GLHelper::drawFilledCircle(myHintSize, s.getCircleResolution());
                     glPopMatrix();
                 }
             }
@@ -328,7 +327,7 @@ GNETAZ::drawGL(const GUIVisualizationSettings& s) const {
                 Position hintPos = myGeometry.shape.size() > 1 ? myGeometry.shape.positionAtOffset2D(myGeometry.shape.nearest_offset_to_point2D(mousePosition)) : myGeometry.shape[0];
                 glTranslated(hintPos.x(), hintPos.y(), GLO_POLYGON + 0.04);
                 GLHelper::setColor(invertedColor);
-                GLHelper:: drawFilledCircle(myHintSize, circleResolution);
+                GLHelper:: drawFilledCircle(myHintSize, s.getCircleResolution());
                 glPopMatrix();
             }
         }

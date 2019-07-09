@@ -92,8 +92,10 @@ const double GUIVisualizationWidthSettings::ride(0.50);
 // details of certain NETEDIT objects
 // -------------------------------------------------------------------------
 
+const double GUIVisualizationDetailSettings::geometryPointsDetails(10);
+const double GUIVisualizationDetailSettings::geometryPointsText(30);
 const double GUIVisualizationDetailSettings::stoppingPlaceDetails(10);
-const double GUIVisualizationDetailSettings::stoppingPlaceText(4.5);
+const double GUIVisualizationDetailSettings::stoppingPlaceText(30);
 const double GUIVisualizationDetailSettings::detectorDetails(10);
 const double GUIVisualizationDetailSettings::detectorText(30);
 const double GUIVisualizationDetailSettings::stopsDetails(10);
@@ -1573,6 +1575,20 @@ GUIVisualizationSettings::getTextAngle(double objectAngle) const {
 bool 
 GUIVisualizationSettings::drawDetail(const double detail, const double exaggeration) const {
     return (scale * exaggeration) >= detail;
+}
+
+
+const int
+GUIVisualizationSettings::getCircleResolution() const {
+    if (drawForSelecting) {
+        return 8;
+    } else if (scale >= 10) {
+        return 32;
+    } else if (scale >= 2) {
+        return 16;
+    } else {
+        return 8;
+    }
 }
 
 /****************************************************************************/

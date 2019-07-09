@@ -2729,7 +2729,7 @@ GNEViewNet::drawLaneCandidates() const {
             glTranslated(firstLanePoint.x(), firstLanePoint.y(), GLO_JUNCTION + 0.3);
             GLHelper::setColor(RGBColor::RED);
             // draw first point
-            GLHelper::drawFilledCircle((double) 1.3, 8);
+            GLHelper::drawFilledCircle((double) 1.3, myVisualizationSettings->getCircleResolution());
             GLHelper::drawText("S", Position(), .1, 1.3, RGBColor::CYAN);
             // pop draw matrix
             glPopMatrix();

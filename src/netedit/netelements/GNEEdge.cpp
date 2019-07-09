@@ -1451,7 +1451,7 @@ GNEEdge::drawPartialPersonPlan(const GUIVisualizationSettings& s, const GNEDeman
                     GLHelper::setColor(s.colorSettings.ride);
                 }
                 // resolution of drawn circle depending of the zoom (To improve smothness)
-                GLHelper::drawFilledCircle(circleWidth, GNEAttributeCarrier::getCircleResolution(s));
+                GLHelper::drawFilledCircle(circleWidth, s.getCircleResolution());
                 glPopMatrix();
             }
         }
@@ -2004,10 +2004,11 @@ GNEEdge::setShapeEndPos(const Position& pos) {
 
 void 
 GNEEdge::drawGeometryPoints(const GUIVisualizationSettings& s) const {
+    // Obtain exaggeration of the draw
+    const double exaggeration = s.addSize.getExaggeration(s, this);
     // obtain circle width
     double circleWidth = SNAP_RADIUS * MIN2((double)1, s.laneWidthExaggeration);
     double circleWidthSquared = circleWidth * circleWidth;
-    int circleResolution = GNEAttributeCarrier::getCircleResolution(s);
     // obtain color
     RGBColor color = s.junctionColorer.getSchemes()[0].getColor(2);
     if (drawUsingSelectColor() && s.laneColorer.getActive() != 1) {
@@ -2026,7 +2027,7 @@ GNEEdge::drawGeometryPoints(const GUIVisualizationSettings& s) const {
                 glPushMatrix();
                 glTranslated(pos.x(), pos.y(), GLO_JUNCTION - 0.01);
                 // resolution of drawn circle depending of the zoom (To improve smothness)
-                GLHelper::drawFilledCircle(circleWidth, circleResolution);
+                GLHelper::drawFilledCircle(circleWidth, s.getCircleResolution());
                 glPopMatrix();
                 // draw elevation or special symbols (Start, End and Block)
                 if (!s.drawForSelecting && myNet->getViewNet()->getViewOptionsNetwork().editingElevation()) {
@@ -2046,10 +2047,10 @@ GNEEdge::drawGeometryPoints(const GUIVisualizationSettings& s) const {
                 glPushMatrix();
                 glTranslated(myNBEdge.getGeometry().front().x(), myNBEdge.getGeometry().front().y(), GLO_JUNCTION + 0.01);
                 // resolution of drawn circle depending of the zoom (To improve smothness)
-                GLHelper::drawFilledCircle(circleWidth, circleResolution);
+                GLHelper::drawFilledCircle(circleWidth, s.getCircleResolution());
                 glPopMatrix();
                 // draw a "s" over last point depending of drawForSelecting
-                if (!s.drawForSelecting) {
+                if (!s.drawForSelecting && s.drawDetail(s.detailSettings.geometryPointsText, exaggeration)) {
                     glPushMatrix();
                     glTranslated(myNBEdge.getGeometry().front().x(), myNBEdge.getGeometry().front().y(), GLO_JUNCTION + 0.02);
                     GLHelper::drawText("S", Position(), 0, circleWidth, RGBColor::WHITE);
@@ -2069,10 +2070,10 @@ GNEEdge::drawGeometryPoints(const GUIVisualizationSettings& s) const {
                 glPushMatrix();
                 glTranslated(myNBEdge.getGeometry().back().x(), myNBEdge.getGeometry().back().y(), GLO_JUNCTION + 0.01);
                 // resolution of drawn circle depending of the zoom (To improve smothness)
-                GLHelper::drawFilledCircle(circleWidth, circleResolution);
+                GLHelper::drawFilledCircle(circleWidth, s.getCircleResolution());
                 glPopMatrix();
                 // draw a "e" over last point depending of drawForSelecting
-                if (!s.drawForSelecting) {
+                if (!s.drawForSelecting && s.drawDetail(s.detailSettings.geometryPointsText, exaggeration)) {
                     glPushMatrix();
                     glTranslated(myNBEdge.getGeometry().back().x(), myNBEdge.getGeometry().back().y(), GLO_JUNCTION + 0.02);
                     GLHelper::drawText("E", Position(), 0, circleWidth, RGBColor::WHITE);

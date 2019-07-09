@@ -290,7 +290,8 @@ GNEPoly::drawGL(const GUIVisualizationSettings& s) const {
     // draw details of Netedit
     double circleWidth = myHintSize * MIN2((double)1, s.polySize.getExaggeration(s, this));
     double circleWidthSquared = circleWidth * circleWidth;
-    int circleResolution = GNEAttributeCarrier::getCircleResolution(s);
+    // Obtain exaggeration of the draw
+    const double exaggeration = s.addSize.getExaggeration(s, this);
     // draw geometry details hints if is not too small and isn't in selecting mode
     if (s.scale * circleWidth > 1.) {
         // set values relative to mouse position regarding to shape
@@ -327,7 +328,7 @@ GNEPoly::drawGL(const GUIVisualizationSettings& s) const {
                     } else {
                         GLHelper::setColor(darkerColor);
                     }
-                    GLHelper::drawFilledCircle(circleWidth, circleResolution);
+                    GLHelper::drawFilledCircle(circleWidth, s.getCircleResolution());
                     glPopMatrix();
                     // draw elevation or special symbols (Start, End and Block)
                     if (!s.drawForSelecting && myNet->getViewNet()->getViewOptionsNetwork().editingElevation()) {
@@ -339,13 +340,13 @@ GNEPoly::drawGL(const GUIVisualizationSettings& s) const {
                         GLHelper::drawText(toString(i.z()), Position(), .1, 0.7, RGBColor::BLUE);
                         // pop matrix
                         glPopMatrix();
-                    } else if ((i == myShape.front()) && !s.drawForSelecting) {
+                    } else if ((i == myShape.front()) && !s.drawForSelecting && s.drawDetail(s.detailSettings.geometryPointsText, exaggeration)) {
                         // draw a "s" over first point
                         glPushMatrix();
                         glTranslated(i.x(), i.y(), GLO_POLYGON + 0.03);
                         GLHelper::drawText("S", Position(), .1, 2 * circleWidth, invertedColor);
                         glPopMatrix();
-                    } else if ((i == myShape.back()) && (myClosedShape == false) && !s.drawForSelecting) {
+                    } else if ((i == myShape.back()) && (myClosedShape == false) && !s.drawForSelecting && s.drawDetail(s.detailSettings.geometryPointsText, exaggeration)) {
                         // draw a "e" over last point if polygon isn't closed
                         glPushMatrix();
                         glTranslated(i.x(), i.y(), GLO_POLYGON + 0.03);
@@ -361,7 +362,7 @@ GNEPoly::drawGL(const GUIVisualizationSettings& s) const {
                 Position hintPos = myShape.size() > 1 ? myShape.positionAtOffset2D(myShape.nearest_offset_to_point2D(mousePosition)) : myShape[0];
                 glTranslated(hintPos.x(), hintPos.y(), GLO_POLYGON + 0.04);
                 GLHelper::setColor(invertedColor);
-                GLHelper:: drawFilledCircle(circleWidth, circleResolution);
+                GLHelper:: drawFilledCircle(circleWidth, s.getCircleResolution());
                 glPopMatrix();
             }
         }

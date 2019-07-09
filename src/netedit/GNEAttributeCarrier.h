@@ -805,9 +805,6 @@ public:
         return parse<T>(parsedAttribute);
     }
 
-    /// @brief function to calculate circle resolution for all circles drawn in drawGL(...) functions
-    static int getCircleResolution(const GUIVisualizationSettings& settings);
-
 protected:
     /// @brief the xml tag to which this attribute carrier corresponds
     const TagProperties& myTagProperty;

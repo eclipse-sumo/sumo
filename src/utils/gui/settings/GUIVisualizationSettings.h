@@ -208,22 +208,28 @@ struct GUIVisualizationWidthSettings {
 /// @brief struct for detail settings
 struct GUIVisualizationDetailSettings {
 
-    /// @brief details for stopping place details
+    /// @brief details for Geometry Points
+    static const double geometryPointsDetails;
+
+    /// @brief details for Geometry Points Texts
+    static const double geometryPointsText;
+
+    /// @brief details for stopping places
     static const double stoppingPlaceDetails;
 
-    /// @brief details for stopping place text
+    /// @brief details for stopping place texts
     static const double stoppingPlaceText;
 
-    /// @brief details for detector details
+    /// @brief details for detectors
     static const double detectorDetails;
 
     /// @brief details for detector texts
     static const double detectorText;
 
-    /// @brief width for stop details
+    /// @brief details for stops
     static const double stopsDetails;
 
-    /// @brief width for stop text
+    /// @brief details for stop texts
     static const double stopsText;
 };
 
@@ -278,6 +284,9 @@ public:
 
     /// @brief check if details can be drawn for the given GUIVisualizationDetailSettings and current scale and exxageration
     bool drawDetail(const double detail, const double exaggeration) const;
+
+    /// @brief function to calculate circle resolution for all circles drawn in drawGL(...) functions
+    const int getCircleResolution() const;
 
     /// @brief The name of this setting
     std::string name;

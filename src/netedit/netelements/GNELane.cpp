@@ -1244,29 +1244,34 @@ GLHelper::setColor(s.junctionColorer.getSchemes()[0].getColor(2));
     }
     // obtain circle width and resolution
     double circleWidth = GNEEdge::SNAP_RADIUS * MIN2((double)1, s.laneWidthExaggeration) / 2;
-    int circleResolution = GNEAttributeCarrier::getCircleResolution(s);
+    // Obtain exaggeration of the draw
+    const double exaggeration = s.addSize.getExaggeration(s, this);
     // obtain custom shape
     const PositionVector& customShape = myParentEdge.getNBEdge()->getLaneStruct(myIndex).customShape;
-    // draw s
-    glPushMatrix();
-    glTranslated(customShape.front().x(), customShape.front().y(), GLO_JUNCTION + 0.01);
-    GLHelper::drawFilledCircle(circleWidth, circleResolution);
-    glTranslated(0, 0, 0.01);
-    GLHelper::drawText("S", Position(), 0, circleWidth, RGBColor::WHITE);
-    glPopMatrix();
+    // draw s depending of detail
+    if (s.drawDetail(s.detailSettings.geometryPointsText, exaggeration)) {
+        glPushMatrix();
+        glTranslated(customShape.front().x(), customShape.front().y(), GLO_JUNCTION + 0.01);
+        GLHelper::drawFilledCircle(circleWidth, s.getCircleResolution());
+        glTranslated(0, 0, 0.01);
+        GLHelper::drawText("S", Position(), 0, circleWidth, RGBColor::WHITE);
+        glPopMatrix();
+    }
     // draw line between Junction and point
     glPushMatrix();
     glTranslated(0, 0, GLO_JUNCTION - 0.01);
     glLineWidth(4);
     GLHelper::drawLine(customShape.front(), myParentEdge.getGNEJunctionSource()->getPositionInView());
     glPopMatrix();
-    // draw "e"
-    glPushMatrix();
-    glTranslated(customShape.back().x(), customShape.back().y(), GLO_JUNCTION + 0.01);
-    GLHelper::drawFilledCircle(circleWidth, circleResolution);
-    glTranslated(0, 0, 0.01);
-    GLHelper::drawText("E", Position(), 0, circleWidth, RGBColor::WHITE);
-    glPopMatrix();
+    // draw "e" depending of detail
+    if (s.drawDetail(s.detailSettings.geometryPointsText, exaggeration)) {
+        glPushMatrix();
+        glTranslated(customShape.back().x(), customShape.back().y(), GLO_JUNCTION + 0.01);
+        GLHelper::drawFilledCircle(circleWidth, s.getCircleResolution());
+        glTranslated(0, 0, 0.01);
+        GLHelper::drawText("E", Position(), 0, circleWidth, RGBColor::WHITE);
+        glPopMatrix();
+    }
     // draw line between Junction and point
     glPushMatrix();
     glTranslated(0, 0, GLO_JUNCTION - 0.01);

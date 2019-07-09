@@ -269,7 +269,6 @@ GNEJunction::drawGL(const GUIVisualizationSettings& s) const {
     // declare values for circles
     double circleWidth = BUBBLE_RADIUS * exaggeration;
     double circleWidthSquared = circleWidth * circleWidth;
-    int circleResolution = GNEAttributeCarrier::getCircleResolution(s);
     // push name
     if (s.scale * exaggeration * myMaxSize < 1.) {
         // draw something simple so that selection still works
@@ -314,7 +313,7 @@ GNEJunction::drawGL(const GUIVisualizationSettings& s) const {
                 glPushMatrix();
                 glTranslated(myNBNode.getPosition().x(), myNBNode.getPosition().y(), getType() + 0.05);
                 if (!s.drawForSelecting || (myNet->getViewNet()->getPositionInformation().distanceSquaredTo2D(myNBNode.getPosition()) <= (circleWidthSquared + 2))) {
-                    std::vector<Position> vertices = GLHelper::drawFilledCircleReturnVertices(circleWidth, circleResolution);
+                    std::vector<Position> vertices = GLHelper::drawFilledCircleReturnVertices(circleWidth, s.getCircleResolution());
                     // check if dotted contour has to be drawn
                     if (!s.drawForSelecting && myNet->getViewNet()->getDottedAC() == this) {
                         GLHelper::drawShapeDottedContour(getType(), vertices);

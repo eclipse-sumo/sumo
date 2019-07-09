@@ -1416,20 +1416,6 @@ GNEAttributeCarrier::isGenericParametersValid(const std::string& value) {
     return true;
 }
 
-
-int
-GNEAttributeCarrier::getCircleResolution(const GUIVisualizationSettings& settings) {
-    if (settings.drawForSelecting) {
-        return 8;
-    } else if (settings.scale >= 10) {
-        return 32;
-    } else if (settings.scale >= 2) {
-        return 16;
-    } else {
-        return 8;
-    }
-}
-
 // ===========================================================================
 // private
 // ===========================================================================
