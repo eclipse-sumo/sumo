@@ -209,7 +209,7 @@ GNEDetectorE1Instant::drawGL(const GUIVisualizationSettings& s) const {
     glPopMatrix();
 
     // Check if the distance is enought to draw details and isn't being drawn for selecting
-    if ((s.scale * exaggeration >= 10) && !s.drawForSelecting) {
+    if ((s.drawDetail(s.detailSettings.detectorDetails, exaggeration)) && !s.drawForSelecting) {
         // Push matrix
         glPushMatrix();
         // Traslate to center of detector

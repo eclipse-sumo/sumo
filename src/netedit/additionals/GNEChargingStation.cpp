@@ -118,7 +118,7 @@ GNEChargingStation::drawGL(const GUIVisualizationSettings& s) const {
             // pop draw matrix
             glPopMatrix();
         }
-    } else if (s.scale * exaggeration >= 10) {
+    } else if (s.drawDetail(s.detailSettings.stoppingPlaceDetails, exaggeration)) {
         // Push matrix for details
         glPushMatrix();
         // push a new matrix for charging power
@@ -154,7 +154,7 @@ GNEChargingStation::drawGL(const GUIVisualizationSettings& s) const {
         // Draw internt sign
         GLHelper::drawFilledCircle(myCircleInWidth, circleResolution);
         // Draw sign 'C'
-        if (s.scale * exaggeration >= 4.5) {
+        if (s.drawDetail(s.detailSettings.stoppingPlaceText, exaggeration)) {
             if (drawUsingSelectColor()) {
                 GLHelper::drawText("C", Position(), .1, myCircleInText, s.colorSettings.selectedAdditionalColor, myBlockIcon.rotation);
             } else {

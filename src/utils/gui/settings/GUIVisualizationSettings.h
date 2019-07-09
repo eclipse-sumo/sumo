@@ -208,8 +208,8 @@ struct GUIVisualizationWidthSettings {
 /// @brief struct for detail settings
 struct GUIVisualizationDetailSettings {
 
-    /// @brief details for stopping place signs
-    static const double stoppingPlaceSigns;
+    /// @brief details for stopping place details
+    static const double stoppingPlaceDetails;
 
     /// @brief details for stopping place text
     static const double stoppingPlaceText;
@@ -222,6 +222,9 @@ struct GUIVisualizationDetailSettings {
 
     /// @brief width for stop details
     static const double stopsDetails;
+
+    /// @brief width for stop text
+    static const double stopsText;
 };
 
 

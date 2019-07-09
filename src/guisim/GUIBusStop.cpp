@@ -142,7 +142,7 @@ GUIBusStop::drawGL(const GUIVisualizationSettings& s) const {
     const double offset = myWidth * 0.5 * MAX2(0.0, exaggeration - 1);
     GLHelper::drawBoxLines(myFGShape, myFGShapeRotations, myFGShapeLengths, myWidth * 0.5 * exaggeration, 0, offset);
     // draw details unless zoomed out to far
-    if (s.scale * exaggeration >= 10) {
+    if (s.drawDetail(s.detailSettings.stoppingPlaceDetails, exaggeration)) {
         glPushMatrix();
         // draw the lines
         const double rotSign = MSNet::getInstance()->lefthand() ? 1 : -1;
@@ -172,7 +172,7 @@ GUIBusStop::drawGL(const GUIVisualizationSettings& s) const {
         glTranslated(0, 0, .1);
         GLHelper::setColor(s.colorSettings.busStop_sign);
         GLHelper::drawFilledCircle((double) 0.9, noPoints);
-        if (s.scale * exaggeration >= 4.5) {
+        if (s.drawDetail(s.detailSettings.stoppingPlaceText, exaggeration)) {
             GLHelper::drawText("H", Position(), .1, 1.6, s.colorSettings.busStop, myFGSignRot);
         }
         glPopMatrix();

@@ -33,6 +33,7 @@
 // ===========================================================================
 // static members
 // ===========================================================================
+
 bool GUIVisualizationSettings::UseMesoSim = false;
 
 // -------------------------------------------------------------------------
@@ -87,17 +88,16 @@ const double GUIVisualizationWidthSettings::personTrip(0.50);
 const double GUIVisualizationWidthSettings::walk(0.50);
 const double GUIVisualizationWidthSettings::ride(0.50);
 
-
 // -------------------------------------------------------------------------
 // details of certain NETEDIT objects
 // -------------------------------------------------------------------------
 
-const double GUIVisualizationDetailSettings::stoppingPlaceSigns(0.66);
-const double GUIVisualizationDetailSettings::stoppingPlaceText(0.2);
-const double GUIVisualizationDetailSettings::detectorDetails(0.50);
-const double GUIVisualizationDetailSettings::detectorText(0.50);
-const double GUIVisualizationDetailSettings::stopsDetails(0.50);
-
+const double GUIVisualizationDetailSettings::stoppingPlaceDetails(10);
+const double GUIVisualizationDetailSettings::stoppingPlaceText(4.5);
+const double GUIVisualizationDetailSettings::detectorDetails(10);
+const double GUIVisualizationDetailSettings::detectorText(30);
+const double GUIVisualizationDetailSettings::stopsDetails(10);
+const double GUIVisualizationDetailSettings::stopsText(50);
 
 // -------------------------------------------------------------------------
 // scheme names

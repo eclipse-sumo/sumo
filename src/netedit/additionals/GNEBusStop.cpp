@@ -125,7 +125,7 @@ GNEBusStop::drawGL(const GUIVisualizationSettings& s) const {
             // pop draw matrix
             glPopMatrix();
         }
-    } else if (s.scale * exaggeration >= 10) {
+    } else if (s.drawDetail(s.detailSettings.stoppingPlaceDetails, exaggeration)) {
         // draw lines between BusStops and Acces
         for (auto i : getAdditionalChildren()) {
             GLHelper::drawBoxLine(i->getShape()[0], RAD2DEG(mySignPos.angleTo2D(i->getShape()[0])) - 90, mySignPos.distanceTo2D(i->getShape()[0]), .05);
@@ -171,7 +171,7 @@ GNEBusStop::drawGL(const GUIVisualizationSettings& s) const {
         // draw another circle in the same position, but a little bit more small
         GLHelper::drawFilledCircle(myCircleInWidth, circleResolution);
         // If the scale * exageration is equal or more than 4.5, draw H
-        if (s.scale * exaggeration >= 4.5) {
+        if (s.drawDetail(s.detailSettings.stoppingPlaceText, exaggeration)) {
             if (drawUsingSelectColor()) {
                 GLHelper::drawText("H", Position(), .1, myCircleInText, s.colorSettings.selectedAdditionalColor, myBlockIcon.rotation);
             } else {

@@ -114,7 +114,7 @@ GNEContainerStop::drawGL(const GUIVisualizationSettings& s) const {
             // pop draw matrix
             glPopMatrix();
         }
-    } else if (s.scale * exaggeration >= 10) {
+    } else if (s.drawDetail(s.detailSettings.stoppingPlaceDetails, exaggeration)) {
         // Add a draw matrix for details
         glPushMatrix();
         // Iterate over every line
@@ -156,7 +156,7 @@ GNEContainerStop::drawGL(const GUIVisualizationSettings& s) const {
         // draw another circle in the same position, but a little bit more small
         GLHelper::drawFilledCircle(myCircleInWidth, circleResolution);
         // If the scale * exageration is equal or more than 4.5, draw H
-        if (s.scale * exaggeration >= 4.5) {
+        if (s.drawDetail(s.detailSettings.stoppingPlaceText, exaggeration)) {
             if (drawUsingSelectColor()) {
                 GLHelper::drawText("C", Position(), .1, myCircleInText, s.colorSettings.selectedAdditionalColor, myBlockIcon.rotation);
             } else {

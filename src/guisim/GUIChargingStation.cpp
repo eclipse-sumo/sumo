@@ -147,7 +147,7 @@ GUIChargingStation::drawGL(const GUIVisualizationSettings& s) const {
     GLHelper::drawBoxLines(myFGShape, myFGShapeRotations, myFGShapeLengths, exaggeration);
 
     // draw details unless zoomed out to far
-    if (s.scale * exaggeration >= 10) {
+    if (s.drawDetail(s.detailSettings.stoppingPlaceDetails, exaggeration)) {
 
         // push charging power matrix
         glPushMatrix();
@@ -171,7 +171,7 @@ GUIChargingStation::drawGL(const GUIVisualizationSettings& s) const {
         GLHelper::setColor(s.colorSettings.busStop_sign);
         GLHelper::drawFilledCircle((double) 0.9, noPoints);
 
-        if (s.scale * exaggeration >= 4.5) {
+        if (s.drawDetail(s.detailSettings.stoppingPlaceText, exaggeration)) {
             GLHelper::drawText("C", Position(), .1, 1.6, s.colorSettings.chargingStation, myFGSignRot);
         }
 

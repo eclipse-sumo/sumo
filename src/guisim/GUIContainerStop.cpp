@@ -126,7 +126,7 @@ GUIContainerStop::drawGL(const GUIVisualizationSettings& s) const {
     const double exaggeration = s.addSize.getExaggeration(s, this);
     GLHelper::drawBoxLines(myFGShape, myFGShapeRotations, myFGShapeLengths, 1.0);
     // draw details unless zoomed out to far
-    if (s.scale * exaggeration >= 10) {
+    if (s.drawDetail(s.detailSettings.stoppingPlaceDetails, exaggeration)) {
         glPushMatrix();
         // draw the lines
         const double rotSign = MSNet::getInstance()->lefthand() ? -1 : 1;
@@ -153,7 +153,7 @@ GUIContainerStop::drawGL(const GUIVisualizationSettings& s) const {
         glTranslated(0, 0, .1);
         GLHelper::setColor(s.colorSettings.containerStop_sign);
         GLHelper::drawFilledCircle((double) 0.9, noPoints);
-        if (s.scale * exaggeration >= 4.5) {
+        if (s.drawDetail(s.detailSettings.stoppingPlaceText, exaggeration)) {
             GLHelper::drawText("C", Position(), .1, 1.6, s.colorSettings.containerStop, myFGSignRot);
         }
         glPopMatrix();

@@ -192,7 +192,7 @@ GNERouteProbe::drawGL(const GUIVisualizationSettings& s) const {
     glPopMatrix();
 
     // Check if the distance is enought to draw details
-    if ((s.scale * exaggeration >= 10) && !s.drawForSelecting) {
+    if ((s.drawDetail(s.detailSettings.stoppingPlaceDetails, exaggeration)) && !s.drawForSelecting) {
         // Show Lock icon depending of the Edit mode
         myBlockIcon.draw(0.4);
     }
