@@ -353,79 +353,87 @@ GNEStop::drawGL(const GUIVisualizationSettings& s) const {
         } else {
             GLHelper::setColor(s.colorSettings.stops);
         }
-        // draw lines depending if it's placed over a lane or over a stoppingPlace
-        if (getLaneParents().size() > 0) {
-            // Draw the area using shape, shapeRotations, shapeLengths and value of exaggeration
-            GLHelper::drawBoxLines(myDemandElementGeometry.shape, myDemandElementGeometry.shapeRotations, myDemandElementGeometry.shapeLengths, exaggeration * 0.1, 0,
-                                   getLaneParents().front()->getParentEdge().getNBEdge()->getLaneWidth(getLaneParents().front()->getIndex()) * 0.5);
-            GLHelper::drawBoxLines(myDemandElementGeometry.shape, myDemandElementGeometry.shapeRotations, myDemandElementGeometry.shapeLengths, exaggeration * 0.1, 0,
-                                   getLaneParents().front()->getParentEdge().getNBEdge()->getLaneWidth(getLaneParents().front()->getIndex()) * -0.5);
-        } else {
-            // Draw the area using shape, shapeRotations, shapeLengths and value of exaggeration
-            GLHelper::drawBoxLines(myDemandElementGeometry.shape, myDemandElementGeometry.shapeRotations, myDemandElementGeometry.shapeLengths, exaggeration * 0.1, 0, exaggeration * -1);
-            GLHelper::drawBoxLines(myDemandElementGeometry.shape, myDemandElementGeometry.shapeRotations, myDemandElementGeometry.shapeLengths, exaggeration * 0.1, 0, exaggeration);
-        }
-        // pop draw matrix
-        glPopMatrix();
-        // Add a draw matrix
-        glPushMatrix();
-        // move to geometry front
-        glTranslated(myDemandElementGeometry.shape.back().x(), myDemandElementGeometry.shape.back().y(), getType());
-        glRotated(myDemandElementGeometry.shapeRotations.back(), 0, 0, 1);
-        // draw front of Stop depending if it's placed over a lane or over a stoppingPlace
-        if (getLaneParents().size() > 0) {
-            // draw front of Stop
-            GLHelper::drawBoxLine(Position(0, 0), 0, exaggeration * 0.5,
-                                  getLaneParents().front()->getParentEdge().getNBEdge()->getLaneWidth(getLaneParents().front()->getIndex()) * 0.5);
-        } else {
-            // draw front of Stop
-            GLHelper::drawBoxLine(Position(0, 0), 0, exaggeration * 0.5, exaggeration);
-        }
-        // only draw text if isn't being drawn for selecting
-        if (!s.drawForSelecting) {
-            // move to "S" position
-            glTranslated(0, 1, 0);
-            // draw "S" symbol
-            GLHelper::drawText("S", Position(), .1, 2.8, stopColor);
-            // move to subtitle positin
-            glTranslated(0, 1.4, 0);
-            // draw subtitle depending of tag
-            if (myTagProperty.getTag() == SUMO_TAG_STOP_BUSSTOP) {
-                GLHelper::drawText("busStop", Position(), .1, .5, stopColor, 180);
-            } else if (myTagProperty.getTag() == SUMO_TAG_STOP_CONTAINERSTOP) {
-                GLHelper::drawText("container", Position(), .1, .5, stopColor, 180);
-                glTranslated(0, 0.5, 0);
-                GLHelper::drawText("Stop", Position(), .1, .5, stopColor, 180);
-            } else if (myTagProperty.getTag() == SUMO_TAG_STOP_CHARGINGSTATION) {
-                GLHelper::drawText("charging", Position(), .1, .5, stopColor, 180);
-                glTranslated(0, 0.5, 0);
-                GLHelper::drawText("Station", Position(), .1, .5, stopColor, 180);
-            } else if (myTagProperty.getTag() == SUMO_TAG_STOP_PARKINGAREA) {
-                GLHelper::drawText("parking", Position(), .1, .5, stopColor, 180);
-                glTranslated(0, 0.5, 0);
-                GLHelper::drawText("Area", Position(), .1, .5, stopColor, 180);
-            } else if (myTagProperty.getTag() == SUMO_TAG_STOP_LANE) {
-                GLHelper::drawText("lane", Position(), .1, 1, stopColor, 180);
-            } else if (myTagProperty.getTag() == SUMO_TAG_PERSONSTOP_LANE) {
-                GLHelper::drawText("person", Position(), .1, .7, stopColor, 180);
-            } else if (myTagProperty.getTag() == SUMO_TAG_PERSONSTOP_BUSSTOP) {
-                GLHelper::drawText("person", Position(), .1, .5, stopColor, 180);
-                glTranslated(0, 0.5, 0);
-                GLHelper::drawText("busStop", Position(), .1, .5, stopColor, 180);
-            }
-        }
-        // pop draw matrix
-        glPopMatrix();
-        // Draw name if isn't being drawn for selecting
-        drawName(getCenteringBoundary().getCenter(), s.scale, s.addName);
-        // check if dotted contour has to be drawn
-        if (!s.drawForSelecting && (myViewNet->getDottedAC() == this)) {
-            // draw dooted contour depending if it's placed over a lane or over a stoppingPlace
+        // draw depending of details
+        if (s.drawDetail(s.detailSettings.stopsDetails, exaggeration)) {
+            // draw lines depending if it's placed over a lane or over a stoppingPlace
             if (getLaneParents().size() > 0) {
-                GLHelper::drawShapeDottedContour(getType(), myDemandElementGeometry.shape, getLaneParents().front()->getParentEdge().getNBEdge()->getLaneWidth(getLaneParents().front()->getIndex()) * 0.5);
+                // Draw the area using shape, shapeRotations, shapeLengths and value of exaggeration
+                GLHelper::drawBoxLines(myDemandElementGeometry.shape, myDemandElementGeometry.shapeRotations, myDemandElementGeometry.shapeLengths, exaggeration * 0.1, 0,
+                                       getLaneParents().front()->getParentEdge().getNBEdge()->getLaneWidth(getLaneParents().front()->getIndex()) * 0.5);
+                GLHelper::drawBoxLines(myDemandElementGeometry.shape, myDemandElementGeometry.shapeRotations, myDemandElementGeometry.shapeLengths, exaggeration * 0.1, 0,
+                                       getLaneParents().front()->getParentEdge().getNBEdge()->getLaneWidth(getLaneParents().front()->getIndex()) * -0.5);
             } else {
-                GLHelper::drawShapeDottedContour(getType(), myDemandElementGeometry.shape, exaggeration);
+                // Draw the area using shape, shapeRotations, shapeLengths and value of exaggeration
+                GLHelper::drawBoxLines(myDemandElementGeometry.shape, myDemandElementGeometry.shapeRotations, myDemandElementGeometry.shapeLengths, exaggeration * 0.1, 0, exaggeration * -1);
+                GLHelper::drawBoxLines(myDemandElementGeometry.shape, myDemandElementGeometry.shapeRotations, myDemandElementGeometry.shapeLengths, exaggeration * 0.1, 0, exaggeration);
             }
+            // pop draw matrix
+            glPopMatrix();
+            // Add a draw matrix
+            glPushMatrix();
+            // move to geometry front
+            glTranslated(myDemandElementGeometry.shape.back().x(), myDemandElementGeometry.shape.back().y(), getType());
+            glRotated(myDemandElementGeometry.shapeRotations.back(), 0, 0, 1);
+            // draw front of Stop depending if it's placed over a lane or over a stoppingPlace
+            if (getLaneParents().size() > 0) {
+                // draw front of Stop
+                GLHelper::drawBoxLine(Position(0, 0), 0, exaggeration * 0.5,
+                                      getLaneParents().front()->getParentEdge().getNBEdge()->getLaneWidth(getLaneParents().front()->getIndex()) * 0.5);
+            } else {
+                // draw front of Stop
+                GLHelper::drawBoxLine(Position(0, 0), 0, exaggeration * 0.5, exaggeration);
+            }
+            // only draw text if isn't being drawn for selecting
+            if (s.drawDetail(s.detailSettings.stopsText, exaggeration) && !s.drawForSelecting) {
+                // move to "S" position
+                glTranslated(0, 1, 0);
+                // draw "S" symbol
+                GLHelper::drawText("S", Position(), .1, 2.8, stopColor);
+                // move to subtitle positin
+                glTranslated(0, 1.4, 0);
+                // draw subtitle depending of tag
+                if (myTagProperty.getTag() == SUMO_TAG_STOP_BUSSTOP) {
+                    GLHelper::drawText("busStop", Position(), .1, .5, stopColor, 180);
+                } else if (myTagProperty.getTag() == SUMO_TAG_STOP_CONTAINERSTOP) {
+                    GLHelper::drawText("container", Position(), .1, .5, stopColor, 180);
+                    glTranslated(0, 0.5, 0);
+                    GLHelper::drawText("Stop", Position(), .1, .5, stopColor, 180);
+                } else if (myTagProperty.getTag() == SUMO_TAG_STOP_CHARGINGSTATION) {
+                    GLHelper::drawText("charging", Position(), .1, .5, stopColor, 180);
+                    glTranslated(0, 0.5, 0);
+                    GLHelper::drawText("Station", Position(), .1, .5, stopColor, 180);
+                } else if (myTagProperty.getTag() == SUMO_TAG_STOP_PARKINGAREA) {
+                    GLHelper::drawText("parking", Position(), .1, .5, stopColor, 180);
+                    glTranslated(0, 0.5, 0);
+                    GLHelper::drawText("Area", Position(), .1, .5, stopColor, 180);
+                } else if (myTagProperty.getTag() == SUMO_TAG_STOP_LANE) {
+                    GLHelper::drawText("lane", Position(), .1, 1, stopColor, 180);
+                } else if (myTagProperty.getTag() == SUMO_TAG_PERSONSTOP_LANE) {
+                    GLHelper::drawText("person", Position(), .1, .7, stopColor, 180);
+                } else if (myTagProperty.getTag() == SUMO_TAG_PERSONSTOP_BUSSTOP) {
+                    GLHelper::drawText("person", Position(), .1, .5, stopColor, 180);
+                    glTranslated(0, 0.5, 0);
+                    GLHelper::drawText("busStop", Position(), .1, .5, stopColor, 180);
+                }
+            }
+            // pop draw matrix
+            glPopMatrix();
+            // Draw name if isn't being drawn for selecting
+            drawName(getCenteringBoundary().getCenter(), s.scale, s.addName);
+            // check if dotted contour has to be drawn
+            if (!s.drawForSelecting && (myViewNet->getDottedAC() == this)) {
+                // draw dooted contour depending if it's placed over a lane or over a stoppingPlace
+                if (getLaneParents().size() > 0) {
+                    GLHelper::drawShapeDottedContour(getType(), myDemandElementGeometry.shape, getLaneParents().front()->getParentEdge().getNBEdge()->getLaneWidth(getLaneParents().front()->getIndex()) * 0.5);
+                } else {
+                    GLHelper::drawShapeDottedContour(getType(), myDemandElementGeometry.shape, exaggeration);
+                }
+            }
+        } else {
+            // Draw the area using shape, shapeRotations, shapeLengths and value of exaggeration
+            GLHelper::drawBoxLines(myDemandElementGeometry.shape, myDemandElementGeometry.shapeRotations, myDemandElementGeometry.shapeLengths, exaggeration);
+            // pop draw matrix
+            glPopMatrix();
         }
         // Pop name
         glPopName();
