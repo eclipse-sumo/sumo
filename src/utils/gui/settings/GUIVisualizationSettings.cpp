@@ -83,10 +83,10 @@ const RGBColor GUIVisualizationColorSettings::ride(0, 0, 255);
 // -------------------------------------------------------------------------
 
 const double GUIVisualizationWidthSettings::route(0.66);
-const double GUIVisualizationWidthSettings::trip( 0.2);
-const double GUIVisualizationWidthSettings::personTrip(0.50);
-const double GUIVisualizationWidthSettings::walk(0.50);
-const double GUIVisualizationWidthSettings::ride(0.50);
+const double GUIVisualizationWidthSettings::trip(0.2);
+const double GUIVisualizationWidthSettings::personTrip(0.25);
+const double GUIVisualizationWidthSettings::walk(0.25);
+const double GUIVisualizationWidthSettings::ride(0.25);
 
 // -------------------------------------------------------------------------
 // details of certain NETEDIT objects

@@ -1335,6 +1335,8 @@ void
 GNEEdge::drawPartialPersonPlan(const GUIVisualizationSettings& s, const GNEDemandElement *personPlan, const GNEJunction* junction) const {
     // calculate personPlan width
     double personPlanWidth = 0;
+    // flag to check if width must be duplicated
+    bool duplicateWidth = (myNet->getViewNet()->getDottedAC() == personPlan) || (myNet->getViewNet()->getDottedAC() == personPlan->getDemandElementParents().front())? true : false;
     // Start drawing adding an gl identificator
     glPushName(personPlan->getGlID());
     // Add a draw matrix
@@ -1359,7 +1361,11 @@ GNEEdge::drawPartialPersonPlan(const GUIVisualizationSettings& s, const GNEDeman
     } else if (personPlan->getTagProperty().isRide()) {
         personPlanWidth = s.addSize.getExaggeration(s, this) * s.widthSettings.ride;
     }
-    // draw route
+    // check 
+    if (duplicateWidth) {
+        personPlanWidth *= 2;
+    }
+    // draw person plan
     if (junction) {
         // iterate over segments
         for (auto segment = personPlan->getDemandElementParents().front()->getDemandElementSegmentGeometry().cbegin(junction); 
@@ -1387,12 +1393,6 @@ GNEEdge::drawPartialPersonPlan(const GUIVisualizationSettings& s, const GNEDeman
     if (!s.drawForSelecting) {
         drawName(getCenteringBoundary().getCenter(), s.scale, s.addName);
     }
-    /*
-    // check if dotted contour has to be drawn
-    if (!s.drawForSelecting && (myNet->getViewNet()->getDottedAC() == personPlan)) {
-        GLHelper::drawShapeDottedContour(getType(), personPlan->getDemandElementParents().front()->getDemandElementSegmentGeometry().partialShape.at(personPlan), personPlanWidth);
-    }
-    */
     // Pop name
     glPopName();
     // draw person if this edge correspond to the first edge of first Person's person plan
@@ -1434,7 +1434,7 @@ GNEEdge::drawPartialPersonPlan(const GUIVisualizationSettings& s, const GNEDeman
             // obtain position or ArrivalPos
             Position pos = arrivalPosLane->getGeometry().shape.positionAtOffset2D(arrivalPos);
             // obtain circle width
-            double circleWidth = SNAP_RADIUS * MIN2((double)0.5, s.laneWidthExaggeration);
+            double circleWidth = (duplicateWidth? SNAP_RADIUS : (SNAP_RADIUS/2.0)) * MIN2((double)0.5, s.laneWidthExaggeration);
             double circleWidthSquared = circleWidth * circleWidth;
             if (!s.drawForSelecting || (myNet->getViewNet()->getPositionInformation().distanceSquaredTo2D(pos) <= (circleWidthSquared + 2))) {
                 glPushMatrix();

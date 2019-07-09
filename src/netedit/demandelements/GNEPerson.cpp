@@ -567,22 +567,6 @@ GNEPerson::drawGL(const GUIVisualizationSettings& s) const {
             const double value = getColorValue(s, s.personColorer.getActive());
             GLHelper::drawTextSettings(s.personValue, toString(value), p2, s.scale, s.angle, GLO_MAX - getType());
         }
-        /*
-        // check if dotted contour has to be drawn
-        if (!s.drawForSelecting && (myViewNet->getDottedAC() == this)) {
-            double exaggeration = s.addSize.getExaggeration(s, this);
-            // draw contour of all person plan childs
-            for (const auto &i : getDemandElementChildren()) {
-                if (i->getTagProperty().isWalk()) {
-                    GLHelper::drawShapeDottedContour(getType(), myDemandElementSegmentGeometry.partialShape.at(i), exaggeration * s.widthSettingswalk);
-                } else if (i->getTagProperty().isPersonTrip()) {
-                    GLHelper::drawShapeDottedContour(getType(), myDemandElementSegmentGeometry.partialShape.at(i), exaggeration * s.widthSettingspersonTrip);
-                } else if (i->getTagProperty().isRide()) {
-                    GLHelper::drawShapeDottedContour(getType(), myDemandElementSegmentGeometry.partialShape.at(i), exaggeration * s.widthSettingsride);
-                }
-            }
-        }
-        */
         // pop name
         glPopName();
     }
