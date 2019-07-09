@@ -49,72 +49,66 @@ class GUIGlObject;
 // cannot declare this as inner class because it needs to be used in forward
 // declaration (@todo fix inclusion order by removing references to guisim!)
 struct GUIVisualizationTextSettings {
-    GUIVisualizationTextSettings(bool _show, double _size, RGBColor _color, RGBColor _bgColor = RGBColor(128, 0, 0, 0), bool _constSize = true) :
-        show(_show), size(_size), color(_color), bgColor(_bgColor), constSize(_constSize) {}
 
+    /// @brief constructor
+    GUIVisualizationTextSettings(bool _show, double _size, RGBColor _color, RGBColor _bgColor = RGBColor(128, 0, 0, 0), bool _constSize = true);
+
+    /// @brief equality comparison operator
+    bool operator==(const GUIVisualizationTextSettings& other);
+
+    /// @brief inequality comparison operator
+    bool operator!=(const GUIVisualizationTextSettings& other);
+
+    /// @brief print values in output device
+    void print(OutputDevice& dev, const std::string& name) const;
+
+    /// @brief get scale size
+    double scaledSize(double scale, double constFactor = 0.1) const;
+
+    /// @brief flag show
     bool show;
+
+    /// @brief text size
     double size;
+
+    /// @brief text color
     RGBColor color;
+
+    /// @brief background text color
     RGBColor bgColor;
+
+    /// @brif flag to avoid size changes
     bool constSize;
-
-    bool operator==(const GUIVisualizationTextSettings& other) {
-        return show == other.show &&
-               size == other.size &&
-               color == other.color &&
-               bgColor == other.bgColor &&
-               constSize == other.constSize;
-    }
-    bool operator!=(const GUIVisualizationTextSettings& other) {
-        return !((*this) == other);
-    }
-
-    void print(OutputDevice& dev, const std::string& name) const {
-        dev.writeAttr(name + "_show", show);
-        dev.writeAttr(name + "_size", size);
-        dev.writeAttr(name + "_color", color);
-        dev.writeAttr(name + "_bgColor", bgColor);
-        dev.writeAttr(name + "_constantSize", constSize);
-    }
-
-    double scaledSize(double scale, double constFactor = 0.1) const {
-        return constSize ? size / scale : size * constFactor;
-    }
 };
 
 
 struct GUIVisualizationSizeSettings {
-    GUIVisualizationSizeSettings(double _minSize, double _exaggeration = 1.0, bool _constantSize = false, bool _constantSizeSelected = false) :
-        minSize(_minSize), exaggeration(_exaggeration), constantSize(_constantSize), constantSizeSelected(_constantSizeSelected) {}
-
-    /// @brief The minimum size to draw this object
-    double minSize;
-    /// @brief The size exaggeration (upscale)
-    double exaggeration;
-    // @brief whether the object shall be drawn with constant size regardless of zoom
-    bool constantSize;
-    // @brief whether only selected objects shall be drawn with constant
-    bool constantSizeSelected;
-
-    bool operator==(const GUIVisualizationSizeSettings& other) {
-        return constantSize == other.constantSize &&
-               constantSizeSelected == other.constantSizeSelected &&
-               minSize == other.minSize &&
-               exaggeration == other.exaggeration;
-    }
-    bool operator!=(const GUIVisualizationSizeSettings& other) {
-        return !((*this) == other);
-    }
-
-    void print(OutputDevice& dev, const std::string& name) const {
-        dev.writeAttr(name + "_minSize", minSize);
-        dev.writeAttr(name + "_exaggeration", exaggeration);
-        dev.writeAttr(name + "_constantSize", constantSize);
-        dev.writeAttr(name + "_constantSizeSelected", constantSizeSelected);
-    }
+    /// @brief constructor
+    GUIVisualizationSizeSettings(double _minSize, double _exaggeration = 1.0, bool _constantSize = false, bool _constantSizeSelected = false);
 
     /// @brief return the drawing size including exaggeration and constantSize values
     double getExaggeration(const GUIVisualizationSettings& s, const GUIGlObject* o, double factor = 20) const;
+
+    /// @brief equality comparison operator
+    bool operator==(const GUIVisualizationSizeSettings& other);
+
+    /// @brief inequality comparison operator
+    bool operator!=(const GUIVisualizationSizeSettings& other);
+
+    /// @brief print values in output device
+    void print(OutputDevice& dev, const std::string& name) const;
+
+    /// @brief The minimum size to draw this object
+    double minSize;
+
+    /// @brief The size exaggeration (upscale)
+    double exaggeration;
+
+    /// @brief whether the object shall be drawn with constant size regardless of zoom
+    bool constantSize;
+
+    /// @brief whether only selected objects shall be drawn with constant
+    bool constantSizeSelected;
 };
 
 
@@ -144,126 +138,156 @@ public:
     bool fps;
 
     /// @name Background visualization settings
-    //@{
+    /// @{
 
     /// @brief The background color to use
     RGBColor backgroundColor;
+
     /// @brief Information whether a grid shall be shown
     bool showGrid;
+
     /// @brief Information about the grid spacings
     double gridXSize, gridYSize;
-    //@}
+    /// @}
 
 
     /// @name lane visualization settings
-    //@{
+    /// @{
 
     /// @brief The mesoscopic edge colorer
     GUIColorer edgeColorer;
+
     /// @brief The mesoscopic edge scaler
     GUIScaler edgeScaler;
 
     /// @brief this should be set at the same time as MSGlobals::gUseMesoSim
     static bool UseMesoSim;
+
     /// @brief The lane colorer
     GUIColorer laneColorer;
+
     /// @brief The lane scaler
     GUIScaler laneScaler;
+
     /// @brief Information whether lane borders shall be drawn
     bool laneShowBorders;
+
     /// @brief Information whether bicycle lane marking shall be drawn
     bool showBikeMarkings;
+
     /// @brief Information whether link textures (arrows) shall be drawn
     bool showLinkDecals;
+
     /// @brief Information whether link rules (colored bars) shall be drawn
     bool showLinkRules;
+
     /// @brief Information whether rails shall be drawn
     bool showRails;
+
     // Setting bundles for optional drawing names with size and color
     GUIVisualizationTextSettings edgeName, internalEdgeName, cwaEdgeName, streetName, edgeValue;
 
+    /// @brief flag to show or hidde connectors
     bool hideConnectors;
+
     /// @brief The lane exaggeration (upscale thickness)
     double laneWidthExaggeration;
+
     /// @brief The minimum visual lane width for drawing
     double laneMinSize;
+
     /// @brief Whether to show direction indicators for lanes
     bool showLaneDirection;
+
     /// @brief Whether to show sublane boundaries
     bool showSublanes;
+
     /// @brief Whether to improve visualisation of superposed (rail) edges
     bool spreadSuperposed;
 
     /// @brief key for coloring by edge parameter
-    std::string edgeParam;
-    std::string laneParam;
+    std::string edgeParam, laneParam;
 
     /// @brief key for coloring by edgeData
     std::string edgeData;
-    //@}
-
+    /// @}
 
     /// @name vehicle visualization settings
-    //@{
+    /// @{
 
     /// @brief The vehicle colorer
     GUIColorer vehicleColorer;
+
     /// @brief The quality of vehicle drawing
     int vehicleQuality;
+
     /// @brief Information whether vehicle blinkers shall be drawn
     bool showBlinker;
+
     /// @brief Information whether the lane change preference shall be drawn
     bool drawLaneChangePreference;
+
     /// @brief Information whether the minimum gap shall be drawn
     bool drawMinGap;
+
     /// @brief Information whether the brake gap shall be drawn
     bool drawBrakeGap;
+
     /// @brief Information whether the communication range shall be drawn
     bool showBTRange;
+
     // Setting bundles for controling the size of the drawn vehicles
     GUIVisualizationSizeSettings vehicleSize;
+
     // Setting bundles for optional drawing vehicle names or color value
-    GUIVisualizationTextSettings vehicleName;
-    GUIVisualizationTextSettings vehicleValue;
-    //@}
+    GUIVisualizationTextSettings vehicleName, vehicleValue;
+
+    /// @}
 
 
     /// @name person visualization settings
-    //@{
+    /// @{
 
     /// @brief The person colorer
     GUIColorer personColorer;
+
     /// @brief The quality of person drawing
     int personQuality;
+
     // Setting bundles for controling the size of the drawn persons
     GUIVisualizationSizeSettings personSize;
+
     // Setting bundles for optional drawing person names
-    GUIVisualizationTextSettings personName;
-    GUIVisualizationTextSettings personValue;
-    //@}
+    GUIVisualizationTextSettings personName, personValue;
+    /// @}
 
 
     /// @name container visualization settings
-    //@{
+    /// @{
 
     /// @brief The container colorer
     GUIColorer containerColorer;
+
     /// @brief The quality of container drawing
     int containerQuality;
+
     // Setting bundles for controling the size of the drawn containers
     GUIVisualizationSizeSettings containerSize;
-    // Setting bundles for optional drawing person names
+
+    // Setting bundles for optional drawing container names
     GUIVisualizationTextSettings containerName;
-    //@}
+    /// @}
 
 
     /// @name junction visualization settings
-    //@{
+    /// @{
 
     /// @brief The junction colorer
     GUIColorer junctionColorer;
+
     // Setting bundles for optional drawing junction names and indices
     GUIVisualizationTextSettings drawLinkTLIndex, drawLinkJunctionIndex, junctionName, internalJunctionName, tlsPhaseIndex;
+
     /// @brief Information whether lane-to-lane arrows shall be drawn
     bool showLane2Lane;
     /// @brief whether the shape of the junction should be drawn
@@ -272,11 +296,11 @@ public:
     bool drawCrossingsAndWalkingareas;
     // Setting bundles for controling the size of the drawn junction
     GUIVisualizationSizeSettings junctionSize;
-    //@}
+    /// @}
 
 
     /// @name Additional structures visualization settings
-    //@{
+    /// @{
 
     /// @brief The additional structures visualization scheme
     // @todo decouple addExageration for POIs, Polygons, Triggers etc
@@ -287,30 +311,36 @@ public:
     GUIVisualizationTextSettings addName;
     // Setting bundles for optional drawing additional full names
     GUIVisualizationTextSettings addFullName;
-    //@}
+    /// @}
 
 
     /// @name shapes visualization settings
-    //@{
+    /// @{
 
     /// @brief The POI colorer
     GUIColorer poiColorer;
+
     // Setting bundles for controling the size of the drawn POIs
     GUIVisualizationSizeSettings poiSize;
+
     // Setting bundles for optional drawing poi names
     GUIVisualizationTextSettings poiName;
+
     // Setting bundles for optional drawing poi types
     GUIVisualizationTextSettings poiType;
 
     /// @brief The polygon colorer
     GUIColorer polyColorer;
+
     // Setting bundles for controling the size of the drawn polygons
     GUIVisualizationSizeSettings polySize;
+
     // Setting bundles for optional drawing polygon names
     GUIVisualizationTextSettings polyName;
+
     // Setting bundles for optional drawing polygon types
     GUIVisualizationTextSettings polyType;
-    //@}
+    /// @}
 
     /// @brief Information whether the size legend shall be drawn
     bool showSizeLegend;

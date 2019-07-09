@@ -26,6 +26,7 @@
 #include <map>
 #include <vector>
 #include <utils/gui/div/GUIGlobalSelection.h>
+
 #include "GUIVisualizationSettings.h"
 #include "GUIPropertyScheme.h"
 
@@ -105,6 +106,110 @@ const std::string GUIVisualizationSettings::SCHEME_NAME_TYPE("by type");
 // ===========================================================================
 // member method definitions
 // ===========================================================================
+
+// ---------------------------------------------------------------------------
+// GUIVisualizationTextSettings - methods
+// ---------------------------------------------------------------------------
+
+GUIVisualizationTextSettings::GUIVisualizationTextSettings(bool _show, double _size, RGBColor _color, RGBColor _bgColor, bool _constSize) :
+    show(_show), 
+    size(_size), 
+    color(_color),
+    bgColor(_bgColor), 
+    constSize(_constSize) {
+}
+
+
+bool 
+GUIVisualizationTextSettings::operator==(const GUIVisualizationTextSettings& other) {
+    return (show == other.show) &&
+           (size == other.size) &&
+           (color == other.color) &&
+           (bgColor == other.bgColor) &&
+           (constSize == other.constSize);
+}
+
+
+bool 
+GUIVisualizationTextSettings::operator!=(const GUIVisualizationTextSettings& other) {
+    return (show != other.show) ||
+           (size != other.size) ||
+           (color != other.color) ||
+           (bgColor != other.bgColor) ||
+           (constSize != other.constSize);
+}
+
+
+void 
+GUIVisualizationTextSettings::print(OutputDevice& dev, const std::string& name) const {
+    dev.writeAttr(name + "_show", show);
+    dev.writeAttr(name + "_size", size);
+    dev.writeAttr(name + "_color", color);
+    dev.writeAttr(name + "_bgColor", bgColor);
+    dev.writeAttr(name + "_constantSize", constSize);
+}
+
+
+double 
+GUIVisualizationTextSettings::scaledSize(double scale, double constFactor) const {
+    return constSize ? (size / scale) : (size * constFactor);
+}
+
+// ---------------------------------------------------------------------------
+// GUIVisualizationSizeSettings - methods
+// ---------------------------------------------------------------------------
+
+GUIVisualizationSizeSettings::GUIVisualizationSizeSettings(double _minSize, double _exaggeration, bool _constantSize, bool _constantSizeSelected) :
+    minSize(_minSize), 
+    exaggeration(_exaggeration), 
+    constantSize(_constantSize), 
+    constantSizeSelected(_constantSizeSelected) {
+}
+
+
+double
+GUIVisualizationSizeSettings::getExaggeration(const GUIVisualizationSettings& s, const GUIGlObject* o, double factor) const {
+    /// @note should look normal-sized at zoom 1000
+    if (constantSize && (!constantSizeSelected || (o == nullptr) || gSelected.isSelected(o))) {
+        return MAX2((double)exaggeration, exaggeration * factor / s.scale);
+    } else if (!constantSizeSelected || (o == nullptr) || gSelected.isSelected(o)) {
+        return exaggeration;
+    } else {
+        return 1;
+    }
+}
+
+
+bool 
+GUIVisualizationSizeSettings::operator==(const GUIVisualizationSizeSettings& other) {
+    return (constantSize == other.constantSize) &&
+           (constantSizeSelected == other.constantSizeSelected) &&
+           (minSize == other.minSize) &&
+           (exaggeration == other.exaggeration);
+}
+
+
+bool 
+GUIVisualizationSizeSettings::operator!=(const GUIVisualizationSizeSettings& other) {
+    return (constantSize != other.constantSize) ||
+           (constantSizeSelected != other.constantSizeSelected) ||
+           (minSize != other.minSize) ||
+           (exaggeration != other.exaggeration);
+}
+
+
+void 
+GUIVisualizationSizeSettings::print(OutputDevice& dev, const std::string& name) const {
+    dev.writeAttr(name + "_minSize", minSize);
+    dev.writeAttr(name + "_exaggeration", exaggeration);
+    dev.writeAttr(name + "_constantSize", constantSize);
+    dev.writeAttr(name + "_constantSizeSelected", constantSizeSelected);
+}
+
+// ---------------------------------------------------------------------------
+// GUIVisualizationSettings - methods
+// ---------------------------------------------------------------------------
+
 GUIVisualizationSettings::GUIVisualizationSettings(bool _netedit) :
     name(""),
     netedit(_netedit),
@@ -371,7 +476,6 @@ GUIVisualizationSettings::initSumoGuiDefaults() {
     scheme.setAllowsNegativeValues(false);
     laneColorer.addScheme(scheme);
 
-
     /// add vehicle coloring schemes
     vehicleColorer.addScheme(GUIColorScheme("given vehicle/type/route color", RGBColor::YELLOW, "", true));
     vehicleColorer.addScheme(GUIColorScheme("uniform", RGBColor::YELLOW, "", true));
@@ -600,89 +704,88 @@ GUIVisualizationSettings::initSumoGuiDefaults() {
 
     /// add lane scaling schemes
     {
-        GUIScaleScheme scheme = GUIScaleScheme("default", 1, "uniform", true);
-        laneScaler.addScheme(scheme);
-        scheme = GUIScaleScheme(SCHEME_NAME_SELECTION, 0.5, "unselected", true, 0, COL_SCHEME_MISC);
-        scheme.addColor(5, 1, "selected");
-        laneScaler.addScheme(scheme);
+        GUIScaleScheme laneScheme = GUIScaleScheme("default", 1, "uniform", true);
+        laneScaler.addScheme(laneScheme);
+        laneScheme = GUIScaleScheme(SCHEME_NAME_SELECTION, 0.5, "unselected", true, 0, COL_SCHEME_MISC);
+        laneScheme.addColor(5, 1, "selected");
+        laneScaler.addScheme(laneScheme);
         // ... traffic states ...
-        scheme = GUIScaleScheme("by allowed speed (lanewise)", 0);
-        scheme.addColor(10, (double)(150.0 / 3.6));
-        laneScaler.addScheme(scheme);
-        scheme = GUIScaleScheme("by current occupancy (lanewise, brutto)", 0, "", false, 0, COL_SCHEME_DYNAMIC);
-        scheme.addColor(10, 0.95);
-        laneScaler.addScheme(scheme);
-        scheme = GUIScaleScheme("by current occupancy (lanewise, netto)", 0, "", false, 0, COL_SCHEME_DYNAMIC);
-        scheme.addColor(10, 0.95);
-        laneScaler.addScheme(scheme);
-        scheme = GUIScaleScheme("by first vehicle waiting time (lanewise)", 0, "", false, 0, COL_SCHEME_DYNAMIC);
-        scheme.addColor(10, (double)300);
-        laneScaler.addScheme(scheme);
-        scheme = GUIScaleScheme("by lane number (streetwise)", 1);
-        scheme.addColor(10, (double)5);
-        laneScaler.addScheme(scheme);
+        laneScheme = GUIScaleScheme("by allowed speed (lanewise)", 0);
+        laneScheme.addColor(10, (double)(150.0 / 3.6));
+        laneScaler.addScheme(laneScheme);
+        laneScheme = GUIScaleScheme("by current occupancy (lanewise, brutto)", 0, "", false, 0, COL_SCHEME_DYNAMIC);
+        laneScheme.addColor(10, 0.95);
+        laneScaler.addScheme(laneScheme);
+        laneScheme = GUIScaleScheme("by current occupancy (lanewise, netto)", 0, "", false, 0, COL_SCHEME_DYNAMIC);
+        laneScheme.addColor(10, 0.95);
+        laneScaler.addScheme(laneScheme);
+        laneScheme = GUIScaleScheme("by first vehicle waiting time (lanewise)", 0, "", false, 0, COL_SCHEME_DYNAMIC);
+        laneScheme.addColor(10, (double)300);
+        laneScaler.addScheme(laneScheme);
+        laneScheme = GUIScaleScheme("by lane number (streetwise)", 1);
+        laneScheme.addColor(10, (double)5);
+        laneScaler.addScheme(laneScheme);
         // ... emissions ...
-        scheme = GUIScaleScheme("by CO2 emissions", 0, "", false, 0, COL_SCHEME_EMISSION);
-        scheme.addColor(10, (double)(10. / 7.5 / 5.));
-        laneScaler.addScheme(scheme);
-        scheme = GUIScaleScheme("by CO emissions", 0, "", false, 0, COL_SCHEME_EMISSION);
-        scheme.addColor(10, (double)(0.05 / 7.5 / 2.));
-        laneScaler.addScheme(scheme);
-        scheme = GUIScaleScheme("by PMx emissions", 0, "", false, 0, COL_SCHEME_EMISSION);
-        scheme.addColor(10, (double)(.005 / 7.5 / 5.));
-        laneScaler.addScheme(scheme);
-        scheme = GUIScaleScheme("by NOx emissions", 0, "", false, 0, COL_SCHEME_EMISSION);
-        scheme.addColor(10, (double)(.125 / 7.5 / 5.));
-        laneScaler.addScheme(scheme);
-        scheme = GUIScaleScheme("by HC emissions", 0, "", false, 0, COL_SCHEME_EMISSION);
-        scheme.addColor(10, (double)(.02 / 7.5 / 4.));
-        laneScaler.addScheme(scheme);
-        scheme = GUIScaleScheme("by fuel consumption", 0, "", false, 0, COL_SCHEME_EMISSION);
-        scheme.addColor(10, (double)(.005 / 7.5 * 100.));
-        laneScaler.addScheme(scheme);
-        scheme = GUIScaleScheme("by noise emissions (Harmonoise)", 0, "", false, 0, COL_SCHEME_EMISSION);
-        scheme.addColor(10, (double)100);
-        laneScaler.addScheme(scheme);
+        laneScheme = GUIScaleScheme("by CO2 emissions", 0, "", false, 0, COL_SCHEME_EMISSION);
+        laneScheme.addColor(10, (double)(10. / 7.5 / 5.));
+        laneScaler.addScheme(laneScheme);
+        laneScheme = GUIScaleScheme("by CO emissions", 0, "", false, 0, COL_SCHEME_EMISSION);
+        laneScheme.addColor(10, (double)(0.05 / 7.5 / 2.));
+        laneScaler.addScheme(laneScheme);
+        laneScheme = GUIScaleScheme("by PMx emissions", 0, "", false, 0, COL_SCHEME_EMISSION);
+        laneScheme.addColor(10, (double)(.005 / 7.5 / 5.));
+        laneScaler.addScheme(laneScheme);
+        laneScheme = GUIScaleScheme("by NOx emissions", 0, "", false, 0, COL_SCHEME_EMISSION);
+        laneScheme.addColor(10, (double)(.125 / 7.5 / 5.));
+        laneScaler.addScheme(laneScheme);
+        laneScheme = GUIScaleScheme("by HC emissions", 0, "", false, 0, COL_SCHEME_EMISSION);
+        laneScheme.addColor(10, (double)(.02 / 7.5 / 4.));
+        laneScaler.addScheme(laneScheme);
+        laneScheme = GUIScaleScheme("by fuel consumption", 0, "", false, 0, COL_SCHEME_EMISSION);
+        laneScheme.addColor(10, (double)(.005 / 7.5 * 100.));
+        laneScaler.addScheme(laneScheme);
+        laneScheme = GUIScaleScheme("by noise emissions (Harmonoise)", 0, "", false, 0, COL_SCHEME_EMISSION);
+        laneScheme.addColor(10, (double)100);
+        laneScaler.addScheme(laneScheme);
         // ... weights (experimental) ...
-        scheme = GUIScaleScheme("by global travel time", 0);
-        scheme.addColor(10, (double)100);
-        scheme.setAllowsNegativeValues(true);
-        laneScaler.addScheme(scheme);
-        scheme = GUIScaleScheme("by global speed percentage", 0);
-        scheme.addColor(10, (double)100);
-        scheme.setAllowsNegativeValues(true);
-        laneScaler.addScheme(scheme);
-        scheme = GUIScaleScheme("by given length/geometrical length", 0);
-        scheme.addColor(10, (double)10.0);
-        laneScaler.addScheme(scheme);
-        scheme = GUIScaleScheme("by loaded weight", 0);
-        scheme.addColor(-1000, (double) - 1000);
-        scheme.addColor(1000, (double)1000);
-        scheme.setAllowsNegativeValues(true);
-        laneScaler.addScheme(scheme);
-        scheme = GUIScaleScheme("by priority", 1);
-        scheme.addColor(0.5, (double) - 20);
-        scheme.addColor(5, (double)20);
-        scheme.setAllowsNegativeValues(true);
-        laneScaler.addScheme(scheme);
-        scheme = GUIScaleScheme("by average speed", 0, "", false, 0, COL_SCHEME_DYNAMIC);
-        scheme.addColor(10, (double)(150.0 / 3.6));
-        laneScaler.addScheme(scheme);
-        scheme = GUIScaleScheme("by average relative speed", 0, "", false, 0, COL_SCHEME_DYNAMIC);
-        scheme.addColor(0.5, (double)(0.5));
-        scheme.addColor(2, (double)(1));
-        scheme.addColor(10, (double)(2));
-        laneScaler.addScheme(scheme);
-        scheme = GUIScaleScheme("by electricity consumption", 0, "", false, 0, COL_SCHEME_EMISSION);
-        scheme.addColor(10, (double)(1 / 7.5 / 5.));
-        laneScaler.addScheme(scheme);
-        scheme = GUIScaleScheme("by insertion-backlog (streetwise)", 0, "", false, 0, COL_SCHEME_DYNAMIC);
-        scheme.addColor(1, (double)1);
-        scheme.addColor(10, (double)10);
-        scheme.addColor(50, (double)100);
-        laneScaler.addScheme(scheme);
+        laneScheme = GUIScaleScheme("by global travel time", 0);
+        laneScheme.addColor(10, (double)100);
+        laneScheme.setAllowsNegativeValues(true);
+        laneScaler.addScheme(laneScheme);
+        laneScheme = GUIScaleScheme("by global speed percentage", 0);
+        laneScheme.addColor(10, (double)100);
+        laneScheme.setAllowsNegativeValues(true);
+        laneScaler.addScheme(laneScheme);
+        laneScheme = GUIScaleScheme("by given length/geometrical length", 0);
+        laneScheme.addColor(10, (double)10.0);
+        laneScaler.addScheme(laneScheme);
+        laneScheme = GUIScaleScheme("by loaded weight", 0);
+        laneScheme.addColor(-1000, (double) - 1000);
+        laneScheme.addColor(1000, (double)1000);
+        laneScheme.setAllowsNegativeValues(true);
+        laneScaler.addScheme(laneScheme);
+        laneScheme = GUIScaleScheme("by priority", 1);
+        laneScheme.addColor(0.5, (double) - 20);
+        laneScheme.addColor(5, (double)20);
+        laneScheme.setAllowsNegativeValues(true);
+        laneScaler.addScheme(laneScheme);
+        laneScheme = GUIScaleScheme("by average speed", 0, "", false, 0, COL_SCHEME_DYNAMIC);
+        laneScheme.addColor(10, (double)(150.0 / 3.6));
+        laneScaler.addScheme(laneScheme);
+        laneScheme = GUIScaleScheme("by average relative speed", 0, "", false, 0, COL_SCHEME_DYNAMIC);
+        laneScheme.addColor(0.5, (double)(0.5));
+        laneScheme.addColor(2, (double)(1));
+        laneScheme.addColor(10, (double)(2));
+        laneScaler.addScheme(laneScheme);
+        laneScheme = GUIScaleScheme("by electricity consumption", 0, "", false, 0, COL_SCHEME_EMISSION);
+        laneScheme.addColor(10, (double)(1 / 7.5 / 5.));
+        laneScaler.addScheme(laneScheme);
+        laneScheme = GUIScaleScheme("by insertion-backlog (streetwise)", 0, "", false, 0, COL_SCHEME_DYNAMIC);
+        laneScheme.addColor(1, (double)1);
+        laneScheme.addColor(10, (double)10);
+        laneScheme.addColor(50, (double)100);
+        laneScaler.addScheme(laneScheme);
     }
-
 
     /// add edge coloring schemes
     edgeColorer.addScheme(GUIColorScheme("uniform", RGBColor(0, 0, 0, 0), "", true));
@@ -762,33 +865,32 @@ GUIVisualizationSettings::initSumoGuiDefaults() {
     scheme = GUIColorScheme("by TAZ (streetwise)", RGBColor(204, 204, 204), "no TAZ", true);
     edgeColorer.addScheme(scheme);
 
-
     /// add edge scaling schemes
     {
         edgeScaler.addScheme(GUIScaleScheme("uniform", 1, "", true));
-        GUIScaleScheme scheme = GUIScaleScheme(SCHEME_NAME_SELECTION, 0.5, "unselected", true, 0, COL_SCHEME_MISC);
-        scheme.addColor(5, 1, "selected");
-        edgeScaler.addScheme(scheme);
-        scheme = GUIScaleScheme("by allowed speed (streetwise)", 0);
-        scheme.addColor(10, (double)(150.0 / 3.6));
-        edgeScaler.addScheme(scheme);
-        scheme = GUIScaleScheme("by current occupancy (streetwise, brutto)", 0, "", false, 0, COL_SCHEME_DYNAMIC);
-        scheme.addColor(10, 0.95);
-        edgeScaler.addScheme(scheme);
-        scheme = GUIScaleScheme("by current speed (streetwise)", 0, "", false, 0, COL_SCHEME_DYNAMIC);
-        scheme.addColor(10, (double)(150.0 / 3.6));
-        edgeScaler.addScheme(scheme);
-        scheme = GUIScaleScheme("by current flow (streetwise)", 0, "", false, 0, COL_SCHEME_DYNAMIC);
-        scheme.addColor(20, (double)5000);
-        edgeScaler.addScheme(scheme);
-        scheme = GUIScaleScheme("by relative speed (streetwise)", 0, "", false, 0, COL_SCHEME_DYNAMIC);
-        scheme.addColor(20, (double)1);
-        edgeScaler.addScheme(scheme);
-        scheme = GUIScaleScheme("by insertion-backlog (streetwise)", 0, "", false, 0, COL_SCHEME_DYNAMIC);
-        scheme.addColor(1, (double)1);
-        scheme.addColor(10, (double)10);
-        scheme.addColor(50, (double)100);
-        edgeScaler.addScheme(scheme);
+        GUIScaleScheme edgeScheme = GUIScaleScheme(SCHEME_NAME_SELECTION, 0.5, "unselected", true, 0, COL_SCHEME_MISC);
+        edgeScheme.addColor(5, 1, "selected");
+        edgeScaler.addScheme(edgeScheme);
+        edgeScheme = GUIScaleScheme("by allowed speed (streetwise)", 0);
+        edgeScheme.addColor(10, (double)(150.0 / 3.6));
+        edgeScaler.addScheme(edgeScheme);
+        edgeScheme = GUIScaleScheme("by current occupancy (streetwise, brutto)", 0, "", false, 0, COL_SCHEME_DYNAMIC);
+        edgeScheme.addColor(10, 0.95);
+        edgeScaler.addScheme(edgeScheme);
+        edgeScheme = GUIScaleScheme("by current speed (streetwise)", 0, "", false, 0, COL_SCHEME_DYNAMIC);
+        edgeScheme.addColor(10, (double)(150.0 / 3.6));
+        edgeScaler.addScheme(edgeScheme);
+        edgeScheme = GUIScaleScheme("by current flow (streetwise)", 0, "", false, 0, COL_SCHEME_DYNAMIC);
+        edgeScheme.addColor(20, (double)5000);
+        edgeScaler.addScheme(edgeScheme);
+        edgeScheme = GUIScaleScheme("by relative speed (streetwise)", 0, "", false, 0, COL_SCHEME_DYNAMIC);
+        edgeScheme.addColor(20, (double)1);
+        edgeScaler.addScheme(edgeScheme);
+        edgeScheme = GUIScaleScheme("by insertion-backlog (streetwise)", 0, "", false, 0, COL_SCHEME_DYNAMIC);
+        edgeScheme.addColor(1, (double)1);
+        edgeScheme.addColor(10, (double)10);
+        edgeScheme.addColor(50, (double)100);
+        edgeScaler.addScheme(edgeScheme);
     }
 
 }
@@ -939,8 +1041,8 @@ GUIVisualizationSettings::initNeteditDefaults() {
 
     /// add edge scaling schemes
     {
-        GUIScaleScheme scheme = GUIScaleScheme("default", 1, "uniform", true);
-        laneScaler.addScheme(scheme);
+        GUIScaleScheme edgeScheme = GUIScaleScheme("default", 1, "uniform", true);
+        laneScaler.addScheme(edgeScheme);
     }
 
     // dummy schemes
@@ -984,6 +1086,7 @@ GUIVisualizationSettings::getLaneEdgeScaleScheme() {
     }
     return laneScaler.getScheme();
 }
+
 
 void
 GUIVisualizationSettings::save(OutputDevice& dev) const {
@@ -1385,15 +1488,6 @@ GUIVisualizationSettings::operator==(const GUIVisualizationSettings& v2) {
 }
 
 
-double
-GUIVisualizationSizeSettings::getExaggeration(const GUIVisualizationSettings& s, const GUIGlObject* o, double factor) const {
-    /// @note should look normal-sized at zoom 1000
-    return (constantSize && (!constantSizeSelected || o == nullptr || gSelected.isSelected(o)))
-           ? MAX2((double)exaggeration, exaggeration * factor / s.scale)
-           : (!constantSizeSelected || o == nullptr || gSelected.isSelected(o) ? exaggeration : 1);
-}
-
-
 const RGBColor&
 GUIVisualizationSettings::getLinkColor(const LinkState& ls) {
     switch (ls) {
@@ -1431,6 +1525,7 @@ GUIVisualizationSettings::getLinkColor(const LinkState& ls) {
             throw ProcessError("No color defined for LinkState '" + std::string(ls, 1) + "'");
     }
 }
+
 
 double
 GUIVisualizationSettings::getTextAngle(double objectAngle) const {
