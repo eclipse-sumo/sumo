@@ -89,6 +89,10 @@ GNEAdditionalHandler::myStartElement(int element, const SUMOSAXAttributes& attrs
         parseGenericParameter(attrs);
     } else if (tag != SUMO_TAG_NOTHING) {
         // push element int stack
+        if (tag == SUMO_TAG_TRAIN_STOP) {
+            // ensure that access elements can find their parent in myHierarchyInsertedAdditionals
+            tag = SUMO_TAG_BUS_STOP;
+        }
         myHierarchyInsertedAdditionals.insertElement(tag);
         // Call parse and build depending of tag
         switch (tag) {
