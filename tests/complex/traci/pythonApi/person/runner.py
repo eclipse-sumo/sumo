@@ -37,10 +37,12 @@ def step():
     traci.simulationStep()
     return s
 
+
 def print_remaining_plan(personID, comment=""):
     print("remaining stages for '%s' %s" % (personID, comment))
     for i in range(traci.person.getRemainingStages(personID)):
         print("  %s: %s" % (i, traci.person.getStage(personID, i)))
+
 
 traci.start([sumolib.checkBinary('sumo'), "-c", "sumo.sumocfg", "--fcd-output", "fcd.xml"])
 # add walking person
