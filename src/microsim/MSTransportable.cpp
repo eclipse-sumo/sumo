@@ -180,13 +180,15 @@ MSTransportable::Stage_Trip::clone() const {
 
 Position
 MSTransportable::Stage_Trip::getPosition(SUMOTime /* now */) const {
-    throw ProcessError("Should not get here!");
+    // may be called concurrently while the trip is still being routed
+    return getEdgePosition(myOrigin, myDepartPos, ROADSIDE_OFFSET * (MSNet::getInstance()->lefthand() ? -1 : 1));
 }
 
 
 double
 MSTransportable::Stage_Trip::getAngle(SUMOTime /* now */) const {
-    throw ProcessError("Should not get here!");
+    // may be called concurrently while the trip is still being routed
+    return getEdgeAngle(myOrigin, myDepartPos) + M_PI / 2 * (MSNet::getInstance()->lefthand() ? -1 : 1);
 }
 
 
