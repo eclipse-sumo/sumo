@@ -301,8 +301,8 @@ GNEPoly::drawGL(const GUIVisualizationSettings& s) const {
         // set colors
         RGBColor invertedColor, darkerColor;
         if (drawUsingSelectColor()) {
-            invertedColor = s.selectionColor.invertedColor();
-            darkerColor = s.selectionColor.changedBrightness(-32);
+            invertedColor = s.colorSettings.selectionColor.invertedColor();
+            darkerColor = s.colorSettings.selectionColor.changedBrightness(-32);
         } else {
             invertedColor = GLHelper::getColor().invertedColor();
             darkerColor = GLHelper::getColor().changedBrightness(-32);

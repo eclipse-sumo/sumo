@@ -147,9 +147,9 @@ GNEDetectorE1::drawGL(const GUIVisualizationSettings& s) const {
 
     // set color
     if (drawUsingSelectColor()) {
-        GLHelper::setColor(s.selectedAdditionalColor);
+        GLHelper::setColor(s.colorSettings.selectedAdditionalColor);
     } else {
-        GLHelper::setColor(s.SUMO_color_E1);
+        GLHelper::setColor(s.colorSettings.E1);
     }
     // draw shape
     glPushMatrix();
@@ -173,7 +173,7 @@ GNEDetectorE1::drawGL(const GUIVisualizationSettings& s) const {
     if ((width * exaggeration > 1) && !s.drawForSelecting) {
         // set color
         if (drawUsingSelectColor()) {
-            GLHelper::setColor(s.selectionColor);
+            GLHelper::setColor(s.colorSettings.selectionColor);
         } else {
             GLHelper::setColor(RGBColor::WHITE);
         }
@@ -191,7 +191,7 @@ GNEDetectorE1::drawGL(const GUIVisualizationSettings& s) const {
     if ((width * exaggeration > 1) && !s.drawForSelecting) {
         // set color
         if (drawUsingSelectColor()) {
-            GLHelper::setColor(s.selectionColor);
+            GLHelper::setColor(s.colorSettings.selectionColor);
         } else {
             GLHelper::setColor(RGBColor::WHITE);
         }
@@ -217,7 +217,7 @@ GNEDetectorE1::drawGL(const GUIVisualizationSettings& s) const {
         glTranslated(-1, 0, 0);
         // draw E1 logo
         if (drawUsingSelectColor()) {
-            GLHelper::drawText("E1", Position(), .1, 1.5, s.selectionColor);
+            GLHelper::drawText("E1", Position(), .1, 1.5, s.colorSettings.selectionColor);
         } else {
             GLHelper::drawText("E1", Position(), .1, 1.5, RGBColor::BLACK);
         }

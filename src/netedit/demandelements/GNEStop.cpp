@@ -333,11 +333,11 @@ GNEStop::drawGL(const GUIVisualizationSettings& s) const {
         RGBColor stopColor;
         // Set color
         if (drawUsingSelectColor()) {
-            stopColor = s.selectedAdditionalColor;
+            stopColor = s.colorSettings.selectedAdditionalColor;
         } else if (myTagProperty.isPersonStop()) {
-            stopColor = s.SUMO_color_personStops;
+            stopColor = s.colorSettings.personStops;
         } else {
-            stopColor = s.SUMO_color_stops;
+            stopColor = s.colorSettings.stops;
         }
         // Start drawing adding an gl identificator
         glPushName(getGlID());
@@ -347,11 +347,11 @@ GNEStop::drawGL(const GUIVisualizationSettings& s) const {
         glTranslated(0, 0, getType());
         // Set color of the base
         if (drawUsingSelectColor()) {
-            GLHelper::setColor(s.selectedAdditionalColor);
+            GLHelper::setColor(s.colorSettings.selectedAdditionalColor);
         } else if (myTagProperty.isPersonStop()) {
-            GLHelper::setColor(s.SUMO_color_personStops);
+            GLHelper::setColor(s.colorSettings.personStops);
         } else {
-            GLHelper::setColor(s.SUMO_color_stops);
+            GLHelper::setColor(s.colorSettings.stops);
         }
         // draw lines depending if it's placed over a lane or over a stoppingPlace
         if (getLaneParents().size() > 0) {

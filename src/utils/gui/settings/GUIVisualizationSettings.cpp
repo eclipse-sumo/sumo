@@ -59,33 +59,33 @@ const RGBColor SUMO_color_DEADEND(0, 0, 0);
 // color constants for other objects
 // -------------------------------------------------------------------------
 
-const RGBColor GUIVisualizationSettings::SUMO_color_busStop(76, 170, 50);
-const RGBColor GUIVisualizationSettings::SUMO_color_busStop_sign(255, 235, 0);
-const RGBColor GUIVisualizationSettings::SUMO_color_containerStop(83, 89, 172);
-const RGBColor GUIVisualizationSettings::SUMO_color_containerStop_sign(177, 184, 186, 171);
-const RGBColor GUIVisualizationSettings::SUMO_color_chargingStation(114, 210, 252);
-const RGBColor GUIVisualizationSettings::SUMO_color_chargingStation_sign(255, 235, 0);
-const RGBColor GUIVisualizationSettings::SUMO_color_chargingStation_charge(255, 180, 0);
-const RGBColor GUIVisualizationSettings::SUMO_color_E1(255, 255, 0);
-const RGBColor GUIVisualizationSettings::SUMO_color_E1Instant(255, 0, 255);
-const RGBColor GUIVisualizationSettings::SUMO_color_E2(0, 204, 204);
-const RGBColor GUIVisualizationSettings::SUMO_color_E3Entry(0, 92, 64);
-const RGBColor GUIVisualizationSettings::SUMO_color_E3Exit(92, 0, 0);
-const RGBColor GUIVisualizationSettings::SUMO_color_stops(220, 20, 30);
-const RGBColor GUIVisualizationSettings::SUMO_color_personStops(255, 0, 0);
-const RGBColor GUIVisualizationSettings::SUMO_color_personTrip(200, 0, 255);
-const RGBColor GUIVisualizationSettings::SUMO_color_walk(0, 255, 0);
-const RGBColor GUIVisualizationSettings::SUMO_color_ride(0, 0, 255);
+const RGBColor GUIVisualizationColorSettings::busStop(76, 170, 50);
+const RGBColor GUIVisualizationColorSettings::busStop_sign(255, 235, 0);
+const RGBColor GUIVisualizationColorSettings::containerStop(83, 89, 172);
+const RGBColor GUIVisualizationColorSettings::containerStop_sign(177, 184, 186, 171);
+const RGBColor GUIVisualizationColorSettings::chargingStation(114, 210, 252);
+const RGBColor GUIVisualizationColorSettings::chargingStation_sign(255, 235, 0);
+const RGBColor GUIVisualizationColorSettings::chargingStation_charge(255, 180, 0);
+const RGBColor GUIVisualizationColorSettings::E1(255, 255, 0);
+const RGBColor GUIVisualizationColorSettings::E1Instant(255, 0, 255);
+const RGBColor GUIVisualizationColorSettings::E2(0, 204, 204);
+const RGBColor GUIVisualizationColorSettings::E3Entry(0, 92, 64);
+const RGBColor GUIVisualizationColorSettings::E3Exit(92, 0, 0);
+const RGBColor GUIVisualizationColorSettings::stops(220, 20, 30);
+const RGBColor GUIVisualizationColorSettings::personStops(255, 0, 0);
+const RGBColor GUIVisualizationColorSettings::personTrip(200, 0, 255);
+const RGBColor GUIVisualizationColorSettings::walk(0, 255, 0);
+const RGBColor GUIVisualizationColorSettings::ride(0, 0, 255);
 
 // -------------------------------------------------------------------------
 // widths of certain NETEDIT objects
 // -------------------------------------------------------------------------
 
-const double GUIVisualizationSettings::SUMO_width_route(0.66);
-const double GUIVisualizationSettings::SUMO_width_trip( 0.2);
-const double GUIVisualizationSettings::SUMO_width_personTrip(0.50);
-const double GUIVisualizationSettings::SUMO_width_walk(0.50);
-const double GUIVisualizationSettings::SUMO_width_ride(0.50);
+const double GUIVisualizationWidthSettings::route(0.66);
+const double GUIVisualizationWidthSettings::trip( 0.2);
+const double GUIVisualizationWidthSettings::personTrip(0.50);
+const double GUIVisualizationWidthSettings::walk(0.50);
+const double GUIVisualizationWidthSettings::ride(0.50);
 
 // -------------------------------------------------------------------------
 // scheme names
@@ -207,6 +207,38 @@ GUIVisualizationSizeSettings::print(OutputDevice& dev, const std::string& name) 
 }
 
 // ---------------------------------------------------------------------------
+// GUIVisualizationColorSettings - methods
+// ---------------------------------------------------------------------------
+
+GUIVisualizationColorSettings::GUIVisualizationColorSettings() :
+    selectionColor(0, 0, 204, 255),
+    selectedEdgeColor(0, 0, 204, 255),
+    selectedLaneColor(0, 0, 128, 255),
+    selectedConnectionColor(0, 0, 100, 255),
+    selectedAdditionalColor(0, 0, 150, 255) {
+}
+
+
+bool
+GUIVisualizationColorSettings::operator==(const GUIVisualizationColorSettings& v2) {
+    return (selectionColor == v2.selectionColor) &&
+           (selectedEdgeColor == v2.selectedEdgeColor) &&
+           (selectedLaneColor == v2.selectedLaneColor) &&
+           (selectedConnectionColor == v2.selectedConnectionColor) &&
+           (selectedAdditionalColor == v2.selectedAdditionalColor);
+}
+
+
+bool
+GUIVisualizationColorSettings::operator!=(const GUIVisualizationColorSettings& v2) {
+    return (selectionColor != v2.selectionColor) ||
+           (selectedEdgeColor != v2.selectedEdgeColor) ||
+           (selectedLaneColor != v2.selectedLaneColor) ||
+           (selectedConnectionColor != v2.selectedConnectionColor) ||
+           (selectedAdditionalColor != v2.selectedAdditionalColor);
+}
+
+// ---------------------------------------------------------------------------
 // GUIVisualizationSettings - methods
 // ---------------------------------------------------------------------------
 
@@ -268,11 +300,6 @@ GUIVisualizationSettings::GUIVisualizationSettings(bool _netedit) :
     showSizeLegend(true),
     showColorLegend(false),
     gaming(false),
-    selectionColor(0, 0, 204, 255),
-    selectedEdgeColor(0, 0, 204, 255),
-    selectedLaneColor(0, 0, 128, 255),
-    selectedConnectionColor(0, 0, 100, 255),
-    selectedAdditionalColor(0, 0, 150, 255),
     drawBoundaries(false),
     selectionScale(1.),
     drawForSelecting(false),
@@ -1255,19 +1282,7 @@ GUIVisualizationSettings::operator==(const GUIVisualizationSettings& v2) {
     if (backgroundColor != v2.backgroundColor) {
         return false;
     }
-    if (selectionColor != v2.selectionColor) {
-        return false;
-    }
-    if (selectedEdgeColor != v2.selectedEdgeColor) {
-        return false;
-    }
-    if (selectedLaneColor != v2.selectedLaneColor) {
-        return false;
-    }
-    if (selectedConnectionColor != v2.selectedConnectionColor) {
-        return false;
-    }
-    if (selectedAdditionalColor != v2.selectedAdditionalColor) {
+    if (colorSettings != v2.colorSettings) {
         return false;
     }
     if (showGrid != v2.showGrid) {

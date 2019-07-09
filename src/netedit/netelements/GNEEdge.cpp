@@ -1227,7 +1227,7 @@ GNEEdge::getLaneByVClass(const SUMOVehicleClass vClass, bool &found) const {
 void 
 GNEEdge::drawPartialRoute(const GUIVisualizationSettings& s, const GNEDemandElement *route, const GNEJunction* junction) const {
     // calculate route width
-    double routeWidth = s.addSize.getExaggeration(s, this) * s.SUMO_width_route;
+    double routeWidth = s.addSize.getExaggeration(s, this) * s.widthSettings.route;
     // Start drawing adding an gl identificator
     glPushName(route->getGlID());
     // Add a draw matrix
@@ -1236,7 +1236,7 @@ GNEEdge::drawPartialRoute(const GUIVisualizationSettings& s, const GNEDemandElem
     glTranslated(0, 0, route->getType());
     // Set color of the base
     if (route->drawUsingSelectColor()) {
-        GLHelper::setColor(s.selectedAdditionalColor);
+        GLHelper::setColor(s.colorSettings.selectedAdditionalColor);
     } else {
         GLHelper::setColor(route->getColor());
     }
@@ -1291,14 +1291,14 @@ GNEEdge::drawPartialRoute(const GUIVisualizationSettings& s, const GNEDemandElem
 void 
 GNEEdge::drawPartialTripFromTo(const GUIVisualizationSettings& s, const GNEDemandElement *tripOrFromTo, const GNEJunction* junction) const {
     // calculate tripOrFromTo width
-    double tripOrFromToWidth = s.addSize.getExaggeration(s, this) * s.SUMO_width_trip;
+    double tripOrFromToWidth = s.addSize.getExaggeration(s, this) * s.widthSettings.trip;
     // Add a draw matrix
     glPushMatrix();
     // Start with the drawing of the area traslating matrix to origin
     glTranslated(0, 0, tripOrFromTo->getType());
     // Set color of the base
     if (tripOrFromTo->drawUsingSelectColor()) {
-        GLHelper::setColor(s.selectedConnectionColor);
+        GLHelper::setColor(s.colorSettings.selectedConnectionColor);
     } else {
         GLHelper::setColor(RGBColor::ORANGE);
     }
@@ -1343,21 +1343,21 @@ GNEEdge::drawPartialPersonPlan(const GUIVisualizationSettings& s, const GNEDeman
     glTranslated(0, 0, personPlan->getType());
     // Set color depending of person plan type
     if (personPlan->drawUsingSelectColor()) {
-        GLHelper::setColor(s.selectedAdditionalColor);
+        GLHelper::setColor(s.colorSettings.selectedAdditionalColor);
     } else if (personPlan->getTagProperty().isPersonTrip()) {
-        GLHelper::setColor(s.SUMO_color_personTrip);
+        GLHelper::setColor(s.colorSettings.personTrip);
     } else if (personPlan->getTagProperty().isWalk()) {
-        GLHelper::setColor(s.SUMO_color_walk);
+        GLHelper::setColor(s.colorSettings.walk);
     } else if (personPlan->getTagProperty().isRide()) {
-        GLHelper::setColor(s.SUMO_color_ride);
+        GLHelper::setColor(s.colorSettings.ride);
     }
     // Set width depending of person plan type
     if (personPlan->getTagProperty().isPersonTrip()) {
-        personPlanWidth = s.addSize.getExaggeration(s, this) * s.SUMO_width_personTrip;
+        personPlanWidth = s.addSize.getExaggeration(s, this) * s.widthSettings.personTrip;
     } else if (personPlan->getTagProperty().isWalk()) {
-        personPlanWidth = s.addSize.getExaggeration(s, this) * s.SUMO_width_walk;
+        personPlanWidth = s.addSize.getExaggeration(s, this) * s.widthSettings.walk;
     } else if (personPlan->getTagProperty().isRide()) {
-        personPlanWidth = s.addSize.getExaggeration(s, this) * s.SUMO_width_ride;
+        personPlanWidth = s.addSize.getExaggeration(s, this) * s.widthSettings.ride;
     }
     // draw route
     if (junction) {
@@ -1442,13 +1442,13 @@ GNEEdge::drawPartialPersonPlan(const GUIVisualizationSettings& s, const GNEDeman
                 glTranslated(pos.x(), pos.y(), GLO_PERSONTRIP + 0.01);
                 // Set color depending of person plan type
                 if (personPlan->drawUsingSelectColor()) {
-                    GLHelper::setColor(s.selectedAdditionalColor);
+                    GLHelper::setColor(s.colorSettings.selectedAdditionalColor);
                 } else if (personPlan->getTagProperty().isPersonTrip()) {
-                    GLHelper::setColor(s.SUMO_color_personTrip);
+                    GLHelper::setColor(s.colorSettings.personTrip);
                 } else if (personPlan->getTagProperty().isWalk()) {
-                    GLHelper::setColor(s.SUMO_color_walk);
+                    GLHelper::setColor(s.colorSettings.walk);
                 } else if (personPlan->getTagProperty().isRide()) {
-                    GLHelper::setColor(s.SUMO_color_ride);
+                    GLHelper::setColor(s.colorSettings.ride);
                 }
                 // resolution of drawn circle depending of the zoom (To improve smothness)
                 GLHelper::drawFilledCircle(circleWidth, GNEAttributeCarrier::getCircleResolution(s));
@@ -2012,7 +2012,7 @@ GNEEdge::drawGeometryPoints(const GUIVisualizationSettings& s) const {
     RGBColor color = s.junctionColorer.getSchemes()[0].getColor(2);
     if (drawUsingSelectColor() && s.laneColorer.getActive() != 1) {
         // override with special colors (unless the color scheme is based on selection)
-        color = s.selectedEdgeColor.changedBrightness(-20);
+        color = s.colorSettings.selectedEdgeColor.changedBrightness(-20);
     }
     GLHelper::setColor(color);
     // recognize full transparency and simply don't draw

@@ -143,7 +143,7 @@ GNECalibrator::drawGL(const GUIVisualizationSettings& s) const {
         glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 
         if (drawUsingSelectColor()) {
-            GLHelper::setColor(s.selectedAdditionalColor);
+            GLHelper::setColor(s.colorSettings.selectedAdditionalColor);
         } else {
             GLHelper::setColor(RGBColor(255, 204, 0));
         }
@@ -160,7 +160,7 @@ GNECalibrator::drawGL(const GUIVisualizationSettings& s) const {
         // draw text if isn't being drawn for selecting
         if ((s.scale * exaggeration >= 1.) && !s.drawForSelecting) {
             // set color depending of selection status
-            RGBColor textColor = drawUsingSelectColor() ? s.selectionColor : RGBColor::BLACK;
+            RGBColor textColor = drawUsingSelectColor() ? s.colorSettings.selectionColor : RGBColor::BLACK;
             // draw "C"
             GLHelper::drawText("C", Position(0, 1.5), 0.1, 3, textColor, 180);
             // draw "edge" or "lane "

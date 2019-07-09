@@ -122,7 +122,7 @@ GNEVaporizer::drawGL(const GUIVisualizationSettings& s) const {
 
     // set color
     if (drawUsingSelectColor()) {
-        GLHelper::setColor(s.selectedAdditionalColor);
+        GLHelper::setColor(s.colorSettings.selectedAdditionalColor);
     } else {
         GLHelper::setColor(RGBColor(120, 216, 0));
     }
@@ -148,7 +148,7 @@ GNEVaporizer::drawGL(const GUIVisualizationSettings& s) const {
     // draw position indicator (White) if isn't being drawn for selecting
     if ((width * exaggeration > 1) && !s.drawForSelecting) {
         if (drawUsingSelectColor()) {
-            GLHelper::setColor(s.selectionColor);
+            GLHelper::setColor(s.colorSettings.selectionColor);
         } else {
             GLHelper::setColor(RGBColor::WHITE);
         }

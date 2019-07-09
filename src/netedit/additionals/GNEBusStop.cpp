@@ -102,9 +102,9 @@ GNEBusStop::drawGL(const GUIVisualizationSettings& s) const {
     if (mySpecialColor) {
         GLHelper::setColor(*mySpecialColor);
     } else if (drawUsingSelectColor()) {
-        GLHelper::setColor(s.selectedAdditionalColor);
+        GLHelper::setColor(s.colorSettings.selectedAdditionalColor);
     } else {
-        GLHelper::setColor(s.SUMO_color_busStop);
+        GLHelper::setColor(s.colorSettings.busStop);
     }
     // Draw the area using shape, shapeRotations, shapeLengths and value of exaggeration
     GLHelper::drawBoxLines(myGeometry.shape, myGeometry.shapeRotations, myGeometry.shapeLengths, exaggeration);
@@ -119,7 +119,7 @@ GNEBusStop::drawGL(const GUIVisualizationSettings& s) const {
             // scale matrix depending of the exaggeration
             glScaled(exaggeration, exaggeration, 1);
             // set color
-            GLHelper::setColor(s.SUMO_color_busStop);
+            GLHelper::setColor(s.colorSettings.busStop);
             // Draw circle
             GLHelper::drawFilledCircle(myCircleWidth, circleResolution);
             // pop draw matrix
@@ -141,9 +141,9 @@ GNEBusStop::drawGL(const GUIVisualizationSettings& s) const {
             glRotated(-1 * myBlockIcon.rotation, 0, 0, 1);
             // draw line with a color depending of the selection status
             if (drawUsingSelectColor()) {
-                GLHelper::drawText(myLines[i].c_str(), Position(1.2, (double)i), .1, 1.f, s.selectionColor, 0, FONS_ALIGN_LEFT);
+                GLHelper::drawText(myLines[i].c_str(), Position(1.2, (double)i), .1, 1.f, s.colorSettings.selectionColor, 0, FONS_ALIGN_LEFT);
             } else {
-                GLHelper::drawText(myLines[i].c_str(), Position(1.2, (double)i), .1, 1.f, s.SUMO_color_busStop, 0, FONS_ALIGN_LEFT);
+                GLHelper::drawText(myLines[i].c_str(), Position(1.2, (double)i), .1, 1.f, s.colorSettings.busStop, 0, FONS_ALIGN_LEFT);
             }
             // pop matrix for every line
             glPopMatrix();
@@ -154,9 +154,9 @@ GNEBusStop::drawGL(const GUIVisualizationSettings& s) const {
         glScaled(exaggeration, exaggeration, 1);
         // Set color of the externe circle
         if (drawUsingSelectColor()) {
-            GLHelper::setColor(s.selectedAdditionalColor);
+            GLHelper::setColor(s.colorSettings.selectedAdditionalColor);
         } else {
-            GLHelper::setColor(s.SUMO_color_busStop);
+            GLHelper::setColor(s.colorSettings.busStop);
         }
         // Draw circle
         GLHelper::drawFilledCircle(myCircleWidth, circleResolution);
@@ -164,18 +164,18 @@ GNEBusStop::drawGL(const GUIVisualizationSettings& s) const {
         glTranslated(0, 0, .1);
         // Set color of the interne circle
         if (drawUsingSelectColor()) {
-            GLHelper::setColor(s.selectionColor);
+            GLHelper::setColor(s.colorSettings.selectionColor);
         } else {
-            GLHelper::setColor(s.SUMO_color_busStop_sign);
+            GLHelper::setColor(s.colorSettings.busStop_sign);
         }
         // draw another circle in the same position, but a little bit more small
         GLHelper::drawFilledCircle(myCircleInWidth, circleResolution);
         // If the scale * exageration is equal or more than 4.5, draw H
         if (s.scale * exaggeration >= 4.5) {
             if (drawUsingSelectColor()) {
-                GLHelper::drawText("H", Position(), .1, myCircleInText, s.selectedAdditionalColor, myBlockIcon.rotation);
+                GLHelper::drawText("H", Position(), .1, myCircleInText, s.colorSettings.selectedAdditionalColor, myBlockIcon.rotation);
             } else {
-                GLHelper::drawText("H", Position(), .1, myCircleInText, s.SUMO_color_busStop, myBlockIcon.rotation);
+                GLHelper::drawText("H", Position(), .1, myCircleInText, s.colorSettings.busStop, myBlockIcon.rotation);
             }
         }
         // pop draw matrix

@@ -295,7 +295,7 @@ GNEConnection::drawGL(const GUIVisualizationSettings& s) const {
         // Set color
         if (drawUsingSelectColor()) {
             // override with special colors (unless the color scheme is based on selection)
-            GLHelper::setColor(s.selectedConnectionColor);
+            GLHelper::setColor(s.colorSettings.selectedConnectionColor);
         } else if (mySpecialColor != nullptr) {
             GLHelper::setColor(*mySpecialColor);
         } else {

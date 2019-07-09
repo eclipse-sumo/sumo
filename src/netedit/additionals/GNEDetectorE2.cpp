@@ -399,11 +399,11 @@ GNEDetectorE2::drawGL(const GUIVisualizationSettings& s) const {
 
     // Set color of the base
     if (drawUsingSelectColor()) {
-        GLHelper::setColor(s.selectedAdditionalColor);
+        GLHelper::setColor(s.colorSettings.selectedAdditionalColor);
     } else {
         // set color depending if is or isn't valid
         if (myE2valid) {
-            GLHelper::setColor(s.SUMO_color_E2);
+            GLHelper::setColor(s.colorSettings.E2);
         } else {
             GLHelper::setColor(RGBColor::RED);
         }
@@ -443,7 +443,7 @@ GNEDetectorE2::drawGL(const GUIVisualizationSettings& s) const {
             glTranslated(-0.75, 0, 0);
             // draw E2 logo
             if (drawUsingSelectColor()) {
-                GLHelper::drawText("E2", Position(), .1, 1.5, s.selectionColor);
+                GLHelper::drawText("E2", Position(), .1, 1.5, s.colorSettings.selectionColor);
             } else {
                 GLHelper::drawText("E2", Position(), .1, 1.5, RGBColor::BLACK);
             }
@@ -458,7 +458,7 @@ GNEDetectorE2::drawGL(const GUIVisualizationSettings& s) const {
             glTranslated(-1.5, 0, 0);
             // draw E2 logo
             if (drawUsingSelectColor()) {
-                GLHelper::drawText("E2", Position(), .1, 1.5, s.selectionColor);
+                GLHelper::drawText("E2", Position(), .1, 1.5, s.colorSettings.selectionColor);
             } else {
                 GLHelper::drawText("E2", Position(), .1, 1.5, RGBColor::BLACK);
             }
@@ -467,7 +467,7 @@ GNEDetectorE2::drawGL(const GUIVisualizationSettings& s) const {
             // Rotate depending of myBlockIcon.rotation
             glRotated(90, 0, 0, 1);
             if (drawUsingSelectColor()) {
-                GLHelper::drawText("multi", Position(), .1, 0.9, s.selectedAdditionalColor);
+                GLHelper::drawText("multi", Position(), .1, 0.9, s.colorSettings.selectedAdditionalColor);
             } else {
                 GLHelper::drawText("multi", Position(), .1, 0.9, RGBColor::BLACK);
             }

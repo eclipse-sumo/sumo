@@ -1467,7 +1467,7 @@ GNEJunction::setColor(const GUIVisualizationSettings& s, bool bubble) const {
     }
     // override with special colors (unless the color scheme is based on selection)
     if (drawUsingSelectColor() && scheme != 1) {
-        color = s.selectionColor;
+        color = s.colorSettings.selectionColor;
     }
     if (myAmCreateEdgeSource) {
         color = RGBColor(0, 255, 0);

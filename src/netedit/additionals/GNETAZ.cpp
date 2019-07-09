@@ -271,7 +271,7 @@ GNETAZ::drawGL(const GUIVisualizationSettings& s) const {
         glPushMatrix();
         glTranslated(0, 0, 128);
         if (drawUsingSelectColor()) {
-            GLHelper::setColor(s.selectionColor);
+            GLHelper::setColor(s.colorSettings.selectionColor);
         } else {
             GLHelper::setColor(myColor);
         }
@@ -291,8 +291,8 @@ GNETAZ::drawGL(const GUIVisualizationSettings& s) const {
         // set colors
         RGBColor invertedColor, darkerColor;
         if (drawUsingSelectColor()) {
-            invertedColor = s.selectionColor.invertedColor();
-            darkerColor = s.selectionColor.changedBrightness(-32);
+            invertedColor = s.colorSettings.selectionColor.invertedColor();
+            darkerColor = s.colorSettings.selectionColor.changedBrightness(-32);
         } else {
             invertedColor = GLHelper::getColor().invertedColor();
             darkerColor = GLHelper::getColor().changedBrightness(-32);

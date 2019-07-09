@@ -137,7 +137,7 @@ GUIBusStop::drawGL(const GUIVisualizationSettings& s) const {
     glPushMatrix();
     // draw the area
     glTranslated(0, 0, getType());
-    GLHelper::setColor(s.SUMO_color_busStop);
+    GLHelper::setColor(s.colorSettings.busStop);
     const double exaggeration = s.addSize.getExaggeration(s, this);
     const double offset = myWidth * 0.5 * MAX2(0.0, exaggeration - 1);
     GLHelper::drawBoxLines(myFGShape, myFGShapeRotations, myFGShapeLengths, myWidth * 0.5 * exaggeration, 0, offset);
@@ -154,7 +154,7 @@ GUIBusStop::drawGL(const GUIVisualizationSettings& s) const {
             glTranslated(myFGSignPos.x(), myFGSignPos.y(), 0);
             glRotated(rotSign * myFGSignRot, 0, 0, 1);
             // draw line
-            GLHelper::drawText(myLines[i].c_str(), Position(1.2, (double)i), .1, 1.f, s.SUMO_color_busStop, 0, FONS_ALIGN_LEFT);
+            GLHelper::drawText(myLines[i].c_str(), Position(1.2, (double)i), .1, 1.f, s.colorSettings.busStop, 0, FONS_ALIGN_LEFT);
             // pop matrix for every line
             glPopMatrix();
         }
@@ -170,10 +170,10 @@ GUIBusStop::drawGL(const GUIVisualizationSettings& s) const {
         glScaled(exaggeration, exaggeration, 1);
         GLHelper::drawFilledCircle((double) 1.1, noPoints);
         glTranslated(0, 0, .1);
-        GLHelper::setColor(s.SUMO_color_busStop_sign);
+        GLHelper::setColor(s.colorSettings.busStop_sign);
         GLHelper::drawFilledCircle((double) 0.9, noPoints);
         if (s.scale * exaggeration >= 4.5) {
-            GLHelper::drawText("H", Position(), .1, 1.6, s.SUMO_color_busStop, myFGSignRot);
+            GLHelper::drawText("H", Position(), .1, 1.6, s.colorSettings.busStop, myFGSignRot);
         }
         glPopMatrix();
     }

@@ -1366,7 +1366,7 @@ void
 GNEVehicle::setColor(const GUIVisualizationSettings& s) const {
     // change color
     if (drawUsingSelectColor()) {
-        GLHelper::setColor(s.selectedAdditionalColor);
+        GLHelper::setColor(s.colorSettings.selectedAdditionalColor);
     } else {
         // obtain vehicle color
         const GUIColorer& c = s.vehicleColorer;

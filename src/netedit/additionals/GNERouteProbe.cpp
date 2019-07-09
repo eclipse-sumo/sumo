@@ -127,7 +127,7 @@ GNERouteProbe::drawGL(const GUIVisualizationSettings& s) const {
 
     // set color
     if (drawUsingSelectColor()) {
-        GLHelper::setColor(s.selectedAdditionalColor);
+        GLHelper::setColor(s.colorSettings.selectedAdditionalColor);
     } else {
         GLHelper::setColor(RGBColor(255, 216, 0));
     }
@@ -154,7 +154,7 @@ GNERouteProbe::drawGL(const GUIVisualizationSettings& s) const {
     // position indicator (White)
     if ((width * exaggeration > 1) && !s.drawForSelecting) {
         if (drawUsingSelectColor()) {
-            GLHelper::setColor(s.selectionColor);
+            GLHelper::setColor(s.colorSettings.selectionColor);
         } else {
             GLHelper::setColor(RGBColor::WHITE);
         }

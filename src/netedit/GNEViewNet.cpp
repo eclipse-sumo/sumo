@@ -530,7 +530,7 @@ GNEViewNet::doPaintGL(int mode, const Boundary& bound) {
     glEnable(GL_DEPTH_TEST);
 
     // visualize rectangular selection
-    mySelectingArea.drawRectangleSelection(myVisualizationSettings->selectionColor);
+    mySelectingArea.drawRectangleSelection(myVisualizationSettings->colorSettings.selectionColor);
 
     // compute lane width
     double lw = m2p(SUMO_const_laneWidth);

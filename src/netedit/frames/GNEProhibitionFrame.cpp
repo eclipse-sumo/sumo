@@ -61,7 +61,7 @@ GNEProhibitionFrame::GNEProhibitionFrame(FXHorizontalFrame* horizontalFrameParen
     getFrameHeaderLabel()->setText("Prohibitions");
 
     // init colors here
-    selectedColor = viewNet->getVisualisationSettings()->selectedConnectionColor;
+    selectedColor = viewNet->getVisualisationSettings()->colorSettings.selectedConnectionColor;
     undefinedColor = RGBColor::GREY;
     prohibitedColor = RGBColor(0, 179, 0);
     prohibitingColor = RGBColor::RED;

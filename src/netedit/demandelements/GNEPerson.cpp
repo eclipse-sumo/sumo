@@ -574,11 +574,11 @@ GNEPerson::drawGL(const GUIVisualizationSettings& s) const {
             // draw contour of all person plan childs
             for (const auto &i : getDemandElementChildren()) {
                 if (i->getTagProperty().isWalk()) {
-                    GLHelper::drawShapeDottedContour(getType(), myDemandElementSegmentGeometry.partialShape.at(i), exaggeration * s.SUMO_width_walk);
+                    GLHelper::drawShapeDottedContour(getType(), myDemandElementSegmentGeometry.partialShape.at(i), exaggeration * s.widthSettingswalk);
                 } else if (i->getTagProperty().isPersonTrip()) {
-                    GLHelper::drawShapeDottedContour(getType(), myDemandElementSegmentGeometry.partialShape.at(i), exaggeration * s.SUMO_width_personTrip);
+                    GLHelper::drawShapeDottedContour(getType(), myDemandElementSegmentGeometry.partialShape.at(i), exaggeration * s.widthSettingspersonTrip);
                 } else if (i->getTagProperty().isRide()) {
-                    GLHelper::drawShapeDottedContour(getType(), myDemandElementSegmentGeometry.partialShape.at(i), exaggeration * s.SUMO_width_ride);
+                    GLHelper::drawShapeDottedContour(getType(), myDemandElementSegmentGeometry.partialShape.at(i), exaggeration * s.widthSettingsride);
                 }
             }
         }

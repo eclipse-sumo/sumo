@@ -53,10 +53,10 @@ struct GUIVisualizationTextSettings {
     /// @brief constructor
     GUIVisualizationTextSettings(bool _show, double _size, RGBColor _color, RGBColor _bgColor = RGBColor(128, 0, 0, 0), bool _constSize = true);
 
-    /// @brief equality comparison operator
+    /// @brief equality comparator
     bool operator==(const GUIVisualizationTextSettings& other);
 
-    /// @brief inequality comparison operator
+    /// @brief inequality comparator
     bool operator!=(const GUIVisualizationTextSettings& other);
 
     /// @brief print values in output device
@@ -82,17 +82,19 @@ struct GUIVisualizationTextSettings {
 };
 
 
+/// @brief struct for Size Settings
 struct GUIVisualizationSizeSettings {
+
     /// @brief constructor
     GUIVisualizationSizeSettings(double _minSize, double _exaggeration = 1.0, bool _constantSize = false, bool _constantSizeSelected = false);
 
     /// @brief return the drawing size including exaggeration and constantSize values
     double getExaggeration(const GUIVisualizationSettings& s, const GUIGlObject* o, double factor = 20) const;
 
-    /// @brief equality comparison operator
+    /// @brief equality comparator
     bool operator==(const GUIVisualizationSizeSettings& other);
 
-    /// @brief inequality comparison operator
+    /// @brief inequality comparator
     bool operator!=(const GUIVisualizationSizeSettings& other);
 
     /// @brief print values in output device
@@ -112,16 +114,104 @@ struct GUIVisualizationSizeSettings {
 };
 
 
+/// @brief struct for Color Settings
+struct GUIVisualizationColorSettings {
+
+    /// @brief constructor
+    GUIVisualizationColorSettings();
+
+    /// @brief equality comparator
+    bool operator==(const GUIVisualizationColorSettings& other);
+
+    /// @brief inequality comparator
+    bool operator!=(const GUIVisualizationColorSettings& other);
+
+    /// @brief NETEDIT special selection colors
+    RGBColor selectionColor;
+    RGBColor selectedEdgeColor;
+    RGBColor selectedLaneColor;
+    RGBColor selectedConnectionColor;
+    RGBColor selectedAdditionalColor;
+
+    /// @brief color for busStops
+    static const RGBColor busStop;
+
+    /// @brief color for busStops signs
+    static const RGBColor busStop_sign;
+
+    /// @brief color for containerStops
+    static const RGBColor containerStop;
+
+    /// @brief color for containerStop signs
+    static const RGBColor containerStop_sign;
+
+    /// @brief color for chargingStations
+    static const RGBColor chargingStation;
+
+    /// @brief color for chargingStation sign
+    static const RGBColor chargingStation_sign;
+
+    /// @brief color for chargingStation during charging
+    static const RGBColor chargingStation_charge;
+
+    /// @brief color for E1 detectors
+    static const RGBColor E1;
+
+    /// @brief color for E1 Instant detectors
+    static const RGBColor E1Instant;
+
+    /// @brief color for E2 detectors
+    static const RGBColor E2;
+
+    /// @brief color for Entrys
+    static const RGBColor E3Entry;
+
+    /// @brief color for Exits
+    static const RGBColor E3Exit;
+
+    /// @brief color for Stops
+    static const RGBColor stops;
+        
+    /// @brief color for personStops
+    static const RGBColor personStops;
+
+    /// @brief color for personStops
+    static const RGBColor personTrip;
+
+    /// @brief color for walks
+    static const RGBColor walk;
+
+    /// @brief color for rides
+    static const RGBColor ride;
+};
+
+
+/// @brief struct for Width Settings
+struct GUIVisualizationWidthSettings {
+    /// @brief width for personStops
+    static const double route;
+
+    /// @brief width for trips
+    static const double trip;
+
+    /// @brief width for personStops
+    static const double personTrip;
+
+    /// @brief width for walks
+    static const double walk;
+
+    /// @brief width for rides
+    static const double ride;
+};
+
+
 /**
  * @class GUIVisualizationSettings
  * @brief Stores the information about how to visualize structures
  */
 class GUIVisualizationSettings {
+
 public:
-
-    /// @brief constructor
-    GUIVisualizationSettings(bool _netedit = false);
-
     /// @brief The name of this setting
     std::string name;
 
@@ -354,13 +444,6 @@ public:
     /// @brief whether the application is in gaming mode or not
     bool gaming;
 
-    /// @brief NETEDIT special colors
-    RGBColor selectionColor;
-    RGBColor selectedEdgeColor;
-    RGBColor selectedLaneColor;
-    RGBColor selectedConnectionColor;
-    RGBColor selectedAdditionalColor;
-    
     /// @brief enable or disable draw boundaries
     bool drawBoundaries;
 
@@ -372,6 +455,22 @@ public:
     
     /// @brief flag to force draw to selecting (see drawForSelecting)
     bool forceDrawForSelecting;
+
+    /// @brief scheme names
+    static const std::string SCHEME_NAME_EDGE_PARAM_NUMERICAL;
+    static const std::string SCHEME_NAME_LANE_PARAM_NUMERICAL;
+    static const std::string SCHEME_NAME_EDGEDATA_NUMERICAL;
+    static const std::string SCHEME_NAME_SELECTION;
+    static const std::string SCHEME_NAME_TYPE;
+
+    /// @brief color settings
+    GUIVisualizationColorSettings colorSettings;
+
+    /// @brief width settings
+    GUIVisualizationWidthSettings widthSettings;
+
+    /// @brief constructor
+    GUIVisualizationSettings(bool _netedit = false);
 
     /// @brief init default settings
     void initNeteditDefaults();
@@ -407,79 +506,6 @@ public:
 
     /// @brief map from LinkState to color constants
     static const RGBColor& getLinkColor(const LinkState& ls);
-
-    /// @brief color for busStops
-    static const RGBColor SUMO_color_busStop;
-
-    /// @brief color for busStops signs
-    static const RGBColor SUMO_color_busStop_sign;
-
-    /// @brief color for containerStops
-    static const RGBColor SUMO_color_containerStop;
-
-    /// @brief color for containerStop signs
-    static const RGBColor SUMO_color_containerStop_sign;
-
-    /// @brief color for chargingStations
-    static const RGBColor SUMO_color_chargingStation;
-
-    /// @brief color for chargingStation sign
-    static const RGBColor SUMO_color_chargingStation_sign;
-
-    /// @brief color for chargingStation during charging
-    static const RGBColor SUMO_color_chargingStation_charge;
-
-    /// @brief color for E1 detectors
-    static const RGBColor SUMO_color_E1;
-
-    /// @brief color for E1 Instant detectors
-    static const RGBColor SUMO_color_E1Instant;
-
-    /// @brief color for E2 detectors
-    static const RGBColor SUMO_color_E2;
-
-    /// @brief color for Entrys
-    static const RGBColor SUMO_color_E3Entry;
-
-    /// @brief color for Exits
-    static const RGBColor SUMO_color_E3Exit;
-
-    /// @brief color for Stops
-    static const RGBColor SUMO_color_stops;
-        
-    /// @brief color for personStops
-    static const RGBColor SUMO_color_personStops;
-
-    /// @brief color for personStops
-    static const RGBColor SUMO_color_personTrip;
-
-    /// @brief color for walks
-    static const RGBColor SUMO_color_walk;
-
-    /// @brief color for rides
-    static const RGBColor SUMO_color_ride;
-
-    /// @brief width for personStops
-    static const double SUMO_width_route;
-
-    /// @brief width for trips
-    static const double SUMO_width_trip;
-
-    /// @brief width for personStops
-    static const double SUMO_width_personTrip;
-
-    /// @brief width for walks
-    static const double SUMO_width_walk;
-
-    /// @brief width for rides
-    static const double SUMO_width_ride;
-
-    // @brief scheme names
-    static const std::string SCHEME_NAME_EDGE_PARAM_NUMERICAL;
-    static const std::string SCHEME_NAME_LANE_PARAM_NUMERICAL;
-    static const std::string SCHEME_NAME_EDGEDATA_NUMERICAL;
-    static const std::string SCHEME_NAME_SELECTION;
-    static const std::string SCHEME_NAME_TYPE;
 
     /// @brief return an angle that is suitable for reading text aligned with the given angle (degrees)
     double getTextAngle(double objectAngle) const;

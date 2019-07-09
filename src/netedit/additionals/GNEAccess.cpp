@@ -169,9 +169,9 @@ GNEAccess::drawGL(const GUIVisualizationSettings& s) const {
     glPushMatrix();
     // set color depending of selection
     if (drawUsingSelectColor()) {
-        GLHelper::setColor(s.selectedAdditionalColor);
+        GLHelper::setColor(s.colorSettings.selectedAdditionalColor);
     } else {
-        GLHelper::setColor(s.SUMO_color_busStop);
+        GLHelper::setColor(s.colorSettings.busStop);
     }
     glTranslated(myGeometry.shape[0].x(), myGeometry.shape[0].y(), GLO_ACCESS);
     // draw circle

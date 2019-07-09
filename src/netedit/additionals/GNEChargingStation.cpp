@@ -95,9 +95,9 @@ GNEChargingStation::drawGL(const GUIVisualizationSettings& s) const {
     glTranslated(0, 0, getType());
     // Set Color
     if (drawUsingSelectColor()) {
-        GLHelper::setColor(s.selectedAdditionalColor);
+        GLHelper::setColor(s.colorSettings.selectedAdditionalColor);
     } else {
-        GLHelper::setColor(s.SUMO_color_chargingStation);
+        GLHelper::setColor(s.colorSettings.chargingStation);
     }
     // Draw base
     GLHelper::drawBoxLines(myGeometry.shape, myGeometry.shapeRotations, myGeometry.shapeLengths, exaggeration);
@@ -112,7 +112,7 @@ GNEChargingStation::drawGL(const GUIVisualizationSettings& s) const {
             // scale matrix depending of the exaggeration
             glScaled(exaggeration, exaggeration, 1);
             // set color
-            GLHelper::setColor(s.SUMO_color_chargingStation);
+            GLHelper::setColor(s.colorSettings.chargingStation);
             // Draw circle
             GLHelper::drawFilledCircle(myCircleWidth, circleResolution);
             // pop draw matrix
@@ -125,9 +125,9 @@ GNEChargingStation::drawGL(const GUIVisualizationSettings& s) const {
         glPushMatrix();
         // draw line with a color depending of the selection status
         if (drawUsingSelectColor()) {
-            GLHelper::drawText((toString(myChargingPower) + " W").c_str(), mySignPos + Position(1.2, 0), .1, 1.f, s.selectionColor, myBlockIcon.rotation, FONS_ALIGN_LEFT);
+            GLHelper::drawText((toString(myChargingPower) + " W").c_str(), mySignPos + Position(1.2, 0), .1, 1.f, s.colorSettings.selectionColor, myBlockIcon.rotation, FONS_ALIGN_LEFT);
         } else {
-            GLHelper::drawText((toString(myChargingPower) + " W").c_str(), mySignPos + Position(1.2, 0), .1, 1.f, s.SUMO_color_chargingStation, myBlockIcon.rotation, FONS_ALIGN_LEFT);
+            GLHelper::drawText((toString(myChargingPower) + " W").c_str(), mySignPos + Position(1.2, 0), .1, 1.f, s.colorSettings.chargingStation, myBlockIcon.rotation, FONS_ALIGN_LEFT);
         }
         // pop matrix for charging power
         glPopMatrix();
@@ -137,9 +137,9 @@ GNEChargingStation::drawGL(const GUIVisualizationSettings& s) const {
         glScaled(exaggeration, exaggeration, 1);
         // Set base color
         if (drawUsingSelectColor()) {
-            GLHelper::setColor(s.selectedAdditionalColor);
+            GLHelper::setColor(s.colorSettings.selectedAdditionalColor);
         } else {
-            GLHelper::setColor(s.SUMO_color_chargingStation);
+            GLHelper::setColor(s.colorSettings.chargingStation);
         }
         // Draw extern
         GLHelper::drawFilledCircle(myCircleWidth, circleResolution);
@@ -147,18 +147,18 @@ GNEChargingStation::drawGL(const GUIVisualizationSettings& s) const {
         glTranslated(0, 0, .1);
         // Set sign color
         if (drawUsingSelectColor()) {
-            GLHelper::setColor(s.selectionColor);
+            GLHelper::setColor(s.colorSettings.selectionColor);
         } else {
-            GLHelper::setColor(s.SUMO_color_chargingStation_sign);
+            GLHelper::setColor(s.colorSettings.chargingStation_sign);
         }
         // Draw internt sign
         GLHelper::drawFilledCircle(myCircleInWidth, circleResolution);
         // Draw sign 'C'
         if (s.scale * exaggeration >= 4.5) {
             if (drawUsingSelectColor()) {
-                GLHelper::drawText("C", Position(), .1, myCircleInText, s.selectedAdditionalColor, myBlockIcon.rotation);
+                GLHelper::drawText("C", Position(), .1, myCircleInText, s.colorSettings.selectedAdditionalColor, myBlockIcon.rotation);
             } else {
-                GLHelper::drawText("C", Position(), .1, myCircleInText, s.SUMO_color_chargingStation, myBlockIcon.rotation);
+                GLHelper::drawText("C", Position(), .1, myCircleInText, s.colorSettings.chargingStation, myBlockIcon.rotation);
             }
         }
         // Pop sign matrix

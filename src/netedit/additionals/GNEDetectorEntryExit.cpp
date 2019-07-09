@@ -156,11 +156,11 @@ GNEDetectorEntryExit::drawGL(const GUIVisualizationSettings& s) const {
 
     // Set color
     if (drawUsingSelectColor()) {
-        GLHelper::setColor(s.selectedAdditionalColor);
+        GLHelper::setColor(s.colorSettings.selectedAdditionalColor);
     } else if (myTagProperty.getTag() == SUMO_TAG_DET_ENTRY) {
-        GLHelper::setColor(s.SUMO_color_E3Entry);
+        GLHelper::setColor(s.colorSettings.E3Entry);
     } else if (myTagProperty.getTag() == SUMO_TAG_DET_EXIT) {
-        GLHelper::setColor(s.SUMO_color_E3Exit);
+        GLHelper::setColor(s.colorSettings.E3Exit);
     }
 
     // Set initial values
@@ -224,14 +224,14 @@ GNEDetectorEntryExit::drawGL(const GUIVisualizationSettings& s) const {
         glTranslated(1.9, 0, 0);
         // draw Entry or Exit logo if isn't being drawn for selecting
         if (s.drawForSelecting) {
-            GLHelper::setColor(s.SUMO_color_E3Entry);
+            GLHelper::setColor(s.colorSettings.E3Entry);
             GLHelper::drawBoxLine(Position(0, 1), 0, 2, 1);
         } else if (drawUsingSelectColor()) {
-            GLHelper::drawText("E3", Position(), .1, 2.8, s.selectedAdditionalColor);
+            GLHelper::drawText("E3", Position(), .1, 2.8, s.colorSettings.selectedAdditionalColor);
         } else if (myTagProperty.getTag() == SUMO_TAG_DET_ENTRY) {
-            GLHelper::drawText("E3", Position(), .1, 2.8, s.SUMO_color_E3Entry);
+            GLHelper::drawText("E3", Position(), .1, 2.8, s.colorSettings.E3Entry);
         } else if (myTagProperty.getTag() == SUMO_TAG_DET_EXIT) {
-            GLHelper::drawText("E3", Position(), .1, 2.8, s.SUMO_color_E3Exit);
+            GLHelper::drawText("E3", Position(), .1, 2.8, s.colorSettings.E3Exit);
         }
         //move to logo position
         glTranslated(1.7, 0, 0);
@@ -239,19 +239,19 @@ GNEDetectorEntryExit::drawGL(const GUIVisualizationSettings& s) const {
         glRotated(90, 0, 0, 1);
         // draw Entry or Exit text if isn't being drawn for selecting
         if (s.drawForSelecting) {
-            GLHelper::setColor(s.SUMO_color_E3Entry);
+            GLHelper::setColor(s.colorSettings.E3Entry);
             GLHelper::drawBoxLine(Position(0, 1), 0, 2, 1);
         } else if (drawUsingSelectColor()) {
             if (myTagProperty.getTag() == SUMO_TAG_DET_ENTRY) {
-                GLHelper::drawText("Entry", Position(), .1, 1, s.selectedAdditionalColor);
+                GLHelper::drawText("Entry", Position(), .1, 1, s.colorSettings.selectedAdditionalColor);
             } else if (myTagProperty.getTag() == SUMO_TAG_DET_EXIT) {
-                GLHelper::drawText("Exit", Position(), .1, 1, s.selectedAdditionalColor);
+                GLHelper::drawText("Exit", Position(), .1, 1, s.colorSettings.selectedAdditionalColor);
             }
         } else {
             if (myTagProperty.getTag() == SUMO_TAG_DET_ENTRY) {
-                GLHelper::drawText("Entry", Position(), .1, 1, s.SUMO_color_E3Entry);
+                GLHelper::drawText("Entry", Position(), .1, 1, s.colorSettings.E3Entry);
             } else if (myTagProperty.getTag() == SUMO_TAG_DET_EXIT) {
-                GLHelper::drawText("Exit", Position(), .1, 1, s.SUMO_color_E3Exit);
+                GLHelper::drawText("Exit", Position(), .1, 1, s.colorSettings.E3Exit);
             }
         }
         // pop matrix

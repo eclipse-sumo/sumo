@@ -404,7 +404,7 @@ GNELane::drawGL(const GUIVisualizationSettings& s) const {
         }
         if (halfWidth != halfWidth2 && !spreadSuperposed) {
             // draw again to show the selected edge
-            GLHelper::setColor(s.selectedEdgeColor);
+            GLHelper::setColor(s.colorSettings.selectedEdgeColor);
             glTranslated(0, 0, -.1);
             GLHelper::drawBoxLines(myGeometry.shape, myGeometry.shapeRotations, myGeometry.shapeLengths, halfWidth2);
         }
@@ -1011,10 +1011,10 @@ GNELane::setLaneColor(const GUIVisualizationSettings& s) const {
         color = *mySpecialColor;
     } else if (drawUsingSelectColor() && s.laneColorer.getActive() != 1) {
         // override with special colors (unless the color scheme is based on selection)
-        color = s.selectedLaneColor;
+        color = s.colorSettings.selectedLaneColor;
     } else if (myParentEdge.drawUsingSelectColor() && s.laneColorer.getActive() != 1) {
         // override with special colors (unless the color scheme is based on selection)
-        color = s.selectedEdgeColor;
+        color = s.colorSettings.selectedEdgeColor;
     } else {
         // Get normal lane color
         const GUIColorer& c = s.laneColorer;
@@ -1240,7 +1240,7 @@ GNELane::drawStartEndShapePoints(const GUIVisualizationSettings& s) const {
 GLHelper::setColor(s.junctionColorer.getSchemes()[0].getColor(2));
     if (drawUsingSelectColor() && s.laneColorer.getActive() != 1) {
         // override with special colors (unless the color scheme is based on selection)
-        GLHelper::setColor(s.selectedEdgeColor.changedBrightness(-20));
+        GLHelper::setColor(s.colorSettings.selectedEdgeColor.changedBrightness(-20));
     }
     // obtain circle width and resolution
     double circleWidth = GNEEdge::SNAP_RADIUS * MIN2((double)1, s.laneWidthExaggeration) / 2;
