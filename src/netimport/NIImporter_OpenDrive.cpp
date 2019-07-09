@@ -753,6 +753,7 @@ NIImporter_OpenDrive::setLaneAttributes(const OpenDriveEdge* e, NBEdge::Lane& su
     sumoLane.speed = odLane.speed != 0 ? odLane.speed : tc.getSpeed(odLane.type);
     sumoLane.permissions = tc.getPermissions(odLane.type);
     sumoLane.width = myImportWidths && odLane.width != NBEdge::UNSPECIFIED_WIDTH ? odLane.width : tc.getWidth(odLane.type);
+    sumoLane.type = odLane.type;
 
     const double widthResolution = tc.getWidthResolution(odLane.type);
     const double maxWidth = tc.getMaxWidth(odLane.type);
