@@ -92,6 +92,8 @@ const double GUIVisualizationWidthSettings::ride(0.50);
 // details of certain NETEDIT objects
 // -------------------------------------------------------------------------
 
+const double GUIVisualizationDetailSettings::laneTextures(20); // originally 10
+const double GUIVisualizationDetailSettings::additionalTextures(20); // originally 10
 const double GUIVisualizationDetailSettings::geometryPointsDetails(10);
 const double GUIVisualizationDetailSettings::geometryPointsText(30);
 const double GUIVisualizationDetailSettings::stoppingPlaceDetails(10);

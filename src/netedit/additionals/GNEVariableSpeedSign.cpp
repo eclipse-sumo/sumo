@@ -118,6 +118,8 @@ GNEVariableSpeedSign::getParentName() const {
 
 void
 GNEVariableSpeedSign::drawGL(const GUIVisualizationSettings& s) const {
+    // obtain exaggeration
+    const double exaggeration = s.addSize.getExaggeration(s, this);
     // check if boundary has to be drawn
     if(s.drawBoundaries) {
         GLHelper::drawBoundary(getCenteringBoundary());
@@ -128,10 +130,7 @@ GNEVariableSpeedSign::drawGL(const GUIVisualizationSettings& s) const {
     glPushMatrix();
     glTranslated(myPosition.x(), myPosition.y(), getType());
     // Draw icon depending of variable speed sign is or if isn't being drawn for selecting
-    if (s.drawForSelecting) {
-        GLHelper::setColor(RGBColor::WHITE);
-        GLHelper::drawBoxLine(Position(0, 1), 0, 2, 1);
-    } else {
+    if (!s.drawForSelecting && s.drawDetail(s.detailSettings.laneTextures, exaggeration)) {
         glColor3d(1, 1, 1);
         glRotated(180, 0, 0, 1);
         if (drawUsingSelectColor()) {
@@ -139,6 +138,10 @@ GNEVariableSpeedSign::drawGL(const GUIVisualizationSettings& s) const {
         } else {
             GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(GNETEXTURE_VARIABLESPEEDSIGN), 1);
         }
+    } else {
+        GLHelper::setColor(RGBColor::WHITE);
+        GLHelper::drawBoxLine(Position(0, 1), 0, 2, 1);
+
     }
     // Pop draw icon matrix
     glPopMatrix();

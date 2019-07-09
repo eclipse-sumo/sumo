@@ -208,6 +208,12 @@ struct GUIVisualizationWidthSettings {
 /// @brief struct for detail settings
 struct GUIVisualizationDetailSettings {
 
+    /// @brief details for lane textures
+    static const double laneTextures;
+
+    /// @brief details for additional textures
+    static const double additionalTextures;
+
     /// @brief details for Geometry Points
     static const double geometryPointsDetails;
 

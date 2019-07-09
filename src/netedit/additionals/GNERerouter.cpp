@@ -124,6 +124,8 @@ GNERerouter::getParentName() const {
 
 void
 GNERerouter::drawGL(const GUIVisualizationSettings& s) const {
+    // Obtain exaggeration of the draw
+    const double exaggeration = s.addSize.getExaggeration(s, this);
     // check if boundary has to be drawn
     if(s.drawBoundaries) {
         GLHelper::drawBoundary(getCenteringBoundary());
@@ -134,10 +136,7 @@ GNERerouter::drawGL(const GUIVisualizationSettings& s) const {
     glPushMatrix();
     glTranslated(myPosition.x(), myPosition.y(), getType());
     // Draw icon depending of detector is selected and if isn't being drawn for selecting
-    if (s.drawForSelecting) {
-        GLHelper::setColor(RGBColor::RED);
-        GLHelper::drawBoxLine(Position(0, 1), 0, 2, 1);
-    } else {
+    if (!s.drawForSelecting && s.drawDetail(s.detailSettings.laneTextures, exaggeration)) {
         glColor3d(1, 1, 1);
         glRotated(180, 0, 0, 1);
         if (drawUsingSelectColor()) {
@@ -145,6 +144,9 @@ GNERerouter::drawGL(const GUIVisualizationSettings& s) const {
         } else {
             GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(GNETEXTURE_REROUTER), 1);
         }
+    } else {
+        GLHelper::setColor(RGBColor::RED);
+        GLHelper::drawBoxLine(Position(0, 1), 0, 2, 1);
     }
     // Pop draw matrix
     glPopMatrix();

@@ -114,22 +114,19 @@ GNEDetectorE3::getParentName() const {
 
 void
 GNEDetectorE3::drawGL(const GUIVisualizationSettings& s) const {
+    // Obtain exaggeration of the draw
+    const double exaggeration = s.addSize.getExaggeration(s, this);
     // check if boundary has to be drawn
     if(s.drawBoundaries) {
         GLHelper::drawBoundary(getCenteringBoundary());
     }
     // Start drawing adding an gl identificator
     glPushName(getGlID());
-
     // Add a draw matrix for drawing logo
     glPushMatrix();
     glTranslated(myPosition.x(), myPosition.y(), getType());
-
     // Draw icon depending of detector is selected and if isn't being drawn for selecting
-    if (s.drawForSelecting) {
-        GLHelper::setColor(RGBColor::GREY);
-        GLHelper::drawBoxLine(Position(0, 1), 0, 2, 1);
-    } else {
+    if (!s.drawForSelecting && s.drawDetail(s.detailSettings.laneTextures, exaggeration)) {
         glColor3d(1, 1, 1);
         glRotated(180, 0, 0, 1);
         if (drawUsingSelectColor()) {
@@ -137,8 +134,10 @@ GNEDetectorE3::drawGL(const GUIVisualizationSettings& s) const {
         } else {
             GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(GNETEXTURE_E3), 1);
         }
+    } else {
+        GLHelper::setColor(RGBColor::GREY);
+        GLHelper::drawBoxLine(Position(0, 1), 0, 2, 1);
     }
-
     // Pop logo matrix
     glPopMatrix();
     if (!s.drawForSelecting) {
