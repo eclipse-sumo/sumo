@@ -354,19 +354,12 @@ GNEStop::drawGL(const GUIVisualizationSettings& s) const {
             GLHelper::setColor(s.colorSettings.stops);
         }
         // draw depending of details
-        if (s.drawDetail(s.detailSettings.stopsDetails, exaggeration)) {
-            // draw lines depending if it's placed over a lane or over a stoppingPlace
-            if (getLaneParents().size() > 0) {
-                // Draw the area using shape, shapeRotations, shapeLengths and value of exaggeration
-                GLHelper::drawBoxLines(myDemandElementGeometry.shape, myDemandElementGeometry.shapeRotations, myDemandElementGeometry.shapeLengths, exaggeration * 0.1, 0,
-                                       getLaneParents().front()->getParentEdge().getNBEdge()->getLaneWidth(getLaneParents().front()->getIndex()) * 0.5);
-                GLHelper::drawBoxLines(myDemandElementGeometry.shape, myDemandElementGeometry.shapeRotations, myDemandElementGeometry.shapeLengths, exaggeration * 0.1, 0,
-                                       getLaneParents().front()->getParentEdge().getNBEdge()->getLaneWidth(getLaneParents().front()->getIndex()) * -0.5);
-            } else {
-                // Draw the area using shape, shapeRotations, shapeLengths and value of exaggeration
-                GLHelper::drawBoxLines(myDemandElementGeometry.shape, myDemandElementGeometry.shapeRotations, myDemandElementGeometry.shapeLengths, exaggeration * 0.1, 0, exaggeration * -1);
-                GLHelper::drawBoxLines(myDemandElementGeometry.shape, myDemandElementGeometry.shapeRotations, myDemandElementGeometry.shapeLengths, exaggeration * 0.1, 0, exaggeration);
-            }
+        if (s.drawDetail(s.detailSettings.stopsDetails, exaggeration) && getLaneParents().size() > 0) {
+            // Draw the area using shape, shapeRotations, shapeLengths and value of exaggeration
+            GLHelper::drawBoxLines(myDemandElementGeometry.shape, myDemandElementGeometry.shapeRotations, myDemandElementGeometry.shapeLengths, exaggeration * 0.1, 0,
+                                    getLaneParents().front()->getParentEdge().getNBEdge()->getLaneWidth(getLaneParents().front()->getIndex()) * 0.5);
+            GLHelper::drawBoxLines(myDemandElementGeometry.shape, myDemandElementGeometry.shapeRotations, myDemandElementGeometry.shapeLengths, exaggeration * 0.1, 0,
+                                    getLaneParents().front()->getParentEdge().getNBEdge()->getLaneWidth(getLaneParents().front()->getIndex()) * -0.5);
             // pop draw matrix
             glPopMatrix();
             // Add a draw matrix
@@ -392,29 +385,7 @@ GNEStop::drawGL(const GUIVisualizationSettings& s) const {
                 // move to subtitle positin
                 glTranslated(0, 1.4, 0);
                 // draw subtitle depending of tag
-                if (myTagProperty.getTag() == SUMO_TAG_STOP_BUSSTOP) {
-                    GLHelper::drawText("busStop", Position(), .1, .5, stopColor, 180);
-                } else if (myTagProperty.getTag() == SUMO_TAG_STOP_CONTAINERSTOP) {
-                    GLHelper::drawText("container", Position(), .1, .5, stopColor, 180);
-                    glTranslated(0, 0.5, 0);
-                    GLHelper::drawText("Stop", Position(), .1, .5, stopColor, 180);
-                } else if (myTagProperty.getTag() == SUMO_TAG_STOP_CHARGINGSTATION) {
-                    GLHelper::drawText("charging", Position(), .1, .5, stopColor, 180);
-                    glTranslated(0, 0.5, 0);
-                    GLHelper::drawText("Station", Position(), .1, .5, stopColor, 180);
-                } else if (myTagProperty.getTag() == SUMO_TAG_STOP_PARKINGAREA) {
-                    GLHelper::drawText("parking", Position(), .1, .5, stopColor, 180);
-                    glTranslated(0, 0.5, 0);
-                    GLHelper::drawText("Area", Position(), .1, .5, stopColor, 180);
-                } else if (myTagProperty.getTag() == SUMO_TAG_STOP_LANE) {
-                    GLHelper::drawText("lane", Position(), .1, 1, stopColor, 180);
-                } else if (myTagProperty.getTag() == SUMO_TAG_PERSONSTOP_LANE) {
-                    GLHelper::drawText("person", Position(), .1, .7, stopColor, 180);
-                } else if (myTagProperty.getTag() == SUMO_TAG_PERSONSTOP_BUSSTOP) {
-                    GLHelper::drawText("person", Position(), .1, .5, stopColor, 180);
-                    glTranslated(0, 0.5, 0);
-                    GLHelper::drawText("busStop", Position(), .1, .5, stopColor, 180);
-                }
+                GLHelper::drawText("lane", Position(), .1, 1, stopColor, 180);
             }
             // pop draw matrix
             glPopMatrix();
@@ -431,7 +402,7 @@ GNEStop::drawGL(const GUIVisualizationSettings& s) const {
             }
         } else {
             // Draw the area using shape, shapeRotations, shapeLengths and value of exaggeration
-            GLHelper::drawBoxLines(myDemandElementGeometry.shape, myDemandElementGeometry.shapeRotations, myDemandElementGeometry.shapeLengths, exaggeration);
+            GLHelper::drawBoxLines(myDemandElementGeometry.shape, myDemandElementGeometry.shapeRotations, myDemandElementGeometry.shapeLengths, exaggeration*0.8);
             // pop draw matrix
             glPopMatrix();
         }
