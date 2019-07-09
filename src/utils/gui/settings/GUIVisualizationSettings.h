@@ -82,7 +82,7 @@ struct GUIVisualizationTextSettings {
 };
 
 
-/// @brief struct for Size Settings
+/// @brief struct for size settings
 struct GUIVisualizationSizeSettings {
 
     /// @brief constructor
@@ -114,7 +114,7 @@ struct GUIVisualizationSizeSettings {
 };
 
 
-/// @brief struct for Color Settings
+/// @brief struct for color settings
 struct GUIVisualizationColorSettings {
 
     /// @brief constructor
@@ -186,15 +186,15 @@ struct GUIVisualizationColorSettings {
 };
 
 
-/// @brief struct for Width Settings
+/// @brief struct for width settings
 struct GUIVisualizationWidthSettings {
-    /// @brief width for personStops
+    /// @brief width for routes
     static const double route;
 
     /// @brief width for trips
     static const double trip;
 
-    /// @brief width for personStops
+    /// @brief width for person trips
     static const double personTrip;
 
     /// @brief width for walks
@@ -205,6 +205,26 @@ struct GUIVisualizationWidthSettings {
 };
 
 
+/// @brief struct for detail settings
+struct GUIVisualizationDetailSettings {
+
+    /// @brief details for stopping place signs
+    static const double stoppingPlaceSigns;
+
+    /// @brief details for stopping place text
+    static const double stoppingPlaceText;
+
+    /// @brief details for detector details
+    static const double detectorDetails;
+
+    /// @brief details for detector texts
+    static const double detectorText;
+
+    /// @brief width for stop details
+    static const double stopsDetails;
+};
+
+
 /**
  * @class GUIVisualizationSettings
  * @brief Stores the information about how to visualize structures
@@ -212,6 +232,50 @@ struct GUIVisualizationWidthSettings {
 class GUIVisualizationSettings {
 
 public:
+    /// @brief constructor
+    GUIVisualizationSettings(bool _netedit = false);
+
+    /// @brief init default settings
+    void initNeteditDefaults();
+    void initSumoGuiDefaults();
+
+    /** @brief Writes the settings into an output device
+     * @param[in] dev The device to write the settings into
+     */
+    void save(OutputDevice& dev) const;
+
+    /** @brief Returns the number of the active lane (edge) coloring schme
+     * @return number of the active scheme
+     */
+    int getLaneEdgeMode() const;
+
+    /** @brief Returns the number of the active lane (edge) scaling schme
+     * @return number of the active scheme
+     */
+    int getLaneEdgeScaleMode() const;
+
+    /** @brief Returns the current lane (edge) coloring schme
+     * @return current scheme
+     */
+    GUIColorScheme& getLaneEdgeScheme();
+
+    /** @brief Returns the current lane (edge) scaling schme
+     * @return current scheme
+     */
+    GUIScaleScheme& getLaneEdgeScaleScheme();
+
+    /// @brief Comparison operator
+    bool operator==(const GUIVisualizationSettings& vs2);
+
+    /// @brief map from LinkState to color constants
+    static const RGBColor& getLinkColor(const LinkState& ls);
+
+    /// @brief return an angle that is suitable for reading text aligned with the given angle (degrees)
+    double getTextAngle(double objectAngle) const;
+
+    /// @brief check if details can be drawn for the given GUIVisualizationDetailSettings and current scale and exxageration
+    bool drawDetail(const double detail, const double exaggeration) const;
+
     /// @brief The name of this setting
     std::string name;
 
@@ -469,46 +533,8 @@ public:
     /// @brief width settings
     GUIVisualizationWidthSettings widthSettings;
 
-    /// @brief constructor
-    GUIVisualizationSettings(bool _netedit = false);
-
-    /// @brief init default settings
-    void initNeteditDefaults();
-    void initSumoGuiDefaults();
-
-    /** @brief Writes the settings into an output device
-     * @param[in] dev The device to write the settings into
-     */
-    void save(OutputDevice& dev) const;
-
-    /** @brief Returns the number of the active lane (edge) coloring schme
-     * @return number of the active scheme
-     */
-    int getLaneEdgeMode() const;
-
-    /** @brief Returns the number of the active lane (edge) scaling schme
-     * @return number of the active scheme
-     */
-    int getLaneEdgeScaleMode() const;
-
-    /** @brief Returns the current lane (edge) coloring schme
-     * @return current scheme
-     */
-    GUIColorScheme& getLaneEdgeScheme();
-
-    /** @brief Returns the current lane (edge) scaling schme
-     * @return current scheme
-     */
-    GUIScaleScheme& getLaneEdgeScaleScheme();
-
-    /// @brief Comparison operator
-    bool operator==(const GUIVisualizationSettings& vs2);
-
-    /// @brief map from LinkState to color constants
-    static const RGBColor& getLinkColor(const LinkState& ls);
-
-    /// @brief return an angle that is suitable for reading text aligned with the given angle (degrees)
-    double getTextAngle(double objectAngle) const;
+    /// @brief detail settings
+    GUIVisualizationDetailSettings detailSettings;
 };
 
 

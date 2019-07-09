@@ -87,6 +87,18 @@ const double GUIVisualizationWidthSettings::personTrip(0.50);
 const double GUIVisualizationWidthSettings::walk(0.50);
 const double GUIVisualizationWidthSettings::ride(0.50);
 
+
+// -------------------------------------------------------------------------
+// details of certain NETEDIT objects
+// -------------------------------------------------------------------------
+
+const double GUIVisualizationDetailSettings::stoppingPlaceSigns(0.66);
+const double GUIVisualizationDetailSettings::stoppingPlaceText(0.2);
+const double GUIVisualizationDetailSettings::detectorDetails(0.50);
+const double GUIVisualizationDetailSettings::detectorText(0.50);
+const double GUIVisualizationDetailSettings::stopsDetails(0.50);
+
+
 // -------------------------------------------------------------------------
 // scheme names
 // -------------------------------------------------------------------------
@@ -1555,6 +1567,12 @@ GUIVisualizationSettings::getTextAngle(double objectAngle) const {
         objectAngle -= 180;
     }
     return objectAngle;
+}
+
+
+bool 
+GUIVisualizationSettings::drawDetail(const double detail, const double exaggeration) const {
+    return (scale * exaggeration) >= detail;
 }
 
 /****************************************************************************/
