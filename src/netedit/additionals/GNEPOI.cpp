@@ -211,41 +211,44 @@ GNEPOI::getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView& parent) {
 
 void
 GNEPOI::drawGL(const GUIVisualizationSettings& s) const {
-    // check if boundary has to be drawn
-    if(s.drawBoundaries) {
-        GLHelper::drawBoundary(getCenteringBoundary());
-    }
-    // first clear vertices
-    myPOIVertices.clear();
-    // check if POI can be drawn
-    if (checkDraw(s)) {
-        // push name (needed for getGUIGlObjectsUnderCursor(...)
-        glPushName(getGlID());
-        // draw inner polygon
-        drawInnerPOI(s, drawUsingSelectColor());
-        // draw an orange square mode if there is an image(see #4036)
-        if (!getShapeImgFile().empty() && OptionsCont::getOptions().getBool("gui-testing")) {
-            // Add a draw matrix for drawing logo
-            glPushMatrix();
-            glTranslated(x(), y(), getType() + 0.01);
-            GLHelper::setColor(RGBColor::ORANGE);
-            GLHelper::drawBoxLine(Position(0, 1), 0, 2, 1);
-            glPopMatrix();
+    // first check if POI can be drawn
+    if (myNet->getViewNet()->getViewOptionsDemand().showShapes()) {
+        // check if boundary has to be drawn
+        if(s.drawBoundaries) {
+            GLHelper::drawBoundary(getCenteringBoundary());
         }
-        // check if dotted contour has to be drawn
-        if (myNet->getViewNet()->getDottedAC() == this) {
-            if (getShapeImgFile() != DEFAULT_IMG_FILE) {
-                const double exaggeration = s.poiSize.getExaggeration(s, this);
-                GLHelper::drawShapeDottedContourRectangle(s, getType(), *this, 2 * myHalfImgWidth * exaggeration, 2 * myHalfImgHeight * exaggeration);
-            } else if (myPOIVertices.size() > 0) {
+        // first clear vertices
+        myPOIVertices.clear();
+        // check if POI can be drawn
+        if (checkDraw(s)) {
+            // push name (needed for getGUIGlObjectsUnderCursor(...)
+            glPushName(getGlID());
+            // draw inner polygon
+            drawInnerPOI(s, drawUsingSelectColor());
+            // draw an orange square mode if there is an image(see #4036)
+            if (!getShapeImgFile().empty() && OptionsCont::getOptions().getBool("gui-testing")) {
+                // Add a draw matrix for drawing logo
                 glPushMatrix();
                 glTranslated(x(), y(), getType() + 0.01);
-                GLHelper::drawShapeDottedContourAroundClosedShape(s, getType(), myPOIVertices);
+                GLHelper::setColor(RGBColor::ORANGE);
+                GLHelper::drawBoxLine(Position(0, 1), 0, 2, 1);
                 glPopMatrix();
             }
+            // check if dotted contour has to be drawn
+            if (myNet->getViewNet()->getDottedAC() == this) {
+                if (getShapeImgFile() != DEFAULT_IMG_FILE) {
+                    const double exaggeration = s.poiSize.getExaggeration(s, this);
+                    GLHelper::drawShapeDottedContourRectangle(s, getType(), *this, 2 * myHalfImgWidth * exaggeration, 2 * myHalfImgHeight * exaggeration);
+                } else if (myPOIVertices.size() > 0) {
+                    glPushMatrix();
+                    glTranslated(x(), y(), getType() + 0.01);
+                    GLHelper::drawShapeDottedContourAroundClosedShape(s, getType(), myPOIVertices);
+                    glPopMatrix();
+                }
+            }
+            // pop name
+            glPopName();
         }
-        // pop name
-        glPopName();
     }
 }
 

@@ -20,6 +20,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
+
 #include <netedit/additionals/GNEPOI.h>
 #include <netedit/additionals/GNEPoly.h>
 #include <netedit/additionals/GNETAZ.h>
@@ -1599,6 +1600,13 @@ GNEViewNetHelper::ViewOptionsDemand::ViewOptionsDemand(GNEViewNet* viewNet) :
 
 void
 GNEViewNetHelper::ViewOptionsDemand::buildViewOptionsDemandMenuChecks() {
+    menuCheckHideShapes = new FXMenuCheck(myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modeOptions, 
+        ("Hide shapes\t\tToggle show shapes (Polygons and POIs)"), 
+        myViewNet, MID_GNE_VIEWOPTIONSDEMAND_HIDESHAPES, LAYOUT_FIX_HEIGHT);
+    menuCheckHideShapes->setHeight(23);
+    menuCheckHideShapes->setCheck(false);
+    menuCheckHideShapes->create();
+
     menuCheckHideNonInspectedDemandElements = new FXMenuCheck(myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modeOptions, 
         ("Hide non-inspected elements\t\tToggle show non-inspected demand elements"), 
         myViewNet, MID_GNE_VIEWOPTIONSDEMAND_HIDENONINSPECTED, LAYOUT_FIX_HEIGHT);
@@ -1613,6 +1621,7 @@ GNEViewNetHelper::ViewOptionsDemand::buildViewOptionsDemandMenuChecks() {
 
 void
 GNEViewNetHelper::ViewOptionsDemand::hideViewOptionsDemandMenuChecks() {
+    menuCheckHideShapes->hide();
     menuCheckHideNonInspectedDemandElements->hide();
     // Also hide toolbar grip
     myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modeOptions->show();
@@ -1652,6 +1661,16 @@ GNEViewNetHelper::ViewOptionsDemand::showNonInspectedDemandElements(const GNEDem
         }
     } else {
         // we're inspecting a demand element, then return true
+        return true;
+    }
+}
+
+
+bool 
+GNEViewNetHelper::ViewOptionsDemand::showShapes() const {
+    if (menuCheckHideShapes->shown()) {
+        return (menuCheckHideShapes->getCheck() == FALSE);
+    } else {
         return true;
     }
 }

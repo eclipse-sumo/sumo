@@ -264,8 +264,11 @@ public:
     /// @brief toogle autoOpposite edge
     long onCmdToogleAutoOppositeEdge(FXObject*, FXSelector, void*);
 
-    /// @brief toogle hide non inspected deman elements
+    /// @brief toogle hide non inspected demand elements
     long onCmdToogleHideNonInspecteDemandElements(FXObject*, FXSelector, void*);
+
+    /// @brief toogle hide shapes in demand super mode
+    long onCmdToogleHideShapes(FXObject*, FXSelector, void*);
 
     /// @}
 

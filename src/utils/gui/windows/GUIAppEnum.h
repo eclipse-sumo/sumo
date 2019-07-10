@@ -582,6 +582,8 @@ enum {
     MID_GNE_VIEWOPTIONSNETWORK_AUTOOPPOSITEEDGES,
     /// @brief hide non-inspected demand element
     MID_GNE_VIEWOPTIONSDEMAND_HIDENONINSPECTED,
+    /// @brief hide shapes
+    MID_GNE_VIEWOPTIONSDEMAND_HIDESHAPES,
 
     /// @}
 

@@ -103,6 +103,7 @@ FXDEFMAP(GNEViewNet) GNEViewNetMap[] = {
     FXMAPFUNC(SEL_COMMAND, MID_GNE_VIEWOPTIONSNETWORK_AUTOOPPOSITEEDGES,    GNEViewNet::onCmdToogleAutoOppositeEdge),
     // View options Demand
     FXMAPFUNC(SEL_COMMAND, MID_GNE_VIEWOPTIONSDEMAND_HIDENONINSPECTED,      GNEViewNet::onCmdToogleHideNonInspecteDemandElements),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_VIEWOPTIONSDEMAND_HIDESHAPES,            GNEViewNet::onCmdToogleHideShapes),
     // Select elements
     FXMAPFUNC(SEL_COMMAND, MID_ADDSELECT,                                   GNEViewNet::onCmdAddSelected),
     FXMAPFUNC(SEL_COMMAND, MID_REMOVESELECT,                                GNEViewNet::onCmdRemoveSelected),
@@ -2150,6 +2151,14 @@ GNEViewNet::onCmdToogleHideNonInspecteDemandElements(FXObject*, FXSelector, void
 }
 
 
+long 
+GNEViewNet::onCmdToogleHideShapes(FXObject*, FXSelector, void*) {
+    // Only update view
+    update();
+    return 1;
+}
+
+
 long
 GNEViewNet::onCmdAddSelected(FXObject*, FXSelector, void*) {
     // make GL current (To allow take objects in popup position)
@@ -2391,6 +2400,7 @@ GNEViewNet::updateDemandModeSpecificControls() {
             myCurrentFrame = myViewParent->getInspectorFrame();
             myCommonCheckableButtons.inspectButton->setChecked(true);
             // show view options
+            myViewOptionsDemand.menuCheckHideShapes->show();
             myViewOptionsDemand.menuCheckHideNonInspectedDemandElements->show();
             // show toolbar grip of view options
             myViewParent->getGNEAppWindows()->getToolbarsGrip().modeOptions->show();
@@ -2400,20 +2410,25 @@ GNEViewNet::updateDemandModeSpecificControls() {
             myViewParent->getDeleteFrame()->focusUpperElement();
             myCurrentFrame = myViewParent->getDeleteFrame();
             myCommonCheckableButtons.deleteButton->setChecked(true);
-            // hide toolbar grip of view options
-            myViewParent->getGNEAppWindows()->getToolbarsGrip().modeOptions->hide();
+            // show view options
+            myViewOptionsDemand.menuCheckHideShapes->show();
+            // show toolbar grip of view options
+            myViewParent->getGNEAppWindows()->getToolbarsGrip().modeOptions->show();
             break;
         case GNE_DMODE_SELECT:
             myViewParent->getSelectorFrame()->show();
             myViewParent->getSelectorFrame()->focusUpperElement();
             myCurrentFrame = myViewParent->getSelectorFrame();
             myCommonCheckableButtons.selectButton->setChecked(true);
-            // hide toolbar grip of view options
-            myViewParent->getGNEAppWindows()->getToolbarsGrip().modeOptions->hide();
+            // show view options
+            myViewOptionsDemand.menuCheckHideShapes->show();
+            // show toolbar grip of view options
+            myViewParent->getGNEAppWindows()->getToolbarsGrip().modeOptions->show();
             break;
         case GNE_DMODE_MOVE:
             myCommonCheckableButtons.moveButton->setChecked(true);
             // show view options
+            myViewOptionsDemand.menuCheckHideShapes->show();
             myViewOptionsNetwork.menuCheckShowGrid->show();
             // show toolbar grip of view options
             myViewParent->getGNEAppWindows()->getToolbarsGrip().modeOptions->show();
@@ -2424,56 +2439,70 @@ GNEViewNet::updateDemandModeSpecificControls() {
             myViewParent->getRouteFrame()->focusUpperElement();
             myCurrentFrame = myViewParent->getRouteFrame();
             myDemandCheckableButtons.routeButton->setChecked(true);
-            // hide toolbar grip of view options
-            myViewParent->getGNEAppWindows()->getToolbarsGrip().modeOptions->hide();
+            // show view options
+            myViewOptionsDemand.menuCheckHideShapes->show();
+            // show toolbar grip of view options
+            myViewParent->getGNEAppWindows()->getToolbarsGrip().modeOptions->show();
             break;
         case GNE_DMODE_VEHICLE:
             myViewParent->getVehicleFrame()->show();
             myViewParent->getVehicleFrame()->focusUpperElement();
             myCurrentFrame = myViewParent->getVehicleFrame();
             myDemandCheckableButtons.vehicleButton->setChecked(true);
-            // hide toolbar grip of view options
-            myViewParent->getGNEAppWindows()->getToolbarsGrip().modeOptions->hide();
+            // show view options
+            myViewOptionsDemand.menuCheckHideShapes->show();
+            // show toolbar grip of view options
+            myViewParent->getGNEAppWindows()->getToolbarsGrip().modeOptions->show();
             break;
         case GNE_DMODE_VEHICLETYPES:
             myViewParent->getVehicleTypeFrame()->show();
             myViewParent->getVehicleTypeFrame()->focusUpperElement();
             myCurrentFrame = myViewParent->getVehicleTypeFrame();
             myDemandCheckableButtons.vehicleTypeButton->setChecked(true);
-            // hide toolbar grip of view options
-            myViewParent->getGNEAppWindows()->getToolbarsGrip().modeOptions->hide();
+            // show view options
+            myViewOptionsDemand.menuCheckHideShapes->show();
+            /// show toolbar grip of view options
+            myViewParent->getGNEAppWindows()->getToolbarsGrip().modeOptions->show();
             break;
         case GNE_DMODE_STOP:
             myViewParent->getStopFrame()->show();
             myViewParent->getStopFrame()->focusUpperElement();
             myCurrentFrame = myViewParent->getStopFrame();
             myDemandCheckableButtons.stopButton->setChecked(true);
-            // hide toolbar grip of view options
-            myViewParent->getGNEAppWindows()->getToolbarsGrip().modeOptions->hide();
+            // show view options
+            myViewOptionsDemand.menuCheckHideShapes->show();
+            // show toolbar grip of view options
+            myViewParent->getGNEAppWindows()->getToolbarsGrip().modeOptions->show();
             break;
         case GNE_DMODE_PERSONTYPES:
             myViewParent->getPersonTypeFrame()->show();
             myViewParent->getPersonTypeFrame()->focusUpperElement();
             myCurrentFrame = myViewParent->getPersonTypeFrame();
             myDemandCheckableButtons.personTypeButton->setChecked(true);
-            // hide toolbar grip of view options
-            myViewParent->getGNEAppWindows()->getToolbarsGrip().modeOptions->hide();
+            // show view options
+            myViewOptionsDemand.menuCheckHideShapes->show();
+            // show toolbar grip of view options
+            myViewParent->getGNEAppWindows()->getToolbarsGrip().modeOptions->show();
             break;
         case GNE_DMODE_PERSON:
             myViewParent->getPersonFrame()->show();
             myViewParent->getPersonFrame()->focusUpperElement();
             myCurrentFrame = myViewParent->getPersonFrame();
             myDemandCheckableButtons.personButton->setChecked(true);
-            // hide toolbar grip of view options
-            myViewParent->getGNEAppWindows()->getToolbarsGrip().modeOptions->hide();
+            // show view options
+            myViewOptionsDemand.menuCheckHideShapes->show();
+            // show toolbar grip of view options
+            myViewParent->getGNEAppWindows()->getToolbarsGrip().modeOptions->show();
             break;
         case GNE_DMODE_PERSONPLAN:
             myViewParent->getPersonPlanFrame()->show();
             myViewParent->getPersonPlanFrame()->focusUpperElement();
             myCurrentFrame = myViewParent->getPersonPlanFrame();
             myDemandCheckableButtons.personPlanButton->setChecked(true);
-            // hide toolbar grip of view options
-            myViewParent->getGNEAppWindows()->getToolbarsGrip().modeOptions->hide();
+            // show view options
+            myViewOptionsDemand.menuCheckHideShapes->show();
+            // show toolbar grip of view options
+            myViewParent->getGNEAppWindows()->getToolbarsGrip().modeOptions->show();
             break;
         default:
             break;

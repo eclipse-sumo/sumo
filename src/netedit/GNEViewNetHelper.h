@@ -416,8 +416,14 @@ struct GNEViewNetHelper {
         /// @brief check if non inspected element has to be hidden
         bool showNonInspectedDemandElements(const GNEDemandElement *demandElement) const;
 
+        /// @brief check if non inspected element has to be hidden
+        bool showShapes() const;
+
         /// @brief get locked person
         const GNEDemandElement *getLockedPerson() const;
+
+        /// @brief Hide shapes (Polygons and POIs)
+        FXMenuCheck* menuCheckHideShapes;
 
         /// @brief Hide non inspected demand elements
         FXMenuCheck* menuCheckHideNonInspectedDemandElements;
