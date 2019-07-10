@@ -158,11 +158,11 @@ GNERerouter::drawGL(const GUIVisualizationSettings& s) const {
         drawChildConnections(getType());
     }
     // check if dotted contour has to be drawn
-    if (!s.drawForSelecting && (myViewNet->getDottedAC() == this)) {
-        GLHelper::drawShapeDottedContourRectangle(getType(), myPosition, 2, 2);
+    if (myViewNet->getDottedAC() == this) {
+        GLHelper::drawShapeDottedContourRectangle(s, getType(), myPosition, 2, 2);
         // draw shape dotte contour aroud alld connections between child and parents
         for (auto i : myChildConnections.connectionPositions) {
-            GLHelper::drawShapeDottedContourAroundShape(getType(), i, 0);
+            GLHelper::drawShapeDottedContourAroundShape(s, getType(), i, 0);
         }
     }
     // Draw name

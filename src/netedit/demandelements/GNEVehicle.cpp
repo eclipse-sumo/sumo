@@ -802,8 +802,8 @@ GNEVehicle::drawGL(const GUIVisualizationSettings& s) const {
             // pop draw matrix
             glPopMatrix();
             // check if dotted contour has to be drawn
-            if (!s.drawForSelecting && (myViewNet->getDottedAC() == this)) {
-                GLHelper::drawShapeDottedContourRectangle(getType(), vehiclePosition, width, length, vehicleRotation, 0, length / (-2));
+            if (myViewNet->getDottedAC() == this) {
+                GLHelper::drawShapeDottedContourRectangle(s, getType(), vehiclePosition, width, length, vehicleRotation, 0, length / (-2));
             }
             // pop name
             if (pushName) {

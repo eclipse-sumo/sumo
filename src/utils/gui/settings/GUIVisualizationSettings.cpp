@@ -82,6 +82,7 @@ const RGBColor GUIVisualizationColorSettings::ride(0, 0, 255);
 // widths of certain NETEDIT objects
 // -------------------------------------------------------------------------
 
+const double GUIVisualizationWidthSettings::dottedContour(3);
 const double GUIVisualizationWidthSettings::route(0.66);
 const double GUIVisualizationWidthSettings::trip(0.2);
 const double GUIVisualizationWidthSettings::personTrip(0.25);
@@ -92,6 +93,7 @@ const double GUIVisualizationWidthSettings::ride(0.25);
 // details of certain NETEDIT objects
 // -------------------------------------------------------------------------
 
+const double GUIVisualizationDetailSettings::dottedContourSegmentLenght(1);
 const double GUIVisualizationDetailSettings::laneTextures(20); // originally 10
 const double GUIVisualizationDetailSettings::additionalTextures(20); // originally 10
 const double GUIVisualizationDetailSettings::geometryPointsDetails(10);

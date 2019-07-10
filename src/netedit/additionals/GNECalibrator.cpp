@@ -174,8 +174,8 @@ GNECalibrator::drawGL(const GUIVisualizationSettings& s) const {
         }
         glPopMatrix();
         // check if dotted contour has to be drawn
-        if (!s.drawForSelecting && (myViewNet->getDottedAC() == this)) {
-            GLHelper::drawShapeDottedContourRectangle(getType(), pos, 2.8, 6, rot, 0, 3);
+        if (myViewNet->getDottedAC() == this) {
+            GLHelper::drawShapeDottedContourRectangle(s, getType(), pos, 2.8, 6, rot, 0, 3);
         }
     }
     // draw name

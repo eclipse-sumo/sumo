@@ -38,7 +38,6 @@
 #endif
 #include <foreign/fontstash/fontstash.h>
 #include <utils/gui/globjects/GLIncludes.h>
-#include <utils/gui/settings/GUIVisualizationSettings.h>
 #define GLFONTSTASH_IMPLEMENTATION // Expands implementation
 #include <foreign/fontstash/glfontstash.h>
 #include <utils/geom/Boundary.h>
@@ -459,9 +458,9 @@ GLHelper::drawTriangleAtEnd(const Position& p1, const Position& p2,
 
 
 void
-GLHelper::drawShapeDottedContourAroundShape(const int type, const PositionVector& shape, const double width) {
+GLHelper::drawShapeDottedContourAroundShape(const GUIVisualizationSettings& s, const int type, const PositionVector& shape, const double width) {
     // first check that given shape isn't empty
-    if (shape.size() > 0) {
+    if (!s.drawForSelecting && (shape.size() > 0)) {
         // build contour using shapes of first and last lane shapes
         PositionVector contourFront = shape;
         // only add an contourback if width is greather of 0
@@ -476,13 +475,13 @@ GLHelper::drawShapeDottedContourAroundShape(const int type, const PositionVector
             contourFront.push_back(shape.front());
         }
         // resample shape
-        PositionVector resampledShape = contourFront.resample(1);
+        PositionVector resampledShape = contourFront.resample(s.detailSettings.dottedContourSegmentLenght);
         // push matrix
         glPushMatrix();
         // draw contour over shape
         glTranslated(0, 0, type + 2);
         // set custom line width
-        glLineWidth(3);
+        glLineWidth(s.widthSettings.dottedContour);
         // draw contour
         drawLine(resampledShape, getDottedcontourColors((int)resampledShape.size()));
         //restore line width
@@ -494,22 +493,22 @@ GLHelper::drawShapeDottedContourAroundShape(const int type, const PositionVector
 
 
 void
-GLHelper::drawShapeDottedContourAroundClosedShape(const int type, const PositionVector& shape) {
+GLHelper::drawShapeDottedContourAroundClosedShape(const GUIVisualizationSettings& s, const int type, const PositionVector& shape) {
     // first check that given shape isn't empty
-    if (shape.size() > 0) {
+    if (!s.drawForSelecting && (shape.size() > 0)) {
         // close shape
         PositionVector closedShape = shape;
         if (closedShape.front() != closedShape.back()) {
             closedShape.push_back(closedShape.front());
         }
         // resample junction shape
-        PositionVector resampledShape = closedShape.resample(1);
+        PositionVector resampledShape = closedShape.resample(s.detailSettings.dottedContourSegmentLenght);
         // push matrix
         glPushMatrix();
         // draw contour over shape
         glTranslated(0, 0, type + 0.1);
         // set custom line width
-        glLineWidth(3);
+        glLineWidth(s.widthSettings.dottedContour);
         // draw contour
         GLHelper::drawLine(resampledShape, GLHelper::getDottedcontourColors((int)resampledShape.size()));
         //restore line width
@@ -521,9 +520,9 @@ GLHelper::drawShapeDottedContourAroundClosedShape(const int type, const Position
 
 
 void
-GLHelper::drawShapeDottedContourBetweenLanes(const int type, const PositionVector& frontLaneShape, const double offsetFrontLaneShape, const PositionVector& backLaneShape, const double offsetBackLaneShape) {
+GLHelper::drawShapeDottedContourBetweenLanes(const GUIVisualizationSettings& s, const int type, const PositionVector& frontLaneShape, const double offsetFrontLaneShape, const PositionVector& backLaneShape, const double offsetBackLaneShape) {
     // first check that given shape isn't empty
-    if ((frontLaneShape.size() > 0) && (backLaneShape.size() > 0)) {
+    if (!s.drawForSelecting && (frontLaneShape.size() > 0) && (backLaneShape.size() > 0)) {
         // build contour using shapes of first and last lane shapes
         PositionVector contourFront = frontLaneShape;
         PositionVector contourback = backLaneShape;
@@ -535,13 +534,13 @@ GLHelper::drawShapeDottedContourBetweenLanes(const int type, const PositionVecto
         }
         contourFront.push_back(frontLaneShape.front());
         // resample shape
-        PositionVector resampledShape = contourFront.resample(1);
+        PositionVector resampledShape = contourFront.resample(s.detailSettings.dottedContourSegmentLenght);
         // push matrix
         glPushMatrix();
         // draw contour over shape
         glTranslated(0, 0, type + 2);
         // set custom line width
-        glLineWidth(3);
+        glLineWidth(s.widthSettings.dottedContour);
         // draw contour
         GLHelper::drawLine(resampledShape, getDottedcontourColors((int)resampledShape.size()));
         //restore line width
@@ -553,9 +552,9 @@ GLHelper::drawShapeDottedContourBetweenLanes(const int type, const PositionVecto
 
 
 void
-GLHelper::drawShapeDottedContourRectangle(const int type, const Position& center, const double width, const double height, const double rotation, const double offsetX, const double offsetY) {
+GLHelper::drawShapeDottedContourRectangle(const GUIVisualizationSettings& s, const int type, const Position& center, const double width, const double height, const double rotation, const double offsetX, const double offsetY) {
     // first check that given width and height is valid
-    if ((width > 0) && (height > 0)) {
+    if (!s.drawForSelecting && (width > 0) && (height > 0)) {
         // create shaperectangle around center
         PositionVector shape;
         shape.push_back(Position(width / 2, height / 2));
@@ -564,7 +563,7 @@ GLHelper::drawShapeDottedContourRectangle(const int type, const Position& center
         shape.push_back(Position(width / 2, height / -2));
         shape.push_back(Position(width / 2, height / 2));
         // resample shape
-        shape = shape.resample(1);
+        shape = shape.resample(s.detailSettings.dottedContourSegmentLenght);
         // push matrix
         glPushMatrix();
         // translate to center
@@ -586,19 +585,19 @@ GLHelper::drawShapeDottedContourRectangle(const int type, const Position& center
 
 
 void 
-GLHelper::drawShapeDottedContourPartialShapes(const int type, const Position& begin, const Position& end, const double width) {
+GLHelper::drawShapeDottedContourPartialShapes(const GUIVisualizationSettings& s, const int type, const Position& begin, const Position& end, const double width) {
     // check that both positions are valid and differents
-    if ((begin != Position::INVALID) && (end != Position::INVALID) && (begin != end)) {
+    if (!s.drawForSelecting && (begin != Position::INVALID) && (end != Position::INVALID) && (begin != end)) {
         // calculate and resample shape
         PositionVector shape{begin, end};
         shape.move2side(width);
-        shape = shape.resample(1);
+        shape = shape.resample(s.detailSettings.dottedContourSegmentLenght);
         // push matrix
         glPushMatrix();
         // draw contour over shape
         glTranslated(0, 0, type + 0.1);
         // set custom line width
-        glLineWidth(3);
+        glLineWidth(s.widthSettings.dottedContour);
         // draw contour
         GLHelper::drawLine(shape, GLHelper::getDottedcontourColors((int)shape.size()));
         // move shape to other side

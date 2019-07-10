@@ -188,6 +188,10 @@ struct GUIVisualizationColorSettings {
 
 /// @brief struct for width settings
 struct GUIVisualizationWidthSettings {
+
+    /// @brief width of dotted contours
+    static const double dottedContour;
+
     /// @brief width for routes
     static const double route;
 
@@ -207,6 +211,9 @@ struct GUIVisualizationWidthSettings {
 
 /// @brief struct for detail settings
 struct GUIVisualizationDetailSettings {
+
+    /// @brief lenght of dotted contour segments
+    static const double dottedContourSegmentLenght;
 
     /// @brief details for lane textures
     static const double laneTextures;

@@ -29,6 +29,7 @@
 #include <utility>
 #include <utils/common/RGBColor.h>
 #include <utils/geom/PositionVector.h>
+#include <utils/gui/settings/GUIVisualizationSettings.h>
 
 
 // ===========================================================================
@@ -282,19 +283,19 @@ public:
                                   double tLength, double tWidth);
 
     /// @brief draw a dotted contour around the given Non closed shape with certain width
-    static void drawShapeDottedContourAroundShape(const int type, const PositionVector& shape, const double width);
+    static void drawShapeDottedContourAroundShape(const GUIVisualizationSettings& s, const int type, const PositionVector& shape, const double width);
 
     /// @brief draw a dotted contour around the given closed shape with certain width
-    static void drawShapeDottedContourAroundClosedShape(const int type, const PositionVector& shape);
+    static void drawShapeDottedContourAroundClosedShape(const GUIVisualizationSettings& s, const int type, const PositionVector& shape);
 
     /// @brief draw a dotted contour around the given lane shapes
-    static void drawShapeDottedContourBetweenLanes(const int type, const PositionVector& frontLaneShape, const double offsetFrontLaneShape, const PositionVector& backLaneShape, const double offsetBackLaneShape);
+    static void drawShapeDottedContourBetweenLanes(const GUIVisualizationSettings& s, const int type, const PositionVector& frontLaneShape, const double offsetFrontLaneShape, const PositionVector& backLaneShape, const double offsetBackLaneShape);
 
     /// @brief draw a dotted contour around the given Position with certain width and height
-    static void drawShapeDottedContourRectangle(const int type, const Position& center, const double width, const double height, const double rotation = 0, const double offsetX = 0, const double offsetY = 0);
+    static void drawShapeDottedContourRectangle(const GUIVisualizationSettings& s, const int type, const Position& center, const double width, const double height, const double rotation = 0, const double offsetX = 0, const double offsetY = 0);
 
     /// @brief draw a dotted contour in a partial shapes
-    static void drawShapeDottedContourPartialShapes(const int type, const Position& begin, const Position& end, const double width);
+    static void drawShapeDottedContourPartialShapes(const GUIVisualizationSettings& s, const int type, const Position& begin, const Position& end, const double width);
 
     /// @brief Sets the gl-color to this value
     static void setColor(const RGBColor& c);

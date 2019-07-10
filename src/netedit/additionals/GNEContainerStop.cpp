@@ -173,8 +173,8 @@ GNEContainerStop::drawGL(const GUIVisualizationSettings& s) const {
         drawName(getPositionInView(), s.scale, s.addName);
     }
     // check if dotted contour has to be drawn
-    if (!s.drawForSelecting && (myViewNet->getDottedAC() == this)) {
-        GLHelper::drawShapeDottedContourAroundShape(getType(), myGeometry.shape, exaggeration);
+    if (myViewNet->getDottedAC() == this) {
+        GLHelper::drawShapeDottedContourAroundShape(s, getType(), myGeometry.shape, exaggeration);
     }
     // Pop name
     glPopName();

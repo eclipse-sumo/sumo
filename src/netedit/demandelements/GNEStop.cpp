@@ -392,12 +392,12 @@ GNEStop::drawGL(const GUIVisualizationSettings& s) const {
             // Draw name if isn't being drawn for selecting
             drawName(getCenteringBoundary().getCenter(), s.scale, s.addName);
             // check if dotted contour has to be drawn
-            if (!s.drawForSelecting && (myViewNet->getDottedAC() == this)) {
+            if (myViewNet->getDottedAC() == this) {
                 // draw dooted contour depending if it's placed over a lane or over a stoppingPlace
                 if (getLaneParents().size() > 0) {
-                    GLHelper::drawShapeDottedContourAroundShape(getType(), myDemandElementGeometry.shape, getLaneParents().front()->getParentEdge().getNBEdge()->getLaneWidth(getLaneParents().front()->getIndex()) * 0.5);
+                    GLHelper::drawShapeDottedContourAroundShape(s, getType(), myDemandElementGeometry.shape, getLaneParents().front()->getParentEdge().getNBEdge()->getLaneWidth(getLaneParents().front()->getIndex()) * 0.5);
                 } else {
-                    GLHelper::drawShapeDottedContourAroundShape(getType(), myDemandElementGeometry.shape, exaggeration);
+                    GLHelper::drawShapeDottedContourAroundShape(s, getType(), myDemandElementGeometry.shape, exaggeration);
                 }
             }
         } else {

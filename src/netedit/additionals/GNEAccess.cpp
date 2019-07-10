@@ -181,7 +181,7 @@ GNEAccess::drawGL(const GUIVisualizationSettings& s) const {
         std::vector<Position> vertices = GLHelper::drawFilledCircleReturnVertices((double) 0.5 * exaggeration, 16);
         // check if dotted contour has to be drawn
         if (myViewNet->getDottedAC() == this) {
-            GLHelper::drawShapeDottedContourAroundClosedShape(getType(), vertices);
+            GLHelper::drawShapeDottedContourAroundClosedShape(s, getType(), vertices);
         }
     }
     // pop matrix

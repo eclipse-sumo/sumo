@@ -322,8 +322,8 @@ GNEConnection::drawGL(const GUIVisualizationSettings& s) const {
                 GLHelper::drawLine(myInternalJunctionMarker);
             }
             // check if dotted contour has to be drawn (not useful at high zoom)
-            if (!s.drawForSelecting && (myNet->getViewNet()->getDottedAC() == this)) {
-                GLHelper::drawShapeDottedContourAroundShape(getType(), shapeSuperposed, 0.25);
+            if (myNet->getViewNet()->getDottedAC() == this) {
+                GLHelper::drawShapeDottedContourAroundShape(s, getType(), shapeSuperposed, 0.25);
             }
         }
         // Pop name
