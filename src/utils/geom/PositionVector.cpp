@@ -1083,7 +1083,7 @@ PositionVector::sideOffset(const Position& beg, const Position& end, const doubl
 
 
 void
-PositionVector::move2side(double amount) {
+PositionVector::move2side(double amount, double maxExtension) {
     if (size() < 2) {
         return;
     }
@@ -1125,7 +1125,7 @@ PositionVector::move2side(double amount) {
                 Position offsets2 = sideOffset(me, to, amount);
                 PositionVector l1(from - offsets, me - offsets);
                 PositionVector l2(me - offsets2, to - offsets2);
-                Position meNew  = l1.intersectionPosition2D(l2[0], l2[1], 100);
+                Position meNew  = l1.intersectionPosition2D(l2[0], l2[1], maxExtension);
                 if (meNew == Position::INVALID) {
                     throw InvalidArgument("no line intersection");
                 }
@@ -1141,7 +1141,7 @@ PositionVector::move2side(double amount) {
 
 
 void
-PositionVector::move2side(std::vector<double> amount) {
+PositionVector::move2side(std::vector<double> amount, double maxExtension) {
     if (size() < 2) {
         return;
     }
@@ -1186,7 +1186,7 @@ PositionVector::move2side(std::vector<double> amount) {
                 Position offsets2 = sideOffset(me, to, amount[i]);
                 PositionVector l1(from - offsets, me - offsets);
                 PositionVector l2(me - offsets2, to - offsets2);
-                Position meNew  = l1.intersectionPosition2D(l2[0], l2[1], 100);
+                Position meNew  = l1.intersectionPosition2D(l2[0], l2[1], maxExtension);
                 if (meNew == Position::INVALID) {
                     throw InvalidArgument("no line intersection");
                 }
