@@ -181,6 +181,7 @@ public:
         std::cout << TIME2STEPS(msTime) << " trip from " << from->getID() << " to " << (to != nullptr ? to->getID() : stopID)
                   << " departPos=" << trip.departPos
                   << " arrivalPos=" << trip.arrivalPos
+                  << " modes=" << getVehicleClassNames(modeSet)
                   << " edges=" << toString(intoEdges)
 //                  << " resultEdges=" << toString(into)
                   << " time=" << time
