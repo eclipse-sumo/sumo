@@ -304,6 +304,10 @@ public:
                 totalLength += split->getLength();
                 double dist = fabs(totalLength - pos);
                 if (dist < bestDist) {
+                    // make sure to use a stop rather than the final departConnector since walking is not possible 
+                    if (bestDist != std::numeric_limits<double>::max() && split == it->second.back()) {
+                        break;
+                    }
                     bestDist = dist;
                     best = split;
                 } else {
