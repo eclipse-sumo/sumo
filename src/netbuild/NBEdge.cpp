@@ -1784,18 +1784,23 @@ NBEdge::firstIntersection(const PositionVector& v1, const PositionVector& v2, do
     if (v2.length() < POSITION_EPS) {
         return intersect;
     }
-    PositionVector v2Right = v2;
-    v2Right.move2side(width2);
+    try {
+        PositionVector v2Right = v2;
+        v2Right.move2side(width2);
 
-    PositionVector v2Left = v2;
-    v2Left.move2side(-width2);
+        PositionVector v2Left = v2;
+        v2Left.move2side(-width2);
 
-    // intersect center line of v1 with left and right border of v2
-    for (double cand : v1.intersectsAtLengths2D(v2Right)) {
-        intersect = MIN2(intersect, cand);
-    }
-    for (double cand : v1.intersectsAtLengths2D(v2Left)) {
-        intersect = MIN2(intersect, cand);
+        // intersect center line of v1 with left and right border of v2
+        for (double cand : v1.intersectsAtLengths2D(v2Right)) {
+            intersect = MIN2(intersect, cand);
+        }
+        for (double cand : v1.intersectsAtLengths2D(v2Left)) {
+            intersect = MIN2(intersect, cand);
+        }
+    } catch (InvalidArgument& e) {
+        //WRITE_WARNING("Could not compute intersection of conflicting internal lanes at node '" + getID() + "'");
+        WRITE_WARNING("Could not compute intersection of conflicting internal lanes at node");
     }
     //std::cout << " v1=" << v1 << " v2Right=" << v2Right << " v2Left=" << v2Left << "\n";
     //std::cout << "  intersectsRight=" << toString(v1.intersectsAtLengths2D(v2Right)) << "\n";
