@@ -583,7 +583,6 @@ GNEEdge::drawGL(const GUIVisualizationSettings& s) const {
             // Pop name
             glPopName();
         }
-        // draw partial person plan elements
         for (const auto &i : getSortedDemandElementChildrenByType(SUMO_TAG_PERSONTRIP_FROMTO)) {
             drawPartialPersonPlan(s, i, nullptr);
         }
@@ -1342,84 +1341,143 @@ GNEEdge::drawPartialTripFromTo(const GUIVisualizationSettings& s, const GNEDeman
 
 void 
 GNEEdge::drawPartialPersonPlan(const GUIVisualizationSettings& s, const GNEDemandElement *personPlan, const GNEJunction* junction) const {
-    // calculate personPlan width
-    double personPlanWidth = 0;
-    // flag to check if width must be duplicated
-    bool duplicateWidth = (myNet->getViewNet()->getDottedAC() == personPlan) || (myNet->getViewNet()->getDottedAC() == personPlan->getDemandElementParents().front())? true : false;
-    // Set width depending of person plan type
-    if (personPlan->getTagProperty().isPersonTrip()) {
-        personPlanWidth = s.addSize.getExaggeration(s, this) * s.widthSettings.personTrip;
-    } else if (personPlan->getTagProperty().isWalk()) {
-        personPlanWidth = s.addSize.getExaggeration(s, this) * s.widthSettings.walk;
-    } else if (personPlan->getTagProperty().isRide()) {
-        personPlanWidth = s.addSize.getExaggeration(s, this) * s.widthSettings.ride;
+    // declare flag to enable or disable draw person plan
+    bool drawPersonPlan = false;
+    if (myNet->getViewNet()->getViewOptionsDemand().showAllPersonPlans()) {
+        drawPersonPlan = true;
+    } else if (myNet->getViewNet()->getDottedAC() == personPlan->getDemandElementParents().front()) {
+        drawPersonPlan = true;
+    } else if (myNet->getViewNet()->getViewOptionsDemand().getLockedPerson() == personPlan->getDemandElementParents().front()) {
+        drawPersonPlan = true;
+    } else if (myNet->getViewNet()->getDottedAC() && myNet->getViewNet()->getDottedAC()->getTagProperty().isPersonPlan() &&
+               (myNet->getViewNet()->getDottedAC()->getAttribute(GNE_ATTR_PARENT) == personPlan->getAttribute(GNE_ATTR_PARENT))) {
+        drawPersonPlan = true;
     }
-    // check if width has to be duplicated
-    if (duplicateWidth) {
-        personPlanWidth *= 2;
-    }
-    // set personPlan color
-    RGBColor personPlanColor;
-    // Set color depending of person plan type
-    if (personPlan->drawUsingSelectColor()) {
-        personPlanColor = s.colorSettings.selectedAdditionalColor;
-    } else if (personPlan->getTagProperty().isPersonTrip()) {
-        personPlanColor = s.colorSettings.personTrip;
-    } else if (personPlan->getTagProperty().isWalk()) {
-        personPlanColor = s.colorSettings.walk;
-    } else if (personPlan->getTagProperty().isRide()) {
-        personPlanColor = s.colorSettings.ride;
-    }
-    // Start drawing adding an gl identificator
-    glPushName(personPlan->getGlID());
-    // Add a draw matrix
-    glPushMatrix();
-    // Start with the drawing of the area traslating matrix to origin
-    glTranslated(0, 0, personPlan->getType());
-    // draw person plan
-    if (junction) {
-        // iterate over segments
-        for (auto segment = personPlan->getDemandElementParents().front()->getDemandElementSegmentGeometry().cbegin(junction); 
-                segment != personPlan->getDemandElementParents().front()->getDemandElementSegmentGeometry().cend(junction); 
-                segment++) {
-            // draw partial segment
-            if ((segment->junction == junction) && (segment->element == personPlan) && segment->visible) {
-                // Set person plan color (needed due drawShapeDottedContour) 
-                GLHelper::setColor(personPlanColor);
-                // draw box line
-                GLHelper::drawBoxLine(segment->pos, segment->rotation, segment->lenght, personPlanWidth, 0);
-                // check if shape dotted contour has to be drawn
-                if ((myNet->getViewNet()->getDottedAC() == personPlan) && ((segment+1) != personPlan->getDemandElementParents().front()->getDemandElementSegmentGeometry().lastSegment())) {
-                    GLHelper::drawShapeDottedContourPartialShapes(s, getType(), segment->pos, (segment+1)->pos, personPlanWidth);
+    // check if draw person plan elements can be drawn
+    if (drawPersonPlan) {
+        // calculate personPlan width
+        double personPlanWidth = 0;
+        // flag to check if width must be duplicated
+        bool duplicateWidth = (myNet->getViewNet()->getDottedAC() == personPlan) || (myNet->getViewNet()->getDottedAC() == personPlan->getDemandElementParents().front())? true : false;
+        // Set width depending of person plan type
+        if (personPlan->getTagProperty().isPersonTrip()) {
+            personPlanWidth = s.addSize.getExaggeration(s, this) * s.widthSettings.personTrip;
+        } else if (personPlan->getTagProperty().isWalk()) {
+            personPlanWidth = s.addSize.getExaggeration(s, this) * s.widthSettings.walk;
+        } else if (personPlan->getTagProperty().isRide()) {
+            personPlanWidth = s.addSize.getExaggeration(s, this) * s.widthSettings.ride;
+        }
+        // check if width has to be duplicated
+        if (duplicateWidth) {
+            personPlanWidth *= 2;
+        }
+        // set personPlan color
+        RGBColor personPlanColor;
+        // Set color depending of person plan type
+        if (personPlan->drawUsingSelectColor()) {
+            personPlanColor = s.colorSettings.selectedAdditionalColor;
+        } else if (personPlan->getTagProperty().isPersonTrip()) {
+            personPlanColor = s.colorSettings.personTrip;
+        } else if (personPlan->getTagProperty().isWalk()) {
+            personPlanColor = s.colorSettings.walk;
+        } else if (personPlan->getTagProperty().isRide()) {
+            personPlanColor = s.colorSettings.ride;
+        }
+        // Start drawing adding an gl identificator
+        glPushName(personPlan->getGlID());
+        // Add a draw matrix
+        glPushMatrix();
+        // Start with the drawing of the area traslating matrix to origin
+        glTranslated(0, 0, personPlan->getType());
+        // draw person plan
+        if (junction) {
+            // iterate over segments
+            for (auto segment = personPlan->getDemandElementParents().front()->getDemandElementSegmentGeometry().cbegin(junction); 
+                    segment != personPlan->getDemandElementParents().front()->getDemandElementSegmentGeometry().cend(junction); 
+                    segment++) {
+                // draw partial segment
+                if ((segment->junction == junction) && (segment->element == personPlan) && segment->visible) {
+                    // Set person plan color (needed due drawShapeDottedContour) 
+                    GLHelper::setColor(personPlanColor);
+                    // draw box line
+                    GLHelper::drawBoxLine(segment->pos, segment->rotation, segment->lenght, personPlanWidth, 0);
+                    // check if shape dotted contour has to be drawn
+                    if ((myNet->getViewNet()->getDottedAC() == personPlan) && ((segment+1) != personPlan->getDemandElementParents().front()->getDemandElementSegmentGeometry().lastSegment())) {
+                        GLHelper::drawShapeDottedContourPartialShapes(s, getType(), segment->pos, (segment+1)->pos, personPlanWidth);
+                    }
+                }
+            }
+        } else {
+            // iterate over segments
+            for (auto segment = personPlan->getDemandElementParents().front()->getDemandElementSegmentGeometry().cbegin(this); 
+                    segment != personPlan->getDemandElementParents().front()->getDemandElementSegmentGeometry().cend(this); 
+                    segment++) {
+                // draw partial segment
+                if ((segment->edge == this) && (segment->element == personPlan) && segment->visible) {
+                    // Set person plan color (needed due drawShapeDottedContour) 
+                    GLHelper::setColor(personPlanColor);
+                    // draw box line
+                    GLHelper::drawBoxLine(segment->pos, segment->rotation, segment->lenght, personPlanWidth, 0);
+                    // check if shape dotted contour has to be drawn
+                    if ((myNet->getViewNet()->getDottedAC() == personPlan) && ((segment+1) != personPlan->getDemandElementParents().front()->getDemandElementSegmentGeometry().lastSegment())) {
+                        GLHelper::drawShapeDottedContourPartialShapes(s, getType(), segment->pos, (segment+1)->pos, personPlanWidth);
+                    }
                 }
             }
         }
-    } else {
-        // iterate over segments
-        for (auto segment = personPlan->getDemandElementParents().front()->getDemandElementSegmentGeometry().cbegin(this); 
-                segment != personPlan->getDemandElementParents().front()->getDemandElementSegmentGeometry().cend(this); 
-                segment++) {
-            // draw partial segment
-            if ((segment->edge == this) && (segment->element == personPlan) && segment->visible) {
-                // Set person plan color (needed due drawShapeDottedContour) 
-                GLHelper::setColor(personPlanColor);
-                // draw box line
-                GLHelper::drawBoxLine(segment->pos, segment->rotation, segment->lenght, personPlanWidth, 0);
-                // check if shape dotted contour has to be drawn
-                if ((myNet->getViewNet()->getDottedAC() == personPlan) && ((segment+1) != personPlan->getDemandElementParents().front()->getDemandElementSegmentGeometry().lastSegment())) {
-                    GLHelper::drawShapeDottedContourPartialShapes(s, getType(), segment->pos, (segment+1)->pos, personPlanWidth);
+        // Pop last matrix
+        glPopMatrix();
+        // Draw name if isn't being drawn for selecting
+        if (!s.drawForSelecting) {
+            drawName(getCenteringBoundary().getCenter(), s.scale, s.addName);
+        }
+        // Pop name
+        glPopName();
+        // check if person plan ArrivalPos attribute
+        if (personPlan->getTagProperty().hasAttribute(SUMO_ATTR_ARRIVALPOS)) {
+            // obtain arrival position
+            double arrivalPos = personPlan->getAttributeDouble(SUMO_ATTR_ARRIVALPOS);
+            // only draw arrival position point if isn't -1
+            if (arrivalPos != -1) {
+                // get lane in which arrival position will be drawn
+                SUMOVehicleClass vClassPersonPlan = personPlan->getTagProperty().isRide()? SVC_PASSENGER : SVC_PEDESTRIAN;
+                GNELane *arrivalPosLane = nullptr;
+                // obtain arrivalPosLane depending if pesonPlan is a walk over a route
+                if (personPlan->getTagProperty().getTag() == SUMO_TAG_WALK_ROUTE) {
+                    arrivalPosLane = personPlan->getDemandElementParents().at(1)->getEdgeParents().back()->getLaneByVClass(vClassPersonPlan);
+                } else {
+                    arrivalPosLane = personPlan->getEdgeParents().back()->getLaneByVClass(vClassPersonPlan);
+                }
+                // obtain position or ArrivalPos
+                Position pos = arrivalPosLane->getGeometry().shape.positionAtOffset2D(arrivalPos);
+                // obtain circle width
+                double circleWidth = (duplicateWidth? SNAP_RADIUS : (SNAP_RADIUS/2.0)) * MIN2((double)0.5, s.laneWidthExaggeration);
+                double circleWidthSquared = circleWidth * circleWidth;
+                if (!s.drawForSelecting || (myNet->getViewNet()->getPositionInformation().distanceSquaredTo2D(pos) <= (circleWidthSquared + 2))) {
+                    glPushMatrix();
+                    // translate to pos and move to upper using GLO_PERSONTRIP (to avoid overlapping)
+                    glTranslated(pos.x(), pos.y(), GLO_PERSONTRIP + 0.01);
+                    // Set color depending of person plan type
+                    if (personPlan->drawUsingSelectColor()) {
+                        GLHelper::setColor(s.colorSettings.selectedAdditionalColor);
+                    } else if (personPlan->getTagProperty().isPersonTrip()) {
+                        GLHelper::setColor(s.colorSettings.personTrip);
+                    } else if (personPlan->getTagProperty().isWalk()) {
+                        GLHelper::setColor(s.colorSettings.walk);
+                    } else if (personPlan->getTagProperty().isRide()) {
+                        GLHelper::setColor(s.colorSettings.ride);
+                    }
+                    // resolution of drawn circle depending of the zoom (To improve smothness)
+                    GLHelper::drawFilledCircle(circleWidth, s.getCircleResolution());
+                    glPopMatrix();
                 }
             }
         }
+        // draw personPlan children
+        for (const auto &i : personPlan->getDemandElementChildren()) {
+            i->drawGL(s);
+        }
     }
-    // Pop last matrix
-    glPopMatrix();
-    // Draw name if isn't being drawn for selecting
-    if (!s.drawForSelecting) {
-        drawName(getCenteringBoundary().getCenter(), s.scale, s.addName);
-    }
-    // Pop name
-    glPopName();
     // draw person if this edge correspond to the first edge of first Person's person plan
     GNEEdge *firstEdge = nullptr;
     if (personPlan->getDemandElementParents().front()->getDemandElementChildren().front()->getTagProperty().isPersonStop()) {
@@ -1440,50 +1498,6 @@ GNEEdge::drawPartialPersonPlan(const GUIVisualizationSettings& s, const GNEDeman
     // draw person parent if this is the edge first edge and this is the first plan
     if ((firstEdge == this) && personPlan->getDemandElementParents().front()->isFirstDemandElementChild(personPlan)) {
         personPlan->getDemandElementParents().front()->drawGL(s);
-    }
-    // check if person plan ArrivalPos attribute
-    if (personPlan->getTagProperty().hasAttribute(SUMO_ATTR_ARRIVALPOS)) {
-        // obtain arrival position
-        double arrivalPos = personPlan->getAttributeDouble(SUMO_ATTR_ARRIVALPOS);
-        // only draw arrival position point if isn't -1
-        if (arrivalPos != -1) {
-            // get lane in which arrival position will be drawn
-            SUMOVehicleClass vClassPersonPlan = personPlan->getTagProperty().isRide()? SVC_PASSENGER : SVC_PEDESTRIAN;
-            GNELane *arrivalPosLane = nullptr;
-            // obtain arrivalPosLane depending if pesonPlan is a walk over a route
-            if (personPlan->getTagProperty().getTag() == SUMO_TAG_WALK_ROUTE) {
-                arrivalPosLane = personPlan->getDemandElementParents().at(1)->getEdgeParents().back()->getLaneByVClass(vClassPersonPlan);
-            } else {
-                arrivalPosLane = personPlan->getEdgeParents().back()->getLaneByVClass(vClassPersonPlan);
-            }
-            // obtain position or ArrivalPos
-            Position pos = arrivalPosLane->getGeometry().shape.positionAtOffset2D(arrivalPos);
-            // obtain circle width
-            double circleWidth = (duplicateWidth? SNAP_RADIUS : (SNAP_RADIUS/2.0)) * MIN2((double)0.5, s.laneWidthExaggeration);
-            double circleWidthSquared = circleWidth * circleWidth;
-            if (!s.drawForSelecting || (myNet->getViewNet()->getPositionInformation().distanceSquaredTo2D(pos) <= (circleWidthSquared + 2))) {
-                glPushMatrix();
-                // translate to pos and move to upper using GLO_PERSONTRIP (to avoid overlapping)
-                glTranslated(pos.x(), pos.y(), GLO_PERSONTRIP + 0.01);
-                // Set color depending of person plan type
-                if (personPlan->drawUsingSelectColor()) {
-                    GLHelper::setColor(s.colorSettings.selectedAdditionalColor);
-                } else if (personPlan->getTagProperty().isPersonTrip()) {
-                    GLHelper::setColor(s.colorSettings.personTrip);
-                } else if (personPlan->getTagProperty().isWalk()) {
-                    GLHelper::setColor(s.colorSettings.walk);
-                } else if (personPlan->getTagProperty().isRide()) {
-                    GLHelper::setColor(s.colorSettings.ride);
-                }
-                // resolution of drawn circle depending of the zoom (To improve smothness)
-                GLHelper::drawFilledCircle(circleWidth, s.getCircleResolution());
-                glPopMatrix();
-            }
-        }
-    }
-    // draw personPlan children
-    for (const auto &i : personPlan->getDemandElementChildren()) {
-        i->drawGL(s);
     }
 }
 

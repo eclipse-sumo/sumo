@@ -104,6 +104,7 @@ FXDEFMAP(GNEViewNet) GNEViewNetMap[] = {
     // View options Demand
     FXMAPFUNC(SEL_COMMAND, MID_GNE_VIEWOPTIONSDEMAND_HIDENONINSPECTED,      GNEViewNet::onCmdToogleHideNonInspecteDemandElements),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_VIEWOPTIONSDEMAND_HIDESHAPES,            GNEViewNet::onCmdToogleHideShapes),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_VIEWOPTIONSDEMAND_SHOWALLPERSONPLANS,    GNEViewNet::onCmdToogleShowAllPersonPlans),
     // Select elements
     FXMAPFUNC(SEL_COMMAND, MID_ADDSELECT,                                   GNEViewNet::onCmdAddSelected),
     FXMAPFUNC(SEL_COMMAND, MID_REMOVESELECT,                                GNEViewNet::onCmdRemoveSelected),
@@ -2159,6 +2160,14 @@ GNEViewNet::onCmdToogleHideShapes(FXObject*, FXSelector, void*) {
 }
 
 
+long 
+GNEViewNet::onCmdToogleShowAllPersonPlans(FXObject*, FXSelector, void*) {
+        // Only update view
+    update();
+    return 1;
+}
+
+
 long
 GNEViewNet::onCmdAddSelected(FXObject*, FXSelector, void*) {
     // make GL current (To allow take objects in popup position)
@@ -2402,6 +2411,7 @@ GNEViewNet::updateDemandModeSpecificControls() {
             // show view options
             myViewOptionsDemand.menuCheckHideShapes->show();
             myViewOptionsDemand.menuCheckHideNonInspectedDemandElements->show();
+            myViewOptionsDemand.menuCheckShowAllPersonPlans->show();
             // show toolbar grip of view options
             myViewParent->getGNEAppWindows()->getToolbarsGrip().modeOptions->show();
             break;
@@ -2412,6 +2422,7 @@ GNEViewNet::updateDemandModeSpecificControls() {
             myCommonCheckableButtons.deleteButton->setChecked(true);
             // show view options
             myViewOptionsDemand.menuCheckHideShapes->show();
+            myViewOptionsDemand.menuCheckShowAllPersonPlans->show();
             // show toolbar grip of view options
             myViewParent->getGNEAppWindows()->getToolbarsGrip().modeOptions->show();
             break;
@@ -2422,6 +2433,7 @@ GNEViewNet::updateDemandModeSpecificControls() {
             myCommonCheckableButtons.selectButton->setChecked(true);
             // show view options
             myViewOptionsDemand.menuCheckHideShapes->show();
+            myViewOptionsDemand.menuCheckShowAllPersonPlans->show();
             // show toolbar grip of view options
             myViewParent->getGNEAppWindows()->getToolbarsGrip().modeOptions->show();
             break;
@@ -2430,6 +2442,7 @@ GNEViewNet::updateDemandModeSpecificControls() {
             // show view options
             myViewOptionsDemand.menuCheckHideShapes->show();
             myViewOptionsNetwork.menuCheckShowGrid->show();
+            myViewOptionsDemand.menuCheckShowAllPersonPlans->show();
             // show toolbar grip of view options
             myViewParent->getGNEAppWindows()->getToolbarsGrip().modeOptions->show();
             break;
@@ -2441,6 +2454,7 @@ GNEViewNet::updateDemandModeSpecificControls() {
             myDemandCheckableButtons.routeButton->setChecked(true);
             // show view options
             myViewOptionsDemand.menuCheckHideShapes->show();
+            myViewOptionsDemand.menuCheckShowAllPersonPlans->show();
             // show toolbar grip of view options
             myViewParent->getGNEAppWindows()->getToolbarsGrip().modeOptions->show();
             break;
@@ -2451,6 +2465,7 @@ GNEViewNet::updateDemandModeSpecificControls() {
             myDemandCheckableButtons.vehicleButton->setChecked(true);
             // show view options
             myViewOptionsDemand.menuCheckHideShapes->show();
+            myViewOptionsDemand.menuCheckShowAllPersonPlans->show();
             // show toolbar grip of view options
             myViewParent->getGNEAppWindows()->getToolbarsGrip().modeOptions->show();
             break;
@@ -2461,6 +2476,7 @@ GNEViewNet::updateDemandModeSpecificControls() {
             myDemandCheckableButtons.vehicleTypeButton->setChecked(true);
             // show view options
             myViewOptionsDemand.menuCheckHideShapes->show();
+            myViewOptionsDemand.menuCheckShowAllPersonPlans->show();
             /// show toolbar grip of view options
             myViewParent->getGNEAppWindows()->getToolbarsGrip().modeOptions->show();
             break;
@@ -2471,6 +2487,7 @@ GNEViewNet::updateDemandModeSpecificControls() {
             myDemandCheckableButtons.stopButton->setChecked(true);
             // show view options
             myViewOptionsDemand.menuCheckHideShapes->show();
+            myViewOptionsDemand.menuCheckShowAllPersonPlans->show();
             // show toolbar grip of view options
             myViewParent->getGNEAppWindows()->getToolbarsGrip().modeOptions->show();
             break;
@@ -2481,6 +2498,7 @@ GNEViewNet::updateDemandModeSpecificControls() {
             myDemandCheckableButtons.personTypeButton->setChecked(true);
             // show view options
             myViewOptionsDemand.menuCheckHideShapes->show();
+            myViewOptionsDemand.menuCheckShowAllPersonPlans->show();
             // show toolbar grip of view options
             myViewParent->getGNEAppWindows()->getToolbarsGrip().modeOptions->show();
             break;
@@ -2491,6 +2509,7 @@ GNEViewNet::updateDemandModeSpecificControls() {
             myDemandCheckableButtons.personButton->setChecked(true);
             // show view options
             myViewOptionsDemand.menuCheckHideShapes->show();
+            myViewOptionsDemand.menuCheckShowAllPersonPlans->show();
             // show toolbar grip of view options
             myViewParent->getGNEAppWindows()->getToolbarsGrip().modeOptions->show();
             break;
@@ -2501,6 +2520,7 @@ GNEViewNet::updateDemandModeSpecificControls() {
             myDemandCheckableButtons.personPlanButton->setChecked(true);
             // show view options
             myViewOptionsDemand.menuCheckHideShapes->show();
+            myViewOptionsDemand.menuCheckShowAllPersonPlans->show();
             // show toolbar grip of view options
             myViewParent->getGNEAppWindows()->getToolbarsGrip().modeOptions->show();
             break;

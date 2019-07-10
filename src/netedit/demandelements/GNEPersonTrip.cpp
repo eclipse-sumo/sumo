@@ -327,6 +327,8 @@ GNEPersonTrip::getAttribute(SumoXMLAttr key) const {
             return toString(getDemandElementParents().front()->isFirstDemandElementChild(this));
         case GNE_ATTR_LAST_CHILD:
             return toString(getDemandElementParents().front()->isLastDemandElementChild(this));
+        case GNE_ATTR_PARENT:
+            return getDemandElementParents().front()->getID();
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }

@@ -267,9 +267,11 @@ public:
     /// @brief toogle hide non inspected demand elements
     long onCmdToogleHideNonInspecteDemandElements(FXObject*, FXSelector, void*);
 
-    /// @brief toogle hide shapes in demand super mode
+    /// @brief toogle hide shapes in super mode demand
     long onCmdToogleHideShapes(FXObject*, FXSelector, void*);
 
+    /// @brief toogle show all person plans in super mode demand
+    long onCmdToogleShowAllPersonPlans(FXObject*, FXSelector, void*);
     /// @}
 
     /// @brief select AC under cursor

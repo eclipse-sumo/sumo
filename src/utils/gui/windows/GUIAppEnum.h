@@ -584,6 +584,8 @@ enum {
     MID_GNE_VIEWOPTIONSDEMAND_HIDENONINSPECTED,
     /// @brief hide shapes
     MID_GNE_VIEWOPTIONSDEMAND_HIDESHAPES,
+    /// @brief show all person plans
+    MID_GNE_VIEWOPTIONSDEMAND_SHOWALLPERSONPLANS,
 
     /// @}
 

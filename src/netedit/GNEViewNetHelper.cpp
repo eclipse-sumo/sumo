@@ -1614,6 +1614,13 @@ GNEViewNetHelper::ViewOptionsDemand::buildViewOptionsDemandMenuChecks() {
     menuCheckHideNonInspectedDemandElements->setCheck(false);
     menuCheckHideNonInspectedDemandElements->create();
 
+    menuCheckShowAllPersonPlans = new FXMenuCheck(myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modeOptions, 
+        ("Show all person plans\t\tshow all person plans"), 
+        myViewNet, MID_GNE_VIEWOPTIONSDEMAND_SHOWALLPERSONPLANS, LAYOUT_FIX_HEIGHT);
+    menuCheckShowAllPersonPlans->setHeight(23);
+    menuCheckShowAllPersonPlans->setCheck(false);
+    menuCheckShowAllPersonPlans->create();
+
     // always recalc after creating new elements
     myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modeOptions->recalc();
 }
@@ -1623,6 +1630,7 @@ void
 GNEViewNetHelper::ViewOptionsDemand::hideViewOptionsDemandMenuChecks() {
     menuCheckHideShapes->hide();
     menuCheckHideNonInspectedDemandElements->hide();
+    menuCheckShowAllPersonPlans->hide();
     // Also hide toolbar grip
     myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modeOptions->show();
 }
@@ -1672,6 +1680,16 @@ GNEViewNetHelper::ViewOptionsDemand::showShapes() const {
         return (menuCheckHideShapes->getCheck() == FALSE);
     } else {
         return true;
+    }
+}
+
+
+bool 
+GNEViewNetHelper::ViewOptionsDemand::showAllPersonPlans() const {
+    if (menuCheckShowAllPersonPlans->shown()) {
+        return (menuCheckShowAllPersonPlans->getCheck() == TRUE);
+    } else {
+        return false;
     }
 }
 
