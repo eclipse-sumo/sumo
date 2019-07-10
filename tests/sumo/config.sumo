@@ -26,6 +26,7 @@ copy_test_path_merge:data
 [collate_file]
 detector:detector.xml
 detector2:detector2.xml
+detector3:detector3.xml
 summary:summary.xml
 aggregated1:aggregated_1.xml
 aggregated15:aggregated_15.xml
@@ -99,6 +100,7 @@ output:Simulation.*started with{REPLACE Simulation started with}
 calibrator_log:<!--{[->]}-->
 detector:<!--{[->]}-->
 detector2:<!--{[->]}-->
+detector3:<!--{[->]}-->
 summary:<!--{[->]}-->
 aggregated1:<!--{[->]}-->
 aggregated15:<!--{[->]}-->
@@ -178,6 +180,7 @@ ps2:%%CreationDate
 output:0.0101
 detector:0.0101
 detector2:0.0101
+detector3:0.0101
 summary:0.0101
 aggregated1:0.0101
 aggregated15:0.0101
