@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Tue Mar 19 22:35:37 2019 by Eclipse SUMO duarouter Version v1_1_0+0435-678c69824b
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+SPDX-License-Identifier: EPL-2.0
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/duarouterConfiguration.xsd">
+
+    <input>
+        <net-file value="input_net2.net.xml"/>
+        <additional-files value="input_additional.add.xml,input_additional2.add.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <output-file value="routes.rou.xml"/>
+        <alternatives-output value="routes.rou.alt.xml"/>
+    </output>
+
+    <report>
+        <xml-validation value="never"/>
+        <no-step-log value="true"/>
+    </report>
+
+</configuration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <person id="p0" depart="400.00">
+        <stop busStop="stopB_S" duration="0.10"/>
+        <ride cost="138.90" busStop="stopA_S" lines="tBA" intended="trainBA.0" depart="439.00"/> <!-- A -->
+        <walk cost="29.31" edges="accessA" departPos="800.00" busStop="stopA_E"/> <!-- A -->
+        <walk cost="1150.53" edges="accessA A0B0 accessC" departPos="300.00" busStop="stopC_E"/> <!-- C -->
+    </person>
+</routes>

@@ -142,6 +142,10 @@ ride_from_stop
 
 # arrive with a ride at a busStop and continue with a trip
 ride_trip
+
+# arrive with a ride at a train stop and continue with a trip that requires access.
+# 
+ride_trip_access
 trip_output
 trip_output_geo
 errors

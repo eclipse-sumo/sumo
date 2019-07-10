@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- generated on 2018-08-09 13:44:25.628253 by $Id$
+  options: -n net.net.xml -s stops.xml -l ptlines.xml -o pt.rou.xml <doubleminus>random-begin -e 10000
+-->
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vType id="train" vClass="rail"/>
+
+    <route id="trainAC" edges="railWE railWE.1200" >
+        <stop busStop="stopA_E" duration="30.00" until="77.0"/> <!-- A -->
+        <stop busStop="stopC_E" duration="30.00" until="220.0"/> <!-- C -->
+    </route>
+
+    <flow id="trainAC" type="train" route="trainAC" begin="200.0" end="1000" period="300" line="tAC"/>
+</routes>

@@ -1,0 +1,7 @@
+<routes>
+    <person id="p0" depart="0">
+        <walk from="accessA" busStop="stopA_E"/>
+        <ride busStop="stopC_E" lines="ANY"/>
+        <walk to="accessC"/>
+    </person>
+</routes>
