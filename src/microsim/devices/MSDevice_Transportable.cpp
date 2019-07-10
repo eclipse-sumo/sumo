@@ -97,6 +97,7 @@ MSDevice_Transportable::notifyMove(SUMOTrafficObject& veh, double /*oldPos*/, do
             for (std::vector<MSTransportable*>::iterator i = myTransportables.begin(); i != myTransportables.end();) {
                 MSTransportable* transportable = *i;
                 if (transportable->getDestination() == veh.getEdge()) {
+                    i = myTransportables.erase(i); // erase first in case proceed throws an exception
                     if (!transportable->proceed(MSNet::getInstance(), MSNet::getInstance()->getCurrentTimeStep())) {
                         if (myAmContainer) {
                             MSNet::getInstance()->getContainerControl().erase(transportable);
@@ -112,7 +113,6 @@ MSDevice_Transportable::notifyMove(SUMOTrafficObject& veh, double /*oldPos*/, do
                             MSStopOut::getInstance()->unloadedPersons(vehicle, 1);
                         }
                     }
-                    i = myTransportables.erase(i);
                 } else {
                     ++i;
                 }
