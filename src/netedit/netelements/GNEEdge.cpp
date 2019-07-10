@@ -1247,7 +1247,7 @@ GNEEdge::drawPartialRoute(const GUIVisualizationSettings& s, const GNEDemandElem
         for (auto segment = route->getDemandElementSegmentGeometry().cbegin(junction); segment != route->getDemandElementSegmentGeometry().cend(junction); segment++) {
             // draw partial segment
             if ((segment->junction == junction) && (segment->element == route) && segment->visible) {
-                // Set route color (needed drawShapeDottedContour) 
+                // Set route color (needed due drawShapeDottedContour) 
                 GLHelper::setColor(routeColor);
                 // draw box line
                 GLHelper::drawBoxLine(segment->pos, segment->rotation, segment->lenght, routeWidth, 0);
@@ -1262,7 +1262,7 @@ GNEEdge::drawPartialRoute(const GUIVisualizationSettings& s, const GNEDemandElem
         for (auto segment = route->getDemandElementSegmentGeometry().cbegin(this); segment != route->getDemandElementSegmentGeometry().cend(this); segment++) {
             // draw partial segment
             if ((segment->edge == this) && (segment->element == route) && segment->visible) {
-                // Set route color (needed drawShapeDottedContour) 
+                // Set route color (needed due drawShapeDottedContour) 
                 GLHelper::setColor(routeColor);
                 // draw box line
                 GLHelper::drawBoxLine(segment->pos, segment->rotation, segment->lenght, routeWidth, 0);
@@ -1309,7 +1309,7 @@ GNEEdge::drawPartialTripFromTo(const GUIVisualizationSettings& s, const GNEDeman
     if (tripOrFromTo->drawUsingSelectColor()) {
         GLHelper::setColor(s.colorSettings.selectedConnectionColor);
     } else {
-        GLHelper::setColor(RGBColor::ORANGE);
+        GLHelper::setColor(s.colorSettings.vehicleTrips);
     }
     // draw trip from to
     if (junction) {
@@ -1346,22 +1346,6 @@ GNEEdge::drawPartialPersonPlan(const GUIVisualizationSettings& s, const GNEDeman
     double personPlanWidth = 0;
     // flag to check if width must be duplicated
     bool duplicateWidth = (myNet->getViewNet()->getDottedAC() == personPlan) || (myNet->getViewNet()->getDottedAC() == personPlan->getDemandElementParents().front())? true : false;
-    // Start drawing adding an gl identificator
-    glPushName(personPlan->getGlID());
-    // Add a draw matrix
-    glPushMatrix();
-    // Start with the drawing of the area traslating matrix to origin
-    glTranslated(0, 0, personPlan->getType());
-    // Set color depending of person plan type
-    if (personPlan->drawUsingSelectColor()) {
-        GLHelper::setColor(s.colorSettings.selectedAdditionalColor);
-    } else if (personPlan->getTagProperty().isPersonTrip()) {
-        GLHelper::setColor(s.colorSettings.personTrip);
-    } else if (personPlan->getTagProperty().isWalk()) {
-        GLHelper::setColor(s.colorSettings.walk);
-    } else if (personPlan->getTagProperty().isRide()) {
-        GLHelper::setColor(s.colorSettings.ride);
-    }
     // Set width depending of person plan type
     if (personPlan->getTagProperty().isPersonTrip()) {
         personPlanWidth = s.addSize.getExaggeration(s, this) * s.widthSettings.personTrip;
@@ -1370,10 +1354,28 @@ GNEEdge::drawPartialPersonPlan(const GUIVisualizationSettings& s, const GNEDeman
     } else if (personPlan->getTagProperty().isRide()) {
         personPlanWidth = s.addSize.getExaggeration(s, this) * s.widthSettings.ride;
     }
-    // check 
+    // check if width has to be duplicated
     if (duplicateWidth) {
         personPlanWidth *= 2;
     }
+    // set personPlan color
+    RGBColor personPlanColor;
+    // Set color depending of person plan type
+    if (personPlan->drawUsingSelectColor()) {
+        personPlanColor = s.colorSettings.selectedAdditionalColor;
+    } else if (personPlan->getTagProperty().isPersonTrip()) {
+        personPlanColor = s.colorSettings.personTrip;
+    } else if (personPlan->getTagProperty().isWalk()) {
+        personPlanColor = s.colorSettings.walk;
+    } else if (personPlan->getTagProperty().isRide()) {
+        personPlanColor = s.colorSettings.ride;
+    }
+    // Start drawing adding an gl identificator
+    glPushName(personPlan->getGlID());
+    // Add a draw matrix
+    glPushMatrix();
+    // Start with the drawing of the area traslating matrix to origin
+    glTranslated(0, 0, personPlan->getType());
     // draw person plan
     if (junction) {
         // iterate over segments
@@ -1382,7 +1384,14 @@ GNEEdge::drawPartialPersonPlan(const GUIVisualizationSettings& s, const GNEDeman
                 segment++) {
             // draw partial segment
             if ((segment->junction == junction) && (segment->element == personPlan) && segment->visible) {
+                // Set person plan color (needed due drawShapeDottedContour) 
+                GLHelper::setColor(personPlanColor);
+                // draw box line
                 GLHelper::drawBoxLine(segment->pos, segment->rotation, segment->lenght, personPlanWidth, 0);
+                // check if shape dotted contour has to be drawn
+                if ((myNet->getViewNet()->getDottedAC() == personPlan) && ((segment+1) != personPlan->getDemandElementParents().front()->getDemandElementSegmentGeometry().lastSegment())) {
+                    GLHelper::drawShapeDottedContourPartialShapes(s, getType(), segment->pos, (segment+1)->pos, personPlanWidth);
+                }
             }
         }
     } else {
@@ -1392,7 +1401,14 @@ GNEEdge::drawPartialPersonPlan(const GUIVisualizationSettings& s, const GNEDeman
                 segment++) {
             // draw partial segment
             if ((segment->edge == this) && (segment->element == personPlan) && segment->visible) {
+                // Set person plan color (needed due drawShapeDottedContour) 
+                GLHelper::setColor(personPlanColor);
+                // draw box line
                 GLHelper::drawBoxLine(segment->pos, segment->rotation, segment->lenght, personPlanWidth, 0);
+                // check if shape dotted contour has to be drawn
+                if ((myNet->getViewNet()->getDottedAC() == personPlan) && ((segment+1) != personPlan->getDemandElementParents().front()->getDemandElementSegmentGeometry().lastSegment())) {
+                    GLHelper::drawShapeDottedContourPartialShapes(s, getType(), segment->pos, (segment+1)->pos, personPlanWidth);
+                }
             }
         }
     }

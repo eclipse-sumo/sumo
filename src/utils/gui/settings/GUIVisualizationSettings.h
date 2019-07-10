@@ -172,6 +172,9 @@ struct GUIVisualizationColorSettings {
     /// @brief color for Stops
     static const RGBColor stops;
         
+    /// @brief color for vehicle trips
+    static const RGBColor vehicleTrips;
+
     /// @brief color for personStops
     static const RGBColor personStops;
 

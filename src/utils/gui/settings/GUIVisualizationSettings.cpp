@@ -73,6 +73,7 @@ const RGBColor GUIVisualizationColorSettings::E2(0, 204, 204);
 const RGBColor GUIVisualizationColorSettings::E3Entry(0, 92, 64);
 const RGBColor GUIVisualizationColorSettings::E3Exit(92, 0, 0);
 const RGBColor GUIVisualizationColorSettings::stops(220, 20, 30);
+const RGBColor GUIVisualizationColorSettings::vehicleTrips(255, 128, 0);
 const RGBColor GUIVisualizationColorSettings::personStops(255, 0, 0);
 const RGBColor GUIVisualizationColorSettings::personTrip(200, 0, 255);
 const RGBColor GUIVisualizationColorSettings::walk(0, 255, 0);
