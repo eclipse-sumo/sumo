@@ -2064,7 +2064,7 @@ GNEApplicationWindow::onCmdToogleEditOptions(FXObject* obj, FXSelector sel, void
         if (myViewNet->getEditModes().currentSupermode == GNE_SUPERMODE_NETWORK) {
             // declare a vector in which save visible menu commands
             std::vector<FXMenuCheck*> visibleNetworkMenuCommands;
-            // save visible menu commands visibleNetworkMenuCommands 
+            // save visible menu commands in visibleNetworkMenuCommands 
             if (myViewNet->getViewOptionsNetwork().menuCheckShowDemandElements->shown()) {
                 visibleNetworkMenuCommands.push_back(myViewNet->getViewOptionsNetwork().menuCheckShowDemandElements);
             }
@@ -2268,17 +2268,57 @@ GNEApplicationWindow::onCmdToogleEditOptions(FXObject* obj, FXSelector sel, void
             }
         } else if (myViewNet->getEditModes().currentSupermode == GNE_SUPERMODE_DEMAND) {
             // declare a vector in which save visible menu commands
-            std::vector<FXMenuCheck*> visibleNetworkMenuCommands;
-            // save visible menu commands visibleNetworkMenuCommands 
-            if (myViewNet->getViewOptionsDemand().menuCheckHideNonInspectedDemandElements->shown()) {
-                visibleNetworkMenuCommands.push_back(myViewNet->getViewOptionsDemand().menuCheckHideNonInspectedDemandElements);
+            std::vector<FXMenuCheck*> visibleDemandMenuCommands;
+            // save visible menu commands in visibleNetworkMenuCommands 
+            if (myViewNet->getViewOptionsNetwork().menuCheckShowGrid->shown()) {
+                visibleDemandMenuCommands.push_back(myViewNet->getViewOptionsNetwork().menuCheckShowGrid);
             }
+            if (myViewNet->getViewOptionsDemand().menuCheckHideShapes->shown()) {
+                visibleDemandMenuCommands.push_back(myViewNet->getViewOptionsDemand().menuCheckHideShapes);
+            }
+            if (myViewNet->getViewOptionsDemand().menuCheckHideNonInspectedDemandElements->shown()) {
+                visibleDemandMenuCommands.push_back(myViewNet->getViewOptionsDemand().menuCheckHideNonInspectedDemandElements);
+            }
+            if (myViewNet->getViewOptionsDemand().menuCheckShowAllPersonPlans->shown()) {
+                visibleDemandMenuCommands.push_back(myViewNet->getViewOptionsDemand().menuCheckShowAllPersonPlans);
+            }
+            /*
+            if (myViewNet->getViewOptionsDemand().menuCheckLockPerson->shown()) {
+                visibleNetworkMenuCommands.push_back(myViewNet->getViewOptionsDemand().menuCheckLockPerson);
+            }
+            */
             // now check that numericalKeyPressed isn't greather than visible view options
-            if (numericalKeyPressed >= (int)visibleNetworkMenuCommands.size()) {
+            if (numericalKeyPressed >= (int)visibleDemandMenuCommands.size()) {
                 return 1;
             }
             // finally function correspond to visibleNetworkMenuCommands[numericalKeyPressed]
-            if (visibleNetworkMenuCommands.at(numericalKeyPressed) == myViewNet->getViewOptionsDemand().menuCheckHideNonInspectedDemandElements) {
+            if (visibleDemandMenuCommands.at(numericalKeyPressed) == myViewNet->getViewOptionsNetwork().menuCheckShowGrid) {
+                // Toogle menuCheckShowGrid
+                if (myViewNet->getViewOptionsNetwork().menuCheckShowGrid->getCheck() == TRUE) {
+                    myViewNet->getViewOptionsNetwork().menuCheckShowGrid->setCheck(FALSE);
+                    // show extra information for tests
+                    WRITE_DEBUG("Disabled toogle show grid throught alt + " + toString(numericalKeyPressed + 1));
+                } else {
+                    myViewNet->getViewOptionsNetwork().menuCheckShowGrid->setCheck(TRUE);
+                    // show extra information for tests
+                    WRITE_DEBUG("Enabled toogle show grid throught alt + " + toString(numericalKeyPressed + 1));
+                }
+                // Call manually onCmdToogleShowGrid
+                return myViewNet->onCmdToogleShowGrid(obj, sel, ptr);
+            } else if (visibleDemandMenuCommands.at(numericalKeyPressed) == myViewNet->getViewOptionsDemand().menuCheckHideShapes) {
+                // Toogle menuCheckHideShapes
+                if (myViewNet->getViewOptionsDemand().menuCheckHideShapes->getCheck() == TRUE) {
+                    myViewNet->getViewOptionsDemand().menuCheckHideShapes->setCheck(FALSE);
+                    // show extra information for tests
+                    WRITE_DEBUG("Disabled hide shapes throught alt + " + toString(numericalKeyPressed + 1));
+                } else {
+                    myViewNet->getViewOptionsDemand().menuCheckHideShapes->setCheck(TRUE);
+                    // show extra information for tests
+                    WRITE_DEBUG("Enabled hide shapes throught alt + " + toString(numericalKeyPressed + 1));
+                }
+                // Call manually onCmdToogleHideNonInspecteDemandElements
+                return myViewNet->onCmdToogleHideShapes(obj, sel, ptr);
+            } else if (visibleDemandMenuCommands.at(numericalKeyPressed) == myViewNet->getViewOptionsDemand().menuCheckHideNonInspectedDemandElements) {
                 // Toogle menuCheckHideNonInspectedDemandElements
                 if (myViewNet->getViewOptionsDemand().menuCheckHideNonInspectedDemandElements->getCheck() == TRUE) {
                     myViewNet->getViewOptionsDemand().menuCheckHideNonInspectedDemandElements->setCheck(FALSE);
@@ -2288,6 +2328,19 @@ GNEApplicationWindow::onCmdToogleEditOptions(FXObject* obj, FXSelector sel, void
                     myViewNet->getViewOptionsDemand().menuCheckHideNonInspectedDemandElements->setCheck(TRUE);
                     // show extra information for tests
                     WRITE_DEBUG("Enabled hide non inspected demand elements throught alt + " + toString(numericalKeyPressed + 1));
+                }
+                // Call manually onCmdToogleHideNonInspecteDemandElements
+                return myViewNet->onCmdToogleHideNonInspecteDemandElements(obj, sel, ptr);
+            } else if (visibleDemandMenuCommands.at(numericalKeyPressed) == myViewNet->getViewOptionsDemand().menuCheckShowAllPersonPlans) {
+                // Toogle menuCheckShowAllPersonPlans
+                if (myViewNet->getViewOptionsDemand().menuCheckShowAllPersonPlans->getCheck() == TRUE) {
+                    myViewNet->getViewOptionsDemand().menuCheckShowAllPersonPlans->setCheck(FALSE);
+                    // show extra information for tests
+                    WRITE_DEBUG("Disabled show all person plans throught alt + " + toString(numericalKeyPressed + 1));
+                } else {
+                    myViewNet->getViewOptionsDemand().menuCheckShowAllPersonPlans->setCheck(TRUE);
+                    // show extra information for tests
+                    WRITE_DEBUG("Enabled show all person plans throught alt + " + toString(numericalKeyPressed + 1));
                 }
                 // Call manually onCmdToogleHideNonInspecteDemandElements
                 return myViewNet->onCmdToogleHideNonInspecteDemandElements(obj, sel, ptr);
