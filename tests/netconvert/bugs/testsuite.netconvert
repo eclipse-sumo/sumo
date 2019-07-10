@@ -92,3 +92,6 @@ ticket5512
 # mutual conflict at junction cluster_2351978965_3491058798_606104206_606104215
 # between links 5 and 6 (right-turning car and left-turning bike)
 ticket5609
+
+# extreme lane widths
+ticket5817
