@@ -438,6 +438,7 @@ MEVehicle::saveState(OutputDevice& out) {
     std::vector<SUMOTime> internals;
     internals.push_back(myDeparture);
     internals.push_back((SUMOTime)distance(myRoute->begin(), myCurrEdge));
+    internals.push_back((SUMOTime)myDepartPos * 1000); // store as mm
     internals.push_back(mySegment == nullptr ? (SUMOTime) - 1 : (SUMOTime)mySegment->getIndex());
     internals.push_back((SUMOTime)getQueIndex());
     internals.push_back(myEventTime);
@@ -469,11 +470,13 @@ MEVehicle::loadState(const SUMOSAXAttributes& attrs, const SUMOTime offset) {
     std::istringstream bis(attrs.getString(SUMO_ATTR_STATE));
     bis >> myDeparture;
     bis >> routeOffset;
+    bis >> myDepartPos;
     bis >> segIndex;
     bis >> queIndex;
     bis >> myEventTime;
     bis >> myLastEntryTime;
     bis >> myBlockTime;
+    myDepartPos *= 1000; // was stored as mm
     if (hasDeparted()) {
         myDeparture -= offset;
         myEventTime -= offset;
