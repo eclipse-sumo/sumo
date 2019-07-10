@@ -175,7 +175,7 @@ GNECrossing::drawGL(const GUIVisualizationSettings& s) const {
         }
         // check if dotted contour has to be drawn
         if (!s.drawForSelecting && (myNet->getViewNet()->getDottedAC() == this)) {
-            GLHelper::drawShapeDottedContour(getType(), myGeometry.shape, crossing->width * 0.5);
+            GLHelper::drawShapeDottedContourAroundShape(getType(), myGeometry.shape, crossing->width * 0.5);
         }
     }
 }

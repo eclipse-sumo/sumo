@@ -706,16 +706,16 @@ GNEVehicle::drawGL(const GUIVisualizationSettings& s) const {
         double vehicleRotation = 0;
         if (getDemandElementParents().size() == 2) {
             // obtain position and rotation of first edge route
-            vehiclePosition = getDemandElementParents().at(1)->getDemandElementSegmentGeometry().firstSegment().pos;
-            vehicleRotation = getDemandElementParents().at(1)->getDemandElementSegmentGeometry().firstSegment().rotation;
+            vehiclePosition = getDemandElementParents().at(1)->getDemandElementSegmentGeometry().firstSegment()->pos;
+            vehicleRotation = getDemandElementParents().at(1)->getDemandElementSegmentGeometry().firstSegment()->rotation;
         } else if (getEdgeParents().size() > 0) {
             // obtain position and rotation of segments geometry
-            vehiclePosition = myDemandElementSegmentGeometry.firstSegment().pos;
-            vehicleRotation = myDemandElementSegmentGeometry.firstSegment().rotation;
+            vehiclePosition = myDemandElementSegmentGeometry.firstSegment()->pos;
+            vehicleRotation = myDemandElementSegmentGeometry.firstSegment()->rotation;
         } else if (getDemandElementChildren().size() > 0) {
             // obtain position and rotation of embedded route
-            vehiclePosition = getDemandElementChildren().at(0)->getDemandElementSegmentGeometry().firstSegment().pos;
-            vehicleRotation = getDemandElementChildren().at(0)->getDemandElementSegmentGeometry().firstSegment().rotation;
+            vehiclePosition = getDemandElementChildren().at(0)->getDemandElementSegmentGeometry().firstSegment()->pos;
+            vehicleRotation = getDemandElementChildren().at(0)->getDemandElementSegmentGeometry().firstSegment()->rotation;
         }
         // first check if if mouse is enought near to this vehicle to draw it
         if (s.drawForSelecting && (myViewNet->getPositionInformation().distanceSquaredTo2D(vehiclePosition) >= (vehicleSizeSquared + 2))) {
@@ -803,7 +803,7 @@ GNEVehicle::drawGL(const GUIVisualizationSettings& s) const {
             glPopMatrix();
             // check if dotted contour has to be drawn
             if (!s.drawForSelecting && (myViewNet->getDottedAC() == this)) {
-                GLHelper::drawShapeDottedContour(getType(), vehiclePosition, width, length, vehicleRotation, 0, length / (-2));
+                GLHelper::drawShapeDottedContourRectangle(getType(), vehiclePosition, width, length, vehicleRotation, 0, length / (-2));
             }
             // pop name
             if (pushName) {

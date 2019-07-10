@@ -281,20 +281,20 @@ public:
     static void drawTriangleAtEnd(const Position& p1, const Position& p2,
                                   double tLength, double tWidth);
 
-    /// @brief get dotted contour colors (black and white). Vector will be automatically increased if current size is minor than size
-    static const std::vector<RGBColor>& getDottedcontourColors(const int size);
-
     /// @brief draw a dotted contour around the given Non closed shape with certain width
-    static void drawShapeDottedContour(const int type, const PositionVector& shape, const double width);
+    static void drawShapeDottedContourAroundShape(const int type, const PositionVector& shape, const double width);
 
     /// @brief draw a dotted contour around the given closed shape with certain width
-    static void drawShapeDottedContour(const int type, const PositionVector& shape);
+    static void drawShapeDottedContourAroundClosedShape(const int type, const PositionVector& shape);
 
-    /// @brief draw a dotted contour around the given non closed shapes with certain width
-    static void drawShapeDottedContour(const int type, const PositionVector& frontShape, const double offsetFrontShape, const PositionVector& backShape, const double offsetBackShape);
+    /// @brief draw a dotted contour around the given lane shapes
+    static void drawShapeDottedContourBetweenLanes(const int type, const PositionVector& frontLaneShape, const double offsetFrontLaneShape, const PositionVector& backLaneShape, const double offsetBackLaneShape);
 
     /// @brief draw a dotted contour around the given Position with certain width and height
-    static void drawShapeDottedContour(const int type, const Position& center, const double width, const double height, const double rotation = 0, const double offsetX = 0, const double offsetY = 0);
+    static void drawShapeDottedContourRectangle(const int type, const Position& center, const double width, const double height, const double rotation = 0, const double offsetX = 0, const double offsetY = 0);
+
+    /// @brief draw a dotted contour in a partial shapes
+    static void drawShapeDottedContourPartialShapes(const int type, const Position& begin, const Position& end, const double width);
 
     /// @brief Sets the gl-color to this value
     static void setColor(const RGBColor& c);
@@ -361,7 +361,9 @@ private:
     /// @brief init myFont
     static bool initFont();
 
-private:
+    /// @brief get dotted contour colors (black and white). Vector will be automatically increased if current size is minor than size
+    static const std::vector<RGBColor>& getDottedcontourColors(const int size);
+
     /// @brief Storage for precomputed sin/cos-values describing a circle
     static std::vector<std::pair<double, double> > myCircleCoords;
 

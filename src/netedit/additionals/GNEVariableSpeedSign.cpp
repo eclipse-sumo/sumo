@@ -158,10 +158,10 @@ GNEVariableSpeedSign::drawGL(const GUIVisualizationSettings& s) const {
     }
     // check if dotted contour has to be drawn
     if (!s.drawForSelecting && (myViewNet->getDottedAC() == this)) {
-        GLHelper::drawShapeDottedContour(getType(), myPosition, 2, 2);
+        GLHelper::drawShapeDottedContourRectangle(getType(), myPosition, 2, 2);
         // draw shape dotte contour aroud alld connections between child and parents
         for (auto i : myChildConnections.connectionPositions) {
-            GLHelper::drawShapeDottedContour(getType(), i, 0);
+            GLHelper::drawShapeDottedContourAroundShape(getType(), i, 0);
         }
     }
     // Pop name

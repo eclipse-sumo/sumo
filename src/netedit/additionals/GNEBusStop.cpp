@@ -190,7 +190,7 @@ GNEBusStop::drawGL(const GUIVisualizationSettings& s) const {
     }
     // check if dotted contour has to be drawn
     if (!s.drawForSelecting && (myViewNet->getDottedAC() == this)) {
-        GLHelper::drawShapeDottedContour(getType(), myGeometry.shape, exaggeration);
+        GLHelper::drawShapeDottedContourAroundShape(getType(), myGeometry.shape, exaggeration);
     }
     // Pop name
     glPopName();

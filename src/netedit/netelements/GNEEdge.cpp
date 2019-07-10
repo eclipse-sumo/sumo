@@ -617,11 +617,11 @@ GNEEdge::drawGL(const GUIVisualizationSettings& s) const {
     if (!s.drawForSelecting) {
         drawEdgeName(s);
     }
-    // draw dotted contor around the first and last lane if  isn't being drawn for selecting
+    // draw dotted contor around the first and last lane if isn't being drawn for selecting
     if (!s.drawForSelecting && (myNet->getViewNet()->getDottedAC() == this)) {
         const double myHalfLaneWidthFront = myNBEdge.getLaneWidth(myLanes.front()->getIndex()) / 2;
         const double myHalfLaneWidthBack = (s.spreadSuperposed && myLanes.back()->drawAsRailway(s) && myNBEdge.isBidiRail()) ? 0 : myNBEdge.getLaneWidth(myLanes.back()->getIndex()) / 2;
-        GLHelper::drawShapeDottedContour(GLO_JUNCTION, myLanes.front()->getGeometry().shape, myHalfLaneWidthFront, myLanes.back()->getGeometry().shape, -1 * myHalfLaneWidthBack);
+        GLHelper::drawShapeDottedContourBetweenLanes(GLO_JUNCTION, myLanes.front()->getGeometry().shape, myHalfLaneWidthFront, myLanes.back()->getGeometry().shape, -1 * myHalfLaneWidthBack);
     }
 }
 
@@ -1228,25 +1228,33 @@ void
 GNEEdge::drawPartialRoute(const GUIVisualizationSettings& s, const GNEDemandElement *route, const GNEJunction* junction) const {
     // calculate route width
     double routeWidth = s.addSize.getExaggeration(s, this) * s.widthSettings.route;
+    // obtain color
+    RGBColor routeColor;
+    if (route->drawUsingSelectColor()) {
+        routeColor =s.colorSettings.selectedAdditionalColor;
+    } else {
+        routeColor = route->getColor();
+    }
     // Start drawing adding an gl identificator
     glPushName(route->getGlID());
     // Add a draw matrix
     glPushMatrix();
     // Start with the drawing of the area traslating matrix to origin
     glTranslated(0, 0, route->getType());
-    // Set color of the base
-    if (route->drawUsingSelectColor()) {
-        GLHelper::setColor(s.colorSettings.selectedAdditionalColor);
-    } else {
-        GLHelper::setColor(route->getColor());
-    }
     // draw route
     if (junction) {
         // iterate over segments
         for (auto segment = route->getDemandElementSegmentGeometry().cbegin(junction); segment != route->getDemandElementSegmentGeometry().cend(junction); segment++) {
             // draw partial segment
             if ((segment->junction == junction) && (segment->element == route) && segment->visible) {
+                // Set route color (needed drawShapeDottedContour) 
+                GLHelper::setColor(routeColor);
+                // draw box line
                 GLHelper::drawBoxLine(segment->pos, segment->rotation, segment->lenght, routeWidth, 0);
+                // check if shape dotted contour has to be drawn
+                if (!s.drawForSelecting && (myNet->getViewNet()->getDottedAC() == route) && ((segment+1) != route->getDemandElementSegmentGeometry().lastSegment())) {
+                    GLHelper::drawShapeDottedContourPartialShapes(getType(), segment->pos, (segment+1)->pos, routeWidth);
+                }
             }
         }
     } else {
@@ -1254,8 +1262,15 @@ GNEEdge::drawPartialRoute(const GUIVisualizationSettings& s, const GNEDemandElem
         for (auto segment = route->getDemandElementSegmentGeometry().cbegin(this); segment != route->getDemandElementSegmentGeometry().cend(this); segment++) {
             // draw partial segment
             if ((segment->edge == this) && (segment->element == route) && segment->visible) {
+                // Set route color (needed drawShapeDottedContour) 
+                GLHelper::setColor(routeColor);
+                // draw box line
                 GLHelper::drawBoxLine(segment->pos, segment->rotation, segment->lenght, routeWidth, 0);
-            }
+                // check if shape dotted contour has to be drawn
+                if (!s.drawForSelecting && (myNet->getViewNet()->getDottedAC() == route) && ((segment+1) != route->getDemandElementSegmentGeometry().lastSegment())) {
+                    GLHelper::drawShapeDottedContourPartialShapes(getType(), segment->pos, (segment+1)->pos, routeWidth);
+                }
+            }    
         }
     }
     // Pop last matrix
@@ -1264,12 +1279,6 @@ GNEEdge::drawPartialRoute(const GUIVisualizationSettings& s, const GNEDemandElem
     if (!s.drawForSelecting) {
         drawName(getCenteringBoundary().getCenter(), s.scale, s.addName);
     }
-    /*
-    // check if dotted contour has to be drawn (note: drawShapeDottedContour are called many times in every interaction. fix it)
-    if (!s.drawForSelecting && (myNet->getViewNet()->getDottedAC() == route)) {
-        GLHelper::drawShapeDottedContour(getType(), route->getDemandElementSegmentGeometry().partialShape.at(route), routeWidth);
-    }
-    */
     // Pop name
     glPopName();
     // draw route children
@@ -2173,7 +2182,7 @@ GNEEdge::drawRerouterSymbol(const GUIVisualizationSettings& s, GNEAdditional *re
             glPopMatrix();
             // draw contour if is selected
             if (!s.drawForSelecting && (myNet->getViewNet()->getDottedAC() == rerouter)) {
-                GLHelper::drawShapeDottedContour(getType(), lanePos, 2.8, 6, -1 * laneRot, 0, 3);
+                GLHelper::drawShapeDottedContourRectangle(getType(), lanePos, 2.8, 6, -1 * laneRot, 0, 3);
             }
         }
     }

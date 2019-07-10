@@ -149,7 +149,10 @@ public:
         std::vector<Segment>::const_iterator cend(const GNEJunction* junction) const;
 
         /// @brief return first segment
-        const Segment& firstSegment() const;
+        std::vector<Segment>::const_iterator firstSegment() const;
+
+        /// @brief return last segment
+        std::vector<Segment>::const_iterator lastSegment() const;
 
         /// @brief mark geometry as deprecated (used to avoid multiple updates)
         bool geometryDeprecated;

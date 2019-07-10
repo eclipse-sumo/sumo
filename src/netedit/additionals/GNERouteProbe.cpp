@@ -193,7 +193,7 @@ GNERouteProbe::drawGL(const GUIVisualizationSettings& s) const {
     drawName(getPositionInView(), s.scale, s.addName);
     // check if dotted contour has to be drawn
     if (!s.drawForSelecting && (myViewNet->getDottedAC() == this)) {
-        GLHelper::drawShapeDottedContour(getType(), myGeometry.shape[0], 2, 2, myGeometry.shapeRotations[0], (-2.56) - myRelativePositionY, -1.6);
+        GLHelper::drawShapeDottedContourRectangle(getType(), myGeometry.shape[0], 2, 2, myGeometry.shapeRotations[0], (-2.56) - myRelativePositionY, -1.6);
     }
     // pop name
     glPopName();

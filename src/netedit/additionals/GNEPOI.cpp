@@ -236,11 +236,11 @@ GNEPOI::drawGL(const GUIVisualizationSettings& s) const {
         if (myNet->getViewNet()->getDottedAC() == this) {
             if (getShapeImgFile() != DEFAULT_IMG_FILE) {
                 const double exaggeration = s.poiSize.getExaggeration(s, this);
-                GLHelper::drawShapeDottedContour(getType(), *this, 2 * myHalfImgWidth * exaggeration, 2 * myHalfImgHeight * exaggeration);
+                GLHelper::drawShapeDottedContourRectangle(getType(), *this, 2 * myHalfImgWidth * exaggeration, 2 * myHalfImgHeight * exaggeration);
             } else if (myPOIVertices.size() > 0) {
                 glPushMatrix();
                 glTranslated(x(), y(), getType() + 0.01);
-                GLHelper::drawShapeDottedContour(getType(), myPOIVertices);
+                GLHelper::drawShapeDottedContourAroundClosedShape(getType(), myPOIVertices);
                 glPopMatrix();
             }
         }

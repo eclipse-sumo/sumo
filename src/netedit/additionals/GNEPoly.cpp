@@ -369,7 +369,7 @@ GNEPoly::drawGL(const GUIVisualizationSettings& s) const {
     }
     // check if dotted contour has to be drawn
     if (myNet->getViewNet()->getDottedAC() == this) {
-        GLHelper::drawShapeDottedContour(getType(), getShape());
+        GLHelper::drawShapeDottedContourAroundClosedShape(getType(), getShape());
     }
     // pop name
     glPopName();

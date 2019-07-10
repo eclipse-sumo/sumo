@@ -301,7 +301,7 @@ GNEJunction::drawGL(const GUIVisualizationSettings& s) const {
                 }
                 // check if dotted contour has to be drawn
                 if (!s.drawForSelecting && (myNet->getViewNet()->getDottedAC() == this) && !drawBubble) {
-                    GLHelper::drawShapeDottedContour(getType(), shape);
+                    GLHelper::drawShapeDottedContourAroundClosedShape(getType(), shape);
                 }
                 glPopMatrix();
             }
@@ -316,7 +316,7 @@ GNEJunction::drawGL(const GUIVisualizationSettings& s) const {
                     std::vector<Position> vertices = GLHelper::drawFilledCircleReturnVertices(circleWidth, s.getCircleResolution());
                     // check if dotted contour has to be drawn
                     if (!s.drawForSelecting && myNet->getViewNet()->getDottedAC() == this) {
-                        GLHelper::drawShapeDottedContour(getType(), vertices);
+                        GLHelper::drawShapeDottedContourAroundClosedShape(getType(), vertices);
                     }
                 } else {
                     GLHelper::drawBoxLine(Position(0, 1), 0, 2, 1);

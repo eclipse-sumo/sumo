@@ -334,7 +334,7 @@ GNETAZ::drawGL(const GUIVisualizationSettings& s) const {
     }
     // check if dotted contour has to be drawn
     if ((myViewNet->getDottedAC() == this) || (myViewNet->getViewParent()->getTAZFrame()->getTAZCurrentModul()->getTAZ() == this)) {
-        GLHelper::drawShapeDottedContour(GLO_POLYGON + 1, getShape());
+        GLHelper::drawShapeDottedContourAroundClosedShape(GLO_POLYGON + 1, getShape());
     }
     // pop name
     glPopName();

@@ -1592,7 +1592,8 @@ GNEViewNetHelper::ViewOptionsNetwork::editingElevation() const {
 // ---------------------------------------------------------------------------
 
 GNEViewNetHelper::ViewOptionsDemand::ViewOptionsDemand(GNEViewNet* viewNet) :
-    myViewNet(viewNet) {
+    myViewNet(viewNet),
+    myLockedPerson(nullptr) {
 }
 
 
@@ -1653,6 +1654,12 @@ GNEViewNetHelper::ViewOptionsDemand::showNonInspectedDemandElements(const GNEDem
         // we're inspecting a demand element, then return true
         return true;
     }
+}
+
+
+const GNEDemandElement *
+GNEViewNetHelper::ViewOptionsDemand::getLockedPerson() const {
+    return myLockedPerson;
 }
 
 // ---------------------------------------------------------------------------

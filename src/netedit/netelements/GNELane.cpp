@@ -410,7 +410,7 @@ GNELane::drawGL(const GUIVisualizationSettings& s) const {
         }
         // check if dotted contour has to be drawn
         if (!s.drawForSelecting && (myNet->getViewNet()->getDottedAC() == this)) {
-            GLHelper::drawShapeDottedContour(getType(), myParentEdge.getNBEdge()->getLaneStruct(myIndex).shape, halfWidth);
+            GLHelper::drawShapeDottedContourAroundShape(getType(), myParentEdge.getNBEdge()->getLaneStruct(myIndex).shape, halfWidth);
         }
         // Pop draw matrix 1
         glPopMatrix();
@@ -1226,7 +1226,7 @@ GNELane::drawVSSSymbol(const GUIVisualizationSettings& s, GNEAdditional *vss) co
     glPopName();
     // check if dotted contour has to be drawn
     if (!s.drawForSelecting && (myNet->getViewNet()->getDottedAC() == vss)) {
-        GLHelper::drawShapeDottedContour(getType(), lanePos, 2.6, 2.6, -1 * laneRot, 0, -1.5);
+        GLHelper::drawShapeDottedContourRectangle(getType(), lanePos, 2.6, 2.6, -1 * laneRot, 0, -1.5);
     }
     // Draw connections
     if(!s.drawForSelecting) {

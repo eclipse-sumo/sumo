@@ -416,12 +416,21 @@ struct GNEViewNetHelper {
         /// @brief check if non inspected element has to be hidden
         bool showNonInspectedDemandElements(const GNEDemandElement *demandElement) const;
 
+        /// @brief get locked person
+        const GNEDemandElement *getLockedPerson() const;
+
         /// @brief Hide non inspected demand elements
         FXMenuCheck* menuCheckHideNonInspectedDemandElements;
+
+        /// @brief Lock Person
+        FXMenuCheck* menuCheckLockPerson;
 
     private:
         /// @brief pointer to viewNet
         GNEViewNet* myViewNet;
+
+        /// @brief pointer to locked person
+        GNEDemandElement *myLockedPerson;
 
         /// @brief Invalidated copy constructor.
         ViewOptionsDemand(const ViewOptionsDemand&) = delete;

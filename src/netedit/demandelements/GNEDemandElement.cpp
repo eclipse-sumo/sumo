@@ -255,9 +255,15 @@ GNEDemandElement::DemandElementSegmentGeometry::cend(const GNEJunction* junction
 }
 
 
-const GNEDemandElement::DemandElementSegmentGeometry::Segment& 
+std::vector<GNEDemandElement::DemandElementSegmentGeometry::Segment>::const_iterator
 GNEDemandElement::DemandElementSegmentGeometry::firstSegment() const {
-    return myShapeSegments.front();
+    return myShapeSegments.begin();
+}
+
+
+std::vector<GNEDemandElement::DemandElementSegmentGeometry::Segment>::const_iterator
+GNEDemandElement::DemandElementSegmentGeometry::lastSegment() const {
+    return myShapeSegments.end();
 }
 
 // ---------------------------------------------------------------------------

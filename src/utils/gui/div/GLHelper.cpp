@@ -458,25 +458,10 @@ GLHelper::drawTriangleAtEnd(const Position& p1, const Position& p2,
 }
 
 
-const std::vector<RGBColor>&
-GLHelper::getDottedcontourColors(const int size) {
-    // check if more colors has to be added
-    while ((int)myDottedcontourColors.size() < size) {
-        if (myDottedcontourColors.empty() || myDottedcontourColors.back() == RGBColor::WHITE) {
-            myDottedcontourColors.push_back(RGBColor::BLACK);
-        } else {
-            myDottedcontourColors.push_back(RGBColor::WHITE);
-        }
-    }
-    return myDottedcontourColors;
-}
-
-
 void
-GLHelper::drawShapeDottedContour(const int type, const PositionVector& shape, const double width) {
+GLHelper::drawShapeDottedContourAroundShape(const int type, const PositionVector& shape, const double width) {
     // first check that given shape isn't empty
     if (shape.size() > 0) {
-        glPushMatrix();
         // build contour using shapes of first and last lane shapes
         PositionVector contourFront = shape;
         // only add an contourback if width is greather of 0
@@ -492,6 +477,8 @@ GLHelper::drawShapeDottedContour(const int type, const PositionVector& shape, co
         }
         // resample shape
         PositionVector resampledShape = contourFront.resample(1);
+        // push matrix
+        glPushMatrix();
         // draw contour over shape
         glTranslated(0, 0, type + 2);
         // set custom line width
@@ -500,18 +487,25 @@ GLHelper::drawShapeDottedContour(const int type, const PositionVector& shape, co
         drawLine(resampledShape, getDottedcontourColors((int)resampledShape.size()));
         //restore line width
         glLineWidth(1);
+        // pop matrix
         glPopMatrix();
     }
 }
 
 
 void
-GLHelper::drawShapeDottedContour(const int type, const PositionVector& shape) {
+GLHelper::drawShapeDottedContourAroundClosedShape(const int type, const PositionVector& shape) {
     // first check that given shape isn't empty
     if (shape.size() > 0) {
-        glPushMatrix();
+        // close shape
+        PositionVector closedShape = shape;
+        if (closedShape.front() != closedShape.back()) {
+            closedShape.push_back(closedShape.front());
+        }
         // resample junction shape
-        PositionVector resampledShape = shape.resample(1);
+        PositionVector resampledShape = closedShape.resample(1);
+        // push matrix
+        glPushMatrix();
         // draw contour over shape
         glTranslated(0, 0, type + 0.1);
         // set custom line width
@@ -520,28 +514,30 @@ GLHelper::drawShapeDottedContour(const int type, const PositionVector& shape) {
         GLHelper::drawLine(resampledShape, GLHelper::getDottedcontourColors((int)resampledShape.size()));
         //restore line width
         glLineWidth(1);
+        // pop matrix
         glPopMatrix();
     }
 }
 
 
 void
-GLHelper::drawShapeDottedContour(const int type, const PositionVector& frontShape, const double offsetFrontShape, const PositionVector& backShape, const double offsetBackShape) {
+GLHelper::drawShapeDottedContourBetweenLanes(const int type, const PositionVector& frontLaneShape, const double offsetFrontLaneShape, const PositionVector& backLaneShape, const double offsetBackLaneShape) {
     // first check that given shape isn't empty
-    if ((frontShape.size() > 0) && (backShape.size() > 0)) {
-        glPushMatrix();
+    if ((frontLaneShape.size() > 0) && (backLaneShape.size() > 0)) {
         // build contour using shapes of first and last lane shapes
-        PositionVector contourFront = frontShape;
-        PositionVector contourback = backShape;
-        contourFront.move2side(offsetFrontShape);
-        contourback.move2side(offsetBackShape);
+        PositionVector contourFront = frontLaneShape;
+        PositionVector contourback = backLaneShape;
+        contourFront.move2side(offsetFrontLaneShape);
+        contourback.move2side(offsetBackLaneShape);
         contourback = contourback.reverse();
         for (auto i : contourback) {
             contourFront.push_back(i);
         }
-        contourFront.push_back(frontShape.front());
+        contourFront.push_back(frontLaneShape.front());
         // resample shape
         PositionVector resampledShape = contourFront.resample(1);
+        // push matrix
+        glPushMatrix();
         // draw contour over shape
         glTranslated(0, 0, type + 2);
         // set custom line width
@@ -550,17 +546,17 @@ GLHelper::drawShapeDottedContour(const int type, const PositionVector& frontShap
         GLHelper::drawLine(resampledShape, getDottedcontourColors((int)resampledShape.size()));
         //restore line width
         glLineWidth(1);
+        // pop matrix
         glPopMatrix();
     }
 }
 
 
 void
-GLHelper::drawShapeDottedContour(const int type, const Position& center, const double width, const double height, const double rotation, const double offsetX, const double offsetY) {
+GLHelper::drawShapeDottedContourRectangle(const int type, const Position& center, const double width, const double height, const double rotation, const double offsetX, const double offsetY) {
     // first check that given width and height is valid
     if ((width > 0) && (height > 0)) {
-        glPushMatrix();
-        // create shape around center
+        // create shaperectangle around center
         PositionVector shape;
         shape.push_back(Position(width / 2, height / 2));
         shape.push_back(Position(width / -2, height / 2));
@@ -569,7 +565,9 @@ GLHelper::drawShapeDottedContour(const int type, const Position& center, const d
         shape.push_back(Position(width / 2, height / 2));
         // resample shape
         shape = shape.resample(1);
-        // draw contour over shape
+        // push matrix
+        glPushMatrix();
+        // translate to center
         glTranslated(center.x(), center.y(), type + 2);
         // set custom line width
         glLineWidth(3);
@@ -581,6 +579,35 @@ GLHelper::drawShapeDottedContour(const int type, const Position& center, const d
         GLHelper::drawLine(shape, getDottedcontourColors((int)shape.size()));
         //restore line width
         glLineWidth(1);
+        // pop matrix
+        glPopMatrix();
+    }
+}
+
+
+void 
+GLHelper::drawShapeDottedContourPartialShapes(const int type, const Position& begin, const Position& end, const double width) {
+    // check that both positions are valid and differents
+    if ((begin != Position::INVALID) && (end != Position::INVALID) && (begin != end)) {
+        // calculate and resample shape
+        PositionVector shape{begin, end};
+        shape.move2side(width);
+        shape = shape.resample(1);
+        // push matrix
+        glPushMatrix();
+        // draw contour over shape
+        glTranslated(0, 0, type + 0.1);
+        // set custom line width
+        glLineWidth(3);
+        // draw contour
+        GLHelper::drawLine(shape, GLHelper::getDottedcontourColors((int)shape.size()));
+        // move shape to other side
+        shape.move2side(width*-2);
+        // draw contour
+        GLHelper::drawLine(shape, GLHelper::getDottedcontourColors((int)shape.size()));
+        //restore line width
+        glLineWidth(1);
+        // pop matrix
         glPopMatrix();
     }
 }
@@ -621,6 +648,20 @@ GLHelper::initFont() {
         }
     }
     return myFont != nullptr;
+}
+
+
+const std::vector<RGBColor>&
+GLHelper::getDottedcontourColors(const int size) {
+    // check if more colors has to be added
+    while ((int)myDottedcontourColors.size() < size) {
+        if (myDottedcontourColors.empty() || myDottedcontourColors.back() == RGBColor::WHITE) {
+            myDottedcontourColors.push_back(RGBColor::BLACK);
+        } else {
+            myDottedcontourColors.push_back(RGBColor::WHITE);
+        }
+    }
+    return myDottedcontourColors;
 }
 
 

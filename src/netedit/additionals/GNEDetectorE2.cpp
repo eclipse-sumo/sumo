@@ -486,9 +486,9 @@ GNEDetectorE2::drawGL(const GUIVisualizationSettings& s) const {
     // check if dotted contour has to be drawn
     if (!s.drawForSelecting && (myViewNet->getDottedAC() == this)) {
         if (myGeometry.shape.size() > 0) {
-            GLHelper::drawShapeDottedContour(getType(), myGeometry.shape, exaggeration);
+            GLHelper::drawShapeDottedContourAroundShape(getType(), myGeometry.shape, exaggeration);
         } else {
-            GLHelper::drawShapeDottedContour(getType(), myGeometry.multiShapeUnified, exaggeration);
+            GLHelper::drawShapeDottedContourAroundShape(getType(), myGeometry.multiShapeUnified, exaggeration);
         }
     }
     // Pop name

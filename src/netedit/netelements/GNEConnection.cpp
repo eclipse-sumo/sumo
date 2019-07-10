@@ -323,7 +323,7 @@ GNEConnection::drawGL(const GUIVisualizationSettings& s) const {
             }
             // check if dotted contour has to be drawn (not useful at high zoom)
             if (!s.drawForSelecting && (myNet->getViewNet()->getDottedAC() == this)) {
-                GLHelper::drawShapeDottedContour(getType(), shapeSuperposed, 0.25);
+                GLHelper::drawShapeDottedContourAroundShape(getType(), shapeSuperposed, 0.25);
             }
         }
         // Pop name
