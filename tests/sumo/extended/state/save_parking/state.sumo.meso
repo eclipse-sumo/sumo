@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Jun  6 08:17:22 2018 by Eclipse SUMO Version b33bf5f
+<!-- generated on Wed Jul 10 07:57:46 2019 by Eclipse SUMO Version v1_2_0+0997-de6cbe2
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -20,6 +20,7 @@ SPDX-License-Identifier: EPL-2.0
     </output>
 
     <processing>
+        <default.speeddev value="0"/>
         <pedestrian.model value="nonInteracting"/>
     </processing>
 
@@ -37,14 +38,14 @@ SPDX-License-Identifier: EPL-2.0
 </configuration>
 -->
 
-<snapshot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd" version="b33bf5f" time="20.00">
+<snapshot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd" version="v1_2_0+0997-de6cbe2" time="20.00">
     <route id="r0" state="1" edges="beg middle end"/>
     <delay number="1" begin="1" end="0" depart="0.00" time="0.00"/>
     <vType id="DEFAULT_BIKETYPE" vClass="bicycle"/>
     <vType id="DEFAULT_PEDTYPE" vClass="pedestrian"/>
     <vType id="DEFAULT_VEHTYPE"/>
     <vType id="t0" sigma="0"/>
-    <vehicle id="v0" type="t0" depart="0.00" route="r0" speedFactor="1.00" state="0 1 0 0 36199 7000 9223372036854775807">
+    <vehicle id="v0" type="t0" depart="0.00" route="r0" speedFactor="1.00" state="0 1 0 0 0 36199 7000 9223372036854775807">
         <stop lane="middle_0" endPos="150.00" duration="20.00" parking="1"/>
         <stop lane="middle_0" endPos="10.00" duration="2.00" parking="1"/>
         <stop lane="middle_0" endPos="60.00" duration="20.00" parking="1"/>

@@ -33,3 +33,6 @@ sumo -c load_arriving/saveState.sumocfg
 sumo -c load_arriving/saveMesoState.sumocfg
 sumo -c load_shifted/saveState.sumocfg
 sumo -c load_shifted/saveMesoState.sumocfg
+
+rm load_arriving/tripinfos.xml
+rm load_shifted/tripinfos.xml
