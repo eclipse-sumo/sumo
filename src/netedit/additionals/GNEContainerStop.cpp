@@ -153,7 +153,7 @@ GNEContainerStop::drawGL(const GUIVisualizationSettings& s) const {
         }
         // draw another circle in the same position, but a little bit more small
         GLHelper::drawFilledCircle(myCircleInWidth, s.getCircleResolution());
-        // If the scale * exageration is equal or more than 4.5, draw H
+        // draw text depending of detail settings
         if (s.drawDetail(s.detailSettings.stoppingPlaceText, exaggeration)) {
             if (drawUsingSelectColor()) {
                 GLHelper::drawText("C", Position(), .1, myCircleInText, s.colorSettings.selectedAdditionalColor, myBlockIcon.rotation);

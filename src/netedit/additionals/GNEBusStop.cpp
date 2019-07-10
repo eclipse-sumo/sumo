@@ -130,21 +130,24 @@ GNEBusStop::drawGL(const GUIVisualizationSettings& s) const {
         }
         // Add a draw matrix for details
         glPushMatrix();
-        // Iterate over every line
-        for (int i = 0; i < (int)myLines.size(); ++i) {
-            // push a new matrix for every line
-            glPushMatrix();
-            // Rotate and traslaste
-            glTranslated(mySignPos.x(), mySignPos.y(), 0);
-            glRotated(-1 * myBlockIcon.rotation, 0, 0, 1);
-            // draw line with a color depending of the selection status
-            if (drawUsingSelectColor()) {
-                GLHelper::drawText(myLines[i].c_str(), Position(1.2, (double)i), .1, 1.f, s.colorSettings.selectionColor, 0, FONS_ALIGN_LEFT);
-            } else {
-                GLHelper::drawText(myLines[i].c_str(), Position(1.2, (double)i), .1, 1.f, s.colorSettings.busStop, 0, FONS_ALIGN_LEFT);
+        // draw lines depending of detailSettings
+        if (s.drawDetail(s.detailSettings.stoppingPlaceText, exaggeration)) {
+            // Iterate over every line
+            for (int i = 0; i < (int)myLines.size(); ++i) {
+                // push a new matrix for every line
+                glPushMatrix();
+                // Rotate and traslaste
+                glTranslated(mySignPos.x(), mySignPos.y(), 0);
+                glRotated(-1 * myBlockIcon.rotation, 0, 0, 1);
+                // draw line with a color depending of the selection status
+                if (drawUsingSelectColor()) {
+                    GLHelper::drawText(myLines[i].c_str(), Position(1.2, (double)i), .1, 1.f, s.colorSettings.selectionColor, 0, FONS_ALIGN_LEFT);
+                } else {
+                    GLHelper::drawText(myLines[i].c_str(), Position(1.2, (double)i), .1, 1.f, s.colorSettings.busStop, 0, FONS_ALIGN_LEFT);
+                }
+                // pop matrix for every line
+                glPopMatrix();
             }
-            // pop matrix for every line
-            glPopMatrix();
         }
         // Start drawing sign traslating matrix to signal position
         glTranslated(mySignPos.x(), mySignPos.y(), 0);
@@ -168,7 +171,7 @@ GNEBusStop::drawGL(const GUIVisualizationSettings& s) const {
         }
         // draw another circle in the same position, but a little bit more small
         GLHelper::drawFilledCircle(myCircleInWidth, s.getCircleResolution());
-        // If the scale * exageration is equal or more than 4.5, draw H
+        // draw H depending of detailSettings
         if (s.drawDetail(s.detailSettings.stoppingPlaceText, exaggeration)) {
             if (drawUsingSelectColor()) {
                 GLHelper::drawText("H", Position(), .1, myCircleInText, s.colorSettings.selectedAdditionalColor, myBlockIcon.rotation);

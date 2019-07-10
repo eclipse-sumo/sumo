@@ -119,16 +119,19 @@ GNEChargingStation::drawGL(const GUIVisualizationSettings& s) const {
     } else if (s.drawDetail(s.detailSettings.stoppingPlaceDetails, exaggeration)) {
         // Push matrix for details
         glPushMatrix();
-        // push a new matrix for charging power
-        glPushMatrix();
-        // draw line with a color depending of the selection status
-        if (drawUsingSelectColor()) {
-            GLHelper::drawText((toString(myChargingPower) + " W").c_str(), mySignPos + Position(1.2, 0), .1, 1.f, s.colorSettings.selectionColor, myBlockIcon.rotation, FONS_ALIGN_LEFT);
-        } else {
-            GLHelper::drawText((toString(myChargingPower) + " W").c_str(), mySignPos + Position(1.2, 0), .1, 1.f, s.colorSettings.chargingStation, myBlockIcon.rotation, FONS_ALIGN_LEFT);
+        // draw power depending of detailSettings
+        if (s.drawDetail(s.detailSettings.stoppingPlaceText, exaggeration)) {
+            // push a new matrix for charging power
+            glPushMatrix();
+            // draw line with a color depending of the selection status
+            if (drawUsingSelectColor()) {
+                GLHelper::drawText((toString(myChargingPower) + " W").c_str(), mySignPos + Position(1.2, 0), .1, 1.f, s.colorSettings.selectionColor, myBlockIcon.rotation, FONS_ALIGN_LEFT);
+            } else {
+                GLHelper::drawText((toString(myChargingPower) + " W").c_str(), mySignPos + Position(1.2, 0), .1, 1.f, s.colorSettings.chargingStation, myBlockIcon.rotation, FONS_ALIGN_LEFT);
+            }
+            // pop matrix for charging power
+            glPopMatrix();
         }
-        // pop matrix for charging power
-        glPopMatrix();
         // Set position over sign
         glTranslated(mySignPos.x(), mySignPos.y(), 0);
         // Scale matrix
@@ -151,7 +154,7 @@ GNEChargingStation::drawGL(const GUIVisualizationSettings& s) const {
         }
         // Draw internt sign
         GLHelper::drawFilledCircle(myCircleInWidth, s.getCircleResolution());
-        // Draw sign 'C'
+        // Draw sign 'C' depending of detail settings
         if (s.drawDetail(s.detailSettings.stoppingPlaceText, exaggeration)) {
             if (drawUsingSelectColor()) {
                 GLHelper::drawText("C", Position(), .1, myCircleInText, s.colorSettings.selectedAdditionalColor, myBlockIcon.rotation);
