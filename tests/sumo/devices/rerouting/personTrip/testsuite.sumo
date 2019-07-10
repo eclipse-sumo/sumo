@@ -136,4 +136,7 @@ ride_trip_access
 
 # randomize paths in a grid network
 randomized_weights
+
+# missing the bus and rerouting
+missed_bus_reroute
 errors
