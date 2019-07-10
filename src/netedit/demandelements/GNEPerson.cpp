@@ -538,19 +538,19 @@ GNEPerson::drawGL(const GUIVisualizationSettings& s) const {
     if (myViewNet->getViewOptionsNetwork().showDemandElements() && myViewNet->getViewOptionsDemand().showNonInspectedDemandElements(this) && (getDemandElementChildren().size() > 0)) {
         glPushName(getGlID());
         glPushMatrix();
-        Position p1;
+        Position personPosition;
         // obtain position depending of first PersonPlan child
         if (getDemandElementChildren().front()->getTagProperty().isPersonStop()) {
             // obtain position of stop center
-            p1 = getDemandElementChildren().front()->getPositionInView();
+            personPosition = getDemandElementChildren().front()->getPositionInView();
         } else if (getDemandElementChildren().front()->getTagProperty().getTag() == SUMO_TAG_WALK_ROUTE) {
             // obtain position of first route's edge
-            p1 = getDemandElementChildren().front()->getDemandElementParents().at(1)->getEdgeParents().front()->getLanes().front()->getGeometry().shape.front();
+            personPosition = getDemandElementChildren().front()->getDemandElementParents().at(1)->getEdgeParents().front()->getLanes().front()->getGeometry().shape.front();
         } else {
             // obtain position of first edge
-            p1 = getDemandElementChildren().front()->getEdgeParents().front()->getLanes().front()->getGeometry().shape.front();
+            personPosition = getDemandElementChildren().front()->getEdgeParents().front()->getLanes().front()->getGeometry().shape.front();
         }
-        glTranslated(p1.x(), p1.y(), getType());
+        glTranslated(personPosition.x(), personPosition.y(), getType());
         glRotated(90, 0, 0, 1);
         // set person color
         setColor(s);
@@ -561,11 +561,15 @@ GNEPerson::drawGL(const GUIVisualizationSettings& s) const {
         drawAction_drawAsPoly(s);
         // pop matrix
         glPopMatrix();
-        drawName(p1, s.scale, s.personName, s.angle);
+        drawName(personPosition, s.scale, s.personName, s.angle);
         if (s.personValue.show) {
-            Position p2 = p1 + Position(0, 0.6 * s.personName.scaledSize(s.scale));
+            Position personValuePosition = personPosition + Position(0, 0.6 * s.personName.scaledSize(s.scale));
             const double value = getColorValue(s, s.personColorer.getActive());
-            GLHelper::drawTextSettings(s.personValue, toString(value), p2, s.scale, s.angle, GLO_MAX - getType());
+            GLHelper::drawTextSettings(s.personValue, toString(value), personValuePosition, s.scale, s.angle, GLO_MAX - getType());
+        }
+        // check if dotted contour has to be drawn
+        if (myViewNet->getDottedAC() == this) {
+            GLHelper::drawShapeDottedContourRectangle(s, getType(), personPosition, upscale, upscale, 0, 0);
         }
         // pop name
         glPopName();
