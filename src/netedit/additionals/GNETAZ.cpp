@@ -304,31 +304,33 @@ GNETAZ::drawGL(const GUIVisualizationSettings& s) const {
             GLHelper::setColor(darkerColor);
             GLHelper::drawBoxLines(myGeometry.shape, (myHintSize / 4) * s.polySize.getExaggeration(s, this));
             glPopMatrix();
-            // draw points of shape
-            for (auto i : myGeometry.shape) {
-                if (!s.drawForSelecting || (myViewNet->getPositionInformation().distanceSquaredTo2D(i) <= (myHintSizeSquared + 2))) {
-                    glPushMatrix();
-                    glTranslated(i.x(), i.y(), GLO_POLYGON + 0.02);
-                    // Change color of vertex and flag mouseOverVertex if mouse is over vertex
-                    if (modeMove && (i.distanceTo(mousePosition) < myHintSize)) {
-                        mouseOverVertex = true;
-                        GLHelper::setColor(invertedColor);
-                    } else {
-                        GLHelper::setColor(darkerColor);
+            // draw shape points only in Network supemode
+            if (myViewNet->getEditModes().currentSupermode != GNE_SUPERMODE_DEMAND) {
+                for (auto i : myGeometry.shape) {
+                    if (!s.drawForSelecting || (myViewNet->getPositionInformation().distanceSquaredTo2D(i) <= (myHintSizeSquared + 2))) {
+                        glPushMatrix();
+                        glTranslated(i.x(), i.y(), GLO_POLYGON + 0.02);
+                        // Change color of vertex and flag mouseOverVertex if mouse is over vertex
+                        if (modeMove && (i.distanceTo(mousePosition) < myHintSize)) {
+                            mouseOverVertex = true;
+                            GLHelper::setColor(invertedColor);
+                        } else {
+                            GLHelper::setColor(darkerColor);
+                        }
+                        GLHelper::drawFilledCircle(myHintSize, s.getCircleResolution());
+                        glPopMatrix();
                     }
-                    GLHelper::drawFilledCircle(myHintSize, s.getCircleResolution());
+                }
+                // check if draw moving hint has to be drawed
+                if (modeMove && (mouseOverVertex == false) && (myBlockMovement == false) && (distanceToShape < myHintSize)) {
+                    // push matrix
+                    glPushMatrix();
+                    Position hintPos = myGeometry.shape.size() > 1 ? myGeometry.shape.positionAtOffset2D(myGeometry.shape.nearest_offset_to_point2D(mousePosition)) : myGeometry.shape[0];
+                    glTranslated(hintPos.x(), hintPos.y(), GLO_POLYGON + 0.04);
+                    GLHelper::setColor(invertedColor);
+                    GLHelper:: drawFilledCircle(myHintSize, s.getCircleResolution());
                     glPopMatrix();
                 }
-            }
-            // check if draw moving hint has to be drawed
-            if (modeMove && (mouseOverVertex == false) && (myBlockMovement == false) && (distanceToShape < myHintSize)) {
-                // push matrix
-                glPushMatrix();
-                Position hintPos = myGeometry.shape.size() > 1 ? myGeometry.shape.positionAtOffset2D(myGeometry.shape.nearest_offset_to_point2D(mousePosition)) : myGeometry.shape[0];
-                glTranslated(hintPos.x(), hintPos.y(), GLO_POLYGON + 0.04);
-                GLHelper::setColor(invertedColor);
-                GLHelper:: drawFilledCircle(myHintSize, s.getCircleResolution());
-                glPopMatrix();
             }
         }
     }

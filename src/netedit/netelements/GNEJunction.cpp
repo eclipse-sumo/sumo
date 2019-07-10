@@ -278,11 +278,19 @@ GNEJunction::drawGL(const GUIVisualizationSettings& s) const {
     } else {
         // node shape has been computed and is valid for drawing
         glPushName(getGlID());
-        const bool drawShape = myNBNode.getShape().size() > 0 && s.drawJunctionShape;
-        const bool drawBubble = (((!drawShape || myNBNode.getShape().area() < 4)
-                                  && s.drawJunctionShape)
-                                 || myNet->getViewNet()->showJunctionAsBubbles());
-
+        // declare flag for drawing junction shape
+        const bool drawShape = (myNBNode.getShape().size() > 0) && s.drawJunctionShape;
+        // declare flag for drawing junction as bubbles
+        bool drawBubble = (!drawShape || (myNBNode.getShape().area() < 4)) && s.drawJunctionShape;
+        // check if show junctions as bubbles checkbox is enabled
+        if (myNet->getViewNet()->showJunctionAsBubbles()) {
+            drawBubble = true;
+        }
+        // in supermode demand Bubble musn't be drawn 
+        if (myNet->getViewNet()->getEditModes().currentSupermode == GNE_SUPERMODE_DEMAND) {
+            drawBubble = false;
+        }
+        // check if shape has to be drawn
         if (drawShape) {
             RGBColor color = setColor(s, false);
             // recognize full transparency and simply don't draw
@@ -306,6 +314,7 @@ GNEJunction::drawGL(const GUIVisualizationSettings& s) const {
                 glPopMatrix();
             }
         }
+        // check if bubble has to be drawn
         if (drawBubble) {
             RGBColor color = setColor(s, true);
             // recognize full transparency and simply don't draw

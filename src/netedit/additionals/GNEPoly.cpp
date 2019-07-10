@@ -316,54 +316,56 @@ GNEPoly::drawGL(const GUIVisualizationSettings& s) const {
             GLHelper::setColor(darkerColor);
             GLHelper::drawBoxLines(myShape, (myHintSize / 4) * s.polySize.getExaggeration(s, this));
             glPopMatrix();
-            // draw points of shape
-            for (auto i : myShape) {
-                if (!s.drawForSelecting || (myNet->getViewNet()->getPositionInformation().distanceSquaredTo2D(i) <= (circleWidthSquared + 2))) {
-                    glPushMatrix();
-                    glTranslated(i.x(), i.y(), GLO_POLYGON + 0.02);
-                    // Change color of vertex and flag mouseOverVertex if mouse is over vertex
-                    if (modeMove && (i.distanceTo(mousePosition) < circleWidth)) {
-                        mouseOverVertex = true;
-                        GLHelper::setColor(invertedColor);
-                    } else {
-                        GLHelper::setColor(darkerColor);
-                    }
-                    GLHelper::drawFilledCircle(circleWidth, s.getCircleResolution());
-                    glPopMatrix();
-                    // draw elevation or special symbols (Start, End and Block)
-                    if (!s.drawForSelecting && myNet->getViewNet()->getViewOptionsNetwork().editingElevation()) {
-                        // Push matrix
+            // draw shape points only in Network supemode
+            if (myNet->getViewNet()->getEditModes().currentSupermode != GNE_SUPERMODE_DEMAND) {
+                for (auto i : myShape) {
+                    if (!s.drawForSelecting || (myNet->getViewNet()->getPositionInformation().distanceSquaredTo2D(i) <= (circleWidthSquared + 2))) {
                         glPushMatrix();
-                        // Traslate to center of detector
-                        glTranslated(i.x(), i.y(), getType() + 1);
-                        // draw Z
-                        GLHelper::drawText(toString(i.z()), Position(), .1, 0.7, RGBColor::BLUE);
-                        // pop matrix
+                        glTranslated(i.x(), i.y(), GLO_POLYGON + 0.02);
+                        // Change color of vertex and flag mouseOverVertex if mouse is over vertex
+                        if (modeMove && (i.distanceTo(mousePosition) < circleWidth)) {
+                            mouseOverVertex = true;
+                            GLHelper::setColor(invertedColor);
+                        } else {
+                            GLHelper::setColor(darkerColor);
+                        }
+                        GLHelper::drawFilledCircle(circleWidth, s.getCircleResolution());
                         glPopMatrix();
-                    } else if ((i == myShape.front()) && !s.drawForSelecting && s.drawDetail(s.detailSettings.geometryPointsText, exaggeration)) {
-                        // draw a "s" over first point
-                        glPushMatrix();
-                        glTranslated(i.x(), i.y(), GLO_POLYGON + 0.03);
-                        GLHelper::drawText("S", Position(), .1, 2 * circleWidth, invertedColor);
-                        glPopMatrix();
-                    } else if ((i == myShape.back()) && (myClosedShape == false) && !s.drawForSelecting && s.drawDetail(s.detailSettings.geometryPointsText, exaggeration)) {
-                        // draw a "e" over last point if polygon isn't closed
-                        glPushMatrix();
-                        glTranslated(i.x(), i.y(), GLO_POLYGON + 0.03);
-                        GLHelper::drawText("E", Position(), .1, 2 * circleWidth, invertedColor);
-                        glPopMatrix();
+                        // draw elevation or special symbols (Start, End and Block)
+                        if (!s.drawForSelecting && myNet->getViewNet()->getViewOptionsNetwork().editingElevation()) {
+                            // Push matrix
+                            glPushMatrix();
+                            // Traslate to center of detector
+                            glTranslated(i.x(), i.y(), getType() + 1);
+                            // draw Z
+                            GLHelper::drawText(toString(i.z()), Position(), .1, 0.7, RGBColor::BLUE);
+                            // pop matrix
+                            glPopMatrix();
+                        } else if ((i == myShape.front()) && !s.drawForSelecting && s.drawDetail(s.detailSettings.geometryPointsText, exaggeration)) {
+                            // draw a "s" over first point
+                            glPushMatrix();
+                            glTranslated(i.x(), i.y(), GLO_POLYGON + 0.03);
+                            GLHelper::drawText("S", Position(), .1, 2 * circleWidth, invertedColor);
+                            glPopMatrix();
+                        } else if ((i == myShape.back()) && (myClosedShape == false) && !s.drawForSelecting && s.drawDetail(s.detailSettings.geometryPointsText, exaggeration)) {
+                            // draw a "e" over last point if polygon isn't closed
+                            glPushMatrix();
+                            glTranslated(i.x(), i.y(), GLO_POLYGON + 0.03);
+                            GLHelper::drawText("E", Position(), .1, 2 * circleWidth, invertedColor);
+                            glPopMatrix();
+                        }
                     }
                 }
-            }
-            // check if draw moving hint has to be drawed
-            if (modeMove && (mouseOverVertex == false) && (myBlockMovement == false) && (distanceToShape < circleWidth)) {
-                // push matrix
-                glPushMatrix();
-                Position hintPos = myShape.size() > 1 ? myShape.positionAtOffset2D(myShape.nearest_offset_to_point2D(mousePosition)) : myShape[0];
-                glTranslated(hintPos.x(), hintPos.y(), GLO_POLYGON + 0.04);
-                GLHelper::setColor(invertedColor);
-                GLHelper:: drawFilledCircle(circleWidth, s.getCircleResolution());
-                glPopMatrix();
+                // check if draw moving hint has to be drawed
+                if (modeMove && (mouseOverVertex == false) && (myBlockMovement == false) && (distanceToShape < circleWidth)) {
+                    // push matrix
+                    glPushMatrix();
+                    Position hintPos = myShape.size() > 1 ? myShape.positionAtOffset2D(myShape.nearest_offset_to_point2D(mousePosition)) : myShape[0];
+                    glTranslated(hintPos.x(), hintPos.y(), GLO_POLYGON + 0.04);
+                    GLHelper::setColor(invertedColor);
+                    GLHelper:: drawFilledCircle(circleWidth, s.getCircleResolution());
+                    glPopMatrix();
+                }
             }
         }
     }

@@ -609,8 +609,8 @@ GNEEdge::drawGL(const GUIVisualizationSettings& s) const {
             drawPartialPersonPlan(s, i, nullptr);
         }
     }
-    // draw geometry points if isnt's too small
-    if (s.scale > 8.0) {
+    // draw geometry points if isnt's too small and 
+    if ((s.scale > 8.0) && (myNet->getViewNet()->getEditModes().currentSupermode != GNE_SUPERMODE_DEMAND)) {
         drawGeometryPoints(s);
     }
     // draw name if isn't being drawn for selecting
