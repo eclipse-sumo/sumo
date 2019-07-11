@@ -34,8 +34,8 @@
 #include <utils/gui/div/GLHelper.h>
 #include <utils/gui/div/GUIGlobalSelection.h>
 #include <utils/gui/globjects/GLIncludes.h>
-#include <utils/gui/images/GUITexturesHelper.h>
 #include <utils/gui/windows/GUIAppEnum.h>
+#include <utils/gui/div/GUIBasePersonHelper.h>
 
 #include "GNEPerson.h"
 #include "GNERouteHandler.h"
@@ -536,7 +536,15 @@ void
 GNEPerson::drawGL(const GUIVisualizationSettings& s) const {
     // only drawn in super mode demand
     if (myViewNet->getNetworkViewOptions().showDemandElements() && myViewNet->getDemandViewOptions().showNonInspectedDemandElements(this) && (getDemandElementChildren().size() > 0)) {
+        // obtain exaggeration
+        const double exaggeration = s.personSize.getExaggeration(s, this, 80);
+        // obtain width and lenght
+        const double length = getDemandElementParents().at(0)->getAttributeDouble(SUMO_ATTR_LENGTH);
+        const double width = getDemandElementParents().at(0)->getAttributeDouble(SUMO_ATTR_WIDTH);
+        const std::string file = getDemandElementParents().at(0)->getAttribute(SUMO_ATTR_IMGFILE);
+        // push GL ID
         glPushName(getGlID());
+        // push draw matrix
         glPushMatrix();
         Position personPosition;
         // obtain position depending of first PersonPlan child
@@ -554,11 +562,16 @@ GNEPerson::drawGL(const GUIVisualizationSettings& s) const {
         glRotated(90, 0, 0, 1);
         // set person color
         setColor(s);
-        // scale
-        const double upscale = s.personSize.getExaggeration(s, this, 80);
-        glScaled(upscale, upscale, 1);
-        // draw person as poly
-        drawAction_drawAsPoly(s);
+        // set scale
+        glScaled(exaggeration, exaggeration, 1);
+        // draw person depending of detail level
+        if (s.drawDetail(s.detailSettings.personShapes, exaggeration)) {
+            GUIBasePersonHelper::drawAction_drawAsImage(0, length, width, file, SVS_PEDESTRIAN, exaggeration);
+        } else if (s.drawDetail(s.detailSettings.personCircles, exaggeration)) {
+            GUIBasePersonHelper::drawAction_drawAsCircle(length, width);
+        } else if (s.drawDetail(s.detailSettings.personTriangles, exaggeration)) {
+            GUIBasePersonHelper::drawAction_drawAsTriangle(0, length, width);
+        }
         // pop matrix
         glPopMatrix();
         drawName(personPosition, s.scale, s.personName, s.angle);
@@ -569,7 +582,7 @@ GNEPerson::drawGL(const GUIVisualizationSettings& s) const {
         }
         // check if dotted contour has to be drawn
         if (myViewNet->getDottedAC() == this) {
-            GLHelper::drawShapeDottedContourRectangle(s, getType(), personPosition, upscale, upscale, 0, 0);
+            GLHelper::drawShapeDottedContourRectangle(s, getType(), personPosition, exaggeration, exaggeration);
         }
         // pop name
         glPopName();
@@ -956,48 +969,6 @@ GNEPerson::setFunctionalColor(int activeScheme) const {
     }
     */
     return false;
-}
-
-
-void
-GNEPerson::drawAction_drawAsPoly(const GUIVisualizationSettings& /* s */) const {
-    // draw pedestrian shape
-    RGBColor lighter = GLHelper::getColor().changedBrightness(51);
-    glTranslated(0, 0, .045);
-    // head
-    glScaled(1, 0.5, 1.);
-    GLHelper::drawFilledCircle(0.5);
-    // nose
-    glBegin(GL_TRIANGLES);
-    glVertex2d(0.0, -0.2);
-    glVertex2d(0.0, 0.2);
-    glVertex2d(-0.6, 0.0);
-    glEnd();
-    glTranslated(0, 0, -.045);
-    // body
-    glScaled(0.9, 2.0, 1);
-    glTranslated(0, 0, .04);
-    GLHelper::setColor(lighter);
-    GLHelper::drawFilledCircle(0.5);
-    glTranslated(0, 0, -.04);
-}
-
-
-void
-GNEPerson::drawAction_drawAsImage(const GUIVisualizationSettings& s) const {
-    const std::string& file = getDemandElementParents().at(0)->getAttribute(SUMO_ATTR_IMGFILE);
-    if (file != "") {
-        int textureID = GUITexturesHelper::getTextureID(file);
-        if (textureID > 0) {
-            const double exaggeration = s.personSize.getExaggeration(s, this);
-            const double halfLength = getDemandElementParents().at(0)->getAttributeDouble(SUMO_ATTR_LENGTH) / 2.0 * exaggeration;
-            const double halfWidth = getDemandElementParents().at(0)->getAttributeDouble(SUMO_ATTR_WIDTH) / 2.0 * exaggeration;
-            GUITexturesHelper::drawTexturedBox(textureID, -halfWidth, -halfLength, halfWidth, halfLength);
-        }
-    } else {
-        // fallback if no image is defined
-        drawAction_drawAsPoly(s);
-    }
 }
 
 // ===========================================================================

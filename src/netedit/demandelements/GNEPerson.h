@@ -258,12 +258,6 @@ protected:
     /// @brief sets the color according to the current scheme index and some vehicle function
     bool setFunctionalColor(int activeScheme) const;
 
-    /// @name drawing helper methods
-    /// @{
-    void drawAction_drawAsPoly(const GUIVisualizationSettings& s) const;
-    void drawAction_drawAsImage(const GUIVisualizationSettings& s) const;
-    /// @}
-
 private:
     // @brief struct used for calculating person plan geometry segments
     struct personPlanSegment {
