@@ -251,7 +251,7 @@ MSTransportableControl::getActiveCount() {
 
 
 void
-MSTransportableControl::abortWaitingForVehicle() {
+MSTransportableControl::abortAnyWaitingForVehicle() {
     for (std::map<const MSEdge*, TransportableVector>::const_iterator i = myWaiting4Vehicle.begin(); i != myWaiting4Vehicle.end(); ++i) {
         const MSEdge* edge = (*i).first;
         const TransportableVector& pv = (*i).second;
@@ -273,6 +273,18 @@ MSTransportableControl::abortWaitingForVehicle() {
     }
 }
 
+void
+MSTransportableControl::abortWaitingForVehicle(MSTransportable* t) {
+    const MSEdge* edge = t->getEdge();
+    auto it = myWaiting4Vehicle.find(edge);
+    if (it != myWaiting4Vehicle.end()) {
+        TransportableVector& waiting = it->second;
+        auto it2 = std::find(waiting.begin(), waiting.end(), t);
+        if (it2 != waiting.end()) {
+            waiting.erase(it2);
+        }
+    }
+}
 
 void
 MSTransportableControl::abortWaiting(MSTransportable* t) {
@@ -283,7 +295,7 @@ MSTransportableControl::abortWaiting(MSTransportable* t) {
             ts.erase(it2);
         }
     }
-    for (std::map<SUMOTime, TransportableVector>::iterator it = myWaiting4Departure.begin(); it != myWaiting4Departure.end(); ++it) {
+    for (std::map<SUMOTime, TransportableVector>::iterator it = myWaitingUntil.begin(); it != myWaitingUntil.end(); ++it) {
         TransportableVector& ts = it->second;
         TransportableVector::iterator it2 = std::find(ts.begin(), ts.end(), t);
         if (it2 != ts.end()) {

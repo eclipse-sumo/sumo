@@ -622,6 +622,11 @@ MSTransportable::Stage_Driving::abort(MSTransportable* t) {
     if (myVehicle != nullptr) {
         // jumping out of a moving vehicle!
         dynamic_cast<MSVehicle*>(myVehicle)->removeTransportable(t);
+    } else {
+        MSTransportableControl& tc = (dynamic_cast<MSPerson*>(t) != nullptr ?
+                MSNet::getInstance()->getPersonControl() :
+                MSNet::getInstance()->getContainerControl());
+        tc.abortWaitingForVehicle(t);
     }
 }
 

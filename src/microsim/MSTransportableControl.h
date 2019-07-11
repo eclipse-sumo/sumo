@@ -120,7 +120,10 @@ public:
     int getActiveCount();
 
     /// aborts the plan for any transportable that is still waiting for a ride
-    void abortWaitingForVehicle();
+    void abortAnyWaitingForVehicle();
+
+    /// let the given transportable abort waiting for a vehicle (when removing stage via TraCI)
+    void abortWaitingForVehicle(MSTransportable* t);
 
     /// aborts waiting stage of transportable
     void abortWaiting(MSTransportable* t);
