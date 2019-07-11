@@ -21,6 +21,7 @@
 // ===========================================================================
 #include <config.h>
 
+#include <utils/gui/windows/GUIAppEnum.h>
 #include <netedit/additionals/GNEAdditional.h>
 #include <netedit/changes/GNEChange_Attribute.h>
 #include <netedit/GNENet.h>
