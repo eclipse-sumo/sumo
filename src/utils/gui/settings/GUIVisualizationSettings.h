@@ -218,8 +218,8 @@ struct GUIVisualizationWidthSettings {
 /// @brief struct for detail settings
 struct GUIVisualizationDetailSettings {
 
-    /// @brief details for lane textures
-    static const double connections;
+    /// @brief draw connections in demand mode
+    static const double connectionsDemandMode;
 
     /// @brief details for lane textures
     static const double laneTextures;
