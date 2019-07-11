@@ -325,8 +325,24 @@ GNEStop::getCenteringBoundary() const {
 
 void
 GNEStop::drawGL(const GUIVisualizationSettings& s) const {
-    // only drawn in super mode demand
-    if (myViewNet->getNetworkViewOptions().showDemandElements() && myViewNet->getDemandViewOptions().showNonInspectedDemandElements(this)) {
+    // declare flag to enable or disable draw person plan
+    bool drawPersonPlan = false;
+    if (myTagProperty.isStop()) {
+        if (myViewNet->getNetworkViewOptions().showDemandElements() && myViewNet->getDemandViewOptions().showNonInspectedDemandElements(this)) {
+            drawPersonPlan = true;
+        }
+    } else if (myViewNet->getDemandViewOptions().showAllPersonPlans()) {
+        drawPersonPlan = true;
+    } else if (myViewNet->getDottedAC() == getDemandElementParents().front()) {
+        drawPersonPlan = true;
+    } else if (myViewNet->getDemandViewOptions().getLockedPerson() == getDemandElementParents().front()) {
+        drawPersonPlan = true;
+    } else if (myViewNet->getDottedAC() && myViewNet->getDottedAC()->getTagProperty().isPersonPlan() &&
+               (myViewNet->getDottedAC()->getAttribute(GNE_ATTR_PARENT) == getAttribute(GNE_ATTR_PARENT))) {
+        drawPersonPlan = true;
+    }
+    // check if stop can be drawn
+    if (drawPersonPlan) {
         // Obtain exaggeration of the draw
         const double exaggeration = s.addSize.getExaggeration(s, this);
         // declare value to save stop color
@@ -536,6 +552,8 @@ GNEStop::getAttribute(SumoXMLAttr key) const {
             return toString(getDemandElementParents().front()->isFirstDemandElementChild(this));
         case GNE_ATTR_LAST_CHILD:
             return toString(getDemandElementParents().front()->isLastDemandElementChild(this));
+        case GNE_ATTR_PARENT:
+            return getDemandElementParents().front()->getID();
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
