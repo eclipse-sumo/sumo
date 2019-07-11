@@ -539,18 +539,18 @@ GNEEdge::drawGL(const GUIVisualizationSettings& s) const {
         i->drawGL(s);
     }
     // draw edge child
-    if (myNet->getViewNet()->getViewOptionsNetwork().showDemandElements()) {
+    if (myNet->getViewNet()->getNetworkViewOptions().showDemandElements()) {
         // certain demand elements children can contain loops (for example, routes) and it causes overlapping problems. It's needed to filter it before drawing
         for (const auto &i : getSortedDemandElementChildrenByType(SUMO_TAG_ROUTE)) {
             // first check if route can be drawn
-            if (myNet->getViewNet()->getViewOptionsDemand().showNonInspectedDemandElements(i)) {
+            if (myNet->getViewNet()->getDemandViewOptions().showNonInspectedDemandElements(i)) {
                 // draw partial route
                 drawPartialRoute(s, i, nullptr);
             }
         }
         for (const auto &i : getSortedDemandElementChildrenByType(SUMO_TAG_EMBEDDEDROUTE)) {
             // first check if embedded route can be drawn
-            if (myNet->getViewNet()->getViewOptionsDemand().showNonInspectedDemandElements(i)) {
+            if (myNet->getViewNet()->getDemandViewOptions().showNonInspectedDemandElements(i)) {
                 // draw partial route
                 drawPartialRoute(s, i, nullptr);
             }
@@ -1343,11 +1343,11 @@ void
 GNEEdge::drawPartialPersonPlan(const GUIVisualizationSettings& s, const GNEDemandElement *personPlan, const GNEJunction* junction) const {
     // declare flag to enable or disable draw person plan
     bool drawPersonPlan = false;
-    if (myNet->getViewNet()->getViewOptionsDemand().showAllPersonPlans()) {
+    if (myNet->getViewNet()->getDemandViewOptions().showAllPersonPlans()) {
         drawPersonPlan = true;
     } else if (myNet->getViewNet()->getDottedAC() == personPlan->getDemandElementParents().front()) {
         drawPersonPlan = true;
-    } else if (myNet->getViewNet()->getViewOptionsDemand().getLockedPerson() == personPlan->getDemandElementParents().front()) {
+    } else if (myNet->getViewNet()->getDemandViewOptions().getLockedPerson() == personPlan->getDemandElementParents().front()) {
         drawPersonPlan = true;
     } else if (myNet->getViewNet()->getDottedAC() && myNet->getViewNet()->getDottedAC()->getTagProperty().isPersonPlan() &&
                (myNet->getViewNet()->getDottedAC()->getAttribute(GNE_ATTR_PARENT) == personPlan->getAttribute(GNE_ATTR_PARENT))) {
@@ -2069,7 +2069,7 @@ GNEEdge::drawGeometryPoints(const GUIVisualizationSettings& s) const {
                 GLHelper::drawFilledCircle(circleWidth, s.getCircleResolution());
                 glPopMatrix();
                 // draw elevation or special symbols (Start, End and Block)
-                if (!s.drawForSelecting && myNet->getViewNet()->getViewOptionsNetwork().editingElevation()) {
+                if (!s.drawForSelecting && myNet->getViewNet()->getNetworkViewOptions().editingElevation()) {
                     glPushMatrix();
                     // Translate to geometry point
                     glTranslated(pos.x(), pos.y(), GLO_JUNCTION);

@@ -332,16 +332,16 @@ struct GNEViewNetHelper {
     };
 
     /// @brief struct used to group all variables related to view options in all supermodes
-    struct ViewOptionsCommon {
+    struct CommonViewOptions {
         
         /// @brief default constructor
-        ViewOptionsCommon(GNEViewNet* viewNet);
+        CommonViewOptions(GNEViewNet* viewNet);
 
         /// @brief build menu checks
-        void buildViewOptionsCommonMenuChecks();
+        void buildCommonViewOptionsMenuChecks();
 
         /// @brief hide all options menu checks
-        void hideViewOptionsCommonMenuChecks();
+        void hideCommonViewOptionsMenuChecks();
 
         /// @brief get visible common menu commands
         void getVisibleCommonMenuCommands(std::vector<FXMenuCheck*> &commands) const;
@@ -354,23 +354,23 @@ struct GNEViewNetHelper {
         GNEViewNet* myViewNet;
 
         /// @brief Invalidated copy constructor.
-        ViewOptionsCommon(const ViewOptionsCommon&) = delete;
+        CommonViewOptions(const CommonViewOptions&) = delete;
 
         /// @brief Invalidated assignment operator.
-        ViewOptionsCommon& operator=(const ViewOptionsCommon&) = delete;
+        CommonViewOptions& operator=(const CommonViewOptions&) = delete;
     };
 
-    /// @brief struct used to group all variables related to view options in Network supermode
-    struct ViewOptionsNetwork {
+    /// @brief struct used to group all variables related to view options in supermode Network
+    struct NetworkViewOptions {
 
         /// @brief default constructor
-        ViewOptionsNetwork(GNEViewNet* viewNet);
+        NetworkViewOptions(GNEViewNet* viewNet);
 
         /// @brief build menu checks
-        void buildViewOptionsNetworkMenuChecks();
+        void buildNetworkViewOptionsMenuChecks();
 
         /// @brief hide all options menu checks
-        void hideViewOptionsNetworkMenuChecks();
+        void hideNetworkViewOptionsMenuChecks();
 
         /// @brief get visible network menu commands
         void getVisibleNetworkMenuCommands(std::vector<FXMenuCheck*> &commands) const;
@@ -424,23 +424,23 @@ struct GNEViewNetHelper {
         GNEViewNet* myViewNet;
 
         /// @brief Invalidated copy constructor.
-        ViewOptionsNetwork(const ViewOptionsNetwork&) = delete;
+        NetworkViewOptions(const NetworkViewOptions&) = delete;
 
         /// @brief Invalidated assignment operator.
-        ViewOptionsNetwork& operator=(const ViewOptionsNetwork&) = delete;
+        NetworkViewOptions& operator=(const NetworkViewOptions&) = delete;
     };
 
-    /// @brief struct used to group all variables related to view options in Demand supermode
-    struct ViewOptionsDemand {
+    /// @brief struct used to group all variables related to view options in supermode Demand
+    struct DemandViewOptions {
 
         /// @brief default constructor
-        ViewOptionsDemand(GNEViewNet* viewNet);
+        DemandViewOptions(GNEViewNet* viewNet);
 
         /// @brief build menu checks
-        void buildViewOptionsDemandMenuChecks();
+        void buildDemandViewOptionsMenuChecks();
 
         /// @brief hide all options menu checks
-        void hideViewOptionsDemandMenuChecks();
+        void hideDemandViewOptionsMenuChecks();
 
         /// @brief get visible demand menu commands
         void getVisibleDemandMenuCommands(std::vector<FXMenuCheck*> &commands) const;
@@ -477,10 +477,10 @@ struct GNEViewNetHelper {
         GNEDemandElement *myLockedPerson;
 
         /// @brief Invalidated copy constructor.
-        ViewOptionsDemand(const ViewOptionsDemand&) = delete;
+        DemandViewOptions(const DemandViewOptions&) = delete;
 
         /// @brief Invalidated assignment operator.
-        ViewOptionsDemand& operator=(const ViewOptionsDemand&) = delete;
+        DemandViewOptions& operator=(const DemandViewOptions&) = delete;
     };
 
     /// @brief struct used to group all variables related with movement of single elements

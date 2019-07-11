@@ -277,7 +277,7 @@ GNEPoly::getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView& parent) {
 void
 GNEPoly::drawGL(const GUIVisualizationSettings& s) const {
     // first check if poly can be drawn
-    if (myNet->getViewNet()->getViewOptionsDemand().showShapes()) {
+    if (myNet->getViewNet()->getDemandViewOptions().showShapes()) {
         // check if boundary has to be drawn
         if(s.drawBoundaries) {
             GLHelper::drawBoundary(getCenteringBoundary());
@@ -334,7 +334,7 @@ GNEPoly::drawGL(const GUIVisualizationSettings& s) const {
                             GLHelper::drawFilledCircle(circleWidth, s.getCircleResolution());
                             glPopMatrix();
                             // draw elevation or special symbols (Start, End and Block)
-                            if (!s.drawForSelecting && myNet->getViewNet()->getViewOptionsNetwork().editingElevation()) {
+                            if (!s.drawForSelecting && myNet->getViewNet()->getNetworkViewOptions().editingElevation()) {
                                 // Push matrix
                                 glPushMatrix();
                                 // Traslate to center of detector

@@ -93,14 +93,14 @@ public:
     /// @brief get edit modes
     const GNEViewNetHelper::EditModes& getEditModes() const;
 
-    /// @brief get view options Common
-    const GNEViewNetHelper::ViewOptionsCommon& getViewOptionsCommon() const;
+    /// @brief get Common view options
+    const GNEViewNetHelper::CommonViewOptions& getCommonViewOptions() const;
 
-    /// @brief get view options Network
-    const GNEViewNetHelper::ViewOptionsNetwork& getViewOptionsNetwork() const;
+    /// @brief get network view options
+    const GNEViewNetHelper::NetworkViewOptions& getNetworkViewOptions() const;
 
-    /// @brief get view options Demand
-    const GNEViewNetHelper::ViewOptionsDemand& getViewOptionsDemand() const;
+    /// @brief get demand view options 
+    const GNEViewNetHelper::DemandViewOptions& getDemandViewOptions() const;
 
     /// @brief get Key Pressed modul
     const GNEViewNetHelper::KeyPressed& getKeyPressed() const;
@@ -382,13 +382,13 @@ private:
     /// @{
 
     /// @brief variable used to save variables related with common view options
-    GNEViewNetHelper::ViewOptionsCommon myViewOptionsCommon;
+    GNEViewNetHelper::CommonViewOptions myCommonViewOptions;
 
     /// @brief variable used to save variables related with view options in Network Supermode
-    GNEViewNetHelper::ViewOptionsNetwork myViewOptionsNetwork;
+    GNEViewNetHelper::NetworkViewOptions myNetworkViewOptions;
 
     /// @brief variable used to save variables related with view options in Demand Supermode
-    GNEViewNetHelper::ViewOptionsDemand myViewOptionsDemand;
+    GNEViewNetHelper::DemandViewOptions myDemandViewOptions;
     /// @}
 
     /// @name structs related with move elements

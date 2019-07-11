@@ -2034,12 +2034,12 @@ GNEApplicationWindow::onCmdToogleGrid(FXObject* obj, FXSelector sel, void* ptr) 
     // check that view exists
     if (myViewNet) {
         // Toogle getMenuCheckShowGrid of GNEViewNet
-        if (myViewNet->getViewOptionsCommon().menuCheckShowGrid->getCheck() == TRUE) {
-            myViewNet->getViewOptionsCommon().menuCheckShowGrid->setCheck(FALSE);
+        if (myViewNet->getCommonViewOptions().menuCheckShowGrid->getCheck() == TRUE) {
+            myViewNet->getCommonViewOptions().menuCheckShowGrid->setCheck(FALSE);
             // show extra information for tests
             WRITE_DEBUG("Disabled grid throught Ctrl+g hotkey");
         } else {
-            myViewNet->getViewOptionsCommon().menuCheckShowGrid->setCheck(TRUE);
+            myViewNet->getCommonViewOptions().menuCheckShowGrid->setCheck(TRUE);
             // show extra information for tests
             WRITE_WARNING("Enabled grid throught Ctrl+g hotkey");
         }
@@ -2063,204 +2063,204 @@ GNEApplicationWindow::onCmdToogleEditOptions(FXObject* obj, FXSelector sel, void
         // declare a vector in which save visible menu commands
         std::vector<FXMenuCheck*> visibleMenuCommands;
         // get common, network and demand visible menu commands
-        myViewNet->getViewOptionsCommon().getVisibleCommonMenuCommands(visibleMenuCommands);
-        myViewNet->getViewOptionsNetwork().getVisibleNetworkMenuCommands(visibleMenuCommands);
-        myViewNet->getViewOptionsDemand().getVisibleDemandMenuCommands(visibleMenuCommands);
+        myViewNet->getCommonViewOptions().getVisibleCommonMenuCommands(visibleMenuCommands);
+        myViewNet->getNetworkViewOptions().getVisibleNetworkMenuCommands(visibleMenuCommands);
+        myViewNet->getDemandViewOptions().getVisibleDemandMenuCommands(visibleMenuCommands);
         // now check that numericalKeyPressed isn't greather than visible view options
         if (numericalKeyPressed >= (int)visibleMenuCommands.size()) {
             return 1;
         }
         // finally function correspond to visibleMenuCommands[numericalKeyPressed]
-        if (visibleMenuCommands.at(numericalKeyPressed) == myViewNet->getViewOptionsCommon().menuCheckShowGrid) {
+        if (visibleMenuCommands.at(numericalKeyPressed) == myViewNet->getCommonViewOptions().menuCheckShowGrid) {
             // Toogle menuCheckShowGrid
-            if (myViewNet->getViewOptionsCommon().menuCheckShowGrid->getCheck() == TRUE) {
-                myViewNet->getViewOptionsCommon().menuCheckShowGrid->setCheck(FALSE);
+            if (myViewNet->getCommonViewOptions().menuCheckShowGrid->getCheck() == TRUE) {
+                myViewNet->getCommonViewOptions().menuCheckShowGrid->setCheck(FALSE);
                 // show extra information for tests
                 WRITE_DEBUG("Disabled toogle show grid throught alt + " + toString(numericalKeyPressed + 1));
             } else {
-                myViewNet->getViewOptionsCommon().menuCheckShowGrid->setCheck(TRUE);
+                myViewNet->getCommonViewOptions().menuCheckShowGrid->setCheck(TRUE);
                 // show extra information for tests
                 WRITE_DEBUG("Enabled toogle show grid throught alt + " + toString(numericalKeyPressed + 1));
             }
             // Call manually onCmdToogleShowGrid
             return myViewNet->onCmdToogleShowGrid(obj, sel, ptr);
-        } else if (visibleMenuCommands.at(numericalKeyPressed) == myViewNet->getViewOptionsNetwork().menuCheckShowDemandElements) {
+        } else if (visibleMenuCommands.at(numericalKeyPressed) == myViewNet->getNetworkViewOptions().menuCheckShowDemandElements) {
             // Toogle menuCheckShowDemandElements
-            if (myViewNet->getViewOptionsNetwork().menuCheckShowDemandElements->getCheck() == TRUE) {
-                myViewNet->getViewOptionsNetwork().menuCheckShowDemandElements->setCheck(FALSE);
+            if (myViewNet->getNetworkViewOptions().menuCheckShowDemandElements->getCheck() == TRUE) {
+                myViewNet->getNetworkViewOptions().menuCheckShowDemandElements->setCheck(FALSE);
                 // show extra information for tests
                 WRITE_DEBUG("Disabled show demand elements throught alt + " + toString(numericalKeyPressed + 1));
             } else {
-                myViewNet->getViewOptionsNetwork().menuCheckShowDemandElements->setCheck(TRUE);
+                myViewNet->getNetworkViewOptions().menuCheckShowDemandElements->setCheck(TRUE);
                 // show extra information for tests
                 WRITE_DEBUG("Enabled show demand elements throught alt + " + toString(numericalKeyPressed + 1));
             }
             // Call manually onCmdToogleShowDemandElements
             return myViewNet->onCmdToogleShowDemandElements(obj, sel, ptr);
-        } else if (visibleMenuCommands.at(numericalKeyPressed) == myViewNet->getViewOptionsNetwork().menuCheckSelectEdges) {
+        } else if (visibleMenuCommands.at(numericalKeyPressed) == myViewNet->getNetworkViewOptions().menuCheckSelectEdges) {
             // Toogle menuCheckSelectEdges
-            if (myViewNet->getViewOptionsNetwork().menuCheckSelectEdges->getCheck() == TRUE) {
-                myViewNet->getViewOptionsNetwork().menuCheckSelectEdges->setCheck(FALSE);
+            if (myViewNet->getNetworkViewOptions().menuCheckSelectEdges->getCheck() == TRUE) {
+                myViewNet->getNetworkViewOptions().menuCheckSelectEdges->setCheck(FALSE);
                 // show extra information for tests
                 WRITE_DEBUG("Disabled select edges throught alt + " + toString(numericalKeyPressed + 1));
             } else {
-                myViewNet->getViewOptionsNetwork().menuCheckSelectEdges->setCheck(TRUE);
+                myViewNet->getNetworkViewOptions().menuCheckSelectEdges->setCheck(TRUE);
                 // show extra information for tests
                 WRITE_DEBUG("Enabled select edges throught alt + " + toString(numericalKeyPressed + 1));
             }
             // Call manually onCmdToogleSelectEdges
             return myViewNet->onCmdToogleSelectEdges(obj, sel, ptr);
-        } else if (visibleMenuCommands.at(numericalKeyPressed) == myViewNet->getViewOptionsNetwork().menuCheckShowConnections) {
+        } else if (visibleMenuCommands.at(numericalKeyPressed) == myViewNet->getNetworkViewOptions().menuCheckShowConnections) {
             // Toogle menuCheckShowConnections
-            if (myViewNet->getViewOptionsNetwork().menuCheckShowConnections->getCheck() == TRUE) {
-                myViewNet->getViewOptionsNetwork().menuCheckShowConnections->setCheck(FALSE);
+            if (myViewNet->getNetworkViewOptions().menuCheckShowConnections->getCheck() == TRUE) {
+                myViewNet->getNetworkViewOptions().menuCheckShowConnections->setCheck(FALSE);
                 // show extra information for tests
                 WRITE_DEBUG("Disabled show connections throught alt + " + toString(numericalKeyPressed + 1));
             } else {
-                myViewNet->getViewOptionsNetwork().menuCheckShowConnections->setCheck(TRUE);
+                myViewNet->getNetworkViewOptions().menuCheckShowConnections->setCheck(TRUE);
                 // show extra information for tests
                 WRITE_DEBUG("Enabled show connections throught alt + " + toString(numericalKeyPressed + 1));
             }
             // Call manually onCmdToogleShowConnections
             return myViewNet->onCmdToogleShowConnections(obj, sel, ptr);
-        } else if (visibleMenuCommands.at(numericalKeyPressed) == myViewNet->getViewOptionsNetwork().menuCheckHideConnections) {
+        } else if (visibleMenuCommands.at(numericalKeyPressed) == myViewNet->getNetworkViewOptions().menuCheckHideConnections) {
             // Toogle menuCheckHideConnections
-            if (myViewNet->getViewOptionsNetwork().menuCheckHideConnections->getCheck() == TRUE) {
-                myViewNet->getViewOptionsNetwork().menuCheckHideConnections->setCheck(FALSE);
+            if (myViewNet->getNetworkViewOptions().menuCheckHideConnections->getCheck() == TRUE) {
+                myViewNet->getNetworkViewOptions().menuCheckHideConnections->setCheck(FALSE);
                 // show extra information for tests
                 WRITE_DEBUG("Disabled hide connections throught alt + " + toString(numericalKeyPressed + 1));
             } else {
-                myViewNet->getViewOptionsNetwork().menuCheckHideConnections->setCheck(TRUE);
+                myViewNet->getNetworkViewOptions().menuCheckHideConnections->setCheck(TRUE);
                 // show extra information for tests
                 WRITE_DEBUG("Enabled hide connections throught alt + " + toString(numericalKeyPressed + 1));
             }
             // Call manually onCmdToogleHideConnections
             return myViewNet->onCmdToogleHideConnections(obj, sel, ptr);
-        } else if (visibleMenuCommands.at(numericalKeyPressed) == myViewNet->getViewOptionsNetwork().menuCheckExtendSelection) {
+        } else if (visibleMenuCommands.at(numericalKeyPressed) == myViewNet->getNetworkViewOptions().menuCheckExtendSelection) {
             // Toogle menuCheckExtendSelection
-            if (myViewNet->getViewOptionsNetwork().menuCheckExtendSelection->getCheck() == TRUE) {
-                myViewNet->getViewOptionsNetwork().menuCheckExtendSelection->setCheck(FALSE);
+            if (myViewNet->getNetworkViewOptions().menuCheckExtendSelection->getCheck() == TRUE) {
+                myViewNet->getNetworkViewOptions().menuCheckExtendSelection->setCheck(FALSE);
                 // show extra information for tests
                 WRITE_DEBUG("Disabled extend selection throught alt + " + toString(numericalKeyPressed + 1));
             } else {
-                myViewNet->getViewOptionsNetwork().menuCheckExtendSelection->setCheck(TRUE);
+                myViewNet->getNetworkViewOptions().menuCheckExtendSelection->setCheck(TRUE);
                 // show extra information for tests
                 WRITE_DEBUG("Enabled extend selection throught alt + " + toString(numericalKeyPressed + 1));
             }
             // Call manually onCmdToogleExtendSelection
             return myViewNet->onCmdToogleExtendSelection(obj, sel, ptr);
-        } else if (visibleMenuCommands.at(numericalKeyPressed) == myViewNet->getViewOptionsNetwork().menuCheckChangeAllPhases) {
+        } else if (visibleMenuCommands.at(numericalKeyPressed) == myViewNet->getNetworkViewOptions().menuCheckChangeAllPhases) {
             // Toogle menuCheckChangeAllPhases
-            if (myViewNet->getViewOptionsNetwork().menuCheckChangeAllPhases->getCheck() == TRUE) {
-                myViewNet->getViewOptionsNetwork().menuCheckChangeAllPhases->setCheck(FALSE);
+            if (myViewNet->getNetworkViewOptions().menuCheckChangeAllPhases->getCheck() == TRUE) {
+                myViewNet->getNetworkViewOptions().menuCheckChangeAllPhases->setCheck(FALSE);
                 // show extra information for tests
                 WRITE_DEBUG("Disabled change all phases throught alt + " + toString(numericalKeyPressed + 1));
             } else {
-                myViewNet->getViewOptionsNetwork().menuCheckChangeAllPhases->setCheck(TRUE);
+                myViewNet->getNetworkViewOptions().menuCheckChangeAllPhases->setCheck(TRUE);
                 // show extra information for tests
                 WRITE_DEBUG("Enabled change all phases throught alt + " + toString(numericalKeyPressed + 1));
             }
             // Call manually onCmdToogleChangeAllPhases
             return myViewNet->onCmdToogleChangeAllPhases(obj, sel, ptr);
-        } else if (visibleMenuCommands.at(numericalKeyPressed) == myViewNet->getViewOptionsNetwork().menuCheckWarnAboutMerge) {
+        } else if (visibleMenuCommands.at(numericalKeyPressed) == myViewNet->getNetworkViewOptions().menuCheckWarnAboutMerge) {
             // Toogle menuCheckWarnAboutMerge
-            if (myViewNet->getViewOptionsNetwork().menuCheckWarnAboutMerge->getCheck() == TRUE) {
-                myViewNet->getViewOptionsNetwork().menuCheckWarnAboutMerge->setCheck(FALSE);
+            if (myViewNet->getNetworkViewOptions().menuCheckWarnAboutMerge->getCheck() == TRUE) {
+                myViewNet->getNetworkViewOptions().menuCheckWarnAboutMerge->setCheck(FALSE);
                 // show extra information for tests
                 WRITE_DEBUG("Disabled warn about merge throught alt + " + toString(numericalKeyPressed + 1));
             } else {
-                myViewNet->getViewOptionsNetwork().menuCheckWarnAboutMerge->setCheck(TRUE);
+                myViewNet->getNetworkViewOptions().menuCheckWarnAboutMerge->setCheck(TRUE);
                 // show extra information for tests
                 WRITE_DEBUG("Enabled warn about merge throught alt + " + toString(numericalKeyPressed + 1));
             }
             // Call manually onCmdToogleWarnAboutMerge
             return myViewNet->onCmdToogleWarnAboutMerge(obj, sel, ptr);
-        } else if (visibleMenuCommands.at(numericalKeyPressed) == myViewNet->getViewOptionsNetwork().menuCheckShowJunctionBubble) {
+        } else if (visibleMenuCommands.at(numericalKeyPressed) == myViewNet->getNetworkViewOptions().menuCheckShowJunctionBubble) {
             // Toogle menuCheckShowJunctionBubble
-            if (myViewNet->getViewOptionsNetwork().menuCheckShowJunctionBubble->getCheck() == TRUE) {
-                myViewNet->getViewOptionsNetwork().menuCheckShowJunctionBubble->setCheck(FALSE);
+            if (myViewNet->getNetworkViewOptions().menuCheckShowJunctionBubble->getCheck() == TRUE) {
+                myViewNet->getNetworkViewOptions().menuCheckShowJunctionBubble->setCheck(FALSE);
                 // show extra information for tests
                 WRITE_DEBUG("Disabled show junction as bubble throught alt + " + toString(numericalKeyPressed + 1));
             } else {
-                myViewNet->getViewOptionsNetwork().menuCheckShowJunctionBubble->setCheck(TRUE);
+                myViewNet->getNetworkViewOptions().menuCheckShowJunctionBubble->setCheck(TRUE);
                 // show extra information for tests
                 WRITE_DEBUG("Enabled show junction as bubble throught alt + " + toString(numericalKeyPressed + 1));
             }
             // Call manually onCmdToogleShowJunctionBubble
             return myViewNet->onCmdToogleShowJunctionBubbles(obj, sel, ptr);
-        } else if (visibleMenuCommands.at(numericalKeyPressed) == myViewNet->getViewOptionsNetwork().menuCheckMoveElevation) {
+        } else if (visibleMenuCommands.at(numericalKeyPressed) == myViewNet->getNetworkViewOptions().menuCheckMoveElevation) {
             // Toogle menuCheckMoveElevation
-            if (myViewNet->getViewOptionsNetwork().menuCheckMoveElevation->getCheck() == TRUE) {
-                myViewNet->getViewOptionsNetwork().menuCheckMoveElevation->setCheck(FALSE);
+            if (myViewNet->getNetworkViewOptions().menuCheckMoveElevation->getCheck() == TRUE) {
+                myViewNet->getNetworkViewOptions().menuCheckMoveElevation->setCheck(FALSE);
                 // show extra information for tests
                 WRITE_DEBUG("Disabled move elevation throught alt + " + toString(numericalKeyPressed + 1));
             } else {
-                myViewNet->getViewOptionsNetwork().menuCheckMoveElevation->setCheck(TRUE);
+                myViewNet->getNetworkViewOptions().menuCheckMoveElevation->setCheck(TRUE);
                 // show extra information for tests
                 WRITE_DEBUG("Enabled move elevation throught alt + " + toString(numericalKeyPressed + 1));
             }
             // Call manually onCmdToogleMoveElevation
             return myViewNet->onCmdToogleMoveElevation(obj, sel, ptr);
-        } else if (visibleMenuCommands.at(numericalKeyPressed) == myViewNet->getViewOptionsNetwork().menuCheckChainEdges) {
+        } else if (visibleMenuCommands.at(numericalKeyPressed) == myViewNet->getNetworkViewOptions().menuCheckChainEdges) {
             // Toogle menuCheckChainEdges
-            if (myViewNet->getViewOptionsNetwork().menuCheckChainEdges->getCheck() == TRUE) {
-                myViewNet->getViewOptionsNetwork().menuCheckChainEdges->setCheck(FALSE);
+            if (myViewNet->getNetworkViewOptions().menuCheckChainEdges->getCheck() == TRUE) {
+                myViewNet->getNetworkViewOptions().menuCheckChainEdges->setCheck(FALSE);
                 // show extra information for tests
                 WRITE_DEBUG("Disabled chain edges throught alt + " + toString(numericalKeyPressed + 1));
             } else {
-                myViewNet->getViewOptionsNetwork().menuCheckChainEdges->setCheck(TRUE);
+                myViewNet->getNetworkViewOptions().menuCheckChainEdges->setCheck(TRUE);
                 // show extra information for tests
                 WRITE_DEBUG("Enabled chain edges throught alt + " + toString(numericalKeyPressed + 1));
             }
             // Call manually onCmdToogleChainEdges
             return myViewNet->onCmdToogleChainEdges(obj, sel, ptr);
-        } else if (visibleMenuCommands.at(numericalKeyPressed) == myViewNet->getViewOptionsNetwork().menuCheckAutoOppositeEdge) {
+        } else if (visibleMenuCommands.at(numericalKeyPressed) == myViewNet->getNetworkViewOptions().menuCheckAutoOppositeEdge) {
             // Toogle menuCheckAutoOppositeEdge
-            if (myViewNet->getViewOptionsNetwork().menuCheckAutoOppositeEdge->getCheck() == TRUE) {
-                myViewNet->getViewOptionsNetwork().menuCheckAutoOppositeEdge->setCheck(FALSE);
+            if (myViewNet->getNetworkViewOptions().menuCheckAutoOppositeEdge->getCheck() == TRUE) {
+                myViewNet->getNetworkViewOptions().menuCheckAutoOppositeEdge->setCheck(FALSE);
                 // show extra information for tests
                 WRITE_DEBUG("Disabled auto opposite edge throught alt + " + toString(numericalKeyPressed + 1));
             } else {
-                myViewNet->getViewOptionsNetwork().menuCheckAutoOppositeEdge->setCheck(TRUE);
+                myViewNet->getNetworkViewOptions().menuCheckAutoOppositeEdge->setCheck(TRUE);
                 // show extra information for tests
                 WRITE_DEBUG("Enabled auto opposite edge throught alt + " + toString(numericalKeyPressed + 1));
             }
             // Call manually onCmdToogleAutoOppositeEdge
             return myViewNet->onCmdToogleAutoOppositeEdge(obj, sel, ptr);
-        } else if (visibleMenuCommands.at(numericalKeyPressed) == myViewNet->getViewOptionsDemand().menuCheckHideShapes) {
+        } else if (visibleMenuCommands.at(numericalKeyPressed) == myViewNet->getDemandViewOptions().menuCheckHideShapes) {
             // Toogle menuCheckHideShapes
-            if (myViewNet->getViewOptionsDemand().menuCheckHideShapes->getCheck() == TRUE) {
-                myViewNet->getViewOptionsDemand().menuCheckHideShapes->setCheck(FALSE);
+            if (myViewNet->getDemandViewOptions().menuCheckHideShapes->getCheck() == TRUE) {
+                myViewNet->getDemandViewOptions().menuCheckHideShapes->setCheck(FALSE);
                 // show extra information for tests
                 WRITE_DEBUG("Disabled hide shapes throught alt + " + toString(numericalKeyPressed + 1));
             } else {
-                myViewNet->getViewOptionsDemand().menuCheckHideShapes->setCheck(TRUE);
+                myViewNet->getDemandViewOptions().menuCheckHideShapes->setCheck(TRUE);
                 // show extra information for tests
                 WRITE_DEBUG("Enabled hide shapes throught alt + " + toString(numericalKeyPressed + 1));
             }
             // Call manually onCmdToogleHideNonInspecteDemandElements
             return myViewNet->onCmdToogleHideShapes(obj, sel, ptr);
-        } else if (visibleMenuCommands.at(numericalKeyPressed) == myViewNet->getViewOptionsDemand().menuCheckHideNonInspectedDemandElements) {
+        } else if (visibleMenuCommands.at(numericalKeyPressed) == myViewNet->getDemandViewOptions().menuCheckHideNonInspectedDemandElements) {
             // Toogle menuCheckHideNonInspectedDemandElements
-            if (myViewNet->getViewOptionsDemand().menuCheckHideNonInspectedDemandElements->getCheck() == TRUE) {
-                myViewNet->getViewOptionsDemand().menuCheckHideNonInspectedDemandElements->setCheck(FALSE);
+            if (myViewNet->getDemandViewOptions().menuCheckHideNonInspectedDemandElements->getCheck() == TRUE) {
+                myViewNet->getDemandViewOptions().menuCheckHideNonInspectedDemandElements->setCheck(FALSE);
                 // show extra information for tests
                 WRITE_DEBUG("Disabled hide non inspected demand elements throught alt + " + toString(numericalKeyPressed + 1));
             } else {
-                myViewNet->getViewOptionsDemand().menuCheckHideNonInspectedDemandElements->setCheck(TRUE);
+                myViewNet->getDemandViewOptions().menuCheckHideNonInspectedDemandElements->setCheck(TRUE);
                 // show extra information for tests
                 WRITE_DEBUG("Enabled hide non inspected demand elements throught alt + " + toString(numericalKeyPressed + 1));
             }
             // Call manually onCmdToogleHideNonInspecteDemandElements
             return myViewNet->onCmdToogleHideNonInspecteDemandElements(obj, sel, ptr);
-        } else if (visibleMenuCommands.at(numericalKeyPressed) == myViewNet->getViewOptionsDemand().menuCheckShowAllPersonPlans) {
+        } else if (visibleMenuCommands.at(numericalKeyPressed) == myViewNet->getDemandViewOptions().menuCheckShowAllPersonPlans) {
             // Toogle menuCheckShowAllPersonPlans
-            if (myViewNet->getViewOptionsDemand().menuCheckShowAllPersonPlans->getCheck() == TRUE) {
-                myViewNet->getViewOptionsDemand().menuCheckShowAllPersonPlans->setCheck(FALSE);
+            if (myViewNet->getDemandViewOptions().menuCheckShowAllPersonPlans->getCheck() == TRUE) {
+                myViewNet->getDemandViewOptions().menuCheckShowAllPersonPlans->setCheck(FALSE);
                 // show extra information for tests
                 WRITE_DEBUG("Disabled show all person plans throught alt + " + toString(numericalKeyPressed + 1));
             } else {
-                myViewNet->getViewOptionsDemand().menuCheckShowAllPersonPlans->setCheck(TRUE);
+                myViewNet->getDemandViewOptions().menuCheckShowAllPersonPlans->setCheck(TRUE);
                 // show extra information for tests
                 WRITE_DEBUG("Enabled show all person plans throught alt + " + toString(numericalKeyPressed + 1));
             }

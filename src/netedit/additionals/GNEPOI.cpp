@@ -212,7 +212,7 @@ GNEPOI::getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView& parent) {
 void
 GNEPOI::drawGL(const GUIVisualizationSettings& s) const {
     // first check if POI can be drawn
-    if (myNet->getViewNet()->getViewOptionsDemand().showShapes()) {
+    if (myNet->getViewNet()->getDemandViewOptions().showShapes()) {
         // check if boundary has to be drawn
         if(s.drawBoundaries) {
             GLHelper::drawBoundary(getCenteringBoundary());

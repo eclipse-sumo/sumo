@@ -281,7 +281,7 @@ GNEConnection::getCenteringBoundary() const {
 void
 GNEConnection::drawGL(const GUIVisualizationSettings& s) const {
     // Check if connection must be drawed
-    if (!myShapeDeprecated && (myNet->getViewNet()->getViewOptionsNetwork().showConnections() || (myNet->getViewNet()->getEditModes().currentSupermode == GNE_SUPERMODE_DEMAND))) {
+    if (!myShapeDeprecated && (myNet->getViewNet()->getNetworkViewOptions().showConnections() || (myNet->getViewNet()->getEditModes().currentSupermode == GNE_SUPERMODE_DEMAND))) {
         // check if boundary has to be drawn
         if(s.drawBoundaries) {
             GLHelper::drawBoundary(getBoundary());

@@ -420,7 +420,7 @@ GNEDetectorE2::drawGL(const GUIVisualizationSettings& s) const {
         // iterate over multishapes
         for (int i = 0; i < (int)myGeometry.multiShape.size(); i++) {
             // don't draw shapes over connections if "show connections" is enabled
-            if (!myViewNet->getViewOptionsNetwork().showConnections() || (i % 2 == 0)) {
+            if (!myViewNet->getNetworkViewOptions().showConnections() || (i % 2 == 0)) {
                 GLHelper::drawBoxLines(myGeometry.multiShape.at(i), myGeometry.multiShapeRotations.at(i), myGeometry.multiShapeLengths.at(i), exaggeration);
             }
         }

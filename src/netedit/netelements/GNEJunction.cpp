@@ -350,7 +350,7 @@ GNEJunction::drawGL(const GUIVisualizationSettings& s) const {
             drawName(myNBNode.getPosition(), s.scale, s.junctionName);
         }
         // draw elevation
-        if (!s.drawForSelecting && myNet->getViewNet()->getViewOptionsNetwork().editingElevation()) {
+        if (!s.drawForSelecting && myNet->getViewNet()->getNetworkViewOptions().editingElevation()) {
             glPushMatrix();
             // Translate to center of junction
             glTranslated(myNBNode.getPosition().x(), myNBNode.getPosition().y(), getType() + 1);
@@ -373,18 +373,18 @@ GNEJunction::drawGL(const GUIVisualizationSettings& s) const {
                 j->drawGL(s);
             }
             // first check if Demand elements can be shown
-            if (myNet->getViewNet()->getViewOptionsNetwork().showDemandElements()) {
+            if (myNet->getViewNet()->getNetworkViewOptions().showDemandElements()) {
                 // certain demand elements children can contain loops (for example, routes) and it causes overlapping problems. It's needed to filter it before drawing
                 for (const auto &j : i->getSortedDemandElementChildrenByType(SUMO_TAG_ROUTE)) {
                     // first check if route can be drawn
-                    if (myNet->getViewNet()->getViewOptionsDemand().showNonInspectedDemandElements(j)) {
+                    if (myNet->getViewNet()->getDemandViewOptions().showNonInspectedDemandElements(j)) {
                         // draw partial route
                         i->drawPartialRoute(s, j, this);
                     }
                 }
                 for (const auto &j : i->getSortedDemandElementChildrenByType(SUMO_TAG_EMBEDDEDROUTE)) {
                     // first check if embedded route can be drawn
-                    if (myNet->getViewNet()->getViewOptionsDemand().showNonInspectedDemandElements(j)) {
+                    if (myNet->getViewNet()->getDemandViewOptions().showNonInspectedDemandElements(j)) {
                         // draw partial route
                         i->drawPartialRoute(s, j, this);
                     }

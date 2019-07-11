@@ -535,7 +535,7 @@ GNEPerson::getCenteringBoundary() const {
 void
 GNEPerson::drawGL(const GUIVisualizationSettings& s) const {
     // only drawn in super mode demand
-    if (myViewNet->getViewOptionsNetwork().showDemandElements() && myViewNet->getViewOptionsDemand().showNonInspectedDemandElements(this) && (getDemandElementChildren().size() > 0)) {
+    if (myViewNet->getNetworkViewOptions().showDemandElements() && myViewNet->getDemandViewOptions().showNonInspectedDemandElements(this) && (getDemandElementChildren().size() > 0)) {
         glPushName(getGlID());
         glPushMatrix();
         Position personPosition;
