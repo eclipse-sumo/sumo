@@ -259,6 +259,7 @@ MSLCM_LC2013::_patchSpeed(const double min, const double wanted, const double ma
 
     double nVSafe = wanted;
     bool gotOne = false;
+    const double coopWeight = MAX2(0.0, MIN2(1.0, myCooperativeParam));
     for (std::vector<double>::const_iterator i = myLCAccelerationAdvices.begin(); i != myLCAccelerationAdvices.end(); ++i) {
         double a = (*i);
         double v = myVehicle.getSpeed() + ACCEL2SPEED(a);
@@ -270,7 +271,7 @@ MSLCM_LC2013::_patchSpeed(const double min, const double wanted, const double ma
                                      //      VERY rarely (whenever a requested help-acceleration is really indicated by v=-1)
                                      //      this can lead to failing lane-change attempts, though)
                                      || v != -1)) {
-            nVSafe = MIN2(v * myCooperativeParam + (1 - myCooperativeParam) * wanted, nVSafe);
+            nVSafe = MIN2(v * coopWeight + (1 - coopWeight) * wanted, nVSafe);
             gotOne = true;
 #ifdef DEBUG_PATCH_SPEED
             if (DEBUG_COND) {
