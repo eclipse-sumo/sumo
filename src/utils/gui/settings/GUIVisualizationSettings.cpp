@@ -92,7 +92,7 @@ const double GUIVisualizationWidthSettings::walk(0.25);
 const double GUIVisualizationWidthSettings::ride(0.25);
 
 // -------------------------------------------------------------------------
-// details of certain NETEDIT objects
+// details of certain NETEDIT objects (0 = drawn always)
 // -------------------------------------------------------------------------
 
 const double GUIVisualizationDetailSettings::connectionsDemandMode(5);
@@ -1586,7 +1586,11 @@ GUIVisualizationSettings::getTextAngle(double objectAngle) const {
 
 bool 
 GUIVisualizationSettings::drawDetail(const double detail, const double exaggeration) const {
-    return (scale * exaggeration) >= detail;
+    if (detail <= 0) {
+        return true;
+    } else {
+        return ((scale * exaggeration) >= detail);
+    }
 }
 
 
