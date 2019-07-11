@@ -863,32 +863,78 @@ NIImporter_OpenDrive::buildConnectionsToOuter(const Connection& c, const std::ma
                         }
                     }
                     // compute offsets
+                    //if (cn.fromEdge == "1014000" && dest->id == "3001022") {
+                    //    std::cout << "computeOffsets\n";
+                    //}
                     std::vector<double> offsets(dest->geom.size(), 0);
 #ifdef DEBUG_INTERNALSHAPES
                     std::string destPred;
 #endif
-                    for (const auto& destLane : dest->laneSections.front().lanesByDir[lanesDir]) {
+                    double s = 0;
+                    int iShape = 0;
+                    for (int laneSectionIndex = 0; laneSectionIndex < (int)dest->laneSections.size(); laneSectionIndex++) {
+                        auto& laneSection = dest->laneSections[laneSectionIndex];
+                        const double nextS = laneSectionIndex + 1 < (int)dest->laneSections.size() ? dest->laneSections[laneSectionIndex + 1].s : std::numeric_limits<double>::max();
+                        int i = iShape; // shape index at the start of the current lane section
+                        double sStart = s; // distance offset a the start of the current lane section
+                        double finalS = s; // final distance value after processing this segment
+                        int finalI = i;
+                        for (const OpenDriveLane& destLane : laneSection.lanesByDir[lanesDir]) {
+                            // each lane of the current segment repeats the same section of shape points and distance offsets
+                            double sectionS = 0;
+                            i = iShape;
+                            s = sStart;
 #ifdef DEBUG_INTERNALSHAPES
-                        destPred += "  lane=" + toString(destLane.id)
-                                    + " pred=" + toString(destLane.predecessor)
-                                    + " succ=" + toString(destLane.successor)
-                                    + " wStart=" + toString(destLane.widthData.front().computeAt(0))
-                                    + " wEnd=" + toString(destLane.widthData.front().computeAt(cn.shape.length2D()))
-                                    + " width=" + toString(destLane.width) + "\n";
+                            destPred += "  lane=" + toString(destLane.id)
+                                + " pred=" + toString(destLane.predecessor)
+                                + " succ=" + toString(destLane.successor)
+                                + " wStart=" + toString(destLane.widthData.front().computeAt(0))
+                                + " wEnd=" + toString(destLane.widthData.front().computeAt(cn.shape.length2D()))
+                                + " width=" + toString(destLane.width) + "\n";
 #endif
-                        if (abs(destLane.id) <= abs(referenceLane)) {
-                            const double multiplier = offsetFactor * (destLane.id == referenceLane ? 0.5 : 1);
+                            if (abs(destLane.id) <= abs(referenceLane)) {
+                                const double multiplier = offsetFactor * (destLane.id == referenceLane ? 0.5 : 1);
 #ifdef DEBUG_INTERNALSHAPES
-                            destPred += "     multiplier=" + toString(multiplier) + "\n";
+                                destPred += "     multiplier=" + toString(multiplier) + "\n";
 #endif
-                            double s = 0;
-                            for (int i = 0; i < (int)cn.shape.size(); ++i) {
-                                if (i > 0) {
-                                    s += cn.shape[i - 1].distanceTo2D(cn.shape[i]);
+                                int widthDataIndex = 0;
+                                while (s < nextS && i < (int)cn.shape.size()) {
+                                    if (i > 0) {
+                                        const double dist = cn.shape[i - 1].distanceTo2D(cn.shape[i]);
+                                        s += dist;
+                                        sectionS += dist;
+
+                                    }
+                                    while (widthDataIndex + 1 < (int)destLane.widthData.size()
+                                            && sectionS >= destLane.widthData[widthDataIndex + 1].s) {
+                                        widthDataIndex++;
+                                    }
+                                    offsets[i] += destLane.widthData[widthDataIndex].computeAt(sectionS) * multiplier;
+                                    //if (cn.fromEdge == "1014000" && dest->id == "3001022") {
+                                    //    std::cout << " i=" << i << " s=" << s << " lane=" << destLane.id << " rlane=" << referenceLane /*<< " nextS=" << nextS << */ << " lsIndex=" << laneSectionIndex << " wI=" << widthDataIndex << " wSize=" << destLane.widthData.size() << " m=" << multiplier << " o=" << offsets[i] << "\n";
+                                    //}
+                                    i++;
                                 }
-                                offsets[i] += destLane.widthData.front().computeAt(s) * multiplier;
+                                finalS = s;
+                                finalI = i;
+                            } else if (finalS == s) {
+                                // update finalS without changing offsets
+                                while (s < nextS && i < (int)cn.shape.size()) {
+                                    if (i > 0) {
+                                        const double dist = cn.shape[i - 1].distanceTo2D(cn.shape[i]);
+                                        s += dist;
+                                        finalS += dist;
+
+                                    }
+                                    i++;
+                                }
+                                finalI = i;
+
                             }
                         }
+                        // advance values for the next lane section
+                        iShape = finalI;
+                        s = finalS;
                     }
                     try {
                         cn.shape.move2side(offsets);
