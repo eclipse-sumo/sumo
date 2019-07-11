@@ -275,6 +275,9 @@ public:
 
     /// @brief toogle show all person plans in super mode demand
     long onCmdToogleShowAllPersonPlans(FXObject*, FXSelector, void*);
+
+    /// @brief toogle lock person in super mode demand
+    long onCmdToogleLockPerson(FXObject*, FXSelector, void*);
     /// @}
 
     /// @brief select AC under cursor

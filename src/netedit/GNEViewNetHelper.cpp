@@ -1727,10 +1727,10 @@ GNEViewNetHelper::DemandViewOptions::getVisibleDemandMenuCommands(std::vector<FX
     if (menuCheckHideNonInspectedDemandElements->shown()) {
         commands.push_back(menuCheckHideNonInspectedDemandElements);
     }
-    if (menuCheckShowAllPersonPlans->shown()) {
+    if (menuCheckShowAllPersonPlans->shown() && menuCheckShowAllPersonPlans->isEnabled()) {
         commands.push_back(menuCheckShowAllPersonPlans);
     }
-    if (menuCheckLockPerson->shown()) {
+    if (menuCheckLockPerson->shown() && menuCheckLockPerson->isEnabled()) {
         commands.push_back(menuCheckLockPerson);
     }
 }
@@ -1786,11 +1786,23 @@ GNEViewNetHelper::DemandViewOptions::showShapes() const {
 
 bool 
 GNEViewNetHelper::DemandViewOptions::showAllPersonPlans() const {
-    if (menuCheckShowAllPersonPlans->shown()) {
+    if (menuCheckShowAllPersonPlans->shown() && menuCheckShowAllPersonPlans->isEnabled()) {
         return (menuCheckShowAllPersonPlans->getCheck() == TRUE);
     } else {
         return false;
     }
+}
+
+
+void 
+GNEViewNetHelper::DemandViewOptions::lockPerson(const GNEDemandElement * person) {
+    myLockedPerson = person;
+}
+
+
+void 
+GNEViewNetHelper::DemandViewOptions::unlockPerson() {
+    myLockedPerson = nullptr;
 }
 
 

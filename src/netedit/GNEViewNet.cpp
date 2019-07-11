@@ -106,6 +106,7 @@ FXDEFMAP(GNEViewNet) GNEViewNetMap[] = {
     FXMAPFUNC(SEL_COMMAND, MID_GNE_DEMANDVIEWOPTIONS_HIDENONINSPECTED,      GNEViewNet::onCmdToogleHideNonInspecteDemandElements),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_DEMANDVIEWOPTIONS_HIDESHAPES,            GNEViewNet::onCmdToogleHideShapes),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_DEMANDVIEWOPTIONS_SHOWALLPERSONPLANS,    GNEViewNet::onCmdToogleShowAllPersonPlans),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_DEMANDVIEWOPTIONS_LOCKPERSON,            GNEViewNet::onCmdToogleLockPerson),
     // Select elements
     FXMAPFUNC(SEL_COMMAND, MID_ADDSELECT,                                   GNEViewNet::onCmdAddSelected),
     FXMAPFUNC(SEL_COMMAND, MID_REMOVESELECT,                                GNEViewNet::onCmdRemoveSelected),
@@ -570,6 +571,31 @@ GNEViewNet::doPaintGL(int mode, const Boundary& bound) {
         myViewParent->getPersonPlanFrame()->getPersonPlanCreator()->drawTemporalRoute();
         // draw temporal non consecutive edge
         myViewParent->getRouteFrame()->drawTemporalRoute();
+    }
+    // check menu checks of supermode demand
+    if (myEditModes.currentSupermode == GNE_SUPERMODE_DEMAND) {
+        // enable or disable menuCheckShowAllPersonPlans depending of there is a locked person
+        if (myDemandViewOptions.getLockedPerson()) {
+            myDemandViewOptions.menuCheckShowAllPersonPlans->disable();
+        } else {
+            myDemandViewOptions.menuCheckShowAllPersonPlans->enable();
+        }
+        // check if menuCheckLockPerson must be enabled or disabled
+        if (myDemandViewOptions.menuCheckLockPerson->getCheck() == FALSE) {
+            // check if we're in inspector mode and we're inspecting exactly one element
+            if ((myEditModes.demandEditMode == GNE_DMODE_INSPECT) && getDottedAC()) {
+                // obtain tag property
+                const GNEAttributeCarrier::TagProperties& tagProperty = getDottedAC()->getTagProperty();
+                // enable menu check lock person if is either a person, a person plan or a person stop
+                if (tagProperty.isPerson() || tagProperty.isPersonPlan() || tagProperty.isPersonStop()) {
+                    myDemandViewOptions.menuCheckLockPerson->enable();
+                } else {
+                    myDemandViewOptions.menuCheckLockPerson->disable();
+                }
+            } else {
+                myDemandViewOptions.menuCheckLockPerson->disable();
+            }
+        }
     }
     // draw elements
     glLineWidth(1);
@@ -2171,7 +2197,37 @@ GNEViewNet::onCmdToogleHideShapes(FXObject*, FXSelector, void*) {
 
 long 
 GNEViewNet::onCmdToogleShowAllPersonPlans(FXObject*, FXSelector, void*) {
-        // Only update view
+    // Only update view
+    update();
+    return 1;
+}
+
+
+long 
+GNEViewNet::onCmdToogleLockPerson(FXObject*, FXSelector, void*) {
+    // lock or unlock current inspected person depending of menuCheckLockPerson value
+    if (myDemandViewOptions.menuCheckLockPerson->getCheck()) {
+        // obtan locked person or person plan
+        const GNEDemandElement *personOrPersonPlan = dynamic_cast<const GNEDemandElement*>(getDottedAC());
+        if (personOrPersonPlan) {
+            // lock person depending if casted demand element is either a person or a person plan
+            if (personOrPersonPlan->getTagProperty().isPerson()) {
+                myDemandViewOptions.lockPerson(personOrPersonPlan);
+                // change menuCheckLockPerson text
+                myDemandViewOptions.menuCheckLockPerson->setText(("unlock " + personOrPersonPlan->getID()).c_str());
+            } else {
+                myDemandViewOptions.lockPerson(personOrPersonPlan->getDemandElementParents().front());
+                // change menuCheckLockPerson text
+                myDemandViewOptions.menuCheckLockPerson->setText(("unlock " + personOrPersonPlan->getDemandElementParents().front()->getID()).c_str());
+            }
+        }
+    } else {
+        // unlock current person
+        myDemandViewOptions.unlockPerson();
+        // change menuCheckLockPerson text
+        myDemandViewOptions.menuCheckLockPerson->setText("lock person");
+    }
+    // update view
     update();
     return 1;
 }
@@ -2426,6 +2482,7 @@ GNEViewNet::updateDemandModeSpecificControls() {
             myDemandViewOptions.menuCheckHideShapes->show();
             myDemandViewOptions.menuCheckHideNonInspectedDemandElements->show();
             myDemandViewOptions.menuCheckShowAllPersonPlans->show();
+            myDemandViewOptions.menuCheckLockPerson->show();
             // show toolbar grip of view options
             myViewParent->getGNEAppWindows()->getToolbarsGrip().modeOptions->show();
             break;
@@ -2437,6 +2494,7 @@ GNEViewNet::updateDemandModeSpecificControls() {
             // show view options
             myDemandViewOptions.menuCheckHideShapes->show();
             myDemandViewOptions.menuCheckShowAllPersonPlans->show();
+            myDemandViewOptions.menuCheckLockPerson->show();
             // show toolbar grip of view options
             myViewParent->getGNEAppWindows()->getToolbarsGrip().modeOptions->show();
             break;
@@ -2448,6 +2506,7 @@ GNEViewNet::updateDemandModeSpecificControls() {
             // show view options
             myDemandViewOptions.menuCheckHideShapes->show();
             myDemandViewOptions.menuCheckShowAllPersonPlans->show();
+            myDemandViewOptions.menuCheckLockPerson->show();
             // show toolbar grip of view options
             myViewParent->getGNEAppWindows()->getToolbarsGrip().modeOptions->show();
             break;
@@ -2457,6 +2516,7 @@ GNEViewNet::updateDemandModeSpecificControls() {
             myDemandViewOptions.menuCheckHideShapes->show();
             myCommonViewOptions.menuCheckShowGrid->show();
             myDemandViewOptions.menuCheckShowAllPersonPlans->show();
+            myDemandViewOptions.menuCheckLockPerson->show();
             // show toolbar grip of view options
             myViewParent->getGNEAppWindows()->getToolbarsGrip().modeOptions->show();
             break;
@@ -2469,6 +2529,7 @@ GNEViewNet::updateDemandModeSpecificControls() {
             // show view options
             myDemandViewOptions.menuCheckHideShapes->show();
             myDemandViewOptions.menuCheckShowAllPersonPlans->show();
+            myDemandViewOptions.menuCheckLockPerson->show();
             // show toolbar grip of view options
             myViewParent->getGNEAppWindows()->getToolbarsGrip().modeOptions->show();
             break;
@@ -2480,6 +2541,7 @@ GNEViewNet::updateDemandModeSpecificControls() {
             // show view options
             myDemandViewOptions.menuCheckHideShapes->show();
             myDemandViewOptions.menuCheckShowAllPersonPlans->show();
+            myDemandViewOptions.menuCheckLockPerson->show();
             // show toolbar grip of view options
             myViewParent->getGNEAppWindows()->getToolbarsGrip().modeOptions->show();
             break;
@@ -2491,6 +2553,7 @@ GNEViewNet::updateDemandModeSpecificControls() {
             // show view options
             myDemandViewOptions.menuCheckHideShapes->show();
             myDemandViewOptions.menuCheckShowAllPersonPlans->show();
+            myDemandViewOptions.menuCheckLockPerson->show();
             /// show toolbar grip of view options
             myViewParent->getGNEAppWindows()->getToolbarsGrip().modeOptions->show();
             break;
@@ -2502,6 +2565,7 @@ GNEViewNet::updateDemandModeSpecificControls() {
             // show view options
             myDemandViewOptions.menuCheckHideShapes->show();
             myDemandViewOptions.menuCheckShowAllPersonPlans->show();
+            myDemandViewOptions.menuCheckLockPerson->show();
             // show toolbar grip of view options
             myViewParent->getGNEAppWindows()->getToolbarsGrip().modeOptions->show();
             break;
@@ -2513,6 +2577,7 @@ GNEViewNet::updateDemandModeSpecificControls() {
             // show view options
             myDemandViewOptions.menuCheckHideShapes->show();
             myDemandViewOptions.menuCheckShowAllPersonPlans->show();
+            myDemandViewOptions.menuCheckLockPerson->show();
             // show toolbar grip of view options
             myViewParent->getGNEAppWindows()->getToolbarsGrip().modeOptions->show();
             break;
@@ -2524,6 +2589,7 @@ GNEViewNet::updateDemandModeSpecificControls() {
             // show view options
             myDemandViewOptions.menuCheckHideShapes->show();
             myDemandViewOptions.menuCheckShowAllPersonPlans->show();
+            myDemandViewOptions.menuCheckLockPerson->show();
             // show toolbar grip of view options
             myViewParent->getGNEAppWindows()->getToolbarsGrip().modeOptions->show();
             break;
@@ -2535,6 +2601,7 @@ GNEViewNet::updateDemandModeSpecificControls() {
             // show view options
             myDemandViewOptions.menuCheckHideShapes->show();
             myDemandViewOptions.menuCheckShowAllPersonPlans->show();
+            myDemandViewOptions.menuCheckLockPerson->show();
             // show toolbar grip of view options
             myViewParent->getGNEAppWindows()->getToolbarsGrip().modeOptions->show();
             break;

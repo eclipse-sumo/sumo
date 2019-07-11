@@ -454,6 +454,12 @@ struct GNEViewNetHelper {
         /// @brief check all person plans has to be show
         bool showAllPersonPlans() const;
 
+        /// @brief lock person
+        void lockPerson(const GNEDemandElement * person);
+
+        /// @brief unlock person
+        void unlockPerson();
+
         /// @brief get locked person
         const GNEDemandElement *getLockedPerson() const;
 
@@ -474,7 +480,7 @@ struct GNEViewNetHelper {
         GNEViewNet* myViewNet;
 
         /// @brief pointer to locked person
-        GNEDemandElement *myLockedPerson;
+        const GNEDemandElement *myLockedPerson;
 
         /// @brief Invalidated copy constructor.
         DemandViewOptions(const DemandViewOptions&) = delete;
