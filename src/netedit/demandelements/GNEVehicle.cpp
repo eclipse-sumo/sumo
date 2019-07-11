@@ -695,10 +695,10 @@ GNEVehicle::drawGL(const GUIVisualizationSettings& s) const {
     // only drawn in super mode demand
     if (myViewNet->getNetworkViewOptions().showDemandElements() && myViewNet->getDemandViewOptions().showNonInspectedDemandElements(this)) {
         // declare common attributes
-        const double upscale = s.vehicleSize.getExaggeration(s, this);
+        const double exaggeration = s.vehicleSize.getExaggeration(s, this);
         const double width = getDemandElementParents().at(0)->getAttributeDouble(SUMO_ATTR_WIDTH);
         const double length = getDemandElementParents().at(0)->getAttributeDouble(SUMO_ATTR_LENGTH);
-        double vehicleSizeSquared = width * length * upscale * width * length * upscale;
+        double vehicleSizeSquared = width * length * exaggeration * width * length * exaggeration;
         // declare a flag to check if glPushName() / glPopName() has to be added (needed due GNEEdge::drawGL(...))
         const bool pushName = (myTagProperty.getTag() != SUMO_TAG_FLOW) && (myTagProperty.getTag() != SUMO_TAG_TRIP);
         // obtain Position an rotation (it depend of their parents)
@@ -752,23 +752,30 @@ GNEVehicle::drawGL(const GUIVisualizationSettings& s) const {
             glTranslated(0, (-1) * length, 0);
             // set lane color
             setColor(s);
-            double upscaleLength = upscale;
-            if (upscale > 1 && length > 5) {
+            double upscaleLength = exaggeration;
+            if ((exaggeration > 1) && (length > 5)) {
                 // reduce the length/width ratio because this is not usefull at high zoom
                 upscaleLength = MAX2(1.0, upscaleLength * (5 + sqrt(length - 5)) / length);
             }
-            glScaled(upscale, upscaleLength, 1);
+            glScaled(exaggeration, upscaleLength, 1);
             // check if we're drawing in selecting mode
             if (s.drawForSelecting) {
                 // draw vehicle as a box and don't draw the rest of details
                 GUIBaseVehicleHelper::drawAction_drawVehicleAsBoxPlus(width, length);
             } else {
-                // draw the vehicle
+                // draw the vehicle depending of detail level
+                if (s.drawDetail(s.detailSettings.vehicleShapes, exaggeration)) {
+                    GUIBaseVehicleHelper::drawAction_drawVehicleAsPoly(s, shape, width, length);
+                } else if (s.drawDetail(s.detailSettings.vehicleBoxes, exaggeration)) {
+                    GUIBaseVehicleHelper::drawAction_drawVehicleAsBoxPlus(width, length);
+                } else if (s.drawDetail(s.detailSettings.vehicleTriangles, exaggeration)) {
+                    GUIBaseVehicleHelper::drawAction_drawVehicleAsTrianglePlus(width, length);
+                }
+
+                /*
                 switch (s.vehicleQuality) {
                     case 0:
-                        // in "normal" mode draw vehicle as poly
-                        //GUIBaseVehicleHelper::drawAction_drawVehicleAsTrianglePlus(width, length);
-                        GUIBaseVehicleHelper::drawAction_drawVehicleAsPoly(s, shape, width, length);
+                        GUIBaseVehicleHelper::drawAction_drawVehicleAsTrianglePlus(width, length);
                         break;
                     case 1:
                         GUIBaseVehicleHelper::drawAction_drawVehicleAsBoxPlus(width, length);
@@ -777,6 +784,7 @@ GNEVehicle::drawGL(const GUIVisualizationSettings& s) const {
                         GUIBaseVehicleHelper::drawAction_drawVehicleAsPoly(s, shape, width, length);
                         break;
                 }
+                */
                 // check if min gap has to be drawn
                 if (s.drawMinGap) {
                     const double minGap = -1 * getDemandElementParents().at(0)->getAttributeDouble(SUMO_ATTR_MINGAP);
@@ -790,7 +798,7 @@ GNEVehicle::drawGL(const GUIVisualizationSettings& s) const {
                 }
                 // drawing name at GLO_MAX fails unless translating z
                 glTranslated(0, MIN2(length / 2, double(5)), -getType());
-                glScaled(1 / upscale, 1 / upscaleLength, 1);
+                glScaled(1 / exaggeration, 1 / upscaleLength, 1);
                 glRotated(-1 * vehicleRotation, 0, 0, 1);
                 drawName(Position(0, 0), s.scale, getDemandElementParents().at(0)->getAttribute(SUMO_ATTR_GUISHAPE) == "pedestrian" ? s.personName : s.vehicleName, s.angle);
                 // draw line

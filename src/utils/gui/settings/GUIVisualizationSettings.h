@@ -192,8 +192,11 @@ struct GUIVisualizationColorSettings {
 /// @brief struct for width settings
 struct GUIVisualizationWidthSettings {
 
-    /// @brief width of dotted contours
-    static const double dottedContour;
+    /// @brief width of dotted contours (note: must be float)
+    static const float dottedContour;
+
+    /// @brief lenght of dotted contour segments
+    static const double dottedContourSegmentLenght;
 
     /// @brief width for routes
     static const double route;
@@ -215,8 +218,8 @@ struct GUIVisualizationWidthSettings {
 /// @brief struct for detail settings
 struct GUIVisualizationDetailSettings {
 
-    /// @brief lenght of dotted contour segments
-    static const double dottedContourSegmentLenght;
+    /// @brief details for lane textures
+    static const double connections;
 
     /// @brief details for lane textures
     static const double laneTextures;
@@ -247,6 +250,24 @@ struct GUIVisualizationDetailSettings {
 
     /// @brief details for stop texts
     static const double stopsText;
+
+    /// @brief details for draw vechicles as triangles
+    static const double vehicleTriangles;
+
+    /// @brief details for draw vechicles as boxes
+    static const double vehicleBoxes;
+
+    /// @brief details for draw vechicles as shapes
+    static const double vehicleShapes;
+
+    /// @brief details for draw vechicles as triangles
+    static const double personTriangles;
+
+    /// @brief details for draw vechicles as circles
+    static const double personCircles;
+
+    /// @brief details for draw vechicles as person shapes
+    static const double personShapes;
 };
 
 
