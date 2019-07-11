@@ -492,6 +492,14 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(GUISUMOAbstractView* parent, GUIV
         mySelectedConnectionColor = new FXColorWell(m102, MFXUtils::getFXColor(settings->colorSettings.selectedConnectionColor), this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignViewSettingsColorWell);
         new FXLabel(m102, "Additional", nullptr, GUIDesignViewSettingsLabel1);
         mySelectedAdditionalColor = new FXColorWell(m102, MFXUtils::getFXColor(settings->colorSettings.selectedAdditionalColor), this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignViewSettingsColorWell);
+        new FXLabel(m102, "Route", nullptr, GUIDesignViewSettingsLabel1);
+        mySelectedRouteColor = new FXColorWell(m102, MFXUtils::getFXColor(settings->colorSettings.selectedRouteColor), this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignViewSettingsColorWell);
+        new FXLabel(m102, "Vehicle", nullptr, GUIDesignViewSettingsLabel1);
+        mySelectedVehicleColor = new FXColorWell(m102, MFXUtils::getFXColor(settings->colorSettings.selectedVehicleColor), this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignViewSettingsColorWell);
+        new FXLabel(m102, "Person", nullptr, GUIDesignViewSettingsLabel1);
+        mySelectedPersonColor = new FXColorWell(m102, MFXUtils::getFXColor(settings->colorSettings.selectedPersonColor), this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignViewSettingsColorWell);
+        new FXLabel(m102, "PersonPlan", nullptr, GUIDesignViewSettingsLabel1);
+        mySelectedPersonPlanColor = new FXColorWell(m102, MFXUtils::getFXColor(settings->colorSettings.selectedPersonPlanColor), this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignViewSettingsColorWell);
     }
     {
         // Legend
@@ -627,6 +635,10 @@ GUIDialog_ViewSettings::onCmdNameChange(FXObject*, FXSelector, void* data) {
         mySelectedLaneColor->setRGBA(MFXUtils::getFXColor(mySettings->colorSettings.selectedLaneColor));
         mySelectedConnectionColor->setRGBA(MFXUtils::getFXColor(mySettings->colorSettings.selectedConnectionColor));
         mySelectedAdditionalColor->setRGBA(MFXUtils::getFXColor(mySettings->colorSettings.selectedAdditionalColor));
+        mySelectedRouteColor->setRGBA(MFXUtils::getFXColor(mySettings->colorSettings.selectedRouteColor));
+        mySelectedVehicleColor->setRGBA(MFXUtils::getFXColor(mySettings->colorSettings.selectedVehicleColor));
+        mySelectedPersonColor->setRGBA(MFXUtils::getFXColor(mySettings->colorSettings.selectedPersonColor));
+        mySelectedPersonPlanColor->setRGBA(MFXUtils::getFXColor(mySettings->colorSettings.selectedPersonPlanColor));
     }
 
     myLaneEdgeColorMode->setCurrentItem((FXint) mySettings->getLaneEdgeMode());
@@ -835,6 +847,11 @@ GUIDialog_ViewSettings::onCmdColorChange(FXObject* sender, FXSelector, void* /*v
         tmpSettings.colorSettings.selectedLaneColor = MFXUtils::getRGBColor(mySelectedLaneColor->getRGBA());
         tmpSettings.colorSettings.selectedConnectionColor = MFXUtils::getRGBColor(mySelectedConnectionColor->getRGBA());
         tmpSettings.colorSettings.selectedAdditionalColor = MFXUtils::getRGBColor(mySelectedAdditionalColor->getRGBA());
+        tmpSettings.colorSettings.selectedRouteColor = MFXUtils::getRGBColor(mySelectedRouteColor->getRGBA());
+        tmpSettings.colorSettings.selectedVehicleColor = MFXUtils::getRGBColor(mySelectedVehicleColor->getRGBA());
+        tmpSettings.colorSettings.selectedPersonColor = MFXUtils::getRGBColor(mySelectedPersonColor->getRGBA());
+        tmpSettings.colorSettings.selectedPersonPlanColor = MFXUtils::getRGBColor(mySelectedPersonPlanColor->getRGBA());
+
     }
 
     tmpSettings.showGrid = (myShowGrid->getCheck() != FALSE);

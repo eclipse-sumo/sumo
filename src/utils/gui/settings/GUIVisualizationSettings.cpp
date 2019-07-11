@@ -241,7 +241,11 @@ GUIVisualizationColorSettings::GUIVisualizationColorSettings() :
     selectedEdgeColor(0, 0, 204, 255),
     selectedLaneColor(0, 0, 128, 255),
     selectedConnectionColor(0, 0, 100, 255),
-    selectedAdditionalColor(0, 0, 150, 255) {
+    selectedAdditionalColor(0, 0, 150, 255),
+    selectedRouteColor(0, 0, 150, 255),
+    selectedVehicleColor(0, 0, 100, 255),
+    selectedPersonColor(0, 0, 120, 255),
+    selectedPersonPlanColor(0, 0, 130, 255) {
 }
 
 
@@ -252,6 +256,10 @@ GUIVisualizationColorSettings::operator==(const GUIVisualizationColorSettings& v
            (selectedLaneColor == v2.selectedLaneColor) &&
            (selectedConnectionColor == v2.selectedConnectionColor) &&
            (selectedAdditionalColor == v2.selectedAdditionalColor);
+           (selectedRouteColor == v2.selectedRouteColor) &&
+           (selectedVehicleColor == v2.selectedVehicleColor) &&
+           (selectedPersonColor == v2.selectedPersonColor) &&
+           (selectedPersonPlanColor == v2.selectedPersonPlanColor);
 }
 
 
@@ -261,7 +269,11 @@ GUIVisualizationColorSettings::operator!=(const GUIVisualizationColorSettings& v
            (selectedEdgeColor != v2.selectedEdgeColor) ||
            (selectedLaneColor != v2.selectedLaneColor) ||
            (selectedConnectionColor != v2.selectedConnectionColor) ||
-           (selectedAdditionalColor != v2.selectedAdditionalColor);
+           (selectedAdditionalColor != v2.selectedAdditionalColor) ||
+           (selectedRouteColor != v2.selectedRouteColor) ||
+           (selectedVehicleColor != v2.selectedVehicleColor) ||
+           (selectedPersonColor != v2.selectedPersonColor) ||
+           (selectedPersonPlanColor != v2.selectedPersonPlanColor);
 }
 
 // ---------------------------------------------------------------------------

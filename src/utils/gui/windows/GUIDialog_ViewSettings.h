@@ -258,12 +258,16 @@ private:
     FXVerticalFrame* myDecalsFrame;
     MFXAddEditTypedTable* myDecalsTable;
 
-    /// selection colors
+    /// @brief selection colors
     FXColorWell* mySelectionColor;
     FXColorWell* mySelectedEdgeColor;
     FXColorWell* mySelectedLaneColor;
     FXColorWell* mySelectedConnectionColor;
     FXColorWell* mySelectedAdditionalColor;
+    FXColorWell* mySelectedRouteColor;
+    FXColorWell* mySelectedVehicleColor;
+    FXColorWell* mySelectedPersonColor;
+    FXColorWell* mySelectedPersonPlanColor;
 
     /// ... lane colorer
     MFXIconComboBox* myLaneEdgeColorMode;

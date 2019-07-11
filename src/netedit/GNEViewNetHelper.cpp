@@ -1120,8 +1120,8 @@ GNEViewNetHelper::SelectingArea::processBoundarySelection(const Boundary& bounda
         // filter ACsInBoundary depending of current supermode
         std::set<std::pair<std::string, GNEAttributeCarrier*> > ACsInBoundaryFiltered;
         for (const auto& i : ACsInBoundary) {
-            if ((myViewNet->myEditModes.currentSupermode == GNE_SUPERMODE_NETWORK && !i.second->getTagProperty().isDemandElement()) ||
-                    (myViewNet->myEditModes.currentSupermode == GNE_SUPERMODE_DEMAND && i.second->getTagProperty().isDemandElement())) {
+            if (((myViewNet->myEditModes.currentSupermode == GNE_SUPERMODE_NETWORK) && !i.second->getTagProperty().isDemandElement()) ||
+                    ((myViewNet->myEditModes.currentSupermode == GNE_SUPERMODE_DEMAND) && i.second->getTagProperty().isDemandElement())) {
                 ACsInBoundaryFiltered.insert(i);
             }
         }

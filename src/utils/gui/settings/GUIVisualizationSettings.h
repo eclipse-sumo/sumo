@@ -126,12 +126,32 @@ struct GUIVisualizationColorSettings {
     /// @brief inequality comparator
     bool operator!=(const GUIVisualizationColorSettings& other);
 
-    /// @brief NETEDIT special selection colors
+    /// @brief basic selection color
     RGBColor selectionColor;
+
+    /// @brief edge selection color
     RGBColor selectedEdgeColor;
+
+    /// @brief lane selection color
     RGBColor selectedLaneColor;
+
+    /// @brief connection selection color
     RGBColor selectedConnectionColor;
+
+    /// @brief additional selection color (busStops, Detectors...)
     RGBColor selectedAdditionalColor;
+
+    /// @brief route selection color
+    RGBColor selectedRouteColor;
+
+    /// @brief vehicle selection color
+    RGBColor selectedVehicleColor;
+
+    /// @brief person  selection color
+    RGBColor selectedPersonColor;
+
+    /// @brief person plan selection color (Rides, Walks...)
+    RGBColor selectedPersonPlanColor;
 
     /// @brief color for busStops
     static const RGBColor busStop;
