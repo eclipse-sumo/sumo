@@ -93,6 +93,9 @@ public:
     /// @brief get edit modes
     const GNEViewNetHelper::EditModes& getEditModes() const;
 
+    /// @brief get view options Common
+    const GNEViewNetHelper::ViewOptionsCommon& getViewOptionsCommon() const;
+
     /// @brief get view options Network
     const GNEViewNetHelper::ViewOptionsNetwork& getViewOptionsNetwork() const;
 
@@ -375,10 +378,11 @@ private:
     GNEViewNetHelper::DemandCheckableButtons myDemandCheckableButtons;
     /// @}
 
-    /// @name structs related with Common options
+    /// @name structs related with view options
     /// @{
-    /// @brief variable used to save variables related with selecting areas
-    GNEViewNetHelper::SelectingArea mySelectingArea;
+
+    /// @brief variable used to save variables related with common view options
+    GNEViewNetHelper::ViewOptionsCommon myViewOptionsCommon;
 
     /// @brief variable used to save variables related with view options in Network Supermode
     GNEViewNetHelper::ViewOptionsNetwork myViewOptionsNetwork;
@@ -405,6 +409,9 @@ private:
     /// @brief variable used to save variables related with vehicle type options
     GNEViewNetHelper::VehicleTypeOptions myVehicleTypeOptions;
     // @}
+
+    /// @brief variable used to save variables related with selecting areas
+    GNEViewNetHelper::SelectingArea mySelectingArea;
 
     /// @brief struct for grouping all variables related with edit shapes
     GNEViewNetHelper::EditShapes myEditShapes;

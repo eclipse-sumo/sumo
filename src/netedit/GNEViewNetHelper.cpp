@@ -1424,6 +1424,44 @@ GNEViewNetHelper::EditModes::setDemandEditMode(DemandEditMode mode, bool force) 
 }
 
 // ---------------------------------------------------------------------------
+// GNEViewNetHelper::ViewOptionsCommon - methods
+// ---------------------------------------------------------------------------
+
+
+GNEViewNetHelper::ViewOptionsCommon::ViewOptionsCommon(GNEViewNet* viewNet) :
+    myViewNet(viewNet),
+    menuCheckShowGrid(nullptr) {
+}
+
+
+void 
+GNEViewNetHelper::ViewOptionsCommon::buildViewOptionsCommonMenuChecks() {
+    
+    menuCheckShowGrid = new FXMenuCheck(myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modeOptions, 
+        ("Grid\t\tshow grid and restrict movement to the grid (size defined in visualization options)"), 
+        myViewNet, MID_GNE_VIEWOPTIONSCOMMON_SHOWGRID, LAYOUT_FIX_HEIGHT);
+    menuCheckShowGrid->setHeight(23);
+    menuCheckShowGrid->setCheck(false);
+    menuCheckShowGrid->create();
+
+}
+
+
+void 
+GNEViewNetHelper::ViewOptionsCommon::hideViewOptionsCommonMenuChecks() {
+    menuCheckShowGrid->hide();
+}
+
+
+void 
+GNEViewNetHelper::ViewOptionsCommon::getVisibleCommonMenuCommands(std::vector<FXMenuCheck*> &commands) const {
+    // save visible menu commands in commands vector
+    if (menuCheckShowGrid->shown()) {
+        commands.push_back(menuCheckShowGrid);
+    }
+}
+
+// ---------------------------------------------------------------------------
 // GNEViewNetHelper::ViewOptionsNetwork - methods
 // ---------------------------------------------------------------------------
 
@@ -1476,13 +1514,6 @@ GNEViewNetHelper::ViewOptionsNetwork::buildViewOptionsNetworkMenuChecks() {
     menuCheckChangeAllPhases->setCheck(false);
     menuCheckChangeAllPhases->create();
 
-    menuCheckShowGrid = new FXMenuCheck(myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modeOptions, 
-        ("Grid\t\tshow grid and restrict movement to the grid (size defined in visualization options)"), 
-        myViewNet, MID_GNE_VIEWOPTIONSNETWORK_SHOWGRID, LAYOUT_FIX_HEIGHT);
-    menuCheckShowGrid->setHeight(23);
-    menuCheckShowGrid->setCheck(false);
-    menuCheckShowGrid->create();
-
     menuCheckWarnAboutMerge = new FXMenuCheck(myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modeOptions, 
         ("Ask for merge\t\tAsk for confirmation before merging " + toString(SUMO_TAG_JUNCTION) + ".").c_str(), 
         myViewNet, MID_GNE_VIEWOPTIONSNETWORK_ASKFORMERGE, LAYOUT_FIX_HEIGHT);
@@ -1531,7 +1562,6 @@ GNEViewNetHelper::ViewOptionsNetwork::hideViewOptionsNetworkMenuChecks() {
     menuCheckHideConnections->hide();
     menuCheckExtendSelection->hide();
     menuCheckChangeAllPhases->hide();
-    menuCheckShowGrid->hide();
     menuCheckWarnAboutMerge->hide();
     menuCheckShowJunctionBubble->hide();
     menuCheckMoveElevation->hide();
@@ -1539,6 +1569,45 @@ GNEViewNetHelper::ViewOptionsNetwork::hideViewOptionsNetworkMenuChecks() {
     menuCheckAutoOppositeEdge->hide();
     // Also hide toolbar grip
     myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modeOptions->show();
+}
+
+
+void 
+GNEViewNetHelper::ViewOptionsNetwork::getVisibleNetworkMenuCommands(std::vector<FXMenuCheck*> &commands) const {
+    // save visible menu commands in commands vector
+    if (menuCheckShowDemandElements->shown()) {
+        commands.push_back(menuCheckShowDemandElements);
+    }
+    if (menuCheckSelectEdges->shown()) {
+        commands.push_back(menuCheckSelectEdges);
+    }
+    if (menuCheckShowConnections->shown()) {
+        commands.push_back(menuCheckShowConnections);
+    }
+    if (menuCheckHideConnections->shown()) {
+        commands.push_back(menuCheckHideConnections);
+    }
+    if (menuCheckExtendSelection->shown()) {
+        commands.push_back(menuCheckExtendSelection);
+    }
+    if (menuCheckChangeAllPhases->shown()) {
+        commands.push_back(menuCheckChangeAllPhases);
+    }
+    if (menuCheckWarnAboutMerge->shown()) {
+        commands.push_back(menuCheckWarnAboutMerge);
+    }
+    if (menuCheckShowJunctionBubble->shown()) {
+        commands.push_back(menuCheckShowJunctionBubble);
+    }
+    if (menuCheckMoveElevation->shown()) {
+        commands.push_back(menuCheckMoveElevation);
+    }
+    if (menuCheckChainEdges->shown()) {
+        commands.push_back(menuCheckChainEdges);
+    }
+    if (menuCheckAutoOppositeEdge->shown()) {
+        commands.push_back(menuCheckAutoOppositeEdge);
+    }
 }
 
 
@@ -1594,12 +1663,17 @@ GNEViewNetHelper::ViewOptionsNetwork::editingElevation() const {
 
 GNEViewNetHelper::ViewOptionsDemand::ViewOptionsDemand(GNEViewNet* viewNet) :
     myViewNet(viewNet),
+    menuCheckHideShapes(nullptr),
+    menuCheckHideNonInspectedDemandElements(nullptr),
+    menuCheckShowAllPersonPlans(nullptr),
+    menuCheckLockPerson(nullptr),
     myLockedPerson(nullptr) {
 }
 
 
 void
 GNEViewNetHelper::ViewOptionsDemand::buildViewOptionsDemandMenuChecks() {
+
     menuCheckHideShapes = new FXMenuCheck(myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modeOptions, 
         ("Hide shapes\t\tToggle show shapes (Polygons and POIs)"), 
         myViewNet, MID_GNE_VIEWOPTIONSDEMAND_HIDESHAPES, LAYOUT_FIX_HEIGHT);
@@ -1621,6 +1695,13 @@ GNEViewNetHelper::ViewOptionsDemand::buildViewOptionsDemandMenuChecks() {
     menuCheckShowAllPersonPlans->setCheck(false);
     menuCheckShowAllPersonPlans->create();
 
+    menuCheckLockPerson = new FXMenuCheck(myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modeOptions, 
+        ("Lock person\t\tLock selected person"), 
+        myViewNet, MID_GNE_VIEWOPTIONSDEMAND_LOCKPERSON, LAYOUT_FIX_HEIGHT);
+    menuCheckLockPerson->setHeight(23);
+    menuCheckLockPerson->setCheck(false);
+    menuCheckLockPerson->create();
+
     // always recalc after creating new elements
     myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modeOptions->recalc();
 }
@@ -1631,8 +1712,27 @@ GNEViewNetHelper::ViewOptionsDemand::hideViewOptionsDemandMenuChecks() {
     menuCheckHideShapes->hide();
     menuCheckHideNonInspectedDemandElements->hide();
     menuCheckShowAllPersonPlans->hide();
+    menuCheckLockPerson->hide();
     // Also hide toolbar grip
     myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modeOptions->show();
+}
+
+
+void 
+GNEViewNetHelper::ViewOptionsDemand::getVisibleDemandMenuCommands(std::vector<FXMenuCheck*> &commands) const {
+    // save visible menu commands in commands vector
+    if (menuCheckHideShapes->shown()) {
+        commands.push_back(menuCheckHideShapes);
+    }
+    if (menuCheckHideNonInspectedDemandElements->shown()) {
+        commands.push_back(menuCheckHideNonInspectedDemandElements);
+    }
+    if (menuCheckShowAllPersonPlans->shown()) {
+        commands.push_back(menuCheckShowAllPersonPlans);
+    }
+    if (menuCheckLockPerson->shown()) {
+        commands.push_back(menuCheckLockPerson);
+    }
 }
 
 

@@ -331,6 +331,35 @@ struct GNEViewNetHelper {
         EditModes& operator=(const EditModes&) = delete;
     };
 
+    /// @brief struct used to group all variables related to view options in all supermodes
+    struct ViewOptionsCommon {
+        
+        /// @brief default constructor
+        ViewOptionsCommon(GNEViewNet* viewNet);
+
+        /// @brief build menu checks
+        void buildViewOptionsCommonMenuChecks();
+
+        /// @brief hide all options menu checks
+        void hideViewOptionsCommonMenuChecks();
+
+        /// @brief get visible common menu commands
+        void getVisibleCommonMenuCommands(std::vector<FXMenuCheck*> &commands) const;
+
+        /// @brief menu check to show grid button
+        FXMenuCheck* menuCheckShowGrid;
+
+    private:
+        /// @brief pointer to viewNet
+        GNEViewNet* myViewNet;
+
+        /// @brief Invalidated copy constructor.
+        ViewOptionsCommon(const ViewOptionsCommon&) = delete;
+
+        /// @brief Invalidated assignment operator.
+        ViewOptionsCommon& operator=(const ViewOptionsCommon&) = delete;
+    };
+
     /// @brief struct used to group all variables related to view options in Network supermode
     struct ViewOptionsNetwork {
 
@@ -342,6 +371,9 @@ struct GNEViewNetHelper {
 
         /// @brief hide all options menu checks
         void hideViewOptionsNetworkMenuChecks();
+
+        /// @brief get visible network menu commands
+        void getVisibleNetworkMenuCommands(std::vector<FXMenuCheck*> &commands) const;
 
         /// @brief check if show demand elements checkbox is enabled
         bool showDemandElements() const;
@@ -372,9 +404,6 @@ struct GNEViewNetHelper {
 
         /// @brief menu check to set change all phases
         FXMenuCheck* menuCheckChangeAllPhases;
-
-        /// @brief menu check to show grid button
-        FXMenuCheck* menuCheckShowGrid;
 
         /// @brief menu check to we should warn about merging junctions
         FXMenuCheck* menuCheckWarnAboutMerge;
@@ -412,6 +441,9 @@ struct GNEViewNetHelper {
 
         /// @brief hide all options menu checks
         void hideViewOptionsDemandMenuChecks();
+
+        /// @brief get visible demand menu commands
+        void getVisibleDemandMenuCommands(std::vector<FXMenuCheck*> &commands) const;
 
         /// @brief check if non inspected element has to be hidden
         bool showNonInspectedDemandElements(const GNEDemandElement *demandElement) const;

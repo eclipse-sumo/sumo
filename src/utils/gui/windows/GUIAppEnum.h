@@ -553,9 +553,11 @@ enum {
     /// @}
 
 
-    /// @name GNEViewNet messages
+    /// @name GNEViewNet view options messages
     /// @{
 
+    /// @brief show grid
+    MID_GNE_VIEWOPTIONSCOMMON_SHOWGRID,
     /// @brief show demand elements
     MID_GNE_VIEWOPTIONSNETWORK_SHOWDEMANDELEMENTS,
     /// @brief select edges
@@ -568,8 +570,6 @@ enum {
     MID_GNE_VIEWOPTIONSNETWORK_EXTENDSELECTION,
     /// @brief change all phases
     MID_GNE_VIEWOPTIONSNETWORK_CHANGEALLPHASES,
-    /// @brief show grid
-    MID_GNE_VIEWOPTIONSNETWORK_SHOWGRID,
     /// @brief ask before merging junctions
     MID_GNE_VIEWOPTIONSNETWORK_ASKFORMERGE,
     /// @brief show junctions as bubbles
@@ -586,12 +586,15 @@ enum {
     MID_GNE_VIEWOPTIONSDEMAND_HIDESHAPES,
     /// @brief show all person plans
     MID_GNE_VIEWOPTIONSDEMAND_SHOWALLPERSONPLANS,
+    /// @brief lock person
+    MID_GNE_VIEWOPTIONSDEMAND_LOCKPERSON,
 
     /// @}
 
 
     /// @name GNEFrame messages
     /// @{
+
     // MID_GNE_WIZARD,
     /// @brief attribute added
     MID_GNE_ADD_ATTRIBUTE,

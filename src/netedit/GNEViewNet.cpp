@@ -88,6 +88,8 @@ FXDEFMAP(GNEViewNet) GNEViewNetMap[] = {
     FXMAPFUNC(SEL_COMMAND, MID_HOTKEY_P_POLYGONMODE_PERSONMODE,             GNEViewNet::onCmdSetMode),
     FXMAPFUNC(SEL_COMMAND, MID_HOTKEY_V_VEHICLEMODE,                        GNEViewNet::onCmdSetMode),
     FXMAPFUNC(SEL_COMMAND, MID_HOTKEY_W_PROHIBITIONMODE_PERSONTYPEMODE,     GNEViewNet::onCmdSetMode),
+    // view Options Common
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_VIEWOPTIONSCOMMON_SHOWGRID,              GNEViewNet::onCmdToogleShowGrid),
     // View Options Network
     FXMAPFUNC(SEL_COMMAND, MID_GNE_VIEWOPTIONSNETWORK_SHOWDEMANDELEMENTS,   GNEViewNet::onCmdToogleShowDemandElements),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_VIEWOPTIONSNETWORK_SELECTEDGES,          GNEViewNet::onCmdToogleSelectEdges),
@@ -95,7 +97,6 @@ FXDEFMAP(GNEViewNet) GNEViewNetMap[] = {
     FXMAPFUNC(SEL_COMMAND, MID_GNE_VIEWOPTIONSNETWORK_SHOWCONNECTIONS,      GNEViewNet::onCmdToogleHideConnections),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_VIEWOPTIONSNETWORK_EXTENDSELECTION,      GNEViewNet::onCmdToogleExtendSelection),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_VIEWOPTIONSNETWORK_CHANGEALLPHASES,      GNEViewNet::onCmdToogleChangeAllPhases),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_VIEWOPTIONSNETWORK_SHOWGRID,             GNEViewNet::onCmdToogleShowGrid),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_VIEWOPTIONSNETWORK_ASKFORMERGE,          GNEViewNet::onCmdToogleWarnAboutMerge),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_VIEWOPTIONSNETWORK_SHOWBUBBLES,          GNEViewNet::onCmdToogleShowJunctionBubbles),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_VIEWOPTIONSNETWORK_MOVEELEVATION,        GNEViewNet::onCmdToogleMoveElevation),
@@ -175,6 +176,7 @@ GNEViewNet::GNEViewNet(FXComposite* tmpParent, FXComposite* actualParent, GUIMai
     myNetworkCheckableButtons(this),
     myDemandCheckableButtons(this),
     mySelectingArea(this),
+    myViewOptionsCommon(this),
     myViewOptionsNetwork(this),
     myViewOptionsDemand(this),
     myMoveSingleElementValues(this),
@@ -398,6 +400,12 @@ GNEViewNet::getEditModes() const {
 }
 
 
+const GNEViewNetHelper::ViewOptionsCommon& 
+GNEViewNet::getViewOptionsCommon() const {
+    return myViewOptionsCommon;
+}
+
+
 const GNEViewNetHelper::ViewOptionsNetwork&
 GNEViewNet::getViewOptionsNetwork() const {
     return myViewOptionsNetwork;
@@ -506,14 +514,15 @@ GNEViewNet::GNEViewNet() :
     myNetworkCheckableButtons(this),
     myDemandCheckableButtons(this),
     mySelectingArea(this),
+    myViewOptionsCommon(this),
     myViewOptionsNetwork(this),
     myViewOptionsDemand(this),
     myMoveSingleElementValues(this),
     myMoveMultipleElementValues(this),
     myVehicleOptions(this),
     myVehicleTypeOptions(this),
-    myEditShapes(this)
-{ }
+    myEditShapes(this) { 
+}
 
 
 int
@@ -541,10 +550,10 @@ GNEViewNet::doPaintGL(int mode, const Boundary& bound) {
         drawDecals();
         // depending of the visualizationSettings, enable or disable check box show grid
         if (myVisualizationSettings->showGrid) {
-            myViewOptionsNetwork.menuCheckShowGrid->setCheck(true);
+            myViewOptionsCommon.menuCheckShowGrid->setCheck(true);
             paintGLGrid();
         } else {
-            myViewOptionsNetwork.menuCheckShowGrid->setCheck(false);
+            myViewOptionsCommon.menuCheckShowGrid->setCheck(false);
         }
         myViewOptionsNetwork.menuCheckShowConnections->setCheck(myVisualizationSettings->showLane2Lane);
     }
@@ -2093,7 +2102,7 @@ GNEViewNet::onCmdToogleChangeAllPhases(FXObject*, FXSelector, void*) {
 long
 GNEViewNet::onCmdToogleShowGrid(FXObject*, FXSelector, void*) {
     // show or hidde grid depending of myViewOptionsNetwork.menuCheckShowGrid
-    if (myViewOptionsNetwork.menuCheckShowGrid->getCheck()) {
+    if (myViewOptionsCommon.menuCheckShowGrid->getCheck()) {
         myVisualizationSettings->showGrid = true;
     } else {
         myVisualizationSettings->showGrid = false;
@@ -2221,6 +2230,9 @@ GNEViewNet::buildEditModeControls() {
     // build menu checks for Demand checkable buttons
     myDemandCheckableButtons.buildDemandCheckableButtons();
 
+    // build menu checks of view options Common
+    myViewOptionsCommon.buildViewOptionsCommonMenuChecks();
+
     // build menu checks of view options Network
     myViewOptionsNetwork.buildViewOptionsNetworkMenuChecks();
 
@@ -2232,7 +2244,9 @@ GNEViewNet::buildEditModeControls() {
 void
 GNEViewNet::updateNetworkModeSpecificControls() {
     // hide grid
-    myViewOptionsNetwork.menuCheckShowGrid->setCheck(myVisualizationSettings->showGrid);
+    myViewOptionsCommon.menuCheckShowGrid->setCheck(myVisualizationSettings->showGrid);
+    // hide all checkbox of view options Common
+    myViewOptionsCommon.hideViewOptionsCommonMenuChecks();
     // hide all checkbox of view options Network
     myViewOptionsNetwork.hideViewOptionsNetworkMenuChecks();
     // hide all checkbox of view options Demand
@@ -2288,7 +2302,7 @@ GNEViewNet::updateNetworkModeSpecificControls() {
             myViewOptionsNetwork.menuCheckAutoOppositeEdge->show();
             myNetworkCheckableButtons.createEdgeButton->setChecked(true);
             // show view options
-            myViewOptionsNetwork.menuCheckShowGrid->show();
+            myViewOptionsCommon.menuCheckShowGrid->show();
             // show toolbar grip of view options
             myViewParent->getGNEAppWindows()->getToolbarsGrip().modeOptions->show();
             break;
@@ -2298,7 +2312,7 @@ GNEViewNet::updateNetworkModeSpecificControls() {
             myViewOptionsNetwork.menuCheckMoveElevation->show();
             myCommonCheckableButtons.moveButton->setChecked(true);
             // show view options
-            myViewOptionsNetwork.menuCheckShowGrid->show();
+            myViewOptionsCommon.menuCheckShowGrid->show();
             // show toolbar grip of view options
             myViewParent->getGNEAppWindows()->getToolbarsGrip().modeOptions->show();
             break;
@@ -2328,7 +2342,7 @@ GNEViewNet::updateNetworkModeSpecificControls() {
             myCurrentFrame = myViewParent->getAdditionalFrame();
             myNetworkCheckableButtons.additionalButton->setChecked(true);
             // show view options
-            myViewOptionsNetwork.menuCheckShowGrid->show();
+            myViewOptionsCommon.menuCheckShowGrid->show();
             // show toolbar grip of view options
             myViewParent->getGNEAppWindows()->getToolbarsGrip().modeOptions->show();
             break;
@@ -2338,7 +2352,7 @@ GNEViewNet::updateNetworkModeSpecificControls() {
             myCurrentFrame = myViewParent->getCrossingFrame();
             myNetworkCheckableButtons.crossingButton->setChecked(true);
             // show view options
-            myViewOptionsNetwork.menuCheckShowGrid->setCheck(false);
+            myViewOptionsCommon.menuCheckShowGrid->setCheck(false);
             // show toolbar grip of view options
             myViewParent->getGNEAppWindows()->getToolbarsGrip().modeOptions->show();
             break;
@@ -2348,7 +2362,7 @@ GNEViewNet::updateNetworkModeSpecificControls() {
             myCurrentFrame = myViewParent->getTAZFrame();
             myNetworkCheckableButtons.TAZButton->setChecked(true);
             // show view options
-            myViewOptionsNetwork.menuCheckShowGrid->setCheck(false);
+            myViewOptionsCommon.menuCheckShowGrid->setCheck(false);
             // show toolbar grip of view options
             myViewParent->getGNEAppWindows()->getToolbarsGrip().modeOptions->show();
             break;
@@ -2358,7 +2372,7 @@ GNEViewNet::updateNetworkModeSpecificControls() {
             myCurrentFrame = myViewParent->getPolygonFrame();
             myNetworkCheckableButtons.shapeButton->setChecked(true);
             // show view options
-            myViewOptionsNetwork.menuCheckShowGrid->show();
+            myViewOptionsCommon.menuCheckShowGrid->show();
             // show toolbar grip of view options
             myViewParent->getGNEAppWindows()->getToolbarsGrip().modeOptions->show();
             break;
@@ -2389,7 +2403,7 @@ GNEViewNet::updateNetworkModeSpecificControls() {
 void
 GNEViewNet::updateDemandModeSpecificControls() {
     // hide grid
-    myViewOptionsNetwork.menuCheckShowGrid->setCheck(myVisualizationSettings->showGrid);
+    myViewOptionsCommon.menuCheckShowGrid->setCheck(myVisualizationSettings->showGrid);
     // hide all checkbox of view options Network
     myViewOptionsNetwork.hideViewOptionsNetworkMenuChecks();
     // hide all checkbox of view options Demand
@@ -2441,7 +2455,7 @@ GNEViewNet::updateDemandModeSpecificControls() {
             myCommonCheckableButtons.moveButton->setChecked(true);
             // show view options
             myViewOptionsDemand.menuCheckHideShapes->show();
-            myViewOptionsNetwork.menuCheckShowGrid->show();
+            myViewOptionsCommon.menuCheckShowGrid->show();
             myViewOptionsDemand.menuCheckShowAllPersonPlans->show();
             // show toolbar grip of view options
             myViewParent->getGNEAppWindows()->getToolbarsGrip().modeOptions->show();
