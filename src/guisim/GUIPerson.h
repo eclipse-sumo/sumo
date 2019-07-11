@@ -52,19 +52,16 @@ class MSDevice_Vehroutes;
  * @class GUIPerson
  */
 class GUIPerson : public MSPerson, public GUIGlObject {
-public:
-    /** @brief Constructor
-     */
-    GUIPerson(const SUMOVehicleParameter* pars, MSVehicleType* vtype, MSTransportable::MSTransportablePlan* plan, const double speedFactor);
 
+public:
+    /// @brief Constructor
+    GUIPerson(const SUMOVehicleParameter* pars, MSVehicleType* vtype, MSTransportable::MSTransportablePlan* plan, const double speedFactor);
 
     /// @brief destructor
     ~GUIPerson();
 
-
     /// @name inherited from GUIGlObject
-    //@{
-
+    /// @{
     /** @brief Returns an own popup-menu
      *
      * @param[in] app The application needed to build the popup-menu
@@ -73,7 +70,6 @@ public:
      * @see GUIGlObject::getPopUpMenu
      */
     GUIGLObjectPopupMenu* getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent);
-
 
     /** @brief Returns an own parameter window
      *
@@ -99,30 +95,25 @@ public:
      */
     Boundary getCenteringBoundary() const;
 
-
     /** @brief Draws the object
      * @param[in] s The settings for the current view (may influence drawing)
      * @see GUIGlObject::drawGL
      */
     void drawGL(const GUIVisualizationSettings& s) const;
 
-
     /** @brief Draws additionally triggered visualisations
      * @param[in] parent The view
      * @param[in] s The settings for the current view (may influence drawing)
      */
     virtual void drawGLAdditional(GUISUMOAbstractView* const parent, const GUIVisualizationSettings& s) const;
-    //@}
+    //* @}
 
     /* @brief set the position of a person while riding in a vehicle
      * @note This must be called by the vehicle before the call to drawGl */
-    void setPositionInVehicle(const Position& pos) {
-        myPositionInVehicle = pos;
-    }
+    void setPositionInVehicle(const Position& pos);
 
     /// @name inherited from MSPerson with added locking
-    //@{
-
+    /// @{
     /// @brief return the offset from the start of the current edge
     double getEdgePos() const;
 
@@ -142,10 +133,19 @@ public:
     /// @brief the current speed of the person
     double getSpeed() const;
 
+    /// @brief get stage index description
     std::string getStageIndexDescription() const;
+
+    /// @brief get edge ID
     std::string getEdgeID() const;
+
+    /// @brief ger from edge ID
     std::string getFromEdgeID() const;
+
+    /// @brief get destination edge ID
     std::string getDestinationEdgeID() const;
+
+    /// @brief get stage arrival position
     double getStageArrivalPos() const;
 
     //@}
@@ -161,6 +161,7 @@ public:
      */
     class GUIPersonPopupMenu : public GUIGLObjectPopupMenu {
         FXDECLARE(GUIPersonPopupMenu)
+
     public:
         /** @brief Constructor
          * @param[in] app The main window for instantiation of other windows
@@ -176,37 +177,41 @@ public:
 
         /// @brief Called if the current route of the person shall be shown
         long onCmdShowCurrentRoute(FXObject*, FXSelector, void*);
+
         /// @brief Called if the current route of the person shall be hidden
         long onCmdHideCurrentRoute(FXObject*, FXSelector, void*);
+
         /// @brief Called if the walkingarea path of the person shall be shown
         long onCmdShowWalkingareaPath(FXObject*, FXSelector, void*);
+
         /// @brief Called if the walkingarea path of the person shall be hidden
         long onCmdHideWalkingareaPath(FXObject*, FXSelector, void*);
+
         /// @brief Called if the plan shall be shown
         long onCmdShowPlan(FXObject*, FXSelector, void*);
+
         /// @brief Called if the person shall be tracked
         long onCmdStartTrack(FXObject*, FXSelector, void*);
+
         /// @brief Called if the person shall not be tracked any longer
         long onCmdStopTrack(FXObject*, FXSelector, void*);
+
         /// @brief Called when removing the person
         long onCmdRemoveObject(FXObject*, FXSelector, void*);
-
 
     protected:
         /// @brief Information which additional visualisations are enabled (per view)
         std::map<GUISUMOAbstractView*, int>& myVehiclesAdditionalVisualizations;
+
         /// @brief Needed for parameterless instantiation
         std::map<GUISUMOAbstractView*, int> dummy;
 
     protected:
         /// @brief default constructor needed by FOX
         GUIPersonPopupMenu() : myVehiclesAdditionalVisualizations(dummy) { }
-
     };
 
-
-    /** @brief Additional visualisation feature ids
-     */
+    /// @brief Additional visualisation feature ids
     enum VisualisationFeatures {
         /// @brief show the current walkingarea path
         VO_SHOW_WALKINGAREA_PATH = 1,
@@ -216,20 +221,14 @@ public:
         VO_TRACKED = 8
     };
 
-    /// @brief Enabled visualisations, per view
-    std::map<GUISUMOAbstractView*, int> myAdditionalVisualizations;
-
-
     /// @name Additional visualisations
     /// @{
-
     /** @brief Returns whether the named feature is enabled in the given view
      * @param[in] parent The view for which the feature may be enabled
      * @param[in] which The visualisation feature
      * @return see comment
      */
     bool hasActiveAddVisualisation(GUISUMOAbstractView* const parent, int which) const;
-
 
     /** @brief Adds the named visualisation feature to the given view
      * @param[in] parent The view for which the feature shall be enabled
@@ -238,23 +237,16 @@ public:
      */
     void addActiveAddVisualisation(GUISUMOAbstractView* const parent, int which);
 
-
     /** @brief Adds the named visualisation feature to the given view
      * @param[in] parent The view for which the feature shall be enabled
      * @param[in] which The visualisation feature to enable
      * @see GUISUMOAbstractView::removeAdditionalGLVisualisation
      */
     void removeActiveAddVisualisation(GUISUMOAbstractView* const parent, int which);
+
     /// @}
 
-
 private:
-    /// The mutex used to avoid concurrent updates of the vehicle buffer
-    mutable FXMutex myLock;
-
-    /// The position of a person while riding a vehicle
-    Position myPositionInVehicle;
-
     /// @brief sets the color according to the currente settings
     void setColor(const GUIVisualizationSettings& s) const;
 
@@ -264,15 +256,17 @@ private:
     /// @brief sets the color according to the current scheme index and some vehicle function
     bool setFunctionalColor(int activeScheme) const;
 
-    /// @name drawing helper methods
-    /// @{
-    void drawAction_drawAsTriangle(const GUIVisualizationSettings& s) const;
-    void drawAction_drawAsCircle(const GUIVisualizationSettings& s) const;
-    void drawAction_drawAsPoly(const GUIVisualizationSettings& s) const;
-    void drawAction_drawAsImage(const GUIVisualizationSettings& s) const;
-
+    /// @brief draw walking area path
     void drawAction_drawWalkingareaPath(const GUIVisualizationSettings& s) const;
-    /// @}
+
+    /// The mutex used to avoid concurrent updates of the vehicle buffer
+    mutable FXMutex myLock;
+
+    /// The position of a person while riding a vehicle
+    Position myPositionInVehicle;
+
+    /// @brief Enabled visualisations, per view
+    std::map<GUISUMOAbstractView*, int> myAdditionalVisualizations;
 };
 
 
