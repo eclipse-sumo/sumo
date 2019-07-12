@@ -876,6 +876,9 @@ NIImporter_OpenDrive::buildConnectionsToOuter(const Connection& c, const std::ma
                     //    std::cout << "computeOffsets\n";
                     //}
                     std::vector<double> offsets(dest->geom.size(), 0);
+                    if (dest->laneOffsets.size() > 0) {
+                        offsets = dest->laneOffsets;
+                    }
 #ifdef DEBUG_INTERNALSHAPES
                     std::string destPred;
 #endif
