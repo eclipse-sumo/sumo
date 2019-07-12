@@ -34,72 +34,153 @@
 // ===========================================================================
 // FOX callback mapping
 // ===========================================================================
+
 FXDEFMAP(GNEProhibitionFrame) GNEProhibitionFrameMap[] = {
-    FXMAPFUNC(SEL_COMMAND, MID_CANCEL, GNEProhibitionFrame::onCmdCancel),
-    FXMAPFUNC(SEL_COMMAND, MID_OK, GNEProhibitionFrame::onCmdOK)
+    FXMAPFUNC(SEL_COMMAND,  MID_CANCEL,     GNEProhibitionFrame::onCmdCancel),
+    FXMAPFUNC(SEL_COMMAND,  MID_OK,         GNEProhibitionFrame::onCmdOK)
 };
 
 // Object implementation
 FXIMPLEMENT(GNEProhibitionFrame, FXVerticalFrame, GNEProhibitionFrameMap, ARRAYNUMBER(GNEProhibitionFrameMap))
 
 // ===========================================================================
-// static members
-// ===========================================================================
-RGBColor GNEProhibitionFrame::selectedColor;
-RGBColor GNEProhibitionFrame::undefinedColor;
-RGBColor GNEProhibitionFrame::prohibitedColor;
-RGBColor GNEProhibitionFrame::prohibitingColor;
-RGBColor GNEProhibitionFrame::unregulatedConflictColor;
-RGBColor GNEProhibitionFrame::mutualConflictColor;
-
-// ===========================================================================
 // method definitions
 // ===========================================================================
 
-GNEProhibitionFrame::GNEProhibitionFrame(FXHorizontalFrame* horizontalFrameParent, GNEViewNet* viewNet) :
-    GNEFrame(horizontalFrameParent, viewNet, "Prohibits"), myCurrentConn(nullptr) {
-    getFrameHeaderLabel()->setText("Prohibitions");
+// ---------------------------------------------------------------------------
+// GNEProhibitionFrame::RelativeToConnection - methods
+// ---------------------------------------------------------------------------
 
-    // init colors here
-    selectedColor = viewNet->getVisualisationSettings()->colorSettings.selectedProhibitionColor;
-    /*
-    undefinedColor = RGBColor::GREY;
-    prohibitedColor = RGBColor(0, 179, 0);
-    prohibitingColor = RGBColor::RED;
-    unregulatedConflictColor = RGBColor::ORANGE;
-    mutualConflictColor = RGBColor::CYAN;
-    */
-    // Create groupbox for current connection information
-    myGroupBoxDescription = new FXGroupBox(myContentFrame, "Relative to connection", GUIDesignGroupBoxFrame);
-
+GNEProhibitionFrame::RelativeToConnection::RelativeToConnection(GNEProhibitionFrame* prohibitionFrameParent) :
+    FXGroupBox(prohibitionFrameParent->myContentFrame, "Relative to connection", GUIDesignGroupBoxFrame),
+    myProhibitionFrameParent(prohibitionFrameParent) {
     // Create label for current connection description and update it
-    myConnDescriptionLabel = new FXLabel(myGroupBoxDescription, "", nullptr, GUIDesignLabelFrameInformation);
+    myConnDescriptionLabel = new FXLabel(this, "", nullptr, GUIDesignLabelFrameInformation);
+    // update description
     updateDescription();
+}
 
-    // Create groupbox for color legend
-    myGroupBoxLegend = new FXGroupBox(myContentFrame, "Legend", GUIDesignGroupBoxFrame);
 
+GNEProhibitionFrame::RelativeToConnection::~RelativeToConnection() {}
+
+
+void
+GNEProhibitionFrame::RelativeToConnection::updateDescription() const {
+    // update depending of myCurrentConn
+    if (myProhibitionFrameParent->myCurrentConn == nullptr) {
+        myConnDescriptionLabel->setText("No Connection selected\n");
+    } else {
+        myConnDescriptionLabel->setText(("from lane " + myProhibitionFrameParent->myCurrentConn->getLaneFrom()->getMicrosimID() + 
+                                         "\nto lane " + myProhibitionFrameParent->myCurrentConn->getLaneTo()->getMicrosimID()).c_str());
+    }
+}
+
+// ---------------------------------------------------------------------------
+// GNEProhibitionFrame::ProhibitionLegend - methods
+// ---------------------------------------------------------------------------
+
+GNEProhibitionFrame::ProhibitionLegend::ProhibitionLegend(GNEProhibitionFrame* prohibitionFrameParent) :
+    FXGroupBox(prohibitionFrameParent->myContentFrame, "Legend", GUIDesignGroupBoxFrame),
+    myUndefinedColor(RGBColor::GREY),
+    myProhibitedColor(RGBColor(0, 179, 0)),
+    myProhibitingColor(RGBColor::RED),
+    myUnregulatedConflictColor(RGBColor::ORANGE),
+    myMutualConflictColor(RGBColor::CYAN) {
     // Create labels for color legend
-    mySelectedLabel = new FXLabel(myGroupBoxLegend, "Selected", nullptr, GUIDesignLabelFrameInformation);
-    mySelectedLabel->setTextColor(MFXUtils::getFXColor(RGBColor::WHITE));
-    mySelectedLabel->setBackColor(MFXUtils::getFXColor(selectedColor));
-    myUndefinedLabel = new FXLabel(myGroupBoxLegend, "No conflict", nullptr, GUIDesignLabelFrameInformation);
-    myUndefinedLabel->setBackColor(MFXUtils::getFXColor(undefinedColor));
-    myProhibitedLabel = new FXLabel(myGroupBoxLegend, "Yields", nullptr, GUIDesignLabelFrameInformation);
-    myProhibitedLabel->setBackColor(MFXUtils::getFXColor(prohibitedColor));
-    myProhibitingLabel = new FXLabel(myGroupBoxLegend, "Has right of way", nullptr, GUIDesignLabelFrameInformation);
-    myProhibitingLabel->setBackColor(MFXUtils::getFXColor(prohibitingColor));
-    myProhibitingLabel = new FXLabel(myGroupBoxLegend, "Unregulated conflict", nullptr, GUIDesignLabelFrameInformation);
-    myProhibitingLabel->setBackColor(MFXUtils::getFXColor(unregulatedConflictColor));
-    myProhibitingLabel = new FXLabel(myGroupBoxLegend, "Mutual conflict", nullptr, GUIDesignLabelFrameInformation);
-    myProhibitingLabel->setBackColor(MFXUtils::getFXColor(mutualConflictColor));
+    FXLabel* legendLabel = new FXLabel(this, "Selected", nullptr, GUIDesignLabelFrameInformation);
+    legendLabel->setTextColor(MFXUtils::getFXColor(RGBColor::WHITE));
+    legendLabel->setBackColor(MFXUtils::getFXColor(prohibitionFrameParent->myViewNet->getVisualisationSettings()->colorSettings.selectedProhibitionColor));
+    // label for conflicts
+    legendLabel = new FXLabel(this, "No conflict", nullptr, GUIDesignLabelFrameInformation);
+    legendLabel->setBackColor(MFXUtils::getFXColor(myUndefinedColor));
+    // label for yields
+    legendLabel = new FXLabel(this, "Yields", nullptr, GUIDesignLabelFrameInformation);
+    legendLabel->setBackColor(MFXUtils::getFXColor(myProhibitedColor));
+    // label for right of way
+    legendLabel = new FXLabel(this, "Has right of way", nullptr, GUIDesignLabelFrameInformation);
+    legendLabel->setBackColor(MFXUtils::getFXColor(myProhibitingColor));
+    // label for unregulated conflict
+    legendLabel = new FXLabel(this, "Unregulated conflict", nullptr, GUIDesignLabelFrameInformation);
+    legendLabel->setBackColor(MFXUtils::getFXColor(myUnregulatedConflictColor));
+    // label for mutual conflict
+    legendLabel = new FXLabel(this, "Mutual conflict", nullptr, GUIDesignLabelFrameInformation);
+    legendLabel->setBackColor(MFXUtils::getFXColor(myMutualConflictColor));
+}
+
+
+GNEProhibitionFrame::ProhibitionLegend::~ProhibitionLegend() {}
+
+
+const RGBColor& 
+GNEProhibitionFrame::ProhibitionLegend::getUndefinedColor() const {
+    return myUndefinedColor;
+}
+
+
+const RGBColor& 
+GNEProhibitionFrame::ProhibitionLegend::getProhibitedColor() const {
+    return myProhibitedColor;
+}
+
+
+const RGBColor& 
+GNEProhibitionFrame::ProhibitionLegend::getProhibitingColor() const {
+    return myProhibitingColor;
+}
+
+
+const RGBColor& 
+GNEProhibitionFrame::ProhibitionLegend::getUnregulatedConflictColor() const {
+    return myUnregulatedConflictColor;
+}
+
+
+const RGBColor& 
+GNEProhibitionFrame::ProhibitionLegend::getMutualConflictColor() const {
+    return myMutualConflictColor;
+}
+
+// ---------------------------------------------------------------------------
+// GNEProhibitionFrame::Modifications - methods
+// ---------------------------------------------------------------------------
+
+GNEProhibitionFrame::Modifications::Modifications(GNEProhibitionFrame* prohibitionFrameParent) :
+    FXGroupBox(prohibitionFrameParent->myContentFrame, "Modifications", GUIDesignGroupBoxFrame) {
+    
+    // Create "OK" button
+    mySaveButton = new FXButton(this, "OK\t\tSave prohibition modifications (Enter)",
+                                GUIIconSubSys::getIcon(ICON_ACCEPT), prohibitionFrameParent, MID_OK, GUIDesignButton);
 
     // Create "Cancel" button
     myCancelButton = new FXButton(this, "Cancel\t\tDiscard prohibition modifications (Esc)",
-                                  GUIIconSubSys::getIcon(ICON_CANCEL), this, MID_CANCEL, GUIDesignButton);
-    // Create "OK" button
-    //mySaveButton = new FXButton(this, "OK\t\tSave prohibition modifications (Enter)",
-    //    GUIIconSubSys::getIcon(ICON_ACCEPT), this, MID_OK, GUIDesignButton);
+                                  GUIIconSubSys::getIcon(ICON_CANCEL), prohibitionFrameParent, MID_CANCEL, GUIDesignButton);
+
+    // Currently mySaveButton is disabled
+    mySaveButton->disable();
+    mySaveButton->hide();
+}
+
+
+GNEProhibitionFrame::Modifications::~Modifications() {}
+
+// ---------------------------------------------------------------------------
+// GNEProhibitionFrame - methods
+// ---------------------------------------------------------------------------
+
+GNEProhibitionFrame::GNEProhibitionFrame(FXHorizontalFrame* horizontalFrameParent, GNEViewNet* viewNet) :
+    GNEFrame(horizontalFrameParent, viewNet, "Prohibits"), 
+    myCurrentConn(nullptr) {
+    // set frame header label
+    getFrameHeaderLabel()->setText("Prohibitions");
+
+    // create RelativeToConnection
+    myRelativeToConnection = new RelativeToConnection(this);
+
+    // create ProhibitionLegend
+    myProhibitionLegend = new ProhibitionLegend(this);
+
+    // create Modifications
+    myModifications = new Modifications(this);
 }
 
 
@@ -125,16 +206,6 @@ GNEProhibitionFrame::hide() {
 }
 
 
-void
-GNEProhibitionFrame::updateDescription() const {
-    if (myCurrentConn == nullptr) {
-        myConnDescriptionLabel->setText("No Connection selected\n");
-    } else {
-        myConnDescriptionLabel->setText(("from lane " + myCurrentConn->getLaneFrom()->getMicrosimID() + "\nto lane " + myCurrentConn->getLaneTo()->getMicrosimID()).c_str());
-    }
-}
-
-
 long
 GNEProhibitionFrame::onCmdCancel(FXObject*, FXSelector, void*) {
     if (myCurrentConn != nullptr) {
@@ -144,18 +215,27 @@ GNEProhibitionFrame::onCmdCancel(FXObject*, FXSelector, void*) {
         myCurrentConn->setSpecialColor(nullptr);
         myCurrentConn = nullptr;
         myConcernedConns.clear();
-        updateDescription();
+        myRelativeToConnection->updateDescription();
         myViewNet->update();
     }
     return 1;
 }
 
 
+long
+GNEProhibitionFrame::onCmdOK(FXObject*, FXSelector, void*) {
+    return 1;
+}
+
+// ---------------------------------------------------------------------------
+// GNEProhibitionFrame - private methods
+// ---------------------------------------------------------------------------
+
 void
 GNEProhibitionFrame::buildProhibition(GNEConnection* conn, bool /* mayDefinitelyPass */, bool /* allowConflict */, bool /* toggle */) {
     if (myCurrentConn == nullptr) {
         myCurrentConn = conn;
-        myCurrentConn->setSpecialColor(&selectedColor);
+        myCurrentConn->setSpecialColor(&myViewNet->getVisualisationSettings()->colorSettings.selectedProhibitionColor);
 
         // determine prohibition status of all other connections with respect to the selected one
         GNEJunction* junction = myCurrentConn->getEdgeFrom()->getGNEJunctionDestiny();
@@ -168,45 +248,38 @@ GNEProhibitionFrame::buildProhibition(GNEConnection* conn, bool /* mayDefinitely
         std::string currentResponseString = node->getResponse(currentLinkIndex);
         std::reverse(currentFoesString.begin(), currentFoesString.end());
         std::reverse(currentResponseString.begin(), currentResponseString.end());
-
-        for (auto i : allConns) {
+        // iterate over all connections
+        for (const auto &i : allConns) {
             if (i != myCurrentConn) {
                 NBEdge* otherConnFrom = i->getEdgeFrom()->getNBEdge();
                 const int linkIndex = node->getConnectionIndex(otherConnFrom, i->getNBEdgeConnection());
                 std::string responseString = node->getResponse(linkIndex);
                 std::reverse(responseString.begin(), responseString.end());
                 // determine the prohibition status
-                bool foes = (int)currentFoesString.size() > linkIndex && currentFoesString[linkIndex] == '1';
-                bool forbids = (int)responseString.size() > currentLinkIndex && responseString[currentLinkIndex] == '1';
-                bool forbidden = (int)currentResponseString.size() > linkIndex && currentResponseString[linkIndex] == '1';
-
+                bool foes = ((int)currentFoesString.size() > linkIndex) && (currentFoesString[linkIndex] == '1');
+                bool forbids = ((int)responseString.size() > currentLinkIndex) && (responseString[currentLinkIndex] == '1');
+                bool forbidden = ((int)currentResponseString.size() > linkIndex) && (currentResponseString[linkIndex] == '1');
+                // insert in myConcernedConns
                 myConcernedConns.insert(i);
-
+                // change color depending of prohibition status
                 if (!foes) {
-                    i->setSpecialColor(&undefinedColor);
+                    i->setSpecialColor(&myProhibitionLegend->getUndefinedColor());
                 } else {
                     if (forbids && forbidden) {
-                        i->setSpecialColor(&mutualConflictColor);
+                        i->setSpecialColor(&myProhibitionLegend->getMutualConflictColor());
                     } else if (forbids) {
-                        i->setSpecialColor(&prohibitedColor);
+                        i->setSpecialColor(&myProhibitionLegend->getProhibitedColor());
                     } else if (forbidden) {
-                        i->setSpecialColor(&prohibitingColor);
+                        i->setSpecialColor(&myProhibitionLegend->getProhibitingColor());
                     } else {
-                        i->setSpecialColor(&unregulatedConflictColor);
+                        i->setSpecialColor(&myProhibitionLegend->getUnregulatedConflictColor());
                     }
                 }
             }
         }
-
-        updateDescription();
+        // update description
+        myRelativeToConnection->updateDescription();
     }
 }
-
-
-long
-GNEProhibitionFrame::onCmdOK(FXObject*, FXSelector, void*) {
-    return 1;
-}
-
 
 /****************************************************************************/
