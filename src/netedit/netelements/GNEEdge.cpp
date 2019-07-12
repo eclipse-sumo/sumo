@@ -1230,7 +1230,7 @@ GNEEdge::drawPartialRoute(const GUIVisualizationSettings& s, const GNEDemandElem
     // obtain color
     RGBColor routeColor;
     if (route->drawUsingSelectColor()) {
-        routeColor =s.colorSettings.selectedAdditionalColor;
+        routeColor =s.colorSettings.selectedRouteColor;
     } else {
         routeColor = route->getColor();
     }
@@ -1306,7 +1306,7 @@ GNEEdge::drawPartialTripFromTo(const GUIVisualizationSettings& s, const GNEDeman
     glTranslated(0, 0, tripOrFromTo->getType());
     // Set color of the base
     if (tripOrFromTo->drawUsingSelectColor()) {
-        GLHelper::setColor(s.colorSettings.selectedConnectionColor);
+        GLHelper::setColor(s.colorSettings.selectedVehicleColor);
     } else {
         GLHelper::setColor(s.colorSettings.vehicleTrips);
     }
@@ -1375,7 +1375,7 @@ GNEEdge::drawPartialPersonPlan(const GUIVisualizationSettings& s, const GNEDeman
         RGBColor personPlanColor;
         // Set color depending of person plan type
         if (personPlan->drawUsingSelectColor()) {
-            personPlanColor = s.colorSettings.selectedAdditionalColor;
+            personPlanColor = s.colorSettings.selectedPersonPlanColor;
         } else if (personPlan->getTagProperty().isPersonTrip()) {
             personPlanColor = s.colorSettings.personTrip;
         } else if (personPlan->getTagProperty().isWalk()) {
@@ -1459,7 +1459,7 @@ GNEEdge::drawPartialPersonPlan(const GUIVisualizationSettings& s, const GNEDeman
                     glTranslated(pos.x(), pos.y(), GLO_PERSONTRIP + 0.01);
                     // Set color depending of person plan type
                     if (personPlan->drawUsingSelectColor()) {
-                        GLHelper::setColor(s.colorSettings.selectedAdditionalColor);
+                        GLHelper::setColor(s.colorSettings.selectedPersonPlanColor);
                     } else if (personPlan->getTagProperty().isPersonTrip()) {
                         GLHelper::setColor(s.colorSettings.personTrip);
                     } else if (personPlan->getTagProperty().isWalk()) {

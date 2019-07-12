@@ -141,7 +141,7 @@ struct GUIVisualizationColorSettings {
     /// @brief additional selection color (busStops, Detectors...)
     RGBColor selectedAdditionalColor;
 
-    /// @brief route selection color
+    /// @brief route selection color (used for routes and vehicle stops)
     RGBColor selectedRouteColor;
 
     /// @brief vehicle selection color
@@ -150,7 +150,7 @@ struct GUIVisualizationColorSettings {
     /// @brief person  selection color
     RGBColor selectedPersonColor;
 
-    /// @brief person plan selection color (Rides, Walks...)
+    /// @brief person plan selection color (Rides, Walks, personStops...)
     RGBColor selectedPersonPlanColor;
 
     /// @brief color for busStops

@@ -74,7 +74,11 @@ GNEStop::getBegin() const {
 
 const RGBColor&
 GNEStop::getColor() const {
-    return RGBColor::BLACK;
+    if (myTagProperty.isPersonStop()) {
+        return myViewNet->getVisualisationSettings()->colorSettings.personStops;
+    } else {
+        return myViewNet->getVisualisationSettings()->colorSettings.stops;
+    }
 }
 
 
@@ -349,7 +353,11 @@ GNEStop::drawGL(const GUIVisualizationSettings& s) const {
         RGBColor stopColor;
         // Set color
         if (drawUsingSelectColor()) {
-            stopColor = s.colorSettings.selectedAdditionalColor;
+            if (myTagProperty.isPersonStop()) {
+                stopColor = s.colorSettings.selectedPersonPlanColor;
+            } else {
+                stopColor = s.colorSettings.selectedRouteColor;
+            }
         } else if (myTagProperty.isPersonStop()) {
             stopColor = s.colorSettings.personStops;
         } else {
@@ -361,14 +369,6 @@ GNEStop::drawGL(const GUIVisualizationSettings& s) const {
         glPushMatrix();
         // Start with the drawing of the area traslating matrix to origin
         glTranslated(0, 0, getType());
-        // Set color of the base
-        if (drawUsingSelectColor()) {
-            GLHelper::setColor(s.colorSettings.selectedAdditionalColor);
-        } else if (myTagProperty.isPersonStop()) {
-            GLHelper::setColor(s.colorSettings.personStops);
-        } else {
-            GLHelper::setColor(s.colorSettings.stops);
-        }
         // draw depending of details
         if (s.drawDetail(s.detailSettings.stopsDetails, exaggeration) && getLaneParents().size() > 0) {
             // Draw the area using shape, shapeRotations, shapeLengths and value of exaggeration
