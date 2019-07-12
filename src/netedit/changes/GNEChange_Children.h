@@ -42,11 +42,17 @@ class GNEChange_Children : public GNEChange {
     FXDECLARE_ABSTRACT(GNEChange_Children)
 
 public:
+    // @brief operation over demand element child
+    enum Operation {
+        MOVE_UP = 0,    // Move element one position up
+        MOVE_DOWN = 1   // Move element one position down
+    };
+
     /**@brief Constructor for creating/deleting an additional element
      * @param[in] additional The additional element to be created/deleted
      * @param[in] forward Whether to create/delete (true/false)
      */
-    GNEChange_Children(GNEDemandElement* demandElementParent, bool forward);
+    GNEChange_Children(GNEDemandElement* demandElementParent, const GNEDemandElement* demandElementChild, const Operation operation);
 
     /// @brief Destructor
     ~GNEChange_Children();
@@ -72,7 +78,12 @@ private:
      */
     GNEDemandElement* myDemandElementParent;
 
-    /// @brief reference to vector of demand element children
+    /// @brief demand element which position will be edited edited
+    const GNEDemandElement* myDemandElementChild;
+
+    const Operation myOperation;
+
+    /// @brief copy of demand element childrens before apply operation
     const std::vector<GNEDemandElement*>& myDemandElementChildren;
 };
 

@@ -35,9 +35,11 @@ FXIMPLEMENT_ABSTRACT(GNEChange_Children, GNEChange, nullptr, 0)
 // member method definitions
 // ===========================================================================
 
-GNEChange_Children::GNEChange_Children(GNEDemandElement* demandElementParent, bool forward) :
-    GNEChange(demandElementParent->getViewNet()->getNet(), forward),
+GNEChange_Children::GNEChange_Children(GNEDemandElement* demandElementParent, const GNEDemandElement* demandElementChild, const Operation operation) :
+    GNEChange(demandElementParent->getViewNet()->getNet(), true),
     myDemandElementParent(demandElementParent),
+    myDemandElementChild(demandElementChild),
+    myOperation(operation),
     myDemandElementChildren(demandElementParent->getDemandElementChildren()) {
     myDemandElementParent->incRef("GNEChange_Children");
 }
@@ -52,27 +54,27 @@ GNEChange_Children::~GNEChange_Children() {
 void
 GNEChange_Children::undo() {
     if (myForward) {
-        // show extra information for tests
-        WRITE_DEBUG("Removing " + myDemandElementParent->getTagStr() + " '" + myDemandElementParent->getID() + "' in GNEChange_Children");
-        /*
-        // delete children from net
-        myNet->deleteChildren(myChildren, false);
-        // Remove children from parent elements
-        for (const auto& i : myEdgeParents) {
-            i->removeChildrenChild(myChildren);
+        // continue depending of myOperation
+        if (myOperation == GNEChange_Children::Operation::MOVE_UP) {
+            // show extra information for tests
+            WRITE_DEBUG("Moving down " + myDemandElementChild->getTagStr() + " within parent '" + myDemandElementParent->getID() + "' in GNEChange_Children");
+            /*** ***/
+        } else {
+            // show extra information for tests
+            WRITE_DEBUG("Moving up " + myDemandElementChild->getTagStr() + " within parent '" + myDemandElementParent->getID() + "' in GNEChange_Children");
+            /*** ***/
         }
-        */
     } else {
-        // show extra information for tests
-        WRITE_DEBUG("Adding " + myDemandElementParent->getTagStr() + " '" + myDemandElementParent->getID() + "' in GNEChange_Children");
-        /*
-        // insert children into net
-        myNet->insertChildren(myChildren);
-        // add children in parent elements
-        for (const auto& i : myEdgeParents) {
-            i->addChildrenChild(myChildren);
+        // continue depending of myOperation
+        if (myOperation == GNEChange_Children::Operation::MOVE_UP) {
+            // show extra information for tests
+            WRITE_DEBUG("Moving up " + myDemandElementChild->getTagStr() + " within parent '" + myDemandElementParent->getID() + "' in GNEChange_Children");
+            /*** ***/
+        } else {
+            // show extra information for tests
+            WRITE_DEBUG("Moving down " + myDemandElementChild->getTagStr() + " within parent '" + myDemandElementParent->getID() + "' in GNEChange_Children");
+            /*** ***/
         }
-        */
     }
     // Requiere always save childrens
     myNet->requiereSaveDemandElements(true);
@@ -82,27 +84,27 @@ GNEChange_Children::undo() {
 void
 GNEChange_Children::redo() {
     if (myForward) {
-        // show extra information for tests
-        WRITE_DEBUG("Adding " + myDemandElementParent->getTagStr() + " '" + myDemandElementParent->getID() + "' in GNEChange_Children");
-        /*
-        // insert children into net
-        myNet->insertChildren(myChildren);
-        // add children in parent elements
-        for (const auto& i : myEdgeParents) {
-            i->addChildrenChild(myChildren);
+        // continue depending of myOperation
+        if (myOperation == GNEChange_Children::Operation::MOVE_UP) {
+            // show extra information for tests
+            WRITE_DEBUG("Moving up " + myDemandElementChild->getTagStr() + " within parent '" + myDemandElementParent->getID() + "' in GNEChange_Children");
+            /*** ***/
+        } else {
+            // show extra information for tests
+            WRITE_DEBUG("Moving down " + myDemandElementChild->getTagStr() + " within parent '" + myDemandElementParent->getID() + "' in GNEChange_Children");
+            /*** ***/
         }
-        */
     } else {
-        // show extra information for tests
-        WRITE_DEBUG("Removing " + myDemandElementParent->getTagStr() + " '" + myDemandElementParent->getID() + "' in GNEChange_Children");
-        /*
-        // delete children from net
-        myNet->deleteChildren(myChildren, false);
-        // Remove children from parent elements
-        for (const auto& i : myEdgeParents) {
-            i->removeChildrenChild(myChildren);
+        // continue depending of myOperation
+        if (myOperation == GNEChange_Children::Operation::MOVE_UP) {
+            // show extra information for tests
+            WRITE_DEBUG("Moving down " + myDemandElementChild->getTagStr() + " within parent '" + myDemandElementParent->getID() + "' in GNEChange_Children");
+            /*** ***/
+        } else {
+            // show extra information for tests
+            WRITE_DEBUG("Moving up " + myDemandElementChild->getTagStr() + " within parent '" + myDemandElementParent->getID() + "' in GNEChange_Children");
+            /*** ***/
         }
-        */
     }
     // Requiere always save childrens
     myNet->requiereSaveDemandElements(true);
@@ -112,9 +114,19 @@ GNEChange_Children::redo() {
 FXString
 GNEChange_Children::undoName() const {
     if (myForward) {
-        return ("Undo create " + myDemandElementParent->getTagStr()).c_str();
+        // check myOperation
+        if (myOperation == GNEChange_Children::Operation::MOVE_UP) {
+            return ("Undo moving up " + myDemandElementParent->getTagStr()).c_str();
+        } else {
+            return ("Undo moving down " + myDemandElementParent->getTagStr()).c_str();
+        }
     } else {
-        return ("Undo delete " + myDemandElementParent->getTagStr()).c_str();
+        // check myOperation
+        if (myOperation == GNEChange_Children::Operation::MOVE_UP) {
+            return ("Undo moving down " + myDemandElementParent->getTagStr()).c_str();
+        } else {
+            return ("Undo moving up " + myDemandElementParent->getTagStr()).c_str();
+        }
     }
 }
 
@@ -122,8 +134,18 @@ GNEChange_Children::undoName() const {
 FXString
 GNEChange_Children::redoName() const {
     if (myForward) {
-        return ("Redo create " + myDemandElementParent->getTagStr()).c_str();
+        // check myOperation
+        if (myOperation == GNEChange_Children::Operation::MOVE_UP) {
+            return ("Redo moving up " + myDemandElementParent->getTagStr()).c_str();
+        } else {
+            return ("Redo moving down " + myDemandElementParent->getTagStr()).c_str();
+        }
     } else {
-        return ("Redo delete " + myDemandElementParent->getTagStr()).c_str();
+        // check myOperation
+        if (myOperation == GNEChange_Children::Operation::MOVE_UP) {
+            return ("Redo moving down " + myDemandElementParent->getTagStr()).c_str();
+        } else {
+            return ("Redo moving up " + myDemandElementParent->getTagStr()).c_str();
+        }
     }
 }

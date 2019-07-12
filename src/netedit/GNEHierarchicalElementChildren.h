@@ -46,6 +46,10 @@ class GNEShape;
 class GNEHierarchicalElementChildren {
 
 public:
+
+    /// @brief declare GNEChange_Children as friend class
+    friend class GNEChange_Children;
+
     /**@brief Parameter Constructor
      * @param[in] edgeChildren vector of edge children
      * @param[in] laneChildren vector of lane children
