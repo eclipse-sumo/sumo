@@ -60,6 +60,9 @@ const RGBColor SUMO_color_DEADEND(0, 0, 0);
 // color constants for other objects
 // -------------------------------------------------------------------------
 
+const RGBColor GUIVisualizationColorSettings::crossing(25, 25, 25);
+const RGBColor GUIVisualizationColorSettings::crossingPriority(229, 229, 229);
+const RGBColor GUIVisualizationColorSettings::crossingInvalid(255, 25, 25);
 const RGBColor GUIVisualizationColorSettings::busStop(76, 170, 50);
 const RGBColor GUIVisualizationColorSettings::busStop_sign(255, 235, 0);
 const RGBColor GUIVisualizationColorSettings::containerStop(83, 89, 172);
@@ -241,6 +244,8 @@ GUIVisualizationColorSettings::GUIVisualizationColorSettings() :
     selectedEdgeColor(0, 0, 204, 255),
     selectedLaneColor(0, 0, 128, 255),
     selectedConnectionColor(0, 0, 100, 255),
+    selectedProhibitionColor(0, 0, 120, 255),
+    selectedCrossingColor(0, 100, 196, 255),
     selectedAdditionalColor(0, 0, 150, 255),
     selectedRouteColor(0, 0, 150, 255),
     selectedVehicleColor(0, 0, 100, 255),
@@ -255,6 +260,8 @@ GUIVisualizationColorSettings::operator==(const GUIVisualizationColorSettings& v
            (selectedEdgeColor == v2.selectedEdgeColor) &&
            (selectedLaneColor == v2.selectedLaneColor) &&
            (selectedConnectionColor == v2.selectedConnectionColor) &&
+           (selectedProhibitionColor == v2.selectedProhibitionColor) &&
+           (selectedCrossingColor == v2.selectedCrossingColor) &&
            (selectedAdditionalColor == v2.selectedAdditionalColor);
            (selectedRouteColor == v2.selectedRouteColor) &&
            (selectedVehicleColor == v2.selectedVehicleColor) &&
@@ -269,6 +276,8 @@ GUIVisualizationColorSettings::operator!=(const GUIVisualizationColorSettings& v
            (selectedEdgeColor != v2.selectedEdgeColor) ||
            (selectedLaneColor != v2.selectedLaneColor) ||
            (selectedConnectionColor != v2.selectedConnectionColor) ||
+           (selectedProhibitionColor != v2.selectedProhibitionColor) ||
+           (selectedCrossingColor != v2.selectedCrossingColor) ||
            (selectedAdditionalColor != v2.selectedAdditionalColor) ||
            (selectedRouteColor != v2.selectedRouteColor) ||
            (selectedVehicleColor != v2.selectedVehicleColor) ||

@@ -263,6 +263,8 @@ private:
     FXColorWell* mySelectedEdgeColor;
     FXColorWell* mySelectedLaneColor;
     FXColorWell* mySelectedConnectionColor;
+    FXColorWell* mySelectedProhibitionColor;
+    FXColorWell* mySelectedCrossingColor;
     FXColorWell* mySelectedAdditionalColor;
     FXColorWell* mySelectedRouteColor;
     FXColorWell* mySelectedVehicleColor;

@@ -61,13 +61,14 @@ GNEProhibitionFrame::GNEProhibitionFrame(FXHorizontalFrame* horizontalFrameParen
     getFrameHeaderLabel()->setText("Prohibitions");
 
     // init colors here
-    selectedColor = viewNet->getVisualisationSettings()->colorSettings.selectedConnectionColor;
+    selectedColor = viewNet->getVisualisationSettings()->colorSettings.selectedProhibitionColor;
+    /*
     undefinedColor = RGBColor::GREY;
     prohibitedColor = RGBColor(0, 179, 0);
     prohibitingColor = RGBColor::RED;
     unregulatedConflictColor = RGBColor::ORANGE;
     mutualConflictColor = RGBColor::CYAN;
-
+    */
     // Create groupbox for current connection information
     myGroupBoxDescription = new FXGroupBox(myContentFrame, "Relative to connection", GUIDesignGroupBoxFrame);
 

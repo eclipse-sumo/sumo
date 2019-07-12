@@ -138,6 +138,12 @@ struct GUIVisualizationColorSettings {
     /// @brief connection selection color
     RGBColor selectedConnectionColor;
 
+    /// @brief prohibition selection color
+    RGBColor selectedProhibitionColor;
+
+    /// @brief crossings selection color
+    RGBColor selectedCrossingColor;
+
     /// @brief additional selection color (busStops, Detectors...)
     RGBColor selectedAdditionalColor;
 
@@ -152,6 +158,15 @@ struct GUIVisualizationColorSettings {
 
     /// @brief person plan selection color (Rides, Walks, personStops...)
     RGBColor selectedPersonPlanColor;
+
+    /// @brief color for crossings
+    static const RGBColor crossing;
+
+    /// @brief color for priority crossing
+    static const RGBColor crossingPriority;
+
+    /// @brief color for invalid crossing
+    static const RGBColor crossingInvalid;
 
     /// @brief color for busStops
     static const RGBColor busStop;
