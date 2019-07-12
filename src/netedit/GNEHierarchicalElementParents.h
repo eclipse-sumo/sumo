@@ -48,45 +48,9 @@ class GNEConnection;
 class GNEHierarchicalElementParents {
 
 public:
-    /// @brief struct for pack geometry between two points
-    struct LineGeometry {
-        /// @brief constructor
-        LineGeometry(const Position &_firstPoint);
 
-        /// @brief calculate rotation and lenght to the given second point
-        void calculateRotationsAndLength(const Position &secondPoint);
-
-        /// @brieff first point
-        Position firstPoint;
-
-        /// @brief line rotation
-        double rotation;
-
-        /// @brief line lenghtlenght
-        double lenght;
-    private:
-        /// @brief default constructor
-        LineGeometry();
-    };
-
-    /// @brief struct for pack variables related to edge geometry limits
-    struct EdgeGeometryLimits {
-        /// @brief constructor
-        EdgeGeometryLimits(const int _indexBegin, const int _indexEnd, GNEConnection* _nextConnection);
-        
-        /// @brief index lane begin
-        int indexBegin;
-
-        /// @brief index lane end
-        int indexEnd;
-
-        /// @brief next connection
-        GNEConnection* nextConnection;
-
-    private:
-        /// @brief default constructor
-        EdgeGeometryLimits();
-    };
+    /// @brief declare GNEChange_Children as friend class
+    friend class GNEChange_Children;
 
     /**@brief Constructor used by elements that have another additionals as parent
      * @param[in] tag Type of xml tag that define the element (SUMO_TAG_BUS_STOP, SUMO_TAG_JUNCTION, etc...)
@@ -281,14 +245,8 @@ private:
     /// @brief list of demand elements parents of this element
     std::vector<GNEDemandElement*> myDemandElementParents;
 
-    /// @brief vector used to save edge geometry limits (used for drawing routes)
-    std::vector<EdgeGeometryLimits> myEdgeGeometryLimits;
-
     /// @brief pointer to AC (needed to avoid diamond problem)
     GNEAttributeCarrier* myAC;
-
-    /// @brief get next connection of the given edge (or NULL if not exist)
-    GNEConnection* getNextConnection(const GNEEdge* edgeFrom) const;
 
     /// @brief Invalidated copy constructor.
     GNEHierarchicalElementParents(const GNEHierarchicalElementParents&) = delete;

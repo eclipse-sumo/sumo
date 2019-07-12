@@ -47,38 +47,6 @@
 // ===========================================================================
 
 // ---------------------------------------------------------------------------
-// GNEHierarchicalElementParents::LineGeometry - methods
-// ---------------------------------------------------------------------------
-
-GNEHierarchicalElementParents::LineGeometry::LineGeometry(const Position &_firstPoint) :
-    firstPoint(_firstPoint),
-    rotation(0),
-    lenght(0) {
-}
-
-
-void
-GNEHierarchicalElementParents::LineGeometry::calculateRotationsAndLength(const Position &secondPoint) {
-    // only calculate both values if first and second point are different
-    if (firstPoint != secondPoint) {
-        // Save distance between position into myShapeLengths
-        lenght = firstPoint.distanceTo(secondPoint);
-        // Save rotation (angle) of the vector constructed by points f and s
-        rotation = (double)atan2((secondPoint.x() - firstPoint.x()), (firstPoint.y() - secondPoint.y())) * (double) 180.0 / (double)M_PI;
-    }
-}
-
-// ---------------------------------------------------------------------------
-// GNEHierarchicalElementParents::EdgeGeometryLimits - methods
-// ---------------------------------------------------------------------------
-
-GNEHierarchicalElementParents::EdgeGeometryLimits::EdgeGeometryLimits(const int _indexBegin, const int _indexEnd, GNEConnection* _nextConnection) :
-    indexBegin(_indexBegin),
-    indexEnd(_indexEnd),
-    nextConnection(_nextConnection) {
-}
-
-// ---------------------------------------------------------------------------
 // GNEHierarchicalElementParents - methods
 // ---------------------------------------------------------------------------
 
@@ -95,12 +63,6 @@ GNEHierarchicalElementParents::GNEHierarchicalElementParents(GNEAttributeCarrier
     myAdditionalParents(additionalParents),
     myDemandElementParents(demandElementParents),
     myAC(AC) {
-    // fill myEdgeParentsLaneIndex
-    myEdgeGeometryLimits.reserve(edgeParents.size());
-    for (const auto &i : edgeParents) {
-        UNUSED_PARAMETER(i);
-        myEdgeGeometryLimits.push_back(EdgeGeometryLimits(0,0, nullptr));
-    }
 }
 
 
@@ -174,7 +136,6 @@ GNEHierarchicalElementParents::addEdgeParent(GNEEdge* edge) {
         throw InvalidArgument("Trying to add a duplicate " + toString(SUMO_TAG_EDGE) + " parent in " + myAC->getTagStr() + " with ID='" + myAC->getID() + "'");
     } else {
         myEdgeParents.push_back(edge);
-        myEdgeGeometryLimits.push_back(EdgeGeometryLimits(0,0, nullptr));
     }
 }
 
@@ -189,7 +150,6 @@ GNEHierarchicalElementParents::removeEdgeParent(GNEEdge* edge) {
         if (it == myEdgeParents.end()) {
             throw InvalidArgument("Trying to remove a non previously inserted " + toString(SUMO_TAG_EDGE) + " parent in " + myAC->getTagStr() + " with ID='" + myAC->getID() + "'");
         } else {
-            myEdgeGeometryLimits.erase(myEdgeGeometryLimits.begin() + (it - myEdgeParents.begin()));
             myEdgeParents.erase(it);
         }
     }
@@ -605,32 +565,6 @@ GNEHierarchicalElementParents::changeDemandElementParent(GNEDemandElement* deman
         // update geometry after inserting
         demandElementTobeChanged->updateGeometry();
     }
-}
-
-// ---------------------------------------------------------------------------
-// Private methods
-// ---------------------------------------------------------------------------
-
-GNEConnection* 
-GNEHierarchicalElementParents::getNextConnection(const GNEEdge* edgeFrom) const {
-    for (int i = 0; i < (int)myEdgeParents.size(); i++) {
-        if (myEdgeParents.at(i) == edgeFrom) {
-            // check if current edge is the last edge
-            if (i < ((int)myEdgeParents.size()-1)) {
-                // search a common connection between edgeFrom and their next edge
-                for (const auto &j : myEdgeParents.at(i)->getGNEConnections()) {
-                    for (const auto &k : myEdgeParents.at(i+1)->getLanes()) {
-                        if (j->getLaneTo() == k) {
-                            return j; 
-                        }
-                    }
-                }
-            } else {
-                return nullptr;
-            }
-        }
-    }
-    return nullptr;
 }
 
 /****************************************************************************/
