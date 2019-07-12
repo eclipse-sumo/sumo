@@ -2295,9 +2295,11 @@ GNEFrame::AttributeCarrierHierarchy::onCmdDeleteItem(FXObject*, FXSelector, void
 long 
 GNEFrame::AttributeCarrierHierarchy::onCmdMoveItemUp(FXObject*, FXSelector, void*) {
     GNEDemandElement *demandElement = dynamic_cast<GNEDemandElement*>(myRightClickedAC);
+    /*
     if(demandElement) {
         demandElement->getDemandElementParents().at(0)->moveDemandElementChildUp(demandElement);
     }
+    */
     // refresh after moving child
     refreshAttributeCarrierHierarchy();
     return 1;
@@ -2307,9 +2309,11 @@ GNEFrame::AttributeCarrierHierarchy::onCmdMoveItemUp(FXObject*, FXSelector, void
 long 
 GNEFrame::AttributeCarrierHierarchy::onCmdMoveItemDown(FXObject*, FXSelector, void*) {
     GNEDemandElement *demandElement = dynamic_cast<GNEDemandElement*>(myRightClickedAC);
+    /*
     if(demandElement) {
         demandElement->getDemandElementParents().at(0)->moveDemandElementChildDown(demandElement);
     }
+    */
     // refresh after moving child
     refreshAttributeCarrierHierarchy();
     return 1;
@@ -2342,6 +2346,7 @@ GNEFrame::AttributeCarrierHierarchy::createPopUpMenu(int X, int Y, GNEAttributeC
             new FXMenuSeparator(pane);
             FXMenuCommand* moveUpMenuCommand = new FXMenuCommand(pane, "Move up", GUIIconSubSys::getIcon(ICON_ARROW_UP), this, MID_GNE_ACHIERARCHY_MOVEUP);
             FXMenuCommand* moveDownMenuCommand = new FXMenuCommand(pane, "Move down", GUIIconSubSys::getIcon(ICON_ARROW_DOWN), this, MID_GNE_ACHIERARCHY_MOVEDOWN);
+            /*
             // check if menu commands has to be disabled
             if (GNEAttributeCarrier::parse<bool>(ac->getAttribute(GNE_ATTR_FIRST_CHILD))) {
                 moveUpMenuCommand->disable();
@@ -2349,6 +2354,7 @@ GNEFrame::AttributeCarrierHierarchy::createPopUpMenu(int X, int Y, GNEAttributeC
             if (GNEAttributeCarrier::parse<bool>(ac->getAttribute(GNE_ATTR_LAST_CHILD))) {
                 moveDownMenuCommand->disable();
             }
+            */
         }
         // Center in the mouse position and create pane
         pane->setX(X);

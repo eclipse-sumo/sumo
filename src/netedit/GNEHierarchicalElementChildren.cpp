@@ -328,56 +328,6 @@ GNEHierarchicalElementChildren::checkDemandElementChildrenOverlapping() const {
 }
 
 
-void 
-GNEHierarchicalElementChildren::moveDemandElementChildUp(GNEDemandElement* demandElement) {
-    // First check that demandElement was already inserted
-    auto it = std::find(myDemandElementChildren.begin(), myDemandElementChildren.end(), demandElement);
-    if (it == myDemandElementChildren.end()) {
-        throw ProcessError(demandElement->getTagStr() + " with ID='" + demandElement->getID() + "' doesn't exist in " + myAC->getTagStr() + " with ID='" + myAC->getID() + "'");
-    } else if (it != myDemandElementChildren.begin()) {
-        // simply swap it element with their previous element
-        std::swap(*it, *(it-1));
-    }
-}
-    
-
-void 
-GNEHierarchicalElementChildren::moveDemandElementChildDown(GNEDemandElement* demandElement) {
-    // First check that demandElement was already inserted
-    auto it = std::find(myDemandElementChildren.begin(), myDemandElementChildren.end(), demandElement);
-    if (it == myDemandElementChildren.end()) {
-        throw ProcessError(demandElement->getTagStr() + " with ID='" + demandElement->getID() + "' doesn't exist in " + myAC->getTagStr() + " with ID='" + myAC->getID() + "'");
-    } else if (it != (myDemandElementChildren.end()-1)) {
-        // simply swap it element with their next element
-        std::swap(*it, *(it+1));
-    }
-}
-
-
-bool 
-GNEHierarchicalElementChildren::isFirstDemandElementChild(const GNEDemandElement* demandElement) const {
-    // First check that demandElement was already inserted
-    auto it = std::find(myDemandElementChildren.begin(), myDemandElementChildren.end(), demandElement);
-    if (it == myDemandElementChildren.end()) {
-        throw ProcessError(demandElement->getTagStr() + " with ID='" + demandElement->getID() + "' doesn't exist in " + myAC->getTagStr() + " with ID='" + myAC->getID() + "'");
-    } else {
-        return (it == myDemandElementChildren.begin());
-    }
-}
-
-
-bool 
-GNEHierarchicalElementChildren::isLastDemandElementChild(const GNEDemandElement* demandElement) const {
-    // First check that demandElement was already inserted
-    auto it = std::find(myDemandElementChildren.begin(), myDemandElementChildren.end(), demandElement);
-    if (it == myDemandElementChildren.end()) {
-        throw ProcessError(demandElement->getTagStr() + " with ID='" + demandElement->getID() + "' doesn't exist in " + myAC->getTagStr() + " with ID='" + myAC->getID() + "'");
-    } else {
-        return (it == (myDemandElementChildren.end()-1));
-    }
-}
-
-
 void
 GNEHierarchicalElementChildren::addEdgeChild(GNEEdge* edge) {
     // Check that edge is valid and doesn't exist previously

@@ -1496,7 +1496,7 @@ GNEEdge::drawPartialPersonPlan(const GUIVisualizationSettings& s, const GNEDeman
         firstEdge = personPlan->getDemandElementParents().front()->getDemandElementChildren().front()->getEdgeParents().front();
     }
     // draw person parent if this is the edge first edge and this is the first plan
-    if ((firstEdge == this) && personPlan->getDemandElementParents().front()->isFirstDemandElementChild(personPlan)) {
+    if ((firstEdge == this) && personPlan->getDemandElementParents().front()->getDemandElementChildren().front() == personPlan) {
         personPlan->getDemandElementParents().front()->drawGL(s);
     }
 }

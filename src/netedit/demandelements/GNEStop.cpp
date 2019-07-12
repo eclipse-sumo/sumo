@@ -427,7 +427,7 @@ GNEStop::drawGL(const GUIVisualizationSettings& s) const {
         // Pop name
         glPopName();
         // draw person parent if this stop if their first person plan child
-        if ((getDemandElementParents().size() == 1) && getDemandElementParents().front()->isFirstDemandElementChild(this)) {
+        if ((getDemandElementParents().size() == 1) && getDemandElementParents().front()->getDemandElementChildren().front() == this) {
             getDemandElementParents().front()->drawGL(s);
         }
     }
@@ -550,10 +550,6 @@ GNEStop::getAttribute(SumoXMLAttr key) const {
             return toString(isAttributeCarrierSelected());
         case GNE_ATTR_GENERIC:
             return getGenericParametersStr();
-        case GNE_ATTR_FIRST_CHILD:
-            return toString(getDemandElementParents().front()->isFirstDemandElementChild(this));
-        case GNE_ATTR_LAST_CHILD:
-            return toString(getDemandElementParents().front()->isLastDemandElementChild(this));
         case GNE_ATTR_PARENT:
             return getDemandElementParents().front()->getID();
         default:

@@ -1002,10 +1002,6 @@ enum SumoXMLAttr {
     GNE_ATTR_DEFAULT_VTYPE,
     /// @brief Flag to check if a default VType was modified
     GNE_ATTR_DEFAULT_VTYPE_MODIFIED,
-    /// @brief element is the first child of their parent
-    GNE_ATTR_FIRST_CHILD,
-    /// @brief element is last child of their parent
-    GNE_ATTR_LAST_CHILD,
     // @}
 
     /// @name train parameters

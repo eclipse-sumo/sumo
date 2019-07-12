@@ -105,7 +105,7 @@ GNEPersonTrip::writeDemandElement(OutputDevice& device) const {
     // open tag
     device.openTag(SUMO_TAG_PERSONTRIP);
     // only write From attribute if this is the first Person Plan
-    if (getDemandElementParents().front()->isFirstDemandElementChild(this)) {
+    if (getDemandElementParents().front()->getDemandElementChildren().front() == this) {
         device.writeAttr(SUMO_ATTR_FROM, getEdgeParents().front()->getID());
     }
     // check if write busStop or edge to
@@ -323,10 +323,6 @@ GNEPersonTrip::getAttribute(SumoXMLAttr key) const {
             return toString(isAttributeCarrierSelected());
         case GNE_ATTR_GENERIC:
             return getGenericParametersStr();
-        case GNE_ATTR_FIRST_CHILD:
-            return toString(getDemandElementParents().front()->isFirstDemandElementChild(this));
-        case GNE_ATTR_LAST_CHILD:
-            return toString(getDemandElementParents().front()->isLastDemandElementChild(this));
         case GNE_ATTR_PARENT:
             return getDemandElementParents().front()->getID();
         default:
