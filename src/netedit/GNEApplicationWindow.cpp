@@ -26,13 +26,11 @@
 #include <netedit/dialogs/GNEDialog_About.h>
 #include <netedit/frames/GNETAZFrame.h>
 #include <netedit/frames/GNETLSEditorFrame.h>
-#include <netedit/netelements/GNEEdge.h>
 #include <netimport/NIFrame.h>
 #include <netwrite/NWFrame.h>
 #include <utils/common/SysUtils.h>
 #include <utils/common/SystemFrame.h>
 #include <utils/foxtools/FXLinkLabel.h>
-#include <utils/foxtools/MFXUtils.h>
 #include <utils/gui/cursors/GUICursorSubSys.h>
 #include <utils/gui/shortcuts/GUIShortcutsSubSys.h>
 #include <utils/gui/div/GLHelper.h>
@@ -41,7 +39,6 @@
 #include <utils/gui/div/GUIGlobalSelection.h>
 #include <utils/gui/div/GUIUserIO.h>
 #include <utils/gui/events/GUIEvent_Message.h>
-#include <utils/gui/images/GUIIconSubSys.h>
 #include <utils/gui/images/GUITextureSubSys.h>
 #include <utils/gui/settings/GUICompleteSchemeStorage.h>
 #include <utils/gui/settings/GUISettingsHandler.h>
