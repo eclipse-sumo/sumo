@@ -370,7 +370,16 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
         double sB = 0;
         double sE = e->length;
         // 0-length geometries are possible if only the inner points are represented
-        const double length2D = e->geom.length2D();
+        PositionVector geomWithOffset = e->geom;
+        if (e->laneOffsets.size() > 0) {
+            try {
+                geomWithOffset.move2side(e->laneOffsets);
+                //std::cout << " e=" << e->id << " offsets=" << e->laneOffsets << " geom=" << e->geom << " geom2=" << geomWithOffset << "\n";
+            } catch (InvalidArgument&) {
+                WRITE_WARNING("Could not apply laneOffsets for edge '" + e->id + "'");
+            }
+        }
+        const double length2D = geomWithOffset.length2D();
         double cF = length2D == 0 ? 1 : e->length / length2D;
         NBEdge* prevRight = nullptr;
         NBEdge* prevLeft = nullptr;
@@ -396,13 +405,13 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
                 sE = e->length / cF;
             } else {
                 double nextS = (j + 1)->s;
-                sTo = new NBNode(e->id + "." + toString(nextS), e->geom.positionAtOffset(nextS));
+                sTo = new NBNode(e->id + "." + toString(nextS), geomWithOffset.positionAtOffset(nextS));
                 if (!nb.getNodeCont().insert(sTo)) {
                     throw ProcessError("Could not add node '" + sTo->getID() + "'.");
                 }
                 sE = nextS / cF;
             }
-            PositionVector geom = e->geom.getSubpart2D(sB, sE);
+            PositionVector geom = geomWithOffset.getSubpart2D(sB, sE);
             std::string id = e->id;
             if (sFrom != e->from || sTo != e->to) {
                 id = id + "." + toString((*j).s);
@@ -1237,27 +1246,12 @@ NIImporter_OpenDrive::computeShapes(std::map<std::string, OpenDriveEdge*>& edges
             // shift each point orthogonally by the specified offset
             int k = 0;
             double pos = 0;
-            PositionVector geom2;
             for (std::vector<OpenDriveLaneOffset>::iterator j = e.offsets.begin(); j != e.offsets.end(); ++j) {
                 const OpenDriveLaneOffset& el = *j;
                 const double sNext = (j + 1) == e.offsets.end() ? std::numeric_limits<double>::max() : (*(j + 1)).s;
                 while (k < (int)e.geom.size() && pos < sNext) {
                     const double offset = el.computeAt(pos);
-                    //std::cout << " edge=" << e.id << " k=" << k << " sNext=" << sNext << " pos=" << pos << " offset=" << offset << " ds=" << ds << " el.s=" << el.s << "el.a=" << el.a << " el.b=" << el.b << " el.c=" << el.c << " el.d=" << el.d <<  "\n";
-                    if (fabs(offset) > POSITION_EPS) {
-                        try {
-                            PositionVector tmp = e.geom;
-                            // XXX shifting the whole geometry is inefficient.  could also use positionAtOffset(lateralOffset=...)
-                            tmp.move2side(-offset);
-                            //std::cout << " edge=" << e.id << " k=" << k << " offset=" << offset << " geom[k]=" << e.geom[k] << " tmp[k]=" << tmp[k] << " gSize=" << e.geom.size() << " tSize=" << tmp.size() <<  " geom=" << e.geom << " tmp=" << tmp << "\n";
-                            geom2.push_back(tmp[k]);
-                        } catch (InvalidArgument&) {
-                            WRITE_WARNING("Could not compute shape for edge " + toString(e.id));
-                            geom2.push_back(e.geom[k]);
-                        }
-                    } else {
-                        geom2.push_back(e.geom[k]);
-                    }
+                    e.laneOffsets.push_back(fabs(offset) > POSITION_EPS ? -offset : 0);
                     k++;
                     if (k < (int)e.geom.size()) {
                         // XXX pos understimates the actual position since the
@@ -1266,8 +1260,6 @@ NIImporter_OpenDrive::computeShapes(std::map<std::string, OpenDriveEdge*>& edges
                     }
                 }
             }
-            assert(e.geom.size() == geom2.size());
-            e.geom = geom2;
         }
         //std::cout << " loaded geometry " << e.id << "=" << e.geom << "\n";
     }

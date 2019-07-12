@@ -472,6 +472,7 @@ protected:
         NBNode* from;
         NBNode* to;
         PositionVector geom;
+        std::vector<double> laneOffsets;
         std::vector<OpenDriveLaneSection> laneSections;
         std::vector<OpenDriveSignal> signals;
         std::set<Connection> connections;
