@@ -734,15 +734,6 @@ NBEdge::cutAtIntersection(const PositionVector& old) const {
             PositionVector tmp;
             tmp.push_back(shape[0]);
             tmp.push_back(shape[-1]);
-            // 3D geometry may be messed up since positions were extrapolated rather than interpolated due to cutting in the wrong direction
-            // make the edge level with one of the intersections (try to pick one that needs to be flat as well)
-            if (myTo->geometryLike()) {
-                tmp[0].setz(myFrom->getPosition().z());
-                tmp[1].setz(myFrom->getPosition().z());
-            } else {
-                tmp[0].setz(myTo->getPosition().z());
-                tmp[1].setz(myTo->getPosition().z());
-            }
             shape = tmp;
             if (tmp.length() < POSITION_EPS) {
                 // fall back to original shape
@@ -765,6 +756,10 @@ NBEdge::cutAtIntersection(const PositionVector& old) const {
                 }
                 shape = shape.reverse();
             }
+            // make short edge flat (length <= 2 * POSITION_EPS)
+            const double z = (shape[0].z() + shape[1].z()) / 2;
+            shape[0].setz(z);
+            shape[1].setz(z);
         }
     }
     return shape;
@@ -831,8 +826,11 @@ NBEdge::startShapeAt(const PositionVector& laneShape, const NBNode* startNode, P
         }
         PositionVector ns = laneShape.getSubpart2D(pb, laneShape.length2D());
         //PositionVector ns = pb < (laneShape.length() - POSITION_EPS) ? laneShape.getSubpart2D(pb, laneShape.length()) : laneShape;
-        if (!startNode->geometryLike() || pb < 1) {
+        const double delta = ns[0].z() - laneShape[0].z();
+        //std::cout << "a) startNode=" << startNode->getID() << " z=" << startNode->getPosition().z() << " oldZ=" << laneShape[0].z() << " cutZ=" << ns[0].z() << " delta=" << delta << "\n";
+        if (fabs(delta) > 2 * POSITION_EPS && (!startNode->geometryLike() || pb < 1)) {
             // make "real" intersections and small intersections flat
+            //std::cout << "a) startNode=" << startNode->getID() << " z=" << startNode->getPosition().z() << " oldZ=" << laneShape[0].z() << " cutZ=" << ns[0].z() << " delta=" << delta << "\n";
             ns[0].setz(startNode->getPosition().z());
         }
         assert(ns.size() >= 2);
@@ -845,8 +843,11 @@ NBEdge::startShapeAt(const PositionVector& laneShape, const NBNode* startNode, P
         assert(pb >= 0);
         PositionVector result = laneShape.getSubpartByIndex(1, (int)laneShape.size() - 1);
         Position np = lb.positionAtOffset2D(pb);
-        if (!startNode->geometryLike()) {
-            // make "real" intersections flat
+        const double delta = np.z() - laneShape[0].z();
+        //std::cout << "b) startNode=" << startNode->getID() << " z=" << startNode->getPosition().z() << " oldZ=" << laneShape[0].z() << " cutZ=" << np.z() << " delta=" << delta << "\n";
+        if (fabs(delta) > 2 * POSITION_EPS && !startNode->geometryLike()) {
+            // avoid z-overshoot when extrapolating
+            //std::cout << "b) startNode=" << startNode->getID() << " z=" << startNode->getPosition().z() << " oldZ=" << laneShape[0].z() << " cutZ=" << np.z() << " delta=" << delta << "\n";
             np.setz(startNode->getPosition().z());
         }
         result.push_front_noDoublePos(np);

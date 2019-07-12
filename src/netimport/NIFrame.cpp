@@ -385,6 +385,10 @@ NIFrame::checkOptions() {
             // a better interpretation of imported geometries
             oc.set("rectangular-lane-cut", "true");
         }
+        if (oc.isDefault("geometry.max-grade.fix")) {
+            // a better interpretation of imported geometries
+            oc.set("geometry.max-grade.fix", "false");
+        }
     }
     return ok;
 }
