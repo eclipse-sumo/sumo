@@ -367,6 +367,8 @@ GNEStop::drawGL(const GUIVisualizationSettings& s) const {
         glPushName(getGlID());
         // Add a draw matrix
         glPushMatrix();
+        // set Color
+        GLHelper::setColor(stopColor);
         // Start with the drawing of the area traslating matrix to origin
         glTranslated(0, 0, getType());
         // draw depending of details
