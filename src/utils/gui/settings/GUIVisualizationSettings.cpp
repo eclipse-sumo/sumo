@@ -262,7 +262,7 @@ GUIVisualizationColorSettings::operator==(const GUIVisualizationColorSettings& v
            (selectedConnectionColor == v2.selectedConnectionColor) &&
            (selectedProhibitionColor == v2.selectedProhibitionColor) &&
            (selectedCrossingColor == v2.selectedCrossingColor) &&
-           (selectedAdditionalColor == v2.selectedAdditionalColor);
+           (selectedAdditionalColor == v2.selectedAdditionalColor) &&
            (selectedRouteColor == v2.selectedRouteColor) &&
            (selectedVehicleColor == v2.selectedVehicleColor) &&
            (selectedPersonColor == v2.selectedPersonColor) &&
