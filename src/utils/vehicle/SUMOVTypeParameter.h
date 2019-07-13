@@ -337,6 +337,26 @@ public:
 
     /// @brief return the default parameters, this is a function due to the http://www.parashift.com/c++-faq/static-init-order.html
     static const SUMOVTypeParameter& getDefault();
+
+    /// @brief Map of manoeuver angles versus the times (entry, exit) to execute the manoeuver 
+    std::map<int, std::pair<SUMOTime, SUMOTime>>  myManoeuverAngleTimes;
+
+/** @brief Initialise the default mapping between manoeuver angle and times dependant on vehicle class
+ *  @param[in] vclass The vehicle class
+ */
+    void setManoeuverAngleTimes(const SUMOVehicleClass vclass);
+
+    /** @brief Returns the time that will be needed for the vehicle type to execute the (entry) manoeuvre (and be blocking the lane)
+     * @param[in] angle The angle, in degrees through which the vehicle needs to manoeuver (0-180 degrees)
+     * @return The SUMOTime value
+     */
+    SUMOTime getEntryManoeuvreTime(const int angle) const;
+
+    /** @brief Returns the time that will be needed for the vehicle type to execute the (exit) manoeuvre (and be blocking the lane)
+      * @param[in] angle The angle, in degrees through which the vehicle needs to manoeuver (0-180 degrees)
+      * @return The SUMOTime value
+      */
+    SUMOTime getExitManoeuvreTime(const int angle) const;
 };
 
 #endif
