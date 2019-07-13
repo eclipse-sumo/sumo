@@ -1,0 +1,17 @@
+{
+  "version": "0.2.1",
+  "defaults": {},
+  "configurations": [
+    {
+      "type": "managed",
+      "name": "C:\\Users\\frank\\source\\repos\\sumo2",
+      "project": ""
+    },
+    {
+      "type": "default",
+      "project": "CMakeLists.txt",
+      "projectTarget": "sumo-gui.exe (C:\\Users\\frank\\source\\repos\\sumo2\\bin\\sumo-gui.exe)",
+      "name": "sumo-gui.exe (C:\\Users\\frank\\source\\repos\\sumo2\\bin\\sumo-gui.exe)"
+    }
+  ]
+}
