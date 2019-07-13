@@ -1114,8 +1114,8 @@ MSLCM_LC2013::_wantsChange(
         currentDist = curr.length;
     }
     double driveToNextStop = -std::numeric_limits<double>::max();
-    if (myVehicle.nextStopDist() < std::numeric_limits<double>::max()  && myVehicle.hasStops()
-      && &myVehicle.getNextStop().lane->getEdge() == &myVehicle.getLane()->getEdge()) {
+    if (myVehicle.nextStopDist() < std::numeric_limits<double>::max()
+            && &myVehicle.getNextStop().lane->getEdge() == &myVehicle.getLane()->getEdge()) {
         // vehicle can always drive up to stop distance
         // @note this information is dynamic and thus not available in updateBestLanes()
         // @note: nextStopDist was compute before the vehicle moved

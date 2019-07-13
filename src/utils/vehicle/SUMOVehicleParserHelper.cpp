@@ -30,8 +30,6 @@
 #include <utils/common/ToString.h>
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/MsgHandler.h>
-#include <utils/common/StringTokenizer.h>
-#include <utils/common/StringUtils.h>
 #include <utils/emissions/PollutantsInterface.h>
 #include <utils/vehicle/SUMOVehicleParameter.h>
 #include <utils/vehicle/SUMOVTypeParameter.h>
@@ -531,10 +529,6 @@ SUMOVehicleParserHelper::beginVTypeParsing(const SUMOSAXAttributes& attrs, const
             throw ProcessError();
         }
     }
-    if (attrs.hasAttribute(SUMO_ATTR_MANOEUVER_ANGLE_TIMES)) {
-        const std::string angleTimesS = attrs.get<std::string>(SUMO_ATTR_MANOEUVER_ANGLE_TIMES, vtype->id.c_str(), ok);
-        updateMyAngleTimesMap( vtype, parseAngleTimesMap(angleTimesS) );
-    } 
     parseVTypeEmbedded(*vtype, vtype->cfModel, attrs, true);
     parseLCParams(*vtype, vtype->lcModel, attrs);
     parseJMParams(*vtype, attrs);
@@ -545,31 +539,6 @@ SUMOVehicleParserHelper::beginVTypeParsing(const SUMOSAXAttributes& attrs, const
     return vtype;
 }
 
-const std::map<int, std::pair<SUMOTime, SUMOTime>> 
-SUMOVehicleParserHelper::parseAngleTimesMap(const std::string atm) {
-    StringTokenizer st(atm,",");
-    std::map<int, std::pair<SUMOTime, SUMOTime>> angleTimesMap;
-    while (st.hasNext()) {
-        StringTokenizer pos(st.next());
-        if (pos.size() != 3) {
-            throw FormatException("manoeuverAngleTimes format - not triplets");
-        }
-        int angle = StringUtils::toInt(pos.next());
-        double t1 = StringUtils::toDouble(pos.next());
-        double t2 = StringUtils::toDouble(pos.next());           
-        angleTimesMap.insert((std::pair<int, std::pair<SUMOTime, SUMOTime>>(angle, std::pair< SUMOTime, SUMOTime>(t1, t2))));
-    }
-    return angleTimesMap;
-}
-
-void 
-SUMOVehicleParserHelper::updateMyAngleTimesMap(SUMOVTypeParameter* vtype, const std::map<int, std::pair<SUMOTime, SUMOTime>>  atm) {
-    if (atm.size() > 0) {
-        vtype->myManoeuverAngleTimes.clear();
-        for (std::pair<int, std::pair<SUMOTime, SUMOTime>> angleTime : atm)
-            vtype->myManoeuverAngleTimes.insert(std::pair<int, std::pair<SUMOTime, SUMOTime>>(angleTime));
-    }
-}
 
 void
 SUMOVehicleParserHelper::parseVTypeEmbedded(SUMOVTypeParameter& into,

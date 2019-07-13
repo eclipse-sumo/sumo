@@ -350,17 +350,6 @@ MSVehicleType::build(SUMOVTypeParameter& from) {
     return vtype;
 }
 
-SUMOTime
-MSVehicleType::getEntryManoeuvreTime(const int angle) const
-{
-    return (getParameter().getEntryManoeuvreTime(angle));
-}
-
-SUMOTime
-MSVehicleType::getExitManoeuvreTime(const int angle) const
-{
-    return (getParameter().getExitManoeuvreTime(angle));
-}
 
 MSVehicleType*
 MSVehicleType::buildSingularType(const std::string& id) const {
