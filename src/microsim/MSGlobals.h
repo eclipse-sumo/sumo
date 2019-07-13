@@ -129,6 +129,8 @@ public:
     /// time penalty for passing a minor link when routing
     static double gMinorPenalty;
 
+    /// whether parking simulation includes manoeuvre time and any associated lane blocking
+    static bool gModelParkingManoeuver;
 };
 
 
