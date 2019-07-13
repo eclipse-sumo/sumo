@@ -163,12 +163,6 @@ public:
      */
     double getVehicleAngle(const SUMOVehicle& forVehicle) const;
 
-/** @brief Return the angle of myLastFreeLot - the next parking lot
- *         only expected to be called after we have established there is space in the parking area
- *
- * @return The angle of the lot in degrees
- */
-    int getLastFreeLotAngle() const;
 
     /** @brief Add a lot entry to parking area
      *
@@ -228,8 +222,6 @@ protected:
         double myLength;
         /// @brief The position along the lane that the vehicle needs to reach for entering this lot
         double myEndPos;
-        ///@brief The angle between lane and lot through which a vehicle must manoeuver to enter the lot
-        int myManoeuverAngle;
     };
 
 
@@ -274,7 +266,7 @@ protected:
     int myReservations;
     double myReservationMaxLength;
 
-  private:
+private:
 
     /// @brief Invalidated copy constructor.
     MSParkingArea(const MSParkingArea&);

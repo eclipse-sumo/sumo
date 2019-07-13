@@ -55,7 +55,7 @@
 #include <mesosim/MELoop.h>
 #include <mesosim/MESegment.h>
 
-#define DEBUG_REROUTER
+//#define DEBUG_REROUTER
 #define DEBUG_PARKING
 #define DEBUGCOND (veh.isSelected())
 
@@ -728,15 +728,15 @@ MSTriggeredRerouter::rerouteParkingArea(const MSTriggeredRerouter::RerouteInterv
                         parkValues["distanceto"] = routeToPark.getDistanceBetween(veh.getPositionOnLane(), pa->getBeginLanePosition(),
                                                    routeToPark.begin(), routeToPark.end() - 1, includeInternalLengths);
 
-                        std::cout << SIMTIME << " veh=" << veh.getID() << " candidate=" << pa->getID()
-                            << " distanceTo=" << parkValues["distanceto"]
-                            << " brakeGap=" << brakeGap
-                            << " routeToPark=" << toString(edgesToPark)
-                            << " fromPos=" << veh.getPositionOnLane()
-                            << " tPos=" << pa->getBeginLanePosition()
-                            << "\n";
+                        //std::cout << SIMTIME << " veh=" << veh.getID() << " candidate=" << pa->getID()
+                        //    << " distanceTo=" << parkValues["distanceto"]
+                        //    << " brakeGap=" << brakeGap
+                        //    << " routeToPark=" << toString(edgesToPark)
+                        //    << " fromPos=" << veh.getPositionOnLane()
+                        //    << " tPos=" << pa->getBeginLanePosition()
+                        //    << "\n";
                         if (parkValues["distanceto"] < brakeGap) {
-                            std::cout << "   removed: pa too close\n";
+                            //std::cout << "   removed: pa too close\n";
                             // to close to stop for this parkingArea
                             continue;
                         }

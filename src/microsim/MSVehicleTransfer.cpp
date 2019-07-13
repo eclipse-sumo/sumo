@@ -125,10 +125,6 @@ MSVehicleTransfer::checkInsertions(SUMOTime time) {
                 MSNet::getInstance()->informVehicleStateListener(desc.myVeh, MSNet::VEHICLE_STATE_ENDING_PARKING);
                 desc.myVeh->getLane()->removeParking(desc.myVeh);
                 i = vehInfos.erase(i);
-                // at this point we are in the lane, blocking traffic & if required we configure the exit manoeuvre
-                if (MSGlobals::gModelParkingManoeuver && desc.myVeh->setExitManoeuvre(time) ) {
-                    MSNet::getInstance()->informVehicleStateListener(desc.myVeh, MSNet::VEHICLE_STATE_MANOEUVERING);
-                }
             } else {
                 // blocked from entering the road
                 if (!desc.myVeh->signalSet(MSVehicle::VEH_SIGNAL_BLINKER_LEFT | MSVehicle::VEH_SIGNAL_BLINKER_RIGHT)) {

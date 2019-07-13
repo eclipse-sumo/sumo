@@ -1030,7 +1030,7 @@ MSLCM_SL2015::_wantsChangeSublane(
     }
     double driveToNextStop = -std::numeric_limits<double>::max();
     UNUSED_PARAMETER(driveToNextStop); // XXX use when computing usableDist
-    if (myVehicle.nextStopDist() < std::numeric_limits<double>::max() && myVehicle.hasStops() 
+    if (myVehicle.nextStopDist() < std::numeric_limits<double>::max()
             && &myVehicle.getNextStop().lane->getEdge() == &myVehicle.getLane()->getEdge()) {
         // vehicle can always drive up to stop distance
         // @note this information is dynamic and thus not available in updateBestLanes()
