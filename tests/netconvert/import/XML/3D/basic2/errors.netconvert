@@ -2,4 +2,5 @@ Warning: Edge 'gneE1' has a grade of 160.22%.
 Warning: Edge 'gneE2' has a grade of 30.05%.
 Warning: Edge 'gneE3' has a grade of 14.44%.
 Warning: Edge 'gneE4' has a grade of 41.11%.
-Warning: Edge 'gneE5' has a grade of 32.29%.
+Warning: Connection 'gneE4_0->gneE5_0' has a grade of 32.33%.
+Warning: Edge 'gneE5' has a grade of 32.16%.
