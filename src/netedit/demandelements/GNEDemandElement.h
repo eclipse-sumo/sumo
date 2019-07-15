@@ -41,6 +41,7 @@ class GNEEdge;
 class GNELane;
 class GNEAdditional;
 class GNEDemandElement;
+class GNEJunction;
 
 // ===========================================================================
 // class definitions
