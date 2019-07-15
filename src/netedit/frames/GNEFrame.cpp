@@ -2171,7 +2171,16 @@ GNEFrame::AttributesEditorExtended::onCmdOpenDialog(FXObject*, FXSelector, void*
 GNEFrame::AttributeCarrierHierarchy::AttributeCarrierHierarchy(GNEFrame* frameParent) :
     FXGroupBox(frameParent->myContentFrame, "Hierarchy", GUIDesignGroupBoxFrame),
     myFrameParent(frameParent),
-    myAC(nullptr) {
+    myAC(nullptr),
+    myClickedAC(nullptr),
+    myClickedJunction(nullptr),
+    myClickedEdge(nullptr),
+    myClickedLane(nullptr),
+    myClickedCrossing(nullptr),
+    myClickedConnection(nullptr),
+    myClickedShape(nullptr),
+    myClickedAdditional(nullptr),
+    myClickedDemandElement(nullptr) {
     // Create three list
     myTreelist = new FXTreeList(this, this, MID_GNE_ACHIERARCHY_SHOWCHILDMENU, GUIDesignTreeListFrame);
     hide();
@@ -2194,7 +2203,18 @@ GNEFrame::AttributeCarrierHierarchy::showAttributeCarrierHierarchy(GNEAttributeC
 
 void
 GNEFrame::AttributeCarrierHierarchy::hideAttributeCarrierHierarchy() {
+    // set all pointers null
     myAC = nullptr;
+    myClickedAC = nullptr;
+    myClickedJunction = nullptr;
+    myClickedEdge = nullptr;
+    myClickedLane = nullptr;
+    myClickedCrossing = nullptr;
+    myClickedConnection = nullptr;
+    myClickedShape = nullptr;
+    myClickedAdditional = nullptr;
+    myClickedDemandElement = nullptr;
+    // hide modul
     hide();
 }
 
@@ -2228,19 +2248,34 @@ GNEFrame::AttributeCarrierHierarchy::onCmdShowChildMenu(FXObject*, FXSelector, v
 
 long
 GNEFrame::AttributeCarrierHierarchy::onCmdCenterItem(FXObject*, FXSelector, void*) {
-    GUIGlObject* glObject = dynamic_cast<GUIGlObject*>(myRightClickedAC);
-    if (glObject) {
-        myFrameParent->myViewNet->centerTo(glObject->getGlID(), true, -1);
-        myFrameParent->myViewNet->update();
+    // Center item
+    if (myClickedJunction) {
+        myFrameParent->myViewNet->centerTo(myClickedJunction->getGlID(), true, -1);
+    } else if (myClickedEdge) {
+        myFrameParent->myViewNet->centerTo(myClickedEdge->getGlID(), true, -1);
+    } else if (myClickedLane) {
+        myFrameParent->myViewNet->centerTo(myClickedLane->getGlID(), true, -1);
+    } else if (myClickedCrossing) {
+        myFrameParent->myViewNet->centerTo(myClickedCrossing->getGlID(), true, -1);
+    } else if (myClickedConnection) {
+        myFrameParent->myViewNet->centerTo(myClickedConnection->getGlID(), true, -1);
+    } else if (myClickedAdditional) {
+        myFrameParent->myViewNet->centerTo(myClickedAdditional->getGlID(), true, -1);
+    } else if (myClickedShape) {
+        myFrameParent->myViewNet->centerTo(myClickedShape->getGlID(), true, -1);
+    } else if (myClickedDemandElement) {
+        myFrameParent->myViewNet->centerTo(myClickedDemandElement->getGlID(), true, -1);
     }
+    // update view after centering
+    myFrameParent->myViewNet->update();
     return 1;
 }
 
 
 long
 GNEFrame::AttributeCarrierHierarchy::onCmdInspectItem(FXObject*, FXSelector, void*) {
-    if ((myAC != nullptr) && (myRightClickedAC != nullptr)) {
-        myFrameParent->myViewNet->getViewParent()->getInspectorFrame()->inspectChild(myRightClickedAC, myAC);
+    if ((myAC != nullptr) && (myClickedAC != nullptr)) {
+        myFrameParent->myViewNet->getViewParent()->getInspectorFrame()->inspectChild(myClickedAC, myAC);
     }
     return 1;
 }
@@ -2251,29 +2286,27 @@ GNEFrame::AttributeCarrierHierarchy::onCmdDeleteItem(FXObject*, FXSelector, void
     // check if Inspector frame was opened before removing
     const std::vector<GNEAttributeCarrier*>& currentInspectedACs = myFrameParent->myViewNet->getViewParent()->getInspectorFrame()->getAttributesEditor()->getEditedACs();
     // Remove Attribute Carrier
-    if (myRightClickedAC->getTagProperty().getTag() == SUMO_TAG_JUNCTION) {
-        myFrameParent->myViewNet->getNet()->deleteJunction(dynamic_cast<GNEJunction*>(myRightClickedAC), myFrameParent->myViewNet->getUndoList());
-    } else if (myRightClickedAC->getTagProperty().getTag() == SUMO_TAG_EDGE) {
-        myFrameParent->myViewNet->getNet()->deleteEdge(dynamic_cast<GNEEdge*>(myRightClickedAC), myFrameParent->myViewNet->getUndoList(), false);
-    } else if (myRightClickedAC->getTagProperty().getTag() == SUMO_TAG_LANE) {
-        myFrameParent->myViewNet->getNet()->deleteLane(dynamic_cast<GNELane*>(myRightClickedAC), myFrameParent->myViewNet->getUndoList(), false);
-    } else if (myRightClickedAC->getTagProperty().getTag() == SUMO_TAG_CROSSING) {
-        myFrameParent->myViewNet->getNet()->deleteCrossing(dynamic_cast<GNECrossing*>(myRightClickedAC), myFrameParent->myViewNet->getUndoList());
-    } else if (myRightClickedAC->getTagProperty().getTag() == SUMO_TAG_CONNECTION) {
-        myFrameParent->myViewNet->getNet()->deleteConnection(dynamic_cast<GNEConnection*>(myRightClickedAC), myFrameParent->myViewNet->getUndoList());
-    } else if (myRightClickedAC->getTagProperty().getTag() == SUMO_TAG_TAZ) {
-        myFrameParent->myViewNet->getNet()->deleteAdditional(dynamic_cast<GNETAZ*>(myRightClickedAC), myFrameParent->myViewNet->getUndoList());
-    } else if (myRightClickedAC->getTagProperty().isAdditional()) {
-        myFrameParent->myViewNet->getNet()->deleteAdditional(dynamic_cast<GNEAdditional*>(myRightClickedAC), myFrameParent->myViewNet->getUndoList());
-    } else if (myRightClickedAC->getTagProperty().isShape()) {
-        myFrameParent->myViewNet->getNet()->deleteShape(dynamic_cast<GNEShape*>(myRightClickedAC), myFrameParent->myViewNet->getUndoList());
-    } else if (myRightClickedAC->getTagProperty().isDemandElement()) {
+    if (myClickedJunction) {
+        myFrameParent->myViewNet->getNet()->deleteJunction(myClickedJunction, myFrameParent->myViewNet->getUndoList());
+    } else if (myClickedEdge) {
+        myFrameParent->myViewNet->getNet()->deleteEdge(myClickedEdge, myFrameParent->myViewNet->getUndoList(), false);
+    } else if (myClickedLane) {
+        myFrameParent->myViewNet->getNet()->deleteLane(myClickedLane, myFrameParent->myViewNet->getUndoList(), false);
+    } else if (myClickedCrossing) {
+        myFrameParent->myViewNet->getNet()->deleteCrossing(myClickedCrossing, myFrameParent->myViewNet->getUndoList());
+    } else if (myClickedConnection) {
+        myFrameParent->myViewNet->getNet()->deleteConnection(myClickedConnection, myFrameParent->myViewNet->getUndoList());
+    } else if (myClickedAdditional) {
+        myFrameParent->myViewNet->getNet()->deleteAdditional(myClickedAdditional, myFrameParent->myViewNet->getUndoList());
+    } else if (myClickedShape) {
+        myFrameParent->myViewNet->getNet()->deleteShape(myClickedShape, myFrameParent->myViewNet->getUndoList());
+    } else if (myClickedDemandElement) {
         // check that default VTypes aren't removed
-        if ((myRightClickedAC->getTagProperty().getTag() == SUMO_TAG_VTYPE) && (GNEAttributeCarrier::parse<bool>(myRightClickedAC->getAttribute(GNE_ATTR_DEFAULT_VTYPE)))) {
-            WRITE_WARNING("Default Vehicle Type '" + myRightClickedAC->getAttribute(SUMO_ATTR_ID) +"' cannot be removed");
+        if ((myClickedDemandElement->getTagProperty().getTag() == SUMO_TAG_VTYPE) && (GNEAttributeCarrier::parse<bool>(myClickedDemandElement->getAttribute(GNE_ATTR_DEFAULT_VTYPE)))) {
+            WRITE_WARNING("Default Vehicle Type '" + myClickedDemandElement->getAttribute(SUMO_ATTR_ID) +"' cannot be removed");
             return 1;
         } else {
-            myFrameParent->myViewNet->getNet()->deleteDemandElement(dynamic_cast<GNEDemandElement*>(myRightClickedAC), myFrameParent->myViewNet->getUndoList());
+            myFrameParent->myViewNet->getNet()->deleteDemandElement(myClickedDemandElement, myFrameParent->myViewNet->getUndoList());
         }
     }
     // update viewNet
@@ -2282,7 +2315,7 @@ GNEFrame::AttributeCarrierHierarchy::onCmdDeleteItem(FXObject*, FXSelector, void
     refreshAttributeCarrierHierarchy();
     // check if inspector frame has to be shown again
     if (currentInspectedACs.size() == 1) {
-        if (currentInspectedACs.front() != myRightClickedAC) {
+        if (currentInspectedACs.front() != myClickedAC) {
             myFrameParent->myViewNet->getViewParent()->getInspectorFrame()->inspectSingleElement(currentInspectedACs.front());
         } else {
             // inspect a nullprt element to reset inspector frame
@@ -2295,11 +2328,11 @@ GNEFrame::AttributeCarrierHierarchy::onCmdDeleteItem(FXObject*, FXSelector, void
 
 long 
 GNEFrame::AttributeCarrierHierarchy::onCmdMoveItemUp(FXObject*, FXSelector, void*) {
-    GNEDemandElement *demandElement = dynamic_cast<GNEDemandElement*>(myRightClickedAC);
-    if(demandElement) {
-        myFrameParent->myViewNet->getUndoList()->p_begin(("moving up " + demandElement->getTagStr()).c_str());
+    // currently only children of demand elements can be moved
+    if(myClickedDemandElement) {
+        myFrameParent->myViewNet->getUndoList()->p_begin(("moving up " + myClickedDemandElement->getTagStr()).c_str());
         // move element one position back
-        myFrameParent->myViewNet->getUndoList()->add(new GNEChange_Children(demandElement->getDemandElementParents().at(0), demandElement, 
+        myFrameParent->myViewNet->getUndoList()->add(new GNEChange_Children(myClickedDemandElement->getDemandElementParents().at(0), myClickedDemandElement, 
                                                                             GNEChange_Children::Operation::MOVE_BACK), true);
         myFrameParent->myViewNet->getUndoList()->p_end();
     }
@@ -2311,11 +2344,11 @@ GNEFrame::AttributeCarrierHierarchy::onCmdMoveItemUp(FXObject*, FXSelector, void
 
 long 
 GNEFrame::AttributeCarrierHierarchy::onCmdMoveItemDown(FXObject*, FXSelector, void*) {
-    GNEDemandElement *demandElement = dynamic_cast<GNEDemandElement*>(myRightClickedAC);
-    if(demandElement) {
-        myFrameParent->myViewNet->getUndoList()->p_begin(("moving down " + demandElement->getTagStr()).c_str());
+    // currently only children of demand elements can be moved
+    if(myClickedDemandElement) {
+        myFrameParent->myViewNet->getUndoList()->p_begin(("moving down " + myClickedDemandElement->getTagStr()).c_str());
         // move element one position front
-        myFrameParent->myViewNet->getUndoList()->add(new GNEChange_Children(demandElement->getDemandElementParents().at(0), demandElement, 
+        myFrameParent->myViewNet->getUndoList()->add(new GNEChange_Children(myClickedDemandElement->getDemandElementParents().at(0), myClickedDemandElement, 
                                                                             GNEChange_Children::Operation::MOVE_FRONT), true);
         myFrameParent->myViewNet->getUndoList()->p_end();
     }
@@ -2326,40 +2359,55 @@ GNEFrame::AttributeCarrierHierarchy::onCmdMoveItemDown(FXObject*, FXSelector, vo
 
 
 void
-GNEFrame::AttributeCarrierHierarchy::createPopUpMenu(int X, int Y, GNEAttributeCarrier* ac) {
+GNEFrame::AttributeCarrierHierarchy::createPopUpMenu(int X, int Y, GNEAttributeCarrier* clickedAC) {
     // first check that AC exist
-    if (ac) {
+    if (clickedAC) {
         // set current clicked AC
-        myRightClickedAC = ac;
+        myClickedAC = clickedAC;
+        // cast all elements
+        myClickedJunction = dynamic_cast<GNEJunction*>(clickedAC);
+        myClickedEdge = dynamic_cast<GNEEdge*>(clickedAC);
+        myClickedLane = dynamic_cast<GNELane*>(clickedAC);
+        myClickedCrossing = dynamic_cast<GNECrossing*>(clickedAC);
+        myClickedConnection = dynamic_cast<GNEConnection*>(clickedAC);
+        myClickedShape = dynamic_cast<GNEShape*>(clickedAC);
+        myClickedAdditional = dynamic_cast<GNEAdditional*>(clickedAC);
+        myClickedDemandElement = dynamic_cast<GNEDemandElement*>(clickedAC);
         // create FXMenuPane
         FXMenuPane* pane = new FXMenuPane(myTreelist);
-        // set name
-        new MFXMenuHeader(pane, myFrameParent->myViewNet->getViewParent()->getGUIMainWindow()->getBoldFont(), myRightClickedAC->getPopUpID().c_str(), myRightClickedAC->getIcon());
+        // set item name and icon
+        new MFXMenuHeader(pane, myFrameParent->myViewNet->getViewParent()->getGUIMainWindow()->getBoldFont(), myClickedAC->getPopUpID().c_str(), myClickedAC->getIcon());
+        // insert separator
         new FXMenuSeparator(pane);
-        // Fill FXMenuCommand
-        new FXMenuCommand(pane, "Center", GUIIconSubSys::getIcon(ICON_RECENTERVIEW), this, MID_GNE_CENTER);
+        // create center menu command
+        FXMenuCommand* centerMenuCommand = new FXMenuCommand(pane, "Center", GUIIconSubSys::getIcon(ICON_RECENTERVIEW), this, MID_GNE_CENTER);
+        // disable Centering for Vehicle Types
+        if (myClickedAC->getTagProperty().isVehicleType()) {
+            centerMenuCommand->disable();
+        }
+        // create inspect and delete menu commands
         FXMenuCommand* inspectMenuCommand = new FXMenuCommand(pane, "Inspect", GUIIconSubSys::getIcon(ICON_MODEINSPECT), this, MID_GNE_INSPECT);
         FXMenuCommand* deleteMenuCommand = new FXMenuCommand(pane, "Delete", GUIIconSubSys::getIcon(ICON_MODEDELETE), this, MID_GNE_DELETE);
         // check if inspect and delete menu commands has to be disabled
-        if ((myRightClickedAC->getTagProperty().isNetElement() && (myFrameParent->myViewNet->getEditModes().currentSupermode == GNE_SUPERMODE_DEMAND)) ||
-            (myRightClickedAC->getTagProperty().isDemandElement() && (myFrameParent->myViewNet->getEditModes().currentSupermode == GNE_SUPERMODE_NETWORK))) {
+        if ((myClickedAC->getTagProperty().isNetElement() && (myFrameParent->myViewNet->getEditModes().currentSupermode == GNE_SUPERMODE_DEMAND)) ||
+            (myClickedAC->getTagProperty().isDemandElement() && (myFrameParent->myViewNet->getEditModes().currentSupermode == GNE_SUPERMODE_NETWORK))) {
             inspectMenuCommand->disable();
             deleteMenuCommand->disable();
         }
-        // now chec if given AC support manually moving of their item up and down
-        if (ac->getTagProperty().canBeSortedManually()) {
+        // now chec if given AC support manually moving of their item up and down (Currently only for demand elements
+        if (myClickedDemandElement && myClickedAC->getTagProperty().canBeSortedManually()) {
+            // insert separator
             new FXMenuSeparator(pane);
+            // create both moving menu commands
             FXMenuCommand* moveUpMenuCommand = new FXMenuCommand(pane, "Move up", GUIIconSubSys::getIcon(ICON_ARROW_UP), this, MID_GNE_ACHIERARCHY_MOVEUP);
             FXMenuCommand* moveDownMenuCommand = new FXMenuCommand(pane, "Move down", GUIIconSubSys::getIcon(ICON_ARROW_DOWN), this, MID_GNE_ACHIERARCHY_MOVEDOWN);
-            /*
             // check if menu commands has to be disabled
-            if (GNEAttributeCarrier::parse<bool>(ac->getAttribute(GNE_ATTR_FIRST_CHILD))) {
+            if (myClickedDemandElement->getDemandElementParents().front()->getDemandElementChildren().front() == myClickedDemandElement) {
                 moveUpMenuCommand->disable();
             }
-            if (GNEAttributeCarrier::parse<bool>(ac->getAttribute(GNE_ATTR_LAST_CHILD))) {
+            if (myClickedDemandElement->getDemandElementParents().front()->getDemandElementChildren().back() == myClickedDemandElement) {
                 moveDownMenuCommand->disable();
             }
-            */
         }
         // Center in the mouse position and create pane
         pane->setX(X);
@@ -2367,7 +2415,16 @@ GNEFrame::AttributeCarrierHierarchy::createPopUpMenu(int X, int Y, GNEAttributeC
         pane->create();
         pane->show();
     } else {
-        myRightClickedAC = nullptr;
+        // set all clicked elements to null
+        myClickedAC = nullptr;
+        myClickedJunction = nullptr;
+        myClickedEdge = nullptr;
+        myClickedLane = nullptr;
+        myClickedCrossing = nullptr;
+        myClickedConnection = nullptr;
+        myClickedShape = nullptr;
+        myClickedAdditional = nullptr;
+        myClickedDemandElement = nullptr;
     }
 }
 
@@ -2619,7 +2676,7 @@ GNEFrame::AttributeCarrierHierarchy::showAttributeCarrierParents() {
             return root;
         }
     }
-    // there isn't parents
+    // there aren't parents
     return nullptr;
 }
 
@@ -2796,6 +2853,7 @@ GNEFrame::AttributeCarrierHierarchy::addListItem(GNEAttributeCarrier* AC, FXTree
     myTreeItemToACMap[item] = AC;
     // by default item is expanded
     item->setExpanded(true);
+    // return created FXTreeItem
     return item;
 }
 
@@ -2804,8 +2862,9 @@ FXTreeItem*
 GNEFrame::AttributeCarrierHierarchy::addListItem(FXTreeItem* itemParent, const std::string& text, FXIcon* icon, bool expanded) {
     // insert item in Tree list
     FXTreeItem* item = myTreelist->insertItem(nullptr, itemParent, text.c_str(), icon, icon);
-    // set exapnded
+    // expand item depending of flag expanded
     item->setExpanded(expanded);
+    // return created FXTreeItem
     return item;
 }
 

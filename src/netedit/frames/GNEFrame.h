@@ -669,8 +669,8 @@ public:
         /// @brief FOX needs this
         AttributeCarrierHierarchy() {}
 
-        // @brief create pop-up menu in the positions X-Y for the attribute carrier ac
-        void createPopUpMenu(int X, int Y, GNEAttributeCarrier* ac);
+        // @brief create pop-up menu in the positions X-Y for the clicked attribute carrier
+        void createPopUpMenu(int X, int Y, GNEAttributeCarrier* clickedAC);
 
         /// @brief show child of current attributeCarrier
         FXTreeItem* showAttributeCarrierParents();
@@ -689,6 +689,33 @@ public:
 
         /// @brief Attribute carrier
         GNEAttributeCarrier* myAC;
+        
+        /// @brief pointer to current clicked Attribute Carrier
+        GNEAttributeCarrier* myClickedAC;
+
+        /// @brief junction (casted from myClickedAC)
+        GNEJunction* myClickedJunction;
+
+        /// @brief edge (casted from myClickedAC)
+        GNEEdge* myClickedEdge;
+
+        /// @brief lane (casted from myClickedAC)
+        GNELane* myClickedLane;
+
+        /// @brief crossing (casted from myClickedAC)
+        GNECrossing* myClickedCrossing;
+
+        /// @brief junction (casted from myClickedAC)
+        GNEConnection* myClickedConnection;
+
+        /// @brief shape (casted from myClickedAC)
+        GNEShape* myClickedShape;
+
+        /// @brief additional (casted from myClickedAC)
+        GNEAdditional* myClickedAdditional;
+
+        /// @brief demand element (casted from myClickedAC)
+        GNEDemandElement* myClickedDemandElement;
 
         /// @brief tree list to show the children of the element to erase
         FXTreeList* myTreelist;
@@ -698,9 +725,6 @@ public:
 
         /// @brief set used to save tree items without AC assigned, the Incoming/Outcoming connections
         std::set<FXTreeItem*> myTreeItemsConnections;
-
-        /// @brief pointer to current right clicked Attribute Carrier
-        GNEAttributeCarrier* myRightClickedAC;
     };
 
     // ===========================================================================
