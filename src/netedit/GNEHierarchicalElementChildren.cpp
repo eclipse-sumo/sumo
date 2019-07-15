@@ -328,6 +328,36 @@ GNEHierarchicalElementChildren::checkDemandElementChildrenOverlapping() const {
 }
 
 
+GNEDemandElement *
+GNEHierarchicalElementChildren::getPreviousemandElement(const GNEDemandElement* demandElement) const {
+    // find demand element child
+    auto it = std::find(myDemandElementChildren.begin(), myDemandElementChildren.end(), demandElement);
+    // return element or null depending of iterator
+    if (it == myDemandElementChildren.end()) {
+        return nullptr;
+    } else if (it == myDemandElementChildren.begin()) {
+        return nullptr;
+    } else {
+        return *(it-1);
+    }
+}
+
+
+GNEDemandElement *
+GNEHierarchicalElementChildren::getNextDemandElement(const GNEDemandElement* demandElement) const {
+    // find demand element child
+    auto it = std::find(myDemandElementChildren.begin(), myDemandElementChildren.end(), demandElement);
+    // return element or null depending of iterator
+    if (it == myDemandElementChildren.end()) {
+        return nullptr;
+    } else if (it == (myDemandElementChildren.end()-1)) {
+        return nullptr;
+    } else {
+        return *(it+1);
+    }
+}
+
+
 void
 GNEHierarchicalElementChildren::addEdgeChild(GNEEdge* edge) {
     // Check that edge is valid and doesn't exist previously

@@ -47,12 +47,12 @@ GNEChange_Children::GNEChange_Children(GNEDemandElement* demandElementParent, GN
     auto it = std::find(myEditedElementChildren.begin(), myEditedElementChildren.end(), myDemandElementChild);
     // edit myEditedElementChildren vector
     if (it != myEditedElementChildren.end()) {
-        if ((operation == Operation::MOVE_FRONT) && (it != myEditedElementChildren.begin())) {
+        if ((operation == Operation::MOVE_FRONT) && (it != (myEditedElementChildren.end()-1))) {
             // remove element
             it = myEditedElementChildren.erase(it);
             // insert again in a different position
             myEditedElementChildren.insert(it+1, myDemandElementChild);
-        } else if ((operation == Operation::MOVE_BACK) && (it != myEditedElementChildren.end()-1)) {
+        } else if ((operation == Operation::MOVE_BACK) && (it != myEditedElementChildren.begin())) {
             // remove element
             it = myEditedElementChildren.erase(it);
             // insert again in a different position

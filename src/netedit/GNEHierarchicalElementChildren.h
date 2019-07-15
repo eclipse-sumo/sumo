@@ -169,6 +169,12 @@ public:
     /// @brief check if children are overlapped (Used by Rerouters)
     bool checkDemandElementChildrenOverlapping() const;
 
+    /// @brief get previous demand element to the given demand element
+    GNEDemandElement *getPreviousemandElement(const GNEDemandElement* demandElement) const;
+
+    /// @brief get next demand element to the given demand element
+    GNEDemandElement *getNextDemandElement(const GNEDemandElement* demandElement) const;
+
     /// @}
 
     /// @brief update parent after add or remove a child (can be reimplemented, for example used for statistics)
