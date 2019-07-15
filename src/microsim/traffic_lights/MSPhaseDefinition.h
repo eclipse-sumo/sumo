@@ -108,7 +108,7 @@ private:
     LaneIdVector targetLaneSet;
 
     void init(SUMOTime durationArg, const std::string& stateArg, SUMOTime minDurationArg, SUMOTime maxDurationArg,
-              const std::vector<int> nextPhases, const std::string& name) {
+              const std::vector<int> nextPhasesArg, const std::string& nameArg) {
         this->duration = durationArg;
         this->state = stateArg;
         this->minDuration = minDurationArg < 0 ? durationArg : minDurationArg;
@@ -117,13 +117,13 @@ private:
         this->myLastSwitch = string2time(OptionsCont::getOptions().getString("begin")); // SUMOTime-option
         //For SOTL phases
         //this->phaseType = phaseTypeArg;
-        this->nextPhases = nextPhases;
-        this->name = name;
+        this->nextPhases = nextPhasesArg;
+        this->name = nameArg;
     }
 
     void init(SUMOTime durationArg, SUMOTime minDurationArg, SUMOTime maxDurationArg, const std::string& stateArg,
-              const std::vector<int>& nextPhases, const std::string& name, LaneIdVector* targetLaneSetArg) {
-        init(durationArg, stateArg, minDurationArg, maxDurationArg, nextPhases, name);
+              const std::vector<int>& nextPhasesArg, const std::string& nameArg, LaneIdVector* targetLaneSetArg) {
+        init(durationArg, stateArg, minDurationArg, maxDurationArg, nextPhasesArg, nameArg);
         //For SOTL target phases
         if (targetLaneSetArg != nullptr) {
             this->targetLaneSet = *targetLaneSetArg;
