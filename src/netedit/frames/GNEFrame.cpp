@@ -28,6 +28,7 @@
 #include <netedit/GNEViewParent.h>
 #include <netedit/additionals/GNEPOI.h>
 #include <netedit/additionals/GNETAZ.h>
+#include <netedit/changes/GNEChange_Children.h>
 #include <netedit/demandelements/GNEDemandElement.h>
 #include <netedit/dialogs/GNEDialog_AllowDisallow.h>
 #include <netedit/dialogs/GNEGenericParameterDialog.h>
@@ -2295,11 +2296,13 @@ GNEFrame::AttributeCarrierHierarchy::onCmdDeleteItem(FXObject*, FXSelector, void
 long 
 GNEFrame::AttributeCarrierHierarchy::onCmdMoveItemUp(FXObject*, FXSelector, void*) {
     GNEDemandElement *demandElement = dynamic_cast<GNEDemandElement*>(myRightClickedAC);
-    /*
     if(demandElement) {
-        demandElement->getDemandElementParents().at(0)->moveDemandElementChildUp(demandElement);
+        myFrameParent->myViewNet->getUndoList()->p_begin(("moving up " + demandElement->getTagStr()).c_str());
+        // move element one position back
+        myFrameParent->myViewNet->getUndoList()->add(new GNEChange_Children(demandElement->getDemandElementParents().at(0), demandElement, 
+                                                                            GNEChange_Children::Operation::MOVE_BACK), true);
+        myFrameParent->myViewNet->getUndoList()->p_end();
     }
-    */
     // refresh after moving child
     refreshAttributeCarrierHierarchy();
     return 1;
@@ -2309,11 +2312,13 @@ GNEFrame::AttributeCarrierHierarchy::onCmdMoveItemUp(FXObject*, FXSelector, void
 long 
 GNEFrame::AttributeCarrierHierarchy::onCmdMoveItemDown(FXObject*, FXSelector, void*) {
     GNEDemandElement *demandElement = dynamic_cast<GNEDemandElement*>(myRightClickedAC);
-    /*
     if(demandElement) {
-        demandElement->getDemandElementParents().at(0)->moveDemandElementChildDown(demandElement);
+        myFrameParent->myViewNet->getUndoList()->p_begin(("moving down " + demandElement->getTagStr()).c_str());
+        // move element one position front
+        myFrameParent->myViewNet->getUndoList()->add(new GNEChange_Children(demandElement->getDemandElementParents().at(0), demandElement, 
+                                                                            GNEChange_Children::Operation::MOVE_FRONT), true);
+        myFrameParent->myViewNet->getUndoList()->p_end();
     }
-    */
     // refresh after moving child
     refreshAttributeCarrierHierarchy();
     return 1;

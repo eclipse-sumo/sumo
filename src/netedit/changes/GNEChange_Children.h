@@ -44,15 +44,15 @@ class GNEChange_Children : public GNEChange {
 public:
     // @brief operation over demand element child
     enum Operation {
-        MOVE_UP = 0,    // Move element one position up
-        MOVE_DOWN = 1   // Move element one position down
+        MOVE_FRONT = 0, // Move element one position front
+        MOVE_BACK = 1   // Move element one position back
     };
 
     /**@brief Constructor for creating/deleting an additional element
      * @param[in] additional The additional element to be created/deleted
      * @param[in] forward Whether to create/delete (true/false)
      */
-    GNEChange_Children(GNEDemandElement* demandElementParent, const GNEDemandElement* demandElementChild, const Operation operation);
+    GNEChange_Children(GNEDemandElement* demandElementParent, GNEDemandElement* demandElementChild, const Operation operation);
 
     /// @brief Destructor
     ~GNEChange_Children();
@@ -79,12 +79,16 @@ private:
     GNEDemandElement* myDemandElementParent;
 
     /// @brief demand element which position will be edited edited
-    const GNEDemandElement* myDemandElementChild;
-
+    GNEDemandElement* myDemandElementChild;
+    
+    // @brief Operation to be apply
     const Operation myOperation;
 
     /// @brief copy of demand element childrens before apply operation
-    const std::vector<GNEDemandElement*>& myDemandElementChildren;
+    const std::vector<GNEDemandElement*> myOriginalElementChildren;
+
+    /// @brief element childrens after apply operation
+    std::vector<GNEDemandElement*> myEditedElementChildren;
 };
 
 #endif
