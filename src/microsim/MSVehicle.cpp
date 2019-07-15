@@ -1976,44 +1976,46 @@ MSVehicle::processNextStop(double currentVelocity) {
             }
 #endif
             if (myState.pos() >= reachedThreshold && fitsOnStoppingPlace && currentVelocity <= SUMO_const_haltingSpeed && myLane == stop.lane) {
-                // ok, we may stop (have reached the stop)
-                stop.reached = true;
+                // ok, we may stop (have reached the stop) but we may now need to complete the parking entry manoeuvre
+                if (!MSGlobals::gModelParkingManoeuver || myManoeuvre.entryManoeuvreIsComplete(this, time)) {
+                    stop.reached = true;
 #ifdef DEBUG_STOPS
-                if (DEBUG_COND) {
-                    std::cout << SIMTIME << " vehicle '" << getID() << "' reached next stop." << std::endl;
-                }
-#endif
-                if (MSStopOut::active()) {
-                    MSStopOut::getInstance()->stopStarted(this, getPersonNumber(), getContainerNumber(), time);
-                }
-                MSNet::getInstance()->getVehicleControl().addWaiting(&myLane->getEdge(), this);
-                MSNet::getInstance()->informVehicleStateListener(this, MSNet::VEHICLE_STATE_STARTING_STOP);
-                // compute stopping time
-                if (stop.pars.until >= 0) {
-                    if (stop.duration == -1) {
-                        stop.duration = stop.pars.until - time;
-                    } else {
-                        stop.duration = MAX2(stop.duration, stop.pars.until - time);
+                    if (DEBUG_COND) {
+                        std::cout << SIMTIME << " vehicle '" << getID() << "' reached next stop." << std::endl;
                     }
-                }
-                if (stop.busstop != nullptr) {
-                    // let the bus stop know the vehicle
-                    stop.busstop->enter(this, myState.pos() + getVehicleType().getMinGap(), myState.pos() - myType->getLength());
-                }
-                if (stop.containerstop != nullptr) {
-                    // let the container stop know the vehicle
-                    stop.containerstop->enter(this, myState.pos() + getVehicleType().getMinGap(), myState.pos() - myType->getLength());
-                }
-                if (stop.parkingarea != nullptr) {
-                    // let the parking area know the vehicle
-                    stop.parkingarea->enter(this, myState.pos() + getVehicleType().getMinGap(), myState.pos() - myType->getLength());
-                }
+#endif
+                    if (MSStopOut::active()) {
+                        MSStopOut::getInstance()->stopStarted(this, getPersonNumber(), getContainerNumber(), time);
+                    }
+                    MSNet::getInstance()->getVehicleControl().addWaiting(&myLane->getEdge(), this);
+                    MSNet::getInstance()->informVehicleStateListener(this, MSNet::VEHICLE_STATE_STARTING_STOP);
+                    // compute stopping time
+                    if (stop.pars.until >= 0) {
+                        if (stop.duration == -1) {
+                            stop.duration = stop.pars.until - time;
+                        } else {
+                            stop.duration = MAX2(stop.duration, stop.pars.until - time);
+                        }
+                    }
+                    if (stop.busstop != nullptr) {
+                        // let the bus stop know the vehicle
+                        stop.busstop->enter(this, myState.pos() + getVehicleType().getMinGap(), myState.pos() - myType->getLength());
+                    }
+                    if (stop.containerstop != nullptr) {
+                        // let the container stop know the vehicle
+                        stop.containerstop->enter(this, myState.pos() + getVehicleType().getMinGap(), myState.pos() - myType->getLength());
+                    }
+                    if (stop.parkingarea != nullptr) {
+                        // let the parking area know the vehicle
+                        stop.parkingarea->enter(this, myState.pos() + getVehicleType().getMinGap(), myState.pos() - myType->getLength());
+                    }
 
-                if (stop.pars.tripId != "") {
-                    ((SUMOVehicleParameter&)getParameter()).setParameter("tripId", stop.pars.tripId);
-                }
-                if (stop.pars.line != "") {
-                    ((SUMOVehicleParameter&)getParameter()).line = stop.pars.line;
+                    if (stop.pars.tripId != "") {
+                        ((SUMOVehicleParameter&)getParameter()).setParameter("tripId", stop.pars.tripId);
+                    }
+                    if (stop.pars.line != "") {
+                        ((SUMOVehicleParameter&)getParameter()).line = stop.pars.line;
+                    }
                 }
             }
         }
@@ -2166,6 +2168,8 @@ MSVehicle::planMove(const SUMOTime t, const MSLeaderInfo& ahead, const double le
         std::cout << STEPS2TIME(t) << " vehicle = '" << getID() << "' takes action." << std::endl;
         }
 #endif
+        // if we are modelling the exit then we don't plan any move until the manoeuvre is complete
+        if (MSGlobals::gModelParkingManoeuver && !myManoeuvre.exitManoeuvreIsComplete(t)) return;
 
         myLFLinkLanesPrev = myLFLinkLanes;
         planMoveInternal(t, ahead, myLFLinkLanes, myStopDist, myNextTurn);
@@ -3279,8 +3283,8 @@ MSVehicle::updateDriveItems() {
 #ifdef DEBUG_ACTIONSTEPS
     if (DEBUG_COND) {
         std::cout << SIMTIME << " updateDriveItems(), veh='" << getID() << "' (lane: '" << getLane()->getID() << "')\nCurrent drive items:" << std::endl;
-        DriveItemVector::iterator i;
-        for (i = myLFLinkLanes.begin(); i != myLFLinkLanes.end(); ++i) {
+        DriveItemVector::iterator dpi;
+        for (dpi = myLFLinkLanes.begin(); dpi != myLFLinkLanes.end(); ++dpi) {
             std::cout
                     << " vPass=" << dpi.myVLinkPass
                     << " vWait=" << dpi.myVLinkWait
@@ -3414,8 +3418,8 @@ MSVehicle::updateDriveItems() {
 #ifdef DEBUG_ACTIONSTEPS
     if (DEBUG_COND) {
         std::cout << "Updated drive items:" << std::endl;
-        DriveItemVector::iterator i;
-        for (i = myLFLinkLanes.begin(); i != myLFLinkLanes.end(); ++i) {
+        DriveItemVector::iterator dpi;
+        for (dpi = myLFLinkLanes.begin(); dpi != myLFLinkLanes.end(); ++dpi) {
             std::cout
                     << " vPass=" << dpi.myVLinkPass
                     << " vWait=" << dpi.myVLinkWait
@@ -6130,5 +6134,138 @@ MSVehicle::getCurrentApparentDecel() const {
     return getCarFollowModel().getApparentDecel();
 }
 
+/****************************************************************************/
+bool
+MSVehicle::setExitManoeuvre(const SUMOTime currentTime)
+{
+    return (myManoeuvre.configureExitManoeuvre(this, currentTime));
+}
+
+/* -------------------------------------------------------------------------
+ * methods of MSVehicle::manoeuvre
+ * ----------------------------------------------------------------------- */
+
+MSVehicle::Manoeuvre::Manoeuvre() : myManoeuvreStop(""), myManoeuvreStartTime(SUMOTime_MIN), myManoeuvreCompleteTime(SUMOTime_MIN), myManoeuvreType(MSVehicle::MANOEUVRE_NONE), myManoeuvreAngle(0) {}
+
+MSVehicle::Manoeuvre::Manoeuvre(const Manoeuvre& manoeuvre)
+{
+    myManoeuvreStop = manoeuvre.myManoeuvreStop;
+    myManoeuvreStartTime = manoeuvre.myManoeuvreStartTime;
+    myManoeuvreCompleteTime = manoeuvre.myManoeuvreCompleteTime;
+    myManoeuvreType = manoeuvre.myManoeuvreType;
+    myManoeuvreAngle = manoeuvre.myManoeuvreAngle;
+}
+
+MSVehicle::Manoeuvre&
+MSVehicle::Manoeuvre::operator=(const Manoeuvre & manoeuvre)
+{
+    myManoeuvreStop = manoeuvre.myManoeuvreStop;
+    myManoeuvreStartTime = manoeuvre.myManoeuvreStartTime;
+    myManoeuvreCompleteTime = manoeuvre.myManoeuvreCompleteTime;
+    myManoeuvreType = manoeuvre.myManoeuvreType;
+    myManoeuvreAngle = manoeuvre.myManoeuvreAngle;
+    return *this;
+}
+
+bool 
+MSVehicle::Manoeuvre::operator!=(const Manoeuvre & manoeuvre)
+{
+    return (myManoeuvreStop != manoeuvre.myManoeuvreStop ||
+            myManoeuvreStartTime != manoeuvre.myManoeuvreStartTime ||
+            myManoeuvreCompleteTime != manoeuvre.myManoeuvreCompleteTime ||
+            myManoeuvreType != manoeuvre.myManoeuvreType ||
+            myManoeuvreAngle != manoeuvre.myManoeuvreAngle
+            );
+}
+
+const int
+MSVehicle::Manoeuvre::getManoeuvreAngle()
+{
+    return (myManoeuvreAngle);
+}
+
+const MSVehicle::ManoeuvreType
+MSVehicle::Manoeuvre::getManoeuvreType()
+{
+    return (myManoeuvreType);
+}
+
+bool
+MSVehicle::Manoeuvre::configureEntryManoeuvre( MSVehicle* veh, SUMOTime currentTime )
+{
+    if (!veh->hasStops()) return false;  // should never happen - checked before call
+    
+    const Stop& stop = veh->getMyStops().front();
+    myManoeuvreStop = stop.parkingarea->getID();
+    myManoeuvreType = MSVehicle::MANOEUVRE_ENTRY;
+    myManoeuvreAngle = stop.parkingarea->getLastFreeLotAngle();
+    myManoeuvreStartTime = currentTime;
+    myManoeuvreCompleteTime = currentTime + veh->myType->getEntryManoeuvreTime(myManoeuvreAngle);
+ /*
+#ifdef DEBUG_STOPS
+    if (DEBUG_COND) {
+        std::cout << "Manoeuvre start: vehicle=" << veh->getID() << ", Angle=" << myManoeuvreAngle << ", endTime=" << myManoeuvreCompleteTime - currentTime << std::endl;
+    }
+#endif
+*/
+    return (true);
+}
+
+bool
+MSVehicle::Manoeuvre::configureExitManoeuvre(MSVehicle* veh, const SUMOTime currentTime)
+{
+    if (myManoeuvreType != MSVehicle::MANOEUVRE_NONE) return(false);  
+  
+    myManoeuvreType = MSVehicle::MANOEUVRE_EXIT;
+    myManoeuvreStartTime = currentTime;
+    myManoeuvreCompleteTime = currentTime + veh->myType->getExitManoeuvreTime(myManoeuvreAngle) +veh->remainingStopDuration();
+    return (true);
+}
+
+bool 
+MSVehicle::Manoeuvre::entryManoeuvreIsComplete( MSVehicle* veh, const SUMOTime currentTime)
+{
+    Stop* currentStop = &veh->myStops.front();
+
+    // At the moment we only want to consider parking areas
+    if (currentStop->parkingarea == nullptr)
+        return true;
+    else
+        if (currentStop->parkingarea->getID() != myManoeuvreStop || MSVehicle::MANOEUVRE_ENTRY != myManoeuvreType)
+        {
+            if (configureEntryManoeuvre(veh, currentTime))
+                {
+                MSNet::getInstance()->informVehicleStateListener(veh, MSNet::VEHICLE_STATE_MANOEUVERING);
+                return(false);
+                }
+           else  // cannot configure entry so stop trying
+             return true;
+        }
+        else if (currentTime < myManoeuvreCompleteTime)
+        {
+             return false;
+        }
+        else // manoeuvre complete
+        {
+            // in case we ended up in a different lot - reset the angle for exit - to allow recompute
+            myManoeuvreAngle = currentStop->parkingarea->getLastFreeLotAngle();
+            myManoeuvreType = MSVehicle::MANOEUVRE_NONE;
+            return true;
+        }
+}
+
+bool
+MSVehicle::Manoeuvre::exitManoeuvreIsComplete(const SUMOTime currentTime)
+{
+    if (myManoeuvreType != MSVehicle::MANOEUVRE_EXIT) return true;
+
+    if (currentTime < myManoeuvreCompleteTime)
+       return false;
+    else { // manoeuvre complete
+       myManoeuvreType = MSVehicle::MANOEUVRE_NONE;
+       return true;
+    }
+
+}
 
 /****************************************************************************/

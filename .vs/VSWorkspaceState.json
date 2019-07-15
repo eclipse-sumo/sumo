@@ -1,11 +1,12 @@
 {
   "ExpandedNodes": [
     "",
-    "\\data\\xsd",
     "\\src",
     "\\src\\microsim",
-    "\\src\\utils\\xml"
+    "\\src\\microsim\\trigger",
+    "\\src\\utils",
+    "\\src\\utils\\vehicle"
   ],
-  "SelectedNode": "\\src\\microsim\\MSFrame.cpp",
+  "SelectedNode": "\\src\\microsim\\MSVehicleTransfer.cpp",
   "PreviewInSolutionExplorer": false
 }
