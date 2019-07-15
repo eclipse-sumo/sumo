@@ -337,11 +337,7 @@ protected:
         void setRotation(GNELane* additionalLane = nullptr);
 
         /// @brief draw lock icon
-        void draw(double size = 0.5) const;
-
-    private:
-        /// @brief pointer to additional parent
-        GNEAdditional* myAdditional;
+        void drawIcon(const GUIVisualizationSettings& s, const double exaggeration, const double size = 0.5) const;
 
     public:
         /// @brief position of the block icon
@@ -352,6 +348,10 @@ protected:
 
         /// @brief The rotation of the block icon
         double rotation;
+
+    private:
+        /// @brief pointer to additional parent
+        GNEAdditional* myAdditional;
     };
 
     /// @brief The GNEViewNet this additional element belongs

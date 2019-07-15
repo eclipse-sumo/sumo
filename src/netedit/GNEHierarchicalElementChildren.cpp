@@ -98,8 +98,8 @@ GNEHierarchicalElementChildren::updateChildConnections() {
 
 
 void 
-GNEHierarchicalElementChildren::drawChildConnections(GUIGlObjectType GLTypeParent) const {
-    myChildConnections.draw(GLTypeParent);
+GNEHierarchicalElementChildren::drawChildConnections(const GUIVisualizationSettings& s, const GUIGlObjectType GLTypeParent) const {
+    myChildConnections.draw(s, GLTypeParent);
 }
 
 
@@ -613,21 +613,25 @@ GNEHierarchicalElementChildren::ChildConnections::update() {
 
 
 void
-GNEHierarchicalElementChildren::ChildConnections::draw(GUIGlObjectType parentType) const {
-    // Iterate over myConnectionPositions
-    for (const auto& i : connectionPositions) {
-        // Add a draw matrix
-        glPushMatrix();
-        // traslate in the Z axis
-        glTranslated(0, 0, parentType - 0.01);
-        // Set color of the base
-        GLHelper::setColor(RGBColor(255, 235, 0));
-        for (auto j = i.begin(); (j + 1) != i.end(); j++) {
-            // Draw Lines
-            GLHelper::drawLine((*j), (*(j + 1)));
+GNEHierarchicalElementChildren::ChildConnections::draw(const GUIVisualizationSettings& s, const GUIGlObjectType parentType) const {
+    // first check if connections can be drawn
+    if (!s.drawForSelecting) {
+        // Iterate over myConnectionPositions
+        for (const auto &i : connectionPositions) {
+            // Add a draw matrix
+            glPushMatrix();
+            // traslate in the Z axis
+            glTranslated(0, 0, parentType - 0.01);
+            // Set color of the base
+            GLHelper::setColor(s.colorSettings.childConnections);
+            // iterate over connections
+            for (auto j = i.begin(); (j + 1) != i.end(); j++) {
+                // Draw Lines
+                GLHelper::drawLine((*j), (*(j + 1)));
+            }
+            // Pop draw matrix
+            glPopMatrix();
         }
-        // Pop draw matrix
-        glPopMatrix();
     }
 }
 

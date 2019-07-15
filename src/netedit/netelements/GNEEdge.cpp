@@ -2176,8 +2176,8 @@ GNEEdge::drawEdgeName(const GUIVisualizationSettings& s) const {
 void 
 GNEEdge::drawRerouterSymbol(const GUIVisualizationSettings& s, GNEAdditional *rerouter) const {
     // Draw symbols in every lane
-    const double rerouterExaggeration = s.addSize.getExaggeration(s, rerouter);
-    if (s.scale * rerouterExaggeration >= 3) {
+    const double exaggeration = s.addSize.getExaggeration(s, rerouter);
+    if (s.scale * exaggeration >= 3) {
         // Start drawing adding an gl identificator
         glPushName(rerouter->getGlID());
         // draw rerouter symbol over all lanes
@@ -2188,7 +2188,7 @@ GNEEdge::drawRerouterSymbol(const GUIVisualizationSettings& s, GNEAdditional *re
             glPushMatrix();
             glTranslated(lanePos.x(), lanePos.y(), rerouter->getType());
             glRotated(-1 * laneRot, 0, 0, 1);
-            glScaled(rerouterExaggeration, rerouterExaggeration, 1);
+            glScaled(exaggeration, exaggeration, 1);
             // mode
             glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
             glBegin(GL_TRIANGLES);
@@ -2219,9 +2219,7 @@ GNEEdge::drawRerouterSymbol(const GUIVisualizationSettings& s, GNEAdditional *re
     // Pop name
     glPopName();
     // Draw connections
-    if(!s.drawForSelecting) {
-        rerouter->drawChildConnections(getType());
-    }
+    rerouter->drawChildConnections(s, getType());
 }
 
 /****************************************************************************/

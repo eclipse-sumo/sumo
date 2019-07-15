@@ -1187,15 +1187,15 @@ GNELane::drawDirectionIndicators(double exaggeration, bool spreadSuperposed) con
 
 void
 GNELane::drawVSSSymbol(const GUIVisualizationSettings& s, GNEAdditional *vss) const {
-    // Start drawing adding an VSS gl identificator (used to identify element after clicking)
-    glPushName(vss->getGlID());
     // obtain VSSExaggeration, lane pos and route
-    const double VSSExaggeration = s.addSize.getExaggeration(s, vss);
+    const double exaggeration = s.addSize.getExaggeration(s, vss);
     const Position &lanePos = vss->getChildPosition(this);
     const double laneRot = vss->getChildRotation(this);
+    // Start drawing adding an VSS gl identificator (used to identify element after clicking)
+    glPushName(vss->getGlID());
     // start drawing symbol
     glPushMatrix();
-    glScaled(VSSExaggeration, VSSExaggeration, 1);
+    glScaled(exaggeration, exaggeration, 1);
     glTranslated(lanePos.x(), lanePos.y(), vss->getType());
     glRotated(-1 * laneRot, 0, 0, 1);
     glTranslated(0, -1.5, 0);
@@ -1229,9 +1229,7 @@ GNELane::drawVSSSymbol(const GUIVisualizationSettings& s, GNEAdditional *vss) co
         GLHelper::drawShapeDottedContourRectangle(s, getType(), lanePos, 2.6, 2.6, -1 * laneRot, 0, -1.5);
     }
     // Draw connections
-    if(!s.drawForSelecting) {
-        vss->drawChildConnections(getType());
-    }
+    vss->drawChildConnections(s, getType());
 }
 
 

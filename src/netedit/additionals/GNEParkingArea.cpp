@@ -119,7 +119,7 @@ GNEParkingArea::drawGL(const GUIVisualizationSettings& s) const {
     if (drawUsingSelectColor()) {
         GLHelper::setColor(s.colorSettings.selectedAdditionalColor);
     } else {
-        GLHelper::setColor(RGBColor(83, 89, 172, 255));
+        GLHelper::setColor(s.colorSettings.parkingArea);
     }
     // Draw base
     GLHelper::drawBoxLines(myGeometry.shape, myGeometry.shapeRotations, myGeometry.shapeLengths, myWidth * exaggeration);
@@ -151,7 +151,7 @@ GNEParkingArea::drawGL(const GUIVisualizationSettings& s) const {
         if (drawUsingSelectColor()) {
             GLHelper::setColor(s.colorSettings.selectedAdditionalColor);
         } else {
-            GLHelper::setColor(RGBColor(83, 89, 172, 255));
+            GLHelper::setColor(s.colorSettings.parkingArea);
         }
         // Draw extern
         GLHelper::drawFilledCircle(myCircleWidth, s.getCircleResolution());
@@ -161,7 +161,7 @@ GNEParkingArea::drawGL(const GUIVisualizationSettings& s) const {
         if (drawUsingSelectColor()) {
             GLHelper::setColor(s.colorSettings.selectionColor);
         } else {
-            GLHelper::setColor(RGBColor(177, 184, 186, 171));
+            GLHelper::setColor(s.colorSettings.parkingAreaSign);
         }
         // Draw internt sign
         GLHelper::drawFilledCircle(myCircleInWidth, s.getCircleResolution());
@@ -170,13 +170,13 @@ GNEParkingArea::drawGL(const GUIVisualizationSettings& s) const {
             if (drawUsingSelectColor()) {
                 GLHelper::drawText("P", Position(), .1, myCircleInText, s.colorSettings.selectedAdditionalColor, myBlockIcon.rotation);
             } else {
-                GLHelper::drawText("P", Position(), .1, myCircleInText, RGBColor(83, 89, 172, 255), myBlockIcon.rotation);
+                GLHelper::drawText("P", Position(), .1, myCircleInText, s.colorSettings.parkingArea, myBlockIcon.rotation);
             }
         }
         // Pop sign matrix
         glPopMatrix();
         // Draw icon
-        myBlockIcon.draw();
+        myBlockIcon.drawIcon(s, exaggeration);
     }
     // Pop base matrix
     glPopMatrix();

@@ -159,6 +159,9 @@ struct GUIVisualizationColorSettings {
     /// @brief person plan selection color (Rides, Walks, personStops...)
     RGBColor selectedPersonPlanColor;
 
+    /// @brief color for child connections between parents and child elements
+    static const RGBColor childConnections;
+
     /// @brief color for crossings
     static const RGBColor crossing;
 
@@ -189,6 +192,18 @@ struct GUIVisualizationColorSettings {
     /// @brief color for chargingStation during charging
     static const RGBColor chargingStation_charge;
 
+    /// @brief color for parkingAreas
+    static const RGBColor parkingArea;
+
+    /// @brief color for parkingArea sign
+    static const RGBColor parkingAreaSign;
+
+    /// @brief color for parkingArea sign
+    static const RGBColor parkingSpace;
+
+    /// @brief color for parkingArea innen
+    static const RGBColor parkingSpaceInnen;
+
     /// @brief color for E1 detectors
     static const RGBColor E1;
 
@@ -203,6 +218,15 @@ struct GUIVisualizationColorSettings {
 
     /// @brief color for Exits
     static const RGBColor E3Exit;
+
+    /// @brief color for Calibrators
+    static const RGBColor calibrator;
+
+    /// @brief color for route probes
+    static const RGBColor routeProbe;
+
+    /// @brief color for vaporizers
+    static const RGBColor vaporizer;
 
     /// @brief color for Stops
     static const RGBColor stops;
@@ -259,6 +283,9 @@ struct GUIVisualizationDetailSettings {
     /// @brief details for lane textures
     static const double laneTextures;
 
+    /// @brief lock icons
+    static const double lockIcon;
+
     /// @brief details for additional textures
     static const double additionalTextures;
 
@@ -279,6 +306,9 @@ struct GUIVisualizationDetailSettings {
 
     /// @brief details for detector texts
     static const double detectorText;
+
+    /// @brief details for calibrator text
+    static const double calibratorText;
 
     /// @brief details for stops
     static const double stopsDetails;

@@ -164,7 +164,7 @@ GNEContainerStop::drawGL(const GUIVisualizationSettings& s) const {
         // pop draw matrix
         glPopMatrix();
         // Show Lock icon depending of the Edit mode
-        myBlockIcon.draw();
+        myBlockIcon.drawIcon(s, exaggeration);
     }
     // pop draw matrix
     glPopMatrix();

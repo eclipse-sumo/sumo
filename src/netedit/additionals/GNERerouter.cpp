@@ -150,13 +150,10 @@ GNERerouter::drawGL(const GUIVisualizationSettings& s) const {
     }
     // Pop draw matrix
     glPopMatrix();
-    // Only lock and children if isn't being drawn for selecting
-    if (!s.drawForSelecting) {
-        // Show Lock icon depending of the Edit mode
-        myBlockIcon.draw(0.4);
-        // Draw child connections
-        drawChildConnections(getType());
-    }
+    // Show Lock icon
+    myBlockIcon.drawIcon(s, exaggeration, 0.4);
+    // Draw child connections
+    drawChildConnections(s, getType());
     // check if dotted contour has to be drawn
     if (myViewNet->getDottedAC() == this) {
         GLHelper::drawShapeDottedContourRectangle(s, getType(), myPosition, 2, 2);

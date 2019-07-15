@@ -323,7 +323,7 @@ GNEHierarchicalElementParents::ParentConnections::update() {
 
 
 void
-GNEHierarchicalElementParents::ParentConnections::draw(GUIGlObjectType parentType) const {
+GNEHierarchicalElementParents::ParentConnections::draw(const GUIVisualizationSettings& s, const GUIGlObjectType parentType) const {
     // Iterate over myConnectionPositions
     for (auto i : connectionPositions) {
         // Add a draw matrix
@@ -331,7 +331,8 @@ GNEHierarchicalElementParents::ParentConnections::draw(GUIGlObjectType parentTyp
         // traslate in the Z axis
         glTranslated(0, 0, parentType - 0.01);
         // Set color of the base
-        GLHelper::setColor(RGBColor(255, 235, 0));
+        GLHelper::setColor(s.colorSettings.childConnections);
+        // iterate over connections
         for (auto j = i.begin(); (j + 1) != i.end(); j++) {
             // Draw Lines
             GLHelper::drawLine((*j), (*(j + 1)));

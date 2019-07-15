@@ -165,7 +165,7 @@ GNEChargingStation::drawGL(const GUIVisualizationSettings& s) const {
         // Pop sign matrix
         glPopMatrix();
         // Draw icon
-        myBlockIcon.draw();
+        myBlockIcon.drawIcon(s, exaggeration);
     }
     // Pop base matrix
     glPopMatrix();

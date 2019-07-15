@@ -474,9 +474,8 @@ GNEDetectorE2::drawGL(const GUIVisualizationSettings& s) const {
         }
         // pop matrix
         glPopMatrix();
-
         // Show Lock icon depending of the Edit mode
-        myBlockIcon.draw();
+        myBlockIcon.drawIcon(s, exaggeration);
     }
 
     // Draw name if isn't being drawn for selecting

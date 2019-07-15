@@ -114,16 +114,17 @@ GNEVaporizer::getParentName() const {
 void
 GNEVaporizer::drawGL(const GUIVisualizationSettings& s) const {
     // get values
-    glPushName(getGlID());
-    double width = (double) 2.0 * s.scale;
-    glLineWidth(1.0);
     const double exaggeration = s.addSize.getExaggeration(s, this);
     const int numberOfLanes = int(getEdgeParents().front()->getLanes().size());
+    const double width = (double) 2.0 * s.scale;
+    // begin draw
+    glPushName(getGlID());
+    glLineWidth(1.0);
     // set color
     if (drawUsingSelectColor()) {
         GLHelper::setColor(s.colorSettings.selectedAdditionalColor);
     } else {
-        GLHelper::setColor(RGBColor(120, 216, 0));
+        GLHelper::setColor(s.colorSettings.vaporizer);
     }
     // draw shape
     glPushMatrix();
@@ -173,16 +174,13 @@ GNEVaporizer::drawGL(const GUIVisualizationSettings& s) const {
             GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(GNETEXTURE_VAPORIZER), 1);
         }
     } else {
-        GLHelper::setColor(RGBColor::GREEN);
+        GLHelper::setColor(s.colorSettings.vaporizer);
         GLHelper::drawBoxLine(Position(0, 1), 0, 2, 1);
     }
     // Pop logo matrix
     glPopMatrix();
-    // Check if the distance is enought to draw details
-    if ((s.drawDetail(s.detailSettings.stoppingPlaceDetails, exaggeration)) && !s.drawForSelecting) {
-        // Show Lock icon depending of the Edit mode
-        myBlockIcon.draw(0.4);
-    }
+    // Show Lock icon
+    myBlockIcon.drawIcon(s, exaggeration, 0.4);
     // draw name
     drawName(getPositionInView(), s.scale, s.addName);
     // check if dotted contour has to be drawn

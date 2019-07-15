@@ -60,6 +60,7 @@ const RGBColor SUMO_color_DEADEND(0, 0, 0);
 // color constants for other objects
 // -------------------------------------------------------------------------
 
+const RGBColor GUIVisualizationColorSettings::childConnections(255, 235, 0);
 const RGBColor GUIVisualizationColorSettings::crossing(25, 25, 25);
 const RGBColor GUIVisualizationColorSettings::crossingPriority(229, 229, 229);
 const RGBColor GUIVisualizationColorSettings::crossingInvalid(255, 25, 25);
@@ -70,11 +71,18 @@ const RGBColor GUIVisualizationColorSettings::containerStop_sign(177, 184, 186, 
 const RGBColor GUIVisualizationColorSettings::chargingStation(114, 210, 252);
 const RGBColor GUIVisualizationColorSettings::chargingStation_sign(255, 235, 0);
 const RGBColor GUIVisualizationColorSettings::chargingStation_charge(255, 180, 0);
+const RGBColor GUIVisualizationColorSettings::parkingArea(83, 89, 172);
+const RGBColor GUIVisualizationColorSettings::parkingAreaSign(177, 184, 186);
+const RGBColor GUIVisualizationColorSettings::parkingSpace(0, 255, 0);
+const RGBColor GUIVisualizationColorSettings::parkingSpaceInnen(255, 200, 200);
 const RGBColor GUIVisualizationColorSettings::E1(255, 255, 0);
 const RGBColor GUIVisualizationColorSettings::E1Instant(255, 0, 255);
 const RGBColor GUIVisualizationColorSettings::E2(0, 204, 204);
 const RGBColor GUIVisualizationColorSettings::E3Entry(0, 92, 64);
 const RGBColor GUIVisualizationColorSettings::E3Exit(92, 0, 0);
+const RGBColor GUIVisualizationColorSettings::calibrator(255, 204, 0);
+const RGBColor GUIVisualizationColorSettings::routeProbe(255, 216, 0);
+const RGBColor GUIVisualizationColorSettings::vaporizer(120, 216, 0);
 const RGBColor GUIVisualizationColorSettings::stops(220, 20, 30);
 const RGBColor GUIVisualizationColorSettings::vehicleTrips(255, 128, 0);
 const RGBColor GUIVisualizationColorSettings::personStops(255, 0, 0);
@@ -100,6 +108,7 @@ const double GUIVisualizationWidthSettings::ride(0.25);
 
 const double GUIVisualizationDetailSettings::connectionsDemandMode(5);
 const double GUIVisualizationDetailSettings::laneTextures(20); // originally 10
+const double GUIVisualizationDetailSettings::lockIcon(30);
 const double GUIVisualizationDetailSettings::additionalTextures(20); // originally 10
 const double GUIVisualizationDetailSettings::geometryPointsDetails(10);
 const double GUIVisualizationDetailSettings::geometryPointsText(30);
@@ -107,6 +116,7 @@ const double GUIVisualizationDetailSettings::stoppingPlaceDetails(10);
 const double GUIVisualizationDetailSettings::stoppingPlaceText(30);
 const double GUIVisualizationDetailSettings::detectorDetails(10);
 const double GUIVisualizationDetailSettings::detectorText(30);
+const double GUIVisualizationDetailSettings::calibratorText(10);
 const double GUIVisualizationDetailSettings::stopsDetails(10);
 const double GUIVisualizationDetailSettings::stopsText(50);
 const double GUIVisualizationDetailSettings::vehicleTriangles(2);

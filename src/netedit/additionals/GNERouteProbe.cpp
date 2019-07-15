@@ -119,16 +119,17 @@ GNERouteProbe::getParentName() const {
 void
 GNERouteProbe::drawGL(const GUIVisualizationSettings& s) const {
     // get values
-    glPushName(getGlID());
-    double width = (double) 2.0 * s.scale;
-    glLineWidth(1.0);
+    const double width = (double) 2.0 * s.scale;
     const double exaggeration = s.addSize.getExaggeration(s, this);
     const int numberOfLanes = int(getEdgeParents().front()->getLanes().size());
+    // start drawing
+    glPushName(getGlID());
+    glLineWidth(1.0);
     // set color
     if (drawUsingSelectColor()) {
         GLHelper::setColor(s.colorSettings.selectedAdditionalColor);
     } else {
-        GLHelper::setColor(RGBColor(255, 216, 0));
+        GLHelper::setColor(s.colorSettings.routeProbe);
     }
     // draw shape
     glPushMatrix();
@@ -178,17 +179,13 @@ GNERouteProbe::drawGL(const GUIVisualizationSettings& s) const {
             GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(GNETEXTURE_ROUTEPROBE), 1);
         }
     } else {
-            GLHelper::setColor(RGBColor::YELLOW);
+        GLHelper::setColor(s.colorSettings.routeProbe);
         GLHelper::drawBoxLine(Position(0, 1), 0, 2, 1);
-
     }
     // Pop logo matrix
     glPopMatrix();
-    // Check if the distance is enought to draw details
-    if ((s.drawDetail(s.detailSettings.stoppingPlaceDetails, exaggeration)) && !s.drawForSelecting) {
-        // Show Lock icon depending of the Edit mode
-        myBlockIcon.draw(0.4);
-    }
+    // Show Lock icon depending of the Edit mode
+    myBlockIcon.drawIcon(s, exaggeration, 0.4);
     // draw name
     drawName(getPositionInView(), s.scale, s.addName);
     // check if dotted contour has to be drawn

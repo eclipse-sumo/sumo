@@ -147,13 +147,13 @@ GNEDetectorEntryExit::updateGeometry() {
 
 void
 GNEDetectorEntryExit::drawGL(const GUIVisualizationSettings& s) const {
+     // Set initial values
+    const double exaggeration = s.addSize.getExaggeration(s, this);
     // Start drawing adding gl identificator
     glPushName(getGlID());
-
     // Push detector matrix
     glPushMatrix();
     glTranslated(0, 0, getType());
-
     // Set color
     if (drawUsingSelectColor()) {
         GLHelper::setColor(s.colorSettings.selectedAdditionalColor);
@@ -162,17 +162,12 @@ GNEDetectorEntryExit::drawGL(const GUIVisualizationSettings& s) const {
     } else if (myTagProperty.getTag() == SUMO_TAG_DET_EXIT) {
         GLHelper::setColor(s.colorSettings.E3Exit);
     }
-
-    // Set initial values
-    const double exaggeration = s.addSize.getExaggeration(s, this);
     glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-
     // Push polygon matrix
     glPushMatrix();
     glScaled(exaggeration, exaggeration, 1);
     glTranslated(myGeometry.shape[0].x(), myGeometry.shape[0].y(), 0);
     glRotated(myGeometry.shapeRotations[0], 0, 0, 1);
-
     // draw details if isn't being drawn for selecting
     if (!s.drawForSelecting) {
         // Draw polygon
@@ -186,12 +181,10 @@ GNEDetectorEntryExit::drawGL(const GUIVisualizationSettings& s) const {
         glVertex2d(1.7, -.5);
         glVertex2d(1.7, .5);
         glEnd();
-
         // first Arrow
         glTranslated(1.5, 0, 0);
         GLHelper::drawBoxLine(Position(0, 4), 0, 2, .05);
         GLHelper::drawTriangleAtEnd(Position(0, 4), Position(0, 1), (double) 1, (double) .25);
-
         // second Arrow
         glTranslated(-3, 0, 0);
         GLHelper::drawBoxLine(Position(0, 4), 0, 2, .05);
@@ -205,15 +198,12 @@ GNEDetectorEntryExit::drawGL(const GUIVisualizationSettings& s) const {
         glVertex2d(1.7, 4.3);
         glEnd();
     }
-
     // Pop polygon matrix
     glPopMatrix();
-
     // Pop detector matrix
     glPopMatrix();
-
     // Check if the distance is enought to draw details
-    if (!s.drawForSelecting && ((s.scale * exaggeration) >= 10)) {
+    if (!s.drawForSelecting && s.drawDetail(s.detailSettings.detectorDetails, exaggeration)) {
         // Push matrix
         glPushMatrix();
         // Traslate to center of detector
@@ -256,10 +246,8 @@ GNEDetectorEntryExit::drawGL(const GUIVisualizationSettings& s) const {
         }
         // pop matrix
         glPopMatrix();
-        // Show Lock icon depending of the Edit mode and if isn't being drawn for selecting
-        if (!s.drawForSelecting) {
-            myBlockIcon.draw(0.4);
-        }
+        // draw lock icon
+        myBlockIcon.drawIcon(s, exaggeration, 0.4);
     }
     // Draw name if isn't being drawn for selecting
     if (!s.drawForSelecting) {

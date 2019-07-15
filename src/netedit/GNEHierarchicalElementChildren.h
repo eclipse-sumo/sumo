@@ -77,7 +77,7 @@ public:
     void updateChildConnections();
     
     // Draw connections between parent and children
-    void drawChildConnections(GUIGlObjectType GLTypeParent) const;
+    void drawChildConnections(const GUIVisualizationSettings& s, const GUIGlObjectType GLTypeParent) const;
 
     /// @brief gererate a new ID for an element child
     virtual std::string generateChildID(SumoXMLTag childTag) = 0;
@@ -215,7 +215,7 @@ protected:
         void update();
 
         /// @brief draw connections between Parent and childrens
-        void draw(GUIGlObjectType parentType) const;
+        void draw(const GUIVisualizationSettings& s, const GUIGlObjectType parentType) const;
 
         /// @brief position and rotation of every symbol over lane
         std::vector<ConnectionGeometry> symbolsPositionAndRotation;

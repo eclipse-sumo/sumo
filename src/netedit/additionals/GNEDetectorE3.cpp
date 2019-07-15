@@ -140,12 +140,10 @@ GNEDetectorE3::drawGL(const GUIVisualizationSettings& s) const {
     }
     // Pop logo matrix
     glPopMatrix();
-    if (!s.drawForSelecting) {
-        // Show Lock icon depending of the Edit mode
-        myBlockIcon.draw(0.4);
-        // Draw child connections
-        drawChildConnections(getType());
-    }
+    // Show Lock icon depending
+    myBlockIcon.drawIcon(s, exaggeration, 0.4);
+    // Draw child connections
+    drawChildConnections(s ,getType());
     // Draw name if isn't being drawn for selecting
     if (!s.drawForSelecting) {
         drawName(getPositionInView(), s.scale, s.addName);
