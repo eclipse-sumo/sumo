@@ -1,5 +1,8 @@
-# create demand element
-create
+# create route in consecutive mode
+create_consecutive
+
+# create route in non-consecutive mode
+create_nonconsecutive
 
 # delete demand element
 delete
