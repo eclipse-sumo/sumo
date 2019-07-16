@@ -706,16 +706,16 @@ GNEVehicle::drawGL(const GUIVisualizationSettings& s) const {
         double vehicleRotation = 0;
         if (getDemandElementParents().size() == 2) {
             // obtain position and rotation of first edge route
-            vehiclePosition = getDemandElementParents().at(1)->getDemandElementSegmentGeometry().firstSegment()->pos;
-            vehicleRotation = getDemandElementParents().at(1)->getDemandElementSegmentGeometry().firstSegment()->rotation;
+            vehiclePosition = getDemandElementParents().at(1)->getDemandElementSegmentGeometry().begin()->pos;
+            vehicleRotation = getDemandElementParents().at(1)->getDemandElementSegmentGeometry().begin()->rotation;
         } else if (getEdgeParents().size() > 0) {
             // obtain position and rotation of segments geometry
-            vehiclePosition = myDemandElementSegmentGeometry.firstSegment()->pos;
-            vehicleRotation = myDemandElementSegmentGeometry.firstSegment()->rotation;
+            vehiclePosition = myDemandElementSegmentGeometry.begin()->pos;
+            vehicleRotation = myDemandElementSegmentGeometry.begin()->rotation;
         } else if (getDemandElementChildren().size() > 0) {
             // obtain position and rotation of embedded route
-            vehiclePosition = getDemandElementChildren().at(0)->getDemandElementSegmentGeometry().firstSegment()->pos;
-            vehicleRotation = getDemandElementChildren().at(0)->getDemandElementSegmentGeometry().firstSegment()->rotation;
+            vehiclePosition = getDemandElementChildren().at(0)->getDemandElementSegmentGeometry().begin()->pos;
+            vehicleRotation = getDemandElementChildren().at(0)->getDemandElementSegmentGeometry().begin()->rotation;
         }
         // first check if if mouse is enought near to this vehicle to draw it
         if (s.drawForSelecting && (myViewNet->getPositionInformation().distanceSquaredTo2D(vehiclePosition) >= (vehicleSizeSquared + 2))) {

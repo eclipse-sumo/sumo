@@ -147,12 +147,6 @@ GNEDemandElement::DemandElementSegmentGeometry::insertEdgeSegment(const GNEDeman
     const GNEEdge* previousEdge = (myShapeSegments.size() > 0)? myShapeSegments.back().edge : nullptr;
     // add segment in myShapeSegments
     myShapeSegments.push_back(Segment(element, edge, pos, visible, valid));
-    // set iterators
-    if (previousEdge != edge) {
-        edgesBeginIteratorsMap[edge] = (myShapeSegments.begin() + myShapeSegments.size() - 1);
-    } else if (previousEdge == edge) {
-        edgesEndIteratorsMap[edge] = (myShapeSegments.begin() + myShapeSegments.size() - 1);
-    }
 }
 
 
@@ -162,12 +156,6 @@ GNEDemandElement::DemandElementSegmentGeometry::insertEdgeLenghtRotSegment(const
     const GNEEdge* previousEdge = (myShapeSegments.size() > 0)? myShapeSegments.back().edge : nullptr;
     // add segment in myShapeSegments
     myShapeSegments.push_back(Segment(element, edge, pos, lenght, rotation, visible, valid));
-    // set iterators
-    if (previousEdge != edge) {
-        edgesBeginIteratorsMap[edge] = (myShapeSegments.begin() + myShapeSegments.size() - 1);
-    } else if (previousEdge == edge) {
-        edgesEndIteratorsMap[edge] = (myShapeSegments.begin() + myShapeSegments.size() - 1);
-    }
 }
 
 
@@ -177,13 +165,6 @@ GNEDemandElement::DemandElementSegmentGeometry::insertJunctionSegment(const GNED
     const GNEJunction* previousJunction = (myShapeSegments.size() > 0)? myShapeSegments.back().junction : nullptr;
     // add segment in myShapeSegments
     myShapeSegments.push_back(Segment(element, junction, pos, visible, valid));
-    // set iterators
-    if (junctionsBeginIteratorsMap.count(junction) == 0) {
-        junctionsBeginIteratorsMap[junction] = (myShapeSegments.begin() + myShapeSegments.size() - 1);
-    } 
-    if (previousJunction == junction) {
-        junctionsEndIteratorsMap[junction] = (myShapeSegments.begin() + myShapeSegments.size() - 1);
-    }
 }
 
 
@@ -191,11 +172,6 @@ void
 GNEDemandElement::DemandElementSegmentGeometry::clearDemandElementSegmentGeometry() {
     // clear segments
     myShapeSegments.clear();
-    // clear iterator maps
-    edgesBeginIteratorsMap.clear();
-    edgesEndIteratorsMap.clear();
-    junctionsBeginIteratorsMap.clear();
-    junctionsEndIteratorsMap.clear();
 }
 
 
@@ -224,46 +200,14 @@ GNEDemandElement::DemandElementSegmentGeometry::calculatePartialShapeRotationsAn
 
 
 std::vector<GNEDemandElement::DemandElementSegmentGeometry::Segment>::const_iterator 
-GNEDemandElement::DemandElementSegmentGeometry::cbegin(const GNEEdge* edge) const {
-    return edgesBeginIteratorsMap.at(edge);
+GNEDemandElement::DemandElementSegmentGeometry::begin() const {
+    return myShapeSegments.cbegin();
 }
 
 
 std::vector<GNEDemandElement::DemandElementSegmentGeometry::Segment>::const_iterator 
-GNEDemandElement::DemandElementSegmentGeometry::cend(const GNEEdge* edge) const {
-    return edgesEndIteratorsMap.at(edge);
-}
-
-
-std::vector<GNEDemandElement::DemandElementSegmentGeometry::Segment>::const_iterator 
-GNEDemandElement::DemandElementSegmentGeometry::cbegin(const GNEJunction* junction) const {
-    if (junctionsBeginIteratorsMap.count(junction) > 0) {
-        return junctionsBeginIteratorsMap.at(junction);
-    } else {
-        return myShapeSegments.end();
-    }
-}
-
-
-std::vector<GNEDemandElement::DemandElementSegmentGeometry::Segment>::const_iterator 
-GNEDemandElement::DemandElementSegmentGeometry::cend(const GNEJunction* junction) const {
-    if (junctionsEndIteratorsMap.count(junction) > 0) {
-        return junctionsEndIteratorsMap.at(junction);
-    } else {
-        return myShapeSegments.end();
-    }
-}
-
-
-std::vector<GNEDemandElement::DemandElementSegmentGeometry::Segment>::const_iterator
-GNEDemandElement::DemandElementSegmentGeometry::firstSegment() const {
-    return myShapeSegments.begin();
-}
-
-
-std::vector<GNEDemandElement::DemandElementSegmentGeometry::Segment>::const_iterator
-GNEDemandElement::DemandElementSegmentGeometry::lastSegment() const {
-    return myShapeSegments.end();
+GNEDemandElement::DemandElementSegmentGeometry::end() const {
+    return myShapeSegments.cend();
 }
 
 // ---------------------------------------------------------------------------

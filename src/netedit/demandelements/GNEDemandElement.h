@@ -138,39 +138,15 @@ public:
         void calculatePartialShapeRotationsAndLengths();
 
         /// @brief begin iterator
-        std::vector<Segment>::const_iterator cbegin(const GNEEdge* edge) const;
+        std::vector<Segment>::const_iterator begin() const;
         
-        /// @brief begin iterator
-        std::vector<Segment>::const_iterator cend(const GNEEdge* edge) const;
-
-        /// @brief begin iterator
-        std::vector<Segment>::const_iterator cbegin(const GNEJunction* junction) const;
-
-        /// @brief begin iterator
-        std::vector<Segment>::const_iterator cend(const GNEJunction* junction) const;
-
-        /// @brief return first segment
-        std::vector<Segment>::const_iterator firstSegment() const;
-
-        /// @brief return last segment
-        std::vector<Segment>::const_iterator lastSegment() const;
+        /// @brief end iterator
+        std::vector<Segment>::const_iterator end() const;
 
         /// @brief mark geometry as deprecated (used to avoid multiple updates)
         bool geometryDeprecated;
 
     private:
-        /// @brief begin iterators for edges
-        std::map<const GNEEdge*, std::vector<Segment>::const_iterator> edgesBeginIteratorsMap;
-
-        /// @brief end iterators for edges
-        std::map<const GNEEdge*, std::vector<Segment>::const_iterator> edgesEndIteratorsMap;
-
-        /// @brief begin iterators for junctions
-        std::map<const GNEJunction*, std::vector<Segment>::const_iterator> junctionsBeginIteratorsMap;
-
-        /// @brief end iterators for junctions
-        std::map<const GNEJunction*, std::vector<Segment>::const_iterator> junctionsEndIteratorsMap;
-
         /// @brief vector of segments that constitutes the shape
         std::vector<Segment> myShapeSegments;
     };
