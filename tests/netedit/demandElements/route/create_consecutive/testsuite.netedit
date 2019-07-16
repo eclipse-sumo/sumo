@@ -1,5 +1,11 @@
 default
 
+abort
+
 non_consecutive
 
 invalid_vclass
+
+single_edge
+
+color
