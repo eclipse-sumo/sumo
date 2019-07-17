@@ -120,6 +120,8 @@ enum SumoXMLTag {
     SUMO_TAG_VEHICLE,
     /// @brief description of a vehicle type
     SUMO_TAG_VTYPE,
+    /// @brief description of a person type (used in NETEDIT)
+    SUMO_TAG_PTYPE,
     /// @brief begin/end of the description of a route
     SUMO_TAG_ROUTE,
     /// @brief begin/end of the description of a embedded route (used in NETEDIT)
@@ -289,13 +291,27 @@ enum SumoXMLTag {
     SUMO_TAG_CF_CC,
     /// @}
 
-    /// @name Pedestrians
+    /// @name Persons
     /// @{
     SUMO_TAG_PERSON,
     SUMO_TAG_PERSONTRIP,
     SUMO_TAG_RIDE,
     SUMO_TAG_WALK,
     SUMO_TAG_PERSONFLOW,
+    /// @}
+
+    /// @name Persons (used by Netedit)
+    /// @{
+    SUMO_TAG_PERSONTRIP_FROMTO,
+    SUMO_TAG_PERSONTRIP_BUSSTOP,
+    SUMO_TAG_WALK_EDGES,
+    SUMO_TAG_WALK_FROMTO,
+    SUMO_TAG_WALK_BUSSTOP,
+    SUMO_TAG_WALK_ROUTE,
+    SUMO_TAG_RIDE_FROMTO,
+    SUMO_TAG_RIDE_BUSSTOP,
+    SUMO_TAG_PERSONSTOP_BUSSTOP,
+    SUMO_TAG_PERSONSTOP_LANE,
     /// @}
 
     SUMO_TAG_CONTAINER,
@@ -982,7 +998,7 @@ enum SumoXMLAttr {
     GNE_ATTR_AVERAGE_SOURCE,
     /// @brief average sink (used only by TAZs)
     GNE_ATTR_AVERAGE_SINK,
-    /// @brief Color of TAZSources/TAZChilds
+    /// @brief Color of TAZSources/TAZSinks
     GNE_ATTR_TAZCOLOR,
     /// @brief Flag to check if VType is a default VType
     GNE_ATTR_DEFAULT_VTYPE,

@@ -48,7 +48,7 @@ public:
     SUMOVehicleClass getVClass() const;
 
     /**@brief get begin time of demand element
-     * @note: used by demand elements of type "Vehicle", and it has to be implemented as childs
+     * @note: used by demand elements of type "Vehicle", and it has to be implemented as children
      * @throw invalid argument if demand element doesn't has a begin time
      */
     std::string getBegin() const;
@@ -61,13 +61,13 @@ public:
      */
     void writeDemandElement(OutputDevice& device) const;
 
-    /// @brief check if current demand element is valid to be writed into XML (by default true, can be reimplemented in childs)
+    /// @brief check if current demand element is valid to be writed into XML (by default true, can be reimplemented in children)
     bool isDemandElementValid() const;
 
-    /// @brief return a string with the current demand element problem (by default empty, can be reimplemented in childs)
+    /// @brief return a string with the current demand element problem (by default empty, can be reimplemented in children)
     std::string getDemandElementProblem() const;
 
-    /// @brief fix demand element problem (by default throw an exception, has to be reimplemented in childs)
+    /// @brief fix demand element problem (by default throw an exception, has to be reimplemented in children)
     void fixDemandElementProblem();
 
     /// @name Functions related with geometry of element
@@ -128,6 +128,12 @@ public:
     */
     std::string getAttribute(SumoXMLAttr key) const;
 
+    /* @brief method for getting the Attribute of an XML key in double format (to avoid unnecessary parse<double>(...) for certain attributes)
+     * @param[in] key The attribute key
+     * @return double with the value associated to key
+     */
+    double getAttributeDouble(SumoXMLAttr key) const;
+
     /* @brief method for setting the attribute and letting the object perform demand element changes
     * @param[in] key The attribute key
     * @param[in] value The new value
@@ -174,47 +180,8 @@ public:
     double getEndGeometryPositionOverLane() const;
 
 protected:
-    /// @brief struct for pack all variables related with geometry of stop
-    struct StopGeometry {
-        /// @brief constructor
-        StopGeometry();
-
-        /// @brief reset geometry
-        void clearGeometry();
-
-        /// @brief calculate shape rotations and lenghts
-        void calculateShapeRotationsAndLengths();
-
-        /// @brief The shape of the additional element
-        PositionVector shape;
-
-        /// @brief The rotations of the single shape parts
-        std::vector<double> shapeRotations;
-
-        /// @brief The lengths of the single shape parts
-        std::vector<double> shapeLengths;
-    };
-
-     /// @brief struct for pack all variables related with Stop moving
-    struct StopMove {
-        /// @brief boundary used during moving of elements (to avoid insertion in RTREE)
-        Boundary movingGeometryBoundary;
-
-        /// @brief value for saving first original position over lane before moving
-        Position originalViewPosition;
-
-        /// @brief value for saving first original position over lane before moving
-        std::string firstOriginalLanePosition;
-
-        /// @brief value for saving second original position over lane before moving
-        std::string secondOriginalPosition;
-    };
-
-    /// @brief stop geometry (used by stops over lanes
-    StopGeometry myStopGeometry;
-    
-    /// @brief variable StopMove
-    StopMove myStopMove;
+    /// @brief variable demand element move
+    DemandElementMove myStopMove;
 
     /// @brief Flag for friendly position
     bool myFriendlyPosition;

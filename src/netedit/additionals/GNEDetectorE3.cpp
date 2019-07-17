@@ -114,22 +114,19 @@ GNEDetectorE3::getParentName() const {
 
 void
 GNEDetectorE3::drawGL(const GUIVisualizationSettings& s) const {
+    // Obtain exaggeration of the draw
+    const double exaggeration = s.addSize.getExaggeration(s, this);
     // check if boundary has to be drawn
     if(s.drawBoundaries) {
         GLHelper::drawBoundary(getCenteringBoundary());
     }
     // Start drawing adding an gl identificator
     glPushName(getGlID());
-
     // Add a draw matrix for drawing logo
     glPushMatrix();
     glTranslated(myPosition.x(), myPosition.y(), getType());
-
     // Draw icon depending of detector is selected and if isn't being drawn for selecting
-    if (s.drawForSelecting) {
-        GLHelper::setColor(RGBColor::GREY);
-        GLHelper::drawBoxLine(Position(0, 1), 0, 2, 1);
-    } else {
+    if (!s.drawForSelecting && s.drawDetail(s.detailSettings.laneTextures, exaggeration)) {
         glColor3d(1, 1, 1);
         glRotated(180, 0, 0, 1);
         if (drawUsingSelectColor()) {
@@ -137,26 +134,26 @@ GNEDetectorE3::drawGL(const GUIVisualizationSettings& s) const {
         } else {
             GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(GNETEXTURE_E3), 1);
         }
+    } else {
+        GLHelper::setColor(RGBColor::GREY);
+        GLHelper::drawBoxLine(Position(0, 1), 0, 2, 1);
     }
-
     // Pop logo matrix
     glPopMatrix();
-    if (!s.drawForSelecting) {
-        // Show Lock icon depending of the Edit mode
-        myBlockIcon.draw(0.4);
-        // Draw child connections
-        drawChildConnections(getType());
-    }
+    // Show Lock icon depending
+    myBlockIcon.drawIcon(s, exaggeration, 0.4);
+    // Draw child connections
+    drawChildConnections(s ,getType());
     // Draw name if isn't being drawn for selecting
     if (!s.drawForSelecting) {
         drawName(getPositionInView(), s.scale, s.addName);
     }
     // check if dotted contour has to be drawn
-    if (!s.drawForSelecting && (myViewNet->getDottedAC() == this)) {
-        GLHelper::drawShapeDottedContour(getType(), myPosition, 2, 2);
+    if (myViewNet->getDottedAC() == this) {
+        GLHelper::drawShapeDottedContourRectangle(s, getType(), myPosition, 2, 2);
         // draw shape dotte contour aroud alld connections between child and parents
         for (auto i : myChildConnections.connectionPositions) {
-            GLHelper::drawShapeDottedContour(getType(), i, 0);
+            GLHelper::drawShapeDottedContourAroundShape(s, getType(), i, 0);
         }
     }
     // Pop name
@@ -204,8 +201,8 @@ GNEDetectorE3::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoLi
         case SUMO_ATTR_ID: {
             // change ID of Entry
             undoList->p_add(new GNEChange_Attribute(this, myViewNet->getNet(), key, value));
-            // Change Ids of all Entry/Exits childs
-            for (auto i : getAdditionalChilds()) {
+            // Change Ids of all Entry/Exits children
+            for (auto i : getAdditionalChildren()) {
                 i->setAttribute(SUMO_ATTR_ID, generateChildID(i->getTagProperty().getTag()), undoList);
             }
             break;
@@ -268,7 +265,7 @@ GNEDetectorE3::checkAdditionalChildRestriction() const {
     int numEntrys = 0;
     int numExits = 0;
     // iterate over additional chidls and obtain number of entrys and exits
-    for (auto i : getAdditionalChilds()) {
+    for (auto i : getAdditionalChildren()) {
         if (i->getTagProperty().getTag() == SUMO_TAG_DET_ENTRY) {
             numEntrys++;
         } else if (i->getTagProperty().getTag() == SUMO_TAG_DET_EXIT) {

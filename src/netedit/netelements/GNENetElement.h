@@ -24,7 +24,7 @@
 #include <config.h>
 
 #include <netedit/GNEHierarchicalElementParents.h>
-#include <netedit/GNEHierarchicalElementChilds.h>
+#include <netedit/GNEHierarchicalElementChildren.h>
 #include <utils/gui/globjects/GUIGlObject.h>
 #include <utils/geom/PositionVector.h>
 
@@ -39,7 +39,7 @@ class GNEDemandElement;
 // class definitions
 // ===========================================================================
 
-class GNENetElement : public GUIGlObject, public GNEAttributeCarrier, public GNEHierarchicalElementParents, public GNEHierarchicalElementChilds {
+class GNENetElement : public GUIGlObject, public GNEAttributeCarrier, public GNEHierarchicalElementParents, public GNEHierarchicalElementChildren {
 
 public:
     /// @brief struct for pack all variables related with geometry of elemement

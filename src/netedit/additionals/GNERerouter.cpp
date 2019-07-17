@@ -124,6 +124,8 @@ GNERerouter::getParentName() const {
 
 void
 GNERerouter::drawGL(const GUIVisualizationSettings& s) const {
+    // Obtain exaggeration of the draw
+    const double exaggeration = s.addSize.getExaggeration(s, this);
     // check if boundary has to be drawn
     if(s.drawBoundaries) {
         GLHelper::drawBoundary(getCenteringBoundary());
@@ -134,10 +136,7 @@ GNERerouter::drawGL(const GUIVisualizationSettings& s) const {
     glPushMatrix();
     glTranslated(myPosition.x(), myPosition.y(), getType());
     // Draw icon depending of detector is selected and if isn't being drawn for selecting
-    if (s.drawForSelecting) {
-        GLHelper::setColor(RGBColor::RED);
-        GLHelper::drawBoxLine(Position(0, 1), 0, 2, 1);
-    } else {
+    if (!s.drawForSelecting && s.drawDetail(s.detailSettings.laneTextures, exaggeration)) {
         glColor3d(1, 1, 1);
         glRotated(180, 0, 0, 1);
         if (drawUsingSelectColor()) {
@@ -145,22 +144,22 @@ GNERerouter::drawGL(const GUIVisualizationSettings& s) const {
         } else {
             GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(GNETEXTURE_REROUTER), 1);
         }
+    } else {
+        GLHelper::setColor(RGBColor::RED);
+        GLHelper::drawBoxLine(Position(0, 1), 0, 2, 1);
     }
     // Pop draw matrix
     glPopMatrix();
-    // Only lock and childs if isn't being drawn for selecting
-    if (!s.drawForSelecting) {
-        // Show Lock icon depending of the Edit mode
-        myBlockIcon.draw(0.4);
-        // Draw child connections
-        drawChildConnections(getType());
-    }
+    // Show Lock icon
+    myBlockIcon.drawIcon(s, exaggeration, 0.4);
+    // Draw child connections
+    drawChildConnections(s, getType());
     // check if dotted contour has to be drawn
-    if (!s.drawForSelecting && (myViewNet->getDottedAC() == this)) {
-        GLHelper::drawShapeDottedContour(getType(), myPosition, 2, 2);
+    if (myViewNet->getDottedAC() == this) {
+        GLHelper::drawShapeDottedContourRectangle(s, getType(), myPosition, 2, 2);
         // draw shape dotte contour aroud alld connections between child and parents
         for (auto i : myChildConnections.connectionPositions) {
-            GLHelper::drawShapeDottedContour(getType(), i, 0);
+            GLHelper::drawShapeDottedContourAroundShape(s, getType(), i, 0);
         }
     }
     // Draw name
@@ -176,7 +175,7 @@ GNERerouter::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_ID:
             return getAdditionalID();
         case SUMO_ATTR_EDGES:
-            return parseIDs(getEdgeChilds());
+            return parseIDs(getEdgeChildren());
         case SUMO_ATTR_POSITION:
             return toString(myPosition);
         case SUMO_ATTR_NAME:
@@ -212,8 +211,8 @@ GNERerouter::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList
         case SUMO_ATTR_ID: {
             // change ID of Rerouter Interval
             undoList->p_add(new GNEChange_Attribute(this, myViewNet->getNet(), key, value));
-            // Change Ids of all Rerouter interval childs
-            for (auto i : getAdditionalChilds()) {
+            // Change Ids of all Rerouter interval children
+            for (auto i : getAdditionalChildren()) {
                 i->setAttribute(SUMO_ATTR_ID, generateChildID(SUMO_TAG_INTERVAL), undoList);
             }
             break;
@@ -300,7 +299,7 @@ GNERerouter::setAttribute(SumoXMLAttr key, const std::string& value) {
             changeAdditionalID(value);
             break;
         case SUMO_ATTR_EDGES:
-            changeEdgeChilds(this, value);
+            changeEdgeChildren(this, value);
             break;
         case SUMO_ATTR_POSITION:
             myViewNet->getNet()->removeGLObjectFromGrid(this);

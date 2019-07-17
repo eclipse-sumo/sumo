@@ -56,10 +56,13 @@ public:
         ~RouteModeSelector();
 
         /// @brief get current route mode
-        const RouteMode& getCurrenRouteMode() const;
+        const RouteMode& getCurrentRouteMode() const;
 
         /// @brief get current selected VClass
         SUMOVehicleClass getCurrentVehicleClass() const;
+
+        /// @brief check if current VClass is Valid
+        bool isValidVehicleClass() const;
 
         /// @brief set current route mode type manually
         void setCurrentRouteMode(RouteMode routemode);
@@ -92,6 +95,9 @@ public:
 
         /// @brief current selected VClass
         SUMOVehicleClass myCurrentVehicleClass;
+
+        /// @brief flag to check if VClass is Valid
+        bool myValidVClass;
 
         /// @brief list of Route modes that will be shown in Match Box
         std::vector<std::pair<RouteMode, std::string> > myRouteModesStrings;

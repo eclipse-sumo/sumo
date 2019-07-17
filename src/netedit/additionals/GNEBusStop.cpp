@@ -73,8 +73,8 @@ GNEBusStop::updateGeometry() {
     // Set block icon rotation, and using their rotation for sign
     myBlockIcon.setRotation(getLaneParents().front());
 
-    // update demand element childs (GNEStops)
-    for (const auto& i : getDemandElementChilds()) {
+    // update demand element children (GNEStops)
+    for (const auto& i : getDemandElementChildren()) {
         i->updateGeometry();
     }
 }
@@ -88,8 +88,6 @@ GNEBusStop::getCenteringBoundary() const {
 
 void
 GNEBusStop::drawGL(const GUIVisualizationSettings& s) const {
-    // obtain circle resolution
-    int circleResolution = getCircleResolution(s);
     // Obtain exaggeration of the draw
     const double exaggeration = s.addSize.getExaggeration(s, this);
     // Start drawing adding an gl identificator
@@ -99,10 +97,12 @@ GNEBusStop::drawGL(const GUIVisualizationSettings& s) const {
     // Start with the drawing of the area traslating matrix to origin
     glTranslated(0, 0, getType());
     // Set color of the base
-    if (drawUsingSelectColor()) {
-        GLHelper::setColor(s.selectedAdditionalColor);
+    if (mySpecialColor) {
+        GLHelper::setColor(*mySpecialColor);
+    } else if (drawUsingSelectColor()) {
+        GLHelper::setColor(s.colorSettings.selectedAdditionalColor);
     } else {
-        GLHelper::setColor(s.SUMO_color_busStop);
+        GLHelper::setColor(s.colorSettings.busStop);
     }
     // Draw the area using shape, shapeRotations, shapeLengths and value of exaggeration
     GLHelper::drawBoxLines(myGeometry.shape, myGeometry.shapeRotations, myGeometry.shapeLengths, exaggeration);
@@ -117,34 +117,37 @@ GNEBusStop::drawGL(const GUIVisualizationSettings& s) const {
             // scale matrix depending of the exaggeration
             glScaled(exaggeration, exaggeration, 1);
             // set color
-            GLHelper::setColor(s.SUMO_color_busStop);
+            GLHelper::setColor(s.colorSettings.busStop);
             // Draw circle
-            GLHelper::drawFilledCircle(myCircleWidth, circleResolution);
+            GLHelper::drawFilledCircle(myCircleWidth, s.getCircleResolution());
             // pop draw matrix
             glPopMatrix();
         }
-    } else if (s.scale * exaggeration >= 10) {
+    } else if (s.drawDetail(s.detailSettings.stoppingPlaceDetails, exaggeration)) {
         // draw lines between BusStops and Acces
-        for (auto i : getAdditionalChilds()) {
+        for (auto i : getAdditionalChildren()) {
             GLHelper::drawBoxLine(i->getShape()[0], RAD2DEG(mySignPos.angleTo2D(i->getShape()[0])) - 90, mySignPos.distanceTo2D(i->getShape()[0]), .05);
         }
         // Add a draw matrix for details
         glPushMatrix();
-        // Iterate over every line
-        for (int i = 0; i < (int)myLines.size(); ++i) {
-            // push a new matrix for every line
-            glPushMatrix();
-            // Rotate and traslaste
-            glTranslated(mySignPos.x(), mySignPos.y(), 0);
-            glRotated(-1 * myBlockIcon.rotation, 0, 0, 1);
-            // draw line with a color depending of the selection status
-            if (drawUsingSelectColor()) {
-                GLHelper::drawText(myLines[i].c_str(), Position(1.2, (double)i), .1, 1.f, s.selectionColor, 0, FONS_ALIGN_LEFT);
-            } else {
-                GLHelper::drawText(myLines[i].c_str(), Position(1.2, (double)i), .1, 1.f, s.SUMO_color_busStop, 0, FONS_ALIGN_LEFT);
+        // draw lines depending of detailSettings
+        if (s.drawDetail(s.detailSettings.stoppingPlaceText, exaggeration)) {
+            // Iterate over every line
+            for (int i = 0; i < (int)myLines.size(); ++i) {
+                // push a new matrix for every line
+                glPushMatrix();
+                // Rotate and traslaste
+                glTranslated(mySignPos.x(), mySignPos.y(), 0);
+                glRotated(-1 * myBlockIcon.rotation, 0, 0, 1);
+                // draw line with a color depending of the selection status
+                if (drawUsingSelectColor()) {
+                    GLHelper::drawText(myLines[i].c_str(), Position(1.2, (double)i), .1, 1.f, s.colorSettings.selectionColor, 0, FONS_ALIGN_LEFT);
+                } else {
+                    GLHelper::drawText(myLines[i].c_str(), Position(1.2, (double)i), .1, 1.f, s.colorSettings.busStop, 0, FONS_ALIGN_LEFT);
+                }
+                // pop matrix for every line
+                glPopMatrix();
             }
-            // pop matrix for every line
-            glPopMatrix();
         }
         // Start drawing sign traslating matrix to signal position
         glTranslated(mySignPos.x(), mySignPos.y(), 0);
@@ -152,34 +155,34 @@ GNEBusStop::drawGL(const GUIVisualizationSettings& s) const {
         glScaled(exaggeration, exaggeration, 1);
         // Set color of the externe circle
         if (drawUsingSelectColor()) {
-            GLHelper::setColor(s.selectedAdditionalColor);
+            GLHelper::setColor(s.colorSettings.selectedAdditionalColor);
         } else {
-            GLHelper::setColor(s.SUMO_color_busStop);
+            GLHelper::setColor(s.colorSettings.busStop);
         }
         // Draw circle
-        GLHelper::drawFilledCircle(myCircleWidth, circleResolution);
+        GLHelper::drawFilledCircle(myCircleWidth, s.getCircleResolution());
         // Traslate to front
         glTranslated(0, 0, .1);
         // Set color of the interne circle
         if (drawUsingSelectColor()) {
-            GLHelper::setColor(s.selectionColor);
+            GLHelper::setColor(s.colorSettings.selectionColor);
         } else {
-            GLHelper::setColor(s.SUMO_color_busStop_sign);
+            GLHelper::setColor(s.colorSettings.busStop_sign);
         }
         // draw another circle in the same position, but a little bit more small
-        GLHelper::drawFilledCircle(myCircleInWidth, circleResolution);
-        // If the scale * exageration is equal or more than 4.5, draw H
-        if (s.scale * exaggeration >= 4.5) {
+        GLHelper::drawFilledCircle(myCircleInWidth, s.getCircleResolution());
+        // draw H depending of detailSettings
+        if (s.drawDetail(s.detailSettings.stoppingPlaceText, exaggeration)) {
             if (drawUsingSelectColor()) {
-                GLHelper::drawText("H", Position(), .1, myCircleInText, s.selectedAdditionalColor, myBlockIcon.rotation);
+                GLHelper::drawText("H", Position(), .1, myCircleInText, s.colorSettings.selectedAdditionalColor, myBlockIcon.rotation);
             } else {
-                GLHelper::drawText("H", Position(), .1, myCircleInText, s.SUMO_color_busStop, myBlockIcon.rotation);
+                GLHelper::drawText("H", Position(), .1, myCircleInText, s.colorSettings.busStop, myBlockIcon.rotation);
             }
         }
         // pop draw matrix
         glPopMatrix();
         // Show Lock icon depending of the Edit mode
-        myBlockIcon.draw();
+        myBlockIcon.drawIcon(s, exaggeration);
     }
     // pop draw matrix
     glPopMatrix();
@@ -189,13 +192,13 @@ GNEBusStop::drawGL(const GUIVisualizationSettings& s) const {
         GLHelper::drawText(myAdditionalName, mySignPos, GLO_MAX - getType(), s.addFullName.scaledSize(s.scale), s.addFullName.color, myBlockIcon.rotation);
     }
     // check if dotted contour has to be drawn
-    if (!s.drawForSelecting && (myViewNet->getDottedAC() == this)) {
-        GLHelper::drawShapeDottedContour(getType(), myGeometry.shape, exaggeration);
+    if (myViewNet->getDottedAC() == this) {
+        GLHelper::drawShapeDottedContourAroundShape(s, getType(), myGeometry.shape, exaggeration);
     }
     // Pop name
     glPopName();
-    // draw demand element childs
-    for (const auto &i : getDemandElementChilds()) {
+    // draw demand element children
+    for (const auto &i : getDemandElementChildren()) {
         if (!i->getTagProperty().isPlacedInRTree()) {
             i->drawGL(s);
         }
@@ -243,8 +246,8 @@ GNEBusStop::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList*
         case SUMO_ATTR_ID: {
             // change ID of BusStop
             undoList->p_add(new GNEChange_Attribute(this, myViewNet->getNet(), key, value));
-            // Change Ids of all Acces childs
-            for (auto i : getAdditionalChilds()) {
+            // Change Ids of all Acces children
+            for (auto i : getAdditionalChildren()) {
                 i->setAttribute(SUMO_ATTR_ID, generateChildID(SUMO_TAG_ACCESS), undoList);
             }
             break;

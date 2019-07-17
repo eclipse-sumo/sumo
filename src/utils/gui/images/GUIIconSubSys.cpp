@@ -121,8 +121,14 @@
 #include "lock.xpm"
 #include "add.xpm"
 #include "remove.xpm"
-#include "neteditarrowleft.xpm"
-#include "neteditarrowright.xpm"
+
+#include "arrowup.xpm"
+#include "arrowdown.xpm"
+#include "arrowleft.xpm"
+#include "arrowright.xpm"
+
+#include "bigarrowleft.xpm"
+#include "bigarrowright.xpm"
 
 #include "lanebike.xpm"
 #include "lanebus.xpm"
@@ -152,6 +158,9 @@
 #include "modevehicle.xpm"
 #include "modevehicletype.xpm"
 #include "modestop.xpm"
+#include "modepersontype.xpm"
+#include "modeperson.xpm"
+#include "modepersonplan.xpm"
 
 #include "computejunctions.xpm"
 #include "cleanjunctions.xpm"
@@ -196,11 +205,25 @@
 
 #include "route.xpm"
 #include "vtype.xpm"
+#include "ptype.xpm"
 #include "vehicle.xpm"
 #include "trip.xpm"
 #include "flow.xpm"
 #include "routeflow.xpm"
 #include "stopelement.xpm"
+#include "person.xpm"
+#include "personflow.xpm"
+#include "persontripfromto.xpm"
+#include "persontripbusstop.xpm"
+#include "walkedges.xpm"
+#include "walkfromto.xpm"
+#include "walkbusstop.xpm"
+#include "walkroute.xpm"
+#include "ridefromto.xpm"
+#include "ridebusstop.xpm"
+#include "personbusstop.xpm"
+#include "personcontainerstop.xpm"
+#include "personlanestop.xpm"
 
 #include "vclass_ignoring.xpm"
 #include "vclass_private.xpm"
@@ -378,8 +401,13 @@ GUIIconSubSys::GUIIconSubSys(FXApp* a) {
     myIcons[ICON_LOCK] = new FXXPMIcon(a, lock_xpm);
     myIcons[ICON_ADD] = new FXXPMIcon(a, add_xpm);
     myIcons[ICON_REMOVE] = new FXXPMIcon(a, remove_xpm);
-    myIcons[ICON_NETEDITARROWLEFT] = new FXXPMIcon(a, netEditArrowLeft_xmp);
-    myIcons[ICON_NETEDITARROWRIGHT] = new FXXPMIcon(a, netEditArrowRight_xmp);
+    myIcons[ICON_BIGARROWLEFT] = new FXXPMIcon(a, bigarrowleft_xmp);
+    myIcons[ICON_BIGARROWRIGHT] = new FXXPMIcon(a, bigarrowright_xmp);
+
+    myIcons[ICON_ARROW_UP] = new FXXPMIcon(a, arrowup_xpm);
+    myIcons[ICON_ARROW_DOWN] = new FXXPMIcon(a, arrowdown_xpm);
+    myIcons[ICON_ARROW_LEFT] = new FXXPMIcon(a, arrowleft_xpm);
+    myIcons[ICON_ARROW_RIGHT] = new FXXPMIcon(a, arrowright_xpm);
 
     myIcons[ICON_LANEPEDESTRIAN] = new FXXPMIcon(a, lanepedestrian);
     myIcons[ICON_LANEBUS] = new FXXPMIcon(a, lanebus);
@@ -409,6 +437,9 @@ GUIIconSubSys::GUIIconSubSys(FXApp* a) {
     myIcons[ICON_MODEVEHICLE] = new FXXPMIcon(a, modevehicle_xpm);
     myIcons[ICON_MODEVEHICLETYPE] = new FXXPMIcon(a, modevehicletype_xpm);
     myIcons[ICON_MODESTOP] = new FXXPMIcon(a, modestop_xpm);
+    myIcons[ICON_MODEPERSONTYPE] = new FXXPMIcon(a, modepersontype_xpm);
+    myIcons[ICON_MODEPERSON] = new FXXPMIcon(a, modeperson_xpm);
+    myIcons[ICON_MODEPERSONPLAN] = new FXXPMIcon(a, modepersonplan_xpm);
 
     myIcons[ICON_COMPUTEJUNCTIONS] = new FXXPMIcon(a, computejunctions_xpm);
     myIcons[ICON_CLEANJUNCTIONS] = new FXXPMIcon(a, cleanjunctions_xpm);
@@ -454,11 +485,25 @@ GUIIconSubSys::GUIIconSubSys(FXApp* a) {
 
     myIcons[ICON_ROUTE] = new FXXPMIcon(a, route_xpm);
     myIcons[ICON_VTYPE] = new FXXPMIcon(a, vtype_xpm);
+    myIcons[ICON_PTYPE] = new FXXPMIcon(a, ptype_xpm);
     myIcons[ICON_VEHICLE] = new FXXPMIcon(a, vehicle_xpm);
     myIcons[ICON_TRIP] = new FXXPMIcon(a, trip_xpm);
     myIcons[ICON_FLOW] = new FXXPMIcon(a, flow_xpm);
     myIcons[ICON_ROUTEFLOW] = new FXXPMIcon(a, routeflow_xpm);
     myIcons[ICON_STOPELEMENT] = new FXXPMIcon(a, stopelement_xpm);
+    myIcons[ICON_PERSON] = new FXXPMIcon(a, person_xpm);
+    myIcons[ICON_PERSONFLOW] = new FXXPMIcon(a, personflow_xpm);
+    myIcons[ICON_PERSONTRIP_FROMTO] = new FXXPMIcon(a, persontripfromto_xpm);
+    myIcons[ICON_PERSONTRIP_BUSSTOP] = new FXXPMIcon(a, persontripbusstop_xpm);
+    myIcons[ICON_WALK_EDGES] = new FXXPMIcon(a, walkedges_xpm);
+    myIcons[ICON_WALK_FROMTO] = new FXXPMIcon(a, walkfromto_xpm);
+    myIcons[ICON_WALK_BUSSTOP] = new FXXPMIcon(a, walkbusstop_xpm);
+    myIcons[ICON_WALK_ROUTE] = new FXXPMIcon(a, walkroute_xpm);
+    myIcons[ICON_RIDE_FROMTO] = new FXXPMIcon(a, ridefromto_xpm);
+    myIcons[ICON_RIDE_BUSSTOP] = new FXXPMIcon(a, ridebusstop_xpm);
+    myIcons[ICON_PERSON_BUSSTOP] = new FXXPMIcon(a, personbusstop_xpm);
+    myIcons[ICON_PERSON_CONTAINERSTOP] = new FXXPMIcon(a, personcontainerstop_xpm);
+    myIcons[ICON_PERSON_LANESTOP] = new FXXPMIcon(a, personlanestop_xpm);
 
     myIcons[ICON_VCLASS_IGNORING] = new FXXPMIcon(a, vclass_ignoring_xpm);
     myIcons[ICON_VCLASS_PRIVATE] = new FXXPMIcon(a, vclass_private_xpm);

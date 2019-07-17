@@ -23,7 +23,6 @@
 #include <utils/gui/windows/GUIAppEnum.h>
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/xml/SUMOSAXAttributesImpl_Cached.h>
-#include <netedit/changes/GNEChange_Additional.h>
 #include <netedit/netelements/GNEEdge.h>
 #include <netedit/netelements/GNELane.h>
 #include <netedit/netelements/GNEConnection.h>
@@ -31,7 +30,6 @@
 #include <netedit/additionals/GNEAdditionalHandler.h>
 #include <netedit/GNENet.h>
 #include <netedit/GNEViewNet.h>
-#include <netedit/GNEUndoList.h>
 
 #include "GNEAdditionalFrame.h"
 
@@ -45,26 +43,26 @@ FXDEFMAP(GNEAdditionalFrame::SelectorLaneParents) ConsecutiveLaneSelectorMap[] =
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_ADDITIONALFRAME_ABORTSELECTION, GNEAdditionalFrame::SelectorLaneParents::onCmdAbortSelection),
 };
 
-FXDEFMAP(GNEAdditionalFrame::SelectorEdgeChilds) SelectorParentEdgesMap[] = {
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_ADDITIONALFRAME_USESELECTED,        GNEAdditionalFrame::SelectorEdgeChilds::onCmdUseSelectedEdges),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_ADDITIONALFRAME_CLEARSELECTION,     GNEAdditionalFrame::SelectorEdgeChilds::onCmdClearSelection),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_ADDITIONALFRAME_INVERTSELECTION,    GNEAdditionalFrame::SelectorEdgeChilds::onCmdInvertSelection),
-    FXMAPFUNC(SEL_CHANGED,  MID_GNE_ADDITIONALFRAME_SEARCH,             GNEAdditionalFrame::SelectorEdgeChilds::onCmdTypeInSearchBox),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_ADDITIONALFRAME_SELECT,             GNEAdditionalFrame::SelectorEdgeChilds::onCmdSelectEdge),
+FXDEFMAP(GNEAdditionalFrame::SelectorEdgeChildren) SelectorParentEdgesMap[] = {
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_ADDITIONALFRAME_USESELECTED,        GNEAdditionalFrame::SelectorEdgeChildren::onCmdUseSelectedEdges),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_ADDITIONALFRAME_CLEARSELECTION,     GNEAdditionalFrame::SelectorEdgeChildren::onCmdClearSelection),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_ADDITIONALFRAME_INVERTSELECTION,    GNEAdditionalFrame::SelectorEdgeChildren::onCmdInvertSelection),
+    FXMAPFUNC(SEL_CHANGED,  MID_GNE_ADDITIONALFRAME_SEARCH,             GNEAdditionalFrame::SelectorEdgeChildren::onCmdTypeInSearchBox),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_ADDITIONALFRAME_SELECT,             GNEAdditionalFrame::SelectorEdgeChildren::onCmdSelectEdge),
 };
 
-FXDEFMAP(GNEAdditionalFrame::SelectorLaneChilds) SelectorParentLanesMap[] = {
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_ADDITIONALFRAME_USESELECTED,        GNEAdditionalFrame::SelectorLaneChilds::onCmdUseSelectedLanes),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_ADDITIONALFRAME_CLEARSELECTION,     GNEAdditionalFrame::SelectorLaneChilds::onCmdClearSelection),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_ADDITIONALFRAME_INVERTSELECTION,    GNEAdditionalFrame::SelectorLaneChilds::onCmdInvertSelection),
-    FXMAPFUNC(SEL_CHANGED,  MID_GNE_ADDITIONALFRAME_SEARCH,             GNEAdditionalFrame::SelectorLaneChilds::onCmdTypeInSearchBox),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_ADDITIONALFRAME_SELECT,             GNEAdditionalFrame::SelectorLaneChilds::onCmdSelectLane),
+FXDEFMAP(GNEAdditionalFrame::SelectorLaneChildren) SelectorParentLanesMap[] = {
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_ADDITIONALFRAME_USESELECTED,        GNEAdditionalFrame::SelectorLaneChildren::onCmdUseSelectedLanes),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_ADDITIONALFRAME_CLEARSELECTION,     GNEAdditionalFrame::SelectorLaneChildren::onCmdClearSelection),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_ADDITIONALFRAME_INVERTSELECTION,    GNEAdditionalFrame::SelectorLaneChildren::onCmdInvertSelection),
+    FXMAPFUNC(SEL_CHANGED,  MID_GNE_ADDITIONALFRAME_SEARCH,             GNEAdditionalFrame::SelectorLaneChildren::onCmdTypeInSearchBox),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_ADDITIONALFRAME_SELECT,             GNEAdditionalFrame::SelectorLaneChildren::onCmdSelectLane),
 };
 
 // Object implementation
 FXIMPLEMENT(GNEAdditionalFrame::SelectorLaneParents,        FXGroupBox,         ConsecutiveLaneSelectorMap,     ARRAYNUMBER(ConsecutiveLaneSelectorMap))
-FXIMPLEMENT(GNEAdditionalFrame::SelectorEdgeChilds,         FXGroupBox,         SelectorParentEdgesMap,         ARRAYNUMBER(SelectorParentEdgesMap))
-FXIMPLEMENT(GNEAdditionalFrame::SelectorLaneChilds,         FXGroupBox,         SelectorParentLanesMap,         ARRAYNUMBER(SelectorParentLanesMap))
+FXIMPLEMENT(GNEAdditionalFrame::SelectorEdgeChildren,         FXGroupBox,         SelectorParentEdgesMap,         ARRAYNUMBER(SelectorParentEdgesMap))
+FXIMPLEMENT(GNEAdditionalFrame::SelectorLaneChildren,         FXGroupBox,         SelectorParentLanesMap,         ARRAYNUMBER(SelectorParentLanesMap))
 
 
 // ---------------------------------------------------------------------------
@@ -123,10 +121,10 @@ GNEAdditionalFrame::SelectorLaneParents::startConsecutiveLaneSelector(GNELane* l
 bool
 GNEAdditionalFrame::SelectorLaneParents::stopConsecutiveLaneSelector() {
     // obtain tagproperty (only for improve code legibility)
-    const auto& tagValues = myAdditionalFrameParent->myItemSelector->getCurrentTagProperties();
+    const auto& tagValues = myAdditionalFrameParent->myAdditionalTagSelector->getCurrentTagProperties();
     // abort if there isn't at least two lanes
     if (mySelectedLanes.size() < 2) {
-        WRITE_WARNING(myAdditionalFrameParent->myItemSelector->getCurrentTagProperties().getTagStr() + " requieres at least two lanes.");
+        WRITE_WARNING(myAdditionalFrameParent->myAdditionalTagSelector->getCurrentTagProperties().getTagStr() + " requieres at least two lanes.");
         // abort consecutive lane selector
         abortConsecutiveLaneSelector();
         return false;
@@ -159,7 +157,7 @@ GNEAdditionalFrame::SelectorLaneParents::stopConsecutiveLaneSelector() {
         // declare SUMOSAXAttributesImpl_Cached to convert valuesMap into SUMOSAXAttributes
         SUMOSAXAttributesImpl_Cached SUMOSAXAttrs(valuesMap, myAdditionalFrameParent->getPredefinedTagsMML(), toString(tagValues.getTag()));
         // try to build additional
-        if (GNEAdditionalHandler::buildAdditional(myAdditionalFrameParent->myViewNet, true, myAdditionalFrameParent->myItemSelector->getCurrentTagProperties().getTag(), SUMOSAXAttrs, nullptr)) {
+        if (GNEAdditionalHandler::buildAdditional(myAdditionalFrameParent->myViewNet, true, myAdditionalFrameParent->myAdditionalTagSelector->getCurrentTagProperties().getTag(), SUMOSAXAttrs, nullptr)) {
             // abort consecutive lane selector
             abortConsecutiveLaneSelector();
             return true;
@@ -301,10 +299,10 @@ GNEAdditionalFrame::SelectorLaneParents::isLaneSelected(GNELane* lane) const {
 }
 
 // ---------------------------------------------------------------------------
-// GNEAdditionalFrame::SelectorEdgeChilds - methods
+// GNEAdditionalFrame::SelectorEdgeChildren - methods
 // ---------------------------------------------------------------------------
 
-GNEAdditionalFrame::SelectorEdgeChilds::SelectorEdgeChilds(GNEAdditionalFrame* additionalFrameParent) :
+GNEAdditionalFrame::SelectorEdgeChildren::SelectorEdgeChildren(GNEAdditionalFrame* additionalFrameParent) :
     FXGroupBox(additionalFrameParent->myContentFrame, "Edges", GUIDesignGroupBoxFrame),
     myAdditionalFrameParent(additionalFrameParent) {
     // Create menuCheck for selected edges
@@ -326,15 +324,15 @@ GNEAdditionalFrame::SelectorEdgeChilds::SelectorEdgeChilds(GNEAdditionalFrame* a
     myInvertEdgesSelection = new FXButton(buttonsFrame, "Invert", nullptr, this, MID_GNE_ADDITIONALFRAME_INVERTSELECTION, GUIDesignButtonRectangular);
 
     // Hide List
-    hideSelectorEdgeChildsModul();
+    hideSelectorEdgeChildrenModul();
 }
 
 
-GNEAdditionalFrame::SelectorEdgeChilds::~SelectorEdgeChilds() {}
+GNEAdditionalFrame::SelectorEdgeChildren::~SelectorEdgeChildren() {}
 
 
 std::string
-GNEAdditionalFrame::SelectorEdgeChilds::getEdgeIdsSelected() const {
+GNEAdditionalFrame::SelectorEdgeChildren::getEdgeIdsSelected() const {
     std::vector<std::string> vectorOfIds;
     if (myUseSelectedEdgesCheckButton->getCheck()) {
         // get Selected edges
@@ -356,7 +354,7 @@ GNEAdditionalFrame::SelectorEdgeChilds::getEdgeIdsSelected() const {
 
 
 void
-GNEAdditionalFrame::SelectorEdgeChilds::showSelectorEdgeChildsModul(std::string search) {
+GNEAdditionalFrame::SelectorEdgeChildren::showSelectorEdgeChildrenModul(std::string search) {
     // clear list of egdge ids
     myList->clearItems();
     // get all edges of net
@@ -381,13 +379,13 @@ GNEAdditionalFrame::SelectorEdgeChilds::showSelectorEdgeChildsModul(std::string 
 
 
 void
-GNEAdditionalFrame::SelectorEdgeChilds::hideSelectorEdgeChildsModul() {
+GNEAdditionalFrame::SelectorEdgeChildren::hideSelectorEdgeChildrenModul() {
     FXGroupBox::hide();
 }
 
 
 void
-GNEAdditionalFrame::SelectorEdgeChilds::updateUseSelectedEdges() {
+GNEAdditionalFrame::SelectorEdgeChildren::updateUseSelectedEdges() {
     // Enable or disable use selected edges
     if (myAdditionalFrameParent->getViewNet()->getNet()->retrieveEdges(true).size() > 0) {
         myUseSelectedEdgesCheckButton->enable();
@@ -398,7 +396,7 @@ GNEAdditionalFrame::SelectorEdgeChilds::updateUseSelectedEdges() {
 
 
 long
-GNEAdditionalFrame::SelectorEdgeChilds::onCmdUseSelectedEdges(FXObject*, FXSelector, void*) {
+GNEAdditionalFrame::SelectorEdgeChildren::onCmdUseSelectedEdges(FXObject*, FXSelector, void*) {
     if (myUseSelectedEdgesCheckButton->getCheck()) {
         myEdgesSearch->hide();
         myList->hide();
@@ -419,21 +417,21 @@ GNEAdditionalFrame::SelectorEdgeChilds::onCmdUseSelectedEdges(FXObject*, FXSelec
 
 
 long
-GNEAdditionalFrame::SelectorEdgeChilds::onCmdTypeInSearchBox(FXObject*, FXSelector, void*) {
-    // Show only Id's of SelectorEdgeChilds that contains the searched string
-    showSelectorEdgeChildsModul(myEdgesSearch->getText().text());
+GNEAdditionalFrame::SelectorEdgeChildren::onCmdTypeInSearchBox(FXObject*, FXSelector, void*) {
+    // Show only Id's of SelectorEdgeChildren that contains the searched string
+    showSelectorEdgeChildrenModul(myEdgesSearch->getText().text());
     return 1;
 }
 
 
 long
-GNEAdditionalFrame::SelectorEdgeChilds::onCmdSelectEdge(FXObject*, FXSelector, void*) {
+GNEAdditionalFrame::SelectorEdgeChildren::onCmdSelectEdge(FXObject*, FXSelector, void*) {
     return 1;
 }
 
 
 long
-GNEAdditionalFrame::SelectorEdgeChilds::onCmdClearSelection(FXObject*, FXSelector, void*) {
+GNEAdditionalFrame::SelectorEdgeChildren::onCmdClearSelection(FXObject*, FXSelector, void*) {
     for (int i = 0; i < myList->getNumItems(); i++) {
         if (myList->getItem(i)->isSelected()) {
             myList->deselectItem(i);
@@ -444,7 +442,7 @@ GNEAdditionalFrame::SelectorEdgeChilds::onCmdClearSelection(FXObject*, FXSelecto
 
 
 long
-GNEAdditionalFrame::SelectorEdgeChilds::onCmdInvertSelection(FXObject*, FXSelector, void*) {
+GNEAdditionalFrame::SelectorEdgeChildren::onCmdInvertSelection(FXObject*, FXSelector, void*) {
     for (int i = 0; i < myList->getNumItems(); i++) {
         if (myList->getItem(i)->isSelected()) {
             myList->deselectItem(i);
@@ -456,10 +454,10 @@ GNEAdditionalFrame::SelectorEdgeChilds::onCmdInvertSelection(FXObject*, FXSelect
 }
 
 // ---------------------------------------------------------------------------
-// GNEAdditionalFrame::SelectorLaneChilds - methods
+// GNEAdditionalFrame::SelectorLaneChildren - methods
 // ---------------------------------------------------------------------------
 
-GNEAdditionalFrame::SelectorLaneChilds::SelectorLaneChilds(GNEAdditionalFrame* additionalFrameParent) :
+GNEAdditionalFrame::SelectorLaneChildren::SelectorLaneChildren(GNEAdditionalFrame* additionalFrameParent) :
     FXGroupBox(additionalFrameParent->myContentFrame, "Lanes", GUIDesignGroupBoxFrame),
     myAdditionalFrameParent(additionalFrameParent) {
     // Create CheckBox for selected lanes
@@ -481,15 +479,15 @@ GNEAdditionalFrame::SelectorLaneChilds::SelectorLaneChilds(GNEAdditionalFrame* a
     invertLanesSelection = new FXButton(buttonsFrame, "invert", nullptr, this, MID_GNE_ADDITIONALFRAME_INVERTSELECTION, GUIDesignButtonRectangular);
 
     // Hide List
-    hideSelectorLaneChildsModul();
+    hideSelectorLaneChildrenModul();
 }
 
 
-GNEAdditionalFrame::SelectorLaneChilds::~SelectorLaneChilds() {}
+GNEAdditionalFrame::SelectorLaneChildren::~SelectorLaneChildren() {}
 
 
 std::string
-GNEAdditionalFrame::SelectorLaneChilds::getLaneIdsSelected() const {
+GNEAdditionalFrame::SelectorLaneChildren::getLaneIdsSelected() const {
     std::vector<std::string> vectorOfIds;
     if (myUseSelectedLanesCheckButton->getCheck()) {
         // get Selected lanes
@@ -511,7 +509,7 @@ GNEAdditionalFrame::SelectorLaneChilds::getLaneIdsSelected() const {
 
 
 void
-GNEAdditionalFrame::SelectorLaneChilds::showSelectorLaneChildsModul(std::string search) {
+GNEAdditionalFrame::SelectorLaneChildren::showSelectorLaneChildrenModul(std::string search) {
     myList->clearItems();
     std::vector<GNELane*> vectorOfLanes = myAdditionalFrameParent->getViewNet()->getNet()->retrieveLanes(false);
     for (auto i : vectorOfLanes) {
@@ -527,13 +525,13 @@ GNEAdditionalFrame::SelectorLaneChilds::showSelectorLaneChildsModul(std::string 
 
 
 void
-GNEAdditionalFrame::SelectorLaneChilds::hideSelectorLaneChildsModul() {
+GNEAdditionalFrame::SelectorLaneChildren::hideSelectorLaneChildrenModul() {
     FXGroupBox::hide();
 }
 
 
 void
-GNEAdditionalFrame::SelectorLaneChilds::updateUseSelectedLanes() {
+GNEAdditionalFrame::SelectorLaneChildren::updateUseSelectedLanes() {
     // Enable or disable use selected Lanes
     if (myAdditionalFrameParent->getViewNet()->getNet()->retrieveLanes(true).size() > 0) {
         myUseSelectedLanesCheckButton->enable();
@@ -544,7 +542,7 @@ GNEAdditionalFrame::SelectorLaneChilds::updateUseSelectedLanes() {
 
 
 long
-GNEAdditionalFrame::SelectorLaneChilds::onCmdUseSelectedLanes(FXObject*, FXSelector, void*) {
+GNEAdditionalFrame::SelectorLaneChildren::onCmdUseSelectedLanes(FXObject*, FXSelector, void*) {
     if (myUseSelectedLanesCheckButton->getCheck()) {
         myLanesSearch->hide();
         myList->hide();
@@ -565,21 +563,21 @@ GNEAdditionalFrame::SelectorLaneChilds::onCmdUseSelectedLanes(FXObject*, FXSelec
 
 
 long
-GNEAdditionalFrame::SelectorLaneChilds::onCmdTypeInSearchBox(FXObject*, FXSelector, void*) {
-    // Show only Id's of SelectorLaneChilds that contains the searched string
-    showSelectorLaneChildsModul(myLanesSearch->getText().text());
+GNEAdditionalFrame::SelectorLaneChildren::onCmdTypeInSearchBox(FXObject*, FXSelector, void*) {
+    // Show only Id's of SelectorLaneChildren that contains the searched string
+    showSelectorLaneChildrenModul(myLanesSearch->getText().text());
     return 1;
 }
 
 
 long
-GNEAdditionalFrame::SelectorLaneChilds::onCmdSelectLane(FXObject*, FXSelector, void*) {
+GNEAdditionalFrame::SelectorLaneChildren::onCmdSelectLane(FXObject*, FXSelector, void*) {
     return 1;
 }
 
 
 long
-GNEAdditionalFrame::SelectorLaneChilds::onCmdClearSelection(FXObject*, FXSelector, void*) {
+GNEAdditionalFrame::SelectorLaneChildren::onCmdClearSelection(FXObject*, FXSelector, void*) {
     for (int i = 0; i < myList->getNumItems(); i++) {
         if (myList->getItem(i)->isSelected()) {
             myList->deselectItem(i);
@@ -590,7 +588,7 @@ GNEAdditionalFrame::SelectorLaneChilds::onCmdClearSelection(FXObject*, FXSelecto
 
 
 long
-GNEAdditionalFrame::SelectorLaneChilds::onCmdInvertSelection(FXObject*, FXSelector, void*) {
+GNEAdditionalFrame::SelectorLaneChildren::onCmdInvertSelection(FXObject*, FXSelector, void*) {
     for (int i = 0; i < myList->getNumItems(); i++) {
         if (myList->getItem(i)->isSelected()) {
             myList->deselectItem(i);
@@ -609,7 +607,7 @@ GNEAdditionalFrame::GNEAdditionalFrame(FXHorizontalFrame* horizontalFrameParent,
     GNEFrame(horizontalFrameParent, viewNet, "Additionals") {
 
     // create item Selector modul for additionals
-    myItemSelector = new ItemSelector(this, GNEAttributeCarrier::TagType::TAGTYPE_ADDITIONAL);
+    myAdditionalTagSelector = new TagSelector(this, GNEAttributeCarrier::TagType::TAGTYPE_ADDITIONAL);
 
     // Create additional parameters
     myAdditionalAttributes = new AttributesCreator(this);
@@ -623,14 +621,14 @@ GNEAdditionalFrame::GNEAdditionalFrame(FXHorizontalFrame* horizontalFrameParent,
     // Create selector parent
     myAdditionalParent = new SelectorParent(this);
 
-    /// Create list for SelectorEdgeChilds
-    mySelectorEdgeChilds = new SelectorEdgeChilds(this);
+    /// Create list for SelectorEdgeChildren
+    mySelectorEdgeChildren = new SelectorEdgeChildren(this);
 
-    /// Create list for SelectorLaneChilds
-    mySelectorLaneChilds = new SelectorLaneChilds(this);
+    /// Create list for SelectorLaneChildren
+    mySelectorLaneChildren = new SelectorLaneChildren(this);
 
     // set BusStop as default additional
-    myItemSelector->setCurrentTypeTag(SUMO_TAG_BUS_STOP);
+    myAdditionalTagSelector->setCurrentTag(SUMO_TAG_BUS_STOP);
 }
 
 
@@ -640,7 +638,7 @@ GNEAdditionalFrame::~GNEAdditionalFrame() {}
 void
 GNEAdditionalFrame::show() {
     // refresh item selector
-    myItemSelector->refreshTagProperties();
+    myAdditionalTagSelector->refreshTagProperties();
     // show frame
     GNEFrame::show();
 }
@@ -649,13 +647,13 @@ GNEAdditionalFrame::show() {
 bool
 GNEAdditionalFrame::addAdditional(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor) {
     // first check that current selected additional is valid
-    if (myItemSelector->getCurrentTagProperties().getTag() == SUMO_TAG_NOTHING) {
+    if (myAdditionalTagSelector->getCurrentTagProperties().getTag() == SUMO_TAG_NOTHING) {
         myViewNet->setStatusBarText("Current selected additional isn't valid.");
         return false;
     }
 
     // obtain tagproperty (only for improve code legibility)
-    const auto& tagValues = myItemSelector->getCurrentTagProperties();
+    const auto& tagValues = myAdditionalTagSelector->getCurrentTagProperties();
 
     // Declare map to keep attributes from Frames from Frame
     std::map<SumoXMLAttr, std::string> valuesMap = myAdditionalAttributes->getAttributesAndValues(true);
@@ -683,13 +681,13 @@ GNEAdditionalFrame::addAdditional(const GNEViewNetHelper::ObjectsUnderCursor& ob
 
 
 void
-GNEAdditionalFrame::showSelectorLaneChildsModul() {
+GNEAdditionalFrame::showSelectorLaneChildrenModul() {
     // Show frame
     GNEFrame::show();
     // Update UseSelectedLane CheckBox
-    mySelectorEdgeChilds->updateUseSelectedEdges();
+    mySelectorEdgeChildren->updateUseSelectedEdges();
     // Update UseSelectedLane CheckBox
-    mySelectorLaneChilds->updateUseSelectedLanes();
+    mySelectorLaneChildren->updateUseSelectedLanes();
 }
 
 
@@ -699,60 +697,59 @@ GNEAdditionalFrame::getConsecutiveLaneSelector() const {
 }
 
 
-void
-GNEAdditionalFrame::enableModuls(const GNEAttributeCarrier::TagProperties& tagProperties) {
-    // show additional attributes modul
-    myAdditionalAttributes->showAttributesCreatorModul(tagProperties);
-    // show netedit attributes
-    myNeteditAttributes->showNeteditAttributesModul(tagProperties);
-    // Show myAdditionalFrameParent if we're adding a additional with parent
-    if (tagProperties.hasParent()) {
-        myAdditionalParent->showSelectorParentModul(tagProperties.getParentTag());
-    } else {
-        myAdditionalParent->hideSelectorParentModul();
-    }
-    // Show SelectorEdgeChilds if we're adding an additional that own the attribute SUMO_ATTR_EDGES
-    if (tagProperties.hasAttribute(SUMO_ATTR_EDGES)) {
-        mySelectorEdgeChilds->showSelectorEdgeChildsModul();
-    } else {
-        mySelectorEdgeChilds->hideSelectorEdgeChildsModul();
-    }
-    // Show SelectorLaneChilds or consecutive lane selector if we're adding an additional that own the attribute SUMO_ATTR_LANES
-    if (tagProperties.hasAttribute(SUMO_ATTR_LANES)) {
-        if (tagProperties.hasParent() && tagProperties.getParentTag() == SUMO_TAG_LANE) {
-            // show selector lane parent and hide selector lane child
-            mySelectorLaneParents->showSelectorLaneParentsModul();
-            mySelectorLaneChilds->hideSelectorLaneChildsModul();
+void 
+GNEAdditionalFrame::tagSelected() {
+    if (myAdditionalTagSelector->getCurrentTagProperties().getTag() != SUMO_TAG_NOTHING) {
+        // show additional attributes modul
+        myAdditionalAttributes->showAttributesCreatorModul(myAdditionalTagSelector->getCurrentTagProperties());
+        // show netedit attributes
+        myNeteditAttributes->showNeteditAttributesModul(myAdditionalTagSelector->getCurrentTagProperties());
+        // Show myAdditionalFrameParent if we're adding a additional with parent
+        if (myAdditionalTagSelector->getCurrentTagProperties().hasParent()) {
+            myAdditionalParent->showSelectorParentModul(myAdditionalTagSelector->getCurrentTagProperties().getParentTag());
         } else {
-            // show selector lane child and hide selector lane parent
-            mySelectorLaneChilds->showSelectorLaneChildsModul();
+            myAdditionalParent->hideSelectorParentModul();
+        }
+        // Show SelectorEdgeChildren if we're adding an additional that own the attribute SUMO_ATTR_EDGES
+        if (myAdditionalTagSelector->getCurrentTagProperties().hasAttribute(SUMO_ATTR_EDGES)) {
+            mySelectorEdgeChildren->showSelectorEdgeChildrenModul();
+        } else {
+            mySelectorEdgeChildren->hideSelectorEdgeChildrenModul();
+        }
+        // Show SelectorLaneChildren or consecutive lane selector if we're adding an additional that own the attribute SUMO_ATTR_LANES
+        if (myAdditionalTagSelector->getCurrentTagProperties().hasAttribute(SUMO_ATTR_LANES)) {
+            if (myAdditionalTagSelector->getCurrentTagProperties().hasParent() && 
+                (myAdditionalTagSelector->getCurrentTagProperties().getParentTag() == SUMO_TAG_LANE)) {
+                // show selector lane parent and hide selector lane child
+                mySelectorLaneParents->showSelectorLaneParentsModul();
+                mySelectorLaneChildren->hideSelectorLaneChildrenModul();
+            } else {
+                // show selector lane child and hide selector lane parent
+                mySelectorLaneChildren->showSelectorLaneChildrenModul();
+                mySelectorLaneParents->hideSelectorLaneParentsModul();
+            }
+        } else {
+            mySelectorLaneChildren->hideSelectorLaneChildrenModul();
             mySelectorLaneParents->hideSelectorLaneParentsModul();
         }
     } else {
-        mySelectorLaneChilds->hideSelectorLaneChildsModul();
+        // hide all moduls if additional isn't valid
+        myAdditionalAttributes->hideAttributesCreatorModul();
+        myNeteditAttributes->hideNeteditAttributesModul();
+        myAdditionalParent->hideSelectorParentModul();
+        mySelectorEdgeChildren->hideSelectorEdgeChildrenModul();
+        mySelectorLaneChildren->hideSelectorLaneChildrenModul();
         mySelectorLaneParents->hideSelectorLaneParentsModul();
     }
-}
-
-
-void
-GNEAdditionalFrame::disableModuls() {
-    // hide all moduls if additional isn't valid
-    myAdditionalAttributes->hideAttributesCreatorModul();
-    myNeteditAttributes->hideNeteditAttributesModul();
-    myAdditionalParent->hideSelectorParentModul();
-    mySelectorEdgeChilds->hideSelectorEdgeChildsModul();
-    mySelectorLaneChilds->hideSelectorLaneChildsModul();
-    mySelectorLaneParents->hideSelectorLaneParentsModul();
 }
 
 
 std::string
 GNEAdditionalFrame::generateID(GNENetElement* netElement) const {
     // obtain current number of additionals to generate a new index faster
-    int additionalIndex = myViewNet->getNet()->getNumberOfAdditionals(myItemSelector->getCurrentTagProperties().getTag());
+    int additionalIndex = myViewNet->getNet()->getNumberOfAdditionals(myAdditionalTagSelector->getCurrentTagProperties().getTag());
     // obtain tag Properties (only for improve code legilibility
-    const auto& tagProperties = myItemSelector->getCurrentTagProperties();
+    const auto& tagProperties = myAdditionalTagSelector->getCurrentTagProperties();
     if (netElement) {
         // special case for vaporizers
         if (tagProperties.getTag() == SUMO_TAG_VAPORIZER) {
@@ -785,7 +782,7 @@ GNEAdditionalFrame::buildAdditionalWithParent(std::map<SumoXMLAttr, std::string>
     if (myAdditionalParent->getIdSelected() != "") {
         valuesMap[GNE_ATTR_PARENT] = myAdditionalParent->getIdSelected();
     } else {
-        myAdditionalAttributes->showWarningMessage("A " + toString(tagValues.getParentTag()) + " must be selected before insertion of " + myItemSelector->getCurrentTagProperties().getTagStr() + ".");
+        myAdditionalAttributes->showWarningMessage("A " + toString(tagValues.getParentTag()) + " must be selected before insertion of " + myAdditionalTagSelector->getCurrentTagProperties().getTagStr() + ".");
         return false;
     }
     return true;
@@ -805,25 +802,25 @@ GNEAdditionalFrame::buildAdditionalCommonAttributes(std::map<SumoXMLAttr, std::s
     }
     // If additional own the attribute SUMO_ATTR_FILE but was't defined, will defined as <ID>.xml
     if (tagValues.hasAttribute(SUMO_ATTR_FILE) && valuesMap[SUMO_ATTR_FILE] == "") {
-        if ((myItemSelector->getCurrentTagProperties().getTag() != SUMO_TAG_CALIBRATOR) && (myItemSelector->getCurrentTagProperties().getTag() != SUMO_TAG_REROUTER)) {
+        if ((myAdditionalTagSelector->getCurrentTagProperties().getTag() != SUMO_TAG_CALIBRATOR) && (myAdditionalTagSelector->getCurrentTagProperties().getTag() != SUMO_TAG_REROUTER)) {
             // SUMO_ATTR_FILE is optional for calibrators and rerouters (fails to load in sumo when given and the file does not exist)
             valuesMap[SUMO_ATTR_FILE] = (valuesMap[SUMO_ATTR_ID] + ".xml");
         }
     }
-    // If element own a list of SelectorEdgeChilds as attribute
+    // If element own a list of SelectorEdgeChildren as attribute
     if (tagValues.hasAttribute(SUMO_ATTR_EDGES) && valuesMap[SUMO_ATTR_EDGES].empty()) {
         // obtain edge IDs
-        valuesMap[SUMO_ATTR_EDGES] = mySelectorEdgeChilds->getEdgeIdsSelected();
+        valuesMap[SUMO_ATTR_EDGES] = mySelectorEdgeChildren->getEdgeIdsSelected();
         // check if attribute has at least one edge
         if (valuesMap[SUMO_ATTR_EDGES] == "") {
             myAdditionalAttributes->showWarningMessage("List of " + toString(SUMO_TAG_EDGE) + "s cannot be empty");
             return false;
         }
     }
-    // get values of mySelectorLaneChilds, if tag correspond to an element that has lanes as childs
+    // get values of mySelectorLaneChildren, if tag correspond to an element that has lanes as children
     if (tagValues.hasAttribute(SUMO_ATTR_LANES) && valuesMap[SUMO_ATTR_LANES].empty()) {
         // obtain lane IDs
-        valuesMap[SUMO_ATTR_LANES] = mySelectorLaneChilds->getLaneIdsSelected();
+        valuesMap[SUMO_ATTR_LANES] = mySelectorLaneChildren->getLaneIdsSelected();
         // check if attribute has at least a lane
         if (valuesMap[SUMO_ATTR_LANES] == "") {
             myAdditionalAttributes->showWarningMessage("List of " + toString(SUMO_TAG_LANE) + "s cannot be empty");
@@ -858,12 +855,12 @@ GNEAdditionalFrame::buildAdditionalOverEdge(std::map<SumoXMLAttr, std::string>& 
         // declare SUMOSAXAttributesImpl_Cached to convert valuesMap into SUMOSAXAttributes
         SUMOSAXAttributesImpl_Cached SUMOSAXAttrs(valuesMap, getPredefinedTagsMML(), toString(tagValues.getTag()));
         // try to build additional
-        if (GNEAdditionalHandler::buildAdditional(myViewNet, true, myItemSelector->getCurrentTagProperties().getTag(), SUMOSAXAttrs, nullptr)) {
-            // Refresh additional Parent Selector (For additionals that have a limited number of childs)
+        if (GNEAdditionalHandler::buildAdditional(myViewNet, true, myAdditionalTagSelector->getCurrentTagProperties().getTag(), SUMOSAXAttrs, nullptr)) {
+            // Refresh additional Parent Selector (For additionals that have a limited number of children)
             myAdditionalParent->refreshSelectorParentModul();
             // clear selected eddges and lanes
-            mySelectorEdgeChilds->onCmdClearSelection(nullptr, 0, nullptr);
-            mySelectorLaneChilds->onCmdClearSelection(nullptr, 0, nullptr);
+            mySelectorEdgeChildren->onCmdClearSelection(nullptr, 0, nullptr);
+            mySelectorLaneChildren->onCmdClearSelection(nullptr, 0, nullptr);
             return true;
         } else {
             return false;
@@ -899,12 +896,12 @@ GNEAdditionalFrame::buildAdditionalOverLane(std::map<SumoXMLAttr, std::string>& 
         // declare SUMOSAXAttributesImpl_Cached to convert valuesMap into SUMOSAXAttributes
         SUMOSAXAttributesImpl_Cached SUMOSAXAttrs(valuesMap, getPredefinedTagsMML(), toString(tagValues.getTag()));
         // try to build additional
-        if (GNEAdditionalHandler::buildAdditional(myViewNet, true, myItemSelector->getCurrentTagProperties().getTag(), SUMOSAXAttrs, nullptr)) {
-            // Refresh additional Parent Selector (For additionals that have a limited number of childs)
+        if (GNEAdditionalHandler::buildAdditional(myViewNet, true, myAdditionalTagSelector->getCurrentTagProperties().getTag(), SUMOSAXAttrs, nullptr)) {
+            // Refresh additional Parent Selector (For additionals that have a limited number of children)
             myAdditionalParent->refreshSelectorParentModul();
             // clear selected eddges and lanes
-            mySelectorEdgeChilds->onCmdClearSelection(nullptr, 0, nullptr);
-            mySelectorLaneChilds->onCmdClearSelection(nullptr, 0, nullptr);
+            mySelectorEdgeChildren->onCmdClearSelection(nullptr, 0, nullptr);
+            mySelectorLaneChildren->onCmdClearSelection(nullptr, 0, nullptr);
             return true;
         } else {
             return false;
@@ -956,8 +953,8 @@ GNEAdditionalFrame::buildAdditionalOverLanes(std::map<SumoXMLAttr, std::string>&
             // declare SUMOSAXAttributesImpl_Cached to convert valuesMap into SUMOSAXAttributes
             SUMOSAXAttributesImpl_Cached SUMOSAXAttrs(valuesMap, getPredefinedTagsMML(), toString(tagValues.getTag()));
             // try to build additional
-            if (GNEAdditionalHandler::buildAdditional(myViewNet, true, myItemSelector->getCurrentTagProperties().getTag(), SUMOSAXAttrs, nullptr)) {
-                // Refresh additional Parent Selector (For additionals that have a limited number of childs)
+            if (GNEAdditionalHandler::buildAdditional(myViewNet, true, myAdditionalTagSelector->getCurrentTagProperties().getTag(), SUMOSAXAttrs, nullptr)) {
+                // Refresh additional Parent Selector (For additionals that have a limited number of children)
                 myAdditionalParent->refreshSelectorParentModul();
                 // abort lane selector
                 mySelectorLaneParents->abortConsecutiveLaneSelector();
@@ -989,12 +986,12 @@ GNEAdditionalFrame::buildAdditionalOverView(std::map<SumoXMLAttr, std::string>& 
         // declare SUMOSAXAttributesImpl_Cached to convert valuesMap into SUMOSAXAttributes
         SUMOSAXAttributesImpl_Cached SUMOSAXAttrs(valuesMap, getPredefinedTagsMML(), toString(tagValues.getTag()));
         // try to build additional
-        if (GNEAdditionalHandler::buildAdditional(myViewNet, true, myItemSelector->getCurrentTagProperties().getTag(), SUMOSAXAttrs, nullptr)) {
-            // Refresh additional Parent Selector (For additionals that have a limited number of childs)
+        if (GNEAdditionalHandler::buildAdditional(myViewNet, true, myAdditionalTagSelector->getCurrentTagProperties().getTag(), SUMOSAXAttrs, nullptr)) {
+            // Refresh additional Parent Selector (For additionals that have a limited number of children)
             myAdditionalParent->refreshSelectorParentModul();
             // clear selected eddges and lanes
-            mySelectorEdgeChilds->onCmdClearSelection(nullptr, 0, nullptr);
-            mySelectorLaneChilds->onCmdClearSelection(nullptr, 0, nullptr);
+            mySelectorEdgeChildren->onCmdClearSelection(nullptr, 0, nullptr);
+            mySelectorLaneChildren->onCmdClearSelection(nullptr, 0, nullptr);
             return true;
         } else {
             return false;

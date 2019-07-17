@@ -21,6 +21,8 @@ set(netedit_changes_SRCS
    GNEChange_DemandElement.cpp
    GNEChange_Shape.h
    GNEChange_Shape.cpp
+   GNEChange_Children.h
+   GNEChange_Children.cpp
    )
 
 add_library(netedit_changes STATIC ${netedit_changes_SRCS})

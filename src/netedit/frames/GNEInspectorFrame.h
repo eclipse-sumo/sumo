@@ -387,7 +387,7 @@ public:
     long onCmdGoBack(FXObject*, FXSelector, void*);
     /// @}
 
-    /// @brief function called after undo/redo in the current frame (can be reimplemented in frame childs)
+    /// @brief function called after undo/redo in the current frame (can be reimplemented in frame children)
     void updateFrameAfterUndoRedo();
 
 protected:
@@ -398,7 +398,7 @@ protected:
     void inspectClickedElement(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor, const Position& clickedPosition);
 
     /// @brief function called after set a valid attribute in AttributeEditor
-    void updateFrameAfterChangeAttribute();
+    void attributeUpdated();
 
 private:
     /// @brief Overlapped Inspection
@@ -420,7 +420,7 @@ private:
     TemplateEditor* myTemplateEditor;
 
     /// @brief Attribute Carrier Hierarchy
-    GNEFrame::ACHierarchy* myACHierarchy;
+    GNEFrame::AttributeCarrierHierarchy* myAttributeCarrierHierarchy;
 
     /// @brief back Button
     FXButton* myBackButton;

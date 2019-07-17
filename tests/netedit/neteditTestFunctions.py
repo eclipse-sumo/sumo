@@ -86,6 +86,18 @@ def typeTab():
 
 
 """
+@brief type backspace key
+"""
+
+
+def typeBackspace():
+    # wait before every operation
+    time.sleep(DELAY_KEY)
+    # type keys
+    pyautogui.hotkey('backspace')
+
+
+"""
 @brief type Shift + Tab keys
 """
 
@@ -261,7 +273,7 @@ def Popen(extraParameters, debugInformation):
         neteditCall += ['-a',
                         os.path.join(_TEXTTEST_SANDBOX, "input_additionals.add.xml")]
 
-    # Check if demand elements must be loaded
+    # Check if routes must be loaded
     if os.path.exists(os.path.join(_TEXTTEST_SANDBOX, "input_routes.rou.xml")):
         neteditCall += ['-r',
                         os.path.join(_TEXTTEST_SANDBOX, "input_routes.rou.xml")]
@@ -279,7 +291,7 @@ def Popen(extraParameters, debugInformation):
     neteditCall += ['--additionals-output',
                     os.path.join(_TEXTTEST_SANDBOX, "additionals.xml")]
 
-    # set output for demand elements
+    # set output for routes
     neteditCall += ['--demandelements-output',
                     os.path.join(_TEXTTEST_SANDBOX, "routes.xml")]
 
@@ -337,6 +349,24 @@ def setupAndStart(testRoot, extraParameters=[], debugInformation=True, waitTime=
 
 
 """
+@brief select Network Supermode
+"""
+
+
+def supermodeNetwork():
+    typeKey('F3')
+
+
+"""
+@brief select Demand Supermode
+"""
+
+
+def supermodeDemand():
+    typeKey('F4')
+
+
+"""
 @brief rebuild network
 """
 
@@ -381,17 +411,21 @@ def joinSelectedJunctions():
     typeKey('F7')
 
 
+"""
+@brief select focus on upper element of current frame
+"""
+
+
 def focusOnFrame():
-    """
-    @brief select focus on upper element of current frame
-    """
     typeKey('F12')
 
 
+"""
+@brief select options pane and enable the GUI testing option
+"""
+
+
 def enableGUITesting(referencePosition):
-    """
-    @brief select options pane and enable the GUI testing option
-    """
     typeKey('F10')
     for _ in range(15):
         typeTab()
@@ -404,10 +438,12 @@ def enableGUITesting(referencePosition):
     typeSpace()
 
 
+"""
+@brief undo last operation
+"""
+
+
 def undo(referencePosition, number):
-    """
-    @brief undo last operation
-    """
     # needed to avoid errors with undo/redo (Provisionally)
     typeKey('i')
     # click over referencePosition
@@ -584,6 +620,16 @@ def saveNetworkAs(waitTime=2):
 def saveAdditionals():
     # save additionals using hotkey
     typeThreeKeys('ctrl', 'shift', 'a')
+
+
+"""
+@brief save routes
+"""
+
+
+def saveRoutes():
+    # save routes using hotkey
+    typeThreeKeys('ctrl', 'shift', 'd')
 
 
 """
@@ -1053,6 +1099,53 @@ def fixStoppingPlace(solution):
         typeTab()
         typeSpace()
 
+
+#################################################
+# route elements
+#################################################
+
+
+"""
+@brief change to route mode
+"""
+
+
+def routeMode():
+    typeKey('r')
+
+"""
+@brief change route mode
+"""
+
+
+def changeRouteMode(value):
+    # focus current frame
+    focusOnFrame()
+    # jump to route mode
+    typeTab()
+    # paste the new value
+    pasteIntoTextField(value)
+    # type enter to save change
+    typeEnter()
+
+
+"""
+@brief change vClass mode
+"""
+
+
+def changeRouteVClass(value):
+    # focus current frame
+    focusOnFrame()
+    # jump to vClass
+    for _ in range(3):
+        typeTab()
+    # paste the new value
+    pasteIntoTextField(value)
+    # type enter to save change
+    typeEnter()
+
+
 #################################################
 # delete
 #################################################
@@ -1093,11 +1186,26 @@ def changeAutomaticallyDeleteAdditionals(referencePosition):
 
 
 """
+@brief Enable or disable 'protect demand elements'
+"""
+
+
+def changeProtectDemandElements(referencePosition):
+    # select delete mode again to set mode
+    deleteMode()
+    # jump to checkbox
+    for _ in range(3):
+        typeTab()
+    # type SPACE to change value
+    typeSpace()
+
+
+"""
 @brief close warning about automatically delete additionals
 """
 
 
-def waitAutomaticallyDeleteAdditionalsWarning():
+def waitDeleteWarning():
     # wait 0.5 second to question dialog
     time.sleep(DELAY_QUESTION)
     # press enter to close dialog

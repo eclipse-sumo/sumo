@@ -26,7 +26,6 @@
 #include <netedit/GNEViewNet.h>
 #include <netedit/netelements/GNEEdge.h>
 #include <netedit/netelements/GNEJunction.h>
-#include <netedit/netelements/GNELane.h>
 #include <utils/common/StringTokenizer.h>
 #include <utils/gui/div/GUIParameterTableWindow.h>
 #include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
@@ -43,6 +42,173 @@ GNEDemandElement::RouteCalculator* GNEDemandElement::myRouteCalculatorInstance =
 // ===========================================================================
 // member method definitions
 // ===========================================================================
+
+// ---------------------------------------------------------------------------
+// GNEDemandElement::DemandElementGeometry - methods
+// ---------------------------------------------------------------------------
+
+GNEDemandElement::DemandElementGeometry::DemandElementGeometry() {}
+
+
+void
+GNEDemandElement::DemandElementGeometry::clearGeometry() {
+    shape.clear();
+    shapeRotations.clear();
+    shapeLengths.clear();
+}
+
+
+void
+GNEDemandElement::DemandElementGeometry::calculateShapeRotationsAndLengths() {
+    // Get number of parts of the shape
+    int numberOfSegments = (int)shape.size() - 1;
+    // If number of segments is more than 0
+    if (numberOfSegments >= 0) {
+        // Reserve memory (To improve efficiency)
+        shapeRotations.reserve(numberOfSegments);
+        shapeLengths.reserve(numberOfSegments);
+        // For every part of the shape
+        for (int i = 0; i < numberOfSegments; ++i) {
+            // Obtain first position
+            const Position& f = shape[i];
+            // Obtain next position
+            const Position& s = shape[i + 1];
+            // Save distance between position into myShapeLengths
+            shapeLengths.push_back(f.distanceTo(s));
+            // Save rotation (angle) of the vector constructed by points f and s
+            shapeRotations.push_back((double)atan2((s.x() - f.x()), (f.y() - s.y())) * (double) 180.0 / (double)M_PI);
+        }
+    }
+}
+
+// ---------------------------------------------------------------------------
+// GNEDemandElement::DemandElementSegmentGeometry::Segment - methods
+// ---------------------------------------------------------------------------
+
+GNEDemandElement::DemandElementSegmentGeometry::Segment::Segment(const GNEDemandElement* _element, const GNEEdge* _edge, const Position _pos, const bool _visible, const bool _valid) :
+    element(_element),
+    edge(_edge),
+    junction(nullptr),
+    pos(_pos),
+    visible(_visible),
+    valid(_valid),
+    lenght(-1),
+    rotation(0) {
+}
+
+
+GNEDemandElement::DemandElementSegmentGeometry::Segment::Segment(const GNEDemandElement* _element, const GNEEdge* _edge, const Position _pos, double _lenght, double _rotation, const bool _visible, const bool _valid) :
+    element(_element),
+    edge(_edge),
+    junction(nullptr),
+    pos(_pos),
+    visible(_visible),
+    valid(_valid),
+    lenght(_lenght),
+    rotation(_rotation) {
+}
+
+
+GNEDemandElement::DemandElementSegmentGeometry::Segment::Segment(const GNEDemandElement* _element, const GNEJunction* _junction, const Position _pos, const bool _visible, const bool _valid) :
+    element(_element),
+    edge(nullptr),
+    junction(_junction),
+    pos(_pos),
+    visible(_visible),
+    valid(_valid),
+    lenght(-1),
+    rotation(0) {
+}
+
+
+GNEDemandElement::DemandElementSegmentGeometry::Segment::Segment() :
+    element(nullptr),
+    edge(nullptr),
+    junction(nullptr),
+    pos(Position::INVALID),
+    visible(false),
+    valid(false),
+    lenght(-1),
+    rotation(0) {
+}
+
+// ---------------------------------------------------------------------------
+// GNEDemandElement::DemandElementGeometry - methods
+// ---------------------------------------------------------------------------
+
+GNEDemandElement::DemandElementSegmentGeometry::DemandElementSegmentGeometry() :
+    geometryDeprecated(true) {
+}
+
+
+void 
+GNEDemandElement::DemandElementSegmentGeometry::insertEdgeSegment(const GNEDemandElement* element, const GNEEdge* edge, const Position pos, const bool visible, const bool valid) {
+    // obtain previous edge
+    const GNEEdge* previousEdge = (myShapeSegments.size() > 0)? myShapeSegments.back().edge : nullptr;
+    // add segment in myShapeSegments
+    myShapeSegments.push_back(Segment(element, edge, pos, visible, valid));
+}
+
+
+void 
+GNEDemandElement::DemandElementSegmentGeometry::insertEdgeLenghtRotSegment(const GNEDemandElement* element, const GNEEdge* edge, const Position pos, double lenght, double rotation, const bool visible, const bool valid) {
+    // obtain previous edge
+    const GNEEdge* previousEdge = (myShapeSegments.size() > 0)? myShapeSegments.back().edge : nullptr;
+    // add segment in myShapeSegments
+    myShapeSegments.push_back(Segment(element, edge, pos, lenght, rotation, visible, valid));
+}
+
+
+void 
+GNEDemandElement::DemandElementSegmentGeometry::insertJunctionSegment(const GNEDemandElement* element, const GNEJunction* junction, const Position pos, const bool visible, const bool valid) {
+    // obtain previous junction
+    const GNEJunction* previousJunction = (myShapeSegments.size() > 0)? myShapeSegments.back().junction : nullptr;
+    // add segment in myShapeSegments
+    myShapeSegments.push_back(Segment(element, junction, pos, visible, valid));
+}
+
+
+void 
+GNEDemandElement::DemandElementSegmentGeometry::clearDemandElementSegmentGeometry() {
+    // clear segments
+    myShapeSegments.clear();
+}
+
+
+void
+GNEDemandElement::DemandElementSegmentGeometry::calculatePartialShapeRotationsAndLengths() {
+    // Get number of parts of the shapeSegments
+    int numberOfSegments = (int)myShapeSegments.size() - 1;
+    // If number of segments is more than 0
+    if (numberOfSegments >= 0) {
+        // Iterate over every segment
+        for (int i = 0; i < numberOfSegments; ++i) {
+            // check if lenght and rotation has to be calculated
+            if (myShapeSegments[i].lenght == -1) {
+                // Obtain first position
+                const Position& f = myShapeSegments[i].pos;
+                // Obtain next position
+                const Position& s = myShapeSegments[i + 1].pos;
+                // Save distance between position into myShapeLengths
+                myShapeSegments[i].lenght = f.distanceTo2D(s);
+                // Save rotation (angle) of the vector constructed by points f and s
+                myShapeSegments[i].rotation = ((double)atan2((s.x() - f.x()), (f.y() - s.y())) * (double) 180.0 / (double)M_PI);
+            }
+        }
+    }
+}
+
+
+std::vector<GNEDemandElement::DemandElementSegmentGeometry::Segment>::const_iterator 
+GNEDemandElement::DemandElementSegmentGeometry::begin() const {
+    return myShapeSegments.cbegin();
+}
+
+
+std::vector<GNEDemandElement::DemandElementSegmentGeometry::Segment>::const_iterator 
+GNEDemandElement::DemandElementSegmentGeometry::end() const {
+    return myShapeSegments.cend();
+}
 
 // ---------------------------------------------------------------------------
 // GNEDemandElement::RouteCalculator - methods
@@ -148,16 +314,16 @@ GNEDemandElement::GNEDemandElement(const std::string& id, GNEViewNet* viewNet, G
                                    const std::vector<GNEShape*>& shapeParents,
                                    const std::vector<GNEAdditional*>& additionalParents,
                                    const std::vector<GNEDemandElement*>& demandElementParents,
-                                   const std::vector<GNEEdge*>& edgeChilds,
-                                   const std::vector<GNELane*>& laneChilds,
-                                   const std::vector<GNEShape*>& shapeChilds,
-                                   const std::vector<GNEAdditional*>& additionalChilds,
-                                   const std::vector<GNEDemandElement*>& demandElementChilds) :
+                                   const std::vector<GNEEdge*>& edgeChildren,
+                                   const std::vector<GNELane*>& laneChildren,
+                                   const std::vector<GNEShape*>& shapeChildren,
+                                   const std::vector<GNEAdditional*>& additionalChildren,
+                                   const std::vector<GNEDemandElement*>& demandElementChildren) :
     GUIGlObject(type, id),
     GNEAttributeCarrier(tag),
     Parameterised(),
     GNEHierarchicalElementParents(this, edgeParents, laneParents, shapeParents, additionalParents, demandElementParents),
-    GNEHierarchicalElementChilds(this, edgeChilds, laneChilds, shapeChilds, additionalChilds, demandElementChilds),
+    GNEHierarchicalElementChildren(this, edgeChildren, laneChildren, shapeChildren, additionalChildren, demandElementChildren),
     myViewNet(viewNet) {
 }
 
@@ -168,23 +334,23 @@ GNEDemandElement::GNEDemandElement(GNEDemandElement* demandElementParent, GNEVie
                                    const std::vector<GNEShape*>& shapeParents,
                                    const std::vector<GNEAdditional*>& additionalParents,
                                    const std::vector<GNEDemandElement*>& demandElementParents,
-                                   const std::vector<GNEEdge*>& edgeChilds,
-                                   const std::vector<GNELane*>& laneChilds,
-                                   const std::vector<GNEShape*>& shapeChilds,
-                                   const std::vector<GNEAdditional*>& additionalChilds,
-                                   const std::vector<GNEDemandElement*>& demandElementChilds) :
+                                   const std::vector<GNEEdge*>& edgeChildren,
+                                   const std::vector<GNELane*>& laneChildren,
+                                   const std::vector<GNEShape*>& shapeChildren,
+                                   const std::vector<GNEAdditional*>& additionalChildren,
+                                   const std::vector<GNEDemandElement*>& demandElementChildren) :
     GUIGlObject(type, demandElementParent->generateChildID(tag)),
     GNEAttributeCarrier(tag),
     Parameterised(),
     GNEHierarchicalElementParents(this, edgeParents, laneParents, shapeParents, additionalParents, demandElementParents),
-    GNEHierarchicalElementChilds(this, edgeChilds, laneChilds, shapeChilds, additionalChilds, demandElementChilds),
+    GNEHierarchicalElementChildren(this, edgeChildren, laneChildren, shapeChildren, additionalChildren, demandElementChildren),
     myViewNet(viewNet) {
 }
 
 
 std::string
 GNEDemandElement::generateChildID(SumoXMLTag childTag) {
-    int counter = (int)getDemandElementChilds().size();
+    int counter = (int)getDemandElementChildren().size();
     while (myViewNet->getNet()->retrieveDemandElement(childTag, getID() + toString(childTag) + toString(counter), false) != nullptr) {
         counter++;
     }
@@ -193,6 +359,24 @@ GNEDemandElement::generateChildID(SumoXMLTag childTag) {
 
 
 GNEDemandElement::~GNEDemandElement() {}
+
+
+const GNEDemandElement::DemandElementGeometry &
+GNEDemandElement::getDemandElementGeometry() const {
+    return myDemandElementGeometry;
+}
+
+
+const GNEDemandElement::DemandElementSegmentGeometry &
+GNEDemandElement::getDemandElementSegmentGeometry() const {
+    return myDemandElementSegmentGeometry;
+}
+
+
+void 
+GNEDemandElement::markSegmentGeometryDeprecated() {
+    myDemandElementSegmentGeometry.geometryDeprecated = true;
+}
 
 
 bool

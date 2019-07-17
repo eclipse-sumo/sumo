@@ -118,8 +118,8 @@ GNEAdditionalHandler::myEndElement(int element) {
             if (TAZ != nullptr) {
                 if (TAZ->getShape().size() == 0) {
                     Boundary b;
-                    if (TAZ->getAdditionalChilds().size() > 0) {
-                        for (const auto& i : TAZ->getAdditionalChilds()) {
+                    if (TAZ->getAdditionalChildren().size() > 0) {
+                        for (const auto& i : TAZ->getAdditionalChildren()) {
                             b.add(i->getCenteringBoundary());
                         }
                         PositionVector boundaryShape;
@@ -596,7 +596,7 @@ GNEAdditionalHandler::buildRerouter(GNEViewNet* viewNet, bool allowUndoRedo, con
             }
             rerouter->incRef("buildRerouter");
         }
-        // parse rerouter childs
+        // parse rerouter children
         if (!file.empty()) {
             // we assume that rerouter values files is placed in the same folder as the additional file
             std::string currentAdditionalFilename = FileHelpers::getFilePath(OptionsCont::getOptions().getString("additional-files"));
@@ -807,7 +807,7 @@ GNEAdditionalHandler::buildVaporizer(GNEViewNet* viewNet, bool allowUndoRedo, GN
 GNEAdditional*
 GNEAdditionalHandler::buildTAZ(GNEViewNet* viewNet, bool allowUndoRedo, const std::string& id, const PositionVector& shape, const RGBColor& color, const std::vector<GNEEdge*>& edges, bool blockMovement) {
     GNETAZ* TAZ = new GNETAZ(id, viewNet, shape, color, blockMovement);
-    // disable updating geometry of TAZ childs during insertion (because in large nets provokes slowdowns)
+    // disable updating geometry of TAZ children during insertion (because in large nets provokes slowdowns)
     viewNet->getNet()->disableUpdateGeometry();
     if (allowUndoRedo) {
         viewNet->getUndoList()->p_begin("add " + toString(SUMO_TAG_TAZ));
@@ -849,7 +849,7 @@ GNEAdditional*
 GNEAdditionalHandler::buildTAZSource(GNEViewNet* viewNet, bool allowUndoRedo, GNEAdditional* TAZ, GNEEdge* edge, double departWeight) {
     GNEAdditional* TAZSink = nullptr;
     // first check if a TAZSink in the same edge for the same TAZ
-    for (auto i : TAZ->getAdditionalChilds()) {
+    for (auto i : TAZ->getAdditionalChildren()) {
         if ((i->getTagProperty().getTag() == SUMO_TAG_TAZSINK) && (i->getAttribute(SUMO_ATTR_EDGE) == edge->getID())) {
             TAZSink = i;
         }
@@ -870,7 +870,7 @@ GNEAdditionalHandler::buildTAZSource(GNEViewNet* viewNet, bool allowUndoRedo, GN
     // now check check if TAZSource exist
     GNEAdditional* TAZSource = nullptr;
     // first check if a TAZSink in the same edge for the same TAZ
-    for (auto i : TAZ->getAdditionalChilds()) {
+    for (auto i : TAZ->getAdditionalChildren()) {
         if ((i->getTagProperty().getTag() == SUMO_TAG_TAZSOURCE) && (i->getAttribute(SUMO_ATTR_EDGE) == edge->getID())) {
             TAZSource = i;
         }
@@ -906,7 +906,7 @@ GNEAdditional*
 GNEAdditionalHandler::buildTAZSink(GNEViewNet* viewNet, bool allowUndoRedo, GNEAdditional* TAZ, GNEEdge* edge, double arrivalWeight) {
     GNEAdditional* TAZSource = nullptr;
     // first check if a TAZSink in the same edge for the same TAZ
-    for (auto i : TAZ->getAdditionalChilds()) {
+    for (auto i : TAZ->getAdditionalChildren()) {
         if ((i->getTagProperty().getTag() == SUMO_TAG_TAZSOURCE) && (i->getAttribute(SUMO_ATTR_EDGE) == edge->getID())) {
             TAZSource = i;
         }
@@ -926,7 +926,7 @@ GNEAdditionalHandler::buildTAZSink(GNEViewNet* viewNet, bool allowUndoRedo, GNEA
     }
     GNEAdditional* TAZSink = nullptr;
     // first check if a TAZSink in the same edge for the same TAZ
-    for (auto i : TAZ->getAdditionalChilds()) {
+    for (auto i : TAZ->getAdditionalChildren()) {
         if ((i->getTagProperty().getTag() == SUMO_TAG_TAZSINK) && (i->getAttribute(SUMO_ATTR_EDGE) == edge->getID())) {
             TAZSink = i;
         }
@@ -1010,7 +1010,7 @@ GNEAdditionalHandler::accessCanBeCreated(GNEAdditional* busStopParent, GNEEdge& 
     // check that busStopParent is a busStop
     assert(busStopParent->getTagProperty().getTag() == SUMO_TAG_BUS_STOP);
     // check if exist another acces for the same busStop in the given edge
-    for (auto i : busStopParent->getAdditionalChilds()) {
+    for (auto i : busStopParent->getAdditionalChildren()) {
         for (auto j : edge.getLanes()) {
             if (i->getAttribute(SUMO_ATTR_LANE) == j->getID()) {
                 return false;
@@ -1025,10 +1025,10 @@ bool
 GNEAdditionalHandler::checkOverlappingRerouterIntervals(GNEAdditional* rerouter, SUMOTime newBegin, SUMOTime newEnd) {
     // check that rerouter is correct
     assert(rerouter->getTagProperty().getTag() == SUMO_TAG_REROUTER);
-    // declare a vector to keep sorted rerouter childs
+    // declare a vector to keep sorted rerouter children
     std::vector<std::pair<SUMOTime, SUMOTime>> sortedIntervals;
-    // iterate over additional childs
-    for (auto i : rerouter->getAdditionalChilds()) {
+    // iterate over additional children
+    for (auto i : rerouter->getAdditionalChildren()) {
         sortedIntervals.push_back(std::make_pair((SUMOTime)0., (SUMOTime)0.));
         // set begin and end
         sortedIntervals.back().first = GNEAttributeCarrier::parse<SUMOTime>(i->getAttribute(SUMO_ATTR_BEGIN));
@@ -1036,7 +1036,7 @@ GNEAdditionalHandler::checkOverlappingRerouterIntervals(GNEAdditional* rerouter,
     }
     // add new intervals
     sortedIntervals.push_back(std::make_pair(newBegin, newEnd));
-    // sort childs
+    // sort children
     std::sort(sortedIntervals.begin(), sortedIntervals.end());
     // check overlapping after sorting
     for (int i = 0; i < (int)sortedIntervals.size() - 1; i++) {

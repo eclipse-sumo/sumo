@@ -49,11 +49,11 @@ GNEChange_Additional::GNEChange_Additional(GNEAdditional* additional, bool forwa
     myShapeParents(myAdditional->getShapeParents()),
     myAdditionalParents(myAdditional->getAdditionalParents()),
     myDemandElementParents(myAdditional->getDemandElementParents()),
-    myEdgeChilds(myAdditional->getEdgeChilds()),
-    myLaneChilds(myAdditional->getLaneChilds()),
-    myShapeChilds(myAdditional->getShapeChilds()),
-    myAdditionalChilds(myAdditional->getAdditionalChilds()),
-    myDemandElementChilds(myAdditional->getDemandElementChilds()) {
+    myEdgeChildren(myAdditional->getEdgeChildren()),
+    myLaneChildren(myAdditional->getLaneChildren()),
+    myShapeChildren(myAdditional->getShapeChildren()),
+    myAdditionalChildren(myAdditional->getAdditionalChildren()),
+    myDemandElementChildren(myAdditional->getDemandElementChildren()) {
     myAdditional->incRef("GNEChange_Additional");
 }
 
@@ -84,19 +84,19 @@ GNEChange_Additional::~GNEChange_Additional() {
                 i->removeAdditionalChild(myAdditional);
             }
             // Remove additional from child elements
-            for (const auto& i : myEdgeChilds) {
+            for (const auto& i : myEdgeChildren) {
                 i->removeAdditionalParent(myAdditional);
             }
-            for (const auto& i : myLaneChilds) {
+            for (const auto& i : myLaneChildren) {
                 i->removeAdditionalParent(myAdditional);
             }
-            for (const auto& i : myShapeChilds) {
+            for (const auto& i : myShapeChildren) {
                 i->removeAdditionalChild(myAdditional);
             }
-            for (const auto& i : myAdditionalChilds) {
+            for (const auto& i : myAdditionalChildren) {
                 i->removeAdditionalParent(myAdditional);
             }
-            for (const auto& i : myDemandElementChilds) {
+            for (const auto& i : myDemandElementChildren) {
                 i->removeAdditionalParent(myAdditional);
             }
         }
@@ -129,19 +129,19 @@ GNEChange_Additional::undo() {
             i->removeAdditionalChild(myAdditional);
         }
         // Remove additional from child elements
-        for (const auto& i : myEdgeChilds) {
+        for (const auto& i : myEdgeChildren) {
             i->removeAdditionalParent(myAdditional);
         }
-        for (const auto& i : myLaneChilds) {
+        for (const auto& i : myLaneChildren) {
             i->removeAdditionalParent(myAdditional);
         }
-        for (const auto& i : myShapeChilds) {
+        for (const auto& i : myShapeChildren) {
             i->removeAdditionalChild(myAdditional);
         }
-        for (const auto& i : myAdditionalChilds) {
+        for (const auto& i : myAdditionalChildren) {
             i->removeAdditionalParent(myAdditional);
         }
-        for (const auto& i : myDemandElementChilds) {
+        for (const auto& i : myDemandElementChildren) {
             i->removeAdditionalParent(myAdditional);
         }
     } else {
@@ -166,19 +166,19 @@ GNEChange_Additional::undo() {
             i->addAdditionalChild(myAdditional);
         }
         // add additional in child elements
-        for (const auto& i : myEdgeChilds) {
+        for (const auto& i : myEdgeChildren) {
             i->addAdditionalParent(myAdditional);
         }
-        for (const auto& i : myLaneChilds) {
+        for (const auto& i : myLaneChildren) {
             i->addAdditionalParent(myAdditional);
         }
-        for (const auto& i : myShapeChilds) {
+        for (const auto& i : myShapeChildren) {
             i->addAdditionalParent(myAdditional);
         }
-        for (const auto& i : myAdditionalChilds) {
+        for (const auto& i : myAdditionalChildren) {
             i->addAdditionalParent(myAdditional);
         }
-        for (const auto& i : myDemandElementChilds) {
+        for (const auto& i : myDemandElementChildren) {
             i->addAdditionalParent(myAdditional);
         }
     }
@@ -211,19 +211,19 @@ GNEChange_Additional::redo() {
             i->addAdditionalChild(myAdditional);
         }
         // add additional in child elements
-        for (const auto& i : myEdgeChilds) {
+        for (const auto& i : myEdgeChildren) {
             i->addAdditionalParent(myAdditional);
         }
-        for (const auto& i : myLaneChilds) {
+        for (const auto& i : myLaneChildren) {
             i->addAdditionalParent(myAdditional);
         }
-        for (const auto& i : myShapeChilds) {
+        for (const auto& i : myShapeChildren) {
             i->addAdditionalParent(myAdditional);
         }
-        for (const auto& i : myAdditionalChilds) {
+        for (const auto& i : myAdditionalChildren) {
             i->addAdditionalParent(myAdditional);
         }
-        for (const auto& i : myDemandElementChilds) {
+        for (const auto& i : myDemandElementChildren) {
             i->addAdditionalParent(myAdditional);
         }
     } else {
@@ -248,19 +248,19 @@ GNEChange_Additional::redo() {
             i->removeAdditionalChild(myAdditional);
         }
         // Remove additional from child elements
-        for (const auto& i : myEdgeChilds) {
+        for (const auto& i : myEdgeChildren) {
             i->removeAdditionalParent(myAdditional);
         }
-        for (const auto& i : myLaneChilds) {
+        for (const auto& i : myLaneChildren) {
             i->removeAdditionalParent(myAdditional);
         }
-        for (const auto& i : myShapeChilds) {
+        for (const auto& i : myShapeChildren) {
             i->removeAdditionalChild(myAdditional);
         }
-        for (const auto& i : myAdditionalChilds) {
+        for (const auto& i : myAdditionalChildren) {
             i->removeAdditionalParent(myAdditional);
         }
-        for (const auto& i : myDemandElementChilds) {
+        for (const auto& i : myDemandElementChildren) {
             i->removeAdditionalParent(myAdditional);
         }
     }

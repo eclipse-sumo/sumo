@@ -313,9 +313,9 @@ GUIApplicationWindow::create() {
     myWindowsMenu->create();
     myHelpMenu->create();
 
-    FXint width = getApp()->getNormalFont()->getTextWidth("8", 1) * 24;
-    myCartesianFrame->setWidth(width);
-    myGeoFrame->setWidth(width);
+    FXint textWidth = getApp()->getNormalFont()->getTextWidth("8", 1) * 24;
+    myCartesianFrame->setWidth(textWidth);
+    myGeoFrame->setWidth(textWidth);
 
     show(PLACEMENT_DEFAULT);
     if (!OptionsCont::getOptions().isSet("window-size")) {

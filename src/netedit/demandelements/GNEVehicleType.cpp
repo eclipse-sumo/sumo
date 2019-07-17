@@ -36,8 +36,8 @@
 // ===========================================================================
 
 
-GNEVehicleType::GNEVehicleType(GNEViewNet* viewNet, const std::string& vTypeID, SUMOVehicleClass defaultVClass) :
-    GNEDemandElement(vTypeID, viewNet, GLO_VTYPE, SUMO_TAG_VTYPE, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}),
+GNEVehicleType::GNEVehicleType(GNEViewNet* viewNet, const std::string& vTypeID, const SUMOVehicleClass &defaultVClass, SumoXMLTag tag) :
+    GNEDemandElement(vTypeID, viewNet, GLO_VTYPE, tag, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}),
     SUMOVTypeParameter(vTypeID),
     myDefaultVehicleType(true),
     myDefaultVehicleTypeModified(false) {
@@ -49,18 +49,23 @@ GNEVehicleType::GNEVehicleType(GNEViewNet* viewNet, const std::string& vTypeID, 
 }
 
 
-GNEVehicleType::GNEVehicleType(GNEViewNet* viewNet, const SUMOVTypeParameter& vTypeParameter) :
-    GNEDemandElement(vTypeParameter.id, viewNet, GLO_VTYPE, SUMO_TAG_VTYPE, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}),
+GNEVehicleType::GNEVehicleType(GNEViewNet* viewNet, const SUMOVTypeParameter& vTypeParameter, SumoXMLTag tag) :
+    GNEDemandElement(vTypeParameter.id, viewNet, GLO_VTYPE, tag, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}),
     SUMOVTypeParameter(vTypeParameter),
     myDefaultVehicleType(false),
     myDefaultVehicleTypeModified(false) {
+    // if we're creating a Person Type, set manually VClass
+    if (tag == SUMO_TAG_PTYPE) {
+        vehicleClass = SVC_PEDESTRIAN;
+        parametersSet |= VTYPEPARS_VEHICLECLASS_SET;
+    }
     // init Rail Visualization Parameters
     initRailVisualizationParameters();
 }
 
 
 GNEVehicleType::GNEVehicleType(GNEViewNet* viewNet, const std::string& vTypeID, GNEVehicleType* vTypeOriginal) :
-    GNEDemandElement(vTypeID, viewNet, GLO_VTYPE, SUMO_TAG_VTYPE, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}),
+    GNEDemandElement(vTypeID, viewNet, GLO_VTYPE, vTypeOriginal->getTagProperty().getTag(), {}, {}, {}, {}, {}, {}, {}, {}, {}, {}),
     SUMOVTypeParameter(*vTypeOriginal),
     myDefaultVehicleType(false),
     myDefaultVehicleTypeModified(false) {
@@ -309,19 +314,19 @@ GNEVehicleType::getAttribute(SumoXMLAttr key) const {
             if (wasSet(VTYPEPARS_SHAPE_SET)) {
                 return getVehicleShapeName(shape);
             } else {
-                return myTagProperty.getDefaultValue(SUMO_ATTR_GUISHAPE);
+                return getVehicleShapeName(defaultValues.shape);
             }
         case SUMO_ATTR_WIDTH:
             if (wasSet(VTYPEPARS_WIDTH_SET)) {
                 return toString(width);
             } else {
-                return myTagProperty.getDefaultValue(SUMO_ATTR_WIDTH);
+                return toString(defaultValues.width);
             }
         case SUMO_ATTR_HEIGHT:
             if (wasSet(VTYPEPARS_HEIGHT_SET)) {
                 return toString(height);
             } else {
-                return myTagProperty.getDefaultValue(SUMO_ATTR_HEIGHT);
+                return toString(defaultValues.height);
             }
         case SUMO_ATTR_IMGFILE:
             if (wasSet(VTYPEPARS_IMGFILE_SET)) {
@@ -425,6 +430,41 @@ GNEVehicleType::getAttribute(SumoXMLAttr key) const {
 }
 
 
+double 
+GNEVehicleType::getAttributeDouble(SumoXMLAttr key) const {
+    // obtain default values depending of vehicle class
+    VClassDefaultValues defaultValues(vehicleClass);
+    switch (key) {
+        case SUMO_ATTR_LENGTH:
+            if (wasSet(VTYPEPARS_LENGTH_SET)) {
+                return length;
+            } else {
+                return defaultValues.length;
+            }
+        case SUMO_ATTR_MINGAP:
+            if (wasSet(VTYPEPARS_MINGAP_SET)) {
+                return minGap;
+            } else {
+                return defaultValues.minGap;
+            }
+        case SUMO_ATTR_WIDTH:
+            if (wasSet(VTYPEPARS_WIDTH_SET)) {
+                return width;
+            } else {
+                return defaultValues.width;
+            }
+        case SUMO_ATTR_HEIGHT:
+            if (wasSet(VTYPEPARS_HEIGHT_SET)) {
+                return height;
+            } else {
+                return defaultValues.height;
+            }
+        default:
+            throw InvalidArgument(getTagStr() + " doesn't have a double attribute of type '" + toString(key) + "'");
+    }
+}
+
+
 void
 GNEVehicleType::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList) {
     if (value == getAttribute(key)) {
@@ -523,7 +563,14 @@ GNEVehicleType::isValid(SumoXMLAttr key, const std::string& value) {
 
     switch (key) {
         case SUMO_ATTR_ID:
-            return isValidDemandElementID(value);
+            // Vtypes and PTypes shares namespace
+            if (SUMOXMLDefinitions::isValidVehicleID(value) && 
+                (myViewNet->getNet()->retrieveDemandElement(SUMO_TAG_VTYPE, value, false) == nullptr) &&
+                (myViewNet->getNet()->retrieveDemandElement(SUMO_TAG_PTYPE, value, false) == nullptr)) {
+                return true;
+            } else {
+                return false;
+            }
         // CFM Values
         case SUMO_ATTR_SIGMA:
             return canParse<double>(value) && (parse<double>(value) >= 0) && (parse<double>(value) <= 1);

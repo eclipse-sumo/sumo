@@ -262,7 +262,6 @@ GNETAZ::drawGL(const GUIVisualizationSettings& s) const {
         return;
     }
     Boundary boundary = myGeometry.shape.getBoxBoundary();
-    int circleResolution = GNEAttributeCarrier::getCircleResolution(s);
     if (s.scale * MAX2(boundary.getWidth(), boundary.getHeight()) < s.polySize.minSize) {
         return;
     }
@@ -271,7 +270,7 @@ GNETAZ::drawGL(const GUIVisualizationSettings& s) const {
         glPushMatrix();
         glTranslated(0, 0, 128);
         if (drawUsingSelectColor()) {
-            GLHelper::setColor(s.selectionColor);
+            GLHelper::setColor(s.colorSettings.selectionColor);
         } else {
             GLHelper::setColor(myColor);
         }
@@ -291,8 +290,8 @@ GNETAZ::drawGL(const GUIVisualizationSettings& s) const {
         // set colors
         RGBColor invertedColor, darkerColor;
         if (drawUsingSelectColor()) {
-            invertedColor = s.selectionColor.invertedColor();
-            darkerColor = s.selectionColor.changedBrightness(-32);
+            invertedColor = s.colorSettings.selectionColor.invertedColor();
+            darkerColor = s.colorSettings.selectionColor.changedBrightness(-32);
         } else {
             invertedColor = GLHelper::getColor().invertedColor();
             darkerColor = GLHelper::getColor().changedBrightness(-32);
@@ -305,37 +304,39 @@ GNETAZ::drawGL(const GUIVisualizationSettings& s) const {
             GLHelper::setColor(darkerColor);
             GLHelper::drawBoxLines(myGeometry.shape, (myHintSize / 4) * s.polySize.getExaggeration(s, this));
             glPopMatrix();
-            // draw points of shape
-            for (auto i : myGeometry.shape) {
-                if (!s.drawForSelecting || (myViewNet->getPositionInformation().distanceSquaredTo2D(i) <= (myHintSizeSquared + 2))) {
-                    glPushMatrix();
-                    glTranslated(i.x(), i.y(), GLO_POLYGON + 0.02);
-                    // Change color of vertex and flag mouseOverVertex if mouse is over vertex
-                    if (modeMove && (i.distanceTo(mousePosition) < myHintSize)) {
-                        mouseOverVertex = true;
-                        GLHelper::setColor(invertedColor);
-                    } else {
-                        GLHelper::setColor(darkerColor);
+            // draw shape points only in Network supemode
+            if (myViewNet->getEditModes().currentSupermode != GNE_SUPERMODE_DEMAND) {
+                for (auto i : myGeometry.shape) {
+                    if (!s.drawForSelecting || (myViewNet->getPositionInformation().distanceSquaredTo2D(i) <= (myHintSizeSquared + 2))) {
+                        glPushMatrix();
+                        glTranslated(i.x(), i.y(), GLO_POLYGON + 0.02);
+                        // Change color of vertex and flag mouseOverVertex if mouse is over vertex
+                        if (modeMove && (i.distanceTo(mousePosition) < myHintSize)) {
+                            mouseOverVertex = true;
+                            GLHelper::setColor(invertedColor);
+                        } else {
+                            GLHelper::setColor(darkerColor);
+                        }
+                        GLHelper::drawFilledCircle(myHintSize, s.getCircleResolution());
+                        glPopMatrix();
                     }
-                    GLHelper::drawFilledCircle(myHintSize, circleResolution);
+                }
+                // check if draw moving hint has to be drawed
+                if (modeMove && (mouseOverVertex == false) && (myBlockMovement == false) && (distanceToShape < myHintSize)) {
+                    // push matrix
+                    glPushMatrix();
+                    Position hintPos = myGeometry.shape.size() > 1 ? myGeometry.shape.positionAtOffset2D(myGeometry.shape.nearest_offset_to_point2D(mousePosition)) : myGeometry.shape[0];
+                    glTranslated(hintPos.x(), hintPos.y(), GLO_POLYGON + 0.04);
+                    GLHelper::setColor(invertedColor);
+                    GLHelper:: drawFilledCircle(myHintSize, s.getCircleResolution());
                     glPopMatrix();
                 }
-            }
-            // check if draw moving hint has to be drawed
-            if (modeMove && (mouseOverVertex == false) && (myBlockMovement == false) && (distanceToShape < myHintSize)) {
-                // push matrix
-                glPushMatrix();
-                Position hintPos = myGeometry.shape.size() > 1 ? myGeometry.shape.positionAtOffset2D(myGeometry.shape.nearest_offset_to_point2D(mousePosition)) : myGeometry.shape[0];
-                glTranslated(hintPos.x(), hintPos.y(), GLO_POLYGON + 0.04);
-                GLHelper::setColor(invertedColor);
-                GLHelper:: drawFilledCircle(myHintSize, circleResolution);
-                glPopMatrix();
             }
         }
     }
     // check if dotted contour has to be drawn
     if ((myViewNet->getDottedAC() == this) || (myViewNet->getViewParent()->getTAZFrame()->getTAZCurrentModul()->getTAZ() == this)) {
-        GLHelper::drawShapeDottedContour(GLO_POLYGON + 1, getShape());
+        GLHelper::drawShapeDottedContourAroundClosedShape(s, GLO_POLYGON + 1, getShape());
     }
     // pop name
     glPopName();
@@ -353,7 +354,7 @@ GNETAZ::getAttribute(SumoXMLAttr key) const {
             return toString(myColor);
         case SUMO_ATTR_EDGES: {
             std::vector<std::string> edgeIDs;
-            for (auto i : getAdditionalChilds()) {
+            for (auto i : getAdditionalChildren()) {
                 edgeIDs.push_back(i->getAttribute(SUMO_ATTR_EDGE));
             }
             return toString(edgeIDs);
@@ -456,11 +457,11 @@ GNETAZ::updateAdditionalParent() {
     myMaxWeightSink = 0;
     myMinWeightSink = -1;
     myAverageWeightSink = 0;
-    // declare an extra variables for saving number of childs
+    // declare an extra variables for saving number of children
     int numberOfSources = 0;
     int numberOfSinks = 0;
-    // iterate over additional childs
-    for (auto i : getAdditionalChilds()) {
+    // iterate over additional children
+    for (auto i : getAdditionalChildren()) {
         if (i->getTagProperty().getTag() == SUMO_TAG_TAZSOURCE) {
             double weight = parse<double>(i->getAttribute(SUMO_ATTR_WEIGHT));
             // check max Weight

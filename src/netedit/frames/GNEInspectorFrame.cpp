@@ -22,19 +22,14 @@
 // ===========================================================================
 #include <config.h>
 
-#include <utils/foxtools/MFXUtils.h>
 #include <utils/gui/div/GUIDesigns.h>
-#include <utils/gui/images/GUIIconSubSys.h>
 #include <utils/gui/windows/GUIAppEnum.h>
 #include <netedit/GNENet.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNEUndoList.h>
 #include <netedit/GNEViewParent.h>
-#include <netedit/additionals/GNEAdditional.h>
-#include <netedit/additionals/GNEPOI.h>
 #include <netedit/frames/GNESelectorFrame.h>
 #include <netedit/netelements/GNEEdge.h>
-#include <netedit/netelements/GNEJunction.h>
 #include <netedit/netelements/GNELane.h>
 
 #include "GNEInspectorFrame.h"
@@ -50,11 +45,11 @@ FXDEFMAP(GNEInspectorFrame) GNEInspectorFrameMap[] = {
 };
 
 FXDEFMAP(GNEInspectorFrame::OverlappedInspection) OverlappedInspectionMap[] = {
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_INSPECTORFRAME_NEXT,            GNEInspectorFrame::OverlappedInspection::onCmdNextElement),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_INSPECTORFRAME_PREVIOUS,        GNEInspectorFrame::OverlappedInspection::onCmdPreviousElement),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_INSPECTORFRAME_SHOWLIST,        GNEInspectorFrame::OverlappedInspection::onCmdShowList),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_INSPECTORFRAME_ITEMSELECTED,    GNEInspectorFrame::OverlappedInspection::onCmdListItemSelected),
-    FXMAPFUNC(SEL_COMMAND,  MID_HELP,                               GNEInspectorFrame::OverlappedInspection::onCmdOverlappingHelp)
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_OVERLAPPED_NEXT,            GNEInspectorFrame::OverlappedInspection::onCmdNextElement),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_OVERLAPPED_PREVIOUS,        GNEInspectorFrame::OverlappedInspection::onCmdPreviousElement),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_OVERLAPPED_SHOWLIST,        GNEInspectorFrame::OverlappedInspection::onCmdShowList),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_OVERLAPPED_ITEMSELECTED,    GNEInspectorFrame::OverlappedInspection::onCmdListItemSelected),
+    FXMAPFUNC(SEL_COMMAND,  MID_HELP,                           GNEInspectorFrame::OverlappedInspection::onCmdOverlappingHelp)
 };
 
 FXDEFMAP(GNEInspectorFrame::NeteditAttributesEditor) NeteditAttributesEditorMap[] = {
@@ -68,9 +63,9 @@ FXDEFMAP(GNEInspectorFrame::GEOAttributesEditor) GEOAttributesEditorMap[] = {
 };
 
 FXDEFMAP(GNEInspectorFrame::TemplateEditor) TemplateEditorMap[] = {
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_INSPECTORFRAME_COPYTEMPLATE,    GNEInspectorFrame::TemplateEditor::onCmdCopyTemplate),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_INSPECTORFRAME_SETTEMPLATE,     GNEInspectorFrame::TemplateEditor::onCmdSetTemplate),
-    FXMAPFUNC(SEL_UPDATE,   MID_GNE_INSPECTORFRAME_COPYTEMPLATE,    GNEInspectorFrame::TemplateEditor::onUpdCopyTemplate)
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_TEMPLATE_COPY,  GNEInspectorFrame::TemplateEditor::onCmdCopyTemplate),
+    FXMAPFUNC(SEL_UPDATE,   MID_GNE_TEMPLATE_COPY,  GNEInspectorFrame::TemplateEditor::onUpdCopyTemplate),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_TEMPLATE_SET,   GNEInspectorFrame::TemplateEditor::onCmdSetTemplate)
 };
 
 // Object implementation
@@ -91,7 +86,7 @@ GNEInspectorFrame::GNEInspectorFrame(FXHorizontalFrame* horizontalFrameParent, G
     myPreviousElementDelete(nullptr) {
 
     // Create back button
-    myBackButton = new FXButton(myHeaderLeftFrame, "", GUIIconSubSys::getIcon(ICON_NETEDITARROWLEFT), this, MID_GNE_INSPECTORFRAME_GOBACK, GUIDesignButtonIconRectangular);
+    myBackButton = new FXButton(myHeaderLeftFrame, "", GUIIconSubSys::getIcon(ICON_BIGARROWLEFT), this, MID_GNE_INSPECTORFRAME_GOBACK, GUIDesignButtonIconRectangular);
     myHeaderLeftFrame->hide();
     myBackButton->hide();
 
@@ -113,8 +108,8 @@ GNEInspectorFrame::GNEInspectorFrame(FXHorizontalFrame* horizontalFrameParent, G
     // Create Template editor modul
     myTemplateEditor = new TemplateEditor(this);
 
-    // Create ACHierarchy modul
-    myACHierarchy = new GNEFrame::ACHierarchy(this);
+    // Create AttributeCarrierHierarchy modul
+    myAttributeCarrierHierarchy = new GNEFrame::AttributeCarrierHierarchy(this);
 }
 
 
@@ -141,7 +136,7 @@ GNEInspectorFrame::processNetworkSupermodeClick(const Position& clickedPosition,
     // first check if we have clicked over an Attribute Carrier
     if (objectsUnderCursor.getAttributeCarrierFront()) {
         // change the selected attribute carrier if mySelectEdges is enabled and clicked element is a getLaneFront() and shift key isn't pressed
-        if (!myViewNet->getKeyPressed().shiftKeyPressed() && myViewNet->getViewOptionsNetwork().selectEdges() && (objectsUnderCursor.getAttributeCarrierFront()->getTagProperty().getTag() == SUMO_TAG_LANE)) {
+        if (!myViewNet->getKeyPressed().shiftKeyPressed() && myViewNet->getNetworkViewOptions().selectEdges() && (objectsUnderCursor.getAttributeCarrierFront()->getTagProperty().getTag() == SUMO_TAG_LANE)) {
             objectsUnderCursor.swapLane2Edge();
         }
         // if Control key is Pressed, select instead inspect element
@@ -247,7 +242,7 @@ GNEInspectorFrame::inspectMultisection(const std::vector<GNEAttributeCarrier*>& 
     myGEOAttributesEditor->hideGEOAttributesEditor();
     myGenericParametersEditor->hideGenericParametersEditor();
     myTemplateEditor->hideTemplateEditor();
-    myACHierarchy->hideACHierarchy();
+    myAttributeCarrierHierarchy->hideAttributeCarrierHierarchy();
     myOverlappedInspection->hideOverlappedInspection();
     // If vector of attribute Carriers contain data
     if (ACs.size() > 0) {
@@ -289,9 +284,9 @@ GNEInspectorFrame::inspectMultisection(const std::vector<GNEAttributeCarrier*>& 
         // If attributes correspond to an Edge and we aren't in demand mode, show template editor
         myTemplateEditor->showTemplateEditor();
 
-        // if we inspect a single Attribute carrier vector, show their childs
+        // if we inspect a single Attribute carrier vector, show their children
         if (ACs.size() == 1) {
-            myACHierarchy->showACHierarchy(ACs.front());
+            myAttributeCarrierHierarchy->showAttributeCarrierHierarchy(ACs.front());
         }
     } else {
         getFrameHeaderLabel()->setText("Inspect");
@@ -381,7 +376,7 @@ GNEInspectorFrame::updateFrameAfterUndoRedo() {
     // refresh GenericParameters
     myGenericParametersEditor->refreshGenericParametersEditor();
     // refresh AC Hierarchy
-    myACHierarchy->refreshACHierarchy();
+    myAttributeCarrierHierarchy->refreshAttributeCarrierHierarchy();
 }
 
 
@@ -401,7 +396,7 @@ GNEInspectorFrame::inspectClickedElement(const GNEViewNetHelper::ObjectsUnderCur
 
 
 void
-GNEInspectorFrame::updateFrameAfterChangeAttribute() {
+GNEInspectorFrame::attributeUpdated() {
     myAttributesEditor->refreshAttributeEditor(false, false);
     myNeteditAttributesEditor->refreshNeteditAttributesEditor(true);
     myGEOAttributesEditor->refreshGEOAttributesEditor(true);
@@ -417,13 +412,13 @@ GNEInspectorFrame::OverlappedInspection::OverlappedInspection(GNEInspectorFrame*
     myItemIndex(0) {
     FXHorizontalFrame* frameButtons = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
     // Create previous Item Button
-    myPreviousElement = new FXButton(frameButtons, "", GUIIconSubSys::getIcon(ICON_NETEDITARROWLEFT), this, MID_GNE_INSPECTORFRAME_PREVIOUS, GUIDesignButtonIconRectangular);
+    myPreviousElement = new FXButton(frameButtons, "", GUIIconSubSys::getIcon(ICON_BIGARROWLEFT), this, MID_GNE_OVERLAPPED_PREVIOUS, GUIDesignButtonIconRectangular);
     // create current index button
-    myCurrentIndexButton = new FXButton(frameButtons, "", nullptr, this, MID_GNE_INSPECTORFRAME_SHOWLIST, GUIDesignButton);
+    myCurrentIndexButton = new FXButton(frameButtons, "", nullptr, this, MID_GNE_OVERLAPPED_SHOWLIST, GUIDesignButton);
     // Create next Item Button
-    myNextElement = new FXButton(frameButtons, "", GUIIconSubSys::getIcon(ICON_NETEDITARROWRIGHT), this, MID_GNE_INSPECTORFRAME_NEXT, GUIDesignButtonIconRectangular);
+    myNextElement = new FXButton(frameButtons, "", GUIIconSubSys::getIcon(ICON_BIGARROWRIGHT), this, MID_GNE_OVERLAPPED_NEXT, GUIDesignButtonIconRectangular);
     // Create list of overlapped elements (by default hidden)
-    myOverlappedElementList = new FXList(this, this, MID_GNE_INSPECTORFRAME_ITEMSELECTED, GUIDesignListSingleElement);
+    myOverlappedElementList = new FXList(this, this, MID_GNE_OVERLAPPED_ITEMSELECTED, GUIDesignListSingleElement);
     // disable vertical scrolling
     myOverlappedElementList->setScrollStyle(VSCROLLING_OFF);
     // by default list of overlapped elements is hidden)
@@ -597,7 +592,7 @@ GNEInspectorFrame::OverlappedInspection::inspectOverlappedAttributeCarrier() {
     // change current inspected item
     GNEAttributeCarrier* AC = myOverlappedACs.at(myItemIndex);
     // if is an lane and selectEdges checkBox is enabled, inspect their edge
-    if (AC->getTagProperty().getTag() == SUMO_TAG_LANE && myInspectorFrameParent->getViewNet()->getViewOptionsNetwork().selectEdges()) {
+    if (AC->getTagProperty().getTag() == SUMO_TAG_LANE && myInspectorFrameParent->getViewNet()->getNetworkViewOptions().selectEdges()) {
         myInspectorFrameParent->inspectSingleElement(&dynamic_cast<GNELane*>(AC)->getParentEdge());
     } else {
         myInspectorFrameParent->inspectSingleElement(AC);
@@ -1084,11 +1079,11 @@ GNEInspectorFrame::TemplateEditor::TemplateEditor(GNEInspectorFrame* inspectorFr
     myEdgeTemplate(nullptr) {
 
     // Create copy template button
-    myCopyTemplateButton = new FXButton(this, "", nullptr, this, MID_GNE_INSPECTORFRAME_COPYTEMPLATE, GUIDesignButton);
+    myCopyTemplateButton = new FXButton(this, "", nullptr, this, MID_GNE_TEMPLATE_COPY, GUIDesignButton);
     myCopyTemplateButton->hide();
 
     // Create set template button
-    mySetTemplateButton = new FXButton(this, "Set as Template\t\t", nullptr, this, MID_GNE_INSPECTORFRAME_SETTEMPLATE, GUIDesignButton);
+    mySetTemplateButton = new FXButton(this, "Set as Template\t\t", nullptr, this, MID_GNE_TEMPLATE_SET, GUIDesignButton);
     mySetTemplateButton->hide();
 }
 

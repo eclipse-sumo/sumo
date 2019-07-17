@@ -74,6 +74,9 @@ public:
     /// @brief Returns underlying parent edge
     GNEEdge& getParentEdge();
 
+    /// @brief Returns underlying parent edge (const)
+    GNEEdge& getParentEdge() const;
+
     /// @brief returns a vector with the incoming GNEConnections of this lane
     std::vector<GNEConnection*> getGNEIncomingConnections();
 

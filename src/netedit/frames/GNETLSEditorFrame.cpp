@@ -21,11 +21,9 @@
 // ===========================================================================
 #include <config.h>
 
-#include <utils/foxtools/MFXUtils.h>
 #include <utils/gui/windows/GUIAppEnum.h>
 #include <utils/gui/div/GUIDesigns.h>
 #include <netbuild/NBLoadedSUMOTLDef.h>
-#include <utils/gui/images/GUIIconSubSys.h>
 #include <utils/xml/XMLSubSys.h>
 #include <netimport/NIXMLTrafficLightsHandler.h>
 #include <netedit/changes/GNEChange_TLS.h>
