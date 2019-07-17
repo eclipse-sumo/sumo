@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 16.07.2019 14:38:12 by Eclipse SUMO netedit Version v1_2_0+1251-80af95b08b
+<!-- generated on 17.07.2019 07:40:44 by Eclipse SUMO netedit Version v1_2_0+1252-d79f2c5318
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.16Jul143802.10568/netedit.gui/demandElements/route/create/default\input_net.net.xml"/>
+        <sumo-net-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.17Jul074035.8104/netedit.gui/demandElements/route/create_consecutive/single_edge\input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.16Jul143802.10568/netedit.gui/demandElements/route/create/default\net.net.xml"/>
+        <output-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.17Jul074035.8104/netedit.gui/demandElements/route/create_consecutive/single_edge\net.net.xml"/>
     </output>
 
     <processing>
@@ -29,10 +29,10 @@
     </pedestrian>
 
     <netedit>
-        <additional-files value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.16Jul143802.10568/netedit.gui/demandElements/route/create/default\additionals.xml"/>
-        <additionals-output value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.16Jul143802.10568/netedit.gui/demandElements/route/create/default\additionals.xml"/>
-        <route-files value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.16Jul143802.10568/netedit.gui/demandElements/route/create/default\routes.xml"/>
-        <demandelements-output value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.16Jul143802.10568/netedit.gui/demandElements/route/create/default\routes.xml"/>
+        <additional-files value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.17Jul074035.8104/netedit.gui/demandElements/route/create_consecutive/single_edge\additionals.xml"/>
+        <additionals-output value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.17Jul074035.8104/netedit.gui/demandElements/route/create_consecutive/single_edge\additionals.xml"/>
+        <route-files value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.17Jul074035.8104/netedit.gui/demandElements/route/create_consecutive/single_edge\routes.xml"/>
+        <demandelements-output value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.17Jul074035.8104/netedit.gui/demandElements/route/create_consecutive/single_edge\routes.xml"/>
     </netedit>
 
     <visualisation>
@@ -45,12 +45,12 @@
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.16Jul143802.10568/netedit.gui/demandElements/route/create/default\log.txt"/>
+        <error-log value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.17Jul074035.8104/netedit.gui/demandElements/route/create_consecutive/single_edge\log.txt"/>
     </report>
 
 </configuration>
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-    <route edges="gneE2 gneE4 gneE5" color="yellow" id="route_0"/>
+    <route edges="gneE4" color="yellow" id="route_0"/>
 </routes>

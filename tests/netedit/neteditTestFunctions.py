@@ -86,6 +86,18 @@ def typeTab():
 
 
 """
+@brief type backspace key
+"""
+
+
+def typeBackspace():
+    # wait before every operation
+    time.sleep(DELAY_KEY)
+    # type keys
+    pyautogui.hotkey('backspace')
+
+
+"""
 @brief type Shift + Tab keys
 """
 
@@ -1100,6 +1112,38 @@ def fixStoppingPlace(solution):
 
 def routeMode():
     typeKey('r')
+
+"""
+@brief change route mode
+"""
+
+
+def changeRouteMode(value):
+    # focus current frame
+    focusOnFrame()
+    # jump to route mode
+    typeTab()
+    # paste the new value
+    pasteIntoTextField(value)
+    # type enter to save change
+    typeEnter()
+
+
+"""
+@brief change vClass mode
+"""
+
+
+def changeRouteVClass(value):
+    # focus current frame
+    focusOnFrame()
+    # jump to vClass
+    for _ in range(3):
+        typeTab()
+    # paste the new value
+    pasteIntoTextField(value)
+    # type enter to save change
+    typeEnter()
 
 
 #################################################

@@ -31,9 +31,13 @@ netedit.supermodeDemand()
 # go to route mode
 netedit.routeMode()
 
-# create route using two non-consecutive edges
+# create route using three edges
 netedit.leftClick(referencePosition, 274, 414)
+netedit.leftClick(referencePosition, 570, 250)
 netedit.leftClick(referencePosition, 280, 60)
+
+# remove last inserted edge
+netedit.typeBackspace()
 
 # press enter to create route
 netedit.typeEnter()
