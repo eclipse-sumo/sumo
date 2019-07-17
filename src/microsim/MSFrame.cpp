@@ -354,7 +354,7 @@ MSFrame::fillOptions() {
     oc.doRegister("emergencydecel.warning-threshold", new Option_Float(1));
     oc.addDescription("emergencydecel.warning-threshold", "Processing", "Sets the fraction of emergency decel capability that must be used to trigger a warning.");
 
-    oc.doRegister("modelparkingmanoeuver", new Option_Bool(false));
+    oc.doRegister("modelparkingmanoeuver", new Option_Bool(true));
     oc.addDescription("modelparkingmanoeuver", "Processing", "Whether parking simulation includes manoeuvering time and any associated lane blocking");
 
     // pedestrian model

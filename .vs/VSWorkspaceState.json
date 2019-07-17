@@ -3,13 +3,12 @@
     "",
     "\\src",
     "\\src\\microsim",
+    "\\src\\microsim\\cfmodels",
     "\\src\\microsim\\lcmodels",
-    "\\src\\microsim\\trigger",
-    "\\src\\netgen",
     "\\src\\utils",
     "\\src\\utils\\vehicle",
     "\\src\\utils\\xml"
   ],
-  "SelectedNode": "\\src\\microsim\\MSVehicle.cpp",
+  "SelectedNode": "\\src\\microsim\\trigger",
   "PreviewInSolutionExplorer": false
 }

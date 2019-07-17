@@ -1367,6 +1367,7 @@ public:
     bool setExitManoeuvre(const SUMOTime currentTime);
     /// @brief accessor function to myManoeuvre equivalent
     void setManoeuvreType(const MSVehicle::ManoeuvreType mType);
+
     /// @brief accessor function to myManoeuvre equivalent
     bool manoeuvreIsComplete(const SUMOTime t) const;
     /// @brief accessor function to myManoeuvre equivalent
@@ -1394,35 +1395,37 @@ public:
         /// Operator !=
         bool operator!=(const Manoeuvre& manoeuvre);
 
-        /// Setup the entry manoeuvre for this vehicle (Sets completion time and manoeuvre type)
+        /// @brief Setup the entry manoeuvre for this vehicle (Sets completion time and manoeuvre type)
         bool configureEntryManoeuvre(MSVehicle* veh, const SUMOTime currentTime );
 
-        /// setup the myManoeuvre for exiting (Sets completion time and manoeuvre type)
+        /// @brief Setup the myManoeuvre for exiting (Sets completion time and manoeuvre type)
         bool configureExitManoeuvre(MSVehicle* veh, const SUMOTime currentTime);
 
-         /// configure an entry manoeuvre if nothing is configured - otherwise check if complete
+         /// @brief Configure an entry manoeuvre if nothing is configured - otherwise check if complete
         bool entryManoeuvreIsComplete(MSVehicle* veh, const SUMOTime currentTime);
 
-        /// check if manoeuver is supposed to be ongoing and whether the completion time is beyond currentTime
+        /// @brief Check if specific manoeuver is ongoing and whether the completion time is beyond currentTime
         bool
         manoeuvreIsComplete(const SUMOTime currentTime, const ManoeuvreType checkType ) const;
 
+        /// @brief Check if any manoeuver is ongoing and whether the completion time is beyond currentTime
         bool
         manoeuvreIsComplete(const SUMOTime currentTime) const;
 
-        /// accessor for manoeuvre angle
+        /// @brief Accessor for manoeuvre angle
         const int getManoeuvreAngle() const;
 
-        // accessor for manoeuvre type
+        /// @brief Accessor (get) for manoeuvre type
         const MSVehicle::ManoeuvreType getManoeuvreType() const;
 
+        /// @brief Accessor (set) for manoeuvre type
         void setManoeuvreType(const MSVehicle::ManoeuvreType mType);
 
     private:
-        /// @brief  The name of the vehicle associated with the Manoeuvre
+        /// @brief  The name of the vehicle associated with the Manoeuvre  - for debug output
         std::string myManoeuvreVehicleID;
 
-        /// @brief  The name of the stop associated with the Manoeuvre
+        /// @brief  The name of the stop associated with the Manoeuvre  - for debug output
         std::string myManoeuvreStop;
 
         /// @brief Time at which the Manoeuvre for this stop started
@@ -1441,14 +1444,7 @@ public:
     // Current or previous (completed) manoeuvre
     Manoeuvre myManoeuvre;
 
-    // myManoeuvre accessors 
-    const Manoeuvre getManoeuvre() const
-    {  return (myManoeuvre); }
-
-    Manoeuvre& getManoeuvre()
-    {  return (myManoeuvre);  }
-
-    /** @class Influencer
+   /** @class Influencer
      * @brief Changes the wished vehicle speed / lanes
      *
      * The class is used for passing velocities or velocity profiles obtained via TraCI to the vehicle.

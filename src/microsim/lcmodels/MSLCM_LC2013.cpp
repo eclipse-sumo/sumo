@@ -1114,6 +1114,7 @@ MSLCM_LC2013::_wantsChange(
         currentDist = curr.length;
     }
     double driveToNextStop = -std::numeric_limits<double>::max();
+    // check for hasStops added because there is a corner case, whilst exiting parking place where there are no stops and this exceptions
     if (myVehicle.nextStopDist() < std::numeric_limits<double>::max()  && myVehicle.hasStops()
             && &myVehicle.getNextStop().lane->getEdge() == &myVehicle.getLane()->getEdge()) {
         // vehicle can always drive up to stop distance

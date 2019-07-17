@@ -15,6 +15,7 @@ set MAROUTER_BINARY=%~dp0\..\bin\marouter%1.exe
 set EMISSIONSDRIVINGCYCLE_BINARY=%~dp0\..\bin\emissionsDrivingCycle%1.exe
 set EMISSIONSMAP_BINARY=%~dp0\..\bin\emissionsMap%1.exe
 set PYTHON=python
+set VIEW_PROGRAM="C:\Program Files\Notepad++\notepad++.exe"
 
 SET TEXTTESTPY=texttest.py
 python -c "import texttestlib"

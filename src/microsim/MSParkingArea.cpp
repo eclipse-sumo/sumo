@@ -126,10 +126,6 @@ MSParkingArea::addLotEntry(double x, double y, double z,
             lsd.myManoeuverAngle = abs(relativeAngle) % 180;
         else  // lot is on RHS of lane
             lsd.myManoeuverAngle = abs(abs(relativeAngle) % 180 - 180) % 180;
-
-    //    std::cout <<"x:" << lsd.myPosition.x() << " y:"<< lsd.myPosition.y() << " offset:" << offset << " endpos:" << lsd.myEndPos << " rotation:" <<
-      //      RAD2DEG(this->getLane().getShape().rotationAtOffset(lsd.myEndPos)) << " p2 x:" << p2.x() << " p2 y:" << p2.y()
-        //    << " relative angle:" << relativeAngle << " manoeuver:" << lsd.myManoeuverAngle << "\n";
     }
     else
     {
@@ -147,7 +143,7 @@ int
 MSParkingArea::getLastFreeLotAngle() const {
     assert(myLastFreePos >= 0);
     assert(myLastFreeLot < (int)mySpaceOccupancies.size());
-    return (mySpaceOccupancies[myLastFreeLot].myManoeuverAngle); // * (double)M_PI / (double) 180.0;
+    return (mySpaceOccupancies[myLastFreeLot].myManoeuverAngle);
 }
 
 
