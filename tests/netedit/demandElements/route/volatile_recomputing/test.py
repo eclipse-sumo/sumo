@@ -9,7 +9,7 @@
 
 # @file    test.py
 # @author  Pablo Alvarez Lopez
-# @date    2019-07-16
+# @date    2016-11-25
 # @version $Id$
 
 # import common functions for netedit tests
@@ -23,23 +23,14 @@ sys.path.append(neteditTestRoot)
 import neteditTestFunctions as netedit  # noqa
 
 # Open netedit
-neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot, ['--gui-testing-debug-gl'])
+neteditProcess, referencePosition = netedit.setupAndStart(
+    neteditTestRoot, ['--sidewalks.guess', '--crossings.guess', '--gui-testing-debug-gl'])
 
-# go to demand mode
-netedit.supermodeDemand()
+# show demand elements in network mode
+netedit.changeEditMode('1')
 
-# go to additional mode
-# netedit.additionalMode()
-
-# select busStop
-# netedit.changeAdditional("busStop")
-
-# create busStop in mode "reference left"
-# netedit.leftClick(referencePosition, 250, 250)
-
-# Check undo redo
-netedit.undo(referencePosition, 1)
-netedit.redo(referencePosition, 1)
+# Recompute with volatile options
+netedit.rebuildNetworkWithVolatileOptions()
 
 # save routes
 netedit.saveRoutes()

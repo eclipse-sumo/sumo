@@ -1,0 +1,8 @@
+Warning: Essential unique string attribute 'id' of route is missing; route cannot be created
+Warning: Format of essential unique string attribute 'id' of route is invalid; ID cannot be empty; route cannot be created
+Error: There is another route with the same ID=''.
+Error: expected entity name for reference
+ In file 'C:/Users/alva_pa/.texttest/tmp/netedit.gui.17Jul133346.8732/netedit.gui/demandElements/route/load/id\input_routes.rou.xml'
+ At line/column 48/62.
+
+Error: Loading of C:/Users/alva_pa/.texttest/tmp/netedit.gui.17Jul133346.8732/netedit.gui/demandElements/route/load/id\input_routes.rou.xml failed.

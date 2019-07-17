@@ -48,6 +48,12 @@ netedit.leftClick(referencePosition, 300, 79)
 # Check undo
 netedit.undo(referencePosition, 2)
 
+# Change to network mode
+netedit.supermodeNetwork()
+
+# go to delete mode
+netedit.deleteMode()
+
 # try to delete an edge with demand elements
 netedit.leftClick(referencePosition, 330, 380)
 
@@ -60,24 +66,18 @@ netedit.changeProtectDemandElements(referencePosition)
 # now delete edge with their route
 netedit.leftClick(referencePosition, 330, 380)
 
+# Check undo
+netedit.undo(referencePosition, 2)
+netedit.redo(referencePosition, 2)
 
-# netedit.redo(referencePosition, 2)
-
-# select busStop
-# netedit.changeAdditional("busStop")
-
-# create busStop in mode "reference left"
-# netedit.leftClick(referencePosition, 250, 250)
-
-# Check undo redo
-#netedit.undo(referencePosition, 1)
-#netedit.redo(referencePosition, 1)
+# click over reference (to avoid problem with undo-redo)
+netedit.leftClick(referencePosition, 0, 0)
 
 # save routes
-#netedit.saveRoutes()
+netedit.saveRoutes()
 
 # save network
-#netedit.saveNetwork()
+netedit.saveNetwork()
 
 # quit netedit
-#netedit.quit(neteditProcess)
+netedit.quit(neteditProcess)
