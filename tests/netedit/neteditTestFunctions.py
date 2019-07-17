@@ -1186,11 +1186,26 @@ def changeAutomaticallyDeleteAdditionals(referencePosition):
 
 
 """
+@brief Enable or disable 'protect demand elements'
+"""
+
+
+def changeProtectDemandElements(referencePosition):
+    # select delete mode again to set mode
+    deleteMode()
+    # jump to checkbox
+    for _ in range(3):
+        typeTab()
+    # type SPACE to change value
+    typeSpace()
+
+
+"""
 @brief close warning about automatically delete additionals
 """
 
 
-def waitAutomaticallyDeleteAdditionalsWarning():
+def waitDeleteWarning():
     # wait 0.5 second to question dialog
     time.sleep(DELAY_QUESTION)
     # press enter to close dialog

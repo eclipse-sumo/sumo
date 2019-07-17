@@ -59,7 +59,7 @@ netedit.changeAutomaticallyDeleteAdditionals(referencePosition)
 netedit.leftClick(referencePosition, 200, 230)
 
 # wait warning
-netedit.waitAutomaticallyDeleteAdditionalsWarning()
+netedit.waitDeleteWarning()
 
 # check redo
 netedit.redo(referencePosition, 3)

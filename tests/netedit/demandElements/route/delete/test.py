@@ -28,8 +28,40 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot, ['--g
 # go to demand mode
 netedit.supermodeDemand()
 
-# go to additional mode
-# netedit.additionalMode()
+# go to route mode
+netedit.routeMode()
+
+# create route using three edges
+netedit.leftClick(referencePosition, 300, 400)
+netedit.leftClick(referencePosition, 585, 240)
+
+# press enter to create route
+netedit.typeEnter()
+
+# go to delete mode
+netedit.deleteMode()
+
+# delete both routes
+netedit.leftClick(referencePosition, 330, 400)
+netedit.leftClick(referencePosition, 300, 79)
+
+# Check undo
+netedit.undo(referencePosition, 2)
+
+# try to delete an edge with demand elements
+netedit.leftClick(referencePosition, 330, 380)
+
+# wait warning
+netedit.waitDeleteWarning()
+
+# disable protect demand elemnts
+netedit.changeProtectDemandElements(referencePosition)
+
+# now delete edge with their route
+netedit.leftClick(referencePosition, 330, 380)
+
+
+# netedit.redo(referencePosition, 2)
 
 # select busStop
 # netedit.changeAdditional("busStop")
@@ -38,14 +70,14 @@ netedit.supermodeDemand()
 # netedit.leftClick(referencePosition, 250, 250)
 
 # Check undo redo
-netedit.undo(referencePosition, 1)
-netedit.redo(referencePosition, 1)
+#netedit.undo(referencePosition, 1)
+#netedit.redo(referencePosition, 1)
 
 # save routes
-netedit.saveRoutes()
+#netedit.saveRoutes()
 
 # save network
-netedit.saveNetwork()
+#netedit.saveNetwork()
 
 # quit netedit
-netedit.quit(neteditProcess)
+#netedit.quit(neteditProcess)

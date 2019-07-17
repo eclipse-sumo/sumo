@@ -556,11 +556,10 @@
     <Compile Include="demandElements\route\create_nonconsecutive\default\test.py" />
     <Compile Include="demandElements\route\create_nonconsecutive\default_button\test.py" />
     <Compile Include="demandElements\route\create_nonconsecutive\invalid_vclass\test.py" />
-    <Compile Include="demandElements\route\create_nonconsecutive\non_consecutive\test.py" />
     <Compile Include="demandElements\route\create_nonconsecutive\remove_last\test.py" />
     <Compile Include="demandElements\route\create_nonconsecutive\remove_last_button\test.py" />
     <Compile Include="demandElements\route\create_nonconsecutive\single_edge\test.py" />
-    <Compile Include="demandElements\route\delete\default\test.py" />
+    <Compile Include="demandElements\route\delete\test.py" />
     <Compile Include="demandElements\route\inspect\color\test.py" />
     <Compile Include="demandElements\route\inspect\edges\test.py" />
     <Compile Include="demandElements\route\inspect\genericparameters\test.py" />
