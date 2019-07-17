@@ -6252,10 +6252,14 @@ MSVehicle::Manoeuvre::configureEntryManoeuvre( MSVehicle* veh, SUMOTime currentT
 bool
 MSVehicle::Manoeuvre::configureExitManoeuvre(MSVehicle* veh, const SUMOTime currentTime)
 {
-    if (myManoeuvreType != MSVehicle::MANOEUVRE_NONE) return(false);  
+    // At the moment we only want to set for parking areas
+    if (!veh->hasStops()) return true;
+    if (veh->getNextStop().parkingarea == nullptr) return true;
+    
+    if (myManoeuvreType != MSVehicle::MANOEUVRE_NONE) return(false);
 
     myManoeuvreVehicleID = veh->getID();
-    myManoeuvreStop = veh->getCurrentParkingArea()->getID();   // TODO do we need to check there is a stop and a parking area?
+    myManoeuvreStop = veh->getCurrentParkingArea()->getID();
     myManoeuvreType = MSVehicle::MANOEUVRE_EXIT;
     myManoeuvreStartTime = currentTime;
     myManoeuvreCompleteTime = currentTime + veh->myType->getExitManoeuvreTime(myManoeuvreAngle);

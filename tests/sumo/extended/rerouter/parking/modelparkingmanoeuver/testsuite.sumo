@@ -1,0 +1,59 @@
+# test for rerouting ahead of an occupied parkingArea
+visibilityM
+
+# tests for rerouting persons along with the vehicles
+ridersM
+
+# complex test scenario by Mirco
+complexM
+
+# block on road line while using parkingArea
+onRoadM
+
+# parkingArea is too short for the given roadsideCapacity (lots overlap)
+roadsideCapacity_shortM
+
+# test angled roadside parking (including vehicle positions)
+angled_roadside_parkingM
+
+# test what happens if a queue forms and a vehicle wants to exit the parkingarea
+congestionM
+
+# alternative parkingAreas in a circle and too much demand. Test cooperation between vehicles that wish to park and those that wish to exit. (Circumvent instant rerouting causing infinite loop, #5128)
+congestion_alternativesM
+
+# only activate rerouter after waiting for some time
+timeThresholdM
+
+# afte rerouting use new parkingArea as the final destination
+newDestinationM
+
+# afte rerouting use new parkingArea as the final destination. 
+# The vehicle route never passes the original parking edge
+newDestination2M
+
+# handle the case where the length of parking spaces is not given and cannot by deduced from roadside capacity because that is 0
+default_lengthM
+
+# do not reroute to parkingAreas which are too close to brake
+skip_too_closeM
+
+# when rerouting, take subsequent stops into account
+subsequent_stopsM
+
+# when rerouting, take subsequent stops into account
+# this may trigger adaptation of multiple person stages.
+subsequent_stops_rider_walkM
+
+# when rerouting, take subsequent stops into account
+# this may trigger adaptation of multiple person stages.
+subsequent_stops_rider_tripM
+
+# check subsequent stops and their lane position relative to the new parkingArea
+subsequent_stop_requires_loopM
+
+# check multiple angle parking - angle handling both sides of road
+manoeuvre_roundLotM
+
+# check reroute handling with manoeuvre and vtype configuration of manoeuvre angles
+manoeuvre_rerouteM

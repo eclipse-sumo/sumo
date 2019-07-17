@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Tue 19 Jun 2018 09:29:14 PM CEST by Eclipse SUMO netedit Version 5755134
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="net.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="net.net.xml"/>
+    </output>
+
+    <processing>
+        <no-turnarounds value="true"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="false"/>
+        <junctions.corner-detail value="0"/>
+        <rectangular-lane-cut value="false"/>
+        <walkingareas value="false"/>
+    </processing>
+
+</configuration>
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <parkingArea id="parkC0C1" lane="C0C1_0" startPos="35" endPos="55" roadsideCapacity="1" width="2.00" length="5"/>
+    <parkingArea id="parkA2A3" lane="A2A3_0" startPos="35" endPos="55" roadsideCapacity="1" width="2.00" length="5"/>
+    <parkingArea id="parkA1A2" lane="A1A2_0" startPos="35" endPos="55" roadsideCapacity="1" width="2.00" length="5"/>
+    <parkingArea id="parkD1D2" lane="D1D2_0" startPos="35" endPos="55" roadsideCapacity="1" width="2.00" length="5"/>
+
+    <!--
+    <parkingArea id="parkA0A1" lane="A0A1_0" startPos="35" endPos="55" roadsideCapacity="2" width="2.00" length="5"/>
+    <parkingArea id="parkB0B1" lane="B0B1_0" startPos="35" endPos="55" roadsideCapacity="2" width="2.00" length="5"/>
+    <parkingArea id="parkB1B2" lane="B1B2_0" startPos="35" endPos="55" roadsideCapacity="2" width="2.00" length="5"/>
+    <parkingArea id="parkB2B3" lane="B2B3_0" startPos="35" endPos="55" roadsideCapacity="2" width="2.00" length="5"/>
+    <parkingArea id="parkC1C2" lane="C1C2_0" startPos="35" endPos="55" roadsideCapacity="2" width="2.00" length="5"/>
+    <parkingArea id="parkC2C3" lane="C2C3_0" startPos="35" endPos="55" roadsideCapacity="2" width="2.00" length="5"/>
+    <parkingArea id="parkD0D1" lane="D0D1_0" startPos="35" endPos="55" roadsideCapacity="2" width="2.00" length="5"/>
+    <parkingArea id="parkD2D3" lane="D2D3_0" startPos="35" endPos="55" roadsideCapacity="2" width="2.00" length="5"/>
+    -->
+
+    <rerouter id="rr1" edges="C0C1">
+        <interval begin="0.0" end="86400">
+            <parkingAreaReroute id="parkC0C1" visible="true"/>
+            <parkingAreaReroute id="parkD1D2" visible="true"/>
+            <parkingAreaReroute id="parkA1A2" visible="true"/>
+        </interval>
+    </rerouter>
+</additional>

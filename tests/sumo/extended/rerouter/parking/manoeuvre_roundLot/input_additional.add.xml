@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 07/08/19 13:08:00 by Eclipse SUMO netedit Version v1_2_0+0765-3423b2ab8c
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="D:\frank\Documents\tracks\testing\round.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="D:\frank\Documents\tracks\testing\round.net.xml"/>
+    </output>
+
+    <processing>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="true"/>
+    </processing>
+
+    <junctions>
+        <no-internal-links value="true"/>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="5"/>
+        <junctions.limit-turn-speed value="5.5"/>
+        <rectangular-lane-cut value="false"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="false"/>
+    </pedestrian>
+
+    <netedit>
+        <additional-files value="D:\frank\Documents\tracks\testing\round.add.xml"/>
+    </netedit>
+
+</configuration>
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <parkingArea id="round0" name="round" length="6" lane="gneE13_0" startPos="30" endPos="280">
+        <space width="2.00" length="6.00" x="41.74" y="97.06" angle="90.00"/>
+        <space width="2.00" length="6.00" x="48.54" y="89.11" angle="90.00"/>
+        <space width="2.00" length="6.00" x="60.29" y="102.79" angle="90.00"/>
+        <space width="2.00" length="6.00" x="62.08" y="95.11" angle="90.00"/>
+        <space width="2.00" length="6.00" x="79.95" y="100.46" angle="90.00"/>
+        <space width="2.00" length="6.00" x="77.10" y="92.54" angle="90.00"/>
+        <space width="2.00" length="6.00" x="92.74" y="83.54" angle="90.00"/>
+        <space width="2.00" length="6.00" x="99.36" y="91.10" angle="90.00"/>
+        <space width="2.00" length="6.00" x="100.43" y="71.13" angle="90.00"/>
+        <space width="2.00" length="6.00" x="105.86" y="73.80" angle="-90.00"/>
+        <space width="2.00" length="6.00" x="91.67" y="51.69" angle="-90.00"/>
+        <space width="2.00" length="6.00" x="102.15" y="46.99" angle="-90.00"/>
+        <space width="2.00" length="6.00" x="80.61" y="37.44" angle="-90.00"/>
+        <space width="2.00" length="6.00" x="86.21" y="29.69" angle="-90.00"/>
+        <space width="2.00" length="6.00" x="67.45" y="33.52" angle="-90.00"/>
+        <space width="2.00" length="6.00" x="68.21" y="25.95" angle="-90.00"/>
+        <space width="2.00" length="6.00" x="42.78" y="39.17" angle="-90.00"/>
+        <space width="2.00" length="6.00" x="36.96" y="31.42" angle="-90.00"/>
+        <space width="2.00" length="6.00" x="29.32" y="54.89" angle="-90.00"/>
+        <space width="2.00" length="6.00" x="23.34" y="53.14" angle="90.00"/>
+    </parkingArea>
+</additional>
