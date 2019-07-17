@@ -40,17 +40,17 @@
 #include <netedit/frames/GNEVehicleFrame.h>
 #include <netedit/frames/GNEVehicleTypeFrame.h>
 #include <netedit/frames/GNEStopFrame.h>
+#include <netedit/frames/GNEPersonTypeFrame.h>
+#include <netedit/frames/GNEPersonFrame.h>
+#include <netedit/frames/GNEPersonPlanFrame.h>
 #include <netedit/netelements/GNEEdge.h>
 #include <netedit/netelements/GNEJunction.h>
-#include <utils/foxtools/MFXUtils.h>
 #include <utils/gui/div/GUIDesigns.h>
-#include <utils/gui/images/GUIIconSubSys.h>
 #include <utils/gui/windows/GUIAppEnum.h>
 
 #include "GNEApplicationWindow.h"
 #include "GNEViewNet.h"
 #include "GNENet.h"
-#include "GNEUndoList.h"
 #include "GNEViewParent.h"
 
 
@@ -137,6 +137,9 @@ GNEViewParent::GNEViewParent(FXMDIClient* p, FXMDIMenu* mdimenu, const FXString&
     myFrames.vehicleFrame = new GNEVehicleFrame(myFramesArea, viewNet);
     myFrames.vehicleTypeFrame = new GNEVehicleTypeFrame(myFramesArea, viewNet);
     myFrames.stopFrame = new GNEStopFrame(myFramesArea, viewNet);
+    myFrames.personTypeFrame = new GNEPersonTypeFrame(myFramesArea, viewNet);
+    myFrames.personFrame = new GNEPersonFrame(myFramesArea, viewNet);
+    myFrames.personPlanFrame = new GNEPersonPlanFrame(myFramesArea, viewNet);
 
     // Update frame areas after creation
     onCmdUpdateFrameAreaWidth(nullptr, 0, nullptr);
@@ -259,6 +262,24 @@ GNEViewParent::getVehicleTypeFrame() const {
 GNEStopFrame*
 GNEViewParent::getStopFrame() const {
     return myFrames.stopFrame;
+}
+
+
+GNEPersonTypeFrame*
+GNEViewParent::getPersonTypeFrame() const {
+    return myFrames.personTypeFrame;
+}
+
+
+GNEPersonFrame* 
+GNEViewParent::getPersonFrame() const {
+    return myFrames.personFrame;
+}
+
+
+GNEPersonPlanFrame* 
+GNEViewParent::getPersonPlanFrame() const {
+    return myFrames.personPlanFrame;
 }
 
 
@@ -593,7 +614,10 @@ GNEViewParent::Frames::Frames() :
     routeFrame(nullptr),
     vehicleFrame(nullptr),
     vehicleTypeFrame(nullptr),
-    stopFrame(nullptr) {
+    stopFrame(nullptr),
+    personTypeFrame(nullptr),
+    personFrame(nullptr),
+    personPlanFrame(nullptr) {
 }
 
 
@@ -616,6 +640,9 @@ GNEViewParent::Frames::hideFrames() {
     vehicleFrame->hide();
     vehicleTypeFrame->hide();
     stopFrame->hide();
+    personTypeFrame->hide();
+    personFrame->hide();
+    personPlanFrame->hide();
 }
 
 
@@ -639,6 +666,9 @@ GNEViewParent::Frames::setWidth(int frameWidth) {
     vehicleFrame->setFrameWidth(frameWidth);
     vehicleTypeFrame->setFrameWidth(frameWidth);
     stopFrame->setFrameWidth(frameWidth);
+    personTypeFrame->setFrameWidth(frameWidth);
+    personFrame->setFrameWidth(frameWidth);
+    personPlanFrame->setFrameWidth(frameWidth);
 }
 
 
@@ -665,10 +695,10 @@ GNEViewParent::Frames::isFrameShown() const {
         return true;
     } else if (prohibitionFrame->shown()) {
         return true;
-        /** currently createEdgeFrame unused
-        } else if (createEdgeFrame->shown()) {
-            return true;
-        **/
+    /** currently createEdgeFrame unused
+    } else if (createEdgeFrame->shown()) {
+        return true;
+    **/
     } else if (routeFrame->shown()) {
         return true;
     } else if (vehicleFrame->shown()) {
@@ -676,6 +706,12 @@ GNEViewParent::Frames::isFrameShown() const {
     } else if (vehicleTypeFrame->shown()) {
         return true;
     } else if (stopFrame->shown()) {
+        return true;
+    } else if (personTypeFrame->shown()) {
+        return true;
+    } else if (personFrame->shown()) {
+        return true;
+    } else if (personPlanFrame->shown()) {
         return true;
     } else {
         return false;
@@ -706,18 +742,24 @@ GNEViewParent::Frames::getCurrentShownFrame() const {
         return polygonFrame;
     } else if (prohibitionFrame->shown()) {
         return prohibitionFrame;
-        /** currently createEdgeFrame unused
-        } else if (createEdgeFrame->shown()) {
-            return true;
-        **/
+    /** currently createEdgeFrame unused
+    } else if (createEdgeFrame->shown()) {
+        return true;
+    **/
     } else if (routeFrame->shown()) {
         return routeFrame;
     } else if (vehicleFrame->shown()) {
         return vehicleFrame;
     } else if (vehicleTypeFrame->shown()) {
         return vehicleTypeFrame;
+    } else if (personTypeFrame->shown()) {
+        return personTypeFrame;
     } else if (stopFrame->shown()) {
         return stopFrame;
+    } else if (personFrame->shown()) {
+        return personFrame;
+    } else if (personPlanFrame->shown()) {
+        return personPlanFrame;
     } else {
         return nullptr;
     }

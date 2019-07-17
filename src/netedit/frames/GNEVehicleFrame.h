@@ -35,54 +35,6 @@ class GNEVehicleFrame : public GNEFrame {
 public:
 
     // ===========================================================================
-    // class VTypeSelector
-    // ===========================================================================
-
-    class VTypeSelector : protected FXGroupBox {
-        /// @brief FOX-declaration
-        FXDECLARE(GNEVehicleFrame::VTypeSelector)
-
-    public:
-        /// @brief constructor
-        VTypeSelector(GNEVehicleFrame* vehicleFrameParent);
-
-        /// @brief destructor
-        ~VTypeSelector();
-
-        /// @brief get current type tag
-        const GNEDemandElement* getCurrentVehicleType() const;
-
-        /// @brief show VType selector
-        void showVTypeSelector(const GNEAttributeCarrier::TagProperties& tagProperties);
-
-        /// @brief hide VType selector
-        void hideVTypeSelector();
-
-        /// @brief refresh VType selector
-        void refreshVTypeSelector();
-
-        /// @name FOX-callbacks
-        /// @{
-        /// @brief Called when the user select another element in ComboBox
-        long onCmdSelectVType(FXObject*, FXSelector, void*);
-        /// @}
-
-    protected:
-        /// @brief FOX needs this
-        VTypeSelector() {}
-
-    private:
-        /// @brief pointer to Vehicle Frame Parent
-        GNEVehicleFrame* myVehicleFrameParent;
-
-        /// @brief comboBox with the list of elements type
-        FXComboBox* myTypeMatchBox;
-
-        /// @brief current vehicle type
-        GNEDemandElement* myCurrentVehicleType;
-    };
-
-    // ===========================================================================
     // class HelpCreation
     // ===========================================================================
 
@@ -112,78 +64,6 @@ public:
         FXLabel* myInformationLabel;
     };
 
-    // ===========================================================================
-    // class TripRouteCreator
-    // ===========================================================================
-
-    class TripRouteCreator : protected FXGroupBox {
-        /// @brief FOX-declaration
-        FXDECLARE(GNEVehicleFrame::TripRouteCreator)
-
-    public:
-        /// @brief default constructor
-        TripRouteCreator(GNEVehicleFrame* vehicleFrameParent);
-
-        /// @brief destructor
-        ~TripRouteCreator();
-
-        /// @brief show TripRouteCreator
-        void showTripRouteCreator();
-
-        /// @brief show TripRouteCreator
-        void hideTripRouteCreator();
-
-        /// @brief check if from and to edges create a valid route
-        bool isValid(SUMOVehicleClass vehicleClass) const;
-
-        /// @brief get current selected edgesm
-        std::vector<GNEEdge*> getSelectedEdges() const;
-
-        /// @brief set edge from (and change color)
-        void addEdge(GNEEdge* edge);
-
-        /// @brief clear edges (and restore colors)
-        void clearEdges();
-
-        /// @brief draw temporal route
-        void drawTemporalRoute() const;
-
-        /// @name FOX-callbacks
-        /// @{
-        /// @brief Called when the user click over button "Abort route creation"
-        long onCmdAbortRouteCreation(FXObject*, FXSelector, void*);
-
-        /// @brief Called when the user click over button "Finish route creation"
-        long onCmdFinishRouteCreation(FXObject*, FXSelector, void*);
-
-        /// @brief Called when the user click over button "Remove las inserted edge"
-        long onCmdRemoveLastRouteEdge(FXObject*, FXSelector, void*);
-        /// @}
-
-    protected:
-        /// @brief FOX needs this
-        TripRouteCreator() {}
-
-    private:
-        /// @brief pointer to Vehicle Frame Parent
-        GNEVehicleFrame* myVehicleFrameParent;
-
-        /// @brief current selected edges
-        std::vector<GNEEdge*> mySelectedEdges;
-
-        /// @brief vector with temporal route edges
-        std::vector<GNEEdge*> myTemporalRoute;
-
-        /// @brief button for finish route creation
-        FXButton* myFinishCreationButton;
-
-        /// @brief button for abort route creation
-        FXButton* myAbortCreationButton;
-
-        /// @brief button for removing last inserted edge
-        FXButton* myRemoveLastInsertedEdge;
-    };
-
     /**@brief Constructor
      * @brief parent FXHorizontalFrame in which this GNEFrame is placed
      * @brief viewNet viewNet that uses this GNEFrame
@@ -202,28 +82,31 @@ public:
      */
     bool addVehicle(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor);
 
-    /// @brief get TripRouteCreator modul
-    TripRouteCreator* getTripRouteCreator() const;
+    /// @brief get EdgePathCreator modul
+    EdgePathCreator* getEdgePathCreator() const;
 
 protected:
-    /// @brief enable moduls depending of item selected in ItemSelector
-    void enableModuls(const GNEAttributeCarrier::TagProperties& tagProperties);
+    /// @brief Tag selected in TagSelector
+    void tagSelected();
 
-    /// @brief disable moduls if element selected in itemSelector isn't valid
-    void disableModuls();
+    /// @brief selected vehicle type in DemandElementSelector
+    void demandElementSelected();
+
+    /// @brief finish edge path creation
+    void edgePathCreated();
 
 private:
-    /// @brief item selector (used to select diffent kind of vehicles)
-    ItemSelector* myItemSelector;
+    /// @brief vehicle tag selector (used to select diffent kind of vehicles)
+    TagSelector* myVehicleTagSelector;
 
     /// @brief Vehicle Type selectors
-    VTypeSelector* myVTypeSelector;
+    DemandElementSelector* myVTypeSelector;
 
     /// @brief internal vehicle attributes
     AttributesCreator* myVehicleAttributes;
 
-    /// @brief TripRouteCreator
-    TripRouteCreator* myTripRouteCreator;
+    /// @brief edge path creator (used for trips and flows)
+    EdgePathCreator* myEdgePathCreator;
 
     /// @brief Help creation
     HelpCreation* myHelpCreation;

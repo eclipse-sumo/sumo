@@ -69,7 +69,7 @@ GUIGLObjectPopupMenu::GUIGLObjectPopupMenu(GUIMainWindow& app, GUISUMOAbstractVi
 
 
 GUIGLObjectPopupMenu::~GUIGLObjectPopupMenu() {
-    // Delete MenuPaneChilds
+    // Delete MenuPane children
     for (auto i : myMenuPanes) {
         delete i;
     }

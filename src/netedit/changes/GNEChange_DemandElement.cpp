@@ -49,11 +49,11 @@ GNEChange_DemandElement::GNEChange_DemandElement(GNEDemandElement* demandElement
     myShapeParents(demandElement->getShapeParents()),
     myAdditionalParents(demandElement->getAdditionalParents()),
     myDemandElementParents(demandElement->getDemandElementParents()),
-    myEdgeChilds(demandElement->getEdgeChilds()),
-    myLaneChilds(demandElement->getLaneChilds()),
-    myShapeChilds(demandElement->getShapeChilds()),
-    myAdditionalChilds(demandElement->getAdditionalChilds()),
-    myDemandElementChilds(demandElement->getDemandElementChilds()) {
+    myEdgeChildren(demandElement->getEdgeChildren()),
+    myLaneChildren(demandElement->getLaneChildren()),
+    myShapeChildren(demandElement->getShapeChildren()),
+    myAdditionalChildren(demandElement->getAdditionalChildren()),
+    myDemandElementChildren(demandElement->getDemandElementChildren()) {
     myDemandElement->incRef("GNEChange_DemandElement");
 }
 
@@ -84,19 +84,19 @@ GNEChange_DemandElement::~GNEChange_DemandElement() {
                 i->removeDemandElementChild(myDemandElement);
             }
             // Remove element from child elements
-            for (const auto& i : myEdgeChilds) {
+            for (const auto& i : myEdgeChildren) {
                 i->removeDemandElementParent(myDemandElement);
             }
-            for (const auto& i : myLaneChilds) {
+            for (const auto& i : myLaneChildren) {
                 i->removeDemandElementParent(myDemandElement);
             }
-            for (const auto& i : myShapeChilds) {
+            for (const auto& i : myShapeChildren) {
                 i->removeDemandElementParent(myDemandElement);
             }
-            for (const auto& i : myAdditionalChilds) {
+            for (const auto& i : myAdditionalChildren) {
                 i->removeDemandElementParent(myDemandElement);
             }
-            for (const auto& i : myDemandElementChilds) {
+            for (const auto& i : myDemandElementChildren) {
                 i->removeDemandElementParent(myDemandElement);
             }
         }
@@ -129,19 +129,19 @@ GNEChange_DemandElement::undo() {
             i->removeDemandElementChild(myDemandElement);
         }
         // Remove element from child elements
-        for (const auto& i : myEdgeChilds) {
+        for (const auto& i : myEdgeChildren) {
             i->removeDemandElementParent(myDemandElement);
         }
-        for (const auto& i : myLaneChilds) {
+        for (const auto& i : myLaneChildren) {
             i->removeDemandElementParent(myDemandElement);
         }
-        for (const auto& i : myShapeChilds) {
+        for (const auto& i : myShapeChildren) {
             i->removeDemandElementParent(myDemandElement);
         }
-        for (const auto& i : myAdditionalChilds) {
+        for (const auto& i : myAdditionalChildren) {
             i->removeDemandElementParent(myDemandElement);
         }
-        for (const auto& i : myDemandElementChilds) {
+        for (const auto& i : myDemandElementChildren) {
             i->removeDemandElementParent(myDemandElement);
         }
     } else {
@@ -166,19 +166,19 @@ GNEChange_DemandElement::undo() {
             i->addDemandElementChild(myDemandElement);
         }
         // add element in child elements
-        for (const auto& i : myEdgeChilds) {
+        for (const auto& i : myEdgeChildren) {
             i->addDemandElementParent(myDemandElement);
         }
-        for (const auto& i : myLaneChilds) {
+        for (const auto& i : myLaneChildren) {
             i->addDemandElementParent(myDemandElement);
         }
-        for (const auto& i : myShapeChilds) {
+        for (const auto& i : myShapeChildren) {
             i->addDemandElementParent(myDemandElement);
         }
-        for (const auto& i : myAdditionalChilds) {
+        for (const auto& i : myAdditionalChildren) {
             i->addDemandElementParent(myDemandElement);
         }
-        for (const auto& i : myDemandElementChilds) {
+        for (const auto& i : myDemandElementChildren) {
             i->addDemandElementParent(myDemandElement);
         }
     }
@@ -215,19 +215,19 @@ GNEChange_DemandElement::redo() {
             i->addDemandElementChild(myDemandElement);
         }
         // add element in child elements
-        for (const auto& i : myEdgeChilds) {
+        for (const auto& i : myEdgeChildren) {
             i->addDemandElementParent(myDemandElement);
         }
-        for (const auto& i : myLaneChilds) {
+        for (const auto& i : myLaneChildren) {
             i->addDemandElementParent(myDemandElement);
         }
-        for (const auto& i : myShapeChilds) {
+        for (const auto& i : myShapeChildren) {
             i->addDemandElementParent(myDemandElement);
         }
-        for (const auto& i : myAdditionalChilds) {
+        for (const auto& i : myAdditionalChildren) {
             i->addDemandElementParent(myDemandElement);
         }
-        for (const auto& i : myDemandElementChilds) {
+        for (const auto& i : myDemandElementChildren) {
             i->addDemandElementParent(myDemandElement);
         }
     } else {
@@ -252,19 +252,19 @@ GNEChange_DemandElement::redo() {
             i->removeDemandElementChild(myDemandElement);
         }
         // Remove element from child elements
-        for (const auto& i : myEdgeChilds) {
+        for (const auto& i : myEdgeChildren) {
             i->removeDemandElementParent(myDemandElement);
         }
-        for (const auto& i : myLaneChilds) {
+        for (const auto& i : myLaneChildren) {
             i->removeDemandElementParent(myDemandElement);
         }
-        for (const auto& i : myShapeChilds) {
+        for (const auto& i : myShapeChildren) {
             i->removeDemandElementParent(myDemandElement);
         }
-        for (const auto& i : myAdditionalChilds) {
+        for (const auto& i : myAdditionalChildren) {
             i->removeDemandElementParent(myDemandElement);
         }
-        for (const auto& i : myDemandElementChilds) {
+        for (const auto& i : myDemandElementChildren) {
             i->removeDemandElementParent(myDemandElement);
         }
     }

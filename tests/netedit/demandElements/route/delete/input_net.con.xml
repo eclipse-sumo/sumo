@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 17.07.2019 08:52:35 by Eclipse SUMO netedit Version v1_2_0+1256-2440f35241
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="D:\sumo\tests\netedit\demandElements\route\delete\input_net.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="D:\sumo\tests\netedit\demandElements\route\delete\input_net.net.xml"/>
+        <plain-output-prefix value="D:\sumo\tests\netedit\demandElements\route\delete\input_net"/>
+    </output>
+
+    <processing>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="false"/>
+    </processing>
+
+    <junctions>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="5"/>
+        <junctions.limit-turn-speed value="5.5"/>
+        <rectangular-lane-cut value="false"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="false"/>
+    </pedestrian>
+
+</configuration>
+-->
+
+<connections version="1.3" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/connections_file.xsd">
+    <connection from="gneE12" to="gneE14" fromLane="0" toLane="0"/>
+
+    <connection from="gneE13" to="gneE16" fromLane="0" toLane="0"/>
+
+    <connection from="gneE14" to="gneE7" fromLane="0" toLane="0"/>
+    <connection from="gneE14" to="gneE7" fromLane="0" toLane="1"/>
+
+    <connection from="gneE16" to="gneE2" fromLane="0" toLane="0"/>
+    <connection from="gneE16" to="gneE2" fromLane="0" toLane="1"/>
+
+    <connection from="gneE17" to="gneE12" fromLane="0" toLane="0"/>
+    <connection from="gneE17" to="gneE12" fromLane="0" toLane="1"/>
+
+    <connection from="gneE18" to="gneE13" fromLane="0" toLane="0"/>
+    <connection from="gneE18" to="gneE13" fromLane="0" toLane="1"/>
+
+    <connection from="gneE2" to="gneE18" fromLane="0" toLane="0"/>
+
+    <connection from="gneE7" to="gneE17" fromLane="0" toLane="0"/>
+
+</connections>

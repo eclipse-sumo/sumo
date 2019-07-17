@@ -110,6 +110,8 @@ GNEParkingSpace::getParentName() const {
 
 void
 GNEParkingSpace::drawGL(const GUIVisualizationSettings& s) const {
+    // Set initial values
+    const double exaggeration = s.addSize.getExaggeration(s, this);
     // check if boundary has to be drawn
     if(s.drawBoundaries) {
         GLHelper::drawBoundary(getCenteringBoundary());
@@ -124,9 +126,9 @@ GNEParkingSpace::drawGL(const GUIVisualizationSettings& s) const {
     if (!s.drawForSelecting) {
         // Set Color depending of selection
         if (drawUsingSelectColor()) {
-            GLHelper::setColor(s.selectedAdditionalColor);
+            GLHelper::setColor(s.colorSettings.selectedAdditionalColor);
         } else {
-            GLHelper::setColor(RGBColor(0, 255, 0, 255));
+            GLHelper::setColor(s.colorSettings.parkingSpace);
         }
         GLHelper::drawBoxLine(Position(0, myLength + 0.05), 0, myLength + 0.1, (myWidth / 2) + 0.05);
     }
@@ -134,23 +136,20 @@ GNEParkingSpace::drawGL(const GUIVisualizationSettings& s) const {
     glTranslated(0, 0, 0.1);
     // Set Color depending of selection
     if (drawUsingSelectColor()) {
-        GLHelper::setColor(s.selectedAdditionalColor);
+        GLHelper::setColor(s.colorSettings.selectedAdditionalColor);
     } else {
-        GLHelper::setColor(RGBColor(255, 200, 200, 255));
+        GLHelper::setColor(s.colorSettings.parkingSpaceInnen);
     }
     GLHelper::drawBoxLine(Position(0, myLength), 0, myLength, myWidth / 2);
     // Traslate matrix and draw lock icon if isn't being drawn for selecting
-    if (!s.drawForSelecting) {
-        glTranslated(0, myLength / 2, 0.1);
-        myBlockIcon.draw();
-    }
+    glTranslated(0, myLength / 2, 0.1);
+    myBlockIcon.drawIcon(s, exaggeration);
     // pop draw matrix
     glPopMatrix();
     // check if dotted contour has to be drawn
-    if (!s.drawForSelecting && (myViewNet->getDottedAC() == this)) {
-        GLHelper::drawShapeDottedContour(getType(), myPosition, myWidth, myLength, myAngle, 0, myLength / 2);
+    if (myViewNet->getDottedAC() == this) {
+        GLHelper::drawShapeDottedContourRectangle(s, getType(), myPosition, myWidth, myLength, myAngle, 0, myLength / 2);
     }
-
     // pop name
     glPopName();
 }

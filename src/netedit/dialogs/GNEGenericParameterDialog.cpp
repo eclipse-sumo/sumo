@@ -231,7 +231,7 @@ GNEGenericParameterDialog::GenericParametersValues::GenericParameterRow::Generic
 
 
 GNEGenericParameterDialog::GenericParametersValues::GenericParameterRow::~GenericParameterRow() {
-    // simply delete horizontalFrame (rest of elements will be automatic deleted due they are childs of horizontal frame)
+    // simply delete horizontalFrame (rest of elements will be automatic deleted due they are children of horizontal frame)
     delete horizontalFrame;
 }
 

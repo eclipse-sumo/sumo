@@ -100,9 +100,9 @@ void
 GNECrossing::drawGL(const GUIVisualizationSettings& s) const {
     // only draw if option drawCrossingsAndWalkingareas is enabled and size of shape is greather than 0 and zoom is close enough
     if (s.drawCrossingsAndWalkingareas &&
-            (myGeometry.shapeRotations.size() > 0) &&
-            (myGeometry.shapeLengths.size() > 0) &&
-            (s.scale > 3.0)) {
+        (myGeometry.shapeRotations.size() > 0) &&
+        (myGeometry.shapeLengths.size() > 0) &&
+        (s.scale > 3.0)) {
         auto crossing = myParentJunction->getNBNode()->getCrossing(myCrossingEdges);
         if (myNet->getViewNet()->getEditModes().networkEditMode != GNE_NMODE_TLS) {
             // push first draw matrix
@@ -113,13 +113,13 @@ GNECrossing::drawGL(const GUIVisualizationSettings& s) const {
             glTranslated(0, 0, GLO_JUNCTION + 0.1);
             // set color depending of selection and priority
             if (drawUsingSelectColor()) {
-                glColor3d(0.118, 0.565, 1.000);
+                GLHelper::setColor(s.colorSettings.selectedCrossingColor);
             } else if (!crossing->valid) {
-                glColor3d(1.0, 0.1, 0.1);
+                GLHelper::setColor(s.colorSettings.crossingInvalid);
             } else if (crossing->priority) {
-                glColor3d(0.9, 0.9, 0.9);
+                GLHelper::setColor(s.colorSettings.crossingPriority);
             } else {
-                glColor3d(0.1, 0.1, 0.1);
+                GLHelper::setColor(s.colorSettings.crossing);
             }
             // traslate to front
             glTranslated(0, 0, .2);
@@ -159,7 +159,6 @@ GNECrossing::drawGL(const GUIVisualizationSettings& s) const {
                 // pop three draw matrix
                 glPopMatrix();
             }
-            // XXX draw junction index / tls index
             // pop second draw matrix
             glPopMatrix();
             // traslate to back
@@ -174,8 +173,8 @@ GNECrossing::drawGL(const GUIVisualizationSettings& s) const {
             drawTLSLinkNo(s);
         }
         // check if dotted contour has to be drawn
-        if (!s.drawForSelecting && (myNet->getViewNet()->getDottedAC() == this)) {
-            GLHelper::drawShapeDottedContour(getType(), myGeometry.shape, crossing->width * 0.5);
+        if (myNet->getViewNet()->getDottedAC() == this) {
+            GLHelper::drawShapeDottedContourAroundShape(s, getType(), myGeometry.shape, crossing->width * 0.5);
         }
     }
 }

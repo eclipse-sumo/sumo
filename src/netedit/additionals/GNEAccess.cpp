@@ -169,9 +169,9 @@ GNEAccess::drawGL(const GUIVisualizationSettings& s) const {
     glPushMatrix();
     // set color depending of selection
     if (drawUsingSelectColor()) {
-        GLHelper::setColor(s.selectedAdditionalColor);
+        GLHelper::setColor(s.colorSettings.selectedAdditionalColor);
     } else {
-        GLHelper::setColor(s.SUMO_color_busStop);
+        GLHelper::setColor(s.colorSettings.busStop);
     }
     glTranslated(myGeometry.shape[0].x(), myGeometry.shape[0].y(), GLO_ACCESS);
     // draw circle
@@ -181,7 +181,7 @@ GNEAccess::drawGL(const GUIVisualizationSettings& s) const {
         std::vector<Position> vertices = GLHelper::drawFilledCircleReturnVertices((double) 0.5 * exaggeration, 16);
         // check if dotted contour has to be drawn
         if (myViewNet->getDottedAC() == this) {
-            GLHelper::drawShapeDottedContour(getType(), vertices);
+            GLHelper::drawShapeDottedContourAroundClosedShape(s, getType(), vertices);
         }
     }
     // pop matrix

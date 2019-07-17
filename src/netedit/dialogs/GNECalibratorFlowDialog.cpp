@@ -183,7 +183,7 @@ GNECalibratorFlowDialog::onCmdAccept(FXObject*, FXSelector, void*) {
         // write warning if netedit is running in testing mode
         WRITE_DEBUG("Closed FXMessageBox of type 'warning' with 'OK'");
         return 0;
-    } else if (!myEditedAdditional->getAdditionalParents().at(0)->checkAdditionalChildsOverlapping()) {
+    } else if (!myEditedAdditional->getAdditionalParents().at(0)->checkAdditionalChildrenOverlapping()) {
         // write warning if netedit is running in testing mode
         WRITE_DEBUG("Opening FXMessageBox of type 'warning'");
         // open warning dialog box

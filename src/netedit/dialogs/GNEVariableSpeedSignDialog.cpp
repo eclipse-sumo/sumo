@@ -101,7 +101,7 @@ GNEVariableSpeedSignDialog::onCmdEditStep(FXObject*, FXSelector, void*) {
     myStepsValids = true;
     // iterate over table and check that all parameters are correct
     for (int i = 0; i < myStepsTable->getNumRows(); i++) {
-        GNEAdditional* step = myEditedAdditional->getAdditionalChilds().at(i);
+        GNEAdditional* step = myEditedAdditional->getAdditionalChildren().at(i);
         if (step->isValid(SUMO_ATTR_TIME, myStepsTable->getItem(i, 0)->getText().text()) == false) {
             myStepsValids = false;
             myStepsTable->getItem(i, 2)->setIcon(GUIIconSubSys::getIcon(ICON_ERROR));
@@ -128,10 +128,10 @@ GNEVariableSpeedSignDialog::onCmdEditStep(FXObject*, FXSelector, void*) {
 long
 GNEVariableSpeedSignDialog::onCmdClickedStep(FXObject*, FXSelector, void*) {
     // check if some delete button was pressed
-    for (int i = 0; i < (int)myEditedAdditional->getAdditionalChilds().size(); i++) {
+    for (int i = 0; i < (int)myEditedAdditional->getAdditionalChildren().size(); i++) {
         if (myStepsTable->getItem(i, 3)->hasFocus()) {
             myStepsTable->removeRows(i);
-            myEditedAdditional->getViewNet()->getUndoList()->add(new GNEChange_Additional(myEditedAdditional->getAdditionalChilds().at(i), false), true);
+            myEditedAdditional->getViewNet()->getUndoList()->add(new GNEChange_Additional(myEditedAdditional->getAdditionalChildren().at(i), false), true);
             // Update table
             updateTableSteps();
             return 1;
@@ -144,7 +144,7 @@ GNEVariableSpeedSignDialog::onCmdClickedStep(FXObject*, FXSelector, void*) {
 long
 GNEVariableSpeedSignDialog::onCmdSortSteps(FXObject*, FXSelector, void*) {
     // Sort variable speed sign steps
-    myEditedAdditional->sortAdditionalChilds();
+    myEditedAdditional->sortAdditionalChildren();
     // update table
     updateTableSteps();
     return 1;
@@ -166,7 +166,7 @@ GNEVariableSpeedSignDialog::onCmdAccept(FXObject*, FXSelector, void*) {
         // accept changes before closing dialog
         acceptChanges();
         // sort steps after finish
-        myEditedAdditional->sortAdditionalChilds();
+        myEditedAdditional->sortAdditionalChildren();
         // stop dialgo sucesfully
         getApp()->stopModal(this, TRUE);
         return 1;
@@ -199,7 +199,7 @@ GNEVariableSpeedSignDialog::updateTableSteps() {
     // clear table
     myStepsTable->clearItems();
     // set number of rows
-    myStepsTable->setTableSize(int(myEditedAdditional->getAdditionalChilds().size()), 4);
+    myStepsTable->setTableSize(int(myEditedAdditional->getAdditionalChildren().size()), 4);
     // Configure list
     myStepsTable->setVisibleColumns(4);
     myStepsTable->setColumnWidth(0, 115);
@@ -214,12 +214,12 @@ GNEVariableSpeedSignDialog::updateTableSteps() {
     // Declare index for rows and pointer to FXTableItem
     FXTableItem* item = nullptr;
     // iterate over values
-    for (int i = 0; i < (int)myEditedAdditional->getAdditionalChilds().size(); i++) {
+    for (int i = 0; i < (int)myEditedAdditional->getAdditionalChildren().size(); i++) {
         // Set time
-        item = new FXTableItem(myEditedAdditional->getAdditionalChilds().at(i)->getAttribute(SUMO_ATTR_TIME).c_str());
+        item = new FXTableItem(myEditedAdditional->getAdditionalChildren().at(i)->getAttribute(SUMO_ATTR_TIME).c_str());
         myStepsTable->setItem(i, 0, item);
         // Set speed
-        item = new FXTableItem(myEditedAdditional->getAdditionalChilds().at(i)->getAttribute(SUMO_ATTR_SPEED).c_str());
+        item = new FXTableItem(myEditedAdditional->getAdditionalChildren().at(i)->getAttribute(SUMO_ATTR_SPEED).c_str());
         myStepsTable->setItem(i, 1, item);
         // set valid icon
         item = new FXTableItem("");

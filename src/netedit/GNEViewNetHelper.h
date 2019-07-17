@@ -98,7 +98,13 @@ enum DemandEditMode {
     ///@brief Mode for editing vehicle types
     GNE_DMODE_VEHICLETYPES,
     ///@brief Mode for editing stops
-    GNE_DMODE_STOP
+    GNE_DMODE_STOP,
+    ///@brief Mode for editing person types
+    GNE_DMODE_PERSONTYPES,
+    ///@brief Mode for editing person
+    GNE_DMODE_PERSON,
+    ///@brief Mode for editing person plan
+    GNE_DMODE_PERSONPLAN
 };
 
 // ===========================================================================
@@ -325,17 +331,49 @@ struct GNEViewNetHelper {
         EditModes& operator=(const EditModes&) = delete;
     };
 
-    /// @brief struct used to group all variables related to view options in Network supermode
-    struct ViewOptionsNetwork {
-
+    /// @brief struct used to group all variables related to view options in all supermodes
+    struct CommonViewOptions {
+        
         /// @brief default constructor
-        ViewOptionsNetwork(GNEViewNet* viewNet);
+        CommonViewOptions(GNEViewNet* viewNet);
 
         /// @brief build menu checks
-        void buildViewOptionsNetworkMenuChecks();
+        void buildCommonViewOptionsMenuChecks();
 
         /// @brief hide all options menu checks
-        void hideViewOptionsNetworkMenuChecks();
+        void hideCommonViewOptionsMenuChecks();
+
+        /// @brief get visible common menu commands
+        void getVisibleCommonMenuCommands(std::vector<FXMenuCheck*> &commands) const;
+
+        /// @brief menu check to show grid button
+        FXMenuCheck* menuCheckShowGrid;
+
+    private:
+        /// @brief pointer to viewNet
+        GNEViewNet* myViewNet;
+
+        /// @brief Invalidated copy constructor.
+        CommonViewOptions(const CommonViewOptions&) = delete;
+
+        /// @brief Invalidated assignment operator.
+        CommonViewOptions& operator=(const CommonViewOptions&) = delete;
+    };
+
+    /// @brief struct used to group all variables related to view options in supermode Network
+    struct NetworkViewOptions {
+
+        /// @brief default constructor
+        NetworkViewOptions(GNEViewNet* viewNet);
+
+        /// @brief build menu checks
+        void buildNetworkViewOptionsMenuChecks();
+
+        /// @brief hide all options menu checks
+        void hideNetworkViewOptionsMenuChecks();
+
+        /// @brief get visible network menu commands
+        void getVisibleNetworkMenuCommands(std::vector<FXMenuCheck*> &commands) const;
 
         /// @brief check if show demand elements checkbox is enabled
         bool showDemandElements() const;
@@ -367,9 +405,6 @@ struct GNEViewNetHelper {
         /// @brief menu check to set change all phases
         FXMenuCheck* menuCheckChangeAllPhases;
 
-        /// @brief menu check to show grid button
-        FXMenuCheck* menuCheckShowGrid;
-
         /// @brief menu check to we should warn about merging junctions
         FXMenuCheck* menuCheckWarnAboutMerge;
 
@@ -389,39 +424,69 @@ struct GNEViewNetHelper {
         GNEViewNet* myViewNet;
 
         /// @brief Invalidated copy constructor.
-        ViewOptionsNetwork(const ViewOptionsNetwork&) = delete;
+        NetworkViewOptions(const NetworkViewOptions&) = delete;
 
         /// @brief Invalidated assignment operator.
-        ViewOptionsNetwork& operator=(const ViewOptionsNetwork&) = delete;
+        NetworkViewOptions& operator=(const NetworkViewOptions&) = delete;
     };
 
-    /// @brief struct used to group all variables related to view options in Demand supermode
-    struct ViewOptionsDemand {
+    /// @brief struct used to group all variables related to view options in supermode Demand
+    struct DemandViewOptions {
 
         /// @brief default constructor
-        ViewOptionsDemand(GNEViewNet* viewNet);
+        DemandViewOptions(GNEViewNet* viewNet);
 
         /// @brief build menu checks
-        void buildViewOptionsDemandMenuChecks();
+        void buildDemandViewOptionsMenuChecks();
 
         /// @brief hide all options menu checks
-        void hideViewOptionsDemandMenuChecks();
+        void hideDemandViewOptionsMenuChecks();
+
+        /// @brief get visible demand menu commands
+        void getVisibleDemandMenuCommands(std::vector<FXMenuCheck*> &commands) const;
 
         /// @brief check if non inspected element has to be hidden
         bool showNonInspectedDemandElements(const GNEDemandElement *demandElement) const;
 
+        /// @brief check if shapes has to be hide
+        bool showShapes() const;
+
+        /// @brief check all person plans has to be show
+        bool showAllPersonPlans() const;
+
+        /// @brief lock person
+        void lockPerson(const GNEDemandElement * person);
+
+        /// @brief unlock person
+        void unlockPerson();
+
+        /// @brief get locked person
+        const GNEDemandElement *getLockedPerson() const;
+
+        /// @brief Hide shapes (Polygons and POIs)
+        FXMenuCheck* menuCheckHideShapes;
+
         /// @brief Hide non inspected demand elements
         FXMenuCheck* menuCheckHideNonInspectedDemandElements;
+
+        /// @brief show all person plans
+        FXMenuCheck* menuCheckShowAllPersonPlans;
+
+        /// @brief Lock Person
+        FXMenuCheck* menuCheckLockPerson;
 
     private:
         /// @brief pointer to viewNet
         GNEViewNet* myViewNet;
 
+        /// @brief pointer to locked person
+        const GNEDemandElement *myLockedPerson;
+
         /// @brief Invalidated copy constructor.
-        ViewOptionsDemand(const ViewOptionsDemand&) = delete;
+        DemandViewOptions(const DemandViewOptions&) = delete;
 
         /// @brief Invalidated assignment operator.
-        ViewOptionsDemand& operator=(const ViewOptionsDemand&) = delete;
+        DemandViewOptions& operator=(const DemandViewOptions&) = delete;
     };
 
     /// @brief struct used to group all variables related with movement of single elements
@@ -761,6 +826,15 @@ struct GNEViewNetHelper {
 
         /// @brief chekable button for edit mode create stops
         MFXCheckableButton* stopButton;
+
+        /// @brief chekable button for edit mode create person type
+        MFXCheckableButton* personTypeButton;
+
+        /// @brief chekable button for edit mode create persons
+        MFXCheckableButton* personButton;
+
+        /// @brief chekable button for edit mode create person plans
+        MFXCheckableButton* personPlanButton;
 
     private:
         /// @brief pointer to viewNet

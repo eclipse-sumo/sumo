@@ -93,11 +93,14 @@ public:
     /// @brief get edit modes
     const GNEViewNetHelper::EditModes& getEditModes() const;
 
-    /// @brief get view options Network
-    const GNEViewNetHelper::ViewOptionsNetwork& getViewOptionsNetwork() const;
+    /// @brief get Common view options
+    const GNEViewNetHelper::CommonViewOptions& getCommonViewOptions() const;
 
-    /// @brief get view options Demand
-    const GNEViewNetHelper::ViewOptionsDemand& getViewOptionsDemand() const;
+    /// @brief get network view options
+    const GNEViewNetHelper::NetworkViewOptions& getNetworkViewOptions() const;
+
+    /// @brief get demand view options 
+    const GNEViewNetHelper::DemandViewOptions& getDemandViewOptions() const;
 
     /// @brief get Key Pressed modul
     const GNEViewNetHelper::KeyPressed& getKeyPressed() const;
@@ -264,9 +267,17 @@ public:
     /// @brief toogle autoOpposite edge
     long onCmdToogleAutoOppositeEdge(FXObject*, FXSelector, void*);
 
-    /// @brief toogle hide non inspected deman elements
+    /// @brief toogle hide non inspected demand elements
     long onCmdToogleHideNonInspecteDemandElements(FXObject*, FXSelector, void*);
 
+    /// @brief toogle hide shapes in super mode demand
+    long onCmdToogleHideShapes(FXObject*, FXSelector, void*);
+
+    /// @brief toogle show all person plans in super mode demand
+    long onCmdToogleShowAllPersonPlans(FXObject*, FXSelector, void*);
+
+    /// @brief toogle lock person in super mode demand
+    long onCmdToogleLockPerson(FXObject*, FXSelector, void*);
     /// @}
 
     /// @brief select AC under cursor
@@ -370,16 +381,17 @@ private:
     GNEViewNetHelper::DemandCheckableButtons myDemandCheckableButtons;
     /// @}
 
-    /// @name structs related with Common options
+    /// @name structs related with view options
     /// @{
-    /// @brief variable used to save variables related with selecting areas
-    GNEViewNetHelper::SelectingArea mySelectingArea;
+
+    /// @brief variable used to save variables related with common view options
+    GNEViewNetHelper::CommonViewOptions myCommonViewOptions;
 
     /// @brief variable used to save variables related with view options in Network Supermode
-    GNEViewNetHelper::ViewOptionsNetwork myViewOptionsNetwork;
+    GNEViewNetHelper::NetworkViewOptions myNetworkViewOptions;
 
     /// @brief variable used to save variables related with view options in Demand Supermode
-    GNEViewNetHelper::ViewOptionsDemand myViewOptionsDemand;
+    GNEViewNetHelper::DemandViewOptions myDemandViewOptions;
     /// @}
 
     /// @name structs related with move elements
@@ -400,6 +412,9 @@ private:
     /// @brief variable used to save variables related with vehicle type options
     GNEViewNetHelper::VehicleTypeOptions myVehicleTypeOptions;
     // @}
+
+    /// @brief variable used to save variables related with selecting areas
+    GNEViewNetHelper::SelectingArea mySelectingArea;
 
     /// @brief struct for grouping all variables related with edit shapes
     GNEViewNetHelper::EditShapes myEditShapes;

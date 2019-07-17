@@ -107,8 +107,6 @@ GNEParkingArea::drawGL(const GUIVisualizationSettings& s) const {
     if(s.drawBoundaries) {
         GLHelper::drawBoundary(getCenteringBoundary());
     }
-    // obtain circle resolution
-    int circleResolution = getCircleResolution(s);
     // Obtain exaggeration of the draw
     const double exaggeration = s.addSize.getExaggeration(s, this);
     // Push name
@@ -119,9 +117,9 @@ GNEParkingArea::drawGL(const GUIVisualizationSettings& s) const {
     glTranslated(0, 0, getType());
     // Set Color
     if (drawUsingSelectColor()) {
-        GLHelper::setColor(s.selectedAdditionalColor);
+        GLHelper::setColor(s.colorSettings.selectedAdditionalColor);
     } else {
-        GLHelper::setColor(RGBColor(83, 89, 172, 255));
+        GLHelper::setColor(s.colorSettings.parkingArea);
     }
     // Draw base
     GLHelper::drawBoxLines(myGeometry.shape, myGeometry.shapeRotations, myGeometry.shapeLengths, myWidth * exaggeration);
@@ -136,13 +134,13 @@ GNEParkingArea::drawGL(const GUIVisualizationSettings& s) const {
             // scale matrix depending of the exaggeration
             glScaled(exaggeration, exaggeration, 1);
             // set color
-            GLHelper::setColor(s.SUMO_color_busStop);
+            GLHelper::setColor(s.colorSettings.busStop);
             // Draw circle
-            GLHelper::drawFilledCircle(myCircleWidth, circleResolution);
+            GLHelper::drawFilledCircle(myCircleWidth, s.getCircleResolution());
             // pop draw matrix
             glPopMatrix();
         }
-    } else if (s.scale * exaggeration >= 10) {
+    } else if (s.drawDetail(s.detailSettings.stoppingPlaceDetails, exaggeration)) {
         // Push matrix for details
         glPushMatrix();
         // Set position over sign
@@ -151,34 +149,34 @@ GNEParkingArea::drawGL(const GUIVisualizationSettings& s) const {
         glScaled(exaggeration, exaggeration, 1);
         // Set base color
         if (drawUsingSelectColor()) {
-            GLHelper::setColor(s.selectedAdditionalColor);
+            GLHelper::setColor(s.colorSettings.selectedAdditionalColor);
         } else {
-            GLHelper::setColor(RGBColor(83, 89, 172, 255));
+            GLHelper::setColor(s.colorSettings.parkingArea);
         }
         // Draw extern
-        GLHelper::drawFilledCircle(myCircleWidth, circleResolution);
+        GLHelper::drawFilledCircle(myCircleWidth, s.getCircleResolution());
         // Move to top
         glTranslated(0, 0, .1);
         // Set sign color
         if (drawUsingSelectColor()) {
-            GLHelper::setColor(s.selectionColor);
+            GLHelper::setColor(s.colorSettings.selectionColor);
         } else {
-            GLHelper::setColor(RGBColor(177, 184, 186, 171));
+            GLHelper::setColor(s.colorSettings.parkingAreaSign);
         }
         // Draw internt sign
-        GLHelper::drawFilledCircle(myCircleInWidth, circleResolution);
+        GLHelper::drawFilledCircle(myCircleInWidth, s.getCircleResolution());
         // Draw sign 'C'
-        if (s.scale * exaggeration >= 4.5) {
+        if (s.drawDetail(s.detailSettings.stoppingPlaceText, exaggeration)) {
             if (drawUsingSelectColor()) {
-                GLHelper::drawText("P", Position(), .1, myCircleInText, s.selectedAdditionalColor, myBlockIcon.rotation);
+                GLHelper::drawText("P", Position(), .1, myCircleInText, s.colorSettings.selectedAdditionalColor, myBlockIcon.rotation);
             } else {
-                GLHelper::drawText("P", Position(), .1, myCircleInText, RGBColor(83, 89, 172, 255), myBlockIcon.rotation);
+                GLHelper::drawText("P", Position(), .1, myCircleInText, s.colorSettings.parkingArea, myBlockIcon.rotation);
             }
         }
         // Pop sign matrix
         glPopMatrix();
         // Draw icon
-        myBlockIcon.draw();
+        myBlockIcon.drawIcon(s, exaggeration);
     }
     // Pop base matrix
     glPopMatrix();
@@ -188,13 +186,13 @@ GNEParkingArea::drawGL(const GUIVisualizationSettings& s) const {
         GLHelper::drawText(myAdditionalName, mySignPos, GLO_MAX - getType(), s.addFullName.scaledSize(s.scale), s.addFullName.color, myBlockIcon.rotation);
     }
     // check if dotted contour has to be drawn
-    if (!s.drawForSelecting && (myViewNet->getDottedAC() == this)) {
-        GLHelper::drawShapeDottedContour(getType(), myGeometry.shape, myWidth * exaggeration);
+    if (myViewNet->getDottedAC() == this) {
+        GLHelper::drawShapeDottedContourAroundShape(s, getType(), myGeometry.shape, myWidth * exaggeration);
     }
     // Pop name matrix
     glPopName();
-    // draw demand element childs
-    for (const auto &i : getDemandElementChilds()) {
+    // draw demand element children
+    for (const auto &i : getDemandElementChildren()) {
         if (!i->getTagProperty().isPlacedInRTree()) {
             i->drawGL(s);
         }
@@ -249,7 +247,7 @@ GNEParkingArea::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoL
             // change ID of Entry
             undoList->p_add(new GNEChange_Attribute(this, myViewNet->getNet(), key, value));
             // Change Ids of all Parking Spaces
-            for (auto i : getAdditionalChilds()) {
+            for (auto i : getAdditionalChildren()) {
                 i->setAttribute(SUMO_ATTR_ID, generateChildID(SUMO_TAG_PARKING_SPACE), undoList);
             }
             break;

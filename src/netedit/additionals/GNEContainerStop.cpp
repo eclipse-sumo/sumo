@@ -79,8 +79,6 @@ GNEContainerStop::getCenteringBoundary() const {
 
 void
 GNEContainerStop::drawGL(const GUIVisualizationSettings& s) const {
-    // obtain circle resolution
-    int circleResolution = getCircleResolution(s);
     // Obtain exaggeration of the draw
     const double exaggeration = s.addSize.getExaggeration(s, this);
     // Start drawing adding an gl identificator
@@ -91,9 +89,9 @@ GNEContainerStop::drawGL(const GUIVisualizationSettings& s) const {
     glTranslated(0, 0, getType());
     // Set color of the base
     if (drawUsingSelectColor()) {
-        GLHelper::setColor(s.selectedAdditionalColor);
+        GLHelper::setColor(s.colorSettings.selectedAdditionalColor);
     } else {
-        GLHelper::setColor(s.SUMO_color_containerStop);
+        GLHelper::setColor(s.colorSettings.containerStop);
     }
     // Draw the area using shape, shapeRotations, shapeLengths and value of exaggeration
     GLHelper::drawBoxLines(myGeometry.shape, myGeometry.shapeRotations, myGeometry.shapeLengths, exaggeration);
@@ -108,13 +106,13 @@ GNEContainerStop::drawGL(const GUIVisualizationSettings& s) const {
             // scale matrix depending of the exaggeration
             glScaled(exaggeration, exaggeration, 1);
             // set color
-            GLHelper::setColor(s.SUMO_color_containerStop);
+            GLHelper::setColor(s.colorSettings.containerStop);
             // Draw circle
-            GLHelper::drawFilledCircle(myCircleWidth, circleResolution);
+            GLHelper::drawFilledCircle(myCircleWidth, s.getCircleResolution());
             // pop draw matrix
             glPopMatrix();
         }
-    } else if (s.scale * exaggeration >= 10) {
+    } else if (s.drawDetail(s.detailSettings.stoppingPlaceDetails, exaggeration)) {
         // Add a draw matrix for details
         glPushMatrix();
         // Iterate over every line
@@ -126,9 +124,9 @@ GNEContainerStop::drawGL(const GUIVisualizationSettings& s) const {
             glRotated(-1 * myBlockIcon.rotation, 0, 0, 1);
             // draw line with a color depending of the selection status
             if (drawUsingSelectColor()) {
-                GLHelper::drawText(myLines[i].c_str(), Position(1.2, (double)i), .1, 1.f, s.selectionColor, 0, FONS_ALIGN_LEFT);
+                GLHelper::drawText(myLines[i].c_str(), Position(1.2, (double)i), .1, 1.f, s.colorSettings.selectionColor, 0, FONS_ALIGN_LEFT);
             } else {
-                GLHelper::drawText(myLines[i].c_str(), Position(1.2, (double)i), .1, 1.f, s.SUMO_color_containerStop, 0, FONS_ALIGN_LEFT);
+                GLHelper::drawText(myLines[i].c_str(), Position(1.2, (double)i), .1, 1.f, s.colorSettings.containerStop, 0, FONS_ALIGN_LEFT);
             }
             // pop matrix for every line
             glPopMatrix();
@@ -139,34 +137,34 @@ GNEContainerStop::drawGL(const GUIVisualizationSettings& s) const {
         glScaled(exaggeration, exaggeration, 1);
         // Set color of the externe circle
         if (drawUsingSelectColor()) {
-            GLHelper::setColor(s.selectedAdditionalColor);
+            GLHelper::setColor(s.colorSettings.selectedAdditionalColor);
         } else {
-            GLHelper::setColor(s.SUMO_color_containerStop);
+            GLHelper::setColor(s.colorSettings.containerStop);
         }
         // Draw circle
-        GLHelper::drawFilledCircle(myCircleWidth, circleResolution);
+        GLHelper::drawFilledCircle(myCircleWidth, s.getCircleResolution());
         // Traslate to front
         glTranslated(0, 0, .1);
         // Set color of the inner circle
         if (drawUsingSelectColor()) {
-            GLHelper::setColor(s.selectionColor);
+            GLHelper::setColor(s.colorSettings.selectionColor);
         } else {
-            GLHelper::setColor(s.SUMO_color_containerStop_sign);
+            GLHelper::setColor(s.colorSettings.containerStop_sign);
         }
         // draw another circle in the same position, but a little bit more small
-        GLHelper::drawFilledCircle(myCircleInWidth, circleResolution);
-        // If the scale * exageration is equal or more than 4.5, draw H
-        if (s.scale * exaggeration >= 4.5) {
+        GLHelper::drawFilledCircle(myCircleInWidth, s.getCircleResolution());
+        // draw text depending of detail settings
+        if (s.drawDetail(s.detailSettings.stoppingPlaceText, exaggeration)) {
             if (drawUsingSelectColor()) {
-                GLHelper::drawText("C", Position(), .1, myCircleInText, s.selectedAdditionalColor, myBlockIcon.rotation);
+                GLHelper::drawText("C", Position(), .1, myCircleInText, s.colorSettings.selectedAdditionalColor, myBlockIcon.rotation);
             } else {
-                GLHelper::drawText("C", Position(), .1, myCircleInText, s.SUMO_color_containerStop, myBlockIcon.rotation);
+                GLHelper::drawText("C", Position(), .1, myCircleInText, s.colorSettings.containerStop, myBlockIcon.rotation);
             }
         }
         // pop draw matrix
         glPopMatrix();
         // Show Lock icon depending of the Edit mode
-        myBlockIcon.draw();
+        myBlockIcon.drawIcon(s, exaggeration);
     }
     // pop draw matrix
     glPopMatrix();
@@ -175,13 +173,13 @@ GNEContainerStop::drawGL(const GUIVisualizationSettings& s) const {
         drawName(getPositionInView(), s.scale, s.addName);
     }
     // check if dotted contour has to be drawn
-    if (!s.drawForSelecting && (myViewNet->getDottedAC() == this)) {
-        GLHelper::drawShapeDottedContour(getType(), myGeometry.shape, exaggeration);
+    if (myViewNet->getDottedAC() == this) {
+        GLHelper::drawShapeDottedContourAroundShape(s, getType(), myGeometry.shape, exaggeration);
     }
     // Pop name
     glPopName();
-    // draw demand element childs
-    for (const auto &i : getDemandElementChilds()) {
+    // draw demand element children
+    for (const auto &i : getDemandElementChildren()) {
         if (!i->getTagProperty().isPlacedInRTree()) {
             i->drawGL(s);
         }

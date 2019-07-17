@@ -52,6 +52,9 @@ class GNEUndoList;
 class GNEVehicleFrame;
 class GNEVehicleTypeFrame;
 class GNEStopFrame;
+class GNEPersonTypeFrame;
+class GNEPersonFrame;
+class GNEPersonPlanFrame;
 
 // ===========================================================================
 // class declarations
@@ -143,8 +146,17 @@ public:
     /// @brief get frame for GNE_DMODE_VEHICLETYPE
     GNEVehicleTypeFrame* getVehicleTypeFrame() const;
 
-    /// @brief get frame for GNE_DMODE_VEHICLETYPE
+    /// @brief get frame for GNE_DMODE_STOP
     GNEStopFrame* getStopFrame() const;
+
+    /// @brief get frame for GNE_DMODE_PERSONTYPE
+    GNEPersonTypeFrame* getPersonTypeFrame() const;
+
+    /// @brief get frame for GNE_DMODE_PERSON
+    GNEPersonFrame* getPersonFrame() const;
+
+    /// @brief get frame for GNE_DMODE_PERSONFRAME
+    GNEPersonPlanFrame* getPersonPlanFrame() const;
 
     /// @brief show frames area if at least a GNEFrame is showed
     /// @note this function is called in GNEFrame::Show();
@@ -248,8 +260,17 @@ private:
         /// @brief frame for GNE_DMODE_VEHICLETYPE
         GNEVehicleTypeFrame* vehicleTypeFrame;
 
+        /// @brief frame for GNE_DMODE_PERSONTYPE
+        GNEPersonTypeFrame* personTypeFrame;
+
         /// @brief frame for GNE_DMODE_STOP
         GNEStopFrame* stopFrame;
+
+        /// @brief frame for GNE_DMODE_PERSON
+        GNEPersonFrame* personFrame;
+
+        /// @brief frame for GNE_DMODE_PERSONPLAN
+        GNEPersonPlanFrame* personPlanFrame;
     };
 
     /// @brief struct for ACChoosers dialog

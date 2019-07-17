@@ -118,6 +118,8 @@ GNEVariableSpeedSign::getParentName() const {
 
 void
 GNEVariableSpeedSign::drawGL(const GUIVisualizationSettings& s) const {
+    // obtain exaggeration
+    const double exaggeration = s.addSize.getExaggeration(s, this);
     // check if boundary has to be drawn
     if(s.drawBoundaries) {
         GLHelper::drawBoundary(getCenteringBoundary());
@@ -128,10 +130,7 @@ GNEVariableSpeedSign::drawGL(const GUIVisualizationSettings& s) const {
     glPushMatrix();
     glTranslated(myPosition.x(), myPosition.y(), getType());
     // Draw icon depending of variable speed sign is or if isn't being drawn for selecting
-    if (s.drawForSelecting) {
-        GLHelper::setColor(RGBColor::WHITE);
-        GLHelper::drawBoxLine(Position(0, 1), 0, 2, 1);
-    } else {
+    if (!s.drawForSelecting && s.drawDetail(s.detailSettings.laneTextures, exaggeration)) {
         glColor3d(1, 1, 1);
         glRotated(180, 0, 0, 1);
         if (drawUsingSelectColor()) {
@@ -139,26 +138,27 @@ GNEVariableSpeedSign::drawGL(const GUIVisualizationSettings& s) const {
         } else {
             GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(GNETEXTURE_VARIABLESPEEDSIGN), 1);
         }
+    } else {
+        GLHelper::setColor(RGBColor::WHITE);
+        GLHelper::drawBoxLine(Position(0, 1), 0, 2, 1);
+
     }
     // Pop draw icon matrix
     glPopMatrix();
-    // Only lock and childs if isn't being drawn for selecting
-    if (!s.drawForSelecting) {
-        // Show Lock icon depending of the Edit mode
-        myBlockIcon.draw(0.4);
-        // Draw child connections
-        drawChildConnections(getType());
-    }
+    // Show Lock icon
+    myBlockIcon.drawIcon(s, exaggeration, 0.4);
+    // Draw child connections
+    drawChildConnections(s, getType());
     // Draw name if isn't being drawn for selecting
     if (!s.drawForSelecting) {
         drawName(getPositionInView(), s.scale, s.addName);
     }
     // check if dotted contour has to be drawn
-    if (!s.drawForSelecting && (myViewNet->getDottedAC() == this)) {
-        GLHelper::drawShapeDottedContour(getType(), myPosition, 2, 2);
+    if (myViewNet->getDottedAC() == this) {
+        GLHelper::drawShapeDottedContourRectangle(s, getType(), myPosition, 2, 2);
         // draw shape dotte contour aroud alld connections between child and parents
         for (auto i : myChildConnections.connectionPositions) {
-            GLHelper::drawShapeDottedContour(getType(), i, 0);
+            GLHelper::drawShapeDottedContourAroundShape(s, getType(), i, 0);
         }
     }
     // Pop name
@@ -172,7 +172,7 @@ GNEVariableSpeedSign::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_ID:
             return getAdditionalID();
         case SUMO_ATTR_LANES:
-            return parseIDs(getLaneChilds());
+            return parseIDs(getLaneChildren());
         case SUMO_ATTR_POSITION:
             return toString(myPosition);
         case SUMO_ATTR_NAME:
@@ -199,7 +199,7 @@ GNEVariableSpeedSign::setAttribute(SumoXMLAttr key, const std::string& value, GN
             // change ID of Rerouter Interval
             undoList->p_add(new GNEChange_Attribute(this, myViewNet->getNet(), key, value));
             // Change Ids of all Variable Speed Sign
-            for (auto i : getAdditionalChilds()) {
+            for (auto i : getAdditionalChildren()) {
                 i->setAttribute(SUMO_ATTR_ID, generateChildID(SUMO_TAG_STEP), undoList);
             }
             break;
@@ -267,7 +267,7 @@ GNEVariableSpeedSign::setAttribute(SumoXMLAttr key, const std::string& value) {
             changeAdditionalID(value);
             break;
         case SUMO_ATTR_LANES:
-            changeLaneChilds(this, value);
+            changeLaneChildren(this, value);
             break;
         case SUMO_ATTR_POSITION:
             myViewNet->getNet()->removeGLObjectFromGrid(this);

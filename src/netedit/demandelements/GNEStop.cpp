@@ -20,8 +20,6 @@
 // ===========================================================================
 
 #include <cmath>
-#include <microsim/MSVehicle.h>
-#include <microsim/devices/MSDevice_BTreceiver.h>
 #include <netedit/additionals/GNEStoppingPlace.h>
 #include <netedit/GNENet.h>
 #include <netedit/GNEUndoList.h>
@@ -31,11 +29,8 @@
 #include <netedit/frames/GNESelectorFrame.h>
 #include <netedit/netelements/GNEEdge.h>
 #include <netedit/netelements/GNELane.h>
-#include <netedit/additionals/GNEAdditional.h>
-#include <utils/geom/GeomHelper.h>
 #include <utils/gui/div/GLHelper.h>
 #include <utils/gui/div/GUIGlobalSelection.h>
-#include <utils/gui/div/GUIBaseVehicleHelper.h>
 #include <utils/gui/globjects/GLIncludes.h>
 
 #include "GNEStop.h"
@@ -45,7 +40,7 @@
 // ===========================================================================
 
 GNEStop::GNEStop(SumoXMLTag tag, GNEViewNet* viewNet, const SUMOVehicleParameter::Stop& stopParameter, GNEAdditional* stoppingPlace, GNEDemandElement* stopParent) :
-    GNEDemandElement(stopParent, viewNet, GLO_STOP, tag, 
+    GNEDemandElement(stopParent, viewNet, stopParent->getTagProperty().isPerson()? GLO_PERSONSTOP : GLO_STOP, tag, 
     {}, {}, {}, {stoppingPlace}, {stopParent}, {}, {}, {}, {}, {}),
     SUMOVehicleParameter::Stop(stopParameter),
     myFriendlyPosition(false) {
@@ -53,7 +48,9 @@ GNEStop::GNEStop(SumoXMLTag tag, GNEViewNet* viewNet, const SUMOVehicleParameter
 
 
 GNEStop::GNEStop(GNEViewNet* viewNet, const SUMOVehicleParameter::Stop& stopParameter, GNELane* lane, bool friendlyPosition, GNEDemandElement* stopParent) :
-    GNEDemandElement(stopParent, viewNet, GLO_STOP, SUMO_TAG_STOP_LANE, 
+    GNEDemandElement(stopParent, viewNet, 
+        stopParent->getTagProperty().isPerson()? GLO_PERSONSTOP : GLO_STOP, 
+        stopParent->getTagProperty().isPerson()? SUMO_TAG_PERSONSTOP_LANE : SUMO_TAG_STOP_LANE,
     {}, {lane}, {}, {}, {stopParent}, {}, {}, {}, {}, {}),
     SUMOVehicleParameter::Stop(stopParameter),
     myFriendlyPosition(friendlyPosition) {
@@ -77,7 +74,11 @@ GNEStop::getBegin() const {
 
 const RGBColor&
 GNEStop::getColor() const {
-    return RGBColor::BLACK;
+    if (myTagProperty.isPersonStop()) {
+        return myViewNet->getVisualisationSettings()->colorSettings.personStops;
+    } else {
+        return myViewNet->getVisualisationSettings()->colorSettings.stops;
+    }
 }
 
 
@@ -224,6 +225,9 @@ GNEStop::moveGeometry(const Position& offset) {
                 endPos = parse<double>(myStopMove.secondOriginalPosition) + offsetLane;
             }
         }
+        // update person or vehicle frame
+        getDemandElementParents().front()->markSegmentGeometryDeprecated();
+        getDemandElementParents().front()->updateGeometry();
         // Update geometry
         updateGeometry();
     }
@@ -242,6 +246,9 @@ GNEStop::commitGeometryMoving(GNEUndoList* undoList) {
             undoList->p_add(new GNEChange_Attribute(this, myViewNet->getNet(), SUMO_ATTR_ENDPOS, toString(endPos), true, myStopMove.secondOriginalPosition));
         }
         undoList->p_end();
+        // update person or vehicle frame
+        getDemandElementParents().front()->markSegmentGeometryDeprecated();
+        getDemandElementParents().front()->updateGeometry();
     }
 }
 
@@ -249,18 +256,18 @@ GNEStop::commitGeometryMoving(GNEUndoList* undoList) {
 void
 GNEStop::updateGeometry() {
     // Clear all containers
-    myStopGeometry.clearGeometry();
+    myDemandElementGeometry.clearGeometry();
     //only update Stops over lanes, because other uses the geometry of stopping place parent
     if (getLaneParents().size() > 0) {
         // Cut shape using as delimitators fixed start position and fixed end position
-        myStopGeometry.shape = getLaneParents().front()->getGeometry().shape.getSubpart(getStartGeometryPositionOverLane(), getEndGeometryPositionOverLane());
+        myDemandElementGeometry.shape = getLaneParents().front()->getGeometry().shape.getSubpart(getStartGeometryPositionOverLane(), getEndGeometryPositionOverLane());
         // Get calculate lenghts and rotations
-        myStopGeometry.calculateShapeRotationsAndLengths();
+        myDemandElementGeometry.calculateShapeRotationsAndLengths();
     } else if (getAdditionalParents().size() > 0) {
         // copy geometry of additional
-        myStopGeometry.shape = getAdditionalParents().at(0)->getAdditionalGeometry().shape;
-        myStopGeometry.shapeLengths = getAdditionalParents().at(0)->getAdditionalGeometry().shapeLengths;
-        myStopGeometry.shapeRotations = getAdditionalParents().at(0)->getAdditionalGeometry().shapeRotations;
+        myDemandElementGeometry.shape = getAdditionalParents().at(0)->getAdditionalGeometry().shape;
+        myDemandElementGeometry.shapeLengths = getAdditionalParents().at(0)->getAdditionalGeometry().shapeLengths;
+        myDemandElementGeometry.shapeRotations = getAdditionalParents().at(0)->getAdditionalGeometry().shapeRotations;
     }
 }
 
@@ -310,8 +317,8 @@ GNEStop::getCenteringBoundary() const {
         return getAdditionalParents().at(0)->getCenteringBoundary();
     } else if (myStopMove.movingGeometryBoundary.isInitialised()) {
         return myStopMove.movingGeometryBoundary;
-    } else if (myStopGeometry.shape.size() > 0) {
-        Boundary b = myStopGeometry.shape.getBoxBoundary();
+    } else if (myDemandElementGeometry.shape.size() > 0) {
+        Boundary b = myDemandElementGeometry.shape.getBoxBoundary();
         b.grow(20);
         return b;
     } else {
@@ -322,89 +329,107 @@ GNEStop::getCenteringBoundary() const {
 
 void
 GNEStop::drawGL(const GUIVisualizationSettings& s) const {
-    // only drawn in super mode demand
-    if (myViewNet->getViewOptionsNetwork().showDemandElements() && myViewNet->getViewOptionsDemand().showNonInspectedDemandElements(this)) {
+    // declare flag to enable or disable draw person plan
+    bool drawPersonPlan = false;
+    if (myTagProperty.isStop()) {
+        if (myViewNet->getNetworkViewOptions().showDemandElements() && myViewNet->getDemandViewOptions().showNonInspectedDemandElements(this)) {
+            drawPersonPlan = true;
+        }
+    } else if (myViewNet->getDemandViewOptions().showAllPersonPlans()) {
+        drawPersonPlan = true;
+    } else if (myViewNet->getDottedAC() == getDemandElementParents().front()) {
+        drawPersonPlan = true;
+    } else if (myViewNet->getDemandViewOptions().getLockedPerson() == getDemandElementParents().front()) {
+        drawPersonPlan = true;
+    } else if (myViewNet->getDottedAC() && myViewNet->getDottedAC()->getTagProperty().isPersonPlan() &&
+               (myViewNet->getDottedAC()->getAttribute(GNE_ATTR_PARENT) == getAttribute(GNE_ATTR_PARENT))) {
+        drawPersonPlan = true;
+    }
+    // check if stop can be drawn
+    if (drawPersonPlan) {
         // Obtain exaggeration of the draw
         const double exaggeration = s.addSize.getExaggeration(s, this);
+        // declare value to save stop color
+        RGBColor stopColor;
+        // Set color
+        if (drawUsingSelectColor()) {
+            if (myTagProperty.isPersonStop()) {
+                stopColor = s.colorSettings.selectedPersonPlanColor;
+            } else {
+                stopColor = s.colorSettings.selectedRouteColor;
+            }
+        } else if (myTagProperty.isPersonStop()) {
+            stopColor = s.colorSettings.personStops;
+        } else {
+            stopColor = s.colorSettings.stops;
+        }
         // Start drawing adding an gl identificator
         glPushName(getGlID());
         // Add a draw matrix
         glPushMatrix();
+        // set Color
+        GLHelper::setColor(stopColor);
         // Start with the drawing of the area traslating matrix to origin
         glTranslated(0, 0, getType());
-        // Set color of the base
-        if (drawUsingSelectColor()) {
-            GLHelper::setColor(s.selectedAdditionalColor);
-        } else {
-            GLHelper::setColor(s.SUMO_color_stops);
-        }
-        // draw lines depending if it's placed over a lane or over a stoppingPlace
-        if (getLaneParents().size() > 0) {
+        // draw depending of details
+        if (s.drawDetail(s.detailSettings.stopsDetails, exaggeration) && getLaneParents().size() > 0) {
             // Draw the area using shape, shapeRotations, shapeLengths and value of exaggeration
-            GLHelper::drawBoxLines(myStopGeometry.shape, myStopGeometry.shapeRotations, myStopGeometry.shapeLengths, exaggeration * 0.1, 0,
-                                   getLaneParents().front()->getParentEdge().getNBEdge()->getLaneWidth(getLaneParents().front()->getIndex()) * 0.5);
-            GLHelper::drawBoxLines(myStopGeometry.shape, myStopGeometry.shapeRotations, myStopGeometry.shapeLengths, exaggeration * 0.1, 0,
-                                   getLaneParents().front()->getParentEdge().getNBEdge()->getLaneWidth(getLaneParents().front()->getIndex()) * -0.5);
-        } else {
-            // Draw the area using shape, shapeRotations, shapeLengths and value of exaggeration
-            GLHelper::drawBoxLines(myStopGeometry.shape, myStopGeometry.shapeRotations, myStopGeometry.shapeLengths, exaggeration * 0.1, 0, exaggeration * -1);
-            GLHelper::drawBoxLines(myStopGeometry.shape, myStopGeometry.shapeRotations, myStopGeometry.shapeLengths, exaggeration * 0.1, 0, exaggeration);
-        }
-        // pop draw matrix
-        glPopMatrix();
-        // Add a draw matrix
-        glPushMatrix();
-        // move to geometry front
-        glTranslated(myStopGeometry.shape.back().x(), myStopGeometry.shape.back().y(), getType());
-        glRotated(myStopGeometry.shapeRotations.back(), 0, 0, 1);
-        // draw front of Stop depending if it's placed over a lane or over a stoppingPlace
-        if (getLaneParents().size() > 0) {
-            // draw front of Stop
-            GLHelper::drawBoxLine(Position(0, 0), 0, exaggeration * 0.5,
-                                  getLaneParents().front()->getParentEdge().getNBEdge()->getLaneWidth(getLaneParents().front()->getIndex()) * 0.5);
-        } else {
-            // draw front of Stop
-            GLHelper::drawBoxLine(Position(0, 0), 0, exaggeration * 0.5, exaggeration);
-        }
-        // move to "S" position
-        glTranslated(0, 1, 0);
-        // draw "S" symbol
-        GLHelper::drawText("S", Position(), .1, 2.8, s.SUMO_color_stops);
-        // move to subtitle positin
-        glTranslated(0, 1.4, 0);
-        // draw subtitle depending of tag
-        if (myTagProperty.getTag() == SUMO_TAG_STOP_BUSSTOP) {
-            GLHelper::drawText("busStop", Position(), .1, .5, s.SUMO_color_stops, 180);
-        } else if (myTagProperty.getTag() == SUMO_TAG_STOP_CONTAINERSTOP) {
-            GLHelper::drawText("container", Position(), .1, .5, s.SUMO_color_stops, 180);
-            glTranslated(0, 0.5, 0);
-            GLHelper::drawText("Stop", Position(), .1, .5, s.SUMO_color_stops, 180);
-        } else if (myTagProperty.getTag() == SUMO_TAG_STOP_CHARGINGSTATION) {
-            GLHelper::drawText("charging", Position(), .1, .5, s.SUMO_color_stops, 180);
-            glTranslated(0, 0.5, 0);
-            GLHelper::drawText("Station", Position(), .1, .5, s.SUMO_color_stops, 180);
-        } else if (myTagProperty.getTag() == SUMO_TAG_STOP_PARKINGAREA) {
-            GLHelper::drawText("parking", Position(), .1, .5, s.SUMO_color_stops, 180);
-            glTranslated(0, 0.5, 0);
-            GLHelper::drawText("Area", Position(), .1, .5, s.SUMO_color_stops, 180);
-        } else if (myTagProperty.getTag() == SUMO_TAG_STOP_LANE) {
-            GLHelper::drawText("lane", Position(), .1, 1, s.SUMO_color_stops, 180);
-        }
-        // pop draw matrix
-        glPopMatrix();
-        // Draw name if isn't being drawn for selecting
-        drawName(getCenteringBoundary().getCenter(), s.scale, s.addName);
-        // check if dotted contour has to be drawn
-        if (!s.drawForSelecting && (myViewNet->getDottedAC() == this)) {
-            // draw dooted contour depending if it's placed over a lane or over a stoppingPlace
+            GLHelper::drawBoxLines(myDemandElementGeometry.shape, myDemandElementGeometry.shapeRotations, myDemandElementGeometry.shapeLengths, exaggeration * 0.1, 0,
+                                    getLaneParents().front()->getParentEdge().getNBEdge()->getLaneWidth(getLaneParents().front()->getIndex()) * 0.5);
+            GLHelper::drawBoxLines(myDemandElementGeometry.shape, myDemandElementGeometry.shapeRotations, myDemandElementGeometry.shapeLengths, exaggeration * 0.1, 0,
+                                    getLaneParents().front()->getParentEdge().getNBEdge()->getLaneWidth(getLaneParents().front()->getIndex()) * -0.5);
+            // pop draw matrix
+            glPopMatrix();
+            // Add a draw matrix
+            glPushMatrix();
+            // move to geometry front
+            glTranslated(myDemandElementGeometry.shape.back().x(), myDemandElementGeometry.shape.back().y(), getType());
+            glRotated(myDemandElementGeometry.shapeRotations.back(), 0, 0, 1);
+            // draw front of Stop depending if it's placed over a lane or over a stoppingPlace
             if (getLaneParents().size() > 0) {
-                GLHelper::drawShapeDottedContour(getType(), myStopGeometry.shape, getLaneParents().front()->getParentEdge().getNBEdge()->getLaneWidth(getLaneParents().front()->getIndex()) * 0.5);
+                // draw front of Stop
+                GLHelper::drawBoxLine(Position(0, 0), 0, exaggeration * 0.5,
+                                      getLaneParents().front()->getParentEdge().getNBEdge()->getLaneWidth(getLaneParents().front()->getIndex()) * 0.5);
             } else {
-                GLHelper::drawShapeDottedContour(getType(), myStopGeometry.shape, exaggeration);
+                // draw front of Stop
+                GLHelper::drawBoxLine(Position(0, 0), 0, exaggeration * 0.5, exaggeration);
             }
+            // only draw text if isn't being drawn for selecting
+            if (s.drawDetail(s.detailSettings.stopsText, exaggeration) && !s.drawForSelecting) {
+                // move to "S" position
+                glTranslated(0, 1, 0);
+                // draw "S" symbol
+                GLHelper::drawText("S", Position(), .1, 2.8, stopColor);
+                // move to subtitle positin
+                glTranslated(0, 1.4, 0);
+                // draw subtitle depending of tag
+                GLHelper::drawText("lane", Position(), .1, 1, stopColor, 180);
+            }
+            // pop draw matrix
+            glPopMatrix();
+            // Draw name if isn't being drawn for selecting
+            drawName(getCenteringBoundary().getCenter(), s.scale, s.addName);
+            // check if dotted contour has to be drawn
+            if (myViewNet->getDottedAC() == this) {
+                // draw dooted contour depending if it's placed over a lane or over a stoppingPlace
+                if (getLaneParents().size() > 0) {
+                    GLHelper::drawShapeDottedContourAroundShape(s, getType(), myDemandElementGeometry.shape, getLaneParents().front()->getParentEdge().getNBEdge()->getLaneWidth(getLaneParents().front()->getIndex()) * 0.5);
+                } else {
+                    GLHelper::drawShapeDottedContourAroundShape(s, getType(), myDemandElementGeometry.shape, exaggeration);
+                }
+            }
+        } else {
+            // Draw the area using shape, shapeRotations, shapeLengths and value of exaggeration
+            GLHelper::drawBoxLines(myDemandElementGeometry.shape, myDemandElementGeometry.shapeRotations, myDemandElementGeometry.shapeLengths, exaggeration*0.8);
+            // pop draw matrix
+            glPopMatrix();
         }
         // Pop name
         glPopName();
+        // draw person parent if this stop if their first person plan child
+        if ((getDemandElementParents().size() == 1) && getDemandElementParents().front()->getDemandElementChildren().front() == this) {
+            getDemandElementParents().front()->drawGL(s);
+        }
     }
 }
 
@@ -525,6 +550,29 @@ GNEStop::getAttribute(SumoXMLAttr key) const {
             return toString(isAttributeCarrierSelected());
         case GNE_ATTR_GENERIC:
             return getGenericParametersStr();
+        case GNE_ATTR_PARENT:
+            return getDemandElementParents().front()->getID();
+        default:
+            throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
+    }
+}
+
+
+double 
+GNEStop::getAttributeDouble(SumoXMLAttr key) const {
+    switch (key) {
+        case SUMO_ATTR_STARTPOS:
+            if (parametersSet & STOP_START_SET) {
+                return startPos;
+            } else {
+                return 0;
+            }
+        case SUMO_ATTR_ENDPOS:
+            if (parametersSet & STOP_END_SET) {
+                return endPos;
+            } else {
+                return getLaneParents().front()->getParentEdge().getNBEdge()->getFinalLength();
+            }
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
@@ -741,18 +789,25 @@ GNEStop::getPopUpID() const {
 
 std::string
 GNEStop::getHierarchyName() const {
-    if (getAdditionalParents().size() > 0) {
-        return "stop: " + getAdditionalParents().front()->getTagStr();
+    std::string stopType;
+    // first distinguish between person stops and vehicles stops
+    if (getDemandElementParents().front()->getTagProperty().isPerson()) {
+        stopType ="person stop";
     } else {
-        return "stop: lane";
+        stopType ="vehicle stop";
+    }
+    if (getAdditionalParents().size() > 0) {
+        return stopType + ": " + getAdditionalParents().front()->getTagStr();
+    } else {
+        return stopType + ": lane";
     }
 }
 
 
 double
 GNEStop::getStartGeometryPositionOverLane() const {
-    if (parametersSet & STOP_START_SET) {
-        double fixedPos = endPos;
+    if (parametersSet & STOP_END_SET) {
+        double fixedPos = startPos;
         const double len = getLaneParents().front()->getParentEdge().getNBEdge()->getFinalLength();
         if (fixedPos < 0) {
             fixedPos += len;
@@ -766,8 +821,8 @@ GNEStop::getStartGeometryPositionOverLane() const {
 
 double
 GNEStop::getEndGeometryPositionOverLane() const {
-    if (parametersSet & STOP_END_SET) {
-        double fixedPos = startPos;
+    if (parametersSet & STOP_START_SET) {
+        double fixedPos = endPos;
         const double len = getLaneParents().front()->getParentEdge().getNBEdge()->getFinalLength();
         if (fixedPos < 0) {
             fixedPos += len;
@@ -775,44 +830,6 @@ GNEStop::getEndGeometryPositionOverLane() const {
         return fixedPos * getLaneParents().front()->getLengthGeometryFactor();
     } else {
         return 0;
-    }
-}
-
-// ---------------------------------------------------------------------------
-// GNEAdditional::StopGeometry - methods
-// ---------------------------------------------------------------------------
-
-GNEStop::StopGeometry::StopGeometry() {}
-
-
-void
-GNEStop::StopGeometry::clearGeometry() {
-    shape.clear();
-    shapeRotations.clear();
-    shapeLengths.clear();
-}
-
-
-void
-GNEStop::StopGeometry::calculateShapeRotationsAndLengths() {
-    // Get number of parts of the shape
-    int numberOfSegments = (int)shape.size() - 1;
-    // If number of segments is more than 0
-    if (numberOfSegments >= 0) {
-        // Reserve memory (To improve efficiency)
-        shapeRotations.reserve(numberOfSegments);
-        shapeLengths.reserve(numberOfSegments);
-        // For every part of the shape
-        for (int i = 0; i < numberOfSegments; ++i) {
-            // Obtain first position
-            const Position& f = shape[i];
-            // Obtain next position
-            const Position& s = shape[i + 1];
-            // Save distance between position into myShapeLengths
-            shapeLengths.push_back(f.distanceTo(s));
-            // Save rotation (angle) of the vector constructed by points f and s
-            shapeRotations.push_back((double)atan2((s.x() - f.x()), (f.y() - s.y())) * (double) 180.0 / (double)M_PI);
-        }
     }
 }
 

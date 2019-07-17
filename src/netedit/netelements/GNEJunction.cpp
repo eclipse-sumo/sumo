@@ -22,22 +22,23 @@
 // ===========================================================================
 #include <config.h>
 
-#include <utils/common/StringTokenizer.h>
-#include <utils/gui/windows/GUIAppEnum.h>
-#include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
-#include <utils/gui/div/GLHelper.h>
-#include <utils/gui/images/GUITextureSubSys.h>
-#include <netbuild/NBOwnTLDef.h>
-#include <netbuild/NBLoadedSUMOTLDef.h>
 #include <netbuild/NBAlgorithms.h>
-#include <netedit/changes/GNEChange_Attribute.h>
-#include <netedit/changes/GNEChange_Connection.h>
-#include <netedit/changes/GNEChange_TLS.h>
+#include <netbuild/NBLoadedSUMOTLDef.h>
+#include <netbuild/NBNetBuilder.h>
+#include <netbuild/NBOwnTLDef.h>
 #include <netedit/GNENet.h>
 #include <netedit/GNEUndoList.h>
 #include <netedit/GNEViewNet.h>
-#include <netbuild/NBNetBuilder.h>
+#include <netedit/changes/GNEChange_Attribute.h>
+#include <netedit/changes/GNEChange_Connection.h>
+#include <netedit/changes/GNEChange_TLS.h>
+#include <netedit/demandelements/GNEDemandElement.h>
+#include <utils/common/StringTokenizer.h>
+#include <utils/gui/div/GLHelper.h>
 #include <utils/gui/globjects/GLIncludes.h>
+#include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
+#include <utils/gui/images/GUITextureSubSys.h>
+#include <utils/gui/windows/GUIAppEnum.h>
 #include <utils/options/OptionsCont.h>
 
 #include "GNEEdge.h"
@@ -268,7 +269,6 @@ GNEJunction::drawGL(const GUIVisualizationSettings& s) const {
     // declare values for circles
     double circleWidth = BUBBLE_RADIUS * exaggeration;
     double circleWidthSquared = circleWidth * circleWidth;
-    int circleResolution = GNEAttributeCarrier::getCircleResolution(s);
     // push name
     if (s.scale * exaggeration * myMaxSize < 1.) {
         // draw something simple so that selection still works
@@ -278,11 +278,19 @@ GNEJunction::drawGL(const GUIVisualizationSettings& s) const {
     } else {
         // node shape has been computed and is valid for drawing
         glPushName(getGlID());
-        const bool drawShape = myNBNode.getShape().size() > 0 && s.drawJunctionShape;
-        const bool drawBubble = (((!drawShape || myNBNode.getShape().area() < 4)
-                                  && s.drawJunctionShape)
-                                 || myNet->getViewNet()->showJunctionAsBubbles());
-
+        // declare flag for drawing junction shape
+        const bool drawShape = (myNBNode.getShape().size() > 0) && s.drawJunctionShape;
+        // declare flag for drawing junction as bubbles
+        bool drawBubble = (!drawShape || (myNBNode.getShape().area() < 4)) && s.drawJunctionShape;
+        // check if show junctions as bubbles checkbox is enabled
+        if (myNet->getViewNet()->showJunctionAsBubbles()) {
+            drawBubble = true;
+        }
+        // in supermode demand Bubble musn't be drawn 
+        if (myNet->getViewNet()->getEditModes().currentSupermode == GNE_SUPERMODE_DEMAND) {
+            drawBubble = false;
+        }
+        // check if shape has to be drawn
         if (drawShape) {
             RGBColor color = setColor(s, false);
             // recognize full transparency and simply don't draw
@@ -300,12 +308,13 @@ GNEJunction::drawGL(const GUIVisualizationSettings& s) const {
                     GLHelper::drawFilledPolyTesselated(shape, true);
                 }
                 // check if dotted contour has to be drawn
-                if (!s.drawForSelecting && (myNet->getViewNet()->getDottedAC() == this) && !drawBubble) {
-                    GLHelper::drawShapeDottedContour(getType(), shape);
+                if ((myNet->getViewNet()->getDottedAC() == this) && !drawBubble) {
+                    GLHelper::drawShapeDottedContourAroundClosedShape(s, getType(), shape);
                 }
                 glPopMatrix();
             }
         }
+        // check if bubble has to be drawn
         if (drawBubble) {
             RGBColor color = setColor(s, true);
             // recognize full transparency and simply don't draw
@@ -313,10 +322,10 @@ GNEJunction::drawGL(const GUIVisualizationSettings& s) const {
                 glPushMatrix();
                 glTranslated(myNBNode.getPosition().x(), myNBNode.getPosition().y(), getType() + 0.05);
                 if (!s.drawForSelecting || (myNet->getViewNet()->getPositionInformation().distanceSquaredTo2D(myNBNode.getPosition()) <= (circleWidthSquared + 2))) {
-                    std::vector<Position> vertices = GLHelper::drawFilledCircleReturnVertices(circleWidth, circleResolution);
+                    std::vector<Position> vertices = GLHelper::drawFilledCircleReturnVertices(circleWidth, s.getCircleResolution());
                     // check if dotted contour has to be drawn
-                    if (!s.drawForSelecting && myNet->getViewNet()->getDottedAC() == this) {
-                        GLHelper::drawShapeDottedContour(getType(), vertices);
+                    if (myNet->getViewNet()->getDottedAC() == this) {
+                        GLHelper::drawShapeDottedContourAroundClosedShape(s, getType(), vertices);
                     }
                 } else {
                     GLHelper::drawBoxLine(Position(0, 1), 0, 2, 1);
@@ -341,7 +350,7 @@ GNEJunction::drawGL(const GUIVisualizationSettings& s) const {
             drawName(myNBNode.getPosition(), s.scale, s.junctionName);
         }
         // draw elevation
-        if (!s.drawForSelecting && myNet->getViewNet()->getViewOptionsNetwork().editingElevation()) {
+        if (!s.drawForSelecting && myNet->getViewNet()->getNetworkViewOptions().editingElevation()) {
             glPushMatrix();
             // Translate to center of junction
             glTranslated(myNBNode.getPosition().x(), myNBNode.getPosition().y(), getType() + 1);
@@ -357,10 +366,82 @@ GNEJunction::drawGL(const GUIVisualizationSettings& s) const {
                 i->drawGL(s);
             }
         }
-        // draw connections (Only for incoming edges)
+        // draw connections and route elements connections (Only for incoming edges)
         for (const auto &i : myGNEIncomingEdges) {
+            // first draw connections
             for (const auto &j : i->getGNEConnections()) {
                 j->drawGL(s);
+            }
+            // first check if Demand elements can be shown
+            if (myNet->getViewNet()->getNetworkViewOptions().showDemandElements()) {
+                // certain demand elements children can contain loops (for example, routes) and it causes overlapping problems. It's needed to filter it before drawing
+                for (const auto &j : i->getSortedDemandElementChildrenByType(SUMO_TAG_ROUTE)) {
+                    // first check if route can be drawn
+                    if (myNet->getViewNet()->getDemandViewOptions().showNonInspectedDemandElements(j)) {
+                        // draw partial route
+                        i->drawPartialRoute(s, j, this);
+                    }
+                }
+                for (const auto &j : i->getSortedDemandElementChildrenByType(SUMO_TAG_EMBEDDEDROUTE)) {
+                    // first check if embedded route can be drawn
+                    if (myNet->getViewNet()->getDemandViewOptions().showNonInspectedDemandElements(j)) {
+                        // draw partial route
+                        i->drawPartialRoute(s, j, this);
+                    }
+                }
+                for (const auto &j : i->getSortedDemandElementChildrenByType(SUMO_TAG_TRIP)) {
+                    // Start drawing adding an gl identificator
+                    glPushName(j->getGlID());
+                    // draw partial trip only if is being inspected or selected
+                    if ((myNet->getViewNet()->getDottedAC() == j) || j->isAttributeCarrierSelected()) {
+                        i->drawPartialTripFromTo(s, j, this);
+                    }
+                    // only draw trip in the first edge
+                    if (j->getAttribute(SUMO_ATTR_FROM) == getID()) {
+                        j->drawGL(s);
+                    }
+                    // Pop name
+                    glPopName();
+                }
+                for (const auto &j : i->getSortedDemandElementChildrenByType(SUMO_TAG_FLOW)) {
+                    // Start drawing adding an gl identificator
+                    glPushName(j->getGlID());
+                    // draw partial trip only if is being inspected or selected
+                    if ((myNet->getViewNet()->getDottedAC() == j) || j->isAttributeCarrierSelected()) {
+                        i->drawPartialTripFromTo(s, j, this);
+                    }
+                    // only draw flow in the first edge
+                    if (j->getAttribute(SUMO_ATTR_FROM) == getID()) {
+                        j->drawGL(s);
+                    }
+                    // Pop name
+                    glPopName();
+                }
+                // draw partial person plan elements
+                for (const auto &j : i->getSortedDemandElementChildrenByType(SUMO_TAG_PERSONTRIP_FROMTO)) {
+                    i->drawPartialPersonPlan(s, j, this);
+                }
+                for (const auto &j : i->getSortedDemandElementChildrenByType(SUMO_TAG_PERSONTRIP_BUSSTOP)) {
+                    i->drawPartialPersonPlan(s, j, this);
+                }
+                for (const auto &j : i->getSortedDemandElementChildrenByType(SUMO_TAG_WALK_EDGES)) {
+                    i->drawPartialPersonPlan(s, j, this);
+                }
+                for (const auto &j : i->getSortedDemandElementChildrenByType(SUMO_TAG_WALK_FROMTO)) {
+                    i->drawPartialPersonPlan(s, j, this);
+                }
+                for (const auto &j : i->getSortedDemandElementChildrenByType(SUMO_TAG_WALK_BUSSTOP)) {
+                    i->drawPartialPersonPlan(s, j, this);
+                }
+                for (const auto &j : i->getSortedDemandElementChildrenByType(SUMO_TAG_WALK_ROUTE)) {
+                    i->drawPartialPersonPlan(s, j, this);
+                }
+                for (const auto &j : i->getSortedDemandElementChildrenByType(SUMO_TAG_RIDE_FROMTO)) {
+                    i->drawPartialPersonPlan(s, j, this);
+                }
+                for (const auto &j : i->getSortedDemandElementChildrenByType(SUMO_TAG_RIDE_BUSSTOP)) {
+                    i->drawPartialPersonPlan(s, j, this);
+                }
             }
         }
     }
@@ -1225,7 +1306,7 @@ GNEJunction::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         }
         case SUMO_ATTR_POSITION: {
-            // start geometry moving (because new position affect all junction childs)
+            // start geometry moving (because new position affect all junction children)
             startGeometryMoving();
             // set new position in NBNode without updating grid
             moveJunctionGeometry(parse<Position>(value));
@@ -1247,7 +1328,7 @@ GNEJunction::setAttribute(SumoXMLAttr key, const std::string& value) {
             myLogicStatus = value;
             break;
         case SUMO_ATTR_SHAPE: {
-            // start geometry moving (because new position affect all junction childs)
+            // start geometry moving (because new position affect all junction children)
             startGeometryMoving();
             // set new shape (without updating grid)
             const PositionVector shape = parse<PositionVector>(value);
@@ -1394,7 +1475,7 @@ GNEJunction::setColor(const GUIVisualizationSettings& s, bool bubble) const {
     }
     // override with special colors (unless the color scheme is based on selection)
     if (drawUsingSelectColor() && scheme != 1) {
-        color = s.selectionColor;
+        color = s.colorSettings.selectionColor;
     }
     if (myAmCreateEdgeSource) {
         color = RGBColor(0, 255, 0);

@@ -21,22 +21,19 @@
 // ===========================================================================
 #include <config.h>
 
-#include <utils/gui/div/GLHelper.h>
-#include <utils/gui/globjects/GLIncludes.h>
-#include <utils/gui/windows/GUIAppEnum.h>
-#include <netedit/changes/GNEChange_Attribute.h>
+#include <netbuild/NBNode.h>
 #include <netedit/GNENet.h>
 #include <netedit/GNEUndoList.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNEViewParent.h>
-#include <netedit/netelements/GNELane.h>
-#include <netedit/netelements/GNEEdge.h>
-#include <netedit/netelements/GNEConnection.h>
+#include <netedit/changes/GNEChange_Attribute.h>
 #include <netedit/frames/GNESelectorFrame.h>
+#include <netedit/netelements/GNEEdge.h>
+#include <netedit/netelements/GNELane.h>
 #include <utils/gui/div/GUIGlobalSelection.h>
+#include <utils/gui/windows/GUIAppEnum.h>
 
 #include "GNERoute.h"
-#include "GNEVehicle.h"
 
 // ===========================================================================
 // FOX callback mapping
@@ -134,7 +131,7 @@ GNERoute::writeDemandElement(OutputDevice& device) const {
     if(myTagProperty.getTag() == SUMO_TAG_ROUTE) {
         device.writeAttr(SUMO_ATTR_ID, getDemandElementID());
         // write stops associated to this route
-        for (const auto& i : getDemandElementChilds()) {
+        for (const auto& i : getDemandElementChildren()) {
             if (i->getTagProperty().isStop()) {
                 i->writeDemandElement(device);
             }
@@ -212,11 +209,85 @@ GNERoute::commitGeometryMoving(GNEUndoList*) {
 
 void
 GNERoute::updateGeometry() {
-    // recalculate edge geometry limits
-    recalculateEdgeGeometryLimits();
-    // only update demand element childs, because Route uses the geometry of lane parent
-    for (const auto& i : getDemandElementChilds()) {
-        i->updateGeometry();
+    // first check if geometry is deprecated
+    if (myDemandElementSegmentGeometry.geometryDeprecated) {
+        // first clear geometry
+        myDemandElementSegmentGeometry.clearDemandElementSegmentGeometry();
+        // declare vector for saving a reference to lane geometry and connection shapes
+        std::vector<std::pair<GNEEdge*, GNENetElement::NetElementGeometry> > laneGeometries;
+        std::vector<PositionVector> connectionShapes;
+        // obtain all lane shapes
+        for (const auto &i : getEdgeParents()) {
+            laneGeometries.push_back(std::make_pair(i, i->getLaneByVClass(myVClass)->getGeometry()));
+        }
+        // resize connectionShapes
+        connectionShapes.resize(laneGeometries.size());
+        // iterate over edge parents
+        for (int i = 0; i < ((int)getEdgeParents().size()-1); i++) {
+            // obtain NBEdges from both edges
+            NBEdge* nbFrom = getEdgeParents().at(i)->getNBEdge();
+            NBEdge* nbTo = getEdgeParents().at(i+1)->getNBEdge();
+            // declare a flags
+            bool connectionFound = false;
+            // iterate over all connections of NBFrom
+            for (NBEdge::Connection c : nbFrom->getConnectionsFromLane(-1, nbTo, -1)) {
+                //check if given VClass is allowed for from and to lanes
+                if (!connectionFound && ((nbFrom->getPermissions(c.fromLane) & nbTo->getPermissions(c.toLane) & myVClass) == myVClass)) {
+                    // save shape 
+                    if (c.customShape.size() != 0) {
+                        connectionShapes.at(i) = c.customShape;
+                    } else if (nbFrom->getToNode()->getShape().area() > 4) {
+                        if (c.shape.size() != 0) {
+                            connectionShapes.at(i) = c.shape;
+                            // only append via shape if it exists
+                            if (c.haveVia) {
+                                connectionShapes.at(i).append(c.viaShape);
+                            }
+                        } else {
+                            // manually calculate smooth shape
+                            PositionVector laneShapeFrom = nbFrom->getLanes().at(c.fromLane).shape;
+                            PositionVector laneShapeTo = c.toEdge->getLanes().at(c.toLane).shape;
+                            // Calculate shape so something can be drawn immidiately
+                            connectionShapes.at(i) = nbFrom->getToNode()->computeSmoothShape(
+                                laneShapeFrom,
+                                laneShapeTo,
+                                5, nbFrom->getTurnDestination() == c.toEdge,
+                                (double) 5. * (double) nbFrom->getNumLanes(),
+                                (double) 5. * (double) c.toEdge->getNumLanes());
+                        }
+                    }
+                    // change flag
+                    connectionFound = true;
+                }
+            }
+        }
+        // fill shapeSegments
+        for (int i = 0; i < (int)laneGeometries.size(); i++) {
+            // set lane shapes
+            for (int j = 0; j < laneGeometries.at(i).second.shape.size(); j++) {
+                // save position and rotations (to avoid useless calculations)
+                if (j < (laneGeometries.at(i).second.shape.size()-1)) {
+                    myDemandElementSegmentGeometry.insertEdgeLenghtRotSegment(this, laneGeometries.at(i).first, 
+                        laneGeometries.at(i).second.shape[j], laneGeometries.at(i).second.shapeLengths[j], 
+                        laneGeometries.at(i).second.shapeRotations[j], true, true);
+                } else {
+                    myDemandElementSegmentGeometry.insertEdgeSegment(this, laneGeometries.at(i).first, 
+                        laneGeometries.at(i).second.shape[j], true, true);
+                }
+            }
+            // set connection shapes
+            for (const auto &connectionShapePos : connectionShapes.at(i)) {
+                myDemandElementSegmentGeometry.insertJunctionSegment(this, laneGeometries.at(i).first->getGNEJunctionDestiny() , connectionShapePos, true, true);
+            }
+        }
+        // calculate entire shape, rotations and lenghts
+        myDemandElementSegmentGeometry.calculatePartialShapeRotationsAndLengths();
+        // update demand element childrens
+        for (const auto& i : getDemandElementChildren()) {
+            i->updateGeometry();
+        }
+        // set geometry as non-deprecated
+        myDemandElementSegmentGeometry.geometryDeprecated = false;
     }
 }
 
@@ -302,6 +373,12 @@ GNERoute::getAttribute(SumoXMLAttr key) const {
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
+}
+
+
+double 
+GNERoute::getAttributeDouble(SumoXMLAttr /*key*/) const {
+    return 0;
 }
 
 
