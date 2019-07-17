@@ -93,7 +93,7 @@
 //#define DEBUG_FURTHER
 //#define DEBUG_SETFURTHER
 //#define DEBUG_TARGET_LANE
-//#define DEBUG_STOPS
+#define DEBUG_STOPS
 //#define DEBUG_BESTLANES
 //#define DEBUG_IGNORE_RED
 //#define DEBUG_ACTIONSTEPS
@@ -2168,8 +2168,6 @@ MSVehicle::planMove(const SUMOTime t, const MSLeaderInfo& ahead, const double le
         std::cout << STEPS2TIME(t) << " vehicle = '" << getID() << "' takes action." << std::endl;
         }
 #endif
-        // if we are modelling the exit then we don't plan any move until the manoeuvre is complete
-        if (MSGlobals::gModelParkingManoeuver && !myManoeuvre.exitManoeuvreIsComplete(t)) return;
 
         myLFLinkLanesPrev = myLFLinkLanes;
         planMoveInternal(t, ahead, myLFLinkLanes, myStopDist, myNextTurn);
@@ -2188,8 +2186,14 @@ MSVehicle::planMove(const SUMOTime t, const MSLeaderInfo& ahead, const double le
 #endif
         checkRewindLinkLanes(lengthsInFront, myLFLinkLanes);
         myNextDriveItem = myLFLinkLanes.begin();
+        
+        if (MSGlobals::gModelParkingManoeuver)
+        {
+            if( getManoeuvreType() == MSVehicle::MANOEUVRE_EXIT && manoeuvreIsComplete(t) )  setManoeuvreType(MSVehicle::MANOEUVRE_NONE);
+        }
     }
     getLaneChangeModel().resetChanged();
+
 }
 
 void
@@ -2199,7 +2203,16 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
     //
     const MSCFModel& cfModel = getCarFollowModel();
     const double vehicleLength = getVehicleType().getLength();
-    const double maxV = cfModel.maxNextSpeed(myState.mySpeed, this);
+
+    // if we are modelling parking then we dawdle until the manoeuvre is complete - by setting a very low max speed
+    //   in practice this only applies to exit manoeuvre because entry manoeuvre just delays setting stop.reached
+    double tempMaxV; 
+    if ( !MSGlobals::gModelParkingManoeuver || manoeuvreIsComplete(t) )
+        tempMaxV = cfModel.maxNextSpeed(myState.mySpeed, this);
+    else
+        tempMaxV = 0.11;
+    const double maxV = tempMaxV;
+
     const bool opposite = getLaneChangeModel().isOpposite();
     double laneMaxV = myLane->getVehicleMaxSpeed(this);
     const double vMinComfortable = cfModel.minNextSpeed(getSpeed(), this);
@@ -6145,7 +6158,7 @@ MSVehicle::setExitManoeuvre(const SUMOTime currentTime)
  * methods of MSVehicle::manoeuvre
  * ----------------------------------------------------------------------- */
 
-MSVehicle::Manoeuvre::Manoeuvre() : myManoeuvreStop(""), myManoeuvreStartTime(SUMOTime_MIN), myManoeuvreCompleteTime(SUMOTime_MIN), myManoeuvreType(MSVehicle::MANOEUVRE_NONE), myManoeuvreAngle(0) {}
+MSVehicle::Manoeuvre::Manoeuvre() : myManoeuvreStop(""), myManoeuvreStartTime(0), myManoeuvreCompleteTime(0), myManoeuvreType(MSVehicle::MANOEUVRE_NONE), myManoeuvreAngle(0) {}
 
 MSVehicle::Manoeuvre::Manoeuvre(const Manoeuvre& manoeuvre)
 {
@@ -6179,16 +6192,36 @@ MSVehicle::Manoeuvre::operator!=(const Manoeuvre & manoeuvre)
 }
 
 const int
-MSVehicle::Manoeuvre::getManoeuvreAngle()
+MSVehicle::Manoeuvre::getManoeuvreAngle() const
 {
     return (myManoeuvreAngle);
 }
 
 const MSVehicle::ManoeuvreType
-MSVehicle::Manoeuvre::getManoeuvreType()
+MSVehicle::Manoeuvre::getManoeuvreType() const
 {
     return (myManoeuvreType);
 }
+
+const MSVehicle::ManoeuvreType
+MSVehicle::getManoeuvreType() const
+{
+    return (myManoeuvre.getManoeuvreType());
+}
+
+
+void
+MSVehicle::setManoeuvreType(const MSVehicle::ManoeuvreType mType)
+{
+    myManoeuvre.setManoeuvreType(mType);
+}
+
+void 
+MSVehicle::Manoeuvre::setManoeuvreType(const MSVehicle::ManoeuvreType mType)
+{
+    myManoeuvreType = mType;
+}
+
 
 bool
 MSVehicle::Manoeuvre::configureEntryManoeuvre( MSVehicle* veh, SUMOTime currentTime )
@@ -6196,18 +6229,21 @@ MSVehicle::Manoeuvre::configureEntryManoeuvre( MSVehicle* veh, SUMOTime currentT
     if (!veh->hasStops()) return false;  // should never happen - checked before call
     
     const Stop& stop = veh->getMyStops().front();
+
+    myManoeuvreVehicleID = veh->getID();
     myManoeuvreStop = stop.parkingarea->getID();
     myManoeuvreType = MSVehicle::MANOEUVRE_ENTRY;
     myManoeuvreAngle = stop.parkingarea->getLastFreeLotAngle();
     myManoeuvreStartTime = currentTime;
     myManoeuvreCompleteTime = currentTime + veh->myType->getEntryManoeuvreTime(myManoeuvreAngle);
- /*
-#ifdef DEBUG_STOPS
-    if (DEBUG_COND) {
-        std::cout << "Manoeuvre start: vehicle=" << veh->getID() << ", Angle=" << myManoeuvreAngle << ", endTime=" << myManoeuvreCompleteTime - currentTime << std::endl;
+
+   #ifdef DEBUG_STOPS
+    if (veh->isSelected()) {
+       std::cout << "ENTRY manoeuvre start: vehicle=" << veh->getID() << " Angle=" << myManoeuvreAngle << " currentTime=" << currentTime <<
+                    " endTime=" << myManoeuvreCompleteTime << " manoeuvre time=" << myManoeuvreCompleteTime - currentTime << " parkArea="<< myManoeuvreStop << std::endl;
     }
 #endif
-*/
+
     return (true);
 }
 
@@ -6215,57 +6251,78 @@ bool
 MSVehicle::Manoeuvre::configureExitManoeuvre(MSVehicle* veh, const SUMOTime currentTime)
 {
     if (myManoeuvreType != MSVehicle::MANOEUVRE_NONE) return(false);  
-  
+
+    myManoeuvreVehicleID = veh->getID();
+    myManoeuvreStop = veh->getCurrentParkingArea()->getID();   // TODO do we need to check there is a stop and a parking area?
     myManoeuvreType = MSVehicle::MANOEUVRE_EXIT;
     myManoeuvreStartTime = currentTime;
-    myManoeuvreCompleteTime = currentTime + veh->myType->getExitManoeuvreTime(myManoeuvreAngle) +veh->remainingStopDuration();
-    return (true);
+    myManoeuvreCompleteTime = currentTime + veh->myType->getExitManoeuvreTime(myManoeuvreAngle);
+    if (veh->remainingStopDuration() > 0 ) myManoeuvreCompleteTime += veh->remainingStopDuration();
+
+#ifdef DEBUG_STOPS
+   if (veh->isSelected()) {
+       std::cout << "EXIT manoeuvre start: vehicle=" << veh->getID() << " Angle=" << myManoeuvreAngle << " currentTime=" << currentTime
+           << " endTime=" << myManoeuvreCompleteTime << " manoeuvre time=" << myManoeuvreCompleteTime - currentTime << " parkArea=" << myManoeuvreStop << std::endl;
+   }
+#endif
+
+   return (true);
 }
 
 bool 
 MSVehicle::Manoeuvre::entryManoeuvreIsComplete( MSVehicle* veh, const SUMOTime currentTime)
 {
+    // At the moment we only want to consider parking areas - need to check because we could be setting up a manoeuvre
+    if (!veh->hasStops()) return (true);
     Stop* currentStop = &veh->myStops.front();
-
-    // At the moment we only want to consider parking areas
-    if (currentStop->parkingarea == nullptr)
+    if (currentStop->parkingarea == nullptr) 
         return true;
     else
         if (currentStop->parkingarea->getID() != myManoeuvreStop || MSVehicle::MANOEUVRE_ENTRY != myManoeuvreType)
         {
             if (configureEntryManoeuvre(veh, currentTime))
-                {
+            {
                 MSNet::getInstance()->informVehicleStateListener(veh, MSNet::VEHICLE_STATE_MANOEUVERING);
                 return(false);
-                }
-           else  // cannot configure entry so stop trying
-             return true;
+            }
+            else  // cannot configure entry so stop trying
+                return true;
         }
         else if (currentTime < myManoeuvreCompleteTime)
         {
-             return false;
+            return false;
         }
         else // manoeuvre complete
         {
-            // in case we ended up in a different lot - reset the angle for exit - to allow recompute
-            myManoeuvreAngle = currentStop->parkingarea->getLastFreeLotAngle();
-            myManoeuvreType = MSVehicle::MANOEUVRE_NONE;
-            return true;
+        // in case we ended up in a different lot - reset the angle for exit - to allow recompute
+        myManoeuvreAngle = currentStop->parkingarea->getLastFreeLotAngle();
+        myManoeuvreType = MSVehicle::MANOEUVRE_NONE;
+        return true;
         }
 }
 
+
 bool
-MSVehicle::Manoeuvre::exitManoeuvreIsComplete(const SUMOTime currentTime)
+MSVehicle::Manoeuvre::manoeuvreIsComplete(const SUMOTime currentTime, const ManoeuvreType checkType) const
 {
-    if (myManoeuvreType != MSVehicle::MANOEUVRE_EXIT) return true;
+    if ( checkType != myManoeuvreType ) return true; // we're not manoeuvering / wrong manoeuvre
 
     if (currentTime < myManoeuvreCompleteTime)
-       return false;
-    else { // manoeuvre complete
-       myManoeuvreType = MSVehicle::MANOEUVRE_NONE;
-       return true;
-    }
+        return false;
+    else
+        return true;
+ }
 
+
+bool
+MSVehicle::Manoeuvre::manoeuvreIsComplete(const SUMOTime currentTime) const
+{
+    return ( currentTime >= myManoeuvreCompleteTime);
+}
+bool
+MSVehicle::manoeuvreIsComplete(const SUMOTime currentTime) const
+{
+    return (myManoeuvre.manoeuvreIsComplete(currentTime));
 }
 
 /****************************************************************************/
