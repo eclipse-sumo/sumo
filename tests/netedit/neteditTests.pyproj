@@ -566,6 +566,7 @@
     <Compile Include="demandElements\route\inspect\id\test.py" />
     <Compile Include="demandElements\route\inspect_selection\color\test.py" />
     <Compile Include="demandElements\route\inspect_selection\genericparameters\test.py" />
+    <Compile Include="demandElements\route\load\edges\test.py" />
     <Compile Include="demandElements\route\load\test.py" />
     <Compile Include="demandElements\route\volatile_recomputing\test.py" />
     <Compile Include="demandElements\trip\create\default\test.py" />
@@ -1728,6 +1729,7 @@
     <Folder Include="demandElements\route\inspect_selection\color" />
     <Folder Include="demandElements\route\inspect_selection\genericparameters" />
     <Folder Include="demandElements\route\load" />
+    <Folder Include="demandElements\route\load\edges\" />
     <Folder Include="demandElements\route\volatile_recomputing" />
     <Folder Include="demandElements\trip\" />
     <Folder Include="demandElements\trip\create\" />

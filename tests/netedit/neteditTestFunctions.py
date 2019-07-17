@@ -564,10 +564,13 @@ def quit(NeteditProcess, openNetNonSavedDialog=False, saveNet=False,
             print("TestFunctions: Error closing Netedit")
 
 
+"""
+@brief load network as
+"""
+
+
 def openNetworkAs(waitTime=2):
-    """
-    @brief load network as
-    """
+
     # open save network as dialog
     typeTwoKeys('ctrl', 'o')
     # jump to filename TextField
@@ -630,6 +633,44 @@ def saveAdditionals():
 def saveRoutes():
     # save routes using hotkey
     typeThreeKeys('ctrl', 'shift', 'd')
+
+
+"""
+@brief fix stoppingPlaces
+"""
+
+
+def fixDemandElements(solution):
+    # select bullet depending of solution
+    if (solution == "saveInvalids"):
+        for _ in range(3):
+            typeInvertTab()
+        typeSpace()
+        # go back and press accept
+        for _ in range(3):
+            typeTab()
+        typeSpace()
+    elif (solution == "fixPositions"):
+        for _ in range(2):
+            typeInvertTab()
+        typeSpace()
+        # go back and press accept
+        for _ in range(2):
+            typeTab()
+        typeSpace()
+    elif (solution == "selectInvalids"):
+        typeInvertTab()
+        typeSpace()
+        # go back and press accept
+        typeTab()
+        typeSpace()
+    elif (solution == "activateFriendlyPos"):
+        # default option, then press accept
+        typeSpace()
+    else:
+        # press cancel
+        typeTab()
+        typeSpace()
 
 
 """

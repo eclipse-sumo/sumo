@@ -31,11 +31,14 @@ netedit.changeEditMode('1')
 # Recompute
 netedit.rebuildNetwork()
 
+# save network
+netedit.saveNetwork()
+
 # save routes
 netedit.saveRoutes()
 
-# save network
-netedit.saveNetwork()
+# save invalid routes
+netedit.typeSpace()
 
 # quit netedit
 netedit.quit(neteditProcess)

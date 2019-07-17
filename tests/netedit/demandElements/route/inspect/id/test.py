@@ -28,18 +28,23 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot, ['--g
 # go to demand mode
 netedit.supermodeDemand()
 
-# go to additional mode
-# netedit.additionalMode()
+# go to route mode
+netedit.routeMode()
 
-# select busStop
-# netedit.changeAdditional("busStop")
+# create route using three edges
+netedit.leftClick(referencePosition, 274, 414)
+netedit.leftClick(referencePosition, 570, 250)
+netedit.leftClick(referencePosition, 280, 60)
 
-# create busStop in mode "reference left"
-# netedit.leftClick(referencePosition, 250, 250)
+# press enter to create route
+netedit.typeEnter()
 
 # Check undo redo
 netedit.undo(referencePosition, 1)
 netedit.redo(referencePosition, 1)
+
+# click over reference (to avoid problem with undo-redo)
+netedit.leftClick(referencePosition, 0, 0)
 
 # save routes
 netedit.saveRoutes()
