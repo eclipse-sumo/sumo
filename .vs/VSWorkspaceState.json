@@ -3,12 +3,14 @@
     "",
     "\\src",
     "\\src\\microsim",
-    "\\src\\microsim\\cfmodels",
     "\\src\\microsim\\lcmodels",
     "\\src\\utils",
-    "\\src\\utils\\vehicle",
-    "\\src\\utils\\xml"
+    "\\tests",
+    "\\tests\\sumo",
+    "\\tests\\sumo\\extended",
+    "\\tests\\sumo\\extended\\rerouter",
+    "\\tests\\sumo\\extended\\rerouter\\parking"
   ],
-  "SelectedNode": "\\src\\microsim\\trigger",
+  "SelectedNode": "\\src\\microsim\\MSVehicle.cpp",
   "PreviewInSolutionExplorer": false
 }
