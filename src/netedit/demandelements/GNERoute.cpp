@@ -454,6 +454,8 @@ GNERoute::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         case SUMO_ATTR_EDGES:
             changeEdgeParents(this, value);
+            // change flag for geometry deprecating
+            myDemandElementSegmentGeometry.geometryDeprecated = true;
             break;
         case SUMO_ATTR_COLOR:
             myColor = parse<RGBColor>(value);

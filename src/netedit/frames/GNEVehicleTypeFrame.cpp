@@ -65,9 +65,14 @@ GNEVehicleTypeFrame::VehicleTypeSelector::VehicleTypeSelector(GNEVehicleTypeFram
     myCurrentVehicleType(nullptr) {
     // Create FXComboBox
     myTypeMatchBox = new FXComboBox(this, GUIDesignComboBoxNCol, this, MID_GNE_SET_TYPE, GUIDesignComboBox);
+    // add default Vehicle an Bike types in the first and second positions
+    myTypeMatchBox->appendItem(DEFAULT_VTYPE_ID.c_str());
+    myTypeMatchBox->appendItem(DEFAULT_BIKETYPE_ID.c_str());
     // fill myTypeMatchBox with list of VTypes IDs
     for (const auto& i : myVehicleTypeFrameParent->getViewNet()->getNet()->getAttributeCarriers().demandElements.at(SUMO_TAG_VTYPE)) {
-        myTypeMatchBox->appendItem(i.first.c_str());
+        if ((i.first != DEFAULT_VTYPE_ID) && (i.first != DEFAULT_BIKETYPE_ID)) {
+            myTypeMatchBox->appendItem(i.first.c_str());
+        }
     }
     // set DEFAULT_VEHTYPE as default VType
     myCurrentVehicleType = myVehicleTypeFrameParent->getViewNet()->getNet()->retrieveDemandElement(SUMO_TAG_VTYPE, DEFAULT_VTYPE_ID);
@@ -101,10 +106,16 @@ GNEVehicleTypeFrame::VehicleTypeSelector::setCurrentVehicleType(GNEDemandElement
 void
 GNEVehicleTypeFrame::VehicleTypeSelector::refreshVehicleTypeSelector() {
     bool valid = false;
+    // clear items
     myTypeMatchBox->clearItems();
+    // add default Vehicle an Bike types in the first and second positions
+    myTypeMatchBox->appendItem(DEFAULT_VTYPE_ID.c_str());
+    myTypeMatchBox->appendItem(DEFAULT_BIKETYPE_ID.c_str());
     // fill myTypeMatchBox with list of VTypes IDs
     for (const auto& i : myVehicleTypeFrameParent->getViewNet()->getNet()->getAttributeCarriers().demandElements.at(SUMO_TAG_VTYPE)) {
-        myTypeMatchBox->appendItem(i.first.c_str());
+        if ((i.first != DEFAULT_VTYPE_ID) && (i.first != DEFAULT_BIKETYPE_ID)) {
+            myTypeMatchBox->appendItem(i.first.c_str());
+        }
     }
     // Set visible items
     if (myTypeMatchBox->getNumItems() <= 20) {
