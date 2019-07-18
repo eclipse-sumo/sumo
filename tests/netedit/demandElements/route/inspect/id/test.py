@@ -34,14 +34,40 @@ netedit.routeMode()
 # create route using three edges
 netedit.leftClick(referencePosition, 274, 414)
 netedit.leftClick(referencePosition, 570, 250)
+
+# press enter to create route
+netedit.typeEnter()
+
+# create second route
 netedit.leftClick(referencePosition, 280, 60)
 
 # press enter to create route
 netedit.typeEnter()
 
+# go to inspect mode
+netedit.inspectMode()
+
+# inspect route
+netedit.leftClick(referencePosition, 280, 417)
+
+# Change parameter id with a non valid value (empty)
+netedit.modifyAttribute(0, "", True)
+
+# Change parameter id with a non valid value (invalid characters)
+netedit.modifyAttribute(0, "<><><><>$%%%", True)
+
+# Change parameter id with a non valid value (spaces)
+netedit.modifyAttribute(0, "route with spaces", True)
+
+# Change parameter id with a non valid value (duplicated)
+netedit.modifyAttribute(0, "route_1", True)
+
+# Change parameter id with valid value
+netedit.modifyAttribute(0, "custom_route", True)
+
 # Check undo redo
-netedit.undo(referencePosition, 1)
-netedit.redo(referencePosition, 1)
+netedit.undo(referencePosition, 3)
+netedit.redo(referencePosition, 3)
 
 # click over reference (to avoid problem with undo-redo)
 netedit.leftClick(referencePosition, 0, 0)

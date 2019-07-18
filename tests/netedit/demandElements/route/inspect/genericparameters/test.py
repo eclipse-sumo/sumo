@@ -34,14 +34,49 @@ netedit.routeMode()
 # create route using three edges
 netedit.leftClick(referencePosition, 274, 414)
 netedit.leftClick(referencePosition, 570, 250)
-netedit.leftClick(referencePosition, 280, 60)
 
 # press enter to create route
 netedit.typeEnter()
 
+# go to inspect mode
+netedit.inspectMode()
+
+# inspect route
+netedit.leftClick(referencePosition, 280, 417)
+
+# Change generic parameters with a dummy value
+netedit.modifyAttribute(5, "dummyGenericParameters", True)
+
+# Change generic parameters with a invalid format
+netedit.modifyAttribute(5, "key1|key2|key3", True)
+
+# Change generic parameters with a valid value
+netedit.modifyAttribute(5, "key1=value1|key2=value2|key3=value3", True)
+
+# Change generic parameters with a valid value (empty values)
+netedit.modifyAttribute(5, "key1=|key2=|key3=", True)
+
+# Change generic parameters with a valid value (all empty)
+netedit.modifyAttribute(5, "", True)
+
+# Change generic parameters with an invalid value (duplicated)
+netedit.modifyAttribute(5, "key1duplicated=value1|key1duplicated=value2|key3=value3", True)
+
+# Change generic parameters with a valid value
+netedit.modifyAttribute(5, "key1=valueDuplicated|key2=valueDuplicated|key3=valueDuplicated", True)
+
+# Change generic parameters with an invalid value (invalid key characters)
+netedit.modifyAttribute(5, "keyInvalid.;%>%$$=value1|key2=value2|key3=value3", True)
+
+# Change generic parameters with a invalid value (invalid value characters)
+netedit.modifyAttribute(5, "key1=valueInvalid%;%$<>$$%|key2=value2|key3=value3", True)
+
+# Change generic parameters with a valid value
+netedit.modifyAttribute(5, "keyFinal1=value1|keyFinal2=value2|keyFinal3=value3", True)
+
 # Check undo redo
-netedit.undo(referencePosition, 1)
-netedit.redo(referencePosition, 1)
+netedit.undo(referencePosition, 8)
+netedit.redo(referencePosition, 8)
 
 # click over reference (to avoid problem with undo-redo)
 netedit.leftClick(referencePosition, 0, 0)
@@ -54,3 +89,6 @@ netedit.saveNetwork()
 
 # quit netedit
 netedit.quit(neteditProcess)
+
+
+
