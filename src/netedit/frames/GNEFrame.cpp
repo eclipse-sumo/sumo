@@ -381,7 +381,7 @@ GNEFrame::DemandElementSelector::DemandElementSelector(GNEFrame* frameParent, Su
 
 
 GNEFrame::DemandElementSelector::DemandElementSelector(GNEFrame* frameParent, const std::vector<GNEAttributeCarrier::TagType> &tagTypes) :
-        FXGroupBox(frameParent->myContentFrame, "Parent element", GUIDesignGroupBoxFrame),
+    FXGroupBox(frameParent->myContentFrame, "Parent element", GUIDesignGroupBoxFrame),
     myFrameParent(frameParent),
     myCurrentDemandElement(nullptr) {
     // fill myDemandElementTags
@@ -458,8 +458,33 @@ GNEFrame::DemandElementSelector::refreshDemandElementSelector() {
     myDemandElementsMatchBox->clearItems();
     // fill myTypeMatchBox with list of demand elements
     for (const auto& i : myDemandElementTags) {
-        for (const auto& j : myFrameParent->getViewNet()->getNet()->getAttributeCarriers().demandElements.at(i)) {
-            myDemandElementsMatchBox->appendItem(j.first.c_str());
+        // special case for VTypes and PTypes
+        if (i == SUMO_TAG_VTYPE) {
+            // add default Vehicle an Bike types in the first and second positions
+            myDemandElementsMatchBox->appendItem(DEFAULT_VTYPE_ID.c_str());
+            myDemandElementsMatchBox->appendItem(DEFAULT_BIKETYPE_ID.c_str());
+            // add rest of vTypes
+            for (const auto& j : myFrameParent->getViewNet()->getNet()->getAttributeCarriers().demandElements.at(i)) {
+                // avoid insert duplicated default vType
+                if ((j.first != DEFAULT_VTYPE_ID) && (j.first != DEFAULT_BIKETYPE_ID)) {
+                    myDemandElementsMatchBox->appendItem(j.first.c_str());
+                }
+            }
+        } else if (i == SUMO_TAG_PTYPE) {
+            // add default Person type in the firs
+            myDemandElementsMatchBox->appendItem(DEFAULT_PEDTYPE_ID.c_str());
+            // add rest of pTypes
+            for (const auto& j : myFrameParent->getViewNet()->getNet()->getAttributeCarriers().demandElements.at(i)) {
+                // avoid insert duplicated default pType
+                if (j.first != DEFAULT_PEDTYPE_ID) {
+                    myDemandElementsMatchBox->appendItem(j.first.c_str());
+                }
+            }
+        } else {
+            // insert all Ids
+            for (const auto& j : myFrameParent->getViewNet()->getNet()->getAttributeCarriers().demandElements.at(i)) {
+                myDemandElementsMatchBox->appendItem(j.first.c_str());
+            }
         }
     }
     // Set number of  items (maximum 10)
@@ -478,8 +503,14 @@ GNEFrame::DemandElementSelector::refreshDemandElementSelector() {
             }
         }
     } else {
-        // set first element in the list as myCurrentDemandElement
-        myCurrentDemandElement = myFrameParent->getViewNet()->getNet()->getAttributeCarriers().demandElements.at(myDemandElementTags.front()).begin()->second;
+        // set first element in the list as myCurrentDemandElement (Special case for default person and vehicle type)
+        if (myDemandElementsMatchBox->getItem(0).text() == DEFAULT_VTYPE_ID) {
+            myCurrentDemandElement = myFrameParent->getViewNet()->getNet()->getAttributeCarriers().demandElements.at(SUMO_TAG_VTYPE).at(DEFAULT_VTYPE_ID);
+        } else if (myDemandElementsMatchBox->getItem(0).text() == DEFAULT_PEDTYPE_ID) {
+            myCurrentDemandElement = myFrameParent->getViewNet()->getNet()->getAttributeCarriers().demandElements.at(SUMO_TAG_PTYPE).at(DEFAULT_PEDTYPE_ID);
+        } else {
+            myCurrentDemandElement = myFrameParent->getViewNet()->getNet()->getAttributeCarriers().demandElements.at(myDemandElementTags.front()).begin()->second;
+        }
     }
 }
 

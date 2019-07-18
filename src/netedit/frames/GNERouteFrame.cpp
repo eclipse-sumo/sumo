@@ -769,6 +769,8 @@ GNERouteFrame::handleEdgeClick(GNEEdge* clickedEdge) {
             default:
                 break;
         }
+        // update view
+        myViewNet->update();
     }
 }
 
@@ -788,6 +790,8 @@ GNERouteFrame::hotkeyEnter() {
             default:
                 break;
         }
+        // update view
+        myViewNet->update();
     }
 }
 
@@ -807,6 +811,8 @@ GNERouteFrame::hotkeyBackSpace() {
             default:
                 break;
         }
+        // update view
+        myViewNet->update();
     }
 }
 
@@ -826,6 +832,8 @@ GNERouteFrame::hotkeyEsc() {
             default:
                 break;
         }
+        // update view
+        myViewNet->update();
     }
 }
 

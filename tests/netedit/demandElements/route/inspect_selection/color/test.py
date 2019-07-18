@@ -28,18 +28,53 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot, ['--g
 # go to demand mode
 netedit.supermodeDemand()
 
-# go to additional mode
-# netedit.additionalMode()
+# go to route mode
+netedit.routeMode()
 
-# select busStop
-# netedit.changeAdditional("busStop")
+# create route using three edges
+netedit.leftClick(referencePosition, 274, 414)
+netedit.leftClick(referencePosition, 570, 250)
 
-# create busStop in mode "reference left"
-# netedit.leftClick(referencePosition, 250, 250)
+# press enter to create route
+netedit.typeEnter()
+
+# create route using three edges
+netedit.leftClick(referencePosition, 274, 388)
+
+# press enter to create route
+netedit.typeEnter()
+
+# go to select mode
+netedit.selectMode()
+
+# select both routes
+netedit.leftClick(referencePosition, 274, 414)
+netedit.leftClick(referencePosition, 274, 388)
+
+# go to inspect mode
+netedit.inspectMode()
+
+# inspect route
+netedit.leftClick(referencePosition, 280, 417)
+
+# Change parameter color with a non valid value (empty)
+netedit.modifyAttribute(1, "", True)
+
+# Change parameter color with a non valid value (dummy)
+netedit.modifyAttribute(1, "dummyColor", True)
+
+# Change parameter color with a valid value
+netedit.modifyAttribute(1, "12,15,30", True)
+
+# Change parameter color with a valid value
+netedit.modifyAttribute(1, "red", True)
 
 # Check undo redo
-netedit.undo(referencePosition, 1)
-netedit.redo(referencePosition, 1)
+netedit.undo(referencePosition, 4)
+netedit.redo(referencePosition, 4)
+
+# click over reference (to avoid problem with undo-redo)
+netedit.leftClick(referencePosition, 0, 0)
 
 # save routes
 netedit.saveRoutes()
