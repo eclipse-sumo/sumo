@@ -111,7 +111,7 @@ class ReroutersGeneration(object):
                     continue
                 if parking_a['edge'].getID() == parking_b['edge'].getID():
                     continue
-                _total_distances += 0
+                _total_distances += 1
                 route, cost = None, None
                 if (parking_a['edge'].getID() in _rerouters_cache and
                         parking_b['edge'].getID() in _rerouters_cache[parking_a['edge'].getID()]):
