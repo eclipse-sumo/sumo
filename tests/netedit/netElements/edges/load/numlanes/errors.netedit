@@ -3,7 +3,7 @@ GLDebug: 	Inserted junction:gneJ21 into SUMORTree with boundary -12.00,-12.00,12
 GLDebug: 	Inserted junction:gneJ22 into SUMORTree with boundary 38.00,-12.00,62.00,12.00
 GLDebug: 	Inserted edge:gneE12 into SUMORTree with boundary -10.00,-14.80,60.00,10.00
 GLDebug: 	Inserted edge:gneE13 into SUMORTree with boundary -10.00,-10.00,60.00,21.20
-Debug: Selected item 'DEFAULT_BIKETYPE' in DemandElementSelector
+Debug: Selected item 'DEFAULT_VEHTYPE' in DemandElementSelector
 Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
 Debug: Adding e3Detector 'e3Detector_0' in GNEChange_Additional
 GLDebug: 	Inserted e3Detector:e3Detector_0 into SUMORTree with boundary 15.00,-15.00,25.00,-5.00
