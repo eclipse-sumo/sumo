@@ -11,7 +11,7 @@ GLDebug: 	Inserted edge:gneE17 into SUMORTree with boundary 0.00,20.00,21.60,70.
 GLDebug: 	Inserted edge:gneE18 into SUMORTree with boundary 60.00,20.00,81.60,70.00
 GLDebug: 	Inserted edge:gneE2 into SUMORTree with boundary 0.00,15.20,80.00,40.00
 GLDebug: 	Inserted edge:gneE7 into SUMORTree with boundary 0.00,20.00,80.00,44.80
-Debug: Selected item 'DEFAULT_BIKETYPE' in DemandElementSelector
+Debug: Selected item 'DEFAULT_VEHTYPE' in DemandElementSelector
 Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
 Debug: Adding route 'route_0' in GNEChange_DemandElement
 Debug: DemandElements has to be saved
