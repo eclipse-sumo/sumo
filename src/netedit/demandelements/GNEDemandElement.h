@@ -51,7 +51,7 @@ class GNEJunction;
  * @class GNEDemandElement
  * @brief An Element which don't belongs to GNENet but has influency in the simulation
  */
-class GNEDemandElement : public GUIGlObject, public GNEAttributeCarrier, public Parameterised, public GNEHierarchicalElementParents, public GNEHierarchicalElementChildren {
+class GNEDemandElement : public GUIGlObject, public GNEAttributeCarrier, public GNEHierarchicalElementParents, public GNEHierarchicalElementChildren {
 
 public:
     /// @brief struct for pack all variables related with geometry of stop
@@ -429,17 +429,17 @@ public:
     virtual std::string getHierarchyName() const = 0;
     /// @}
 
-    /// @name Functions related with Generic Paramters
+    /// @name Functions related with Generic Parameters
     /// @{
 
     /// @brief return generic parameters in string format
-    std::string getGenericParametersStr() const;
+    virtual std::string getGenericParametersStr() const = 0;
 
     /// @brief return generic parameters as vector of pairs format
-    std::vector<std::pair<std::string, std::string> > getGenericParameters() const;
+    virtual std::vector<std::pair<std::string, std::string> > getGenericParameters() const = 0;
 
     /// @brief set generic parameters in string format
-    void setGenericParametersStr(const std::string& value);
+    virtual void setGenericParametersStr(const std::string& value) = 0;
 
     /// @}
 

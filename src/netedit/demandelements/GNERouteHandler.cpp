@@ -43,6 +43,10 @@
 // member method definitions
 // ===========================================================================
 
+// ---------------------------------------------------------------------------
+// GNERouteHandler::RouteParameter - methods
+// ---------------------------------------------------------------------------
+
 GNERouteHandler::GNERouteHandler::RouteParameter::RouteParameter() : 
     VClass(SVC_PASSENGER) {
 }
@@ -101,6 +105,9 @@ GNERouteHandler::GNERouteHandler::RouteParameter::setEdges(GNEViewNet* viewNet, 
     }
 }
 
+// ---------------------------------------------------------------------------
+// GNERouteHandler - methods
+// ---------------------------------------------------------------------------
 
 GNERouteHandler::GNERouteHandler(const std::string& file, GNEViewNet* viewNet, bool undoDemandElements) :
     SUMORouteHandler(file, ""),
@@ -1204,6 +1211,8 @@ GNERouteHandler::closeRoute(const bool /* mayBeDisconnected */) {
         // delete myVehicleParameter because at the end of this function closeVehicle()/closeFlow() will be called
         delete myVehicleParameter;
         myVehicleParameter = nullptr;
+    } else if (!SUMOXMLDefinitions::isValidVehicleID(myRouteParameter.routeID)) {
+        WRITE_ERROR(toString(SUMO_TAG_ROUTE) + " ID='" + myRouteParameter.routeID + "' contains invalid characters.");
     } else if (myViewNet->getNet()->retrieveDemandElement(SUMO_TAG_ROUTE, myRouteParameter.routeID, false) != nullptr) {
         WRITE_ERROR("There is another " + toString(SUMO_TAG_ROUTE) + " with the same ID='" + myRouteParameter.routeID + "'.");
     } else if (myRouteParameter.edges.size() == 0) {
