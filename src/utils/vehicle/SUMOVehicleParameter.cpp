@@ -150,6 +150,18 @@ SUMOVehicleParameter::write(OutputDevice& dev, const OptionsCont& oc, const Sumo
 }
 
 
+SUMOVehicleParameter::Stop::Stop() : 
+    Parameterised(),
+    startPos(0),
+    endPos(0),
+    duration(0),
+    until(0),
+    triggered(false),
+    containerTriggered(false),
+    parking(false) {
+}
+
+
 void
 SUMOVehicleParameter::Stop::write(OutputDevice& dev) const {
     dev.openTag(SUMO_TAG_STOP);
