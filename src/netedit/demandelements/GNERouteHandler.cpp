@@ -43,6 +43,65 @@
 // member method definitions
 // ===========================================================================
 
+GNERouteHandler::GNERouteHandler::RouteParameter::RouteParameter() : 
+    VClass(SVC_PASSENGER) {
+}
+
+
+GNERouteHandler::GNERouteHandler::RouteParameter::RouteParameter(GNEDemandElement* originalDemandElement) : 
+    routeID(originalDemandElement->getTagProperty().isRoute()? 
+            originalDemandElement->getID() : 
+            originalDemandElement->getViewNet()->getNet()->generateDemandElementID(originalDemandElement->getID(), SUMO_TAG_ROUTE)),
+    edges(originalDemandElement->getEdgeParents()),
+    color(originalDemandElement->getColor()),
+    VClass(originalDemandElement->getVClass()) {
+}
+
+
+void 
+GNERouteHandler::GNERouteHandler::RouteParameter::setEdges(GNEViewNet* viewNet, const std::string &edgeIDs) {
+    // clear edges
+    edges.clear();
+    // obtain edges (And show warnings if isn't valid)
+    if (GNEAttributeCarrier::canParse<std::vector<GNEEdge*> >(viewNet->getNet(), edgeIDs, true)) {
+        edges = GNEAttributeCarrier::parse<std::vector<GNEEdge*> >(viewNet->getNet(), edgeIDs);
+    }
+}
+
+
+void 
+GNERouteHandler::GNERouteHandler::RouteParameter::setEdges(GNEViewNet* viewNet, const std::string &vehicleID, const std::string &fromID, const std::string &toID, const std::string &viaIDs) {
+    // clear edges
+    edges.clear();
+    // only continue if at least one of the edges is defined
+    if((fromID.size() + toID.size()) > 0) {
+        // obtain from and to edges
+        GNEEdge* from = viewNet->getNet()->retrieveEdge(fromID, false);
+        GNEEdge* to = viewNet->getNet()->retrieveEdge(toID, false);
+        // check if edges are valid
+        if (from == nullptr) {
+            WRITE_ERROR("Invalid 'from' edge used in trip '" + vehicleID + "'.");
+        } else if (to == nullptr) {
+            WRITE_ERROR("Invalid 'to' edge used in trip '" + vehicleID + "'.");
+        } else if (!GNEAttributeCarrier::canParse<std::vector<GNEEdge*> >(viewNet->getNet(), viaIDs, false)) {
+            WRITE_ERROR("Invalid 'via' edges used in trip '" + vehicleID + "'.");
+        } else {
+            // obtain via
+            std::vector<GNEEdge*> viaEdges = GNEAttributeCarrier::parse<std::vector<GNEEdge*> >(viewNet->getNet(), viaIDs);
+            // build edges (from - via - to)
+            edges.push_back(from);
+            for (const auto& i : viaEdges) {
+                edges.push_back(i);
+            }
+            // check that from and to edge are different
+            if (from != to) {
+                edges.push_back(to);
+            }
+        }
+    }
+}
+
+
 GNERouteHandler::GNERouteHandler(const std::string& file, GNEViewNet* viewNet, bool undoDemandElements) :
     SUMORouteHandler(file, ""),
     myViewNet(viewNet),
@@ -175,7 +234,7 @@ GNERouteHandler::buildVehicleWithEmbeddedRoute(GNEViewNet* viewNet, bool undoDem
             // create vehicle or trips using myTemporalVehicleParameter without a route
             GNEVehicle* vehicle = new GNEVehicle(viewNet, vType, vehicleParameters);
             // creaste embedded route
-            GNERoute* embeddedRoute = new GNERoute(viewNet, vehicle, embeddedRouteCopy->getEdgeParents(), embeddedRouteCopy->getColor(), SVC_PASSENGER);
+            GNERoute* embeddedRoute = new GNERoute(viewNet, vehicle, RouteParameter(embeddedRouteCopy));
             // add both to net depending of myUndoDemandElements
             if (undoDemandElements) {
                 viewNet->getUndoList()->p_begin("add vehicle and " + embeddedRoute->getTagStr());
@@ -221,7 +280,7 @@ GNERouteHandler::buildFlowWithEmbeddedRoute(GNEViewNet* viewNet, bool undoDemand
             // create vehicle or trips using myTemporalVehicleParameter without a route
             GNEVehicle* flow = new GNEVehicle(viewNet, vType, vehicleParameters);
             // creaste embedded route
-            GNERoute* embeddedRoute = new GNERoute(viewNet, flow, embeddedRouteCopy->getEdgeParents(), embeddedRouteCopy->getColor(), SVC_PASSENGER);
+            GNERoute* embeddedRoute = new GNERoute(viewNet, flow, RouteParameter(embeddedRouteCopy));
             // add both to net depending of myUndoDemandElements
             if (undoDemandElements) {
                 viewNet->getUndoList()->p_begin("add vehicle and " + embeddedRoute->getTagStr());
@@ -808,11 +867,7 @@ GNERouteHandler::transformToVehicle(GNEVehicle* originalVehicle, bool createEmbe
             }
         } else if ((originalVehicle->getTagProperty().getTag() == SUMO_TAG_FLOW) || (originalVehicle->getTagProperty().getTag() == SUMO_TAG_TRIP)) {
                 // create route using values of originalVehicle flow/trip
-                GNERoute *route = new GNERoute(originalVehicle->getViewNet(), 
-                    originalVehicle->getViewNet()->getNet()->generateDemandElementID(originalVehicle->getID(), SUMO_TAG_ROUTE), 
-                    originalVehicle->getEdgeParents(), 
-                    originalVehicle->getColor(), 
-                    originalVehicle->getVClass());
+                GNERoute *route = new GNERoute(originalVehicle->getViewNet(), RouteParameter(originalVehicle));
                 // create Vehicle using values of original vehicle (including ID)
                 GNEVehicle *vehicle = new GNEVehicle(originalVehicle->getViewNet(), vType, route, newVehicleParameters);
                 // remove flow/trip (to avoid problem with ID)
@@ -872,11 +927,7 @@ GNERouteHandler::transformToRouteFlow(GNEVehicle* originalVehicle, bool createEm
             }
         } else if ((originalVehicle->getTagProperty().getTag() == SUMO_TAG_FLOW) || (originalVehicle->getTagProperty().getTag() == SUMO_TAG_TRIP)) {
                 // create route using values of originalVehicle flow/trip
-                GNERoute *route = new GNERoute(originalVehicle->getViewNet(), 
-                    originalVehicle->getViewNet()->getNet()->generateDemandElementID(originalVehicle->getID(), SUMO_TAG_ROUTE), 
-                    originalVehicle->getEdgeParents(), 
-                    originalVehicle->getColor(), 
-                    originalVehicle->getVClass());
+                GNERoute *route = new GNERoute(originalVehicle->getViewNet(), RouteParameter(originalVehicle));
                 // create flow using values of original vehicle (including ID)
                 GNEVehicle *flow = new GNEVehicle(originalVehicle->getViewNet(), vType, route, newVehicleParameters);
                 // remove flow/trip (to avoid problem with ID)
@@ -1025,10 +1076,7 @@ GNERouteHandler::embebbeRoute(GNEVehicle* vehicle, GNEUndoList* undoList) {
     // create a copy of vehicle with the same attributes but without embedded route
     GNEVehicle* vehicleWithEmbebbeRoute = new GNEVehicle(vehicle->getViewNet(), vehicle->getDemandElementParents().at(0), *vehicle);
     // create a embeddedRoute based on parameters of vehicle's route
-    GNERoute* embeddedRoute = new GNERoute(vehicleWithEmbebbeRoute->getViewNet(), vehicleWithEmbebbeRoute,
-        vehicle->getDemandElementParents().at(1)->getEdgeParents(),
-        vehicle->getDemandElementParents().at(1)->getColor(),
-        vehicle->getDemandElementParents().at(1)->getVClass());
+    GNERoute* embeddedRoute = new GNERoute(vehicleWithEmbebbeRoute->getViewNet(), vehicleWithEmbebbeRoute, RouteParameter(vehicle->getDemandElementParents().at(1)));
     // remove vehicle, but NOT route
     undoList->add(new GNEChange_DemandElement(vehicle, false), true);
     // now add bot vehicleWithEmbebbeRoute and embeddedRoute
@@ -1068,55 +1116,46 @@ GNERouteHandler::closeVehicleTypeDistribution() {
 
 void
 GNERouteHandler::openRoute(const SUMOSAXAttributes& attrs) {
+    // change abort flag
     myAbort = false;
     // parse attribute of routes
-    myRouteID = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", SUMO_TAG_ROUTE, SUMO_ATTR_ID, myAbort);
-    myEdgeIDs = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, myRouteID, SUMO_TAG_ROUTE, SUMO_ATTR_EDGES, myAbort);
-    myRouteColor = GNEAttributeCarrier::parseAttributeFromXML<RGBColor>(attrs, myRouteID, SUMO_TAG_ROUTE, SUMO_ATTR_COLOR, myAbort);
-
+    myRouteParameter.routeID = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", SUMO_TAG_ROUTE, SUMO_ATTR_ID, myAbort);
+    myRouteParameter.setEdges(myViewNet, GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, myRouteParameter.routeID, SUMO_TAG_ROUTE, SUMO_ATTR_EDGES, myAbort));
+    myRouteParameter.color = GNEAttributeCarrier::parseAttributeFromXML<RGBColor>(attrs, myRouteParameter.routeID, SUMO_TAG_ROUTE, SUMO_ATTR_COLOR, myAbort);
 }
 
 
 void
 GNERouteHandler::openFlow(const SUMOSAXAttributes& attrs) {
+    // change abort flag
     myAbort = false;
-    // parse attributes of Trips
-    myFromID = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", SUMO_TAG_TRIP, SUMO_ATTR_FROM, myAbort);
-    myToID = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", SUMO_TAG_TRIP, SUMO_ATTR_TO, myAbort);
-    // attribute VIA is optional
-    if (attrs.hasAttribute(SUMO_ATTR_VIA)) {
-        myViaIDs = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", SUMO_TAG_TRIP, SUMO_ATTR_VIA, myAbort);
-    } else {
-        myViaIDs.clear();
-    }
+    // parse flow attributes
+    myRouteParameter.setEdges(myViewNet, myVehicleParameter->id,
+        GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", SUMO_TAG_TRIP, SUMO_ATTR_FROM, myAbort),
+        GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", SUMO_TAG_TRIP, SUMO_ATTR_TO, myAbort),
+        GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", SUMO_TAG_TRIP, SUMO_ATTR_VIA, myAbort));
 }
 
 
 void
 GNERouteHandler::openTrip(const SUMOSAXAttributes& attrs) {
+    // change abort flag
     myAbort = false;
-    // parse attributes of Trips
-    myFromID = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", SUMO_TAG_TRIP, SUMO_ATTR_FROM, myAbort);
-    myToID = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", SUMO_TAG_TRIP, SUMO_ATTR_TO, myAbort);
-    // attribute VIA is optional
-    if (attrs.hasAttribute(SUMO_ATTR_VIA)) {
-        myViaIDs = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", SUMO_TAG_TRIP, SUMO_ATTR_VIA, myAbort);
-    } else {
-        myViaIDs.clear();
-    }
+    // parse trips attributes
+    myRouteParameter.setEdges(myViewNet, myVehicleParameter->id,
+        GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", SUMO_TAG_TRIP, SUMO_ATTR_FROM, myAbort),
+        GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", SUMO_TAG_TRIP, SUMO_ATTR_TO, myAbort),
+        GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", SUMO_TAG_TRIP, SUMO_ATTR_VIA, myAbort));
 }
 
 
 void
 GNERouteHandler::closeRoute(const bool /* mayBeDisconnected */) {
-    // obtain edges (And show warnings if isn't valid)
-    std::vector<GNEEdge*> edges;
-    if (GNEAttributeCarrier::canParse<std::vector<GNEEdge*> >(myViewNet->getNet(), myEdgeIDs, true)) {
-        edges = GNEAttributeCarrier::parse<std::vector<GNEEdge*> >(myViewNet->getNet(), myEdgeIDs);
-    }
+    // first copy generic parameters from SUMORouteHanlder to myRouteParameter
+    myRouteParameter.genericParameters = myLoadedParameterised;
     // we have two possibilities: Either create a route with their own ID, or create a route within a vehicle
     if (myVehicleParameter) {
-        if (edges.size() == 0) {
+        if (myRouteParameter.edges.size() == 0) {
             WRITE_ERROR("A route needs at least one edge. Vehicle with ID='" + myVehicleParameter->id + "' cannot be created");
         } else {
             // obtain vType
@@ -1131,7 +1170,7 @@ GNERouteHandler::closeRoute(const bool /* mayBeDisconnected */) {
                 // create vehicle or trips using myTemporalVehicleParameter without a route
                 GNEVehicle* vehicleOrRouteFlow = new GNEVehicle(myViewNet, vType, *myVehicleParameter);
                 // creaste embedded route
-                GNERoute* embeddedRoute = new GNERoute(myViewNet, vehicleOrRouteFlow, edges, myRouteColor, SVC_PASSENGER);
+                GNERoute* embeddedRoute = new GNERoute(myViewNet, vehicleOrRouteFlow, myRouteParameter);
                 // add both to net depending of myUndoDemandElements
                 if (myUndoDemandElements) {
                     myViewNet->getUndoList()->p_begin("add vehicle and " + embeddedRoute->getTagStr());
@@ -1150,7 +1189,7 @@ GNERouteHandler::closeRoute(const bool /* mayBeDisconnected */) {
                     vehicleOrRouteFlow->incRef("buildVehicleAndRoute");
                     // add route manually in net, and in all of their edges and in vehicleOrRouteFlow
                     myViewNet->getNet()->insertDemandElement(embeddedRoute);
-                    for (const auto& i : edges) {
+                    for (const auto& i : myRouteParameter.edges) {
                         i->addDemandElementChild(vehicleOrRouteFlow);
                     }
                     vehicleOrRouteFlow->addDemandElementChild(embeddedRoute);
@@ -1165,13 +1204,13 @@ GNERouteHandler::closeRoute(const bool /* mayBeDisconnected */) {
         // delete myVehicleParameter because at the end of this function closeVehicle()/closeFlow() will be called
         delete myVehicleParameter;
         myVehicleParameter = nullptr;
-    } else if (myViewNet->getNet()->retrieveDemandElement(SUMO_TAG_ROUTE, myRouteID, false) != nullptr) {
-        WRITE_ERROR("There is another " + toString(SUMO_TAG_ROUTE) + " with the same ID='" + myRouteID + "'.");
-    } else if (edges.size() == 0) {
+    } else if (myViewNet->getNet()->retrieveDemandElement(SUMO_TAG_ROUTE, myRouteParameter.routeID, false) != nullptr) {
+        WRITE_ERROR("There is another " + toString(SUMO_TAG_ROUTE) + " with the same ID='" + myRouteParameter.routeID + "'.");
+    } else if (myRouteParameter.edges.size() == 0) {
         WRITE_ERROR("A route needs at least one edge.");
     } else {
         // creaste GNERoute
-        GNERoute* route = new GNERoute(myViewNet, myRouteID, edges, myRouteColor, SVC_PASSENGER);
+        GNERoute* route = new GNERoute(myViewNet, myRouteParameter);
         if (myUndoDemandElements) {
             myViewNet->getUndoList()->p_begin("add " + route->getTagStr());
             myViewNet->getUndoList()->add(new GNEChange_DemandElement(route, true), true);
@@ -1182,7 +1221,7 @@ GNERouteHandler::closeRoute(const bool /* mayBeDisconnected */) {
             myViewNet->getUndoList()->p_end();
         } else {
             myViewNet->getNet()->insertDemandElement(route);
-            for (const auto& i : edges) {
+            for (const auto& i : myRouteParameter.edges) {
                 i->addDemandElementChild(route);
             }
             route->incRef("buildRoute");
@@ -1411,35 +1450,9 @@ GNERouteHandler::closeFlow() {
     // first check if myVehicleParameter was sucesfully created
     if(myVehicleParameter) {
         // check if we're creating a flow or a routeFlow over route
-        if(!myFromID.empty() || !myToID.empty()) {
-            // force reroute
-            myVehicleParameter->parametersSet |= VEHPARS_FORCE_REROUTE;
-            // obtain from and to edges
-            GNEEdge* from = myViewNet->getNet()->retrieveEdge(myFromID, false);
-            GNEEdge* to = myViewNet->getNet()->retrieveEdge(myToID, false);
-            // check if edges are valid
-            if (from == nullptr) {
-                WRITE_ERROR("Invalid 'from' edge used in routeFlow '" + myVehicleParameter->id + "'.");
-            } else if (to == nullptr) {
-                WRITE_ERROR("Invalid 'to' edge used in routeFlow '" + myVehicleParameter->id + "'.");
-            } else if (!GNEAttributeCarrier::canParse<std::vector<GNEEdge*> >(myViewNet->getNet(), myEdgeIDs, false)) {
-                WRITE_ERROR("Invalid 'via' edges used in routeFlow '" + myVehicleParameter->id + "'.");
-            } else {
-                // obtain via
-                std::vector<GNEEdge*> viaEdges = GNEAttributeCarrier::parse<std::vector<GNEEdge*> >(myViewNet->getNet(), myViaIDs);
-                // build edges (from - via - to)
-                std::vector<GNEEdge*> edges;
-                edges.push_back(from);
-                for (const auto& i : viaEdges) {
-                    edges.push_back(i);
-                }
-                // check that from and to edge are different
-                if (from != to) {
-                    edges.push_back(to);
-                }
-                // build flow
-                buildFlow(myViewNet, true, *myVehicleParameter, edges);
-            }
+        if (myRouteParameter.edges.size() > 0) {
+            // build flow
+            buildFlow(myViewNet, true, *myVehicleParameter, myRouteParameter.edges);
         } else {
             // build flow over route
             buildFlowOverRoute(myViewNet, myUndoDemandElements, *myVehicleParameter);
@@ -1451,35 +1464,11 @@ GNERouteHandler::closeFlow() {
 void
 GNERouteHandler::closeTrip() {
     // first check if myVehicleParameter was sucesfully created
-    if(myVehicleParameter) {
+    if(myVehicleParameter && (myRouteParameter.edges.size() > 0)) {
         // force reroute
         myVehicleParameter->parametersSet |= VEHPARS_FORCE_REROUTE;
-        // obtain from and to edges
-        GNEEdge* from = myViewNet->getNet()->retrieveEdge(myFromID, false);
-        GNEEdge* to = myViewNet->getNet()->retrieveEdge(myToID, false);
-        // check if edges are valid
-        if (from == nullptr) {
-            WRITE_ERROR("Invalid 'from' edge used in trip '" + myVehicleParameter->id + "'.");
-        } else if (to == nullptr) {
-            WRITE_ERROR("Invalid 'to' edge used in trip '" + myVehicleParameter->id + "'.");
-        } else if (!GNEAttributeCarrier::canParse<std::vector<GNEEdge*> >(myViewNet->getNet(), myEdgeIDs, false)) {
-            WRITE_ERROR("Invalid 'via' edges used in trip '" + myVehicleParameter->id + "'.");
-        } else {
-            // obtain via
-            std::vector<GNEEdge*> viaEdges = GNEAttributeCarrier::parse<std::vector<GNEEdge*> >(myViewNet->getNet(), myViaIDs);
-            // build edges (from - via - to)
-            std::vector<GNEEdge*> edges;
-            edges.push_back(from);
-            for (const auto& i : viaEdges) {
-                edges.push_back(i);
-            }
-            // check that from and to edge are different
-            if (from != to) {
-                edges.push_back(to);
-            }
-            // build trip
-            buildTrip(myViewNet, true, *myVehicleParameter, edges);
-        }
+        // build trip
+        buildTrip(myViewNet, true, *myVehicleParameter, myRouteParameter.edges);
     }
 }
 
@@ -1494,8 +1483,9 @@ GNERouteHandler::addStop(const SUMOSAXAttributes& attrs) {
     } else {
         errorSuffix = " in route '" + myActiveRouteID + "'.";
     }
-    bool ok = parseStop(stop.stopParameters, attrs, errorSuffix, MsgHandler::getErrorInstance());
-    if (!ok) {
+    // try to parse stop
+    myAbort = parseStop(stop.stopParameters, attrs, errorSuffix, MsgHandler::getErrorInstance());
+    if (!myAbort) {
         return;
     }
     // try to parse the assigned bus stop
@@ -1515,10 +1505,10 @@ GNERouteHandler::addStop(const SUMOSAXAttributes& attrs) {
     } else {
         // no, the lane and the position should be given
         // get the lane
-        stop.stopParameters.lane = attrs.getOpt<std::string>(SUMO_ATTR_LANE, nullptr, ok, "");
+        stop.stopParameters.lane = attrs.getOpt<std::string>(SUMO_ATTR_LANE, nullptr, myAbort, "");
         stop.laneStop = myViewNet->getNet()->retrieveLane(stop.stopParameters.lane, false);
         // check if lane is valid
-        if (ok && stop.stopParameters.lane != "") {
+        if (myAbort && stop.stopParameters.lane != "") {
             if (stop.laneStop == nullptr) {
                 WRITE_ERROR("The lane '" + stop.stopParameters.lane + "' for a stop is not known" + errorSuffix);
                 return;
@@ -1528,14 +1518,14 @@ GNERouteHandler::addStop(const SUMOSAXAttributes& attrs) {
             return;
         }
         // calculate start and end position
-        stop.stopParameters.endPos = attrs.getOpt<double>(SUMO_ATTR_ENDPOS, nullptr, ok, stop.laneStop->getLaneParametricLength());
+        stop.stopParameters.endPos = attrs.getOpt<double>(SUMO_ATTR_ENDPOS, nullptr, myAbort, stop.laneStop->getLaneParametricLength());
         if (attrs.hasAttribute(SUMO_ATTR_POSITION)) {
             WRITE_ERROR("Deprecated attribute 'pos' in description of stop" + errorSuffix);
-            stop.stopParameters.endPos = attrs.getOpt<double>(SUMO_ATTR_POSITION, nullptr, ok, stop.stopParameters.endPos);
+            stop.stopParameters.endPos = attrs.getOpt<double>(SUMO_ATTR_POSITION, nullptr, myAbort, stop.stopParameters.endPos);
         }
-        stop.stopParameters.startPos = attrs.getOpt<double>(SUMO_ATTR_STARTPOS, nullptr, ok, MAX2(0., stop.stopParameters.endPos - 2 * POSITION_EPS));
-        const bool friendlyPos = attrs.getOpt<bool>(SUMO_ATTR_FRIENDLY_POS, nullptr, ok, false);
-        if (!ok || !checkStopPos(stop.stopParameters.startPos, stop.stopParameters.endPos, stop.laneStop->getLaneParametricLength(), POSITION_EPS, friendlyPos)) {
+        stop.stopParameters.startPos = attrs.getOpt<double>(SUMO_ATTR_STARTPOS, nullptr, myAbort, MAX2(0., stop.stopParameters.endPos - 2 * POSITION_EPS));
+        const bool friendlyPos = attrs.getOpt<bool>(SUMO_ATTR_FRIENDLY_POS, nullptr, myAbort, false);
+        if (!myAbort || !checkStopPos(stop.stopParameters.startPos, stop.stopParameters.endPos, stop.laneStop->getLaneParametricLength(), POSITION_EPS, friendlyPos)) {
             WRITE_ERROR("Invalid start or end position for stop on lane '" + stop.stopParameters.lane + "'" + errorSuffix);
             return;
         }
@@ -1560,6 +1550,8 @@ GNERouteHandler::addPersonTrip(const SUMOSAXAttributes& attrs) {
     if (attrs.getObjectType() == "walk") {
         addWalk(attrs);
     } else {
+        // change abort flag
+        myAbort = false;
         // declare value for saving loaded values
         PersonPlansValues personTripValuesLoaded;
         // first set tag
@@ -1666,6 +1658,8 @@ GNERouteHandler::addPersonTrip(const SUMOSAXAttributes& attrs) {
 
 void
 GNERouteHandler::addWalk(const SUMOSAXAttributes& attrs) {
+    // change abort flag
+    myAbort = false;
     // declare value for saving loaded values
     PersonPlansValues walkValuesLoaded;
     // first set tag
@@ -1673,9 +1667,9 @@ GNERouteHandler::addWalk(const SUMOSAXAttributes& attrs) {
         // set tag
         walkValuesLoaded.tag = SUMO_TAG_WALK_EDGES;
         // parse edges
-        std::vector<std::string> edgeIDs = GNEAttributeCarrier::parseAttributeFromXML<std::vector<std::string> >(attrs, "", walkValuesLoaded.tag, SUMO_ATTR_EDGES, myAbort);
-        if (GNEAttributeCarrier::canParse<std::vector<GNEEdge*> >(myViewNet->getNet(), myEdgeIDs, true)) {
-            walkValuesLoaded.edges = GNEAttributeCarrier::parse<std::vector<GNEEdge*> >(myViewNet->getNet(), myEdgeIDs);
+        std::string edgeIDs = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", walkValuesLoaded.tag, SUMO_ATTR_EDGES, myAbort);
+        if (GNEAttributeCarrier::canParse<std::vector<GNEEdge*> >(myViewNet->getNet(), edgeIDs, true)) {
+            walkValuesLoaded.edges = GNEAttributeCarrier::parse<std::vector<GNEEdge*> >(myViewNet->getNet(), edgeIDs);
         }
         // extract rest of parameters
         if (attrs.hasAttribute(SUMO_ATTR_ARRIVALPOS)) {
@@ -1766,6 +1760,8 @@ GNERouteHandler::addContainer(const SUMOSAXAttributes& /*attrs*/) {
 
 void
 GNERouteHandler::addRide(const SUMOSAXAttributes& attrs) {
+    // change abort flag
+    myAbort = false;
     // declare value for saving loaded values
     PersonPlansValues rideValuesLoaded;
     // first set tag

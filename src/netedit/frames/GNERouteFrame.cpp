@@ -389,12 +389,16 @@ GNERouteFrame::ConsecutiveEdges::onCmdCreateRoute(FXObject*, FXSelector, void*) 
     } else if (myRouteEdges.size() > 0) {
         // obtain Color
         std::map<SumoXMLAttr, std::string> routeAttributes = myRouteFrameParent->myRouteAttributes->getAttributesAndValues(true);
+        // declare a route parameter
+        GNERouteHandler::RouteParameter routeParameters;
         // generate Route ID
-        std::string routeID = myRouteFrameParent->getViewNet()->getNet()->generateDemandElementID("", SUMO_TAG_ROUTE);
+        routeParameters.routeID = myRouteFrameParent->getViewNet()->getNet()->generateDemandElementID("", SUMO_TAG_ROUTE);
+        // fill rest of elements
+        routeParameters.color = GNEAttributeCarrier::parse<RGBColor>(routeAttributes.at(SUMO_ATTR_COLOR));
+        routeParameters.edges = myRouteEdges;
+        routeParameters.VClass = myRouteFrameParent->myRouteModeSelector->getCurrentVehicleClass();
         // create route
-        GNERoute* route = new GNERoute(myRouteFrameParent->getViewNet(), routeID, myRouteEdges, 
-                                       GNEAttributeCarrier::parse<RGBColor>(routeAttributes.at(SUMO_ATTR_COLOR)),
-                                       myRouteFrameParent->myRouteModeSelector->getCurrentVehicleClass());
+        GNERoute* route = new GNERoute(myRouteFrameParent->getViewNet(), routeParameters);
         // add it into GNENet using GNEChange_DemandElement (to allow undo-redo)
         myRouteFrameParent->getViewNet()->getUndoList()->p_begin("add " + route->getTagStr());
         myRouteFrameParent->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(route, true), true);
@@ -606,20 +610,21 @@ GNERouteFrame::NonConsecutiveEdges::onCmdCreateRoute(FXObject*, FXSelector, void
     if(!myRouteFrameParent->myRouteAttributes->areValuesValid()) {
         myRouteFrameParent->myRouteAttributes->showWarningMessage();
     } else if (mySelectedEdges.size() > 0) {
-        // obtain route edges
-        std::vector<GNEEdge*> routeEdges;
-        routeEdges.reserve(myTemporalRoute.size());
+        // declare a route parameter
+        GNERouteHandler::RouteParameter routeParameters;
+        routeParameters.edges.reserve(myTemporalRoute.size());
         for (const auto &i : myTemporalRoute) {
-            routeEdges.push_back(myRouteFrameParent->myViewNet->getNet()->retrieveEdge(i->getID()));
+            routeParameters.edges.push_back(myRouteFrameParent->myViewNet->getNet()->retrieveEdge(i->getID()));
         }
         // obtain Color
         std::map<SumoXMLAttr, std::string> routeAttributes = myRouteFrameParent->myRouteAttributes->getAttributesAndValues(true);
         // generate Route ID
-        std::string routeID = myRouteFrameParent->getViewNet()->getNet()->generateDemandElementID("", SUMO_TAG_ROUTE);
+        routeParameters.routeID = myRouteFrameParent->getViewNet()->getNet()->generateDemandElementID("", SUMO_TAG_ROUTE);
+        // fill rest of elements
+        routeParameters.color = GNEAttributeCarrier::parse<RGBColor>(routeAttributes.at(SUMO_ATTR_COLOR));
+        routeParameters.VClass = myRouteFrameParent->myRouteModeSelector->getCurrentVehicleClass();
         // create route
-        GNERoute* route = new GNERoute(myRouteFrameParent->getViewNet(), routeID, routeEdges, 
-                                       GNEAttributeCarrier::parse<RGBColor>(routeAttributes.at(SUMO_ATTR_COLOR)),
-                                       myRouteFrameParent->myRouteModeSelector->getCurrentVehicleClass());
+        GNERoute* route = new GNERoute(myRouteFrameParent->getViewNet(), routeParameters);
         // add it into GNENet using GNEChange_DemandElement (to allow undo-redo)
         myRouteFrameParent->getViewNet()->getUndoList()->p_begin("add " + route->getTagStr());
         myRouteFrameParent->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(route, true), true);

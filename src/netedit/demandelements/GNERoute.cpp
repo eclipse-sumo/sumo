@@ -46,7 +46,34 @@ FXDEFMAP(GNERoute::GNERoutePopupMenu) GNERoutePopupMenuMap[] = {
 FXIMPLEMENT(GNERoute::GNERoutePopupMenu, GUIGLObjectPopupMenu, GNERoutePopupMenuMap, ARRAYNUMBER(GNERoutePopupMenuMap))
 
 // ===========================================================================
-// method definitions
+// GNERoute::GNERoutePopupMenu - methods
+// ===========================================================================
+
+GNERoute::GNERoutePopupMenu::GNERoutePopupMenu(GUIMainWindow& app, GUISUMOAbstractView& parent, GUIGlObject& o) :
+    GUIGLObjectPopupMenu(app, parent, o) { 
+}
+
+
+GNERoute::GNERoutePopupMenu::~GNERoutePopupMenu() {}
+
+
+long
+GNERoute::GNERoutePopupMenu::onCmdApplyDistance(FXObject*, FXSelector, void*) {
+    GNERoute* route = static_cast<GNERoute*>(myObject);
+    GNEViewNet* viewNet = static_cast<GNEViewNet*>(myParent);
+    GNEUndoList* undoList =  route->myViewNet->getUndoList();
+    undoList->p_begin("apply distance along route");
+    double dist = (route->getEdgeParents().size() > 0)? route->getEdgeParents().front()->getNBEdge()->getDistance() : 0;
+    for (GNEEdge* edge : route->getEdgeParents()) {
+        undoList->p_add(new GNEChange_Attribute(edge, viewNet->getNet(), SUMO_ATTR_DISTANCE, toString(dist), true, edge->getAttribute(SUMO_ATTR_DISTANCE)));
+        dist += edge->getNBEdge()->getFinalLength();
+    }
+    undoList->p_end();
+    return 1;
+}
+
+// ===========================================================================
+// GNERoute - methods
 // ===========================================================================
 
 GNERoute::GNERoute(GNEViewNet* viewNet) :
@@ -57,19 +84,19 @@ GNERoute::GNERoute(GNEViewNet* viewNet) :
 }
 
 
-GNERoute::GNERoute(GNEViewNet* viewNet, const std::string& routeID, const std::vector<GNEEdge*>& edges, const RGBColor& color, const SUMOVehicleClass VClass) :
-    GNEDemandElement(routeID, viewNet, GLO_ROUTE, SUMO_TAG_ROUTE,
-    edges, {}, {}, {}, {}, {}, {}, {}, {}, {}),
-    myColor(color),
-    myVClass(VClass) {
+GNERoute::GNERoute(GNEViewNet* viewNet, const GNERouteHandler::RouteParameter &routeParameters) :
+    GNEDemandElement(routeParameters.routeID, viewNet, GLO_ROUTE, SUMO_TAG_ROUTE,
+    routeParameters.edges, {}, {}, {}, {}, {}, {}, {}, {}, {}),
+    myColor(routeParameters.color),
+    myVClass(routeParameters.VClass) {
 }
 
 
-GNERoute::GNERoute(GNEViewNet* viewNet, GNEDemandElement* vehicleParent, const std::vector<GNEEdge*>& edges, const RGBColor& color, const SUMOVehicleClass VClass) :
+GNERoute::GNERoute(GNEViewNet* viewNet, GNEDemandElement* vehicleParent, const GNERouteHandler::RouteParameter &routeParameters) :
     GNEDemandElement(viewNet->getNet()->generateDemandElementID("", SUMO_TAG_EMBEDDEDROUTE), viewNet, GLO_EMBEDDEDROUTE, SUMO_TAG_EMBEDDEDROUTE,
-    edges, {}, {}, {}, {vehicleParent}, {}, {}, {}, {}, {}),
-    myColor(color),
-    myVClass(VClass) {
+    routeParameters.edges, {}, {}, {}, {vehicleParent}, {}, {}, {}, {}, {}),
+    myColor(routeParameters.color),
+    myVClass(routeParameters.VClass) {
 }
 
 
@@ -137,6 +164,9 @@ GNERoute::writeDemandElement(OutputDevice& device) const {
             }
         }
     }
+    // write generic parameters
+    writeParams(device);
+    // close tag
     device.closeTag();
 }
 
@@ -473,33 +503,6 @@ GNERoute::setAttribute(SumoXMLAttr key, const std::string& value) {
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
-}
-
-// ===========================================================================
-// GNERoute::GNERoutePopupMenu - methods
-// ===========================================================================
-
-GNERoute::GNERoutePopupMenu::GNERoutePopupMenu(GUIMainWindow& app, GUISUMOAbstractView& parent, GUIGlObject& o) :
-    GUIGLObjectPopupMenu(app, parent, o) { 
-}
-
-
-GNERoute::GNERoutePopupMenu::~GNERoutePopupMenu() {}
-
-
-long
-GNERoute::GNERoutePopupMenu::onCmdApplyDistance(FXObject*, FXSelector, void*) {
-    GNERoute* route = static_cast<GNERoute*>(myObject);
-    GNEViewNet* viewNet = static_cast<GNEViewNet*>(myParent);
-    GNEUndoList* undoList =  route->myViewNet->getUndoList();
-    undoList->p_begin("apply distance along route");
-    double dist = (route->getEdgeParents().size() > 0)? route->getEdgeParents().front()->getNBEdge()->getDistance() : 0;
-    for (GNEEdge* edge : route->getEdgeParents()) {
-        undoList->p_add(new GNEChange_Attribute(edge, viewNet->getNet(), SUMO_ATTR_DISTANCE, toString(dist), true, edge->getAttribute(SUMO_ATTR_DISTANCE)));
-        dist += edge->getNBEdge()->getFinalLength();
-    }
-    undoList->p_end();
-    return 1;
 }
 
 /****************************************************************************/

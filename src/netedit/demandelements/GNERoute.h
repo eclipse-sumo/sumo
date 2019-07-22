@@ -22,8 +22,11 @@
 // included modules
 // ===========================================================================
 
-#include "GNEDemandElement.h"
 #include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
+
+#include "GNEDemandElement.h"
+#include "GNERouteHandler.h"
+
 
 // ===========================================================================
 // class declarations
@@ -37,7 +40,33 @@ class GNEVehicle;
 // ===========================================================================
 
 class GNERoute : public GNEDemandElement {
+
 public:
+
+    /// @brief class used in GUIGLObjectPopupMenu for routes
+    class GNERoutePopupMenu : public GUIGLObjectPopupMenu {
+        FXDECLARE(GNERoutePopupMenu)
+
+    public:
+        /** @brief Constructor
+         * @param[in] app The main window for instantiation of other windows
+         * @param[in] parent The parent view for changing it
+         * @param[in] o The object of interest
+         * @param[in, out] additionalVisualizations Information which additional visualisations are enabled (per view)
+         */
+        GNERoutePopupMenu(GUIMainWindow& app, GUISUMOAbstractView& parent, GUIGlObject& o);
+
+        /// @brief Destructor
+        ~GNERoutePopupMenu();
+
+        /// @brief Called to modify edge distance values along the route
+        long onCmdApplyDistance(FXObject*, FXSelector, void*);
+
+    protected:
+        /// @brief default constructor needed by FOX
+        GNERoutePopupMenu() {}
+    };
+
     /**@brief default constructor
      * @param[in] viewNet view in which this Route is placed
      */
@@ -45,21 +74,16 @@ public:
 
     /**@brief parameter constructor
      * @param[in] viewNet view in which this Route is placed
-     * @param[in] routeID unique route ID
-     * @param[in] edges list of consecutive edges of this route
-     * @param[in] color RGBColor of this route
-     * @param[in] VClass Vehicle Class that will be use this route (only for visualization)
+     * @param[in] routeParameters route parameters
      */
-    GNERoute(GNEViewNet* viewNet, const std::string& routeID, const std::vector<GNEEdge*>& edges, const RGBColor& color, const SUMOVehicleClass VClass);
+    GNERoute(GNEViewNet* viewNet, const GNERouteHandler::RouteParameter &routeParameters);
 
     /**@brief parameter constructor for embedded routes
      * @param[in] viewNet view in which this Route is placed
      * @param[in] vehicleParent vehicle parent of this embedded route
-     * @param[in] edges list of consecutive edges of this route
-     * @param[in] color RGBColor of this route
-     * @param[in] VClass Vehicle Class that will be use this route (only for visualization)
+     * @param[in] routeParameters route parameters
      */
-    GNERoute(GNEViewNet* viewNet, GNEDemandElement* vehicleParent, const std::vector<GNEEdge*>& edges, const RGBColor& color, const SUMOVehicleClass VClass);
+    GNERoute(GNEViewNet* viewNet, GNEDemandElement* vehicleParent, const GNERouteHandler::RouteParameter &routeParameters);
 
     /// @brief copy constructor (used to create a route based on the parameters of other GNERoute)
     GNERoute(GNEDemandElement* route);
@@ -188,30 +212,6 @@ public:
     std::string getHierarchyName() const;
     /// @}
     
-    class GNERoutePopupMenu : public GUIGLObjectPopupMenu {
-        FXDECLARE(GNERoutePopupMenu)
-    public:
-        /** @brief Constructor
-         * @param[in] app The main window for instantiation of other windows
-         * @param[in] parent The parent view for changing it
-         * @param[in] o The object of interest
-         * @param[in, out] additionalVisualizations Information which additional visualisations are enabled (per view)
-         */
-        GNERoutePopupMenu(GUIMainWindow& app, GUISUMOAbstractView& parent, GUIGlObject& o);
-
-        /// @brief Destructor
-        ~GNERoutePopupMenu();
-
-        /// @brief Called to modify edge distance values along the route
-        long onCmdApplyDistance(FXObject*, FXSelector, void*);
-
-
-    protected:
-        /// @brief default constructor needed by FOX
-        GNERoutePopupMenu() { }
-
-    };
-
 protected:
     /// @brief route color
     RGBColor myColor;
