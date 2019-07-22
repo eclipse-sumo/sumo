@@ -31,6 +31,7 @@
 #include <netedit/netelements/GNELane.h>
 #include <netedit/netelements/GNEEdge.h>
 #include <netedit/frames/GNESelectorFrame.h>
+#include <utils/common/StringTokenizer.h>
 #include <utils/gui/div/GUIGlobalSelection.h>
 
 #include "GNERide.h"
@@ -43,6 +44,7 @@
 GNERide::GNERide(GNEViewNet* viewNet, GNEDemandElement *personParent, const std::vector<GNEEdge*>& edges, double arrivalPosition, const std::vector<std::string> &lines) :
     GNEDemandElement(viewNet->getNet()->generateDemandElementID("", SUMO_TAG_RIDE_FROMTO), viewNet, GLO_RIDE, SUMO_TAG_RIDE_FROMTO,
     edges, {}, {}, {}, {personParent}, {}, {}, {}, {}, {}),
+    Parameterised(),
     myLines(lines),
     myArrivalPosition(arrivalPosition) {
 }
@@ -51,6 +53,7 @@ GNERide::GNERide(GNEViewNet* viewNet, GNEDemandElement *personParent, const std:
 GNERide::GNERide(GNEViewNet* viewNet, GNEDemandElement *personParent, const std::vector<GNEEdge*>& edges, GNEAdditional *busStop, const std::vector<std::string> &lines) :
     GNEDemandElement(viewNet->getNet()->generateDemandElementID("", SUMO_TAG_RIDE_BUSSTOP), viewNet, GLO_RIDE, SUMO_TAG_RIDE_BUSSTOP,
     edges, {}, {}, {busStop}, {personParent}, {}, {}, {}, {}, {}),
+    Parameterised(),
     myLines(lines),
     myArrivalPosition(-1) {
 }
@@ -403,6 +406,57 @@ GNERide::getHierarchyName() const {
         return "ride: " + getEdgeParents().front()->getID() + " -> " + getEdgeParents().back()->getID();
     } else {
         return "ride: " + getEdgeParents().front()->getID() + " -> " + getAdditionalParents().front()->getID();
+    }
+}
+
+
+std::string
+GNERide::getGenericParametersStr() const {
+    std::string result;
+    // Generate an string using the following structure: "key1=value1|key2=value2|...
+    for (auto i : getParametersMap()) {
+        result += i.first + "=" + i.second + "|";
+    }
+    // remove the last "|"
+    if (!result.empty()) {
+        result.pop_back();
+    }
+    return result;
+}
+
+
+std::vector<std::pair<std::string, std::string> >
+GNERide::getGenericParameters() const {
+    std::vector<std::pair<std::string, std::string> >  result;
+    // iterate over parameters map and fill result
+    for (auto i : getParametersMap()) {
+        result.push_back(std::make_pair(i.first, i.second));
+    }
+    return result;
+}
+
+
+void
+GNERide::setGenericParametersStr(const std::string& value) {
+    // clear parameters
+    clearParameter();
+    // separate value in a vector of string using | as separator
+    std::vector<std::string> parsedValues;
+    StringTokenizer stValues(value, "|", true);
+    while (stValues.hasNext()) {
+        parsedValues.push_back(stValues.next());
+    }
+    // check that parsed values (A=B)can be parsed in generic parameters
+    for (auto i : parsedValues) {
+        std::vector<std::string> parsedParameters;
+        StringTokenizer stParam(i, "=", true);
+        while (stParam.hasNext()) {
+            parsedParameters.push_back(stParam.next());
+        }
+        // Check that parsed parameters are exactly two and contains valid chracters
+        if (parsedParameters.size() == 2 && SUMOXMLDefinitions::isValidGenericParameterKey(parsedParameters.front()) && SUMOXMLDefinitions::isValidGenericParameterValue(parsedParameters.back())) {
+            setParameter(parsedParameters.front(), parsedParameters.back());
+        }
     }
 }
 

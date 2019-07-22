@@ -157,6 +157,19 @@ public:
     std::string getHierarchyName() const;
     /// @}
 
+    /// @name Functions related with Generic Parameters
+    /// @{
+    /// @brief return generic parameters in string format
+    std::string getGenericParametersStr() const;
+
+    /// @brief return generic parameters as vector of pairs format
+    std::vector<std::pair<std::string, std::string> > getGenericParameters() const;
+
+    /// @brief set generic parameters in string format
+    void setGenericParametersStr(const std::string& value);
+
+    /// @}
+
     /// @brief overwrite all values of GNEVehicleType with a SUMOVTypeParameter
     static void overwriteVType(GNEDemandElement* vType, SUMOVTypeParameter* newVTypeParameter, GNEUndoList* undoList);
 

@@ -551,7 +551,18 @@ public:
     /** @struct Stop
      * @brief Definition of vehicle stop (position and duration)
      */
-    struct Stop {
+    class Stop : public Parameterised {
+
+    public:
+        /// @brief constructor
+        Stop();
+
+        /** @brief Writes the stop as XML
+         *
+         * @param[in, out] dev The device to write into
+         * @exception IOError not yet implemented
+         */
+        void write(OutputDevice& dev) const;
 
         /// @brief The lane to stop at
         std::string lane;
@@ -609,13 +620,6 @@ public:
 
         /// @brief Information for the output which parameter were set
         int parametersSet = 0;
-
-        /** @brief Writes the stop as XML
-         *
-         * @param[in, out] dev The device to write into
-         * @exception IOError not yet implemented
-         */
-        void write(OutputDevice& dev) const;
     };
 
     /// @brief List of the stops the vehicle will make, TraCI may add entries here

@@ -2229,20 +2229,26 @@ GNENet::saveAdditionals(const std::string& filename) {
         // 1 -> Invalid stoppingPlaces and E2 fixed, friendlyPos enabled, or saved with invalid positions
         GNEDialog_FixAdditionalElements fixAdditionalElementsDialog(myViewNet, invalidSingleLaneAdditionals, invalidMultiLaneAdditionals);
         if (fixAdditionalElementsDialog.execute() == 0) {
-            // Here a console message
-            ;
+            // show debug information
+            WRITE_DEBUG("Additionals saving aborted");
         } else {
             saveAdditionalsConfirmed(filename);
+            // change value of flag
+            myAdditionalsSaved = true;
+            // show debug information
+            WRITE_DEBUG("Additionals saved after dialog");
         }
+        // update view
+        myViewNet->update();
         // set focus again in viewNet
         myViewNet->setFocus();
     } else {
         saveAdditionalsConfirmed(filename);
+        // change value of flag
+        myAdditionalsSaved = true;
+        // show debug information
+        WRITE_DEBUG("Additionals saved");
     }
-    // change value of flag
-    myAdditionalsSaved = true;
-    // show debug information
-    WRITE_DEBUG("Additionals saved");
 }
 
 
@@ -2370,26 +2376,32 @@ GNENet::saveDemandElements(const std::string& filename) {
             }
         }
     }
-    // if there are invalid StoppingPlaces or detectors, open GNEDialog_FixDemandElementPositions
+    // if there are invalid demand elements, open GNEDialog_FixDemandElements
     if (invalidSingleLaneDemandElements.size() > 0) {
-        // 0 -> Canceled Saving, with or whithout selecting invalid stopping places and E2
-        // 1 -> Invalid stoppingPlaces and E2 fixed, friendlyPos enabled, or saved with invalid positions
+        // 0 -> Canceled Saving, with or whithout selecting invalid demand elements
+        // 1 -> Invalid demand elements fixed, friendlyPos enabled, or saved with invalid positions
         GNEDialog_FixDemandElements fixDemandElementsDialog(myViewNet, invalidSingleLaneDemandElements);
         if (fixDemandElementsDialog.execute() == 0) {
-            // Here a console message
-            ;
+            // show debug information
+            WRITE_DEBUG("demand elements saving aborted");
         } else {
             saveDemandElementsConfirmed(filename);
+            // change value of flag
+            myDemandElementsSaved = true;
+            // show debug information
+            WRITE_DEBUG("demand elements saved after dialog");
         }
+        // update view
+        myViewNet->update();
         // set focus again in viewNet
         myViewNet->setFocus();
     } else {
         saveDemandElementsConfirmed(filename);
+        // change value of flag
+        myDemandElementsSaved = true;
+        // show debug information
+        WRITE_DEBUG("demand elements saved");
     }
-    // change value of flag
-    myDemandElementsSaved = true;
-    // show debug information
-    WRITE_DEBUG("DemandElements saved");
 }
 
 

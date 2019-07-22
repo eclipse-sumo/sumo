@@ -23,11 +23,11 @@
 
 #include <config.h>
 
-#include <utils/xml/SUMOXMLDefinitions.h>
-#include <utils/xml/SUMOSAXHandler.h>
 #include <utils/common/SUMOVehicleClass.h>
-#include <utils/xml/SUMOSAXAttributes.h>
 #include <utils/vehicle/SUMORouteHandler.h>
+#include <utils/xml/SUMOSAXAttributes.h>
+#include <utils/xml/SUMOSAXHandler.h>
+#include <utils/xml/SUMOXMLDefinitions.h>
 
 
 // ===========================================================================
@@ -50,6 +50,37 @@ class GNEUndoList;
 /// @brief Builds trigger objects for GNENet (busStops, chargingStations, detectors, etc..)
 class GNERouteHandler : public SUMORouteHandler {
 public:
+    /// @brief struct for saving route parameters
+    struct RouteParameter {
+
+        /// @brief constructor
+        RouteParameter();
+
+        /// @brief parameter constructor (use values of originalDemandElement)
+        RouteParameter(GNEDemandElement* originalDemandElement);
+
+        /// @brief set edges (list of consecutive edges)
+        void setEdges(GNEViewNet* viewNet, const std::string &edgeIDs);
+
+        /// @brief set edges (from, to and via edges)
+        void setEdges(GNEViewNet* viewNet, const std::string &vehicleID, const std::string &fromID, const std::string &toID, const std::string &viaIDs);
+
+        /// @brief string for saving parsed Route ID
+        std::string routeID;
+
+        /// @brief edges
+        std::vector<GNEEdge*> edges;
+
+        /// @brief string for saving parsed route colors
+        RGBColor color;
+
+        /// @brief VClass used by this route
+        SUMOVehicleClass VClass;
+
+        /// @brief generic parameters
+        Parameterised genericParameters;
+    };
+
     /// @brief Constructor
     GNERouteHandler(const std::string& file, GNEViewNet* viewNet, bool undoDemandElements = true);
 
@@ -285,32 +316,17 @@ private:
         SUMOVehicleParameter::Stop stopParameters;
     };
 
+    /// @brief pointer to View's Net
+    GNEViewNet* myViewNet;
+
     /// @brief container for person trips loaded values
     std::vector<PersonPlansValues> myPersonPlanValues;
 
-    /// @brief flag used for parsing route attribute
+    /// @brief NETEDIT Route Parameters
+    RouteParameter myRouteParameter;
+
+    /// @brief flag used for parsing values
     bool myAbort;
-
-    /// @brief string for saving parsed Route ID
-    std::string myRouteID;
-
-    /// @brief string for saving parsed edges
-    std::string myEdgeIDs;
-
-    /// @brief string for saving parsed route colors
-    RGBColor myRouteColor;
-
-    /// @brief string for saving parsed from edge ID
-    std::string myFromID;
-
-    /// @brief string for saving parsed to edge ID
-    std::string myToID;
-
-    /// @brief string for saving parsed via edges IDs
-    std::string myViaIDs;
-
-    /// @brief pointer to View's Net
-    GNEViewNet* myViewNet;
 
     /// @brief flag to check if created demand elements must be undo and redo
     bool myUndoDemandElements;

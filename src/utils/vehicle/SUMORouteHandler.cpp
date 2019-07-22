@@ -61,12 +61,6 @@ SUMORouteHandler::~SUMORouteHandler() {
 }
 
 
-SUMOTime
-SUMORouteHandler::getLastDepart() const {
-    return myLastDepart;
-}
-
-
 bool
 SUMORouteHandler::checkLastDepart() {
     if (myVehicleParameter->departProcedure == DEPART_GIVEN) {
@@ -96,31 +90,54 @@ void
 SUMORouteHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
     switch (element) {
         case SUMO_TAG_VEHICLE:
-            delete myVehicleParameter;
+            // delete if myVehicleParameter isn't null
+            if (myVehicleParameter) {
+                delete myVehicleParameter;
+            }
+            // create a new vehicle
             myVehicleParameter = SUMOVehicleParserHelper::parseVehicleAttributes(attrs);
             break;
         case SUMO_TAG_PERSON:
-            delete myVehicleParameter;
+            // delete if myVehicleParameter isn't null
+            if (myVehicleParameter) {
+                delete myVehicleParameter;
+            }
+            // create a new person
             myVehicleParameter = SUMOVehicleParserHelper::parseVehicleAttributes(attrs, false, false, true);
             addPerson(attrs);
             break;
         case SUMO_TAG_CONTAINER:
-            delete myVehicleParameter;
+            // delete if myVehicleParameter isn't null
+            if (myVehicleParameter) {
+                delete myVehicleParameter;
+            }
+            // create a new container
             myVehicleParameter = SUMOVehicleParserHelper::parseVehicleAttributes(attrs);
             addContainer(attrs);
             break;
         case SUMO_TAG_FLOW:
-            delete myVehicleParameter;
+            // delete if myVehicleParameter isn't null
+            if (myVehicleParameter) {
+                delete myVehicleParameter;
+            }
             myVehicleParameter = SUMOVehicleParserHelper::parseFlowAttributes(attrs, myBeginDefault, myEndDefault);
             // open a flow
             openTrip(attrs);
             break;
         case SUMO_TAG_PERSONFLOW:
-            delete myVehicleParameter;
+            // delete if myVehicleParameter isn't null
+            if (myVehicleParameter) {
+                delete myVehicleParameter;
+            }
+            // create a new flow
             myVehicleParameter = SUMOVehicleParserHelper::parseFlowAttributes(attrs, myBeginDefault, myEndDefault, true);
             break;
         case SUMO_TAG_VTYPE:
-            // XXX: Where is this deleted? Delegated to subclasses?! MSRouteHandler takes care of this, in case of RORouteHandler this is not obvious. Consider introduction of a shared_ptr
+            // delete if myCurrentVType isn't null
+            if (myCurrentVType) {
+                delete myCurrentVType;
+            }
+            // create a new vType
             myCurrentVType = SUMOVehicleParserHelper::beginVTypeParsing(attrs, getFileName());
             break;
         case SUMO_TAG_VTYPE_DISTRIBUTION:
@@ -136,6 +153,10 @@ SUMORouteHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
             addStop(attrs);
             break;
         case SUMO_TAG_TRIP: {
+            // delete if myVehicleParameter isn't null
+            if (myVehicleParameter) {
+                delete myVehicleParameter;
+            }
             myVehicleParameter = SUMOVehicleParserHelper::parseVehicleAttributes(attrs, true);
             if (myVehicleParameter->id == "") {
                 WRITE_WARNING("Omitting trip ids is deprecated!");
@@ -192,6 +213,8 @@ SUMORouteHandler::myEndElement(int element) {
             break;
         case SUMO_TAG_VTYPE:
             closeVType();
+            delete myCurrentVType;
+            myCurrentVType = nullptr;
             break;
         case SUMO_TAG_PERSON:
             closePerson();
@@ -288,16 +311,31 @@ SUMORouteHandler::checkStopPos(double& startPos, double& endPos, const double la
 }
 
 
+SUMOTime 
+SUMORouteHandler::getFirstDepart() const {
+    return myFirstDepart;
+}
+
+
+SUMOTime
+SUMORouteHandler::getLastDepart() const {
+    return myLastDepart;
+}
+
+
 void
 SUMORouteHandler::addParam(const SUMOSAXAttributes& attrs) {
     bool ok = true;
     const std::string key = attrs.get<std::string>(SUMO_ATTR_KEY, nullptr, ok);
     // circumventing empty string test
     const std::string val = attrs.hasAttribute(SUMO_ATTR_VALUE) ? attrs.getString(SUMO_ATTR_VALUE) : "";
+    // add parameter in current created element, or in myLoadedParameterised
     if (myVehicleParameter != nullptr) {
         myVehicleParameter->setParameter(key, val);
     } else if (myCurrentVType != nullptr) {
         myCurrentVType->setParameter(key, val);
+    } else {
+        myLoadedParameterised.setParameter(key, val);
     }
 }
 

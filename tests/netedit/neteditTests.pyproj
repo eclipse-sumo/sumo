@@ -560,6 +560,9 @@
     <Compile Include="demandElements\route\create_nonconsecutive\remove_last_button\test.py" />
     <Compile Include="demandElements\route\create_nonconsecutive\single_edge\test.py" />
     <Compile Include="demandElements\route\delete\test.py" />
+    <Compile Include="demandElements\route\fix\remove\test.py" />
+    <Compile Include="demandElements\route\fix\save\test.py" />
+    <Compile Include="demandElements\route\fix\select\test.py" />
     <Compile Include="demandElements\route\inspect\color\test.py" />
     <Compile Include="demandElements\route\inspect\edges\test.py" />
     <Compile Include="demandElements\route\inspect\genericparameters\test.py" />
@@ -1720,6 +1723,10 @@
     <Folder Include="demandElements\route\create_nonconsecutive\single_edge" />
     <Folder Include="demandElements\route\delete\" />
     <Folder Include="demandElements\route\delete\default" />
+    <Folder Include="demandElements\route\fix\" />
+    <Folder Include="demandElements\route\fix\remove\" />
+    <Folder Include="demandElements\route\fix\save\" />
+    <Folder Include="demandElements\route\fix\select\" />
     <Folder Include="demandElements\route\inspect\" />
     <Folder Include="demandElements\route\inspect\color" />
     <Folder Include="demandElements\route\inspect\edges" />

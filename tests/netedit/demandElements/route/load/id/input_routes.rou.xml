@@ -37,6 +37,9 @@
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
 
+	<!-- valid id -->
+    <route edges="gneE2 gneE4 gneE5" color="blue" id="route_0"/>
+	
 	<!-- non valid id (missing)-->
     <route edges="gneE2 gneE4 gneE5" color="blue"/>
 	
@@ -44,11 +47,9 @@
     <route edges="gneE2 gneE4 gneE5" color="blue" id=""/>
 	
 	<!-- non valid id (invalid characters)-->
-    <route edges="gneE2 gneE4 gneE5" color="blue" id="%%$$$%&$$%"/>
-	
-	<!-- valid id (missing)-->
-    <route edges="gneE2 gneE4 gneE5" color="blue" id="route_0"/>
-	
+    <route edges="gneE2 gneE4 gneE5" color="blue" id="%%$$$%  $$%"/>
+
 	<!-- non valid id (duplicated)-->
     <route edges="gneE2 gneE4 gneE5" color="blue" id="route_0"/>
+	
 </routes>
