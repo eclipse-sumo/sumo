@@ -797,8 +797,6 @@ MSRouteHandler::addFlowPerson(SUMOTime depart, MSVehicleType* type, const std::s
 void
 MSRouteHandler::closeVType() {
     MSVehicleType* vehType = MSVehicleType::build(*myCurrentVType);
-    delete myCurrentVType;
-    myCurrentVType = nullptr;
     if (!MSNet::getInstance()->getVehicleControl().addVType(vehType)) {
         const std::string id = vehType->getID();
         delete vehType;
