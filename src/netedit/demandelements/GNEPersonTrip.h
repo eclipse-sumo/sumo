@@ -22,8 +22,9 @@
 // included modules
 // ===========================================================================
 
-#include "GNEDemandElement.h"
 #include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
+
+#include "GNEDemandElement.h"
 
 // ===========================================================================
 // class declarations
@@ -36,7 +37,7 @@ class GNEVehicle;
 // class definitions
 // ===========================================================================
 
-class GNEPersonTrip : public GNEDemandElement {
+class GNEPersonTrip : public GNEDemandElement, public Parameterised {
 
 public:
     /**@brief parameter constructor
@@ -183,6 +184,19 @@ public:
 
     /// @brief get Hierarchy Name (Used in AC Hierarchy)
     std::string getHierarchyName() const;
+    /// @}
+
+    /// @name Functions related with Generic Parameters
+    /// @{
+    /// @brief return generic parameters in string format
+    std::string getGenericParametersStr() const;
+
+    /// @brief return generic parameters as vector of pairs format
+    std::vector<std::pair<std::string, std::string> > getGenericParameters() const;
+
+    /// @brief set generic parameters in string format
+    void setGenericParametersStr(const std::string& value);
+
     /// @}
 
 protected:
