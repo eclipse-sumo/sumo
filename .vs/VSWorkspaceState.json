@@ -2,14 +2,12 @@
   "ExpandedNodes": [
     "",
     "\\src",
+    "\\src\\gui",
+    "\\src\\guisim",
     "\\src\\microsim",
-    "\\src\\microsim\\lcmodels",
+    "\\src\\microsim\\cfmodels",
     "\\src\\utils",
-    "\\tests",
-    "\\tests\\sumo",
-    "\\tests\\sumo\\extended",
-    "\\tests\\sumo\\extended\\rerouter",
-    "\\tests\\sumo\\extended\\rerouter\\parking"
+    "\\src\\utils\\common"
   ],
   "SelectedNode": "\\src\\microsim\\MSVehicle.cpp",
   "PreviewInSolutionExplorer": false

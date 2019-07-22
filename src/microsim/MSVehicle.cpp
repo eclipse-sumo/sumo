@@ -1641,12 +1641,12 @@ MSVehicle::addStop(const SUMOVehicleParameter::Stop& stopPar, std::string& error
         if (collision) {
             if (distToStop < getCarFollowModel().brakeGap(myState.mySpeed, getCarFollowModel().getEmergencyDecel(), 0)) {
                 double vNew = getCarFollowModel().maximumSafeStopSpeed(distToStop, getSpeed(), false, 0);
-                //std::cout << SIMTIME << " veh=" << getID() << " v=" << myState.mySpeed << " distToStop=" << distToStop
-                //    << " vMinNex=" << getCarFollowModel().minNextSpeed(getSpeed(), this)
-                //    << " bg1=" << getCarFollowModel().brakeGap(myState.mySpeed)
-                //    << " bg2=" << getCarFollowModel().brakeGap(myState.mySpeed, getCarFollowModel().getEmergencyDecel(), 0)
-                //    << " vNew=" << vNew
-                //    << "\n";
+               //std::cout << SIMTIME << " veh=" << getID() << " v=" << myState.mySpeed << " distToStop=" << distToStop
+               //    << " vMinNex=" << getCarFollowModel().minNextSpeed(getSpeed(), this)
+               //    << " bg1=" << getCarFollowModel().brakeGap(myState.mySpeed)
+               //    << " bg2=" << getCarFollowModel().brakeGap(myState.mySpeed, getCarFollowModel().getEmergencyDecel(), 0)
+               //    << " vNew=" << vNew
+               //    << "\n";
                 myState.mySpeed = MIN2(myState.mySpeed, vNew + ACCEL2SPEED(getCarFollowModel().getEmergencyDecel()));
                 myState.myPos = MIN2(myState.myPos, stop.pars.endPos);
                 myCachedPosition = Position::INVALID;
@@ -2336,6 +2336,8 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
             if (stop.parkingarea != nullptr) {
                 // leave enough space so parking vehicles can exit
                 endPos = stop.parkingarea->getLastFreePosWithReservation(t, *this);
+                // catch scenario where parkingArea close to junction - breaks any rerouter as vehicle never enters lane if endPos<0
+                if (endPos < 0) endPos = POSITION_EPS;
             }
             myStopDist = seen + endPos - lane->getLength();
             // regular stops are not emergencies
@@ -3300,11 +3302,11 @@ MSVehicle::updateDriveItems() {
         std::cout << SIMTIME << " updateDriveItems(), veh='" << getID() << "' (lane: '" << getLane()->getID() << "')\nCurrent drive items:" << std::endl;
         DriveItemVector::iterator dpi;
         for (dpi = myLFLinkLanes.begin(); dpi != myLFLinkLanes.end(); ++dpi) {
-            std::cout
-                    << " vPass=" << dpi.myVLinkPass
-                    << " vWait=" << dpi.myVLinkWait
-                    << " linkLane=" << (dpi.myLink == 0 ? "NULL" : dpi.myLink->getViaLaneOrLane()->getID())
-                    << " request=" << dpi.mySetRequest
+            std::cout << std::setprecision(4)
+                    << " vPass=" << dpi->myVLinkPass
+                    << " vWait=" << dpi->myVLinkWait
+                    << " linkLane=" << (dpi->myLink == 0 ? "NULL" : dpi->myLink->getViaLaneOrLane()->getID())
+                    << " request=" << dpi->mySetRequest
                     << "\n";
         }
         std::cout << " myNextDriveItem's linked lane: " << (myNextDriveItem->myLink == 0 ? "NULL" : myNextDriveItem->myLink->getViaLaneOrLane()->getID()) << std::endl;
@@ -3436,10 +3438,10 @@ MSVehicle::updateDriveItems() {
         DriveItemVector::iterator dpi;
         for (dpi = myLFLinkLanes.begin(); dpi != myLFLinkLanes.end(); ++dpi) {
             std::cout
-                    << " vPass=" << dpi.myVLinkPass
-                    << " vWait=" << dpi.myVLinkWait
-                    << " linkLane=" << (dpi.myLink == 0 ? "NULL" : dpi.myLink->getViaLaneOrLane()->getID())
-                    << " request=" << dpi.mySetRequest
+                    << " vPass=" << dpi->myVLinkPass
+                    << " vWait=" << dpi->myVLinkWait
+                    << " linkLane=" << (dpi->myLink == 0 ? "NULL" : dpi->myLink->getViaLaneOrLane()->getID())
+                    << " request=" << dpi->mySetRequest
                     << "\n";
         }
     }
