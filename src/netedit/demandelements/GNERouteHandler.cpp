@@ -47,12 +47,12 @@
 // GNERouteHandler::RouteParameter - methods
 // ---------------------------------------------------------------------------
 
-GNERouteHandler::GNERouteHandler::RouteParameter::RouteParameter() : 
+GNERouteHandler::RouteParameter::RouteParameter() : 
     VClass(SVC_PASSENGER) {
 }
 
 
-GNERouteHandler::GNERouteHandler::RouteParameter::RouteParameter(GNEDemandElement* originalDemandElement) : 
+GNERouteHandler::RouteParameter::RouteParameter(GNEDemandElement* originalDemandElement) : 
     routeID(originalDemandElement->getTagProperty().isRoute()? 
             originalDemandElement->getID() : 
             originalDemandElement->getViewNet()->getNet()->generateDemandElementID(originalDemandElement->getID(), SUMO_TAG_ROUTE)),
@@ -63,7 +63,7 @@ GNERouteHandler::GNERouteHandler::RouteParameter::RouteParameter(GNEDemandElemen
 
 
 void 
-GNERouteHandler::GNERouteHandler::RouteParameter::setEdges(GNEViewNet* viewNet, const std::string &edgeIDs) {
+GNERouteHandler::RouteParameter::setEdges(GNEViewNet* viewNet, const std::string &edgeIDs) {
     // clear edges
     edges.clear();
     // obtain edges (And show warnings if isn't valid)
@@ -74,7 +74,7 @@ GNERouteHandler::GNERouteHandler::RouteParameter::setEdges(GNEViewNet* viewNet, 
 
 
 void 
-GNERouteHandler::GNERouteHandler::RouteParameter::setEdges(GNEViewNet* viewNet, const std::string &vehicleID, const std::string &fromID, const std::string &toID, const std::string &viaIDs) {
+GNERouteHandler::RouteParameter::setEdges(GNEViewNet* viewNet, const std::string &vehicleID, const std::string &fromID, const std::string &toID, const std::string &viaIDs) {
     // clear edges
     edges.clear();
     // only continue if at least one of the edges is defined
