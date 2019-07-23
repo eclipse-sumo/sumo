@@ -210,23 +210,28 @@ GUIGlChildWindow::onCmdEditViewScheme(FXObject*, FXSelector, void*) {
 
 long
 GUIGlChildWindow::onCmdShowToolTips(FXObject* sender, FXSelector, void*) {
-    MFXCheckableButton* button = static_cast<MFXCheckableButton*>(sender);
-    button->setChecked(!button->amChecked());
-    myView->showToolTips(button->amChecked());
-    update();
-    myView->update();
+    MFXCheckableButton* button = dynamic_cast<MFXCheckableButton*>(sender);
+    // check if button was sucesfully casted
+    if (button) {
+        button->setChecked(!button->amChecked());
+        myView->showToolTips(button->amChecked());
+        update();
+        myView->update();
+    }
     return 1;
 }
 
 
 long
 GUIGlChildWindow::onCmdZoomStyle(FXObject* sender, FXSelector, void*) {
-    MFXCheckableButton* button = static_cast<MFXCheckableButton*>(sender);
-    button->setChecked(!button->amChecked());
-    getApp()->reg().writeIntEntry("gui", "zoomAtCenter",
-                                  button->amChecked() ? 0 : 1);
-    update();
-    myView->update();
+    MFXCheckableButton* button = dynamic_cast<MFXCheckableButton*>(sender);
+    if (button) {
+        button->setChecked(!button->amChecked());
+        getApp()->reg().writeIntEntry("gui", "zoomAtCenter",
+                                      button->amChecked() ? 0 : 1);
+        update();
+        myView->update();
+    }
     return 1;
 }
 
