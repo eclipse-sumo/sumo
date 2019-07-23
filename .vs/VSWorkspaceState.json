@@ -2,13 +2,10 @@
   "ExpandedNodes": [
     "",
     "\\src",
-    "\\src\\gui",
-    "\\src\\guisim",
     "\\src\\microsim",
     "\\src\\microsim\\cfmodels",
-    "\\src\\utils",
-    "\\src\\utils\\common"
+    "\\src\\microsim\\trigger"
   ],
-  "SelectedNode": "\\src\\microsim\\MSVehicle.cpp",
+  "SelectedNode": "\\src\\microsim\\MSVehicleTransfer.cpp",
   "PreviewInSolutionExplorer": false
 }
