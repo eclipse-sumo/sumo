@@ -390,7 +390,7 @@ MSCFModel::estimateArrivalTime(double dist, double speed, double maxSpeed, doubl
     assert(speed >= 0.);
     assert(dist >= 0.);
 
-    if (dist == 0.) {
+    if (dist < NUMERICAL_EPS) {
         return 0.;
     }
 
@@ -399,7 +399,7 @@ MSCFModel::estimateArrivalTime(double dist, double speed, double maxSpeed, doubl
         return INVALID_DOUBLE;
     }
 
-    if (accel == 0.) {
+    if (fabs(accel) < NUMERICAL_EPS) {
         return dist / speed;
     }
 
