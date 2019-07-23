@@ -198,7 +198,7 @@ GNEVehicleType::getAttribute(SumoXMLAttr key) const {
     switch (key) {
         case SUMO_ATTR_ID:
             return getDemandElementID();
-        // CFM Values
+        // CFM Attributes
         case SUMO_ATTR_ACCEL:
         case SUMO_ATTR_DECEL:
         case SUMO_ATTR_APPARENTDECEL:
@@ -207,7 +207,7 @@ GNEVehicleType::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_TAU:
             // this CFM has default values
             return getCFParamString(key, myTagProperty.getDefaultValue(key));
-        // JM Values
+        // JM Attributes
         case SUMO_ATTR_JM_CROSSING_GAP:
         case SUMO_ATTR_JM_IGNORE_KEEPCLEAR_TIME:
         case SUMO_ATTR_JM_DRIVE_AFTER_YELLOW_TIME:
@@ -225,6 +225,27 @@ GNEVehicleType::getAttribute(SumoXMLAttr key) const {
             } else {
                 return myTagProperty.getDefaultValue(SUMO_ATTR_IMPATIENCE);
             }
+        // LCM Attributes
+        case SUMO_ATTR_LCA_STRATEGIC_PARAM:
+        case SUMO_ATTR_LCA_COOPERATIVE_PARAM:
+        case SUMO_ATTR_LCA_SPEEDGAIN_PARAM:
+        case SUMO_ATTR_LCA_KEEPRIGHT_PARAM:
+        case SUMO_ATTR_LCA_SUBLANE_PARAM:
+        case SUMO_ATTR_LCA_OPPOSITE_PARAM:
+        case SUMO_ATTR_LCA_PUSHY:
+        case SUMO_ATTR_LCA_PUSHYGAP:
+        case SUMO_ATTR_LCA_ASSERTIVE:
+        case SUMO_ATTR_LCA_IMPATIENCE:
+        case SUMO_ATTR_LCA_TIME_TO_IMPATIENCE:
+        case SUMO_ATTR_LCA_ACCEL_LAT:
+        case SUMO_ATTR_LCA_LOOKAHEADLEFT:
+        case SUMO_ATTR_LCA_SPEEDGAINRIGHT:
+        case SUMO_ATTR_LCA_MAXSPEEDLATSTANDING:
+        case SUMO_ATTR_LCA_MAXSPEEDLATFACTOR:
+        case SUMO_ATTR_LCA_TURN_ALIGNMENT_DISTANCE:
+        case SUMO_ATTR_LCA_OVERTAKE_RIGHT:
+        case SUMO_ATTR_LCA_EXPERIMENTAL1:
+            return getLCParamString(key, myTagProperty.getDefaultValue(key));
         //
         case SUMO_ATTR_COLLISION_MINGAP_FACTOR:
         case SUMO_ATTR_TMP1:
@@ -475,7 +496,7 @@ GNEVehicleType::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoL
         case SUMO_ATTR_ID:
             undoList->p_add(new GNEChange_Attribute(this, myViewNet->getNet(), key, value));
             break;
-        /// CFM Values
+        // CFM Attributes
         case SUMO_ATTR_ACCEL:
         case SUMO_ATTR_DECEL:
         case SUMO_ATTR_APPARENTDECEL:
@@ -499,7 +520,7 @@ GNEVehicleType::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoL
         case SUMO_ATTR_CF_KERNER_PHI:
         case SUMO_ATTR_CF_IDM_DELTA:
         case SUMO_ATTR_CF_IDM_STEPPING:
-        // JM Values
+        // JM Attributes
         case SUMO_ATTR_JM_CROSSING_GAP:
         case SUMO_ATTR_JM_IGNORE_KEEPCLEAR_TIME:
         case SUMO_ATTR_JM_DRIVE_AFTER_YELLOW_TIME:
@@ -510,6 +531,26 @@ GNEVehicleType::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoL
         case SUMO_ATTR_JM_SIGMA_MINOR:
         case SUMO_ATTR_JM_TIMEGAP_MINOR:
         case SUMO_ATTR_IMPATIENCE:
+        // LCM Attributes
+        case SUMO_ATTR_LCA_STRATEGIC_PARAM:
+        case SUMO_ATTR_LCA_COOPERATIVE_PARAM:
+        case SUMO_ATTR_LCA_SPEEDGAIN_PARAM:
+        case SUMO_ATTR_LCA_KEEPRIGHT_PARAM:
+        case SUMO_ATTR_LCA_SUBLANE_PARAM:
+        case SUMO_ATTR_LCA_OPPOSITE_PARAM:
+        case SUMO_ATTR_LCA_PUSHY:
+        case SUMO_ATTR_LCA_PUSHYGAP:
+        case SUMO_ATTR_LCA_ASSERTIVE:
+        case SUMO_ATTR_LCA_IMPATIENCE:
+        case SUMO_ATTR_LCA_TIME_TO_IMPATIENCE:
+        case SUMO_ATTR_LCA_ACCEL_LAT:
+        case SUMO_ATTR_LCA_LOOKAHEADLEFT:
+        case SUMO_ATTR_LCA_SPEEDGAINRIGHT:
+        case SUMO_ATTR_LCA_MAXSPEEDLATSTANDING:
+        case SUMO_ATTR_LCA_MAXSPEEDLATFACTOR:
+        case SUMO_ATTR_LCA_TURN_ALIGNMENT_DISTANCE:
+        case SUMO_ATTR_LCA_OVERTAKE_RIGHT:
+        case SUMO_ATTR_LCA_EXPERIMENTAL1:
         //
         case SUMO_ATTR_LENGTH:
         case SUMO_ATTR_MINGAP:
@@ -572,7 +613,7 @@ GNEVehicleType::isValid(SumoXMLAttr key, const std::string& value) {
             } else {
                 return false;
             }
-        // CFM Values
+        // CFM Attributes
         case SUMO_ATTR_SIGMA:
             return canParse<double>(value) && (parse<double>(value) >= 0) && (parse<double>(value) <= 1);
         case SUMO_ATTR_ACCEL:
@@ -600,7 +641,7 @@ GNEVehicleType::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_TRAIN_TYPE:
             // rail string
             return SUMOXMLDefinitions::TrainTypes.hasString(value);
-        // JM Values
+        // JM Attributes
         case SUMO_ATTR_JM_CROSSING_GAP:
             return canParse<double>(value) && (parse<double>(value) >= 0);
         case SUMO_ATTR_JM_IGNORE_KEEPCLEAR_TIME:
@@ -629,6 +670,53 @@ GNEVehicleType::isValid(SumoXMLAttr key, const std::string& value) {
             return canParse<double>(value) && (parse<double>(value) >= 0);
         case SUMO_ATTR_IMPATIENCE:
             return canParse<double>(value) && (parse<double>(value) >= 0);
+        // LCM Attributes
+        case SUMO_ATTR_LCA_STRATEGIC_PARAM:
+            return canParse<double>(value) && (parse<double>(value) >= 0);
+        case SUMO_ATTR_LCA_COOPERATIVE_PARAM:
+            return canParse<double>(value) && (parse<double>(value) >= 0) && (parse<double>(value) <= 1);
+        case SUMO_ATTR_LCA_SPEEDGAIN_PARAM:
+            return canParse<double>(value) && (parse<double>(value) >= 0);
+        case SUMO_ATTR_LCA_KEEPRIGHT_PARAM:
+            return canParse<double>(value) && (parse<double>(value) >= 0);
+        case SUMO_ATTR_LCA_SUBLANE_PARAM:
+            return canParse<double>(value) && (parse<double>(value) >= 0);
+        case SUMO_ATTR_LCA_OPPOSITE_PARAM:
+            return canParse<double>(value) && (parse<double>(value) >= 0);
+        case SUMO_ATTR_LCA_PUSHY:
+            return canParse<double>(value) && (parse<double>(value) >= 0) && (parse<double>(value) <= 1);
+        case SUMO_ATTR_LCA_PUSHYGAP:
+            return canParse<double>(value) && (parse<double>(value) >= 0);
+        case SUMO_ATTR_LCA_ASSERTIVE:
+            return canParse<double>(value) && (parse<double>(value) > 0);
+        case SUMO_ATTR_LCA_IMPATIENCE:
+            return canParse<double>(value) && (parse<double>(value) >= -1) && (parse<double>(value) <= 1);
+        case SUMO_ATTR_LCA_TIME_TO_IMPATIENCE:
+            if (value == "infity") {
+                return true;
+            } else {
+                return canParse<double>(value) && (parse<double>(value) >= 0) && (parse<double>(value) <= 1);
+            }
+        case SUMO_ATTR_LCA_ACCEL_LAT:
+            return canParse<double>(value) && (parse<double>(value) >= 0);
+        case SUMO_ATTR_LCA_LOOKAHEADLEFT:
+            return canParse<double>(value) && (parse<double>(value) >= 0);
+        case SUMO_ATTR_LCA_SPEEDGAINRIGHT:
+            return canParse<double>(value) && (parse<double>(value) >= 0);
+        case SUMO_ATTR_LCA_MAXSPEEDLATSTANDING:
+            if (value == "disabled") {
+                return true;
+            } else {
+                return canParse<double>(value) && (parse<double>(value) >= 0);
+            }
+        case SUMO_ATTR_LCA_MAXSPEEDLATFACTOR:
+            return canParse<double>(value) && (parse<double>(value) >= 0);
+        case SUMO_ATTR_LCA_TURN_ALIGNMENT_DISTANCE:
+            return canParse<double>(value) && (parse<double>(value) >= 0);
+        case SUMO_ATTR_LCA_OVERTAKE_RIGHT:
+            return canParse<double>(value) && (parse<double>(value) >= 0) && (parse<double>(value) <= 1);
+        case SUMO_ATTR_LCA_EXPERIMENTAL1:
+            return true;
         //
         case SUMO_ATTR_LENGTH:
             return canParse<double>(value) && (parse<double>(value) > 0);
@@ -1078,7 +1166,7 @@ GNEVehicleType::setAttribute(SumoXMLAttr key, const std::string& value) {
             changeDemandElementID(value);
             id = value;
             break;
-        // CFM Values
+        // CFM Attributes
         case SUMO_ATTR_ACCEL:
         case SUMO_ATTR_DECEL:
         case SUMO_ATTR_APPARENTDECEL:
@@ -1102,7 +1190,7 @@ GNEVehicleType::setAttribute(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_CF_KERNER_PHI:
         case SUMO_ATTR_CF_IDM_DELTA:
         case SUMO_ATTR_CF_IDM_STEPPING:
-            // empty values means that value isnt't set
+            // empty values means that value isn't set
             if (value.empty()) {
                 const auto it = cfParameter.find(key);
                 if (it != cfParameter.end()) {
@@ -1112,7 +1200,7 @@ GNEVehicleType::setAttribute(SumoXMLAttr key, const std::string& value) {
                 cfParameter[key] = value;
             }
             break;
-        // JM Values
+        // JM Attributes
         case SUMO_ATTR_JM_CROSSING_GAP:
         case SUMO_ATTR_JM_IGNORE_KEEPCLEAR_TIME:
         case SUMO_ATTR_JM_DRIVE_AFTER_YELLOW_TIME:
@@ -1122,7 +1210,7 @@ GNEVehicleType::setAttribute(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_JM_IGNORE_FOE_SPEED:
         case SUMO_ATTR_JM_SIGMA_MINOR:
         case SUMO_ATTR_JM_TIMEGAP_MINOR:
-            // empty values means that value isnt't set
+            // empty values means that value isn't set
             if (value.empty()) {
                 const auto it = jmParameter.find(key);
                 if (it != jmParameter.end()) {
@@ -1142,6 +1230,36 @@ GNEVehicleType::setAttribute(SumoXMLAttr key, const std::string& value) {
                 impatience = parse<double>(myTagProperty.getDefaultValue(key));
                 // unset parameter
                 parametersSet &= ~VTYPEPARS_IMPATIENCE_SET;
+            }
+            break;
+        // LCM Attributes
+        case SUMO_ATTR_LCA_STRATEGIC_PARAM:
+        case SUMO_ATTR_LCA_COOPERATIVE_PARAM:
+        case SUMO_ATTR_LCA_SPEEDGAIN_PARAM:
+        case SUMO_ATTR_LCA_KEEPRIGHT_PARAM:
+        case SUMO_ATTR_LCA_SUBLANE_PARAM:
+        case SUMO_ATTR_LCA_OPPOSITE_PARAM:
+        case SUMO_ATTR_LCA_PUSHY:
+        case SUMO_ATTR_LCA_PUSHYGAP:
+        case SUMO_ATTR_LCA_ASSERTIVE:
+        case SUMO_ATTR_LCA_IMPATIENCE:
+        case SUMO_ATTR_LCA_TIME_TO_IMPATIENCE:
+        case SUMO_ATTR_LCA_ACCEL_LAT:
+        case SUMO_ATTR_LCA_LOOKAHEADLEFT:
+        case SUMO_ATTR_LCA_SPEEDGAINRIGHT:
+        case SUMO_ATTR_LCA_MAXSPEEDLATSTANDING:
+        case SUMO_ATTR_LCA_MAXSPEEDLATFACTOR:
+        case SUMO_ATTR_LCA_TURN_ALIGNMENT_DISTANCE:
+        case SUMO_ATTR_LCA_OVERTAKE_RIGHT:
+        case SUMO_ATTR_LCA_EXPERIMENTAL1:
+            // empty values means that value isn't set
+            if (value.empty()) {
+                const auto it = lcParameter.find(key);
+                if (it != lcParameter.end()) {
+                    lcParameter.erase(it);
+                }
+            } else {
+                lcParameter[key] = value;
             }
             break;
         //
