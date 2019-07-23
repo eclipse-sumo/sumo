@@ -3395,7 +3395,7 @@ GNEAttributeCarrier::fillDemandElements() {
         // fill VType Junction Model Parameters (implemented in a separated function to improve code legibility)
         fillJunctionModelAttributes(currentTag);
         // fill VType Lane Change Model Parameters (implemented in a separated function to improve code legibility)
-        fillLaneChangingModelAttributes(currentTag);
+        // fillLaneChangingModelAttributes(currentTag); #5846
     }
     currentTag = SUMO_TAG_PTYPE;
     {
@@ -3571,7 +3571,7 @@ GNEAttributeCarrier::fillDemandElements() {
         // fill VType Junction Model Parameters (implemented in a separated function to improve code legibility)
         fillJunctionModelAttributes(currentTag);
         // fill VType Lane Change Model Parameters (implemented in a separated function to improve code legibility)
-        //fillLaneChangingModelAttributes(currentTag);
+        // fillLaneChangingModelAttributes(currentTag); #5846
     }
 }
 
