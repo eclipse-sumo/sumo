@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Wed Jul 17 18:57:34 2019 by Eclipse SUMO Version UNKNOWN
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+SPDX-License-Identifier: EPL-2.0
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+        <additional-files value="input_additional.add.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <tripinfo-output value="tripinfos.xml"/>
+        <stop-output value="stopinfos.xml"/>
+    </output>
+
+    <processing>
+        <default.speeddev value="0"/>
+        <modelparkingmanoeuver value="true"/>
+    </processing>
+
+    <report>
+        <verbose value="true"/>
+        <xml-validation value="never"/>
+        <duration-log.statistics value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+</configuration>
+-->
+
+<stops xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/stopinfo_file.xsd">
+    <stopinfo id="vehicle_0" type="passenger" lane="gneE13_0" pos="61.90" parking="1" started="20.00" ended="922.00" delay="-1.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" parkingArea="round0"/>
+    <stopinfo id="vehicle_1" type="truck" lane="gneE13_0" pos="64.16" parking="1" started="29.00" ended="931.00" delay="-1.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" parkingArea="round0"/>
+    <stopinfo id="vehicle_10" type="passenger" lane="gneE13_0" pos="81.41" parking="1" started="46.00" ended="948.00" delay="-1.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" parkingArea="round0"/>
+    <stopinfo id="vehicle_11" type="passenger" lane="gneE13_0" pos="81.83" parking="1" started="52.00" ended="954.00" delay="-1.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" parkingArea="round0"/>
+    <stopinfo id="vehicle_12" type="passenger" lane="gneE13_0" pos="101.20" parking="1" started="61.00" ended="963.00" delay="-1.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" parkingArea="round0"/>
+    <stopinfo id="vehicle_14" type="passenger" lane="gneE13_0" pos="121.45" parking="1" started="92.00" ended="994.00" delay="-1.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" parkingArea="round0"/>
+    <stopinfo id="vehicle_13" type="passenger" lane="gneE13_0" pos="100.93" parking="1" started="75.00" ended="994.00" delay="-1.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" parkingArea="round0"/>
+    <stopinfo id="vehicle_15" type="passenger" lane="gneE13_0" pos="122.09" parking="1" started="97.00" ended="1001.00" delay="-1.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" parkingArea="round0"/>
+    <stopinfo id="vehicle_16" type="passenger" lane="gneE13_0" pos="142.19" parking="1" started="116.00" ended="1018.00" delay="-1.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" parkingArea="round0"/>
+    <stopinfo id="vehicle_17" type="passenger" lane="gneE13_0" pos="140.23" parking="1" started="132.00" ended="1035.00" delay="-1.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" parkingArea="round0"/>
+    <stopinfo id="vehicle_18" type="passenger" lane="gneE13_0" pos="168.82" parking="1" started="143.00" ended="1045.00" delay="-1.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" parkingArea="round0"/>
+    <stopinfo id="vehicle_2" type="truck" lane="gneE13_0" pos="195.87" parking="1" started="160.00" ended="1062.00" delay="-1.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" parkingArea="round0"/>
+    <stopinfo id="vehicle_19" type="passenger" lane="gneE13_0" pos="168.50" parking="1" started="148.00" ended="1064.00" delay="-1.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" parkingArea="round0"/>
+    <stopinfo id="vehicle_3" type="passenger" lane="gneE13_0" pos="193.59" parking="1" started="173.00" ended="1085.00" delay="-1.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" parkingArea="round0"/>
+    <stopinfo id="vehicle_4" type="passenger" lane="gneE13_0" pos="212.26" parking="1" started="184.00" ended="1092.00" delay="-1.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" parkingArea="round0"/>
+    <stopinfo id="vehicle_5" type="truck" lane="gneE13_0" pos="211.99" parking="1" started="196.00" ended="1099.00" delay="-1.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" parkingArea="round0"/>
+    <stopinfo id="vehicle_6" type="passenger" lane="gneE13_0" pos="242.03" parking="1" started="214.00" ended="1116.00" delay="-1.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" parkingArea="round0"/>
+    <stopinfo id="vehicle_7" type="passenger" lane="gneE13_0" pos="243.24" parking="1" started="219.00" ended="1121.00" delay="-1.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" parkingArea="round0"/>
+    <stopinfo id="vehicle_8" type="passenger" lane="gneE13_0" pos="270.90" parking="1" started="239.00" ended="1141.00" delay="-1.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" parkingArea="round0"/>
+    <stopinfo id="vehicle_9" type="passenger" lane="gneE13_0" pos="269.37" parking="1" started="255.00" ended="1157.00" delay="-1.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" parkingArea="round0"/>
+</stops>

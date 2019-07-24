@@ -1,0 +1,15 @@
+# do not reroute
+base
+
+# reroute but keep the previous destination. Person plan remains unchanged
+keepDest
+
+# reroute but keep the previous destination. Person plan remains unchanged
+keepDest2
+
+# reroute and set a new destination. Person plan must adapt
+changeDest
+
+# reroute and set a new destination. Person plan must adapt.
+# New walking depart and arrival positin must take into account the new destination rather than the current position
+changeDest_longEdge
