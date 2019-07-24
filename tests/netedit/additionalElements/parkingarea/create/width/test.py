@@ -29,28 +29,28 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot, ['--g
 netedit.additionalMode()
 
 # select parkingArea
-netedit.changeAdditional("parkingArea")
+netedit.changeElement("parkingArea")
 
 # set invalid width (dummy)
-netedit.modifyAdditionalDefaultValue(6, "dummyWidth")
+netedit.changeDefaultValue(6, "dummyWidth")
 
 # try to create parkingArea in mode "reference left"
 netedit.leftClick(referencePosition, 220, 250)
 
 # set invalid width (empty)
-netedit.modifyAdditionalDefaultValue(6, "")
+netedit.changeDefaultValue(6, "")
 
 # try to create parkingArea in mode "reference left"
 netedit.leftClick(referencePosition, 220, 250)
 
 # set invalid width (negative)
-netedit.modifyAdditionalDefaultValue(6, "-3")
+netedit.changeDefaultValue(6, "-3")
 
 # try to create parkingArea in mode "reference left"
 netedit.leftClick(referencePosition, 220, 250)
 
 # set valid width
-netedit.modifyAdditionalDefaultValue(6, "2.5")
+netedit.changeDefaultValue(6, "2.5")
 
 # create parkingArea in mode "reference left"
 netedit.leftClick(referencePosition, 220, 250)

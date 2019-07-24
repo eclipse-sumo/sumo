@@ -43,7 +43,7 @@ netedit.typeEnter()
 netedit.vehicleMode()
 
 # set change boolean attribute
-netedit.modifyAdditionalDefaultBoolValue(16)
+netedit.changeDefaultBoolValue(16)
 
 # create vehicle
 netedit.leftClick(referencePosition, 274, 414)

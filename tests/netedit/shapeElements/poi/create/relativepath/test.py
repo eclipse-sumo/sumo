@@ -29,10 +29,10 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot, ['--g
 netedit.shapeMode()
 
 # go to shape mode
-netedit.changeShape("poi")
+netedit.changeElement("poi")
 
 # change save relative path
-netedit.modifyShapeDefaultBoolValue(9)
+netedit.changeDefaultBoolValue(9)
 
 # create poi
 netedit.leftClick(referencePosition, 100, 50)

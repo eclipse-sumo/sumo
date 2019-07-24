@@ -29,7 +29,7 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 netedit.additionalMode()
 
 # select vaporizer
-netedit.changeAdditional("vaporizer")
+netedit.changeElement("vaporizer")
 
 # create vaporizer
 netedit.leftClick(referencePosition, 250, 120)

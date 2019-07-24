@@ -32,35 +32,35 @@ netedit.setZoom("25", "0", "25")
 netedit.additionalMode()
 
 # select E3
-netedit.changeAdditional("e3Detector")
+netedit.changeElement("e3Detector")
 
 # set invalid frequency
-netedit.modifyAdditionalDefaultValue(2, "dummyFreq")
+netedit.changeDefaultValue(2, "dummyFreq")
 
 # try to create E3 with invalid frequency
 netedit.leftClick(referencePosition, 100, 100)
 
 # set invalid frequency (negative)
-netedit.modifyAdditionalDefaultValue(2, "-30")
+netedit.changeDefaultValue(2, "-30")
 
 # try to create E3 with different frequency
 netedit.leftClick(referencePosition, 100, 100)
 
 # set valid frequency
-netedit.modifyAdditionalDefaultValue(2, "150.5")
+netedit.changeDefaultValue(2, "150.5")
 
 # create E3 with valid frequency
 netedit.leftClick(referencePosition, 100, 100)
 
 # select entry detector
-netedit.changeAdditional("detEntry")
+netedit.changeElement("detEntry")
 
 # Create Entry and exit detectors for all E3 detectors (except for the first, that only have one Entry)
 netedit.leftClick(referencePosition, 100, 100)  # select E3
 netedit.leftClick(referencePosition, 300, 250)
 
 # select entry detector
-netedit.changeAdditional("detExit")
+netedit.changeElement("detExit")
 
 # Create Entry and exit detectors for all E3 detectors (except for the first, that only have one Entry)
 netedit.leftClick(referencePosition, 100, 100)  # select E3

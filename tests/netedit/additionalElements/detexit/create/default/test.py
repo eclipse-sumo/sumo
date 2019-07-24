@@ -32,20 +32,20 @@ netedit.setZoom("25", "0", "25")
 netedit.additionalMode()
 
 # select E3
-netedit.changeAdditional("e3Detector")
+netedit.changeElement("e3Detector")
 
 # create E3 with default parameters
 netedit.leftClick(referencePosition, 275, 50)
 
 # select Entry detector
-netedit.changeAdditional("detExit")
+netedit.changeElement("detExit")
 
 # Create Entry detector with default value
 netedit.leftClick(referencePosition, 275, 50)
 netedit.leftClick(referencePosition, 50, 200)
 
 # select Exit detector
-netedit.changeAdditional("detEntry")
+netedit.changeElement("detEntry")
 
 netedit.leftClick(referencePosition, 275, 50)
 netedit.leftClick(referencePosition, 350, 200)

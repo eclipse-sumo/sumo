@@ -29,28 +29,28 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot, ['--g
 netedit.additionalMode()
 
 # select E2
-netedit.changeAdditional("e2Detector")
+netedit.changeElement("e2Detector")
 
 # set invalid  lenght (dummy)
-netedit.modifyAdditionalDefaultValue(2, "dummyLenght")
+netedit.changeDefaultValue(2, "dummyLenght")
 
 # try to create E2 with invalid lenght
 netedit.leftClick(referencePosition, 250, 250)
 
 # set invalid  lenght (0)
-netedit.modifyAdditionalDefaultValue(2, "0")
+netedit.changeDefaultValue(2, "0")
 
 # try to create E2 with invalid lenght
 netedit.leftClick(referencePosition, 250, 250)
 
 # set invalid  lenght (negative)
-netedit.modifyAdditionalDefaultValue(2, "-12")
+netedit.changeDefaultValue(2, "-12")
 
 # try to create E2 with invalid lenght
 netedit.leftClick(referencePosition, 250, 250)
 
 # set valid lenght
-netedit.modifyAdditionalDefaultValue(2, "5")
+netedit.changeDefaultValue(2, "5")
 
 # create E2 with valid lenght
 netedit.leftClick(referencePosition, 250, 250)

@@ -43,13 +43,13 @@ netedit.typeEnter()
 netedit.vehicleMode()
 
 # set invalid vType
-netedit.modifyAdditionalDefaultValue(2, "blue")
+netedit.changeDefaultValue(2, "blue")
 
 # try to create vehicle
 netedit.leftClick(referencePosition, 274, 414)
 
 # set valid vType
-netedit.modifyAdditionalDefaultValue(2, "custom_vType")
+netedit.changeDefaultValue(2, "custom_vType")
 
 # create vehicle
 netedit.leftClick(referencePosition, 274, 414)

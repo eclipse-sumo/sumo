@@ -43,25 +43,25 @@ netedit.typeEnter()
 netedit.vehicleMode()
 
 # set invalid arrival lane
-netedit.modifyAdditionalDefaultValue(10, "dummyLane")
+netedit.changeDefaultValue(10, "dummyLane")
 
 # try to create vehicle
 netedit.leftClick(referencePosition, 274, 414)
 
 # set invalid arrival lane
-netedit.modifyAdditionalDefaultValue(10, "-12")
+netedit.changeDefaultValue(10, "-12")
 
 # try to create vehicle
 netedit.leftClick(referencePosition, 274, 414)
 
 # set valid arrival lane
-netedit.modifyAdditionalDefaultValue(10, "random")
+netedit.changeDefaultValue(10, "random")
 
 # create vehicle
 netedit.leftClick(referencePosition, 274, 414)
 
 # set valid arrival lane
-netedit.modifyAdditionalDefaultValue(10, "20")
+netedit.changeDefaultValue(10, "20")
 
 # create vehicle
 netedit.leftClick(referencePosition, 274, 414)

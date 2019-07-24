@@ -32,20 +32,20 @@ netedit.setZoom("25", "0", "25")
 netedit.additionalMode()
 
 # select E3
-netedit.changeAdditional("e3Detector")
+netedit.changeElement("e3Detector")
 
 # create E3
 netedit.leftClick(referencePosition, 100, 50)
 
 # select entry detector
-netedit.changeAdditional("detEntry")
+netedit.changeElement("detEntry")
 
 # Create Entry detector for E3
 netedit.selectAdditionalChild(6, 3)
 netedit.leftClick(referencePosition, 100, 200)
 
 # select Exit detector
-netedit.changeAdditional("detExit")
+netedit.changeElement("detExit")
 
 # Create Exit detector for E3
 netedit.selectAdditionalChild(6, 3)
@@ -59,20 +59,20 @@ netedit.undo(referencePosition, 3)
 netedit.additionalMode()
 
 # select E3
-netedit.changeAdditional("e3Detector")
+netedit.changeElement("e3Detector")
 
 # create E3
 netedit.leftClick(referencePosition, 100, 50)
 
 # select entry detector
-netedit.changeAdditional("detEntry")
+netedit.changeElement("detEntry")
 
 # Create Entry detector for E3
 netedit.selectAdditionalChild(6, 3)
 netedit.leftClick(referencePosition, 100, 200)
 
 # select Exit detector
-netedit.changeAdditional("detExit")
+netedit.changeElement("detExit")
 
 # Create Exit detector for E3
 netedit.selectAdditionalChild(6, 3)
@@ -86,14 +86,14 @@ netedit.undo(referencePosition, 2)
 netedit.additionalMode()
 
 # select entry detector
-netedit.changeAdditional("detEntry")
+netedit.changeElement("detEntry")
 
 # Create Entry detector for E3
 netedit.selectAdditionalChild(6, 3)
 netedit.leftClick(referencePosition, 100, 200)
 
 # select Exit detector
-netedit.changeAdditional("detExit")
+netedit.changeElement("detExit")
 
 # Create Exit detector for E3
 netedit.selectAdditionalChild(6, 3)

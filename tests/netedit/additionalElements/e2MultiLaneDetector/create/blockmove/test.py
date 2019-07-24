@@ -32,14 +32,14 @@ netedit.rebuildNetwork()
 netedit.additionalMode()
 
 # select E2
-netedit.changeAdditional("e2MultilaneDetector")
+netedit.changeElement("e2MultilaneDetector")
 
 # select lanes
 netedit.leftClick(referencePosition, 190, 255)
 netedit.leftClick(referencePosition, 440, 255)
 
 # Change block movement
-netedit.modifyAdditionalDefaultBoolValue(11)
+netedit.changeDefaultBoolValue(11)
 
 # create E2 with default parameters
 netedit.typeEnter()

@@ -29,22 +29,22 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 netedit.shapeMode()
 
 # go to shape mode
-netedit.changeShape("poiLane")
+netedit.changeElement("poiLane")
 
 # change width (invalid, dummy)
-netedit.modifyShapeDefaultValue(7, "dummyWidth")
+netedit.changeDefaultValue(7, "dummyWidth")
 
 # try to create poi
 netedit.leftClick(referencePosition, 150, 215)
 
 # change width (invalid, negative)
-netedit.modifyShapeDefaultValue(7, "-2")
+netedit.changeDefaultValue(7, "-2")
 
 # try to create poi
 netedit.leftClick(referencePosition, 200, 215)
 
 # change width (valid)
-netedit.modifyShapeDefaultValue(7, "2.5")
+netedit.changeDefaultValue(7, "2.5")
 
 # create poi
 netedit.leftClick(referencePosition, 250, 215)

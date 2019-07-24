@@ -29,10 +29,10 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 netedit.additionalMode()
 
 # select E1
-netedit.changeAdditional("e1Detector")
+netedit.changeElement("e1Detector")
 
 # Change block movement
-netedit.modifyAdditionalDefaultBoolValue(8)
+netedit.changeDefaultBoolValue(8)
 
 # create E1 with different block movement
 netedit.leftClick(referencePosition, 500, 250)

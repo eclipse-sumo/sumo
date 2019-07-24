@@ -32,7 +32,7 @@ netedit.setZoom("25", "0", "25")
 netedit.additionalMode()
 
 # select rerouter
-netedit.changeAdditional("rerouter")
+netedit.changeElement("rerouter")
 
 # select edge child
 netedit.selectAdditionalChild(12, 0)

@@ -29,16 +29,16 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot, ['--g
 netedit.additionalMode()
 
 # select vaporizer
-netedit.changeAdditional("vaporizer")
+netedit.changeElement("vaporizer")
 
 # set invalid start
-netedit.modifyAdditionalDefaultValue(2, "-12")
+netedit.changeDefaultValue(2, "-12")
 
 # try to create vaporizer
 netedit.leftClick(referencePosition, 250, 265)
 
 # set valid start
-netedit.modifyAdditionalDefaultValue(2, "10")
+netedit.changeDefaultValue(2, "10")
 
 # create vaporizer (camera will be moved)
 netedit.leftClick(referencePosition, 250, 265)

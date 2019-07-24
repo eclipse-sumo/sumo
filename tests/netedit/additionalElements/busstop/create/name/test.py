@@ -29,10 +29,10 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 netedit.additionalMode()
 
 # select busStop
-netedit.changeAdditional("busStop")
+netedit.changeElement("busStop")
 
 # set name
-netedit.modifyAdditionalDefaultValue(2, "custom bus stop name")
+netedit.changeDefaultValue(2, "custom bus stop name")
 
 # create busStop in mode "reference left"
 netedit.leftClick(referencePosition, 250, 250)

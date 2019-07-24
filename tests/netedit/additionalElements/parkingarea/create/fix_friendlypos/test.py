@@ -29,16 +29,16 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot, ['--g
 netedit.additionalMode()
 
 # select parkingArea
-netedit.changeAdditional("parkingArea")
+netedit.changeElement("parkingArea")
 
 # Change length
-netedit.modifyAdditionalDefaultValue(12, "30")
+netedit.changeDefaultValue(12, "30")
 
 # create a parkingArea in mode "reference left"
 netedit.leftClick(referencePosition, 500, 250)
 
 # change reference to "reference right"
-netedit.modifyAdditionalDefaultValue(10, "reference right")
+netedit.changeDefaultValue(10, "reference right")
 
 # create a parkingArea in mode "reference right"
 netedit.leftClick(referencePosition, 110, 250)

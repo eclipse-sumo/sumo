@@ -29,7 +29,7 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 netedit.shapeMode()
 
 # go to poly mode and select poly
-netedit.changeShape("poly")
+netedit.changeElement("poly")
 
 # create polygon
 netedit.createSquaredPoly(referencePosition, 100, 50, 100, True)

@@ -29,16 +29,16 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot, ['--g
 netedit.additionalMode()
 
 # select routeProbe
-netedit.changeAdditional("routeProbe")
+netedit.changeElement("routeProbe")
 
 # set invalid name
-netedit.modifyAdditionalDefaultValue(3, "\"\"\"")
+netedit.changeDefaultValue(3, "\"\"\"")
 
 # try to create RouteProbe with invalid name
 netedit.leftClick(referencePosition, 250, 235)
 
 # set valid name
-netedit.modifyAdditionalDefaultValue(3, "customName")
+netedit.changeDefaultValue(3, "customName")
 
 # create RouteProbe with valid name
 netedit.leftClick(referencePosition, 250, 235)

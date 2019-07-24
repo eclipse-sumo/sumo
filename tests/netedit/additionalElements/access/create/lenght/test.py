@@ -32,26 +32,26 @@ netedit.setZoom("25", "0", "25")
 netedit.additionalMode()
 
 # select BusStop
-netedit.changeAdditional("busStop")
+netedit.changeElement("busStop")
 
 # create BusStop with default parameters
 netedit.leftClick(referencePosition, 275, 250)
 
 # select Access detector
-netedit.changeAdditional("access")
+netedit.changeElement("access")
 netedit.selectAdditionalChild(7, 0)
 
 # set invalid lenght
-netedit.modifyAdditionalDefaultValue(2, "dummyLenght")
+netedit.changeDefaultValue(2, "dummyLenght")
 
 # set invalid lenght
-netedit.modifyAdditionalDefaultValue(2, "-4")
+netedit.changeDefaultValue(2, "-4")
 
 # Try to create Access
 netedit.leftClick(referencePosition, 50, 200)
 
 # set valid lenght
-netedit.modifyAdditionalDefaultValue(2, "3.5")
+netedit.changeDefaultValue(2, "3.5")
 
 # Create access
 netedit.leftClick(referencePosition, 50, 200)
