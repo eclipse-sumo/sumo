@@ -29,85 +29,85 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot, ['--g
 netedit.additionalMode()
 
 # select chargingStation
-netedit.changeAdditional("chargingStation")
+netedit.changeElement("chargingStation")
 
 # set name
-netedit.modifyAdditionalDefaultValue(2, "chargingStation")
+netedit.changeDefaultValue(2, "chargingStation")
 
 # set friendlyPos
-netedit.modifyAdditionalDefaultBoolValue(3)
+netedit.changeDefaultBoolValue(3)
 
 # set invalid charging power
-netedit.modifyAdditionalDefaultValue(4, "-200")
+netedit.changeDefaultValue(4, "-200")
 
 # try to create chargingStation in mode "reference left"
 netedit.leftClick(referencePosition, 250, 250)
 
 # set valid charging power
-netedit.modifyAdditionalDefaultValue(4, "12000")
+netedit.changeDefaultValue(4, "12000")
 
 # create chargingStation in mode "reference left"
 netedit.leftClick(referencePosition, 250, 250)
 
 # change reference to right
-netedit.modifyAdditionalDefaultValue(9, "reference right")
+netedit.changeDefaultValue(9, "reference right")
 
 # set invalid efficiency
-netedit.modifyAdditionalDefaultValue(5, "2")
+netedit.changeDefaultValue(5, "2")
 
 # try create chargingStation in mode "reference right"
 netedit.leftClick(referencePosition, 240, 250)
 
 # set valid efficiency
-netedit.modifyAdditionalDefaultValue(5, "0.3")
+netedit.changeDefaultValue(5, "0.3")
 
 # create chargingStation in mode "reference right"
 netedit.leftClick(referencePosition, 240, 250)
 
 # change reference to center
-netedit.modifyAdditionalDefaultValue(9, "reference center")
+netedit.changeDefaultValue(9, "reference center")
 
 # Change change in transit
-netedit.modifyAdditionalDefaultBoolValue(6)
+netedit.changeDefaultBoolValue(6)
 
 # create chargingStation in mode "reference center"
 netedit.leftClick(referencePosition, 425, 250)
 
 # Change length
-netedit.modifyAdditionalDefaultValue(11, "30")
+netedit.changeDefaultValue(11, "30")
 
 # change reference to "reference left"
-netedit.modifyAdditionalDefaultValue(9, "reference left")
+netedit.changeDefaultValue(9, "reference left")
 
 # set invalid charge delay
-netedit.modifyAdditionalDefaultValue(7, "-5")
+netedit.changeDefaultValue(7, "-5")
 
 # try to create a chargingStation in mode "reference left" forcing poisition
 netedit.leftClick(referencePosition, 500, 250)
 
 # valid charge delay
-netedit.modifyAdditionalDefaultValue(7, "7")
+netedit.changeDefaultValue(7, "7")
 
 # create a chargingStation in mode "reference left" forcing poisition
 netedit.leftClick(referencePosition, 500, 250)
 
 # change reference to "reference right"
-netedit.modifyAdditionalDefaultValue(9, "reference right")
+netedit.changeDefaultValue(9, "reference right")
 
 # create a chargingStation in mode "reference right"
 netedit.leftClick(referencePosition, 110, 250)
 
 # disable friendlyPos
-netedit.modifyAdditionalDefaultBoolValue(3)
+netedit.changeDefaultBoolValue(3)
 
 # change reference to "reference left"
-netedit.modifyAdditionalDefaultValue(9, "reference left")
+netedit.changeDefaultValue(9, "reference left")
 
 # create a chargingStation in mode "reference left" without friendlyPos
 netedit.leftClick(referencePosition, 120, 215)
 
 # change reference to "reference right"
-netedit.modifyAdditionalDefaultValue(9, "reference right")
+netedit.changeDefaultValue(9, "reference right")
 
 # create a chargingStation in mode "reference right" without friendlyPos
 netedit.leftClick(referencePosition, 500, 215)

@@ -29,22 +29,22 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot, ['--g
 netedit.additionalMode()
 
 # select calibrator
-netedit.changeAdditional("calibrator")
+netedit.changeElement("calibrator")
 
 # change position with an invalid value (dummy)
-netedit.modifyAdditionalDefaultValue(2, "dummyValue")
+netedit.changeDefaultValue(2, "dummyValue")
 
 # try to create calibrator with an invalid parameter
 netedit.leftClick(referencePosition, 240, 250)
 
 # change position with an invalid value (negative)
-netedit.modifyAdditionalDefaultValue(2, "-5")
+netedit.changeDefaultValue(2, "-5")
 
 # try to create calibrator with an invalid parameter
 netedit.leftClick(referencePosition, 240, 250)
 
 # change position with a valid value
-netedit.modifyAdditionalDefaultValue(2, "10")
+netedit.changeDefaultValue(2, "10")
 
 # create calibrator with an invalid parameter
 netedit.leftClick(referencePosition, 240, 250)

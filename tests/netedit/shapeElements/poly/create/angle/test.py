@@ -29,28 +29,28 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot, ['--g
 netedit.shapeMode()
 
 # go to shape mode
-netedit.changeShape("poly")
+netedit.changeElement("poly")
 
 # change angle (invalid)
-netedit.modifyShapeDefaultValue(10, "dummyAngle")
+netedit.changeDefaultValue(10, "dummyAngle")
 
 # try to create polygon
 netedit.createSquaredPoly(referencePosition, 100, 50, 100, True)
 
 # change angle (valid, but > 360)
-netedit.modifyShapeDefaultValue(10, "365")
+netedit.changeDefaultValue(10, "365")
 
 # try to create polygon
 netedit.createSquaredPoly(referencePosition, 200, 50, 100, True)
 
 # change angle (valid, < 0)
-netedit.modifyShapeDefaultValue(10, "-5")
+netedit.changeDefaultValue(10, "-5")
 
 # create polygon
 netedit.createSquaredPoly(referencePosition, 300, 50, 100, True)
 
 # change angle (0 < angle < 360)
-netedit.modifyShapeDefaultValue(10, "5")
+netedit.changeDefaultValue(10, "5")
 
 # create polygon
 netedit.createSquaredPoly(referencePosition, 400, 50, 100, True)

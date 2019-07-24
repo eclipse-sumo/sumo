@@ -29,22 +29,22 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot, ['--g
 netedit.shapeMode()
 
 # go to shape mode
-netedit.changeShape("poly")
+netedit.changeElement("poly")
 
 # change layer (invalid)
-netedit.modifyShapeDefaultValue(6, "dummyLayer")
+netedit.changeDefaultValue(6, "dummyLayer")
 
 # try to create polygon
 netedit.createSquaredPoly(referencePosition, 100, 50, 100, True)
 
 # change layer (valid, negative)
-netedit.modifyShapeDefaultValue(6, "-2.5")
+netedit.changeDefaultValue(6, "-2.5")
 
 # create polygon
 netedit.createSquaredPoly(referencePosition, 200, 50, 100, True)
 
 # change layer (valid)
-netedit.modifyShapeDefaultValue(6, "3")
+netedit.changeDefaultValue(6, "3")
 
 # create polygon
 netedit.createSquaredPoly(referencePosition, 300, 50, 100, True)

@@ -66,7 +66,7 @@ def typeEnter():
 """
 @brief type space key
 """
-
+    
 
 def typeSpace():
     # type space key
@@ -1002,11 +1002,11 @@ def additionalMode():
 
 
 """
-@brief change additional
+@brief change element (Additional, shape, vehicle...)
 """
 
 
-def changeAdditional(additional):
+def changeElement(additional):
     # focus current frame
     focusOnFrame()
     # go to first editable element of frame
@@ -1018,11 +1018,11 @@ def changeAdditional(additional):
 
 
 """
-@brief modify default int/double/string value of an additional
+@brief modify default int/double/string value of an additional, shape, vehicle...
 """
 
 
-def modifyAdditionalDefaultValue(numTabs, length):
+def changeDefaultValue(numTabs, length):
     # focus current frame
     focusOnFrame()
     # go to length TextField
@@ -1035,11 +1035,11 @@ def modifyAdditionalDefaultValue(numTabs, length):
 
 
 """
-@brief modify default boolean value of an additional
+@brief modify default boolean value of an additional, shape, vehicle...
 """
 
 
-def modifyAdditionalDefaultBoolValue(numTabs):
+def changeDefaultBoolValue(numTabs):
     # focus current frame
     focusOnFrame()
     # place cursor in check Box position
@@ -1186,6 +1186,19 @@ def changeRouteVClass(value):
     # type enter to save change
     typeEnter()
 
+
+#################################################
+# vehicle elements
+#################################################
+
+
+"""
+@brief change to vehicle mode
+"""
+
+
+def vehicleMode():
+    typeKey('v')
 
 #################################################
 # delete
@@ -1541,22 +1554,6 @@ def shapeMode():
 
 
 """
-@brief change shape
-"""
-
-
-def changeShape(shape):
-    # focus current frame
-    focusOnFrame()
-    # go to first editable element of frame
-    typeTab()
-    # paste the new value
-    pasteIntoTextField(shape)
-    # type enter to save change
-    typeEnter()
-
-
-"""
 @brief Create squared Polygon in position with a certain size
 """
 
@@ -1621,23 +1618,6 @@ def createLinePoly(referencePosition, positionx, positiony, sizex, sizey, close)
 
 
 """
-@brief modify default int/double/string value of an shape
-"""
-
-
-def modifyShapeDefaultValue(numTabs, value):
-    # focus current frame
-    focusOnFrame()
-    # go to length TextField
-    for _ in range(numTabs + 1):
-        typeTab()
-    # paste new value
-    pasteIntoTextField(value)
-    # type enter to save new value
-    typeEnter()
-
-
-"""
 @brief modify default color using dialog
 """
 
@@ -1657,21 +1637,6 @@ def changeColorUsingDialog(numTabs, color):
         typeKey('down')
     # go to accept button and press it
     typeTab()
-    typeSpace()
-
-
-"""
-@brief modify default boolean value of an shape
-"""
-
-
-def modifyShapeDefaultBoolValue(numTabs):
-    # focus current frame
-    focusOnFrame()
-    # place cursor in check Box position
-    for _ in range(numTabs + 1):
-        typeTab()
-    # Change current value
     typeSpace()
 
 

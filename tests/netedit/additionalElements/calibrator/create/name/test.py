@@ -29,16 +29,16 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 netedit.additionalMode()
 
 # select calibrator
-netedit.changeAdditional("calibrator")
+netedit.changeElement("calibrator")
 
 # set invalid name
-netedit.modifyAdditionalDefaultValue(4, ";;\"\"\"")
+netedit.changeDefaultValue(4, ";;\"\"\"")
 
 # try to create calibrator with invalid name
 netedit.leftClick(referencePosition, 240, 250)
 
 # set valid name
-netedit.modifyAdditionalDefaultValue(4, "customName")
+netedit.changeDefaultValue(4, "customName")
 
 # create calibrator with valid name
 netedit.leftClick(referencePosition, 240, 250)

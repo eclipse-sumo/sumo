@@ -29,7 +29,7 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 netedit.shapeMode()
 
 # select POILane in list of shapes
-netedit.changeShape("poiLane")
+netedit.changeElement("poiLane")
 
 # create POILane
 netedit.leftClick(referencePosition, 140, 215)

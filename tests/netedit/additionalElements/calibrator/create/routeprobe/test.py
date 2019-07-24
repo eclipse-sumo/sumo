@@ -29,22 +29,22 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 netedit.additionalMode()
 
 # select calibrator
-netedit.changeAdditional("calibrator")
+netedit.changeElement("calibrator")
 
 # change routeprobe with a invalid routeProbe ID
-netedit.modifyAdditionalDefaultValue(5, ";;;;;%%;;;;")
+netedit.changeDefaultValue(5, ";;;;;%%;;;;")
 
 # create calibrator with a different routeProbe in other lane
 netedit.leftClick(referencePosition, 240, 250)
 
 # change frequency with a different routeProbe (Valid, empty)
-netedit.modifyAdditionalDefaultValue(5, "")
+netedit.changeDefaultValue(5, "")
 
 # create calibrator with a valid parameter in other lane
 netedit.leftClick(referencePosition, 240, 250)
 
 # change routeprobe with a different routeProbe
-netedit.modifyAdditionalDefaultValue(5, "routeProbe")
+netedit.changeDefaultValue(5, "routeProbe")
 
 # Check undo redo
 netedit.undo(referencePosition, 2)

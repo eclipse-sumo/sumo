@@ -29,7 +29,7 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot, ['--g
 netedit.shapeMode()
 
 # go to shape mode
-netedit.changeShape("poly")
+netedit.changeElement("poly")
 
 # change color using dialog
 netedit.changeColorUsingDialog(2, 5)
@@ -38,13 +38,13 @@ netedit.changeColorUsingDialog(2, 5)
 netedit.createSquaredPoly(referencePosition, 100, 50, 100, True)
 
 # change color manually (invalid)
-netedit.modifyShapeDefaultValue(3, "Vlue")
+netedit.changeDefaultValue(3, "Vlue")
 
 # try to create polygon
 netedit.createSquaredPoly(referencePosition, 200, 50, 100, True)
 
 # change color manually (valid)
-netedit.modifyShapeDefaultValue(3, "red")
+netedit.changeDefaultValue(3, "red")
 
 # create polygon
 netedit.createSquaredPoly(referencePosition, 300, 50, 100, True)

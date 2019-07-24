@@ -29,7 +29,7 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 netedit.additionalMode()
 
 # select busStop
-netedit.changeAdditional("busStop")
+netedit.changeElement("busStop")
 
 # create busStop in mode "reference left"
 netedit.leftClick(referencePosition, 250, 250)
@@ -44,7 +44,7 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 netedit.additionalMode()
 
 # select busStop
-netedit.changeAdditional("busStop")
+netedit.changeElement("busStop")
 
 # create busStop in mode "reference left"
 netedit.leftClick(referencePosition, 250, 250)
@@ -62,7 +62,7 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 netedit.additionalMode()
 
 # select busStop
-netedit.changeAdditional("busStop")
+netedit.changeElement("busStop")
 
 # create busStop in mode "reference left"
 netedit.leftClick(referencePosition, 250, 250)

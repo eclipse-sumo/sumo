@@ -1816,10 +1816,11 @@ GNEViewNetHelper::DemandViewOptions::getLockedPerson() const {
 // ---------------------------------------------------------------------------
 
 GNEViewNetHelper::CommonCheckableButtons::CommonCheckableButtons(GNEViewNet* viewNet) :
+    myViewNet(viewNet),
     inspectButton(nullptr),
     deleteButton(nullptr),
     selectButton(nullptr),
-    myViewNet(viewNet) {
+    moveButton(nullptr) {
 }
 
 
@@ -1886,7 +1887,15 @@ GNEViewNetHelper::CommonCheckableButtons::updateCommonCheckableButtons() {
 // ---------------------------------------------------------------------------
 
 GNEViewNetHelper::NetworkCheckableButtons::NetworkCheckableButtons(GNEViewNet* viewNet) :
-    myViewNet(viewNet) {
+    myViewNet(viewNet),
+    createEdgeButton(nullptr),
+    connectionButton(nullptr),
+    trafficLightButton(nullptr),
+    additionalButton(nullptr),
+    crossingButton(nullptr),
+    TAZButton(nullptr),
+    shapeButton(nullptr),
+    prohibitionButton(nullptr) {
 }
 
 
@@ -1985,8 +1994,14 @@ GNEViewNetHelper::NetworkCheckableButtons::updateNetworkCheckableButtons() {
 // ---------------------------------------------------------------------------
 
 GNEViewNetHelper::DemandCheckableButtons::DemandCheckableButtons(GNEViewNet* viewNet) :
+    myViewNet(viewNet),
     routeButton(nullptr),
-    myViewNet(viewNet) {
+    vehicleButton(nullptr),
+    vehicleTypeButton(nullptr),
+    stopButton(nullptr),
+    personTypeButton(nullptr),
+    personButton(nullptr),
+    personPlanButton(nullptr) {
 }
 
 

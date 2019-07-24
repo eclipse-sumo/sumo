@@ -29,7 +29,7 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 netedit.additionalMode()
 
 # select routeProbe
-netedit.changeAdditional("routeProbe")
+netedit.changeElement("routeProbe")
 
 # recompute (needed for vertical position)
 netedit.rebuildNetwork()

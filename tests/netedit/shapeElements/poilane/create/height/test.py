@@ -29,22 +29,22 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 netedit.shapeMode()
 
 # go to shape mode
-netedit.changeShape("poiLane")
+netedit.changeElement("poiLane")
 
 # change height (invalid, dummy)
-netedit.modifyShapeDefaultValue(8, "dummyHeight")
+netedit.changeDefaultValue(8, "dummyHeight")
 
 # try to create poi
 netedit.leftClick(referencePosition, 150, 215)
 
 # change height (invalid, negative)
-netedit.modifyShapeDefaultValue(8, "-3")
+netedit.changeDefaultValue(8, "-3")
 
 # try to create poi
 netedit.leftClick(referencePosition, 200, 215)
 
 # change height (valid)
-netedit.modifyShapeDefaultValue(8, "4.4")
+netedit.changeDefaultValue(8, "4.4")
 
 # create poi
 netedit.leftClick(referencePosition, 250, 215)

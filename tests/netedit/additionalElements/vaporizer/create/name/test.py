@@ -29,16 +29,16 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 netedit.additionalMode()
 
 # select vaporizer
-netedit.changeAdditional("vaporizer")
+netedit.changeElement("vaporizer")
 
 # set invalid name
-netedit.modifyAdditionalDefaultValue(4, "%%$$$""")
+netedit.changeDefaultValue(4, "%%$$$""")
 
 # try to create invalid vaporizer (show warning)
 netedit.leftClick(referencePosition, 200, 265)
 
 # set valid name
-netedit.modifyAdditionalDefaultValue(4, "customName")
+netedit.changeDefaultValue(4, "customName")
 
 # create vaporizer
 netedit.leftClick(referencePosition, 200, 265)
