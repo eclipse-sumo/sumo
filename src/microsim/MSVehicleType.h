@@ -515,6 +515,11 @@ public:
      */
     static MSVehicleType* build(SUMOVTypeParameter& from);
 
+    /// @brief   Accessor function for parameter equivalent returning entry time for a specific manoeuver angle
+    SUMOTime getEntryManoeuvreTime(const int angle) const;
+    /// @brief   Accessor function for parameter equivalent returning exit time for a specific manoeuver angle
+    SUMOTime getExitManoeuvreTime(const int angle) const;
+
 
     /** @brief Duplicates the microsim vehicle type giving the newly created type the given id,
      *         marking it as vehicle specific

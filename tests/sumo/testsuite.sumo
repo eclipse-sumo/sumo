@@ -1,42 +1,63 @@
-# testing meta processing
-meta
+# test for rerouting ahead of an occupied parkingArea
+visibility
 
-# whether specification is implemented
-spec
+# tests for rerouting persons along with the vehicles
+riders
 
-# handling of basic structures
-basic
+# complex test scenario by Mirco
+complex
 
-# output tests
-output
+# block on road line while using parkingArea
+onRoad
 
-# tests for additional structures
-extended
+# parkingArea is too short for the given roadsideCapacity (lots overlap)
+roadsideCapacity_short
 
-# testing car-following model properties
-cf_model
+# test angled roadside parking (including vehicle positions)
+angled_roadside_parking
 
-# test lane-changing model properties
-lc_model
+# test what happens if a queue forms and a vehicle wants to exit the parkingarea
+congestion
 
-# tests for vType-specific junction behavior
-junction_model
+# alternative parkingAreas in a circle and too much demand. Test cooperation between vehicles that wish to park and those that wish to exit. (Circumvent instant rerouting causing infinite loop, #5128)
+congestion_alternatives
 
-# testing the dynamics and interaction of different pedestrian models
-pedestrian_model
-rail
-opposite_direction_driving
-sublane_model
+# only activate rerouter after waiting for some time
+timeThreshold
 
-# Basic tests with action step length != simulation step length.
-# Note that this suite uses the ballistic update
-action_step_length
+# afte rerouting use new parkingArea as the final destination
+newDestination
 
-# test for vehicle and transportable devices
-devices
+# afte rerouting use new parkingArea as the final destination. 
+# The vehicle route never passes the original parking edge
+newDestination2
 
-# error handling tests
-errors
+# handle the case where the length of parking spaces is not given and cannot by deduced from roadside capacity because that is 0
+default_length
 
-# demonstration and regression tests for known bugs
-bugs
+# do not reroute to parkingAreas which are too close to brake
+skip_too_close
+
+# when rerouting, take subsequent stops into account
+subsequent_stops
+
+# when rerouting, take subsequent stops into account
+# this may trigger adaptation of multiple person stages.
+subsequent_stops_rider_walk
+
+# when rerouting, take subsequent stops into account
+# this may trigger adaptation of multiple person stages.
+subsequent_stops_rider_trip
+
+# check subsequent stops and their lane position relative to the new parkingArea
+subsequent_stop_requires_loop
+
+# check multiple angle parking - angle handling both sides of road
+manoeuvre_roundLot
+
+# check reroute handling with manoeuvre and vtype configuration of manoeuvre angles
+manoeuvre_reroute
+
+# All above with modelparkingmanoeuver set true
+modelparkingmanoeuver
+

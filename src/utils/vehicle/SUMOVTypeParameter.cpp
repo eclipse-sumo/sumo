@@ -294,8 +294,45 @@ SUMOVTypeParameter::SUMOVTypeParameter(const std::string& vtid, const SUMOVehicl
     } else {
         speedFactor.getParameter()[1] = 0;
     }
+    setManoeuverAngleTimes(vclass);
 }
 
+void
+SUMOVTypeParameter::setManoeuverAngleTimes(const SUMOVehicleClass vclass) {
+
+    myManoeuverAngleTimes.clear();
+
+    switch (vclass) {
+    case SVC_PASSENGER:
+    case SVC_HOV:
+    case SVC_TAXI:
+    case SVC_E_VEHICLE:
+        myManoeuverAngleTimes.insert(std::pair<int, std::pair<SUMOTime, SUMOTime>>( 10, std::pair< SUMOTime, SUMOTime>( 3000, 4000)));   // straight in but potentially needing parallel parking
+        myManoeuverAngleTimes.insert(std::pair<int, std::pair<SUMOTime, SUMOTime>>( 80, std::pair< SUMOTime, SUMOTime>( 1000,11000)));   // straight in
+        myManoeuverAngleTimes.insert(std::pair<int, std::pair<SUMOTime, SUMOTime>>(110, std::pair< SUMOTime, SUMOTime>(11000, 2000)));   // optional forwards/backwards
+        myManoeuverAngleTimes.insert(std::pair<int, std::pair<SUMOTime, SUMOTime>>(170, std::pair< SUMOTime, SUMOTime>( 8000, 3000)));   // backwards into obtuse space
+        myManoeuverAngleTimes.insert(std::pair<int, std::pair<SUMOTime, SUMOTime>>(181, std::pair< SUMOTime, SUMOTime>( 3000, 4000)));   // straight in but potentially needing parallel parking
+        break;
+    case SVC_TRUCK:
+    case SVC_TRAILER:
+    case SVC_BUS:
+    case SVC_COACH:
+    case SVC_DELIVERY:
+        myManoeuverAngleTimes.insert(std::pair<int, std::pair<SUMOTime, SUMOTime>>(10, std::pair< SUMOTime, SUMOTime>(6000, 8000)));  // straight in but potentially needing parallel parking
+        myManoeuverAngleTimes.insert(std::pair<int, std::pair<SUMOTime, SUMOTime>>(80, std::pair< SUMOTime, SUMOTime>(2000, 21000)));   // straight in
+        myManoeuverAngleTimes.insert(std::pair<int, std::pair<SUMOTime, SUMOTime>>(110, std::pair< SUMOTime, SUMOTime>(21000, 2000)));   // optional forwards/backwards
+        myManoeuverAngleTimes.insert(std::pair<int, std::pair<SUMOTime, SUMOTime>>(170, std::pair< SUMOTime, SUMOTime>(14000, 5000)));   // backwards into obtuse space
+        myManoeuverAngleTimes.insert(std::pair<int, std::pair<SUMOTime, SUMOTime>>(181, std::pair< SUMOTime, SUMOTime>(6000, 8000)));   // straight in but potentially needing parallel parking
+        break;
+    default:
+        myManoeuverAngleTimes.insert(std::pair<int, std::pair<SUMOTime, SUMOTime>>(10, std::pair< SUMOTime, SUMOTime>(3000, 4000)));  // straight in but potentially needing parallel parking
+        myManoeuverAngleTimes.insert(std::pair<int, std::pair<SUMOTime, SUMOTime>>(80, std::pair< SUMOTime, SUMOTime>(1000, 11000)));   // straight in
+        myManoeuverAngleTimes.insert(std::pair<int, std::pair<SUMOTime, SUMOTime>>(110, std::pair< SUMOTime, SUMOTime>(11000, 2000)));   // optional forwards/backwards
+        myManoeuverAngleTimes.insert(std::pair<int, std::pair<SUMOTime, SUMOTime>>(170, std::pair< SUMOTime, SUMOTime>(8000, 3000)));   // backwards into obtuse space
+        myManoeuverAngleTimes.insert(std::pair<int, std::pair<SUMOTime, SUMOTime>>(181, std::pair< SUMOTime, SUMOTime>(3000, 4000)));
+        break;
+    }
+}
 
 void
 SUMOVTypeParameter::write(OutputDevice& dev) const {
@@ -468,6 +505,27 @@ SUMOVTypeParameter::getJMParamString(const SumoXMLAttr attr, const std::string d
     }
 }
 
+SUMOTime
+SUMOVTypeParameter::getEntryManoeuvreTime(const int angle) const
+{
+    SUMOTime last;
+    for (std::pair<int, std::pair<SUMOTime, SUMOTime>> angleTime : myManoeuverAngleTimes) {
+        if (angle <= angleTime.first) return (angleTime.second.first);
+        else last = angleTime.second.first;
+    }
+    return (last);
+}
+
+SUMOTime
+SUMOVTypeParameter::getExitManoeuvreTime(const int angle) const
+{
+    SUMOTime last;
+    for (std::pair<int, std::pair<SUMOTime, SUMOTime>> angleTime : myManoeuverAngleTimes) {
+        if (angle <= angleTime.first) return (angleTime.second.second);
+        else last = angleTime.second.second;
+    }
+    return (last);
+}
 
 double
 SUMOVTypeParameter::getDefaultAccel(const SUMOVehicleClass vc) {

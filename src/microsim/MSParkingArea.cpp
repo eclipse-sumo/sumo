@@ -31,6 +31,7 @@
 #include "MSLane.h"
 #include "MSTransportable.h"
 #include "MSParkingArea.h"
+#include "MSGlobals.h"
 
 //#define DEBUG_RESERVATIONS
 //#define DEBUG_COND2(obj) (obj.getID() == "v.3")
@@ -99,12 +100,51 @@ MSParkingArea::addLotEntry(double x, double y, double z,
     lsd.myWidth = width;
     lsd.myLength = length;
     lsd.myRotation = angle;
-    lsd.myEndPos = myEndPos;
+    // if we are modelling parking set the end position to the lot position relative to the lane
+    //   rather than the end of the parking area - for this to work best the parking area needs to
+    //    be positioned close to/before the first parking lot if possible
+    //    if not the parking traffic will pass the lot and potentially block the exit from other lots
+    if (MSGlobals::gModelParkingManoeuver) {
+        const double offset = this->getLane().getShape().nearest_offset_to_point2D(lsd.myPosition);
+        if (offset < getBeginLanePosition())
+            lsd.myEndPos = getBeginLanePosition() + POSITION_EPS;
+        else
+        {
+            if (this->getLane().getLength() > offset)
+                lsd.myEndPos = offset;
+            else
+                lsd.myEndPos = this->getLane().getLength() - POSITION_EPS;
+        }
+        // Work out the angle of the lot relative to the lane  (+90 parallels the way the bay is drawn )
+        int relativeAngle = lsd.myRotation + 90. - RAD2DEG(this->getLane().getShape().rotationAtOffset(lsd.myEndPos));
+       
+        // use this to set the manoeuver angle - which in practice will never be more than 180 degrees - hence the modulus
+           //  if p2.y is -ve the lot is on LHS of lane relative to lane direction
+        Position p2 = this->getLane().getShape().transformToVectorCoordinates(lsd.myPosition);
+        if (relativeAngle < 0) relativeAngle += 360;
+        if (p2.y() < (0. + POSITION_EPS)) 
+            lsd.myManoeuverAngle = abs(relativeAngle) % 180;
+        else  // lot is on RHS of lane
+            lsd.myManoeuverAngle = abs(abs(relativeAngle) % 180 - 180) % 180;
+    }
+    else
+    {
+        lsd.myEndPos = myEndPos;
+        lsd.myManoeuverAngle = int(angle); // unused unless gModelParkingManoeuvre is true
+    }
+
+
     mySpaceOccupancies.push_back(lsd);
     myCapacity++;
     computeLastFreePos();
 }
 
+int
+MSParkingArea::getLastFreeLotAngle() const {
+    assert(myLastFreePos >= 0);
+    assert(myLastFreeLot < (int)mySpaceOccupancies.size());
+    return (mySpaceOccupancies[myLastFreeLot].myManoeuverAngle);
+}
 
 
 

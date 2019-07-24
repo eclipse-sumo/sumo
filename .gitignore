@@ -142,3 +142,5 @@ lib*.a
 *.res
 *.ipch
 
+/.vs
+/CMakeSettings.json
