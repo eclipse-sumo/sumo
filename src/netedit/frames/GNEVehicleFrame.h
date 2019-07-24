@@ -110,6 +110,9 @@ private:
 
     /// @brief Help creation
     HelpCreation* myHelpCreation;
+
+    /// @brief check specific vehicle values
+    bool areVehicleValuesValid() const;
 };
 
 
