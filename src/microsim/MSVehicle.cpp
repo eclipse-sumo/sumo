@@ -1641,12 +1641,12 @@ MSVehicle::addStop(const SUMOVehicleParameter::Stop& stopPar, std::string& error
         if (collision) {
             if (distToStop < getCarFollowModel().brakeGap(myState.mySpeed, getCarFollowModel().getEmergencyDecel(), 0)) {
                 double vNew = getCarFollowModel().maximumSafeStopSpeed(distToStop, getSpeed(), false, 0);
-               //std::cout << SIMTIME << " veh=" << getID() << " v=" << myState.mySpeed << " distToStop=" << distToStop
-               //    << " vMinNex=" << getCarFollowModel().minNextSpeed(getSpeed(), this)
-               //    << " bg1=" << getCarFollowModel().brakeGap(myState.mySpeed)
-               //    << " bg2=" << getCarFollowModel().brakeGap(myState.mySpeed, getCarFollowModel().getEmergencyDecel(), 0)
-               //    << " vNew=" << vNew
-               //    << "\n";
+                //std::cout << SIMTIME << " veh=" << getID() << " v=" << myState.mySpeed << " distToStop=" << distToStop
+                //    << " vMinNex=" << getCarFollowModel().minNextSpeed(getSpeed(), this)
+                //    << " bg1=" << getCarFollowModel().brakeGap(myState.mySpeed)
+                //    << " bg2=" << getCarFollowModel().brakeGap(myState.mySpeed, getCarFollowModel().getEmergencyDecel(), 0)
+                //    << " vNew=" << vNew
+                //    << "\n";
                 myState.mySpeed = MIN2(myState.mySpeed, vNew + ACCEL2SPEED(getCarFollowModel().getEmergencyDecel()));
                 myState.myPos = MIN2(myState.myPos, stop.pars.endPos);
                 myCachedPosition = Position::INVALID;

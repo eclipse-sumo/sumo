@@ -142,3 +142,4 @@ lib*.a
 *.res
 *.ipch
 
+/.vs/slnx.sqlite-journal
