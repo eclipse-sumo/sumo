@@ -142,3 +142,12 @@ lib*.a
 *.res
 *.ipch
 
+/.vs/slnx.sqlite-journal
+/.vs/slnx.sqlite
+/.vs/ProjectSettings.json
+/.vs/VSWorkspaceState.json
+/.vs/launch.vs.json
+/.vs/tasks.vs.json
+/.CMakeSettings.json
+
+

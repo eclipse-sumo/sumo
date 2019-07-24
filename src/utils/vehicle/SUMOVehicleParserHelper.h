@@ -91,6 +91,22 @@ public:
      */
     static SUMOVTypeParameter* beginVTypeParsing(const SUMOSAXAttributes& attrs, const std::string& file);
 
+    /** @brief Parse string containing AngleTimes triplets (angle, entry time, exit time) 
+     *
+     * @param[in] string - containing , separated  AngleTimes triplets "angle entry time exit time"
+     * @return An angleTimes map
+     *
+     * @exception ProcessError If a triplet is incomplete
+     */
+    static const std::map<int, std::pair<SUMOTime, SUMOTime>> parseAngleTimesMap(const std::string);
+
+    /** @brief Update the vtype map -  myManoeuverAngleTimes  with the passed map
+     *
+     * @param[in] vtype - the vtype element constructed in the parser
+     * @param[in] atm  - an angleTimes map
+     * @note  if the passed map is empty then the vtype map will not be changed
+     */
+    static void updateMyAngleTimesMap(SUMOVTypeParameter * vtype, const std::map<int, std::pair<SUMOTime, SUMOTime>> atm);
 
     /** @brief Parses an element embedded in vtype definition
      *

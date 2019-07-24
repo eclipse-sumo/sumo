@@ -51,3 +51,13 @@ subsequent_stops_rider_trip
 
 # check subsequent stops and their lane position relative to the new parkingArea
 subsequent_stop_requires_loop
+
+# check multiple angle parking - angle handling both sides of road
+manoeuvre_roundLot
+
+# check reroute handling with manoeuvre and vtype configuration of manoeuvre angles
+manoeuvre_reroute
+
+# All above with modelparkingmanoeuver set true
+modelparkingmanoeuver
+
