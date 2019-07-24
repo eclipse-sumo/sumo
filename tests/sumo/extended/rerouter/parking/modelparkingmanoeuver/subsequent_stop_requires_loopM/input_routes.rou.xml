@@ -1,0 +1,8 @@
+<routes>
+    <vType id="DEFAULT_VEHTYPE" sigma="0"/>
+    <vehicle id="v0" depart="0">
+        <route edges="SC CS SC"/>
+        <stop parkingArea="park2" duration="10"/>
+        <stop lane="SC_0" endPos="10" duration="10"/>
+    </vehicle>
+</routes>

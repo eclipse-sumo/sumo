@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 07/07/19 12:17:29 by Eclipse SUMO netedit Version v1_2_0+0765-3423b2ab8c
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="D:\frank\Documents\tracks\testing\round.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="D:\frank\Documents\tracks\testing\round.net.xml"/>
+    </output>
+
+    <processing>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="true"/>
+    </processing>
+
+    <junctions>
+        <no-internal-links value="true"/>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="5"/>
+        <junctions.limit-turn-speed value="5.5"/>
+        <rectangular-lane-cut value="false"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="false"/>
+    </pedestrian>
+
+    <netedit>
+        <additional-files value="D:\frank\Documents\tracks\testing\round.add.xml"/>
+        <route-files value="D:\frank\Documents\tracks\testing\round.rou.xml"/>
+    </netedit>
+
+</configuration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="routes_file.xsd">
+    <route edges="gneE13" color="yellow" id="route_0">
+        <stop parkingArea="round0" duration="900.00"/>
+    </route>
+	
+	<vType id="passenger" vClass="passenger" emissionClass="PHEMlight/PC_D_EU4"  manoeuverAngleTimes="10 3000 4000,80 1000 30000,110 11000 2000,170 8000 3000,181 3000 4000"/>
+	<vType id="truck" vClass="truck" emissionClass="PHEMlight/PC_D_EU4"/>
+
+    <vehicle id="vehicle_0" type="passenger" color="255,0,0" depart="0.00" route="route_0"/>
+    <vehicle id="vehicle_1" type="truck" color="255,255,0" depart="0.00" route="route_0"/>
+    <vehicle id="vehicle_10" type="passenger" color="255,0,0" depart="0.00" route="route_0"/>
+    <vehicle id="vehicle_11" type="passenger" color="255,0,0" depart="0.00" route="route_0"/>
+    <vehicle id="vehicle_12" type="passenger" color="255,0,0" depart="0.00" route="route_0"/>
+    <vehicle id="vehicle_13" type="passenger" color="255,0,0" depart="0.00" route="route_0"/>
+    <vehicle id="vehicle_14" type="passenger" color="255,0,0" depart="0.00" route="route_0"/>
+    <vehicle id="vehicle_15" type="passenger" color="255,0,0" depart="0.00" route="route_0"/>
+    <vehicle id="vehicle_16" type="passenger" color="255,0,0" depart="0.00" route="route_0"/>
+    <vehicle id="vehicle_17" type="passenger" color="255,0,0" depart="0.00" route="route_0"/>
+    <vehicle id="vehicle_18" type="passenger" color="255,0,0" depart="0.00" route="route_0"/>
+    <vehicle id="vehicle_19" type="passenger" color="255,0,0" depart="0.00" route="route_0"/>
+    <vehicle id="vehicle_2" type="truck" color="255,255,0" depart="0.00" route="route_0"/>
+    <vehicle id="vehicle_3" type="passenger" color="255,0,0" depart="0.00" route="route_0"/>
+    <vehicle id="vehicle_4" type="passenger" color="255,0,0" depart="0.00" route="route_0"/>
+    <vehicle id="vehicle_5" type="truck" color="255,255,0" depart="0.00" route="route_0"/>
+    <vehicle id="vehicle_6" type="passenger" color="255,0,0" depart="0.00" route="route_0"/>
+    <vehicle id="vehicle_7" type="passenger" color="255,0,0" depart="0.00" route="route_0"/>
+    <vehicle id="vehicle_8" type="passenger" color="255,0,0" depart="0.00" route="route_0"/>
+    <vehicle id="vehicle_9" type="passenger" color="255,0,0" depart="0.00" route="route_0"/>
+</routes>
