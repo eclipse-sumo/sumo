@@ -29,10 +29,10 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot, ['--g
 netedit.shapeMode()
 
 # go to shape mode
-netedit.changeShape("poiLane")
+netedit.changeElement("poiLane")
 
 # change type
-netedit.modifyShapeDefaultValue(5, "<<poi_test>>")
+netedit.changeDefaultValue(5, "<<poi_test>>")
 
 # create poi
 netedit.leftClick(referencePosition, 150, 215)

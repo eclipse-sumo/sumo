@@ -137,41 +137,44 @@ GUISUMOViewParent::setToolBarVisibility(const bool value) {
 
 long
 GUISUMOViewParent::onCmdMakeSnapshot(FXObject* sender, FXSelector, void*) {
-    MFXCheckableButton* button = static_cast<MFXCheckableButton*>(sender);
-    if (button->amChecked()) {
-        myView->endSnapshot();
-        button->setChecked(false);
-        return 1;
-    }
-    // get the new file name
-    FXFileDialog opendialog(this, "Save Snapshot");
-    opendialog.setIcon(GUIIconSubSys::getIcon(ICON_EMPTY));
-    opendialog.setSelectMode(SELECTFILE_ANY);
-#ifdef HAVE_FFMPEG
-    opendialog.setPatternList("All Image and Video Files (*.gif,*.bmp,*.xpm,*.pcx,*.ico,*.rgb,*.xbm,*.tga,*.png,*.jpg,*.jpeg,*.tif,*.tiff,*.ps,*.eps,*.pdf,*.svg,*.tex,*.pgf,*.h264,*.hevc)\n"
-                              "All Video Files (*.h264,*.hevc)\n"
-#else
-    opendialog.setPatternList("All Image Files (*.gif,*.bmp,*.xpm,*.pcx,*.ico,*.rgb,*.xbm,*.tga,*.png,*.jpg,*.jpeg,*.tif,*.tiff,*.ps,*.eps,*.pdf,*.svg,*.tex,*.pgf)\n"
-#endif
-                              "GIF Image (*.gif)\nBMP Image (*.bmp)\nXPM Image (*.xpm)\nPCX Image (*.pcx)\nICO Image (*.ico)\n"
-                              "RGB Image (*.rgb)\nXBM Image (*.xbm)\nTARGA Image (*.tga)\nPNG Image  (*.png)\n"
-                              "JPEG Image (*.jpg,*.jpeg)\nTIFF Image (*.tif,*.tiff)\n"
-                              "Postscript (*.ps)\nEncapsulated Postscript (*.eps)\nPortable Document Format (*.pdf)\n"
-                              "Scalable Vector Graphics (*.svg)\nLATEX text strings (*.tex)\nPortable LaTeX Graphics (*.pgf)\n"
-                              "All Files (*)");
-    if (gCurrentFolder.length() != 0) {
-        opendialog.setDirectory(gCurrentFolder);
-    }
-    if (!opendialog.execute() || !MFXUtils::userPermitsOverwritingWhenFileExists(this, opendialog.getFilename())) {
-        return 1;
-    }
-    gCurrentFolder = opendialog.getDirectory();
-    std::string file = opendialog.getFilename().text();
-    std::string error = myView->makeSnapshot(file);
-    if (error == "video") {
-        button->setChecked(!button->amChecked());
-    } else if (error != "") {
-        FXMessageBox::error(this, MBOX_OK, "Saving failed.", "%s", error.c_str());
+    MFXCheckableButton* button = dynamic_cast<MFXCheckableButton*>(sender);
+    // check if cast was sucesfully
+    if (button) {
+        if (button->amChecked()) {
+            myView->endSnapshot();
+            button->setChecked(false);
+            return 1;
+        }
+        // get the new file name
+        FXFileDialog opendialog(this, "Save Snapshot");
+        opendialog.setIcon(GUIIconSubSys::getIcon(ICON_EMPTY));
+        opendialog.setSelectMode(SELECTFILE_ANY);
+    #ifdef HAVE_FFMPEG
+        opendialog.setPatternList("All Image and Video Files (*.gif,*.bmp,*.xpm,*.pcx,*.ico,*.rgb,*.xbm,*.tga,*.png,*.jpg,*.jpeg,*.tif,*.tiff,*.ps,*.eps,*.pdf,*.svg,*.tex,*.pgf,*.h264,*.hevc)\n"
+                                  "All Video Files (*.h264,*.hevc)\n"
+    #else
+        opendialog.setPatternList("All Image Files (*.gif,*.bmp,*.xpm,*.pcx,*.ico,*.rgb,*.xbm,*.tga,*.png,*.jpg,*.jpeg,*.tif,*.tiff,*.ps,*.eps,*.pdf,*.svg,*.tex,*.pgf)\n"
+    #endif
+                                  "GIF Image (*.gif)\nBMP Image (*.bmp)\nXPM Image (*.xpm)\nPCX Image (*.pcx)\nICO Image (*.ico)\n"
+                                  "RGB Image (*.rgb)\nXBM Image (*.xbm)\nTARGA Image (*.tga)\nPNG Image  (*.png)\n"
+                                  "JPEG Image (*.jpg,*.jpeg)\nTIFF Image (*.tif,*.tiff)\n"
+                                  "Postscript (*.ps)\nEncapsulated Postscript (*.eps)\nPortable Document Format (*.pdf)\n"
+                                  "Scalable Vector Graphics (*.svg)\nLATEX text strings (*.tex)\nPortable LaTeX Graphics (*.pgf)\n"
+                                  "All Files (*)");
+        if (gCurrentFolder.length() != 0) {
+            opendialog.setDirectory(gCurrentFolder);
+        }
+        if (!opendialog.execute() || !MFXUtils::userPermitsOverwritingWhenFileExists(this, opendialog.getFilename())) {
+            return 1;
+        }
+        gCurrentFolder = opendialog.getDirectory();
+        std::string file = opendialog.getFilename().text();
+        std::string error = myView->makeSnapshot(file);
+        if (error == "video") {
+            button->setChecked(!button->amChecked());
+        } else if (error != "") {
+            FXMessageBox::error(this, MBOX_OK, "Saving failed.", "%s", error.c_str());
+        }
     }
     return 1;
 }

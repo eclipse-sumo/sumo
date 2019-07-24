@@ -29,22 +29,22 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 netedit.additionalMode()
 
 # select E2
-netedit.changeAdditional("e2Detector")
+netedit.changeElement("e2Detector")
 
 # set invalid frequency (dummy)
-netedit.modifyAdditionalDefaultValue(3, "dummyFreq")
+netedit.changeDefaultValue(3, "dummyFreq")
 
 # try to create a E2 with invalid frequency
 netedit.leftClick(referencePosition, 350, 250)
 
 # set invalid frequency (negative)
-netedit.modifyAdditionalDefaultValue(3, "-30")
+netedit.changeDefaultValue(3, "-30")
 
 # try to create a E2 with invalid frequency
 netedit.leftClick(referencePosition, 350, 250)
 
 # set valid frequency
-netedit.modifyAdditionalDefaultValue(3, "120.5")
+netedit.changeDefaultValue(3, "120.5")
 
 # create E2 with valid frequency
 netedit.leftClick(referencePosition, 350, 250)

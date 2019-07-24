@@ -148,6 +148,15 @@ GNEVehicleFrame::addVehicle(const GNEViewNetHelper::ObjectsUnderCursor& objectsU
         myViewNet->setStatusBarText("Current selected vehicle type isn't valid.");
         return false;
     }
+    // now check if parameters are valid
+    if (!myVehicleAttributes->areValuesValid()) {
+        myVehicleAttributes->showWarningMessage();
+        return false;
+    }
+    // check vehicle values
+    if (!areVehicleValuesValid()) {
+        return false;
+    }
     // Declare map to keep attributes from Frames from Frame
     std::map<SumoXMLAttr, std::string> valuesMap = myVehicleAttributes->getAttributesAndValues(false);
     // add ID parameter
@@ -302,4 +311,92 @@ GNEVehicleFrame::edgePathCreated() {
         delete flowParameters;
     }
 }
+
+
+ bool 
+GNEVehicleFrame::areVehicleValuesValid() const {
+    // Obtain all values
+    std::map<SumoXMLAttr, std::string> valuesMap = myVehicleAttributes->getAttributesAndValues(true);
+    // declare values needed to check if given vehicle parameters are valid
+    std::string errorMessage;
+    DepartDefinition dd;
+    DepartLaneDefinition dld;
+    DepartPosDefinition dpd;
+    DepartPosLatDefinition dpld;
+    ArrivalLaneDefinition ald;
+    DepartSpeedDefinition dsd;
+    ArrivalPosDefinition apd;
+    ArrivalPosLatDefinition apld;
+    ArrivalSpeedDefinition asd;
+    int valueInt;
+    double valueDouble;
+    SUMOTime valueSUMOTime;
+    // check if depart is valid
+    if (valuesMap.count(SUMO_ATTR_DEPART) > 0) {
+        if (!SUMOVehicleParameter::parseDepart(valuesMap[SUMO_ATTR_DEPART], "", "", valueSUMOTime, dd, errorMessage)) {
+            // set message in status bar
+            myViewNet->setStatusBarText(errorMessage);
+            return false;
+        }
+    } else if (valuesMap.count(SUMO_ATTR_BEGIN) > 0) {
+        if (!SUMOVehicleParameter::parseDepart(valuesMap[SUMO_ATTR_BEGIN], "", "", valueSUMOTime, dd, errorMessage)) {
+            // set message in status bar
+            myViewNet->setStatusBarText(errorMessage);
+            return false;
+        }
+    } else {
+        return false;
+    }
+    // check if depart lane is valid
+    if (!SUMOVehicleParameter::parseDepartLane(valuesMap[SUMO_ATTR_DEPARTLANE], "", "", valueInt, dld, errorMessage)) {
+        // set message in status bar
+        myViewNet->setStatusBarText(errorMessage);
+        return false;
+    }
+    // check if depart pos is valid
+    if (!SUMOVehicleParameter::parseDepartPos(valuesMap[SUMO_ATTR_DEPARTPOS], "", "", valueDouble, dpd, errorMessage)) {
+        // set message in status bar
+        myViewNet->setStatusBarText(errorMessage);
+        return false;
+    }
+    // check if depart pos lat is valid
+    if (!SUMOVehicleParameter::parseDepartPosLat(valuesMap[SUMO_ATTR_DEPARTPOS_LAT], "", "", valueDouble, dpld, errorMessage)) {
+        // set message in status bar
+        myViewNet->setStatusBarText(errorMessage);
+        return false;
+    }
+    // check if depart speed is valid
+    if (!SUMOVehicleParameter::parseDepartSpeed(valuesMap[SUMO_ATTR_DEPARTSPEED], "", "", valueDouble, dsd, errorMessage)) {
+        // set message in status bar
+        myViewNet->setStatusBarText(errorMessage);
+        return false;
+    }
+    // check if arrival lane is valid
+    if (!SUMOVehicleParameter::parseArrivalLane(valuesMap[SUMO_ATTR_ARRIVALLANE], "", "", valueInt, ald, errorMessage)) {
+        // set message in status bar
+        myViewNet->setStatusBarText(errorMessage);
+        return false;
+    }
+     // check if arrival pos is valid
+    if (!SUMOVehicleParameter::parseArrivalPos(valuesMap[SUMO_ATTR_ARRIVALPOS], "", "", valueDouble, apd, errorMessage)) {
+        // set message in status bar
+        myViewNet->setStatusBarText(errorMessage);
+        return false;
+    }
+    // check if arrival position lateral is valid
+    if (!SUMOVehicleParameter::parseArrivalPosLat(valuesMap[SUMO_ATTR_ARRIVALPOS_LAT], "", "", valueDouble, apld, errorMessage)) {
+        // set message in status bar
+        myViewNet->setStatusBarText(errorMessage);
+        return false;
+    }
+    // check if arrival speed is valid
+    if (!SUMOVehicleParameter::parseArrivalSpeed(valuesMap[SUMO_ATTR_ARRIVALSPEED], "", "", valueDouble, asd, errorMessage)) {
+        // set message in status bar
+        myViewNet->setStatusBarText(errorMessage);
+        return false;
+    }
+    // all ok, then return true
+    return true;
+}
+
 /****************************************************************************/

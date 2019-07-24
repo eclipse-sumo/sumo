@@ -32,20 +32,20 @@ netedit.rebuildNetwork()
 netedit.additionalMode()
 
 # select E2
-netedit.changeAdditional("e2MultilaneDetector")
+netedit.changeElement("e2MultilaneDetector")
 
 # select lanes
 netedit.leftClick(referencePosition, 190, 255)
 netedit.leftClick(referencePosition, 440, 255)
 
 # set invalid time threshold
-netedit.modifyAdditionalDefaultValue(6, "-12")
+netedit.changeDefaultValue(6, "-12")
 
 # create E2 with default parameters
 netedit.typeEnter()
 
 # set valid time threshold
-netedit.modifyAdditionalDefaultValue(6, "10")
+netedit.changeDefaultValue(6, "10")
 
 # create E2 with default parameters
 netedit.typeEnter()

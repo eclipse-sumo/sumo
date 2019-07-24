@@ -29,22 +29,22 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 netedit.additionalMode()
 
 # select busStop
-netedit.changeAdditional("busStop")
+netedit.changeElement("busStop")
 
 # set invalid person number
-netedit.modifyAdditionalDefaultValue(5, "-2")
+netedit.changeDefaultValue(5, "-2")
 
 # try to create busStop
 netedit.leftClick(referencePosition, 250, 250)
 
 # set invalid person number
-netedit.modifyAdditionalDefaultValue(5, "7.5")
+netedit.changeDefaultValue(5, "7.5")
 
 # try to create busStop
 netedit.leftClick(referencePosition, 250, 250)
 
 # set invalid person number
-netedit.modifyAdditionalDefaultValue(5, "3")
+netedit.changeDefaultValue(5, "3")
 
 # create busStop in mode "reference left"
 netedit.leftClick(referencePosition, 250, 250)

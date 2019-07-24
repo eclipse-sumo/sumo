@@ -29,13 +29,13 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot, ['--g
 netedit.shapeMode()
 
 # go to additional mode
-netedit.changeShape("poly")
+netedit.changeElement("poly")
 
 # enable block shape
-netedit.modifyShapeDefaultBoolValue(13)
+netedit.changeDefaultBoolValue(13)
 
 # enable block move
-netedit.modifyShapeDefaultBoolValue(12)
+netedit.changeDefaultBoolValue(12)
 
 # create polygon
 netedit.createSquaredPoly(referencePosition, 500, 150, 100, True)

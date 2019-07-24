@@ -29,16 +29,16 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 netedit.additionalMode()
 
 # select E2
-netedit.changeAdditional("e2Detector")
+netedit.changeElement("e2Detector")
 
 # set invalid name
-netedit.modifyAdditionalDefaultValue(4, ";;;;$$$")
+netedit.changeDefaultValue(4, ";;;;$$$")
 
 # try to create E2 with invalid name
 netedit.leftClick(referencePosition, 300, 250)
 
 # set valid name
-netedit.modifyAdditionalDefaultValue(4, "customName")
+netedit.changeDefaultValue(4, "customName")
 
 # create E2 with valid name
 netedit.leftClick(referencePosition, 300, 250)

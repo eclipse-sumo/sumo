@@ -29,13 +29,13 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 netedit.shapeMode()
 
 # select invalid shape (dummy)
-netedit.changeShape("dummyShape")
+netedit.changeElement("dummyShape")
 
 # try to create an dummy shape
 netedit.leftClick(referencePosition, 150, 50)
 
 # select valid shape (POI)
-netedit.changeShape("poi")
+netedit.changeElement("poi")
 
 # create POI
 netedit.leftClick(referencePosition, 150, 50)

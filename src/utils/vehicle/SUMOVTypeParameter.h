@@ -179,6 +179,13 @@ public:
      */
     double getLCParam(const SumoXMLAttr attr, const double defaultValue) const;
 
+    /** @brief Returns the named value from the map, or the default if it is not contained there
+     * @param[in] attr The corresponding xml attribute
+     * @param[in] defaultValue The value to return if the given map does not contain the named variable
+     * @return The named value from the map or the default if it does not exist there
+     */
+    std::string getLCParamString(const SumoXMLAttr attr, const std::string &defaultValue) const;
+
     /// @brief sub-model parameters
     typedef std::map<SumoXMLAttr, std::string> SubParams;
 

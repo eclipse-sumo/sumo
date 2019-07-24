@@ -29,16 +29,16 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 netedit.additionalMode()
 
 # select calibrator
-netedit.changeAdditional("laneCalibrator")
+netedit.changeElement("laneCalibrator")
 
 # change output with an invalid value
-netedit.modifyAdditionalDefaultValue(6, "%%%%##;;#!!!")
+netedit.changeDefaultValue(6, "%%%%##;;#!!!")
 
 # create calibrator with a valid parameter in other lane
 netedit.leftClick(referencePosition, 240, 250)
 
 # change output with an valid value
-netedit.modifyAdditionalDefaultValue(6, "myOwnOutput")
+netedit.changeDefaultValue(6, "myOwnOutput")
 
 # create calibrator with a valid parameter in other lane
 netedit.leftClick(referencePosition, 240, 250)

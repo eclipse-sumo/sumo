@@ -32,13 +32,13 @@ netedit.setZoom("25", "20", "25")
 netedit.additionalMode()
 
 # select BusStop
-netedit.changeAdditional("busStop")
+netedit.changeElement("busStop")
 
 # create BusStop with default parameters
 netedit.leftClick(referencePosition, 375, 250)
 
 # select Access
-netedit.changeAdditional("access")
+netedit.changeElement("access")
 
 # Create Access
 netedit.selectAdditionalChild(7, 0)

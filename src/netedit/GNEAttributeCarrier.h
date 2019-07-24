@@ -852,8 +852,11 @@ private:
     /// @brief fill Car Following Model of Vehicle/Person Types
     static void fillCarFollowingModelAttributes(SumoXMLTag currentTag);
 
-    /// @brief fill Junction Model Attronites of Vehicle/Person Types
+    /// @brief fill Junction Model Attributes of Vehicle/Person Types
     static void fillJunctionModelAttributes(SumoXMLTag currentTag);
+
+    /// @brief fill Junction Model Attributes of Vehicle/Person Types
+    static void fillLaneChangingModelAttributes(SumoXMLTag currentTag);
 
     /// @brief parse and check attribute (note: This function is only to improve legilibility)
     static bool checkParsedAttribute(const TagProperties& tagProperties, const AttributeProperties& attrProperties, const SumoXMLAttr attribute,

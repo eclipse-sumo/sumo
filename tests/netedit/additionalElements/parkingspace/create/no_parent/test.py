@@ -29,7 +29,7 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot, ['--g
 netedit.additionalMode()
 
 # select space
-netedit.changeAdditional("space")
+netedit.changeElement("space")
 
 # try to create space without selecting Parking Area parent
 netedit.leftClick(referencePosition, 250, 100)

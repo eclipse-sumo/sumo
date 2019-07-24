@@ -29,7 +29,7 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot, ['--g
 netedit.additionalMode()
 
 # select calibrator
-netedit.changeAdditional("laneCalibrator")
+netedit.changeElement("laneCalibrator")
 
 # create first calibrator
 netedit.leftClick(referencePosition, 245, 140)

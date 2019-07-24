@@ -32,26 +32,26 @@ netedit.setZoom("25", "0", "25")
 netedit.additionalMode()
 
 # select E3
-netedit.changeAdditional("e3Detector")
+netedit.changeElement("e3Detector")
 
 # set block movement
-netedit.modifyAdditionalDefaultBoolValue(9)
+netedit.changeDefaultBoolValue(9)
 
 # try to create E3 with block movement
 netedit.leftClick(referencePosition, 100, 100)
 
 # restore block movement
-netedit.modifyAdditionalDefaultBoolValue(9)
+netedit.changeDefaultBoolValue(9)
 
 # select entry detector
-netedit.changeAdditional("detEntry")
+netedit.changeElement("detEntry")
 
 # Create Entry and exit detectors for all E3 detectors (except for the first, that only have one Entry)
 netedit.leftClick(referencePosition, 100, 100)  # select E3
 netedit.leftClick(referencePosition, 300, 250)
 
 # select entry detector
-netedit.changeAdditional("detExit")
+netedit.changeElement("detExit")
 
 # Create Entry and exit detectors for all E3 detectors (except for the first, that only have one Entry)
 netedit.leftClick(referencePosition, 100, 100)  # select E3

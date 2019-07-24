@@ -29,16 +29,16 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot, ['--g
 netedit.shapeMode()
 
 # go to shape mode
-netedit.changeShape("poly")
+netedit.changeElement("poly")
 
 # change type with invalid XML characters (but the are allowed)
-netedit.modifyShapeDefaultValue(7, "<<poly_test>>")
+netedit.changeDefaultValue(7, "<<poly_test>>")
 
 # create polygon
 netedit.createSquaredPoly(referencePosition, 100, 50, 100, True)
 
 # change type
-netedit.modifyShapeDefaultValue(7, "poly_test")
+netedit.changeDefaultValue(7, "poly_test")
 
 # create polygon
 netedit.createSquaredPoly(referencePosition, 200, 50, 100, True)

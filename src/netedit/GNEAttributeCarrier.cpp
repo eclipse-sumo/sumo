@@ -3394,6 +3394,8 @@ GNEAttributeCarrier::fillDemandElements() {
         fillCarFollowingModelAttributes(currentTag);
         // fill VType Junction Model Parameters (implemented in a separated function to improve code legibility)
         fillJunctionModelAttributes(currentTag);
+        // fill VType Lane Change Model Parameters (implemented in a separated function to improve code legibility)
+        // fillLaneChangingModelAttributes(currentTag); #5846
     }
     currentTag = SUMO_TAG_PTYPE;
     {
@@ -3568,6 +3570,8 @@ GNEAttributeCarrier::fillDemandElements() {
         fillCarFollowingModelAttributes(currentTag);
         // fill VType Junction Model Parameters (implemented in a separated function to improve code legibility)
         fillJunctionModelAttributes(currentTag);
+        // fill VType Lane Change Model Parameters (implemented in a separated function to improve code legibility)
+        // fillLaneChangingModelAttributes(currentTag); #5846
     }
 }
 
@@ -5137,6 +5141,129 @@ GNEAttributeCarrier::fillJunctionModelAttributes(SumoXMLTag currentTag) {
                                        "Willingess of drivers to impede vehicles with higher priority",
                                        "0.00");
     myTagProperties[currentTag].addAttribute(attrProperty);
+}
+
+
+void 
+GNEAttributeCarrier::fillLaneChangingModelAttributes(SumoXMLTag currentTag) {
+    // declare empty AttributeProperties
+    AttributeProperties attrProperty;
+    
+    attrProperty = AttributeProperties(SUMO_ATTR_LCA_STRATEGIC_PARAM,
+                                       ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL | ATTRPROPERTY_EXTENDED,
+                                       "The eagerness for performing strategic lane changing. Higher values result in earlier lane-changing.",
+                                       "1.0");
+    myTagProperties[currentTag].addAttribute(attrProperty);
+
+    attrProperty = AttributeProperties(SUMO_ATTR_LCA_COOPERATIVE_PARAM,
+                                       ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL | ATTRPROPERTY_EXTENDED,
+                                       "The willingness for performing cooperative lane changing. Lower values result in reduced cooperation.",
+                                       "1.0");
+    myTagProperties[currentTag].addAttribute(attrProperty);
+
+    attrProperty = AttributeProperties(SUMO_ATTR_LCA_SPEEDGAIN_PARAM,
+                                       ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL | ATTRPROPERTY_EXTENDED,
+                                       "The eagerness for performing lane changing to gain speed. Higher values result in more lane-changing.",
+                                       "1.0");
+    myTagProperties[currentTag].addAttribute(attrProperty);
+
+    attrProperty = AttributeProperties(SUMO_ATTR_LCA_KEEPRIGHT_PARAM,
+                                       ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL | ATTRPROPERTY_EXTENDED,
+                                       "The eagerness for following the obligation to keep right. Higher values result in earlier lane-changing.",
+                                       "1.0");
+    myTagProperties[currentTag].addAttribute(attrProperty);
+    
+    attrProperty = AttributeProperties(SUMO_ATTR_LCA_SUBLANE_PARAM,
+                                       ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL | ATTRPROPERTY_EXTENDED,
+                                       "The eagerness for using the configured lateral alignment within the lane. Higher values result in increased willingness to sacrifice speed for alignment.",
+                                       "1.0");
+    myTagProperties[currentTag].addAttribute(attrProperty);
+
+    attrProperty = AttributeProperties(SUMO_ATTR_LCA_OPPOSITE_PARAM,
+                                       ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL | ATTRPROPERTY_EXTENDED,
+                                       "The eagerness for overtaking through the opposite-direction lane. Higher values result in more lane-changing.",
+                                       "1.0");
+    myTagProperties[currentTag].addAttribute(attrProperty);
+
+    attrProperty = AttributeProperties(SUMO_ATTR_LCA_PUSHY,
+                                       ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL | ATTRPROPERTY_EXTENDED,
+                                       "Willingness to encroach laterally on other drivers.",
+                                       "0.00");
+    myTagProperties[currentTag].addAttribute(attrProperty);
+
+    attrProperty = AttributeProperties(SUMO_ATTR_LCA_PUSHYGAP,
+                                       ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL | ATTRPROPERTY_EXTENDED,
+                                       "Minimum lateral gap when encroaching laterally on other drives (alternative way to define lcPushy)",
+                                       "0.00");
+    myTagProperties[currentTag].addAttribute(attrProperty);
+
+    attrProperty = AttributeProperties(SUMO_ATTR_LCA_ASSERTIVE,
+                                       ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL | ATTRPROPERTY_EXTENDED,
+                                       "Willingness to accept lower front and rear gaps on the target lane.",
+                                       "1.0");
+    myTagProperties[currentTag].addAttribute(attrProperty);
+
+    attrProperty = AttributeProperties(SUMO_ATTR_LCA_IMPATIENCE,
+                                       ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL | ATTRPROPERTY_EXTENDED,
+                                       "Dynamic factor for modifying lcAssertive and lcPushy.",
+                                       "0.00");
+    myTagProperties[currentTag].addAttribute(attrProperty);
+
+    attrProperty = AttributeProperties(SUMO_ATTR_LCA_TIME_TO_IMPATIENCE,
+                                       ATTRPROPERTY_STRING | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL | ATTRPROPERTY_EXTENDED,
+                                       "Time to reach maximum impatience (of 1). Impatience grows whenever a lane-change manoeuvre is blocked.",
+                                       "infinity");
+    myTagProperties[currentTag].addAttribute(attrProperty);
+
+    attrProperty = AttributeProperties(SUMO_ATTR_LCA_ACCEL_LAT,
+                                       ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL | ATTRPROPERTY_EXTENDED,
+                                       "Maximum lateral acceleration per second.",
+                                       "1.0");
+    myTagProperties[currentTag].addAttribute(attrProperty);
+
+    attrProperty = AttributeProperties(SUMO_ATTR_LCA_LOOKAHEADLEFT,
+                                       ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL | ATTRPROPERTY_EXTENDED,
+                                       "Factor for configuring the strategic lookahead distance when a change to the left is necessary (relative to right lookahead).",
+                                       "2.0");
+    myTagProperties[currentTag].addAttribute(attrProperty);
+
+    attrProperty = AttributeProperties(SUMO_ATTR_LCA_SPEEDGAINRIGHT,
+                                       ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL | ATTRPROPERTY_EXTENDED,
+                                       "Factor for configuring the treshold asymmetry when changing to the left or to the right for speed gain.",
+                                       "0.1");
+    myTagProperties[currentTag].addAttribute(attrProperty);
+
+    attrProperty = AttributeProperties(SUMO_ATTR_LCA_MAXSPEEDLATSTANDING,
+                                       ATTRPROPERTY_STRING | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL | ATTRPROPERTY_EXTENDED,
+                                       "Upper bound on lateral speed when standing.",
+                                       "disabled");
+    myTagProperties[currentTag].addAttribute(attrProperty);
+
+    attrProperty = AttributeProperties(SUMO_ATTR_LCA_MAXSPEEDLATFACTOR,
+                                       ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL | ATTRPROPERTY_EXTENDED,
+                                       "Upper bound on lateral speed while moving computed as lcMaxSpeedLatStanding + lcMaxSpeedLatFactor * getSpeed()",
+                                       "1.00");
+    myTagProperties[currentTag].addAttribute(attrProperty);
+
+    attrProperty = AttributeProperties(SUMO_ATTR_LCA_TURN_ALIGNMENT_DISTANCE,
+                                       ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL | ATTRPROPERTY_EXTENDED,
+                                       "Distance to an upcoming turn on the vehicles route, below which the alignment should be dynamically adapted to match the turn direction.",
+                                       "0.00");
+    myTagProperties[currentTag].addAttribute(attrProperty);
+
+    attrProperty = AttributeProperties(SUMO_ATTR_LCA_OVERTAKE_RIGHT,
+                                       ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL | ATTRPROPERTY_EXTENDED,
+                                       "The probability for violating rules gainst overtaking on the right.",
+                                       "0");
+    myTagProperties[currentTag].addAttribute(attrProperty);
+
+    /*
+    attrProperty = AttributeProperties(SUMO_ATTR_LCA_EXPERIMENTAL1,
+                                       ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL | ATTRPROPERTY_EXTENDED,
+                                       "XXXXX",
+                                       "0.00");
+    myTagProperties[currentTag].addAttribute(attrProperty);
+    */
 }
 
 

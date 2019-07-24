@@ -29,35 +29,35 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 netedit.additionalMode()
 
 # select parkingArea
-netedit.changeAdditional("parkingArea")
+netedit.changeElement("parkingArea")
 
 # create parkingArea in mode "reference left"
 netedit.leftClick(referencePosition, 250, 250)
 
 # select space
-netedit.changeAdditional("space")
+netedit.changeElement("space")
 
 # set invalid width (dummy)
 netedit.selectAdditionalChild(8, 0)
-netedit.modifyAdditionalDefaultValue(2, "dummyWidth")
+netedit.changeDefaultValue(2, "dummyWidth")
 
 # try to create area
 netedit.leftClick(referencePosition, 280, 100)
 
 # set invalid width (empty)
-netedit.modifyAdditionalDefaultValue(2, "")
+netedit.changeDefaultValue(2, "")
 
 # try to create area
 netedit.leftClick(referencePosition, 280, 100)
 
 # set invalid width (negative)
-netedit.modifyAdditionalDefaultValue(2, "-3")
+netedit.changeDefaultValue(2, "-3")
 
 # try to create area
 netedit.leftClick(referencePosition, 280, 100)
 
 # set valid width
-netedit.modifyAdditionalDefaultValue(2, "2.5")
+netedit.changeDefaultValue(2, "2.5")
 
 # create area
 netedit.leftClick(referencePosition, 280, 100)

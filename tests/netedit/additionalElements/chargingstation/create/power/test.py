@@ -29,22 +29,22 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 netedit.additionalMode()
 
 # select chargingStation
-netedit.changeAdditional("chargingStation")
+netedit.changeElement("chargingStation")
 
 # set invalid power (dummy)
-netedit.modifyAdditionalDefaultValue(4, "dummyPower")
+netedit.changeDefaultValue(4, "dummyPower")
 
 # try to create chargingStation in mode "reference left"
 netedit.leftClick(referencePosition, 250, 250)
 
 # set invalid power (negative)
-netedit.modifyAdditionalDefaultValue(4, "-300")
+netedit.changeDefaultValue(4, "-300")
 
 # try to create chargingStation in mode "reference left"
 netedit.leftClick(referencePosition, 250, 250)
 
 # set valid power
-netedit.modifyAdditionalDefaultValue(4, "2500.5")
+netedit.changeDefaultValue(4, "2500.5")
 
 # create chargingStation in mode "reference left"
 netedit.leftClick(referencePosition, 250, 250)

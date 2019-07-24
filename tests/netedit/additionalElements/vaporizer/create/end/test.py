@@ -29,28 +29,28 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 netedit.additionalMode()
 
 # select vaporizer
-netedit.changeAdditional("vaporizer")
+netedit.changeElement("vaporizer")
 
 # set invalid end
-netedit.modifyAdditionalDefaultValue(3, "-20")
+netedit.changeDefaultValue(3, "-20")
 
 # try to create create vaporizer
 netedit.leftClick(referencePosition, 350, 265)
 
 # set valid end
-netedit.modifyAdditionalDefaultValue(3, "20")
+netedit.changeDefaultValue(3, "20")
 
 # create vaporizer
 netedit.leftClick(referencePosition, 350, 265)
 
 # change default start (Invalid, end > startTime)
-netedit.modifyAdditionalDefaultValue(3, "50")
+netedit.changeDefaultValue(3, "50")
 
 # try to create invalid vaporizer (show warning)
 netedit.leftClick(referencePosition, 220, 270)
 
 # change default end (valid))
-netedit.modifyAdditionalDefaultValue(3, "100")
+netedit.changeDefaultValue(3, "100")
 
 # try to create invalid vaporizer (show warning)
 netedit.leftClick(referencePosition, 220, 270)
