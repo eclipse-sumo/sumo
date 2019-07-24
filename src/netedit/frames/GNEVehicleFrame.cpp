@@ -148,6 +148,11 @@ GNEVehicleFrame::addVehicle(const GNEViewNetHelper::ObjectsUnderCursor& objectsU
         myViewNet->setStatusBarText("Current selected vehicle type isn't valid.");
         return false;
     }
+    // now check if parameters are valid
+    if (!myVehicleAttributes->areValuesValid()) {
+        myVehicleAttributes->showWarningMessage();
+        return false;
+    }
     // Declare map to keep attributes from Frames from Frame
     std::map<SumoXMLAttr, std::string> valuesMap = myVehicleAttributes->getAttributesAndValues(false);
     // add ID parameter
