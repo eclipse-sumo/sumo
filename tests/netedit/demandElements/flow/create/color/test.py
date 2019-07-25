@@ -39,7 +39,6 @@ netedit.changeDefaultValue(5, "dummyColor")
 
 # try to create flow
 netedit.leftClick(referencePosition, 274, 414)
-netedit.leftClick(referencePosition, 570, 250)
 netedit.leftClick(referencePosition, 280, 60)
 
 # press enter to create flow
@@ -50,7 +49,6 @@ netedit.changeDefaultValue(5, "cyan")
 
 # create flow
 netedit.leftClick(referencePosition, 274, 414)
-netedit.leftClick(referencePosition, 570, 250)
 netedit.leftClick(referencePosition, 280, 60)
 
 # press enter to create flow
@@ -61,7 +59,6 @@ netedit.changeDefaultValue(5, "12,13,14")
 
 # create flow
 netedit.leftClick(referencePosition, 274, 414)
-netedit.leftClick(referencePosition, 570, 250)
 netedit.leftClick(referencePosition, 280, 60)
 
 # press enter to create flow

@@ -39,7 +39,6 @@ netedit.changeDefaultValue(13, "dummycontainerNumber")
 
 # try to create flow
 netedit.leftClick(referencePosition, 274, 414)
-netedit.leftClick(referencePosition, 570, 250)
 netedit.leftClick(referencePosition, 280, 60)
 
 # press enter to create flow
@@ -50,7 +49,6 @@ netedit.changeDefaultValue(13, "-12")
 
 # try to create flow
 netedit.leftClick(referencePosition, 274, 414)
-netedit.leftClick(referencePosition, 570, 250)
 netedit.leftClick(referencePosition, 280, 60)
 
 # press enter to create flow
@@ -61,7 +59,6 @@ netedit.changeDefaultValue(13, "3.5")
 
 # try to create flow
 netedit.leftClick(referencePosition, 274, 414)
-netedit.leftClick(referencePosition, 570, 250)
 netedit.leftClick(referencePosition, 280, 60)
 
 # press enter to create flow
@@ -72,7 +69,6 @@ netedit.changeDefaultValue(13, "13")
 
 # create flow
 netedit.leftClick(referencePosition, 274, 414)
-netedit.leftClick(referencePosition, 570, 250)
 netedit.leftClick(referencePosition, 280, 60)
 
 # press enter to create flow

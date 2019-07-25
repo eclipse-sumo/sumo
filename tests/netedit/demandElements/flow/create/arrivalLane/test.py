@@ -42,7 +42,6 @@ netedit.changeDefaultValue(9, "dummyLane")
 
 # try to create flow
 netedit.leftClick(referencePosition, 274, 414)
-netedit.leftClick(referencePosition, 570, 250)
 netedit.leftClick(referencePosition, 280, 60)
 
 # press enter to create flow
@@ -53,7 +52,6 @@ netedit.changeDefaultValue(9, "-12")
 
 # try to create flow
 netedit.leftClick(referencePosition, 274, 414)
-netedit.leftClick(referencePosition, 570, 250)
 netedit.leftClick(referencePosition, 280, 60)
 
 # press enter to create flow
@@ -64,7 +62,6 @@ netedit.changeDefaultValue(9, "random")
 
 # create flow
 netedit.leftClick(referencePosition, 274, 414)
-netedit.leftClick(referencePosition, 570, 250)
 netedit.leftClick(referencePosition, 280, 60)
 
 # press enter to create flow
@@ -75,7 +72,6 @@ netedit.changeDefaultValue(9, "20")
 
 # create flow
 netedit.leftClick(referencePosition, 274, 414)
-netedit.leftClick(referencePosition, 570, 250)
 netedit.leftClick(referencePosition, 280, 60)
 
 # press enter to create flow

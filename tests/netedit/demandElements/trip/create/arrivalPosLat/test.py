@@ -39,7 +39,6 @@ netedit.changeDefaultValue(17, "dummyPos")
 
 # try to create trip
 netedit.leftClick(referencePosition, 274, 414)
-netedit.leftClick(referencePosition, 570, 250)
 netedit.leftClick(referencePosition, 280, 60)
 
 # press enter to create trip
@@ -50,7 +49,6 @@ netedit.changeDefaultValue(17, "-12")
 
 # create trip
 netedit.leftClick(referencePosition, 274, 414)
-netedit.leftClick(referencePosition, 570, 250)
 netedit.leftClick(referencePosition, 280, 60)
 
 # press enter to create trip
@@ -61,7 +59,6 @@ netedit.changeDefaultValue(17, "center")
 
 # create trip
 netedit.leftClick(referencePosition, 274, 414)
-netedit.leftClick(referencePosition, 570, 250)
 netedit.leftClick(referencePosition, 280, 60)
 
 # press enter to create trip
@@ -72,7 +69,6 @@ netedit.changeDefaultValue(17, "20")
 
 # create trip
 netedit.leftClick(referencePosition, 274, 414)
-netedit.leftClick(referencePosition, 570, 250)
 netedit.leftClick(referencePosition, 280, 60)
 
 # press enter to create trip

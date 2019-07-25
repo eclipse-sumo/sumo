@@ -39,7 +39,6 @@ netedit.changeDefaultValue(10, "dummyPos")
 
 # try to create flow
 netedit.leftClick(referencePosition, 274, 414)
-netedit.leftClick(referencePosition, 570, 250)
 netedit.leftClick(referencePosition, 280, 60)
 
 # press enter to create flow
@@ -50,7 +49,6 @@ netedit.changeDefaultValue(10, "-12")
 
 # create flow
 netedit.leftClick(referencePosition, 274, 414)
-netedit.leftClick(referencePosition, 570, 250)
 netedit.leftClick(referencePosition, 280, 60)
 
 # press enter to create flow
@@ -61,7 +59,6 @@ netedit.changeDefaultValue(10, "random_free")
 
 # create flow
 netedit.leftClick(referencePosition, 274, 414)
-netedit.leftClick(referencePosition, 570, 250)
 netedit.leftClick(referencePosition, 280, 60)
 
 # press enter to create flow
@@ -72,7 +69,6 @@ netedit.changeDefaultValue(10, "20")
 
 # create flow
 netedit.leftClick(referencePosition, 274, 414)
-netedit.leftClick(referencePosition, 570, 250)
 netedit.leftClick(referencePosition, 280, 60)
 
 # press enter to create flow

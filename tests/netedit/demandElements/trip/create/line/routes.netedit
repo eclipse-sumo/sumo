@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 25.07.2019 11:07:41 by Eclipse SUMO netedit Version v1_2_0+1289-3b84e40527
+<!-- generated on 25.07.2019 15:30:35 by Eclipse SUMO netedit Version v1_2_0+1292-072ba76486
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.25Jul110713.11172/netedit.gui/demandElements/trip/create/line\input_net.net.xml"/>
+        <sumo-net-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.25Jul152458.8212/netedit.gui/demandElements/trip/create/line\input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.25Jul110713.11172/netedit.gui/demandElements/trip/create/line\net.net.xml"/>
+        <output-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.25Jul152458.8212/netedit.gui/demandElements/trip/create/line\net.net.xml"/>
     </output>
 
     <processing>
@@ -29,10 +29,10 @@
     </pedestrian>
 
     <netedit>
-        <additional-files value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.25Jul110713.11172/netedit.gui/demandElements/trip/create/line\additionals.xml"/>
-        <additionals-output value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.25Jul110713.11172/netedit.gui/demandElements/trip/create/line\additionals.xml"/>
-        <route-files value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.25Jul110713.11172/netedit.gui/demandElements/trip/create/line\routes.xml"/>
-        <demandelements-output value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.25Jul110713.11172/netedit.gui/demandElements/trip/create/line\routes.xml"/>
+        <additional-files value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.25Jul152458.8212/netedit.gui/demandElements/trip/create/line\additionals.xml"/>
+        <additionals-output value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.25Jul152458.8212/netedit.gui/demandElements/trip/create/line\additionals.xml"/>
+        <route-files value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.25Jul152458.8212/netedit.gui/demandElements/trip/create/line\routes.xml"/>
+        <demandelements-output value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.25Jul152458.8212/netedit.gui/demandElements/trip/create/line\routes.xml"/>
     </netedit>
 
     <visualisation>
@@ -45,14 +45,14 @@
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.25Jul110713.11172/netedit.gui/demandElements/trip/create/line\log.txt"/>
+        <error-log value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.25Jul152458.8212/netedit.gui/demandElements/trip/create/line\log.txt"/>
     </report>
 
 </configuration>
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-    <trip id="trip_0" depart="0.00" line="%%%%%%" from="gneE2" to="gneE5" via="gneE4"/>
-    <trip id="trip_1" depart="0.00" line="ownLine" from="gneE2" to="gneE5" via="gneE4"/>
-    <trip id="trip_2" depart="0.00" from="gneE2" to="gneE5" via="gneE4"/>
+    <trip id="trip_0" depart="0.00" line="%%%%%%" from="gneE2" to="gneE5"/>
+    <trip id="trip_1" depart="0.00" line="ownLine" from="gneE2" to="gneE5"/>
+    <trip id="trip_2" depart="0.00" from="gneE2" to="gneE5"/>
 </routes>
