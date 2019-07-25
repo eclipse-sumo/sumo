@@ -35,7 +35,7 @@ netedit.vehicleMode()
 netedit.changeElement("trip")
 
 # set invalid containerNumber
-netedit.changeDefaultValue(15, "dummyContainerNumber")
+netedit.changeDefaultValue(14, "dummyContainerNumber")
 
 # try to create trip
 netedit.leftClick(referencePosition, 274, 414)
@@ -46,7 +46,7 @@ netedit.leftClick(referencePosition, 280, 60)
 netedit.typeEnter()
 
 # set invalid containerNumber
-netedit.changeDefaultValue(15, "-12")
+netedit.changeDefaultValue(14, "-12")
 
 # try to create trip
 netedit.leftClick(referencePosition, 274, 414)
@@ -57,7 +57,7 @@ netedit.leftClick(referencePosition, 280, 60)
 netedit.typeEnter()
 
 # set invalid containerNumber
-netedit.changeDefaultValue(15, "3.5")
+netedit.changeDefaultValue(14, "3.5")
 
 # try to create trip
 netedit.leftClick(referencePosition, 274, 414)
@@ -68,7 +68,7 @@ netedit.leftClick(referencePosition, 280, 60)
 netedit.typeEnter()
 
 # set valid containerNumber
-netedit.changeDefaultValue(15, "13")
+netedit.changeDefaultValue(14, "13")
 
 # create trip
 netedit.leftClick(referencePosition, 274, 414)

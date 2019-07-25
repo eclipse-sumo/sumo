@@ -35,7 +35,7 @@ netedit.vehicleMode()
 netedit.changeElement("trip")
 
 # set change boolean attribute
-netedit.changeDefaultBoolValue(16)
+netedit.changeDefaultBoolValue(15)
 
 # create trip
 netedit.leftClick(referencePosition, 274, 414)

@@ -35,7 +35,7 @@ netedit.vehicleMode()
 netedit.changeElement("trip")
 
 # set invalid line
-netedit.changeDefaultValue(13, "%%%%%%")
+netedit.changeDefaultValue(12, "%%%%%%")
 
 # try to create trip
 netedit.leftClick(referencePosition, 274, 414)
@@ -46,7 +46,7 @@ netedit.leftClick(referencePosition, 280, 60)
 netedit.typeEnter()
 
 # set valid Line
-netedit.changeDefaultValue(13, "ownLine")
+netedit.changeDefaultValue(12, "ownLine")
 
 # create trip
 netedit.leftClick(referencePosition, 274, 414)
@@ -57,7 +57,7 @@ netedit.leftClick(referencePosition, 280, 60)
 netedit.typeEnter()
 
 # set empty line
-netedit.changeDefaultValue(13, "")
+netedit.changeDefaultValue(12, "")
 
 # create trip
 netedit.leftClick(referencePosition, 274, 414)

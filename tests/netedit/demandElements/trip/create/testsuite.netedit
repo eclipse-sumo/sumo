@@ -4,8 +4,6 @@ vType
 
 color
 
-depart
-
 departLane
 
 departPos
@@ -29,3 +27,5 @@ reroute
 departPosLat
 
 arrivalPosLat
+
+depart
