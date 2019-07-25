@@ -4,8 +4,6 @@ vType
 
 color
 
-depart
-
 departLane
 
 departPos
@@ -26,8 +24,8 @@ containerNumber
 
 reroute
 
-via
-
 departPosLat
 
 arrivalPosLat
+
+depart

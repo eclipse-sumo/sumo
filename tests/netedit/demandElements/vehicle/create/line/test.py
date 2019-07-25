@@ -43,19 +43,19 @@ netedit.typeEnter()
 netedit.vehicleMode()
 
 # set invalid line
-netedit.changeDefaultValue(13, "%%%%%%")
+netedit.changeDefaultValue(12, "%%%%%%")
 
 # try to create vehicle
 netedit.leftClick(referencePosition, 274, 414)
 
 # set valid Line
-netedit.changeDefaultValue(13, "ownLine")
+netedit.changeDefaultValue(12, "ownLine")
 
 # create vehicle
 netedit.leftClick(referencePosition, 274, 414)
 
 # set empty line
-netedit.changeDefaultValue(13, "")
+netedit.changeDefaultValue(12, "")
 
 # create vehicle
 netedit.leftClick(referencePosition, 274, 414)
