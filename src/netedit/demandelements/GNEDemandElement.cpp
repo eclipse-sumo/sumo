@@ -262,6 +262,21 @@ GNEDemandElement::RouteCalculator::calculateDijkstraRoute(SUMOVehicleClass vClas
             }
         }
     }
+    // filter solution
+    auto solutionIt = solution.begin();
+    // iterate over solution
+    while (solutionIt != solution.end()) {
+        if ((solutionIt + 1) != solution.end()) {
+            // if next edge is the same of current edge, remove it
+            if (*solutionIt == *(solutionIt + 1)) {
+                solutionIt = solution.erase(solutionIt);
+            } else {
+                solutionIt++;
+            }
+        } else {
+            solutionIt++;
+        }
+    }
     return solution;
 }
 
