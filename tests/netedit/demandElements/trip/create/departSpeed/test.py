@@ -34,6 +34,42 @@ netedit.vehicleMode()
 # select trip
 netedit.changeElement("trip")
 
+# set invalid depart speed
+netedit.changeDefaultValue(9, "dummySpeed")
+
+# try to create trip
+netedit.leftClick(referencePosition, 274, 414)
+netedit.leftClick(referencePosition, 570, 250)
+netedit.leftClick(referencePosition, 280, 60)
+
+# press enter to create trip
+netedit.typeEnter()
+
+# set invalid depart speed
+netedit.changeDefaultValue(9, "-12")
+
+# create trip
+netedit.leftClick(referencePosition, 274, 414)
+netedit.leftClick(referencePosition, 570, 250)
+netedit.leftClick(referencePosition, 280, 60)
+
+# press enter to create trip
+netedit.typeEnter()
+
+# set valid depart speed
+netedit.changeDefaultValue(9, "max")
+
+# create trip
+netedit.leftClick(referencePosition, 274, 414)
+netedit.leftClick(referencePosition, 570, 250)
+netedit.leftClick(referencePosition, 280, 60)
+
+# press enter to create trip
+netedit.typeEnter()
+
+# set valid depart speed
+netedit.changeDefaultValue(9, "20")
+
 # create trip
 netedit.leftClick(referencePosition, 274, 414)
 netedit.leftClick(referencePosition, 570, 250)
@@ -43,8 +79,8 @@ netedit.leftClick(referencePosition, 280, 60)
 netedit.typeEnter()
 
 # Check undo redo
-netedit.undo(referencePosition, 1)
-netedit.redo(referencePosition, 1)
+netedit.undo(referencePosition, 3)
+netedit.redo(referencePosition, 3)
 
 # click over reference (to avoid problem with undo-redo)
 netedit.leftClick(referencePosition, 0, 0)
