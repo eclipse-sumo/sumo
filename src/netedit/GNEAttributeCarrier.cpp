@@ -3608,12 +3608,6 @@ GNEAttributeCarrier::fillVehicleElements() {
                                            "yellow");
         myTagProperties[currentTag].addAttribute(attrProperty);
 
-        attrProperty = AttributeProperties(SUMO_ATTR_DEPART,
-                                           ATTRPROPERTY_STRING | ATTRPROPERTY_DEFAULTVALUESTATIC,
-                                           "The time step at which the vehicle shall enter the network",
-                                           "0");
-        myTagProperties[currentTag].addAttribute(attrProperty);
-
         attrProperty = AttributeProperties(SUMO_ATTR_DEPARTLANE,
                                            ATTRPROPERTY_STRING | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL,
                                            "The lane on which the vehicle shall be inserted",
@@ -3673,11 +3667,6 @@ GNEAttributeCarrier::fillVehicleElements() {
                                            "0");
         myTagProperties[currentTag].addAttribute(attrProperty);
 
-        attrProperty = AttributeProperties(SUMO_ATTR_VIA,
-                                           ATTRPROPERTY_STRING | ATTRPROPERTY_LIST | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL,
-                                           "List of intermediate edges that shall be passed on rerouting");
-        myTagProperties[currentTag].addAttribute(attrProperty);
-
         attrProperty = AttributeProperties(SUMO_ATTR_DEPARTPOS_LAT,
                                            ATTRPROPERTY_STRING | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL /* ATTRPROPERTY_MULTIDISCRETE (Currently disabled) */,
                                            "The lateral position on the departure lane at which the vehicle shall enter the net",
@@ -3690,6 +3679,12 @@ GNEAttributeCarrier::fillVehicleElements() {
                                            "The lateral position on the arrival lane at which the vehicle shall arrive",
                                            "center");
         /*attrProperty.setDiscreteValues(SUMOXMLDefinitions::LateralAlignments.getStrings());*/
+        myTagProperties[currentTag].addAttribute(attrProperty);
+        
+        attrProperty = AttributeProperties(SUMO_ATTR_DEPART,
+                                           ATTRPROPERTY_STRING | ATTRPROPERTY_DEFAULTVALUESTATIC,
+                                           "The time step at which the vehicle shall enter the network",
+                                           "0");
         myTagProperties[currentTag].addAttribute(attrProperty);
     }
     currentTag = SUMO_TAG_ROUTEFLOW;
@@ -3865,12 +3860,6 @@ GNEAttributeCarrier::fillVehicleElements() {
                                            "This generated vehicle's color",
                                            "yellow");
         myTagProperties[currentTag].addAttribute(attrProperty);
-        
-        attrProperty = AttributeProperties(SUMO_ATTR_DEPART,
-                                           ATTRPROPERTY_INT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUESTATIC,
-                                           "The departure time of the (first) vehicle which is generated using this trip definition",
-                                           "0");
-        myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = AttributeProperties(SUMO_ATTR_DEPARTLANE,
                                            ATTRPROPERTY_STRING | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL,
@@ -3944,6 +3933,12 @@ GNEAttributeCarrier::fillVehicleElements() {
                                            "center");
         /*attrProperty.setDiscreteValues(SUMOXMLDefinitions::LateralAlignments.getStrings());*/
         myTagProperties[currentTag].addAttribute(attrProperty);
+                
+        attrProperty = AttributeProperties(SUMO_ATTR_DEPART,
+                                           ATTRPROPERTY_INT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUESTATIC,
+                                           "The departure time of the (first) vehicle which is generated using this trip definition",
+                                           "0");
+        myTagProperties[currentTag].addAttribute(attrProperty);
     }
     currentTag = SUMO_TAG_FLOW;
     {
@@ -3973,7 +3968,7 @@ GNEAttributeCarrier::fillVehicleElements() {
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = AttributeProperties(SUMO_ATTR_VIA,
-                                           ATTRPROPERTY_STRING | ATTRPROPERTY_LIST,
+                                           ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_UPDATEGEOMETRY | ATTRPROPERTY_LIST,
                                            "List of intermediate edge ids which shall be part of the route routeFlow");
         myTagProperties[currentTag].addAttribute(attrProperty);
 
