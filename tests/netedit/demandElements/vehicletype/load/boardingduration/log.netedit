@@ -1,0 +1,3 @@
+Error: Attribute 'boardingDuration' in definition of vType 'vType0' is not a time value.
+Error: Process Error
+Error: Loading of C:/Users/alva_pa/.texttest/tmp/netedit.gui.25Jul165827.6524/netedit.gui/demandElements/vehicletype/load/boardingduration\input_routes.rou.xml failed.
