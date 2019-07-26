@@ -443,6 +443,16 @@ public:
      */
     static double interpretEdgePos(double pos, double maximumValue, SumoXMLAttr attr, const std::string& id);
 
+    /** @brief Validates a given person modes value
+     * @param[in] modes The modes value to parse
+     * @param[in] element The name of the type of the parsed element, for building the error message
+     * @param[in] id The id of the parsed element, for building the error message
+     * @param[out] modeSet The parsed modes definition
+     * @param[out] error Error message, if an error occures
+     * @return Whether the given value is a valid arrivalSpeed definition
+     */
+    static bool parsePersonModes(const std::string& modes, const std::string& element, const std::string& id, SVCPermissions &modeSet, std::string& error);
+
     /// @brief The vehicle tag
     SumoXMLTag tag;
 

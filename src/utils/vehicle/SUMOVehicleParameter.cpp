@@ -21,15 +21,16 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#include <config.h>
 
-#include "SUMOVehicleParameter.h"
-#include <utils/common/ToString.h>
-#include <utils/common/StringUtils.h>
+#include <config.h>
 #include <utils/common/MsgHandler.h>
+#include <utils/common/StringTokenizer.h>
+#include <utils/common/StringUtils.h>
+#include <utils/common/ToString.h>
 #include <utils/iodevices/OutputDevice.h>
 #include <utils/options/OptionsCont.h>
 
+#include "SUMOVehicleParameter.h"
 
 // ===========================================================================
 // member method definitions
@@ -507,6 +508,30 @@ SUMOVehicleParameter::interpretEdgePos(double pos, double maximumValue, SumoXMLA
         pos = maximumValue;
     }
     return pos;
+}
+
+
+bool 
+SUMOVehicleParameter::parsePersonModes(const std::string& modes, const std::string& element, const std::string& id, SVCPermissions &modeSet, std::string& error) {
+    // separte modes in different strings, and check if modes are valid
+    for (StringTokenizer st(modes); st.hasNext();) {
+        const std::string mode = st.next();
+        if (mode == "car") {
+            modeSet |= SVC_PASSENGER;
+        } else if (mode == "bicycle") {
+            modeSet |= SVC_BICYCLE;
+        } else if (mode == "public") {
+            modeSet |= SVC_BUS;
+        } else {
+            if (id.empty()) {
+                error = "Unknown person mode '" + mode + "'. Must be a combination of (\"car\", \"bicycle\" or \"public\")";
+            } else {
+                error = "Unknown person mode '" + mode + "' for " + element + " '" + id + "';\n must be a combination of (\"car\", \"bicycle\" or \"public\")";
+            }
+            return false;
+        }
+    }
+    return true;
 }
 
 

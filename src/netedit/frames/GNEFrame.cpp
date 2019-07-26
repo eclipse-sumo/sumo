@@ -1449,6 +1449,7 @@ GNEFrame::AttributesCreator::AttributesCreatorRow::checkComplexAttribute(const s
     ArrivalPosDefinition apd;
     ArrivalPosLatDefinition apld;
     ArrivalSpeedDefinition asd;
+    SVCPermissions mode;
     int valueInt;
     double valueDouble;
     SUMOTime valueSUMOTime;
@@ -1481,6 +1482,9 @@ GNEFrame::AttributesCreator::AttributesCreatorRow::checkComplexAttribute(const s
             break;
         case SUMO_ATTR_ARRIVALPOS_LAT: 
             SUMOVehicleParameter::parseArrivalPosLat(value, myAttrProperties.getAttrStr(), "", valueDouble, apld, errorMessage);
+            break;
+        case SUMO_ATTR_MODES:
+            SUMOVehicleParameter::parsePersonModes(value, myAttrProperties.getAttrStr(), "", mode , errorMessage);
             break;
         default:
             throw ProcessError("Invalid complex attribute");
