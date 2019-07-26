@@ -303,10 +303,10 @@ set(commonvehiclelibs
 set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 set_property(GLOBAL PROPERTY PREDEFINED_TARGETS_FOLDER "CMake")
 
-add_subdirectory(src)
+add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/src)
 enable_testing()
 if (GTEST_FOUND)
-    add_subdirectory(unittest)
+    add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/unittest)
 endif ()
 
 # installation
