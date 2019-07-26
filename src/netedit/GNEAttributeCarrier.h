@@ -849,6 +849,12 @@ private:
     /// @brief fill PersonStop elements
     static void fillPersonStopElements();
 
+    /// @brief fill common vehicle attributes (used by vehicles, trips, routeFlows and flows)
+    static void fillCommonVehicleAttributes(SumoXMLTag currentTag);
+
+     /// @brief fill common flow attributes (used by flows, routeFlows and personFlows)
+    static void fillCommonFlowAttributes(SumoXMLTag currentTag);
+
     /// @brief fill Car Following Model of Vehicle/Person Types
     static void fillCarFollowingModelAttributes(SumoXMLTag currentTag);
 
