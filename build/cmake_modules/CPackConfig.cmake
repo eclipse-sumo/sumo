@@ -4,8 +4,9 @@
 # include(InstallRequiredSystemLibraries)
 
 set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "Eclipse Simulation of Urban Mobility - A Microscopic Traffic Simulation")
-set(CPACK_RESOURCE_FILE_LICENSE "${CMAKE_SOURCE_DIR}/LICENSE")
-set(CPACK_RESOURCE_FILE_README "${CMAKE_SOURCE_DIR}/README.md")
+#${MISSING_LINK} is a variable only used when integrating SUMO via "add subdirectory" into other projects. If not used that way, it just is empty
+set(CPACK_RESOURCE_FILE_LICENSE "${CMAKE_CURRENT_SOURCE_DIR}${MISSING_LINK}/LICENSE")
+set(CPACK_RESOURCE_FILE_README "${CMAKE_CURRENT_SOURCE_DIR}${MISSING_LINK}/README.md")
 set(CPACK_PACKAGE_VERSION "${PACKAGE_VERSION}")
 
 message(STATUS "CPACK_GENERATOR: " ${CPACK_GENERATOR})
