@@ -512,6 +512,7 @@ RORouteHandler::closeVType() {
             myCurrentVTypeDistribution->add(myCurrentVType, myCurrentVType->defaultProbability);
         }
     }
+    myCurrentVType = nullptr;
 }
 
 
