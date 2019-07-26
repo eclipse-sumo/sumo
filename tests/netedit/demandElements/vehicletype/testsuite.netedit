@@ -1,17 +1,2 @@
-# create demand element
-create
-
-# delete demand element
-delete
-
-# inspect demand element
-inspect
-
-# inspect selection
-inspect_selection
-
 # load demand element
 load
-
-# volatile recomputing
-volatile_recomputing

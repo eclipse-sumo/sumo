@@ -1,5 +1,7 @@
 default
 
+default_continuous
+
 vType
 
 color
@@ -23,8 +25,6 @@ personNumber
 containerNumber
 
 reroute
-
-via
 
 departPosLat
 

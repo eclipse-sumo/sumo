@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 24.07.2019 14:32:29 by Eclipse SUMO netedit Version v1_2_0+1285-dce88a730c
+<!-- generated on 25.07.2019 15:41:43 by Eclipse SUMO netedit Version v1_2_0+1292-072ba76486
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.24Jul142643.11632/netedit.gui/demandElements/flow/create/personNumber\input_net.net.xml"/>
+        <sumo-net-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.25Jul152458.8212/netedit.gui/demandElements/flow/create/personNumber\input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.24Jul142643.11632/netedit.gui/demandElements/flow/create/personNumber\net.net.xml"/>
+        <output-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.25Jul152458.8212/netedit.gui/demandElements/flow/create/personNumber\net.net.xml"/>
     </output>
 
     <processing>
@@ -29,10 +29,10 @@
     </pedestrian>
 
     <netedit>
-        <additional-files value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.24Jul142643.11632/netedit.gui/demandElements/flow/create/personNumber\additionals.xml"/>
-        <additionals-output value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.24Jul142643.11632/netedit.gui/demandElements/flow/create/personNumber\additionals.xml"/>
-        <route-files value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.24Jul142643.11632/netedit.gui/demandElements/flow/create/personNumber\routes.xml"/>
-        <demandelements-output value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.24Jul142643.11632/netedit.gui/demandElements/flow/create/personNumber\routes.xml"/>
+        <additional-files value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.25Jul152458.8212/netedit.gui/demandElements/flow/create/personNumber\additionals.xml"/>
+        <additionals-output value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.25Jul152458.8212/netedit.gui/demandElements/flow/create/personNumber\additionals.xml"/>
+        <route-files value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.25Jul152458.8212/netedit.gui/demandElements/flow/create/personNumber\routes.xml"/>
+        <demandelements-output value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.25Jul152458.8212/netedit.gui/demandElements/flow/create/personNumber\routes.xml"/>
     </netedit>
 
     <visualisation>
@@ -45,13 +45,12 @@
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.24Jul142643.11632/netedit.gui/demandElements/flow/create/personNumber\log.txt"/>
+        <error-log value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.25Jul152458.8212/netedit.gui/demandElements/flow/create/personNumber\log.txt"/>
     </report>
 
 </configuration>
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-    <route edges="gneE2 gneE4 gneE5" color="yellow" id="route_0"/>
-    <flow id="routeFlow_0" begin="0.00" personNumber="13" route="route_0" end="3600.00" number="1800"/>
+    <flow id="flow_0" begin="0.00" personNumber="13" from="gneE2" to="gneE5" end="3600.00" number="1800"/>
 </routes>

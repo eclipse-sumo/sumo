@@ -387,6 +387,9 @@ public:
         protected:
             /// @brief FOX needs this
             AttributesCreatorRow() {}
+            
+            /// @brief check if given complex attribute is valid
+            std::string checkComplexAttribute(const std::string &value);
 
         private:
             /// @brief pointer to AttributesCreator

@@ -44,6 +44,7 @@
 #include <utils/gui/globjects/GLIncludes.h>
 #include <utils/gui/images/GUITexturesHelper.h>
 #include <utils/gui/windows/GUIAppEnum.h>
+#include <utils/vehicle/SUMOVehicleParameter.h>
 
 #include "GNEFrame.h"
 #include "GNEInspectorFrame.h"
@@ -1291,6 +1292,9 @@ GNEFrame::AttributesCreator::AttributesCreatorRow::onCmdSetAttribute(FXObject* o
         }
         // update disjoint attribute
         myAttributesCreatorParent->updateDisjointAttributes(nullptr);
+    } else if (myAttrProperties.isComplex()) {
+        // check complex attribute
+        myInvalidValue = checkComplexAttribute(myValueTextFieldStrings->getText().text());
     } else if (myAttrProperties.isInt()) {
         if (GNEAttributeCarrier::canParse<int>(myValueTextFieldInt->getText().text())) {
             // convert string to int
@@ -1429,6 +1433,64 @@ GNEFrame::AttributesCreator::AttributesCreatorRow::onCmdSelectRadioButton(FXObje
     // update disjoint attributes in AC Attributes parent
     myAttributesCreatorParent->updateDisjointAttributes(this);
     return 0;
+}
+
+
+std::string 
+GNEFrame::AttributesCreator::AttributesCreatorRow::checkComplexAttribute(const std::string &value) {
+    // declare values needed to check if given complex parameters are valid
+    std::string errorMessage;
+    DepartDefinition dd;
+    DepartLaneDefinition dld;
+    DepartPosDefinition dpd;
+    DepartPosLatDefinition dpld;
+    ArrivalLaneDefinition ald;
+    DepartSpeedDefinition dsd;
+    ArrivalPosDefinition apd;
+    ArrivalPosLatDefinition apld;
+    ArrivalSpeedDefinition asd;
+    SVCPermissions mode;
+    int valueInt;
+    double valueDouble;
+    SUMOTime valueSUMOTime;
+    // check complex attribute
+    switch (myAttrProperties.getAttr()) {
+        case SUMO_ATTR_DEPART:
+        case SUMO_ATTR_BEGIN:
+            SUMOVehicleParameter::parseDepart(value, myAttrProperties.getAttrStr(), "", valueSUMOTime, dd, errorMessage);
+            break;
+        case SUMO_ATTR_DEPARTLANE: 
+            SUMOVehicleParameter::parseDepartLane(value, myAttrProperties.getAttrStr(), "", valueInt, dld, errorMessage);
+            break;
+        case SUMO_ATTR_DEPARTPOS: 
+            SUMOVehicleParameter::parseDepartPos(value, myAttrProperties.getAttrStr(), "", valueDouble, dpd, errorMessage);
+            break;
+        case SUMO_ATTR_DEPARTSPEED: 
+            SUMOVehicleParameter::parseDepartSpeed(value, myAttrProperties.getAttrStr(), "", valueDouble, dsd, errorMessage);
+            break;
+        case SUMO_ATTR_ARRIVALLANE: 
+            SUMOVehicleParameter::parseArrivalLane(value, myAttrProperties.getAttrStr(), "", valueInt, ald, errorMessage);
+            break;
+        case SUMO_ATTR_ARRIVALPOS: 
+            SUMOVehicleParameter::parseArrivalPos(value, myAttrProperties.getAttrStr(), "", valueDouble, apd, errorMessage);
+            break;
+        case SUMO_ATTR_ARRIVALSPEED: 
+            SUMOVehicleParameter::parseArrivalSpeed(value, myAttrProperties.getAttrStr(), "", valueDouble, asd, errorMessage);
+            break;
+        case SUMO_ATTR_DEPARTPOS_LAT: 
+            SUMOVehicleParameter::parseDepartPosLat(value, myAttrProperties.getAttrStr(), "", valueDouble, dpld, errorMessage);
+            break;
+        case SUMO_ATTR_ARRIVALPOS_LAT: 
+            SUMOVehicleParameter::parseArrivalPosLat(value, myAttrProperties.getAttrStr(), "", valueDouble, apld, errorMessage);
+            break;
+        case SUMO_ATTR_MODES:
+            SUMOVehicleParameter::parsePersonModes(value, myAttrProperties.getAttrStr(), "", mode , errorMessage);
+            break;
+        default:
+            throw ProcessError("Invalid complex attribute");
+    }
+    // return error message (Will be empty if value is valid)
+    return errorMessage;
 }
 
 // ---------------------------------------------------------------------------

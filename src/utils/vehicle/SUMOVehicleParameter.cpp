@@ -21,15 +21,16 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#include <config.h>
 
-#include "SUMOVehicleParameter.h"
-#include <utils/common/ToString.h>
-#include <utils/common/StringUtils.h>
+#include <config.h>
 #include <utils/common/MsgHandler.h>
+#include <utils/common/StringTokenizer.h>
+#include <utils/common/StringUtils.h>
+#include <utils/common/ToString.h>
 #include <utils/iodevices/OutputDevice.h>
 #include <utils/options/OptionsCont.h>
 
+#include "SUMOVehicleParameter.h"
 
 // ===========================================================================
 // member method definitions
@@ -233,7 +234,11 @@ SUMOVehicleParameter::parseDepart(const std::string& val, const std::string& ele
                 return false;
             }
         } catch (...) {
-            error = "Invalid departure time for " + element + " '" + id + "';\n must be one of (\"triggered\", \"containerTriggered\", \"now\", or a float >= 0)";
+            if (id.empty()) {
+                error = "Invalid departure time for " + element + ". Must be one of (\"triggered\", \"containerTriggered\", \"now\", or a float >= 0)";
+            } else {
+                error = "Invalid departure time for " + element + " '" + id + "';\n must be one of (\"triggered\", \"containerTriggered\", \"now\", or a float >= 0)";
+            }
             return false;
         }
     }
@@ -267,7 +272,11 @@ SUMOVehicleParameter::parseDepartLane(const std::string& val, const std::string&
         }
     }
     if (!ok) {
-        error = "Invalid departLane definition for " + element + " '" + id + "';\n must be one of (\"random\", \"free\", \"allowed\", \"best\", \"first\", or an int>=0)";
+        if (id.empty()) {
+            error = "Invalid departLane definition for " + element +". Must be one of (\"random\", \"free\", \"allowed\", \"best\", \"first\", or an int>=0)";
+        } else {
+            error = "Invalid departLane definition for " + element + " '" + id + "';\n must be one of (\"random\", \"free\", \"allowed\", \"best\", \"first\", or an int>=0)";
+        }
     }
     return ok;
 }
@@ -296,7 +305,11 @@ SUMOVehicleParameter::parseDepartPos(const std::string& val, const std::string& 
         }
     }
     if (!ok) {
-        error = "Invalid departPos definition for " + element + " '" + id + "';\n must be one of (\"random\", \"random_free\", \"free\", \"base\", \"last\" or a float)";
+        if (id.empty()) {
+            error = "Invalid departPos definition for " + element + ". Must be one of (\"random\", \"random_free\", \"free\", \"base\", \"last\" or a float)";
+        } else {
+            error = "Invalid departPos definition for " + element + " '" + id + "';\n must be one of (\"random\", \"random_free\", \"free\", \"base\", \"last\" or a float)";
+        }
     }
     return ok;
 }
@@ -327,7 +340,11 @@ SUMOVehicleParameter::parseDepartPosLat(const std::string& val, const std::strin
         }
     }
     if (!ok) {
-        error = "Invalid departPosLat definition for " + element + " '" + id + "';\n must be one of (\"random\", \"random_free\", \"free\", \"right\", \"center\", \"left\", or a float)";
+        if (id.empty()) {
+            error = "Invalid departPosLat definition for " + element + ". Must be one of (\"random\", \"random_free\", \"free\", \"right\", \"center\", \"left\", or a float)";
+        } else {
+            error = "Invalid departPosLat definition for " + element + " '" + id + "';\n must be one of (\"random\", \"random_free\", \"free\", \"right\", \"center\", \"left\", or a float)";
+        }
     }
     return ok;
 }
@@ -357,7 +374,11 @@ SUMOVehicleParameter::parseDepartSpeed(const std::string& val, const std::string
         }
     }
     if (!ok) {
-        error = "Invalid departSpeed definition for " + element + " '" + id + "';\n must be one of (\"random\", \"max\", or a float>=0)";
+        if (id.empty()) {
+            error = "Invalid departSpeed definition for " + element + ". Must be one of (\"random\", \"max\", or a float>=0)";
+        } else {
+            error = "Invalid departSpeed definition for " + element + " '" + id + "';\n must be one of (\"random\", \"max\", or a float>=0)";
+        }
     }
     return ok;
 }
@@ -381,7 +402,11 @@ SUMOVehicleParameter::parseArrivalLane(const std::string& val, const std::string
         }
     }
     if (!ok) {
-        error = "Invalid arrivalLane definition for " + element + " '" + id + "';\n must be one of (\"current\", or an int>=0)";
+        if (id.empty()) {
+            error = "Invalid arrivalLane definition for " + element + ". Must be one of (\"current\", or an int>=0)";
+        } else {
+            error = "Invalid arrivalLane definition for " + element + " '" + id + "';\n must be one of (\"current\", or an int>=0)";
+        }
     }
     return ok;
 }
@@ -406,7 +431,11 @@ SUMOVehicleParameter::parseArrivalPos(const std::string& val, const std::string&
         }
     }
     if (!ok) {
-        error = "Invalid arrivalPos definition for " + element + " '" + id + "';\n must be one of (\"random\", \"max\", or a float)";
+        if (id.empty()) {
+            error = "Invalid arrivalPos definition for " + element + ". Must be one of (\"random\", \"max\", or a float)";
+        } else {
+            error = "Invalid arrivalPos definition for " + element + " '" + id + "';\n must be one of (\"random\", \"max\", or a float)";
+        }
     }
     return ok;
 }
@@ -431,7 +460,11 @@ SUMOVehicleParameter::parseArrivalPosLat(const std::string& val, const std::stri
         }
     }
     if (!ok) {
-        error = "Invalid arrivalPosLat definition for " + element + " '" + id + "';\n must be one of (\"right\", \"center\", \"left\", or a float)";
+        if (id.empty()) {
+            error = "Invalid arrivalPosLat definition for " + element + ". Must be one of (\"right\", \"center\", \"left\", or a float)";
+        } else {
+            error = "Invalid arrivalPosLat definition for " + element + " '" + id + "';\n must be one of (\"right\", \"center\", \"left\", or a float)";
+        }
     }
     return ok;
 }
@@ -455,7 +488,11 @@ SUMOVehicleParameter::parseArrivalSpeed(const std::string& val, const std::strin
         }
     }
     if (!ok) {
-        error = "Invalid arrivalSpeed definition for " + element + " '" + id + "';\n must be one of (\"current\", or a float>=0)";
+        if (id.empty()) {
+            error = "Invalid arrivalSpeed definition for " + element + ". Must be one of (\"current\", or a float>=0)";
+        } else {
+            error = "Invalid arrivalSpeed definition for " + element + " '" + id + "';\n must be one of (\"current\", or a float>=0)";
+        }
     }
     return ok;
 }
@@ -471,6 +508,30 @@ SUMOVehicleParameter::interpretEdgePos(double pos, double maximumValue, SumoXMLA
         pos = maximumValue;
     }
     return pos;
+}
+
+
+bool 
+SUMOVehicleParameter::parsePersonModes(const std::string& modes, const std::string& element, const std::string& id, SVCPermissions &modeSet, std::string& error) {
+    // separte modes in different strings, and check if modes are valid
+    for (StringTokenizer st(modes); st.hasNext();) {
+        const std::string mode = st.next();
+        if (mode == "car") {
+            modeSet |= SVC_PASSENGER;
+        } else if (mode == "bicycle") {
+            modeSet |= SVC_BICYCLE;
+        } else if (mode == "public") {
+            modeSet |= SVC_BUS;
+        } else {
+            if (id.empty()) {
+                error = "Unknown person mode '" + mode + "'. Must be a combination of (\"car\", \"bicycle\" or \"public\")";
+            } else {
+                error = "Unknown person mode '" + mode + "' for " + element + " '" + id + "';\n must be a combination of (\"car\", \"bicycle\" or \"public\")";
+            }
+            return false;
+        }
+    }
+    return true;
 }
 
 

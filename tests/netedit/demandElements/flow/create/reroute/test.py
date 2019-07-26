@@ -28,27 +28,21 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot, ['--g
 # go to demand mode
 netedit.supermodeDemand()
 
-# go to route mode
-netedit.routeMode()
-
-# create route using three edges
-netedit.leftClick(referencePosition, 274, 414)
-netedit.leftClick(referencePosition, 570, 250)
-netedit.leftClick(referencePosition, 280, 60)
-
-# press enter to create route
-netedit.typeEnter()
-
 # go to vehicle mode
 netedit.vehicleMode()
 
-# change vehicle
-netedit.changeElement("routeFlow")
+# select flow
+netedit.changeElement("flow")
+
 # set change boolean attribute
 netedit.changeDefaultBoolValue(15)
 
-# create vehicle
+# create flow
 netedit.leftClick(referencePosition, 274, 414)
+netedit.leftClick(referencePosition, 280, 60)
+
+# press enter to create flow
+netedit.typeEnter()
 
 # Check undo redo
 netedit.undo(referencePosition, 2)

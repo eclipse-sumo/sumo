@@ -26,6 +26,7 @@
 #include <string>
 #include <vector>
 #include <iostream> // !!! debug only
+
 #include "UtilExceptions.h"
 #include "StringTokenizer.h"
 
@@ -42,20 +43,26 @@ const int StringTokenizer::TAB = 9;
 // ===========================================================================
 // method definitions
 // ===========================================================================
-StringTokenizer::StringTokenizer(std::string tosplit)
-    : myTosplit(tosplit), myPos(0) {
+
+StringTokenizer::StringTokenizer() : 
+    myPos(0) {
+}
+
+
+StringTokenizer::StringTokenizer(std::string tosplit) : 
+    myTosplit(tosplit), myPos(0) {
     prepareWhitechar(tosplit);
 }
 
 
-StringTokenizer::StringTokenizer(std::string tosplit, std::string token, bool splitAtAllChars)
-    : myTosplit(tosplit), myPos(0) {
+StringTokenizer::StringTokenizer(std::string tosplit, std::string token, bool splitAtAllChars) : 
+    myTosplit(tosplit), myPos(0) {
     prepare(tosplit, token, splitAtAllChars);
 }
 
 
-StringTokenizer::StringTokenizer(std::string tosplit, int special)
-    : myTosplit(tosplit), myPos(0) {
+StringTokenizer::StringTokenizer(std::string tosplit, int special) : 
+    myTosplit(tosplit), myPos(0) {
     switch (special) {
         case NEWLINE:
             prepare(tosplit, "\r\n", true);
@@ -79,13 +86,16 @@ StringTokenizer::StringTokenizer(std::string tosplit, int special)
 
 StringTokenizer::~StringTokenizer() {}
 
+
 void StringTokenizer::reinit() {
     myPos = 0;
 }
 
+
 bool StringTokenizer::hasNext() {
     return myPos != (int)myStarts.size();
 }
+
 
 std::string StringTokenizer::next() {
     if (myPos >= (int)myStarts.size()) {
@@ -100,6 +110,7 @@ std::string StringTokenizer::next() {
     return myTosplit.substr(start, length);
 }
 
+
 std::string StringTokenizer::front() {
     if (myStarts.size() == 0) {
         throw OutOfBoundsException();
@@ -109,6 +120,7 @@ std::string StringTokenizer::front() {
     }
     return myTosplit.substr(myStarts[0], myLengths[0]);
 }
+
 
 std::string StringTokenizer::get(int pos) const {
     if (pos >= (int)myStarts.size()) {
@@ -126,6 +138,7 @@ std::string StringTokenizer::get(int pos) const {
 int StringTokenizer::size() const {
     return (int)myStarts.size();
 }
+
 
 void StringTokenizer::prepare(const std::string& tosplit, const std::string& token, bool splitAtAllChars) {
     int beg = 0;
@@ -152,6 +165,7 @@ void StringTokenizer::prepare(const std::string& tosplit, const std::string& tok
         }
     }
 }
+
 
 void StringTokenizer::prepareWhitechar(const std::string& tosplit) {
     std::string::size_type len = tosplit.length();
@@ -184,6 +198,5 @@ StringTokenizer::getVector() {
     reinit();
     return ret;
 }
-
 
 /****************************************************************************/

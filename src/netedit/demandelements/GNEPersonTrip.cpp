@@ -33,6 +33,7 @@
 #include <utils/common/StringTokenizer.h>
 #include <utils/gui/div/GUIGlobalSelection.h>
 #include <utils/gui/windows/GUIAppEnum.h>
+#include <utils/vehicle/SUMOVehicleParameter.h>
 
 #include "GNEPersonTrip.h"
 
@@ -375,13 +376,11 @@ GNEPersonTrip::isValid(SumoXMLAttr key, const std::string& value) {
             return SUMOXMLDefinitions::isValidNetID(value) && (myViewNet->getNet()->retrieveEdge(value, false) != nullptr);
         case SUMO_ATTR_BUS_STOP:
             return (myViewNet->getNet()->retrieveAdditional(SUMO_TAG_BUS_STOP, value, false) != nullptr);
-        case SUMO_ATTR_MODES:
-            if (canParse<std::vector<std::string> >(value)) {
-                /** CHECK ***/
-                return true;
-            } else {
-                return false;
-            }
+        case SUMO_ATTR_MODES: {
+            SVCPermissions dummyModeSet;
+            std::string dummyError;
+            return SUMOVehicleParameter::parsePersonModes(value, myTagProperty.getTagStr(), getID(), dummyModeSet , dummyError);
+        }
         case SUMO_ATTR_VTYPES:
             return canParse<std::vector<std::string> >(value);
         case SUMO_ATTR_ARRIVALPOS:

@@ -24,35 +24,16 @@
 // ===========================================================================
 #include <config.h>
 
-#include <string>
-#include <map>
-#include <vector>
-#include <microsim/MSRoute.h>
-#include <microsim/MSEdge.h>
-#include <microsim/MSJunction.h>
-#include <microsim/MSVehicleType.h>
-#include <microsim/MSVehicle.h>
-#include <microsim/MSInsertionControl.h>
-#include <microsim/MSVehicleControl.h>
-#include <microsim/MSLane.h>
 #include "MSRouteHandler.h"
 #include "MSTransportableControl.h"
-#include <utils/xml/SUMOSAXHandler.h>
-#include <utils/xml/SUMOXMLDefinitions.h>
-#include <utils/common/MsgHandler.h>
-#include <utils/common/StringUtils.h>
+#include <microsim/MSEdge.h>
+#include <microsim/MSInsertionControl.h>
+#include <microsim/MSVehicleControl.h>
 #include <utils/common/StringTokenizer.h>
-#include <utils/common/UtilExceptions.h>
+#include <utils/common/StringUtils.h>
 #include <utils/options/OptionsCont.h>
-#include <utils/router/IntermodalRouter.h>
-#include <utils/router/PedestrianRouter.h>
-#include "MSNet.h"
-
-#include "MSParkingArea.h"
-#include "MSStoppingPlace.h"
-#include <microsim/MSGlobals.h>
-#include <microsim/trigger/MSChargingStation.h>
 #include <utils/vehicle/SUMOVehicleParserHelper.h>
+
 
 
 // ===========================================================================
@@ -1144,17 +1125,10 @@ MSRouteHandler::addPersonTrip(const SUMOSAXAttributes& attrs) {
 
     const std::string modes = attrs.getOpt<std::string>(SUMO_ATTR_MODES, id, ok, "");
     SVCPermissions modeSet = 0;
-    for (StringTokenizer st(modes); st.hasNext();) {
-        const std::string mode = st.next();
-        if (mode == "car") {
-            modeSet |= SVC_PASSENGER;
-        } else if (mode == "bicycle") {
-            modeSet |= SVC_BICYCLE;
-        } else if (mode == "public") {
-            modeSet |= SVC_BUS;
-        } else {
-            throw InvalidArgument("Unknown person mode '" + mode + "'.");
-        }
+    std::string errorMsg;
+    // try to parse person modes
+    if (!SUMOVehicleParameter::parsePersonModes(modes, "person", id, modeSet, errorMsg)) {
+        throw InvalidArgument(errorMsg);
     }
     const std::string types = attrs.getOpt<std::string>(SUMO_ATTR_VTYPES, id, ok, "");
     for (StringTokenizer st(types); st.hasNext();) {

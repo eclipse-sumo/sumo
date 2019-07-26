@@ -90,6 +90,7 @@ public:
         ATTRPROPERTY_EXTENDED =            1 << 24,  // Attribute is extended (in Frame will not be shown, see VType attributes)
         ATTRPROPERTY_UPDATEGEOMETRY =      1 << 25,  // Attribute requiere update geometry at the end of function setAttribute(...)
         ATTRPROPERTY_OPTIONAL =            1 << 26,  // Attribute is optional, i.e. can be enabled/disabled using a checkbox in frame
+        ATTRPROPERTY_COMPLEX =             1 << 27,  // Attribute is complex: Requiere a special function to check if their given value is valid
     };
 
     /// @brief struct with the attribute Properties
@@ -239,6 +240,9 @@ public:
 
         /// @brief return true if atribute is optional
         bool isOptional() const;
+
+        /// @brief return true if atribute is complex
+        bool isComplex() const;
 
     private:
         /// @brief XML Attribute
@@ -848,6 +852,12 @@ private:
 
     /// @brief fill PersonStop elements
     static void fillPersonStopElements();
+
+    /// @brief fill common vehicle attributes (used by vehicles, trips, routeFlows and flows)
+    static void fillCommonVehicleAttributes(SumoXMLTag currentTag);
+
+     /// @brief fill common flow attributes (used by flows, routeFlows and personFlows)
+    static void fillCommonFlowAttributes(SumoXMLTag currentTag);
 
     /// @brief fill Car Following Model of Vehicle/Person Types
     static void fillCarFollowingModelAttributes(SumoXMLTag currentTag);

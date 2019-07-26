@@ -61,94 +61,92 @@
  */
 class StringTokenizer {
 public:
-    /** identifier for splitting the given string at all newline characters */
+    /// @brief identifier for splitting the given string at all newline characters
     static const int NEWLINE;
 
-    /** identifier for splitting the given string at all whitespace
-        characters */
+    /// @brief identifier for splitting the given string at all whitespace characters
     static const int WHITECHARS;
 
-    /** the ascii index of the highest whitespace character */
+    /// @brief the ascii index of the highest whitespace character
     static const int SPACE;
 
-    /** the ascii index of the tab character */
+    /// @brief the ascii index of the tab character
     static const int TAB;
 
 public:
-    /** default constructor */
-    StringTokenizer() { }
+    /// @brief default constructor
+    StringTokenizer();
 
-    /** @brief constructor
-        same as StringTokenizer(tosplit, StringTokenizer.WHITECHARS)
-        tosplit is the string to split into substrings. If the string between two split
-        positions is empty, it will not be returned.  */
+    /**@brief constructor
+     * @param tosplit is the string to split into substrings. If the string between two split positions is empty, it will not be returned.
+     * @note same as StringTokenizer(tosplit, StringTokenizer.WHITECHARS)
+     */
     StringTokenizer(std::string tosplit);
 
-    /** @brief constructor
-        the first string will be split at the second string's occurences.
-        If the optional third parameter is true, the string will be split whenever
-        a char from the second string occurs. If the string between two split
-        positions is empty, it will nevertheless be returned. */
+    /**@brief constructor
+     * @note the first string will be split at the second string's occurences.
+             If the optional third parameter is true, the string will be split whenever
+             a char from the second string occurs. If the string between two split
+             positions is empty, it will nevertheless be returned. 
+     */
     StringTokenizer(std::string tosplit, std::string token, bool splitAtAllChars = false);
 
-    /** @brief constructor
-        When StringTokenizer.NEWLINE is used as second parameter, the string
-        will be split at all occurences of a newline character (0x0d / 0x0a)
-        When StringTokenizer.WHITECHARS is used as second parameter, the
-        string will be split at all characters below 0x20 (SPACE)
-        All other ints specified as second parameter are casted int o a char
-        at which the string will be splitted. */
+    /**@brief constructor
+     * @note When StringTokenizer.NEWLINE is used as second parameter, the string
+             will be split at all occurences of a newline character (0x0d / 0x0a)
+             When StringTokenizer.WHITECHARS is used as second parameter, the
+             string will be split at all characters below 0x20 (SPACE)
+             All other ints specified as second parameter are casted int o a char
+             at which the string will be splitted. 
+     */
     StringTokenizer(std::string tosplit, int special);
 
-    /** destructor */
+    /// @brief destructor
     ~StringTokenizer();
 
-    /** reinitialises the internal iterator */
+    /// @brief reinitialises the internal iterator
     void reinit();
 
-    /** returns the information whether further substrings exist */
+    /// @brief returns the information whether further substrings exist
     bool hasNext();
 
-    /** returns the next substring when it exists. Otherwise the behaviour is
-        undefined */
+    /// @brief returns the next substring when it exists. Otherwise the behaviour is undefined
     std::string next();
 
-    /** returns the number of existing substrings */
+    /// @brief returns the number of existing substrings
     int size() const;
 
-    /** returns the first substring without moving the iterator */
+    /// @brief returns the first substring without moving the iterator
     std::string front();
 
-    /** returns the item at the given position */
+    /// @brief returns the item at the given position
     std::string get(int pos) const;
 
+    /// @brief return vector of strings
     std::vector<std::string> getVector();
 
 private:
-    /** splits the first string at all occurences of the second. If the third parameter is true
-        split at all chars given in the second */
-    void prepare(const std::string& tosplit, const std::string& token,
-                 bool splitAtAllChars);
+    /// @brief splits the first string at all occurences of the second. If the third parameter is true split at all chars given in the second
+    void prepare(const std::string& tosplit, const std::string& token, bool splitAtAllChars);
 
-    /** splits the first string at all occurences of whitechars */
+    /// @brief @brief splits the first string at all occurences of whitechars
     void prepareWhitechar(const std::string& tosplit);
 
 private:
-    /** a list of positions/lengths */
+    /// @brief a list of positions/lengths
     typedef std::vector<int> SizeVector;
 
-    /** the string to split */
-    std::string   myTosplit;
+    /// @brief the string to split
+    std::string myTosplit;
 
-    /** the current position in the list of substrings */
-    int        myPos;
+    /// @brief the current position in the list of substrings
+    int myPos;
 
-    /** the list of substring starts */
-    SizeVector    myStarts;
+    /// @brief the list of substring starts
+    SizeVector myStarts;
 
-    /** the list of substring lengths */
-    SizeVector   myLengths;
-
+    /// @brief the list of substring lengths
+    SizeVector myLengths;
 };
 
 
