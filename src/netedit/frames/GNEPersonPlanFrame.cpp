@@ -462,7 +462,6 @@ GNEPersonPlanFrame::addPersonPlan(const GNEViewNetHelper::ObjectsUnderCursor& ob
     // declare flags to check required elements
     /*SUMO_TAG_PERSONSTOP_LANE;*/
     bool requireRoute = (personPlanTag == SUMO_TAG_WALK_ROUTE);
-    bool requireLaneAndPos = false;
     bool requireBusStop = ((personPlanTag == SUMO_TAG_PERSONTRIP_BUSSTOP) || (personPlanTag == SUMO_TAG_WALK_BUSSTOP) || 
                            (personPlanTag == SUMO_TAG_RIDE_BUSSTOP) || (personPlanTag == SUMO_TAG_PERSONSTOP_BUSSTOP));
     bool requireEdge = ((personPlanTag == SUMO_TAG_PERSONTRIP_FROMTO) || (personPlanTag == SUMO_TAG_WALK_EDGES) || 

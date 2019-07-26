@@ -615,8 +615,8 @@ GNEViewParent::Frames::Frames() :
     vehicleFrame(nullptr),
     vehicleTypeFrame(nullptr),
     stopFrame(nullptr),
-    personTypeFrame(nullptr),
     personFrame(nullptr),
+    personTypeFrame(nullptr),
     personPlanFrame(nullptr) {
 }
 

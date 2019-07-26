@@ -1625,7 +1625,7 @@ GUIVisualizationSettings::drawDetail(const double detail, const double exaggerat
 }
 
 
-const int
+int
 GUIVisualizationSettings::getCircleResolution() const {
     if (drawForSelecting) {
         return 8;

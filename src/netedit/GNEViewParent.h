@@ -260,14 +260,14 @@ private:
         /// @brief frame for GNE_DMODE_VEHICLETYPE
         GNEVehicleTypeFrame* vehicleTypeFrame;
 
-        /// @brief frame for GNE_DMODE_PERSONTYPE
-        GNEPersonTypeFrame* personTypeFrame;
-
         /// @brief frame for GNE_DMODE_STOP
         GNEStopFrame* stopFrame;
 
         /// @brief frame for GNE_DMODE_PERSON
         GNEPersonFrame* personFrame;
+
+        /// @brief frame for GNE_DMODE_PERSONTYPE
+        GNEPersonTypeFrame* personTypeFrame;
 
         /// @brief frame for GNE_DMODE_PERSONPLAN
         GNEPersonPlanFrame* personPlanFrame;

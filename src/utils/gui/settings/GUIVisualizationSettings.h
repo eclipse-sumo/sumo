@@ -388,7 +388,7 @@ public:
     bool drawDetail(const double detail, const double exaggeration) const;
 
     /// @brief function to calculate circle resolution for all circles drawn in drawGL(...) functions
-    const int getCircleResolution() const;
+    int getCircleResolution() const;
 
     /// @brief The name of this setting
     std::string name;
