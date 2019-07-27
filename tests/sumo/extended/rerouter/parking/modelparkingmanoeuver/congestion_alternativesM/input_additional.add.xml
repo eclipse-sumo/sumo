@@ -1,0 +1,17 @@
+<additional>
+
+  <parkingArea id="parking_b" lane="b_0" startPos="6" endPos="40" friendlyPos="true" roadsideCapacity="6" angle="0" onRoad="false"/>
+  <parkingArea id="parking_c" lane="c_0" startPos="6" endPos="40" friendlyPos="true" roadsideCapacity="6" angle="0" onRoad="false"/>
+  <parkingArea id="parking_d" lane="d_0" startPos="6" endPos="40" friendlyPos="true" roadsideCapacity="6" angle="0" onRoad="false"/>
+  <parkingArea id="parking_e" lane="e_0" startPos="6" endPos="40" friendlyPos="true" roadsideCapacity="6" angle="0" onRoad="false"/>
+
+  <rerouter id="r0" edges="b c d e">
+    <interval begin="0" end="1e9">
+      <parkingAreaReroute id="parking_b" visible="false"/>
+      <parkingAreaReroute id="parking_c" visible="false"/>
+      <parkingAreaReroute id="parking_d" visible="false"/>
+      <parkingAreaReroute id="parking_e" visible="false"/>
+    </interval>
+  </rerouter>
+
+</additional>

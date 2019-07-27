@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Sat Jul 27 10:54:31 2019 by Eclipse SUMO Version v1_2_0+1308-8d07168154
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+SPDX-License-Identifier: EPL-2.0
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+        <additional-files value="input_additional.add.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <tripinfo-output value="tripinfos.xml"/>
+        <stop-output value="stopinfos.xml"/>
+    </output>
+
+    <processing>
+        <default.speeddev value="0"/>
+        <modelparkingmanoeuver value="true"/>
+    </processing>
+
+    <report>
+        <xml-validation value="never"/>
+        <duration-log.disable value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+</configuration>
+-->
+
+<tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
+    <tripinfo id="flow1.4" depart="20.00" departLane="a_0" departPos="5.10" departSpeed="0.00" departDelay="0.00" arrival="262.00" arrivalLane="a_0" arrivalPos="304.81" arrivalSpeed="13.89" duration="242.00" routeLength="299.71" waitingTime="6.00" waitingCount="3" stopTime="201.00" timeLoss="18.56" rerouteNo="0" devices="tripinfo_flow1.4" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="flow1.6" depart="30.00" departLane="a_0" departPos="5.10" departSpeed="0.00" departDelay="0.00" arrival="355.00" arrivalLane="a_1" arrivalPos="304.81" arrivalSpeed="0.00" duration="325.00" routeLength="299.71" waitingTime="301.00" waitingCount="1" stopTime="0.00" timeLoss="307.91" rerouteNo="0" devices="tripinfo_flow1.6" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="flow1.3" depart="15.00" departLane="a_0" departPos="5.10" departSpeed="0.00" departDelay="0.00" arrival="362.00" arrivalLane="a_1" arrivalPos="304.81" arrivalSpeed="13.89" duration="347.00" routeLength="299.71" waitingTime="112.00" waitingCount="3" stopTime="201.00" timeLoss="124.10" rerouteNo="0" devices="tripinfo_flow1.3" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="flow1.0" depart="0.00" departLane="a_0" departPos="5.10" departSpeed="0.00" departDelay="0.00" arrival="364.00" arrivalLane="a_1" arrivalPos="304.81" arrivalSpeed="13.89" duration="364.00" routeLength="299.71" waitingTime="132.00" waitingCount="2" stopTime="201.00" timeLoss="140.64" rerouteNo="0" devices="tripinfo_flow1.0" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="flow1.2" depart="10.00" departLane="a_0" departPos="5.10" departSpeed="0.00" departDelay="0.00" arrival="367.00" arrivalLane="a_1" arrivalPos="304.81" arrivalSpeed="13.89" duration="357.00" routeLength="299.71" waitingTime="124.00" waitingCount="3" stopTime="201.00" timeLoss="134.40" rerouteNo="0" devices="tripinfo_flow1.2" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="flow1.1" depart="5.00" departLane="a_0" departPos="5.10" departSpeed="0.00" departDelay="0.00" arrival="369.00" arrivalLane="a_1" arrivalPos="304.81" arrivalSpeed="13.89" duration="364.00" routeLength="299.71" waitingTime="128.00" waitingCount="3" stopTime="201.00" timeLoss="140.97" rerouteNo="0" devices="tripinfo_flow1.1" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="flow1.5" depart="25.00" departLane="a_0" departPos="5.10" departSpeed="0.00" departDelay="0.00" arrival="468.00" arrivalLane="a_0" arrivalPos="304.81" arrivalSpeed="13.89" duration="443.00" routeLength="299.71" waitingTime="209.00" waitingCount="2" stopTime="201.00" timeLoss="219.56" rerouteNo="0" devices="tripinfo_flow1.5" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
+</tripinfos>

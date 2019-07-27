@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Sat Jul 27 10:54:31 2019 by Eclipse SUMO Version v1_2_0+1308-8d07168154
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+SPDX-License-Identifier: EPL-2.0
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+        <additional-files value="input_additional.add.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <vehroute-output value="vehroutes.xml"/>
+    </output>
+
+    <processing>
+        <default.speeddev value="0"/>
+        <modelparkingmanoeuver value="true"/>
+    </processing>
+
+    <report>
+        <xml-validation value="never"/>
+        <duration-log.disable value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+</configuration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vehicle id="passenger.0" depart="0.00" arrival="3690.00">
+        <route edges="gneE30 gneE24 gneE27 gneE25 gneE28"/>
+        <stop parkingArea="parkingArea_gneE27_0_1" duration="3600.00"/>
+    </vehicle>
+
+    <vehicle id="passenger.1" depart="37.00" arrival="3729.00">
+        <route edges="gneE30 gneE24 gneE27 gneE25 gneE28"/>
+        <stop parkingArea="parkingArea_gneE27_0_1" duration="3600.00"/>
+    </vehicle>
+
+    <vehicle id="passenger.2" depart="75.00" arrival="3765.00">
+        <route edges="gneE30 gneE24 gneE27 gneE25 gneE28"/>
+        <stop parkingArea="parkingArea_gneE27_0_1" duration="3600.00"/>
+    </vehicle>
+
+    <vehicle id="passenger.3" depart="112.00" arrival="3803.00">
+        <route edges="gneE30 gneE24 gneE27 gneE25 gneE28"/>
+        <stop parkingArea="parkingArea_gneE27_0_1" duration="3600.00"/>
+    </vehicle>
+
+    <vehicle id="passenger.4" depart="150.00" arrival="3841.00">
+        <route edges="gneE30 gneE24 gneE27 gneE25 gneE28"/>
+        <stop parkingArea="parkingArea_gneE27_0_1" duration="3600.00"/>
+    </vehicle>
+
+    <vehicle id="passenger.5" depart="187.00" arrival="3877.00">
+        <route edges="gneE30 gneE24 gneE27 gneE25 gneE28"/>
+        <stop parkingArea="parkingArea_gneE27_0_1" duration="3600.00"/>
+    </vehicle>
+
+    <vehicle id="passenger.6" depart="225.00" arrival="3914.00">
+        <route edges="gneE30 gneE24 gneE27 gneE25 gneE28"/>
+        <stop parkingArea="parkingArea_gneE27_0_1" duration="3600.00"/>
+    </vehicle>
+
+    <vehicle id="passenger.7" depart="262.00" arrival="3952.00">
+        <route edges="gneE30 gneE24 gneE27 gneE25 gneE28"/>
+        <stop parkingArea="parkingArea_gneE27_0_1" duration="3600.00"/>
+    </vehicle>
+
+    <vehicle id="passenger.8" depart="300.00" arrival="3992.00">
+        <route edges="gneE30 gneE24 gneE27 gneE25 gneE28"/>
+        <stop parkingArea="parkingArea_gneE27_0_1" duration="3600.00"/>
+    </vehicle>
+
+    <vehicle id="passenger.9" depart="337.00" arrival="4027.00">
+        <route edges="gneE30 gneE24 gneE27 gneE25 gneE28"/>
+        <stop parkingArea="parkingArea_gneE27_0_1" duration="3600.00"/>
+    </vehicle>
+
+    <vehicle id="passenger.10" depart="375.00" arrival="4067.00">
+        <routeDistribution>
+            <route replacedOnEdge="gneE24" reason="gneE24_0_0:parkingAreaReroute" replacedAtTime="399.00" probability="0" edges="gneE30 gneE24 gneE27 gneE25 gneE28"/>
+            <route edges="gneE30 gneE24 gneE27 gneE25 gneE28"/>
+        </routeDistribution>
+        <stop parkingArea="parkingArea_gneE28_0_3" duration="3600.00"/>
+    </vehicle>
+
+    <vehicle id="passenger.11" depart="412.00" arrival="4102.00">
+        <routeDistribution>
+            <route replacedOnEdge="gneE24" reason="gneE24_0_0:parkingAreaReroute" replacedAtTime="436.00" probability="0" edges="gneE30 gneE24 gneE27 gneE25 gneE28"/>
+            <route edges="gneE30 gneE24 gneE27 gneE25 gneE28"/>
+        </routeDistribution>
+        <stop parkingArea="parkingArea_gneE28_0_3" duration="3600.00"/>
+    </vehicle>
+
+    <vehicle id="passenger.12" depart="450.00" arrival="4142.00">
+        <routeDistribution>
+            <route replacedOnEdge="gneE24" reason="gneE24_0_0:parkingAreaReroute" replacedAtTime="474.00" probability="0" edges="gneE30 gneE24 gneE27 gneE25 gneE28"/>
+            <route edges="gneE30 gneE24 gneE27 gneE25 gneE28"/>
+        </routeDistribution>
+        <stop parkingArea="parkingArea_gneE28_0_3" duration="3600.00"/>
+    </vehicle>
+
+    <vehicle id="passenger.13" depart="487.00" arrival="4178.00">
+        <routeDistribution>
+            <route replacedOnEdge="gneE24" reason="gneE24_0_0:parkingAreaReroute" replacedAtTime="511.00" probability="0" edges="gneE30 gneE24 gneE27 gneE25 gneE28"/>
+            <route edges="gneE30 gneE24 gneE27 gneE25 gneE28"/>
+        </routeDistribution>
+        <stop parkingArea="parkingArea_gneE28_0_3" duration="3600.00"/>
+    </vehicle>
+
+    <vehicle id="passenger.14" depart="525.00" arrival="4215.00">
+        <routeDistribution>
+            <route replacedOnEdge="gneE24" reason="gneE24_0_0:parkingAreaReroute" replacedAtTime="550.00" probability="0" edges="gneE30 gneE24 gneE27 gneE25 gneE28"/>
+            <route edges="gneE30 gneE24 gneE27 gneE25 gneE28"/>
+        </routeDistribution>
+        <stop parkingArea="parkingArea_gneE28_0_3" duration="3600.00"/>
+    </vehicle>
+
+    <vehicle id="passenger.15" depart="562.00" arrival="4254.00">
+        <routeDistribution>
+            <route replacedOnEdge="gneE24" reason="gneE24_0_0:parkingAreaReroute" replacedAtTime="586.00" probability="0" edges="gneE30 gneE24 gneE27 gneE25 gneE28"/>
+            <route edges="gneE30 gneE24 gneE27 gneE25 gneE28"/>
+        </routeDistribution>
+        <stop parkingArea="parkingArea_gneE28_0_3" duration="3600.00"/>
+    </vehicle>
+
+    <vehicle id="passenger.16" depart="600.00" arrival="4291.00">
+        <routeDistribution>
+            <route replacedOnEdge="gneE24" reason="gneE24_0_0:parkingAreaReroute" replacedAtTime="624.00" probability="0" edges="gneE30 gneE24 gneE27 gneE25 gneE28"/>
+            <route edges="gneE30 gneE24 gneE27 gneE25 gneE28"/>
+        </routeDistribution>
+        <stop parkingArea="parkingArea_gneE28_0_3" duration="3600.00"/>
+    </vehicle>
+
+    <vehicle id="passenger.17" depart="637.00" arrival="4327.00">
+        <routeDistribution>
+            <route replacedOnEdge="gneE24" reason="gneE24_0_0:parkingAreaReroute" replacedAtTime="661.00" probability="0" edges="gneE30 gneE24 gneE27 gneE25 gneE28"/>
+            <route edges="gneE30 gneE24 gneE27 gneE25 gneE28"/>
+        </routeDistribution>
+        <stop parkingArea="parkingArea_gneE28_0_3" duration="3600.00"/>
+    </vehicle>
+
+    <vehicle id="passenger.18" depart="675.00" arrival="4369.00">
+        <routeDistribution>
+            <route replacedOnEdge="gneE24" reason="gneE24_0_0:parkingAreaReroute" replacedAtTime="700.00" probability="0" edges="gneE30 gneE24 gneE27 gneE25 gneE28"/>
+            <route edges="gneE30 gneE24 gneE27 gneE25 gneE28"/>
+        </routeDistribution>
+        <stop parkingArea="parkingArea_gneE28_0_3" duration="3600.00"/>
+    </vehicle>
+
+    <vehicle id="passenger.19" depart="712.00" arrival="4402.00">
+        <routeDistribution>
+            <route replacedOnEdge="gneE24" reason="gneE24_0_0:parkingAreaReroute" replacedAtTime="736.00" probability="0" edges="gneE30 gneE24 gneE27 gneE25 gneE28"/>
+            <route edges="gneE30 gneE24 gneE27 gneE25 gneE28"/>
+        </routeDistribution>
+        <stop parkingArea="parkingArea_gneE28_0_3" duration="3600.00"/>
+    </vehicle>
+
+</routes>

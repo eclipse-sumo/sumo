@@ -1,0 +1,3 @@
+Warning: Teleporting vehicle 'flow1.6'; waited too long (wrong lane), lane='a_1', time=355.00.
+Warning: Vehicle 'flow1.6' teleports beyond arrival edge 'a', time 355.00.
+Warning: Vehicle 'flow1.6' skips stop on lane 'a_0' time=355.00.

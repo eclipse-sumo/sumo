@@ -1,59 +1,60 @@
 # test for rerouting ahead of an occupied parkingArea
-visibility
+visibilityM
 
 # tests for rerouting persons along with the vehicles
-riders
+ridersM
 
 # complex test scenario by Mirco
-complex
+complexM
 
 # block on road line while using parkingArea
-onRoad
+onRoadM
 
 # parkingArea is too short for the given roadsideCapacity (lots overlap)
-roadsideCapacity_short
+roadsideCapacity_shortM
 
 # test angled roadside parking (including vehicle positions)
-angled_roadside_parking
+angled_roadside_parkingM
 
 # test what happens if a queue forms and a vehicle wants to exit the parkingarea
-congestion
+congestionM
 
 # alternative parkingAreas in a circle and too much demand. Test cooperation between vehicles that wish to park and those that wish to exit. (Circumvent instant rerouting causing infinite loop, #5128)
-congestion_alternatives
+congestion_alternativesM
 
 # only activate rerouter after waiting for some time
-timeThreshold
+timeThresholdM
 
 # afte rerouting use new parkingArea as the final destination
-newDestination
+newDestinationM
 
 # afte rerouting use new parkingArea as the final destination. 
 # The vehicle route never passes the original parking edge
-newDestination2
+newDestination2M
 
 # handle the case where the length of parking spaces is not given and cannot by deduced from roadside capacity because that is 0
-default_length
+default_lengthM
 
 # do not reroute to parkingAreas which are too close to brake
-skip_too_close
+skip_too_closeM
 
 # when rerouting, take subsequent stops into account
-subsequent_stops
+subsequent_stopsM
 
-# when rerouting, take subsequent stops into account
-# this may trigger adaptation of multiple person stages.
-subsequent_stops_rider_walk
 
 # when rerouting, take subsequent stops into account
 # this may trigger adaptation of multiple person stages.
-subsequent_stops_rider_trip
+subsequent_stops_rider_walkM
+
+# when rerouting, take subsequent stops into account
+# this may trigger adaptation of multiple person stages.
+subsequent_stops_rider_tripM
 
 # check subsequent stops and their lane position relative to the new parkingArea
-subsequent_stop_requires_loop
+subsequent_stop_requires_loopM
+
+# check multiple angle parking - angle handling both sides of road
+manoeuvre_roundLotM
 
 # check reroute handling with manoeuvre and vtype configuration of manoeuvre angles
-manoeuvre_reroute
-
-# All above tests cloned with modelparkingmanoeuver set true
-modelparkingmanoeuver
+manoeuvre_rerouteM
