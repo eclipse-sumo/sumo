@@ -36,17 +36,21 @@ import de.tudresden.ws.container.SumoPosition2D;
 
 public class Subscription implements Observer {
 
-    static String sumo_bin = "sumo";
-    static String config_file = "data/config.sumocfg";
-    static double step_length = 1;
-
     static SumoTraciConnection conn = null;
 
     public static void main(String[] args) {
+        String sumo_bin = "sumo";
+        String config_file = "data/config.sumocfg";
+        double step_length = 1.0;
 
+        if (args.length > 0) {
+            sumo_bin = args[0];
+        }
+        if (args.length > 1) {
+            config_file = args[1];
+        }
 
         try {
-
             conn = new SumoTraciConnection(sumo_bin, config_file);
             conn.addOption("step-length", step_length + "");
             conn.addOption("start", "true"); //start sumo immediately

@@ -24,16 +24,19 @@ import de.tudresden.sumo.cmd.Trafficlight;
 import de.tudresden.ws.container.SumoVehicleData;
 
 public class Main {
-
-    static String sumo_bin = "sumo";
-    static String config_file = "data/config.sumocfg";
-    static double step_length = 0.1;
-
     public static void main(String[] args) {
+        String sumo_bin = "sumo";
+        String config_file = "data/config.sumocfg";
+        double step_length = 0.1;
 
+        if (args.length > 0) {
+            sumo_bin = args[0];
+        }
+        if (args.length > 1) {
+            config_file = args[1];
+        }
 
         try {
-
             SumoTraciConnection conn = new SumoTraciConnection(sumo_bin, config_file);
             conn.addOption("step-length", step_length + "");
             conn.addOption("start", "true"); //start sumo immediately
