@@ -391,7 +391,10 @@ SUMOVTypeParameter::write(OutputDevice& dev) const {
         dev.writeAttr(i.first, i.second);
     }
     if (wasSet(VTYPEPARS_CAR_FOLLOW_MODEL)) {
-        dev.writeAttr(SUMO_ATTR_CAR_FOLLOW_MODEL, SUMOXMLDefinitions::CarFollowModels.getString(cfModel));
+        // only write attribute is current CFM isn't Krauss (default) and there aren't cfParameters
+        if ((cfModel != SUMO_TAG_CF_KRAUSS) || (cfParameter.size() > 0)) {
+            dev.writeAttr(SUMO_ATTR_CAR_FOLLOW_MODEL, SUMOXMLDefinitions::CarFollowModels.getString(cfModel));
+        }
     }
     // Write Car Following Model parameters
     for (const auto &i : cfParameter) {

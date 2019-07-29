@@ -51,7 +51,7 @@ class SUMOVTypeParameter;
 class SUMORouteHandler : public SUMOSAXHandler {
 public:
     /// @brief standard constructor
-    SUMORouteHandler(const std::string& file, const std::string& expectedRoot);
+    SUMORouteHandler(const std::string& file, const std::string& expectedRoot, const bool hardFail);
 
     /// @brief standard destructor
     virtual ~SUMORouteHandler();
@@ -189,6 +189,9 @@ protected:
     bool parseStop(SUMOVehicleParameter::Stop& stop, const SUMOSAXAttributes& attrs, std::string errorSuffix, MsgHandler* const errorOutput);
 
 protected:
+    /// @brief flag to enable or disable hard fails
+    const bool myHardFail;
+
     /// @brief Parameter of the current vehicle, trip, person, container or flow
     SUMOVehicleParameter* myVehicleParameter;
 

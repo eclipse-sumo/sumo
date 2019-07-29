@@ -45,9 +45,8 @@ std::mt19937 MSRouteHandler::myParsingRNG;
 // ===========================================================================
 // method definitions
 // ===========================================================================
-MSRouteHandler::MSRouteHandler(const std::string& file,
-                               bool addVehiclesDirectly) :
-    SUMORouteHandler(file, addVehiclesDirectly ? "" : "routes"),
+MSRouteHandler::MSRouteHandler(const std::string& file, bool addVehiclesDirectly) :
+    SUMORouteHandler(file, addVehiclesDirectly ? "" : "routes", true),
     myActivePlan(nullptr),
     myActiveContainerPlan(nullptr),
     myAddVehiclesDirectly(addVehiclesDirectly),
@@ -58,8 +57,8 @@ MSRouteHandler::MSRouteHandler(const std::string& file,
 }
 
 
-MSRouteHandler::~MSRouteHandler() {
-}
+MSRouteHandler::~MSRouteHandler() {}
+
 
 void
 MSRouteHandler::deleteActivePlans() {
@@ -1075,7 +1074,7 @@ MSRouteHandler::parseWalkPositions(const SUMOSAXAttributes& attrs, const std::st
         }
         if (attrs.hasAttribute(SUMO_ATTR_ARRIVALPOS)) {
             const double length = toEdge != nullptr ? toEdge->getLength() : bs->getLane().getLength();
-            const double arrPos = SUMOVehicleParserHelper::parseWalkPos(SUMO_ATTR_ARRIVALPOS, description, length,
+            const double arrPos = SUMOVehicleParserHelper::parseWalkPos(SUMO_ATTR_ARRIVALPOS, myHardFail, description, length,
                                   attrs.get<std::string>(SUMO_ATTR_ARRIVALPOS, description.c_str(), ok), &myParsingRNG);
             if (arrPos >= bs->getBeginLanePosition() && arrPos < bs->getEndLanePosition()) {
                 arrivalPos = arrPos;
@@ -1089,7 +1088,7 @@ MSRouteHandler::parseWalkPositions(const SUMOSAXAttributes& attrs, const std::st
             throw ProcessError("No destination edge for " + description + ".");
         }
         if (attrs.hasAttribute(SUMO_ATTR_ARRIVALPOS)) {
-            arrivalPos = SUMOVehicleParserHelper::parseWalkPos(SUMO_ATTR_ARRIVALPOS, description, toEdge->getLength(),
+            arrivalPos = SUMOVehicleParserHelper::parseWalkPos(SUMO_ATTR_ARRIVALPOS, myHardFail, description, toEdge->getLength(),
                          attrs.get<std::string>(SUMO_ATTR_ARRIVALPOS, description.c_str(), ok), &myParsingRNG);
         } else {
             arrivalPos = toEdge->getLength() / 2.;

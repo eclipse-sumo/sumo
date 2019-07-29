@@ -110,7 +110,7 @@ GNERouteHandler::RouteParameter::setEdges(GNEViewNet* viewNet, const std::string
 // ---------------------------------------------------------------------------
 
 GNERouteHandler::GNERouteHandler(const std::string& file, GNEViewNet* viewNet, bool undoDemandElements) :
-    SUMORouteHandler(file, ""),
+    SUMORouteHandler(file, "", false),
     myViewNet(viewNet),
     myUndoDemandElements(undoDemandElements) {
 }

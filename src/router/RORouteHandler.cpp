@@ -55,8 +55,8 @@ RORouteHandler::RORouteHandler(RONet& net, const std::string& file,
                                const bool tryRepair,
                                const bool emptyDestinationsAllowed,
                                const bool ignoreErrors,
-                               const bool checkSchema) :
-    SUMORouteHandler(file, checkSchema ? "routes" : ""),
+                               const bool checkSchema ) :
+    SUMORouteHandler(file, checkSchema ? "routes" : "", true),
     myNet(net),
     myActivePerson(nullptr),
     myActiveContainerPlan(nullptr),
@@ -890,8 +890,7 @@ RORouteHandler::addPersonTrip(const SUMOSAXAttributes& attrs) {
         WRITE_WARNING("The attribute departPos is no longer supported for walks, please use the person attribute, the arrivalPos of the previous step or explicit stops.");
     }
     if (to != nullptr && attrs.hasAttribute(SUMO_ATTR_ARRIVALPOS)) {
-        arrivalPos = SUMOVehicleParserHelper::parseWalkPos(SUMO_ATTR_ARRIVALPOS, id, to->getLength(),
-                     attrs.get<std::string>(SUMO_ATTR_ARRIVALPOS, id, ok));
+        arrivalPos = SUMOVehicleParserHelper::parseWalkPos(SUMO_ATTR_ARRIVALPOS, myHardFail, id, to->getLength(), attrs.get<std::string>(SUMO_ATTR_ARRIVALPOS, id, ok));
     }
 
     const std::string modes = attrs.getOpt<std::string>(SUMO_ATTR_MODES, id, ok, "");
@@ -947,8 +946,7 @@ RORouteHandler::addWalk(const SUMOSAXAttributes& attrs) {
         WRITE_WARNING("The attribute departPos is no longer supported for walks, please use the person attribute, the arrivalPos of the previous step or explicit stops.");
     }
     if (attrs.hasAttribute(SUMO_ATTR_ARRIVALPOS)) {
-        arrivalPos = SUMOVehicleParserHelper::parseWalkPos(SUMO_ATTR_ARRIVALPOS, objId, myActiveRoute.back()->getLength(),
-                     attrs.get<std::string>(SUMO_ATTR_ARRIVALPOS, objId, ok));
+        arrivalPos = SUMOVehicleParserHelper::parseWalkPos(SUMO_ATTR_ARRIVALPOS, myHardFail, objId, myActiveRoute.back()->getLength(), attrs.get<std::string>(SUMO_ATTR_ARRIVALPOS, objId, ok));
     }
     const std::string busStop = attrs.getOpt<std::string>(SUMO_ATTR_BUS_STOP, objId, ok, "");
     if (ok) {

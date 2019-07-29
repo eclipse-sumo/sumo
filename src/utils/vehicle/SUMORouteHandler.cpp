@@ -43,8 +43,9 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-SUMORouteHandler::SUMORouteHandler(const std::string& file, const std::string& expectedRoot) :
+SUMORouteHandler::SUMORouteHandler(const std::string& file, const std::string& expectedRoot, const bool hardFail) :
     SUMOSAXHandler(file, XMLSubSys::isValidating() ? expectedRoot : ""),
+    myHardFail(hardFail),
     myVehicleParameter(nullptr),
     myLastDepart(-1),
     myActiveRouteColor(nullptr),
@@ -52,7 +53,8 @@ SUMORouteHandler::SUMORouteHandler(const std::string& file, const std::string& e
     myCurrentVType(nullptr),
     myBeginDefault(string2time(OptionsCont::getOptions().getString("begin"))),
     myEndDefault(string2time(OptionsCont::getOptions().getString("end"))),
-    myFirstDepart(-1), myInsertStopEdgesAt(-1) {
+    myFirstDepart(-1), 
+    myInsertStopEdgesAt(-1) {
 }
 
 
@@ -95,7 +97,7 @@ SUMORouteHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
                 delete myVehicleParameter;
             }
             // create a new vehicle
-            myVehicleParameter = SUMOVehicleParserHelper::parseVehicleAttributes(attrs);
+            myVehicleParameter = SUMOVehicleParserHelper::parseVehicleAttributes(attrs, myHardFail);
             break;
         case SUMO_TAG_PERSON:
             // delete if myVehicleParameter isn't null
@@ -103,7 +105,7 @@ SUMORouteHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
                 delete myVehicleParameter;
             }
             // create a new person
-            myVehicleParameter = SUMOVehicleParserHelper::parseVehicleAttributes(attrs, false, false, true);
+            myVehicleParameter = SUMOVehicleParserHelper::parseVehicleAttributes(attrs, myHardFail, false, false, true);
             addPerson(attrs);
             break;
         case SUMO_TAG_CONTAINER:
@@ -112,7 +114,7 @@ SUMORouteHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
                 delete myVehicleParameter;
             }
             // create a new container
-            myVehicleParameter = SUMOVehicleParserHelper::parseVehicleAttributes(attrs);
+            myVehicleParameter = SUMOVehicleParserHelper::parseVehicleAttributes(attrs, myHardFail);
             addContainer(attrs);
             break;
         case SUMO_TAG_FLOW:
@@ -120,7 +122,7 @@ SUMORouteHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
             if (myVehicleParameter) {
                 delete myVehicleParameter;
             }
-            myVehicleParameter = SUMOVehicleParserHelper::parseFlowAttributes(attrs, myBeginDefault, myEndDefault);
+            myVehicleParameter = SUMOVehicleParserHelper::parseFlowAttributes(attrs, myHardFail, myBeginDefault, myEndDefault);
             // open a flow
             openTrip(attrs);
             break;
@@ -130,7 +132,7 @@ SUMORouteHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
                 delete myVehicleParameter;
             }
             // create a new flow
-            myVehicleParameter = SUMOVehicleParserHelper::parseFlowAttributes(attrs, myBeginDefault, myEndDefault, true);
+            myVehicleParameter = SUMOVehicleParserHelper::parseFlowAttributes(attrs, myHardFail, myBeginDefault, myEndDefault, true);
             break;
         case SUMO_TAG_VTYPE:
             // delete if myCurrentVType isn't null
@@ -138,7 +140,7 @@ SUMORouteHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
                 delete myCurrentVType;
             }
             // create a new vType
-            myCurrentVType = SUMOVehicleParserHelper::beginVTypeParsing(attrs, getFileName());
+            myCurrentVType = SUMOVehicleParserHelper::beginVTypeParsing(attrs, myHardFail, getFileName());
             break;
         case SUMO_TAG_VTYPE_DISTRIBUTION:
             openVehicleTypeDistribution(attrs);
@@ -157,7 +159,7 @@ SUMORouteHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
             if (myVehicleParameter) {
                 delete myVehicleParameter;
             }
-            myVehicleParameter = SUMOVehicleParserHelper::parseVehicleAttributes(attrs, true);
+            myVehicleParameter = SUMOVehicleParserHelper::parseVehicleAttributes(attrs, myHardFail, true);
             if (myVehicleParameter->id == "") {
                 WRITE_WARNING("Omitting trip ids is deprecated!");
                 myVehicleParameter->id = myIdSupplier.getNext();
@@ -198,7 +200,13 @@ SUMORouteHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
             // parse embedded car following model information
             if (myCurrentVType != nullptr) {
                 WRITE_WARNING("Defining car following parameters in a nested element is deprecated in vType '" + myCurrentVType->id + "', use attributes instead!");
-                SUMOVehicleParserHelper::parseVTypeEmbedded(*myCurrentVType, (SumoXMLTag)element, attrs);
+                if (!SUMOVehicleParserHelper::parseVTypeEmbedded(*myCurrentVType, (SumoXMLTag)element, attrs, myHardFail)) {
+                    if (myHardFail) {
+                        throw ProcessError("Invalid parsing embedded VType"); 
+                    } else {
+                        WRITE_ERROR("Invalid parsing embedded VType"); 
+                    }
+                }
             }
             break;
     }

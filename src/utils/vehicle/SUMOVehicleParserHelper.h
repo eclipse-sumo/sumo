@@ -50,6 +50,7 @@ class SUMOVTypeParameter;
  * This class supports helper methods for parsing a vehicle's attributes.
  */
 class SUMOVehicleParserHelper {
+
 public:
     /** @brief Parses a flow's attributes
      *
@@ -57,12 +58,12 @@ public:
      *
      * @see SUMOVehicleParameter
      * @param[in] attr The SAX-attributes to get vehicle parameter from
+     * @param[in] hardFail enable or disable hard fails if a parameter is invalid
      * @return The parsed attribute structure if no error occurred, 0 otherwise
      * @exception ProcessError If an attribute's value is invalid
      * @note: the caller is responsible for deleting the returned pointer
      */
-    static SUMOVehicleParameter* parseFlowAttributes(const SUMOSAXAttributes& attrs, const SUMOTime beginDefault, const SUMOTime endDefault, bool isPerson = false);
-
+    static SUMOVehicleParameter* parseFlowAttributes(const SUMOSAXAttributes& attrs, const bool hardFail, const SUMOTime beginDefault, const SUMOTime endDefault, bool isPerson = false);
 
     /** @brief Parses a vehicle's attributes
      *
@@ -70,6 +71,7 @@ public:
      *
      * @see SUMOVehicleParameter
      * @param[in] attr The SAX-attributes to get vehicle parameter from
+     * @param[in] hardFail enable or disable hard fails if a parameter is invalid
      * @param[in] optionalID Whether the id shall be skipped
      * @param[in] skipDepart Whether parsing the departure time shall be skipped
      * @param[in] isPerson   Whether a person is parsed
@@ -77,39 +79,37 @@ public:
      * @exception ProcessError If an attribute's value is invalid
      * @note: the caller is responsible for deleting the returned pointer
      */
-    static SUMOVehicleParameter* parseVehicleAttributes(const SUMOSAXAttributes& attrs,
-            const bool optionalID = false, const bool skipDepart = false, const bool isPerson = false);
-
+    static SUMOVehicleParameter* parseVehicleAttributes(const SUMOSAXAttributes& attrs, const bool hardFail, const bool optionalID = false, const bool skipDepart = false, const bool isPerson = false);
 
     /** @brief Starts to parse a vehicle type
      *
      * @param[in] attr The SAX-attributes to get vehicle parameter from
+     * @param[in] hardFail enable or disable hard fails if a parameter is invalid
      * @param[in] file The name of the file being parsed (for resolving paths)
-     * @exception ProcessError If an attribute's value is invalid
+     * @param[in] hardFail enable or disable hard fails if a parameter is invalid
+     * @exception ProcessError If an attribute's value is invalid and hardFail is enabled
      * @see SUMOVTypeParameter
      * @note: the caller is responsible for deleting the returned pointer
      */
-    static SUMOVTypeParameter* beginVTypeParsing(const SUMOSAXAttributes& attrs, const std::string& file);
-
+    static SUMOVTypeParameter* beginVTypeParsing(const SUMOSAXAttributes& attrs, const bool hardFail, const std::string& file);
 
     /** @brief Parses an element embedded in vtype definition
      *
      * @param[in, filled] into The structure to fill with parsed values
      * @param[in] element The id of the currently parsed XML-element
      * @param[in] attr The SAX-attributes to get vehicle parameter from
+     * @param[in] hardFail enable or disable hard fails if a parameter is invalid
      * @param[in] fromVType Whether the attributes are a part of the vtype-definition
      * @exception ProcessError If an attribute's value is invalid
      * @see SUMOVTypeParameter
      */
-    static void parseVTypeEmbedded(SUMOVTypeParameter& into,
-                                   const SumoXMLTag element, const SUMOSAXAttributes& attrs,
-                                   const bool fromVType = false);
+    static bool parseVTypeEmbedded(SUMOVTypeParameter& into, const SumoXMLTag element, const SUMOSAXAttributes& attrs, const bool hardFail, const bool fromVType = false);
 
     /// @brief Parses lane change model attributes
-    static void parseLCParams(SUMOVTypeParameter& into, LaneChangeModel model, const SUMOSAXAttributes& attrs);
+    static bool parseLCParams(SUMOVTypeParameter& into, LaneChangeModel model, const SUMOSAXAttributes& attrs, const bool hardFail);
 
     /// @brief Parses junction model attributes
-    static void parseJMParams(SUMOVTypeParameter& into, const SUMOSAXAttributes& attrs);
+    static bool parseJMParams(SUMOVTypeParameter& into, const SUMOSAXAttributes& attrs, const bool hardFail);
 
     /** @brief Parses the vehicle class
      *
@@ -120,13 +120,13 @@ public:
      *  is returned.
      *
      * @param[in] attrs The attributes to read the class from
+     * @param[in] hardFail enable or disable hard fails if a parameter is invalid
      * @param[in] id The id of the parsed element, for error message generation
      * @return The parsed vehicle class
      * @see SUMOVehicleClass
      * @todo Recheck how errors are handled and what happens if they occure
      */
-    static SUMOVehicleClass parseVehicleClass(const SUMOSAXAttributes& attrs, const std::string& id);
-
+    static SUMOVehicleClass parseVehicleClass(const SUMOSAXAttributes& attrs, const bool hardFail,const std::string& id);
 
     /** @brief Parses the vehicle class
      *
@@ -137,16 +137,16 @@ public:
      *  is returned.
      *
      * @param[in] attrs The attributes to read the class from
+     * @param[in] hardFail enable or disable hard fails if a parameter is invalid
      * @param[in] id The id of the parsed element, for error message generation
      * @return The parsed vehicle shape
      * @see SUMOVehicleShape
      * @todo Recheck how errors are handled and what happens if they occure
      */
-    static SUMOVehicleShape parseGuiShape(const SUMOSAXAttributes& attrs, const std::string& id);
+    static SUMOVehicleShape parseGuiShape(const SUMOSAXAttributes& attrs, const bool hardFail, const std::string& id);
 
     /// @brief parse departPos or arrivalPos for a walk
-    static double parseWalkPos(SumoXMLAttr attr, const std::string& id, double maxPos, const std::string& val, std::mt19937* rng = 0);
-
+    static double parseWalkPos(SumoXMLAttr attr, const bool hardFail, const std::string& id, double maxPos, const std::string& val, std::mt19937* rng = 0);
 
     /** @brief Checks and converts given value for the action step length from seconds
      *   to miliseconds assuring it being a positive multiple of the simulation step width
@@ -156,7 +156,6 @@ public:
      */
     static SUMOTime processActionStepLength(double given);
 
-
 private:
     /** @brief Parses attributes common to vehicles and flows
      *
@@ -164,28 +163,32 @@ private:
      *
      * @see SUMOVehicleParameter
      * @param[in] attr The SAX-attributes to get vehicle parameter from
+     * @param[in] hardFail enable or disable hard fails if a parameter is invalid
      * @param[out] ret The parameter to parse into
      * @param[in] element The name of the element (vehicle or flow)
      * @exception ProcessError If an attribute's value is invalid
      */
-    static void parseCommonAttributes(const SUMOSAXAttributes& attrs,
-                                      SUMOVehicleParameter* ret, std::string element);
+    static void parseCommonAttributes(const SUMOSAXAttributes& attrs, const bool hardFail, SUMOVehicleParameter* ret, std::string element);
 
+    static SUMOVehicleParameter* handleError(const bool hardFail, const std::string &message);
 
+    /// @brief Car-Following attributes map
     typedef std::map<SumoXMLTag, std::set<SumoXMLAttr> > CFAttrMap;
+
+    /// @brief Lane-Change-Model attributes map
     typedef std::map<LaneChangeModel, std::set<SumoXMLAttr> > LCAttrMap;
 
-    // returns allowed attrs for each known CF-model (init on first use)
+    /// @brief returns allowed attrs for each known CF-model (init on first use)
     static const CFAttrMap& getAllowedCFModelAttrs();
 
-    // brief allowed attrs for each known CF-model
+    /// @brief allowed attrs for each known CF-model
     static CFAttrMap allowedCFModelAttrs;
-    // brief allowed attrs for each known LC-model
+
+    /// @brief allowed attrs for each known LC-model
     static LCAttrMap allowedLCModelAttrs;
-    // brief allowed attrs for the junction model
+
+    /// @brief allowed attrs for the junction model
     static std::set<SumoXMLAttr> allowedJMAttrs;
-
-
 };
 
 
