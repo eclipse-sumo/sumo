@@ -50,7 +50,7 @@ public:
         /// @brief reset geometry
         void clearGeometry();
 
-        /// @brief calculate shape rotations and lenghts
+        /// @brief calculate shape rotations and lengths
         void calculateShapeRotationsAndLengths();
 
         /// @brief The shape of the netElement element
