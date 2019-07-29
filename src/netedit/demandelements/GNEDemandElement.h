@@ -63,7 +63,7 @@ public:
         /// @brief reset geometry
         void clearGeometry();
 
-        /// @brief calculate shape rotations and lenghts
+        /// @brief calculate shape rotations and lengths
         void calculateShapeRotationsAndLengths();
 
         /// @brief The shape of the additional element
@@ -85,7 +85,7 @@ public:
             Segment(const GNEDemandElement* _element, const GNEEdge* _edge, const Position _pos, const bool _visible, const bool _valid);
 
             /// @brief parameter constructor for edges
-            Segment(const GNEDemandElement* _element, const GNEEdge* _edge, const Position _pos, double _lenght, double _rotation, const bool _visible, const bool _valid);
+            Segment(const GNEDemandElement* _element, const GNEEdge* _edge, const Position _pos, double _length, double _rotation, const bool _visible, const bool _valid);
 
             /// @brief parameter constructor for junctions
             Segment(const GNEDemandElement* _element, const GNEJunction* _junction, const Position _pos, const bool _visible, const bool _valid);
@@ -108,11 +108,11 @@ public:
             /// @brief invalid
             const bool valid;
 
+            /// @brief length
+            double length;
+
             /// @brief rotation
             double rotation;
-
-            /// @brief lenght
-            double lenght;
 
         private:
             /// @brief default constructor (disabled)
@@ -125,8 +125,8 @@ public:
         /// @brief insert edge segment
         void insertEdgeSegment(const GNEDemandElement* element, const GNEEdge* edge, const Position pos, const bool visible, const bool valid);
 
-        /// @brief insert edge segment with lenght and rotation (used to avoid unnecessary calculation in calculatePartialShapeRotationsAndLengths)
-        void insertEdgeLenghtRotSegment(const GNEDemandElement* element, const GNEEdge* edge, const Position pos, double lenght, double rotation, const bool visible, const bool valid);
+        /// @brief insert edge segment with length and rotation (used to avoid unnecessary calculation in calculatePartialShapeRotationsAndLengths)
+        void insertEdgeLengthRotSegment(const GNEDemandElement* element, const GNEEdge* edge, const Position pos, double length, double rotation, const bool visible, const bool valid);
 
         /// @brief insert junction segment
         void insertJunctionSegment(const GNEDemandElement* element, const GNEJunction* junction, const Position pos, const bool visible, const bool valid);
@@ -134,7 +134,7 @@ public:
         /// @brief clear demand element geometry
         void clearDemandElementSegmentGeometry();
 
-        /// @brief calculate partial shape, rotations and lenghts
+        /// @brief calculate partial shape, rotations and lengths
         void calculatePartialShapeRotationsAndLengths();
 
         /// @brief begin iterator

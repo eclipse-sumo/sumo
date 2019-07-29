@@ -91,19 +91,19 @@ GNEDemandElement::DemandElementSegmentGeometry::Segment::Segment(const GNEDemand
     pos(_pos),
     visible(_visible),
     valid(_valid),
-    lenght(-1),
+    length(-1),
     rotation(0) {
 }
 
 
-GNEDemandElement::DemandElementSegmentGeometry::Segment::Segment(const GNEDemandElement* _element, const GNEEdge* _edge, const Position _pos, double _lenght, double _rotation, const bool _visible, const bool _valid) :
+GNEDemandElement::DemandElementSegmentGeometry::Segment::Segment(const GNEDemandElement* _element, const GNEEdge* _edge, const Position _pos, double _length, double _rotation, const bool _visible, const bool _valid) :
     element(_element),
     edge(_edge),
     junction(nullptr),
     pos(_pos),
     visible(_visible),
     valid(_valid),
-    lenght(_lenght),
+    length(_length),
     rotation(_rotation) {
 }
 
@@ -115,7 +115,7 @@ GNEDemandElement::DemandElementSegmentGeometry::Segment::Segment(const GNEDemand
     pos(_pos),
     visible(_visible),
     valid(_valid),
-    lenght(-1),
+    length(-1),
     rotation(0) {
 }
 
@@ -127,7 +127,7 @@ GNEDemandElement::DemandElementSegmentGeometry::Segment::Segment() :
     pos(Position::INVALID),
     visible(false),
     valid(false),
-    lenght(-1),
+    length(-1),
     rotation(0) {
 }
 
@@ -142,26 +142,20 @@ GNEDemandElement::DemandElementSegmentGeometry::DemandElementSegmentGeometry() :
 
 void 
 GNEDemandElement::DemandElementSegmentGeometry::insertEdgeSegment(const GNEDemandElement* element, const GNEEdge* edge, const Position pos, const bool visible, const bool valid) {
-    // obtain previous edge
-    const GNEEdge* previousEdge = (myShapeSegments.size() > 0)? myShapeSegments.back().edge : nullptr;
     // add segment in myShapeSegments
     myShapeSegments.push_back(Segment(element, edge, pos, visible, valid));
 }
 
 
 void 
-GNEDemandElement::DemandElementSegmentGeometry::insertEdgeLenghtRotSegment(const GNEDemandElement* element, const GNEEdge* edge, const Position pos, double lenght, double rotation, const bool visible, const bool valid) {
-    // obtain previous edge
-    const GNEEdge* previousEdge = (myShapeSegments.size() > 0)? myShapeSegments.back().edge : nullptr;
+GNEDemandElement::DemandElementSegmentGeometry::insertEdgeLengthRotSegment(const GNEDemandElement* element, const GNEEdge* edge, const Position pos, double length, double rotation, const bool visible, const bool valid) {
     // add segment in myShapeSegments
-    myShapeSegments.push_back(Segment(element, edge, pos, lenght, rotation, visible, valid));
+    myShapeSegments.push_back(Segment(element, edge, pos, length, rotation, visible, valid));
 }
 
 
 void 
 GNEDemandElement::DemandElementSegmentGeometry::insertJunctionSegment(const GNEDemandElement* element, const GNEJunction* junction, const Position pos, const bool visible, const bool valid) {
-    // obtain previous junction
-    const GNEJunction* previousJunction = (myShapeSegments.size() > 0)? myShapeSegments.back().junction : nullptr;
     // add segment in myShapeSegments
     myShapeSegments.push_back(Segment(element, junction, pos, visible, valid));
 }
@@ -182,14 +176,14 @@ GNEDemandElement::DemandElementSegmentGeometry::calculatePartialShapeRotationsAn
     if (numberOfSegments >= 0) {
         // Iterate over every segment
         for (int i = 0; i < numberOfSegments; ++i) {
-            // check if lenght and rotation has to be calculated
-            if (myShapeSegments[i].lenght == -1) {
+            // check if length and rotation has to be calculated
+            if (myShapeSegments[i].length == -1) {
                 // Obtain first position
                 const Position& f = myShapeSegments[i].pos;
                 // Obtain next position
                 const Position& s = myShapeSegments[i + 1].pos;
                 // Save distance between position into myShapeLengths
-                myShapeSegments[i].lenght = f.distanceTo2D(s);
+                myShapeSegments[i].length = f.distanceTo2D(s);
                 // Save rotation (angle) of the vector constructed by points f and s
                 myShapeSegments[i].rotation = ((double)atan2((s.x() - f.x()), (f.y() - s.y())) * (double) 180.0 / (double)M_PI);
             }

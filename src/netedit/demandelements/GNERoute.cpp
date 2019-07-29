@@ -302,7 +302,7 @@ GNERoute::updateGeometry() {
             for (int j = 0; j < (int)laneGeometries.at(i).second.shape.size(); j++) {
                 // save position and rotations (to avoid useless calculations)
                 if (j < (int)laneGeometries.at(i).second.shape.size() - 1) {
-                    myDemandElementSegmentGeometry.insertEdgeLenghtRotSegment(this, laneGeometries.at(i).first, 
+                    myDemandElementSegmentGeometry.insertEdgeLengthRotSegment(this, laneGeometries.at(i).first, 
                         laneGeometries.at(i).second.shape[j], laneGeometries.at(i).second.shapeLengths[j], 
                         laneGeometries.at(i).second.shapeRotations[j], true, true);
                 } else {
@@ -315,7 +315,7 @@ GNERoute::updateGeometry() {
                 myDemandElementSegmentGeometry.insertJunctionSegment(this, laneGeometries.at(i).first->getGNEJunctionDestiny(), connectionShapePos, true, true);
             }
         }
-        // calculate entire shape, rotations and lenghts
+        // calculate entire shape, rotations and lengths
         myDemandElementSegmentGeometry.calculatePartialShapeRotationsAndLengths();
         // update demand element childrens
         for (const auto& i : getDemandElementChildren()) {

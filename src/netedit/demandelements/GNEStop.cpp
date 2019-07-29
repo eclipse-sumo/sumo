@@ -99,16 +99,16 @@ GNEStop::isDemandElementValid() const {
         return true;
     } else {
         // obtain lane length
-        double laneLenght = getLaneParents().front()->getParentEdge().getNBEdge()->getFinalLength() * getLaneParents().front()->getLengthGeometryFactor();
+        double laneLength = getLaneParents().front()->getParentEdge().getNBEdge()->getFinalLength() * getLaneParents().front()->getLengthGeometryFactor();
         // declare a copy of start and end positions
         double startPosCopy = startPos;
         double endPosCopy = endPos;
         // check if position has to be fixed
         if (startPosCopy < 0) {
-            startPosCopy += laneLenght;
+            startPosCopy += laneLength;
         }
         if (endPosCopy < 0) {
-            endPosCopy += laneLenght;
+            endPosCopy += laneLength;
         }
         // check values
         if (!(parametersSet & STOP_START_SET) && !(parametersSet & STOP_END_SET)) {
@@ -129,14 +129,14 @@ GNEStop::getDemandElementProblem() const {
     // declare a copy of start and end positions
     double startPosCopy = startPos;
     double endPosCopy = endPos;
-    // obtain lane lenght
-    double laneLenght = getLaneParents().front()->getParentEdge().getNBEdge()->getFinalLength();
+    // obtain lane length
+    double laneLength = getLaneParents().front()->getParentEdge().getNBEdge()->getFinalLength();
     // check if position has to be fixed
     if (startPosCopy < 0) {
-        startPosCopy += laneLenght;
+        startPosCopy += laneLength;
     }
     if (endPosCopy < 0) {
-        endPosCopy += laneLenght;
+        endPosCopy += laneLength;
     }
     // declare variables
     std::string errorStart, separator, errorEnd;
@@ -202,15 +202,15 @@ GNEStop::moveGeometry(const Position& offset) {
         double offsetLane = getLaneParents().front()->getGeometry().shape.nearest_offset_to_point2D(newPosition, false) - getLaneParents().front()->getGeometry().shape.nearest_offset_to_point2D(myStopMove.originalViewPosition, false);
         // check if both position has to be moved
         if ((parametersSet & STOP_START_SET) && (parametersSet & STOP_END_SET)) {
-            // calculate stoppingPlace lenght and lane lenght (After apply geometry factor)
-            double stoppingPlaceLenght = fabs(parse<double>(myStopMove.secondOriginalPosition) - parse<double>(myStopMove.firstOriginalLanePosition));
+            // calculate stoppingPlace length and lane length (After apply geometry factor)
+            double stoppingPlaceLength = fabs(parse<double>(myStopMove.secondOriginalPosition) - parse<double>(myStopMove.firstOriginalLanePosition));
             double laneLengt = getLaneParents().front()->getParentEdge().getNBEdge()->getFinalLength() * getLaneParents().front()->getLengthGeometryFactor();
-            // avoid changing stopping place's lenght
+            // avoid changing stopping place's length
             if ((parse<double>(myStopMove.firstOriginalLanePosition) + offsetLane) < 0) {
                 startPos = 0;
-                endPos = stoppingPlaceLenght;
+                endPos = stoppingPlaceLength;
             } else if ((parse<double>(myStopMove.secondOriginalPosition) + offsetLane) > laneLengt) {
-                startPos = laneLengt - stoppingPlaceLenght;
+                startPos = laneLengt - stoppingPlaceLength;
                 endPos = laneLengt;
             } else {
                 startPos = parse<double>(myStopMove.firstOriginalLanePosition) + offsetLane;
@@ -262,7 +262,7 @@ GNEStop::updateGeometry() {
     if (getLaneParents().size() > 0) {
         // Cut shape using as delimitators fixed start position and fixed end position
         myDemandElementGeometry.shape = getLaneParents().front()->getGeometry().shape.getSubpart(getStartGeometryPositionOverLane(), getEndGeometryPositionOverLane());
-        // Get calculate lenghts and rotations
+        // Get calculate lengths and rotations
         myDemandElementGeometry.calculateShapeRotationsAndLengths();
     } else if (getAdditionalParents().size() > 0) {
         // copy geometry of additional

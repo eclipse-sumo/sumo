@@ -1853,8 +1853,8 @@ GNERouteHandler::PersonPlansValues::PersonPlansValues() :
     to(nullptr),
     busStop(nullptr),
     route(nullptr),
-    laneStop(nullptr),
     arrivalPos(-1),
+    laneStop(nullptr),
     friendlyPos(false) {
 }
 

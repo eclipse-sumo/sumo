@@ -117,8 +117,8 @@ GNEPerson::GNEPersonPopupMenu::onCmdTransform(FXObject* obj, FXSelector, void*) 
 
 GNEPerson::GNESelectedPersonsPopupMenu::GNESelectedPersonsPopupMenu(GNEPerson *person, const std::vector<GNEPerson*> &selectedPerson, GUIMainWindow& app, GUISUMOAbstractView& parent) :
     GUIGLObjectPopupMenu(app, parent, *person),
-    mySelectedPersons(selectedPerson),
     myPersonTag(person->getTagProperty().getTag()),
+    mySelectedPersons(selectedPerson),
     myTransformToPerson(nullptr),
     myTransformToPersonFlow(nullptr) { 
     // build header
@@ -457,10 +457,10 @@ GNEPerson::updateGeometry() {
                     // obtain lane (special case due rides)
                     GNELane *lane = personPlanSegmentsIT->edge->getLaneByVClass(vClassOfPersonPlanSegmentsIT);
                     // add lane shape over personPlan shape
-                    for (int i = 0; i < lane->getGeometry().shape.size(); i++) {
+                    for (int i = 0; i < (int)lane->getGeometry().shape.size(); i++) {
                         // insert segment
-                        if (i < (lane->getGeometry().shape.size()-1)) {
-                            myDemandElementSegmentGeometry.insertEdgeLenghtRotSegment(personPlanSegmentsIT->personPlan, personPlanSegmentsIT->edge, 
+                        if (i < (int)lane->getGeometry().shape.size() - 1) {
+                            myDemandElementSegmentGeometry.insertEdgeLengthRotSegment(personPlanSegmentsIT->personPlan, personPlanSegmentsIT->edge, 
                                 lane->getGeometry().shape[i], 
                                 lane->getGeometry().shapeLengths[i], 
                                 lane->getGeometry().shapeRotations[i], 
@@ -476,7 +476,7 @@ GNEPerson::updateGeometry() {
                     calculateSmoothPersonPlanConnection((personPlanSegmentsIT+1)->personPlan, personPlanSegmentsIT->edge, (personPlanSegmentsIT+1)->edge);
                 }
             }
-            // calculate entire shape, rotations and lenghts
+            // calculate entire shape, rotations and lengths
             myDemandElementSegmentGeometry.calculatePartialShapeRotationsAndLengths();
         }
         // mark demand element geometry as non-deprecated
@@ -539,7 +539,7 @@ GNEPerson::drawGL(const GUIVisualizationSettings& s) const {
     if (myViewNet->getNetworkViewOptions().showDemandElements() && myViewNet->getDemandViewOptions().showNonInspectedDemandElements(this) && (getDemandElementChildren().size() > 0)) {
         // obtain exaggeration
         const double exaggeration = s.personSize.getExaggeration(s, this, 80);
-        // obtain width and lenght
+        // obtain width and length
         const double length = getDemandElementParents().at(0)->getAttributeDouble(SUMO_ATTR_LENGTH);
         const double width = getDemandElementParents().at(0)->getAttributeDouble(SUMO_ATTR_WIDTH);
         const std::string file = getDemandElementParents().at(0)->getAttribute(SUMO_ATTR_IMGFILE);
@@ -926,7 +926,7 @@ GNEPerson::setColor(const GUIVisualizationSettings& s) const {
 
 
 bool
-GNEPerson::setFunctionalColor(int activeScheme) const {
+GNEPerson::setFunctionalColor(int /* activeScheme */) const {
     /*
     switch (activeScheme) {
         case 0: {
