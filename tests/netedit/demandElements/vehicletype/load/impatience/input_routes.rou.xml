@@ -37,19 +37,19 @@
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
 
-	<!-- non valid tau -->
-    <vType id="vType0" tau="dummyTau"/>
+	<!-- non valid impatience -->
+    <vType id="vType0" impatience="dummyImpatience"/>
 	
-	<!-- non valid tau -->
-    <vType id="vType1" tau="-3"/>
+	<!-- non valid impatience -->
+    <vType id="vType1" impatience="-3"/>
 	
-	<!-- valid tau -->
-    <vType id="vType2" tau="0"/>
+	<!-- valid impatience -->
+    <vType id="vType2" impatience="0"/>
 	
-	<!-- valid tau -->
-    <vType id="vType3" tau="12"/>
+	<!-- valid impatience -->
+    <vType id="vType3" impatience="12"/>
 	
-	<!-- valid tau -->
-    <vType id="vType4" tau="4.5"/>
+	<!-- valid impatience -->
+    <vType id="vType4" impatience="4.5"/>
 	
 </routes>
