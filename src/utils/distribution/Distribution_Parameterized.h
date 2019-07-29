@@ -26,6 +26,7 @@
 
 #include <vector>
 #include <random>
+
 #include "Distribution.h"
 
 
@@ -39,22 +40,20 @@
  * Incomplete and unused yet. This class should be overridden by derived
  *  classes
  */
-class Distribution_Parameterized :
-    public Distribution {
+class Distribution_Parameterized : public Distribution {
+
 public:
-    /// Constructor for standard normal distribution
-    Distribution_Parameterized(const std::string& id, double mean,
-                               double deviation);
+    /// @brief Constructor for standard normal distribution
+    Distribution_Parameterized(const std::string& id, double mean, double deviation);
 
-    /// Constructor for normal distribution with cutoff
-    Distribution_Parameterized(const std::string& id, double mean,
-                               double deviation, double min, double max);
+    /// @brief Constructor for normal distribution with cutoff
+    Distribution_Parameterized(const std::string& id, double mean, double deviation, double min, double max);
 
-    /// Destructor
+    /// @brief Destructor
     virtual ~Distribution_Parameterized();
 
-    /// Overwrite by parsable distribution description
-    void parse(const std::string& description);
+    /// @brief Overwrite by parsable distribution description
+    void parse(const std::string& description, const bool hardFail);
 
     /** @brief Draw a sample of the distribution.
     *
@@ -65,29 +64,24 @@ public:
     */
     double sample(std::mt19937* which = 0) const;
 
-    /// Returns the maximum value of this distribution
+    /// @brief Returns the maximum value of this distribution
     double getMax() const;
 
-    /// Returns the parameters of this distribution
-    std::vector<double>& getParameter() {
-        return myParameter;
-    }
+    /// @brief Returns the parameters of this distribution
+    std::vector<double>& getParameter();
 
-    /// Returns the unmodifiable parameters of this distribution
-    const std::vector<double>& getParameter() const {
-        return myParameter;
-    }
+    /// @brief Returns the unmodifiable parameters of this distribution
+    const std::vector<double>& getParameter() const;
 
     /// @brief check whether the distribution is valid
     bool isValid(std::string& error);
 
-    /// Returns the string representation of this distribution
+    /// @brief Returns the string representation of this distribution
     std::string toStr(std::streamsize accuracy) const;
 
 private:
-    /// The distribution's parameters
+    /// @brief The distribution's parameters
     std::vector<double> myParameter;
-
 };
 
 
