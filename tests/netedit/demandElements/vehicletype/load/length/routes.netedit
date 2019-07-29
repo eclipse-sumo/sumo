@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 25.07.2019 16:04:38 by Eclipse SUMO netedit Version v1_2_0+1292-072ba76486
+<!-- generated on 29.07.2019 11:18:20 by Eclipse SUMO netedit Version v1_2_0+1308-0db7c427d4
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.25Jul160429.6692/netedit.gui/demandElements/vehicletype/load/default\input_net.net.xml"/>
+        <sumo-net-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.29Jul111621.4832/netedit.gui/demandElements/vehicletype/load/length\input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.25Jul160429.6692/netedit.gui/demandElements/vehicletype/load/default\net.net.xml"/>
+        <output-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.29Jul111621.4832/netedit.gui/demandElements/vehicletype/load/length\net.net.xml"/>
     </output>
 
     <processing>
@@ -29,10 +29,10 @@
     </pedestrian>
 
     <netedit>
-        <additional-files value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.25Jul160429.6692/netedit.gui/demandElements/vehicletype/load/default\additionals.xml"/>
-        <additionals-output value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.25Jul160429.6692/netedit.gui/demandElements/vehicletype/load/default\additionals.xml"/>
-        <route-files value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.25Jul160429.6692/netedit.gui/demandElements/vehicletype/load/default\routes.xml"/>
-        <demandelements-output value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.25Jul160429.6692/netedit.gui/demandElements/vehicletype/load/default\routes.xml"/>
+        <additional-files value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.29Jul111621.4832/netedit.gui/demandElements/vehicletype/load/length\additionals.xml"/>
+        <additionals-output value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.29Jul111621.4832/netedit.gui/demandElements/vehicletype/load/length\additionals.xml"/>
+        <route-files value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.29Jul111621.4832/netedit.gui/demandElements/vehicletype/load/length\routes.xml"/>
+        <demandelements-output value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.29Jul111621.4832/netedit.gui/demandElements/vehicletype/load/length\routes.xml"/>
     </netedit>
 
     <visualisation>
@@ -45,12 +45,15 @@
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.25Jul160429.6692/netedit.gui/demandElements/vehicletype/load/default\log.txt"/>
+        <error-log value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.29Jul111621.4832/netedit.gui/demandElements/vehicletype/load/length\log.txt"/>
     </report>
 
 </configuration>
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-    <vType id="vType0"/>
+    <vType id="vType1" length="-3.00"/>
+    <vType id="vType2" length="0.00"/>
+    <vType id="vType3" length="12.00"/>
+    <vType id="vType4" length="4.50"/>
 </routes>

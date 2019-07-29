@@ -1,3 +1,4 @@
 Error: Unknown car following model 'dummyTau' when parsing vType 'vType0'
-Error: Process Error
-Error: Loading of C:/Users/alva_pa/.texttest/tmp/netedit.gui.25Jul165827.6524/netedit.gui/demandElements/vehicletype/load/carfollowmodel\input_routes.rou.xml failed.
+Error: Attribute 'carFollowModel' in definition of vType 'vType1' is empty.
+Error: Unknown car following model '' when parsing vType 'vType1'
+Error: Loading of C:/Users/alva_pa/.texttest/tmp/netedit.gui.29Jul104640.8056/netedit.gui/demandElements/vehicletype/load/carfollowmodel\input_routes.rou.xml failed.

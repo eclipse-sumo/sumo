@@ -18,13 +18,29 @@ GLDebug: 	Inserted edge:gneE9 into SUMORTree with boundary 0.00,30.00,50.00,51.6
 Debug: Selected item 'DEFAULT_VEHTYPE' in DemandElementSelector
 Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
 Error: Attribute 'speedDev' in definition of vType 'vType0' is not of type float.
-Error: Process Error
-Error: Loading of C:/Users/alva_pa/.texttest/tmp/netedit.gui.25Jul165827.6524/netedit.gui/demandElements/vehicletype/load/speeddev\input_routes.rou.xml failed.
+Debug: Adding vType 'vType1' in GNEChange_DemandElement
+Debug: DemandElements has to be saved
+Debug: Current saving Status: net saved, additionals saved, demand elements unsaved
+Debug: Adding vType 'vType2' in GNEChange_DemandElement
+Debug: Adding vType 'vType3' in GNEChange_DemandElement
+Debug: Adding vType 'vType4' in GNEChange_DemandElement
+Error: Loading of C:/Users/alva_pa/.texttest/tmp/netedit.gui.29Jul111621.4832/netedit.gui/demandElements/vehicletype/load/speeddev\input_routes.rou.xml failed.
 Debug: net has to be saved
-Debug: Current saving Status: net unsaved, additionals saved, demand elements saved
+Debug: Current saving Status: net unsaved, additionals saved, demand elements unsaved
 Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
+Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Removing vType 'vType4' in GNEChange_DemandElement
+Debug: Removing vType 'vType3' in GNEChange_DemandElement
+Debug: Removing vType 'vType2' in GNEChange_DemandElement
+Debug: Removing vType 'vType1' in GNEChange_DemandElement
 Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
+Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Adding vType 'vType1' in GNEChange_DemandElement
+Debug: Adding vType 'vType2' in GNEChange_DemandElement
+Debug: Adding vType 'vType3' in GNEChange_DemandElement
+Debug: Adding vType 'vType4' in GNEChange_DemandElement
 Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
+Debug: demand elements saved
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ4 from SUMORTree with boundary -2.00,8.00,22.00,32.00
 GLDebug: 	Removed object junction:gneJ5 from SUMORTree with boundary 58.00,8.00,82.00,32.00
@@ -72,6 +88,12 @@ Debug: Created connection 'fromgneE6_0togneE3_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE6_0togneE3_1' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE8_0togneE9_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE9_0togneE11_0' in retrieveGNEConnection()
+Debug: Deleting unreferenced vType 'vType4'
+Debug: DemandElements has to be saved
+Debug: Current saving Status: net saved, additionals saved, demand elements unsaved
+Debug: Deleting unreferenced vType 'vType3'
+Debug: Deleting unreferenced vType 'vType2'
+Debug: Deleting unreferenced vType 'vType1'
 Debug: Deleting unreferenced edge 'gneE10' in GNENet destructor
 Debug: Deleting unreferenced lane 'gneE10_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'fromgneE10_0togneE8_0' in GNEEdge destructor
