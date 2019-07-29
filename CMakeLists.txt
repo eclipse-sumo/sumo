@@ -2,6 +2,10 @@
 cmake_policy(SET CMP0048 NEW)
 # do not expand quoted variables in if statements
 cmake_policy(SET CMP0054 NEW)
+if (${CMAKE_VERSION} VERSION_GREATER 3.13.0)
+    # UseSWIG generates standard target names
+    cmake_policy(SET CMP0078 NEW)
+endif()
 # Options
 option(CHECK_OPTIONAL_LIBS "Try to download / enable all optional libraries (use only EPL clean libraries, if set to false)" true)
 option(MULTITHREADED_BUILD "Use all available cores for building (applies to Visual Studio only)" true)
