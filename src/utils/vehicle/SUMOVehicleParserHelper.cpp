@@ -433,8 +433,24 @@ SUMOVehicleParserHelper::beginVTypeParsing(const SUMOSAXAttributes& attrs, const
         vtype->parametersSet |= VTYPEPARS_HASDRIVERSTATE_SET;
     }
     if (attrs.hasAttribute(SUMO_ATTR_EMISSIONCLASS)) {
-        vtype->emissionClass = PollutantsInterface::getClassByName(attrs.getOpt<std::string>(SUMO_ATTR_EMISSIONCLASS, id.c_str(), ok, ""));
-        vtype->parametersSet |= VTYPEPARS_EMISSIONCLASS_SET;
+        std::string parsedEmissionClass = attrs.getOpt<std::string>(SUMO_ATTR_EMISSIONCLASS, id.c_str(), ok, "");
+        if (ok) {
+            // check if given value correspond to a string of PollutantsInterface::getAllClassesStr()
+            for (const auto &i : PollutantsInterface::getAllClassesStr()) {
+                if (parsedEmissionClass == i) {
+                    vtype->emissionClass = PollutantsInterface::getClassByName(parsedEmissionClass);
+                    vtype->parametersSet |= VTYPEPARS_EMISSIONCLASS_SET;
+                }
+            }
+        }
+        // check if emission class was sucesfully set
+        if ((vtype->parametersSet & VTYPEPARS_EMISSIONCLASS_SET) == false) {
+            if (hardFail) {
+                throw InvalidArgument(toString(SUMO_ATTR_EMISSIONCLASS) + " with name '" + parsedEmissionClass + "' doesn't exist.");
+            } else {
+                WRITE_ERROR(toString(SUMO_ATTR_EMISSIONCLASS) + " with name '" + parsedEmissionClass + "' doesnt exist.");
+            }
+        }
     }
     if (attrs.hasAttribute(SUMO_ATTR_IMPATIENCE)) {
         // allow empty attribute because .sbx saves this only as float
