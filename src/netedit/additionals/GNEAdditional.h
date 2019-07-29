@@ -369,11 +369,11 @@ protected:
     /// @brief boolean to check if additional element is blocked (i.e. cannot be moved with mouse)
     bool myBlockMovement;
 
-    /// @brief pointer to special color (used for drawing Additional with a certain color, mainly used for selections)
-    const RGBColor *mySpecialColor;
-
     /// @brief variable BlockIcon
     BlockIcon myBlockIcon;
+
+    /// @brief pointer to special color (used for drawing Additional with a certain color, mainly used for selections)
+    const RGBColor *mySpecialColor;
 
     /// @brief change all attributes of additional with their default values (note: this cannot be undo)
     void setDefaultValues();

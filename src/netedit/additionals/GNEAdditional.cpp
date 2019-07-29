@@ -495,8 +495,8 @@ GNEAdditional::getCenteringBoundary() const {
 // ---------------------------------------------------------------------------
 
 GNEAdditional::BlockIcon::BlockIcon(GNEAdditional* additional) :
-    myAdditional(additional),
-    rotation(0.) {}
+    rotation(0.),
+    myAdditional(additional) {}
 
 
 void

@@ -176,7 +176,6 @@ GNEViewNet::GNEViewNet(FXComposite* tmpParent, FXComposite* actualParent, GUIMai
     myCommonCheckableButtons(this),
     myNetworkCheckableButtons(this),
     myDemandCheckableButtons(this),
-    mySelectingArea(this),
     myCommonViewOptions(this),
     myNetworkViewOptions(this),
     myDemandViewOptions(this),
@@ -184,6 +183,7 @@ GNEViewNet::GNEViewNet(FXComposite* tmpParent, FXComposite* actualParent, GUIMai
     myMoveMultipleElementValues(this),
     myVehicleOptions(this),
     myVehicleTypeOptions(this),
+    mySelectingArea(this),
     myEditShapes(this),
     myViewParent(viewParent),
     myNet(net),
@@ -514,7 +514,6 @@ GNEViewNet::GNEViewNet() :
     myCommonCheckableButtons(this),
     myNetworkCheckableButtons(this),
     myDemandCheckableButtons(this),
-    mySelectingArea(this),
     myCommonViewOptions(this),
     myNetworkViewOptions(this),
     myDemandViewOptions(this),
@@ -522,7 +521,8 @@ GNEViewNet::GNEViewNet() :
     myMoveMultipleElementValues(this),
     myVehicleOptions(this),
     myVehicleTypeOptions(this),
-    myEditShapes(this) { 
+    mySelectingArea(this),
+    myEditShapes(this) {
 }
 
 

@@ -553,8 +553,8 @@ GNEFrame::EdgePathCreator::EdgePathCreator(GNEFrame* frameParent, int edgePathCr
     FXGroupBox(frameParent->myContentFrame, "Route creator", GUIDesignGroupBoxFrame),
     myFrameParent(frameParent),
     myVClass(SVC_PASSENGER),
-    myEdgePathCreatorModes(edgePathCreatorModes),
-    mySelectedBusStop(nullptr) {
+    mySelectedBusStop(nullptr),
+    myEdgePathCreatorModes(edgePathCreatorModes) {
 
     // create button for create GEO POIs
     myFinishCreationButton = new FXButton(this, "Finish route creation", nullptr, this, MID_GNE_EDGEPATH_FINISH, GUIDesignButton);

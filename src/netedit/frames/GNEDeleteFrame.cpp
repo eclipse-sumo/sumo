@@ -409,7 +409,7 @@ GNEDeleteFrame::SubordinatedElements::SubordinatedElements(const GNELane *lane) 
 }
 
 
-GNEDeleteFrame::SubordinatedElements::SubordinatedElements(const GNEAdditional *additional) : 
+GNEDeleteFrame::SubordinatedElements::SubordinatedElements(const GNEAdditional* /* additional */) : 
     additionalParents(0),
     additionalChildren(0),
     demandElementParents(0),
@@ -417,7 +417,7 @@ GNEDeleteFrame::SubordinatedElements::SubordinatedElements(const GNEAdditional *
 }
 
 
-GNEDeleteFrame::SubordinatedElements::SubordinatedElements(const GNEDemandElement *demandElement) : 
+GNEDeleteFrame::SubordinatedElements::SubordinatedElements(const GNEDemandElement* /* demandElement */) : 
     additionalParents(0),
     additionalChildren(0),
     demandElementParents(0),

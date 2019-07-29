@@ -1429,8 +1429,8 @@ GNEViewNetHelper::EditModes::setDemandEditMode(DemandEditMode mode, bool force) 
 
 
 GNEViewNetHelper::CommonViewOptions::CommonViewOptions(GNEViewNet* viewNet) :
-    myViewNet(viewNet),
-    menuCheckShowGrid(nullptr) {
+    menuCheckShowGrid(nullptr),
+    myViewNet(viewNet) {
 }
 
 
@@ -1662,11 +1662,11 @@ GNEViewNetHelper::NetworkViewOptions::editingElevation() const {
 // ---------------------------------------------------------------------------
 
 GNEViewNetHelper::DemandViewOptions::DemandViewOptions(GNEViewNet* viewNet) :
-    myViewNet(viewNet),
     menuCheckHideShapes(nullptr),
     menuCheckHideNonInspectedDemandElements(nullptr),
     menuCheckShowAllPersonPlans(nullptr),
     menuCheckLockPerson(nullptr),
+    myViewNet(viewNet),
     myLockedPerson(nullptr) {
 }
 
@@ -1816,11 +1816,11 @@ GNEViewNetHelper::DemandViewOptions::getLockedPerson() const {
 // ---------------------------------------------------------------------------
 
 GNEViewNetHelper::CommonCheckableButtons::CommonCheckableButtons(GNEViewNet* viewNet) :
-    myViewNet(viewNet),
     inspectButton(nullptr),
     deleteButton(nullptr),
     selectButton(nullptr),
-    moveButton(nullptr) {
+    moveButton(nullptr),
+    myViewNet(viewNet) {
 }
 
 
@@ -1887,7 +1887,6 @@ GNEViewNetHelper::CommonCheckableButtons::updateCommonCheckableButtons() {
 // ---------------------------------------------------------------------------
 
 GNEViewNetHelper::NetworkCheckableButtons::NetworkCheckableButtons(GNEViewNet* viewNet) :
-    myViewNet(viewNet),
     createEdgeButton(nullptr),
     connectionButton(nullptr),
     trafficLightButton(nullptr),
@@ -1895,7 +1894,8 @@ GNEViewNetHelper::NetworkCheckableButtons::NetworkCheckableButtons(GNEViewNet* v
     crossingButton(nullptr),
     TAZButton(nullptr),
     shapeButton(nullptr),
-    prohibitionButton(nullptr) {
+    prohibitionButton(nullptr),
+    myViewNet(viewNet) {
 }
 
 
@@ -1994,14 +1994,14 @@ GNEViewNetHelper::NetworkCheckableButtons::updateNetworkCheckableButtons() {
 // ---------------------------------------------------------------------------
 
 GNEViewNetHelper::DemandCheckableButtons::DemandCheckableButtons(GNEViewNet* viewNet) :
-    myViewNet(viewNet),
     routeButton(nullptr),
     vehicleButton(nullptr),
     vehicleTypeButton(nullptr),
     stopButton(nullptr),
     personTypeButton(nullptr),
     personButton(nullptr),
-    personPlanButton(nullptr) {
+    personPlanButton(nullptr),
+    myViewNet(viewNet) {
 }
 
 
