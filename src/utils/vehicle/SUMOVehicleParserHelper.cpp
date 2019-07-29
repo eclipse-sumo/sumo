@@ -392,7 +392,7 @@ SUMOVehicleParserHelper::beginVTypeParsing(const SUMOSAXAttributes& attrs, const
     }
     SUMOVehicleClass vClass = SVC_PASSENGER;
     if (attrs.hasAttribute(SUMO_ATTR_VCLASS)) {
-        vClass = parseVehicleClass(attrs, hardFail, id);
+        vClass = parseVehicleClass(attrs, id);
     }
     SUMOVTypeParameter* vtype = new SUMOVTypeParameter(id, vClass);
     if (attrs.hasAttribute(SUMO_ATTR_VCLASS)) {
@@ -471,8 +471,10 @@ SUMOVehicleParserHelper::beginVTypeParsing(const SUMOSAXAttributes& attrs, const
         vtype->parametersSet |= VTYPEPARS_HEIGHT_SET;
     }
     if (attrs.hasAttribute(SUMO_ATTR_GUISHAPE)) {
-        vtype->shape = parseGuiShape(attrs, hardFail, vtype->id);
-        vtype->parametersSet |= VTYPEPARS_SHAPE_SET;
+        vtype->shape = parseGuiShape(attrs, vtype->id);
+        if (vtype->shape != SVS_UNKNOWN) {
+            vtype->parametersSet |= VTYPEPARS_SHAPE_SET;
+        }
     }
     if (attrs.hasAttribute(SUMO_ATTR_OSGFILE)) {
         vtype->osgFile = attrs.get<std::string>(SUMO_ATTR_OSGFILE, vtype->id.c_str(), ok);
@@ -509,12 +511,12 @@ SUMOVehicleParserHelper::beginVTypeParsing(const SUMOSAXAttributes& attrs, const
         }
     }
     if (attrs.hasAttribute(SUMO_ATTR_CAR_FOLLOW_MODEL)) {
-        const std::string cfmS = attrs.get<std::string>(SUMO_ATTR_CAR_FOLLOW_MODEL, vtype->id.c_str(), ok);
-        if (SUMOXMLDefinitions::CarFollowModels.hasString(cfmS)) {
-            vtype->cfModel = SUMOXMLDefinitions::CarFollowModels.get(cfmS);
+        const std::string cfmValue = attrs.get<std::string>(SUMO_ATTR_CAR_FOLLOW_MODEL, vtype->id.c_str(), ok);
+        if (SUMOXMLDefinitions::CarFollowModels.hasString(cfmValue)) {
+            vtype->cfModel = SUMOXMLDefinitions::CarFollowModels.get(cfmValue);
             vtype->parametersSet |= VTYPEPARS_CAR_FOLLOW_MODEL;
         } else {
-            handleError(hardFail, "Unknown car following model '" + cfmS + "' when parsing vType '" + vtype->id + "'");
+            handleError(hardFail, "Unknown car following model '" + cfmValue + "' when parsing vType '" + vtype->id + "'");
         }
     }
     if (attrs.hasAttribute(SUMO_ATTR_PERSON_CAPACITY)) {
@@ -551,7 +553,7 @@ SUMOVehicleParserHelper::beginVTypeParsing(const SUMOSAXAttributes& attrs, const
         }
     }
     // try to parse embedded vType
-    if (!parseVTypeEmbedded(*vtype, vtype->cfModel, attrs, true)) {
+    if (!parseVTypeEmbedded(*vtype, vtype->cfModel, attrs, hardFail, true)) {
         handleError(hardFail, "Invalid parsing embedded VType"); 
     }
     // try to parse Lane Change Model params
@@ -597,9 +599,21 @@ SUMOVehicleParserHelper::parseVTypeEmbedded(SUMOVTypeParameter& into, const Sumo
     for (const auto &it : cf_it->second) {
         if (attrs.hasAttribute(it)) {
             into.cfParameter[it] = attrs.get<std::string>(it, into.id.c_str(), ok);
-            if (it == SUMO_ATTR_TAU && string2time(into.cfParameter[it]) < DELTA_T && gSimulation) {
-                WRITE_WARNING("Value of tau=" + toString(into.cfParameter[it])
-                              + " in car following model '" + toString(into.cfModel) + "' lower than simulation step size may cause collisions");
+            // special check for TAU attribute
+            if (it == SUMO_ATTR_TAU) {
+                // string2time can produce a exception
+                try {
+                    if ((string2time(into.cfParameter[it]) < DELTA_T) && gSimulation) {
+                        WRITE_WARNING("Value of tau=" + toString(into.cfParameter[it])
+                                      + " in car following model '" + toString(into.cfModel) + "' lower than simulation step size may cause collisions");
+                    }
+                } catch (...) {
+                    if (hardFail) {
+                        throw ProcessError("Invalid value for Car Following Model 'Tau'; Cannot be parsed to SUMOTime");
+                    } else {
+                        WRITE_ERROR("Invalid value for Car Following Model 'Tau'; Cannot be parsed to SUMOTime");
+                    }
+                }
             }
         }
     }
@@ -807,7 +821,7 @@ SUMOVehicleParserHelper::getAllowedCFModelAttrs() {
 
 
 bool
-SUMOVehicleParserHelper::parseLCParams(SUMOVTypeParameter& into, LaneChangeModel model, const SUMOSAXAttributes& attrs, const bool hardFail) {
+SUMOVehicleParserHelper::parseLCParams(SUMOVTypeParameter& into, LaneChangeModel model, const SUMOSAXAttributes& attrs, const bool /*hardFail*/) {
     if (allowedLCModelAttrs.size() == 0) {
         // init static map
         std::set<SumoXMLAttr> lc2013Params;
@@ -844,9 +858,9 @@ SUMOVehicleParserHelper::parseLCParams(SUMOVTypeParameter& into, LaneChangeModel
     }
     bool ok = true;
     std::set<SumoXMLAttr> allowed = allowedLCModelAttrs[model];
-    for (std::set<SumoXMLAttr>::const_iterator it = allowed.begin(); it != allowed.end(); it++) {
-        if (attrs.hasAttribute(*it)) {
-            into.lcParameter[*it] = attrs.get<std::string>(*it, into.id.c_str(), ok);
+    for (const auto &it : allowed) {
+        if (attrs.hasAttribute(it)) {
+            into.lcParameter[it] = attrs.get<std::string>(it, into.id.c_str(), ok);
         }
     }
     return ok;
@@ -854,7 +868,7 @@ SUMOVehicleParserHelper::parseLCParams(SUMOVTypeParameter& into, LaneChangeModel
 
 
 bool
-SUMOVehicleParserHelper::parseJMParams(SUMOVTypeParameter& into, const SUMOSAXAttributes& attrs, const bool hardFail) {
+SUMOVehicleParserHelper::parseJMParams(SUMOVTypeParameter& into, const SUMOSAXAttributes& attrs, const bool /*hardFail*/) {
     if (allowedJMAttrs.size() == 0) {
         // init static set (there is only one model)
         allowedJMAttrs.insert(SUMO_ATTR_JM_CROSSING_GAP);
@@ -868,9 +882,9 @@ SUMOVehicleParserHelper::parseJMParams(SUMOVTypeParameter& into, const SUMOSAXAt
         allowedJMAttrs.insert(SUMO_ATTR_JM_TIMEGAP_MINOR);
     }
     bool ok = true;
-    for (std::set<SumoXMLAttr>::const_iterator it = allowedJMAttrs.begin(); it != allowedJMAttrs.end(); it++) {
-        if (attrs.hasAttribute(*it)) {
-            into.jmParameter[*it] = attrs.get<std::string>(*it, into.id.c_str(), ok);
+    for (const auto &it : allowedJMAttrs) {
+        if (attrs.hasAttribute(it)) {
+            into.jmParameter[it] = attrs.get<std::string>(it, into.id.c_str(), ok);
         }
     }
     return ok;
@@ -878,7 +892,7 @@ SUMOVehicleParserHelper::parseJMParams(SUMOVTypeParameter& into, const SUMOSAXAt
 
 
 SUMOVehicleClass
-SUMOVehicleParserHelper::parseVehicleClass(const SUMOSAXAttributes& attrs, const bool hardFail, const std::string& id) {
+SUMOVehicleParserHelper::parseVehicleClass(const SUMOSAXAttributes& attrs, const std::string& id) {
     SUMOVehicleClass vclass = SVC_IGNORING;
     try {
         bool ok = true;
@@ -900,7 +914,7 @@ SUMOVehicleParserHelper::parseVehicleClass(const SUMOSAXAttributes& attrs, const
 
 
 SUMOVehicleShape
-SUMOVehicleParserHelper::parseGuiShape(const SUMOSAXAttributes& attrs, const bool hardFail, const std::string& id) {
+SUMOVehicleParserHelper::parseGuiShape(const SUMOSAXAttributes& attrs, const std::string& id) {
     bool ok = true;
     std::string vclassS = attrs.getOpt<std::string>(SUMO_ATTR_GUISHAPE, id.c_str(), ok, "");
     if (SumoVehicleShapeStrings.hasString(vclassS)) {
@@ -924,7 +938,11 @@ SUMOVehicleParserHelper::parseWalkPos(SumoXMLAttr attr, const bool hardFail, con
     ArrivalPosDefinition proc;
     // only supports 'random' and 'max'
     if (!SUMOVehicleParameter::parseArrivalPos(val, toString(SUMO_TAG_WALK), id, result, proc, error)) {
-        throw ProcessError(error);
+        if (hardFail) {
+            throw ProcessError(error);
+        } else {
+            WRITE_ERROR(error);
+        }
     }
     if (proc == ARRIVAL_POS_RANDOM) {
         result = RandHelper::rand(maxPos, rng);
