@@ -2,16 +2,6 @@ default
 
 id
 
-accel
-
-decel
-
-apparentDecel
-
-sigma
-
-tau
-
 length
 
 mingap
@@ -40,7 +30,7 @@ impatience
 
 lanechangemodel
 
-carfollowmodel
+carfollowingmodel
 
 personcapacity
 
@@ -57,3 +47,5 @@ mingaplat
 maxspeedlat
 
 actionStepLength
+
+carfollowingmodel_params
