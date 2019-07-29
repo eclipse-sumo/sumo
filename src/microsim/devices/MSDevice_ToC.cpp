@@ -93,7 +93,7 @@
 // ---------------------------------------------------------------------------
 // static members
 // ---------------------------------------------------------------------------
-std::set<MSDevice_ToC*> MSDevice_ToC::instances = std::set<MSDevice_ToC*>();
+std::set<MSDevice_ToC*, ComparatorNumericalIdLess> MSDevice_ToC::myInstances = std::set<MSDevice_ToC*, ComparatorNumericalIdLess>();
 std::set<std::string> MSDevice_ToC::createdOutputFiles;
 int MSDevice_ToC::LCModeMRM = 768; // = 0b001100000000 - no autonomous changes, no speed adaptation
 std::mt19937 MSDevice_ToC::myResponseTimeRNG;
@@ -170,7 +170,7 @@ MSDevice_ToC::buildVehicleDevices(SUMOVehicle& v, std::vector<MSVehicleDevice*>&
         MSDevice_ToC* device = new MSDevice_ToC(v, deviceID, file,
                                                 manualType, automatedType, responseTime, recoveryRate,
                                                 lcAbstinence, initialAwareness, mrmDecel, dynamicToCThreshold,
-												dynamicMRMProbability, maxPreparationAccel, mrmKeepRight, useColoring, ogp);
+                                                dynamicMRMProbability, maxPreparationAccel, mrmKeepRight, useColoring, ogp);
         into.push_back(device);
     }
 }
@@ -399,7 +399,7 @@ MSDevice_ToC::MSDevice_ToC(SUMOVehicle& holder, const std::string& id, const std
     }
 
     // register at static instance container
-    instances.insert(this);
+    myInstances.insert(this);
     initColorScheme();
 
 #ifdef DEBUG_TOC
@@ -439,7 +439,7 @@ MSDevice_ToC::initColorScheme() {
 
 MSDevice_ToC::~MSDevice_ToC() {
     // unregister from static instance container
-    instances.erase(this);
+    myInstances.erase(this);
     // deschedule commands associated to this device
     if (myTriggerMRMCommand != nullptr) {
         myTriggerMRMCommand->deschedule();
