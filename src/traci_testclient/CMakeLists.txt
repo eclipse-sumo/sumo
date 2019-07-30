@@ -12,7 +12,7 @@ target_link_libraries(TraCITestClient utils_traci ${commonlibs})
 add_executable(testlibsumo testlibsumo_main.cpp)
 set_target_properties(testlibsumo PROPERTIES OUTPUT_NAME testlibsumo${BINARY_SUFFIX})
 set_target_properties(testlibsumo PROPERTIES OUTPUT_NAME_DEBUG testlibsumo${BINARY_SUFFIX}D)
-target_link_libraries(testlibsumo libsumo)
+target_link_libraries(testlibsumo libsumoc)
 add_test(libsumotest ${CMAKE_SOURCE_DIR}/bin/testlibsumo)
 
 add_executable(testlibsumostatic testlibsumo_main.cpp)
