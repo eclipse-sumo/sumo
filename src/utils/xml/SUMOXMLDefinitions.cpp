@@ -944,7 +944,7 @@ StringBijection<LaneChangeAction> SUMOXMLDefinitions::LaneChangeActions(
     SUMOXMLDefinitions::laneChangeActionValues, LCA_UNKNOWN);
 
 StringBijection<TrainType> SUMOXMLDefinitions::TrainTypes(
-    SUMOXMLDefinitions::trainTypeValues, TRAINTYPE_NGT400);
+    SUMOXMLDefinitions::trainTypeValues, TRAINTYPE_ICE3);
 
 
 std::string

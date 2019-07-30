@@ -26,14 +26,16 @@
 #include <config.h>
 
 #include <utils/common/FileHelpers.h>
+#include <utils/common/MsgHandler.h>
 #include <utils/common/RandHelper.h>
+#include <utils/common/StringUtils.h>
 #include <utils/common/ToString.h>
 #include <utils/common/UtilExceptions.h>
-#include <utils/common/MsgHandler.h>
 #include <utils/emissions/PollutantsInterface.h>
-#include <utils/vehicle/SUMOVehicleParameter.h>
 #include <utils/vehicle/SUMOVTypeParameter.h>
+#include <utils/vehicle/SUMOVehicleParameter.h>
 #include <utils/xml/SUMOSAXAttributes.h>
+
 #include "SUMOVehicleParserHelper.h"
 
 
@@ -734,21 +736,41 @@ SUMOVehicleParserHelper::parseVTypeEmbedded(SUMOVTypeParameter& into, const Sumo
     bool ok = true;
     for (const auto &it : cf_it->second) {
         if (attrs.hasAttribute(it)) {
-            into.cfParameter[it] = attrs.get<std::string>(it, into.id.c_str(), ok);
-            // special check for TAU attribute
-            if (it == SUMO_ATTR_TAU) {
-                // string2time can produce a exception
-                try {
-                    if ((string2time(into.cfParameter[it]) < DELTA_T) && gSimulation) {
-                        WRITE_WARNING("Value of tau=" + toString(into.cfParameter[it])
-                                      + " in car following model '" + toString(into.cfModel) + "' lower than simulation step size may cause collisions");
+            // first obtain  CFM attribute in string format
+            std::string parsedCFMAttribute = attrs.get<std::string>(it, into.id.c_str(), ok);
+            try {
+                // obtain CFM attribute in double format
+                double CFMAttribute = StringUtils::toDouble(parsedCFMAttribute);
+                // special check for TAU attribute
+                if (it == SUMO_ATTR_TAU) {
+                    // tau cannot be negative
+                    if (CFMAttribute < 0) {
+                        throw ProcessError("Tau cannot be negative");
                     }
-                } catch (...) {
-                    if (hardFail) {
-                        throw ProcessError("Invalid value for Car Following Model 'Tau'; Cannot be parsed to SUMOTime");
+                    // check tau in time format
+                    if ((string2time(parsedCFMAttribute) < DELTA_T) && gSimulation) {
+                        WRITE_WARNING("Value of tau=" + parsedCFMAttribute + " in car following model '" + 
+                                      toString(into.cfModel) + "' lower than simulation step size may cause collisions");
+                    }
+                }
+                // add parsedCFMAttribute to cfParameter
+                into.cfParameter[it] = parsedCFMAttribute;
+            } catch (...) {
+                // check if attribute is of type "train"
+                if (it == SUMO_ATTR_TRAIN_TYPE) {
+                    // check if train value is valid
+                    if (SUMOXMLDefinitions::TrainTypes.hasString(parsedCFMAttribute)) {
+                        // add parsedCFMAttribute to cfParameter
+                        into.cfParameter[it] = parsedCFMAttribute;
+                    } else if (hardFail) {
+                        throw ProcessError("Invalid train type '" + parsedCFMAttribute + "' used in Car-Following-Attribute " + toString(it));
                     } else {
-                        WRITE_ERROR("Invalid value for Car Following Model 'Tau'; Cannot be parsed to SUMOTime");
+                        WRITE_ERROR("Invalid train type '" + parsedCFMAttribute + "' used in Car-Following-Attribute " + toString(it));
                     }
+                } else if (hardFail) {
+                    throw ProcessError("Invalid Car-Following-Attribute " + toString(it) + ". Cannot be parsed to float");
+                } else {
+                    WRITE_ERROR("Invalid Car-Following-Attribute " + toString(it) + ". Cannot be parsed to float");
                 }
             }
         }
