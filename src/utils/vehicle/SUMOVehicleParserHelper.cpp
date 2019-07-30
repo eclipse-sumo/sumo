@@ -434,21 +434,15 @@ SUMOVehicleParserHelper::beginVTypeParsing(const SUMOSAXAttributes& attrs, const
     }
     if (attrs.hasAttribute(SUMO_ATTR_EMISSIONCLASS)) {
         std::string parsedEmissionClass = attrs.getOpt<std::string>(SUMO_ATTR_EMISSIONCLASS, id.c_str(), ok, "");
-        if (ok) {
-            // check if given value correspond to a string of PollutantsInterface::getAllClassesStr()
-            for (const auto &i : PollutantsInterface::getAllClassesStr()) {
-                if (parsedEmissionClass == i) {
-                    vtype->emissionClass = PollutantsInterface::getClassByName(parsedEmissionClass);
-                    vtype->parametersSet |= VTYPEPARS_EMISSIONCLASS_SET;
-                }
-            }
-        }
-        // check if emission class was sucesfully set
-        if ((vtype->parametersSet & VTYPEPARS_EMISSIONCLASS_SET) == false) {
+        // check if emission class is correct
+        try {
+            vtype->emissionClass = PollutantsInterface::getClassByName(parsedEmissionClass);
+            vtype->parametersSet |= VTYPEPARS_EMISSIONCLASS_SET;
+        } catch(...) {
             if (hardFail) {
                 throw InvalidArgument(toString(SUMO_ATTR_EMISSIONCLASS) + " with name '" + parsedEmissionClass + "' doesn't exist.");
             } else {
-                WRITE_ERROR(toString(SUMO_ATTR_EMISSIONCLASS) + " with name '" + parsedEmissionClass + "' doesnt exist.");
+                WRITE_ERROR(toString(SUMO_ATTR_EMISSIONCLASS) + " with name '" + parsedEmissionClass + "' doesn't exist.");
             }
         }
     }

@@ -66,13 +66,8 @@ Distribution_Parameterized::parse(const std::string& description, const bool har
         } else {
             myParameter[0] = StringUtils::toDouble(description);
         }
-        // check if parsed double is valid
-        if (myParameter.empty()) {
-            if (myParameter.size() == 1) {
-                myParameter.push_back(0.);
-            }
-        } else {
-            throw ProcessError("invalid parsed value");
+        if (myParameter.size() == 1) {
+            myParameter.push_back(0.);
         }
     } catch (...) {
         // set default distribution parameterized

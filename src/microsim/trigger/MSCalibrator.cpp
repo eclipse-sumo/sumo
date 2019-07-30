@@ -155,7 +155,7 @@ MSCalibrator::myStartElement(int element,
                 WRITE_ERROR("Overlapping or unsorted intervals in calibrator '" + getID() + "'.");
             }
             state.end = attrs.getOptSUMOTimeReporting(SUMO_ATTR_END, getID().c_str(), ok, -1);
-            state.vehicleParameter = SUMOVehicleParserHelper::parseVehicleAttributes(attrs, true, true);
+            state.vehicleParameter = SUMOVehicleParserHelper::parseVehicleAttributes(attrs, true, true, true);
             LeftoverVehicleParameters.push_back(state.vehicleParameter);
             // vehicles should be inserted with max speed unless stated otherwise
             if (state.vehicleParameter->departSpeedProcedure == DEPART_SPEED_DEFAULT) {
