@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Jun 25 16:51:54 2019 by Eclipse SUMO Version v1_1_0+0433-16c2ffa
+<!-- generated on 07/30/19 11:10:18 by Eclipse SUMO Version v1_2_0+0887-b1cdbe7c315
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -66,17 +66,13 @@ SPDX-License-Identifier: EPL-2.0
         <minTTC time="86.00" position="2861.17,22.66" type="2" value="2.16"/>
         <maxDRAC time="86.00" position="2861.17,22.66" type="2" value="1.44"/>
     </conflict>
-    <conflict begin="109.00" end="113.00" ego="EW.3" foe="WE.0">
-        <minTTC time="111.00" position="1855.00,14.52" type="20" value="4.53"/>
-        <maxDRAC time="NA" position="NA" type="NA" value="NA"/>
-    </conflict>
     <conflict begin="109.00" end="113.00" ego="WE.0" foe="EW.3">
         <minTTC time="111.00" position="1855.00,14.52" type="20" value="4.53"/>
         <maxDRAC time="NA" position="NA" type="NA" value="NA"/>
     </conflict>
-    <conflict begin="100.00" end="120.00" ego="EW.10" foe="EW.9">
-        <minTTC time="110.00" position="2778.21,22.26" type="2" value="2.45"/>
-        <maxDRAC time="110.00" position="2778.21,22.26" type="2" value="2.33"/>
+    <conflict begin="109.00" end="113.00" ego="EW.3" foe="WE.0">
+        <minTTC time="111.00" position="1855.00,14.52" type="20" value="4.53"/>
+        <maxDRAC time="NA" position="NA" type="NA" value="NA"/>
     </conflict>
     <conflict begin="90.00" end="120.00" ego="EW.9" foe="EW.7">
         <minTTC time="101.00" position="2803.21,22.38" type="2" value="1.98"/>
@@ -85,6 +81,10 @@ SPDX-License-Identifier: EPL-2.0
     <conflict begin="100.00" end="120.00" ego="EW.9" foe="EW.10">
         <minTTC time="110.00" position="2778.21,22.26" type="3" value="2.45"/>
         <maxDRAC time="110.00" position="2778.21,22.26" type="3" value="2.33"/>
+    </conflict>
+    <conflict begin="100.00" end="120.00" ego="EW.10" foe="EW.9">
+        <minTTC time="110.00" position="2778.21,22.26" type="2" value="2.45"/>
+        <maxDRAC time="110.00" position="2778.21,22.26" type="2" value="2.33"/>
     </conflict>
     <conflict begin="100.00" end="130.00" ego="EW.10" foe="EW.4">
         <minTTC time="110.00" position="2751.27,22.13" type="2" value="4.35"/>
@@ -206,6 +206,10 @@ SPDX-License-Identifier: EPL-2.0
         <minTTC time="177.00" position="2702.12,21.89" type="2" value="2.95"/>
         <maxDRAC time="177.00" position="2702.12,21.89" type="2" value="1.39"/>
     </conflict>
+    <conflict begin="160.00" end="184.00" ego="stopping" foe="EW.6">
+        <minTTC time="179.00" position="1922.88,18.15" type="3" value="4.51"/>
+        <maxDRAC time="179.00" position="1922.88,18.15" type="3" value="0.91"/>
+    </conflict>
     <conflict begin="133.00" end="184.00" ego="EW.6" foe="EW.9">
         <minTTC time="169.00" position="2050.57,18.76" type="3" value="4.11"/>
         <maxDRAC time="169.00" position="2050.57,18.76" type="3" value="0.66"/>
@@ -213,10 +217,6 @@ SPDX-License-Identifier: EPL-2.0
     <conflict begin="160.00" end="184.00" ego="EW.6" foe="stopping">
         <minTTC time="179.00" position="1922.88,18.15" type="2" value="4.51"/>
         <maxDRAC time="179.00" position="1922.88,18.15" type="2" value="0.91"/>
-    </conflict>
-    <conflict begin="160.00" end="184.00" ego="stopping" foe="EW.6">
-        <minTTC time="179.00" position="1922.88,18.15" type="3" value="4.51"/>
-        <maxDRAC time="179.00" position="1922.88,18.15" type="3" value="0.91"/>
     </conflict>
     <conflict begin="133.00" end="184.00" ego="EW.9" foe="EW.6">
         <minTTC time="169.00" position="2050.57,18.76" type="2" value="4.11"/>
@@ -294,21 +294,17 @@ SPDX-License-Identifier: EPL-2.0
         <minTTC time="219.00" position="2501.07,20.93" type="2" value="1.88"/>
         <maxDRAC time="195.00" position="2611.49,21.46" type="2" value="1.72"/>
     </conflict>
-    <conflict begin="196.00" end="233.00" ego="EW.5" foe="stopping">
-        <minTTC time="228.00" position="1922.88,18.15" type="2" value="3.43"/>
-        <maxDRAC time="228.00" position="1922.88,18.15" type="2" value="0.88"/>
-    </conflict>
     <conflict begin="196.00" end="233.00" ego="stopping" foe="EW.5">
         <minTTC time="228.00" position="1922.88,18.15" type="3" value="3.43"/>
         <maxDRAC time="228.00" position="1922.88,18.15" type="3" value="0.88"/>
     </conflict>
+    <conflict begin="196.00" end="233.00" ego="EW.5" foe="stopping">
+        <minTTC time="228.00" position="1922.88,18.15" type="2" value="3.43"/>
+        <maxDRAC time="228.00" position="1922.88,18.15" type="2" value="0.88"/>
+    </conflict>
     <conflict begin="138.00" end="239.00" ego="EW.4" foe="EW.13">
         <minTTC time="212.00" position="2498.22,20.91" type="3" value="2.59"/>
         <maxDRAC time="212.00" position="2498.22,20.91" type="3" value="0.61"/>
-    </conflict>
-    <conflict begin="170.00" end="239.00" ego="EW.17" foe="EW.13">
-        <minTTC time="225.00" position="2473.52,20.80" type="2" value="2.74"/>
-        <maxDRAC time="195.00" position="2597.87,21.39" type="2" value="0.92"/>
     </conflict>
     <conflict begin="138.00" end="239.00" ego="EW.13" foe="EW.4">
         <minTTC time="212.00" position="2498.22,20.91" type="2" value="2.59"/>
@@ -330,9 +326,9 @@ SPDX-License-Identifier: EPL-2.0
         <minTTC time="230.00" position="2460.76,20.73" type="3" value="4.73"/>
         <maxDRAC time="219.00" position="2490.66,20.88" type="3" value="0.77"/>
     </conflict>
-    <conflict begin="220.00" end="241.00" ego="EW.22" foe="EW.21">
-        <minTTC time="235.00" position="2777.87,22.26" type="2" value="4.08"/>
-        <maxDRAC time="235.00" position="2777.87,22.26" type="2" value="0.66"/>
+    <conflict begin="170.00" end="239.00" ego="EW.17" foe="EW.13">
+        <minTTC time="225.00" position="2473.52,20.80" type="2" value="2.74"/>
+        <maxDRAC time="195.00" position="2597.87,21.39" type="2" value="0.92"/>
     </conflict>
     <conflict begin="210.00" end="241.00" ego="EW.21" foe="EW.20">
         <minTTC time="224.00" position="2813.82,22.43" type="2" value="4.80"/>
@@ -341,6 +337,10 @@ SPDX-License-Identifier: EPL-2.0
     <conflict begin="220.00" end="241.00" ego="EW.21" foe="EW.22">
         <minTTC time="235.00" position="2777.87,22.26" type="3" value="4.08"/>
         <maxDRAC time="235.00" position="2777.87,22.26" type="3" value="0.66"/>
+    </conflict>
+    <conflict begin="220.00" end="241.00" ego="EW.22" foe="EW.21">
+        <minTTC time="235.00" position="2777.87,22.26" type="2" value="4.08"/>
+        <maxDRAC time="235.00" position="2777.87,22.26" type="2" value="0.66"/>
     </conflict>
     <conflict begin="200.00" end="216.00" ego="EW.6" foe="EW.9">
         <minTTC time="206.00" position="1740.05,17.27" type="3" value="4.16"/>
@@ -354,21 +354,21 @@ SPDX-License-Identifier: EPL-2.0
         <minTTC time="244.00" position="2733.44,22.04" type="2" value="2.94"/>
         <maxDRAC time="242.00" position="2745.08,22.10" type="2" value="1.50"/>
     </conflict>
-    <conflict begin="228.00" end="258.00" ego="EW.16" foe="EW.12">
-        <minTTC time="248.00" position="1982.26,15.14" type="2" value="2.74"/>
-        <maxDRAC time="248.00" position="1982.26,15.14" type="2" value="0.99"/>
-    </conflict>
     <conflict begin="228.00" end="258.00" ego="EW.12" foe="EW.16">
         <minTTC time="248.00" position="1982.26,15.14" type="3" value="2.74"/>
         <maxDRAC time="248.00" position="1982.26,15.14" type="3" value="0.99"/>
     </conflict>
-    <conflict begin="250.00" end="263.00" ego="WE.5" foe="WE.4">
-        <minTTC time="258.00" position="269.87,6.91" type="2" value="3.51"/>
-        <maxDRAC time="258.00" position="269.87,6.91" type="2" value="2.06"/>
+    <conflict begin="228.00" end="258.00" ego="EW.16" foe="EW.12">
+        <minTTC time="248.00" position="1982.26,15.14" type="2" value="2.74"/>
+        <maxDRAC time="248.00" position="1982.26,15.14" type="2" value="0.99"/>
     </conflict>
     <conflict begin="250.00" end="263.00" ego="WE.4" foe="WE.5">
         <minTTC time="258.00" position="269.87,6.91" type="3" value="3.51"/>
         <maxDRAC time="258.00" position="269.87,6.91" type="3" value="2.06"/>
+    </conflict>
+    <conflict begin="250.00" end="263.00" ego="WE.5" foe="WE.4">
+        <minTTC time="258.00" position="269.87,6.91" type="2" value="3.51"/>
+        <maxDRAC time="258.00" position="269.87,6.91" type="2" value="2.06"/>
     </conflict>
     <conflict begin="180.00" end="264.00" ego="EW.17" foe="EW.18">
         <minTTC time="222.00" position="2504.65,20.95" type="3" value="1.43"/>
@@ -414,10 +414,6 @@ SPDX-License-Identifier: EPL-2.0
         <minTTC time="263.00" position="1922.88,18.15" type="3" value="1.25"/>
         <maxDRAC time="259.00" position="1922.88,18.15" type="3" value="2.08"/>
     </conflict>
-    <conflict begin="234.00" end="277.00" ego="EW.15" foe="EW.14">
-        <minTTC time="254.00" position="1978.21,18.42" type="2" value="1.11"/>
-        <maxDRAC time="254.00" position="1978.21,18.42" type="2" value="2.48"/>
-    </conflict>
     <conflict begin="234.00" end="277.00" ego="EW.14" foe="EW.15">
         <minTTC time="254.00" position="1978.21,18.42" type="3" value="1.11"/>
         <maxDRAC time="254.00" position="1978.21,18.42" type="3" value="2.48"/>
@@ -429,6 +425,10 @@ SPDX-License-Identifier: EPL-2.0
     <conflict begin="254.00" end="265.00" ego="EW.14" foe="EW.16">
         <minTTC time="259.00" position="1930.70,18.19" type="2" value="1.06"/>
         <maxDRAC time="259.00" position="1930.70,18.19" type="2" value="3.45"/>
+    </conflict>
+    <conflict begin="234.00" end="277.00" ego="EW.15" foe="EW.14">
+        <minTTC time="254.00" position="1978.21,18.42" type="2" value="1.11"/>
+        <maxDRAC time="254.00" position="1978.21,18.42" type="2" value="2.48"/>
     </conflict>
     <conflict begin="201.00" end="278.00" ego="EW.18" foe="EW.4">
         <minTTC time="263.00" position="2367.78,20.29" type="2" value="2.33"/>
@@ -450,13 +450,13 @@ SPDX-License-Identifier: EPL-2.0
         <minTTC time="260.00" position="1930.42,18.19" type="2" value="2.36"/>
         <maxDRAC time="260.00" position="1930.42,18.19" type="2" value="1.58"/>
     </conflict>
-    <conflict begin="250.00" end="292.00" ego="EW.25" foe="EW.24">
-        <minTTC time="261.00" position="2763.23,22.19" type="2" value="3.62"/>
-        <maxDRAC time="261.00" position="2763.23,22.19" type="2" value="1.67"/>
-    </conflict>
     <conflict begin="250.00" end="292.00" ego="EW.24" foe="EW.25">
         <minTTC time="261.00" position="2763.23,22.19" type="3" value="3.62"/>
         <maxDRAC time="261.00" position="2763.23,22.19" type="3" value="1.67"/>
+    </conflict>
+    <conflict begin="250.00" end="292.00" ego="EW.25" foe="EW.24">
+        <minTTC time="261.00" position="2763.23,22.19" type="2" value="3.62"/>
+        <maxDRAC time="261.00" position="2763.23,22.19" type="2" value="1.67"/>
     </conflict>
     <conflict begin="255.00" end="296.00" ego="EW.0" foe="EW.9">
         <minTTC time="290.00" position="640.23,11.99" type="3" value="4.45"/>
@@ -526,10 +526,6 @@ SPDX-License-Identifier: EPL-2.0
         <minTTC time="306.00" position="2275.30,19.84" type="3" value="2.66"/>
         <maxDRAC time="306.00" position="2275.30,19.84" type="3" value="0.32"/>
     </conflict>
-    <conflict begin="220.00" end="319.00" ego="EW.22" foe="EW.19">
-        <minTTC time="305.00" position="2277.09,19.85" type="2" value="3.62"/>
-        <maxDRAC time="305.00" position="2277.09,19.85" type="2" value="0.79"/>
-    </conflict>
     <conflict begin="210.00" end="241.00" ego="EW.20" foe="EW.21">
         <minTTC time="224.00" position="2813.82,22.43" type="3" value="4.80"/>
         <maxDRAC time="223.00" position="2818.83,22.45" type="3" value="0.32"/>
@@ -538,13 +534,17 @@ SPDX-License-Identifier: EPL-2.0
         <minTTC time="306.00" position="2275.30,19.84" type="2" value="2.66"/>
         <maxDRAC time="306.00" position="2275.30,19.84" type="2" value="0.32"/>
     </conflict>
-    <conflict begin="304.00" end="322.00" ego="EW.15" foe="EW.12">
-        <minTTC time="311.00" position="1510.05,16.17" type="2" value="2.71"/>
-        <maxDRAC time="309.00" position="1522.48,16.23" type="2" value="1.99"/>
+    <conflict begin="220.00" end="319.00" ego="EW.22" foe="EW.19">
+        <minTTC time="305.00" position="2277.09,19.85" type="2" value="3.62"/>
+        <maxDRAC time="305.00" position="2277.09,19.85" type="2" value="0.79"/>
     </conflict>
     <conflict begin="304.00" end="322.00" ego="EW.12" foe="EW.15">
         <minTTC time="311.00" position="1510.05,16.17" type="3" value="2.71"/>
         <maxDRAC time="309.00" position="1522.48,16.23" type="3" value="1.99"/>
+    </conflict>
+    <conflict begin="304.00" end="322.00" ego="EW.15" foe="EW.12">
+        <minTTC time="311.00" position="1510.05,16.17" type="2" value="2.71"/>
+        <maxDRAC time="309.00" position="1522.48,16.23" type="2" value="1.99"/>
     </conflict>
     <conflict begin="291.00" end="302.00" ego="stopping" foe="EW.17">
         <minTTC time="297.00" position="1922.88,18.15" type="3" value="1.47"/>
@@ -562,21 +562,17 @@ SPDX-License-Identifier: EPL-2.0
         <minTTC time="331.00" position="1699.63,17.08" type="20" value="4.34"/>
         <maxDRAC time="NA" position="NA" type="NA" value="NA"/>
     </conflict>
-    <conflict begin="330.00" end="344.00" ego="EW.33" foe="EW.32">
-        <minTTC time="339.00" position="2811.30,22.42" type="2" value="3.55"/>
-        <maxDRAC time="339.00" position="2811.30,22.42" type="2" value="1.10"/>
-    </conflict>
     <conflict begin="330.00" end="344.00" ego="EW.32" foe="EW.33">
         <minTTC time="339.00" position="2811.30,22.42" type="3" value="3.55"/>
         <maxDRAC time="339.00" position="2811.30,22.42" type="3" value="1.10"/>
     </conflict>
+    <conflict begin="330.00" end="344.00" ego="EW.33" foe="EW.32">
+        <minTTC time="339.00" position="2811.30,22.42" type="2" value="3.55"/>
+        <maxDRAC time="339.00" position="2811.30,22.42" type="2" value="1.10"/>
+    </conflict>
     <conflict begin="264.00" end="345.00" ego="EW.4" foe="EW.21">
         <minTTC time="317.00" position="2238.30,19.67" type="3" value="1.84"/>
         <maxDRAC time="317.00" position="2238.30,19.67" type="3" value="1.37"/>
-    </conflict>
-    <conflict begin="303.00" end="345.00" ego="EW.24" foe="EW.21">
-        <minTTC time="323.00" position="2233.34,19.64" type="2" value="3.85"/>
-        <maxDRAC time="322.00" position="2236.53,19.66" type="2" value="0.76"/>
     </conflict>
     <conflict begin="248.00" end="345.00" ego="EW.21" foe="EW.22">
         <minTTC time="307.00" position="2283.67,19.88" type="3" value="1.43"/>
@@ -589,6 +585,10 @@ SPDX-License-Identifier: EPL-2.0
     <conflict begin="303.00" end="345.00" ego="EW.21" foe="EW.24">
         <minTTC time="323.00" position="2233.34,19.64" type="3" value="3.85"/>
         <maxDRAC time="322.00" position="2236.53,19.66" type="3" value="0.76"/>
+    </conflict>
+    <conflict begin="303.00" end="345.00" ego="EW.24" foe="EW.21">
+        <minTTC time="323.00" position="2233.34,19.64" type="2" value="3.85"/>
+        <maxDRAC time="322.00" position="2236.53,19.66" type="2" value="0.76"/>
     </conflict>
     <conflict begin="304.00" end="351.00" ego="WE.3" foe="WE.5">
         <minTTC time="316.00" position="1505.60,12.85" type="3" value="3.57"/>
@@ -614,13 +614,13 @@ SPDX-License-Identifier: EPL-2.0
         <minTTC time="345.00" position="2172.27,19.35" type="3" value="2.52"/>
         <maxDRAC time="305.00" position="2267.04,19.80" type="3" value="0.61"/>
     </conflict>
-    <conflict begin="258.00" end="360.00" ego="EW.25" foe="EW.22">
-        <minTTC time="269.00" position="2594.92,21.38" type="2" value="4.49"/>
-        <maxDRAC time="269.00" position="2594.92,21.38" type="2" value="1.27"/>
+    <conflict begin="220.00" end="360.00" ego="EW.20" foe="EW.22">
+        <minTTC time="241.00" position="2734.37,22.05" type="3" value="3.06"/>
+        <maxDRAC time="241.00" position="2734.37,22.05" type="3" value="0.65"/>
     </conflict>
-    <conflict begin="303.00" end="360.00" ego="EW.24" foe="EW.22">
-        <minTTC time="323.00" position="2244.73,19.70" type="2" value="1.35"/>
-        <maxDRAC time="323.00" position="2244.73,19.70" type="2" value="2.33"/>
+    <conflict begin="230.00" end="253.00" ego="EW.20" foe="EW.23">
+        <minTTC time="241.00" position="2734.37,22.05" type="3" value="3.84"/>
+        <maxDRAC time="241.00" position="2734.37,22.05" type="3" value="1.76"/>
     </conflict>
     <conflict begin="220.00" end="360.00" ego="EW.22" foe="EW.20">
         <minTTC time="241.00" position="2734.37,22.05" type="2" value="3.06"/>
@@ -654,13 +654,13 @@ SPDX-License-Identifier: EPL-2.0
         <minTTC time="323.00" position="2244.73,19.70" type="3" value="1.35"/>
         <maxDRAC time="323.00" position="2244.73,19.70" type="3" value="2.33"/>
     </conflict>
-    <conflict begin="220.00" end="360.00" ego="EW.20" foe="EW.22">
-        <minTTC time="241.00" position="2734.37,22.05" type="3" value="3.06"/>
-        <maxDRAC time="241.00" position="2734.37,22.05" type="3" value="0.65"/>
+    <conflict begin="303.00" end="360.00" ego="EW.24" foe="EW.22">
+        <minTTC time="323.00" position="2244.73,19.70" type="2" value="1.35"/>
+        <maxDRAC time="323.00" position="2244.73,19.70" type="2" value="2.33"/>
     </conflict>
-    <conflict begin="230.00" end="253.00" ego="EW.20" foe="EW.23">
-        <minTTC time="241.00" position="2734.37,22.05" type="3" value="3.84"/>
-        <maxDRAC time="241.00" position="2734.37,22.05" type="3" value="1.76"/>
+    <conflict begin="258.00" end="360.00" ego="EW.25" foe="EW.22">
+        <minTTC time="269.00" position="2594.92,21.38" type="2" value="4.49"/>
+        <maxDRAC time="269.00" position="2594.92,21.38" type="2" value="1.27"/>
     </conflict>
     <conflict begin="305.00" end="363.00" ego="WE.4" foe="WE.6">
         <minTTC time="327.00" position="421.68,7.64" type="3" value="1.45"/>
@@ -670,29 +670,17 @@ SPDX-License-Identifier: EPL-2.0
         <minTTC time="327.00" position="421.68,7.64" type="2" value="1.45"/>
         <maxDRAC time="327.00" position="421.68,7.64" type="2" value="2.65"/>
     </conflict>
-    <conflict begin="315.00" end="373.00" ego="EW.23" foe="stopping">
-        <minTTC time="347.00" position="1922.88,18.15" type="2" value="0.95"/>
-        <maxDRAC time="347.00" position="1922.88,18.15" type="2" value="2.08"/>
-    </conflict>
     <conflict begin="324.00" end="373.00" ego="EW.19" foe="EW.23">
         <minTTC time="368.00" position="1930.39,18.19" type="2" value="3.33"/>
         <maxDRAC time="368.00" position="1930.39,18.19" type="2" value="0.85"/>
     </conflict>
+    <conflict begin="315.00" end="373.00" ego="EW.23" foe="stopping">
+        <minTTC time="347.00" position="1922.88,18.15" type="2" value="0.95"/>
+        <maxDRAC time="347.00" position="1922.88,18.15" type="2" value="2.08"/>
+    </conflict>
     <conflict begin="288.00" end="375.00" ego="EW.4" foe="EW.20">
         <minTTC time="369.00" position="2112.22,19.06" type="3" value="2.11"/>
         <maxDRAC time="369.00" position="2112.22,19.06" type="3" value="0.65"/>
-    </conflict>
-    <conflict begin="259.00" end="375.00" ego="EW.25" foe="EW.20">
-        <minTTC time="269.00" position="2604.11,21.42" type="2" value="2.40"/>
-        <maxDRAC time="269.00" position="2604.11,21.42" type="2" value="3.66"/>
-    </conflict>
-    <conflict begin="260.00" end="315.00" ego="EW.25" foe="EW.26">
-        <minTTC time="297.00" position="2482.14,20.84" type="3" value="2.28"/>
-        <maxDRAC time="297.00" position="2482.14,20.84" type="3" value="1.57"/>
-    </conflict>
-    <conflict begin="303.00" end="375.00" ego="EW.24" foe="EW.20">
-        <minTTC time="363.00" position="2138.32,19.19" type="3" value="3.30"/>
-        <maxDRAC time="363.00" position="2138.32,19.19" type="3" value="0.44"/>
     </conflict>
     <conflict begin="259.00" end="375.00" ego="EW.20" foe="EW.25">
         <minTTC time="269.00" position="2604.11,21.42" type="3" value="2.40"/>
@@ -709,6 +697,18 @@ SPDX-License-Identifier: EPL-2.0
     <conflict begin="303.00" end="375.00" ego="EW.20" foe="EW.24">
         <minTTC time="363.00" position="2138.32,19.19" type="2" value="3.30"/>
         <maxDRAC time="363.00" position="2138.32,19.19" type="2" value="0.44"/>
+    </conflict>
+    <conflict begin="303.00" end="375.00" ego="EW.24" foe="EW.20">
+        <minTTC time="363.00" position="2138.32,19.19" type="3" value="3.30"/>
+        <maxDRAC time="363.00" position="2138.32,19.19" type="3" value="0.44"/>
+    </conflict>
+    <conflict begin="259.00" end="375.00" ego="EW.25" foe="EW.20">
+        <minTTC time="269.00" position="2604.11,21.42" type="2" value="2.40"/>
+        <maxDRAC time="269.00" position="2604.11,21.42" type="2" value="3.66"/>
+    </conflict>
+    <conflict begin="260.00" end="315.00" ego="EW.25" foe="EW.26">
+        <minTTC time="297.00" position="2482.14,20.84" type="3" value="2.28"/>
+        <maxDRAC time="297.00" position="2482.14,20.84" type="3" value="1.57"/>
     </conflict>
     <conflict begin="298.00" end="377.00" ego="stopping" foe="EW.13">
         <minTTC time="336.00" position="1922.88,18.15" type="3" value="1.12"/>
@@ -746,6 +746,14 @@ SPDX-License-Identifier: EPL-2.0
         <minTTC time="378.00" position="2044.87,15.44" type="20" value="4.89"/>
         <maxDRAC time="NA" position="NA" type="NA" value="NA"/>
     </conflict>
+    <conflict begin="347.00" end="385.00" ego="EW.21" foe="EW.26">
+        <minTTC time="375.00" position="1930.41,18.19" type="2" value="2.06"/>
+        <maxDRAC time="375.00" position="1930.41,18.19" type="2" value="1.35"/>
+    </conflict>
+    <conflict begin="363.00" end="385.00" ego="EW.22" foe="EW.26">
+        <minTTC time="379.00" position="1930.39,18.19" type="2" value="2.99"/>
+        <maxDRAC time="378.00" position="1930.39,18.19" type="2" value="1.49"/>
+    </conflict>
     <conflict begin="340.00" end="385.00" ego="EW.26" foe="EW.19">
         <minTTC time="369.00" position="1937.89,18.22" type="3" value="0.84"/>
         <maxDRAC time="369.00" position="1937.89,18.22" type="3" value="3.67"/>
@@ -765,14 +773,6 @@ SPDX-License-Identifier: EPL-2.0
     <conflict begin="363.00" end="385.00" ego="EW.26" foe="EW.22">
         <minTTC time="379.00" position="1930.39,18.19" type="3" value="2.99"/>
         <maxDRAC time="378.00" position="1930.39,18.19" type="3" value="1.49"/>
-    </conflict>
-    <conflict begin="363.00" end="385.00" ego="EW.22" foe="EW.26">
-        <minTTC time="379.00" position="1930.39,18.19" type="2" value="2.99"/>
-        <maxDRAC time="378.00" position="1930.39,18.19" type="2" value="1.49"/>
-    </conflict>
-    <conflict begin="347.00" end="385.00" ego="EW.21" foe="EW.26">
-        <minTTC time="375.00" position="1930.41,18.19" type="2" value="2.06"/>
-        <maxDRAC time="375.00" position="1930.41,18.19" type="2" value="1.35"/>
     </conflict>
     <conflict begin="337.00" end="396.00" ego="stopping" foe="EW.19">
         <minTTC time="383.00" position="1922.88,18.15" type="3" value="1.03"/>
@@ -802,13 +802,17 @@ SPDX-License-Identifier: EPL-2.0
         <minTTC time="379.00" position="1937.89,18.22" type="3" value="2.03"/>
         <maxDRAC time="378.00" position="1937.89,18.22" type="3" value="1.96"/>
     </conflict>
+    <conflict begin="347.00" end="396.00" ego="EW.21" foe="EW.19">
+        <minTTC time="375.00" position="1938.00,18.22" type="2" value="0.72"/>
+        <maxDRAC time="375.00" position="1938.00,18.22" type="2" value="3.84"/>
+    </conflict>
     <conflict begin="363.00" end="396.00" ego="EW.22" foe="EW.19">
         <minTTC time="379.00" position="1937.89,18.22" type="2" value="2.03"/>
         <maxDRAC time="378.00" position="1937.89,18.22" type="2" value="1.96"/>
     </conflict>
-    <conflict begin="347.00" end="396.00" ego="EW.21" foe="EW.19">
-        <minTTC time="375.00" position="1938.00,18.22" type="2" value="0.72"/>
-        <maxDRAC time="375.00" position="1938.00,18.22" type="2" value="3.84"/>
+    <conflict begin="315.00" end="397.00" ego="EW.13" foe="EW.23">
+        <minTTC time="338.00" position="1930.43,18.19" type="3" value="1.28"/>
+        <maxDRAC time="380.00" position="1747.26,14.01" type="3" value="2.93"/>
     </conflict>
     <conflict begin="315.00" end="397.00" ego="EW.23" foe="EW.13">
         <minTTC time="338.00" position="1930.43,18.19" type="2" value="1.28"/>
@@ -822,13 +826,9 @@ SPDX-License-Identifier: EPL-2.0
         <minTTC time="352.00" position="1930.39,18.19" type="3" value="0.76"/>
         <maxDRAC time="352.00" position="1930.39,18.19" type="3" value="5.03"/>
     </conflict>
-    <conflict begin="315.00" end="397.00" ego="EW.13" foe="EW.23">
-        <minTTC time="338.00" position="1930.43,18.19" type="3" value="1.28"/>
-        <maxDRAC time="380.00" position="1747.26,14.01" type="3" value="2.93"/>
-    </conflict>
-    <conflict begin="363.00" end="399.00" ego="WE.7" foe="WE.4">
-        <minTTC time="377.00" position="528.88,8.15" type="2" value="1.65"/>
-        <maxDRAC time="374.00" position="521.56,8.12" type="2" value="3.38"/>
+    <conflict begin="363.00" end="399.00" ego="WE.4" foe="WE.7">
+        <minTTC time="377.00" position="528.88,8.15" type="3" value="1.65"/>
+        <maxDRAC time="374.00" position="521.56,8.12" type="3" value="3.38"/>
     </conflict>
     <conflict begin="290.00" end="399.00" ego="EW.28" foe="EW.29">
         <minTTC time="380.00" position="2117.48,19.09" type="3" value="1.36"/>
@@ -854,17 +854,13 @@ SPDX-License-Identifier: EPL-2.0
         <minTTC time="380.00" position="2117.48,19.09" type="2" value="1.36"/>
         <maxDRAC time="337.00" position="2316.97,20.04" type="2" value="1.58"/>
     </conflict>
-    <conflict begin="363.00" end="399.00" ego="WE.4" foe="WE.7">
-        <minTTC time="377.00" position="528.88,8.15" type="3" value="1.65"/>
-        <maxDRAC time="374.00" position="521.56,8.12" type="3" value="3.38"/>
+    <conflict begin="363.00" end="399.00" ego="WE.7" foe="WE.4">
+        <minTTC time="377.00" position="528.88,8.15" type="2" value="1.65"/>
+        <maxDRAC time="374.00" position="521.56,8.12" type="2" value="3.38"/>
     </conflict>
     <conflict begin="351.00" end="405.00" ego="stopping" foe="EW.21">
         <minTTC time="394.00" position="1922.88,18.15" type="3" value="0.83"/>
         <maxDRAC time="394.00" position="1922.88,18.15" type="3" value="2.64"/>
-    </conflict>
-    <conflict begin="363.00" end="405.00" ego="EW.22" foe="EW.21">
-        <minTTC time="380.00" position="1945.39,18.26" type="2" value="0.89"/>
-        <maxDRAC time="379.00" position="1945.40,18.26" type="2" value="3.66"/>
     </conflict>
     <conflict begin="347.00" end="405.00" ego="EW.21" foe="EW.24">
         <minTTC time="386.00" position="1938.12,18.22" type="3" value="2.39"/>
@@ -878,13 +874,17 @@ SPDX-License-Identifier: EPL-2.0
         <minTTC time="380.00" position="1945.39,18.26" type="3" value="0.89"/>
         <maxDRAC time="379.00" position="1945.40,18.26" type="3" value="3.66"/>
     </conflict>
-    <conflict begin="391.00" end="409.00" ego="EW.26" foe="EW.7">
-        <minTTC time="404.00" position="1660.48,16.89" type="2" value="3.76"/>
-        <maxDRAC time="404.00" position="1660.48,16.89" type="2" value="0.98"/>
+    <conflict begin="363.00" end="405.00" ego="EW.22" foe="EW.21">
+        <minTTC time="380.00" position="1945.39,18.26" type="2" value="0.89"/>
+        <maxDRAC time="379.00" position="1945.40,18.26" type="2" value="3.66"/>
     </conflict>
     <conflict begin="391.00" end="409.00" ego="EW.7" foe="EW.26">
         <minTTC time="404.00" position="1660.48,16.89" type="3" value="3.76"/>
         <maxDRAC time="404.00" position="1660.48,16.89" type="3" value="0.98"/>
+    </conflict>
+    <conflict begin="391.00" end="409.00" ego="EW.26" foe="EW.7">
+        <minTTC time="404.00" position="1660.48,16.89" type="2" value="3.76"/>
+        <maxDRAC time="404.00" position="1660.48,16.89" type="2" value="0.98"/>
     </conflict>
     <conflict begin="370.00" end="412.00" ego="EW.6" foe="EW.16">
         <minTTC time="411.00" position="16.85,2.56" type="3" value="4.50"/>
@@ -926,17 +926,21 @@ SPDX-License-Identifier: EPL-2.0
         <minTTC time="381.00" position="2115.78,19.08" type="2" value="4.50"/>
         <maxDRAC time="337.00" position="2316.97,20.04" type="2" value="0.86"/>
     </conflict>
-    <conflict begin="401.00" end="421.00" ego="EW.28" foe="EW.21">
-        <minTTC time="415.00" position="1829.15,14.40" type="2" value="3.68"/>
-        <maxDRAC time="401.00" position="1920.41,14.84" type="2" value="0.67"/>
-    </conflict>
     <conflict begin="401.00" end="421.00" ego="EW.21" foe="EW.28">
         <minTTC time="415.00" position="1829.15,14.40" type="3" value="3.68"/>
         <maxDRAC time="401.00" position="1920.41,14.84" type="3" value="0.67"/>
     </conflict>
+    <conflict begin="401.00" end="421.00" ego="EW.28" foe="EW.21">
+        <minTTC time="415.00" position="1829.15,14.40" type="2" value="3.68"/>
+        <maxDRAC time="401.00" position="1920.41,14.84" type="2" value="0.67"/>
+    </conflict>
     <conflict begin="363.00" end="422.00" ego="stopping" foe="EW.22">
         <minTTC time="404.00" position="1922.88,18.15" type="3" value="1.02"/>
         <maxDRAC time="404.00" position="1922.88,18.15" type="3" value="1.32"/>
+    </conflict>
+    <conflict begin="379.00" end="422.00" ego="EW.20" foe="EW.22">
+        <minTTC time="407.00" position="1930.39,18.19" type="2" value="2.14"/>
+        <maxDRAC time="407.00" position="1930.39,18.19" type="2" value="1.15"/>
     </conflict>
     <conflict begin="363.00" end="422.00" ego="EW.22" foe="EW.24">
         <minTTC time="387.00" position="1945.87,18.26" type="3" value="0.81"/>
@@ -946,17 +950,9 @@ SPDX-License-Identifier: EPL-2.0
         <minTTC time="404.00" position="1922.88,18.15" type="2" value="1.02"/>
         <maxDRAC time="404.00" position="1922.88,18.15" type="2" value="1.32"/>
     </conflict>
-    <conflict begin="379.00" end="422.00" ego="EW.20" foe="EW.22">
-        <minTTC time="407.00" position="1930.39,18.19" type="2" value="2.14"/>
-        <maxDRAC time="407.00" position="1930.39,18.19" type="2" value="1.15"/>
-    </conflict>
     <conflict begin="373.00" end="422.00" ego="EW.32" foe="EW.36">
         <minTTC time="395.00" position="2453.54,20.70" type="3" value="3.58"/>
         <maxDRAC time="393.00" position="2467.10,20.76" type="3" value="0.98"/>
-    </conflict>
-    <conflict begin="370.00" end="422.00" ego="EW.37" foe="EW.36">
-        <minTTC time="403.00" position="2418.30,20.53" type="2" value="2.58"/>
-        <maxDRAC time="401.00" position="2430.36,20.59" type="2" value="1.56"/>
     </conflict>
     <conflict begin="370.00" end="422.00" ego="EW.36" foe="EW.37">
         <minTTC time="403.00" position="2418.30,20.53" type="3" value="2.58"/>
@@ -966,13 +962,21 @@ SPDX-License-Identifier: EPL-2.0
         <minTTC time="395.00" position="2453.54,20.70" type="2" value="3.58"/>
         <maxDRAC time="393.00" position="2467.10,20.76" type="2" value="0.98"/>
     </conflict>
-    <conflict begin="376.00" end="420.00" ego="EW.29" foe="EW.33">
-        <minTTC time="392.00" position="2101.41,19.01" type="3" value="4.27"/>
-        <maxDRAC time="389.00" position="2108.42,19.04" type="3" value="1.32"/>
+    <conflict begin="370.00" end="422.00" ego="EW.37" foe="EW.36">
+        <minTTC time="403.00" position="2418.30,20.53" type="2" value="2.58"/>
+        <maxDRAC time="401.00" position="2430.36,20.59" type="2" value="1.56"/>
     </conflict>
     <conflict begin="379.00" end="422.00" ego="EW.22" foe="EW.20">
         <minTTC time="407.00" position="1930.39,18.19" type="3" value="2.14"/>
         <maxDRAC time="407.00" position="1930.39,18.19" type="3" value="1.15"/>
+    </conflict>
+    <conflict begin="376.00" end="420.00" ego="EW.29" foe="EW.33">
+        <minTTC time="392.00" position="2101.41,19.01" type="3" value="4.27"/>
+        <maxDRAC time="389.00" position="2108.42,19.04" type="3" value="1.32"/>
+    </conflict>
+    <conflict begin="379.00" end="437.00" ego="EW.20" foe="EW.24">
+        <minTTC time="407.00" position="1937.89,18.22" type="2" value="0.62"/>
+        <maxDRAC time="407.00" position="1937.89,18.22" type="2" value="3.96"/>
     </conflict>
     <conflict begin="303.00" end="437.00" ego="EW.24" foe="EW.4">
         <minTTC time="358.00" position="2139.72,19.19" type="2" value="2.53"/>
@@ -997,10 +1001,6 @@ SPDX-License-Identifier: EPL-2.0
     <conflict begin="379.00" end="437.00" ego="EW.24" foe="EW.20">
         <minTTC time="407.00" position="1937.89,18.22" type="3" value="0.62"/>
         <maxDRAC time="407.00" position="1937.89,18.22" type="3" value="3.96"/>
-    </conflict>
-    <conflict begin="379.00" end="437.00" ego="EW.20" foe="EW.24">
-        <minTTC time="407.00" position="1937.89,18.22" type="2" value="0.62"/>
-        <maxDRAC time="407.00" position="1937.89,18.22" type="2" value="3.96"/>
     </conflict>
     <conflict begin="436.00" end="441.00" ego="WE.3" foe="EW.42">
         <minTTC time="439.00" position="2567.58,17.95" type="20" value="3.50"/>
@@ -1030,13 +1030,13 @@ SPDX-License-Identifier: EPL-2.0
         <minTTC time="445.00" position="1910.67,14.79" type="3" value="3.54"/>
         <maxDRAC time="443.00" position="1918.94,14.83" type="3" value="1.65"/>
     </conflict>
-    <conflict begin="417.00" end="454.00" ego="EW.38" foe="EW.32">
-        <minTTC time="449.00" position="2115.62,19.08" type="2" value="4.55"/>
-        <maxDRAC time="448.00" position="2122.39,19.11" type="2" value="0.61"/>
-    </conflict>
     <conflict begin="442.00" end="454.00" ego="EW.36" foe="EW.20">
         <minTTC time="445.00" position="1910.67,14.79" type="2" value="3.54"/>
         <maxDRAC time="443.00" position="1918.94,14.83" type="2" value="1.65"/>
+    </conflict>
+    <conflict begin="417.00" end="454.00" ego="EW.38" foe="EW.32">
+        <minTTC time="449.00" position="2115.62,19.08" type="2" value="4.55"/>
+        <maxDRAC time="448.00" position="2122.39,19.11" type="2" value="0.61"/>
     </conflict>
     <conflict begin="417.00" end="456.00" ego="EW.28" foe="EW.19">
         <minTTC time="438.00" position="1681.04,16.99" type="2" value="0.82"/>
@@ -1226,10 +1226,6 @@ SPDX-License-Identifier: EPL-2.0
         <minTTC time="465.00" position="1953.71,18.30" type="2" value="1.63"/>
         <maxDRAC time="390.00" position="2127.46,19.13" type="2" value="2.22"/>
     </conflict>
-    <conflict begin="461.00" end="499.00" ego="WE.9" foe="WE.8">
-        <minTTC time="486.00" position="569.87,8.35" type="2" value="3.03"/>
-        <maxDRAC time="486.00" position="569.87,8.35" type="2" value="1.08"/>
-    </conflict>
     <conflict begin="445.00" end="499.00" ego="EW.37" foe="EW.31">
         <minTTC time="450.00" position="1965.08,18.35" type="2" value="3.80"/>
         <maxDRAC time="450.00" position="1965.08,18.35" type="2" value="1.98"/>
@@ -1241,6 +1237,10 @@ SPDX-License-Identifier: EPL-2.0
     <conflict begin="461.00" end="499.00" ego="WE.8" foe="WE.9">
         <minTTC time="486.00" position="569.87,8.35" type="3" value="3.03"/>
         <maxDRAC time="486.00" position="569.87,8.35" type="3" value="1.08"/>
+    </conflict>
+    <conflict begin="461.00" end="499.00" ego="WE.9" foe="WE.8">
+        <minTTC time="486.00" position="569.87,8.35" type="2" value="3.03"/>
+        <maxDRAC time="486.00" position="569.87,8.35" type="2" value="1.08"/>
     </conflict>
     <conflict begin="485.00" end="499.00" ego="EW.47" foe="EW.40">
         <minTTC time="489.00" position="2609.62,21.45" type="2" value="3.77"/>
@@ -1274,18 +1274,6 @@ SPDX-License-Identifier: EPL-2.0
         <minTTC time="435.00" position="1922.88,18.15" type="3" value="0.71"/>
         <maxDRAC time="435.00" position="1922.88,18.15" type="3" value="3.19"/>
     </conflict>
-    <conflict begin="321.00" end="511.00" ego="EW.30" foe="EW.27">
-        <minTTC time="447.00" position="1950.05,18.28" type="2" value="1.24"/>
-        <maxDRAC time="484.00" position="1930.47,18.19" type="2" value="1.14"/>
-    </conflict>
-    <conflict begin="323.00" end="485.00" ego="EW.30" foe="EW.25">
-        <minTTC time="419.00" position="2004.69,18.54" type="2" value="4.55"/>
-        <maxDRAC time="336.00" position="2295.41,19.94" type="2" value="0.51"/>
-    </conflict>
-    <conflict begin="325.00" end="499.00" ego="EW.30" foe="EW.31">
-        <minTTC time="382.00" position="2132.80,19.16" type="3" value="1.41"/>
-        <maxDRAC time="347.00" position="2296.37,19.94" type="3" value="2.02"/>
-    </conflict>
     <conflict begin="321.00" end="511.00" ego="EW.27" foe="EW.30">
         <minTTC time="447.00" position="1950.05,18.28" type="3" value="1.24"/>
         <maxDRAC time="484.00" position="1930.47,18.19" type="3" value="1.14"/>
@@ -1310,6 +1298,18 @@ SPDX-License-Identifier: EPL-2.0
         <minTTC time="451.00" position="1945.58,18.26" type="3" value="4.80"/>
         <maxDRAC time="448.00" position="1950.05,18.28" type="3" value="1.45"/>
     </conflict>
+    <conflict begin="321.00" end="511.00" ego="EW.30" foe="EW.27">
+        <minTTC time="447.00" position="1950.05,18.28" type="2" value="1.24"/>
+        <maxDRAC time="484.00" position="1930.47,18.19" type="2" value="1.14"/>
+    </conflict>
+    <conflict begin="323.00" end="485.00" ego="EW.30" foe="EW.25">
+        <minTTC time="419.00" position="2004.69,18.54" type="2" value="4.55"/>
+        <maxDRAC time="336.00" position="2295.41,19.94" type="2" value="0.51"/>
+    </conflict>
+    <conflict begin="325.00" end="499.00" ego="EW.30" foe="EW.31">
+        <minTTC time="382.00" position="2132.80,19.16" type="3" value="1.41"/>
+        <maxDRAC time="347.00" position="2296.37,19.94" type="3" value="2.02"/>
+    </conflict>
     <conflict begin="445.00" end="511.00" ego="EW.37" foe="EW.27">
         <minTTC time="451.00" position="1945.58,18.26" type="2" value="4.80"/>
         <maxDRAC time="448.00" position="1950.05,18.28" type="2" value="1.45"/>
@@ -1330,29 +1330,17 @@ SPDX-License-Identifier: EPL-2.0
         <minTTC time="491.00" position="1397.07,15.63" type="2" value="2.83"/>
         <maxDRAC time="491.00" position="1397.07,15.63" type="2" value="1.41"/>
     </conflict>
-    <conflict begin="481.00" end="520.00" ego="EW.26" foe="EW.5">
-        <minTTC time="507.00" position="420.20,10.93" type="2" value="2.92"/>
-        <maxDRAC time="507.00" position="420.20,10.93" type="2" value="1.12"/>
-    </conflict>
     <conflict begin="481.00" end="520.00" ego="EW.5" foe="EW.26">
         <minTTC time="507.00" position="420.20,10.93" type="3" value="2.92"/>
         <maxDRAC time="507.00" position="420.20,10.93" type="3" value="1.12"/>
     </conflict>
+    <conflict begin="481.00" end="520.00" ego="EW.26" foe="EW.5">
+        <minTTC time="507.00" position="420.20,10.93" type="2" value="2.92"/>
+        <maxDRAC time="507.00" position="420.20,10.93" type="2" value="1.12"/>
+    </conflict>
     <conflict begin="386.00" end="523.00" ego="stopping" foe="EW.30">
         <minTTC time="509.00" position="1922.88,18.15" type="3" value="1.08"/>
         <maxDRAC time="509.00" position="1922.88,18.15" type="3" value="1.71"/>
-    </conflict>
-    <conflict begin="374.00" end="523.00" ego="EW.33" foe="EW.30">
-        <minTTC time="497.00" position="1937.89,18.22" type="2" value="0.81"/>
-        <maxDRAC time="497.00" position="1937.89,18.22" type="2" value="2.62"/>
-    </conflict>
-    <conflict begin="376.00" end="420.00" ego="EW.33" foe="EW.29">
-        <minTTC time="392.00" position="2101.41,19.01" type="2" value="4.27"/>
-        <maxDRAC time="389.00" position="2108.42,19.04" type="2" value="1.32"/>
-    </conflict>
-    <conflict begin="379.00" end="511.00" ego="EW.33" foe="EW.27">
-        <minTTC time="497.00" position="1930.39,18.19" type="2" value="2.58"/>
-        <maxDRAC time="390.00" position="2084.46,18.93" type="2" value="1.07"/>
     </conflict>
     <conflict begin="374.00" end="523.00" ego="EW.30" foe="EW.33">
         <minTTC time="497.00" position="1937.89,18.22" type="3" value="0.81"/>
@@ -1373,6 +1361,18 @@ SPDX-License-Identifier: EPL-2.0
     <conflict begin="458.00" end="523.00" ego="EW.30" foe="EW.38">
         <minTTC time="460.00" position="1952.89,18.29" type="3" value="4.72"/>
         <maxDRAC time="460.00" position="1952.89,18.29" type="3" value="1.28"/>
+    </conflict>
+    <conflict begin="374.00" end="523.00" ego="EW.33" foe="EW.30">
+        <minTTC time="497.00" position="1937.89,18.22" type="2" value="0.81"/>
+        <maxDRAC time="497.00" position="1937.89,18.22" type="2" value="2.62"/>
+    </conflict>
+    <conflict begin="376.00" end="420.00" ego="EW.33" foe="EW.29">
+        <minTTC time="392.00" position="2101.41,19.01" type="2" value="4.27"/>
+        <maxDRAC time="389.00" position="2108.42,19.04" type="2" value="1.32"/>
+    </conflict>
+    <conflict begin="379.00" end="511.00" ego="EW.33" foe="EW.27">
+        <minTTC time="497.00" position="1930.39,18.19" type="2" value="2.58"/>
+        <maxDRAC time="390.00" position="2084.46,18.93" type="2" value="1.07"/>
     </conflict>
     <conflict begin="445.00" end="523.00" ego="EW.37" foe="EW.30">
         <minTTC time="452.00" position="1953.18,18.30" type="2" value="4.75"/>
@@ -1430,12 +1430,12 @@ SPDX-License-Identifier: EPL-2.0
         <minTTC time="533.00" position="2475.50,20.81" type="2" value="3.40"/>
         <maxDRAC time="533.00" position="2475.50,20.81" type="2" value="1.04"/>
     </conflict>
-    <conflict begin="459.00" end="464.00" ego="WE.7" foe="EW.36">
-        <minTTC time="462.00" position="1786.27,14.19" type="20" value="3.61"/>
-        <maxDRAC time="NA" position="NA" type="NA" value="NA"/>
-    </conflict>
     <conflict begin="459.00" end="464.00" ego="WE.6" foe="EW.36">
         <minTTC time="462.00" position="1795.86,14.24" type="20" value="2.89"/>
+        <maxDRAC time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="459.00" end="464.00" ego="WE.7" foe="EW.36">
+        <minTTC time="462.00" position="1786.27,14.19" type="20" value="3.61"/>
         <maxDRAC time="NA" position="NA" type="NA" value="NA"/>
     </conflict>
     <conflict begin="506.00" end="541.00" ego="WE.9" foe="WE.4">
@@ -1634,6 +1634,14 @@ SPDX-License-Identifier: EPL-2.0
         <minTTC time="564.00" position="1922.88,18.15" type="3" value="1.20"/>
         <maxDRAC time="564.00" position="1922.88,18.15" type="3" value="1.04"/>
     </conflict>
+    <conflict begin="400.00" end="576.00" ego="EW.32" foe="EW.34">
+        <minTTC time="466.00" position="1980.94,18.43" type="2" value="3.83"/>
+        <maxDRAC time="466.00" position="1980.94,18.43" type="2" value="0.76"/>
+    </conflict>
+    <conflict begin="417.00" end="454.00" ego="EW.32" foe="EW.38">
+        <minTTC time="449.00" position="2115.62,19.08" type="3" value="4.55"/>
+        <maxDRAC time="448.00" position="2122.39,19.11" type="3" value="0.61"/>
+    </conflict>
     <conflict begin="400.00" end="576.00" ego="EW.34" foe="EW.32">
         <minTTC time="466.00" position="1980.94,18.43" type="3" value="3.83"/>
         <maxDRAC time="466.00" position="1980.94,18.43" type="3" value="0.76"/>
@@ -1665,14 +1673,6 @@ SPDX-License-Identifier: EPL-2.0
     <conflict begin="501.00" end="576.00" ego="EW.34" foe="EW.44">
         <minTTC time="509.00" position="1960.39,18.33" type="3" value="4.18"/>
         <maxDRAC time="509.00" position="1960.39,18.33" type="3" value="1.82"/>
-    </conflict>
-    <conflict begin="400.00" end="576.00" ego="EW.32" foe="EW.34">
-        <minTTC time="466.00" position="1980.94,18.43" type="2" value="3.83"/>
-        <maxDRAC time="466.00" position="1980.94,18.43" type="2" value="0.76"/>
-    </conflict>
-    <conflict begin="417.00" end="454.00" ego="EW.32" foe="EW.38">
-        <minTTC time="449.00" position="2115.62,19.08" type="3" value="4.55"/>
-        <maxDRAC time="448.00" position="2122.39,19.11" type="3" value="0.61"/>
     </conflict>
     <conflict begin="445.00" end="576.00" ego="EW.37" foe="EW.34">
         <minTTC time="453.00" position="1988.11,18.46" type="2" value="0.89"/>
@@ -1830,14 +1830,6 @@ SPDX-License-Identifier: EPL-2.0
         <minTTC time="496.00" position="1299.07,15.15" type="3" value="2.35"/>
         <maxDRAC time="496.00" position="1299.07,15.15" type="3" value="1.63"/>
     </conflict>
-    <conflict begin="512.00" end="604.00" ego="EW.25" foe="EW.24">
-        <minTTC time="557.00" position="1081.98,14.11" type="2" value="1.28"/>
-        <maxDRAC time="515.00" position="1291.79,15.12" type="2" value="2.24"/>
-    </conflict>
-    <conflict begin="532.00" end="604.00" ego="EW.31" foe="EW.24">
-        <minTTC time="558.00" position="1081.98,14.11" type="2" value="3.23"/>
-        <maxDRAC time="541.00" position="1160.54,14.49" type="2" value="1.74"/>
-    </conflict>
     <conflict begin="480.00" end="604.00" ego="EW.24" foe="EW.7">
         <minTTC time="586.00" position="951.90,13.49" type="2" value="2.50"/>
         <maxDRAC time="586.00" position="951.90,13.49" type="2" value="0.75"/>
@@ -1861,6 +1853,14 @@ SPDX-License-Identifier: EPL-2.0
     <conflict begin="554.00" end="604.00" ego="EW.24" foe="EW.30">
         <minTTC time="560.00" position="1079.12,14.10" type="3" value="3.96"/>
         <maxDRAC time="560.00" position="1079.12,14.10" type="3" value="2.50"/>
+    </conflict>
+    <conflict begin="512.00" end="604.00" ego="EW.25" foe="EW.24">
+        <minTTC time="557.00" position="1081.98,14.11" type="2" value="1.28"/>
+        <maxDRAC time="515.00" position="1291.79,15.12" type="2" value="2.24"/>
+    </conflict>
+    <conflict begin="532.00" end="604.00" ego="EW.31" foe="EW.24">
+        <minTTC time="558.00" position="1081.98,14.11" type="2" value="3.23"/>
+        <maxDRAC time="541.00" position="1160.54,14.49" type="2" value="1.74"/>
     </conflict>
     <conflict begin="445.00" end="611.00" ego="stopping" foe="EW.37">
         <minTTC time="574.00" position="1922.88,18.15" type="3" value="1.10"/>
@@ -1950,6 +1950,10 @@ SPDX-License-Identifier: EPL-2.0
         <minTTC time="553.00" position="1975.39,18.40" type="3" value="3.62"/>
         <maxDRAC time="553.00" position="1975.39,18.40" type="3" value="1.69"/>
     </conflict>
+    <conflict begin="536.00" end="623.00" ego="EW.27" foe="EW.31">
+        <minTTC time="560.00" position="1097.73,14.19" type="2" value="0.94"/>
+        <maxDRAC time="550.00" position="1137.96,14.38" type="2" value="2.52"/>
+    </conflict>
     <conflict begin="532.00" end="623.00" ego="EW.31" foe="EW.25">
         <minTTC time="558.00" position="1090.24,14.15" type="2" value="2.02"/>
         <maxDRAC time="540.00" position="1177.76,14.57" type="2" value="2.13"/>
@@ -1966,9 +1970,9 @@ SPDX-License-Identifier: EPL-2.0
         <minTTC time="586.00" position="1000.82,13.72" type="3" value="4.41"/>
         <maxDRAC time="585.00" position="1004.91,13.74" type="3" value="1.84"/>
     </conflict>
-    <conflict begin="536.00" end="623.00" ego="EW.27" foe="EW.31">
-        <minTTC time="560.00" position="1097.73,14.19" type="2" value="0.94"/>
-        <maxDRAC time="550.00" position="1137.96,14.38" type="2" value="2.52"/>
+    <conflict begin="590.00" end="629.00" ego="EW.20" foe="EW.33">
+        <minTTC time="609.00" position="1135.37,14.37" type="3" value="3.33"/>
+        <maxDRAC time="609.00" position="1135.37,14.37" type="3" value="1.28"/>
     </conflict>
     <conflict begin="590.00" end="629.00" ego="EW.33" foe="EW.20">
         <minTTC time="609.00" position="1135.37,14.37" type="2" value="3.33"/>
@@ -1977,10 +1981,6 @@ SPDX-License-Identifier: EPL-2.0
     <conflict begin="593.00" end="629.00" ego="EW.33" foe="EW.35">
         <minTTC time="624.00" position="1078.20,14.09" type="3" value="2.18"/>
         <maxDRAC time="624.00" position="1078.20,14.09" type="3" value="1.77"/>
-    </conflict>
-    <conflict begin="590.00" end="629.00" ego="EW.20" foe="EW.33">
-        <minTTC time="609.00" position="1135.37,14.37" type="3" value="3.33"/>
-        <maxDRAC time="609.00" position="1135.37,14.37" type="3" value="1.28"/>
     </conflict>
     <conflict begin="593.00" end="629.00" ego="EW.35" foe="EW.33">
         <minTTC time="624.00" position="1078.20,14.09" type="2" value="2.18"/>
@@ -2122,6 +2122,14 @@ SPDX-License-Identifier: EPL-2.0
         <minTTC time="632.00" position="1922.88,18.15" type="3" value="0.76"/>
         <maxDRAC time="632.00" position="1922.88,18.15" type="3" value="2.92"/>
     </conflict>
+    <conflict begin="478.00" end="646.00" ego="EW.39" foe="EW.44">
+        <minTTC time="538.00" position="1990.41,18.48" type="2" value="0.90"/>
+        <maxDRAC time="537.00" position="1990.45,18.48" type="2" value="3.02"/>
+    </conflict>
+    <conflict begin="484.00" end="634.00" ego="EW.39" foe="EW.43">
+        <minTTC time="537.00" position="1982.90,18.44" type="2" value="2.22"/>
+        <maxDRAC time="537.00" position="1982.90,18.44" type="2" value="1.52"/>
+    </conflict>
     <conflict begin="478.00" end="646.00" ego="EW.44" foe="EW.39">
         <minTTC time="538.00" position="1990.41,18.48" type="3" value="0.90"/>
         <maxDRAC time="537.00" position="1990.45,18.48" type="3" value="3.02"/>
@@ -2170,14 +2178,6 @@ SPDX-License-Identifier: EPL-2.0
         <minTTC time="591.00" position="1960.61,18.33" type="3" value="3.82"/>
         <maxDRAC time="591.00" position="1960.61,18.33" type="3" value="1.30"/>
     </conflict>
-    <conflict begin="478.00" end="646.00" ego="EW.39" foe="EW.44">
-        <minTTC time="538.00" position="1990.41,18.48" type="2" value="0.90"/>
-        <maxDRAC time="537.00" position="1990.45,18.48" type="2" value="3.02"/>
-    </conflict>
-    <conflict begin="484.00" end="634.00" ego="EW.39" foe="EW.43">
-        <minTTC time="537.00" position="1982.90,18.44" type="2" value="2.22"/>
-        <maxDRAC time="537.00" position="1982.90,18.44" type="2" value="1.52"/>
-    </conflict>
     <conflict begin="579.00" end="646.00" ego="EW.49" foe="EW.44">
         <minTTC time="591.00" position="1960.61,18.33" type="2" value="3.82"/>
         <maxDRAC time="591.00" position="1960.61,18.33" type="2" value="1.30"/>
@@ -2206,22 +2206,6 @@ SPDX-License-Identifier: EPL-2.0
         <minTTC time="644.00" position="1922.88,18.15" type="3" value="0.88"/>
         <maxDRAC time="644.00" position="1922.88,18.15" type="3" value="2.45"/>
     </conflict>
-    <conflict begin="501.00" end="658.00" ego="EW.45" foe="EW.39">
-        <minTTC time="540.00" position="1997.97,18.51" type="2" value="1.33"/>
-        <maxDRAC time="539.00" position="1998.18,18.51" type="2" value="0.98"/>
-    </conflict>
-    <conflict begin="521.00" end="634.00" ego="EW.45" foe="EW.43">
-        <minTTC time="538.00" position="1982.89,18.44" type="2" value="3.38"/>
-        <maxDRAC time="538.00" position="1982.89,18.44" type="2" value="1.08"/>
-    </conflict>
-    <conflict begin="521.00" end="646.00" ego="EW.45" foe="EW.44">
-        <minTTC time="538.00" position="1990.41,18.48" type="2" value="2.35"/>
-        <maxDRAC time="538.00" position="1990.41,18.48" type="2" value="1.54"/>
-    </conflict>
-    <conflict begin="522.00" end="622.00" ego="EW.45" foe="EW.42">
-        <minTTC time="538.00" position="1975.39,18.40" type="2" value="4.41"/>
-        <maxDRAC time="534.00" position="1975.43,18.40" type="2" value="0.86"/>
-    </conflict>
     <conflict begin="501.00" end="658.00" ego="EW.39" foe="EW.45">
         <minTTC time="540.00" position="1997.97,18.51" type="3" value="1.33"/>
         <maxDRAC time="539.00" position="1998.18,18.51" type="3" value="0.98"/>
@@ -2246,21 +2230,25 @@ SPDX-License-Identifier: EPL-2.0
         <minTTC time="591.00" position="1968.99,18.37" type="3" value="3.12"/>
         <maxDRAC time="591.00" position="1968.99,18.37" type="3" value="1.52"/>
     </conflict>
+    <conflict begin="501.00" end="658.00" ego="EW.45" foe="EW.39">
+        <minTTC time="540.00" position="1997.97,18.51" type="2" value="1.33"/>
+        <maxDRAC time="539.00" position="1998.18,18.51" type="2" value="0.98"/>
+    </conflict>
+    <conflict begin="521.00" end="634.00" ego="EW.45" foe="EW.43">
+        <minTTC time="538.00" position="1982.89,18.44" type="2" value="3.38"/>
+        <maxDRAC time="538.00" position="1982.89,18.44" type="2" value="1.08"/>
+    </conflict>
+    <conflict begin="521.00" end="646.00" ego="EW.45" foe="EW.44">
+        <minTTC time="538.00" position="1990.41,18.48" type="2" value="2.35"/>
+        <maxDRAC time="538.00" position="1990.41,18.48" type="2" value="1.54"/>
+    </conflict>
+    <conflict begin="522.00" end="622.00" ego="EW.45" foe="EW.42">
+        <minTTC time="538.00" position="1975.39,18.40" type="2" value="4.41"/>
+        <maxDRAC time="534.00" position="1975.43,18.40" type="2" value="0.86"/>
+    </conflict>
     <conflict begin="579.00" end="658.00" ego="EW.49" foe="EW.39">
         <minTTC time="591.00" position="1968.99,18.37" type="2" value="3.12"/>
         <maxDRAC time="591.00" position="1968.99,18.37" type="2" value="1.52"/>
-    </conflict>
-    <conflict begin="635.00" end="665.00" ego="EW.42" foe="EW.37">
-        <minTTC time="658.00" position="1173.58,14.55" type="2" value="4.19"/>
-        <maxDRAC time="654.00" position="1217.29,14.76" type="2" value="0.92"/>
-    </conflict>
-    <conflict begin="637.00" end="660.00" ego="EW.42" foe="EW.4">
-        <minTTC time="641.00" position="1480.56,16.03" type="2" value="3.10"/>
-        <maxDRAC time="641.00" position="1480.56,16.03" type="2" value="3.12"/>
-    </conflict>
-    <conflict begin="642.00" end="646.00" ego="EW.42" foe="WE.8">
-        <minTTC time="644.00" position="1425.41,12.46" type="20" value="4.22"/>
-        <maxDRAC time="NA" position="NA" type="NA" value="NA"/>
     </conflict>
     <conflict begin="622.00" end="665.00" ego="EW.37" foe="EW.38">
         <minTTC time="653.00" position="1201.88,14.69" type="2" value="4.07"/>
@@ -2273,6 +2261,18 @@ SPDX-License-Identifier: EPL-2.0
     <conflict begin="635.00" end="665.00" ego="EW.37" foe="EW.42">
         <minTTC time="658.00" position="1173.58,14.55" type="3" value="4.19"/>
         <maxDRAC time="654.00" position="1217.29,14.76" type="3" value="0.92"/>
+    </conflict>
+    <conflict begin="635.00" end="665.00" ego="EW.42" foe="EW.37">
+        <minTTC time="658.00" position="1173.58,14.55" type="2" value="4.19"/>
+        <maxDRAC time="654.00" position="1217.29,14.76" type="2" value="0.92"/>
+    </conflict>
+    <conflict begin="637.00" end="660.00" ego="EW.42" foe="EW.4">
+        <minTTC time="641.00" position="1480.56,16.03" type="2" value="3.10"/>
+        <maxDRAC time="641.00" position="1480.56,16.03" type="2" value="3.12"/>
+    </conflict>
+    <conflict begin="642.00" end="646.00" ego="EW.42" foe="WE.8">
+        <minTTC time="644.00" position="1425.41,12.46" type="20" value="4.22"/>
+        <maxDRAC time="NA" position="NA" type="NA" value="NA"/>
     </conflict>
     <conflict begin="610.00" end="666.00" ego="EW.24" foe="EW.19">
         <minTTC time="639.00" position="579.53,11.70" type="2" value="3.98"/>
@@ -2390,6 +2390,18 @@ SPDX-License-Identifier: EPL-2.0
         <minTTC time="637.00" position="757.08,12.55" type="3" value="3.25"/>
         <maxDRAC time="548.00" position="1094.29,14.17" type="3" value="1.33"/>
     </conflict>
+    <conflict begin="543.00" end="689.00" ego="EW.27" foe="EW.7">
+        <minTTC time="637.00" position="757.08,12.55" type="2" value="3.25"/>
+        <maxDRAC time="548.00" position="1094.29,14.17" type="2" value="1.33"/>
+    </conflict>
+    <conflict begin="551.00" end="689.00" ego="EW.27" foe="EW.30">
+        <minTTC time="563.00" position="1103.26,14.21" type="3" value="1.37"/>
+        <maxDRAC time="561.00" position="1105.63,14.23" type="3" value="5.09"/>
+    </conflict>
+    <conflict begin="577.00" end="689.00" ego="EW.27" foe="EW.47">
+        <minTTC time="586.00" position="1013.64,13.78" type="3" value="3.21"/>
+        <maxDRAC time="586.00" position="1013.64,13.78" type="3" value="2.32"/>
+    </conflict>
     <conflict begin="551.00" end="689.00" ego="EW.30" foe="EW.27">
         <minTTC time="563.00" position="1103.26,14.21" type="2" value="1.37"/>
         <maxDRAC time="561.00" position="1105.63,14.23" type="2" value="5.09"/>
@@ -2414,21 +2426,21 @@ SPDX-License-Identifier: EPL-2.0
         <minTTC time="680.00" position="1382.42,15.55" type="2" value="1.82"/>
         <maxDRAC time="675.00" position="1395.49,15.62" type="2" value="2.47"/>
     </conflict>
-    <conflict begin="543.00" end="689.00" ego="EW.27" foe="EW.7">
-        <minTTC time="637.00" position="757.08,12.55" type="2" value="3.25"/>
-        <maxDRAC time="548.00" position="1094.29,14.17" type="2" value="1.33"/>
-    </conflict>
-    <conflict begin="551.00" end="689.00" ego="EW.27" foe="EW.30">
-        <minTTC time="563.00" position="1103.26,14.21" type="3" value="1.37"/>
-        <maxDRAC time="561.00" position="1105.63,14.23" type="3" value="5.09"/>
-    </conflict>
-    <conflict begin="577.00" end="689.00" ego="EW.27" foe="EW.47">
-        <minTTC time="586.00" position="1013.64,13.78" type="3" value="3.21"/>
-        <maxDRAC time="586.00" position="1013.64,13.78" type="3" value="2.32"/>
-    </conflict>
     <conflict begin="590.00" end="697.00" ego="stopping" foe="EW.46">
         <minTTC time="686.00" position="1922.88,18.15" type="3" value="0.72"/>
         <maxDRAC time="686.00" position="1922.88,18.15" type="3" value="3.18"/>
+    </conflict>
+    <conflict begin="549.00" end="697.00" ego="EW.40" foe="EW.46">
+        <minTTC time="674.00" position="1945.39,18.26" type="2" value="1.22"/>
+        <maxDRAC time="674.00" position="1945.39,18.26" type="2" value="1.61"/>
+    </conflict>
+    <conflict begin="608.00" end="688.00" ego="EW.40" foe="EW.49">
+        <minTTC time="674.00" position="1937.89,18.22" type="2" value="3.13"/>
+        <maxDRAC time="674.00" position="1937.89,18.22" type="2" value="0.63"/>
+    </conflict>
+    <conflict begin="619.00" end="697.00" ego="EW.41" foe="EW.46">
+        <minTTC time="675.00" position="1945.39,18.26" type="2" value="3.71"/>
+        <maxDRAC time="675.00" position="1945.39,18.26" type="2" value="0.49"/>
     </conflict>
     <conflict begin="549.00" end="697.00" ego="EW.46" foe="EW.40">
         <minTTC time="674.00" position="1945.39,18.26" type="3" value="1.22"/>
@@ -2454,18 +2466,6 @@ SPDX-License-Identifier: EPL-2.0
         <minTTC time="675.00" position="1945.39,18.26" type="3" value="3.71"/>
         <maxDRAC time="675.00" position="1945.39,18.26" type="3" value="0.49"/>
     </conflict>
-    <conflict begin="549.00" end="697.00" ego="EW.40" foe="EW.46">
-        <minTTC time="674.00" position="1945.39,18.26" type="2" value="1.22"/>
-        <maxDRAC time="674.00" position="1945.39,18.26" type="2" value="1.61"/>
-    </conflict>
-    <conflict begin="608.00" end="688.00" ego="EW.40" foe="EW.49">
-        <minTTC time="674.00" position="1937.89,18.22" type="2" value="3.13"/>
-        <maxDRAC time="674.00" position="1937.89,18.22" type="2" value="0.63"/>
-    </conflict>
-    <conflict begin="619.00" end="697.00" ego="EW.41" foe="EW.46">
-        <minTTC time="675.00" position="1945.39,18.26" type="2" value="3.71"/>
-        <maxDRAC time="675.00" position="1945.39,18.26" type="2" value="0.49"/>
-    </conflict>
     <conflict begin="645.00" end="705.00" ego="EW.42" foe="EW.38">
         <minTTC time="663.00" position="1106.50,14.23" type="2" value="4.07"/>
         <maxDRAC time="653.00" position="1201.88,14.69" type="2" value="1.02"/>
@@ -2482,13 +2482,13 @@ SPDX-License-Identifier: EPL-2.0
         <minTTC time="695.00" position="1922.88,18.15" type="2" value="0.94"/>
         <maxDRAC time="695.00" position="1922.88,18.15" type="2" value="2.05"/>
     </conflict>
-    <conflict begin="683.00" end="706.00" ego="EW.48" foe="EW.39">
-        <minTTC time="695.00" position="1681.04,16.99" type="2" value="3.13"/>
-        <maxDRAC time="695.00" position="1681.04,16.99" type="2" value="1.26"/>
-    </conflict>
     <conflict begin="619.00" end="706.00" ego="EW.41" foe="EW.40">
         <minTTC time="696.00" position="1930.86,18.19" type="2" value="1.74"/>
         <maxDRAC time="696.00" position="1930.86,18.19" type="2" value="0.80"/>
+    </conflict>
+    <conflict begin="683.00" end="706.00" ego="EW.48" foe="EW.39">
+        <minTTC time="695.00" position="1681.04,16.99" type="2" value="3.13"/>
+        <maxDRAC time="695.00" position="1681.04,16.99" type="2" value="1.26"/>
     </conflict>
     <conflict begin="555.00" end="715.00" ego="EW.7" foe="EW.30">
         <minTTC time="688.00" position="556.35,11.59" type="3" value="2.31"/>
@@ -2582,13 +2582,13 @@ SPDX-License-Identifier: EPL-2.0
         <minTTC time="707.00" position="113.79,7.75" type="3" value="2.64"/>
         <maxDRAC time="706.00" position="118.91,8.03" type="3" value="1.49"/>
     </conflict>
-    <conflict begin="699.00" end="727.00" ego="EW.45" foe="EW.44">
-        <minTTC time="719.00" position="1294.59,15.13" type="2" value="1.79"/>
-        <maxDRAC time="719.00" position="1294.59,15.13" type="2" value="2.24"/>
-    </conflict>
     <conflict begin="699.00" end="727.00" ego="EW.44" foe="EW.45">
         <minTTC time="719.00" position="1294.59,15.13" type="3" value="1.79"/>
         <maxDRAC time="719.00" position="1294.59,15.13" type="3" value="2.24"/>
+    </conflict>
+    <conflict begin="699.00" end="727.00" ego="EW.45" foe="EW.44">
+        <minTTC time="719.00" position="1294.59,15.13" type="2" value="1.79"/>
+        <maxDRAC time="719.00" position="1294.59,15.13" type="2" value="2.24"/>
     </conflict>
     <conflict begin="702.00" end="725.00" ego="EW.35" foe="EW.13">
         <minTTC time="706.00" position="103.90,7.22" type="2" value="4.16"/>
@@ -2630,13 +2630,13 @@ SPDX-License-Identifier: EPL-2.0
         <minTTC time="702.00" position="223.20,9.99" type="3" value="3.90"/>
         <maxDRAC time="701.00" position="228.60,10.01" type="3" value="1.90"/>
     </conflict>
-    <conflict begin="675.00" end="740.00" ego="EW.33" foe="EW.19">
-        <minTTC time="676.00" position="369.26,10.69" type="2" value="3.14"/>
-        <maxDRAC time="676.00" position="369.26,10.69" type="2" value="1.26"/>
-    </conflict>
     <conflict begin="697.00" end="740.00" ego="EW.27" foe="EW.19">
         <minTTC time="702.00" position="223.20,9.99" type="2" value="3.90"/>
         <maxDRAC time="701.00" position="228.60,10.01" type="2" value="1.90"/>
+    </conflict>
+    <conflict begin="675.00" end="740.00" ego="EW.33" foe="EW.19">
+        <minTTC time="676.00" position="369.26,10.69" type="2" value="3.14"/>
+        <maxDRAC time="676.00" position="369.26,10.69" type="2" value="1.26"/>
     </conflict>
     <conflict begin="697.00" end="742.00" ego="EW.33" foe="EW.27">
         <minTTC time="703.00" position="231.21,10.03" type="3" value="2.88"/>
@@ -2650,6 +2650,14 @@ SPDX-License-Identifier: EPL-2.0
         <minTTC time="727.00" position="1264.09,14.99" type="3" value="2.50"/>
         <maxDRAC time="719.00" position="1284.21,15.08" type="3" value="1.39"/>
     </conflict>
+    <conflict begin="697.00" end="742.00" ego="EW.27" foe="EW.33">
+        <minTTC time="703.00" position="231.21,10.03" type="2" value="2.88"/>
+        <maxDRAC time="700.00" position="249.34,10.11" type="2" value="2.32"/>
+    </conflict>
+    <conflict begin="710.00" end="742.00" ego="EW.37" foe="EW.33">
+        <minTTC time="719.00" position="141.50,9.24" type="2" value="4.45"/>
+        <maxDRAC time="718.00" position="146.90,9.52" type="2" value="1.04"/>
+    </conflict>
     <conflict begin="700.00" end="742.00" ego="EW.45" foe="EW.4">
         <minTTC time="727.00" position="1264.09,14.99" type="2" value="2.50"/>
         <maxDRAC time="719.00" position="1284.21,15.08" type="2" value="1.39"/>
@@ -2658,17 +2666,9 @@ SPDX-License-Identifier: EPL-2.0
         <minTTC time="731.00" position="1265.60,14.99" type="3" value="1.26"/>
         <maxDRAC time="730.00" position="1267.24,15.00" type="3" value="3.59"/>
     </conflict>
-    <conflict begin="697.00" end="742.00" ego="EW.27" foe="EW.33">
-        <minTTC time="703.00" position="231.21,10.03" type="2" value="2.88"/>
-        <maxDRAC time="700.00" position="249.34,10.11" type="2" value="2.32"/>
-    </conflict>
     <conflict begin="711.00" end="742.00" ego="EW.48" foe="EW.45">
         <minTTC time="731.00" position="1265.60,14.99" type="2" value="1.26"/>
         <maxDRAC time="730.00" position="1267.24,15.00" type="2" value="3.59"/>
-    </conflict>
-    <conflict begin="710.00" end="742.00" ego="EW.37" foe="EW.33">
-        <minTTC time="719.00" position="141.50,9.24" type="2" value="4.45"/>
-        <maxDRAC time="718.00" position="146.90,9.52" type="2" value="1.04"/>
     </conflict>
     <conflict begin="668.00" end="743.00" ego="EW.20" foe="EW.38">
         <minTTC time="723.00" position="594.60,11.77" type="3" value="3.19"/>
@@ -2762,25 +2762,25 @@ SPDX-License-Identifier: EPL-2.0
         <minTTC time="778.00" position="1138.33,14.38" type="2" value="2.14"/>
         <maxDRAC time="778.00" position="1138.33,14.38" type="2" value="1.02"/>
     </conflict>
-    <conflict begin="752.00" end="785.00" ego="EW.45" foe="EW.32">
-        <minTTC time="780.00" position="753.54,12.53" type="2" value="3.89"/>
-        <maxDRAC time="780.00" position="753.54,12.53" type="2" value="0.66"/>
-    </conflict>
     <conflict begin="752.00" end="785.00" ego="EW.32" foe="EW.45">
         <minTTC time="780.00" position="753.54,12.53" type="3" value="3.89"/>
         <maxDRAC time="780.00" position="753.54,12.53" type="3" value="0.66"/>
+    </conflict>
+    <conflict begin="752.00" end="785.00" ego="EW.45" foe="EW.32">
+        <minTTC time="780.00" position="753.54,12.53" type="2" value="3.89"/>
+        <maxDRAC time="780.00" position="753.54,12.53" type="2" value="0.66"/>
     </conflict>
     <conflict begin="738.00" end="794.00" ego="EW.34" foe="EW.7">
         <minTTC time="750.00" position="315.34,10.43" type="2" value="2.32"/>
         <maxDRAC time="750.00" position="315.34,10.43" type="2" value="1.41"/>
     </conflict>
-    <conflict begin="769.00" end="799.00" ego="EW.48" foe="EW.32">
-        <minTTC time="794.00" position="663.81,12.10" type="2" value="4.06"/>
-        <maxDRAC time="794.00" position="663.81,12.10" type="2" value="0.80"/>
-    </conflict>
     <conflict begin="769.00" end="799.00" ego="EW.32" foe="EW.48">
         <minTTC time="794.00" position="663.81,12.10" type="3" value="4.06"/>
         <maxDRAC time="794.00" position="663.81,12.10" type="3" value="0.80"/>
+    </conflict>
+    <conflict begin="769.00" end="799.00" ego="EW.48" foe="EW.32">
+        <minTTC time="794.00" position="663.81,12.10" type="2" value="4.06"/>
+        <maxDRAC time="794.00" position="663.81,12.10" type="2" value="0.80"/>
     </conflict>
     <conflict begin="738.00" end="794.00" ego="EW.7" foe="EW.34">
         <minTTC time="750.00" position="315.34,10.43" type="3" value="2.32"/>
@@ -2798,13 +2798,13 @@ SPDX-License-Identifier: EPL-2.0
         <minTTC time="744.00" position="495.63,11.30" type="3" value="2.65"/>
         <maxDRAC time="744.00" position="495.63,11.30" type="3" value="1.45"/>
     </conflict>
-    <conflict begin="784.00" end="830.00" ego="EW.44" foe="EW.7">
-        <minTTC time="789.00" position="164.95,9.71" type="2" value="3.12"/>
-        <maxDRAC time="788.00" position="168.25,9.72" type="2" value="2.20"/>
-    </conflict>
     <conflict begin="771.00" end="830.00" ego="EW.43" foe="EW.7">
         <minTTC time="775.00" position="220.20,9.97" type="2" value="2.21"/>
         <maxDRAC time="775.00" position="220.20,9.97" type="2" value="2.05"/>
+    </conflict>
+    <conflict begin="784.00" end="830.00" ego="EW.44" foe="EW.7">
+        <minTTC time="789.00" position="164.95,9.71" type="2" value="3.12"/>
+        <maxDRAC time="788.00" position="168.25,9.72" type="2" value="2.20"/>
     </conflict>
     <conflict begin="784.00" end="832.00" ego="EW.43" foe="EW.44">
         <minTTC time="789.00" position="176.80,9.76" type="3" value="2.02"/>
