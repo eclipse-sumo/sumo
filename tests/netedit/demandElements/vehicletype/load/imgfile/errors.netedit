@@ -21,17 +21,20 @@ Debug: Adding vType 'vType0' in GNEChange_DemandElement
 Debug: DemandElements has to be saved
 Debug: Current saving Status: net saved, additionals saved, demand elements unsaved
 Error: Attribute 'imgFile' in definition of vType 'vType1' is empty.
+Debug: Adding vType 'vType1' in GNEChange_DemandElement
 Debug: Adding vType 'vType2' in GNEChange_DemandElement
-Error: Loading of C:/Users/alva_pa/.texttest/tmp/netedit.gui.30Jul110032.4592/netedit.gui/demandElements/vehicletype/load/imgfile\input_routes.rou.xml failed.
+Error: Loading of C:/Users/alva_pa/.texttest/tmp/netedit.gui.30Jul143940.7744/netedit.gui/demandElements/vehicletype/load/imgfile\input_routes.rou.xml failed.
 Debug: net has to be saved
 Debug: Current saving Status: net unsaved, additionals saved, demand elements unsaved
 Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 Debug: Keys Ctrl + Z (Undo) pressed
 Debug: Removing vType 'vType2' in GNEChange_DemandElement
+Debug: Removing vType 'vType1' in GNEChange_DemandElement
 Debug: Removing vType 'vType0' in GNEChange_DemandElement
 Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 Debug: Keys Ctrl + Y (Redo) pressed
 Debug: Adding vType 'vType0' in GNEChange_DemandElement
+Debug: Adding vType 'vType1' in GNEChange_DemandElement
 Debug: Adding vType 'vType2' in GNEChange_DemandElement
 Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 Debug: demand elements saved
@@ -85,6 +88,7 @@ Debug: Created connection 'fromgneE9_0togneE11_0' in retrieveGNEConnection()
 Debug: Deleting unreferenced vType 'vType2'
 Debug: DemandElements has to be saved
 Debug: Current saving Status: net saved, additionals saved, demand elements unsaved
+Debug: Deleting unreferenced vType 'vType1'
 Debug: Deleting unreferenced vType 'vType0'
 Debug: Deleting unreferenced edge 'gneE10' in GNENet destructor
 Debug: Deleting unreferenced lane 'gneE10_0' in GNEEdge destructor

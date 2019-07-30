@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 30.07.2019 11:11:58 by Eclipse SUMO netedit Version v1_2_0+1321-a8a1bbc0d6
+<!-- generated on 30.07.2019 14:18:49 by Eclipse SUMO netedit Version v1_2_0+1331-c5e00abb8b
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.30Jul111148.11464/netedit.gui/demandElements/vehicletype/load/emissionclass\input_net.net.xml"/>
+        <sumo-net-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.30Jul141622.10940/netedit.gui/demandElements/vehicletype/load/emissionclass\input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.30Jul111148.11464/netedit.gui/demandElements/vehicletype/load/emissionclass\net.net.xml"/>
+        <output-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.30Jul141622.10940/netedit.gui/demandElements/vehicletype/load/emissionclass\net.net.xml"/>
     </output>
 
     <processing>
@@ -29,10 +29,10 @@
     </pedestrian>
 
     <netedit>
-        <additional-files value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.30Jul111148.11464/netedit.gui/demandElements/vehicletype/load/emissionclass\additionals.xml"/>
-        <additionals-output value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.30Jul111148.11464/netedit.gui/demandElements/vehicletype/load/emissionclass\additionals.xml"/>
-        <route-files value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.30Jul111148.11464/netedit.gui/demandElements/vehicletype/load/emissionclass\routes.xml"/>
-        <demandelements-output value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.30Jul111148.11464/netedit.gui/demandElements/vehicletype/load/emissionclass\routes.xml"/>
+        <additional-files value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.30Jul141622.10940/netedit.gui/demandElements/vehicletype/load/emissionclass\additionals.xml"/>
+        <additionals-output value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.30Jul141622.10940/netedit.gui/demandElements/vehicletype/load/emissionclass\additionals.xml"/>
+        <route-files value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.30Jul141622.10940/netedit.gui/demandElements/vehicletype/load/emissionclass\routes.xml"/>
+        <demandelements-output value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.30Jul141622.10940/netedit.gui/demandElements/vehicletype/load/emissionclass\routes.xml"/>
     </netedit>
 
     <visualisation>
@@ -45,7 +45,7 @@
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.30Jul111148.11464/netedit.gui/demandElements/vehicletype/load/emissionclass\log.txt"/>
+        <error-log value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.30Jul141622.10940/netedit.gui/demandElements/vehicletype/load/emissionclass\log.txt"/>
     </report>
 
 </configuration>
@@ -53,5 +53,6 @@
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
     <vType id="vType0"/>
+    <vType id="vType1"/>
     <vType id="vType2" emissionClass="HBEFA2/HDV_12_1"/>
 </routes>

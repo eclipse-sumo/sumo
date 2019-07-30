@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 29.07.2019 11:23:26 by Eclipse SUMO netedit Version v1_2_0+1308-0db7c427d4
+<!-- generated on 30.07.2019 14:45:49 by Eclipse SUMO netedit Version v1_2_0+1331-c5e00abb8b
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.29Jul111621.4832/netedit.gui/demandElements/vehicletype/load/mingaplat\input_net.net.xml"/>
+        <sumo-net-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.30Jul143940.7744/netedit.gui/demandElements/vehicletype/load/mingaplat\input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.29Jul111621.4832/netedit.gui/demandElements/vehicletype/load/mingaplat\net.net.xml"/>
+        <output-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.30Jul143940.7744/netedit.gui/demandElements/vehicletype/load/mingaplat\net.net.xml"/>
     </output>
 
     <processing>
@@ -29,10 +29,10 @@
     </pedestrian>
 
     <netedit>
-        <additional-files value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.29Jul111621.4832/netedit.gui/demandElements/vehicletype/load/mingaplat\additionals.xml"/>
-        <additionals-output value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.29Jul111621.4832/netedit.gui/demandElements/vehicletype/load/mingaplat\additionals.xml"/>
-        <route-files value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.29Jul111621.4832/netedit.gui/demandElements/vehicletype/load/mingaplat\routes.xml"/>
-        <demandelements-output value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.29Jul111621.4832/netedit.gui/demandElements/vehicletype/load/mingaplat\routes.xml"/>
+        <additional-files value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.30Jul143940.7744/netedit.gui/demandElements/vehicletype/load/mingaplat\additionals.xml"/>
+        <additionals-output value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.30Jul143940.7744/netedit.gui/demandElements/vehicletype/load/mingaplat\additionals.xml"/>
+        <route-files value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.30Jul143940.7744/netedit.gui/demandElements/vehicletype/load/mingaplat\routes.xml"/>
+        <demandelements-output value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.30Jul143940.7744/netedit.gui/demandElements/vehicletype/load/mingaplat\routes.xml"/>
     </netedit>
 
     <visualisation>
@@ -45,14 +45,15 @@
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.29Jul111621.4832/netedit.gui/demandElements/vehicletype/load/mingaplat\log.txt"/>
+        <error-log value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.30Jul143940.7744/netedit.gui/demandElements/vehicletype/load/mingaplat\log.txt"/>
     </report>
 
 </configuration>
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-    <vType id="vType1" minGapLat="-3.00"/>
+    <vType id="vType0"/>
+    <vType id="vType1"/>
     <vType id="vType2" minGapLat="0.00"/>
     <vType id="vType3" minGapLat="12.00"/>
     <vType id="vType4" minGapLat="4.50"/>
