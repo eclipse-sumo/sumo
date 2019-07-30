@@ -4,6 +4,7 @@ add_executable(testgeom
         PositionVectorTest.cpp
         GeomHelperTest.cpp
         )
+set_property(TARGET testgeom PROPERTY FOLDER "test_exe")
 add_test(NAME testgeom COMMAND $<TARGET_FILE:testgeom>)
 set_target_properties(testgeom PROPERTIES OUTPUT_NAME_DEBUG testgeomD)
 

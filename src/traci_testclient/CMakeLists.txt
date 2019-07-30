@@ -10,12 +10,14 @@ set_target_properties(TraCITestClient PROPERTIES OUTPUT_NAME_DEBUG TraCITestClie
 target_link_libraries(TraCITestClient utils_traci ${commonlibs})
 
 add_executable(testlibsumo testlibsumo_main.cpp)
+set_property(TARGET testlibsumo PROPERTY FOLDER "test_exe")
 set_target_properties(testlibsumo PROPERTIES OUTPUT_NAME testlibsumo${BINARY_SUFFIX})
 set_target_properties(testlibsumo PROPERTIES OUTPUT_NAME_DEBUG testlibsumo${BINARY_SUFFIX}D)
 target_link_libraries(testlibsumo libsumoc)
 add_test(libsumotest ${CMAKE_SOURCE_DIR}/bin/testlibsumo)
 
 add_executable(testlibsumostatic testlibsumo_main.cpp)
+set_property(TARGET testlibsumostatic PROPERTY FOLDER "test_exe")
 set_target_properties(testlibsumostatic PROPERTIES OUTPUT_NAME testlibsumostatic${BINARY_SUFFIX})
 set_target_properties(testlibsumostatic PROPERTIES OUTPUT_NAME_DEBUG testlibsumostatic${BINARY_SUFFIX}D)
 target_link_libraries(testlibsumostatic ${sumolibs} traciserver microsim_cfmodels microsim_devices microsim_engine microsim_lcmodels microsim_output)
