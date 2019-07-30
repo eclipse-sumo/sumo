@@ -63,6 +63,8 @@ elseif (MSVC)
     if (MULTITHREADED_BUILD)
         set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /MP")
     endif ()
+    # exporting symbols for shared libraries needs to enabled explicitly
+    set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS ON)
 endif ()
 
 # special debug flags
@@ -307,8 +309,8 @@ set(commonvehiclelibs
 set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 set_property(GLOBAL PROPERTY PREDEFINED_TARGETS_FOLDER "CMake")
 
-add_subdirectory(src)
 enable_testing()
+add_subdirectory(src)
 if (GTEST_FOUND)
     add_subdirectory(unittest)
 endif ()

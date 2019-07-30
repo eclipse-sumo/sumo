@@ -1,39 +1,50 @@
 set(libsumostatic_STAT_SRCS
-        Helper.cpp
-        Helper.h
-        InductionLoop.cpp
-        InductionLoop.h
-        Junction.cpp
-        Junction.h
-        Lane.cpp
-        Lane.h
-        LaneArea.cpp
-        LaneArea.h
-        MultiEntryExit.h
-        MultiEntryExit.cpp
-        Person.cpp
-        Person.h
-        POI.cpp
-        POI.h
-        Polygon.h
-        Polygon.cpp
-        Route.h
-        Route.cpp
-        Simulation.cpp
-        Simulation.h
-        Subscription.h
-        TraCIConstants.h
-        TraCIDefs.h
-        TrafficLight.cpp
-        TrafficLight.h
-        Vehicle.h
-        Vehicle.cpp
-        VehicleType.cpp
-        VehicleType.h
-        Edge.cpp Edge.h)
+    Edge.cpp
+    Edge.h
+    Helper.cpp
+    Helper.h
+    InductionLoop.cpp
+    InductionLoop.h
+    Junction.cpp
+    Junction.h
+    Lane.cpp
+    Lane.h
+    LaneArea.cpp
+    LaneArea.h
+    MultiEntryExit.h
+    MultiEntryExit.cpp
+    Person.cpp
+    Person.h
+    POI.cpp
+    POI.h
+    Polygon.h
+    Polygon.cpp
+    Route.h
+    Route.cpp
+    Simulation.cpp
+    Simulation.h
+    Subscription.h
+    TraCIConstants.h
+    TraCIDefs.h
+    TrafficLight.cpp
+    TrafficLight.h
+    Vehicle.cpp
+    Vehicle.h
+    VehicleType.cpp
+    VehicleType.h
+)
 
 add_library(libsumostatic STATIC ${libsumostatic_STAT_SRCS})
-set_property(TARGET libsumostatic PROPERTY FOLDER "libsumo")
+set_property(TARGET libsumostatic PROPERTY FOLDER "z_libsumo")
+
+add_library(libsumo SHARED ${libsumostatic_STAT_SRCS})
+set_property(TARGET libsumo PROPERTY FOLDER "z_libsumo")
+install(TARGETS libsumo DESTINATION lib)
+if (MSVC OR APPLE)
+    target_link_libraries(libsumo ${sumolibs})
+else ()
+    target_link_libraries(libsumo -Wl,--whole-archive ${sumolibs} -Wl,--no-whole-archive)
+endif()
 
 set(ENABLE_PYTHON_BINDINGS ON CACHE BOOL "Build Python Bindings")
 set(ENABLE_JAVA_BINDINGS ON CACHE BOOL "Build Java Bindings")
@@ -68,7 +79,7 @@ if(SWIG_FOUND)
                 COMMAND "${Java_JAR_EXECUTABLE}" -cfM ${CMAKE_SOURCE_DIR}/bin/libsumojni.jar -C classes .
                 COMMAND "${Java_JAR_EXECUTABLE}" -cfM ${CMAKE_SOURCE_DIR}/bin/libsumojni_src.jar -C java .
             )
-            set_property(TARGET libsumojni PROPERTY FOLDER "libsumo")
+            set_property(TARGET libsumojni PROPERTY FOLDER "z_libsumo")
         else()
             message(WARNING "ENABLE_JAVA_BINDINGS is set but Java or JNI was not found.")
         endif()
@@ -104,7 +115,7 @@ if(SWIG_FOUND)
             if (MSVC OR APPLE)
                 # disable python module for the debug build because virtually no one has a python debug dll to link against
                 set_property(TARGET ${SWIG_MODULE_libsumo_REAL_NAME} PROPERTY EXCLUDE_FROM_DEFAULT_BUILD_DEBUG TRUE)
-                set_property(TARGET ${SWIG_MODULE_libsumo_REAL_NAME} PROPERTY FOLDER "libsumo")
+                set_property(TARGET ${SWIG_MODULE_libsumo_REAL_NAME} PROPERTY FOLDER "z_libsumo")
                 swig_link_libraries(libsumo ${sumolibs} ${PYTHON_LIBRARIES})
             else()
                 swig_link_libraries(libsumo -Wl,--whole-archive ${sumolibs} -Wl,--no-whole-archive ${PYTHON_LIBRARIES})
