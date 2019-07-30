@@ -38,18 +38,18 @@
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
 
 	<!-- test stepping -->
-    <vType id="vType0" carFollowModel="XXX" stepping="dummy_stepping"/>
+    <vType id="vType0" carFollowModel="IDM" stepping="dummy_stepping"/>
 	
 	<!-- test stepping -->
-    <vType id="vType1" carFollowModel="XXX" stepping="-3"/>
+    <vType id="vType1" carFollowModel="IDM" stepping="-3"/>
 	
 	<!-- test stepping -->
-    <vType id="vType2" carFollowModel="XXX" stepping="0"/>
+    <vType id="vType2" carFollowModel="IDM" stepping="0"/>
 	
 	<!-- test stepping -->
-    <vType id="vType3" carFollowModel="XXX" stepping="12"/>
+    <vType id="vType3" carFollowModel="IDM" stepping="12"/>
 	
 	<!-- test stepping -->
-    <vType id="vType4" carFollowModel="XXX" stepping="4.5"/>
+    <vType id="vType4" carFollowModel="IDM" stepping="4.5"/>
 	
 </routes>

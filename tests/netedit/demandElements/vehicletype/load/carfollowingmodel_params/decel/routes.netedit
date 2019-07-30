@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 29.07.2019 14:04:58 by Eclipse SUMO netedit Version v1_2_0+1312-fdebf04520
+<!-- generated on 30.07.2019 10:56:56 by Eclipse SUMO netedit Version v1_2_0+1321-a8a1bbc0d6
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.29Jul140404.11084/netedit.gui/demandElements/vehicletype/load/decel\input_net.net.xml"/>
+        <sumo-net-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.6_from_30Jul101705.8776/netedit.gui/demandElements/vehicletype/load/carfollowingmodel_params/decel\input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.29Jul140404.11084/netedit.gui/demandElements/vehicletype/load/decel\net.net.xml"/>
+        <output-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.6_from_30Jul101705.8776/netedit.gui/demandElements/vehicletype/load/carfollowingmodel_params/decel\net.net.xml"/>
     </output>
 
     <processing>
@@ -29,10 +29,10 @@
     </pedestrian>
 
     <netedit>
-        <additional-files value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.29Jul140404.11084/netedit.gui/demandElements/vehicletype/load/decel\additionals.xml"/>
-        <additionals-output value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.29Jul140404.11084/netedit.gui/demandElements/vehicletype/load/decel\additionals.xml"/>
-        <route-files value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.29Jul140404.11084/netedit.gui/demandElements/vehicletype/load/decel\routes.xml"/>
-        <demandelements-output value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.29Jul140404.11084/netedit.gui/demandElements/vehicletype/load/decel\routes.xml"/>
+        <additional-files value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.6_from_30Jul101705.8776/netedit.gui/demandElements/vehicletype/load/carfollowingmodel_params/decel\additionals.xml"/>
+        <additionals-output value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.6_from_30Jul101705.8776/netedit.gui/demandElements/vehicletype/load/carfollowingmodel_params/decel\additionals.xml"/>
+        <route-files value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.6_from_30Jul101705.8776/netedit.gui/demandElements/vehicletype/load/carfollowingmodel_params/decel\routes.xml"/>
+        <demandelements-output value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.6_from_30Jul101705.8776/netedit.gui/demandElements/vehicletype/load/carfollowingmodel_params/decel\routes.xml"/>
     </netedit>
 
     <visualisation>
@@ -45,16 +45,16 @@
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.29Jul140404.11084/netedit.gui/demandElements/vehicletype/load/decel\log.txt"/>
+        <error-log value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.6_from_30Jul101705.8776/netedit.gui/demandElements/vehicletype/load/carfollowingmodel_params/decel\log.txt"/>
     </report>
 
 </configuration>
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-    <vType id="vType0" decel="dummyDecel"/>
-    <vType id="vType1" decel="-3"/>
-    <vType id="vType2" decel="0"/>
-    <vType id="vType3" decel="12"/>
-    <vType id="vType4" decel="4.5"/>
+    <vType id="vType0" carFollowModel="KraussPS" decel="dummyDecel"/>
+    <vType id="vType1" carFollowModel="KraussPS" decel="-3"/>
+    <vType id="vType2" carFollowModel="KraussPS" decel="0"/>
+    <vType id="vType3" carFollowModel="KraussPS" decel="12"/>
+    <vType id="vType4" carFollowModel="KraussPS" decel="4.5"/>
 </routes>

@@ -38,18 +38,18 @@
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
 
 	<!-- test gapControlGainSpeed -->
-    <vType id="vType0" carFollowModel="XXX" gapControlGainSpeed="dummy_gapControlGainSpeed"/>
+    <vType id="vType0" carFollowModel="ACC" gapControlGainSpeed="dummy_gapControlGainSpeed"/>
 	
 	<!-- test gapControlGainSpeed -->
-    <vType id="vType1" carFollowModel="XXX" gapControlGainSpeed="-3"/>
+    <vType id="vType1" carFollowModel="ACC" gapControlGainSpeed="-3"/>
 	
 	<!-- test gapControlGainSpeed -->
-    <vType id="vType2" carFollowModel="XXX" gapControlGainSpeed="0"/>
+    <vType id="vType2" carFollowModel="ACC" gapControlGainSpeed="0"/>
 	
 	<!-- test gapControlGainSpeed -->
-    <vType id="vType3" carFollowModel="XXX" gapControlGainSpeed="12"/>
+    <vType id="vType3" carFollowModel="ACC" gapControlGainSpeed="12"/>
 	
 	<!-- test gapControlGainSpeed -->
-    <vType id="vType4" carFollowModel="XXX" gapControlGainSpeed="4.5"/>
+    <vType id="vType4" carFollowModel="ACC" gapControlGainSpeed="4.5"/>
 	
 </routes>

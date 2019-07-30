@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 29.07.2019 14:05:29 by Eclipse SUMO netedit Version v1_2_0+1312-fdebf04520
+<!-- generated on 30.07.2019 10:57:33 by Eclipse SUMO netedit Version v1_2_0+1321-a8a1bbc0d6
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.29Jul140404.11084/netedit.gui/demandElements/vehicletype/load/sigma\input_net.net.xml"/>
+        <sumo-net-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.6_from_30Jul101705.8776/netedit.gui/demandElements/vehicletype/load/carfollowingmodel_params/sigma\input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.29Jul140404.11084/netedit.gui/demandElements/vehicletype/load/sigma\net.net.xml"/>
+        <output-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.6_from_30Jul101705.8776/netedit.gui/demandElements/vehicletype/load/carfollowingmodel_params/sigma\net.net.xml"/>
     </output>
 
     <processing>
@@ -29,10 +29,10 @@
     </pedestrian>
 
     <netedit>
-        <additional-files value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.29Jul140404.11084/netedit.gui/demandElements/vehicletype/load/sigma\additionals.xml"/>
-        <additionals-output value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.29Jul140404.11084/netedit.gui/demandElements/vehicletype/load/sigma\additionals.xml"/>
-        <route-files value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.29Jul140404.11084/netedit.gui/demandElements/vehicletype/load/sigma\routes.xml"/>
-        <demandelements-output value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.29Jul140404.11084/netedit.gui/demandElements/vehicletype/load/sigma\routes.xml"/>
+        <additional-files value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.6_from_30Jul101705.8776/netedit.gui/demandElements/vehicletype/load/carfollowingmodel_params/sigma\additionals.xml"/>
+        <additionals-output value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.6_from_30Jul101705.8776/netedit.gui/demandElements/vehicletype/load/carfollowingmodel_params/sigma\additionals.xml"/>
+        <route-files value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.6_from_30Jul101705.8776/netedit.gui/demandElements/vehicletype/load/carfollowingmodel_params/sigma\routes.xml"/>
+        <demandelements-output value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.6_from_30Jul101705.8776/netedit.gui/demandElements/vehicletype/load/carfollowingmodel_params/sigma\routes.xml"/>
     </netedit>
 
     <visualisation>
@@ -45,16 +45,16 @@
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.29Jul140404.11084/netedit.gui/demandElements/vehicletype/load/sigma\log.txt"/>
+        <error-log value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.6_from_30Jul101705.8776/netedit.gui/demandElements/vehicletype/load/carfollowingmodel_params/sigma\log.txt"/>
     </report>
 
 </configuration>
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-    <vType id="vType0" sigma="dummySigma"/>
-    <vType id="vType1" sigma="-3"/>
-    <vType id="vType2" sigma="0"/>
-    <vType id="vType3" sigma="12"/>
-    <vType id="vType4" sigma="4.5"/>
+    <vType id="vType0" carFollowModel="SmartSK" sigma="dummySigma"/>
+    <vType id="vType1" carFollowModel="SmartSK" sigma="-3"/>
+    <vType id="vType2" carFollowModel="SmartSK" sigma="0"/>
+    <vType id="vType3" carFollowModel="SmartSK" sigma="12"/>
+    <vType id="vType4" carFollowModel="SmartSK" sigma="4.5"/>
 </routes>

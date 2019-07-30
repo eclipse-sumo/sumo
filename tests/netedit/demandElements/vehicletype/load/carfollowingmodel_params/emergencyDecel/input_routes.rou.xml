@@ -38,18 +38,18 @@
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
 
 	<!-- test emergencyDecel -->
-    <vType id="vType0" carFollowModel="XXX" emergencyDecel="dummyEmergencyDecel"/>
+    <vType id="vType0" carFollowModel="KraussPS" emergencyDecel="dummyEmergencyDecel"/>
 	
 	<!-- test emergencyDecel -->
-    <vType id="vType1" carFollowModel="XXX" emergencyDecel="-3"/>
+    <vType id="vType1" carFollowModel="KraussPS" emergencyDecel="-3"/>
 	
 	<!-- test emergencyDecel -->
-    <vType id="vType2" carFollowModel="XXX" emergencyDecel="0"/>
+    <vType id="vType2" carFollowModel="KraussPS" emergencyDecel="0"/>
 	
 	<!-- test emergencyDecel -->
-    <vType id="vType3" carFollowModel="XXX" emergencyDecel="12"/>
+    <vType id="vType3" carFollowModel="KraussPS" emergencyDecel="12"/>
 	
 	<!-- test emergencyDecel -->
-    <vType id="vType4" carFollowModel="XXX" emergencyDecel="4.5"/>
+    <vType id="vType4" carFollowModel="KraussPS" emergencyDecel="4.5"/>
 	
 </routes>

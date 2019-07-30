@@ -38,18 +38,18 @@
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
 
 	<!-- test collisionAvoidanceGainSpace -->
-    <vType id="vType0" carFollowModel="XXX" collisionAvoidanceGainSpace="dummy_collisionAvoidanceGainSpace"/>
+    <vType id="vType0" carFollowModel="ACC" collisionAvoidanceGainSpace="dummy_collisionAvoidanceGainSpace"/>
 	
 	<!-- test collisionAvoidanceGainSpace -->
-    <vType id="vType1" carFollowModel="XXX" collisionAvoidanceGainSpace="-3"/>
+    <vType id="vType1" carFollowModel="ACC" collisionAvoidanceGainSpace="-3"/>
 	
 	<!-- test collisionAvoidanceGainSpace -->
-    <vType id="vType2" carFollowModel="XXX" collisionAvoidanceGainSpace="0"/>
+    <vType id="vType2" carFollowModel="ACC" collisionAvoidanceGainSpace="0"/>
 	
 	<!-- test collisionAvoidanceGainSpace -->
-    <vType id="vType3" carFollowModel="XXX" collisionAvoidanceGainSpace="12"/>
+    <vType id="vType3" carFollowModel="ACC" collisionAvoidanceGainSpace="12"/>
 	
 	<!-- test collisionAvoidanceGainSpace -->
-    <vType id="vType4" carFollowModel="XXX" collisionAvoidanceGainSpace="4.5"/>
+    <vType id="vType4" carFollowModel="ACC" collisionAvoidanceGainSpace="4.5"/>
 	
 </routes>

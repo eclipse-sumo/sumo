@@ -38,18 +38,18 @@
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
 
 	<!-- test apparentDecel -->
-    <vType id="vType0" carFollowModel="XXX" apparentDecel="dummyApparentAccel"/>
+    <vType id="vType0" carFollowModel="KraussOrig1" apparentDecel="dummyApparentAccel"/>
 	
 	<!-- test apparentDecel -->
-    <vType id="vType1" carFollowModel="XXX" apparentDecel="-3"/>
+    <vType id="vType1" carFollowModel="KraussOrig1" apparentDecel="-3"/>
 	
 	<!-- test apparentDecel -->
-    <vType id="vType2" carFollowModel="XXX" apparentDecel="0"/>
+    <vType id="vType2" carFollowModel="KraussOrig1" apparentDecel="0"/>
 	
 	<!-- test apparentDecel -->
-    <vType id="vType3" carFollowModel="XXX" apparentDecel="12"/>
+    <vType id="vType3" carFollowModel="KraussOrig1" apparentDecel="12"/>
 	
 	<!-- test apparentDecel -->
-    <vType id="vType4" carFollowModel="XXX" apparentDecel="4.5"/>
+    <vType id="vType4" carFollowModel="KraussOrig1" apparentDecel="4.5"/>
 	
 </routes>

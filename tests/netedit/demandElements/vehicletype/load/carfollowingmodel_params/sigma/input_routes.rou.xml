@@ -38,18 +38,18 @@
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
 
 	<!-- test sigma -->
-    <vType id="vType0" carFollowModel="XXX" sigma="dummySigma"/>
+    <vType id="vType0" carFollowModel="SmartSK" sigma="dummySigma"/>
 	
 	<!-- test sigma -->
-    <vType id="vType1" carFollowModel="XXX" sigma="-3"/>
+    <vType id="vType1" carFollowModel="SmartSK" sigma="-3"/>
 	
 	<!-- test sigma -->
-    <vType id="vType2" carFollowModel="XXX" sigma="0"/>
+    <vType id="vType2" carFollowModel="SmartSK" sigma="0"/>
 	
 	<!-- test sigma -->
-    <vType id="vType3" carFollowModel="XXX" sigma="12"/>
+    <vType id="vType3" carFollowModel="SmartSK" sigma="12"/>
 	
 	<!-- test sigma -->
-    <vType id="vType4" carFollowModel="XXX" sigma="4.5"/>
+    <vType id="vType4" carFollowModel="SmartSK" sigma="4.5"/>
 	
 </routes>

@@ -38,18 +38,18 @@
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
 
 	<!-- test estimation -->
-    <vType id="vType0" carFollowModel="XXX" estimation="dummy_estimation"/>
+    <vType id="vType0" carFollowModel="Wiedemann" estimation="dummy_estimation"/>
 	
 	<!-- test estimation -->
-    <vType id="vType1" carFollowModel="XXX" estimation="-3"/>
+    <vType id="vType1" carFollowModel="Wiedemann" estimation="-3"/>
 	
 	<!-- test estimation -->
-    <vType id="vType2" carFollowModel="XXX" estimation="0"/>
+    <vType id="vType2" carFollowModel="Wiedemann" estimation="0"/>
 	
 	<!-- test estimation -->
-    <vType id="vType3" carFollowModel="XXX" estimation="12"/>
+    <vType id="vType3" carFollowModel="Wiedemann" estimation="12"/>
 	
 	<!-- test estimation -->
-    <vType id="vType4" carFollowModel="XXX" estimation="4.5"/>
+    <vType id="vType4" carFollowModel="Wiedemann" estimation="4.5"/>
 	
 </routes>

@@ -44,6 +44,6 @@
     <vType id="vType1" emissionClass=""/>
 	
 	<!-- valid emissionClass -->
-    <vType id="vType2" emissionClass="PC_G_EU4"/>
+    <vType id="vType2" emissionClass="HDV_12_1"/>
 	
 </routes>

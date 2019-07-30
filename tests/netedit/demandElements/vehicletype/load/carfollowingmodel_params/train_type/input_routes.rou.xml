@@ -38,18 +38,18 @@
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
 
 	<!-- test trainType -->
-    <vType id="vType0" carFollowModel="XXX" trainType="dummy_trainType"/>
+    <vType id="vType0" carFollowModel="Rail" trainType="dummy_trainType"/>
 	
 	<!-- test trainType -->
-    <vType id="vType1" carFollowModel="XXX" trainType="-3"/>
+    <vType id="vType1" carFollowModel="Rail" trainType="-3"/>
 	
 	<!-- test trainType -->
-    <vType id="vType2" carFollowModel="XXX" trainType="0"/>
+    <vType id="vType2" carFollowModel="Rail" trainType="0"/>
 	
 	<!-- test trainType -->
-    <vType id="vType3" carFollowModel="XXX" trainType="12"/>
+    <vType id="vType3" carFollowModel="Rail" trainType="12"/>
 	
 	<!-- test trainType -->
-    <vType id="vType4" carFollowModel="XXX" trainType="4.5"/>
+    <vType id="vType4" carFollowModel="Rail" trainType="4.5"/>
 	
 </routes>

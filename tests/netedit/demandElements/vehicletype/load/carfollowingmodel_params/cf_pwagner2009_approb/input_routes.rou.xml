@@ -38,18 +38,18 @@
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
 
 	<!-- test apProb -->
-    <vType id="vType0" carFollowModel="XXX" apProb="dummy_apProb"/>
+    <vType id="vType0" carFollowModel="PWagner2009" apProb="dummy_apProb"/>
 	
 	<!-- test apProb -->
-    <vType id="vType1" carFollowModel="XXX" apProb="-3"/>
+    <vType id="vType1" carFollowModel="PWagner2009" apProb="-3"/>
 	
 	<!-- test apProb -->
-    <vType id="vType2" carFollowModel="XXX" apProb="0"/>
+    <vType id="vType2" carFollowModel="PWagner2009" apProb="0"/>
 	
 	<!-- test apProb -->
-    <vType id="vType3" carFollowModel="XXX" apProb="12"/>
+    <vType id="vType3" carFollowModel="PWagner2009" apProb="12"/>
 	
 	<!-- test apProb -->
-    <vType id="vType4" carFollowModel="XXX" apProb="4.5"/>
+    <vType id="vType4" carFollowModel="PWagner2009" apProb="4.5"/>
 	
 </routes>
