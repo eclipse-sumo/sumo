@@ -37,19 +37,19 @@
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
 
-	<!-- non valid estimation -->
-    <vType id="vType0" estimation="dummy_estimation"/>
+	<!-- test estimation -->
+    <vType id="vType0" carFollowModel="XXX" estimation="dummy_estimation"/>
 	
-	<!-- non valid estimation -->
-    <vType id="vType1" estimation="-3"/>
+	<!-- test estimation -->
+    <vType id="vType1" carFollowModel="XXX" estimation="-3"/>
 	
-	<!-- valid estimation -->
-    <vType id="vType2" estimation="0"/>
+	<!-- test estimation -->
+    <vType id="vType2" carFollowModel="XXX" estimation="0"/>
 	
-	<!-- valid estimation -->
-    <vType id="vType3" estimation="12"/>
+	<!-- test estimation -->
+    <vType id="vType3" carFollowModel="XXX" estimation="12"/>
 	
-	<!-- valid estimation -->
-    <vType id="vType4" estimation="4.5"/>
+	<!-- test estimation -->
+    <vType id="vType4" carFollowModel="XXX" estimation="4.5"/>
 	
 </routes>

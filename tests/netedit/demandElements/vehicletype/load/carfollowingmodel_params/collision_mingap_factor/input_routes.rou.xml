@@ -37,19 +37,19 @@
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
 
-	<!-- non valid collisionMinGapFactor -->
-    <vType id="vType0" collisionMinGapFactor="dummy_collisionMinGapFactor"/>
+	<!-- test collisionMinGapFactor -->
+    <vType id="vType0" carFollowModel="XXX" collisionMinGapFactor="dummy_collisionMinGapFactor"/>
 	
-	<!-- non valid collisionMinGapFactor -->
-    <vType id="vType1" collisionMinGapFactor="-3"/>
+	<!-- test collisionMinGapFactor -->
+    <vType id="vType1" carFollowModel="XXX" collisionMinGapFactor="-3"/>
 	
-	<!-- valid collisionMinGapFactor -->
-    <vType id="vType2" collisionMinGapFactor="0"/>
+	<!-- test collisionMinGapFactor -->
+    <vType id="vType2" carFollowModel="XXX" collisionMinGapFactor="0"/>
 	
-	<!-- valid collisionMinGapFactor -->
-    <vType id="vType3" collisionMinGapFactor="12"/>
+	<!-- test collisionMinGapFactor -->
+    <vType id="vType3" carFollowModel="XXX" collisionMinGapFactor="12"/>
 	
-	<!-- valid collisionMinGapFactor -->
-    <vType id="vType4" collisionMinGapFactor="4.5"/>
+	<!-- test collisionMinGapFactor -->
+    <vType id="vType4" carFollowModel="XXX" collisionMinGapFactor="4.5"/>
 	
 </routes>

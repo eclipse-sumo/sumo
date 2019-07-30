@@ -37,19 +37,19 @@
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
 
-	<!-- non valid decel -->
-    <vType id="vType0" decel="dummyDecel"/>
+	<!-- test decel -->
+    <vType id="vType0" carFollowModel="XXX" decel="dummyDecel"/>
 	
-	<!-- non valid decel -->
-    <vType id="vType1" decel="-3"/>
+	<!-- test decel -->
+    <vType id="vType1" carFollowModel="XXX" decel="-3"/>
 	
-	<!-- valid decel -->
-    <vType id="vType2" decel="0"/>
+	<!-- test decel -->
+    <vType id="vType2" carFollowModel="XXX" decel="0"/>
 	
-	<!-- valid decel -->
-    <vType id="vType3" decel="12"/>
+	<!-- test decel -->
+    <vType id="vType3" carFollowModel="XXX" decel="12"/>
 	
-	<!-- valid decel -->
-    <vType id="vType4" decel="4.5"/>
+	<!-- test decel -->
+    <vType id="vType4" carFollowModel="XXX" decel="4.5"/>
 	
 </routes>

@@ -37,19 +37,19 @@
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
 
-	<!-- non valid collisionAvoidanceGainSpeed -->
-    <vType id="vType0" collisionAvoidanceGainSpeed="dummy_collisionAvoidanceGainSpeed"/>
+	<!-- test collisionAvoidanceGainSpeed -->
+    <vType id="vType0" carFollowModel="XXX" collisionAvoidanceGainSpeed="dummy_collisionAvoidanceGainSpeed"/>
 	
-	<!-- non valid collisionAvoidanceGainSpeed -->
-    <vType id="vType1" collisionAvoidanceGainSpeed="-3"/>
+	<!-- test collisionAvoidanceGainSpeed -->
+    <vType id="vType1" carFollowModel="XXX" collisionAvoidanceGainSpeed="-3"/>
 	
-	<!-- valid collisionAvoidanceGainSpeed -->
-    <vType id="vType2" collisionAvoidanceGainSpeed="0"/>
+	<!-- test collisionAvoidanceGainSpeed -->
+    <vType id="vType2" carFollowModel="XXX" collisionAvoidanceGainSpeed="0"/>
 	
-	<!-- valid collisionAvoidanceGainSpeed -->
-    <vType id="vType3" collisionAvoidanceGainSpeed="12"/>
+	<!-- test collisionAvoidanceGainSpeed -->
+    <vType id="vType3" carFollowModel="XXX" collisionAvoidanceGainSpeed="12"/>
 	
-	<!-- valid collisionAvoidanceGainSpeed -->
-    <vType id="vType4" collisionAvoidanceGainSpeed="4.5"/>
+	<!-- test collisionAvoidanceGainSpeed -->
+    <vType id="vType4" carFollowModel="XXX" collisionAvoidanceGainSpeed="4.5"/>
 	
 </routes>

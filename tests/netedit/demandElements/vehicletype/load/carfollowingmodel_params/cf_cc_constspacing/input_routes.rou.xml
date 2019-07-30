@@ -37,19 +37,19 @@
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
 
-	<!-- non valid constSpacing -->
-    <vType id="vType0" constSpacing="dummy_constSpacing"/>
+	<!-- test constSpacing -->
+    <vType id="vType0" carFollowModel="CC" constSpacing="dummy_constSpacing"/>
 	
-	<!-- non valid constSpacing -->
-    <vType id="vType1" constSpacing="-3"/>
+	<!-- test constSpacing -->
+    <vType id="vType1" carFollowModel="CC" constSpacing="-3"/>
 	
-	<!-- valid constSpacing -->
-    <vType id="vType2" constSpacing="0"/>
+	<!-- test constSpacing -->
+    <vType id="vType2" carFollowModel="CC" constSpacing="0"/>
 	
-	<!-- valid constSpacing -->
-    <vType id="vType3" constSpacing="12"/>
+	<!-- test constSpacing -->
+    <vType id="vType3" carFollowModel="CC" constSpacing="12"/>
 	
-	<!-- valid constSpacing -->
-    <vType id="vType4" constSpacing="4.5"/>
+	<!-- test constSpacing -->
+    <vType id="vType4" carFollowModel="CC" constSpacing="4.5"/>
 	
 </routes>

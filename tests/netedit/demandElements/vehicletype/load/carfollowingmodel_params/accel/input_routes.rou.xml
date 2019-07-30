@@ -37,19 +37,19 @@
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
 
-	<!-- non valid accel -->
-    <vType id="vType0" accel="dummyAccel"/>
+	<!-- test accel -->
+    <vType id="vType0" carFollowModel="XXX" accel="dummyAccel"/>
 	
-	<!-- non valid accel -->
-    <vType id="vType1" accel="-3"/>
+	<!-- test accel -->
+    <vType id="vType1" carFollowModel="XXX" accel="-3"/>
 	
-	<!-- valid accel -->
-    <vType id="vType2" accel="0"/>
+	<!-- test accel -->
+    <vType id="vType2" carFollowModel="XXX" accel="0"/>
 	
-	<!-- valid accel -->
-    <vType id="vType3" accel="12"/>
+	<!-- test accel -->
+    <vType id="vType3" carFollowModel="XXX" accel="12"/>
 	
-	<!-- valid accel -->
-    <vType id="vType4" accel="4.5"/>
+	<!-- test accel -->
+    <vType id="vType4" carFollowModel="XXX" accel="4.5"/>
 	
 </routes>

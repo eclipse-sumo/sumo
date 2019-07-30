@@ -37,19 +37,19 @@
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
 
-	<!-- non valid tmp4 -->
-    <vType id="vType0" tmp4="dummy_tmp4"/>
+	<!-- test tmp4 -->
+    <vType id="vType0" carFollowModel="Daniel1" tmp4="dummy_tmp4"/>
 	
-	<!-- non valid tmp4 -->
-    <vType id="vType1" tmp4="-3"/>
+	<!-- test tmp4 -->
+    <vType id="vType1" carFollowModel="Daniel1" tmp4="-3"/>
 	
-	<!-- valid tmp4 -->
-    <vType id="vType2" tmp4="0"/>
+	<!-- test tmp4 -->
+    <vType id="vType2" carFollowModel="Daniel1" tmp4="0"/>
 	
-	<!-- valid tmp4 -->
-    <vType id="vType3" tmp4="12"/>
+	<!-- test tmp4 -->
+    <vType id="vType3" carFollowModel="Daniel1" tmp4="12"/>
 	
-	<!-- valid tmp4 -->
-    <vType id="vType4" tmp4="4.5"/>
+	<!-- test tmp4 -->
+    <vType id="vType4" carFollowModel="Daniel1" tmp4="4.5"/>
 	
 </routes>

@@ -37,19 +37,19 @@
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
 
-	<!-- non valid tauLast -->
-    <vType id="vType0" tauLast="dummy_tauLast"/>
+	<!-- test tauLast -->
+    <vType id="vType0" carFollowModel="XXX" tauLast="dummy_tauLast"/>
 	
-	<!-- non valid tauLast -->
-    <vType id="vType1" tauLast="-3"/>
+	<!-- test tauLast -->
+    <vType id="vType1" carFollowModel="XXX" tauLast="-3"/>
 	
-	<!-- valid tauLast -->
-    <vType id="vType2" tauLast="0"/>
+	<!-- test tauLast -->
+    <vType id="vType2" carFollowModel="XXX" tauLast="0"/>
 	
-	<!-- valid tauLast -->
-    <vType id="vType3" tauLast="12"/>
+	<!-- test tauLast -->
+    <vType id="vType3" carFollowModel="XXX" tauLast="12"/>
 	
-	<!-- valid tauLast -->
-    <vType id="vType4" tauLast="4.5"/>
+	<!-- test tauLast -->
+    <vType id="vType4" carFollowModel="XXX" tauLast="4.5"/>
 	
 </routes>

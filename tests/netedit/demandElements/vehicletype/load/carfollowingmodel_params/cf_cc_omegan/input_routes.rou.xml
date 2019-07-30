@@ -37,19 +37,19 @@
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
 
-	<!-- non valid omegaN -->
-    <vType id="vType0" omegaN="dummy_omegaN"/>
+	<!-- test omegaN -->
+    <vType id="vType0" carFollowModel="CC" omegaN="dummy_omegaN"/>
 	
-	<!-- non valid omegaN -->
-    <vType id="vType1" omegaN="-3"/>
+	<!-- test omegaN -->
+    <vType id="vType1" carFollowModel="CC" omegaN="-3"/>
 	
-	<!-- valid omegaN -->
-    <vType id="vType2" omegaN="0"/>
+	<!-- test omegaN -->
+    <vType id="vType2" carFollowModel="CC" omegaN="0"/>
 	
-	<!-- valid omegaN -->
-    <vType id="vType3" omegaN="12"/>
+	<!-- test omegaN -->
+    <vType id="vType3" carFollowModel="CC" omegaN="12"/>
 	
-	<!-- valid omegaN -->
-    <vType id="vType4" omegaN="4.5"/>
+	<!-- test omegaN -->
+    <vType id="vType4" carFollowModel="CC" omegaN="4.5"/>
 	
 </routes>

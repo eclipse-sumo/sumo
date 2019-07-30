@@ -37,19 +37,19 @@
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
 
-	<!-- non valid collisionAvoidanceGainGapDot -->
-    <vType id="vType0" collisionAvoidanceGainGapDot="dummy_collisionAvoidanceGainGapDot"/>
+	<!-- test collisionAvoidanceGainGapDot -->
+    <vType id="vType0" carFollowModel="CACC" collisionAvoidanceGainGapDot="dummy_collisionAvoidanceGainGapDot"/>
 	
-	<!-- non valid collisionAvoidanceGainGapDot -->
-    <vType id="vType1" collisionAvoidanceGainGapDot="-3"/>
+	<!-- test collisionAvoidanceGainGapDot -->
+    <vType id="vType1" carFollowModel="CACC" collisionAvoidanceGainGapDot="-3"/>
 	
-	<!-- valid collisionAvoidanceGainGapDot -->
-    <vType id="vType2" collisionAvoidanceGainGapDot="0"/>
+	<!-- test collisionAvoidanceGainGapDot -->
+    <vType id="vType2" carFollowModel="CACC" collisionAvoidanceGainGapDot="0"/>
 	
-	<!-- valid collisionAvoidanceGainGapDot -->
-    <vType id="vType3" collisionAvoidanceGainGapDot="12"/>
+	<!-- test collisionAvoidanceGainGapDot -->
+    <vType id="vType3" carFollowModel="CACC" collisionAvoidanceGainGapDot="12"/>
 	
-	<!-- valid collisionAvoidanceGainGapDot -->
-    <vType id="vType4" collisionAvoidanceGainGapDot="4.5"/>
+	<!-- test collisionAvoidanceGainGapDot -->
+    <vType id="vType4" carFollowModel="CACC" collisionAvoidanceGainGapDot="4.5"/>
 	
 </routes>

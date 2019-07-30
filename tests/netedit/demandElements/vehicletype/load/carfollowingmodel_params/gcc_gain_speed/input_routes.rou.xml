@@ -37,19 +37,19 @@
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
 
-	<!-- non valid gapClosingControlGainSpeed -->
-    <vType id="vType0" gapClosingControlGainSpeed="dummy_gapClosingControlGainSpeed"/>
+	<!-- test gapClosingControlGainSpeed -->
+    <vType id="vType0" carFollowModel="ACC" gapClosingControlGainSpeed="dummy_gapClosingControlGainSpeed"/>
 	
-	<!-- non valid gapClosingControlGainSpeed -->
-    <vType id="vType1" gapClosingControlGainSpeed="-3"/>
+	<!-- test gapClosingControlGainSpeed -->
+    <vType id="vType1" carFollowModel="ACC" gapClosingControlGainSpeed="-3"/>
 	
-	<!-- valid gapClosingControlGainSpeed -->
-    <vType id="vType2" gapClosingControlGainSpeed="0"/>
+	<!-- test gapClosingControlGainSpeed -->
+    <vType id="vType2" carFollowModel="ACC" gapClosingControlGainSpeed="0"/>
 	
-	<!-- valid gapClosingControlGainSpeed -->
-    <vType id="vType3" gapClosingControlGainSpeed="12"/>
+	<!-- test gapClosingControlGainSpeed -->
+    <vType id="vType3" carFollowModel="ACC" gapClosingControlGainSpeed="12"/>
 	
-	<!-- valid gapClosingControlGainSpeed -->
-    <vType id="vType4" gapClosingControlGainSpeed="4.5"/>
+	<!-- test gapClosingControlGainSpeed -->
+    <vType id="vType4" carFollowModel="ACC" gapClosingControlGainSpeed="4.5"/>
 	
 </routes>

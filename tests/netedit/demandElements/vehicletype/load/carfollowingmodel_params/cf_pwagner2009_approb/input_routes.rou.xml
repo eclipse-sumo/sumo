@@ -37,19 +37,19 @@
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
 
-	<!-- non valid apProb -->
-    <vType id="vType0" apProb="dummy_apProb"/>
+	<!-- test apProb -->
+    <vType id="vType0" carFollowModel="XXX" apProb="dummy_apProb"/>
 	
-	<!-- non valid apProb -->
-    <vType id="vType1" apProb="-3"/>
+	<!-- test apProb -->
+    <vType id="vType1" carFollowModel="XXX" apProb="-3"/>
 	
-	<!-- valid apProb -->
-    <vType id="vType2" apProb="0"/>
+	<!-- test apProb -->
+    <vType id="vType2" carFollowModel="XXX" apProb="0"/>
 	
-	<!-- valid apProb -->
-    <vType id="vType3" apProb="12"/>
+	<!-- test apProb -->
+    <vType id="vType3" carFollowModel="XXX" apProb="12"/>
 	
-	<!-- valid apProb -->
-    <vType id="vType4" apProb="4.5"/>
+	<!-- test apProb -->
+    <vType id="vType4" carFollowModel="XXX" apProb="4.5"/>
 	
 </routes>

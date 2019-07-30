@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 29.07.2019 14:00:09 by Eclipse SUMO netedit Version v1_2_0+1312-fdebf04520
+<!-- generated on 30.07.2019 08:40:00 by Eclipse SUMO netedit Version v1_2_0+1318-f94958c8f9
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.1_from_29Jul134815.3164/netedit.gui/demandElements/vehicletype/load/tau\input_net.net.xml"/>
+        <sumo-net-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.1_from_30Jul082002.7160/netedit.gui/demandElements/vehicletype/load/carfollowingmodel_params/cf_cc_flatbed_ka\input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.1_from_29Jul134815.3164/netedit.gui/demandElements/vehicletype/load/tau\net.net.xml"/>
+        <output-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.1_from_30Jul082002.7160/netedit.gui/demandElements/vehicletype/load/carfollowingmodel_params/cf_cc_flatbed_ka\net.net.xml"/>
     </output>
 
     <processing>
@@ -29,10 +29,10 @@
     </pedestrian>
 
     <netedit>
-        <additional-files value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.1_from_29Jul134815.3164/netedit.gui/demandElements/vehicletype/load/tau\additionals.xml"/>
-        <additionals-output value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.1_from_29Jul134815.3164/netedit.gui/demandElements/vehicletype/load/tau\additionals.xml"/>
-        <route-files value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.1_from_29Jul134815.3164/netedit.gui/demandElements/vehicletype/load/tau\routes.xml"/>
-        <demandelements-output value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.1_from_29Jul134815.3164/netedit.gui/demandElements/vehicletype/load/tau\routes.xml"/>
+        <additional-files value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.1_from_30Jul082002.7160/netedit.gui/demandElements/vehicletype/load/carfollowingmodel_params/cf_cc_flatbed_ka\additionals.xml"/>
+        <additionals-output value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.1_from_30Jul082002.7160/netedit.gui/demandElements/vehicletype/load/carfollowingmodel_params/cf_cc_flatbed_ka\additionals.xml"/>
+        <route-files value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.1_from_30Jul082002.7160/netedit.gui/demandElements/vehicletype/load/carfollowingmodel_params/cf_cc_flatbed_ka\routes.xml"/>
+        <demandelements-output value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.1_from_30Jul082002.7160/netedit.gui/demandElements/vehicletype/load/carfollowingmodel_params/cf_cc_flatbed_ka\routes.xml"/>
     </netedit>
 
     <visualisation>
@@ -45,16 +45,16 @@
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.1_from_29Jul134815.3164/netedit.gui/demandElements/vehicletype/load/tau\log.txt"/>
+        <error-log value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.1_from_30Jul082002.7160/netedit.gui/demandElements/vehicletype/load/carfollowingmodel_params/cf_cc_flatbed_ka\log.txt"/>
     </report>
 
 </configuration>
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-    <vType id="vType0" tau="dummyTau"/>
-    <vType id="vType1" tau="-3"/>
-    <vType id="vType2" tau="0"/>
-    <vType id="vType3" tau="12"/>
-    <vType id="vType4" tau="4.5"/>
+    <vType id="vType0" carFollowModel="CC" flatbedKa="dummy_flatbedKa"/>
+    <vType id="vType1" carFollowModel="CC" flatbedKa="-3"/>
+    <vType id="vType2" carFollowModel="CC" flatbedKa="0"/>
+    <vType id="vType3" carFollowModel="CC" flatbedKa="12"/>
+    <vType id="vType4" carFollowModel="CC" flatbedKa="4.5"/>
 </routes>

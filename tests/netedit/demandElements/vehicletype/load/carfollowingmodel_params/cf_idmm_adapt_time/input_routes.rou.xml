@@ -37,19 +37,19 @@
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
 
-	<!-- non valid adaptTime -->
-    <vType id="vType0" adaptTime="dummy_adaptTime"/>
+	<!-- test adaptTime -->
+    <vType id="vType0" carFollowModel="XXX" adaptTime="dummy_adaptTime"/>
 	
-	<!-- non valid adaptTime -->
-    <vType id="vType1" adaptTime="-3"/>
+	<!-- test adaptTime -->
+    <vType id="vType1" carFollowModel="XXX" adaptTime="-3"/>
 	
-	<!-- valid adaptTime -->
-    <vType id="vType2" adaptTime="0"/>
+	<!-- test adaptTime -->
+    <vType id="vType2" carFollowModel="XXX" adaptTime="0"/>
 	
-	<!-- valid adaptTime -->
-    <vType id="vType3" adaptTime="12"/>
+	<!-- test adaptTime -->
+    <vType id="vType3" carFollowModel="XXX" adaptTime="12"/>
 	
-	<!-- valid adaptTime -->
-    <vType id="vType4" adaptTime="4.5"/>
+	<!-- test adaptTime -->
+    <vType id="vType4" carFollowModel="XXX" adaptTime="4.5"/>
 	
 </routes>

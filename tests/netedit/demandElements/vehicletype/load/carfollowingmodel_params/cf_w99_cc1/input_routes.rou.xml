@@ -37,19 +37,19 @@
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
 
-	<!-- non valid cc1 -->
-    <vType id="vType0" cc1="dummy_cc1"/>
+	<!-- test cc1 -->
+    <vType id="vType0" carFollowModel="W99" cc1="dummy_cc1"/>
 	
-	<!-- non valid cc1 -->
-    <vType id="vType1" cc1="-3"/>
+	<!-- test cc1 -->
+    <vType id="vType1" carFollowModel="W99" cc1="-3"/>
 	
-	<!-- valid cc1 -->
-    <vType id="vType2" cc1="0"/>
+	<!-- test cc1 -->
+    <vType id="vType2" carFollowModel="W99" cc1="0"/>
 	
-	<!-- valid cc1 -->
-    <vType id="vType3" cc1="12"/>
+	<!-- test cc1 -->
+    <vType id="vType3" carFollowModel="W99" cc1="12"/>
 	
-	<!-- valid cc1 -->
-    <vType id="vType4" cc1="4.5"/>
+	<!-- test cc1 -->
+    <vType id="vType4" carFollowModel="W99" cc1="4.5"/>
 	
 </routes>

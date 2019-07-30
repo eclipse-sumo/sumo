@@ -37,19 +37,19 @@
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
 
-	<!-- non valid security -->
-    <vType id="vType0" security="dummy_security"/>
+	<!-- test security -->
+    <vType id="vType0" carFollowModel="XXX" security="dummy_security"/>
 	
-	<!-- non valid security -->
-    <vType id="vType1" security="-3"/>
+	<!-- test security -->
+    <vType id="vType1" carFollowModel="XXX" security="-3"/>
 	
-	<!-- valid security -->
-    <vType id="vType2" security="0"/>
+	<!-- test security -->
+    <vType id="vType2" carFollowModel="XXX" security="0"/>
 	
-	<!-- valid security -->
-    <vType id="vType3" security="12"/>
+	<!-- test security -->
+    <vType id="vType3" carFollowModel="XXX" security="12"/>
 	
-	<!-- valid security -->
-    <vType id="vType4" security="4.5"/>
+	<!-- test security -->
+    <vType id="vType4" carFollowModel="XXX" security="4.5"/>
 	
 </routes>

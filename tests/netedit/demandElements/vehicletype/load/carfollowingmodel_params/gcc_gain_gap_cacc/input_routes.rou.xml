@@ -37,19 +37,19 @@
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
 
-	<!-- non valid gapClosingControlGainGap -->
-    <vType id="vType0" gapClosingControlGainGap="dummy_gapClosingControlGainGap"/>
+	<!-- test gapClosingControlGainGap -->
+    <vType id="vType0" carFollowModel="CACC" gapClosingControlGainGap="dummy_gapClosingControlGainGap"/>
 	
-	<!-- non valid gapClosingControlGainGap -->
-    <vType id="vType1" gapClosingControlGainGap="-3"/>
+	<!-- test gapClosingControlGainGap -->
+    <vType id="vType1" carFollowModel="CACC" gapClosingControlGainGap="-3"/>
 	
-	<!-- valid gapClosingControlGainGap -->
-    <vType id="vType2" gapClosingControlGainGap="0"/>
+	<!-- test gapClosingControlGainGap -->
+    <vType id="vType2" carFollowModel="CACC" gapClosingControlGainGap="0"/>
 	
-	<!-- valid gapClosingControlGainGap -->
-    <vType id="vType3" gapClosingControlGainGap="12"/>
+	<!-- test gapClosingControlGainGap -->
+    <vType id="vType3" carFollowModel="CACC" gapClosingControlGainGap="12"/>
 	
-	<!-- valid gapClosingControlGainGap -->
-    <vType id="vType4" gapClosingControlGainGap="4.5"/>
+	<!-- test gapClosingControlGainGap -->
+    <vType id="vType4" carFollowModel="CACC" gapClosingControlGainGap="4.5"/>
 	
 </routes>

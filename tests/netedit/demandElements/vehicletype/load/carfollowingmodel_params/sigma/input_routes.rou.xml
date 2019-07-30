@@ -37,19 +37,19 @@
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
 
-	<!-- non valid sigma -->
-    <vType id="vType0" sigma="dummySigma"/>
+	<!-- test sigma -->
+    <vType id="vType0" carFollowModel="XXX" sigma="dummySigma"/>
 	
-	<!-- non valid sigma -->
-    <vType id="vType1" sigma="-3"/>
+	<!-- test sigma -->
+    <vType id="vType1" carFollowModel="XXX" sigma="-3"/>
 	
-	<!-- valid sigma -->
-    <vType id="vType2" sigma="0"/>
+	<!-- test sigma -->
+    <vType id="vType2" carFollowModel="XXX" sigma="0"/>
 	
-	<!-- valid sigma -->
-    <vType id="vType3" sigma="12"/>
+	<!-- test sigma -->
+    <vType id="vType3" carFollowModel="XXX" sigma="12"/>
 	
-	<!-- valid sigma -->
-    <vType id="vType4" sigma="4.5"/>
+	<!-- test sigma -->
+    <vType id="vType4" carFollowModel="XXX" sigma="4.5"/>
 	
 </routes>

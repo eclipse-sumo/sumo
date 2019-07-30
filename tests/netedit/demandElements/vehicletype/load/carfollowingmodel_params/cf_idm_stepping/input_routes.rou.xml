@@ -37,19 +37,19 @@
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
 
-	<!-- non valid stepping -->
-    <vType id="vType0" stepping="dummy_stepping"/>
+	<!-- test stepping -->
+    <vType id="vType0" carFollowModel="XXX" stepping="dummy_stepping"/>
 	
-	<!-- non valid stepping -->
-    <vType id="vType1" stepping="-3"/>
+	<!-- test stepping -->
+    <vType id="vType1" carFollowModel="XXX" stepping="-3"/>
 	
-	<!-- valid stepping -->
-    <vType id="vType2" stepping="0"/>
+	<!-- test stepping -->
+    <vType id="vType2" carFollowModel="XXX" stepping="0"/>
 	
-	<!-- valid stepping -->
-    <vType id="vType3" stepping="12"/>
+	<!-- test stepping -->
+    <vType id="vType3" carFollowModel="XXX" stepping="12"/>
 	
-	<!-- valid stepping -->
-    <vType id="vType4" stepping="4.5"/>
+	<!-- test stepping -->
+    <vType id="vType4" carFollowModel="XXX" stepping="4.5"/>
 	
 </routes>

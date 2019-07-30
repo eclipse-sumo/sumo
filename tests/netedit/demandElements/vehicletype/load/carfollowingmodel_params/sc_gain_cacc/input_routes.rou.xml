@@ -37,19 +37,19 @@
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
 
-	<!-- non valid speedControlGainCACC -->
-    <vType id="vType0" speedControlGainCACC="dummy_speedControlGainCACC"/>
+	<!-- test speedControlGainCACC -->
+    <vType id="vType0" carFollowModel="CACC" speedControlGainCACC="dummy_speedControlGainCACC"/>
 	
-	<!-- non valid speedControlGainCACC -->
-    <vType id="vType1" speedControlGainCACC="-3"/>
+	<!-- test speedControlGainCACC -->
+    <vType id="vType1" carFollowModel="CACC" speedControlGainCACC="-3"/>
 	
-	<!-- valid speedControlGainCACC -->
-    <vType id="vType2" speedControlGainCACC="0"/>
+	<!-- test speedControlGainCACC -->
+    <vType id="vType2" carFollowModel="CACC" speedControlGainCACC="0"/>
 	
-	<!-- valid speedControlGainCACC -->
-    <vType id="vType3" speedControlGainCACC="12"/>
+	<!-- test speedControlGainCACC -->
+    <vType id="vType3" carFollowModel="CACC" speedControlGainCACC="12"/>
 	
-	<!-- valid speedControlGainCACC -->
-    <vType id="vType4" speedControlGainCACC="4.5"/>
+	<!-- test speedControlGainCACC -->
+    <vType id="vType4" carFollowModel="CACC" speedControlGainCACC="4.5"/>
 	
 </routes>

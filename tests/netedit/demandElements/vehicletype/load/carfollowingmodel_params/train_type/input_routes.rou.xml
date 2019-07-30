@@ -37,19 +37,19 @@
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
 
-	<!-- non valid trainType -->
-    <vType id="vType0" trainType="dummy_trainType"/>
+	<!-- test trainType -->
+    <vType id="vType0" carFollowModel="XXX" trainType="dummy_trainType"/>
 	
-	<!-- non valid trainType -->
-    <vType id="vType1" trainType="-3"/>
+	<!-- test trainType -->
+    <vType id="vType1" carFollowModel="XXX" trainType="-3"/>
 	
-	<!-- valid trainType -->
-    <vType id="vType2" trainType="0"/>
+	<!-- test trainType -->
+    <vType id="vType2" carFollowModel="XXX" trainType="0"/>
 	
-	<!-- valid trainType -->
-    <vType id="vType3" trainType="12"/>
+	<!-- test trainType -->
+    <vType id="vType3" carFollowModel="XXX" trainType="12"/>
 	
-	<!-- valid trainType -->
-    <vType id="vType4" trainType="4.5"/>
+	<!-- test trainType -->
+    <vType id="vType4" carFollowModel="XXX" trainType="4.5"/>
 	
 </routes>

@@ -37,19 +37,19 @@
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
 
-	<!-- non valid flatbedKp -->
-    <vType id="vType0" flatbedKp="dummy_flatbedKp"/>
+	<!-- test flatbedKp -->
+    <vType id="vType0" carFollowModel="CC" flatbedKp="dummy_flatbedKp"/>
 	
-	<!-- non valid flatbedKp -->
-    <vType id="vType1" flatbedKp="-3"/>
+	<!-- test flatbedKp -->
+    <vType id="vType1" carFollowModel="CC" flatbedKp="-3"/>
 	
-	<!-- valid flatbedKp -->
-    <vType id="vType2" flatbedKp="0"/>
+	<!-- test flatbedKp -->
+    <vType id="vType2" carFollowModel="CC" flatbedKp="0"/>
 	
-	<!-- valid flatbedKp -->
-    <vType id="vType3" flatbedKp="12"/>
+	<!-- test flatbedKp -->
+    <vType id="vType3" carFollowModel="CC" flatbedKp="12"/>
 	
-	<!-- valid flatbedKp -->
-    <vType id="vType4" flatbedKp="4.5"/>
+	<!-- test flatbedKp -->
+    <vType id="vType4" carFollowModel="CC" flatbedKp="4.5"/>
 	
 </routes>

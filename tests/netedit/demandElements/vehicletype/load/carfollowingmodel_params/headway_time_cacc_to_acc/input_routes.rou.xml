@@ -37,19 +37,19 @@
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
 
-	<!-- non valid tauCACCToACC -->
-    <vType id="vType0" tauCACCToACC="dummy_tauCACCToACC"/>
+	<!-- test tauCACCToACC -->
+    <vType id="vType0" carFollowModel="CACC" tauCACCToACC="dummy_tauCACCToACC"/>
 	
-	<!-- non valid tauCACCToACC -->
-    <vType id="vType1" tauCACCToACC="-3"/>
+	<!-- test tauCACCToACC -->
+    <vType id="vType1" carFollowModel="CACC" tauCACCToACC="-3"/>
 	
-	<!-- valid tauCACCToACC -->
-    <vType id="vType2" tauCACCToACC="0"/>
+	<!-- test tauCACCToACC -->
+    <vType id="vType2" carFollowModel="CACC" tauCACCToACC="0"/>
 	
-	<!-- valid tauCACCToACC -->
-    <vType id="vType3" tauCACCToACC="12"/>
+	<!-- test tauCACCToACC -->
+    <vType id="vType3" carFollowModel="CACC" tauCACCToACC="12"/>
 	
-	<!-- valid tauCACCToACC -->
-    <vType id="vType4" tauCACCToACC="4.5"/>
+	<!-- test tauCACCToACC -->
+    <vType id="vType4" carFollowModel="CACC" tauCACCToACC="4.5"/>
 	
 </routes>

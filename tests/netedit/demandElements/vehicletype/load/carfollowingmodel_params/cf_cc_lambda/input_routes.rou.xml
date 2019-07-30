@@ -37,19 +37,19 @@
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
 
-	<!-- non valid lambda -->
-    <vType id="vType0" lambda="dummy_lambda"/>
+	<!-- test lambda -->
+    <vType id="vType0" carFollowModel="CC" lambda="dummy_lambda"/>
 	
-	<!-- non valid lambda -->
-    <vType id="vType1" lambda="-3"/>
+	<!-- test lambda -->
+    <vType id="vType1" carFollowModel="CC" lambda="-3"/>
 	
-	<!-- valid lambda -->
-    <vType id="vType2" lambda="0"/>
+	<!-- test lambda -->
+    <vType id="vType2" carFollowModel="CC" lambda="0"/>
 	
-	<!-- valid lambda -->
-    <vType id="vType3" lambda="12"/>
+	<!-- test lambda -->
+    <vType id="vType3" carFollowModel="CC" lambda="12"/>
 	
-	<!-- valid lambda -->
-    <vType id="vType4" lambda="4.5"/>
+	<!-- test lambda -->
+    <vType id="vType4" carFollowModel="CC" lambda="4.5"/>
 	
 </routes>

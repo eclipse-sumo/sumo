@@ -37,19 +37,19 @@
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
 
-	<!-- non valid lanesCount -->
-    <vType id="vType0" lanesCount="dummy_lanesCount"/>
+	<!-- test lanesCount -->
+    <vType id="vType0" carFollowModel="CC" lanesCount="dummy_lanesCount"/>
 	
-	<!-- non valid lanesCount -->
-    <vType id="vType1" lanesCount="-3"/>
+	<!-- test lanesCount -->
+    <vType id="vType1" carFollowModel="CC" lanesCount="-3"/>
 	
-	<!-- valid lanesCount -->
-    <vType id="vType2" lanesCount="0"/>
+	<!-- test lanesCount -->
+    <vType id="vType2" carFollowModel="CC" lanesCount="0"/>
 	
-	<!-- valid lanesCount -->
-    <vType id="vType3" lanesCount="12"/>
+	<!-- test lanesCount -->
+    <vType id="vType3" carFollowModel="CC" lanesCount="12"/>
 	
-	<!-- valid lanesCount -->
-    <vType id="vType4" lanesCount="4.5"/>
+	<!-- test lanesCount -->
+    <vType id="vType4" carFollowModel="CC" lanesCount="4.5"/>
 	
 </routes>

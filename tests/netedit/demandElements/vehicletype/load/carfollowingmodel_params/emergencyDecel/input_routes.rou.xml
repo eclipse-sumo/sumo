@@ -37,19 +37,19 @@
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
 
-	<!-- non valid emergencyDecel -->
-    <vType id="vType0" emergencyDecel="dummyEmergencyDecel"/>
+	<!-- test emergencyDecel -->
+    <vType id="vType0" carFollowModel="XXX" emergencyDecel="dummyEmergencyDecel"/>
 	
-	<!-- non valid emergencyDecel -->
-    <vType id="vType1" emergencyDecel="-3"/>
+	<!-- test emergencyDecel -->
+    <vType id="vType1" carFollowModel="XXX" emergencyDecel="-3"/>
 	
-	<!-- valid emergencyDecel -->
-    <vType id="vType2" emergencyDecel="0"/>
+	<!-- test emergencyDecel -->
+    <vType id="vType2" carFollowModel="XXX" emergencyDecel="0"/>
 	
-	<!-- valid emergencyDecel -->
-    <vType id="vType3" emergencyDecel="12"/>
+	<!-- test emergencyDecel -->
+    <vType id="vType3" carFollowModel="XXX" emergencyDecel="12"/>
 	
-	<!-- valid emergencyDecel -->
-    <vType id="vType4" emergencyDecel="4.5"/>
+	<!-- test emergencyDecel -->
+    <vType id="vType4" carFollowModel="XXX" emergencyDecel="4.5"/>
 	
 </routes>

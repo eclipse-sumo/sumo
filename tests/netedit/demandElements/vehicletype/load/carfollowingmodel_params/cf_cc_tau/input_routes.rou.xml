@@ -37,19 +37,19 @@
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
 
-	<!-- non valid tauEngine -->
-    <vType id="vType0" tauEngine="dummy_tauEngine"/>
+	<!-- test tauEngine -->
+    <vType id="vType0" carFollowModel="CC" tauEngine="dummy_tauEngine"/>
 	
-	<!-- non valid tauEngine -->
-    <vType id="vType1" tauEngine="-3"/>
+	<!-- test tauEngine -->
+    <vType id="vType1" carFollowModel="CC" tauEngine="-3"/>
 	
-	<!-- valid tauEngine -->
-    <vType id="vType2" tauEngine="0"/>
+	<!-- test tauEngine -->
+    <vType id="vType2" carFollowModel="CC" tauEngine="0"/>
 	
-	<!-- valid tauEngine -->
-    <vType id="vType3" tauEngine="12"/>
+	<!-- test tauEngine -->
+    <vType id="vType3" carFollowModel="CC" tauEngine="12"/>
 	
-	<!-- valid tauEngine -->
-    <vType id="vType4" tauEngine="4.5"/>
+	<!-- test tauEngine -->
+    <vType id="vType4" carFollowModel="CC" tauEngine="4.5"/>
 	
 </routes>
