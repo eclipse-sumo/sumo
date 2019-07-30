@@ -53,24 +53,25 @@ std::set<SumoXMLAttr> SUMOVehicleParserHelper::allowedJMAttrs;
 SUMOVehicleParameter*
 SUMOVehicleParserHelper::parseFlowAttributes(const SUMOSAXAttributes& attrs, const bool hardFail, const SUMOTime beginDefault, const SUMOTime endDefault, bool isPerson) {
     bool ok = true;
+    bool abortCreation = true;
     std::string id = attrs.get<std::string>(SUMO_ATTR_ID, nullptr, ok);
     if (!SUMOXMLDefinitions::isValidVehicleID(id)) {
-        return handleError(hardFail, "Invalid flow id '" + id + "'.");
+        return handleError(hardFail, abortCreation, "Invalid flow id '" + id + "'.");
     }
     if (attrs.hasAttribute(SUMO_ATTR_PERIOD) && attrs.hasAttribute(SUMO_ATTR_VEHSPERHOUR)) {
-        return handleError(hardFail, 
+        return handleError(hardFail, abortCreation, 
                            "At most one of '" + attrs.getName(SUMO_ATTR_PERIOD) +
                            "' and '" + attrs.getName(SUMO_ATTR_VEHSPERHOUR) +
                            "' has to be given in the definition of flow '" + id + "'.");
     }
     if (attrs.hasAttribute(SUMO_ATTR_PERIOD) && attrs.hasAttribute(SUMO_ATTR_PROB)) {
-        return handleError(hardFail,
+        return handleError(hardFail, abortCreation,
                            "At most one of '" + attrs.getName(SUMO_ATTR_PERIOD) +
                            "' and '" + attrs.getName(SUMO_ATTR_PROB) +
                            "' has to be given in the definition of flow '" + id + "'.");
     }
     if (attrs.hasAttribute(SUMO_ATTR_PROB) && attrs.hasAttribute(SUMO_ATTR_VEHSPERHOUR)) {
-        return handleError(hardFail, 
+        return handleError(hardFail, abortCreation, 
                            "At most one of '" + attrs.getName(SUMO_ATTR_PROB) +
                            "' and '" + attrs.getName(SUMO_ATTR_VEHSPERHOUR) +
                            "' has to be given in the definition of flow '" + id + "'.");
@@ -78,7 +79,7 @@ SUMOVehicleParserHelper::parseFlowAttributes(const SUMOSAXAttributes& attrs, con
     if (attrs.hasAttribute(SUMO_ATTR_PERIOD) || attrs.hasAttribute(SUMO_ATTR_VEHSPERHOUR)
             || attrs.hasAttribute(SUMO_ATTR_PERSONSPERHOUR) || attrs.hasAttribute(SUMO_ATTR_PROB)) {
         if (attrs.hasAttribute(SUMO_ATTR_END) && attrs.hasAttribute(SUMO_ATTR_NUMBER)) {
-            return handleError(hardFail, 
+            return handleError(hardFail, abortCreation, 
                                "If '" + attrs.getName(SUMO_ATTR_PERIOD) +
                                "', '" + attrs.getName(SUMO_ATTR_VEHSPERHOUR) +
                                "' or '" + attrs.getName(SUMO_ATTR_PROB) +
@@ -88,7 +89,7 @@ SUMOVehicleParserHelper::parseFlowAttributes(const SUMOSAXAttributes& attrs, con
         }
     } else {
         if (!attrs.hasAttribute(SUMO_ATTR_NUMBER)) {
-            return handleError(hardFail, 
+            return handleError(hardFail, abortCreation, 
                                "At least one of '" + attrs.getName(SUMO_ATTR_PERIOD) +
                                "', '" + attrs.getName(SUMO_ATTR_VEHSPERHOUR) +
                                "', '" + attrs.getName(SUMO_ATTR_PROB) +
@@ -123,7 +124,7 @@ SUMOVehicleParserHelper::parseFlowAttributes(const SUMOSAXAttributes& attrs, con
         const double vph = attrs.get<double>(SUMO_ATTR_VEHSPERHOUR, id.c_str(), ok);
         if (ok && vph <= 0) {
             delete ret;
-            return handleError(hardFail, "Invalid repetition rate in the definition of flow '" + id + "'.");
+            return handleError(hardFail, abortCreation, "Invalid repetition rate in the definition of flow '" + id + "'.");
         }
         if (ok && vph != 0) {
             ret->repetitionOffset = TIME2STEPS(3600. / vph);
@@ -134,7 +135,7 @@ SUMOVehicleParserHelper::parseFlowAttributes(const SUMOSAXAttributes& attrs, con
         const double vph = attrs.get<double>(SUMO_ATTR_PERSONSPERHOUR, id.c_str(), ok);
         if (ok && vph <= 0) {
             delete ret;
-            return handleError(hardFail, "Invalid repetition rate in the definition of personFlow '" + id + "'.");
+            return handleError(hardFail, abortCreation, "Invalid repetition rate in the definition of personFlow '" + id + "'.");
         }
         if (ok && vph != 0) {
             ret->repetitionOffset = TIME2STEPS(3600. / vph);
@@ -145,7 +146,7 @@ SUMOVehicleParserHelper::parseFlowAttributes(const SUMOSAXAttributes& attrs, con
         ret->repetitionProbability = attrs.get<double>(SUMO_ATTR_PROB, id.c_str(), ok);
         if (ok && (ret->repetitionProbability <= 0 || ret->repetitionProbability > 1)) {
             delete ret;
-            return handleError(hardFail, "Invalid repetition probability in the definition of flow '" + id + "'.");
+            return handleError(hardFail, abortCreation, "Invalid repetition probability in the definition of flow '" + id + "'.");
         }
     }
 
@@ -155,7 +156,7 @@ SUMOVehicleParserHelper::parseFlowAttributes(const SUMOSAXAttributes& attrs, con
     }
     if (ok && ret->depart < 0) {
         delete ret;
-        return handleError(hardFail, "Negative begin time in the definition of flow '" + id + "'.");
+        return handleError(hardFail, abortCreation, "Negative begin time in the definition of flow '" + id + "'.");
     }
     ret->repetitionEnd = endDefault;
     if (ret->repetitionEnd < 0) {
@@ -172,7 +173,7 @@ SUMOVehicleParserHelper::parseFlowAttributes(const SUMOSAXAttributes& attrs, con
     }
     if (ok && ret->repetitionEnd < ret->depart) {
         delete ret;
-        return handleError(hardFail, "Flow '" + id + "' ends before its begin time.");
+        return handleError(hardFail, abortCreation, "Flow '" + id + "' ends before its begin time.");
     }
     if (attrs.hasAttribute(SUMO_ATTR_NUMBER)) {
         ret->repetitionNumber = attrs.get<int>(SUMO_ATTR_NUMBER, id.c_str(), ok);
@@ -182,7 +183,7 @@ SUMOVehicleParserHelper::parseFlowAttributes(const SUMOSAXAttributes& attrs, con
         } else {
             if (ok && ret->repetitionNumber < 0) {
                 delete ret;
-                return handleError(hardFail, "Negative repetition number in the definition of flow '" + id + "'.");
+                return handleError(hardFail, abortCreation, "Negative repetition number in the definition of flow '" + id + "'.");
             }
             if (ok && ret->repetitionOffset < 0) {
                 ret->repetitionOffset = (ret->repetitionEnd - ret->depart) / ret->repetitionNumber;
@@ -196,7 +197,7 @@ SUMOVehicleParserHelper::parseFlowAttributes(const SUMOSAXAttributes& attrs, con
         } else {
             if (ok && ret->repetitionOffset <= 0) {
                 delete ret;
-                return handleError(hardFail, "Invalid repetition rate in the definition of flow '" + id + "'.");
+                return handleError(hardFail, abortCreation, "Invalid repetition rate in the definition of flow '" + id + "'.");
             }
             if (ret->repetitionEnd == SUMOTime_MAX) {
                 ret->repetitionNumber = std::numeric_limits<int>::max();
@@ -208,7 +209,7 @@ SUMOVehicleParserHelper::parseFlowAttributes(const SUMOSAXAttributes& attrs, con
     }
     if (!ok) {
         delete ret;
-        return handleError(hardFail, "Flow cannot be created");
+        return handleError(hardFail, abortCreation, "Flow cannot be created");
     }
     return ret;
 }
@@ -217,13 +218,14 @@ SUMOVehicleParserHelper::parseFlowAttributes(const SUMOSAXAttributes& attrs, con
 SUMOVehicleParameter*
 SUMOVehicleParserHelper::parseVehicleAttributes(const SUMOSAXAttributes& attrs, const bool hardFail, const bool optionalID, const bool skipDepart, const bool isPerson) {
     bool ok = true;
+    bool abortCreation = true;
     std::string id, errorMsg;
     if (optionalID) {
         id = attrs.getOpt<std::string>(SUMO_ATTR_ID, nullptr, ok, "");
     } else {
         id = attrs.get<std::string>(SUMO_ATTR_ID, nullptr, ok);
         if (!SUMOXMLDefinitions::isValidVehicleID(id)) {
-            return handleError(hardFail, "Invalid vehicle id '" + id + "'.");
+            return handleError(hardFail, abortCreation, "Invalid vehicle id '" + id + "'.");
         }
     }
     SUMOVehicleParameter* ret = new SUMOVehicleParameter();
@@ -263,6 +265,7 @@ void
 SUMOVehicleParserHelper::parseCommonAttributes(const SUMOSAXAttributes& attrs, const bool hardFail, SUMOVehicleParameter* ret, std::string element) {
     //ret->refid = attrs.getStringSecure(SUMO_ATTR_REFID, "");
     bool ok = true;
+    bool abortCreation = true;
     // parse route information
     if (attrs.hasAttribute(SUMO_ATTR_ROUTE)) {
         ret->parametersSet |= VEHPARS_ROUTE_SET; // !!! needed?
@@ -298,7 +301,7 @@ SUMOVehicleParserHelper::parseCommonAttributes(const SUMOSAXAttributes& attrs, c
         ret->parametersSet |= VEHPARS_DEPARTLANE_SET;
         const std::string helper = attrs.get<std::string>(SUMO_ATTR_DEPARTLANE, ret->id.c_str(), ok);
         if (!SUMOVehicleParameter::parseDepartLane(helper, element, ret->id, ret->departLane, ret->departLaneProcedure, error)) {
-            handleError(hardFail, error);
+            handleError(hardFail, abortCreation, error);
         }
     }
     // parse depart position information
@@ -306,7 +309,7 @@ SUMOVehicleParserHelper::parseCommonAttributes(const SUMOSAXAttributes& attrs, c
         ret->parametersSet |= VEHPARS_DEPARTPOS_SET;
         const std::string helper = attrs.get<std::string>(SUMO_ATTR_DEPARTPOS, ret->id.c_str(), ok);
         if (!SUMOVehicleParameter::parseDepartPos(helper, element, ret->id, ret->departPos, ret->departPosProcedure, error)) {
-            handleError(hardFail, error);
+            handleError(hardFail, abortCreation, error);
         }
     }
     // parse lateral depart position information
@@ -314,7 +317,7 @@ SUMOVehicleParserHelper::parseCommonAttributes(const SUMOSAXAttributes& attrs, c
         ret->parametersSet |= VEHPARS_DEPARTPOSLAT_SET;
         const std::string helper = attrs.get<std::string>(SUMO_ATTR_DEPARTPOS_LAT, ret->id.c_str(), ok);
         if (!SUMOVehicleParameter::parseDepartPosLat(helper, element, ret->id, ret->departPosLat, ret->departPosLatProcedure, error)) {
-            handleError(hardFail, error);
+            handleError(hardFail, abortCreation, error);
         }
     }
     // parse depart speed information
@@ -322,7 +325,7 @@ SUMOVehicleParserHelper::parseCommonAttributes(const SUMOSAXAttributes& attrs, c
         ret->parametersSet |= VEHPARS_DEPARTSPEED_SET;
         std::string helper = attrs.get<std::string>(SUMO_ATTR_DEPARTSPEED, ret->id.c_str(), ok);
         if (!SUMOVehicleParameter::parseDepartSpeed(helper, element, ret->id, ret->departSpeed, ret->departSpeedProcedure, error)) {
-            handleError(hardFail, error);
+            handleError(hardFail, abortCreation, error);
         }
     }
     // parse arrival lane information
@@ -330,7 +333,7 @@ SUMOVehicleParserHelper::parseCommonAttributes(const SUMOSAXAttributes& attrs, c
         ret->parametersSet |= VEHPARS_ARRIVALLANE_SET;
         std::string helper = attrs.get<std::string>(SUMO_ATTR_ARRIVALLANE, ret->id.c_str(), ok);
         if (!SUMOVehicleParameter::parseArrivalLane(helper, element, ret->id, ret->arrivalLane, ret->arrivalLaneProcedure, error)) {
-            handleError(hardFail, error);
+            handleError(hardFail, abortCreation, error);
         }
     }
     // parse arrival position information
@@ -338,7 +341,7 @@ SUMOVehicleParserHelper::parseCommonAttributes(const SUMOSAXAttributes& attrs, c
         ret->parametersSet |= VEHPARS_ARRIVALPOS_SET;
         std::string helper = attrs.get<std::string>(SUMO_ATTR_ARRIVALPOS, ret->id.c_str(), ok);
         if (!SUMOVehicleParameter::parseArrivalPos(helper, element, ret->id, ret->arrivalPos, ret->arrivalPosProcedure, error)) {
-            handleError(hardFail, error);
+            handleError(hardFail, abortCreation, error);
         }
     }
     // parse lateral arrival position information
@@ -346,7 +349,7 @@ SUMOVehicleParserHelper::parseCommonAttributes(const SUMOSAXAttributes& attrs, c
         ret->parametersSet |= VEHPARS_ARRIVALPOSLAT_SET;
         std::string helper = attrs.get<std::string>(SUMO_ATTR_ARRIVALPOS_LAT, ret->id.c_str(), ok);
         if (!SUMOVehicleParameter::parseArrivalPosLat(helper, element, ret->id, ret->arrivalPosLat, ret->arrivalPosLatProcedure, error)) {
-            handleError(hardFail, error);
+            handleError(hardFail, abortCreation, error);
         }
     }
     // parse arrival speed information
@@ -354,7 +357,7 @@ SUMOVehicleParserHelper::parseCommonAttributes(const SUMOSAXAttributes& attrs, c
         ret->parametersSet |= VEHPARS_ARRIVALSPEED_SET;
         std::string helper = attrs.get<std::string>(SUMO_ATTR_ARRIVALSPEED, ret->id.c_str(), ok);
         if (!SUMOVehicleParameter::parseArrivalSpeed(helper, element, ret->id, ret->arrivalSpeed, ret->arrivalSpeedProcedure, error)) {
-            handleError(hardFail, error);
+            handleError(hardFail, abortCreation, error);
         }
     }
     // parse color
@@ -385,10 +388,10 @@ SUMOVehicleParserHelper::parseCommonAttributes(const SUMOSAXAttributes& attrs, c
 
 SUMOVTypeParameter*
 SUMOVehicleParserHelper::beginVTypeParsing(const SUMOSAXAttributes& attrs, const bool hardFail, const std::string& file) {
-    bool ok = true;
-    std::string id = attrs.get<std::string>(SUMO_ATTR_ID, nullptr, ok);
+    bool abortCreation = true;
+    std::string id = attrs.get<std::string>(SUMO_ATTR_ID, nullptr, abortCreation);
     if (!SUMOXMLDefinitions::isValidTypeID(id)) {
-        handleError(hardFail, "Invalid vType id '" + id + "'.");
+        handleError(hardFail, abortCreation, "Invalid vType id '" + id + "'.");
     }
     SUMOVehicleClass vClass = SVC_PASSENGER;
     if (attrs.hasAttribute(SUMO_ATTR_VCLASS)) {
@@ -399,40 +402,82 @@ SUMOVehicleParserHelper::beginVTypeParsing(const SUMOSAXAttributes& attrs, const
         vtype->parametersSet |= VTYPEPARS_VEHICLECLASS_SET;
     }
     if (attrs.hasAttribute(SUMO_ATTR_LENGTH)) {
-        vtype->length = attrs.get<double>(SUMO_ATTR_LENGTH, vtype->id.c_str(), ok);
-        vtype->parametersSet |= VTYPEPARS_LENGTH_SET;
+        bool ok = true;
+        double length = attrs.get<double>(SUMO_ATTR_LENGTH, vtype->id.c_str(), ok);
+        if (ok) {
+            if (length <= 0) {
+                handleError(hardFail, abortCreation, toString(SUMO_ATTR_LENGTH) + " must be greater than 0");
+            } else {
+                vtype->length = length;
+                vtype->parametersSet |= VTYPEPARS_LENGTH_SET;
+            }
+        }
     }
     if (attrs.hasAttribute(SUMO_ATTR_MINGAP)) {
-        vtype->minGap = attrs.get<double>(SUMO_ATTR_MINGAP, vtype->id.c_str(), ok);
-        vtype->parametersSet |= VTYPEPARS_MINGAP_SET;
+        bool ok = true;
+        double minGap = attrs.get<double>(SUMO_ATTR_MINGAP, vtype->id.c_str(), ok);
+        if (ok) {
+            if (minGap < 0) {
+                handleError(hardFail, abortCreation, toString(SUMO_ATTR_MINGAP) + " must be equal or greater than 0");
+            } else {
+                vtype->minGap = minGap;
+                vtype->parametersSet |= VTYPEPARS_MINGAP_SET;
+            }
+        }
     }
     if (attrs.hasAttribute(SUMO_ATTR_MAXSPEED)) {
-        vtype->maxSpeed = attrs.get<double>(SUMO_ATTR_MAXSPEED, vtype->id.c_str(), ok);
-        vtype->parametersSet |= VTYPEPARS_MAXSPEED_SET;
+        bool ok = true;
+        double maxSpeed = attrs.get<double>(SUMO_ATTR_MAXSPEED, vtype->id.c_str(), ok);
+        if (ok) {
+            if (maxSpeed <= 0) {
+                handleError(hardFail, abortCreation, toString(SUMO_ATTR_MAXSPEED) + " must be greater than 0");
+            } else {
+                vtype->maxSpeed = maxSpeed;
+                vtype->parametersSet |= VTYPEPARS_MAXSPEED_SET;
+            }
+        }
     }
     if (attrs.hasAttribute(SUMO_ATTR_SPEEDFACTOR)) {
+        bool ok = true;
         vtype->speedFactor.parse(attrs.get<std::string>(SUMO_ATTR_SPEEDFACTOR, vtype->id.c_str(), ok), hardFail);
-        vtype->parametersSet |= VTYPEPARS_SPEEDFACTOR_SET;
+        if (ok) {
+            vtype->parametersSet |= VTYPEPARS_SPEEDFACTOR_SET;
+        }
     }
     if (attrs.hasAttribute(SUMO_ATTR_SPEEDDEV)) {
-        vtype->speedFactor.getParameter()[1] = attrs.get<double>(SUMO_ATTR_SPEEDDEV, vtype->id.c_str(), ok);
-        vtype->parametersSet |= VTYPEPARS_SPEEDFACTOR_SET;
+        bool ok = true;
+        double speedDev = attrs.get<double>(SUMO_ATTR_SPEEDDEV, vtype->id.c_str(), ok);
+        if (ok) {
+            if (speedDev < 0) {
+                handleError(hardFail, abortCreation, toString(SUMO_ATTR_SPEEDDEV) + " must be equal or greater than 0");
+            } else {
+                vtype->speedFactor.getParameter()[1] = speedDev;
+                vtype->parametersSet |= VTYPEPARS_SPEEDFACTOR_SET;
+            }
+        }
     }
     // validate speed distribution
     std::string error;
     if (!vtype->speedFactor.isValid(error)) {
-        handleError(hardFail, "Invalid speed distribution when parsing vType '" + vtype->id + "' (" + error + ")");
+        handleError(hardFail, abortCreation, "Invalid speed distribution when parsing vType '" + vtype->id + "' (" + error + ")");
     }
     if (attrs.hasAttribute(SUMO_ATTR_ACTIONSTEPLENGTH)) {
+        bool ok = true;
         double actionStepLengthSecs = attrs.get<double>(SUMO_ATTR_ACTIONSTEPLENGTH, vtype->id.c_str(), ok);
+        // processActionStepLength(...) function includes warnings
         vtype->actionStepLength = processActionStepLength(actionStepLengthSecs);
         vtype->parametersSet |= VTYPEPARS_ACTIONSTEPLENGTH_SET;
     }
     if (attrs.hasAttribute(SUMO_ATTR_HASDRIVERSTATE)) {
-        vtype->hasDriverState = attrs.get<bool>(SUMO_ATTR_HASDRIVERSTATE, vtype->id.c_str(), ok);
-        vtype->parametersSet |= VTYPEPARS_HASDRIVERSTATE_SET;
+        bool ok = true;
+        bool hasDriverState = attrs.get<bool>(SUMO_ATTR_HASDRIVERSTATE, vtype->id.c_str(), ok);
+        if (ok) {
+            vtype->hasDriverState = hasDriverState;
+            vtype->parametersSet |= VTYPEPARS_HASDRIVERSTATE_SET;
+        }
     }
     if (attrs.hasAttribute(SUMO_ATTR_EMISSIONCLASS)) {
+        bool ok = true;
         std::string parsedEmissionClass = attrs.getOpt<std::string>(SUMO_ATTR_EMISSIONCLASS, id.c_str(), ok, "");
         // check if emission class is correct
         try {
@@ -448,21 +493,45 @@ SUMOVehicleParserHelper::beginVTypeParsing(const SUMOSAXAttributes& attrs, const
     }
     if (attrs.hasAttribute(SUMO_ATTR_IMPATIENCE)) {
         // allow empty attribute because .sbx saves this only as float
-        bool ok2;
-        if (attrs.get<std::string>(SUMO_ATTR_IMPATIENCE, vtype->id.c_str(), ok2, false) == "off") {
+        bool okString;
+        bool okDouble;
+        if (attrs.get<std::string>(SUMO_ATTR_IMPATIENCE, vtype->id.c_str(), okString, false) == "off") {
             vtype->impatience = -std::numeric_limits<double>::max();
         } else {
-            vtype->impatience = attrs.get<double>(SUMO_ATTR_IMPATIENCE, vtype->id.c_str(), ok);
+            double impatience = attrs.get<double>(SUMO_ATTR_IMPATIENCE, vtype->id.c_str(), okDouble);
+            if (okDouble) {
+                if (impatience < 0) {
+                    handleError(hardFail, abortCreation, toString(SUMO_ATTR_IMPATIENCE) + " must be equal or greater than 0");
+                } else {
+                    vtype->impatience;
+                    vtype->parametersSet |= VTYPEPARS_IMPATIENCE_SET;
+                }
+            }
         }
-        vtype->parametersSet |= VTYPEPARS_IMPATIENCE_SET;
     }
     if (attrs.hasAttribute(SUMO_ATTR_WIDTH)) {
-        vtype->width = attrs.get<double>(SUMO_ATTR_WIDTH, vtype->id.c_str(), ok);
-        vtype->parametersSet |= VTYPEPARS_WIDTH_SET;
+        bool ok = true;
+        double width = attrs.get<double>(SUMO_ATTR_WIDTH, vtype->id.c_str(), ok);
+        if (ok) {
+            if (width <= 0) {
+                handleError(hardFail, abortCreation, toString(SUMO_ATTR_WIDTH) + " must be greater than 0");
+            } else {
+                vtype->width = width;
+                vtype->parametersSet |= VTYPEPARS_WIDTH_SET;
+            }
+        }
     }
     if (attrs.hasAttribute(SUMO_ATTR_HEIGHT)) {
-        vtype->height = attrs.get<double>(SUMO_ATTR_HEIGHT, vtype->id.c_str(), ok);
-        vtype->parametersSet |= VTYPEPARS_HEIGHT_SET;
+        bool ok = true;
+        double height = attrs.get<double>(SUMO_ATTR_HEIGHT, vtype->id.c_str(), ok);
+        if (ok) {
+            if (height < 0) {
+                handleError(hardFail, abortCreation, toString(SUMO_ATTR_HEIGHT) + " must be equal or greater than 0");
+            } else {
+                vtype->height = height;
+                vtype->parametersSet |= VTYPEPARS_HEIGHT_SET;
+            }
+        }
     }
     if (attrs.hasAttribute(SUMO_ATTR_GUISHAPE)) {
         vtype->shape = parseGuiShape(attrs, vtype->id);
@@ -471,28 +540,49 @@ SUMOVehicleParserHelper::beginVTypeParsing(const SUMOSAXAttributes& attrs, const
         }
     }
     if (attrs.hasAttribute(SUMO_ATTR_OSGFILE)) {
-        vtype->osgFile = attrs.get<std::string>(SUMO_ATTR_OSGFILE, vtype->id.c_str(), ok);
-        vtype->parametersSet |= VTYPEPARS_OSGFILE_SET;
+        bool ok = true;
+        std::string osgFile = attrs.get<std::string>(SUMO_ATTR_OSGFILE, vtype->id.c_str(), ok);
+        if (ok) {
+            vtype->osgFile = osgFile;
+            vtype->parametersSet |= VTYPEPARS_OSGFILE_SET;
+        }
     }
     if (attrs.hasAttribute(SUMO_ATTR_IMGFILE)) {
-        vtype->imgFile = attrs.get<std::string>(SUMO_ATTR_IMGFILE, vtype->id.c_str(), ok);
-        if (vtype->imgFile != "" && !FileHelpers::isAbsolute(vtype->imgFile)) {
-            vtype->imgFile = FileHelpers::getConfigurationRelative(file, vtype->imgFile);
+        bool ok = true;
+        std::string imgFile = attrs.get<std::string>(SUMO_ATTR_IMGFILE, vtype->id.c_str(), ok);
+        if (ok) {
+            // check relative path
+            if ((imgFile != "") && !FileHelpers::isAbsolute(imgFile)) {
+                imgFile = FileHelpers::getConfigurationRelative(file, imgFile);
+            }
+            vtype->imgFile = imgFile;
+            vtype->parametersSet |= VTYPEPARS_IMGFILE_SET;
         }
-        vtype->parametersSet |= VTYPEPARS_IMGFILE_SET;
     }
     if (attrs.hasAttribute(SUMO_ATTR_COLOR)) {
-        vtype->color = attrs.get<RGBColor>(SUMO_ATTR_COLOR, vtype->id.c_str(), ok);
-        vtype->parametersSet |= VTYPEPARS_COLOR_SET;
+        bool ok = true;
+        RGBColor color = attrs.get<RGBColor>(SUMO_ATTR_COLOR, vtype->id.c_str(), ok);
+        if (ok) {
+            vtype->color = color;
+            vtype->parametersSet |= VTYPEPARS_COLOR_SET;
+        }
     } else {
         vtype->color = RGBColor::YELLOW;
     }
     if (attrs.hasAttribute(SUMO_ATTR_PROB)) {
-        vtype->defaultProbability = attrs.get<double>(SUMO_ATTR_PROB, vtype->id.c_str(), ok);
-        vtype->parametersSet |= VTYPEPARS_PROBABILITY_SET;
+        bool ok = true;
+        double defaultProbability = attrs.get<double>(SUMO_ATTR_PROB, vtype->id.c_str(), ok);
+        if (ok) {
+            if (defaultProbability < 0) {
+                handleError(hardFail, abortCreation, toString(SUMO_ATTR_PROB) + " must be equal or greater than 0");
+            } else {
+                vtype->defaultProbability = defaultProbability;
+                vtype->parametersSet |= VTYPEPARS_PROBABILITY_SET;
+            }
+        }
     }
     if (attrs.hasAttribute(SUMO_ATTR_LANE_CHANGE_MODEL)) {
-        vtype->parametersSet |= VTYPEPARS_LANE_CHANGE_MODEL_SET;
+        bool ok = true;
         std::string lcmS = attrs.get<std::string>(SUMO_ATTR_LANE_CHANGE_MODEL, vtype->id.c_str(), ok);
         if (lcmS == "JE2013") {
             WRITE_WARNING("Lane change model 'JE2013' is deprecated. Using default model instead.");
@@ -500,65 +590,116 @@ SUMOVehicleParserHelper::beginVTypeParsing(const SUMOSAXAttributes& attrs, const
         }
         if (SUMOXMLDefinitions::LaneChangeModels.hasString(lcmS)) {
             vtype->lcModel = SUMOXMLDefinitions::LaneChangeModels.get(lcmS);
+            vtype->parametersSet |= VTYPEPARS_LANE_CHANGE_MODEL_SET;
         } else {
-            handleError(hardFail, "Unknown lane change model '" + lcmS + "' when parsing vType '" + vtype->id + "'");
+            handleError(hardFail, abortCreation, "Unknown lane change model '" + lcmS + "' when parsing vType '" + vtype->id + "'");
         }
     }
     if (attrs.hasAttribute(SUMO_ATTR_CAR_FOLLOW_MODEL)) {
+        bool ok = true;
         const std::string cfmValue = attrs.get<std::string>(SUMO_ATTR_CAR_FOLLOW_MODEL, vtype->id.c_str(), ok);
-        if (SUMOXMLDefinitions::CarFollowModels.hasString(cfmValue)) {
+        if (ok && SUMOXMLDefinitions::CarFollowModels.hasString(cfmValue)) {
             vtype->cfModel = SUMOXMLDefinitions::CarFollowModels.get(cfmValue);
             vtype->parametersSet |= VTYPEPARS_CAR_FOLLOW_MODEL;
         } else {
-            handleError(hardFail, "Unknown car following model '" + cfmValue + "' when parsing vType '" + vtype->id + "'");
+            handleError(hardFail, abortCreation, "Unknown car following model '" + cfmValue + "' when parsing vType '" + vtype->id + "'");
         }
     }
     if (attrs.hasAttribute(SUMO_ATTR_PERSON_CAPACITY)) {
-        vtype->personCapacity = attrs.get<int>(SUMO_ATTR_PERSON_CAPACITY, vtype->id.c_str(), ok);
-        vtype->parametersSet |= VTYPEPARS_PERSON_CAPACITY;
+        bool ok = true;
+        int personCapacity = attrs.get<int>(SUMO_ATTR_PERSON_CAPACITY, vtype->id.c_str(), ok);
+        if (ok) {
+            if (personCapacity < 0) {
+                handleError(hardFail, abortCreation, toString(SUMO_ATTR_PERSON_CAPACITY) + " must be equal or greater than 0");
+            } else {
+                vtype->personCapacity = personCapacity;
+                vtype->parametersSet |= VTYPEPARS_PERSON_CAPACITY;
+            }
+        }
     }
     if (attrs.hasAttribute(SUMO_ATTR_CONTAINER_CAPACITY)) {
-        vtype->containerCapacity = attrs.get<int>(SUMO_ATTR_CONTAINER_CAPACITY, vtype->id.c_str(), ok);
-        vtype->parametersSet |= VTYPEPARS_CONTAINER_CAPACITY;
+        bool ok = true;
+        int containerCapacity = attrs.get<int>(SUMO_ATTR_CONTAINER_CAPACITY, vtype->id.c_str(), ok);
+        if (ok) {
+            if (containerCapacity < 0) {
+                handleError(hardFail, abortCreation, toString(SUMO_ATTR_CONTAINER_CAPACITY) + " must be equal or greater than 0");
+            } else {
+                vtype->containerCapacity = containerCapacity;
+                vtype->parametersSet |= VTYPEPARS_CONTAINER_CAPACITY;
+            }
+        }
     }
     if (attrs.hasAttribute(SUMO_ATTR_BOARDING_DURATION)) {
-        vtype->boardingDuration = attrs.getSUMOTimeReporting(SUMO_ATTR_BOARDING_DURATION, vtype->id.c_str(), ok);
-        vtype->parametersSet |= VTYPEPARS_BOARDING_DURATION;
+        bool ok = true;
+        SUMOTime boardingDuration = attrs.getSUMOTimeReporting(SUMO_ATTR_BOARDING_DURATION, vtype->id.c_str(), ok);
+        if (ok) {
+            if (boardingDuration < 0) {
+                handleError(hardFail, abortCreation, toString(SUMO_ATTR_BOARDING_DURATION) + " must be equal or greater than 0");
+            } else {
+                vtype->boardingDuration = boardingDuration;
+                vtype->parametersSet |= VTYPEPARS_BOARDING_DURATION;
+            }
+        }
     }
     if (attrs.hasAttribute(SUMO_ATTR_LOADING_DURATION)) {
-        vtype->loadingDuration = attrs.getSUMOTimeReporting(SUMO_ATTR_LOADING_DURATION, vtype->id.c_str(), ok);
-        vtype->parametersSet |= VTYPEPARS_LOADING_DURATION;
+        bool ok = true;
+        SUMOTime loadingDuration = attrs.getSUMOTimeReporting(SUMO_ATTR_LOADING_DURATION, vtype->id.c_str(), ok);
+        if (ok) {
+            if (loadingDuration < 0) {
+                handleError(hardFail, abortCreation, toString(SUMO_ATTR_LOADING_DURATION) + " must be equal or greater than 0");
+            } else {
+                vtype->loadingDuration = loadingDuration;
+                vtype->parametersSet |= VTYPEPARS_LOADING_DURATION;
+            }
+        }
     }
     if (attrs.hasAttribute(SUMO_ATTR_MAXSPEED_LAT)) {
-        vtype->maxSpeedLat = attrs.get<double>(SUMO_ATTR_MAXSPEED_LAT, vtype->id.c_str(), ok);
-        vtype->parametersSet |= VTYPEPARS_MAXSPEED_LAT_SET;
+        bool ok = true;
+        double maxSpeedLat = attrs.get<double>(SUMO_ATTR_MAXSPEED_LAT, vtype->id.c_str(), ok);
+        if (ok) {
+            if (maxSpeedLat <= 0) {
+                handleError(hardFail, abortCreation, toString(SUMO_ATTR_MAXSPEED_LAT) + " must be greater than 0");
+            } else {
+                vtype->maxSpeedLat = maxSpeedLat;
+                vtype->parametersSet |= VTYPEPARS_MAXSPEED_LAT_SET;
+            }
+        }
     }
     if (attrs.hasAttribute(SUMO_ATTR_MINGAP_LAT)) {
-        vtype->minGapLat = attrs.get<double>(SUMO_ATTR_MINGAP_LAT, vtype->id.c_str(), ok);
-        vtype->parametersSet |= VTYPEPARS_MINGAP_LAT_SET;
+        bool ok = true;
+        double minGapLat = attrs.get<double>(SUMO_ATTR_MINGAP_LAT, vtype->id.c_str(), ok);
+        if (ok) {
+            if (minGapLat < 0) {    /// BUG? ( <xsd:attribute name="minGapLat" type="positiveFloatType"/> )
+                handleError(hardFail, abortCreation, toString(SUMO_ATTR_MINGAP_LAT) + " must be equal or greater than 0");
+            } else {
+                vtype->minGapLat = minGapLat;
+                vtype->parametersSet |= VTYPEPARS_MINGAP_LAT_SET;
+            }
+        }
     }
     if (attrs.hasAttribute(SUMO_ATTR_LATALIGNMENT)) {
+        bool ok = true;
         const std::string alignS = attrs.get<std::string>(SUMO_ATTR_LATALIGNMENT, vtype->id.c_str(), ok);
-        if (SUMOXMLDefinitions::LateralAlignments.hasString(alignS)) {
+        if (ok && SUMOXMLDefinitions::LateralAlignments.hasString(alignS)) {
             vtype->latAlignment = SUMOXMLDefinitions::LateralAlignments.get(alignS);
             vtype->parametersSet |= VTYPEPARS_LATALIGNMENT_SET;
         } else {
-            handleError(hardFail, "Unknown lateral alignment '" + alignS + "' when parsing vType '" + vtype->id + "'");
+            handleError(hardFail, abortCreation, "Unknown lateral alignment '" + alignS + "' when parsing vType '" + vtype->id + "'");
         }
     }
     // try to parse embedded vType
     if (!parseVTypeEmbedded(*vtype, vtype->cfModel, attrs, hardFail, true)) {
-        handleError(hardFail, "Invalid parsing embedded VType"); 
+        handleError(hardFail, abortCreation, "Invalid parsing embedded VType"); 
     }
     // try to parse Lane Change Model params
     if (!parseLCParams(*vtype, vtype->lcModel, attrs, hardFail)) {
-        handleError(hardFail, "Invalid Lane Change Model Parameters"); 
+        handleError(hardFail, abortCreation, "Invalid Lane Change Model Parameters"); 
     }
     // try to Junction Model params
     if (!parseJMParams(*vtype, attrs, hardFail)) {
-        handleError(hardFail, "Invalid Junction Model Parameters"); 
+        handleError(hardFail, abortCreation, "Invalid Junction Model Parameters"); 
     }
-    if (!ok) {
+    if (!abortCreation) {
         delete vtype;
         if (hardFail) {
             throw ProcessError();
@@ -573,13 +714,14 @@ SUMOVehicleParserHelper::beginVTypeParsing(const SUMOSAXAttributes& attrs, const
 bool
 SUMOVehicleParserHelper::parseVTypeEmbedded(SUMOVTypeParameter& into, const SumoXMLTag element, const SUMOSAXAttributes& attrs, const bool hardFail, const bool fromVType) {
     const CFAttrMap& allowedCFM = getAllowedCFModelAttrs();
+    bool abortCreation = true;
     CFAttrMap::const_iterator cf_it = allowedCFM.find(element);
     // check if given CFM is allowed
     if (cf_it == allowedCFM.end()) {
         if (SUMOXMLDefinitions::Tags.has((int)element)) {
-            handleError(hardFail, "Unknown car following model " + toString(element) + " when parsing vType '" + into.id + "'");
+            handleError(hardFail, abortCreation, "Unknown car following model " + toString(element) + " when parsing vType '" + into.id + "'");
         } else {
-            handleError(hardFail, "Unknown car following model when parsing vType '" + into.id + "'");
+            handleError(hardFail, abortCreation, "Unknown car following model when parsing vType '" + into.id + "'");
         }
         return false;
     }
@@ -976,8 +1118,9 @@ SUMOVehicleParserHelper::processActionStepLength(double given) {
 
 
 SUMOVehicleParameter*
-SUMOVehicleParserHelper::handleError(const bool hardFail, const std::string &message) {
+SUMOVehicleParserHelper::handleError(const bool hardFail, bool &abortCreation, const std::string &message) {
     if (hardFail) {
+        abortCreation = true;
         throw ProcessError(message);
     } else {
         WRITE_ERROR(message);
