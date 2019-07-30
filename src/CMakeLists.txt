@@ -81,11 +81,12 @@ configure_file(config.h.cmake config.h)
 if(EXISTS "${CMAKE_SOURCE_DIR}/.git")
     set(VERSION_DEP "${CMAKE_SOURCE_DIR}/.git")
 endif()
-add_custom_command(OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/src/version.h
-                   COMMAND ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/tools/build/version.py ${CMAKE_CURRENT_BINARY_DIR}/src
+
+add_custom_command(OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/version.h
+                   COMMAND ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/../tools/build/version.py ${CMAKE_CURRENT_BINARY_DIR}
                    DEPENDS ${VERSION_DEP}
                   )
 add_custom_target(generate-version-h
-                  DEPENDS ${CMAKE_CURRENT_BINARY_DIR}/src/version.h
+                  DEPENDS ${CMAKE_CURRENT_BINARY_DIR}/version.h
                  )
 set_property(TARGET generate-version-h PROPERTY FOLDER "CMake") 
