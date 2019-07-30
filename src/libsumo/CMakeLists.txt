@@ -44,7 +44,7 @@ install(TARGETS libsumoc DESTINATION lib)
 if (MSVC OR APPLE)
     target_link_libraries(libsumoc ${sumolibs})
 else ()
-    target_link_libraries(libsumoc -Wl,--whole-archive ${sumolibs} -Wl,--no-whole-archive)
+    target_link_libraries(libsumoc PRIVATE -Wl,--whole-archive ${sumolibs} -Wl,--no-whole-archive)
 endif()
 
 set(ENABLE_PYTHON_BINDINGS ON CACHE BOOL "Build Python Bindings")
