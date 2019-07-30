@@ -22,7 +22,6 @@ import copy
 import struct
 import warnings
 
-import traci
 from . import constants as tc
 from .storage import Storage
 from .exceptions import FatalTraCIError
@@ -93,7 +92,6 @@ class Domain:
         self._deprecatedFor = deprecatedFor
         self._connection = None
         _defaultDomains.append(self)
-        setattr(traci, name, self)
 
     def _register(self, connection, mapping):
         dom = copy.copy(self)

@@ -43,6 +43,22 @@ from . import _inductionloop, _lanearea, _multientryexit, _trafficlight  # noqa
 from . import _lane, _person, _route, _vehicle, _vehicletype  # noqa
 from . import _edge, _gui, _junction, _poi, _polygon, _simulation  # noqa
 
+inductionloop = _inductionloop.InductionLoopDomain()
+lanearea = _lanearea.LaneAreaDomain()
+multientryexit = _multientryexit.MultiEntryExitDomain()
+trafficlight = _trafficlight.TrafficLightDomain()
+lane = _lane.LaneDomain()
+person = _person.PersonDomain()
+route = _route.RouteDomain()
+vehicle = _vehicle.VehicleDomain()
+vehicletype = _vehicletype.VehicleTypeDomain()
+edge = _edge.EdgeDomain()
+gui = _gui.GuiDomain()
+junction = _junction.JunctionDomain()
+poi = _poi.PoiDomain()
+polygon = _polygon.PolygonDomain()
+simulation = _simulation.SimulationDomain()
+
 _connections = {}
 _stepListeners = {}
 _nextStepListenerID = 0

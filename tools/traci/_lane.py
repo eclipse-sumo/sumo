@@ -322,6 +322,3 @@ class LaneDomain(Domain):
         """
         self._connection._sendDoubleCmd(
             tc.CMD_SET_LANE_VARIABLE, tc.VAR_LENGTH, laneID, length)
-
-
-LaneDomain()

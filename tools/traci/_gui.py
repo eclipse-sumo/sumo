@@ -138,6 +138,3 @@ class GuiDomain(Domain):
         Returns the id of the currently tracked vehicle
         """
         return self._getUniversal(tc.VAR_TRACK_VEHICLE, viewID)
-
-
-GuiDomain()

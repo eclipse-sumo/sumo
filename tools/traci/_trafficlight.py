@@ -300,7 +300,3 @@ class TrafficLightDomain(Domain):
         for par in tls.subParameter.items():
             self._connection._packStringList(par)
         self._connection._sendExact()
-
-
-TrafficLightDomain()
-TrafficLightDomain("trafficlights", "trafficlight")

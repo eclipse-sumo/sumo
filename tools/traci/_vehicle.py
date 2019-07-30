@@ -1753,6 +1753,3 @@ class VehicleDomain(Domain):
         Restricts vehicles returned by the last modified vehicle context subscription to vehicles of the given types
         """
         self._connection._addSubscriptionFilter(tc.FILTER_TYPE_VTYPE, vTypes)
-
-
-VehicleDomain()

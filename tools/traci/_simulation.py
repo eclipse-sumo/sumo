@@ -541,6 +541,3 @@ class SimulationDomain(Domain):
         from the last time step.
         """
         return Domain.getSubscriptionResults(self, "")
-
-
-SimulationDomain()

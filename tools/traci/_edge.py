@@ -272,6 +272,3 @@ class EdgeDomain(Domain):
         """
         self._connection._sendDoubleCmd(
             tc.CMD_SET_EDGE_VARIABLE, tc.VAR_MAXSPEED, edgeID, speed)
-
-
-EdgeDomain()

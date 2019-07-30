@@ -61,6 +61,3 @@ class MultiEntryExitDomain(Domain):
         Returns the number of vehicles which were halting during the last time step.
         """
         return self._getUniversal(tc.LAST_STEP_VEHICLE_HALTING_NUMBER, detID)
-
-
-MultiEntryExitDomain()

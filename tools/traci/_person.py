@@ -411,6 +411,3 @@ class PersonDomain(Domain):
         self._connection._string += struct.pack("!BBBBB", tc.TYPE_COLOR, int(color[0]), int(color[1]), int(color[2]),
                                                 int(color[3]) if len(color) > 3 else 255)
         self._connection._sendExact()
-
-
-PersonDomain()
