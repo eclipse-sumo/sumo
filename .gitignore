@@ -89,6 +89,7 @@
 /src/tools/emissionsMap
 /src/traci_testclient/TraCITestClient
 /src/utils/empty.cpp
+/src/libsumo/empty.cpp
 /unittest/src/sumo-unittest
 # tools dir
 /tools/game/*.netstate.xml
@@ -141,4 +142,3 @@ lib*.a
 *.lib
 *.res
 *.ipch
-
