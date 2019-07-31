@@ -9,7 +9,7 @@
 
 # @file    test.py
 # @author  Pablo Alvarez Lopez
-# @date    2019-07-16
+# @date    2016-11-25
 # @version $Id$
 
 # import common functions for netedit tests
@@ -25,21 +25,12 @@ import neteditTestFunctions as netedit  # noqa
 # Open netedit
 neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot, ['--gui-testing-debug-gl'])
 
-# go to demand mode
-netedit.supermodeDemand()
-
-# go to additional mode
-# netedit.additionalMode()
-
-# select busStop
-# netedit.changeElement("busStop")
-
-# create busStop in mode "reference left"
-# netedit.leftClick(referencePosition, 250, 250)
-
 # Check undo redo
 netedit.undo(referencePosition, 1)
 netedit.redo(referencePosition, 1)
+
+# click over reference (to avoid problem with undo-redo)
+netedit.leftClick(referencePosition, 0, 0)
 
 # save routes
 netedit.saveRoutes()
