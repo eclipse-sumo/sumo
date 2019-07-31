@@ -58,9 +58,10 @@
 	
 	<vehicle id="" depart="20.00" route="route_0"/>
 	
-	<vehicle id="$$%&$%$%$$  !" depart="20.00" route="route_0"/>
+	<vehicle id="id with spaces" depart="20.00" route="route_0"/>
 	
 	<vehicle id="vehicle_valid" depart="20.00" route="route_0"/>
 	
 	<vehicle id="vehicle_valid" depart="20.00" route="route_0"/>
+	
 </routes>

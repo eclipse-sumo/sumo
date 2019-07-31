@@ -1,6 +1,5 @@
-Error: Attribute 'id' is missing in definition of a vType.
-Error: Invalid vType id ''.
+Error: Attribute 'id' is missing in definition of vType
 Error: Attribute 'id' in definition of a vType is empty.
-Error: Invalid vType id ''.
+Error: Invalid vType id ''. Musn't be empty.
 Error: There is another vType with the same ID='vType0'.
-Error: Loading of C:/Users/alva_pa/.texttest/tmp/netedit.gui.29Jul104640.8056/netedit.gui/demandElements/vehicletype/load/id\input_routes.rou.xml failed.
+Error: Loading of C:/Users/alva_pa/.texttest/tmp/netedit.gui.31Jul155952.9168/netedit.gui/demandElements/vehicletype/load/id\input_routes.rou.xml failed.

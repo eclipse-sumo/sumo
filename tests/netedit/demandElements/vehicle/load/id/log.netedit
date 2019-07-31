@@ -1,0 +1,6 @@
+Error: Attribute 'id' is missing in definition of vehicle
+Error: Attribute 'id' in definition of a vehicle is empty.
+Error: Invalid vehicle id ''. Musn't be empty.
+Error: Invalid vehicle id 'id with spaces'. Contains invalid characters.
+Error: There is another vehicle with the same ID='vehicle_valid'.
+Error: Loading of C:/Users/alva_pa/.texttest/tmp/netedit.gui.31Jul155952.9168/netedit.gui/demandElements/vehicle/load/id\input_routes.rou.xml failed.
