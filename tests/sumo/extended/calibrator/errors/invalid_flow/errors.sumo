@@ -1,4 +1,4 @@
 Warning: No flow intervals in calibrator 'slow'.
-Error: Attribute 'id' is missing in definition of a flow.
-Error: Invalid flow id ''.
+Error: Attribute 'id' is missing in definition of flow
+Error: Flow cannot be created
 Quitting (on error).
