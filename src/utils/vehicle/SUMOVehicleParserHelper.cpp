@@ -1017,7 +1017,7 @@ SUMOVehicleParserHelper::getAllowedCFModelAttrs() {
 
 
 bool
-SUMOVehicleParserHelper::parseLCParams(SUMOVTypeParameter& into, LaneChangeModel model, const SUMOSAXAttributes& attrs, const bool /*hardFail*/) {
+SUMOVehicleParserHelper::parseLCParams(SUMOVTypeParameter& into, LaneChangeModel model, const SUMOSAXAttributes& attrs, const bool hardFail) {
     if (allowedLCModelAttrs.size() == 0) {
         // init static map
         std::set<SumoXMLAttr> lc2013Params;
@@ -1056,7 +1056,65 @@ SUMOVehicleParserHelper::parseLCParams(SUMOVTypeParameter& into, LaneChangeModel
     std::set<SumoXMLAttr> allowed = allowedLCModelAttrs[model];
     for (const auto &it : allowed) {
         if (attrs.hasAttribute(it)) {
-            into.lcParameter[it] = attrs.get<std::string>(it, into.id.c_str(), ok);
+            // first obtain  CFM attribute in string format
+            std::string parsedLCMAttribute = attrs.get<std::string>(it, into.id.c_str(), ok);
+            // declare a double in wich save CFM attribute
+            double LCMAttribute;
+            try {
+                // obtain CFM attribute in double format
+                LCMAttribute = StringUtils::toDouble(parsedLCMAttribute);
+            } catch (...) {
+                ok = false;
+                if (hardFail) {
+                    throw ProcessError("Invalid Lane-Change-Model Attribute " + toString(it) + ". Cannot be parsed to float");
+                } else {
+                    WRITE_ERROR("Invalid Lane-Change-Model Attribute " + toString(it) + ". Cannot be parsed to float");
+                }
+            }
+            // now continue checking other properties
+            if (ok) {
+                // check attributes of type "nonNegativeFloatType" (>= 0)
+                switch (it) {
+                    case SUMO_ATTR_LCA_PUSHYGAP:
+                        if (LCMAttribute < 0) {
+                            ok = false;
+                            if (hardFail) {
+                                throw ProcessError("Invalid Lane-Change-Model Attribute " + toString(it) + ". Must be equal or greater than 0");
+                            } else {
+                                WRITE_ERROR("Invalid Lane-Change-Model Attribute " + toString(it) + ". Must be equal or greater than 0");
+                            }
+                        }
+                    default:
+                        break;
+                }
+                // check attributes of type "positiveFloatType" (> 0)
+                switch (it) {
+                    case SUMO_ATTR_LCA_ASSERTIVE:
+                    case SUMO_ATTR_LCA_LOOKAHEADLEFT:
+                    case SUMO_ATTR_LCA_SPEEDGAINRIGHT:
+                    case SUMO_ATTR_LCA_TURN_ALIGNMENT_DISTANCE:
+                    case SUMO_ATTR_LCA_IMPATIENCE:
+                    case SUMO_ATTR_LCA_TIME_TO_IMPATIENCE:
+                    case SUMO_ATTR_LCA_ACCEL_LAT:
+                    case SUMO_ATTR_LCA_MAXSPEEDLATSTANDING:
+                    case SUMO_ATTR_LCA_MAXSPEEDLATFACTOR:
+                    case SUMO_ATTR_LCA_OVERTAKE_RIGHT:
+                        if (LCMAttribute <= 0) {
+                            ok = false;
+                            if (hardFail) {
+                                throw ProcessError("Invalid Lane-Change-Model Attribute " + toString(it) + ". Must be greater than 0");
+                            } else {
+                                WRITE_ERROR("Invalid Lane-Change-Model Attribute " + toString(it) + ". Must be greater than 0");
+                            }
+                        }
+                    default:
+                        break;
+                }
+                if (ok) {
+                    // add parsedLCMAttribute to cfParameter
+                    into.lcParameter[it] = parsedLCMAttribute;
+                }
+            }
         }
     }
     return ok;
@@ -1064,7 +1122,7 @@ SUMOVehicleParserHelper::parseLCParams(SUMOVTypeParameter& into, LaneChangeModel
 
 
 bool
-SUMOVehicleParserHelper::parseJMParams(SUMOVTypeParameter& into, const SUMOSAXAttributes& attrs, const bool /*hardFail*/) {
+SUMOVehicleParserHelper::parseJMParams(SUMOVTypeParameter& into, const SUMOSAXAttributes& attrs, const bool hardFail) {
     if (allowedJMAttrs.size() == 0) {
         // init static set (there is only one model)
         allowedJMAttrs.insert(SUMO_ATTR_JM_CROSSING_GAP);
@@ -1080,7 +1138,38 @@ SUMOVehicleParserHelper::parseJMParams(SUMOVTypeParameter& into, const SUMOSAXAt
     bool ok = true;
     for (const auto &it : allowedJMAttrs) {
         if (attrs.hasAttribute(it)) {
-            into.jmParameter[it] = attrs.get<std::string>(it, into.id.c_str(), ok);
+            // first obtain  CFM attribute in string format
+            std::string parsedJMAttribute = attrs.get<std::string>(it, into.id.c_str(), ok);
+            // declare a double in wich save CFM attribute
+            double JMAttribute;
+            try {
+                // obtain CFM attribute in double format
+                JMAttribute = StringUtils::toDouble(parsedJMAttribute);
+            } catch (...) {
+
+                ok = false;
+                if (hardFail) {
+                    throw ProcessError("Invalid Junction-Model Attribute " + toString(it) + ". Cannot be parsed to float");
+                } else {
+                    WRITE_ERROR("Invalid Junction-Model Attribute " + toString(it) + ". Cannot be parsed to float");
+                }
+            }
+            // now continue checking other properties (-1 is the default value)
+            if (ok && (JMAttribute != -1)) {
+                // check attributes of type "nonNegativeFloatType" (>= 0)
+                if (JMAttribute < 0) {
+                    ok = false;
+                    if (hardFail) {
+                        throw ProcessError("Invalid Junction-Model Attribute " + toString(it) + ". Must be equal or greater than 0");
+                    } else {
+                        WRITE_ERROR("Invalid Junction-Model Attribute " + toString(it) + ". Must be equal or greater than 0");
+                    }
+                }
+                if (ok) {
+                    // add parsedJMAttribute to cfParameter
+                    into.jmParameter[it] = parsedJMAttribute;
+                }
+            }
         }
     }
     return ok;
