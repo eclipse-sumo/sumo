@@ -74,8 +74,8 @@ if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
 endif ()
 
 # we need to build position independent code when generating a shared library
+set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 if (SUMO_UTILS)
-    set(CMAKE_POSITION_INDEPENDENT_CODE ON)
     set(ENABLED_FEATURES "${ENABLED_FEATURES} SumoUtilsLibrary")
 endif ()
 
