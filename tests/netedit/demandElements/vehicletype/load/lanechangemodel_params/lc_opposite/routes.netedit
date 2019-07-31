@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 31.07.2019 12:19:11 by Eclipse SUMO netedit Version v1_2_0+1346-fe894dbe0e
+<!-- generated on 31.07.2019 13:23:12 by Eclipse SUMO netedit Version v1_2_0+1347-d1917ff3c6
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.31Jul121744.3352/netedit.gui/demandElements/vehicletype/load/lanechangemodel_params/lc_opposite\input_net.net.xml"/>
+        <sumo-net-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.31Jul132146.5996/netedit.gui/demandElements/vehicletype/load/lanechangemodel_params/lc_opposite\input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.31Jul121744.3352/netedit.gui/demandElements/vehicletype/load/lanechangemodel_params/lc_opposite\net.net.xml"/>
+        <output-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.31Jul132146.5996/netedit.gui/demandElements/vehicletype/load/lanechangemodel_params/lc_opposite\net.net.xml"/>
     </output>
 
     <processing>
@@ -29,10 +29,10 @@
     </pedestrian>
 
     <netedit>
-        <additional-files value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.31Jul121744.3352/netedit.gui/demandElements/vehicletype/load/lanechangemodel_params/lc_opposite\additionals.xml"/>
-        <additionals-output value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.31Jul121744.3352/netedit.gui/demandElements/vehicletype/load/lanechangemodel_params/lc_opposite\additionals.xml"/>
-        <route-files value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.31Jul121744.3352/netedit.gui/demandElements/vehicletype/load/lanechangemodel_params/lc_opposite\routes.xml"/>
-        <demandelements-output value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.31Jul121744.3352/netedit.gui/demandElements/vehicletype/load/lanechangemodel_params/lc_opposite\routes.xml"/>
+        <additional-files value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.31Jul132146.5996/netedit.gui/demandElements/vehicletype/load/lanechangemodel_params/lc_opposite\additionals.xml"/>
+        <additionals-output value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.31Jul132146.5996/netedit.gui/demandElements/vehicletype/load/lanechangemodel_params/lc_opposite\additionals.xml"/>
+        <route-files value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.31Jul132146.5996/netedit.gui/demandElements/vehicletype/load/lanechangemodel_params/lc_opposite\routes.xml"/>
+        <demandelements-output value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.31Jul132146.5996/netedit.gui/demandElements/vehicletype/load/lanechangemodel_params/lc_opposite\routes.xml"/>
     </netedit>
 
     <visualisation>
@@ -45,14 +45,16 @@
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.31Jul121744.3352/netedit.gui/demandElements/vehicletype/load/lanechangemodel_params/lc_opposite\log.txt"/>
+        <error-log value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.31Jul132146.5996/netedit.gui/demandElements/vehicletype/load/lanechangemodel_params/lc_opposite\log.txt"/>
     </report>
 
 </configuration>
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-    <vType id="vType0" laneChangeModel="LC2013" lcOpposite="dummy_opposite"/>
+    <vType id="vType0" laneChangeModel="LC2013"/>
     <vType id="vType1" laneChangeModel="LC2013" lcOpposite="-3"/>
     <vType id="vType2" laneChangeModel="LC2013" lcOpposite="0"/>
+    <vType id="vType3" laneChangeModel="LC2013" lcOpposite="2"/>
+    <vType id="vType4" laneChangeModel="LC2013" lcOpposite="5.5"/>
 </routes>

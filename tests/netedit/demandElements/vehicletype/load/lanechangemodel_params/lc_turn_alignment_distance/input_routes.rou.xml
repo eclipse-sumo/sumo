@@ -47,9 +47,9 @@
     <vType id="vType2" laneChangeModel="SL2015" lcTurnAlignmentDistance="0"/>
 	
 	<!-- laneChangeModel param -->
-    <vType id="vType2" laneChangeModel="SL2015" lcTurnAlignmentDistance="2"/>
+    <vType id="vType3" laneChangeModel="SL2015" lcTurnAlignmentDistance="2"/>
 	
 	<!-- laneChangeModel param -->
-    <vType id="vType2" laneChangeModel="SL2015" lcTurnAlignmentDistance="5.5"/>
+    <vType id="vType4" laneChangeModel="SL2015" lcTurnAlignmentDistance="5.5"/>
 	
 </routes>

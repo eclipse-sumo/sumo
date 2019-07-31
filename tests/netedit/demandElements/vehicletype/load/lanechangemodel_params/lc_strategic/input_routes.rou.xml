@@ -47,9 +47,9 @@
     <vType id="vType2" laneChangeModel="SL2015" lcStrategic="0"/>
 	
 	<!-- laneChangeModel param -->
-    <vType id="vType2" laneChangeModel="SL2015" lcStrategic="2"/>
+    <vType id="vType3" laneChangeModel="SL2015" lcStrategic="2"/>
 	
 	<!-- laneChangeModel param -->
-    <vType id="vType2" laneChangeModel="SL2015" lcStrategic="5.5"/>
+    <vType id="vType4" laneChangeModel="SL2015" lcStrategic="5.5"/>
 	
 </routes>
