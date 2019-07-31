@@ -1,2 +1,3 @@
-Error: Invalid value for Car Following Model 'Tau'; Cannot be parsed to SUMOTime
-Error: Loading of C:/Users/alva_pa/.texttest/tmp/netedit.gui.6_from_30Jul101705.8776/netedit.gui/demandElements/vehicletype/load/carfollowingmodel_params/tau\input_routes.rou.xml failed.
+Error: Invalid Car-Following-Attribute tau. Cannot be parsed to float
+Error: Invalid Car-Following-Attribute tau. Cannot be parsed to float
+Error: Loading of C:/Users/alva_pa/.texttest/tmp/netedit.gui.31Jul083932.8372/netedit.gui/demandElements/vehicletype/load/carfollowingmodel_params/tau\input_routes.rou.xml failed.
