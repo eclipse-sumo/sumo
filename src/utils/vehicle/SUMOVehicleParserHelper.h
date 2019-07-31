@@ -155,6 +155,11 @@ public:
     static SUMOTime processActionStepLength(double given);
 
 private:
+    /**@brief parse ID
+     * @return empty string if ID obtained from attrs isn't valid
+     */
+    static std::string parseID(const SUMOSAXAttributes& attrs, const SumoXMLTag element);
+
     /** @brief Parses attributes common to vehicles and flows
      *
      * Parses all attributes stored in "SUMOVehicleParameter".
