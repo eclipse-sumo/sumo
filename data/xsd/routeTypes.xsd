@@ -276,6 +276,7 @@
     </xsd:complexType>
 
     <xsd:complexType name="cfW99Type">
+        <xsd:attribute name="cc1" type="xsd:float"/>
         <xsd:attribute name="cc2" type="xsd:float"/>
         <xsd:attribute name="cc3" type="xsd:float"/>
         <xsd:attribute name="cc4" type="xsd:float"/>
