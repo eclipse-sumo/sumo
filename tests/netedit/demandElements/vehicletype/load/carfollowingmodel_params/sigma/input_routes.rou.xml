@@ -50,6 +50,9 @@
     <vType id="vType3" carFollowModel="SmartSK" sigma="12"/>
 	
 	<!-- test sigma -->
-    <vType id="vType4" carFollowModel="SmartSK" sigma="4.5"/>
+    <vType id="vType4" carFollowModel="SmartSK" sigma="1"/>
+	
+	<!-- test sigma -->
+    <vType id="vType5" carFollowModel="SmartSK" sigma="0.3"/>
 	
 </routes>

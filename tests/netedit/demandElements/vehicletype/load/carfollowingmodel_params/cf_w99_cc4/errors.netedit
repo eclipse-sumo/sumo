@@ -17,7 +17,8 @@ GLDebug: 	Inserted edge:gneE8 into SUMORTree with boundary 0.00,28.40,50.00,50.0
 GLDebug: 	Inserted edge:gneE9 into SUMORTree with boundary 0.00,30.00,50.00,51.60
 Debug: Selected item 'DEFAULT_VEHTYPE' in DemandElementSelector
 Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
-Error: Invalid Car-Following-Attribute cc4. Cannot be parsed to float
+Error: Invalid Car-Following-Model Attribute cc4. Cannot be parsed to float
+Error: Invalid parsing embedded VType
 Debug: Adding vType 'vType0' in GNEChange_DemandElement
 Debug: DemandElements has to be saved
 Debug: Current saving Status: net saved, additionals saved, demand elements unsaved
@@ -25,7 +26,7 @@ Debug: Adding vType 'vType1' in GNEChange_DemandElement
 Debug: Adding vType 'vType2' in GNEChange_DemandElement
 Debug: Adding vType 'vType3' in GNEChange_DemandElement
 Debug: Adding vType 'vType4' in GNEChange_DemandElement
-Error: Loading of C:/Users/alva_pa/.texttest/tmp/netedit.gui.31Jul083932.8372/netedit.gui/demandElements/vehicletype/load/carfollowingmodel_params/cf_w99_cc4\input_routes.rou.xml failed.
+Error: Loading of C:/Users/alva_pa/.texttest/tmp/netedit.gui.2_from_31Jul094457.7560/netedit.gui/demandElements/vehicletype/load/carfollowingmodel_params/cf_w99_cc4\input_routes.rou.xml failed.
 Debug: net has to be saved
 Debug: Current saving Status: net unsaved, additionals saved, demand elements unsaved
 Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0

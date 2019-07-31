@@ -17,19 +17,26 @@ GLDebug: 	Inserted edge:gneE8 into SUMORTree with boundary 0.00,28.40,50.00,50.0
 GLDebug: 	Inserted edge:gneE9 into SUMORTree with boundary 0.00,30.00,50.00,51.60
 Debug: Selected item 'DEFAULT_VEHTYPE' in DemandElementSelector
 Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
-Error: Invalid Car-Following-Attribute sigma. Cannot be parsed to float
+Error: Invalid Car-Following-Model Attribute sigma. Cannot be parsed to float
+Error: Invalid parsing embedded VType
 Debug: Adding vType 'vType0' in GNEChange_DemandElement
 Debug: DemandElements has to be saved
 Debug: Current saving Status: net saved, additionals saved, demand elements unsaved
+Error: Invalid Car-Following-Model Attribute sigma. Only values between [0-1] are allowed
+Error: Invalid parsing embedded VType
 Debug: Adding vType 'vType1' in GNEChange_DemandElement
 Debug: Adding vType 'vType2' in GNEChange_DemandElement
+Error: Invalid Car-Following-Model Attribute sigma. Only values between [0-1] are allowed
+Error: Invalid parsing embedded VType
 Debug: Adding vType 'vType3' in GNEChange_DemandElement
 Debug: Adding vType 'vType4' in GNEChange_DemandElement
-Error: Loading of C:/Users/alva_pa/.texttest/tmp/netedit.gui.31Jul083932.8372/netedit.gui/demandElements/vehicletype/load/carfollowingmodel_params/sigma\input_routes.rou.xml failed.
+Debug: Adding vType 'vType5' in GNEChange_DemandElement
+Error: Loading of C:/Users/alva_pa/.texttest/tmp/netedit.gui.2_from_31Jul094457.7560/netedit.gui/demandElements/vehicletype/load/carfollowingmodel_params/sigma\input_routes.rou.xml failed.
 Debug: net has to be saved
 Debug: Current saving Status: net unsaved, additionals saved, demand elements unsaved
 Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Removing vType 'vType5' in GNEChange_DemandElement
 Debug: Removing vType 'vType4' in GNEChange_DemandElement
 Debug: Removing vType 'vType3' in GNEChange_DemandElement
 Debug: Removing vType 'vType2' in GNEChange_DemandElement
@@ -42,6 +49,7 @@ Debug: Adding vType 'vType1' in GNEChange_DemandElement
 Debug: Adding vType 'vType2' in GNEChange_DemandElement
 Debug: Adding vType 'vType3' in GNEChange_DemandElement
 Debug: Adding vType 'vType4' in GNEChange_DemandElement
+Debug: Adding vType 'vType5' in GNEChange_DemandElement
 Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 Debug: demand elements saved
 GLDebug: Removing junctions during recomputing
@@ -91,9 +99,10 @@ Debug: Created connection 'fromgneE6_0togneE3_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE6_0togneE3_1' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE8_0togneE9_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE9_0togneE11_0' in retrieveGNEConnection()
-Debug: Deleting unreferenced vType 'vType4'
+Debug: Deleting unreferenced vType 'vType5'
 Debug: DemandElements has to be saved
 Debug: Current saving Status: net saved, additionals saved, demand elements unsaved
+Debug: Deleting unreferenced vType 'vType4'
 Debug: Deleting unreferenced vType 'vType3'
 Debug: Deleting unreferenced vType 'vType2'
 Debug: Deleting unreferenced vType 'vType1'
