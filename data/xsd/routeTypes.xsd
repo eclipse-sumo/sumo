@@ -20,6 +20,8 @@
                     <xsd:element name="carFollowing-Wiedemann" type="cfWiedemannType"/>
                     <xsd:element name="carFollowing-W99" type="cfW99Type"/>
                     <xsd:element name="carFollowing-ACC" type="cfACCType"/>
+                    <xsd:element name="carFollowing-CACC" type="cfCACCType"/>
+                    <xsd:element name="carFollowing-CC" type="cfCCType"/>
                 </xsd:choice>
                 <xsd:element name="param" type="paramType" minOccurs="0" maxOccurs="unbounded"/>
             </xsd:sequence>
@@ -159,6 +161,41 @@
         </xsd:attribute>
         <xsd:attribute name="imgFile" type="xsd:string"/>
         <xsd:attribute name="osgFile" type="xsd:string"/>
+        <xsd:attribute name="cc1" type="xsd:float"/>
+        <xsd:attribute name="cc2" type="xsd:float"/>
+        <xsd:attribute name="cc3" type="xsd:float"/>
+        <xsd:attribute name="cc4" type="xsd:float"/>
+        <xsd:attribute name="cc5" type="xsd:float"/>
+        <xsd:attribute name="cc6" type="xsd:float"/>
+        <xsd:attribute name="cc7" type="xsd:float"/>
+        <xsd:attribute name="cc8" type="xsd:float"/>
+        <xsd:attribute name="cc9" type="xsd:float"/>
+        <xsd:attribute name="c1" type="xsd:float"/>
+        <xsd:attribute name="ccDecel" type="xsd:float"/>
+        <xsd:attribute name="constSpacing" type="xsd:float"/>
+        <xsd:attribute name="kp" type="xsd:float"/>
+        <xsd:attribute name="lambda" type="xsd:float"/>
+        <xsd:attribute name="omegaN" type="xsd:float"/>
+        <xsd:attribute name="tauEngine" type="xsd:float"/>
+        <xsd:attribute name="xi" type="xsd:float"/>
+        <xsd:attribute name="lanesCount" type="xsd:float"/>
+        <xsd:attribute name="ccAccel" type="xsd:float"/>
+        <xsd:attribute name="ploegKp" type="xsd:float"/>
+        <xsd:attribute name="ploegKd" type="xsd:float"/>
+        <xsd:attribute name="ploegH" type="xsd:float"/>
+        <xsd:attribute name="flatbedKa" type="xsd:float"/>
+        <xsd:attribute name="flatbedKv" type="xsd:float"/>
+        <xsd:attribute name="flatbedKp" type="xsd:float"/>
+        <xsd:attribute name="flatbedD" type="xsd:float"/>
+        <xsd:attribute name="flatbedH" type="xsd:float"/>
+        <xsd:attribute name="collisionMinGapFactor" type="xsd:float"/>
+        <xsd:attribute name="speedControlGainCACC" type="xsd:float"/>
+        <xsd:attribute name="gapClosingControlGainGap" type="xsd:float"/>
+        <xsd:attribute name="gapClosingControlGainGapDot" type="xsd:float"/>
+        <xsd:attribute name="gapControlGainGap" type="xsd:float"/>
+        <xsd:attribute name="gapControlGainGapDot" type="xsd:float"/>
+        <xsd:attribute name="collisionAvoidanceGainGap" type="xsd:float"/>
+        <xsd:attribute name="collisionAvoidanceGainGapDot" type="xsd:float"/>
     </xsd:complexType>
 
     <xsd:complexType name="cfIDMType">
@@ -283,6 +320,7 @@
         <xsd:attribute name="cc5" type="xsd:float"/>
         <xsd:attribute name="cc6" type="xsd:float"/>
         <xsd:attribute name="cc7" type="xsd:float"/>
+        <xsd:attribute name="cc8" type="xsd:float"/>
         <xsd:attribute name="cc9" type="xsd:float"/>
     </xsd:complexType>
     
@@ -306,6 +344,51 @@
         <xsd:attribute name="collisionAvoidanceGainSpace" type="xsd:float"/>
     </xsd:complexType>
 
+    <xsd:complexType name="cfCACCType">
+        <xsd:attribute name="accel" type="positiveFloatType"/>
+        <xsd:attribute name="decel" type="positiveFloatType"/>
+        <xsd:attribute name="emergencyDecel" type="xsd:float"/>
+        <xsd:attribute name="collisionMinGapFactor" type="xsd:float"/>
+        <xsd:attribute name="tau" type="positiveFloatType"/>
+        <xsd:attribute name="speedControlGainCACC" type="xsd:float"/>
+        <xsd:attribute name="gapClosingControlGainGap" type="xsd:float"/>
+        <xsd:attribute name="gapClosingControlGainGapDot" type="xsd:float"/>
+        <xsd:attribute name="gapControlGainGap" type="xsd:float"/>
+        <xsd:attribute name="gapControlGainGapDot" type="xsd:float"/>
+        <xsd:attribute name="collisionAvoidanceGainGap" type="xsd:float"/>
+        <xsd:attribute name="collisionAvoidanceGainGapDot" type="xsd:float"/>
+        <xsd:attribute name="gapClosingControlGainSpeed" type="xsd:float"/>
+        <xsd:attribute name="gapClosingControlGainSpace" type="xsd:float"/>
+        <xsd:attribute name="gapControlGainSpeed" type="xsd:float"/>
+        <xsd:attribute name="gapControlGainSpace" type="xsd:float"/>
+        <xsd:attribute name="collisionAvoidanceGainSpeed" type="xsd:float"/>
+        <xsd:attribute name="collisionAvoidanceGainSpace" type="xsd:float"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="cfCCType">
+        <xsd:attribute name="accel" type="positiveFloatType"/>
+        <xsd:attribute name="decel" type="positiveFloatType"/>
+        <xsd:attribute name="tau" type="positiveFloatType"/>
+        <xsd:attribute name="c1" type="xsd:float"/>
+        <xsd:attribute name="ccDecel" type="xsd:float"/>
+        <xsd:attribute name="constSpacing" type="xsd:float"/>
+        <xsd:attribute name="kp" type="xsd:float"/>
+        <xsd:attribute name="lambda" type="xsd:float"/>
+        <xsd:attribute name="omegaN" type="xsd:float"/>
+        <xsd:attribute name="tauEngine" type="xsd:float"/>
+        <xsd:attribute name="xi" type="xsd:float"/>
+        <xsd:attribute name="lanesCount" type="xsd:float"/>
+        <xsd:attribute name="ccAccel" type="xsd:float"/>
+        <xsd:attribute name="ploegKp" type="xsd:float"/>
+        <xsd:attribute name="ploegKd" type="xsd:float"/>
+        <xsd:attribute name="ploegH" type="xsd:float"/>
+        <xsd:attribute name="flatbedKa" type="xsd:float"/>
+        <xsd:attribute name="flatbedKv" type="xsd:float"/>
+        <xsd:attribute name="flatbedKp" type="xsd:float"/>
+        <xsd:attribute name="flatbedD" type="xsd:float"/>
+        <xsd:attribute name="flatbedH" type="xsd:float"/>
+    </xsd:complexType>
+    
     <xsd:complexType name="vehicleType">
         <xsd:sequence>
             <xsd:element name="param" type="paramType" minOccurs="0" maxOccurs="unbounded"/>
