@@ -20,15 +20,28 @@ Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
 Debug: Adding route 'route_0' in GNEChange_DemandElement
 Debug: DemandElements has to be saved
 Debug: Current saving Status: net saved, additionals saved, demand elements unsaved
+Error: Invalid departLane definition for vehicle 'vehicle_0';
+ must be one of ("random", "free", "allowed", "best", "first", or an int>=0)
 Debug: Adding vehicle 'vehicle_0' in GNEChange_DemandElement
+Error: Invalid departLane definition for vehicle 'vehicle_1';
+ must be one of ("random", "free", "allowed", "best", "first", or an int>=0)
 Debug: Adding vehicle 'vehicle_1' in GNEChange_DemandElement
 Debug: Adding vehicle 'vehicle_2' in GNEChange_DemandElement
 Debug: Adding vehicle 'vehicle_3' in GNEChange_DemandElement
 Debug: Adding vehicle 'vehicle_4' in GNEChange_DemandElement
+Debug: Adding vehicle 'vehicle_5' in GNEChange_DemandElement
+Debug: Adding vehicle 'vehicle_6' in GNEChange_DemandElement
+Debug: Adding vehicle 'vehicle_7' in GNEChange_DemandElement
+Debug: Adding vehicle 'vehicle_8' in GNEChange_DemandElement
+Error: Loading of C:/Users/alva_pa/.texttest/tmp/netedit.gui.01Aug095533.9228/netedit.gui/demandElements/vehicle/load/departLane\input_routes.rou.xml failed.
 Debug: net has to be saved
 Debug: Current saving Status: net unsaved, additionals saved, demand elements unsaved
 Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Removing vehicle 'vehicle_8' in GNEChange_DemandElement
+Debug: Removing vehicle 'vehicle_7' in GNEChange_DemandElement
+Debug: Removing vehicle 'vehicle_6' in GNEChange_DemandElement
+Debug: Removing vehicle 'vehicle_5' in GNEChange_DemandElement
 Debug: Removing vehicle 'vehicle_4' in GNEChange_DemandElement
 Debug: Removing vehicle 'vehicle_3' in GNEChange_DemandElement
 Debug: Removing vehicle 'vehicle_2' in GNEChange_DemandElement
@@ -43,6 +56,10 @@ Debug: Adding vehicle 'vehicle_1' in GNEChange_DemandElement
 Debug: Adding vehicle 'vehicle_2' in GNEChange_DemandElement
 Debug: Adding vehicle 'vehicle_3' in GNEChange_DemandElement
 Debug: Adding vehicle 'vehicle_4' in GNEChange_DemandElement
+Debug: Adding vehicle 'vehicle_5' in GNEChange_DemandElement
+Debug: Adding vehicle 'vehicle_6' in GNEChange_DemandElement
+Debug: Adding vehicle 'vehicle_7' in GNEChange_DemandElement
+Debug: Adding vehicle 'vehicle_8' in GNEChange_DemandElement
 Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 Debug: demand elements saved
 GLDebug: Removing junctions during recomputing
@@ -92,9 +109,13 @@ Debug: Created connection 'fromgneE6_0togneE3_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE6_0togneE3_1' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE8_0togneE9_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE9_0togneE11_0' in retrieveGNEConnection()
-Debug: Deleting unreferenced vehicle 'vehicle_4'
+Debug: Deleting unreferenced vehicle 'vehicle_8'
 Debug: DemandElements has to be saved
 Debug: Current saving Status: net saved, additionals saved, demand elements unsaved
+Debug: Deleting unreferenced vehicle 'vehicle_7'
+Debug: Deleting unreferenced vehicle 'vehicle_6'
+Debug: Deleting unreferenced vehicle 'vehicle_5'
+Debug: Deleting unreferenced vehicle 'vehicle_4'
 Debug: Deleting unreferenced vehicle 'vehicle_3'
 Debug: Deleting unreferenced vehicle 'vehicle_2'
 Debug: Deleting unreferenced vehicle 'vehicle_1'

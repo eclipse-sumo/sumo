@@ -54,13 +54,21 @@
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
     <route edges="gneE2 gneE4 gneE5" color="yellow" id="route_0"/>
 	
-    <vehicle id="vehicle_0" depart="20.00" route="route_0"/>
+    <vehicle id="vehicle_0" depart="20.00" route="route_0" departLane="dummyDepart"/>
 	
-	<vehicle id="vehicle_1" depart="20.00" route="route_0"/>
+	<vehicle id="vehicle_1" depart="20.00" route="route_0" departLane="-12"/>
 	
-	<vehicle id="vehicle_2" depart="20.00" route="route_0"/>
+	<vehicle id="vehicle_2" depart="20.00" route="route_0" departLane="0"/>
 	
-	<vehicle id="vehicle_3" depart="20.00" route="route_0"/>
+	<vehicle id="vehicle_3" depart="20.00" route="route_0" departLane="500"/>
 	
-	<vehicle id="vehicle_4" depart="20.00" route="route_0"/>
+	<vehicle id="vehicle_4" depart="20.00" route="route_0" departLane="random"/>
+	
+	<vehicle id="vehicle_5" depart="20.00" route="route_0" departLane="free"/>
+	
+	<vehicle id="vehicle_6" depart="20.00" route="route_0" departLane="allowed"/>
+	
+	<vehicle id="vehicle_7" depart="20.00" route="route_0" departLane="best"/>
+	
+	<vehicle id="vehicle_8" depart="20.00" route="route_0" departLane="first"/>
 </routes>
