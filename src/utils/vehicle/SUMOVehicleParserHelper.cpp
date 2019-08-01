@@ -230,7 +230,6 @@ SUMOVehicleParserHelper::parseFlowAttributes(const SUMOSAXAttributes& attrs, con
 SUMOVehicleParameter*
 SUMOVehicleParserHelper::parseVehicleAttributes(const SUMOSAXAttributes& attrs, const bool hardFail, const bool optionalID, const bool skipDepart, const bool isPerson) {
     bool ok = true;
-    bool abortCreation = false;
     std::string id, errorMsg;
     // for certain vehicles, ID can be optional
     if (optionalID) {

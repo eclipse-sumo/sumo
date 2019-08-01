@@ -120,17 +120,6 @@ GNEDemandElement::DemandElementSegmentGeometry::Segment::Segment(const GNEDemand
 }
 
 
-GNEDemandElement::DemandElementSegmentGeometry::Segment::Segment() :
-    element(nullptr),
-    edge(nullptr),
-    junction(nullptr),
-    pos(Position::INVALID),
-    visible(false),
-    valid(false),
-    length(-1),
-    rotation(0) {
-}
-
 // ---------------------------------------------------------------------------
 // GNEDemandElement::DemandElementGeometry - methods
 // ---------------------------------------------------------------------------

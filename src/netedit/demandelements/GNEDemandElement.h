@@ -115,8 +115,8 @@ public:
             double rotation;
 
         private:
-            /// @brief default constructor (disabled)
-            Segment();
+            /// @brief Invalidated assignment operator
+            Segment& operator=(const Segment& other) = delete;
         };
 
         /// @brief constructor

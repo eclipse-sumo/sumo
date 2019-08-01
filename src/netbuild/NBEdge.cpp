@@ -1799,9 +1799,8 @@ NBEdge::firstIntersection(const PositionVector& v1, const PositionVector& v2, do
         for (double cand : v1.intersectsAtLengths2D(v2Left)) {
             intersect = MIN2(intersect, cand);
         }
-    } catch (InvalidArgument& e) {
-        //WRITE_WARNING("Could not compute intersection of conflicting internal lanes at node '" + getID() + "'");
-        WRITE_WARNING("Could not compute intersection of conflicting internal lanes at node");
+    } catch (InvalidArgument&) {
+        WRITE_WARNING("Could not compute intersection of conflicting internal lanes");
     }
     //std::cout << " v1=" << v1 << " v2Right=" << v2Right << " v2Left=" << v2Left << "\n";
     //std::cout << "  intersectsRight=" << toString(v1.intersectsAtLengths2D(v2Right)) << "\n";
