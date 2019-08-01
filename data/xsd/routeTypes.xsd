@@ -57,10 +57,10 @@
         <xsd:attribute name="lcLookaheadLeft" type="positiveFloatType"/>
         <xsd:attribute name="lcSpeedGainRight" type="positiveFloatType"/>
         <xsd:attribute name="lcTurnAlignmentDistance" type="positiveFloatType"/>
-        <xsd:attribute name="lcImpatience" type="positiveFloatType"/>
+        <xsd:attribute name="lcImpatience" type="nonNegativeFloatType"/>
         <xsd:attribute name="lcTimeToImpatience" type="positiveFloatType"/>
         <xsd:attribute name="lcAccelLat" type="positiveFloatType"/>
-        <xsd:attribute name="lcMaxSpeedLatStanding" type="positiveFloatType"/>
+        <xsd:attribute name="lcMaxSpeedLatStanding" type="nonNegativeFloatType"/>
         <xsd:attribute name="lcMaxSpeedLatFactor" type="positiveFloatType"/>
         <xsd:attribute name="lcOvertakeRight" type="positiveFloatType"/>
         <xsd:attribute name="maxSpeedLat" type="positiveFloatType"/>
@@ -78,7 +78,7 @@
         </xsd:attribute>
         <xsd:attribute name="actionStepLength" type="positiveFloatType"/>
         <xsd:attribute name="hasDriverState" type="boolType"/>
-        <xsd:attribute name="minGapLat" type="positiveFloatType"/>
+        <xsd:attribute name="minGapLat" type="nonNegativeFloatType"/>
         <xsd:attribute name="jmCrossingGap" type="nonNegativeFloatType"/>
         <xsd:attribute name="jmDriveAfterYellowTime" type="nonNegativeFloatType"/>
         <xsd:attribute name="jmDriveAfterRedTime" type="nonNegativeFloatTypeWithErrorValue"/>

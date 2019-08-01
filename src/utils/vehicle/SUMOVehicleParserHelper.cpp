@@ -721,7 +721,7 @@ SUMOVehicleParserHelper::beginVTypeParsing(const SUMOSAXAttributes& attrs, const
             bool ok = true;
             double minGapLat = attrs.get<double>(SUMO_ATTR_MINGAP_LAT, vtype->id.c_str(), ok);
             if (ok) {
-                if (minGapLat < 0) {    /// BUG? ( <xsd:attribute name="minGapLat" type="positiveFloatType"/> )
+                if (minGapLat < 0) {
                     handleError(hardFail, abortCreation, toString(SUMO_ATTR_MINGAP_LAT) + " must be equal or greater than 0");
                 } else {
                     vtype->minGapLat = minGapLat;
@@ -1133,6 +1133,8 @@ SUMOVehicleParserHelper::parseLCParams(SUMOVTypeParameter& into, LaneChangeModel
                 // check attributes of type "nonNegativeFloatType" (>= 0)
                 switch (it) {
                     case SUMO_ATTR_LCA_PUSHYGAP:
+                    case SUMO_ATTR_LCA_MAXSPEEDLATSTANDING:
+                    case SUMO_ATTR_LCA_IMPATIENCE:
                         if (LCMAttribute < 0) {
                             ok = false;
                             if (hardFail) {
@@ -1150,10 +1152,8 @@ SUMOVehicleParserHelper::parseLCParams(SUMOVTypeParameter& into, LaneChangeModel
                     case SUMO_ATTR_LCA_LOOKAHEADLEFT:
                     case SUMO_ATTR_LCA_SPEEDGAINRIGHT:
                     case SUMO_ATTR_LCA_TURN_ALIGNMENT_DISTANCE:
-                    case SUMO_ATTR_LCA_IMPATIENCE:
                     case SUMO_ATTR_LCA_TIME_TO_IMPATIENCE:
                     case SUMO_ATTR_LCA_ACCEL_LAT:
-                    case SUMO_ATTR_LCA_MAXSPEEDLATSTANDING:
                     case SUMO_ATTR_LCA_MAXSPEEDLATFACTOR:
                     case SUMO_ATTR_LCA_OVERTAKE_RIGHT:
                         if (LCMAttribute <= 0) {
