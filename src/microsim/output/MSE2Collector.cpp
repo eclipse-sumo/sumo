@@ -781,8 +781,10 @@ MSE2Collector::notifyEnter(SUMOTrafficObject& tObject, MSMoveReminder::Notificat
     VehicleInfoMap::iterator vi = myVehicleInfos.find(vehID);
     if (vi != myVehicleInfos.end()) {
         // Register move current offset to the next lane
-        vi->second->currentOffsetIndex++;
-        vi->second->currentLane = enteredLane;
+        if (vi->second->currentLane != enteredLane) {
+            vi->second->currentOffsetIndex++;
+            vi->second->currentLane = enteredLane;
+        }
 
 #ifdef DEBUG_E2_NOTIFY_ENTER_AND_LEAVE
         if DEBUG_COND {
