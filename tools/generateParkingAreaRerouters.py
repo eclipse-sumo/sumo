@@ -19,10 +19,7 @@ import collections
 import logging
 import sys
 import xml.etree.ElementTree
-
 import sumolib
-import traci
-
 
 def logs():
     """ Log init. """
@@ -58,6 +55,10 @@ def get_options(cmd_args=None):
     parser.add_argument(
         '-o', type=str, dest='output', required=True,
         help='Name for the output file.')
+    parser.add_argument(
+        '--tqdm', dest='with_tqdm', action='store_true',
+        help='Enable TQDM feature.')
+    parser.set_defaults(with_tqdm=False)
     return parser.parse_args(cmd_args)
 
 
@@ -67,6 +68,8 @@ class ReroutersGeneration(object):
     _parking_areas = dict()
     _sumo_net = None
 
+    _with_tqdm = False
+
     _num_alternatives = None
     _dist_alternatives = None
     _capacity_threshold = None
@@ -75,21 +78,29 @@ class ReroutersGeneration(object):
     _sumo_rerouters = dict()
 
     def __init__(self, parking_areas, sumo_network, num_alternatives, dist_alternatives,
-                 capacity_threshold, dist_threshold):
+                 capacity_threshold, dist_threshold, with_tqdm):
 
+        self._with_tqdm = with_tqdm
+        logging.info('Loading SUMO network: %s', sumo_network)
         self._sumo_net = sumolib.net.readNet(sumo_network)
+        logging.info('Loading parking file: %s', parking_areas)
         self._load_parking_areas_from_file(parking_areas)
         self._num_alternatives = num_alternatives
         self._dist_alternatives = dist_alternatives
         self._capacity_threshold = capacity_threshold
         self._dist_threshold = dist_threshold
-
         self._generate_rerouters()
 
     def _load_parking_areas_from_file(self, filename):
         """ Load parkingArea from XML file. """
         xml_tree = xml.etree.ElementTree.parse(filename).getroot()
-        for child in xml_tree:
+        sequence = None
+        if self._with_tqdm:
+            from tqdm import tqdm
+            sequence = tqdm(xml_tree)
+        else:
+            sequence = xml_tree
+        for child in sequence:
             self._parking_areas[child.attrib['id']] = child.attrib
             self._parking_areas[child.attrib['id']]['edge'] = self._sumo_net.getEdge(
                 child.attrib['lane'].split('_')[0])
@@ -101,19 +112,45 @@ class ReroutersGeneration(object):
     def _generate_rerouters(self):
         """ Compute the rerouters for each parking lot for SUMO. """
 
+        _rerouters_cache = collections.defaultdict(dict)
+        _cache_used = 0
+        _total_distances = 0
         distances = collections.defaultdict(dict)
-        for parking_a in self._parking_areas.values():
+        logging.info('Computing distances.')
+        sequence = None
+        if self._with_tqdm:
+            from tqdm import tqdm
+            sequence = tqdm(self._parking_areas.values())
+        else:
+            sequence = self._parking_areas.values()
+        for parking_a in sequence:
             for parking_b in self._parking_areas.values():
                 if parking_a['id'] == parking_b['id']:
                     continue
                 if parking_a['edge'].getID() == parking_b['edge'].getID():
                     continue
-                route, cost = self._sumo_net.getShortestPath(parking_a['edge'], parking_b['edge'])
+                _total_distances += 1
+                route, cost = None, None
+                if (parking_a['edge'].getID() in _rerouters_cache and
+                        parking_b['edge'].getID() in _rerouters_cache[parking_a['edge'].getID()]):
+                    route, cost = _rerouters_cache[parking_a['edge'].getID()][parking_b['edge'].getID()]
+                    _cache_used += 1
+                else:
+                    route, cost = self._sumo_net.getShortestPath(parking_a['edge'], parking_b['edge'])
+                    _rerouters_cache[parking_a['edge'].getID()][parking_b['edge'].getID()] = (route, cost)
                 if route:
                     distances[parking_a['id']][parking_b['id']] = cost
+        logging.info('Cache used %d times out of %d.', _cache_used, _total_distances)
 
         # select closest parking areas
-        for pid, dists in distances.items():
+        logging.info('Sorting parking alternatives.')
+        sequence = None
+        if self._with_tqdm:
+            from tqdm import tqdm
+            sequence = tqdm(distances.items())
+        else:
+            sequence = distances.items()
+        for pid, dists in sequence:
             list_of_dist = [tuple(reversed(x)) for x in dists.items() if x[1] is not None]
             list_of_dist = sorted(list_of_dist)
             rerouters = [(pid, 0.0)]
@@ -132,8 +169,7 @@ class ReroutersGeneration(object):
                 'edge': self._parking_areas[pid]['edge'].getID(),
                 'rerouters': rerouters,
             }
-
-        logging.debug('Computed %d rerouters.', len(self._sumo_rerouters.keys()))
+        logging.info('Computed %d rerouters.', len(self._sumo_rerouters.keys()))
 
     # ---------------------------------------------------------------------------------------- #
     #                             Save SUMO Additionals to File                                #
@@ -183,7 +219,7 @@ def main(cmd_args):
 
     rerouters = ReroutersGeneration(args.parking_area_definition, args.sumo_net_definition,
                                     args.num_alternatives, args.dist_alternatives,
-                                    args.capacity_threshold, args.dist_threshold)
+                                    args.capacity_threshold, args.dist_threshold, args.with_tqdm)
     rerouters.save_rerouters(args.output)
 
     logging.info('Done.')
