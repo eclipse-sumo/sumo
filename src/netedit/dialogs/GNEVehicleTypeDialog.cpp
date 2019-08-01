@@ -20,20 +20,13 @@
 // ===========================================================================
 #include <config.h>
 
-#include <iostream>
-#include <utils/common/MsgHandler.h>
-#include <utils/emissions/PollutantsInterface.h>
-#include <utils/gui/windows/GUIAppEnum.h>
-#include <utils/gui/images/GUIIconSubSys.h>
-#include <utils/gui/div/GUIDesigns.h>
-#include <netedit/changes/GNEChange_DemandElement.h>
-#include <netedit/additionals/GNECalibrator.h>
-#include <netedit/netelements/GNEEdge.h>
-#include <netedit/netelements/GNELane.h>
-#include <netedit/GNEViewNet.h>
-#include <netedit/GNENet.h>
-#include <netedit/demandelements/GNEVehicleType.h>
 #include <netedit/GNEUndoList.h>
+#include <netedit/GNEViewNet.h>
+#include <netedit/changes/GNEChange_DemandElement.h>
+#include <netedit/demandelements/GNEVehicleType.h>
+#include <utils/emissions/PollutantsInterface.h>
+#include <utils/gui/div/GUIDesigns.h>
+#include <utils/gui/windows/GUIAppEnum.h>
 
 #include "GNEVehicleTypeDialog.h"
 
@@ -555,22 +548,37 @@ GNEVehicleTypeDialog::VTypeAtributes::VTypeAttributeRow::updateValue(const std::
 GNEVehicleTypeDialog::VTypeAtributes::VTypeAtributes(GNEVehicleTypeDialog* vehicleTypeDialog, FXHorizontalFrame* column) :
     FXVerticalFrame(column, GUIDesignAuxiliarVerticalFrame),
     myVehicleTypeDialog(vehicleTypeDialog) {
+        
+    FXHorizontalFrame* A = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
+    FXVerticalFrame* B = new FXVerticalFrame(A, GUIDesignAuxiliarVerticalFrame);
+
+
     // create attributes for common attributes
-    FXGroupBox* commonAttributes = new FXGroupBox(this, "Vehicle Type attributes", GUIDesignGroupBoxFrame);
+    FXGroupBox* commonAttributes = new FXGroupBox(B, "Vehicle Type attributes", GUIDesignGroupBoxFrame);
+
+
+
+
     // create horizontal frame for columns of attributes
-    FXHorizontalFrame* columnsCommonVTypeAttributes = new FXHorizontalFrame(commonAttributes, GUIDesignAuxiliarHorizontalFrame);
+    FXHorizontalFrame* columnsBasicVTypeAttributes = new FXHorizontalFrame(commonAttributes, GUIDesignAuxiliarHorizontalFrame);
     // build left attributes
-    buildAttributesA(new FXVerticalFrame(columnsCommonVTypeAttributes, GUIDesignAuxiliarFrame));
+    buildAttributesA(new FXVerticalFrame(columnsBasicVTypeAttributes, GUIDesignAuxiliarFrame));
     // build right attributes
-    buildAttributesB(new FXVerticalFrame(columnsCommonVTypeAttributes, GUIDesignAuxiliarFrame));
+    buildAttributesB(new FXVerticalFrame(columnsBasicVTypeAttributes, GUIDesignAuxiliarFrame));
     // create attribute for Junction Model Attributes
-    FXGroupBox* JMAttributes = new FXGroupBox(this, "Junction Model attributes", GUIDesignGroupBoxFrame);
+    FXGroupBox* JMAttributes = new FXGroupBox(B, "Junction Model attributes", GUIDesignGroupBoxFrame);
     // create horizontal frame for columns of Junction Model attributes
     FXHorizontalFrame* columnsJMVTypeAttributes = new FXHorizontalFrame(JMAttributes, GUIDesignAuxiliarHorizontalFrame);
     // build left attributes
     buildJunctionModelAttributesA(new FXVerticalFrame(columnsJMVTypeAttributes, GUIDesignAuxiliarFrame));
     // build right attributes
     buildJunctionModelAttributesB(new FXVerticalFrame(columnsJMVTypeAttributes, GUIDesignAuxiliarFrame));
+
+    // create attribute for Junction Model Attributes
+    FXGroupBox* LCMAttributes = new FXGroupBox(A, "Lane Change Model attributes", GUIDesignGroupBoxFrame);
+
+    buildLaneChangeModelAttributes(new FXVerticalFrame(LCMAttributes, GUIDesignAuxiliarFrame));
+
 }
 
 
@@ -706,6 +714,65 @@ GNEVehicleTypeDialog::VTypeAtributes::buildJunctionModelAttributesB(FXVerticalFr
     // 05 create VTypeAttributeRow and Label for Impatience
     myJMImpatience = new VTypeAttributeRow(this, column, SUMO_ATTR_IMPATIENCE, 1);
 }
+
+
+void 
+GNEVehicleTypeDialog::VTypeAtributes::buildLaneChangeModelAttributes(FXVerticalFrame* column) {
+    // 01 create VTypeAttributeRow and Label for strategic param
+    myLCAStrategicParam = new VTypeAttributeRow(this, column, SUMO_ATTR_LCA_STRATEGIC_PARAM, 1);
+
+    // 02 create VTypeAttributeRow and Label for cooperative param
+    myLCACooperativeParam = new VTypeAttributeRow(this, column, SUMO_ATTR_LCA_COOPERATIVE_PARAM, 1);
+
+    // 03 create VTypeAttributeRow and Label for speed gain param
+    myLCASpeedgainParam = new VTypeAttributeRow(this, column, SUMO_ATTR_LCA_SPEEDGAIN_PARAM, 1);
+
+    // 04 create VTypeAttributeRow and Label for keepright param
+    myLCAKeeprightParam = new VTypeAttributeRow(this, column, SUMO_ATTR_LCA_KEEPRIGHT_PARAM, 1);
+
+    // 05 create VTypeAttributeRow and Label for sublane param
+    myLCASublaneParam = new VTypeAttributeRow(this, column, SUMO_ATTR_LCA_SUBLANE_PARAM, 1);
+
+    // 06 create VTypeAttributeRow and Label for opposite param
+    myLCAOppositeParam = new VTypeAttributeRow(this, column, SUMO_ATTR_LCA_OPPOSITE_PARAM, 1);
+
+    // 07 create VTypeAttributeRow and Label for pushy
+    myLCAPushy = new VTypeAttributeRow(this, column, SUMO_ATTR_LCA_PUSHY, 1);
+
+    // 08 create VTypeAttributeRow and Label for pushy gap
+    myLCAPushygap = new VTypeAttributeRow(this, column, SUMO_ATTR_LCA_PUSHYGAP, 1);
+
+    // 09 create VTypeAttributeRow and Label for assertive
+    myLCAAssertive = new VTypeAttributeRow(this, column, SUMO_ATTR_LCA_ASSERTIVE, 1);
+
+    // 10 create VTypeAttributeRow and Label for impatience
+    myLCAImpatience = new VTypeAttributeRow(this, column, SUMO_ATTR_LCA_IMPATIENCE, 1);
+
+    // 11 create VTypeAttributeRow and Label for time to impatience
+    myLCATimeToImpatience = new VTypeAttributeRow(this, column, SUMO_ATTR_LCA_TIME_TO_IMPATIENCE, 1);
+
+    // 12 create VTypeAttributeRow and Label for accel lat
+    myLCAAccelLat = new VTypeAttributeRow(this, column, SUMO_ATTR_LCA_ACCEL_LAT, 1);
+
+    // 13 create VTypeAttributeRow and Label for look ahead lefth
+    myLCALookAheadLeft = new VTypeAttributeRow(this, column, SUMO_ATTR_LCA_LOOKAHEADLEFT, 1);
+
+    // 14 create VTypeAttributeRow and Label for speed gain right
+    myLCASpeedGainRight = new VTypeAttributeRow(this, column, SUMO_ATTR_LCA_SPEEDGAINRIGHT, 1);
+
+    // 15 create VTypeAttributeRow and Label for max speed lat standing
+    myLCAMaxSpeedLatStanding = new VTypeAttributeRow(this, column, SUMO_ATTR_LCA_MAXSPEEDLATSTANDING, 1);
+
+    // 16 create VTypeAttributeRow and Label for max speed lat factor
+    myLCAMaxSpeedLatFactor = new VTypeAttributeRow(this, column, SUMO_ATTR_LCA_MAXSPEEDLATFACTOR, 1);
+
+    // 17 create VTypeAttributeRow and Label for turn alignment distance
+    myLCATurnAlignmentDistance = new VTypeAttributeRow(this, column, SUMO_ATTR_LCA_TURN_ALIGNMENT_DISTANCE, 1);
+
+    // 18 create VTypeAttributeRow and Label for overtake right
+    myLCAOvertakeRight = new VTypeAttributeRow(this, column, SUMO_ATTR_LCA_OVERTAKE_RIGHT, 1);
+}
+
 
 void
 GNEVehicleTypeDialog::VTypeAtributes::updateValues() {
@@ -1215,7 +1282,7 @@ GNEVehicleTypeDialog::CarFollowingModelParameters::onCmdSetVariable(FXObject*, F
 // ---------------------------------------------------------------------------
 
 GNEVehicleTypeDialog::GNEVehicleTypeDialog(GNEDemandElement* editedVehicleType, bool updatingElement) :
-    GNEDemandElementDialog(editedVehicleType, updatingElement, 1022, 575),
+    GNEDemandElementDialog(editedVehicleType, updatingElement, /*1022*/ /*1322*/ 1372, 575),
     myVehicleTypeValid(true),
     myInvalidAttr(SUMO_ATTR_NOTHING) {
 

@@ -155,6 +155,9 @@ public:
         /// @brief build JunctionModel attributes (B)
         void buildJunctionModelAttributesB(FXVerticalFrame* column);
 
+        /// @brief build LaneChangeModel attributes
+        void buildLaneChangeModelAttributes(FXVerticalFrame* column);
+
         /// @brief update values
         void updateValues();
 
@@ -295,6 +298,66 @@ public:
 
         /// @brief VTypeAttributeRow for Impatience
         VTypeAttributeRow* myJMImpatience;
+
+        /// @}
+
+
+        /// @name LCM Attributes
+        /// @{
+
+        /// @brief VTypeAttributeRow for strategic param
+        VTypeAttributeRow* myLCAStrategicParam;
+
+        /// @brief VTypeAttributeRow for cooperative param
+        VTypeAttributeRow* myLCACooperativeParam;
+
+        /// @brief VTypeAttributeRow for speed gain param
+        VTypeAttributeRow* myLCASpeedgainParam;
+
+        /// @brief VTypeAttributeRow for keep right param
+        VTypeAttributeRow* myLCAKeeprightParam;
+
+        /// @brief VTypeAttributeRow for sublane param
+        VTypeAttributeRow* myLCASublaneParam;
+
+        /// @brief VTypeAttributeRow for opposite param
+        VTypeAttributeRow* myLCAOppositeParam;
+
+        /// @brief VTypeAttributeRow for pushy
+        VTypeAttributeRow* myLCAPushy;
+
+        /// @brief VTypeAttributeRow for pushy gap
+        VTypeAttributeRow* myLCAPushygap;
+
+        /// @brief VTypeAttributeRow for assertive
+        VTypeAttributeRow* myLCAAssertive;
+
+        /// @brief VTypeAttributeRow for impatience
+        VTypeAttributeRow* myLCAImpatience;
+
+        /// @brief VTypeAttributeRow for time to impatience
+        VTypeAttributeRow* myLCATimeToImpatience;
+
+        /// @brief VTypeAttributeRow for accel lat
+        VTypeAttributeRow* myLCAAccelLat;
+
+        /// @brief VTypeAttributeRow for loock ahead left
+        VTypeAttributeRow* myLCALookAheadLeft;
+
+        /// @brief VTypeAttributeRow for speed gain right
+        VTypeAttributeRow* myLCASpeedGainRight;
+
+        /// @brief VTypeAttributeRow for max speed lat standing
+        VTypeAttributeRow* myLCAMaxSpeedLatStanding;
+
+        /// @brief VTypeAttributeRow for max speed lat factor
+        VTypeAttributeRow* myLCAMaxSpeedLatFactor;
+
+        /// @brief VTypeAttributeRow for turn alignment distance
+        VTypeAttributeRow* myLCATurnAlignmentDistance;
+
+        /// @brief VTypeAttributeRow for overtake right
+        VTypeAttributeRow* myLCAOvertakeRight;
 
         /// @}
 
