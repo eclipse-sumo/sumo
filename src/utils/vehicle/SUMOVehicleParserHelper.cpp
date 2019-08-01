@@ -554,7 +554,7 @@ SUMOVehicleParserHelper::beginVTypeParsing(const SUMOSAXAttributes& attrs, const
                     if (impatience < 0) {
                         handleError(hardFail, abortCreation, toString(SUMO_ATTR_IMPATIENCE) + " must be equal or greater than 0");
                     } else {
-                        vtype->impatience;
+                        vtype->impatience = impatience;
                         vtype->parametersSet |= VTYPEPARS_IMPATIENCE_SET;
                     }
                 }
