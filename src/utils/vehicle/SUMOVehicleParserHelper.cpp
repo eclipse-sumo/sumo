@@ -806,18 +806,51 @@ SUMOVehicleParserHelper::parseVTypeEmbedded(SUMOVTypeParameter& into, const Sumo
                 } else {
                     WRITE_ERROR("Invalid train type '" + parsedCFMAttribute + "' used in Car-Following-Attribute " + toString(it));
                 }
+            } else if (it == SUMO_ATTR_CF_IDM_STEPPING) {
+                // declare a int in wich save CFM int attribute
+                int CFMIntAttribute = -1;
+                try {
+                    // obtain CFM attribute in int format
+                    CFMIntAttribute = StringUtils::toInt(parsedCFMAttribute);
+                } catch (...) {
+                    ok = false;
+                    if (hardFail) {
+                        throw ProcessError("Invalid Car-Following-Model Attribute " + toString(it) + ". Cannot be parsed to int");
+                    } else {
+                        WRITE_ERROR("Invalid Car-Following-Model Attribute " + toString(it) + ". Cannot be parsed to int");
+                    }
+                }
+                // now continue checking other properties
+                if (ok) {
+                    if (CFMIntAttribute <= 0) {
+                        ok = false;
+                        if (hardFail) {
+                            throw ProcessError("Invalid Car-Following-Model Attribute " + toString(it) + ". Must be greater than 0");
+                        } else {
+                            WRITE_ERROR("Invalid Car-Following-Model Attribute " + toString(it) + ". Must be greater than 0");
+                        }
+                    }
+                    if (ok) {
+                        // add parsedCFMAttribute to cfParameter
+                        into.cfParameter[it] = parsedCFMAttribute;
+                    }
+                }
             } else {
-                // declare a double in wich save CFM attribute
-                double CFMAttribute = -1;
+                // declare a double in wich save CFM float attribute
+                double CFMDoubleAttribute = -1;
                 try {
                     // obtain CFM attribute in double format
-                    CFMAttribute = StringUtils::toDouble(parsedCFMAttribute);
+                    CFMDoubleAttribute = StringUtils::toDouble(parsedCFMAttribute);
                 } catch (...) {
                     ok = false;
                     if (hardFail) {
                         throw ProcessError("Invalid Car-Following-Model Attribute " + toString(it) + ". Cannot be parsed to float");
                     } else {
                         WRITE_ERROR("Invalid Car-Following-Model Attribute " + toString(it) + ". Cannot be parsed to float");
+                    }
+                    if (ok) {
+                        // add parsedCFMAttribute to cfParameter
+                        into.cfParameter[it] = parsedCFMAttribute;
                     }
                 }
                 // now continue checking other properties
@@ -829,7 +862,7 @@ SUMOVehicleParserHelper::parseVTypeEmbedded(SUMOVTypeParameter& into, const Sumo
                         case SUMO_ATTR_APPARENTDECEL:
                         case SUMO_ATTR_EMERGENCYDECEL:
                         case SUMO_ATTR_TAU:
-                            if (CFMAttribute <= 0) {
+                            if (CFMDoubleAttribute <= 0) {
                                 ok = false;
                                 if (hardFail) {
                                     throw ProcessError("Invalid Car-Following-Model Attribute " + toString(it) + ". Must be greater than 0");
@@ -843,7 +876,7 @@ SUMOVehicleParserHelper::parseVTypeEmbedded(SUMOVTypeParameter& into, const Sumo
                     // check attributes restricted to [0-1]
                     switch (it) {
                         case SUMO_ATTR_SIGMA:
-                            if ((CFMAttribute < 0) || (CFMAttribute > 1)) {
+                            if ((CFMDoubleAttribute < 0) || (CFMDoubleAttribute > 1)) {
                                 ok = false;
                                 if (hardFail) {
                                     throw ProcessError("Invalid Car-Following-Model Attribute " + toString(it) + ". Only values between [0-1] are allowed");
