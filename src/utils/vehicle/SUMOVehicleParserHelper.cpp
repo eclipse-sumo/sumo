@@ -260,6 +260,7 @@ SUMOVehicleParserHelper::parseVehicleAttributes(const SUMOSAXAttributes& attrs, 
                 throw;
             } else {
                 WRITE_ERROR(errorMsg);
+                return nullptr;
             }
         }
         // set tag
@@ -279,6 +280,11 @@ SUMOVehicleParserHelper::parseVehicleAttributes(const SUMOSAXAttributes& attrs, 
                 throw ProcessError("Vehicle cannot be created");
             }
         } else {
+            if(isPerson) {
+                WRITE_ERROR("Person cannot be created");
+            } else {
+                WRITE_ERROR("Vehicle cannot be created");
+            }
             return nullptr;
         }
     }
