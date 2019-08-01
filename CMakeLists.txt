@@ -363,15 +363,17 @@ if (MVN_EXECUTABLE AND Java_FOUND)
         COMMAND ${MVN_COMMAND_PREFIX} ${MVN_EXECUTABLE} --batch-mode -f tools/contributed/traas/pom.xml clean install
         COMMAND ${CMAKE_COMMAND} -E copy tools/contributed/traas/target/traas-1.0-jar-with-dependencies.jar bin/TraaS.jar
         WORKING_DIRECTORY ${CMAKE_SOURCE_DIR})
-    add_custom_target(lisum-core DEPENDS traas
+    add_custom_target(lisum-core
         COMMAND ${MVN_COMMAND_PREFIX} ${MVN_EXECUTABLE} --batch-mode -f tools/contributed/lisum-core/pom.xml clean install
         COMMAND ${CMAKE_COMMAND} -E copy tools/contributed/lisum-core/target/lisum-core-1.0.1-SNAPSHOT.jar bin
         COMMAND ${MVN_EXECUTABLE} install:install-file -Dfile=bin/lisum-core-1.0.1-SNAPSHOT.jar -DgroupId=de.dlr.ts -DartifactId=lisum-core -Dversion=1.0.1 -Dpackaging=jar
         WORKING_DIRECTORY ${CMAKE_SOURCE_DIR})
-    add_custom_target(lisum-gui DEPENDS lisum-core
+    add_dependencies(lisum-core traas)
+    add_custom_target(lisum-gui
         COMMAND ${MVN_COMMAND_PREFIX} ${MVN_EXECUTABLE} --batch-mode -f tools/contributed/lisum-gui/pom_new.xml clean install
         COMMAND ${CMAKE_COMMAND} -E copy tools/contributed/lisum-gui/target/lisum-gui-1.0.jar bin
         WORKING_DIRECTORY ${CMAKE_SOURCE_DIR})
+    add_dependencies(lisum-gui lisum-core)
     set(JAVA_TARGETS cadyts traas lisum-core lisum-gui)
     foreach (JAVAT ${JAVA_TARGETS})
         set_property(TARGET ${JAVAT} PROPERTY EXCLUDE_FROM_DEFAULT_BUILD TRUE)
@@ -431,7 +433,8 @@ if (HELPMAN_EXECUTABLE)
     set(MAN_TARGET man)
 endif()
 
-add_custom_target(doc DEPENDS doxygen userdoc ${JAVADOC_TARGET} ${MAN_TARGET})
+add_custom_target(doc)
+add_dependencies(doc doxygen userdoc ${JAVADOC_TARGET} ${MAN_TARGET})
 set_property(TARGET doc PROPERTY EXCLUDE_FROM_DEFAULT_BUILD TRUE)
 set_property(TARGET doc PROPERTY FOLDER "doc")
 
@@ -450,15 +453,16 @@ if (COVERAGE)
 endif()
 
 # example and dist targets
-add_custom_target(examples DEPENDS sumo netconvert dfrouter duarouter jtrrouter
+add_custom_target(examples
     COMMAND ${PYTHON_EXECUTABLE} tools/extractTest.py -x -f tests/examples.txt -p docs/examples/runAll.py
     WORKING_DIRECTORY ${CMAKE_SOURCE_DIR})
+add_dependencies(examples sumo netconvert dfrouter duarouter jtrrouter)
 set_property(TARGET examples PROPERTY EXCLUDE_FROM_DEFAULT_BUILD TRUE)
 set_property(TARGET examples PROPERTY FOLDER "doc")
 add_test(exampletest ${PYTHON_EXECUTABLE} ${CMAKE_SOURCE_DIR}/docs/examples/runAll.py)
 find_package(Git)
 if (GIT_FOUND)
-    add_custom_target(dist DEPENDS examples doc ${JAVA_TARGETS}
+    add_custom_target(dist
         COMMAND rm -rf sumo-${PACKAGE_VERSION} sumo-${PACKAGE_VERSION}.zip sumo-src-${PACKAGE_VERSION}.tar.gz sumo-src-${PACKAGE_VERSION}.zip sumo-all-${PACKAGE_VERSION}.tar.gz sumo-all-${PACKAGE_VERSION}.zip
         COMMAND ${GIT_EXECUTABLE} archive --prefix sumo-${PACKAGE_VERSION}/ -o sumo-${PACKAGE_VERSION}.zip HEAD
         COMMAND unzip -q sumo-${PACKAGE_VERSION}.zip
@@ -472,14 +476,16 @@ if (GIT_FOUND)
         COMMAND tar czf sumo-all-${PACKAGE_VERSION}.tar.gz sumo-${PACKAGE_VERSION}
         COMMAND rm -rf sumo-${PACKAGE_VERSION} sumo-${PACKAGE_VERSION}.zip
         WORKING_DIRECTORY ${CMAKE_SOURCE_DIR})
+    add_dependencies(dist examples doc ${JAVA_TARGETS})
     set_property(TARGET dist PROPERTY FOLDER "CMake")
     set_property(TARGET dist PROPERTY EXCLUDE_FROM_DEFAULT_BUILD TRUE)
     # alias for backward compatibility
-    add_custom_target(dist-complete DEPENDS dist)
+    add_custom_target(dist-complete)
+    add_dependencies(dist-complete dist)
     set_property(TARGET dist-complete PROPERTY FOLDER "CMake")
     set_property(TARGET dist-complete PROPERTY EXCLUDE_FROM_DEFAULT_BUILD TRUE)
 
-    add_custom_target(distcheck DEPENDS dist
+    add_custom_target(distcheck
         COMMAND rm -rf sumo-${PACKAGE_VERSION}
         COMMAND unzip -q sumo-src-${PACKAGE_VERSION}.zip
         COMMAND cd sumo-${PACKAGE_VERSION} && mkdir _cmake_build _cmake_install && cd _cmake_build
@@ -489,6 +495,7 @@ if (GIT_FOUND)
                 && make install || (echo "ERROR: the install target failed." && false)
         COMMAND rm -rf sumo-${PACKAGE_VERSION}
         WORKING_DIRECTORY ${CMAKE_SOURCE_DIR})
+    add_dependencies(distcheck dist)
     set_property(TARGET distcheck PROPERTY FOLDER "CMake")
     set_property(TARGET distcheck PROPERTY EXCLUDE_FROM_DEFAULT_BUILD TRUE)
 endif ()
