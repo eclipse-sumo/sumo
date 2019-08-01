@@ -328,13 +328,10 @@ public:
 
         public:
             /// @brief constructor
-            AttributesCreatorRow(AttributesCreator* AttributesCreatorParent);
+            AttributesCreatorRow(AttributesCreator* AttributesCreatorParent, const GNEAttributeCarrier::AttributeProperties& attrProperties);
 
-            /// @brief show name and value of attribute of type string
-            void showParameter(const GNEAttributeCarrier::AttributeProperties& attrProperties);
-
-            /// @brief hide all parameters
-            void hideParameter();
+            /// @brief destroy AttributesCreatorRow (but don't delete)
+            void destroy();
 
             /// @brief return Attr
             const GNEAttributeCarrier::AttributeProperties& getAttrProperties() const;
@@ -396,7 +393,10 @@ public:
             AttributesCreator* myAttributesCreatorParent;
 
             /// @brief attribute properties
-            GNEAttributeCarrier::AttributeProperties myAttrProperties;
+            const GNEAttributeCarrier::AttributeProperties myAttrProperties;
+
+            /// @brief string which indicates the reason due current value is invalid
+            std::string myInvalidValue;
 
             /// @brief Label with the name of the attribute
             FXLabel* myAttributeLabel;
@@ -421,9 +421,6 @@ public:
 
             /// @brief check button to enable/disable the value of boolean parameters
             FXCheckButton* myValueCheckButton;
-
-            /// @brief string which indicates the reason due current value is invalid
-            std::string myInvalidValue;
         };
 
         /// @brief update disjoint attributes
@@ -442,6 +439,9 @@ public:
 
         /// @brief vector with the AttributesCreatorRow
         std::vector<AttributesCreatorRow*> myAttributesCreatorRows;
+
+        /// @brief help button
+        FXButton* myHelpButton;
     };
 
     // ===========================================================================
@@ -458,19 +458,16 @@ public:
         // class AttributesEditorRow
         // ===========================================================================
 
-        class AttributesEditorRow : private FXHorizontalFrame {
+        class AttributesEditorRow : protected FXHorizontalFrame {
             /// @brief FOX-declaration
             FXDECLARE(GNEFrame::AttributesEditor::AttributesEditorRow)
 
         public:
             /// @brief constructor
-            AttributesEditorRow(GNEFrame::AttributesEditor* attributeEditorParent);
+            AttributesEditorRow(GNEFrame::AttributesEditor* attributeEditorParent, const GNEAttributeCarrier::AttributeProperties& ACAttr, const std::string& value, bool disjointAttributeEnabled);
 
-            /// @brief show row attribute
-            void showAttributesEditorRow(const GNEAttributeCarrier::AttributeProperties& ACAttr, const std::string& value, bool disjointAttributeEnabled);
-
-            /// @brief show row attribute
-            void hideAttributesEditorRow();
+            /// @brief destroy AttributesCreatorRow (but don't delete)
+            void destroy();
 
             /// @brief refresh current row
             void refreshAttributesEditorRow(const std::string& value, bool forceRefresh, bool disjointAttributeEnabled);
@@ -496,7 +493,7 @@ public:
 
         protected:
             /// @brief FOX needs this
-            AttributesEditorRow() {}
+            AttributesEditorRow();
 
             /// @brief removed invalid spaces of Positions and shapes
             std::string stripWhitespaceAfterComma(const std::string& stringValue);
@@ -506,10 +503,10 @@ public:
             GNEFrame::AttributesEditor* myAttributesEditorParent;
 
             /// @brief current AC Attribute
-            GNEAttributeCarrier::AttributeProperties myACAttr;
+            const GNEAttributeCarrier::AttributeProperties myACAttr;
 
             /// @brief flag to check if input element contains multiple values
-            bool myMultiple;
+            const bool myMultiple;
 
             /// @brief pointer to attribute label
             FXLabel* myAttributeLabel;

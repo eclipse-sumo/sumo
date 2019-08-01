@@ -615,6 +615,9 @@ public:
     static const std::string FEATURE_APPROVED;
     /// @}
 
+    /// @brief max number of attributes allowed for every tag
+    static const size_t MAXNUMBEROFATTRIBUTES;
+
     /// @brief invalid double position
     static const double INVALID_POSITION;
 
@@ -641,9 +644,6 @@ public:
 
     /// @brief get tags of all editable element types using TagProperty Type (TAGTYPE_NETELEMENT, TAGTYPE_ADDITIONAL, etc.)
     static std::vector<SumoXMLTag> allowedTagsByCategory(int tagPropertyCategory, bool onlyDrawables);
-
-    /// @brief return the number of attributes of the tag with the most highter number of attributes
-    static int getHigherNumberOfAttributes();
 
     /// @name This functions related with generic parameters has to be implemented in all GNEAttributeCarriers
     /// @{

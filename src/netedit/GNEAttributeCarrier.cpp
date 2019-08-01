@@ -43,6 +43,7 @@ const std::string GNEAttributeCarrier::FEATURE_LOADED = "loaded";
 const std::string GNEAttributeCarrier::FEATURE_GUESSED = "guessed";
 const std::string GNEAttributeCarrier::FEATURE_MODIFIED = "modified";
 const std::string GNEAttributeCarrier::FEATURE_APPROVED = "approved";
+const size_t GNEAttributeCarrier::MAXNUMBEROFATTRIBUTES = 128;
 const double GNEAttributeCarrier::INVALID_POSITION(-1000000);
 
 
@@ -594,6 +595,8 @@ GNEAttributeCarrier::TagProperties::addAttribute(const AttributeProperties& attr
         throw ProcessError("Attribute '" + attributeProperty.getAttrStr() + "' is deprecated and cannot be inserted");
     } else if (myAttributeProperties.count(attributeProperty.getAttr()) != 0) {
         throw ProcessError("Attribute '" + attributeProperty.getAttrStr() + "' already inserted");
+    } else if ((myAttributeProperties.size() + 1) >= MAXNUMBEROFATTRIBUTES) {
+        throw ProcessError("Maximum number of attributes for tag " + attributeProperty.getAttrStr() + " exceeded");
     } else {
         // insert AttributeProperties in map
         myAttributeProperties[attributeProperty.getAttr()] = attributeProperty;
@@ -1377,21 +1380,6 @@ GNEAttributeCarrier::allowedTagsByCategory(int tagPropertyCategory, bool onlyDra
         }
     }
     return allowedTags;
-}
-
-
-int
-GNEAttributeCarrier::getHigherNumberOfAttributes() {
-    int maxNumAttribute = 0;
-    // define on first access
-    if (myTagProperties.size() == 0) {
-        fillAttributeCarriers();
-    }
-    // get max num attributes
-    for (const auto& i : myTagProperties) {
-        maxNumAttribute = MAX2(maxNumAttribute, i.second.getNumberOfAttributes());
-    }
-    return maxNumAttribute;
 }
 
 
@@ -3327,7 +3315,7 @@ GNEAttributeCarrier::fillDemandElements() {
         // fill VType Junction Model Parameters (implemented in a separated function to improve code legibility)
         fillJunctionModelAttributes(currentTag);
         // fill VType Lane Change Model Parameters (implemented in a separated function to improve code legibility)
-        // fillLaneChangingModelAttributes(currentTag); #5846
+        fillLaneChangingModelAttributes(currentTag);
     }
     currentTag = SUMO_TAG_PTYPE;
     {
@@ -3503,7 +3491,7 @@ GNEAttributeCarrier::fillDemandElements() {
         // fill VType Junction Model Parameters (implemented in a separated function to improve code legibility)
         fillJunctionModelAttributes(currentTag);
         // fill VType Lane Change Model Parameters (implemented in a separated function to improve code legibility)
-        // fillLaneChangingModelAttributes(currentTag); #5846
+        fillLaneChangingModelAttributes(currentTag);
     }
 }
 
