@@ -32,8 +32,6 @@ traci.start([sumolib.checkBinary('sumo'), "-c", "sumo.sumocfg"])
 for step in range(3):
     print("step", step)
     traci.simulationStep()
-if not traci.isLibsumo():
-    print("trafficlights deprecated", traci.trafficlights.getIDList())
 print("trafficlight", traci.trafficlight.getIDList())
 print("trafficlight count", traci.trafficlight.getIDCount())
 tlsID = "0"
