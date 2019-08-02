@@ -323,17 +323,17 @@ GNEHierarchicalElementParents::ParentConnections::update() {
 
 
 void
-GNEHierarchicalElementParents::ParentConnections::draw(const GUIVisualizationSettings& s, const GUIGlObjectType parentType) const {
+GNEHierarchicalElementParents::ParentConnections::draw(const GUIVisualizationSettings& /* s */, const GUIGlObjectType parentType) const {
     // Iterate over myConnectionPositions
-    for (auto i : connectionPositions) {
+    for (const PositionVector& i : connectionPositions) {
         // Add a draw matrix
         glPushMatrix();
-        // traslate in the Z axis
+        // translate in the Z axis
         glTranslated(0, 0, parentType - 0.01);
         // Set color of the base
-        GLHelper::setColor(s.colorSettings.childConnections);
+        GLHelper::setColor(GUIVisualizationColorSettings::childConnections);
         // iterate over connections
-        for (auto j = i.begin(); (j + 1) != i.end(); j++) {
+        for (PositionVector::const_iterator j = i.begin(); (j + 1) != i.end(); ++j) {
             // Draw Lines
             GLHelper::drawLine((*j), (*(j + 1)));
         }
@@ -342,11 +342,10 @@ GNEHierarchicalElementParents::ParentConnections::draw(const GUIVisualizationSet
     }
 }
 
+
 // ---------------------------------------------------------------------------
 // GNEHierarchicalElementParents - protected methods
 // ---------------------------------------------------------------------------
-
-
 void
 GNEHierarchicalElementParents::changeEdgeParents(GNEShape* elementChild, const std::string& newEdgeIDs) {
     // remove additional of edge parents
