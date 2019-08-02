@@ -107,7 +107,7 @@ public:
         };
 
         /// @brief class used for represent rows with Vehicle Type parameters
-        class VTypeAttributeRow : protected FXHorizontalFrame {
+        class VTypeAttributeRow : private FXHorizontalFrame {
         public:
 
             /// @brief Attribute type
@@ -135,8 +135,17 @@ public:
             /// @brief update value of Vehicle Type (Specifying default value)
             void updateValue(const std::string &defaultValue);
 
+            /// @brief get button
+            const FXButton* getButton() const;
+
             /// @brief open color dialog
             void openColorDialog();
+
+            /// @brief open image file dialog
+            void openImageFileDialog();
+
+            /// @brief open OSG file dialog
+            void openOSGFileDialog();
 
         private:
             /// @brief pointer to VTypeAttributeParameters parent
@@ -148,8 +157,8 @@ public:
             /// @brief RowAttrType
             const RowAttrType myRowAttrType;
 
-            /// @brief FXButton for Color or files
-            FXButton* myButtonColor;
+            /// @brief button
+            FXButton* myButton;
 
             /// @brief text field
             FXTextField* myTextField;
@@ -185,10 +194,11 @@ public:
         /// @name FOX-callbacks
         /// @{
         /// @event called after change a Vehicle Type parameter
-        long onCmdSetVariable(FXObject*, FXSelector, void*);
+        long onCmdSetAttribute(FXObject*, FXSelector, void*);
 
-        /// @event called after change a Vehicle Type color
-        long onCmdSetColor(FXObject*, FXSelector, void*);
+        /// @event called after press a button dialog
+        long onCmdSetAttributeDialog(FXObject* obj, FXSelector, void*);
+
         /// @}
 
     protected:

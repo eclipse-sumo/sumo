@@ -992,7 +992,7 @@ SUMOXMLDefinitions::isValidAttribute(const std::string& value) {
 
 bool
 SUMOXMLDefinitions::isValidFilename(const std::string& value) {
-    return (value.find_first_of("\t\n\r@$%^&|\\{}*'\";:<>") == std::string::npos);
+    return (value.find_first_of("\t\n\r@$%^&|{}*'\";<>") == std::string::npos);
 }
 
 

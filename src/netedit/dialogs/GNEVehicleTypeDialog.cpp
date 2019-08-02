@@ -36,8 +36,8 @@
 // ===========================================================================
 
 FXDEFMAP(GNEVehicleTypeDialog::VTypeAtributes) VTypeAtributesMap[] = {
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE,          GNEVehicleTypeDialog::VTypeAtributes::onCmdSetVariable),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE_DIALOG,   GNEVehicleTypeDialog::VTypeAtributes::onCmdSetColor)
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE,          GNEVehicleTypeDialog::VTypeAtributes::onCmdSetAttribute),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE_DIALOG,   GNEVehicleTypeDialog::VTypeAtributes::onCmdSetAttributeDialog)
 };
 
 FXDEFMAP(GNEVehicleTypeDialog::CarFollowingModelParameters) CarFollowingModelParametersMap[] = {
@@ -399,13 +399,16 @@ GNEVehicleTypeDialog::VTypeAtributes::VTypeAttributeRow::VTypeAttributeRow(VType
     myVTypeAtributesParent(VTypeAtributesParent),
     myAttr(attr),
     myRowAttrType(rowAttrType),
+    myButton(nullptr),
+    myTextField(nullptr),
     myComboBox(nullptr) {
-    // first check if 
-    if (rowAttrType == ROWTYPE_COLOR) {
-        myButtonColor = new FXButton(this, toString(SUMO_ATTR_COLOR).c_str(), nullptr, VTypeAtributesParent, MID_GNE_SET_ATTRIBUTE_DIALOG, GUIDesignButtonRectangular150x23);
+    // first check if we have to create a button or a label
+    if ((rowAttrType == ROWTYPE_COLOR) || (rowAttrType == ROWTYPE_FILENAME)) {
+        myButton = new FXButton(this, filterAttributeName(attr), nullptr, VTypeAtributesParent, MID_GNE_SET_ATTRIBUTE_DIALOG, GUIDesignButtonRectangular150x23);
     } else {
         new FXLabel(this, filterAttributeName(attr), nullptr, GUIDesignLabelAttribute150);
     }
+    // now check if we have to create a textfield or a ComboBox
     if (rowAttrType == ROWTYPE_INT) {
         myTextField = new FXTextField(this, GUIDesignTextFieldNCol, VTypeAtributesParent, MID_GNE_SET_ATTRIBUTE, GUIDesignTextFielWidth180Int);
     } else if (rowAttrType == ROWTYPE_REAL) {
@@ -568,6 +571,12 @@ GNEVehicleTypeDialog::VTypeAtributes::VTypeAttributeRow::updateValue(const std::
 }
 
 
+const FXButton* 
+GNEVehicleTypeDialog::VTypeAtributes::VTypeAttributeRow::getButton() const {
+    return myButton;
+}
+
+
 void 
 GNEVehicleTypeDialog::VTypeAtributes::VTypeAttributeRow::openColorDialog() {
     // create FXColorDialog
@@ -583,8 +592,62 @@ GNEVehicleTypeDialog::VTypeAtributes::VTypeAttributeRow::openColorDialog() {
     if (colordialog.execute()) {
         std::string newValue = toString(MFXUtils::getRGBColor(colordialog.getRGBA()));
         myTextField->setText(newValue.c_str());
-        if (myVTypeAtributesParent->myVehicleTypeDialog->myEditedDemandElement->isValid(SUMO_ATTR_COLOR, newValue)) {
-            myVTypeAtributesParent->myVehicleTypeDialog->myEditedDemandElement->setAttribute(SUMO_ATTR_COLOR, newValue, myVTypeAtributesParent->myVehicleTypeDialog->myEditedDemandElement->getViewNet()->getUndoList());
+        if (myVTypeAtributesParent->myVehicleTypeDialog->myEditedDemandElement->isValid(myAttr, newValue)) {
+            myVTypeAtributesParent->myVehicleTypeDialog->myEditedDemandElement->setAttribute(myAttr, newValue, myVTypeAtributesParent->myVehicleTypeDialog->myEditedDemandElement->getViewNet()->getUndoList());
+            // If previously value was incorrect, change font color to black
+            myTextField->setTextColor(FXRGB(0, 0, 0));
+            myTextField->killFocus();
+        }
+    }
+}
+
+
+void 
+GNEVehicleTypeDialog::VTypeAtributes::VTypeAttributeRow::openImageFileDialog() {
+    // get the new image file
+    FXFileDialog opendialog(this, "Open Image");
+    opendialog.setIcon(GUIIconSubSys::getIcon(ICON_VTYPE));
+    opendialog.setSelectMode(SELECTFILE_EXISTING);
+    opendialog.setPatternList("All files (*)");
+    if (gCurrentFolder.length() != 0) {
+        opendialog.setDirectory(gCurrentFolder);
+    }
+    if (opendialog.execute()) {
+        // update global current folder
+        gCurrentFolder = opendialog.getDirectory();
+        // get image path
+        std::string imagePath = opendialog.getFilename().text();
+        // check if image is valid
+        if (myVTypeAtributesParent->myVehicleTypeDialog->myEditedDemandElement->isValid(myAttr, imagePath)) {
+            myVTypeAtributesParent->myVehicleTypeDialog->myEditedDemandElement->setAttribute(myAttr, imagePath, myVTypeAtributesParent->myVehicleTypeDialog->myEditedDemandElement->getViewNet()->getUndoList());
+            myTextField->setText(imagePath.c_str());
+            // If previously value was incorrect, change font color to black
+            myTextField->setTextColor(FXRGB(0, 0, 0));
+            myTextField->killFocus();
+        }
+    }
+}
+
+
+void 
+GNEVehicleTypeDialog::VTypeAtributes::VTypeAttributeRow::openOSGFileDialog() {
+    // get the new file name
+    FXFileDialog opendialog(this, "Open OSG File");
+    opendialog.setIcon(GUIIconSubSys::getIcon(ICON_VTYPE));
+    opendialog.setSelectMode(SELECTFILE_EXISTING);
+    opendialog.setPatternList("OSG file (*.obj)");
+    if (gCurrentFolder.length() != 0) {
+        opendialog.setDirectory(gCurrentFolder);
+    }
+    if (opendialog.execute()) {
+        // update global current folder
+        gCurrentFolder = opendialog.getDirectory();
+        // get image path
+        std::string imagePath = opendialog.getFilename().text();
+        // check if image is valid
+        if (myVTypeAtributesParent->myVehicleTypeDialog->myEditedDemandElement->isValid(myAttr, imagePath)) {
+            myVTypeAtributesParent->myVehicleTypeDialog->myEditedDemandElement->setAttribute(myAttr, imagePath, myVTypeAtributesParent->myVehicleTypeDialog->myEditedDemandElement->getViewNet()->getUndoList());
+            myTextField->setText(imagePath.c_str());
             // If previously value was incorrect, change font color to black
             myTextField->setTextColor(FXRGB(0, 0, 0));
             myTextField->killFocus();
@@ -954,7 +1017,7 @@ GNEVehicleTypeDialog::VTypeAtributes::updateValues() {
 
 
 long
-GNEVehicleTypeDialog::VTypeAtributes::onCmdSetVariable(FXObject*, FXSelector, void*) {
+GNEVehicleTypeDialog::VTypeAtributes::onCmdSetAttribute(FXObject*, FXSelector, void*) {
     // At start we assumed, that all values are valid
     myVehicleTypeDialog->myVehicleTypeValid = true;
     myVehicleTypeDialog->myInvalidAttr = SUMO_ATTR_NOTHING;
@@ -1046,9 +1109,15 @@ GNEVehicleTypeDialog::VTypeAtributes::onCmdSetVariable(FXObject*, FXSelector, vo
 
 
 long
-GNEVehicleTypeDialog::VTypeAtributes::onCmdSetColor(FXObject*, FXSelector, void*) {
-    // open color dialog
-    myColor->openColorDialog();
+GNEVehicleTypeDialog::VTypeAtributes::onCmdSetAttributeDialog(FXObject* obj, FXSelector, void*) {
+    // check what dialog has to be opened
+    if (obj == myColor->getButton()) {
+        myColor->openColorDialog();
+    } else if (obj == myFilename->getButton()) {
+        myFilename->openImageFileDialog();
+    } else if (obj == myOSGFile->getButton()) {
+        myFilename->openOSGFileDialog();
+    }
     return 1;
 }
 
