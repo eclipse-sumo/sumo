@@ -205,7 +205,12 @@ MSParkingArea::getLastFreePosWithReservation(SUMOTime t, const SUMOVehicle& forV
             std::cout << SIMTIME << " pa=" << getID() << " freePosRes veh=" << forVehicle.getID() << " other lane\n";
         }
 #endif
-        return getLastFreePos(forVehicle);
+        if (myNumAlternatives > 0 && getOccupancy() == getCapacity()) {
+            // ensure that the vehicle reaches the rerouter lane
+            return MAX2(myBegPos, MIN2(POSITION_EPS, myEndPos));
+        } else {
+            return getLastFreePos(forVehicle);
+        }
     }
     if (t > myReservationTime) {
 #ifdef DEBUG_RESERVATIONS
