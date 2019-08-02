@@ -1604,7 +1604,8 @@ NBEdge::buildInnerEdges(const NBNode& n, int noInternalNoSplits, int& linkIndex,
                         if (needsCont || (bothPrio && oppositeLeftIntersect)) {
                             crossingPositions.second.push_back(index);
                             const PositionVector otherShape = n.computeInternalLaneShape(*i2, *k2, numPoints, 0, shapeFlag);
-                            const double minDV = firstIntersection(shape, otherShape, width2);
+                            const double minDV = firstIntersection(shape, otherShape, width2, 
+                                    "Could not compute intersection of conflicting internal lanes at node '" + myTo->getID() + "'");
                             if (minDV < shape.length() - POSITION_EPS && minDV > POSITION_EPS) { // !!!?
                                 assert(minDV >= 0);
                                 if (crossingPositions.first < 0 || crossingPositions.first > minDV) {
@@ -1780,7 +1781,7 @@ NBEdge::assignInternalLaneLength(std::vector<Connection>::iterator i, int numLan
 }
 
 double
-NBEdge::firstIntersection(const PositionVector& v1, const PositionVector& v2, double width2) {
+NBEdge::firstIntersection(const PositionVector& v1, const PositionVector& v2, double width2, const std::string& error) {
     double intersect = std::numeric_limits<double>::max();
     if (v2.length() < POSITION_EPS) {
         return intersect;
@@ -1800,7 +1801,9 @@ NBEdge::firstIntersection(const PositionVector& v1, const PositionVector& v2, do
             intersect = MIN2(intersect, cand);
         }
     } catch (InvalidArgument&) {
-        WRITE_WARNING("Could not compute intersection of conflicting internal lanes");
+        if (error != "") {
+            WRITE_WARNING(error);
+        }
     }
     //std::cout << " v1=" << v1 << " v2Right=" << v2Right << " v2Left=" << v2Left << "\n";
     //std::cout << "  intersectsRight=" << toString(v1.intersectsAtLengths2D(v2Right)) << "\n";
