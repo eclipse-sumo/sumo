@@ -4709,9 +4709,9 @@ GNEAttributeCarrier::fillJunctionModelAttributes(SumoXMLTag currentTag) {
     myTagProperties[currentTag].addAttribute(attrProperty);
 
     attrProperty = AttributeProperties(SUMO_ATTR_JM_DRIVE_AFTER_YELLOW_TIME,
-        ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL | ATTRPROPERTY_EXTENDED,
-        "This value causes vehicles to violate a yellow light if the duration of the yellow phase is lower than the given threshold.",
-        "0");
+                                        ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL | ATTRPROPERTY_EXTENDED,
+                                        "This value causes vehicles to violate a yellow light if the duration of the yellow phase is lower than the given threshold.",
+                                        "-1");
     myTagProperties[currentTag].addAttribute(attrProperty);
 
     attrProperty = AttributeProperties(SUMO_ATTR_JM_DRIVE_AFTER_RED_TIME,
@@ -4723,25 +4723,25 @@ GNEAttributeCarrier::fillJunctionModelAttributes(SumoXMLTag currentTag) {
     attrProperty = AttributeProperties(SUMO_ATTR_JM_DRIVE_RED_SPEED,
                                        ATTRPROPERTY_STRING | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL | ATTRPROPERTY_EXTENDED,
                                        "This value causes vehicles affected by jmDriveAfterRedTime to slow down when violating a red light.",
-                                       "maxSpeed");
+                                       "0.0");
     myTagProperties[currentTag].addAttribute(attrProperty);
 
     attrProperty = AttributeProperties(SUMO_ATTR_JM_IGNORE_FOE_PROB,
                                        ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL | ATTRPROPERTY_EXTENDED,
                                        "This value causes vehicles to ignore foe vehicles that have right-of-way with the given probability.",
-                                       "0");
+                                       "0.0");
     myTagProperties[currentTag].addAttribute(attrProperty);
 
     attrProperty = AttributeProperties(SUMO_ATTR_JM_IGNORE_FOE_SPEED,
                                        ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL | ATTRPROPERTY_EXTENDED,
                                        "This value is used in conjunction with jmIgnoreFoeProb. Only vehicles with a speed below or equal to the given value may be ignored.",
-                                       "0");
+                                       "0.0");
     myTagProperties[currentTag].addAttribute(attrProperty);
 
     attrProperty = AttributeProperties(SUMO_ATTR_JM_SIGMA_MINOR,
                                        ATTRPROPERTY_STRING | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL | ATTRPROPERTY_EXTENDED,
                                        "This value configures driving imperfection (dawdling) while passing a minor link.",
-                                       "sigma");
+                                       "0.0");
     myTagProperties[currentTag].addAttribute(attrProperty);
 
     attrProperty = AttributeProperties(SUMO_ATTR_JM_TIMEGAP_MINOR,
@@ -4753,7 +4753,7 @@ GNEAttributeCarrier::fillJunctionModelAttributes(SumoXMLTag currentTag) {
     attrProperty = AttributeProperties(SUMO_ATTR_IMPATIENCE,
                                        ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL | ATTRPROPERTY_EXTENDED,
                                        "Willingess of drivers to impede vehicles with higher priority",
-                                       "0.00");
+                                       "0.0");
     myTagProperties[currentTag].addAttribute(attrProperty);
 }
 
