@@ -333,6 +333,10 @@ public class SumoTraciConnection {
 
     public void close() {
         try {
+            if (isClosed()) {
+                throw new IllegalStateException("connection is closed");
+            }
+            this.cp.do_close();
             socket.close();
         } catch (IOException e) {
             e.printStackTrace();

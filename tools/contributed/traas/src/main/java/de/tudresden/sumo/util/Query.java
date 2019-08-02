@@ -119,6 +119,16 @@ public abstract class Query extends Observable {
     }
 
     /**
+     * Disconnect client from the sumo server
+     *
+     * @throws IOException
+     */
+    protected void doClose() throws IOException {
+        Command cmd = new Command(Constants.CMD_CLOSE);
+        queryAndVerifySingle(cmd);
+    }
+
+    /**
      * Do next time step and update subscription results
      *
      * @param targetTime
