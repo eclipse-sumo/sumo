@@ -359,6 +359,9 @@ public:
         /// @brief VTypeAttributeRow for overtake right
         VTypeAttributeRow* myLCAOvertakeRight;
 
+        /// @brief VTypeAttributeRow for experimental
+        /* VTypeAttributeRow* myLCAExperimental; */
+
         /// @}
 
     private:

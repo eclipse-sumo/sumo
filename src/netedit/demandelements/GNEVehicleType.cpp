@@ -244,7 +244,7 @@ GNEVehicleType::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_LCA_MAXSPEEDLATFACTOR:
         case SUMO_ATTR_LCA_TURN_ALIGNMENT_DISTANCE:
         case SUMO_ATTR_LCA_OVERTAKE_RIGHT:
-        case SUMO_ATTR_LCA_EXPERIMENTAL1:
+        /* case SUMO_ATTR_LCA_EXPERIMENTAL1: */
             return getLCParamString(key, myTagProperty.getDefaultValue(key));
         //
         case SUMO_ATTR_COLLISION_MINGAP_FACTOR:
@@ -550,7 +550,7 @@ GNEVehicleType::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoL
         case SUMO_ATTR_LCA_MAXSPEEDLATFACTOR:
         case SUMO_ATTR_LCA_TURN_ALIGNMENT_DISTANCE:
         case SUMO_ATTR_LCA_OVERTAKE_RIGHT:
-        case SUMO_ATTR_LCA_EXPERIMENTAL1:
+        /* case SUMO_ATTR_LCA_EXPERIMENTAL1: */
         //
         case SUMO_ATTR_LENGTH:
         case SUMO_ATTR_MINGAP:
@@ -672,51 +672,29 @@ GNEVehicleType::isValid(SumoXMLAttr key, const std::string& value) {
             return canParse<double>(value) && (parse<double>(value) >= 0);
         // LCM Attributes
         case SUMO_ATTR_LCA_STRATEGIC_PARAM:
-            return canParse<double>(value) && (parse<double>(value) >= 0);
         case SUMO_ATTR_LCA_COOPERATIVE_PARAM:
-            return canParse<double>(value) && (parse<double>(value) >= 0) && (parse<double>(value) <= 1);
         case SUMO_ATTR_LCA_SPEEDGAIN_PARAM:
-            return canParse<double>(value) && (parse<double>(value) >= 0);
         case SUMO_ATTR_LCA_KEEPRIGHT_PARAM:
-            return canParse<double>(value) && (parse<double>(value) >= 0);
         case SUMO_ATTR_LCA_SUBLANE_PARAM:
-            return canParse<double>(value) && (parse<double>(value) >= 0);
         case SUMO_ATTR_LCA_OPPOSITE_PARAM:
-            return canParse<double>(value) && (parse<double>(value) >= 0);
         case SUMO_ATTR_LCA_PUSHY:
-            return canParse<double>(value) && (parse<double>(value) >= 0) && (parse<double>(value) <= 1);
+            return canParse<double>(value);
         case SUMO_ATTR_LCA_PUSHYGAP:
+        case SUMO_ATTR_LCA_IMPATIENCE:
+        case SUMO_ATTR_LCA_MAXSPEEDLATSTANDING:
+        case SUMO_ATTR_LCA_TURN_ALIGNMENT_DISTANCE: // 0 mean disabled
+        case SUMO_ATTR_LCA_TIME_TO_IMPATIENCE:      // 0 mean disabled
+        case SUMO_ATTR_LCA_OVERTAKE_RIGHT:          // 0 mean disabled
             return canParse<double>(value) && (parse<double>(value) >= 0);
         case SUMO_ATTR_LCA_ASSERTIVE:
-            return canParse<double>(value) && (parse<double>(value) > 0);
-        case SUMO_ATTR_LCA_IMPATIENCE:
-            return canParse<double>(value) && (parse<double>(value) >= -1) && (parse<double>(value) <= 1);
-        case SUMO_ATTR_LCA_TIME_TO_IMPATIENCE:
-            if (value == "infity") {
-                return true;
-            } else {
-                return canParse<double>(value) && (parse<double>(value) >= 0) && (parse<double>(value) <= 1);
-            }
-        case SUMO_ATTR_LCA_ACCEL_LAT:
-            return canParse<double>(value) && (parse<double>(value) >= 0);
         case SUMO_ATTR_LCA_LOOKAHEADLEFT:
-            return canParse<double>(value) && (parse<double>(value) >= 0);
         case SUMO_ATTR_LCA_SPEEDGAINRIGHT:
-            return canParse<double>(value) && (parse<double>(value) >= 0);
-        case SUMO_ATTR_LCA_MAXSPEEDLATSTANDING:
-            if (value == "disabled") {
-                return true;
-            } else {
-                return canParse<double>(value) && (parse<double>(value) >= 0);
-            }
+        case SUMO_ATTR_LCA_ACCEL_LAT:
         case SUMO_ATTR_LCA_MAXSPEEDLATFACTOR:
-            return canParse<double>(value) && (parse<double>(value) >= 0);
-        case SUMO_ATTR_LCA_TURN_ALIGNMENT_DISTANCE:
-            return canParse<double>(value) && (parse<double>(value) >= 0);
-        case SUMO_ATTR_LCA_OVERTAKE_RIGHT:
-            return canParse<double>(value) && (parse<double>(value) >= 0) && (parse<double>(value) <= 1);
-        case SUMO_ATTR_LCA_EXPERIMENTAL1:
+            return canParse<double>(value) && (parse<double>(value) > 0);
+        /* case SUMO_ATTR_LCA_EXPERIMENTAL1:
             return true;
+        */
         //
         case SUMO_ATTR_LENGTH:
             return canParse<double>(value) && (parse<double>(value) > 0);
@@ -1243,17 +1221,28 @@ GNEVehicleType::setAttribute(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_LCA_PUSHYGAP:
         case SUMO_ATTR_LCA_ASSERTIVE:
         case SUMO_ATTR_LCA_IMPATIENCE:
-        case SUMO_ATTR_LCA_TIME_TO_IMPATIENCE:
         case SUMO_ATTR_LCA_ACCEL_LAT:
         case SUMO_ATTR_LCA_LOOKAHEADLEFT:
         case SUMO_ATTR_LCA_SPEEDGAINRIGHT:
         case SUMO_ATTR_LCA_MAXSPEEDLATSTANDING:
         case SUMO_ATTR_LCA_MAXSPEEDLATFACTOR:
-        case SUMO_ATTR_LCA_TURN_ALIGNMENT_DISTANCE:
-        case SUMO_ATTR_LCA_OVERTAKE_RIGHT:
-        case SUMO_ATTR_LCA_EXPERIMENTAL1:
+
+        /* case SUMO_ATTR_LCA_EXPERIMENTAL1: */
             // empty values means that value isn't set
             if (value.empty()) {
+                const auto it = lcParameter.find(key);
+                if (it != lcParameter.end()) {
+                    lcParameter.erase(it);
+                }
+            } else {
+                lcParameter[key] = value;
+            }
+            break;
+        case SUMO_ATTR_LCA_TURN_ALIGNMENT_DISTANCE:
+        case SUMO_ATTR_LCA_TIME_TO_IMPATIENCE:
+        case SUMO_ATTR_LCA_OVERTAKE_RIGHT:
+            // empty or null values means that value isn't set
+            if (value.empty() || (canParse<double>(value) && (parse<double>(value) == 0))) {
                 const auto it = lcParameter.find(key);
                 if (it != lcParameter.end()) {
                     lcParameter.erase(it);

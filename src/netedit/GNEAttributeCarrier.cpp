@@ -4850,7 +4850,7 @@ GNEAttributeCarrier::fillLaneChangingModelAttributes(SumoXMLTag currentTag) {
     attrProperty = AttributeProperties(SUMO_ATTR_LCA_MAXSPEEDLATSTANDING,
                                        ATTRPROPERTY_STRING | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL | ATTRPROPERTY_EXTENDED,
                                        "Upper bound on lateral speed when standing.",
-                                       "disabled");
+                                       "0.00");
     myTagProperties[currentTag].addAttribute(attrProperty);
 
     attrProperty = AttributeProperties(SUMO_ATTR_LCA_MAXSPEEDLATFACTOR,
@@ -4868,7 +4868,7 @@ GNEAttributeCarrier::fillLaneChangingModelAttributes(SumoXMLTag currentTag) {
     attrProperty = AttributeProperties(SUMO_ATTR_LCA_OVERTAKE_RIGHT,
                                        ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL | ATTRPROPERTY_EXTENDED,
                                        "The probability for violating rules gainst overtaking on the right.",
-                                       "0");
+                                       "0.00");
     myTagProperties[currentTag].addAttribute(attrProperty);
 
     /*

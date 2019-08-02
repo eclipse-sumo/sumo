@@ -548,37 +548,29 @@ GNEVehicleTypeDialog::VTypeAtributes::VTypeAttributeRow::updateValue(const std::
 GNEVehicleTypeDialog::VTypeAtributes::VTypeAtributes(GNEVehicleTypeDialog* vehicleTypeDialog, FXHorizontalFrame* column) :
     FXVerticalFrame(column, GUIDesignAuxiliarVerticalFrame),
     myVehicleTypeDialog(vehicleTypeDialog) {
-        
-    FXHorizontalFrame* A = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
-    FXVerticalFrame* B = new FXVerticalFrame(A, GUIDesignAuxiliarVerticalFrame);
-
-
+    // declare two auxiliar horizontal frames
+    FXHorizontalFrame* firstAuxiliarHorizontalFrame = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
+    FXVerticalFrame* firstAuxiliarVerticalFrame = new FXVerticalFrame(firstAuxiliarHorizontalFrame, GUIDesignAuxiliarVerticalFrame);
     // create attributes for common attributes
-    FXGroupBox* commonAttributes = new FXGroupBox(B, "Vehicle Type attributes", GUIDesignGroupBoxFrame);
-
-
-
-
+    FXGroupBox* commonAttributes = new FXGroupBox(firstAuxiliarVerticalFrame, "Vehicle Type attributes", GUIDesignGroupBoxFrame);
     // create horizontal frame for columns of attributes
     FXHorizontalFrame* columnsBasicVTypeAttributes = new FXHorizontalFrame(commonAttributes, GUIDesignAuxiliarHorizontalFrame);
     // build left attributes
     buildAttributesA(new FXVerticalFrame(columnsBasicVTypeAttributes, GUIDesignAuxiliarFrame));
     // build right attributes
     buildAttributesB(new FXVerticalFrame(columnsBasicVTypeAttributes, GUIDesignAuxiliarFrame));
-    // create attribute for Junction Model Attributes
-    FXGroupBox* JMAttributes = new FXGroupBox(B, "Junction Model attributes", GUIDesignGroupBoxFrame);
+    // create GroupBox for Junction Model Attributes
+    FXGroupBox* JMAttributes = new FXGroupBox(firstAuxiliarVerticalFrame, "Junction Model attributes", GUIDesignGroupBoxFrame);
     // create horizontal frame for columns of Junction Model attributes
     FXHorizontalFrame* columnsJMVTypeAttributes = new FXHorizontalFrame(JMAttributes, GUIDesignAuxiliarHorizontalFrame);
     // build left attributes
     buildJunctionModelAttributesA(new FXVerticalFrame(columnsJMVTypeAttributes, GUIDesignAuxiliarFrame));
     // build right attributes
     buildJunctionModelAttributesB(new FXVerticalFrame(columnsJMVTypeAttributes, GUIDesignAuxiliarFrame));
-
-    // create attribute for Junction Model Attributes
-    FXGroupBox* LCMAttributes = new FXGroupBox(A, "Lane Change Model attributes", GUIDesignGroupBoxFrame);
-
+    // create GroupBox for Junction Model Attributes
+    FXGroupBox* LCMAttributes = new FXGroupBox(firstAuxiliarHorizontalFrame, "Lane Change Model attributes", GUIDesignGroupBoxFrame);
+    // create Lane Change Model Attributes
     buildLaneChangeModelAttributes(new FXVerticalFrame(LCMAttributes, GUIDesignAuxiliarFrame));
-
 }
 
 
@@ -771,6 +763,9 @@ GNEVehicleTypeDialog::VTypeAtributes::buildLaneChangeModelAttributes(FXVerticalF
 
     // 18 create VTypeAttributeRow and Label for overtake right
     myLCAOvertakeRight = new VTypeAttributeRow(this, column, SUMO_ATTR_LCA_OVERTAKE_RIGHT, 1);
+
+    // 19 create VTypeAttributeRow and Label for experimental
+    /* myLCAExperimental = new VTypeAttributeRow(this, column, SUMO_ATTR_LCA_EXPERIMENTAL1, 1); */
 }
 
 
@@ -825,6 +820,26 @@ GNEVehicleTypeDialog::VTypeAtributes::updateValues() {
     myJMSigmaMinor->updateValue();
     myJMTimeGapMinor->updateValue();
     myJMImpatience->updateValue();
+    // LCM Attributes
+    myLCAStrategicParam->updateValue();
+    myLCACooperativeParam->updateValue();
+    myLCASpeedgainParam->updateValue();
+    myLCAKeeprightParam->updateValue();
+    myLCASublaneParam->updateValue();
+    myLCAOppositeParam->updateValue();
+    myLCAPushy->updateValue();
+    myLCAPushygap->updateValue();
+    myLCAAssertive->updateValue();
+    myLCAImpatience->updateValue();
+    myLCATimeToImpatience->updateValue();
+    myLCAAccelLat->updateValue();
+    myLCALookAheadLeft->updateValue();
+    myLCASpeedGainRight->updateValue();
+    myLCAMaxSpeedLatStanding->updateValue();
+    myLCAMaxSpeedLatFactor->updateValue();
+    myLCATurnAlignmentDistance->updateValue();
+    myLCAOvertakeRight->updateValue();
+    /* myLCAExperimental->updateValue(); */
 }
 
 
@@ -909,6 +924,26 @@ GNEVehicleTypeDialog::VTypeAtributes::onCmdSetVariable(FXObject*, FXSelector, vo
     myJMSigmaMinor->setVariable();
     myJMTimeGapMinor->setVariable();
     myJMImpatience->setVariable();
+    // LCM Attributes
+    myLCAStrategicParam->setVariable();
+    myLCACooperativeParam->setVariable();
+    myLCASpeedgainParam->setVariable();
+    myLCAKeeprightParam->setVariable();
+    myLCASublaneParam->setVariable();
+    myLCAOppositeParam->setVariable();
+    myLCAPushy->setVariable();
+    myLCAPushygap->setVariable();
+    myLCAAssertive->setVariable();
+    myLCAImpatience->setVariable();
+    myLCATimeToImpatience->setVariable();
+    myLCAAccelLat->setVariable();
+    myLCALookAheadLeft->setVariable();
+    myLCASpeedGainRight->setVariable();
+    myLCAMaxSpeedLatStanding->setVariable();
+    myLCAMaxSpeedLatFactor->setVariable();
+    myLCATurnAlignmentDistance->setVariable();
+    myLCAOvertakeRight->setVariable();
+    /* myLCAExperimental->setVariable(); */
     return true;
 }
 
