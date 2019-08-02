@@ -541,7 +541,15 @@ public:
      * @return Whether this vehicle type is based on a different one, and belongs to one vehicle only
      */
     bool isVehicleSpecific() const {
-        return myOriginalType != 0;
+        return myOriginalType != nullptr;
+    }
+
+
+    /** @brief Returns the id of the original vehicle type if this is a vehicle specific type, the id otherwise
+     * @return the original vehicle type id
+     */
+    const std::string& getOriginalID() const {
+        return myOriginalType != nullptr ? myOriginalType->getID() : getID();
     }
 
 
