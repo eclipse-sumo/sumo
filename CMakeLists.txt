@@ -163,9 +163,10 @@ if (SUMO_LIBRARIES AND WIN32)
     else()
         file(GLOB XERCES_PATH "${SUMO_LIBRARIES}/xerces-c-3.?.?${LIB_VERSION}")
     endif()
+    file(GLOB ZLIB_PATH "${SUMO_LIBRARIES}/3rdPartyLibs/zlib-?.?.??${LIB_VERSION}")
     file(GLOB PROJ_PATH "${SUMO_LIBRARIES}/proj_gdal-????${LIB_VERSION}")
     file(GLOB FOX_PATH "${SUMO_LIBRARIES}/fox-1.6.??${LIB_VERSION}")
-    set(CMAKE_PREFIX_PATH "${CMAKE_PREFIX_PATH};${XERCES_PATH};${PROJ_PATH};${FOX_PATH}")
+    set(CMAKE_PREFIX_PATH "${CMAKE_PREFIX_PATH};${XERCES_PATH};${ZLIB_PATH};${ZLIB_PATH}/Release;${ZLIB_PATH}/Debug;${PROJ_PATH};${FOX_PATH}")
     file(GLOB SUMO_LIBRARIES_DLL "${XERCES_PATH}/bin/*.dll"
                                  "${PROJ_PATH}/bin/*.dll"
                                  "${FOX_PATH}/lib/*.dll"

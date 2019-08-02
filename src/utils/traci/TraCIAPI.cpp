@@ -33,7 +33,10 @@
 // TraCIAPI-methods
 // ---------------------------------------------------------------------------
 #ifdef _MSC_VER
+/* Disable "decorated name length exceeded, name was truncated" warnings for the whole file. */
+#pragma warning(disable: 4503)
 #pragma warning(push)
+/* Disable warning about using "this" in the constructor */
 #pragma warning(disable: 4355)
 #endif
 TraCIAPI::TraCIAPI()
