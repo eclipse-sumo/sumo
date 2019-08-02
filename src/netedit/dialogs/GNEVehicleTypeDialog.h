@@ -64,9 +64,9 @@ public:
             /// @brief update values
             SUMOVehicleClass updateValue();
 
-        protected:
-            /// @brief set VClass texture
-            void setVClassLabelImage();
+        private:
+            /// @brief pointer to VTypeAtributes parent
+            VTypeAtributes* myVTypeAtributesParent;
 
             /// @brief FXComboBox for VClass
             FXComboBox* myComboBoxVClass;
@@ -74,9 +74,8 @@ public:
             /// @brief label with image of VClass
             FXLabel* myComboBoxVClassLabelImage;
 
-        private:
-            /// @brief pointer to VTypeAtributes parent
-            VTypeAtributes* myVTypeAtributesParent;
+            /// @brief set VClass texture
+            void setVClassLabelImage();
         };
 
         /// @brief class for VShapeRow
@@ -92,9 +91,9 @@ public:
             /// @brief update values
             void updateValues();
 
-        protected:
-            /// @brief set VShape texture
-            void setVShapeLabelImage();
+        private:
+            /// @brief pointer to VTypeAtributes parent
+            VTypeAtributes* myVTypeAtributesParent;
 
             /// @brief FXComboBox for Shape
             FXComboBox* myComboBoxShape;
@@ -102,9 +101,9 @@ public:
             /// @brief label with image of Shape
             FXLabel* myComboBoxShapeLabelImage;
 
-        private:
-            /// @brief pointer to VTypeAtributes parent
-            VTypeAtributes* myVTypeAtributesParent;
+            /// @brief set VShape texture
+            void setVShapeLabelImage();
+
         };
 
         /// @brief class used for represent rows with Vehicle Type parameters
@@ -112,18 +111,17 @@ public:
         public:
 
             /// @brief Attribute type
-            enum rowAttrType {
+            enum RowAttrType {
                 ROWTYPE_INT,
                 ROWTYPE_REAL,
                 ROWTYPE_STRING,
-                ROWTYPE_FILENAME
+                ROWTYPE_COLOR,
+                ROWTYPE_FILENAME,
+                ROWTYPE_COMBOBOX
             };
 
-            /// @brief constructor fox TextFields (type: 0 -> int, 1 -> float, other: string)
-            VTypeAttributeRow(VTypeAtributes* VTypeAtributesParent, FXVerticalFrame* verticalFrame, const SumoXMLAttr attr, const rowAttrType type);
-
-            /// @brief constructor for comboBox
-            VTypeAttributeRow(VTypeAtributes* VTypeAtributesParent, FXVerticalFrame* verticalFrame, const SumoXMLAttr attr, const std::vector<std::string>& values);
+            /// @brief constructor
+            VTypeAttributeRow(VTypeAtributes* VTypeAtributesParent, FXVerticalFrame* verticalFrame, const SumoXMLAttr attr, const RowAttrType rowAttrType, const std::vector<std::string>& values = {});
 
             /// @brief set Variablen in VehicleType (using default value obtained from GNEAttributeCarrier)
             void setVariable();
@@ -137,12 +135,21 @@ public:
             /// @brief update value of Vehicle Type (Specifying default value)
             void updateValue(const std::string &defaultValue);
 
+            /// @brief open color dialog
+            void openColorDialog();
+
         private:
             /// @brief pointer to VTypeAttributeParameters parent
             VTypeAtributes* myVTypeAtributesParent;
 
             /// @brief edited attribute
             const SumoXMLAttr myAttr;
+
+            /// @brief RowAttrType
+            const RowAttrType myRowAttrType;
+
+            /// @brief FXButton for Color or files
+            FXButton* myButtonColor;
 
             /// @brief text field
             FXTextField* myTextField;
@@ -197,11 +204,8 @@ public:
         /// @brief vehicle class row
         VClassRow* myVClassRow;
 
-        /// @brief FXButton for Color
-        FXButton* myButtonColor;
-
-        /// @brief FXTextField for Color
-        FXTextField* myTextFieldColor;
+        /// @brief VTypeAttributeRow for color
+        VTypeAttributeRow* myColor;
 
         /// @brief VTypeAttributeRow for Length
         VTypeAttributeRow* myLength;
@@ -429,9 +433,6 @@ public:
 
             /// @brief text field
             FXTextField* textField;
-
-            /// @label Label with the Row attribute
-            FXLabel* myLabel;
         };
 
     private:
