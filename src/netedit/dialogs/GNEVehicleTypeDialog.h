@@ -110,20 +110,31 @@ public:
         /// @brief class used for represent rows with Vehicle Type parameters
         class VTypeAttributeRow : protected FXHorizontalFrame {
         public:
+
+            /// @brief Attribute type
+            enum rowAttrType {
+                ROWTYPE_INT,
+                ROWTYPE_REAL,
+                ROWTYPE_STRING,
+                ROWTYPE_FILENAME
+            };
+
             /// @brief constructor fox TextFields (type: 0 -> int, 1 -> float, other: string)
-            VTypeAttributeRow(VTypeAtributes* VTypeAtributesParent, FXVerticalFrame* verticalFrame, SumoXMLAttr attr, int type);
+            VTypeAttributeRow(VTypeAtributes* VTypeAtributesParent, FXVerticalFrame* verticalFrame, const SumoXMLAttr attr, const rowAttrType type);
 
             /// @brief constructor for comboBox
-            VTypeAttributeRow(VTypeAtributes* VTypeAtributesParent, FXVerticalFrame* verticalFrame, SumoXMLAttr attr, const std::vector<std::string>& values);
+            VTypeAttributeRow(VTypeAtributes* VTypeAtributesParent, FXVerticalFrame* verticalFrame, const SumoXMLAttr attr, const std::vector<std::string>& values);
 
-            /// @brief set Variablen in VehicleType
+            /// @brief set Variablen in VehicleType (using default value obtained from GNEAttributeCarrier)
             void setVariable();
 
+            /// @brief set Variablen in VehicleType (Specifying default value)
             void setVariable(const std::string &defaultValue);
 
-            /// @brief update value of Vehicle Type
+            /// @brief update value of Vehicle Type (using default value obtained from GNEAttributeCarrier)
             void updateValue();
 
+            /// @brief update value of Vehicle Type (Specifying default value)
             void updateValue(const std::string &defaultValue);
 
         private:
@@ -131,13 +142,16 @@ public:
             VTypeAtributes* myVTypeAtributesParent;
 
             /// @brief edited attribute
-            SumoXMLAttr myAttr;
+            const SumoXMLAttr myAttr;
 
             /// @brief text field
             FXTextField* myTextField;
 
             /// @brief ComboBox for attributes with limited values
             FXComboBox* myComboBox;
+
+            /// @brief filter attribute name
+            FXString filterAttributeName(const SumoXMLAttr attr) const;
         };
 
         /// @brief constructor

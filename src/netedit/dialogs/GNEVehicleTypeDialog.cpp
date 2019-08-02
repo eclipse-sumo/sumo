@@ -394,28 +394,32 @@ GNEVehicleTypeDialog::VTypeAtributes::VShapeRow::setVShapeLabelImage() {
 // GNEVehicleTypeDialog::VTypeAtributes - methods
 // ---------------------------------------------------------------------------
 
-GNEVehicleTypeDialog::VTypeAtributes::VTypeAttributeRow::VTypeAttributeRow(VTypeAtributes* VTypeAtributesParent, FXVerticalFrame* verticalFrame, SumoXMLAttr attr, int type) :
+GNEVehicleTypeDialog::VTypeAtributes::VTypeAttributeRow::VTypeAttributeRow(VTypeAtributes* VTypeAtributesParent, FXVerticalFrame* verticalFrame, const SumoXMLAttr attr, const rowAttrType type) :
     FXHorizontalFrame(verticalFrame, GUIDesignAuxiliarHorizontalFrame),
     myVTypeAtributesParent(VTypeAtributesParent),
     myAttr(attr),
     myComboBox(nullptr) {
-    new FXLabel(this, toString(attr).c_str(), nullptr, GUIDesignLabelAttribute150);
-    if (type == 0) {
+    new FXLabel(this, filterAttributeName(attr), nullptr, GUIDesignLabelAttribute150);
+    if (type == ROWTYPE_INT) {
         myTextField = new FXTextField(this, GUIDesignTextFieldNCol, VTypeAtributesParent, MID_GNE_SET_ATTRIBUTE, GUIDesignTextFielWidth180Int);
-    } else if (type == 1) {
+    } else if (type == ROWTYPE_REAL) {
         myTextField = new FXTextField(this, GUIDesignTextFieldNCol, VTypeAtributesParent, MID_GNE_SET_ATTRIBUTE, GUIDesignTextFielWidth180Real);
-    } else {
+    } else if (type == ROWTYPE_STRING) {
         myTextField = new FXTextField(this, GUIDesignTextFieldNCol, VTypeAtributesParent, MID_GNE_SET_ATTRIBUTE, GUIDesignTextFielWidth180);
+    } else if (type == ROWTYPE_FILENAME) {
+        myTextField = new FXTextField(this, GUIDesignTextFieldNCol, VTypeAtributesParent, MID_GNE_SET_ATTRIBUTE, GUIDesignTextFielWidth180);
+    } else {
+        throw ProcessError("Invalid row type");
     }
 }
 
 
-GNEVehicleTypeDialog::VTypeAtributes::VTypeAttributeRow::VTypeAttributeRow(VTypeAtributes* VTypeAtributesParent, FXVerticalFrame* verticalFrame, SumoXMLAttr attr, const  std::vector<std::string>& values) :
+GNEVehicleTypeDialog::VTypeAtributes::VTypeAttributeRow::VTypeAttributeRow(VTypeAtributes* VTypeAtributesParent, FXVerticalFrame* verticalFrame, const SumoXMLAttr attr, const  std::vector<std::string>& values) :
     FXHorizontalFrame(verticalFrame, GUIDesignAuxiliarHorizontalFrame),
     myVTypeAtributesParent(VTypeAtributesParent),
     myAttr(attr),
     myTextField(nullptr) {
-    new FXLabel(this, toString(attr).c_str(), nullptr, GUIDesignLabelAttribute150);
+    new FXLabel(this, filterAttributeName(attr), nullptr, GUIDesignLabelAttribute150);
     myComboBox = new FXComboBox(this, GUIDesignComboBoxNCol, VTypeAtributesParent, MID_GNE_SET_ATTRIBUTE, GUIDesignComboBox);
     // fill combo Box with values
     for (auto i : values) {
@@ -541,6 +545,74 @@ GNEVehicleTypeDialog::VTypeAtributes::VTypeAttributeRow::updateValue(const std::
     }
 }
 
+
+FXString
+GNEVehicleTypeDialog::VTypeAtributes::VTypeAttributeRow::filterAttributeName(const SumoXMLAttr attr) const {
+    switch (attr) {
+        // JM
+        case SUMO_ATTR_JM_CROSSING_GAP:
+            return "crossingGap";
+        case SUMO_ATTR_JM_DRIVE_AFTER_YELLOW_TIME:
+            return "driveAfterYellowTime";
+        case SUMO_ATTR_JM_DRIVE_AFTER_RED_TIME:
+            return "driveAfterRedTime";
+        case SUMO_ATTR_JM_DRIVE_RED_SPEED:
+            return "driveRedSpeed";
+        case SUMO_ATTR_JM_IGNORE_KEEPCLEAR_TIME:
+            return "ignoreKeepClearTime";
+        case SUMO_ATTR_JM_IGNORE_FOE_SPEED:
+            return "ignoreFoeSpeed";
+        case SUMO_ATTR_JM_IGNORE_FOE_PROB:
+            return "ignoreFoeProb";
+        case SUMO_ATTR_JM_SIGMA_MINOR:
+            return "sigmaMinor";
+        case SUMO_ATTR_JM_TIMEGAP_MINOR:
+            return "timegapMinor";
+        // LCM
+        case SUMO_ATTR_LCA_STRATEGIC_PARAM:
+            return "strategic";
+        case SUMO_ATTR_LCA_COOPERATIVE_PARAM:
+            return "cooperative";
+        case SUMO_ATTR_LCA_SPEEDGAIN_PARAM:
+            return "speedGain";
+        case SUMO_ATTR_LCA_KEEPRIGHT_PARAM:
+            return "keepRight";
+        case SUMO_ATTR_LCA_SUBLANE_PARAM:
+            return "sublane";
+        case SUMO_ATTR_LCA_OPPOSITE_PARAM:
+            return "opposite";
+        case SUMO_ATTR_LCA_PUSHY:
+            return "pushy";
+        case SUMO_ATTR_LCA_PUSHYGAP:
+            return "pushyGap";
+        case SUMO_ATTR_LCA_ASSERTIVE:
+            return "assertive";
+        case SUMO_ATTR_LCA_IMPATIENCE:
+            return "impatience";
+        case SUMO_ATTR_LCA_TIME_TO_IMPATIENCE:
+            return "timeToImpatience";
+        case SUMO_ATTR_LCA_ACCEL_LAT:
+            return "accelLat";
+        case SUMO_ATTR_LCA_LOOKAHEADLEFT:
+            return "lookaheadLeft";
+        case SUMO_ATTR_LCA_SPEEDGAINRIGHT:
+            return "speedGainRight";
+        case SUMO_ATTR_LCA_MAXSPEEDLATSTANDING:
+            return "maxSpeedLatStanding";
+        case SUMO_ATTR_LCA_MAXSPEEDLATFACTOR:
+            return "maxSpeedLatFactor";
+        case SUMO_ATTR_LCA_TURN_ALIGNMENT_DISTANCE:
+            return "turnAlignDistance";
+        case SUMO_ATTR_LCA_OVERTAKE_RIGHT:
+            return "overtakeRight";
+        /* case SUMO_ATTR_LCA_EXPERIMENTAL1: 
+            return "experimental1";
+        */
+        default:
+            return toString(attr).c_str();
+    }
+}
+
 // ---------------------------------------------------------------------------
 // GNEVehicleTypeDialog::VTypeAtributes - methods
 // ---------------------------------------------------------------------------
@@ -590,37 +662,37 @@ GNEVehicleTypeDialog::VTypeAtributes::buildAttributesA(FXVerticalFrame* column) 
     myTextFieldColor = new FXTextField(row, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextFielWidth180);
 
     // 04 create FXTextField and Label for Length
-    myLength = new VTypeAttributeRow(this, column, SUMO_ATTR_LENGTH, 1);
+    myLength = new VTypeAttributeRow(this, column, SUMO_ATTR_LENGTH, VTypeAttributeRow::rowAttrType::ROWTYPE_REAL);
 
     // 05 create FXTextField and Label for MinGap
-    myMinGap = new VTypeAttributeRow(this, column, SUMO_ATTR_MINGAP, 1);
+    myMinGap = new VTypeAttributeRow(this, column, SUMO_ATTR_MINGAP, VTypeAttributeRow::rowAttrType::ROWTYPE_REAL);
 
     // 06 create FXTextField and Label for MaxSpeed
-    myMaxSpeed = new VTypeAttributeRow(this, column, SUMO_ATTR_MAXSPEED, 1);
+    myMaxSpeed = new VTypeAttributeRow(this, column, SUMO_ATTR_MAXSPEED, VTypeAttributeRow::rowAttrType::ROWTYPE_REAL);
 
     // 07 create FXTextField and Label for SpeedFactor
-    mySpeedFactor = new VTypeAttributeRow(this, column, SUMO_ATTR_SPEEDFACTOR, 1);
+    mySpeedFactor = new VTypeAttributeRow(this, column, SUMO_ATTR_SPEEDFACTOR, VTypeAttributeRow::rowAttrType::ROWTYPE_REAL);
 
     // 08 create FXTextField and Label for SpeedDev
-    mySpeedDev = new VTypeAttributeRow(this, column, SUMO_ATTR_SPEEDDEV, 1);
+    mySpeedDev = new VTypeAttributeRow(this, column, SUMO_ATTR_SPEEDDEV, VTypeAttributeRow::rowAttrType::ROWTYPE_REAL);
 
     // 09 create FXTextField and Label for EmissionClass
     myEmissionClass = new VTypeAttributeRow(this, column, SUMO_ATTR_EMISSIONCLASS, PollutantsInterface::getAllClassesStr());
 
     // 10 create FXTextField and Label for Width
-    myWidth = new VTypeAttributeRow(this, column, SUMO_ATTR_WIDTH, 1);
+    myWidth = new VTypeAttributeRow(this, column, SUMO_ATTR_WIDTH, VTypeAttributeRow::rowAttrType::ROWTYPE_REAL);
 
     // 11 create FXTextField and Label for Height
-    myHeight = new VTypeAttributeRow(this, column, SUMO_ATTR_HEIGHT, 1);
+    myHeight = new VTypeAttributeRow(this, column, SUMO_ATTR_HEIGHT, VTypeAttributeRow::rowAttrType::ROWTYPE_REAL);
 
     // 12 create FXTextField and Label for Filename
-    myFilename = new VTypeAttributeRow(this, column, SUMO_ATTR_IMGFILE, 3);
+    myFilename = new VTypeAttributeRow(this, column, SUMO_ATTR_IMGFILE, VTypeAttributeRow::rowAttrType::ROWTYPE_FILENAME);
 
     // 13 create FXTextField and Label for Filename
-    myOSGFile = new VTypeAttributeRow(this, column, SUMO_ATTR_OSGFILE, 3);
+    myOSGFile = new VTypeAttributeRow(this, column, SUMO_ATTR_OSGFILE, VTypeAttributeRow::rowAttrType::ROWTYPE_FILENAME);
 
     // 14 create VTypeAttributeRow and Label for Probability
-    myProbability = new VTypeAttributeRow(this, column, SUMO_ATTR_PROB, 1);
+    myProbability = new VTypeAttributeRow(this, column, SUMO_ATTR_PROB, VTypeAttributeRow::rowAttrType::ROWTYPE_REAL);
 }
 
 
@@ -633,139 +705,139 @@ GNEVehicleTypeDialog::VTypeAtributes::buildAttributesB(FXVerticalFrame* column) 
     myLaneChangeModel = new VTypeAttributeRow(this, column, SUMO_ATTR_LANE_CHANGE_MODEL, SUMOXMLDefinitions::LaneChangeModels.getStrings());
 
     // 03 create VTypeAttributeRow and Label for PersonCapacity
-    myPersonCapacity = new VTypeAttributeRow(this, column, SUMO_ATTR_PERSON_CAPACITY, 0);
+    myPersonCapacity = new VTypeAttributeRow(this, column, SUMO_ATTR_PERSON_CAPACITY, VTypeAttributeRow::rowAttrType::ROWTYPE_INT);
 
     // 04 create VTypeAttributeRow and Label for ContainerCapacity
-    myContainerCapacity = new VTypeAttributeRow(this, column, SUMO_ATTR_CONTAINER_CAPACITY, 0);
+    myContainerCapacity = new VTypeAttributeRow(this, column, SUMO_ATTR_CONTAINER_CAPACITY, VTypeAttributeRow::rowAttrType::ROWTYPE_INT);
 
     // 05 create VTypeAttributeRow and Label for BoardingDuration
-    myBoardingDuration = new VTypeAttributeRow(this, column, SUMO_ATTR_BOARDING_DURATION, 1);
+    myBoardingDuration = new VTypeAttributeRow(this, column, SUMO_ATTR_BOARDING_DURATION, VTypeAttributeRow::rowAttrType::ROWTYPE_REAL);
 
     // 06 create VTypeAttributeRow and Label for LoadingDuration
-    myLoadingDuration = new VTypeAttributeRow(this, column, SUMO_ATTR_LOADING_DURATION, 1);
+    myLoadingDuration = new VTypeAttributeRow(this, column, SUMO_ATTR_LOADING_DURATION, VTypeAttributeRow::rowAttrType::ROWTYPE_REAL);
 
     // 07 create ComboBox and Label for LatAlignment
     myLatAlignment = new VTypeAttributeRow(this, column, SUMO_ATTR_LATALIGNMENT, SUMOXMLDefinitions::LateralAlignments.getStrings());
 
     // 08 create VTypeAttributeRow and Label for MinGapLat
-    myMinGapLat = new VTypeAttributeRow(this, column, SUMO_ATTR_MINGAP_LAT, 1);
+    myMinGapLat = new VTypeAttributeRow(this, column, SUMO_ATTR_MINGAP_LAT, VTypeAttributeRow::rowAttrType::ROWTYPE_REAL);
 
     // 09 create VTypeAttributeRow and Label for MaxSpeedLat
-    myMaxSpeedLat = new VTypeAttributeRow(this, column, SUMO_ATTR_MAXSPEED_LAT, 1);
+    myMaxSpeedLat = new VTypeAttributeRow(this, column, SUMO_ATTR_MAXSPEED_LAT, VTypeAttributeRow::rowAttrType::ROWTYPE_REAL);
 
     // 10 create VTypeAttributeRow and Label for ActionStepLenght
-    myActionStepLenght = new VTypeAttributeRow(this, column, SUMO_ATTR_ACTIONSTEPLENGTH, 1);
+    myActionStepLenght = new VTypeAttributeRow(this, column, SUMO_ATTR_ACTIONSTEPLENGTH, VTypeAttributeRow::rowAttrType::ROWTYPE_REAL);
 
     // 11 create VTypeAttributeRow and Label for HasDriveStateu
-    myHasDriveState = new VTypeAttributeRow(this, column, SUMO_ATTR_HASDRIVERSTATE, 1);
+    myHasDriveState = new VTypeAttributeRow(this, column, SUMO_ATTR_HASDRIVERSTATE, VTypeAttributeRow::rowAttrType::ROWTYPE_REAL);
 
     // 12 create FXTextField and Label for Carriage length
-    myCarriageLength = new VTypeAttributeRow(this, column, SUMO_ATTR_CARRIAGE_LENGTH, 1);
+    myCarriageLength = new VTypeAttributeRow(this, column, SUMO_ATTR_CARRIAGE_LENGTH, VTypeAttributeRow::rowAttrType::ROWTYPE_REAL);
 
     // 13 create FXTextField and Label for Locomotive length
-    myLocomotiveLength = new VTypeAttributeRow(this, column, SUMO_ATTR_LOCOMOTIVE_LENGTH, 1);
+    myLocomotiveLength = new VTypeAttributeRow(this, column, SUMO_ATTR_LOCOMOTIVE_LENGTH, VTypeAttributeRow::rowAttrType::ROWTYPE_REAL);
 
     // 14 create FXTextField and Label for carriage GAP
-    myCarriageGap = new VTypeAttributeRow(this, column, SUMO_ATTR_CARRIAGE_GAP, 1);
+    myCarriageGap = new VTypeAttributeRow(this, column, SUMO_ATTR_CARRIAGE_GAP, VTypeAttributeRow::rowAttrType::ROWTYPE_REAL);
 }
 
 
 void
 GNEVehicleTypeDialog::VTypeAtributes::buildJunctionModelAttributesA(FXVerticalFrame* column) {
     // 01 create VTypeAttributeRow and Label for JMCrossingGap
-    myJMCrossingGap = new VTypeAttributeRow(this, column, SUMO_ATTR_JM_CROSSING_GAP, 1);
+    myJMCrossingGap = new VTypeAttributeRow(this, column, SUMO_ATTR_JM_CROSSING_GAP, VTypeAttributeRow::rowAttrType::ROWTYPE_REAL);
 
     // 02 create VTypeAttributeRow and Label for JMIgnoreKeepclearTime
-    myJMIgnoreKeepclearTime = new VTypeAttributeRow(this, column, SUMO_ATTR_JM_IGNORE_KEEPCLEAR_TIME, 1);
+    myJMIgnoreKeepclearTime = new VTypeAttributeRow(this, column, SUMO_ATTR_JM_IGNORE_KEEPCLEAR_TIME, VTypeAttributeRow::rowAttrType::ROWTYPE_REAL);
 
     // 03 create VTypeAttributeRow and Label for JMDriveAfterYellowTime
-    myJMDriveAfterYellowTime = new VTypeAttributeRow(this, column, SUMO_ATTR_JM_DRIVE_AFTER_YELLOW_TIME, 1);
+    myJMDriveAfterYellowTime = new VTypeAttributeRow(this, column, SUMO_ATTR_JM_DRIVE_AFTER_YELLOW_TIME, VTypeAttributeRow::rowAttrType::ROWTYPE_REAL);
     
     // 04 create VTypeAttributeRow and Label for JMDriveAfterRedTime
-    myJMDriveAfterRedTime = new VTypeAttributeRow(this, column, SUMO_ATTR_JM_DRIVE_AFTER_RED_TIME, 1);
+    myJMDriveAfterRedTime = new VTypeAttributeRow(this, column, SUMO_ATTR_JM_DRIVE_AFTER_RED_TIME, VTypeAttributeRow::rowAttrType::ROWTYPE_REAL);
             
     // 05 create VTypeAttributeRow and Label for JMDriveRedSpeed
-    myJMDriveRedSpeed = new VTypeAttributeRow(this, column, SUMO_ATTR_JM_DRIVE_RED_SPEED, 2);
+    myJMDriveRedSpeed = new VTypeAttributeRow(this, column, SUMO_ATTR_JM_DRIVE_RED_SPEED, VTypeAttributeRow::rowAttrType::ROWTYPE_REAL);
 }
 
 
 void
 GNEVehicleTypeDialog::VTypeAtributes::buildJunctionModelAttributesB(FXVerticalFrame* column) {
     // 01 create VTypeAttributeRow and Label for JMIgnoreFoeProb
-    myJMIgnoreFoeProb = new VTypeAttributeRow(this, column, SUMO_ATTR_JM_IGNORE_FOE_PROB, 1);
+    myJMIgnoreFoeProb = new VTypeAttributeRow(this, column, SUMO_ATTR_JM_IGNORE_FOE_PROB, VTypeAttributeRow::rowAttrType::ROWTYPE_REAL);
     
     // 02 create VTypeAttributeRow and Label for JMIgnoreFoeSpeed
-    myJMIgnoreFoeSpeed = new VTypeAttributeRow(this, column, SUMO_ATTR_JM_IGNORE_FOE_SPEED, 1);
+    myJMIgnoreFoeSpeed = new VTypeAttributeRow(this, column, SUMO_ATTR_JM_IGNORE_FOE_SPEED, VTypeAttributeRow::rowAttrType::ROWTYPE_REAL);
 
     // 03 create VTypeAttributeRow and Label for JMSigmaMinor
-    myJMSigmaMinor = new VTypeAttributeRow(this, column, SUMO_ATTR_JM_SIGMA_MINOR, 2);
+    myJMSigmaMinor = new VTypeAttributeRow(this, column, SUMO_ATTR_JM_SIGMA_MINOR, VTypeAttributeRow::rowAttrType::ROWTYPE_REAL);
 
     // 04 create VTypeAttributeRow and Label for JMTimeGapMinor
-    myJMTimeGapMinor = new VTypeAttributeRow(this, column, SUMO_ATTR_JM_TIMEGAP_MINOR, 1);
+    myJMTimeGapMinor = new VTypeAttributeRow(this, column, SUMO_ATTR_JM_TIMEGAP_MINOR, VTypeAttributeRow::rowAttrType::ROWTYPE_REAL);
 
     // 05 create VTypeAttributeRow and Label for Impatience
-    myJMImpatience = new VTypeAttributeRow(this, column, SUMO_ATTR_IMPATIENCE, 1);
+    myJMImpatience = new VTypeAttributeRow(this, column, SUMO_ATTR_IMPATIENCE, VTypeAttributeRow::rowAttrType::ROWTYPE_REAL);
 }
 
 
 void 
 GNEVehicleTypeDialog::VTypeAtributes::buildLaneChangeModelAttributes(FXVerticalFrame* column) {
     // 01 create VTypeAttributeRow and Label for strategic param
-    myLCAStrategicParam = new VTypeAttributeRow(this, column, SUMO_ATTR_LCA_STRATEGIC_PARAM, 1);
+    myLCAStrategicParam = new VTypeAttributeRow(this, column, SUMO_ATTR_LCA_STRATEGIC_PARAM, VTypeAttributeRow::rowAttrType::ROWTYPE_REAL);
 
     // 02 create VTypeAttributeRow and Label for cooperative param
-    myLCACooperativeParam = new VTypeAttributeRow(this, column, SUMO_ATTR_LCA_COOPERATIVE_PARAM, 1);
+    myLCACooperativeParam = new VTypeAttributeRow(this, column, SUMO_ATTR_LCA_COOPERATIVE_PARAM, VTypeAttributeRow::rowAttrType::ROWTYPE_REAL);
 
     // 03 create VTypeAttributeRow and Label for speed gain param
-    myLCASpeedgainParam = new VTypeAttributeRow(this, column, SUMO_ATTR_LCA_SPEEDGAIN_PARAM, 1);
+    myLCASpeedgainParam = new VTypeAttributeRow(this, column, SUMO_ATTR_LCA_SPEEDGAIN_PARAM, VTypeAttributeRow::rowAttrType::ROWTYPE_REAL);
 
     // 04 create VTypeAttributeRow and Label for keepright param
-    myLCAKeeprightParam = new VTypeAttributeRow(this, column, SUMO_ATTR_LCA_KEEPRIGHT_PARAM, 1);
+    myLCAKeeprightParam = new VTypeAttributeRow(this, column, SUMO_ATTR_LCA_KEEPRIGHT_PARAM, VTypeAttributeRow::rowAttrType::ROWTYPE_REAL);
 
     // 05 create VTypeAttributeRow and Label for sublane param
-    myLCASublaneParam = new VTypeAttributeRow(this, column, SUMO_ATTR_LCA_SUBLANE_PARAM, 1);
+    myLCASublaneParam = new VTypeAttributeRow(this, column, SUMO_ATTR_LCA_SUBLANE_PARAM, VTypeAttributeRow::rowAttrType::ROWTYPE_REAL);
 
     // 06 create VTypeAttributeRow and Label for opposite param
-    myLCAOppositeParam = new VTypeAttributeRow(this, column, SUMO_ATTR_LCA_OPPOSITE_PARAM, 1);
+    myLCAOppositeParam = new VTypeAttributeRow(this, column, SUMO_ATTR_LCA_OPPOSITE_PARAM, VTypeAttributeRow::rowAttrType::ROWTYPE_REAL);
 
     // 07 create VTypeAttributeRow and Label for pushy
-    myLCAPushy = new VTypeAttributeRow(this, column, SUMO_ATTR_LCA_PUSHY, 1);
+    myLCAPushy = new VTypeAttributeRow(this, column, SUMO_ATTR_LCA_PUSHY, VTypeAttributeRow::rowAttrType::ROWTYPE_REAL);
 
     // 08 create VTypeAttributeRow and Label for pushy gap
-    myLCAPushygap = new VTypeAttributeRow(this, column, SUMO_ATTR_LCA_PUSHYGAP, 1);
+    myLCAPushygap = new VTypeAttributeRow(this, column, SUMO_ATTR_LCA_PUSHYGAP, VTypeAttributeRow::rowAttrType::ROWTYPE_REAL);
 
     // 09 create VTypeAttributeRow and Label for assertive
-    myLCAAssertive = new VTypeAttributeRow(this, column, SUMO_ATTR_LCA_ASSERTIVE, 1);
+    myLCAAssertive = new VTypeAttributeRow(this, column, SUMO_ATTR_LCA_ASSERTIVE, VTypeAttributeRow::rowAttrType::ROWTYPE_REAL);
 
     // 10 create VTypeAttributeRow and Label for impatience
-    myLCAImpatience = new VTypeAttributeRow(this, column, SUMO_ATTR_LCA_IMPATIENCE, 1);
+    myLCAImpatience = new VTypeAttributeRow(this, column, SUMO_ATTR_LCA_IMPATIENCE, VTypeAttributeRow::rowAttrType::ROWTYPE_REAL);
 
     // 11 create VTypeAttributeRow and Label for time to impatience
-    myLCATimeToImpatience = new VTypeAttributeRow(this, column, SUMO_ATTR_LCA_TIME_TO_IMPATIENCE, 1);
+    myLCATimeToImpatience = new VTypeAttributeRow(this, column, SUMO_ATTR_LCA_TIME_TO_IMPATIENCE, VTypeAttributeRow::rowAttrType::ROWTYPE_REAL);
 
     // 12 create VTypeAttributeRow and Label for accel lat
-    myLCAAccelLat = new VTypeAttributeRow(this, column, SUMO_ATTR_LCA_ACCEL_LAT, 1);
+    myLCAAccelLat = new VTypeAttributeRow(this, column, SUMO_ATTR_LCA_ACCEL_LAT, VTypeAttributeRow::rowAttrType::ROWTYPE_REAL);
 
     // 13 create VTypeAttributeRow and Label for look ahead lefth
-    myLCALookAheadLeft = new VTypeAttributeRow(this, column, SUMO_ATTR_LCA_LOOKAHEADLEFT, 1);
+    myLCALookAheadLeft = new VTypeAttributeRow(this, column, SUMO_ATTR_LCA_LOOKAHEADLEFT, VTypeAttributeRow::rowAttrType::ROWTYPE_REAL);
 
     // 14 create VTypeAttributeRow and Label for speed gain right
-    myLCASpeedGainRight = new VTypeAttributeRow(this, column, SUMO_ATTR_LCA_SPEEDGAINRIGHT, 1);
+    myLCASpeedGainRight = new VTypeAttributeRow(this, column, SUMO_ATTR_LCA_SPEEDGAINRIGHT, VTypeAttributeRow::rowAttrType::ROWTYPE_REAL);
 
     // 15 create VTypeAttributeRow and Label for max speed lat standing
-    myLCAMaxSpeedLatStanding = new VTypeAttributeRow(this, column, SUMO_ATTR_LCA_MAXSPEEDLATSTANDING, 1);
+    myLCAMaxSpeedLatStanding = new VTypeAttributeRow(this, column, SUMO_ATTR_LCA_MAXSPEEDLATSTANDING, VTypeAttributeRow::rowAttrType::ROWTYPE_REAL);
 
     // 16 create VTypeAttributeRow and Label for max speed lat factor
-    myLCAMaxSpeedLatFactor = new VTypeAttributeRow(this, column, SUMO_ATTR_LCA_MAXSPEEDLATFACTOR, 1);
+    myLCAMaxSpeedLatFactor = new VTypeAttributeRow(this, column, SUMO_ATTR_LCA_MAXSPEEDLATFACTOR, VTypeAttributeRow::rowAttrType::ROWTYPE_REAL);
 
     // 17 create VTypeAttributeRow and Label for turn alignment distance
-    myLCATurnAlignmentDistance = new VTypeAttributeRow(this, column, SUMO_ATTR_LCA_TURN_ALIGNMENT_DISTANCE, 1);
+    myLCATurnAlignmentDistance = new VTypeAttributeRow(this, column, SUMO_ATTR_LCA_TURN_ALIGNMENT_DISTANCE, VTypeAttributeRow::rowAttrType::ROWTYPE_REAL);
 
     // 18 create VTypeAttributeRow and Label for overtake right
-    myLCAOvertakeRight = new VTypeAttributeRow(this, column, SUMO_ATTR_LCA_OVERTAKE_RIGHT, 1);
+    myLCAOvertakeRight = new VTypeAttributeRow(this, column, SUMO_ATTR_LCA_OVERTAKE_RIGHT, VTypeAttributeRow::rowAttrType::ROWTYPE_REAL);
 
     // 19 create VTypeAttributeRow and Label for experimental
-    /* myLCAExperimental = new VTypeAttributeRow(this, column, SUMO_ATTR_LCA_EXPERIMENTAL1, 1); */
+    /* myLCAExperimental = new VTypeAttributeRow(this, column, SUMO_ATTR_LCA_EXPERIMENTAL1, VTypeAttributeRow::rowAttrType::ROWTYPE_REAL); */
 }
 
 
