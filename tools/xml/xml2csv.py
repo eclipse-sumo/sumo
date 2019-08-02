@@ -213,7 +213,7 @@ def getOutStream(output):
     return io.open(output, 'w', encoding="utf8")
 
 
-def get_options():
+def get_options(arglist=None):
     optParser = OptionParser(
         usage=os.path.basename(sys.argv[0]) + " [<options>] <input_file_or_port>")
     optParser.add_option("-s", "--separator", default=";",
@@ -226,7 +226,7 @@ def get_options():
     optParser.add_option("-p", "--split", action="store_true",
                          default=False, help="split in different files for the first hierarchy level")
     optParser.add_option("-o", "--output", help="base name for output")
-    options, args = optParser.parse_args()
+    options, args = optParser.parse_args(arglist)
     if len(args) != 1:
         optParser.print_help()
         sys.exit()
@@ -246,8 +246,8 @@ def get_options():
     return options
 
 
-def main():
-    options = get_options()
+def main(args=None):
+    options = get_options(args)
     # get attributes
     attrFinder = AttrFinder(options.xsd, options.source, options.split)
     # write csv
