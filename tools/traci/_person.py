@@ -277,11 +277,19 @@ class PersonDomain(Domain):
         self._connection._sendExact()
 
     def appendStage(self, personID, stage):
+        """appendStage(string, stage)
+        Appends a stage object to the plan of the given person
+        Such an object is obtainable using getStage
+        """
         self._connection._beginMessage(tc.CMD_SET_PERSON_VARIABLE, tc.APPEND_STAGE, personID, simulation._stageSize(stage))
         simulation._writeStage(stage, self._connection)
         self._connection._sendExact()
 
     def replaceStage(self, personID, stageIndex, stage):
+        """replaceStage(string, int, stage)
+        Replaces the nth subsequent stage with the given stage object
+        Such an object is obtainable using getStage
+        """
         msgSize = (1 + 4 # compound
                    + 1 + 4 # stageIndex
                    + simulation._stageSize(stage))
