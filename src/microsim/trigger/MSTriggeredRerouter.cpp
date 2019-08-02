@@ -244,6 +244,9 @@ MSTriggeredRerouter::myEndElement(int element) {
         ri.routeProbs = myCurrentRouteProb;
         ri.permissions = myCurrentPermissions;
         ri.parkProbs = myCurrentParkProb;
+        for (auto paVi : ri.parkProbs.getVals()) {
+            paVi.first->setNumAlternatives(ri.parkProbs.getVals().size() - 1);
+        }
         if (ri.closedLanes.size() > 0) {
             // collect edges that are affect by a closed lane
             std::set<MSEdge*> affected;

@@ -202,6 +202,14 @@ public:
     /// @brief update state so that vehicles wishing to enter cooperate with exiting vehicles
     void notifyEgressBlocked();
 
+    void setNumAlternatives(int alternatives) {
+        myNumAlternatives = MAX2(myNumAlternatives, alternatives);
+    }
+
+    int getNumAlternatives() const{
+        return myNumAlternatives;
+    }
+
 protected:
 
     /** @struct LotSpaceDefinition
@@ -265,6 +273,9 @@ protected:
     SUMOTime myReservationTime;
     int myReservations;
     double myReservationMaxLength;
+
+    /// @brief the number of alternative parkingAreas that are assigned to parkingAreaRerouter
+    int myNumAlternatives;
 
 private:
 
