@@ -300,7 +300,7 @@ SUMOVehicleParserHelper::parseID(const SUMOSAXAttributes& attrs, const SumoXMLTa
             return id;
         } else if (id.empty()) {
             // add extra information for empty IDs
-            WRITE_ERROR("Invalid " + toString(element) + " id '" + id + "'. Musn't be empty.");
+            WRITE_ERROR("Invalid " + toString(element) + " id '" + id + "'.");
         } else {
             WRITE_ERROR("Invalid " + toString(element) + " id '" + id + "'. Contains invalid characters.");
         }
