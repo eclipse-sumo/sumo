@@ -335,16 +335,18 @@ if (NOT ${SETUPTOOLS_MISSING})
     install(CODE "execute_process(COMMAND ${PYTHON_EXECUTABLE} ${CMAKE_SOURCE_DIR}/tools/build/setup-traci.py clean --all install --root=\$ENV{DESTDIR}/ --prefix=${CMAKE_INSTALL_PREFIX} --optimize=1)"
             COMPONENT pytraci)
 endif()
-string(REPLACE "${SUMO_LIBRARIES}" "" SUMO_LIBRARIES_DLL "${SUMO_LIBRARIES_DLL}")
-add_custom_target(install_dll)
-add_custom_command(TARGET install_dll PRE_BUILD
-                   COMMAND ${PYTHON_EXECUTABLE} -c "import shutil;[shutil.copy('${SUMO_LIBRARIES}'+l, '${CMAKE_SOURCE_DIR}/bin') for l in '${SUMO_LIBRARIES_DLL}'.split(';')]")
-if (HAVE_OSG)
-    add_custom_command(TARGET install_dll PRE_BUILD
-                       COMMAND ${CMAKE_COMMAND} -E copy_directory ${OSG_PATH}/bin ${CMAKE_SOURCE_DIR}/bin)
-endif ()
-set_property(TARGET install_dll PROPERTY EXCLUDE_FROM_DEFAULT_BUILD TRUE)
-set_property(TARGET install_dll PROPERTY FOLDER "CMake")
+if (SUMO_LIBRARIES AND WIN32)
+    string(REPLACE "${SUMO_LIBRARIES}" "" SUMO_LIBRARIES_DLL "${SUMO_LIBRARIES_DLL}")
+    add_custom_command(OUTPUT ${CMAKE_SOURCE_DIR}/bin/zlib.dll
+                       COMMAND ${PYTHON_EXECUTABLE} -c "import shutil;[shutil.copy('${SUMO_LIBRARIES}'+l, '${CMAKE_SOURCE_DIR}/bin') for l in '${SUMO_LIBRARIES_DLL}'.split(';')]"
+                       DEPENDS ${SUMO_LIBRARIES})
+    add_custom_target(install_dll ALL DEPENDS ${CMAKE_SOURCE_DIR}/bin/zlib.dll)
+    if (HAVE_OSG)
+        add_custom_command(TARGET install_dll PRE_BUILD
+                           COMMAND ${CMAKE_COMMAND} -E copy_directory ${OSG_PATH}/bin ${CMAKE_SOURCE_DIR}/bin)
+    endif ()
+    set_property(TARGET install_dll PROPERTY FOLDER "CMake")
+endif()
 
 # java targets
 find_program(MVN_EXECUTABLE mvn)
