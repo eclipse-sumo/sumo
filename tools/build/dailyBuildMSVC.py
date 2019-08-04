@@ -186,7 +186,7 @@ for platform in (["x64"] if options.x64only else ["Win32", "x64"]):
     log = io.open(makeLog, 'a')
     if ret == 0 and sumoAllZip:
         try:
-            binaryZip = sumoAllZip.replace("-all-", "-%s-" % env["FILEPREFIX"])
+            binaryZip = sumoAllZip.replace("-all-", "-%s%s-" % (platform.lower().replace("x", "win"), options.suffix))
             zipf = zipfile.ZipFile(binaryZip, 'w', zipfile.ZIP_DEFLATED)
             srcZip = zipfile.ZipFile(sumoAllZip)
             write = False
