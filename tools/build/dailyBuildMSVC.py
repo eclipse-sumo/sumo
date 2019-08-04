@@ -131,8 +131,8 @@ optParser.add_option("-u", "--no-update", dest="update", action="store_false",
                      default=True, help="skip repository update")
 optParser.add_option("-n", "--no-tests", dest="tests", action="store_false",
                      default=True, help="skip tests")
-optParser.add_option("-e", "--no-extended-tests", dest="extended_tests", action="store_false",
-                     default=True, help="skip netedit tests and tests for the debug build")
+optParser.add_option("-x", "--x64only", action="store_true",
+                     default=False, help="skip Win32 and debug build (as well as netedit tests)")
 optParser.add_option("-p", "--python", help="path to python interpreter to use")
 (options, args) = optParser.parse_args()
 
@@ -155,7 +155,7 @@ for fname in glob.glob(os.path.join(options.remoteDir, "sumo-all-*.zip")):
     if os.path.getmtime(fname) > maxTime:
         maxTime = os.path.getmtime(fname)
         sumoAllZip = fname
-for platform in ("Win32", "x64"):
+for platform in (["x64"] if options.x64only else ["Win32", "x64"]):
     env["FILEPREFIX"] = msvcVersion + options.suffix + platform
     prefix = os.path.join(options.remoteDir, env["FILEPREFIX"])
     makeLog = prefix + "Release.log"
@@ -240,10 +240,10 @@ for platform in ("Win32", "x64"):
             (errno, strerror) = ziperr.args
             print("Warning: Could not zip to %s!" % binaryZip, file=log)
             print("I/O error(%s): %s" % (errno, strerror), file=log)
-    runTests(options, env, gitrev, options.extended_tests and platform == "x64")
+    runTests(options, env, gitrev, not options.x64only)
     with open(statusLog, 'w') as log:
         status.printStatus(makeLog, makeAllLog, env["SMTP_SERVER"], log)
-if options.extended_tests:
+if not options.x64only:
     runTests(options, env, gitrev, True, "D")
     with open(prefix + "Dstatus.log", 'w') as log:
         status.printStatus(makeAllLog, makeAllLog, env["SMTP_SERVER"], log)
