@@ -40,7 +40,6 @@ if make -j32 >> $MAKELOG 2>&1; then
   if make install >> $MAKELOG 2>&1; then
     if test "$FILEPREFIX" == "gcc4_64"; then
       make -j distcheck >> $MAKELOG 2>&1 || (echo "make distcheck failed" | tee -a $STATUSLOG; tail -10 $MAKELOG)
-      make dist-complete >> $MAKELOG 2>&1 || (echo "make dist-complete failed" | tee -a $STATUSLOG; tail -10 $MAKELOG)
     fi
   else
     echo "make install failed" | tee -a $STATUSLOG; tail -10 $MAKELOG

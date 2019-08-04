@@ -310,13 +310,8 @@ set(commonvehiclelibs
 set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 set_property(GLOBAL PROPERTY PREDEFINED_TARGETS_FOLDER "CMake")
 
-enable_testing()
-add_subdirectory(src)
-if (GTEST_FOUND)
-    add_subdirectory(unittest)
-endif ()
-
 # installation
+include(GNUInstallDirs)
 install(DIRECTORY data/ DESTINATION share/sumo/data)
 install(DIRECTORY tools/ DESTINATION share/sumo/tools
         USE_SOURCE_PERMISSIONS
@@ -455,6 +450,13 @@ if (COVERAGE)
     WORKING_DIRECTORY ${CMAKE_SOURCE_DIR})
 endif()
 
+# testing
+enable_testing()
+add_subdirectory(src)
+if (GTEST_FOUND)
+    add_subdirectory(unittest)
+endif ()
+
 # example and dist targets
 add_custom_target(examples
     COMMAND ${PYTHON_EXECUTABLE} tools/extractTest.py -x -f tests/examples.txt -p docs/examples/runAll.py
@@ -482,11 +484,6 @@ if (GIT_FOUND)
     add_dependencies(dist examples doc ${JAVA_TARGETS})
     set_property(TARGET dist PROPERTY FOLDER "CMake")
     set_property(TARGET dist PROPERTY EXCLUDE_FROM_DEFAULT_BUILD TRUE)
-    # alias for backward compatibility
-    add_custom_target(dist-complete)
-    add_dependencies(dist-complete dist)
-    set_property(TARGET dist-complete PROPERTY FOLDER "CMake")
-    set_property(TARGET dist-complete PROPERTY EXCLUDE_FROM_DEFAULT_BUILD TRUE)
 
     add_custom_target(distcheck
         COMMAND rm -rf sumo-${PACKAGE_VERSION}
