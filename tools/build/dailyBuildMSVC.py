@@ -164,7 +164,7 @@ for platform in (["x64"] if options.x64only else ["Win32", "x64"]):
     binDir = "sumo-git/bin/"
 
     toClean = [makeLog, makeAllLog]
-    for ext in ("*.exe", "*.ilk", "*.pdb", "*.py", "*.pyd", "*.dll", "*.jar"):
+    for ext in ("*.exe", "*.ilk", "*.pdb", "*.py", "*.pyd", "*.dll", "*.lib", "*.exp", "*.jar"):
         toClean += glob.glob(os.path.join(options.rootDir, options.binDir, ext))
     for f in toClean:
         try:
@@ -203,7 +203,7 @@ for platform in (["x64"] if options.x64only else ["Win32", "x64"]):
                 elif write:
                     zipf.writestr(f, srcZip.read(f))
             srcZip.close()
-            for ext in ("*.exe", "*.bat", "*.py", "*.pyd", "*.dll", "*.jar"):
+            for ext in ("*.exe", "*.dll", "*.lib", "*.exp", "*.bat", "*.py", "*.pyd", "*.jar"):
                 for f in sorted(glob.glob(os.path.join(options.rootDir, options.binDir, ext))):
                     nameInZip = os.path.join(binDir, os.path.basename(f))
                     # filter debug dlls

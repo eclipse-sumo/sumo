@@ -335,11 +335,13 @@ if (SUMO_LIBRARIES AND WIN32)
     add_custom_command(OUTPUT ${CMAKE_SOURCE_DIR}/bin/zlib.dll
                        COMMAND ${PYTHON_EXECUTABLE} -c "import shutil;[shutil.copy('${SUMO_LIBRARIES}'+l, '${CMAKE_SOURCE_DIR}/bin') for l in '${SUMO_LIBRARIES_DLL}'.split(';')]"
                        DEPENDS ${SUMO_LIBRARIES})
-    add_custom_target(install_dll ALL DEPENDS ${CMAKE_SOURCE_DIR}/bin/zlib.dll)
     if (HAVE_OSG)
-        add_custom_command(TARGET install_dll PRE_BUILD
-                           COMMAND ${CMAKE_COMMAND} -E copy_directory ${OSG_PATH}/bin ${CMAKE_SOURCE_DIR}/bin)
+        set(OSG_TARGET ${CMAKE_SOURCE_DIR}/bin/osg130-osg.dll)
+        add_custom_command(OUTPUT ${OSG_TARGET}
+                           COMMAND ${CMAKE_COMMAND} -E copy_directory ${OSG_PATH}/bin ${CMAKE_SOURCE_DIR}/bin
+                           DEPENDS ${OSG_PATH})
     endif ()
+    add_custom_target(install_dll ALL DEPENDS ${CMAKE_SOURCE_DIR}/bin/zlib.dll ${OSG_TARGET})
     set_property(TARGET install_dll PROPERTY FOLDER "CMake")
 endif()
 

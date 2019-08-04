@@ -37,15 +37,6 @@ set(libsumostatic_STAT_SRCS
 add_library(libsumostatic STATIC ${libsumostatic_STAT_SRCS})
 set_property(TARGET libsumostatic PROPERTY FOLDER "libsumo")
 
-add_library(libsumoc SHARED ${libsumostatic_STAT_SRCS})
-set_property(TARGET libsumoc PROPERTY FOLDER "libsumo")
-install(TARGETS libsumoc DESTINATION lib)
-if (MSVC OR APPLE)
-    target_link_libraries(libsumoc PRIVATE ${sumolibs})
-else ()
-    target_link_libraries(libsumoc PRIVATE -Wl,--whole-archive ${sumolibs} -Wl,--no-whole-archive)
-endif()
-
 set(ENABLE_PYTHON_BINDINGS ON CACHE BOOL "Build Python Bindings")
 set(ENABLE_JAVA_BINDINGS ON CACHE BOOL "Build Java Bindings")
 
@@ -130,4 +121,15 @@ if(SWIG_FOUND)
         endif()
     endif()
 
+endif()
+
+set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY_DEBUG ${CMAKE_SOURCE_DIR}/bin)
+set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY_RELEASE ${CMAKE_SOURCE_DIR}/bin)
+add_library(libsumoc SHARED ${libsumostatic_STAT_SRCS})
+set_property(TARGET libsumoc PROPERTY FOLDER "libsumo")
+install(TARGETS libsumoc ARCHIVE DESTINATION lib)
+if (MSVC OR APPLE)
+    target_link_libraries(libsumoc PRIVATE ${sumolibs})
+else ()
+    target_link_libraries(libsumoc PRIVATE -Wl,--whole-archive ${sumolibs} -Wl,--no-whole-archive)
 endif()
