@@ -1,0 +1,20 @@
+Warning: Essential list of unique strings attribute 'via' of trip is missing; trip cannot be created
+Warning: Essential unique string attribute 'to' of trip is missing; trip cannot be created
+Warning: Essential unique string attribute 'from' of trip is missing; trip cannot be created
+Warning: Essential list of unique strings attribute 'via' of trip is missing; trip cannot be created
+Warning: Essential unique string attribute 'to' of trip is missing; trip cannot be created
+Warning: Essential unique string attribute 'from' of trip is missing; trip cannot be created
+Error: Invalid vehicle type 'dummy_Type' used in routeFlow 'flow_1'.
+Error: Attribute 'type' in definition of flow 'flow_2' is empty.
+Warning: Essential list of unique strings attribute 'via' of trip is missing; trip cannot be created
+Warning: Essential unique string attribute 'to' of trip is missing; trip cannot be created
+Warning: Essential unique string attribute 'from' of trip is missing; trip cannot be created
+Error: Invalid vehicle type '' used in routeFlow 'flow_2'.
+Warning: Essential list of unique strings attribute 'via' of trip is missing; trip cannot be created
+Warning: Essential unique string attribute 'to' of trip is missing; trip cannot be created
+Warning: Essential unique string attribute 'from' of trip is missing; trip cannot be created
+Error: Invalid vehicle type 'id with invalid characters' used in routeFlow 'flow_3'.
+Warning: Essential list of unique strings attribute 'via' of trip is missing; trip cannot be created
+Warning: Essential unique string attribute 'to' of trip is missing; trip cannot be created
+Warning: Essential unique string attribute 'from' of trip is missing; trip cannot be created
+Error: Loading of C:/Users/alva_pa/.texttest/tmp/netedit.gui.02Aug152357.10684/netedit.gui/demandElements/routeflow/load/vType\input_routes.rou.xml failed.

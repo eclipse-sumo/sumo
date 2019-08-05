@@ -1,0 +1,11 @@
+Error: Attribute 'reroute' in definition of a flow is not of type bool.
+Warning: Essential list of unique strings attribute 'via' of trip is missing; trip cannot be created
+Warning: Essential unique string attribute 'to' of trip is missing; trip cannot be created
+Warning: Essential unique string attribute 'from' of trip is missing; trip cannot be created
+Warning: Essential list of unique strings attribute 'via' of trip is missing; trip cannot be created
+Warning: Essential unique string attribute 'to' of trip is missing; trip cannot be created
+Warning: Essential unique string attribute 'from' of trip is missing; trip cannot be created
+Warning: Essential list of unique strings attribute 'via' of trip is missing; trip cannot be created
+Warning: Essential unique string attribute 'to' of trip is missing; trip cannot be created
+Warning: Essential unique string attribute 'from' of trip is missing; trip cannot be created
+Error: Loading of C:/Users/alva_pa/.texttest/tmp/netedit.gui.02Aug152357.10684/netedit.gui/demandElements/routeflow/load/reroute\input_routes.rou.xml failed.
