@@ -4,6 +4,9 @@ all_by_prob
 # all vehicles have the device, using probability=1 and trips as input
 all_by_prob_trip
 
+# all vehicles have the device for pre-insertino rerouting, but due to probability=0.5 only half route with period
+half_by_prob_trip
+
 # some vehicles have the device py params
 by_param
 
