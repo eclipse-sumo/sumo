@@ -159,15 +159,19 @@ SUMORouteHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
             if (myVehicleParameter) {
                 delete myVehicleParameter;
             }
+            // parse vehicle parameters
             myVehicleParameter = SUMOVehicleParserHelper::parseVehicleAttributes(attrs, myHardFail, true);
-            if (myVehicleParameter->id == "") {
-                WRITE_WARNING("Omitting trip ids is deprecated!");
-                myVehicleParameter->id = myIdSupplier.getNext();
+            // check if myVehicleParameter was sucesfully created
+            if (myVehicleParameter) {
+                if (myVehicleParameter->id == "") {
+                    WRITE_WARNING("Omitting trip ids is deprecated!");
+                    myVehicleParameter->id = myIdSupplier.getNext();
+                }
+                myVehicleParameter->parametersSet |= VEHPARS_FORCE_REROUTE;
+                myActiveRouteID = "!" + myVehicleParameter->id;
+                // open trip
+                openTrip(attrs);
             }
-            myVehicleParameter->parametersSet |= VEHPARS_FORCE_REROUTE;
-            myActiveRouteID = "!" + myVehicleParameter->id;
-            // open trip
-            openTrip(attrs);
             break;
         }
         case SUMO_TAG_PERSONTRIP:
