@@ -1285,7 +1285,6 @@ SUMOVehicleParserHelper::parseJMParams(SUMOVTypeParameter& into, const SUMOSAXAt
                 // obtain CFM attribute in double format
                 JMAttribute = StringUtils::toDouble(parsedJMAttribute);
             } catch (...) {
-
                 ok = false;
                 if (hardFail) {
                     throw ProcessError("Invalid Junction-Model Attribute " + toString(it) + ". Cannot be parsed to float");
@@ -1295,13 +1294,26 @@ SUMOVehicleParserHelper::parseJMParams(SUMOVTypeParameter& into, const SUMOSAXAt
             }
             // now continue checking other properties (-1 is the default value)
             if (ok && (JMAttribute != -1)) {
-                // check attributes of type "nonNegativeFloatType" (>= 0)
-                if (JMAttribute < 0) {
-                    ok = false;
-                    if (hardFail) {
-                        throw ProcessError("Invalid Junction-Model Attribute " + toString(it) + ". Must be equal or greater than 0");
-                    } else {
-                        WRITE_ERROR("Invalid Junction-Model Attribute " + toString(it) + ". Must be equal or greater than 0");
+                // special case for sigma minor
+                if (it == SUMO_ATTR_JM_SIGMA_MINOR) {
+                    // check attributes sigma minor
+                    if ((JMAttribute < 0) || (JMAttribute > 1)) {
+                        ok = false;
+                        if (hardFail) {
+                            throw ProcessError("Invalid Junction-Model Attribute " + toString(it) + ". Only values between [0-1] are allowed");
+                        } else {
+                            WRITE_ERROR("Invalid Junction-Model Attribute " + toString(it) + ". Only values between [0-1] are allowed");
+                        }
+                    }
+                } else {
+                    // check attributes of type "nonNegativeFloatType" (>= 0)
+                    if (JMAttribute < 0) {
+                        ok = false;
+                        if (hardFail) {
+                            throw ProcessError("Invalid Junction-Model Attribute " + toString(it) + ". Must be equal or greater than 0");
+                        } else {
+                            WRITE_ERROR("Invalid Junction-Model Attribute " + toString(it) + ". Must be equal or greater than 0");
+                        }
                     }
                 }
                 if (ok) {
