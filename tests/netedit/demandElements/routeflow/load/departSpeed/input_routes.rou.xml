@@ -54,22 +54,22 @@
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
     <route edges="gneE2 gneE4 gneE5" color="yellow" id="route_0"/>
 	
-    <flow id="flow_0" begin="20.00" number="100" route="route_0" departSpeed="dummyDepart"/>
+    <flow id="flow_0" begin="20.00" end="50.00" number="100" route="route_0" departSpeed="dummyDepart"/>
 	
-	<flow id="flow_1" begin="20.00" number="100" route="route_0" departSpeed="-12"/>
+	<flow id="flow_1" begin="20.00" end="50.00" number="100" route="route_0" departSpeed="-12"/>
 	
-	<flow id="flow_2" begin="20.00" number="100" route="route_0" departSpeed="0"/>
+	<flow id="flow_2" begin="20.00" end="50.00" number="100" route="route_0" departSpeed="0"/>
 	
-	<flow id="flow_3" begin="20.00" number="100" route="route_0" departSpeed="500"/>
+	<flow id="flow_3" begin="20.00" end="50.00" number="100" route="route_0" departSpeed="500"/>
 	
-	<flow id="flow_4" begin="20.00" number="100" route="route_0" departSpeed="1"/>
+	<flow id="flow_4" begin="20.00" end="50.00" number="100" route="route_0" departSpeed="1"/>
 	
-	<flow id="flow_5" begin="20.00" number="100" route="route_0" departSpeed="random"/>
+	<flow id="flow_5" begin="20.00" end="50.00" number="100" route="route_0" departSpeed="random"/>
 	
-	<flow id="flow_6" begin="20.00" number="100" route="route_0" departSpeed="max"/>
+	<flow id="flow_6" begin="20.00" end="50.00" number="100" route="route_0" departSpeed="max"/>
 	
-	<flow id="flow_7" begin="20.00" number="100" route="route_0" departSpeed="desired"/>
+	<flow id="flow_7" begin="20.00" end="50.00" number="100" route="route_0" departSpeed="desired"/>
 	
-	<flow id="flow_8" begin="20.00" number="100" route="route_0" departSpeed="speedLimit"/>
+	<flow id="flow_8" begin="20.00" end="50.00" number="100" route="route_0" departSpeed="speedLimit"/>
 
 </routes>

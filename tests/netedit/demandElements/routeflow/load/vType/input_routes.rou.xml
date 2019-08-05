@@ -56,13 +56,13 @@
 	
     <vType id="custom_vType"/>
 	
-    <flow id="flow_0" begin="20.00" number="100" route="route_0"/>
+    <flow id="flow_0" begin="20.00" end="50.00" number="100" route="route_0"/>
 	
-	<flow id="flow_1" type="dummy_Type" begin="20.00" number="100" route="route_0"/>
+	<flow id="flow_1" type="dummy_Type" begin="20.00" end="50.00" number="100" route="route_0"/>
 	
-	<flow id="flow_2" type="" begin="20.00" number="100" route="route_0"/>
+	<flow id="flow_2" type="" begin="20.00" end="50.00" number="100" route="route_0"/>
 	
-	<flow id="flow_3" type="id with invalid characters" begin="20.00" number="100" route="route_0"/>
+	<flow id="flow_3" type="id with invalid characters" begin="20.00" end="50.00" number="100" route="route_0"/>
 	
-	<flow id="flow_4" type="custom_vType" begin="20.00" number="100" route="route_0"/>
+	<flow id="flow_4" type="custom_vType" begin="20.00" end="50.00" number="100" route="route_0"/>
 </routes>

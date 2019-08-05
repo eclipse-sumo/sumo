@@ -54,21 +54,21 @@
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
     <route edges="gneE2 gneE4 gneE5" color="yellow" id="route_0"/>
 	
-    <flow id="flow_0" begin="20.00" number="100" route="route_0" departLane="dummyDepart"/>
+    <flow id="flow_0" begin="20.00" end="50.00" number="100" route="route_0" departLane="dummyDepart"/>
 	
-	<flow id="flow_1" begin="20.00" number="100" route="route_0" departLane="-12"/>
+	<flow id="flow_1" begin="20.00" end="50.00" number="100" route="route_0" departLane="-12"/>
 	
-	<flow id="flow_2" begin="20.00" number="100" route="route_0" departLane="0"/>
+	<flow id="flow_2" begin="20.00" end="50.00" number="100" route="route_0" departLane="0"/>
 	
-	<flow id="flow_3" begin="20.00" number="100" route="route_0" departLane="500"/>
+	<flow id="flow_3" begin="20.00" end="50.00" number="100" route="route_0" departLane="500"/>
 	
-	<flow id="flow_4" begin="20.00" number="100" route="route_0" departLane="random"/>
+	<flow id="flow_4" begin="20.00" end="50.00" number="100" route="route_0" departLane="random"/>
 	
-	<flow id="flow_5" begin="20.00" number="100" route="route_0" departLane="free"/>
+	<flow id="flow_5" begin="20.00" end="50.00" number="100" route="route_0" departLane="free"/>
 	
-	<flow id="flow_6" begin="20.00" number="100" route="route_0" departLane="allowed"/>
+	<flow id="flow_6" begin="20.00" end="50.00" number="100" route="route_0" departLane="allowed"/>
 	
-	<flow id="flow_7" begin="20.00" number="100" route="route_0" departLane="best"/>
+	<flow id="flow_7" begin="20.00" end="50.00" number="100" route="route_0" departLane="best"/>
 	
-	<flow id="flow_8" begin="20.00" number="100" route="route_0" departLane="first"/>
+	<flow id="flow_8" begin="20.00" end="50.00" number="100" route="route_0" departLane="first"/>
 </routes>

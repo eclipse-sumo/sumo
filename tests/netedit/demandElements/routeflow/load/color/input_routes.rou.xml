@@ -54,13 +54,13 @@
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
     <route edges="gneE2 gneE4 gneE5" color="yellow" id="route_0"/>
 	
-    <flow id="flow_0" begin="20.00" number="100" route="route_0" color="dummyColor"/>
+    <flow id="flow_0" begin="20.00" end="50.00" number="100" route="route_0" color="dummyColor"/>
 	
-	<flow id="flow_1" begin="20.00" number="100" route="route_0" color=""/>
+	<flow id="flow_1" begin="20.00" end="50.00" number="100" route="route_0" color=""/>
 	
-	<flow id="flow_2" begin="20.00" number="100" route="route_0" color="777,555,999"/>
+	<flow id="flow_2" begin="20.00" end="50.00" number="100" route="route_0" color="777,555,999"/>
 	
-	<flow id="flow_3" begin="20.00" number="100" route="route_0" color="20,30,40"/>
+	<flow id="flow_3" begin="20.00" end="50.00" number="100" route="route_0" color="20,30,40"/>
 	
-	<flow id="flow_4" begin="20.00" number="100" route="route_0" color="magenta"/>
+	<flow id="flow_4" begin="20.00" end="50.00" number="100" route="route_0" color="magenta"/>
 </routes>
