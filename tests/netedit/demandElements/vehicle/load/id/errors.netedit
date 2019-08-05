@@ -23,13 +23,13 @@ Debug: Current saving Status: net saved, additionals saved, demand elements unsa
 Error: Attribute 'id' is missing in definition of vehicle
 Error: Vehicle cannot be created
 Error: Attribute 'id' in definition of a vehicle is empty.
-Error: Invalid vehicle id ''. Musn't be empty.
+Error: Invalid vehicle id ''.
 Error: Vehicle cannot be created
 Error: Invalid vehicle id 'id with spaces'. Contains invalid characters.
 Error: Vehicle cannot be created
 Debug: Adding vehicle 'vehicle_valid' in GNEChange_DemandElement
 Error: There is another vehicle with the same ID='vehicle_valid'.
-Error: Loading of C:/Users/alva_pa/.texttest/tmp/netedit.gui.01Aug095533.9228/netedit.gui/demandElements/vehicle/load/id\input_routes.rou.xml failed.
+Error: Loading of C:/Users/alva_pa/.texttest/tmp/netedit.gui.05Aug145110.8336/netedit.gui/demandElements/vehicle/load/id\input_routes.rou.xml failed.
 Debug: net has to be saved
 Debug: Current saving Status: net unsaved, additionals saved, demand elements unsaved
 Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
