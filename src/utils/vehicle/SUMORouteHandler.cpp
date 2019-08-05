@@ -122,9 +122,13 @@ SUMORouteHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
             if (myVehicleParameter) {
                 delete myVehicleParameter;
             }
+            // parse vehicle parameters
             myVehicleParameter = SUMOVehicleParserHelper::parseFlowAttributes(attrs, myHardFail, myBeginDefault, myEndDefault);
-            // open a flow
-            openTrip(attrs);
+            // check if myVehicleParameter was sucesfully created
+            if (myVehicleParameter) {
+                // open a flow (using openTrip function)
+                openTrip(attrs);
+            }
             break;
         case SUMO_TAG_PERSONFLOW:
             // delete if myVehicleParameter isn't null
