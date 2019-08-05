@@ -24,6 +24,7 @@
 #include <config.h>
 
 #include <string>
+#include <memory>
 #include <iostream>
 #include <xercesc/sax2/XMLReaderFactory.hpp>
 #include <xercesc/framework/LocalFileInputSource.hpp>
@@ -158,8 +159,8 @@ SUMOSAXReader::parseFirst(std::string systemID) {
         }
         myToken = XERCES_CPP_NAMESPACE::XMLPScanToken();
 #ifdef HAVE_ZLIB
-        myIStream = new zstr::ifstream(systemID.c_str(), std::fstream::in | std::fstream::binary);
-        myInputStream = new IStreamInputSource(*myIStream);
+        myIStream = std::unique_ptr<zstr::ifstream>(new zstr::ifstream(systemID.c_str(), std::fstream::in | std::fstream::binary));
+        myInputStream = std::unique_ptr<IStreamInputSource>(new IStreamInputSource(*myIStream));
         return myXMLReader->parseFirst(*myInputStream, myToken);
 #else
         return myXMLReader->parseFirst(systemID.c_str(), myToken);
