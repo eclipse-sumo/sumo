@@ -230,7 +230,7 @@ for platform in (["x64"] if options.x64only else ["Win32", "x64"]):
                               cwd=buildDir, stdout=log, stderr=subprocess.STDOUT)
     if ret == 0 and sumoAllZip:
         try:
-            debugZip = sumoAllZip.replace("-all-", "Debug-%s-" % env["FILEPREFIX"])
+            debugZip = sumoAllZip.replace("-all-", "%s%sDebug-" % (platform.lower().replace("x", "win"), options.suffix))
             zipf = zipfile.ZipFile(debugZip, 'w', zipfile.ZIP_DEFLATED)
             for f in (glob.glob(os.path.join(options.rootDir, options.binDir, "*D.exe")) +
                       glob.glob(os.path.join(options.rootDir, options.binDir, "*D.pdb"))):
