@@ -640,6 +640,7 @@ public:
     static const std::string SCHEME_NAME_EDGEDATA_NUMERICAL;
     static const std::string SCHEME_NAME_SELECTION;
     static const std::string SCHEME_NAME_TYPE;
+    static const std::string SCHEME_NAME_PERMISSION_CODE;
 
     /// @brief color settings
     GUIVisualizationColorSettings colorSettings;

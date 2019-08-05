@@ -135,6 +135,7 @@ const std::string GUIVisualizationSettings::SCHEME_NAME_LANE_PARAM_NUMERICAL("by
 const std::string GUIVisualizationSettings::SCHEME_NAME_EDGEDATA_NUMERICAL("by edgeData (numerical, streetwise)");
 const std::string GUIVisualizationSettings::SCHEME_NAME_SELECTION("by selection");
 const std::string GUIVisualizationSettings::SCHEME_NAME_TYPE("by type");
+const std::string GUIVisualizationSettings::SCHEME_NAME_PERMISSION_CODE("by permission code");
 
 // color constants for scheme background
 #define COL_SCHEME_EMISSION RGBColor(255,255,210)
@@ -387,7 +388,7 @@ GUIVisualizationSettings::initSumoGuiDefaults() {
     scheme = GUIColorScheme(SCHEME_NAME_SELECTION, RGBColor(128, 128, 128, 255), "unselected", true, 0, COL_SCHEME_MISC);
     scheme.addColor(RGBColor(0, 80, 180, 255), 1, "selected");
     laneColorer.addScheme(scheme);
-    scheme = GUIColorScheme("by permission code", RGBColor(240, 240, 240), "nobody");
+    scheme = GUIColorScheme(SCHEME_NAME_PERMISSION_CODE, RGBColor(240, 240, 240), "nobody");
     scheme.addColor(RGBColor(10, 10, 10), (double)SVC_PASSENGER, "passenger");
     scheme.addColor(RGBColor(128, 128, 128), (double)SVC_PEDESTRIAN, "pedestrian");
     scheme.addColor(RGBColor(80, 80, 80), (double)(SVC_PEDESTRIAN | SVC_DELIVERY), "pedestrian_delivery");
