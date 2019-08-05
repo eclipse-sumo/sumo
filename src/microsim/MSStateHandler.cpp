@@ -58,7 +58,7 @@ MSStateHandler::MSStateHandler(const std::string& file, const SUMOTime offset) :
     MSRouteHandler(file, true),
     myOffset(offset),
     mySegment(nullptr),
-    myEdgeAndLane(0, -1),
+    myCurrentLane(nullptr),
     myAttrs(nullptr),
     myLastParameterised(nullptr) {
     myAmLoadingState = true;
@@ -185,10 +185,11 @@ MSStateHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
             break;
         }
         case SUMO_TAG_LANE: {
-            myEdgeAndLane.second++;
-            if (myEdgeAndLane.second == (int)MSEdge::getAllEdges()[myEdgeAndLane.first]->getLanes().size()) {
-                myEdgeAndLane.first++;
-                myEdgeAndLane.second = 0;
+            bool ok;
+            const std::string laneID = attrs.get<std::string>(SUMO_ATTR_ID, nullptr, ok);
+            myCurrentLane = MSLane::dictionary(laneID);
+            if (myCurrentLane == nullptr) {
+                throw ProcessError("Unknown lane '" + laneID + "' in loaded state");
             }
             break;
         }
@@ -198,8 +199,7 @@ MSStateHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
                 if (MSGlobals::gUseMesoSim) {
                     mySegment->loadState(vehIDs, MSNet::getInstance()->getVehicleControl(), StringUtils::toLong(attrs.getString(SUMO_ATTR_TIME)) - myOffset, myQueIndex);
                 } else {
-                    MSEdge::getAllEdges()[myEdgeAndLane.first]->getLanes()[myEdgeAndLane.second]->loadState(
-                        vehIDs, MSNet::getInstance()->getVehicleControl());
+                    myCurrentLane->loadState(vehIDs, MSNet::getInstance()->getVehicleControl());
                 }
             } catch (EmptyData&) {} // attr may be empty
             myQueIndex++;
