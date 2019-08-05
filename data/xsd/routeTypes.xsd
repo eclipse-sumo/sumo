@@ -432,6 +432,7 @@
         <xsd:attribute name="routeLength" type="nonNegativeFloatType"/>
         <xsd:attribute name="line" type="xsd:string"/>
         <xsd:attribute name="personNumber" type="xsd:nonNegativeInteger"/>
+        <xsd:attribute name="containerNumber" type="xsd:nonNegativeInteger"/>
     </xsd:complexType>
 
     <xsd:complexType name="flowWithoutIDType">
@@ -467,6 +468,7 @@
         <xsd:attribute name="arrivalPosLat" type="arrivalPosLatType"/>
         <xsd:attribute name="line" type="xsd:string"/>
         <xsd:attribute name="personNumber" type="xsd:nonNegativeInteger"/>
+        <xsd:attribute name="containerNumber" type="xsd:nonNegativeInteger"/>
     </xsd:complexType>
 
     <xsd:complexType name="flowCalibratorType">
@@ -517,6 +519,7 @@
         <xsd:attribute name="arrivalPosLat" type="arrivalPosLatType"/>
         <xsd:attribute name="line" type="xsd:string"/>
         <xsd:attribute name="personNumber" type="xsd:nonNegativeInteger"/>
+        <xsd:attribute name="containerNumber" type="xsd:nonNegativeInteger"/>
     </xsd:complexType>
 
     <xsd:complexType name="routeType">
