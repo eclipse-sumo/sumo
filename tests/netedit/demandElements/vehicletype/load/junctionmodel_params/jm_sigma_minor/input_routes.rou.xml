@@ -47,9 +47,12 @@
     <vType id="vType2" jmSigmaMinor="0"/>
 	
 	<!-- junctionModel param -->
-    <vType id="vType3" jmSigmaMinor="2"/>
+    <vType id="vType3" jmSigmaMinor="2.1"/>
 	
 	<!-- junctionModel param -->
-    <vType id="vType4" jmSigmaMinor="5.5"/>
+    <vType id="vType4" jmSigmaMinor="1"/>
+	
+	<!-- junctionModel param -->
+    <vType id="vType5" jmSigmaMinor="0.2"/>
 	
 </routes>
