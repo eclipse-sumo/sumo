@@ -16,6 +16,7 @@
 
 import argparse
 import collections
+import functools
 import logging
 import sys
 import xml.etree.ElementTree
@@ -79,7 +80,7 @@ class ReroutersGeneration(object):
         self._sumo_net = sumolib.net.readNet(options.sumo_net_definition)
         logging.info('Loading parking file: %s', options.parking_area_definition)
         self._load_parking_areas_from_file(options.parking_area_definition)
-        
+
         self._generate_rerouters()
         self._save_rerouters()
 
@@ -101,12 +102,14 @@ class ReroutersGeneration(object):
     #                                 Rerouter Generation                                      #
     # ---------------------------------------------------------------------------------------- #
 
+    @functools.lru_cache(maxsize=None)
+    def _cached_get_shortest_path(self, from_edge, to_edge):
+        """ Calls and caches sumolib: net.getShortestPath. """
+        return self._sumo_net.getShortestPath(from_edge, to_edge)
+
     def _generate_rerouters(self):
         """ Compute the rerouters for each parking lot for SUMO. """
 
-        _rerouters_cache = collections.defaultdict(dict)
-        _cache_used = 0
-        _total_distances = 0
         distances = collections.defaultdict(dict)
         logging.info('Computing distances.')
         sequence = None
@@ -121,18 +124,13 @@ class ReroutersGeneration(object):
                     continue
                 if parking_a['edge'].getID() == parking_b['edge'].getID():
                     continue
-                _total_distances += 1
-                route, cost = None, None
-                if (parking_a['edge'].getID() in _rerouters_cache and
-                        parking_b['edge'].getID() in _rerouters_cache[parking_a['edge'].getID()]):
-                    route, cost = _rerouters_cache[parking_a['edge'].getID()][parking_b['edge'].getID()]
-                    _cache_used += 1
-                else:
-                    route, cost = self._sumo_net.getShortestPath(parking_a['edge'], parking_b['edge'])
-                    _rerouters_cache[parking_a['edge'].getID()][parking_b['edge'].getID()] = (route, cost)
+                route, cost = self._cached_get_shortest_path(parking_a['edge'], parking_b['edge'])
                 if route:
                     distances[parking_a['id']][parking_b['id']] = cost
-        logging.info('Cache used %d times out of %d.', _cache_used, _total_distances)
+        cache_info = self._cached_get_shortest_path.cache_info()
+        used = cache_info.hits * 100.0 / float(cache_info.hits + cache_info.misses)
+        logging.info('Cache: hits %d, misses %d, used %.2f%%.', 
+                     cache_info.hits, cache_info.misses, used)
 
         # select closest parking areas
         logging.info('Sorting parking alternatives.')
