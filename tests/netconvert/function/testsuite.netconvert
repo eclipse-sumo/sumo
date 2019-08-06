@@ -34,6 +34,11 @@ join_double_conn
 
 # tests for joining of close junctions
 junctions.join
+
+# joining adjacent lanes
+join-lanes
+
+# joining traffic light clusters
 tls.join
 
 # tests for disabling left-turns
