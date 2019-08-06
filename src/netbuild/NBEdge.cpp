@@ -3795,7 +3795,7 @@ NBEdge::joinLanes(SVCPermissions perms) {
     bool haveJoined = false;
     int i = 0;
     while (i < getNumLanes() - 1) {
-        if (getPermissions(i) == perms and getPermissions(i + 1) == perms) {
+        if ((getPermissions(i) == perms) && (getPermissions(i + 1) == perms)) {
             const double newWidth = getLaneWidth(i) + getLaneWidth(i + 1);
             const std::string newType = myLanes[i].type + "|" + myLanes[i + 1].type;
             deleteLane(i, false, true);
