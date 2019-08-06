@@ -832,10 +832,10 @@ GNEFrame::AttributesCreator::showAttributesCreatorModul(const GNEAttributeCarrie
         }
     }
     // iterate over tag attributes and create a AttributesCreatorRow
-    for (auto i : myTagProperties) {
+    for (const auto &i : myTagProperties) {
         //  make sure that only non-unique attributes are created (And depending of includeExtendedAttributes)
-        if (!i.second.isUnique()) {
-            myAttributesCreatorRows.at(i.second.getPositionListed()) = new AttributesCreatorRow(this, i.second);
+        if (!i.isUnique()) {
+            myAttributesCreatorRows.at(i.getPositionListed()) = new AttributesCreatorRow(this, i);
         }
     }
     // update disjoint attributes
@@ -876,10 +876,10 @@ void
 GNEFrame::AttributesCreator::showWarningMessage(std::string extra) const {
     std::string errorMessage;
     // iterate over standar parameters
-    for (auto i : myTagProperties) {
-        if (errorMessage.empty() && myAttributesCreatorRows.at(i.second.getPositionListed())) {
+    for (const auto &i : myTagProperties) {
+        if (errorMessage.empty() && myAttributesCreatorRows.at(i.getPositionListed())) {
             // Return string with the error if at least one of the parameter isn't valid
-            std::string attributeValue = myAttributesCreatorRows.at(i.second.getPositionListed())->isAttributeValid();
+            std::string attributeValue = myAttributesCreatorRows.at(i.getPositionListed())->isAttributeValid();
             if (attributeValue.size() != 0) {
                 errorMessage = attributeValue;
             }
@@ -904,7 +904,7 @@ GNEFrame::AttributesCreator::areValuesValid() const {
     // iterate over standar parameters
     for (auto i : myTagProperties) {
         // Return false if error message of attriuve isn't empty
-        if (myAttributesCreatorRows.at(i.second.getPositionListed()) && myAttributesCreatorRows.at(i.second.getPositionListed())->isAttributeValid().size() != 0) {
+        if (myAttributesCreatorRows.at(i.getPositionListed()) && myAttributesCreatorRows.at(i.getPositionListed())->isAttributeValid().size() != 0) {
             return false;
         }
     }
@@ -2096,17 +2096,17 @@ GNEFrame::AttributesEditor::showAttributeEditorModul(const std::vector<GNEAttrib
         // Iterate over attributes
         for (const auto& i : myEditedACs.front()->getTagProperty()) {
             // disable editing for unique attributes in case of multi-selection
-            if ((myEditedACs.size() > 1) && i.second.isUnique()) {
+            if ((myEditedACs.size() > 1) && i.isUnique()) {
                 continue;
             }
             // disable editing of extended attributes if includeExtended isn't enabled
-            if (i.second.isExtended() && !includeExtended) {
+            if (i.isExtended() && !includeExtended) {
                 continue;
             }
             // Declare a set of occuring values and insert attribute's values of item (note: We use a set to avoid repeated values)
             std::set<std::string> occuringValues;
             for (const auto& it_ac : myEditedACs) {
-                occuringValues.insert(it_ac->getAttribute(i.first));
+                occuringValues.insert(it_ac->getAttribute(i.getAttr()));
             }
             // get current value
             std::ostringstream oss;
@@ -2118,7 +2118,7 @@ GNEFrame::AttributesEditor::showAttributeEditorModul(const std::vector<GNEAttrib
             }
             std::string value = oss.str();
             if ((myEditedACs.front()->getTagProperty().getTag() == SUMO_TAG_CONNECTION) &&
-                    (i.first == SUMO_ATTR_TLLINKINDEX)
+                    (i.getAttr() == SUMO_ATTR_TLLINKINDEX)
                     && value == toString(NBConnection::InvalidTlIndex)) {
                 // possibly the connections are newly created (allow assigning
                 // tlIndex if the junction(s) have a traffic light
@@ -2132,7 +2132,7 @@ GNEFrame::AttributesEditor::showAttributeEditorModul(const std::vector<GNEAttrib
             // show AttributesEditor
             show();
             // create attribute editor row
-            myAttributesEditorRows[i.second.getPositionListed()] = new AttributesEditorRow(this, i.second, value, myEditedACs.front()->isDisjointAttributeSet(i.first));
+            myAttributesEditorRows[i.getPositionListed()] = new AttributesEditorRow(this, i, value, myEditedACs.front()->isDisjointAttributeSet(i.getAttr()));
         }
     }
     // reparent help button (to place it at bottom)
@@ -2155,13 +2155,13 @@ GNEFrame::AttributesEditor::refreshAttributeEditor(bool forceRefreshShape, bool 
         // Iterate over attributes
         for (const auto& i : myEditedACs.front()->getTagProperty()) {
             // disable editing for unique attributes in case of multi-selection
-            if ((myEditedACs.size() > 1) && i.second.isUnique()) {
+            if ((myEditedACs.size() > 1) && i.isUnique()) {
                 continue;
             }
             // Declare a set of occuring values and insert attribute's values of item
             std::set<std::string> occuringValues;
             for (const auto& it_ac : myEditedACs) {
-                occuringValues.insert(it_ac->getAttribute(i.first));
+                occuringValues.insert(it_ac->getAttribute(i.getAttr()));
             }
             // get current value
             std::ostringstream oss;
@@ -2172,16 +2172,16 @@ GNEFrame::AttributesEditor::refreshAttributeEditor(bool forceRefreshShape, bool 
                 oss << *it_val;
             }
             // check if is a disjoint attribute
-            bool disjointAttributeSet = myEditedACs.front()->isDisjointAttributeSet(i.first);
+            bool disjointAttributeSet = myEditedACs.front()->isDisjointAttributeSet(i.getAttr());
             // Check if refresh of Position or Shape has to be forced
-            if ((i.first  == SUMO_ATTR_SHAPE) && forceRefreshShape) {
-                myAttributesEditorRows[i.second.getPositionListed()]->refreshAttributesEditorRow(oss.str(), true, disjointAttributeSet);
-            } else if ((i.first  == SUMO_ATTR_POSITION) && forceRefreshPosition) {
+            if ((i.getAttr()  == SUMO_ATTR_SHAPE) && forceRefreshShape) {
+                myAttributesEditorRows[i.getPositionListed()]->refreshAttributesEditorRow(oss.str(), true, disjointAttributeSet);
+            } else if ((i.getAttr()  == SUMO_ATTR_POSITION) && forceRefreshPosition) {
                 // Refresh attributes maintain invalid values
-                myAttributesEditorRows[i.second.getPositionListed()]->refreshAttributesEditorRow(oss.str(), true, disjointAttributeSet);
+                myAttributesEditorRows[i.getPositionListed()]->refreshAttributesEditorRow(oss.str(), true, disjointAttributeSet);
             } else {
                 // Refresh attributes maintain invalid values
-                myAttributesEditorRows[i.second.getPositionListed()]->refreshAttributesEditorRow(oss.str(), false, disjointAttributeSet);
+                myAttributesEditorRows[i.getPositionListed()]->refreshAttributesEditorRow(oss.str(), false, disjointAttributeSet);
             }
         }
     }
@@ -3907,22 +3907,22 @@ GNEFrame::openHelpAttributesDialog(const GNEAttributeCarrier::TagProperties& tag
     myTable->getRowHeader()->setWidth(0);
     // Iterate over vector of additional parameters
     int itemIndex = 0;
-    for (auto i : tagProperties) {
+    for (const auto &i : tagProperties) {
         // Set attribute
-        FXTableItem* attribute = new FXTableItem(toString(i.first).c_str());
+        FXTableItem* attribute = new FXTableItem(i.getAttrStr().c_str());
         attribute->setJustify(FXTableItem::CENTER_X);
         myTable->setItem(itemIndex, 0, attribute);
         // Set description of element
         FXTableItem* type = new FXTableItem("");
-        type->setText(i.second.getDescription().c_str());
-        sizeColumnDescription = MAX2(sizeColumnDescription, (int)i.second.getDescription().size());
+        type->setText(i.getDescription().c_str());
+        sizeColumnDescription = MAX2(sizeColumnDescription, (int)i.getDescription().size());
         type->setJustify(FXTableItem::CENTER_X);
         myTable->setItem(itemIndex, 1, type);
         // Set definition
-        FXTableItem* definition = new FXTableItem(i.second.getDefinition().c_str());
+        FXTableItem* definition = new FXTableItem(i.getDefinition().c_str());
         definition->setJustify(FXTableItem::LEFT);
         myTable->setItem(itemIndex, 2, definition);
-        sizeColumnDefinitions = MAX2(sizeColumnDefinitions, (int)i.second.getDefinition().size());
+        sizeColumnDefinitions = MAX2(sizeColumnDefinitions, (int)i.getDefinition().size());
         itemIndex++;
     }
     // set header

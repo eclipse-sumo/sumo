@@ -217,21 +217,21 @@ GNEAdditional::writeAdditional(OutputDevice& device) const {
         // iterate over attributes and write it
         for (auto i : myTagProperty) {
             // obtain attribute
-            std::string attribute = getAttribute(i.first);
-            if (i.second.isWriteXMLOptional() && !i.second.isCombinable()) {
+            std::string attribute = getAttribute(i.getAttr());
+            if (i.isWriteXMLOptional() && !i.isCombinable()) {
                 // Only write attributes with default value if is different from original
-                if (i.second.getDefaultValue() != attribute) {
+                if (i.getDefaultValue() != attribute) {
                     // check if attribute must be written using a synonim
-                    if (i.second.hasAttrSynonym()) {
-                        device.writeAttr(i.second.getAttrSynonym(), attribute);
+                    if (i.hasAttrSynonym()) {
+                        device.writeAttr(i.getAttrSynonym(), attribute);
                     } else {
                         // SVC permissions uses their own writting function
-                        if (i.second.isSVCPermission()) {
+                        if (i.isSVCPermission()) {
                             // disallow attribute musn't be written
-                            if (i.first != SUMO_ATTR_DISALLOW) {
+                            if (i.getAttr() != SUMO_ATTR_DISALLOW) {
                                 writePermissions(device, parseVehicleClasses(attribute));
                             }
-                        } else if (myTagProperty.canMaskXYZPositions() && (i.first == SUMO_ATTR_POSITION)) {
+                        } else if (myTagProperty.canMaskXYZPositions() && (i.getAttr() == SUMO_ATTR_POSITION)) {
                             // get position attribute and write it separate
                             Position pos = parse<Position>(getAttribute(SUMO_ATTR_POSITION));
                             device.writeAttr(SUMO_ATTR_X, toString(pos.x()));
@@ -241,22 +241,22 @@ GNEAdditional::writeAdditional(OutputDevice& device) const {
                                 device.writeAttr(SUMO_ATTR_Z, toString(pos.z()));
                             }
                         } else {
-                            device.writeAttr(i.first, attribute);
+                            device.writeAttr(i.getAttr(), attribute);
                         }
                     }
                 }
             } else {
                 // Attributes without default values are always writted
-                if (i.second.hasAttrSynonym()) {
-                    device.writeAttr(i.second.getAttrSynonym(), attribute);
+                if (i.hasAttrSynonym()) {
+                    device.writeAttr(i.getAttrSynonym(), attribute);
                 } else {
                     // SVC permissions uses their own writting function
-                    if (i.second.isSVCPermission()) {
+                    if (i.isSVCPermission()) {
                         // disallow attribute musn't be written
-                        if (i.first != SUMO_ATTR_DISALLOW) {
+                        if (i.getAttr() != SUMO_ATTR_DISALLOW) {
                             writePermissions(device, parseVehicleClasses(attribute));
                         }
-                    } else if (myTagProperty.canMaskXYZPositions() && (i.first == SUMO_ATTR_POSITION)) {
+                    } else if (myTagProperty.canMaskXYZPositions() && (i.getAttr() == SUMO_ATTR_POSITION)) {
                         // get position attribute and write it separate
                         Position pos = parse<Position>(getAttribute(SUMO_ATTR_POSITION));
                         device.writeAttr(SUMO_ATTR_X, toString(pos.x()));
@@ -266,7 +266,7 @@ GNEAdditional::writeAdditional(OutputDevice& device) const {
                             device.writeAttr(SUMO_ATTR_Z, toString(pos.z()));
                         }
                     } else {
-                        device.writeAttr(i.first, attribute);
+                        device.writeAttr(i.getAttr(), attribute);
                     }
                 }
             }
@@ -457,10 +457,10 @@ GNEAdditional::getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView&) {
     // Iterate over attributes
     for (const auto& i : myTagProperty) {
         // Add attribute and set it dynamic if aren't unique
-        if (i.second.isUnique()) {
-            ret->mkItem(toString(i.first).c_str(), false, getAttribute(i.first));
+        if (i.isUnique()) {
+            ret->mkItem(i.getAttrStr().c_str(), false, getAttribute(i.getAttr()));
         } else {
-            ret->mkItem(toString(i.first).c_str(), true, getAttribute(i.first));
+            ret->mkItem(i.getAttrStr().c_str(), true, getAttribute(i.getAttr()));
         }
     }
     // close building
@@ -568,8 +568,8 @@ void
 GNEAdditional::setDefaultValues() {
     // iterate over attributes and set default value
     for (const auto& i : myTagProperty) {
-        if (i.second.hasStaticDefaultValue()) {
-            setAttribute(i.first, i.second.getDefaultValue());
+        if (i.hasStaticDefaultValue()) {
+            setAttribute(i.getAttr(), i.getDefaultValue());
         }
     }
 }

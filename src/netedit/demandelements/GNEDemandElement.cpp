@@ -473,10 +473,10 @@ GNEDemandElement::getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView&) {
     // Iterate over attributes
     for (const auto& i : myTagProperty) {
         // Add attribute and set it dynamic if aren't unique
-        if (i.second.isUnique()) {
-            ret->mkItem(toString(i.first).c_str(), false, getAttribute(i.first));
+        if (i.isUnique()) {
+            ret->mkItem(i.getAttrStr().c_str(), false, getAttribute(i.getAttr()));
         } else {
-            ret->mkItem(toString(i.first).c_str(), true, getAttribute(i.first));
+            ret->mkItem(i.getAttrStr().c_str(), true, getAttribute(i.getAttr()));
         }
     }
     // close building

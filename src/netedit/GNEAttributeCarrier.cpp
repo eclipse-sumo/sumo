@@ -60,7 +60,6 @@ GNEAttributeCarrier::AttributeProperties::AttributeProperties() :
     myTagPropertyParent(nullptr),
     myAttrStr(toString(SUMO_ATTR_NOTHING)),
     myAttributeProperty(ATTRPROPERTY_STRING),
-    myPositionListed(0),
     myDefinition(""),
     myDefaultValue(""),
     myAttrSynonym(SUMO_ATTR_NOTHING),
@@ -73,7 +72,6 @@ GNEAttributeCarrier::AttributeProperties::AttributeProperties(const SumoXMLAttr 
     myTagPropertyParent(nullptr),
     myAttrStr(toString(attribute)),
     myAttributeProperty(attributeProperty),
-    myPositionListed(0),
     myDefinition(definition),
     myDefaultValue(defaultValue),
     myAttrSynonym(SUMO_ATTR_NOTHING),
@@ -158,12 +156,6 @@ GNEAttributeCarrier::AttributeProperties::setRange(const double minimum, const d
 
 
 void
-GNEAttributeCarrier::AttributeProperties::setPositionListed(const int positionListed) {
-    myPositionListed = positionListed;
-}
-
-
-void
 GNEAttributeCarrier::AttributeProperties::setTagPropertyParent(TagProperties* tagPropertyParent) {
     myTagPropertyParent = tagPropertyParent;
 }
@@ -187,9 +179,14 @@ GNEAttributeCarrier::AttributeProperties::getTagPropertyParent() const {
 }
 
 
-int
+int 
 GNEAttributeCarrier::AttributeProperties::getPositionListed() const {
-    return myPositionListed;
+    for (auto i = myTagPropertyParent->begin(); i != myTagPropertyParent->end(); i++) {
+        if (i->getAttr() == myAttribute) {
+            return (i - myTagPropertyParent->begin());
+        }
+    }
+    throw ProcessError("Attribute wasn't found in myTagPropertyParent");
 }
 
 
@@ -550,28 +547,16 @@ GNEAttributeCarrier::TagProperties::checkTagIntegrity() const {
     }
     // check integrity of all attributes
     for (auto i : myAttributeProperties) {
-        i.second.checkAttributeIntegrity();
+        i.checkAttributeIntegrity();
         // check that if attribute is combinable, own a combination of Allow/disallow attibute
-        if (i.second.isCombinable()) {
-            if ((i.first != SUMO_ATTR_ALLOW) && (i.first != SUMO_ATTR_DISALLOW)) {
+        if (i.isCombinable()) {
+            if ((i.getAttr() != SUMO_ATTR_ALLOW) && (i.getAttr() != SUMO_ATTR_DISALLOW)) {
                 throw ProcessError("Attributes aren't combinables");
-            } else if ((i.first == SUMO_ATTR_ALLOW) && !hasAttribute(SUMO_ATTR_DISALLOW)) {
+            } else if ((i.getAttr() == SUMO_ATTR_ALLOW) && !hasAttribute(SUMO_ATTR_DISALLOW)) {
                 throw ProcessError("allow need a disallow attribute in the same tag");
-            } else if ((i.first == SUMO_ATTR_DISALLOW) && !hasAttribute(SUMO_ATTR_ALLOW)) {
+            } else if ((i.getAttr() == SUMO_ATTR_DISALLOW) && !hasAttribute(SUMO_ATTR_ALLOW)) {
                 throw ProcessError("disallow need an allow attribute in the same tag");
             }
-        }
-    }
-    // check that all position listed are consecutives
-    for (int i = 0; i < (int)myAttributeProperties.size(); i++) {
-        bool found = false;
-        for (auto j : myAttributeProperties) {
-            if (j.second.getPositionListed() == i) {
-                found = true;
-            }
-        }
-        if (!found) {
-            throw FormatException("There is no position listed consecutive");
         }
     }
 }
@@ -579,13 +564,17 @@ GNEAttributeCarrier::TagProperties::checkTagIntegrity() const {
 
 const std::string&
 GNEAttributeCarrier::TagProperties::getDefaultValue(SumoXMLAttr attr) const {
-    if (myAttributeProperties.count(attr) == 0) {
-        throw ProcessError("Attribute '" + toString(attr) + "' not defined");
-    } else if (!myAttributeProperties.at(attr).hasStaticDefaultValue()) {
-        throw ProcessError("attribute '" + toString(attr) + "' doesn't have a default value");
-    } else {
-        return myAttributeProperties.at(attr).getDefaultValue();
+    // iterate over attribute properties
+    for (const auto &i : myAttributeProperties) {
+        if (i.getAttr() == attr) {
+            if (!i.hasStaticDefaultValue()) {
+                throw ProcessError("attribute '" + i.getAttrStr() + "' doesn't have a default value");
+            } else {
+                return i.getDefaultValue();
+            }
+        }
     }
+    throw ProcessError("Attribute '" + toString(attr) + "' not defined");
 }
 
 
@@ -593,16 +582,17 @@ void
 GNEAttributeCarrier::TagProperties::addAttribute(const AttributeProperties& attributeProperty) {
     if (isAttributeDeprecated(attributeProperty.getAttr())) {
         throw ProcessError("Attribute '" + attributeProperty.getAttrStr() + "' is deprecated and cannot be inserted");
-    } else if (myAttributeProperties.count(attributeProperty.getAttr()) != 0) {
-        throw ProcessError("Attribute '" + attributeProperty.getAttrStr() + "' already inserted");
     } else if ((myAttributeProperties.size() + 1) >= MAXNUMBEROFATTRIBUTES) {
         throw ProcessError("Maximum number of attributes for tag " + attributeProperty.getAttrStr() + " exceeded");
     } else {
-        // insert AttributeProperties in map
-        myAttributeProperties[attributeProperty.getAttr()] = attributeProperty;
-        // update position listed
-        myAttributeProperties[attributeProperty.getAttr()].setPositionListed((int)myAttributeProperties.size() - 1);
-        myAttributeProperties[attributeProperty.getAttr()].setTagPropertyParent(this);
+        // Check that attribute wasn't already inserted
+        for (auto i : myAttributeProperties) {
+            if (i.getAttr() == attributeProperty.getAttr()) {
+            throw ProcessError("Attribute '" + attributeProperty.getAttrStr() + "' already inserted");        }
+        }
+        // insert AttributeProperties in vector
+        myAttributeProperties.push_back(attributeProperty);
+        myAttributeProperties.back().setTagPropertyParent(this);
     }
 }
 
@@ -611,7 +601,7 @@ void
 GNEAttributeCarrier::TagProperties::addDeprecatedAttribute(SumoXMLAttr attr) {
     // Check that attribute wasn't already inserted
     for (auto i : myAttributeProperties) {
-        if (i.first == attr) {
+        if (i.getAttr() == attr) {
             throw ProcessError("Attribute '" + toString(attr) + "' is deprecated but was inserted in list of attributes");
         }
     }
@@ -622,28 +612,24 @@ GNEAttributeCarrier::TagProperties::addDeprecatedAttribute(SumoXMLAttr attr) {
 
 const GNEAttributeCarrier::AttributeProperties&
 GNEAttributeCarrier::TagProperties::getAttributeProperties(SumoXMLAttr attr) const {
-    if (myAttributeProperties.count(attr) != 0) {
-        return myAttributeProperties.at(attr);
-    } else {
-        // check if we're try to loading an synonym
-        for (auto i : myAttributeProperties) {
-            if (i.second.hasAttrSynonym() && i.second.getAttrSynonym() == attr) {
-                return myAttributeProperties.at(i.first);
-            }
+    // iterate over attribute properties
+    for (const auto &i : myAttributeProperties) {
+        if ((i.getAttr() == attr) || (i.hasAttrSynonym() && (i.getAttrSynonym() == attr))) {
+            return i;
         }
-        // throw error if these attribute doesn't exist
-        throw ProcessError("Attribute '" + toString(attr) + "' doesn't exist");
     }
+    // throw error if these attribute doesn't exist
+    throw ProcessError("Attribute '" + toString(attr) + "' doesn't exist");
 }
 
 
-std::map<SumoXMLAttr, GNEAttributeCarrier::AttributeProperties>::const_iterator
+std::vector<GNEAttributeCarrier::AttributeProperties>::const_iterator
 GNEAttributeCarrier::TagProperties::begin() const {
     return myAttributeProperties.begin();
 }
 
 
-std::map<SumoXMLAttr, GNEAttributeCarrier::AttributeProperties>::const_iterator
+std::vector<GNEAttributeCarrier::AttributeProperties>::const_iterator
 GNEAttributeCarrier::TagProperties::end() const {
     return myAttributeProperties.end();
 }
@@ -703,7 +689,13 @@ GNEAttributeCarrier::TagProperties::isDisjointAttributes(SumoXMLAttr attr) const
 
 bool
 GNEAttributeCarrier::TagProperties::hasAttribute(SumoXMLAttr attr) const {
-    return (myAttributeProperties.count(attr) == 1);
+    // iterate over attribute properties
+    for (const auto &i : myAttributeProperties) {
+        if (i.getAttr() == attr) {
+            return true;
+        }
+    }
+    return false;
 }
 
 

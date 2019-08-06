@@ -301,8 +301,8 @@ GNEPersonTypeFrame::PersonTypeEditor::onCmdResetPersonType(FXObject*, FXSelector
     // reset all values of default person type
     for (const auto& i : GNEAttributeCarrier::getTagProperties(SUMO_TAG_PTYPE)) {
         // change all attributes with "" to reset it (except ID and vClass)
-        if ((i.first != SUMO_ATTR_ID) && (i.first != SUMO_ATTR_VCLASS)) {
-            myPersonTypeFrameParent->myPersonTypeSelector->getCurrentPersonType()->setAttribute(i.first, "", myPersonTypeFrameParent->myViewNet->getUndoList());
+        if ((i.getAttr() != SUMO_ATTR_ID) && (i.getAttr() != SUMO_ATTR_VCLASS)) {
+            myPersonTypeFrameParent->myPersonTypeSelector->getCurrentPersonType()->setAttribute(i.getAttr(), "", myPersonTypeFrameParent->myViewNet->getUndoList());
         }
     }
     // change manually VClass (because it depends of Default pType)

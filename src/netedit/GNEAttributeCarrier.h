@@ -118,9 +118,6 @@ public:
         /// @brief set range
         void setRange(const double minimum, const double maximum);
 
-        /// @brief set position listed
-        void setPositionListed(const int positionListed);
-
         /// @brief set tag property parent
         void setTagPropertyParent(TagProperties* tagPropertyParent);
 
@@ -257,9 +254,6 @@ public:
         /// @brief Property of attribute
         int myAttributeProperty;
 
-        /// @brief listed position
-        int myPositionListed;
-
         /// @brief text with a definition of attribute
         std::string myDefinition;
 
@@ -353,10 +347,10 @@ public:
         const AttributeProperties& getAttributeProperties(SumoXMLAttr attr) const;
 
         /// @brief get begin of attribute values (used for iterate)
-        std::map<SumoXMLAttr, AttributeProperties>::const_iterator begin() const;
+        std::vector<AttributeProperties>::const_iterator begin() const;
 
         /// @brief get end of attribute values (used for iterate)
-        std::map<SumoXMLAttr, AttributeProperties>::const_iterator end() const;
+        std::vector<AttributeProperties>::const_iterator end() const;
 
         /// @brief get number of attributes
         int getNumberOfAttributes() const;
@@ -509,8 +503,8 @@ public:
         /// @brief Attribute properties
         int myTagProperty;
 
-        /// @brief map with the attribute values vinculated with this Tag
-        std::map<SumoXMLAttr, AttributeProperties> myAttributeProperties;
+        /// @brief vector with the attribute values vinculated with this Tag
+        std::vector<AttributeProperties> myAttributeProperties;
 
         /// @brief icon associated to this Tag
         GUIIcon myIcon;

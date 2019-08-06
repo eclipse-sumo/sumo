@@ -916,7 +916,7 @@ GNESelectorFrame::MatchAttribute::onCmdSelMBTag(FXObject*, FXSelector, void*) {
         myMatchAttrComboBox->clearItems();
         // fill attribute combo box
         for (auto it : tagValue) {
-            myMatchAttrComboBox->appendItem(toString(it.first).c_str());
+            myMatchAttrComboBox->appendItem(it.getAttrStr().c_str());
         }
         // Add extra attribute "generic"
         myMatchAttrComboBox->appendItem(toString(GNE_ATTR_GENERIC).c_str());
@@ -999,9 +999,9 @@ GNESelectorFrame::MatchAttribute::onCmdSelMBAttribute(FXObject*, FXSelector, voi
     }
     // set current selected attribute
     myCurrentAttribute = SUMO_ATTR_NOTHING;
-    for (auto i : tagPropertiesCopy) {
-        if (toString(i.first) == myMatchAttrComboBox->getText().text()) {
-            myCurrentAttribute = i.first;
+    for (const auto &i : tagPropertiesCopy) {
+        if (i.getAttrStr() == myMatchAttrComboBox->getText().text()) {
+            myCurrentAttribute = i.getAttr();
         }
     }
     // check if selected attribute is valid
