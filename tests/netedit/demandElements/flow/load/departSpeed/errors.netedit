@@ -26,13 +26,13 @@ Error: Invalid departSpeed definition for flow 'flow_1';
  must be one of ("random", "max", or a float>=0)
 Debug: Adding flow 'flow_1' in GNEChange_DemandElement
 Debug: Adding flow 'flow_2' in GNEChange_DemandElement
-Debug: Adding flow 'flow_3' in GNEChange_DemandElement
+Error: Invalid departSpeed used in flow 'flow_3'. 500.00 is greater than vTypemaxSpeed
 Debug: Adding flow 'flow_4' in GNEChange_DemandElement
 Debug: Adding flow 'flow_5' in GNEChange_DemandElement
 Debug: Adding flow 'flow_6' in GNEChange_DemandElement
 Debug: Adding flow 'flow_7' in GNEChange_DemandElement
 Debug: Adding flow 'flow_8' in GNEChange_DemandElement
-Error: Loading of C:/Users/alva_pa/.texttest/tmp/netedit.gui.05Aug150254.8792/netedit.gui/demandElements/flow/load/departSpeed\input_routes.rou.xml failed.
+Error: Loading of C:/Users/alva_pa/.texttest/tmp/netedit.gui.06Aug125600.6944/netedit.gui/demandElements/flow/load/departSpeed\input_routes.rou.xml failed.
 Debug: net has to be saved
 Debug: Current saving Status: net unsaved, additionals saved, demand elements unsaved
 Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
@@ -42,7 +42,6 @@ Debug: Removing flow 'flow_7' in GNEChange_DemandElement
 Debug: Removing flow 'flow_6' in GNEChange_DemandElement
 Debug: Removing flow 'flow_5' in GNEChange_DemandElement
 Debug: Removing flow 'flow_4' in GNEChange_DemandElement
-Debug: Removing flow 'flow_3' in GNEChange_DemandElement
 Debug: Removing flow 'flow_2' in GNEChange_DemandElement
 Debug: Removing flow 'flow_1' in GNEChange_DemandElement
 Debug: Removing flow 'flow_0' in GNEChange_DemandElement
@@ -51,7 +50,6 @@ Debug: Keys Ctrl + Y (Redo) pressed
 Debug: Adding flow 'flow_0' in GNEChange_DemandElement
 Debug: Adding flow 'flow_1' in GNEChange_DemandElement
 Debug: Adding flow 'flow_2' in GNEChange_DemandElement
-Debug: Adding flow 'flow_3' in GNEChange_DemandElement
 Debug: Adding flow 'flow_4' in GNEChange_DemandElement
 Debug: Adding flow 'flow_5' in GNEChange_DemandElement
 Debug: Adding flow 'flow_6' in GNEChange_DemandElement
@@ -113,7 +111,6 @@ Debug: Deleting unreferenced flow 'flow_7'
 Debug: Deleting unreferenced flow 'flow_6'
 Debug: Deleting unreferenced flow 'flow_5'
 Debug: Deleting unreferenced flow 'flow_4'
-Debug: Deleting unreferenced flow 'flow_3'
 Debug: Deleting unreferenced flow 'flow_2'
 Debug: Deleting unreferenced flow 'flow_1'
 Debug: Deleting unreferenced flow 'flow_0'

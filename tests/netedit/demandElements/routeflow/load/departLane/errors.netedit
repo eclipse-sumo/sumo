@@ -27,13 +27,13 @@ Error: Invalid departLane definition for flow 'flow_1';
  must be one of ("random", "free", "allowed", "best", "first", or an int>=0)
 Debug: Adding routeFlow 'flow_1' in GNEChange_DemandElement
 Debug: Adding routeFlow 'flow_2' in GNEChange_DemandElement
-Debug: Adding routeFlow 'flow_3' in GNEChange_DemandElement
+Error: Invalid departLane used in routeFlow 'flow_3'. 500 is greater than number of lanes
 Debug: Adding routeFlow 'flow_4' in GNEChange_DemandElement
 Debug: Adding routeFlow 'flow_5' in GNEChange_DemandElement
 Debug: Adding routeFlow 'flow_6' in GNEChange_DemandElement
 Debug: Adding routeFlow 'flow_7' in GNEChange_DemandElement
 Debug: Adding routeFlow 'flow_8' in GNEChange_DemandElement
-Error: Loading of C:/Users/alva_pa/.texttest/tmp/netedit.gui.05Aug145646.5900/netedit.gui/demandElements/routeflow/load/departLane\input_routes.rou.xml failed.
+Error: Loading of C:/Users/alva_pa/.texttest/tmp/netedit.gui.06Aug125600.6944/netedit.gui/demandElements/routeflow/load/departLane\input_routes.rou.xml failed.
 Debug: net has to be saved
 Debug: Current saving Status: net unsaved, additionals saved, demand elements unsaved
 Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
@@ -43,7 +43,6 @@ Debug: Removing routeFlow 'flow_7' in GNEChange_DemandElement
 Debug: Removing routeFlow 'flow_6' in GNEChange_DemandElement
 Debug: Removing routeFlow 'flow_5' in GNEChange_DemandElement
 Debug: Removing routeFlow 'flow_4' in GNEChange_DemandElement
-Debug: Removing routeFlow 'flow_3' in GNEChange_DemandElement
 Debug: Removing routeFlow 'flow_2' in GNEChange_DemandElement
 Debug: Removing routeFlow 'flow_1' in GNEChange_DemandElement
 Debug: Removing routeFlow 'flow_0' in GNEChange_DemandElement
@@ -54,7 +53,6 @@ Debug: Adding route 'route_0' in GNEChange_DemandElement
 Debug: Adding routeFlow 'flow_0' in GNEChange_DemandElement
 Debug: Adding routeFlow 'flow_1' in GNEChange_DemandElement
 Debug: Adding routeFlow 'flow_2' in GNEChange_DemandElement
-Debug: Adding routeFlow 'flow_3' in GNEChange_DemandElement
 Debug: Adding routeFlow 'flow_4' in GNEChange_DemandElement
 Debug: Adding routeFlow 'flow_5' in GNEChange_DemandElement
 Debug: Adding routeFlow 'flow_6' in GNEChange_DemandElement
@@ -116,7 +114,6 @@ Debug: Deleting unreferenced routeFlow 'flow_7'
 Debug: Deleting unreferenced routeFlow 'flow_6'
 Debug: Deleting unreferenced routeFlow 'flow_5'
 Debug: Deleting unreferenced routeFlow 'flow_4'
-Debug: Deleting unreferenced routeFlow 'flow_3'
 Debug: Deleting unreferenced routeFlow 'flow_2'
 Debug: Deleting unreferenced routeFlow 'flow_1'
 Debug: Deleting unreferenced routeFlow 'flow_0'
