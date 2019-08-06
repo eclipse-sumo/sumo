@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Aug  6 13:49:27 2019 by Eclipse SUMO netconvert Version v1_2_0+1435-a7b8d24
+<!-- generated on Tue Aug  6 16:51:33 2019 by Eclipse SUMO netconvert Version v1_2_0+1444-7f63c6c
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -227,6 +227,9 @@
 
         <!-- Allow merging edges with differing attributes when their length is below min-length -->
         <geometry.remove.min-length value="0" type="FLOAT"/>
+
+        <!-- Allow merging edges with differing lane widths if the difference is below FLOAT -->
+        <geometry.remove.width-tolerance value="0" type="FLOAT"/>
 
         <!-- splits geometry to restrict segment length -->
         <geometry.max-segment-length value="0" type="FLOAT"/>

@@ -1,4 +1,4 @@
-Eclipse SUMO netconvert Version v1_2_0+1435-a7b8d24
+Eclipse SUMO netconvert Version v1_2_0+1444-7f63c6c
  Copyright (C) 2001-2019 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 Network importer / builder for the microscopic, multi-modal traffic simulation
   SUMO.
@@ -136,6 +136,9 @@ Processing Options:
   --geometry.remove.min-length FLOAT   Allow merging edges with differing
                                          attributes when their length is below
                                          min-length
+  --geometry.remove.width-tolerance FLOAT  Allow merging edges with differing
+                                         lane widths if the difference is below
+                                         FLOAT
   --geometry.max-segment-length FLOAT  splits geometry to restrict segment
                                          length
   --geometry.min-dist FLOAT            reduces too similar geometry points
