@@ -183,7 +183,7 @@ int
 GNEAttributeCarrier::AttributeProperties::getPositionListed() const {
     for (auto i = myTagPropertyParent->begin(); i != myTagPropertyParent->end(); i++) {
         if (i->getAttr() == myAttribute) {
-            return (i - myTagPropertyParent->begin());
+            return (int)(i - myTagPropertyParent->begin());
         }
     }
     throw ProcessError("Attribute wasn't found in myTagPropertyParent");
