@@ -166,7 +166,7 @@ NBNodeShapeComputer::computeNodeShapeDefault(bool simpleContinuation) {
 
 #ifdef DEBUG_NODE_SHAPE
     if (DEBUGCOND) {
-        std::cout << "\ncomputeNodeShapeDefault node " << myNode.getID() << " simple=" << simpleContinuation << " radius=" << myRadius << "\n";
+        std::cout << "\ncomputeNodeShapeDefault node " << myNode.getID() << " simple=" << simpleContinuation << " useDefaultRadius=" << useDefaultRadius << " radius=" << myRadius << "\n";
     }
 #endif
 
