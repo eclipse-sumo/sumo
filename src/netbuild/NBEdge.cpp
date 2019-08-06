@@ -2988,7 +2988,8 @@ NBEdge::expandableBy(NBEdge* possContinuation, std::string& reason) const {
         } else if (myLanes[i].permissions != possContinuation->myLanes[i].permissions) {
             reason = "lane " + toString(i) + " permissions";
             return false;
-        } else if (myLanes[i].width != possContinuation->myLanes[i].width) {
+        } else if (myLanes[i].width != possContinuation->myLanes[i].width && 
+               fabs(myLanes[i].width - possContinuation->myLanes[i].width) > OptionsCont::getOptions().getFloat("geometry.remove.width-tolerance")) {
             reason = "lane " + toString(i) + " width";
             return false;
         }

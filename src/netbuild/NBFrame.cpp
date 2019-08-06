@@ -138,6 +138,10 @@ NBFrame::fillOptions(bool forNetgen) {
         oc.addDescription("geometry.remove.min-length", "Processing",
                           "Allow merging edges with differing attributes when their length is below min-length");
 
+        oc.doRegister("geometry.remove.width-tolerance", new Option_Float(0));
+        oc.addDescription("geometry.remove.width-tolerance", "Processing",
+                          "Allow merging edges with differing lane widths if the difference is below FLOAT");
+
         oc.doRegister("geometry.max-segment-length", new Option_Float(0));
         oc.addDescription("geometry.max-segment-length", "Processing", "splits geometry to restrict segment length");
 
