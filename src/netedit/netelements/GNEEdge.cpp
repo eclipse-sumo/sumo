@@ -196,7 +196,7 @@ GNEEdge::moveShapeStart(const Position& oldPos, const Position& offset) {
     Position shapeStartEdited = oldPos;
     shapeStartEdited.add(offset);
     // snap to active grid
-    shapeStartEdited = myNet->getViewNet()->snapToActiveGrid(shapeStartEdited);
+    shapeStartEdited = myNet->getViewNet()->snapToActiveGrid(shapeStartEdited, offset.z() == 0);
     // make sure that start and end position are different
     if (shapeStartEdited != myNBEdge.getGeometry().back()) {
         // set shape start position without updating grid
@@ -212,7 +212,7 @@ GNEEdge::moveShapeEnd(const Position& oldPos, const Position& offset) {
     Position shapeEndEdited = oldPos;
     shapeEndEdited.add(offset);
     // snap to active grid
-    shapeEndEdited = myNet->getViewNet()->snapToActiveGrid(shapeEndEdited);
+    shapeEndEdited = myNet->getViewNet()->snapToActiveGrid(shapeEndEdited, offset.z() == 0);
     // make sure that start and end position are different
     if (shapeEndEdited != myNBEdge.getGeometry().front()) {
         // set shape end position without updating grid
@@ -371,7 +371,7 @@ GNEEdge::moveVertexShape(const int index, const Position& oldPos, const Position
             edgeGeometry[index] = oldPos;
             edgeGeometry[index].add(offset);
             // filtern position using snap to active grid
-            edgeGeometry[index] = myNet->getViewNet()->snapToActiveGrid(edgeGeometry[index]);
+            edgeGeometry[index] = myNet->getViewNet()->snapToActiveGrid(edgeGeometry[index], offset.z() == 0);
             // update edge's geometry without updating RTree (To avoid unnecesary changes in RTree)
             setGeometry(edgeGeometry, true);
             return index;
