@@ -54,6 +54,12 @@ netedit.changeDefaultValue(8, "-12")
 # try to create vehicle
 netedit.leftClick(referencePosition, 274, 414)
 
+# set invalid depart speed
+netedit.changeDefaultValue(8, "5000")
+
+# try to create vehicle
+netedit.leftClick(referencePosition, 274, 414)
+
 # set valid depart speed
 netedit.changeDefaultValue(8, "max")
 
