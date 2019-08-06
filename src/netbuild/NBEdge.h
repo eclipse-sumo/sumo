@@ -1353,6 +1353,9 @@ public:
         return Named::getID();
     }
 
+    /// @brief join adjacent lanes with the given permissions
+    bool joinLanes(SVCPermissions perms); 
+
 private:
     /** @class ToEdgeConnectionsAdder
      * @brief A class that being a bresenham-callback assigns the incoming lanes to the edges

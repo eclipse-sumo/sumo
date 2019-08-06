@@ -1321,9 +1321,11 @@ NBEdge::removeFromConnections(NBEdge* toEdge, int fromLane, int toLane, bool try
                         }
                     }
                 }
+                //std::cout << getID() << " removeFromConnections fromLane=" << fromLane << " to=" << Named::getIDSecure(toEdge) << " toLane=" << toLane << " reduceFromLane=" << c.fromLane << " (to=" << c.toLane << ")\n";
                 c.fromLane--;
             }
-            if (toLaneRemoved >= 0 && c.toLane > toLaneRemoved) {
+            if (toLaneRemoved >= 0 && c.toLane > toLaneRemoved && (toEdge == nullptr || c.toEdge == toEdge)) {
+                //std::cout << getID() << " removeFromConnections fromLane=" << fromLane << " to=" << Named::getIDSecure(toEdge) << " toLane=" << toLane << " reduceToLane=" << c.toLane << " (from=" << c.fromLane << ")\n";
                 c.toLane--;
             }
             ++i;
@@ -3786,6 +3788,25 @@ NBEdge::debugPrintConnections(bool outgoing, bool incoming) const {
 int
 NBEdge::getLaneIndexFromLaneID(const std::string laneID) {
     return StringUtils::toInt(laneID.substr(laneID.rfind("_") + 1));
+}
+
+bool
+NBEdge::joinLanes(SVCPermissions perms) {
+    bool haveJoined = false;
+    int i = 0;
+    while (i < getNumLanes() - 1) {
+        if (getPermissions(i) == perms and getPermissions(i + 1) == perms) {
+            const double newWidth = getLaneWidth(i) + getLaneWidth(i + 1);
+            const std::string newType = myLanes[i].type + "|" + myLanes[i + 1].type;
+            deleteLane(i, false, true);
+            setLaneWidth(i, newWidth);
+            setLaneType(i, newType);
+            haveJoined = true;
+        } else {
+            i++;
+        }
+    }
+    return haveJoined;
 }
 
 /****************************************************************************/

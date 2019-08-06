@@ -1466,6 +1466,16 @@ NBEdgeCont::checkGrade(double threshold) const {
     }
 }
 
+int 
+NBEdgeCont::joinLanes(SVCPermissions perms) {
+    int affectedEdges = 0;
+    for (auto item : myEdges) {
+        if (item.second->joinLanes(perms)) {
+            affectedEdges++;
+        }
+    }
+    return affectedEdges;
+}
 
 EdgeVector
 NBEdgeCont::getAllEdges() const {

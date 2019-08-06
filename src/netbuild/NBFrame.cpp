@@ -165,6 +165,9 @@ NBFrame::fillOptions(bool forNetgen) {
         oc.doRegister("geometry.avoid-overlap", new Option_Bool(true));
         oc.addDescription("geometry.avoid-overlap", "Processing", "Modify edge geometries to avoid overlap at junctions");
 
+        oc.doRegister("join-lanes", new Option_Bool(false));
+        oc.addDescription("join-lanes", "Processing", "join adjacent lanes that have the same permissions and which do not admit lane-changing (sidewalks and disallowed lanes)");
+
         // railway processing options
 
         oc.doRegister("railway.topology.repair", new Option_Bool(false));
