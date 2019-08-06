@@ -95,3 +95,6 @@ ticket5609
 
 # extreme lane widths
 ticket5817
+
+# scurve-stretch with changed default radius
+ticket5881
