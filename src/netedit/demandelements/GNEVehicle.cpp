@@ -1062,8 +1062,22 @@ GNEVehicle::isValid(SumoXMLAttr key, const std::string& value) {
             int dummyDepartLane;
             DepartLaneDefinition dummyDepartLaneProcedure;
             parseDepartLane(value, toString(SUMO_TAG_VEHICLE), id, dummyDepartLane, dummyDepartLaneProcedure, error);
-            // if error is empty, given value is valid
-            return error.empty();
+            // if error is empty, check if depart lane is correct
+            if (error.empty()) {
+                if (dummyDepartLaneProcedure != DEPART_LANE_GIVEN) {
+                    return true;
+                } else if (getDemandElementParents().size() == 2) {
+                    return dummyDepartLane < getDemandElementParents().at(1)->getEdgeParents().front()->getLanes().size();
+                } else if (getEdgeParents().size() > 0) {
+                    return dummyDepartLane < getEdgeParents().front()->getLanes().size();
+                } else if (getDemandElementChildren().size() > 0) {
+                    return getDemandElementChildren().at(0)->getEdgeParents().front()->getLanes().size();
+                } else {
+                    return false;
+                }
+            } else {
+                return false;
+            }
         }
         case SUMO_ATTR_DEPARTPOS: {
             double dummyDepartPos;
@@ -1076,8 +1090,16 @@ GNEVehicle::isValid(SumoXMLAttr key, const std::string& value) {
             double dummyDepartSpeed;
             DepartSpeedDefinition dummyDepartSpeedProcedure;
             parseDepartSpeed(value, toString(SUMO_TAG_VEHICLE), id, dummyDepartSpeed, dummyDepartSpeedProcedure, error);
-            // if error is empty, given value is valid
-            return error.empty();
+            // if error is empty, check if depart speed is correct
+            if (error.empty()) {
+                if (dummyDepartSpeedProcedure != DEPART_SPEED_GIVEN) {
+                    return true;
+                } else {
+                    return (dummyDepartSpeed <= getDemandElementParents().at(0)->getAttributeDouble(SUMO_ATTR_MAXSPEED));
+                }
+            } else {
+                return false;
+            }
         }
         case SUMO_ATTR_ARRIVALLANE: {
             int dummyArrivalLane;

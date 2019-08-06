@@ -269,6 +269,7 @@ SUMOVehicleParameter::parseDepartLane(const std::string& val, const std::string&
             }
         } catch (...) {
             ok = false;
+            lane = 0;
         }
     }
     if (!ok) {
@@ -302,6 +303,7 @@ SUMOVehicleParameter::parseDepartPos(const std::string& val, const std::string& 
             dpd = DEPART_POS_GIVEN;
         } catch (...) {
             ok = false;
+            pos = 0;
         }
     }
     if (!ok) {
@@ -337,6 +339,7 @@ SUMOVehicleParameter::parseDepartPosLat(const std::string& val, const std::strin
             dpd = DEPART_POSLAT_GIVEN;
         } catch (...) {
             ok = false;
+            pos = 0;
         }
     }
     if (!ok) {
@@ -371,6 +374,7 @@ SUMOVehicleParameter::parseDepartSpeed(const std::string& val, const std::string
             }
         } catch (...) {
             ok = false;
+            speed = -1;
         }
     }
     if (!ok) {
@@ -399,6 +403,7 @@ SUMOVehicleParameter::parseArrivalLane(const std::string& val, const std::string
             }
         } catch (...) {
             ok = false;
+            lane = 0;
         }
     }
     if (!ok) {
@@ -428,6 +433,7 @@ SUMOVehicleParameter::parseArrivalPos(const std::string& val, const std::string&
             apd = ARRIVAL_POS_GIVEN;
         } catch (...) {
             ok = false;
+            pos = 0;
         }
     }
     if (!ok) {
@@ -457,6 +463,7 @@ SUMOVehicleParameter::parseArrivalPosLat(const std::string& val, const std::stri
             apd = ARRIVAL_POSLAT_GIVEN;
         } catch (...) {
             ok = false;
+            pos = 0;
         }
     }
     if (!ok) {
@@ -485,6 +492,7 @@ SUMOVehicleParameter::parseArrivalSpeed(const std::string& val, const std::strin
             asd = ARRIVAL_SPEED_GIVEN;
         } catch (...) {
             ok = false;
+            speed = -1;
         }
     }
     if (!ok) {

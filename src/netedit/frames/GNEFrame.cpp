@@ -842,6 +842,8 @@ GNEFrame::AttributesCreator::showAttributesCreatorModul(const GNEAttributeCarrie
     updateDisjointAttributes(nullptr);
     // reparent help button (to place it at bottom)
     myHelpButton->reparent(this);
+    // recalc
+    recalc();
     // show
     show();
 }

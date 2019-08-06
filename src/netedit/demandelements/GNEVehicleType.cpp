@@ -481,6 +481,12 @@ GNEVehicleType::getAttributeDouble(SumoXMLAttr key) const {
             } else {
                 return defaultValues.height;
             }
+        case SUMO_ATTR_MAXSPEED:
+            if (wasSet(VTYPEPARS_MAXSPEED_SET)) {
+                return maxSpeed;
+            } else {
+                return defaultValues.maxSpeed;
+            }
         default:
             throw InvalidArgument(getTagStr() + " doesn't have a double attribute of type '" + toString(key) + "'");
     }
