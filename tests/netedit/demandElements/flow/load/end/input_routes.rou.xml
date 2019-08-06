@@ -52,17 +52,15 @@
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+
+	<flow id="flow_0" begin="20.00" number="100" end="" from="gneE2" to="gneE5"/>
 	
-    <flow id="flow_0" begin="20.00" number="100" from="gneE2" to="gneE5"/>
+	<flow id="flow_1" begin="20.00" number="100" end="dummyBegin" from="gneE2" to="gneE5"/>
 	
-	<flow id="flow_1" begin="20.00" number="100" end="" from="gneE2" to="gneE5"/>
+	<flow id="flow_2" begin="20.00" number="100" end="-12" from="gneE2" to="gneE5"/>
 	
-	<flow id="flow_2" begin="20.00" number="100" end="dummyBegin" from="gneE2" to="gneE5"/>
+	<flow id="flow_3" begin="20.00" number="100" end="30" from="gneE2" to="gneE5"/>
 	
-	<flow id="flow_3" begin="20.00" number="100" end="-12" from="gneE2" to="gneE5"/>
-	
-	<flow id="flow_4" begin="20.00" number="100" end="30" from="gneE2" to="gneE5"/>
-	
-	<flow id="flow_5" begin="20.00" number="100" end="42.34" from="gneE2" to="gneE5"/>
+	<flow id="flow_4" begin="20.00" number="100" end="42.34" from="gneE2" to="gneE5"/>
 	
 </routes>
