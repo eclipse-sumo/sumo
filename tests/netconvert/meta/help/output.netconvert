@@ -1,4 +1,4 @@
-Eclipse SUMO netconvert Version v1_2_0+0948-8d469c0
+Eclipse SUMO netconvert Version v1_2_0+1435-a7b8d24
  Copyright (C) 2001-2019 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 Network importer / builder for the microscopic, multi-modal traffic simulation
   SUMO.
@@ -157,6 +157,10 @@ Processing Options:
                                          given threshold.
   --geometry.avoid-overlap             Modify edge geometries to avoid overlap
                                          at junctions
+  --join-lanes                         join adjacent lanes that have the same
+                                         permissions and which do not admit
+                                         lane-changing (sidewalks and disallowed
+                                         lanes)
   --geometry.max-grade FLOAT           Warn about edge geometries with a grade
                                          in % above FLOAT.
   --geometry.max-grade.fix             Smooth edge edge geometries with a grade
