@@ -875,7 +875,7 @@ GNEFrame::AttributesCreator::showWarningMessage(std::string extra) const {
     std::string errorMessage;
     // iterate over standar parameters
     for (auto i : myTagProperties) {
-        if (errorMessage.empty()) {
+        if (errorMessage.empty() && myAttributesCreatorRows.at(i.second.getPositionListed())) {
             // Return string with the error if at least one of the parameter isn't valid
             std::string attributeValue = myAttributesCreatorRows.at(i.second.getPositionListed())->isAttributeValid();
             if (attributeValue.size() != 0) {

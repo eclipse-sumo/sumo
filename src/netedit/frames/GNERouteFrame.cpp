@@ -739,6 +739,9 @@ GNERouteFrame::~GNERouteFrame() {}
 
 void
 GNERouteFrame::show() {
+    // refresh myRouteModeSelector
+    myRouteModeSelector->setCurrentRouteMode(myRouteModeSelector->getCurrentRouteMode());
+    // show route frame
     GNEFrame::show();
 }
 
