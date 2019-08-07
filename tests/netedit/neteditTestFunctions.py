@@ -1154,6 +1154,7 @@ def fixStoppingPlace(solution):
 def routeMode():
     typeKey('r')
 
+
 """
 @brief change route mode
 """
@@ -1186,6 +1187,73 @@ def changeRouteVClass(value):
     # type enter to save change
     typeEnter()
 
+#################################################
+# person elements
+#################################################
+
+
+"""
+@brief change to person mode
+"""
+
+
+def personMode():
+    typeKey('p')
+
+
+"""
+@brief change person mode
+"""
+
+
+def changePersonMode(value):
+    # focus current frame
+    focusOnFrame()
+    # jump to person mode
+    typeTab()
+    # paste the new value
+    pasteIntoTextField(value)
+    # type enter to save change
+    typeEnter()
+
+
+"""
+@brief change vClass mode
+"""
+
+
+def changePersonVClass(value):
+    # focus current frame
+    focusOnFrame()
+    # jump to vClass
+    for _ in range(3):
+        typeTab()
+    # paste the new value
+    pasteIntoTextField(value)
+    # type enter to save change
+    typeEnter()
+
+
+"""
+@brief change personPlan
+"""
+
+
+def changePersonPlan(personPlan, subPersonPlan):
+    # focus current frame
+    focusOnFrame()
+    # jump to person plan
+    for _ in range(10):
+        typeTab()
+    # paste the new personPlan
+    pasteIntoTextField(personPlan)
+    # jump to person plan
+    for _ in range(2):
+        typeTab()
+    # paste the new subPersonPlan
+    pasteIntoTextField(subPersonPlan)
+    # type enter to save change
+    typeEnter()
 
 #################################################
 # vehicle elements
