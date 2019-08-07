@@ -1067,11 +1067,11 @@ GNEVehicle::isValid(SumoXMLAttr key, const std::string& value) {
                 if (dummyDepartLaneProcedure != DEPART_LANE_GIVEN) {
                     return true;
                 } else if (getDemandElementParents().size() == 2) {
-                    return dummyDepartLane < getDemandElementParents().at(1)->getEdgeParents().front()->getLanes().size();
+                    return dummyDepartLane < (int)getDemandElementParents().at(1)->getEdgeParents().front()->getLanes().size();
                 } else if (getEdgeParents().size() > 0) {
-                    return dummyDepartLane < getEdgeParents().front()->getLanes().size();
+                    return dummyDepartLane < (int)getEdgeParents().front()->getLanes().size();
                 } else if (getDemandElementChildren().size() > 0) {
-                    return getDemandElementChildren().at(0)->getEdgeParents().front()->getLanes().size();
+                    return dummyDepartLane < (int)getDemandElementChildren().at(0)->getEdgeParents().front()->getLanes().size();
                 } else {
                     return false;
                 }
