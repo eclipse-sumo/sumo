@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Jan 30 17:42:05 2019 by Eclipse SUMO Version v1_1_0+0435-678c69824b
+<!-- generated on 08/07/19 11:01:27 by Eclipse SUMO Version v1_2_0+1401-d0796f4eabd
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -21,7 +21,7 @@
     </report>
 
     <traci_server>
-        <remote-port value="57903"/>
+        <remote-port value="51767"/>
     </traci_server>
 
     <gui_only>
@@ -32,7 +32,7 @@
 </configuration>
 -->
 
-<snapshot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd" version="v1_1_0+0435-678c69824b" time="6.00">
+<snapshot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd" version="v1_2_0+1401-d0796f4eabd" time="6.00">
     <route id="broken" state="1" edges="o o"/>
     <route id="horizontal" state="1" edges="o"/>
     <delay number="2" begin="6" end="1" depart="0.00" time="0.00"/>
@@ -47,21 +47,6 @@
     <vehicle id="suddenStop" type="DEFAULT_VEHTYPE" depart="6.00" route="horizontal" speedFactor="1.00" state="9223372036854775807 0 -1.00 0 0" pos="0.00" speed="0.00" posLat="0.00">
         <stop lane="o_0" startPos="19.80" endPos="20.00" duration="5.00"/>
     </vehicle>
-    <lane id=":0_0_0">
-        <vehicles value=""/>
-    </lane>
-    <lane id=":1_0_0">
-        <vehicles value=""/>
-    </lane>
-    <lane id="2o_0">
-        <vehicles value=""/>
-    </lane>
-    <lane id="footpath_0">
-        <vehicles value=""/>
-    </lane>
-    <lane id="footpath2_0">
-        <vehicles value=""/>
-    </lane>
     <lane id="o_0">
         <vehicles value="horiz1 horiz"/>
     </lane>
