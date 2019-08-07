@@ -392,6 +392,7 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
             e->laneSections.push_back(ls);
             WRITE_WARNING("Edge '" + e->id + "' has to be split as it connects same junctions.")
         }
+        sanitizeWidths(e);
         if (myMinWidth > 0) {
             const double minDist = oc.getFloat("opendrive.curve-resolution");
             splitMinWidths(e, tc, minDist);
@@ -1896,7 +1897,12 @@ NIImporter_OpenDrive::myStartElement(int element,
         break;
         case OPENDRIVE_TAG_LANESECTION: {
             double s = attrs.get<double>(OPENDRIVE_ATTR_S, myCurrentEdge.id.c_str(), ok);
+            if (myCurrentEdge.laneSections.size() > 0) {
+                myCurrentEdge.laneSections.back().length = s - myCurrentEdge.laneSections.back().s;
+            }
             myCurrentEdge.laneSections.push_back(OpenDriveLaneSection(s));
+            // possibly updated by the next laneSection
+            myCurrentEdge.laneSections.back().length = myCurrentEdge.length - s;
         }
         break;
         case OPENDRIVE_TAG_LANEOFFSET: {
@@ -2192,6 +2198,48 @@ operator<(const NIImporter_OpenDrive::Connection& c1, const NIImporter_OpenDrive
         return c1.fromLane < c2.fromLane;
     }
     return c1.toLane < c2.toLane;
+}
+
+void
+NIImporter_OpenDrive::sanitizeWidths(OpenDriveEdge* e) {
+#ifdef DEBUG_VARIABLE_WIDTHS
+    if (DEBUG_COND(e)) {
+        gDebugFlag1 = true;
+        std::cout << "sanitizeWidths e=" << e->id << " sections=" << e->laneSections.size() << "\n";
+    }
+#endif
+    for (OpenDriveLaneSection& sec : e->laneSections) {
+        // filter widths within the current section (#5888). 
+        // @note, Short laneSections could also be worth filtering alltogether
+        if (sec.rightLaneNumber > 0) {
+            sanitizeWidths(sec.lanesByDir[OPENDRIVE_TAG_RIGHT], sec.length);
+        }
+        if (sec.leftLaneNumber > 0) {
+            sanitizeWidths(sec.lanesByDir[OPENDRIVE_TAG_LEFT], sec.length);
+        }
+    }
+}
+
+void
+NIImporter_OpenDrive::sanitizeWidths(std::vector<OpenDriveLane>& lanes, double length) {
+    for (OpenDriveLane& l : lanes) {
+        if (l.widthData.size() > 0) {
+            auto& wd = l.widthData;
+            const double threshold = POSITION_EPS;
+            double maxNoShort = -std::numeric_limits<double>::max();
+            double seen = 0;
+            for (int i = 0; i < (int)wd.size(); i++) {
+                const double wdLength = i < (int)wd.size() - 1 ? wd[i + 1].s - wd[i].s : length - seen;
+                seen += wdLength;
+                if (wdLength > threshold) {
+                    maxNoShort = MAX2(maxNoShort, wd[i].a);
+                }
+            }
+            if (maxNoShort > 0) {
+                l.width = maxNoShort;
+            }
+        }
+    }
 }
 
 
