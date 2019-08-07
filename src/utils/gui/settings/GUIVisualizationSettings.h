@@ -316,23 +316,26 @@ struct GUIVisualizationDetailSettings {
     /// @brief details for stop texts
     static const double stopsText;
 
-    /// @brief details for draw vechicles as triangles
+    /// @brief details for draw person as triangles
     static const double vehicleTriangles;
 
-    /// @brief details for draw vechicles as boxes
+    /// @brief details for draw person as boxes
     static const double vehicleBoxes;
 
-    /// @brief details for draw vechicles as shapes
+    /// @brief details for draw person as shapes
     static const double vehicleShapes;
 
-    /// @brief details for draw vechicles as triangles
+    /// @brief details for draw person as triangles
     static const double personTriangles;
 
-    /// @brief details for draw vechicles as circles
+    /// @brief details for draw person as circles
     static const double personCircles;
 
-    /// @brief details for draw vechicles as person shapes
+    /// @brief details for draw person as person shapes
     static const double personShapes;
+
+    /// @brief Exaggeration for persons (only used in NETEDIT) 
+    static const double personExaggeration;
 };
 
 

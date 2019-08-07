@@ -537,8 +537,8 @@ void
 GNEPerson::drawGL(const GUIVisualizationSettings& s) const {
     // only drawn in super mode demand
     if (myViewNet->getNetworkViewOptions().showDemandElements() && myViewNet->getDemandViewOptions().showNonInspectedDemandElements(this) && (getDemandElementChildren().size() > 0)) {
-        // obtain exaggeration
-        const double exaggeration = s.personSize.getExaggeration(s, this, 80);
+        // obtain exaggeration (and add the special personExaggeration)
+        const double exaggeration = s.personSize.getExaggeration(s, this, 80) + s.detailSettings.personExaggeration;
         // obtain width and length
         const double length = getDemandElementParents().at(0)->getAttributeDouble(SUMO_ATTR_LENGTH);
         const double width = getDemandElementParents().at(0)->getAttributeDouble(SUMO_ATTR_WIDTH);
