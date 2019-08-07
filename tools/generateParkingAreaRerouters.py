@@ -16,7 +16,10 @@
 
 import argparse
 import collections
+import functools
 import logging
+import multiprocessing
+import numpy
 import sys
 import xml.etree.ElementTree
 import sumolib
@@ -53,6 +56,9 @@ def get_options(cmd_args=None):
         '--max-distance-visibility-true', type=float, dest='dist_threshold', default=250.0,
         help='Rerouter: parking distance for the visibility threshold.')
     parser.add_argument(
+        '--processes', type=int, dest='processes', default=1,
+        help='Number of processes spawned to compute the distance between parking areas.')
+    parser.add_argument(
         '-o', type=str, dest='output', required=True,
         help='Name for the output file.')
     parser.add_argument(
@@ -61,41 +67,32 @@ def get_options(cmd_args=None):
     parser.set_defaults(with_tqdm=False)
     return parser.parse_args(cmd_args)
 
-
 class ReroutersGeneration(object):
     """ Generate parking area rerouters from the parking area definition. """
 
-    _parking_areas = dict()
+    _opt = None
+
     _sumo_net = None
-
-    _with_tqdm = False
-
-    _num_alternatives = None
-    _dist_alternatives = None
-    _capacity_threshold = None
-    _dist_threshold = None
-
+    _parking_areas = dict()
     _sumo_rerouters = dict()
 
-    def __init__(self, parking_areas, sumo_network, num_alternatives, dist_alternatives,
-                 capacity_threshold, dist_threshold, with_tqdm):
+    def __init__(self, options):
 
-        self._with_tqdm = with_tqdm
-        logging.info('Loading SUMO network: %s', sumo_network)
-        self._sumo_net = sumolib.net.readNet(sumo_network)
-        logging.info('Loading parking file: %s', parking_areas)
-        self._load_parking_areas_from_file(parking_areas)
-        self._num_alternatives = num_alternatives
-        self._dist_alternatives = dist_alternatives
-        self._capacity_threshold = capacity_threshold
-        self._dist_threshold = dist_threshold
+        self._opt = options
+
+        logging.info('Loading SUMO network: %s', options.sumo_net_definition)
+        self._sumo_net = sumolib.net.readNet(options.sumo_net_definition)
+        logging.info('Loading parking file: %s', options.parking_area_definition)
+        self._load_parking_areas_from_file(options.parking_area_definition)
+
         self._generate_rerouters()
+        self._save_rerouters()
 
     def _load_parking_areas_from_file(self, filename):
         """ Load parkingArea from XML file. """
         xml_tree = xml.etree.ElementTree.parse(filename).getroot()
         sequence = None
-        if self._with_tqdm:
+        if self._opt.with_tqdm:
             from tqdm import tqdm
             sequence = tqdm(xml_tree)
         else:
@@ -109,43 +106,54 @@ class ReroutersGeneration(object):
     #                                 Rerouter Generation                                      #
     # ---------------------------------------------------------------------------------------- #
 
+    @functools.lru_cache(maxsize=None)
+    def _cached_get_shortest_path(self, from_edge, to_edge):
+        """ Calls and caches sumolib: net.getShortestPath. """
+        return self._sumo_net.getShortestPath(from_edge, to_edge)
+
     def _generate_rerouters(self):
         """ Compute the rerouters for each parking lot for SUMO. """
+        logging.info('Computing distances and sorting parking alternatives.')
+        splits = numpy.array_split(list(self._parking_areas.values()), self._opt.processes)
+        manager = multiprocessing.Manager()
+        return_dict = manager.dict()
+        processes = list()
+        for split in splits:
+            _sorting_process = multiprocessing.Process(target=self._generate_rerouters_process,
+                                                       args=(split, return_dict,))
+            processes.append(_sorting_process)
+            _sorting_process.start()
+        for sorting_process in processes:
+            sorting_process.join()
+        self._sumo_rerouters = return_dict
+        logging.info('Computed %d rerouters.', len(self._sumo_rerouters.keys()))
 
-        _rerouters_cache = collections.defaultdict(dict)
-        _cache_used = 0
-        _total_distances = 0
+    def _generate_rerouters_process(self, parking_areas, rerouters):
+        """ Compute the rerouters for the given parking areas."""
         distances = collections.defaultdict(dict)
-        logging.info('Computing distances.')
         sequence = None
-        if self._with_tqdm:
+        if self._opt.with_tqdm:
             from tqdm import tqdm
-            sequence = tqdm(self._parking_areas.values())
+            sequence = tqdm(parking_areas)
         else:
-            sequence = self._parking_areas.values()
+            sequence = parking_areas
         for parking_a in sequence:
             for parking_b in self._parking_areas.values():
                 if parking_a['id'] == parking_b['id']:
                     continue
                 if parking_a['edge'].getID() == parking_b['edge'].getID():
                     continue
-                _total_distances += 1
-                route, cost = None, None
-                if (parking_a['edge'].getID() in _rerouters_cache and
-                        parking_b['edge'].getID() in _rerouters_cache[parking_a['edge'].getID()]):
-                    route, cost = _rerouters_cache[parking_a['edge'].getID()][parking_b['edge'].getID()]
-                    _cache_used += 1
-                else:
-                    route, cost = self._sumo_net.getShortestPath(parking_a['edge'], parking_b['edge'])
-                    _rerouters_cache[parking_a['edge'].getID()][parking_b['edge'].getID()] = (route, cost)
+                route, cost = self._cached_get_shortest_path(parking_a['edge'], parking_b['edge'])
                 if route:
                     distances[parking_a['id']][parking_b['id']] = cost
-        logging.info('Cache used %d times out of %d.', _cache_used, _total_distances)
+        cache_info = self._cached_get_shortest_path.cache_info()
+        used = cache_info.hits * 100.0 / float(cache_info.hits + cache_info.misses)
+        logging.info('Cache: hits %d, misses %d, used %.2f%%.', 
+                     cache_info.hits, cache_info.misses, used)
 
         # select closest parking areas
-        logging.info('Sorting parking alternatives.')
         sequence = None
-        if self._with_tqdm:
+        if self._opt.with_tqdm:
             from tqdm import tqdm
             sequence = tqdm(distances.items())
         else:
@@ -153,23 +161,22 @@ class ReroutersGeneration(object):
         for pid, dists in sequence:
             list_of_dist = [tuple(reversed(x)) for x in dists.items() if x[1] is not None]
             list_of_dist = sorted(list_of_dist)
-            rerouters = [(pid, 0.0)]
+            temp_rerouters = [(pid, 0.0)]
             for distance, parking in list_of_dist:
-                if len(rerouters) > self._num_alternatives:
+                if len(temp_rerouters) > self._opt.num_alternatives:
                     break
-                if distance > self._dist_alternatives:
+                if distance > self._opt.dist_alternatives:
                     break
-                rerouters.append((parking, distance))
+                temp_rerouters.append((parking, distance))
 
             if not list_of_dist:
                 logging.fatal('Parking %s has 0 neighbours!', pid)
 
-            self._sumo_rerouters[pid] = {
+            rerouters[pid] = {
                 'rid': pid,
                 'edge': self._parking_areas[pid]['edge'].getID(),
-                'rerouters': rerouters,
+                'rerouters': temp_rerouters,
             }
-        logging.info('Computed %d rerouters.', len(self._sumo_rerouters.keys()))
 
     # ---------------------------------------------------------------------------------------- #
     #                             Save SUMO Additionals to File                                #
@@ -186,11 +193,11 @@ class ReroutersGeneration(object):
     _RR_PARKING = """
             <parkingAreaReroute id="{pid}" visible="{visible}"/> <!-- dist: {dist} -->"""
 
-    def save_rerouters(self, filename):
+    def _save_rerouters(self):
         """ Save the parking lots into a SUMO XML additional file
             with threshold visibility set to True. """
-        logging.info("Creation of %s", filename)
-        with open(filename, 'w') as outfile:
+        logging.info("Creation of %s", self._opt.output)
+        with open(self._opt.output, 'w') as outfile:
             sumolib.xml.writeHeader(outfile, "additional")
             outfile.write("<additional>\n")
             for rerouter in self._sumo_rerouters.values():
@@ -200,15 +207,15 @@ class ReroutersGeneration(object):
                     if alt == rerouter['rid']:
                         _visibility = 'true'
                     if (int(self._parking_areas[alt].get('roadsideCapacity', 0)) >=
-                            self._capacity_threshold):
+                            self._opt.capacity_threshold):
                         _visibility = 'true'
-                    if dist <= self._dist_threshold:
+                    if dist <= self._opt.dist_threshold:
                         _visibility = 'true'
                     alternatives += self._RR_PARKING.format(pid=alt, visible=_visibility, dist=dist)
                 outfile.write(self._REROUTER.format(
                     rid=rerouter['rid'], edges=rerouter['edge'], parkings=alternatives))
             outfile.write("</additional>\n")
-        logging.info("%s created.", filename)
+        logging.info("%s created.", self._opt.output)
 
     # ----------------------------------------------------------------------------------------- #
 
@@ -216,12 +223,7 @@ class ReroutersGeneration(object):
 def main(cmd_args):
     """ Generate parking area rerouters from the parking area definition. """
     args = get_options(cmd_args)
-
-    rerouters = ReroutersGeneration(args.parking_area_definition, args.sumo_net_definition,
-                                    args.num_alternatives, args.dist_alternatives,
-                                    args.capacity_threshold, args.dist_threshold, args.with_tqdm)
-    rerouters.save_rerouters(args.output)
-
+    _ = ReroutersGeneration(args)
     logging.info('Done.')
 
 
