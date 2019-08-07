@@ -3341,27 +3341,23 @@ GNEAttributeCarrier::fillDemandElements() {
         myTagProperties[currentTag].addAttribute(attrProperty);
         
         attrProperty = AttributeProperties(SUMO_ATTR_WIDTH,
-                                           ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL,
-                                           "The person's width [m] (only used for drawing)",
-                                            "0.48");
+                                           ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUEMUTABLE | ATTRPROPERTY_WRITEXMLOPTIONAL,
+                                           "The person's width [m] (only used for drawing)");
         myTagProperties[currentTag].addAttribute(attrProperty);
         
         attrProperty = AttributeProperties(SUMO_ATTR_LENGTH,
-                                           ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL,
-                                           "The person's netto-length (length) [m]",
-                                           "0.21");
+                                           ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUEMUTABLE | ATTRPROPERTY_WRITEXMLOPTIONAL,
+                                           "The person's netto-length (length) [m]");
         myTagProperties[currentTag].addAttribute(attrProperty);
         
         attrProperty = AttributeProperties(SUMO_ATTR_MINGAP,
-                                           ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL,
-                                           "Empty space after leader [m]",
-                                           "0.25");
+                                           ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUEMUTABLE | ATTRPROPERTY_WRITEXMLOPTIONAL,
+                                           "Empty space after leader [m]");
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = AttributeProperties(SUMO_ATTR_MAXSPEED,
-                                           ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL,
-                                           "The person's maximum velocity [m/s]",
-                                           "1.39");
+                                           ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUEMUTABLE | ATTRPROPERTY_WRITEXMLOPTIONAL,
+                                           "The person's maximum velocity [m/s]");
         myTagProperties[currentTag].addAttribute(attrProperty);
         
         attrProperty = AttributeProperties(SUMO_ATTR_JM_DRIVE_AFTER_RED_TIME,
