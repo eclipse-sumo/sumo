@@ -96,7 +96,7 @@ Debug: Setting new attribute edges 'gneE7 gneE2' into route 'route_0'
 Debug: Keys Ctrl + Y (Redo) pressed
 Debug: Setting new attribute edges 'gneE2' into route 'route_0'
 Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
-Debug: DemandElements saved
+Debug: demand elements saved
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ4 from SUMORTree with boundary 0.00,6.80,20.00,33.20
 GLDebug: 	Removed object junction:gneJ5 from SUMORTree with boundary 49.60,6.80,86.40,37.20

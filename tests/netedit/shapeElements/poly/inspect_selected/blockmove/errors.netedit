@@ -29,7 +29,6 @@ Debug: Adding poly 'poly_0' into viewNet
 GLDebug: 	Inserted polygon:poly_0 into SUMORTree with boundary 0.00,6.00,14.00,20.00
 Debug: Adding poly 'poly_1' into viewNet
 GLDebug: 	Inserted polygon:poly_1 into SUMORTree with boundary 20.00,6.00,34.00,20.00
-Debug: Keys Ctrl + Y (Redo) pressed
 Debug: Additionals saved
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -12.00,-12.00,12.00,12.00

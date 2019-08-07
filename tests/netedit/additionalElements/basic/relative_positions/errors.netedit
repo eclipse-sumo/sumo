@@ -35,7 +35,7 @@ Debug: Setting new attribute startPos '24.89' into containerStop 'containerStop_
 Debug: Setting new attribute endPos '25.00' into containerStop 'containerStop_gneE1_1_0'
 Debug: Setting new attribute startPos '24.89' into chargingStation 'chargingStation_gneE1_2_0'
 Debug: Setting new attribute endPos '25.00' into chargingStation 'chargingStation_gneE1_2_0'
-Debug: Additionals saved
+Debug: Additionals saved after dialog
 Debug: Deleting unreferenced variableSpeedSign 'variableSpeedSign_0'
 Debug: Additionals has to be saved
 Debug: Current saving Status: net saved, additionals unsaved, demand elements saved

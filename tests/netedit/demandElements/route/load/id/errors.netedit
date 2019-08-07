@@ -24,7 +24,7 @@ Error: route ID='' contains invalid characters.
 Error: route ID='' contains invalid characters.
 Error: route ID='' contains invalid characters.
 Error: There is another route with the same ID='route_0'.
-Error: Loading of C:/Users/alva_pa/.texttest/tmp/netedit.gui.22Jul143916.11168/netedit.gui/demandElements/route/load/id\input_routes.rou.xml failed.
+Error: Loading of C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.07Aug081749.192/netedit.gui/demandElements/route/load/id\input_routes.rou.xml failed.
 Debug: net has to be saved
 Debug: Current saving Status: net unsaved, additionals saved, demand elements unsaved
 Debug: Enabled show demand elements throught alt + 1
@@ -76,7 +76,7 @@ Debug: Created connection 'fromgneE6_0togneE3_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE6_0togneE3_1' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE8_0togneE9_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE9_0togneE11_0' in retrieveGNEConnection()
-Debug: DemandElements saved
+Debug: demand elements saved
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ4 from SUMORTree with boundary 0.00,6.80,20.00,33.20
 GLDebug: 	Removed object junction:gneJ5 from SUMORTree with boundary 49.60,6.80,86.40,37.20
