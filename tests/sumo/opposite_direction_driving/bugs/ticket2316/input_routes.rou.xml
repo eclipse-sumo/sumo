@@ -1,5 +1,5 @@
 <routes>
-    <vType id="DEFAULT_VEHTYPE" laneChangeModel="JE2013"/>
+    <vType id="DEFAULT_VEHTYPE"/>
 
     <route id="r0" edges="VODUGES_beg"/>
 
