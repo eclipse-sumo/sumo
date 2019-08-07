@@ -23,6 +23,7 @@
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vType id="DEFAULT_VEHTYPE" speedDev="0.1"/>
     <vehicle id="flow_0.0" depart="0.79" fromTaz="taz_0" toTaz="taz_1">
         <route edges="Link2 Link3 Link4"/>
     </vehicle>
