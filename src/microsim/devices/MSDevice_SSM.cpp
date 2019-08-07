@@ -3003,7 +3003,7 @@ MSDevice_SSM::getUpstreamVehicles(const UpstreamScanStartInfo& scanStart, FoeInf
         lane->releaseVehicles();
 
 #ifdef DEBUG_SSM_SURROUNDING
-		if (gDebugFlag3 &&& foundCount > 0) {
+		if (gDebugFlag3 && foundCount > 0) {
 			std::cout << "\t" << lane->getID() << ": Found " << foundCount << "\n";
 		}
 #endif
