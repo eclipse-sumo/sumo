@@ -664,7 +664,7 @@ GNERouteHandler::buildWalkEdges(GNEViewNet* viewNet, bool undoDemandElements, GN
             pathEdges = edges;
         }
         // create walkEdges
-        GNEWalk* walkEdges = new GNEWalk(viewNet, personParent, pathEdges, arrivalPos);
+        GNEWalk* walkEdges = new GNEWalk(viewNet, personParent, SUMO_TAG_WALK_EDGES, pathEdges, arrivalPos);
         // add element using undo list or directly, depending of undoDemandElements flag
         if (undoDemandElements) {
             viewNet->getUndoList()->p_begin("add " + toString(SUMO_TAG_WALK_EDGES) + " within person '" + personParent->getID() + "'");
@@ -700,7 +700,7 @@ GNERouteHandler::buildWalkFromTo(GNEViewNet* viewNet, bool undoDemandElements, G
             pathEdges = edges;
         }
         // create walkFromTo
-        GNEWalk* walkFromTo = new GNEWalk(viewNet, personParent, pathEdges, arrivalPos);
+        GNEWalk* walkFromTo = new GNEWalk(viewNet, personParent, SUMO_TAG_WALK_FROMTO, pathEdges, arrivalPos);
         // add element using undo list or directly, depending of undoDemandElements flag
         if (undoDemandElements) {
             viewNet->getUndoList()->p_begin("add " + toString(SUMO_TAG_WALK_FROMTO) + " within person '" + personParent->getID() + "'");
@@ -1404,16 +1404,16 @@ GNERouteHandler::closePerson() {
                             }
                             break;
                         case SUMO_TAG_WALK_EDGES:
-                            myViewNet->getUndoList()->add(new GNEChange_DemandElement(new GNEWalk(myViewNet, person, i->edges, i->arrivalPos), true), true);
+                            myViewNet->getUndoList()->add(new GNEChange_DemandElement(new GNEWalk(myViewNet, person, SUMO_TAG_WALK_EDGES, i->edges, i->arrivalPos), true), true);
                             break;
                         case SUMO_TAG_WALK_FROMTO:
                             // check if "from" attribute was loaded, or it must be taked fron previous personPlan values
                             if (i->from) {
-                                myViewNet->getUndoList()->add(new GNEChange_DemandElement(new GNEWalk(myViewNet, person, i->calculateEdgePath(), i->arrivalPos), true), true);
+                                myViewNet->getUndoList()->add(new GNEChange_DemandElement(new GNEWalk(myViewNet, person, SUMO_TAG_WALK_FROMTO, i->calculateEdgePath(), i->arrivalPos), true), true);
                             } else if (i != myPersonPlanValues.begin()) {
                                 // update 'from' edge using 'to' edge of last personPlan element
                                 i->from = (i-1)->getLastEdge();
-                                myViewNet->getUndoList()->add(new GNEChange_DemandElement(new GNEWalk(myViewNet, person, i->calculateEdgePath(), i->arrivalPos), true), true);
+                                myViewNet->getUndoList()->add(new GNEChange_DemandElement(new GNEWalk(myViewNet, person, SUMO_TAG_WALK_FROMTO, i->calculateEdgePath(), i->arrivalPos), true), true);
                             } else {
                                 WRITE_ERROR("The first person plan of type '" + toString(i->tag) + "' needs a from edge. Person cannot be created.");
                                 // abort last command group (to remove created person)

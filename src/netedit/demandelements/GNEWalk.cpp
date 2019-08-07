@@ -41,8 +41,8 @@
 // method definitions
 // ===========================================================================
 
-GNEWalk::GNEWalk(GNEViewNet* viewNet, GNEDemandElement *personParent, const std::vector<GNEEdge*>& edges, double arrivalPosition) :
-    GNEDemandElement(viewNet->getNet()->generateDemandElementID("", SUMO_TAG_WALK_FROMTO), viewNet, GLO_WALK, SUMO_TAG_WALK_FROMTO,
+GNEWalk::GNEWalk(GNEViewNet* viewNet, GNEDemandElement *personParent, SumoXMLTag walkTag, const std::vector<GNEEdge*>& edges, double arrivalPosition) :
+    GNEDemandElement(viewNet->getNet()->generateDemandElementID("", walkTag), viewNet, GLO_WALK, walkTag,
     edges, {}, {}, {}, {personParent}, {}, {}, {}, {}, {}),
     Parameterised(),
     myArrivalPosition(arrivalPosition) {
@@ -137,7 +137,9 @@ GNEWalk::writeDemandElement(OutputDevice& device) const {
 
 bool
 GNEWalk::isDemandElementValid() const {
-    if (getEdgeParents().size() == 0) {
+    if (myTagProperty.getTag() == SUMO_TAG_WALK_ROUTE) {
+        return true;
+    } else if (getEdgeParents().size() == 0) {
         return false;
     } else if (getEdgeParents().size() == 1) {
         return true;
@@ -156,7 +158,9 @@ GNEWalk::isDemandElementValid() const {
 
 std::string 
 GNEWalk::getDemandElementProblem() const {
-    if (getEdgeParents().size() == 0) {
+    if (myTagProperty.getTag() == SUMO_TAG_WALK_ROUTE) {
+        return "";
+    } else if (getEdgeParents().size() == 0) {
         return ("A walk need at least one edge");
     } else {
         // check if exist at least a connection between every edge

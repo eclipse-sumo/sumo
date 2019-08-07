@@ -42,10 +42,11 @@ public:
     /**@brief parameter constructor
      * @param[in] viewNet view in which this Walk is placed
      * @param[in] personParent person parent
+     * @param[in] walkTag walk type tag (edges or from/to)
      * @param[in] edges list of consecutive edges of this walk
      * @param[in] arrivalPosition arrival position on the destination edge 
      */
-    GNEWalk(GNEViewNet* viewNet, GNEDemandElement *personParent, const std::vector<GNEEdge*>& edges, double arrivalPosition);
+    GNEWalk(GNEViewNet* viewNet, GNEDemandElement *personParent, SumoXMLTag walkTag, const std::vector<GNEEdge*>& edges, double arrivalPosition);
 
     /**@brief parameter constructor
      * @param[in] viewNet view in which this Walk is placed
