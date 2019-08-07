@@ -451,7 +451,7 @@ public:
     * @param[in] category The type of stop
     */
     void addAccess(const std::string& stopId, const E* stopEdge, const double pos, const double length, const SumoXMLTag category) {
-        assert(stopEdge != 0);
+        assert(stopEdge != nullptr);
         //std::cout << "addAccess stopId=" << stopId << " stopEdge=" << stopEdge->getID() << " pos=" << pos << " length=" << length << " cat=" << category << "\n";
         if (myStopConnections.count(stopId) == 0) {
             myStopConnections[stopId] = new StopEdge<E, L, N, V>(stopId, myNumericalID++, stopEdge);
@@ -459,7 +459,7 @@ public:
         }
         _IntermodalEdge* const stopConn = myStopConnections[stopId];
         const L* lane = getSidewalk<E, L>(stopEdge);
-        if (lane != 0) {
+        if (lane != nullptr) {
             const std::pair<_IntermodalEdge*, _IntermodalEdge*>& pair = getBothDirections(stopEdge);
             double relPos;
             bool needSplit;
@@ -524,7 +524,7 @@ public:
         } else {
             // pedestrians cannot walk here:
             // add depart connectors on the stop edge so that pedestrians may start at the stop
-            auto& splitList = myDepartLookup[stopEdge];
+            std::vector<_IntermodalEdge*>& splitList = myDepartLookup[stopEdge];
             assert(splitList.size() > 0);
             typename std::vector<_IntermodalEdge*>::iterator splitIt = splitList.begin();
             double totalLength = 0.;
@@ -534,11 +534,10 @@ public:
                 last = *splitIt;
                 ++splitIt;
             }
-            auto* stopConnector = myStopConnections[stopId];
             // insert before last
             const double newLength = pos - (totalLength - last->getLength());
-            stopConnector->setLength(newLength);
-            splitList.insert(splitIt - 1, stopConnector);
+            stopConn->setLength(newLength);
+            splitList.insert(splitIt - 1, stopConn);
             // correct length of subsequent edge
             last->setLength(last->getLength() - newLength);
         }
