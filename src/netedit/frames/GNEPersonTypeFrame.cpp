@@ -361,9 +361,6 @@ GNEPersonTypeFrame::GNEPersonTypeFrame(FXHorizontalFrame* horizontalFrameParent,
     // Create person type attributes editor
     myPersonTypeAttributesEditor = new AttributesEditor(this);
 
-    // create modul for open extended attributes dialog
-    myAttributesEditorExtended = new AttributesEditorExtended(this);
-
     // set "VTYPE_DEFAULT" as default person Type
     myPersonTypeSelector->setCurrentPersonType(myViewNet->getNet()->retrieveDemandElement(SUMO_TAG_PTYPE, DEFAULT_PEDTYPE_ID));
 }
@@ -392,17 +389,6 @@ GNEPersonTypeFrame::getPersonTypeSelector() const {
 void
 GNEPersonTypeFrame::attributeUpdated() {
     myPersonTypeSelector->refreshPersonTypeSelector();
-}
-
-
-void
-GNEPersonTypeFrame::attributesEditorExtendedDialogOpened() {
-    // open person type dialog
-    if (myPersonTypeSelector->getCurrentPersonType()) {
-        GNEVehicleTypeDialog(myPersonTypeSelector->getCurrentPersonType(), true);
-        // call "showAttributeEditorModul" to refresh attribute list
-        myPersonTypeAttributesEditor->showAttributeEditorModul({myPersonTypeSelector->getCurrentPersonType()}, false);
-    }
 }
 
 /****************************************************************************/

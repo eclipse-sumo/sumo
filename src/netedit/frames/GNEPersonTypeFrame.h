@@ -163,18 +163,12 @@ protected:
     /// @brief function called after set a valid attribute in AttributeCreator/AttributeEditor/GenericParametersEditor/...
     void attributeUpdated();
 
-    /// @brief open AttributesCreator extended dialog (used for editing advance attributes of Vehicle Types)
-    void attributesEditorExtendedDialogOpened();
-
 private:
     /// @brief person type selector
     PersonTypeSelector* myPersonTypeSelector;
 
     /// @brief editorinternal person type attributes
     AttributesEditor* myPersonTypeAttributesEditor;
-
-    /// @brief modul for open extended attributes dialog
-    AttributesEditorExtended* myAttributesEditorExtended;
 
     /// @brief Vehicle Type editor (Create, copy, etc.)
     PersonTypeEditor* myPersonTypeEditor;

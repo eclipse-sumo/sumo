@@ -336,6 +336,8 @@ GNEPersonFrame::edgePathCreated() {
         std::map<SumoXMLAttr, std::string> valuesMap = myPersonAttributes->getAttributesAndValues(false);
         // add ID parameter
         valuesMap[SUMO_ATTR_ID] = myViewNet->getNet()->generateDemandElementID("", personTag);
+        // add pType parameter
+        valuesMap[SUMO_ATTR_TYPE] = myPTypeSelector->getCurrentDemandElement()->getID();
         // check if we're creating a person or personFlow
         if (personTag == SUMO_TAG_PERSON) {
             // Add parameter departure
