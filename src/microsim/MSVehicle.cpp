@@ -5290,6 +5290,8 @@ MSVehicle::getLatOffset(const MSLane* lane) const {
     assert(lane != 0);
     if (&lane->getEdge() == &myLane->getEdge()) {
         return myLane->getRightSideOnEdge() - lane->getRightSideOnEdge();
+    } else if (myLane->getOpposite() == lane) {
+        return (myLane->getWidth() + lane->getWidth()) * 0.5 * (getLaneChangeModel().isOpposite() ? -1 : 1);
     } else {
         // Check whether the lane is a further lane for the vehicle
         for (int i = 0; i < (int)myFurtherLanes.size(); ++i) {

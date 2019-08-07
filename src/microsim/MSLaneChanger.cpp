@@ -80,6 +80,7 @@ MSLaneChanger::ChangeElem::ChangeElem(MSLane* _lane) :
 
 void
 MSLaneChanger::ChangeElem::registerHop(MSVehicle* vehicle) {
+    //std::cout << SIMTIME << " registerHop lane=" << lane->getID() << " veh=" << vehicle->getID() << "\n";
     lane->myTmpVehicles.insert(lane->myTmpVehicles.begin(), vehicle);
     dens += vehicle->getVehicleType().getLengthWithGap();
     hoppedVeh = vehicle;
@@ -365,6 +366,7 @@ MSLaneChanger::change() {
 
 void
 MSLaneChanger::registerUnchanged(MSVehicle* vehicle) {
+    //std::cout << SIMTIME << " registerUnchanged lane=" << myCandi->lane->getID() << " veh=" << vehicle->getID() << "\n";
     myCandi->lane->myTmpVehicles.insert(myCandi->lane->myTmpVehicles.begin(), veh(myCandi));
     myCandi->dens += vehicle->getVehicleType().getLengthWithGap();
     vehicle->getLaneChangeModel().unchanged();
@@ -443,13 +445,15 @@ MSLaneChanger::continueChange(MSVehicle* vehicle, ChangerIt& from) {
     vehicle->myState.myPosLat += SPEED2DIST(lcm.getSpeedLat());
     vehicle->myCachedPosition = Position::INVALID;
     if (pastMidpoint) {
-        ChangerIt to = from + direction;
         MSLane* source = myCandi->lane;
-        MSLane* target = to->lane;
+        MSLane* target = source->getParallelLane(direction);
         vehicle->myState.myPosLat -= direction * 0.5 * (source->getWidth() + target->getWidth());
         lcm.primaryLaneChanged(source, target, direction);
-        to->registerHop(vehicle);
-        to->lane->requireCollisionCheck();
+        if (&source->getEdge() == &target->getEdge()) {
+            ChangerIt to = from + direction;
+            to->registerHop(vehicle);
+        }
+        target->requireCollisionCheck();
     } else {
         from->registerHop(vehicle);
         from->lane->requireCollisionCheck();
@@ -466,6 +470,9 @@ MSLaneChanger::continueChange(MSVehicle* vehicle, ChangerIt& from) {
         lcm.getShadowLane()->requireCollisionCheck();
     }
     vehicle->myAngle = vehicle->computeAngle();
+    if (lcm.isOpposite()) {
+        vehicle->myAngle += M_PI;
+    }
 
 #ifdef DEBUG_CONTINUE_CHANGE
     if (DEBUG_COND) {
@@ -1315,19 +1322,15 @@ MSLaneChanger::changeOpposite(std::pair<MSVehicle*, double> leader) {
     if ((state & LCA_WANTS_LANECHANGE) != 0 && changingAllowed
             // do not change to the opposite direction for cooperative reasons
             && (isOpposite || (state & LCA_COOPERATIVE) == 0)) {
-        vehicle->getLaneChangeModel().startLaneChangeManeuver(source, opposite, direction);
-        /// XXX use a dedicated transformation function
-        vehicle->myState.myPos = source->getOppositePos(vehicle->myState.myPos);
-        /// XXX compute a better lateral position
-        opposite->forceVehicleInsertion(vehicle, vehicle->getPositionOnLane(), MSMoveReminder::NOTIFICATION_LANE_CHANGE, 0);
-        if (!isOpposite) {
-            vehicle->myState.myBackPos = source->getOppositePos(vehicle->myState.myBackPos);
-        }
+        const bool continuous = vehicle->getLaneChangeModel().startLaneChangeManeuver(source, opposite, direction);
 #ifdef DEBUG_CHANGE_OPPOSITE
         if (DEBUG_COND) {
             std::cout << SIMTIME << " changing to opposite veh=" << vehicle->getID() << " dir=" << direction << " opposite=" << Named::getIDSecure(opposite) << " state=" << state << "\n";
         }
 #endif
+        if (continuous) {
+            continueChange(vehicle, myCandi);
+        }
         return true;
     }
 #ifdef DEBUG_CHANGE_OPPOSITE

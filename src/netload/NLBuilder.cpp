@@ -126,9 +126,6 @@ NLBuilder::build() {
     if (myOptions.getBool("no-internal-links") && myXMLHandler.haveSeenInternalEdge()) {
         WRITE_WARNING("Network contains internal links but option --no-internal-links is set. Vehicles will 'jump' across junctions and thus underestimate route lengths and travel times.");
     }
-    if (myOptions.getString("lanechange.duration") != "0" && myXMLHandler.haveSeenNeighs()) {
-        throw ProcessError("Network contains explicit neigh lanes which do not work together with option --lanechange.duration.");
-    }
     buildNet();
     // @note on loading order constraints:
     // - additional-files before route-files and state-files due to referencing
