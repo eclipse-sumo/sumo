@@ -22,12 +22,8 @@ import socket
 import struct
 import sys
 import warnings
+import abc
 
-try:
-    import traciemb
-    _embedded = True
-except ImportError:
-    _embedded = False
 from . import constants as tc
 from .exceptions import TraCIException, FatalTraCIError
 from .domain import _defaultDomains
@@ -43,19 +39,19 @@ class Connection:
     """
 
     def __init__(self, host, port, process):
-        if not _embedded:
-            if sys.platform.startswith('java'):
-                # working around jython 2.7.0 bug #2273
-                self._socket = socket.socket(
-                    socket.AF_INET, socket.SOCK_STREAM, socket.IPPROTO_TCP)
-            else:
-                self._socket = socket.socket()
-            self._socket.setsockopt(socket.IPPROTO_TCP, socket.TCP_NODELAY, 1)
-            self._socket.connect((host, port))
-            self._process = process
+        if sys.platform.startswith('java'):
+            # working around jython 2.7.0 bug #2273
+            self._socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM, socket.IPPROTO_TCP)
+        else:
+            self._socket = socket.socket()
+        self._socket.setsockopt(socket.IPPROTO_TCP, socket.TCP_NODELAY, 1)
+        self._socket.connect((host, port))
+        self._process = process
         self._string = bytes()
         self._queue = []
         self._subscriptionMapping = {}
+        self._stepListeners = {}
+        self._nextStepListenerID = 0
         for domain in _defaultDomains:
             domain._register(self, self._subscriptionMapping)
 
@@ -92,13 +88,10 @@ class Connection:
             return None
 
     def _sendExact(self):
-        if _embedded:
-            result = Storage(traciemb.execute(self._string))
-        else:
-            length = struct.pack("!i", len(self._string) + 4)
-            # print("python_sendExact: '%s'" % ' '.join(map(lambda x : "%X" % ord(x), self._string)))
-            self._socket.send(length + self._string)
-            result = self._recvExact()
+        length = struct.pack("!i", len(self._string) + 4)
+        # print("python_sendExact: '%s'" % ' '.join(map(lambda x : "%X" % ord(x), self._string)))
+        self._socket.send(length + self._string)
+        result = self._recvExact()
         if not result:
             self._socket.close()
             del self._socket
@@ -304,9 +297,6 @@ class Connection:
                     i += 256
                 self._string += struct.pack("!B", i)
 
-    def isEmbedded(self):
-        return _embedded
-
     def load(self, args):
         """
         Load a simulation from the given arguments.
@@ -334,7 +324,50 @@ class Connection:
         while numSubs > 0:
             responses.append(self._readSubscription(result))
             numSubs -= 1
+
+        # manage stepListeners
+        listenersToRemove = []
+        for (listenerID, listener) in self._stepListeners.items():
+            keep = listener.step(step)
+            if not keep:
+                listenersToRemove.append(listenerID)
+        for listenerID in listenersToRemove:
+            self.removeStepListener(listenerID)
+
         return responses
+
+    def addStepListener(self, listener):
+        """addStepListener(traci.StepListener) -> int
+
+        Append the step listener (its step function is called at the end of every call to traci.simulationStep())
+        Returns the ID assigned to the listener if it was added successfully, None otherwise.
+        """
+        if issubclass(type(listener), StepListener):
+            listener.setID(self._nextStepListenerID)
+            self._stepListeners[self._nextStepListenerID] = listener
+            self._nextStepListenerID += 1
+            # print ("traci: Added stepListener %s\nlisteners: %s"%(_nextStepListenerID - 1, _stepListeners))
+            return self._nextStepListenerID - 1
+        warnings.warn(
+            "Proposed listener's type must inherit from traci.StepListener. Not adding object of type '%s'" %
+            type(listener))
+        return None
+
+    def removeStepListener(self, listenerID):
+        """removeStepListener(traci.StepListener) -> bool
+
+        Remove the step listener from traci's step listener container.
+        Returns True if the listener was removed successfully, False if it wasn't registered.
+        """
+        # print ("traci: removeStepListener %s\nlisteners: %s"%(listenerID, _stepListeners))
+        if listenerID in self._stepListeners:
+            self._stepListeners[listenerID].cleanUp()
+            del self._stepListeners[listenerID]
+            # print ("traci: Removed stepListener %s"%(listenerID))
+            return True
+        warnings.warn("Cannot remove unknown listener %s.\nlisteners:%s" % (listenerID, self._stepListeners))
+        return False
+
 
     def getVersion(self):
         command = tc.CMD_GETVERSION
@@ -354,12 +387,40 @@ class Connection:
         self._sendExact()
 
     def close(self, wait=True):
-        if not _embedded:
-            if hasattr(self, "_socket"):
-                self._queue.append(tc.CMD_CLOSE)
-                self._string += struct.pack("!BB", 1 + 1, tc.CMD_CLOSE)
-                self._sendExact()
-                self._socket.close()
-                del self._socket
-            if wait and self._process is not None:
-                self._process.wait()
+        for listenerID in list(self._stepListeners.keys()):
+            self.removeStepListener(listenerID)
+        if hasattr(self, "_socket"):
+            self._queue.append(tc.CMD_CLOSE)
+            self._string += struct.pack("!BB", 1 + 1, tc.CMD_CLOSE)
+            self._sendExact()
+            self._socket.close()
+            del self._socket
+        if wait and self._process is not None:
+            self._process.wait()
+
+
+class StepListener(object):
+    __metaclass__ = abc.ABCMeta
+
+    @abc.abstractmethod
+    def step(self, t=0):
+        """step(int) -> bool
+
+        After adding a StepListener 'listener' with traci.addStepListener(listener),
+        TraCI will call listener.step(t) after each call to traci.simulationStep(t)
+        The return value indicates whether the stepListener wants to stay active.
+        """
+        return True
+
+    def cleanUp(self):
+        """cleanUp() -> None
+
+        This method is called at removal of the stepListener, allowing to schedule some final actions
+        """
+        pass
+
+    def setID(self, ID):
+        self._ID = ID
+
+    def getID(self):
+        return self._ID
