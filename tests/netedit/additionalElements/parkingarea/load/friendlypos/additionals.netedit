@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 08.02.2019 15:44:32 by Eclipse SUMO netedit Version v1_1_0+0713-7b762ac814
+<!-- generated on 07.08.2019 13:31:31 by Eclipse SUMO netedit Version v1_2_0+1449-4e81e5b6f5
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.1_from_08Feb150705.2884/netedit.gui/additionalElements/parkingarea/load/friendlypos\input_net.net.xml"/>
+        <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.07Aug081821.3780/netedit.gui/additionalElements/parkingarea/load/friendlypos\input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.1_from_08Feb150705.2884/netedit.gui/additionalElements/parkingarea/load/friendlypos\net.net.xml"/>
+        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.07Aug081821.3780/netedit.gui/additionalElements/parkingarea/load/friendlypos\net.net.xml"/>
     </output>
 
     <processing>
@@ -29,13 +29,14 @@
     </pedestrian>
 
     <netedit>
-        <additional-files value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.1_from_08Feb150705.2884/netedit.gui/additionalElements/parkingarea/load/friendlypos\input_additionals.add.xml"/>
-        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.1_from_08Feb150705.2884/netedit.gui/additionalElements/parkingarea/load/friendlypos\additionals.xml"/>
-        <demandelements-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.1_from_08Feb150705.2884/netedit.gui/additionalElements/parkingarea/load/friendlypos\routes.xml"/>
+        <additional-files value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.07Aug081821.3780/netedit.gui/additionalElements/parkingarea/load/friendlypos\additionals.xml"/>
+        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.07Aug081821.3780/netedit.gui/additionalElements/parkingarea/load/friendlypos\additionals.xml"/>
+        <route-files value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.07Aug081821.3780/netedit.gui/additionalElements/parkingarea/load/friendlypos\routes.xml"/>
+        <demandelements-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.07Aug081821.3780/netedit.gui/additionalElements/parkingarea/load/friendlypos\routes.xml"/>
     </netedit>
 
     <visualisation>
-        <gui-settings-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.1_from_08Feb150705.2884/netedit.gui/additionalElements/parkingarea/load/friendlypos\gui-settings.xml"/>
+        <gui-settings-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.07Aug081821.3780/netedit.gui/additionalElements/parkingarea/load/friendlypos\gui-settings.xml"/>
         <window-size value="700,500"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
@@ -45,16 +46,16 @@
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.1_from_08Feb150705.2884/netedit.gui/additionalElements/parkingarea/load/friendlypos\log.txt"/>
+        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.07Aug081821.3780/netedit.gui/additionalElements/parkingarea/load/friendlypos\log.txt"/>
     </report>
 
 </configuration>
 -->
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
-    <parkingArea id="parkingArea_0" width="12.00" length="5.00" lane="gneE0_0" startPos="5" endPos="10"/>
-    <parkingArea id="parkingArea_1" name="parkingArea" width="12.00" length="5.00" lane="gneE1_0" friendlyPos="1" startPos="-20" endPos="-10"/>
-    <parkingArea id="parkingArea_2" name="parkingArea" width="12.00" length="5.00" lane="gneE1_0" friendlyPos="1" startPos="200" endPos="300"/>
-    <parkingArea id="parkingArea_3" name="parkingArea" width="12.00" length="5.00" lane="gneE1_0" friendlyPos="1" startPos="50" endPos="20"/>
-    <parkingArea id="parkingArea_4" name="parkingArea" width="12.00" length="5.00" lane="gneE1_0" friendlyPos="1" startPos="20" endPos="20"/>
+    <parkingArea id="parkingArea_0" lane="gneE0_0" startPos="5" endPos="10" width="12.00" length="5.00"/>
+    <parkingArea id="parkingArea_1" lane="gneE1_0" startPos="-20" endPos="-10" name="parkingArea" friendlyPos="1" width="12.00" length="5.00"/>
+    <parkingArea id="parkingArea_2" lane="gneE1_0" startPos="200" endPos="300" name="parkingArea" friendlyPos="1" width="12.00" length="5.00"/>
+    <parkingArea id="parkingArea_3" lane="gneE1_0" startPos="50" endPos="20" name="parkingArea" friendlyPos="1" width="12.00" length="5.00"/>
+    <parkingArea id="parkingArea_4" lane="gneE1_0" startPos="20" endPos="20" name="parkingArea" friendlyPos="1" width="12.00" length="5.00"/>
 </additional>

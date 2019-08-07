@@ -1,30 +1,42 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 02.08.2018 11:17:00 by Eclipse SUMO netedit Version 7115a4b324
+<!-- generated on 07.08.2019 09:18:19 by Eclipse SUMO netedit Version v1_2_0+1449-4e81e5b6f5
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-additionals-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.02Aug111609.3004/netedit.gui/additionalElements/chargingstation/inspect_selection_generic\input_additionals.add.xml"/>
-        <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.02Aug111609.3004/netedit.gui/additionalElements/chargingstation/inspect_selection_generic\input_net.net.xml"/>
+        <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.07Aug081821.3780/netedit.gui/additionalElements/chargingstation/inspect_selection/genericparameters\input_net.net.xml"/>
     </input>
 
     <output>
-        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.02Aug111609.3004/netedit.gui/additionalElements/chargingstation/inspect_selection_generic\additionals.xml"/>
-        <shapes-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.02Aug111609.3004/netedit.gui/additionalElements/chargingstation/inspect_selection_generic\shapes.xml"/>
-        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.02Aug111609.3004/netedit.gui/additionalElements/chargingstation/inspect_selection_generic\net.net.xml"/>
+        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.07Aug081821.3780/netedit.gui/additionalElements/chargingstation/inspect_selection/genericparameters\net.net.xml"/>
     </output>
 
     <processing>
-        <no-turnarounds value="true"/>
+        <geometry.max-grade.fix value="false"/>
         <offset.disable-normalization value="true"/>
         <lefthand value="false"/>
-        <junctions.corner-detail value="5"/>
-        <rectangular-lane-cut value="false"/>
-        <walkingareas value="false"/>
     </processing>
 
+    <junctions>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="5"/>
+        <junctions.limit-turn-speed value="5.5"/>
+        <rectangular-lane-cut value="false"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="false"/>
+    </pedestrian>
+
+    <netedit>
+        <additional-files value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.07Aug081821.3780/netedit.gui/additionalElements/chargingstation/inspect_selection/genericparameters\additionals.xml"/>
+        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.07Aug081821.3780/netedit.gui/additionalElements/chargingstation/inspect_selection/genericparameters\additionals.xml"/>
+        <route-files value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.07Aug081821.3780/netedit.gui/additionalElements/chargingstation/inspect_selection/genericparameters\routes.xml"/>
+        <demandelements-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.07Aug081821.3780/netedit.gui/additionalElements/chargingstation/inspect_selection/genericparameters\routes.xml"/>
+    </netedit>
+
     <visualisation>
-        <gui-settings-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.02Aug111609.3004/netedit.gui/additionalElements/chargingstation/inspect_selection_generic\gui-settings.xml"/>
+        <gui-settings-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.07Aug081821.3780/netedit.gui/additionalElements/chargingstation/inspect_selection/genericparameters\gui-settings.xml"/>
         <window-size value="700,500"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
@@ -33,19 +45,19 @@
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.02Aug111609.3004/netedit.gui/additionalElements/chargingstation/inspect_selection_generic\log.txt"/>
+        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.07Aug081821.3780/netedit.gui/additionalElements/chargingstation/inspect_selection/genericparameters\log.txt"/>
     </report>
 
 </configuration>
 -->
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
-    <chargingStation id="chargingStationA" name="chargingStation" lane="gneE0_0" startPos="5.00" endPos="10.00">
+    <chargingStation id="chargingStationA" lane="gneE0_0" startPos="5" endPos="10" name="chargingStation">
         <param key="keyFinal1" value="value1"/>
         <param key="keyFinal2" value="value2"/>
         <param key="keyFinal3" value="value3"/>
     </chargingStation>
-    <chargingStation id="chargingStationB" name="chargingStation" power="13000.00" efficiency="0.85" chargeInTransit="1" chargeDelay="2.00" lane="gneE0_0" friendlyPos="1" startPos="15.00" endPos="20.00">
+    <chargingStation id="chargingStationB" lane="gneE0_0" startPos="15" endPos="20" name="chargingStation" friendlyPos="1" power="13000.00" efficiency="0.85" chargeInTransit="1" chargeDelay="2.00">
         <param key="keyFinal1" value="value1"/>
         <param key="keyFinal2" value="value2"/>
         <param key="keyFinal3" value="value3"/>

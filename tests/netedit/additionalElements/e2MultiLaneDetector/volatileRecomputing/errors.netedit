@@ -19,7 +19,7 @@ GLDebug: 	Inserted edge:gneE6 into SUMORTree with boundary -10.00,8.40,60.00,30.
 GLDebug: 	Inserted edge:gneE7 into SUMORTree with boundary -10.00,10.00,60.00,31.60
 GLDebug: 	Inserted edge:gneE8 into SUMORTree with boundary -11.60,-10.00,10.00,30.00
 GLDebug: 	Inserted edge:gneE9 into SUMORTree with boundary 38.40,-10.00,60.00,30.00
-Debug: Selected item 'DEFAULT_BIKETYPE' in DemandElementSelector
+Debug: Selected item 'DEFAULT_VEHTYPE' in DemandElementSelector
 Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
 Debug: Adding e2MultilaneDetector 'e2MultilaneDetector_0' in GNEChange_Additional
 Debug: Additionals has to be saved
@@ -106,8 +106,8 @@ Debug: Created connection 'fromgneE9_0togneE1_0' in retrieveGNEConnection()
 Debug: Keys Shift + F5 (Compute with volatile options) pressed
 Debug: Opening FXMessageBox 'Volatile Recomputing'
 Debug: Closed FXMessageBox 'Volatile Recomputing' with 'Yes'
-Debug: Additionals saved
-Debug: DemandElements saved
+Debug: Additionals saved after dialog
+Debug: demand elements saved
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -13.20,-13.20,13.20,13.20
 GLDebug: 	Removed object junction:gneJ1 from SUMORTree with boundary 36.80,-13.20,63.20,13.20
@@ -280,7 +280,7 @@ Debug: Adding connection 'gneE1_0->gneE5_0' into edge 'gneE1'
 Debug: Created connection 'fromgneE1_0togneE5_0' in retrieveGNEConnection()
 Debug: Adding connection 'gneE5_0->gneE13_0' into edge 'gneE5'
 Debug: Created connection 'fromgneE5_0togneE13_0' in retrieveGNEConnection()
-Debug: Additionals saved
+Debug: Additionals saved after dialog
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -15.20,-15.20,15.20,15.20
 GLDebug: 	Removed object junction:gneJ1 from SUMORTree with boundary 34.80,-15.20,65.20,15.20

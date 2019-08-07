@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 10.12.2018 12:15:55 by Eclipse SUMO netedit Version v1_0_0+1208-d42a3cd999
+<!-- generated on 07.08.2019 13:25:56 by Eclipse SUMO netedit Version v1_2_0+1449-4e81e5b6f5
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.10Dec121422.1712/netedit.gui/additionalElements/parkingarea/inspect_selection/width\input_net.net.xml"/>
+        <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.07Aug081821.3780/netedit.gui/additionalElements/parkingarea/inspect_selection/width\input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.10Dec121422.1712/netedit.gui/additionalElements/parkingarea/inspect_selection/width\net.net.xml"/>
+        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.07Aug081821.3780/netedit.gui/additionalElements/parkingarea/inspect_selection/width\net.net.xml"/>
     </output>
 
     <processing>
@@ -29,13 +29,14 @@
     </pedestrian>
 
     <netedit>
-        <sumo-additionals-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.10Dec121422.1712/netedit.gui/additionalElements/parkingarea/inspect_selection/width\input_additionals.add.xml"/>
-        <additionals-output value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.10Dec121422.1712/netedit.gui/additionalElements/parkingarea/inspect_selection/width\additionals.xml"/>
-        <shapes-output value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.10Dec121422.1712/netedit.gui/additionalElements/parkingarea/inspect_selection/width\shapes.xml"/>
+        <additional-files value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.07Aug081821.3780/netedit.gui/additionalElements/parkingarea/inspect_selection/width\additionals.xml"/>
+        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.07Aug081821.3780/netedit.gui/additionalElements/parkingarea/inspect_selection/width\additionals.xml"/>
+        <route-files value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.07Aug081821.3780/netedit.gui/additionalElements/parkingarea/inspect_selection/width\routes.xml"/>
+        <demandelements-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.07Aug081821.3780/netedit.gui/additionalElements/parkingarea/inspect_selection/width\routes.xml"/>
     </netedit>
 
     <visualisation>
-        <gui-settings-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.10Dec121422.1712/netedit.gui/additionalElements/parkingarea/inspect_selection/width\gui-settings.xml"/>
+        <gui-settings-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.07Aug081821.3780/netedit.gui/additionalElements/parkingarea/inspect_selection/width\gui-settings.xml"/>
         <window-size value="700,500"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
@@ -44,19 +45,19 @@
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.10Dec121422.1712/netedit.gui/additionalElements/parkingarea/inspect_selection/width\log.txt"/>
+        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.07Aug081821.3780/netedit.gui/additionalElements/parkingarea/inspect_selection/width\log.txt"/>
     </report>
 
 </configuration>
 -->
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
-    <parkingArea id="parkingAreaA" name="parkingArea1" width="2.30" length="7.00" lane="gneE0_0" friendlyPos="1" onRoad="1" startPos="5.00" endPos="10.00">
+    <parkingArea id="parkingAreaA" lane="gneE0_0" startPos="5" endPos="10" name="parkingArea1" onRoad="1" friendlyPos="1" width="2.30" length="7.00">
         <param key="KeyA1" value="valueA1"/>
         <param key="KeyA2" value="valueA2"/>
         <param key="KeyA3" value="valueA3"/>
     </parkingArea>
-    <parkingArea id="parkingAreaB" name="parkingArea2" width="2.30" length="8.00" lane="gneE0_0" roadsideCapacity="10" angle="30.00" startPos="15.00" endPos="20.00">
+    <parkingArea id="parkingAreaB" lane="gneE0_0" startPos="15" endPos="20" name="parkingArea2" roadsideCapacity="10" width="2.30" length="8.00" angle="30.00">
         <param key="KeyB1" value="valueB1"/>
         <param key="KeyB2" value="valueB2"/>
         <param key="KeyB3" value="valueB3"/>
