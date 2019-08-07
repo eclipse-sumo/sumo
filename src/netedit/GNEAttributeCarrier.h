@@ -862,6 +862,9 @@ private:
     /// @brief fill Junction Model Attributes of Vehicle/Person Types
     static void fillLaneChangingModelAttributes(SumoXMLTag currentTag);
 
+    /// @brief fill common person attributes (used by person and personFlows)
+    static void fillCommonPersonAttributes(SumoXMLTag currentTag);
+
     /// @brief parse and check attribute (note: This function is only to improve legilibility)
     static bool checkParsedAttribute(const TagProperties& tagProperties, const AttributeProperties& attrProperties, const SumoXMLAttr attribute,
         std::string& defaultValue, std::string& parsedAttribute, std::string& warningMessage);
