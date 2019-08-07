@@ -216,6 +216,7 @@ public:
     static const int AVOID_WIDE_LEFT_TURN;
     static const int FOUR_CONTROL_POINTS;
     static const int AVOID_INTERSECTING_LEFT_TURNS;
+    static const int SCURVE_IGNORE;
 
 public:
     /**@brief Constructor

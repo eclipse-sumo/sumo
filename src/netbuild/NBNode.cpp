@@ -86,6 +86,7 @@ const int NBNode::AVOID_WIDE_LEFT_TURN(1);
 const int NBNode::AVOID_WIDE_RIGHT_TURN(2);
 const int NBNode::FOUR_CONTROL_POINTS(4);
 const int NBNode::AVOID_INTERSECTING_LEFT_TURNS(8);
+const int NBNode::SCURVE_IGNORE(16);
 
 // ===========================================================================
 // method definitions
@@ -590,7 +591,7 @@ NBNode::bezierControlPoints(
                                                                << " begShape=" << begShape << " endShape=" << endShape << "\n";
 #endif
                     ok = false;
-                    if (recordError != nullptr) {
+                    if (recordError != nullptr && (shapeFlag & SCURVE_IGNORE) == 0) {
                         recordError->myDisplacementError = MAX2(recordError->myDisplacementError, (double)fabs(sin(displacementAngle) * dist));
                     }
                     return PositionVector();
@@ -623,7 +624,7 @@ NBNode::bezierControlPoints(
                     }
 #endif
                     ok = false;
-                    if (recordError != nullptr) {
+                    if (recordError != nullptr && (shapeFlag & SCURVE_IGNORE) == 0) {
                         // it's unclear if this error can be solved via stretching the intersection.
                         recordError->myDisplacementError = MAX2(recordError->myDisplacementError, (double)1.0);
                     }
@@ -639,7 +640,7 @@ NBNode::bezierControlPoints(
                     if (DEBUGCOND2(recordError)) std::cout << "   bezierControlPoints failed beg=" << beg << " end=" << end << " intersect=" << intersect
                                                                << " distBeg=" << distBeg << " distEnd=" << distEnd << "\n";
 #endif
-                    if (recordError != nullptr) {
+                    if (recordError != nullptr && (shapeFlag & SCURVE_IGNORE) == 0) {
                         // This should be fixable with minor stretching
                         recordError->myDisplacementError = MAX2(recordError->myDisplacementError, (double)1.0);
                     }
