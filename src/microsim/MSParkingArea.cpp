@@ -31,6 +31,7 @@
 #include "MSLane.h"
 #include "MSTransportable.h"
 #include "MSParkingArea.h"
+#include "MSGlobals.h"
 
 //#define DEBUG_RESERVATIONS
 //#define DEBUG_COND2(obj) (obj.getID() == "v.3")
@@ -101,18 +102,57 @@ MSParkingArea::addLotEntry(double x, double y, double z,
     lsd.myWidth = width;
     lsd.myLength = length;
     lsd.myRotation = angle;
-    lsd.myEndPos = myEndPos;
+    // If we are modelling parking set the end position to the lot position relative to the lane
+    //   rather than the end of the parking area - this results in vehicles stopping nearer the space
+    //   and re-entering the lane nearer the space. (If we are not modelling parking the vehicle will usually
+    //    enter the space and re-enter at the end of the parking area.)
+    if (MSGlobals::gModelParkingManoeuver) {
+        const double offset = this->getLane().getShape().nearest_offset_to_point2D(lsd.myPosition);
+        if (offset < getBeginLanePosition())
+            lsd.myEndPos = getBeginLanePosition() + POSITION_EPS;
+        else
+        {
+            if (this->getLane().getLength() > offset)
+                lsd.myEndPos = offset;
+            else
+                lsd.myEndPos = this->getLane().getLength() - POSITION_EPS;
+        }
+        // Work out the angle of the lot relative to the lane  (+90 parallels the way the bay is drawn )
+        int relativeAngle = lsd.myRotation + 90. - RAD2DEG(this->getLane().getShape().rotationAtOffset(lsd.myEndPos));
+       
+        // use this to set the manoeuver angle - which in practice will never be more than 180 degrees - hence the modulus
+        //   if p2.y is -ve the lot is on LHS of lane relative to lane direction
+        Position p2 = this->getLane().getShape().transformToVectorCoordinates(lsd.myPosition);
+        if (relativeAngle < 0) relativeAngle += 360;
+        if (p2.y() < (0. + POSITION_EPS)) 
+            lsd.myManoeuverAngle = abs(relativeAngle) % 180;
+        else  // lot is on RHS of lane
+            lsd.myManoeuverAngle = abs(abs(relativeAngle) % 180 - 180) % 180;
+    }
+    else
+    {
+        lsd.myEndPos = myEndPos;
+        lsd.myManoeuverAngle = int(angle); // unused unless gModelParkingManoeuver is true
+    }
+
+
     mySpaceOccupancies.push_back(lsd);
     myCapacity++;
     computeLastFreePos();
 }
 
+int
+MSParkingArea::getLastFreeLotAngle() const {
+    assert(myLastFreePos >= 0);
+    assert(myLastFreeLot < (int)mySpaceOccupancies.size());
+    return (mySpaceOccupancies[myLastFreeLot].myManoeuverAngle);
+}
 
 
 
 double
 MSParkingArea::getLastFreePos(const SUMOVehicle& forVehicle) const {
-    if (myCapacity == (int)myEndPositions.size()) {
+    if (myCapacity <= (int)myEndPositions.size()) {  // myEndPositions can be 1 greater than capacity at insert when exit is blocked
         // keep enough space so that  parking vehicles can leave
         return myLastFreePos - forVehicle.getVehicleType().getMinGap() - POSITION_EPS;
     } else {
@@ -147,6 +187,11 @@ void
 MSParkingArea::enter(SUMOVehicle* what, double beg, double end) {
     assert(myLastFreePos >= 0);
     assert(myLastFreeLot < (int)mySpaceOccupancies.size());
+    // There is a corner case in a full parking area where we allow vehicle that can't exit into lane to 'swap' with vehicle ready to enter
+    //  and still can't exit after the swap because another vehicle is waiting
+    //  so remove the endPositions entry here to avoid endPositions growing over capacity
+    if (mySpaceOccupancies[myLastFreeLot].vehicle != nullptr)
+        myEndPositions.erase(myEndPositions.find(mySpaceOccupancies[myLastFreeLot].vehicle));
     mySpaceOccupancies[myLastFreeLot].vehicle = what;
     myEndPositions[what] = std::pair<double, double>(beg, end);
     computeLastFreePos();
@@ -162,7 +207,9 @@ MSParkingArea::leaveFrom(SUMOVehicle* what) {
             break;
         }
     }
-    myEndPositions.erase(myEndPositions.find(what));
+    // could have been erased with a vehicle swap - so need to make sure it's there
+    if (myEndPositions.find(what) != myEndPositions.end())
+         myEndPositions.erase(myEndPositions.find(what));
     computeLastFreePos();
 }
 

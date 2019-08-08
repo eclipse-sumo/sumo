@@ -28,6 +28,7 @@
 #include <utils/common/FileHelpers.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/RandHelper.h>
+#include <utils/common/StringTokenizer.h>
 #include <utils/common/StringUtils.h>
 #include <utils/common/ToString.h>
 #include <utils/common/UtilExceptions.h>
@@ -788,6 +789,16 @@ SUMOVehicleParserHelper::beginVTypeParsing(const SUMOSAXAttributes& attrs, const
                 handleError(hardFail, abortCreation, "Unknown lateral alignment '" + alignS + "' when parsing vType '" + vtype->id + "'");
             }
         }
+        if (attrs.hasAttribute(SUMO_ATTR_MANOEUVER_ANGLE_TIMES)) {
+            bool ok = true;
+            const std::string angleTimesS = attrs.get<std::string>(SUMO_ATTR_MANOEUVER_ANGLE_TIMES, vtype->id.c_str(), ok);
+            if (ok && parseAngleTimesMap(*vtype, angleTimesS, hardFail)) {
+                vtype->parametersSet |= VTYPEPARS_MANOEUVER_ANGLE_TIMES_SET;
+            } else {
+                handleError(hardFail, abortCreation, "Invalid manoeuver angle times map for vType '" + vtype->id + "'");
+            }
+        }
+
         // try to parse embedded vType
         if (!parseVTypeEmbedded(*vtype, vtype->cfModel, attrs, hardFail, true)) {
             handleError(hardFail, abortCreation, "Invalid parsing embedded VType"); 
@@ -815,6 +826,45 @@ SUMOVehicleParserHelper::beginVTypeParsing(const SUMOSAXAttributes& attrs, const
         } else {
             return nullptr;
         }
+    }
+}
+
+bool
+SUMOVehicleParserHelper::parseAngleTimesMap(SUMOVTypeParameter& vtype, const std::string atm, const bool hardFail) {
+    StringTokenizer st(atm, ",");
+    std::map<int, std::pair<SUMOTime, SUMOTime>> angleTimesMap;
+    int tripletCount = 0;
+
+    while (st.hasNext()) {
+        StringTokenizer pos(st.next());
+        if (pos.size() != 3) {
+            if (hardFail) {
+                throw ProcessError("manoeuverAngleTimes format for vType '" + vtype.id + "' " + atm + " contains an invalid triplet.");
+            } else {
+                WRITE_ERROR("manoeuverAngleTimes format for vType '" + vtype.id + "' " + atm + " contains an invalid triplet.");
+            }
+        } else {
+            try {
+                int angle = StringUtils::toInt(pos.next());
+                double t1 = StringUtils::toDouble(pos.next());
+                double t2 = StringUtils::toDouble(pos.next());
+                angleTimesMap.insert((std::pair<int, std::pair<SUMOTime, SUMOTime>>(angle, std::pair< SUMOTime, SUMOTime>(t1, t2))));
+            }
+            catch (...) {
+                WRITE_ERROR("Triplet '" + st.get(tripletCount) + "' for vType '" + vtype.id + "' manoeuverAngleTimes cannot be parsed as 'int double double'");
+            }
+            tripletCount++;
+        }
+    }
+
+    if (angleTimesMap.size() > 0) {
+        vtype.myManoeuverAngleTimes.clear();
+        for (std::pair<int, std::pair<SUMOTime, SUMOTime>> angleTime : angleTimesMap)
+            vtype.myManoeuverAngleTimes.insert(std::pair<int, std::pair<SUMOTime, SUMOTime>>(angleTime));
+        angleTimesMap.clear();
+        return true;
+    } else {
+        return false;
     }
 }
 

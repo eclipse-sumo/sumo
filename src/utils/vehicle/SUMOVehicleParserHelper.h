@@ -72,7 +72,7 @@ public:
      * @see SUMOVehicleParameter
      * @param[in] attr The SAX-attributes to get vehicle parameter from
      * @param[in] hardFail enable or disable hard fails if a parameter is invalid
-     * @param[in] optionalID Whether the id shall be skipped (Used only in Calibrator Flows)
+     * @param[in] optionalID Whether the id shall be skipped
      * @param[in] skipDepart Whether parsing the departure time shall be skipped
      * @param[in] isPerson   Whether a person is parsed
      * @return The parsed attribute structure if no error occurred, 0 otherwise
@@ -92,6 +92,17 @@ public:
      * @note: the caller is responsible for deleting the returned pointer
      */
     static SUMOVTypeParameter* beginVTypeParsing(const SUMOSAXAttributes& attrs, const bool hardFail, const std::string& file);
+
+    /** @brief Parse string containing AngleTimes triplets (angle, entry time, exit time) 
+     *
+     * @param[in] vtype - the vtype element constructed in the parser
+     * @param[in] string - containing , separated  AngleTimes triplets "angle entry time exit time"
+     * @param[in] hardFail enable or disable hard fails if a parameter is invalid
+     * @exception ProcessError If an attribute's value is invalid
+     *
+     * @note  if the map parameter set is an empty string then the vtype map will not be changed
+     */
+    static bool parseAngleTimesMap(SUMOVTypeParameter& vtype, const std::string, const bool hardFail);
 
     /** @brief Parses an element embedded in vtype definition
      *
