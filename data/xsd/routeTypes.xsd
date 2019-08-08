@@ -116,7 +116,7 @@
                 </xsd:union>
             </xsd:simpleType>
         </xsd:attribute>
-        <xsd:attribute name="tau" type="positiveFloatType"/>
+        <xsd:attribute name="tau" type="nonNegativeFloatType"/>
         <xsd:attribute name="delta" type="xsd:float"/>
         <xsd:attribute name="stepping" type="positiveIntType"/>
         <xsd:attribute name="adaptTime" type="xsd:float"/>
@@ -216,7 +216,7 @@
                 </xsd:restriction>
             </xsd:simpleType>
         </xsd:attribute>
-        <xsd:attribute name="tau" type="positiveFloatType"/>
+        <xsd:attribute name="tau" type="nonNegativeFloatType"/>
         <xsd:attribute name="delta" type="xsd:float"/>
         <xsd:attribute name="stepping" type="positiveIntType"/>
     </xsd:complexType>
@@ -232,7 +232,7 @@
                 </xsd:restriction>
             </xsd:simpleType>
         </xsd:attribute>
-        <xsd:attribute name="tau" type="positiveFloatType"/>
+        <xsd:attribute name="tau" type="nonNegativeFloatType"/>
         <xsd:attribute name="adaptTime" type="xsd:float"/>
         <xsd:attribute name="adaptFactor" type="xsd:float"/>
         <xsd:attribute name="stepping" type="positiveIntType"/>
@@ -249,7 +249,7 @@
                 </xsd:restriction>
             </xsd:simpleType>
         </xsd:attribute>
-        <xsd:attribute name="tau" type="positiveFloatType"/>
+        <xsd:attribute name="tau" type="nonNegativeFloatType"/>
     </xsd:complexType>
 
     <xsd:complexType name="cfSmartType">
@@ -263,7 +263,7 @@
                 </xsd:restriction>
             </xsd:simpleType>
         </xsd:attribute>
-        <xsd:attribute name="tau" type="positiveFloatType"/>
+        <xsd:attribute name="tau" type="nonNegativeFloatType"/>
         <xsd:attribute name="tmp1" type="xsd:float"/>
         <xsd:attribute name="tmp2" type="xsd:float"/>
         <xsd:attribute name="tmp3" type="xsd:float"/>
@@ -282,7 +282,7 @@
                 </xsd:restriction>
             </xsd:simpleType>
         </xsd:attribute>
-        <xsd:attribute name="tau" type="positiveFloatType"/>
+        <xsd:attribute name="tau" type="nonNegativeFloatType"/>
         <xsd:attribute name="tauLast" type="xsd:float"/>
         <xsd:attribute name="apProb" type="xsd:float"/>
     </xsd:complexType>
@@ -298,7 +298,7 @@
                 </xsd:restriction>
             </xsd:simpleType>
         </xsd:attribute>
-        <xsd:attribute name="tau" type="positiveFloatType"/>
+        <xsd:attribute name="tau" type="nonNegativeFloatType"/>
         <xsd:attribute name="k" type="xsd:float"/>
         <xsd:attribute name="phi" type="xsd:float"/>
     </xsd:complexType>
@@ -314,7 +314,7 @@
                 </xsd:restriction>
             </xsd:simpleType>
         </xsd:attribute>
-        <xsd:attribute name="tau" type="positiveFloatType"/>
+        <xsd:attribute name="tau" type="nonNegativeFloatType"/>
         <xsd:attribute name="security" type="xsd:float"/>
         <xsd:attribute name="estimation" type="xsd:float"/>
     </xsd:complexType>
@@ -356,7 +356,7 @@
         <xsd:attribute name="decel" type="positiveFloatType"/>
         <xsd:attribute name="emergencyDecel" type="xsd:float"/>
         <xsd:attribute name="collisionMinGapFactor" type="xsd:float"/>
-        <xsd:attribute name="tau" type="positiveFloatType"/>
+        <xsd:attribute name="tau" type="nonNegativeFloatType"/>
         <xsd:attribute name="speedControlGainCACC" type="xsd:float"/>
         <xsd:attribute name="gapClosingControlGainGap" type="xsd:float"/>
         <xsd:attribute name="gapClosingControlGainGapDot" type="xsd:float"/>
@@ -375,7 +375,7 @@
     <xsd:complexType name="cfCCType">
         <xsd:attribute name="accel" type="positiveFloatType"/>
         <xsd:attribute name="decel" type="positiveFloatType"/>
-        <xsd:attribute name="tau" type="positiveFloatType"/>
+        <xsd:attribute name="tau" type="nonNegativeFloatType"/>
         <xsd:attribute name="c1" type="xsd:float"/>
         <xsd:attribute name="ccDecel" type="xsd:float"/>
         <xsd:attribute name="constSpacing" type="xsd:float"/>
