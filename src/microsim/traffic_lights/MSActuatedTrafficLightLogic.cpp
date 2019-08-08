@@ -66,7 +66,7 @@ MSActuatedTrafficLightLogic::MSActuatedTrafficLightLogic(MSTLLogicControl& tlcon
     MSSimpleTrafficLightLogic(tlcontrol, id, programID, TLTYPE_ACTUATED, phases, step, delay, parameter) {
 
     myMaxGap = StringUtils::toDouble(getParameter("max-gap", DEFAULT_MAX_GAP));
-    myPassingTime = StringUtils::toDouble(getParameter("passing-time", DEFAULT_PASSING_TIME)); // passing-time seems obsolete... (Leo)
+    myPassingTime = StringUtils::toDouble(getParameter("passing-time", DEFAULT_PASSING_TIME));
     myDetectorGap = StringUtils::toDouble(getParameter("detector-gap", DEFAULT_DETECTOR_GAP));
     myShowDetectors = StringUtils::toBool(getParameter("show-detectors", toString(OptionsCont::getOptions().getBool("tls.actuated.show-detectors"))));
     myFile = FileHelpers::checkForRelativity(getParameter("file", "NUL"), basePath);
@@ -98,7 +98,7 @@ MSActuatedTrafficLightLogic::init(NLDetectorBuilder& nb) {
     // Problem 2) is not so critical because there is less potential for
     // jamming in a low-flow situation. In contrast, problem 1) should be
     // avoided as it has big jamming potential. We compute an upper bound for the
-    // detector disatnce to avoid it
+    // detector distance to avoid it
 
 
     // change values for setting the loops and lanestate-detectors, here
@@ -130,7 +130,7 @@ MSActuatedTrafficLightLogic::init(NLDetectorBuilder& nb) {
             double speed = lane->getSpeedLimit();
             double inductLoopPosition = MIN2(
                                             myDetectorGap * speed,
-                                            MAX2(1.0, (STEPS2TIME(minDur) - 1)) * DEFAULT_LENGTH_WITH_GAP);
+                                            (STEPS2TIME(minDur) / myPassingTime + 0.5) * DEFAULT_LENGTH_WITH_GAP);
 
             // check whether the lane is long enough
             double ilpos = length - inductLoopPosition;
