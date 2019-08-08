@@ -3107,8 +3107,12 @@ GNEFrame::GenericParametersEditor::getGenericParametersStr() const {
 
 long
 GNEFrame::GenericParametersEditor::onCmdEditGenericParameter(FXObject*, FXSelector, void*) {
+    // write debug information
+    WRITE_DEBUG("Open generic parameter dialog");
     // edit generic parameters using dialog
     if (GNEGenericParameterDialog(myFrameParent->myViewNet, myGenericParameters).execute()) {
+        // write debug information
+        WRITE_DEBUG("Close generic parameter dialog");
         // set values edited in Parameter dialog in Edited AC
         if (myAC) {
             myAC->setAttribute(GNE_ATTR_GENERIC, getGenericParametersStr(), myFrameParent->myViewNet->getUndoList());
@@ -3123,6 +3127,9 @@ GNEFrame::GenericParametersEditor::onCmdEditGenericParameter(FXObject*, FXSelect
         }
         // Refresh parameter editor
         refreshGenericParametersEditor();
+    } else {
+        // write debug information
+        WRITE_DEBUG("Cancel generic parameter dialog");
     }
     return 1;
 }

@@ -585,6 +585,8 @@ GNEApplicationWindow::onCmdOpenForeign(FXObject*, FXSelector, void*) {
 
 long
 GNEApplicationWindow::onCmdOpenAdditionals(FXObject*, FXSelector, void*) {
+    // write debug information
+    WRITE_DEBUG("Open additional dialog");
     // get the Additional file name
     FXFileDialog opendialog(this, "Open Additionals file");
     opendialog.setIcon(GUIIconSubSys::getIcon(ICON_MODEADDITIONAL));
@@ -594,6 +596,9 @@ GNEApplicationWindow::onCmdOpenAdditionals(FXObject*, FXSelector, void*) {
         opendialog.setDirectory(gCurrentFolder);
     }
     if (opendialog.execute()) {
+        // close additional dialog
+        WRITE_DEBUG("Close additional dialog");
+        // udpate current folder
         gCurrentFolder = opendialog.getDirectory();
         std::string file = opendialog.getFilename().text();
         // disable validation for additionals
@@ -611,6 +616,9 @@ GNEApplicationWindow::onCmdOpenAdditionals(FXObject*, FXSelector, void*) {
         update();
         // restore validation for additionals
         XMLSubSys::setValidation("auto", "auto");
+    } else {
+        // write debug information
+        WRITE_DEBUG("Cancel additional dialog");
     }
     return 1;
 }
@@ -618,6 +626,8 @@ GNEApplicationWindow::onCmdOpenAdditionals(FXObject*, FXSelector, void*) {
 
 long
 GNEApplicationWindow::onCmdOpenTLSPrograms(FXObject*, FXSelector, void*) {
+    // write debug information
+    WRITE_DEBUG("Open TLSProgram dialog");
     // get the shape file name
     FXFileDialog opendialog(this, "Open TLSPrograms file");
     opendialog.setIcon(GUIIconSubSys::getIcon(ICON_MODETLS));
@@ -627,6 +637,8 @@ GNEApplicationWindow::onCmdOpenTLSPrograms(FXObject*, FXSelector, void*) {
         opendialog.setDirectory(gCurrentFolder);
     }
     if (opendialog.execute()) {
+        // close additional dialog
+        WRITE_DEBUG("Close TLSProgram dialog");
         gCurrentFolder = opendialog.getDirectory();
         std::string file = opendialog.getFilename().text();
         // Run parser
@@ -640,6 +652,9 @@ GNEApplicationWindow::onCmdOpenTLSPrograms(FXObject*, FXSelector, void*) {
             myUndoList->p_end();
             update();
         }
+    } else {
+        // write debug information
+        WRITE_DEBUG("Cancel TLSProgram dialog");
     }
     return 1;
 }
@@ -647,6 +662,8 @@ GNEApplicationWindow::onCmdOpenTLSPrograms(FXObject*, FXSelector, void*) {
 
 long
 GNEApplicationWindow::onCmdOpenDemandElements(FXObject*, FXSelector, void*) {
+    // write debug information
+    WRITE_DEBUG("Open demand element dialog");
     // get the demand element file name
     FXFileDialog opendialog(this, "Open demand element file");
     opendialog.setIcon(GUIIconSubSys::getIcon(ICON_SUPERMODEDEMAND));
@@ -656,6 +673,9 @@ GNEApplicationWindow::onCmdOpenDemandElements(FXObject*, FXSelector, void*) {
         opendialog.setDirectory(gCurrentFolder);
     }
     if (opendialog.execute()) {
+        // close additional dialog
+        WRITE_DEBUG("Close demand element dialog");
+        // udpate current folder
         gCurrentFolder = opendialog.getDirectory();
         std::string file = opendialog.getFilename().text();
         // disable validation for additionals
@@ -673,6 +693,9 @@ GNEApplicationWindow::onCmdOpenDemandElements(FXObject*, FXSelector, void*) {
         update();
         // restore validation for demand
         XMLSubSys::setValidation("auto", "auto");
+    } else {
+        // write debug information
+        WRITE_DEBUG("Cancel demand element dialog");
     }
     return 1;
 }
