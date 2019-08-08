@@ -72,7 +72,7 @@ public:
      * @see SUMOVehicleParameter
      * @param[in] attr The SAX-attributes to get vehicle parameter from
      * @param[in] hardFail enable or disable hard fails if a parameter is invalid
-     * @param[in] optionalID Whether the id shall be skipped
+     * @param[in] optionalID Whether the id shall be skipped (Used only in Calibrator Flows)
      * @param[in] skipDepart Whether parsing the departure time shall be skipped
      * @param[in] isPerson   Whether a person is parsed
      * @return The parsed attribute structure if no error occurred, 0 otherwise
