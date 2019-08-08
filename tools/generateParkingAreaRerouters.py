@@ -24,6 +24,20 @@ import sys
 import xml.etree.ElementTree
 import sumolib
 
+try:
+    from functools import lru_cache
+except ImportError:
+    #python 2.7 fallback (lru_cache is a decorater with arguments: a function that returns a decorator)
+    def lru_cache_dummy(maxsize):
+        class Cache_info:
+            hits = -1
+            misses = -1
+        def deco(fun):
+            fun.cache_info = lambda : Cache_info()
+            return fun
+        return deco
+    functools.lru_cache = lru_cache_dummy
+
 def logs():
     """ Log init. """
     stdout_handler = logging.StreamHandler(sys.stdout)
