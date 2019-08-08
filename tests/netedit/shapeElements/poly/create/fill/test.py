@@ -29,10 +29,10 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot, ['--g
 netedit.shapeMode()
 
 # go to shape mode
-netedit.changeShape("poly")
+netedit.changeElement("poly")
 
 # change fill
-netedit.modifyShapeDefaultBoolValue(4)
+netedit.changeDefaultBoolValue(4)
 
 # create polygon with default values
 netedit.createSquaredPoly(referencePosition, 100, 50, 100, True)

@@ -29,16 +29,16 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 netedit.additionalMode()
 
 # select E1
-netedit.changeAdditional("instantInductionLoop")
+netedit.changeElement("instantInductionLoop")
 
 # set invalid name
-netedit.modifyAdditionalDefaultValue(2, "\"\"\";;")
+netedit.changeDefaultValue(2, "\"\"\";;")
 
 # try to create E1 with invalid name
 netedit.leftClick(referencePosition, 300, 250)
 
 # set valid name
-netedit.modifyAdditionalDefaultValue(2, "customName")
+netedit.changeDefaultValue(2, "customName")
 
 # create E1 with valid name
 netedit.leftClick(referencePosition, 300, 250)

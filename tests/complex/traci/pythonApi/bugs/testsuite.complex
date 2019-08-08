@@ -90,3 +90,6 @@ ticket5674
 # stop with duration=0 and until < 0 should trigger removal
 # stop with duraiton=0 and until >= 0 should not trigger removal 
 ticket5712
+
+# changing vehicle type parameters should still trigger vtype specific rerouter
+ticket5831

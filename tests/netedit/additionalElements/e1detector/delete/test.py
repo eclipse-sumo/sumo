@@ -32,7 +32,7 @@ netedit.additionalMode()
 netedit.additionalMode()
 
 # select E1
-netedit.changeAdditional("e1Detector")
+netedit.changeElement("e1Detector")
 
 # create E1
 netedit.leftClick(referencePosition, 250, 258)
@@ -62,7 +62,7 @@ netedit.changeAutomaticallyDeleteAdditionals(referencePosition)
 netedit.leftClick(referencePosition, 200, 215)
 
 # wait warning
-netedit.waitAutomaticallyDeleteAdditionalsWarning()
+netedit.waitDeleteWarning()
 
 # check redo
 netedit.redo(referencePosition, 3)

@@ -97,12 +97,12 @@ GUIE3Collector::MyWrapper::drawGL(const GUIVisualizationSettings& s) const {
     glTranslated(0, 0, GLO_JUNCTION + 0.4); // do not draw on top of linkRules
     typedef std::vector<SingleCrossingDefinition> CrossingDefinitions;
     CrossingDefinitions::const_iterator i;
-    GLHelper::setColor(s.SUMO_color_E3Entry);
+    GLHelper::setColor(s.colorSettings.E3Entry);
     const double exaggeration = s.addSize.getExaggeration(s, this);
     for (i = myEntryDefinitions.begin(); i != myEntryDefinitions.end(); ++i) {
         drawSingleCrossing((*i).myFGPosition, (*i).myFGRotation, exaggeration);
     }
-    GLHelper::setColor(s.SUMO_color_E3Exit);
+    GLHelper::setColor(s.colorSettings.E3Exit);
     for (i = myExitDefinitions.begin(); i != myExitDefinitions.end(); ++i) {
         drawSingleCrossing((*i).myFGPosition, (*i).myFGRotation, exaggeration);
     }

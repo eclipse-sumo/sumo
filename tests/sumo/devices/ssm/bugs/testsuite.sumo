@@ -4,3 +4,6 @@ ticket4350
 # SSM device crashes when vehicles use the opposite-direction edge
 ticket5231
 ticket5643
+
+# SSM device crashes when vehicles use the opposite-direction edge (consecutive neigh edges)
+ticket5839

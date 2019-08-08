@@ -55,7 +55,7 @@ class RGBColor;
 class MSDevice_ToC : public MSVehicleDevice {
 private:
     // All currently existing ToC device instances
-    static std::set<MSDevice_ToC*> instances;
+    static std::set<MSDevice_ToC*, ComparatorNumericalIdLess> myInstances;
     // All files, that receive ToC output (TODO: check if required)
     static std::set<std::string> createdOutputFiles;
 
@@ -91,8 +91,8 @@ public:
 
     /** @brief returns all currently existing ToC devices
      */
-    static const std::set<MSDevice_ToC*>& getInstances() {
-        return instances;
+    static const std::set<MSDevice_ToC*, ComparatorNumericalIdLess>& getInstances() {
+        return myInstances;
     };
 
     /** @brief Closes root tags of output files
@@ -188,7 +188,7 @@ public:
     }
 
     static std::mt19937* getResponseTimeRNG() {
-    	return &myResponseTimeRNG;
+        return &myResponseTimeRNG;
     }
 private:
     /** @brief Constructor

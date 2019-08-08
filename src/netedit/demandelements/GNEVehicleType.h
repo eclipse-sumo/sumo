@@ -38,10 +38,10 @@ class GNEVehicleType : public GNEDemandElement, public SUMOVTypeParameter {
 
 public:
     /// @brief constructor for default VTypes
-    GNEVehicleType(GNEViewNet* viewNet, const std::string& vTypeID, SUMOVehicleClass defaultVClass);
+    GNEVehicleType(GNEViewNet* viewNet, const std::string& vTypeID, const SUMOVehicleClass &defaultVClass, SumoXMLTag tag);
 
     /// @brief constructor
-    GNEVehicleType(GNEViewNet* viewNet, const SUMOVTypeParameter& vTypeParameter);
+    GNEVehicleType(GNEViewNet* viewNet, const SUMOVTypeParameter& vTypeParameter, SumoXMLTag tag);
 
     /// @brief copy constructor
     GNEVehicleType(GNEViewNet* viewNet, const std::string& vTypeID, GNEVehicleType* vTypeOriginal);
@@ -118,6 +118,12 @@ public:
     */
     std::string getAttribute(SumoXMLAttr key) const;
 
+    /* @brief method for getting the Attribute of an XML key in double format (to avoid unnecessary parse<double>(...) for certain attributes)
+     * @param[in] key The attribute key
+     * @return double with the value associated to key
+     */
+    double getAttributeDouble(SumoXMLAttr key) const;
+
     /* @brief method for setting the attribute and letting the object perform additional changes
     * @param[in] key The attribute key
     * @param[in] value The new value
@@ -149,6 +155,19 @@ public:
 
     /// @brief get Hierarchy Name (Used in AC Hierarchy)
     std::string getHierarchyName() const;
+    /// @}
+
+    /// @name Functions related with Generic Parameters
+    /// @{
+    /// @brief return generic parameters in string format
+    std::string getGenericParametersStr() const;
+
+    /// @brief return generic parameters as vector of pairs format
+    std::vector<std::pair<std::string, std::string> > getGenericParameters() const;
+
+    /// @brief set generic parameters in string format
+    void setGenericParametersStr(const std::string& value);
+
     /// @}
 
     /// @brief overwrite all values of GNEVehicleType with a SUMOVTypeParameter

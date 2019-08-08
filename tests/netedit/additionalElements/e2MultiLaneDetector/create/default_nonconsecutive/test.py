@@ -32,7 +32,7 @@ netedit.rebuildNetwork()
 netedit.additionalMode()
 
 # select E2
-netedit.changeAdditional("e2MultilaneDetector")
+netedit.changeElement("e2MultilaneDetector")
 
 # try to create E2 with default parameters but with non consecutive lanes
 netedit.leftClick(referencePosition, 440, 255)

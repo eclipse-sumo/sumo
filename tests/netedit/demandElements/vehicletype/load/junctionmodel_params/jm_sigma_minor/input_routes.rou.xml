@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 17.07.2019 12:52:39 by Eclipse SUMO netedit Version v1_2_0+1261-4ef77299f0
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="D:\sumo\tests\netedit\demandElements\route\load\input_net.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="D:\sumo\tests\netedit\demandElements\route\load\input_net.net.xml"/>
+    </output>
+
+    <processing>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="false"/>
+    </processing>
+
+    <junctions>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="5"/>
+        <junctions.limit-turn-speed value="5.5"/>
+        <rectangular-lane-cut value="false"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="false"/>
+    </pedestrian>
+
+    <netedit>
+        <route-files value="D:\sumo\tests\netedit\demandElements\route\load\color\input_routes.rou.xml"/>
+    </netedit>
+
+</configuration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+
+	<!-- junctionModel param -->
+    <vType id="vType0" jmSigmaMinor="dummy_jmSigmaMinor"/>
+	
+	<!-- junctionModel param -->
+    <vType id="vType1" jmSigmaMinor="-3"/>
+	
+	<!-- junctionModel param -->
+    <vType id="vType2" jmSigmaMinor="0"/>
+	
+	<!-- junctionModel param -->
+    <vType id="vType3" jmSigmaMinor="2.1"/>
+	
+	<!-- junctionModel param -->
+    <vType id="vType4" jmSigmaMinor="1"/>
+	
+	<!-- junctionModel param -->
+    <vType id="vType5" jmSigmaMinor="0.2"/>
+	
+</routes>

@@ -149,8 +149,9 @@ NBNodeShapeComputer::computeNodeShapeDefault(bool simpleContinuation) {
     }
     // magic values
     const OptionsCont& oc = OptionsCont::getOptions();
-    const bool useDefaultRadius = myNode.getRadius() == NBNode::UNSPECIFIED_RADIUS;
-    myRadius = (useDefaultRadius ? getDefaultRadius(oc) : myNode.getRadius());
+    const double defaultRadius = getDefaultRadius(oc);
+    const bool useDefaultRadius = myNode.getRadius() == NBNode::UNSPECIFIED_RADIUS || myNode.getRadius() == defaultRadius;
+    myRadius = (useDefaultRadius ? defaultRadius : myNode.getRadius());
     const int cornerDetail = oc.getInt("junctions.corner-detail");
     const double sCurveStretch = oc.getFloat("junctions.scurve-stretch");
     const bool rectangularCut = oc.getBool("rectangular-lane-cut");
@@ -166,7 +167,7 @@ NBNodeShapeComputer::computeNodeShapeDefault(bool simpleContinuation) {
 
 #ifdef DEBUG_NODE_SHAPE
     if (DEBUGCOND) {
-        std::cout << "\ncomputeNodeShapeDefault node " << myNode.getID() << " simple=" << simpleContinuation << " radius=" << myRadius << "\n";
+        std::cout << "\ncomputeNodeShapeDefault node " << myNode.getID() << " simple=" << simpleContinuation << " useDefaultRadius=" << useDefaultRadius << " radius=" << myRadius << "\n";
     }
 #endif
 

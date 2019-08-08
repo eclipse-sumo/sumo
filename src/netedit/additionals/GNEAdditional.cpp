@@ -135,20 +135,21 @@ GNEAdditional::GNEAdditional(const std::string& id, GNEViewNet* viewNet, GUIGlOb
                              const std::vector<GNEShape*>& shapeParents,
                              const std::vector<GNEAdditional*>& additionalParents,
                              const std::vector<GNEDemandElement*>& demandElementParents,
-                             const std::vector<GNEEdge*>& edgeChilds,
-                             const std::vector<GNELane*>& laneChilds,
-                             const std::vector<GNEShape*>& shapeChilds,
-                             const std::vector<GNEAdditional*>& additionalChilds,
-                             const std::vector<GNEDemandElement*>& demandElementChilds) :
+                             const std::vector<GNEEdge*>& edgeChildren,
+                             const std::vector<GNELane*>& laneChildren,
+                             const std::vector<GNEShape*>& shapeChildren,
+                             const std::vector<GNEAdditional*>& additionalChildren,
+                             const std::vector<GNEDemandElement*>& demandElementChildren) :
     GUIGlObject(type, id),
     GNEAttributeCarrier(tag),
     Parameterised(),
     GNEHierarchicalElementParents(this, edgeParents, laneParents, shapeParents, additionalParents, demandElementParents),
-    GNEHierarchicalElementChilds(this, edgeChilds, laneChilds, shapeChilds, additionalChilds, demandElementChilds),
+    GNEHierarchicalElementChildren(this, edgeChildren, laneChildren, shapeChildren, additionalChildren, demandElementChildren),
     myViewNet(viewNet),
     myAdditionalName(additionalName),
     myBlockMovement(blockMovement),
-    myBlockIcon(this) {
+    myBlockIcon(this),
+    mySpecialColor(nullptr) {
 }
 
 
@@ -158,20 +159,21 @@ GNEAdditional::GNEAdditional(GNEAdditional* additionalParent, GNEViewNet* viewNe
                              const std::vector<GNEShape*>& shapeParents,
                              const std::vector<GNEAdditional*>& additionalParents,
                              const std::vector<GNEDemandElement*>& demandElementParents,
-                             const std::vector<GNEEdge*>& edgeChilds,
-                             const std::vector<GNELane*>& laneChilds,
-                             const std::vector<GNEShape*>& shapeChilds,
-                             const std::vector<GNEAdditional*>& additionalChilds,
-                             const std::vector<GNEDemandElement*>& demandElementChilds) :
+                             const std::vector<GNEEdge*>& edgeChildren,
+                             const std::vector<GNELane*>& laneChildren,
+                             const std::vector<GNEShape*>& shapeChildren,
+                             const std::vector<GNEAdditional*>& additionalChildren,
+                             const std::vector<GNEDemandElement*>& demandElementChildren) :
     GUIGlObject(type, additionalParent->generateChildID(tag)),
     GNEAttributeCarrier(tag),
     Parameterised(),
     GNEHierarchicalElementParents(this, edgeParents, laneParents, shapeParents, additionalParents, demandElementParents),
-    GNEHierarchicalElementChilds(this, edgeChilds, laneChilds, shapeChilds, additionalChilds, demandElementChilds),
+    GNEHierarchicalElementChildren(this, edgeChildren, laneChildren, shapeChildren, additionalChildren, demandElementChildren),
     myViewNet(viewNet),
     myAdditionalName(additionalName),
     myBlockMovement(blockMovement),
-    myBlockIcon(this) {
+    myBlockIcon(this),
+    mySpecialColor(nullptr) {
 }
 
 
@@ -180,7 +182,7 @@ GNEAdditional::~GNEAdditional() {}
 
 std::string
 GNEAdditional::generateChildID(SumoXMLTag childTag) {
-    int counter = (int)getAdditionalChilds().size();
+    int counter = (int)getAdditionalChildren().size();
     while (myViewNet->getNet()->retrieveAdditional(childTag, getID() + toString(childTag) + toString(counter), false) != nullptr) {
         counter++;
     }
@@ -194,10 +196,16 @@ GNEAdditional::getAdditionalGeometry() const {
 }
 
 
+void 
+GNEAdditional::setSpecialColor(const RGBColor* color) {
+    mySpecialColor = color;
+}
+
+
 void
 GNEAdditional::writeAdditional(OutputDevice& device) const {
-    // first check if minimum number of childs is correct
-    if ((myTagProperty.hasMinimumNumberOfChilds() || myTagProperty.hasMinimumNumberOfChilds()) && !checkAdditionalChildRestriction()) {
+    // first check if minimum number of children is correct
+    if ((myTagProperty.hasMinimumNumberOfChildren() || myTagProperty.hasMinimumNumberOfChildren()) && !checkAdditionalChildRestriction()) {
         WRITE_WARNING(getTagStr() + " with ID='" + getID() + "' cannot be written");
     } else {
         // Open Tag or synonym Tag
@@ -209,21 +217,21 @@ GNEAdditional::writeAdditional(OutputDevice& device) const {
         // iterate over attributes and write it
         for (auto i : myTagProperty) {
             // obtain attribute
-            std::string attribute = getAttribute(i.first);
-            if (i.second.isWriteXMLOptional() && !i.second.isCombinable()) {
+            std::string attribute = getAttribute(i.getAttr());
+            if (i.isWriteXMLOptional() && !i.isCombinable()) {
                 // Only write attributes with default value if is different from original
-                if (i.second.getDefaultValue() != attribute) {
+                if (i.getDefaultValue() != attribute) {
                     // check if attribute must be written using a synonim
-                    if (i.second.hasAttrSynonym()) {
-                        device.writeAttr(i.second.getAttrSynonym(), attribute);
+                    if (i.hasAttrSynonym()) {
+                        device.writeAttr(i.getAttrSynonym(), attribute);
                     } else {
                         // SVC permissions uses their own writting function
-                        if (i.second.isSVCPermission()) {
+                        if (i.isSVCPermission()) {
                             // disallow attribute musn't be written
-                            if (i.first != SUMO_ATTR_DISALLOW) {
+                            if (i.getAttr() != SUMO_ATTR_DISALLOW) {
                                 writePermissions(device, parseVehicleClasses(attribute));
                             }
-                        } else if (myTagProperty.canMaskXYZPositions() && (i.first == SUMO_ATTR_POSITION)) {
+                        } else if (myTagProperty.canMaskXYZPositions() && (i.getAttr() == SUMO_ATTR_POSITION)) {
                             // get position attribute and write it separate
                             Position pos = parse<Position>(getAttribute(SUMO_ATTR_POSITION));
                             device.writeAttr(SUMO_ATTR_X, toString(pos.x()));
@@ -233,22 +241,22 @@ GNEAdditional::writeAdditional(OutputDevice& device) const {
                                 device.writeAttr(SUMO_ATTR_Z, toString(pos.z()));
                             }
                         } else {
-                            device.writeAttr(i.first, attribute);
+                            device.writeAttr(i.getAttr(), attribute);
                         }
                     }
                 }
             } else {
                 // Attributes without default values are always writted
-                if (i.second.hasAttrSynonym()) {
-                    device.writeAttr(i.second.getAttrSynonym(), attribute);
+                if (i.hasAttrSynonym()) {
+                    device.writeAttr(i.getAttrSynonym(), attribute);
                 } else {
                     // SVC permissions uses their own writting function
-                    if (i.second.isSVCPermission()) {
+                    if (i.isSVCPermission()) {
                         // disallow attribute musn't be written
-                        if (i.first != SUMO_ATTR_DISALLOW) {
+                        if (i.getAttr() != SUMO_ATTR_DISALLOW) {
                             writePermissions(device, parseVehicleClasses(attribute));
                         }
-                    } else if (myTagProperty.canMaskXYZPositions() && (i.first == SUMO_ATTR_POSITION)) {
+                    } else if (myTagProperty.canMaskXYZPositions() && (i.getAttr() == SUMO_ATTR_POSITION)) {
                         // get position attribute and write it separate
                         Position pos = parse<Position>(getAttribute(SUMO_ATTR_POSITION));
                         device.writeAttr(SUMO_ATTR_X, toString(pos.x()));
@@ -258,28 +266,28 @@ GNEAdditional::writeAdditional(OutputDevice& device) const {
                             device.writeAttr(SUMO_ATTR_Z, toString(pos.z()));
                         }
                     } else {
-                        device.writeAttr(i.first, attribute);
+                        device.writeAttr(i.getAttr(), attribute);
                     }
                 }
             }
         }
-        // iterate over childs and write it in XML (or in a different file)
-        if (myTagProperty.canWriteChildsSeparate() && myTagProperty.hasAttribute(SUMO_ATTR_FILE) && !getAttribute(SUMO_ATTR_FILE).empty()) {
+        // iterate over children and write it in XML (or in a different file)
+        if (myTagProperty.canWriteChildrenSeparate() && myTagProperty.hasAttribute(SUMO_ATTR_FILE) && !getAttribute(SUMO_ATTR_FILE).empty()) {
             // we assume that rerouter values files is placed in the same folder as the additional file
-            OutputDevice& deviceChilds = OutputDevice::getDevice(FileHelpers::getFilePath(OptionsCont::getOptions().getString("additional-files")) + getAttribute(SUMO_ATTR_FILE));
-            deviceChilds.writeXMLHeader("rerouterValue", "additional_file.xsd");
-            // save childs in a different filename
-            for (auto i : getAdditionalChilds()) {
+            OutputDevice& deviceChildren = OutputDevice::getDevice(FileHelpers::getFilePath(OptionsCont::getOptions().getString("additional-files")) + getAttribute(SUMO_ATTR_FILE));
+            deviceChildren.writeXMLHeader("rerouterValue", "additional_file.xsd");
+            // save children in a different filename
+            for (auto i : getAdditionalChildren()) {
                 // avoid to write two times additionals that haben two parents (Only write as child of first parent)
                 if (i->getAdditionalParents().size() < 1) {
-                    i->writeAdditional(deviceChilds);
+                    i->writeAdditional(deviceChildren);
                 } else if (myTagProperty.getTag() == i->getTagProperty().getParentTag()) {
-                    i->writeAdditional(deviceChilds);
+                    i->writeAdditional(deviceChildren);
                 }
             }
-            deviceChilds.close();
+            deviceChildren.close();
         } else {
-            for (auto i : getAdditionalChilds()) {
+            for (auto i : getAdditionalChildren()) {
                 // avoid to write two times additionals that haben two parents (Only write as child of first parent)
                 if (i->getAdditionalParents().size() < 2) {
                     i->writeAdditional(device);
@@ -288,7 +296,7 @@ GNEAdditional::writeAdditional(OutputDevice& device) const {
                 }
             }
         }
-        // save generic parameters (Always after childs to avoid problems with additionals.xsd)
+        // save generic parameters (Always after children to avoid problems with additionals.xsd)
         writeParams(device);
         // Close tag
         device.closeTag();
@@ -347,8 +355,8 @@ GNEAdditional::startGeometryMoving() {
         if (myTagProperty.isPlacedInRTree()) {
             myMove.movingGeometryBoundary = getCenteringBoundary();
         }
-        // start geometry in all childs
-        for (const auto& i : getDemandElementChilds()) {
+        // start geometry in all children
+        for (const auto& i : getDemandElementChildren()) {
             i->startGeometryMoving();
         }
     }
@@ -368,8 +376,8 @@ GNEAdditional::endGeometryMoving() {
             // add object into grid again (using the new centering boundary)
             myViewNet->getNet()->addGLObjectIntoGrid(this);
         }
-        // end geometry in all childs
-        for (const auto& i : getDemandElementChilds()) {
+        // end geometry in all children
+        for (const auto& i : getDemandElementChildren()) {
             i->endGeometryMoving();
         }
     }
@@ -449,10 +457,10 @@ GNEAdditional::getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView&) {
     // Iterate over attributes
     for (const auto& i : myTagProperty) {
         // Add attribute and set it dynamic if aren't unique
-        if (i.second.isUnique()) {
-            ret->mkItem(toString(i.first).c_str(), false, getAttribute(i.first));
+        if (i.isUnique()) {
+            ret->mkItem(i.getAttrStr().c_str(), false, getAttribute(i.getAttr()));
         } else {
-            ret->mkItem(toString(i.first).c_str(), true, getAttribute(i.first));
+            ret->mkItem(i.getAttrStr().c_str(), true, getAttribute(i.getAttr()));
         }
     }
     // close building
@@ -487,8 +495,8 @@ GNEAdditional::getCenteringBoundary() const {
 // ---------------------------------------------------------------------------
 
 GNEAdditional::BlockIcon::BlockIcon(GNEAdditional* additional) :
-    myAdditional(additional),
-    rotation(0.) {}
+    rotation(0.),
+    myAdditional(additional) {}
 
 
 void
@@ -508,8 +516,9 @@ GNEAdditional::BlockIcon::setRotation(GNELane* additionalLane) {
 
 
 void
-GNEAdditional::BlockIcon::draw(double size) const {
-    if (myAdditional->myViewNet->showLockIcon()) {
+GNEAdditional::BlockIcon::drawIcon(const GUIVisualizationSettings& s, const double exaggeration, const double size) const {
+    // check if block icon can be draw
+    if (!s.drawForSelecting && s.drawDetail(s.detailSettings.lockIcon, exaggeration) && myAdditional->myViewNet->showLockIcon()) {
         // Start pushing matrix
         glPushMatrix();
         // Traslate to middle of shape
@@ -559,8 +568,8 @@ void
 GNEAdditional::setDefaultValues() {
     // iterate over attributes and set default value
     for (const auto& i : myTagProperty) {
-        if (i.second.hasStaticDefaultValue()) {
-            setAttribute(i.first, i.second.getDefaultValue());
+        if (i.hasStaticDefaultValue()) {
+            setAttribute(i.getAttr(), i.getDefaultValue());
         }
     }
 }

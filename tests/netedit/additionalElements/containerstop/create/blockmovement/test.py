@@ -29,10 +29,10 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 netedit.additionalMode()
 
 # select containerStop
-netedit.changeAdditional("containerStop")
+netedit.changeElement("containerStop")
 
 # set block movement
-netedit.modifyAdditionalDefaultBoolValue(9)
+netedit.changeDefaultBoolValue(9)
 
 # create containerStop in mode "reference left"
 netedit.leftClick(referencePosition, 250, 250)

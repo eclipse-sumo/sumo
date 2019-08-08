@@ -30,3 +30,6 @@ ticket5740
 
 # crash when person walks over e2Detector
 ticket5803
+
+# invalid jam when parkingArea is close to junction
+ticket5864

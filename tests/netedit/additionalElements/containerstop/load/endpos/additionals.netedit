@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 08.02.2019 16:02:30 by Eclipse SUMO netedit Version v1_1_0+0713-7b762ac814
+<!-- generated on 07.08.2019 09:39:36 by Eclipse SUMO netedit Version v1_2_0+1449-4e81e5b6f5
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.1_from_08Feb153949.1392/netedit.gui/additionalElements/containerStop/load/endpos\input_net.net.xml"/>
+        <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.07Aug081821.3780/netedit.gui/additionalElements/containerstop/load/endpos\input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.1_from_08Feb153949.1392/netedit.gui/additionalElements/containerStop/load/endpos\net.net.xml"/>
+        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.07Aug081821.3780/netedit.gui/additionalElements/containerstop/load/endpos\net.net.xml"/>
     </output>
 
     <processing>
@@ -29,13 +29,14 @@
     </pedestrian>
 
     <netedit>
-        <additional-files value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.1_from_08Feb153949.1392/netedit.gui/additionalElements/containerStop/load/endpos\input_additionals.add.xml"/>
-        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.1_from_08Feb153949.1392/netedit.gui/additionalElements/containerStop/load/endpos\additionals.xml"/>
-        <demandelements-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.1_from_08Feb153949.1392/netedit.gui/additionalElements/containerStop/load/endpos\routes.xml"/>
+        <additional-files value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.07Aug081821.3780/netedit.gui/additionalElements/containerstop/load/endpos\additionals.xml"/>
+        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.07Aug081821.3780/netedit.gui/additionalElements/containerstop/load/endpos\additionals.xml"/>
+        <route-files value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.07Aug081821.3780/netedit.gui/additionalElements/containerstop/load/endpos\routes.xml"/>
+        <demandelements-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.07Aug081821.3780/netedit.gui/additionalElements/containerstop/load/endpos\routes.xml"/>
     </netedit>
 
     <visualisation>
-        <gui-settings-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.1_from_08Feb153949.1392/netedit.gui/additionalElements/containerStop/load/endpos\gui-settings.xml"/>
+        <gui-settings-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.07Aug081821.3780/netedit.gui/additionalElements/containerstop/load/endpos\gui-settings.xml"/>
         <window-size value="700,500"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
@@ -45,14 +46,14 @@
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.1_from_08Feb153949.1392/netedit.gui/additionalElements/containerStop/load/endpos\log.txt"/>
+        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.07Aug081821.3780/netedit.gui/additionalElements/containerstop/load/endpos\log.txt"/>
     </report>
 
 </configuration>
 -->
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
-    <containerStop id="containerStop_01" name="containerStop" lane="gneE0_0" lines="line1 line2" startPos="35"/>
-    <containerStop id="containerStop_02" name="containerStop" lane="gneE0_0" lines="line1 line2" startPos="35"/>
-    <containerStop id="containerStop_06" name="containerStop" lane="gneE0_0" lines="line1 line2" startPos="35" endPos="-5"/>
+    <containerStop id="containerStop_01" lane="gneE0_0" startPos="35" name="containerStop" lines="line1 line2"/>
+    <containerStop id="containerStop_02" lane="gneE0_0" startPos="35" name="containerStop" lines="line1 line2"/>
+    <containerStop id="containerStop_06" lane="gneE0_0" startPos="35" endPos="-5" name="containerStop" lines="line1 line2"/>
 </additional>

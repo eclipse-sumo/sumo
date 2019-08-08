@@ -29,7 +29,7 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot, ['--g
 netedit.additionalMode()
 
 # select routeProbe
-netedit.changeAdditional("routeProbe")
+netedit.changeElement("routeProbe")
 
 # create routeProbe
 netedit.leftClick(referencePosition, 250, 120)

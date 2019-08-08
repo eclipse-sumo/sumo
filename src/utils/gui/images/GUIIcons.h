@@ -183,8 +183,16 @@ enum GUIIcon {
     ICON_LOCK,
     ICON_ADD,
     ICON_REMOVE,
-    ICON_NETEDITARROWLEFT,
-    ICON_NETEDITARROWRIGHT,
+    ICON_BIGARROWLEFT,
+    ICON_BIGARROWRIGHT,
+    /// @}
+    
+    /// @name arrows
+    /// @{
+    ICON_ARROW_UP,
+    ICON_ARROW_DOWN,
+    ICON_ARROW_LEFT,
+    ICON_ARROW_RIGHT,
     /// @}
 
     /// @name lane icons
@@ -223,6 +231,9 @@ enum GUIIcon {
     ICON_MODEVEHICLE,
     ICON_MODEVEHICLETYPE,
     ICON_MODESTOP,
+    ICON_MODEPERSONTYPE,
+    ICON_MODEPERSON,
+    ICON_MODEPERSONPLAN,
     /// @}
 
     /// @name NETEDIT processing icons
@@ -279,11 +290,25 @@ enum GUIIcon {
     /// @{
     ICON_ROUTE,
     ICON_VTYPE,
+    ICON_PTYPE,
     ICON_VEHICLE,
     ICON_TRIP,
     ICON_FLOW,
     ICON_ROUTEFLOW,
     ICON_STOPELEMENT,
+    ICON_PERSON,
+    ICON_PERSONFLOW,
+    ICON_PERSONTRIP_FROMTO,
+    ICON_PERSONTRIP_BUSSTOP,
+    ICON_WALK_EDGES,
+    ICON_WALK_FROMTO,
+    ICON_WALK_BUSSTOP,
+    ICON_WALK_ROUTE,
+    ICON_RIDE_FROMTO,
+    ICON_RIDE_BUSSTOP,
+    ICON_PERSON_BUSSTOP,
+    ICON_PERSON_CONTAINERSTOP,
+    ICON_PERSON_LANESTOP,
     /// @}
 
     /// @name vehicle Class icons

@@ -24,7 +24,6 @@ import socket
 import time
 import subprocess
 import warnings
-import abc
 import sys
 import os
 
@@ -37,15 +36,30 @@ import sumolib  # noqa
 from sumolib.miscutils import getFreeSocketPort  # noqa
 
 from .domain import _defaultDomains  # noqa
-from .connection import Connection, _embedded  # noqa
+# StepListener needs to be imported for backwards compatibility
+from .connection import Connection, StepListener  # noqa
 from .exceptions import FatalTraCIError, TraCIException  # noqa
 from . import _inductionloop, _lanearea, _multientryexit, _trafficlight  # noqa
 from . import _lane, _person, _route, _vehicle, _vehicletype  # noqa
 from . import _edge, _gui, _junction, _poi, _polygon, _simulation  # noqa
 
+inductionloop = _inductionloop.InductionLoopDomain()
+lanearea = _lanearea.LaneAreaDomain()
+multientryexit = _multientryexit.MultiEntryExitDomain()
+trafficlight = _trafficlight.TrafficLightDomain()
+lane = _lane.LaneDomain()
+person = _person.PersonDomain()
+route = _route.RouteDomain()
+vehicle = _vehicle.VehicleDomain()
+vehicletype = _vehicletype.VehicleTypeDomain()
+edge = _edge.EdgeDomain()
+gui = _gui.GuiDomain()
+junction = _junction.JunctionDomain()
+poi = _poi.PoiDomain()
+polygon = _polygon.PolygonDomain()
+simulation = _simulation.SimulationDomain()
+
 _connections = {}
-_stepListeners = {}
-_nextStepListenerID = 0
 # cannot use immutable type as global variable
 _currentLabel = [""]
 
@@ -114,10 +128,6 @@ def isLibsumo():
     return False
 
 
-def isEmbedded():
-    return _embedded
-
-
 def load(args):
     """load([optionOrParam, ...])
     Let sumo load a simulation using the given command line like options
@@ -134,46 +144,7 @@ def simulationStep(step=0):
     If the given value is 0 or absent, exactly one step is performed.
     Values smaller than or equal to the current sim time result in no action.
     """
-    global _stepListeners
-    responses = _connections[""].simulationStep(step)
-
-    # manage stepListeners
-    listenersToRemove = []
-    for (listenerID, listener) in _stepListeners.items():
-        keep = listener.step(step)
-        if not keep:
-            listenersToRemove.append(listenerID)
-    for listenerID in listenersToRemove:
-        removeStepListener(listenerID)
-
-    return responses
-
-
-class StepListener(object):
-    __metaclass__ = abc.ABCMeta
-
-    @abc.abstractmethod
-    def step(self, t=0):
-        """step(int) -> bool
-
-        After adding a StepListener 'listener' with traci.addStepListener(listener),
-        TraCI will call listener.step(t) after each call to traci.simulationStep(t)
-        The return value indicates whether the stepListener wants to stay active.
-        """
-        return True
-
-    def cleanUp(self):
-        """cleanUp() -> None
-
-        This method is called at removal of the stepListener, allowing to schedule some final actions
-        """
-        pass
-
-    def setID(self, ID):
-        self._ID = ID
-
-    def getID(self):
-        return self._ID
+    return _connections[""].simulationStep(step)
 
 
 def addStepListener(listener):
@@ -182,17 +153,7 @@ def addStepListener(listener):
     Append the step listener (its step function is called at the end of every call to traci.simulationStep())
     Returns the ID assigned to the listener if it was added successfully, None otherwise.
     """
-    global _nextStepListenerID, _stepListeners
-    if issubclass(type(listener), StepListener):
-        listener.setID(_nextStepListenerID)
-        _stepListeners[_nextStepListenerID] = listener
-        _nextStepListenerID += 1
-        # print ("traci: Added stepListener %s\nlisteners: %s"%(_nextStepListenerID - 1, _stepListeners))
-        return _nextStepListenerID - 1
-    warnings.warn(
-        "Proposed listener's type must inherit from traci.StepListener. Not adding object of type '%s'" %
-        type(listener))
-    return None
+    return _connections[""].addStepListener(listener)
 
 
 def removeStepListener(listenerID):
@@ -201,18 +162,7 @@ def removeStepListener(listenerID):
     Remove the step listener from traci's step listener container.
     Returns True if the listener was removed successfully, False if it wasn't registered.
     """
-    global _stepListeners
-    # print ("traci: removeStepListener %s\nlisteners: %s"%(listenerID, _stepListeners))
-    if listenerID in _stepListeners.keys():
-        _stepListeners[listenerID].cleanUp()
-        del _stepListeners[listenerID]
-        # print ("traci: Removed stepListener %s"%(listenerID))
-        return True
-    msg = "removeStepListener(listener): listener %s not registered as step listener.\nlisteners:%s" % (
-        listenerID, _stepListeners)
-    # print ("traci: "+msg)
-    warnings.warn(msg)
-    return False
+    return _connections[""].removeStepListener(listenerID)
 
 
 def getVersion():
@@ -224,10 +174,6 @@ def setOrder(order):
 
 
 def close(wait=True):
-    global _stepListeners
-    listenerIDs = list(_stepListeners.keys())
-    for listenerID in listenerIDs:
-        removeStepListener(listenerID)
     _connections[""].close(wait)
     del _connections[_currentLabel[0]]
 
@@ -247,8 +193,3 @@ def getConnection(label="default"):
     if label not in _connections:
         raise TraCIException("connection with label '%s' is not known")
     return _connections[label]
-
-
-if _embedded:
-    # create the default dummy connection
-    init()

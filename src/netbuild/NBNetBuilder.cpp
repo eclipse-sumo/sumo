@@ -201,6 +201,14 @@ NBNetBuilder::compute(OptionsCont& oc, const std::set<std::string>& explicitTurn
         WRITE_MESSAGE(" Joined " + toString(numJoined) + " junction cluster(s).");
     }
     //
+    if (mayAddOrRemove && oc.exists("join-lanes") && oc.getBool("join-lanes")) {
+        before = SysUtils::getCurrentMillis();
+        PROGRESS_BEGIN_MESSAGE("Joining lanes");
+        const int num = myEdgeCont.joinLanes(SVC_IGNORING) + myEdgeCont.joinLanes(SVC_PEDESTRIAN);
+        PROGRESS_TIME_MESSAGE(before);
+        WRITE_MESSAGE("   Joined lanes on " + toString(num) + " edges.");
+    }
+    //
     if (mayAddOrRemove) {
         int no = 0;
         const bool removeGeometryNodes = oc.exists("geometry.remove") && oc.getBool("geometry.remove");

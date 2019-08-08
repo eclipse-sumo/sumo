@@ -244,11 +244,14 @@ MSTriggeredRerouter::myEndElement(int element) {
         ri.routeProbs = myCurrentRouteProb;
         ri.permissions = myCurrentPermissions;
         ri.parkProbs = myCurrentParkProb;
+        for (auto paVi : ri.parkProbs.getVals()) {
+            paVi.first->setNumAlternatives((int)ri.parkProbs.getVals().size() - 1);
+        }
         if (ri.closedLanes.size() > 0) {
             // collect edges that are affect by a closed lane
             std::set<MSEdge*> affected;
-            for (std::vector<MSLane*>::iterator l = ri.closedLanes.begin(); l != ri.closedLanes.end(); ++l) {
-                affected.insert(&((*l)->getEdge()));
+            for (const MSLane* const  l : ri.closedLanes) {
+                affected.insert(&l->getEdge());
             }
             ri.closedLanesAffected.insert(ri.closedLanesAffected.begin(), affected.begin(), affected.end());
         }
@@ -852,10 +855,10 @@ MSTriggeredRerouter::rerouteParkingArea(const MSTriggeredRerouter::RerouteInterv
 
 bool
 MSTriggeredRerouter::vehicleApplies(const SUMOVehicle& veh) const {
-    if (myVehicleTypes.empty() || myVehicleTypes.count(veh.getVehicleType().getID()) > 0) {
+    if (myVehicleTypes.empty() || myVehicleTypes.count(veh.getVehicleType().getOriginalID()) > 0) {
         return true;
     } else {
-        std::set<std::string> vTypeDists = MSNet::getInstance()->getVehicleControl().getVTypeDistributionMembership(veh.getVehicleType().getID());
+        std::set<std::string> vTypeDists = MSNet::getInstance()->getVehicleControl().getVTypeDistributionMembership(veh.getVehicleType().getOriginalID());
         for (auto vTypeDist : vTypeDists) {
             if (myVehicleTypes.count(vTypeDist) > 0) {
                 return true;
@@ -864,5 +867,7 @@ MSTriggeredRerouter::vehicleApplies(const SUMOVehicle& veh) const {
         return false;
     }
 }
+
+
 /****************************************************************************/
 

@@ -452,6 +452,7 @@ void NIXMLEdgesHandler::addSplit(const SUMOSAXAttributes& attrs) {
             return;
         }
         e.node = myNodeCont.retrieve(nodeID);
+        e.offsetFactor = OptionsCont::getOptions().getBool("lefthand") ? -1 : 1;
         if (e.node == nullptr) {
             e.node = new NBNode(nodeID, myCurrentEdge->getGeometry().positionAtOffset(e.pos));
         }

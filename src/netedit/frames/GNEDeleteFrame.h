@@ -56,13 +56,13 @@ public:
         bool protectDemandElements() const;
 
     private:
-        /// @brief checkbox for enable/disable automatic deletion of additionals childs
+        /// @brief checkbox for enable/disable automatic deletion of additionals children
         FXCheckButton* myForceDeleteAdditionals;
 
         /// @brief checkbox for enable/disable delete only geometry points
         FXCheckButton* myDeleteOnlyGeometryPoints;
 
-        /// @brief checkbox for enable/disable automatic deletion of demand childs
+        /// @brief checkbox for enable/disable automatic deletion of demand children
         FXCheckButton* myProtectDemandElements;
     };
 
@@ -94,6 +94,42 @@ public:
     DeleteOptions* getDeleteOptions() const;
 
 protected:
+
+    /// @brief struct for saving subordinated elements (Junction->Edge->Lane->(Additional | DemandElement)
+    struct SubordinatedElements {
+
+        /// @brief constructor (for junctions)
+        SubordinatedElements(const GNEJunction *junction);
+
+        /// @brief constructor (for edges)
+        SubordinatedElements(const GNEEdge *edge);
+
+        /// @brief constructor (for lanes)
+        SubordinatedElements(const GNELane *lane);
+
+        /// @brief constructor (for additionals)
+        SubordinatedElements(const GNEAdditional *additional);
+
+        /// @brief constructor (for demandElements)
+        SubordinatedElements(const GNEDemandElement *demandElement);
+
+        /// @brief additional parents
+        int additionalParents;
+
+        /// @brief additional children
+        int additionalChildren;
+
+        /// @brief demand element parents
+        int demandElementParents;
+
+        /// @brief demand element children
+        int demandElementChildren;
+
+    private:
+        /// @brief add operator
+        SubordinatedElements &operator+=(const SubordinatedElements &other);
+    };
+
     /// @brief check if there is ACs to delete
     bool ACsToDelete() const;
 
@@ -102,7 +138,7 @@ private:
     DeleteOptions* myDeleteOptions;
 
     /// @brief modul for hierarchy
-    ACHierarchy* myACHierarchy;
+    AttributeCarrierHierarchy* myAttributeCarrierHierarchy;
 };
 
 

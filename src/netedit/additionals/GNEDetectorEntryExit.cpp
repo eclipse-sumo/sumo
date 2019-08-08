@@ -140,39 +140,34 @@ GNEDetectorEntryExit::updateGeometry() {
     // Set block icon rotation, and using their rotation for logo
     myBlockIcon.setRotation(getLaneParents().front());
 
-    // update E3 parent childs
+    // update E3 parent children
     getAdditionalParents().at(0)->updateChildConnections();
 }
 
 
 void
 GNEDetectorEntryExit::drawGL(const GUIVisualizationSettings& s) const {
+     // Set initial values
+    const double exaggeration = s.addSize.getExaggeration(s, this);
     // Start drawing adding gl identificator
     glPushName(getGlID());
-
     // Push detector matrix
     glPushMatrix();
     glTranslated(0, 0, getType());
-
     // Set color
     if (drawUsingSelectColor()) {
-        GLHelper::setColor(s.selectedAdditionalColor);
+        GLHelper::setColor(s.colorSettings.selectedAdditionalColor);
     } else if (myTagProperty.getTag() == SUMO_TAG_DET_ENTRY) {
-        GLHelper::setColor(s.SUMO_color_E3Entry);
+        GLHelper::setColor(s.colorSettings.E3Entry);
     } else if (myTagProperty.getTag() == SUMO_TAG_DET_EXIT) {
-        GLHelper::setColor(s.SUMO_color_E3Exit);
+        GLHelper::setColor(s.colorSettings.E3Exit);
     }
-
-    // Set initial values
-    const double exaggeration = s.addSize.getExaggeration(s, this);
     glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-
     // Push polygon matrix
     glPushMatrix();
     glScaled(exaggeration, exaggeration, 1);
     glTranslated(myGeometry.shape[0].x(), myGeometry.shape[0].y(), 0);
     glRotated(myGeometry.shapeRotations[0], 0, 0, 1);
-
     // draw details if isn't being drawn for selecting
     if (!s.drawForSelecting) {
         // Draw polygon
@@ -186,12 +181,10 @@ GNEDetectorEntryExit::drawGL(const GUIVisualizationSettings& s) const {
         glVertex2d(1.7, -.5);
         glVertex2d(1.7, .5);
         glEnd();
-
         // first Arrow
         glTranslated(1.5, 0, 0);
         GLHelper::drawBoxLine(Position(0, 4), 0, 2, .05);
         GLHelper::drawTriangleAtEnd(Position(0, 4), Position(0, 1), (double) 1, (double) .25);
-
         // second Arrow
         glTranslated(-3, 0, 0);
         GLHelper::drawBoxLine(Position(0, 4), 0, 2, .05);
@@ -205,15 +198,12 @@ GNEDetectorEntryExit::drawGL(const GUIVisualizationSettings& s) const {
         glVertex2d(1.7, 4.3);
         glEnd();
     }
-
     // Pop polygon matrix
     glPopMatrix();
-
     // Pop detector matrix
     glPopMatrix();
-
     // Check if the distance is enought to draw details
-    if (!s.drawForSelecting && ((s.scale * exaggeration) >= 10)) {
+    if (!s.drawForSelecting && s.drawDetail(s.detailSettings.detectorDetails, exaggeration)) {
         // Push matrix
         glPushMatrix();
         // Traslate to center of detector
@@ -224,14 +214,14 @@ GNEDetectorEntryExit::drawGL(const GUIVisualizationSettings& s) const {
         glTranslated(1.9, 0, 0);
         // draw Entry or Exit logo if isn't being drawn for selecting
         if (s.drawForSelecting) {
-            GLHelper::setColor(s.SUMO_color_E3Entry);
+            GLHelper::setColor(s.colorSettings.E3Entry);
             GLHelper::drawBoxLine(Position(0, 1), 0, 2, 1);
         } else if (drawUsingSelectColor()) {
-            GLHelper::drawText("E3", Position(), .1, 2.8, s.selectedAdditionalColor);
+            GLHelper::drawText("E3", Position(), .1, 2.8, s.colorSettings.selectedAdditionalColor);
         } else if (myTagProperty.getTag() == SUMO_TAG_DET_ENTRY) {
-            GLHelper::drawText("E3", Position(), .1, 2.8, s.SUMO_color_E3Entry);
+            GLHelper::drawText("E3", Position(), .1, 2.8, s.colorSettings.E3Entry);
         } else if (myTagProperty.getTag() == SUMO_TAG_DET_EXIT) {
-            GLHelper::drawText("E3", Position(), .1, 2.8, s.SUMO_color_E3Exit);
+            GLHelper::drawText("E3", Position(), .1, 2.8, s.colorSettings.E3Exit);
         }
         //move to logo position
         glTranslated(1.7, 0, 0);
@@ -239,35 +229,33 @@ GNEDetectorEntryExit::drawGL(const GUIVisualizationSettings& s) const {
         glRotated(90, 0, 0, 1);
         // draw Entry or Exit text if isn't being drawn for selecting
         if (s.drawForSelecting) {
-            GLHelper::setColor(s.SUMO_color_E3Entry);
+            GLHelper::setColor(s.colorSettings.E3Entry);
             GLHelper::drawBoxLine(Position(0, 1), 0, 2, 1);
         } else if (drawUsingSelectColor()) {
             if (myTagProperty.getTag() == SUMO_TAG_DET_ENTRY) {
-                GLHelper::drawText("Entry", Position(), .1, 1, s.selectedAdditionalColor);
+                GLHelper::drawText("Entry", Position(), .1, 1, s.colorSettings.selectedAdditionalColor);
             } else if (myTagProperty.getTag() == SUMO_TAG_DET_EXIT) {
-                GLHelper::drawText("Exit", Position(), .1, 1, s.selectedAdditionalColor);
+                GLHelper::drawText("Exit", Position(), .1, 1, s.colorSettings.selectedAdditionalColor);
             }
         } else {
             if (myTagProperty.getTag() == SUMO_TAG_DET_ENTRY) {
-                GLHelper::drawText("Entry", Position(), .1, 1, s.SUMO_color_E3Entry);
+                GLHelper::drawText("Entry", Position(), .1, 1, s.colorSettings.E3Entry);
             } else if (myTagProperty.getTag() == SUMO_TAG_DET_EXIT) {
-                GLHelper::drawText("Exit", Position(), .1, 1, s.SUMO_color_E3Exit);
+                GLHelper::drawText("Exit", Position(), .1, 1, s.colorSettings.E3Exit);
             }
         }
         // pop matrix
         glPopMatrix();
-        // Show Lock icon depending of the Edit mode and if isn't being drawn for selecting
-        if (!s.drawForSelecting) {
-            myBlockIcon.draw(0.4);
-        }
+        // draw lock icon
+        myBlockIcon.drawIcon(s, exaggeration, 0.4);
     }
     // Draw name if isn't being drawn for selecting
     if (!s.drawForSelecting) {
         drawName(getPositionInView(), s.scale, s.addName);
     }
     // check if dotted contour has to be drawn
-    if (!s.drawForSelecting && (myViewNet->getDottedAC() == this)) {
-        GLHelper::drawShapeDottedContour(getType(), myGeometry.shape[0], 3.4, 5, myGeometry.shapeRotations[0], 0, 2);
+    if (myViewNet->getDottedAC() == this) {
+        GLHelper::drawShapeDottedContourRectangle(s, getType(), myGeometry.shape[0], 3.4, 5, myGeometry.shapeRotations[0], 0, 2);
     }
     // pop gl identificator
     glPopName();

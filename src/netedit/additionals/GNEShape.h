@@ -25,14 +25,14 @@
 
 
 #include <netedit/GNEHierarchicalElementParents.h>
-#include <netedit/GNEHierarchicalElementChilds.h>
+#include <netedit/GNEHierarchicalElementChildren.h>
 
 
 // ===========================================================================
 // class definitions
 // ===========================================================================
 
-class GNEShape : public GNEAttributeCarrier, public GNEHierarchicalElementParents, public GNEHierarchicalElementChilds {
+class GNEShape : public GNEAttributeCarrier, public GNEHierarchicalElementParents, public GNEHierarchicalElementChildren {
 public:
     /**@brief Constructor.
      * @param[in] net The net to inform about gui updates
@@ -42,12 +42,12 @@ public:
      * @param[in] laneParents vector of lane parents
      * @param[in] shapeParents vector of shape parents
      * @param[in] additionalParents vector of additional parents
-     * @param[in] demandElementChilds vector of demandElement parents
-     * @param[in] edgeChilds vector of edge childs
-     * @param[in] laneChilds vector of lane childs
-     * @param[in] shapeChilds vector of shape childs
-     * @param[in] additionalChilds vector of additional childs
-     * @param[in] demandElementChilds vector of demandElement childs
+     * @param[in] demandElementChildren vector of demandElement parents
+     * @param[in] edgeChildren vector of edge children
+     * @param[in] laneChildren vector of lane children
+     * @param[in] shapeChildren vector of shape children
+     * @param[in] additionalChildren vector of additional children
+     * @param[in] demandElementChildren vector of demandElement children
      */
     GNEShape(GNENet* net, SumoXMLTag tag, bool movementBlocked,
              const std::vector<GNEEdge*>& edgeParents,
@@ -55,11 +55,11 @@ public:
              const std::vector<GNEShape*>& shapeParents,
              const std::vector<GNEAdditional*>& additionalParents,
              const std::vector<GNEDemandElement*>& demandElementParents,
-             const std::vector<GNEEdge*>& edgeChilds,
-             const std::vector<GNELane*>& laneChilds,
-             const std::vector<GNEShape*>& shapeChilds,
-             const std::vector<GNEAdditional*>& additionalChilds,
-             const std::vector<GNEDemandElement*>& demandElementChilds);
+             const std::vector<GNEEdge*>& edgeChildren,
+             const std::vector<GNELane*>& laneChildren,
+             const std::vector<GNEShape*>& shapeChildren,
+             const std::vector<GNEAdditional*>& additionalChildren,
+             const std::vector<GNEDemandElement*>& demandElementChildren);
 
     /// @brief Destructor
     ~GNEShape();

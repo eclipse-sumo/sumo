@@ -142,10 +142,10 @@ public:
     bool vehicleApplies(const SUMOTrafficObject& veh) const {
         if (veh.isVehicle() == detectPersons()) {
             return false;
-        } else if (myVehicleTypes.empty() || myVehicleTypes.count(veh.getVehicleType().getID()) > 0) {
+        } else if (myVehicleTypes.empty() || myVehicleTypes.count(veh.getVehicleType().getOriginalID()) > 0) {
             return true;
         } else {
-            std::set<std::string> vTypeDists = MSNet::getInstance()->getVehicleControl().getVTypeDistributionMembership(veh.getVehicleType().getID());
+            std::set<std::string> vTypeDists = MSNet::getInstance()->getVehicleControl().getVTypeDistributionMembership(veh.getVehicleType().getOriginalID());
             for (auto vTypeDist : vTypeDists) {
                 if (myVehicleTypes.count(vTypeDist) > 0) {
                     return true;

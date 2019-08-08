@@ -29,7 +29,7 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot, ['--g
 netedit.shapeMode()
 
 # go to shape mode
-netedit.changeShape("poly")
+netedit.changeElement("poly")
 
 # create one-point polygon (area 0)
 netedit.createRectangledPoly(referencePosition, 300, 50, 0, 0, True)

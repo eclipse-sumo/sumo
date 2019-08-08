@@ -56,7 +56,9 @@ MSParkingArea::MSParkingArea(const std::string& id,
     myEgressBlocked(false),
     myReservationTime(-1),
     myReservations(0),
-    myReservationMaxLength(0) {
+    myReservationMaxLength(0),
+    myNumAlternatives(0)
+{
     // initialize unspecified defaults
     if (myWidth == 0) {
         myWidth = SUMO_const_laneWidth;
@@ -203,7 +205,12 @@ MSParkingArea::getLastFreePosWithReservation(SUMOTime t, const SUMOVehicle& forV
             std::cout << SIMTIME << " pa=" << getID() << " freePosRes veh=" << forVehicle.getID() << " other lane\n";
         }
 #endif
-        return getLastFreePos(forVehicle);
+        if (myNumAlternatives > 0 && getOccupancy() == getCapacity()) {
+            // ensure that the vehicle reaches the rerouter lane
+            return MAX2(myBegPos, MIN2(POSITION_EPS, myEndPos));
+        } else {
+            return getLastFreePos(forVehicle);
+        }
     }
     if (t > myReservationTime) {
 #ifdef DEBUG_RESERVATIONS

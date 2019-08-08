@@ -233,6 +233,3 @@ class PoiDomain(Domain):
         if compoundLength >= 5:
             self._connection._string += struct.pack("!BB", tc.TYPE_UBYTE, type)
         self._connection._sendExact()
-
-
-PoiDomain()

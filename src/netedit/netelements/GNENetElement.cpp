@@ -84,7 +84,7 @@ GNENetElement::GNENetElement(GNENet* net, const std::string& id, GUIGlObjectType
     GUIGlObject(type, id),
     GNEAttributeCarrier(tag),
     GNEHierarchicalElementParents(this, {}, {}, {}, {}, {}),
-    GNEHierarchicalElementChilds(this, {}, {}, {}, {}, {}),
+    GNEHierarchicalElementChildren(this, {}, {}, {}, {}, {}),
     myNet(net),
     myMovingGeometryBoundary() {
 }
@@ -116,12 +116,12 @@ GNENetElement::getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView&) {
     // Create table
     GUIParameterTableWindow* ret = new GUIParameterTableWindow(app, *this, myTagProperty.getNumberOfAttributes());
     // Iterate over attributes
-    for (const auto& i : myTagProperty) {
+    for (const auto &i : myTagProperty) {
         // Add attribute and set it dynamic if aren't unique
-        if (i.second.isUnique()) {
-            ret->mkItem(toString(i.first).c_str(), false, getAttribute(i.first));
+        if (i.isUnique()) {
+            ret->mkItem(i.getAttrStr().c_str(), false, getAttribute(i.getAttr()));
         } else {
-            ret->mkItem(toString(i.first).c_str(), true, getAttribute(i.first));
+            ret->mkItem(i.getAttrStr().c_str(), true, getAttribute(i.getAttr()));
         }
     }
     // close building

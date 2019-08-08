@@ -45,6 +45,3 @@ class RouteDomain(Domain):
                                        1 + 4 + sum(map(len, edges)) + 4 * len(edges))
         self._connection._packStringList(edges)
         self._connection._sendExact()
-
-
-RouteDomain()

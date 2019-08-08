@@ -44,7 +44,7 @@ netedit.changeAutomaticallyDeleteAdditionals(referencePosition)
 netedit.leftClick(referencePosition, 340, 300)
 
 # wait warning
-netedit.waitAutomaticallyDeleteAdditionalsWarning()
+netedit.waitDeleteWarning()
 
 # recompute
 netedit.rebuildNetwork()

@@ -2,6 +2,10 @@
 cmake_policy(SET CMP0048 NEW)
 # do not expand quoted variables in if statements
 cmake_policy(SET CMP0054 NEW)
+if (${CMAKE_VERSION} VERSION_GREATER 3.13.0)
+    # UseSWIG generates standard target names
+    cmake_policy(SET CMP0078 NEW)
+endif()
 # Options
 option(CHECK_OPTIONAL_LIBS "Try to download / enable all optional libraries (use only EPL clean libraries, if set to false)" true)
 option(MULTITHREADED_BUILD "Use all available cores for building (applies to Visual Studio only)" true)
@@ -59,6 +63,8 @@ elseif (MSVC)
     if (MULTITHREADED_BUILD)
         set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /MP")
     endif ()
+    # exporting symbols for shared libraries needs to enabled explicitly
+    set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS ON)
 endif ()
 
 # special debug flags
@@ -68,8 +74,8 @@ if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
 endif ()
 
 # we need to build position independent code when generating a shared library
+set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 if (SUMO_UTILS)
-    set(CMAKE_POSITION_INDEPENDENT_CODE ON)
     set(ENABLED_FEATURES "${ENABLED_FEATURES} SumoUtilsLibrary")
 endif ()
 
@@ -157,9 +163,10 @@ if (SUMO_LIBRARIES AND WIN32)
     else()
         file(GLOB XERCES_PATH "${SUMO_LIBRARIES}/xerces-c-3.?.?${LIB_VERSION}")
     endif()
+    file(GLOB ZLIB_PATH "${SUMO_LIBRARIES}/3rdPartyLibs/zlib-?.?.??${LIB_VERSION}")
     file(GLOB PROJ_PATH "${SUMO_LIBRARIES}/proj_gdal-????${LIB_VERSION}")
     file(GLOB FOX_PATH "${SUMO_LIBRARIES}/fox-1.6.??${LIB_VERSION}")
-    set(CMAKE_PREFIX_PATH "${CMAKE_PREFIX_PATH};${XERCES_PATH};${PROJ_PATH};${FOX_PATH}")
+    set(CMAKE_PREFIX_PATH "${CMAKE_PREFIX_PATH};${XERCES_PATH};${ZLIB_PATH};${ZLIB_PATH}/Release;${ZLIB_PATH}/Debug;${PROJ_PATH};${FOX_PATH}")
     file(GLOB SUMO_LIBRARIES_DLL "${XERCES_PATH}/bin/*.dll"
                                  "${PROJ_PATH}/bin/*.dll"
                                  "${FOX_PATH}/lib/*.dll"
@@ -311,6 +318,7 @@ if (GTEST_FOUND)
 endif ()
 
 # installation
+include(GNUInstallDirs)
 install(DIRECTORY data/ DESTINATION share/sumo/data)
 install(DIRECTORY tools/ DESTINATION share/sumo/tools
         USE_SOURCE_PERMISSIONS
@@ -329,16 +337,20 @@ if (NOT ${SETUPTOOLS_MISSING})
     install(CODE "execute_process(COMMAND ${PYTHON_EXECUTABLE} ${CMAKE_SOURCE_DIR}/tools/build/setup-traci.py clean --all install --root=\$ENV{DESTDIR}/ --prefix=${CMAKE_INSTALL_PREFIX} --optimize=1)"
             COMPONENT pytraci)
 endif()
-string(REPLACE "${SUMO_LIBRARIES}" "" SUMO_LIBRARIES_DLL "${SUMO_LIBRARIES_DLL}")
-add_custom_target(install_dll)
-add_custom_command(TARGET install_dll PRE_BUILD
-                   COMMAND ${PYTHON_EXECUTABLE} -c "import shutil;[shutil.copy('${SUMO_LIBRARIES}'+l, '${CMAKE_SOURCE_DIR}/bin') for l in '${SUMO_LIBRARIES_DLL}'.split(';')]")
-if (HAVE_OSG)
-    add_custom_command(TARGET install_dll PRE_BUILD
-                       COMMAND ${CMAKE_COMMAND} -E copy_directory ${OSG_PATH}/bin ${CMAKE_SOURCE_DIR}/bin)
-endif ()
-set_property(TARGET install_dll PROPERTY EXCLUDE_FROM_DEFAULT_BUILD TRUE)
-set_property(TARGET install_dll PROPERTY FOLDER "CMake")
+if (SUMO_LIBRARIES AND WIN32)
+    string(REPLACE "${SUMO_LIBRARIES}" "" SUMO_LIBRARIES_DLL "${SUMO_LIBRARIES_DLL}")
+    add_custom_command(OUTPUT ${CMAKE_SOURCE_DIR}/bin/zlib.dll
+                       COMMAND ${PYTHON_EXECUTABLE} -c "import shutil;[shutil.copy('${SUMO_LIBRARIES}'+l, '${CMAKE_SOURCE_DIR}/bin') for l in '${SUMO_LIBRARIES_DLL}'.split(';')]"
+                       DEPENDS ${SUMO_LIBRARIES})
+    if (HAVE_OSG)
+        set(OSG_TARGET ${CMAKE_SOURCE_DIR}/bin/osg130-osg.dll)
+        add_custom_command(OUTPUT ${OSG_TARGET}
+                           COMMAND ${CMAKE_COMMAND} -E copy_directory ${OSG_PATH}/bin ${CMAKE_SOURCE_DIR}/bin
+                           DEPENDS ${OSG_PATH})
+    endif ()
+    add_custom_target(install_dll ALL DEPENDS ${CMAKE_SOURCE_DIR}/bin/zlib.dll ${OSG_TARGET})
+    set_property(TARGET install_dll PROPERTY FOLDER "CMake")
+endif()
 
 # java targets
 find_program(MVN_EXECUTABLE mvn)
@@ -358,15 +370,17 @@ if (MVN_EXECUTABLE AND Java_FOUND)
         COMMAND ${MVN_COMMAND_PREFIX} ${MVN_EXECUTABLE} --batch-mode -f tools/contributed/traas/pom.xml clean install
         COMMAND ${CMAKE_COMMAND} -E copy tools/contributed/traas/target/traas-1.0-jar-with-dependencies.jar bin/TraaS.jar
         WORKING_DIRECTORY ${CMAKE_SOURCE_DIR})
-    add_custom_target(lisum-core DEPENDS traas
+    add_custom_target(lisum-core
         COMMAND ${MVN_COMMAND_PREFIX} ${MVN_EXECUTABLE} --batch-mode -f tools/contributed/lisum-core/pom.xml clean install
         COMMAND ${CMAKE_COMMAND} -E copy tools/contributed/lisum-core/target/lisum-core-1.0.1-SNAPSHOT.jar bin
         COMMAND ${MVN_EXECUTABLE} install:install-file -Dfile=bin/lisum-core-1.0.1-SNAPSHOT.jar -DgroupId=de.dlr.ts -DartifactId=lisum-core -Dversion=1.0.1 -Dpackaging=jar
         WORKING_DIRECTORY ${CMAKE_SOURCE_DIR})
-    add_custom_target(lisum-gui DEPENDS lisum-core
+    add_dependencies(lisum-core traas)
+    add_custom_target(lisum-gui
         COMMAND ${MVN_COMMAND_PREFIX} ${MVN_EXECUTABLE} --batch-mode -f tools/contributed/lisum-gui/pom_new.xml clean install
         COMMAND ${CMAKE_COMMAND} -E copy tools/contributed/lisum-gui/target/lisum-gui-1.0.jar bin
         WORKING_DIRECTORY ${CMAKE_SOURCE_DIR})
+    add_dependencies(lisum-gui lisum-core)
     set(JAVA_TARGETS cadyts traas lisum-core lisum-gui)
     foreach (JAVAT ${JAVA_TARGETS})
         set_property(TARGET ${JAVAT} PROPERTY EXCLUDE_FROM_DEFAULT_BUILD TRUE)
@@ -426,7 +440,8 @@ if (HELPMAN_EXECUTABLE)
     set(MAN_TARGET man)
 endif()
 
-add_custom_target(doc DEPENDS doxygen userdoc ${JAVADOC_TARGET} ${MAN_TARGET})
+add_custom_target(doc)
+add_dependencies(doc doxygen userdoc ${JAVADOC_TARGET} ${MAN_TARGET})
 set_property(TARGET doc PROPERTY EXCLUDE_FROM_DEFAULT_BUILD TRUE)
 set_property(TARGET doc PROPERTY FOLDER "doc")
 
@@ -444,16 +459,24 @@ if (COVERAGE)
     WORKING_DIRECTORY ${CMAKE_SOURCE_DIR})
 endif()
 
+# testing
+enable_testing()
+add_subdirectory(src)
+if (GTEST_FOUND)
+    add_subdirectory(unittest)
+endif ()
+
 # example and dist targets
-add_custom_target(examples DEPENDS sumo netconvert dfrouter duarouter jtrrouter
+add_custom_target(examples
     COMMAND ${PYTHON_EXECUTABLE} tools/extractTest.py -x -f tests/examples.txt -p docs/examples/runAll.py
     WORKING_DIRECTORY ${CMAKE_SOURCE_DIR})
+add_dependencies(examples sumo netconvert dfrouter duarouter jtrrouter)
 set_property(TARGET examples PROPERTY EXCLUDE_FROM_DEFAULT_BUILD TRUE)
 set_property(TARGET examples PROPERTY FOLDER "doc")
 add_test(exampletest ${PYTHON_EXECUTABLE} ${CMAKE_SOURCE_DIR}/docs/examples/runAll.py)
 find_package(Git)
 if (GIT_FOUND)
-    add_custom_target(dist DEPENDS examples doc ${JAVA_TARGETS}
+    add_custom_target(dist
         COMMAND rm -rf sumo-${PACKAGE_VERSION} sumo-${PACKAGE_VERSION}.zip sumo-src-${PACKAGE_VERSION}.tar.gz sumo-src-${PACKAGE_VERSION}.zip sumo-all-${PACKAGE_VERSION}.tar.gz sumo-all-${PACKAGE_VERSION}.zip
         COMMAND ${GIT_EXECUTABLE} archive --prefix sumo-${PACKAGE_VERSION}/ -o sumo-${PACKAGE_VERSION}.zip HEAD
         COMMAND unzip -q sumo-${PACKAGE_VERSION}.zip
@@ -467,14 +490,11 @@ if (GIT_FOUND)
         COMMAND tar czf sumo-all-${PACKAGE_VERSION}.tar.gz sumo-${PACKAGE_VERSION}
         COMMAND rm -rf sumo-${PACKAGE_VERSION} sumo-${PACKAGE_VERSION}.zip
         WORKING_DIRECTORY ${CMAKE_SOURCE_DIR})
+    add_dependencies(dist examples doc ${JAVA_TARGETS})
     set_property(TARGET dist PROPERTY FOLDER "CMake")
     set_property(TARGET dist PROPERTY EXCLUDE_FROM_DEFAULT_BUILD TRUE)
-    # alias for backward compatibility
-    add_custom_target(dist-complete DEPENDS dist)
-    set_property(TARGET dist-complete PROPERTY FOLDER "CMake")
-    set_property(TARGET dist-complete PROPERTY EXCLUDE_FROM_DEFAULT_BUILD TRUE)
 
-    add_custom_target(distcheck DEPENDS dist
+    add_custom_target(distcheck
         COMMAND rm -rf sumo-${PACKAGE_VERSION}
         COMMAND unzip -q sumo-src-${PACKAGE_VERSION}.zip
         COMMAND cd sumo-${PACKAGE_VERSION} && mkdir _cmake_build _cmake_install && cd _cmake_build
@@ -484,6 +504,7 @@ if (GIT_FOUND)
                 && make install || (echo "ERROR: the install target failed." && false)
         COMMAND rm -rf sumo-${PACKAGE_VERSION}
         WORKING_DIRECTORY ${CMAKE_SOURCE_DIR})
+    add_dependencies(distcheck dist)
     set_property(TARGET distcheck PROPERTY FOLDER "CMake")
     set_property(TARGET distcheck PROPERTY EXCLUDE_FROM_DEFAULT_BUILD TRUE)
 endif ()

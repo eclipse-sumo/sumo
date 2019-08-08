@@ -29,10 +29,10 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 netedit.additionalMode()
 
 # select chargingStation
-netedit.changeAdditional("chargingStation")
+netedit.changeElement("chargingStation")
 
 # set block movement
-netedit.modifyAdditionalDefaultBoolValue(12)
+netedit.changeDefaultBoolValue(12)
 
 # create chargingStation in mode "reference left"
 netedit.leftClick(referencePosition, 250, 250)

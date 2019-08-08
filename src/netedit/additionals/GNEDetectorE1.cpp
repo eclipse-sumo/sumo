@@ -139,17 +139,17 @@ GNEDetectorE1::updateGeometry() {
 
 void
 GNEDetectorE1::drawGL(const GUIVisualizationSettings& s) const {
-    // get values
-    glPushName(getGlID());
-    double width = (double) 2.0 * s.scale;
-    glLineWidth(1.0);
+    // get values    
+    const double width = (double) 2.0 * s.scale;
     const double exaggeration = s.addSize.getExaggeration(s, this);
-
+    // start drawing
+    glPushName(getGlID());
+    glLineWidth(1.0);
     // set color
     if (drawUsingSelectColor()) {
-        GLHelper::setColor(s.selectedAdditionalColor);
+        GLHelper::setColor(s.colorSettings.selectedAdditionalColor);
     } else {
-        GLHelper::setColor(s.SUMO_color_E1);
+        GLHelper::setColor(s.colorSettings.E1);
     }
     // draw shape
     glPushMatrix();
@@ -168,12 +168,11 @@ GNEDetectorE1::drawGL(const GUIVisualizationSettings& s) const {
     glVertex2d(0, 2 - .1);
     glVertex2d(0, -2 + .1);
     glEnd();
-
     // outline if isn't being drawn for selecting
     if ((width * exaggeration > 1) && !s.drawForSelecting) {
         // set color
         if (drawUsingSelectColor()) {
-            GLHelper::setColor(s.selectionColor);
+            GLHelper::setColor(s.colorSettings.selectionColor);
         } else {
             GLHelper::setColor(RGBColor::WHITE);
         }
@@ -186,12 +185,11 @@ GNEDetectorE1::drawGL(const GUIVisualizationSettings& s) const {
         glEnd();
         glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
     }
-
     // position indicator if isn't being drawn for selecting
     if ((width * exaggeration > 1) && !s.drawForSelecting) {
         // set color
         if (drawUsingSelectColor()) {
-            GLHelper::setColor(s.selectionColor);
+            GLHelper::setColor(s.colorSettings.selectionColor);
         } else {
             GLHelper::setColor(RGBColor::WHITE);
         }
@@ -201,12 +199,10 @@ GNEDetectorE1::drawGL(const GUIVisualizationSettings& s) const {
         glVertex2d(0, -1.7);
         glEnd();
     }
-
     // Pop shape matrix
     glPopMatrix();
-
     // Check if the distance is enought to draw details and isn't being drawn for selecting
-    if ((s.scale * exaggeration >= 10) && !s.drawForSelecting) {
+    if ((s.drawDetail(s.detailSettings.detectorDetails, exaggeration)) && !s.drawForSelecting) {
         // Push matrix
         glPushMatrix();
         // Traslate to center of detector
@@ -217,26 +213,23 @@ GNEDetectorE1::drawGL(const GUIVisualizationSettings& s) const {
         glTranslated(-1, 0, 0);
         // draw E1 logo
         if (drawUsingSelectColor()) {
-            GLHelper::drawText("E1", Position(), .1, 1.5, s.selectionColor);
+            GLHelper::drawText("E1", Position(), .1, 1.5, s.colorSettings.selectionColor);
         } else {
             GLHelper::drawText("E1", Position(), .1, 1.5, RGBColor::BLACK);
         }
         // pop matrix
         glPopMatrix();
         // Show Lock icon depending of the Edit mode
-        myBlockIcon.draw();
+        myBlockIcon.drawIcon(s, exaggeration);
     }
-
     // Finish draw if isn't being drawn for selecting
     if (!s.drawForSelecting) {
         drawName(getPositionInView(), s.scale, s.addName);
     }
-
     // check if dotted contour has to be drawn
-    if (!s.drawForSelecting && (myViewNet->getDottedAC() == this)) {
-        GLHelper::drawShapeDottedContour(getType(), myGeometry.shape[0], 2, 4, myGeometry.shapeRotations[0]);
+    if (myViewNet->getDottedAC() == this) {
+        GLHelper::drawShapeDottedContourRectangle(s, getType(), myGeometry.shape[0], 2, 4, myGeometry.shapeRotations[0]);
     }
-
     // pop name
     glPopName();
 }

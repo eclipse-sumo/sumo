@@ -1310,7 +1310,7 @@ public:
     void debugPrintConnections(bool outgoing = true, bool incoming = false) const;
 
     /// @brief compute the first intersection point between the given lane geometries considering their rspective widths
-    static double firstIntersection(const PositionVector& v1, const PositionVector& v2, double width2);
+    static double firstIntersection(const PositionVector& v1, const PositionVector& v2, double width2, const std::string& error = "");
 
     /** returns a modified version of laneShape which starts at the outside of startNode. laneShape may be shorted or extended
      * @note see [wiki:Developer/Network_Building_Process]
@@ -1352,6 +1352,9 @@ public:
     const std::string& getID() const {
         return Named::getID();
     }
+
+    /// @brief join adjacent lanes with the given permissions
+    bool joinLanes(SVCPermissions perms); 
 
 private:
     /** @class ToEdgeConnectionsAdder

@@ -1,0 +1,8 @@
+Warning: Essential unique string attribute 'to' of trip with ID 'flow_0' is missing; trip cannot be created
+Error: Invalid 'to' edge used in trip 'flow_0'.
+Error: Invalid route '' used in flow 'flow_0'.
+Error: Invalid 'to' edge used in trip 'flow_1'.
+Error: Invalid route '' used in flow 'flow_1'.
+Error: Invalid 'to' edge used in trip 'flow_2'.
+Error: Invalid route '' used in flow 'flow_2'.
+Error: Loading of C:/Users/alva_pa/.texttest/tmp/netedit.gui.05Aug135627.10248/netedit.gui/demandElements/flow/load/to\input_routes.rou.xml failed.

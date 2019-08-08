@@ -29,7 +29,7 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 netedit.additionalMode()
 
 # select vaporizer
-netedit.changeAdditional("vaporizer")
+netedit.changeElement("vaporizer")
 
 # create vaporizer
 netedit.leftClick(referencePosition, 250, 120)
@@ -47,16 +47,16 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 310, 220)
 
 # Change parameter 2 with a non valid value (dummy)
-netedit.modifyAttribute(2, "dummy", False)
+netedit.modifyAttribute(2, "dummy", True)
 
 # Change parameter 2 with a non valid value (negative)
-netedit.modifyAttribute(2, "-10", False)
+netedit.modifyAttribute(2, "-10", True)
 
 # Change parameter 2 with a non valid value (minor than startTime)
-netedit.modifyAttribute(2, "2", False)
+netedit.modifyAttribute(2, "2", True)
 
 # Change parameter 2 with a valid value
-netedit.modifyAttribute(2, "20", False)
+netedit.modifyAttribute(2, "20", True)
 
 # click over an empty area
 netedit.leftClick(referencePosition, 0, 0)

@@ -1321,9 +1321,11 @@ NBEdge::removeFromConnections(NBEdge* toEdge, int fromLane, int toLane, bool try
                         }
                     }
                 }
+                //std::cout << getID() << " removeFromConnections fromLane=" << fromLane << " to=" << Named::getIDSecure(toEdge) << " toLane=" << toLane << " reduceFromLane=" << c.fromLane << " (to=" << c.toLane << ")\n";
                 c.fromLane--;
             }
-            if (toLaneRemoved >= 0 && c.toLane > toLaneRemoved) {
+            if (toLaneRemoved >= 0 && c.toLane > toLaneRemoved && (toEdge == nullptr || c.toEdge == toEdge)) {
+                //std::cout << getID() << " removeFromConnections fromLane=" << fromLane << " to=" << Named::getIDSecure(toEdge) << " toLane=" << toLane << " reduceToLane=" << c.toLane << " (from=" << c.fromLane << ")\n";
                 c.toLane--;
             }
             ++i;
@@ -1553,7 +1555,9 @@ NBEdge::buildInnerEdges(const NBNode& n, int noInternalNoSplits, int& linkIndex,
             numLanes = 0;
             lengthSum = 0;
         }
-        PositionVector shape = n.computeInternalLaneShape(this, con, numPoints, myTo);
+        SVCPermissions conPermissions = getPermissions(con.fromLane) & con.toEdge->getPermissions(con.toLane);
+        int shapeFlag = (conPermissions & ~SVC_PEDESTRIAN) != 0 ? 0 : NBNode::SCURVE_IGNORE;
+        PositionVector shape = n.computeInternalLaneShape(this, con, numPoints, myTo, shapeFlag);
         std::vector<int> foeInternalLinks;
 
         if (dir != LINKDIR_STRAIGHT && shape.length() < POSITION_EPS && !(isBidiRail() && getTurnDestination(true) == con.toEdge)) {
@@ -1604,7 +1608,8 @@ NBEdge::buildInnerEdges(const NBNode& n, int noInternalNoSplits, int& linkIndex,
                         if (needsCont || (bothPrio && oppositeLeftIntersect)) {
                             crossingPositions.second.push_back(index);
                             const PositionVector otherShape = n.computeInternalLaneShape(*i2, *k2, numPoints, 0, shapeFlag);
-                            const double minDV = firstIntersection(shape, otherShape, width2);
+                            const double minDV = firstIntersection(shape, otherShape, width2, 
+                                    "Could not compute intersection of conflicting internal lanes at node '" + myTo->getID() + "'");
                             if (minDV < shape.length() - POSITION_EPS && minDV > POSITION_EPS) { // !!!?
                                 assert(minDV >= 0);
                                 if (crossingPositions.first < 0 || crossingPositions.first > minDV) {
@@ -1780,7 +1785,7 @@ NBEdge::assignInternalLaneLength(std::vector<Connection>::iterator i, int numLan
 }
 
 double
-NBEdge::firstIntersection(const PositionVector& v1, const PositionVector& v2, double width2) {
+NBEdge::firstIntersection(const PositionVector& v1, const PositionVector& v2, double width2, const std::string& error) {
     double intersect = std::numeric_limits<double>::max();
     if (v2.length() < POSITION_EPS) {
         return intersect;
@@ -1799,9 +1804,10 @@ NBEdge::firstIntersection(const PositionVector& v1, const PositionVector& v2, do
         for (double cand : v1.intersectsAtLengths2D(v2Left)) {
             intersect = MIN2(intersect, cand);
         }
-    } catch (InvalidArgument& e) {
-        //WRITE_WARNING("Could not compute intersection of conflicting internal lanes at node '" + getID() + "'");
-        WRITE_WARNING("Could not compute intersection of conflicting internal lanes at node");
+    } catch (InvalidArgument&) {
+        if (error != "") {
+            WRITE_WARNING(error);
+        }
     }
     //std::cout << " v1=" << v1 << " v2Right=" << v2Right << " v2Left=" << v2Left << "\n";
     //std::cout << "  intersectsRight=" << toString(v1.intersectsAtLengths2D(v2Right)) << "\n";
@@ -2984,7 +2990,8 @@ NBEdge::expandableBy(NBEdge* possContinuation, std::string& reason) const {
         } else if (myLanes[i].permissions != possContinuation->myLanes[i].permissions) {
             reason = "lane " + toString(i) + " permissions";
             return false;
-        } else if (myLanes[i].width != possContinuation->myLanes[i].width) {
+        } else if (myLanes[i].width != possContinuation->myLanes[i].width && 
+               fabs(myLanes[i].width - possContinuation->myLanes[i].width) > OptionsCont::getOptions().getFloat("geometry.remove.width-tolerance")) {
             reason = "lane " + toString(i) + " width";
             return false;
         }
@@ -3745,10 +3752,13 @@ NBEdge::getViaSuccessors(SUMOVehicleClass vClass) const {
     myViaSuccessors.clear();
     for (const Connection& con : myConnections) {
         std::pair<const NBEdge*, const Connection*> pair(con.toEdge, nullptr);
-        if (con.fromLane >= 0 && con.toLane >= 0 && con.toEdge != nullptr &&
-                (getPermissions(con.fromLane)
-                 & con.toEdge->getPermissions(con.toLane) & vClass) != 0) {
-                // ignore duplicates
+        // special case for Persons in Netedit
+        if (vClass == SVC_PEDESTRIAN) {         //
+            myViaSuccessors.push_back(pair);    //
+        } else if (con.fromLane >= 0 && con.toLane >= 0 && 
+                   con.toEdge != nullptr &&
+                   (getPermissions(con.fromLane) & con.toEdge->getPermissions(con.toLane) & vClass) != 0) {
+            // ignore duplicates
             if (con.getLength() > 0) {
                 pair.second = &con;
             }
@@ -3781,6 +3791,25 @@ NBEdge::debugPrintConnections(bool outgoing, bool incoming) const {
 int
 NBEdge::getLaneIndexFromLaneID(const std::string laneID) {
     return StringUtils::toInt(laneID.substr(laneID.rfind("_") + 1));
+}
+
+bool
+NBEdge::joinLanes(SVCPermissions perms) {
+    bool haveJoined = false;
+    int i = 0;
+    while (i < getNumLanes() - 1) {
+        if ((getPermissions(i) == perms) && (getPermissions(i + 1) == perms)) {
+            const double newWidth = getLaneWidth(i) + getLaneWidth(i + 1);
+            const std::string newType = myLanes[i].type + "|" + myLanes[i + 1].type;
+            deleteLane(i, false, true);
+            setLaneWidth(i, newWidth);
+            setLaneType(i, newType);
+            haveJoined = true;
+        } else {
+            i++;
+        }
+    }
+    return haveJoined;
 }
 
 /****************************************************************************/

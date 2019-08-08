@@ -29,43 +29,43 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 netedit.additionalMode()
 
 # select parkingArea
-netedit.changeAdditional("parkingArea")
+netedit.changeElement("parkingArea")
 
 # create parkingArea in mode "reference left"
 netedit.leftClick(referencePosition, 250, 250)
 
 # select space
-netedit.changeAdditional("space")
+netedit.changeElement("space")
 
 # set invalid Angle (dummy)
 netedit.selectAdditionalChild(8, 0)
-netedit.modifyAdditionalDefaultValue(4, "dummyAngle")
+netedit.changeDefaultValue(4, "dummyAngle")
 
 # try to create area
 netedit.leftClick(referencePosition, 300, 100)
 
 # set invalid angle (empty)
-netedit.modifyAdditionalDefaultValue(4, "")
+netedit.changeDefaultValue(4, "")
 
 # try to create area
 netedit.leftClick(referencePosition, 300, 100)
 
 # set valid angle (negative)
-netedit.modifyAdditionalDefaultValue(4, "-4")
+netedit.changeDefaultValue(4, "-4")
 
 # create area
 netedit.leftClick(referencePosition, 300, 100)
 
 # set valid angle (>360)
 netedit.selectAdditionalChild(8, 0)
-netedit.modifyAdditionalDefaultValue(4, "500")
+netedit.changeDefaultValue(4, "500")
 
 # create area
 netedit.leftClick(referencePosition, 320, 100)
 
 # set valid angle
 netedit.selectAdditionalChild(8, 0)
-netedit.modifyAdditionalDefaultValue(4, "120")
+netedit.changeDefaultValue(4, "120")
 
 # create area
 netedit.leftClick(referencePosition, 340, 100)

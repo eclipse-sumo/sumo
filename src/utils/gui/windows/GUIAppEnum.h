@@ -45,7 +45,7 @@ enum {
     /// @brief hotkey for mode editing additionals AND stops
     MID_HOTKEY_A_ADDITIONALMODE_STOPMODE,
     /// @brief hotkey for mode connecting lanes
-    MID_HOTKEY_C_CONNECTMODE,
+    MID_HOTKEY_C_CONNECTMODE_PERSONPLANMODE,
     /// @brief hotkey for mode deleting things
     MID_HOTKEY_D_DELETEMODE,
     /// @brief hotkey for mode adding edges
@@ -55,7 +55,7 @@ enum {
     /// @brief hotkey for mode moving element
     MID_HOTKEY_M_MOVEMODE,
     /// @brief hotkey for mode creating polygons
-    MID_HOTKEY_P_POLYGONMODE,
+    MID_HOTKEY_P_POLYGONMODE_PERSONMODE,
     /// @brief hotkey for mode selecting objects
     MID_HOTKEY_S_SELECTMODE,
     /// @brief hotkey for mode editing crossing AND routes
@@ -64,8 +64,8 @@ enum {
     MID_HOTKEY_T_TLSMODE_VTYPEMODE,
     /// @brief hotkey for mode create vehicles
     MID_HOTKEY_V_VEHICLEMODE,
-    /// @brief hotkey for mode editing connection prohibitions
-    MID_HOTKEY_W_PROHIBITIONMODE,
+    /// @brief hotkey for mode editing connection prohibitions AND person types
+    MID_HOTKEY_W_PROHIBITIONMODE_PERSONTYPEMODE,
     /// @brief hotkey for mode editing TAZ
     MID_HOTKEY_Z_TAZMODE,
 
@@ -496,19 +496,6 @@ enum {
     MID_CHOOSEN_NAME,
     /// @}
 
-    /// NETEDIT
-
-    /// @brief tree list with the childs
-    MID_GNE_DELETEFRAME_CHILDS,
-    /// @brief In GNEDeleteFrame, center element
-    MID_GNE_DELETEFRAME_CENTER,
-    /// @brief In GNEDeleteFrame, inspect element
-    MID_GNE_DELETEFRAME_INSPECT,
-    /// @brief In GNEDeleteFrame, delete element
-    MID_GNE_DELETEFRAME_DELETE,
-    /// @}
-
-
     /// @name IDs for visualization settings - Dialog
     /// @{
 
@@ -536,8 +523,11 @@ enum {
     /// @name dynamic interaction with the simulation via SUMO-GUI
     /// @{
 
+    /// @brief close lane
     MID_CLOSE_LANE,
+    /// @brief close edge
     MID_CLOSE_EDGE,
+    /// @brief add rerouter
     MID_ADD_REROUTER,
     /// @}
 
@@ -563,41 +553,48 @@ enum {
     /// @}
 
 
-    /// @name GNEViewNet messages
+    /// @name GNEViewNet view options messages
     /// @{
 
-    /// @brief show demand elements
-    MID_GNE_VIEWOPTIONSNETWORK_SHOWDEMANDELEMENTS,
-    /// @brief select edges
-    MID_GNE_VIEWOPTIONSNETWORK_SELECTEDGES,
-    /// @brief show connections
-    MID_GNE_VIEWOPTIONSNETWORK_SHOWCONNECTIONS,
-    /// @brief hide connections
-    MID_GNE_VIEWOPTIONSNETWORK_HIDECONNECTIONS,
-    /// @brief extend selection
-    MID_GNE_VIEWOPTIONSNETWORK_EXTENDSELECTION,
-    /// @brief change all phases
-    MID_GNE_VIEWOPTIONSNETWORK_CHANGEALLPHASES,
     /// @brief show grid
-    MID_GNE_VIEWOPTIONSNETWORK_SHOWGRID,
+    MID_GNE_COMMONVIEWOPTIONS_SHOWGRID,
+    /// @brief show demand elements
+    MID_GNE_NETWORKVIEWOPTIONS_SHOWDEMANDELEMENTS,
+    /// @brief select edges
+    MID_GNE_NETWORKVIEWOPTIONS_SELECTEDGES,
+    /// @brief show connections
+    MID_GNE_NETWORKVIEWOPTIONS_SHOWCONNECTIONS,
+    /// @brief hide connections
+    MID_GNE_NETWORKVIEWOPTIONS_HIDECONNECTIONS,
+    /// @brief extend selection
+    MID_GNE_NETWORKVIEWOPTIONS_EXTENDSELECTION,
+    /// @brief change all phases
+    MID_GNE_NETWORKVIEWOPTIONS_CHANGEALLPHASES,
     /// @brief ask before merging junctions
-    MID_GNE_VIEWOPTIONSNETWORK_ASKFORMERGE,
+    MID_GNE_NETWORKVIEWOPTIONS_ASKFORMERGE,
     /// @brief show junctions as bubbles
-    MID_GNE_VIEWOPTIONSNETWORK_SHOWBUBBLES,
+    MID_GNE_NETWORKVIEWOPTIONS_SHOWBUBBLES,
     /// @brief move elevation instead of x,y
-    MID_GNE_VIEWOPTIONSNETWORK_MOVEELEVATION,
+    MID_GNE_NETWORKVIEWOPTIONS_MOVEELEVATION,
     /// @brief create edges in chain mode
-    MID_GNE_VIEWOPTIONSNETWORK_CHAINEDGES,
+    MID_GNE_NETWORKVIEWOPTIONS_CHAINEDGES,
     /// @brief automatically create opposite edge
-    MID_GNE_VIEWOPTIONSNETWORK_AUTOOPPOSITEEDGES,
+    MID_GNE_NETWORKVIEWOPTIONS_AUTOOPPOSITEEDGES,
     /// @brief hide non-inspected demand element
-    MID_GNE_VIEWOPTIONSDEMAND_HIDENONINSPECTED,
+    MID_GNE_DEMANDVIEWOPTIONS_HIDENONINSPECTED,
+    /// @brief hide shapes
+    MID_GNE_DEMANDVIEWOPTIONS_HIDESHAPES,
+    /// @brief show all person plans
+    MID_GNE_DEMANDVIEWOPTIONS_SHOWALLPERSONPLANS,
+    /// @brief lock person
+    MID_GNE_DEMANDVIEWOPTIONS_LOCKPERSON,
 
     /// @}
 
 
     /// @name GNEFrame messages
     /// @{
+
     // MID_GNE_WIZARD,
     /// @brief attribute added
     MID_GNE_ADD_ATTRIBUTE,
@@ -605,10 +602,26 @@ enum {
     MID_GNE_REMOVE_ATTRIBUTE,
     /// @brief attribute edited
     MID_GNE_SET_ATTRIBUTE,
-    /// @brief create something
+    /// @brief create element
     MID_GNE_CREATE,
+    /// @brief delete element
+    MID_GNE_DELETE,
+    /// @brief inspect element
+    MID_GNE_INSPECT,
+    /// @brief reset element
+    MID_GNE_RESET,
+    /// @brief center element
+    MID_GNE_CENTER,
+    /// @brief copy element
+    MID_GNE_COPY,
+    /// @brief select element
+    MID_GNE_SELECT,
     /// @brief used to select a type of element in a combo box
     MID_GNE_SET_TYPE,
+    /// @brief tag type selected in ComboBox
+    MID_GNE_TAGTYPE_SELECTED,
+    /// @brief tag selected in ComboBox
+    MID_GNE_TAG_SELECTED,
     /// @brief text attribute edited
     MID_GNE_SET_ATTRIBUTE_TEXT,
     /// @brief bool attribute edited
@@ -617,8 +630,36 @@ enum {
     MID_GNE_SET_ATTRIBUTE_DIALOG,
     /// @brief attribute selected using a radio button
     MID_GNE_SET_ATTRIBUTE_RADIOBUTTON,
-    /// @brief select items
-    MID_GNE_SELECT,
+    /// @brief abort edge path creation
+    MID_GNE_EDGEPATH_ABORT,
+    /// @brief finish edge path creation
+    MID_GNE_EDGEPATH_FINISH,
+    /// @brief remove last inserted element in path
+    MID_GNE_EDGEPATH_REMOVELAST,
+    /// @brief In AttributeCarrierHierarchy list, show child menu
+    MID_GNE_ACHIERARCHY_SHOWCHILDMENU,
+    /// @brief In AttributeCarrierHierarchy list, move element to up
+    MID_GNE_ACHIERARCHY_MOVEUP,
+    /// @brief In AttributeCarrierHierarchy list, move element to down
+    MID_GNE_ACHIERARCHY_MOVEDOWN,
+    /// @brief set object as template
+    MID_GNE_TEMPLATE_SET,
+    /// @brief copy template
+    MID_GNE_TEMPLATE_COPY,
+    /// @brief start drawing polygon
+    MID_GNE_STARTDRAWING,
+    /// @brief stop drawing polygon
+    MID_GNE_STOPDRAWING,
+    /// @brief abort drawing polygon
+    MID_GNE_ABORTDRAWING,
+    /// @brief inspect next element in overlapped modul
+    MID_GNE_OVERLAPPED_NEXT,
+    /// @brief inspect previous element in overlapped modul
+    MID_GNE_OVERLAPPED_PREVIOUS,
+    /// @brief show list of overlapped elements
+    MID_GNE_OVERLAPPED_SHOWLIST,
+    /// @brief list item selected in overlapped modul
+    MID_GNE_OVERLAPPED_ITEMSELECTED,
     /// @}
 
 
@@ -633,12 +674,6 @@ enum {
     MID_GNE_SELECTORFRAME_PROCESSSTRING,
     /// @brief changes the visual scaling of selected items
     MID_GNE_SELECTORFRAME_SELECTSCALE,
-    /// @brief start drawing polygon
-    MID_GNE_STARTDRAWING,
-    /// @brief stop drawing polygon
-    MID_GNE_STOPDRAWING,
-    /// @brief abort drawing polygon
-    MID_GNE_ABORTDRAWING,
     /// @}
 
 
@@ -658,27 +693,8 @@ enum {
 
     /// @name GNEInspectorFrame messages
     /// @{
-
-    /// @brief In GNEINSPECTORFRAME, center element
-    MID_GNE_INSPECTORFRAME_CENTER,
-    /// @brief In GNEINSPECTORFRAME, inspect element
-    MID_GNE_INSPECTORFRAME_INSPECT,
-    /// @brief In GNEINSPECTORFRAME, delete element
-    MID_GNE_INSPECTORFRAME_DELETE,
-    /// @brief set object as template
-    MID_GNE_INSPECTORFRAME_SETTEMPLATE,
-    /// @brief copy template
-    MID_GNE_INSPECTORFRAME_COPYTEMPLATE,
     /// @brief go back to the previous element
     MID_GNE_INSPECTORFRAME_GOBACK,
-    /// @brief inspect next element
-    MID_GNE_INSPECTORFRAME_NEXT,
-    /// @brief inspect previous element
-    MID_GNE_INSPECTORFRAME_PREVIOUS,
-    /// @brief show list of overlapped elements
-    MID_GNE_INSPECTORFRAME_SHOWLIST,
-    /// @brief list item selected
-    MID_GNE_INSPECTORFRAME_ITEMSELECTED,
     /// @}
 
 
@@ -724,26 +740,6 @@ enum {
     /// @}
 
 
-    /// @name GNETLSEditorFrame messages
-    /// @{
-    /// @brief create vehicle types
-    MID_GNE_VEHICLETYPEFRAME_CREATE,
-    /// @brief delete a vehicle type
-    MID_GNE_VEHICLETYPEFRAME_DELETE,
-    /// @brief reset a default vehicle type
-    MID_GNE_VEHICLETYPEFRAME_RESET,
-    /// @brief copy a vehicle type
-    MID_GNE_VEHICLETYPEFRAME_COPY,
-    /// @}
-
-
-    /// @name GNECrossingFrame messages
-    /// @{
-
-    /// @brief Create crossing
-    MID_GNE_CROSSINGFRAME_CREATECROSSING,
-    /// @}
-
     /// @name GNEAdditionalFrame messages
     /// @{
 
@@ -781,17 +777,6 @@ enum {
     MID_GNE_PROHIBITIONFRAME_ABORTDRAWING,
     /// @}
 
-
-    /// @name GNEVehicleFrame messages
-    /// @{
-
-    /// @brief abort route creation
-    MID_GNE_VEHICLEFRAME_ABORT,
-    /// @brief finish route creation
-    MID_GNE_VEHICLEFRAME_FINISHCREATION,
-    /// @brief remove last inserted edge
-    MID_GNE_VEHICLEFRAME_REMOVELASTEDGE,
-    /// @}
 
     /// @name GNERoute messages
     /// @{
@@ -925,8 +910,10 @@ enum {
 
     /// @brief apply distance
     MID_GNE_ROUTE_APPLY_DISTANCE,
-    /// @brief transform vehicle to another vehicle type
+    /// @brief transform vehicle to another vehicle type (ej: flow to trip)
     MID_GNE_VEHICLE_TRANSFORM,
+    /// @brief transform person to another person type (ej: person to personflow)
+    MID_GNE_PERSON_TRANSFORM,
     /// @}
 
 

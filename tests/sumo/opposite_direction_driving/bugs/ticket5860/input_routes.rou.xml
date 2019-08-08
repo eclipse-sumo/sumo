@@ -1,0 +1,351 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 07/20/19 17:59:41 by Eclipse SUMO duarouter Version v1_2_0+1265-e74cb0958b
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/duarouterConfiguration.xsd">
+
+    <input>
+        <net-file value="03_input.net.xml"/>
+        <additional-files value="05_input_taz.xml"/>
+        <route-files value="04_input_flow.xml"/>
+    </input>
+
+    <output>
+        <output-file value="07_output_routes.xml"/>
+        <alternatives-output value="07_output_routes.alt.xml"/>
+    </output>
+
+    <processing>
+        <randomize-flows value="true"/>
+        <with-taz value="true"/>
+    </processing>
+
+</configuration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vType id="DEFAULT_VEHTYPE" speedDev="0.1"/>
+    <vehicle id="flow_0.0" depart="0.79" fromTaz="taz_0" toTaz="taz_1">
+        <route edges="Link2 Link3 Link4"/>
+    </vehicle>
+    <vehicle id="flow_1.0" depart="1.84" fromTaz="taz_1" toTaz="taz_0">
+        <route edges="Link24 Link25 Link43"/>
+    </vehicle>
+    <vehicle id="flow_0.1" depart="2.36" fromTaz="taz_0" toTaz="taz_1">
+        <route edges="Link2 Link3 Link4"/>
+    </vehicle>
+    <vehicle id="flow_0.2" depart="2.75" fromTaz="taz_0" toTaz="taz_1">
+        <route edges="Link2 Link3 Link4"/>
+    </vehicle>
+    <vehicle id="flow_0.3" depart="2.83" fromTaz="taz_0" toTaz="taz_1">
+        <route edges="Link2 Link3 Link4"/>
+    </vehicle>
+    <vehicle id="flow_1.1" depart="3.08" fromTaz="taz_1" toTaz="taz_0">
+        <route edges="Link24 Link25 Link43"/>
+    </vehicle>
+    <vehicle id="flow_0.4" depart="4.77" fromTaz="taz_0" toTaz="taz_1">
+        <route edges="Link2 Link3 Link4"/>
+    </vehicle>
+    <vehicle id="flow_0.5" depart="6.14" fromTaz="taz_0" toTaz="taz_1">
+        <route edges="Link2 Link3 Link4"/>
+    </vehicle>
+    <vehicle id="flow_0.6" depart="8.55" fromTaz="taz_0" toTaz="taz_1">
+        <route edges="Link2 Link3 Link4"/>
+    </vehicle>
+    <vehicle id="flow_0.7" depart="8.91" fromTaz="taz_0" toTaz="taz_1">
+        <route edges="Link2 Link3 Link4"/>
+    </vehicle>
+    <vehicle id="flow_0.8" depart="9.74" fromTaz="taz_0" toTaz="taz_1">
+        <route edges="Link2 Link3 Link4"/>
+    </vehicle>
+    <vehicle id="flow_0.9" depart="11.12" fromTaz="taz_0" toTaz="taz_1">
+        <route edges="Link2 Link3 Link4"/>
+    </vehicle>
+    <vehicle id="flow_1.2" depart="12.32" fromTaz="taz_1" toTaz="taz_0">
+        <route edges="Link24 Link25 Link43"/>
+    </vehicle>
+    <vehicle id="flow_0.10" depart="12.93" fromTaz="taz_0" toTaz="taz_1">
+        <route edges="Link2 Link3 Link4"/>
+    </vehicle>
+    <vehicle id="flow_0.11" depart="13.05" fromTaz="taz_0" toTaz="taz_1">
+        <route edges="Link2 Link3 Link4"/>
+    </vehicle>
+    <vehicle id="flow_0.12" depart="13.56" fromTaz="taz_0" toTaz="taz_1">
+        <route edges="Link2 Link3 Link4"/>
+    </vehicle>
+    <vehicle id="flow_0.13" depart="16.72" fromTaz="taz_0" toTaz="taz_1">
+        <route edges="Link2 Link3 Link4"/>
+    </vehicle>
+    <vehicle id="flow_0.14" depart="17.15" fromTaz="taz_0" toTaz="taz_1">
+        <route edges="Link2 Link3 Link4"/>
+    </vehicle>
+    <vehicle id="flow_0.15" depart="18.13" fromTaz="taz_0" toTaz="taz_1">
+        <route edges="Link2 Link3 Link4"/>
+    </vehicle>
+    <vehicle id="flow_0.16" depart="18.39" fromTaz="taz_0" toTaz="taz_1">
+        <route edges="Link2 Link3 Link4"/>
+    </vehicle>
+    <vehicle id="flow_1.3" depart="18.97" fromTaz="taz_1" toTaz="taz_0">
+        <route edges="Link24 Link25 Link43"/>
+    </vehicle>
+    <vehicle id="flow_0.17" depart="19.61" fromTaz="taz_0" toTaz="taz_1">
+        <route edges="Link2 Link3 Link4"/>
+    </vehicle>
+    <vehicle id="flow_1.4" depart="19.77" fromTaz="taz_1" toTaz="taz_0">
+        <route edges="Link24 Link25 Link43"/>
+    </vehicle>
+    <vehicle id="flow_0.18" depart="20.23" fromTaz="taz_0" toTaz="taz_1">
+        <route edges="Link2 Link3 Link4"/>
+    </vehicle>
+    <vehicle id="flow_0.19" depart="20.98" fromTaz="taz_0" toTaz="taz_1">
+        <route edges="Link2 Link3 Link4"/>
+    </vehicle>
+    <vehicle id="flow_1.5" depart="22.28" fromTaz="taz_1" toTaz="taz_0">
+        <route edges="Link24 Link25 Link43"/>
+    </vehicle>
+    <vehicle id="flow_0.20" depart="22.71" fromTaz="taz_0" toTaz="taz_1">
+        <route edges="Link2 Link3 Link4"/>
+    </vehicle>
+    <vehicle id="flow_0.21" depart="23.05" fromTaz="taz_0" toTaz="taz_1">
+        <route edges="Link2 Link3 Link4"/>
+    </vehicle>
+    <vehicle id="flow_1.6" depart="23.89" fromTaz="taz_1" toTaz="taz_0">
+        <route edges="Link24 Link25 Link43"/>
+    </vehicle>
+    <vehicle id="flow_0.22" depart="24.98" fromTaz="taz_0" toTaz="taz_1">
+        <route edges="Link2 Link3 Link4"/>
+    </vehicle>
+    <vehicle id="flow_0.23" depart="26.51" fromTaz="taz_0" toTaz="taz_1">
+        <route edges="Link2 Link3 Link4"/>
+    </vehicle>
+    <vehicle id="flow_1.7" depart="26.98" fromTaz="taz_1" toTaz="taz_0">
+        <route edges="Link24 Link25 Link43"/>
+    </vehicle>
+    <vehicle id="flow_0.24" depart="27.48" fromTaz="taz_0" toTaz="taz_1">
+        <route edges="Link2 Link3 Link4"/>
+    </vehicle>
+    <vehicle id="flow_1.8" depart="29.15" fromTaz="taz_1" toTaz="taz_0">
+        <route edges="Link24 Link25 Link43"/>
+    </vehicle>
+    <vehicle id="flow_1.9" depart="29.50" fromTaz="taz_1" toTaz="taz_0">
+        <route edges="Link24 Link25 Link43"/>
+    </vehicle>
+    <vehicle id="flow_1.10" depart="33.54" fromTaz="taz_1" toTaz="taz_0">
+        <route edges="Link24 Link25 Link43"/>
+    </vehicle>
+    <vehicle id="flow_1.11" depart="35.56" fromTaz="taz_1" toTaz="taz_0">
+        <route edges="Link24 Link25 Link43"/>
+    </vehicle>
+    <vehicle id="flow_1.12" depart="35.70" fromTaz="taz_1" toTaz="taz_0">
+        <route edges="Link24 Link25 Link43"/>
+    </vehicle>
+    <vehicle id="flow_1.13" depart="36.35" fromTaz="taz_1" toTaz="taz_0">
+        <route edges="Link24 Link25 Link43"/>
+    </vehicle>
+    <vehicle id="flow_1.14" depart="36.64" fromTaz="taz_1" toTaz="taz_0">
+        <route edges="Link24 Link25 Link43"/>
+    </vehicle>
+    <vehicle id="flow_0.25" depart="36.86" fromTaz="taz_0" toTaz="taz_1">
+        <route edges="Link2 Link3 Link4"/>
+    </vehicle>
+    <vehicle id="flow_0.26" depart="37.70" fromTaz="taz_0" toTaz="taz_1">
+        <route edges="Link2 Link3 Link4"/>
+    </vehicle>
+    <vehicle id="flow_0.27" depart="37.74" fromTaz="taz_0" toTaz="taz_1">
+        <route edges="Link2 Link3 Link4"/>
+    </vehicle>
+    <vehicle id="flow_1.15" depart="38.97" fromTaz="taz_1" toTaz="taz_0">
+        <route edges="Link24 Link25 Link43"/>
+    </vehicle>
+    <vehicle id="flow_0.28" depart="39.03" fromTaz="taz_0" toTaz="taz_1">
+        <route edges="Link2 Link3 Link4"/>
+    </vehicle>
+    <vehicle id="flow_1.16" depart="39.29" fromTaz="taz_1" toTaz="taz_0">
+        <route edges="Link24 Link25 Link43"/>
+    </vehicle>
+    <vehicle id="flow_1.17" depart="40.97" fromTaz="taz_1" toTaz="taz_0">
+        <route edges="Link24 Link25 Link43"/>
+    </vehicle>
+    <vehicle id="flow_1.18" depart="44.80" fromTaz="taz_1" toTaz="taz_0">
+        <route edges="Link24 Link25 Link43"/>
+    </vehicle>
+    <vehicle id="flow_0.29" depart="46.90" fromTaz="taz_0" toTaz="taz_1">
+        <route edges="Link2 Link3 Link4"/>
+    </vehicle>
+    <vehicle id="flow_0.30" depart="47.01" fromTaz="taz_0" toTaz="taz_1">
+        <route edges="Link2 Link3 Link4"/>
+    </vehicle>
+    <vehicle id="flow_1.19" depart="47.16" fromTaz="taz_1" toTaz="taz_0">
+        <route edges="Link24 Link25 Link43"/>
+    </vehicle>
+    <vehicle id="flow_1.20" depart="47.95" fromTaz="taz_1" toTaz="taz_0">
+        <route edges="Link24 Link25 Link43"/>
+    </vehicle>
+    <vehicle id="flow_1.21" depart="48.37" fromTaz="taz_1" toTaz="taz_0">
+        <route edges="Link24 Link25 Link43"/>
+    </vehicle>
+    <vehicle id="flow_1.22" depart="49.05" fromTaz="taz_1" toTaz="taz_0">
+        <route edges="Link24 Link25 Link43"/>
+    </vehicle>
+    <vehicle id="flow_0.31" depart="50.60" fromTaz="taz_0" toTaz="taz_1">
+        <route edges="Link2 Link3 Link4"/>
+    </vehicle>
+    <vehicle id="flow_0.32" depart="52.47" fromTaz="taz_0" toTaz="taz_1">
+        <route edges="Link2 Link3 Link4"/>
+    </vehicle>
+    <vehicle id="flow_1.23" depart="52.49" fromTaz="taz_1" toTaz="taz_0">
+        <route edges="Link24 Link25 Link43"/>
+    </vehicle>
+    <vehicle id="flow_0.33" depart="53.69" fromTaz="taz_0" toTaz="taz_1">
+        <route edges="Link2 Link3 Link4"/>
+    </vehicle>
+    <vehicle id="flow_0.34" depart="54.47" fromTaz="taz_0" toTaz="taz_1">
+        <route edges="Link2 Link3 Link4"/>
+    </vehicle>
+    <vehicle id="flow_0.35" depart="55.65" fromTaz="taz_0" toTaz="taz_1">
+        <route edges="Link2 Link3 Link4"/>
+    </vehicle>
+    <vehicle id="flow_0.36" depart="56.51" fromTaz="taz_0" toTaz="taz_1">
+        <route edges="Link2 Link3 Link4"/>
+    </vehicle>
+    <vehicle id="flow_1.24" depart="57.01" fromTaz="taz_1" toTaz="taz_0">
+        <route edges="Link24 Link25 Link43"/>
+    </vehicle>
+    <vehicle id="flow_1.25" depart="57.42" fromTaz="taz_1" toTaz="taz_0">
+        <route edges="Link24 Link25 Link43"/>
+    </vehicle>
+    <vehicle id="flow_0.37" depart="57.85" fromTaz="taz_0" toTaz="taz_1">
+        <route edges="Link2 Link3 Link4"/>
+    </vehicle>
+    <vehicle id="flow_1.26" depart="58.02" fromTaz="taz_1" toTaz="taz_0">
+        <route edges="Link24 Link25 Link43"/>
+    </vehicle>
+    <vehicle id="flow_0.38" depart="58.23" fromTaz="taz_0" toTaz="taz_1">
+        <route edges="Link2 Link3 Link4"/>
+    </vehicle>
+    <vehicle id="flow_1.27" depart="59.07" fromTaz="taz_1" toTaz="taz_0">
+        <route edges="Link24 Link25 Link43"/>
+    </vehicle>
+    <vehicle id="flow_1.28" depart="60.19" fromTaz="taz_1" toTaz="taz_0">
+        <route edges="Link24 Link25 Link43"/>
+    </vehicle>
+    <vehicle id="flow_1.29" depart="62.23" fromTaz="taz_1" toTaz="taz_0">
+        <route edges="Link24 Link25 Link43"/>
+    </vehicle>
+    <vehicle id="flow_1.30" depart="62.26" fromTaz="taz_1" toTaz="taz_0">
+        <route edges="Link24 Link25 Link43"/>
+    </vehicle>
+    <vehicle id="flow_1.31" depart="62.37" fromTaz="taz_1" toTaz="taz_0">
+        <route edges="Link24 Link25 Link43"/>
+    </vehicle>
+    <vehicle id="flow_1.32" depart="63.18" fromTaz="taz_1" toTaz="taz_0">
+        <route edges="Link24 Link25 Link43"/>
+    </vehicle>
+    <vehicle id="flow_1.33" depart="63.32" fromTaz="taz_1" toTaz="taz_0">
+        <route edges="Link24 Link25 Link43"/>
+    </vehicle>
+    <vehicle id="flow_0.39" depart="64.90" fromTaz="taz_0" toTaz="taz_1">
+        <route edges="Link2 Link3 Link4"/>
+    </vehicle>
+    <vehicle id="flow_1.34" depart="67.30" fromTaz="taz_1" toTaz="taz_0">
+        <route edges="Link24 Link25 Link43"/>
+    </vehicle>
+    <vehicle id="flow_0.40" depart="70.25" fromTaz="taz_0" toTaz="taz_1">
+        <route edges="Link2 Link3 Link4"/>
+    </vehicle>
+    <vehicle id="flow_0.41" depart="70.72" fromTaz="taz_0" toTaz="taz_1">
+        <route edges="Link2 Link3 Link4"/>
+    </vehicle>
+    <vehicle id="flow_1.35" depart="72.86" fromTaz="taz_1" toTaz="taz_0">
+        <route edges="Link24 Link25 Link43"/>
+    </vehicle>
+    <vehicle id="flow_0.42" depart="73.98" fromTaz="taz_0" toTaz="taz_1">
+        <route edges="Link2 Link3 Link4"/>
+    </vehicle>
+    <vehicle id="flow_1.36" depart="75.16" fromTaz="taz_1" toTaz="taz_0">
+        <route edges="Link24 Link25 Link43"/>
+    </vehicle>
+    <vehicle id="flow_1.37" depart="76.05" fromTaz="taz_1" toTaz="taz_0">
+        <route edges="Link24 Link25 Link43"/>
+    </vehicle>
+    <vehicle id="flow_0.43" depart="76.76" fromTaz="taz_0" toTaz="taz_1">
+        <route edges="Link2 Link3 Link4"/>
+    </vehicle>
+    <vehicle id="flow_1.38" depart="76.97" fromTaz="taz_1" toTaz="taz_0">
+        <route edges="Link24 Link25 Link43"/>
+    </vehicle>
+    <vehicle id="flow_0.44" depart="77.89" fromTaz="taz_0" toTaz="taz_1">
+        <route edges="Link2 Link3 Link4"/>
+    </vehicle>
+    <vehicle id="flow_1.39" depart="79.47" fromTaz="taz_1" toTaz="taz_0">
+        <route edges="Link24 Link25 Link43"/>
+    </vehicle>
+    <vehicle id="flow_0.45" depart="79.84" fromTaz="taz_0" toTaz="taz_1">
+        <route edges="Link2 Link3 Link4"/>
+    </vehicle>
+    <vehicle id="flow_0.46" depart="80.11" fromTaz="taz_0" toTaz="taz_1">
+        <route edges="Link2 Link3 Link4"/>
+    </vehicle>
+    <vehicle id="flow_0.47" depart="81.63" fromTaz="taz_0" toTaz="taz_1">
+        <route edges="Link2 Link3 Link4"/>
+    </vehicle>
+    <vehicle id="flow_0.48" depart="82.30" fromTaz="taz_0" toTaz="taz_1">
+        <route edges="Link2 Link3 Link4"/>
+    </vehicle>
+    <vehicle id="flow_1.40" depart="88.31" fromTaz="taz_1" toTaz="taz_0">
+        <route edges="Link24 Link25 Link43"/>
+    </vehicle>
+    <vehicle id="flow_0.49" depart="88.60" fromTaz="taz_0" toTaz="taz_1">
+        <route edges="Link2 Link3 Link4"/>
+    </vehicle>
+    <vehicle id="flow_1.41" depart="88.88" fromTaz="taz_1" toTaz="taz_0">
+        <route edges="Link24 Link25 Link43"/>
+    </vehicle>
+    <vehicle id="flow_1.42" depart="89.14" fromTaz="taz_1" toTaz="taz_0">
+        <route edges="Link24 Link25 Link43"/>
+    </vehicle>
+    <vehicle id="flow_1.43" depart="89.32" fromTaz="taz_1" toTaz="taz_0">
+        <route edges="Link24 Link25 Link43"/>
+    </vehicle>
+    <vehicle id="flow_0.50" depart="89.59" fromTaz="taz_0" toTaz="taz_1">
+        <route edges="Link2 Link3 Link4"/>
+    </vehicle>
+    <vehicle id="flow_0.51" depart="89.91" fromTaz="taz_0" toTaz="taz_1">
+        <route edges="Link2 Link3 Link4"/>
+    </vehicle>
+    <vehicle id="flow_1.44" depart="89.96" fromTaz="taz_1" toTaz="taz_0">
+        <route edges="Link24 Link25 Link43"/>
+    </vehicle>
+    <vehicle id="flow_0.52" depart="90.56" fromTaz="taz_0" toTaz="taz_1">
+        <route edges="Link2 Link3 Link4"/>
+    </vehicle>
+    <vehicle id="flow_0.53" depart="91.39" fromTaz="taz_0" toTaz="taz_1">
+        <route edges="Link2 Link3 Link4"/>
+    </vehicle>
+    <vehicle id="flow_1.45" depart="92.51" fromTaz="taz_1" toTaz="taz_0">
+        <route edges="Link24 Link25 Link43"/>
+    </vehicle>
+    <vehicle id="flow_1.46" depart="94.44" fromTaz="taz_1" toTaz="taz_0">
+        <route edges="Link24 Link25 Link43"/>
+    </vehicle>
+    <vehicle id="flow_0.54" depart="94.83" fromTaz="taz_0" toTaz="taz_1">
+        <route edges="Link2 Link3 Link4"/>
+    </vehicle>
+    <vehicle id="flow_1.47" depart="95.19" fromTaz="taz_1" toTaz="taz_0">
+        <route edges="Link24 Link25 Link43"/>
+    </vehicle>
+    <vehicle id="flow_1.48" depart="95.90" fromTaz="taz_1" toTaz="taz_0">
+        <route edges="Link24 Link25 Link43"/>
+    </vehicle>
+    <vehicle id="flow_1.49" depart="96.84" fromTaz="taz_1" toTaz="taz_0">
+        <route edges="Link24 Link25 Link43"/>
+    </vehicle>
+    <vehicle id="flow_1.50" depart="97.59" fromTaz="taz_1" toTaz="taz_0">
+        <route edges="Link24 Link25 Link43"/>
+    </vehicle>
+    <vehicle id="flow_1.51" depart="98.80" fromTaz="taz_1" toTaz="taz_0">
+        <route edges="Link24 Link25 Link43"/>
+    </vehicle>
+    <vehicle id="flow_1.52" depart="100.45" fromTaz="taz_1" toTaz="taz_0">
+        <route edges="Link24 Link25 Link43"/>
+    </vehicle>
+</routes>

@@ -20,20 +20,13 @@
 // ===========================================================================
 #include <config.h>
 
-#include <iostream>
-#include <utils/common/MsgHandler.h>
-#include <utils/emissions/PollutantsInterface.h>
-#include <utils/gui/windows/GUIAppEnum.h>
-#include <utils/gui/images/GUIIconSubSys.h>
-#include <utils/gui/div/GUIDesigns.h>
-#include <netedit/changes/GNEChange_DemandElement.h>
-#include <netedit/additionals/GNECalibrator.h>
-#include <netedit/netelements/GNEEdge.h>
-#include <netedit/netelements/GNELane.h>
-#include <netedit/GNEViewNet.h>
-#include <netedit/GNENet.h>
-#include <netedit/demandelements/GNEVehicleType.h>
 #include <netedit/GNEUndoList.h>
+#include <netedit/GNEViewNet.h>
+#include <netedit/changes/GNEChange_DemandElement.h>
+#include <netedit/demandelements/GNEVehicleType.h>
+#include <utils/emissions/PollutantsInterface.h>
+#include <utils/gui/div/GUIDesigns.h>
+#include <utils/gui/windows/GUIAppEnum.h>
 
 #include "GNEVehicleTypeDialog.h"
 
@@ -43,8 +36,8 @@
 // ===========================================================================
 
 FXDEFMAP(GNEVehicleTypeDialog::VTypeAtributes) VTypeAtributesMap[] = {
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE,          GNEVehicleTypeDialog::VTypeAtributes::onCmdSetVariable),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE_DIALOG,   GNEVehicleTypeDialog::VTypeAtributes::onCmdSetColor)
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE,          GNEVehicleTypeDialog::VTypeAtributes::onCmdSetAttribute),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE_DIALOG,   GNEVehicleTypeDialog::VTypeAtributes::onCmdSetAttributeDialog)
 };
 
 FXDEFMAP(GNEVehicleTypeDialog::CarFollowingModelParameters) CarFollowingModelParametersMap[] = {
@@ -74,15 +67,18 @@ GNEVehicleTypeDialog::VTypeAtributes::VClassRow::VClassRow(VTypeAtributes* VType
                                       VTypeAtributesParent, MID_GNE_SET_ATTRIBUTE, GUIDesignComboBox);
     myComboBoxVClassLabelImage = new FXLabel(this, "", nullptr, GUIDesignLabelTickedIcon180x46);
     myComboBoxVClassLabelImage->setBackColor(FXRGBA(255, 255, 255, 255));
-    // fill combo Box with all VClass
-    std::vector<std::string> VClassStrings = SumoVehicleClassStrings.getStrings();
-    for (auto i : VClassStrings) {
+    // fill combo Box with all allowed VClass for the current edited VType
+    for (const auto &i : myVTypeAtributesParent->myVehicleTypeDialog->getEditedDemandElement()->getTagProperty().getAttributeProperties(SUMO_ATTR_VCLASS).getDiscreteValues()) {
         if (i != SumoVehicleClassStrings.getString(SVC_IGNORING)) {
             myComboBoxVClass->appendItem(i.c_str());
         }
     }
-    // only show 10 VClasses
-    myComboBoxVClass->setNumVisible(10);
+    // only show as maximum 10 VClasses
+    if (myComboBoxVClass->getNumItems() > 10) {
+        myComboBoxVClass->setNumVisible(10);
+    } else {
+        myComboBoxVClass->setNumVisible(myComboBoxVClass->getNumItems());
+    }
 }
 
 
@@ -398,45 +394,50 @@ GNEVehicleTypeDialog::VTypeAtributes::VShapeRow::setVShapeLabelImage() {
 // GNEVehicleTypeDialog::VTypeAtributes - methods
 // ---------------------------------------------------------------------------
 
-GNEVehicleTypeDialog::VTypeAtributes::VTypeAttributeRow::VTypeAttributeRow(VTypeAtributes* VTypeAtributesParent, FXVerticalFrame* verticalFrame, SumoXMLAttr attr, int type) :
+GNEVehicleTypeDialog::VTypeAtributes::VTypeAttributeRow::VTypeAttributeRow(VTypeAtributes* VTypeAtributesParent, FXVerticalFrame* verticalFrame, const SumoXMLAttr attr, const RowAttrType rowAttrType, const  std::vector<std::string>& values) :
     FXHorizontalFrame(verticalFrame, GUIDesignAuxiliarHorizontalFrame),
     myVTypeAtributesParent(VTypeAtributesParent),
     myAttr(attr),
+    myRowAttrType(rowAttrType),
+    myButton(nullptr),
+    myTextField(nullptr),
     myComboBox(nullptr) {
-    new FXLabel(this, toString(attr).c_str(), nullptr, GUIDesignLabelAttribute150);
-    if (type == 0) {
+    // first check if we have to create a button or a label
+    if ((rowAttrType == ROWTYPE_COLOR) || (rowAttrType == ROWTYPE_FILENAME)) {
+        myButton = new FXButton(this, filterAttributeName(attr), nullptr, VTypeAtributesParent, MID_GNE_SET_ATTRIBUTE_DIALOG, GUIDesignButtonRectangular150x23);
+    } else {
+        new FXLabel(this, filterAttributeName(attr), nullptr, GUIDesignLabelAttribute150);
+    }
+    // now check if we have to create a textfield or a ComboBox
+    if (rowAttrType == ROWTYPE_INT) {
         myTextField = new FXTextField(this, GUIDesignTextFieldNCol, VTypeAtributesParent, MID_GNE_SET_ATTRIBUTE, GUIDesignTextFielWidth180Int);
-    } else if (type == 1) {
+    } else if (rowAttrType == ROWTYPE_REAL) {
         myTextField = new FXTextField(this, GUIDesignTextFieldNCol, VTypeAtributesParent, MID_GNE_SET_ATTRIBUTE, GUIDesignTextFielWidth180Real);
-    } else {
+    } else if ((rowAttrType == ROWTYPE_STRING) || (rowAttrType == ROWTYPE_COLOR)) {
         myTextField = new FXTextField(this, GUIDesignTextFieldNCol, VTypeAtributesParent, MID_GNE_SET_ATTRIBUTE, GUIDesignTextFielWidth180);
-    }
-}
-
-
-GNEVehicleTypeDialog::VTypeAtributes::VTypeAttributeRow::VTypeAttributeRow(VTypeAtributes* VTypeAtributesParent, FXVerticalFrame* verticalFrame, SumoXMLAttr attr, const  std::vector<std::string>& values) :
-    FXHorizontalFrame(verticalFrame, GUIDesignAuxiliarHorizontalFrame),
-    myVTypeAtributesParent(VTypeAtributesParent),
-    myAttr(attr),
-    myTextField(nullptr) {
-    new FXLabel(this, toString(attr).c_str(), nullptr, GUIDesignLabelAttribute150);
-    myComboBox = new FXComboBox(this, GUIDesignComboBoxNCol, VTypeAtributesParent, MID_GNE_SET_ATTRIBUTE, GUIDesignComboBox);
-    // fill combo Box with values
-    for (auto i : values) {
-        myComboBox->appendItem(i.c_str());
-    }
-    // set 10 visible elements as maximum
-    if (myComboBox->getNumItems() < 10) {
-        myComboBox->setNumVisible(myComboBox->getNumItems());
+    } else if (rowAttrType == ROWTYPE_FILENAME) {
+        myTextField = new FXTextField(this, GUIDesignTextFieldNCol, VTypeAtributesParent, MID_GNE_SET_ATTRIBUTE, GUIDesignTextFielWidth180);
+    } else if (rowAttrType == ROWTYPE_COMBOBOX) {
+        myComboBox = new FXComboBox(this, GUIDesignComboBoxNCol, VTypeAtributesParent, MID_GNE_SET_ATTRIBUTE, GUIDesignComboBoxWidth180);
+        // fill combo Box with values
+        for (auto i : values) {
+            myComboBox->appendItem(i.c_str());
+        }
+        // set 10 visible elements as maximum
+        if (myComboBox->getNumItems() < 10) {
+            myComboBox->setNumVisible(myComboBox->getNumItems());
+        } else {
+            myComboBox->setNumVisible(10);
+        }
     } else {
-        myComboBox->setNumVisible(10);
+        throw ProcessError("Invalid row type");
     }
 }
 
 
 void
 GNEVehicleTypeDialog::VTypeAtributes::VTypeAttributeRow::setVariable() {
-    if (myComboBox) {
+    if (myRowAttrType == ROWTYPE_COMBOBOX) {
         // set color of myComboBox, depending if current value is valid or not
         if (myVTypeAtributesParent->myVehicleTypeDialog->myEditedDemandElement->isValid(myAttr, myComboBox->getText().text())) {
             myVTypeAtributesParent->myVehicleTypeDialog->myEditedDemandElement->setAttribute(myAttr, myComboBox->getText().text(),
@@ -448,6 +449,21 @@ GNEVehicleTypeDialog::VTypeAtributes::VTypeAttributeRow::setVariable() {
             // mark VType as invalid
             myVTypeAtributesParent->myVehicleTypeDialog->myVehicleTypeValid = false;
             myVTypeAtributesParent->myVehicleTypeDialog->myInvalidAttr = myAttr;
+        }
+    } else if (myRowAttrType == ROWTYPE_COLOR) {
+        // set color of myTextFieldColor, depending if current value is valid or not
+        if (myVTypeAtributesParent->myVehicleTypeDialog->myEditedDemandElement->isValid(SUMO_ATTR_COLOR, myTextField->getText().text())) {
+            // set color depending if is a default value
+            if (myVTypeAtributesParent->myVehicleTypeDialog->myEditedDemandElement->getTagProperty().getDefaultValue(SUMO_ATTR_COLOR) != myTextField->getText().text()) {
+                myTextField->setTextColor(FXRGB(0, 0, 0));
+            } else {
+                myTextField->setTextColor(FXRGB(195, 195, 195));
+            }
+            myVTypeAtributesParent->myVehicleTypeDialog->myEditedDemandElement->setAttribute(SUMO_ATTR_COLOR, myTextField->getText().text(), myVTypeAtributesParent->myVehicleTypeDialog->myEditedDemandElement->getViewNet()->getUndoList());
+        } else {
+            myTextField->setTextColor(FXRGB(255, 0, 0));
+            myVTypeAtributesParent->myVehicleTypeDialog->myVehicleTypeValid = false;
+            myVTypeAtributesParent->myVehicleTypeDialog->myInvalidAttr = SUMO_ATTR_COLOR;
         }
     } else {
         // set color of textField, depending if current value is valid or not
@@ -500,7 +516,7 @@ GNEVehicleTypeDialog::VTypeAtributes::VTypeAttributeRow::setVariable(const std::
 
 void
 GNEVehicleTypeDialog::VTypeAtributes::VTypeAttributeRow::updateValue() {
-    if (myComboBox) {
+    if (myRowAttrType == ROWTYPE_COMBOBOX) {
         // set text of myComboBox using current value of VType
         myComboBox->setText(myVTypeAtributesParent->myVehicleTypeDialog->myEditedDemandElement->getAttribute(myAttr).c_str());
         // set color depending if is a default value
@@ -508,6 +524,15 @@ GNEVehicleTypeDialog::VTypeAtributes::VTypeAttributeRow::updateValue() {
             myComboBox->setTextColor(FXRGB(0, 0, 0));
         } else {
             myComboBox->setTextColor(FXRGB(195, 195, 195));
+        }
+    } else if (myRowAttrType == ROWTYPE_COLOR) {
+        // set field color
+        myTextField->setText(myVTypeAtributesParent->myVehicleTypeDialog->myEditedDemandElement->getAttribute(myAttr).c_str());
+        // set color depending if is a default value
+        if (myVTypeAtributesParent->myVehicleTypeDialog->myEditedDemandElement->getTagProperty().getDefaultValue(myAttr) != myTextField->getText().text()) {
+            myTextField->setTextColor(FXRGB(0, 0, 0));
+        } else {
+            myTextField->setTextColor(FXRGB(195, 195, 195));
         }
     } else {
         // set text of myTextField using current value of VType
@@ -545,6 +570,159 @@ GNEVehicleTypeDialog::VTypeAtributes::VTypeAttributeRow::updateValue(const std::
     }
 }
 
+
+const FXButton* 
+GNEVehicleTypeDialog::VTypeAtributes::VTypeAttributeRow::getButton() const {
+    return myButton;
+}
+
+
+void 
+GNEVehicleTypeDialog::VTypeAtributes::VTypeAttributeRow::openColorDialog() {
+    // create FXColorDialog
+    FXColorDialog colordialog(this, tr("Color Dialog"));
+    colordialog.setTarget(this);
+    // If previous attribute wasn't correct, set black as default color
+    if (GNEAttributeCarrier::canParse<RGBColor>(myTextField->getText().text())) {
+        colordialog.setRGBA(MFXUtils::getFXColor(RGBColor::parseColor(myTextField->getText().text())));
+    } else {
+        colordialog.setRGBA(MFXUtils::getFXColor(RGBColor::BLACK));
+    }
+    // execute dialog to get a new color
+    if (colordialog.execute()) {
+        std::string newValue = toString(MFXUtils::getRGBColor(colordialog.getRGBA()));
+        myTextField->setText(newValue.c_str());
+        if (myVTypeAtributesParent->myVehicleTypeDialog->myEditedDemandElement->isValid(myAttr, newValue)) {
+            myVTypeAtributesParent->myVehicleTypeDialog->myEditedDemandElement->setAttribute(myAttr, newValue, myVTypeAtributesParent->myVehicleTypeDialog->myEditedDemandElement->getViewNet()->getUndoList());
+            // If previously value was incorrect, change font color to black
+            myTextField->setTextColor(FXRGB(0, 0, 0));
+            myTextField->killFocus();
+        }
+    }
+}
+
+
+void 
+GNEVehicleTypeDialog::VTypeAtributes::VTypeAttributeRow::openImageFileDialog() {
+    // get the new image file
+    FXFileDialog opendialog(this, "Open Image");
+    opendialog.setIcon(GUIIconSubSys::getIcon(ICON_VTYPE));
+    opendialog.setSelectMode(SELECTFILE_EXISTING);
+    opendialog.setPatternList("All files (*)");
+    if (gCurrentFolder.length() != 0) {
+        opendialog.setDirectory(gCurrentFolder);
+    }
+    if (opendialog.execute()) {
+        // update global current folder
+        gCurrentFolder = opendialog.getDirectory();
+        // get image path
+        std::string imagePath = opendialog.getFilename().text();
+        // check if image is valid
+        if (myVTypeAtributesParent->myVehicleTypeDialog->myEditedDemandElement->isValid(myAttr, imagePath)) {
+            myVTypeAtributesParent->myVehicleTypeDialog->myEditedDemandElement->setAttribute(myAttr, imagePath, myVTypeAtributesParent->myVehicleTypeDialog->myEditedDemandElement->getViewNet()->getUndoList());
+            myTextField->setText(imagePath.c_str());
+            // If previously value was incorrect, change font color to black
+            myTextField->setTextColor(FXRGB(0, 0, 0));
+            myTextField->killFocus();
+        }
+    }
+}
+
+
+void 
+GNEVehicleTypeDialog::VTypeAtributes::VTypeAttributeRow::openOSGFileDialog() {
+    // get the new file name
+    FXFileDialog opendialog(this, "Open OSG File");
+    opendialog.setIcon(GUIIconSubSys::getIcon(ICON_VTYPE));
+    opendialog.setSelectMode(SELECTFILE_EXISTING);
+    opendialog.setPatternList("OSG file (*.obj)");
+    if (gCurrentFolder.length() != 0) {
+        opendialog.setDirectory(gCurrentFolder);
+    }
+    if (opendialog.execute()) {
+        // update global current folder
+        gCurrentFolder = opendialog.getDirectory();
+        // get image path
+        std::string imagePath = opendialog.getFilename().text();
+        // check if image is valid
+        if (myVTypeAtributesParent->myVehicleTypeDialog->myEditedDemandElement->isValid(myAttr, imagePath)) {
+            myVTypeAtributesParent->myVehicleTypeDialog->myEditedDemandElement->setAttribute(myAttr, imagePath, myVTypeAtributesParent->myVehicleTypeDialog->myEditedDemandElement->getViewNet()->getUndoList());
+            myTextField->setText(imagePath.c_str());
+            // If previously value was incorrect, change font color to black
+            myTextField->setTextColor(FXRGB(0, 0, 0));
+            myTextField->killFocus();
+        }
+    }
+}
+
+
+FXString
+GNEVehicleTypeDialog::VTypeAtributes::VTypeAttributeRow::filterAttributeName(const SumoXMLAttr attr) const {
+    switch (attr) {
+        // JM
+        case SUMO_ATTR_JM_CROSSING_GAP:
+            return "crossingGap";
+        case SUMO_ATTR_JM_DRIVE_AFTER_YELLOW_TIME:
+            return "driveAfterYellowTime";
+        case SUMO_ATTR_JM_DRIVE_AFTER_RED_TIME:
+            return "driveAfterRedTime";
+        case SUMO_ATTR_JM_DRIVE_RED_SPEED:
+            return "driveRedSpeed";
+        case SUMO_ATTR_JM_IGNORE_KEEPCLEAR_TIME:
+            return "ignoreKeepClearTime";
+        case SUMO_ATTR_JM_IGNORE_FOE_SPEED:
+            return "ignoreFoeSpeed";
+        case SUMO_ATTR_JM_IGNORE_FOE_PROB:
+            return "ignoreFoeProb";
+        case SUMO_ATTR_JM_SIGMA_MINOR:
+            return "sigmaMinor";
+        case SUMO_ATTR_JM_TIMEGAP_MINOR:
+            return "timegapMinor";
+        // LCM
+        case SUMO_ATTR_LCA_STRATEGIC_PARAM:
+            return "strategic";
+        case SUMO_ATTR_LCA_COOPERATIVE_PARAM:
+            return "cooperative";
+        case SUMO_ATTR_LCA_SPEEDGAIN_PARAM:
+            return "speedGain";
+        case SUMO_ATTR_LCA_KEEPRIGHT_PARAM:
+            return "keepRight";
+        case SUMO_ATTR_LCA_SUBLANE_PARAM:
+            return "sublane";
+        case SUMO_ATTR_LCA_OPPOSITE_PARAM:
+            return "opposite";
+        case SUMO_ATTR_LCA_PUSHY:
+            return "pushy";
+        case SUMO_ATTR_LCA_PUSHYGAP:
+            return "pushyGap";
+        case SUMO_ATTR_LCA_ASSERTIVE:
+            return "assertive";
+        case SUMO_ATTR_LCA_IMPATIENCE:
+            return "impatience";
+        case SUMO_ATTR_LCA_TIME_TO_IMPATIENCE:
+            return "timeToImpatience";
+        case SUMO_ATTR_LCA_ACCEL_LAT:
+            return "accelLat";
+        case SUMO_ATTR_LCA_LOOKAHEADLEFT:
+            return "lookaheadLeft";
+        case SUMO_ATTR_LCA_SPEEDGAINRIGHT:
+            return "speedGainRight";
+        case SUMO_ATTR_LCA_MAXSPEEDLATSTANDING:
+            return "maxSpeedLatStanding";
+        case SUMO_ATTR_LCA_MAXSPEEDLATFACTOR:
+            return "maxSpeedLatFactor";
+        case SUMO_ATTR_LCA_TURN_ALIGNMENT_DISTANCE:
+            return "turnAlignDistance";
+        case SUMO_ATTR_LCA_OVERTAKE_RIGHT:
+            return "overtakeRight";
+        /* case SUMO_ATTR_LCA_EXPERIMENTAL1: 
+            return "experimental1";
+        */
+        default:
+            return toString(attr).c_str();
+    }
+}
+
 // ---------------------------------------------------------------------------
 // GNEVehicleTypeDialog::VTypeAtributes - methods
 // ---------------------------------------------------------------------------
@@ -552,22 +730,29 @@ GNEVehicleTypeDialog::VTypeAtributes::VTypeAttributeRow::updateValue(const std::
 GNEVehicleTypeDialog::VTypeAtributes::VTypeAtributes(GNEVehicleTypeDialog* vehicleTypeDialog, FXHorizontalFrame* column) :
     FXVerticalFrame(column, GUIDesignAuxiliarVerticalFrame),
     myVehicleTypeDialog(vehicleTypeDialog) {
+    // declare two auxiliar horizontal frames
+    FXHorizontalFrame* firstAuxiliarHorizontalFrame = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
+    FXVerticalFrame* firstAuxiliarVerticalFrame = new FXVerticalFrame(firstAuxiliarHorizontalFrame, GUIDesignAuxiliarVerticalFrame);
     // create attributes for common attributes
-    FXGroupBox* commonAttributes = new FXGroupBox(this, "Vehicle Type attributes", GUIDesignGroupBoxFrame);
+    FXGroupBox* commonAttributes = new FXGroupBox(firstAuxiliarVerticalFrame, "Vehicle Type attributes", GUIDesignGroupBoxFrame);
     // create horizontal frame for columns of attributes
-    FXHorizontalFrame* columnsCommonVTypeAttributes = new FXHorizontalFrame(commonAttributes, GUIDesignAuxiliarHorizontalFrame);
+    FXHorizontalFrame* columnsBasicVTypeAttributes = new FXHorizontalFrame(commonAttributes, GUIDesignAuxiliarHorizontalFrame);
     // build left attributes
-    buildAttributesA(new FXVerticalFrame(columnsCommonVTypeAttributes, GUIDesignAuxiliarFrame));
+    buildAttributesA(new FXVerticalFrame(columnsBasicVTypeAttributes, GUIDesignAuxiliarFrame));
     // build right attributes
-    buildAttributesB(new FXVerticalFrame(columnsCommonVTypeAttributes, GUIDesignAuxiliarFrame));
-    // create attribute for Junction Model Attributes
-    FXGroupBox* JMAttributes = new FXGroupBox(this, "Junction Model attributes", GUIDesignGroupBoxFrame);
+    buildAttributesB(new FXVerticalFrame(columnsBasicVTypeAttributes, GUIDesignAuxiliarFrame));
+    // create GroupBox for Junction Model Attributes
+    FXGroupBox* JMAttributes = new FXGroupBox(firstAuxiliarVerticalFrame, "Junction Model attributes", GUIDesignGroupBoxFrame);
     // create horizontal frame for columns of Junction Model attributes
     FXHorizontalFrame* columnsJMVTypeAttributes = new FXHorizontalFrame(JMAttributes, GUIDesignAuxiliarHorizontalFrame);
     // build left attributes
     buildJunctionModelAttributesA(new FXVerticalFrame(columnsJMVTypeAttributes, GUIDesignAuxiliarFrame));
     // build right attributes
     buildJunctionModelAttributesB(new FXVerticalFrame(columnsJMVTypeAttributes, GUIDesignAuxiliarFrame));
+    // create GroupBox for Junction Model Attributes
+    FXGroupBox* LCMAttributes = new FXGroupBox(firstAuxiliarHorizontalFrame, "Lane Change Model attributes", GUIDesignGroupBoxFrame);
+    // create Lane Change Model Attributes
+    buildLaneChangeModelAttributes(new FXVerticalFrame(LCMAttributes, GUIDesignAuxiliarFrame));
 }
 
 
@@ -582,42 +767,40 @@ GNEVehicleTypeDialog::VTypeAtributes::buildAttributesA(FXVerticalFrame* column) 
     myTextFieldVehicleTypeID = new FXTextField(row, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextFielWidth180Real);
 
     // 03 create FXTextField and Button for Color
-    row = new FXHorizontalFrame(column, GUIDesignAuxiliarHorizontalFrame);
-    myButtonColor = new FXButton(row, toString(SUMO_ATTR_COLOR).c_str(), nullptr, this, MID_GNE_SET_ATTRIBUTE_DIALOG, GUIDesignButtonRectangular150x23);
-    myTextFieldColor = new FXTextField(row, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextFielWidth180);
+    myColor = new VTypeAttributeRow(this, column, SUMO_ATTR_COLOR, VTypeAttributeRow::RowAttrType::ROWTYPE_COLOR);
 
     // 04 create FXTextField and Label for Length
-    myLength = new VTypeAttributeRow(this, column, SUMO_ATTR_LENGTH, 1);
+    myLength = new VTypeAttributeRow(this, column, SUMO_ATTR_LENGTH, VTypeAttributeRow::RowAttrType::ROWTYPE_REAL);
 
     // 05 create FXTextField and Label for MinGap
-    myMinGap = new VTypeAttributeRow(this, column, SUMO_ATTR_MINGAP, 1);
+    myMinGap = new VTypeAttributeRow(this, column, SUMO_ATTR_MINGAP, VTypeAttributeRow::RowAttrType::ROWTYPE_REAL);
 
     // 06 create FXTextField and Label for MaxSpeed
-    myMaxSpeed = new VTypeAttributeRow(this, column, SUMO_ATTR_MAXSPEED, 1);
+    myMaxSpeed = new VTypeAttributeRow(this, column, SUMO_ATTR_MAXSPEED, VTypeAttributeRow::RowAttrType::ROWTYPE_REAL);
 
     // 07 create FXTextField and Label for SpeedFactor
-    mySpeedFactor = new VTypeAttributeRow(this, column, SUMO_ATTR_SPEEDFACTOR, 1);
+    mySpeedFactor = new VTypeAttributeRow(this, column, SUMO_ATTR_SPEEDFACTOR, VTypeAttributeRow::RowAttrType::ROWTYPE_REAL);
 
     // 08 create FXTextField and Label for SpeedDev
-    mySpeedDev = new VTypeAttributeRow(this, column, SUMO_ATTR_SPEEDDEV, 1);
+    mySpeedDev = new VTypeAttributeRow(this, column, SUMO_ATTR_SPEEDDEV, VTypeAttributeRow::RowAttrType::ROWTYPE_REAL);
 
     // 09 create FXTextField and Label for EmissionClass
-    myEmissionClass = new VTypeAttributeRow(this, column, SUMO_ATTR_EMISSIONCLASS, PollutantsInterface::getAllClassesStr());
+    myEmissionClass = new VTypeAttributeRow(this, column, SUMO_ATTR_EMISSIONCLASS, VTypeAttributeRow::RowAttrType::ROWTYPE_COMBOBOX, PollutantsInterface::getAllClassesStr());
 
     // 10 create FXTextField and Label for Width
-    myWidth = new VTypeAttributeRow(this, column, SUMO_ATTR_WIDTH, 1);
+    myWidth = new VTypeAttributeRow(this, column, SUMO_ATTR_WIDTH, VTypeAttributeRow::RowAttrType::ROWTYPE_REAL);
 
     // 11 create FXTextField and Label for Height
-    myHeight = new VTypeAttributeRow(this, column, SUMO_ATTR_HEIGHT, 1);
+    myHeight = new VTypeAttributeRow(this, column, SUMO_ATTR_HEIGHT, VTypeAttributeRow::RowAttrType::ROWTYPE_REAL);
 
     // 12 create FXTextField and Label for Filename
-    myFilename = new VTypeAttributeRow(this, column, SUMO_ATTR_IMGFILE, 3);
+    myFilename = new VTypeAttributeRow(this, column, SUMO_ATTR_IMGFILE, VTypeAttributeRow::RowAttrType::ROWTYPE_FILENAME);
 
     // 13 create FXTextField and Label for Filename
-    myOSGFile = new VTypeAttributeRow(this, column, SUMO_ATTR_OSGFILE, 3);
+    myOSGFile = new VTypeAttributeRow(this, column, SUMO_ATTR_OSGFILE, VTypeAttributeRow::RowAttrType::ROWTYPE_FILENAME);
 
     // 14 create VTypeAttributeRow and Label for Probability
-    myProbability = new VTypeAttributeRow(this, column, SUMO_ATTR_PROB, 1);
+    myProbability = new VTypeAttributeRow(this, column, SUMO_ATTR_PROB, VTypeAttributeRow::RowAttrType::ROWTYPE_REAL);
 }
 
 
@@ -627,101 +810,156 @@ GNEVehicleTypeDialog::VTypeAtributes::buildAttributesB(FXVerticalFrame* column) 
     myVShapeRow = new VShapeRow(this, column);
 
     // 02 create VTypeAttributeRow and Label for LaneChangeModel
-    myLaneChangeModel = new VTypeAttributeRow(this, column, SUMO_ATTR_LANE_CHANGE_MODEL, SUMOXMLDefinitions::LaneChangeModels.getStrings());
+    myLaneChangeModel = new VTypeAttributeRow(this, column, SUMO_ATTR_LANE_CHANGE_MODEL, VTypeAttributeRow::RowAttrType::ROWTYPE_COMBOBOX, SUMOXMLDefinitions::LaneChangeModels.getStrings());
 
     // 03 create VTypeAttributeRow and Label for PersonCapacity
-    myPersonCapacity = new VTypeAttributeRow(this, column, SUMO_ATTR_PERSON_CAPACITY, 0);
+    myPersonCapacity = new VTypeAttributeRow(this, column, SUMO_ATTR_PERSON_CAPACITY, VTypeAttributeRow::RowAttrType::ROWTYPE_INT);
 
     // 04 create VTypeAttributeRow and Label for ContainerCapacity
-    myContainerCapacity = new VTypeAttributeRow(this, column, SUMO_ATTR_CONTAINER_CAPACITY, 0);
+    myContainerCapacity = new VTypeAttributeRow(this, column, SUMO_ATTR_CONTAINER_CAPACITY, VTypeAttributeRow::RowAttrType::ROWTYPE_INT);
 
     // 05 create VTypeAttributeRow and Label for BoardingDuration
-    myBoardingDuration = new VTypeAttributeRow(this, column, SUMO_ATTR_BOARDING_DURATION, 1);
+    myBoardingDuration = new VTypeAttributeRow(this, column, SUMO_ATTR_BOARDING_DURATION, VTypeAttributeRow::RowAttrType::ROWTYPE_REAL);
 
     // 06 create VTypeAttributeRow and Label for LoadingDuration
-    myLoadingDuration = new VTypeAttributeRow(this, column, SUMO_ATTR_LOADING_DURATION, 1);
+    myLoadingDuration = new VTypeAttributeRow(this, column, SUMO_ATTR_LOADING_DURATION, VTypeAttributeRow::RowAttrType::ROWTYPE_REAL);
 
     // 07 create ComboBox and Label for LatAlignment
-    myLatAlignment = new VTypeAttributeRow(this, column, SUMO_ATTR_LATALIGNMENT, SUMOXMLDefinitions::LateralAlignments.getStrings());
+    myLatAlignment = new VTypeAttributeRow(this, column, SUMO_ATTR_LATALIGNMENT, VTypeAttributeRow::RowAttrType::ROWTYPE_COMBOBOX, SUMOXMLDefinitions::LateralAlignments.getStrings());
 
     // 08 create VTypeAttributeRow and Label for MinGapLat
-    myMinGapLat = new VTypeAttributeRow(this, column, SUMO_ATTR_MINGAP_LAT, 1);
+    myMinGapLat = new VTypeAttributeRow(this, column, SUMO_ATTR_MINGAP_LAT, VTypeAttributeRow::RowAttrType::ROWTYPE_REAL);
 
     // 09 create VTypeAttributeRow and Label for MaxSpeedLat
-    myMaxSpeedLat = new VTypeAttributeRow(this, column, SUMO_ATTR_MAXSPEED_LAT, 1);
+    myMaxSpeedLat = new VTypeAttributeRow(this, column, SUMO_ATTR_MAXSPEED_LAT, VTypeAttributeRow::RowAttrType::ROWTYPE_REAL);
 
     // 10 create VTypeAttributeRow and Label for ActionStepLenght
-    myActionStepLenght = new VTypeAttributeRow(this, column, SUMO_ATTR_ACTIONSTEPLENGTH, 1);
+    myActionStepLenght = new VTypeAttributeRow(this, column, SUMO_ATTR_ACTIONSTEPLENGTH, VTypeAttributeRow::RowAttrType::ROWTYPE_REAL);
 
     // 11 create VTypeAttributeRow and Label for HasDriveStateu
-    myHasDriveState = new VTypeAttributeRow(this, column, SUMO_ATTR_HASDRIVERSTATE, 1);
+    myHasDriveState = new VTypeAttributeRow(this, column, SUMO_ATTR_HASDRIVERSTATE, VTypeAttributeRow::RowAttrType::ROWTYPE_REAL);
 
     // 12 create FXTextField and Label for Carriage length
-    myCarriageLength = new VTypeAttributeRow(this, column, SUMO_ATTR_CARRIAGE_LENGTH, 1);
+    myCarriageLength = new VTypeAttributeRow(this, column, SUMO_ATTR_CARRIAGE_LENGTH, VTypeAttributeRow::RowAttrType::ROWTYPE_REAL);
 
     // 13 create FXTextField and Label for Locomotive length
-    myLocomotiveLength = new VTypeAttributeRow(this, column, SUMO_ATTR_LOCOMOTIVE_LENGTH, 1);
+    myLocomotiveLength = new VTypeAttributeRow(this, column, SUMO_ATTR_LOCOMOTIVE_LENGTH, VTypeAttributeRow::RowAttrType::ROWTYPE_REAL);
 
     // 14 create FXTextField and Label for carriage GAP
-    myCarriageGap = new VTypeAttributeRow(this, column, SUMO_ATTR_CARRIAGE_GAP, 1);
+    myCarriageGap = new VTypeAttributeRow(this, column, SUMO_ATTR_CARRIAGE_GAP, VTypeAttributeRow::RowAttrType::ROWTYPE_REAL);
 }
 
 
 void
 GNEVehicleTypeDialog::VTypeAtributes::buildJunctionModelAttributesA(FXVerticalFrame* column) {
     // 01 create VTypeAttributeRow and Label for JMCrossingGap
-    myJMCrossingGap = new VTypeAttributeRow(this, column, SUMO_ATTR_JM_CROSSING_GAP, 1);
+    myJMCrossingGap = new VTypeAttributeRow(this, column, SUMO_ATTR_JM_CROSSING_GAP, VTypeAttributeRow::RowAttrType::ROWTYPE_REAL);
 
     // 02 create VTypeAttributeRow and Label for JMIgnoreKeepclearTime
-    myJMIgnoreKeepclearTime = new VTypeAttributeRow(this, column, SUMO_ATTR_JM_IGNORE_KEEPCLEAR_TIME, 1);
+    myJMIgnoreKeepclearTime = new VTypeAttributeRow(this, column, SUMO_ATTR_JM_IGNORE_KEEPCLEAR_TIME, VTypeAttributeRow::RowAttrType::ROWTYPE_REAL);
 
     // 03 create VTypeAttributeRow and Label for JMDriveAfterYellowTime
-    myJMDriveAfterYellowTime = new VTypeAttributeRow(this, column, SUMO_ATTR_JM_DRIVE_AFTER_YELLOW_TIME, 1);
+    myJMDriveAfterYellowTime = new VTypeAttributeRow(this, column, SUMO_ATTR_JM_DRIVE_AFTER_YELLOW_TIME, VTypeAttributeRow::RowAttrType::ROWTYPE_REAL);
     
     // 04 create VTypeAttributeRow and Label for JMDriveAfterRedTime
-    myJMDriveAfterRedTime = new VTypeAttributeRow(this, column, SUMO_ATTR_JM_DRIVE_AFTER_RED_TIME, 1);
+    myJMDriveAfterRedTime = new VTypeAttributeRow(this, column, SUMO_ATTR_JM_DRIVE_AFTER_RED_TIME, VTypeAttributeRow::RowAttrType::ROWTYPE_REAL);
             
     // 05 create VTypeAttributeRow and Label for JMDriveRedSpeed
-    myJMDriveRedSpeed = new VTypeAttributeRow(this, column, SUMO_ATTR_JM_DRIVE_RED_SPEED, 2);
+    myJMDriveRedSpeed = new VTypeAttributeRow(this, column, SUMO_ATTR_JM_DRIVE_RED_SPEED, VTypeAttributeRow::RowAttrType::ROWTYPE_REAL);
 }
 
 
 void
 GNEVehicleTypeDialog::VTypeAtributes::buildJunctionModelAttributesB(FXVerticalFrame* column) {
     // 01 create VTypeAttributeRow and Label for JMIgnoreFoeProb
-    myJMIgnoreFoeProb = new VTypeAttributeRow(this, column, SUMO_ATTR_JM_IGNORE_FOE_PROB, 1);
+    myJMIgnoreFoeProb = new VTypeAttributeRow(this, column, SUMO_ATTR_JM_IGNORE_FOE_PROB, VTypeAttributeRow::RowAttrType::ROWTYPE_REAL);
     
     // 02 create VTypeAttributeRow and Label for JMIgnoreFoeSpeed
-    myJMIgnoreFoeSpeed = new VTypeAttributeRow(this, column, SUMO_ATTR_JM_IGNORE_FOE_SPEED, 1);
+    myJMIgnoreFoeSpeed = new VTypeAttributeRow(this, column, SUMO_ATTR_JM_IGNORE_FOE_SPEED, VTypeAttributeRow::RowAttrType::ROWTYPE_REAL);
 
     // 03 create VTypeAttributeRow and Label for JMSigmaMinor
-    myJMSigmaMinor = new VTypeAttributeRow(this, column, SUMO_ATTR_JM_SIGMA_MINOR, 2);
+    myJMSigmaMinor = new VTypeAttributeRow(this, column, SUMO_ATTR_JM_SIGMA_MINOR, VTypeAttributeRow::RowAttrType::ROWTYPE_REAL);
 
     // 04 create VTypeAttributeRow and Label for JMTimeGapMinor
-    myJMTimeGapMinor = new VTypeAttributeRow(this, column, SUMO_ATTR_JM_TIMEGAP_MINOR, 1);
+    myJMTimeGapMinor = new VTypeAttributeRow(this, column, SUMO_ATTR_JM_TIMEGAP_MINOR, VTypeAttributeRow::RowAttrType::ROWTYPE_REAL);
 
     // 05 create VTypeAttributeRow and Label for Impatience
-    myJMImpatience = new VTypeAttributeRow(this, column, SUMO_ATTR_IMPATIENCE, 1);
+    myJMImpatience = new VTypeAttributeRow(this, column, SUMO_ATTR_IMPATIENCE, VTypeAttributeRow::RowAttrType::ROWTYPE_REAL);
 }
+
+
+void 
+GNEVehicleTypeDialog::VTypeAtributes::buildLaneChangeModelAttributes(FXVerticalFrame* column) {
+    // 01 create VTypeAttributeRow and Label for strategic param
+    myLCAStrategicParam = new VTypeAttributeRow(this, column, SUMO_ATTR_LCA_STRATEGIC_PARAM, VTypeAttributeRow::RowAttrType::ROWTYPE_REAL);
+
+    // 02 create VTypeAttributeRow and Label for cooperative param
+    myLCACooperativeParam = new VTypeAttributeRow(this, column, SUMO_ATTR_LCA_COOPERATIVE_PARAM, VTypeAttributeRow::RowAttrType::ROWTYPE_REAL);
+
+    // 03 create VTypeAttributeRow and Label for speed gain param
+    myLCASpeedgainParam = new VTypeAttributeRow(this, column, SUMO_ATTR_LCA_SPEEDGAIN_PARAM, VTypeAttributeRow::RowAttrType::ROWTYPE_REAL);
+
+    // 04 create VTypeAttributeRow and Label for keepright param
+    myLCAKeeprightParam = new VTypeAttributeRow(this, column, SUMO_ATTR_LCA_KEEPRIGHT_PARAM, VTypeAttributeRow::RowAttrType::ROWTYPE_REAL);
+
+    // 05 create VTypeAttributeRow and Label for sublane param
+    myLCASublaneParam = new VTypeAttributeRow(this, column, SUMO_ATTR_LCA_SUBLANE_PARAM, VTypeAttributeRow::RowAttrType::ROWTYPE_REAL);
+
+    // 06 create VTypeAttributeRow and Label for opposite param
+    myLCAOppositeParam = new VTypeAttributeRow(this, column, SUMO_ATTR_LCA_OPPOSITE_PARAM, VTypeAttributeRow::RowAttrType::ROWTYPE_REAL);
+
+    // 07 create VTypeAttributeRow and Label for pushy
+    myLCAPushy = new VTypeAttributeRow(this, column, SUMO_ATTR_LCA_PUSHY, VTypeAttributeRow::RowAttrType::ROWTYPE_REAL);
+
+    // 08 create VTypeAttributeRow and Label for pushy gap
+    myLCAPushygap = new VTypeAttributeRow(this, column, SUMO_ATTR_LCA_PUSHYGAP, VTypeAttributeRow::RowAttrType::ROWTYPE_REAL);
+
+    // 09 create VTypeAttributeRow and Label for assertive
+    myLCAAssertive = new VTypeAttributeRow(this, column, SUMO_ATTR_LCA_ASSERTIVE, VTypeAttributeRow::RowAttrType::ROWTYPE_REAL);
+
+    // 10 create VTypeAttributeRow and Label for impatience
+    myLCAImpatience = new VTypeAttributeRow(this, column, SUMO_ATTR_LCA_IMPATIENCE, VTypeAttributeRow::RowAttrType::ROWTYPE_REAL);
+
+    // 11 create VTypeAttributeRow and Label for time to impatience
+    myLCATimeToImpatience = new VTypeAttributeRow(this, column, SUMO_ATTR_LCA_TIME_TO_IMPATIENCE, VTypeAttributeRow::RowAttrType::ROWTYPE_REAL);
+
+    // 12 create VTypeAttributeRow and Label for accel lat
+    myLCAAccelLat = new VTypeAttributeRow(this, column, SUMO_ATTR_LCA_ACCEL_LAT, VTypeAttributeRow::RowAttrType::ROWTYPE_REAL);
+
+    // 13 create VTypeAttributeRow and Label for look ahead lefth
+    myLCALookAheadLeft = new VTypeAttributeRow(this, column, SUMO_ATTR_LCA_LOOKAHEADLEFT, VTypeAttributeRow::RowAttrType::ROWTYPE_REAL);
+
+    // 14 create VTypeAttributeRow and Label for speed gain right
+    myLCASpeedGainRight = new VTypeAttributeRow(this, column, SUMO_ATTR_LCA_SPEEDGAINRIGHT, VTypeAttributeRow::RowAttrType::ROWTYPE_REAL);
+
+    // 15 create VTypeAttributeRow and Label for max speed lat standing
+    myLCAMaxSpeedLatStanding = new VTypeAttributeRow(this, column, SUMO_ATTR_LCA_MAXSPEEDLATSTANDING, VTypeAttributeRow::RowAttrType::ROWTYPE_REAL);
+
+    // 16 create VTypeAttributeRow and Label for max speed lat factor
+    myLCAMaxSpeedLatFactor = new VTypeAttributeRow(this, column, SUMO_ATTR_LCA_MAXSPEEDLATFACTOR, VTypeAttributeRow::RowAttrType::ROWTYPE_REAL);
+
+    // 17 create VTypeAttributeRow and Label for turn alignment distance
+    myLCATurnAlignmentDistance = new VTypeAttributeRow(this, column, SUMO_ATTR_LCA_TURN_ALIGNMENT_DISTANCE, VTypeAttributeRow::RowAttrType::ROWTYPE_REAL);
+
+    // 18 create VTypeAttributeRow and Label for overtake right
+    myLCAOvertakeRight = new VTypeAttributeRow(this, column, SUMO_ATTR_LCA_OVERTAKE_RIGHT, VTypeAttributeRow::RowAttrType::ROWTYPE_REAL);
+
+    // 19 create VTypeAttributeRow and Label for experimental
+    /* myLCAExperimental = new VTypeAttributeRow(this, column, SUMO_ATTR_LCA_EXPERIMENTAL1, VTypeAttributeRow::RowAttrType::ROWTYPE_REAL); */
+}
+
 
 void
 GNEVehicleTypeDialog::VTypeAtributes::updateValues() {
     //set values of myEditedDemandElement into fields
     myTextFieldVehicleTypeID->setText(myVehicleTypeDialog->myEditedDemandElement->getAttribute(SUMO_ATTR_ID).c_str());
-    // set field color
-    myTextFieldColor->setText(myVehicleTypeDialog->myEditedDemandElement->getAttribute(SUMO_ATTR_COLOR).c_str());
-    // set color depending if is a default value
-    if (myVehicleTypeDialog->myEditedDemandElement->getTagProperty().getDefaultValue(SUMO_ATTR_COLOR) != myTextFieldColor->getText().text()) {
-        myTextFieldColor->setTextColor(FXRGB(0, 0, 0));
-    } else {
-        myTextFieldColor->setTextColor(FXRGB(195, 195, 195));
-    }
     // set variables of special rows VClass and VShape
     SUMOVTypeParameter::VClassDefaultValues defaultVTypeParameters(myVClassRow->updateValue());
     myVShapeRow->updateValues();
     // update rows
     myLaneChangeModel->updateValue();
     myLatAlignment->updateValue();
+    myColor->updateValue();
     myLength->updateValue(toString(defaultVTypeParameters.length));
     myMinGap->updateValue(toString(defaultVTypeParameters.minGap));
     myMaxSpeed->updateValue(toString(defaultVTypeParameters.maxSpeed));
@@ -755,11 +993,31 @@ GNEVehicleTypeDialog::VTypeAtributes::updateValues() {
     myJMSigmaMinor->updateValue();
     myJMTimeGapMinor->updateValue();
     myJMImpatience->updateValue();
+    // LCM Attributes
+    myLCAStrategicParam->updateValue();
+    myLCACooperativeParam->updateValue();
+    myLCASpeedgainParam->updateValue();
+    myLCAKeeprightParam->updateValue();
+    myLCASublaneParam->updateValue();
+    myLCAOppositeParam->updateValue();
+    myLCAPushy->updateValue();
+    myLCAPushygap->updateValue();
+    myLCAAssertive->updateValue();
+    myLCAImpatience->updateValue();
+    myLCATimeToImpatience->updateValue();
+    myLCAAccelLat->updateValue();
+    myLCALookAheadLeft->updateValue();
+    myLCASpeedGainRight->updateValue();
+    myLCAMaxSpeedLatStanding->updateValue();
+    myLCAMaxSpeedLatFactor->updateValue();
+    myLCATurnAlignmentDistance->updateValue();
+    myLCAOvertakeRight->updateValue();
+    /* myLCAExperimental->updateValue(); */
 }
 
 
 long
-GNEVehicleTypeDialog::VTypeAtributes::onCmdSetVariable(FXObject*, FXSelector, void*) {
+GNEVehicleTypeDialog::VTypeAtributes::onCmdSetAttribute(FXObject*, FXSelector, void*) {
     // At start we assumed, that all values are valid
     myVehicleTypeDialog->myVehicleTypeValid = true;
     myVehicleTypeDialog->myInvalidAttr = SUMO_ATTR_NOTHING;
@@ -775,25 +1033,12 @@ GNEVehicleTypeDialog::VTypeAtributes::onCmdSetVariable(FXObject*, FXSelector, vo
         myVehicleTypeDialog->myVehicleTypeValid = false;
         myVehicleTypeDialog->myInvalidAttr = SUMO_ATTR_ID;
     }
-    // set color of myTextFieldColor, depending if current value is valid or not
-    if (myVehicleTypeDialog->myEditedDemandElement->isValid(SUMO_ATTR_COLOR, myTextFieldColor->getText().text())) {
-        // set color depending if is a default value
-        if (myVehicleTypeDialog->myEditedDemandElement->getTagProperty().getDefaultValue(SUMO_ATTR_COLOR) != myTextFieldColor->getText().text()) {
-            myTextFieldColor->setTextColor(FXRGB(0, 0, 0));
-        } else {
-            myTextFieldColor->setTextColor(FXRGB(195, 195, 195));
-        }
-        myVehicleTypeDialog->myEditedDemandElement->setAttribute(SUMO_ATTR_COLOR, myTextFieldColor->getText().text(), myVehicleTypeDialog->myEditedDemandElement->getViewNet()->getUndoList());
-    } else {
-        myTextFieldColor->setTextColor(FXRGB(255, 0, 0));
-        myVehicleTypeDialog->myVehicleTypeValid = false;
-        myVehicleTypeDialog->myInvalidAttr = SUMO_ATTR_COLOR;
-    }
     // set variables of special rows VClass and VShape
     SUMOVTypeParameter::VClassDefaultValues defaultVTypeParameters(myVClassRow->setVariable());
     // set variables of special rows VShape
     myVShapeRow->setVariable();
     // set attributes in rest rows
+    myColor->setVariable();
     myLength->setVariable(toString(defaultVTypeParameters.length));
     myMinGap->setVariable(toString(defaultVTypeParameters.minGap));
     myMaxSpeed->setVariable(toString(defaultVTypeParameters.maxSpeed));
@@ -839,31 +1084,39 @@ GNEVehicleTypeDialog::VTypeAtributes::onCmdSetVariable(FXObject*, FXSelector, vo
     myJMSigmaMinor->setVariable();
     myJMTimeGapMinor->setVariable();
     myJMImpatience->setVariable();
+    // LCM Attributes
+    myLCAStrategicParam->setVariable();
+    myLCACooperativeParam->setVariable();
+    myLCASpeedgainParam->setVariable();
+    myLCAKeeprightParam->setVariable();
+    myLCASublaneParam->setVariable();
+    myLCAOppositeParam->setVariable();
+    myLCAPushy->setVariable();
+    myLCAPushygap->setVariable();
+    myLCAAssertive->setVariable();
+    myLCAImpatience->setVariable();
+    myLCATimeToImpatience->setVariable();
+    myLCAAccelLat->setVariable();
+    myLCALookAheadLeft->setVariable();
+    myLCASpeedGainRight->setVariable();
+    myLCAMaxSpeedLatStanding->setVariable();
+    myLCAMaxSpeedLatFactor->setVariable();
+    myLCATurnAlignmentDistance->setVariable();
+    myLCAOvertakeRight->setVariable();
+    /* myLCAExperimental->setVariable(); */
     return true;
 }
 
 
 long
-GNEVehicleTypeDialog::VTypeAtributes::onCmdSetColor(FXObject*, FXSelector, void*) {
-    // create FXColorDialog
-    FXColorDialog colordialog(this, tr("Color Dialog"));
-    colordialog.setTarget(this);
-    // If previous attribute wasn't correct, set black as default color
-    if (GNEAttributeCarrier::canParse<RGBColor>(myTextFieldColor->getText().text())) {
-        colordialog.setRGBA(MFXUtils::getFXColor(RGBColor::parseColor(myTextFieldColor->getText().text())));
-    } else {
-        colordialog.setRGBA(MFXUtils::getFXColor(RGBColor::BLACK));
-    }
-    // execute dialog to get a new color
-    if (colordialog.execute()) {
-        std::string newValue = toString(MFXUtils::getRGBColor(colordialog.getRGBA()));
-        myTextFieldColor->setText(newValue.c_str());
-        if (myVehicleTypeDialog->myEditedDemandElement->isValid(SUMO_ATTR_COLOR, newValue)) {
-            myVehicleTypeDialog->myEditedDemandElement->setAttribute(SUMO_ATTR_COLOR, newValue, myVehicleTypeDialog->myEditedDemandElement->getViewNet()->getUndoList());
-            // If previously value was incorrect, change font color to black
-            myTextFieldColor->setTextColor(FXRGB(0, 0, 0));
-            myTextFieldColor->killFocus();
-        }
+GNEVehicleTypeDialog::VTypeAtributes::onCmdSetAttributeDialog(FXObject* obj, FXSelector, void*) {
+    // check what dialog has to be opened
+    if (obj == myColor->getButton()) {
+        myColor->openColorDialog();
+    } else if (obj == myFilename->getButton()) {
+        myFilename->openImageFileDialog();
+    } else if (obj == myOSGFile->getButton()) {
+        myFilename->openOSGFileDialog();
     }
     return 1;
 }
@@ -873,7 +1126,7 @@ GNEVehicleTypeDialog::VTypeAtributes::onCmdSetColor(FXObject*, FXSelector, void*
 // ---------------------------------------------------------------------------
 
 GNEVehicleTypeDialog::CarFollowingModelParameters::CarFollowingModelParameters(GNEVehicleTypeDialog* vehicleTypeDialog, FXHorizontalFrame* column) :
-    FXGroupBox(column, "Car Following Model", GUIDesignGroupBoxFrame),
+    FXGroupBox(column, "Car Following Model attributes", GUIDesignGroupBoxFrame),
     myVehicleTypeDialog(vehicleTypeDialog) {
 
     // create vertical frame for rows
@@ -1212,7 +1465,7 @@ GNEVehicleTypeDialog::CarFollowingModelParameters::onCmdSetVariable(FXObject*, F
 // ---------------------------------------------------------------------------
 
 GNEVehicleTypeDialog::GNEVehicleTypeDialog(GNEDemandElement* editedVehicleType, bool updatingElement) :
-    GNEDemandElementDialog(editedVehicleType, updatingElement, 1022, 575),
+    GNEDemandElementDialog(editedVehicleType, updatingElement, /*1022*/ /*1322*/ 1372, 575),
     myVehicleTypeValid(true),
     myInvalidAttr(SUMO_ATTR_NOTHING) {
 
@@ -1306,7 +1559,7 @@ GNEVehicleTypeDialog::CarFollowingModelParameters::CarFollowingModelRow::CarFoll
     FXHorizontalFrame(verticalFrame, GUIDesignAuxiliarHorizontalFrame),
     myCarFollowingModelParametersParent(carFollowingModelParametersParent),
     myAttr(attr) {
-    myLabel = new FXLabel(this, toString(attr).c_str(), nullptr, GUIDesignLabelAttribute150);
+    new FXLabel(this, toString(attr).c_str(), nullptr, GUIDesignLabelAttribute150);
     textField = new FXTextField(this, GUIDesignTextFieldNCol, carFollowingModelParametersParent, MID_GNE_SET_ATTRIBUTE, GUIDesignTextFielWidth180Real);
 }
 

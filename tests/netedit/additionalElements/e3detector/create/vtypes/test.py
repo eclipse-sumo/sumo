@@ -32,29 +32,29 @@ netedit.setZoom("25", "0", "25")
 netedit.additionalMode()
 
 # select E3
-netedit.changeAdditional("e3Detector")
+netedit.changeElement("e3Detector")
 
 # set invalid vehicle types (invalid IDs)
-netedit.modifyAdditionalDefaultValue(5, "@%%;$$$ %%$$ type.3@")
+netedit.changeDefaultValue(5, "@%%;$$$ %%$$ type.3@")
 
 # try to create E3 with invalid vehicle type
 netedit.leftClick(referencePosition, 100, 100)
 
 # set valid vehicle types
-netedit.modifyAdditionalDefaultValue(5, "type1 type2 type3")
+netedit.changeDefaultValue(5, "type1 type2 type3")
 
 # create E3 with valid vehicle types
 netedit.leftClick(referencePosition, 100, 100)
 
 # select entry detector
-netedit.changeAdditional("detEntry")
+netedit.changeElement("detEntry")
 
 # Create Entry and exit detectors for all E3 detectors (except for the first, that only have one Entry)
 netedit.leftClick(referencePosition, 100, 100)  # select E3
 netedit.leftClick(referencePosition, 300, 250)
 
 # select entry detector
-netedit.changeAdditional("detExit")
+netedit.changeElement("detExit")
 
 # Create Entry and exit detectors for all E3 detectors (except for the first, that only have one Entry)
 netedit.leftClick(referencePosition, 100, 100)  # select E3

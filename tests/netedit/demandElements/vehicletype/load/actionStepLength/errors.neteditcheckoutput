@@ -1,0 +1,2 @@
+Warning: Given action step length 12 for vehicle type 'vType3' is larger than its parameter tau (=1)! This may lead to collisions. (This warning is only issued once per vehicle type).
+Warning: Given action step length 4 for vehicle type 'vType4' is larger than its parameter tau (=1)! This may lead to collisions. (This warning is only issued once per vehicle type).

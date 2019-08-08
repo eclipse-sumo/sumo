@@ -3015,12 +3015,14 @@ MSLane::removeParking(MSVehicle* veh) {
 
 void
 MSLane::saveState(OutputDevice& out) {
-    out.openTag(SUMO_TAG_LANE);
-    out.writeAttr("id", getID()); // using "id" instead of SUMO_ATTR_ID makes the value only show up in xml state
-    out.openTag(SUMO_TAG_VIEWSETTINGS_VEHICLES);
-    out.writeAttr(SUMO_ATTR_VALUE, myVehicles);
-    out.closeTag();
-    out.closeTag();
+    if (myVehicles.size() > 0) {
+        out.openTag(SUMO_TAG_LANE);
+        out.writeAttr(SUMO_ATTR_ID, getID());
+        out.openTag(SUMO_TAG_VIEWSETTINGS_VEHICLES);
+        out.writeAttr(SUMO_ATTR_VALUE, myVehicles);
+        out.closeTag();
+        out.closeTag();
+    }
 }
 
 

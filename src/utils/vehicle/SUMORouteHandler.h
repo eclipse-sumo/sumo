@@ -51,22 +51,20 @@ class SUMOVTypeParameter;
 class SUMORouteHandler : public SUMOSAXHandler {
 public:
     /// @brief standard constructor
-    SUMORouteHandler(const std::string& file, const std::string& expectedRoot);
+    SUMORouteHandler(const std::string& file, const std::string& expectedRoot, const bool hardFail);
 
     /// @brief standard destructor
     virtual ~SUMORouteHandler();
-
-    /// @brief Returns the last loaded depart time
-    SUMOTime getLastDepart() const;
 
     /// @brief check start and end position of a stop
     static bool checkStopPos(double& startPos, double& endPos, const double laneLength,
                              const double minLength, const bool friendlyPos);
 
     /// @brief returns the first departure time that was ever read
-    SUMOTime getFirstDepart() const {
-        return myFirstDepart;
-    }
+    SUMOTime getFirstDepart() const;
+
+    /// @brief Returns the last loaded depart time
+    SUMOTime getLastDepart() const;
 
 protected:
     /// @name inherited from GenericSAXHandler
@@ -191,6 +189,9 @@ protected:
     bool parseStop(SUMOVehicleParameter::Stop& stop, const SUMOSAXAttributes& attrs, std::string errorSuffix, MsgHandler* const errorOutput);
 
 protected:
+    /// @brief flag to enable or disable hard fails
+    const bool myHardFail;
+
     /// @brief Parameter of the current vehicle, trip, person, container or flow
     SUMOVehicleParameter* myVehicleParameter;
 
@@ -217,6 +218,9 @@ protected:
 
     /// @brief The currently parsed vehicle type
     SUMOVTypeParameter* myCurrentVType;
+
+    /// @brief Parameterised used for saving loaded generic parameters that aren't saved in Vehicles or Vehicle Types
+    Parameterised myLoadedParameterised;
 
     /// @brief generates numerical ids
     IDSupplier myIdSupplier;

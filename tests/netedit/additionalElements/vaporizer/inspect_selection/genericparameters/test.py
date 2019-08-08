@@ -38,7 +38,7 @@ netedit.selectionInvert()
 netedit.inspectMode()
 
 # inspect vaporizers
-netedit.leftClick(referencePosition, 310, 220)
+netedit.leftClick(referencePosition, 310, 215)
 
 # Change generic parameters with a dummy value
 netedit.modifyAttribute(4, "dummyGenericParameters", False)

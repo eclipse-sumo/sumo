@@ -77,6 +77,7 @@ NLHandler::NLHandler(const std::string& file, MSNet& net,
 
 NLHandler::~NLHandler() {}
 
+
 void
 NLHandler::myStartElement(int element,
                           const SUMOSAXAttributes& attrs) {

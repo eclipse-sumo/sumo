@@ -29,13 +29,13 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 netedit.additionalMode()
 
 # select parkingArea
-netedit.changeAdditional("parkingArea")
+netedit.changeElement("parkingArea")
 
 # create parkingArea in mode "reference left"
 netedit.leftClick(referencePosition, 250, 250)
 
 # select space
-netedit.changeAdditional("space")
+netedit.changeElement("space")
 
 # select parent
 netedit.selectAdditionalChild(8, 0)
@@ -56,7 +56,7 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 410, 130)
 
 # block space
-netedit.modifyBoolAttribute(8, True)
+netedit.modifyBoolAttribute(8, False)
 
 # change to move mode
 netedit.moveMode()
@@ -71,7 +71,7 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 410, 120)
 
 # unblock space
-netedit.modifyBoolAttribute(8, True)
+netedit.modifyBoolAttribute(8, False)
 
 # change to move mode
 netedit.moveMode()

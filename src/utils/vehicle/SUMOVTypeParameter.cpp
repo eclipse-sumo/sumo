@@ -422,6 +422,7 @@ SUMOVTypeParameter::getCFParamString(const SumoXMLAttr attr, const std::string d
     }
 }
 
+
 double
 SUMOVTypeParameter::getLCParam(const SumoXMLAttr attr, const double defaultValue) const {
     if (lcParameter.count(attr)) {
@@ -430,6 +431,17 @@ SUMOVTypeParameter::getLCParam(const SumoXMLAttr attr, const double defaultValue
         return defaultValue;
     }
 }
+
+
+std::string
+SUMOVTypeParameter::getLCParamString(const SumoXMLAttr attr, const std::string &defaultValue) const {
+    if (lcParameter.count(attr)) {
+        return lcParameter.find(attr)->second;
+    } else {
+        return defaultValue;
+    }
+}
+
 
 const SUMOVTypeParameter::SubParams&
 SUMOVTypeParameter::getLCParams() const {

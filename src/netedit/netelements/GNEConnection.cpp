@@ -77,16 +77,16 @@ GNEConnection::updateGeometry() {
     // Get shape of from and to lanes
     NBEdge::Connection& nbCon = getNBEdgeConnection();
     if (myShapeDeprecated) {
-        // Clear containers
+        // Clear geometry
         myGeometry.clearGeometry();
-        // obtain lane shape rom
+        // obtain lane shape from
         PositionVector laneShapeFrom;
         if ((int)getEdgeFrom()->getNBEdge()->getLanes().size() > nbCon.fromLane) {
             laneShapeFrom = getEdgeFrom()->getNBEdge()->getLanes().at(nbCon.fromLane).shape;
         } else {
             return;
         }
-        // obtalin lane shape to
+        // obtain lane shape to
         PositionVector laneShapeTo;
         if ((int)nbCon.toEdge->getLanes().size() > nbCon.toLane) {
             laneShapeTo = nbCon.toEdge->getLanes().at(nbCon.toLane).shape;
@@ -280,8 +280,19 @@ GNEConnection::getCenteringBoundary() const {
 
 void
 GNEConnection::drawGL(const GUIVisualizationSettings& s) const {
+    // declare a flag to check if shape has to be draw
+    bool drawConnection = true;
+    if ((myNet->getViewNet()->getEditModes().currentSupermode == GNE_SUPERMODE_DEMAND) && 
+        s.drawDetail(s.detailSettings.connectionsDemandMode, s.addSize.getExaggeration(s, this))) {
+        drawConnection = !myShapeDeprecated;
+    } else if ((myNet->getViewNet()->getEditModes().currentSupermode == GNE_SUPERMODE_NETWORK) && 
+               myNet->getViewNet()->getNetworkViewOptions().showConnections()) {
+        drawConnection = !myShapeDeprecated;
+    } else {
+        drawConnection = false;
+    }
     // Check if connection must be drawed
-    if (!myShapeDeprecated && (myNet->getViewNet()->getViewOptionsNetwork().showConnections() || (myNet->getViewNet()->getEditModes().currentSupermode == GNE_SUPERMODE_DEMAND))) {
+    if (drawConnection) {
         // check if boundary has to be drawn
         if(s.drawBoundaries) {
             GLHelper::drawBoundary(getBoundary());
@@ -295,7 +306,7 @@ GNEConnection::drawGL(const GUIVisualizationSettings& s) const {
         // Set color
         if (drawUsingSelectColor()) {
             // override with special colors (unless the color scheme is based on selection)
-            GLHelper::setColor(s.selectedConnectionColor);
+            GLHelper::setColor(s.colorSettings.selectedConnectionColor);
         } else if (mySpecialColor != nullptr) {
             GLHelper::setColor(*mySpecialColor);
         } else {
@@ -322,8 +333,8 @@ GNEConnection::drawGL(const GUIVisualizationSettings& s) const {
                 GLHelper::drawLine(myInternalJunctionMarker);
             }
             // check if dotted contour has to be drawn (not useful at high zoom)
-            if (!s.drawForSelecting && (myNet->getViewNet()->getDottedAC() == this)) {
-                GLHelper::drawShapeDottedContour(getType(), shapeSuperposed, 0.25);
+            if (myNet->getViewNet()->getDottedAC() == this) {
+                GLHelper::drawShapeDottedContourAroundShape(s, getType(), shapeSuperposed, 0.25);
             }
         }
         // Pop name

@@ -48,45 +48,9 @@ class GNEConnection;
 class GNEHierarchicalElementParents {
 
 public:
-    /// @brief struct for pack geometry between two points
-    struct LineGeometry {
-        /// @brief constructor
-        LineGeometry(const Position &_firstPoint);
 
-        /// @brief calculate rotation and lenght to the given second point
-        void calculateRotationsAndLength(const Position &secondPoint);
-
-        /// @brieff first point
-        Position firstPoint;
-
-        /// @brief line rotation
-        double rotation;
-
-        /// @brief line lenghtlenght
-        double lenght;
-    private:
-        /// @brief default constructor
-        LineGeometry();
-    };
-
-    /// @brief struct for pack variables related to edge geometry limits
-    struct EdgeGeometryLimits {
-        /// @brief constructor
-        EdgeGeometryLimits(const int _indexBegin, const int _indexEnd, GNEConnection* _nextConnection);
-        
-        /// @brief index lane begin
-        int indexBegin;
-
-        /// @brief index lane end
-        int indexEnd;
-
-        /// @brief next connection
-        GNEConnection* nextConnection;
-
-    private:
-        /// @brief default constructor
-        EdgeGeometryLimits();
-    };
+    /// @brief declare GNEChange_Children as friend class
+    friend class GNEChange_Children;
 
     /**@brief Constructor used by elements that have another additionals as parent
      * @param[in] tag Type of xml tag that define the element (SUMO_TAG_BUS_STOP, SUMO_TAG_JUNCTION, etc...)
@@ -125,18 +89,6 @@ public:
 
     /// @brief get edge parents
     const std::vector<GNEEdge*>& getEdgeParents() const;
-
-    /// @brief get edge parents in string format
-    std::string getEdgeParentsStr() const;
-
-    /// @brief get next LineGeometry to the next consecutive edge of the given edge
-    LineGeometry getLinetoNextEdge(const GNEEdge* edge, int nextEdgeLaneIndex) const;
-
-    /// @brief get edge geometry limits correspond to the given edge
-    const EdgeGeometryLimits &getEdgeGeometryLimits(const GNEEdge* edge) const;
-
-    /// @brief recalculate edge geometry limites
-    void recalculateEdgeGeometryLimits();
 
     /// @}
 
@@ -193,7 +145,7 @@ public:
     /// @}
 
 protected:
-    /// @brief struct for pack all variables and functions relative to connections between hierarchical element and their childs
+    /// @brief struct for pack all variables and functions relative to connections between hierarchical element and their children
     struct ParentConnections {
         /// @brief constructor
         ParentConnections(GNEHierarchicalElementParents* hierarchicalElement);
@@ -202,12 +154,12 @@ protected:
         void update();
 
         /// @brief draw connections between Parent and childrens
-        void draw(GUIGlObjectType parentType) const;
+        void draw(const GUIVisualizationSettings& s, const GUIGlObjectType parentType) const;
 
         /// @brief position and rotation of every symbol over lane
         std::vector<std::pair<Position, double> > symbolsPositionAndRotation;
 
-        /// @brief Matrix with the Vertex's positions of connections between parents an their childs
+        /// @brief Matrix with the Vertex's positions of connections between parents an their children
         std::vector<PositionVector> connectionPositions;
 
     private:
@@ -293,14 +245,8 @@ private:
     /// @brief list of demand elements parents of this element
     std::vector<GNEDemandElement*> myDemandElementParents;
 
-    /// @brief vector used to save edge geometry limits (used for drawing routes)
-    std::vector<EdgeGeometryLimits> myEdgeGeometryLimits;
-
     /// @brief pointer to AC (needed to avoid diamond problem)
     GNEAttributeCarrier* myAC;
-
-    /// @brief get next connection of the given edge (or NULL if not exist)
-    GNEConnection* getNextConnection(const GNEEdge* edgeFrom) const;
 
     /// @brief Invalidated copy constructor.
     GNEHierarchicalElementParents(const GNEHierarchicalElementParents&) = delete;

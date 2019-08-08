@@ -44,6 +44,3 @@ class JunctionDomain(Domain):
         List of 2D positions (cartesian) describing the geometry.
         """
         return self._getUniversal(tc.VAR_SHAPE, junctionID)
-
-
-JunctionDomain()

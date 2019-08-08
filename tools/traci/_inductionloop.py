@@ -119,6 +119,3 @@ class InductionLoopDomain(Domain):
         Returns a complex structure containing several information about vehicles which passed the detector.
         """
         return self._getUniversal(tc.LAST_STEP_VEHICLE_DATA, loopID)
-
-
-InductionLoopDomain()

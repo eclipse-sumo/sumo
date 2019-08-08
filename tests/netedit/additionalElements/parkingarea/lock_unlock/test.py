@@ -29,10 +29,10 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 netedit.additionalMode()
 
 # select parkingArea
-netedit.changeAdditional("parkingArea")
+netedit.changeElement("parkingArea")
 
 # change reference to center
-netedit.modifyAdditionalDefaultValue(10, "reference center")
+netedit.changeDefaultValue(10, "reference center")
 
 # create parkingArea in mode "reference center"
 netedit.leftClick(referencePosition, 250, 250)
@@ -41,37 +41,37 @@ netedit.leftClick(referencePosition, 250, 250)
 netedit.moveMode()
 
 # move parkingArea to right
-netedit.moveElement(referencePosition, 150, 275, 250, 275)
+netedit.moveElement(referencePosition, 150, 300, 250, 300)
 
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect parkingArea
-netedit.leftClick(referencePosition, 350, 270)
+netedit.leftClick(referencePosition, 350, 300)
 
 # block additional
-netedit.modifyBoolAttribute(11, True)
+netedit.modifyBoolAttribute(14, False)
 
 # change to move mode
 netedit.moveMode()
 
 # try to move parkingArea to right (must be blocked)
-netedit.moveElement(referencePosition, 250, 270, 350, 270)
+netedit.moveElement(referencePosition, 250, 300, 350, 300)
 
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect parkingArea
-netedit.leftClick(referencePosition, 350, 270)
+netedit.leftClick(referencePosition, 350, 300)
 
 # unblock additional
-netedit.modifyBoolAttribute(11, True)
+netedit.modifyBoolAttribute(14, False)
 
 # change to move mode
 netedit.moveMode()
 
 # move parkingArea to right (must be allowed)
-netedit.moveElement(referencePosition, 250, 270, 350, 270)
+netedit.moveElement(referencePosition, 250, 300, 350, 300)
 
 # Check undos and redos
 netedit.undo(referencePosition, 5)

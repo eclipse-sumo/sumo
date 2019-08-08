@@ -29,17 +29,17 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 netedit.additionalMode()
 
 # select parkingArea
-netedit.changeAdditional("parkingArea")
+netedit.changeElement("parkingArea")
 
 # create parkingArea in mode "reference left"
 netedit.leftClick(referencePosition, 250, 250)
 
 # select space
-netedit.changeAdditional("space")
+netedit.changeElement("space")
 
 # block movement
 netedit.selectAdditionalChild(8, 0)
-netedit.modifyAdditionalDefaultBoolValue(6)
+netedit.changeDefaultBoolValue(6)
 
 # create area
 netedit.leftClick(referencePosition, 330, 100)

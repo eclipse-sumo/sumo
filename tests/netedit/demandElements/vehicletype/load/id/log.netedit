@@ -1,0 +1,5 @@
+Error: Attribute 'id' is missing in definition of vType
+Error: Attribute 'id' in definition of a vType is empty.
+Error: Invalid vType id ''.
+Error: There is another vType with the same ID='vType0'.
+Error: Loading of C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.07Aug081749.192/netedit.gui/demandElements/vehicletype/load/id\input_routes.rou.xml failed.

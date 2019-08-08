@@ -4,6 +4,9 @@ three_minus_right
 # beginning with two lanes, adding one to the left
 two_plus_left
 
+# beginning with two lanes, adding one to the left
+two_plus_left_lefthand
+
 # the edge has per default two lanes but begins with three lanes
 def_two_three_minus_right
 

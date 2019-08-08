@@ -32,26 +32,26 @@ netedit.rebuildNetwork()
 netedit.additionalMode()
 
 # select E2
-netedit.changeAdditional("e2MultilaneDetector")
+netedit.changeElement("e2MultilaneDetector")
 
 # select lanes
 netedit.leftClick(referencePosition, 190, 255)
 netedit.leftClick(referencePosition, 440, 255)
 
 # set invalid frequency
-netedit.modifyAdditionalDefaultValue(2, "dummyFreq")
+netedit.changeDefaultValue(2, "dummyFreq")
 
 # create E2 with default parameters
 netedit.typeEnter()
 
 # set invalid frequency
-netedit.modifyAdditionalDefaultValue(2, "-30")
+netedit.changeDefaultValue(2, "-30")
 
 # create E2 with default parameters
 netedit.typeEnter()
 
 # set valid frequency
-netedit.modifyAdditionalDefaultValue(2, "120")
+netedit.changeDefaultValue(2, "120")
 
 # create E2 with default parameters
 netedit.typeEnter()

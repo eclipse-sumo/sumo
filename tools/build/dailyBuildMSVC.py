@@ -127,15 +127,12 @@ optParser.add_option("-t", "--tests-dir", dest="testsDir", default=r"git\tests",
                      help="directory containg the tests, relative to the root dir")
 optParser.add_option("-m", "--remote-dir", dest="remoteDir", default="S:\\daily",
                      help="directory to move the results to")
-optParser.add_option("-d", "--dll-dirs", dest="dllDirs",
-                     default=r"Win32:bin,x64:bin64",
-                     help="path to dependency dlls for the relevant platforms")
 optParser.add_option("-u", "--no-update", dest="update", action="store_false",
                      default=True, help="skip repository update")
 optParser.add_option("-n", "--no-tests", dest="tests", action="store_false",
                      default=True, help="skip tests")
-optParser.add_option("-e", "--no-extended-tests", dest="extended_tests", action="store_false",
-                     default=True, help="skip netedit tests and tests for the debug build")
+optParser.add_option("-x", "--x64only", action="store_true",
+                     default=False, help="skip Win32 and debug build (as well as netedit tests)")
 optParser.add_option("-p", "--python", help="path to python interpreter to use")
 (options, args) = optParser.parse_args()
 
@@ -158,8 +155,7 @@ for fname in glob.glob(os.path.join(options.remoteDir, "sumo-all-*.zip")):
     if os.path.getmtime(fname) > maxTime:
         maxTime = os.path.getmtime(fname)
         sumoAllZip = fname
-platformDlls = [entry.split(":") for entry in options.dllDirs.split(",")]
-for platform, dllDir in platformDlls:
+for platform in (["x64"] if options.x64only else ["Win32", "x64"]):
     env["FILEPREFIX"] = msvcVersion + options.suffix + platform
     prefix = os.path.join(options.remoteDir, env["FILEPREFIX"])
     makeLog = prefix + "Release.log"
@@ -168,7 +164,7 @@ for platform, dllDir in platformDlls:
     binDir = "sumo-git/bin/"
 
     toClean = [makeLog, makeAllLog]
-    for ext in ("*.exe", "*.ilk", "*.pdb", "*.py", "*.pyd", "*.dll", "*.jar"):
+    for ext in ("*.exe", "*.ilk", "*.pdb", "*.py", "*.pyd", "*.dll", "*.lib", "*.exp", "*.jar"):
         toClean += glob.glob(os.path.join(options.rootDir, options.binDir, ext))
     for f in toClean:
         try:
@@ -186,14 +182,11 @@ for platform, dllDir in platformDlls:
                               cwd=buildDir, stdout=log, stderr=subprocess.STDOUT)
         ret = subprocess.call(["cmake", "--build", ".", "--target", "lisum-gui"],
                               cwd=buildDir, stdout=log, stderr=subprocess.STDOUT)
-    envSuffix = ""
-    if platform == "x64":
-        envSuffix = "_64"
     # we need to use io.open here due to http://bugs.python.org/issue16273
     log = io.open(makeLog, 'a')
     if ret == 0 and sumoAllZip:
         try:
-            binaryZip = sumoAllZip.replace("-all-", "-%s-" % env["FILEPREFIX"])
+            binaryZip = sumoAllZip.replace("-all-", "-%s%s-" % (platform.lower().replace("x", "win"), options.suffix))
             zipf = zipfile.ZipFile(binaryZip, 'w', zipfile.ZIP_DEFLATED)
             srcZip = zipfile.ZipFile(sumoAllZip)
             write = False
@@ -210,12 +203,12 @@ for platform, dllDir in platformDlls:
                 elif write:
                     zipf.writestr(f, srcZip.read(f))
             srcZip.close()
-            dllPath = os.path.join(options.rootDir, dllDir)
-            for f in glob.glob(os.path.join(dllPath, "*.dll")) + glob.glob(os.path.join(dllPath, "*", "*.dll")):
-                zipf.write(f, os.path.join(binDir, f[len(dllPath) + 1:]))
-            for ext in ("*.exe", "*.bat", "*.py", "*.pyd", "*.dll", "*.jar"):
-                for f in glob.glob(os.path.join(options.rootDir, options.binDir, ext)):
+            for ext in ("*.exe", "*.dll", "*.lib", "*.exp", "*.bat", "*.py", "*.pyd", "*.jar"):
+                for f in sorted(glob.glob(os.path.join(options.rootDir, options.binDir, ext))):
                     nameInZip = os.path.join(binDir, os.path.basename(f))
+                    # filter debug dlls
+                    if nameInZip[-5:] in ("d.dll", "D.dll") and nameInZip[:-5] + ".dll" in zipf.namelist():
+                        continue
                     if nameInZip not in srcZip.namelist():
                         zipf.write(f, nameInZip)
             zipf.close()
@@ -237,14 +230,8 @@ for platform, dllDir in platformDlls:
                               cwd=buildDir, stdout=log, stderr=subprocess.STDOUT)
     if ret == 0 and sumoAllZip:
         try:
-            debugZip = sumoAllZip.replace("-all-", "Debug-%s-" % env["FILEPREFIX"])
+            debugZip = sumoAllZip.replace("-all-", "-%s%sDebug-" % (platform.lower().replace("x", "win"), options.suffix))
             zipf = zipfile.ZipFile(debugZip, 'w', zipfile.ZIP_DEFLATED)
-            debugDllPath = os.path.join(options.rootDir, "..", "debugDll")
-            if platform == "x64":
-                debugDllPath += "64"
-            for dllPath in (os.path.join(options.rootDir, dllDir), debugDllPath):
-                for f in glob.glob(os.path.join(dllPath, "*.dll")) + glob.glob(os.path.join(dllPath, "*", "*.dll")):
-                    zipf.write(f, os.path.join(binDir, f[len(dllPath) + 1:]))
             for f in (glob.glob(os.path.join(options.rootDir, options.binDir, "*D.exe")) +
                       glob.glob(os.path.join(options.rootDir, options.binDir, "*D.pdb"))):
                 zipf.write(f, os.path.join(binDir, os.path.basename(f)))
@@ -253,10 +240,10 @@ for platform, dllDir in platformDlls:
             (errno, strerror) = ziperr.args
             print("Warning: Could not zip to %s!" % binaryZip, file=log)
             print("I/O error(%s): %s" % (errno, strerror), file=log)
-    runTests(options, env, gitrev, options.extended_tests and platform == "x64")
+    runTests(options, env, gitrev, platform == "x64" and not options.x64only)
     with open(statusLog, 'w') as log:
         status.printStatus(makeLog, makeAllLog, env["SMTP_SERVER"], log)
-if options.extended_tests:
+if not options.x64only:
     runTests(options, env, gitrev, True, "D")
     with open(prefix + "Dstatus.log", 'w') as log:
         status.printStatus(makeAllLog, makeAllLog, env["SMTP_SERVER"], log)

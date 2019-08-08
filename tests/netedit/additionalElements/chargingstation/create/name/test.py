@@ -29,10 +29,10 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 netedit.additionalMode()
 
 # select chargingStation
-netedit.changeAdditional("chargingStation")
+netedit.changeElement("chargingStation")
 
 # set name
-netedit.modifyAdditionalDefaultValue(2, "custom stopping place name")
+netedit.changeDefaultValue(2, "custom stopping place name")
 
 # create chargingStation in mode "reference left"
 netedit.leftClick(referencePosition, 250, 250)

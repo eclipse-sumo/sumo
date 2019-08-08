@@ -712,6 +712,7 @@ NWWriter_SUMO::writeConnection(OutputDevice& into, const NBEdge& from, const NBE
             into.writeAttr(SUMO_ATTR_STATE, linkState);
         }
     }
+    c.writeParams(into);
     into.closeTag();
 }
 

@@ -29,19 +29,19 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot, ['--g
 netedit.shapeMode()
 
 # go to shape mode
-netedit.changeShape("poly")
+netedit.changeElement("poly")
 
 # change color manually
-netedit.modifyShapeDefaultValue(3, "white")
+netedit.changeDefaultValue(3, "white")
 
 # change fill
-netedit.modifyShapeDefaultBoolValue(4)
+netedit.changeDefaultBoolValue(4)
 
 # change imgfile (valid)
-netedit.modifyShapeDefaultValue(8, "berlin_icon.ico")
+netedit.changeDefaultValue(8, "berlin_icon.ico")
 
 # change relativePos
-netedit.modifyShapeDefaultBoolValue(9)
+netedit.changeDefaultBoolValue(9)
 
 # create polygon
 netedit.createSquaredPoly(referencePosition, 100, 50, 100, True)

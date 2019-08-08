@@ -80,6 +80,10 @@ public class CommandProcessor extends Query {
         doSetOrder(index);
     }
 
+    public synchronized void do_close() throws IOException {
+        doClose();
+    }
+
     public static SumoObject read(int type, Storage s) {
 
         SumoObject output = null;

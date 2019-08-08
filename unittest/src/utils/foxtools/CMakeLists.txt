@@ -1,6 +1,7 @@
 add_executable(testfoxtools
         FXWorkerThreadTest.cpp
         )
+set_property(TARGET testfoxtools PROPERTY FOLDER "test_exe")
 add_test(NAME testfoxtools COMMAND $<TARGET_FILE:testfoxtools>)
 set_target_properties(testfoxtools PROPERTIES OUTPUT_NAME_DEBUG testfoxtoolsD)
 

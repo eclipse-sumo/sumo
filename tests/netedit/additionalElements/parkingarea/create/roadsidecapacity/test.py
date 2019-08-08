@@ -29,34 +29,34 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 netedit.additionalMode()
 
 # select parkingArea
-netedit.changeAdditional("parkingArea")
+netedit.changeElement("parkingArea")
 
 # set invalid roadSideCapacity (dummy)
-netedit.modifyAdditionalDefaultValue(3, "dummyRoadSideCapacity")
+netedit.changeDefaultValue(3, "dummyRoadSideCapacity")
 
 # try to create parkingArea in mode "reference left"
 netedit.leftClick(referencePosition, 220, 250)
 
 # set invalid roadSideCapacity (empty"
-netedit.modifyAdditionalDefaultValue(3, "")
+netedit.changeDefaultValue(3, "")
 
 # try to create parkingArea in mode "reference left"
 netedit.leftClick(referencePosition, 220, 250)
 
 # set invalid roadSideCapacity (negative)
-netedit.modifyAdditionalDefaultValue(3, "-3")
+netedit.changeDefaultValue(3, "-3")
 
 # try to create parkingArea in mode "reference left"
 netedit.leftClick(referencePosition, 220, 250)
 
 # set invalid roadSideCapacity (double)
-netedit.modifyAdditionalDefaultValue(3, "2.5")
+netedit.changeDefaultValue(3, "2.5")
 
 # create parkingArea in mode "reference left"
 netedit.leftClick(referencePosition, 220, 250)
 
 # set valid roadSideCapacity
-netedit.modifyAdditionalDefaultValue(3, "3")
+netedit.changeDefaultValue(3, "3")
 
 # create parkingArea in mode "reference left"
 netedit.leftClick(referencePosition, 220, 250)

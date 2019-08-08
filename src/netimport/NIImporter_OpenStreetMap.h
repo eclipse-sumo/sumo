@@ -610,7 +610,7 @@ protected:
         /// @brief ref of the pt line
         std::string myRef;
 
-        /// @brief service interval of the pt line in seconds
+        /// @brief service interval of the pt line in minutes
         int myInterval;
 
         /// @brief night service information of the pt line

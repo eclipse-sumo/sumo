@@ -733,7 +733,7 @@ private:
     /// @brief pointer to View's Net
     GNEViewNet* myViewNet;
 
-    /// @brief HierarchyInsertedAdditionals used for insert childs
+    /// @brief HierarchyInsertedAdditionals used for insert children
     HierarchyInsertedAdditionals myHierarchyInsertedAdditionals;
 
     /// @brief invalidate copy constructor

@@ -1,36 +1,38 @@
 set(libsumostatic_STAT_SRCS
-        Helper.cpp
-        Helper.h
-        InductionLoop.cpp
-        InductionLoop.h
-        Junction.cpp
-        Junction.h
-        Lane.cpp
-        Lane.h
-        LaneArea.cpp
-        LaneArea.h
-        MultiEntryExit.h
-        MultiEntryExit.cpp
-        Person.cpp
-        Person.h
-        POI.cpp
-        POI.h
-        Polygon.h
-        Polygon.cpp
-        Route.h
-        Route.cpp
-        Simulation.cpp
-        Simulation.h
-        Subscription.h
-        TraCIConstants.h
-        TraCIDefs.h
-        TrafficLight.cpp
-        TrafficLight.h
-        Vehicle.h
-        Vehicle.cpp
-        VehicleType.cpp
-        VehicleType.h
-        Edge.cpp Edge.h)
+    Edge.cpp
+    Edge.h
+    Helper.cpp
+    Helper.h
+    InductionLoop.cpp
+    InductionLoop.h
+    Junction.cpp
+    Junction.h
+    Lane.cpp
+    Lane.h
+    LaneArea.cpp
+    LaneArea.h
+    MultiEntryExit.h
+    MultiEntryExit.cpp
+    Person.cpp
+    Person.h
+    POI.cpp
+    POI.h
+    Polygon.h
+    Polygon.cpp
+    Route.h
+    Route.cpp
+    Simulation.cpp
+    Simulation.h
+    Subscription.h
+    TraCIConstants.h
+    TraCIDefs.h
+    TrafficLight.cpp
+    TrafficLight.h
+    Vehicle.cpp
+    Vehicle.h
+    VehicleType.cpp
+    VehicleType.h
+)
 
 add_library(libsumostatic STATIC ${libsumostatic_STAT_SRCS})
 set_property(TARGET libsumostatic PROPERTY FOLDER "libsumo")
@@ -57,10 +59,10 @@ if(SWIG_FOUND)
                 SWIG_ADD_MODULE(libsumojni java libsumo.i)
             endif()
             if (MSVC OR APPLE)
-                swig_link_libraries(libsumojni ${sumolibs})
+                swig_link_libraries(libsumojni libsumostatic ${sumolibs})
             else()
                 set_source_files_properties(${swig_generated_file_fullname} PROPERTIES COMPILE_FLAGS "-Wno-strict-aliasing")
-                swig_link_libraries(libsumojni -Wl,--whole-archive ${sumolibs} -Wl,--no-whole-archive)
+                swig_link_libraries(libsumojni -Wl,--whole-archive libsumostatic ${sumolibs} -Wl,--no-whole-archive)
             endif()
             FILE(MAKE_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}/classes")
             ADD_CUSTOM_COMMAND(TARGET libsumojni POST_BUILD
@@ -105,9 +107,9 @@ if(SWIG_FOUND)
                 # disable python module for the debug build because virtually no one has a python debug dll to link against
                 set_property(TARGET ${SWIG_MODULE_libsumo_REAL_NAME} PROPERTY EXCLUDE_FROM_DEFAULT_BUILD_DEBUG TRUE)
                 set_property(TARGET ${SWIG_MODULE_libsumo_REAL_NAME} PROPERTY FOLDER "libsumo")
-                swig_link_libraries(libsumo ${sumolibs} ${PYTHON_LIBRARIES})
+                swig_link_libraries(libsumo libsumostatic ${sumolibs} ${PYTHON_LIBRARIES})
             else()
-                swig_link_libraries(libsumo -Wl,--whole-archive ${sumolibs} -Wl,--no-whole-archive ${PYTHON_LIBRARIES})
+                swig_link_libraries(libsumo -Wl,--whole-archive libsumostatic ${sumolibs} -Wl,--no-whole-archive ${PYTHON_LIBRARIES})
             endif()
             if (NOT ${SETUPTOOLS_MISSING})
                 install(
@@ -119,4 +121,16 @@ if(SWIG_FOUND)
         endif()
     endif()
 
+endif()
+
+set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY_DEBUG ${CMAKE_SOURCE_DIR}/bin)
+set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY_RELEASE ${CMAKE_SOURCE_DIR}/bin)
+add_library(libsumoc SHARED ${libsumostatic_STAT_SRCS})
+set_property(TARGET libsumoc PROPERTY FOLDER "libsumo")
+set_target_properties(libsumoc PROPERTIES PREFIX "")
+install(TARGETS libsumoc DESTINATION ${CMAKE_INSTALL_LIBDIR})
+if (MSVC OR APPLE)
+    target_link_libraries(libsumoc PRIVATE ${sumolibs})
+else ()
+    target_link_libraries(libsumoc PRIVATE -Wl,--whole-archive ${sumolibs} -Wl,--no-whole-archive)
 endif()

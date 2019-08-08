@@ -11,7 +11,7 @@ additionalElements
 shapeElements
 
 # test for demand elements (Routes, Vehicles, etc.)
-#demandElements
+demandElements
 
 # test for select elements 
 selection

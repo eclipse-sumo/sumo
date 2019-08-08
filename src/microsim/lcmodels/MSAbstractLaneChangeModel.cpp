@@ -274,13 +274,10 @@ MSAbstractLaneChangeModel::predInteraction(const std::pair<MSVehicle*, double>& 
 
 bool
 MSAbstractLaneChangeModel::startLaneChangeManeuver(MSLane* source, MSLane* target, int direction) {
-    if (&source->getEdge() != &target->getEdge()) {
-        changedToOpposite();
-    }
     if (MSGlobals::gLaneChangeDuration > DELTA_T) {
         myLaneChangeCompletion = 0;
         myLaneChangeDirection = direction;
-        setManeuverDist(target->getCenterOnEdge() - source->getCenterOnEdge());
+        setManeuverDist((target->getWidth() + source->getWidth()) * 0.5 * direction);
         myVehicle.switchOffSignal(MSVehicle::VEH_SIGNAL_BLINKER_RIGHT | MSVehicle::VEH_SIGNAL_BLINKER_LEFT);
         myVehicle.switchOnSignal(direction == 1 ? MSVehicle::VEH_SIGNAL_BLINKER_LEFT : MSVehicle::VEH_SIGNAL_BLINKER_RIGHT);
         if (myLCOutput) {
@@ -308,9 +305,15 @@ MSAbstractLaneChangeModel::primaryLaneChanged(MSLane* source, MSLane* target, in
     initLastLaneChangeOffset(direction);
     myVehicle.leaveLane(MSMoveReminder::NOTIFICATION_LANE_CHANGE, target);
     source->leftByLaneChange(&myVehicle);
-    myVehicle.enterLaneAtLaneChange(target);
+    laneChangeOutput("change", source, target, direction); // record position on the source edge in case of opposite change
+    if (&source->getEdge() != &target->getEdge()) {
+        changedToOpposite();
+        myVehicle.setTentativeLaneAndPosition(target, source->getOppositePos(myVehicle.getPositionOnLane()), -myVehicle.getLateralPositionOnLane());
+        target->forceVehicleInsertion(&myVehicle, myVehicle.getPositionOnLane(), MSMoveReminder::NOTIFICATION_LANE_CHANGE, myVehicle.getLateralPositionOnLane());
+    } else {
+        myVehicle.enterLaneAtLaneChange(target);
+    }
     target->enteredByLaneChange(&myVehicle);
-    laneChangeOutput("change", source, target, direction);
     // Assure that the drive items are up to date (even if the following step is no actionstep for the vehicle).
     // This is necessary because the lane advance uses the target lane from the corresponding drive item.
     myVehicle.updateDriveItems();
@@ -396,7 +399,8 @@ MSAbstractLaneChangeModel::endLaneChangeManeuver(const MSMoveReminder::Notificat
     myNoPartiallyOccupatedByShadow.clear();
     myVehicle.switchOffSignal(MSVehicle::VEH_SIGNAL_BLINKER_RIGHT | MSVehicle::VEH_SIGNAL_BLINKER_LEFT);
     myVehicle.fixPosition();
-    if (myAmOpposite) {
+    if (myAmOpposite && reason != MSMoveReminder::NOTIFICATION_LANE_CHANGE) {
+        // aborted maneuver
         changedToOpposite();
     }
 }
@@ -412,7 +416,10 @@ MSAbstractLaneChangeModel::getShadowLane(const MSLane* lane, double posLat) cons
             std::cout << SIMTIME << " veh=" << myVehicle.getID() << " posLat=" << posLat << " overlap=" << overlap << "\n";
         }
 #endif
-        if (overlap > NUMERICAL_EPS) {
+        if (myAmOpposite) {
+            // return the neigh-lane in forward direction
+            return lane->getParallelLane(1);
+        } else if (overlap > NUMERICAL_EPS) {
             const int shadowDirection = posLat < 0 ? -1 : 1;
             return lane->getParallelLane(shadowDirection);
         } else if (isChangingLanes() && myLaneChangeCompletion < 0.5) {
@@ -559,6 +566,9 @@ MSAbstractLaneChangeModel::getShadowDirection() const {
         }
     } else if (myShadowLane == nullptr) {
         return 0;
+    } else if (myAmOpposite) {
+        // return neigh-lane in forward direction
+        return 1;
     } else {
         assert(&myShadowLane->getEdge() == &myVehicle.getLane()->getEdge());
         return myShadowLane->getIndex() - myVehicle.getLane()->getIndex();

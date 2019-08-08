@@ -122,9 +122,13 @@ MSDevice_Routing::checkOptions(OptionsCont& oc) {
 void
 MSDevice_Routing::buildVehicleDevices(SUMOVehicle& v, std::vector<MSVehicleDevice*>& into) {
     const OptionsCont& oc = OptionsCont::getOptions();
-    if (v.getParameter().wasSet(VEHPARS_FORCE_REROUTE) || equippedByDefaultAssignmentOptions(oc, "rerouting", v, false)) {
+    const bool equip = equippedByDefaultAssignmentOptions(oc, "rerouting", v, false);
+    if (v.getParameter().wasSet(VEHPARS_FORCE_REROUTE) || equip) {
         // route computation is enabled
-        const SUMOTime period = string2time(oc.getString("device.rerouting.period"));
+        // for implicitly equipped vehicles (trips, flows), option probability
+        // can still be used to disable periodic rerouting after insertion for
+        // parts of the fleet
+        const SUMOTime period = equip || oc.isDefault("device.rerouting.probability") ? string2time(oc.getString("device.rerouting.period")) : 0;
         const SUMOTime prePeriod = string2time(oc.getString("device.rerouting.pre-period"));
         MSRoutingEngine::initWeightUpdate();
         // build the device

@@ -29,7 +29,7 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot, ['--g
 netedit.additionalMode()
 
 # select calibrator
-netedit.changeAdditional("calibrator")
+netedit.changeElement("calibrator")
 
 # create calibrator
 netedit.leftClick(referencePosition, 245, 180)
@@ -38,7 +38,7 @@ netedit.leftClick(referencePosition, 245, 180)
 netedit.inspectMode()
 
 # inspect calibrator
-netedit.leftClick(referencePosition, 300, 218)
+netedit.leftClick(referencePosition, 300, 215)
 
 # Change parameter id with a non valid value (non existent ID)
 netedit.modifyAttribute(1, "dummyEdge", True)

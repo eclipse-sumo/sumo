@@ -24,35 +24,16 @@
 // ===========================================================================
 #include <config.h>
 
-#include <string>
-#include <map>
-#include <vector>
-#include <microsim/MSRoute.h>
-#include <microsim/MSEdge.h>
-#include <microsim/MSJunction.h>
-#include <microsim/MSVehicleType.h>
-#include <microsim/MSVehicle.h>
-#include <microsim/MSInsertionControl.h>
-#include <microsim/MSVehicleControl.h>
-#include <microsim/MSLane.h>
 #include "MSRouteHandler.h"
 #include "MSTransportableControl.h"
-#include <utils/xml/SUMOSAXHandler.h>
-#include <utils/xml/SUMOXMLDefinitions.h>
-#include <utils/common/MsgHandler.h>
-#include <utils/common/StringUtils.h>
+#include <microsim/MSEdge.h>
+#include <microsim/MSInsertionControl.h>
+#include <microsim/MSVehicleControl.h>
 #include <utils/common/StringTokenizer.h>
-#include <utils/common/UtilExceptions.h>
+#include <utils/common/StringUtils.h>
 #include <utils/options/OptionsCont.h>
-#include <utils/router/IntermodalRouter.h>
-#include <utils/router/PedestrianRouter.h>
-#include "MSNet.h"
-
-#include "MSParkingArea.h"
-#include "MSStoppingPlace.h"
-#include <microsim/MSGlobals.h>
-#include <microsim/trigger/MSChargingStation.h>
 #include <utils/vehicle/SUMOVehicleParserHelper.h>
+
 
 
 // ===========================================================================
@@ -64,9 +45,8 @@ std::mt19937 MSRouteHandler::myParsingRNG;
 // ===========================================================================
 // method definitions
 // ===========================================================================
-MSRouteHandler::MSRouteHandler(const std::string& file,
-                               bool addVehiclesDirectly) :
-    SUMORouteHandler(file, addVehiclesDirectly ? "" : "routes"),
+MSRouteHandler::MSRouteHandler(const std::string& file, bool addVehiclesDirectly) :
+    SUMORouteHandler(file, addVehiclesDirectly ? "" : "routes", true),
     myActivePlan(nullptr),
     myActiveContainerPlan(nullptr),
     myAddVehiclesDirectly(addVehiclesDirectly),
@@ -77,8 +57,8 @@ MSRouteHandler::MSRouteHandler(const std::string& file,
 }
 
 
-MSRouteHandler::~MSRouteHandler() {
-}
+MSRouteHandler::~MSRouteHandler() {}
+
 
 void
 MSRouteHandler::deleteActivePlans() {
@@ -797,8 +777,6 @@ MSRouteHandler::addFlowPerson(SUMOTime depart, MSVehicleType* type, const std::s
 void
 MSRouteHandler::closeVType() {
     MSVehicleType* vehType = MSVehicleType::build(*myCurrentVType);
-    delete myCurrentVType;
-    myCurrentVType = nullptr;
     if (!MSNet::getInstance()->getVehicleControl().addVType(vehType)) {
         const std::string id = vehType->getID();
         delete vehType;
@@ -1096,7 +1074,7 @@ MSRouteHandler::parseWalkPositions(const SUMOSAXAttributes& attrs, const std::st
         }
         if (attrs.hasAttribute(SUMO_ATTR_ARRIVALPOS)) {
             const double length = toEdge != nullptr ? toEdge->getLength() : bs->getLane().getLength();
-            const double arrPos = SUMOVehicleParserHelper::parseWalkPos(SUMO_ATTR_ARRIVALPOS, description, length,
+            const double arrPos = SUMOVehicleParserHelper::parseWalkPos(SUMO_ATTR_ARRIVALPOS, myHardFail, description, length,
                                   attrs.get<std::string>(SUMO_ATTR_ARRIVALPOS, description.c_str(), ok), &myParsingRNG);
             if (arrPos >= bs->getBeginLanePosition() && arrPos < bs->getEndLanePosition()) {
                 arrivalPos = arrPos;
@@ -1110,7 +1088,7 @@ MSRouteHandler::parseWalkPositions(const SUMOSAXAttributes& attrs, const std::st
             throw ProcessError("No destination edge for " + description + ".");
         }
         if (attrs.hasAttribute(SUMO_ATTR_ARRIVALPOS)) {
-            arrivalPos = SUMOVehicleParserHelper::parseWalkPos(SUMO_ATTR_ARRIVALPOS, description, toEdge->getLength(),
+            arrivalPos = SUMOVehicleParserHelper::parseWalkPos(SUMO_ATTR_ARRIVALPOS, myHardFail, description, toEdge->getLength(),
                          attrs.get<std::string>(SUMO_ATTR_ARRIVALPOS, description.c_str(), ok), &myParsingRNG);
         } else {
             arrivalPos = toEdge->getLength() / 2.;
@@ -1146,17 +1124,10 @@ MSRouteHandler::addPersonTrip(const SUMOSAXAttributes& attrs) {
 
     const std::string modes = attrs.getOpt<std::string>(SUMO_ATTR_MODES, id, ok, "");
     SVCPermissions modeSet = 0;
-    for (StringTokenizer st(modes); st.hasNext();) {
-        const std::string mode = st.next();
-        if (mode == "car") {
-            modeSet |= SVC_PASSENGER;
-        } else if (mode == "bicycle") {
-            modeSet |= SVC_BICYCLE;
-        } else if (mode == "public") {
-            modeSet |= SVC_BUS;
-        } else {
-            throw InvalidArgument("Unknown person mode '" + mode + "'.");
-        }
+    std::string errorMsg;
+    // try to parse person modes
+    if (!SUMOVehicleParameter::parsePersonModes(modes, "person", id, modeSet, errorMsg)) {
+        throw InvalidArgument(errorMsg);
     }
     const std::string types = attrs.getOpt<std::string>(SUMO_ATTR_VTYPES, id, ok, "");
     for (StringTokenizer st(types); st.hasNext();) {

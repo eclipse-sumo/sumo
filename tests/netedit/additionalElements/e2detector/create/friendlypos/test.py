@@ -29,10 +29,10 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 netedit.additionalMode()
 
 # select E2
-netedit.changeAdditional("e2Detector")
+netedit.changeElement("e2Detector")
 
 # Change friendlyPos
-netedit.modifyAdditionalDefaultBoolValue(10)
+netedit.changeDefaultBoolValue(10)
 
 # create E2 with different friendlyPos
 netedit.leftClick(referencePosition, 400, 220)

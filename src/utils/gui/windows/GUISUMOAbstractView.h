@@ -340,7 +340,7 @@ public:
     /**@brief Returns a position that is mapped to the closest grid point if the grid is active
      * @brief note: formats are pos(x,y,0) por pos(0,0,z)
      */
-    Position snapToActiveGrid(const Position& pos) const;
+    Position snapToActiveGrid(const Position& pos, bool snapXY=true) const;
 
     /// @brief Translate screen position to network position
     Position screenPos2NetPos(int x, int y) const;

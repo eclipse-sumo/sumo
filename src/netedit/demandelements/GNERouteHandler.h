@@ -23,11 +23,11 @@
 
 #include <config.h>
 
-#include <utils/xml/SUMOXMLDefinitions.h>
-#include <utils/xml/SUMOSAXHandler.h>
 #include <utils/common/SUMOVehicleClass.h>
-#include <utils/xml/SUMOSAXAttributes.h>
 #include <utils/vehicle/SUMORouteHandler.h>
+#include <utils/xml/SUMOSAXAttributes.h>
+#include <utils/xml/SUMOSAXHandler.h>
+#include <utils/xml/SUMOXMLDefinitions.h>
 
 
 // ===========================================================================
@@ -39,6 +39,7 @@ class GNEEdge;
 class GNETAZ;
 class GNEDemandElement;
 class GNEVehicle;
+class GNEPerson;
 class GNEUndoList;
 
 // ===========================================================================
@@ -49,6 +50,37 @@ class GNEUndoList;
 /// @brief Builds trigger objects for GNENet (busStops, chargingStations, detectors, etc..)
 class GNERouteHandler : public SUMORouteHandler {
 public:
+    /// @brief struct for saving route parameters
+    struct RouteParameter {
+
+        /// @brief constructor
+        RouteParameter();
+
+        /// @brief parameter constructor (use values of originalDemandElement)
+        RouteParameter(GNEDemandElement* originalDemandElement);
+
+        /// @brief set edges (list of consecutive edges)
+        void setEdges(GNEViewNet* viewNet, const std::string &edgeIDs);
+
+        /// @brief set edges (from, to and via edges)
+        void setEdges(GNEViewNet* viewNet, const std::string &vehicleID, const std::string &fromID, const std::string &toID, const std::string &viaIDs);
+
+        /// @brief string for saving parsed Route ID
+        std::string routeID;
+
+        /// @brief edges
+        std::vector<GNEEdge*> edges;
+
+        /// @brief string for saving parsed route colors
+        RGBColor color;
+
+        /// @brief VClass used by this route
+        SUMOVehicleClass VClass;
+
+        /// @brief generic parameters
+        Parameterised genericParameters;
+    };
+
     /// @brief Constructor
     GNERouteHandler(const std::string& file, GNEViewNet* viewNet, bool undoDemandElements = true);
 
@@ -57,6 +89,9 @@ public:
 
     /// @brief check if there is already a vehicle (Vehicle, Trip, Flow or Flow) with the given ID
     static bool isVehicleIdDuplicated(GNEViewNet* viewNet, const std::string& id); 
+
+    /// @brief check if there is already a person (Person or PersonFlow) with the given ID
+    static bool isPersonIdDuplicated(GNEViewNet* viewNet, const std::string& id); 
 
     /// @brief build functions
     /// @{
@@ -81,10 +116,45 @@ public:
     /// @brief build stop
     static void buildStop(GNEViewNet* viewNet, bool undoDemandElements, const SUMOVehicleParameter::Stop& stopParameters, GNEDemandElement* stopParent, bool friendlyPosition);
 
+    /// @brief build person
+    static void buildPerson(GNEViewNet* viewNet, bool undoDemandElements, const SUMOVehicleParameter &personParameters);
+
+    /// @brief build person flow
+    static void buildPersonFlow(GNEViewNet* viewNet, bool undoDemandElements, const SUMOVehicleParameter &personFlowParameters);
+    
+    /// @brief build trip using a from-to edges
+    static void buildPersonTripFromTo(GNEViewNet* viewNet, bool undoDemandElements, GNEDemandElement* personParent, const std::vector<GNEEdge*>& edges, 
+                                      const std::vector<std::string> &types, const std::vector<std::string> &modes, double arrivalPos);
+
+    /// @brief build trip using a from edge and a busStop
+    static void buildPersonTripBusStop(GNEViewNet* viewNet, bool undoDemandElements, GNEDemandElement* personParent, const std::vector<GNEEdge*>& edges, 
+                                       GNEAdditional *busStop, const std::vector<std::string> &types, const std::vector<std::string> &modes);
+
+    /// @brief build walk using a list of consecutive edges
+    static void buildWalkEdges(GNEViewNet* viewNet, bool undoDemandElements, GNEDemandElement* personParent, const std::vector<GNEEdge*>& edges, double arrivalPos);
+
+    /// @brief build walk using a from-to edges
+    static void buildWalkFromTo(GNEViewNet* viewNet, bool undoDemandElements, GNEDemandElement* personParent, const std::vector<GNEEdge*>& edges, double arrivalPos);
+
+    /// @brief build walk using a form edge an a busStop
+    static void buildWalkBusStop(GNEViewNet* viewNet, bool undoDemandElements, GNEDemandElement* personParent, const std::vector<GNEEdge*>& edges, GNEAdditional *busStop);
+
+    /// @brief build walk using a list of consecutive edges
+    static void buildWalkRoute(GNEViewNet* viewNet, bool undoDemandElements, GNEDemandElement* personParent, GNEDemandElement* routeParent, double arrivalPos);
+
+    /// @brief build ride using a from-to edges 
+    static void buildRideFromTo(GNEViewNet* viewNet, bool undoDemandElements, GNEDemandElement* personParent, const std::vector<GNEEdge*>& edges, 
+                                const std::vector<std::string> &lines, double arrivalPos);
+
+    /// @brief build ride using a from edge and a busStop
+    static void buildRideBusStop(GNEViewNet* viewNet, bool undoDemandElements, GNEDemandElement* personParent, const std::vector<GNEEdge*>& edges, 
+                                 GNEAdditional *busStop, const std::vector<std::string> &lines);
+
     /// @}
 
-    /// @brief transform functions
+    /// @brief transform vehicle functions
     /// @{
+
     /// @brief transform to vehicle over an existent route
     static void transformToVehicle(GNEVehicle* originalVehicle, bool createEmbeddedRoute);
 
@@ -96,6 +166,17 @@ public:
 
     /// @brief transform to flow
     static void transformToFlow(GNEVehicle* originalVehicle);
+
+    /// @}
+
+    /// @brief transform person functions
+    /// @{
+
+    /// @brief transform to vehicle over an existent route
+    static void transformToPerson(GNEPerson* originalPerson);
+
+    /// @brief transform routeFlow over an existent route
+    static void transformToPersonFlow(GNEPerson* originalPerson);
 
     /// @}
 
@@ -181,29 +262,71 @@ protected:
     void addTranship(const SUMOSAXAttributes& attrs);
 
 private:
-    /// @brief flag used for parsing route attribute
-    bool myAbort;
+    /// @brief struct used for load person plans (Rides, Walks, etc.)
+    struct PersonPlansValues {
+        /// @brief default constructor
+        PersonPlansValues();
 
-    /// @brief string for saving parsed Route ID
-    std::string myRouteID;
+        /// @brief return last valid edge (used to create consecutive person plans)
+        GNEEdge *getLastEdge() const;
 
-    /// @brief string for saving parsed edges
-    std::string myEdgeIDs;
+        /// @brief calculate ege path between from-to edges
+        std::vector<GNEEdge*> calculateEdgePath() const;
 
-    /// @brief string for saving parsed route colors
-    RGBColor myRouteColor;
+        /// @brief walk tag
+        SumoXMLTag tag;
 
-    /// @brief string for saving parsed from edge ID
-    std::string myFromID;
+        /// @brief from edge
+        GNEEdge *from;
 
-    /// @brief string for saving parsed to edge ID
-    std::string myToID;
+        /// @brief to edge
+        GNEEdge *to;
 
-    /// @brief string for saving parsed via edges IDs
-    std::string myViaIDs;
+        /// @brief via edges
+        std::vector<GNEEdge*> via;
+
+        /// @brief list of edges
+        std::vector<GNEEdge*> edges;
+
+        /// @brief busStop
+        GNEAdditional* busStop;
+
+        /// @brief arrival route
+        GNEDemandElement* route;
+
+        /// @brief vehicle types
+        std::vector<std::string> vTypes;
+
+        /// @brief modes
+        std::vector<std::string> modes;
+
+        /// @brief lines
+        std::vector<std::string> lines;
+
+        /// @brief arrival pos
+        double arrivalPos;
+
+        /// @brief laneStop
+        GNELane *laneStop;
+
+        /// @brief friendly position
+        bool friendlyPos;
+        
+        /// @brief stop parameters
+        SUMOVehicleParameter::Stop stopParameters;
+    };
 
     /// @brief pointer to View's Net
     GNEViewNet* myViewNet;
+
+    /// @brief container for person trips loaded values
+    std::vector<PersonPlansValues> myPersonPlanValues;
+
+    /// @brief NETEDIT Route Parameters
+    RouteParameter myRouteParameter;
+
+    /// @brief flag used for parsing values
+    bool myAbort;
 
     /// @brief flag to check if created demand elements must be undo and redo
     bool myUndoDemandElements;

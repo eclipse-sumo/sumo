@@ -1,96 +1,77 @@
-GLDebug: 	Inserted junction:gneJ0 into SUMORTree with boundary -22.00,-22.00,22.00,22.00
-GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -22.00,-22.00,22.00,22.00
-GLDebug: 	Inserted junction:gneJ0 into SUMORTree with boundary -22.00,-22.00,22.00,22.00
-GLDebug: 	Inserted junction:gneJ1 into SUMORTree with boundary 28.00,-22.00,72.00,22.00
-GLDebug: 	Removed object junction:gneJ1 from SUMORTree with boundary 28.00,-22.00,72.00,22.00
-GLDebug: 	Inserted junction:gneJ1 into SUMORTree with boundary 28.00,-22.00,72.00,22.00
-GLDebug: 	Inserted junction:gneJ2 into SUMORTree with boundary -22.00,-2.00,22.00,42.00
-GLDebug: 	Removed object junction:gneJ2 from SUMORTree with boundary -22.00,-2.00,22.00,42.00
-GLDebug: 	Inserted junction:gneJ2 into SUMORTree with boundary -22.00,-2.00,22.00,42.00
-GLDebug: 	Inserted junction:gneJ3 into SUMORTree with boundary 28.00,-2.00,72.00,42.00
-GLDebug: 	Removed object junction:gneJ3 from SUMORTree with boundary 28.00,-2.00,72.00,42.00
-GLDebug: 	Inserted junction:gneJ3 into SUMORTree with boundary 28.00,-2.00,72.00,42.00
-GLDebug: 	Inserted edge:gneE0 into SUMORTree with boundary -30.00,-31.60,80.00,30.00
-GLDebug: 	Inserted edge:gneE1 into SUMORTree with boundary -30.00,-30.00,80.00,31.60
-GLDebug: 	Inserted edge:gneE2 into SUMORTree with boundary -30.00,-14.80,80.00,50.00
-GLDebug: 	Inserted edge:gneE3 into SUMORTree with boundary -30.00,-10.00,80.00,54.80
-Debug: Selected item 'DEFAULT_VEHTYPE' in VTypeSelector
+GLDebug: initJunctionsAndEdges function called in GNENet constructor
+GLDebug: 	Inserted junction:gneJ0 into SUMORTree with boundary -12.00,-12.00,12.00,12.00
+GLDebug: 	Inserted junction:gneJ1 into SUMORTree with boundary 38.00,-12.00,62.00,12.00
+GLDebug: 	Inserted junction:gneJ2 into SUMORTree with boundary -12.00,8.00,12.00,32.00
+GLDebug: 	Inserted junction:gneJ3 into SUMORTree with boundary 38.00,8.00,62.00,32.00
+GLDebug: 	Inserted edge:gneE0 into SUMORTree with boundary -10.00,-11.60,60.00,10.00
+GLDebug: 	Inserted edge:gneE1 into SUMORTree with boundary -10.00,-10.00,60.00,11.60
+GLDebug: 	Inserted edge:gneE2 into SUMORTree with boundary -10.00,5.20,60.00,30.00
+GLDebug: 	Inserted edge:gneE3 into SUMORTree with boundary -10.00,10.00,60.00,34.80
+Debug: Selected item 'DEFAULT_VEHTYPE' in DemandElementSelector
+Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
 Debug: net has to be saved
 Debug: Current saving Status: net unsaved, additionals saved, demand elements saved
-Debug: Selected item 'busStop' in ItemSelector
-Debug: Selected item 'laneCalibrator' in ItemSelector
+Debug: Selected item 'busStop' in TagSelector
+Debug: Selected item 'laneCalibrator' in TagSelector
 Debug: ObjectsUnderCursor: GUIGlObjects: 1, AttributeCarriers: 1, NetElements: 1, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 1, Lanes: 1, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 Debug: Format of optional optional string attribute 'routeProbe' of laneCalibrator with ID 'laneCalibrator_gneE3_1_0' is invalid; RouteProbe ID contains invalid characters; Default value will be used.
 Debug: Adding laneCalibrator 'laneCalibrator_gneE3_1_0' in GNEChange_Additional
 Debug: Additionals has to be saved
 Debug: Current saving Status: net saved, additionals unsaved, demand elements saved
-Debug: ObjectsUnderCursor: GUIGlObjects: 2, AttributeCarriers: 2, NetElements: 2, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 1, Edges: 1, Lanes: 1, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
-Debug: Format of optional optional string attribute 'routeProbe' of laneCalibrator with ID 'laneCalibrator_gneE2_1_1' is invalid; RouteProbe ID contains invalid characters; Default value will be used.
-Debug: Adding laneCalibrator 'laneCalibrator_gneE2_1_1' in GNEChange_Additional
-Debug: ObjectsUnderCursor: GUIGlObjects: 2, AttributeCarriers: 2, NetElements: 1, Additionals: 1, DemandElements: 0, Shapes: 0, Junctions: 1, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
-Debug: Setting new attribute id 'calibrator_gneE3_0' into laneCalibrator 'laneCalibrator_gneE2_1_1'
+Debug: ObjectsUnderCursor: GUIGlObjects: 1, AttributeCarriers: 1, NetElements: 1, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 1, Lanes: 1, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
+Debug: Format of optional optional string attribute 'routeProbe' of laneCalibrator with ID 'laneCalibrator_gneE3_0_1' is invalid; RouteProbe ID contains invalid characters; Default value will be used.
+Debug: Adding laneCalibrator 'laneCalibrator_gneE3_0_1' in GNEChange_Additional
+Debug: ObjectsUnderCursor: GUIGlObjects: 2, AttributeCarriers: 2, NetElements: 1, Additionals: 1, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 1, Lanes: 1, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
+Debug: Setting new attribute id 'calibrator_gneE3_0' into laneCalibrator 'laneCalibrator_gneE3_1_0'
 Debug: Value 'Id with spaces' for attribute id of laneCalibrator isn't valid
 Debug: Setting new attribute id 'correctID' into laneCalibrator 'calibrator_gneE3_0'
 Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 Debug: Keys Ctrl + Z (Undo) pressed
 Debug: Setting previous attribute id 'calibrator_gneE3_0' into laneCalibrator 'correctID'
 Debug: Keys Ctrl + Z (Undo) pressed
-Debug: Setting previous attribute id 'laneCalibrator_gneE2_1_1' into laneCalibrator 'calibrator_gneE3_0'
+Debug: Setting previous attribute id 'laneCalibrator_gneE3_1_0' into laneCalibrator 'calibrator_gneE3_0'
 Debug: Keys Ctrl + Z (Undo) pressed
-Debug: Removing laneCalibrator 'laneCalibrator_gneE2_1_1' in GNEChange_Additional
-Debug: Removed inspected element from Inspected ACs. 0 ACs remains.
+Debug: Removing laneCalibrator 'laneCalibrator_gneE3_0_1' in GNEChange_Additional
 Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 Debug: Keys Ctrl + Y (Redo) pressed
-Debug: Adding laneCalibrator 'laneCalibrator_gneE2_1_1' in GNEChange_Additional
+Debug: Adding laneCalibrator 'laneCalibrator_gneE3_0_1' in GNEChange_Additional
 Debug: Keys Ctrl + Y (Redo) pressed
-Debug: Setting new attribute id 'calibrator_gneE3_0' into laneCalibrator 'laneCalibrator_gneE2_1_1'
+Debug: Setting new attribute id 'calibrator_gneE3_0' into laneCalibrator 'laneCalibrator_gneE3_1_0'
 Debug: Keys Ctrl + Y (Redo) pressed
 Debug: Setting new attribute id 'correctID' into laneCalibrator 'calibrator_gneE3_0'
 Debug: Additionals saved
-GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -22.00,-22.00,22.00,22.00
-GLDebug: 	Removed object junction:gneJ1 from SUMORTree with boundary 28.00,-22.00,72.00,22.00
-GLDebug: 	Removed object junction:gneJ2 from SUMORTree with boundary -22.00,-2.00,22.00,42.00
-GLDebug: 	Removed object junction:gneJ3 from SUMORTree with boundary 28.00,-2.00,72.00,42.00
-GLDebug: 	Removed object edge:gneE0 from SUMORTree with boundary -30.00,-31.60,80.00,30.00
-GLDebug: 	Removed object edge:gneE1 from SUMORTree with boundary -30.00,-30.00,80.00,31.60
-GLDebug: 	Removed object edge:gneE2 from SUMORTree with boundary -30.00,-14.80,80.00,50.00
-GLDebug: 	Removed object edge:gneE3 from SUMORTree with boundary -30.00,-10.00,80.00,54.80
+GLDebug: Removing junctions during recomputing
+GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -12.00,-12.00,12.00,12.00
+GLDebug: 	Removed object junction:gneJ1 from SUMORTree with boundary 38.00,-12.00,62.00,12.00
+GLDebug: 	Removed object junction:gneJ2 from SUMORTree with boundary -12.00,8.00,12.00,32.00
+GLDebug: 	Removed object junction:gneJ3 from SUMORTree with boundary 38.00,8.00,62.00,32.00
+GLDebug: Removing edges during recomputing
+GLDebug: 	Removed object edge:gneE0 from SUMORTree with boundary -10.00,-11.60,60.00,10.00
+GLDebug: 	Removed object edge:gneE1 from SUMORTree with boundary -10.00,-10.00,60.00,11.60
+GLDebug: 	Removed object edge:gneE2 from SUMORTree with boundary -10.00,5.20,60.00,30.00
+GLDebug: 	Removed object edge:gneE3 from SUMORTree with boundary -10.00,10.00,60.00,34.80
+GLDebug: Add junctions during recomputing after calling myNetBuilder->compute(...)
+GLDebug: 	Inserted junction:gneJ0 into SUMORTree with boundary -10.00,-13.20,10.00,13.20
+GLDebug: 	Inserted junction:gneJ1 into SUMORTree with boundary 40.00,-13.20,60.00,13.20
+GLDebug: 	Inserted junction:gneJ2 into SUMORTree with boundary -10.00,3.60,10.00,36.40
+GLDebug: 	Inserted junction:gneJ3 into SUMORTree with boundary 40.00,3.60,60.00,36.40
+GLDebug: Add egdges during recomputing after calling myNetBuilder->compute(...)
+GLDebug: 	Inserted edge:gneE0 into SUMORTree with boundary -10.00,-11.60,60.00,10.00
+GLDebug: 	Inserted edge:gneE1 into SUMORTree with boundary -10.00,-10.00,60.00,11.60
+GLDebug: 	Inserted edge:gneE2 into SUMORTree with boundary -10.00,5.20,60.00,30.00
+GLDebug: 	Inserted edge:gneE3 into SUMORTree with boundary -10.00,10.00,60.00,34.80
 Debug: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE2_1togneE3_1' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE3_1togneE2_1' in retrieveGNEConnection()
 Debug: Created crossing ':gneJ0_c0' in retrieveGNECrossing()
 Debug: Created crossing ':gneJ0_c1' in retrieveGNECrossing()
-GLDebug: 	Inserted junction:gneJ0 into SUMORTree with boundary -22.00,-22.00,22.00,22.00
-GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -22.00,-22.00,22.00,22.00
-GLDebug: 	Inserted junction:gneJ0 into SUMORTree with boundary -22.00,-23.20,22.00,23.20
 Debug: Created crossing ':gneJ1_c0' in retrieveGNECrossing()
 Debug: Created crossing ':gneJ1_c1' in retrieveGNECrossing()
-GLDebug: 	Inserted junction:gneJ1 into SUMORTree with boundary 28.00,-22.00,72.00,22.00
-GLDebug: 	Removed object junction:gneJ1 from SUMORTree with boundary 28.00,-22.00,72.00,22.00
-GLDebug: 	Inserted junction:gneJ1 into SUMORTree with boundary 28.00,-23.20,72.00,23.20
-GLDebug: 	Inserted junction:gneJ2 into SUMORTree with boundary -22.00,-2.00,22.00,42.00
-GLDebug: 	Removed object junction:gneJ2 from SUMORTree with boundary -22.00,-2.00,22.00,42.00
-GLDebug: 	Inserted junction:gneJ2 into SUMORTree with boundary -22.00,-6.40,22.00,46.40
-GLDebug: 	Inserted junction:gneJ3 into SUMORTree with boundary 28.00,-2.00,72.00,42.00
-GLDebug: 	Removed object junction:gneJ3 from SUMORTree with boundary 28.00,-2.00,72.00,42.00
-GLDebug: 	Inserted junction:gneJ3 into SUMORTree with boundary 28.00,-6.40,72.00,46.40
-GLDebug: 	Inserted edge:gneE0 into SUMORTree with boundary -30.00,-31.60,80.00,30.00
-GLDebug: 	Removed object edge:gneE0 from SUMORTree with boundary -30.00,-31.60,80.00,30.00
-GLDebug: 	Inserted edge:gneE0 into SUMORTree with boundary -30.00,-31.60,80.00,30.00
-GLDebug: 	Inserted edge:gneE1 into SUMORTree with boundary -30.00,-30.00,80.00,31.60
-GLDebug: 	Removed object edge:gneE1 from SUMORTree with boundary -30.00,-30.00,80.00,31.60
-GLDebug: 	Inserted edge:gneE1 into SUMORTree with boundary -30.00,-30.00,80.00,31.60
-GLDebug: 	Inserted edge:gneE2 into SUMORTree with boundary -30.00,-14.80,80.00,50.00
-GLDebug: 	Removed object edge:gneE2 from SUMORTree with boundary -30.00,-14.80,80.00,50.00
-GLDebug: 	Inserted edge:gneE2 into SUMORTree with boundary -30.00,-14.80,80.00,50.00
-GLDebug: 	Inserted edge:gneE3 into SUMORTree with boundary -30.00,-10.00,80.00,54.80
-GLDebug: 	Removed object edge:gneE3 from SUMORTree with boundary -30.00,-10.00,80.00,54.80
-GLDebug: 	Inserted edge:gneE3 into SUMORTree with boundary -30.00,-10.00,80.00,54.80
-Debug: Deleting unreferenced laneCalibrator 'correctID'
+Debug: Deleting unreferenced laneCalibrator 'laneCalibrator_gneE3_0_1'
 Debug: Additionals has to be saved
 Debug: Current saving Status: net saved, additionals unsaved, demand elements saved
-Debug: Deleting unreferenced laneCalibrator 'laneCalibrator_gneE3_1_0'
+Debug: Deleting unreferenced laneCalibrator 'correctID'
 Debug: Deleting unreferenced edge 'gneE0' in GNENet destructor
 Debug: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'fromgneE0_0togneE1_0' in GNEEdge destructor
@@ -114,7 +95,7 @@ Debug: Deleting unreferenced crossing ':gneJ1_c1' in GNEJunction destructor
 Debug: Deleting unreferenced junction 'gneJ2' in GNENet destructor
 Debug: Deleting unreferenced junction 'gneJ3' in GNENet destructor
 Debug: Deleting unreferenced vType 'DEFAULT_BIKETYPE' in GNENet destructor
-Debug: Deleting unreferenced vType 'DEFAULT_PEDTYPE' in GNENet destructor
 Debug: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in GNENet destructor
+Debug: Deleting unreferenced pType 'DEFAULT_PEDTYPE' in GNENet destructor
 Debug: Deleting net builder in GNENet destructor
 GLDebug: Number of objects in SUMORTree during call of the destructor: 8

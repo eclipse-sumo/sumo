@@ -1,7 +1,8 @@
-Debug: Selected item 'DEFAULT_VEHTYPE' in VTypeSelector
+Debug: Selected item 'DEFAULT_VEHTYPE' in DemandElementSelector
+Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
 Debug: net has to be saved
 Debug: Current saving Status: net unsaved, additionals saved, demand elements saved
-Debug: Current Viewport values: 50.00, 50.00, 50.00. Zoom = '240.00'
+Debug: Current Viewport values: 50.00, 50.00, 50.00. Zoom = '248.00'
 Debug: Key F5 (Compute) pressed
 Debug: Created connection 'from5_0to4_0' in retrieveGNEConnection()
 Debug: Created connection 'from5_0to2_0' in retrieveGNEConnection()
@@ -173,6 +174,6 @@ Debug: Deleting unreferenced crossing ':Center_c6' in GNEJunction destructor
 Debug: Deleting unreferenced crossing ':Center_c7' in GNEJunction destructor
 Debug: Deleting unreferenced junction 'D' in GNENet destructor
 Debug: Deleting unreferenced vType 'DEFAULT_BIKETYPE' in GNENet destructor
-Debug: Deleting unreferenced vType 'DEFAULT_PEDTYPE' in GNENet destructor
 Debug: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in GNENet destructor
+Debug: Deleting unreferenced pType 'DEFAULT_PEDTYPE' in GNENet destructor
 Debug: Deleting net builder in GNENet destructor

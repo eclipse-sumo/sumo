@@ -29,22 +29,22 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot, ['--g
 netedit.shapeMode()
 
 # go to shape mode
-netedit.changeShape("poi")
+netedit.changeElement("poi")
 
 # change imgfile (invalid)
-netedit.modifyShapeDefaultValue(8, "%%$%$&$%$%$")
+netedit.changeDefaultValue(8, "%%$%$&$%$%$")
 
 # try to create POI
 netedit.leftClick(referencePosition, 100, 50)
 
 # change imgfile (non exist)
-netedit.modifyShapeDefaultValue(8, "paris.ico")
+netedit.changeDefaultValue(8, "paris.ico")
 
 # try to create POI
 netedit.leftClick(referencePosition, 150, 50)
 
 # change imgfile (valid)
-netedit.modifyShapeDefaultValue(8, "berlin_icon.ico")
+netedit.changeDefaultValue(8, "berlin_icon.ico")
 
 # create POI
 netedit.leftClick(referencePosition, 200, 50)

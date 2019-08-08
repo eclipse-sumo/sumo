@@ -29,7 +29,7 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot, ['--g
 netedit.additionalMode()
 
 # select routeProbe
-netedit.changeAdditional("routeProbe")
+netedit.changeElement("routeProbe")
 
 # create routeProbe
 netedit.leftClick(referencePosition, 380, 215)
@@ -59,7 +59,7 @@ netedit.changeAutomaticallyDeleteAdditionals(referencePosition)
 netedit.leftClick(referencePosition, 280, 265)
 
 # wait warning
-netedit.waitAutomaticallyDeleteAdditionalsWarning()
+netedit.waitDeleteWarning()
 
 # check redo
 netedit.redo(referencePosition, 3)

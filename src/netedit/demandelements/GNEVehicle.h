@@ -25,7 +25,6 @@
 #include <utils/vehicle/SUMOVehicleParameter.h>
 #include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
 
-
 #include "GNEDemandElement.h"
 
 // ===========================================================================
@@ -172,7 +171,7 @@ public:
     SUMOVehicleClass getVClass() const;
 
     /**@brief get begin time of demand element
-     * @note: used by demand elements of type "Vehicle", and it has to be implemented as childs
+     * @note: used by demand elements of type "Vehicle", and it has to be implemented as children
      * @throw invalid argument if demand element doesn't has a begin time
      */
     std::string getBegin() const;
@@ -185,13 +184,13 @@ public:
      */
     void writeDemandElement(OutputDevice& device) const;
 
-    /// @brief check if current demand element is valid to be writed into XML (by default true, can be reimplemented in childs)
+    /// @brief check if current demand element is valid to be writed into XML (by default true, can be reimplemented in children)
     bool isDemandElementValid() const;
 
-    /// @brief return a string with the current demand element problem (by default empty, can be reimplemented in childs)
+    /// @brief return a string with the current demand element problem (by default empty, can be reimplemented in children)
     std::string getDemandElementProblem() const;
 
-    /// @brief fix demand element problem (by default throw an exception, has to be reimplemented in childs)
+    /// @brief fix demand element problem (by default throw an exception, has to be reimplemented in children)
     void fixDemandElementProblem();
 
     /// @name Functions related with geometry of element
@@ -261,6 +260,12 @@ public:
     */
     std::string getAttribute(SumoXMLAttr key) const;
 
+    /* @brief method for getting the Attribute of an XML key in double format (to avoid unnecessary parse<double>(...) for certain attributes)
+     * @param[in] key The attribute key
+     * @return double with the value associated to key
+     */
+    double getAttributeDouble(SumoXMLAttr key) const;
+
     /* @brief method for setting the attribute and letting the object perform demand element changes
     * @param[in] key The attribute key
     * @param[in] value The new value
@@ -300,7 +305,49 @@ public:
     std::string getHierarchyName() const;
     /// @}
 
+    /// @name Functions related with Generic Parameters
+    /// @{
+    /// @brief return generic parameters in string format
+    std::string getGenericParametersStr() const;
+
+    /// @brief return generic parameters as vector of pairs format
+    std::vector<std::pair<std::string, std::string> > getGenericParameters() const;
+
+    /// @brief set generic parameters in string format
+    void setGenericParametersStr(const std::string& value);
+
+    /// @}
+
 protected:
+    /// @brief struct used for calculating routes
+    struct ConnectionGeometry {
+        
+        /// @brief parameter constructor with NBEdge::Connection
+        ConnectionGeometry(const NBEdge::Connection *_con, const GNELane *_laneFrom, const GNELane *_laneTo);
+
+        /// @brief parameter constructor without NBEdge::Connection
+        ConnectionGeometry(const GNELane *_laneFrom, const GNELane *_laneTo);
+
+        /// @brief calculate connection shape (note: Only calculated if 'con' isn't nullptr)
+        void calculateConnectionShape();
+        
+        /// @brief calculated connection shape
+        PositionVector connectionShape;
+
+        /// @brief Pointer to NBEdge::Connection
+        const NBEdge::Connection *con;
+
+        /// @brief lane from
+        const GNELane *laneFrom;
+
+        /// @brief lane to
+        const GNELane *laneTo;
+
+    private:
+        /// @brief default constructor (by default unused)
+        ConnectionGeometry();
+    };
+
     /// @brief sets the color according to the currente settings
     void setColor(const GUIVisualizationSettings& s) const;
 

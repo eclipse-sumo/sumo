@@ -443,6 +443,16 @@ public:
      */
     static double interpretEdgePos(double pos, double maximumValue, SumoXMLAttr attr, const std::string& id);
 
+    /** @brief Validates a given person modes value
+     * @param[in] modes The modes value to parse
+     * @param[in] element The name of the type of the parsed element, for building the error message
+     * @param[in] id The id of the parsed element, for building the error message
+     * @param[out] modeSet The parsed modes definition
+     * @param[out] error Error message, if an error occures
+     * @return Whether the given value is a valid arrivalSpeed definition
+     */
+    static bool parsePersonModes(const std::string& modes, const std::string& element, const std::string& id, SVCPermissions &modeSet, std::string& error);
+
     /// @brief The vehicle tag
     SumoXMLTag tag;
 
@@ -551,7 +561,18 @@ public:
     /** @struct Stop
      * @brief Definition of vehicle stop (position and duration)
      */
-    struct Stop {
+    class Stop : public Parameterised {
+
+    public:
+        /// @brief constructor
+        Stop();
+
+        /** @brief Writes the stop as XML
+         *
+         * @param[in, out] dev The device to write into
+         * @exception IOError not yet implemented
+         */
+        void write(OutputDevice& dev) const;
 
         /// @brief The lane to stop at
         std::string lane;
@@ -609,13 +630,6 @@ public:
 
         /// @brief Information for the output which parameter were set
         int parametersSet = 0;
-
-        /** @brief Writes the stop as XML
-         *
-         * @param[in, out] dev The device to write into
-         * @exception IOError not yet implemented
-         */
-        void write(OutputDevice& dev) const;
     };
 
     /// @brief List of the stops the vehicle will make, TraCI may add entries here

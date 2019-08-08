@@ -74,6 +74,9 @@ public:
     /// @brief Returns underlying parent edge
     GNEEdge& getParentEdge();
 
+    /// @brief Returns underlying parent edge (const)
+    GNEEdge& getParentEdge() const;
+
     /// @brief returns a vector with the incoming GNEConnections of this lane
     std::vector<GNEConnection*> getGNEIncomingConnections();
 
@@ -83,7 +86,7 @@ public:
     /// @brief update IDs of incoming connections of this lane
     void updateConnectionIDs();
 
-    /// @brief get lenght geometry factor
+    /// @brief get length geometry factor
     double getLengthGeometryFactor() const;
 
     /// @name functions for edit geometry

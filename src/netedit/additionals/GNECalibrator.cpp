@@ -127,10 +127,10 @@ GNECalibrator::getParentName() const {
 void
 GNECalibrator::drawGL(const GUIVisualizationSettings& s) const {
     // get values
+    const double exaggeration = s.addSize.getExaggeration(s, this);
+    // begin draw
     glPushName(getGlID());
     glLineWidth(1.0);
-    const double exaggeration = s.addSize.getExaggeration(s, this);
-
     // iterate over every Calibrator symbol
     for (int i = 0; i < (int)myGeometry.shape.size(); ++i) {
         const Position& pos = myGeometry.shape[i];
@@ -141,11 +141,11 @@ GNECalibrator::drawGL(const GUIVisualizationSettings& s) const {
         glTranslated(0, 0, getType());
         glScaled(exaggeration, exaggeration, 1);
         glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-
+        // set color
         if (drawUsingSelectColor()) {
-            GLHelper::setColor(s.selectedAdditionalColor);
+            GLHelper::setColor(s.colorSettings.selectedAdditionalColor);
         } else {
-            GLHelper::setColor(RGBColor(255, 204, 0));
+            GLHelper::setColor(s.colorSettings.calibrator);
         }
         // base
         glBegin(GL_TRIANGLES);
@@ -156,11 +156,10 @@ GNECalibrator::drawGL(const GUIVisualizationSettings& s) const {
         glVertex2d(0 - 1.4, 0);
         glVertex2d(0 + 1.4, 6);
         glEnd();
-
         // draw text if isn't being drawn for selecting
-        if ((s.scale * exaggeration >= 1.) && !s.drawForSelecting) {
+        if (!s.drawForSelecting && s.drawDetail(s.detailSettings.calibratorText, exaggeration)) {
             // set color depending of selection status
-            RGBColor textColor = drawUsingSelectColor() ? s.selectionColor : RGBColor::BLACK;
+            RGBColor textColor = drawUsingSelectColor() ? s.colorSettings.selectionColor : RGBColor::BLACK;
             // draw "C"
             GLHelper::drawText("C", Position(0, 1.5), 0.1, 3, textColor, 180);
             // draw "edge" or "lane "
@@ -174,13 +173,12 @@ GNECalibrator::drawGL(const GUIVisualizationSettings& s) const {
         }
         glPopMatrix();
         // check if dotted contour has to be drawn
-        if (!s.drawForSelecting && (myViewNet->getDottedAC() == this)) {
-            GLHelper::drawShapeDottedContour(getType(), pos, 2.8, 6, rot, 0, 3);
+        if (myViewNet->getDottedAC() == this) {
+            GLHelper::drawShapeDottedContourRectangle(s, getType(), pos, 2.8, 6, rot, 0, 3);
         }
     }
     // draw name
     drawName(getPositionInView(), s.scale, s.addName);
-
     // pop name
     glPopName();
 }

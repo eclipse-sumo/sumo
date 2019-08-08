@@ -89,6 +89,7 @@
 /src/tools/emissionsMap
 /src/traci_testclient/TraCITestClient
 /src/utils/empty.cpp
+/src/libsumo/empty.cpp
 /unittest/src/sumo-unittest
 # tools dir
 /tools/game/*.netstate.xml
@@ -110,6 +111,7 @@
 /tools/libsumo/_libsumo.pyd
 /tools/libsumo/libsumoPYTHON_wrap.cxx
 /tools/libsumo/setup.py
+/tools/libsumo/libsumoc.so
 # extracted tests
 /tests/_*
 # global patterns
@@ -141,4 +143,3 @@ lib*.a
 *.lib
 *.res
 *.ipch
-

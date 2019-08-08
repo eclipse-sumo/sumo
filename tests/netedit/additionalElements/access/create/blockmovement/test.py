@@ -32,16 +32,16 @@ netedit.setZoom("25", "0", "25")
 netedit.additionalMode()
 
 # select BusStop
-netedit.changeAdditional("busStop")
+netedit.changeElement("busStop")
 
 # create BusStop with default parameters
 netedit.leftClick(referencePosition, 275, 250)
 
 # select Access detector
-netedit.changeAdditional("access")
+netedit.changeElement("access")
 
 # change block movement
-netedit.modifyAdditionalDefaultBoolValue(5)
+netedit.changeDefaultBoolValue(5)
 
 # Create access
 netedit.selectAdditionalChild(7, 0)

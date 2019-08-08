@@ -35,7 +35,7 @@ netedit.selectionInvert()
 netedit.inspectMode()
 
 # inspect E3s
-netedit.leftClick(referencePosition, 150, 250)
+netedit.leftClick(referencePosition, 160, 260)
 
 # Set invalid time treshold
 netedit.modifyAttribute(4, "dummySpeedTreshold", True)

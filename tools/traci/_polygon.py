@@ -169,6 +169,3 @@ class PolygonDomain(Domain):
             tc.CMD_SET_POLYGON_VARIABLE, tc.REMOVE, polygonID, 1 + 4)
         self._connection._string += struct.pack("!Bi", tc.TYPE_INTEGER, layer)
         self._connection._sendExact()
-
-
-PolygonDomain()

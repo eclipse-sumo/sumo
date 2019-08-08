@@ -24,7 +24,7 @@
 #include <config.h>
 
 #include <netedit/GNEHierarchicalElementParents.h>
-#include <netedit/GNEHierarchicalElementChilds.h>
+#include <netedit/GNEHierarchicalElementChildren.h>
 #include <utils/common/Parameterised.h>
 #include <utils/geom/PositionVector.h>
 #include <utils/gui/globjects/GUIGlObject.h>
@@ -44,7 +44,7 @@ class GUIGLObjectPopupMenu;
  * @class GNEAdditional
  * @brief An Element which don't belongs to GNENet but has influency in the simulation
  */
-class GNEAdditional : public GUIGlObject, public GNEAttributeCarrier, public Parameterised, public GNEHierarchicalElementParents, public GNEHierarchicalElementChilds  {
+class GNEAdditional : public GUIGlObject, public GNEAttributeCarrier, public Parameterised, public GNEHierarchicalElementParents, public GNEHierarchicalElementChildren  {
 
 public:
     /// @brief struct for pack all variables related with geometry of elemement
@@ -97,12 +97,12 @@ public:
      * @param[in] laneParents vector of lane parents
      * @param[in] shapeParents vector of shape parents
      * @param[in] additionalParents vector of additional parents
-     * @param[in] demandElementChilds vector of demandElement parents
-     * @param[in] edgeChilds vector of edge childs
-     * @param[in] laneChilds vector of lane childs
-     * @param[in] shapeChilds vector of shape childs
-     * @param[in] additionalChilds vector of additional childs
-     * @param[in] demandElementChilds vector of demandElement childs
+     * @param[in] demandElementChildren vector of demandElement parents
+     * @param[in] edgeChildren vector of edge children
+     * @param[in] laneChildren vector of lane children
+     * @param[in] shapeChildren vector of shape children
+     * @param[in] additionalChildren vector of additional children
+     * @param[in] demandElementChildren vector of demandElement children
      */
     GNEAdditional(const std::string& id, GNEViewNet* viewNet, GUIGlObjectType type, SumoXMLTag tag, std::string additionalName, bool blockMovement,
                   const std::vector<GNEEdge*>& edgeParents,
@@ -110,11 +110,11 @@ public:
                   const std::vector<GNEShape*>& shapeParents,
                   const std::vector<GNEAdditional*>& additionalParents,
                   const std::vector<GNEDemandElement*>& demandElementParents,
-                  const std::vector<GNEEdge*>& edgeChilds,
-                  const std::vector<GNELane*>& laneChilds,
-                  const std::vector<GNEShape*>& shapeChilds,
-                  const std::vector<GNEAdditional*>& additionalChilds,
-                  const std::vector<GNEDemandElement*>& demandElementChilds);
+                  const std::vector<GNEEdge*>& edgeChildren,
+                  const std::vector<GNELane*>& laneChildren,
+                  const std::vector<GNEShape*>& shapeChildren,
+                  const std::vector<GNEAdditional*>& additionalChildren,
+                  const std::vector<GNEDemandElement*>& demandElementChildren);
 
     /**@brief Constructor used by Additionals that have two additionals as parent
      * @param[in] additionalParent pointer to additional parent pointer (used to generate an ID)
@@ -127,12 +127,12 @@ public:
      * @param[in] laneParents vector of lane parents
      * @param[in] shapeParents vector of shape parents
      * @param[in] additionalParents vector of additional parents
-     * @param[in] demandElementChilds vector of demandElement parents
-     * @param[in] edgeChilds vector of edge childs
-     * @param[in] laneChilds vector of lane childs
-     * @param[in] shapeChilds vector of shape childs
-     * @param[in] additionalChilds vector of additional childs
-     * @param[in] demandElementChilds vector of demandElement childs
+     * @param[in] demandElementChildren vector of demandElement parents
+     * @param[in] edgeChildren vector of edge children
+     * @param[in] laneChildren vector of lane children
+     * @param[in] shapeChildren vector of shape children
+     * @param[in] additionalChildren vector of additional children
+     * @param[in] demandElementChildren vector of demandElement children
     */
     GNEAdditional(GNEAdditional* additionalParent, GNEViewNet* viewNet, GUIGlObjectType type, SumoXMLTag tag, std::string additionalName, bool blockMovement,
                   const std::vector<GNEEdge*>& edgeParents,
@@ -140,11 +140,11 @@ public:
                   const std::vector<GNEShape*>& shapeParents,
                   const std::vector<GNEAdditional*>& additionalParents,
                   const std::vector<GNEDemandElement*>& demandElementParents,
-                  const std::vector<GNEEdge*>& edgeChilds,
-                  const std::vector<GNELane*>& laneChilds,
-                  const std::vector<GNEShape*>& shapeChilds,
-                  const std::vector<GNEAdditional*>& additionalChilds,
-                  const std::vector<GNEDemandElement*>& demandElementChilds);
+                  const std::vector<GNEEdge*>& edgeChildren,
+                  const std::vector<GNELane*>& laneChildren,
+                  const std::vector<GNEShape*>& shapeChildren,
+                  const std::vector<GNEAdditional*>& additionalChildren,
+                  const std::vector<GNEDemandElement*>& demandElementChildren);
 
     /// @brief Destructor
     ~GNEAdditional();
@@ -155,6 +155,9 @@ public:
     /// @brief obtain AdditionalGeometry
     const AdditionalGeometry& getAdditionalGeometry() const;
 
+    /// @brief set special color 
+    void setSpecialColor(const RGBColor* color);
+
     /// @name members and functions relative to write additionals into XML
     /// @{
     /**@brief writte additional element into a xml file
@@ -162,13 +165,13 @@ public:
      */
     void writeAdditional(OutputDevice& device) const;
 
-    /// @brief check if current additional is valid to be writed into XML (by default true, can be reimplemented in childs)
+    /// @brief check if current additional is valid to be writed into XML (by default true, can be reimplemented in children)
     virtual bool isAdditionalValid() const;
 
-    /// @brief return a string with the current additional problem (by default empty, can be reimplemented in childs)
+    /// @brief return a string with the current additional problem (by default empty, can be reimplemented in children)
     virtual std::string getAdditionalProblem() const;
 
-    /// @brief fix additional problem (by default throw an exception, has to be reimplemented in childs)
+    /// @brief fix additional problem (by default throw an exception, has to be reimplemented in children)
     virtual void fixAdditionalProblem();
     /// @}
 
@@ -334,11 +337,7 @@ protected:
         void setRotation(GNELane* additionalLane = nullptr);
 
         /// @brief draw lock icon
-        void draw(double size = 0.5) const;
-
-    private:
-        /// @brief pointer to additional parent
-        GNEAdditional* myAdditional;
+        void drawIcon(const GUIVisualizationSettings& s, const double exaggeration, const double size = 0.5) const;
 
     public:
         /// @brief position of the block icon
@@ -349,6 +348,10 @@ protected:
 
         /// @brief The rotation of the block icon
         double rotation;
+
+    private:
+        /// @brief pointer to additional parent
+        GNEAdditional* myAdditional;
     };
 
     /// @brief The GNEViewNet this additional element belongs
@@ -369,12 +372,14 @@ protected:
     /// @brief variable BlockIcon
     BlockIcon myBlockIcon;
 
+    /// @brief pointer to special color (used for drawing Additional with a certain color, mainly used for selections)
+    const RGBColor *mySpecialColor;
+
     /// @brief change all attributes of additional with their default values (note: this cannot be undo)
     void setDefaultValues();
 
     /// @name Functions relative to change values in setAttribute(...)
     /// @{
-
     /// @brief returns Additional ID
     const std::string& getAdditionalID() const;
 
@@ -393,7 +398,7 @@ protected:
     /// @}
 
 private:
-    /**@brief check restriction with the number of childs
+    /**@brief check restriction with the number of children
      * @throw ProcessError if itis called without be reimplemented in child class
      */
     virtual bool checkAdditionalChildRestriction() const;

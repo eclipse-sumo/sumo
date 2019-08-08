@@ -97,8 +97,8 @@ private:
     /// @brief segment
     MESegment* mySegment;
 
-    /// @brief edge and lanes
-    std::pair<int, int> myEdgeAndLane;
+    /// @brief current lane being loaded
+    MSLane* myCurrentLane;
 
     /// @brief que index
     int myQueIndex;

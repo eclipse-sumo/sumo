@@ -25,6 +25,7 @@
 #include <netedit/GNEViewParent.h>
 #include <netedit/changes/GNEChange_Attribute.h>
 #include <netedit/frames/GNESelectorFrame.h>
+#include <utils/common/StringTokenizer.h>
 #include <utils/emissions/PollutantsInterface.h>
 #include <utils/gui/div/GUIGlobalSelection.h>
 
@@ -36,8 +37,8 @@
 // ===========================================================================
 
 
-GNEVehicleType::GNEVehicleType(GNEViewNet* viewNet, const std::string& vTypeID, SUMOVehicleClass defaultVClass) :
-    GNEDemandElement(vTypeID, viewNet, GLO_VTYPE, SUMO_TAG_VTYPE, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}),
+GNEVehicleType::GNEVehicleType(GNEViewNet* viewNet, const std::string& vTypeID, const SUMOVehicleClass &defaultVClass, SumoXMLTag tag) :
+    GNEDemandElement(vTypeID, viewNet, GLO_VTYPE, tag, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}),
     SUMOVTypeParameter(vTypeID),
     myDefaultVehicleType(true),
     myDefaultVehicleTypeModified(false) {
@@ -49,18 +50,23 @@ GNEVehicleType::GNEVehicleType(GNEViewNet* viewNet, const std::string& vTypeID, 
 }
 
 
-GNEVehicleType::GNEVehicleType(GNEViewNet* viewNet, const SUMOVTypeParameter& vTypeParameter) :
-    GNEDemandElement(vTypeParameter.id, viewNet, GLO_VTYPE, SUMO_TAG_VTYPE, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}),
+GNEVehicleType::GNEVehicleType(GNEViewNet* viewNet, const SUMOVTypeParameter& vTypeParameter, SumoXMLTag tag) :
+    GNEDemandElement(vTypeParameter.id, viewNet, GLO_VTYPE, tag, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}),
     SUMOVTypeParameter(vTypeParameter),
     myDefaultVehicleType(false),
     myDefaultVehicleTypeModified(false) {
+    // if we're creating a Person Type, set manually VClass
+    if (tag == SUMO_TAG_PTYPE) {
+        vehicleClass = SVC_PEDESTRIAN;
+        parametersSet |= VTYPEPARS_VEHICLECLASS_SET;
+    }
     // init Rail Visualization Parameters
     initRailVisualizationParameters();
 }
 
 
 GNEVehicleType::GNEVehicleType(GNEViewNet* viewNet, const std::string& vTypeID, GNEVehicleType* vTypeOriginal) :
-    GNEDemandElement(vTypeID, viewNet, GLO_VTYPE, SUMO_TAG_VTYPE, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}),
+    GNEDemandElement(vTypeID, viewNet, GLO_VTYPE, vTypeOriginal->getTagProperty().getTag(), {}, {}, {}, {}, {}, {}, {}, {}, {}, {}),
     SUMOVTypeParameter(*vTypeOriginal),
     myDefaultVehicleType(false),
     myDefaultVehicleTypeModified(false) {
@@ -192,7 +198,7 @@ GNEVehicleType::getAttribute(SumoXMLAttr key) const {
     switch (key) {
         case SUMO_ATTR_ID:
             return getDemandElementID();
-        // CFM Values
+        // CFM Attributes
         case SUMO_ATTR_ACCEL:
         case SUMO_ATTR_DECEL:
         case SUMO_ATTR_APPARENTDECEL:
@@ -201,7 +207,7 @@ GNEVehicleType::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_TAU:
             // this CFM has default values
             return getCFParamString(key, myTagProperty.getDefaultValue(key));
-        // JM Values
+        // JM Attributes
         case SUMO_ATTR_JM_CROSSING_GAP:
         case SUMO_ATTR_JM_IGNORE_KEEPCLEAR_TIME:
         case SUMO_ATTR_JM_DRIVE_AFTER_YELLOW_TIME:
@@ -219,6 +225,27 @@ GNEVehicleType::getAttribute(SumoXMLAttr key) const {
             } else {
                 return myTagProperty.getDefaultValue(SUMO_ATTR_IMPATIENCE);
             }
+        // LCM Attributes
+        case SUMO_ATTR_LCA_STRATEGIC_PARAM:
+        case SUMO_ATTR_LCA_COOPERATIVE_PARAM:
+        case SUMO_ATTR_LCA_SPEEDGAIN_PARAM:
+        case SUMO_ATTR_LCA_KEEPRIGHT_PARAM:
+        case SUMO_ATTR_LCA_SUBLANE_PARAM:
+        case SUMO_ATTR_LCA_OPPOSITE_PARAM:
+        case SUMO_ATTR_LCA_PUSHY:
+        case SUMO_ATTR_LCA_PUSHYGAP:
+        case SUMO_ATTR_LCA_ASSERTIVE:
+        case SUMO_ATTR_LCA_IMPATIENCE:
+        case SUMO_ATTR_LCA_TIME_TO_IMPATIENCE:
+        case SUMO_ATTR_LCA_ACCEL_LAT:
+        case SUMO_ATTR_LCA_LOOKAHEADLEFT:
+        case SUMO_ATTR_LCA_SPEEDGAINRIGHT:
+        case SUMO_ATTR_LCA_MAXSPEEDLATSTANDING:
+        case SUMO_ATTR_LCA_MAXSPEEDLATFACTOR:
+        case SUMO_ATTR_LCA_TURN_ALIGNMENT_DISTANCE:
+        case SUMO_ATTR_LCA_OVERTAKE_RIGHT:
+        /* case SUMO_ATTR_LCA_EXPERIMENTAL1: */
+            return getLCParamString(key, myTagProperty.getDefaultValue(key));
         //
         case SUMO_ATTR_COLLISION_MINGAP_FACTOR:
         case SUMO_ATTR_TMP1:
@@ -309,19 +336,19 @@ GNEVehicleType::getAttribute(SumoXMLAttr key) const {
             if (wasSet(VTYPEPARS_SHAPE_SET)) {
                 return getVehicleShapeName(shape);
             } else {
-                return myTagProperty.getDefaultValue(SUMO_ATTR_GUISHAPE);
+                return getVehicleShapeName(defaultValues.shape);
             }
         case SUMO_ATTR_WIDTH:
             if (wasSet(VTYPEPARS_WIDTH_SET)) {
                 return toString(width);
             } else {
-                return myTagProperty.getDefaultValue(SUMO_ATTR_WIDTH);
+                return toString(defaultValues.width);
             }
         case SUMO_ATTR_HEIGHT:
             if (wasSet(VTYPEPARS_HEIGHT_SET)) {
                 return toString(height);
             } else {
-                return myTagProperty.getDefaultValue(SUMO_ATTR_HEIGHT);
+                return toString(defaultValues.height);
             }
         case SUMO_ATTR_IMGFILE:
             if (wasSet(VTYPEPARS_IMGFILE_SET)) {
@@ -425,6 +452,47 @@ GNEVehicleType::getAttribute(SumoXMLAttr key) const {
 }
 
 
+double 
+GNEVehicleType::getAttributeDouble(SumoXMLAttr key) const {
+    // obtain default values depending of vehicle class
+    VClassDefaultValues defaultValues(vehicleClass);
+    switch (key) {
+        case SUMO_ATTR_LENGTH:
+            if (wasSet(VTYPEPARS_LENGTH_SET)) {
+                return length;
+            } else {
+                return defaultValues.length;
+            }
+        case SUMO_ATTR_MINGAP:
+            if (wasSet(VTYPEPARS_MINGAP_SET)) {
+                return minGap;
+            } else {
+                return defaultValues.minGap;
+            }
+        case SUMO_ATTR_WIDTH:
+            if (wasSet(VTYPEPARS_WIDTH_SET)) {
+                return width;
+            } else {
+                return defaultValues.width;
+            }
+        case SUMO_ATTR_HEIGHT:
+            if (wasSet(VTYPEPARS_HEIGHT_SET)) {
+                return height;
+            } else {
+                return defaultValues.height;
+            }
+        case SUMO_ATTR_MAXSPEED:
+            if (wasSet(VTYPEPARS_MAXSPEED_SET)) {
+                return maxSpeed;
+            } else {
+                return defaultValues.maxSpeed;
+            }
+        default:
+            throw InvalidArgument(getTagStr() + " doesn't have a double attribute of type '" + toString(key) + "'");
+    }
+}
+
+
 void
 GNEVehicleType::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList) {
     if (value == getAttribute(key)) {
@@ -434,7 +502,7 @@ GNEVehicleType::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoL
         case SUMO_ATTR_ID:
             undoList->p_add(new GNEChange_Attribute(this, myViewNet->getNet(), key, value));
             break;
-        /// CFM Values
+        // CFM Attributes
         case SUMO_ATTR_ACCEL:
         case SUMO_ATTR_DECEL:
         case SUMO_ATTR_APPARENTDECEL:
@@ -458,7 +526,7 @@ GNEVehicleType::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoL
         case SUMO_ATTR_CF_KERNER_PHI:
         case SUMO_ATTR_CF_IDM_DELTA:
         case SUMO_ATTR_CF_IDM_STEPPING:
-        // JM Values
+        // JM Attributes
         case SUMO_ATTR_JM_CROSSING_GAP:
         case SUMO_ATTR_JM_IGNORE_KEEPCLEAR_TIME:
         case SUMO_ATTR_JM_DRIVE_AFTER_YELLOW_TIME:
@@ -469,6 +537,26 @@ GNEVehicleType::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoL
         case SUMO_ATTR_JM_SIGMA_MINOR:
         case SUMO_ATTR_JM_TIMEGAP_MINOR:
         case SUMO_ATTR_IMPATIENCE:
+        // LCM Attributes
+        case SUMO_ATTR_LCA_STRATEGIC_PARAM:
+        case SUMO_ATTR_LCA_COOPERATIVE_PARAM:
+        case SUMO_ATTR_LCA_SPEEDGAIN_PARAM:
+        case SUMO_ATTR_LCA_KEEPRIGHT_PARAM:
+        case SUMO_ATTR_LCA_SUBLANE_PARAM:
+        case SUMO_ATTR_LCA_OPPOSITE_PARAM:
+        case SUMO_ATTR_LCA_PUSHY:
+        case SUMO_ATTR_LCA_PUSHYGAP:
+        case SUMO_ATTR_LCA_ASSERTIVE:
+        case SUMO_ATTR_LCA_IMPATIENCE:
+        case SUMO_ATTR_LCA_TIME_TO_IMPATIENCE:
+        case SUMO_ATTR_LCA_ACCEL_LAT:
+        case SUMO_ATTR_LCA_LOOKAHEADLEFT:
+        case SUMO_ATTR_LCA_SPEEDGAINRIGHT:
+        case SUMO_ATTR_LCA_MAXSPEEDLATSTANDING:
+        case SUMO_ATTR_LCA_MAXSPEEDLATFACTOR:
+        case SUMO_ATTR_LCA_TURN_ALIGNMENT_DISTANCE:
+        case SUMO_ATTR_LCA_OVERTAKE_RIGHT:
+        /* case SUMO_ATTR_LCA_EXPERIMENTAL1: */
         //
         case SUMO_ATTR_LENGTH:
         case SUMO_ATTR_MINGAP:
@@ -523,8 +611,15 @@ GNEVehicleType::isValid(SumoXMLAttr key, const std::string& value) {
 
     switch (key) {
         case SUMO_ATTR_ID:
-            return isValidDemandElementID(value);
-        // CFM Values
+            // Vtypes and PTypes shares namespace
+            if (SUMOXMLDefinitions::isValidVehicleID(value) && 
+                (myViewNet->getNet()->retrieveDemandElement(SUMO_TAG_VTYPE, value, false) == nullptr) &&
+                (myViewNet->getNet()->retrieveDemandElement(SUMO_TAG_PTYPE, value, false) == nullptr)) {
+                return true;
+            } else {
+                return false;
+            }
+        // CFM Attributes
         case SUMO_ATTR_SIGMA:
             return canParse<double>(value) && (parse<double>(value) >= 0) && (parse<double>(value) <= 1);
         case SUMO_ATTR_ACCEL:
@@ -552,35 +647,52 @@ GNEVehicleType::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_TRAIN_TYPE:
             // rail string
             return SUMOXMLDefinitions::TrainTypes.hasString(value);
-        // JM Values
+        // JM Attributes
         case SUMO_ATTR_JM_CROSSING_GAP:
             return canParse<double>(value) && (parse<double>(value) >= 0);
         case SUMO_ATTR_JM_IGNORE_KEEPCLEAR_TIME:
             return canParse<double>(value) && (parse<double>(value) >= -1);
         case SUMO_ATTR_JM_DRIVE_AFTER_YELLOW_TIME:
-            return canParse<double>(value) && (parse<double>(value) >= 0);
+            return canParse<double>(value) && (parse<double>(value) >= -1);
         case SUMO_ATTR_JM_DRIVE_AFTER_RED_TIME:
             return canParse<double>(value) && (parse<double>(value) >= -1);
         case SUMO_ATTR_JM_DRIVE_RED_SPEED:
-            if (value == "maxSpeed") {
-                return true;
-            } else {
-                return canParse<double>(value) && (parse<double>(value) > 0);
-            }
+            return canParse<double>(value) && (parse<double>(value) >= 0);
         case SUMO_ATTR_JM_IGNORE_FOE_PROB:
             return canParse<double>(value) && (parse<double>(value) >= 0);
         case SUMO_ATTR_JM_IGNORE_FOE_SPEED:
             return canParse<double>(value) && (parse<double>(value) >= 0);
         case SUMO_ATTR_JM_SIGMA_MINOR:
-            if (value == "sigma") {
-                return true;
-            } else {
-                return canParse<double>(value) && (parse<double>(value) > 0);
-            }
+            return canParse<double>(value) && (parse<double>(value) >= 0) && (parse<double>(value) <= 1);
         case SUMO_ATTR_JM_TIMEGAP_MINOR:
             return canParse<double>(value) && (parse<double>(value) >= 0);
         case SUMO_ATTR_IMPATIENCE:
             return canParse<double>(value) && (parse<double>(value) >= 0);
+        // LCM Attributes
+        case SUMO_ATTR_LCA_STRATEGIC_PARAM:
+        case SUMO_ATTR_LCA_COOPERATIVE_PARAM:
+        case SUMO_ATTR_LCA_SPEEDGAIN_PARAM:
+        case SUMO_ATTR_LCA_KEEPRIGHT_PARAM:
+        case SUMO_ATTR_LCA_SUBLANE_PARAM:
+        case SUMO_ATTR_LCA_OPPOSITE_PARAM:
+        case SUMO_ATTR_LCA_PUSHY:
+            return canParse<double>(value);
+        case SUMO_ATTR_LCA_PUSHYGAP:
+        case SUMO_ATTR_LCA_IMPATIENCE:
+        case SUMO_ATTR_LCA_MAXSPEEDLATSTANDING:
+        case SUMO_ATTR_LCA_TURN_ALIGNMENT_DISTANCE: // 0 mean disabled
+        case SUMO_ATTR_LCA_TIME_TO_IMPATIENCE:      // 0 mean disabled
+        case SUMO_ATTR_LCA_OVERTAKE_RIGHT:          // 0 mean disabled
+            return canParse<double>(value) && (parse<double>(value) >= 0);
+        case SUMO_ATTR_LCA_ASSERTIVE:
+        case SUMO_ATTR_LCA_LOOKAHEADLEFT:
+        case SUMO_ATTR_LCA_SPEEDGAINRIGHT:
+        case SUMO_ATTR_LCA_ACCEL_LAT:
+        case SUMO_ATTR_LCA_MAXSPEEDLATFACTOR:
+            return canParse<double>(value) && (parse<double>(value) > 0);
+        /* case SUMO_ATTR_LCA_EXPERIMENTAL1:
+            return true;
+        */
         //
         case SUMO_ATTR_LENGTH:
             return canParse<double>(value) && (parse<double>(value) > 0);
@@ -820,6 +932,64 @@ GNEVehicleType::overwriteVType(GNEDemandElement* vType, SUMOVTypeParameter* newV
     if (newVTypeParameter->wasSet(VTYPEPARS_IMPATIENCE_SET)) {
         vType->setAttribute(SUMO_ATTR_IMPATIENCE, toString(newVTypeParameter->impatience), undoList);
     }
+    // LCM values
+    if (!newVTypeParameter->getJMParamString(SUMO_ATTR_LCA_STRATEGIC_PARAM, "").empty()) {
+        vType->setAttribute(SUMO_ATTR_LCA_STRATEGIC_PARAM, toString(newVTypeParameter->getCFParam(SUMO_ATTR_LCA_STRATEGIC_PARAM, 0)), undoList);
+    }
+    if (!newVTypeParameter->getJMParamString(SUMO_ATTR_LCA_COOPERATIVE_PARAM, "").empty()) {
+        vType->setAttribute(SUMO_ATTR_LCA_COOPERATIVE_PARAM, toString(newVTypeParameter->getCFParam(SUMO_ATTR_LCA_COOPERATIVE_PARAM, 0)), undoList);
+    }
+    if (!newVTypeParameter->getJMParamString(SUMO_ATTR_LCA_SPEEDGAIN_PARAM, "").empty()) {
+        vType->setAttribute(SUMO_ATTR_LCA_SPEEDGAIN_PARAM, toString(newVTypeParameter->getCFParam(SUMO_ATTR_LCA_SPEEDGAIN_PARAM, 0)), undoList);
+    }
+    if (!newVTypeParameter->getJMParamString(SUMO_ATTR_LCA_KEEPRIGHT_PARAM, "").empty()) {
+        vType->setAttribute(SUMO_ATTR_LCA_KEEPRIGHT_PARAM, toString(newVTypeParameter->getCFParam(SUMO_ATTR_LCA_KEEPRIGHT_PARAM, 0)), undoList);
+    }
+    if (!newVTypeParameter->getJMParamString(SUMO_ATTR_LCA_SUBLANE_PARAM, "").empty()) {
+        vType->setAttribute(SUMO_ATTR_LCA_SUBLANE_PARAM, toString(newVTypeParameter->getCFParam(SUMO_ATTR_LCA_SUBLANE_PARAM, 0)), undoList);
+    }
+    if (!newVTypeParameter->getJMParamString(SUMO_ATTR_LCA_OPPOSITE_PARAM, "").empty()) {
+        vType->setAttribute(SUMO_ATTR_LCA_OPPOSITE_PARAM, toString(newVTypeParameter->getCFParam(SUMO_ATTR_LCA_OPPOSITE_PARAM, 0)), undoList);
+    }
+    if (!newVTypeParameter->getJMParamString(SUMO_ATTR_LCA_PUSHY, "").empty()) {
+        vType->setAttribute(SUMO_ATTR_LCA_PUSHY, toString(newVTypeParameter->getCFParam(SUMO_ATTR_LCA_PUSHY, 0)), undoList);
+    }
+    if (!newVTypeParameter->getJMParamString(SUMO_ATTR_LCA_PUSHYGAP, "").empty()) {
+        vType->setAttribute(SUMO_ATTR_LCA_PUSHYGAP, toString(newVTypeParameter->getCFParam(SUMO_ATTR_LCA_PUSHYGAP, 0)), undoList);
+    }
+    if (!newVTypeParameter->getJMParamString(SUMO_ATTR_LCA_ASSERTIVE, "").empty()) {
+        vType->setAttribute(SUMO_ATTR_LCA_ASSERTIVE, toString(newVTypeParameter->getCFParam(SUMO_ATTR_LCA_ASSERTIVE, 0)), undoList);
+    }
+    if (!newVTypeParameter->getJMParamString(SUMO_ATTR_LCA_IMPATIENCE, "").empty()) {
+        vType->setAttribute(SUMO_ATTR_LCA_IMPATIENCE, toString(newVTypeParameter->getCFParam(SUMO_ATTR_LCA_IMPATIENCE, 0)), undoList);
+    }
+    if (!newVTypeParameter->getJMParamString(SUMO_ATTR_LCA_TIME_TO_IMPATIENCE, "").empty()) {
+        vType->setAttribute(SUMO_ATTR_LCA_TIME_TO_IMPATIENCE, toString(newVTypeParameter->getCFParam(SUMO_ATTR_LCA_TIME_TO_IMPATIENCE, 0)), undoList);
+    }
+    if (!newVTypeParameter->getJMParamString(SUMO_ATTR_LCA_ACCEL_LAT, "").empty()) {
+        vType->setAttribute(SUMO_ATTR_LCA_ACCEL_LAT, toString(newVTypeParameter->getCFParam(SUMO_ATTR_LCA_ACCEL_LAT, 0)), undoList);
+    }
+    if (!newVTypeParameter->getJMParamString(SUMO_ATTR_LCA_LOOKAHEADLEFT, "").empty()) {
+        vType->setAttribute(SUMO_ATTR_LCA_LOOKAHEADLEFT, toString(newVTypeParameter->getCFParam(SUMO_ATTR_LCA_LOOKAHEADLEFT, 0)), undoList);
+    }
+    if (!newVTypeParameter->getJMParamString(SUMO_ATTR_LCA_SPEEDGAINRIGHT, "").empty()) {
+        vType->setAttribute(SUMO_ATTR_LCA_SPEEDGAINRIGHT, toString(newVTypeParameter->getCFParam(SUMO_ATTR_LCA_SPEEDGAINRIGHT, 0)), undoList);
+    }
+    if (!newVTypeParameter->getJMParamString(SUMO_ATTR_LCA_MAXSPEEDLATSTANDING, "").empty()) {
+        vType->setAttribute(SUMO_ATTR_LCA_MAXSPEEDLATSTANDING, toString(newVTypeParameter->getCFParam(SUMO_ATTR_LCA_MAXSPEEDLATSTANDING, 0)), undoList);
+    }
+    if (!newVTypeParameter->getJMParamString(SUMO_ATTR_LCA_MAXSPEEDLATFACTOR, "").empty()) {
+        vType->setAttribute(SUMO_ATTR_LCA_MAXSPEEDLATFACTOR, toString(newVTypeParameter->getCFParam(SUMO_ATTR_LCA_MAXSPEEDLATFACTOR, 0)), undoList);
+    }
+    if (!newVTypeParameter->getJMParamString(SUMO_ATTR_LCA_TURN_ALIGNMENT_DISTANCE, "").empty()) {
+        vType->setAttribute(SUMO_ATTR_LCA_TURN_ALIGNMENT_DISTANCE, toString(newVTypeParameter->getCFParam(SUMO_ATTR_LCA_TURN_ALIGNMENT_DISTANCE, 0)), undoList);
+    }
+    if (!newVTypeParameter->getJMParamString(SUMO_ATTR_LCA_OVERTAKE_RIGHT, "").empty()) {
+        vType->setAttribute(SUMO_ATTR_LCA_OVERTAKE_RIGHT, toString(newVTypeParameter->getCFParam(SUMO_ATTR_LCA_OVERTAKE_RIGHT, 0)), undoList);
+    }
+    if (!newVTypeParameter->getJMParamString(SUMO_ATTR_LCA_EXPERIMENTAL1, "").empty()) {
+        vType->setAttribute(SUMO_ATTR_LCA_EXPERIMENTAL1, toString(newVTypeParameter->getCFParam(SUMO_ATTR_LCA_EXPERIMENTAL1, 0)), undoList);
+    }
     //
     if (newVTypeParameter->wasSet(VTYPEPARS_LENGTH_SET)) {
         vType->setAttribute(SUMO_ATTR_LENGTH, toString(newVTypeParameter->length), undoList);
@@ -966,6 +1136,57 @@ GNEVehicleType::initRailVisualizationParameters() {
     }
 }
 
+
+std::string
+GNEVehicleType::getGenericParametersStr() const {
+    std::string result;
+    // Generate an string using the following structure: "key1=value1|key2=value2|...
+    for (auto i : getParametersMap()) {
+        result += i.first + "=" + i.second + "|";
+    }
+    // remove the last "|"
+    if (!result.empty()) {
+        result.pop_back();
+    }
+    return result;
+}
+
+
+std::vector<std::pair<std::string, std::string> >
+GNEVehicleType::getGenericParameters() const {
+    std::vector<std::pair<std::string, std::string> >  result;
+    // iterate over parameters map and fill result
+    for (auto i : getParametersMap()) {
+        result.push_back(std::make_pair(i.first, i.second));
+    }
+    return result;
+}
+
+
+void
+GNEVehicleType::setGenericParametersStr(const std::string& value) {
+    // clear parameters
+    clearParameter();
+    // separate value in a vector of string using | as separator
+    std::vector<std::string> parsedValues;
+    StringTokenizer stValues(value, "|", true);
+    while (stValues.hasNext()) {
+        parsedValues.push_back(stValues.next());
+    }
+    // check that parsed values (A=B)can be parsed in generic parameters
+    for (auto i : parsedValues) {
+        std::vector<std::string> parsedParameters;
+        StringTokenizer stParam(i, "=", true);
+        while (stParam.hasNext()) {
+            parsedParameters.push_back(stParam.next());
+        }
+        // Check that parsed parameters are exactly two and contains valid chracters
+        if (parsedParameters.size() == 2 && SUMOXMLDefinitions::isValidGenericParameterKey(parsedParameters.front()) && SUMOXMLDefinitions::isValidGenericParameterValue(parsedParameters.back())) {
+            setParameter(parsedParameters.front(), parsedParameters.back());
+        }
+    }
+}
+
 // ===========================================================================
 // private
 // ===========================================================================
@@ -979,7 +1200,7 @@ GNEVehicleType::setAttribute(SumoXMLAttr key, const std::string& value) {
             changeDemandElementID(value);
             id = value;
             break;
-        // CFM Values
+        // CFM Attributes
         case SUMO_ATTR_ACCEL:
         case SUMO_ATTR_DECEL:
         case SUMO_ATTR_APPARENTDECEL:
@@ -1003,7 +1224,7 @@ GNEVehicleType::setAttribute(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_CF_KERNER_PHI:
         case SUMO_ATTR_CF_IDM_DELTA:
         case SUMO_ATTR_CF_IDM_STEPPING:
-            // empty values means that value isnt't set
+            // empty values means that value isn't set
             if (value.empty()) {
                 const auto it = cfParameter.find(key);
                 if (it != cfParameter.end()) {
@@ -1013,7 +1234,7 @@ GNEVehicleType::setAttribute(SumoXMLAttr key, const std::string& value) {
                 cfParameter[key] = value;
             }
             break;
-        // JM Values
+        // JM Attributes
         case SUMO_ATTR_JM_CROSSING_GAP:
         case SUMO_ATTR_JM_IGNORE_KEEPCLEAR_TIME:
         case SUMO_ATTR_JM_DRIVE_AFTER_YELLOW_TIME:
@@ -1023,7 +1244,7 @@ GNEVehicleType::setAttribute(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_JM_IGNORE_FOE_SPEED:
         case SUMO_ATTR_JM_SIGMA_MINOR:
         case SUMO_ATTR_JM_TIMEGAP_MINOR:
-            // empty values means that value isnt't set
+            // empty values means that value isn't set
             if (value.empty()) {
                 const auto it = jmParameter.find(key);
                 if (it != jmParameter.end()) {
@@ -1043,6 +1264,47 @@ GNEVehicleType::setAttribute(SumoXMLAttr key, const std::string& value) {
                 impatience = parse<double>(myTagProperty.getDefaultValue(key));
                 // unset parameter
                 parametersSet &= ~VTYPEPARS_IMPATIENCE_SET;
+            }
+            break;
+        // LCM Attributes
+        case SUMO_ATTR_LCA_STRATEGIC_PARAM:
+        case SUMO_ATTR_LCA_COOPERATIVE_PARAM:
+        case SUMO_ATTR_LCA_SPEEDGAIN_PARAM:
+        case SUMO_ATTR_LCA_KEEPRIGHT_PARAM:
+        case SUMO_ATTR_LCA_SUBLANE_PARAM:
+        case SUMO_ATTR_LCA_OPPOSITE_PARAM:
+        case SUMO_ATTR_LCA_PUSHY:
+        case SUMO_ATTR_LCA_PUSHYGAP:
+        case SUMO_ATTR_LCA_ASSERTIVE:
+        case SUMO_ATTR_LCA_IMPATIENCE:
+        case SUMO_ATTR_LCA_ACCEL_LAT:
+        case SUMO_ATTR_LCA_LOOKAHEADLEFT:
+        case SUMO_ATTR_LCA_SPEEDGAINRIGHT:
+        case SUMO_ATTR_LCA_MAXSPEEDLATSTANDING:
+        case SUMO_ATTR_LCA_MAXSPEEDLATFACTOR:
+
+        /* case SUMO_ATTR_LCA_EXPERIMENTAL1: */
+            // empty values means that value isn't set
+            if (value.empty()) {
+                const auto it = lcParameter.find(key);
+                if (it != lcParameter.end()) {
+                    lcParameter.erase(it);
+                }
+            } else {
+                lcParameter[key] = value;
+            }
+            break;
+        case SUMO_ATTR_LCA_TURN_ALIGNMENT_DISTANCE:
+        case SUMO_ATTR_LCA_TIME_TO_IMPATIENCE:
+        case SUMO_ATTR_LCA_OVERTAKE_RIGHT:
+            // empty or null values means that value isn't set
+            if (value.empty() || (canParse<double>(value) && (parse<double>(value) == 0))) {
+                const auto it = lcParameter.find(key);
+                if (it != lcParameter.end()) {
+                    lcParameter.erase(it);
+                }
+            } else {
+                lcParameter[key] = value;
             }
             break;
         //

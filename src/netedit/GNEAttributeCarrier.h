@@ -90,6 +90,7 @@ public:
         ATTRPROPERTY_EXTENDED =            1 << 24,  // Attribute is extended (in Frame will not be shown, see VType attributes)
         ATTRPROPERTY_UPDATEGEOMETRY =      1 << 25,  // Attribute requiere update geometry at the end of function setAttribute(...)
         ATTRPROPERTY_OPTIONAL =            1 << 26,  // Attribute is optional, i.e. can be enabled/disabled using a checkbox in frame
+        ATTRPROPERTY_COMPLEX =             1 << 27,  // Attribute is complex: Requiere a special function to check if their given value is valid
     };
 
     /// @brief struct with the attribute Properties
@@ -116,9 +117,6 @@ public:
 
         /// @brief set range
         void setRange(const double minimum, const double maximum);
-
-        /// @brief set position listed
-        void setPositionListed(const int positionListed);
 
         /// @brief set tag property parent
         void setTagPropertyParent(TagProperties* tagPropertyParent);
@@ -240,6 +238,9 @@ public:
         /// @brief return true if atribute is optional
         bool isOptional() const;
 
+        /// @brief return true if atribute is complex
+        bool isComplex() const;
+
     private:
         /// @brief XML Attribute
         SumoXMLAttr myAttribute;
@@ -252,9 +253,6 @@ public:
 
         /// @brief Property of attribute
         int myAttributeProperty;
-
-        /// @brief listed position
-        int myPositionListed;
 
         /// @brief text with a definition of attribute
         std::string myDefinition;
@@ -275,7 +273,6 @@ public:
         double myMaximumRange;
     };
 
-
     enum TagType {
         TAGTYPE_NETELEMENT =    1 << 0,   // Edges, Junctions, Lanes...
         TAGTYPE_ADDITIONAL =    1 << 1,   // Bus Stops, Charging Stations, Detectors...
@@ -284,31 +281,39 @@ public:
         TAGTYPE_TAZ =           1 << 4,   // Traffic Assignment Zones
         TAGTYPE_STOPPINGPLACE = 1 << 5,   // StoppingPlaces (BusStops, ChargingStations...)
         TAGTYPE_DETECTOR =      1 << 6,   // Detectors (E1, E2...)
-        TAGTYPE_VEHICLE =       1 << 7,   // Vehicles (Flows, trips...)
-        TAGTYPE_ROUTE =         1 << 8,   // Routes and embedded routes
-        TAGTYPE_STOP =          1 << 9,   // Stops
+        TAGTYPE_VTYPE =         1 << 7,   // Vehicle types (vType and pTye)
+        TAGTYPE_VEHICLE =       1 << 8,   // Vehicles (Flows, trips...)
+        TAGTYPE_ROUTE =         1 << 9,   // Routes and embedded routes
+        TAGTYPE_STOP =          1 << 10,  // Stops
+        TAGTYPE_PERSON =        1 << 11,  // Persons
+        TAGTYPE_PERSONPLAN =    1 << 12,  // Person plans (Walks, rides, ...)
+        TAGTYPE_PERSONTRIP =    1 << 13,  // Walks
+        TAGTYPE_WALK =          1 << 14,  // Walks
+        TAGTYPE_RIDE =          1 << 15,  // Rides
+        TAGTYPE_PERSONSTOP =    1 << 16,  // Person stops
     };
 
     enum TAGProperty {
-        TAGPROPERTY_DRAWABLE =            1 << 0,   // Element can be drawed in view
-        TAGPROPERTY_BLOCKMOVEMENT =       1 << 1,   // Element can block their movement
-        TAGPROPERTY_BLOCKSHAPE =          1 << 2,   // Element can block their shape
-        TAGPROPERTY_CLOSESHAPE =          1 << 3,   // Element can close their shape
-        TAGPROPERTY_GEOPOSITION =         1 << 4,   // Element's position can be defined using a GEO position
-        TAGPROPERTY_GEOSHAPE =            1 << 5,   // Element's shape acn be defined using a GEO Shape
-        TAGPROPERTY_DIALOG =              1 << 6,   // Element can be edited using a dialog (GNECalibratorDialog, GNERerouterDialog...)
-        TAGPROPERTY_PARENT =              1 << 7,   // Element will be writed in XML as child of another element (E3Entry -> E3Detector...)
-        TAGPROPERTY_MINIMUMCHILDS =       1 << 8,   // Element will be only writed in XML if has a minimum number of childs
-        TAGPROPERTY_REPARENT =            1 << 9,   // Element can be reparent
-        TAGPROPERTY_SYNONYM =             1 << 10,  // Element will be written with a different name in der XML
-        TAGPROPERTY_AUTOMATICSORTING =    1 << 11,  // Element sort automatic their Childs (used by Additionals)
-        TAGPROPERTY_SELECTABLE =          1 << 12,  // Element is selectable
-        TAGPROPERTY_MASKSTARTENDPOS =     1 << 13,  // Element mask attributes StartPos and EndPos as "lenght" (Only used in the appropiate GNEFrame)
-        TAGPROPERTY_MASKXYZPOSITION =     1 << 14,  // Element mask attributes X, Y and Z as "Position"
-        TAGPROPERTY_WRITECHILDSSEPARATE = 1 << 15,  // Element writes their childs in a separated filename
-        TAGPROPERTY_NOGENERICPARAMETERS = 1 << 16,  // Element doesn't accept Generic Parameters (by default all tags supports generic parameters)
-        TAGPROPERTY_DISJOINTATTRIBUTES =  1 << 17,  // Element owns attributes that cannot be defined together
-        TAGPROPERTY_RTREE =               1 << 18,  // Element is placed in RTREE
+        TAGPROPERTY_DRAWABLE =              1 << 0,     // Element can be drawed in view
+        TAGPROPERTY_BLOCKMOVEMENT =         1 << 1,     // Element can block their movement
+        TAGPROPERTY_BLOCKSHAPE =            1 << 2,     // Element can block their shape
+        TAGPROPERTY_CLOSESHAPE =            1 << 3,     // Element can close their shape
+        TAGPROPERTY_GEOPOSITION =           1 << 4,     // Element's position can be defined using a GEO position
+        TAGPROPERTY_GEOSHAPE =              1 << 5,     // Element's shape acn be defined using a GEO Shape
+        TAGPROPERTY_DIALOG =                1 << 6,     // Element can be edited using a dialog (GNECalibratorDialog, GNERerouterDialog...)
+        TAGPROPERTY_PARENT =                1 << 7,     // Element will be writed in XML as child of another element (E3Entry -> E3Detector...)
+        TAGPROPERTY_MINIMUMCHILDREN =       1 << 8,     // Element will be only writed in XML if has a minimum number of children
+        TAGPROPERTY_REPARENT =              1 << 9,     // Element can be reparent
+        TAGPROPERTY_SYNONYM =               1 << 10,    // Element will be written with a different name in der XML
+        TAGPROPERTY_AUTOMATICSORTING =      1 << 11,    // Element sort automatic their Children (used by Additionals)
+        TAGPROPERTY_SELECTABLE =            1 << 12,    // Element is selectable
+        TAGPROPERTY_MASKSTARTENDPOS =       1 << 13,    // Element mask attributes StartPos and EndPos as "lenght" (Only used in the appropiate GNEFrame)
+        TAGPROPERTY_MASKXYZPOSITION =       1 << 14,    // Element mask attributes X, Y and Z as "Position"
+        TAGPROPERTY_WRITECHILDRENSEPARATE = 1 << 15,    // Element writes their children in a separated filename
+        TAGPROPERTY_NOGENERICPARAMETERS =   1 << 16,    // Element doesn't accept Generic Parameters (by default all tags supports generic parameters)
+        TAGPROPERTY_DISJOINTATTRIBUTES =    1 << 17,    // Element owns attributes that cannot be defined together
+        TAGPROPERTY_RTREE =                 1 << 18,    // Element is placed in RTREE
+        TAGPROPERTY_SORTINGCHILDREN =       1 << 19,    // Element can be sorted in their parent element manually (in ACHierarchy)
     };
 
     /// @brief struct with the attribute Properties
@@ -342,10 +347,10 @@ public:
         const AttributeProperties& getAttributeProperties(SumoXMLAttr attr) const;
 
         /// @brief get begin of attribute values (used for iterate)
-        std::map<SumoXMLAttr, AttributeProperties>::const_iterator begin() const;
+        std::vector<AttributeProperties>::const_iterator begin() const;
 
         /// @brief get end of attribute values (used for iterate)
-        std::map<SumoXMLAttr, AttributeProperties>::const_iterator end() const;
+        std::vector<AttributeProperties>::const_iterator end() const;
 
         /// @brief get number of attributes
         int getNumberOfAttributes() const;
@@ -392,6 +397,9 @@ public:
         /// @brief return true if tag correspond to a shape (Only used to group all detectors in the XML)
         bool isDetector() const;
 
+        /// @brief return true if tag correspond to a vehicle type element
+        bool isVehicleType() const;
+
         /// @brief return true if tag correspond to a vehicle element
         bool isVehicle() const;
 
@@ -400,6 +408,24 @@ public:
 
         /// @brief return true if tag correspond to a stop element
         bool isStop() const;
+
+        /// @brief return true if tag correspond to a person element
+        bool isPerson() const;
+        
+        /// @brief return true if tag correspond to a person plan
+        bool isPersonPlan() const;
+
+        /// @brief return true if tag correspond to a person trip
+        bool isPersonTrip() const;
+
+        /// @brief return true if tag correspond to a walk element
+        bool isWalk() const;
+
+        /// @brief return true if tag correspond to a ride element
+        bool isRide() const;
+
+        /// @brief return true if tag correspond to a person stop element
+        bool isPersonStop() const;
 
         /// @brief return true if tag correspond to a drawable element
         bool isDrawable() const;
@@ -431,8 +457,8 @@ public:
         /// @brief return true if tag correspond to an element that can be edited using a dialog
         bool hasDialog() const;
 
-        /// @brief return true if tag correspond to an element that only have a limited number of childs
-        bool hasMinimumNumberOfChilds() const;
+        /// @brief return true if tag correspond to an element that only have a limited number of children
+        bool hasMinimumNumberOfChildren() const;
 
         /// @brief return true if Tag correspond to an element that supports generic parameters
         bool hasGenericParameters() const;
@@ -443,14 +469,17 @@ public:
         /// @brief return true if Tag correspond to an element that has has to be placed in RTREE
         bool isPlacedInRTree() const;
 
+        /// @brief return true if Tag correspond to an element that can be sorted within their parent
+        bool canBeSortedManually() const;
+
         /// @brief return true if tag correspond to an element that can be reparent
         bool canBeReparent() const;
 
-        /// @brief return true if tag correspond to an element that can sort their childs automatic
-        bool canAutomaticSortChilds() const;
+        /// @brief return true if tag correspond to an element that can sort their children automatic
+        bool canAutomaticSortChildren() const;
 
-        /// @brief return true if tag correspond to an element that can sort their childs automatic
-        bool canWriteChildsSeparate() const;
+        /// @brief return true if tag correspond to an element that can sort their children automatic
+        bool canWriteChildrenSeparate() const;
 
         /// @brief return true if tag correspond to an element that can mask the attributes "start" and "end" position as attribute "lenght"
         bool canMaskStartEndPos() const;
@@ -474,8 +503,8 @@ public:
         /// @brief Attribute properties
         int myTagProperty;
 
-        /// @brief map with the attribute values vinculated with this Tag
-        std::map<SumoXMLAttr, AttributeProperties> myAttributeProperties;
+        /// @brief vector with the attribute values vinculated with this Tag
+        std::vector<AttributeProperties> myAttributeProperties;
 
         /// @brief icon associated to this Tag
         GUIIcon myIcon;
@@ -580,6 +609,9 @@ public:
     static const std::string FEATURE_APPROVED;
     /// @}
 
+    /// @brief max number of attributes allowed for every tag
+    static const size_t MAXNUMBEROFATTRIBUTES;
+
     /// @brief invalid double position
     static const double INVALID_POSITION;
 
@@ -606,9 +638,6 @@ public:
 
     /// @brief get tags of all editable element types using TagProperty Type (TAGTYPE_NETELEMENT, TAGTYPE_ADDITIONAL, etc.)
     static std::vector<SumoXMLTag> allowedTagsByCategory(int tagPropertyCategory, bool onlyDrawables);
-
-    /// @brief return the number of attributes of the tag with the most highter number of attributes
-    static int getHigherNumberOfAttributes();
 
     /// @name This functions related with generic parameters has to be implemented in all GNEAttributeCarriers
     /// @{
@@ -774,9 +803,6 @@ public:
         return parse<T>(parsedAttribute);
     }
 
-    /// @brief function to calculate circle resolution for all circles drawn in drawGL(...) functions
-    static int getCircleResolution(const GUIVisualizationSettings& settings);
-
 protected:
     /// @brief the xml tag to which this attribute carrier corresponds
     const TagProperties& myTagProperty;
@@ -806,22 +832,46 @@ private:
     /// @brief fill Shapes
     static void fillShapes();
 
-    /// @brief fill DemandElements
+    /// @brief fill Demand Elements
     static void fillDemandElements();
 
-    /// @brief fill Car Following Model of Vehicle Types
-    static void fillCarFollowingModelAttributes();
+    /// @brief fill vehicle elements
+    static void fillVehicleElements();
 
-    /// @brief fill Junction Model Attronites of Vehicle Types
-    static void fillJunctionModelAttributes();
+    /// @brief fill Stop elements
+    static void fillStopElements();
+
+    /// @brief fill Person Elements
+    static void fillPersonElements();
+
+    /// @brief fill PersonStop elements
+    static void fillPersonStopElements();
+
+    /// @brief fill common vehicle attributes (used by vehicles, trips, routeFlows and flows)
+    static void fillCommonVehicleAttributes(SumoXMLTag currentTag);
+
+     /// @brief fill common flow attributes (used by flows, routeFlows and personFlows)
+    static void fillCommonFlowAttributes(SumoXMLTag currentTag);
+
+    /// @brief fill Car Following Model of Vehicle/Person Types
+    static void fillCarFollowingModelAttributes(SumoXMLTag currentTag);
+
+    /// @brief fill Junction Model Attributes of Vehicle/Person Types
+    static void fillJunctionModelAttributes(SumoXMLTag currentTag);
+
+    /// @brief fill Junction Model Attributes of Vehicle/Person Types
+    static void fillLaneChangingModelAttributes(SumoXMLTag currentTag);
+
+    /// @brief fill common person attributes (used by person and personFlows)
+    static void fillCommonPersonAttributes(SumoXMLTag currentTag);
 
     /// @brief parse and check attribute (note: This function is only to improve legilibility)
     static bool checkParsedAttribute(const TagProperties& tagProperties, const AttributeProperties& attrProperties, const SumoXMLAttr attribute,
-                                     std::string& defaultValue, std::string& parsedAttribute, std::string& warningMessage);
+        std::string& defaultValue, std::string& parsedAttribute, std::string& warningMessage);
 
     /// @brief parse and check masked  (note: This function is only to improve legilibility)
     static bool parseMaskedPositionAttribute(const SUMOSAXAttributes& attrs, const std::string& objectID, const TagProperties& tagProperties,
-            const AttributeProperties& attrProperties, std::string& parsedAttribute, std::string& warningMessage);
+        const AttributeProperties& attrProperties, std::string& parsedAttribute, std::string& warningMessage);
 
     /// @brief map with the tags properties
     static std::map<SumoXMLTag, TagProperties> myTagProperties;

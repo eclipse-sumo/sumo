@@ -35,60 +35,6 @@ class GNEStopFrame : public GNEFrame {
 public:
 
     // ===========================================================================
-    // class StopParentSelector
-    // ===========================================================================
-
-    class StopParentSelector : protected FXGroupBox {
-        /// @brief FOX-declaration
-        FXDECLARE(GNEStopFrame::StopParentSelector)
-
-    public:
-        /// @brief constructor
-        StopParentSelector(GNEStopFrame* StopFrameParent);
-
-        /// @brief destructor
-        ~StopParentSelector();
-
-        /// @brief get current route
-        GNEDemandElement* getCurrentStopParent() const;
-
-        /// @brief select StopParent manually
-        void setStopParent(GNEDemandElement* stopParent);
-
-        /// @brief show VType selector
-        void showStopParentSelector();
-
-        /// @brief hide VType selector
-        void hideStopParentSelector();
-
-        /// @brief refresh VType selector
-        void refreshStopParentSelector();
-
-        /// @name FOX-callbacks
-        /// @{
-        /// @brief Called when the user select another element in ComboBox
-        long onCmdSelectStopParent(FXObject*, FXSelector, void*);
-        /// @}
-
-    protected:
-        /// @brief FOX needs this
-        StopParentSelector() {}
-
-    private:
-        /// @brief pointer to Stop Frame Parent
-        GNEStopFrame* myStopFrameParent;
-
-        /// @brief comboBox with the list of routes
-        FXComboBox* myStopParentMatchBox;
-
-        /// @brief current stop parent
-        GNEDemandElement* myCurrentStopParent;
-
-        /// @brief list of posible candidates
-        std::vector<GNEDemandElement*> myStopParentCandidates;
-    };
-
-    // ===========================================================================
     // class HelpCreation
     // ===========================================================================
 
@@ -138,18 +84,15 @@ public:
     bool addStop(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor, bool shiftPressed);
 
 protected:
-    /// @brief enable moduls depending of item selected in ItemSelector
-    void enableModuls(const GNEAttributeCarrier::TagProperties& tagProperties);
-
-    /// @brief disable moduls if element selected in itemSelector isn't valid
-    void disableModuls();
+    /// @brief Tag selected in TagSelector
+    void tagSelected();
 
 private:
     /// @brief Stop parent selectors
-    StopParentSelector* myStopParentSelector;
+    DemandElementSelector* myStopParentSelector;
 
-    /// @brief item selector (used to select diffent kind of Stops)
-    ItemSelector* myStopTypeSelector;
+    /// @brief stop tag selector selector (used to select diffent kind of Stops)
+    TagSelector* myStopTagSelector;
 
     /// @brief internal Stop attributes
     AttributesCreator* myStopAttributes;

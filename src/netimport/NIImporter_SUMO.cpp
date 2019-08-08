@@ -204,7 +204,9 @@ NIImporter_SUMO::_loadNetwork(OptionsCont& oc) {
                 nbe->addLane2LaneConnection(
                     fromLaneIndex, toEdge, c.toLaneIdx, NBEdge::L2L_VALIDATED,
                     true, c.mayDefinitelyPass, c.keepClear, c.contPos, c.visibility, c.speed, c.customShape, uncontrolled);
-
+                if (c.getParametersMap().size() > 0) {
+                    nbe->getConnectionRef(fromLaneIndex, toEdge, c.toLaneIdx).updateParameter(c.getParametersMap());
+                }
                 // maybe we have a tls-controlled connection
                 if (c.tlID != "" && myRailSignals.count(c.tlID) == 0) {
                     const std::map<std::string, NBTrafficLightDefinition*>& programs = myTLLCont.getPrograms(c.tlID);
@@ -516,6 +518,7 @@ NIImporter_SUMO::myEndElement(int element) {
             }
             break;
         case SUMO_TAG_CONNECTION:
+            myLastParameterised.pop_back();
             break;
         default:
             break;
@@ -765,6 +768,7 @@ NIImporter_SUMO::addConnection(const SUMOSAXAttributes& attrs) {
         return;
     }
     from->lanes[fromLaneIdx]->connections.push_back(conn);
+    myLastParameterised.push_back(&from->lanes[fromLaneIdx]->connections.back());
 
     // determine crossing priority and tlIndex
     if (myPedestrianCrossings.size() > 0) {

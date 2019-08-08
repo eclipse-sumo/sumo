@@ -29,16 +29,16 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot, ['--g
 netedit.additionalMode()
 
 # select routeProbe
-netedit.changeAdditional("routeProbe")
+netedit.changeElement("routeProbe")
 
 # set invalid filename
-netedit.modifyAdditionalDefaultValue(4, "&&&&&&&&")
+netedit.changeDefaultValue(4, "&&&&&&&&")
 
 # try to create RouteProbe with invalid filename
 netedit.leftClick(referencePosition, 250, 235)
 
 # set valid filename
-netedit.modifyAdditionalDefaultValue(4, "fileA.txt")
+netedit.changeDefaultValue(4, "fileA.txt")
 
 # create routeProbe (camera will be moved)
 netedit.leftClick(referencePosition, 250, 235)

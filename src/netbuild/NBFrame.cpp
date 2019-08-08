@@ -138,6 +138,10 @@ NBFrame::fillOptions(bool forNetgen) {
         oc.addDescription("geometry.remove.min-length", "Processing",
                           "Allow merging edges with differing attributes when their length is below min-length");
 
+        oc.doRegister("geometry.remove.width-tolerance", new Option_Float(0));
+        oc.addDescription("geometry.remove.width-tolerance", "Processing",
+                          "Allow merging edges with differing lane widths if the difference is below FLOAT");
+
         oc.doRegister("geometry.max-segment-length", new Option_Float(0));
         oc.addDescription("geometry.max-segment-length", "Processing", "splits geometry to restrict segment length");
 
@@ -164,6 +168,9 @@ NBFrame::fillOptions(bool forNetgen) {
 
         oc.doRegister("geometry.avoid-overlap", new Option_Bool(true));
         oc.addDescription("geometry.avoid-overlap", "Processing", "Modify edge geometries to avoid overlap at junctions");
+
+        oc.doRegister("join-lanes", new Option_Bool(false));
+        oc.addDescription("join-lanes", "Processing", "join adjacent lanes that have the same permissions and which do not admit lane-changing (sidewalks and disallowed lanes)");
 
         // railway processing options
 

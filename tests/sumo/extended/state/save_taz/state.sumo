@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 06/20/19 11:09:21 by Eclipse SUMO Version v1_2_0+0771-4380e3528ec
+<!-- generated on Mon Aug  5 10:49:33 2019 by Eclipse SUMO Version v1_2_0+1398-467102f
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -35,7 +35,7 @@ SPDX-License-Identifier: EPL-2.0
 </configuration>
 -->
 
-<snapshot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd" version="v1_2_0+0771-4380e3528ec" time="10.00">
+<snapshot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd" version="v1_2_0+1398-467102f" time="10.00">
     <route id="!flowFromTo" state="1" edges="beg end"/>
     <route id="!flowFromTo.0!var#1" state="0" edges="beg middle end"/>
     <route id="r0" state="1" edges="beg middle end"/>
@@ -63,9 +63,6 @@ SPDX-License-Identifier: EPL-2.0
     </vehicle>
     <lane id="beg_0">
         <vehicles value="flowPeriod.0"/>
-    </lane>
-    <lane id="end_0">
-        <vehicles value=""/>
     </lane>
     <lane id="middle_0">
         <vehicles value="flowFromTo.0 flowNumber.0"/>

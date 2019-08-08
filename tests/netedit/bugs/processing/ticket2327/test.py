@@ -56,10 +56,10 @@ netedit.joinSelectedJunctions()
 netedit.rebuildNetwork()
 
 # select node 5
-netedit.leftClick(referencePosition, 55, 191)
+netedit.leftClick(referencePosition, 55, 185)
 
 # select node 6
-netedit.leftClick(referencePosition, 150, 191)
+netedit.leftClick(referencePosition, 150, 185)
 
 # join selected junctions
 netedit.joinSelectedJunctions()
@@ -68,7 +68,7 @@ netedit.joinSelectedJunctions()
 netedit.rebuildNetwork()
 
 # select node 8
-netedit.leftClick(referencePosition, 340, 185)
+netedit.leftClick(referencePosition, 332, 185)
 
 # select node 9
 netedit.leftClick(referencePosition, 450, 185)

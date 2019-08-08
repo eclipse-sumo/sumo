@@ -66,7 +66,7 @@ def typeEnter():
 """
 @brief type space key
 """
-
+    
 
 def typeSpace():
     # type space key
@@ -83,6 +83,18 @@ def typeTab():
     time.sleep(DELAY_KEY_TAB)
     # type keys
     pyautogui.hotkey('tab')
+
+
+"""
+@brief type backspace key
+"""
+
+
+def typeBackspace():
+    # wait before every operation
+    time.sleep(DELAY_KEY)
+    # type keys
+    pyautogui.hotkey('backspace')
 
 
 """
@@ -261,7 +273,7 @@ def Popen(extraParameters, debugInformation):
         neteditCall += ['-a',
                         os.path.join(_TEXTTEST_SANDBOX, "input_additionals.add.xml")]
 
-    # Check if demand elements must be loaded
+    # Check if routes must be loaded
     if os.path.exists(os.path.join(_TEXTTEST_SANDBOX, "input_routes.rou.xml")):
         neteditCall += ['-r',
                         os.path.join(_TEXTTEST_SANDBOX, "input_routes.rou.xml")]
@@ -279,7 +291,7 @@ def Popen(extraParameters, debugInformation):
     neteditCall += ['--additionals-output',
                     os.path.join(_TEXTTEST_SANDBOX, "additionals.xml")]
 
-    # set output for demand elements
+    # set output for routes
     neteditCall += ['--demandelements-output',
                     os.path.join(_TEXTTEST_SANDBOX, "routes.xml")]
 
@@ -337,6 +349,24 @@ def setupAndStart(testRoot, extraParameters=[], debugInformation=True, waitTime=
 
 
 """
+@brief select Network Supermode
+"""
+
+
+def supermodeNetwork():
+    typeKey('F3')
+
+
+"""
+@brief select Demand Supermode
+"""
+
+
+def supermodeDemand():
+    typeKey('F4')
+
+
+"""
 @brief rebuild network
 """
 
@@ -381,17 +411,21 @@ def joinSelectedJunctions():
     typeKey('F7')
 
 
+"""
+@brief select focus on upper element of current frame
+"""
+
+
 def focusOnFrame():
-    """
-    @brief select focus on upper element of current frame
-    """
     typeKey('F12')
 
 
+"""
+@brief select options pane and enable the GUI testing option
+"""
+
+
 def enableGUITesting(referencePosition):
-    """
-    @brief select options pane and enable the GUI testing option
-    """
     typeKey('F10')
     for _ in range(15):
         typeTab()
@@ -404,10 +438,12 @@ def enableGUITesting(referencePosition):
     typeSpace()
 
 
+"""
+@brief undo last operation
+"""
+
+
 def undo(referencePosition, number):
-    """
-    @brief undo last operation
-    """
     # needed to avoid errors with undo/redo (Provisionally)
     typeKey('i')
     # click over referencePosition
@@ -528,10 +564,13 @@ def quit(NeteditProcess, openNetNonSavedDialog=False, saveNet=False,
             print("TestFunctions: Error closing Netedit")
 
 
+"""
+@brief load network as
+"""
+
+
 def openNetworkAs(waitTime=2):
-    """
-    @brief load network as
-    """
+
     # open save network as dialog
     typeTwoKeys('ctrl', 'o')
     # jump to filename TextField
@@ -584,6 +623,54 @@ def saveNetworkAs(waitTime=2):
 def saveAdditionals():
     # save additionals using hotkey
     typeThreeKeys('ctrl', 'shift', 'a')
+
+
+"""
+@brief save routes
+"""
+
+
+def saveRoutes():
+    # save routes using hotkey
+    typeThreeKeys('ctrl', 'shift', 'd')
+
+
+"""
+@brief fix stoppingPlaces
+"""
+
+
+def fixDemandElements(solution):
+    # select bullet depending of solution
+    if (solution == "saveInvalids"):
+        for _ in range(3):
+            typeInvertTab()
+        typeSpace()
+        # go back and press accept
+        for _ in range(3):
+            typeTab()
+        typeSpace()
+    elif (solution == "fixPositions"):
+        for _ in range(2):
+            typeInvertTab()
+        typeSpace()
+        # go back and press accept
+        for _ in range(2):
+            typeTab()
+        typeSpace()
+    elif (solution == "selectInvalids"):
+        typeInvertTab()
+        typeSpace()
+        # go back and press accept
+        typeTab()
+        typeSpace()
+    elif (solution == "activateFriendlyPos"):
+        # default option, then press accept
+        typeSpace()
+    else:
+        # press cancel
+        typeTab()
+        typeSpace()
 
 
 """
@@ -915,11 +1002,11 @@ def additionalMode():
 
 
 """
-@brief change additional
+@brief change element (Additional, shape, vehicle...)
 """
 
 
-def changeAdditional(additional):
+def changeElement(additional):
     # focus current frame
     focusOnFrame()
     # go to first editable element of frame
@@ -931,11 +1018,11 @@ def changeAdditional(additional):
 
 
 """
-@brief modify default int/double/string value of an additional
+@brief modify default int/double/string value of an additional, shape, vehicle...
 """
 
 
-def modifyAdditionalDefaultValue(numTabs, length):
+def changeDefaultValue(numTabs, length):
     # focus current frame
     focusOnFrame()
     # go to length TextField
@@ -948,11 +1035,11 @@ def modifyAdditionalDefaultValue(numTabs, length):
 
 
 """
-@brief modify default boolean value of an additional
+@brief modify default boolean value of an additional, shape, vehicle...
 """
 
 
-def modifyAdditionalDefaultBoolValue(numTabs):
+def changeDefaultBoolValue(numTabs):
     # focus current frame
     focusOnFrame()
     # place cursor in check Box position
@@ -1053,6 +1140,134 @@ def fixStoppingPlace(solution):
         typeTab()
         typeSpace()
 
+
+#################################################
+# route elements
+#################################################
+
+
+"""
+@brief change to route mode
+"""
+
+
+def routeMode():
+    typeKey('r')
+
+
+"""
+@brief change route mode
+"""
+
+
+def changeRouteMode(value):
+    # focus current frame
+    focusOnFrame()
+    # jump to route mode
+    typeTab()
+    # paste the new value
+    pasteIntoTextField(value)
+    # type enter to save change
+    typeEnter()
+
+
+"""
+@brief change vClass mode
+"""
+
+
+def changeRouteVClass(value):
+    # focus current frame
+    focusOnFrame()
+    # jump to vClass
+    for _ in range(3):
+        typeTab()
+    # paste the new value
+    pasteIntoTextField(value)
+    # type enter to save change
+    typeEnter()
+
+#################################################
+# person elements
+#################################################
+
+
+"""
+@brief change to person mode
+"""
+
+
+def personMode():
+    typeKey('p')
+
+
+"""
+@brief change person mode
+"""
+
+
+def changePersonMode(value):
+    # focus current frame
+    focusOnFrame()
+    # jump to person mode
+    typeTab()
+    # paste the new value
+    pasteIntoTextField(value)
+    # type enter to save change
+    typeEnter()
+
+
+"""
+@brief change vClass mode
+"""
+
+
+def changePersonVClass(value):
+    # focus current frame
+    focusOnFrame()
+    # jump to vClass
+    for _ in range(3):
+        typeTab()
+    # paste the new value
+    pasteIntoTextField(value)
+    # type enter to save change
+    typeEnter()
+
+
+"""
+@brief change personPlan
+"""
+
+
+def changePersonPlan(personPlan, subPersonPlan):
+    # focus current frame
+    focusOnFrame()
+    # jump to person plan
+    for _ in range(10):
+        typeTab()
+    # paste the new personPlan
+    pasteIntoTextField(personPlan)
+    # jump to person plan
+    for _ in range(2):
+        typeTab()
+    # paste the new subPersonPlan
+    pasteIntoTextField(subPersonPlan)
+    # type enter to save change
+    typeEnter()
+
+#################################################
+# vehicle elements
+#################################################
+
+
+"""
+@brief change to vehicle mode
+"""
+
+
+def vehicleMode():
+    typeKey('v')
+
 #################################################
 # delete
 #################################################
@@ -1093,11 +1308,26 @@ def changeAutomaticallyDeleteAdditionals(referencePosition):
 
 
 """
+@brief Enable or disable 'protect demand elements'
+"""
+
+
+def changeProtectDemandElements(referencePosition):
+    # select delete mode again to set mode
+    deleteMode()
+    # jump to checkbox
+    for _ in range(3):
+        typeTab()
+    # type SPACE to change value
+    typeSpace()
+
+
+"""
 @brief close warning about automatically delete additionals
 """
 
 
-def waitAutomaticallyDeleteAdditionalsWarning():
+def waitDeleteWarning():
     # wait 0.5 second to question dialog
     time.sleep(DELAY_QUESTION)
     # press enter to close dialog
@@ -1392,22 +1622,6 @@ def shapeMode():
 
 
 """
-@brief change shape
-"""
-
-
-def changeShape(shape):
-    # focus current frame
-    focusOnFrame()
-    # go to first editable element of frame
-    typeTab()
-    # paste the new value
-    pasteIntoTextField(shape)
-    # type enter to save change
-    typeEnter()
-
-
-"""
 @brief Create squared Polygon in position with a certain size
 """
 
@@ -1472,23 +1686,6 @@ def createLinePoly(referencePosition, positionx, positiony, sizex, sizey, close)
 
 
 """
-@brief modify default int/double/string value of an shape
-"""
-
-
-def modifyShapeDefaultValue(numTabs, value):
-    # focus current frame
-    focusOnFrame()
-    # go to length TextField
-    for _ in range(numTabs + 1):
-        typeTab()
-    # paste new value
-    pasteIntoTextField(value)
-    # type enter to save new value
-    typeEnter()
-
-
-"""
 @brief modify default color using dialog
 """
 
@@ -1508,21 +1705,6 @@ def changeColorUsingDialog(numTabs, color):
         typeKey('down')
     # go to accept button and press it
     typeTab()
-    typeSpace()
-
-
-"""
-@brief modify default boolean value of an shape
-"""
-
-
-def modifyShapeDefaultBoolValue(numTabs):
-    # focus current frame
-    focusOnFrame()
-    # place cursor in check Box position
-    for _ in range(numTabs + 1):
-        typeTab()
-    # Change current value
     typeSpace()
 
 

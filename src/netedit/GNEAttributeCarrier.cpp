@@ -19,13 +19,13 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
+
 #include <netedit/netelements/GNEEdge.h>
 #include <netedit/netelements/GNEJunction.h>
 #include <netedit/netelements/GNELane.h>
 #include <utils/common/StringTokenizer.h>
 #include <utils/emissions/PollutantsInterface.h>
 #include <utils/geom/GeomConvHelper.h>
-#include <utils/gui/images/GUIIconSubSys.h>
 #include <utils/options/OptionsCont.h>
 
 #include "GNEAttributeCarrier.h"
@@ -43,6 +43,7 @@ const std::string GNEAttributeCarrier::FEATURE_LOADED = "loaded";
 const std::string GNEAttributeCarrier::FEATURE_GUESSED = "guessed";
 const std::string GNEAttributeCarrier::FEATURE_MODIFIED = "modified";
 const std::string GNEAttributeCarrier::FEATURE_APPROVED = "approved";
+const size_t GNEAttributeCarrier::MAXNUMBEROFATTRIBUTES = 128;
 const double GNEAttributeCarrier::INVALID_POSITION(-1000000);
 
 
@@ -59,7 +60,6 @@ GNEAttributeCarrier::AttributeProperties::AttributeProperties() :
     myTagPropertyParent(nullptr),
     myAttrStr(toString(SUMO_ATTR_NOTHING)),
     myAttributeProperty(ATTRPROPERTY_STRING),
-    myPositionListed(0),
     myDefinition(""),
     myDefaultValue(""),
     myAttrSynonym(SUMO_ATTR_NOTHING),
@@ -72,7 +72,6 @@ GNEAttributeCarrier::AttributeProperties::AttributeProperties(const SumoXMLAttr 
     myTagPropertyParent(nullptr),
     myAttrStr(toString(attribute)),
     myAttributeProperty(attributeProperty),
-    myPositionListed(0),
     myDefinition(definition),
     myDefaultValue(defaultValue),
     myAttrSynonym(SUMO_ATTR_NOTHING),
@@ -157,12 +156,6 @@ GNEAttributeCarrier::AttributeProperties::setRange(const double minimum, const d
 
 
 void
-GNEAttributeCarrier::AttributeProperties::setPositionListed(const int positionListed) {
-    myPositionListed = positionListed;
-}
-
-
-void
 GNEAttributeCarrier::AttributeProperties::setTagPropertyParent(TagProperties* tagPropertyParent) {
     myTagPropertyParent = tagPropertyParent;
 }
@@ -186,9 +179,14 @@ GNEAttributeCarrier::AttributeProperties::getTagPropertyParent() const {
 }
 
 
-int
+int 
 GNEAttributeCarrier::AttributeProperties::getPositionListed() const {
-    return myPositionListed;
+    for (auto i = myTagPropertyParent->begin(); i != myTagPropertyParent->end(); i++) {
+        if (i->getAttr() == myAttribute) {
+            return (int)(i - myTagPropertyParent->begin());
+        }
+    }
+    throw ProcessError("Attribute wasn't found in myTagPropertyParent");
 }
 
 
@@ -473,9 +471,16 @@ GNEAttributeCarrier::AttributeProperties::requiereUpdateGeometry() const {
     return (myAttributeProperty & ATTRPROPERTY_UPDATEGEOMETRY) != 0;
 }
 
+
 bool
 GNEAttributeCarrier::AttributeProperties::isOptional() const {
     return (myAttributeProperty & ATTRPROPERTY_OPTIONAL) != 0;
+}
+
+
+bool
+GNEAttributeCarrier::AttributeProperties::isComplex() const {
+    return (myAttributeProperty & ATTRPROPERTY_COMPLEX) != 0;
 }
 
 // ---------------------------------------------------------------------------
@@ -542,28 +547,16 @@ GNEAttributeCarrier::TagProperties::checkTagIntegrity() const {
     }
     // check integrity of all attributes
     for (auto i : myAttributeProperties) {
-        i.second.checkAttributeIntegrity();
+        i.checkAttributeIntegrity();
         // check that if attribute is combinable, own a combination of Allow/disallow attibute
-        if (i.second.isCombinable()) {
-            if ((i.first != SUMO_ATTR_ALLOW) && (i.first != SUMO_ATTR_DISALLOW)) {
+        if (i.isCombinable()) {
+            if ((i.getAttr() != SUMO_ATTR_ALLOW) && (i.getAttr() != SUMO_ATTR_DISALLOW)) {
                 throw ProcessError("Attributes aren't combinables");
-            } else if ((i.first == SUMO_ATTR_ALLOW) && !hasAttribute(SUMO_ATTR_DISALLOW)) {
+            } else if ((i.getAttr() == SUMO_ATTR_ALLOW) && !hasAttribute(SUMO_ATTR_DISALLOW)) {
                 throw ProcessError("allow need a disallow attribute in the same tag");
-            } else if ((i.first == SUMO_ATTR_DISALLOW) && !hasAttribute(SUMO_ATTR_ALLOW)) {
+            } else if ((i.getAttr() == SUMO_ATTR_DISALLOW) && !hasAttribute(SUMO_ATTR_ALLOW)) {
                 throw ProcessError("disallow need an allow attribute in the same tag");
             }
-        }
-    }
-    // check that all position listed are consecutives
-    for (int i = 0; i < (int)myAttributeProperties.size(); i++) {
-        bool found = false;
-        for (auto j : myAttributeProperties) {
-            if (j.second.getPositionListed() == i) {
-                found = true;
-            }
-        }
-        if (!found) {
-            throw FormatException("There is no position listed consecutive");
         }
     }
 }
@@ -571,13 +564,17 @@ GNEAttributeCarrier::TagProperties::checkTagIntegrity() const {
 
 const std::string&
 GNEAttributeCarrier::TagProperties::getDefaultValue(SumoXMLAttr attr) const {
-    if (myAttributeProperties.count(attr) == 0) {
-        throw ProcessError("Attribute '" + toString(attr) + "' not defined");
-    } else if (!myAttributeProperties.at(attr).hasStaticDefaultValue()) {
-        throw ProcessError("attribute '" + toString(attr) + "' doesn't have a default value");
-    } else {
-        return myAttributeProperties.at(attr).getDefaultValue();
+    // iterate over attribute properties
+    for (const auto &i : myAttributeProperties) {
+        if (i.getAttr() == attr) {
+            if (!i.hasStaticDefaultValue()) {
+                throw ProcessError("attribute '" + i.getAttrStr() + "' doesn't have a default value");
+            } else {
+                return i.getDefaultValue();
+            }
+        }
     }
+    throw ProcessError("Attribute '" + toString(attr) + "' not defined");
 }
 
 
@@ -585,14 +582,17 @@ void
 GNEAttributeCarrier::TagProperties::addAttribute(const AttributeProperties& attributeProperty) {
     if (isAttributeDeprecated(attributeProperty.getAttr())) {
         throw ProcessError("Attribute '" + attributeProperty.getAttrStr() + "' is deprecated and cannot be inserted");
-    } else if (myAttributeProperties.count(attributeProperty.getAttr()) != 0) {
-        throw ProcessError("Attribute '" + attributeProperty.getAttrStr() + "' already inserted");
+    } else if ((myAttributeProperties.size() + 1) >= MAXNUMBEROFATTRIBUTES) {
+        throw ProcessError("Maximum number of attributes for tag " + attributeProperty.getAttrStr() + " exceeded");
     } else {
-        // insert AttributeProperties in map
-        myAttributeProperties[attributeProperty.getAttr()] = attributeProperty;
-        // update position listed
-        myAttributeProperties[attributeProperty.getAttr()].setPositionListed((int)myAttributeProperties.size() - 1);
-        myAttributeProperties[attributeProperty.getAttr()].setTagPropertyParent(this);
+        // Check that attribute wasn't already inserted
+        for (auto i : myAttributeProperties) {
+            if (i.getAttr() == attributeProperty.getAttr()) {
+            throw ProcessError("Attribute '" + attributeProperty.getAttrStr() + "' already inserted");        }
+        }
+        // insert AttributeProperties in vector
+        myAttributeProperties.push_back(attributeProperty);
+        myAttributeProperties.back().setTagPropertyParent(this);
     }
 }
 
@@ -601,7 +601,7 @@ void
 GNEAttributeCarrier::TagProperties::addDeprecatedAttribute(SumoXMLAttr attr) {
     // Check that attribute wasn't already inserted
     for (auto i : myAttributeProperties) {
-        if (i.first == attr) {
+        if (i.getAttr() == attr) {
             throw ProcessError("Attribute '" + toString(attr) + "' is deprecated but was inserted in list of attributes");
         }
     }
@@ -612,28 +612,24 @@ GNEAttributeCarrier::TagProperties::addDeprecatedAttribute(SumoXMLAttr attr) {
 
 const GNEAttributeCarrier::AttributeProperties&
 GNEAttributeCarrier::TagProperties::getAttributeProperties(SumoXMLAttr attr) const {
-    if (myAttributeProperties.count(attr) != 0) {
-        return myAttributeProperties.at(attr);
-    } else {
-        // check if we're try to loading an synonym
-        for (auto i : myAttributeProperties) {
-            if (i.second.hasAttrSynonym() && i.second.getAttrSynonym() == attr) {
-                return myAttributeProperties.at(i.first);
-            }
+    // iterate over attribute properties
+    for (const auto &i : myAttributeProperties) {
+        if ((i.getAttr() == attr) || (i.hasAttrSynonym() && (i.getAttrSynonym() == attr))) {
+            return i;
         }
-        // throw error if these attribute doesn't exist
-        throw ProcessError("Attribute '" + toString(attr) + "' doesn't exist");
     }
+    // throw error if these attribute doesn't exist
+    throw ProcessError("Attribute '" + toString(attr) + "' doesn't exist");
 }
 
 
-std::map<SumoXMLAttr, GNEAttributeCarrier::AttributeProperties>::const_iterator
+std::vector<GNEAttributeCarrier::AttributeProperties>::const_iterator
 GNEAttributeCarrier::TagProperties::begin() const {
     return myAttributeProperties.begin();
 }
 
 
-std::map<SumoXMLAttr, GNEAttributeCarrier::AttributeProperties>::const_iterator
+std::vector<GNEAttributeCarrier::AttributeProperties>::const_iterator
 GNEAttributeCarrier::TagProperties::end() const {
     return myAttributeProperties.end();
 }
@@ -693,7 +689,13 @@ GNEAttributeCarrier::TagProperties::isDisjointAttributes(SumoXMLAttr attr) const
 
 bool
 GNEAttributeCarrier::TagProperties::hasAttribute(SumoXMLAttr attr) const {
-    return (myAttributeProperties.count(attr) == 1);
+    // iterate over attribute properties
+    for (const auto &i : myAttributeProperties) {
+        if (i.getAttr() == attr) {
+            return true;
+        }
+    }
+    return false;
 }
 
 
@@ -739,6 +741,12 @@ GNEAttributeCarrier::TagProperties::isDetector() const {
 
 
 bool
+GNEAttributeCarrier::TagProperties::isVehicleType() const {
+    return (myTagType & TAGTYPE_VTYPE) != 0;
+}
+
+
+bool
 GNEAttributeCarrier::TagProperties::isVehicle() const {
     return (myTagType & TAGTYPE_VEHICLE) != 0;
 }
@@ -752,6 +760,42 @@ GNEAttributeCarrier::TagProperties::isRoute() const {
 bool
 GNEAttributeCarrier::TagProperties::isStop() const {
     return (myTagType & TAGTYPE_STOP) != 0;
+}
+
+
+bool
+GNEAttributeCarrier::TagProperties::isPerson() const {
+    return (myTagType & TAGTYPE_PERSON) != 0;
+}
+
+
+bool
+GNEAttributeCarrier::TagProperties::isPersonPlan() const {
+    return (myTagType & TAGTYPE_PERSONPLAN) != 0;
+}
+
+
+bool
+GNEAttributeCarrier::TagProperties::isPersonTrip() const {
+    return (myTagType & TAGTYPE_PERSONTRIP) != 0;
+}
+
+
+bool
+GNEAttributeCarrier::TagProperties::isWalk() const {
+    return (myTagType & TAGTYPE_WALK) != 0;
+}
+
+
+bool
+GNEAttributeCarrier::TagProperties::isRide() const {
+    return (myTagType & TAGTYPE_RIDE) != 0;
+}
+
+
+bool
+GNEAttributeCarrier::TagProperties::isPersonStop() const {
+    return (myTagType & TAGTYPE_PERSONSTOP) != 0;
 }
 
 
@@ -816,8 +860,8 @@ GNEAttributeCarrier::TagProperties::hasDialog() const {
 
 
 bool
-GNEAttributeCarrier::TagProperties::hasMinimumNumberOfChilds() const {
-    return (myTagProperty & TAGPROPERTY_MINIMUMCHILDS) != 0;
+GNEAttributeCarrier::TagProperties::hasMinimumNumberOfChildren() const {
+    return (myTagProperty & TAGPROPERTY_MINIMUMCHILDREN) != 0;
 }
 
 
@@ -842,20 +886,26 @@ GNEAttributeCarrier::TagProperties::isPlacedInRTree() const {
 
 
 bool
+GNEAttributeCarrier::TagProperties::canBeSortedManually() const {
+        return (myTagProperty & TAGPROPERTY_SORTINGCHILDREN) != 0;
+}
+
+
+bool
 GNEAttributeCarrier::TagProperties::canBeReparent() const {
     return (myTagProperty & TAGPROPERTY_REPARENT) != 0;
 }
 
 
 bool
-GNEAttributeCarrier::TagProperties::canAutomaticSortChilds() const {
+GNEAttributeCarrier::TagProperties::canAutomaticSortChildren() const {
     return (myTagProperty & TAGPROPERTY_AUTOMATICSORTING) != 0;
 }
 
 
 bool
-GNEAttributeCarrier::TagProperties::canWriteChildsSeparate() const {
-    return (myTagProperty & TAGPROPERTY_WRITECHILDSSEPARATE) != 0;
+GNEAttributeCarrier::TagProperties::canWriteChildrenSeparate() const {
+    return (myTagProperty & TAGPROPERTY_WRITECHILDRENSEPARATE) != 0;
 }
 
 
@@ -1273,22 +1323,55 @@ GNEAttributeCarrier::allowedTagsByCategory(int tagPropertyCategory, bool onlyDra
             }
         }
     }
+    if (tagPropertyCategory & TAGTYPE_PERSON) {
+        // fill demand tags
+        for (const auto& i : myTagProperties) {
+            if (i.second.isPerson() && (!onlyDrawables || i.second.isDrawable())) {
+                allowedTags.push_back(i.first);
+            }
+        }
+    }
+    if (tagPropertyCategory & TAGTYPE_PERSONPLAN) {
+        // fill demand tags
+        for (const auto& i : myTagProperties) {
+            if (i.second.isPersonPlan() && (!onlyDrawables || i.second.isDrawable())) {
+                allowedTags.push_back(i.first);
+            }
+        }
+    }
+    if (tagPropertyCategory & TAGTYPE_PERSONTRIP) {
+        // fill demand tags
+        for (const auto& i : myTagProperties) {
+            if (i.second.isPersonTrip() && (!onlyDrawables || i.second.isDrawable())) {
+                allowedTags.push_back(i.first);
+            }
+        }
+    }
+    if (tagPropertyCategory & TAGTYPE_WALK) {
+        // fill demand tags
+        for (const auto& i : myTagProperties) {
+            if (i.second.isWalk() && (!onlyDrawables || i.second.isDrawable())) {
+                allowedTags.push_back(i.first);
+            }
+        }
+    }
+    if (tagPropertyCategory & TAGTYPE_RIDE) {
+        // fill demand tags
+        for (const auto& i : myTagProperties) {
+            if (i.second.isRide() && (!onlyDrawables || i.second.isDrawable())) {
+                allowedTags.push_back(i.first);
+            }
+        }
+    }
+    if (tagPropertyCategory & TAGTYPE_PERSONSTOP) {
+        // fill demand tags
+        for (const auto& i : myTagProperties) {
+            if (i.second.isPersonStop() && (!onlyDrawables || i.second.isDrawable())) {
+                allowedTags.push_back(i.first);
+            }
+        }
+    }
     return allowedTags;
-}
-
-
-int
-GNEAttributeCarrier::getHigherNumberOfAttributes() {
-    int maxNumAttribute = 0;
-    // define on first access
-    if (myTagProperties.size() == 0) {
-        fillAttributeCarriers();
-    }
-    // get max num attributes
-    for (const auto& i : myTagProperties) {
-        maxNumAttribute = MAX2(maxNumAttribute, i.second.getNumberOfAttributes());
-    }
-    return maxNumAttribute;
 }
 
 
@@ -1321,20 +1404,6 @@ GNEAttributeCarrier::isGenericParametersValid(const std::string& value) {
     return true;
 }
 
-
-int
-GNEAttributeCarrier::getCircleResolution(const GUIVisualizationSettings& settings) {
-    if (settings.drawForSelecting) {
-        return 8;
-    } else if (settings.scale >= 10) {
-        return 32;
-    } else if (settings.scale >= 2) {
-        return 16;
-    } else {
-        return 8;
-    }
-}
-
 // ===========================================================================
 // private
 // ===========================================================================
@@ -1351,6 +1420,10 @@ GNEAttributeCarrier::fillAttributeCarriers() {
     fillAdditionals();
     fillShapes();
     fillDemandElements();
+    fillVehicleElements();
+    fillStopElements();
+    fillPersonElements();
+    fillPersonStopElements();
     // check integrity of all Tags (function checkTagIntegrity() throw an exception if there is an inconsistency)
     for (const auto& i : myTagProperties) {
         i.second.checkTagIntegrity();
@@ -2205,7 +2278,7 @@ GNEAttributeCarrier::fillAdditionals() {
     currentTag = SUMO_TAG_E3DETECTOR;
     {
         // set values of tag
-        myTagProperties[currentTag] = TagProperties(currentTag, TAGTYPE_ADDITIONAL | TAGTYPE_DETECTOR, TAGPROPERTY_DRAWABLE | TAGPROPERTY_RTREE | TAGPROPERTY_SELECTABLE | TAGPROPERTY_BLOCKMOVEMENT | TAGPROPERTY_MINIMUMCHILDS | TAGPROPERTY_AUTOMATICSORTING, ICON_E3);
+        myTagProperties[currentTag] = TagProperties(currentTag, TAGTYPE_ADDITIONAL | TAGTYPE_DETECTOR, TAGPROPERTY_DRAWABLE | TAGPROPERTY_RTREE | TAGPROPERTY_SELECTABLE | TAGPROPERTY_BLOCKMOVEMENT | TAGPROPERTY_MINIMUMCHILDREN | TAGPROPERTY_AUTOMATICSORTING, ICON_E3);
         // set values of attributes
         attrProperty = AttributeProperties(SUMO_ATTR_ID,
                                            ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE,
@@ -2472,7 +2545,7 @@ GNEAttributeCarrier::fillAdditionals() {
         // set values of attributes
         attrProperty = AttributeProperties(SUMO_ATTR_TYPE,
                                            ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_UPDATEGEOMETRY,
-                                           "The id of the vehicle type to use for this vehicle",
+                                           "The id of the vehicle type to use for this " + toString(currentTag),
                                            DEFAULT_VTYPE_ID);
         myTagProperties[currentTag].addAttribute(attrProperty);
 
@@ -2480,26 +2553,13 @@ GNEAttributeCarrier::fillAdditionals() {
                                            ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_UPDATEGEOMETRY,
                                            "The id of the route the vehicle shall drive along");
         myTagProperties[currentTag].addAttribute(attrProperty);
-
-        attrProperty = AttributeProperties(SUMO_ATTR_VEHSPERHOUR,
-                                           ATTRPROPERTY_STRING | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL,
-                                           "Number of vehicles per hour, equally spaced");
-        myTagProperties[currentTag].addAttribute(attrProperty);
-
-        attrProperty = AttributeProperties(SUMO_ATTR_SPEED,
-                                           ATTRPROPERTY_STRING | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL,
-                                           "Speed of vehicles");
-        myTagProperties[currentTag].addAttribute(attrProperty);
-
-        attrProperty = AttributeProperties(SUMO_ATTR_COLOR,
-                                           ATTRPROPERTY_STRING | ATTRPROPERTY_COLOR | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL,
-                                           "This vehicle's color",
-                                           "yellow");
-        myTagProperties[currentTag].addAttribute(attrProperty);
-
+        
+        // fill common vehicle attributes
+        fillCommonVehicleAttributes(currentTag);
+        
         attrProperty = AttributeProperties(SUMO_ATTR_BEGIN,
                                            ATTRPROPERTY_SUMOTIME | ATTRPROPERTY_DEFAULTVALUESTATIC,
-                                           "First vehicle departure time",
+                                           "First " + toString(currentTag) + " departure time",
                                            "0.00");
         myTagProperties[currentTag].addAttribute(attrProperty);
 
@@ -2509,83 +2569,20 @@ GNEAttributeCarrier::fillAdditionals() {
                                            "3600.00");
         myTagProperties[currentTag].addAttribute(attrProperty);
 
-        attrProperty = AttributeProperties(SUMO_ATTR_DEPARTLANE,
-                                           ATTRPROPERTY_STRING | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL | ATTRPROPERTY_UPDATEGEOMETRY,
-                                           "The lane on which the vehicle shall be inserted",
-                                           "first");
-        myTagProperties[currentTag].addAttribute(attrProperty);
-
-        attrProperty = AttributeProperties(SUMO_ATTR_DEPARTPOS,
-                                           ATTRPROPERTY_STRING | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL | ATTRPROPERTY_UPDATEGEOMETRY,
-                                           "The position at which the vehicle shall enter the net",
-                                           "base");
-        myTagProperties[currentTag].addAttribute(attrProperty);
-
-        attrProperty = AttributeProperties(SUMO_ATTR_DEPARTSPEED,
+        attrProperty = AttributeProperties(SUMO_ATTR_VEHSPERHOUR,
                                            ATTRPROPERTY_STRING | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL,
-                                           "The speed with which the vehicle shall enter the network",
-                                           "0");
+                                           "Number of " + toString(currentTag) + "s per hour, equally spaced");
         myTagProperties[currentTag].addAttribute(attrProperty);
 
-        attrProperty = AttributeProperties(SUMO_ATTR_ARRIVALLANE,
+        attrProperty = AttributeProperties(SUMO_ATTR_SPEED,
                                            ATTRPROPERTY_STRING | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL,
-                                           "The lane at which the vehicle shall leave the network",
-                                           "current");
-        myTagProperties[currentTag].addAttribute(attrProperty);
-
-        attrProperty = AttributeProperties(SUMO_ATTR_ARRIVALPOS,
-                                           ATTRPROPERTY_STRING | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL,
-                                           "The position at which the vehicle shall leave the network",
-                                           "max");
-        myTagProperties[currentTag].addAttribute(attrProperty);
-
-        attrProperty = AttributeProperties(SUMO_ATTR_ARRIVALSPEED,
-                                           ATTRPROPERTY_STRING | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL,
-                                           "The speed with which the vehicle shall leave the network",
-                                           "current");
-        myTagProperties[currentTag].addAttribute(attrProperty);
-
-        attrProperty = AttributeProperties(SUMO_ATTR_LINE,
-                                           ATTRPROPERTY_STRING | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL,
-                                           "A string specifying the id of a public transport line which can be used when specifying person rides");
-        myTagProperties[currentTag].addAttribute(attrProperty);
-
-        attrProperty = AttributeProperties(SUMO_ATTR_PERSON_NUMBER,
-                                           ATTRPROPERTY_INT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL,
-                                           "The number of occupied seats when the vehicle is inserted",
-                                           "0");
-        myTagProperties[currentTag].addAttribute(attrProperty);
-
-        attrProperty = AttributeProperties(SUMO_ATTR_CONTAINER_NUMBER,
-                                           ATTRPROPERTY_INT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL,
-                                           "The number of occupied container places when the vehicle is inserted",
-                                           "0");
-        myTagProperties[currentTag].addAttribute(attrProperty);
-
-        attrProperty = AttributeProperties(SUMO_ATTR_REROUTE,
-                                           ATTRPROPERTY_BOOL | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL,
-                                           "Whether the vehicle should be equipped with a rerouting device",
-                                           "0");
-        myTagProperties[currentTag].addAttribute(attrProperty);
-
-        attrProperty = AttributeProperties(SUMO_ATTR_DEPARTPOS_LAT,
-                                           ATTRPROPERTY_STRING | ATTRPROPERTY_DISCRETE | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL,
-                                           "The lateral position on the departure lane at which the vehicle shall enter the net",
-                                           "center");
-        attrProperty.setDiscreteValues(SUMOXMLDefinitions::LateralAlignments.getStrings());
-        myTagProperties[currentTag].addAttribute(attrProperty);
-
-        attrProperty = AttributeProperties(SUMO_ATTR_ARRIVALPOS_LAT,
-                                           ATTRPROPERTY_STRING | ATTRPROPERTY_DISCRETE | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL,
-                                           "The lateral position on the arrival lane at which the vehicle shall arrive",
-                                           "center");
-        attrProperty.setDiscreteValues(SUMOXMLDefinitions::LateralAlignments.getStrings());
+                                           "Speed of " + toString(currentTag) + "s");
         myTagProperties[currentTag].addAttribute(attrProperty);
     }
     currentTag = SUMO_TAG_REROUTER;
     {
         // set values of tag
-        myTagProperties[currentTag] = TagProperties(currentTag, TAGTYPE_ADDITIONAL, TAGPROPERTY_DRAWABLE | TAGPROPERTY_RTREE | TAGPROPERTY_SELECTABLE | TAGPROPERTY_BLOCKMOVEMENT | TAGPROPERTY_DIALOG | TAGPROPERTY_WRITECHILDSSEPARATE, ICON_REROUTER);
+        myTagProperties[currentTag] = TagProperties(currentTag, TAGTYPE_ADDITIONAL, TAGPROPERTY_DRAWABLE | TAGPROPERTY_RTREE | TAGPROPERTY_SELECTABLE | TAGPROPERTY_BLOCKMOVEMENT | TAGPROPERTY_DIALOG | TAGPROPERTY_WRITECHILDRENSEPARATE, ICON_REROUTER);
         // set values of attributes
         attrProperty = AttributeProperties(SUMO_ATTR_ID,
                                            ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE,
@@ -3084,13 +3081,25 @@ GNEAttributeCarrier::fillShapes() {
 
 void
 GNEAttributeCarrier::fillDemandElements() {
+    // first VClass separate between vehicles and persons
+    std::vector<std::string> vClassesVehicles, vClassesPersons;
+    auto vClasses = SumoVehicleClassStrings.getStrings();
+    for (const auto &i : vClasses) {
+        if (i == SumoVehicleClassStrings.getString(SVC_PEDESTRIAN)) {
+            vClassesPersons.push_back(i);
+        } else {
+            vClassesVehicles.push_back(i);
+        }
+    }
     // declare empty AttributeProperties
     AttributeProperties attrProperty;
+
     // fill demand elements
     SumoXMLTag currentTag = SUMO_TAG_ROUTE;
     {
         // set values of tag
         myTagProperties[currentTag] = TagProperties(currentTag, TAGTYPE_DEMANDELEMENT | TAGTYPE_ROUTE, TAGPROPERTY_DRAWABLE | TAGPROPERTY_SELECTABLE | TAGPROPERTY_PARENT, ICON_ROUTE);
+        
         // set values of attributes
         attrProperty = AttributeProperties(SUMO_ATTR_ID,
                                            ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE,
@@ -3112,6 +3121,7 @@ GNEAttributeCarrier::fillDemandElements() {
     {
         // set values of tag
         myTagProperties[currentTag] = TagProperties(currentTag, TAGTYPE_DEMANDELEMENT | TAGTYPE_ROUTE, TAGPROPERTY_DRAWABLE | TAGPROPERTY_SELECTABLE | TAGPROPERTY_PARENT, ICON_ROUTE);
+        
         // set values of attributes
         attrProperty = AttributeProperties(SUMO_ATTR_EDGES,
                                            ATTRPROPERTY_STRING | ATTRPROPERTY_LIST | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_UPDATEGEOMETRY,
@@ -3127,7 +3137,8 @@ GNEAttributeCarrier::fillDemandElements() {
     currentTag = SUMO_TAG_VTYPE;
     {
         // set values of tag
-        myTagProperties[currentTag] = TagProperties(currentTag, TAGTYPE_DEMANDELEMENT, 0, ICON_VTYPE);
+        myTagProperties[currentTag] = TagProperties(currentTag, TAGTYPE_DEMANDELEMENT | TAGTYPE_VTYPE, 0, ICON_VTYPE);
+        
         // set values of attributes
         attrProperty = AttributeProperties(SUMO_ATTR_ID,
                                            ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE,
@@ -3138,7 +3149,7 @@ GNEAttributeCarrier::fillDemandElements() {
                                            ATTRPROPERTY_VCLASS | ATTRPROPERTY_DISCRETE | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL,
                                            "An abstract vehicle class",
                                            "passenger");
-        attrProperty.setDiscreteValues(SumoVehicleClassStrings.getStrings());
+        attrProperty.setDiscreteValues(vClassesVehicles);
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = AttributeProperties(SUMO_ATTR_COLOR,
@@ -3179,7 +3190,7 @@ GNEAttributeCarrier::fillDemandElements() {
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = AttributeProperties(SUMO_ATTR_GUISHAPE,
-                                           ATTRPROPERTY_STRING | ATTRPROPERTY_DISCRETE | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL | ATTRPROPERTY_EXTENDED,
+                                           ATTRPROPERTY_STRING | ATTRPROPERTY_DISCRETE | ATTRPROPERTY_DEFAULTVALUEMUTABLE | ATTRPROPERTY_WRITEXMLOPTIONAL | ATTRPROPERTY_EXTENDED,
                                            "How this vehicle is rendered");
         attrProperty.setDiscreteValues(SumoVehicleShapeStrings.getStrings());
         myTagProperties[currentTag].addAttribute(attrProperty);
@@ -3282,12 +3293,12 @@ GNEAttributeCarrier::fillDemandElements() {
 
         attrProperty = AttributeProperties(SUMO_ATTR_CARRIAGE_LENGTH,
                                            ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUEMUTABLE | ATTRPROPERTY_WRITEXMLOPTIONAL | ATTRPROPERTY_EXTENDED,
-                                           "Carriage lenghts" );
+                                           "Carriage lengths" );
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = AttributeProperties(SUMO_ATTR_LOCOMOTIVE_LENGTH,
                                            ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUEMUTABLE | ATTRPROPERTY_WRITEXMLOPTIONAL | ATTRPROPERTY_EXTENDED,
-                                           "Locomotive lenghts" );
+                                           "Locomotive lengths" );
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = AttributeProperties(SUMO_ATTR_CARRIAGE_GAP,
@@ -3296,120 +3307,106 @@ GNEAttributeCarrier::fillDemandElements() {
                                            "1");
         myTagProperties[currentTag].addAttribute(attrProperty);
 
-        // fill Car Following Model Values (implemented in a separated function to improve code legibility)
-        fillCarFollowingModelAttributes();
-        // fill Junction Model Parameters (implemented in a separated function to improve code legibility)
-        fillJunctionModelAttributes();
+        // fill VType Car Following Model Values (implemented in a separated function to improve code legibility)
+        fillCarFollowingModelAttributes(currentTag);
+
+        // fill VType Junction Model Parameters (implemented in a separated function to improve code legibility)
+        fillJunctionModelAttributes(currentTag);
+
+        // fill VType Lane Change Model Parameters (implemented in a separated function to improve code legibility)
+        fillLaneChangingModelAttributes(currentTag);
     }
-    currentTag = SUMO_TAG_VEHICLE;
+    currentTag = SUMO_TAG_PTYPE;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = TagProperties(currentTag, TAGTYPE_DEMANDELEMENT | TAGTYPE_VTYPE, TAGPROPERTY_SYNONYM, ICON_PTYPE, SUMO_TAG_NOTHING, SUMO_TAG_VTYPE);
+        
+        // set values of attributes
+        attrProperty = AttributeProperties(SUMO_ATTR_ID,
+                                           ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE,
+                                           "The id of PersonType");
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
+        attrProperty = AttributeProperties(SUMO_ATTR_VCLASS,
+                                           ATTRPROPERTY_VCLASS | ATTRPROPERTY_DISCRETE | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL,
+                                           "An abstract person class",
+                                           "pedestrian");
+        attrProperty.setDiscreteValues(vClassesPersons);
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
+        attrProperty = AttributeProperties(SUMO_ATTR_COLOR,
+                                           ATTRPROPERTY_STRING | ATTRPROPERTY_COLOR | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL,
+                                           "This person type's color",
+                                           "");
+        myTagProperties[currentTag].addAttribute(attrProperty);
+        
+        attrProperty = AttributeProperties(SUMO_ATTR_WIDTH,
+                                           ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUEMUTABLE | ATTRPROPERTY_WRITEXMLOPTIONAL,
+                                           "The person's width [m] (only used for drawing)");
+        myTagProperties[currentTag].addAttribute(attrProperty);
+        
+        attrProperty = AttributeProperties(SUMO_ATTR_LENGTH,
+                                           ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUEMUTABLE | ATTRPROPERTY_WRITEXMLOPTIONAL,
+                                           "The person's netto-length (length) [m]");
+        myTagProperties[currentTag].addAttribute(attrProperty);
+        
+        attrProperty = AttributeProperties(SUMO_ATTR_MINGAP,
+                                           ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUEMUTABLE | ATTRPROPERTY_WRITEXMLOPTIONAL,
+                                           "Empty space after leader [m]");
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
+        attrProperty = AttributeProperties(SUMO_ATTR_MAXSPEED,
+                                           ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUEMUTABLE | ATTRPROPERTY_WRITEXMLOPTIONAL,
+                                           "The person's maximum velocity [m/s]");
+        myTagProperties[currentTag].addAttribute(attrProperty);
+        
+        attrProperty = AttributeProperties(SUMO_ATTR_JM_DRIVE_AFTER_RED_TIME,
+                                           ATTRPROPERTY_FLOAT | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL,
+                                           "This value causes persons to violate a red light if the duration of the red phase is lower than the given threshold.",
+                                           "-1");
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
+        attrProperty = AttributeProperties(SUMO_ATTR_IMGFILE,
+                                           ATTRPROPERTY_STRING | ATTRPROPERTY_FILENAME | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL,
+                                           "Image file for rendering persons of this type (should be grayscale to allow functional coloring)");
+        myTagProperties[currentTag].addAttribute(attrProperty);
+    }
+}
+
+
+void
+GNEAttributeCarrier::fillVehicleElements() {
+    // declare empty AttributeProperties
+    AttributeProperties attrProperty;
+    // fill vehicle ACs
+    SumoXMLTag currentTag = SUMO_TAG_VEHICLE;
     {
         // set values of tag
         myTagProperties[currentTag] = TagProperties(currentTag, TAGTYPE_DEMANDELEMENT | TAGTYPE_VEHICLE, TAGPROPERTY_DRAWABLE | TAGPROPERTY_SELECTABLE, ICON_VEHICLE);
         // set values of attributes
         attrProperty = AttributeProperties(SUMO_ATTR_ID,
                                            ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE,
-                                           "The name of the vehicle");
+                                           "The name of the " + toString(currentTag));
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = AttributeProperties(SUMO_ATTR_TYPE,
                                            ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_DEFAULTVALUESTATIC,
-                                           "The id of the vehicle type to use for this vehicle",
+                                           "The id of the vehicle type to use for this " + toString(currentTag),
                                            DEFAULT_VTYPE_ID);
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = AttributeProperties(SUMO_ATTR_ROUTE,
                                            ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_UPDATEGEOMETRY,
-                                           "The id of the route the vehicle shall drive along");
+                                           "The id of the route the " + toString(currentTag) + " shall drive along");
         myTagProperties[currentTag].addAttribute(attrProperty);
 
-        attrProperty = AttributeProperties(SUMO_ATTR_COLOR,
-                                           ATTRPROPERTY_STRING | ATTRPROPERTY_COLOR | ATTRPROPERTY_DEFAULTVALUESTATIC,
-                                           "This vehicle's color",
-                                           "yellow");
-        myTagProperties[currentTag].addAttribute(attrProperty);
-
+        // add common attributes
+        fillCommonVehicleAttributes(currentTag);
+        
         attrProperty = AttributeProperties(SUMO_ATTR_DEPART,
-                                           ATTRPROPERTY_STRING | ATTRPROPERTY_DEFAULTVALUESTATIC,
-                                           "The time step at which the vehicle shall enter the network",
+                                           ATTRPROPERTY_COMPLEX | ATTRPROPERTY_DEFAULTVALUESTATIC,
+                                           "The time step at which the " + toString(currentTag) + " shall enter the network",
                                            "0");
-        myTagProperties[currentTag].addAttribute(attrProperty);
-
-        attrProperty = AttributeProperties(SUMO_ATTR_DEPARTLANE,
-                                           ATTRPROPERTY_STRING | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL,
-                                           "The lane on which the vehicle shall be inserted",
-                                           "first");
-        myTagProperties[currentTag].addAttribute(attrProperty);
-
-        attrProperty = AttributeProperties(SUMO_ATTR_DEPARTPOS,
-                                           ATTRPROPERTY_STRING | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL /* ATTRPROPERTY_MULTIDISCRETE (Currently disabled) */,
-                                           "The position at which the vehicle shall enter the net",
-                                           "base");
-        myTagProperties[currentTag].addAttribute(attrProperty);
-
-        attrProperty = AttributeProperties(SUMO_ATTR_DEPARTSPEED,
-                                           ATTRPROPERTY_STRING | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL /* ATTRPROPERTY_MULTIDISCRETE (Currently disabled) */,
-                                           "The speed with which the vehicle shall enter the network",
-                                           "0");
-        myTagProperties[currentTag].addAttribute(attrProperty);
-
-        attrProperty = AttributeProperties(SUMO_ATTR_ARRIVALLANE,
-                                           ATTRPROPERTY_STRING | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL /* ATTRPROPERTY_MULTIDISCRETE (Currently disabled) */,
-                                           "The lane at which the vehicle shall leave the network",
-                                           "current");
-        myTagProperties[currentTag].addAttribute(attrProperty);
-
-        attrProperty = AttributeProperties(SUMO_ATTR_ARRIVALPOS,
-                                           ATTRPROPERTY_STRING | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL /* ATTRPROPERTY_MULTIDISCRETE (Currently disabled) */,
-                                           "The position at which the vehicle shall leave the network",
-                                           "max");
-        myTagProperties[currentTag].addAttribute(attrProperty);
-
-        attrProperty = AttributeProperties(SUMO_ATTR_ARRIVALSPEED,
-                                           ATTRPROPERTY_STRING | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL /* ATTRPROPERTY_MULTIDISCRETE (Currently disabled) */,
-                                           "The speed with which the vehicle shall leave the network",
-                                           "current");
-        myTagProperties[currentTag].addAttribute(attrProperty);
-
-        attrProperty = AttributeProperties(SUMO_ATTR_LINE,
-                                           ATTRPROPERTY_STRING | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL,
-                                           "A string specifying the id of a public transport line which can be used when specifying person rides");
-        myTagProperties[currentTag].addAttribute(attrProperty);
-
-        attrProperty = AttributeProperties(SUMO_ATTR_PERSON_NUMBER,
-                                           ATTRPROPERTY_INT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL,
-                                           "The number of occupied seats when the vehicle is inserted",
-                                           "0");
-        myTagProperties[currentTag].addAttribute(attrProperty);
-
-        attrProperty = AttributeProperties(SUMO_ATTR_CONTAINER_NUMBER,
-                                           ATTRPROPERTY_INT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL,
-                                           "The number of occupied container places when the vehicle is inserted",
-                                           "0");
-        myTagProperties[currentTag].addAttribute(attrProperty);
-
-        attrProperty = AttributeProperties(SUMO_ATTR_REROUTE,
-                                           ATTRPROPERTY_BOOL | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL,
-                                           "Whether the vehicle should be equipped with a rerouting device",
-                                           "0");
-        myTagProperties[currentTag].addAttribute(attrProperty);
-
-        attrProperty = AttributeProperties(SUMO_ATTR_VIA,
-                                           ATTRPROPERTY_STRING | ATTRPROPERTY_LIST | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL,
-                                           "List of intermediate edges that shall be passed on rerouting");
-        myTagProperties[currentTag].addAttribute(attrProperty);
-
-        attrProperty = AttributeProperties(SUMO_ATTR_DEPARTPOS_LAT,
-                                           ATTRPROPERTY_STRING | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL /* ATTRPROPERTY_MULTIDISCRETE (Currently disabled) */,
-                                           "The lateral position on the departure lane at which the vehicle shall enter the net",
-                                           "center");
-        /*attrProperty.setDiscreteValues(SUMOXMLDefinitions::LateralAlignments.getStrings());*/
-        myTagProperties[currentTag].addAttribute(attrProperty);
-
-        attrProperty = AttributeProperties(SUMO_ATTR_ARRIVALPOS_LAT,
-                                           ATTRPROPERTY_STRING | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL /* ATTRPROPERTY_MULTIDISCRETE (Currently disabled) */,
-                                           "The lateral position on the arrival lane at which the vehicle shall arrive",
-                                           "center");
-        /*attrProperty.setDiscreteValues(SUMOXMLDefinitions::LateralAlignments.getStrings());*/
         myTagProperties[currentTag].addAttribute(attrProperty);
     }
     currentTag = SUMO_TAG_ROUTEFLOW;
@@ -3420,134 +3417,25 @@ GNEAttributeCarrier::fillDemandElements() {
         // set values of attributes
         attrProperty = AttributeProperties(SUMO_ATTR_ID,
                                            ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE,
-                                           "The name of the vehicle");
+                                           "The name of the " + toString(currentTag));
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = AttributeProperties(SUMO_ATTR_TYPE,
                                            ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_UPDATEGEOMETRY,
-                                           "The id of the vehicle type to use for this vehicle",
+                                           "The id of the " + toString(currentTag) + " type to use for this " + toString(currentTag),
                                            DEFAULT_VTYPE_ID);
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = AttributeProperties(SUMO_ATTR_ROUTE,
                                            ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_UPDATEGEOMETRY,
-                                           "The id of the route the vehicle shall drive along");
+                                           "The id of the route the " + toString(currentTag) + " shall drive along");
         myTagProperties[currentTag].addAttribute(attrProperty);
 
-        attrProperty = AttributeProperties(SUMO_ATTR_COLOR,
-                                           ATTRPROPERTY_STRING | ATTRPROPERTY_COLOR | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL,
-                                           "This vehicle's color",
-                                           "yellow");
-        myTagProperties[currentTag].addAttribute(attrProperty);
+        // add common attributes
+        fillCommonVehicleAttributes(currentTag);
 
-        attrProperty = AttributeProperties(SUMO_ATTR_DEPARTLANE,
-                                           ATTRPROPERTY_STRING | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL,
-                                           "The lane on which the vehicle shall be inserted",
-                                           "first");
-        myTagProperties[currentTag].addAttribute(attrProperty);
-
-        attrProperty = AttributeProperties(SUMO_ATTR_DEPARTPOS,
-                                           ATTRPROPERTY_STRING | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL,
-                                           "The position at which the vehicle shall enter the net",
-                                           "base");
-        myTagProperties[currentTag].addAttribute(attrProperty);
-
-        attrProperty = AttributeProperties(SUMO_ATTR_DEPARTSPEED,
-                                           ATTRPROPERTY_STRING | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL,
-                                           "The speed with which the vehicle shall enter the network",
-                                           "0");
-        myTagProperties[currentTag].addAttribute(attrProperty);
-
-        attrProperty = AttributeProperties(SUMO_ATTR_ARRIVALLANE,
-                                           ATTRPROPERTY_STRING | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL,
-                                           "The lane at which the vehicle shall leave the network",
-                                           "current");
-        myTagProperties[currentTag].addAttribute(attrProperty);
-
-        attrProperty = AttributeProperties(SUMO_ATTR_ARRIVALPOS,
-                                           ATTRPROPERTY_STRING | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL,
-                                           "The position at which the vehicle shall leave the network",
-                                           "max");
-        myTagProperties[currentTag].addAttribute(attrProperty);
-
-        attrProperty = AttributeProperties(SUMO_ATTR_ARRIVALSPEED,
-                                           ATTRPROPERTY_STRING | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL,
-                                           "The speed with which the vehicle shall leave the network",
-                                           "current");
-        myTagProperties[currentTag].addAttribute(attrProperty);
-
-        attrProperty = AttributeProperties(SUMO_ATTR_LINE,
-                                           ATTRPROPERTY_STRING | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL,
-                                           "A string specifying the id of a public transport line which can be used when specifying person rides");
-        myTagProperties[currentTag].addAttribute(attrProperty);
-
-        attrProperty = AttributeProperties(SUMO_ATTR_PERSON_NUMBER,
-                                           ATTRPROPERTY_INT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL,
-                                           "The number of occupied seats when the vehicle is inserted",
-                                           "0");
-        myTagProperties[currentTag].addAttribute(attrProperty);
-
-        attrProperty = AttributeProperties(SUMO_ATTR_CONTAINER_NUMBER,
-                                           ATTRPROPERTY_INT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL,
-                                           "The number of occupied container places when the vehicle is inserted",
-                                           "0");
-        myTagProperties[currentTag].addAttribute(attrProperty);
-
-        attrProperty = AttributeProperties(SUMO_ATTR_REROUTE,
-                                           ATTRPROPERTY_BOOL | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL,
-                                           "Whether the vehicle should be equipped with a rerouting device",
-                                           "0");
-        myTagProperties[currentTag].addAttribute(attrProperty);
-
-        attrProperty = AttributeProperties(SUMO_ATTR_DEPARTPOS_LAT,
-                                           ATTRPROPERTY_STRING | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL /* ATTRPROPERTY_MULTIDISCRETE (Currently disabled) */,
-                                           "The lateral position on the departure lane at which the vehicle shall enter the net",
-                                           "center");
-        /*attrProperty.setDiscreteValues(SUMOXMLDefinitions::LateralAlignments.getStrings());*/
-        myTagProperties[currentTag].addAttribute(attrProperty);
-
-        attrProperty = AttributeProperties(SUMO_ATTR_ARRIVALPOS_LAT,
-                                           ATTRPROPERTY_STRING | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL /* ATTRPROPERTY_MULTIDISCRETE (Currently disabled) */,
-                                           "The lateral position on the arrival lane at which the vehicle shall arrive",
-                                           "center");
-        /*attrProperty.setDiscreteValues(SUMOXMLDefinitions::LateralAlignments.getStrings());*/
-        myTagProperties[currentTag].addAttribute(attrProperty);
-
-        attrProperty = AttributeProperties(SUMO_ATTR_BEGIN,
-                                           ATTRPROPERTY_SUMOTIME | ATTRPROPERTY_DEFAULTVALUESTATIC,
-                                           "First vehicle departure time",
-                                           "0.00");
-        myTagProperties[currentTag].addAttribute(attrProperty);
-
-        attrProperty = AttributeProperties(SUMO_ATTR_END,
-                                           ATTRPROPERTY_SUMOTIME | ATTRPROPERTY_DEFAULTVALUESTATIC,
-                                           "End of departure interval",
-                                           "3600.00");
-        myTagProperties[currentTag].addAttribute(attrProperty);
-
-        attrProperty = AttributeProperties(SUMO_ATTR_NUMBER,
-                                           ATTRPROPERTY_INT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL,
-                                           "probability for emitting a vehicle each second (not together with vehsPerHour or period)",
-                                           "1800");
-        myTagProperties[currentTag].addAttribute(attrProperty);
-
-        attrProperty = AttributeProperties(SUMO_ATTR_VEHSPERHOUR,
-                                           ATTRPROPERTY_STRING | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL,
-                                           "Number of vehicles per hour, equally spaced (not together with period or probability)",
-                                           "1800");
-        myTagProperties[currentTag].addAttribute(attrProperty);
-
-        attrProperty = AttributeProperties(SUMO_ATTR_PERIOD,
-                                           ATTRPROPERTY_STRING | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL,
-                                           "Insert equally spaced vehicles at that period (not together with vehsPerHour or probability)",
-                                           "2");
-        myTagProperties[currentTag].addAttribute(attrProperty);
-
-        attrProperty = AttributeProperties(SUMO_ATTR_PROB,
-                                           ATTRPROPERTY_STRING | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL,
-                                           "probability for emitting a vehicle each second (not together with vehsPerHour or period)",
-                                           "0.5");
-        myTagProperties[currentTag].addAttribute(attrProperty);
+        // add flow attributes
+        fillCommonFlowAttributes(currentTag);
     }
     currentTag = SUMO_TAG_TRIP;
     {
@@ -3556,19 +3444,13 @@ GNEAttributeCarrier::fillDemandElements() {
         // set values of attributes
         attrProperty = AttributeProperties(SUMO_ATTR_ID,
                                            ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_DEFAULTVALUESTATIC,
-                                           "The name of vehicles that will be generated using this trip definition");
+                                           "The name of " + toString(currentTag) + "s that will be generated using this trip definition");
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = AttributeProperties(SUMO_ATTR_TYPE,
                                            ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_DEFAULTVALUESTATIC,
-                                           "The id of the vehicle type to use for this vehicle",
+                                           "The id of the " + toString(currentTag) + " type to use for this " + toString(currentTag),
                                            DEFAULT_VTYPE_ID);
-        myTagProperties[currentTag].addAttribute(attrProperty);
-
-        attrProperty = AttributeProperties(SUMO_ATTR_DEPART,
-                                           ATTRPROPERTY_INT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUESTATIC,
-                                           "The departure time of the (first) vehicle which is generated using this trip definition",
-                                           "0");
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = AttributeProperties(SUMO_ATTR_FROM,
@@ -3582,50 +3464,17 @@ GNEAttributeCarrier::fillDemandElements() {
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = AttributeProperties(SUMO_ATTR_VIA,
-                                           ATTRPROPERTY_STRING | ATTRPROPERTY_LIST,
+                                           ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_UPDATEGEOMETRY | ATTRPROPERTY_LIST | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL,
                                            "List of intermediate edge ids which shall be part of the route trip");
         myTagProperties[currentTag].addAttribute(attrProperty);
-
-        attrProperty = AttributeProperties(SUMO_ATTR_COLOR,
-                                           ATTRPROPERTY_COLOR | ATTRPROPERTY_WRITEXMLOPTIONAL | ATTRPROPERTY_DEFAULTVALUESTATIC,
-                                           "This generated vehicle's color",
-                                           "yellow");
-        myTagProperties[currentTag].addAttribute(attrProperty);
-
-        attrProperty = AttributeProperties(SUMO_ATTR_DEPARTLANE,
-                                           ATTRPROPERTY_STRING | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL,
-                                           "The lane on which the vehicle shall be inserted",
-                                           "first");
-        myTagProperties[currentTag].addAttribute(attrProperty);
-
-        attrProperty = AttributeProperties(SUMO_ATTR_DEPARTPOS,
-                                           ATTRPROPERTY_STRING | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL,
-                                           "The position at which the vehicle shall enter the net",
-                                           "base");
-        myTagProperties[currentTag].addAttribute(attrProperty);
-
-        attrProperty = AttributeProperties(SUMO_ATTR_DEPARTSPEED,
-                                           ATTRPROPERTY_STRING | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL,
-                                           "The speed with which the vehicle shall enter the network",
+        
+        // add common attributes
+        fillCommonVehicleAttributes(currentTag);
+                
+        attrProperty = AttributeProperties(SUMO_ATTR_DEPART,
+                                           ATTRPROPERTY_COMPLEX | ATTRPROPERTY_DEFAULTVALUESTATIC,
+                                           "The departure time of the (first) " + toString(currentTag) + " which is generated using this trip definition",
                                            "0");
-        myTagProperties[currentTag].addAttribute(attrProperty);
-
-        attrProperty = AttributeProperties(SUMO_ATTR_ARRIVALLANE,
-                                           ATTRPROPERTY_STRING | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL,
-                                           "The lane at which the vehicle shall leave the network",
-                                           "current");
-        myTagProperties[currentTag].addAttribute(attrProperty);
-
-        attrProperty = AttributeProperties(SUMO_ATTR_ARRIVALPOS,
-                                           ATTRPROPERTY_STRING | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL,
-                                           "The position at which the vehicle shall leave the network",
-                                           "max");
-        myTagProperties[currentTag].addAttribute(attrProperty);
-
-        attrProperty = AttributeProperties(SUMO_ATTR_ARRIVALSPEED,
-                                           ATTRPROPERTY_STRING | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL,
-                                           "The speed with which the vehicle shall leave the network",
-                                           "current");
         myTagProperties[currentTag].addAttribute(attrProperty);
     }
     currentTag = SUMO_TAG_FLOW;
@@ -3636,12 +3485,12 @@ GNEAttributeCarrier::fillDemandElements() {
         // set values of attributes
         attrProperty = AttributeProperties(SUMO_ATTR_ID,
                                            ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE,
-                                           "The name of the vehicle");
+                                           "The name of the " + toString(currentTag));
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = AttributeProperties(SUMO_ATTR_TYPE,
                                            ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_UPDATEGEOMETRY,
-                                           "The id of the vehicle type to use for this vehicle",
+                                           "The id of the " + toString(currentTag) + " type to use for this " + toString(currentTag),
                                            DEFAULT_VTYPE_ID);
         myTagProperties[currentTag].addAttribute(attrProperty);
 
@@ -3656,196 +3505,32 @@ GNEAttributeCarrier::fillDemandElements() {
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = AttributeProperties(SUMO_ATTR_VIA,
-                                           ATTRPROPERTY_STRING | ATTRPROPERTY_LIST,
+                                           ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_UPDATEGEOMETRY | ATTRPROPERTY_LIST | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL,
                                            "List of intermediate edge ids which shall be part of the route routeFlow");
         myTagProperties[currentTag].addAttribute(attrProperty);
 
-        attrProperty = AttributeProperties(SUMO_ATTR_COLOR,
-                                           ATTRPROPERTY_STRING | ATTRPROPERTY_COLOR | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL,
-                                           "This vehicle's color",
-                                           "yellow");
-        myTagProperties[currentTag].addAttribute(attrProperty);
+        // add common attributes
+        fillCommonVehicleAttributes(currentTag);
 
-        attrProperty = AttributeProperties(SUMO_ATTR_DEPARTLANE,
-                                           ATTRPROPERTY_STRING | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL,
-                                           "The lane on which the vehicle shall be inserted",
-                                           "first");
-        myTagProperties[currentTag].addAttribute(attrProperty);
-
-        attrProperty = AttributeProperties(SUMO_ATTR_DEPARTPOS,
-                                           ATTRPROPERTY_STRING | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL,
-                                           "The position at which the vehicle shall enter the net",
-                                           "base");
-        myTagProperties[currentTag].addAttribute(attrProperty);
-
-        attrProperty = AttributeProperties(SUMO_ATTR_DEPARTSPEED,
-                                           ATTRPROPERTY_STRING | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL,
-                                           "The speed with which the vehicle shall enter the network",
-                                           "0");
-        myTagProperties[currentTag].addAttribute(attrProperty);
-
-        attrProperty = AttributeProperties(SUMO_ATTR_ARRIVALLANE,
-                                           ATTRPROPERTY_STRING | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL,
-                                           "The lane at which the vehicle shall leave the network",
-                                           "current");
-        myTagProperties[currentTag].addAttribute(attrProperty);
-
-        attrProperty = AttributeProperties(SUMO_ATTR_ARRIVALPOS,
-                                           ATTRPROPERTY_STRING | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL,
-                                           "The position at which the vehicle shall leave the network",
-                                           "max");
-        myTagProperties[currentTag].addAttribute(attrProperty);
-
-        attrProperty = AttributeProperties(SUMO_ATTR_ARRIVALSPEED,
-                                           ATTRPROPERTY_STRING | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL,
-                                           "The speed with which the vehicle shall leave the network",
-                                           "current");
-        myTagProperties[currentTag].addAttribute(attrProperty);
-
-        attrProperty = AttributeProperties(SUMO_ATTR_LINE,
-                                           ATTRPROPERTY_STRING | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL,
-                                           "A string specifying the id of a public transport line which can be used when specifying person rides");
-        myTagProperties[currentTag].addAttribute(attrProperty);
-
-        attrProperty = AttributeProperties(SUMO_ATTR_PERSON_NUMBER,
-                                           ATTRPROPERTY_INT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL,
-                                           "The number of occupied seats when the vehicle is inserted",
-                                           "0");
-        myTagProperties[currentTag].addAttribute(attrProperty);
-
-        attrProperty = AttributeProperties(SUMO_ATTR_CONTAINER_NUMBER,
-                                           ATTRPROPERTY_INT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL,
-                                           "The number of occupied container places when the vehicle is inserted",
-                                           "0");
-        myTagProperties[currentTag].addAttribute(attrProperty);
-
-        attrProperty = AttributeProperties(SUMO_ATTR_REROUTE,
-                                           ATTRPROPERTY_BOOL | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL,
-                                           "Whether the vehicle should be equipped with a rerouting device",
-                                           "0");
-        myTagProperties[currentTag].addAttribute(attrProperty);
-
-        attrProperty = AttributeProperties(SUMO_ATTR_DEPARTPOS_LAT,
-                                           ATTRPROPERTY_STRING | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL /* ATTRPROPERTY_MULTIDISCRETE (Currently disabled) */,
-                                           "The lateral position on the departure lane at which the vehicle shall enter the net",
-                                           "center");
-        /*attrProperty.setDiscreteValues(SUMOXMLDefinitions::LateralAlignments.getStrings());*/
-        myTagProperties[currentTag].addAttribute(attrProperty);
-
-        attrProperty = AttributeProperties(SUMO_ATTR_ARRIVALPOS_LAT,
-                                           ATTRPROPERTY_STRING | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL /* ATTRPROPERTY_MULTIDISCRETE (Currently disabled) */,
-                                           "The lateral position on the arrival lane at which the vehicle shall arrive",
-                                           "center");
-        /*attrProperty.setDiscreteValues(SUMOXMLDefinitions::LateralAlignments.getStrings());*/
-        myTagProperties[currentTag].addAttribute(attrProperty);
-
-        attrProperty = AttributeProperties(SUMO_ATTR_BEGIN,
-                                           ATTRPROPERTY_SUMOTIME | ATTRPROPERTY_DEFAULTVALUESTATIC,
-                                           "First vehicle departure time",
-                                           "0.00");
-        myTagProperties[currentTag].addAttribute(attrProperty);
-
-        attrProperty = AttributeProperties(SUMO_ATTR_END,
-                                           ATTRPROPERTY_SUMOTIME | ATTRPROPERTY_DEFAULTVALUESTATIC,
-                                           "End of departure interval",
-                                           "3600.00");
-        myTagProperties[currentTag].addAttribute(attrProperty);
-
-        attrProperty = AttributeProperties(SUMO_ATTR_NUMBER,
-                                           ATTRPROPERTY_INT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL,
-                                           "probability for emitting a vehicle each second (not together with vehsPerHour or period)",
-                                           "1800");
-        myTagProperties[currentTag].addAttribute(attrProperty);
-
-        attrProperty = AttributeProperties(SUMO_ATTR_VEHSPERHOUR,
-                                           ATTRPROPERTY_STRING | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL,
-                                           "Number of vehicles per hour, equally spaced (not together with period or probability)",
-                                           "1800");
-        myTagProperties[currentTag].addAttribute(attrProperty);
-
-        attrProperty = AttributeProperties(SUMO_ATTR_PERIOD,
-                                           ATTRPROPERTY_STRING | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL,
-                                           "Insert equally spaced vehicles at that period (not together with vehsPerHour or probability)",
-                                           "2");
-        myTagProperties[currentTag].addAttribute(attrProperty);
-
-        attrProperty = AttributeProperties(SUMO_ATTR_PROB,
-                                           ATTRPROPERTY_STRING | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL,
-                                           "probability for emitting a vehicle each second (not together with vehsPerHour or period)",
-                                           "0.5");
-        myTagProperties[currentTag].addAttribute(attrProperty);
+        // add flow attributes
+        fillCommonFlowAttributes(currentTag);
     }
     /* currently disabled. See #5259
     currentTag = SUMO_TAG_TRIP_TAZ;
     {
         // set values of tag
         myTagProperties[currentTag] = TagProperties(currentTag, TAGTYPE_DEMANDELEMENT | TAGTYPE_VEHICLE, TAGPROPERTY_DRAWABLE, ICON_TRIP);
-        // set values of attributes
-        attrProperty = AttributeProperties(SUMO_ATTR_ID,
-            ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_DEFAULTVALUESTATIC,
-            "The name of vehicles that will be generated using this trip definition");
-        myTagProperties[currentTag].addAttribute(attrProperty);
-
-        attrProperty = AttributeProperties(SUMO_ATTR_DEPART,
-            ATTRPROPERTY_INT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUESTATIC,
-            "The departure time of the (first) vehicle which is generated using this trip definition",
-            "0");
-        myTagProperties[currentTag].addAttribute(attrProperty);
-
-        attrProperty = AttributeProperties(SUMO_ATTR_FROM_TAZ,
-            ATTRPROPERTY_STRING,
-            "The name of the district the route starts at. TAZ edges are selected so that travel time is minimized");
-        myTagProperties[currentTag].addAttribute(attrProperty);
-
-        attrProperty = AttributeProperties(SUMO_ATTR_TO_TAZ,
-            ATTRPROPERTY_STRING,
-            "The name of the district the route ends at. TAZ edges are selected so that travel time is minimized");
-        myTagProperties[currentTag].addAttribute(attrProperty);
-
-        attrProperty = AttributeProperties(SUMO_ATTR_COLOR,
-            ATTRPROPERTY_COLOR | ATTRPROPERTY_WRITEXMLOPTIONAL | ATTRPROPERTY_DEFAULTVALUESTATIC,
-            "This generated vehicle's color",
-            "yellow");
-        myTagProperties[currentTag].addAttribute(attrProperty);
-
-        attrProperty = AttributeProperties(SUMO_ATTR_DEPARTLANE,
-            ATTRPROPERTY_STRING | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL,
-            "The lane on which the vehicle shall be inserted",
-            "first");
-        myTagProperties[currentTag].addAttribute(attrProperty);
-
-        attrProperty = AttributeProperties(SUMO_ATTR_DEPARTPOS,
-            ATTRPROPERTY_STRING | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL,
-            "The position at which the vehicle shall enter the net",
-            "base");
-        myTagProperties[currentTag].addAttribute(attrProperty);
-
-        attrProperty = AttributeProperties(SUMO_ATTR_DEPARTSPEED,
-            ATTRPROPERTY_STRING | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL,
-            "The speed with which the vehicle shall enter the network",
-            "0");
-        myTagProperties[currentTag].addAttribute(attrProperty);
-
-        attrProperty = AttributeProperties(SUMO_ATTR_ARRIVALLANE,
-            ATTRPROPERTY_STRING | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL,
-            "The lane at which the vehicle shall leave the network",
-            "current");
-        myTagProperties[currentTag].addAttribute(attrProperty);
-
-        attrProperty = AttributeProperties(SUMO_ATTR_ARRIVALPOS,
-            ATTRPROPERTY_STRING | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL,
-            "The position at which the vehicle shall leave the network",
-            "max");
-        myTagProperties[currentTag].addAttribute(attrProperty);
-
-        attrProperty = AttributeProperties(SUMO_ATTR_ARRIVALSPEED,
-            ATTRPROPERTY_STRING | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL,
-            "The speed with which the vehicle shall leave the network",
-            "current");
-        myTagProperties[currentTag].addAttribute(attrProperty);
     }
     */
-    currentTag = SUMO_TAG_STOP_LANE;
+}
+
+
+void
+GNEAttributeCarrier::fillStopElements() {
+    // declare empty AttributeProperties
+    AttributeProperties attrProperty;
+    // fill stops ACs
+    SumoXMLTag currentTag = SUMO_TAG_STOP_LANE;
     {
         // set values of tag
         myTagProperties[currentTag] = TagProperties(currentTag, TAGTYPE_DEMANDELEMENT | TAGTYPE_STOP, TAGPROPERTY_DRAWABLE | TAGPROPERTY_SELECTABLE | TAGPROPERTY_MASKSTARTENDPOS, ICON_STOPELEMENT);
@@ -4200,215 +3885,868 @@ GNEAttributeCarrier::fillDemandElements() {
 
 
 void
-GNEAttributeCarrier::fillCarFollowingModelAttributes() {
+GNEAttributeCarrier::fillPersonElements() {
     // declare empty AttributeProperties
     AttributeProperties attrProperty;
+    // fill vehicle ACs
+    SumoXMLTag currentTag = SUMO_TAG_PERSON;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = TagProperties(currentTag, TAGTYPE_DEMANDELEMENT | TAGTYPE_PERSON, TAGPROPERTY_DRAWABLE | TAGPROPERTY_SELECTABLE, ICON_PERSON);
+
+        // add flow attributes
+        fillCommonPersonAttributes(currentTag);
+ 
+        attrProperty = AttributeProperties(SUMO_ATTR_DEPART,
+                                           ATTRPROPERTY_COMPLEX | ATTRPROPERTY_DEFAULTVALUESTATIC,
+                                           "The time step at which the " + toString(currentTag) + " shall enter the network",
+                                           "0");
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
+    }
+    currentTag = SUMO_TAG_PERSONFLOW;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = TagProperties(currentTag, TAGTYPE_DEMANDELEMENT | TAGTYPE_PERSON, TAGPROPERTY_DRAWABLE | TAGPROPERTY_SELECTABLE, ICON_PERSONFLOW);
+
+        // add flow attributes
+        fillCommonPersonAttributes(currentTag);
+
+        // add flow attributes
+        fillCommonFlowAttributes(currentTag);
+    }
+    currentTag = SUMO_TAG_PERSONTRIP_FROMTO;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = TagProperties(currentTag, TAGTYPE_DEMANDELEMENT | TAGTYPE_PERSONPLAN | TAGTYPE_PERSONTRIP, TAGPROPERTY_DRAWABLE | TAGPROPERTY_SELECTABLE | TAGPROPERTY_PARENT | TAGPROPERTY_SORTINGCHILDREN, ICON_PERSONTRIP_FROMTO);
+        // set values of attributes
+        attrProperty = AttributeProperties(SUMO_ATTR_FROM,
+                                           ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_UPDATEGEOMETRY,
+                                           "The name of the edge the " + toString(currentTag) + " starts at");
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
+        attrProperty = AttributeProperties(SUMO_ATTR_TO,
+                                           ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_UPDATEGEOMETRY,
+                                           "The name of the edge the " + toString(currentTag) + " ends at");
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
+        attrProperty = AttributeProperties(SUMO_ATTR_VTYPES,
+                                           ATTRPROPERTY_STRING | ATTRPROPERTY_LIST | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL,
+                                           "List of possible vehicle types to take");
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
+        attrProperty = AttributeProperties(SUMO_ATTR_MODES,
+                                           ATTRPROPERTY_COMPLEX | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL,
+                                           "List of possible traffic modes. Walking is always possible regardless of this value");
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
+        attrProperty = AttributeProperties(SUMO_ATTR_ARRIVALPOS,
+                                           ATTRPROPERTY_STRING | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL,
+                                           "arrival position on the destination edge",
+                                           "-1");
+        myTagProperties[currentTag].addAttribute(attrProperty);
+    }
+    currentTag = SUMO_TAG_PERSONTRIP_BUSSTOP;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = TagProperties(currentTag, TAGTYPE_DEMANDELEMENT | TAGTYPE_PERSONPLAN | TAGTYPE_PERSONTRIP, TAGPROPERTY_DRAWABLE | TAGPROPERTY_SELECTABLE | TAGPROPERTY_PARENT | TAGPROPERTY_SORTINGCHILDREN, ICON_PERSONTRIP_BUSSTOP);
+        // set values of attributes
+        attrProperty = AttributeProperties(SUMO_ATTR_FROM,
+                                           ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_UPDATEGEOMETRY,
+                                           "The name of the edge the " + toString(currentTag) + " starts at");
+        myTagProperties[currentTag].addAttribute(attrProperty);
+        
+        attrProperty = AttributeProperties(SUMO_ATTR_BUS_STOP,
+                                           ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_UPDATEGEOMETRY,
+                                           "Id of the destination " + toString(SUMO_TAG_BUS_STOP));
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
+        attrProperty = AttributeProperties(SUMO_ATTR_VTYPES,
+                                           ATTRPROPERTY_STRING | ATTRPROPERTY_LIST | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL,
+                                           "List of possible vehicle types to take");
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
+        attrProperty = AttributeProperties(SUMO_ATTR_MODES,
+                                           ATTRPROPERTY_COMPLEX | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL,
+                                           "List of possible traffic modes. Walking is always possible regardless of this value");
+        myTagProperties[currentTag].addAttribute(attrProperty);
+    }
+    currentTag = SUMO_TAG_RIDE_FROMTO;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = TagProperties(currentTag, TAGTYPE_DEMANDELEMENT | TAGTYPE_PERSONPLAN | TAGTYPE_RIDE, TAGPROPERTY_DRAWABLE | TAGPROPERTY_SELECTABLE | TAGPROPERTY_PARENT | TAGPROPERTY_SORTINGCHILDREN, ICON_RIDE_FROMTO);
+        // set values of attributes
+        attrProperty = AttributeProperties(SUMO_ATTR_FROM,
+                                           ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_UPDATEGEOMETRY,
+                                           "The name of the edge the " + toString(currentTag) + " starts at");
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
+        attrProperty = AttributeProperties(SUMO_ATTR_TO,
+                                           ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_UPDATEGEOMETRY,
+                                           "The name of the edge the " + toString(currentTag) + " ends at");
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
+        attrProperty = AttributeProperties(SUMO_ATTR_LINES,
+                                           ATTRPROPERTY_STRING | ATTRPROPERTY_LIST | ATTRPROPERTY_DEFAULTVALUESTATIC,
+                                           "list of vehicle alternatives to take for the " + toString(currentTag),
+                                           "ANY");
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
+        attrProperty = AttributeProperties(SUMO_ATTR_ARRIVALPOS,
+                                           ATTRPROPERTY_STRING | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL,
+                                           "arrival position on the destination edge",
+                                           "-1");
+        myTagProperties[currentTag].addAttribute(attrProperty);
+    }
+    currentTag = SUMO_TAG_RIDE_BUSSTOP;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = TagProperties(currentTag, TAGTYPE_DEMANDELEMENT | TAGTYPE_PERSONPLAN | TAGTYPE_RIDE, TAGPROPERTY_DRAWABLE | TAGPROPERTY_SELECTABLE | TAGPROPERTY_PARENT | TAGPROPERTY_SORTINGCHILDREN, ICON_RIDE_BUSSTOP);
+        // set values of attributes
+        attrProperty = AttributeProperties(SUMO_ATTR_FROM,
+                                           ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_UPDATEGEOMETRY,
+                                           "The name of the edge the " + toString(currentTag) + " starts at");
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
+        attrProperty = AttributeProperties(SUMO_ATTR_BUS_STOP,
+                                           ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_UPDATEGEOMETRY,
+                                           "Id of the destination " + toString(SUMO_TAG_BUS_STOP));
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
+        attrProperty = AttributeProperties(SUMO_ATTR_LINES,
+                                           ATTRPROPERTY_STRING | ATTRPROPERTY_LIST | ATTRPROPERTY_DEFAULTVALUESTATIC,
+                                           "list of vehicle alternatives to take for the ride",
+                                           "ANY");
+        myTagProperties[currentTag].addAttribute(attrProperty);
+    }
+    currentTag = SUMO_TAG_WALK_EDGES;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = TagProperties(currentTag, TAGTYPE_DEMANDELEMENT | TAGTYPE_PERSONPLAN | TAGTYPE_WALK, TAGPROPERTY_DRAWABLE | TAGPROPERTY_SELECTABLE | TAGPROPERTY_PARENT | TAGPROPERTY_SORTINGCHILDREN, ICON_WALK_EDGES);
+        // set values of attributes
+        attrProperty = AttributeProperties(SUMO_ATTR_EDGES,
+                                           ATTRPROPERTY_STRING | ATTRPROPERTY_LIST | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_UPDATEGEOMETRY,
+                                           "id of the edges to walk");
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
+        attrProperty = AttributeProperties(SUMO_ATTR_ARRIVALPOS,
+                                           ATTRPROPERTY_STRING | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL,
+                                           "Arrival position on the destination edge",
+                                           "-1");
+        myTagProperties[currentTag].addAttribute(attrProperty);
+    }
+
+    currentTag = SUMO_TAG_WALK_ROUTE;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = TagProperties(currentTag, TAGTYPE_DEMANDELEMENT | TAGTYPE_PERSONPLAN | TAGTYPE_WALK, TAGPROPERTY_DRAWABLE | TAGPROPERTY_SELECTABLE | TAGPROPERTY_PARENT | TAGPROPERTY_SORTINGCHILDREN, ICON_WALK_ROUTE);
+        // set values of attributes
+        attrProperty = AttributeProperties(SUMO_ATTR_ROUTE,
+                                           ATTRPROPERTY_STRING | ATTRPROPERTY_LIST | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_UPDATEGEOMETRY,
+                                           "The id of the route to walk");
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
+        attrProperty = AttributeProperties(SUMO_ATTR_ARRIVALPOS,
+                                           ATTRPROPERTY_STRING | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL,
+                                           "Arrival position on the destination edge",
+                                           "-1");
+        myTagProperties[currentTag].addAttribute(attrProperty);
+    }
+    currentTag = SUMO_TAG_WALK_FROMTO;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = TagProperties(currentTag, TAGTYPE_DEMANDELEMENT | TAGTYPE_PERSONPLAN | TAGTYPE_WALK, TAGPROPERTY_DRAWABLE | TAGPROPERTY_SELECTABLE | TAGPROPERTY_PARENT | TAGPROPERTY_SORTINGCHILDREN, ICON_WALK_FROMTO);
+        // set values of attributes
+        attrProperty = AttributeProperties(SUMO_ATTR_FROM,
+                                           ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_UPDATEGEOMETRY,
+                                           "Id of the start edge");
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
+        attrProperty = AttributeProperties(SUMO_ATTR_TO,
+                                           ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_UPDATEGEOMETRY,
+                                           "Id of the destination edge");
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
+        attrProperty = AttributeProperties(SUMO_ATTR_VIA,
+                                           ATTRPROPERTY_STRING | ATTRPROPERTY_LIST | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL,
+                                           "Ids of the intermediate edges");
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
+
+        attrProperty = AttributeProperties(SUMO_ATTR_ARRIVALPOS,
+                                           ATTRPROPERTY_STRING | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL,
+                                           "Arrival position on the destination edge",
+                                           "-1");
+        myTagProperties[currentTag].addAttribute(attrProperty);
+    }
+
+    currentTag = SUMO_TAG_WALK_BUSSTOP;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = TagProperties(currentTag, TAGTYPE_DEMANDELEMENT | TAGTYPE_PERSONPLAN | TAGTYPE_WALK, TAGPROPERTY_DRAWABLE | TAGPROPERTY_SELECTABLE | TAGPROPERTY_PARENT | TAGPROPERTY_SORTINGCHILDREN, ICON_WALK_BUSSTOP);
+        // set values of attributes
+        attrProperty = AttributeProperties(SUMO_ATTR_FROM,
+                                           ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_UPDATEGEOMETRY,
+                                           "Id of the start edge");
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
+        attrProperty = AttributeProperties(SUMO_ATTR_BUS_STOP,
+                                           ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_UPDATEGEOMETRY,
+                                           "Id of the destination " + toString(SUMO_TAG_BUS_STOP));
+        myTagProperties[currentTag].addAttribute(attrProperty);
+    }
+}
+
+
+void
+GNEAttributeCarrier::fillPersonStopElements() {
+    // declare empty AttributeProperties
+    AttributeProperties attrProperty;
+    // fill vehicle ACs
+    SumoXMLTag currentTag = SUMO_TAG_PERSONSTOP_LANE;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = TagProperties(currentTag, TAGTYPE_DEMANDELEMENT | TAGTYPE_PERSONSTOP, TAGPROPERTY_DRAWABLE | TAGPROPERTY_SELECTABLE | TAGPROPERTY_MASKSTARTENDPOS | TAGPROPERTY_SORTINGCHILDREN, ICON_STOPELEMENT);
+        // set values of attributes
+        attrProperty = AttributeProperties(SUMO_ATTR_LANE,
+                                           ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_UPDATEGEOMETRY,
+                                           "The name of the lane the stop shall be located at");
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
+        attrProperty = AttributeProperties(SUMO_ATTR_STARTPOS,
+                                           ATTRPROPERTY_FLOAT | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL | ATTRPROPERTY_UPDATEGEOMETRY,
+                                           "The begin position on the lane (the lower position on the lane) in meters");
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
+        attrProperty = AttributeProperties(SUMO_ATTR_ENDPOS,
+                                           ATTRPROPERTY_FLOAT | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL | ATTRPROPERTY_UPDATEGEOMETRY,
+                                           "The end position on the lane (the higher position on the lane) in meters, must be larger than startPos by more than 0.1m");
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
+        attrProperty = AttributeProperties(SUMO_ATTR_FRIENDLY_POS,
+                                           ATTRPROPERTY_BOOL | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL,
+                                           "If set, no error will be reported if element is placed behind the lane. Instead,it will be placed 0.1 meters from the lanes end or at position 0.1, if the position was negative and larger than the lanes length after multiplication with - 1",
+                                           "0");
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
+        attrProperty = AttributeProperties(SUMO_ATTR_DURATION,
+                                           ATTRPROPERTY_FLOAT | ATTRPROPERTY_OPTIONAL | ATTRPROPERTY_DEFAULTVALUESTATIC,
+                                           "Minimum duration for stopping",
+                                           "60");
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
+        attrProperty = AttributeProperties(SUMO_ATTR_UNTIL,
+                                           ATTRPROPERTY_FLOAT | ATTRPROPERTY_OPTIONAL | ATTRPROPERTY_DEFAULTVALUESTATIC,
+                                           "The time step at which the route continues",
+                                           "-1");
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
+        attrProperty = AttributeProperties(SUMO_ATTR_INDEX,
+                                           ATTRPROPERTY_STRING | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL,
+                                           "Where to insert the stop in the vehicle's list of stops",
+                                           "end");
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
+        attrProperty = AttributeProperties(SUMO_ATTR_TRIGGERED,
+                                           ATTRPROPERTY_BOOL | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL,
+                                           "Whether a person may end the stop",
+                                           "0");
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
+        attrProperty = AttributeProperties(SUMO_ATTR_EXPECTED,
+                                           ATTRPROPERTY_STRING | ATTRPROPERTY_LIST | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL,
+                                           "List of persons that must board the vehicle before it may continue");
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
+        attrProperty = AttributeProperties(SUMO_ATTR_CONTAINER_TRIGGERED,
+                                           ATTRPROPERTY_BOOL | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL,
+                                           "Whether a container may end the stop",
+                                           "0");
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
+        attrProperty = AttributeProperties(SUMO_ATTR_EXPECTED_CONTAINERS,
+                                           ATTRPROPERTY_STRING | ATTRPROPERTY_LIST | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL,
+                                           "List of containers that must be loaded onto the vehicle before it may continue");
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
+        attrProperty = AttributeProperties(SUMO_ATTR_PARKING,
+                                           ATTRPROPERTY_BOOL | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL,
+                                           "whether the vehicle stops on the road or beside ",
+                                           "0");
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
+        attrProperty = AttributeProperties(SUMO_ATTR_ACTTYPE,
+                                           ATTRPROPERTY_STRING | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL,
+                                           "Activity displayed for stopped person in GUI and output files ",
+                                           "waiting");
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
+        attrProperty = AttributeProperties(SUMO_ATTR_TRIP_ID,
+                                           ATTRPROPERTY_STRING | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL,
+                                           "Value used for trips that uses this stop");
+        myTagProperties[currentTag].addAttribute(attrProperty);
+    }
+    currentTag = SUMO_TAG_PERSONSTOP_BUSSTOP;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = TagProperties(currentTag, TAGTYPE_DEMANDELEMENT | TAGTYPE_PERSONSTOP, TAGPROPERTY_DRAWABLE | TAGPROPERTY_SELECTABLE | TAGPROPERTY_SORTINGCHILDREN, ICON_STOPELEMENT);
+        // set values of attributes
+        attrProperty = AttributeProperties(SUMO_ATTR_BUS_STOP,
+                                           ATTRPROPERTY_STRING | ATTRPROPERTY_LIST | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_UPDATEGEOMETRY,
+                                           "BusStop associated with this stop");
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
+        attrProperty = AttributeProperties(SUMO_ATTR_DURATION,
+                                           ATTRPROPERTY_FLOAT | ATTRPROPERTY_OPTIONAL | ATTRPROPERTY_DEFAULTVALUESTATIC,
+                                           "Minimum duration for stopping",
+                                           "60");
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
+        attrProperty = AttributeProperties(SUMO_ATTR_UNTIL,
+                                           ATTRPROPERTY_FLOAT | ATTRPROPERTY_OPTIONAL | ATTRPROPERTY_DEFAULTVALUESTATIC,
+                                           "The time step at which the route continues",
+                                           "-1");
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
+        attrProperty = AttributeProperties(SUMO_ATTR_INDEX,
+                                           ATTRPROPERTY_STRING | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL,
+                                           "Where to insert the stop in the vehicle's list of stops",
+                                           "end");
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
+        attrProperty = AttributeProperties(SUMO_ATTR_TRIGGERED,
+                                           ATTRPROPERTY_BOOL | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL,
+                                           "Whether a person may end the stop",
+                                           "0");
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
+        attrProperty = AttributeProperties(SUMO_ATTR_EXPECTED,
+                                           ATTRPROPERTY_STRING | ATTRPROPERTY_LIST | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL,
+                                           "List of persons that must board the vehicle before it may continue");
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
+        attrProperty = AttributeProperties(SUMO_ATTR_CONTAINER_TRIGGERED,
+                                           ATTRPROPERTY_BOOL | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL,
+                                           "Whether a container may end the stop",
+                                           "0");
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
+        attrProperty = AttributeProperties(SUMO_ATTR_EXPECTED_CONTAINERS,
+                                           ATTRPROPERTY_STRING | ATTRPROPERTY_LIST | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL,
+                                           "List of containers that must be loaded onto the vehicle before it may continue");
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
+        attrProperty = AttributeProperties(SUMO_ATTR_PARKING,
+                                           ATTRPROPERTY_BOOL | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL,
+                                           "whether the vehicle stops on the road or beside ",
+                                           "0");
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
+        attrProperty = AttributeProperties(SUMO_ATTR_ACTTYPE,
+                                           ATTRPROPERTY_STRING | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL,
+                                           "Activity displayed for stopped person in GUI and output files ",
+                                           "waiting");
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
+        attrProperty = AttributeProperties(SUMO_ATTR_TRIP_ID,
+                                           ATTRPROPERTY_STRING | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL,
+                                           "Value used for trips that uses this stop");
+        myTagProperties[currentTag].addAttribute(attrProperty);
+    }
+}
+
+
+void 
+GNEAttributeCarrier::fillCommonVehicleAttributes(SumoXMLTag currentTag) {
+    // declare empty AttributeProperties
+    AttributeProperties attrProperty;
+
+    attrProperty = AttributeProperties(SUMO_ATTR_COLOR,
+                                        ATTRPROPERTY_STRING | ATTRPROPERTY_COLOR | ATTRPROPERTY_DEFAULTVALUESTATIC,
+                                        "This " + toString(currentTag) + "'s color",
+                                        "yellow");
+    myTagProperties[currentTag].addAttribute(attrProperty);
+
+    attrProperty = AttributeProperties(SUMO_ATTR_DEPARTLANE,
+                                        ATTRPROPERTY_COMPLEX | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL,
+                                        "The lane on which the " + toString(currentTag) + " shall be inserted",
+                                        "first");
+    myTagProperties[currentTag].addAttribute(attrProperty);
+
+    attrProperty = AttributeProperties(SUMO_ATTR_DEPARTPOS,
+                                        ATTRPROPERTY_COMPLEX | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL /* ATTRPROPERTY_MULTIDISCRETE (Currently disabled) */,
+                                        "The position at which the " + toString(currentTag) + " shall enter the net",
+                                        "base");
+    myTagProperties[currentTag].addAttribute(attrProperty);
+
+    attrProperty = AttributeProperties(SUMO_ATTR_DEPARTSPEED,
+                                        ATTRPROPERTY_COMPLEX | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL /* ATTRPROPERTY_MULTIDISCRETE (Currently disabled) */,
+                                        "The speed with which the " + toString(currentTag) + " shall enter the network",
+                                        "0");
+    myTagProperties[currentTag].addAttribute(attrProperty);
+
+    attrProperty = AttributeProperties(SUMO_ATTR_ARRIVALLANE,
+                                        ATTRPROPERTY_COMPLEX | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL /* ATTRPROPERTY_MULTIDISCRETE (Currently disabled) */,
+                                        "The lane at which the " + toString(currentTag) + " shall leave the network",
+                                        "current");
+    myTagProperties[currentTag].addAttribute(attrProperty);
+
+    attrProperty = AttributeProperties(SUMO_ATTR_ARRIVALPOS,
+                                        ATTRPROPERTY_COMPLEX | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL /* ATTRPROPERTY_MULTIDISCRETE (Currently disabled) */,
+                                        "The position at which the " + toString(currentTag) + " shall leave the network",
+                                        "max");
+    myTagProperties[currentTag].addAttribute(attrProperty);
+
+    attrProperty = AttributeProperties(SUMO_ATTR_ARRIVALSPEED,
+                                        ATTRPROPERTY_COMPLEX | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL /* ATTRPROPERTY_MULTIDISCRETE (Currently disabled) */,
+                                        "The speed with which the " + toString(currentTag) + " shall leave the network",
+                                        "current");
+    myTagProperties[currentTag].addAttribute(attrProperty);
+
+    attrProperty = AttributeProperties(SUMO_ATTR_LINE,
+                                        ATTRPROPERTY_STRING | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL,
+                                        "A string specifying the id of a public transport line which can be used when specifying person rides");
+    myTagProperties[currentTag].addAttribute(attrProperty);
+
+    attrProperty = AttributeProperties(SUMO_ATTR_PERSON_NUMBER,
+                                        ATTRPROPERTY_INT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL,
+                                        "The number of occupied seats when the " + toString(currentTag) + " is inserted",
+                                        "0");
+    myTagProperties[currentTag].addAttribute(attrProperty);
+
+    attrProperty = AttributeProperties(SUMO_ATTR_CONTAINER_NUMBER,
+                                        ATTRPROPERTY_INT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL,
+                                        "The number of occupied container places when the " + toString(currentTag) + " is inserted",
+                                        "0");
+    myTagProperties[currentTag].addAttribute(attrProperty);
+
+    attrProperty = AttributeProperties(SUMO_ATTR_REROUTE,
+                                        ATTRPROPERTY_BOOL | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL,
+                                        "Whether the " + toString(currentTag) + " should be equipped with a rerouting device",
+                                        "0");
+    myTagProperties[currentTag].addAttribute(attrProperty);
+
+    attrProperty = AttributeProperties(SUMO_ATTR_DEPARTPOS_LAT,
+                                        ATTRPROPERTY_COMPLEX | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL,
+                                        "The lateral position on the departure lane at which the " + toString(currentTag) + " shall enter the net",
+                                        "center");
+    myTagProperties[currentTag].addAttribute(attrProperty);
+
+    attrProperty = AttributeProperties(SUMO_ATTR_ARRIVALPOS_LAT,
+                                        ATTRPROPERTY_COMPLEX | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL,
+                                        "The lateral position on the arrival lane at which the " + toString(currentTag) + " shall arrive",
+                                        "center");
+    myTagProperties[currentTag].addAttribute(attrProperty);
+}
+
+
+void
+GNEAttributeCarrier::fillCommonFlowAttributes(SumoXMLTag currentTag) {
+    // declare empty AttributeProperties
+    AttributeProperties attrProperty;
+
+    attrProperty = AttributeProperties(SUMO_ATTR_BEGIN,
+                                        ATTRPROPERTY_SUMOTIME | ATTRPROPERTY_DEFAULTVALUESTATIC,
+                                        "First " + toString(currentTag) + " departure time",
+                                        "0.00");
+    myTagProperties[currentTag].addAttribute(attrProperty);
+
+    attrProperty = AttributeProperties(SUMO_ATTR_END,
+                                        ATTRPROPERTY_SUMOTIME | ATTRPROPERTY_DEFAULTVALUESTATIC,
+                                        "End of departure interval",
+                                        "3600.00");
+    myTagProperties[currentTag].addAttribute(attrProperty);
+
+    attrProperty = AttributeProperties(SUMO_ATTR_NUMBER,
+                                        ATTRPROPERTY_INT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL,
+                                        "probability for emitting a " + toString(currentTag) + " each second (not together with vehsPerHour or period)",
+                                        "1800");
+    myTagProperties[currentTag].addAttribute(attrProperty);
+
+    attrProperty = AttributeProperties(SUMO_ATTR_VEHSPERHOUR,
+                                        ATTRPROPERTY_STRING | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL,
+                                        "Number of " + toString(currentTag) + "s per hour, equally spaced (not together with period or probability)",
+                                        "1800");
+    myTagProperties[currentTag].addAttribute(attrProperty);
+
+    attrProperty = AttributeProperties(SUMO_ATTR_PERIOD,
+                                        ATTRPROPERTY_STRING | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL,
+                                        "Insert equally spaced " + toString(currentTag) + "s at that period (not together with vehsPerHour or probability)",
+                                        "2");
+    myTagProperties[currentTag].addAttribute(attrProperty);
+
+    attrProperty = AttributeProperties(SUMO_ATTR_PROB,
+                                        ATTRPROPERTY_STRING | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL,
+                                        "probability for emitting a " + toString(currentTag) + " each second (not together with vehsPerHour or period)",
+                                        "0.5");
+    myTagProperties[currentTag].addAttribute(attrProperty);
+}
+
+
+void
+GNEAttributeCarrier::fillCarFollowingModelAttributes(SumoXMLTag currentTag) {
+    // declare empty AttributeProperties
+    AttributeProperties attrProperty;
+
     attrProperty = AttributeProperties(SUMO_ATTR_ACCEL,
                                        ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL,
                                        "The acceleration ability of vehicles of this type [m/s^2]",
                                        "2.60");
-    myTagProperties[SUMO_TAG_VTYPE].addAttribute(attrProperty);
+    myTagProperties[currentTag].addAttribute(attrProperty);
 
     attrProperty = AttributeProperties(SUMO_ATTR_DECEL,
                                        ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL,
                                        "The deceleration ability of vehicles of this type [m/s^2]",
                                        "4.50");
-    myTagProperties[SUMO_TAG_VTYPE].addAttribute(attrProperty);
+    myTagProperties[currentTag].addAttribute(attrProperty);
 
     attrProperty = AttributeProperties(SUMO_ATTR_APPARENTDECEL,
                                        ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL | ATTRPROPERTY_EXTENDED,
                                        "The apparent deceleration of the vehicle as used by the standard model [m/s^2]",
                                        "4.50");
-    myTagProperties[SUMO_TAG_VTYPE].addAttribute(attrProperty);
+    myTagProperties[currentTag].addAttribute(attrProperty);
 
     attrProperty = AttributeProperties(SUMO_ATTR_EMERGENCYDECEL,
                                        ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL | ATTRPROPERTY_EXTENDED,
                                        "The maximal physically possible deceleration for the vehicle [m/s^2]",
                                        "4.50");
-    myTagProperties[SUMO_TAG_VTYPE].addAttribute(attrProperty);
+    myTagProperties[currentTag].addAttribute(attrProperty);
 
     attrProperty = AttributeProperties(SUMO_ATTR_SIGMA,
                                        ATTRPROPERTY_FLOAT | ATTRPROPERTY_RANGE | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL,
                                        "Car-following model parameter",
                                        "0.50");
     attrProperty.setRange(0, 1);
-    myTagProperties[SUMO_TAG_VTYPE].addAttribute(attrProperty);
+    myTagProperties[currentTag].addAttribute(attrProperty);
 
     attrProperty = AttributeProperties(SUMO_ATTR_TAU,
                                        ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL,
                                        "Car-following model parameter",
                                        "1.00");
-    myTagProperties[SUMO_TAG_VTYPE].addAttribute(attrProperty);
+    myTagProperties[currentTag].addAttribute(attrProperty);
 
     attrProperty = AttributeProperties(SUMO_ATTR_TMP1,
                                        ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL | ATTRPROPERTY_EXTENDED,
                                        "SKRAUSSX parameter 1",
                                        "");
-    myTagProperties[SUMO_TAG_VTYPE].addAttribute(attrProperty);
+    myTagProperties[currentTag].addAttribute(attrProperty);
 
     attrProperty = AttributeProperties(SUMO_ATTR_TMP2,
                                        ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL | ATTRPROPERTY_EXTENDED,
                                        "SKRAUSSX parameter 2",
                                        "");
-    myTagProperties[SUMO_TAG_VTYPE].addAttribute(attrProperty);
+    myTagProperties[currentTag].addAttribute(attrProperty);
 
     attrProperty = AttributeProperties(SUMO_ATTR_TMP3,
                                        ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL | ATTRPROPERTY_EXTENDED,
                                        "SKRAUSSX parameter 3",
                                        "");
-    myTagProperties[SUMO_TAG_VTYPE].addAttribute(attrProperty);
+    myTagProperties[currentTag].addAttribute(attrProperty);
 
     attrProperty = AttributeProperties(SUMO_ATTR_TMP4,
                                        ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL | ATTRPROPERTY_EXTENDED,
                                        "SKRAUSSX parameter 4",
                                        "");
-    myTagProperties[SUMO_TAG_VTYPE].addAttribute(attrProperty);
+    myTagProperties[currentTag].addAttribute(attrProperty);
 
     attrProperty = AttributeProperties(SUMO_ATTR_TMP5,
                                        ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL | ATTRPROPERTY_EXTENDED,
                                        "SKRAUSSX parameter 5",
                                        "");
-    myTagProperties[SUMO_TAG_VTYPE].addAttribute(attrProperty);
+    myTagProperties[currentTag].addAttribute(attrProperty);
 
     attrProperty = AttributeProperties(SUMO_ATTR_CF_PWAGNER2009_TAULAST,
                                        ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL | ATTRPROPERTY_EXTENDED,
                                        "Peter Wagner 2009 parameter",
                                        "");
-    myTagProperties[SUMO_TAG_VTYPE].addAttribute(attrProperty);
+    myTagProperties[currentTag].addAttribute(attrProperty);
 
     attrProperty = AttributeProperties(SUMO_ATTR_CF_PWAGNER2009_APPROB,
                                        ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL | ATTRPROPERTY_EXTENDED,
                                        "Peter Wagner 2009 parameter",
                                        "");
-    myTagProperties[SUMO_TAG_VTYPE].addAttribute(attrProperty);
+    myTagProperties[currentTag].addAttribute(attrProperty);
 
     attrProperty = AttributeProperties(SUMO_ATTR_CF_IDMM_ADAPT_FACTOR,
                                        ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL | ATTRPROPERTY_EXTENDED,
                                        "IDMM parameter",
                                        "");
-    myTagProperties[SUMO_TAG_VTYPE].addAttribute(attrProperty);
+    myTagProperties[currentTag].addAttribute(attrProperty);
 
     attrProperty = AttributeProperties(SUMO_ATTR_CF_IDMM_ADAPT_TIME,
                                        ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL | ATTRPROPERTY_EXTENDED,
                                        "IDMM parameter",
                                        "");
-    myTagProperties[SUMO_TAG_VTYPE].addAttribute(attrProperty);
+    myTagProperties[currentTag].addAttribute(attrProperty);
 
     attrProperty = AttributeProperties(SUMO_ATTR_CF_WIEDEMANN_SECURITY,
                                        ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL | ATTRPROPERTY_EXTENDED,
                                        "Wiedemann parameter",
                                        "");
-    myTagProperties[SUMO_TAG_VTYPE].addAttribute(attrProperty);
+    myTagProperties[currentTag].addAttribute(attrProperty);
 
     attrProperty = AttributeProperties(SUMO_ATTR_CF_WIEDEMANN_ESTIMATION,
                                        ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL | ATTRPROPERTY_EXTENDED,
                                        "Wiedemann parameter",
                                        "");
-    myTagProperties[SUMO_TAG_VTYPE].addAttribute(attrProperty);
+    myTagProperties[currentTag].addAttribute(attrProperty);
 
     attrProperty = AttributeProperties(SUMO_ATTR_COLLISION_MINGAP_FACTOR,
                                        ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL | ATTRPROPERTY_EXTENDED,
                                        "MinGap factor parameter",
                                        "");
-    myTagProperties[SUMO_TAG_VTYPE].addAttribute(attrProperty);
+    myTagProperties[currentTag].addAttribute(attrProperty);
 
     attrProperty = AttributeProperties(SUMO_ATTR_K,
                                        ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL | ATTRPROPERTY_EXTENDED,
                                        "K parameter",
                                        "");
-    myTagProperties[SUMO_TAG_VTYPE].addAttribute(attrProperty);
+    myTagProperties[currentTag].addAttribute(attrProperty);
 
 
     attrProperty = AttributeProperties(SUMO_ATTR_CF_KERNER_PHI,
                                        ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL | ATTRPROPERTY_EXTENDED,
                                        "Kerner Phi parameter",
                                        "");
-    myTagProperties[SUMO_TAG_VTYPE].addAttribute(attrProperty);
+    myTagProperties[currentTag].addAttribute(attrProperty);
 
     attrProperty = AttributeProperties(SUMO_ATTR_CF_IDM_DELTA,
                                        ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL | ATTRPROPERTY_EXTENDED,
                                        "IDM Delta parameter",
                                        "");
-    myTagProperties[SUMO_TAG_VTYPE].addAttribute(attrProperty);
+    myTagProperties[currentTag].addAttribute(attrProperty);
 
     attrProperty = AttributeProperties(SUMO_ATTR_CF_IDM_STEPPING,
                                        ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL | ATTRPROPERTY_EXTENDED,
                                        "IDM Stepping parameter",
                                        "");
-    myTagProperties[SUMO_TAG_VTYPE].addAttribute(attrProperty);
+    myTagProperties[currentTag].addAttribute(attrProperty);
 
     attrProperty = AttributeProperties(SUMO_ATTR_TRAIN_TYPE,
                                        ATTRPROPERTY_STRING | ATTRPROPERTY_DISCRETE | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL | ATTRPROPERTY_EXTENDED,
                                        "Train Types",
                                        "NGT400");
     attrProperty.setDiscreteValues(SUMOXMLDefinitions::TrainTypes.getStrings());
-    myTagProperties[SUMO_TAG_VTYPE].addAttribute(attrProperty);
+    myTagProperties[currentTag].addAttribute(attrProperty);
 }
 
 
 void
-GNEAttributeCarrier::fillJunctionModelAttributes() {
+GNEAttributeCarrier::fillJunctionModelAttributes(SumoXMLTag currentTag) {
     // declare empty AttributeProperties
     AttributeProperties attrProperty;
     attrProperty = AttributeProperties(SUMO_ATTR_JM_CROSSING_GAP,
                                        ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL | ATTRPROPERTY_EXTENDED,
                                        "Minimum distance to pedestrians that are walking towards the conflict point with the ego vehicle.",
                                        "10");
-    myTagProperties[SUMO_TAG_VTYPE].addAttribute(attrProperty);
+    myTagProperties[currentTag].addAttribute(attrProperty);
 
     attrProperty = AttributeProperties(SUMO_ATTR_JM_IGNORE_KEEPCLEAR_TIME,
                                        ATTRPROPERTY_FLOAT | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL | ATTRPROPERTY_EXTENDED,
                                        "The accumulated waiting time after which a vehicle will drive onto an intersection even though this might cause jamming.",
                                        "-1");
-    myTagProperties[SUMO_TAG_VTYPE].addAttribute(attrProperty);
+    myTagProperties[currentTag].addAttribute(attrProperty);
 
     attrProperty = AttributeProperties(SUMO_ATTR_JM_DRIVE_AFTER_YELLOW_TIME,
-        ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL | ATTRPROPERTY_EXTENDED,
-        "This value causes vehicles to violate a yellow light if the duration of the yellow phase is lower than the given threshold.",
-        "0");
-    myTagProperties[SUMO_TAG_VTYPE].addAttribute(attrProperty);
+                                        ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL | ATTRPROPERTY_EXTENDED,
+                                        "This value causes vehicles to violate a yellow light if the duration of the yellow phase is lower than the given threshold.",
+                                        "-1");
+    myTagProperties[currentTag].addAttribute(attrProperty);
 
     attrProperty = AttributeProperties(SUMO_ATTR_JM_DRIVE_AFTER_RED_TIME,
                                        ATTRPROPERTY_FLOAT | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL | ATTRPROPERTY_EXTENDED,
                                        "This value causes vehicles to violate a red light if the duration of the red phase is lower than the given threshold.",
                                        "-1");
-    myTagProperties[SUMO_TAG_VTYPE].addAttribute(attrProperty);
+    myTagProperties[currentTag].addAttribute(attrProperty);
 
     attrProperty = AttributeProperties(SUMO_ATTR_JM_DRIVE_RED_SPEED,
                                        ATTRPROPERTY_STRING | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL | ATTRPROPERTY_EXTENDED,
                                        "This value causes vehicles affected by jmDriveAfterRedTime to slow down when violating a red light.",
-                                       "maxSpeed");
-    myTagProperties[SUMO_TAG_VTYPE].addAttribute(attrProperty);
+                                       "0.0");
+    myTagProperties[currentTag].addAttribute(attrProperty);
 
     attrProperty = AttributeProperties(SUMO_ATTR_JM_IGNORE_FOE_PROB,
                                        ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL | ATTRPROPERTY_EXTENDED,
                                        "This value causes vehicles to ignore foe vehicles that have right-of-way with the given probability.",
-                                       "0");
-    myTagProperties[SUMO_TAG_VTYPE].addAttribute(attrProperty);
+                                       "0.0");
+    myTagProperties[currentTag].addAttribute(attrProperty);
 
     attrProperty = AttributeProperties(SUMO_ATTR_JM_IGNORE_FOE_SPEED,
                                        ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL | ATTRPROPERTY_EXTENDED,
                                        "This value is used in conjunction with jmIgnoreFoeProb. Only vehicles with a speed below or equal to the given value may be ignored.",
-                                       "0");
-    myTagProperties[SUMO_TAG_VTYPE].addAttribute(attrProperty);
+                                       "0.0");
+    myTagProperties[currentTag].addAttribute(attrProperty);
 
     attrProperty = AttributeProperties(SUMO_ATTR_JM_SIGMA_MINOR,
                                        ATTRPROPERTY_STRING | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL | ATTRPROPERTY_EXTENDED,
                                        "This value configures driving imperfection (dawdling) while passing a minor link.",
-                                       "sigma");
-    myTagProperties[SUMO_TAG_VTYPE].addAttribute(attrProperty);
+                                       "0.0");
+    myTagProperties[currentTag].addAttribute(attrProperty);
 
     attrProperty = AttributeProperties(SUMO_ATTR_JM_TIMEGAP_MINOR,
                                        ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL | ATTRPROPERTY_EXTENDED,
                                        "This value defines the minimum time gap when passing ahead of a prioritized vehicle. ",
                                        "1");
-    myTagProperties[SUMO_TAG_VTYPE].addAttribute(attrProperty);
+    myTagProperties[currentTag].addAttribute(attrProperty);
 
     attrProperty = AttributeProperties(SUMO_ATTR_IMPATIENCE,
                                        ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL | ATTRPROPERTY_EXTENDED,
                                        "Willingess of drivers to impede vehicles with higher priority",
+                                       "0.0");
+    myTagProperties[currentTag].addAttribute(attrProperty);
+}
+
+
+void 
+GNEAttributeCarrier::fillLaneChangingModelAttributes(SumoXMLTag currentTag) {
+    // declare empty AttributeProperties
+    AttributeProperties attrProperty;
+    
+    attrProperty = AttributeProperties(SUMO_ATTR_LCA_STRATEGIC_PARAM,
+                                       ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL | ATTRPROPERTY_EXTENDED,
+                                       "The eagerness for performing strategic lane changing. Higher values result in earlier lane-changing.",
+                                       "1.0");
+    myTagProperties[currentTag].addAttribute(attrProperty);
+
+    attrProperty = AttributeProperties(SUMO_ATTR_LCA_COOPERATIVE_PARAM,
+                                       ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL | ATTRPROPERTY_EXTENDED,
+                                       "The willingness for performing cooperative lane changing. Lower values result in reduced cooperation.",
+                                       "1.0");
+    myTagProperties[currentTag].addAttribute(attrProperty);
+
+    attrProperty = AttributeProperties(SUMO_ATTR_LCA_SPEEDGAIN_PARAM,
+                                       ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL | ATTRPROPERTY_EXTENDED,
+                                       "The eagerness for performing lane changing to gain speed. Higher values result in more lane-changing.",
+                                       "1.0");
+    myTagProperties[currentTag].addAttribute(attrProperty);
+
+    attrProperty = AttributeProperties(SUMO_ATTR_LCA_KEEPRIGHT_PARAM,
+                                       ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL | ATTRPROPERTY_EXTENDED,
+                                       "The eagerness for following the obligation to keep right. Higher values result in earlier lane-changing.",
+                                       "1.0");
+    myTagProperties[currentTag].addAttribute(attrProperty);
+    
+    attrProperty = AttributeProperties(SUMO_ATTR_LCA_SUBLANE_PARAM,
+                                       ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL | ATTRPROPERTY_EXTENDED,
+                                       "The eagerness for using the configured lateral alignment within the lane. Higher values result in increased willingness to sacrifice speed for alignment.",
+                                       "1.0");
+    myTagProperties[currentTag].addAttribute(attrProperty);
+
+    attrProperty = AttributeProperties(SUMO_ATTR_LCA_OPPOSITE_PARAM,
+                                       ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL | ATTRPROPERTY_EXTENDED,
+                                       "The eagerness for overtaking through the opposite-direction lane. Higher values result in more lane-changing.",
+                                       "1.0");
+    myTagProperties[currentTag].addAttribute(attrProperty);
+
+    attrProperty = AttributeProperties(SUMO_ATTR_LCA_PUSHY,
+                                       ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL | ATTRPROPERTY_EXTENDED,
+                                       "Willingness to encroach laterally on other drivers.",
                                        "0.00");
-    myTagProperties[SUMO_TAG_VTYPE].addAttribute(attrProperty);
+    myTagProperties[currentTag].addAttribute(attrProperty);
+
+    attrProperty = AttributeProperties(SUMO_ATTR_LCA_PUSHYGAP,
+                                       ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL | ATTRPROPERTY_EXTENDED,
+                                       "Minimum lateral gap when encroaching laterally on other drives (alternative way to define lcPushy)",
+                                       "0.00");
+    myTagProperties[currentTag].addAttribute(attrProperty);
+
+    attrProperty = AttributeProperties(SUMO_ATTR_LCA_ASSERTIVE,
+                                       ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL | ATTRPROPERTY_EXTENDED,
+                                       "Willingness to accept lower front and rear gaps on the target lane.",
+                                       "1.0");
+    myTagProperties[currentTag].addAttribute(attrProperty);
+
+    attrProperty = AttributeProperties(SUMO_ATTR_LCA_IMPATIENCE,
+                                       ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL | ATTRPROPERTY_EXTENDED,
+                                       "Dynamic factor for modifying lcAssertive and lcPushy.",
+                                       "0.00");
+    myTagProperties[currentTag].addAttribute(attrProperty);
+
+    attrProperty = AttributeProperties(SUMO_ATTR_LCA_TIME_TO_IMPATIENCE,
+                                       ATTRPROPERTY_STRING | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL | ATTRPROPERTY_EXTENDED,
+                                       "Time to reach maximum impatience (of 1). Impatience grows whenever a lane-change manoeuvre is blocked.",
+                                       "infinity");
+    myTagProperties[currentTag].addAttribute(attrProperty);
+
+    attrProperty = AttributeProperties(SUMO_ATTR_LCA_ACCEL_LAT,
+                                       ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL | ATTRPROPERTY_EXTENDED,
+                                       "Maximum lateral acceleration per second.",
+                                       "1.0");
+    myTagProperties[currentTag].addAttribute(attrProperty);
+
+    attrProperty = AttributeProperties(SUMO_ATTR_LCA_LOOKAHEADLEFT,
+                                       ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL | ATTRPROPERTY_EXTENDED,
+                                       "Factor for configuring the strategic lookahead distance when a change to the left is necessary (relative to right lookahead).",
+                                       "2.0");
+    myTagProperties[currentTag].addAttribute(attrProperty);
+
+    attrProperty = AttributeProperties(SUMO_ATTR_LCA_SPEEDGAINRIGHT,
+                                       ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL | ATTRPROPERTY_EXTENDED,
+                                       "Factor for configuring the treshold asymmetry when changing to the left or to the right for speed gain.",
+                                       "0.1");
+    myTagProperties[currentTag].addAttribute(attrProperty);
+
+    attrProperty = AttributeProperties(SUMO_ATTR_LCA_MAXSPEEDLATSTANDING,
+                                       ATTRPROPERTY_STRING | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL | ATTRPROPERTY_EXTENDED,
+                                       "Upper bound on lateral speed when standing.",
+                                       "0.00");
+    myTagProperties[currentTag].addAttribute(attrProperty);
+
+    attrProperty = AttributeProperties(SUMO_ATTR_LCA_MAXSPEEDLATFACTOR,
+                                       ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL | ATTRPROPERTY_EXTENDED,
+                                       "Upper bound on lateral speed while moving computed as lcMaxSpeedLatStanding + lcMaxSpeedLatFactor * getSpeed()",
+                                       "1.00");
+    myTagProperties[currentTag].addAttribute(attrProperty);
+
+    attrProperty = AttributeProperties(SUMO_ATTR_LCA_TURN_ALIGNMENT_DISTANCE,
+                                       ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL | ATTRPROPERTY_EXTENDED,
+                                       "Distance to an upcoming turn on the vehicles route, below which the alignment should be dynamically adapted to match the turn direction.",
+                                       "0.00");
+    myTagProperties[currentTag].addAttribute(attrProperty);
+
+    attrProperty = AttributeProperties(SUMO_ATTR_LCA_OVERTAKE_RIGHT,
+                                       ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL | ATTRPROPERTY_EXTENDED,
+                                       "The probability for violating rules gainst overtaking on the right.",
+                                       "0.00");
+    myTagProperties[currentTag].addAttribute(attrProperty);
+
+    /*
+    attrProperty = AttributeProperties(SUMO_ATTR_LCA_EXPERIMENTAL1,
+                                       ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL | ATTRPROPERTY_EXTENDED,
+                                       "XXXXX",
+                                       "0.00");
+    myTagProperties[currentTag].addAttribute(attrProperty);
+    */
+}
+
+
+void 
+GNEAttributeCarrier::fillCommonPersonAttributes(SumoXMLTag currentTag) {
+    // declare empty AttributeProperties
+    AttributeProperties attrProperty;
+
+    attrProperty = AttributeProperties(SUMO_ATTR_ID,
+                                        ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE,
+                                        "The name of the " + toString(currentTag));
+    myTagProperties[currentTag].addAttribute(attrProperty);
+
+    attrProperty = AttributeProperties(SUMO_ATTR_TYPE,
+                                        ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_DEFAULTVALUESTATIC,
+                                        "The id of the " + toString(currentTag) + " type to use for this " + toString(currentTag) +
+                                        DEFAULT_VTYPE_ID);
+    myTagProperties[currentTag].addAttribute(attrProperty);
+
+    attrProperty = AttributeProperties(SUMO_ATTR_COLOR,
+                                        ATTRPROPERTY_STRING | ATTRPROPERTY_COLOR | ATTRPROPERTY_DEFAULTVALUESTATIC,
+                                        "This " + toString(currentTag) + "'s color",
+                                        "yellow");
+    myTagProperties[currentTag].addAttribute(attrProperty);
+
+    attrProperty = AttributeProperties(SUMO_ATTR_DEPARTPOS,
+                                        ATTRPROPERTY_COMPLEX | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL,
+                                        "The position at which the " + toString(currentTag) + " shall enter the net",
+                                        "base");
+    myTagProperties[currentTag].addAttribute(attrProperty);
 }
 
 

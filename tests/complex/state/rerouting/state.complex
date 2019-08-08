@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed May 22 08:17:56 2019 by Eclipse SUMO Version v1_2_0+0252-83989c2
+<!-- generated on Mon Aug  5 10:48:34 2019 by Eclipse SUMO Version v1_2_0+1398-467102f
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -22,7 +22,7 @@
 </configuration>
 -->
 
-<snapshot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd" version="v1_2_0+0252-83989c2" time="500.00">
+<snapshot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd" version="v1_2_0+1398-467102f" time="500.00">
     <route id="!veh100" state="0" edges="gneE0 gneE3"/>
     <route id="!veh100!var#1" state="0" edges="gneE0 gneE4 gneE5 gneE3"/>
     <route id="!veh100!var#2" state="0" edges="gneE0 gneE1 gneE2 gneE3"/>
@@ -3011,26 +3011,11 @@
     <lane id=":gneJ1_0_0">
         <vehicles value="veh145"/>
     </lane>
-    <lane id=":gneJ1_1_0">
-        <vehicles value=""/>
-    </lane>
-    <lane id=":gneJ3_0_0">
-        <vehicles value=""/>
-    </lane>
     <lane id=":gneJ4_0_0">
         <vehicles value="veh136"/>
     </lane>
-    <lane id=":gneJ4_1_0">
-        <vehicles value=""/>
-    </lane>
-    <lane id=":gneJ6_0_0">
-        <vehicles value=""/>
-    </lane>
     <lane id="gneE0_0">
         <vehicles value="veh154 veh153 veh152 veh151 veh150 veh149 veh148 veh147 veh146"/>
-    </lane>
-    <lane id="gneE1_0">
-        <vehicles value=""/>
     </lane>
     <lane id="gneE2_0">
         <vehicles value="veh101 veh100 veh99 veh98 veh97 veh96 veh95"/>

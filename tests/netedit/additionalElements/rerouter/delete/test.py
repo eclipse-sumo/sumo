@@ -32,7 +32,7 @@ netedit.setZoom("25", "0", "25")
 netedit.additionalMode()
 
 # select rerouter
-netedit.changeAdditional("rerouter")
+netedit.changeElement("rerouter")
 
 # select edge child
 netedit.selectAdditionalChild(12, 0)
@@ -65,7 +65,7 @@ netedit.changeAutomaticallyDeleteAdditionals(referencePosition)
 netedit.leftClick(referencePosition, 300, 200)
 
 # wait warning
-netedit.waitAutomaticallyDeleteAdditionalsWarning()
+netedit.waitDeleteWarning()
 
 # check redo
 netedit.redo(referencePosition, 3)

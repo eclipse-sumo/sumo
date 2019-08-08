@@ -21,13 +21,14 @@
 
 #include <config.h>
 
+#include <netedit/GNEApplicationWindow.h>
 #include <netedit/GNENet.h>
 #include <netedit/GNEUndoList.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNEViewParent.h>
-#include <netedit/additionals/GNEAdditional.h>
 #include <netedit/additionals/GNEPOI.h>
 #include <netedit/additionals/GNETAZ.h>
+#include <netedit/changes/GNEChange_Children.h>
 #include <netedit/demandelements/GNEDemandElement.h>
 #include <netedit/dialogs/GNEDialog_AllowDisallow.h>
 #include <netedit/dialogs/GNEGenericParameterDialog.h>
@@ -38,24 +39,34 @@
 #include <netedit/netelements/GNELane.h>
 #include <utils/common/StringTokenizer.h>
 #include <utils/foxtools/MFXMenuHeader.h>
-#include <utils/foxtools/MFXUtils.h>
+#include <utils/gui/div/GLHelper.h>
 #include <utils/gui/div/GUIDesigns.h>
-#include <utils/gui/images/GUIIconSubSys.h>
+#include <utils/gui/globjects/GLIncludes.h>
 #include <utils/gui/images/GUITexturesHelper.h>
 #include <utils/gui/windows/GUIAppEnum.h>
-#include <utils/gui/windows/GUIMainWindow.h>
+#include <utils/vehicle/SUMOVehicleParameter.h>
 
 #include "GNEFrame.h"
 #include "GNEInspectorFrame.h"
-#include "GNEDeleteFrame.h"
 
 
 // ===========================================================================
 // FOX callback mapping
 // ===========================================================================
 
-FXDEFMAP(GNEFrame::ItemSelector) ItemSelectorMap[] = {
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_SET_TYPE,    GNEFrame::ItemSelector::onCmdSelectItem)
+FXDEFMAP(GNEFrame::TagSelector) TagSelectorMap[] = {
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_TAGTYPE_SELECTED,    GNEFrame::TagSelector::onCmdSelectTagType),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_TAG_SELECTED,        GNEFrame::TagSelector::onCmdSelectTag)
+};
+
+FXDEFMAP(GNEFrame::DemandElementSelector) DemandElementSelectorMap[] = {
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_SET_TYPE,    GNEFrame::DemandElementSelector::onCmdSelectDemandElement),
+};
+
+FXDEFMAP(GNEFrame::EdgePathCreator) EdgePathCreatorMap[] = {
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_EDGEPATH_ABORT,      GNEFrame::EdgePathCreator::onCmdAbortRouteCreation),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_EDGEPATH_FINISH,     GNEFrame::EdgePathCreator::onCmdFinishRouteCreation),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_EDGEPATH_REMOVELAST, GNEFrame::EdgePathCreator::onCmdRemoveLastInsertedElement)
 };
 
 FXDEFMAP(GNEFrame::AttributesCreator) AttributesCreatorMap[] = {
@@ -84,11 +95,13 @@ FXDEFMAP(GNEFrame::AttributesEditorExtended) AttributesEditorExtendedMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE_DIALOG,   GNEFrame::AttributesEditorExtended::onCmdOpenDialog)
 };
 
-FXDEFMAP(GNEFrame::ACHierarchy) ACHierarchyMap[] = {
-    FXMAPFUNC(SEL_COMMAND,              MID_GNE_INSPECTORFRAME_CENTER,      GNEFrame::ACHierarchy::onCmdCenterItem),
-    FXMAPFUNC(SEL_COMMAND,              MID_GNE_INSPECTORFRAME_INSPECT,     GNEFrame::ACHierarchy::onCmdInspectItem),
-    FXMAPFUNC(SEL_COMMAND,              MID_GNE_INSPECTORFRAME_DELETE,      GNEFrame::ACHierarchy::onCmdDeleteItem),
-    FXMAPFUNC(SEL_RIGHTBUTTONRELEASE,   MID_GNE_DELETEFRAME_CHILDS,         GNEFrame::ACHierarchy::onCmdShowChildMenu)
+FXDEFMAP(GNEFrame::AttributeCarrierHierarchy) AttributeCarrierHierarchyMap[] = {
+    FXMAPFUNC(SEL_COMMAND,              MID_GNE_CENTER,                     GNEFrame::AttributeCarrierHierarchy::onCmdCenterItem),
+    FXMAPFUNC(SEL_COMMAND,              MID_GNE_INSPECT,                    GNEFrame::AttributeCarrierHierarchy::onCmdInspectItem),
+    FXMAPFUNC(SEL_COMMAND,              MID_GNE_DELETE,                     GNEFrame::AttributeCarrierHierarchy::onCmdDeleteItem),
+    FXMAPFUNC(SEL_COMMAND,              MID_GNE_ACHIERARCHY_MOVEUP,         GNEFrame::AttributeCarrierHierarchy::onCmdMoveItemUp),
+    FXMAPFUNC(SEL_COMMAND,              MID_GNE_ACHIERARCHY_MOVEDOWN,       GNEFrame::AttributeCarrierHierarchy::onCmdMoveItemDown),
+    FXMAPFUNC(SEL_RIGHTBUTTONRELEASE,   MID_GNE_ACHIERARCHY_SHOWCHILDMENU,  GNEFrame::AttributeCarrierHierarchy::onCmdShowChildMenu)
 };
 
 FXDEFMAP(GNEFrame::GenericParametersEditor) GenericParametersEditorMap[] = {
@@ -108,13 +121,15 @@ FXDEFMAP(GNEFrame::NeteditAttributes) NeteditAttributesMap[] = {
 };
 
 // Object implementation
-FXIMPLEMENT(GNEFrame::ItemSelector,                             FXGroupBox,         ItemSelectorMap,                ARRAYNUMBER(ItemSelectorMap))
+FXIMPLEMENT(GNEFrame::TagSelector,                              FXGroupBox,         TagSelectorMap,                 ARRAYNUMBER(TagSelectorMap))
+FXIMPLEMENT(GNEFrame::DemandElementSelector,                    FXGroupBox,         DemandElementSelectorMap,       ARRAYNUMBER(DemandElementSelectorMap))
+FXIMPLEMENT(GNEFrame::EdgePathCreator,                          FXGroupBox,         EdgePathCreatorMap,             ARRAYNUMBER(EdgePathCreatorMap))
 FXIMPLEMENT(GNEFrame::AttributesCreator,                        FXGroupBox,         AttributesCreatorMap,           ARRAYNUMBER(AttributesCreatorMap))
 FXIMPLEMENT(GNEFrame::AttributesCreator::AttributesCreatorRow,  FXHorizontalFrame,  RowCreatorMap,                  ARRAYNUMBER(RowCreatorMap))
 FXIMPLEMENT(GNEFrame::AttributesEditor,                         FXGroupBox,         AttributesEditorMap,            ARRAYNUMBER(AttributesEditorMap))
 FXIMPLEMENT(GNEFrame::AttributesEditor::AttributesEditorRow,    FXHorizontalFrame,  AttributesEditorRowMap,         ARRAYNUMBER(AttributesEditorRowMap))
 FXIMPLEMENT(GNEFrame::AttributesEditorExtended,                 FXGroupBox,         AttributesEditorExtendedMap,    ARRAYNUMBER(AttributesEditorExtendedMap))
-FXIMPLEMENT(GNEFrame::ACHierarchy,                              FXGroupBox,         ACHierarchyMap,                 ARRAYNUMBER(ACHierarchyMap))
+FXIMPLEMENT(GNEFrame::AttributeCarrierHierarchy,                FXGroupBox,         AttributeCarrierHierarchyMap,   ARRAYNUMBER(AttributeCarrierHierarchyMap))
 FXIMPLEMENT(GNEFrame::GenericParametersEditor,                  FXGroupBox,         GenericParametersEditorMap,     ARRAYNUMBER(GenericParametersEditorMap))
 FXIMPLEMENT(GNEFrame::DrawingShape,                             FXGroupBox,         DrawingShapeMap,                ARRAYNUMBER(DrawingShapeMap))
 FXIMPLEMENT(GNEFrame::NeteditAttributes,                        FXGroupBox,         NeteditAttributesMap,           ARRAYNUMBER(NeteditAttributesMap))
@@ -130,130 +145,659 @@ FXFont* GNEFrame::myFrameHeaderFont = nullptr;
 // ===========================================================================
 
 // ---------------------------------------------------------------------------
-// GNEFrame::ItemSelector - methods
+// GNEFrame::TagSelector - methods
 // ---------------------------------------------------------------------------
 
-GNEFrame::ItemSelector::ItemSelector(GNEFrame* frameParent, GNEAttributeCarrier::TagType type, bool onlyDrawables) :
+GNEFrame::TagSelector::TagSelector(GNEFrame* frameParent, GNEAttributeCarrier::TagType type, bool onlyDrawables) :
     FXGroupBox(frameParent->myContentFrame, "Element", GUIDesignGroupBoxFrame),
     myFrameParent(frameParent) {
     // first check that property is valid
-    switch (type)     {
+    switch (type) {
         case GNEAttributeCarrier::TagType::TAGTYPE_NETELEMENT:
-            setText("Net element");
+            setText("Net elements");
             break;
         case GNEAttributeCarrier::TagType::TAGTYPE_ADDITIONAL:
-            setText("Additional element");
+            setText("Additional elements");
             break;
         case GNEAttributeCarrier::TagType::TAGTYPE_SHAPE:
-            setText("Shape element");
+            setText("Shape elements");
             break;
         case GNEAttributeCarrier::TagType::TAGTYPE_TAZ:
-            setText("TAZ element");
+            setText("TAZ elements");
             break;
         case GNEAttributeCarrier::TagType::TAGTYPE_VEHICLE:
-            setText("Vehicle");
+            setText("Vehicles");
             break;
         case GNEAttributeCarrier::TagType::TAGTYPE_STOP:
-            setText("Stop");
+            setText("Stops");
+            break;
+        case GNEAttributeCarrier::TagType::TAGTYPE_PERSON:
+            setText("Persons");
+            break;
+        case GNEAttributeCarrier::TagType::TAGTYPE_PERSONPLAN:
+            setText("Person plans");
+            // person plan type has four sub-groups
+            myListOfTagTypes.push_back(std::make_pair("person trips", GNEAttributeCarrier::TagType::TAGTYPE_PERSONTRIP));
+            myListOfTagTypes.push_back(std::make_pair("walks", GNEAttributeCarrier::TagType::TAGTYPE_WALK));
+            myListOfTagTypes.push_back(std::make_pair("rides", GNEAttributeCarrier::TagType::TAGTYPE_RIDE));
+            myListOfTagTypes.push_back(std::make_pair("stops", GNEAttributeCarrier::TagType::TAGTYPE_PERSONSTOP));
+            break;
+        case GNEAttributeCarrier::TagType::TAGTYPE_PERSONTRIP:
+            setText("Person trips");
+            break;
+        case GNEAttributeCarrier::TagType::TAGTYPE_WALK:
+            setText("Walks");
+            break;
+        case GNEAttributeCarrier::TagType::TAGTYPE_RIDE:
+            setText("Rides");
+            break;
+        case GNEAttributeCarrier::TagType::TAGTYPE_PERSONSTOP:
+            setText("Person stops");
             break;
         default:
             throw ProcessError("invalid tag property");
     }
-    // fill myListOfTags
-    myListOfTags = GNEAttributeCarrier::allowedTagsByCategory(type, onlyDrawables);
+
     // Create FXComboBox
-    myTypeMatchBox = new FXComboBox(this, GUIDesignComboBoxNCol, this, MID_GNE_SET_TYPE, GUIDesignComboBox);
+    myTagTypesMatchBox = new FXComboBox(this, GUIDesignComboBoxNCol, this, MID_GNE_TAGTYPE_SELECTED, GUIDesignComboBox);
+    // Create FXComboBox
+    myTagsMatchBox = new FXComboBox(this, GUIDesignComboBoxNCol, this, MID_GNE_TAG_SELECTED, GUIDesignComboBox);
+    // Fill comboBox depending of TagTypes
+    if (myListOfTagTypes.size() > 0) {
+        // fill myTypeMatchBox with list of tags
+        for (const auto& i : myListOfTagTypes) {
+            myTagTypesMatchBox->appendItem(i.first.c_str());
+        }
+        // Set visible items
+        myTagTypesMatchBox->setNumVisible((int)myTagTypesMatchBox->getNumItems());
+        // fill myListOfTags with personTrips (the first Tag Type)
+        myListOfTags = GNEAttributeCarrier::allowedTagsByCategory(GNEAttributeCarrier::TagType::TAGTYPE_PERSONTRIP, onlyDrawables);
+    } else {
+        myTagTypesMatchBox->hide();
+        // fill myListOfTags
+        myListOfTags = GNEAttributeCarrier::allowedTagsByCategory(type, onlyDrawables);
+
+    }
     // fill myTypeMatchBox with list of tags
     for (const auto& i : myListOfTags) {
-        myTypeMatchBox->appendItem(toString(i).c_str());
+        myTagsMatchBox->appendItem(toString(i).c_str());
     }
     // Set visible items
-    myTypeMatchBox->setNumVisible((int)myTypeMatchBox->getNumItems());
-    // ItemSelector is always shown
+    myTagsMatchBox->setNumVisible((int)myTagsMatchBox->getNumItems());
+    // TagSelector is always shown
     show();
 }
 
 
-GNEFrame::ItemSelector::~ItemSelector() {}
+GNEFrame::TagSelector::~TagSelector() {}
 
 
 void
-GNEFrame::ItemSelector::showItemSelector(bool enableModuls) {
+GNEFrame::TagSelector::showTagSelector() {
     show();
-    // check if parent moduls has to be enabled
-    if (enableModuls && (myCurrentTagProperties.getTag() != SUMO_TAG_NOTHING)) {
-        myFrameParent->enableModuls(myCurrentTagProperties);
-    }
 }
 
 
 void
-GNEFrame::ItemSelector::hideItemSelector() {
+GNEFrame::TagSelector::hideTagSelector() {
     hide();
-    myFrameParent->disableModuls();
 }
 
 
 const GNEAttributeCarrier::TagProperties&
-GNEFrame::ItemSelector::getCurrentTagProperties() const {
+GNEFrame::TagSelector::getCurrentTagProperties() const {
     return myCurrentTagProperties;
 }
 
 
-void
-GNEFrame::ItemSelector::setCurrentTypeTag(SumoXMLTag typeTag) {
+void 
+GNEFrame::TagSelector::setCurrentTagType(GNEAttributeCarrier::TagType tagType) {
     // set empty tag properties
     myCurrentTagProperties = GNEAttributeCarrier::TagProperties();
     // make sure that tag is in myTypeMatchBox
-    for (int i = 0; i < (int)myTypeMatchBox->getNumItems(); i++) {
-        if (myTypeMatchBox->getItem(i).text() == toString(typeTag)) {
-            myTypeMatchBox->setCurrentItem(i);
-            // Set new current type
-            myCurrentTagProperties = GNEAttributeCarrier::getTagProperties(typeTag);
+    for (int i = 0; i < (int)myTagsMatchBox->getNumItems(); i++) {
+        if (myTagsMatchBox->getItem(i).text() == toString(tagType)) {
+            myTagsMatchBox->setCurrentItem(i);
+            // fill myListOfTags with personTrips (the first Tag Type)
+            myListOfTags = GNEAttributeCarrier::allowedTagsByCategory(GNEAttributeCarrier::TagType::TAGTYPE_PERSONTRIP, true);
+            // clear myTagsMatchBox
+            myTagsMatchBox->clearItems();
+            // fill myTypeMatchBox with list of tags
+            for (const auto& j : myListOfTags) {
+                myTagsMatchBox->appendItem(toString(j).c_str());
+            }
+            // Set visible items
+            myTagsMatchBox->setNumVisible((int)myTagsMatchBox->getNumItems());
         }
     }
-    // Check that typeTag type is valid
-    if (myCurrentTagProperties.getTag() != SUMO_TAG_NOTHING) {
-        // show moduls if selected item is valid
-        myFrameParent->enableModuls(myCurrentTagProperties);
-    } else {
-        // hide all moduls if selected item isn't valid
-        myFrameParent->disableModuls();
-    }
+    // call tag selected function
+    myFrameParent->tagSelected();
 }
 
 
 void
-GNEFrame::ItemSelector::refreshTagProperties() {
+GNEFrame::TagSelector::setCurrentTag(SumoXMLTag newTag) {
+    // set empty tag properties
+    myCurrentTagProperties = GNEAttributeCarrier::TagProperties();
+    // make sure that tag is in myTypeMatchBox
+    for (int i = 0; i < (int)myTagsMatchBox->getNumItems(); i++) {
+        if (myTagsMatchBox->getItem(i).text() == toString(newTag)) {
+            myTagsMatchBox->setCurrentItem(i);
+            // Set new current type
+            myCurrentTagProperties = GNEAttributeCarrier::getTagProperties(newTag);
+        }
+    }
+    // call tag selected function
+    myFrameParent->tagSelected();
+}
+
+
+void
+GNEFrame::TagSelector::refreshTagProperties() {
     // simply call onCmdSelectItem (to avoid duplicated code)
-    onCmdSelectItem(0, 0, 0);
+    onCmdSelectTag(0, 0, 0);
+}
+
+
+long GNEFrame::TagSelector::onCmdSelectTagType(FXObject*, FXSelector, void*) {
+    // Check if value of myTypeMatchBox correspond of an allowed additional tags
+    for (const auto& i : myListOfTagTypes) {
+        if (i.first == myTagTypesMatchBox->getText().text()) {
+            // set color of myTagTypesMatchBox to black (valid)
+            myTagTypesMatchBox->setTextColor(FXRGB(0, 0, 0));
+            // fill myListOfTags with personTrips (the first Tag Type)
+            myListOfTags = GNEAttributeCarrier::allowedTagsByCategory(i.second, true);
+            // show and clear myTagsMatchBox
+            myTagsMatchBox->show();
+            myTagsMatchBox->clearItems();
+            // fill myTypeMatchBox with list of tags
+            for (const auto& j : myListOfTags) {
+                myTagsMatchBox->appendItem(toString(j).c_str());
+            }
+            // Set visible items
+            myTagsMatchBox->setNumVisible((int)myTagsMatchBox->getNumItems());
+            // Write Warning in console if we're in testing mode
+            WRITE_DEBUG(("Selected item '" + myTagsMatchBox->getText() + "' in TagTypeSelector").text());
+            // call onCmdSelectTag
+            return onCmdSelectTag(nullptr, 0, nullptr);
+        }
+    }
+    // if TagType isn't valid, hide myTagsMatchBox
+    myTagsMatchBox->hide();
+    // if additional name isn't correct, set SUMO_TAG_NOTHING as current type
+    myCurrentTagProperties = myInvalidTagProperty;
+    // call tag selected function
+    myFrameParent->tagSelected();
+    // set color of myTagTypesMatchBox to red (invalid)
+    myTagTypesMatchBox->setTextColor(FXRGB(255, 0, 0));
+    // Write Warning in console if we're in testing mode
+    WRITE_DEBUG("Selected invalid item in TagTypeSelector");
+    return 1;
 }
 
 
 long
-GNEFrame::ItemSelector::onCmdSelectItem(FXObject*, FXSelector, void*) {
+GNEFrame::TagSelector::onCmdSelectTag(FXObject*, FXSelector, void*) {
     // Check if value of myTypeMatchBox correspond of an allowed additional tags
     for (const auto& i : myListOfTags) {
-        if (toString(i) == myTypeMatchBox->getText().text()) {
+        if (toString(i) == myTagsMatchBox->getText().text()) {
             // set color of myTypeMatchBox to black (valid)
-            myTypeMatchBox->setTextColor(FXRGB(0, 0, 0));
+            myTagsMatchBox->setTextColor(FXRGB(0, 0, 0));
             // Set new current type
             myCurrentTagProperties = GNEAttributeCarrier::getTagProperties(i);
-            // show moduls if selected item is valid
-            myFrameParent->enableModuls(myCurrentTagProperties);
+            // call tag selected function
+            myFrameParent->tagSelected();
             // Write Warning in console if we're in testing mode
-            WRITE_DEBUG(("Selected item '" + myTypeMatchBox->getText() + "' in ItemSelector").text());
+            WRITE_DEBUG(("Selected item '" + myTagsMatchBox->getText() + "' in TagSelector").text());
             return 1;
         }
     }
     // if additional name isn't correct, set SUMO_TAG_NOTHING as current type
     myCurrentTagProperties = myInvalidTagProperty;
-    // hide all moduls if selected item isn't valid
-    myFrameParent->disableModuls();
+    // call tag selected function
+    myFrameParent->tagSelected();
     // set color of myTypeMatchBox to red (invalid)
-    myTypeMatchBox->setTextColor(FXRGB(255, 0, 0));
+    myTagsMatchBox->setTextColor(FXRGB(255, 0, 0));
     // Write Warning in console if we're in testing mode
-    WRITE_DEBUG("Selected invalid item in ItemSelector");
+    WRITE_DEBUG("Selected invalid item in TagSelector");
+    return 1;
+}
+
+// ---------------------------------------------------------------------------
+// GNEFrame::DemandElementSelector - methods
+// ---------------------------------------------------------------------------
+
+GNEFrame::DemandElementSelector::DemandElementSelector(GNEFrame* frameParent, SumoXMLTag demandElementTag) :
+    FXGroupBox(frameParent->myContentFrame, ("Parent " + toString(demandElementTag)).c_str(), GUIDesignGroupBoxFrame),
+    myFrameParent(frameParent),
+    myCurrentDemandElement(nullptr),
+    myDemandElementTags({demandElementTag}) {
+    // Create FXComboBox
+    myDemandElementsMatchBox = new FXComboBox(this, GUIDesignComboBoxNCol, this, MID_GNE_SET_TYPE, GUIDesignComboBox);
+    // refresh demand element MatchBox
+    refreshDemandElementSelector();
+    // shown after creation
+    show();
+}
+
+
+GNEFrame::DemandElementSelector::DemandElementSelector(GNEFrame* frameParent, const std::vector<GNEAttributeCarrier::TagType> &tagTypes) :
+    FXGroupBox(frameParent->myContentFrame, "Parent element", GUIDesignGroupBoxFrame),
+    myFrameParent(frameParent),
+    myCurrentDemandElement(nullptr) {
+    // fill myDemandElementTags
+    for (const auto &i : tagTypes) {
+        auto tags = GNEAttributeCarrier::allowedTagsByCategory(i, false);
+        myDemandElementTags.insert(myDemandElementTags.end(), tags.begin(), tags.end());
+    }
+    // Create FXComboBox
+    myDemandElementsMatchBox = new FXComboBox(this, GUIDesignComboBoxNCol, this, MID_GNE_SET_TYPE, GUIDesignComboBox);
+    // refresh demand element MatchBox
+    refreshDemandElementSelector();
+    // shown after creation
+    show();
+}
+
+
+GNEFrame::DemandElementSelector::~DemandElementSelector() {}
+
+
+GNEDemandElement*
+GNEFrame::DemandElementSelector::getCurrentDemandElement() const {
+    return myCurrentDemandElement;
+}
+
+
+void 
+GNEFrame::DemandElementSelector::setDemandElement(GNEDemandElement* demandElement) {
+    // first check that demandElement tag correspond to a tag of myDemandElementTags
+    if (std::find(myDemandElementTags.begin(), myDemandElementTags.end(), demandElement->getTagProperty().getTag()) != myDemandElementTags.end()) {
+        // update text of myDemandElementsMatchBox
+        myDemandElementsMatchBox->setText(demandElement->getID().c_str());
+        // Set new current demand element
+        myCurrentDemandElement = demandElement;
+        // call demandElementSelected function
+        myFrameParent->demandElementSelected();
+    }
+}
+
+
+void
+GNEFrame::DemandElementSelector::showDemandElementSelector() {
+    // first refresh modul
+    refreshDemandElementSelector();
+    // if current selected item isn't valid, set DEFAULT_VTYPE_ID or DEFAULT_PEDTYPE_ID
+    if (myCurrentDemandElement) {
+        myDemandElementsMatchBox->setText(myCurrentDemandElement->getID().c_str());
+    } else if (myDemandElementTags.size() == 1) {
+        if (myDemandElementTags.at(0) == SUMO_TAG_VTYPE) {
+            myDemandElementsMatchBox->setText(DEFAULT_VTYPE_ID.c_str());
+        } else if (myDemandElementTags.at(0) == SUMO_TAG_PTYPE) {
+            myDemandElementsMatchBox->setText(DEFAULT_PEDTYPE_ID.c_str());
+        }
+    }
+    onCmdSelectDemandElement(nullptr, 0, nullptr);
+    show();
+}
+
+
+void
+GNEFrame::DemandElementSelector::hideDemandElementSelector() {
+    hide();
+}
+
+
+bool 
+GNEFrame::DemandElementSelector::isDemandElementSelectorShown() const {
+    return shown();
+}
+
+
+void
+GNEFrame::DemandElementSelector::refreshDemandElementSelector() {
+    // clear demand elements comboBox
+    myDemandElementsMatchBox->clearItems();
+    // fill myTypeMatchBox with list of demand elements
+    for (const auto& i : myDemandElementTags) {
+        // special case for VTypes and PTypes
+        if (i == SUMO_TAG_VTYPE) {
+            // add default Vehicle an Bike types in the first and second positions
+            myDemandElementsMatchBox->appendItem(DEFAULT_VTYPE_ID.c_str());
+            myDemandElementsMatchBox->appendItem(DEFAULT_BIKETYPE_ID.c_str());
+            // add rest of vTypes
+            for (const auto& j : myFrameParent->getViewNet()->getNet()->getAttributeCarriers().demandElements.at(i)) {
+                // avoid insert duplicated default vType
+                if ((j.first != DEFAULT_VTYPE_ID) && (j.first != DEFAULT_BIKETYPE_ID)) {
+                    myDemandElementsMatchBox->appendItem(j.first.c_str());
+                }
+            }
+        } else if (i == SUMO_TAG_PTYPE) {
+            // add default Person type in the firs
+            myDemandElementsMatchBox->appendItem(DEFAULT_PEDTYPE_ID.c_str());
+            // add rest of pTypes
+            for (const auto& j : myFrameParent->getViewNet()->getNet()->getAttributeCarriers().demandElements.at(i)) {
+                // avoid insert duplicated default pType
+                if (j.first != DEFAULT_PEDTYPE_ID) {
+                    myDemandElementsMatchBox->appendItem(j.first.c_str());
+                }
+            }
+        } else {
+            // insert all Ids
+            for (const auto& j : myFrameParent->getViewNet()->getNet()->getAttributeCarriers().demandElements.at(i)) {
+                myDemandElementsMatchBox->appendItem(j.first.c_str());
+            }
+        }
+    }
+    // Set number of  items (maximum 10)
+    if (myDemandElementsMatchBox->getNumItems() < 10) {
+        myDemandElementsMatchBox->setNumVisible((int)myDemandElementsMatchBox->getNumItems());
+    } else {
+        myDemandElementsMatchBox->setNumVisible(10);
+    }
+    // update myCurrentDemandElement
+    if (myDemandElementsMatchBox->getNumItems() == 0) {
+        myCurrentDemandElement = nullptr;
+    } else if (myCurrentDemandElement) {
+        for (int i = 0; i < myDemandElementsMatchBox->getNumItems(); i++) {
+            if (myDemandElementsMatchBox->getItem(i).text() == myCurrentDemandElement->getID()) {
+                myDemandElementsMatchBox->setCurrentItem(i, FALSE);
+            }
+        }
+    } else {
+        // set first element in the list as myCurrentDemandElement (Special case for default person and vehicle type)
+        if (myDemandElementsMatchBox->getItem(0).text() == DEFAULT_VTYPE_ID) {
+            myCurrentDemandElement = myFrameParent->getViewNet()->getNet()->getAttributeCarriers().demandElements.at(SUMO_TAG_VTYPE).at(DEFAULT_VTYPE_ID);
+        } else if (myDemandElementsMatchBox->getItem(0).text() == DEFAULT_PEDTYPE_ID) {
+            myCurrentDemandElement = myFrameParent->getViewNet()->getNet()->getAttributeCarriers().demandElements.at(SUMO_TAG_PTYPE).at(DEFAULT_PEDTYPE_ID);
+        } else {
+            myCurrentDemandElement = myFrameParent->getViewNet()->getNet()->getAttributeCarriers().demandElements.at(myDemandElementTags.front()).begin()->second;
+        }
+    }
+}
+
+
+long
+GNEFrame::DemandElementSelector::onCmdSelectDemandElement(FXObject*, FXSelector, void*) {
+    // Check if value of myTypeMatchBox correspond to a demand element
+    for (const auto& i : myDemandElementTags) {
+        for (const auto& j : myFrameParent->getViewNet()->getNet()->getAttributeCarriers().demandElements.at(i)) {
+            if (j.first == myDemandElementsMatchBox->getText().text()) {
+                // set color of myTypeMatchBox to black (valid)
+                myDemandElementsMatchBox->setTextColor(FXRGB(0, 0, 0));
+                // Set new current demand element
+                myCurrentDemandElement = j.second;
+                // call demandElementSelected function
+                myFrameParent->demandElementSelected();
+                // Write Warning in console if we're in testing mode
+                WRITE_DEBUG(("Selected item '" + myDemandElementsMatchBox->getText() + "' in DemandElementSelector").text());
+                return 1;
+            }
+        }
+    }
+    // if demand element selected is invalid, set demand element as null
+    myCurrentDemandElement = nullptr;
+    // call demandElementSelected function
+    myFrameParent->demandElementSelected();
+    // change color of myDemandElementsMatchBox to red (invalid)
+    myDemandElementsMatchBox->setTextColor(FXRGB(255, 0, 0));
+    // Write Warning in console if we're in testing mode
+    WRITE_DEBUG("Selected invalid item in DemandElementSelector");
+    return 1;
+}
+
+// ---------------------------------------------------------------------------
+// GNEFrame::EdgePathCreator - methods
+// ---------------------------------------------------------------------------
+
+GNEFrame::EdgePathCreator::EdgePathCreator(GNEFrame* frameParent, int edgePathCreatorModes) :
+    FXGroupBox(frameParent->myContentFrame, "Route creator", GUIDesignGroupBoxFrame),
+    myFrameParent(frameParent),
+    myVClass(SVC_PASSENGER),
+    mySelectedBusStop(nullptr),
+    myEdgePathCreatorModes(edgePathCreatorModes) {
+
+    // create button for create GEO POIs
+    myFinishCreationButton = new FXButton(this, "Finish route creation", nullptr, this, MID_GNE_EDGEPATH_FINISH, GUIDesignButton);
+    myFinishCreationButton->disable();
+
+    // create button for create GEO POIs
+    myAbortCreationButton = new FXButton(this, "Abort route creation", nullptr, this, MID_GNE_EDGEPATH_ABORT, GUIDesignButton);
+    myAbortCreationButton->disable();
+
+    // create button for create GEO POIs
+    myRemoveLastInsertedEdge = new FXButton(this, "Remove last inserted edge", nullptr, this, MID_GNE_EDGEPATH_REMOVELAST, GUIDesignButton);
+    myRemoveLastInsertedEdge->disable();
+}
+
+
+GNEFrame::EdgePathCreator::~EdgePathCreator() {}
+
+
+void 
+GNEFrame::EdgePathCreator::edgePathCreatorName(const std::string &name) {
+    // header needs the first capitalized letter
+    std::string nameWithFirstCapitalizedLetter = name;
+    nameWithFirstCapitalizedLetter[0] = (char)toupper(nameWithFirstCapitalizedLetter.at(0));
+    setText((nameWithFirstCapitalizedLetter + " creator").c_str());
+    myFinishCreationButton->setText(("Finish " + name + " creation").c_str());
+    myAbortCreationButton->setText(("Abort " + name + " creation").c_str());
+}
+
+
+void
+GNEFrame::EdgePathCreator::showEdgePathCreator() {
+    // disable buttons
+    myFinishCreationButton->disable();
+    myAbortCreationButton->disable();
+    myRemoveLastInsertedEdge->disable();
+    show();
+}
+
+
+void
+GNEFrame::EdgePathCreator::hideEdgePathCreator() {
+    hide();
+}
+
+
+void 
+GNEFrame::EdgePathCreator::setVClass(SUMOVehicleClass vClass) {
+    myVClass = vClass;
+}
+
+
+void
+GNEFrame::EdgePathCreator::setEdgePathCreatorModes(int edgePathCreatorModes) {
+    myEdgePathCreatorModes = edgePathCreatorModes;
+}
+
+
+std::vector<GNEEdge*>
+GNEFrame::EdgePathCreator::getClickedEdges() const {
+    return myClickedEdges;
+}
+
+
+GNEAdditional*
+GNEFrame::EdgePathCreator::getClickedBusStop() const {
+    return mySelectedBusStop;
+}
+
+
+bool
+GNEFrame::EdgePathCreator::addEdge(GNEEdge* edge) {
+    if ((mySelectedBusStop == nullptr) && (myClickedEdges.empty() || ((myClickedEdges.size() > 0) && (myClickedEdges.back() != edge)))) {
+        myClickedEdges.push_back(edge);
+        // enable abort route button
+        myAbortCreationButton->enable();
+        // disable undo/redo
+        myFrameParent->myViewNet->getViewParent()->getGNEAppWindows()->disableUndoRedo("trip creation");
+        // set special color
+        for (auto i : edge->getLanes()) {
+            i->setSpecialColor(&myFrameParent->getEdgeCandidateSelectedColor());
+        }
+        // calculate route if there is more than two edges
+        if (myClickedEdges.size() > 1) {
+            // enable remove last edge button
+            myRemoveLastInsertedEdge->enable();
+            // enable finish button
+            myFinishCreationButton->enable();
+            // calculate temporal route
+            myTemporalRoute = GNEDemandElement::getRouteCalculatorInstance()->calculateDijkstraRoute(myVClass, myClickedEdges);
+        }
+        return true;
+    } else {
+        return false;
+    }
+}
+
+
+bool 
+GNEFrame::EdgePathCreator::addBusStop(GNEAdditional* busStop) {
+    // check that at least there is a selected edge
+    if (!myClickedEdges.empty() && (mySelectedBusStop == nullptr)) {
+        mySelectedBusStop = busStop;
+        mySelectedBusStop->setSpecialColor(&myFrameParent->getEdgeCandidateSelectedColor());
+    }
+    return false;
+}
+
+
+void
+GNEFrame::EdgePathCreator::clearEdges() {
+    // restore colors
+    for (const auto& i : myClickedEdges) {
+        for (const auto& j : i->getLanes()) {
+            j->setSpecialColor(nullptr);
+        }
+    }
+    // clear edges
+    myClickedEdges.clear();
+    myTemporalRoute.clear();
+    // clear busStop
+    if (mySelectedBusStop) {
+        mySelectedBusStop->setSpecialColor(nullptr);
+        mySelectedBusStop = nullptr;
+    }
+    // enable undo/redo
+    myFrameParent->myViewNet->getViewParent()->getGNEAppWindows()->enableUndoRedo();
+}
+
+
+void
+GNEFrame::EdgePathCreator::drawTemporalRoute() const {
+    // draw depending of number of edges
+    if (myClickedEdges.size() == 1) {
+        // Add a draw matrix
+        glPushMatrix();
+        // Start with the drawing of the area traslating matrix to origin
+        glTranslated(0, 0, GLO_MAX);
+        // set orange color
+        GLHelper::setColor(RGBColor::ORANGE);
+        // set line width
+        glLineWidth(5);
+        // draw line in first selected edge edge
+        GLHelper::drawLine(myClickedEdges.front()->getNBEdge()->getLanes().front().shape.front(),
+                           myClickedEdges.front()->getNBEdge()->getLanes().front().shape.back());
+        // draw line to center of selected bus
+        if (mySelectedBusStop) {
+            GLHelper::drawLine(myClickedEdges.front()->getNBEdge()->getLanes().front().shape.back(), 
+                               mySelectedBusStop->getAdditionalGeometry().shape.getLineCenter());
+        }
+        // Pop last matrix
+        glPopMatrix();
+    } else if (myTemporalRoute.size() > 1) {
+        // Add a draw matrix
+        glPushMatrix();
+        // Start with the drawing of the area traslating matrix to origin
+        glTranslated(0, 0, GLO_MAX);
+        // set orange color
+        GLHelper::setColor(RGBColor::ORANGE);
+        // set line width
+        glLineWidth(5);
+        // draw first line
+        GLHelper::drawLine(myTemporalRoute.at(0)->getNBEdge()->getLanes().front().shape.front(),
+                           myTemporalRoute.at(0)->getNBEdge()->getLanes().front().shape.back());
+        // draw rest of lines
+        for (int i = 1; i < (int)myTemporalRoute.size(); i++) {
+            GLHelper::drawLine(myTemporalRoute.at(i - 1)->getNBEdge()->getLanes().front().shape.back(),
+                               myTemporalRoute.at(i)->getNBEdge()->getLanes().front().shape.front());
+            GLHelper::drawLine(myTemporalRoute.at(i)->getNBEdge()->getLanes().front().shape.front(),
+                               myTemporalRoute.at(i)->getNBEdge()->getLanes().front().shape.back());
+        }    
+        // draw a line to center of selected bus
+        if (mySelectedBusStop) {
+            GLHelper::drawLine(myTemporalRoute.back()->getNBEdge()->getLanes().front().shape.back(), 
+                               mySelectedBusStop->getAdditionalGeometry().shape.getLineCenter());
+        }
+        // Pop last matrix
+        glPopMatrix();
+    }
+}
+
+
+void 
+GNEFrame::EdgePathCreator::abortEdgePathCreation() {
+    if (myAbortCreationButton->isEnabled()) {
+        onCmdAbortRouteCreation(nullptr, 0, nullptr);
+    }
+}
+
+
+void 
+GNEFrame::EdgePathCreator::finishEdgePathCreation() {
+    if (myFinishCreationButton->isEnabled()) {
+        onCmdFinishRouteCreation(nullptr, 0, nullptr);
+    }
+}
+
+
+void 
+GNEFrame::EdgePathCreator::removeLastInsertedElement() {
+    if (myRemoveLastInsertedEdge->isEnabled()) {
+        onCmdRemoveLastInsertedElement(nullptr, 0, nullptr);
+    }
+}
+
+
+long
+GNEFrame::EdgePathCreator::onCmdAbortRouteCreation(FXObject*, FXSelector, void*) {
+    clearEdges();
+    // disable buttons
+    myAbortCreationButton->disable();
+    myFinishCreationButton->disable();
+    myRemoveLastInsertedEdge->disable();
+    return 1;
+}
+
+
+long
+GNEFrame::EdgePathCreator::onCmdFinishRouteCreation(FXObject*, FXSelector, void*) {
+    // only create route if there is more than two edges
+    if (myClickedEdges.size() > 1) {
+        // call edgePathCreated
+        myFrameParent->edgePathCreated();
+        // update view
+        myFrameParent->myViewNet->update();
+        // clear edges after creation
+        clearEdges();
+        // disable buttons
+        myFinishCreationButton->disable();
+        myAbortCreationButton->disable();
+        myRemoveLastInsertedEdge->disable();
+    }
+    return 1;
+}
+
+
+long
+GNEFrame::EdgePathCreator::onCmdRemoveLastInsertedElement(FXObject*, FXSelector, void*) {
+    if (myClickedEdges.size() > 1) {
+        // remove last edge
+        myClickedEdges.pop_back();
+        // calculate temporal route
+        myTemporalRoute = GNEDemandElement::getRouteCalculatorInstance()->calculateDijkstraRoute(myVClass, myClickedEdges);
+    }
     return 1;
 }
 
@@ -264,38 +808,43 @@ GNEFrame::ItemSelector::onCmdSelectItem(FXObject*, FXSelector, void*) {
 GNEFrame::AttributesCreator::AttributesCreator(GNEFrame* frameParent) :
     FXGroupBox(frameParent->myContentFrame, "Internal attributes", GUIDesignGroupBoxFrame),
     myFrameParent(frameParent) {
-    // Create single parameters
-    for (int i = 0; i < GNEAttributeCarrier::getHigherNumberOfAttributes(); i++) {
-        myAttributesCreatorRows.push_back(new AttributesCreatorRow(this));
-    }
-    // Create help button
-    new FXButton(this, "Help", nullptr, this, MID_HELP, GUIDesignButtonRectangular);
+    // resize myAttributesCreatorRows
+    myAttributesCreatorRows.resize(GNEAttributeCarrier::MAXNUMBEROFATTRIBUTES, nullptr);
+    // create help button
+    myHelpButton = new FXButton(this, "Help", nullptr, this, MID_HELP, GUIDesignButtonRectangular);
 }
 
 
-GNEFrame::AttributesCreator::~AttributesCreator() {
-}
+GNEFrame::AttributesCreator::~AttributesCreator() {}
 
 
 void
 GNEFrame::AttributesCreator::showAttributesCreatorModul(const GNEAttributeCarrier::TagProperties& tagProperties) {
     // get current tag Properties
     myTagProperties = tagProperties;
-    // Hide all fields
+    // destroy all rows
     for (int i = 0; i < (int)myAttributesCreatorRows.size(); i++) {
-        myAttributesCreatorRows.at(i)->hideParameter();
+        // destroy and delete all rows
+        if (myAttributesCreatorRows.at(i) != nullptr) {
+            myAttributesCreatorRows.at(i)->destroy();
+            delete myAttributesCreatorRows.at(i);
+            myAttributesCreatorRows.at(i) = nullptr;
+        }
     }
-    // iterate over tag attributes and show it
-    for (auto i : myTagProperties) {
-        //  make sure that only non-unique attributes are shown (And depending of includeExtendedAttributes)
-        if (!i.second.isUnique()) {
-            myAttributesCreatorRows.at(i.second.getPositionListed())->showParameter(i.second);
+    // iterate over tag attributes and create a AttributesCreatorRow
+    for (const auto &i : myTagProperties) {
+        //  make sure that only non-unique attributes are created (And depending of includeExtendedAttributes)
+        if (!i.isUnique()) {
+            myAttributesCreatorRows.at(i.getPositionListed()) = new AttributesCreatorRow(this, i);
         }
     }
     // update disjoint attributes
     updateDisjointAttributes(nullptr);
-    // recalc frame and show again
+    // reparent help button (to place it at bottom)
+    myHelpButton->reparent(this);
+    // recalc
     recalc();
+    // show
     show();
 }
 
@@ -311,7 +860,7 @@ GNEFrame::AttributesCreator::getAttributesAndValues(bool includeAll) const {
     std::map<SumoXMLAttr, std::string> values;
     // get standard parameters
     for (int i = 0; i < (int)myAttributesCreatorRows.size(); i++) {
-        if (myAttributesCreatorRows.at(i)->getAttrProperties().getAttr() != SUMO_ATTR_NOTHING) {
+        if (myAttributesCreatorRows.at(i) && myAttributesCreatorRows.at(i)->getAttrProperties().getAttr() != SUMO_ATTR_NOTHING) {
             // ignore default values (except for disjont attributes, that has to be always writted)
             if (myAttributesCreatorRows.at(i)->isAttributesCreatorRowEnabled() &&
                     (includeAll || myTagProperties.isDisjointAttributes(myAttributesCreatorRows.at(i)->getAttrProperties().getAttr()) || !myAttributesCreatorRows.at(i)->getAttrProperties().hasStaticDefaultValue() || (myAttributesCreatorRows.at(i)->getAttrProperties().getDefaultValue() != myAttributesCreatorRows.at(i)->getValue()))) {
@@ -327,10 +876,10 @@ void
 GNEFrame::AttributesCreator::showWarningMessage(std::string extra) const {
     std::string errorMessage;
     // iterate over standar parameters
-    for (auto i : myTagProperties) {
-        if (errorMessage.empty()) {
+    for (const auto &i : myTagProperties) {
+        if (errorMessage.empty() && myAttributesCreatorRows.at(i.getPositionListed())) {
             // Return string with the error if at least one of the parameter isn't valid
-            std::string attributeValue = myAttributesCreatorRows.at(i.second.getPositionListed())->isAttributeValid();
+            std::string attributeValue = myAttributesCreatorRows.at(i.getPositionListed())->isAttributeValid();
             if (attributeValue.size() != 0) {
                 errorMessage = attributeValue;
             }
@@ -355,7 +904,7 @@ GNEFrame::AttributesCreator::areValuesValid() const {
     // iterate over standar parameters
     for (auto i : myTagProperties) {
         // Return false if error message of attriuve isn't empty
-        if (myAttributesCreatorRows.at(i.second.getPositionListed())->isAttributeValid().size() != 0) {
+        if (myAttributesCreatorRows.at(i.getPositionListed()) && myAttributesCreatorRows.at(i.getPositionListed())->isAttributeValid().size() != 0) {
             return false;
         }
     }
@@ -465,115 +1014,117 @@ GNEFrame::AttributesCreator::onCmdHelp(FXObject*, FXSelector, void*) {
 // GNEFrame::AttributesCreator::AttributesCreatorRow - methods
 // ---------------------------------------------------------------------------
 
-GNEFrame::AttributesCreator::AttributesCreatorRow::AttributesCreatorRow(AttributesCreator* AttributesCreatorParent) :
+GNEFrame::AttributesCreator::AttributesCreatorRow::AttributesCreatorRow(AttributesCreator* AttributesCreatorParent, const GNEAttributeCarrier::AttributeProperties& attrProperties) :
     FXHorizontalFrame(AttributesCreatorParent, GUIDesignAuxiliarHorizontalFrame),
-    myAttributesCreatorParent(AttributesCreatorParent) {
+    myAttributesCreatorParent(AttributesCreatorParent),
+    myAttrProperties(attrProperties) {
     // Create left visual elements
     myAttributeLabel = new FXLabel(this, "name", nullptr, GUIDesignLabelAttribute);
+    myAttributeLabel->hide();
     myAttributeRadioButton = new FXRadioButton(this, "name", this, MID_GNE_SET_ATTRIBUTE_RADIOBUTTON, GUIDesignRadioButtonAttribute);
+    myAttributeRadioButton->hide();
     myAttributeCheckButton = new FXCheckButton(this, "name", this, MID_GNE_SET_ATTRIBUTE_BOOL, GUIDesignCheckButtonAttribute);
+    myAttributeCheckButton->hide();
     myAttributeColorButton = new FXButton(this, "ColorButton", nullptr, this, MID_GNE_SET_ATTRIBUTE_DIALOG, GUIDesignButtonAttribute);
+    myAttributeColorButton->hide();
     // Create right visual elements
     myValueTextFieldInt = new FXTextField(this, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextFieldInt);
+    myValueTextFieldInt->hide();
     myValueTextFieldReal = new FXTextField(this, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextFieldReal);
+    myValueTextFieldReal->hide();
     myValueTextFieldStrings = new FXTextField(this, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
+    myValueTextFieldStrings->hide();
     myValueCheckButton = new FXCheckButton(this, "Disabled", this, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButton);
+    myValueCheckButton->hide();
     // by default attribute check button is true
     myAttributeCheckButton->setCheck(true);
-    // Hide elements
-    hideParameter();
-}
-
-
-void
-GNEFrame::AttributesCreator::AttributesCreatorRow::showParameter(const GNEAttributeCarrier::AttributeProperties& attrProperties) {
-    myAttrProperties = attrProperties;
-    myInvalidValue = "";
-    // show label, button for edit colors or radio button
-    if (myAttrProperties.isColor()) {
-        myAttributeColorButton->setTextColor(FXRGB(0, 0, 0));
-        myAttributeColorButton->setText(myAttrProperties.getAttrStr().c_str());
-        myAttributeColorButton->show();
-    } else if (myAttributesCreatorParent->myTagProperties.isDisjointAttributes(myAttrProperties.getAttr())) {
-        myAttributeRadioButton->setText(myAttrProperties.getAttrStr().c_str());
-        myAttributeRadioButton->show();
-    } else if (myAttrProperties.isOptional()) {
-        myAttributeCheckButton->setText(myAttrProperties.getAttrStr().c_str());
-        myAttributeCheckButton->show();
-    } else {
-        myAttributeLabel->setText(myAttrProperties.getAttrStr().c_str());
-        myAttributeLabel->show();
-    }
-    if (myAttrProperties.isInt()) {
-        myValueTextFieldInt->setTextColor(FXRGB(0, 0, 0));
-        myValueTextFieldInt->setText(attrProperties.getDefaultValue().c_str());
-        myValueTextFieldInt->show();
-        // if it's associated to a radio button and is disabled, then disabled myValueTextFieldInt
-        if (myAttributeRadioButton->shown() && (myAttributeRadioButton->getCheck() == FALSE)) {
-            myValueTextFieldInt->disable();
-        }
-        // if it's associated to a label button and is disabled, then disabled myValueTextFieldInt
-        if (myAttributeCheckButton->shown() && (myAttributeCheckButton->getCheck() == FALSE)) {
-            myValueTextFieldInt->disable();
-        }
-    } else if (myAttrProperties.isFloat() || myAttrProperties.isSUMOTime()) {
-        myValueTextFieldReal->setTextColor(FXRGB(0, 0, 0));
-        myValueTextFieldReal->setText(attrProperties.getDefaultValue().c_str());
-        myValueTextFieldReal->show();
-        // if it's associated to a radio button and is disabled, then disable myValueTextFieldReal
-        if (myAttributeRadioButton->shown() && (myAttributeRadioButton->getCheck() == FALSE)) {
-            myValueTextFieldReal->disable();
-        }
-        // if it's associated to a label button and is disabled, then disable myValueTextFieldReal
-        if (myAttributeCheckButton->shown() && (myAttributeCheckButton->getCheck() == FALSE)) {
-            myValueTextFieldReal->disable();
-        }
-    } else if (myAttrProperties.isBool()) {
-        if (GNEAttributeCarrier::parse<bool>(attrProperties.getDefaultValue())) {
-            myValueCheckButton->setCheck(true);
-            myValueCheckButton->setText("true");
+    // only create if parent was created
+    if (getParent()->id()) {
+        // create AttributesCreatorRow
+        FXHorizontalFrame::create();
+        // reset invalid value 
+        myInvalidValue = "";
+        // show label, button for edit colors or radio button
+        if (myAttrProperties.isColor()) {
+            myAttributeColorButton->setTextColor(FXRGB(0, 0, 0));
+            myAttributeColorButton->setText(myAttrProperties.getAttrStr().c_str());
+            myAttributeColorButton->show();
+        } else if (myAttributesCreatorParent->myTagProperties.isDisjointAttributes(myAttrProperties.getAttr())) {
+            myAttributeRadioButton->setText(myAttrProperties.getAttrStr().c_str());
+            myAttributeRadioButton->show();
+        } else if (myAttrProperties.isOptional()) {
+            myAttributeCheckButton->setText(myAttrProperties.getAttrStr().c_str());
+            myAttributeCheckButton->show();
         } else {
-            myValueCheckButton->setCheck(false);
-            myValueCheckButton->setText("false");
+            myAttributeLabel->setText(myAttrProperties.getAttrStr().c_str());
+            myAttributeLabel->show();
         }
-        myValueCheckButton->show();
-        // if it's associated to a radio button and is disabled, then disable myValueCheckButton
-        if (myAttributeRadioButton->shown() && (myAttributeRadioButton->getCheck() == FALSE)) {
-            myValueCheckButton->disable();
+        if (myAttrProperties.isInt()) {
+            myValueTextFieldInt->setTextColor(FXRGB(0, 0, 0));
+            myValueTextFieldInt->setText(attrProperties.getDefaultValue().c_str());
+            myValueTextFieldInt->show();
+            // if it's associated to a radio button and is disabled, then disabled myValueTextFieldInt
+            if (myAttributeRadioButton->shown() && (myAttributeRadioButton->getCheck() == FALSE)) {
+                myValueTextFieldInt->disable();
+            }
+            // if it's associated to a label button and is disabled, then disabled myValueTextFieldInt
+            if (myAttributeCheckButton->shown() && (myAttributeCheckButton->getCheck() == FALSE)) {
+                myValueTextFieldInt->disable();
+            }
+        } else if (myAttrProperties.isFloat() || myAttrProperties.isSUMOTime()) {
+            myValueTextFieldReal->setTextColor(FXRGB(0, 0, 0));
+            myValueTextFieldReal->setText(attrProperties.getDefaultValue().c_str());
+            myValueTextFieldReal->show();
+            // if it's associated to a radio button and is disabled, then disable myValueTextFieldReal
+            if (myAttributeRadioButton->shown() && (myAttributeRadioButton->getCheck() == FALSE)) {
+                myValueTextFieldReal->disable();
+            }
+            // if it's associated to a label button and is disabled, then disable myValueTextFieldReal
+            if (myAttributeCheckButton->shown() && (myAttributeCheckButton->getCheck() == FALSE)) {
+                myValueTextFieldReal->disable();
+            }
+        } else if (myAttrProperties.isBool()) {
+            if (GNEAttributeCarrier::parse<bool>(attrProperties.getDefaultValue())) {
+                myValueCheckButton->setCheck(true);
+                myValueCheckButton->setText("true");
+            } else {
+                myValueCheckButton->setCheck(false);
+                myValueCheckButton->setText("false");
+            }
+            myValueCheckButton->show();
+            // if it's associated to a radio button and is disabled, then disable myValueCheckButton
+            if (myAttributeRadioButton->shown() && (myAttributeRadioButton->getCheck() == FALSE)) {
+                myValueCheckButton->disable();
+            }
+            // if it's associated to a label button and is disabled, then disable myValueCheckButton
+            if (myAttributeCheckButton->shown() && (myAttributeCheckButton->getCheck() == FALSE)) {
+                myValueCheckButton->disable();
+            }
+        } else {
+            myValueTextFieldStrings->setTextColor(FXRGB(0, 0, 0));
+            myValueTextFieldStrings->setText(attrProperties.getDefaultValue().c_str());
+            myValueTextFieldStrings->show();
+            // if it's associated to a radio button and is disabled, then disable myValueTextFieldStrings
+            if (myAttributeRadioButton->shown() && (myAttributeRadioButton->getCheck() == FALSE)) {
+                myValueTextFieldStrings->disable();
+            }
+            // if it's associated to a label button and is disabled, then disable myValueTextFieldStrings
+            if (myAttributeCheckButton->shown() && (myAttributeCheckButton->getCheck() == FALSE)) {
+                myValueTextFieldStrings->disable();
+            }
         }
-        // if it's associated to a label button and is disabled, then disable myValueCheckButton
-        if (myAttributeCheckButton->shown() && (myAttributeCheckButton->getCheck() == FALSE)) {
-            myValueCheckButton->disable();
-        }
-    } else {
-        myValueTextFieldStrings->setTextColor(FXRGB(0, 0, 0));
-        myValueTextFieldStrings->setText(attrProperties.getDefaultValue().c_str());
-        myValueTextFieldStrings->show();
-        // if it's associated to a radio button and is disabled, then disable myValueTextFieldStrings
-        if (myAttributeRadioButton->shown() && (myAttributeRadioButton->getCheck() == FALSE)) {
-            myValueTextFieldStrings->disable();
-        }
-        // if it's associated to a label button and is disabled, then disable myValueTextFieldStrings
-        if (myAttributeCheckButton->shown() && (myAttributeCheckButton->getCheck() == FALSE)) {
-            myValueTextFieldStrings->disable();
-        }
+        // show AttributesCreatorRow
+        show();
     }
-    show();
 }
 
 
-void
-GNEFrame::AttributesCreator::AttributesCreatorRow::hideParameter() {
-    myAttrProperties = GNEAttributeCarrier::AttributeProperties();
-    myAttributeLabel->hide();
-    myAttributeRadioButton->hide();
-    myAttributeCheckButton->hide();
-    myAttributeColorButton->hide();
-    myValueTextFieldInt->hide();
-    myValueTextFieldReal->hide();
-    myValueTextFieldStrings->hide();
-    myValueCheckButton->hide();
-    hide();
+void 
+GNEFrame::AttributesCreator::AttributesCreatorRow::destroy() {
+    // only destroy if parent was created
+    if (getParent()->id()) {
+        FXHorizontalFrame::destroy();
+    }
 }
 
 
@@ -748,6 +1299,9 @@ GNEFrame::AttributesCreator::AttributesCreatorRow::onCmdSetAttribute(FXObject* o
         }
         // update disjoint attribute
         myAttributesCreatorParent->updateDisjointAttributes(nullptr);
+    } else if (myAttrProperties.isComplex()) {
+        // check complex attribute
+        myInvalidValue = checkComplexAttribute(myValueTextFieldStrings->getText().text());
     } else if (myAttrProperties.isInt()) {
         if (GNEAttributeCarrier::canParse<int>(myValueTextFieldInt->getText().text())) {
             // convert string to int
@@ -888,14 +1442,73 @@ GNEFrame::AttributesCreator::AttributesCreatorRow::onCmdSelectRadioButton(FXObje
     return 0;
 }
 
+
+std::string 
+GNEFrame::AttributesCreator::AttributesCreatorRow::checkComplexAttribute(const std::string &value) {
+    // declare values needed to check if given complex parameters are valid
+    std::string errorMessage;
+    DepartDefinition dd;
+    DepartLaneDefinition dld;
+    DepartPosDefinition dpd;
+    DepartPosLatDefinition dpld;
+    ArrivalLaneDefinition ald;
+    DepartSpeedDefinition dsd;
+    ArrivalPosDefinition apd;
+    ArrivalPosLatDefinition apld;
+    ArrivalSpeedDefinition asd;
+    SVCPermissions mode;
+    int valueInt;
+    double valueDouble;
+    SUMOTime valueSUMOTime;
+    // check complex attribute
+    switch (myAttrProperties.getAttr()) {
+        case SUMO_ATTR_DEPART:
+        case SUMO_ATTR_BEGIN:
+            SUMOVehicleParameter::parseDepart(value, myAttrProperties.getAttrStr(), "", valueSUMOTime, dd, errorMessage);
+            break;
+        case SUMO_ATTR_DEPARTLANE: 
+            SUMOVehicleParameter::parseDepartLane(value, myAttrProperties.getAttrStr(), "", valueInt, dld, errorMessage);
+            break;
+        case SUMO_ATTR_DEPARTPOS: 
+            SUMOVehicleParameter::parseDepartPos(value, myAttrProperties.getAttrStr(), "", valueDouble, dpd, errorMessage);
+            break;
+        case SUMO_ATTR_DEPARTSPEED: 
+            SUMOVehicleParameter::parseDepartSpeed(value, myAttrProperties.getAttrStr(), "", valueDouble, dsd, errorMessage);
+            break;
+        case SUMO_ATTR_ARRIVALLANE: 
+            SUMOVehicleParameter::parseArrivalLane(value, myAttrProperties.getAttrStr(), "", valueInt, ald, errorMessage);
+            break;
+        case SUMO_ATTR_ARRIVALPOS: 
+            SUMOVehicleParameter::parseArrivalPos(value, myAttrProperties.getAttrStr(), "", valueDouble, apd, errorMessage);
+            break;
+        case SUMO_ATTR_ARRIVALSPEED: 
+            SUMOVehicleParameter::parseArrivalSpeed(value, myAttrProperties.getAttrStr(), "", valueDouble, asd, errorMessage);
+            break;
+        case SUMO_ATTR_DEPARTPOS_LAT: 
+            SUMOVehicleParameter::parseDepartPosLat(value, myAttrProperties.getAttrStr(), "", valueDouble, dpld, errorMessage);
+            break;
+        case SUMO_ATTR_ARRIVALPOS_LAT: 
+            SUMOVehicleParameter::parseArrivalPosLat(value, myAttrProperties.getAttrStr(), "", valueDouble, apld, errorMessage);
+            break;
+        case SUMO_ATTR_MODES:
+            SUMOVehicleParameter::parsePersonModes(value, myAttrProperties.getAttrStr(), "", mode , errorMessage);
+            break;
+        default:
+            throw ProcessError("Invalid complex attribute");
+    }
+    // return error message (Will be empty if value is valid)
+    return errorMessage;
+}
+
 // ---------------------------------------------------------------------------
 // GNEFrame::AttributesEditor::AttributesEditorRow - methods
 // ---------------------------------------------------------------------------
 
-GNEFrame::AttributesEditor::AttributesEditorRow::AttributesEditorRow(GNEFrame::AttributesEditor* attributeEditorParent) :
+GNEFrame::AttributesEditor::AttributesEditorRow::AttributesEditorRow(GNEFrame::AttributesEditor* attributeEditorParent, const GNEAttributeCarrier::AttributeProperties& ACAttr, const std::string& value, bool disjointAttributeEnabled) :
     FXHorizontalFrame(attributeEditorParent, GUIDesignAuxiliarHorizontalFrame),
     myAttributesEditorParent(attributeEditorParent),
-    myMultiple(false) {
+    myACAttr(ACAttr),
+    myMultiple(GNEAttributeCarrier::parse<std::vector<std::string>>(value).size() > 1) {
     // Create and hide label
     myAttributeLabel = new FXLabel(this, "attributeLabel", nullptr, GUIDesignLabelAttribute);
     myAttributeLabel->hide();
@@ -926,78 +1539,143 @@ GNEFrame::AttributesEditor::AttributesEditorRow::AttributesEditorRow(GNEFrame::A
     // Create and hide checkButton
     myValueCheckButton = new FXCheckButton(this, "", this, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButton);
     myValueCheckButton->hide();
-}
-
-
-void
-GNEFrame::AttributesEditor::AttributesEditorRow::showAttributesEditorRow(const GNEAttributeCarrier::AttributeProperties& ACAttr, const std::string& value, bool disjointAttributeEnabled) {
-    // start enabling all elements
-    myValueTextFieldInt->enable();
-    myValueTextFieldReal->enable();
-    myValueTextFieldStrings->enable();
-    myValueComboBoxChoices->enable();
-    myValueCheckButton->enable();
-    myAttributeButtonCombinableChoices->enable();
-    myAttributeColorButton->enable();
-    myAttributeRadioButton->enable();
-    myAttributeCheckButton->enable();
-    // Set current Attribute Property
-    myACAttr = ACAttr;
-    // set multiple
-    myMultiple = GNEAttributeCarrier::parse<std::vector<std::string>>(value).size() > 1;
-    if (myACAttr.isColor()) {
-        myAttributeColorButton->setTextColor(FXRGB(0, 0, 0));
-        myAttributeColorButton->setText(myACAttr.getAttrStr().c_str());
-        myAttributeColorButton->show();
-    } else if (myACAttr.getTagPropertyParent().isDisjointAttributes(myACAttr.getAttr())) {
-        myAttributeRadioButton->setTextColor(FXRGB(0, 0, 0));
-        myAttributeRadioButton->setText(myACAttr.getAttrStr().c_str());
-        myAttributeRadioButton->setCheck(disjointAttributeEnabled);
-        myAttributeRadioButton->show();
-    } else if (myACAttr.isOptional()) {
-        myAttributeCheckButton->setTextColor(FXRGB(0, 0, 0));
-        myAttributeCheckButton->setText(myACAttr.getAttrStr().c_str());
-        myAttributeCheckButton->setCheck(FALSE/*disjointAttributeEnabled*/);
-        myAttributeCheckButton->show();
-    } else {
-        // Show attribute Label
-        myAttributeLabel->setText(myACAttr.getAttrStr().c_str());
-        myAttributeLabel->show();
-    }
-    // Set field depending of the type of value
-    if (myACAttr.isBool()) {
-        // first we need to check if all boolean values are equal
-        bool allBooleanValuesEqual = true;
-        // declare  boolean vector
-        std::vector<bool> booleanVector;
-        // check if value can be parsed to a boolean vector
-        if (GNEAttributeCarrier::canParse<std::vector<bool> >(value)) {
-            booleanVector = GNEAttributeCarrier::parse<std::vector<bool> >(value);
+    // only create if parent was created
+    if (getParent()->id()) {
+        // create AttributesEditorRow
+        FXHorizontalFrame::create();
+        // start enabling all elements
+        myValueTextFieldInt->enable();
+        myValueTextFieldReal->enable();
+        myValueTextFieldStrings->enable();
+        myValueComboBoxChoices->enable();
+        myValueCheckButton->enable();
+        myAttributeButtonCombinableChoices->enable();
+        myAttributeColorButton->enable();
+        myAttributeRadioButton->enable();
+        myAttributeCheckButton->enable();
+        // set left column
+        if (myACAttr.isColor()) {
+            myAttributeColorButton->setTextColor(FXRGB(0, 0, 0));
+            myAttributeColorButton->setText(myACAttr.getAttrStr().c_str());
+            myAttributeColorButton->show();
+        } else if (myACAttr.getTagPropertyParent().isDisjointAttributes(myACAttr.getAttr())) {
+            myAttributeRadioButton->setTextColor(FXRGB(0, 0, 0));
+            myAttributeRadioButton->setText(myACAttr.getAttrStr().c_str());
+            myAttributeRadioButton->setCheck(disjointAttributeEnabled);
+            myAttributeRadioButton->show();
+        } else if (myACAttr.isOptional()) {
+            myAttributeCheckButton->setTextColor(FXRGB(0, 0, 0));
+            myAttributeCheckButton->setText(myACAttr.getAttrStr().c_str());
+            myAttributeCheckButton->setCheck(FALSE/*disjointAttributeEnabled*/);
+            myAttributeCheckButton->show();
+        } else {
+            // Show attribute Label
+            myAttributeLabel->setText(myACAttr.getAttrStr().c_str());
+            myAttributeLabel->show();
         }
-        // iterate over pased booleans comparing all element with the first
-        for (const auto& i : booleanVector) {
-            if (i != booleanVector.front()) {
-                allBooleanValuesEqual = false;
+        // Set field depending of the type of value
+        if (myACAttr.isBool()) {
+            // first we need to check if all boolean values are equal
+            bool allBooleanValuesEqual = true;
+            // declare  boolean vector
+            std::vector<bool> booleanVector;
+            // check if value can be parsed to a boolean vector
+            if (GNEAttributeCarrier::canParse<std::vector<bool> >(value)) {
+                booleanVector = GNEAttributeCarrier::parse<std::vector<bool> >(value);
             }
-        }
-        // use checkbox or textfield depending if all booleans are equal
-        if (allBooleanValuesEqual) {
-            // set check button
-            if ((booleanVector.size() > 0) && booleanVector.front()) {
-                myValueCheckButton->setCheck(true);
-                myValueCheckButton->setText("true");
+            // iterate over pased booleans comparing all element with the first
+            for (const auto& i : booleanVector) {
+                if (i != booleanVector.front()) {
+                    allBooleanValuesEqual = false;
+                }
+            }
+            // use checkbox or textfield depending if all booleans are equal
+            if (allBooleanValuesEqual) {
+                // set check button
+                if ((booleanVector.size() > 0) && booleanVector.front()) {
+                    myValueCheckButton->setCheck(true);
+                    myValueCheckButton->setText("true");
+                } else {
+                    myValueCheckButton->setCheck(false);
+                    myValueCheckButton->setText("false");
+                }
+                // show check button
+                myValueCheckButton->show();
+                // enable or disable depending if attribute is editable and is enabled (used by disjoint attributes)
+                if (myACAttr.isNonEditable() || !disjointAttributeEnabled) {
+                    myValueCheckButton->disable();
+                }
             } else {
-                myValueCheckButton->setCheck(false);
-                myValueCheckButton->setText("false");
+                // show list of bools (0 1)
+                myValueTextFieldStrings->setText(value.c_str());
+                myValueTextFieldStrings->setTextColor(FXRGB(0, 0, 0));
+                myValueTextFieldStrings->show();
+                // enable or disable depending if attribute is editable and is enabled (used by disjoint attributes)
+                if (myACAttr.isNonEditable() || !disjointAttributeEnabled) {
+                    myValueTextFieldStrings->disable();
+                }
             }
-            // show check button
-            myValueCheckButton->show();
+        } else if (myACAttr.isDiscrete()) {
+            // Check if are combinable choices
+            if ((myACAttr.getDiscreteValues().size() > 0) && myACAttr.isCombinable()) {
+                // hide label
+                myAttributeLabel->hide();
+                // Show button combinable choices
+                myAttributeButtonCombinableChoices->setText(myACAttr.getAttrStr().c_str());
+                myAttributeButtonCombinableChoices->show();
+                // Show string with the values
+                myValueTextFieldStrings->setText(value.c_str());
+                myValueTextFieldStrings->setTextColor(FXRGB(0, 0, 0));
+                myValueTextFieldStrings->show();
+            } else if (!myMultiple) {
+                // fill comboBox
+                myValueComboBoxChoices->clearItems();
+                for (const auto& it : myACAttr.getDiscreteValues()) {
+                    myValueComboBoxChoices->appendItem(it.c_str());
+                }
+                // show combo box with values
+                myValueComboBoxChoices->setNumVisible((int)myACAttr.getDiscreteValues().size());
+                myValueComboBoxChoices->setCurrentItem(myValueComboBoxChoices->findItem(value.c_str()));
+                myValueComboBoxChoices->setTextColor(FXRGB(0, 0, 0));
+                myValueComboBoxChoices->show();
+                // enable or disable depending if attribute is editable and is enabled (used by disjoint attributes)
+                if (myACAttr.isNonEditable() || !disjointAttributeEnabled) {
+                    myValueComboBoxChoices->disable();
+                }
+            } else {
+                // represent combinable choices in multiple selections always with a textfield instead with a comboBox
+                myValueTextFieldStrings->setText(value.c_str());
+                myValueTextFieldStrings->setTextColor(FXRGB(0, 0, 0));
+                myValueTextFieldStrings->show();
+                // enable or disable depending if attribute is editable and is enabled (used by disjoint attributes)
+                if (myACAttr.isNonEditable() || !disjointAttributeEnabled) {
+                    myValueTextFieldStrings->disable();
+                }
+            }
+        } else if (myACAttr.isFloat() || myACAttr.isSUMOTime()) {
+            // show TextField for real/time values
+            myValueTextFieldReal->setText(value.c_str());
+            myValueTextFieldReal->setTextColor(FXRGB(0, 0, 0));
+            myValueTextFieldReal->show();
             // enable or disable depending if attribute is editable and is enabled (used by disjoint attributes)
             if (myACAttr.isNonEditable() || !disjointAttributeEnabled) {
-                myValueCheckButton->disable();
+                myValueTextFieldReal->disable();
+            }
+        } else if (myACAttr.isInt()) {
+            // Show textField for int attributes
+            myValueTextFieldInt->setText(value.c_str());
+            myValueTextFieldInt->setTextColor(FXRGB(0, 0, 0));
+            myValueTextFieldInt->show();
+            // enable or disable depending if attribute is editable and is enabled (used by disjoint attributes)
+            if (myACAttr.isNonEditable() || !disjointAttributeEnabled) {
+                myValueTextFieldInt->disable();
+            }
+            // we need an extra check for connection attribute "TLIndex", because it cannot be edited if junction's connection doesn' have a TLS
+            if ((myACAttr.getTagPropertyParent().getTag() == SUMO_TAG_CONNECTION) && (myACAttr.getAttr() == SUMO_ATTR_TLLINKINDEX) && (value == "No TLS")) {
+                myValueTextFieldInt->disable();
             }
         } else {
-            // show list of bools (0 1)
+            // In any other case (String, list, etc.), show value as String
             myValueTextFieldStrings->setText(value.c_str());
             myValueTextFieldStrings->setTextColor(FXRGB(0, 0, 0));
             myValueTextFieldStrings->show();
@@ -1006,119 +1684,40 @@ GNEFrame::AttributesEditor::AttributesEditorRow::showAttributesEditorRow(const G
                 myValueTextFieldStrings->disable();
             }
         }
-    } else if (myACAttr.isDiscrete()) {
-        // Check if are combinable choices
-        if ((myACAttr.getDiscreteValues().size() > 0) && myACAttr.isCombinable()) {
-            // hide label
-            myAttributeLabel->hide();
-            // Show button combinable choices
-            myAttributeButtonCombinableChoices->setText(myACAttr.getAttrStr().c_str());
-            myAttributeButtonCombinableChoices->show();
-            // Show string with the values
-            myValueTextFieldStrings->setText(value.c_str());
-            myValueTextFieldStrings->setTextColor(FXRGB(0, 0, 0));
-            myValueTextFieldStrings->show();
-        } else if (!myMultiple) {
-            // fill comboBox
-            myValueComboBoxChoices->clearItems();
-            for (const auto& it : myACAttr.getDiscreteValues()) {
-                myValueComboBoxChoices->appendItem(it.c_str());
-            }
-            // show combo box with values
-            myValueComboBoxChoices->setNumVisible((int)myACAttr.getDiscreteValues().size());
-            myValueComboBoxChoices->setCurrentItem(myValueComboBoxChoices->findItem(value.c_str()));
-            myValueComboBoxChoices->setTextColor(FXRGB(0, 0, 0));
-            myValueComboBoxChoices->show();
-            // enable or disable depending if attribute is editable and is enabled (used by disjoint attributes)
-            if (myACAttr.isNonEditable() || !disjointAttributeEnabled) {
-                myValueComboBoxChoices->disable();
-            }
-        } else {
-            // represent combinable choices in multiple selections always with a textfield instead with a comboBox
-            myValueTextFieldStrings->setText(value.c_str());
-            myValueTextFieldStrings->setTextColor(FXRGB(0, 0, 0));
-            myValueTextFieldStrings->show();
-            // enable or disable depending if attribute is editable and is enabled (used by disjoint attributes)
-            if (myACAttr.isNonEditable() || !disjointAttributeEnabled) {
-                myValueTextFieldStrings->disable();
-            }
-        }
-    } else if (myACAttr.isFloat() || myACAttr.isSUMOTime()) {
-        // show TextField for real/time values
-        myValueTextFieldReal->setText(value.c_str());
-        myValueTextFieldReal->setTextColor(FXRGB(0, 0, 0));
-        myValueTextFieldReal->show();
-        // enable or disable depending if attribute is editable and is enabled (used by disjoint attributes)
-        if (myACAttr.isNonEditable() || !disjointAttributeEnabled) {
+        // if Tag correspond to an network element but we're in demand mode (or vice versa), disable all elements
+        if (((myAttributesEditorParent->myFrameParent->myViewNet->getEditModes().currentSupermode == GNE_SUPERMODE_NETWORK) && myACAttr.getTagPropertyParent().isDemandElement()) ||
+                ((myAttributesEditorParent->myFrameParent->myViewNet->getEditModes().currentSupermode == GNE_SUPERMODE_DEMAND) && !myACAttr.getTagPropertyParent().isDemandElement())) {
+            myAttributeColorButton->disable();
+            myAttributeRadioButton->disable();
+            myAttributeCheckButton->disable();
+            myValueTextFieldInt->disable();
             myValueTextFieldReal->disable();
+            myValueTextFieldStrings->disable();
+            myValueComboBoxChoices->disable();
+            myValueCheckButton->disable();
+            myAttributeButtonCombinableChoices->disable();
         }
-    } else if (myACAttr.isInt()) {
-        // Show textField for int attributes
-        myValueTextFieldInt->setText(value.c_str());
-        myValueTextFieldInt->setTextColor(FXRGB(0, 0, 0));
-        myValueTextFieldInt->show();
-        // enable or disable depending if attribute is editable and is enabled (used by disjoint attributes)
-        if (myACAttr.isNonEditable() || !disjointAttributeEnabled) {
-            myValueTextFieldInt->disable();
-        }
-        // we need an extra check for connection attribute "TLIndex", because it cannot be edited if junction's connection doesn' have a TLS
-        if ((myACAttr.getTagPropertyParent().getTag() == SUMO_TAG_CONNECTION) && (myACAttr.getAttr() == SUMO_ATTR_TLLINKINDEX) && (value == "No TLS")) {
-            myValueTextFieldInt->disable();
-        }
-    } else {
-        // In any other case (String, list, etc.), show value as String
-        myValueTextFieldStrings->setText(value.c_str());
-        myValueTextFieldStrings->setTextColor(FXRGB(0, 0, 0));
-        myValueTextFieldStrings->show();
-        // enable or disable depending if attribute is editable and is enabled (used by disjoint attributes)
-        if (myACAttr.isNonEditable() || !disjointAttributeEnabled) {
+        // special case for Traffic Lights
+        if ((myACAttr.getTagPropertyParent().getTag() == SUMO_TAG_JUNCTION) && (myACAttr.getAttr() == SUMO_ATTR_TLID) && value.empty()) {
             myValueTextFieldStrings->disable();
         }
+        // special case for Default vehicle types (ID cannot be edited)
+        if ((ACAttr.getTagPropertyParent().getTag() == SUMO_TAG_VTYPE) && (ACAttr.getAttr() == SUMO_ATTR_ID) &&
+            ((value == DEFAULT_VTYPE_ID) || (value == DEFAULT_PEDTYPE_ID) || (value == DEFAULT_BIKETYPE_ID))) {
+            myValueTextFieldStrings->disable();
+        }
+        // Show AttributesEditorRow
+        show();
     }
-    // if Tag correspond to an network element but we're in demand mode (or vice versa), disable all elements
-    if (((myAttributesEditorParent->myFrameParent->myViewNet->getEditModes().currentSupermode == GNE_SUPERMODE_NETWORK) && myACAttr.getTagPropertyParent().isDemandElement()) ||
-            ((myAttributesEditorParent->myFrameParent->myViewNet->getEditModes().currentSupermode == GNE_SUPERMODE_DEMAND) && !myACAttr.getTagPropertyParent().isDemandElement())) {
-        myAttributeColorButton->disable();
-        myAttributeRadioButton->disable();
-        myAttributeCheckButton->disable();
-        myValueTextFieldInt->disable();
-        myValueTextFieldReal->disable();
-        myValueTextFieldStrings->disable();
-        myValueComboBoxChoices->disable();
-        myValueCheckButton->disable();
-        myAttributeButtonCombinableChoices->disable();
-    }
-    // special case for Traffic Lights
-    if ((myACAttr.getTagPropertyParent().getTag() == SUMO_TAG_JUNCTION) && (myACAttr.getAttr() == SUMO_ATTR_TLID) && value.empty()) {
-        myValueTextFieldStrings->disable();
-    }
-    // special case for Default vehicle types (ID cannot be edited)
-    if ((ACAttr.getTagPropertyParent().getTag() == SUMO_TAG_VTYPE) && (ACAttr.getAttr() == SUMO_ATTR_ID) &&
-        ((value == DEFAULT_VTYPE_ID) || (value == DEFAULT_PEDTYPE_ID) || (value == DEFAULT_BIKETYPE_ID))) {
-        myValueTextFieldStrings->disable();
-    }
-    // Show Row
-    show();
 }
 
 
-void
-GNEFrame::AttributesEditor::AttributesEditorRow::hideAttributesEditorRow() {
-    // Hide all elements
-    myAttributeLabel->hide();
-    myAttributeColorButton->hide();
-    myAttributeRadioButton->hide();
-    myAttributeCheckButton->hide();
-    myValueTextFieldInt->hide();
-    myValueTextFieldReal->hide();
-    myValueTextFieldStrings->hide();
-    myValueComboBoxChoices->hide();
-    myValueCheckButton->hide();
-    myAttributeButtonCombinableChoices->hide();
-    // hide Row
-    hide();
-    // recalc after hide all elements
-    recalc();
+void 
+GNEFrame::AttributesEditor::AttributesEditorRow::destroy() {
+    // only destroy if parent was created
+    if (getParent()->id()) {
+        FXHorizontalFrame::destroy();
+    }
 }
 
 
@@ -1282,7 +1881,7 @@ GNEFrame::AttributesEditor::AttributesEditorRow::onCmdOpenAttributeDialog(FXObje
             myAttributesEditorParent->myFrameParent->myViewNet->getUndoList()->p_end();
         }
         // update frame parent after attribute sucesfully set
-        myAttributesEditorParent->myFrameParent->updateFrameAfterChangeAttribute();
+        myAttributesEditorParent->myFrameParent->attributeUpdated();
         return 1;
     } else {
         throw ProcessError("Invalid call to onCmdOpenAttributeDialog");
@@ -1396,7 +1995,7 @@ GNEFrame::AttributesEditor::AttributesEditorRow::onCmdSetAttribute(FXObject*, FX
             myValueTextFieldStrings->killFocus();
         }
         // update frame parent after attribute sucesfully set
-        myAttributesEditorParent->myFrameParent->updateFrameAfterChangeAttribute();
+        myAttributesEditorParent->myFrameParent->attributeUpdated();
     } else {
         // If value of TextField isn't valid, change color to Red depending of type
         if (myACAttr.isCombinable()) {
@@ -1451,6 +2050,11 @@ GNEFrame::AttributesEditor::AttributesEditorRow::onCmdSelectRadioButton(FXObject
 }
 
 
+GNEFrame::AttributesEditor::AttributesEditorRow::AttributesEditorRow() :
+    myMultiple(false) {
+}
+
+
 std::string
 GNEFrame::AttributesEditor::AttributesEditorRow::stripWhitespaceAfterComma(const std::string& stringValue) {
     std::string result(stringValue);
@@ -1468,10 +2072,8 @@ GNEFrame::AttributesEditor::AttributesEditor(GNEFrame* FrameParent) :
     FXGroupBox(FrameParent->myContentFrame, "Internal attributes", GUIDesignGroupBoxFrame),
     myFrameParent(FrameParent),
     myIncludeExtended(true) {
-    // Create sufficient Row for all types of AttributeCarriers
-    for (int i = 0; i < (int)GNEAttributeCarrier::getHigherNumberOfAttributes(); i++) {
-        myAttributesEditorRows.push_back(new AttributesEditorRow(this));
-    }
+    // resize myAttributesEditorRows
+    myAttributesEditorRows.resize(GNEAttributeCarrier::MAXNUMBEROFATTRIBUTES, nullptr);
     // Create help button
     myHelpButton = new FXButton(this, "Help", nullptr, this, MID_HELP, GUIDesignButtonRectangular);
 }
@@ -1481,25 +2083,30 @@ void
 GNEFrame::AttributesEditor::showAttributeEditorModul(const std::vector<GNEAttributeCarrier*>& ACs, bool includeExtended) {
     myEditedACs = ACs;
     myIncludeExtended = includeExtended;
-    // first hide all rows
-    for (const auto& i : myAttributesEditorRows) {
-        i->hideAttributesEditorRow();
+    // remove all rows
+    for (int i = 0; i < (int)myAttributesEditorRows.size(); i++) {
+        // destroy and delete all rows
+        if (myAttributesEditorRows.at(i) != nullptr) {
+            myAttributesEditorRows.at(i)->destroy();
+            delete myAttributesEditorRows.at(i);
+            myAttributesEditorRows.at(i) = nullptr;
+        }
     }
     if (myEditedACs.size() > 0) {
         // Iterate over attributes
         for (const auto& i : myEditedACs.front()->getTagProperty()) {
             // disable editing for unique attributes in case of multi-selection
-            if ((myEditedACs.size() > 1) && i.second.isUnique()) {
+            if ((myEditedACs.size() > 1) && i.isUnique()) {
                 continue;
             }
             // disable editing of extended attributes if includeExtended isn't enabled
-            if (i.second.isExtended() && !includeExtended) {
+            if (i.isExtended() && !includeExtended) {
                 continue;
             }
             // Declare a set of occuring values and insert attribute's values of item (note: We use a set to avoid repeated values)
             std::set<std::string> occuringValues;
             for (const auto& it_ac : myEditedACs) {
-                occuringValues.insert(it_ac->getAttribute(i.first));
+                occuringValues.insert(it_ac->getAttribute(i.getAttr()));
             }
             // get current value
             std::ostringstream oss;
@@ -1511,7 +2118,7 @@ GNEFrame::AttributesEditor::showAttributeEditorModul(const std::vector<GNEAttrib
             }
             std::string value = oss.str();
             if ((myEditedACs.front()->getTagProperty().getTag() == SUMO_TAG_CONNECTION) &&
-                    (i.first == SUMO_ATTR_TLLINKINDEX)
+                    (i.getAttr() == SUMO_ATTR_TLLINKINDEX)
                     && value == toString(NBConnection::InvalidTlIndex)) {
                 // possibly the connections are newly created (allow assigning
                 // tlIndex if the junction(s) have a traffic light
@@ -1524,19 +2131,17 @@ GNEFrame::AttributesEditor::showAttributeEditorModul(const std::vector<GNEAttrib
             }
             // show AttributesEditor
             show();
-            // show attribute editor row
-            myAttributesEditorRows[i.second.getPositionListed()]->showAttributesEditorRow(i.second, value, myEditedACs.front()->isDisjointAttributeSet(i.first));
+            // create attribute editor row
+            myAttributesEditorRows[i.getPositionListed()] = new AttributesEditorRow(this, i, value, myEditedACs.front()->isDisjointAttributeSet(i.getAttr()));
         }
     }
+    // reparent help button (to place it at bottom)
+    myHelpButton->reparent(this);
 }
 
 
 void
 GNEFrame::AttributesEditor::hideAttributesEditorModul() {
-    // hide al attributes
-    for (const auto& i : myAttributesEditorRows) {
-        i->hideAttributesEditorRow();
-    }
     // clear myEditedACs
     myEditedACs.clear();
     // hide also AttributesEditor
@@ -1550,13 +2155,13 @@ GNEFrame::AttributesEditor::refreshAttributeEditor(bool forceRefreshShape, bool 
         // Iterate over attributes
         for (const auto& i : myEditedACs.front()->getTagProperty()) {
             // disable editing for unique attributes in case of multi-selection
-            if ((myEditedACs.size() > 1) && i.second.isUnique()) {
+            if ((myEditedACs.size() > 1) && i.isUnique()) {
                 continue;
             }
             // Declare a set of occuring values and insert attribute's values of item
             std::set<std::string> occuringValues;
             for (const auto& it_ac : myEditedACs) {
-                occuringValues.insert(it_ac->getAttribute(i.first));
+                occuringValues.insert(it_ac->getAttribute(i.getAttr()));
             }
             // get current value
             std::ostringstream oss;
@@ -1567,16 +2172,16 @@ GNEFrame::AttributesEditor::refreshAttributeEditor(bool forceRefreshShape, bool 
                 oss << *it_val;
             }
             // check if is a disjoint attribute
-            bool disjointAttributeSet = myEditedACs.front()->isDisjointAttributeSet(i.first);
+            bool disjointAttributeSet = myEditedACs.front()->isDisjointAttributeSet(i.getAttr());
             // Check if refresh of Position or Shape has to be forced
-            if ((i.first  == SUMO_ATTR_SHAPE) && forceRefreshShape) {
-                myAttributesEditorRows[i.second.getPositionListed()]->refreshAttributesEditorRow(oss.str(), true, disjointAttributeSet);
-            } else if ((i.first  == SUMO_ATTR_POSITION) && forceRefreshPosition) {
+            if ((i.getAttr()  == SUMO_ATTR_SHAPE) && forceRefreshShape) {
+                myAttributesEditorRows[i.getPositionListed()]->refreshAttributesEditorRow(oss.str(), true, disjointAttributeSet);
+            } else if ((i.getAttr()  == SUMO_ATTR_POSITION) && forceRefreshPosition) {
                 // Refresh attributes maintain invalid values
-                myAttributesEditorRows[i.second.getPositionListed()]->refreshAttributesEditorRow(oss.str(), true, disjointAttributeSet);
+                myAttributesEditorRows[i.getPositionListed()]->refreshAttributesEditorRow(oss.str(), true, disjointAttributeSet);
             } else {
                 // Refresh attributes maintain invalid values
-                myAttributesEditorRows[i.second.getPositionListed()]->refreshAttributesEditorRow(oss.str(), false, disjointAttributeSet);
+                myAttributesEditorRows[i.getPositionListed()]->refreshAttributesEditorRow(oss.str(), false, disjointAttributeSet);
             }
         }
     }
@@ -1648,60 +2253,80 @@ GNEFrame::AttributesEditorExtended::hideAttributesEditorExtendedModul() {
 long
 GNEFrame::AttributesEditorExtended::onCmdOpenDialog(FXObject*, FXSelector, void*) {
     // open AttributesCreator extended dialog
-    myFrameParent->openAttributesEditorExtendedDialog();
+    myFrameParent->attributesEditorExtendedDialogOpened();
     return 1;
 }
 
 // ---------------------------------------------------------------------------
-// GNEFrame::ACHierarchy - methods
+// GNEFrame::AttributeCarrierHierarchy - methods
 // ---------------------------------------------------------------------------
 
-GNEFrame::ACHierarchy::ACHierarchy(GNEFrame* frameParent) :
+GNEFrame::AttributeCarrierHierarchy::AttributeCarrierHierarchy(GNEFrame* frameParent) :
     FXGroupBox(frameParent->myContentFrame, "Hierarchy", GUIDesignGroupBoxFrame),
     myFrameParent(frameParent),
-    myAC(nullptr) {
+    myAC(nullptr),
+    myClickedAC(nullptr),
+    myClickedJunction(nullptr),
+    myClickedEdge(nullptr),
+    myClickedLane(nullptr),
+    myClickedCrossing(nullptr),
+    myClickedConnection(nullptr),
+    myClickedShape(nullptr),
+    myClickedAdditional(nullptr),
+    myClickedDemandElement(nullptr) {
     // Create three list
-    myTreelist = new FXTreeList(this, this, MID_GNE_DELETEFRAME_CHILDS, GUIDesignTreeListFrame);
+    myTreelist = new FXTreeList(this, this, MID_GNE_ACHIERARCHY_SHOWCHILDMENU, GUIDesignTreeListFrame);
     hide();
 }
 
 
-GNEFrame::ACHierarchy::~ACHierarchy() {}
+GNEFrame::AttributeCarrierHierarchy::~AttributeCarrierHierarchy() {}
 
 
 void
-GNEFrame::ACHierarchy::showACHierarchy(GNEAttributeCarrier* AC) {
+GNEFrame::AttributeCarrierHierarchy::showAttributeCarrierHierarchy(GNEAttributeCarrier* AC) {
     myAC = AC;
-    // show ACHierarchy and refresh ACHierarchy
+    // show AttributeCarrierHierarchy and refresh AttributeCarrierHierarchy
     if (myAC) {
         show();
-        refreshACHierarchy();
+        refreshAttributeCarrierHierarchy();
     }
 }
 
 
 void
-GNEFrame::ACHierarchy::hideACHierarchy() {
+GNEFrame::AttributeCarrierHierarchy::hideAttributeCarrierHierarchy() {
+    // set all pointers null
     myAC = nullptr;
+    myClickedAC = nullptr;
+    myClickedJunction = nullptr;
+    myClickedEdge = nullptr;
+    myClickedLane = nullptr;
+    myClickedCrossing = nullptr;
+    myClickedConnection = nullptr;
+    myClickedShape = nullptr;
+    myClickedAdditional = nullptr;
+    myClickedDemandElement = nullptr;
+    // hide modul
     hide();
 }
 
 
 void
-GNEFrame::ACHierarchy::refreshACHierarchy() {
+GNEFrame::AttributeCarrierHierarchy::refreshAttributeCarrierHierarchy() {
     // clear items
     myTreelist->clearItems();
     myTreeItemToACMap.clear();
     myTreeItemsConnections.clear();
-    // show ACChilds of myAC
+    // show ACChildren of myAC
     if (myAC) {
-        showAttributeCarrierChilds(myAC, showAttributeCarrierParents());
+        showAttributeCarrierChildren(myAC, showAttributeCarrierParents());
     }
 }
 
 
 long
-GNEFrame::ACHierarchy::onCmdShowChildMenu(FXObject*, FXSelector, void* eventData) {
+GNEFrame::AttributeCarrierHierarchy::onCmdShowChildMenu(FXObject*, FXSelector, void* eventData) {
     // Obtain event
     FXEvent* e = (FXEvent*)eventData;
     // obtain FXTreeItem in the given position
@@ -1715,62 +2340,75 @@ GNEFrame::ACHierarchy::onCmdShowChildMenu(FXObject*, FXSelector, void* eventData
 
 
 long
-GNEFrame::ACHierarchy::onCmdCenterItem(FXObject*, FXSelector, void*) {
-    GUIGlObject* glObject = dynamic_cast<GUIGlObject*>(myRightClickedAC);
-    if (glObject) {
-        myFrameParent->myViewNet->centerTo(glObject->getGlID(), true, -1);
-        myFrameParent->myViewNet->update();
+GNEFrame::AttributeCarrierHierarchy::onCmdCenterItem(FXObject*, FXSelector, void*) {
+    // Center item
+    if (myClickedJunction) {
+        myFrameParent->myViewNet->centerTo(myClickedJunction->getGlID(), true, -1);
+    } else if (myClickedEdge) {
+        myFrameParent->myViewNet->centerTo(myClickedEdge->getGlID(), true, -1);
+    } else if (myClickedLane) {
+        myFrameParent->myViewNet->centerTo(myClickedLane->getGlID(), true, -1);
+    } else if (myClickedCrossing) {
+        myFrameParent->myViewNet->centerTo(myClickedCrossing->getGlID(), true, -1);
+    } else if (myClickedConnection) {
+        myFrameParent->myViewNet->centerTo(myClickedConnection->getGlID(), true, -1);
+    } else if (myClickedAdditional) {
+        myFrameParent->myViewNet->centerTo(myClickedAdditional->getGlID(), true, -1);
+    } else if (myClickedShape) {
+        myFrameParent->myViewNet->centerTo(myClickedShape->getGlID(), true, -1);
+    } else if (myClickedDemandElement) {
+        myFrameParent->myViewNet->centerTo(myClickedDemandElement->getGlID(), true, -1);
+    }
+    // update view after centering
+    myFrameParent->myViewNet->update();
+    return 1;
+}
+
+
+long
+GNEFrame::AttributeCarrierHierarchy::onCmdInspectItem(FXObject*, FXSelector, void*) {
+    if ((myAC != nullptr) && (myClickedAC != nullptr)) {
+        myFrameParent->myViewNet->getViewParent()->getInspectorFrame()->inspectChild(myClickedAC, myAC);
     }
     return 1;
 }
 
 
 long
-GNEFrame::ACHierarchy::onCmdInspectItem(FXObject*, FXSelector, void*) {
-    if ((myAC != nullptr) && (myRightClickedAC != nullptr)) {
-        myFrameParent->myViewNet->getViewParent()->getInspectorFrame()->inspectChild(myRightClickedAC, myAC);
-    }
-    return 1;
-}
-
-
-long
-GNEFrame::ACHierarchy::onCmdDeleteItem(FXObject*, FXSelector, void*) {
+GNEFrame::AttributeCarrierHierarchy::onCmdDeleteItem(FXObject*, FXSelector, void*) {
     // check if Inspector frame was opened before removing
     const std::vector<GNEAttributeCarrier*>& currentInspectedACs = myFrameParent->myViewNet->getViewParent()->getInspectorFrame()->getAttributesEditor()->getEditedACs();
     // Remove Attribute Carrier
-    if (myRightClickedAC->getTagProperty().getTag() == SUMO_TAG_JUNCTION) {
-        myFrameParent->myViewNet->getNet()->deleteJunction(dynamic_cast<GNEJunction*>(myRightClickedAC), myFrameParent->myViewNet->getUndoList());
-    } else if (myRightClickedAC->getTagProperty().getTag() == SUMO_TAG_EDGE) {
-        myFrameParent->myViewNet->getNet()->deleteEdge(dynamic_cast<GNEEdge*>(myRightClickedAC), myFrameParent->myViewNet->getUndoList(), false);
-    } else if (myRightClickedAC->getTagProperty().getTag() == SUMO_TAG_LANE) {
-        myFrameParent->myViewNet->getNet()->deleteLane(dynamic_cast<GNELane*>(myRightClickedAC), myFrameParent->myViewNet->getUndoList(), false);
-    } else if (myRightClickedAC->getTagProperty().getTag() == SUMO_TAG_CROSSING) {
-        myFrameParent->myViewNet->getNet()->deleteCrossing(dynamic_cast<GNECrossing*>(myRightClickedAC), myFrameParent->myViewNet->getUndoList());
-    } else if (myRightClickedAC->getTagProperty().getTag() == SUMO_TAG_CONNECTION) {
-        myFrameParent->myViewNet->getNet()->deleteConnection(dynamic_cast<GNEConnection*>(myRightClickedAC), myFrameParent->myViewNet->getUndoList());
-    } else if (myRightClickedAC->getTagProperty().getTag() == SUMO_TAG_TAZ) {
-        myFrameParent->myViewNet->getNet()->deleteAdditional(dynamic_cast<GNETAZ*>(myRightClickedAC), myFrameParent->myViewNet->getUndoList());
-    } else if (myRightClickedAC->getTagProperty().isAdditional()) {
-        myFrameParent->myViewNet->getNet()->deleteAdditional(dynamic_cast<GNEAdditional*>(myRightClickedAC), myFrameParent->myViewNet->getUndoList());
-    } else if (myRightClickedAC->getTagProperty().isShape()) {
-        myFrameParent->myViewNet->getNet()->deleteShape(dynamic_cast<GNEShape*>(myRightClickedAC), myFrameParent->myViewNet->getUndoList());
-    } else if (myRightClickedAC->getTagProperty().isDemandElement()) {
+    if (myClickedJunction) {
+        myFrameParent->myViewNet->getNet()->deleteJunction(myClickedJunction, myFrameParent->myViewNet->getUndoList());
+    } else if (myClickedEdge) {
+        myFrameParent->myViewNet->getNet()->deleteEdge(myClickedEdge, myFrameParent->myViewNet->getUndoList(), false);
+    } else if (myClickedLane) {
+        myFrameParent->myViewNet->getNet()->deleteLane(myClickedLane, myFrameParent->myViewNet->getUndoList(), false);
+    } else if (myClickedCrossing) {
+        myFrameParent->myViewNet->getNet()->deleteCrossing(myClickedCrossing, myFrameParent->myViewNet->getUndoList());
+    } else if (myClickedConnection) {
+        myFrameParent->myViewNet->getNet()->deleteConnection(myClickedConnection, myFrameParent->myViewNet->getUndoList());
+    } else if (myClickedAdditional) {
+        myFrameParent->myViewNet->getNet()->deleteAdditional(myClickedAdditional, myFrameParent->myViewNet->getUndoList());
+    } else if (myClickedShape) {
+        myFrameParent->myViewNet->getNet()->deleteShape(myClickedShape, myFrameParent->myViewNet->getUndoList());
+    } else if (myClickedDemandElement) {
         // check that default VTypes aren't removed
-        if ((myRightClickedAC->getTagProperty().getTag() == SUMO_TAG_VTYPE) && (GNEAttributeCarrier::parse<bool>(myRightClickedAC->getAttribute(GNE_ATTR_DEFAULT_VTYPE)))) {
-            WRITE_WARNING("Default Vehicle Type '" + myRightClickedAC->getAttribute(SUMO_ATTR_ID) +"' cannot be removed");
+        if ((myClickedDemandElement->getTagProperty().getTag() == SUMO_TAG_VTYPE) && (GNEAttributeCarrier::parse<bool>(myClickedDemandElement->getAttribute(GNE_ATTR_DEFAULT_VTYPE)))) {
+            WRITE_WARNING("Default Vehicle Type '" + myClickedDemandElement->getAttribute(SUMO_ATTR_ID) +"' cannot be removed");
             return 1;
         } else {
-            myFrameParent->myViewNet->getNet()->deleteDemandElement(dynamic_cast<GNEDemandElement*>(myRightClickedAC), myFrameParent->myViewNet->getUndoList());
+            myFrameParent->myViewNet->getNet()->deleteDemandElement(myClickedDemandElement, myFrameParent->myViewNet->getUndoList());
         }
     }
     // update viewNet
     myFrameParent->myViewNet->update();
     // refresh AC Hierarchy
-    refreshACHierarchy();
+    refreshAttributeCarrierHierarchy();
     // check if inspector frame has to be shown again
     if (currentInspectedACs.size() == 1) {
-        if (currentInspectedACs.front() != myRightClickedAC) {
+        if (currentInspectedACs.front() != myClickedAC) {
             myFrameParent->myViewNet->getViewParent()->getInspectorFrame()->inspectSingleElement(currentInspectedACs.front());
         } else {
             // inspect a nullprt element to reset inspector frame
@@ -1781,26 +2419,105 @@ GNEFrame::ACHierarchy::onCmdDeleteItem(FXObject*, FXSelector, void*) {
 }
 
 
+long 
+GNEFrame::AttributeCarrierHierarchy::onCmdMoveItemUp(FXObject*, FXSelector, void*) {
+    // currently only children of demand elements can be moved
+    if(myClickedDemandElement) {
+        myFrameParent->myViewNet->getUndoList()->p_begin(("moving up " + myClickedDemandElement->getTagStr()).c_str());
+        // move element one position back
+        myFrameParent->myViewNet->getUndoList()->add(new GNEChange_Children(myClickedDemandElement->getDemandElementParents().at(0), myClickedDemandElement, 
+                                                                            GNEChange_Children::Operation::MOVE_BACK), true);
+        myFrameParent->myViewNet->getUndoList()->p_end();
+    }
+    // refresh after moving child
+    refreshAttributeCarrierHierarchy();
+    return 1;
+}
+
+
+long 
+GNEFrame::AttributeCarrierHierarchy::onCmdMoveItemDown(FXObject*, FXSelector, void*) {
+    // currently only children of demand elements can be moved
+    if(myClickedDemandElement) {
+        myFrameParent->myViewNet->getUndoList()->p_begin(("moving down " + myClickedDemandElement->getTagStr()).c_str());
+        // move element one position front
+        myFrameParent->myViewNet->getUndoList()->add(new GNEChange_Children(myClickedDemandElement->getDemandElementParents().at(0), myClickedDemandElement, 
+                                                                            GNEChange_Children::Operation::MOVE_FRONT), true);
+        myFrameParent->myViewNet->getUndoList()->p_end();
+    }
+    // refresh after moving child
+    refreshAttributeCarrierHierarchy();
+    return 1;
+}
+
+
 void
-GNEFrame::ACHierarchy::createPopUpMenu(int X, int Y, GNEAttributeCarrier* ac) {
+GNEFrame::AttributeCarrierHierarchy::createPopUpMenu(int X, int Y, GNEAttributeCarrier* clickedAC) {
     // first check that AC exist
-    if (ac) {
+    if (clickedAC) {
         // set current clicked AC
-        myRightClickedAC = ac;
+        myClickedAC = clickedAC;
+        // cast all elements
+        myClickedJunction = dynamic_cast<GNEJunction*>(clickedAC);
+        myClickedEdge = dynamic_cast<GNEEdge*>(clickedAC);
+        myClickedLane = dynamic_cast<GNELane*>(clickedAC);
+        myClickedCrossing = dynamic_cast<GNECrossing*>(clickedAC);
+        myClickedConnection = dynamic_cast<GNEConnection*>(clickedAC);
+        myClickedShape = dynamic_cast<GNEShape*>(clickedAC);
+        myClickedAdditional = dynamic_cast<GNEAdditional*>(clickedAC);
+        myClickedDemandElement = dynamic_cast<GNEDemandElement*>(clickedAC);
         // create FXMenuPane
         FXMenuPane* pane = new FXMenuPane(myTreelist);
-        // set name
-        new MFXMenuHeader(pane, myFrameParent->myViewNet->getViewParent()->getGUIMainWindow()->getBoldFont(), myRightClickedAC->getPopUpID().c_str(), myRightClickedAC->getIcon());
+        // set item name and icon
+        new MFXMenuHeader(pane, myFrameParent->myViewNet->getViewParent()->getGUIMainWindow()->getBoldFont(), myClickedAC->getPopUpID().c_str(), myClickedAC->getIcon());
+        // insert separator
         new FXMenuSeparator(pane);
-        // Fill FXMenuCommand
-        new FXMenuCommand(pane, "Center", GUIIconSubSys::getIcon(ICON_RECENTERVIEW), this, MID_GNE_INSPECTORFRAME_CENTER);
-        FXMenuCommand* inspectMenuCommand = new FXMenuCommand(pane, "Inspect", GUIIconSubSys::getIcon(ICON_MODEINSPECT), this, MID_GNE_INSPECTORFRAME_INSPECT);
-        FXMenuCommand* deleteMenuCommand = new FXMenuCommand(pane, "Delete", GUIIconSubSys::getIcon(ICON_MODEDELETE), this, MID_GNE_INSPECTORFRAME_DELETE);
+        // create center menu command
+        FXMenuCommand* centerMenuCommand = new FXMenuCommand(pane, "Center", GUIIconSubSys::getIcon(ICON_RECENTERVIEW), this, MID_GNE_CENTER);
+        // disable Centering for Vehicle Types
+        if (myClickedAC->getTagProperty().isVehicleType()) {
+            centerMenuCommand->disable();
+        }
+        // create inspect and delete menu commands
+        FXMenuCommand* inspectMenuCommand = new FXMenuCommand(pane, "Inspect", GUIIconSubSys::getIcon(ICON_MODEINSPECT), this, MID_GNE_INSPECT);
+        FXMenuCommand* deleteMenuCommand = new FXMenuCommand(pane, "Delete", GUIIconSubSys::getIcon(ICON_MODEDELETE), this, MID_GNE_DELETE);
         // check if inspect and delete menu commands has to be disabled
-        if ((myRightClickedAC->getTagProperty().isNetElement() && (myFrameParent->myViewNet->getEditModes().currentSupermode == GNE_SUPERMODE_DEMAND)) ||
-            (myRightClickedAC->getTagProperty().isDemandElement() && (myFrameParent->myViewNet->getEditModes().currentSupermode == GNE_SUPERMODE_NETWORK))) {
+        if ((myClickedAC->getTagProperty().isNetElement() && (myFrameParent->myViewNet->getEditModes().currentSupermode == GNE_SUPERMODE_DEMAND)) ||
+            (myClickedAC->getTagProperty().isDemandElement() && (myFrameParent->myViewNet->getEditModes().currentSupermode == GNE_SUPERMODE_NETWORK))) {
             inspectMenuCommand->disable();
             deleteMenuCommand->disable();
+        }
+        // now chec if given AC support manually moving of their item up and down (Currently only for demand elements
+        if (myClickedDemandElement && myClickedAC->getTagProperty().canBeSortedManually()) {
+            // insert separator
+            new FXMenuSeparator(pane);
+            // create both moving menu commands
+            FXMenuCommand* moveUpMenuCommand = new FXMenuCommand(pane, "Move up", GUIIconSubSys::getIcon(ICON_ARROW_UP), this, MID_GNE_ACHIERARCHY_MOVEUP);
+            FXMenuCommand* moveDownMenuCommand = new FXMenuCommand(pane, "Move down", GUIIconSubSys::getIcon(ICON_ARROW_DOWN), this, MID_GNE_ACHIERARCHY_MOVEDOWN);
+            // check if both commands has to be disabled
+            if (myClickedDemandElement->getTagProperty().isPersonStop()) {
+                moveUpMenuCommand->setText("Move up (Stops cannot be moved)");
+                moveDownMenuCommand->setText("Move diwb (Stops cannot be moved)");
+                moveUpMenuCommand->disable();
+                moveDownMenuCommand->disable();
+            } else {
+                // check if moveUpMenuCommand has to be disabled
+                if (myClickedDemandElement->getDemandElementParents().front()->getDemandElementChildren().front() == myClickedDemandElement) {
+                    moveUpMenuCommand->setText("Move up (It's already the first element)");
+                    moveUpMenuCommand->disable();
+                } else if (myClickedDemandElement->getDemandElementParents().front()->getPreviousemandElement(myClickedDemandElement)->getTagProperty().isPersonStop()) {
+                    moveUpMenuCommand->setText("Move up (Previous element is a Stop)");
+                    moveUpMenuCommand->disable();
+                }
+                // check if moveDownMenuCommand has to be disabled
+                if (myClickedDemandElement->getDemandElementParents().front()->getDemandElementChildren().back() == myClickedDemandElement) {
+                    moveDownMenuCommand->setText("Move down (It's already the last element)");
+                    moveDownMenuCommand->disable();
+                } else if (myClickedDemandElement->getDemandElementParents().front()->getNextDemandElement(myClickedDemandElement)->getTagProperty().isPersonStop()) {
+                    moveDownMenuCommand->setText("Move down (Next element is a Stop)");
+                    moveDownMenuCommand->disable();
+                }
+            }
         }
         // Center in the mouse position and create pane
         pane->setX(X);
@@ -1808,13 +2525,22 @@ GNEFrame::ACHierarchy::createPopUpMenu(int X, int Y, GNEAttributeCarrier* ac) {
         pane->create();
         pane->show();
     } else {
-        myRightClickedAC = nullptr;
+        // set all clicked elements to null
+        myClickedAC = nullptr;
+        myClickedJunction = nullptr;
+        myClickedEdge = nullptr;
+        myClickedLane = nullptr;
+        myClickedCrossing = nullptr;
+        myClickedConnection = nullptr;
+        myClickedShape = nullptr;
+        myClickedAdditional = nullptr;
+        myClickedDemandElement = nullptr;
     }
 }
 
 
 FXTreeItem*
-GNEFrame::ACHierarchy::showAttributeCarrierParents() {
+GNEFrame::AttributeCarrierHierarchy::showAttributeCarrierParents() {
     if (myAC->getTagProperty().isNetElement()) {
         // check demand element type
         switch (myAC->getTagProperty().getTag()) {
@@ -2060,13 +2786,13 @@ GNEFrame::ACHierarchy::showAttributeCarrierParents() {
             return root;
         }
     }
-    // there isn't parents
+    // there aren't parents
     return nullptr;
 }
 
 
 void
-GNEFrame::ACHierarchy::showAttributeCarrierChilds(GNEAttributeCarrier* AC, FXTreeItem* itemParent) {
+GNEFrame::AttributeCarrierHierarchy::showAttributeCarrierChildren(GNEAttributeCarrier* AC, FXTreeItem* itemParent) {
     if (AC->getTagProperty().isNetElement()) {
         // Switch gl type of ac
         switch (AC->getTagProperty().getTag()) {
@@ -2078,11 +2804,11 @@ GNEFrame::ACHierarchy::showAttributeCarrierChilds(GNEAttributeCarrier* AC, FXTre
                     FXTreeItem* junctionItem = addListItem(AC, itemParent);
                     // insert edges
                     for (auto i : junction->getGNEEdges()) {
-                        showAttributeCarrierChilds(i, junctionItem);
+                        showAttributeCarrierChildren(i, junctionItem);
                     }
                     // insert crossings
                     for (auto i : junction->getGNECrossings()) {
-                        showAttributeCarrierChilds(i, junctionItem);
+                        showAttributeCarrierChildren(i, junctionItem);
                     }
                 }
                 break;
@@ -2095,25 +2821,25 @@ GNEFrame::ACHierarchy::showAttributeCarrierChilds(GNEAttributeCarrier* AC, FXTre
                     FXTreeItem* edgeItem = addListItem(AC, itemParent);
                     // insert lanes
                     for (const auto& i : edge->getLanes()) {
-                        showAttributeCarrierChilds(i, edgeItem);
+                        showAttributeCarrierChildren(i, edgeItem);
                     }
-                    // insert shape childs
-                    for (const auto& i : edge->getShapeChilds()) {
-                        showAttributeCarrierChilds(i, edgeItem);
+                    // insert shape children
+                    for (const auto& i : edge->getShapeChildren()) {
+                        showAttributeCarrierChildren(i, edgeItem);
                     }
-                    // insert additional childs
-                    for (const auto& i : edge->getAdditionalChilds()) {
-                        showAttributeCarrierChilds(i, edgeItem);
+                    // insert additional children
+                    for (const auto& i : edge->getAdditionalChildren()) {
+                        showAttributeCarrierChildren(i, edgeItem);
                     }
-                    // insert demand elements childs (note: use getSortedDemandElementChildsByType to avoid duplicated elements)
-                    for (const auto &i : edge->getSortedDemandElementChildsByType(SUMO_TAG_ROUTE)) {
-                        showAttributeCarrierChilds(i, edgeItem);
+                    // insert demand elements children (note: use getSortedDemandElementChildrenByType to avoid duplicated elements)
+                    for (const auto &i : edge->getSortedDemandElementChildrenByType(SUMO_TAG_ROUTE)) {
+                        showAttributeCarrierChildren(i, edgeItem);
                     }
-                    for (const auto &i : edge->getSortedDemandElementChildsByType(SUMO_TAG_TRIP)) {
-                        showAttributeCarrierChilds(i, edgeItem);
+                    for (const auto &i : edge->getSortedDemandElementChildrenByType(SUMO_TAG_TRIP)) {
+                        showAttributeCarrierChildren(i, edgeItem);
                     }
-                    for (const auto &i : edge->getSortedDemandElementChildsByType(SUMO_TAG_FLOW)) {
-                        showAttributeCarrierChilds(i, edgeItem);
+                    for (const auto &i : edge->getSortedDemandElementChildrenByType(SUMO_TAG_FLOW)) {
+                        showAttributeCarrierChildren(i, edgeItem);
                     }
                 }
                 break;
@@ -2124,17 +2850,17 @@ GNEFrame::ACHierarchy::showAttributeCarrierChilds(GNEAttributeCarrier* AC, FXTre
                 if (lane) {
                     // insert lane item
                     FXTreeItem* laneItem = addListItem(AC, itemParent);
-                    // insert shape childs
-                    for (const auto& i : lane->getShapeChilds()) {
-                        showAttributeCarrierChilds(i, laneItem);
+                    // insert shape children
+                    for (const auto& i : lane->getShapeChildren()) {
+                        showAttributeCarrierChildren(i, laneItem);
                     }
-                    // insert additional childs
-                    for (const auto& i : lane->getAdditionalChilds()) {
-                        showAttributeCarrierChilds(i, laneItem);
+                    // insert additional children
+                    for (const auto& i : lane->getAdditionalChildren()) {
+                        showAttributeCarrierChildren(i, laneItem);
                     }
-                    // insert demand elements childs
-                    for (const auto& i : lane->getDemandElementChilds()) {
-                        showAttributeCarrierChilds(i, laneItem);
+                    // insert demand elements children
+                    for (const auto& i : lane->getDemandElementChildren()) {
+                        showAttributeCarrierChildren(i, laneItem);
                     }
                     // insert incoming connections of lanes (by default isn't expanded)
                     if (lane->getGNEIncomingConnections().size() > 0) {
@@ -2143,7 +2869,7 @@ GNEFrame::ACHierarchy::showAttributeCarrierChilds(GNEAttributeCarrier* AC, FXTre
                         FXTreeItem* incomingConnections = addListItem(laneItem, "Incomings", incomingLaneConnections.front()->getIcon(), false);
                         // insert incoming connections
                         for (auto i : incomingLaneConnections) {
-                            showAttributeCarrierChilds(i, incomingConnections);
+                            showAttributeCarrierChildren(i, incomingConnections);
                         }
                     }
                     // insert outcoming connections of lanes (by default isn't expanded)
@@ -2153,7 +2879,7 @@ GNEFrame::ACHierarchy::showAttributeCarrierChilds(GNEAttributeCarrier* AC, FXTre
                         FXTreeItem* outgoingConnections = addListItem(laneItem, "Outgoing", outcomingLaneConnections.front()->getIcon(), false);
                         // insert outcoming connections
                         for (auto i : outcomingLaneConnections) {
-                            showAttributeCarrierChilds(i, outgoingConnections);
+                            showAttributeCarrierChildren(i, outgoingConnections);
                         }
                     }
                 }
@@ -2177,25 +2903,25 @@ GNEFrame::ACHierarchy::showAttributeCarrierChilds(GNEAttributeCarrier* AC, FXTre
         if (additional) {
             // insert additional item
             FXTreeItem* additionalItem = addListItem(AC, itemParent);
-            // insert edge childs
-            for (const auto& i : additional->getEdgeChilds()) {
-                showAttributeCarrierChilds(i, additionalItem);
+            // insert edge children
+            for (const auto& i : additional->getEdgeChildren()) {
+                showAttributeCarrierChildren(i, additionalItem);
             }
-            // insert lane childs
-            for (const auto& i : additional->getLaneChilds()) {
-                showAttributeCarrierChilds(i, additionalItem);
+            // insert lane children
+            for (const auto& i : additional->getLaneChildren()) {
+                showAttributeCarrierChildren(i, additionalItem);
             }
-            // insert shape childs
-            for (const auto& i : additional->getShapeChilds()) {
-                showAttributeCarrierChilds(i, additionalItem);
+            // insert shape children
+            for (const auto& i : additional->getShapeChildren()) {
+                showAttributeCarrierChildren(i, additionalItem);
             }
-            // insert additionals childs
-            for (const auto& i : additional->getAdditionalChilds()) {
-                showAttributeCarrierChilds(i, additionalItem);
+            // insert additionals children
+            for (const auto& i : additional->getAdditionalChildren()) {
+                showAttributeCarrierChildren(i, additionalItem);
             }
-            // insert demand element childs
-            for (const auto& i : additional->getDemandElementChilds()) {
-                showAttributeCarrierChilds(i, additionalItem);
+            // insert demand element children
+            for (const auto& i : additional->getDemandElementChildren()) {
+                showAttributeCarrierChildren(i, additionalItem);
             }
         }
     } else if (AC->getTagProperty().isDemandElement()) {
@@ -2204,25 +2930,25 @@ GNEFrame::ACHierarchy::showAttributeCarrierChilds(GNEAttributeCarrier* AC, FXTre
         if (demandElement) {
             // insert demandElement item
             FXTreeItem* demandElementItem = addListItem(AC, itemParent);
-            // insert edge childs
-            for (const auto& i : demandElement->getEdgeChilds()) {
-                showAttributeCarrierChilds(i, demandElementItem);
+            // insert edge children
+            for (const auto& i : demandElement->getEdgeChildren()) {
+                showAttributeCarrierChildren(i, demandElementItem);
             }
-            // insert lane childs
-            for (const auto& i : demandElement->getLaneChilds()) {
-                showAttributeCarrierChilds(i, demandElementItem);
+            // insert lane children
+            for (const auto& i : demandElement->getLaneChildren()) {
+                showAttributeCarrierChildren(i, demandElementItem);
             }
-            // insert shape childs
-            for (const auto& i : demandElement->getShapeChilds()) {
-                showAttributeCarrierChilds(i, demandElementItem);
+            // insert shape children
+            for (const auto& i : demandElement->getShapeChildren()) {
+                showAttributeCarrierChildren(i, demandElementItem);
             }
-            // insert additionals childs
-            for (const auto& i : demandElement->getAdditionalChilds()) {
-                showAttributeCarrierChilds(i, demandElementItem);
+            // insert additionals children
+            for (const auto& i : demandElement->getAdditionalChildren()) {
+                showAttributeCarrierChildren(i, demandElementItem);
             }
-            // insert demand element childs
-            for (const auto& i : demandElement->getDemandElementChilds()) {
-                showAttributeCarrierChilds(i, demandElementItem);
+            // insert demand element children
+            for (const auto& i : demandElement->getDemandElementChildren()) {
+                showAttributeCarrierChildren(i, demandElementItem);
             }
         }
     }
@@ -2230,23 +2956,25 @@ GNEFrame::ACHierarchy::showAttributeCarrierChilds(GNEAttributeCarrier* AC, FXTre
 
 
 FXTreeItem*
-GNEFrame::ACHierarchy::addListItem(GNEAttributeCarrier* AC, FXTreeItem* itemParent, std::string prefix, std::string sufix) {
+GNEFrame::AttributeCarrierHierarchy::addListItem(GNEAttributeCarrier* AC, FXTreeItem* itemParent, std::string prefix, std::string sufix) {
     // insert item in Tree list
     FXTreeItem* item = myTreelist->insertItem(nullptr, itemParent, (prefix + AC->getHierarchyName() + sufix).c_str(), AC->getIcon(), AC->getIcon());
     // insert item in map
     myTreeItemToACMap[item] = AC;
     // by default item is expanded
     item->setExpanded(true);
+    // return created FXTreeItem
     return item;
 }
 
 
 FXTreeItem*
-GNEFrame::ACHierarchy::addListItem(FXTreeItem* itemParent, const std::string& text, FXIcon* icon, bool expanded) {
+GNEFrame::AttributeCarrierHierarchy::addListItem(FXTreeItem* itemParent, const std::string& text, FXIcon* icon, bool expanded) {
     // insert item in Tree list
     FXTreeItem* item = myTreelist->insertItem(nullptr, itemParent, text.c_str(), icon, icon);
-    // set exapnded
+    // expand item depending of flag expanded
     item->setExpanded(expanded);
+    // return created FXTreeItem
     return item;
 }
 
@@ -2391,7 +3119,7 @@ GNEFrame::GenericParametersEditor::onCmdEditGenericParameter(FXObject*, FXSelect
             }
             myFrameParent->myViewNet->getUndoList()->p_end();
             // update frame parent after attribute sucesfully set
-            myFrameParent->updateFrameAfterChangeAttribute();
+            myFrameParent->attributeUpdated();
         }
         // Refresh parameter editor
         refreshGenericParametersEditor();
@@ -2464,7 +3192,7 @@ GNEFrame::GenericParametersEditor::onCmdSetGenericParameter(FXObject*, FXSelecto
         }
         myFrameParent->myViewNet->getUndoList()->p_end();
         // update frame parent after attribute sucesfully set
-        myFrameParent->updateFrameAfterChangeAttribute();
+        myFrameParent->attributeUpdated();
     }
     return 1;
 }
@@ -2534,7 +3262,7 @@ GNEFrame::DrawingShape::startDrawing() {
 void
 GNEFrame::DrawingShape::stopDrawing() {
     // try to build shape
-    if (myFrameParent->buildShape()) {
+    if (myFrameParent->shapeDrawed()) {
         // clear created points
         myTemporalShapeShape.clear();
         myFrameParent->myViewNet->update();
@@ -3124,32 +3852,39 @@ GNEFrame::updateFrameAfterUndoRedo() {
 // GNEFrame - protected methods
 // ---------------------------------------------------------------------------
 
+void
+GNEFrame::tagSelected() {
+    // this function has to be reimplemente in all child frames that uses a TagSelector modul
+}
+
+
+void
+GNEFrame::demandElementSelected() {
+    // this function has to be reimplemente in all child frames that uses a DemandElementSelector
+}
+
+
+void
+GNEFrame::edgePathCreated() {
+    // this function has to be reimplemente in all child frames that uses a EdgePathCreator
+}
+
+
 bool
-GNEFrame::buildShape() {
+GNEFrame::shapeDrawed() {
     // this function has to be reimplemente in all child frames that needs to draw a polygon (for example, GNEFrame or GNETAZFrame)
     return false;
 }
 
 
 void
-GNEFrame::enableModuls(const GNEAttributeCarrier::TagProperties&) {
-    // this function has to be reimplemente in all child frames that uses a ItemSelector modul
+GNEFrame::attributeUpdated() {
+    // this function has to be reimplemente in all child frames that uses a TagSelector modul
 }
 
 
 void
-GNEFrame::disableModuls() {
-    // this function has to be reimplemente in all child frames that uses a ItemSelector modul
-}
-
-
-void
-GNEFrame::updateFrameAfterChangeAttribute() {
-    // this function has to be reimplemente in all child frames that uses a ItemSelector modul
-}
-
-void
-GNEFrame::openAttributesEditorExtendedDialog()  {
+GNEFrame::attributesEditorExtendedDialogOpened()  {
     // this function has to be reimplemente in all child frames that uses a AttributesCreator editor with extended attributes
 }
 
@@ -3172,22 +3907,22 @@ GNEFrame::openHelpAttributesDialog(const GNEAttributeCarrier::TagProperties& tag
     myTable->getRowHeader()->setWidth(0);
     // Iterate over vector of additional parameters
     int itemIndex = 0;
-    for (auto i : tagProperties) {
+    for (const auto &i : tagProperties) {
         // Set attribute
-        FXTableItem* attribute = new FXTableItem(toString(i.first).c_str());
+        FXTableItem* attribute = new FXTableItem(i.getAttrStr().c_str());
         attribute->setJustify(FXTableItem::CENTER_X);
         myTable->setItem(itemIndex, 0, attribute);
         // Set description of element
         FXTableItem* type = new FXTableItem("");
-        type->setText(i.second.getDescription().c_str());
-        sizeColumnDescription = MAX2(sizeColumnDescription, (int)i.second.getDescription().size());
+        type->setText(i.getDescription().c_str());
+        sizeColumnDescription = MAX2(sizeColumnDescription, (int)i.getDescription().size());
         type->setJustify(FXTableItem::CENTER_X);
         myTable->setItem(itemIndex, 1, type);
         // Set definition
-        FXTableItem* definition = new FXTableItem(i.second.getDefinition().c_str());
+        FXTableItem* definition = new FXTableItem(i.getDefinition().c_str());
         definition->setJustify(FXTableItem::LEFT);
         myTable->setItem(itemIndex, 2, definition);
-        sizeColumnDefinitions = MAX2(sizeColumnDefinitions, (int)i.second.getDefinition().size());
+        sizeColumnDefinitions = MAX2(sizeColumnDefinitions, (int)i.getDefinition().size());
         itemIndex++;
     }
     // set header
