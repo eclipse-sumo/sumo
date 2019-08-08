@@ -27,10 +27,11 @@
 #include <utils/options/OptionsCont.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/StringTokenizer.h>
+#include <utils/common/RGBColor.h>
 #include <utils/common/UtilExceptions.h>
 #include <utils/xml/SUMOSAXHandler.h>
 #include <utils/xml/SUMOXMLDefinitions.h>
-#include <utils/common/RGBColor.h>
+#include <utils/shapes/Shape.h>
 #include "PCTypeMap.h"
 #include "PCTypeDefHandler.h"
 
@@ -62,8 +63,10 @@ PCTypeDefHandler::myStartElement(int element,
         const std::string type = attrs.getOpt<std::string>(SUMO_ATTR_NAME, id.c_str(), ok, myOptions.getString("type"));
         const std::string prefix = attrs.getOpt<std::string>(SUMO_ATTR_PREFIX, id.c_str(), ok, myOptions.getString("prefix"));
         const std::string color = attrs.getOpt<std::string>(SUMO_ATTR_COLOR, id.c_str(), ok, myOptions.getString("color"));
+        const double angle = attrs.getOpt<double>(SUMO_ATTR_ANGLE, id.c_str(), ok, Shape::DEFAULT_ANGLE);
+        const std::string imgFile = attrs.getOpt<std::string>(SUMO_ATTR_IMGFILE, id.c_str(), ok, Shape::DEFAULT_IMG_FILE);
         // !!! what about error handling?
-        if (!myContainer.add(id, type, color, prefix, layer, discard, allowFill)) {
+        if (!myContainer.add(id, type, color, prefix, layer, angle, imgFile, discard, allowFill)) {
             WRITE_ERROR("Could not add polygon type '" + id + "' (probably the id is already used).");
         }
     }

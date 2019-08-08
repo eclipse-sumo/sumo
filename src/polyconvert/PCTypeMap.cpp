@@ -48,7 +48,8 @@ PCTypeMap::~PCTypeMap() {}
 bool
 PCTypeMap::add(const std::string& id, const std::string& newid,
                const std::string& color, const std::string& prefix,
-               double layer, bool discard, bool allowFill) {
+               double layer, double angle, const std::string& imgFile,
+               bool discard, bool allowFill) {
     if (has(id)) {
         return false;
     }
@@ -56,6 +57,8 @@ PCTypeMap::add(const std::string& id, const std::string& newid,
     td.id = newid;
     td.color = RGBColor::parseColor(color);
     td.layer = layer;
+    td.angle = angle;
+    td.imgFile = imgFile;
     td.discard = discard;
     td.allowFill = allowFill;
     td.prefix = prefix;

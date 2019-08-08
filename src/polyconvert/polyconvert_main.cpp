@@ -126,6 +126,10 @@ fillOptions() {
     oc.addSynonyme("shapefile.id-column", "shape-files.id-name", true);
     oc.addDescription("shapefile.id-column", "Input", "Defines in which column the id can be found");
 
+    oc.doRegister("shapefile.type-columns", new Option_String());
+    oc.addSynonyme("shapefile.type-columns", "shapefile.type-column");
+    oc.addDescription("shapefile.type-columns", "Input", "Defines which columns form the type id (comma separated list)");
+
     oc.doRegister("shapefile.use-running-id", new Option_Bool(false));
     oc.addDescription("shapefile.use-running-id", "Input", "A running number will be used as id");
 

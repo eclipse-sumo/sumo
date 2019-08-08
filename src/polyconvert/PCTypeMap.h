@@ -65,6 +65,10 @@ public:
         std::string prefix;
         /// @brief The layer to use
         double layer;
+        /// @brief The angle to use
+        double angle;
+        /// @brief The image file to use
+        std::string imgFile;
         /// @brief Information whether polygons of this type shall be discarded
         bool discard;
         /// @brief Information whether polygons of this type can be filled
@@ -80,12 +84,15 @@ public:
      * @param[in] color The color to set for imported objects of this type
      * @param[in] prefix The prefix to prepend to the read names of this type's objects
      * @param[in] layer The layer number to set for this type's objects
+     * @param[in] angle The angle to rotate this type's objects
+     * @param[in] imgFile The image file used as texture for objects of this type
      * @param[in] discard Whether objects of this type shall be discarded
      * @param[in] allowFill Whether objects of this type may be filled
      * @return Whether the type could been added (was not known before)
      */
     bool add(const std::string& id, const std::string& newid, const std::string& color,
-             const std::string& prefix, double layer, bool discard, bool allowFill);
+             const std::string& prefix, double layer, double angle, const std::string& imgFile,
+             bool discard, bool allowFill);
 
 
     /** @brief Returns a type definition
