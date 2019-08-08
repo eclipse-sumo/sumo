@@ -427,6 +427,8 @@ if (HELPMAN_EXECUTABLE)
         COMMAND ${HELPMAN_EXECUTABLE} -N -n "Road network generator for the microscopic traffic simulation SUMO" bin/netgenerate > docs/man/netgenerate.1
         COMMAND ${HELPMAN_EXECUTABLE} -N -n "Importer of polygons and POIs for the traffic simulation SUMO" bin/polyconvert > docs/man/polyconvert.1
         COMMAND ${HELPMAN_EXECUTABLE} -N -n "TraCITestClient for the traffic simulation SUMO" bin/TraCITestClient > docs/man/TraCITestClient.1
+        COMMAND ${HELPMAN_EXECUTABLE} -N -n "Builds and writes an emissions map for SUMO's emission models" bin/emissionsMap > docs/man/emissionsMap.1
+        COMMAND ${HELPMAN_EXECUTABLE} -N -n "Computes emissions by driving a time line using SUMO's emission models" bin/emissionsDrivingCycle > docs/man/emissionsDrivingCycle.1
         WORKING_DIRECTORY ${CMAKE_SOURCE_DIR})
     set_property(TARGET man PROPERTY EXCLUDE_FROM_DEFAULT_BUILD TRUE)
     set_property(TARGET man PROPERTY FOLDER "doc")
