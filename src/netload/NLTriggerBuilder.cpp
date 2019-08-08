@@ -206,6 +206,9 @@ NLTriggerBuilder::addAccess(MSNet& /* net */, const SUMOSAXAttributes& attrs) {
     }
     // get the lane
     MSLane* lane = getLane(attrs, "access", myCurrentStop->getID());
+    if (!lane->allowsVehicleClass(SVC_PEDESTRIAN)) {
+        throw InvalidArgument("Invalid access from non-pedestrian lane '" + lane->getID() + "' in stop '" + myCurrentStop->getID() + "'.");
+    }
     // get the positions
     bool ok = true;
     double pos = attrs.getOpt<double>(SUMO_ATTR_POSITION, "access", ok, 0);

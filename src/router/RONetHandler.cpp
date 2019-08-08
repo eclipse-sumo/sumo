@@ -342,6 +342,9 @@ RONetHandler::parseAccess(const SUMOSAXAttributes& attrs) {
     if (edge == nullptr) {
         throw InvalidArgument("Unknown lane '" + lane + "' for access.");
     }
+    if (edge->getPermissions() & SVC_PEDESTRIAN == 0) {
+        throw InvalidArgument("Invalid access from non-pedestrian edge '" + edge->getID() + "'.");
+    }
     double pos = attrs.getOpt<double>(SUMO_ATTR_POSITION, "access", ok, 0.);
     const double length = attrs.getOpt<double>(SUMO_ATTR_LENGTH, "access", ok, -1);
     const bool friendlyPos = attrs.getOpt<bool>(SUMO_ATTR_FRIENDLY_POS, "access", ok, false);
