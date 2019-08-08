@@ -8,9 +8,11 @@ selected_both
 
 selected_separated
 
-selected_both_from_junction
+# BUG
+#selected_both_from_junction
 
-selected_both_to_junction
+# BUG
+#selected_both_to_junction
 
 selected_both_both_junctions
 

@@ -38,8 +38,11 @@ selection:selection.txt
 [run_dependent_text]
 net:<!--{[->]}-->
 additionals:<!--{[->]}-->
+additionals:{INTERNAL writedir}{REPLACE <TEXTTEST_SANDBOX>}
 routes:<!--{[->]}-->
+routes:{INTERNAL writedir}{REPLACE <TEXTTEST_SANDBOX>}
 shapes:<!--{[->]}-->
+shapes:{INTERNAL writedir}{REPLACE <TEXTTEST_SANDBOX>}
 netcon:<!--{[->]}-->
 netedg:<!--{[->]}-->
 netnod:<!--{[->]}-->
@@ -58,6 +61,7 @@ errors:java{LINES 1}
 errors:Java{LINES 1}
 errors:Could not load{LINES 1}
 errors:Debug: Modules:
+errors:{INTERNAL writedir}{REPLACE <TEXTTEST_SANDBOX>}
 log:{INTERNAL writedir}{REPLACE <TEXTTEST_SANDBOX>}
 
 [floating_point_tolerance]
