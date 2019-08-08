@@ -308,11 +308,8 @@ MSAbstractLaneChangeModel::primaryLaneChanged(MSLane* source, MSLane* target, in
     laneChangeOutput("change", source, target, direction); // record position on the source edge in case of opposite change
     if (&source->getEdge() != &target->getEdge()) {
         changedToOpposite();
-        myVehicle.setTentativeLaneAndPosition(target, source->getOppositePos(myVehicle.getPositionOnLane()));
-        target->forceVehicleInsertion(&myVehicle, myVehicle.getPositionOnLane(), MSMoveReminder::NOTIFICATION_LANE_CHANGE, 0);
-        if (myAmOpposite) {
-            //vehicle->myState.myBackPos = source->getOppositePos(vehicle->myState.myBackPos);
-        }
+        myVehicle.setTentativeLaneAndPosition(target, source->getOppositePos(myVehicle.getPositionOnLane()), -myVehicle.getLateralPositionOnLane());
+        target->forceVehicleInsertion(&myVehicle, myVehicle.getPositionOnLane(), MSMoveReminder::NOTIFICATION_LANE_CHANGE, myVehicle.getLateralPositionOnLane());
     } else {
         myVehicle.enterLaneAtLaneChange(target);
     }
@@ -419,7 +416,10 @@ MSAbstractLaneChangeModel::getShadowLane(const MSLane* lane, double posLat) cons
             std::cout << SIMTIME << " veh=" << myVehicle.getID() << " posLat=" << posLat << " overlap=" << overlap << "\n";
         }
 #endif
-        if (overlap > NUMERICAL_EPS) {
+        if (myAmOpposite) {
+            // return the neigh-lane in forward direction
+            return lane->getParallelLane(1);
+        } else if (overlap > NUMERICAL_EPS) {
             const int shadowDirection = posLat < 0 ? -1 : 1;
             return lane->getParallelLane(shadowDirection);
         } else if (isChangingLanes() && myLaneChangeCompletion < 0.5) {
@@ -566,6 +566,9 @@ MSAbstractLaneChangeModel::getShadowDirection() const {
         }
     } else if (myShadowLane == nullptr) {
         return 0;
+    } else if (myAmOpposite) {
+        // return neigh-lane in forward direction
+        return 1;
     } else {
         assert(&myShadowLane->getEdge() == &myVehicle.getLane()->getEdge());
         return myShadowLane->getIndex() - myVehicle.getLane()->getIndex();

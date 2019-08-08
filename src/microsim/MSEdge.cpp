@@ -384,7 +384,7 @@ MSEdge::rightLane(const MSLane* const lane) const {
 MSLane*
 MSEdge::parallelLane(const MSLane* const lane, int offset) const {
     const int resultIndex = lane->getIndex() + offset;
-    if (resultIndex == (int)myLanes->size() || resultIndex == -1) {
+    if (resultIndex == (int)myLanes->size()) {
         return lane->getOpposite();
     } else if (resultIndex >= (int)myLanes->size() || resultIndex < 0) {
         return nullptr;

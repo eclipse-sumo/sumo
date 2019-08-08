@@ -268,7 +268,7 @@ MSLaneChanger::change() {
     MSVehicle* vehicle = veh(myCandi);
     vehicle->getLaneChangeModel().clearNeighbors();
 
-    if (vehicle->getLaneChangeModel().isChangingLanes()) {
+    if (vehicle->getLaneChangeModel().isChangingLanes() && !vehicle->getLaneChangeModel().alreadyChanged()) {
         return continueChange(vehicle, myCandi);
     }
     if (!myAllowsChanging || vehicle->getLaneChangeModel().alreadyChanged() || vehicle->isStoppedOnLane()) {
@@ -440,10 +440,12 @@ MSLaneChanger::startChange(MSVehicle* vehicle, ChangerIt& from, int direction) {
 bool
 MSLaneChanger::continueChange(MSVehicle* vehicle, ChangerIt& from) {
     MSAbstractLaneChangeModel& lcm = vehicle->getLaneChangeModel();
-    const int direction = lcm.getLaneChangeDirection();
-    const bool pastMidpoint = lcm.updateCompletion();
-    vehicle->myState.myPosLat += SPEED2DIST(lcm.getSpeedLat());
+    const int direction = lcm.isOpposite() ? 1 : lcm.getLaneChangeDirection();
+    const bool pastMidpoint = lcm.updateCompletion(); // computes lcm.mySpeedLat as a side effect
+    const double speedLat = lcm.isOpposite() ? -lcm.getSpeedLat() : lcm.getSpeedLat();
+    vehicle->myState.myPosLat += SPEED2DIST(speedLat);
     vehicle->myCachedPosition = Position::INVALID;
+    //std::cout << SIMTIME << " veh=" << vehicle->getID() << " dir=" << direction << " pm=" << pastMidpoint << " speedLat=" << speedLat << " posLat=" << vehicle->myState.myPosLat << "\n";
     if (pastMidpoint) {
         MSLane* source = myCandi->lane;
         MSLane* target = source->getParallelLane(direction);
@@ -463,7 +465,7 @@ MSLaneChanger::continueChange(MSVehicle* vehicle, ChangerIt& from) {
         lcm.endLaneChangeManeuver();
     }
     lcm.updateShadowLane();
-    if (lcm.getShadowLane() != nullptr) {
+    if (lcm.getShadowLane() != nullptr && &lcm.getShadowLane()->getEdge() == &vehicle->getLane()->getEdge()) {
         // set as hoppedVeh on the shadow lane so it is found as leader on both lanes
         ChangerIt shadow = pastMidpoint ? from : from + lcm.getShadowDirection();
         shadow->hoppedVeh = vehicle;
