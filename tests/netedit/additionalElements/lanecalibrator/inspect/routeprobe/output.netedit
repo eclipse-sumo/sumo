@@ -2,8 +2,8 @@ TestFunctions: Netedit opened successfully
 Finding reference
 TestFunctions: 'reference.png' found. Position: 304 - 168
 laneCalibrator
-TestFunctions: Clicked over position 549 - 328
-TestFunctions: Clicked over position 604 - 405
+TestFunctions: Clicked over position 549 - 308
+TestFunctions: Clicked over position 654 - 408
 ///;;
 customRouteProbeName
 TestFunctions: Clicked over position 304 - 168

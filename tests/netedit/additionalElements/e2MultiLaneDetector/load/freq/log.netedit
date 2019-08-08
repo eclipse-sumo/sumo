@@ -1,3 +1,3 @@
-Warning: Essential positive time attribute 'freq' of e2MultilaneDetector with ID 'e2MultilaneDetector_0' is missing; e2MultilaneDetector cannot be created
-Warning: Format of essential positive time attribute 'freq' of e2MultilaneDetector with ID 'e2MultilaneDetector_1' is invalid; Cannot be parsed to time; e2MultilaneDetector cannot be created
-Warning: Format of essential positive time attribute 'freq' of e2MultilaneDetector with ID 'e2MultilaneDetector_2' is invalid; Time cannot be negative; e2MultilaneDetector cannot be created
+Warning: Essential SUMOTime attribute 'freq' of e2MultilaneDetector with ID 'e2MultilaneDetector_0' is missing; e2MultilaneDetector cannot be created
+Warning: Format of essential SUMOTime attribute 'freq' of e2MultilaneDetector with ID 'e2MultilaneDetector_1' is invalid; Cannot be parsed to SUMOTime; e2MultilaneDetector cannot be created
+Warning: Format of essential SUMOTime attribute 'freq' of e2MultilaneDetector with ID 'e2MultilaneDetector_2' is invalid; Cannot be parsed to SUMOTime; e2MultilaneDetector cannot be created

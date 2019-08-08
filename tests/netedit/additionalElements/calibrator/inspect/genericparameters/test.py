@@ -38,7 +38,7 @@ netedit.leftClick(referencePosition, 245, 180)
 netedit.inspectMode()
 
 # inspect calibrator
-netedit.leftClick(referencePosition, 300, 218)
+netedit.leftClick(referencePosition, 300, 215)
 
 # Change generic parameters with a dummy value
 netedit.modifyAttribute(8, "dummyGenericParameters", True)

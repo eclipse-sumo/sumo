@@ -47,10 +47,10 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 310, 220)
 
 # Change parameter 3 with a valid value
-netedit.modifyAttribute(3, "%%$$$""", False)
+netedit.modifyAttribute(3, "%%$$$""", True)
 
 # Change parameter 3 with a valid value
-netedit.modifyAttribute(3, "customName", False)
+netedit.modifyAttribute(3, "customName", True)
 
 # click over an empty area
 netedit.leftClick(referencePosition, 0, 0)

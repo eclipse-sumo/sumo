@@ -3,7 +3,7 @@ Finding reference
 TestFunctions: 'reference.png' found. Position: 304 - 168
 calibrator
 TestFunctions: Clicked over position 549 - 348
-TestFunctions: Clicked over position 604 - 386
+TestFunctions: Clicked over position 604 - 383
 ///;;
 myOwnFilename
 TestFunctions: Clicked over position 304 - 168

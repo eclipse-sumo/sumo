@@ -47,10 +47,10 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 310, 220)
 
 # Change parameter 0 with a non valid value (dummy edge)
-netedit.modifyAttribute(0, "dummyEdge", False)
+netedit.modifyAttribute(0, "dummyEdge", True)
 
 # Change parameter 0 with a valid value (different edge)
-netedit.modifyAttribute(0, "gneE0", False)
+netedit.modifyAttribute(0, "gneE0", True)
 
 # click over an empty area
 netedit.leftClick(referencePosition, 0, 0)

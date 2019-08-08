@@ -32,13 +32,13 @@ netedit.additionalMode()
 netedit.changeElement("laneCalibrator")
 
 # create calibrator
-netedit.leftClick(referencePosition, 245, 160)
+netedit.leftClick(referencePosition, 245, 140)
 
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect calibrator
-netedit.leftClick(referencePosition, 300, 237)
+netedit.leftClick(referencePosition, 350, 240)
 
 # Change parameter lane with a non valid value (non existent)
 netedit.modifyAttribute(1, "dummylane", True)

@@ -1,4 +1,4 @@
-Debug: Selected item 'DEFAULT_BIKETYPE' in DemandElementSelector
+Debug: Selected item 'DEFAULT_VEHTYPE' in DemandElementSelector
 Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
 Debug: Adding busStop 'busStop_gneE1_0_0' in GNEChange_Additional
 Debug: Additionals has to be saved
@@ -23,7 +23,7 @@ Debug: Keys Shift + F5 (Compute with volatile options) pressed
 Debug: Opening FXMessageBox 'Volatile Recomputing'
 Debug: Closed FXMessageBox 'Volatile Recomputing' with 'Yes'
 Debug: Additionals saved
-Debug: DemandElements saved
+Debug: demand elements saved
 Debug: Deleting unreferenced variableSpeedSign 'variableSpeedSign_0'
 Debug: Additionals has to be saved
 Debug: Current saving Status: net saved, additionals unsaved, demand elements saved

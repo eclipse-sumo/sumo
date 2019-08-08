@@ -35,13 +35,13 @@ netedit.changeElement("laneCalibrator")
 netedit.leftClick(referencePosition, 245, 140)
 
 # create second calibrator
-netedit.leftClick(referencePosition, 170, 270)
+netedit.leftClick(referencePosition, 355, 205)
 
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect calibrator
-netedit.leftClick(referencePosition, 300, 237)
+netedit.leftClick(referencePosition, 320, 270)
 
 # Change parameter id with a non valid value (Duplicated ID)
 netedit.modifyAttribute(0, "calibrator_gneE3_0", True)
