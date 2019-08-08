@@ -1,0 +1,7 @@
+[Reported by erdm_ja at 08Aug19:14:41]
+search_string:The vehicle 'v' has no valid route.
+trigger_on_absence:1
+search_file:errors
+ignore_other_errors:1
+full_description:CHRouter is not connection-aware
+brief_description:#303
