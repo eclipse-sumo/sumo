@@ -240,7 +240,7 @@ for platform in (["x64"] if options.x64only else ["Win32", "x64"]):
             (errno, strerror) = ziperr.args
             print("Warning: Could not zip to %s!" % binaryZip, file=log)
             print("I/O error(%s): %s" % (errno, strerror), file=log)
-    runTests(options, env, gitrev, not options.x64only)
+    runTests(options, env, gitrev, platform == "x64" and not options.x64only)
     with open(statusLog, 'w') as log:
         status.printStatus(makeLog, makeAllLog, env["SMTP_SERVER"], log)
 if not options.x64only:
