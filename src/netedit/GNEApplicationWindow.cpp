@@ -604,7 +604,7 @@ GNEApplicationWindow::onCmdOpenAdditionals(FXObject*, FXSelector, void*) {
         myUndoList->p_begin("Loading additionals from '" + file + "'");
         // Run parser for additionals
         if (!XMLSubSys::runParser(additionalHandler, file, false)) {
-            WRITE_MESSAGE("Loading of " + file + " failed.");
+            WRITE_ERROR("Loading of " + file + " failed.");
         }
         // end undoList operation and update view
         myUndoList->p_end();
@@ -666,7 +666,7 @@ GNEApplicationWindow::onCmdOpenDemandElements(FXObject*, FXSelector, void*) {
         myUndoList->p_begin("Loading demand elements from '" + file + "'");
         // Run parser for additionals
         if (!XMLSubSys::runParser(demandHandler, file, false)) {
-            WRITE_MESSAGE("Loading of " + file + " failed.");
+            WRITE_ERROR("Loading of " + file + " failed.");
         }
         // end undoList operation and update view
         myUndoList->p_end();
