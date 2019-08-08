@@ -667,8 +667,9 @@ GNEAdditionalFrame::addAdditional(const GNEViewNetHelper::ObjectsUnderCursor& ob
     if (tagValues.hasParent() && !buildAdditionalWithParent(valuesMap, objectsUnderCursor.getAdditionalFront(), tagValues)) {
         return false;
     }
+
     // If consecutive Lane Selector is enabled, it means that either we're selecting lanes or we're finished or we'rent started
-    if (tagValues.hasAttribute(SUMO_ATTR_EDGE)) {
+    if (tagValues.hasAttribute(SUMO_ATTR_EDGE) || (tagValues.getTag() == SUMO_TAG_VAPORIZER)) {
         return buildAdditionalOverEdge(valuesMap, objectsUnderCursor.getLaneFront(), tagValues);
     } else if (tagValues.hasAttribute(SUMO_ATTR_LANE)) {
         return buildAdditionalOverLane(valuesMap, objectsUnderCursor.getLaneFront(), tagValues);
