@@ -899,7 +899,7 @@ public:
         void hideNeteditAttributesModul();
 
         /// @brief fill valuesMap with netedit attributes
-        bool getNeteditAttributesAndValues(std::map<SumoXMLAttr, std::string>& valuesMap, GNELane* lane) const;
+        bool getNeteditAttributesAndValues(std::map<SumoXMLAttr, std::string>& valuesMap, const GNELane* lane) const;
 
         /// @name FOX-callbacks
         /// @{

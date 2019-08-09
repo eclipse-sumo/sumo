@@ -489,17 +489,21 @@ Position
 GNEPerson::getPositionInView() const {
     // Position in view depend of first child element
     if (getDemandElementChildren().size() > 0) {
-        // obtain lane (special case for rides)
-        SUMOVehicleClass vClassEdgeFrom = getDemandElementChildren().front()->getTagProperty().isRide()? SVC_PASSENGER : SVC_PEDESTRIAN;
-        GNELane *lane = getDemandElementChildren().at(0)->getEdgeParents().at(0)->getLaneByVClass(vClassEdgeFrom);
-        // return position in view depending of lane
-        if (lane->getGeometry().shape.length() < 2.5) {
-            return lane->getGeometry().shape.front();
+        if (getDemandElementChildren().at(0)->getTagProperty().isPersonStop()) {
+            return getDemandElementChildren().at(0)->getDemandElementGeometry().shape.getLineCenter();
         } else {
-            Position A = lane->getGeometry().shape.positionAtOffset(2.5);
-            Position B = lane->getGeometry().shape.positionAtOffset(2.5);
-            // return Middle point
-            return Position((A.x() + B.x()) / 2, (A.y() + B.y()) / 2);
+            // obtain lane (special case for rides)
+            SUMOVehicleClass vClassEdgeFrom = getDemandElementChildren().front()->getTagProperty().isRide()? SVC_PASSENGER : SVC_PEDESTRIAN;
+            GNELane *lane = getDemandElementChildren().at(0)->getEdgeParents().at(0)->getLaneByVClass(vClassEdgeFrom);
+            // return position in view depending of lane
+            if (lane->getGeometry().shape.length() < 2.5) {
+                return lane->getGeometry().shape.front();
+            } else {
+                Position A = lane->getGeometry().shape.positionAtOffset(2.5);
+                Position B = lane->getGeometry().shape.positionAtOffset(2.5);
+                // return Middle point
+                return Position((A.x() + B.x()) / 2, (A.y() + B.y()) / 2);
+            }
         }
     } else {
         return Position(0,0);

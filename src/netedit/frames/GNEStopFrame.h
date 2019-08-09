@@ -23,6 +23,7 @@
 // ===========================================================================
 #include "GNEFrame.h"
 
+#include <utils/vehicle/SUMOVehicleParameter.h>
 
 // ===========================================================================
 // class definitions
@@ -82,6 +83,11 @@ public:
      * @return true if Stop was sucesfully added
      */
     bool addStop(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor, bool shiftPressed);
+
+    /// @brief get stop parameters
+    static bool getStopParameter(SUMOVehicleParameter::Stop &stop, bool &friendlyPosition, const SumoXMLTag stopTag, 
+                                 GNEViewNet *viewNet, const AttributesCreator* stopAttributes, const NeteditAttributes* myNeteditAttributes, 
+                                 const GNELane *lane, const GNEAdditional* stoppingPlace);
 
 protected:
     /// @brief Tag selected in TagSelector

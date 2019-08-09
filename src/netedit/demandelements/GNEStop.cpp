@@ -332,7 +332,7 @@ void
 GNEStop::drawGL(const GUIVisualizationSettings& s) const {
     // declare flag to enable or disable draw person plan
     bool drawPersonPlan = false;
-    if (myTagProperty.isStop()) {
+    if (myTagProperty.isStop() || myTagProperty.isPersonStop()) {
         if (myViewNet->getNetworkViewOptions().showDemandElements() && myViewNet->getDemandViewOptions().showNonInspectedDemandElements(this)) {
             drawPersonPlan = true;
         }

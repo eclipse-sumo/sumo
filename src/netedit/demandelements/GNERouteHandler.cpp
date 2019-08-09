@@ -1535,6 +1535,10 @@ GNERouteHandler::addStop(const SUMOSAXAttributes& attrs) {
         stop.busStop = bs;
         // set tag
         stop.tag = SUMO_TAG_STOP_BUSSTOP;
+        // special case for persons
+        if ((myVehicleParameter != nullptr) && ((myVehicleParameter->tag == SUMO_TAG_PERSON) || (myVehicleParameter->tag == SUMO_TAG_PERSONFLOW))) {
+            stop.tag = SUMO_TAG_PERSONSTOP_BUSSTOP;
+        }
     } else {
         // no, the lane and the position should be given
         // get the lane
@@ -1564,9 +1568,13 @@ GNERouteHandler::addStop(const SUMOSAXAttributes& attrs) {
         }
         // set tag
         stop.tag = SUMO_TAG_STOP_LANE;
+        // special case for persons
+        if ((myVehicleParameter != nullptr) && ((myVehicleParameter->tag == SUMO_TAG_PERSON) || (myVehicleParameter->tag == SUMO_TAG_PERSONFLOW))) {
+            stop.tag = SUMO_TAG_PERSONSTOP_LANE;
+        }
     }
     if (myVehicleParameter != nullptr) {
-        if (myVehicleParameter->tag == SUMO_TAG_PERSON) {
+        if ((myVehicleParameter->tag == SUMO_TAG_PERSON) || (myVehicleParameter->tag == SUMO_TAG_PERSONFLOW)) {
             myPersonPlanValues.push_back(stop);
         } else {
             myVehicleParameter->stops.push_back(stop.stopParameters);
