@@ -65,6 +65,10 @@ designed to handle large road networks.
 Summary:        Eclipse SUMO - Microscopic Traffic Simulation Library
 Group:          Development/Libraries/C and C++
 
+%description -n libsumoc
+libsumoc provides the C++-API for adding traffic simulation
+funtionality to your own application.
+
 %if 0%{?fedora_version}
 %global debug_package %{nil}
 %endif
@@ -79,29 +83,16 @@ find . -name "*.py" -o -name "*.pyw" | xargs sed -i 's,^#!%{_bindir}/env python$
 %endif
 
 %build
-%if 0%{?centos_version} || 0%{?scientificlinux_version}
-autoreconf -i
-%configure
-%else
 mkdir cmake-build
 cd cmake-build
 cmake -DCMAKE_INSTALL_PREFIX:PATH=/usr ..
-%endif
 make %{?_smp_mflags}
 make %{?_smp_mflags} man
 
 %install
-%if 0%{?centos_version} || 0%{?scientificlinux_version}
-%make_install
-%else
 cd cmake-build
 %make_install
 cd ..
-%endif
-mkdir -p %{buildroot}%{_datadir}/sumo
-cp -a tools data %{buildroot}%{_datadir}/sumo
-mkdir -p %{buildroot}%{_bindir}
-ln -s %{_bindir} %{buildroot}%{_datadir}/sumo/bin
 ln -s %{_datadir}/sumo/tools/assign/duaIterate.py %{buildroot}%{_bindir}/duaIterate.py
 ln -s %{_datadir}/sumo/tools/osmWebWizard.py %{buildroot}%{_bindir}/osmWebWizard.py
 ln -s %{_datadir}/sumo/tools/randomTrips.py %{buildroot}%{_bindir}/randomTrips.py
@@ -121,8 +112,9 @@ install -p -m 644 build/package/%{name}.xml %{buildroot}%{_datadir}/mime/applica
 %fdupes %{buildroot}
 %endif
 
-%check
-make %{?_smp_mflags} test
+#%check
+#cd cmake-build
+#make %{?_smp_mflags} test
 
 %post -n libsumoc -p /sbin/ldconfig
 %postun -n libsumoc -p /sbin/ldconfig
