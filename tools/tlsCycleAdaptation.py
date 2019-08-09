@@ -61,6 +61,8 @@ def get_options(args=None):
                          default=4, help="lost time for start-up and clearance in each phase")
     optParser.add_option("-g", "--min-green", dest="mingreen", type="int",
                          default=4, help=" minimal green time when there is no traffic volume")
+    optParser.add_option("--green-filter-time", dest="greenFilter", type="int",
+                         default=0, help=" when computing critical flows, do not count phases with a green time below INT")
     optParser.add_option("-c", "--min-cycle", dest="mincycle", type="int",
                          default=20, help=" minimal cycle length")
     optParser.add_option("-C", "--max-cycle", dest="maxcycle", type="int",
@@ -193,7 +195,7 @@ def identityCheck(e1, incomingLinks, identical):
     return identical
 
 
-def getLaneGroupFlows(tl, connFlowsMap, phases, minGreen):
+def getLaneGroupFlows(tl, connFlowsMap, phases, greenFilter):
     connsList = tl.getConnections()
     groupFlowsMap = {}  # i(phase): duration, laneGroup1, laneGroup2, ...
     connsList = sorted(connsList, key=lambda connsList: connsList[2])
@@ -210,7 +212,7 @@ def getLaneGroupFlows(tl, connFlowsMap, phases, minGreen):
     phaseLaneIndexMap = collections.defaultdict(list)
     for i, p in enumerate(phases):
         currentLength += p.duration
-        if 'G' in p.state and 'y' not in p.state and p.duration >= minGreen:
+        if 'G' in p.state and 'y' not in p.state and p.duration >= greenFilter:
             greenTime += p.duration
             groupFlowsMap[i] = [p.duration]
             groupFlows = 0
@@ -393,7 +395,7 @@ def main(options):
                         phases = programs[pro].getPhases()
 
                         # get the connection flows and group flows
-                        groupFlowsMap, phaseLaneIndexMap, currentLength = getLaneGroupFlows(tl, connFlowsMap, phases)
+                        groupFlowsMap, phaseLaneIndexMap, currentLength = getLaneGroupFlows(tl, connFlowsMap, phases, 0)
 
                         # only optimize the cycle length
                         cycleList = getMaxOptimizedCycle(groupFlowsMap, phaseLaneIndexMap,
@@ -416,7 +418,7 @@ def main(options):
 
                     # get the connection flows and group flows
                     groupFlowsMap, phaseLaneIndexMap, currentLength = getLaneGroupFlows(
-                        tl, connFlowsMap, phases, options.mingreen)
+                        tl, connFlowsMap, phases, options.greenFilter)
 
                     # optimize the cycle length and calculate the respective green splits
                     groupFlowsMap = optimizeGreenTime(tl, groupFlowsMap, phaseLaneIndexMap, currentLength, options)
