@@ -165,7 +165,7 @@ MSCFModel_W99::followSpeed(const MSVehicle* const veh, double speed, double gap2
             // acceleration is capped at desired speed in MSCFModel::finalizeSpeed
         }
     }
-    const double vNew = speed + ACCEL2SPEED(accel);
+    double vNew = speed + ACCEL2SPEED(accel);
 #ifdef DEBUG_FOLLOW_SPEED
     if (DEBUG_COND) {
         std::cout << SIMTIME << " W99::fS veh=" << veh->getID() << " pred=" << Named::getIDSecure(pred)
@@ -178,7 +178,9 @@ MSCFModel_W99::followSpeed(const MSVehicle* const veh, double speed, double gap2
 #else
     UNUSED_PARAMETER(status);
 #endif
-
+    if (MSGlobals::gSemiImplicitEulerUpdate) {
+        vNew = MAX2(0.0, vNew);
+    }
     return vNew;
 }
 
