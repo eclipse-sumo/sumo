@@ -78,7 +78,7 @@ def main(options):
     edgePairFlowsMap = getFlows(options.routefiles, options.verbose)
 
     with open(options.outfile, 'w') as outf:
-        sumolib.writeHeader(outf, "$Id$", "turns")  # noqa
+        sumolib.writeXMLHeader(outf, "$Id$", "turns")  # noqa
         outf.write('    <interval begin="0" end="86400">\n')
         for from_edge in edgePairFlowsMap:
             outf.write('        <fromEdge id="%s">\n' % from_edge)
