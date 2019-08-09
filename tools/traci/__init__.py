@@ -26,6 +26,7 @@ import subprocess
 import warnings
 import sys
 import os
+import collections
 
 if 'SUMO_HOME' in os.environ:
     sys.path.append(os.path.join(os.environ['SUMO_HOME'], 'tools'))
@@ -62,6 +63,7 @@ simulation = _simulation.SimulationDomain()
 _connections = {}
 # cannot use immutable type as global variable
 _currentLabel = [""]
+_pendingStepListener = collections.defaultdict(list)
 
 
 def _STEPS2TIME(step):
@@ -90,14 +92,18 @@ def connect(port=8813, numRetries=10, host="localhost", proc=None):
     raise FatalTraCIError("Could not connect in %s tries" % (numRetries + 1))
 
 
-def init(port=8813, numRetries=10, host="localhost", label="default"):
+def init(port=8813, numRetries=10, host="localhost", label="default", proc=None):
     """
     Establish a connection to a TraCI-Server and store it under the given
     label. This method is not thread-safe. It accesses the connection
     pool concurrently.
     """
-    _connections[label] = connect(port, numRetries, host)
+    _connections[label] = connect(port, numRetries, host, proc)
     switch(label)
+    for l in (label, ""):
+        for listener in _pendingStepListener[l]:
+            _connections[l].addStepListener(listener)
+        del _pendingStepListener[l]
     return getVersion()
 
 
@@ -112,16 +118,13 @@ def start(cmd, port=None, numRetries=10, label="default"):
         sumoPort = sumolib.miscutils.getFreeSocketPort() if port is None else port
         sumoProcess = subprocess.Popen(cmd + ["--remote-port", str(sumoPort)])
         try:
-            _connections[label] = connect(sumoPort, numRetries, "localhost", sumoProcess)
+            return init(sumoPort, numRetries, "localhost", label, sumoProcess)
         except TraCIException:
             if port is not None:
                 break
             warnings.warn("Could not connect to TraCI server using port %s. Retrying with different port." % sumoPort)
             numRetries -= 1
-    if label not in _connections:
-        raise FatalTraCIError("Could not connect.")
-    switch(label)
-    return getVersion()
+    raise FatalTraCIError("Could not connect.")
 
 
 def isLibsumo():
@@ -147,22 +150,27 @@ def simulationStep(step=0):
     return _connections[""].simulationStep(step)
 
 
-def addStepListener(listener):
+def addStepListener(listener, connLabel=""):
     """addStepListener(traci.StepListener) -> int
 
     Append the step listener (its step function is called at the end of every call to traci.simulationStep())
+    to the given connection. If the connection is not set up yet, the step listener will be added once
+    it is created.
     Returns the ID assigned to the listener if it was added successfully, None otherwise.
     """
+    if connLabel not in _connections:
+        _pendingStepListener[connLabel].append(listener)
+        return None
     return _connections[""].addStepListener(listener)
 
 
-def removeStepListener(listenerID):
+def removeStepListener(listenerID, connLabel=""):
     """removeStepListener(traci.StepListener) -> bool
 
-    Remove the step listener from traci's step listener container.
+    Remove the step listener from the given connection's step listener container.
     Returns True if the listener was removed successfully, False if it wasn't registered.
     """
-    return _connections[""].removeStepListener(listenerID)
+    return _connections[connLabel].removeStepListener(listenerID)
 
 
 def getVersion():
