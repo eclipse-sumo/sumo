@@ -34,11 +34,8 @@ netedit.personMode()
 # change person plan
 netedit.changePersonPlan("stops", "personStopLane")
 
-# create route using three edges
+# create stop clicking over lane
 netedit.leftClick(referencePosition, 274, 414)
-
-# press enter to create route
-netedit.typeEnter()
 
 # Check undo redo
 netedit.undo(referencePosition, 1)
@@ -49,6 +46,9 @@ netedit.leftClick(referencePosition, 0, 0)
 
 # save routes
 netedit.saveRoutes()
+
+# save additionals
+netedit.saveAdditionals()
 
 # save network
 netedit.saveNetwork()

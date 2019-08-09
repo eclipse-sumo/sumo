@@ -41,7 +41,7 @@ netedit.deleteMode()
 netedit.leftClick(referencePosition, 100, 50)
 
 # try to delete second polygon (not possible due isn't fill)
-netedit.leftClick(referencePosition, 175, 25)
+netedit.leftClick(referencePosition, 177, 45)
 
 # delete loaded filled polygon
 netedit.leftClick(referencePosition, 275, 25)
