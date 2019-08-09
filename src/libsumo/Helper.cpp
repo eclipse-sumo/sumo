@@ -517,7 +517,7 @@ Helper::applySubscriptionFilters(const Subscription& s, std::set<std::string>& o
             if (s.activeFilters & SUBS_FILTER_LEAD_FOLLOW) {
                 // Return leader and follower on the specified lanes in context subscription result.
                 for (int offset : filterLanes) {
-                    MSLane* lane = v->getLane()->getParallelLane(offset);
+                    MSLane* lane = v->getLane()->getParallelLane(offset, false);
                     if (lane != nullptr) {
                         // this is a non-opposite lane
                         MSVehicle* leader = lane->getLeader(v, v->getPositionOnLane(), v->getBestLanesContinuation(lane), downstreamDist).first;
@@ -607,7 +607,7 @@ Helper::applySubscriptionFilters(const Subscription& s, std::set<std::string>& o
             // This is to remember the lanes checked in the driving direction of the vehicle (their opposites can be added in a second pass)
             auto checkedLanesInDrivingDir = std::make_shared<LaneCoverageInfo>();
             for (int offset : filterLanes) {
-                MSLane* lane = vehLane->getParallelLane(offset);
+                MSLane* lane = vehLane->getParallelLane(offset, false);
                 if (lane != nullptr) {
 #ifdef DEBUG_SURROUNDING
                     std::cout << "Checking for surrounding vehicles starting on lane '" << lane->getID() << "' at index " << offset << std::endl;

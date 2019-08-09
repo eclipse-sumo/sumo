@@ -2184,8 +2184,8 @@ MSLane::removeVehicle(MSVehicle* remVehicle, MSMoveReminder::Notification notifi
 
 
 MSLane*
-MSLane::getParallelLane(int offset) const {
-    return myEdge->parallelLane(this, offset);
+MSLane::getParallelLane(int offset, bool includeOpposite) const {
+    return myEdge->parallelLane(this, offset, includeOpposite);
 }
 
 
