@@ -1441,10 +1441,10 @@ GNERouteHandler::closePerson() {
                         case SUMO_TAG_WALK_ROUTE:
                             myViewNet->getUndoList()->add(new GNEChange_DemandElement(new GNEWalk(myViewNet, person, i->route, i->arrivalPos), true), true);
                             break;
-                        case SUMO_TAG_STOP_LANE:
+                        case SUMO_TAG_PERSONSTOP_LANE:
                             myViewNet->getUndoList()->add(new GNEChange_DemandElement(new GNEStop(myViewNet, i->stopParameters, i->laneStop, i->friendlyPos, person), true), true);
                             break;
-                        case SUMO_TAG_STOP_BUSSTOP:
+                        case SUMO_TAG_PERSONSTOP_BUSSTOP:
                             myViewNet->getUndoList()->add(new GNEChange_DemandElement(new GNEStop(i->tag, myViewNet, i->stopParameters, i->busStop, person), true), true);
                             break;
                         default:
@@ -1512,7 +1512,7 @@ GNERouteHandler::addStop(const SUMOSAXAttributes& attrs) {
     PersonPlansValues stop;
     std::string errorSuffix;
     if (myVehicleParameter != nullptr) {
-        errorSuffix = " in vehicle '" + myVehicleParameter->id + "'.";
+        errorSuffix = " in " + toString(myVehicleParameter->tag) + " '" + myVehicleParameter->id + "'.";
     } else {
         errorSuffix = " in route '" + myActiveRouteID + "'.";
     }
