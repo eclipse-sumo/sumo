@@ -1,4 +1,4 @@
-Eclipse SUMO Version v1_2_0+0545-a673cfd4983
+Eclipse SUMO Version v1_2_0+1504-ec507a3
  Copyright (C) 2001-2019 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 A microscopic, multi-modal traffic simulation.
 
@@ -183,6 +183,8 @@ Processing Options:
   --tls.all-off                        Switches off all traffic lights.
   --tls.actuated.show-detectors        Sets default visibility for actuation
                                          detectors
+  --tls.delay_based.detector-range FLOAT  Sets default range for detecting
+                                         delayed vehicles
   --time-to-impatience TIME            Specify how long a vehicle may wait
                                          until impatience grows from 0 to 1,
                                          defaults to 300, non-positive values

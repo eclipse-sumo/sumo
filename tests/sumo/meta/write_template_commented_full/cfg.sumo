@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 06/04/19 13:47:04 by Eclipse SUMO Version v1_2_0+0545-a673cfd4983
+<!-- generated on Fri Aug  9 13:03:12 2019 by Eclipse SUMO Version v1_2_0+1504-ec507a3
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -287,6 +287,9 @@
 
         <!-- Sets default visibility for actuation detectors -->
         <tls.actuated.show-detectors value="false" type="BOOL"/>
+
+        <!-- Sets default range for detecting delayed vehicles -->
+        <tls.delay_based.detector-range value="100" type="FLOAT"/>
 
         <!-- Specify how long a vehicle may wait until impatience grows from 0 to 1, defaults to 300, non-positive values disable impatience growth -->
         <time-to-impatience value="300" type="TIME"/>
