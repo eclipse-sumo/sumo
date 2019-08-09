@@ -518,7 +518,10 @@ NIImporter_SUMO::myEndElement(int element) {
             }
             break;
         case SUMO_TAG_CONNECTION:
-            myLastParameterised.pop_back();
+            // !!! this just avoids a crash but is not a real check that it was a connection
+            if (!myLastParameterised.empty()) {
+                myLastParameterised.pop_back();
+            }
             break;
         default:
             break;
