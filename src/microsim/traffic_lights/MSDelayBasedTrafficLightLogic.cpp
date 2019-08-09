@@ -54,7 +54,7 @@ MSDelayBasedTrafficLightLogic::MSDelayBasedTrafficLightLogic(MSTLLogicControl& t
     std::cout << "Building delay based tls logic '" << id << "'" << std::endl;
 #endif
     myShowDetectors = StringUtils::toBool(getParameter("show-detectors", "false"));
-    myDetectionRange = StringUtils::toDouble(getParameter("detectorRange", "-1.0"));
+    myDetectionRange = StringUtils::toDouble(getParameter("detectorRange", toString(OptionsCont::getOptions().getFloat("tls.delay_based.detector-range"))));
     myTimeLossThreshold = StringUtils::toDouble(getParameter("minTimeloss", "1.0"));
     myFile = FileHelpers::checkForRelativity(getParameter("file", "NUL"), basePath);
     myFreq = TIME2STEPS(StringUtils::toDouble(getParameter("freq", "300")));

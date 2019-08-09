@@ -335,6 +335,9 @@ MSFrame::fillOptions() {
     oc.doRegister("tls.actuated.show-detectors", new Option_Bool(false));
     oc.addDescription("tls.actuated.show-detectors", "Processing", "Sets default visibility for actuation detectors");
 
+    oc.doRegister("tls.delay_based.detector-range", new Option_Float(100));
+    oc.addDescription("tls.delay_based.detector-range", "Processing", "Sets default range for detecting delayed vehicles");
+
     oc.doRegister("time-to-impatience", new Option_String("300", "TIME"));
     oc.addDescription("time-to-impatience", "Processing", "Specify how long a vehicle may wait until impatience grows from 0 to 1, defaults to 300, non-positive values disable impatience growth");
 
