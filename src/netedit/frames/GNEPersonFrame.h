@@ -115,6 +115,9 @@ private:
 
     /// @brief Help creation
     HelpCreation* myHelpCreation;
+
+    /// @brief build person and return it (note: function includes a call to p_begin(...), but NOT a call to p_end(...))
+    GNEDemandElement* buildPerson();
 };
 
 
