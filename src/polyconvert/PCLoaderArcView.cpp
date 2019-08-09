@@ -178,24 +178,23 @@ PCLoaderArcView::load(const std::string& file, OptionsCont& oc, PCPolyContainer&
             }
             break;
             case wkbLineString: {
-                bool fill = fillType < 0 ? false : (fillType == 1);
                 OGRLineString* cgeom = (OGRLineString*) poGeometry;
                 PositionVector shape;
                 for (int j = 0; j < cgeom->getNumPoints(); j++) {
-                    Position pos((double) cgeom->getX(j), (double) cgeom->getY(j));
+                    Position pos(cgeom->getX(j), cgeom->getY(j));
                     if (!geoConvHelper.x2cartesian(pos)) {
                         WRITE_ERROR("Unable to project coordinates for polygon '" + id + "'.");
                     }
                     shape.push_back_noDoublePos(pos);
                 }
-                SUMOPolygon* poly = new SUMOPolygon(id, type, color, shape, false, fill, 1, layer, angle, imgFile);
+                SUMOPolygon* poly = new SUMOPolygon(id, type, color, shape, false, fillType == 1, 1, layer, angle, imgFile);
                 if (toFill.add(poly)) {
                     parCont.push_back(poly);
                 }
             }
             break;
             case wkbPolygon: {
-                bool fill = fillType < 0 ? true : (fillType == 1);
+                const bool fill = fillType < 0 || fillType == 1;
                 OGRLinearRing* cgeom = ((OGRPolygon*) poGeometry)->getExteriorRing();
                 PositionVector shape;
                 for (int j = 0; j < cgeom->getNumPoints(); j++) {
@@ -228,7 +227,6 @@ PCLoaderArcView::load(const std::string& file, OptionsCont& oc, PCPolyContainer&
             }
             break;
             case wkbMultiLineString: {
-                bool fill = fillType < 0 ? false : (fillType == 1);
                 OGRMultiLineString* cgeom = (OGRMultiLineString*) poGeometry;
                 for (int i = 0; i < cgeom->getNumGeometries(); ++i) {
                     OGRLineString* cgeom2 = (OGRLineString*) cgeom->getGeometryRef(i);
@@ -241,7 +239,7 @@ PCLoaderArcView::load(const std::string& file, OptionsCont& oc, PCPolyContainer&
                         }
                         shape.push_back_noDoublePos(pos);
                     }
-                    SUMOPolygon* poly = new SUMOPolygon(tid, type, color, shape, false, fill, 1, layer, angle, imgFile);
+                    SUMOPolygon* poly = new SUMOPolygon(tid, type, color, shape, false, fillType == 1, 1, layer, angle, imgFile);
                     if (toFill.add(poly)) {
                         parCont.push_back(poly);
                     }
@@ -249,14 +247,14 @@ PCLoaderArcView::load(const std::string& file, OptionsCont& oc, PCPolyContainer&
             }
             break;
             case wkbMultiPolygon: {
-                bool fill = fillType < 0 ? true : (fillType == 1);
+                const bool fill = fillType < 0 || fillType == 1;
                 OGRMultiPolygon* cgeom = (OGRMultiPolygon*) poGeometry;
                 for (int i = 0; i < cgeom->getNumGeometries(); ++i) {
                     OGRLinearRing* cgeom2 = ((OGRPolygon*) cgeom->getGeometryRef(i))->getExteriorRing();
                     PositionVector shape;
                     std::string tid = id + "#" + toString(i);
                     for (int j = 0; j < cgeom2->getNumPoints(); j++) {
-                        Position pos((double) cgeom2->getX(j), (double) cgeom2->getY(j));
+                        Position pos(cgeom2->getX(j), cgeom2->getY(j));
                         if (!geoConvHelper.x2cartesian(pos)) {
                             WRITE_ERROR("Unable to project coordinates for polygon '" + tid + "'.");
                         }
