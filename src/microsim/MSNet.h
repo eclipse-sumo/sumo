@@ -750,7 +750,7 @@ protected:
     bool myLogStepNumber;
 
     /// @brief The last simulation step duration
-    long myTraCIStepDuration, mySimStepDuration;
+    long myTraCIStepDuration = 0, mySimStepDuration = 0;
 
     /// @brief The overall simulation duration
     long mySimBeginMillis;

@@ -460,20 +460,22 @@ MSNet::simulationStep() {
               << ", myStep = " << myStep
               << std::endl;
 #endif
-    if (myLogExecutionTime) {
-        myTraCIStepDuration = SysUtils::getCurrentMillis();
-    }
     TraCIServer* t = TraCIServer::getInstance();
     if (t != nullptr) {
+        if (myLogExecutionTime) {
+            myTraCIStepDuration = SysUtils::getCurrentMillis();
+        }
         t->processCommandsUntilSimStep(myStep);
 #ifdef DEBUG_SIMSTEP
         bool loadRequested = !TraCI::getLoadArgs().empty();
-        bool closed = TraCIServer::wasClosed();
-        assert(t->getTargetTime() >= myStep || loadRequested || closed);
+        assert(t->getTargetTime() >= myStep || loadRequested || TraCIServer::wasClosed());
 #endif
-    }
-    if (myLogExecutionTime) {
-        myTraCIStepDuration = SysUtils::getCurrentMillis() - myTraCIStepDuration;
+        if (myLogExecutionTime) {
+            myTraCIStepDuration = SysUtils::getCurrentMillis() - myTraCIStepDuration;
+        }
+        if (TraCIServer::wasClosed()) {
+            return;
+        }
     }
 #ifdef DEBUG_SIMSTEP
     std::cout << SIMTIME << ": TraCI target time: " << t->getTargetTime() << std::endl;
