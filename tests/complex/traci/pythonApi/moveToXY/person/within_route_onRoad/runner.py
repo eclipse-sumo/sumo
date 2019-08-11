@@ -49,5 +49,5 @@ for i in range(20):
     s = step()
     print("s=%s x=%s y=%s" % (s, x, y))
 x, y = traci.person.getPosition(p)
-
+step()
 traci.close()

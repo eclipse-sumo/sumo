@@ -1,3 +1,4 @@
 repeat 30 simstep2 0
 setvalue 0xc4 0x53 xxx <string> test
-simstep2 100
+simstep2 101
+

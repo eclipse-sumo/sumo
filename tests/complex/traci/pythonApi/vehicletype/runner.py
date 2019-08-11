@@ -22,15 +22,13 @@ import subprocess
 import sys
 sys.path.append(os.path.join(
     os.path.dirname(sys.argv[0]), "..", "..", "..", "..", "..", "tools"))
-import traci  # noqa
+if len(sys.argv) > 1:
+    import libsumo as traci  # noqa
+else:
+    import traci  # noqa
 import sumolib  # noqa
 
-sumoBinary = sumolib.checkBinary('sumo')
-
-PORT = sumolib.miscutils.getFreeSocketPort()
-sumoProcess = subprocess.Popen(
-    "%s -c sumo.sumocfg --remote-port %s" % (sumoBinary, PORT), shell=True, stdout=sys.stdout)
-traci.init(PORT)
+traci.start([sumolib.checkBinary('sumo'), "-c", "sumo.sumocfg"])
 for step in range(3):
     print("step", step)
     traci.simulationStep()
@@ -107,6 +105,5 @@ traci.vehicletype.setAccel(copyID, 100.)
 print("accel (original)", traci.vehicletype.getAccel(typeID))
 print("accel (copied)", traci.vehicletype.getAccel(copyID))
 
-
+traci.simulationStep()
 traci.close()
-sumoProcess.wait()

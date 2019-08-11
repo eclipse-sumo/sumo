@@ -78,7 +78,7 @@ for i in range(10):
     step = traci.simulation.getTime()
     traci.simulationStep(step + 1.)
 traci.vehicle.changeSublane(vehID, 1.6)
-for i in range(10):
+for i in range(11):
     step = traci.simulation.getTime()
     traci.simulationStep(step + 1.)
 

@@ -27,8 +27,6 @@ sys.path.append(os.path.join(sumoHome, "tools"))
 import sumolib  # noqa
 import traci  # noqa
 
-PORT = sumolib.miscutils.getFreeSocketPort()
-
 if sys.argv[1] == "sumo":
     sumoBinary = os.environ.get(
         "SUMO_BINARY", os.path.join(sumoHome, 'bin', 'sumo'))
@@ -38,17 +36,15 @@ else:
         "GUISIM_BINARY", os.path.join(sumoHome, 'bin', 'sumo-gui'))
     addOption = ["-S", "-Q"]
 
-sumoProcess = subprocess.Popen(
-    [sumoBinary, "-c", "sumo.sumocfg", "--remote-port", str(PORT)] + addOption)
-traci.init(PORT)
+traci.start([sumoBinary, "-c", "sumo.sumocfg"] + addOption)
 time.sleep(10)
 step = 0
-while not step > 100:
+while step <= 100:
     traci.simulationStep()
     vehs = traci.vehicle.getIDList()
     if vehs.index("horiz") < 0 or len(vehs) > 1:
         print("Something is false")
     step += 1
+traci.simulationStep()
 traci.close()
-sumoProcess.wait()
 sys.stdout.flush()

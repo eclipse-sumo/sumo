@@ -25,49 +25,29 @@ if 'SUMO_HOME' in os.environ:
     tools = os.path.join(os.environ['SUMO_HOME'], 'tools')
     sys.path += [tools, os.path.join(tools, 'assign')]
     import sumolib  # noqa
-    import traci
-
+    if len(sys.argv) > 1:
+        import libsumo as traci  # noqa
+    else:
+        import traci
 else:
     sys.exit("please declare environment variable 'SUMO_HOME'")
 
 
-# the port used for communicating with your sumo instance
-PORT_TRACI = 8873
-
-
-def init_traci():
-
-    sumoBinary = sumolib.checkBinary('sumo')
-#    sumoBinary = sumolib.checkBinary('sumo-gui')
-
-    sumo_call = [sumoBinary, "-c", "data/hello.sumocfg",
-                 "--remote-port", str(PORT_TRACI),
+def main(args):
+    sumo_call = [sumolib.checkBinary('sumo'), "-c", "data/hello.sumocfg",
                  "--netstate-dump", "rawdump.xml",
                  "--no-step-log",
                  "-v",
                  ]
-
-    sumoProcess = subprocess.Popen(
-        sumo_call, stdout=sys.stdout, stderr=sys.stderr)
-
-    traci.init(PORT_TRACI)
-    return sumoProcess
-
-
-def main(args):
-    sumoProcess = init_traci()
+    traci.start(sumo_call)
     step = -1
     while True:
         step += 1
-
         traci.simulationStep()
-
         if step == 140:
             traci.vehicle.resume('Stapler_00')
-
-        if step == 160:
+        if step == 161:
             traci.close()
-            sumoProcess.wait()
             break
 
 

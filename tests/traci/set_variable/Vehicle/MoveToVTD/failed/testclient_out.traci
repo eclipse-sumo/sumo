@@ -1,4 +1,4 @@
-TraCITestClient output file. Date: Fri Mar  1 09:52:41 2019
+TraCITestClient output file. Date: Sun Aug 11 20:01:11 2019
 
 
 -> Command sent: <SimulationStep>:
@@ -19,6 +19,9 @@ TraCITestClient output file. Date: Fri Mar  1 09:52:41 2019
 -> Command sent: <SetValue>:
   domID=196 varID=180 objID=veh0
 .. Answered with error to command (196), [description: Could not map vehicle 'veh0' distance to road is 111.60.]
+
+-> Command sent: <SimulationStep>:
+.. Command acknowledged (2), [description: ]
 
 -> Command sent: <SimulationStep>:
 .. Command acknowledged (2), [description: ]

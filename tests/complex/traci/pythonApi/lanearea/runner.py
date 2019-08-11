@@ -52,4 +52,5 @@ for step in range(3, 6):
     print("step", step)
     traci.simulationStep()
     print(traci.lanearea.getSubscriptionResults(detID))
+traci.simulationStep()
 traci.close()

@@ -33,7 +33,7 @@ def main(args):
                  "--netstate-dump", "rawdump.xml",
                  "--no-step-log"])
 
-    for step in range(161):
+    for step in range(162):
         traci.simulationStep()
         if step == 120:
             print(traci.vehicle.getDistance('Stapler_00'))

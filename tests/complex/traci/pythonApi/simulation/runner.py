@@ -184,4 +184,5 @@ try:
 except traci.TraCIException as e:
     if traci.isLibsumo():
         print(e, file=sys.stderr)
+traci.simulationStep()
 traci.close()

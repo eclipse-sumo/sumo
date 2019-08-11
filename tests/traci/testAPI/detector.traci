@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Apr 23 16:22:22 2019 by Eclipse SUMO Version v1_2_0+0026-b74d136
+<!-- generated on Sun Aug 11 20:37:30 2019 by Eclipse SUMO Version v1_2_0+1522-fd29d6db72
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -22,5 +22,4 @@
     <interval begin="2.00" end="3.00" id="det1" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" harmonicMeanSpeed="-1.00" length="-1.00" nVehEntered="0"/>
     <interval begin="3.00" end="4.00" id="det1" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" harmonicMeanSpeed="-1.00" length="-1.00" nVehEntered="0"/>
     <interval begin="4.00" end="5.00" id="det1" nVehContrib="0" flow="0.00" occupancy="20.00" speed="-1.00" harmonicMeanSpeed="-1.00" length="-1.00" nVehEntered="1"/>
-    <interval begin="5.00" end="6.00" id="det1" nVehContrib="1" flow="3600.00" occupancy="10.00" speed="10.00" harmonicMeanSpeed="10.00" length="3.00" nVehEntered="0"/>
 </detector>

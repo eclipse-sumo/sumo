@@ -63,6 +63,6 @@ traci.vehicle.setSignals(vehID, 2048)
 for i in range(3):
     traci.simulationStep()
 traci.vehicle.setSignals(vehID, -1)
-for i in range(3):
+for i in range(4):
     traci.simulationStep()
 traci.close()

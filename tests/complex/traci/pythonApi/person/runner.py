@@ -254,8 +254,7 @@ print_remaining_plan("p3", "(before replacement of next stage")
 traci.person.replaceStage("p3", 1, stage4)
 print_remaining_plan("p3", "(after replacement")
 
-for i in range(40):
+for i in range(41):
     traci.simulationStep()
-
 
 traci.close()

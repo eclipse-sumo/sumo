@@ -9,4 +9,5 @@ getvariable 0xa4 0x56 veh1
 getvariable 0xa4 0x52 veh1
 getvariable 0xa4 0x4f veh1
 getvariable 0xa4 0x53 veh1
-repeat 5 simstep2 0
+repeat 6 simstep2 0
+

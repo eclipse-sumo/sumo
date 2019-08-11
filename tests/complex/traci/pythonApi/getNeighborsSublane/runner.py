@@ -79,6 +79,6 @@ for i in range(2):
 while egoID in traci.vehicle.getIDList():
     printNeighInfo()
     print("step", step())
-
+step()
 # done
 traci.close()

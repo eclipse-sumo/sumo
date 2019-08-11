@@ -69,4 +69,5 @@ while traci.simulation.getMinExpectedNumber() > 0 and traci.vehicle.getLaneIndex
         tryChangeTime = traci.simulation.getTime()
 
 # done
+step()
 traci.close()

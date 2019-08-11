@@ -475,5 +475,6 @@ print("noRouteGiven routeID: %s edges: %s" % (
     traci.vehicle.getRoute("noRouteGiven")))
 # test for adding a vehicle with explicit departLane
 traci.vehicle.addFull("vehDepartLane", "horizontal", departLane="0")
+step()
 # done
 traci.close()

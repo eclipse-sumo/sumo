@@ -47,4 +47,5 @@ while traci.simulation.getMinExpectedNumber() > 0:
             # print("updateBestLanes %s" % veh)
             traci.vehicle.updateBestLanes(veh)
 
+traci.simulationStep()
 traci.close()

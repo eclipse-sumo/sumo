@@ -73,7 +73,7 @@ for i in range(10):
     step = traci.simulation.getTime()
     traci.simulationStep(step + 1.)
 traci.vehicle.setSpeed(vehID, -1)
-for i in range(10):
+for i in range(11):
     step = traci.simulation.getTime()
     traci.simulationStep(step + 1.)
 
