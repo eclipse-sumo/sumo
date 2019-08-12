@@ -455,11 +455,13 @@ MSTriggeredRerouter::notifyEnter(SUMOTrafficObject& tObject, MSMoveReminder::Not
     // ok, try using a new destination
     double newArrivalPos = -1;
     const bool destUnreachable = std::find(rerouteDef->closed.begin(), rerouteDef->closed.end(), lastEdge) != rerouteDef->closed.end();
+    bool keepDestination = false;
     // if we have a closingReroute, only assign new destinations to vehicles which cannot reach their original destination
     // if we have a closingLaneReroute, no new destinations should be assigned
     if (rerouteDef->closed.size() == 0 || destUnreachable) {
         newEdge = rerouteDef->edgeProbs.getOverallProb() > 0 ? rerouteDef->edgeProbs.get() : route.getLastEdge();
         if (newEdge == &mySpecialDest_terminateRoute) {
+            keepDestination = true;
             newEdge = veh.getEdge();
             newArrivalPos = veh.getPositionOnLane(); // instant arrival
         } else if (newEdge == &mySpecialDest_keepDestination || newEdge == lastEdge) {
@@ -490,6 +492,26 @@ MSTriggeredRerouter::notifyEnter(SUMOTrafficObject& tObject, MSMoveReminder::Not
                 : MSNet::getInstance()->getRouterTT(rerouteDef->closed);
         router.compute(
             veh.getEdge(), newEdge, &veh, MSNet::getInstance()->getCurrentTimeStep(), edges);
+        if (edges.size() == 0 && !keepDestination && rerouteDef->edgeProbs.getOverallProb() > 0) {
+            // destination unreachable due to closed intermediate edges. pick among alternative targets
+            RandomDistributor<MSEdge*> edgeProbs2 = rerouteDef->edgeProbs;
+            edgeProbs2.remove(const_cast<MSEdge*>(newEdge));
+            while (edges.size() == 0 && edgeProbs2.getVals().size() > 0) {
+                newEdge = edgeProbs2.get();
+                edgeProbs2.remove(const_cast<MSEdge*>(newEdge));
+                if (newEdge == &mySpecialDest_terminateRoute) {
+                    newEdge = veh.getEdge();
+                    newArrivalPos = veh.getPositionOnLane(); // instant arrival
+                }
+                if (newEdge == &mySpecialDest_keepDestination && rerouteDef->permissions != SVCAll) {
+                    newEdge = lastEdge;
+                    break;
+                }
+                router.compute(
+                        veh.getEdge(), newEdge, &veh, MSNet::getInstance()->getCurrentTimeStep(), edges);
+            }
+
+        }
         const double routeCost = router.recomputeCosts(edges, &veh, MSNet::getInstance()->getCurrentTimeStep());
         const bool useNewRoute = veh.replaceRouteEdges(edges, routeCost, 0, getID());
 #ifdef DEBUG_REROUTER

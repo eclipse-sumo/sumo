@@ -84,6 +84,23 @@ public:
         return true;
     }
 
+    /** @brief Removes a value with an assigned probability from the distribution.
+     *
+     * @param[in] val The value to remove from the distribution
+     * @return true if a new value was added, false if just the probability of an existing one was updated
+     */
+    bool remove(T val) {
+        for (int i = 0; i < (int)myVals.size();i++) {
+            if (myVals[i] == val) {
+                myProb -= myProbs[i];
+                myProbs.erase(myProbs.begin() + i);
+                myVals.erase(myVals.begin() + i);
+                return true;
+            }
+        }
+        return false;
+    }
+
     /** @brief Draw a sample of the distribution.
      *
      * A random sample is drawn according to the assigned probabilities.
