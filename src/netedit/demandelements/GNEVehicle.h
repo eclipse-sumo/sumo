@@ -347,6 +347,9 @@ private:
 
     /// @brief method for enabling the attribute and nothing else (used in GNEChange_EnableAttribute)
     void enableAttribute(SumoXMLAttr key);
+    
+    /// @brief update disabled attributes
+    void updateDisabledAttributes();
 
     /// @brief Invalidated copy constructor.
     GNEVehicle(const GNEVehicle&) = delete;

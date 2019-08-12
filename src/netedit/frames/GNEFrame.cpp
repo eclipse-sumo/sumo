@@ -1049,6 +1049,10 @@ GNEFrame::AttributesCreator::AttributesCreatorRow::AttributesCreatorRow(Attribut
             myAttributeColorButton->setTextColor(FXRGB(0, 0, 0));
             myAttributeColorButton->setText(myAttrProperties.getAttrStr().c_str());
             myAttributeColorButton->show();
+        } else if (myAttrProperties.isEnablitable()) {
+            myAttributeRadioButton->setTextColor(FXRGB(0, 0, 0));
+            myAttributeRadioButton->setText(myAttrProperties.getAttrStr().c_str());
+            myAttributeRadioButton->show();
         } else if (myAttrProperties.isOptional()) {
             myAttributeCheckButton->setText(myAttrProperties.getAttrStr().c_str());
             myAttributeCheckButton->show();
@@ -1501,7 +1505,7 @@ GNEFrame::AttributesCreator::AttributesCreatorRow::checkComplexAttribute(const s
 // GNEFrame::AttributesEditor::AttributesEditorRow - methods
 // ---------------------------------------------------------------------------
 
-GNEFrame::AttributesEditor::AttributesEditorRow::AttributesEditorRow(GNEFrame::AttributesEditor* attributeEditorParent, const GNEAttributeCarrier::AttributeProperties& ACAttr, const std::string& value, bool disjointAttributeEnabled) :
+GNEFrame::AttributesEditor::AttributesEditorRow::AttributesEditorRow(GNEFrame::AttributesEditor* attributeEditorParent, const GNEAttributeCarrier::AttributeProperties& ACAttr, const std::string& value, bool attributeEnabled) :
     FXHorizontalFrame(attributeEditorParent, GUIDesignAuxiliarHorizontalFrame),
     myAttributesEditorParent(attributeEditorParent),
     myACAttr(ACAttr),
@@ -1540,16 +1544,26 @@ GNEFrame::AttributesEditor::AttributesEditorRow::AttributesEditorRow(GNEFrame::A
     if (getParent()->id()) {
         // create AttributesEditorRow
         FXHorizontalFrame::create();
-        // start enabling all elements
-        myValueTextFieldInt->enable();
-        myValueTextFieldReal->enable();
-        myValueTextFieldStrings->enable();
-        myValueComboBoxChoices->enable();
-        myValueCheckButton->enable();
-        myAttributeButtonCombinableChoices->enable();
-        myAttributeColorButton->enable();
-        myAttributeRadioButton->enable();
-        myAttributeCheckButton->enable();
+        // start enabling all elements, depending if attribute is editable and enabled
+        if (myACAttr.isNonEditable() || !attributeEnabled) {
+            myValueTextFieldInt->disable();
+            myValueTextFieldReal->disable();
+            myValueTextFieldStrings->disable();
+            myValueComboBoxChoices->disable();
+            myValueCheckButton->disable();
+            myAttributeButtonCombinableChoices->disable();
+            myAttributeColorButton->disable();
+            myAttributeCheckButton->disable();
+        } else {
+            myValueTextFieldInt->enable();
+            myValueTextFieldReal->enable();
+            myValueTextFieldStrings->enable();
+            myValueComboBoxChoices->enable();
+            myValueCheckButton->enable();
+            myAttributeButtonCombinableChoices->enable();
+            myAttributeColorButton->enable();
+            myAttributeCheckButton->enable();
+        }
         // set left column
         if (myACAttr.isColor()) {
             myAttributeColorButton->setTextColor(FXRGB(0, 0, 0));
@@ -1558,8 +1572,24 @@ GNEFrame::AttributesEditor::AttributesEditorRow::AttributesEditorRow(GNEFrame::A
         } else if (myACAttr.isOptional()) {
             myAttributeCheckButton->setTextColor(FXRGB(0, 0, 0));
             myAttributeCheckButton->setText(myACAttr.getAttrStr().c_str());
-            myAttributeCheckButton->setCheck(FALSE/*disjointAttributeEnabled*/);
+            myAttributeCheckButton->setCheck(FALSE);
             myAttributeCheckButton->show();
+        } else if (myACAttr.isEnablitable()) {
+            myAttributeRadioButton->setTextColor(FXRGB(0, 0, 0));
+            myAttributeRadioButton->setText(myACAttr.getAttrStr().c_str());
+            myAttributeRadioButton->show();
+            // enable or disable depending if is editable
+            if (myACAttr.isNonEditable()) {
+                myAttributeRadioButton->disable();
+            } else {
+                myAttributeRadioButton->enable();
+            }
+            // check if radio button has to be check
+            if (attributeEnabled) {
+                myAttributeRadioButton->setCheck(TRUE);
+            } else {
+                myAttributeRadioButton->setCheck(FALSE);
+            }
         } else {
             // Show attribute Label
             myAttributeLabel->setText(myACAttr.getAttrStr().c_str());
@@ -1593,17 +1623,13 @@ GNEFrame::AttributesEditor::AttributesEditorRow::AttributesEditorRow(GNEFrame::A
                 }
                 // show check button
                 myValueCheckButton->show();
-                // enable or disable depending if attribute is editable and is enabled (used by disjoint attributes)
-                if (myACAttr.isNonEditable() || !disjointAttributeEnabled) {
-                    myValueCheckButton->disable();
-                }
             } else {
                 // show list of bools (0 1)
                 myValueTextFieldStrings->setText(value.c_str());
                 myValueTextFieldStrings->setTextColor(FXRGB(0, 0, 0));
                 myValueTextFieldStrings->show();
                 // enable or disable depending if attribute is editable and is enabled (used by disjoint attributes)
-                if (myACAttr.isNonEditable() || !disjointAttributeEnabled) {
+                if (myACAttr.isNonEditable() || !attributeEnabled) {
                     myValueTextFieldStrings->disable();
                 }
             }
@@ -1630,38 +1656,22 @@ GNEFrame::AttributesEditor::AttributesEditorRow::AttributesEditorRow(GNEFrame::A
                 myValueComboBoxChoices->setCurrentItem(myValueComboBoxChoices->findItem(value.c_str()));
                 myValueComboBoxChoices->setTextColor(FXRGB(0, 0, 0));
                 myValueComboBoxChoices->show();
-                // enable or disable depending if attribute is editable and is enabled (used by disjoint attributes)
-                if (myACAttr.isNonEditable() || !disjointAttributeEnabled) {
-                    myValueComboBoxChoices->disable();
-                }
             } else {
                 // represent combinable choices in multiple selections always with a textfield instead with a comboBox
                 myValueTextFieldStrings->setText(value.c_str());
                 myValueTextFieldStrings->setTextColor(FXRGB(0, 0, 0));
                 myValueTextFieldStrings->show();
-                // enable or disable depending if attribute is editable and is enabled (used by disjoint attributes)
-                if (myACAttr.isNonEditable() || !disjointAttributeEnabled) {
-                    myValueTextFieldStrings->disable();
-                }
             }
         } else if (myACAttr.isFloat() || myACAttr.isSUMOTime()) {
             // show TextField for real/time values
             myValueTextFieldReal->setText(value.c_str());
             myValueTextFieldReal->setTextColor(FXRGB(0, 0, 0));
             myValueTextFieldReal->show();
-            // enable or disable depending if attribute is editable and is enabled (used by disjoint attributes)
-            if (myACAttr.isNonEditable() || !disjointAttributeEnabled) {
-                myValueTextFieldReal->disable();
-            }
         } else if (myACAttr.isInt()) {
             // Show textField for int attributes
             myValueTextFieldInt->setText(value.c_str());
             myValueTextFieldInt->setTextColor(FXRGB(0, 0, 0));
             myValueTextFieldInt->show();
-            // enable or disable depending if attribute is editable and is enabled (used by disjoint attributes)
-            if (myACAttr.isNonEditable() || !disjointAttributeEnabled) {
-                myValueTextFieldInt->disable();
-            }
             // we need an extra check for connection attribute "TLIndex", because it cannot be edited if junction's connection doesn' have a TLS
             if ((myACAttr.getTagPropertyParent().getTag() == SUMO_TAG_CONNECTION) && (myACAttr.getAttr() == SUMO_ATTR_TLLINKINDEX) && (value == "No TLS")) {
                 myValueTextFieldInt->disable();
@@ -1671,10 +1681,6 @@ GNEFrame::AttributesEditor::AttributesEditorRow::AttributesEditorRow(GNEFrame::A
             myValueTextFieldStrings->setText(value.c_str());
             myValueTextFieldStrings->setTextColor(FXRGB(0, 0, 0));
             myValueTextFieldStrings->show();
-            // enable or disable depending if attribute is editable and is enabled (used by disjoint attributes)
-            if (myACAttr.isNonEditable() || !disjointAttributeEnabled) {
-                myValueTextFieldStrings->disable();
-            }
         }
         // if Tag correspond to an network element but we're in demand mode (or vice versa), disable all elements
         if (((myAttributesEditorParent->myFrameParent->myViewNet->getEditModes().currentSupermode == GNE_SUPERMODE_NETWORK) && myACAttr.getTagPropertyParent().isDemandElement()) ||
@@ -2031,11 +2037,16 @@ GNEFrame::AttributesEditor::AttributesEditorRow::onCmdSelectCheckButton(FXObject
 
 long
 GNEFrame::AttributesEditor::AttributesEditorRow::onCmdSelectRadioButton(FXObject*, FXSelector, void*) {
+    // obtain undoList (To improve code legibly)
+    GNEUndoList* undoList = myAttributesEditorParent->myFrameParent->myViewNet->getUndoList();
     // write debug (for Netedit tests)
     WRITE_DEBUG("Selected radio button for attribute '" + myACAttr.getAttrStr() + "'");
+    // begin undoList
+    undoList->p_begin("enable attribute '" + myACAttr.getAttrStr() + "'");
     // change disjoint attribute with undo/redo
-    myAttributesEditorParent->myEditedACs.front()->enableAttribute(myACAttr.getAttr(),
-            myAttributesEditorParent->myFrameParent->myViewNet->getUndoList());
+    myAttributesEditorParent->myEditedACs.front()->enableAttribute(myACAttr.getAttr(), undoList);
+    // begin undoList
+    undoList->p_end();
     // refresh Attributes edito parent
     myAttributesEditorParent->refreshAttributeEditor(false, false);
     return 0;

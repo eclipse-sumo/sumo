@@ -464,7 +464,7 @@ public:
 
         public:
             /// @brief constructor
-            AttributesEditorRow(GNEFrame::AttributesEditor* attributeEditorParent, const GNEAttributeCarrier::AttributeProperties& ACAttr, const std::string& value, bool disjointAttributeEnabled);
+            AttributesEditorRow(GNEFrame::AttributesEditor* attributeEditorParent, const GNEAttributeCarrier::AttributeProperties& ACAttr, const std::string& value, bool attributeEnabled);
 
             /// @brief destroy AttributesCreatorRow (but don't delete)
             void destroy();
