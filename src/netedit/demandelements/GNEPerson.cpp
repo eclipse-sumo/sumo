@@ -230,19 +230,19 @@ GNEPerson::writeDemandElement(OutputDevice& device) const {
     // write specific flow attributes
     if (myTagProperty.getTag() == SUMO_TAG_PERSONFLOW) {
         // write routeFlow values depending if it was set
-        if (isAttributeSet(SUMO_ATTR_END)) {
+        if (isAttributeEnabled(SUMO_ATTR_END)) {
             device.writeAttr(SUMO_ATTR_END,  time2string(repetitionEnd));
         }
-        if (isAttributeSet(SUMO_ATTR_NUMBER)) {
+        if (isAttributeEnabled(SUMO_ATTR_NUMBER)) {
             device.writeAttr(SUMO_ATTR_NUMBER, repetitionNumber);
         }
-        if (isAttributeSet(SUMO_ATTR_VEHSPERHOUR)) {
+        if (isAttributeEnabled(SUMO_ATTR_VEHSPERHOUR)) {
             device.writeAttr(SUMO_ATTR_VEHSPERHOUR, 3600. / STEPS2TIME(repetitionOffset));
         }
-        if (isAttributeSet(SUMO_ATTR_PERIOD)) {
+        if (isAttributeEnabled(SUMO_ATTR_PERIOD)) {
             device.writeAttr(SUMO_ATTR_PERIOD, time2string(repetitionOffset));
         }
-        if (isAttributeSet(SUMO_ATTR_PROB)) {
+        if (isAttributeEnabled(SUMO_ATTR_PROB)) {
             device.writeAttr(SUMO_ATTR_PROB, repetitionProbability);
         }
     }
@@ -812,7 +812,7 @@ GNEPerson::disableAttribute(SumoXMLAttr key, GNEUndoList* undoList) {
 
 
 bool 
-GNEPerson::isAttributeSet(SumoXMLAttr /*key*/) const {
+GNEPerson::isAttributeEnabled(SumoXMLAttr /*key*/) const {
     return true;
 }
 

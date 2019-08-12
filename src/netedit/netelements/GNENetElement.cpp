@@ -190,7 +190,7 @@ GNENetElement::disableAttribute(SumoXMLAttr /*key*/, GNEUndoList* /*undoList*/) 
 
 
 bool 
-GNENetElement::isAttributeSet(SumoXMLAttr /*key*/) const {
+GNENetElement::isAttributeEnabled(SumoXMLAttr /*key*/) const {
     return true;
 }
 

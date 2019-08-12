@@ -863,7 +863,7 @@ GNEFrame::AttributesCreator::getAttributesAndValues(bool includeAll) const {
         if (myAttributesCreatorRows.at(i) && myAttributesCreatorRows.at(i)->getAttrProperties().getAttr() != SUMO_ATTR_NOTHING) {
             // ignore default values (except for disjont attributes, that has to be always writted)
             if (myAttributesCreatorRows.at(i)->isAttributesCreatorRowEnabled() &&
-                    (includeAll || myTagProperties.isDisjointAttributes(myAttributesCreatorRows.at(i)->getAttrProperties().getAttr()) || !myAttributesCreatorRows.at(i)->getAttrProperties().hasStaticDefaultValue() || (myAttributesCreatorRows.at(i)->getAttrProperties().getDefaultValue() != myAttributesCreatorRows.at(i)->getValue()))) {
+                    (includeAll || !myAttributesCreatorRows.at(i)->getAttrProperties().hasStaticDefaultValue() || (myAttributesCreatorRows.at(i)->getAttrProperties().getDefaultValue() != myAttributesCreatorRows.at(i)->getValue()))) {
                 values[myAttributesCreatorRows.at(i)->getAttrProperties().getAttr()] = myAttributesCreatorRows.at(i)->getValue();
             }
         }
@@ -1049,9 +1049,6 @@ GNEFrame::AttributesCreator::AttributesCreatorRow::AttributesCreatorRow(Attribut
             myAttributeColorButton->setTextColor(FXRGB(0, 0, 0));
             myAttributeColorButton->setText(myAttrProperties.getAttrStr().c_str());
             myAttributeColorButton->show();
-        } else if (myAttributesCreatorParent->myTagProperties.isDisjointAttributes(myAttrProperties.getAttr())) {
-            myAttributeRadioButton->setText(myAttrProperties.getAttrStr().c_str());
-            myAttributeRadioButton->show();
         } else if (myAttrProperties.isOptional()) {
             myAttributeCheckButton->setText(myAttrProperties.getAttrStr().c_str());
             myAttributeCheckButton->show();
@@ -1558,11 +1555,6 @@ GNEFrame::AttributesEditor::AttributesEditorRow::AttributesEditorRow(GNEFrame::A
             myAttributeColorButton->setTextColor(FXRGB(0, 0, 0));
             myAttributeColorButton->setText(myACAttr.getAttrStr().c_str());
             myAttributeColorButton->show();
-        } else if (myACAttr.getTagPropertyParent().isDisjointAttributes(myACAttr.getAttr())) {
-            myAttributeRadioButton->setTextColor(FXRGB(0, 0, 0));
-            myAttributeRadioButton->setText(myACAttr.getAttrStr().c_str());
-            myAttributeRadioButton->setCheck(disjointAttributeEnabled);
-            myAttributeRadioButton->show();
         } else if (myACAttr.isOptional()) {
             myAttributeCheckButton->setTextColor(FXRGB(0, 0, 0));
             myAttributeCheckButton->setText(myACAttr.getAttrStr().c_str());
@@ -2042,7 +2034,7 @@ GNEFrame::AttributesEditor::AttributesEditorRow::onCmdSelectRadioButton(FXObject
     // write debug (for Netedit tests)
     WRITE_DEBUG("Selected radio button for attribute '" + myACAttr.getAttrStr() + "'");
     // change disjoint attribute with undo/redo
-    myAttributesEditorParent->myEditedACs.front()->setDisjointAttribute(myACAttr.getAttr(),
+    myAttributesEditorParent->myEditedACs.front()->enableAttribute(myACAttr.getAttr(),
             myAttributesEditorParent->myFrameParent->myViewNet->getUndoList());
     // refresh Attributes edito parent
     myAttributesEditorParent->refreshAttributeEditor(false, false);
@@ -2132,7 +2124,7 @@ GNEFrame::AttributesEditor::showAttributeEditorModul(const std::vector<GNEAttrib
             // show AttributesEditor
             show();
             // create attribute editor row
-            myAttributesEditorRows[i.getPositionListed()] = new AttributesEditorRow(this, i, value, myEditedACs.front()->isDisjointAttributeSet(i.getAttr()));
+            myAttributesEditorRows[i.getPositionListed()] = new AttributesEditorRow(this, i, value, myEditedACs.front()->isAttributeEnabled(i.getAttr()));
         }
     }
     // reparent help button (to place it at bottom)
@@ -2172,7 +2164,7 @@ GNEFrame::AttributesEditor::refreshAttributeEditor(bool forceRefreshShape, bool 
                 oss << *it_val;
             }
             // check if is a disjoint attribute
-            bool disjointAttributeSet = myEditedACs.front()->isDisjointAttributeSet(i.getAttr());
+            bool disjointAttributeSet = myEditedACs.front()->isAttributeEnabled(i.getAttr());
             // Check if refresh of Position or Shape has to be forced
             if ((i.getAttr()  == SUMO_ATTR_SHAPE) && forceRefreshShape) {
                 myAttributesEditorRows[i.getPositionListed()]->refreshAttributesEditorRow(oss.str(), true, disjointAttributeSet);

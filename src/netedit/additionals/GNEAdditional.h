@@ -302,7 +302,7 @@ public:
     /* @brief method for check if the value for certain attribute is set
      * @param[in] key The attribute key
      */
-    bool isAttributeSet(SumoXMLAttr key) const;
+    bool isAttributeEnabled(SumoXMLAttr key) const;
 
     /// @brief get PopPup ID (Used in AC Hierarchy)
     virtual std::string getPopUpID() const = 0;

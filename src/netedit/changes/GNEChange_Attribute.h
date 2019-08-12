@@ -75,17 +75,6 @@ public:
                         const SumoXMLAttr key,
                         const std::string& value);
 
-    /**@brief Constructor used for disjoint attributes
-     * @param[in] ac The attribute-carrier to be modified
-     * @param[in] net Net in which AC is saved
-     * @param[in] oldParametersSet The old ParameterSet
-     * @param[in] newParametersSet The new ParameterSet
-     */
-    GNEChange_Attribute(GNEAttributeCarrier* ac,
-                        GNENet* net,
-                        const int oldParametersSet,
-                        const int newParametersSet);
-
     /// @brief Destructor
     ~GNEChange_Attribute();
 
@@ -124,12 +113,6 @@ private:
 
     /// @brief the original value
     const std::string myNewValue;
-
-    /// @brief old parameter set (used for disjoint attributes)
-    const int myOldParametersSet;
-
-    /// @brief new parameter set (used for disjoint attributes)
-    const int myNewParametersSet;
 };
 
 #endif

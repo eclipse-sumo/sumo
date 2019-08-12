@@ -667,26 +667,6 @@ GNEAttributeCarrier::TagProperties::getTagSynonym() const {
 }
 
 
-void
-GNEAttributeCarrier::TagProperties::setDisjointAttributes(const std::vector<SumoXMLAttr>& attrs) {
-    if (hasDisjointAttributes()) {
-        myDisjointAttrs = attrs;
-    } else {
-        throw ProcessError("Tag doesn't support disjoint attributes");
-    }
-}
-
-
-bool
-GNEAttributeCarrier::TagProperties::isDisjointAttributes(SumoXMLAttr attr) const {
-    if (myDisjointAttrs.empty()) {
-        return false;
-    } else {
-        return (std::find(myDisjointAttrs.begin(), myDisjointAttrs.end(), attr) != myDisjointAttrs.end());
-    }
-}
-
-
 bool
 GNEAttributeCarrier::TagProperties::hasAttribute(SumoXMLAttr attr) const {
     // iterate over attribute properties
@@ -869,13 +849,6 @@ bool
 GNEAttributeCarrier::TagProperties::hasGenericParameters() const {
     // note: By default all Tags supports generic parameters, except Tags with "TAGPROPERTY_NOGENERICPARAMETERS"
     return (myTagProperty & TAGPROPERTY_NOGENERICPARAMETERS) == 0;
-}
-
-
-bool
-GNEAttributeCarrier::TagProperties::hasDisjointAttributes() const {
-    // note: By default all Tags supports generic parameters, except Tags with "TAGPROPERTY_NOGENERICPARAMETERS"
-    return (myTagProperty & TAGPROPERTY_DISJOINTATTRIBUTES) != 0;
 }
 
 
@@ -1394,11 +1367,6 @@ GNEAttributeCarrier::isGenericParametersValid(const std::string& value) {
 // ===========================================================================
 // private
 // ===========================================================================
-
-void
-GNEAttributeCarrier::setDisjointAttribute(const int /*newParameterSet*/) {
-    // by default empty
-}
 
 void
 GNEAttributeCarrier::fillAttributeCarriers() {
@@ -2528,7 +2496,7 @@ GNEAttributeCarrier::fillAdditionals() {
     currentTag = SUMO_TAG_FLOW_CALIBRATOR;
     {
         // set values of tag
-        myTagProperties[currentTag] = TagProperties(currentTag, TAGTYPE_ADDITIONAL, TAGPROPERTY_PARENT | TAGPROPERTY_DISJOINTATTRIBUTES, ICON_FLOW, SUMO_TAG_CALIBRATOR);
+        myTagProperties[currentTag] = TagProperties(currentTag, TAGTYPE_ADDITIONAL, TAGPROPERTY_PARENT, ICON_FLOW, SUMO_TAG_CALIBRATOR);
         // set values of attributes
         attrProperty = AttributeProperties(SUMO_ATTR_TYPE,
                                            ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_UPDATEGEOMETRY,
@@ -3399,8 +3367,7 @@ GNEAttributeCarrier::fillVehicleElements() {
     currentTag = SUMO_TAG_ROUTEFLOW;
     {
         // set values of tag
-        myTagProperties[currentTag] = TagProperties(currentTag, TAGTYPE_DEMANDELEMENT | TAGTYPE_VEHICLE, TAGPROPERTY_DRAWABLE | TAGPROPERTY_SELECTABLE | TAGPROPERTY_DISJOINTATTRIBUTES | TAGPROPERTY_SYNONYM, ICON_ROUTEFLOW, SUMO_TAG_NOTHING, SUMO_TAG_FLOW);
-        myTagProperties[currentTag].setDisjointAttributes({SUMO_ATTR_NUMBER, SUMO_ATTR_END, SUMO_ATTR_VEHSPERHOUR, SUMO_ATTR_PERIOD, SUMO_ATTR_PROB});
+        myTagProperties[currentTag] = TagProperties(currentTag, TAGTYPE_DEMANDELEMENT | TAGTYPE_VEHICLE, TAGPROPERTY_DRAWABLE | TAGPROPERTY_SELECTABLE | TAGPROPERTY_SYNONYM, ICON_ROUTEFLOW, SUMO_TAG_NOTHING, SUMO_TAG_FLOW);
         // set values of attributes
         attrProperty = AttributeProperties(SUMO_ATTR_ID,
                                            ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE,
@@ -3467,8 +3434,7 @@ GNEAttributeCarrier::fillVehicleElements() {
     currentTag = SUMO_TAG_FLOW;
     {
         // set values of tag
-        myTagProperties[currentTag] = TagProperties(currentTag, TAGTYPE_DEMANDELEMENT | TAGTYPE_VEHICLE, TAGPROPERTY_DRAWABLE | TAGPROPERTY_SELECTABLE | TAGPROPERTY_DISJOINTATTRIBUTES, ICON_FLOW);
-        myTagProperties[currentTag].setDisjointAttributes({SUMO_ATTR_NUMBER, SUMO_ATTR_END, SUMO_ATTR_VEHSPERHOUR, SUMO_ATTR_PERIOD, SUMO_ATTR_PROB});
+        myTagProperties[currentTag] = TagProperties(currentTag, TAGTYPE_DEMANDELEMENT | TAGTYPE_VEHICLE, TAGPROPERTY_DRAWABLE | TAGPROPERTY_SELECTABLE, ICON_FLOW);
         // set values of attributes
         attrProperty = AttributeProperties(SUMO_ATTR_ID,
                                            ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE,

@@ -164,7 +164,7 @@ GNEShape::disableAttribute(SumoXMLAttr /*key*/, GNEUndoList* /*undoList*/) {
 
 
 bool 
-GNEShape::isAttributeSet(SumoXMLAttr /*key*/) const {
+GNEShape::isAttributeEnabled(SumoXMLAttr /*key*/) const {
     return true;
 }
 

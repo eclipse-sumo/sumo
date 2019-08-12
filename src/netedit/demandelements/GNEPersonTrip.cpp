@@ -418,7 +418,7 @@ GNEPersonTrip::disableAttribute(SumoXMLAttr key, GNEUndoList* undoList) {
 
 
 bool 
-GNEPersonTrip::isAttributeSet(SumoXMLAttr /*key*/) const {
+GNEPersonTrip::isAttributeEnabled(SumoXMLAttr /*key*/) const {
     return true;
 }
 

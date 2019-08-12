@@ -91,6 +91,7 @@ public:
         ATTRPROPERTY_UPDATEGEOMETRY =      1 << 25,  // Attribute requiere update geometry at the end of function setAttribute(...)
         ATTRPROPERTY_OPTIONAL =            1 << 26,  // Attribute is optional, i.e. can be enabled/disabled using a checkbox in frame
         ATTRPROPERTY_COMPLEX =             1 << 27,  // Attribute is complex: Requiere a special function to check if their given value is valid
+        ATTRPROPERTY_ENABLITABLE =         1 << 28,  // 
     };
 
     /// @brief struct with the attribute Properties
@@ -311,9 +312,8 @@ public:
         TAGPROPERTY_MASKXYZPOSITION =       1 << 14,    // Element mask attributes X, Y and Z as "Position"
         TAGPROPERTY_WRITECHILDRENSEPARATE = 1 << 15,    // Element writes their children in a separated filename
         TAGPROPERTY_NOGENERICPARAMETERS =   1 << 16,    // Element doesn't accept Generic Parameters (by default all tags supports generic parameters)
-        TAGPROPERTY_DISJOINTATTRIBUTES =    1 << 17,    // Element owns attributes that cannot be defined together
-        TAGPROPERTY_RTREE =                 1 << 18,    // Element is placed in RTREE
-        TAGPROPERTY_SORTINGCHILDREN =       1 << 19,    // Element can be sorted in their parent element manually (in ACHierarchy)
+        TAGPROPERTY_RTREE =                 1 << 17,    // Element is placed in RTREE
+        TAGPROPERTY_SORTINGCHILDREN =       1 << 18,    // Element can be sorted in their parent element manually (in ACHierarchy)
     };
 
     /// @brief struct with the attribute Properties
@@ -366,12 +366,6 @@ public:
 
         /// @brief get tag synonym
         SumoXMLTag getTagSynonym() const;
-
-        /// @brief set disjoint attributes
-        void setDisjointAttributes(const std::vector<SumoXMLAttr>& attrs);
-
-        /// @brief check if given attribute is a disjoint attribute
-        bool isDisjointAttributes(SumoXMLAttr attr) const;
 
         /// @brief check if current TagProperties owns the attribute attr
         bool hasAttribute(SumoXMLAttr attr) const;
@@ -463,9 +457,6 @@ public:
         /// @brief return true if Tag correspond to an element that supports generic parameters
         bool hasGenericParameters() const;
 
-        /// @brief return true if Tag correspond to an element that has disjoint attributes
-        bool hasDisjointAttributes() const;
-
         /// @brief return true if Tag correspond to an element that has has to be placed in RTREE
         bool isPlacedInRTree() const;
 
@@ -517,12 +508,6 @@ public:
 
         /// @brief List with the deprecated Attributes
         std::vector<SumoXMLAttr> myDeprecatedAttributes;
-
-        /// @brief List of disjoint attributes
-        std::vector<SumoXMLAttr> myDisjointAttrs;
-
-        /// @brief list of valid combinations of disjoint attributes
-        std::vector<std::pair<SumoXMLAttr, SumoXMLAttr> > myDisjointAttrsCombinations;
     };
 
     /**@brief Constructor
@@ -587,7 +572,7 @@ public:
     /* @brief method for check if the value for certain attribute is set
      * @param[in] key The attribute key
      */
-    virtual bool isAttributeSet(SumoXMLAttr key) const = 0;
+    virtual bool isAttributeEnabled(SumoXMLAttr key) const = 0;
 
     /// @brief get PopPup ID (Used in AC Hierarchy)
     virtual std::string getPopUpID() const = 0;
@@ -815,12 +800,12 @@ protected:
     /// @brief dummy TagProperty used for reference some elements (for Example, dummyEdge)
     static TagProperties dummyTagProperty;
 
+    /// @brief set with the enabled attributes
+    std::set<SumoXMLTag> myAttributesEnabled;
+
 private:
     /// @brief method for setting the attribute and nothing else (used in GNEChange_Attribute)
     virtual void setAttribute(SumoXMLAttr key, const std::string& value) = 0;
-
-    /// @brief method for setting the disjoint attribute and nothing else (used in GNEChange_Attribute)
-    virtual void setDisjointAttribute(const int newParameterSet);
 
     /// @brief fill Attribute Carriers
     static void fillAttributeCarriers();

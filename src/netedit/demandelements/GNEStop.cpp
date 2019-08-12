@@ -715,7 +715,7 @@ GNEStop::disableAttribute(SumoXMLAttr key, GNEUndoList* undoList) {
 
 
 bool 
-GNEStop::isAttributeSet(SumoXMLAttr /*key*/) const {
+GNEStop::isAttributeEnabled(SumoXMLAttr /*key*/) const {
     return true;
 }
 

@@ -48,9 +48,7 @@ GNEChange_Attribute::GNEChange_Attribute(GNEAttributeCarrier* ac, GNENet* net,
     myKey(key),
     myForceChange(false),
     myOrigValue(customOrigValue ? origValue : ac->getAttribute(key)),
-    myNewValue(value),
-    myOldParametersSet(0),
-    myNewParametersSet(0) {
+    myNewValue(value) {
     myAC->incRef("GNEChange_Attribute " + toString(myKey));
 }
 
@@ -62,32 +60,14 @@ GNEChange_Attribute::GNEChange_Attribute(GNEAttributeCarrier* ac, GNENet* net,
     myKey(key),
     myForceChange(forceChange),
     myOrigValue(ac->getAttribute(key)),
-    myNewValue(value),
-    myOldParametersSet(0),
-    myNewParametersSet(0) {
+    myNewValue(value) {
     myAC->incRef("GNEChange_Attribute " + toString(myKey));
 }
 
 
-GNEChange_Attribute::GNEChange_Attribute(GNEAttributeCarrier* ac,
-        GNENet* net, const int oldParametersSet, const int newParametersSet) :
-    GNEChange(net, true),
-    myAC(ac),
-    myKey(SUMO_ATTR_NOTHING),
-    myForceChange(false),
-    myOldParametersSet(oldParametersSet),
-    myNewParametersSet(newParametersSet) {
-    myAC->incRef("GNEChange_Attribute parameterSet " + toString(newParametersSet));
-}
-
-
 GNEChange_Attribute::~GNEChange_Attribute() {
-    // check if we're editing the value of an attribute or changing a disjoint attribute
-    if (myKey != SUMO_ATTR_NOTHING) {
-        myAC->decRef("GNEChange_Attribute " + toString(myKey));
-    } else {
-        myAC->decRef("GNEChange_Attribute parameterSet " + toString(myNewParametersSet));
-    }
+    // decrease reference
+    myAC->decRef("GNEChange_Attribute " + toString(myKey));
     // remove if is unreferenced
     if (myAC->unreferenced()) {
         // show extra information for tests
@@ -109,31 +89,23 @@ GNEChange_Attribute::~GNEChange_Attribute() {
 
 void
 GNEChange_Attribute::undo() {
-    // check if we're editing the value of an attribute or changing a disjoint attribute
-    if (myKey == SUMO_ATTR_NOTHING) {
-        // show extra information for tests
-        WRITE_DEBUG("Setting previous parameterSet '" + toString(myNewParametersSet) + "' into " + myAC->getTagStr() + " '" + myAC->getID() + "'");
-        // set original disjoint attribute
-        myAC->setDisjointAttribute(myOldParametersSet);
-    } else {
-        // show extra information for tests
-        WRITE_DEBUG("Setting previous attribute " + toString(myKey) + " '" + myOrigValue + "' into " + myAC->getTagStr() + " '" + myAC->getID() + "'");
-        // set original value
-        myAC->setAttribute(myKey, myOrigValue);
-        // certain attributes needs extra operations
-        if (myKey != GNE_ATTR_SELECTED) {
-            // check if updated attribute requieres a update geometry
-            if (myAC->getTagProperty().hasAttribute(myKey) && myAC->getTagProperty().getAttributeProperties(myKey).requiereUpdateGeometry()) {
-                myAC->updateGeometry();
-            }
-            // check if netElements, additional or shapes has to be saved (only if key isn't GNE_ATTR_SELECTED)
-            if (myAC->getTagProperty().isNetElement()) {
-                myNet->requiereSaveNet(true);
-            } else if (myAC->getTagProperty().isAdditional() || myAC->getTagProperty().isShape()) {
-                myNet->requiereSaveAdditionals(true);
-            } else if (myAC->getTagProperty().isDemandElement()) {
-                myNet->requiereSaveDemandElements(true);
-            }
+    // show extra information for tests
+    WRITE_DEBUG("Setting previous attribute " + toString(myKey) + " '" + myOrigValue + "' into " + myAC->getTagStr() + " '" + myAC->getID() + "'");
+    // set original value
+    myAC->setAttribute(myKey, myOrigValue);
+    // certain attributes needs extra operations
+    if (myKey != GNE_ATTR_SELECTED) {
+        // check if updated attribute requieres a update geometry
+        if (myAC->getTagProperty().hasAttribute(myKey) && myAC->getTagProperty().getAttributeProperties(myKey).requiereUpdateGeometry()) {
+            myAC->updateGeometry();
+        }
+        // check if netElements, additional or shapes has to be saved (only if key isn't GNE_ATTR_SELECTED)
+        if (myAC->getTagProperty().isNetElement()) {
+            myNet->requiereSaveNet(true);
+        } else if (myAC->getTagProperty().isAdditional() || myAC->getTagProperty().isShape()) {
+            myNet->requiereSaveAdditionals(true);
+        } else if (myAC->getTagProperty().isDemandElement()) {
+            myNet->requiereSaveDemandElements(true);
         }
     }
 }
@@ -141,31 +113,23 @@ GNEChange_Attribute::undo() {
 
 void
 GNEChange_Attribute::redo() {
-    // check if we're editing the value of an attribute or changing a disjoint attribute
-    if (myKey == SUMO_ATTR_NOTHING) {
-        // show extra information for tests
-        WRITE_DEBUG("Setting new parameterSet '" + toString(myNewParametersSet) + "' into " + myAC->getTagStr() + " '" + myAC->getID() + "'");
-        // set original disjoint attribute
-        myAC->setDisjointAttribute(myNewParametersSet);
-    } else {
-        // show extra information for tests
-        WRITE_DEBUG("Setting new attribute " + toString(myKey) + " '" + myNewValue + "' into " + myAC->getTagStr() + " '" + myAC->getID() + "'");
-        // set new value
-        myAC->setAttribute(myKey, myNewValue);
-        // certain attributes needs extra operations
-        if (myKey != GNE_ATTR_SELECTED) {
-            // check if updated attribute requieres a update geometry
-            if (myAC->getTagProperty().hasAttribute(myKey) && myAC->getTagProperty().getAttributeProperties(myKey).requiereUpdateGeometry()) {
-                myAC->updateGeometry();
-            }
-            // check if netElements, additional or shapes has to be saved (only if key isn't GNE_ATTR_SELECTED)
-            if (myAC->getTagProperty().isNetElement()) {
-                myNet->requiereSaveNet(true);
-            } else if (myAC->getTagProperty().isAdditional() || myAC->getTagProperty().isShape()) {
-                myNet->requiereSaveAdditionals(true);
-            } else if (myAC->getTagProperty().isDemandElement()) {
-                myNet->requiereSaveDemandElements(true);
-            }
+    // show extra information for tests
+    WRITE_DEBUG("Setting new attribute " + toString(myKey) + " '" + myNewValue + "' into " + myAC->getTagStr() + " '" + myAC->getID() + "'");
+    // set new value
+    myAC->setAttribute(myKey, myNewValue);
+    // certain attributes needs extra operations
+    if (myKey != GNE_ATTR_SELECTED) {
+        // check if updated attribute requieres a update geometry
+        if (myAC->getTagProperty().hasAttribute(myKey) && myAC->getTagProperty().getAttributeProperties(myKey).requiereUpdateGeometry()) {
+            myAC->updateGeometry();
+        }
+        // check if netElements, additional or shapes has to be saved (only if key isn't GNE_ATTR_SELECTED)
+        if (myAC->getTagProperty().isNetElement()) {
+            myNet->requiereSaveNet(true);
+        } else if (myAC->getTagProperty().isAdditional() || myAC->getTagProperty().isShape()) {
+            myNet->requiereSaveAdditionals(true);
+        } else if (myAC->getTagProperty().isDemandElement()) {
+            myNet->requiereSaveDemandElements(true);
         }
     }
 }
@@ -176,8 +140,6 @@ GNEChange_Attribute::trueChange() {
     // check if we're editing the value of an attribute or changing a disjoint attribute
     if (myForceChange) {
         return true;
-    } else if (myKey == SUMO_ATTR_NOTHING) {
-        return (myOldParametersSet != myNewParametersSet);
     } else {
         return (myOrigValue != myNewValue);
     }

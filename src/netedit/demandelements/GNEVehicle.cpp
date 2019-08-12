@@ -374,19 +374,19 @@ GNEVehicle::writeDemandElement(OutputDevice& device) const {
     // write specific routeFlow/flow attributes
     if ((myTagProperty.getTag() == SUMO_TAG_ROUTEFLOW) || (myTagProperty.getTag() == SUMO_TAG_FLOW)) {
         // write routeFlow values depending if it was set
-        if (isAttributeSet(SUMO_ATTR_END)) {
+        if (isAttributeEnabled(SUMO_ATTR_END)) {
             device.writeAttr(SUMO_ATTR_END,  time2string(repetitionEnd));
         }
-        if (isAttributeSet(SUMO_ATTR_NUMBER)) {
+        if (isAttributeEnabled(SUMO_ATTR_NUMBER)) {
             device.writeAttr(SUMO_ATTR_NUMBER, repetitionNumber);
         }
-        if (isAttributeSet(SUMO_ATTR_VEHSPERHOUR)) {
+        if (isAttributeEnabled(SUMO_ATTR_VEHSPERHOUR)) {
             device.writeAttr(SUMO_ATTR_VEHSPERHOUR, 3600. / STEPS2TIME(repetitionOffset));
         }
-        if (isAttributeSet(SUMO_ATTR_PERIOD)) {
+        if (isAttributeEnabled(SUMO_ATTR_PERIOD)) {
             device.writeAttr(SUMO_ATTR_PERIOD, time2string(repetitionOffset));
         }
-        if (isAttributeSet(SUMO_ATTR_PROB)) {
+        if (isAttributeEnabled(SUMO_ATTR_PROB)) {
             device.writeAttr(SUMO_ATTR_PROB, repetitionProbability);
         }
     }
@@ -1237,7 +1237,7 @@ GNEVehicle::disableAttribute(SumoXMLAttr key, GNEUndoList* undoList) {
 
 
 bool 
-GNEVehicle::isAttributeSet(SumoXMLAttr /*key*/) const {
+GNEVehicle::isAttributeEnabled(SumoXMLAttr /*key*/) const {
     return true;
 }
 
@@ -1439,7 +1439,7 @@ GNEVehicle::setColor(const GUIVisualizationSettings& s) const {
                     GLHelper::setColor(color);
                     break;
                 }
-                if (getDemandElementParents().at(0)->isAttributeSet(SUMO_ATTR_COLOR)) {
+                if (getDemandElementParents().at(0)->isAttributeEnabled(SUMO_ATTR_COLOR)) {
                     GLHelper::setColor(getDemandElementParents().at(0)->getColor());
                     break;
                 }
@@ -1459,7 +1459,7 @@ GNEVehicle::setColor(const GUIVisualizationSettings& s) const {
                 break;
             }
             case 3: {
-                if (getDemandElementParents().at(0)->isAttributeSet(SUMO_ATTR_COLOR)) {
+                if (getDemandElementParents().at(0)->isAttributeEnabled(SUMO_ATTR_COLOR)) {
                     GLHelper::setColor(getDemandElementParents().at(0)->getColor());
                 } else {
                     GLHelper::setColor(c.getScheme().getColor(0));

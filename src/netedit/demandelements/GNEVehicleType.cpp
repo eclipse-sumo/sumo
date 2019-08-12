@@ -791,7 +791,7 @@ GNEVehicleType::disableAttribute(SumoXMLAttr key, GNEUndoList* undoList) {
 
 
 bool 
-GNEVehicleType::isAttributeSet(SumoXMLAttr key) const {
+GNEVehicleType::isAttributeEnabled(SumoXMLAttr key) const {
     switch (key) {
         case SUMO_ATTR_LENGTH:
             return wasSet(VTYPEPARS_LENGTH_SET);
