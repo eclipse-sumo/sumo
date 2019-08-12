@@ -1230,12 +1230,6 @@ GNEVehicle::enableAttribute(SumoXMLAttr key, GNEUndoList* undoList) {
 }
 
 
-void 
-GNEVehicle::disableAttribute(SumoXMLAttr key, GNEUndoList* undoList) {
-
-}
-
-
 bool 
 GNEVehicle::isAttributeEnabled(SumoXMLAttr /*key*/) const {
     return true;
@@ -1846,10 +1840,9 @@ GNEVehicle::setAttribute(SumoXMLAttr key, const std::string& value) {
     }
 }
 
-
 void 
-GNEVehicle::setDisjointAttribute(const int newParameterSet) {
-    parametersSet = newParameterSet;
+GNEVehicle::enableAttribute(SumoXMLAttr /*key*/) {
+    //
 }
 
 /****************************************************************************/

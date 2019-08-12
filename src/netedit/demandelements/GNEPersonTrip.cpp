@@ -406,14 +406,8 @@ GNEPersonTrip::isValid(SumoXMLAttr key, const std::string& value) {
 
 
 void 
-GNEPersonTrip::enableAttribute(SumoXMLAttr key, GNEUndoList* undoList) {
-
-}
-
-
-void 
-GNEPersonTrip::disableAttribute(SumoXMLAttr key, GNEUndoList* undoList) {
-
+GNEPersonTrip::enableAttribute(SumoXMLAttr /*key*/, GNEUndoList* /*undoList*/) {
+    //
 }
 
 
@@ -548,6 +542,12 @@ GNEPersonTrip::setAttribute(SumoXMLAttr key, const std::string& value) {
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
+}
+
+
+void 
+GNEPersonTrip::enableAttribute(SumoXMLAttr /*key*/) {
+    //
 }
 
 /****************************************************************************/

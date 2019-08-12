@@ -55,6 +55,7 @@ class GNEAttributeCarrier : public GNEReferenceCounter {
 
     /// @brief declare friend class
     friend class GNEChange_Attribute;
+    friend class GNEChange_EnableAttribute;
 
 public:
 
@@ -91,7 +92,7 @@ public:
         ATTRPROPERTY_UPDATEGEOMETRY =      1 << 25,  // Attribute requiere update geometry at the end of function setAttribute(...)
         ATTRPROPERTY_OPTIONAL =            1 << 26,  // Attribute is optional, i.e. can be enabled/disabled using a checkbox in frame
         ATTRPROPERTY_COMPLEX =             1 << 27,  // Attribute is complex: Requiere a special function to check if their given value is valid
-        ATTRPROPERTY_ENABLITABLE =         1 << 28,  // 
+        ATTRPROPERTY_ENABLITABLE =         1 << 28,  // Attribute is enablitable: Can be enabled or disabled.
     };
 
     /// @brief struct with the attribute Properties
@@ -241,6 +242,9 @@ public:
 
         /// @brief return true if atribute is complex
         bool isComplex() const;
+
+        /// @brief return true if atribute is enablitable
+        bool isEnablitable() const;
 
     private:
         /// @brief XML Attribute
@@ -562,13 +566,6 @@ public:
      */
     virtual void enableAttribute(SumoXMLAttr key, GNEUndoList* undoList) = 0;
 
-    /* @brief method for disabling attribute
-     * @param[in] key The attribute key
-     * @param[in] undoList The undoList on which to register changes
-     * @note only certain attributes can be disabled, and can produce the enabling of other attributes
-     */
-    virtual void disableAttribute(SumoXMLAttr key, GNEUndoList* undoList) = 0;
-
     /* @brief method for check if the value for certain attribute is set
      * @param[in] key The attribute key
      */
@@ -806,6 +803,9 @@ protected:
 private:
     /// @brief method for setting the attribute and nothing else (used in GNEChange_Attribute)
     virtual void setAttribute(SumoXMLAttr key, const std::string& value) = 0;
+
+    /// @brief method for enabling the attribute and nothing else (used in GNEChange_EnableAttribute)
+    virtual void enableAttribute(SumoXMLAttr key) = 0;
 
     /// @brief fill Attribute Carriers
     static void fillAttributeCarriers();

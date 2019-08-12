@@ -483,6 +483,12 @@ GNEAttributeCarrier::AttributeProperties::isComplex() const {
     return (myAttributeProperty & ATTRPROPERTY_COMPLEX) != 0;
 }
 
+
+bool
+GNEAttributeCarrier::AttributeProperties::isEnablitable() const {
+    return (myAttributeProperty & ATTRPROPERTY_ENABLITABLE) != 0;
+}
+
 // ---------------------------------------------------------------------------
 // GNEAttributeCarrier::TagProperties - methods
 // ---------------------------------------------------------------------------

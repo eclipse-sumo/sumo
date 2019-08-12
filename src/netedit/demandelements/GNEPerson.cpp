@@ -805,12 +805,6 @@ GNEPerson::enableAttribute(SumoXMLAttr key, GNEUndoList* undoList) {
 }
 
 
-void 
-GNEPerson::disableAttribute(SumoXMLAttr key, GNEUndoList* undoList) {
-
-}
-
-
 bool 
 GNEPerson::isAttributeEnabled(SumoXMLAttr /*key*/) const {
     return true;
@@ -1141,8 +1135,8 @@ GNEPerson::setAttribute(SumoXMLAttr key, const std::string& value) {
 
 
 void 
-GNEPerson::setDisjointAttribute(const int newParameterSet) {
-    parametersSet = newParameterSet;
+GNEPerson::enableAttribute(SumoXMLAttr key) {
+
 }
 
 

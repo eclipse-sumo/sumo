@@ -466,12 +466,6 @@ GNERoute::enableAttribute(SumoXMLAttr /*key*/, GNEUndoList* /*undoList*/) {
 }
 
 
-void 
-GNERoute::disableAttribute(SumoXMLAttr /*key*/, GNEUndoList* /*undoList*/) {
-    //
-}
-
-
 bool 
 GNERoute::isAttributeEnabled(SumoXMLAttr /*key*/) const {
     return true;
@@ -571,6 +565,12 @@ GNERoute::setAttribute(SumoXMLAttr key, const std::string& value) {
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
+}
+
+
+void 
+GNERoute::enableAttribute(SumoXMLAttr /*key*/) {
+    //
 }
 
 /****************************************************************************/

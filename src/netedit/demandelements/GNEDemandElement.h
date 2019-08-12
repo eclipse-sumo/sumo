@@ -424,13 +424,6 @@ public:
      */
     virtual void enableAttribute(SumoXMLAttr key, GNEUndoList* undoList) = 0;
 
-    /* @brief method for disabling attribute
-     * @param[in] key The attribute key
-     * @param[in] undoList The undoList on which to register changes
-     * @note only certain attributes can be disabled, and can produce the enabling of other attributes
-     */
-    virtual void disableAttribute(SumoXMLAttr key, GNEUndoList* undoList) = 0;
-
     /* @brief method for check if the value for certain attribute is set
      * @param[in] key The attribute key
      */

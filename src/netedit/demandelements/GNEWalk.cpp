@@ -415,14 +415,8 @@ GNEWalk::isValid(SumoXMLAttr key, const std::string& value) {
 
 
 void 
-GNEWalk::enableAttribute(SumoXMLAttr key, GNEUndoList* undoList) {
-
-}
-
-
-void 
-GNEWalk::disableAttribute(SumoXMLAttr key, GNEUndoList* undoList) {
-
+GNEWalk::enableAttribute(SumoXMLAttr /*key*/, GNEUndoList* /*undoList*/) {
+    //
 }
 
 
@@ -581,6 +575,12 @@ GNEWalk::setAttribute(SumoXMLAttr key, const std::string& value) {
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
+}
+
+
+void 
+GNEWalk::enableAttribute(SumoXMLAttr /*key*/) {
+    //
 }
 
 /****************************************************************************/

@@ -663,21 +663,8 @@ GNEAdditional::drawUsingSelectColor() const {
 }
 
 
-bool
-GNEAdditional::checkAdditionalChildRestriction() const {
-    // throw exception because this function mus be implemented in child (see GNEE3Detector)
-    throw ProcessError("Calling non-implemented function checkAdditionalChildRestriction during saving of " + getTagStr() + ". It muss be reimplemented in child class");
-}
-
-
 void 
 GNEAdditional::enableAttribute(SumoXMLAttr /*key*/, GNEUndoList* /*undoList*/) {
-    //
-}
-
-
-void 
-GNEAdditional::disableAttribute(SumoXMLAttr /*key*/, GNEUndoList* /*undoList*/) {
     //
 }
 
@@ -736,6 +723,19 @@ GNEAdditional::setGenericParametersStr(const std::string& value) {
             setParameter(parsedParameters.front(), parsedParameters.back());
         }
     }
+}
+
+
+bool
+GNEAdditional::checkAdditionalChildRestriction() const {
+    // throw exception because this function mus be implemented in child (see GNEE3Detector)
+    throw ProcessError("Calling non-implemented function checkAdditionalChildRestriction during saving of " + getTagStr() + ". It muss be reimplemented in child class");
+}
+
+
+void 
+GNEAdditional::enableAttribute(SumoXMLAttr /*key*/) {
+    //
 }
 
 /****************************************************************************/

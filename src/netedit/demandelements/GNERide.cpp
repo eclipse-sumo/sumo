@@ -389,14 +389,8 @@ GNERide::isValid(SumoXMLAttr key, const std::string& value) {
 
 
 void 
-GNERide::enableAttribute(SumoXMLAttr key, GNEUndoList* undoList) {
-
-}
-
-
-void 
-GNERide::disableAttribute(SumoXMLAttr key, GNEUndoList* undoList) {
-
+GNERide::enableAttribute(SumoXMLAttr /*key*/, GNEUndoList* /*undoList*/) {
+    //
 }
 
 
@@ -527,6 +521,12 @@ GNERide::setAttribute(SumoXMLAttr key, const std::string& value) {
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
+}
+
+
+void 
+GNERide::enableAttribute(SumoXMLAttr /*key*/) {
+    //
 }
 
 /****************************************************************************/

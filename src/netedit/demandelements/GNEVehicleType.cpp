@@ -779,13 +779,7 @@ GNEVehicleType::isValid(SumoXMLAttr key, const std::string& value) {
 
 
 void 
-GNEVehicleType::enableAttribute(SumoXMLAttr key, GNEUndoList* undoList) {
-
-}
-
-
-void 
-GNEVehicleType::disableAttribute(SumoXMLAttr key, GNEUndoList* undoList) {
+GNEVehicleType::enableAttribute(SumoXMLAttr /*key*/, GNEUndoList* /*undoList*/) {
 
 }
 
@@ -1671,6 +1665,12 @@ GNEVehicleType::setAttribute(SumoXMLAttr key, const std::string& value) {
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
+}
+
+
+void 
+GNEVehicleType::enableAttribute(SumoXMLAttr /*key*/) {
+    //
 }
 
 

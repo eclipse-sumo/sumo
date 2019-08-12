@@ -7,6 +7,7 @@ GNEChange_Crossing.cpp GNEChange_Crossing.h \
 GNEChange_Lane.cpp GNEChange_Lane.h \
 GNEChange_Connection.cpp GNEChange_Connection.h \
 GNEChange_Attribute.cpp GNEChange_Attribute.h \
+GNEChange_EnableAttribute.cpp GNEChange_EnableAttribute.h \
 GNEChange_TLS.cpp GNEChange_TLS.h \
 GNEChange_Additional.cpp GNEChange_Additional.h \
 GNEChange_DemandElement.cpp GNEChange_DemandElement.h \

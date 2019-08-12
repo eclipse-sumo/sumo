@@ -708,12 +708,6 @@ GNEStop::enableAttribute(SumoXMLAttr key, GNEUndoList* undoList) {
 }
 
 
-void 
-GNEStop::disableAttribute(SumoXMLAttr key, GNEUndoList* undoList) {
-
-}
-
-
 bool 
 GNEStop::isAttributeEnabled(SumoXMLAttr /*key*/) const {
     return true;
@@ -722,14 +716,7 @@ GNEStop::isAttributeEnabled(SumoXMLAttr /*key*/) const {
 /*
 bool
 GNEStop::isDisjointAttributeSet(const SumoXMLAttr attr) const {
-    switch (attr) {
-        case SUMO_ATTR_EXPECTED:
-            return (parametersSet & STOP_TRIGGER_SET) != 0;
-        case SUMO_ATTR_EXPECTED_CONTAINERS:
-            return (parametersSet & STOP_CONTAINER_TRIGGER_SET) != 0;
-        default:
-            return true;
-    };
+
 }
 
 
@@ -1019,6 +1006,12 @@ GNEStop::setAttribute(SumoXMLAttr key, const std::string& value) {
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
+}
+
+
+void 
+GNEStop::enableAttribute(SumoXMLAttr /*key*/) {
+    //
 }
 
 /****************************************************************************/
