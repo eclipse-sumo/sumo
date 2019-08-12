@@ -132,6 +132,18 @@ MSParkingArea::getVehiclePosition(const SUMOVehicle& forVehicle) const {
     return Position::INVALID;
 }
 
+
+double
+MSParkingArea::getInsertionPosition(const SUMOVehicle& forVehicle) const {
+    for (const auto& lsd : mySpaceOccupancies) {
+        if (lsd.vehicle == &forVehicle) {
+            return lsd.myEndPos;
+        }
+    }
+    return -1;
+}
+
+
 double
 MSParkingArea::getVehicleAngle(const SUMOVehicle& forVehicle) const {
     for (const auto& lsd : mySpaceOccupancies) {
