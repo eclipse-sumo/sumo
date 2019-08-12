@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vehicle id="flow2.0" depart="0.00" color="magenta">
+        <route edges="gneE3 gneE1 gneE4"/>
+        <stop parkingArea="parkingArea_driveIn" duration="600.00" />
+    </vehicle>
+    <vehicle id="flow3.0" depart="0.00" color="blue">
+        <route edges="gneE3 gneE1 gneE4"/>
+        <stop parkingArea="parkingArea_driveIn" duration="400.00" />
+    </vehicle>
+    <vehicle id="flow4.0" depart="0.00" color="cyan">
+        <route edges="gneE3 gneE1 gneE4"/>
+        <stop parkingArea="parkingArea_driveIn" duration="200.00" />
+    </vehicle>
+    <vehicle id="flow2.1" depart="100.00" color="magenta">
+        <route edges="gneE3 gneE1 gneE4"/>
+        <stop parkingArea="parkingArea_driveIn" duration="600.00" />
+    </vehicle>
+    <vehicle id="flow3.1" depart="100.00" color="blue">
+        <route edges="gneE3 gneE1 gneE4"/>
+        <stop parkingArea="parkingArea_driveIn" duration="400.00" />
+    </vehicle>
+    <vehicle id="flow4.1" depart="100.00" color="cyan">
+        <route edges="gneE3 gneE1 gneE4"/>
+        <stop parkingArea="parkingArea_driveIn" duration="200.00" />
+    </vehicle>
+    <vehicle id="flow2.2" depart="200.00" color="magenta">
+        <route edges="gneE3 gneE1 gneE4"/>
+        <stop parkingArea="parkingArea_driveIn" duration="600.00" />
+    </vehicle>
+    <vehicle id="flow3.2" depart="200.00" color="blue">
+        <route edges="gneE3 gneE1 gneE4"/>
+        <stop parkingArea="parkingArea_driveIn" duration="400.00" />
+    </vehicle>
+    <vehicle id="flow4.2" depart="200.00" color="cyan">
+        <route edges="gneE3 gneE1 gneE4"/>
+        <stop parkingArea="parkingArea_driveIn" duration="200.00" />
+    </vehicle>
+    <vehicle id="flow2.3" depart="300.00" color="magenta">
+        <route edges="gneE3 gneE1 gneE4"/>
+        <stop parkingArea="parkingArea_driveIn" duration="600.00" />
+    </vehicle>
+    <vehicle id="flow3.3" depart="300.00" color="blue">
+        <route edges="gneE3 gneE1 gneE4"/>
+        <stop parkingArea="parkingArea_driveIn" duration="400.00" />
+    </vehicle>
+    <vehicle id="flow4.3" depart="300.00" color="cyan">
+        <route edges="gneE3 gneE1 gneE4"/>
+        <stop parkingArea="parkingArea_driveIn" duration="200.00" />
+    </vehicle>
+    <vehicle id="flow2.4" depart="400.00" color="magenta">
+        <route edges="gneE3 gneE1 gneE4"/>
+        <stop parkingArea="parkingArea_driveIn" duration="600.00" />
+    </vehicle>
+    <vehicle id="flow3.4" depart="400.00" color="blue">
+        <route edges="gneE3 gneE1 gneE4"/>
+        <stop parkingArea="parkingArea_driveIn" duration="400.00" />
+    </vehicle>
+    <vehicle id="flow4.4" depart="400.00" color="cyan">
+        <route edges="gneE3 gneE1 gneE4"/>
+        <stop parkingArea="parkingArea_driveIn" duration="200.00" />
+    </vehicle>
+    <vehicle id="flow2.5" depart="500.00" color="magenta">
+        <route edges="gneE3 gneE1 gneE4"/>
+        <stop parkingArea="parkingArea_driveIn" duration="600.00" />
+    </vehicle>
+    <vehicle id="flow3.5" depart="500.00" color="blue">
+        <route edges="gneE3 gneE1 gneE4"/>
+        <stop parkingArea="parkingArea_driveIn" duration="400.00" />
+    </vehicle>
+    <vehicle id="flow4.5" depart="500.00" color="cyan">
+        <route edges="gneE3 gneE1 gneE4"/>
+        <stop parkingArea="parkingArea_driveIn" duration="200.00" />
+    </vehicle>
+    <vehicle id="flow2.6" depart="600.00" color="magenta">
+        <route edges="gneE3 gneE1 gneE4"/>
+        <stop parkingArea="parkingArea_driveIn" duration="600.00" />
+    </vehicle>
+</routes>

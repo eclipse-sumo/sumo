@@ -19,6 +19,9 @@ angled_roadside_parking
 # test what happens if a queue forms and a vehicle wants to exit the parkingarea
 congestion
 
+# test what happens if a queue forms and a vehicle wants to exit the parkingarea. Using <space> definitions instead of roadside capacity
+congestion_spaces
+
 # alternative parkingAreas in a circle and too much demand. Test cooperation between vehicles that wish to park and those that wish to exit. (Circumvent instant rerouting causing infinite loop, #5128)
 congestion_alternatives
 
