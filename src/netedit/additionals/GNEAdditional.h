@@ -270,7 +270,7 @@ public:
      * @return string with the value associated to key
      */
     virtual std::string getAttribute(SumoXMLAttr key) const = 0;
-
+    
     /**@brief method for setting the attribute and letting the object perform additional changes
      * @param[in] key The attribute key
      * @param[in] value The new value
@@ -284,6 +284,20 @@ public:
      * @return true if the value is valid, false in other case
      */
     virtual bool isValid(SumoXMLAttr key, const std::string& value) = 0;
+
+    /* @brief method for enabling attribute
+     * @param[in] key The attribute key
+     * @param[in] undoList The undoList on which to register changes
+     * @note only certain attributes can be enabled, and can produce the disabling of other attributes
+     */
+    void enableAttribute(SumoXMLAttr key, GNEUndoList* undoList);
+
+    /* @brief method for disabling attribute
+     * @param[in] key The attribute key
+     * @param[in] undoList The undoList on which to register changes
+     * @note only certain attributes can be disabled, and can produce the enabling of other attributes
+     */
+    void disableAttribute(SumoXMLAttr key, GNEUndoList* undoList);
 
     /* @brief method for check if the value for certain attribute is set
      * @param[in] key The attribute key

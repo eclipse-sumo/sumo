@@ -388,6 +388,18 @@ GNERide::isValid(SumoXMLAttr key, const std::string& value) {
 }
 
 
+void 
+GNERide::enableAttribute(SumoXMLAttr key, GNEUndoList* undoList) {
+
+}
+
+
+void 
+GNERide::disableAttribute(SumoXMLAttr key, GNEUndoList* undoList) {
+
+}
+
+
 bool 
 GNERide::isAttributeSet(SumoXMLAttr /*key*/) const {
     return true;

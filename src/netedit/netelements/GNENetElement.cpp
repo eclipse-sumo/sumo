@@ -177,6 +177,18 @@ GNENetElement::drawUsingSelectColor() const {
 }
 
 
+void 
+GNENetElement::enableAttribute(SumoXMLAttr /*key*/, GNEUndoList* /*undoList*/) {
+    //
+}
+
+
+void 
+GNENetElement::disableAttribute(SumoXMLAttr /*key*/, GNEUndoList* /*undoList*/) {
+    //
+}
+
+
 bool 
 GNENetElement::isAttributeSet(SumoXMLAttr /*key*/) const {
     return true;

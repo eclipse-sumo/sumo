@@ -939,19 +939,6 @@ GNEAttributeCarrier::GNEAttributeCarrier(const SumoXMLTag tag) :
 GNEAttributeCarrier::~GNEAttributeCarrier() {}
 
 
-bool
-GNEAttributeCarrier::isDisjointAttributeSet(const SumoXMLAttr /*attr*/) const {
-    // by default all attributes are set
-    return true;
-}
-
-
-void
-GNEAttributeCarrier::setDisjointAttribute(const SumoXMLAttr /*attr*/, GNEUndoList* /*undoList*/) {
-    // by default empty
-}
-
-
 template<> int
 GNEAttributeCarrier::parse(const std::string& string) {
     return StringUtils::toInt(string);

@@ -778,6 +778,18 @@ GNEVehicleType::isValid(SumoXMLAttr key, const std::string& value) {
 }
 
 
+void 
+GNEVehicleType::enableAttribute(SumoXMLAttr key, GNEUndoList* undoList) {
+
+}
+
+
+void 
+GNEVehicleType::disableAttribute(SumoXMLAttr key, GNEUndoList* undoList) {
+
+}
+
+
 bool 
 GNEVehicleType::isAttributeSet(SumoXMLAttr key) const {
     switch (key) {
@@ -806,12 +818,6 @@ GNEVehicleType::isAttributeSet(SumoXMLAttr key) const {
         default:
             return true;
     }
-}
-
-
-bool
-GNEVehicleType::isDisjointAttributeSet(const SumoXMLAttr /*attr*/) const {
-    return true;
 }
 
 

@@ -414,6 +414,18 @@ GNEWalk::isValid(SumoXMLAttr key, const std::string& value) {
 }
 
 
+void 
+GNEWalk::enableAttribute(SumoXMLAttr key, GNEUndoList* undoList) {
+
+}
+
+
+void 
+GNEWalk::disableAttribute(SumoXMLAttr key, GNEUndoList* undoList) {
+
+}
+
+
 bool 
 GNEWalk::isAttributeSet(SumoXMLAttr /*key*/) const {
     return true;

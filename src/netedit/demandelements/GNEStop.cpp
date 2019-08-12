@@ -702,12 +702,24 @@ GNEStop::isValid(SumoXMLAttr key, const std::string& value) {
 }
 
 
+void 
+GNEStop::enableAttribute(SumoXMLAttr key, GNEUndoList* undoList) {
+
+}
+
+
+void 
+GNEStop::disableAttribute(SumoXMLAttr key, GNEUndoList* undoList) {
+
+}
+
+
 bool 
 GNEStop::isAttributeSet(SumoXMLAttr /*key*/) const {
     return true;
 }
 
-
+/*
 bool
 GNEStop::isDisjointAttributeSet(const SumoXMLAttr attr) const {
     switch (attr) {
@@ -780,7 +792,7 @@ GNEStop::setDisjointAttribute(const SumoXMLAttr attr, GNEUndoList* undoList) {
     }
     undoList->p_add(new GNEChange_Attribute(this, myViewNet->getNet(), parametersSet, parametersSetCopy));
 }
-
+*/
 
 std::string
 GNEStop::getPopUpID() const {

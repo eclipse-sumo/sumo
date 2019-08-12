@@ -230,19 +230,19 @@ GNEPerson::writeDemandElement(OutputDevice& device) const {
     // write specific flow attributes
     if (myTagProperty.getTag() == SUMO_TAG_PERSONFLOW) {
         // write routeFlow values depending if it was set
-        if (isDisjointAttributeSet(SUMO_ATTR_END)) {
+        if (isAttributeSet(SUMO_ATTR_END)) {
             device.writeAttr(SUMO_ATTR_END,  time2string(repetitionEnd));
         }
-        if (isDisjointAttributeSet(SUMO_ATTR_NUMBER)) {
+        if (isAttributeSet(SUMO_ATTR_NUMBER)) {
             device.writeAttr(SUMO_ATTR_NUMBER, repetitionNumber);
         }
-        if (isDisjointAttributeSet(SUMO_ATTR_VEHSPERHOUR)) {
+        if (isAttributeSet(SUMO_ATTR_VEHSPERHOUR)) {
             device.writeAttr(SUMO_ATTR_VEHSPERHOUR, 3600. / STEPS2TIME(repetitionOffset));
         }
-        if (isDisjointAttributeSet(SUMO_ATTR_PERIOD)) {
+        if (isAttributeSet(SUMO_ATTR_PERIOD)) {
             device.writeAttr(SUMO_ATTR_PERIOD, time2string(repetitionOffset));
         }
-        if (isDisjointAttributeSet(SUMO_ATTR_PROB)) {
+        if (isAttributeSet(SUMO_ATTR_PROB)) {
             device.writeAttr(SUMO_ATTR_PROB, repetitionProbability);
         }
     }
@@ -799,12 +799,24 @@ GNEPerson::isValid(SumoXMLAttr key, const std::string& value) {
 }
 
 
+void 
+GNEPerson::enableAttribute(SumoXMLAttr key, GNEUndoList* undoList) {
+
+}
+
+
+void 
+GNEPerson::disableAttribute(SumoXMLAttr key, GNEUndoList* undoList) {
+
+}
+
+
 bool 
 GNEPerson::isAttributeSet(SumoXMLAttr /*key*/) const {
     return true;
 }
 
-
+/*
 bool
 GNEPerson::isDisjointAttributeSet(const SumoXMLAttr attr) const {
     switch (attr) {
@@ -883,7 +895,7 @@ GNEPerson::setDisjointAttribute(const SumoXMLAttr attr, GNEUndoList* undoList) {
     }
     undoList->p_add(new GNEChange_Attribute(this, myViewNet->getNet(), parametersSet, parametersSetCopy));
 }
-
+*/
 
 std::string
 GNEPerson::getPopUpID() const {

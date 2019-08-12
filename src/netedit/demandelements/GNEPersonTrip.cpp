@@ -405,6 +405,18 @@ GNEPersonTrip::isValid(SumoXMLAttr key, const std::string& value) {
 }
 
 
+void 
+GNEPersonTrip::enableAttribute(SumoXMLAttr key, GNEUndoList* undoList) {
+
+}
+
+
+void 
+GNEPersonTrip::disableAttribute(SumoXMLAttr key, GNEUndoList* undoList) {
+
+}
+
+
 bool 
 GNEPersonTrip::isAttributeSet(SumoXMLAttr /*key*/) const {
     return true;

@@ -570,22 +570,24 @@ public:
      */
     virtual bool isValid(SumoXMLAttr key, const std::string& value) = 0;
 
+    /* @brief method for enabling attribute
+     * @param[in] key The attribute key
+     * @param[in] undoList The undoList on which to register changes
+     * @note only certain attributes can be enabled, and can produce the disabling of other attributes
+     */
+    virtual void enableAttribute(SumoXMLAttr key, GNEUndoList* undoList) = 0;
+
+    /* @brief method for disabling attribute
+     * @param[in] key The attribute key
+     * @param[in] undoList The undoList on which to register changes
+     * @note only certain attributes can be disabled, and can produce the enabling of other attributes
+     */
+    virtual void disableAttribute(SumoXMLAttr key, GNEUndoList* undoList) = 0;
+
     /* @brief method for check if the value for certain attribute is set
      * @param[in] key The attribute key
      */
     virtual bool isAttributeSet(SumoXMLAttr key) const = 0;
-
-    /* @brief method for check if certain attribute is set (used by ACs with disjoint attributes)
-     * @param[in] key The attribute key
-     * @return true if it's set, false in other case
-     */
-    virtual bool isDisjointAttributeSet(const SumoXMLAttr attr) const;
-
-    /* @brief method for set certain attribute is set (used by ACs with disjoint attributes)
-     * @param[in] attr The attribute key
-     * @param[in] undoList The undoList on which to register changes
-     */
-    virtual void setDisjointAttribute(const SumoXMLAttr attr, GNEUndoList* undoList);
 
     /// @brief get PopPup ID (Used in AC Hierarchy)
     virtual std::string getPopUpID() const = 0;

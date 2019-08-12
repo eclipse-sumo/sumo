@@ -670,6 +670,18 @@ GNEAdditional::checkAdditionalChildRestriction() const {
 }
 
 
+void 
+GNEAdditional::enableAttribute(SumoXMLAttr /*key*/, GNEUndoList* /*undoList*/) {
+    //
+}
+
+
+void 
+GNEAdditional::disableAttribute(SumoXMLAttr /*key*/, GNEUndoList* /*undoList*/) {
+    //
+}
+
+
 bool 
 GNEAdditional::isAttributeSet(SumoXMLAttr /*key*/) const {
     return true;
