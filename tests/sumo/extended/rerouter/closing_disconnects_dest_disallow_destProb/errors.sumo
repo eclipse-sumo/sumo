@@ -1,0 +1,29 @@
+Warning: No connection between edge 'beg2left' and edge 'rend' found.
+Warning: No connection between edge 'beg2left' and edge 'right' found.
+Warning: No route for vehicle 'onRerouterEdgeAtClose' found.
+Warning: No connection between edge 'beg2left' and edge 'rend' found.
+Warning: No connection between edge 'beg2left' and edge 'rend' found.
+Warning: No connection between edge 'beg2left' and edge 'right' found.
+Warning: No route for vehicle 'insertedWhileClosed.0' found.
+Warning: No connection between edge 'beg2left' and edge 'rend' found.
+Warning: No connection between edge 'beg2left' and edge 'right' found.
+Warning: No route for vehicle 'insertedWhileClosed.1' found.
+Warning: No connection between edge 'beg2left' and edge 'rend' found.
+Warning: No connection between edge 'beg2left' and edge 'rend' found.
+Warning: No connection between edge 'beg2left' and edge 'rend' found.
+Warning: No route for vehicle 'insertedWhileClosed.4' found.
+Warning: No connection between edge 'beg2left' and edge 'rend' found.
+Warning: No route for vehicle 'insertedWhileClosed.5' found.
+Warning: No connection between edge 'beg2left' and edge 'rend' found.
+Warning: No route for vehicle 'insertedWhileClosed.6' found.
+Warning: No connection between edge 'beg2left' and edge 'rend' found.
+Warning: No route for vehicle 'insertedWhileClosed.7' found.
+Warning: No connection between edge 'beg2left' and edge 'rend' found.
+Warning: No connection between edge 'beg2left' and edge 'right' found.
+Warning: No connection between edge 'beg2left' and edge 'rend' found.
+Warning: Teleporting vehicle 'onRerouterEdgeAtClose'; waited too long (wrong lane), lane='beg2left_0', time=362.00.
+Warning: Vehicle 'onRerouterEdgeAtClose' ends teleporting on edge 'left2end', time 436.00.
+Warning: Teleporting vehicle 'insertedWhileClosed.0'; waited too long (wrong lane), lane='beg2left_0', time=665.00.
+Warning: Vehicle 'insertedWhileClosed.0' ends teleporting on edge 'left2end', time 739.00.
+Warning: Teleporting vehicle 'insertedWhileClosed.1'; waited too long (wrong lane), lane='beg2left_0', time=968.00.
+Warning: Vehicle 'insertedWhileClosed.1' ends teleporting on edge 'left', time 1000.00.

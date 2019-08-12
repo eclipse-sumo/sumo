@@ -1,0 +1,8 @@
+<rerouter>
+	<interval begin="50" end="1000">
+		<closingReroute id="left" disallow="all"/>
+        <destProbReroute id="keepDestination" probability="0.33"/>
+        <destProbReroute id="terminateRoute" probability="0.33"/>
+        <destProbReroute id="right" probability="0.33"/>
+	</interval>
+</rerouter>

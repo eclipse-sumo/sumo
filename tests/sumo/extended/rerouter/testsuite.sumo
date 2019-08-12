@@ -38,6 +38,10 @@ closing_disconnects_dest
 # the destination edge is not reachable and the closed edge disallows all traffic
 closing_disconnects_dest_disallow
 
+# the destination edge is not reachable and the closed edge disallows all traffic,
+# vehicles should pick a new destination
+closing_disconnects_dest_disallow_destProb
+
 # a vehicle on an internal edge suddenly has its follower edge disallowed
 disallowed_while_on_internal
 
