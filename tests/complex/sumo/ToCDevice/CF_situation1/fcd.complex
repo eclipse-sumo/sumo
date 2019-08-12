@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed May 22 10:12:13 2019 by Eclipse SUMO Version UNKNOWN
+<!-- generated on Mon Aug 12 13:27:05 2019 by Eclipse SUMO Version v1_2_0+1531-5689942
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -22,7 +22,7 @@
     </report>
 
     <traci_server>
-        <remote-port value="44699"/>
+        <remote-port value="55061"/>
     </traci_server>
 
 </configuration>
@@ -2533,10 +2533,5 @@
         <vehicle id="ToC_veh" x="3088.08" y="1218.47" angle="18.00" type="manual" speed="19.45" pos="675.85" lane="10/1to1/1_0" slope="0.00"/>
         <vehicle id="follower" x="3137.45" y="1370.43" angle="18.00" type="automated" speed="19.60" pos="835.63" lane="10/1to1/1_0" slope="0.00"/>
         <vehicle id="leader" x="2912.02" y="2345.86" angle="342.00" type="automated" speed="19.60" pos="875.99" lane="1/1to2/1_0" slope="0.00"/>
-    </timestep>
-    <timestep time="501.00">
-        <vehicle id="ToC_veh" x="3094.02" y="1236.77" angle="18.00" type="manual" speed="19.25" pos="695.10" lane="10/1to1/1_0" slope="0.00"/>
-        <vehicle id="follower" x="3143.51" y="1389.07" angle="18.00" type="automated" speed="19.60" pos="855.23" lane="10/1to1/1_0" slope="0.00"/>
-        <vehicle id="leader" x="2905.96" y="2364.50" angle="342.00" type="automated" speed="19.60" pos="895.59" lane="1/1to2/1_0" slope="0.00"/>
     </timestep>
 </fcd-export>

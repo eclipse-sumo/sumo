@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed May 22 13:20:43 2019 by Eclipse SUMO Version UNKNOWN
+<!-- generated on Mon Aug 12 13:26:58 2019 by Eclipse SUMO Version v1_2_0+1531-5689942
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -22,7 +22,7 @@
     </report>
 
     <traci_server>
-        <remote-port value="54661"/>
+        <remote-port value="36463"/>
     </traci_server>
 
 </configuration>
@@ -1530,9 +1530,6 @@
         <vehicle id="ToC_veh" x="278.82" y="2385.37" angle="198.00" type="automated@ToC_veh" speed="0.00" pos="64.56" lane="5/1to6/1_0" slope="0.00"/>
     </timestep>
     <timestep time="500.00">
-        <vehicle id="ToC_veh" x="278.82" y="2385.37" angle="198.00" type="automated@ToC_veh" speed="0.00" pos="64.56" lane="5/1to6/1_0" slope="0.00"/>
-    </timestep>
-    <timestep time="501.00">
         <vehicle id="ToC_veh" x="278.82" y="2385.37" angle="198.00" type="automated@ToC_veh" speed="0.00" pos="64.56" lane="5/1to6/1_0" slope="0.00"/>
     </timestep>
 </fcd-export>
