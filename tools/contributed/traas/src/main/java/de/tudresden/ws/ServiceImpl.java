@@ -32,7 +32,6 @@ import de.tudresden.ws.conf.Config;
 import de.tudresden.ws.log.Log;
 
 @WebService(serviceName = "TraasWS")
-@BindingType(value = SOAPBinding.SOAP12HTTP_BINDING)
 
 /**
  *

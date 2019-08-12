@@ -42,7 +42,7 @@ public class Main {
 		for(int i=0; i<3600; i++){
 				
 			ws.doTimestep();
-			ws.Vehicle_add("v"+i, "car", "r1", 0, 0, 13.8, (byte) 1);
+			ws.vehicleAdd("v"+i, "car", "r1", 0, 0, 13.8, (byte) 1);
 		}
 			
 		ws.stop("user");
