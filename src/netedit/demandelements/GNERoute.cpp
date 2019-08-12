@@ -466,12 +466,6 @@ GNERoute::enableAttribute(SumoXMLAttr /*key*/, GNEUndoList* /*undoList*/) {
 }
 
 
-bool 
-GNERoute::isAttributeEnabled(SumoXMLAttr /*key*/) const {
-    return true;
-}
-
-
 std::string
 GNERoute::getPopUpID() const {
     return getTagStr();

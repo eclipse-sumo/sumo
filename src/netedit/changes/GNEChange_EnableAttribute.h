@@ -81,7 +81,7 @@ private:
     const SumoXMLAttr myNewAttribute;
 
     /// @brief original attributes enabled
-    const std::set<SumoXMLTag> myOriginalAttributesEnabled;
+    const std::set<SumoXMLAttr> myOriginalAttributesDisabled;
 };
 
 #endif

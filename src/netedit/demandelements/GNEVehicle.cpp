@@ -1229,12 +1229,6 @@ GNEVehicle::enableAttribute(SumoXMLAttr key, GNEUndoList* undoList) {
 
 }
 
-
-bool 
-GNEVehicle::isAttributeEnabled(SumoXMLAttr /*key*/) const {
-    return true;
-}
-
 /*
 bool
 GNEVehicle::isDisjointAttributeSet(const SumoXMLAttr attr) const {

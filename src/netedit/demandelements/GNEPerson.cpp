@@ -804,12 +804,6 @@ GNEPerson::enableAttribute(SumoXMLAttr key, GNEUndoList* undoList) {
 
 }
 
-
-bool 
-GNEPerson::isAttributeEnabled(SumoXMLAttr /*key*/) const {
-    return true;
-}
-
 /*
 bool
 GNEPerson::isDisjointAttributeSet(const SumoXMLAttr attr) const {

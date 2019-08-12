@@ -1154,6 +1154,12 @@ GNEAttributeCarrier::lanesConsecutives(const std::vector<GNELane*>& lanes) {
 }
 
 
+bool 
+GNEAttributeCarrier::isAttributeEnabled(SumoXMLAttr key) const {
+    return (myAttributesDisabled.count(key) == 0);
+}
+
+
 std::string
 GNEAttributeCarrier::getAttributeForSelection(SumoXMLAttr key) const {
     return getAttribute(key);

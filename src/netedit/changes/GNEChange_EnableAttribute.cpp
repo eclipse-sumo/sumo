@@ -44,7 +44,7 @@ GNEChange_EnableAttribute::GNEChange_EnableAttribute(GNEAttributeCarrier* ac, GN
     GNEChange(net, true),
     myAC(ac),
     myNewAttribute(newAttribute),
-    myOriginalAttributesEnabled(ac->myAttributesEnabled) {
+    myOriginalAttributesDisabled(ac->myAttributesDisabled) {
     myAC->incRef("GNEChange_EnableAttribute " + toString(myNewAttribute));
 }
 
@@ -75,8 +75,8 @@ void
 GNEChange_EnableAttribute::undo() {
     // show extra information for tests
     WRITE_DEBUG("Setting previous attribute " + toString(myNewAttribute) + " into " + myAC->getTagStr() + " '" + myAC->getID() + "'");
-    // set original value
-    myAC->myAttributesEnabled = myOriginalAttributesEnabled;
+    // set original disabled value
+    myAC->myAttributesDisabled = myOriginalAttributesDisabled;
     // check if netElements, additional or shapes has to be saved
     if (myAC->getTagProperty().isNetElement()) {
         myNet->requiereSaveNet(true);

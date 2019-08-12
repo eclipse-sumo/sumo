@@ -420,12 +420,6 @@ GNEWalk::enableAttribute(SumoXMLAttr /*key*/, GNEUndoList* /*undoList*/) {
 }
 
 
-bool 
-GNEWalk::isAttributeEnabled(SumoXMLAttr /*key*/) const {
-    return true;
-}
-
-
 std::string
 GNEWalk::getPopUpID() const {
     return getTagStr();
