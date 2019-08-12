@@ -852,6 +852,9 @@ private:
     /// @brief fill common person attributes (used by person and personFlows)
     static void fillCommonPersonAttributes(SumoXMLTag currentTag);
 
+    /// @brief fill stop person attributes (used by stops and personStps)
+    static void fillCommonStopAttributes(SumoXMLTag currentTag);
+
     /// @brief parse and check attribute (note: This function is only to improve legilibility)
     static bool checkParsedAttribute(const TagProperties& tagProperties, const AttributeProperties& attrProperties, const SumoXMLAttr attribute,
         std::string& defaultValue, std::string& parsedAttribute, std::string& warningMessage);
