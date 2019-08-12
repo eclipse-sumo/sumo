@@ -122,92 +122,25 @@ class ReroutersGeneration(object):
     def _generate_rerouters(self):
         """ Compute the rerouters for each parking lot for SUMO. """
         logging.info('Computing distances and sorting parking alternatives.')
-        with multiprocessing.Pool(processes=self._opt.processes) as pool:
-            list_parameters = list()
-            splits = numpy.array_split(list(self._parking_areas.keys()), self._opt.processes)
-            import pickle
-            pickle.loads(pickle.dumps(self._parking_areas))
-            for parkings in splits:
-                parameters = {
-                    'selection': parkings,
-                    'all_parking_areas': self._parking_areas, 
-                    'net_file': self._opt.sumo_net_definition,
-                    'with_tqdm': self._opt.with_tqdm,
-                    'num_alternatives': self._opt.num_alternatives,
-                    'dist_alternatives': self._opt.dist_alternatives,
-                }
-                list_parameters.append(parameters)
-            for res in pool.imap_unordered(self._generate_rerouters_process, list_parameters):
-                for key, value in res.items():
-                    self._sumo_rerouters[key] = value
-        logging.info('Computed %d rerouters.', len(self._sumo_rerouters.keys()))
-
-    @staticmethod
-    def _generate_rerouters_process(parameters):
-        """ Compute the rerouters for the given parking areas."""
-
-        sumo_net = sumolib.net.readNet(parameters['net_file'])
-        ret_rerouters = dict()
-
-        @functools.lru_cache(maxsize=None)
-        def _cached_get_shortest_path(from_edge, to_edge):
-            """ Calls and caches sumolib: net.getShortestPath. """
-            return sumo_net.getShortestPath(from_edge, to_edge)
-
-        distances = collections.defaultdict(dict)
-        sequence = None
-        if parameters['with_tqdm']:
-            from tqdm import tqdm
-            sequence = tqdm(parameters['selection'])
-        else:
-            sequence = parameters['selection']
-        for parking_id in sequence:
-            parking_a = parameters['all_parking_areas'][parking_id]
-            from_edge = sumo_net.getEdge(parking_a['edge'])
-            for parking_b in parameters['all_parking_areas'].values():
-                if parking_a['id'] == parking_b['id']:
-                    continue
-                if parking_a['edge'] == parking_b['edge']:
-                    continue
-                route, cost = _cached_get_shortest_path(from_edge, 
-                                                        sumo_net.getEdge(parking_b['edge']))
-                if route:
-                    distances[parking_a['id']][parking_b['id']] = cost
-        cache_info = _cached_get_shortest_path.cache_info()
-        total = float(cache_info.hits + cache_info.misses)
-        perc = cache_info.hits * 100.0 
-        if total:
-            perc /= float(cache_info.hits + cache_info.misses)
-        logging.info('Cache: hits %d, misses %d, used %.2f%%.', 
-                     cache_info.hits, cache_info.misses, perc)
-
-        # select closest parking areas
-        sequence = None
-        if parameters['with_tqdm']:
-            from tqdm import tqdm
-            sequence = tqdm(distances.items())
-        else:
-            sequence = distances.items()
-        for pid, dists in sequence:
-            list_of_dist = [tuple(reversed(x)) for x in dists.items() if x[1] is not None]
-            list_of_dist = sorted(list_of_dist)
-            temp_rerouters = [(pid, 0.0)]
-            for distance, parking in list_of_dist:
-                if len(temp_rerouters) > parameters['num_alternatives']:
-                    break
-                if distance > parameters['dist_alternatives']:
-                    break
-                temp_rerouters.append((parking, distance))
-
-            if not list_of_dist:
-                logging.fatal('Parking %s has 0 neighbours!', pid)
-
-            ret_rerouters[pid] = {
-                'rid': pid,
-                'edge': parameters['all_parking_areas'][pid]['edge'],
-                'rerouters': temp_rerouters,
+        pool = multiprocessing.Pool(processes=self._opt.processes)
+        list_parameters = list()
+        splits = numpy.array_split(list(self._parking_areas.keys()), self._opt.processes)
+        import pickle
+        pickle.loads(pickle.dumps(self._parking_areas))
+        for parkings in splits:
+            parameters = {
+                'selection': parkings,
+                'all_parking_areas': self._parking_areas, 
+                'net_file': self._opt.sumo_net_definition,
+                'with_tqdm': self._opt.with_tqdm,
+                'num_alternatives': self._opt.num_alternatives,
+                'dist_alternatives': self._opt.dist_alternatives,
             }
-        return ret_rerouters
+            list_parameters.append(parameters)
+        for res in pool.imap_unordered(generate_rerouters_process, list_parameters):
+            for key, value in res.items():
+                self._sumo_rerouters[key] = value
+        logging.info('Computed %d rerouters.', len(self._sumo_rerouters.keys()))
 
     # ---------------------------------------------------------------------------------------- #
     #                             Save SUMO Additionals to File                                #
@@ -252,6 +185,72 @@ class ReroutersGeneration(object):
         logging.info("%s created.", self._opt.output)
 
     # ----------------------------------------------------------------------------------------- #
+
+def generate_rerouters_process(parameters):
+    """ Compute the rerouters for the given parking areas."""
+
+    sumo_net = sumolib.net.readNet(parameters['net_file'])
+    ret_rerouters = dict()
+
+    @functools.lru_cache(maxsize=None)
+    def _cached_get_shortest_path(from_edge, to_edge):
+        """ Calls and caches sumolib: net.getShortestPath. """
+        return sumo_net.getShortestPath(from_edge, to_edge)
+
+    distances = collections.defaultdict(dict)
+    sequence = None
+    if parameters['with_tqdm']:
+        from tqdm import tqdm
+        sequence = tqdm(parameters['selection'])
+    else:
+        sequence = parameters['selection']
+    for parking_id in sequence:
+        parking_a = parameters['all_parking_areas'][parking_id]
+        from_edge = sumo_net.getEdge(parking_a['edge'])
+        for parking_b in parameters['all_parking_areas'].values():
+            if parking_a['id'] == parking_b['id']:
+                continue
+            if parking_a['edge'] == parking_b['edge']:
+                continue
+            route, cost = _cached_get_shortest_path(from_edge, 
+                                                    sumo_net.getEdge(parking_b['edge']))
+            if route:
+                distances[parking_a['id']][parking_b['id']] = cost
+    cache_info = _cached_get_shortest_path.cache_info()
+    total = float(cache_info.hits + cache_info.misses)
+    perc = cache_info.hits * 100.0 
+    if total:
+        perc /= float(cache_info.hits + cache_info.misses)
+    logging.info('Cache: hits %d, misses %d, used %.2f%%.', 
+                 cache_info.hits, cache_info.misses, perc)
+
+    # select closest parking areas
+    sequence = None
+    if parameters['with_tqdm']:
+        from tqdm import tqdm
+        sequence = tqdm(distances.items())
+    else:
+        sequence = distances.items()
+    for pid, dists in sequence:
+        list_of_dist = [tuple(reversed(x)) for x in dists.items() if x[1] is not None]
+        list_of_dist = sorted(list_of_dist)
+        temp_rerouters = [(pid, 0.0)]
+        for distance, parking in list_of_dist:
+            if len(temp_rerouters) > parameters['num_alternatives']:
+                break
+            if distance > parameters['dist_alternatives']:
+                break
+            temp_rerouters.append((parking, distance))
+
+        if not list_of_dist:
+            logging.fatal('Parking %s has 0 neighbours!', pid)
+
+        ret_rerouters[pid] = {
+            'rid': pid,
+            'edge': parameters['all_parking_areas'][pid]['edge'],
+            'rerouters': temp_rerouters,
+        }
+    return ret_rerouters
 
 
 def main(cmd_args):
