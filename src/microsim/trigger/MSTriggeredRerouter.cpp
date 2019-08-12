@@ -56,8 +56,9 @@
 #include <mesosim/MESegment.h>
 
 //#define DEBUG_REROUTER
-#define DEBUG_PARKING
+//#define DEBUG_PARKING
 #define DEBUGCOND (veh.isSelected())
+//#define DEBUGCOND (veh.getID() == "")
 
 // ===========================================================================
 // static member defintion
@@ -492,8 +493,10 @@ MSTriggeredRerouter::notifyEnter(SUMOTrafficObject& tObject, MSMoveReminder::Not
         const double routeCost = router.recomputeCosts(edges, &veh, MSNet::getInstance()->getCurrentTimeStep());
         const bool useNewRoute = veh.replaceRouteEdges(edges, routeCost, 0, getID());
 #ifdef DEBUG_REROUTER
-        if (DEBUGCOND) std::cout << "   rerouting:  newEdge=" << newEdge->getID() << " useNewRoute=" << useNewRoute << " newArrivalPos=" << newArrivalPos << " numClosed=" << rerouteDef->closed.size()
-                                     << " destUnreachable=" << destUnreachable << " containsClosed=" << veh.getRoute().containsAnyOf(rerouteDef->closed) << "\n";
+        if (DEBUGCOND) std::cout << "   rerouting:  newDest=" << newEdge->getID() 
+            << " newEdges=" << toString(edges) 
+            << " useNewRoute=" << useNewRoute << " newArrivalPos=" << newArrivalPos << " numClosed=" << rerouteDef->closed.size()
+            << " destUnreachable=" << destUnreachable << " containsClosed=" << veh.getRoute().containsAnyOf(rerouteDef->closed) << "\n";
 #endif
         if (useNewRoute && newArrivalPos != -1) {
             // must be called here because replaceRouteEdges may also set the arrivalPos
