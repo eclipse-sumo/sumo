@@ -1964,6 +1964,8 @@ MSVehicle::processNextStop(double currentVelocity) {
                         // rerouted, keep driving
                         return currentVelocity;
                     }
+                } else if (stop.parkingarea->getOccupancyIncludingBlocked() >= stop.parkingarea->getCapacity()) {
+                    fitsOnStoppingPlace = false;
                 }
             }
             const double targetPos = (myLFLinkLanes.empty()
