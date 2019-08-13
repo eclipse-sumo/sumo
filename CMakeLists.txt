@@ -293,8 +293,8 @@ if (CHECK_OPTIONAL_LIBS)
     set(SUMO_LIBRARIES_DLL "${SUMO_LIBRARIES_DLL};${SUMO_OPTIONAL_LIBRARIES_DLL}")
 endif (CHECK_OPTIONAL_LIBS)
 
-include_directories(${CMAKE_BINARY_DIR}/src)
-include_directories(${CMAKE_SOURCE_DIR}/src)
+include_directories(${CMAKE_CURRENT_BINARY_DIR}/src)
+include_directories(${CMAKE_CURRENT_SOURCE_DIR}/src)
 
 set(commonlibs
         utils_distribution utils_shapes utils_options
