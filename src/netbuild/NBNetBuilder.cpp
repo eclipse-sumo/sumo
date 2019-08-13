@@ -310,7 +310,7 @@ NBNetBuilder::compute(OptionsCont& oc, const std::set<std::string>& explicitTurn
     }
     // guess bike lanes
     if (mayAddOrRemove && ((oc.getBool("bikelanes.guess") || oc.getBool("bikelanes.guess.from-permissions")))) {
-        const int bikelanes = myEdgeCont.guessSpecialLanes(SVC_BICYCLE, oc.getFloat("default.sidewalk-width"),
+        const int bikelanes = myEdgeCont.guessSpecialLanes(SVC_BICYCLE, oc.getFloat("default.bikelane-width"),
                               oc.getFloat("bikelanes.guess.min-speed"),
                               oc.getFloat("bikelanes.guess.max-speed"),
                               oc.getBool("bikelanes.guess.from-permissions"),
