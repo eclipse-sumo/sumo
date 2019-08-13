@@ -395,7 +395,7 @@ GNERide::enableAttribute(SumoXMLAttr /*key*/, GNEUndoList* /*undoList*/) {
 
 
 bool
-GNERide::isAttributeEnabled(SumoXMLAttr key) const {
+GNERide::isAttributeEnabled(SumoXMLAttr /*key*/) const {
     return true;
 }
 

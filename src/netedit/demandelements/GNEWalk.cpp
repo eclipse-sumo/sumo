@@ -421,7 +421,7 @@ GNEWalk::enableAttribute(SumoXMLAttr /*key*/, GNEUndoList* /*undoList*/) {
 
 
 bool 
-GNEWalk::isAttributeEnabled(SumoXMLAttr key) const {
+GNEWalk::isAttributeEnabled(SumoXMLAttr /*key*/) const {
     return true;
 }
 
