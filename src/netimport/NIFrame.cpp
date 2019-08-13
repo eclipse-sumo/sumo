@@ -361,6 +361,10 @@ NIFrame::checkOptions() {
             // changed default since we wish to preserve the network as far as possible
             oc.set("geometry.max-grade.fix", "false");
         }
+        if (!oc.getBool("opposites.guess") && oc.isWriteable("opposites.guess.fix-lengths")) {
+            // changed default since we wish to preserve the network as far as possible
+            oc.set("opposites.guess.fix-lengths", "true");
+        }
     }
     if (!oc.isSet("type-files")) {
         const char* sumoPath = std::getenv("SUMO_HOME");
