@@ -24,7 +24,6 @@
 #include <utils/gui/div/GLHelper.h>
 #include <netedit/changes/GNEChange_Attribute.h>
 #include <netedit/dialogs/GNEVariableSpeedSignDialog.h>
-#include <netedit/netelements/GNELane.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNEUndoList.h>
 #include <netedit/GNENet.h>

@@ -25,12 +25,10 @@
 #include <version.h>
 #endif
 
-#include <utils/common/StdDefs.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/foxtools/FXLinkLabel.h>
 #include <utils/gui/images/GUIIconSubSys.h>
 #include <utils/gui/div/GUIDesigns.h>
-#include <utils/options/OptionsCont.h>
 
 #include "GNEDialog_About.h"
 

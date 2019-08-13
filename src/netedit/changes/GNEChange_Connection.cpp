@@ -22,9 +22,6 @@
 
 #include <netedit/netelements/GNEEdge.h>
 #include <netedit/GNENet.h>
-#include <netedit/GNEViewParent.h>
-#include <netedit/GNEViewNet.h>
-#include <netedit/frames/GNEFrame.h>
 
 #include "GNEChange_Connection.h"
 

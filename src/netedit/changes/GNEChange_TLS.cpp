@@ -25,9 +25,6 @@
 #include <netbuild/NBOwnTLDef.h>
 #include <netedit/netelements/GNEJunction.h>
 #include <netedit/GNENet.h>
-#include <netedit/GNEViewNet.h>
-#include <netedit/GNEViewParent.h>
-#include <netedit/frames/GNEFrame.h>
 
 #include "GNEChange_TLS.h"
 

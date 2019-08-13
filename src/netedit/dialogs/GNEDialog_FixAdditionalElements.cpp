@@ -20,24 +20,12 @@
 // ===========================================================================
 #include <config.h>
 
-#include <iostream>
-#include <netbuild/NBEdge.h>
 #include <utils/gui/windows/GUIAppEnum.h>
-#include <utils/gui/images/GUIIconSubSys.h>
 #include <utils/gui/div/GUIDesigns.h>
-#include <utils/common/ToString.h>
-#include <utils/xml/SUMOSAXAttributes.h>
 #include <netedit/additionals/GNEAdditional.h>
-#include <netedit/additionals/GNEStoppingPlace.h>
-#include <netedit/netelements/GNELane.h>
-#include <netedit/netelements/GNEEdge.h>
 #include <netedit/GNENet.h>
 #include <netedit/GNEViewNet.h>
-#include <netedit/GNEViewParent.h>
 #include <netedit/GNEUndoList.h>
-#include <netedit/changes/GNEChange_Attribute.h>
-#include <netedit/additionals/GNEAdditionalHandler.h>
-#include <netedit/frames/GNEAdditionalFrame.h>
 
 #include "GNEDialog_FixAdditionalElements.h"
 

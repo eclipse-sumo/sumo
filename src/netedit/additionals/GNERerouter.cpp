@@ -23,15 +23,12 @@
 #include <netedit/GNEUndoList.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/changes/GNEChange_Attribute.h>
-#include <netedit/netelements/GNEEdge.h>
-#include <netedit/netelements/GNELane.h>
 #include <netedit/dialogs/GNERerouterDialog.h>
 #include <utils/gui/div/GLHelper.h>
 #include <utils/gui/images/GUITextureSubSys.h>
 #include <utils/gui/globjects/GLIncludes.h>
 
 #include "GNERerouter.h"
-#include "GNERerouterInterval.h"
 
 
 // ===========================================================================

@@ -21,13 +21,7 @@
 #include <config.h>
 
 #include <netedit/GNENet.h>
-#include <netedit/GNEViewNet.h>
-#include <netedit/GNEViewParent.h>
 #include <netedit/netelements/GNENetElement.h>
-#include <netedit/additionals/GNEAdditional.h>
-#include <netedit/additionals/GNEShape.h>
-#include <netedit/demandelements/GNEDemandElement.h>
-#include <netedit/frames/GNEFrame.h>
 
 #include "GNEChange_Attribute.h"
 

@@ -22,21 +22,8 @@
 
 #include <config.h>
 
-#include <string>
-#include <vector>
-#include <fxkeys.h>
-#include <utils/gui/windows/GUIAppEnum.h>
-#include <utils/gui/windows/GUIGlChildWindow.h>
-#include <utils/gui/windows/GUIMainWindow.h>
-#include <utils/gui/globjects/GUIGlObject.h>
 #include <utils/gui/globjects/GUIGlObjectStorage.h>
-#include <utils/gui/images/GUIIconSubSys.h>
-#include <utils/gui/div/GUIGlobalSelection.h>
-#include <utils/gui/div/GUIDesigns.h>
-#include <utils/gui/globjects/GUIGlObject_AbstractAdd.h>
 #include <netedit/GNENet.h>
-#include <netedit/GNEViewNet.h>
-#include <netedit/GNEAttributeCarrier.h>
 #include <netedit/GNEViewParent.h>
 #include <netedit/netelements/GNEJunction.h>
 

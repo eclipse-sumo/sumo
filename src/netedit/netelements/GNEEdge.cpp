@@ -27,16 +27,12 @@
 #include <netedit/GNEViewNet.h>
 #include <netedit/additionals/GNEDetectorE2.h>
 #include <netedit/additionals/GNERouteProbe.h>
-#include <netedit/changes/GNEChange_Additional.h>
 #include <netedit/changes/GNEChange_Attribute.h>
 #include <netedit/changes/GNEChange_Lane.h>
-#include <netedit/demandelements/GNEDemandElement.h>
 #include <netedit/demandelements/GNERoute.h>
 #include <utils/common/StringTokenizer.h>
 #include <utils/gui/div/GLHelper.h>
 #include <utils/gui/globjects/GLIncludes.h>
-#include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
-#include <utils/gui/settings/GUIVisualizationSettings.h>
 #include <utils/options/OptionsCont.h>
 
 #include "GNEConnection.h"

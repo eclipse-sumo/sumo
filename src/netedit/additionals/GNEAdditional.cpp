@@ -29,7 +29,6 @@
 #include <netedit/netelements/GNELane.h>
 #include <netedit/demandelements/GNEDemandElement.h>
 #include <utils/common/StringTokenizer.h>
-#include <utils/gui/div/GLHelper.h>
 #include <utils/gui/div/GUIGlobalSelection.h>
 #include <utils/gui/div/GUIParameterTableWindow.h>
 #include <utils/gui/globjects/GUIGLObjectPopupMenu.h>

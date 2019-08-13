@@ -23,10 +23,8 @@
 #include <netedit/GNENet.h>
 #include <netedit/netelements/GNECrossing.h>
 #include <netedit/netelements/GNEJunction.h>
-#include <netedit/GNEViewParent.h>
 #include <netbuild/NBNetBuilder.h>
 #include <netedit/GNEViewNet.h>
-#include <netedit/frames/GNEFrame.h>
 
 #include "GNEChange_Crossing.h"
 

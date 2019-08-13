@@ -35,7 +35,6 @@
 #include <netedit/additionals/GNEPOI.h>
 #include <netedit/additionals/GNEPoly.h>
 #include <netedit/demandelements/GNERouteHandler.h>
-#include <netedit/demandelements/GNEDemandElement.h>
 #include <netedit/changes/GNEChange_Attribute.h>
 #include <netedit/changes/GNEChange_Connection.h>
 #include <netedit/changes/GNEChange_Crossing.h>
@@ -47,7 +46,6 @@
 #include <netedit/changes/GNEChange_Shape.h>
 #include <netedit/dialogs/GNEDialog_FixAdditionalElements.h>
 #include <netedit/dialogs/GNEDialog_FixDemandElements.h>
-#include <netedit/frames/GNEAdditionalFrame.h>
 #include <netedit/frames/GNEInspectorFrame.h>
 #include <netedit/netelements/GNEConnection.h>
 #include <netedit/netelements/GNECrossing.h>

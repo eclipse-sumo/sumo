@@ -33,8 +33,6 @@
 #include <utils/geom/GeomHelper.h>
 
 #include "GNEBusStop.h"
-#include "GNEAccess.h"
-#include "GNEAdditionalHandler.h"
 
 // ===========================================================================
 // method definitions

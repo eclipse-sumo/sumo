@@ -21,7 +21,6 @@
 #include <config.h>
 
 #include <utils/gui/div/GLHelper.h>
-#include <netedit/netelements/GNELane.h>
 #include <netedit/frames/GNETAZFrame.h>
 #include <netedit/GNEUndoList.h>
 #include <netedit/GNEViewNet.h>

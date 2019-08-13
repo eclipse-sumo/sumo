@@ -20,18 +20,10 @@
 // ===========================================================================
 #include <config.h>
 
-#include <iostream>
-#include <utils/foxtools/MFXUtils.h>
 #include <utils/gui/windows/GUIAppEnum.h>
-#include <utils/gui/images/GUIIconSubSys.h>
 #include <utils/gui/div/GUIDesigns.h>
-#include <utils/gui/div/GUIIOGlobals.h>
-#include <utils/common/ToString.h>
-#include <utils/xml/SUMOSAXAttributes.h>
 #include <utils/xml/XMLSubSys.h>
-#include <netedit/GNEAttributeCarrier.h>
 #include <netedit/GNEViewNet.h>
-#include <utils/xml/SUMOSAXHandler.h>
 
 #include "GNEGenericParameterDialog.h"
 
