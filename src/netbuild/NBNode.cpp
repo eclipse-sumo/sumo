@@ -1228,7 +1228,7 @@ NBNode::computeLanes2Lanes() {
                     const NBEdge::Connection& c = *k;
                     if (c.toEdge == currentOutgoing && c.toLane >= 0) {
                         const SVCPermissions satisfied = (incoming->getPermissions(c.fromLane) & c.toEdge->getPermissions(c.toLane));
-                        //std::cout << "  from=" << c.fromLane << " to=" << c.toEdge->getID() << "_" << c.toLane << " satisfied=" << getVehicleClassNames(satisfied) << "\n";
+                        //std::cout << "  from=" << incoming->getID() << "_" << c.fromLane << " to=" << c.toEdge->getID() << "_" << c.toLane << " satisfied=" << getVehicleClassNames(satisfied) << "\n";
                         unsatisfied &= ~satisfied;
                     }
                 }
