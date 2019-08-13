@@ -3901,12 +3901,6 @@ GNEAttributeCarrier::fillCommonVehicleAttributes(SumoXMLTag currentTag) {
                                         "0");
     myTagProperties[currentTag].addAttribute(attrProperty);
 
-    attrProperty = AttributeProperties(SUMO_ATTR_REROUTE,
-                                        ATTRPROPERTY_BOOL | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL,
-                                        "Whether the " + toString(currentTag) + " should be equipped with a rerouting device",
-                                        "0");
-    myTagProperties[currentTag].addAttribute(attrProperty);
-
     attrProperty = AttributeProperties(SUMO_ATTR_DEPARTPOS_LAT,
                                         ATTRPROPERTY_COMPLEX | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL,
                                         "The lateral position on the departure lane at which the " + toString(currentTag) + " shall enter the net",
