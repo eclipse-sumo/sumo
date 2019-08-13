@@ -288,6 +288,11 @@ public:
      */
     void enableAttribute(SumoXMLAttr key, GNEUndoList* undoList);
 
+    /* @brief method for check if the value for certain attribute is set
+     * @param[in] key The attribute key
+     */
+    bool isAttributeEnabled(SumoXMLAttr key) const;
+
     /// @brief get PopPup ID (Used in AC Hierarchy)
     std::string getPopUpID() const;
 
@@ -346,10 +351,7 @@ private:
     void setAttribute(SumoXMLAttr key, const std::string& value);
 
     /// @brief method for enabling the attribute and nothing else (used in GNEChange_EnableAttribute)
-    void enableAttribute(SumoXMLAttr key);
-    
-    /// @brief update disabled attributes
-    void updateDisabledAttributes();
+    void setEnabledAttribute(const int enabledAttributes);
 
     /// @brief Invalidated copy constructor.
     GNEVehicle(const GNEVehicle&) = delete;

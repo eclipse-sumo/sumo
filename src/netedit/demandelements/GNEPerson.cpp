@@ -26,6 +26,7 @@
 #include <netedit/GNEUndoList.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNEViewParent.h>
+#include <netedit/changes/GNEChange_EnableAttribute.h>
 #include <netedit/changes/GNEChange_Attribute.h>
 #include <netedit/frames/GNESelectorFrame.h>
 #include <netedit/additionals/GNEAdditional.h>
@@ -801,13 +802,69 @@ GNEPerson::isValid(SumoXMLAttr key, const std::string& value) {
 
 void 
 GNEPerson::enableAttribute(SumoXMLAttr key, GNEUndoList* undoList) {
-
+    // obtain a copy of parameter sets
+    int newParametersSet = parametersSet;
+    // modify parametersSetCopy depending of attr
+    switch (key) {
+        case SUMO_ATTR_END: {
+            // give more priority to end
+            newParametersSet = VEHPARS_END_SET | VEHPARS_NUMBER_SET;
+            break;
+        }
+        case SUMO_ATTR_NUMBER:
+            newParametersSet ^= VEHPARS_END_SET;
+            newParametersSet |= VEHPARS_NUMBER_SET;
+            break;
+        case SUMO_ATTR_VEHSPERHOUR: {
+            // give more priority to end
+            if ((newParametersSet & VEHPARS_END_SET) && (newParametersSet & VEHPARS_NUMBER_SET)) {
+                newParametersSet = VEHPARS_END_SET;
+            } else if (newParametersSet & VEHPARS_END_SET) {
+                newParametersSet = VEHPARS_END_SET;
+            } else if (newParametersSet & VEHPARS_NUMBER_SET) {
+                newParametersSet = VEHPARS_NUMBER_SET;
+            }
+            // set VehsPerHour
+            newParametersSet |= VEHPARS_VPH_SET;
+            break;
+        }
+        case SUMO_ATTR_PERIOD: {
+            // give more priority to end
+            if ((newParametersSet & VEHPARS_END_SET) && (newParametersSet & VEHPARS_NUMBER_SET)) {
+                newParametersSet = VEHPARS_END_SET;
+            } else if (newParametersSet & VEHPARS_END_SET) {
+                newParametersSet = VEHPARS_END_SET;
+            } else if (newParametersSet & VEHPARS_NUMBER_SET) {
+                newParametersSet = VEHPARS_NUMBER_SET;
+            }
+            // set period
+            newParametersSet |= VEHPARS_PERIOD_SET;
+            break;
+        }
+        case SUMO_ATTR_PROB: {
+            // give more priority to end
+            if ((newParametersSet & VEHPARS_END_SET) && (newParametersSet & VEHPARS_NUMBER_SET)) {
+                newParametersSet = VEHPARS_END_SET;
+            } else if (newParametersSet & VEHPARS_END_SET) {
+                newParametersSet = VEHPARS_END_SET;
+            } else if (newParametersSet & VEHPARS_NUMBER_SET) {
+                newParametersSet = VEHPARS_NUMBER_SET;
+            }
+            // set probability
+            newParametersSet |= VEHPARS_PROB_SET;
+            break;
+        }
+        default:
+            break;
+    }
+    // add GNEChange_EnableAttribute
+    undoList->add(new GNEChange_EnableAttribute(this, myViewNet->getNet(), parametersSet, newParametersSet), true);
 }
 
-/*
+
 bool
-GNEPerson::isDisjointAttributeSet(const SumoXMLAttr attr) const {
-    switch (attr) {
+GNEPerson::isAttributeEnabled(SumoXMLAttr key) const {
+    switch (key) {
         case SUMO_ATTR_END:
             return (parametersSet & VEHPARS_END_SET) != 0;
         case SUMO_ATTR_NUMBER:
@@ -823,67 +880,6 @@ GNEPerson::isDisjointAttributeSet(const SumoXMLAttr attr) const {
     };
 }
 
-
-void
-GNEPerson::setDisjointAttribute(const SumoXMLAttr attr, GNEUndoList* undoList) {
-    // obtain a copy of parameter sets
-    int parametersSetCopy = parametersSet;
-    // modify parametersSetCopy depending of attr
-    switch (attr) {
-        case SUMO_ATTR_END: {
-            // give more priority to end
-            parametersSetCopy = VEHPARS_END_SET | VEHPARS_NUMBER_SET;
-            break;
-        }
-        case SUMO_ATTR_NUMBER:
-            parametersSetCopy ^= VEHPARS_END_SET;
-            parametersSetCopy |= VEHPARS_NUMBER_SET;
-            break;
-        case SUMO_ATTR_VEHSPERHOUR: {
-            // give more priority to end
-            if ((parametersSetCopy & VEHPARS_END_SET) && (parametersSetCopy & VEHPARS_NUMBER_SET)) {
-                parametersSetCopy = VEHPARS_END_SET;
-            } else if (parametersSetCopy & VEHPARS_END_SET) {
-                parametersSetCopy = VEHPARS_END_SET;
-            } else if (parametersSetCopy & VEHPARS_NUMBER_SET) {
-                parametersSetCopy = VEHPARS_NUMBER_SET;
-            }
-            // set VehsPerHour
-            parametersSetCopy |= VEHPARS_VPH_SET;
-            break;
-        }
-        case SUMO_ATTR_PERIOD: {
-            // give more priority to end
-            if ((parametersSetCopy & VEHPARS_END_SET) && (parametersSetCopy & VEHPARS_NUMBER_SET)) {
-                parametersSetCopy = VEHPARS_END_SET;
-            } else if (parametersSetCopy & VEHPARS_END_SET) {
-                parametersSetCopy = VEHPARS_END_SET;
-            } else if (parametersSetCopy & VEHPARS_NUMBER_SET) {
-                parametersSetCopy = VEHPARS_NUMBER_SET;
-            }
-            // set period
-            parametersSetCopy |= VEHPARS_PERIOD_SET;
-            break;
-        }
-        case SUMO_ATTR_PROB: {
-            // give more priority to end
-            if ((parametersSetCopy & VEHPARS_END_SET) && (parametersSetCopy & VEHPARS_NUMBER_SET)) {
-                parametersSetCopy = VEHPARS_END_SET;
-            } else if (parametersSetCopy & VEHPARS_END_SET) {
-                parametersSetCopy = VEHPARS_END_SET;
-            } else if (parametersSetCopy & VEHPARS_NUMBER_SET) {
-                parametersSetCopy = VEHPARS_NUMBER_SET;
-            }
-            // set probability
-            parametersSetCopy |= VEHPARS_PROB_SET;
-            break;
-        }
-        default:
-            break;
-    }
-    undoList->p_add(new GNEChange_Attribute(this, myViewNet->getNet(), parametersSet, parametersSetCopy));
-}
-*/
 
 std::string
 GNEPerson::getPopUpID() const {
@@ -1129,8 +1125,8 @@ GNEPerson::setAttribute(SumoXMLAttr key, const std::string& value) {
 
 
 void 
-GNEPerson::enableAttribute(SumoXMLAttr key) {
-
+GNEPerson::setEnabledAttribute(const int enabledAttributes) {
+    parametersSet = enabledAttributes;
 }
 
 

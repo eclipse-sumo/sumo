@@ -394,6 +394,12 @@ GNERide::enableAttribute(SumoXMLAttr /*key*/, GNEUndoList* /*undoList*/) {
 }
 
 
+bool
+GNERide::isAttributeEnabled(SumoXMLAttr key) const {
+    return true;
+}
+
+
 std::string
 GNERide::getPopUpID() const {
     return getTagStr();
@@ -519,7 +525,7 @@ GNERide::setAttribute(SumoXMLAttr key, const std::string& value) {
 
 
 void 
-GNERide::enableAttribute(SumoXMLAttr /*key*/) {
+GNERide::setEnabledAttribute(const int /*enabledAttributes*/) {
     //
 }
 

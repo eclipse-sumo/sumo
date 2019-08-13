@@ -49,9 +49,10 @@ public:
     /**@brief Constructor
      * @param[in] ac The attribute-carrier to be modified
      * @param[in] net Net in which AC is saved
-     * @param[in] newAttribute The attribute key
+     * @param[in] originalAttributes original set of attributes
+     * @param[in] newAttributes new set of attributes
      */
-    GNEChange_EnableAttribute(GNEAttributeCarrier* ac, GNENet* net, const SumoXMLAttr newAttribute);
+    GNEChange_EnableAttribute(GNEAttributeCarrier* ac, GNENet* net, const int originalAttributes, const int newAttributes);
 
     /// @brief Destructor
     ~GNEChange_EnableAttribute();
@@ -77,11 +78,11 @@ private:
      */
     GNEAttributeCarrier* myAC;
 
-    /// @brief new attribute
-    const SumoXMLAttr myNewAttribute;
+    /// @brief original attributes
+    const int myOriginalAttributes;
 
-    /// @brief original attributes enabled
-    const std::set<SumoXMLAttr> myOriginalAttributesDisabled;
+    /// @brief original attributes
+    const int myNewAttributes;
 };
 
 #endif

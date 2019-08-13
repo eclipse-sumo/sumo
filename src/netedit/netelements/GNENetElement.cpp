@@ -183,6 +183,12 @@ GNENetElement::enableAttribute(SumoXMLAttr /*key*/, GNEUndoList* /*undoList*/) {
 }
 
 
+bool 
+GNENetElement::isAttributeEnabled(SumoXMLAttr /*key*/) const {
+    return true;
+}
+
+
 std::string
 GNENetElement::getPopUpID() const {
     if (myTagProperty.getTag() == SUMO_TAG_CONNECTION) {
@@ -208,7 +214,7 @@ GNENetElement::getHierarchyName() const {
 
 
 void 
-GNENetElement::enableAttribute(SumoXMLAttr /*key*/) {
+GNENetElement::setEnabledAttribute(const int /*enabledAttributes*/) {
     //
 }
 

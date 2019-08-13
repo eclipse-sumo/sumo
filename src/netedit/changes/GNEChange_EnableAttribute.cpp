@@ -40,18 +40,18 @@ FXIMPLEMENT_ABSTRACT(GNEChange_EnableAttribute, GNEChange, nullptr, 0)
 // member method definitions
 // ===========================================================================
 
-GNEChange_EnableAttribute::GNEChange_EnableAttribute(GNEAttributeCarrier* ac, GNENet* net, const SumoXMLAttr newAttribute) :
+GNEChange_EnableAttribute::GNEChange_EnableAttribute(GNEAttributeCarrier* ac, GNENet* net, const int originalAttributes, const int newAttributes) :
     GNEChange(net, true),
     myAC(ac),
-    myNewAttribute(newAttribute),
-    myOriginalAttributesDisabled(ac->myAttributesDisabled) {
-    myAC->incRef("GNEChange_EnableAttribute " + toString(myNewAttribute));
+    myOriginalAttributes(originalAttributes),
+    myNewAttributes(newAttributes) {
+    myAC->incRef("GNEChange_EnableAttribute " + myAC->getTagProperty().getTagStr());
 }
 
 
 GNEChange_EnableAttribute::~GNEChange_EnableAttribute() {
     // decrease reference
-    myAC->decRef("GNEChange_EnableAttribute " + toString(myNewAttribute));
+    myAC->decRef("GNEChange_EnableAttribute " + myAC->getTagProperty().getTagStr());
     // remove if is unreferenced
     if (myAC->unreferenced()) {
         // show extra information for tests
@@ -74,9 +74,9 @@ GNEChange_EnableAttribute::~GNEChange_EnableAttribute() {
 void
 GNEChange_EnableAttribute::undo() {
     // show extra information for tests
-    WRITE_DEBUG("Setting previous attribute " + toString(myNewAttribute) + " into " + myAC->getTagStr() + " '" + myAC->getID() + "'");
-    // set original disabled value
-    myAC->myAttributesDisabled = myOriginalAttributesDisabled;
+    WRITE_DEBUG("Setting previous attribute into " + myAC->getTagStr() + " '" + myAC->getID() + "'");
+    // set original attributes
+    myAC->setEnabledAttribute(myOriginalAttributes);
     // check if netElements, additional or shapes has to be saved
     if (myAC->getTagProperty().isNetElement()) {
         myNet->requiereSaveNet(true);
@@ -91,9 +91,9 @@ GNEChange_EnableAttribute::undo() {
 void
 GNEChange_EnableAttribute::redo() {
     // show extra information for tests
-    WRITE_DEBUG("Setting new attribute " + toString(myNewAttribute) + " into " + myAC->getTagStr() + " '" + myAC->getID() + "'");
-    // set new value
-    myAC->enableAttribute(myNewAttribute);
+    WRITE_DEBUG("Setting new attribute into " + myAC->getTagStr() + " '" + myAC->getID() + "'");
+    // set new attributes
+    myAC->setEnabledAttribute(myNewAttributes);
     // check if netElements, additional or shapes has to be saved
     if (myAC->getTagProperty().isNetElement()) {
         myNet->requiereSaveNet(true);

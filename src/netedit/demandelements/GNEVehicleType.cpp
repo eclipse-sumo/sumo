@@ -782,7 +782,6 @@ void
 GNEVehicleType::enableAttribute(SumoXMLAttr /*key*/, GNEUndoList* /*undoList*/) {
 
 }
-/*
 
 bool 
 GNEVehicleType::isAttributeEnabled(SumoXMLAttr key) const {
@@ -813,7 +812,7 @@ GNEVehicleType::isAttributeEnabled(SumoXMLAttr key) const {
             return true;
     }
 }
-*/
+
 
 std::string
 GNEVehicleType::getPopUpID() const {
@@ -1669,7 +1668,7 @@ GNEVehicleType::setAttribute(SumoXMLAttr key, const std::string& value) {
 
 
 void 
-GNEVehicleType::enableAttribute(SumoXMLAttr /*key*/) {
+GNEVehicleType::setEnabledAttribute(const int /*enabledAttributes*/) {
     //
 }
 

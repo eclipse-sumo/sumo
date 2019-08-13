@@ -669,6 +669,12 @@ GNEAdditional::enableAttribute(SumoXMLAttr /*key*/, GNEUndoList* /*undoList*/) {
 }
 
 
+bool
+GNEAdditional::isAttributeEnabled(SumoXMLAttr key) const {
+    return true;
+}
+
+
 std::string
 GNEAdditional::getGenericParametersStr() const {
     std::string result;
@@ -728,7 +734,7 @@ GNEAdditional::checkAdditionalChildRestriction() const {
 
 
 void 
-GNEAdditional::enableAttribute(SumoXMLAttr /*key*/) {
+GNEAdditional::setEnabledAttribute(const int /*enabledAttributes*/) {
     //
 }
 

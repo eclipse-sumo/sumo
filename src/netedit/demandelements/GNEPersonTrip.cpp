@@ -411,6 +411,12 @@ GNEPersonTrip::enableAttribute(SumoXMLAttr /*key*/, GNEUndoList* /*undoList*/) {
 }
 
 
+bool
+GNEPersonTrip::isAttributeEnabled(SumoXMLAttr /*key*/) const {
+    return true;
+}
+
+
 std::string
 GNEPersonTrip::getPopUpID() const {
     return getTagStr();
@@ -540,7 +546,7 @@ GNEPersonTrip::setAttribute(SumoXMLAttr key, const std::string& value) {
 
 
 void 
-GNEPersonTrip::enableAttribute(SumoXMLAttr /*key*/) {
+GNEPersonTrip::setEnabledAttribute(const int /*enabledAttributes*/) {
     //
 }
 

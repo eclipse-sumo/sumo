@@ -266,8 +266,6 @@ GNEVehicle::GNEVehicle(SumoXMLTag tag, GNEViewNet* viewNet, const std::string& v
     id = vehicleID;
     // set manually vtypeID (needed for saving)
     vtypeid = vehicleType->getID();
-    // update enabled attributes
-    updateDisabledAttributes();
 }
 
 
@@ -279,8 +277,6 @@ GNEVehicle::GNEVehicle(GNEViewNet* viewNet, GNEDemandElement* vehicleType, GNEDe
     id = vehicleParameters.id;
     // set manually vtypeID (needed for saving)
     vtypeid = vehicleType->getID();
-    // update enabled attributes
-    updateDisabledAttributes();
 }
 
 
@@ -294,8 +290,6 @@ GNEVehicle::GNEVehicle(GNEViewNet* viewNet, GNEDemandElement* vehicleType, const
     routeid.clear();
     // set manually vtypeID (needed for saving)
     vtypeid = vehicleType->getID();
-    // update enabled attributes
-    updateDisabledAttributes();
 }
 
 
@@ -303,8 +297,6 @@ GNEVehicle::GNEVehicle(SumoXMLTag tag, GNEViewNet* viewNet, const std::string& v
     GNEDemandElement(vehicleID, viewNet, (tag == SUMO_TAG_FLOW) ? GLO_FLOW : GLO_TRIP, tag,
     {edges}, {}, {}, {}, {vehicleType}, {}, {}, {}, {}, {}),
     SUMOVehicleParameter() {
-    // update enabled attributes
-    updateDisabledAttributes();
 }
 
 
@@ -312,8 +304,6 @@ GNEVehicle::GNEVehicle(GNEViewNet* viewNet, GNEDemandElement* vehicleType, const
     GNEDemandElement(vehicleParameters.id, viewNet, (vehicleParameters.tag == SUMO_TAG_FLOW) ? GLO_FLOW : GLO_TRIP, vehicleParameters.tag,
     {edges}, {}, {}, {}, {vehicleType}, {}, {}, {}, {}, {}),
     SUMOVehicleParameter(vehicleParameters) {
-    // update enabled attributes
-    updateDisabledAttributes();
 }
 
 
@@ -1237,16 +1227,81 @@ GNEVehicle::isValid(SumoXMLAttr key, const std::string& value) {
 
 void 
 GNEVehicle::enableAttribute(SumoXMLAttr key, GNEUndoList* undoList) {
+    // obtain a copy of parameter sets
+    int newParametersSet = parametersSet;
+    // modify parametersSetCopy depending of attr
     switch (key) {
-        case SUMO_ATTR_END:
-        case SUMO_ATTR_NUMBER:
-        case SUMO_ATTR_VEHSPERHOUR:
-        case SUMO_ATTR_PERIOD:
-        case SUMO_ATTR_PROB:
-            undoList->add(new GNEChange_EnableAttribute(this, myViewNet->getNet(), key), true);
+        case SUMO_ATTR_END: {
+            // give more priority to end
+            newParametersSet = VEHPARS_END_SET | VEHPARS_NUMBER_SET;
             break;
+        }
+        case SUMO_ATTR_NUMBER:
+            newParametersSet ^= VEHPARS_END_SET;
+            newParametersSet |= VEHPARS_NUMBER_SET;
+            break;
+        case SUMO_ATTR_VEHSPERHOUR: {
+            // give more priority to end
+            if ((newParametersSet & VEHPARS_END_SET) && (newParametersSet & VEHPARS_NUMBER_SET)) {
+                newParametersSet = VEHPARS_END_SET;
+            } else if (newParametersSet & VEHPARS_END_SET) {
+                newParametersSet = VEHPARS_END_SET;
+            } else if (newParametersSet & VEHPARS_NUMBER_SET) {
+                newParametersSet = VEHPARS_NUMBER_SET;
+            }
+            // set VehsPerHour
+            newParametersSet |= VEHPARS_VPH_SET;
+            break;
+        }
+        case SUMO_ATTR_PERIOD: {
+            // give more priority to end
+            if ((newParametersSet & VEHPARS_END_SET) && (newParametersSet & VEHPARS_NUMBER_SET)) {
+                newParametersSet = VEHPARS_END_SET;
+            } else if (newParametersSet & VEHPARS_END_SET) {
+                newParametersSet = VEHPARS_END_SET;
+            } else if (newParametersSet & VEHPARS_NUMBER_SET) {
+                newParametersSet = VEHPARS_NUMBER_SET;
+            }
+            // set period
+            newParametersSet |= VEHPARS_PERIOD_SET;
+            break;
+        }
+        case SUMO_ATTR_PROB: {
+            // give more priority to end
+            if ((newParametersSet & VEHPARS_END_SET) && (newParametersSet & VEHPARS_NUMBER_SET)) {
+                newParametersSet = VEHPARS_END_SET;
+            } else if (newParametersSet & VEHPARS_END_SET) {
+                newParametersSet = VEHPARS_END_SET;
+            } else if (newParametersSet & VEHPARS_NUMBER_SET) {
+                newParametersSet = VEHPARS_NUMBER_SET;
+            }
+            // set probability
+            newParametersSet |= VEHPARS_PROB_SET;
+            break;
+        }
         default:
             break;
+    }
+    // add GNEChange_EnableAttribute
+    undoList->add(new GNEChange_EnableAttribute(this, myViewNet->getNet(), parametersSet, newParametersSet), true);
+}
+
+
+bool
+GNEVehicle::isAttributeEnabled(SumoXMLAttr key) const {
+    switch (key) {
+        case SUMO_ATTR_END:
+            return (parametersSet & VEHPARS_END_SET) != 0;
+        case SUMO_ATTR_NUMBER:
+            return (parametersSet & VEHPARS_NUMBER_SET) != 0;
+        case SUMO_ATTR_VEHSPERHOUR:
+            return (parametersSet & VEHPARS_VPH_SET) != 0;
+        case SUMO_ATTR_PERIOD:
+            return (parametersSet & VEHPARS_PERIOD_SET) != 0;
+        case SUMO_ATTR_PROB:
+            return (parametersSet & VEHPARS_PROB_SET) != 0;
+        default:
+            return true;
     };
 }
 
@@ -1777,84 +1832,8 @@ GNEVehicle::setAttribute(SumoXMLAttr key, const std::string& value) {
 
 
 void 
-GNEVehicle::enableAttribute(SumoXMLAttr key) {
-    // obtain a copy of parameter sets
-    int parametersSetCopy = parametersSet;
-    // modify parametersSetCopy depending of attr
-    switch (key) {
-        case SUMO_ATTR_END: {
-            // give more priority to end
-            parametersSetCopy = VEHPARS_END_SET | VEHPARS_NUMBER_SET;
-            break;
-        }
-        case SUMO_ATTR_NUMBER:
-            parametersSetCopy ^= VEHPARS_END_SET;
-            parametersSetCopy |= VEHPARS_NUMBER_SET;
-            break;
-        case SUMO_ATTR_VEHSPERHOUR: {
-            // give more priority to end
-            if ((parametersSetCopy & VEHPARS_END_SET) && (parametersSetCopy & VEHPARS_NUMBER_SET)) {
-                parametersSetCopy = VEHPARS_END_SET;
-            } else if (parametersSetCopy & VEHPARS_END_SET) {
-                parametersSetCopy = VEHPARS_END_SET;
-            } else if (parametersSetCopy & VEHPARS_NUMBER_SET) {
-                parametersSetCopy = VEHPARS_NUMBER_SET;
-            }
-            // set VehsPerHour
-            parametersSetCopy |= VEHPARS_VPH_SET;
-            break;
-        }
-        case SUMO_ATTR_PERIOD: {
-            // give more priority to end
-            if ((parametersSetCopy & VEHPARS_END_SET) && (parametersSetCopy & VEHPARS_NUMBER_SET)) {
-                parametersSetCopy = VEHPARS_END_SET;
-            } else if (parametersSetCopy & VEHPARS_END_SET) {
-                parametersSetCopy = VEHPARS_END_SET;
-            } else if (parametersSetCopy & VEHPARS_NUMBER_SET) {
-                parametersSetCopy = VEHPARS_NUMBER_SET;
-            }
-            // set period
-            parametersSetCopy |= VEHPARS_PERIOD_SET;
-            break;
-        }
-        case SUMO_ATTR_PROB: {
-            // give more priority to end
-            if ((parametersSetCopy & VEHPARS_END_SET) && (parametersSetCopy & VEHPARS_NUMBER_SET)) {
-                parametersSetCopy = VEHPARS_END_SET;
-            } else if (parametersSetCopy & VEHPARS_END_SET) {
-                parametersSetCopy = VEHPARS_END_SET;
-            } else if (parametersSetCopy & VEHPARS_NUMBER_SET) {
-                parametersSetCopy = VEHPARS_NUMBER_SET;
-            }
-            // set probability
-            parametersSetCopy |= VEHPARS_PROB_SET;
-            break;
-        }
-        default:
-            break;
-    }
+GNEVehicle::setEnabledAttribute(const int enabledAttributes) {
+    parametersSet = enabledAttributes;
 }
 
-
-void
-GNEVehicle::updateDisabledAttributes() {
-    // first clear myAttributesDisabled
-    myAttributesDisabled.clear();
-    // now check what attributes are disabled
-    if ((parametersSet & VEHPARS_END_SET) == 0) {
-        myAttributesDisabled.insert(SUMO_ATTR_END);
-    }
-    if ((parametersSet & VEHPARS_NUMBER_SET) == 0) {
-        myAttributesDisabled.insert(SUMO_ATTR_NUMBER);
-    }
-    if ((parametersSet & VEHPARS_VPH_SET) == 0) {
-        myAttributesDisabled.insert(SUMO_ATTR_VEHSPERHOUR);
-    }
-    if ((parametersSet & VEHPARS_PERIOD_SET) == 0) {
-        myAttributesDisabled.insert(SUMO_ATTR_PERIOD);
-    }
-    if ((parametersSet & VEHPARS_PROB_SET) == 0) {
-        myAttributesDisabled.insert(SUMO_ATTR_PROB);
-    };
-}
 /****************************************************************************/

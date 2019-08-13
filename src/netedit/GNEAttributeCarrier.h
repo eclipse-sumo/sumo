@@ -569,7 +569,7 @@ public:
     /* @brief method for check if the value for certain attribute is set
      * @param[in] key The attribute key
      */
-    bool isAttributeEnabled(SumoXMLAttr key) const;
+    virtual bool isAttributeEnabled(SumoXMLAttr key) const = 0;
 
     /// @brief get PopPup ID (Used in AC Hierarchy)
     virtual std::string getPopUpID() const = 0;
@@ -797,15 +797,12 @@ protected:
     /// @brief dummy TagProperty used for reference some elements (for Example, dummyEdge)
     static TagProperties dummyTagProperty;
 
-    /// @brief set with the disabled attributes (by default all attributes are enabled)
-    std::set<SumoXMLAttr> myAttributesDisabled;
-
 private:
     /// @brief method for setting the attribute and nothing else (used in GNEChange_Attribute)
     virtual void setAttribute(SumoXMLAttr key, const std::string& value) = 0;
 
     /// @brief method for enabling the attribute and nothing else (used in GNEChange_EnableAttribute)
-    virtual void enableAttribute(SumoXMLAttr key) = 0;
+    virtual void setEnabledAttribute(const int enabledAttributes) = 0;
 
     /// @brief fill Attribute Carriers
     static void fillAttributeCarriers();

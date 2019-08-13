@@ -25,6 +25,7 @@
 #include <netedit/GNEUndoList.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNEViewParent.h>
+#include <netedit/changes/GNEChange_EnableAttribute.h>
 #include <netedit/changes/GNEChange_Attribute.h>
 #include <netedit/frames/GNESelectorFrame.h>
 #include <netedit/netelements/GNEEdge.h>
@@ -704,7 +705,76 @@ GNEStop::isValid(SumoXMLAttr key, const std::string& value) {
 
 void 
 GNEStop::enableAttribute(SumoXMLAttr key, GNEUndoList* undoList) {
+    // obtain a copy of parameter sets
+    int newParametersSet = parametersSet;
+    // modify parametersSetCopy depending of attr
+    switch (key) {
+        case SUMO_ATTR_END: {
+            // give more priority to end
+            newParametersSet = VEHPARS_END_SET | VEHPARS_NUMBER_SET;
+            break;
+        }
+        case SUMO_ATTR_NUMBER:
+            newParametersSet ^= VEHPARS_END_SET;
+            newParametersSet |= VEHPARS_NUMBER_SET;
+            break;
+        case SUMO_ATTR_VEHSPERHOUR: {
+            // give more priority to end
+            if ((newParametersSet & VEHPARS_END_SET) && (newParametersSet & VEHPARS_NUMBER_SET)) {
+                newParametersSet = VEHPARS_END_SET;
+            } else if (newParametersSet & VEHPARS_END_SET) {
+                newParametersSet = VEHPARS_END_SET;
+            } else if (newParametersSet & VEHPARS_NUMBER_SET) {
+                newParametersSet = VEHPARS_NUMBER_SET;
+            }
+            // set VehsPerHour
+            newParametersSet |= VEHPARS_VPH_SET;
+            break;
+        }
+        case SUMO_ATTR_PERIOD: {
+            // give more priority to end
+            if ((newParametersSet & VEHPARS_END_SET) && (newParametersSet & VEHPARS_NUMBER_SET)) {
+                newParametersSet = VEHPARS_END_SET;
+            } else if (newParametersSet & VEHPARS_END_SET) {
+                newParametersSet = VEHPARS_END_SET;
+            } else if (newParametersSet & VEHPARS_NUMBER_SET) {
+                newParametersSet = VEHPARS_NUMBER_SET;
+            }
+            // set period
+            newParametersSet |= VEHPARS_PERIOD_SET;
+            break;
+        }
+        case SUMO_ATTR_PROB: {
+            // give more priority to end
+            if ((newParametersSet & VEHPARS_END_SET) && (newParametersSet & VEHPARS_NUMBER_SET)) {
+                newParametersSet = VEHPARS_END_SET;
+            } else if (newParametersSet & VEHPARS_END_SET) {
+                newParametersSet = VEHPARS_END_SET;
+            } else if (newParametersSet & VEHPARS_NUMBER_SET) {
+                newParametersSet = VEHPARS_NUMBER_SET;
+            }
+            // set probability
+            newParametersSet |= VEHPARS_PROB_SET;
+            break;
+        }
+        default:
+            break;
+    }
+    // add GNEChange_EnableAttribute
+    undoList->add(new GNEChange_EnableAttribute(this, myViewNet->getNet(), parametersSet, newParametersSet), true);
+}
 
+
+bool
+GNEStop::isAttributeEnabled(SumoXMLAttr key) const {
+    switch (key) {
+        case SUMO_ATTR_EXPECTED:
+            return (parametersSet & STOP_TRIGGER_SET) != 0;
+        case SUMO_ATTR_EXPECTED_CONTAINERS:
+            return (parametersSet & STOP_CONTAINER_TRIGGER_SET) != 0;
+        default:
+            return true;
+    };
 }
 
 
@@ -937,7 +1007,8 @@ GNEStop::setAttribute(SumoXMLAttr key, const std::string& value) {
 
 
 void 
-GNEStop::enableAttribute(SumoXMLAttr key) {
+GNEStop::setEnabledAttribute(const int enabledAttributes) {
+    parametersSet = enabledAttributes;
 }
 
 /****************************************************************************/
