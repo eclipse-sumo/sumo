@@ -69,6 +69,7 @@ fillOptions() {
     oc.addOptionSubTopic("Unregulated Nodes");
     oc.addOptionSubTopic("Junctions");
     oc.addOptionSubTopic("Pedestrian");
+    oc.addOptionSubTopic("Bicycle");
     oc.addOptionSubTopic("Railway");
     oc.addOptionSubTopic("Formats");
     SystemFrame::addReportOptions(oc); // this subtopic is filled here, too

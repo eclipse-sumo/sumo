@@ -330,23 +330,23 @@ NBFrame::fillOptions(bool forNetgen) {
                       "Do not guess sidewalks for the given list of edges");
 
     oc.doRegister("bikelanes.guess", new Option_Bool(false));
-    oc.addDescription("bikelanes.guess", "Pedestrian",
+    oc.addDescription("bikelanes.guess", "Bicycle",
                       "Guess bike lanes based on edge speed");
 
     oc.doRegister("bikelanes.guess.max-speed", new Option_Float((double) 22.22));
-    oc.addDescription("bikelanes.guess.max-speed", "Pedestrian",
+    oc.addDescription("bikelanes.guess.max-speed", "Bicycle",
                       "Add bike lanes for edges with a speed equal or below the given limit");
 
     oc.doRegister("bikelanes.guess.min-speed", new Option_Float((double) 5.8));
-    oc.addDescription("bikelanes.guess.min-speed", "Pedestrian",
+    oc.addDescription("bikelanes.guess.min-speed", "Bicycle",
                       "Add bike lanes for edges with a speed above the given limit");
 
     oc.doRegister("bikelanes.guess.from-permissions", new Option_Bool(false));
-    oc.addDescription("bikelanes.guess.from-permissions", "Pedestrian",
+    oc.addDescription("bikelanes.guess.from-permissions", "Bicycle",
                       "Add bike lanes for edges that allow bicycles on any of their lanes regardless of speed");
 
     oc.doRegister("bikelanes.guess.exclude", new Option_String());
-    oc.addDescription("bikelanes.guess.exclude", "Pedestrian",
+    oc.addDescription("bikelanes.guess.exclude", "Bicycle",
                       "Do not guess bikelanes for the given list of edges");
 
     oc.doRegister("crossings.guess", new Option_Bool(false));

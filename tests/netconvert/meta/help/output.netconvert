@@ -1,4 +1,4 @@
-Eclipse SUMO netconvert Version v1_2_0+1565-7b37d4a
+Eclipse SUMO netconvert Version v1_2_0+1567-3b34009
  Copyright (C) 2001-2019 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 Network importer / builder for the microscopic, multi-modal traffic simulation
   SUMO.
@@ -409,6 +409,15 @@ Pedestrian Options:
                                          regardless of speed
   --sidewalks.guess.exclude STR        Do not guess sidewalks for the given
                                          list of edges
+  --crossings.guess                    Guess pedestrian crossings based on the
+                                         presence of sidewalks
+  --crossings.guess.speed-threshold FLOAT  At uncontrolled nodes, do not build
+                                         crossings across edges with a speed
+                                         above the threshold
+  --walkingareas                       Always build walking areas even if there
+                                         are no crossings
+
+Bicycle Options:
   --bikelanes.guess                    Guess bike lanes based on edge speed
   --bikelanes.guess.max-speed FLOAT    Add bike lanes for edges with a speed
                                          equal or below the given limit
@@ -419,13 +428,6 @@ Pedestrian Options:
                                          regardless of speed
   --bikelanes.guess.exclude STR        Do not guess bikelanes for the given
                                          list of edges
-  --crossings.guess                    Guess pedestrian crossings based on the
-                                         presence of sidewalks
-  --crossings.guess.speed-threshold FLOAT  At uncontrolled nodes, do not build
-                                         crossings across edges with a speed
-                                         above the threshold
-  --walkingareas                       Always build walking areas even if there
-                                         are no crossings
 
 Railway Options:
   --railway.signals.discard            Discard all railway signal information

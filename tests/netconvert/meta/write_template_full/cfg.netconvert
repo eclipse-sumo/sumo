@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Aug 13 17:18:55 2019 by Eclipse SUMO netconvert Version v1_2_0+1565-7b37d4a
+<!-- generated on Tue Aug 13 17:23:52 2019 by Eclipse SUMO netconvert Version v1_2_0+1567-3b34009
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -229,15 +229,18 @@
         <sidewalks.guess.min-speed value="5.8" type="FLOAT" help="Add sidewalks for edges with a speed above the given limit"/>
         <sidewalks.guess.from-permissions value="false" type="BOOL" help="Add sidewalks for edges that allow pedestrians on any of their lanes regardless of speed"/>
         <sidewalks.guess.exclude value="" type="STR" help="Do not guess sidewalks for the given list of edges"/>
+        <crossings.guess value="false" type="BOOL" help="Guess pedestrian crossings based on the presence of sidewalks"/>
+        <crossings.guess.speed-threshold value="13.89" type="FLOAT" help="At uncontrolled nodes, do not build crossings across edges with a speed above the threshold"/>
+        <walkingareas value="false" type="BOOL" help="Always build walking areas even if there are no crossings"/>
+    </pedestrian>
+
+    <bicycle>
         <bikelanes.guess value="false" type="BOOL" help="Guess bike lanes based on edge speed"/>
         <bikelanes.guess.max-speed value="22.22" type="FLOAT" help="Add bike lanes for edges with a speed equal or below the given limit"/>
         <bikelanes.guess.min-speed value="5.8" type="FLOAT" help="Add bike lanes for edges with a speed above the given limit"/>
         <bikelanes.guess.from-permissions value="false" type="BOOL" help="Add bike lanes for edges that allow bicycles on any of their lanes regardless of speed"/>
         <bikelanes.guess.exclude value="" type="STR" help="Do not guess bikelanes for the given list of edges"/>
-        <crossings.guess value="false" type="BOOL" help="Guess pedestrian crossings based on the presence of sidewalks"/>
-        <crossings.guess.speed-threshold value="13.89" type="FLOAT" help="At uncontrolled nodes, do not build crossings across edges with a speed above the threshold"/>
-        <walkingareas value="false" type="BOOL" help="Always build walking areas even if there are no crossings"/>
-    </pedestrian>
+    </bicycle>
 
     <railway>
         <railway.signals.discard value="false" type="BOOL" help="Discard all railway signal information loaded from other formats than plain-xml"/>

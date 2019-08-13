@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Aug 13 17:19:00 2019 by Eclipse SUMO netconvert Version v1_2_0+1565-7b37d4a
+<!-- generated on Tue Aug 13 17:23:57 2019 by Eclipse SUMO netconvert Version v1_2_0+1567-3b34009
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -609,6 +609,18 @@
         <!-- Do not guess sidewalks for the given list of edges -->
         <sidewalks.guess.exclude value="" type="STR"/>
 
+        <!-- Guess pedestrian crossings based on the presence of sidewalks -->
+        <crossings.guess value="false" type="BOOL"/>
+
+        <!-- At uncontrolled nodes, do not build crossings across edges with a speed above the threshold -->
+        <crossings.guess.speed-threshold value="13.89" type="FLOAT"/>
+
+        <!-- Always build walking areas even if there are no crossings -->
+        <walkingareas value="false" type="BOOL"/>
+
+    </pedestrian>
+
+    <bicycle>
         <!-- Guess bike lanes based on edge speed -->
         <bikelanes.guess value="false" type="BOOL"/>
 
@@ -624,16 +636,7 @@
         <!-- Do not guess bikelanes for the given list of edges -->
         <bikelanes.guess.exclude value="" type="STR"/>
 
-        <!-- Guess pedestrian crossings based on the presence of sidewalks -->
-        <crossings.guess value="false" type="BOOL"/>
-
-        <!-- At uncontrolled nodes, do not build crossings across edges with a speed above the threshold -->
-        <crossings.guess.speed-threshold value="13.89" type="FLOAT"/>
-
-        <!-- Always build walking areas even if there are no crossings -->
-        <walkingareas value="false" type="BOOL"/>
-
-    </pedestrian>
+    </bicycle>
 
     <railway>
         <!-- Discard all railway signal information loaded from other formats than plain-xml -->
