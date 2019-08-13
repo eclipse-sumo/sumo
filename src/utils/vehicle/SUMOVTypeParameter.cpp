@@ -323,8 +323,7 @@ SUMOVTypeParameter::write(OutputDevice& dev) const {
         // Note: action step length is only exposed in seconds to the user
         dev.writeAttr(SUMO_ATTR_ACTIONSTEPLENGTH, STEPS2TIME(actionStepLength));
     }
-    if (wasSet(VTYPEPARS_ACTIONSTEPLENGTH_SET)) {
-        // Note: action step length is only exposed in seconds to the user
+    if (wasSet(VTYPEPARS_HASDRIVERSTATE_SET)) {
         dev.writeAttr(SUMO_ATTR_HASDRIVERSTATE, hasDriverState);
     }
     if (wasSet(VTYPEPARS_VEHICLECLASS_SET)) {
