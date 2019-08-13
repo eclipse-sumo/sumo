@@ -126,6 +126,8 @@ StringBijection<int>::Entry NIImporter_Vissim::vissimTags[] = {
     { "links",            NIImporter_Vissim::VISSIM_TAG_LINKS },
     { "points3D",         NIImporter_Vissim::VISSIM_TAG_POINTS3D },
     { "point3D",          NIImporter_Vissim::VISSIM_TAG_POINT3D },
+    { "linkPolyPoint",    NIImporter_Vissim::VISSIM_TAG_LINKPOLYPOINT },
+    { "linkPolyPts",      NIImporter_Vissim::VISSIM_TAG_LINKPOLYPTS },
     { "fromLinkEndPt",    NIImporter_Vissim::VISSIM_TAG_FROM },
     { "toLinkEndPt",      NIImporter_Vissim::VISSIM_TAG_TO },
     { "vehicleInput",     NIImporter_Vissim::VISSIM_TAG_VEHICLE_INPUT },
@@ -262,7 +264,7 @@ NIImporter_Vissim::NIVissimXMLHandler_Streckendefinition::myStartElement(int ele
         myElemData["to_lane"].push_back(to[1]);
     }
 
-    if (element == VISSIM_TAG_POINT3D) {
+    if (element == VISSIM_TAG_POINT3D || element == VISSIM_TAG_LINKPOLYPOINT) {
         bool ok = true;
         // create a <sep> separated string of coordinate data
         std::string sep(" ");
