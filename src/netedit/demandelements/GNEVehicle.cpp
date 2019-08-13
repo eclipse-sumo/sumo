@@ -1563,6 +1563,8 @@ GNEVehicle::setAttribute(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_ID:
             changeDemandElementID(value);
+            // set manually vehicle ID (needed for saving)
+            id = value;
             break;
         case SUMO_ATTR_TYPE:
             changeDemandElementParent(this, value, 0);
