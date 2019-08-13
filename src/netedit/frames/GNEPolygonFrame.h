@@ -21,6 +21,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
+
 #include "GNEFrame.h"
 
 // ===========================================================================
@@ -125,7 +126,7 @@ public:
     static std::string getIdsSelected(const FXList* list);
 
     /// @brief get drawing mode editor
-    DrawingShape* getDrawingShapeModul() const;
+    GNEFrameHelper::DrawingShape* getDrawingShapeModul() const;
 
 protected:
     /**@brief build a shaped element using the drawed shape
@@ -148,16 +149,16 @@ protected:
 
 private:
     /// @brief shape tag selector
-    TagSelector* myShapeTagSelector;
+    GNEFrameHelper::TagSelector* myShapeTagSelector;
 
     /// @brief shape internal attributes
-    AttributesCreator* myShapeAttributes;
+    GNEFrameHelper::AttributesCreator* myShapeAttributes;
 
     /// @brief Netedit parameter
-    NeteditAttributes* myNeteditAttributes;
+    GNEFrameHelper::NeteditAttributes* myNeteditAttributes;
 
     /// @brief Drawing shape
-    DrawingShape* myDrawingShape;
+    GNEFrameHelper::DrawingShape* myDrawingShape;
 
     /// @brief GEOPOICreator
     GEOPOICreator* myGEOPOICreator;

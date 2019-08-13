@@ -184,19 +184,19 @@ protected:
 
 private:
     /// @brief Person selectors
-    DemandElementSelector* myPersonSelector;
+    GNEFrameHelper::DemandElementSelector* myPersonSelector;
 
     /// @brief personPlan selector
-    TagSelector* myPersonPlanTagSelector;
+    GNEFrameHelper::TagSelector* myPersonPlanTagSelector;
 
     /// @brief internal vehicle attributes
-    AttributesCreator* myPersonPlanAttributes;
+    GNEFrameHelper::AttributesCreator* myPersonPlanAttributes;
 
     /// @brief Person Plan Creator
     PersonPlanCreator* myPersonPlanCreator;
 
     /// @brief Person Hierarchy
-    AttributeCarrierHierarchy* myPersonHierarchy;
+    GNEFrameHelper::AttributeCarrierHierarchy* myPersonHierarchy;
 
     /// @brief Help creation
     HelpCreation* myHelpCreation;

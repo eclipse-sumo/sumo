@@ -288,7 +288,7 @@ private:
     RouteModeSelector* myRouteModeSelector;
 
     /// @brief internal additional attributes
-    AttributesCreator* myRouteAttributes;
+    GNEFrameHelper::AttributesCreator* myRouteAttributes;
 
     /// @brief Create routes using consecutive edges modul
     ConsecutiveEdges* myConsecutiveEdges;

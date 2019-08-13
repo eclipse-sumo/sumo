@@ -1,6 +1,8 @@
 set(netedit_frames_SRCS
    GNEFrame.h
    GNEFrame.cpp
+   GNEFrameHelper.h
+   GNEFrameHelper.cpp
    GNEInspectorFrame.h
    GNEInspectorFrame.cpp
    GNESelectorFrame.h

@@ -94,13 +94,13 @@ GNEInspectorFrame::GNEInspectorFrame(FXHorizontalFrame* horizontalFrameParent, G
     myOverlappedInspection = new OverlappedInspection(this);
 
     // Create Attributes Editor modul
-    myAttributesEditor = new AttributesEditor(this);
+    myAttributesEditor = new GNEFrameHelper::AttributesEditor(this);
 
     // Create GEO Parameters Editor modul
     myGEOAttributesEditor = new GEOAttributesEditor(this);
 
     // create Generic parameters Editor modul
-    myGenericParametersEditor = new GenericParametersEditor(this);
+    myGenericParametersEditor = new GNEFrameHelper::GenericParametersEditor(this);
 
     // Create Netedit Attributes Editor modul
     myNeteditAttributesEditor = new NeteditAttributesEditor(this);
@@ -109,7 +109,7 @@ GNEInspectorFrame::GNEInspectorFrame(FXHorizontalFrame* horizontalFrameParent, G
     myTemplateEditor = new TemplateEditor(this);
 
     // Create AttributeCarrierHierarchy modul
-    myAttributeCarrierHierarchy = new GNEFrame::AttributeCarrierHierarchy(this);
+    myAttributeCarrierHierarchy = new GNEFrameHelper::AttributeCarrierHierarchy(this);
 }
 
 
@@ -335,7 +335,7 @@ GNEInspectorFrame::clearInspectedAC() {
 }
 
 
-GNEFrame::AttributesEditor*
+GNEFrameHelper::AttributesEditor*
 GNEInspectorFrame::getAttributesEditor() const {
     return myAttributesEditor;
 }

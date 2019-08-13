@@ -110,16 +110,16 @@ GNEStopFrame::GNEStopFrame(FXHorizontalFrame* horizontalFrameParent, GNEViewNet*
     GNEFrame(horizontalFrameParent, viewNet, "Stops") {
 
     // Create Stop parent selector
-    myStopParentSelector = new DemandElementSelector(this, {GNEAttributeCarrier::TagType::TAGTYPE_PERSON, GNEAttributeCarrier::TagType::TAGTYPE_VEHICLE, GNEAttributeCarrier::TagType::TAGTYPE_ROUTE});
+    myStopParentSelector = new GNEFrameHelper::DemandElementSelector(this, {GNEAttributeCarrier::TagType::TAGTYPE_PERSON, GNEAttributeCarrier::TagType::TAGTYPE_VEHICLE, GNEAttributeCarrier::TagType::TAGTYPE_ROUTE});
 
     // Create item Selector modul for Stops
-    myStopTagSelector = new TagSelector(this, GNEAttributeCarrier::TagType::TAGTYPE_STOP);
+    myStopTagSelector = new GNEFrameHelper::TagSelector(this, GNEAttributeCarrier::TagType::TAGTYPE_STOP);
 
     // Create Stop parameters
-    myStopAttributes = new AttributesCreator(this);
+    myStopAttributes = new GNEFrameHelper::AttributesCreator(this);
 
     // Create Netedit parameter
-    myNeteditAttributes = new NeteditAttributes(this);
+    myNeteditAttributes = new GNEFrameHelper::NeteditAttributes(this);
 
     // Create Help Creation Modul
     myHelpCreation = new HelpCreation(this);
@@ -182,7 +182,7 @@ GNEStopFrame::addStop(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCu
 
 bool
 GNEStopFrame::getStopParameter(SUMOVehicleParameter::Stop &stop, bool &friendlyPosition, const SumoXMLTag stopTag, 
-                               GNEViewNet *viewNet, const AttributesCreator* stopAttributes, const NeteditAttributes* myNeteditAttributes, 
+                               GNEViewNet *viewNet, const GNEFrameHelper::AttributesCreator* stopAttributes, const GNEFrameHelper::NeteditAttributes* myNeteditAttributes, 
                                const GNELane *lane, const GNEAdditional* stoppingPlace) {
     // first check that current selected Stop is valid
     if (stopTag == SUMO_TAG_NOTHING) {

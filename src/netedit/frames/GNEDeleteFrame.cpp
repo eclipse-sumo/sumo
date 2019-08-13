@@ -89,7 +89,7 @@ GNEDeleteFrame::GNEDeleteFrame(FXHorizontalFrame* horizontalFrameParent, GNEView
     myDeleteOptions = new DeleteOptions(this);
 
     // Create groupbox and tree list
-    myAttributeCarrierHierarchy = new GNEFrame::AttributeCarrierHierarchy(this);
+    myAttributeCarrierHierarchy = new GNEFrameHelper::AttributeCarrierHierarchy(this);
 }
 
 

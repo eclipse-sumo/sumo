@@ -137,25 +137,25 @@ GNEPersonFrame::GNEPersonFrame(FXHorizontalFrame* horizontalFrameParent, GNEView
     GNEFrame(horizontalFrameParent, viewNet, "Persons") {
 
     // create tag Selector modul for persons
-    myPersonTagSelector = new TagSelector(this, GNEAttributeCarrier::TagType::TAGTYPE_PERSON);
+    myPersonTagSelector = new GNEFrameHelper::TagSelector(this, GNEAttributeCarrier::TagType::TAGTYPE_PERSON);
 
     // create person types selector modul
-    myPTypeSelector = new DemandElementSelector(this, SUMO_TAG_PTYPE);
+    myPTypeSelector = new GNEFrameHelper::DemandElementSelector(this, SUMO_TAG_PTYPE);
 
      // create person attributes
-    myPersonAttributes = new AttributesCreator(this);
+    myPersonAttributes = new GNEFrameHelper::AttributesCreator(this);
 
     // create tag Selector modul for person plans
-    myPersonPlanTagSelector = new TagSelector(this, GNEAttributeCarrier::TagType::TAGTYPE_PERSONPLAN);
+    myPersonPlanTagSelector = new GNEFrameHelper::TagSelector(this, GNEAttributeCarrier::TagType::TAGTYPE_PERSONPLAN);
 
     // create person plan attributes
-    myPersonPlanAttributes = new AttributesCreator(this);
+    myPersonPlanAttributes = new GNEFrameHelper::AttributesCreator(this);
 
     // Create Netedit parameter
-    myNeteditAttributes = new NeteditAttributes(this);
+    myNeteditAttributes = new GNEFrameHelper::NeteditAttributes(this);
 
     // create EdgePathCreator Modul
-    myEdgePathCreator = new EdgePathCreator(this, EdgePathCreator::EdgePathCreatorModes::GNE_EDGEPATHCREATOR_FROM_TO_VIA);
+    myEdgePathCreator = new GNEFrameHelper::EdgePathCreator(this, GNEFrameHelper::EdgePathCreator::EdgePathCreatorModes::GNE_EDGEPATHCREATOR_FROM_TO_VIA);
 
     // create Help Creation Modul
     myHelpCreation = new HelpCreation(this);
@@ -222,7 +222,7 @@ GNEPersonFrame::addPerson(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnd
 }
 
 
-GNEPersonFrame::EdgePathCreator*
+GNEFrameHelper::EdgePathCreator*
 GNEPersonFrame::getEdgePathCreator() const {
     return myEdgePathCreator;
 }

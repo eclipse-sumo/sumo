@@ -83,7 +83,7 @@ public:
     bool addVehicle(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor);
 
     /// @brief get EdgePathCreator modul
-    EdgePathCreator* getEdgePathCreator() const;
+    GNEFrameHelper::EdgePathCreator* getEdgePathCreator() const;
 
 protected:
     /// @brief Tag selected in TagSelector
@@ -97,16 +97,16 @@ protected:
 
 private:
     /// @brief vehicle tag selector (used to select diffent kind of vehicles)
-    TagSelector* myVehicleTagSelector;
+    GNEFrameHelper::TagSelector* myVehicleTagSelector;
 
     /// @brief Vehicle Type selectors
-    DemandElementSelector* myVTypeSelector;
+    GNEFrameHelper::DemandElementSelector* myVTypeSelector;
 
     /// @brief internal vehicle attributes
-    AttributesCreator* myVehicleAttributes;
+    GNEFrameHelper::AttributesCreator* myVehicleAttributes;
 
     /// @brief edge path creator (used for trips and flows)
-    EdgePathCreator* myEdgePathCreator;
+    GNEFrameHelper::EdgePathCreator* myEdgePathCreator;
 
     /// @brief Help creation
     HelpCreation* myHelpCreation;

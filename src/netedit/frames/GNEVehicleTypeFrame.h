@@ -171,10 +171,10 @@ private:
     VehicleTypeSelector* myVehicleTypeSelector;
 
     /// @brief editorinternal vehicle type attributes
-    AttributesEditor* myVehicleTypeAttributesEditor;
+    GNEFrameHelper::AttributesEditor* myVehicleTypeAttributesEditor;
 
     /// @brief modul for open extended attributes dialog
-    AttributesEditorExtended* myAttributesEditorExtended;
+    GNEFrameHelper::AttributesEditorExtended* myAttributesEditorExtended;
 
     /// @brief Vehicle Type editor (Create, copy, etc.)
     VehicleTypeEditor* myVehicleTypeEditor;

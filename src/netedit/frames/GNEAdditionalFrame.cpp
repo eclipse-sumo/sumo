@@ -607,19 +607,19 @@ GNEAdditionalFrame::GNEAdditionalFrame(FXHorizontalFrame* horizontalFrameParent,
     GNEFrame(horizontalFrameParent, viewNet, "Additionals") {
 
     // create item Selector modul for additionals
-    myAdditionalTagSelector = new TagSelector(this, GNEAttributeCarrier::TagType::TAGTYPE_ADDITIONAL);
+    myAdditionalTagSelector = new GNEFrameHelper::TagSelector(this, GNEAttributeCarrier::TagType::TAGTYPE_ADDITIONAL);
 
     // Create additional parameters
-    myAdditionalAttributes = new AttributesCreator(this);
+    myAdditionalAttributes = new GNEFrameHelper::AttributesCreator(this);
 
     // Create Netedit parameter
-    myNeteditAttributes = new NeteditAttributes(this);
+    myNeteditAttributes = new GNEFrameHelper::NeteditAttributes(this);
 
     // Create consecutive Lane Selector
     mySelectorLaneParents = new SelectorLaneParents(this);
 
     // Create selector parent
-    myAdditionalParent = new SelectorParent(this);
+    myAdditionalParent = new GNEFrameHelper::SelectorParent(this);
 
     /// Create list for SelectorEdgeChildren
     mySelectorEdgeChildren = new SelectorEdgeChildren(this);

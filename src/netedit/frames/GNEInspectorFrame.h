@@ -372,7 +372,7 @@ public:
     void clearInspectedAC();
 
     /// @brief get AttributesEditor
-    GNEFrame::AttributesEditor* getAttributesEditor() const;
+    GNEFrameHelper::AttributesEditor* getAttributesEditor() const;
 
     /// @brief get template editor
     TemplateEditor* getTemplateEditor() const;
@@ -405,7 +405,7 @@ private:
     OverlappedInspection* myOverlappedInspection;
 
     /// @brief Attribute editor
-    AttributesEditor* myAttributesEditor;
+    GNEFrameHelper::AttributesEditor* myAttributesEditor;
 
     /// @brief Netedit Attributes editor
     NeteditAttributesEditor* myNeteditAttributesEditor;
@@ -414,13 +414,13 @@ private:
     GEOAttributesEditor* myGEOAttributesEditor;
 
     /// @brief Generic parameters editor
-    GenericParametersEditor* myGenericParametersEditor;
+    GNEFrameHelper::GenericParametersEditor* myGenericParametersEditor;
 
     /// @brief Template editor
     TemplateEditor* myTemplateEditor;
 
     /// @brief Attribute Carrier Hierarchy
-    GNEFrame::AttributeCarrierHierarchy* myAttributeCarrierHierarchy;
+    GNEFrameHelper::AttributeCarrierHierarchy* myAttributeCarrierHierarchy;
 
     /// @brief back Button
     FXButton* myBackButton;
