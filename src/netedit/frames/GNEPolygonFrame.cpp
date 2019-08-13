@@ -216,16 +216,16 @@ GNEPolygonFrame::GNEPolygonFrame(FXHorizontalFrame* horizontalFrameParent, GNEVi
     GNEFrame(horizontalFrameParent, viewNet, "Shapes") {
 
     // create item Selector modul for shapes
-    myShapeTagSelector = new GNEFrameHelper::TagSelector(this, GNEAttributeCarrier::TagType::TAGTYPE_SHAPE);
+    myShapeTagSelector = new GNEFrameModuls::TagSelector(this, GNEAttributeCarrier::TagType::TAGTYPE_SHAPE);
 
     // Create shape parameters
-    myShapeAttributes = new GNEFrameHelper::AttributesCreator(this);
+    myShapeAttributes = new GNEFrameAttributesModuls::AttributesCreator(this);
 
     // Create Netedit parameter
-    myNeteditAttributes = new GNEFrameHelper::NeteditAttributes(this);
+    myNeteditAttributes = new GNEFrameAttributesModuls::NeteditAttributes(this);
 
     // Create drawing controls
-    myDrawingShape = new GNEFrameHelper::DrawingShape(this);
+    myDrawingShape = new GNEFrameModuls::DrawingShape(this);
 
     /// @brief create GEOPOICreator
     myGEOPOICreator = new GEOPOICreator(this);
@@ -338,7 +338,7 @@ GNEPolygonFrame::getIdsSelected(const FXList* list) {
 }
 
 
-GNEFrameHelper::DrawingShape*
+GNEFrameModuls::DrawingShape*
 GNEPolygonFrame::getDrawingShapeModul() const {
     return myDrawingShape;
 }

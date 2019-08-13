@@ -137,25 +137,25 @@ GNEPersonFrame::GNEPersonFrame(FXHorizontalFrame* horizontalFrameParent, GNEView
     GNEFrame(horizontalFrameParent, viewNet, "Persons") {
 
     // create tag Selector modul for persons
-    myPersonTagSelector = new GNEFrameHelper::TagSelector(this, GNEAttributeCarrier::TagType::TAGTYPE_PERSON);
+    myPersonTagSelector = new GNEFrameModuls::TagSelector(this, GNEAttributeCarrier::TagType::TAGTYPE_PERSON);
 
     // create person types selector modul
-    myPTypeSelector = new GNEFrameHelper::DemandElementSelector(this, SUMO_TAG_PTYPE);
+    myPTypeSelector = new GNEFrameModuls::DemandElementSelector(this, SUMO_TAG_PTYPE);
 
      // create person attributes
-    myPersonAttributes = new GNEFrameHelper::AttributesCreator(this);
+    myPersonAttributes = new GNEFrameAttributesModuls::AttributesCreator(this);
 
     // create tag Selector modul for person plans
-    myPersonPlanTagSelector = new GNEFrameHelper::TagSelector(this, GNEAttributeCarrier::TagType::TAGTYPE_PERSONPLAN);
+    myPersonPlanTagSelector = new GNEFrameModuls::TagSelector(this, GNEAttributeCarrier::TagType::TAGTYPE_PERSONPLAN);
 
     // create person plan attributes
-    myPersonPlanAttributes = new GNEFrameHelper::AttributesCreator(this);
+    myPersonPlanAttributes = new GNEFrameAttributesModuls::AttributesCreator(this);
 
     // Create Netedit parameter
-    myNeteditAttributes = new GNEFrameHelper::NeteditAttributes(this);
+    myNeteditAttributes = new GNEFrameAttributesModuls::NeteditAttributes(this);
 
     // create EdgePathCreator Modul
-    myEdgePathCreator = new GNEFrameHelper::EdgePathCreator(this, GNEFrameHelper::EdgePathCreator::EdgePathCreatorModes::GNE_EDGEPATHCREATOR_FROM_TO_VIA);
+    myEdgePathCreator = new GNEFrameModuls::EdgePathCreator(this, GNEFrameModuls::EdgePathCreator::EdgePathCreatorModes::GNE_EDGEPATHCREATOR_FROM_TO_VIA);
 
     // create Help Creation Modul
     myHelpCreation = new HelpCreation(this);
@@ -222,7 +222,7 @@ GNEPersonFrame::addPerson(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnd
 }
 
 
-GNEFrameHelper::EdgePathCreator*
+GNEFrameModuls::EdgePathCreator*
 GNEPersonFrame::getEdgePathCreator() const {
     return myEdgePathCreator;
 }

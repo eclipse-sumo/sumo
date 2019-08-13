@@ -126,7 +126,7 @@ public:
     static std::string getIdsSelected(const FXList* list);
 
     /// @brief get drawing mode editor
-    GNEFrameHelper::DrawingShape* getDrawingShapeModul() const;
+    GNEFrameModuls::DrawingShape* getDrawingShapeModul() const;
 
 protected:
     /**@brief build a shaped element using the drawed shape
@@ -149,16 +149,16 @@ protected:
 
 private:
     /// @brief shape tag selector
-    GNEFrameHelper::TagSelector* myShapeTagSelector;
+    GNEFrameModuls::TagSelector* myShapeTagSelector;
 
     /// @brief shape internal attributes
-    GNEFrameHelper::AttributesCreator* myShapeAttributes;
+    GNEFrameAttributesModuls::AttributesCreator* myShapeAttributes;
 
     /// @brief Netedit parameter
-    GNEFrameHelper::NeteditAttributes* myNeteditAttributes;
+    GNEFrameAttributesModuls::NeteditAttributes* myNeteditAttributes;
 
     /// @brief Drawing shape
-    GNEFrameHelper::DrawingShape* myDrawingShape;
+    GNEFrameModuls::DrawingShape* myDrawingShape;
 
     /// @brief GEOPOICreator
     GEOPOICreator* myGEOPOICreator;

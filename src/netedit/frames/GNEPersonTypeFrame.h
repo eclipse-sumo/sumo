@@ -168,7 +168,7 @@ private:
     PersonTypeSelector* myPersonTypeSelector;
 
     /// @brief editorinternal person type attributes
-    GNEFrameHelper::AttributesEditor* myPersonTypeAttributesEditor;
+    GNEFrameAttributesModuls::AttributesEditor* myPersonTypeAttributesEditor;
 
     /// @brief Vehicle Type editor (Create, copy, etc.)
     PersonTypeEditor* myPersonTypeEditor;

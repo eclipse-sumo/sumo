@@ -721,7 +721,7 @@ GNERouteFrame::GNERouteFrame(FXHorizontalFrame* horizontalFrameParent, GNEViewNe
     myRouteModeSelector = new RouteModeSelector(this);
 
     // Create route parameters
-    myRouteAttributes = new GNEFrameHelper::AttributesCreator(this);
+    myRouteAttributes = new GNEFrameAttributesModuls::AttributesCreator(this);
 
     // create consecutive edges modul
     myConsecutiveEdges = new ConsecutiveEdges(this);

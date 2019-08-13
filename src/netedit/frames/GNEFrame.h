@@ -21,7 +21,8 @@
 // included modules
 // ===========================================================================
 
-#include "GNEFrameHelper.h"
+#include "GNEFrameModuls.h"
+#include "GNEFrameAttributesModuls.h"
 
 // ===========================================================================
 // class definitions
@@ -34,7 +35,8 @@
 class GNEFrame : public FXVerticalFrame {
 
     /// @brief friend class
-    friend class GNEFrameHelper;
+    friend class GNEFrameModuls;
+    friend class GNEFrameAttributesModuls;
 
 public:
     /**@brief Constructor

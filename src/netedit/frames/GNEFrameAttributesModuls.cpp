@@ -7,12 +7,12 @@
 // http://www.eclipse.org/legal/epl-v20.html
 // SPDX-License-Identifier: EPL-2.0
 /****************************************************************************/
-/// @file    GNEFrame.cpp
+/// @file    GNEFrameAttributesModuls.h
 /// @author  Pablo Alvarez Lopez
-/// @date    Jun 2016
+/// @date    Aug 2019
 /// @version $Id$
 ///
-// The Widget for add additional elements
+// Auxiliar class for GNEFrame Moduls (only for attributes edition)
 /****************************************************************************/
 
 // ===========================================================================
@@ -21,119 +21,77 @@
 
 #include <config.h>
 
-#include <netedit/GNEApplicationWindow.h>
 #include <netedit/GNENet.h>
 #include <netedit/GNEUndoList.h>
 #include <netedit/GNEViewNet.h>
-#include <netedit/GNEViewParent.h>
-#include <netedit/additionals/GNEPOI.h>
-#include <netedit/additionals/GNETAZ.h>
-#include <netedit/changes/GNEChange_Children.h>
-#include <netedit/demandelements/GNEDemandElement.h>
 #include <netedit/dialogs/GNEDialog_AllowDisallow.h>
 #include <netedit/dialogs/GNEGenericParameterDialog.h>
-#include <netedit/netelements/GNEConnection.h>
-#include <netedit/netelements/GNECrossing.h>
-#include <netedit/netelements/GNEEdge.h>
-#include <netedit/netelements/GNEJunction.h>
 #include <netedit/netelements/GNELane.h>
 #include <utils/common/StringTokenizer.h>
-#include <utils/foxtools/MFXMenuHeader.h>
-#include <utils/gui/div/GLHelper.h>
 #include <utils/gui/div/GUIDesigns.h>
-#include <utils/gui/globjects/GLIncludes.h>
 #include <utils/gui/images/GUITexturesHelper.h>
 #include <utils/gui/windows/GUIAppEnum.h>
 #include <utils/vehicle/SUMOVehicleParameter.h>
 
 #include "GNEFrame.h"
-#include "GNEFrameHelper.h"
-#include "GNEInspectorFrame.h"
+#include "GNEFrameAttributesModuls.h"
 
 
 // ===========================================================================
 // FOX callback mapping
 // ===========================================================================
 
-FXDEFMAP(GNEFrameHelper::TagSelector) TagSelectorMap[] = {
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_TAGTYPE_SELECTED,    GNEFrameHelper::TagSelector::onCmdSelectTagType),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_TAG_SELECTED,        GNEFrameHelper::TagSelector::onCmdSelectTag)
+FXDEFMAP(GNEFrameAttributesModuls::AttributesCreatorRow) RowCreatorMap[] = {
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE,              GNEFrameAttributesModuls::AttributesCreatorRow::onCmdSetAttribute),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE_BOOL,         GNEFrameAttributesModuls::AttributesCreatorRow::onCmdSelectCheckButton),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE_DIALOG,       GNEFrameAttributesModuls::AttributesCreatorRow::onCmdSelectColorButton),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE_RADIOBUTTON,  GNEFrameAttributesModuls::AttributesCreatorRow::onCmdSelectRadioButton)
 };
 
-FXDEFMAP(GNEFrameHelper::DemandElementSelector) DemandElementSelectorMap[] = {
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_SET_TYPE,    GNEFrameHelper::DemandElementSelector::onCmdSelectDemandElement),
+FXDEFMAP(GNEFrameAttributesModuls::AttributesCreator) AttributesCreatorMap[] = {
+    FXMAPFUNC(SEL_COMMAND,  MID_HELP,   GNEFrameAttributesModuls::AttributesCreator::onCmdHelp)
 };
 
-FXDEFMAP(GNEFrameHelper::EdgePathCreator) EdgePathCreatorMap[] = {
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_EDGEPATH_ABORT,      GNEFrameHelper::EdgePathCreator::onCmdAbortRouteCreation),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_EDGEPATH_FINISH,     GNEFrameHelper::EdgePathCreator::onCmdFinishRouteCreation),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_EDGEPATH_REMOVELAST, GNEFrameHelper::EdgePathCreator::onCmdRemoveLastInsertedElement)
+FXDEFMAP(GNEFrameAttributesModuls::AttributesEditorRow) AttributesEditorRowMap[] = {
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE,              GNEFrameAttributesModuls::AttributesEditorRow::onCmdSetAttribute),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE_BOOL,         GNEFrameAttributesModuls::AttributesEditorRow::onCmdSelectCheckButton),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE_DIALOG,       GNEFrameAttributesModuls::AttributesEditorRow::onCmdOpenAttributeDialog),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE_RADIOBUTTON,  GNEFrameAttributesModuls::AttributesEditorRow::onCmdSelectRadioButton)
 };
 
-FXDEFMAP(GNEFrameHelper::AttributesCreatorRow) RowCreatorMap[] = {
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE,              GNEFrameHelper::AttributesCreatorRow::onCmdSetAttribute),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE_BOOL,         GNEFrameHelper::AttributesCreatorRow::onCmdSelectCheckButton),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE_DIALOG,       GNEFrameHelper::AttributesCreatorRow::onCmdSelectColorButton),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE_RADIOBUTTON,  GNEFrameHelper::AttributesCreatorRow::onCmdSelectRadioButton)
+FXDEFMAP(GNEFrameAttributesModuls::AttributesEditor) AttributesEditorMap[] = {
+    FXMAPFUNC(SEL_COMMAND,  MID_HELP,   GNEFrameAttributesModuls::AttributesEditor::onCmdAttributesEditorHelp)
 };
 
-FXDEFMAP(GNEFrameHelper::AttributesCreator) AttributesCreatorMap[] = {
-    FXMAPFUNC(SEL_COMMAND,  MID_HELP,   GNEFrameHelper::AttributesCreator::onCmdHelp)
+FXDEFMAP(GNEFrameAttributesModuls::AttributesEditorExtended) AttributesEditorExtendedMap[] = {
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE_DIALOG,   GNEFrameAttributesModuls::AttributesEditorExtended::onCmdOpenDialog)
 };
 
-FXDEFMAP(GNEFrameHelper::AttributesEditorRow) AttributesEditorRowMap[] = {
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE,              GNEFrameHelper::AttributesEditorRow::onCmdSetAttribute),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE_BOOL,         GNEFrameHelper::AttributesEditorRow::onCmdSelectCheckButton),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE_DIALOG,       GNEFrameHelper::AttributesEditorRow::onCmdOpenAttributeDialog),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE_RADIOBUTTON,  GNEFrameHelper::AttributesEditorRow::onCmdSelectRadioButton)
+FXDEFMAP(GNEFrameAttributesModuls::GenericParametersEditor) GenericParametersEditorMap[] = {
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE_DIALOG,   GNEFrameAttributesModuls::GenericParametersEditor::onCmdEditGenericParameter),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE,          GNEFrameAttributesModuls::GenericParametersEditor::onCmdSetGenericParameter)
 };
 
-FXDEFMAP(GNEFrameHelper::AttributesEditor) AttributesEditorMap[] = {
-    FXMAPFUNC(SEL_COMMAND,  MID_HELP,   GNEFrameHelper::AttributesEditor::onCmdAttributesEditorHelp)
+FXDEFMAP(GNEFrameAttributesModuls::DrawingShape) DrawingShapeMap[] = {
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_STARTDRAWING,   GNEFrameAttributesModuls::DrawingShape::onCmdStartDrawing),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_STOPDRAWING,    GNEFrameAttributesModuls::DrawingShape::onCmdStopDrawing),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_ABORTDRAWING,   GNEFrameAttributesModuls::DrawingShape::onCmdAbortDrawing)
 };
 
-FXDEFMAP(GNEFrameHelper::AttributesEditorExtended) AttributesEditorExtendedMap[] = {
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE_DIALOG,   GNEFrameHelper::AttributesEditorExtended::onCmdOpenDialog)
-};
-
-FXDEFMAP(GNEFrameHelper::AttributeCarrierHierarchy) AttributeCarrierHierarchyMap[] = {
-    FXMAPFUNC(SEL_COMMAND,              MID_GNE_CENTER,                     GNEFrameHelper::AttributeCarrierHierarchy::onCmdCenterItem),
-    FXMAPFUNC(SEL_COMMAND,              MID_GNE_INSPECT,                    GNEFrameHelper::AttributeCarrierHierarchy::onCmdInspectItem),
-    FXMAPFUNC(SEL_COMMAND,              MID_GNE_DELETE,                     GNEFrameHelper::AttributeCarrierHierarchy::onCmdDeleteItem),
-    FXMAPFUNC(SEL_COMMAND,              MID_GNE_ACHIERARCHY_MOVEUP,         GNEFrameHelper::AttributeCarrierHierarchy::onCmdMoveItemUp),
-    FXMAPFUNC(SEL_COMMAND,              MID_GNE_ACHIERARCHY_MOVEDOWN,       GNEFrameHelper::AttributeCarrierHierarchy::onCmdMoveItemDown),
-    FXMAPFUNC(SEL_RIGHTBUTTONRELEASE,   MID_GNE_ACHIERARCHY_SHOWCHILDMENU,  GNEFrameHelper::AttributeCarrierHierarchy::onCmdShowChildMenu)
-};
-
-FXDEFMAP(GNEFrameHelper::GenericParametersEditor) GenericParametersEditorMap[] = {
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE_DIALOG,   GNEFrameHelper::GenericParametersEditor::onCmdEditGenericParameter),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE,          GNEFrameHelper::GenericParametersEditor::onCmdSetGenericParameter)
-};
-
-FXDEFMAP(GNEFrameHelper::DrawingShape) DrawingShapeMap[] = {
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_STARTDRAWING,   GNEFrameHelper::DrawingShape::onCmdStartDrawing),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_STOPDRAWING,    GNEFrameHelper::DrawingShape::onCmdStopDrawing),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_ABORTDRAWING,   GNEFrameHelper::DrawingShape::onCmdAbortDrawing)
-};
-
-FXDEFMAP(GNEFrameHelper::NeteditAttributes) NeteditAttributesMap[] = {
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE,  GNEFrameHelper::NeteditAttributes::onCmdSetNeteditAttribute),
-    FXMAPFUNC(SEL_COMMAND,  MID_HELP,               GNEFrameHelper::NeteditAttributes::onCmdHelp)
+FXDEFMAP(GNEFrameAttributesModuls::NeteditAttributes) NeteditAttributesMap[] = {
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE,  GNEFrameAttributesModuls::NeteditAttributes::onCmdSetNeteditAttribute),
+    FXMAPFUNC(SEL_COMMAND,  MID_HELP,               GNEFrameAttributesModuls::NeteditAttributes::onCmdHelp)
 };
 
 // Object implementation
-FXIMPLEMENT(GNEFrameHelper::TagSelector,                  FXGroupBox,         TagSelectorMap,                 ARRAYNUMBER(TagSelectorMap))
-FXIMPLEMENT(GNEFrameHelper::DemandElementSelector,        FXGroupBox,         DemandElementSelectorMap,       ARRAYNUMBER(DemandElementSelectorMap))
-FXIMPLEMENT(GNEFrameHelper::EdgePathCreator,              FXGroupBox,         EdgePathCreatorMap,             ARRAYNUMBER(EdgePathCreatorMap))
-FXIMPLEMENT(GNEFrameHelper::AttributesCreatorRow,         FXHorizontalFrame,  RowCreatorMap,                  ARRAYNUMBER(RowCreatorMap))
-FXIMPLEMENT(GNEFrameHelper::AttributesCreator,            FXGroupBox,         AttributesCreatorMap,           ARRAYNUMBER(AttributesCreatorMap))
-FXIMPLEMENT(GNEFrameHelper::AttributesEditorRow,          FXHorizontalFrame,  AttributesEditorRowMap,         ARRAYNUMBER(AttributesEditorRowMap))
-FXIMPLEMENT(GNEFrameHelper::AttributesEditor,             FXGroupBox,         AttributesEditorMap,            ARRAYNUMBER(AttributesEditorMap))
-FXIMPLEMENT(GNEFrameHelper::AttributesEditorExtended,     FXGroupBox,         AttributesEditorExtendedMap,    ARRAYNUMBER(AttributesEditorExtendedMap))
-FXIMPLEMENT(GNEFrameHelper::AttributeCarrierHierarchy,    FXGroupBox,         AttributeCarrierHierarchyMap,   ARRAYNUMBER(AttributeCarrierHierarchyMap))
-FXIMPLEMENT(GNEFrameHelper::GenericParametersEditor,      FXGroupBox,         GenericParametersEditorMap,     ARRAYNUMBER(GenericParametersEditorMap))
-FXIMPLEMENT(GNEFrameHelper::DrawingShape,                 FXGroupBox,         DrawingShapeMap,                ARRAYNUMBER(DrawingShapeMap))
-FXIMPLEMENT(GNEFrameHelper::NeteditAttributes,            FXGroupBox,         NeteditAttributesMap,           ARRAYNUMBER(NeteditAttributesMap))
+FXIMPLEMENT(GNEFrameAttributesModuls::AttributesCreatorRow,         FXHorizontalFrame,  RowCreatorMap,                  ARRAYNUMBER(RowCreatorMap))
+FXIMPLEMENT(GNEFrameAttributesModuls::AttributesCreator,            FXGroupBox,         AttributesCreatorMap,           ARRAYNUMBER(AttributesCreatorMap))
+FXIMPLEMENT(GNEFrameAttributesModuls::AttributesEditorRow,          FXHorizontalFrame,  AttributesEditorRowMap,         ARRAYNUMBER(AttributesEditorRowMap))
+FXIMPLEMENT(GNEFrameAttributesModuls::AttributesEditor,             FXGroupBox,         AttributesEditorMap,            ARRAYNUMBER(AttributesEditorMap))
+FXIMPLEMENT(GNEFrameAttributesModuls::AttributesEditorExtended,     FXGroupBox,         AttributesEditorExtendedMap,    ARRAYNUMBER(AttributesEditorExtendedMap))
+FXIMPLEMENT(GNEFrameAttributesModuls::GenericParametersEditor,      FXGroupBox,         GenericParametersEditorMap,     ARRAYNUMBER(GenericParametersEditorMap))
+FXIMPLEMENT(GNEFrameAttributesModuls::DrawingShape,                 FXGroupBox,         DrawingShapeMap,                ARRAYNUMBER(DrawingShapeMap))
+FXIMPLEMENT(GNEFrameAttributesModuls::NeteditAttributes,            FXGroupBox,         NeteditAttributesMap,           ARRAYNUMBER(NeteditAttributesMap))
 
 
 // ===========================================================================
@@ -141,667 +99,10 @@ FXIMPLEMENT(GNEFrameHelper::NeteditAttributes,            FXGroupBox,         Ne
 // ===========================================================================
 
 // ---------------------------------------------------------------------------
-// GNEFrameHelper::TagSelector - methods
+// GNEFrameAttributesModuls::AttributesCreatorRow - methods
 // ---------------------------------------------------------------------------
 
-GNEFrameHelper::TagSelector::TagSelector(GNEFrame* frameParent, GNEAttributeCarrier::TagType type, bool onlyDrawables) :
-    FXGroupBox(frameParent->myContentFrame, "Element", GUIDesignGroupBoxFrame),
-    myFrameParent(frameParent) {
-    // first check that property is valid
-    switch (type) {
-        case GNEAttributeCarrier::TagType::TAGTYPE_NETELEMENT:
-            setText("Net elements");
-            break;
-        case GNEAttributeCarrier::TagType::TAGTYPE_ADDITIONAL:
-            setText("Additional elements");
-            break;
-        case GNEAttributeCarrier::TagType::TAGTYPE_SHAPE:
-            setText("Shape elements");
-            break;
-        case GNEAttributeCarrier::TagType::TAGTYPE_TAZ:
-            setText("TAZ elements");
-            break;
-        case GNEAttributeCarrier::TagType::TAGTYPE_VEHICLE:
-            setText("Vehicles");
-            break;
-        case GNEAttributeCarrier::TagType::TAGTYPE_STOP:
-            setText("Stops");
-            break;
-        case GNEAttributeCarrier::TagType::TAGTYPE_PERSON:
-            setText("Persons");
-            break;
-        case GNEAttributeCarrier::TagType::TAGTYPE_PERSONPLAN:
-            setText("Person plans");
-            // person plan type has four sub-groups
-            myListOfTagTypes.push_back(std::make_pair("person trips", GNEAttributeCarrier::TagType::TAGTYPE_PERSONTRIP));
-            myListOfTagTypes.push_back(std::make_pair("walks", GNEAttributeCarrier::TagType::TAGTYPE_WALK));
-            myListOfTagTypes.push_back(std::make_pair("rides", GNEAttributeCarrier::TagType::TAGTYPE_RIDE));
-            myListOfTagTypes.push_back(std::make_pair("stops", GNEAttributeCarrier::TagType::TAGTYPE_PERSONSTOP));
-            break;
-        case GNEAttributeCarrier::TagType::TAGTYPE_PERSONTRIP:
-            setText("Person trips");
-            break;
-        case GNEAttributeCarrier::TagType::TAGTYPE_WALK:
-            setText("Walks");
-            break;
-        case GNEAttributeCarrier::TagType::TAGTYPE_RIDE:
-            setText("Rides");
-            break;
-        case GNEAttributeCarrier::TagType::TAGTYPE_PERSONSTOP:
-            setText("Person stops");
-            break;
-        default:
-            throw ProcessError("invalid tag property");
-    }
-
-    // Create FXComboBox
-    myTagTypesMatchBox = new FXComboBox(this, GUIDesignComboBoxNCol, this, MID_GNE_TAGTYPE_SELECTED, GUIDesignComboBox);
-    // Create FXComboBox
-    myTagsMatchBox = new FXComboBox(this, GUIDesignComboBoxNCol, this, MID_GNE_TAG_SELECTED, GUIDesignComboBox);
-    // Fill comboBox depending of TagTypes
-    if (myListOfTagTypes.size() > 0) {
-        // fill myTypeMatchBox with list of tags
-        for (const auto& i : myListOfTagTypes) {
-            myTagTypesMatchBox->appendItem(i.first.c_str());
-        }
-        // Set visible items
-        myTagTypesMatchBox->setNumVisible((int)myTagTypesMatchBox->getNumItems());
-        // fill myListOfTags with personTrips (the first Tag Type)
-        myListOfTags = GNEAttributeCarrier::allowedTagsByCategory(GNEAttributeCarrier::TagType::TAGTYPE_PERSONTRIP, onlyDrawables);
-    } else {
-        myTagTypesMatchBox->hide();
-        // fill myListOfTags
-        myListOfTags = GNEAttributeCarrier::allowedTagsByCategory(type, onlyDrawables);
-
-    }
-    // fill myTypeMatchBox with list of tags
-    for (const auto& i : myListOfTags) {
-        myTagsMatchBox->appendItem(toString(i).c_str());
-    }
-    // Set visible items
-    myTagsMatchBox->setNumVisible((int)myTagsMatchBox->getNumItems());
-    // TagSelector is always shown
-    show();
-}
-
-
-GNEFrameHelper::TagSelector::~TagSelector() {}
-
-
-void
-GNEFrameHelper::TagSelector::showTagSelector() {
-    show();
-}
-
-
-void
-GNEFrameHelper::TagSelector::hideTagSelector() {
-    hide();
-}
-
-
-const GNEAttributeCarrier::TagProperties&
-GNEFrameHelper::TagSelector::getCurrentTagProperties() const {
-    return myCurrentTagProperties;
-}
-
-
-void 
-GNEFrameHelper::TagSelector::setCurrentTagType(GNEAttributeCarrier::TagType tagType) {
-    // set empty tag properties
-    myCurrentTagProperties = GNEAttributeCarrier::TagProperties();
-    // make sure that tag is in myTypeMatchBox
-    for (int i = 0; i < (int)myTagsMatchBox->getNumItems(); i++) {
-        if (myTagsMatchBox->getItem(i).text() == toString(tagType)) {
-            myTagsMatchBox->setCurrentItem(i);
-            // fill myListOfTags with personTrips (the first Tag Type)
-            myListOfTags = GNEAttributeCarrier::allowedTagsByCategory(GNEAttributeCarrier::TagType::TAGTYPE_PERSONTRIP, true);
-            // clear myTagsMatchBox
-            myTagsMatchBox->clearItems();
-            // fill myTypeMatchBox with list of tags
-            for (const auto& j : myListOfTags) {
-                myTagsMatchBox->appendItem(toString(j).c_str());
-            }
-            // Set visible items
-            myTagsMatchBox->setNumVisible((int)myTagsMatchBox->getNumItems());
-        }
-    }
-    // call tag selected function
-    myFrameParent->tagSelected();
-}
-
-
-void
-GNEFrameHelper::TagSelector::setCurrentTag(SumoXMLTag newTag) {
-    // set empty tag properties
-    myCurrentTagProperties = GNEAttributeCarrier::TagProperties();
-    // make sure that tag is in myTypeMatchBox
-    for (int i = 0; i < (int)myTagsMatchBox->getNumItems(); i++) {
-        if (myTagsMatchBox->getItem(i).text() == toString(newTag)) {
-            myTagsMatchBox->setCurrentItem(i);
-            // Set new current type
-            myCurrentTagProperties = GNEAttributeCarrier::getTagProperties(newTag);
-        }
-    }
-    // call tag selected function
-    myFrameParent->tagSelected();
-}
-
-
-void
-GNEFrameHelper::TagSelector::refreshTagProperties() {
-    // simply call onCmdSelectItem (to avoid duplicated code)
-    onCmdSelectTag(0, 0, 0);
-}
-
-
-long GNEFrameHelper::TagSelector::onCmdSelectTagType(FXObject*, FXSelector, void*) {
-    // Check if value of myTypeMatchBox correspond of an allowed additional tags
-    for (const auto& i : myListOfTagTypes) {
-        if (i.first == myTagTypesMatchBox->getText().text()) {
-            // set color of myTagTypesMatchBox to black (valid)
-            myTagTypesMatchBox->setTextColor(FXRGB(0, 0, 0));
-            // fill myListOfTags with personTrips (the first Tag Type)
-            myListOfTags = GNEAttributeCarrier::allowedTagsByCategory(i.second, true);
-            // show and clear myTagsMatchBox
-            myTagsMatchBox->show();
-            myTagsMatchBox->clearItems();
-            // fill myTypeMatchBox with list of tags
-            for (const auto& j : myListOfTags) {
-                myTagsMatchBox->appendItem(toString(j).c_str());
-            }
-            // Set visible items
-            myTagsMatchBox->setNumVisible((int)myTagsMatchBox->getNumItems());
-            // Write Warning in console if we're in testing mode
-            WRITE_DEBUG(("Selected item '" + myTagsMatchBox->getText() + "' in TagTypeSelector").text());
-            // call onCmdSelectTag
-            return onCmdSelectTag(nullptr, 0, nullptr);
-        }
-    }
-    // if TagType isn't valid, hide myTagsMatchBox
-    myTagsMatchBox->hide();
-    // if additional name isn't correct, set SUMO_TAG_NOTHING as current type
-    myCurrentTagProperties = myInvalidTagProperty;
-    // call tag selected function
-    myFrameParent->tagSelected();
-    // set color of myTagTypesMatchBox to red (invalid)
-    myTagTypesMatchBox->setTextColor(FXRGB(255, 0, 0));
-    // Write Warning in console if we're in testing mode
-    WRITE_DEBUG("Selected invalid item in TagTypeSelector");
-    return 1;
-}
-
-
-long
-GNEFrameHelper::TagSelector::onCmdSelectTag(FXObject*, FXSelector, void*) {
-    // Check if value of myTypeMatchBox correspond of an allowed additional tags
-    for (const auto& i : myListOfTags) {
-        if (toString(i) == myTagsMatchBox->getText().text()) {
-            // set color of myTypeMatchBox to black (valid)
-            myTagsMatchBox->setTextColor(FXRGB(0, 0, 0));
-            // Set new current type
-            myCurrentTagProperties = GNEAttributeCarrier::getTagProperties(i);
-            // call tag selected function
-            myFrameParent->tagSelected();
-            // Write Warning in console if we're in testing mode
-            WRITE_DEBUG(("Selected item '" + myTagsMatchBox->getText() + "' in TagSelector").text());
-            return 1;
-        }
-    }
-    // if additional name isn't correct, set SUMO_TAG_NOTHING as current type
-    myCurrentTagProperties = myInvalidTagProperty;
-    // call tag selected function
-    myFrameParent->tagSelected();
-    // set color of myTypeMatchBox to red (invalid)
-    myTagsMatchBox->setTextColor(FXRGB(255, 0, 0));
-    // Write Warning in console if we're in testing mode
-    WRITE_DEBUG("Selected invalid item in TagSelector");
-    return 1;
-}
-
-// ---------------------------------------------------------------------------
-// GNEFrameHelper::DemandElementSelector - methods
-// ---------------------------------------------------------------------------
-
-GNEFrameHelper::DemandElementSelector::DemandElementSelector(GNEFrame* frameParent, SumoXMLTag demandElementTag) :
-    FXGroupBox(frameParent->myContentFrame, ("Parent " + toString(demandElementTag)).c_str(), GUIDesignGroupBoxFrame),
-    myFrameParent(frameParent),
-    myCurrentDemandElement(nullptr),
-    myDemandElementTags({demandElementTag}) {
-    // Create FXComboBox
-    myDemandElementsMatchBox = new FXComboBox(this, GUIDesignComboBoxNCol, this, MID_GNE_SET_TYPE, GUIDesignComboBox);
-    // refresh demand element MatchBox
-    refreshDemandElementSelector();
-    // shown after creation
-    show();
-}
-
-
-GNEFrameHelper::DemandElementSelector::DemandElementSelector(GNEFrame* frameParent, const std::vector<GNEAttributeCarrier::TagType> &tagTypes) :
-    FXGroupBox(frameParent->myContentFrame, "Parent element", GUIDesignGroupBoxFrame),
-    myFrameParent(frameParent),
-    myCurrentDemandElement(nullptr) {
-    // fill myDemandElementTags
-    for (const auto &i : tagTypes) {
-        auto tags = GNEAttributeCarrier::allowedTagsByCategory(i, false);
-        myDemandElementTags.insert(myDemandElementTags.end(), tags.begin(), tags.end());
-    }
-    // Create FXComboBox
-    myDemandElementsMatchBox = new FXComboBox(this, GUIDesignComboBoxNCol, this, MID_GNE_SET_TYPE, GUIDesignComboBox);
-    // refresh demand element MatchBox
-    refreshDemandElementSelector();
-    // shown after creation
-    show();
-}
-
-
-GNEFrameHelper::DemandElementSelector::~DemandElementSelector() {}
-
-
-GNEDemandElement*
-GNEFrameHelper::DemandElementSelector::getCurrentDemandElement() const {
-    return myCurrentDemandElement;
-}
-
-
-void 
-GNEFrameHelper::DemandElementSelector::setDemandElement(GNEDemandElement* demandElement) {
-    // first check that demandElement tag correspond to a tag of myDemandElementTags
-    if (std::find(myDemandElementTags.begin(), myDemandElementTags.end(), demandElement->getTagProperty().getTag()) != myDemandElementTags.end()) {
-        // update text of myDemandElementsMatchBox
-        myDemandElementsMatchBox->setText(demandElement->getID().c_str());
-        // Set new current demand element
-        myCurrentDemandElement = demandElement;
-        // call demandElementSelected function
-        myFrameParent->demandElementSelected();
-    }
-}
-
-
-void
-GNEFrameHelper::DemandElementSelector::showDemandElementSelector() {
-    // first refresh modul
-    refreshDemandElementSelector();
-    // if current selected item isn't valid, set DEFAULT_VTYPE_ID or DEFAULT_PEDTYPE_ID
-    if (myCurrentDemandElement) {
-        myDemandElementsMatchBox->setText(myCurrentDemandElement->getID().c_str());
-    } else if (myDemandElementTags.size() == 1) {
-        if (myDemandElementTags.at(0) == SUMO_TAG_VTYPE) {
-            myDemandElementsMatchBox->setText(DEFAULT_VTYPE_ID.c_str());
-        } else if (myDemandElementTags.at(0) == SUMO_TAG_PTYPE) {
-            myDemandElementsMatchBox->setText(DEFAULT_PEDTYPE_ID.c_str());
-        }
-    }
-    onCmdSelectDemandElement(nullptr, 0, nullptr);
-    show();
-}
-
-
-void
-GNEFrameHelper::DemandElementSelector::hideDemandElementSelector() {
-    hide();
-}
-
-
-bool 
-GNEFrameHelper::DemandElementSelector::isDemandElementSelectorShown() const {
-    return shown();
-}
-
-
-void
-GNEFrameHelper::DemandElementSelector::refreshDemandElementSelector() {
-    // clear demand elements comboBox
-    myDemandElementsMatchBox->clearItems();
-    // fill myTypeMatchBox with list of demand elements
-    for (const auto& i : myDemandElementTags) {
-        // special case for VTypes and PTypes
-        if (i == SUMO_TAG_VTYPE) {
-            // add default Vehicle an Bike types in the first and second positions
-            myDemandElementsMatchBox->appendItem(DEFAULT_VTYPE_ID.c_str());
-            myDemandElementsMatchBox->appendItem(DEFAULT_BIKETYPE_ID.c_str());
-            // add rest of vTypes
-            for (const auto& j : myFrameParent->getViewNet()->getNet()->getAttributeCarriers().demandElements.at(i)) {
-                // avoid insert duplicated default vType
-                if ((j.first != DEFAULT_VTYPE_ID) && (j.first != DEFAULT_BIKETYPE_ID)) {
-                    myDemandElementsMatchBox->appendItem(j.first.c_str());
-                }
-            }
-        } else if (i == SUMO_TAG_PTYPE) {
-            // add default Person type in the firs
-            myDemandElementsMatchBox->appendItem(DEFAULT_PEDTYPE_ID.c_str());
-            // add rest of pTypes
-            for (const auto& j : myFrameParent->getViewNet()->getNet()->getAttributeCarriers().demandElements.at(i)) {
-                // avoid insert duplicated default pType
-                if (j.first != DEFAULT_PEDTYPE_ID) {
-                    myDemandElementsMatchBox->appendItem(j.first.c_str());
-                }
-            }
-        } else {
-            // insert all Ids
-            for (const auto& j : myFrameParent->getViewNet()->getNet()->getAttributeCarriers().demandElements.at(i)) {
-                myDemandElementsMatchBox->appendItem(j.first.c_str());
-            }
-        }
-    }
-    // Set number of  items (maximum 10)
-    if (myDemandElementsMatchBox->getNumItems() < 10) {
-        myDemandElementsMatchBox->setNumVisible((int)myDemandElementsMatchBox->getNumItems());
-    } else {
-        myDemandElementsMatchBox->setNumVisible(10);
-    }
-    // update myCurrentDemandElement
-    if (myDemandElementsMatchBox->getNumItems() == 0) {
-        myCurrentDemandElement = nullptr;
-    } else if (myCurrentDemandElement) {
-        for (int i = 0; i < myDemandElementsMatchBox->getNumItems(); i++) {
-            if (myDemandElementsMatchBox->getItem(i).text() == myCurrentDemandElement->getID()) {
-                myDemandElementsMatchBox->setCurrentItem(i, FALSE);
-            }
-        }
-    } else {
-        // set first element in the list as myCurrentDemandElement (Special case for default person and vehicle type)
-        if (myDemandElementsMatchBox->getItem(0).text() == DEFAULT_VTYPE_ID) {
-            myCurrentDemandElement = myFrameParent->getViewNet()->getNet()->getAttributeCarriers().demandElements.at(SUMO_TAG_VTYPE).at(DEFAULT_VTYPE_ID);
-        } else if (myDemandElementsMatchBox->getItem(0).text() == DEFAULT_PEDTYPE_ID) {
-            myCurrentDemandElement = myFrameParent->getViewNet()->getNet()->getAttributeCarriers().demandElements.at(SUMO_TAG_PTYPE).at(DEFAULT_PEDTYPE_ID);
-        } else {
-            myCurrentDemandElement = myFrameParent->getViewNet()->getNet()->getAttributeCarriers().demandElements.at(myDemandElementTags.front()).begin()->second;
-        }
-    }
-}
-
-
-long
-GNEFrameHelper::DemandElementSelector::onCmdSelectDemandElement(FXObject*, FXSelector, void*) {
-    // Check if value of myTypeMatchBox correspond to a demand element
-    for (const auto& i : myDemandElementTags) {
-        for (const auto& j : myFrameParent->getViewNet()->getNet()->getAttributeCarriers().demandElements.at(i)) {
-            if (j.first == myDemandElementsMatchBox->getText().text()) {
-                // set color of myTypeMatchBox to black (valid)
-                myDemandElementsMatchBox->setTextColor(FXRGB(0, 0, 0));
-                // Set new current demand element
-                myCurrentDemandElement = j.second;
-                // call demandElementSelected function
-                myFrameParent->demandElementSelected();
-                // Write Warning in console if we're in testing mode
-                WRITE_DEBUG(("Selected item '" + myDemandElementsMatchBox->getText() + "' in DemandElementSelector").text());
-                return 1;
-            }
-        }
-    }
-    // if demand element selected is invalid, set demand element as null
-    myCurrentDemandElement = nullptr;
-    // call demandElementSelected function
-    myFrameParent->demandElementSelected();
-    // change color of myDemandElementsMatchBox to red (invalid)
-    myDemandElementsMatchBox->setTextColor(FXRGB(255, 0, 0));
-    // Write Warning in console if we're in testing mode
-    WRITE_DEBUG("Selected invalid item in DemandElementSelector");
-    return 1;
-}
-
-// ---------------------------------------------------------------------------
-// GNEFrameHelper::EdgePathCreator - methods
-// ---------------------------------------------------------------------------
-
-GNEFrameHelper::EdgePathCreator::EdgePathCreator(GNEFrame* frameParent, int edgePathCreatorModes) :
-    FXGroupBox(frameParent->myContentFrame, "Route creator", GUIDesignGroupBoxFrame),
-    myFrameParent(frameParent),
-    myVClass(SVC_PASSENGER),
-    mySelectedBusStop(nullptr),
-    myEdgePathCreatorModes(edgePathCreatorModes) {
-
-    // create button for create GEO POIs
-    myFinishCreationButton = new FXButton(this, "Finish route creation", nullptr, this, MID_GNE_EDGEPATH_FINISH, GUIDesignButton);
-    myFinishCreationButton->disable();
-
-    // create button for create GEO POIs
-    myAbortCreationButton = new FXButton(this, "Abort route creation", nullptr, this, MID_GNE_EDGEPATH_ABORT, GUIDesignButton);
-    myAbortCreationButton->disable();
-
-    // create button for create GEO POIs
-    myRemoveLastInsertedEdge = new FXButton(this, "Remove last inserted edge", nullptr, this, MID_GNE_EDGEPATH_REMOVELAST, GUIDesignButton);
-    myRemoveLastInsertedEdge->disable();
-}
-
-
-GNEFrameHelper::EdgePathCreator::~EdgePathCreator() {}
-
-
-void 
-GNEFrameHelper::EdgePathCreator::edgePathCreatorName(const std::string &name) {
-    // header needs the first capitalized letter
-    std::string nameWithFirstCapitalizedLetter = name;
-    nameWithFirstCapitalizedLetter[0] = (char)toupper(nameWithFirstCapitalizedLetter.at(0));
-    setText((nameWithFirstCapitalizedLetter + " creator").c_str());
-    myFinishCreationButton->setText(("Finish " + name + " creation").c_str());
-    myAbortCreationButton->setText(("Abort " + name + " creation").c_str());
-}
-
-
-void
-GNEFrameHelper::EdgePathCreator::showEdgePathCreator() {
-    // disable buttons
-    myFinishCreationButton->disable();
-    myAbortCreationButton->disable();
-    myRemoveLastInsertedEdge->disable();
-    show();
-}
-
-
-void
-GNEFrameHelper::EdgePathCreator::hideEdgePathCreator() {
-    hide();
-}
-
-
-void 
-GNEFrameHelper::EdgePathCreator::setVClass(SUMOVehicleClass vClass) {
-    myVClass = vClass;
-}
-
-
-void
-GNEFrameHelper::EdgePathCreator::setEdgePathCreatorModes(int edgePathCreatorModes) {
-    myEdgePathCreatorModes = edgePathCreatorModes;
-}
-
-
-std::vector<GNEEdge*>
-GNEFrameHelper::EdgePathCreator::getClickedEdges() const {
-    return myClickedEdges;
-}
-
-
-GNEAdditional*
-GNEFrameHelper::EdgePathCreator::getClickedBusStop() const {
-    return mySelectedBusStop;
-}
-
-
-bool
-GNEFrameHelper::EdgePathCreator::addEdge(GNEEdge* edge) {
-    if ((mySelectedBusStop == nullptr) && (myClickedEdges.empty() || ((myClickedEdges.size() > 0) && (myClickedEdges.back() != edge)))) {
-        myClickedEdges.push_back(edge);
-        // enable abort route button
-        myAbortCreationButton->enable();
-        // disable undo/redo
-        myFrameParent->myViewNet->getViewParent()->getGNEAppWindows()->disableUndoRedo("trip creation");
-        // set special color
-        for (auto i : edge->getLanes()) {
-            i->setSpecialColor(&myFrameParent->getEdgeCandidateSelectedColor());
-        }
-        // calculate route if there is more than two edges
-        if (myClickedEdges.size() > 1) {
-            // enable remove last edge button
-            myRemoveLastInsertedEdge->enable();
-            // enable finish button
-            myFinishCreationButton->enable();
-            // calculate temporal route
-            myTemporalRoute = GNEDemandElement::getRouteCalculatorInstance()->calculateDijkstraRoute(myVClass, myClickedEdges);
-        }
-        return true;
-    } else {
-        return false;
-    }
-}
-
-
-bool 
-GNEFrameHelper::EdgePathCreator::addBusStop(GNEAdditional* busStop) {
-    // check that at least there is a selected edge
-    if (!myClickedEdges.empty() && (mySelectedBusStop == nullptr)) {
-        mySelectedBusStop = busStop;
-        mySelectedBusStop->setSpecialColor(&myFrameParent->getEdgeCandidateSelectedColor());
-    }
-    return false;
-}
-
-
-void
-GNEFrameHelper::EdgePathCreator::clearEdges() {
-    // restore colors
-    for (const auto& i : myClickedEdges) {
-        for (const auto& j : i->getLanes()) {
-            j->setSpecialColor(nullptr);
-        }
-    }
-    // clear edges
-    myClickedEdges.clear();
-    myTemporalRoute.clear();
-    // clear busStop
-    if (mySelectedBusStop) {
-        mySelectedBusStop->setSpecialColor(nullptr);
-        mySelectedBusStop = nullptr;
-    }
-    // enable undo/redo
-    myFrameParent->myViewNet->getViewParent()->getGNEAppWindows()->enableUndoRedo();
-}
-
-
-void
-GNEFrameHelper::EdgePathCreator::drawTemporalRoute() const {
-    // draw depending of number of edges
-    if (myClickedEdges.size() == 1) {
-        // Add a draw matrix
-        glPushMatrix();
-        // Start with the drawing of the area traslating matrix to origin
-        glTranslated(0, 0, GLO_MAX);
-        // set orange color
-        GLHelper::setColor(RGBColor::ORANGE);
-        // set line width
-        glLineWidth(5);
-        // draw line in first selected edge edge
-        GLHelper::drawLine(myClickedEdges.front()->getNBEdge()->getLanes().front().shape.front(),
-                           myClickedEdges.front()->getNBEdge()->getLanes().front().shape.back());
-        // draw line to center of selected bus
-        if (mySelectedBusStop) {
-            GLHelper::drawLine(myClickedEdges.front()->getNBEdge()->getLanes().front().shape.back(), 
-                               mySelectedBusStop->getAdditionalGeometry().shape.getLineCenter());
-        }
-        // Pop last matrix
-        glPopMatrix();
-    } else if (myTemporalRoute.size() > 1) {
-        // Add a draw matrix
-        glPushMatrix();
-        // Start with the drawing of the area traslating matrix to origin
-        glTranslated(0, 0, GLO_MAX);
-        // set orange color
-        GLHelper::setColor(RGBColor::ORANGE);
-        // set line width
-        glLineWidth(5);
-        // draw first line
-        GLHelper::drawLine(myTemporalRoute.at(0)->getNBEdge()->getLanes().front().shape.front(),
-                           myTemporalRoute.at(0)->getNBEdge()->getLanes().front().shape.back());
-        // draw rest of lines
-        for (int i = 1; i < (int)myTemporalRoute.size(); i++) {
-            GLHelper::drawLine(myTemporalRoute.at(i - 1)->getNBEdge()->getLanes().front().shape.back(),
-                               myTemporalRoute.at(i)->getNBEdge()->getLanes().front().shape.front());
-            GLHelper::drawLine(myTemporalRoute.at(i)->getNBEdge()->getLanes().front().shape.front(),
-                               myTemporalRoute.at(i)->getNBEdge()->getLanes().front().shape.back());
-        }    
-        // draw a line to center of selected bus
-        if (mySelectedBusStop) {
-            GLHelper::drawLine(myTemporalRoute.back()->getNBEdge()->getLanes().front().shape.back(), 
-                               mySelectedBusStop->getAdditionalGeometry().shape.getLineCenter());
-        }
-        // Pop last matrix
-        glPopMatrix();
-    }
-}
-
-
-void 
-GNEFrameHelper::EdgePathCreator::abortEdgePathCreation() {
-    if (myAbortCreationButton->isEnabled()) {
-        onCmdAbortRouteCreation(nullptr, 0, nullptr);
-    }
-}
-
-
-void 
-GNEFrameHelper::EdgePathCreator::finishEdgePathCreation() {
-    if (myFinishCreationButton->isEnabled()) {
-        onCmdFinishRouteCreation(nullptr, 0, nullptr);
-    }
-}
-
-
-void 
-GNEFrameHelper::EdgePathCreator::removeLastInsertedElement() {
-    if (myRemoveLastInsertedEdge->isEnabled()) {
-        onCmdRemoveLastInsertedElement(nullptr, 0, nullptr);
-    }
-}
-
-
-long
-GNEFrameHelper::EdgePathCreator::onCmdAbortRouteCreation(FXObject*, FXSelector, void*) {
-    clearEdges();
-    // disable buttons
-    myAbortCreationButton->disable();
-    myFinishCreationButton->disable();
-    myRemoveLastInsertedEdge->disable();
-    return 1;
-}
-
-
-long
-GNEFrameHelper::EdgePathCreator::onCmdFinishRouteCreation(FXObject*, FXSelector, void*) {
-    // only create route if there is more than two edges
-    if (myClickedEdges.size() > 1) {
-        // call edgePathCreated
-        myFrameParent->edgePathCreated();
-        // update view
-        myFrameParent->myViewNet->update();
-        // clear edges after creation
-        clearEdges();
-        // disable buttons
-        myFinishCreationButton->disable();
-        myAbortCreationButton->disable();
-        myRemoveLastInsertedEdge->disable();
-    }
-    return 1;
-}
-
-
-long
-GNEFrameHelper::EdgePathCreator::onCmdRemoveLastInsertedElement(FXObject*, FXSelector, void*) {
-    if (myClickedEdges.size() > 1) {
-        // remove last edge
-        myClickedEdges.pop_back();
-        // calculate temporal route
-        myTemporalRoute = GNEDemandElement::getRouteCalculatorInstance()->calculateDijkstraRoute(myVClass, myClickedEdges);
-    }
-    return 1;
-}
-
-// ---------------------------------------------------------------------------
-// GNEFrameHelper::AttributesCreatorRow - methods
-// ---------------------------------------------------------------------------
-
-GNEFrameHelper::AttributesCreatorRow::AttributesCreatorRow(AttributesCreator* AttributesCreatorParent, const GNEAttributeCarrier::AttributeProperties& attrProperties) :
+GNEFrameAttributesModuls::AttributesCreatorRow::AttributesCreatorRow(AttributesCreator* AttributesCreatorParent, const GNEAttributeCarrier::AttributeProperties& attrProperties) :
     FXHorizontalFrame(AttributesCreatorParent, GUIDesignAuxiliarHorizontalFrame),
     myAttributesCreatorParent(AttributesCreatorParent),
     myAttrProperties(attrProperties) {
@@ -908,7 +209,7 @@ GNEFrameHelper::AttributesCreatorRow::AttributesCreatorRow(AttributesCreator* At
 
 
 void 
-GNEFrameHelper::AttributesCreatorRow::destroy() {
+GNEFrameAttributesModuls::AttributesCreatorRow::destroy() {
     // only destroy if parent was created
     if (getParent()->id()) {
         FXHorizontalFrame::destroy();
@@ -917,13 +218,13 @@ GNEFrameHelper::AttributesCreatorRow::destroy() {
 
 
 const GNEAttributeCarrier::AttributeProperties&
-GNEFrameHelper::AttributesCreatorRow::getAttrProperties() const {
+GNEFrameAttributesModuls::AttributesCreatorRow::getAttrProperties() const {
     return myAttrProperties;
 }
 
 
 std::string
-GNEFrameHelper::AttributesCreatorRow::getValue() const {
+GNEFrameAttributesModuls::AttributesCreatorRow::getValue() const {
     if (myAttrProperties.isBool()) {
         return (myValueCheckButton->getCheck() == 1) ? "1" : "0";
     } else if (myAttrProperties.isInt()) {
@@ -937,7 +238,7 @@ GNEFrameHelper::AttributesCreatorRow::getValue() const {
 
 
 bool
-GNEFrameHelper::AttributesCreatorRow::getAttributeRadioButtonCheck() const {
+GNEFrameAttributesModuls::AttributesCreatorRow::getAttributeRadioButtonCheck() const {
     if (shown()) {
         return myAttributeRadioButton->getCheck() == TRUE;
     } else {
@@ -947,7 +248,7 @@ GNEFrameHelper::AttributesCreatorRow::getAttributeRadioButtonCheck() const {
 
 
 void
-GNEFrameHelper::AttributesCreatorRow::setAttributeRadioButtonCheck(bool value) {
+GNEFrameAttributesModuls::AttributesCreatorRow::setAttributeRadioButtonCheck(bool value) {
     if (shown()) {
         // set radio button
         myAttributeRadioButton->setCheck(value);
@@ -978,7 +279,7 @@ GNEFrameHelper::AttributesCreatorRow::setAttributeRadioButtonCheck(bool value) {
 
 
 bool
-GNEFrameHelper::AttributesCreatorRow::getAttributeCheckButtonCheck() const {
+GNEFrameAttributesModuls::AttributesCreatorRow::getAttributeCheckButtonCheck() const {
     if (shown()) {
         return myAttributeCheckButton->getCheck() == TRUE;
     } else {
@@ -988,7 +289,7 @@ GNEFrameHelper::AttributesCreatorRow::getAttributeCheckButtonCheck() const {
 
 
 void
-GNEFrameHelper::AttributesCreatorRow::setAttributeCheckButtonCheck(bool value) {
+GNEFrameAttributesModuls::AttributesCreatorRow::setAttributeCheckButtonCheck(bool value) {
     if (shown()) {
         // set radio button
         myAttributeCheckButton->setCheck(value);
@@ -1019,7 +320,7 @@ GNEFrameHelper::AttributesCreatorRow::setAttributeCheckButtonCheck(bool value) {
 
 
 void
-GNEFrameHelper::AttributesCreatorRow::enableAttributesCreatorRow() {
+GNEFrameAttributesModuls::AttributesCreatorRow::enableAttributesCreatorRow() {
     if (myAttrProperties.isBool()) {
         return myValueCheckButton->enable();
     } else if (myAttrProperties.isInt()) {
@@ -1033,7 +334,7 @@ GNEFrameHelper::AttributesCreatorRow::enableAttributesCreatorRow() {
 
 
 void
-GNEFrameHelper::AttributesCreatorRow::disableAttributesCreatorRow() {
+GNEFrameAttributesModuls::AttributesCreatorRow::disableAttributesCreatorRow() {
     if (myAttrProperties.isBool()) {
         return myValueCheckButton->disable();
     } else if (myAttrProperties.isInt()) {
@@ -1047,7 +348,7 @@ GNEFrameHelper::AttributesCreatorRow::disableAttributesCreatorRow() {
 
 
 bool
-GNEFrameHelper::AttributesCreatorRow::isAttributesCreatorRowEnabled() const {
+GNEFrameAttributesModuls::AttributesCreatorRow::isAttributesCreatorRowEnabled() const {
     if (!shown()) {
         return false;
     } else if (myAttrProperties.isBool()) {
@@ -1063,19 +364,19 @@ GNEFrameHelper::AttributesCreatorRow::isAttributesCreatorRowEnabled() const {
 
 
 const std::string&
-GNEFrameHelper::AttributesCreatorRow::isAttributeValid() const {
+GNEFrameAttributesModuls::AttributesCreatorRow::isAttributeValid() const {
     return myInvalidValue;
 }
 
 
-GNEFrameHelper::AttributesCreator*
-GNEFrameHelper::AttributesCreatorRow::getAttributesCreatorParent() const {
+GNEFrameAttributesModuls::AttributesCreator*
+GNEFrameAttributesModuls::AttributesCreatorRow::getAttributesCreatorParent() const {
     return myAttributesCreatorParent;
 }
 
 
 long
-GNEFrameHelper::AttributesCreatorRow::onCmdSetAttribute(FXObject* obj, FXSelector, void*) {
+GNEFrameAttributesModuls::AttributesCreatorRow::onCmdSetAttribute(FXObject* obj, FXSelector, void*) {
     // We assume that current value is valid
     myInvalidValue = "";
     // Check if format of current value of myTextField is correct
@@ -1184,7 +485,7 @@ GNEFrameHelper::AttributesCreatorRow::onCmdSetAttribute(FXObject* obj, FXSelecto
 
 
 long
-GNEFrameHelper::AttributesCreatorRow::onCmdSelectCheckButton(FXObject*, FXSelector, void*) {
+GNEFrameAttributesModuls::AttributesCreatorRow::onCmdSelectCheckButton(FXObject*, FXSelector, void*) {
     if (myAttributeCheckButton->getCheck()) {
         // enable input values
         myValueCheckButton->enable();
@@ -1203,7 +504,7 @@ GNEFrameHelper::AttributesCreatorRow::onCmdSelectCheckButton(FXObject*, FXSelect
 
 
 long
-GNEFrameHelper::AttributesCreatorRow::onCmdSelectColorButton(FXObject*, FXSelector, void*) {
+GNEFrameAttributesModuls::AttributesCreatorRow::onCmdSelectColorButton(FXObject*, FXSelector, void*) {
     // create FXColorDialog
     FXColorDialog colordialog(this, tr("Color Dialog"));
     colordialog.setTarget(this);
@@ -1222,7 +523,7 @@ GNEFrameHelper::AttributesCreatorRow::onCmdSelectColorButton(FXObject*, FXSelect
 }
 
 long
-GNEFrameHelper::AttributesCreatorRow::onCmdSelectRadioButton(FXObject*, FXSelector, void*) {
+GNEFrameAttributesModuls::AttributesCreatorRow::onCmdSelectRadioButton(FXObject*, FXSelector, void*) {
     // write debug (for Netedit tests)
     WRITE_DEBUG("Selected radio button for attribute '" + myAttrProperties.getAttrStr() + "'");
     // update disjoint attributes in AC Attributes parent
@@ -1232,7 +533,7 @@ GNEFrameHelper::AttributesCreatorRow::onCmdSelectRadioButton(FXObject*, FXSelect
 
 
 std::string 
-GNEFrameHelper::AttributesCreatorRow::checkComplexAttribute(const std::string &value) {
+GNEFrameAttributesModuls::AttributesCreatorRow::checkComplexAttribute(const std::string &value) {
     // declare values needed to check if given complex parameters are valid
     std::string errorMessage;
     DepartDefinition dd;
@@ -1289,10 +590,10 @@ GNEFrameHelper::AttributesCreatorRow::checkComplexAttribute(const std::string &v
 }
 
 // ---------------------------------------------------------------------------
-// GNEFrameHelper::AttributesCreator - methods
+// GNEFrameAttributesModuls::AttributesCreator - methods
 // ---------------------------------------------------------------------------
 
-GNEFrameHelper::AttributesCreator::AttributesCreator(GNEFrame* frameParent) :
+GNEFrameAttributesModuls::AttributesCreator::AttributesCreator(GNEFrame* frameParent) :
     FXGroupBox(frameParent->myContentFrame, "Internal attributes", GUIDesignGroupBoxFrame),
     myFrameParent(frameParent) {
     // resize myAttributesCreatorRows
@@ -1302,11 +603,11 @@ GNEFrameHelper::AttributesCreator::AttributesCreator(GNEFrame* frameParent) :
 }
 
 
-GNEFrameHelper::AttributesCreator::~AttributesCreator() {}
+GNEFrameAttributesModuls::AttributesCreator::~AttributesCreator() {}
 
 
 void
-GNEFrameHelper::AttributesCreator::showAttributesCreatorModul(const GNEAttributeCarrier::TagProperties& tagProperties) {
+GNEFrameAttributesModuls::AttributesCreator::showAttributesCreatorModul(const GNEAttributeCarrier::TagProperties& tagProperties) {
     // get current tag Properties
     myTagProperties = tagProperties;
     // destroy all rows
@@ -1337,13 +638,13 @@ GNEFrameHelper::AttributesCreator::showAttributesCreatorModul(const GNEAttribute
 
 
 void
-GNEFrameHelper::AttributesCreator::hideAttributesCreatorModul() {
+GNEFrameAttributesModuls::AttributesCreator::hideAttributesCreatorModul() {
     hide();
 }
 
 
 std::map<SumoXMLAttr, std::string>
-GNEFrameHelper::AttributesCreator::getAttributesAndValues(bool includeAll) const {
+GNEFrameAttributesModuls::AttributesCreator::getAttributesAndValues(bool includeAll) const {
     std::map<SumoXMLAttr, std::string> values;
     // get standard parameters
     for (int i = 0; i < (int)myAttributesCreatorRows.size(); i++) {
@@ -1360,13 +661,13 @@ GNEFrameHelper::AttributesCreator::getAttributesAndValues(bool includeAll) const
 
 
 GNEAttributeCarrier::TagProperties 
-GNEFrameHelper::AttributesCreator::getCurrentTagProperties() const {
+GNEFrameAttributesModuls::AttributesCreator::getCurrentTagProperties() const {
     return myTagProperties;
 }
 
 
 void
-GNEFrameHelper::AttributesCreator::showWarningMessage(std::string extra) const {
+GNEFrameAttributesModuls::AttributesCreator::showWarningMessage(std::string extra) const {
     std::string errorMessage;
     // iterate over standar parameters
     for (const auto &i : myTagProperties) {
@@ -1393,7 +694,7 @@ GNEFrameHelper::AttributesCreator::showWarningMessage(std::string extra) const {
 
 
 bool
-GNEFrameHelper::AttributesCreator::areValuesValid() const {
+GNEFrameAttributesModuls::AttributesCreator::areValuesValid() const {
     // iterate over standar parameters
     for (auto i : myTagProperties) {
         // Return false if error message of attriuve isn't empty
@@ -1406,7 +707,7 @@ GNEFrameHelper::AttributesCreator::areValuesValid() const {
 
 
 void
-GNEFrameHelper::AttributesCreator::updateDisjointAttributes(AttributesCreatorRow* row) {
+GNEFrameAttributesModuls::AttributesCreator::updateDisjointAttributes(AttributesCreatorRow* row) {
     // currently only Flows supports disjoint attributes
     if ((myTagProperties.getTag() == SUMO_TAG_ROUTEFLOW) || (myTagProperties.getTag() == SUMO_TAG_FLOW)) {
         // obtain all rows (to improve code legibility)
@@ -1497,17 +798,17 @@ GNEFrameHelper::AttributesCreator::updateDisjointAttributes(AttributesCreatorRow
 
 
 long
-GNEFrameHelper::AttributesCreator::onCmdHelp(FXObject*, FXSelector, void*) {
+GNEFrameAttributesModuls::AttributesCreator::onCmdHelp(FXObject*, FXSelector, void*) {
     // open Help attributes dialog
     myFrameParent->openHelpAttributesDialog(myTagProperties);
     return 1;
 }
 
 // ---------------------------------------------------------------------------
-// GNEFrameHelper::AttributesEditorRow - methods
+// GNEFrameAttributesModuls::AttributesEditorRow - methods
 // ---------------------------------------------------------------------------
 
-GNEFrameHelper::AttributesEditorRow::AttributesEditorRow(GNEFrameHelper::AttributesEditor* attributeEditorParent, const GNEAttributeCarrier::AttributeProperties& ACAttr, const std::string& value, bool attributeEnabled) :
+GNEFrameAttributesModuls::AttributesEditorRow::AttributesEditorRow(GNEFrameAttributesModuls::AttributesEditor* attributeEditorParent, const GNEAttributeCarrier::AttributeProperties& ACAttr, const std::string& value, bool attributeEnabled) :
     FXHorizontalFrame(attributeEditorParent, GUIDesignAuxiliarHorizontalFrame),
     myAttributesEditorParent(attributeEditorParent),
     myACAttr(ACAttr),
@@ -1713,7 +1014,7 @@ GNEFrameHelper::AttributesEditorRow::AttributesEditorRow(GNEFrameHelper::Attribu
 
 
 void 
-GNEFrameHelper::AttributesEditorRow::destroy() {
+GNEFrameAttributesModuls::AttributesEditorRow::destroy() {
     // only destroy if parent was created
     if (getParent()->id()) {
         FXHorizontalFrame::destroy();
@@ -1722,7 +1023,7 @@ GNEFrameHelper::AttributesEditorRow::destroy() {
 
 
 void
-GNEFrameHelper::AttributesEditorRow::refreshAttributesEditorRow(const std::string& value, bool forceRefresh, bool disjointAttributeEnabled) {
+GNEFrameAttributesModuls::AttributesEditorRow::refreshAttributesEditorRow(const std::string& value, bool forceRefresh, bool disjointAttributeEnabled) {
     // start enabling all elements
     myValueTextFieldInt->enable();
     myValueTextFieldReal->enable();
@@ -1825,14 +1126,14 @@ GNEFrameHelper::AttributesEditorRow::refreshAttributesEditorRow(const std::strin
 
 
 bool
-GNEFrameHelper::AttributesEditorRow::isAttributesEditorRowValid() const {
+GNEFrameAttributesModuls::AttributesEditorRow::isAttributesEditorRowValid() const {
     return ((myValueTextFieldInt->getTextColor() == FXRGB(0, 0, 0)) && (myValueTextFieldReal->getTextColor() == FXRGB(0, 0, 0)) &&
             (myValueTextFieldStrings->getTextColor() == FXRGB(0, 0, 0)) && (myValueComboBoxChoices->getTextColor() == FXRGB(0, 0, 0)));
 }
 
 
 long
-GNEFrameHelper::AttributesEditorRow::onCmdOpenAttributeDialog(FXObject* obj, FXSelector, void*) {
+GNEFrameAttributesModuls::AttributesEditorRow::onCmdOpenAttributeDialog(FXObject* obj, FXSelector, void*) {
     if (obj == myAttributeColorButton) {
         // create FXColorDialog
         FXColorDialog colordialog(this, tr("Color Dialog"));
@@ -1890,7 +1191,7 @@ GNEFrameHelper::AttributesEditorRow::onCmdOpenAttributeDialog(FXObject* obj, FXS
 
 
 long
-GNEFrameHelper::AttributesEditorRow::onCmdSetAttribute(FXObject*, FXSelector, void*) {
+GNEFrameAttributesModuls::AttributesEditorRow::onCmdSetAttribute(FXObject*, FXSelector, void*) {
     // Declare changed value
     std::string newVal;
     // First, obtain the string value of the new attribute depending of their type
@@ -2019,7 +1320,7 @@ GNEFrameHelper::AttributesEditorRow::onCmdSetAttribute(FXObject*, FXSelector, vo
 
 
 long
-GNEFrameHelper::AttributesEditorRow::onCmdSelectCheckButton(FXObject*, FXSelector, void*) {
+GNEFrameAttributesModuls::AttributesEditorRow::onCmdSelectCheckButton(FXObject*, FXSelector, void*) {
     if (myAttributeCheckButton->getCheck()) {
         // enable input values
         myValueCheckButton->enable();
@@ -2038,7 +1339,7 @@ GNEFrameHelper::AttributesEditorRow::onCmdSelectCheckButton(FXObject*, FXSelecto
 
 
 long
-GNEFrameHelper::AttributesEditorRow::onCmdSelectRadioButton(FXObject*, FXSelector, void*) {
+GNEFrameAttributesModuls::AttributesEditorRow::onCmdSelectRadioButton(FXObject*, FXSelector, void*) {
     // obtain undoList (To improve code legibly)
     GNEUndoList* undoList = myAttributesEditorParent->getFrameParent()->myViewNet->getUndoList();
     // write debug (for Netedit tests)
@@ -2055,13 +1356,13 @@ GNEFrameHelper::AttributesEditorRow::onCmdSelectRadioButton(FXObject*, FXSelecto
 }
 
 
-GNEFrameHelper::AttributesEditorRow::AttributesEditorRow() :
+GNEFrameAttributesModuls::AttributesEditorRow::AttributesEditorRow() :
     myMultiple(false) {
 }
 
 
 std::string
-GNEFrameHelper::AttributesEditorRow::stripWhitespaceAfterComma(const std::string& stringValue) {
+GNEFrameAttributesModuls::AttributesEditorRow::stripWhitespaceAfterComma(const std::string& stringValue) {
     std::string result(stringValue);
     while (result.find(", ") != std::string::npos) {
         result = StringUtils::replace(result, ", ", ",");
@@ -2070,10 +1371,10 @@ GNEFrameHelper::AttributesEditorRow::stripWhitespaceAfterComma(const std::string
 }
 
 // ---------------------------------------------------------------------------
-// GNEFrameHelper::AttributesEditor - methods
+// GNEFrameAttributesModuls::AttributesEditor - methods
 // ---------------------------------------------------------------------------
 
-GNEFrameHelper::AttributesEditor::AttributesEditor(GNEFrame* FrameParent) :
+GNEFrameAttributesModuls::AttributesEditor::AttributesEditor(GNEFrame* FrameParent) :
     FXGroupBox(FrameParent->myContentFrame, "Internal attributes", GUIDesignGroupBoxFrame),
     myFrameParent(FrameParent),
     myIncludeExtended(true) {
@@ -2085,7 +1386,7 @@ GNEFrameHelper::AttributesEditor::AttributesEditor(GNEFrame* FrameParent) :
 
 
 void
-GNEFrameHelper::AttributesEditor::showAttributeEditorModul(const std::vector<GNEAttributeCarrier*>& ACs, bool includeExtended) {
+GNEFrameAttributesModuls::AttributesEditor::showAttributeEditorModul(const std::vector<GNEAttributeCarrier*>& ACs, bool includeExtended) {
     myEditedACs = ACs;
     myIncludeExtended = includeExtended;
     // remove all rows
@@ -2146,7 +1447,7 @@ GNEFrameHelper::AttributesEditor::showAttributeEditorModul(const std::vector<GNE
 
 
 void
-GNEFrameHelper::AttributesEditor::hideAttributesEditorModul() {
+GNEFrameAttributesModuls::AttributesEditor::hideAttributesEditorModul() {
     // clear myEditedACs
     myEditedACs.clear();
     // hide also AttributesEditor
@@ -2155,7 +1456,7 @@ GNEFrameHelper::AttributesEditor::hideAttributesEditorModul() {
 
 
 void
-GNEFrameHelper::AttributesEditor::refreshAttributeEditor(bool forceRefreshShape, bool forceRefreshPosition) {
+GNEFrameAttributesModuls::AttributesEditor::refreshAttributeEditor(bool forceRefreshShape, bool forceRefreshPosition) {
     if (myEditedACs.size() > 0) {
         // Iterate over attributes
         for (const auto& i : myEditedACs.front()->getTagProperty()) {
@@ -2194,19 +1495,19 @@ GNEFrameHelper::AttributesEditor::refreshAttributeEditor(bool forceRefreshShape,
 
 
 GNEFrame* 
-GNEFrameHelper::AttributesEditor::getFrameParent() const {
+GNEFrameAttributesModuls::AttributesEditor::getFrameParent() const {
     return myFrameParent;
 }
 
 
 const std::vector<GNEAttributeCarrier*>&
-GNEFrameHelper::AttributesEditor::getEditedACs() const {
+GNEFrameAttributesModuls::AttributesEditor::getEditedACs() const {
     return myEditedACs;
 }
 
 
 void
-GNEFrameHelper::AttributesEditor::removeEditedAC(GNEAttributeCarrier* AC) {
+GNEFrameAttributesModuls::AttributesEditor::removeEditedAC(GNEAttributeCarrier* AC) {
     // Only remove if there is inspected ACs
     if (myEditedACs.size() > 0) {
         // Try to find AC in myACs
@@ -2225,7 +1526,7 @@ GNEFrameHelper::AttributesEditor::removeEditedAC(GNEAttributeCarrier* AC) {
 
 
 long
-GNEFrameHelper::AttributesEditor::onCmdAttributesEditorHelp(FXObject*, FXSelector, void*) {
+GNEFrameAttributesModuls::AttributesEditor::onCmdAttributesEditorHelp(FXObject*, FXSelector, void*) {
     // open Help attributes dialog if there is inspected ACs
     if (myEditedACs.size() > 0) {
         // open Help attributes dialog
@@ -2235,10 +1536,10 @@ GNEFrameHelper::AttributesEditor::onCmdAttributesEditorHelp(FXObject*, FXSelecto
 }
 
 // ---------------------------------------------------------------------------
-// GNEFrameHelper::AttributesEditorExtended- methods
+// GNEFrameAttributesModuls::AttributesEditorExtended- methods
 // ---------------------------------------------------------------------------
 
-GNEFrameHelper::AttributesEditorExtended::AttributesEditorExtended(GNEFrame* frameParent) :
+GNEFrameAttributesModuls::AttributesEditorExtended::AttributesEditorExtended(GNEFrame* frameParent) :
     FXGroupBox(frameParent->myContentFrame, "Extended attributes", GUIDesignGroupBoxFrame),
     myFrameParent(frameParent) {
     // Create open dialog button
@@ -2246,754 +1547,33 @@ GNEFrameHelper::AttributesEditorExtended::AttributesEditorExtended(GNEFrame* fra
 }
 
 
-GNEFrameHelper::AttributesEditorExtended::~AttributesEditorExtended() {}
+GNEFrameAttributesModuls::AttributesEditorExtended::~AttributesEditorExtended() {}
 
 
 void
-GNEFrameHelper::AttributesEditorExtended::showAttributesEditorExtendedModul() {
+GNEFrameAttributesModuls::AttributesEditorExtended::showAttributesEditorExtendedModul() {
     show();
 }
 
 
 void
-GNEFrameHelper::AttributesEditorExtended::hideAttributesEditorExtendedModul() {
+GNEFrameAttributesModuls::AttributesEditorExtended::hideAttributesEditorExtendedModul() {
     hide();
 }
 
 
 long
-GNEFrameHelper::AttributesEditorExtended::onCmdOpenDialog(FXObject*, FXSelector, void*) {
+GNEFrameAttributesModuls::AttributesEditorExtended::onCmdOpenDialog(FXObject*, FXSelector, void*) {
     // open AttributesCreator extended dialog
     myFrameParent->attributesEditorExtendedDialogOpened();
     return 1;
 }
 
 // ---------------------------------------------------------------------------
-// GNEFrameHelper::AttributeCarrierHierarchy - methods
+// GNEFrameAttributesModuls::GenericParametersEditor - methods
 // ---------------------------------------------------------------------------
 
-GNEFrameHelper::AttributeCarrierHierarchy::AttributeCarrierHierarchy(GNEFrame* frameParent) :
-    FXGroupBox(frameParent->myContentFrame, "Hierarchy", GUIDesignGroupBoxFrame),
-    myFrameParent(frameParent),
-    myAC(nullptr),
-    myClickedAC(nullptr),
-    myClickedJunction(nullptr),
-    myClickedEdge(nullptr),
-    myClickedLane(nullptr),
-    myClickedCrossing(nullptr),
-    myClickedConnection(nullptr),
-    myClickedShape(nullptr),
-    myClickedAdditional(nullptr),
-    myClickedDemandElement(nullptr) {
-    // Create three list
-    myTreelist = new FXTreeList(this, this, MID_GNE_ACHIERARCHY_SHOWCHILDMENU, GUIDesignTreeListFrame);
-    hide();
-}
-
-
-GNEFrameHelper::AttributeCarrierHierarchy::~AttributeCarrierHierarchy() {}
-
-
-void
-GNEFrameHelper::AttributeCarrierHierarchy::showAttributeCarrierHierarchy(GNEAttributeCarrier* AC) {
-    myAC = AC;
-    // show AttributeCarrierHierarchy and refresh AttributeCarrierHierarchy
-    if (myAC) {
-        show();
-        refreshAttributeCarrierHierarchy();
-    }
-}
-
-
-void
-GNEFrameHelper::AttributeCarrierHierarchy::hideAttributeCarrierHierarchy() {
-    // set all pointers null
-    myAC = nullptr;
-    myClickedAC = nullptr;
-    myClickedJunction = nullptr;
-    myClickedEdge = nullptr;
-    myClickedLane = nullptr;
-    myClickedCrossing = nullptr;
-    myClickedConnection = nullptr;
-    myClickedShape = nullptr;
-    myClickedAdditional = nullptr;
-    myClickedDemandElement = nullptr;
-    // hide modul
-    hide();
-}
-
-
-void
-GNEFrameHelper::AttributeCarrierHierarchy::refreshAttributeCarrierHierarchy() {
-    // clear items
-    myTreelist->clearItems();
-    myTreeItemToACMap.clear();
-    myTreeItemsConnections.clear();
-    // show ACChildren of myAC
-    if (myAC) {
-        showAttributeCarrierChildren(myAC, showAttributeCarrierParents());
-    }
-}
-
-
-long
-GNEFrameHelper::AttributeCarrierHierarchy::onCmdShowChildMenu(FXObject*, FXSelector, void* eventData) {
-    // Obtain event
-    FXEvent* e = (FXEvent*)eventData;
-    // obtain FXTreeItem in the given position
-    FXTreeItem* item = myTreelist->getItemAt(e->win_x, e->win_y);
-    // open Pop-up if FXTreeItem has a Attribute Carrier vinculated
-    if (item && (myTreeItemsConnections.find(item) == myTreeItemsConnections.end())) {
-        createPopUpMenu(e->root_x, e->root_y, myTreeItemToACMap[item]);
-    }
-    return 1;
-}
-
-
-long
-GNEFrameHelper::AttributeCarrierHierarchy::onCmdCenterItem(FXObject*, FXSelector, void*) {
-    // Center item
-    if (myClickedJunction) {
-        myFrameParent->myViewNet->centerTo(myClickedJunction->getGlID(), true, -1);
-    } else if (myClickedEdge) {
-        myFrameParent->myViewNet->centerTo(myClickedEdge->getGlID(), true, -1);
-    } else if (myClickedLane) {
-        myFrameParent->myViewNet->centerTo(myClickedLane->getGlID(), true, -1);
-    } else if (myClickedCrossing) {
-        myFrameParent->myViewNet->centerTo(myClickedCrossing->getGlID(), true, -1);
-    } else if (myClickedConnection) {
-        myFrameParent->myViewNet->centerTo(myClickedConnection->getGlID(), true, -1);
-    } else if (myClickedAdditional) {
-        myFrameParent->myViewNet->centerTo(myClickedAdditional->getGlID(), true, -1);
-    } else if (myClickedShape) {
-        myFrameParent->myViewNet->centerTo(myClickedShape->getGlID(), true, -1);
-    } else if (myClickedDemandElement) {
-        myFrameParent->myViewNet->centerTo(myClickedDemandElement->getGlID(), true, -1);
-    }
-    // update view after centering
-    myFrameParent->myViewNet->update();
-    return 1;
-}
-
-
-long
-GNEFrameHelper::AttributeCarrierHierarchy::onCmdInspectItem(FXObject*, FXSelector, void*) {
-    if ((myAC != nullptr) && (myClickedAC != nullptr)) {
-        myFrameParent->myViewNet->getViewParent()->getInspectorFrame()->inspectChild(myClickedAC, myAC);
-    }
-    return 1;
-}
-
-
-long
-GNEFrameHelper::AttributeCarrierHierarchy::onCmdDeleteItem(FXObject*, FXSelector, void*) {
-    // check if Inspector frame was opened before removing
-    const std::vector<GNEAttributeCarrier*>& currentInspectedACs = myFrameParent->myViewNet->getViewParent()->getInspectorFrame()->getAttributesEditor()->getEditedACs();
-    // Remove Attribute Carrier
-    if (myClickedJunction) {
-        myFrameParent->myViewNet->getNet()->deleteJunction(myClickedJunction, myFrameParent->myViewNet->getUndoList());
-    } else if (myClickedEdge) {
-        myFrameParent->myViewNet->getNet()->deleteEdge(myClickedEdge, myFrameParent->myViewNet->getUndoList(), false);
-    } else if (myClickedLane) {
-        myFrameParent->myViewNet->getNet()->deleteLane(myClickedLane, myFrameParent->myViewNet->getUndoList(), false);
-    } else if (myClickedCrossing) {
-        myFrameParent->myViewNet->getNet()->deleteCrossing(myClickedCrossing, myFrameParent->myViewNet->getUndoList());
-    } else if (myClickedConnection) {
-        myFrameParent->myViewNet->getNet()->deleteConnection(myClickedConnection, myFrameParent->myViewNet->getUndoList());
-    } else if (myClickedAdditional) {
-        myFrameParent->myViewNet->getNet()->deleteAdditional(myClickedAdditional, myFrameParent->myViewNet->getUndoList());
-    } else if (myClickedShape) {
-        myFrameParent->myViewNet->getNet()->deleteShape(myClickedShape, myFrameParent->myViewNet->getUndoList());
-    } else if (myClickedDemandElement) {
-        // check that default VTypes aren't removed
-        if ((myClickedDemandElement->getTagProperty().getTag() == SUMO_TAG_VTYPE) && (GNEAttributeCarrier::parse<bool>(myClickedDemandElement->getAttribute(GNE_ATTR_DEFAULT_VTYPE)))) {
-            WRITE_WARNING("Default Vehicle Type '" + myClickedDemandElement->getAttribute(SUMO_ATTR_ID) +"' cannot be removed");
-            return 1;
-        } else {
-            myFrameParent->myViewNet->getNet()->deleteDemandElement(myClickedDemandElement, myFrameParent->myViewNet->getUndoList());
-        }
-    }
-    // update viewNet
-    myFrameParent->myViewNet->update();
-    // refresh AC Hierarchy
-    refreshAttributeCarrierHierarchy();
-    // check if inspector frame has to be shown again
-    if (currentInspectedACs.size() == 1) {
-        if (currentInspectedACs.front() != myClickedAC) {
-            myFrameParent->myViewNet->getViewParent()->getInspectorFrame()->inspectSingleElement(currentInspectedACs.front());
-        } else {
-            // inspect a nullprt element to reset inspector frame
-            myFrameParent->myViewNet->getViewParent()->getInspectorFrame()->inspectSingleElement(nullptr);
-        }
-    }
-    return 1;
-}
-
-
-long 
-GNEFrameHelper::AttributeCarrierHierarchy::onCmdMoveItemUp(FXObject*, FXSelector, void*) {
-    // currently only children of demand elements can be moved
-    if(myClickedDemandElement) {
-        myFrameParent->myViewNet->getUndoList()->p_begin(("moving up " + myClickedDemandElement->getTagStr()).c_str());
-        // move element one position back
-        myFrameParent->myViewNet->getUndoList()->add(new GNEChange_Children(myClickedDemandElement->getDemandElementParents().at(0), myClickedDemandElement, 
-                                                                            GNEChange_Children::Operation::MOVE_BACK), true);
-        myFrameParent->myViewNet->getUndoList()->p_end();
-    }
-    // refresh after moving child
-    refreshAttributeCarrierHierarchy();
-    return 1;
-}
-
-
-long 
-GNEFrameHelper::AttributeCarrierHierarchy::onCmdMoveItemDown(FXObject*, FXSelector, void*) {
-    // currently only children of demand elements can be moved
-    if(myClickedDemandElement) {
-        myFrameParent->myViewNet->getUndoList()->p_begin(("moving down " + myClickedDemandElement->getTagStr()).c_str());
-        // move element one position front
-        myFrameParent->myViewNet->getUndoList()->add(new GNEChange_Children(myClickedDemandElement->getDemandElementParents().at(0), myClickedDemandElement, 
-                                                                            GNEChange_Children::Operation::MOVE_FRONT), true);
-        myFrameParent->myViewNet->getUndoList()->p_end();
-    }
-    // refresh after moving child
-    refreshAttributeCarrierHierarchy();
-    return 1;
-}
-
-
-void
-GNEFrameHelper::AttributeCarrierHierarchy::createPopUpMenu(int X, int Y, GNEAttributeCarrier* clickedAC) {
-    // first check that AC exist
-    if (clickedAC) {
-        // set current clicked AC
-        myClickedAC = clickedAC;
-        // cast all elements
-        myClickedJunction = dynamic_cast<GNEJunction*>(clickedAC);
-        myClickedEdge = dynamic_cast<GNEEdge*>(clickedAC);
-        myClickedLane = dynamic_cast<GNELane*>(clickedAC);
-        myClickedCrossing = dynamic_cast<GNECrossing*>(clickedAC);
-        myClickedConnection = dynamic_cast<GNEConnection*>(clickedAC);
-        myClickedShape = dynamic_cast<GNEShape*>(clickedAC);
-        myClickedAdditional = dynamic_cast<GNEAdditional*>(clickedAC);
-        myClickedDemandElement = dynamic_cast<GNEDemandElement*>(clickedAC);
-        // create FXMenuPane
-        FXMenuPane* pane = new FXMenuPane(myTreelist);
-        // set item name and icon
-        new MFXMenuHeader(pane, myFrameParent->myViewNet->getViewParent()->getGUIMainWindow()->getBoldFont(), myClickedAC->getPopUpID().c_str(), myClickedAC->getIcon());
-        // insert separator
-        new FXMenuSeparator(pane);
-        // create center menu command
-        FXMenuCommand* centerMenuCommand = new FXMenuCommand(pane, "Center", GUIIconSubSys::getIcon(ICON_RECENTERVIEW), this, MID_GNE_CENTER);
-        // disable Centering for Vehicle Types
-        if (myClickedAC->getTagProperty().isVehicleType()) {
-            centerMenuCommand->disable();
-        }
-        // create inspect and delete menu commands
-        FXMenuCommand* inspectMenuCommand = new FXMenuCommand(pane, "Inspect", GUIIconSubSys::getIcon(ICON_MODEINSPECT), this, MID_GNE_INSPECT);
-        FXMenuCommand* deleteMenuCommand = new FXMenuCommand(pane, "Delete", GUIIconSubSys::getIcon(ICON_MODEDELETE), this, MID_GNE_DELETE);
-        // check if inspect and delete menu commands has to be disabled
-        if ((myClickedAC->getTagProperty().isNetElement() && (myFrameParent->myViewNet->getEditModes().currentSupermode == GNE_SUPERMODE_DEMAND)) ||
-            (myClickedAC->getTagProperty().isDemandElement() && (myFrameParent->myViewNet->getEditModes().currentSupermode == GNE_SUPERMODE_NETWORK))) {
-            inspectMenuCommand->disable();
-            deleteMenuCommand->disable();
-        }
-        // now chec if given AC support manually moving of their item up and down (Currently only for demand elements
-        if (myClickedDemandElement && myClickedAC->getTagProperty().canBeSortedManually()) {
-            // insert separator
-            new FXMenuSeparator(pane);
-            // create both moving menu commands
-            FXMenuCommand* moveUpMenuCommand = new FXMenuCommand(pane, "Move up", GUIIconSubSys::getIcon(ICON_ARROW_UP), this, MID_GNE_ACHIERARCHY_MOVEUP);
-            FXMenuCommand* moveDownMenuCommand = new FXMenuCommand(pane, "Move down", GUIIconSubSys::getIcon(ICON_ARROW_DOWN), this, MID_GNE_ACHIERARCHY_MOVEDOWN);
-            // check if both commands has to be disabled
-            if (myClickedDemandElement->getTagProperty().isPersonStop()) {
-                moveUpMenuCommand->setText("Move up (Stops cannot be moved)");
-                moveDownMenuCommand->setText("Move diwb (Stops cannot be moved)");
-                moveUpMenuCommand->disable();
-                moveDownMenuCommand->disable();
-            } else {
-                // check if moveUpMenuCommand has to be disabled
-                if (myClickedDemandElement->getDemandElementParents().front()->getDemandElementChildren().front() == myClickedDemandElement) {
-                    moveUpMenuCommand->setText("Move up (It's already the first element)");
-                    moveUpMenuCommand->disable();
-                } else if (myClickedDemandElement->getDemandElementParents().front()->getPreviousemandElement(myClickedDemandElement)->getTagProperty().isPersonStop()) {
-                    moveUpMenuCommand->setText("Move up (Previous element is a Stop)");
-                    moveUpMenuCommand->disable();
-                }
-                // check if moveDownMenuCommand has to be disabled
-                if (myClickedDemandElement->getDemandElementParents().front()->getDemandElementChildren().back() == myClickedDemandElement) {
-                    moveDownMenuCommand->setText("Move down (It's already the last element)");
-                    moveDownMenuCommand->disable();
-                } else if (myClickedDemandElement->getDemandElementParents().front()->getNextDemandElement(myClickedDemandElement)->getTagProperty().isPersonStop()) {
-                    moveDownMenuCommand->setText("Move down (Next element is a Stop)");
-                    moveDownMenuCommand->disable();
-                }
-            }
-        }
-        // Center in the mouse position and create pane
-        pane->setX(X);
-        pane->setY(Y);
-        pane->create();
-        pane->show();
-    } else {
-        // set all clicked elements to null
-        myClickedAC = nullptr;
-        myClickedJunction = nullptr;
-        myClickedEdge = nullptr;
-        myClickedLane = nullptr;
-        myClickedCrossing = nullptr;
-        myClickedConnection = nullptr;
-        myClickedShape = nullptr;
-        myClickedAdditional = nullptr;
-        myClickedDemandElement = nullptr;
-    }
-}
-
-
-FXTreeItem*
-GNEFrameHelper::AttributeCarrierHierarchy::showAttributeCarrierParents() {
-    if (myAC->getTagProperty().isNetElement()) {
-        // check demand element type
-        switch (myAC->getTagProperty().getTag()) {
-            case SUMO_TAG_EDGE: {
-                // obtain Edge
-                GNEEdge* edge = myFrameParent->myViewNet->getNet()->retrieveEdge(myAC->getID(), false);
-                if (edge) {
-                    // insert Junctions of edge in tree (Pararell because a edge has always two Junctions)
-                    FXTreeItem* junctionSourceItem = myTreelist->insertItem(nullptr, nullptr, (edge->getGNEJunctionSource()->getHierarchyName() + " origin").c_str(), edge->getGNEJunctionSource()->getIcon(), edge->getGNEJunctionSource()->getIcon());
-                    FXTreeItem* junctionDestinyItem = myTreelist->insertItem(nullptr, nullptr, (edge->getGNEJunctionSource()->getHierarchyName() + " destiny").c_str(), edge->getGNEJunctionSource()->getIcon(), edge->getGNEJunctionSource()->getIcon());
-                    junctionDestinyItem->setExpanded(true);
-                    // Save items in myTreeItemToACMap
-                    myTreeItemToACMap[junctionSourceItem] = edge->getGNEJunctionSource();
-                    myTreeItemToACMap[junctionDestinyItem] = edge->getGNEJunctionDestiny();
-                    // return junction destiny Item
-                    return junctionDestinyItem;
-                } else {
-                    return nullptr;
-                }
-            }
-            case SUMO_TAG_LANE: {
-                // obtain lane
-                GNELane* lane = myFrameParent->myViewNet->getNet()->retrieveLane(myAC->getID(), false);
-                if (lane) {
-                    // obtain edge parent
-                    GNEEdge* edge = myFrameParent->myViewNet->getNet()->retrieveEdge(lane->getParentEdge().getID());
-                    //inser Junctions of lane of edge in tree (Pararell because a edge has always two Junctions)
-                    FXTreeItem* junctionSourceItem = myTreelist->insertItem(nullptr, nullptr, (edge->getGNEJunctionSource()->getHierarchyName() + " origin").c_str(), edge->getGNEJunctionSource()->getIcon(), edge->getGNEJunctionSource()->getIcon());
-                    FXTreeItem* junctionDestinyItem = myTreelist->insertItem(nullptr, nullptr, (edge->getGNEJunctionSource()->getHierarchyName() + " destiny").c_str(), edge->getGNEJunctionSource()->getIcon(), edge->getGNEJunctionSource()->getIcon());
-                    junctionDestinyItem->setExpanded(true);
-                    // Create edge item
-                    FXTreeItem* edgeItem = myTreelist->insertItem(nullptr, junctionDestinyItem, edge->getHierarchyName().c_str(), edge->getIcon(), edge->getIcon());
-                    edgeItem->setExpanded(true);
-                    // Save items in myTreeItemToACMap
-                    myTreeItemToACMap[junctionSourceItem] = edge->getGNEJunctionSource();
-                    myTreeItemToACMap[junctionDestinyItem] = edge->getGNEJunctionDestiny();
-                    myTreeItemToACMap[edgeItem] = edge;
-                    // return edge item
-                    return edgeItem;
-                } else {
-                    return nullptr;
-                }
-            }
-            case SUMO_TAG_CROSSING: {
-                // obtain Crossing
-                GNECrossing* crossing = myFrameParent->myViewNet->getNet()->retrieveCrossing(myAC->getID(), false);
-                if (crossing) {
-                    // obtain junction
-                    GNEJunction* junction = crossing->getParentJunction();
-                    // create junction item
-                    FXTreeItem* junctionItem = myTreelist->insertItem(nullptr, nullptr, junction->getHierarchyName().c_str(), junction->getIcon(), junction->getIcon());
-                    junctionItem->setExpanded(true);
-                    // Save items in myTreeItemToACMap
-                    myTreeItemToACMap[junctionItem] = junction;
-                    // return junction Item
-                    return junctionItem;
-                } else {
-                    return nullptr;
-                }
-            }
-            case SUMO_TAG_CONNECTION: {
-                // obtain Connection
-                GNEConnection* connection = myFrameParent->myViewNet->getNet()->retrieveConnection(myAC->getID(), false);
-                if (connection) {
-                    // create edge from item
-                    FXTreeItem* edgeFromItem = myTreelist->insertItem(nullptr, nullptr, connection->getEdgeFrom()->getHierarchyName().c_str(), connection->getEdgeFrom()->getIcon(), connection->getEdgeFrom()->getIcon());
-                    edgeFromItem->setExpanded(true);
-                    // create edge to item
-                    FXTreeItem* edgeToItem = myTreelist->insertItem(nullptr, nullptr, connection->getEdgeTo()->getHierarchyName().c_str(), connection->getEdgeTo()->getIcon(), connection->getEdgeTo()->getIcon());
-                    edgeToItem->setExpanded(true);
-                    // create connection item
-                    FXTreeItem* connectionItem = myTreelist->insertItem(nullptr, edgeToItem, connection->getHierarchyName().c_str(), connection->getIcon(), connection->getIcon());
-                    connectionItem->setExpanded(true);
-                    // Save items in myTreeItemToACMap
-                    myTreeItemToACMap[edgeFromItem] = connection->getEdgeFrom();
-                    myTreeItemToACMap[edgeToItem] = connection->getEdgeTo();
-                    myTreeItemToACMap[connectionItem] = connection;
-                    // return connection item
-                    return connectionItem;
-                } else {
-                    return nullptr;
-                }
-            }
-            default:
-                break;
-        }
-    } else if (myAC->getTagProperty().getTag() == SUMO_TAG_POILANE) {
-        // Obtain POILane
-        GNEPOI* POILane = myFrameParent->myViewNet->getNet()->retrievePOI(myAC->getID(), false);
-        if (POILane) {
-            // obtain lane parent
-            GNELane* lane = myFrameParent->myViewNet->getNet()->retrieveLane(POILane->getLaneParents().at(0)->getID());
-            // obtain edge parent
-            GNEEdge* edge = myFrameParent->myViewNet->getNet()->retrieveEdge(lane->getParentEdge().getID());
-            //inser Junctions of lane of edge in tree (Pararell because a edge has always two Junctions)
-            FXTreeItem* junctionSourceItem = myTreelist->insertItem(nullptr, nullptr, (edge->getGNEJunctionSource()->getHierarchyName() + " origin").c_str(), edge->getGNEJunctionSource()->getIcon(), edge->getGNEJunctionSource()->getIcon());
-            FXTreeItem* junctionDestinyItem = myTreelist->insertItem(nullptr, nullptr, (edge->getGNEJunctionSource()->getHierarchyName() + " destiny").c_str(), edge->getGNEJunctionSource()->getIcon(), edge->getGNEJunctionSource()->getIcon());
-            junctionDestinyItem->setExpanded(true);
-            // Create edge item
-            FXTreeItem* edgeItem = myTreelist->insertItem(nullptr, junctionDestinyItem, edge->getHierarchyName().c_str(), edge->getIcon(), edge->getIcon());
-            edgeItem->setExpanded(true);
-            // Create lane item
-            FXTreeItem* laneItem = myTreelist->insertItem(nullptr, edgeItem, lane->getHierarchyName().c_str(), lane->getIcon(), lane->getIcon());
-            laneItem->setExpanded(true);
-            // Save items in myTreeItemToACMap
-            myTreeItemToACMap[junctionSourceItem] = edge->getGNEJunctionSource();
-            myTreeItemToACMap[junctionDestinyItem] = edge->getGNEJunctionDestiny();
-            myTreeItemToACMap[edgeItem] = edge;
-            myTreeItemToACMap[laneItem] = lane;
-            // return Lane item
-            return laneItem;
-        } else {
-            return nullptr;
-        }
-    } else if (myAC->getTagProperty().isAdditional() || myAC->getTagProperty().isTAZ()) {
-        // Obtain Additional
-        GNEAdditional* additional = myFrameParent->myViewNet->getNet()->retrieveAdditional(myAC->getTagProperty().getTag(), myAC->getID(), false);
-        if (additional) {
-            // declare auxiliar FXTreeItem, due a demand element can have multiple "roots"
-            FXTreeItem* root = nullptr;
-            // check if there is demand elements parents
-            if (additional->getAdditionalParents().size() > 0) {
-                // check if we have more than one edge
-                if (additional->getAdditionalParents().size() > 1) {
-                    // insert first item
-                    addListItem(additional->getAdditionalParents().front());
-                    // insert "spacer"
-                    if (additional->getAdditionalParents().size() > 2) {
-                        addListItem(nullptr, ("..." + toString((int)additional->getAdditionalParents().size() - 2) + " additionals...").c_str(), 0, false);
-                    }
-                }
-                // return last inserted item
-                root = addListItem(additional->getAdditionalParents().back());
-            }
-            // check if there is demand element parents
-            if (additional->getDemandElementParents().size() > 0) {
-                // check if we have more than one demand element
-                if (additional->getDemandElementParents().size() > 1) {
-                    // insert first item
-                    addListItem(additional->getDemandElementParents().front());
-                    // insert "spacer"
-                    if (additional->getDemandElementParents().size() > 2) {
-                        addListItem(nullptr, ("..." + toString((int)additional->getDemandElementParents().size() - 2) + " demand elements...").c_str(), 0, false);
-                    }
-                }
-                // return last inserted item
-                root = addListItem(additional->getDemandElementParents().back());
-            }
-            // check if there is edge parents
-            if (additional->getEdgeParents().size() > 0) {
-                // check if we have more than one edge
-                if (additional->getEdgeParents().size() > 1) {
-                    // insert first item
-                    addListItem(additional->getEdgeParents().front());
-                    // insert "spacer"
-                    if (additional->getEdgeParents().size() > 2) {
-                        addListItem(nullptr, ("..." + toString((int)additional->getEdgeParents().size() - 2) + " edges...").c_str(), 0, false);
-                    }
-                }
-                // return last inserted item
-                root = addListItem(additional->getEdgeParents().back());
-            }
-            // check if there is lane parents
-            if (additional->getLaneParents().size() > 0) {
-                // check if we have more than one lane parent
-                if (additional->getLaneParents().size() > 1) {
-                    // insert first item
-                    addListItem(additional->getLaneParents().front());
-                    // insert "spacer"
-                    if (additional->getLaneParents().size() > 2) {
-                        addListItem(nullptr, ("..." + toString((int)additional->getLaneParents().size() - 2) + " lanes...").c_str(), 0, false);
-                    }
-                }
-                // return last inserted item
-                root = addListItem(additional->getLaneParents().back());
-            }
-            // return last inserted list item
-            return root;
-        }
-    } else if (myAC->getTagProperty().isDemandElement()) {
-        // Obtain DemandElement
-        GNEDemandElement* demandElement = myFrameParent->myViewNet->getNet()->retrieveDemandElement(myAC->getTagProperty().getTag(), myAC->getID(), false);
-        if (demandElement) {
-            // declare auxiliar FXTreeItem, due a demand element can have multiple "roots"
-            FXTreeItem* root = nullptr;
-            // check if there is demand elements parents
-            if (demandElement->getAdditionalParents().size() > 0) {
-                // check if we have more than one edge
-                if (demandElement->getAdditionalParents().size() > 1) {
-                    // insert first item
-                    addListItem(demandElement->getAdditionalParents().front());
-                    // insert "spacer"
-                    if (demandElement->getAdditionalParents().size() > 2) {
-                        addListItem(nullptr, ("..." + toString((int)demandElement->getAdditionalParents().size() - 2) + " additionals...").c_str(), 0, false);
-                    }
-                }
-                // return last inserted item
-                root = addListItem(demandElement->getAdditionalParents().back());
-            }
-            // check if there is demand element parents
-            if (demandElement->getDemandElementParents().size() > 0) {
-                // check if we have more than one demand element
-                if (demandElement->getDemandElementParents().size() > 1) {
-                    // insert first item
-                    addListItem(demandElement->getDemandElementParents().front());
-                    // insert "spacer"
-                    if (demandElement->getDemandElementParents().size() > 2) {
-                        addListItem(nullptr, ("..." + toString((int)demandElement->getDemandElementParents().size() - 2) + " demand elements...").c_str(), 0, false);
-                    }
-                }
-                // return last inserted item
-                root = addListItem(demandElement->getDemandElementParents().back());
-            }
-            // check if there is edge parents
-            if (demandElement->getEdgeParents().size() > 0) {
-                // check if we have more than one edge
-                if (demandElement->getEdgeParents().size() > 1) {
-                    // insert first item
-                    addListItem(demandElement->getEdgeParents().front());
-                    // insert "spacer"
-                    if (demandElement->getEdgeParents().size() > 2) {
-                        addListItem(nullptr, ("..." + toString((int)demandElement->getEdgeParents().size() - 2) + " edges...").c_str(), 0, false);
-                    }
-                }
-                // return last inserted item
-                root = addListItem(demandElement->getEdgeParents().back());
-            }
-            // check if there is lane parents
-            if (demandElement->getLaneParents().size() > 0) {
-                // check if we have more than one lane parent
-                if (demandElement->getLaneParents().size() > 1) {
-                    // insert first item
-                    addListItem(demandElement->getLaneParents().front());
-                    // insert "spacer"
-                    if (demandElement->getLaneParents().size() > 2) {
-                        addListItem(nullptr, ("..." + toString((int)demandElement->getLaneParents().size() - 2) + " lanes...").c_str(), 0, false);
-                    }
-                }
-                // return last inserted item
-                root = addListItem(demandElement->getLaneParents().back());
-            }
-            // return last inserted list item
-            return root;
-        }
-    }
-    // there aren't parents
-    return nullptr;
-}
-
-
-void
-GNEFrameHelper::AttributeCarrierHierarchy::showAttributeCarrierChildren(GNEAttributeCarrier* AC, FXTreeItem* itemParent) {
-    if (AC->getTagProperty().isNetElement()) {
-        // Switch gl type of ac
-        switch (AC->getTagProperty().getTag()) {
-            case SUMO_TAG_JUNCTION: {
-                // retrieve junction
-                GNEJunction* junction = myFrameParent->myViewNet->getNet()->retrieveJunction(AC->getID(), false);
-                if (junction) {
-                    // insert junction item
-                    FXTreeItem* junctionItem = addListItem(AC, itemParent);
-                    // insert edges
-                    for (auto i : junction->getGNEEdges()) {
-                        showAttributeCarrierChildren(i, junctionItem);
-                    }
-                    // insert crossings
-                    for (auto i : junction->getGNECrossings()) {
-                        showAttributeCarrierChildren(i, junctionItem);
-                    }
-                }
-                break;
-            }
-            case SUMO_TAG_EDGE: {
-                // retrieve edge
-                GNEEdge* edge = myFrameParent->myViewNet->getNet()->retrieveEdge(AC->getID(), false);
-                if (edge) {
-                    // insert edge item
-                    FXTreeItem* edgeItem = addListItem(AC, itemParent);
-                    // insert lanes
-                    for (const auto& i : edge->getLanes()) {
-                        showAttributeCarrierChildren(i, edgeItem);
-                    }
-                    // insert shape children
-                    for (const auto& i : edge->getShapeChildren()) {
-                        showAttributeCarrierChildren(i, edgeItem);
-                    }
-                    // insert additional children
-                    for (const auto& i : edge->getAdditionalChildren()) {
-                        showAttributeCarrierChildren(i, edgeItem);
-                    }
-                    // insert demand elements children (note: use getSortedDemandElementChildrenByType to avoid duplicated elements)
-                    for (const auto &i : edge->getSortedDemandElementChildrenByType(SUMO_TAG_ROUTE)) {
-                        showAttributeCarrierChildren(i, edgeItem);
-                    }
-                    for (const auto &i : edge->getSortedDemandElementChildrenByType(SUMO_TAG_TRIP)) {
-                        showAttributeCarrierChildren(i, edgeItem);
-                    }
-                    for (const auto &i : edge->getSortedDemandElementChildrenByType(SUMO_TAG_FLOW)) {
-                        showAttributeCarrierChildren(i, edgeItem);
-                    }
-                }
-                break;
-            }
-            case SUMO_TAG_LANE: {
-                // retrieve lane
-                GNELane* lane = myFrameParent->myViewNet->getNet()->retrieveLane(AC->getID(), false);
-                if (lane) {
-                    // insert lane item
-                    FXTreeItem* laneItem = addListItem(AC, itemParent);
-                    // insert shape children
-                    for (const auto& i : lane->getShapeChildren()) {
-                        showAttributeCarrierChildren(i, laneItem);
-                    }
-                    // insert additional children
-                    for (const auto& i : lane->getAdditionalChildren()) {
-                        showAttributeCarrierChildren(i, laneItem);
-                    }
-                    // insert demand elements children
-                    for (const auto& i : lane->getDemandElementChildren()) {
-                        showAttributeCarrierChildren(i, laneItem);
-                    }
-                    // insert incoming connections of lanes (by default isn't expanded)
-                    if (lane->getGNEIncomingConnections().size() > 0) {
-                        std::vector<GNEConnection*> incomingLaneConnections = lane->getGNEIncomingConnections();
-                        // insert intermediate list item
-                        FXTreeItem* incomingConnections = addListItem(laneItem, "Incomings", incomingLaneConnections.front()->getIcon(), false);
-                        // insert incoming connections
-                        for (auto i : incomingLaneConnections) {
-                            showAttributeCarrierChildren(i, incomingConnections);
-                        }
-                    }
-                    // insert outcoming connections of lanes (by default isn't expanded)
-                    if (lane->getGNEOutcomingConnections().size() > 0) {
-                        std::vector<GNEConnection*> outcomingLaneConnections = lane->getGNEOutcomingConnections();
-                        // insert intermediate list item
-                        FXTreeItem* outgoingConnections = addListItem(laneItem, "Outgoing", outcomingLaneConnections.front()->getIcon(), false);
-                        // insert outcoming connections
-                        for (auto i : outcomingLaneConnections) {
-                            showAttributeCarrierChildren(i, outgoingConnections);
-                        }
-                    }
-                }
-                break;
-            }
-            case SUMO_TAG_CROSSING:
-            case SUMO_TAG_CONNECTION: {
-                // insert connection item
-                addListItem(AC, itemParent);
-                break;
-            }
-            default:
-                break;
-        }
-    } else if (AC->getTagProperty().isShape()) {
-        // insert shape item
-        addListItem(AC, itemParent);
-    } else if (AC->getTagProperty().isAdditional() || AC->getTagProperty().isTAZ()) {
-        // retrieve additional
-        GNEAdditional* additional = myFrameParent->myViewNet->getNet()->retrieveAdditional(AC->getTagProperty().getTag(), AC->getID(), false);
-        if (additional) {
-            // insert additional item
-            FXTreeItem* additionalItem = addListItem(AC, itemParent);
-            // insert edge children
-            for (const auto& i : additional->getEdgeChildren()) {
-                showAttributeCarrierChildren(i, additionalItem);
-            }
-            // insert lane children
-            for (const auto& i : additional->getLaneChildren()) {
-                showAttributeCarrierChildren(i, additionalItem);
-            }
-            // insert shape children
-            for (const auto& i : additional->getShapeChildren()) {
-                showAttributeCarrierChildren(i, additionalItem);
-            }
-            // insert additionals children
-            for (const auto& i : additional->getAdditionalChildren()) {
-                showAttributeCarrierChildren(i, additionalItem);
-            }
-            // insert demand element children
-            for (const auto& i : additional->getDemandElementChildren()) {
-                showAttributeCarrierChildren(i, additionalItem);
-            }
-        }
-    } else if (AC->getTagProperty().isDemandElement()) {
-        // retrieve demandElement
-        GNEDemandElement* demandElement = myFrameParent->myViewNet->getNet()->retrieveDemandElement(AC->getTagProperty().getTag(), AC->getID(), false);
-        if (demandElement) {
-            // insert demandElement item
-            FXTreeItem* demandElementItem = addListItem(AC, itemParent);
-            // insert edge children
-            for (const auto& i : demandElement->getEdgeChildren()) {
-                showAttributeCarrierChildren(i, demandElementItem);
-            }
-            // insert lane children
-            for (const auto& i : demandElement->getLaneChildren()) {
-                showAttributeCarrierChildren(i, demandElementItem);
-            }
-            // insert shape children
-            for (const auto& i : demandElement->getShapeChildren()) {
-                showAttributeCarrierChildren(i, demandElementItem);
-            }
-            // insert additionals children
-            for (const auto& i : demandElement->getAdditionalChildren()) {
-                showAttributeCarrierChildren(i, demandElementItem);
-            }
-            // insert demand element children
-            for (const auto& i : demandElement->getDemandElementChildren()) {
-                showAttributeCarrierChildren(i, demandElementItem);
-            }
-        }
-    }
-}
-
-
-FXTreeItem*
-GNEFrameHelper::AttributeCarrierHierarchy::addListItem(GNEAttributeCarrier* AC, FXTreeItem* itemParent, std::string prefix, std::string sufix) {
-    // insert item in Tree list
-    FXTreeItem* item = myTreelist->insertItem(nullptr, itemParent, (prefix + AC->getHierarchyName() + sufix).c_str(), AC->getIcon(), AC->getIcon());
-    // insert item in map
-    myTreeItemToACMap[item] = AC;
-    // by default item is expanded
-    item->setExpanded(true);
-    // return created FXTreeItem
-    return item;
-}
-
-
-FXTreeItem*
-GNEFrameHelper::AttributeCarrierHierarchy::addListItem(FXTreeItem* itemParent, const std::string& text, FXIcon* icon, bool expanded) {
-    // insert item in Tree list
-    FXTreeItem* item = myTreelist->insertItem(nullptr, itemParent, text.c_str(), icon, icon);
-    // expand item depending of flag expanded
-    item->setExpanded(expanded);
-    // return created FXTreeItem
-    return item;
-}
-
-// ---------------------------------------------------------------------------
-// GNEFrameHelper::GenericParametersEditor - methods
-// ---------------------------------------------------------------------------
-
-GNEFrameHelper::GenericParametersEditor::GenericParametersEditor(GNEFrame* inspectorFrameParent) :
+GNEFrameAttributesModuls::GenericParametersEditor::GenericParametersEditor(GNEFrame* inspectorFrameParent) :
     FXGroupBox(inspectorFrameParent->myContentFrame, "Generic parameters", GUIDesignGroupBoxFrame),
     myFrameParent(inspectorFrameParent),
     myAC(nullptr),
@@ -3006,13 +1586,13 @@ GNEFrameHelper::GenericParametersEditor::GenericParametersEditor(GNEFrame* inspe
 }
 
 
-GNEFrameHelper::GenericParametersEditor::~GenericParametersEditor() {
+GNEFrameAttributesModuls::GenericParametersEditor::~GenericParametersEditor() {
     delete myGenericParameters;
 }
 
 
 void
-GNEFrameHelper::GenericParametersEditor::showGenericParametersEditor(GNEAttributeCarrier* AC) {
+GNEFrameAttributesModuls::GenericParametersEditor::showGenericParametersEditor(GNEAttributeCarrier* AC) {
     if (AC != nullptr) {
         myAC = AC;
         myACs.clear();
@@ -3029,7 +1609,7 @@ GNEFrameHelper::GenericParametersEditor::showGenericParametersEditor(GNEAttribut
 
 
 void
-GNEFrameHelper::GenericParametersEditor::showGenericParametersEditor(std::vector<GNEAttributeCarrier*> ACs) {
+GNEFrameAttributesModuls::GenericParametersEditor::showGenericParametersEditor(std::vector<GNEAttributeCarrier*> ACs) {
     if (ACs.size() > 0) {
         myAC = nullptr;
         myACs = ACs;
@@ -3056,7 +1636,7 @@ GNEFrameHelper::GenericParametersEditor::showGenericParametersEditor(std::vector
 
 
 void
-GNEFrameHelper::GenericParametersEditor::hideGenericParametersEditor() {
+GNEFrameAttributesModuls::GenericParametersEditor::hideGenericParametersEditor() {
     myAC = nullptr;
     // hide groupbox
     hide();
@@ -3064,7 +1644,7 @@ GNEFrameHelper::GenericParametersEditor::hideGenericParametersEditor() {
 
 
 void
-GNEFrameHelper::GenericParametersEditor::refreshGenericParametersEditor() {
+GNEFrameAttributesModuls::GenericParametersEditor::refreshGenericParametersEditor() {
     // update text field depending of AC
     if (myAC) {
         myTextFieldGenericParameter->setText(myAC->getAttribute(GNE_ATTR_GENERIC).c_str());
@@ -3102,7 +1682,7 @@ GNEFrameHelper::GenericParametersEditor::refreshGenericParametersEditor() {
 
 
 std::string
-GNEFrameHelper::GenericParametersEditor::getGenericParametersStr() const {
+GNEFrameAttributesModuls::GenericParametersEditor::getGenericParametersStr() const {
     std::string result;
     // Generate an string using the following structure: "key1=value1|key2=value2|...
     for (auto i = myGenericParameters->begin(); i != myGenericParameters->end(); i++) {
@@ -3117,7 +1697,7 @@ GNEFrameHelper::GenericParametersEditor::getGenericParametersStr() const {
 
 
 long
-GNEFrameHelper::GenericParametersEditor::onCmdEditGenericParameter(FXObject*, FXSelector, void*) {
+GNEFrameAttributesModuls::GenericParametersEditor::onCmdEditGenericParameter(FXObject*, FXSelector, void*) {
     // write debug information
     WRITE_DEBUG("Open generic parameter dialog");
     // edit generic parameters using dialog
@@ -3147,7 +1727,7 @@ GNEFrameHelper::GenericParametersEditor::onCmdEditGenericParameter(FXObject*, FX
 
 
 long
-GNEFrameHelper::GenericParametersEditor::onCmdSetGenericParameter(FXObject*, FXSelector, void*) {
+GNEFrameAttributesModuls::GenericParametersEditor::onCmdSetGenericParameter(FXObject*, FXSelector, void*) {
     // separate value in a vector of string using | as separator
     std::vector<std::string> parsedValues;
     StringTokenizer st(myTextFieldGenericParameter->getText().text(), "|", true);
@@ -3216,10 +1796,10 @@ GNEFrameHelper::GenericParametersEditor::onCmdSetGenericParameter(FXObject*, FXS
 }
 
 // ---------------------------------------------------------------------------
-// GNEFrameHelper::DrawingShape - methods
+// GNEFrameAttributesModuls::DrawingShape - methods
 // ---------------------------------------------------------------------------
 
-GNEFrameHelper::DrawingShape::DrawingShape(GNEFrame* frameParent) :
+GNEFrameAttributesModuls::DrawingShape::DrawingShape(GNEFrame* frameParent) :
     FXGroupBox(frameParent->myContentFrame, "Drawing", GUIDesignGroupBoxFrame),
     myFrameParent(frameParent),
     myDeleteLastCreatedPoint(false) {
@@ -3246,10 +1826,10 @@ GNEFrameHelper::DrawingShape::DrawingShape(GNEFrame* frameParent) :
 }
 
 
-GNEFrameHelper::DrawingShape::~DrawingShape() {}
+GNEFrameAttributesModuls::DrawingShape::~DrawingShape() {}
 
 
-void GNEFrameHelper::DrawingShape::showDrawingShape() {
+void GNEFrameAttributesModuls::DrawingShape::showDrawingShape() {
     // abort current drawing before show
     abortDrawing();
     // show FXGroupBox
@@ -3257,7 +1837,7 @@ void GNEFrameHelper::DrawingShape::showDrawingShape() {
 }
 
 
-void GNEFrameHelper::DrawingShape::hideDrawingShape() {
+void GNEFrameAttributesModuls::DrawingShape::hideDrawingShape() {
     // abort current drawing before hide
     abortDrawing();
     // show FXGroupBox
@@ -3266,7 +1846,7 @@ void GNEFrameHelper::DrawingShape::hideDrawingShape() {
 
 
 void
-GNEFrameHelper::DrawingShape::startDrawing() {
+GNEFrameAttributesModuls::DrawingShape::startDrawing() {
     // Only start drawing if DrawingShape modul is shown
     if (shown()) {
         // change buttons
@@ -3278,7 +1858,7 @@ GNEFrameHelper::DrawingShape::startDrawing() {
 
 
 void
-GNEFrameHelper::DrawingShape::stopDrawing() {
+GNEFrameAttributesModuls::DrawingShape::stopDrawing() {
     // try to build shape
     if (myFrameParent->shapeDrawed()) {
         // clear created points
@@ -3296,7 +1876,7 @@ GNEFrameHelper::DrawingShape::stopDrawing() {
 
 
 void
-GNEFrameHelper::DrawingShape::abortDrawing() {
+GNEFrameAttributesModuls::DrawingShape::abortDrawing() {
     // clear created points
     myTemporalShapeShape.clear();
     myFrameParent->myViewNet->update();
@@ -3308,7 +1888,7 @@ GNEFrameHelper::DrawingShape::abortDrawing() {
 
 
 void
-GNEFrameHelper::DrawingShape::addNewPoint(const Position& P) {
+GNEFrameAttributesModuls::DrawingShape::addNewPoint(const Position& P) {
     if (myStopDrawingButton->isEnabled()) {
         myTemporalShapeShape.push_back(P);
     } else {
@@ -3318,60 +1898,60 @@ GNEFrameHelper::DrawingShape::addNewPoint(const Position& P) {
 
 
 void
-GNEFrameHelper::DrawingShape::removeLastPoint() {
+GNEFrameAttributesModuls::DrawingShape::removeLastPoint() {
 
 }
 
 
 const PositionVector&
-GNEFrameHelper::DrawingShape::getTemporalShape() const {
+GNEFrameAttributesModuls::DrawingShape::getTemporalShape() const {
     return myTemporalShapeShape;
 }
 
 
 bool
-GNEFrameHelper::DrawingShape::isDrawing() const {
+GNEFrameAttributesModuls::DrawingShape::isDrawing() const {
     return myStopDrawingButton->isEnabled();
 }
 
 
 void
-GNEFrameHelper::DrawingShape::setDeleteLastCreatedPoint(bool value) {
+GNEFrameAttributesModuls::DrawingShape::setDeleteLastCreatedPoint(bool value) {
     myDeleteLastCreatedPoint = value;
 }
 
 
 bool
-GNEFrameHelper::DrawingShape::getDeleteLastCreatedPoint() {
+GNEFrameAttributesModuls::DrawingShape::getDeleteLastCreatedPoint() {
     return myDeleteLastCreatedPoint;
 }
 
 
 long
-GNEFrameHelper::DrawingShape::onCmdStartDrawing(FXObject*, FXSelector, void*) {
+GNEFrameAttributesModuls::DrawingShape::onCmdStartDrawing(FXObject*, FXSelector, void*) {
     startDrawing();
     return 0;
 }
 
 
 long
-GNEFrameHelper::DrawingShape::onCmdStopDrawing(FXObject*, FXSelector, void*) {
+GNEFrameAttributesModuls::DrawingShape::onCmdStopDrawing(FXObject*, FXSelector, void*) {
     stopDrawing();
     return 0;
 }
 
 
 long
-GNEFrameHelper::DrawingShape::onCmdAbortDrawing(FXObject*, FXSelector, void*) {
+GNEFrameAttributesModuls::DrawingShape::onCmdAbortDrawing(FXObject*, FXSelector, void*) {
     abortDrawing();
     return 0;
 }
 
 // ---------------------------------------------------------------------------
-// GNEFrameHelper::NeteditAttributes- methods
+// GNEFrameAttributesModuls::NeteditAttributes- methods
 // ---------------------------------------------------------------------------
 
-GNEFrameHelper::NeteditAttributes::NeteditAttributes(GNEFrame* frameParent) :
+GNEFrameAttributesModuls::NeteditAttributes::NeteditAttributes(GNEFrame* frameParent) :
     FXGroupBox(frameParent->myContentFrame, "Netedit attributes", GUIDesignGroupBoxFrame),
     myFrameParent(frameParent),
     myCurrentLengthValid(true),
@@ -3407,11 +1987,11 @@ GNEFrameHelper::NeteditAttributes::NeteditAttributes(GNEFrame* frameParent) :
 }
 
 
-GNEFrameHelper::NeteditAttributes::~NeteditAttributes() {}
+GNEFrameAttributesModuls::NeteditAttributes::~NeteditAttributes() {}
 
 
 void
-GNEFrameHelper::NeteditAttributes::showNeteditAttributesModul(const GNEAttributeCarrier::TagProperties& tagProperty) {
+GNEFrameAttributesModuls::NeteditAttributes::showNeteditAttributesModul(const GNEAttributeCarrier::TagProperties& tagProperty) {
     // we assume that frame will not be show
     bool showFrame = false;
     // check if lenght text field has to be showed
@@ -3462,13 +2042,13 @@ GNEFrameHelper::NeteditAttributes::showNeteditAttributesModul(const GNEAttribute
 
 
 void
-GNEFrameHelper::NeteditAttributes::hideNeteditAttributesModul() {
+GNEFrameAttributesModuls::NeteditAttributes::hideNeteditAttributesModul() {
     hide();
 }
 
 
 bool
-GNEFrameHelper::NeteditAttributes::getNeteditAttributesAndValues(std::map<SumoXMLAttr, std::string>& valuesMap, const GNELane* lane) const {
+GNEFrameAttributesModuls::NeteditAttributes::getNeteditAttributesAndValues(std::map<SumoXMLAttr, std::string>& valuesMap, const GNELane* lane) const {
     // check if we need to obtain a start and end position over an edge
     if (myReferencePointMatchBox->shown()) {
         // we need a valid lane to calculate position over lane
@@ -3525,7 +2105,7 @@ GNEFrameHelper::NeteditAttributes::getNeteditAttributesAndValues(std::map<SumoXM
 
 
 long
-GNEFrameHelper::NeteditAttributes::onCmdSetNeteditAttribute(FXObject* obj, FXSelector, void*) {
+GNEFrameAttributesModuls::NeteditAttributes::onCmdSetNeteditAttribute(FXObject* obj, FXSelector, void*) {
     if (obj == myBlockMovementCheckButton) {
         if (myBlockMovementCheckButton->getCheck()) {
             myBlockMovementCheckButton->setText("true");
@@ -3584,7 +2164,7 @@ GNEFrameHelper::NeteditAttributes::onCmdSetNeteditAttribute(FXObject* obj, FXSel
 
 
 long
-GNEFrameHelper::NeteditAttributes::onCmdHelp(FXObject*, FXSelector, void*) {
+GNEFrameAttributesModuls::NeteditAttributes::onCmdHelp(FXObject*, FXSelector, void*) {
     // Create dialog box
     FXDialogBox* additionalNeteditAttributesHelpDialog = new FXDialogBox(this, "Netedit Parameters Help", GUIDesignDialogBox);
     additionalNeteditAttributesHelpDialog->setIcon(GUIIconSubSys::getIcon(ICON_MODEADDITIONAL));
@@ -3638,7 +2218,7 @@ GNEFrameHelper::NeteditAttributes::onCmdHelp(FXObject*, FXSelector, void*) {
 
 
 double
-GNEFrameHelper::NeteditAttributes::setStartPosition(double positionOfTheMouseOverLane, double lengthOfAdditional) const {
+GNEFrameAttributesModuls::NeteditAttributes::setStartPosition(double positionOfTheMouseOverLane, double lengthOfAdditional) const {
     switch (myActualAdditionalReferencePoint) {
         case GNE_ADDITIONALREFERENCEPOINT_LEFT:
             return positionOfTheMouseOverLane;
@@ -3653,7 +2233,7 @@ GNEFrameHelper::NeteditAttributes::setStartPosition(double positionOfTheMouseOve
 
 
 double
-GNEFrameHelper::NeteditAttributes::setEndPosition(double positionOfTheMouseOverLane, double lengthOfAdditional)  const {
+GNEFrameAttributesModuls::NeteditAttributes::setEndPosition(double positionOfTheMouseOverLane, double lengthOfAdditional)  const {
     switch (myActualAdditionalReferencePoint) {
         case GNE_ADDITIONALREFERENCEPOINT_LEFT:
             return positionOfTheMouseOverLane + lengthOfAdditional;
@@ -3663,89 +2243,6 @@ GNEFrameHelper::NeteditAttributes::setEndPosition(double positionOfTheMouseOverL
             return positionOfTheMouseOverLane + lengthOfAdditional / 2;
         default:
             throw InvalidArgument("Reference Point invalid");
-    }
-}
-
-// ---------------------------------------------------------------------------
-// GNEFrameHelper::SelectorParent - methods
-// ---------------------------------------------------------------------------
-
-GNEFrameHelper::SelectorParent::SelectorParent(GNEFrame* frameParent) :
-    FXGroupBox(frameParent->myContentFrame, "Parent selector", GUIDesignGroupBoxFrame),
-    myFrameParent(frameParent),
-    myParentTag(SUMO_TAG_NOTHING) {
-    // Create label with the type of SelectorParent
-    myParentsLabel = new FXLabel(this, "No additional selected", nullptr, GUIDesignLabelLeftThick);
-    // Create list
-    myParentsList = new FXList(this, this, MID_GNE_SET_TYPE, GUIDesignListSingleElementFixedHeight);
-    // Hide List
-    hideSelectorParentModul();
-}
-
-
-GNEFrameHelper::SelectorParent::~SelectorParent() {}
-
-
-std::string
-GNEFrameHelper::SelectorParent::getIdSelected() const {
-    for (int i = 0; i < myParentsList->getNumItems(); i++) {
-        if (myParentsList->isItemSelected(i)) {
-            return myParentsList->getItem(i)->getText().text();
-        }
-    }
-    return "";
-}
-
-
-void
-GNEFrameHelper::SelectorParent::setIDSelected(const std::string& id) {
-    // first unselect all
-    for (int i = 0; i < myParentsList->getNumItems(); i++) {
-        myParentsList->getItem(i)->setSelected(false);
-    }
-    // select element if correspond to given ID
-    for (int i = 0; i < myParentsList->getNumItems(); i++) {
-        if (myParentsList->getItem(i)->getText().text() == id) {
-            myParentsList->getItem(i)->setSelected(true);
-        }
-    }
-    // recalc myFirstParentsList
-    myParentsList->recalc();
-}
-
-
-bool
-GNEFrameHelper::SelectorParent::showSelectorParentModul(SumoXMLTag additionalType) {
-    // make sure that we're editing an additional tag
-    auto listOfTags = GNEAttributeCarrier::allowedTagsByCategory(GNEAttributeCarrier::TagType::TAGTYPE_ADDITIONAL, false);
-    for (auto i : listOfTags) {
-        if (i == additionalType) {
-            myParentTag = additionalType;
-            myParentsLabel->setText(("Parent type: " + toString(additionalType)).c_str());
-            refreshSelectorParentModul();
-            show();
-            return true;
-        }
-    }
-    return false;
-}
-
-
-void
-GNEFrameHelper::SelectorParent::hideSelectorParentModul() {
-    myParentTag = SUMO_TAG_NOTHING;
-    hide();
-}
-
-
-void
-GNEFrameHelper::SelectorParent::refreshSelectorParentModul() {
-    myParentsList->clearItems();
-    if (myParentTag != SUMO_TAG_NOTHING) {
-        // fill list with IDs of additionals
-        for (const auto &i : myFrameParent->getViewNet()->getNet()->getAttributeCarriers().additionals.at(myParentTag)) {
-            myParentsList->appendItem(i.first.c_str());
-        }
     }
 }
 

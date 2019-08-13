@@ -86,8 +86,8 @@ public:
 
     /// @brief get stop parameters
     static bool getStopParameter(SUMOVehicleParameter::Stop &stop, bool &friendlyPosition, const SumoXMLTag stopTag, 
-                                 GNEViewNet *viewNet, const GNEFrameHelper::AttributesCreator* stopAttributes, 
-                                 const GNEFrameHelper::NeteditAttributes* myNeteditAttributes, 
+                                 GNEViewNet *viewNet, const GNEFrameAttributesModuls::AttributesCreator* stopAttributes, 
+                                 const GNEFrameAttributesModuls::NeteditAttributes* myNeteditAttributes, 
                                  const GNELane *lane, const GNEAdditional* stoppingPlace);
 
 protected:
@@ -96,16 +96,16 @@ protected:
 
 private:
     /// @brief Stop parent selectors
-    GNEFrameHelper::DemandElementSelector* myStopParentSelector;
+    GNEFrameModuls::DemandElementSelector* myStopParentSelector;
 
     /// @brief stop tag selector selector (used to select diffent kind of Stops)
-    GNEFrameHelper::TagSelector* myStopTagSelector;
+    GNEFrameModuls::TagSelector* myStopTagSelector;
 
     /// @brief internal Stop attributes
-    GNEFrameHelper::AttributesCreator* myStopAttributes;
+    GNEFrameAttributesModuls::AttributesCreator* myStopAttributes;
 
     /// @brief Netedit parameter
-    GNEFrameHelper::NeteditAttributes* myNeteditAttributes;
+    GNEFrameAttributesModuls::NeteditAttributes* myNeteditAttributes;
 
     /// @brief Help creation
     HelpCreation* myHelpCreation;

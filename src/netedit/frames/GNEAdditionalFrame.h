@@ -310,19 +310,19 @@ private:
     bool buildAdditionalOverView(std::map<SumoXMLAttr, std::string>& valuesMap, const GNEAttributeCarrier::TagProperties& tagValues);
 
     /// @brief item selector
-    GNEFrameHelper::TagSelector* myAdditionalTagSelector;
+    GNEFrameModuls::TagSelector* myAdditionalTagSelector;
 
     /// @brief internal additional attributes
-    GNEFrameHelper::AttributesCreator* myAdditionalAttributes;
+    GNEFrameAttributesModuls::AttributesCreator* myAdditionalAttributes;
 
     /// @brief Netedit parameter
-    GNEFrameHelper::NeteditAttributes* myNeteditAttributes;
+    GNEFrameAttributesModuls::NeteditAttributes* myNeteditAttributes;
 
     /// @brief Modul for select lane parents (currently only consecutives)
     SelectorLaneParents* mySelectorLaneParents;
 
     /// @brief Modul for select a single additional parent
-    GNEFrameHelper::SelectorParent* myAdditionalParent;
+    GNEFrameModuls::SelectorParent* myAdditionalParent;
 
     /// @brief Modul for select edge children
     SelectorEdgeChildren* mySelectorEdgeChildren;

@@ -82,7 +82,7 @@ public:
     bool addPerson(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor);
 
     /// @brief get EdgePathCreator modul
-    GNEFrameHelper::EdgePathCreator* getEdgePathCreator() const;
+    GNEFrameModuls::EdgePathCreator* getEdgePathCreator() const;
 
 protected:
     /// @brief Tag selected in TagSelector
@@ -96,25 +96,25 @@ protected:
 
 private:
     /// @brief person tag selector (used to select diffent kind of persons)
-    GNEFrameHelper::TagSelector* myPersonTagSelector;
+    GNEFrameModuls::TagSelector* myPersonTagSelector;
     
     /// @brief Person Type selectors
-    GNEFrameHelper::DemandElementSelector* myPTypeSelector;
+    GNEFrameModuls::DemandElementSelector* myPTypeSelector;
 
     /// @brief person plan selector (used to select diffent kind of person plan)
-    GNEFrameHelper::TagSelector* myPersonPlanTagSelector;
+    GNEFrameModuls::TagSelector* myPersonPlanTagSelector;
 
     /// @brief internal vehicle attributes
-    GNEFrameHelper::AttributesCreator* myPersonAttributes;
+    GNEFrameAttributesModuls::AttributesCreator* myPersonAttributes;
 
     /// @brief internal person plan attributes
-    GNEFrameHelper::AttributesCreator* myPersonPlanAttributes;
+    GNEFrameAttributesModuls::AttributesCreator* myPersonPlanAttributes;
 
     /// @brief Netedit parameter
-    GNEFrameHelper::NeteditAttributes* myNeteditAttributes;
+    GNEFrameAttributesModuls::NeteditAttributes* myNeteditAttributes;
 
     /// @brief edge path creator (used for Walks, rides and trips)
-    GNEFrameHelper::EdgePathCreator* myEdgePathCreator;
+    GNEFrameModuls::EdgePathCreator* myEdgePathCreator;
 
     /// @brief Help creation
     HelpCreation* myHelpCreation;

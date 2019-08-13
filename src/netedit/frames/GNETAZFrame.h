@@ -527,7 +527,7 @@ public:
     void processEdgeSelection(const std::vector<GNEEdge*>& edges);
 
     /// @brief get drawing mode modul
-    GNEFrameHelper::DrawingShape* getDrawingShapeModul() const;
+    GNEFrameModuls::DrawingShape* getDrawingShapeModul() const;
 
     /// @brief get Current TAZ modul
     TAZCurrent* getTAZCurrentModul() const;
@@ -562,10 +562,10 @@ private:
     TAZParameters* myTAZParameters;
 
     /// @brief Netedit parameter
-    GNEFrameHelper::NeteditAttributes* myNeteditAttributes;
+    GNEFrameAttributesModuls::NeteditAttributes* myNeteditAttributes;
 
     /// @brief Drawing shape
-    GNEFrameHelper::DrawingShape* myDrawingShape;
+    GNEFrameModuls::DrawingShape* myDrawingShape;
 
     /// @brief save TAZ Edges
     TAZSaveChanges* myTAZSaveChanges;

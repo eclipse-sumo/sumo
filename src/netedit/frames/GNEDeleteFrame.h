@@ -138,7 +138,7 @@ private:
     DeleteOptions* myDeleteOptions;
 
     /// @brief modul for hierarchy
-    GNEFrameHelper::AttributeCarrierHierarchy* myAttributeCarrierHierarchy;
+    GNEFrameModuls::AttributeCarrierHierarchy* myAttributeCarrierHierarchy;
 };
 
 

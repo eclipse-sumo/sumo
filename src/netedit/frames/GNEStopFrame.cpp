@@ -27,7 +27,6 @@
 #include <netedit/demandelements/GNERouteHandler.h>
 #include <netedit/netelements/GNELane.h>
 #include <utils/gui/div/GUIDesigns.h>
-#include <utils/gui/windows/GUIAppEnum.h>
 
 #include "GNEStopFrame.h"
 
@@ -110,16 +109,16 @@ GNEStopFrame::GNEStopFrame(FXHorizontalFrame* horizontalFrameParent, GNEViewNet*
     GNEFrame(horizontalFrameParent, viewNet, "Stops") {
 
     // Create Stop parent selector
-    myStopParentSelector = new GNEFrameHelper::DemandElementSelector(this, {GNEAttributeCarrier::TagType::TAGTYPE_PERSON, GNEAttributeCarrier::TagType::TAGTYPE_VEHICLE, GNEAttributeCarrier::TagType::TAGTYPE_ROUTE});
+    myStopParentSelector = new GNEFrameModuls::DemandElementSelector(this, {GNEAttributeCarrier::TagType::TAGTYPE_PERSON, GNEAttributeCarrier::TagType::TAGTYPE_VEHICLE, GNEAttributeCarrier::TagType::TAGTYPE_ROUTE});
 
     // Create item Selector modul for Stops
-    myStopTagSelector = new GNEFrameHelper::TagSelector(this, GNEAttributeCarrier::TagType::TAGTYPE_STOP);
+    myStopTagSelector = new GNEFrameModuls::TagSelector(this, GNEAttributeCarrier::TagType::TAGTYPE_STOP);
 
     // Create Stop parameters
-    myStopAttributes = new GNEFrameHelper::AttributesCreator(this);
+    myStopAttributes = new GNEFrameAttributesModuls::AttributesCreator(this);
 
     // Create Netedit parameter
-    myNeteditAttributes = new GNEFrameHelper::NeteditAttributes(this);
+    myNeteditAttributes = new GNEFrameAttributesModuls::NeteditAttributes(this);
 
     // Create Help Creation Modul
     myHelpCreation = new HelpCreation(this);
@@ -182,7 +181,7 @@ GNEStopFrame::addStop(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCu
 
 bool
 GNEStopFrame::getStopParameter(SUMOVehicleParameter::Stop &stop, bool &friendlyPosition, const SumoXMLTag stopTag, 
-                               GNEViewNet *viewNet, const GNEFrameHelper::AttributesCreator* stopAttributes, const GNEFrameHelper::NeteditAttributes* myNeteditAttributes, 
+                               GNEViewNet *viewNet, const GNEFrameAttributesModuls::AttributesCreator* stopAttributes, const GNEFrameAttributesModuls::NeteditAttributes* myNeteditAttributes, 
                                const GNELane *lane, const GNEAdditional* stoppingPlace) {
     // first check that current selected Stop is valid
     if (stopTag == SUMO_TAG_NOTHING) {

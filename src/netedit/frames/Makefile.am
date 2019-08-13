@@ -1,7 +1,8 @@
 noinst_LIBRARIES = libneteditframes.a
 
 libneteditframes_a_SOURCES = GNEFrame.cpp GNEFrame.h \
-GNEFrameHelper.cpp GNEFrameHelper.h \
+GNEFrameModuls.cpp GNEFrameModuls.h \
+GNEFrameAttributesModuls.cpp GNEFrameAttributesModuls.h \
 GNEInspectorFrame.cpp GNEInspectorFrame.h \
 GNESelectorFrame.cpp GNESelectorFrame.h \
 GNEConnectorFrame.cpp GNEConnectorFrame.h \

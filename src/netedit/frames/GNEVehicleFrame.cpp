@@ -104,16 +104,16 @@ GNEVehicleFrame::GNEVehicleFrame(FXHorizontalFrame* horizontalFrameParent, GNEVi
     GNEFrame(horizontalFrameParent, viewNet, "Vehicles") {
 
     // Create item Selector modul for vehicles
-    myVehicleTagSelector = new GNEFrameHelper::TagSelector(this, GNEAttributeCarrier::TagType::TAGTYPE_VEHICLE);
+    myVehicleTagSelector = new GNEFrameModuls::TagSelector(this, GNEAttributeCarrier::TagType::TAGTYPE_VEHICLE);
 
     // Create vehicle type selector
-    myVTypeSelector = new GNEFrameHelper::DemandElementSelector(this, SUMO_TAG_VTYPE);
+    myVTypeSelector = new GNEFrameModuls::DemandElementSelector(this, SUMO_TAG_VTYPE);
 
     // Create vehicle parameters
-    myVehicleAttributes = new GNEFrameHelper::AttributesCreator(this);
+    myVehicleAttributes = new GNEFrameAttributesModuls::AttributesCreator(this);
 
     // create EdgePathCreator Modul
-    myEdgePathCreator = new GNEFrameHelper::EdgePathCreator(this, GNEFrameHelper::EdgePathCreator::EdgePathCreatorModes::GNE_EDGEPATHCREATOR_FROM_TO_VIA);
+    myEdgePathCreator = new GNEFrameModuls::EdgePathCreator(this, GNEFrameModuls::EdgePathCreator::EdgePathCreatorModes::GNE_EDGEPATHCREATOR_FROM_TO_VIA);
 
     // Create Help Creation Modul
     myHelpCreation = new HelpCreation(this);
@@ -236,7 +236,7 @@ GNEVehicleFrame::addVehicle(const GNEViewNetHelper::ObjectsUnderCursor& objectsU
 }
 
 
-GNEFrameHelper::EdgePathCreator*
+GNEFrameModuls::EdgePathCreator*
 GNEVehicleFrame::getEdgePathCreator() const {
     return myEdgePathCreator;
 }

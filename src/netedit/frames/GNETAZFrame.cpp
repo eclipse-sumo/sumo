@@ -1321,10 +1321,10 @@ GNETAZFrame::GNETAZFrame(FXHorizontalFrame* horizontalFrameParent, GNEViewNet* v
     myTAZParameters = new TAZParameters(this);
 
     /// @brief create  Netedit parameter
-    myNeteditAttributes = new GNEFrameHelper::NeteditAttributes(this);
+    myNeteditAttributes = new GNEFrameAttributesModuls::NeteditAttributes(this);
 
     // Create drawing controls modul
-    myDrawingShape = new GNEFrameHelper::DrawingShape(this);
+    myDrawingShape = new GNEFrameModuls::DrawingShape(this);
 
     // Create TAZ Edges Common Statistics modul
     myTAZCommonStatistics = new TAZCommonStatistics(this);
@@ -1443,7 +1443,7 @@ GNETAZFrame::processEdgeSelection(const std::vector<GNEEdge*>& edges) {
 }
 
 
-GNEFrameHelper::DrawingShape*
+GNEFrameModuls::DrawingShape*
 GNETAZFrame::getDrawingShapeModul() const {
     return myDrawingShape;
 }

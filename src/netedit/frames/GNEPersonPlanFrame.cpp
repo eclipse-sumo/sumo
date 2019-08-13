@@ -22,7 +22,6 @@
 
 #include <netedit/GNEApplicationWindow.h>
 #include <netedit/GNENet.h>
-#include <netedit/GNEUndoList.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNEViewParent.h>
 #include <netedit/additionals/GNEBusStop.h>
@@ -34,8 +33,6 @@
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/gui/globjects/GLIncludes.h>
 #include <utils/gui/windows/GUIAppEnum.h>
-#include <utils/vehicle/SUMOVehicleParserHelper.h>
-#include <utils/xml/SUMOSAXAttributesImpl_Cached.h>
 
 #include "GNEPersonPlanFrame.h"
 
@@ -391,13 +388,13 @@ GNEPersonPlanFrame::GNEPersonPlanFrame(FXHorizontalFrame* horizontalFrameParent,
     GNEFrame(horizontalFrameParent, viewNet, "PersonPlans") {
 
     // create person types selector modul
-    myPersonSelector = new GNEFrameHelper::DemandElementSelector(this, {GNEAttributeCarrier::TagType::TAGTYPE_PERSON});
+    myPersonSelector = new GNEFrameModuls::DemandElementSelector(this, {GNEAttributeCarrier::TagType::TAGTYPE_PERSON});
 
     // Create tag selector for person plan
-    myPersonPlanTagSelector = new GNEFrameHelper::TagSelector(this, GNEAttributeCarrier::TagType::TAGTYPE_PERSONPLAN);
+    myPersonPlanTagSelector = new GNEFrameModuls::TagSelector(this, GNEAttributeCarrier::TagType::TAGTYPE_PERSONPLAN);
 
     // Create person parameters
-    myPersonPlanAttributes = new GNEFrameHelper::AttributesCreator(this);
+    myPersonPlanAttributes = new GNEFrameAttributesModuls::AttributesCreator(this);
 
     // create PersonPlanCreator Modul
     myPersonPlanCreator = new PersonPlanCreator(this);
@@ -406,7 +403,7 @@ GNEPersonPlanFrame::GNEPersonPlanFrame(FXHorizontalFrame* horizontalFrameParent,
     myHelpCreation = new HelpCreation(this);
 
     // Create AttributeCarrierHierarchy modul
-    myPersonHierarchy = new GNEFrameHelper::AttributeCarrierHierarchy(this);
+    myPersonHierarchy = new GNEFrameModuls::AttributeCarrierHierarchy(this);
 
     // set PersonPlan tag type in tag selector
     myPersonPlanTagSelector->setCurrentTagType(GNEAttributeCarrier::TagType::TAGTYPE_PERSONPLAN);

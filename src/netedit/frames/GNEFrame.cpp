@@ -21,33 +21,12 @@
 
 #include <config.h>
 
-#include <netedit/GNEApplicationWindow.h>
-#include <netedit/GNENet.h>
-#include <netedit/GNEUndoList.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNEViewParent.h>
-#include <netedit/additionals/GNEPOI.h>
-#include <netedit/additionals/GNETAZ.h>
-#include <netedit/changes/GNEChange_Children.h>
-#include <netedit/demandelements/GNEDemandElement.h>
-#include <netedit/dialogs/GNEDialog_AllowDisallow.h>
-#include <netedit/dialogs/GNEGenericParameterDialog.h>
-#include <netedit/netelements/GNEConnection.h>
-#include <netedit/netelements/GNECrossing.h>
-#include <netedit/netelements/GNEEdge.h>
-#include <netedit/netelements/GNEJunction.h>
-#include <netedit/netelements/GNELane.h>
-#include <utils/common/StringTokenizer.h>
-#include <utils/foxtools/MFXMenuHeader.h>
-#include <utils/gui/div/GLHelper.h>
 #include <utils/gui/div/GUIDesigns.h>
-#include <utils/gui/globjects/GLIncludes.h>
-#include <utils/gui/images/GUITexturesHelper.h>
 #include <utils/gui/windows/GUIAppEnum.h>
-#include <utils/vehicle/SUMOVehicleParameter.h>
 
 #include "GNEFrame.h"
-#include "GNEInspectorFrame.h"
 
 
 // ===========================================================================

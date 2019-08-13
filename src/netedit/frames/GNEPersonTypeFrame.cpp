@@ -23,7 +23,6 @@
 #include <utils/gui/windows/GUIAppEnum.h>
 #include <utils/gui/div/GUIDesigns.h>
 #include <netedit/changes/GNEChange_DemandElement.h>
-#include <netedit/dialogs/GNEVehicleTypeDialog.h>
 #include <netedit/demandelements/GNEVehicleType.h>
 #include <netedit/GNENet.h>
 #include <netedit/GNEViewNet.h>
@@ -359,7 +358,7 @@ GNEPersonTypeFrame::GNEPersonTypeFrame(FXHorizontalFrame* horizontalFrameParent,
     myPersonTypeSelector = new PersonTypeSelector(this);
 
     // Create person type attributes editor
-    myPersonTypeAttributesEditor = new GNEFrameHelper::AttributesEditor(this);
+    myPersonTypeAttributesEditor = new GNEFrameAttributesModuls::AttributesEditor(this);
 
     // set "VTYPE_DEFAULT" as default person Type
     myPersonTypeSelector->setCurrentPersonType(myViewNet->getNet()->retrieveDemandElement(SUMO_TAG_PTYPE, DEFAULT_PEDTYPE_ID));
