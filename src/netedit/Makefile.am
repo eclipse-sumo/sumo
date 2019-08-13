@@ -49,9 +49,9 @@ netedit_LDADD = ../netimport/libnetimport.a \
 ../netedit/dialogs/libneteditdialogs.a \
 ../utils/gui/windows/libguiutilsWindows.a \
 ../utils/foxtools/libfoxtools.a \
-../netedit/changes/libneteditchanges.a \
 ../netedit/netelements/libneteditnetelements.a \
 ../netedit/demandelements/libneteditdemandelements.a \
+../netedit/changes/libneteditchanges.a \
 ../utils/gui/globjects/libguiutilsglobjects.a \
 ../utils/gui/div/libguiutilsdiv.a \
 ../utils/gui/settings/libguiutilssettings.a \
