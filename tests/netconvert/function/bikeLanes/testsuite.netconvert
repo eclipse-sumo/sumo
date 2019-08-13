@@ -1,3 +1,12 @@
+# guess bike lanes using plain xml input
+guess
+
+# guess bike lanes using plain xml input
+guess_width_sidewalks
+
+# guess bike lanes but prevent one edge from receiving a sidewalks 
+guess_disable1
+
 # add bike lane via typemap
 typemap
 
@@ -9,3 +18,6 @@ connections
 
 # same as 'connections' but with different priorities
 connections2
+
+# guess bicycle lanes based on edge permissions
+guess.from-permissions
