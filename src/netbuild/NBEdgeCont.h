@@ -555,7 +555,7 @@ public:
     void generateStreetSigns();
 
     /// @brief add sidwalks to edges within the given limits or permissions and return the number of edges affected
-    int guessSidewalks(double width, double minSpeed, double maxSpeed, bool fromPermissions);
+    int guessSpecialLanes(SUMOVehicleClass svc, double width, double minSpeed, double maxSpeed, bool fromPermissions, const std::string& excludeOpt);
 
 
     /** @brief Returns the determined roundabouts

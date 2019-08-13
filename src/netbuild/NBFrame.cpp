@@ -68,6 +68,9 @@ NBFrame::fillOptions(bool forNetgen) {
     oc.doRegister("default.sidewalk-width", new Option_Float((double) 2.0));
     oc.addDescription("default.sidewalk-width", "Building Defaults", "The default width of added sidewalks");
 
+    oc.doRegister("default.bikelane-width", new Option_Float((double) 1.0));
+    oc.addDescription("default.bikelane-width", "Building Defaults", "The default width of added bike lanes");
+
     oc.doRegister("default.crossing-width", new Option_Float((double) 4.0));
     oc.addDescription("default.crossing-width", "Building Defaults", "The default width of a pedestrian crossing");
 
@@ -325,6 +328,26 @@ NBFrame::fillOptions(bool forNetgen) {
     oc.doRegister("sidewalks.guess.exclude", new Option_String());
     oc.addDescription("sidewalks.guess.exclude", "Pedestrian",
                       "Do not guess sidewalks for the given list of edges");
+
+    oc.doRegister("bikelanes.guess", new Option_Bool(false));
+    oc.addDescription("bikelanes.guess", "Pedestrian",
+                      "Guess bike lanes based on edge speed");
+
+    oc.doRegister("bikelanes.guess.max-speed", new Option_Float((double) 22.22));
+    oc.addDescription("bikelanes.guess.max-speed", "Pedestrian",
+                      "Add bike lanes for edges with a speed equal or below the given limit");
+
+    oc.doRegister("bikelanes.guess.min-speed", new Option_Float((double) 5.8));
+    oc.addDescription("bikelanes.guess.min-speed", "Pedestrian",
+                      "Add bike lanes for edges with a speed above the given limit");
+
+    oc.doRegister("bikelanes.guess.from-permissions", new Option_Bool(false));
+    oc.addDescription("bikelanes.guess.from-permissions", "Pedestrian",
+                      "Add bike lanes for edges that allow bicycles on any of their lanes regardless of speed");
+
+    oc.doRegister("bikelanes.guess.exclude", new Option_String());
+    oc.addDescription("bikelanes.guess.exclude", "Pedestrian",
+                      "Do not guess bikelanes for the given list of edges");
 
     oc.doRegister("crossings.guess", new Option_Bool(false));
     oc.addDescription("crossings.guess", "Pedestrian",

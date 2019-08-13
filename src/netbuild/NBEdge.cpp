@@ -3596,6 +3596,16 @@ NBEdge::restoreBikelane(std::vector<NBEdge::Lane> oldLanes, PositionVector oldGe
     restoreRestrictedLane(SVC_BICYCLE, oldLanes, oldGeometry, oldConnections);
 }
 
+bool
+NBEdge::hasRestrictedLane(SUMOVehicleClass vclass) const {
+    for (const Lane& lane : myLanes) {
+        if (lane.permissions == vclass) {
+            return true;
+        }
+    }
+    return false;
+}
+
 
 void
 NBEdge::addRestrictedLane(double width, SUMOVehicleClass vclass) {

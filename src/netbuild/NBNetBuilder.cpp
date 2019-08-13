@@ -308,12 +308,23 @@ NBNetBuilder::compute(OptionsCont& oc, const std::set<std::string>& explicitTurn
             }
         }
     }
+    // guess bike lanes
+    if (mayAddOrRemove && ((oc.getBool("bikelanes.guess") || oc.getBool("bikelanes.guess.from-permissions")))) {
+        const int bikelanes = myEdgeCont.guessSpecialLanes(SVC_BICYCLE, oc.getFloat("default.sidewalk-width"),
+                              oc.getFloat("bikelanes.guess.min-speed"),
+                              oc.getFloat("bikelanes.guess.max-speed"),
+                              oc.getBool("bikelanes.guess.from-permissions"),
+                              "bikelanes.guess.exclude");
+        WRITE_MESSAGE("Guessed " + toString(bikelanes) + " bike lanes.");
+    }
+
     // guess sidewalks
     if (mayAddOrRemove && ((oc.getBool("sidewalks.guess") || oc.getBool("sidewalks.guess.from-permissions")))) {
-        const int sidewalks = myEdgeCont.guessSidewalks(oc.getFloat("default.sidewalk-width"),
+        const int sidewalks = myEdgeCont.guessSpecialLanes(SVC_PEDESTRIAN, oc.getFloat("default.sidewalk-width"),
                               oc.getFloat("sidewalks.guess.min-speed"),
                               oc.getFloat("sidewalks.guess.max-speed"),
-                              oc.getBool("sidewalks.guess.from-permissions"));
+                              oc.getBool("sidewalks.guess.from-permissions"),
+                              "sidewalks.guess.exclude");
         WRITE_MESSAGE("Guessed " + toString(sidewalks) + " sidewalks.");
     }
 

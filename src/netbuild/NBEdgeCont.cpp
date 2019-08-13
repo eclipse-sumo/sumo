@@ -1325,27 +1325,30 @@ NBEdgeCont::generateStreetSigns() {
 
 
 int
-NBEdgeCont::guessSidewalks(double width, double minSpeed, double maxSpeed, bool fromPermissions) {
-    int sidewalksCreated = 0;
-    const std::vector<std::string> edges = OptionsCont::getOptions().getStringVector("sidewalks.guess.exclude");
+NBEdgeCont::guessSpecialLanes(SUMOVehicleClass svc, double width, double minSpeed, double maxSpeed, bool fromPermissions, const std::string& excludeOpt) {
+    int lanesCreated = 0;
+    std::vector<std::string> edges;
+    if (excludeOpt != "") { 
+        edges = OptionsCont::getOptions().getStringVector(excludeOpt);
+    }
     std::set<std::string> exclude(edges.begin(), edges.end());
     for (EdgeCont::iterator it = myEdges.begin(); it != myEdges.end(); it++) {
         NBEdge* edge = it->second;
         if (// not excluded
             exclude.count(edge->getID()) == 0
             // does not yet have a sidewalk
-            && edge->getPermissions(0) != SVC_PEDESTRIAN
+            && !edge->hasRestrictedLane(svc)
             && (
                 // guess.from-permissions
-                (fromPermissions && (edge->getPermissions() & SVC_PEDESTRIAN) != 0)
+                (fromPermissions && (edge->getPermissions() & svc) != 0)
                 // guess from speed
                 || (!fromPermissions && edge->getSpeed() > minSpeed && edge->getSpeed() <= maxSpeed)
             )) {
-            edge->addSidewalk(width);
-            sidewalksCreated += 1;
+            edge->addRestrictedLane(width, svc);
+            lanesCreated += 1;
         }
     }
-    return sidewalksCreated;
+    return lanesCreated;
 }
 
 

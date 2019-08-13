@@ -1496,6 +1496,9 @@ private:
     /// @brief determine conflict between opposite left turns
     bool bothLeftIntersect(const NBNode& n, const PositionVector& shape, LinkDirection dir, NBEdge* otherFrom, const NBEdge::Connection& otherCon, int numPoints, double width2, int shapeFlag = 0) const;
 
+    /// @brief returns whether any lane already allows the given vclass exclusively
+    bool hasRestrictedLane(SUMOVehicleClass vclass) const;
+
     /// @brief add a lane of the given width, restricted to the given class and shift existing connections
     void addRestrictedLane(double width, SUMOVehicleClass vclass);
 
