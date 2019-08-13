@@ -26,7 +26,6 @@ import subprocess
 import warnings
 import sys
 import os
-import collections
 
 if 'SUMO_HOME' in os.environ:
     sys.path.append(os.path.join(os.environ['SUMO_HOME'], 'tools'))
@@ -63,12 +62,16 @@ simulation = _simulation.SimulationDomain()
 _connections = {}
 # cannot use immutable type as global variable
 _currentLabel = [""]
-_pendingStepListener = collections.defaultdict(list)
+_connectHook = None
 
 
 def _STEPS2TIME(step):
     """Conversion from time steps in milliseconds to seconds as float"""
     return step / 1000.
+
+
+def setConnectHook(hookFunc):
+    _connectHook = hookFunc
 
 
 def connect(port=8813, numRetries=10, host="localhost", proc=None):
@@ -80,7 +83,10 @@ def connect(port=8813, numRetries=10, host="localhost", proc=None):
     """
     for wait in range(1, numRetries + 2):
         try:
-            return Connection(host, port, proc)
+            conn = Connection(host, port, proc)
+            if _connectHook is not None:
+                _connectHook(conn)
+            return conn
         except socket.error as e:
             if proc is not None and proc.poll() is not None:
                 raise TraCIException("TraCI server already finished")
@@ -100,10 +106,6 @@ def init(port=8813, numRetries=10, host="localhost", label="default", proc=None)
     """
     _connections[label] = connect(port, numRetries, host, proc)
     switch(label)
-    for l in (label, ""):
-        for listener in _pendingStepListener[l]:
-            _connections[l].addStepListener(listener)
-        del _pendingStepListener[l]
     return getVersion()
 
 
@@ -138,6 +140,8 @@ def load(args):
       load(['-c', 'run.sumocfg'])
       load(['-n', 'net.net.xml', '-r', 'routes.rou.xml'])
     """
+    if "" not in _connections:
+        raise FatalTraCIError("Not connected.")
     return _connections[""].load(args)
 
 
@@ -147,48 +151,56 @@ def simulationStep(step=0):
     If the given value is 0 or absent, exactly one step is performed.
     Values smaller than or equal to the current sim time result in no action.
     """
+    if "" not in _connections:
+        raise FatalTraCIError("Not connected.")
     return _connections[""].simulationStep(step)
 
 
-def addStepListener(listener, connLabel=""):
+def addStepListener(listener):
     """addStepListener(traci.StepListener) -> int
 
     Append the step listener (its step function is called at the end of every call to traci.simulationStep())
-    to the given connection. If the connection is not set up yet, the step listener will be added once
-    it is created.
+    to the current connection.
     Returns the ID assigned to the listener if it was added successfully, None otherwise.
     """
-    if connLabel not in _connections:
-        _pendingStepListener[connLabel].append(listener)
-        return None
+    if "" not in _connections:
+        raise FatalTraCIError("Not connected.")
     return _connections[""].addStepListener(listener)
 
 
-def removeStepListener(listenerID, connLabel=""):
+def removeStepListener(listenerID):
     """removeStepListener(traci.StepListener) -> bool
 
-    Remove the step listener from the given connection's step listener container.
+    Remove the step listener from the current connection's step listener container.
     Returns True if the listener was removed successfully, False if it wasn't registered.
     """
-    return _connections[connLabel].removeStepListener(listenerID)
+    if "" not in _connections:
+        raise FatalTraCIError("Not connected.")
+    return _connections[""].removeStepListener(listenerID)
 
 
 def getVersion():
+    if "" not in _connections:
+        raise FatalTraCIError("Not connected.")
     return _connections[""].getVersion()
 
 
 def setOrder(order):
+    if "" not in _connections:
+        raise FatalTraCIError("Not connected.")
     return _connections[""].setOrder(order)
 
 
 def close(wait=True):
+    if "" not in _connections:
+        raise FatalTraCIError("Not connected.")
     _connections[""].close(wait)
     del _connections[_currentLabel[0]]
 
 
 def switch(label):
+    _connections[""] = getConnection(label)
     _currentLabel[0] = label
-    _connections[""] = _connections[label]
     for domain in _defaultDomains:
         domain._setConnection(_connections[""])
 

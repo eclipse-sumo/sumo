@@ -20,6 +20,7 @@ import warnings
 from . import constants as tc
 from .domain import Domain
 from .storage import Storage
+from .exceptions import FatalTraCIError
 
 class Stage(object):
 
@@ -177,6 +178,8 @@ class SimulationDomain(Domain):
         If the given value is 0 or absent, exactly one step is performed.
         Values smaller than or equal to the current sim time result in no action.
         """
+        if self._connection is None:
+            raise FatalTraCIError("Not connected.")
         return self._connection.simulationStep(time)
 
     def getCurrentTime(self):
