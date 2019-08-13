@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Aug  6 16:51:24 2019 by Eclipse SUMO netconvert Version v1_2_0+1444-7f63c6c
+<!-- generated on Tue Aug 13 17:18:55 2019 by Eclipse SUMO netconvert Version v1_2_0+1565-7b37d4a
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -121,6 +121,7 @@
         <default.speed value="13.89" synonymes="S speed" type="FLOAT" help="The default speed on an edge (in m/s)"/>
         <default.priority value="-1" synonymes="P priority" type="INT" help="The default priority of an edge"/>
         <default.sidewalk-width value="2" type="FLOAT" help="The default width of added sidewalks"/>
+        <default.bikelane-width value="1" type="FLOAT" help="The default width of added bike lanes"/>
         <default.crossing-width value="4" type="FLOAT" help="The default width of a pedestrian crossing"/>
         <default.disallow value="" type="STR" help="The default for disallowed vehicle classes"/>
         <default.junctions.keep-clear value="true" type="BOOL" help="Whether junctions should be kept clear by default"/>
@@ -228,6 +229,11 @@
         <sidewalks.guess.min-speed value="5.8" type="FLOAT" help="Add sidewalks for edges with a speed above the given limit"/>
         <sidewalks.guess.from-permissions value="false" type="BOOL" help="Add sidewalks for edges that allow pedestrians on any of their lanes regardless of speed"/>
         <sidewalks.guess.exclude value="" type="STR" help="Do not guess sidewalks for the given list of edges"/>
+        <bikelanes.guess value="false" type="BOOL" help="Guess bike lanes based on edge speed"/>
+        <bikelanes.guess.max-speed value="22.22" type="FLOAT" help="Add bike lanes for edges with a speed equal or below the given limit"/>
+        <bikelanes.guess.min-speed value="5.8" type="FLOAT" help="Add bike lanes for edges with a speed above the given limit"/>
+        <bikelanes.guess.from-permissions value="false" type="BOOL" help="Add bike lanes for edges that allow bicycles on any of their lanes regardless of speed"/>
+        <bikelanes.guess.exclude value="" type="STR" help="Do not guess bikelanes for the given list of edges"/>
         <crossings.guess value="false" type="BOOL" help="Guess pedestrian crossings based on the presence of sidewalks"/>
         <crossings.guess.speed-threshold value="13.89" type="FLOAT" help="At uncontrolled nodes, do not build crossings across edges with a speed above the threshold"/>
         <walkingareas value="false" type="BOOL" help="Always build walking areas even if there are no crossings"/>

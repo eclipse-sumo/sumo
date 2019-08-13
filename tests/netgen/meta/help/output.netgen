@@ -1,4 +1,4 @@
-Eclipse SUMO netgenerate Version v1_2_0+0948-8d469c0
+Eclipse SUMO netgenerate Version v1_2_0+1565-7b37d4a
  Copyright (C) 2001-2019 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 Synthetic network generator for the microscopic, multi-modal traffic simulation
   SUMO.
@@ -161,6 +161,7 @@ Building Defaults Options:
   -S, --default.speed FLOAT            The default speed on an edge (in m/s)
   -P, --default.priority INT           The default priority of an edge
   --default.sidewalk-width FLOAT       The default width of added sidewalks
+  --default.bikelane-width FLOAT       The default width of added bike lanes
   --default.crossing-width FLOAT       The default width of a pedestrian
                                          crossing
   --default.disallow STR               The default for disallowed vehicle
@@ -337,6 +338,16 @@ Pedestrian Options:
                                          pedestrians on any of their lanes
                                          regardless of speed
   --sidewalks.guess.exclude STR        Do not guess sidewalks for the given
+                                         list of edges
+  --bikelanes.guess                    Guess bike lanes based on edge speed
+  --bikelanes.guess.max-speed FLOAT    Add bike lanes for edges with a speed
+                                         equal or below the given limit
+  --bikelanes.guess.min-speed FLOAT    Add bike lanes for edges with a speed
+                                         above the given limit
+  --bikelanes.guess.from-permissions   Add bike lanes for edges that allow
+                                         bicycles on any of their lanes
+                                         regardless of speed
+  --bikelanes.guess.exclude STR        Do not guess bikelanes for the given
                                          list of edges
   --crossings.guess                    Guess pedestrian crossings based on the
                                          presence of sidewalks

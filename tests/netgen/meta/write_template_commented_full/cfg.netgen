@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Jul  4 10:40:51 2019 by Eclipse SUMO netgenerate Version v1_2_0+0948-8d469c0
+<!-- generated on Tue Aug 13 17:18:56 2019 by Eclipse SUMO netgenerate Version v1_2_0+1565-7b37d4a
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netgenerateConfiguration.xsd">
@@ -255,6 +255,9 @@
         <!-- The default width of added sidewalks -->
         <default.sidewalk-width value="2" type="FLOAT"/>
 
+        <!-- The default width of added bike lanes -->
+        <default.bikelane-width value="1" type="FLOAT"/>
+
         <!-- The default width of a pedestrian crossing -->
         <default.crossing-width value="4" type="FLOAT"/>
 
@@ -476,6 +479,21 @@
 
         <!-- Do not guess sidewalks for the given list of edges -->
         <sidewalks.guess.exclude value="" type="STR"/>
+
+        <!-- Guess bike lanes based on edge speed -->
+        <bikelanes.guess value="false" type="BOOL"/>
+
+        <!-- Add bike lanes for edges with a speed equal or below the given limit -->
+        <bikelanes.guess.max-speed value="22.22" type="FLOAT"/>
+
+        <!-- Add bike lanes for edges with a speed above the given limit -->
+        <bikelanes.guess.min-speed value="5.8" type="FLOAT"/>
+
+        <!-- Add bike lanes for edges that allow bicycles on any of their lanes regardless of speed -->
+        <bikelanes.guess.from-permissions value="false" type="BOOL"/>
+
+        <!-- Do not guess bikelanes for the given list of edges -->
+        <bikelanes.guess.exclude value="" type="STR"/>
 
         <!-- Guess pedestrian crossings based on the presence of sidewalks -->
         <crossings.guess value="false" type="BOOL"/>
