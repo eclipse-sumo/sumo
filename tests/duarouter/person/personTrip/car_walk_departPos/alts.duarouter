@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Wed Aug 14 09:11:27 2019 by Eclipse SUMO duarouter Version v1_2_0+1571-9ee6dc5
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+SPDX-License-Identifier: EPL-2.0
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/duarouterConfiguration.xsd">
+
+    <input>
+        <net-file value="input_net.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <output-file value="routes.rou.xml"/>
+        <alternatives-output value="routes.rou.alt.xml"/>
+    </output>
+
+    <report>
+        <xml-validation value="never"/>
+        <no-step-log value="true"/>
+    </report>
+
+</configuration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vehicle id="p0_0" depart="triggered" departPos="50.00">
+        <routeDistribution last="0">
+            <route cost="0.00" probability="0.00000000" edges="beg middle end"/>
+        </routeDistribution>
+    </vehicle>
+    <person id="p0" depart="0.00" departPos="50.00">
+        <ride cost="88.13" from="beg" to="end" lines="p0_0"/>
+    </person>
+    <person id="p1" depart="0.00" departPos="50.00">
+        <walk cost="1488.00" edges="end middle beg" departPos="50.00"/>
+    </person>
+</routes>

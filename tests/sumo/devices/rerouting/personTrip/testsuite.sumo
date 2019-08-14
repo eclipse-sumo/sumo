@@ -19,6 +19,9 @@ car_walk_sidewalk
 # car and walk possible with arrivalpos 0
 car_walk_arrivalpos
 
+# car and walk possible with departPos > 0
+car_walk_departPos
+
 # public transport and walk possible
 public_walk
 
