@@ -582,7 +582,7 @@ def openNetworkAs(waitTime=2):
 """
 
 
-def saveNetwork(referencePosition, clickOverReference=True):
+def saveNetwork(referencePosition, clickOverReference=False):
     # check if clickOverReference is enabled
     if (clickOverReference == True):
         # click over reference (to avoid problem with undo-redo)
@@ -618,7 +618,7 @@ def saveNetworkAs(waitTime=2):
 """
 
 
-def saveAdditionals(referencePosition, clickOverReference=True):
+def saveAdditionals(referencePosition, clickOverReference=False):
     # check if clickOverReference is enabled
     if (clickOverReference == True):
         # click over reference (to avoid problem with undo-redo)
