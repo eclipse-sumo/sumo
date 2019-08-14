@@ -48,9 +48,27 @@ netedit.changeElement("routeFlow")
 # create vehicle
 netedit.leftClick(referencePosition, 274, 414)
 
+# go to inspect mode
+netedit.inspectMode()
+
+# inspect vehicle
+netedit.leftClick(referencePosition, 91, 413)
+
+# change route with an invalid value
+netedit.modifyAttribute(2, "", True)
+
+# change route with an invalid value
+netedit.modifyAttribute(2, ";;;;", True)
+
+# change route with an invalid value
+netedit.modifyAttribute(2, "dummyRoute", True)
+
+# change route with a valid value
+netedit.modifyAttribute(2, "secondRoute", True)
+
 # Check undo redo
-netedit.undo(referencePosition, 2)
-netedit.redo(referencePosition, 2)
+netedit.undo(referencePosition, 3)
+netedit.redo(referencePosition, 3)
 
 # click over reference (to avoid problem with undo-redo)
 netedit.leftClick(referencePosition, 0, 0)

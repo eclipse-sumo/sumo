@@ -45,23 +45,17 @@ netedit.vehicleMode()
 # change vehicle
 netedit.changeElement("routeFlow")
 
-# set invalid line
-netedit.changeDefaultValue(12, "%%%%%%")
-
-# try to create vehicle
-netedit.leftClick(referencePosition, 274, 414)
-
-# set valid Line
-netedit.changeDefaultValue(12, "ownLine")
-
 # create vehicle
 netedit.leftClick(referencePosition, 274, 414)
 
-# set empty line
-netedit.changeDefaultValue(12, "")
+# go to inspect mode
+netedit.inspectMode()
 
-# create vehicle
-netedit.leftClick(referencePosition, 274, 414)
+# inspect vehicle
+netedit.leftClick(referencePosition, 91, 413)
+
+# change personNumber with an invalid value
+netedit.modifyAttribute(11, "custom Line", True)
 
 # Check undo redo
 netedit.undo(referencePosition, 3)

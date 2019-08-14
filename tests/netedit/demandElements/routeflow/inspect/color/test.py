@@ -44,27 +44,31 @@ netedit.vehicleMode()
 
 # change vehicle
 netedit.changeElement("routeFlow")
-# set invalid color
-netedit.changeDefaultValue(5, "dummyColor")
-
-# try to create vehicle
-netedit.leftClick(referencePosition, 274, 414)
-
-# set valid color
-netedit.changeDefaultValue(5, "cyan")
 
 # create vehicle
 netedit.leftClick(referencePosition, 274, 414)
 
-# set valid color
-netedit.changeDefaultValue(5, "12,13,14")
+# go to inspect mode
+netedit.inspectMode()
 
-# create vehicle
-netedit.leftClick(referencePosition, 274, 414)
+# inspect vehicle
+netedit.leftClick(referencePosition, 91, 413)
+
+# change color with an invalid value
+netedit.modifyAttribute(4, "", True)
+
+# change color with an invalid value
+netedit.modifyAttribute(4, "dummyColor", True)
+
+# change color with an valid value
+netedit.modifyAttribute(4, "cyan", True)
+
+# change color with a valid value
+netedit.modifyAttribute(4, "12,13,14", True)
 
 # Check undo redo
-netedit.undo(referencePosition, 3)
-netedit.redo(referencePosition, 3)
+netedit.undo(referencePosition, 4)
+netedit.redo(referencePosition, 4)
 
 # click over reference (to avoid problem with undo-redo)
 netedit.leftClick(referencePosition, 0, 0)

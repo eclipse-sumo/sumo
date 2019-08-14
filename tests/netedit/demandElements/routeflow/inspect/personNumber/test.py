@@ -45,33 +45,33 @@ netedit.vehicleMode()
 # change vehicle
 netedit.changeElement("routeFlow")
 
-# set invalid personNumber
-netedit.changeDefaultValue(13, "dummycontainerNumber")
-
-# try to create vehicle
-netedit.leftClick(referencePosition, 274, 414)
-
-# set invalid personNumber
-netedit.changeDefaultValue(13, "-12")
-
-# try to create vehicle
-netedit.leftClick(referencePosition, 274, 414)
-
-# set invalid personNumber
-netedit.changeDefaultValue(13, "3.5")
-
-# try to create vehicle
-netedit.leftClick(referencePosition, 274, 414)
-
-# set valid personNumber
-netedit.changeDefaultValue(13, "13")
-
 # create vehicle
 netedit.leftClick(referencePosition, 274, 414)
 
+# go to inspect mode
+netedit.inspectMode()
+
+# inspect vehicle
+netedit.leftClick(referencePosition, 91, 413)
+
+# change personNumber with an invalid value
+netedit.modifyAttribute(12, "", True)
+
+# change personNumber with an invalid value
+netedit.modifyAttribute(12, "dummyNumber", True)
+
+# change personNumber with an invalid value
+netedit.modifyAttribute(12, "-5", True)
+
+# change personNumber with an invalid value
+netedit.modifyAttribute(12, "2.5", True)
+
+# change personNumber with an invalid value
+netedit.modifyAttribute(12, "3", True)
+
 # Check undo redo
-netedit.undo(referencePosition, 2)
-netedit.redo(referencePosition, 2)
+netedit.undo(referencePosition, 3)
+netedit.redo(referencePosition, 3)
 
 # click over reference (to avoid problem with undo-redo)
 netedit.leftClick(referencePosition, 0, 0)
