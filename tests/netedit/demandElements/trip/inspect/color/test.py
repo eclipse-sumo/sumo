@@ -31,42 +31,37 @@ netedit.supermodeDemand()
 # go to vehicle mode
 netedit.vehicleMode()
 
-# select trip
+# change vehicle
 netedit.changeElement("trip")
 
-# set invalid color
-netedit.changeDefaultValue(5, "dummyColor")
-
-# try to create trip
+# create trip using two edges
 netedit.leftClick(referencePosition, 274, 414)
 netedit.leftClick(referencePosition, 280, 60)
 
-# press enter to create trip
+# press enter to create route
 netedit.typeEnter()
 
-# set valid color
-netedit.changeDefaultValue(5, "cyan")
+# go to inspect mode
+netedit.inspectMode()
 
-# create trip
-netedit.leftClick(referencePosition, 274, 414)
-netedit.leftClick(referencePosition, 280, 60)
+# inspect vehicle
+netedit.leftClick(referencePosition, 91, 413)
 
-# press enter to create trip
-netedit.typeEnter()
+# change color with an invalid value
+netedit.modifyAttribute(6, "", True)
 
-# set valid color
-netedit.changeDefaultValue(5, "12,13,14")
+# change color with an invalid value
+netedit.modifyAttribute(6, "dummyColor", True)
 
-# create trip
-netedit.leftClick(referencePosition, 274, 414)
-netedit.leftClick(referencePosition, 280, 60)
+# change color with an valid value
+netedit.modifyAttribute(6, "cyan", True)
 
-# press enter to create trip
-netedit.typeEnter()
+# change color with a valid value
+netedit.modifyAttribute(6, "12,13,14", True)
 
 # Check undo redo
-netedit.undo(referencePosition, 3)
-netedit.redo(referencePosition, 3)
+netedit.undo(referencePosition, 4)
+netedit.redo(referencePosition, 4)
 
 # click over reference (to avoid problem with undo-redo)
 netedit.leftClick(referencePosition, 0, 0)

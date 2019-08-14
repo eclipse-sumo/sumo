@@ -31,52 +31,40 @@ netedit.supermodeDemand()
 # go to vehicle mode
 netedit.vehicleMode()
 
-# select trip
+# change vehicle
 netedit.changeElement("trip")
 
-# set invalid containerNumber
-netedit.changeDefaultValue(14, "dummyContainerNumber")
-
-# try to create trip
+# create trip using two edges
 netedit.leftClick(referencePosition, 274, 414)
 netedit.leftClick(referencePosition, 280, 60)
 
-# press enter to create trip
+# press enter to create route
 netedit.typeEnter()
 
-# set invalid containerNumber
-netedit.changeDefaultValue(14, "-12")
+# go to inspect mode
+netedit.inspectMode()
 
-# try to create trip
-netedit.leftClick(referencePosition, 274, 414)
-netedit.leftClick(referencePosition, 280, 60)
+# inspect vehicle
+netedit.leftClick(referencePosition, 91, 413)
 
-# press enter to create trip
-netedit.typeEnter()
+# change containerNumber with an invalid value
+netedit.modifyAttribute(13, "", True)
 
-# set invalid containerNumber
-netedit.changeDefaultValue(14, "3.5")
+# change containerNumber with an invalid value
+netedit.modifyAttribute(13, "dummyNumber", True)
 
-# try to create trip
-netedit.leftClick(referencePosition, 274, 414)
-netedit.leftClick(referencePosition, 280, 60)
+# change containerNumber with an invalid value
+netedit.modifyAttribute(13, "-5", True)
 
-# press enter to create trip
-netedit.typeEnter()
+# change containerNumber with an invalid value
+netedit.modifyAttribute(13, "2.5", True)
 
-# set valid containerNumber
-netedit.changeDefaultValue(14, "13")
-
-# create trip
-netedit.leftClick(referencePosition, 274, 414)
-netedit.leftClick(referencePosition, 280, 60)
-
-# press enter to create trip
-netedit.typeEnter()
+# change containerNumber with an invalid value
+netedit.modifyAttribute(13, "3", True)
 
 # Check undo redo
-netedit.undo(referencePosition, 2)
-netedit.redo(referencePosition, 2)
+netedit.undo(referencePosition, 3)
+netedit.redo(referencePosition, 3)
 
 # click over reference (to avoid problem with undo-redo)
 netedit.leftClick(referencePosition, 0, 0)

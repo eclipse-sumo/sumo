@@ -31,19 +31,40 @@ netedit.supermodeDemand()
 # go to vehicle mode
 netedit.vehicleMode()
 
-# select trip
+# change vehicle
 netedit.changeElement("trip")
 
-# create trip
+# create trip using two edges
 netedit.leftClick(referencePosition, 274, 414)
 netedit.leftClick(referencePosition, 280, 60)
 
-# press enter to create trip
+# press enter to create route
 netedit.typeEnter()
 
+# go to inspect mode
+netedit.inspectMode()
+
+# inspect vehicle
+netedit.leftClick(referencePosition, 91, 413)
+
+# change ID with an invalid value
+netedit.modifyAttribute(0, "", True)
+
+# change ID with an invalid value
+netedit.modifyAttribute(0, ";;;;;;;;", True)
+
+# change ID with an invalid value
+netedit.modifyAttribute(0, "id with spaces", True)
+
+# change ID with an invalid value
+netedit.modifyAttribute(0, "duplicatedVehicle", True)
+
+# change ID with an invalid value (empty)
+netedit.modifyAttribute(0, "customID", True)
+
 # Check undo redo
-netedit.undo(referencePosition, 1)
-netedit.redo(referencePosition, 1)
+netedit.undo(referencePosition, 3)
+netedit.redo(referencePosition, 3)
 
 # click over reference (to avoid problem with undo-redo)
 netedit.leftClick(referencePosition, 0, 0)

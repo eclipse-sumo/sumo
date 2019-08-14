@@ -76,28 +76,21 @@ Debug: Key ENTER pressed
 Debug: Adding trip 'trip_0' in GNEChange_DemandElement
 Debug: DemandElements has to be saved
 Debug: Current saving Status: net saved, additionals saved, demand elements unsaved
-Debug: ObjectsUnderCursor: GUIGlObjects: 1, AttributeCarriers: 1, NetElements: 1, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 1, Lanes: 1, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
-Debug: ObjectsUnderCursor: GUIGlObjects: 1, AttributeCarriers: 1, NetElements: 1, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 1, Lanes: 1, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
-Debug: Key ENTER pressed
-Debug: Adding trip 'trip_1' in GNEChange_DemandElement
-Debug: ObjectsUnderCursor: GUIGlObjects: 1, AttributeCarriers: 1, NetElements: 1, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 1, Lanes: 1, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
-Debug: ObjectsUnderCursor: GUIGlObjects: 1, AttributeCarriers: 1, NetElements: 1, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 1, Lanes: 1, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
-Debug: Key ENTER pressed
-Debug: Adding trip 'trip_2' in GNEChange_DemandElement
+Debug: ObjectsUnderCursor: GUIGlObjects: 2, AttributeCarriers: 2, NetElements: 1, Additionals: 0, DemandElements: 1, Shapes: 0, Junctions: 0, Edges: 1, Lanes: 1, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
+Debug: Setting new attribute line 'custom Line' into trip 'trip_0'
 Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 Debug: Keys Ctrl + Z (Undo) pressed
-Debug: Removing trip 'trip_2' in GNEChange_DemandElement
-Debug: Keys Ctrl + Z (Undo) pressed
-Debug: Removing trip 'trip_1' in GNEChange_DemandElement
+Debug: Setting previous attribute line '' into trip 'trip_0'
 Debug: Keys Ctrl + Z (Undo) pressed
 Debug: Removing trip 'trip_0' in GNEChange_DemandElement
+Debug: Removed inspected element from Inspected ACs. 0 ACs remains.
+Debug: Keys Ctrl + Z (Undo) pressed
 Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 Debug: Keys Ctrl + Y (Redo) pressed
 Debug: Adding trip 'trip_0' in GNEChange_DemandElement
 Debug: Keys Ctrl + Y (Redo) pressed
-Debug: Adding trip 'trip_1' in GNEChange_DemandElement
+Debug: Setting new attribute line 'custom Line' into trip 'trip_0'
 Debug: Keys Ctrl + Y (Redo) pressed
-Debug: Adding trip 'trip_2' in GNEChange_DemandElement
 Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 Debug: demand elements saved
 GLDebug: Removing junctions during recomputing
@@ -136,11 +129,9 @@ GLDebug: 	Inserted edge:gneE6 into SUMORTree with boundary 0.00,48.40,80.00,70.0
 GLDebug: 	Inserted edge:gneE7 into SUMORTree with boundary 0.00,10.00,80.00,31.60
 GLDebug: 	Inserted edge:gneE8 into SUMORTree with boundary 0.00,28.40,50.00,50.00
 GLDebug: 	Inserted edge:gneE9 into SUMORTree with boundary 0.00,30.00,50.00,51.60
-Debug: Deleting unreferenced trip 'trip_2'
+Debug: Deleting unreferenced trip 'trip_0'
 Debug: DemandElements has to be saved
 Debug: Current saving Status: net saved, additionals saved, demand elements unsaved
-Debug: Deleting unreferenced trip 'trip_1'
-Debug: Deleting unreferenced trip 'trip_0'
 Debug: Deleting unreferenced edge 'gneE10' in GNENet destructor
 Debug: Deleting unreferenced lane 'gneE10_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'fromgneE10_0togneE8_0' in GNEEdge destructor
