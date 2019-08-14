@@ -35,7 +35,7 @@ netedit.changeElement("busStop")
 netedit.leftClick(referencePosition, 250, 250)
 
 # save network
-netedit.saveNetwork()
+netedit.saveNetwork(referencePosition)
 
 # quit netedit
 netedit.quit(neteditProcess, False, False, True, True)

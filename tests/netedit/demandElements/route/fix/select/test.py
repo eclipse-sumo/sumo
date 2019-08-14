@@ -33,9 +33,8 @@ netedit.rebuildNetwork()
 
 # Go to demand mode
 netedit.supermodeDemand()
-
 # save routes
-netedit.saveRoutes()
+netedit.saveRoutes(referencePosition)
 
 # go to "select invalid" option
 netedit.typeInvertTab()
@@ -51,12 +50,11 @@ netedit.typeSpace()
 
 # press supr key to remove invalid routes
 netedit.deleteUsingSuprKey()
-
 # save routes
-netedit.saveRoutes()
+netedit.saveRoutes(referencePosition)
 
 # save network
-netedit.saveNetwork()
+netedit.saveNetwork(referencePosition)
 
 # quit netedit
 netedit.quit(neteditProcess)

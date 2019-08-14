@@ -73,7 +73,7 @@ netedit.undo(referencePosition, 9)
 netedit.redo(referencePosition, 9)
 
 # save network
-netedit.saveNetwork()
+netedit.saveNetwork(referencePosition)
 
 # quit netedit
 netedit.quit(neteditProcess)

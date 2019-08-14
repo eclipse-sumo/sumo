@@ -39,7 +39,7 @@ netedit.leftClick(referencePosition, 540, 290)
 netedit.modifyAttribute(1, "120,20.2", False)
 
 # save network
-netedit.saveNetwork()
+netedit.saveNetwork(referencePosition)
 
 # quit netedit
 netedit.quit(neteditProcess)

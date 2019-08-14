@@ -26,7 +26,7 @@ import neteditTestFunctions as netedit  # noqa
 neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 
 # save network
-netedit.saveNetwork()
+netedit.saveNetwork(referencePosition)
 
 # quit netedit
 netedit.quit(neteditProcess)

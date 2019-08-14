@@ -30,9 +30,8 @@ netedit.changeEditMode('1')
 
 # Recompute
 netedit.rebuildNetwork()
-
 # save routes
-netedit.saveRoutes()
+netedit.saveRoutes(referencePosition)
 
 # go to "save" option
 for _ in range(2):
@@ -49,7 +48,7 @@ for _ in range(2):
 netedit.typeSpace()
 
 # save network
-netedit.saveNetwork()
+netedit.saveNetwork(referencePosition)
 
 # quit netedit
 netedit.quit(neteditProcess)

@@ -78,14 +78,11 @@ netedit.modifyAttribute(5, "keyFinal1=value1|keyFinal2=value2|keyFinal3=value3",
 netedit.undo(referencePosition, 8)
 netedit.redo(referencePosition, 8)
 
-# click over reference (to avoid problem with undo-redo)
-netedit.leftClick(referencePosition, 0, 0)
-
 # save routes
-netedit.saveRoutes()
+netedit.saveRoutes(referencePosition)
 
 # save network
-netedit.saveNetwork()
+netedit.saveNetwork(referencePosition)
 
 # quit netedit
 netedit.quit(neteditProcess)

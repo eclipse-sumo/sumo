@@ -40,7 +40,7 @@ netedit.leftClick(referencePosition, 280, 60)
 netedit.typeEscape()
 
 # save network
-netedit.saveNetwork()
+netedit.saveNetwork(referencePosition)
 
 # quit netedit
 netedit.quit(neteditProcess)

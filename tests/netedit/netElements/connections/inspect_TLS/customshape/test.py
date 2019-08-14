@@ -56,7 +56,7 @@ netedit.rebuildNetwork()
 netedit.redo(referencePosition, 3)
 
 # save network
-netedit.saveNetwork()
+netedit.saveNetwork(referencePosition)
 
 # quit netedit
 netedit.quit(neteditProcess)

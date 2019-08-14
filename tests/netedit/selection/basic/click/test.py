@@ -59,10 +59,10 @@ netedit.leftClickControl(referencePosition, 210, 240)
 netedit.leftClickControl(referencePosition, 210, 210)
 
 # save network
-netedit.saveNetwork()
+netedit.saveNetwork(referencePosition)
 
 # save shapes
-netedit.saveAdditionals()
+netedit.saveAdditionals(referencePosition)
 
 # quit netedit
 netedit.quit(neteditProcess)

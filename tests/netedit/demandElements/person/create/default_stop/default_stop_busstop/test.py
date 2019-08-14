@@ -41,17 +41,14 @@ netedit.leftClick(referencePosition, 270, 54)
 netedit.undo(referencePosition, 1)
 netedit.redo(referencePosition, 1)
 
-# click over reference (to avoid problem with undo-redo)
-netedit.leftClick(referencePosition, 0, 0)
-
 # save routes
-netedit.saveRoutes()
+netedit.saveRoutes(referencePosition)
 
 # save additionals
-netedit.saveAdditionals()
+netedit.saveAdditionals(referencePosition)
 
 # save network
-netedit.saveNetwork()
+netedit.saveNetwork(referencePosition)
 
 # quit netedit
 netedit.quit(neteditProcess)

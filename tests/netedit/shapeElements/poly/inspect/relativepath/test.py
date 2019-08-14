@@ -48,10 +48,10 @@ netedit.undo(referencePosition, 23)
 netedit.redo(referencePosition, 23)
 
 # save shapes
-netedit.saveAdditionals()
+netedit.saveAdditionals(referencePosition)
 
 # save network
-netedit.saveNetwork()
+netedit.saveNetwork(referencePosition)
 
 # quit netedit
 netedit.quit(neteditProcess)

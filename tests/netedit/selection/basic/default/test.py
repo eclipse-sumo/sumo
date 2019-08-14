@@ -33,10 +33,10 @@ netedit.selectDefault()
 netedit.deleteSelectedItems()
 
 # save network
-netedit.saveNetwork()
+netedit.saveNetwork(referencePosition)
 
 # save shapes
-netedit.saveAdditionals()
+netedit.saveAdditionals(referencePosition)
 
 # quit netedit
 netedit.quit(neteditProcess)

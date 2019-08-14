@@ -41,7 +41,7 @@ netedit.leftClick(referencePosition, 415, 220)
 netedit.joinSelectedJunctions()
 
 # save network
-netedit.saveNetwork()
+netedit.saveNetwork(referencePosition)
 
 # quit netedit
 netedit.quit(neteditProcess)

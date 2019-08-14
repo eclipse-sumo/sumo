@@ -44,13 +44,13 @@ netedit.modifyAttribute(12, "25", False)
 netedit.rebuildNetwork()
 
 # save additionals
-netedit.saveAdditionals()
+netedit.saveAdditionals(referencePosition)
 
 # fix stopping place positions
 netedit.fixStoppingPlace("fixPositions")
 
 # save network
-netedit.saveNetwork()
+netedit.saveNetwork(referencePosition)
 
 # quit netedit
 netedit.quit(neteditProcess)

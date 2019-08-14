@@ -66,14 +66,11 @@ netedit.modifyAttribute(4, "gneE8 gneE9", True)
 netedit.undo(referencePosition, 5)
 netedit.redo(referencePosition, 5)
 
-# click over reference (to avoid problem with undo-redo)
-netedit.leftClick(referencePosition, 0, 0)
-
 # save routes
-netedit.saveRoutes()
+netedit.saveRoutes(referencePosition)
 
 # save network
-netedit.saveNetwork()
+netedit.saveNetwork(referencePosition)
 
 # quit netedit
 netedit.quit(neteditProcess)

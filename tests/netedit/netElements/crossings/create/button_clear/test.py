@@ -40,7 +40,7 @@ netedit.leftClick(referencePosition, 150, 250)
 netedit.crossingClearEdges()
 
 # save network
-netedit.saveNetwork()
+netedit.saveNetwork(referencePosition)
 
 # quit netedit
 netedit.quit(neteditProcess)

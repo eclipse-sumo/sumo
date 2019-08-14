@@ -51,10 +51,10 @@ netedit.undo(referencePosition, 5)
 netedit.redo(referencePosition, 5)
 
 # save additionals
-netedit.saveAdditionals()
+netedit.saveAdditionals(referencePosition)
 
 # save network
-netedit.saveNetwork()
+netedit.saveNetwork(referencePosition)
 
 # quit netedit
 netedit.quit(neteditProcess)

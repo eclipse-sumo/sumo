@@ -31,12 +31,11 @@ netedit.changeEditMode('1')
 
 # Recompute with volatile options
 netedit.rebuildNetworkWithVolatileOptions()
-
 # save routes
-netedit.saveRoutes()
+netedit.saveRoutes(referencePosition)
 
 # save network
-netedit.saveNetwork()
+netedit.saveNetwork(referencePosition)
 
 # quit netedit
 netedit.quit(neteditProcess)

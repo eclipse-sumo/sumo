@@ -520,10 +520,8 @@ def quit(NeteditProcess, openNetNonSavedDialog=False, saveNet=False,
     else:
         # first move cursor out of magenta square
         pyautogui.moveTo(150, 200)
-
         # quit using hotkey
         typeTwoKeys('ctrl', 'q')
-
         # Check if net must be saved
         if openNetNonSavedDialog:
             # Wait some seconds
@@ -534,7 +532,6 @@ def quit(NeteditProcess, openNetNonSavedDialog=False, saveNet=False,
                 time.sleep(DELAY_RECOMPUTE)
             else:
                 waitQuestion('q')
-
         # Check if additionals must be saved
         if openAdditionalsNonSavedDialog:
             # Wait some seconds
@@ -543,7 +540,6 @@ def quit(NeteditProcess, openNetNonSavedDialog=False, saveNet=False,
                 waitQuestion('s')
             else:
                 waitQuestion('q')
-
         # Check if additionals must be saved
         if openShapesNonSavedDialog:
             # Wait some seconds
@@ -552,7 +548,6 @@ def quit(NeteditProcess, openNetNonSavedDialog=False, saveNet=False,
                 waitQuestion('s')
             else:
                 waitQuestion('q')
-
         # wait some seconds
         time.sleep(DELAY_QUIT_NETEDIT)
         if NeteditProcess.poll() is not None:
@@ -570,7 +565,6 @@ def quit(NeteditProcess, openNetNonSavedDialog=False, saveNet=False,
 
 
 def openNetworkAs(waitTime=2):
-
     # open save network as dialog
     typeTwoKeys('ctrl', 'o')
     # jump to filename TextField
@@ -588,10 +582,14 @@ def openNetworkAs(waitTime=2):
 """
 
 
-def saveNetwork():
+def saveNetwork(referencePosition, clickOverReference=True):
+    # check if clickOverReference is enabled
+    if (clickOverReference == True):
+        # click over reference (to avoid problem with undo-redo)
+        leftClick(referencePosition, 0, 0)
     # save network using hotkey
     typeTwoKeys('ctrl', 's')
-    # wait for debug
+    # wait for debug (due recomputing)
     time.sleep(DELAY_RECOMPUTE)
 
 
@@ -620,7 +618,11 @@ def saveNetworkAs(waitTime=2):
 """
 
 
-def saveAdditionals():
+def saveAdditionals(referencePosition, clickOverReference=True):
+    # check if clickOverReference is enabled
+    if (clickOverReference == True):
+        # click over reference (to avoid problem with undo-redo)
+        leftClick(referencePosition, 0, 0)
     # save additionals using hotkey
     typeThreeKeys('ctrl', 'shift', 'a')
 
@@ -630,7 +632,11 @@ def saveAdditionals():
 """
 
 
-def saveRoutes():
+def saveRoutes(referencePosition, clickOverReference=True):
+    # check if clickOverReference is enabled
+    if (clickOverReference == True):
+        # click over reference (to avoid problem with undo-redo)
+        leftClick(referencePosition, 0, 0)
     # save routes using hotkey
     typeThreeKeys('ctrl', 'shift', 'd')
 

@@ -32,10 +32,9 @@ netedit.changeEditMode('1')
 netedit.rebuildNetwork()
 
 # save network
-netedit.saveNetwork()
-
+netedit.saveNetwork(referencePosition)
 # save routes
-netedit.saveRoutes()
+netedit.saveRoutes(referencePosition)
 
 # save invalid routes
 netedit.typeSpace()

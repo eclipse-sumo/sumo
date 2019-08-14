@@ -48,13 +48,13 @@ netedit.undo(referencePosition, 2)
 netedit.redo(referencePosition, 2)
 
 # save additionals
-netedit.saveAdditionals()
+netedit.saveAdditionals(referencePosition)
 
 # Fix stopping places position
 netedit.fixStoppingPlace("fixPositions")
 
 # save network
-netedit.saveNetwork()
+netedit.saveNetwork(referencePosition)
 
 # quit netedit
 netedit.quit(neteditProcess)
