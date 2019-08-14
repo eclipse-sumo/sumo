@@ -1749,8 +1749,12 @@ GNEVehicle::setAttribute(SumoXMLAttr key, const std::string& value) {
             FromViaToEdges.push_back(getEdgeParents().back()->getID());
             // calculate route
             std::vector<GNEEdge*> route = getRouteCalculatorInstance()->calculateDijkstraRoute(myViewNet->getNet(), getDemandElementParents().at(0)->getVClass(), FromViaToEdges);
-            // change edge parents
-            changeEdgeParents(this, toString(route));
+            // check if rute is valid
+            if (route.size() > 0) {
+                changeEdgeParents(this, toString(route));
+            } else {
+                changeEdgeParents(this, getEdgeParents().front()->getID() + " " + toString(via) + " " + getEdgeParents().back()->getID());
+            }
             break;
         }
         case SUMO_ATTR_TO: {
@@ -1764,8 +1768,12 @@ GNEVehicle::setAttribute(SumoXMLAttr key, const std::string& value) {
             FromViaToEdges.push_back(value);
             // calculate route
             std::vector<GNEEdge*> route = getRouteCalculatorInstance()->calculateDijkstraRoute(myViewNet->getNet(), getDemandElementParents().at(0)->getVClass(), FromViaToEdges);
-            // change edge parents
-            changeEdgeParents(this, toString(route));
+            // check if rute is valid
+            if (route.size() > 0) {
+                changeEdgeParents(this, toString(route));
+            } else {
+                changeEdgeParents(this, getEdgeParents().front()->getID() + " " + toString(via) + " " + value);
+            }
             break;
         }
         case SUMO_ATTR_VIA: {
@@ -1790,8 +1798,12 @@ GNEVehicle::setAttribute(SumoXMLAttr key, const std::string& value) {
             FromViaToEdges.push_back(getEdgeParents().back()->getID());
             // calculate route
             std::vector<GNEEdge*> route = getRouteCalculatorInstance()->calculateDijkstraRoute(myViewNet->getNet(), getDemandElementParents().at(0)->getVClass(), FromViaToEdges);
-            // change edge parents
-            changeEdgeParents(this, toString(route));
+            // check if rute is valid
+            if (route.size() > 0) {
+                changeEdgeParents(this, toString(route));
+            } else {
+                changeEdgeParents(this, getEdgeParents().front()->getID() + " " + value + " " + getEdgeParents().back()->getID());
+            }
             break;
         }
         // Specific of routeFlows
