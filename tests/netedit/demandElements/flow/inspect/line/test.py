@@ -31,38 +31,24 @@ netedit.supermodeDemand()
 # go to vehicle mode
 netedit.vehicleMode()
 
-# select flow
+# change vehicle
 netedit.changeElement("flow")
 
-# set invalid line
-netedit.changeDefaultValue(12, "%%%%%%")
-
-# try to create flow
+# create flow using two edges
 netedit.leftClick(referencePosition, 274, 414)
 netedit.leftClick(referencePosition, 280, 60)
 
-# press enter to create flow
+# press enter to create route
 netedit.typeEnter()
 
-# set valid Line
-netedit.changeDefaultValue(12, "ownLine")
+# go to inspect mode
+netedit.inspectMode()
 
-# create flow
-netedit.leftClick(referencePosition, 274, 414)
-netedit.leftClick(referencePosition, 280, 60)
+# inspect vehicle
+netedit.leftClick(referencePosition, 91, 413)
 
-# press enter to create flow
-netedit.typeEnter()
-
-# set empty line
-netedit.changeDefaultValue(12, "")
-
-# create flow
-netedit.leftClick(referencePosition, 274, 414)
-netedit.leftClick(referencePosition, 280, 60)
-
-# press enter to create flow
-netedit.typeEnter()
+# change personNumber with an invalid value
+netedit.modifyAttribute(13, "custom Line", True)
 
 # Check undo redo
 netedit.undo(referencePosition, 3)

@@ -31,32 +31,37 @@ netedit.supermodeDemand()
 # go to vehicle mode
 netedit.vehicleMode()
 
-# select flow
+# change vehicle
 netedit.changeElement("flow")
 
-# set invalid vType
-netedit.changeDefaultValue(2, "blue")
-
-# try to create flow
+# create flow using two edges
 netedit.leftClick(referencePosition, 274, 414)
 netedit.leftClick(referencePosition, 280, 60)
 
-# press enter to create flow
+# press enter to create route
 netedit.typeEnter()
 
-# set valid vType
-netedit.changeDefaultValue(2, "custom_vType")
+# go to inspect mode
+netedit.inspectMode()
 
-# create flow
-netedit.leftClick(referencePosition, 274, 414)
-netedit.leftClick(referencePosition, 280, 60)
+# inspect vehicle
+netedit.leftClick(referencePosition, 91, 413)
 
-# press enter to create flow
-netedit.typeEnter()
+# change vType with an invalid value
+netedit.modifyAttribute(1, "", True)
+
+# change vType with an invalid value
+netedit.modifyAttribute(1, ";;;;", True)
+
+# change vType with an invalid value
+netedit.modifyAttribute(1, "dummyVType", True)
+
+# change vType with a valid value
+netedit.modifyAttribute(1, "custom_vType", True)
 
 # Check undo redo
-netedit.undo(referencePosition, 2)
-netedit.redo(referencePosition, 2)
+netedit.undo(referencePosition, 3)
+netedit.redo(referencePosition, 3)
 
 # click over reference (to avoid problem with undo-redo)
 netedit.leftClick(referencePosition, 0, 0)

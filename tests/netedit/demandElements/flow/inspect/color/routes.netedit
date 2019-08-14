@@ -1,19 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 25.07.2019 15:36:57 by Eclipse SUMO netedit Version v1_2_0+1292-072ba76486
+<!-- generated on 14.08.2019 14:40:07 by Eclipse SUMO netedit Version v1_2_0+1576-10a5132b98
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.25Jul152458.8212/netedit.gui/demandElements/flow/create/color\input_net.net.xml"/>
+        <sumo-net-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.14Aug143653.7864/netedit.gui/demandElements/flow/inspect/color\input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.25Jul152458.8212/netedit.gui/demandElements/flow/create/color\net.net.xml"/>
+        <output-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.14Aug143653.7864/netedit.gui/demandElements/flow/inspect/color\net.net.xml"/>
     </output>
 
     <processing>
         <geometry.max-grade.fix value="false"/>
         <offset.disable-normalization value="true"/>
+        <opposites.guess.fix-lengths value="true"/>
         <lefthand value="false"/>
     </processing>
 
@@ -29,10 +30,10 @@
     </pedestrian>
 
     <netedit>
-        <additional-files value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.25Jul152458.8212/netedit.gui/demandElements/flow/create/color\additionals.xml"/>
-        <additionals-output value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.25Jul152458.8212/netedit.gui/demandElements/flow/create/color\additionals.xml"/>
-        <route-files value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.25Jul152458.8212/netedit.gui/demandElements/flow/create/color\routes.xml"/>
-        <demandelements-output value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.25Jul152458.8212/netedit.gui/demandElements/flow/create/color\routes.xml"/>
+        <additional-files value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.14Aug143653.7864/netedit.gui/demandElements/flow/inspect/color\additionals.xml"/>
+        <additionals-output value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.14Aug143653.7864/netedit.gui/demandElements/flow/inspect/color\additionals.xml"/>
+        <route-files value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.14Aug143653.7864/netedit.gui/demandElements/flow/inspect/color\routes.xml"/>
+        <demandelements-output value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.14Aug143653.7864/netedit.gui/demandElements/flow/inspect/color\routes.xml"/>
     </netedit>
 
     <visualisation>
@@ -45,13 +46,12 @@
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.25Jul152458.8212/netedit.gui/demandElements/flow/create/color\log.txt"/>
+        <error-log value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.14Aug143653.7864/netedit.gui/demandElements/flow/inspect/color\log.txt"/>
     </report>
 
 </configuration>
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-    <flow id="flow_0" begin="0.00" color="cyan" from="gneE2" to="gneE5" end="3600.00" number="1800"/>
-    <flow id="flow_1" begin="0.00" color="12,13,14" from="gneE2" to="gneE5" end="3600.00" number="1800"/>
+    <flow id="flow_0" begin="0.00" color="12,13,14" from="gneE2" to="gneE5" end="3600.00" number="1800"/>
 </routes>

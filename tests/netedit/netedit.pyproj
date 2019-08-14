@@ -691,7 +691,6 @@
     <Compile Include="demandElements\vehicle\inspect\arrivalSpeed\test.py" />
     <Compile Include="demandElements\vehicle\inspect\color\test.py" />
     <Compile Include="demandElements\vehicle\inspect\containerNumber\test.py" />
-    <Compile Include="demandElements\vehicle\inspect\departLane\test.py" />
     <Compile Include="demandElements\vehicle\inspect\departPosLat\test.py" />
     <Compile Include="demandElements\vehicle\inspect\departPos\test.py" />
     <Compile Include="demandElements\vehicle\inspect\departSpeed\test.py" />
