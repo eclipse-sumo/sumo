@@ -248,6 +248,11 @@ MSTransportable::Stage_Trip::setArrived(MSNet* net, MSTransportable* transportab
     for (SUMOVehicleParameter* vehPar : pars) {
         SUMOVehicle* vehicle = nullptr;
         if (vehPar != nullptr) {
+            if (myDepartPos != 0) {
+                vehPar->departPosProcedure = DEPART_POS_GIVEN;
+                vehPar->departPos = myDepartPos;
+                vehPar->parametersSet |= VEHPARS_DEPARTPOS_SET;
+            }
             MSVehicleType* type = vehControl.getVType(vehPar->vtypeid);
             if (type->getVehicleClass() != SVC_IGNORING && (myOrigin->getPermissions() & type->getVehicleClass()) == 0) {
                 WRITE_WARNING("Ignoring vehicle type '" + type->getID() + "' when routing person '" + transportable->getID() + "' because it is not allowed on the start edge.");

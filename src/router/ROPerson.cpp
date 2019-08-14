@@ -65,7 +65,11 @@ ROPerson::addTrip(const ROEdge* const from, const ROEdge* const to, const SVCPer
     RONet* net = RONet::getInstance();
     SUMOVehicleParameter pars;
     pars.departProcedure = DEPART_TRIGGERED;
-
+    if (departPos != 0) {
+        pars.departPosProcedure = DEPART_POS_GIVEN;
+        pars.departPos = departPos;
+        pars.parametersSet |= VEHPARS_DEPARTPOS_SET;
+    }
     for (StringTokenizer st(vTypes); st.hasNext();) {
         pars.vtypeid = st.next();
         pars.parametersSet |= VEHPARS_VTYPE_SET;
