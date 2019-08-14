@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Aug 14 09:00:56 2019 by Eclipse SUMO Version v1_2_0+1571-9ee6dc5
+<!-- generated on Wed Aug 14 09:20:16 2019 by Eclipse SUMO Version v1_2_0+1573-af4e9bc
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -36,7 +36,7 @@ SPDX-License-Identifier: EPL-2.0
         <ride from="beg" to="end" lines="p0_0"/>
     </person>
 
-    <vehicle id="p0_0" depart="triggered" arrival="111.00">
+    <vehicle id="p0_0" depart="triggered" departPos="50.00" arrival="111.00">
         <routeDistribution>
             <route replacedOnEdge="" reason="person:p0" replacedAtTime="0.00" probability="0" edges="beg"/>
             <route edges="beg middle end"/>
