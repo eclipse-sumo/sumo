@@ -1,4 +1,4 @@
-Eclipse SUMO Version v1_2_0+1504-ec507a3
+Eclipse SUMO Version v1_2_0+1588-1f15f24962
  Copyright (C) 2001-2019 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 A microscopic, multi-modal traffic simulation.
 
@@ -213,6 +213,9 @@ Processing Options:
   --emergencydecel.warning-threshold FLOAT  Sets the fraction of emergency
                                          decel capability that must be used to
                                          trigger a warning.
+  --modelparkingmanoeuver              Whether parking simulation includes
+                                         manoeuvering time and any associated
+                                         lane blocking
   --pedestrian.model STR               Select among pedestrian models
                                          ['nonInteracting', 'striping',
                                          'remote']

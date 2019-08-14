@@ -1350,7 +1350,101 @@ public:
     /// @brief get bounding polygon
     PositionVector getBoundingPoly() const;
 
-    /** @class Influencer
+    /** @enum ManoeuvreType
+     *  @brief  flag identifying which, if any, manoeuvre is in progress
+     */
+    enum ManoeuvreType {
+        /// @brief Manoeuvre into stopping place
+        MANOEUVRE_ENTRY,
+        /// @brief Manoeuvre out of stopping place
+        MANOEUVRE_EXIT,
+        /// @brief not manouevring
+        MANOEUVRE_NONE
+    };
+    
+    /// @brief accessor function to myManoeuvre equivalent
+    /// @note Setup of exit manoeuvre is invoked from MSVehicleTransfer
+    bool setExitManoeuvre(const SUMOTime currentTime);
+    /// @brief accessor function to myManoeuvre equivalent
+    void setManoeuvreType(const MSVehicle::ManoeuvreType mType);
+
+    /// @brief accessor function to myManoeuvre equivalent
+    bool manoeuvreIsComplete(const SUMOTime t) const;
+    /// @brief accessor function to myManoeuvre equivalent
+    MSVehicle::ManoeuvreType getManoeuvreType() const;
+
+   
+    /** @class Manoeuvre
+      * @brief  Container for manouevering time associated with stopping.
+      *
+      *  Introduced to cater for lane blocking whilst entering stop/leaving stop
+      *   and assure that emissions during manoeuvre are included in model
+      */
+    class Manoeuvre {
+
+    public:
+        /// Constructor.
+        Manoeuvre();
+
+        /// Copy constructor.
+        Manoeuvre(const Manoeuvre& manoeuvre);
+
+        /// Assignment operator.
+        Manoeuvre& operator=(const Manoeuvre& manoeuvre);
+
+        /// Operator !=
+        bool operator!=(const Manoeuvre& manoeuvre);
+
+        /// @brief Setup the entry manoeuvre for this vehicle (Sets completion time and manoeuvre type)
+        bool configureEntryManoeuvre(MSVehicle* veh, const SUMOTime currentTime );
+
+        /// @brief Setup the myManoeuvre for exiting (Sets completion time and manoeuvre type)
+        bool configureExitManoeuvre(MSVehicle* veh, const SUMOTime currentTime);
+
+         /// @brief Configure an entry manoeuvre if nothing is configured - otherwise check if complete
+        bool entryManoeuvreIsComplete(MSVehicle* veh, const SUMOTime currentTime);
+
+        /// @brief Check if specific manoeuver is ongoing and whether the completion time is beyond currentTime
+        bool
+        manoeuvreIsComplete(const SUMOTime currentTime, const ManoeuvreType checkType ) const;
+
+        /// @brief Check if any manoeuver is ongoing and whether the completion time is beyond currentTime
+        bool
+        manoeuvreIsComplete(const SUMOTime currentTime) const;
+
+        /// @brief Accessor for manoeuvre angle
+        int getManoeuvreAngle() const;
+
+        /// @brief Accessor (get) for manoeuvre type
+        MSVehicle::ManoeuvreType getManoeuvreType() const;
+
+        /// @brief Accessor (set) for manoeuvre type
+        void setManoeuvreType(const MSVehicle::ManoeuvreType mType);
+
+    private:
+        /// @brief  The name of the vehicle associated with the Manoeuvre  - for debug output
+        std::string myManoeuvreVehicleID;
+
+        /// @brief  The name of the stop associated with the Manoeuvre  - for debug output
+        std::string myManoeuvreStop;
+
+        /// @brief Time at which the Manoeuvre for this stop started
+        SUMOTime myManoeuvreStartTime;
+
+        /// @brief Time at which this manoeuvre should complete
+        SUMOTime myManoeuvreCompleteTime;
+
+        /// @brief Manoeuvre type - currently entry, exit or none
+        ManoeuvreType myManoeuvreType;
+
+        // @brief Angle (degrees) through which manoeuver will turn vehicle - used to determine manouevre timing
+        int myManoeuvreAngle;
+    };
+
+    // Current or previous (completed) manoeuvre
+    Manoeuvre myManoeuvre;
+
+   /** @class Influencer
      * @brief Changes the wished vehicle speed / lanes
      *
      * The class is used for passing velocities or velocity profiles obtained via TraCI to the vehicle.

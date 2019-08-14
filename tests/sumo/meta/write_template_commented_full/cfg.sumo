@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Aug  9 13:03:12 2019 by Eclipse SUMO Version v1_2_0+1504-ec507a3
+<!-- generated on Wed Aug 14 22:08:05 2019 by Eclipse SUMO Version v1_2_0+1588-1f15f24962
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -308,6 +308,9 @@
 
         <!-- Sets the fraction of emergency decel capability that must be used to trigger a warning. -->
         <emergencydecel.warning-threshold value="1" type="FLOAT"/>
+
+        <!-- Whether parking simulation includes manoeuvering time and any associated lane blocking -->
+        <modelparkingmanoeuver value="false" type="BOOL"/>
 
         <!-- Select among pedestrian models [&apos;nonInteracting&apos;, &apos;striping&apos;, &apos;remote&apos;] -->
         <pedestrian.model value="striping" type="STR"/>
