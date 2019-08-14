@@ -42,29 +42,26 @@ netedit.typeEnter()
 # go to vehicle mode
 netedit.vehicleMode()
 
-# set invalid depart
-netedit.changeDefaultValue(18, "dummyDepart")
-
-# try to create vehicle
-netedit.leftClick(referencePosition, 274, 414)
-
-# set invalid depart
-netedit.changeDefaultValue(18, "-12")
-
-# try to create vehicle
-netedit.leftClick(referencePosition, 274, 414)
-
-# set valid depart
-netedit.changeDefaultValue(18, "30")
-
 # create vehicle
 netedit.leftClick(referencePosition, 274, 414)
 
-# set valid depart (output will be changed)
-netedit.changeDefaultValue(18, "20")
+# go to inspect mode
+netedit.inspectMode()
 
-# create vehicle
-netedit.leftClick(referencePosition, 274, 414)
+# inspect vehicle
+netedit.leftClick(referencePosition, 91, 413)
+
+# change depart with an invalid value
+netedit.modifyAttribute(16, "", True)
+
+# change depart with an invalid value
+netedit.modifyAttribute(16, "dummyDepart", True)
+
+# change depart with an invalid value
+netedit.modifyAttribute(16, "-3", True)
+
+# change depart with an valid value
+netedit.modifyAttribute(16, "10.2", True)
 
 # Check undo redo
 netedit.undo(referencePosition, 3)

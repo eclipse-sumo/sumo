@@ -42,33 +42,48 @@ netedit.typeEnter()
 # go to vehicle mode
 netedit.vehicleMode()
 
-# set invalid depart pos
-netedit.changeDefaultValue(16, "dummyPos")
-
-# try to create vehicle
-netedit.leftClick(referencePosition, 274, 414)
-
-# set invalid depart pos
-netedit.changeDefaultValue(16, "-12")
-
 # create vehicle
 netedit.leftClick(referencePosition, 274, 414)
 
-# set valid depart pos
-netedit.changeDefaultValue(16, "random_free")
+# go to inspect mode
+netedit.inspectMode()
 
-# create vehicle
-netedit.leftClick(referencePosition, 274, 414)
+# inspect vehicle
+netedit.leftClick(referencePosition, 91, 413)
 
-# set valid depart pos
-netedit.changeDefaultValue(16, "20")
+# change departPosLat with an invalid value
+netedit.modifyAttribute(14, "", True)
 
-# create vehicle
-netedit.leftClick(referencePosition, 274, 414)
+# change departPosLat with an invalid value
+netedit.modifyAttribute(14, "dummyPosLat", True)
+
+# change departPosLat with an invalid value
+netedit.modifyAttribute(14, "-5", True)
+
+# change departPosLat with an valid value
+netedit.modifyAttribute(14, "random", True)
+
+# change departPosLat with an valid value
+netedit.modifyAttribute(14, "free", True)
+
+# change departPosLat with an valid value
+netedit.modifyAttribute(14, "random_free", True)
+
+# change departPosLat with an valid value
+netedit.modifyAttribute(14, "left", True)
+
+# change departPosLat with an valid value
+netedit.modifyAttribute(14, "right", True)
+
+# change departPosLat with an valid value
+netedit.modifyAttribute(14, "center", True)
+
+# change departPosLat with an invalid value
+netedit.modifyAttribute(14, "5.6", True)
 
 # Check undo redo
-netedit.undo(referencePosition, 4)
-netedit.redo(referencePosition, 4)
+netedit.undo(referencePosition, 8)
+netedit.redo(referencePosition, 8)
 
 # click over reference (to avoid problem with undo-redo)
 netedit.leftClick(referencePosition, 0, 0)

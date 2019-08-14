@@ -42,33 +42,48 @@ netedit.typeEnter()
 # go to vehicle mode
 netedit.vehicleMode()
 
-# set invalid depart lane
-netedit.changeDefaultValue(6, "dummyLane")
-
-# try to create vehicle
-netedit.leftClick(referencePosition, 274, 414)
-
-# set invalid depart lane
-netedit.changeDefaultValue(6, "-12")
-
-# try to create vehicle
-netedit.leftClick(referencePosition, 274, 414)
-
-# set valid depart lane
-netedit.changeDefaultValue(6, "random")
-
 # create vehicle
 netedit.leftClick(referencePosition, 274, 414)
 
-# set valid depart lane
-netedit.changeDefaultValue(6, "20")
+# go to inspect mode
+netedit.inspectMode()
 
-# create vehicle
-netedit.leftClick(referencePosition, 274, 414)
+# inspect vehicle
+netedit.leftClick(referencePosition, 91, 413)
+
+# change departLane with an invalid value
+netedit.modifyAttribute(5, "", True)
+
+# change departLane with an invalid value
+netedit.modifyAttribute(5, "dummyDepart", True)
+
+# change departLane with an invalid value
+netedit.modifyAttribute(5, "500", True)
+
+# change departLane with an invalid value
+netedit.modifyAttribute(5, "-10", True)
+
+# change departLane with a valid value
+netedit.modifyAttribute(5, "random", True)
+
+# change departLane with a valid value
+netedit.modifyAttribute(5, "free", True)
+
+# change departLane with a valid value
+netedit.modifyAttribute(5, "allowed", True)
+
+# change departLane with a valid value
+netedit.modifyAttribute(5, "best", True)
+
+# change departLane with a valid value
+netedit.modifyAttribute(5, "first", True)
+
+# change departLane with a valid value
+netedit.modifyAttribute(5, "0", True)
 
 # Check undo redo
-netedit.undo(referencePosition, 3)
-netedit.redo(referencePosition, 3)
+netedit.undo(referencePosition, 8)
+netedit.redo(referencePosition, 8)
 
 # click over reference (to avoid problem with undo-redo)
 netedit.leftClick(referencePosition, 0, 0)

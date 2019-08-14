@@ -42,33 +42,39 @@ netedit.typeEnter()
 # go to vehicle mode
 netedit.vehicleMode()
 
-# set invalid arrival pos
-netedit.changeDefaultValue(10, "dummyPos")
-
-# try to create vehicle
-netedit.leftClick(referencePosition, 274, 414)
-
-# set invalid arrival pos
-netedit.changeDefaultValue(10, "-12")
-
 # create vehicle
 netedit.leftClick(referencePosition, 274, 414)
 
-# set valid arrival pos
-netedit.changeDefaultValue(10, "random_free")
+# go to inspect mode
+netedit.inspectMode()
 
-# create vehicle
-netedit.leftClick(referencePosition, 274, 414)
+# inspect vehicle
+netedit.leftClick(referencePosition, 91, 413)
 
-# set valid arrival pos
-netedit.changeDefaultValue(10, "20")
+# change arrivalPos with an invalid value
+netedit.modifyAttribute(9, "", True)
 
-# create vehicle
-netedit.leftClick(referencePosition, 274, 414)
+# change arrivalPos with an invalid value
+netedit.modifyAttribute(9, "dummyPos", True)
+
+# change departColor with a valid value
+netedit.modifyAttribute(9, "500", True)
+
+# change arrivalPos with an invalid value
+netedit.modifyAttribute(9, "-10", True)
+
+# change arrivalPos with a valid value
+netedit.modifyAttribute(9, "random", True)
+
+# change arrivalPos with a valid value
+netedit.modifyAttribute(9, "max", True)
+
+# change arrivalPos with a valid value
+netedit.modifyAttribute(9, "15.5", True)
 
 # Check undo redo
-netedit.undo(referencePosition, 4)
-netedit.redo(referencePosition, 4)
+netedit.undo(referencePosition, 6)
+netedit.redo(referencePosition, 6)
 
 # click over reference (to avoid problem with undo-redo)
 netedit.leftClick(referencePosition, 0, 0)

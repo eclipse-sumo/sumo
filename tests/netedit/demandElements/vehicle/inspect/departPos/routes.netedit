@@ -1,19 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 24.07.2019 11:01:06 by Eclipse SUMO netedit Version v1_2_0+1283-fe2ba4d8c4
+<!-- generated on 14.08.2019 09:16:50 by Eclipse SUMO netedit Version v1_2_0+1570-8b6d0e5f59
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.24Jul110037.2932/netedit.gui/demandElements/vehicle/create/departPos\input_net.net.xml"/>
+        <sumo-net-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.14Aug091557.8364/netedit.gui/demandElements/vehicle/inspect/departPos\input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.24Jul110037.2932/netedit.gui/demandElements/vehicle/create/departPos\net.net.xml"/>
+        <output-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.14Aug091557.8364/netedit.gui/demandElements/vehicle/inspect/departPos\net.net.xml"/>
     </output>
 
     <processing>
         <geometry.max-grade.fix value="false"/>
         <offset.disable-normalization value="true"/>
+        <opposites.guess.fix-lengths value="true"/>
         <lefthand value="false"/>
     </processing>
 
@@ -29,10 +30,10 @@
     </pedestrian>
 
     <netedit>
-        <additional-files value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.24Jul110037.2932/netedit.gui/demandElements/vehicle/create/departPos\additionals.xml"/>
-        <additionals-output value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.24Jul110037.2932/netedit.gui/demandElements/vehicle/create/departPos\additionals.xml"/>
-        <route-files value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.24Jul110037.2932/netedit.gui/demandElements/vehicle/create/departPos\routes.xml"/>
-        <demandelements-output value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.24Jul110037.2932/netedit.gui/demandElements/vehicle/create/departPos\routes.xml"/>
+        <additional-files value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.14Aug091557.8364/netedit.gui/demandElements/vehicle/inspect/departPos\additionals.xml"/>
+        <additionals-output value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.14Aug091557.8364/netedit.gui/demandElements/vehicle/inspect/departPos\additionals.xml"/>
+        <route-files value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.14Aug091557.8364/netedit.gui/demandElements/vehicle/inspect/departPos\routes.xml"/>
+        <demandelements-output value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.14Aug091557.8364/netedit.gui/demandElements/vehicle/inspect/departPos\routes.xml"/>
     </netedit>
 
     <visualisation>
@@ -45,7 +46,7 @@
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.24Jul110037.2932/netedit.gui/demandElements/vehicle/create/departPos\log.txt"/>
+        <error-log value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.14Aug091557.8364/netedit.gui/demandElements/vehicle/inspect/departPos\log.txt"/>
     </report>
 
 </configuration>
@@ -53,7 +54,5 @@
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
     <route edges="gneE2 gneE4 gneE5" color="yellow" id="route_0"/>
-    <vehicle id="vehicle_0" depart="0.00" departPos="-12.00" route="route_0"/>
-    <vehicle id="vehicle_1" depart="0.00" departPos="random_free" route="route_0"/>
-    <vehicle id="vehicle_2" depart="0.00" departPos="20.00" route="route_0"/>
+    <vehicle id="vehicle_0" depart="0.00" departPos="20.00" route="route_0"/>
 </routes>

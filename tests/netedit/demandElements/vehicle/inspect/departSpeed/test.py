@@ -42,39 +42,45 @@ netedit.typeEnter()
 # go to vehicle mode
 netedit.vehicleMode()
 
-# set invalid depart speed
-netedit.changeDefaultValue(8, "dummySpeed")
-
-# try to create vehicle
-netedit.leftClick(referencePosition, 274, 414)
-
-# set invalid depart speed
-netedit.changeDefaultValue(8, "-12")
-
-# try to create vehicle
-netedit.leftClick(referencePosition, 274, 414)
-
-# set invalid depart speed
-netedit.changeDefaultValue(8, "5000")
-
-# try to create vehicle
-netedit.leftClick(referencePosition, 274, 414)
-
-# set valid depart speed
-netedit.changeDefaultValue(8, "max")
-
 # create vehicle
 netedit.leftClick(referencePosition, 274, 414)
 
-# set valid depart speed
-netedit.changeDefaultValue(8, "20")
+# go to inspect mode
+netedit.inspectMode()
 
-# create vehicle
-netedit.leftClick(referencePosition, 274, 414)
+# inspect vehicle
+netedit.leftClick(referencePosition, 91, 413)
+
+# change departSpeed with an invalid value
+netedit.modifyAttribute(7, "", True)
+
+# change departSpeed with an invalid value
+netedit.modifyAttribute(7, "dummySpeed", True)
+
+# change departSpeed with a valid value
+netedit.modifyAttribute(7, "500", True)
+
+# change departSpeed with an invalid value
+netedit.modifyAttribute(7, "-10", True)
+
+# change departSpeed with a valid value
+netedit.modifyAttribute(7, "random", True)
+
+# change departSpeed with a valid value
+netedit.modifyAttribute(7, "max", True)
+
+# change departSpeed with a valid value
+netedit.modifyAttribute(7, "desired", True)
+
+# change departSpeed with a valid value
+netedit.modifyAttribute(7, "speedLimit", True)
+
+# change departSpeed with a valid value
+netedit.modifyAttribute(7, "20", True)
 
 # Check undo redo
-netedit.undo(referencePosition, 3)
-netedit.redo(referencePosition, 3)
+netedit.undo(referencePosition, 8)
+netedit.redo(referencePosition, 8)
 
 # click over reference (to avoid problem with undo-redo)
 netedit.leftClick(referencePosition, 0, 0)

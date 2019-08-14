@@ -42,21 +42,30 @@ netedit.typeEnter()
 # go to vehicle mode
 netedit.vehicleMode()
 
-# set invalid vType
-netedit.changeDefaultValue(2, "blue")
-
-# try to create vehicle
-netedit.leftClick(referencePosition, 274, 414)
-
-# set valid vType
-netedit.changeDefaultValue(2, "custom_vType")
-
 # create vehicle
 netedit.leftClick(referencePosition, 274, 414)
 
+# go to inspect mode
+netedit.inspectMode()
+
+# inspect vehicle
+netedit.leftClick(referencePosition, 91, 413)
+
+# change vType with an invalid value
+netedit.modifyAttribute(1, "", True)
+
+# change vType with an invalid value
+netedit.modifyAttribute(1, ";;;;", True)
+
+# change vType with an invalid value
+netedit.modifyAttribute(1, "dummyVType", True)
+
+# change vType with a valid value
+netedit.modifyAttribute(1, "custom_vType", True)
+
 # Check undo redo
-netedit.undo(referencePosition, 2)
-netedit.redo(referencePosition, 2)
+netedit.undo(referencePosition, 3)
+netedit.redo(referencePosition, 3)
 
 # click over reference (to avoid problem with undo-redo)
 netedit.leftClick(referencePosition, 0, 0)

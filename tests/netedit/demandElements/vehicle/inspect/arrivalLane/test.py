@@ -42,33 +42,36 @@ netedit.typeEnter()
 # go to vehicle mode
 netedit.vehicleMode()
 
-# set invalid arrival lane
-netedit.changeDefaultValue(9, "dummyLane")
-
-# try to create vehicle
-netedit.leftClick(referencePosition, 274, 414)
-
-# set invalid arrival lane
-netedit.changeDefaultValue(9, "-12")
-
-# try to create vehicle
-netedit.leftClick(referencePosition, 274, 414)
-
-# set valid arrival lane
-netedit.changeDefaultValue(9, "random")
-
 # create vehicle
 netedit.leftClick(referencePosition, 274, 414)
 
-# set valid arrival lane
-netedit.changeDefaultValue(9, "20")
+# go to inspect mode
+netedit.inspectMode()
 
-# create vehicle
-netedit.leftClick(referencePosition, 274, 414)
+# inspect vehicle
+netedit.leftClick(referencePosition, 91, 413)
+
+# change arrivalLane with an invalid value
+netedit.modifyAttribute(8, "", True)
+
+# change arrivalLane with an invalid value
+netedit.modifyAttribute(8, "dummyLane", True)
+
+# change departColor with a valid value
+netedit.modifyAttribute(8, "500", True)
+
+# change arrivalLane with an invalid value
+netedit.modifyAttribute(8, "-10", True)
+
+# change arrivalLane with a valid value
+netedit.modifyAttribute(8, "current", True)
+
+# change arrivalLane with a valid value
+netedit.modifyAttribute(8, "0", True)
 
 # Check undo redo
-netedit.undo(referencePosition, 3)
-netedit.redo(referencePosition, 3)
+netedit.undo(referencePosition, 5)
+netedit.redo(referencePosition, 5)
 
 # click over reference (to avoid problem with undo-redo)
 netedit.leftClick(referencePosition, 0, 0)
