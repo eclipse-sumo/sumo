@@ -649,9 +649,14 @@ GNEFrameAttributesModuls::AttributesCreator::getAttributesAndValues(bool include
     // get standard parameters
     for (int i = 0; i < (int)myAttributesCreatorRows.size(); i++) {
         if (myAttributesCreatorRows.at(i) && myAttributesCreatorRows.at(i)->getAttrProperties().getAttr() != SUMO_ATTR_NOTHING) {
-            // ignore default values (except for disjont attributes, that has to be always writted)
-            if (myAttributesCreatorRows.at(i)->isAttributesCreatorRowEnabled() &&
-                    (includeAll || !myAttributesCreatorRows.at(i)->getAttrProperties().hasStaticDefaultValue() || (myAttributesCreatorRows.at(i)->getAttrProperties().getDefaultValue() != myAttributesCreatorRows.at(i)->getValue()))) {
+            // flag for row enabled
+            bool rowEnabled = myAttributesCreatorRows.at(i)->isAttributesCreatorRowEnabled();
+            // flag for default attributes
+            bool hasDefaultStaticValue = !myAttributesCreatorRows.at(i)->getAttrProperties().hasStaticDefaultValue() || (myAttributesCreatorRows.at(i)->getAttrProperties().getDefaultValue() != myAttributesCreatorRows.at(i)->getValue());
+            // flag for enablitables attributes
+            bool isEnablitableAttribute = myAttributesCreatorRows.at(i)->getAttrProperties().isEnablitable();
+            // check if flags configuration allow to include values
+            if (rowEnabled && (includeAll || hasDefaultStaticValue || isEnablitableAttribute)) {
                 values[myAttributesCreatorRows.at(i)->getAttrProperties().getAttr()] = myAttributesCreatorRows.at(i)->getValue();
             }
         }
