@@ -114,7 +114,7 @@ GUIMessageWindow::getActiveStringObject(const FXString& text, const FXint pos, c
             std::string type(text.mid(typeS + 1, idS - typeS - 1).lower().text());
             if (type == "tllogic") {
                 type = "tlLogic"; // see GUIGlObject.cpp
-            } else if (type == "busstop") {
+            } else if (type == "busstop" || type == "trainstop") {
                 type = "busStop";
             } else if (type == "containerstop") {
                 type = "containerStop";
