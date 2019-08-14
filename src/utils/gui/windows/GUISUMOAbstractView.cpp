@@ -465,6 +465,7 @@ GUISUMOAbstractView::getObjectsInBoundary(Boundary bound) {
     glSelectBuffer(NB_HITS_MAX, hits);
     glInitNames();
 
+    myVisualizationSettings->scale = m2p(SUMO_const_laneWidth);
     Boundary oldViewPort = myChanger->getViewport(false); // backup the actual viewPort
     myChanger->setViewport(bound);
     bound = applyGLTransform(false);
