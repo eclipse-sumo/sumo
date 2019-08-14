@@ -545,7 +545,6 @@
     <Compile Include="demandElements\flow\create\departSpeed\test.py" />
     <Compile Include="demandElements\flow\create\line\test.py" />
     <Compile Include="demandElements\flow\create\personNumber\test.py" />
-    <Compile Include="demandElements\flow\create\reroute\test.py" />
     <Compile Include="demandElements\flow\create\vType\test.py" />
     <Compile Include="demandElements\flow\inspect\arrivalLane\test.py" />
     <Compile Include="demandElements\flow\inspect\arrivalPosLat\test.py" />
@@ -561,7 +560,6 @@
     <Compile Include="demandElements\flow\inspect\id\test.py" />
     <Compile Include="demandElements\flow\inspect\line\test.py" />
     <Compile Include="demandElements\flow\inspect\personNumber\test.py" />
-    <Compile Include="demandElements\flow\inspect\reroute\test.py" />
     <Compile Include="demandElements\flow\inspect\vType\test.py" />
     <Compile Include="demandElements\flow\load\test.py" />
     <Compile Include="demandElements\person\create\default_ride\default_ride_busstop\test.py" />
@@ -587,7 +585,6 @@
     <Compile Include="demandElements\routeflow\create\departSpeed\test.py" />
     <Compile Include="demandElements\routeflow\create\line\test.py" />
     <Compile Include="demandElements\routeflow\create\personNumber\test.py" />
-    <Compile Include="demandElements\routeflow\create\reroute\test.py" />
     <Compile Include="demandElements\routeflow\create\vType\test.py" />
     <Compile Include="demandElements\routeflow\inspect\arrivalLane\test.py" />
     <Compile Include="demandElements\routeflow\inspect\arrivalPosLat\test.py" />
@@ -602,7 +599,6 @@
     <Compile Include="demandElements\routeflow\inspect\id\test.py" />
     <Compile Include="demandElements\routeflow\inspect\line\test.py" />
     <Compile Include="demandElements\routeflow\inspect\personNumber\test.py" />
-    <Compile Include="demandElements\routeflow\inspect\reroute\test.py" />
     <Compile Include="demandElements\routeflow\inspect\route\test.py" />
     <Compile Include="demandElements\routeflow\inspect\vType\test.py" />
     <Compile Include="demandElements\routeflow\load\test.py" />
@@ -655,7 +651,6 @@
     <Compile Include="demandElements\trip\create\depart\test.py" />
     <Compile Include="demandElements\trip\create\line\test.py" />
     <Compile Include="demandElements\trip\create\personNumber\test.py" />
-    <Compile Include="demandElements\trip\create\reroute\test.py" />
     <Compile Include="demandElements\trip\create\vType\test.py" />
     <Compile Include="demandElements\trip\inspect\arrivalLane\test.py" />
     <Compile Include="demandElements\trip\inspect\arrivalPosLat\test.py" />
@@ -672,7 +667,6 @@
     <Compile Include="demandElements\trip\inspect\id\test.py" />
     <Compile Include="demandElements\trip\inspect\line\test.py" />
     <Compile Include="demandElements\trip\inspect\personNumber\test.py" />
-    <Compile Include="demandElements\trip\inspect\reroute\test.py" />
     <Compile Include="demandElements\trip\inspect\vType\test.py" />
     <Compile Include="demandElements\trip\load\test.py" />
     <Compile Include="demandElements\vehicletype\load\test.py" />
@@ -690,7 +684,6 @@
     <Compile Include="demandElements\vehicle\create\depart\test.py" />
     <Compile Include="demandElements\vehicle\create\line\test.py" />
     <Compile Include="demandElements\vehicle\create\personNumber\test.py" />
-    <Compile Include="demandElements\vehicle\create\reroute\test.py" />
     <Compile Include="demandElements\vehicle\create\vType\test.py" />
     <Compile Include="demandElements\vehicle\inspect\arrivalLane\test.py" />
     <Compile Include="demandElements\vehicle\inspect\arrivalPosLat\test.py" />
@@ -706,7 +699,6 @@
     <Compile Include="demandElements\vehicle\inspect\id\test.py" />
     <Compile Include="demandElements\vehicle\inspect\line\test.py" />
     <Compile Include="demandElements\vehicle\inspect\personNumber\test.py" />
-    <Compile Include="demandElements\vehicle\inspect\reroute\test.py" />
     <Compile Include="demandElements\vehicle\inspect\route\test.py" />
     <Compile Include="demandElements\vehicle\inspect\vType\test.py" />
     <Compile Include="demandElements\vehicle\load\test.py" />
