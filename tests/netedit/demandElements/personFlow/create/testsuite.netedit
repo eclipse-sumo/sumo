@@ -9,3 +9,15 @@ default_stop
 color
 
 departPos
+
+begin
+
+end
+
+vehsPerHour
+
+period
+
+probability
+
+number

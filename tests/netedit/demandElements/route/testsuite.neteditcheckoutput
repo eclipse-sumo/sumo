@@ -20,7 +20,7 @@ inspect_selection
 load
 
 # volatile recomputing
-volatile_recomputing
+volatileRecomputing
 
 # fix routes
 fix
