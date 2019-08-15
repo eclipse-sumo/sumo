@@ -16,7 +16,8 @@
 
 from __future__ import print_function
 from __future__ import absolute_import
-import os, sys
+import os
+import sys
 sys.path.append(os.path.join(os.environ["SUMO_HOME"], "tools"))
 import traci  # noqa
 import sumolib  # noqa

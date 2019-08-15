@@ -120,9 +120,9 @@ public:
         /// @brief Called when the user click over button "Finish route creation"
         long onCmdFinishPersonPlanCreation(FXObject*, FXSelector, void*);
 
-        /// @brief Called when the user click over button "Remove las inserted edge"
+        /// @brief Called when the user click over button "Remove last inserted edge"
         long onCmdRemoveLastElement(FXObject*, FXSelector, void*);
-        /// @}º
+        /// @}
 
     protected:
         /// @brief FOX needs this
