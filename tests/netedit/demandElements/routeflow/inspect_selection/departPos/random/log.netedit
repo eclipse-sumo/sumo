@@ -1,0 +1,4 @@
+Warning: Essential unique string attribute 'to' of trip with ID 'flowA' is missing; trip cannot be created
+Warning: Essential unique string attribute 'from' of trip with ID 'flowA' is missing; trip cannot be created
+Warning: Essential unique string attribute 'to' of trip with ID 'flowB' is missing; trip cannot be created
+Warning: Essential unique string attribute 'from' of trip with ID 'flowB' is missing; trip cannot be created
