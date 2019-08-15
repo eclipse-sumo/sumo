@@ -483,6 +483,7 @@
         <xsd:complexContent>
             <xsd:extension base="flowWithoutIDType">
                 <xsd:attribute name="id" type="idType" use="required"/>
+                <xsd:attribute name="reroute" type="boolType" use="optional"/>
             </xsd:extension>
         </xsd:complexContent>
     </xsd:complexType>
