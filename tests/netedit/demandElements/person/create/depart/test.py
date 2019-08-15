@@ -74,29 +74,9 @@ netedit.leftClick(referencePosition, 180, 60)
 # press enter to create route
 netedit.typeEnter()
 
-# set valid depart (output will be changed)
-netedit.changeDefaultValue(7, "triggered")
-
-# try to create person
-netedit.leftClick(referencePosition, 274, 414)
-netedit.leftClick(referencePosition, 180, 60)
-
-# press enter to create route
-netedit.typeEnter()
-
-# set valid depart (output will be changed)
-netedit.changeDefaultValue(7, "containerTriggered")
-
-# try to create person
-netedit.leftClick(referencePosition, 274, 414)
-netedit.leftClick(referencePosition, 180, 60)
-
-# press enter to create route
-netedit.typeEnter()
-
 # Check undo redo
-netedit.undo(referencePosition, 6)
-netedit.redo(referencePosition, 6)
+netedit.undo(referencePosition, 2)
+netedit.redo(referencePosition, 2)
 
 # save routes
 netedit.saveRoutes(referencePosition)
