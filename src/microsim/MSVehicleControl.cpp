@@ -76,6 +76,7 @@ MSVehicleControl::MSVehicleControl() :
     myVTypeDict[DEFAULT_BIKETYPE_ID] = MSVehicleType::build(defBikeType);
     OptionsCont& oc = OptionsCont::getOptions();
     myScale = oc.getFloat("scale");
+    myStopTolerance = oc.getFloat("ride.stop-tolerance");
 }
 
 
@@ -407,29 +408,18 @@ MSVehicleControl::removeWaiting(const MSEdge* const edge, const SUMOVehicle* veh
 SUMOVehicle*
 MSVehicleControl::getWaitingVehicle(MSTransportable* transportable, const MSEdge* const edge, const double position) {
     if (myWaiting.find(edge) != myWaiting.end()) {
-        // for every vehicle waiting vehicle at this edge
-        std::vector<SUMOVehicle*> waitingTooFarAway;
-        for (SUMOVehicle* vehicle : myWaiting[edge]) {
-            double vehiclePosition = vehicle->getPositionOnLane();
-            // if the line of the vehicle is contained in the set of given lines and the vehicle is stopped and is positioned
-            // in the interval [position - t, position + t] for a tolerance t=10
+        for (SUMOVehicle* const vehicle : myWaiting[edge]) {
             if (transportable->isWaitingFor(vehicle)) {
-                if ((position - 10 <= vehiclePosition) && (vehiclePosition <= position + 10)) {
+                if (vehicle->isStoppedInRange(position, myStopTolerance) ||
+                    (!vehicle->hasDeparted() && 
+                     (vehicle->getParameter().departProcedure == DEPART_TRIGGERED ||
+                      vehicle->getParameter().departProcedure == DEPART_CONTAINER_TRIGGERED))) {
                     return vehicle;
-                } else if (vehicle->isStoppedTriggered() ||
-                           vehicle->getParameter().departProcedure == DEPART_TRIGGERED) {
-                    // maybe we are within the range of the stop
-                    if (vehicle->isStoppedInRange(position)) {
-                        return vehicle;
-                    } else {
-                        waitingTooFarAway.push_back(vehicle);
-                    }
                 }
+                // !!! this gives false warnings when there are two stops on the same edge
+                WRITE_WARNING(transportable->getID() + " at edge '" + edge->getID() + "' position " + toString(position) + " cannot use waiting vehicle '"
+                    + vehicle->getID() + "' at position " + toString(vehicle->getPositionOnLane()) + " because it is too far away.");
             }
-        }
-        for (SUMOVehicle* vehicle : waitingTooFarAway) {
-            WRITE_WARNING(transportable->getID() + " at edge '" + edge->getID() + "' position " + toString(position) + " cannot use waiting vehicle '"
-                          + vehicle->getID() + "' at position " + toString(vehicle->getPositionOnLane()) + " because it is too far away.");
         }
     }
     return nullptr;

@@ -1472,7 +1472,7 @@ Vehicle::moveTo(const std::string& vehicleID, const std::string& laneID, double 
     } else {
         veh->setTentativeLaneAndPosition(l, position);
     }
-    const int newRouteIndex = it - veh->getRoute().begin();
+    const int newRouteIndex = (int)(it - veh->getRoute().begin());
     veh->resetRoutePosition(newRouteIndex, veh->getParameter().departLaneProcedure);
     if (!veh->isOnRoad()) {
         MSNet::getInstance()->getInsertionControl().alreadyDeparted(veh);

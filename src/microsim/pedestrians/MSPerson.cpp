@@ -417,7 +417,6 @@ MSPerson::MSPersonStage_Driving::proceed(MSNet* net, MSTransportable* person, SU
     const MSStoppingPlace* start = (previous->getStageType() == TRIP
                                     ? previous->getOriginStop()
                                     : previous->getDestinationStop());
-
     if (start != nullptr) {
         // the arrival stop may have an access point
         myWaitingEdge = &start->getLane().getEdge();

@@ -164,17 +164,19 @@ MSTransportableControl::boardAnyWaiting(MSEdge* edge, SUMOVehicle* vehicle, cons
                     && (*i)->getEdgePos() <= stop.endPos) {
                 edge->removePerson(*i);
                 vehicle->addPerson(*i);
-                //if the time a person needs to enter the vehicle extends the duration of the stop of the vehicle extend
-                //the duration by setting it to the boarding duration of the person
-                const SUMOTime boardingDuration = vehicle->getVehicleType().getBoardingDuration();
-                if (boardingDuration >= stopDuration) {
-                    stopDuration = boardingDuration;
-                }
-                //update the time point at which the next person can board the vehicle
-                if (timeToBoardNextPerson > currentTime - DELTA_T) {
-                    timeToBoardNextPerson += boardingDuration;
-                } else {
-                    timeToBoardNextPerson = currentTime + boardingDuration;
+                if (timeToBoardNextPerson >= 0) { // meso does not have boarding times
+                    //if the time a person needs to enter the vehicle extends the duration of the stop of the vehicle extend
+                    //the duration by setting it to the boarding duration of the person
+                    const SUMOTime boardingDuration = vehicle->getVehicleType().getBoardingDuration();
+                    if (boardingDuration >= stopDuration) {
+                        stopDuration = boardingDuration;
+                    }
+                    //update the time point at which the next person can board the vehicle
+                    if (timeToBoardNextPerson > currentTime - DELTA_T) {
+                        timeToBoardNextPerson += boardingDuration;
+                    } else {
+                        timeToBoardNextPerson = currentTime + boardingDuration;
+                    }
                 }
 
                 static_cast<MSTransportable::Stage_Driving*>((*i)->getCurrentStage())->setVehicle(vehicle);

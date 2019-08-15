@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Aug  9 13:03:12 2019 by Eclipse SUMO Version v1_2_0+1504-ec507a3
+<!-- generated on 08/15/19 15:23:27 by Eclipse SUMO Version v1_2_0+1593-f5ddd7ba8ec
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -117,10 +117,11 @@
         <emergencydecel.warning-threshold value="1" type="FLOAT" help="Sets the fraction of emergency decel capability that must be used to trigger a warning."/>
         <pedestrian.model value="striping" type="STR" help="Select among pedestrian models [&apos;nonInteracting&apos;, &apos;striping&apos;, &apos;remote&apos;]"/>
         <pedestrian.striping.stripe-width value="0.64" type="FLOAT" help="Width of parallel stripes for segmenting a sidewalk (meters) for use with model &apos;striping&apos;"/>
-        <pedestrian.striping.dawdling value="0.2" type="FLOAT" help="factor for random slow-downs [0,1] for use with model &apos;striping&apos;"/>
+        <pedestrian.striping.dawdling value="0.2" type="FLOAT" help="Factor for random slow-downs [0,1] for use with model &apos;striping&apos;"/>
         <pedestrian.striping.jamtime value="300" type="TIME" help="Time in seconds after which pedestrians start squeezing through a jam when using model &apos;striping&apos; (non-positive values disable squeezing)"/>
         <pedestrian.striping.jamtime.crossing value="10" type="TIME" help="Time in seconds after which pedestrians start squeezing through a jam while on a pedestrian crossing when using model &apos;striping&apos; (non-positive values disable squeezing)"/>
         <pedestrian.remote.address value="localhost:9000" type="STR" help="The address (host:port) of the external simulation"/>
+        <ride.stop-tolerance value="10" type="FLOAT" help="Tolerance to apply when matching pedestrian and vehicle positions on boarding at individual stops"/>
     </processing>
 
     <routing>

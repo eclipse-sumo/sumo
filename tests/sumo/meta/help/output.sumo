@@ -1,4 +1,4 @@
-Eclipse SUMO Version v1_2_0+1504-ec507a3
+Eclipse SUMO Version v1_2_0+1593-f5ddd7ba8ec
  Copyright (C) 2001-2019 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 A microscopic, multi-modal traffic simulation.
 
@@ -219,7 +219,7 @@ Processing Options:
   --pedestrian.striping.stripe-width FLOAT  Width of parallel stripes for
                                          segmenting a sidewalk (meters) for use
                                          with model 'striping'
-  --pedestrian.striping.dawdling FLOAT  factor for random slow-downs [0,1] for
+  --pedestrian.striping.dawdling FLOAT  Factor for random slow-downs [0,1] for
                                          use with model 'striping'
   --pedestrian.striping.jamtime TIME   Time in seconds after which pedestrians
                                          start squeezing through a jam when
@@ -232,6 +232,9 @@ Processing Options:
                                          values disable squeezing)
   --pedestrian.remote.address STR      The address (host:port) of the external
                                          simulation
+  --ride.stop-tolerance FLOAT          Tolerance to apply when matching
+                                         pedestrian and vehicle positions on
+                                         boarding at individual stops
 
 Routing Options:
   --routing-algorithm STR              Select among routing algorithms

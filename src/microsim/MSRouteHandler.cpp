@@ -968,7 +968,7 @@ MSRouteHandler::addStop(const SUMOSAXAttributes& attrs) {
                     edge = myActivePlan->back()->getDestination();
                     stop.lane = edge->getLanes()[0]->getID();
                     stop.endPos = myActivePlan->back()->getArrivalPos();
-                    stop.startPos = stop.endPos - POSITION_EPS;
+                    stop.startPos = MAX2(0., stop.endPos - MIN_STOP_LENGTH);
                 }
             } else {
                 WRITE_ERROR("A stop must be placed on a busStop, a chargingStation, a containerStop a parkingArea or a lane" + errorSuffix);
@@ -981,7 +981,7 @@ MSRouteHandler::addStop(const SUMOSAXAttributes& attrs) {
             WRITE_WARNING("Deprecated attribute 'pos' in description of stop" + errorSuffix);
             stop.endPos = attrs.getOpt<double>(SUMO_ATTR_POSITION, nullptr, ok, stop.endPos);
         }
-        stop.startPos = attrs.getOpt<double>(SUMO_ATTR_STARTPOS, nullptr, ok, MAX2(0., stop.endPos - 2 * POSITION_EPS));
+        stop.startPos = attrs.getOpt<double>(SUMO_ATTR_STARTPOS, nullptr, ok, MAX2(0., stop.endPos - MIN_STOP_LENGTH));
         const bool friendlyPos = attrs.getOpt<bool>(SUMO_ATTR_FRIENDLY_POS, nullptr, ok, false);
         if (!ok || !checkStopPos(stop.startPos, stop.endPos, MSLane::dictionary(stop.lane)->getLength(), POSITION_EPS, friendlyPos)) {
             WRITE_ERROR("Invalid start or end position for stop on lane '" + stop.lane + "'" + errorSuffix);

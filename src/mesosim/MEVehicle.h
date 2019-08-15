@@ -169,7 +169,7 @@ public:
 
     /** @brief return whether the given position is within range of the current stop
      */
-    bool isStoppedInRange(double pos) const;
+    bool isStoppedInRange(const double pos, const double tolerance) const;
 
     /** @brief Returns whether the vehicle stops at the given stopping place */
     bool stopsAt(MSStoppingPlace* /*stop*/) const {

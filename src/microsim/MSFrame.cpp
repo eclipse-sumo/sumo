@@ -365,7 +365,7 @@ MSFrame::fillOptions() {
     oc.addDescription("pedestrian.striping.stripe-width", "Processing", "Width of parallel stripes for segmenting a sidewalk (meters) for use with model 'striping'");
 
     oc.doRegister("pedestrian.striping.dawdling", new Option_Float(0.2));
-    oc.addDescription("pedestrian.striping.dawdling", "Processing", "factor for random slow-downs [0,1] for use with model 'striping'");
+    oc.addDescription("pedestrian.striping.dawdling", "Processing", "Factor for random slow-downs [0,1] for use with model 'striping'");
 
     oc.doRegister("pedestrian.striping.jamtime", new Option_String("300", "TIME"));
     oc.addDescription("pedestrian.striping.jamtime", "Processing", "Time in seconds after which pedestrians start squeezing through a jam when using model 'striping' (non-positive values disable squeezing)");
@@ -374,6 +374,9 @@ MSFrame::fillOptions() {
 
     oc.doRegister("pedestrian.remote.address", new Option_String("localhost:9000"));
     oc.addDescription("pedestrian.remote.address", "Processing", "The address (host:port) of the external simulation");
+
+    oc.doRegister("ride.stop-tolerance", new Option_Float(10.));
+    oc.addDescription("ride.stop-tolerance", "Processing", "Tolerance to apply when matching pedestrian and vehicle positions on boarding at individual stops");
 
     // generic routing options
     oc.doRegister("routing-algorithm", new Option_String("dijkstra"));
@@ -583,8 +586,10 @@ MSFrame::checkOptions() {
     if (oc.getBool("meso-junction-control.limited") && !oc.getBool("meso-junction-control")) {
         oc.set("meso-junction-control", "true");
     }
-    if (oc.getBool("mesosim") && oc.isDefault("pedestrian.model")) {
-        oc.set("pedestrian.model", "nonInteracting");
+    if (oc.getBool("mesosim")) {
+        if (oc.isDefault("pedestrian.model")) {
+            oc.set("pedestrian.model", "nonInteracting");
+        }
     }
     const SUMOTime begin = string2time(oc.getString("begin"));
     const SUMOTime end = string2time(oc.getString("end"));

@@ -1803,8 +1803,15 @@ MSVehicle::isStoppedTriggered() const {
 
 
 bool
-MSVehicle::isStoppedInRange(double pos) const {
-    return isStopped() && myStops.begin()->pars.startPos <= pos && myStops.begin()->pars.endPos >= pos;
+MSVehicle::isStoppedInRange(const double pos, const double tolerance) const {
+    if (isStopped()) {
+        const Stop& stop = myStops.front();
+        if (stop.pars.endPos - stop.pars.startPos <= MIN_STOP_LENGTH) {
+            return stop.pars.startPos - tolerance <= pos && stop.pars.endPos + tolerance >= pos;
+        }
+        return stop.pars.startPos <= pos && stop.pars.endPos >= pos;
+    }
+    return false;
 }
 
 

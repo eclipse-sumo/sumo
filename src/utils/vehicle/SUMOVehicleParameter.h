@@ -81,6 +81,8 @@ const int STOP_EXPECTED_CONTAINERS_SET = 2 << 5;
 const int STOP_TRIP_ID_SET = 2 << 6;
 const int STOP_LINE_SET = 2 << 7;
 
+const double MIN_STOP_LENGTH = 2 * POSITION_EPS;
+
 
 // ===========================================================================
 // enum definitions

@@ -282,8 +282,8 @@ public:
      */
     virtual bool isStoppedTriggered() const = 0;
 
-    /** @brief Returns whether the vehicle is stoped in range of the given position */
-    virtual bool isStoppedInRange(double pos) const = 0;
+    /** @brief Returns whether the vehicle is stopped in the range of the given position */
+    virtual bool isStoppedInRange(const double pos, const double tolerance) const = 0;
 
     /** @brief Returns whether the vehicle stops at the given stopping place */
     virtual bool stopsAt(MSStoppingPlace* stop) const = 0;

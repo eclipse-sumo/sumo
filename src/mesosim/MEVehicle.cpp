@@ -251,8 +251,7 @@ MEVehicle::isStoppedTriggered() const {
 
 
 bool
-MEVehicle::isStoppedInRange(double pos) const {
-    UNUSED_PARAMETER(pos);
+MEVehicle::isStoppedInRange(const double /* pos */, const double /* tolerance */) const {
     return isStopped();
 }
 
@@ -321,15 +320,15 @@ MEVehicle::processStop() {
         SUMOTime started = myLastEntryTime;
         //std::cout << SIMTIME << " veh=" << getID() << " lastEntry=" << STEPS2TIME(myLastEntryTime) << " stopStarted=" << STEPS2TIME(started) << "\n";
         if (MSStopOut::active()) {
-            MSStopOut::getInstance()->stopStarted(this, getPersonNumber(), getContainerNumber(), started);
+            MSStopOut::getInstance()->stopStarted(this, getPersonNumber(), getContainerNumber(), myLastEntryTime);
         }
         MSNet* const net = MSNet::getInstance();
-        SUMOTime dummyDuration; // boarding- and loading-time are not considered
+        SUMOTime dummy = -1; // boarding- and loading-time are not considered
         if (net->hasPersons()) {
-            net->getPersonControl().boardAnyWaiting(edge, this, stop, started, dummyDuration);
+            net->getPersonControl().boardAnyWaiting(edge, this, stop, dummy, dummy);
         }
         if (net->hasContainers()) {
-            net->getContainerControl().loadAnyWaiting(edge, this, stop, started, dummyDuration);
+            net->getContainerControl().loadAnyWaiting(edge, this, stop, dummy, dummy);
         }
         MSDevice_Vehroutes* vehroutes = static_cast<MSDevice_Vehroutes*>(getDevice(typeid(MSDevice_Vehroutes)));
         if (vehroutes != nullptr) {

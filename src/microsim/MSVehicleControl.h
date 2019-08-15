@@ -412,10 +412,10 @@ public:
 
     /// @}
 
-    /// @brief Adds a vehicle to the list of waiting vehiclse to a given edge
+    /// @brief Adds a vehicle to the list of waiting vehicles for the given edge
     void addWaiting(const MSEdge* const edge, SUMOVehicle* vehicle);
 
-    /// @brief Removes a vehicle from the list of waiting vehicles to a given edge
+    /// @brief Removes a vehicle from the list of waiting vehicles for the given edge
     void removeWaiting(const MSEdge* const edge, const SUMOVehicle* vehicle);
 
     /* @brief returns a vehicle of the given lines that is waiting for a for a person or a container at this edge at the given positions
@@ -628,6 +628,9 @@ private:
 
     /// @brief List of vehicles which belong to public transport
     std::vector<SUMOVehicle*> myPTVehicles;
+
+    /// @brief The tolerance to apply when matching waiting persons and vehicles
+    double myStopTolerance;
 
     /// @brief List of vehicles which are going to be removed
 #ifdef HAVE_FOX
