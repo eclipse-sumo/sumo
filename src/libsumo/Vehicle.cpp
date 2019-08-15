@@ -1458,9 +1458,13 @@ Vehicle::moveTo(const std::string& vehicleID, const std::string& laneID, double 
     if (it == veh->getRoute().end()) {
         // find edge in the edges that were already passed
         it = std::find(veh->getRoute().begin(), veh->getRoute().end(), destinationRouteEdge);
-        if (it == veh->getRoute().end()) {
-            throw TraCIException("lane '" + laneID + "' is not on the route of Vehicle '" + vehicleID + "'.");
-        }
+    }
+    if (it == veh->getRoute().end() ||
+            // internal edge must continue the route
+            (destinationEdge->isInternal() && 
+             ((it + 1) == veh->getRoute().end() 
+              || l->getNextNormal() != *(it + 1)))) {
+        throw TraCIException("lane '" + laneID + "' is not on the route of Vehicle '" + vehicleID + "'.");
     }
     veh->onRemovalFromNet(MSMoveReminder::NOTIFICATION_TELEPORT);
     if (veh->getLane() != nullptr) {
