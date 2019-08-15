@@ -29,6 +29,24 @@ traci.vehicle.moveTo("ego", "SC_1", 25)
 traci.simulationStep()
 traci.vehicle.moveTo("ego", "SC_1", 1)
 traci.simulationStep()
+try:
+    # internal lane does not originate on the vehicles route
+    traci.vehicle.moveTo("ego", "CW_0", 5)
+    traci.simulationStep()
+except traci.TraCIException:
+    pass
+try:
+    # internal lane does not originate on the vehicles route
+    traci.vehicle.moveTo("ego", ":C_1_0", 5)
+    traci.simulationStep()
+except traci.TraCIException:
+    pass
+try:
+    # internal lane does not continue the vehicles route
+    traci.vehicle.moveTo("ego", ":C_10_0", 5)
+    traci.simulationStep()
+except traci.TraCIException:
+    pass
 traci.vehicle.moveTo("ego", ":C_11_0", 5)
 traci.simulationStep()
 traci.vehicle.moveTo("ego", "CN_1", 30)
