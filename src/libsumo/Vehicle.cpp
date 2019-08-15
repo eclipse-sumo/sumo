@@ -1451,9 +1451,16 @@ Vehicle::moveTo(const std::string& vehicleID, const std::string& laneID, double 
     if (l == nullptr) {
         throw TraCIException("Unknown lane '" + laneID + "'.");
     }
-    MSEdge& destinationEdge = l->getEdge();
-    if (!veh->willPass(&destinationEdge)) {
-        throw TraCIException("Vehicle '" + laneID + "' may be set onto an edge to pass only.");
+    MSEdge* destinationEdge = &l->getEdge();
+    const MSEdge* destinationRouteEdge = destinationEdge->getNormalBefore();
+    // find edge in the remaining route
+    MSRouteIterator it = std::find(veh->getCurrentRouteEdge(), veh->getRoute().end(), destinationRouteEdge);
+    if (it == veh->getRoute().end()) {
+        // find edge in the edges that were already passed
+        it = std::find(veh->getRoute().begin(), veh->getRoute().end(), destinationRouteEdge);
+        if (it == veh->getRoute().end()) {
+            throw TraCIException("lane '" + laneID + "' is not on the route of Vehicle '" + vehicleID + "'.");
+        }
     }
     veh->onRemovalFromNet(MSMoveReminder::NOTIFICATION_TELEPORT);
     if (veh->getLane() != nullptr) {
@@ -1461,14 +1468,8 @@ Vehicle::moveTo(const std::string& vehicleID, const std::string& laneID, double 
     } else {
         veh->setTentativeLaneAndPosition(l, position);
     }
-    while (veh->getEdge() != &destinationEdge) {
-        const MSEdge* nextEdge = veh->succEdge(1);
-        // let the vehicle move to the next edge
-        if (veh->enterLaneAtMove(nextEdge->getLanes()[0], true)) {
-            MSNet::getInstance()->getVehicleControl().scheduleVehicleRemoval(veh);
-            continue;
-        }
-    }
+    const int newRouteIndex = it - veh->getRoute().begin();
+    veh->resetRoutePosition(newRouteIndex, veh->getParameter().departLaneProcedure);
     if (!veh->isOnRoad()) {
         MSNet::getInstance()->getInsertionControl().alreadyDeparted(veh);
 
