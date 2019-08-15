@@ -738,11 +738,11 @@ GNEPerson::isValid(SumoXMLAttr key, const std::string& value) {
         }
         // Specific of persons
         case SUMO_ATTR_DEPART: {
-            SUMOTime dummyDepart;
-            DepartDefinition dummyDepartProcedure;
-            parseDepart(value, toString(SUMO_TAG_VEHICLE), id, dummyDepart, dummyDepartProcedure, error);
-            // if error is empty, given value is valid
-            return error.empty();
+            if (canParse<double>(value)) {
+                return (parse<double>(value) >= 0);
+            } else {
+                return false;
+            }
         }
         // Specific of personflows
         case SUMO_ATTR_BEGIN:
