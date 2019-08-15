@@ -36,7 +36,7 @@ netedit.changePersonPlan("walks", "walkFromTo")
 
 # create route using three edges
 netedit.leftClick(referencePosition, 274, 414)
-netedit.leftClick(referencePosition, 280, 60)
+netedit.leftClick(referencePosition, 180, 60)
 
 # press enter to create route
 netedit.typeEnter()
@@ -47,6 +47,9 @@ netedit.redo(referencePosition, 1)
 
 # save routes
 netedit.saveRoutes(referencePosition)
+
+# save additionals
+netedit.saveAdditionals(referencePosition)
 
 # save network
 netedit.saveNetwork(referencePosition)

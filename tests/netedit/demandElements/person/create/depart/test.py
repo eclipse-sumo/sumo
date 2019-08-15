@@ -34,17 +34,69 @@ netedit.personMode()
 # change person plan
 netedit.changePersonPlan("walks", "walkEdges")
 
-# create route using three edges
+# set invalid depart
+netedit.changeDefaultValue(7, "dummyDepart")
+
+# try to create person
 netedit.leftClick(referencePosition, 274, 414)
-netedit.leftClick(referencePosition, 570, 250)
+netedit.leftClick(referencePosition, 180, 60)
+
+# press enter to create route
+netedit.typeEnter()
+
+# set invalid depart
+netedit.changeDefaultValue(7, "-12")
+
+# try to create person
+netedit.leftClick(referencePosition, 274, 414)
+netedit.leftClick(referencePosition, 180, 60)
+
+# press enter to create route
+netedit.typeEnter()
+
+# set valid depart
+netedit.changeDefaultValue(7, "30")
+
+# try to create person
+netedit.leftClick(referencePosition, 274, 414)
+netedit.leftClick(referencePosition, 180, 60)
+
+# press enter to create route
+netedit.typeEnter()
+
+# set valid depart (output will be changed)
+netedit.changeDefaultValue(7, "20")
+
+# try to create person
+netedit.leftClick(referencePosition, 274, 414)
+netedit.leftClick(referencePosition, 180, 60)
+
+# press enter to create route
+netedit.typeEnter()
+
+# set valid depart (output will be changed)
+netedit.changeDefaultValue(7, "triggered")
+
+# try to create person
+netedit.leftClick(referencePosition, 274, 414)
+netedit.leftClick(referencePosition, 180, 60)
+
+# press enter to create route
+netedit.typeEnter()
+
+# set valid depart (output will be changed)
+netedit.changeDefaultValue(7, "containerTriggered")
+
+# try to create person
+netedit.leftClick(referencePosition, 274, 414)
 netedit.leftClick(referencePosition, 180, 60)
 
 # press enter to create route
 netedit.typeEnter()
 
 # Check undo redo
-netedit.undo(referencePosition, 1)
-netedit.redo(referencePosition, 1)
+netedit.undo(referencePosition, 6)
+netedit.redo(referencePosition, 6)
 
 # save routes
 netedit.saveRoutes(referencePosition)

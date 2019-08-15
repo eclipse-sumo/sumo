@@ -5,3 +5,9 @@ default_walk
 default_ride
 
 default_stop
+
+color
+
+departPos
+
+depart

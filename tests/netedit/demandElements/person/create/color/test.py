@@ -32,9 +32,32 @@ netedit.supermodeDemand()
 netedit.personMode()
 
 # change person plan
-netedit.changePersonPlan("rides", "rideFromTo")
+netedit.changePersonPlan("walks", "walkEdges")
 
-# create route using three edges
+# set invalid color
+netedit.changeDefaultValue(5, "dummyColor")
+
+# try to create person
+netedit.leftClick(referencePosition, 274, 414)
+netedit.leftClick(referencePosition, 180, 60)
+
+# press enter to create route
+netedit.typeEnter()
+
+# set valid color
+netedit.changeDefaultValue(5, "cyan")
+
+# create person
+netedit.leftClick(referencePosition, 274, 414)
+netedit.leftClick(referencePosition, 180, 60)
+
+# press enter to create route
+netedit.typeEnter()
+
+# set valid color
+netedit.changeDefaultValue(5, "12,13,14")
+
+# create person
 netedit.leftClick(referencePosition, 274, 414)
 netedit.leftClick(referencePosition, 180, 60)
 
@@ -42,8 +65,8 @@ netedit.leftClick(referencePosition, 180, 60)
 netedit.typeEnter()
 
 # Check undo redo
-netedit.undo(referencePosition, 1)
-netedit.redo(referencePosition, 1)
+netedit.undo(referencePosition, 2)
+netedit.redo(referencePosition, 2)
 
 # save routes
 netedit.saveRoutes(referencePosition)
