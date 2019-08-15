@@ -1176,12 +1176,6 @@ MSVehicle::replaceRoute(const MSRoute* newRoute, const std::string& info, bool o
 }
 
 
-bool
-MSVehicle::willPass(const MSEdge* const edge) const {
-    return std::find(myCurrEdge, myRoute->end(), edge) != myRoute->end();
-}
-
-
 int
 MSVehicle::getRoutePosition() const {
     return (int) std::distance(myRoute->begin(), myCurrEdge);

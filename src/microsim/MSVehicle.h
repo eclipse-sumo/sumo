@@ -277,13 +277,6 @@ public:
     bool replaceRoute(const MSRoute* route, const std::string& info, bool onInit = false, int offset = 0, bool addStops = true, bool removeStops = true);
 
 
-    /** @brief Returns whether the vehicle wil pass the given edge
-     * @param[in] The edge to find in the vehicle's current route
-     * @return Whether the given edge will be passed by the vehicle
-     * @todo Move to MSRoute?
-     */
-    bool willPass(const MSEdge* const edge) const;
-
     int getRoutePosition() const;
     void resetRoutePosition(int index, DepartLaneDefinition departLaneProcedure);
 
