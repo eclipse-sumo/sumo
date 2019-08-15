@@ -97,7 +97,7 @@ time2string(SUMOTime t) {
         }
     } else if (t == 0) {
         // needed due #5926
-        oss << "0";
+        oss << "0.00";
     } else {
         // 123456 -> "12.34"
         oss << STEPS2TIME(t);
