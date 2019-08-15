@@ -1585,6 +1585,22 @@ def selectionInvert():
     time.sleep(DELAY_SELECT)
 
 
+"""
+@brief invert selection (demand mode)
+"""
+
+
+def selectionInvertDemand():
+    # focus current frame
+    focusOnFrame()
+    for _ in range(28):
+        typeTab()
+    # type space to select invert operation
+    typeSpace()
+    # wait for gl debug
+    time.sleep(DELAY_SELECT)
+
+
 #################################################
 # traffic light
 #################################################

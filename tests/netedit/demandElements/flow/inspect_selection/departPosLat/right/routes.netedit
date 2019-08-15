@@ -53,6 +53,6 @@
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-    <flow id="flowA" begin="0.00" departLane="0" departPos="2.00" departPosLat="right" departSpeed="12.00" arrivalLane="0" arrivalPos="3.00" arrivalPosLat="3.00" arrivalSpeed="12.00" color="red" line="line A" personNumber="1" containerNumber="5" from="gneE2" to="gneE5" end="2599.80" number="1400"/>
-    <flow id="flowB" begin="5.00" departLane="free" departPos="random" departPosLat="right" departSpeed="speedLimit" arrivalLane="current" arrivalPos="random" arrivalPosLat="right" arrivalSpeed="current" color="blue" line="line B" personNumber="2" containerNumber="10" from="gneE4" to="gneE5" end="3599.60" number="1800"/>
+    <flow id="flowA" begin="0.00" departLane="0" departPos="2.00" departPosLat="right" departSpeed="12.00" arrivalLane="0" arrivalPos="3.00" arrivalPosLat="3.00" arrivalSpeed="12.00" color="red" line="line A" personNumber="1" containerNumber="5" from="gneE2" to="gneE5" end="2599.80" number="14"/>
+    <flow id="flowB" begin="5.00" departLane="free" departPos="random" departPosLat="right" departSpeed="speedLimit" arrivalLane="current" arrivalPos="random" arrivalPosLat="right" arrivalSpeed="current" color="blue" line="line B" personNumber="2" containerNumber="10" from="gneE4" to="gneE5" end="3599.60" number="18"/>
 </routes>
