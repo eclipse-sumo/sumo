@@ -93,3 +93,6 @@ ticket5712
 
 # changing vehicle type parameters should still trigger vtype specific rerouter
 ticket5831
+
+# moveTo with internal lane
+ticket5932

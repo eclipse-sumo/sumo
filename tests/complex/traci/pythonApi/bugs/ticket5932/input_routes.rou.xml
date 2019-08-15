@@ -1,0 +1,5 @@
+<?xml version="1.0"?>
+<routes xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <trip  id="ego" depart="0" from="SC" to="CN"/>
+
+</routes>
