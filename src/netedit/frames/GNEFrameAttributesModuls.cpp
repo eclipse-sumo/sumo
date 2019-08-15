@@ -714,7 +714,7 @@ GNEFrameAttributesModuls::AttributesCreator::areValuesValid() const {
 void
 GNEFrameAttributesModuls::AttributesCreator::updateDisjointAttributes(AttributesCreatorRow* row) {
     // currently only Flows supports disjoint attributes
-    if ((myTagProperties.getTag() == SUMO_TAG_ROUTEFLOW) || (myTagProperties.getTag() == SUMO_TAG_FLOW)) {
+    if ((myTagProperties.getTag() == SUMO_TAG_ROUTEFLOW) || (myTagProperties.getTag() == SUMO_TAG_FLOW) || (myTagProperties.getTag() == SUMO_TAG_PERSONFLOW)) {
         // obtain all rows (to improve code legibility)
         AttributesCreatorRow* endRow = myAttributesCreatorRows[myTagProperties.getAttributeProperties(SUMO_ATTR_END).getPositionListed()];
         AttributesCreatorRow* numberRow = myAttributesCreatorRows[myTagProperties.getAttributeProperties(SUMO_ATTR_NUMBER).getPositionListed()];
@@ -785,7 +785,7 @@ GNEFrameAttributesModuls::AttributesCreator::updateDisjointAttributes(Attributes
                     break;
             }
         }
-    } else if (myTagProperties.isStop()) {
+    } else if (myTagProperties.isStop() || myTagProperties.isPersonStop()) {
         // check if expected has to be enabled or disabled
         if (myAttributesCreatorRows[myTagProperties.getAttributeProperties(SUMO_ATTR_TRIGGERED).getPositionListed()]->getValue() == "1") {
             myAttributesCreatorRows[myTagProperties.getAttributeProperties(SUMO_ATTR_EXPECTED).getPositionListed()]->enableAttributesCreatorRow();
