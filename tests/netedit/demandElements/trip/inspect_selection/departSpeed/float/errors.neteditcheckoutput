@@ -1,0 +1,5 @@
+Warning: Choosing new speed factor 1.44 for vehicle 'tripA' to match departure speed.
+Warning: Choosing new speed factor 1.44 for vehicle 'tripB' to match departure speed.
+Error: Vehicle 'tripB' will not be able to depart using the given velocity (junction too close)!
+Warning: Teleporting vehicle 'tripA'; waited too long (jam), lane=':gneJ5_2_0', time=309.00.
+Warning: Vehicle 'tripA' ends teleporting on edge 'gneE4', time 309.00.
