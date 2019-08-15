@@ -462,7 +462,7 @@ NWWriter_SUMO::writeLane(OutputDevice& into, const std::string& lID,
                          double startOffset, double endOffset,
                          std::map<SVCPermissions, double> stopOffsets, double width, PositionVector shape,
                          const Parameterised* params, double length, int index,
-                         const std::string& oppositeID, 
+                         const std::string& oppositeID,
                          const std::string& type,
                          bool accelRamp, bool customShape) {
     // output the lane's attributes

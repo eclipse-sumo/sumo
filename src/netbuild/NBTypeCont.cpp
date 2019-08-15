@@ -52,7 +52,7 @@ NBTypeCont::setDefaults(int defaultNumLanes,
 
 void
 NBTypeCont::insert(const std::string& id, int numLanes, double maxSpeed, int prio,
-                   SVCPermissions permissions, double width, bool oneWayIsDefault, 
+                   SVCPermissions permissions, double width, bool oneWayIsDefault,
                    double sidewalkWidth, double bikeLaneWidth,
                    double widthResolution,
                    double maxWidth,

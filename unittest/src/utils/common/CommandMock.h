@@ -13,7 +13,7 @@
 /// @date    2009-11-30
 /// @version $Id$
 ///
-// 
+//
 /****************************************************************************/
 
 #ifndef Command_Mock_h
@@ -32,26 +32,26 @@ class CommandMock : public Command {
 public:
     /** @brief Constructor
      */
-	CommandMock() {
-		hasRun = false;
-	}
+    CommandMock() {
+        hasRun = false;
+    }
 
     /// @brief Destructor
-	~CommandMock() {}
+    ~CommandMock() {}
 
-	/** @brief Executes the command.*/
+    /** @brief Executes the command.*/
     SUMOTime execute(SUMOTime currentTime) {
-		hasRun = true;
-		return currentTime;
-	} 
+        hasRun = true;
+        return currentTime;
+    }
 
-	/** return true, when execute was called, otherwise false */
-	bool isExecuteCalled() {
-		return hasRun;
-	}
+    /** return true, when execute was called, otherwise false */
+    bool isExecuteCalled() {
+        return hasRun;
+    }
 
 private:
-	bool hasRun;  
+    bool hasRun;
 
 };
 

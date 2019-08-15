@@ -90,10 +90,9 @@ NIImporter_VISUM::NIImporter_VISUM(NBNetBuilder& nb,
                                    const std::string& file,
                                    NBCapacity2Lanes capacity2Lanes,
                                    bool useVisumPrio,
-                                   const std::string& languageFile) : 
+                                   const std::string& languageFile) :
     myNetBuilder(nb), myFileName(file),
-    myCapacity2Lanes(capacity2Lanes), myUseVisumPrio(useVisumPrio) 
-{
+    myCapacity2Lanes(capacity2Lanes), myUseVisumPrio(useVisumPrio) {
     if (languageFile != "") {
         loadLanguage(languageFile);
     }
@@ -382,7 +381,7 @@ NIImporter_VISUM::parse_Edges() {
             }
         }
     } else {
-        if (myLineParser.know( KEYS.getString(VISUM_CAPACITY))) {
+        if (myLineParser.know(KEYS.getString(VISUM_CAPACITY))) {
             nolanes = myCapacity2Lanes.get(StringUtils::toDouble(myLineParser.get(KEYS.getString(VISUM_CAPACITY))));
         } else if (myLineParser.know("KAP-IV")) {
             nolanes = myCapacity2Lanes.get(StringUtils::toDouble(myLineParser.get("KAP-IV")));

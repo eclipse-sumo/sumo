@@ -87,19 +87,19 @@ public:
         ~ProhibitionLegend();
 
         /// @brief get color for non-conflicting pairs of connections
-        const RGBColor &getUndefinedColor() const;
+        const RGBColor& getUndefinedColor() const;
 
         /// @brief get color for waiting connections
-        const RGBColor &getProhibitedColor() const;
+        const RGBColor& getProhibitedColor() const;
 
         /// @brief get color for connections with precedence
-        const RGBColor &getProhibitingColor() const;
+        const RGBColor& getProhibitingColor() const;
 
         /// @brief get color for unregulated conflicts
-        const RGBColor &getUnregulatedConflictColor() const;
+        const RGBColor& getUnregulatedConflictColor() const;
 
         /// @brief get color for mutual conflicts
-        const RGBColor &getMutualConflictColor() const;
+        const RGBColor& getMutualConflictColor() const;
 
     private:
         /// @brief color for non-conflicting pairs of connections
@@ -172,7 +172,7 @@ public:
 protected:
     /// @brief FOX needs this
     GNEProhibitionFrame() {}
-    
+
     /// @brief build prohibition
     void buildProhibition(GNEConnection* conn, bool mayDefinitelyPass, bool allowConflict, bool toggle);
 

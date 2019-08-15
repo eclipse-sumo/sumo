@@ -86,7 +86,7 @@ protected:
 
     /// @brief Tag selected in TagSelector
     virtual void tagSelected();
-    
+
     /// @brief selected demand element in DemandElementSelector
     virtual void demandElementSelected();
 
@@ -95,7 +95,7 @@ protected:
 
     /// @brief build a shaped element using the drawed shape (can be reimplemented in frame children)
     virtual bool shapeDrawed();
-    
+
     /// @brief function called after set a valid attribute in AttributeCreator/AttributeEditor/GenericParametersEditor/...
     virtual void attributeUpdated();
 

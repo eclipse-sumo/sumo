@@ -269,7 +269,7 @@ optParser.add_option("-f", "--fix", action="store_true",
 optParser.add_option("-s", "--skip-pep", action="store_true",
                      default=False, help="skip autopep8 and flake8 tests")
 optParser.add_option("-d", "--directory", help="check given subdirectory of sumo tree")
-optParser.add_option("-x", "--exclude", default="contributed",
+optParser.add_option("-x", "--exclude", default="contributed,foreign",
                      help="comma-separated list of (sub-)paths to exclude from pep and astyle checks")
 (options, args) = optParser.parse_args()
 seen = set()

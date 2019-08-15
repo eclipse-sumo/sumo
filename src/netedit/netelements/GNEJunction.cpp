@@ -102,7 +102,7 @@ GNEJunction::updateGeometry() {
     updateGeometryAfterNetbuild(true);
 }
 
-void 
+void
 GNEJunction::updateGeometryAfterNetbuild(bool rebuildNBNodeCrossings) {
     myMaxSize = MAX2(getCenteringBoundary().getWidth(), getCenteringBoundary().getHeight());
     rebuildGNECrossings(rebuildNBNodeCrossings);
@@ -260,7 +260,7 @@ GNEJunction::getCenteringBoundary() const {
 void
 GNEJunction::drawGL(const GUIVisualizationSettings& s) const {
     // check if boundary has to be drawn
-    if(s.drawBoundaries) {
+    if (s.drawBoundaries) {
         GLHelper::drawBoundary(getCenteringBoundary());
     }
     // declare variables
@@ -286,7 +286,7 @@ GNEJunction::drawGL(const GUIVisualizationSettings& s) const {
         if (myNet->getViewNet()->showJunctionAsBubbles()) {
             drawBubble = true;
         }
-        // in supermode demand Bubble musn't be drawn 
+        // in supermode demand Bubble musn't be drawn
         if (myNet->getViewNet()->getEditModes().currentSupermode == GNE_SUPERMODE_DEMAND) {
             drawBubble = false;
         }
@@ -334,8 +334,8 @@ GNEJunction::drawGL(const GUIVisualizationSettings& s) const {
             }
         }
         // draw TLS icon if isn't being drawn for selecting
-        if ((myNet->getViewNet()->getEditModes().networkEditMode == GNE_NMODE_TLS) && 
-            (myNBNode.isTLControlled()) && !myAmTLSSelected && !s.drawForSelecting) {
+        if ((myNet->getViewNet()->getEditModes().networkEditMode == GNE_NMODE_TLS) &&
+                (myNBNode.isTLControlled()) && !myAmTLSSelected && !s.drawForSelecting) {
             glPushMatrix();
             Position pos = myNBNode.getPosition();
             glTranslated(pos.x(), pos.y(), getType() + 0.1);
@@ -362,34 +362,34 @@ GNEJunction::drawGL(const GUIVisualizationSettings& s) const {
         glPopName();
         // draw crossings only if junction isn't being moved
         if (!myMovingGeometryBoundary.isInitialised()) {
-            for (const auto &i : myGNECrossings) {
+            for (const auto& i : myGNECrossings) {
                 i->drawGL(s);
             }
         }
         // draw connections and route elements connections (Only for incoming edges)
-        for (const auto &i : myGNEIncomingEdges) {
+        for (const auto& i : myGNEIncomingEdges) {
             // first draw connections
-            for (const auto &j : i->getGNEConnections()) {
+            for (const auto& j : i->getGNEConnections()) {
                 j->drawGL(s);
             }
             // first check if Demand elements can be shown
             if (myNet->getViewNet()->getNetworkViewOptions().showDemandElements()) {
                 // certain demand elements children can contain loops (for example, routes) and it causes overlapping problems. It's needed to filter it before drawing
-                for (const auto &j : i->getSortedDemandElementChildrenByType(SUMO_TAG_ROUTE)) {
+                for (const auto& j : i->getSortedDemandElementChildrenByType(SUMO_TAG_ROUTE)) {
                     // first check if route can be drawn
                     if (myNet->getViewNet()->getDemandViewOptions().showNonInspectedDemandElements(j)) {
                         // draw partial route
                         i->drawPartialRoute(s, j, this);
                     }
                 }
-                for (const auto &j : i->getSortedDemandElementChildrenByType(SUMO_TAG_EMBEDDEDROUTE)) {
+                for (const auto& j : i->getSortedDemandElementChildrenByType(SUMO_TAG_EMBEDDEDROUTE)) {
                     // first check if embedded route can be drawn
                     if (myNet->getViewNet()->getDemandViewOptions().showNonInspectedDemandElements(j)) {
                         // draw partial route
                         i->drawPartialRoute(s, j, this);
                     }
                 }
-                for (const auto &j : i->getSortedDemandElementChildrenByType(SUMO_TAG_TRIP)) {
+                for (const auto& j : i->getSortedDemandElementChildrenByType(SUMO_TAG_TRIP)) {
                     // Start drawing adding an gl identificator
                     glPushName(j->getGlID());
                     // draw partial trip only if is being inspected or selected
@@ -403,7 +403,7 @@ GNEJunction::drawGL(const GUIVisualizationSettings& s) const {
                     // Pop name
                     glPopName();
                 }
-                for (const auto &j : i->getSortedDemandElementChildrenByType(SUMO_TAG_FLOW)) {
+                for (const auto& j : i->getSortedDemandElementChildrenByType(SUMO_TAG_FLOW)) {
                     // Start drawing adding an gl identificator
                     glPushName(j->getGlID());
                     // draw partial trip only if is being inspected or selected
@@ -418,28 +418,28 @@ GNEJunction::drawGL(const GUIVisualizationSettings& s) const {
                     glPopName();
                 }
                 // draw partial person plan elements
-                for (const auto &j : i->getSortedDemandElementChildrenByType(SUMO_TAG_PERSONTRIP_FROMTO)) {
+                for (const auto& j : i->getSortedDemandElementChildrenByType(SUMO_TAG_PERSONTRIP_FROMTO)) {
                     i->drawPartialPersonPlan(s, j, this);
                 }
-                for (const auto &j : i->getSortedDemandElementChildrenByType(SUMO_TAG_PERSONTRIP_BUSSTOP)) {
+                for (const auto& j : i->getSortedDemandElementChildrenByType(SUMO_TAG_PERSONTRIP_BUSSTOP)) {
                     i->drawPartialPersonPlan(s, j, this);
                 }
-                for (const auto &j : i->getSortedDemandElementChildrenByType(SUMO_TAG_WALK_EDGES)) {
+                for (const auto& j : i->getSortedDemandElementChildrenByType(SUMO_TAG_WALK_EDGES)) {
                     i->drawPartialPersonPlan(s, j, this);
                 }
-                for (const auto &j : i->getSortedDemandElementChildrenByType(SUMO_TAG_WALK_FROMTO)) {
+                for (const auto& j : i->getSortedDemandElementChildrenByType(SUMO_TAG_WALK_FROMTO)) {
                     i->drawPartialPersonPlan(s, j, this);
                 }
-                for (const auto &j : i->getSortedDemandElementChildrenByType(SUMO_TAG_WALK_BUSSTOP)) {
+                for (const auto& j : i->getSortedDemandElementChildrenByType(SUMO_TAG_WALK_BUSSTOP)) {
                     i->drawPartialPersonPlan(s, j, this);
                 }
-                for (const auto &j : i->getSortedDemandElementChildrenByType(SUMO_TAG_WALK_ROUTE)) {
+                for (const auto& j : i->getSortedDemandElementChildrenByType(SUMO_TAG_WALK_ROUTE)) {
                     i->drawPartialPersonPlan(s, j, this);
                 }
-                for (const auto &j : i->getSortedDemandElementChildrenByType(SUMO_TAG_RIDE_FROMTO)) {
+                for (const auto& j : i->getSortedDemandElementChildrenByType(SUMO_TAG_RIDE_FROMTO)) {
                     i->drawPartialPersonPlan(s, j, this);
                 }
-                for (const auto &j : i->getSortedDemandElementChildrenByType(SUMO_TAG_RIDE_BUSSTOP)) {
+                for (const auto& j : i->getSortedDemandElementChildrenByType(SUMO_TAG_RIDE_BUSSTOP)) {
                     i->drawPartialPersonPlan(s, j, this);
                 }
             }

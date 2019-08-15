@@ -97,7 +97,7 @@ protected:
 private:
     /// @brief person tag selector (used to select diffent kind of persons)
     GNEFrameModuls::TagSelector* myPersonTagSelector;
-    
+
     /// @brief Person Type selectors
     GNEFrameModuls::DemandElementSelector* myPTypeSelector;
 
@@ -120,10 +120,10 @@ private:
     HelpCreation* myHelpCreation;
 
     /// @brief build person over route
-    bool buildPersonOverRoute(GNEDemandElement *route);
+    bool buildPersonOverRoute(GNEDemandElement* route);
 
     /// @brief build person over stop
-    bool buildPersonOverStop(GNELane *lane, GNEAdditional *busStop);
+    bool buildPersonOverStop(GNELane* lane, GNEAdditional* busStop);
 
     /// @brief build person and return it (note: function includes a call to p_begin(...), but NOT a call to p_end(...))
     GNEDemandElement* buildPerson();

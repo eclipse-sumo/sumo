@@ -475,25 +475,25 @@ GNELane::drawGL(const GUIVisualizationSettings& s) const {
         // Pop Lane Name
         glPopName();
         // draw parents
-        for (const auto &i : getAdditionalParents()) {
+        for (const auto& i : getAdditionalParents()) {
             if (i->getTagProperty().getTag() == SUMO_TAG_VSS) {
                 // draw VSS Symbol
                 drawVSSSymbol(s, i);
             }
         }
         // draw shape children
-        for (const auto &i : getShapeChildren()) {
+        for (const auto& i : getShapeChildren()) {
             i->drawGL(s);
         }
         // draw additional children
-        for (const auto &i : getAdditionalChildren()) {
+        for (const auto& i : getAdditionalChildren()) {
             // check that ParkingAreas aren't draw two times
             if (!i->getTagProperty().isPlacedInRTree()) {
                 i->drawGL(s);
             }
         }
         // draw demand element children
-        for (const auto &i : getDemandElementChildren()) {
+        for (const auto& i : getDemandElementChildren()) {
             if (!i->getTagProperty().isPlacedInRTree()) {
                 i->drawGL(s);
             }
@@ -986,12 +986,12 @@ RGBColor
 GNELane::setLaneColor(const GUIVisualizationSettings& s) const {
     // we need to draw lanes with a special color if we're inspecting a Trip or Flow and this lane belongs to a via's edge.
     if (myNet->getViewNet()->getDottedAC() && (myNet->getViewNet()->getDottedAC()->isAttributeCarrierSelected() == false) &&
-        ((myNet->getViewNet()->getDottedAC()->getTagProperty().getTag() == SUMO_TAG_TRIP) || 
-        (myNet->getViewNet()->getDottedAC()->getTagProperty().getTag() == SUMO_TAG_FLOW))) {
+            ((myNet->getViewNet()->getDottedAC()->getTagProperty().getTag() == SUMO_TAG_TRIP) ||
+             (myNet->getViewNet()->getDottedAC()->getTagProperty().getTag() == SUMO_TAG_FLOW))) {
         // obtain attribute "via"
         std::vector<std::string> viaEdges = parse<std::vector<std::string> >(myNet->getViewNet()->getDottedAC()->getAttribute(SUMO_ATTR_VIA));
         // iterate over viaEdges
-        for (const auto &i : viaEdges) {
+        for (const auto& i : viaEdges) {
             // check if edge parent is in the via edges
             if (myParentEdge.getID() == i) {
                 // set green color in GLHelper and return it
@@ -1182,10 +1182,10 @@ GNELane::drawDirectionIndicators(double exaggeration, bool spreadSuperposed) con
 
 
 void
-GNELane::drawVSSSymbol(const GUIVisualizationSettings& s, GNEAdditional *vss) const {
+GNELane::drawVSSSymbol(const GUIVisualizationSettings& s, GNEAdditional* vss) const {
     // obtain VSSExaggeration, lane pos and route
     const double exaggeration = s.addSize.getExaggeration(s, vss);
-    const Position &lanePos = vss->getChildPosition(this);
+    const Position& lanePos = vss->getChildPosition(this);
     const double laneRot = vss->getChildRotation(this);
     // Start drawing adding an VSS gl identificator (used to identify element after clicking)
     glPushName(vss->getGlID());
@@ -1229,9 +1229,9 @@ GNELane::drawVSSSymbol(const GUIVisualizationSettings& s, GNEAdditional *vss) co
 }
 
 
-void 
+void
 GNELane::drawStartEndShapePoints(const GUIVisualizationSettings& s) const {
-GLHelper::setColor(s.junctionColorer.getSchemes()[0].getColor(2));
+    GLHelper::setColor(s.junctionColorer.getSchemes()[0].getColor(2));
     if (drawUsingSelectColor() && s.laneColorer.getActive() != 1) {
         // override with special colors (unless the color scheme is based on selection)
         GLHelper::setColor(s.colorSettings.selectedEdgeColor.changedBrightness(-20));
@@ -1295,7 +1295,7 @@ GNELane::getParentEdge() {
 
 
 GNEEdge&
-GNELane::getParentEdge() const{
+GNELane::getParentEdge() const {
     return myParentEdge;
 }
 

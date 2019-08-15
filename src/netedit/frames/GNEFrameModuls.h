@@ -7,7 +7,7 @@
 // http://www.eclipse.org/legal/epl-v20.html
 // SPDX-License-Identifier: EPL-2.0
 /****************************************************************************/
-/// @file    GNEFrameAttributesModuls.h
+/// @file    GNEFrameModuls.h
 /// @author  Pablo Alvarez Lopez
 /// @date    Aug 2019
 /// @version $Id$
@@ -120,7 +120,7 @@ public:
         DemandElementSelector(GNEFrame* frameParent, SumoXMLTag demandElementTag);
 
         /// @brief constructor with tag type
-        DemandElementSelector(GNEFrame* frameParent, const std::vector<GNEAttributeCarrier::TagType> &tagTypes);
+        DemandElementSelector(GNEFrame* frameParent, const std::vector<GNEAttributeCarrier::TagType>& tagTypes);
 
         /// @brief destructor
         ~DemandElementSelector();
@@ -192,7 +192,7 @@ public:
         ~EdgePathCreator();
 
         /// @brief update EdgePathCreator name
-        void edgePathCreatorName(const std::string &name);
+        void edgePathCreatorName(const std::string& name);
 
         /// @brief show EdgePathCreator
         void showEdgePathCreator();
@@ -210,7 +210,7 @@ public:
         std::vector<GNEEdge*> getClickedEdges() const;
 
         /// @brief get current clicked edges
-        GNEAdditional *getClickedBusStop() const;
+        GNEAdditional* getClickedBusStop() const;
 
         /// @brief add edge to route
         bool addEdge(GNEEdge* edge);
@@ -269,7 +269,7 @@ public:
         std::vector<GNEEdge*> myClickedEdges;
 
         /// @brief pointer to selected busStop
-        GNEAdditional *mySelectedBusStop;
+        GNEAdditional* mySelectedBusStop;
 
         /// @brief vector with temporal route edges
         std::vector<GNEEdge*> myTemporalRoute;
@@ -347,7 +347,7 @@ public:
 
         /// @brief Attribute carrier
         GNEAttributeCarrier* myAC;
-        
+
         /// @brief pointer to current clicked Attribute Carrier
         GNEAttributeCarrier* myClickedAC;
 

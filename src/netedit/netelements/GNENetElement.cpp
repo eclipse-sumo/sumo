@@ -82,16 +82,16 @@ GNENetElement::GNENetElement(GNENet* net, const std::string& id, GUIGlObjectType
     GUIGlObject(type, id),
     GNEAttributeCarrier(tag),
     GNEHierarchicalElementParents(this, {}, {}, {}, {}, {}),
-    GNEHierarchicalElementChildren(this, {}, {}, {}, {}, {}),
-    myNet(net),
-    myMovingGeometryBoundary() {
+                              GNEHierarchicalElementChildren(this, {}, {}, {}, {}, {}),
+                              myNet(net),
+myMovingGeometryBoundary() {
 }
 
 
 GNENetElement::~GNENetElement() {}
 
 
-const GNENetElement::NetElementGeometry &
+const GNENetElement::NetElementGeometry&
 GNENetElement::getGeometry() const {
     return myGeometry;
 }
@@ -114,7 +114,7 @@ GNENetElement::getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView&) {
     // Create table
     GUIParameterTableWindow* ret = new GUIParameterTableWindow(app, *this, myTagProperty.getNumberOfAttributes());
     // Iterate over attributes
-    for (const auto &i : myTagProperty) {
+    for (const auto& i : myTagProperty) {
         // Add attribute and set it dynamic if aren't unique
         if (i.isUnique()) {
             ret->mkItem(i.getAttrStr().c_str(), false, getAttribute(i.getAttr()));
@@ -175,13 +175,13 @@ GNENetElement::drawUsingSelectColor() const {
 }
 
 
-void 
+void
 GNENetElement::enableAttribute(SumoXMLAttr /*key*/, GNEUndoList* /*undoList*/) {
     //
 }
 
 
-bool 
+bool
 GNENetElement::isAttributeEnabled(SumoXMLAttr /*key*/) const {
     return true;
 }
@@ -211,7 +211,7 @@ GNENetElement::getHierarchyName() const {
 }
 
 
-void 
+void
 GNENetElement::setEnabledAttribute(const int /*enabledAttributes*/) {
     //
 }

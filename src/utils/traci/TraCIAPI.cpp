@@ -3227,13 +3227,13 @@ TraCIAPI::VehicleScope::addSubscriptionFilterTurn(double downstreamDist, double 
 }
 
 
-void 
+void
 TraCIAPI::VehicleScope::addSubscriptionFilterVClass(const std::vector<std::string>& vClasses) const {
     addSubscriptionFilterStringList(libsumo::FILTER_TYPE_VCLASS, vClasses);
 }
 
 
-void 
+void
 TraCIAPI::VehicleScope::addSubscriptionFilterVType(const std::vector<std::string>& vTypes) const {
     addSubscriptionFilterStringList(libsumo::FILTER_TYPE_VTYPE, vTypes);
 }
@@ -3245,7 +3245,7 @@ TraCIAPI::VehicleScope::addSubscriptionFilterEmpty(int filterType) const {
     myParent.processSet(libsumo::CMD_ADD_SUBSCRIPTION_FILTER);
 }
 
-void 
+void
 TraCIAPI::VehicleScope::addSubscriptionFilterFloat(int filterType, double val) const {
     tcpip::Storage content;
     content.writeUnsignedByte(libsumo::TYPE_DOUBLE);
@@ -3255,7 +3255,7 @@ TraCIAPI::VehicleScope::addSubscriptionFilterFloat(int filterType, double val) c
 }
 
 
-void 
+void
 TraCIAPI::VehicleScope::addSubscriptionFilterStringList(int filterType, const std::vector<std::string>& vals) const {
     tcpip::Storage content;
     content.writeUnsignedByte(libsumo::TYPE_STRINGLIST);
@@ -3265,7 +3265,7 @@ TraCIAPI::VehicleScope::addSubscriptionFilterStringList(int filterType, const st
 }
 
 
-void 
+void
 TraCIAPI::VehicleScope::addSubscriptionFilterByteList(int filterType, const std::vector<int>& vals) const {
     tcpip::Storage content;
     content.writeUnsignedByte((int)vals.size());

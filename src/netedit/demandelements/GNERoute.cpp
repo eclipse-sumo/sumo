@@ -51,7 +51,7 @@ FXIMPLEMENT(GNERoute::GNERoutePopupMenu, GUIGLObjectPopupMenu, GNERoutePopupMenu
 // ===========================================================================
 
 GNERoute::GNERoutePopupMenu::GNERoutePopupMenu(GUIMainWindow& app, GUISUMOAbstractView& parent, GUIGlObject& o) :
-    GUIGLObjectPopupMenu(app, parent, o) { 
+    GUIGLObjectPopupMenu(app, parent, o) {
 }
 
 
@@ -64,7 +64,7 @@ GNERoute::GNERoutePopupMenu::onCmdApplyDistance(FXObject*, FXSelector, void*) {
     GNEViewNet* viewNet = static_cast<GNEViewNet*>(myParent);
     GNEUndoList* undoList =  route->myViewNet->getUndoList();
     undoList->p_begin("apply distance along route");
-    double dist = (route->getEdgeParents().size() > 0)? route->getEdgeParents().front()->getNBEdge()->getDistance() : 0;
+    double dist = (route->getEdgeParents().size() > 0) ? route->getEdgeParents().front()->getNBEdge()->getDistance() : 0;
     for (GNEEdge* edge : route->getEdgeParents()) {
         undoList->p_add(new GNEChange_Attribute(edge, viewNet->getNet(), SUMO_ATTR_DISTANCE, toString(dist), true, edge->getAttribute(SUMO_ATTR_DISTANCE)));
         dist += edge->getNBEdge()->getFinalLength();
@@ -79,44 +79,44 @@ GNERoute::GNERoutePopupMenu::onCmdApplyDistance(FXObject*, FXSelector, void*) {
 
 GNERoute::GNERoute(GNEViewNet* viewNet) :
     GNEDemandElement(viewNet->getNet()->generateDemandElementID("", SUMO_TAG_ROUTE), viewNet, GLO_ROUTE, SUMO_TAG_ROUTE,
-    {}, {}, {}, {}, {}, {}, {}, {}, {}, {}),
-    Parameterised(),
-    myColor(RGBColor::YELLOW),
-    myVClass(SVC_PASSENGER) {
+{}, {}, {}, {}, {}, {}, {}, {}, {}, {}),
+Parameterised(),
+myColor(RGBColor::YELLOW),
+myVClass(SVC_PASSENGER) {
 }
 
 
-GNERoute::GNERoute(GNEViewNet* viewNet, const GNERouteHandler::RouteParameter &routeParameters) :
+GNERoute::GNERoute(GNEViewNet* viewNet, const GNERouteHandler::RouteParameter& routeParameters) :
     GNEDemandElement(routeParameters.routeID, viewNet, GLO_ROUTE, SUMO_TAG_ROUTE,
-    routeParameters.edges, {}, {}, {}, {}, {}, {}, {}, {}, {}),
-    Parameterised(routeParameters.genericParameters),
-    myColor(routeParameters.color),
-    myVClass(routeParameters.VClass) {
+                     routeParameters.edges, {}, {}, {}, {}, {}, {}, {}, {}, {}),
+Parameterised(routeParameters.genericParameters),
+myColor(routeParameters.color),
+myVClass(routeParameters.VClass) {
 }
 
 
-GNERoute::GNERoute(GNEViewNet* viewNet, GNEDemandElement* vehicleParent, const GNERouteHandler::RouteParameter &routeParameters) :
+GNERoute::GNERoute(GNEViewNet* viewNet, GNEDemandElement* vehicleParent, const GNERouteHandler::RouteParameter& routeParameters) :
     GNEDemandElement(viewNet->getNet()->generateDemandElementID("", SUMO_TAG_EMBEDDEDROUTE), viewNet, GLO_EMBEDDEDROUTE, SUMO_TAG_EMBEDDEDROUTE,
-    routeParameters.edges, {}, {}, {}, {vehicleParent}, {}, {}, {}, {}, {}),
-    Parameterised(routeParameters.genericParameters),
-    myColor(routeParameters.color),
-    myVClass(routeParameters.VClass) {
+                     routeParameters.edges, {}, {}, {}, {vehicleParent}, {}, {}, {}, {}, {}),
+Parameterised(routeParameters.genericParameters),
+myColor(routeParameters.color),
+myVClass(routeParameters.VClass) {
 }
 
 
 GNERoute::GNERoute(GNEDemandElement* route) :
     GNEDemandElement(route->getViewNet()->getNet()->generateDemandElementID("", SUMO_TAG_ROUTE), route->getViewNet(), GLO_ROUTE, SUMO_TAG_ROUTE,
-    route->getEdgeParents(), {}, {}, {}, {}, {}, {}, {}, {}, {}),
-    Parameterised(),
-    myColor(route->getColor()),
-    myVClass(route->getVClass()) {
+                     route->getEdgeParents(), {}, {}, {}, {}, {}, {}, {}, {}, {}),
+Parameterised(),
+myColor(route->getColor()),
+myVClass(route->getVClass()) {
 }
 
 
 GNERoute::~GNERoute() {}
 
 
-SUMOVehicleClass 
+SUMOVehicleClass
 GNERoute::getVClass() const {
     return myVClass;
 }
@@ -160,7 +160,7 @@ GNERoute::writeDemandElement(OutputDevice& device) const {
     device.writeAttr(SUMO_ATTR_EDGES, parseIDs(getEdgeParents()));
     device.writeAttr(SUMO_ATTR_COLOR, toString(myColor));
     // write extra attributes depending if is an embedded route
-    if(myTagProperty.getTag() == SUMO_TAG_ROUTE) {
+    if (myTagProperty.getTag() == SUMO_TAG_ROUTE) {
         device.writeAttr(SUMO_ATTR_ID, getDemandElementID());
         // write stops associated to this route
         for (const auto& i : getDemandElementChildren()) {
@@ -195,7 +195,7 @@ GNERoute::isDemandElementValid() const {
 }
 
 
-std::string 
+std::string
 GNERoute::getDemandElementProblem() const {
     if (getEdgeParents().size() == 0) {
         return ("A route need at least one edge");
@@ -212,19 +212,19 @@ GNERoute::getDemandElementProblem() const {
 }
 
 
-void 
+void
 GNERoute::fixDemandElementProblem() {
     // currently the only solution is removing Route
 }
 
 
-void 
+void
 GNERoute::startGeometryMoving() {
     // Routes cannot be moved
 }
 
 
-void 
+void
 GNERoute::endGeometryMoving() {
     // Routes cannot be moved
 }
@@ -252,23 +252,23 @@ GNERoute::updateGeometry() {
         std::vector<std::pair<GNEEdge*, GNENetElement::NetElementGeometry> > laneGeometries;
         std::vector<PositionVector> connectionShapes;
         // obtain all lane shapes
-        for (const auto &i : getEdgeParents()) {
+        for (const auto& i : getEdgeParents()) {
             laneGeometries.push_back(std::make_pair(i, i->getLaneByVClass(myVClass)->getGeometry()));
         }
         // resize connectionShapes
         connectionShapes.resize(laneGeometries.size());
         // iterate over edge parents
-        for (int i = 0; i < ((int)getEdgeParents().size()-1); i++) {
+        for (int i = 0; i < ((int)getEdgeParents().size() - 1); i++) {
             // obtain NBEdges from both edges
             NBEdge* nbFrom = getEdgeParents().at(i)->getNBEdge();
-            NBEdge* nbTo = getEdgeParents().at(i+1)->getNBEdge();
+            NBEdge* nbTo = getEdgeParents().at(i + 1)->getNBEdge();
             // declare a flags
             bool connectionFound = false;
             // iterate over all connections of NBFrom
             for (NBEdge::Connection c : nbFrom->getConnectionsFromLane(-1, nbTo, -1)) {
                 //check if given VClass is allowed for from and to lanes
                 if (!connectionFound && ((nbFrom->getPermissions(c.fromLane) & nbTo->getPermissions(c.toLane) & myVClass) == myVClass)) {
-                    // save shape 
+                    // save shape
                     if (c.customShape.size() != 0) {
                         connectionShapes.at(i) = c.customShape;
                     } else if (nbFrom->getToNode()->getShape().area() > 4) {
@@ -284,11 +284,11 @@ GNERoute::updateGeometry() {
                             PositionVector laneShapeTo = c.toEdge->getLanes().at(c.toLane).shape;
                             // Calculate shape so something can be drawn immidiately
                             connectionShapes.at(i) = nbFrom->getToNode()->computeSmoothShape(
-                                laneShapeFrom,
-                                laneShapeTo,
-                                5, nbFrom->getTurnDestination() == c.toEdge,
-                                (double) 5. * (double) nbFrom->getNumLanes(),
-                                (double) 5. * (double) c.toEdge->getNumLanes());
+                                                         laneShapeFrom,
+                                                         laneShapeTo,
+                                                         5, nbFrom->getTurnDestination() == c.toEdge,
+                                                         (double) 5. * (double) nbFrom->getNumLanes(),
+                                                         (double) 5. * (double) c.toEdge->getNumLanes());
                         }
                     }
                     // change flag
@@ -302,16 +302,16 @@ GNERoute::updateGeometry() {
             for (int j = 0; j < (int)laneGeometries.at(i).second.shape.size(); j++) {
                 // save position and rotations (to avoid useless calculations)
                 if (j < (int)laneGeometries.at(i).second.shape.size() - 1) {
-                    myDemandElementSegmentGeometry.insertEdgeLengthRotSegment(this, laneGeometries.at(i).first, 
-                        laneGeometries.at(i).second.shape[j], laneGeometries.at(i).second.shapeLengths[j], 
-                        laneGeometries.at(i).second.shapeRotations[j], true, true);
+                    myDemandElementSegmentGeometry.insertEdgeLengthRotSegment(this, laneGeometries.at(i).first,
+                            laneGeometries.at(i).second.shape[j], laneGeometries.at(i).second.shapeLengths[j],
+                            laneGeometries.at(i).second.shapeRotations[j], true, true);
                 } else {
-                    myDemandElementSegmentGeometry.insertEdgeSegment(this, laneGeometries.at(i).first, 
-                        laneGeometries.at(i).second.shape[j], true, true);
+                    myDemandElementSegmentGeometry.insertEdgeSegment(this, laneGeometries.at(i).first,
+                            laneGeometries.at(i).second.shape[j], true, true);
                 }
             }
             // set connection shapes
-            for (const auto &connectionShapePos : connectionShapes.at(i)) {
+            for (const auto& connectionShapePos : connectionShapes.at(i)) {
                 myDemandElementSegmentGeometry.insertJunctionSegment(this, laneGeometries.at(i).first->getGNEJunctionDestiny(), connectionShapePos, true, true);
             }
         }
@@ -343,7 +343,7 @@ Boundary
 GNERoute::getCenteringBoundary() const {
     Boundary routeBoundary;
     // return the combination of all edge parents's boundaries
-    for (const auto &i : getEdgeParents()) {
+    for (const auto& i : getEdgeParents()) {
         routeBoundary.add(i->getCenteringBoundary());
     }
     // check if is valid
@@ -411,7 +411,7 @@ GNERoute::getAttribute(SumoXMLAttr key) const {
 }
 
 
-double 
+double
 GNERoute::getAttributeDouble(SumoXMLAttr /*key*/) const {
     return 0;
 }
@@ -460,7 +460,7 @@ GNERoute::isValid(SumoXMLAttr key, const std::string& value) {
 }
 
 
-void 
+void
 GNERoute::enableAttribute(SumoXMLAttr /*key*/, GNEUndoList* /*undoList*/) {
     //
 }
@@ -568,7 +568,7 @@ GNERoute::setAttribute(SumoXMLAttr key, const std::string& value) {
 }
 
 
-void 
+void
 GNERoute::setEnabledAttribute(const int /*enabledAttributes*/) {
     //
 }

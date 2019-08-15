@@ -445,7 +445,7 @@ MSActuatedTrafficLightLogic::gapControl() {
 }
 
 
-void 
+void
 MSActuatedTrafficLightLogic::setShowDetectors(bool show) {
     myShowDetectors = show;
     for (MSInductLoop* loop : myInductLoops) {

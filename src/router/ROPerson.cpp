@@ -198,7 +198,7 @@ ROPerson::PersonTrip::saveVehicles(OutputDevice& os, OutputDevice* const typeos,
     }
 }
 
-void 
+void
 ROPerson::PersonTrip::saveAsXML(OutputDevice& os, const bool extended, const bool asTrip, const bool writeGeoTrip) const {
     if (asTrip) {
         os.openTag(SUMO_TAG_PERSONTRIP);

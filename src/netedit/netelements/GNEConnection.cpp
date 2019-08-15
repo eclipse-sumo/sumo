@@ -107,11 +107,11 @@ GNEConnection::updateGeometry() {
             } else {
                 // Calculate shape so something can be drawn immidiately
                 myGeometry.shape = getEdgeFrom()->getNBEdge()->getToNode()->computeSmoothShape(
-                    laneShapeFrom,
-                    laneShapeTo,
-                    NUM_POINTS, getEdgeFrom()->getNBEdge()->getTurnDestination() == nbCon.toEdge,
-                    (double) 5. * (double) getEdgeFrom()->getNBEdge()->getNumLanes(),
-                    (double) 5. * (double) nbCon.toEdge->getNumLanes());
+                                       laneShapeFrom,
+                                       laneShapeTo,
+                                       NUM_POINTS, getEdgeFrom()->getNBEdge()->getTurnDestination() == nbCon.toEdge,
+                                       (double) 5. * (double) getEdgeFrom()->getNBEdge()->getNumLanes(),
+                                       (double) 5. * (double) nbCon.toEdge->getNumLanes());
             }
         } else {
             myGeometry.shape.push_back(laneShapeFrom.positionAtOffset(MAX2(0.0, laneShapeFrom.length() - 1)));
@@ -282,10 +282,10 @@ void
 GNEConnection::drawGL(const GUIVisualizationSettings& s) const {
     // declare a flag to check if shape has to be draw
     bool drawConnection = true;
-    if ((myNet->getViewNet()->getEditModes().currentSupermode == GNE_SUPERMODE_DEMAND) && 
-        s.drawDetail(s.detailSettings.connectionsDemandMode, s.addSize.getExaggeration(s, this))) {
+    if ((myNet->getViewNet()->getEditModes().currentSupermode == GNE_SUPERMODE_DEMAND) &&
+            s.drawDetail(s.detailSettings.connectionsDemandMode, s.addSize.getExaggeration(s, this))) {
         drawConnection = !myShapeDeprecated;
-    } else if ((myNet->getViewNet()->getEditModes().currentSupermode == GNE_SUPERMODE_NETWORK) && 
+    } else if ((myNet->getViewNet()->getEditModes().currentSupermode == GNE_SUPERMODE_NETWORK) &&
                myNet->getViewNet()->getNetworkViewOptions().showConnections()) {
         drawConnection = !myShapeDeprecated;
     } else {
@@ -294,7 +294,7 @@ GNEConnection::drawGL(const GUIVisualizationSettings& s) const {
     // Check if connection must be drawed
     if (drawConnection) {
         // check if boundary has to be drawn
-        if(s.drawBoundaries) {
+        if (s.drawBoundaries) {
             GLHelper::drawBoundary(getBoundary());
         }
         // Push draw matrix 1

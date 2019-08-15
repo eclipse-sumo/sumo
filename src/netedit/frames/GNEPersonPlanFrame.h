@@ -80,7 +80,7 @@ public:
         ~PersonPlanCreator();
 
         /// @brief update PersonPlanCreator name
-        void edgePathCreatorName(const std::string &name);
+        void edgePathCreatorName(const std::string& name);
 
         /// @brief show PersonPlanCreator
         void showPersonPlanCreator();
@@ -95,7 +95,7 @@ public:
         std::vector<GNEEdge*> getClickedEdges() const;
 
         /// @brief get current edge path
-        const std::vector<GNEEdge*> &getEdgePath() const;
+        const std::vector<GNEEdge*>& getEdgePath() const;
 
         /// @brief add edge to route
         bool addEdge(GNEEdge* edge);

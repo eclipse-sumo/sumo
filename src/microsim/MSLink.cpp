@@ -1254,8 +1254,8 @@ MSLink::getZipperSpeed(const MSVehicle* ego, const double dist, double vSafe,
         const MSVehicle* foe = dynamic_cast<const MSVehicle*>(*i);
         assert(foe != 0);
         const ApproachingVehicleInformation& avi = foeLink->getApproaching(foe);
-        const double foeDist = (foe->isActive() ? avi.dist : MAX2(0.0, avi.dist - 
-                STEPS2TIME(MSNet::getInstance()->getCurrentTimeStep() - foe->getLastActionTime()) * foe->getSpeed()));
+        const double foeDist = (foe->isActive() ? avi.dist : MAX2(0.0, avi.dist -
+                                STEPS2TIME(MSNet::getInstance()->getCurrentTimeStep() - foe->getLastActionTime()) * foe->getSpeed()));
 
         if (    // ignore vehicles that arrive after us (unless they are ahead and we could easily brake for them)
             ((avi.arrivalTime > arrivalTime) && !couldBrakeForLeader(dist, foeDist, ego, foe)) ||

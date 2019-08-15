@@ -276,7 +276,7 @@ GNEPersonTypeFrame::PersonTypeEditor::onCmdDeletePersonType(FXObject*, FXSelecto
             myPersonTypeFrameParent->myViewNet->getUndoList()->p_begin("delete person type");
             // remove person type (and all of their children)
             myPersonTypeFrameParent->myViewNet->getNet()->deleteDemandElement(myPersonTypeFrameParent->myPersonTypeSelector->getCurrentPersonType(),
-                myPersonTypeFrameParent->myViewNet->getUndoList());
+                    myPersonTypeFrameParent->myViewNet->getUndoList());
             // end undo list operation
             myPersonTypeFrameParent->myViewNet->getUndoList()->p_end();
         }
@@ -285,7 +285,7 @@ GNEPersonTypeFrame::PersonTypeEditor::onCmdDeletePersonType(FXObject*, FXSelecto
         myPersonTypeFrameParent->myViewNet->getUndoList()->p_begin("delete person type");
         // remove person type (and all of their children)
         myPersonTypeFrameParent->myViewNet->getNet()->deleteDemandElement(myPersonTypeFrameParent->myPersonTypeSelector->getCurrentPersonType(),
-            myPersonTypeFrameParent->myViewNet->getUndoList());
+                myPersonTypeFrameParent->myViewNet->getUndoList());
         // end undo list operation
         myPersonTypeFrameParent->myViewNet->getUndoList()->p_end();
     }

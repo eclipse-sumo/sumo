@@ -91,12 +91,12 @@ public:
 
     /// @brief begin movement (used when user click over edge to start a movement, to avoid problems with problems with GL Tree)
     virtual void endGeometryMoving() = 0;
-    
+
     /**@brief update pre-computed geometry information
     * @note: must be called when geometry changes (i.e. lane moved) and implemented in ALL childrens
     */
     virtual void updateGeometry() = 0;
-    
+
     /// @brief Returns position of additional in view
     virtual Position getPositionInView() const = 0;
 

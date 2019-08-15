@@ -113,8 +113,8 @@ MSContainer::MSContainerStage_Driving::tripInfoOutput(OutputDevice& os, const MS
     os.writeAttr("depart", myDeparted >= 0 ? time2string(myDeparted) : "-1");
     os.writeAttr("arrival", myArrived >= 0 ? time2string(myArrived) : "-1");
     os.writeAttr("arrivalPos", toString(myArrivalPos));
-    os.writeAttr("duration", myArrived >= 0 ? time2string(myArrived - myDeparted) : 
-            (myDeparted >= 0 ? time2string(now - myDeparted) : "-1"));
+    os.writeAttr("duration", myArrived >= 0 ? time2string(myArrived - myDeparted) :
+                 (myDeparted >= 0 ? time2string(now - myDeparted) : "-1"));
     os.writeAttr("routeLength", myVehicleDistance);
     os.closeTag();
 }
@@ -141,7 +141,7 @@ MSContainer::MSContainerStage_Tranship::MSContainerStage_Tranship(const std::vec
     MSTransportable::Stage(route.back(), toStop, SUMOVehicleParameter::interpretEdgePos(
                                arrivalPos, route.back()->getLength(), SUMO_ATTR_ARRIVALPOS,
                                "container getting transhipped to " + route.back()->getID()),
-            MOVING_WITHOUT_VEHICLE), myRoute(route),
+                           MOVING_WITHOUT_VEHICLE), myRoute(route),
     mySpeed(speed), myContainerState(nullptr), myCurrentInternalEdge(nullptr) {
     myDepartPos = SUMOVehicleParameter::interpretEdgePos(
                       departPos, myRoute.front()->getLength(), SUMO_ATTR_DEPARTPOS,

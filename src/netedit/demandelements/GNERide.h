@@ -45,19 +45,19 @@ public:
      * @param[in] viewNet view in which this Ride is placed
      * @param[in] personParent person parent
      * @param[in] edges list of consecutive edges of this ride
-     * @param[in] arrivalPosition arrival position on the destination edge 
+     * @param[in] arrivalPosition arrival position on the destination edge
      * @param[in] lines valid line or vehicle ids or ANY
      */
-    GNERide(GNEViewNet* viewNet, GNEDemandElement *personParent, const std::vector<GNEEdge*>& edges, double arrivalPosition, const std::vector<std::string> &lines);
+    GNERide(GNEViewNet* viewNet, GNEDemandElement* personParent, const std::vector<GNEEdge*>& edges, double arrivalPosition, const std::vector<std::string>& lines);
 
     /**@brief parameter constructor
      * @param[in] viewNet view in which this Ride is placed
      * @param[in] personParent person parent
      * @param[in] edges list of consecutive edges of this ride
-     * @param[in] busStop destination busStop 
+     * @param[in] busStop destination busStop
      * @param[in] lines valid line or vehicle ids or ANY
      */
-    GNERide(GNEViewNet* viewNet, GNEDemandElement *personParent, const std::vector<GNEEdge*>& edges, GNEAdditional *busStop, const std::vector<std::string> &lines);
+    GNERide(GNEViewNet* viewNet, GNEDemandElement* personParent, const std::vector<GNEEdge*>& edges, GNEAdditional* busStop, const std::vector<std::string>& lines);
 
     /// @brief destructor
     ~GNERide();
@@ -210,7 +210,7 @@ protected:
     /// @brief valid line or vehicle ids or ANY
     std::vector<std::string> myLines;
 
-    /// @brief arrival position 
+    /// @brief arrival position
     double myArrivalPosition;
 
 private:

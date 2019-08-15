@@ -179,8 +179,9 @@ MSCFModel_CC::finalizeSpeed(MSVehicle* const veh, double vPos) const {
     if (!vars->crashed) {
         std::list<MSVehicle::Stop> stops = veh->getMyStops();
         for (auto s : stops)
-            if (s.collision)
+            if (s.collision) {
                 vars->crashed = true;
+            }
     }
 
     if (vars->activeController != Plexe::DRIVER) {
@@ -220,7 +221,7 @@ MSCFModel_CC::followSpeed(const MSVehicle* const veh, double speed, double gap2p
 }
 
 double
-MSCFModel_CC::insertionFollowSpeed(const MSVehicle* const veh, double speed, double gap2pred, double predSpeed, double predMaxDecel, const MSVehicle* const /*pred*/ ) const {
+MSCFModel_CC::insertionFollowSpeed(const MSVehicle* const veh, double speed, double gap2pred, double predSpeed, double predMaxDecel, const MSVehicle* const /*pred*/) const {
     UNUSED_PARAMETER(veh);
     UNUSED_PARAMETER(gap2pred);
     UNUSED_PARAMETER(predSpeed);

@@ -13,7 +13,7 @@
 /// @date    2009-03-24
 /// @version $Id$
 ///
-// 
+//
 /****************************************************************************/
 
 #include <gtest/gtest.h>
@@ -28,8 +28,8 @@ Tests StringTokenizer class from <SUMO>/src/utils/common
 TEST(StringTokenizer, test_split_with_whitechar) {
     StringTokenizer strTok("Hello  World", StringTokenizer::WHITECHARS);
     EXPECT_TRUE(strTok.hasNext()) << "There must be more tokens available.";
-    EXPECT_EQ("Hello",strTok.next());
-    EXPECT_EQ("World",strTok.next());
+    EXPECT_EQ("Hello", strTok.next());
+    EXPECT_EQ("World", strTok.next());
     EXPECT_FALSE(strTok.hasNext()) << "No tokens should be available.";
 }
 
@@ -37,8 +37,8 @@ TEST(StringTokenizer, test_split_with_whitechar) {
 TEST(StringTokenizer, test_split_with_newline) {
     StringTokenizer strTok("Hello\nWorld", StringTokenizer::NEWLINE);
     EXPECT_TRUE(strTok.hasNext()) << "There must be more tokens available.";
-    EXPECT_EQ("Hello",strTok.next());
-    EXPECT_EQ("World",strTok.next());
+    EXPECT_EQ("Hello", strTok.next());
+    EXPECT_EQ("World", strTok.next());
     EXPECT_FALSE(strTok.hasNext()) << "No tokens should be available.";
 }
 
@@ -46,9 +46,9 @@ TEST(StringTokenizer, test_split_with_newline) {
 TEST(StringTokenizer, test_split_with_x) {
     StringTokenizer strTok("HelloxxWorld", "x");
     EXPECT_TRUE(strTok.hasNext()) << "There must be more tokens available.";
-    EXPECT_EQ("Hello",strTok.next());
-    EXPECT_EQ("",strTok.next());
-    EXPECT_EQ("World",strTok.next());
+    EXPECT_EQ("Hello", strTok.next());
+    EXPECT_EQ("", strTok.next());
+    EXPECT_EQ("World", strTok.next());
     EXPECT_FALSE(strTok.hasNext()) << "No tokens should be available.";
 }
 
@@ -56,9 +56,9 @@ TEST(StringTokenizer, test_split_with_x) {
 TEST(StringTokenizer, test_split_any_char) {
     StringTokenizer strTok("HelloxWyorld", "xy", true);
     EXPECT_TRUE(strTok.hasNext()) << "There must be more tokens available.";
-    EXPECT_EQ("Hello",strTok.next());
-    EXPECT_EQ("W",strTok.next());
-    EXPECT_EQ("orld",strTok.next());
+    EXPECT_EQ("Hello", strTok.next());
+    EXPECT_EQ("W", strTok.next());
+    EXPECT_EQ("orld", strTok.next());
     EXPECT_FALSE(strTok.hasNext()) << "No tokens should be available.";
 }
 
@@ -74,37 +74,37 @@ TEST(StringTokenizer, test_method_reinit) {
 /* Tests the method size*/
 TEST(StringTokenizer, test_method_size) {
     StringTokenizer strTok("Hello little World");
-    EXPECT_EQ(3,strTok.size()) << "The number of the token is not right.";
+    EXPECT_EQ(3, strTok.size()) << "The number of the token is not right.";
     StringTokenizer strTok2("");
-    EXPECT_EQ(0,strTok2.size()) << "The number of the token is not right.";
+    EXPECT_EQ(0, strTok2.size()) << "The number of the token is not right.";
 }
 
 /* Tests the method front*/
 TEST(StringTokenizer, test_method_front) {
     StringTokenizer strTok("Hello World");
-    EXPECT_EQ("Hello",strTok.front()) << "The first token is not right.";
+    EXPECT_EQ("Hello", strTok.front()) << "The first token is not right.";
     strTok.next();
-    EXPECT_EQ("Hello",strTok.front()) << "The first token is not right.";
+    EXPECT_EQ("Hello", strTok.front()) << "The first token is not right.";
 }
 
 /* Tests the method get*/
 TEST(StringTokenizer, test_method_get) {
     StringTokenizer strTok("Hello World");
-    EXPECT_EQ("Hello",strTok.get(0)) << "The first token is not right.";
-    EXPECT_EQ("World",strTok.get(1)) << "The second token is not right.";
-    ASSERT_THROW(strTok.get(2),OutOfBoundsException) << "Expect an OutOfBoundsException exception.";
+    EXPECT_EQ("Hello", strTok.get(0)) << "The first token is not right.";
+    EXPECT_EQ("World", strTok.get(1)) << "The second token is not right.";
+    ASSERT_THROW(strTok.get(2), OutOfBoundsException) << "Expect an OutOfBoundsException exception.";
 }
 
 /* Tests the method get with empty data*/
 TEST(StringTokenizer, test_method_get_with_empty_data) {
     StringTokenizer strTok;
-    ASSERT_THROW(strTok.get(0),OutOfBoundsException) << "Expect an OutOfBoundsException exception.";
+    ASSERT_THROW(strTok.get(0), OutOfBoundsException) << "Expect an OutOfBoundsException exception.";
 }
 
 /* Tests the method getVector*/
 TEST(StringTokenizer, test_method_getVector) {
     StringTokenizer strTok("Hello World");
     std::vector<std::string> strVek = strTok.getVector();
-    EXPECT_EQ("World",strVek.back());
-    EXPECT_EQ("Hello",strVek.front());
+    EXPECT_EQ("World", strVek.back());
+    EXPECT_EQ("Hello", strVek.front());
 }

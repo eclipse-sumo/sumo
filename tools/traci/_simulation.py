@@ -22,6 +22,7 @@ from .domain import Domain
 from .storage import Storage
 from .exceptions import FatalTraCIError
 
+
 class Stage(object):
 
     def __init__(self, type, vType, line, destStop, edges, travelTime, cost, length, intended, depart, departPos, arrivalPos, description):
@@ -60,7 +61,7 @@ class Stage(object):
             self.__attr_repr__("departPos"),
             self.__attr_repr__("arrivalPos"),
             self.__attr_repr__("description"),
-            ] if v != ""])
+        ] if v != ""])
 
 
 def _readStage(result):
@@ -118,8 +119,6 @@ def _writeStage(stage, connection):
     connection._packString(stage.description)
 
 
-
-
 _RETURN_VALUE_FUNC = {tc.VAR_TIME: Storage.readDouble,
                       tc.VAR_TIME_STEP: Storage.readInt,
                       tc.VAR_LOADED_VEHICLES_NUMBER: Storage.readInt,
@@ -163,7 +162,6 @@ class SimulationDomain(Domain):
     @staticmethod
     def walkingStage(edges, arrivalPos, destStop="", description=""):
         return Stage(2, "", "", destStop, edges, 0, 0, 0, "", 0, 0, arrivalPos, description)
-
 
     def getTime(self):
         """getTime() -> double

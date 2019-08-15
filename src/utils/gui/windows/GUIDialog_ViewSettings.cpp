@@ -958,7 +958,7 @@ GUIDialog_ViewSettings::onCmdColorChange(FXObject* sender, FXSelector, void* /*v
     // lanes (colors)
     if (sender == myLaneColorRainbow) {
         myParent->buildColorRainbow(tmpSettings, tmpSettings.getLaneEdgeScheme(), tmpSettings.getLaneEdgeMode(), GLO_LANE,
-                myLaneColorRainbowCheck->getCheck() != FALSE, myLaneColorRainbowThreshold->getValue());
+                                    myLaneColorRainbowCheck->getCheck() != FALSE, myLaneColorRainbowThreshold->getValue());
         doRebuildColorMatrices = true;
     }
     if (sender == myJunctionColorRainbow) {

@@ -37,11 +37,11 @@
 // ===========================================================================
 
 
-GNEVehicleType::GNEVehicleType(GNEViewNet* viewNet, const std::string& vTypeID, const SUMOVehicleClass &defaultVClass, SumoXMLTag tag) :
+GNEVehicleType::GNEVehicleType(GNEViewNet* viewNet, const std::string& vTypeID, const SUMOVehicleClass& defaultVClass, SumoXMLTag tag) :
     GNEDemandElement(vTypeID, viewNet, GLO_VTYPE, tag, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}),
-    SUMOVTypeParameter(vTypeID),
-    myDefaultVehicleType(true),
-    myDefaultVehicleTypeModified(false) {
+                 SUMOVTypeParameter(vTypeID),
+                 myDefaultVehicleType(true),
+myDefaultVehicleTypeModified(false) {
     // set default vehicle class
     vehicleClass = defaultVClass;
     parametersSet |= VTYPEPARS_VEHICLECLASS_SET;
@@ -52,9 +52,9 @@ GNEVehicleType::GNEVehicleType(GNEViewNet* viewNet, const std::string& vTypeID, 
 
 GNEVehicleType::GNEVehicleType(GNEViewNet* viewNet, const SUMOVTypeParameter& vTypeParameter, SumoXMLTag tag) :
     GNEDemandElement(vTypeParameter.id, viewNet, GLO_VTYPE, tag, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}),
-    SUMOVTypeParameter(vTypeParameter),
-    myDefaultVehicleType(false),
-    myDefaultVehicleTypeModified(false) {
+SUMOVTypeParameter(vTypeParameter),
+myDefaultVehicleType(false),
+myDefaultVehicleTypeModified(false) {
     // if we're creating a Person Type, set manually VClass
     if (tag == SUMO_TAG_PTYPE) {
         vehicleClass = SVC_PEDESTRIAN;
@@ -67,9 +67,9 @@ GNEVehicleType::GNEVehicleType(GNEViewNet* viewNet, const SUMOVTypeParameter& vT
 
 GNEVehicleType::GNEVehicleType(GNEViewNet* viewNet, const std::string& vTypeID, GNEVehicleType* vTypeOriginal) :
     GNEDemandElement(vTypeID, viewNet, GLO_VTYPE, vTypeOriginal->getTagProperty().getTag(), {}, {}, {}, {}, {}, {}, {}, {}, {}, {}),
-    SUMOVTypeParameter(*vTypeOriginal),
-    myDefaultVehicleType(false),
-    myDefaultVehicleTypeModified(false) {
+SUMOVTypeParameter(*vTypeOriginal),
+myDefaultVehicleType(false),
+myDefaultVehicleTypeModified(false) {
     // change manually the ID (to avoid to use the ID of vTypeOriginal)
     id = vTypeID;
     // init Rail Visualization Parameters
@@ -80,7 +80,7 @@ GNEVehicleType::GNEVehicleType(GNEViewNet* viewNet, const std::string& vTypeID, 
 GNEVehicleType::~GNEVehicleType() {}
 
 
-SUMOVehicleClass 
+SUMOVehicleClass
 GNEVehicleType::getVClass() const {
     return vehicleClass;
 }
@@ -105,13 +105,13 @@ GNEVehicleType::writeDemandElement(OutputDevice& device) const {
 }
 
 
-void 
+void
 GNEVehicleType::startGeometryMoving() {
     // VTypes cannot be moved
 }
 
 
-void 
+void
 GNEVehicleType::endGeometryMoving() {
     // VTypes cannot be moved
 }
@@ -244,7 +244,7 @@ GNEVehicleType::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_LCA_MAXSPEEDLATFACTOR:
         case SUMO_ATTR_LCA_TURN_ALIGNMENT_DISTANCE:
         case SUMO_ATTR_LCA_OVERTAKE_RIGHT:
-        /* case SUMO_ATTR_LCA_EXPERIMENTAL1: */
+            /* case SUMO_ATTR_LCA_EXPERIMENTAL1: */
             return getLCParamString(key, myTagProperty.getDefaultValue(key));
         //
         case SUMO_ATTR_COLLISION_MINGAP_FACTOR:
@@ -452,7 +452,7 @@ GNEVehicleType::getAttribute(SumoXMLAttr key) const {
 }
 
 
-double 
+double
 GNEVehicleType::getAttributeDouble(SumoXMLAttr key) const {
     // obtain default values depending of vehicle class
     VClassDefaultValues defaultValues(vehicleClass);
@@ -612,9 +612,9 @@ GNEVehicleType::isValid(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_ID:
             // Vtypes and PTypes shares namespace
-            if (SUMOXMLDefinitions::isValidVehicleID(value) && 
-                (myViewNet->getNet()->retrieveDemandElement(SUMO_TAG_VTYPE, value, false) == nullptr) &&
-                (myViewNet->getNet()->retrieveDemandElement(SUMO_TAG_PTYPE, value, false) == nullptr)) {
+            if (SUMOXMLDefinitions::isValidVehicleID(value) &&
+                    (myViewNet->getNet()->retrieveDemandElement(SUMO_TAG_VTYPE, value, false) == nullptr) &&
+                    (myViewNet->getNet()->retrieveDemandElement(SUMO_TAG_PTYPE, value, false) == nullptr)) {
                 return true;
             } else {
                 return false;
@@ -714,7 +714,7 @@ GNEVehicleType::isValid(SumoXMLAttr key, const std::string& value) {
             return canParseVehicleClasses(value);
         case SUMO_ATTR_EMISSIONCLASS:
             // check if given value correspond to a string of PollutantsInterface::getAllClassesStr()
-            for (const auto &i : PollutantsInterface::getAllClassesStr()) {
+            for (const auto& i : PollutantsInterface::getAllClassesStr()) {
                 if (value == i) {
                     return true;
                 }
@@ -778,12 +778,12 @@ GNEVehicleType::isValid(SumoXMLAttr key, const std::string& value) {
 }
 
 
-void 
+void
 GNEVehicleType::enableAttribute(SumoXMLAttr /*key*/, GNEUndoList* /*undoList*/) {
 
 }
 
-bool 
+bool
 GNEVehicleType::isAttributeEnabled(SumoXMLAttr key) const {
     switch (key) {
         case SUMO_ATTR_LENGTH:
@@ -1282,7 +1282,7 @@ GNEVehicleType::setAttribute(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_LCA_MAXSPEEDLATSTANDING:
         case SUMO_ATTR_LCA_MAXSPEEDLATFACTOR:
 
-        /* case SUMO_ATTR_LCA_EXPERIMENTAL1: */
+            /* case SUMO_ATTR_LCA_EXPERIMENTAL1: */
             // empty values means that value isn't set
             if (value.empty()) {
                 const auto it = lcParameter.find(key);
@@ -1667,14 +1667,14 @@ GNEVehicleType::setAttribute(SumoXMLAttr key, const std::string& value) {
 }
 
 
-void 
+void
 GNEVehicleType::setEnabledAttribute(const int /*enabledAttributes*/) {
     //
 }
 
 
 void
-GNEVehicleType::updateDefaultVClassAttributes(const VClassDefaultValues &defaultValues) {
+GNEVehicleType::updateDefaultVClassAttributes(const VClassDefaultValues& defaultValues) {
     if (!wasSet(VTYPEPARS_LENGTH_SET)) {
         length = defaultValues.length;
     }

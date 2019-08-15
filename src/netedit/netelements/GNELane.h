@@ -269,7 +269,7 @@ private:
     void drawDirectionIndicators(double exaggeration, bool spreadSuperposed) const;
 
     /// @brief draw VSS symbol
-    void drawVSSSymbol(const GUIVisualizationSettings& s, GNEAdditional *vss) const;
+    void drawVSSSymbol(const GUIVisualizationSettings& s, GNEAdditional* vss) const;
 
     /// @brief draw start and end shape points
     void drawStartEndShapePoints(const GUIVisualizationSettings& s) const;

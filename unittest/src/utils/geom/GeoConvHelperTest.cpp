@@ -27,12 +27,12 @@ Tests the class GeoConvHelper
 /* Test the method 'move2side' */
 TEST(GeoConvHelper, test_method_x2cartesian) {
     GeoConvHelper gch(
-            "+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs",
-            Position(), Boundary(), Boundary(), 1, false);
+        "+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs",
+        Position(), Boundary(), Boundary(), 1, false);
 
     Position pos(13.5326994, 52.428098100000007);
     gch.x2cartesian(pos);
-    
+
     EXPECT_NEAR(400235.50494557252, pos.x(), 1e-5);
     EXPECT_NEAR(5809666.826070101, pos.y(), 1e-5);
 }

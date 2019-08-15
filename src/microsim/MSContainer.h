@@ -139,7 +139,7 @@ public:
         double getAngle(SUMOTime now) const;
 
         /// @brief get travel distance in this stage
-        double getDistance() const; 
+        double getDistance() const;
 
         /// Returns the time the container spent waiting
         SUMOTime getWaitingTime(SUMOTime now) const;

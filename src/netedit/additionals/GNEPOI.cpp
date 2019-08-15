@@ -214,7 +214,7 @@ GNEPOI::drawGL(const GUIVisualizationSettings& s) const {
     // first check if POI can be drawn
     if (myNet->getViewNet()->getDemandViewOptions().showShapes()) {
         // check if boundary has to be drawn
-        if(s.drawBoundaries) {
+        if (s.drawBoundaries) {
             GLHelper::drawBoundary(getCenteringBoundary());
         }
         // first clear vertices

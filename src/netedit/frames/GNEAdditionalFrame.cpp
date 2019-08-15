@@ -698,7 +698,7 @@ GNEAdditionalFrame::getConsecutiveLaneSelector() const {
 }
 
 
-void 
+void
 GNEAdditionalFrame::tagSelected() {
     if (myAdditionalTagSelector->getCurrentTagProperties().getTag() != SUMO_TAG_NOTHING) {
         // show additional attributes modul
@@ -719,8 +719,8 @@ GNEAdditionalFrame::tagSelected() {
         }
         // Show SelectorLaneChildren or consecutive lane selector if we're adding an additional that own the attribute SUMO_ATTR_LANES
         if (myAdditionalTagSelector->getCurrentTagProperties().hasAttribute(SUMO_ATTR_LANES)) {
-            if (myAdditionalTagSelector->getCurrentTagProperties().hasParent() && 
-                (myAdditionalTagSelector->getCurrentTagProperties().getParentTag() == SUMO_TAG_LANE)) {
+            if (myAdditionalTagSelector->getCurrentTagProperties().hasParent() &&
+                    (myAdditionalTagSelector->getCurrentTagProperties().getParentTag() == SUMO_TAG_LANE)) {
                 // show selector lane parent and hide selector lane child
                 mySelectorLaneParents->showSelectorLaneParentsModul();
                 mySelectorLaneChildren->hideSelectorLaneChildrenModul();

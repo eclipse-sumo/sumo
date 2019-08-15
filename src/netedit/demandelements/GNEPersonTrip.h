@@ -44,23 +44,23 @@ public:
      * @param[in] viewNet view in which this PersonTrip is placed
      * @param[in] personParent person parent
      * @param[in] edges list of consecutive edges of this personTrip
-     * @param[in] arrivalPosition arrival position on the destination edge 
-     * @param[in] types list of possible vehicle types to take 
+     * @param[in] arrivalPosition arrival position on the destination edge
+     * @param[in] types list of possible vehicle types to take
      * @param[in] modes list of possible traffic modes
      */
-    GNEPersonTrip(GNEViewNet* viewNet, GNEDemandElement *personParent, const std::vector<GNEEdge*>& edges, const std::vector<std::string> &types, 
-                  const std::vector<std::string> &modes, double arrivalPosition);
+    GNEPersonTrip(GNEViewNet* viewNet, GNEDemandElement* personParent, const std::vector<GNEEdge*>& edges, const std::vector<std::string>& types,
+                  const std::vector<std::string>& modes, double arrivalPosition);
 
     /**@brief parameter constructor
      * @param[in] viewNet view in which this PersonTrip is placed
      * @param[in] personParent person parent
      * @param[in] edges list of consecutive edges of this personTrip
-     * @param[in] busStop destination busStop 
-     * @param[in] types list of possible vehicle types to take 
+     * @param[in] busStop destination busStop
+     * @param[in] types list of possible vehicle types to take
      * @param[in] modes list of possible traffic modes
      */
-    GNEPersonTrip(GNEViewNet* viewNet, GNEDemandElement *personParent, const std::vector<GNEEdge*>& edges, GNEAdditional *busStop, 
-                  const std::vector<std::string> &types, const std::vector<std::string> &modes);
+    GNEPersonTrip(GNEViewNet* viewNet, GNEDemandElement* personParent, const std::vector<GNEEdge*>& edges, GNEAdditional* busStop,
+                  const std::vector<std::string>& types, const std::vector<std::string>& modes);
 
     /// @brief destructor
     ~GNEPersonTrip();
@@ -216,7 +216,7 @@ protected:
     /// @brief valid line or modes
     std::vector<std::string> myModes;
 
-    /// @brief arrival position 
+    /// @brief arrival position
     double myArrivalPosition;
 
 private:

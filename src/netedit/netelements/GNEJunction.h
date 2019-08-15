@@ -75,7 +75,7 @@ public:
 
     /// @brief update pre-computed geometry information without modifying netbuild structures
     // @note: using an extra function because updateGeometry overrides an abstract virtual function
-    void updateGeometryAfterNetbuild(bool rebuildNBNodeCrossings=false);
+    void updateGeometryAfterNetbuild(bool rebuildNBNodeCrossings = false);
 
     /// @brief Returns position of hierarchical element in view
     Position getPositionInView() const;

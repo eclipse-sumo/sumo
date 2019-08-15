@@ -74,53 +74,53 @@ GNEPersonFrame::HelpCreation::updateHelpCreation() {
     switch (myPersonFrameParent->myPersonPlanTagSelector->getCurrentTagProperties().getTag()) {
         case SUMO_TAG_PERSONTRIP_FROMTO:
             information
-                << "- Click over edges to\n"
-                << "  create a trip.";
+                    << "- Click over edges to\n"
+                    << "  create a trip.";
             break;
         case SUMO_TAG_PERSONTRIP_BUSSTOP:
             information
-                << "- Click over an edge and\n"
-                << "  a bus to create a trip.";
+                    << "- Click over an edge and\n"
+                    << "  a bus to create a trip.";
             break;
         case SUMO_TAG_WALK_EDGES:
             information
-                << "- Click over a sequenz of\n"
-                << "  consecutive edges to\n"
-                << "  create a walk.";
+                    << "- Click over a sequenz of\n"
+                    << "  consecutive edges to\n"
+                    << "  create a walk.";
             break;
         case SUMO_TAG_WALK_FROMTO:
             information
-                << "- Click over edges to\n"
-                << "  create a walk.";
+                    << "- Click over edges to\n"
+                    << "  create a walk.";
             break;
         case SUMO_TAG_WALK_BUSSTOP:
             information
-                << "- Click over an edge and\n"
-                << "  a bus to create a walk.";
+                    << "- Click over an edge and\n"
+                    << "  a bus to create a walk.";
             break;
         case SUMO_TAG_WALK_ROUTE:
             information
-                << "- Click over a route";
+                    << "- Click over a route";
             break;
         case SUMO_TAG_RIDE_FROMTO:
             information
-                << "- Click over edges to\n"
-                << "  create a ride.";
+                    << "- Click over edges to\n"
+                    << "  create a ride.";
             break;
         case SUMO_TAG_RIDE_BUSSTOP:
             information
-                << "- Click over an edge and\n"
-                << "  a bus to create a ride";
+                    << "- Click over an edge and\n"
+                    << "  a bus to create a ride";
             break;
         case SUMO_TAG_PERSONSTOP_BUSSTOP:
             information
-                << "- Click over a busStop\n"
-                << "  to create a stop";
+                    << "- Click over a busStop\n"
+                    << "  to create a stop";
             break;
         case SUMO_TAG_PERSONSTOP_LANE:
             information
-                << "- Click over a lane\n"
-                << "  to create a stop";
+                    << "- Click over a lane\n"
+                    << "  to create a stop";
             break;
         default:
             throw ProcessError("Invalid person plan tag");
@@ -142,7 +142,7 @@ GNEPersonFrame::GNEPersonFrame(FXHorizontalFrame* horizontalFrameParent, GNEView
     // create person types selector modul
     myPTypeSelector = new GNEFrameModuls::DemandElementSelector(this, SUMO_TAG_PTYPE);
 
-     // create person attributes
+    // create person attributes
     myPersonAttributes = new GNEFrameAttributesModuls::AttributesCreator(this);
 
     // create tag Selector modul for person plans
@@ -231,7 +231,7 @@ GNEPersonFrame::getEdgePathCreator() const {
 // protected
 // ===========================================================================
 
-void 
+void
 GNEPersonFrame::tagSelected() {
     // first check if person is valid
     if (myPersonTagSelector->getCurrentTagProperties().getTag() != SUMO_TAG_NOTHING) {
@@ -254,7 +254,7 @@ GNEPersonFrame::tagSelected() {
                 }
                 // check if myEdgePathCreator has to be show
                 if ((myPersonPlanTagSelector->getCurrentTagProperties().getTag() == SUMO_TAG_WALK_ROUTE) ||
-                    (myPersonPlanTagSelector->getCurrentTagProperties().isPersonStop())) {
+                        (myPersonPlanTagSelector->getCurrentTagProperties().isPersonStop())) {
                     // hide edge path creator modul
                     myEdgePathCreator->hideEdgePathCreator();
                     // show Netedit attributes modul
@@ -309,7 +309,7 @@ GNEPersonFrame::tagSelected() {
 }
 
 
-void 
+void
 GNEPersonFrame::demandElementSelected() {
     if (myPTypeSelector->getCurrentDemandElement()) {
         // show person attributes
@@ -328,7 +328,7 @@ GNEPersonFrame::demandElementSelected() {
             }
             // check if myEdgePathCreator has to be show
             if ((myPersonPlanTagSelector->getCurrentTagProperties().getTag() == SUMO_TAG_WALK_ROUTE) ||
-                (myPersonPlanTagSelector->getCurrentTagProperties().isPersonStop())) {
+                    (myPersonPlanTagSelector->getCurrentTagProperties().isPersonStop())) {
                 // hide edge path creator modul
                 myEdgePathCreator->hideEdgePathCreator();
                 // show Netedit attributes modul
@@ -383,7 +383,7 @@ GNEPersonFrame::edgePathCreated() {
         myViewNet->setStatusBarText("Invalid " + myPersonPlanTagSelector->getCurrentTagProperties().getTagStr() + " parameters.");
     } else {
         // build person
-        GNEDemandElement *createdPerson = buildPerson();
+        GNEDemandElement* createdPerson = buildPerson();
         // Declare map to keep attributes from myPersonPlanAttributes
         std::map<SumoXMLAttr, std::string> valuesMap = myPersonPlanAttributes->getAttributesAndValues(true);
         // check what PersonPlan we're creating
@@ -472,8 +472,8 @@ GNEPersonFrame::edgePathCreated() {
 // ---------------------------------------------------------------------------
 
 
-bool 
-GNEPersonFrame::buildPersonOverRoute(GNEDemandElement *route) {
+bool
+GNEPersonFrame::buildPersonOverRoute(GNEDemandElement* route) {
     if (route && (route->getTagProperty().getTag() == SUMO_TAG_ROUTE)) {
         // first check that all attributes are valid
         if (!myPersonAttributes->areValuesValid()) {
@@ -495,8 +495,8 @@ GNEPersonFrame::buildPersonOverRoute(GNEDemandElement *route) {
 }
 
 
-bool 
-GNEPersonFrame::buildPersonOverStop(GNELane *lane, GNEAdditional *busStop) {
+bool
+GNEPersonFrame::buildPersonOverStop(GNELane* lane, GNEAdditional* busStop) {
     // first check that all attributes are valid
     if (!myPersonAttributes->areValuesValid()) {
         myViewNet->setStatusBarText("Invalid person parameters.");
@@ -508,7 +508,7 @@ GNEPersonFrame::buildPersonOverStop(GNELane *lane, GNEAdditional *busStop) {
         // declare stop parameters and friendly position
         SUMOVehicleParameter::Stop stopParameter;
         bool friendlyPosition;
-        if (GNEStopFrame::getStopParameter(stopParameter, friendlyPosition, myPersonPlanTagSelector->getCurrentTagProperties().getTag(), 
+        if (GNEStopFrame::getStopParameter(stopParameter, friendlyPosition, myPersonPlanTagSelector->getCurrentTagProperties().getTag(),
                                            myViewNet, myPersonPlanAttributes, myNeteditAttributes, lane, busStop)) {
             // create it in RouteFrame
             GNERouteHandler::buildStop(myViewNet, true, stopParameter, buildPerson(), friendlyPosition);

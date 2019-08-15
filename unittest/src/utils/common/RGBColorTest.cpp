@@ -36,66 +36,66 @@
 // ===========================================================================
 /* Test the method 'parseColor' with a wrong String. An exception must occur.*/
 TEST(RGBColor, test_parseColor_with_wrong_string) {
-	ASSERT_THROW(RGBColor::parseColor("a,b,y"),NumberFormatException);
+    ASSERT_THROW(RGBColor::parseColor("a,b,y"), NumberFormatException);
 }
 
 /* Test the method 'parseColor'*/
 TEST(RGBColor, test_parseColor) {
-	RGBColor color = RGBColor::parseColor("0,1,255");
-	EXPECT_EQ(0, color.red());
-	EXPECT_EQ(1, color.green());
-	EXPECT_EQ(255, color.blue());
+    RGBColor color = RGBColor::parseColor("0,1,255");
+    EXPECT_EQ(0, color.red());
+    EXPECT_EQ(1, color.green());
+    EXPECT_EQ(255, color.blue());
 }
 
 /* Test the method 'parseColor' with thrown EmptyData Exception*/
-TEST(RGBColor, test_parseColor_with_a_short_string) {	
-	ASSERT_THROW(RGBColor::parseColor(""),EmptyData) << "Expect an EmptyData exception.";	
-	ASSERT_THROW(RGBColor::parseColor("1,2"),EmptyData) << "Expect an EmptyData exception.";
-	ASSERT_THROW(RGBColor::parseColor("test"),EmptyData) << "Expect an EmptyData exception.";
+TEST(RGBColor, test_parseColor_with_a_short_string) {
+    ASSERT_THROW(RGBColor::parseColor(""), EmptyData) << "Expect an EmptyData exception.";
+    ASSERT_THROW(RGBColor::parseColor("1,2"), EmptyData) << "Expect an EmptyData exception.";
+    ASSERT_THROW(RGBColor::parseColor("test"), EmptyData) << "Expect an EmptyData exception.";
     ASSERT_THROW(RGBColor::parseColor("1,2,3,5,432test"), EmptyData) << "Expect an EmptyData exception.";
 }
 
 /* Test the method 'interpolate'*/
-TEST(RGBColor, test_interpolate) {	
-	RGBColor color1 = RGBColor(1,2,3);
-	RGBColor color2 = RGBColor(3,4,1);
-	RGBColor colorResult = RGBColor::interpolate(color1, color2, 0.5);
-	EXPECT_EQ(2, colorResult.red());
-	EXPECT_EQ(3, colorResult.green());
-	EXPECT_EQ(2, colorResult.blue());
+TEST(RGBColor, test_interpolate) {
+    RGBColor color1 = RGBColor(1, 2, 3);
+    RGBColor color2 = RGBColor(3, 4, 1);
+    RGBColor colorResult = RGBColor::interpolate(color1, color2, 0.5);
+    EXPECT_EQ(2, colorResult.red());
+    EXPECT_EQ(3, colorResult.green());
+    EXPECT_EQ(2, colorResult.blue());
 }
 
 /* Test the method 'interpolate' with a weight of 1 and higher*/
-TEST(RGBColor, test_interpolate_weight_1) {	
-	RGBColor color1 = RGBColor(1,2,3);
-	RGBColor color2 = RGBColor(3,4,1);
-	RGBColor colorResult = RGBColor::interpolate(color1, color2, 0.5);
-	RGBColor colorResult1 = RGBColor::interpolate(color1, color2, 0);
-	RGBColor colorResult2 = RGBColor::interpolate(color1, color2, 1);
-	EXPECT_TRUE(color1==colorResult1);
-	EXPECT_TRUE(color2==colorResult2);
-	EXPECT_EQ(2, colorResult.red());
-	EXPECT_EQ(3, colorResult.green());
-	EXPECT_EQ(2, colorResult.blue());
+TEST(RGBColor, test_interpolate_weight_1) {
+    RGBColor color1 = RGBColor(1, 2, 3);
+    RGBColor color2 = RGBColor(3, 4, 1);
+    RGBColor colorResult = RGBColor::interpolate(color1, color2, 0.5);
+    RGBColor colorResult1 = RGBColor::interpolate(color1, color2, 0);
+    RGBColor colorResult2 = RGBColor::interpolate(color1, color2, 1);
+    EXPECT_TRUE(color1 == colorResult1);
+    EXPECT_TRUE(color2 == colorResult2);
+    EXPECT_EQ(2, colorResult.red());
+    EXPECT_EQ(3, colorResult.green());
+    EXPECT_EQ(2, colorResult.blue());
 }
 
 /* Test the method 'interpolate' with a weight of 0 and lower*/
-TEST(RGBColor, test_interpolate_weight_0) {	
-	RGBColor color1 = RGBColor(1,2,3);
-	RGBColor color2 = RGBColor(2,4,2);
-	RGBColor colorResult = RGBColor::interpolate(color1, color2, 0);
-	RGBColor colorResult2 = RGBColor::interpolate(color1, color2, -1000);
-	EXPECT_TRUE(colorResult==colorResult2);
-	EXPECT_EQ(1, colorResult.red());
-	EXPECT_EQ(2, colorResult.green());
-	EXPECT_EQ(3, colorResult.blue());
+TEST(RGBColor, test_interpolate_weight_0) {
+    RGBColor color1 = RGBColor(1, 2, 3);
+    RGBColor color2 = RGBColor(2, 4, 2);
+    RGBColor colorResult = RGBColor::interpolate(color1, color2, 0);
+    RGBColor colorResult2 = RGBColor::interpolate(color1, color2, -1000);
+    EXPECT_TRUE(colorResult == colorResult2);
+    EXPECT_EQ(1, colorResult.red());
+    EXPECT_EQ(2, colorResult.green());
+    EXPECT_EQ(3, colorResult.blue());
 }
 
 /* Test the operator '=='. It has an tolerance of 1 */
-TEST(RGBColor, test_operator_equal) {	
-	RGBColor color1 = RGBColor(1,2,3);
-	RGBColor color2 = RGBColor(1,2,3);	
-	EXPECT_TRUE(color1==color2 );	
-	color2 = RGBColor(1,2,4);	
-	EXPECT_FALSE(color1==color2 );
+TEST(RGBColor, test_operator_equal) {
+    RGBColor color1 = RGBColor(1, 2, 3);
+    RGBColor color2 = RGBColor(1, 2, 3);
+    EXPECT_TRUE(color1 == color2);
+    color2 = RGBColor(1, 2, 4);
+    EXPECT_FALSE(color1 == color2);
 }

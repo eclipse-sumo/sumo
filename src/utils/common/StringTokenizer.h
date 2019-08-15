@@ -87,7 +87,7 @@ public:
      * @note the first string will be split at the second string's occurences.
              If the optional third parameter is true, the string will be split whenever
              a char from the second string occurs. If the string between two split
-             positions is empty, it will nevertheless be returned. 
+             positions is empty, it will nevertheless be returned.
      */
     StringTokenizer(std::string tosplit, std::string token, bool splitAtAllChars = false);
 
@@ -97,7 +97,7 @@ public:
              When StringTokenizer.WHITECHARS is used as second parameter, the
              string will be split at all characters below 0x20 (SPACE)
              All other ints specified as second parameter are casted int o a char
-             at which the string will be splitted. 
+             at which the string will be splitted.
      */
     StringTokenizer(std::string tosplit, int special);
 

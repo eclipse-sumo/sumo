@@ -183,17 +183,17 @@ Person::getStage(const std::string& personID, int nextStageIndex) {
     MSTransportable::Stage* stage = p->getNextStage(nextStageIndex);
     result.type = stage->getStageType();
     result.arrivalPos = stage->getArrivalPos();
-    for(auto e: stage->getEdges()) {
-        if(e != nullptr) {
+    for (auto e : stage->getEdges()) {
+        if (e != nullptr) {
             result.edges.push_back(e->getID());
         }
     }
     MSStoppingPlace* destinationStop = stage->getDestinationStop();
-    if(destinationStop != nullptr) {
+    if (destinationStop != nullptr) {
         result.destStop = destinationStop->getID();
     }
     SUMOVehicle* vehicle = stage->getVehicle();
-    if(vehicle != nullptr) {
+    if (vehicle != nullptr) {
         result.vType = vehicle->getVehicleType().getID();
     }
     result.description = stage->getStageDescription();
@@ -202,14 +202,14 @@ Person::getStage(const std::string& personID, int nextStageIndex) {
     result.cost = -1;
     result.travelTime = -1;
     // Some stage type dependant attributes
-    switch(stage->getStageType()) {
+    switch (stage->getStageType()) {
         case STAGE_DRIVING: {
-            auto * drivingStage = (MSTransportable::Stage_Driving*) stage;
+            auto* drivingStage = (MSTransportable::Stage_Driving*) stage;
             result.intended = drivingStage->getIntendedVehicleID();
             result.depart = STEPS2TIME(drivingStage->getIntendedDepart());
             const std::set<std::string> lines = drivingStage->getLines();
-            for(auto line=lines.begin(); line != lines.end(); line++) {
-                if(line!=lines.begin()) {
+            for (auto line = lines.begin(); line != lines.end(); line++) {
+                if (line != lines.begin()) {
                     result.line += " ";
                 }
                 result.line += *line;
@@ -457,9 +457,9 @@ Person::add(const std::string& personID, const std::string& edgeID, double pos, 
 
 MSTransportable::Stage*
 Person::convertTraCIStage(const TraCIStage& stage, const std::string personID) {
-    switch(stage.type) {
+    switch (stage.type) {
         case MSTransportable::StageType::DRIVING: {
-            if(stage.edges.empty()) {
+            if (stage.edges.empty()) {
                 throw TraCIException("The stage should have at least one edge");
             }
             std::string edgeId = stage.edges.back();
@@ -539,7 +539,7 @@ Person::appendStage(const TraCIStage& stage, const std::string& personID) {
 void
 Person::replaceStage(const std::string& personID, const int stageIndex, const TraCIStage& stage) {
     MSTransportable* p = getPerson(personID);
-    if(stageIndex >= p->getNumRemainingStages()) {
+    if (stageIndex >= p->getNumRemainingStages()) {
         throw TraCIException("Specified stage index:  is not valid for person " + personID);
     }
     MSTransportable::Stage* personStage = convertTraCIStage(stage, personID);

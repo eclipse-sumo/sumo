@@ -38,7 +38,7 @@ class GNEVehicleType : public GNEDemandElement, public SUMOVTypeParameter {
 
 public:
     /// @brief constructor for default VTypes
-    GNEVehicleType(GNEViewNet* viewNet, const std::string& vTypeID, const SUMOVehicleClass &defaultVClass, SumoXMLTag tag);
+    GNEVehicleType(GNEViewNet* viewNet, const std::string& vTypeID, const SUMOVehicleClass& defaultVClass, SumoXMLTag tag);
 
     /// @brief constructor
     GNEVehicleType(GNEViewNet* viewNet, const SUMOVTypeParameter& vTypeParameter, SumoXMLTag tag);
@@ -192,7 +192,7 @@ private:
     void setEnabledAttribute(const int enabledAttributes);
 
     /// @brief function called after set new VClass
-    void updateDefaultVClassAttributes(const VClassDefaultValues &defaultValues);
+    void updateDefaultVClassAttributes(const VClassDefaultValues& defaultValues);
 
     /// @brief Invalidated copy constructor.
     GNEVehicleType(GNEVehicleType*) = delete;

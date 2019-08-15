@@ -470,7 +470,7 @@ private:
         struct NetworkMenuCommands {
 
             /// @brief constructor
-            NetworkMenuCommands(const EditMenuCommands *editMenuCommandsParent);
+            NetworkMenuCommands(const EditMenuCommands* editMenuCommandsParent);
 
             /// @brief build menu commands
             void buildNetworkMenuCommands(FXMenuPane* editMenu);
@@ -519,7 +519,7 @@ private:
 
         private:
             /// @brief reference to EditMenuCommands
-            const EditMenuCommands *myEditMenuCommandsParent;
+            const EditMenuCommands* myEditMenuCommandsParent;
 
             /// @brief separator between sets of FXMenuCommand
             FXMenuSeparator* myHorizontalSeparator;
@@ -529,7 +529,7 @@ private:
         struct DemandMenuCommands {
 
             /// @brief constructor
-            DemandMenuCommands(const EditMenuCommands *editMenuCommandsParent);
+            DemandMenuCommands(const EditMenuCommands* editMenuCommandsParent);
 
             /// @brief build menu commands
             void buildDemandMenuCommands(FXMenuPane* editMenu);
@@ -563,7 +563,7 @@ private:
 
         private:
             /// @brief reference to EditMenuCommands
-            const EditMenuCommands *myEditMenuCommandsParent;
+            const EditMenuCommands* myEditMenuCommandsParent;
 
             /// @brief separator between sets of FXMenuCommand
             FXMenuSeparator* myHorizontalSeparator;
@@ -633,13 +633,13 @@ private:
         /// @brief FXMenuCommand for recompute network with volatile options
         FXMenuCommand* recomputeVolatile;
 
-         /// @brief FXMenuCommand for clean junctions without edges
+        /// @brief FXMenuCommand for clean junctions without edges
         FXMenuCommand* cleanJunctions;
 
-         /// @brief FXMenuCommand for join selected junctions
+        /// @brief FXMenuCommand for join selected junctions
         FXMenuCommand* joinJunctions;
 
-         /// @brief FXMenuCommand for clear invalid crosings
+        /// @brief FXMenuCommand for clear invalid crosings
         FXMenuCommand* clearInvalidCrossings;
         /// @}
 
@@ -647,15 +647,15 @@ private:
         /// @{
         /// @brief FXMenuCommand for clean routes without vehicles
         FXMenuCommand* cleanRoutes;
-        
+
         /// @brief FXMenuCommand for join routes
         FXMenuCommand* joinRoutes;
 
         /// @brief FXMenuCommand for clear invalid demand elements
         FXMenuCommand* clearInvalidDemandElements;
-         /// @}
+        /// @}
 
-         /// @brief FXMenuCommand for open option menus
+        /// @brief FXMenuCommand for open option menus
         FXMenuCommand* optionMenus;
 
     private:

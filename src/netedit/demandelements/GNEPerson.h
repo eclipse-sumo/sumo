@@ -47,7 +47,7 @@ public:
          * @param[in] app The main window for instantiation of other windows
          * @param[in] parent The parent view for changing it
          */
-        GNEPersonPopupMenu(GNEPerson *person, GUIMainWindow& app, GUISUMOAbstractView& parent);
+        GNEPersonPopupMenu(GNEPerson* person, GUIMainWindow& app, GUISUMOAbstractView& parent);
 
         /// @brief Destructor
         ~GNEPersonPopupMenu();
@@ -61,7 +61,7 @@ public:
 
     private:
         /// @brief current person
-        GNEPerson *myPerson;
+        GNEPerson* myPerson;
 
         /// @brief menu command for transform to person
         FXMenuCommand* myTransformToPerson;
@@ -69,7 +69,7 @@ public:
         /// @brief menu command for transform to personFlow
         FXMenuCommand* myTransformToPersonFlow;
     };
-    
+
     /// @brief class used in GUIGLObjectPopupMenu for single person transformations
     class GNESelectedPersonsPopupMenu : public GUIGLObjectPopupMenu {
         FXDECLARE(GNESelectedPersonsPopupMenu)
@@ -81,7 +81,7 @@ public:
          * @param[in] app The main window for instantiation of other windows
          * @param[in] parent The parent view for changing it
          */
-        GNESelectedPersonsPopupMenu(GNEPerson *person, const std::vector<GNEPerson*> &selectedPerson, GUIMainWindow& app, GUISUMOAbstractView& parent);
+        GNESelectedPersonsPopupMenu(GNEPerson* person, const std::vector<GNEPerson*>& selectedPerson, GUIMainWindow& app, GUISUMOAbstractView& parent);
 
         /// @brief Destructor
         ~GNESelectedPersonsPopupMenu();
@@ -270,13 +270,13 @@ private:
     // @brief struct used for calculating person plan geometry segments
     struct personPlanSegment {
         /// @brief parameter constructor
-        personPlanSegment(GNEDemandElement *_personPlan);
+        personPlanSegment(GNEDemandElement* _personPlan);
 
         /// @brief person plan
-        const GNEDemandElement *personPlan;
+        const GNEDemandElement* personPlan;
 
         /// @brief edge
-        GNEEdge *edge;
+        GNEEdge* edge;
 
         /// @brief busStops placed in this segment
         std::vector<GNEAdditional*> busStops;
@@ -284,7 +284,7 @@ private:
         /// @brief stops placed in this segment
         std::vector<GNEDemandElement*> stops;
 
-        /// @brief arrival position 
+        /// @brief arrival position
         double arrivalPos;
 
     private:
@@ -299,7 +299,7 @@ private:
     void setEnabledAttribute(const int enabledAttributes);
 
     /// @brief calculate smooth shape between personPlans
-    void calculateSmoothPersonPlanConnection(const GNEDemandElement* personPlanElement, const GNEEdge *edgeFrom, const GNEEdge *edgeTo);
+    void calculateSmoothPersonPlanConnection(const GNEDemandElement* personPlanElement, const GNEEdge* edgeFrom, const GNEEdge* edgeTo);
 
     /// @brief return two shapes used for calculate person plan conections between busStops
     std::pair<PositionVector, PositionVector> calculatePersonPlanConnectionBusStop(GNELane* previousLane, GNEAdditional* busStop, GNELane* nextLane);

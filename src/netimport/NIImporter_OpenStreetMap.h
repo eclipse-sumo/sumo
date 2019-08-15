@@ -300,7 +300,7 @@ private:
     std::string usableType(const std::string& type, const std::string& id, NBTypeCont& tc);
 
     /// @brief extend kilometrage data for all nodes along railway
-    void extendRailwayDistances(Edge* e, NBTypeCont& tc); 
+    void extendRailwayDistances(Edge* e, NBTypeCont& tc);
 
     /// @brief read distance value from node and return value in m
     static double interpretDistance(NIOSMNode* node);

@@ -179,7 +179,7 @@ GNEContainerStop::drawGL(const GUIVisualizationSettings& s) const {
     // Pop name
     glPopName();
     // draw demand element children
-    for (const auto &i : getDemandElementChildren()) {
+    for (const auto& i : getDemandElementChildren()) {
         if (!i->getTagProperty().isPlacedInRTree()) {
             i->drawGL(s);
         }

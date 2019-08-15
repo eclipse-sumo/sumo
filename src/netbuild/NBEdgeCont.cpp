@@ -1328,7 +1328,7 @@ int
 NBEdgeCont::guessSpecialLanes(SUMOVehicleClass svc, double width, double minSpeed, double maxSpeed, bool fromPermissions, const std::string& excludeOpt) {
     int lanesCreated = 0;
     std::vector<std::string> edges;
-    if (excludeOpt != "") { 
+    if (excludeOpt != "") {
         edges = OptionsCont::getOptions().getStringVector(excludeOpt);
     }
     std::set<std::string> exclude(edges.begin(), edges.end());
@@ -1469,7 +1469,7 @@ NBEdgeCont::checkGrade(double threshold) const {
     }
 }
 
-int 
+int
 NBEdgeCont::joinLanes(SVCPermissions perms) {
     int affectedEdges = 0;
     for (auto item : myEdges) {

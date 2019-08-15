@@ -134,7 +134,7 @@ public:
         void clearEdges();
 
         /// @brief get temporal route
-        const std::vector<GNEEdge*> &getRouteEdges() const;
+        const std::vector<GNEEdge*>& getRouteEdges() const;
 
         /// @name FOX-callbacks
         /// @{
@@ -143,7 +143,7 @@ public:
 
         /// @brief Called when the user press create route button
         long onCmdAbortRoute(FXObject*, FXSelector, void*);
-        
+
         /// @brief Called when the user click over button "Remove las inserted edge"
         long onCmdRemoveLastRouteEdge(FXObject*, FXSelector, void*);
         /// @}
@@ -167,7 +167,7 @@ public:
 
         /// @bief FXButton for abort creating route
         FXButton* myAbortCreationButton;
-        
+
         /// @brief button for removing last inserted edge
         FXButton* myRemoveLastInsertedEdge;
 
@@ -209,7 +209,7 @@ public:
         void clearEdges();
 
         /// @brief get temporal route
-        const std::vector<GNEEdge*> &getTemporalRoute() const;
+        const std::vector<GNEEdge*>& getTemporalRoute() const;
 
         /// @name FOX-callbacks
         /// @{

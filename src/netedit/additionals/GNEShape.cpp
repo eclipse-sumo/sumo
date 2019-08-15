@@ -151,13 +151,13 @@ GNEShape::drawUsingSelectColor() const {
 }
 
 
-void 
+void
 GNEShape::enableAttribute(SumoXMLAttr /*key*/, GNEUndoList* /*undoList*/) {
     //
 }
 
 
-bool 
+bool
 GNEShape::isAttributeEnabled(SumoXMLAttr /*key*/) const {
     return true;
 }

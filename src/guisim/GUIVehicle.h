@@ -148,7 +148,7 @@ public:
     std::string getLCStateRight() const;
     std::string getLCStateLeft() const;
 
-    /// @brief return vehicle lane id 
+    /// @brief return vehicle lane id
     std::string getLaneID() const;
     std::string getShadowLaneID() const;
     std::string getTargetLaneID() const;

@@ -155,7 +155,7 @@ public:
      * @param[in] includeOpposte Whether an opposite direction lane may be returned
      * @todo This method searches for the given in the container; probably, this could be done faster
      */
-    MSLane* parallelLane(const MSLane* const lane, int offset, bool includeOpposite=true) const;
+    MSLane* parallelLane(const MSLane* const lane, int offset, bool includeOpposite = true) const;
 
 
     /** @brief Returns this edge's lanes

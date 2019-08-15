@@ -508,17 +508,17 @@ MSTriggeredRerouter::notifyEnter(SUMOTrafficObject& tObject, MSMoveReminder::Not
                     break;
                 }
                 router.compute(
-                        veh.getEdge(), newEdge, &veh, MSNet::getInstance()->getCurrentTimeStep(), edges);
+                    veh.getEdge(), newEdge, &veh, MSNet::getInstance()->getCurrentTimeStep(), edges);
             }
 
         }
         const double routeCost = router.recomputeCosts(edges, &veh, MSNet::getInstance()->getCurrentTimeStep());
         const bool useNewRoute = veh.replaceRouteEdges(edges, routeCost, 0, getID());
 #ifdef DEBUG_REROUTER
-        if (DEBUGCOND) std::cout << "   rerouting:  newDest=" << newEdge->getID() 
-            << " newEdges=" << toString(edges) 
-            << " useNewRoute=" << useNewRoute << " newArrivalPos=" << newArrivalPos << " numClosed=" << rerouteDef->closed.size()
-            << " destUnreachable=" << destUnreachable << " containsClosed=" << veh.getRoute().containsAnyOf(rerouteDef->closed) << "\n";
+        if (DEBUGCOND) std::cout << "   rerouting:  newDest=" << newEdge->getID()
+                                     << " newEdges=" << toString(edges)
+                                     << " useNewRoute=" << useNewRoute << " newArrivalPos=" << newArrivalPos << " numClosed=" << rerouteDef->closed.size()
+                                     << " destUnreachable=" << destUnreachable << " containsClosed=" << veh.getRoute().containsAnyOf(rerouteDef->closed) << "\n";
 #endif
         if (useNewRoute && newArrivalPos != -1) {
             // must be called here because replaceRouteEdges may also set the arrivalPos

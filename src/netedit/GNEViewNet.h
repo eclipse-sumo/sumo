@@ -99,7 +99,7 @@ public:
     /// @brief get network view options
     const GNEViewNetHelper::NetworkViewOptions& getNetworkViewOptions() const;
 
-    /// @brief get demand view options 
+    /// @brief get demand view options
     const GNEViewNetHelper::DemandViewOptions& getDemandViewOptions() const;
 
     /// @brief get Key Pressed modul
@@ -233,25 +233,25 @@ public:
     /// @{
     /// @brief toogle show demand elements
     long onCmdToogleShowDemandElements(FXObject*, FXSelector, void*);
-    
+
     /// @brief toogle select edges
     long onCmdToogleSelectEdges(FXObject*, FXSelector, void*);
-    
+
     /// @brief toogle show connections
     long onCmdToogleShowConnections(FXObject*, FXSelector, void*);
 
     /// @brief toogle hide connections
     long onCmdToogleHideConnections(FXObject*, FXSelector, void*);
-    
+
     /// @brief toogle extend selection
     long onCmdToogleExtendSelection(FXObject*, FXSelector, void*);
-    
+
     /// @brief toogle change all phases
     long onCmdToogleChangeAllPhases(FXObject*, FXSelector, void*);
-    
+
     /// @brief toogle show grid
     long onCmdToogleShowGrid(FXObject*, FXSelector, void*);
-    
+
     /// @brief toogle warn for merge
     long onCmdToogleWarnAboutMerge(FXObject*, FXSelector, void*);
 

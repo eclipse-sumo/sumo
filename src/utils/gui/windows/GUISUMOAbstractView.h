@@ -100,7 +100,7 @@ public:
      * @param[in] zoomDist The distance in m to use for the zoom, values < 0 means: use the centeringBoundary
      * @note caller is responsible for calling update
      */
-    virtual void centerTo(const Position &pos, bool applyZoom, double zoomDist = 20);
+    virtual void centerTo(const Position& pos, bool applyZoom, double zoomDist = 20);
 
     /// @brief centers to the chosen artifact
     void centerTo(const Boundary& bound);
@@ -218,7 +218,7 @@ public:
 
     /// @brief recalibrate color scheme according to the current value range
     virtual void buildColorRainbow(const GUIVisualizationSettings& /*s*/, GUIColorScheme& /*scheme*/, int /*active*/, GUIGlObjectType /*objectType*/,
-            bool hide = false, double hideThreshold = 0) {
+                                   bool hide = false, double hideThreshold = 0) {
         UNUSED_PARAMETER(hide);
         UNUSED_PARAMETER(hideThreshold);
     }
@@ -340,7 +340,7 @@ public:
     /**@brief Returns a position that is mapped to the closest grid point if the grid is active
      * @brief note: formats are pos(x,y,0) por pos(0,0,z)
      */
-    Position snapToActiveGrid(const Position& pos, bool snapXY=true) const;
+    Position snapToActiveGrid(const Position& pos, bool snapXY = true) const;
 
     /// @brief Translate screen position to network position
     Position screenPos2NetPos(int x, int y) const;
@@ -386,7 +386,7 @@ protected:
 
     /// @brief Draws a line with ticks, and the length information.
     void displayLegend();
-    
+
     /// @brief Draws a legend for the current edge coloring scheme
     void displayColorLegend();
 

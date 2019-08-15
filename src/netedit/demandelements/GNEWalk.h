@@ -44,25 +44,25 @@ public:
      * @param[in] personParent person parent
      * @param[in] walkTag walk type tag (edges or from/to)
      * @param[in] edges list of consecutive edges of this walk
-     * @param[in] arrivalPosition arrival position on the destination edge 
+     * @param[in] arrivalPosition arrival position on the destination edge
      */
-    GNEWalk(GNEViewNet* viewNet, GNEDemandElement *personParent, SumoXMLTag walkTag, const std::vector<GNEEdge*>& edges, double arrivalPosition);
+    GNEWalk(GNEViewNet* viewNet, GNEDemandElement* personParent, SumoXMLTag walkTag, const std::vector<GNEEdge*>& edges, double arrivalPosition);
 
     /**@brief parameter constructor
      * @param[in] viewNet view in which this Walk is placed
      * @param[in] personParent person parent
      * @param[in] edges list of consecutive edges of this walk
-     * @param[in] busStop destination busStop 
+     * @param[in] busStop destination busStop
      */
-    GNEWalk(GNEViewNet* viewNet, GNEDemandElement *personParent, const std::vector<GNEEdge*>& edges, GNEAdditional *busStop);
+    GNEWalk(GNEViewNet* viewNet, GNEDemandElement* personParent, const std::vector<GNEEdge*>& edges, GNEAdditional* busStop);
 
     /**@brief parameter constructor
      * @param[in] viewNet view in which this Walk is placed
      * @param[in] personParent person parent
      * @param[in] personParent route parent
-     * @param[in] arrivalPosition arrival position on the last route's edge 
+     * @param[in] arrivalPosition arrival position on the last route's edge
      */
-    GNEWalk(GNEViewNet* viewNet, GNEDemandElement *personParent, GNEDemandElement *routeParent, double arrivalPosition);
+    GNEWalk(GNEViewNet* viewNet, GNEDemandElement* personParent, GNEDemandElement* routeParent, double arrivalPosition);
 
     /// @brief destructor
     ~GNEWalk();
@@ -215,7 +215,7 @@ protected:
     /// @brief List of the via-edges that Person must visit
     std::vector<std::string> myVia;
 
-    /// @brief arrival position 
+    /// @brief arrival position
     double myArrivalPosition;
 
 private:

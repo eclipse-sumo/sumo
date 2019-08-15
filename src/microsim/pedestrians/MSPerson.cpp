@@ -279,8 +279,8 @@ MSPerson::MSPersonStage_Walking::tripInfoOutput(OutputDevice& os, const MSTransp
     os.writeAttr("departPos", myDepartPos);
     os.writeAttr("arrival", myArrived >= 0 ? time2string(myArrived) : "-1");
     os.writeAttr("arrivalPos", myArrivalPos);
-    os.writeAttr("duration", myDeparted < 0 ? "-1" : 
-            time2string(myArrived >= 0 ? duration : MSNet::getInstance()->getCurrentTimeStep() - myDeparted));
+    os.writeAttr("duration", myDeparted < 0 ? "-1" :
+                 time2string(myArrived >= 0 ? duration : MSNet::getInstance()->getCurrentTimeStep() - myDeparted));
     os.writeAttr("routeLength", distance);
     os.writeAttr("timeLoss", time2string(timeLoss));
     os.writeAttr("maxSpeed", maxSpeed);
@@ -477,8 +477,8 @@ MSPerson::MSPersonStage_Driving::tripInfoOutput(OutputDevice& os, const MSTransp
     os.writeAttr("depart", myDeparted >= 0 ? time2string(myDeparted) : "-1");
     os.writeAttr("arrival", myArrived >= 0 ? time2string(myArrived) : "-1");
     os.writeAttr("arrivalPos", toString(myArrivalPos));
-    os.writeAttr("duration", myArrived >= 0 ? time2string(duration) : 
-            (myDeparted >= 0 ? time2string(now - myDeparted) : "-1"));
+    os.writeAttr("duration", myArrived >= 0 ? time2string(duration) :
+                 (myDeparted >= 0 ? time2string(now - myDeparted) : "-1"));
     os.writeAttr("routeLength", myVehicleDistance);
     os.closeTag();
 }

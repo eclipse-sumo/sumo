@@ -186,7 +186,7 @@ enum GUIIcon {
     ICON_BIGARROWLEFT,
     ICON_BIGARROWRIGHT,
     /// @}
-    
+
     /// @name arrows
     /// @{
     ICON_ARROW_UP,

@@ -1010,7 +1010,7 @@ GNENet::retrieveJunction(const std::string& id, bool failHard) {
 }
 
 
-const GNENet::AttributeCarriers &
+const GNENet::AttributeCarriers&
 GNENet::getAttributeCarriers() const {
     return myAttributeCarriers;
 }
@@ -1756,13 +1756,13 @@ GNENet::removeSolitaryJunctions(GNEUndoList* undoList) {
 }
 
 
-void 
+void
 GNENet::cleanUnusedRoutes(GNEUndoList* undoList) {
     // first declare a vector to save all routes without children
     std::vector<GNEDemandElement*> routesWithoutChildren;
     routesWithoutChildren.reserve(myAttributeCarriers.demandElements.at(SUMO_TAG_ROUTE).size());
     // iterate over routes
-    for (const auto &i : myAttributeCarriers.demandElements.at(SUMO_TAG_ROUTE)) {
+    for (const auto& i : myAttributeCarriers.demandElements.at(SUMO_TAG_ROUTE)) {
         if (i.second->getDemandElementChildren().empty()) {
             routesWithoutChildren.push_back(i.second);
         }
@@ -1772,7 +1772,7 @@ GNENet::cleanUnusedRoutes(GNEUndoList* undoList) {
         // begin undo list
         undoList->p_begin("clean unused routes");
         // iterate over routesWithoutChildren
-        for (const auto &i : routesWithoutChildren) {
+        for (const auto& i : routesWithoutChildren) {
             // due route doesn't have children, simply call GNEChange_DemandElement
             undoList->add(new GNEChange_DemandElement(i, false), true);
         }
@@ -1784,15 +1784,15 @@ GNENet::cleanUnusedRoutes(GNEUndoList* undoList) {
 }
 
 
-void 
+void
 GNENet::joinRoutes(GNEUndoList* undoList) {
     // first declare a sorted set of sorted route's edges in string format
     std::set<std::pair<std::string, GNEDemandElement*> > mySortedRoutes;
     // iterate over routes and save it in mySortedRoutes  (only if it doesn't have Stop Children)
-    for (const auto &i : myAttributeCarriers.demandElements.at(SUMO_TAG_ROUTE)) {
+    for (const auto& i : myAttributeCarriers.demandElements.at(SUMO_TAG_ROUTE)) {
         // first check route has stops
         bool hasStops = false;
-        for (const auto &j : i.second->getDemandElementChildren()) {
+        for (const auto& j : i.second->getDemandElementChildren()) {
             if (j->getTagProperty().isStop()) {
                 hasStops = true;
             }
@@ -1819,7 +1819,7 @@ GNENet::joinRoutes(GNEUndoList* undoList) {
     }
     // now check if there is routes to merge
     bool thereIsRoutesToMerge = false;
-    for (const auto &i : routesToMerge) {
+    for (const auto& i : routesToMerge) {
         if (i.size() > 1) {
             thereIsRoutesToMerge = true;
         }
@@ -1829,7 +1829,7 @@ GNENet::joinRoutes(GNEUndoList* undoList) {
         // begin undo list
         undoList->p_begin("merge routes");
         // iterate over route to edges
-        for (const auto &i : routesToMerge) {
+        for (const auto& i : routesToMerge) {
             if (i.size() > 1) {
                 // iterate over duplicated routes
                 for (int j = 1; j < (int)i.size(); j++) {
@@ -1848,29 +1848,29 @@ GNENet::joinRoutes(GNEUndoList* undoList) {
         undoList->p_end();
     }
 }
-    
 
-void 
+
+void
 GNENet::cleanInvalidDemandElements(GNEUndoList* undoList) {
     // first declare a vector to save all invalid demand elements
     std::vector<GNEDemandElement*> invalidDemandElements;
-    invalidDemandElements.reserve(myAttributeCarriers.demandElements.at(SUMO_TAG_ROUTE).size() + 
-                                  myAttributeCarriers.demandElements.at(SUMO_TAG_FLOW).size() + 
+    invalidDemandElements.reserve(myAttributeCarriers.demandElements.at(SUMO_TAG_ROUTE).size() +
+                                  myAttributeCarriers.demandElements.at(SUMO_TAG_FLOW).size() +
                                   myAttributeCarriers.demandElements.at(SUMO_TAG_TRIP).size());
     // iterate over routes
-    for (const auto &i : myAttributeCarriers.demandElements.at(SUMO_TAG_ROUTE)) {
+    for (const auto& i : myAttributeCarriers.demandElements.at(SUMO_TAG_ROUTE)) {
         if (!i.second->isDemandElementValid()) {
             invalidDemandElements.push_back(i.second);
         }
     }
     // iterate over flows
-    for (const auto &i : myAttributeCarriers.demandElements.at(SUMO_TAG_FLOW)) {
+    for (const auto& i : myAttributeCarriers.demandElements.at(SUMO_TAG_FLOW)) {
         if (!i.second->isDemandElementValid()) {
             invalidDemandElements.push_back(i.second);
         }
     }
     // iterate over trip
-    for (const auto &i : myAttributeCarriers.demandElements.at(SUMO_TAG_TRIP)) {
+    for (const auto& i : myAttributeCarriers.demandElements.at(SUMO_TAG_TRIP)) {
         if (!i.second->isDemandElementValid()) {
             invalidDemandElements.push_back(i.second);
         }
@@ -1880,7 +1880,7 @@ GNENet::cleanInvalidDemandElements(GNEUndoList* undoList) {
         // begin undo list
         undoList->p_begin("remove invalid demand elements");
         // iterate over invalidDemandElements
-        for (const auto &i : invalidDemandElements) {
+        for (const auto& i : invalidDemandElements) {
             // simply call GNEChange_DemandElement
             undoList->add(new GNEChange_DemandElement(i, false), true);
         }
@@ -2410,7 +2410,7 @@ GNENet::isDemandElementsSaved() const {
 
 
 std::string
-GNENet::generateDemandElementID(const std::string &prefix, SumoXMLTag type) const {
+GNENet::generateDemandElementID(const std::string& prefix, SumoXMLTag type) const {
     int counter = 0;
     while (myAttributeCarriers.demandElements.at(type).count(prefix + toString(type) + "_" + toString(counter)) != 0) {
         counter++;

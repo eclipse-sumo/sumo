@@ -368,7 +368,6 @@ class Connection:
         warnings.warn("Cannot remove unknown listener %s.\nlisteners:%s" % (listenerID, self._stepListeners))
         return False
 
-
     def getVersion(self):
         command = tc.CMD_GETVERSION
         self._queue.append(command)

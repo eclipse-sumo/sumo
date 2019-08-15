@@ -262,18 +262,18 @@ void
 ShapeContainer::clearHighlights(const std::string& objectID, SUMOPolygon* p) {
     auto i = myHighlightPolygons.find(objectID);
     if (i != myHighlightPolygons.end()) {
-    	auto j = i->second.begin();
-    	while (j != i->second.end()) {
-    		if (j->second == p->getID()) {
-    			i->second.erase(j);
-				break;
-    		} else {
-    			++j;
-    		}
-    	}
-    	if (i->second.empty()) {
-    		myHighlightPolygons.erase(i);
-    	}
+        auto j = i->second.begin();
+        while (j != i->second.end()) {
+            if (j->second == p->getID()) {
+                i->second.erase(j);
+                break;
+            } else {
+                ++j;
+            }
+        }
+        if (i->second.empty()) {
+            myHighlightPolygons.erase(i);
+        }
     }
 }
 
@@ -290,7 +290,7 @@ ShapeContainer::removeTrackers(std::string objectID) {
 #ifdef DEBUG_DYNAMIC_SHAPES
         std::cout << " Removing tracking polygons for object '" << objectID << "'" << std::endl;
 #endif
-        while(!i->second.empty()) {
+        while (!i->second.empty()) {
             removePolygon((*i->second.begin())->getID());
         }
         myTrackingPolygons.erase(i);

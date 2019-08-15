@@ -263,7 +263,7 @@ Simulation::getEndingTeleportIDList() {
 std::vector<std::string>
 Simulation::getBusStopIDList() {
     std::vector<std::string> result;
-    for(const auto pair : MSNet::getInstance()->getStoppingPlaces(SUMO_TAG_BUS_STOP)) {
+    for (const auto pair : MSNet::getInstance()->getStoppingPlaces(SUMO_TAG_BUS_STOP)) {
         result.push_back(pair.first);
     }
     return result;
@@ -279,11 +279,11 @@ Simulation::getBusStopWaiting(const std::string& id) {
 }
 
 std::vector<std::string>
-Simulation::getBusStopWaitingIDList(const std::string& id){
+Simulation::getBusStopWaitingIDList(const std::string& id) {
     MSStoppingPlace* s = MSNet::getInstance()->getStoppingPlace(id, SUMO_TAG_BUS_STOP);
     std::vector<MSTransportable*> transportables = s->getTransportables();
     std::vector<std::string> result;
-    for(std::vector<MSTransportable*>::iterator it = transportables.begin(); it != transportables.end(); it++){
+    for (std::vector<MSTransportable*>::iterator it = transportables.begin(); it != transportables.end(); it++) {
         result.push_back((*it)->getID());
     }
     return result;
@@ -648,7 +648,7 @@ Simulation::getParameter(const std::string& objectID, const std::string& key) {
         } else if (pa->knowsParameter(attrName)) {
             return pa->getParameter(attrName);
         } else {
-                throw TraCIException("Invalid parkingArea parameter '" + attrName + "'");
+            throw TraCIException("Invalid parkingArea parameter '" + attrName + "'");
         }
     } else if (StringUtils::startsWith(key, "busStop.")) {
         const std::string attrName = key.substr(8);

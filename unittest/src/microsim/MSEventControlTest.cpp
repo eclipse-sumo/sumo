@@ -14,7 +14,7 @@
 /// @date    2009-11-23
 /// @version $Id$
 ///
-// Tests the class MSEventControl  
+// Tests the class MSEventControl
 /****************************************************************************/
 
 #include <gtest/gtest.h>
@@ -25,12 +25,12 @@
 /* Test the method 'execute'. Tests if the execute method from the Command Class is called.*/
 
 TEST(MSEventControl, test_method_execute) {
-    
+
     MSEventControl eventControl;
-    CommandMock *mock = new CommandMock(); 
+    CommandMock* mock = new CommandMock();
     eventControl.setCurrentTimeStep(4);
     eventControl.addEvent(mock);
-    
+
     EXPECT_FALSE(mock->isExecuteCalled());
     eventControl.execute(5);
     EXPECT_TRUE(mock->isExecuteCalled());

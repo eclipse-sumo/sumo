@@ -49,7 +49,7 @@ GNEHierarchicalElementChildren::GNEHierarchicalElementChildren(GNEAttributeCarri
     myAC(AC) {
     // fill SortedDemandElementChildrenByType with all demand element tags (it's needed because getSortedDemandElementChildrenByType(...) function is constant
     auto listOfTags = GNEAttributeCarrier::allowedTagsByCategory(GNEAttributeCarrier::TagType::TAGTYPE_DEMANDELEMENT, false);
-    for (const auto &i : listOfTags) {
+    for (const auto& i : listOfTags) {
         mySortedDemandElementChildrenByType[i];
     }
 }
@@ -58,9 +58,9 @@ GNEHierarchicalElementChildren::GNEHierarchicalElementChildren(GNEAttributeCarri
 GNEHierarchicalElementChildren::~GNEHierarchicalElementChildren() {}
 
 
-const Position &
+const Position&
 GNEHierarchicalElementChildren::getChildPosition(const GNELane* lane) {
-    for (const auto &i : myChildConnections.symbolsPositionAndRotation) {
+    for (const auto& i : myChildConnections.symbolsPositionAndRotation) {
         if (i.lane == lane) {
             return i.pos;
         }
@@ -69,9 +69,9 @@ GNEHierarchicalElementChildren::getChildPosition(const GNELane* lane) {
 }
 
 
-double 
+double
 GNEHierarchicalElementChildren::getChildRotation(const GNELane* lane) {
-    for (const auto &i : myChildConnections.symbolsPositionAndRotation) {
+    for (const auto& i : myChildConnections.symbolsPositionAndRotation) {
         if (i.lane == lane) {
             return i.rot;
         }
@@ -86,7 +86,7 @@ GNEHierarchicalElementChildren::updateChildConnections() {
 }
 
 
-void 
+void
 GNEHierarchicalElementChildren::drawChildConnections(const GUIVisualizationSettings& s, const GUIGlObjectType GLTypeParent) const {
     myChildConnections.draw(s, GLTypeParent);
 }
@@ -299,7 +299,7 @@ GNEHierarchicalElementChildren::getDemandElementChildren() const {
 }
 
 
-const std::set<GNEDemandElement*>& 
+const std::set<GNEDemandElement*>&
 GNEHierarchicalElementChildren::getSortedDemandElementChildrenByType(SumoXMLTag tag) const {
     return mySortedDemandElementChildrenByType.at(tag);
 }
@@ -317,7 +317,7 @@ GNEHierarchicalElementChildren::checkDemandElementChildrenOverlapping() const {
 }
 
 
-GNEDemandElement *
+GNEDemandElement*
 GNEHierarchicalElementChildren::getPreviousemandElement(const GNEDemandElement* demandElement) const {
     // find demand element child
     auto it = std::find(myDemandElementChildren.begin(), myDemandElementChildren.end(), demandElement);
@@ -327,22 +327,22 @@ GNEHierarchicalElementChildren::getPreviousemandElement(const GNEDemandElement* 
     } else if (it == myDemandElementChildren.begin()) {
         return nullptr;
     } else {
-        return *(it-1);
+        return *(it - 1);
     }
 }
 
 
-GNEDemandElement *
+GNEDemandElement*
 GNEHierarchicalElementChildren::getNextDemandElement(const GNEDemandElement* demandElement) const {
     // find demand element child
     auto it = std::find(myDemandElementChildren.begin(), myDemandElementChildren.end(), demandElement);
     // return element or null depending of iterator
     if (it == myDemandElementChildren.end()) {
         return nullptr;
-    } else if (it == (myDemandElementChildren.end()-1)) {
+    } else if (it == (myDemandElementChildren.end() - 1)) {
         return nullptr;
     } else {
-        return *(it+1);
+        return *(it + 1);
     }
 }
 
@@ -497,15 +497,15 @@ GNEHierarchicalElementChildren::changeLaneChildren(GNEAdditional* elementChild, 
 // ---------------------------------------------------------------------------
 
 GNEHierarchicalElementChildren::ChildConnections::ConnectionGeometry::ConnectionGeometry() :
-    lane(nullptr), 
-    pos(Position::INVALID), 
+    lane(nullptr),
+    pos(Position::INVALID),
     rot(0) {
 }
 
 
 GNEHierarchicalElementChildren::ChildConnections::ConnectionGeometry::ConnectionGeometry(GNELane* _lane, Position _pos, double _rot) :
-    lane(_lane), 
-    pos(_pos), 
+    lane(_lane),
+    pos(_pos),
     rot(_rot) {
 }
 
@@ -606,7 +606,7 @@ GNEHierarchicalElementChildren::ChildConnections::draw(const GUIVisualizationSet
     // first check if connections can be drawn
     if (!s.drawForSelecting) {
         // Iterate over myConnectionPositions
-        for (const auto &i : connectionPositions) {
+        for (const auto& i : connectionPositions) {
             // Add a draw matrix
             glPushMatrix();
             // traslate in the Z axis

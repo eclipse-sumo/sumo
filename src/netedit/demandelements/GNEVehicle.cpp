@@ -61,7 +61,7 @@ FXIMPLEMENT(GNEVehicle::GNESelectedVehiclesPopupMenu,   GUIGLObjectPopupMenu,   
 // GNEVehicle::GNESingleVehiclePopupMenu
 // ===========================================================================
 
-GNEVehicle::GNESingleVehiclePopupMenu::GNESingleVehiclePopupMenu(GNEVehicle *vehicle, GUIMainWindow& app, GUISUMOAbstractView& parent) :
+GNEVehicle::GNESingleVehiclePopupMenu::GNESingleVehiclePopupMenu(GNEVehicle* vehicle, GUIMainWindow& app, GUISUMOAbstractView& parent) :
     GUIGLObjectPopupMenu(app, parent, *vehicle),
     myVehicle(vehicle),
     myTransformToVehicle(nullptr),
@@ -69,7 +69,7 @@ GNEVehicle::GNESingleVehiclePopupMenu::GNESingleVehiclePopupMenu(GNEVehicle *veh
     myTransformToRouteFlow(nullptr),
     myTransformToRouteFlowWithEmbeddedRoute(nullptr),
     myTransformToTrip(nullptr),
-    myTransformToFlow(nullptr) { 
+    myTransformToFlow(nullptr) {
     // build header
     myVehicle->buildPopupHeader(this, app);
     // build menu command for center button and copy cursor position to clipboard
@@ -87,8 +87,8 @@ GNEVehicle::GNESingleVehiclePopupMenu::GNESingleVehiclePopupMenu(GNEVehicle *veh
         // Get icons
         FXIcon* vehicleIcon = GUIIconSubSys::getIcon(ICON_VEHICLE);
         FXIcon* tripIcon = GUIIconSubSys::getIcon(ICON_TRIP);
-        FXIcon* routeFlowIcon= GUIIconSubSys::getIcon(ICON_ROUTEFLOW);
-        FXIcon* flowIcon= GUIIconSubSys::getIcon(ICON_FLOW);
+        FXIcon* routeFlowIcon = GUIIconSubSys::getIcon(ICON_ROUTEFLOW);
+        FXIcon* flowIcon = GUIIconSubSys::getIcon(ICON_FLOW);
         // create menu pane for transform operations
         FXMenuPane* transformOperation = new FXMenuPane(this);
         this->insertMenuPaneChild(transformOperation);
@@ -131,13 +131,13 @@ GNEVehicle::GNESingleVehiclePopupMenu::onCmdTransform(FXObject* obj, FXSelector,
         GNERouteHandler::transformToVehicle(myVehicle, false);
     } else if (obj == myTransformToVehicleWithEmbeddedRoute) {
         GNERouteHandler::transformToVehicle(myVehicle, true);
-    } else if (obj == myTransformToRouteFlow) { 
+    } else if (obj == myTransformToRouteFlow) {
         GNERouteHandler::transformToRouteFlow(myVehicle, false);
-    } else if (obj == myTransformToRouteFlowWithEmbeddedRoute) { 
+    } else if (obj == myTransformToRouteFlowWithEmbeddedRoute) {
         GNERouteHandler::transformToRouteFlow(myVehicle, true);
-    } else if (obj == myTransformToTrip) { 
+    } else if (obj == myTransformToTrip) {
         GNERouteHandler::transformToTrip(myVehicle);
-    } else if (obj == myTransformToFlow) { 
+    } else if (obj == myTransformToFlow) {
         GNERouteHandler::transformToFlow(myVehicle);
     }
     return 1;
@@ -147,7 +147,7 @@ GNEVehicle::GNESingleVehiclePopupMenu::onCmdTransform(FXObject* obj, FXSelector,
 // GNEVehicle::GNESelectedVehiclesPopupMenu
 // ===========================================================================
 
-GNEVehicle::GNESelectedVehiclesPopupMenu::GNESelectedVehiclesPopupMenu(GNEVehicle *vehicle, const std::vector<GNEVehicle*> &selectedVehicle, GUIMainWindow& app, GUISUMOAbstractView& parent) :
+GNEVehicle::GNESelectedVehiclesPopupMenu::GNESelectedVehiclesPopupMenu(GNEVehicle* vehicle, const std::vector<GNEVehicle*>& selectedVehicle, GUIMainWindow& app, GUISUMOAbstractView& parent) :
     GUIGLObjectPopupMenu(app, parent, *vehicle),
     mySelectedVehicles(selectedVehicle),
     myVehicleTag(vehicle->getTagProperty().getTag()),
@@ -162,7 +162,7 @@ GNEVehicle::GNESelectedVehiclesPopupMenu::GNESelectedVehiclesPopupMenu(GNEVehicl
     myTransformAllVehiclesToRouteFlow(nullptr),
     myTransformAllVehiclesToRouteFlowWithEmbeddedRoute(nullptr),
     myTransformAllVehiclesToTrip(nullptr),
-    myTransformAllVehiclesToFlow(nullptr) { 
+    myTransformAllVehiclesToFlow(nullptr) {
     // build header
     vehicle->buildPopupHeader(this, app);
     // build menu command for center button and copy cursor position to clipboard
@@ -180,25 +180,25 @@ GNEVehicle::GNESelectedVehiclesPopupMenu::GNESelectedVehiclesPopupMenu(GNEVehicl
         // Get icons
         FXIcon* vehicleIcon = GUIIconSubSys::getIcon(ICON_VEHICLE);
         FXIcon* tripIcon = GUIIconSubSys::getIcon(ICON_TRIP);
-        FXIcon* routeFlowIcon= GUIIconSubSys::getIcon(ICON_ROUTEFLOW);
-        FXIcon* flowIcon= GUIIconSubSys::getIcon(ICON_FLOW);
+        FXIcon* routeFlowIcon = GUIIconSubSys::getIcon(ICON_ROUTEFLOW);
+        FXIcon* flowIcon = GUIIconSubSys::getIcon(ICON_FLOW);
         // create menu pane for transform operations
         FXMenuPane* transformOperation = new FXMenuPane(this);
         this->insertMenuPaneChild(transformOperation);
         new FXMenuCascade(this, "transform to", nullptr, transformOperation);
         // Create menu comands for all transform
-        myTransformToVehicle = new FXMenuCommand(transformOperation, 
-            ("Vehicles (Only " + vehicle->getTagStr() + ")").c_str(), vehicleIcon, this, MID_GNE_VEHICLE_TRANSFORM);
-        myTransformToVehicleWithEmbeddedRoute = new FXMenuCommand(transformOperation, 
-            ("Vehicles (embedded route, only " + vehicle->getTagStr() + ")").c_str(), vehicleIcon, this, MID_GNE_VEHICLE_TRANSFORM);
-        myTransformToRouteFlow = new FXMenuCommand(transformOperation, 
-            ("RouteFlows (Only " + vehicle->getTagStr() + ")").c_str(), routeFlowIcon, this, MID_GNE_VEHICLE_TRANSFORM);
-        myTransformToRouteFlowWithEmbeddedRoute = new FXMenuCommand(transformOperation, 
-            ("RouteFlows (embedded route, only " + vehicle->getTagStr() + ")").c_str(), routeFlowIcon, this, MID_GNE_VEHICLE_TRANSFORM);
-        myTransformToTrip = new FXMenuCommand(transformOperation, 
-            ("Trips (Only " + vehicle->getTagStr() + ")").c_str(), tripIcon, this, MID_GNE_VEHICLE_TRANSFORM);
-        myTransformToFlow = new FXMenuCommand(transformOperation, 
-            ("Flows (Only " + vehicle->getTagStr() + ")").c_str(), flowIcon, this, MID_GNE_VEHICLE_TRANSFORM);
+        myTransformToVehicle = new FXMenuCommand(transformOperation,
+                ("Vehicles (Only " + vehicle->getTagStr() + ")").c_str(), vehicleIcon, this, MID_GNE_VEHICLE_TRANSFORM);
+        myTransformToVehicleWithEmbeddedRoute = new FXMenuCommand(transformOperation,
+                ("Vehicles (embedded route, only " + vehicle->getTagStr() + ")").c_str(), vehicleIcon, this, MID_GNE_VEHICLE_TRANSFORM);
+        myTransformToRouteFlow = new FXMenuCommand(transformOperation,
+                ("RouteFlows (Only " + vehicle->getTagStr() + ")").c_str(), routeFlowIcon, this, MID_GNE_VEHICLE_TRANSFORM);
+        myTransformToRouteFlowWithEmbeddedRoute = new FXMenuCommand(transformOperation,
+                ("RouteFlows (embedded route, only " + vehicle->getTagStr() + ")").c_str(), routeFlowIcon, this, MID_GNE_VEHICLE_TRANSFORM);
+        myTransformToTrip = new FXMenuCommand(transformOperation,
+                                              ("Trips (Only " + vehicle->getTagStr() + ")").c_str(), tripIcon, this, MID_GNE_VEHICLE_TRANSFORM);
+        myTransformToFlow = new FXMenuCommand(transformOperation,
+                                              ("Flows (Only " + vehicle->getTagStr() + ")").c_str(), flowIcon, this, MID_GNE_VEHICLE_TRANSFORM);
         // create separator
         new FXMenuSeparator(transformOperation);
         // Create menu comands for all transform all vehicles
@@ -218,36 +218,36 @@ GNEVehicle::GNESelectedVehiclesPopupMenu::~GNESelectedVehiclesPopupMenu() {}
 long
 GNEVehicle::GNESelectedVehiclesPopupMenu::onCmdTransform(FXObject* obj, FXSelector, void*) {
     // iterate over all selected vehicles
-    for (const auto &i : mySelectedVehicles) {
-        if ((obj == myTransformToVehicle) && 
-            (i->getTagProperty().getTag() == myVehicleTag)) {
+    for (const auto& i : mySelectedVehicles) {
+        if ((obj == myTransformToVehicle) &&
+                (i->getTagProperty().getTag() == myVehicleTag)) {
             GNERouteHandler::transformToVehicle(i, false);
-        } else if ((obj == myTransformToVehicleWithEmbeddedRoute) && 
-            (i->getTagProperty().getTag() == myVehicleTag)) {
+        } else if ((obj == myTransformToVehicleWithEmbeddedRoute) &&
+                   (i->getTagProperty().getTag() == myVehicleTag)) {
             GNERouteHandler::transformToVehicle(i, true);
-        } else if ((obj == myTransformToRouteFlow) && 
-            (i->getTagProperty().getTag() == myVehicleTag)) { 
+        } else if ((obj == myTransformToRouteFlow) &&
+                   (i->getTagProperty().getTag() == myVehicleTag)) {
             GNERouteHandler::transformToRouteFlow(i, false);
-        } else if ((obj == myTransformToRouteFlowWithEmbeddedRoute) && 
-            (i->getTagProperty().getTag() == myVehicleTag)) { 
+        } else if ((obj == myTransformToRouteFlowWithEmbeddedRoute) &&
+                   (i->getTagProperty().getTag() == myVehicleTag)) {
             GNERouteHandler::transformToRouteFlow(i, true);
-        } else if ((obj == myTransformToTrip) && 
-            (i->getTagProperty().getTag() == myVehicleTag)) { 
+        } else if ((obj == myTransformToTrip) &&
+                   (i->getTagProperty().getTag() == myVehicleTag)) {
             GNERouteHandler::transformToTrip(i);
-        } else if ((obj == myTransformToFlow) && 
-            (i->getTagProperty().getTag() == myVehicleTag)) { 
+        } else if ((obj == myTransformToFlow) &&
+                   (i->getTagProperty().getTag() == myVehicleTag)) {
             GNERouteHandler::transformToFlow(i);
         } else if (obj == myTransformAllVehiclesToVehicle) {
             GNERouteHandler::transformToVehicle(i, false);
         } else if (obj == myTransformAllVehiclesToVehicleWithEmbeddedRoute) {
             GNERouteHandler::transformToVehicle(i, true);
-        } else if (obj == myTransformAllVehiclesToRouteFlow) { 
+        } else if (obj == myTransformAllVehiclesToRouteFlow) {
             GNERouteHandler::transformToRouteFlow(i, false);
-        } else if (obj == myTransformAllVehiclesToRouteFlowWithEmbeddedRoute) { 
+        } else if (obj == myTransformAllVehiclesToRouteFlowWithEmbeddedRoute) {
             GNERouteHandler::transformToRouteFlow(i, true);
-        } else if (obj == myTransformAllVehiclesToTrip) { 
+        } else if (obj == myTransformAllVehiclesToTrip) {
             GNERouteHandler::transformToTrip(i);
-        } else if (obj == myTransformAllVehiclesToFlow) { 
+        } else if (obj == myTransformAllVehiclesToFlow) {
             GNERouteHandler::transformToFlow(i);
         }
     }
@@ -260,8 +260,8 @@ GNEVehicle::GNESelectedVehiclesPopupMenu::onCmdTransform(FXObject* obj, FXSelect
 
 GNEVehicle::GNEVehicle(SumoXMLTag tag, GNEViewNet* viewNet, const std::string& vehicleID, GNEDemandElement* vehicleType, GNEDemandElement* route) :
     GNEDemandElement(vehicleID, viewNet, (tag == SUMO_TAG_ROUTEFLOW) ? GLO_ROUTEFLOW : GLO_VEHICLE, tag,
-    {}, {}, {}, {}, {vehicleType, route}, {}, {}, {}, {}, {}),
-    SUMOVehicleParameter() {
+{}, {}, {}, {}, {vehicleType, route}, {}, {}, {}, {}, {}),
+SUMOVehicleParameter() {
     // SUMOVehicleParameter ID has to be set manually
     id = vehicleID;
     // set manually vtypeID (needed for saving)
@@ -271,8 +271,8 @@ GNEVehicle::GNEVehicle(SumoXMLTag tag, GNEViewNet* viewNet, const std::string& v
 
 GNEVehicle::GNEVehicle(GNEViewNet* viewNet, GNEDemandElement* vehicleType, GNEDemandElement* route, const SUMOVehicleParameter& vehicleParameters) :
     GNEDemandElement(vehicleParameters.id, viewNet, (vehicleParameters.tag == SUMO_TAG_ROUTEFLOW) ? GLO_ROUTEFLOW : GLO_VEHICLE, vehicleParameters.tag,
-    {}, {}, {}, {}, {vehicleType, route}, {}, {}, {}, {}, {}),
-    SUMOVehicleParameter(vehicleParameters) {
+{}, {}, {}, {}, {vehicleType, route}, {}, {}, {}, {}, {}),
+SUMOVehicleParameter(vehicleParameters) {
     // SUMOVehicleParameter ID has to be set manually
     id = vehicleParameters.id;
     // set manually vtypeID (needed for saving)
@@ -282,8 +282,8 @@ GNEVehicle::GNEVehicle(GNEViewNet* viewNet, GNEDemandElement* vehicleType, GNEDe
 
 GNEVehicle::GNEVehicle(GNEViewNet* viewNet, GNEDemandElement* vehicleType, const SUMOVehicleParameter& vehicleParameters) :
     GNEDemandElement(vehicleParameters.id, viewNet, (vehicleParameters.tag == SUMO_TAG_ROUTEFLOW) ? GLO_ROUTEFLOW : GLO_VEHICLE, vehicleParameters.tag,
-    {}, {}, {}, {}, {vehicleType}, {}, {}, {}, {}, {}),
-    SUMOVehicleParameter(vehicleParameters) {
+{}, {}, {}, {}, {vehicleType}, {}, {}, {}, {}, {}),
+SUMOVehicleParameter(vehicleParameters) {
     // SUMOVehicleParameter ID has to be set manually
     id = vehicleParameters.id;
     // reset routeid
@@ -294,16 +294,18 @@ GNEVehicle::GNEVehicle(GNEViewNet* viewNet, GNEDemandElement* vehicleType, const
 
 
 GNEVehicle::GNEVehicle(SumoXMLTag tag, GNEViewNet* viewNet, const std::string& vehicleID, GNEDemandElement* vehicleType, const std::vector<GNEEdge*>& edges) :
-    GNEDemandElement(vehicleID, viewNet, (tag == SUMO_TAG_FLOW) ? GLO_FLOW : GLO_TRIP, tag,
-    {edges}, {}, {}, {}, {vehicleType}, {}, {}, {}, {}, {}),
-    SUMOVehicleParameter() {
+    GNEDemandElement(vehicleID, viewNet, (tag == SUMO_TAG_FLOW) ? GLO_FLOW : GLO_TRIP, tag, {
+    edges
+}, {}, {}, {}, {vehicleType}, {}, {}, {}, {}, {}),
+SUMOVehicleParameter() {
 }
 
 
 GNEVehicle::GNEVehicle(GNEViewNet* viewNet, GNEDemandElement* vehicleType, const std::vector<GNEEdge*>& edges, const SUMOVehicleParameter& vehicleParameters) :
-    GNEDemandElement(vehicleParameters.id, viewNet, (vehicleParameters.tag == SUMO_TAG_FLOW) ? GLO_FLOW : GLO_TRIP, vehicleParameters.tag,
-    {edges}, {}, {}, {}, {vehicleType}, {}, {}, {}, {}, {}),
-    SUMOVehicleParameter(vehicleParameters) {
+    GNEDemandElement(vehicleParameters.id, viewNet, (vehicleParameters.tag == SUMO_TAG_FLOW) ? GLO_FLOW : GLO_TRIP, vehicleParameters.tag, {
+    edges
+}, {}, {}, {}, {vehicleType}, {}, {}, {}, {}, {}),
+SUMOVehicleParameter(vehicleParameters) {
 }
 
 
@@ -344,7 +346,7 @@ GNEVehicle::getColor() const {
 void
 GNEVehicle::writeDemandElement(OutputDevice& device) const {
     // obtain tag depending if tagProperty has a synonym
-    SumoXMLTag synonymTag = myTagProperty.hasTagSynonym()? myTagProperty.getTagSynonym() : myTagProperty.getTag();
+    SumoXMLTag synonymTag = myTagProperty.hasTagSynonym() ? myTagProperty.getTagSynonym() : myTagProperty.getTag();
     // attribute VType musn't be written if is DEFAULT_VTYPE_ID
     if (getDemandElementParents().at(0)->getID() == DEFAULT_VTYPE_ID) {
         // unset VType parameter
@@ -361,14 +363,14 @@ GNEVehicle::writeDemandElement(OutputDevice& device) const {
     if ((getDemandElementParents().size() == 2) && (myTagProperty.getTag() == SUMO_TAG_VEHICLE || myTagProperty.getTag() == SUMO_TAG_ROUTEFLOW)) {
         // write manually route
         device.writeAttr(SUMO_ATTR_ROUTE, getDemandElementParents().at(1)->getID());
-    } 
+    }
     // write from, to and edge vias
     if ((myTagProperty.getTag() == SUMO_TAG_TRIP) || (myTagProperty.getTag() == SUMO_TAG_FLOW)) {
         // write manually from/to edges (it correspond to fron and back edge parents)
         device.writeAttr(SUMO_ATTR_FROM, getEdgeParents().front()->getID());
         device.writeAttr(SUMO_ATTR_TO, getEdgeParents().back()->getID());
         // only write via if there isn't empty
-        if(via.size() > 0) {
+        if (via.size() > 0) {
             device.writeAttr(SUMO_ATTR_VIA, via);
         }
     }
@@ -422,7 +424,7 @@ GNEVehicle::isDemandElementValid() const {
 }
 
 
-std::string 
+std::string
 GNEVehicle::getDemandElementProblem() const {
     // only trips or flows can have problems
     if ((myTagProperty.getTag() == SUMO_TAG_TRIP) || (myTagProperty.getTag() == SUMO_TAG_FLOW)) {
@@ -440,19 +442,19 @@ GNEVehicle::getDemandElementProblem() const {
 }
 
 
-void 
+void
 GNEVehicle::fixDemandElementProblem() {
 
 }
 
 
-void 
+void
 GNEVehicle::startGeometryMoving() {
     // Vehicles cannot be moved
 }
 
 
-void 
+void
 GNEVehicle::endGeometryMoving() {
     // Vehicles cannot be moved
 }
@@ -471,7 +473,7 @@ GNEVehicle::commitGeometryMoving(GNEUndoList*) {
 
 
 void
-GNEVehicle::updateGeometry() {    
+GNEVehicle::updateGeometry() {
     // first check if geometry is deprecated
     if (myDemandElementSegmentGeometry.geometryDeprecated) {
         // clear geometry
@@ -479,20 +481,20 @@ GNEVehicle::updateGeometry() {
         // declare a matrix to save found connections
         std::vector<std::vector<ConnectionGeometry> > connectionGeometryMatrix;
         // iterate over edge parents
-        for (int i = 0; i < ((int)getEdgeParents().size()-1); i++) {
+        for (int i = 0; i < ((int)getEdgeParents().size() - 1); i++) {
             // add a new connection vector in matrix
             connectionGeometryMatrix.push_back(std::vector<ConnectionGeometry>());
             // obtain NBEdges from both edges
             NBEdge* nbFrom = getEdgeParents().at(i)->getNBEdge();
-            NBEdge* nbTo = getEdgeParents().at(i+1)->getNBEdge();
+            NBEdge* nbTo = getEdgeParents().at(i + 1)->getNBEdge();
             // iterate over all connections of NBFrom
             for (NBEdge::Connection c : nbFrom->getConnectionsFromLane(-1, nbTo, -1)) {
                 //check if given VClass is allowed for from and to lanes
                 if ((nbFrom->getPermissions(c.fromLane) & nbTo->getPermissions(c.toLane) & getVClass()) == getVClass()) {
                     // save connectionGeometry in Matrix
                     connectionGeometryMatrix.at(i).push_back(ConnectionGeometry(&c,
-                        getEdgeParents().at(i)->getLanes().at(c.fromLane), 
-                        getEdgeParents().at(i+1)->getLanes().at(c.toLane)));
+                            getEdgeParents().at(i)->getLanes().at(c.fromLane),
+                            getEdgeParents().at(i + 1)->getLanes().at(c.toLane)));
                 }
             }
         }
@@ -501,11 +503,11 @@ GNEVehicle::updateGeometry() {
         // iterate over connection geometry matrix
         for (int i = 0; i < (int)connectionGeometryMatrix.size(); i++) {
             // declare two "columns" (only to improve code legibility)
-            const auto &currentColumn = connectionGeometryMatrix.at(i);
-            const auto &nextColumn = ((i+1) < (int)connectionGeometryMatrix.size())? connectionGeometryMatrix.at(i+1): std::vector<ConnectionGeometry>();
+            const auto& currentColumn = connectionGeometryMatrix.at(i);
+            const auto& nextColumn = ((i + 1) < (int)connectionGeometryMatrix.size()) ? connectionGeometryMatrix.at(i + 1) : std::vector<ConnectionGeometry>();
             // obtain two from and to lanes
-            const GNELane *laneFrom = getEdgeParents().at(i)->getLaneByVClass(getVClass());
-            const GNELane *laneTo = getEdgeParents().at(i+1)->getLaneByVClass(getVClass());
+            const GNELane* laneFrom = getEdgeParents().at(i)->getLaneByVClass(getVClass());
+            const GNELane* laneTo = getEdgeParents().at(i + 1)->getLaneByVClass(getVClass());
             // check if current matrix column has a connection geometry
             if (currentColumn.empty()) {
                 // insert a connection Geometry without NBEdge::Connection
@@ -519,7 +521,7 @@ GNEVehicle::updateGeometry() {
                 // iterate over  all connections and take the first connection that have the same from and to edge
                 for (auto currentConnection = currentColumn.begin(); currentConnection != currentColumn.end() && !stop; currentConnection++) {
                     // obtain previous and next lanes
-                    const GNELane *previousLane = (connectionGeometriesFiltered.size() > 0)? connectionGeometriesFiltered.back().laneTo : nullptr;
+                    const GNELane* previousLane = (connectionGeometriesFiltered.size() > 0) ? connectionGeometriesFiltered.back().laneTo : nullptr;
                     // check if previous lane exist
                     if (previousLane) {
                         // first case: exist a previous lane. Then try to find a connection between previousLane and next connection
@@ -552,62 +554,62 @@ GNEVehicle::updateGeometry() {
             // check if this is the first geometry connection
             if (connectionGeometry == connectionGeometriesFiltered.begin()) {
                 // obtain lane geometry
-                 auto laneGeometry = (connectionGeometry->laneFrom)? connectionGeometry->laneFrom->getGeometry() : getEdgeParents().at(0)->getLaneByVClass(getVClass())->getGeometry();
+                auto laneGeometry = (connectionGeometry->laneFrom) ? connectionGeometry->laneFrom->getGeometry() : getEdgeParents().at(0)->getLaneByVClass(getVClass())->getGeometry();
                 // add lane shape in segments geometry
                 for (int i = 0; i < (int)laneGeometry.shape.size(); i++) {
                     if (i < (int)laneGeometry.shape.size() - 1) {
-                        myDemandElementSegmentGeometry.insertEdgeLengthRotSegment(this, getEdgeParents().at(0), 
-                            laneGeometry.shape[i],
-                            laneGeometry.shapeLengths[i],
-                            laneGeometry.shapeRotations[i], true, true);
+                        myDemandElementSegmentGeometry.insertEdgeLengthRotSegment(this, getEdgeParents().at(0),
+                                laneGeometry.shape[i],
+                                laneGeometry.shapeLengths[i],
+                                laneGeometry.shapeRotations[i], true, true);
                     } else {
-                        myDemandElementSegmentGeometry.insertEdgeSegment(this, getEdgeParents().at(0), 
-                            laneGeometry.shape[i], true, true);
+                        myDemandElementSegmentGeometry.insertEdgeSegment(this, getEdgeParents().at(0),
+                                laneGeometry.shape[i], true, true);
                     }
                 }
             }
             // check if connection exist
             if (connectionGeometry->con) {
                 // add connection shape in in segments geometry
-                for (const auto &connectionShapePos : connectionGeometry->connectionShape) {
+                for (const auto& connectionShapePos : connectionGeometry->connectionShape) {
                     myDemandElementSegmentGeometry.insertJunctionSegment(this, connectionGeometry->laneFrom->getParentEdge().getGNEJunctionDestiny(), connectionShapePos, true, true);
                 }
                 // add lane shape in segments geometry using laneTo of current correnction
                 for (int i = 0; i < (int)connectionGeometry->laneTo->getGeometry().shape.size(); i++) {
                     if (i < (int)connectionGeometry->laneTo->getGeometry().shape.size() - 1) {
-                        myDemandElementSegmentGeometry.insertEdgeLengthRotSegment(this, &connectionGeometry->laneTo->getParentEdge(), 
-                            connectionGeometry->laneTo->getGeometry().shape[i],
-                            connectionGeometry->laneTo->getGeometry().shapeLengths[i],
-                            connectionGeometry->laneTo->getGeometry().shapeRotations[i], true, true);
+                        myDemandElementSegmentGeometry.insertEdgeLengthRotSegment(this, &connectionGeometry->laneTo->getParentEdge(),
+                                connectionGeometry->laneTo->getGeometry().shape[i],
+                                connectionGeometry->laneTo->getGeometry().shapeLengths[i],
+                                connectionGeometry->laneTo->getGeometry().shapeRotations[i], true, true);
                     } else {
-                        myDemandElementSegmentGeometry.insertEdgeSegment(this, &connectionGeometry->laneTo->getParentEdge(), 
-                            connectionGeometry->laneTo->getGeometry().shape[i], true, true);
+                        myDemandElementSegmentGeometry.insertEdgeSegment(this, &connectionGeometry->laneTo->getParentEdge(),
+                                connectionGeometry->laneTo->getGeometry().shape[i], true, true);
                     }
                 }
-            } else if ((connectionGeometry+1) != connectionGeometriesFiltered.end()) {
+            } else if ((connectionGeometry + 1) != connectionGeometriesFiltered.end()) {
                 // add lane shape in segments geometry using laneFrom of next connection
-                for (int i = 0; i < (int)(connectionGeometry+1)->laneFrom->getGeometry().shape.size(); i++) {
-                    if (i < (int)(connectionGeometry+1)->laneFrom->getGeometry().shape.size() - 1) {
-                        myDemandElementSegmentGeometry.insertEdgeLengthRotSegment(this, &(connectionGeometry+1)->laneFrom->getParentEdge(), 
-                            (connectionGeometry+1)->laneFrom->getGeometry().shape[i],
-                            (connectionGeometry+1)->laneFrom->getGeometry().shapeLengths[i],
-                            (connectionGeometry+1)->laneFrom->getGeometry().shapeRotations[i], true, true);
+                for (int i = 0; i < (int)(connectionGeometry + 1)->laneFrom->getGeometry().shape.size(); i++) {
+                    if (i < (int)(connectionGeometry + 1)->laneFrom->getGeometry().shape.size() - 1) {
+                        myDemandElementSegmentGeometry.insertEdgeLengthRotSegment(this, &(connectionGeometry + 1)->laneFrom->getParentEdge(),
+                                (connectionGeometry + 1)->laneFrom->getGeometry().shape[i],
+                                (connectionGeometry + 1)->laneFrom->getGeometry().shapeLengths[i],
+                                (connectionGeometry + 1)->laneFrom->getGeometry().shapeRotations[i], true, true);
                     } else {
-                        myDemandElementSegmentGeometry.insertEdgeSegment(this, &(connectionGeometry+1)->laneFrom->getParentEdge(), 
-                            (connectionGeometry+1)->laneFrom->getGeometry().shape[i], true, true);
+                        myDemandElementSegmentGeometry.insertEdgeSegment(this, &(connectionGeometry + 1)->laneFrom->getParentEdge(),
+                                (connectionGeometry + 1)->laneFrom->getGeometry().shape[i], true, true);
                     }
                 }
             } else {
                 // due this is the last shape, add lane shape in segments geometry using laneTo of current connection geometry
                 for (int i = 0; i < (int)connectionGeometry->laneTo->getGeometry().shape.size(); i++) {
                     if (i < (int)connectionGeometry->laneTo->getGeometry().shape.size() - 1) {
-                        myDemandElementSegmentGeometry.insertEdgeLengthRotSegment(this, &connectionGeometry->laneTo->getParentEdge(), 
-                            connectionGeometry->laneTo->getGeometry().shape[i],
-                            connectionGeometry->laneTo->getGeometry().shapeLengths[i],
-                            connectionGeometry->laneTo->getGeometry().shapeRotations[i],true, true);
+                        myDemandElementSegmentGeometry.insertEdgeLengthRotSegment(this, &connectionGeometry->laneTo->getParentEdge(),
+                                connectionGeometry->laneTo->getGeometry().shape[i],
+                                connectionGeometry->laneTo->getGeometry().shapeLengths[i],
+                                connectionGeometry->laneTo->getGeometry().shapeRotations[i], true, true);
                     } else {
-                        myDemandElementSegmentGeometry.insertEdgeSegment(this, &connectionGeometry->laneTo->getParentEdge(), 
-                            connectionGeometry->laneTo->getGeometry().shape[i], true, true);
+                        myDemandElementSegmentGeometry.insertEdgeSegment(this, &connectionGeometry->laneTo->getParentEdge(),
+                                connectionGeometry->laneTo->getGeometry().shape[i], true, true);
                     }
                 }
             }
@@ -648,14 +650,14 @@ GNEVehicle::getPositionInView() const {
 }
 
 
-GUIGLObjectPopupMenu* 
+GUIGLObjectPopupMenu*
 GNEVehicle::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     if (isAttributeCarrierSelected()) {
         // obtain all selected vehicles
         std::vector<GNEDemandElement*> selectedDemandElements = myViewNet->getNet()->retrieveDemandElements(true);
         std::vector<GNEVehicle*> selectedVehicles;
         selectedVehicles.reserve(selectedDemandElements.size());
-        for (const auto &i : selectedDemandElements) {
+        for (const auto& i : selectedDemandElements) {
             if (i->getTagProperty().isVehicle()) {
                 selectedVehicles.push_back(dynamic_cast<GNEVehicle*>(i));
             }
@@ -986,7 +988,7 @@ GNEVehicle::getAttribute(SumoXMLAttr key) const {
 }
 
 
-double 
+double
 GNEVehicle::getAttributeDouble(SumoXMLAttr /*key*/) const {
     return 0;
 }
@@ -1046,11 +1048,11 @@ GNEVehicle::isValid(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_ID:
             // Vehicles, Trips and Flows share namespace
-            if (SUMOXMLDefinitions::isValidVehicleID(value) && 
-                (myViewNet->getNet()->retrieveDemandElement(SUMO_TAG_VEHICLE, value, false) == nullptr) &&
-                (myViewNet->getNet()->retrieveDemandElement(SUMO_TAG_TRIP, value, false) == nullptr) &&
-                (myViewNet->getNet()->retrieveDemandElement(SUMO_TAG_ROUTEFLOW, value, false) == nullptr) &&
-                (myViewNet->getNet()->retrieveDemandElement(SUMO_TAG_FLOW, value, false) == nullptr)) {
+            if (SUMOXMLDefinitions::isValidVehicleID(value) &&
+                    (myViewNet->getNet()->retrieveDemandElement(SUMO_TAG_VEHICLE, value, false) == nullptr) &&
+                    (myViewNet->getNet()->retrieveDemandElement(SUMO_TAG_TRIP, value, false) == nullptr) &&
+                    (myViewNet->getNet()->retrieveDemandElement(SUMO_TAG_ROUTEFLOW, value, false) == nullptr) &&
+                    (myViewNet->getNet()->retrieveDemandElement(SUMO_TAG_FLOW, value, false) == nullptr)) {
                 return true;
             } else {
                 return false;
@@ -1225,7 +1227,7 @@ GNEVehicle::isValid(SumoXMLAttr key, const std::string& value) {
 }
 
 
-void 
+void
 GNEVehicle::enableAttribute(SumoXMLAttr key, GNEUndoList* undoList) {
     // obtain a copy of parameter sets
     int newParametersSet = parametersSet;
@@ -1317,8 +1319,8 @@ GNEVehicle::getHierarchyName() const {
     // special case for Trips and flow
     if ((myTagProperty.getTag() == SUMO_TAG_TRIP) || (myTagProperty.getTag() == SUMO_TAG_FLOW)) {
         // check if we're inspecting a Edge
-        if (myViewNet->getNet()->getViewNet()->getDottedAC() && 
-            myViewNet->getNet()->getViewNet()->getDottedAC()->getTagProperty().getTag() == SUMO_TAG_EDGE) {
+        if (myViewNet->getNet()->getViewNet()->getDottedAC() &&
+                myViewNet->getNet()->getViewNet()->getDottedAC()->getTagProperty().getTag() == SUMO_TAG_EDGE) {
             // check if edge correspond to a "from", "to" or "via" edge
             if (getEdgeParents().front() == myViewNet->getNet()->getViewNet()->getDottedAC()) {
                 return getTagStr() + ": " + getAttribute(SUMO_ATTR_ID) + " (from)";
@@ -1326,7 +1328,7 @@ GNEVehicle::getHierarchyName() const {
                 return getTagStr() + ": " + getAttribute(SUMO_ATTR_ID) + " (to)";
             } else {
                 // iterate over via
-                for (const auto & i : via) {
+                for (const auto& i : via) {
                     if (i == myViewNet->getNet()->getViewNet()->getDottedAC()->getID()) {
                         return getTagStr() + ": " + getAttribute(SUMO_ATTR_ID) + " (via)";
                     }
@@ -1342,27 +1344,27 @@ GNEVehicle::getHierarchyName() const {
 // ===========================================================================
 
 
-GNEVehicle::ConnectionGeometry::ConnectionGeometry(const NBEdge::Connection *_con, const GNELane *_laneFrom, const GNELane *_laneTo) : 
+GNEVehicle::ConnectionGeometry::ConnectionGeometry(const NBEdge::Connection* _con, const GNELane* _laneFrom, const GNELane* _laneTo) :
     con(_con),
     laneFrom(_laneFrom),
     laneTo(_laneTo) {
 }
 
 
-GNEVehicle::ConnectionGeometry::ConnectionGeometry(const GNELane *_laneFrom, const GNELane *_laneTo) : 
+GNEVehicle::ConnectionGeometry::ConnectionGeometry(const GNELane* _laneFrom, const GNELane* _laneTo) :
     con(nullptr),
     laneFrom(_laneFrom),
     laneTo(_laneTo) {
 }
 
 
-void 
+void
 GNEVehicle::ConnectionGeometry::calculateConnectionShape() {
     // only calculate shape if connection is valid
     if (con) {
         // get NBEdge from
         const NBEdge* NBEdgeFrom = laneFrom->getParentEdge().getNBEdge();
-        // save connection shape in connectionShapes 
+        // save connection shape in connectionShapes
         if (con->customShape.size() != 0) {
             connectionShape = con->customShape;
         } else if (NBEdgeFrom->getToNode()->getShape().area() > 4) {
@@ -1375,11 +1377,11 @@ GNEVehicle::ConnectionGeometry::calculateConnectionShape() {
             } else {
                 // Calculate shape so something can be drawn immidiately
                 connectionShape = NBEdgeFrom->getToNode()->computeSmoothShape(
-                    laneFrom->getGeometry().shape,
-                    laneTo->getGeometry().shape,
-                    5, NBEdgeFrom->getTurnDestination() == con->toEdge,
-                    (double) 5. * (double) NBEdgeFrom->getNumLanes(),
-                    (double) 5. * (double) con->toEdge->getNumLanes());
+                                      laneFrom->getGeometry().shape,
+                                      laneTo->getGeometry().shape,
+                                      5, NBEdgeFrom->getTurnDestination() == con->toEdge,
+                                      (double) 5. * (double) NBEdgeFrom->getNumLanes(),
+                                      (double) 5. * (double) con->toEdge->getNumLanes());
             }
         }
     }
@@ -1845,7 +1847,7 @@ GNEVehicle::setAttribute(SumoXMLAttr key, const std::string& value) {
 }
 
 
-void 
+void
 GNEVehicle::setEnabledAttribute(const int enabledAttributes) {
     parametersSet = enabledAttributes;
 }

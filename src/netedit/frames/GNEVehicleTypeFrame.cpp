@@ -288,7 +288,7 @@ GNEVehicleTypeFrame::VehicleTypeEditor::onCmdDeleteVehicleType(FXObject*, FXSele
             myVehicleTypeFrameParent->myViewNet->getUndoList()->p_begin("delete vehicle type");
             // remove vehicle type (and all of their children)
             myVehicleTypeFrameParent->myViewNet->getNet()->deleteDemandElement(myVehicleTypeFrameParent->myVehicleTypeSelector->getCurrentVehicleType(),
-                myVehicleTypeFrameParent->myViewNet->getUndoList());
+                    myVehicleTypeFrameParent->myViewNet->getUndoList());
             // end undo list operation
             myVehicleTypeFrameParent->myViewNet->getUndoList()->p_end();
         }
@@ -297,7 +297,7 @@ GNEVehicleTypeFrame::VehicleTypeEditor::onCmdDeleteVehicleType(FXObject*, FXSele
         myVehicleTypeFrameParent->myViewNet->getUndoList()->p_begin("delete vehicle type");
         // remove vehicle type (and all of their children)
         myVehicleTypeFrameParent->myViewNet->getNet()->deleteDemandElement(myVehicleTypeFrameParent->myVehicleTypeSelector->getCurrentVehicleType(),
-            myVehicleTypeFrameParent->myViewNet->getUndoList());
+                myVehicleTypeFrameParent->myViewNet->getUndoList());
         // end undo list operation
         myVehicleTypeFrameParent->myViewNet->getUndoList()->p_end();
     }

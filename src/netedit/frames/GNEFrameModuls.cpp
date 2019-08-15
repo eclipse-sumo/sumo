@@ -7,7 +7,7 @@
 // http://www.eclipse.org/legal/epl-v20.html
 // SPDX-License-Identifier: EPL-2.0
 /****************************************************************************/
-/// @file    GNEFrameAttributesModuls.h
+/// @file    GNEFrameModuls.cpp
 /// @author  Pablo Alvarez Lopez
 /// @date    Aug 2019
 /// @version $Id$
@@ -197,7 +197,7 @@ GNEFrameModuls::TagSelector::getCurrentTagProperties() const {
 }
 
 
-void 
+void
 GNEFrameModuls::TagSelector::setCurrentTagType(GNEAttributeCarrier::TagType tagType) {
     // set empty tag properties
     myCurrentTagProperties = GNEAttributeCarrier::TagProperties();
@@ -328,12 +328,12 @@ GNEFrameModuls::DemandElementSelector::DemandElementSelector(GNEFrame* framePare
 }
 
 
-GNEFrameModuls::DemandElementSelector::DemandElementSelector(GNEFrame* frameParent, const std::vector<GNEAttributeCarrier::TagType> &tagTypes) :
+GNEFrameModuls::DemandElementSelector::DemandElementSelector(GNEFrame* frameParent, const std::vector<GNEAttributeCarrier::TagType>& tagTypes) :
     FXGroupBox(frameParent->myContentFrame, "Parent element", GUIDesignGroupBoxFrame),
     myFrameParent(frameParent),
     myCurrentDemandElement(nullptr) {
     // fill myDemandElementTags
-    for (const auto &i : tagTypes) {
+    for (const auto& i : tagTypes) {
         auto tags = GNEAttributeCarrier::allowedTagsByCategory(i, false);
         myDemandElementTags.insert(myDemandElementTags.end(), tags.begin(), tags.end());
     }
@@ -355,7 +355,7 @@ GNEFrameModuls::DemandElementSelector::getCurrentDemandElement() const {
 }
 
 
-void 
+void
 GNEFrameModuls::DemandElementSelector::setDemandElement(GNEDemandElement* demandElement) {
     // first check that demandElement tag correspond to a tag of myDemandElementTags
     if (std::find(myDemandElementTags.begin(), myDemandElementTags.end(), demandElement->getTagProperty().getTag()) != myDemandElementTags.end()) {
@@ -394,7 +394,7 @@ GNEFrameModuls::DemandElementSelector::hideDemandElementSelector() {
 }
 
 
-bool 
+bool
 GNEFrameModuls::DemandElementSelector::isDemandElementSelectorShown() const {
     return shown();
 }
@@ -520,8 +520,8 @@ GNEFrameModuls::EdgePathCreator::EdgePathCreator(GNEFrame* frameParent, int edge
 GNEFrameModuls::EdgePathCreator::~EdgePathCreator() {}
 
 
-void 
-GNEFrameModuls::EdgePathCreator::edgePathCreatorName(const std::string &name) {
+void
+GNEFrameModuls::EdgePathCreator::edgePathCreatorName(const std::string& name) {
     // header needs the first capitalized letter
     std::string nameWithFirstCapitalizedLetter = name;
     nameWithFirstCapitalizedLetter[0] = (char)toupper(nameWithFirstCapitalizedLetter.at(0));
@@ -547,7 +547,7 @@ GNEFrameModuls::EdgePathCreator::hideEdgePathCreator() {
 }
 
 
-void 
+void
 GNEFrameModuls::EdgePathCreator::setVClass(SUMOVehicleClass vClass) {
     myVClass = vClass;
 }
@@ -599,7 +599,7 @@ GNEFrameModuls::EdgePathCreator::addEdge(GNEEdge* edge) {
 }
 
 
-bool 
+bool
 GNEFrameModuls::EdgePathCreator::addBusStop(GNEAdditional* busStop) {
     // check that at least there is a selected edge
     if (!myClickedEdges.empty() && (mySelectedBusStop == nullptr)) {
@@ -648,7 +648,7 @@ GNEFrameModuls::EdgePathCreator::drawTemporalRoute() const {
                            myClickedEdges.front()->getNBEdge()->getLanes().front().shape.back());
         // draw line to center of selected bus
         if (mySelectedBusStop) {
-            GLHelper::drawLine(myClickedEdges.front()->getNBEdge()->getLanes().front().shape.back(), 
+            GLHelper::drawLine(myClickedEdges.front()->getNBEdge()->getLanes().front().shape.back(),
                                mySelectedBusStop->getAdditionalGeometry().shape.getLineCenter());
         }
         // Pop last matrix
@@ -671,10 +671,10 @@ GNEFrameModuls::EdgePathCreator::drawTemporalRoute() const {
                                myTemporalRoute.at(i)->getNBEdge()->getLanes().front().shape.front());
             GLHelper::drawLine(myTemporalRoute.at(i)->getNBEdge()->getLanes().front().shape.front(),
                                myTemporalRoute.at(i)->getNBEdge()->getLanes().front().shape.back());
-        }    
+        }
         // draw a line to center of selected bus
         if (mySelectedBusStop) {
-            GLHelper::drawLine(myTemporalRoute.back()->getNBEdge()->getLanes().front().shape.back(), 
+            GLHelper::drawLine(myTemporalRoute.back()->getNBEdge()->getLanes().front().shape.back(),
                                mySelectedBusStop->getAdditionalGeometry().shape.getLineCenter());
         }
         // Pop last matrix
@@ -683,7 +683,7 @@ GNEFrameModuls::EdgePathCreator::drawTemporalRoute() const {
 }
 
 
-void 
+void
 GNEFrameModuls::EdgePathCreator::abortEdgePathCreation() {
     if (myAbortCreationButton->isEnabled()) {
         onCmdAbortRouteCreation(nullptr, 0, nullptr);
@@ -691,7 +691,7 @@ GNEFrameModuls::EdgePathCreator::abortEdgePathCreation() {
 }
 
 
-void 
+void
 GNEFrameModuls::EdgePathCreator::finishEdgePathCreation() {
     if (myFinishCreationButton->isEnabled()) {
         onCmdFinishRouteCreation(nullptr, 0, nullptr);
@@ -699,7 +699,7 @@ GNEFrameModuls::EdgePathCreator::finishEdgePathCreation() {
 }
 
 
-void 
+void
 GNEFrameModuls::EdgePathCreator::removeLastInsertedElement() {
     if (myRemoveLastInsertedEdge->isEnabled()) {
         onCmdRemoveLastInsertedElement(nullptr, 0, nullptr);
@@ -887,7 +887,7 @@ GNEFrameModuls::AttributeCarrierHierarchy::onCmdDeleteItem(FXObject*, FXSelector
     } else if (myClickedDemandElement) {
         // check that default VTypes aren't removed
         if ((myClickedDemandElement->getTagProperty().getTag() == SUMO_TAG_VTYPE) && (GNEAttributeCarrier::parse<bool>(myClickedDemandElement->getAttribute(GNE_ATTR_DEFAULT_VTYPE)))) {
-            WRITE_WARNING("Default Vehicle Type '" + myClickedDemandElement->getAttribute(SUMO_ATTR_ID) +"' cannot be removed");
+            WRITE_WARNING("Default Vehicle Type '" + myClickedDemandElement->getAttribute(SUMO_ATTR_ID) + "' cannot be removed");
             return 1;
         } else {
             myFrameParent->myViewNet->getNet()->deleteDemandElement(myClickedDemandElement, myFrameParent->myViewNet->getUndoList());
@@ -910,14 +910,14 @@ GNEFrameModuls::AttributeCarrierHierarchy::onCmdDeleteItem(FXObject*, FXSelector
 }
 
 
-long 
+long
 GNEFrameModuls::AttributeCarrierHierarchy::onCmdMoveItemUp(FXObject*, FXSelector, void*) {
     // currently only children of demand elements can be moved
-    if(myClickedDemandElement) {
+    if (myClickedDemandElement) {
         myFrameParent->myViewNet->getUndoList()->p_begin(("moving up " + myClickedDemandElement->getTagStr()).c_str());
         // move element one position back
-        myFrameParent->myViewNet->getUndoList()->add(new GNEChange_Children(myClickedDemandElement->getDemandElementParents().at(0), myClickedDemandElement, 
-                                                                            GNEChange_Children::Operation::MOVE_BACK), true);
+        myFrameParent->myViewNet->getUndoList()->add(new GNEChange_Children(myClickedDemandElement->getDemandElementParents().at(0), myClickedDemandElement,
+                GNEChange_Children::Operation::MOVE_BACK), true);
         myFrameParent->myViewNet->getUndoList()->p_end();
     }
     // refresh after moving child
@@ -926,14 +926,14 @@ GNEFrameModuls::AttributeCarrierHierarchy::onCmdMoveItemUp(FXObject*, FXSelector
 }
 
 
-long 
+long
 GNEFrameModuls::AttributeCarrierHierarchy::onCmdMoveItemDown(FXObject*, FXSelector, void*) {
     // currently only children of demand elements can be moved
-    if(myClickedDemandElement) {
+    if (myClickedDemandElement) {
         myFrameParent->myViewNet->getUndoList()->p_begin(("moving down " + myClickedDemandElement->getTagStr()).c_str());
         // move element one position front
-        myFrameParent->myViewNet->getUndoList()->add(new GNEChange_Children(myClickedDemandElement->getDemandElementParents().at(0), myClickedDemandElement, 
-                                                                            GNEChange_Children::Operation::MOVE_FRONT), true);
+        myFrameParent->myViewNet->getUndoList()->add(new GNEChange_Children(myClickedDemandElement->getDemandElementParents().at(0), myClickedDemandElement,
+                GNEChange_Children::Operation::MOVE_FRONT), true);
         myFrameParent->myViewNet->getUndoList()->p_end();
     }
     // refresh after moving child
@@ -974,7 +974,7 @@ GNEFrameModuls::AttributeCarrierHierarchy::createPopUpMenu(int X, int Y, GNEAttr
         FXMenuCommand* deleteMenuCommand = new FXMenuCommand(pane, "Delete", GUIIconSubSys::getIcon(ICON_MODEDELETE), this, MID_GNE_DELETE);
         // check if inspect and delete menu commands has to be disabled
         if ((myClickedAC->getTagProperty().isNetElement() && (myFrameParent->myViewNet->getEditModes().currentSupermode == GNE_SUPERMODE_DEMAND)) ||
-            (myClickedAC->getTagProperty().isDemandElement() && (myFrameParent->myViewNet->getEditModes().currentSupermode == GNE_SUPERMODE_NETWORK))) {
+                (myClickedAC->getTagProperty().isDemandElement() && (myFrameParent->myViewNet->getEditModes().currentSupermode == GNE_SUPERMODE_NETWORK))) {
             inspectMenuCommand->disable();
             deleteMenuCommand->disable();
         }
@@ -1323,13 +1323,13 @@ GNEFrameModuls::AttributeCarrierHierarchy::showAttributeCarrierChildren(GNEAttri
                         showAttributeCarrierChildren(i, edgeItem);
                     }
                     // insert demand elements children (note: use getSortedDemandElementChildrenByType to avoid duplicated elements)
-                    for (const auto &i : edge->getSortedDemandElementChildrenByType(SUMO_TAG_ROUTE)) {
+                    for (const auto& i : edge->getSortedDemandElementChildrenByType(SUMO_TAG_ROUTE)) {
                         showAttributeCarrierChildren(i, edgeItem);
                     }
-                    for (const auto &i : edge->getSortedDemandElementChildrenByType(SUMO_TAG_TRIP)) {
+                    for (const auto& i : edge->getSortedDemandElementChildrenByType(SUMO_TAG_TRIP)) {
                         showAttributeCarrierChildren(i, edgeItem);
                     }
-                    for (const auto &i : edge->getSortedDemandElementChildrenByType(SUMO_TAG_FLOW)) {
+                    for (const auto& i : edge->getSortedDemandElementChildrenByType(SUMO_TAG_FLOW)) {
                         showAttributeCarrierChildren(i, edgeItem);
                     }
                 }
@@ -1698,7 +1698,7 @@ GNEFrameModuls::SelectorParent::refreshSelectorParentModul() {
     myParentsList->clearItems();
     if (myParentTag != SUMO_TAG_NOTHING) {
         // fill list with IDs of additionals
-        for (const auto &i : myFrameParent->getViewNet()->getNet()->getAttributeCarriers().additionals.at(myParentTag)) {
+        for (const auto& i : myFrameParent->getViewNet()->getNet()->getAttributeCarriers().additionals.at(myParentTag)) {
             myParentsList->appendItem(i.first.c_str());
         }
     }

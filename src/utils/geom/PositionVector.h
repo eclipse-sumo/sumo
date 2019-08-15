@@ -272,10 +272,10 @@ public:
     static Position sideOffset(const Position& beg, const Position& end, const double amount);
 
     /// @brief move position vector to side using certain ammount
-    void move2side(double amount, double maxExtension=100);
+    void move2side(double amount, double maxExtension = 100);
 
     /// @brief move position vector to side using a custom offset for each geometry point
-    void move2side(std::vector<double> amount, double maxExtension=100);
+    void move2side(std::vector<double> amount, double maxExtension = 100);
 
     /// @brief get angle  in certain position of position vector
     double angleAt2D(int pos) const;

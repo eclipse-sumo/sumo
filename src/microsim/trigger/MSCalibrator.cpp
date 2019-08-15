@@ -551,18 +551,18 @@ MSCalibrator::writeXMLOutput(OutputDevice& dev, SUMOTime startTime, SUMOTime sto
     const std::string ds = (discrepancy > 0 ? "\" vaporizedOnNextEdge=\"" + toString(discrepancy) : "");
     const double durationSeconds = STEPS2TIME(stopTime - startTime);
     dev << "    <interval begin=\"" << time2string(startTime) <<
-                "\" end=\"" << time2string(stopTime) <<
-                "\" id=\"" << getID() <<
-                "\" nVehContrib=\"" << p <<
-                "\" removed=\"" << myRemoved <<
-                "\" inserted=\"" << myInserted <<
-                "\" cleared=\"" << myClearedInJam <<
-                "\" flow=\"" << p * 3600.0 / durationSeconds <<
-                "\" aspiredFlow=\"" << myCurrentStateInterval->q <<
-                "\" speed=\"" << myEdgeMeanData.getTravelledDistance() / myEdgeMeanData.getSamples() <<
-                "\" aspiredSpeed=\"" << myCurrentStateInterval->v <<
-                ds << //optional
-                "\"/>\n";
+        "\" end=\"" << time2string(stopTime) <<
+        "\" id=\"" << getID() <<
+        "\" nVehContrib=\"" << p <<
+        "\" removed=\"" << myRemoved <<
+        "\" inserted=\"" << myInserted <<
+        "\" cleared=\"" << myClearedInJam <<
+        "\" flow=\"" << p * 3600.0 / durationSeconds <<
+        "\" aspiredFlow=\"" << myCurrentStateInterval->q <<
+        "\" speed=\"" << myEdgeMeanData.getTravelledDistance() / myEdgeMeanData.getSamples() <<
+        "\" aspiredSpeed=\"" << myCurrentStateInterval->v <<
+        ds << //optional
+        "\"/>\n";
 }
 
 void

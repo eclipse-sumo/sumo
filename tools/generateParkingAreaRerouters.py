@@ -27,16 +27,18 @@ import sumolib
 try:
     from functools import lru_cache
 except ImportError:
-    #python 2.7 fallback (lru_cache is a decorater with arguments: a function that returns a decorator)
+    # python 2.7 fallback (lru_cache is a decorater with arguments: a function that returns a decorator)
     def lru_cache_dummy(maxsize):
         class Cache_info:
             hits = -1
             misses = -1
+
         def deco(fun):
-            fun.cache_info = lambda : Cache_info()
+            fun.cache_info = lambda: Cache_info()
             return fun
         return deco
     functools.lru_cache = lru_cache_dummy
+
 
 def logs():
     """ Log init. """
@@ -80,6 +82,7 @@ def get_options(cmd_args=None):
         help='Enable TQDM feature.')
     parser.set_defaults(with_tqdm=False)
     return parser.parse_args(cmd_args)
+
 
 class ReroutersGeneration(object):
     """ Generate parking area rerouters from the parking area definition. """
@@ -130,7 +133,7 @@ class ReroutersGeneration(object):
         for parkings in splits:
             parameters = {
                 'selection': parkings,
-                'all_parking_areas': self._parking_areas, 
+                'all_parking_areas': self._parking_areas,
                 'net_file': self._opt.sumo_net_definition,
                 'with_tqdm': self._opt.with_tqdm,
                 'num_alternatives': self._opt.num_alternatives,
@@ -165,7 +168,7 @@ class ReroutersGeneration(object):
             sumolib.xml.writeHeader(outfile, "additional")
             outfile.write("<additional>\n")
             # remove the randomness introduced by the multiprocessing and allows meaningful diffs
-            ordered_rerouters = sorted(self._sumo_rerouters.keys()) 
+            ordered_rerouters = sorted(self._sumo_rerouters.keys())
             for rerouter_id in ordered_rerouters:
                 rerouter = self._sumo_rerouters[rerouter_id]
                 alternatives = ''
@@ -185,6 +188,7 @@ class ReroutersGeneration(object):
         logging.info("%s created.", self._opt.output)
 
     # ----------------------------------------------------------------------------------------- #
+
 
 def generate_rerouters_process(parameters):
     """ Compute the rerouters for the given parking areas."""
@@ -212,16 +216,16 @@ def generate_rerouters_process(parameters):
                 continue
             if parking_a['edge'] == parking_b['edge']:
                 continue
-            route, cost = _cached_get_shortest_path(from_edge, 
+            route, cost = _cached_get_shortest_path(from_edge,
                                                     sumo_net.getEdge(parking_b['edge']))
             if route:
                 distances[parking_a['id']][parking_b['id']] = cost
     cache_info = _cached_get_shortest_path.cache_info()
     total = float(cache_info.hits + cache_info.misses)
-    perc = cache_info.hits * 100.0 
+    perc = cache_info.hits * 100.0
     if total:
         perc /= float(cache_info.hits + cache_info.misses)
-    logging.info('Cache: hits %d, misses %d, used %.2f%%.', 
+    logging.info('Cache: hits %d, misses %d, used %.2f%%.',
                  cache_info.hits, cache_info.misses, perc)
 
     # select closest parking areas

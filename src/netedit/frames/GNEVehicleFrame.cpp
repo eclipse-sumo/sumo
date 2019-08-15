@@ -164,10 +164,10 @@ GNEVehicleFrame::addVehicle(const GNEViewNetHelper::ObjectsUnderCursor& objectsU
     if ((vehicleTag == SUMO_TAG_VEHICLE) || (vehicleTag == SUMO_TAG_ROUTEFLOW)) {
         if (objectsUnderCursor.getDemandElementFront() && (objectsUnderCursor.getDemandElementFront()->getTagProperty().isRoute())) {
             // obtain route
-            valuesMap[SUMO_ATTR_ROUTE] = (objectsUnderCursor.getDemandElementFront()->getTagProperty().getTag() == SUMO_TAG_ROUTE)? objectsUnderCursor.getDemandElementFront()->getID() : "embedded";
+            valuesMap[SUMO_ATTR_ROUTE] = (objectsUnderCursor.getDemandElementFront()->getTagProperty().getTag() == SUMO_TAG_ROUTE) ? objectsUnderCursor.getDemandElementFront()->getID() : "embedded";
             // check if departLane is valid
-            if ((objectsUnderCursor.getDemandElementFront()->getTagProperty().getTag() == SUMO_TAG_ROUTE) && 
-                (valuesMap.count(SUMO_ATTR_DEPARTLANE) > 0) && GNEAttributeCarrier::canParse<double>(valuesMap[SUMO_ATTR_DEPARTLANE])) {
+            if ((objectsUnderCursor.getDemandElementFront()->getTagProperty().getTag() == SUMO_TAG_ROUTE) &&
+                    (valuesMap.count(SUMO_ATTR_DEPARTLANE) > 0) && GNEAttributeCarrier::canParse<double>(valuesMap[SUMO_ATTR_DEPARTLANE])) {
                 double departLane = GNEAttributeCarrier::parse<double>(valuesMap[SUMO_ATTR_DEPARTLANE]);
                 if (departLane >= objectsUnderCursor.getDemandElementFront()->getEdgeParents().front()->getLanes().size()) {
                     myViewNet->setStatusBarText("Invalid " + toString(SUMO_ATTR_DEPARTLANE));
@@ -251,14 +251,14 @@ GNEVehicleFrame::getEdgePathCreator() const {
 // protected
 // ===========================================================================
 
-void 
+void
 GNEVehicleFrame::tagSelected() {
     if (myVehicleTagSelector->getCurrentTagProperties().getTag() != SUMO_TAG_NOTHING) {
         // show vehicle type selector modul
         myVTypeSelector->showDemandElementSelector();
         // show AutoRute creator if we're editing a trip
-        if ((myVehicleTagSelector->getCurrentTagProperties().getTag() == SUMO_TAG_TRIP) || 
-            (myVehicleTagSelector->getCurrentTagProperties().getTag() == SUMO_TAG_FLOW)) {
+        if ((myVehicleTagSelector->getCurrentTagProperties().getTag() == SUMO_TAG_TRIP) ||
+                (myVehicleTagSelector->getCurrentTagProperties().getTag() == SUMO_TAG_FLOW)) {
             myEdgePathCreator->showEdgePathCreator();
         } else {
             myEdgePathCreator->hideEdgePathCreator();
@@ -272,7 +272,7 @@ GNEVehicleFrame::tagSelected() {
 }
 
 
-void 
+void
 GNEVehicleFrame::demandElementSelected() {
     if (myVTypeSelector->getCurrentDemandElement()) {
         // show vehicle attributes modul
@@ -324,7 +324,7 @@ GNEVehicleFrame::edgePathCreated() {
         // declare SUMOSAXAttributesImpl_Cached to convert valuesMap into SUMOSAXAttributes
         SUMOSAXAttributesImpl_Cached SUMOSAXAttrs(valuesMap, getPredefinedTagsMML(), toString(vehicleTag));
         // obtain flow parameters
-        SUMOVehicleParameter* flowParameters = SUMOVehicleParserHelper::parseFlowAttributes(SUMOSAXAttrs,false, 0, SUMOTime_MAX);
+        SUMOVehicleParameter* flowParameters = SUMOVehicleParserHelper::parseFlowAttributes(SUMOSAXAttrs, false, 0, SUMOTime_MAX);
         // build flow in GNERouteHandler
         GNERouteHandler::buildFlow(myViewNet, true, *flowParameters, myEdgePathCreator->getClickedEdges());
         // delete flowParameters

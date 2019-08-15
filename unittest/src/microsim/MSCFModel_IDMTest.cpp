@@ -13,7 +13,7 @@
 /// @date    2013-06-05
 /// @version $Id$
 ///
-// Tests the cfmodel functions 
+// Tests the cfmodel functions
 /****************************************************************************/
 
 // ===========================================================================
@@ -37,56 +37,56 @@
 class MSVehicleMock : public MSVehicle {
 public:
     MSVehicleMock(SUMOVehicleParameter* pars, const MSRoute* route,
-              MSVehicleType* type, const double speedFactor):
+                  MSVehicleType* type, const double speedFactor):
         MSVehicle(pars, route, type, speedFactor) {}
 
 };
 
 
 class MSCFModel_IDMTest : public testing::Test {
-    protected :
-        MSVehicleType* type;
-        SUMOVehicleParameter* defs;
-        MSVehicle* veh;
-        MSRoute* route;
-        MSEdge* edge;
-        MSLane* lane;
-        double accel;
-        double decel;
-        double dawdle;
-        double tau; // headway time
+protected :
+    MSVehicleType* type;
+    SUMOVehicleParameter* defs;
+    MSVehicle* veh;
+    MSRoute* route;
+    MSEdge* edge;
+    MSLane* lane;
+    double accel;
+    double decel;
+    double dawdle;
+    double tau; // headway time
 
-        virtual void SetUp(){
-            if (!OptionsCont::getOptions().exists("step-length")) {
-                MSFrame::fillOptions();
-            }
-            MSLane::initRNGs(OptionsCont::getOptions());
-            tau = 1;
-            MSGlobals::gUnitTests = true;
-            defs = new SUMOVehicleParameter();
-            defs->departLaneProcedure = DEPART_LANE_GIVEN;
-            SUMOVTypeParameter typeDefs("t0");
-            typeDefs.cfModel = SUMO_TAG_CF_IDM;
-            //typeDefs.cfParameter[SUMO_ATTR_CF_IDM_STEPPING] = "1";
-            ConstMSEdgeVector edges;
-            MSEdge* edge = new MSEdge("dummy", 0, EDGEFUNC_NORMAL, "", "", -1, 0);
-            MSLane* lane = new MSLane("dummy_0", 50 / 3.6, 100, edge, 0, PositionVector(), SUMO_const_laneWidth, SVCAll, 0, false, "");
-            std::vector<MSLane*> lanes;
-            lanes.push_back(lane);
-            edge->initialize(&lanes);
-            edges.push_back(edge);
-            route = new MSRoute("dummyRoute", edges, true, 0, defs->stops);
-            type = MSVehicleType::build(typeDefs);
-            veh = new MSVehicleMock(defs, route, type, 1);
-            veh->setTentativeLaneAndPosition(lane, 0);
-            MSGlobals::gSemiImplicitEulerUpdate = true;
+    virtual void SetUp() {
+        if (!OptionsCont::getOptions().exists("step-length")) {
+            MSFrame::fillOptions();
         }
+        MSLane::initRNGs(OptionsCont::getOptions());
+        tau = 1;
+        MSGlobals::gUnitTests = true;
+        defs = new SUMOVehicleParameter();
+        defs->departLaneProcedure = DEPART_LANE_GIVEN;
+        SUMOVTypeParameter typeDefs("t0");
+        typeDefs.cfModel = SUMO_TAG_CF_IDM;
+        //typeDefs.cfParameter[SUMO_ATTR_CF_IDM_STEPPING] = "1";
+        ConstMSEdgeVector edges;
+        MSEdge* edge = new MSEdge("dummy", 0, EDGEFUNC_NORMAL, "", "", -1, 0);
+        MSLane* lane = new MSLane("dummy_0", 50 / 3.6, 100, edge, 0, PositionVector(), SUMO_const_laneWidth, SVCAll, 0, false, "");
+        std::vector<MSLane*> lanes;
+        lanes.push_back(lane);
+        edge->initialize(&lanes);
+        edges.push_back(edge);
+        route = new MSRoute("dummyRoute", edges, true, 0, defs->stops);
+        type = MSVehicleType::build(typeDefs);
+        veh = new MSVehicleMock(defs, route, type, 1);
+        veh->setTentativeLaneAndPosition(lane, 0);
+        MSGlobals::gSemiImplicitEulerUpdate = true;
+    }
 
-        virtual void TearDown(){
-            delete veh;
-            delete type;
-            delete route;
-        }
+    virtual void TearDown() {
+        delete veh;
+        delete type;
+        delete route;
+    }
 };
 
 /* Test the method 'brakeGap'.*/

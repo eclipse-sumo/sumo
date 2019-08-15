@@ -164,7 +164,7 @@ GNEPoly::commitShapeChange(const PositionVector& oldShape, GNEUndoList* undoList
         if (shapeToCommit.size() != myShape.size() && !myNet->getViewNet()->getEditShapes().editingNetElementShapes) {
             WRITE_WARNING("Merged shape's point")
         }
-        
+
         // check if polygon has to be closed
         if (shapeToCommit.size() > 1 && shapeToCommit.front().distanceTo2D(shapeToCommit.back()) < (2 * myHintSize)) {
             shapeToCommit.pop_back();
@@ -279,7 +279,7 @@ GNEPoly::drawGL(const GUIVisualizationSettings& s) const {
     // first check if poly can be drawn
     if (myNet->getViewNet()->getDemandViewOptions().showShapes()) {
         // check if boundary has to be drawn
-        if(s.drawBoundaries) {
+        if (s.drawBoundaries) {
             GLHelper::drawBoundary(getCenteringBoundary());
         }
         // push name (needed for getGUIGlObjectsUnderCursor(...)

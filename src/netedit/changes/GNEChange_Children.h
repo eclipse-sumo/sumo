@@ -80,7 +80,7 @@ private:
 
     /// @brief demand element which position will be edited edited
     GNEDemandElement* myDemandElementChild;
-    
+
     // @brief Operation to be apply
     const Operation myOperation;
 

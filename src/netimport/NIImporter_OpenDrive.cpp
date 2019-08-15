@@ -769,8 +769,8 @@ NIImporter_OpenDrive::setLaneAttributes(const OpenDriveEdge* e, NBEdge::Lane& su
     const double maxWidth = tc.getMaxWidth(odLane.type);
 
     const bool forbiddenNarrow = (sumoLane.width < myMinWidth
-            && (sumoLane.permissions & SVC_PASSENGER) != 0
-            && sumoLane.width < tc.getWidth(odLane.type));
+                                  && (sumoLane.permissions & SVC_PASSENGER) != 0
+                                  && sumoLane.width < tc.getWidth(odLane.type));
 
     if (sumoLane.width >= 0 && widthResolution > 0) {
         sumoLane.width = floor(sumoLane.width / widthResolution + 0.5) * widthResolution;
@@ -899,11 +899,11 @@ NIImporter_OpenDrive::buildConnectionsToOuter(const Connection& c, const std::ma
                             s = sStart;
 #ifdef DEBUG_INTERNALSHAPES
                             destPred += "  lane=" + toString(destLane.id)
-                                + " pred=" + toString(destLane.predecessor)
-                                + " succ=" + toString(destLane.successor)
-                                + " wStart=" + toString(destLane.widthData.front().computeAt(0))
-                                + " wEnd=" + toString(destLane.widthData.front().computeAt(cn.shape.length2D()))
-                                + " width=" + toString(destLane.width) + "\n";
+                                        + " pred=" + toString(destLane.predecessor)
+                                        + " succ=" + toString(destLane.successor)
+                                        + " wStart=" + toString(destLane.widthData.front().computeAt(0))
+                                        + " wEnd=" + toString(destLane.widthData.front().computeAt(cn.shape.length2D()))
+                                        + " width=" + toString(destLane.width) + "\n";
 #endif
                             if (abs(destLane.id) <= abs(referenceLane)) {
                                 const double multiplier = offsetFactor * (destLane.id == referenceLane ? 0.5 : 1);
@@ -2209,7 +2209,7 @@ NIImporter_OpenDrive::sanitizeWidths(OpenDriveEdge* e) {
     }
 #endif
     for (OpenDriveLaneSection& sec : e->laneSections) {
-        // filter widths within the current section (#5888). 
+        // filter widths within the current section (#5888).
         // @note, Short laneSections could also be worth filtering alltogether
         if (sec.rightLaneNumber > 0) {
             sanitizeWidths(sec.lanesByDir[OPENDRIVE_TAG_RIGHT], sec.length);

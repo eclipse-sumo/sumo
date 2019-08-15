@@ -126,7 +126,7 @@ MSCFModel_ACC::getSecureGap(const double speed, const double leaderSpeed, const 
 
 
 double
-MSCFModel_ACC::insertionFollowSpeed(const MSVehicle* const v, double speed, double gap2pred, double predSpeed, double predMaxDecel, const MSVehicle* const /*pred*/ ) const {
+MSCFModel_ACC::insertionFollowSpeed(const MSVehicle* const v, double speed, double gap2pred, double predSpeed, double predMaxDecel, const MSVehicle* const /*pred*/) const {
 //#ifdef DEBUG_ACC
 //        std::cout << "MSCFModel_ACC::insertionFollowSpeed(), speed="<<speed<< std::endl;
 //#endif

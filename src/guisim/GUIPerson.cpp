@@ -148,7 +148,7 @@ GUIPerson::GUIPersonPopupMenu::onCmdStopTrack(FXObject*, FXSelector, void*) {
 
 
 long
-GUIPerson::GUIPersonPopupMenu::onCmdRemoveObject(FXObject*, FXSelector, void*){
+GUIPerson::GUIPersonPopupMenu::onCmdRemoveObject(FXObject*, FXSelector, void*) {
     GUIPerson* person = static_cast<GUIPerson*>(myObject);
     MSTransportable::Stage* stage = person->getCurrentStage();
     stage->abort(person);
@@ -297,8 +297,8 @@ GUIPerson::drawGL(const GUIVisualizationSettings& s) const {
             break;
         case 3:
         default:
-            GUIBasePersonHelper::drawAction_drawAsImage(getAngle(), getVehicleType().getLength(), getVehicleType().getWidth(), 
-                                                        getVehicleType().getImgFile(), getVehicleType().getGuiShape(), exaggeration);
+            GUIBasePersonHelper::drawAction_drawAsImage(getAngle(), getVehicleType().getLength(), getVehicleType().getWidth(),
+                    getVehicleType().getImgFile(), getVehicleType().getGuiShape(), exaggeration);
             break;
     }
     glPopMatrix();
@@ -363,7 +363,7 @@ GUIPerson::drawGLAdditional(GUISUMOAbstractView* const parent, const GUIVisualiz
 }
 
 
-void 
+void
 GUIPerson::setPositionInVehicle(const Position& pos) {
     myPositionInVehicle = pos;
 }

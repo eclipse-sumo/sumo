@@ -156,7 +156,7 @@ public:
      */
     Position getVehiclePosition(const SUMOVehicle& forVehicle) const;
 
-    /** @brief Returns the insertion position of a parked vehicle 
+    /** @brief Returns the insertion position of a parked vehicle
      *
      * @return The nsertion position of a parked vehicle along the lane
      */
@@ -212,7 +212,7 @@ public:
         myNumAlternatives = MAX2(myNumAlternatives, alternatives);
     }
 
-    int getNumAlternatives() const{
+    int getNumAlternatives() const {
         return myNumAlternatives;
     }
 

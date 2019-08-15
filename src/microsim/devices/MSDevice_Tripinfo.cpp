@@ -304,7 +304,7 @@ MSDevice_Tripinfo::generateOutputForUnfinished() {
     // unfinished persons
     if (net->hasPersons()) {
         MSTransportableControl& pc = net->getPersonControl();
-        while(pc.loadedBegin() != pc.loadedEnd()) {
+        while (pc.loadedBegin() != pc.loadedEnd()) {
             pc.erase(pc.loadedBegin()->second);
         }
     }

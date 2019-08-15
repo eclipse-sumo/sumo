@@ -37,11 +37,13 @@
 // ===========================================================================
 
 GNECalibrator::GNECalibrator(const std::string& id, GNEViewNet* viewNet, GNEEdge* edge, double pos, SUMOTime frequency, const std::string& name, const std::string& output, const std::string& routeprobe) :
-    GNEAdditional(id, viewNet, GLO_CALIBRATOR, SUMO_TAG_CALIBRATOR, name, false, {edge}, {}, {}, {}, {}, {}, {}, {}, {}, {}),
-    myPositionOverLane(pos),
-    myFrequency(frequency),
-    myOutput(output),
-    myRouteProbe(routeprobe) {
+    GNEAdditional(id, viewNet, GLO_CALIBRATOR, SUMO_TAG_CALIBRATOR, name, false, {
+    edge
+}, {}, {}, {}, {}, {}, {}, {}, {}, {}),
+myPositionOverLane(pos),
+myFrequency(frequency),
+myOutput(output),
+myRouteProbe(routeprobe) {
 }
 
 

@@ -72,7 +72,7 @@ public:
     };
 
     /// @brief Constructor
-    GNEAdditionalHandler(const std::string& file, GNEViewNet* viewNet, GNEAdditional* additionalParent=nullptr);
+    GNEAdditionalHandler(const std::string& file, GNEViewNet* viewNet, GNEAdditional* additionalParent = nullptr);
 
     /// @brief Destructor
     ~GNEAdditionalHandler();

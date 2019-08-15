@@ -551,7 +551,7 @@ protected:
     /// @brief link directions
     static StringBijection<VISUM_KEY> KEYS;
 
-    void loadLanguage(const std::string& file); 
+    void loadLanguage(const std::string& file);
 };
 
 

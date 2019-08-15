@@ -60,8 +60,7 @@ MSCFModel_W99::MSCFModel_W99(const MSVehicleType* vtype) :
     myCC6(vtype->getParameter().getCFParam(SUMO_ATTR_CF_W99_CC6,  6.00)),
     myCC7(vtype->getParameter().getCFParam(SUMO_ATTR_CF_W99_CC7,  0.25)),
     myCC8(vtype->getParameter().getCFParam(SUMO_ATTR_CF_W99_CC8,  2.00)),
-    myCC9(vtype->getParameter().getCFParam(SUMO_ATTR_CF_W99_CC9,  1.50))
-{ 
+    myCC9(vtype->getParameter().getCFParam(SUMO_ATTR_CF_W99_CC9,  1.50)) {
     // translate some values to make them show up correctly in the gui
     myHeadwayTime = myCC1;
     myAccel = myCC8;
@@ -75,7 +74,7 @@ MSCFModel_W99::~MSCFModel_W99() {}
 
 void
 MSCFModel_W99::computeThresholds(double speed, double predSpeed, double leaderAccel, double rndVal,
-        double& sdxc, double& sdxo, double& sdxv) const {
+                                 double& sdxc, double& sdxo, double& sdxv) const {
 
     const double dv = predSpeed - speed;
     sdxc = myType->getMinGap(); // cc0
@@ -113,7 +112,7 @@ MSCFModel_W99::followSpeed(const MSVehicle* const veh, double speed, double gap2
         // 'Decelerate - Increase Distance';
         accel = 0;
         if (predSpeed > 0) {
-            if (dv < 0){
+            if (dv < 0) {
                 if (dx > cc0) {
                     accel = MIN2(leaderAccel + dv * dv / (cc0 - dx), 0.0);
                     status = 0;
@@ -131,12 +130,12 @@ MSCFModel_W99::followSpeed(const MSVehicle* const veh, double speed, double gap2
             }
         }
 
-    } else if (dv < sdvc && dx < sdxv){
+    } else if (dv < sdvc && dx < sdxv) {
         // 'Decelerate - Decrease Distance';
         accel = 0.5 * dv * dv / (sdxc - dx - 0.1);
         status = 4;
         // deceleration is capped by myEmergencyDecel in MSCFModel::finalizeSpeed
-    } else if (dv < sdvo && dx < sdxo){
+    } else if (dv < sdvo && dx < sdxo) {
         // 'Accelerate/Decelerate - Keep Distance';
         if (oldAccel <= 0) {
             accel = MIN2(oldAccel, -myCC7);
@@ -151,10 +150,10 @@ MSCFModel_W99::followSpeed(const MSVehicle* const veh, double speed, double gap2
         if (dx > sdxc) {
             //if (follower.status === 'w') {
             //    accel = cc7;
-            //} else 
+            //} else
             {
-                const double accelMax = myCC8 + myCC9 * MIN2(speed, 80/3.6) + RandHelper::rand(veh->getRNG());
-                if (dx < sdxo){
+                const double accelMax = myCC8 + myCC9 * MIN2(speed, 80 / 3.6) + RandHelper::rand(veh->getRNG());
+                if (dx < sdxo) {
                     accel = MIN2(dv * dv / (sdxo - dx), accelMax);
                     status = 7;
                 } else {
@@ -169,11 +168,11 @@ MSCFModel_W99::followSpeed(const MSVehicle* const veh, double speed, double gap2
 #ifdef DEBUG_FOLLOW_SPEED
     if (DEBUG_COND) {
         std::cout << SIMTIME << " W99::fS veh=" << veh->getID() << " pred=" << Named::getIDSecure(pred)
-            << " v=" << speed << " pV=" << predSpeed << " g=" << gap2pred
-            << " dv=" << dv << " dx=" << dx
-            << " sdxc=" << sdxc << " sdxo=" << sdxo << " sdxv=" << sdxv << " sdv=" << sdv << " sdvo=" << sdvo << " sdvc=" << sdvc
-            << " st=" << status
-            << " a=" << accel << " V=" << vNew << "\n";
+                  << " v=" << speed << " pV=" << predSpeed << " g=" << gap2pred
+                  << " dv=" << dv << " dx=" << dx
+                  << " sdxc=" << sdxc << " sdxo=" << sdxo << " sdxv=" << sdxv << " sdv=" << sdv << " sdvo=" << sdvo << " sdvc=" << sdvc
+                  << " st=" << status
+                  << " a=" << accel << " V=" << vNew << "\n";
     }
 #else
     UNUSED_PARAMETER(status);
@@ -188,7 +187,7 @@ MSCFModel_W99::followSpeed(const MSVehicle* const veh, double speed, double gap2
 
 double
 MSCFModel_W99::stopSpeed(const MSVehicle* const veh, const double speed, double gap) const {
-    // W99 doesn't stop on point so we add some slack 
+    // W99 doesn't stop on point so we add some slack
     const double vFollow = followSpeed(veh, speed, gap + sqrt(gap) + 2, 0, 4.5, 0);
     return MIN3(vFollow, maximumSafeStopSpeed(gap, speed, false, veh->getActionStepLengthSecs()), maxNextSpeed(speed, veh));
 }

@@ -41,34 +41,34 @@
 // method definitions
 // ===========================================================================
 
-GNEWalk::GNEWalk(GNEViewNet* viewNet, GNEDemandElement *personParent, SumoXMLTag walkTag, const std::vector<GNEEdge*>& edges, double arrivalPosition) :
+GNEWalk::GNEWalk(GNEViewNet* viewNet, GNEDemandElement* personParent, SumoXMLTag walkTag, const std::vector<GNEEdge*>& edges, double arrivalPosition) :
     GNEDemandElement(viewNet->getNet()->generateDemandElementID("", walkTag), viewNet, GLO_WALK, walkTag,
-    edges, {}, {}, {}, {personParent}, {}, {}, {}, {}, {}),
-    Parameterised(),
-    myArrivalPosition(arrivalPosition) {
+                     edges, {}, {}, {}, {personParent}, {}, {}, {}, {}, {}),
+                        Parameterised(),
+myArrivalPosition(arrivalPosition) {
 }
 
 
-GNEWalk::GNEWalk(GNEViewNet* viewNet, GNEDemandElement *personParent, const std::vector<GNEEdge*>& edges, GNEAdditional *busStop) :
+GNEWalk::GNEWalk(GNEViewNet* viewNet, GNEDemandElement* personParent, const std::vector<GNEEdge*>& edges, GNEAdditional* busStop) :
     GNEDemandElement(viewNet->getNet()->generateDemandElementID("", SUMO_TAG_WALK_BUSSTOP), viewNet, GLO_WALK, SUMO_TAG_WALK_BUSSTOP,
-    edges, {}, {}, {busStop}, {personParent}, {}, {}, {}, {}, {}),
-    Parameterised(),
-    myArrivalPosition(-1) {
+                     edges, {}, {}, {busStop}, {personParent}, {}, {}, {}, {}, {}),
+Parameterised(),
+myArrivalPosition(-1) {
 }
 
 
-GNEWalk::GNEWalk(GNEViewNet* viewNet, GNEDemandElement *personParent, GNEDemandElement *routeParent, double arrivalPosition) :
+GNEWalk::GNEWalk(GNEViewNet* viewNet, GNEDemandElement* personParent, GNEDemandElement* routeParent, double arrivalPosition) :
     GNEDemandElement(viewNet->getNet()->generateDemandElementID("", SUMO_TAG_WALK_ROUTE), viewNet, GLO_WALK, SUMO_TAG_WALK_ROUTE,
-    {}, {}, {}, {}, {personParent, routeParent}, {}, {}, {}, {}, {}),
-    Parameterised(),
-    myArrivalPosition(arrivalPosition) {
+{}, {}, {}, {}, {personParent, routeParent}, {}, {}, {}, {}, {}),
+Parameterised(),
+myArrivalPosition(arrivalPosition) {
 }
 
 
 GNEWalk::~GNEWalk() {}
 
 
-SUMOVehicleClass 
+SUMOVehicleClass
 GNEWalk::getVClass() const {
     return getDemandElementParents().front()->getVClass();
 }
@@ -156,7 +156,7 @@ GNEWalk::isDemandElementValid() const {
 }
 
 
-std::string 
+std::string
 GNEWalk::getDemandElementProblem() const {
     if (myTagProperty.getTag() == SUMO_TAG_WALK_ROUTE) {
         return "";
@@ -175,13 +175,13 @@ GNEWalk::getDemandElementProblem() const {
 }
 
 
-void 
+void
 GNEWalk::fixDemandElementProblem() {
     // currently the only solution is removing Walk
 }
 
 
-void 
+void
 GNEWalk::startGeometryMoving() {
     // only start geometry moving if arrival position isn't -1
     if (myArrivalPosition != -1) {
@@ -195,7 +195,7 @@ GNEWalk::startGeometryMoving() {
 }
 
 
-void 
+void
 GNEWalk::endGeometryMoving() {
     // check that myArrivalPosition isn't -1 and endGeometryMoving was called only once
     if ((myArrivalPosition != -1) && myWalkMove.movingGeometryBoundary.isInitialised()) {
@@ -215,7 +215,7 @@ GNEWalk::moveGeometry(const Position& offset) {
         // filtern position using snap to active grid
         newPosition = myViewNet->snapToActiveGrid(newPosition);
         // obtain lane shape (to improve code legibility)
-        const PositionVector &laneShape = getEdgeParents().back()->getLanes().front()->getGeometry().shape;
+        const PositionVector& laneShape = getEdgeParents().back()->getLanes().front()->getGeometry().shape;
         // calculate offset lane
         double offsetLane = laneShape.nearest_offset_to_point2D(newPosition, false) - laneShape.nearest_offset_to_point2D(myWalkMove.originalViewPosition, false);
         std::cout << offsetLane << std::endl;
@@ -265,7 +265,7 @@ Boundary
 GNEWalk::getCenteringBoundary() const {
     Boundary walkBoundary;
     // return the combination of all edge parents's boundaries
-    for (const auto &i : getEdgeParents()) {
+    for (const auto& i : getEdgeParents()) {
         walkBoundary.add(i->getCenteringBoundary());
     }
     // check if is valid
@@ -343,7 +343,7 @@ GNEWalk::getAttribute(SumoXMLAttr key) const {
 }
 
 
-double 
+double
 GNEWalk::getAttributeDouble(SumoXMLAttr key) const {
     switch (key) {
         case SUMO_ATTR_ARRIVALPOS:
@@ -414,13 +414,13 @@ GNEWalk::isValid(SumoXMLAttr key, const std::string& value) {
 }
 
 
-void 
+void
 GNEWalk::enableAttribute(SumoXMLAttr /*key*/, GNEUndoList* /*undoList*/) {
     //
 }
 
 
-bool 
+bool
 GNEWalk::isAttributeEnabled(SumoXMLAttr /*key*/) const {
     return true;
 }
@@ -578,7 +578,7 @@ GNEWalk::setAttribute(SumoXMLAttr key, const std::string& value) {
 }
 
 
-void 
+void
 GNEWalk::setEnabledAttribute(const int /*enabledAttributes*/) {
     //
 }

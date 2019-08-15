@@ -35,14 +35,14 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-Distribution_Parameterized::Distribution_Parameterized(const std::string& id, double mean, double deviation) : 
+Distribution_Parameterized::Distribution_Parameterized(const std::string& id, double mean, double deviation) :
     Distribution(id) {
     myParameter.push_back(mean);
     myParameter.push_back(deviation);
 }
 
 
-Distribution_Parameterized::Distribution_Parameterized(const std::string& id, double mean, double deviation, double min, double max) : 
+Distribution_Parameterized::Distribution_Parameterized(const std::string& id, double mean, double deviation, double min, double max) :
     Distribution(id) {
     myParameter.push_back(mean);
     myParameter.push_back(deviation);
@@ -75,7 +75,7 @@ Distribution_Parameterized::parse(const std::string& description, const bool har
         if (hardFail) {
             throw ProcessError("Invalid format of distribution parameterized");
         } else {
-            WRITE_ERROR("Invalid format of distribution parameterized"); 
+            WRITE_ERROR("Invalid format of distribution parameterized");
         }
     }
 }
@@ -107,13 +107,13 @@ Distribution_Parameterized::getMax() const {
 }
 
 
-std::vector<double>& 
+std::vector<double>&
 Distribution_Parameterized::getParameter() {
     return myParameter;
 }
 
 
-const std::vector<double>& 
+const std::vector<double>&
 Distribution_Parameterized::getParameter() const {
     return myParameter;
 }

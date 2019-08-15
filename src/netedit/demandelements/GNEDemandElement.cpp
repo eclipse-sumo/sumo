@@ -129,28 +129,28 @@ GNEDemandElement::DemandElementSegmentGeometry::DemandElementSegmentGeometry() :
 }
 
 
-void 
+void
 GNEDemandElement::DemandElementSegmentGeometry::insertEdgeSegment(const GNEDemandElement* element, const GNEEdge* edge, const Position pos, const bool visible, const bool valid) {
     // add segment in myShapeSegments
     myShapeSegments.push_back(Segment(element, edge, pos, visible, valid));
 }
 
 
-void 
+void
 GNEDemandElement::DemandElementSegmentGeometry::insertEdgeLengthRotSegment(const GNEDemandElement* element, const GNEEdge* edge, const Position pos, double length, double rotation, const bool visible, const bool valid) {
     // add segment in myShapeSegments
     myShapeSegments.push_back(Segment(element, edge, pos, length, rotation, visible, valid));
 }
 
 
-void 
+void
 GNEDemandElement::DemandElementSegmentGeometry::insertJunctionSegment(const GNEDemandElement* element, const GNEJunction* junction, const Position pos, const bool visible, const bool valid) {
     // add segment in myShapeSegments
     myShapeSegments.push_back(Segment(element, junction, pos, visible, valid));
 }
 
 
-void 
+void
 GNEDemandElement::DemandElementSegmentGeometry::clearDemandElementSegmentGeometry() {
     // clear segments
     myShapeSegments.clear();
@@ -181,13 +181,13 @@ GNEDemandElement::DemandElementSegmentGeometry::calculatePartialShapeRotationsAn
 }
 
 
-std::vector<GNEDemandElement::DemandElementSegmentGeometry::Segment>::const_iterator 
+std::vector<GNEDemandElement::DemandElementSegmentGeometry::Segment>::const_iterator
 GNEDemandElement::DemandElementSegmentGeometry::begin() const {
     return myShapeSegments.cbegin();
 }
 
 
-std::vector<GNEDemandElement::DemandElementSegmentGeometry::Segment>::const_iterator 
+std::vector<GNEDemandElement::DemandElementSegmentGeometry::Segment>::const_iterator
 GNEDemandElement::DemandElementSegmentGeometry::end() const {
     return myShapeSegments.cend();
 }
@@ -265,12 +265,12 @@ GNEDemandElement::RouteCalculator::calculateDijkstraRoute(SUMOVehicleClass vClas
 
 
 std::vector<GNEEdge*>
-GNEDemandElement::RouteCalculator::calculateDijkstraRoute(GNENet *net, SUMOVehicleClass vClass, const std::vector<std::string>& partialEdgesStr) const {
+GNEDemandElement::RouteCalculator::calculateDijkstraRoute(GNENet* net, SUMOVehicleClass vClass, const std::vector<std::string>& partialEdgesStr) const {
     // declare a vector of GNEEdges
     std::vector<GNEEdge*> partialEdges;
     partialEdges.reserve(partialEdgesStr.size());
     // convert to vector of GNEEdges
-    for (const auto &i : partialEdgesStr) {
+    for (const auto& i : partialEdgesStr) {
         partialEdges.push_back(net->retrieveEdge(i));
     }
     // calculate DijkstraRoute using partialEdges
@@ -356,19 +356,19 @@ GNEDemandElement::generateChildID(SumoXMLTag childTag) {
 GNEDemandElement::~GNEDemandElement() {}
 
 
-const GNEDemandElement::DemandElementGeometry &
+const GNEDemandElement::DemandElementGeometry&
 GNEDemandElement::getDemandElementGeometry() const {
     return myDemandElementGeometry;
 }
 
 
-const GNEDemandElement::DemandElementSegmentGeometry &
+const GNEDemandElement::DemandElementSegmentGeometry&
 GNEDemandElement::getDemandElementSegmentGeometry() const {
     return myDemandElementSegmentGeometry;
 }
 
 
-void 
+void
 GNEDemandElement::markSegmentGeometryDeprecated() {
     myDemandElementSegmentGeometry.geometryDeprecated = true;
 }

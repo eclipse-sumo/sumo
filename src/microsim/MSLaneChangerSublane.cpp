@@ -144,7 +144,7 @@ assert(vehicle->getLane() == (*myCandi).lane);
 
 #ifdef DEBUG_ACTIONSTEPS
     if DEBUG_COND {
-        std::cout << "\n" << SIMTIME << " veh '" << vehicle->getID() << "'  plans lanechange maneuver." << std::endl;
+    std::cout << "\n" << SIMTIME << " veh '" << vehicle->getID() << "'  plans lanechange maneuver." << std::endl;
     }
 #endif
     vehicle->updateBestLanes(); // needed?
@@ -219,8 +219,8 @@ MSLaneChangerSublane::abortLCManeuver(MSVehicle* vehicle) {
         const int priorDirection = vehicle->getLaneChangeModel().getPreviousManeuverDist() > 0 ? 1 : -1;
 #ifdef DEBUG_MANEUVER
         if DEBUG_COND {
-            std::cout << SIMTIME << " abortLCManeuver priorReason=" << toString((LaneChangeAction)priorReason)
-                << " reason=" << toString((LaneChangeAction)reason) << " veh=" << vehicle->getID() << "\n";
+        std::cout << SIMTIME << " abortLCManeuver priorReason=" << toString((LaneChangeAction)priorReason)
+                      << " reason=" << toString((LaneChangeAction)reason) << " veh=" << vehicle->getID() << "\n";
         }
 #endif
         outputLCEnded(vehicle, myCandi, myCandi, priorDirection);
@@ -332,15 +332,15 @@ MSLaneChangerSublane::startChangeSublane(MSVehicle* vehicle, ChangerIt& from, do
     const int reason = vehicle->getLaneChangeModel().getOwnState() & LCA_CHANGE_REASONS & ~LCA_SUBLANE;
 #ifdef DEBUG_MANEUVER
     if DEBUG_COND {
-        std::cout << SIMTIME << " vehicle '" << vehicle->getID()
-            << "' completedPriorManeuver=" << completedPriorManeuver
-            << " completedManeuver=" << completedManeuver
-            << " priorReason=" << toString((LaneChangeAction)priorReason)
-            << " reason=" << toString((LaneChangeAction)reason)
-            << " priorManeuverDist=" << vehicle->getLaneChangeModel().getPreviousManeuverDist()
-            << " maneuverDist=" << maneuverDist
-            << " latDist=" << latDist
-            << std::endl;
+    std::cout << SIMTIME << " vehicle '" << vehicle->getID()
+                  << "' completedPriorManeuver=" << completedPriorManeuver
+                  << " completedManeuver=" << completedManeuver
+                  << " priorReason=" << toString((LaneChangeAction)priorReason)
+                  << " reason=" << toString((LaneChangeAction)reason)
+                  << " priorManeuverDist=" << vehicle->getLaneChangeModel().getPreviousManeuverDist()
+                  << " maneuverDist=" << maneuverDist
+                  << " latDist=" << latDist
+                  << std::endl;
     }
 #endif
     if (!completedManeuver && !completedPriorManeuver && priorReason != 0 &&
@@ -350,8 +350,8 @@ MSLaneChangerSublane::startChangeSublane(MSVehicle* vehicle, ChangerIt& from, do
         // original from cannot be reconstructed
 #ifdef DEBUG_MANEUVER
         if DEBUG_COND {
-            std::cout << SIMTIME << " startChangeSublane abort priorReason=" << toString((LaneChangeAction)priorReason)
-                << " reason=" << toString((LaneChangeAction)reason) << " veh=" << vehicle->getID() << "\n";
+        std::cout << SIMTIME << " startChangeSublane abort priorReason=" << toString((LaneChangeAction)priorReason)
+                      << " reason=" << toString((LaneChangeAction)reason) << " veh=" << vehicle->getID() << "\n";
         }
 #endif
         outputLCEnded(vehicle, from, from, priorDirection);
@@ -473,7 +473,7 @@ MSLaneChangerSublane::outputLCStarted(MSVehicle* vehicle, ChangerIt& from, Chang
             && ((vehicle->getLaneChangeModel().getOwnState() & LCA_STAY) == 0)
             // no changing for the same reason in previous step (either not wanted or blocked)
             && ((vehicle->getLaneChangeModel().getPrevState() & LCA_CHANGE_REASONS & ~LCA_SUBLANE) !=
-                    (vehicle->getLaneChangeModel().getOwnState() & LCA_CHANGE_REASONS & ~LCA_SUBLANE)
+                (vehicle->getLaneChangeModel().getOwnState() & LCA_CHANGE_REASONS & ~LCA_SUBLANE)
                 || ((vehicle->getLaneChangeModel().getPrevState() & LCA_STAY) != 0)
                 || ((vehicle->getLaneChangeModel().getPrevState() & LCA_BLOCKED) != 0))
        ) {

@@ -44,24 +44,24 @@ const int StringTokenizer::TAB = 9;
 // method definitions
 // ===========================================================================
 
-StringTokenizer::StringTokenizer() : 
+StringTokenizer::StringTokenizer() :
     myPos(0) {
 }
 
 
-StringTokenizer::StringTokenizer(std::string tosplit) : 
+StringTokenizer::StringTokenizer(std::string tosplit) :
     myTosplit(tosplit), myPos(0) {
     prepareWhitechar(tosplit);
 }
 
 
-StringTokenizer::StringTokenizer(std::string tosplit, std::string token, bool splitAtAllChars) : 
+StringTokenizer::StringTokenizer(std::string tosplit, std::string token, bool splitAtAllChars) :
     myTosplit(tosplit), myPos(0) {
     prepare(tosplit, token, splitAtAllChars);
 }
 
 
-StringTokenizer::StringTokenizer(std::string tosplit, int special) : 
+StringTokenizer::StringTokenizer(std::string tosplit, int special) :
     myTosplit(tosplit), myPos(0) {
     switch (special) {
         case NEWLINE:

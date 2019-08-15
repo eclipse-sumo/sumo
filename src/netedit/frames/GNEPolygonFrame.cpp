@@ -379,7 +379,7 @@ GNEPolygonFrame::shapeDrawed() {
 }
 
 
-void 
+void
 GNEPolygonFrame::tagSelected() {
     if (myShapeTagSelector->getCurrentTagProperties().getTag() != SUMO_TAG_NOTHING) {
         // if there are parmeters, show and Recalc groupBox

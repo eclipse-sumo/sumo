@@ -150,9 +150,9 @@ public:
 
     /// @brief Return value indicates whether the device still wants to be notified about the vehicle movement
     bool notifyMove(SUMOTrafficObject& veh,
-                            double oldPos,
-                            double newPos,
-                            double newSpeed) override;
+                    double oldPos,
+                    double newPos,
+                    double newSpeed) override;
 
     /// @brief try to retrieve the given parameter from this device. Throw exception for unsupported key
     std::string getParameter(const std::string& key) const override;
@@ -209,8 +209,8 @@ private:
     MSDevice_ToC(SUMOVehicle& holder, const std::string& id, const std::string& outputFilename,
                  std::string manualType, std::string automatedType, SUMOTime responseTime, double recoveryRate,
                  double lcAbstinence, double initialAwareness, double mrmDecel,
-				 double dynamicToCThreshold, double dynamicMRMProbability, double maxPreparationAccel,
-				 bool mrmKeepRight, bool useColorScheme, OpenGapParams ogp);
+                 double dynamicToCThreshold, double dynamicMRMProbability, double maxPreparationAccel,
+                 bool mrmKeepRight, bool useColorScheme, OpenGapParams ogp);
 
     /** @brief Initialize vehicle colors for different states
      *  @note  For MANUAL and AUTOMATED, the color of the given types are used,
@@ -361,7 +361,7 @@ private:
     static std::vector<double> lookupResponseTimeLeadTimes;
     /// @brief Mean of the response time distribution. (Only depends on given lead time)
     static double responseTimeMean(double leadTime) {
-        return MIN2(2*sqrt(leadTime), 0.7*leadTime);
+        return MIN2(2 * sqrt(leadTime), 0.7 * leadTime);
     };
     /// @brief Variances of the response time distribution. Given the lead time and the MRM probability
     /// the variances in this table ensure that for the mean returned by responseTimeMean(leadTime)

@@ -597,7 +597,7 @@ public:
     EdgeVector getGeneratedFrom(const std::string& id) const;
 
     /// @brief join adjacent lanes with the given permissions
-    int joinLanes(SVCPermissions perms); 
+    int joinLanes(SVCPermissions perms);
 
     /// @brief return all edges
     EdgeVector getAllEdges() const;

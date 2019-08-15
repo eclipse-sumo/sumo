@@ -85,10 +85,10 @@ public:
     bool addStop(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor, bool shiftPressed);
 
     /// @brief get stop parameters
-    static bool getStopParameter(SUMOVehicleParameter::Stop &stop, bool &friendlyPosition, const SumoXMLTag stopTag, 
-                                 GNEViewNet *viewNet, const GNEFrameAttributesModuls::AttributesCreator* stopAttributes, 
-                                 const GNEFrameAttributesModuls::NeteditAttributes* myNeteditAttributes, 
-                                 const GNELane *lane, const GNEAdditional* stoppingPlace);
+    static bool getStopParameter(SUMOVehicleParameter::Stop& stop, bool& friendlyPosition, const SumoXMLTag stopTag,
+                                 GNEViewNet* viewNet, const GNEFrameAttributesModuls::AttributesCreator* stopAttributes,
+                                 const GNEFrameAttributesModuls::NeteditAttributes* myNeteditAttributes,
+                                 const GNELane* lane, const GNEAdditional* stoppingPlace);
 
 protected:
     /// @brief Tag selected in TagSelector

@@ -127,13 +127,13 @@ public:
             void setVariable();
 
             /// @brief set Variablen in VehicleType (Specifying default value)
-            void setVariable(const std::string &defaultValue);
+            void setVariable(const std::string& defaultValue);
 
             /// @brief update value of Vehicle Type (using default value obtained from GNEAttributeCarrier)
             void updateValue();
 
             /// @brief update value of Vehicle Type (Specifying default value)
-            void updateValue(const std::string &defaultValue);
+            void updateValue(const std::string& defaultValue);
 
             /// @brief get button
             const FXButton* getButton() const;
@@ -302,10 +302,10 @@ public:
 
         /// @brief VTypeAttributeRow for Ignore Keep Clear Time
         VTypeAttributeRow* myJMIgnoreKeepclearTime;
-        
+
         /// @brief VTypeAttributeRow for Drive After Yellow Time
         VTypeAttributeRow* myJMDriveAfterYellowTime;
-        
+
         /// @brief VTypeAttributeRow for Drive After Red Time
         VTypeAttributeRow* myJMDriveAfterRedTime;
 

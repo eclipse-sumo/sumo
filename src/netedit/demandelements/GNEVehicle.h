@@ -47,7 +47,7 @@ public:
          * @param[in] app The main window for instantiation of other windows
          * @param[in] parent The parent view for changing it
          */
-        GNESingleVehiclePopupMenu(GNEVehicle *vehicle, GUIMainWindow& app, GUISUMOAbstractView& parent);
+        GNESingleVehiclePopupMenu(GNEVehicle* vehicle, GUIMainWindow& app, GUISUMOAbstractView& parent);
 
         /// @brief Destructor
         ~GNESingleVehiclePopupMenu();
@@ -61,7 +61,7 @@ public:
 
     private:
         /// @brief current vehicle
-        GNEVehicle *myVehicle;
+        GNEVehicle* myVehicle;
 
         /// @brief menu command for transform to vehicle
         FXMenuCommand* myTransformToVehicle;
@@ -93,7 +93,7 @@ public:
          * @param[in] app The main window for instantiation of other windows
          * @param[in] parent The parent view for changing it
          */
-        GNESelectedVehiclesPopupMenu(GNEVehicle *vehicle, const std::vector<GNEVehicle*> &selectedVehicle, GUIMainWindow& app, GUISUMOAbstractView& parent);
+        GNESelectedVehiclesPopupMenu(GNEVehicle* vehicle, const std::vector<GNEVehicle*>& selectedVehicle, GUIMainWindow& app, GUISUMOAbstractView& parent);
 
         /// @brief Destructor
         ~GNESelectedVehiclesPopupMenu();
@@ -316,27 +316,27 @@ public:
 protected:
     /// @brief struct used for calculating routes
     struct ConnectionGeometry {
-        
+
         /// @brief parameter constructor with NBEdge::Connection
-        ConnectionGeometry(const NBEdge::Connection *_con, const GNELane *_laneFrom, const GNELane *_laneTo);
+        ConnectionGeometry(const NBEdge::Connection* _con, const GNELane* _laneFrom, const GNELane* _laneTo);
 
         /// @brief parameter constructor without NBEdge::Connection
-        ConnectionGeometry(const GNELane *_laneFrom, const GNELane *_laneTo);
+        ConnectionGeometry(const GNELane* _laneFrom, const GNELane* _laneTo);
 
         /// @brief calculate connection shape (note: Only calculated if 'con' isn't nullptr)
         void calculateConnectionShape();
-        
+
         /// @brief calculated connection shape
         PositionVector connectionShape;
 
         /// @brief Pointer to NBEdge::Connection
-        const NBEdge::Connection *con;
+        const NBEdge::Connection* con;
 
         /// @brief lane from
-        const GNELane *laneFrom;
+        const GNELane* laneFrom;
 
         /// @brief lane to
-        const GNELane *laneTo;
+        const GNELane* laneTo;
 
     private:
         /// @brief default constructor (by default unused)

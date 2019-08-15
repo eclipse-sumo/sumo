@@ -66,7 +66,7 @@ def typeEnter():
 """
 @brief type space key
 """
-    
+
 
 def typeSpace():
     # type space key

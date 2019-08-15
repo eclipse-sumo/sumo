@@ -401,7 +401,7 @@ NLTriggerBuilder::buildMECalibrator(MSNet& /*net*/, const std::string& id,
                                     const std::string& file,
                                     const std::string& outfile,
                                     const SUMOTime freq,
-                                    MSRouteProbe* probe, 
+                                    MSRouteProbe* probe,
                                     const std::string& vTypes) {
     return new METriggeredCalibrator(id, edge, pos, file, outfile, freq, MSGlobals::gMesoNet->getSegmentForEdge(*edge, pos)->getLength(), probe, vTypes);
 }

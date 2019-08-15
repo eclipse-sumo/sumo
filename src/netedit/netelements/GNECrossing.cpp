@@ -100,9 +100,9 @@ void
 GNECrossing::drawGL(const GUIVisualizationSettings& s) const {
     // only draw if option drawCrossingsAndWalkingareas is enabled and size of shape is greather than 0 and zoom is close enough
     if (s.drawCrossingsAndWalkingareas &&
-        (myGeometry.shapeRotations.size() > 0) &&
-        (myGeometry.shapeLengths.size() > 0) &&
-        (s.scale > 3.0)) {
+            (myGeometry.shapeRotations.size() > 0) &&
+            (myGeometry.shapeLengths.size() > 0) &&
+            (s.scale > 3.0)) {
         auto crossing = myParentJunction->getNBNode()->getCrossing(myCrossingEdges);
         if (myNet->getViewNet()->getEditModes().networkEditMode != GNE_NMODE_TLS) {
             // push first draw matrix

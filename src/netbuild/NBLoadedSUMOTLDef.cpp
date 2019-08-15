@@ -666,7 +666,7 @@ NBLoadedSUMOTLDef::guessMinMaxDuration() {
             }
             if (needMinMaxDur) {
                 double maxSpeed = 0;
-                for(NBConnection& c : myControlledLinks) {
+                for (NBConnection& c : myControlledLinks) {
                     if (greenIndices.count(c.getTLIndex()) != 0) {
                         maxSpeed = MAX2(maxSpeed, c.getFrom()->getLaneSpeed(c.getFromLane()));
                     }

@@ -792,7 +792,7 @@ public:
     /** @brief Returns the lane with the given offset parallel to this one or 0 if it does not exist
      * @param[in] offset The offset of the result lane
      */
-    MSLane* getParallelLane(int offset, bool includeOpposite=true) const;
+    MSLane* getParallelLane(int offset, bool includeOpposite = true) const;
 
 
     /** @brief Sets the permissions to the given value. If a transientID is given, the permissions are recored as temporary

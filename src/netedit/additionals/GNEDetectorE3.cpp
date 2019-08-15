@@ -36,12 +36,12 @@
 
 GNEDetectorE3::GNEDetectorE3(const std::string& id, GNEViewNet* viewNet, Position pos, SUMOTime freq, const std::string& filename, const std::string& vehicleTypes, const std::string& name, SUMOTime timeThreshold, double speedThreshold, bool blockMovement) :
     GNEAdditional(id, viewNet, GLO_E3DETECTOR, SUMO_TAG_E3DETECTOR, name, blockMovement, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}),
-    myPosition(pos),
-    myFreq(freq),
-    myFilename(filename),
-    myVehicleTypes(vehicleTypes),
-    myTimeThreshold(timeThreshold),
-    mySpeedThreshold(speedThreshold) {
+              myPosition(pos),
+              myFreq(freq),
+              myFilename(filename),
+              myVehicleTypes(vehicleTypes),
+              myTimeThreshold(timeThreshold),
+mySpeedThreshold(speedThreshold) {
 }
 
 
@@ -116,7 +116,7 @@ GNEDetectorE3::drawGL(const GUIVisualizationSettings& s) const {
     // Obtain exaggeration of the draw
     const double exaggeration = s.addSize.getExaggeration(s, this);
     // check if boundary has to be drawn
-    if(s.drawBoundaries) {
+    if (s.drawBoundaries) {
         GLHelper::drawBoundary(getCenteringBoundary());
     }
     // Start drawing adding an gl identificator
@@ -142,7 +142,7 @@ GNEDetectorE3::drawGL(const GUIVisualizationSettings& s) const {
     // Show Lock icon depending
     myBlockIcon.drawIcon(s, exaggeration, 0.4);
     // Draw child connections
-    drawChildConnections(s ,getType());
+    drawChildConnections(s, getType());
     // Draw name if isn't being drawn for selecting
     if (!s.drawForSelecting) {
         drawName(getPositionInView(), s.scale, s.addName);
@@ -166,7 +166,7 @@ GNEDetectorE3::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_ID:
             return getAdditionalID();
         case SUMO_ATTR_POSITION:
-            return toString(myPosition);            
+            return toString(myPosition);
         case SUMO_ATTR_FREQUENCY:
             return time2string(myFreq);
         case SUMO_ATTR_NAME:
@@ -295,7 +295,7 @@ GNEDetectorE3::getHierarchyName() const {
 }
 
 
-void 
+void
 GNEDetectorE3::updateAdditionalParent() {
     myChildConnections.update();
 }

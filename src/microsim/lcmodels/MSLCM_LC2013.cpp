@@ -1269,7 +1269,7 @@ MSLCM_LC2013::_wantsChange(
             if (deltaV > 0) {
                 const double vMaxDecel = myCarFollowModel.getSpeedAfterMaxDecel(myVehicle.getSpeed());
                 const double vSafeFollow = myCarFollowModel.followSpeed(
-                                       &myVehicle, myVehicle.getSpeed(), neighLead.second, nv->getSpeed(), nv->getCarFollowModel().getMaxDecel());
+                                               &myVehicle, myVehicle.getSpeed(), neighLead.second, nv->getSpeed(), nv->getCarFollowModel().getMaxDecel());
                 const double vStayBehind = nv->getSpeed() - HELP_OVERTAKE;
                 double vSafe;
                 if (vSafeFollow >= vMaxDecel) {
@@ -1777,7 +1777,7 @@ MSLCM_LC2013::getRoundaboutDistBonus(const MSVehicle::LaneQ& curr, const MSVehic
     if (isOpposite()) {
         return 0;
     }
-    const MSVehicle::LaneQ& inner = curr.lane == best.lane ? neigh : curr; 
+    const MSVehicle::LaneQ& inner = curr.lane == best.lane ? neigh : curr;
 
     int roundaboutJunctionsAhead = 0;
     bool enteredRoundabout = false;
@@ -1792,14 +1792,18 @@ MSLCM_LC2013::getRoundaboutDistBonus(const MSVehicle::LaneQ& curr, const MSVehic
         if ((!enteredRoundabout || lane->getEdge().isRoundabout()) && i >= (int)inner.bestContinuations.size()) {
             // no bonus if we cannot continue on the inner lane until leaving the roundabout
 #ifdef DEBUG_WANTS_CHANGE
-            if (debugVehicle()) std::cout << "   noBonus: inner does not continue (lane=" << lane->getID() << ")\n";
+            if (debugVehicle()) {
+                std::cout << "   noBonus: inner does not continue (lane=" << lane->getID() << ")\n";
+            }
 #endif
             return 0;
         }
         if (seen > 300) {
             // avoid long look-ahead
 #ifdef DEBUG_WANTS_CHANGE
-            if (debugVehicle()) std::cout << "   noBonus: seen=" << seen << " (lane=" << lane->getID() << ")\n";
+            if (debugVehicle()) {
+                std::cout << "   noBonus: seen=" << seen << " (lane=" << lane->getID() << ")\n";
+            }
 #endif
             return 0;
         }
@@ -1855,23 +1859,31 @@ MSLCM_LC2013::getRoundaboutDistBonus(const MSVehicle::LaneQ& curr, const MSVehic
         }
         // discount vehicles that are upstream from ego
         const double upstreamDiscount = &lane->getEdge() == &myVehicle.getLane()->getEdge()
-            ? (lane->getLength() - myVehicle.getPositionOnLane()) / lane->getLength() : 1;
+                                        ? (lane->getLength() - myVehicle.getPositionOnLane()) / lane->getLength() : 1;
         prevNormal = lane;
         occupancyOuter += upstreamDiscount * lane->getBruttoVehLenSum();
-        if (debugVehicle()) std::cout << " lane=" << lane->getID() << " occ=" << lane->getBruttoVehLenSum() << " discount=" << upstreamDiscount << " outer=" << occupancyOuter << "\n";
+        if (debugVehicle()) {
+            std::cout << " lane=" << lane->getID() << " occ=" << lane->getBruttoVehLenSum() << " discount=" << upstreamDiscount << " outer=" << occupancyOuter << "\n";
+        }
         if (via != nullptr) {
             occupancyOuter += via->getBruttoVehLenSum();
-            if (debugVehicle()) std::cout << " via=" << via->getID() << " occ=" << via->getBruttoVehLenSum() << " outer=" << occupancyOuter << "\n";
+            if (debugVehicle()) {
+                std::cout << " via=" << via->getID() << " occ=" << via->getBruttoVehLenSum() << " outer=" << occupancyOuter << "\n";
+            }
         }
         if (i < (int)inner.bestContinuations.size()) {
             MSLane* innerLane = inner.bestContinuations[i];
             occupancyInner += upstreamDiscount * innerLane->getBruttoVehLenSum();
-            if (debugVehicle()) std::cout << " inner=" << innerLane->getID() << " occ=" << innerLane->getBruttoVehLenSum() << " discount=" << upstreamDiscount << " inner=" << occupancyInner << "\n";
+            if (debugVehicle()) {
+                std::cout << " inner=" << innerLane->getID() << " occ=" << innerLane->getBruttoVehLenSum() << " discount=" << upstreamDiscount << " inner=" << occupancyInner << "\n";
+            }
             if (prevInner != nullptr) {
                 for (MSLink* link : prevInner->getLinkCont()) {
                     if (link->getLane() == innerLane && link->getViaLane() != nullptr) {
                         occupancyInner += link->getViaLane()->getBruttoVehLenSum();
-                        if (debugVehicle()) std::cout << " innerVia=" << link->getViaLane()->getID() << " occ=" << link->getViaLane()->getBruttoVehLenSum() << " inner=" << occupancyInner << "\n";
+                        if (debugVehicle()) {
+                            std::cout << " innerVia=" << link->getViaLane()->getID() << " occ=" << link->getViaLane()->getBruttoVehLenSum() << " inner=" << occupancyInner << "\n";
+                        }
                     }
                 }
             }

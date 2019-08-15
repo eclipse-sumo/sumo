@@ -99,19 +99,19 @@ protected:
     struct SubordinatedElements {
 
         /// @brief constructor (for junctions)
-        SubordinatedElements(const GNEJunction *junction);
+        SubordinatedElements(const GNEJunction* junction);
 
         /// @brief constructor (for edges)
-        SubordinatedElements(const GNEEdge *edge);
+        SubordinatedElements(const GNEEdge* edge);
 
         /// @brief constructor (for lanes)
-        SubordinatedElements(const GNELane *lane);
+        SubordinatedElements(const GNELane* lane);
 
         /// @brief constructor (for additionals)
-        SubordinatedElements(const GNEAdditional *additional);
+        SubordinatedElements(const GNEAdditional* additional);
 
         /// @brief constructor (for demandElements)
-        SubordinatedElements(const GNEDemandElement *demandElement);
+        SubordinatedElements(const GNEDemandElement* demandElement);
 
         /// @brief additional parents
         int additionalParents;
@@ -127,7 +127,7 @@ protected:
 
     private:
         /// @brief add operator
-        SubordinatedElements &operator+=(const SubordinatedElements &other);
+        SubordinatedElements& operator+=(const SubordinatedElements& other);
     };
 
     /// @brief check if there is ACs to delete

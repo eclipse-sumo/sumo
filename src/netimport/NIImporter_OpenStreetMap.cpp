@@ -405,7 +405,7 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
     bool addForward = true;
     bool addBackward = true;
     if ((e->myIsOneWay == "true" || e->myIsOneWay == "yes" || e->myIsOneWay == "1"
-                || (defaultsToOneWay && e->myIsOneWay != "no" && e->myIsOneWay != "false" && e->myIsOneWay != "0"))
+            || (defaultsToOneWay && e->myIsOneWay != "no" && e->myIsOneWay != "false" && e->myIsOneWay != "0"))
             && e->myRailDirection != WAY_BOTH) {
         addBackward = false;
     }
@@ -677,7 +677,7 @@ NIImporter_OpenStreetMap::NodesHandler::myStartElement(int element, const SUMOSA
                 || key == "name" || key == "train" || key == "bus" || key == "tram" || key == "light_rail" || key == "subway" || key == "station" || key == "noexit"
                 || StringUtils::startsWith(key, "railway:signal")
                 || StringUtils::startsWith(key, "railway:position")
-                ) {
+           ) {
             std::string value = attrs.get<std::string>(SUMO_ATTR_V, toString(myLastNodeID).c_str(), ok, false);
             if (key == "highway" && value.find("traffic_signal") != std::string::npos) {
                 myToFill[myLastNodeID]->tlsControlled = true;
@@ -1670,7 +1670,7 @@ NIImporter_OpenStreetMap::getNeighboringNodes(NBNode* node, double maxDist, cons
 }
 
 
-std::string 
+std::string
 NIImporter_OpenStreetMap::usableType(const std::string& type, const std::string& id, NBTypeCont& tc) {
     if (tc.knows(type)) {
         return type;
@@ -1692,9 +1692,9 @@ NIImporter_OpenStreetMap::usableType(const std::string& type, const std::string&
             }
         } else if (tok.size() > 1) {
             WRITE_WARNING(
-                    "Discarding unknown compound '" + t + "' in type '" + type + "' (first occurence for edge '"
-                    + id
-                    + "').");
+                "Discarding unknown compound '" + t + "' in type '" + type + "' (first occurence for edge '"
+                + id
+                + "').");
         }
     }
     if (types.empty()) {
@@ -1746,14 +1746,14 @@ NIImporter_OpenStreetMap::usableType(const std::string& type, const std::string&
 
         if (discard) {
             WRITE_WARNING(
-                    "Discarding compound type '" + newType + "' (first occurence for edge '" + id + "').");
+                "Discarding compound type '" + newType + "' (first occurence for edge '" + id + "').");
             myUnusableTypes.insert(newType);
             return "";
         }
 
         WRITE_MESSAGE("Adding new type '" + type + "' (first occurence for edge '" + id + "').");
-        tc.insert(newType, numLanes, maxSpeed, prio, permissions, width, defaultIsOneWay, 
-                sidewalkWidth, bikelaneWidth, 0, 0, 0);
+        tc.insert(newType, numLanes, maxSpeed, prio, permissions, width, defaultIsOneWay,
+                  sidewalkWidth, bikelaneWidth, 0, 0, 0);
         for (auto& type3 : types) {
             if (!tc.getShallBeDiscarded(type3)) {
                 tc.copyRestrictionsAndAttrs(type3, newType);
@@ -1764,7 +1764,7 @@ NIImporter_OpenStreetMap::usableType(const std::string& type, const std::string&
     }
 }
 
-void 
+void
 NIImporter_OpenStreetMap::extendRailwayDistances(Edge* e, NBTypeCont& tc) {
     const std::string id = toString(e->id);
     std::string type = usableType(e->myHighWayType, id, tc);
@@ -1841,7 +1841,7 @@ NIImporter_OpenStreetMap::interpretDistance(NIOSMNode* node) {
             }
         } catch (...) {
             WRITE_WARNING("Value of railway:position is not numeric ('" + node->position + "') in node '" +
-                    toString(node->id) + "'.");
+                          toString(node->id) + "'.");
         }
     }
     return std::numeric_limits<double>::max();

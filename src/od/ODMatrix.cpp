@@ -322,13 +322,11 @@ ODMatrix::writeFlows(const SUMOTime begin, const SUMOTime end,
                 dev.writeAttr(SUMO_ATTR_BEGIN, c->begin).writeAttr(SUMO_ATTR_END, c->end);
                 if (!asProbability) {
                     dev.writeAttr(SUMO_ATTR_NUMBER, int(c->vehicleNumber));
-                }
-                else {
+                } else {
                     if (probability > 1) {
                         WRITE_WARNING("Flow density of " + toString(probability) + " vehicles per second, cannot be represented with a simple probability. Falling back to even spacing.");
                         dev.writeAttr(SUMO_ATTR_NUMBER, int(c->vehicleNumber));
-                    }
-                    else {
+                    } else {
                         dev.setPrecision(6);
                         dev.writeAttr(SUMO_ATTR_PROB, probability);
                         dev.setPrecision();
@@ -339,19 +337,16 @@ ODMatrix::writeFlows(const SUMOTime begin, const SUMOTime end,
                 dev.writeAttr(SUMO_ATTR_ARRIVALPOS, "random");
                 dev.closeTag();
                 dev.closeTag();
-            }
-            else if (persontrips) {
+            } else if (persontrips) {
                 dev.openTag(SUMO_TAG_PERSONFLOW).writeAttr(SUMO_ATTR_ID, prefix + toString(flowName++));
                 dev.writeAttr(SUMO_ATTR_BEGIN, c->begin).writeAttr(SUMO_ATTR_END, c->end);
                 if (!asProbability) {
                     dev.writeAttr(SUMO_ATTR_NUMBER, int(c->vehicleNumber));
-                }
-                else {
+                } else {
                     if (probability > 1) {
                         WRITE_WARNING("Flow density of " + toString(probability) + " vehicles per second, cannot be represented with a simple probability. Falling back to even spacing.");
                         dev.writeAttr(SUMO_ATTR_NUMBER, int(c->vehicleNumber));
-                    }
-                    else {
+                    } else {
                         dev.setPrecision(6);
                         dev.writeAttr(SUMO_ATTR_PROB, probability);
                         dev.setPrecision();
@@ -362,8 +357,7 @@ ODMatrix::writeFlows(const SUMOTime begin, const SUMOTime end,
                 dev.writeAttr(SUMO_ATTR_ARRIVALPOS, "random");
                 dev.closeTag();
                 dev.closeTag();
-            }
-            else {
+            } else {
                 // Normal flow output
                 dev.openTag(SUMO_TAG_FLOW).writeAttr(SUMO_ATTR_ID, prefix + toString(flowName++));
                 dev.writeAttr(SUMO_ATTR_BEGIN, time2string(c->begin));
@@ -371,13 +365,11 @@ ODMatrix::writeFlows(const SUMOTime begin, const SUMOTime end,
 
                 if (!asProbability) {
                     dev.writeAttr(SUMO_ATTR_NUMBER, int(c->vehicleNumber));
-                }
-                else {
+                } else {
                     if (probability > 1) {
                         WRITE_WARNING("Flow density of " + toString(probability) + " vehicles per second, cannot be represented with a simple probability. Falling back to even spacing.");
                         dev.writeAttr(SUMO_ATTR_NUMBER, int(c->vehicleNumber));
-                    }
-                    else {
+                    } else {
                         dev.setPrecision(6);
                         dev.writeAttr(SUMO_ATTR_PROB, probability);
                         dev.setPrecision();

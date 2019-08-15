@@ -102,7 +102,7 @@ if __name__ == "__main__":
 
     if options.verbose:
         print("Reading traces ...")
-        
+
     tracefiles = options.trace.split(',')
     for t in tracefiles:
         if len(tracefiles) == 1:
@@ -142,14 +142,15 @@ if __name__ == "__main__":
                 if poiOut is not None:
                     for idx, pos in enumerate(trace):
                         poiOut.write('<poi id="%s:%s" x="%s" y="%s"/>\n' % (tid, idx, pos[0], pos[1]))
-                edges = [e.getID() for e in sumolib.route.mapTrace(trace, net, *mapOpts) if e.getFunction() != "internal"]
+                edges = [e.getID() for e in sumolib.route.mapTrace(
+                    trace, net, *mapOpts) if e.getFunction() != "internal"]
                 if polyOut is not None and edges:
                     route2poly.generate_poly(options, net, tid, colorgen(), edges, polyOut)
                 if edges:
                     outf.write('    <route id="%s" edges="%s"/>\n' % (tid, " ".join(edges)))
                 elif options.verbose:
                     print("No edges are found for %s." % (tid))
-                    
+
             outf.write('</routes>\n')
             if poiOut is not None:
                 poiOut.write('</pois>\n')

@@ -14,7 +14,7 @@
 /// @date    2009-10-24
 /// @version $Id$
 ///
-// Tests the class NBTrafficLightLogic 
+// Tests the class NBTrafficLightLogic
 /****************************************************************************/
 
 #include <gtest/gtest.h>
@@ -24,10 +24,10 @@
 
 /* Test the method 'getDuration'*/
 TEST(NBTrafficLightLogic, test_method_getDuration) {
-    NBTrafficLightLogic tll("1","11",2);
+    NBTrafficLightLogic tll("1", "11", 2);
     EXPECT_EQ(0, tll.getDuration());
 
-    tll.addStep(3,"gr");
-    tll.addStep(5,"rG");
+    tll.addStep(3, "gr");
+    tll.addStep(5, "rG");
     EXPECT_EQ(8, tll.getDuration());
 }

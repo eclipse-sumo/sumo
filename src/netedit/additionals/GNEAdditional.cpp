@@ -195,7 +195,7 @@ GNEAdditional::getAdditionalGeometry() const {
 }
 
 
-void 
+void
 GNEAdditional::setSpecialColor(const RGBColor* color) {
     mySpecialColor = color;
 }
@@ -662,7 +662,7 @@ GNEAdditional::drawUsingSelectColor() const {
 }
 
 
-void 
+void
 GNEAdditional::enableAttribute(SumoXMLAttr /*key*/, GNEUndoList* /*undoList*/) {
     //
 }
@@ -732,7 +732,7 @@ GNEAdditional::checkAdditionalChildRestriction() const {
 }
 
 
-void 
+void
 GNEAdditional::setEnabledAttribute(const int /*enabledAttributes*/) {
     //
 }

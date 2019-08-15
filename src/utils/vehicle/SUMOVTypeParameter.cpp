@@ -41,18 +41,18 @@
 // ===========================================================================
 
 SUMOVTypeParameter::VClassDefaultValues::VClassDefaultValues(SUMOVehicleClass vclass) :
-    length(5./*4.3*/), 
-    minGap(2.5), 
+    length(5./*4.3*/),
+    minGap(2.5),
     maxSpeed(200. / 3.6),
-    width(1.8), 
-    height(1.5), 
+    width(1.8),
+    height(1.5),
     shape(SVS_UNKNOWN),
-    emissionClass(PollutantsInterface::getClassByName(EMPREFIX + "PC_G_EU4", vclass)), 
-    speedFactor("normc", 1.0, 0.0, 0.2, 2.0), 
-    personCapacity(4), 
+    emissionClass(PollutantsInterface::getClassByName(EMPREFIX + "PC_G_EU4", vclass)),
+    speedFactor("normc", 1.0, 0.0, 0.2, 2.0),
+    personCapacity(4),
     containerCapacity(0),
     osgFile("car-normal-citrus.obj"),
-    carriageLength(-1), 
+    carriageLength(-1),
     locomotiveLength(-1) {
     // update default values
     switch (vclass) {
@@ -382,18 +382,18 @@ SUMOVTypeParameter::write(OutputDevice& dev) const {
         dev.writeAttr(SUMO_ATTR_LANE_CHANGE_MODEL, lcModel);
     }
     // Write Lane Change Model parameters
-    for (const auto &i : lcParameter) {
+    for (const auto& i : lcParameter) {
         dev.writeAttr(i.first, i.second);
     }
     // Write Junction Model parameter
-    for (const auto &i : jmParameter) {
+    for (const auto& i : jmParameter) {
         dev.writeAttr(i.first, i.second);
     }
     if (wasSet(VTYPEPARS_CAR_FOLLOW_MODEL)) {
         dev.writeAttr(SUMO_ATTR_CAR_FOLLOW_MODEL, SUMOXMLDefinitions::CarFollowModels.getString(cfModel));
     }
     // Write Car Following Model parameters
-    for (const auto &i : cfParameter) {
+    for (const auto& i : cfParameter) {
         dev.writeAttr(i.first, i.second);
     }
     // Write rest of parameters
@@ -433,7 +433,7 @@ SUMOVTypeParameter::getLCParam(const SumoXMLAttr attr, const double defaultValue
 
 
 std::string
-SUMOVTypeParameter::getLCParamString(const SumoXMLAttr attr, const std::string &defaultValue) const {
+SUMOVTypeParameter::getLCParamString(const SumoXMLAttr attr, const std::string& defaultValue) const {
     if (lcParameter.count(attr)) {
         return lcParameter.find(attr)->second;
     } else {

@@ -451,7 +451,7 @@ public:
      * @param[out] error Error message, if an error occures
      * @return Whether the given value is a valid arrivalSpeed definition
      */
-    static bool parsePersonModes(const std::string& modes, const std::string& element, const std::string& id, SVCPermissions &modeSet, std::string& error);
+    static bool parsePersonModes(const std::string& modes, const std::string& element, const std::string& id, SVCPermissions& modeSet, std::string& error);
 
     /// @brief The vehicle tag
     SumoXMLTag tag;

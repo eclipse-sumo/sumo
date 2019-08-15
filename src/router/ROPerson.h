@@ -320,7 +320,7 @@ public:
             return myTripItems.empty();
         }
         void saveVehicles(OutputDevice& os, OutputDevice* const typeos, bool asAlternatives, OptionsCont& options) const;
-        void saveAsXML(OutputDevice& os, const bool extended, const bool asTrip, const bool writeGeoTrip) const; 
+        void saveAsXML(OutputDevice& os, const bool extended, const bool asTrip, const bool writeGeoTrip) const;
 
         double getWalkFactor() const {
             return walkFactor;

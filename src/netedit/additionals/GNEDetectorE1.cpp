@@ -37,7 +37,9 @@
 // ===========================================================================
 
 GNEDetectorE1::GNEDetectorE1(const std::string& id, GNELane* lane, GNEViewNet* viewNet, double pos, SUMOTime freq, const std::string& filename, const std::string& vehicleTypes, const std::string& name, bool friendlyPos, bool blockMovement) :
-    GNEDetector(id, viewNet, GLO_E1DETECTOR, SUMO_TAG_E1DETECTOR, pos, freq, filename, vehicleTypes, name, friendlyPos, blockMovement, {lane}) {
+    GNEDetector(id, viewNet, GLO_E1DETECTOR, SUMO_TAG_E1DETECTOR, pos, freq, filename, vehicleTypes, name, friendlyPos, blockMovement, {
+    lane
+}) {
 }
 
 
@@ -139,7 +141,7 @@ GNEDetectorE1::updateGeometry() {
 
 void
 GNEDetectorE1::drawGL(const GUIVisualizationSettings& s) const {
-    // get values    
+    // get values
     const double width = (double) 2.0 * s.scale;
     const double exaggeration = s.addSize.getExaggeration(s, this);
     // start drawing

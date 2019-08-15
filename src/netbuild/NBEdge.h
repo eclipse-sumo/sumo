@@ -67,9 +67,11 @@ public:
     virtual const std::string& getID() const = 0;
     virtual double getSpeed() const = 0;
     virtual double getLength() const = 0;
-    virtual int getNumericalID() const = 0; 
+    virtual int getNumericalID() const = 0;
     virtual const ConstRouterEdgePairVector& getViaSuccessors(SUMOVehicleClass vClass = SVC_IGNORING) const = 0;
-    virtual bool isInternal() const { return false; }
+    virtual bool isInternal() const {
+        return false;
+    }
 
     static inline double getTravelTimeStatic(const NBRouterEdge* const edge, const NBVehicle* const /*veh*/, double /*time*/) {
         return edge->getLength() / edge->getSpeed();
@@ -272,14 +274,24 @@ public:
         /// @name NBRouterEdge interface
         /// @{
         static ConstRouterEdgePairVector myViaSuccessors; // always empty
-        const std::string& getID() const { return id; }
-        double getSpeed() const { return vmax; }
-        double getLength() const { return shape.length() + viaShape.length(); }
-        int getNumericalID() const { throw ProcessError("NBEdge::Connection does not implement getNumericalID()"); }
-        bool isInternal() const { return true; }
-        const ConstRouterEdgePairVector& getViaSuccessors(SUMOVehicleClass vClass = SVC_IGNORING) const { 
+        const std::string& getID() const {
+            return id;
+        }
+        double getSpeed() const {
+            return vmax;
+        }
+        double getLength() const {
+            return shape.length() + viaShape.length();
+        }
+        int getNumericalID() const {
+            throw ProcessError("NBEdge::Connection does not implement getNumericalID()");
+        }
+        bool isInternal() const {
+            return true;
+        }
+        const ConstRouterEdgePairVector& getViaSuccessors(SUMOVehicleClass vClass = SVC_IGNORING) const {
             UNUSED_PARAMETER(vClass);
-            return myViaSuccessors; 
+            return myViaSuccessors;
         }
         /// }@
     };
@@ -1354,7 +1366,7 @@ public:
     }
 
     /// @brief join adjacent lanes with the given permissions
-    bool joinLanes(SVCPermissions perms); 
+    bool joinLanes(SVCPermissions perms);
 
 private:
     /** @class ToEdgeConnectionsAdder

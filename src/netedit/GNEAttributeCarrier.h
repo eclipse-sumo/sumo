@@ -409,7 +409,7 @@ public:
 
         /// @brief return true if tag correspond to a person element
         bool isPerson() const;
-        
+
         /// @brief return true if tag correspond to a person plan
         bool isPersonPlan() const;
 
@@ -834,7 +834,7 @@ private:
     /// @brief fill common vehicle attributes (used by vehicles, trips, routeFlows and flows)
     static void fillCommonVehicleAttributes(SumoXMLTag currentTag);
 
-     /// @brief fill common flow attributes (used by flows, routeFlows and personFlows)
+    /// @brief fill common flow attributes (used by flows, routeFlows and personFlows)
     static void fillCommonFlowAttributes(SumoXMLTag currentTag);
 
     /// @brief fill Car Following Model of Vehicle/Person Types
@@ -854,11 +854,11 @@ private:
 
     /// @brief parse and check attribute (note: This function is only to improve legilibility)
     static bool checkParsedAttribute(const TagProperties& tagProperties, const AttributeProperties& attrProperties, const SumoXMLAttr attribute,
-        std::string& defaultValue, std::string& parsedAttribute, std::string& warningMessage);
+                                     std::string& defaultValue, std::string& parsedAttribute, std::string& warningMessage);
 
     /// @brief parse and check masked  (note: This function is only to improve legilibility)
     static bool parseMaskedPositionAttribute(const SUMOSAXAttributes& attrs, const std::string& objectID, const TagProperties& tagProperties,
-        const AttributeProperties& attrProperties, std::string& parsedAttribute, std::string& warningMessage);
+            const AttributeProperties& attrProperties, std::string& parsedAttribute, std::string& warningMessage);
 
     /// @brief map with the tags properties
     static std::map<SumoXMLTag, TagProperties> myTagProperties;

@@ -297,13 +297,13 @@ GNEDialog_FixDemandElements::FixRouteOptions::FixRouteOptions(GNEDialog_FixDeman
     FXHorizontalFrame* radioButtonsFrame = new FXHorizontalFrame(this, GUIDesignHorizontalFrame);
     // create radio button for remove invalid routes
     removeInvalidRoutes = new FXRadioButton(radioButtonsFrame, "Remove invalid routes",
-        fixDemandElementsDialogParents, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
+                                            fixDemandElementsDialogParents, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
     // create radio button for save invalid routes
     saveInvalidRoutes = new FXRadioButton(radioButtonsFrame, "Save invalid routes",
-        fixDemandElementsDialogParents, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
+                                          fixDemandElementsDialogParents, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
     // create radio button for select invalid routes
     selectInvalidRoutesAndCancel = new FXRadioButton(radioButtonsFrame, "Select invalid routes",
-        fixDemandElementsDialogParents, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
+            fixDemandElementsDialogParents, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
     // leave option "removeInvalidRoutes" as default
     removeInvalidRoutes->setCheck(true);
 }
@@ -352,13 +352,13 @@ GNEDialog_FixDemandElements::FixVehicleOptions::FixVehicleOptions(GNEDialog_FixD
     FXHorizontalFrame* radioButtonsFrame = new FXHorizontalFrame(this, GUIDesignHorizontalFrame);
     // create radio button for remove invalid vehicles
     removeInvalidVehicles = new FXRadioButton(radioButtonsFrame, "Remove invalid vehicles",
-        fixDemandElementsDialogParents, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
+            fixDemandElementsDialogParents, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
     // create radio button for save invalid vehicles
     saveInvalidVehicles = new FXRadioButton(radioButtonsFrame, "Save invalid vehicles",
-        fixDemandElementsDialogParents, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
+                                            fixDemandElementsDialogParents, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
     // create radio button for select invalid vehicles
     selectInvalidVehiclesAndCancel = new FXRadioButton(radioButtonsFrame, "Select invalid vehicle",
-        fixDemandElementsDialogParents, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
+            fixDemandElementsDialogParents, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
     // leave option "buildConnectionBetweenLanes" and "removeInvalidRoutes" as default
     removeInvalidVehicles->setCheck(true);
 }
@@ -408,15 +408,15 @@ GNEDialog_FixDemandElements::FixStopOptions::FixStopOptions(GNEDialog_FixDemandE
     // create Vertical Frame for left options
     FXVerticalFrame* RadioButtonsLeft = new FXVerticalFrame(RadioButtons, GUIDesignAuxiliarVerticalFrame);
     activateFriendlyPositionAndSave = new FXRadioButton(RadioButtonsLeft, "Activate friendlyPos and save",
-        fixDemandElementsDialogParents, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
+            fixDemandElementsDialogParents, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
     saveInvalid = new FXRadioButton(RadioButtonsLeft, "Save invalid positions",
-        fixDemandElementsDialogParents, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
+                                    fixDemandElementsDialogParents, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
     // create Vertical Frame for right options
     FXVerticalFrame* RadioButtonsRight = new FXVerticalFrame(RadioButtons, GUIDesignAuxiliarVerticalFrame);
     selectInvalidStopsAndCancel = new FXRadioButton(RadioButtonsRight, "Select invalid Stops",
-        fixDemandElementsDialogParents, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
+            fixDemandElementsDialogParents, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
     fixPositionsAndSave = new FXRadioButton(RadioButtonsRight, "Fix positions and save",
-        fixDemandElementsDialogParents, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
+                                            fixDemandElementsDialogParents, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
     // leave option "activateFriendlyPositionAndSave" as default
     activateFriendlyPositionAndSave->setCheck(true);
 }

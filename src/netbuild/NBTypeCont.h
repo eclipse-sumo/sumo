@@ -281,7 +281,7 @@ private:
                        double _minWidth) :
             numLanes(_numLanes), speed(_speed), priority(_priority),
             permissions(_permissions),
-            oneWay(_oneWay), discard(false), 
+            oneWay(_oneWay), discard(false),
             width(_width),
             widthResolution(_widthResolution),
             maxWidth(_maxWidth),

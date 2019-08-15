@@ -92,7 +92,7 @@ TEST(RandHelper, test_norm) {
     int count[] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
     for (int i = 0; i < 1000; i++) {
         const double rand = RandHelper::randNorm(double(5), double(2));
-        count[MIN2(MAX2((int)rand,0),9)]++;
+        count[MIN2(MAX2((int)rand, 0), 9)]++;
     }
     EXPECT_LE(0, count[0]);
     EXPECT_LT(count[0], 100);

@@ -349,7 +349,7 @@ public:
     void mergeJunctions(GNEJunction* moved, GNEJunction* target, GNEUndoList* undoList);
 
     /// @brief retrieve all attribute carriers of Net
-    const AttributeCarriers &getAttributeCarriers() const;
+    const AttributeCarriers& getAttributeCarriers() const;
 
     /**@brief get junction by id
      * @param[in] id The id of the desired junction
@@ -544,7 +544,7 @@ public:
 
     /// @brief join routes
     void joinRoutes(GNEUndoList* undoList);
-    
+
     /// @brief clean invalid demand elements
     void cleanInvalidDemandElements(GNEUndoList* undoList);
 
@@ -668,7 +668,7 @@ public:
     bool isDemandElementsSaved() const;
 
     /// @brief generate demand element id
-    std::string generateDemandElementID(const std::string &prefix, SumoXMLTag type) const;
+    std::string generateDemandElementID(const std::string& prefix, SumoXMLTag type) const;
 
     /// @}
 

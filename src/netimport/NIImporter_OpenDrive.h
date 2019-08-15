@@ -347,7 +347,7 @@ protected:
         /// @brief The original starting offset of this lane section (differs from s if the section had to be split)
         double sOrig;
         /// @brief The length of this lane section
-        double length; 
+        double length;
         /// @brief A mapping from OpenDrive to SUMO-index (the first is signed, the second unsigned)
         std::map<int, int> laneMap;
         /// @brief The lanes, sorted by their direction
@@ -643,13 +643,13 @@ protected:
                                int section, double sectionStart, double sectionEnd,
                                std::vector<double>& splitPositions);
 
-    static void sanitizeWidths(OpenDriveEdge* e); 
-    static void sanitizeWidths(std::vector<OpenDriveLane>& lanes, double length); 
+    static void sanitizeWidths(OpenDriveEdge* e);
+    static void sanitizeWidths(std::vector<OpenDriveLane>& lanes, double length);
 
     static void setStraightConnections(std::vector<OpenDriveLane>& lanes);
     static void recomputeWidths(OpenDriveLaneSection& sec, double start, double end, double sectionStart, double sectionEnd);
     static void recomputeWidths(std::vector<OpenDriveLane>& lanes, double start, double end, double sectionStart, double sectionEnd);
-    static void setLaneAttributes(const OpenDriveEdge* e, NBEdge::Lane& sumoLane, const OpenDriveLane& odLane, bool saveOrigIDs, const NBTypeCont& tc); 
+    static void setLaneAttributes(const OpenDriveEdge* e, NBEdge::Lane& sumoLane, const OpenDriveLane& odLane, bool saveOrigIDs, const NBTypeCont& tc);
 
     /// The names of openDrive-XML elements (for passing to GenericSAXHandler)
     static StringBijection<int>::Entry openDriveTags[];

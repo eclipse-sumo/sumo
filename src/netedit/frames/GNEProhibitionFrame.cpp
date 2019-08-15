@@ -70,7 +70,7 @@ GNEProhibitionFrame::RelativeToConnection::updateDescription() const {
     if (myProhibitionFrameParent->myCurrentConn == nullptr) {
         myConnDescriptionLabel->setText("No Connection selected\n");
     } else {
-        myConnDescriptionLabel->setText(("from lane " + myProhibitionFrameParent->myCurrentConn->getLaneFrom()->getMicrosimID() + 
+        myConnDescriptionLabel->setText(("from lane " + myProhibitionFrameParent->myCurrentConn->getLaneFrom()->getMicrosimID() +
                                          "\nto lane " + myProhibitionFrameParent->myCurrentConn->getLaneTo()->getMicrosimID()).c_str());
     }
 }
@@ -111,31 +111,31 @@ GNEProhibitionFrame::ProhibitionLegend::ProhibitionLegend(GNEProhibitionFrame* p
 GNEProhibitionFrame::ProhibitionLegend::~ProhibitionLegend() {}
 
 
-const RGBColor& 
+const RGBColor&
 GNEProhibitionFrame::ProhibitionLegend::getUndefinedColor() const {
     return myUndefinedColor;
 }
 
 
-const RGBColor& 
+const RGBColor&
 GNEProhibitionFrame::ProhibitionLegend::getProhibitedColor() const {
     return myProhibitedColor;
 }
 
 
-const RGBColor& 
+const RGBColor&
 GNEProhibitionFrame::ProhibitionLegend::getProhibitingColor() const {
     return myProhibitingColor;
 }
 
 
-const RGBColor& 
+const RGBColor&
 GNEProhibitionFrame::ProhibitionLegend::getUnregulatedConflictColor() const {
     return myUnregulatedConflictColor;
 }
 
 
-const RGBColor& 
+const RGBColor&
 GNEProhibitionFrame::ProhibitionLegend::getMutualConflictColor() const {
     return myMutualConflictColor;
 }
@@ -146,7 +146,7 @@ GNEProhibitionFrame::ProhibitionLegend::getMutualConflictColor() const {
 
 GNEProhibitionFrame::Modifications::Modifications(GNEProhibitionFrame* prohibitionFrameParent) :
     FXGroupBox(prohibitionFrameParent->myContentFrame, "Modifications", GUIDesignGroupBoxFrame) {
-    
+
     // Create "OK" button
     mySaveButton = new FXButton(this, "OK\t\tSave prohibition modifications (Enter)",
                                 GUIIconSubSys::getIcon(ICON_ACCEPT), prohibitionFrameParent, MID_OK, GUIDesignButton);
@@ -168,7 +168,7 @@ GNEProhibitionFrame::Modifications::~Modifications() {}
 // ---------------------------------------------------------------------------
 
 GNEProhibitionFrame::GNEProhibitionFrame(FXHorizontalFrame* horizontalFrameParent, GNEViewNet* viewNet) :
-    GNEFrame(horizontalFrameParent, viewNet, "Prohibits"), 
+    GNEFrame(horizontalFrameParent, viewNet, "Prohibits"),
     myCurrentConn(nullptr) {
     // set frame header label
     getFrameHeaderLabel()->setText("Prohibitions");
@@ -249,7 +249,7 @@ GNEProhibitionFrame::buildProhibition(GNEConnection* conn, bool /* mayDefinitely
         std::reverse(currentFoesString.begin(), currentFoesString.end());
         std::reverse(currentResponseString.begin(), currentResponseString.end());
         // iterate over all connections
-        for (const auto &i : allConns) {
+        for (const auto& i : allConns) {
             if (i != myCurrentConn) {
                 NBEdge* otherConnFrom = i->getEdgeFrom()->getNBEdge();
                 const int linkIndex = node->getConnectionIndex(otherConnFrom, i->getNBEdgeConnection());

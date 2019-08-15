@@ -147,7 +147,7 @@ GNEDetectorEntryExit::updateGeometry() {
 
 void
 GNEDetectorEntryExit::drawGL(const GUIVisualizationSettings& s) const {
-     // Set initial values
+    // Set initial values
     const double exaggeration = s.addSize.getExaggeration(s, this);
     // Start drawing adding gl identificator
     glPushName(getGlID());

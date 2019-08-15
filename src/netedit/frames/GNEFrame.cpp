@@ -211,7 +211,7 @@ GNEFrame::openHelpAttributesDialog(const GNEAttributeCarrier::TagProperties& tag
     myTable->getRowHeader()->setWidth(0);
     // Iterate over vector of additional parameters
     int itemIndex = 0;
-    for (const auto &i : tagProperties) {
+    for (const auto& i : tagProperties) {
         // Set attribute
         FXTableItem* attribute = new FXTableItem(i.getAttrStr().c_str());
         attribute->setJustify(FXTableItem::CENTER_X);

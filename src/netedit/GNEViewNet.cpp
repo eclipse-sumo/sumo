@@ -250,7 +250,7 @@ GNEViewNet::buildViewToolBars(GUIGlChildWindow& cw) {
                  "\tLocate Route\tLocate a route within the network.",
                  GUIIconSubSys::getIcon(ICON_LOCATEROUTE), &cw, MID_LOCATEROUTE,
                  ICON_ABOVE_TEXT | FRAME_THICK | FRAME_RAISED);
-    
+
     // for routes
     new FXButton(cw.getLocatorPopup(),
                  "\tLocate Stop\tLocate a stop within the network.",
@@ -401,7 +401,7 @@ GNEViewNet::getEditModes() const {
 }
 
 
-const GNEViewNetHelper::CommonViewOptions& 
+const GNEViewNetHelper::CommonViewOptions&
 GNEViewNet::getCommonViewOptions() const {
     return myCommonViewOptions;
 }
@@ -425,7 +425,7 @@ GNEViewNet::getKeyPressed() const {
 }
 
 
-const GNEViewNetHelper::EditShapes& 
+const GNEViewNetHelper::EditShapes&
 GNEViewNet::getEditShapes() const {
     return myEditShapes;
 }
@@ -433,7 +433,7 @@ GNEViewNet::getEditShapes() const {
 
 void
 GNEViewNet::buildColorRainbow(const GUIVisualizationSettings& s, GUIColorScheme& scheme, int active, GUIGlObjectType objectType,
-        bool hide, double hideThreshold) {
+                              bool hide, double hideThreshold) {
     assert(!scheme.isFixed());
     UNUSED_PARAMETER(s);
     double minValue = std::numeric_limits<double>::infinity();
@@ -889,7 +889,7 @@ GNEViewNet::hotkeyEnter() {
 }
 
 
-void 
+void
 GNEViewNet::hotkeyBackSpace() {
     // Currently only used in Demand mode
     if (myEditModes.currentSupermode == GNE_SUPERMODE_DEMAND) {
@@ -1184,7 +1184,7 @@ GNEViewNet::onCmdSetMode(FXObject*, FXSelector sel, void*) {
             case MID_HOTKEY_A_ADDITIONALMODE_STOPMODE:
                 myEditModes.setDemandEditMode(GNE_DMODE_STOP);
                 break;
-                case MID_HOTKEY_W_PROHIBITIONMODE_PERSONTYPEMODE:
+            case MID_HOTKEY_W_PROHIBITIONMODE_PERSONTYPEMODE:
                 myEditModes.setDemandEditMode(GNE_DMODE_PERSONTYPES);
                 break;
             case MID_HOTKEY_P_POLYGONMODE_PERSONMODE:
@@ -1876,15 +1876,15 @@ GNEViewNet::updateCursor() {
     bool cursorMove = false;
     // check if in current mode/supermode cursor move can be shown
     if (myEditModes.currentSupermode == GNE_SUPERMODE_NETWORK) {
-        if ((myEditModes.networkEditMode == GNE_NMODE_ADDITIONAL) || 
-            (myEditModes.networkEditMode == GNE_NMODE_POLYGON) || 
-            (myEditModes.networkEditMode == GNE_NMODE_TAZ)) {
+        if ((myEditModes.networkEditMode == GNE_NMODE_ADDITIONAL) ||
+                (myEditModes.networkEditMode == GNE_NMODE_POLYGON) ||
+                (myEditModes.networkEditMode == GNE_NMODE_TAZ)) {
             cursorMove = true;
         }
     } else if (myEditModes.currentSupermode == GNE_SUPERMODE_DEMAND) {
-        if ((myEditModes.demandEditMode == GNE_DMODE_ROUTE) || 
-            (myEditModes.demandEditMode == GNE_DMODE_VEHICLE) || 
-            (myEditModes.demandEditMode == GNE_DMODE_STOP)) {
+        if ((myEditModes.demandEditMode == GNE_DMODE_ROUTE) ||
+                (myEditModes.demandEditMode == GNE_DMODE_VEHICLE) ||
+                (myEditModes.demandEditMode == GNE_DMODE_STOP)) {
             cursorMove = true;
         }
     }
@@ -2109,21 +2109,21 @@ GNEViewNet::onCmdToogleHideConnections(FXObject*, FXSelector, void*) {
 }
 
 
-long 
+long
 GNEViewNet::onCmdToogleExtendSelection(FXObject*, FXSelector, void*) {
     // Only update view
     update();
     return 1;
 }
-    
 
-long 
+
+long
 GNEViewNet::onCmdToogleChangeAllPhases(FXObject*, FXSelector, void*) {
     // Only update view
     update();
     return 1;
 }
-    
+
 
 long
 GNEViewNet::onCmdToogleShowGrid(FXObject*, FXSelector, void*) {
@@ -2133,13 +2133,13 @@ GNEViewNet::onCmdToogleShowGrid(FXObject*, FXSelector, void*) {
     } else {
         myVisualizationSettings->showGrid = false;
     }
-    // update view to show grid 
+    // update view to show grid
     update();
     return 1;
 }
 
 
-long 
+long
 GNEViewNet::onCmdToogleWarnAboutMerge(FXObject*, FXSelector, void*) {
     // Only update view
     update();
@@ -2147,7 +2147,7 @@ GNEViewNet::onCmdToogleWarnAboutMerge(FXObject*, FXSelector, void*) {
 }
 
 
-long 
+long
 GNEViewNet::onCmdToogleShowJunctionBubbles(FXObject*, FXSelector, void*) {
     // Only update view
     update();
@@ -2155,7 +2155,7 @@ GNEViewNet::onCmdToogleShowJunctionBubbles(FXObject*, FXSelector, void*) {
 }
 
 
-long 
+long
 GNEViewNet::onCmdToogleMoveElevation(FXObject*, FXSelector, void*) {
     // Only update view
     update();
@@ -2163,7 +2163,7 @@ GNEViewNet::onCmdToogleMoveElevation(FXObject*, FXSelector, void*) {
 }
 
 
-long 
+long
 GNEViewNet::onCmdToogleChainEdges(FXObject*, FXSelector, void*) {
     // Only update view
     update();
@@ -2171,7 +2171,7 @@ GNEViewNet::onCmdToogleChainEdges(FXObject*, FXSelector, void*) {
 }
 
 
-long 
+long
 GNEViewNet::onCmdToogleAutoOppositeEdge(FXObject*, FXSelector, void*) {
     // Only update view
     update();
@@ -2179,7 +2179,7 @@ GNEViewNet::onCmdToogleAutoOppositeEdge(FXObject*, FXSelector, void*) {
 }
 
 
-long 
+long
 GNEViewNet::onCmdToogleHideNonInspecteDemandElements(FXObject*, FXSelector, void*) {
     // Only update view
     update();
@@ -2187,7 +2187,7 @@ GNEViewNet::onCmdToogleHideNonInspecteDemandElements(FXObject*, FXSelector, void
 }
 
 
-long 
+long
 GNEViewNet::onCmdToogleHideShapes(FXObject*, FXSelector, void*) {
     // Only update view
     update();
@@ -2195,7 +2195,7 @@ GNEViewNet::onCmdToogleHideShapes(FXObject*, FXSelector, void*) {
 }
 
 
-long 
+long
 GNEViewNet::onCmdToogleShowAllPersonPlans(FXObject*, FXSelector, void*) {
     // Only update view
     update();
@@ -2203,12 +2203,12 @@ GNEViewNet::onCmdToogleShowAllPersonPlans(FXObject*, FXSelector, void*) {
 }
 
 
-long 
+long
 GNEViewNet::onCmdToogleLockPerson(FXObject*, FXSelector, void*) {
     // lock or unlock current inspected person depending of menuCheckLockPerson value
     if (myDemandViewOptions.menuCheckLockPerson->getCheck()) {
         // obtan locked person or person plan
-        const GNEDemandElement *personOrPersonPlan = dynamic_cast<const GNEDemandElement*>(getDottedAC());
+        const GNEDemandElement* personOrPersonPlan = dynamic_cast<const GNEDemandElement*>(getDottedAC());
         if (personOrPersonPlan) {
             // lock person depending if casted demand element is either a person or a person plan
             if (personOrPersonPlan->getTagProperty().isPerson()) {

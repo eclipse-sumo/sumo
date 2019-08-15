@@ -223,7 +223,7 @@ MELoop::removeLeaderCar(MEVehicle* v) {
 void
 MELoop::vaporizeCar(MEVehicle* v) {
     v->getSegment()->send(v, nullptr, MSNet::getInstance()->getCurrentTimeStep(), MSMoveReminder::NOTIFICATION_VAPORIZED);
-    // try removeLeaderCar 
+    // try removeLeaderCar
     std::vector<MEVehicle*>& cands = myLeaderCars[v->getEventTime()];
     auto it = find(cands.begin(), cands.end(), v);
     if (it != cands.end()) {

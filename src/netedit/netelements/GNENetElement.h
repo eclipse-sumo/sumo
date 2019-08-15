@@ -80,7 +80,7 @@ public:
     /// @name Functions related with geometry of element
     /// @{
     /// @brief get NetElementGeometry
-    const NetElementGeometry &getGeometry() const;
+    const NetElementGeometry& getGeometry() const;
 
     /// @brief update pre-computed geometry information
     virtual void updateGeometry() = 0;

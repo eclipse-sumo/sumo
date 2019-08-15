@@ -42,27 +42,27 @@
 // ===========================================================================
 
 GNEStop::GNEStop(SumoXMLTag tag, GNEViewNet* viewNet, const SUMOVehicleParameter::Stop& stopParameter, GNEAdditional* stoppingPlace, GNEDemandElement* stopParent) :
-    GNEDemandElement(stopParent, viewNet, stopParent->getTagProperty().isPerson()? GLO_PERSONSTOP : GLO_STOP, tag, 
-    {}, {}, {}, {stoppingPlace}, {stopParent}, {}, {}, {}, {}, {}),
-    SUMOVehicleParameter::Stop(stopParameter),
-    myFriendlyPosition(false) {
+    GNEDemandElement(stopParent, viewNet, stopParent->getTagProperty().isPerson() ? GLO_PERSONSTOP : GLO_STOP, tag,
+{}, {}, {}, {stoppingPlace}, {stopParent}, {}, {}, {}, {}, {}),
+SUMOVehicleParameter::Stop(stopParameter),
+myFriendlyPosition(false) {
 }
 
 
 GNEStop::GNEStop(GNEViewNet* viewNet, const SUMOVehicleParameter::Stop& stopParameter, GNELane* lane, bool friendlyPosition, GNEDemandElement* stopParent) :
-    GNEDemandElement(stopParent, viewNet, 
-        stopParent->getTagProperty().isPerson()? GLO_PERSONSTOP : GLO_STOP, 
-        stopParent->getTagProperty().isPerson()? SUMO_TAG_PERSONSTOP_LANE : SUMO_TAG_STOP_LANE,
-    {}, {lane}, {}, {}, {stopParent}, {}, {}, {}, {}, {}),
-    SUMOVehicleParameter::Stop(stopParameter),
-    myFriendlyPosition(friendlyPosition) {
+    GNEDemandElement(stopParent, viewNet,
+                     stopParent->getTagProperty().isPerson() ? GLO_PERSONSTOP : GLO_STOP,
+                     stopParent->getTagProperty().isPerson() ? SUMO_TAG_PERSONSTOP_LANE : SUMO_TAG_STOP_LANE,
+{}, {lane}, {}, {}, {stopParent}, {}, {}, {}, {}, {}),
+SUMOVehicleParameter::Stop(stopParameter),
+myFriendlyPosition(friendlyPosition) {
 }
 
 
 GNEStop::~GNEStop() {}
 
 
-SUMOVehicleClass 
+SUMOVehicleClass
 GNEStop::getVClass() const {
     return getDemandElementParents().front()->getVClass();
 }
@@ -93,7 +93,7 @@ GNEStop::writeDemandElement(OutputDevice& device) const {
 bool
 GNEStop::isDemandElementValid() const {
     // only Stops placed over lanes can be invalid
-    if(myTagProperty.getTag() != SUMO_TAG_STOP_LANE) {
+    if (myTagProperty.getTag() != SUMO_TAG_STOP_LANE) {
         return true;
     } else if (myFriendlyPosition) {
         // with friendly position enabled position are "always fixed"
@@ -125,7 +125,7 @@ GNEStop::isDemandElementValid() const {
 }
 
 
-std::string 
+std::string
 GNEStop::getDemandElementProblem() const {
     // declare a copy of start and end positions
     double startPosCopy = startPos;
@@ -160,7 +160,7 @@ GNEStop::getDemandElementProblem() const {
 }
 
 
-void 
+void
 GNEStop::fixDemandElementProblem() {
     //
 }
@@ -377,9 +377,9 @@ GNEStop::drawGL(const GUIVisualizationSettings& s) const {
         if (s.drawDetail(s.detailSettings.stopsDetails, exaggeration) && getLaneParents().size() > 0) {
             // Draw the area using shape, shapeRotations, shapeLengths and value of exaggeration
             GLHelper::drawBoxLines(myDemandElementGeometry.shape, myDemandElementGeometry.shapeRotations, myDemandElementGeometry.shapeLengths, exaggeration * 0.1, 0,
-                                    getLaneParents().front()->getParentEdge().getNBEdge()->getLaneWidth(getLaneParents().front()->getIndex()) * 0.5);
+                                   getLaneParents().front()->getParentEdge().getNBEdge()->getLaneWidth(getLaneParents().front()->getIndex()) * 0.5);
             GLHelper::drawBoxLines(myDemandElementGeometry.shape, myDemandElementGeometry.shapeRotations, myDemandElementGeometry.shapeLengths, exaggeration * 0.1, 0,
-                                    getLaneParents().front()->getParentEdge().getNBEdge()->getLaneWidth(getLaneParents().front()->getIndex()) * -0.5);
+                                   getLaneParents().front()->getParentEdge().getNBEdge()->getLaneWidth(getLaneParents().front()->getIndex()) * -0.5);
             // pop draw matrix
             glPopMatrix();
             // Add a draw matrix
@@ -422,7 +422,7 @@ GNEStop::drawGL(const GUIVisualizationSettings& s) const {
             }
         } else {
             // Draw the area using shape, shapeRotations, shapeLengths and value of exaggeration
-            GLHelper::drawBoxLines(myDemandElementGeometry.shape, myDemandElementGeometry.shapeRotations, myDemandElementGeometry.shapeLengths, exaggeration*0.8);
+            GLHelper::drawBoxLines(myDemandElementGeometry.shape, myDemandElementGeometry.shapeRotations, myDemandElementGeometry.shapeLengths, exaggeration * 0.8);
             // pop draw matrix
             glPopMatrix();
         }
@@ -560,7 +560,7 @@ GNEStop::getAttribute(SumoXMLAttr key) const {
 }
 
 
-double 
+double
 GNEStop::getAttributeDouble(SumoXMLAttr key) const {
     switch (key) {
         case SUMO_ATTR_STARTPOS:
@@ -703,7 +703,7 @@ GNEStop::isValid(SumoXMLAttr key, const std::string& value) {
 }
 
 
-void 
+void
 GNEStop::enableAttribute(SumoXMLAttr key, GNEUndoList* undoList) {
     // obtain a copy of parameter sets
     int newParametersSet = parametersSet;
@@ -789,9 +789,9 @@ GNEStop::getHierarchyName() const {
     std::string stopType;
     // first distinguish between person stops and vehicles stops
     if (getDemandElementParents().front()->getTagProperty().isPerson()) {
-        stopType ="person stop";
+        stopType = "person stop";
     } else {
-        stopType ="vehicle stop";
+        stopType = "vehicle stop";
     }
     if (getAdditionalParents().size() > 0) {
         return stopType + ": " + getAdditionalParents().front()->getTagStr();
@@ -1006,7 +1006,7 @@ GNEStop::setAttribute(SumoXMLAttr key, const std::string& value) {
 }
 
 
-void 
+void
 GNEStop::setEnabledAttribute(const int enabledAttributes) {
     parametersSet = enabledAttributes;
 }

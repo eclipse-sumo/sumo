@@ -148,10 +148,10 @@ MSCFModel_Wiedemann::_v(const MSVehicle* veh, double predSpeed, double gap) cons
 #ifdef DEBUG_V
     if (veh->isSelected()) {
         std::cout << SIMTIME << " Wiedemann::_v veh=" << veh->getID()
-            << " predSpeed=" << predSpeed << " gap=" << gap
-            << " dv=" << dv << " dx=" << dx << " ax=" << myAX << " bx=" << bx << " abx=" << abx
-            << " sdx=" << sdx << " sdv=" << sdv << " cldv=" << cldv << " opdv=" << opdv
-            << " accel=" << accel << " vNew=" << vNew << "\n";
+                  << " predSpeed=" << predSpeed << " gap=" << gap
+                  << " dv=" << dv << " dx=" << dx << " ax=" << myAX << " bx=" << bx << " abx=" << abx
+                  << " sdx=" << sdx << " sdv=" << sdv << " cldv=" << cldv << " opdv=" << opdv
+                  << " accel=" << accel << " vNew=" << vNew << "\n";
     }
 #endif
     return vNew;

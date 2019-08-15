@@ -166,8 +166,8 @@ GNEStopFrame::addStop(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCu
         SUMOVehicleParameter::Stop stopParameter;
         bool friendlyPosition = false;
         // check if stop parameters was sucesfully obtained
-        if (getStopParameter(stopParameter, friendlyPosition, myStopTagSelector->getCurrentTagProperties().getTag(), 
-                             myViewNet, myStopAttributes, myNeteditAttributes, 
+        if (getStopParameter(stopParameter, friendlyPosition, myStopTagSelector->getCurrentTagProperties().getTag(),
+                             myViewNet, myStopAttributes, myNeteditAttributes,
                              objectsUnderCursor.getLaneFront(), objectsUnderCursor.getAdditionalFront())) {
             // create it in RouteFrame
             GNERouteHandler::buildStop(myViewNet, true, stopParameter, myStopParentSelector->getCurrentDemandElement(), friendlyPosition);
@@ -180,9 +180,9 @@ GNEStopFrame::addStop(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCu
 }
 
 bool
-GNEStopFrame::getStopParameter(SUMOVehicleParameter::Stop &stop, bool &friendlyPosition, const SumoXMLTag stopTag, 
-                               GNEViewNet *viewNet, const GNEFrameAttributesModuls::AttributesCreator* stopAttributes, const GNEFrameAttributesModuls::NeteditAttributes* myNeteditAttributes, 
-                               const GNELane *lane, const GNEAdditional* stoppingPlace) {
+GNEStopFrame::getStopParameter(SUMOVehicleParameter::Stop& stop, bool& friendlyPosition, const SumoXMLTag stopTag,
+                               GNEViewNet* viewNet, const GNEFrameAttributesModuls::AttributesCreator* stopAttributes, const GNEFrameAttributesModuls::NeteditAttributes* myNeteditAttributes,
+                               const GNELane* lane, const GNEAdditional* stoppingPlace) {
     // first check that current selected Stop is valid
     if (stopTag == SUMO_TAG_NOTHING) {
         WRITE_WARNING("Current selected Stop type isn't valid.");
@@ -327,7 +327,7 @@ GNEStopFrame::getStopParameter(SUMOVehicleParameter::Stop &stop, bool &friendlyP
 // protected
 // ===========================================================================
 
-void 
+void
 GNEStopFrame::tagSelected() {
     if (myStopTagSelector->getCurrentTagProperties().getTag() != SUMO_TAG_NOTHING) {
         // show Stop type selector modul

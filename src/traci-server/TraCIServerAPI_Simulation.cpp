@@ -378,7 +378,7 @@ TraCIServerAPI_Simulation::writeStage(tcpip::Storage& outputStorage, const libsu
 
 libsumo::TraCIStage*
 TraCIServerAPI_Simulation::readStage(TraCIServer& server, tcpip::Storage& inputStorage) {
-    auto * stage = new libsumo::TraCIStage();
+    auto* stage = new libsumo::TraCIStage();
     server.readTypeCheckingInt(inputStorage, stage->type);
     server.readTypeCheckingString(inputStorage, stage->vType);
     server.readTypeCheckingString(inputStorage, stage->line);

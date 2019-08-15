@@ -92,7 +92,7 @@ GNEParkingSpace::getCenteringBoundary() const {
             {-(myWidth / 2), myLength},
         });
         // rotate position vector (note: convert from degree to rads
-        boundaryShape.rotate2D(myAngle*PI/180.0);
+        boundaryShape.rotate2D(myAngle * PI / 180.0);
         // move to space position
         boundaryShape.add(myPosition);
         // return boundary associated to boundaryShape
@@ -112,7 +112,7 @@ GNEParkingSpace::drawGL(const GUIVisualizationSettings& s) const {
     // Set initial values
     const double exaggeration = s.addSize.getExaggeration(s, this);
     // check if boundary has to be drawn
-    if(s.drawBoundaries) {
+    if (s.drawBoundaries) {
         GLHelper::drawBoundary(getCenteringBoundary());
     }
     // push name and matrix

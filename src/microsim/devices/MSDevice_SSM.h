@@ -113,7 +113,7 @@ public:
         // The encounter has been a merging situation, but is not active any more
         ENCOUNTER_TYPE_MERGING_PASSED = 19, //!< ENCOUNTER_TYPE_FOLLOWING_PASSED
         // Ego vehicle and foe are driving in opposite directions towards each other on the same lane (or sequence of consecutive lanes)
-        ENCOUNTER_TYPE_ONCOMING = 20, 
+        ENCOUNTER_TYPE_ONCOMING = 20,
         // Collision (currently unused, might be differentiated further)
         ENCOUNTER_TYPE_COLLISION = 111 //!< ENCOUNTER_TYPE_COLLISION
     };
@@ -342,13 +342,13 @@ private:
     /// @brief Auxiliary structure used to handle upstream scanning start points
     /// Upstream scan has to be started after downstream scan is completed, see #5644
     struct UpstreamScanStartInfo {
-    	UpstreamScanStartInfo(const MSEdge* edge, double pos, double range, double egoDistToConflictLane, const MSLane* egoConflictLane) :
-    		edge(edge), pos(pos), range(range), egoDistToConflictLane(egoDistToConflictLane), egoConflictLane(egoConflictLane) {};
-    	const MSEdge* edge;
-    	double pos;
-    	double range;
-    	double egoDistToConflictLane;
-    	const MSLane* egoConflictLane;
+        UpstreamScanStartInfo(const MSEdge* edge, double pos, double range, double egoDistToConflictLane, const MSLane* egoConflictLane) :
+            edge(edge), pos(pos), range(range), egoDistToConflictLane(egoDistToConflictLane), egoConflictLane(egoConflictLane) {};
+        const MSEdge* edge;
+        double pos;
+        double range;
+        double egoDistToConflictLane;
+        const MSLane* egoConflictLane;
     };
 
     typedef std::priority_queue<Encounter*, std::vector<Encounter*>, Encounter::compare> EncounterQueue;

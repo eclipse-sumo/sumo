@@ -233,8 +233,8 @@ MSRoutingEngine::reroute(SUMOVehicle& vehicle, const SUMOTime currentTime, const
         const std::string routingAlgorithm = oc.getString("routing-algorithm");
         const bool mayHaveRestrictions = MSNet::getInstance()->hasPermissions() || oc.getInt("remote-port") != 0;
         myEffortFunc = (gWeightsRandomFactor != 1 || MSNet::getInstance()->hasBidiEdges()
-            ? &MSRoutingEngine::getEffortExtra
-            : &MSRoutingEngine::getEffort);
+                        ? &MSRoutingEngine::getEffortExtra
+                        : &MSRoutingEngine::getEffort);
         if (routingAlgorithm == "dijkstra") {
             if (mayHaveRestrictions) {
                 myRouter = new DijkstraRouter<MSEdge, SUMOVehicle, SUMOAbstractRouterPermissions<MSEdge, SUMOVehicle> >(
@@ -326,8 +326,8 @@ MSRoutingEngine::getRouterTT(const MSEdgeVector& prohibited) {
         initWeightUpdate();
         initEdgeWeights();
         myEffortFunc = (gWeightsRandomFactor != 1 || MSNet::getInstance()->hasBidiEdges()
-            ? &MSRoutingEngine::getEffortExtra
-            : &MSRoutingEngine::getEffort);
+                        ? &MSRoutingEngine::getEffortExtra
+                        : &MSRoutingEngine::getEffort);
         myRouterWithProhibited = new AStarRouter<MSEdge, SUMOVehicle, SUMOAbstractRouterPermissions<MSEdge, SUMOVehicle> >(
             MSEdge::getAllEdges(), true, myEffortFunc);
     }

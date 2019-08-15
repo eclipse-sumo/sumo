@@ -149,12 +149,12 @@ GUISUMOViewParent::onCmdMakeSnapshot(FXObject* sender, FXSelector, void*) {
         FXFileDialog opendialog(this, "Save Snapshot");
         opendialog.setIcon(GUIIconSubSys::getIcon(ICON_EMPTY));
         opendialog.setSelectMode(SELECTFILE_ANY);
-    #ifdef HAVE_FFMPEG
+#ifdef HAVE_FFMPEG
         opendialog.setPatternList("All Image and Video Files (*.gif,*.bmp,*.xpm,*.pcx,*.ico,*.rgb,*.xbm,*.tga,*.png,*.jpg,*.jpeg,*.tif,*.tiff,*.ps,*.eps,*.pdf,*.svg,*.tex,*.pgf,*.h264,*.hevc)\n"
                                   "All Video Files (*.h264,*.hevc)\n"
-    #else
+#else
         opendialog.setPatternList("All Image Files (*.gif,*.bmp,*.xpm,*.pcx,*.ico,*.rgb,*.xbm,*.tga,*.png,*.jpg,*.jpeg,*.tif,*.tiff,*.ps,*.eps,*.pdf,*.svg,*.tex,*.pgf)\n"
-    #endif
+#endif
                                   "GIF Image (*.gif)\nBMP Image (*.bmp)\nXPM Image (*.xpm)\nPCX Image (*.pcx)\nICO Image (*.ico)\n"
                                   "RGB Image (*.rgb)\nXBM Image (*.xbm)\nTARGA Image (*.tga)\nPNG Image  (*.png)\n"
                                   "JPEG Image (*.jpg,*.jpeg)\nTIFF Image (*.tif,*.tiff)\n"

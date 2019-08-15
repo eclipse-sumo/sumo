@@ -73,7 +73,7 @@ FileHelpers::getFilePath(const std::string& path) {
 }
 
 
-std::string 
+std::string
 FileHelpers::addExtension(const std::string& path, const std::string& extension) {
     if (path.empty()) {
         return "";

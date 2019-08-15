@@ -997,15 +997,15 @@ MSRouteHandler::addStop(const SUMOSAXAttributes& attrs) {
                                         edge, toStop, -1, myVehicleParameter->depart, departPos, "start", true));
         } else if (myActivePlan->back()->getDestination() != edge) {
             throw ProcessError("Disconnected plan for person '" + myVehicleParameter->id + "' (" + edge->getID() + "!=" + myActivePlan->back()->getDestination()->getID() + ").");
-        }  else if (myActivePlan->back()->getStageType() == MSTransportable::WAITING 
-                && (attrs.hasAttribute(SUMO_ATTR_ENDPOS) || attrs.hasAttribute(SUMO_ATTR_STARTPOS))) {
-                const double start = SUMOVehicleParameter::interpretEdgePos(stop.startPos, edge->getLength(), SUMO_ATTR_STARTPOS, "stopping at " + edge->getID());
-                const double end = SUMOVehicleParameter::interpretEdgePos(stop.endPos, edge->getLength(), SUMO_ATTR_ENDPOS, "stopping at " + edge->getID());
-                const double prevAr = myActivePlan->back()->getArrivalPos();
-                if (start > prevAr + NUMERICAL_EPS || end < prevAr - NUMERICAL_EPS) {
-                    WRITE_WARNING("Disconnected plan for person '" + myVehicleParameter->id 
-                            + "' (stop range " + toString(start) + "-" + toString(end) + " does not cover previous arrival position " + toString(prevAr) +  + ").");
-                }
+        }  else if (myActivePlan->back()->getStageType() == MSTransportable::WAITING
+                    && (attrs.hasAttribute(SUMO_ATTR_ENDPOS) || attrs.hasAttribute(SUMO_ATTR_STARTPOS))) {
+            const double start = SUMOVehicleParameter::interpretEdgePos(stop.startPos, edge->getLength(), SUMO_ATTR_STARTPOS, "stopping at " + edge->getID());
+            const double end = SUMOVehicleParameter::interpretEdgePos(stop.endPos, edge->getLength(), SUMO_ATTR_ENDPOS, "stopping at " + edge->getID());
+            const double prevAr = myActivePlan->back()->getArrivalPos();
+            if (start > prevAr + NUMERICAL_EPS || end < prevAr - NUMERICAL_EPS) {
+                WRITE_WARNING("Disconnected plan for person '" + myVehicleParameter->id
+                              + "' (stop range " + toString(start) + "-" + toString(end) + " does not cover previous arrival position " + toString(prevAr) +  + ").");
+            }
         }
         std::string actType = attrs.getOpt<std::string>(SUMO_ATTR_ACTTYPE, nullptr, ok, "waiting");
         double pos = (stop.startPos + stop.endPos) / 2.;

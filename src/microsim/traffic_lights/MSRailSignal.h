@@ -198,7 +198,7 @@ public:
         UNUSED_PARAMETER(stepDuration);
     }
     /// @}
-    
+
 
     /// @brief write rail signal block output for all links and driveways
     void writeBlocks(OutputDevice& od) const;
@@ -213,15 +213,15 @@ protected:
     /*  The driveways (Fahrstrassen) for each link index
      *  Each link index has at least one driveway
      *  A driveway describes one possible route that passes the signal up
-     *  the next secure point 
+     *  the next secure point
      *  When a signal guards a switch (indirect guard) that signal stores two
      *  or more driveways
      */
     struct DriveWay {
 
         /// @brief Constructor
-        DriveWay(int index) : 
-            myIndex(index), 
+        DriveWay(int index) :
+            myIndex(index),
             myMaxFlankLength(0),
             myActive(nullptr)
         {}
@@ -243,11 +243,11 @@ protected:
         std::vector<MSLane*> myForward;
 
         /* @brief the list of bidirectional edges that can enter the forward
-         * section and  which must also be free of traffic 
+         * section and  which must also be free of traffic
          * (up to the first element that could give protection) */
-        std::vector<MSLane*> myBidi; 
+        std::vector<MSLane*> myBidi;
 
-        /* @brief the list of edges that merge with the forward section 
+        /* @brief the list of edges that merge with the forward section
          * (found via backward search, up to the first element that could give protection) */
         std::vector<const MSLane*> myFlank;
 
@@ -270,10 +270,10 @@ protected:
         std::vector<MSLink*> myConflictLinks;
 
         /// @brief whether any of myConflictLanes is occupied
-        bool conflictLaneOccupied() const; 
+        bool conflictLaneOccupied() const;
 
         /// @brief attempt reserve this driveway for the given vehicle
-        bool reserve(const Approaching& closest, MSEdgeVector& occupied); 
+        bool reserve(const Approaching& closest, MSEdgeVector& occupied);
 
         /// @brief Whether the approaching vehicle is prevent from driving by another vehicle approaching the given link
         bool hasLinkConflict(const Approaching& closest, MSLink* foeLink) const;
@@ -283,9 +283,9 @@ protected:
 
         /// @brief find protection for the given vehicle  starting at a switch
         bool findProtection(const Approaching& veh, MSLink* link) const;
-        
+
         /// @brief Wether this driveway overlaps with the given one
-        bool overlap(const DriveWay& other) const; 
+        bool overlap(const DriveWay& other) const;
 
         /// @brief Write block items for this driveway
         void writeBlocks(OutputDevice& od) const;
@@ -300,10 +300,10 @@ protected:
          *   myProtectingSwitches (at most 1 at the end of the bidi block)
          */
         void buildRoute(MSLink* origin, double length, MSRouteIterator next, MSRouteIterator end,
-                LaneSet& visited); 
+                        LaneSet& visited);
 
         /// @brief find switches that threathen this driveway
-        void checkFlanks(const std::vector<MSLane*>& lanes, const LaneSet& visited, bool allFoes); 
+        void checkFlanks(const std::vector<MSLane*>& lanes, const LaneSet& visited, bool allFoes);
 
         /// @brief find links that cross the driveway without entering it
         void checkCrossingFlanks(MSLink* dwLink, const LaneSet& visited);
@@ -333,7 +333,7 @@ protected:
         DriveWay& getDriveWay(const SUMOVehicle*);
 
         /// @brief construct a new driveway by searching along the given route until all block structures are found
-        DriveWay& buildDriveWay(MSRouteIterator first, MSRouteIterator end); 
+        DriveWay& buildDriveWay(MSRouteIterator first, MSRouteIterator end);
 
         /// @brief try rerouting vehicle if reservation failed
         void reroute(SUMOVehicle* veh, const MSEdgeVector& occupied);

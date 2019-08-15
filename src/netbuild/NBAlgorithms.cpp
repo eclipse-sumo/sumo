@@ -75,8 +75,8 @@ NBTurningDirectionsComputer::computeTurnDirectionsForNode(NBNode* node, bool war
             double angle = fabs(signedAngle);
             // std::cout << "incoming=" << e->getID() << " outgoing=" << outedge->getID() << " relAngle=" << NBHelpers::relAngle(e->getAngleAtNode(node), outedge->getAngleAtNode(node)) << "\n";
             const bool badPermissions = ((outedge->getPermissions() & e->getPermissions() & ~SVC_PEDESTRIAN) == 0
-                    && !geometryLike
-                    && outedge->getPermissions() != e->getPermissions());
+                                         && !geometryLike
+                                         && outedge->getPermissions() != e->getPermissions());
             if (e->getFromNode() == outedge->getToNode() && angle > 120 && !badPermissions) {
                 // they connect the same nodes; should be the turnaround direction
                 // we'll assign a maximum number

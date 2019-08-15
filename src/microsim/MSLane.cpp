@@ -1300,8 +1300,8 @@ MSLane::detectCollisions(SUMOTime timestep, const std::string& stage) {
 #ifdef DEBUG_JUNCTION_COLLISIONS
                 if (DEBUG_COND) {
                     std::cout << "     foeLane " << foeLane->getID()
-                        << " foeVehs=" << toString(foeLane->myVehicles)
-                        << " foePart=" << toString(foeLane->myPartialVehicles) << "\n";
+                              << " foeVehs=" << toString(foeLane->myVehicles)
+                              << " foePart=" << toString(foeLane->myPartialVehicles) << "\n";
                 }
 #endif
                 MSLane::AnyVehicleIterator end = foeLane->anyVehiclesEnd();
@@ -1314,12 +1314,12 @@ MSLane::detectCollisions(SUMOTime timestep, const std::string& stage) {
 #ifdef DEBUG_JUNCTION_COLLISIONS
                     if (DEBUG_COND && DEBUG_COND2(collider)) {
                         std::cout << SIMTIME << " foe=" << victim->getID()
-                            << " bound=" << colliderBoundary << " foeBound=" << victim->getBoundingBox()
-                            << " overlaps=" << colliderBoundary.overlapsWith(victim->getBoundingBox())
-                            << " poly=" << collider->getBoundingPoly()
-                            << " foePoly=" << victim->getBoundingPoly()
-                            << " overlaps2=" << collider->getBoundingPoly().overlapsWith(victim->getBoundingPoly())
-                            << "\n";
+                                  << " bound=" << colliderBoundary << " foeBound=" << victim->getBoundingBox()
+                                  << " overlaps=" << colliderBoundary.overlapsWith(victim->getBoundingBox())
+                                  << " poly=" << collider->getBoundingPoly()
+                                  << " foePoly=" << victim->getBoundingPoly()
+                                  << " overlaps2=" << collider->getBoundingPoly().overlapsWith(victim->getBoundingPoly())
+                                  << "\n";
                     }
 #endif
                     if (colliderBoundary.overlapsWith(victim->getBoundingBox())) {

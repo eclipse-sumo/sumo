@@ -41,28 +41,28 @@
 // method definitions
 // ===========================================================================
 
-GNERide::GNERide(GNEViewNet* viewNet, GNEDemandElement *personParent, const std::vector<GNEEdge*>& edges, double arrivalPosition, const std::vector<std::string> &lines) :
+GNERide::GNERide(GNEViewNet* viewNet, GNEDemandElement* personParent, const std::vector<GNEEdge*>& edges, double arrivalPosition, const std::vector<std::string>& lines) :
     GNEDemandElement(viewNet->getNet()->generateDemandElementID("", SUMO_TAG_RIDE_FROMTO), viewNet, GLO_RIDE, SUMO_TAG_RIDE_FROMTO,
-    edges, {}, {}, {}, {personParent}, {}, {}, {}, {}, {}),
-    Parameterised(),
-    myLines(lines),
-    myArrivalPosition(arrivalPosition) {
+                     edges, {}, {}, {}, {personParent}, {}, {}, {}, {}, {}),
+                        Parameterised(),
+                        myLines(lines),
+myArrivalPosition(arrivalPosition) {
 }
 
 
-GNERide::GNERide(GNEViewNet* viewNet, GNEDemandElement *personParent, const std::vector<GNEEdge*>& edges, GNEAdditional *busStop, const std::vector<std::string> &lines) :
+GNERide::GNERide(GNEViewNet* viewNet, GNEDemandElement* personParent, const std::vector<GNEEdge*>& edges, GNEAdditional* busStop, const std::vector<std::string>& lines) :
     GNEDemandElement(viewNet->getNet()->generateDemandElementID("", SUMO_TAG_RIDE_BUSSTOP), viewNet, GLO_RIDE, SUMO_TAG_RIDE_BUSSTOP,
-    edges, {}, {}, {busStop}, {personParent}, {}, {}, {}, {}, {}),
-    Parameterised(),
-    myLines(lines),
-    myArrivalPosition(-1) {
+                     edges, {}, {}, {busStop}, {personParent}, {}, {}, {}, {}, {}),
+Parameterised(),
+myLines(lines),
+myArrivalPosition(-1) {
 }
 
 
 GNERide::~GNERide() {}
 
 
-SUMOVehicleClass 
+SUMOVehicleClass
 GNERide::getVClass() const {
     return getDemandElementParents().front()->getVClass();
 }
@@ -143,7 +143,7 @@ GNERide::isDemandElementValid() const {
 }
 
 
-std::string 
+std::string
 GNERide::getDemandElementProblem() const {
     if (getEdgeParents().size() == 0) {
         return ("A ride need at least one edge");
@@ -160,13 +160,13 @@ GNERide::getDemandElementProblem() const {
 }
 
 
-void 
+void
 GNERide::fixDemandElementProblem() {
     // currently the only solution is removing Ride
 }
 
 
-void 
+void
 GNERide::startGeometryMoving() {
     // only start geometry moving if arrival position isn't -1
     if (myArrivalPosition != -1) {
@@ -180,7 +180,7 @@ GNERide::startGeometryMoving() {
 }
 
 
-void 
+void
 GNERide::endGeometryMoving() {
     // check that myArrivalPosition isn't -1 and endGeometryMoving was called only once
     if ((myArrivalPosition != -1) && myRideMove.movingGeometryBoundary.isInitialised()) {
@@ -200,7 +200,7 @@ GNERide::moveGeometry(const Position& offset) {
         // filtern position using snap to active grid
         newPosition = myViewNet->snapToActiveGrid(newPosition);
         // obtain lane shape (to improve code legibility)
-        const PositionVector &laneShape = getEdgeParents().back()->getLanes().front()->getGeometry().shape;
+        const PositionVector& laneShape = getEdgeParents().back()->getLanes().front()->getGeometry().shape;
         // calculate offset lane
         double offsetLane = laneShape.nearest_offset_to_point2D(newPosition, false) - laneShape.nearest_offset_to_point2D(myRideMove.originalViewPosition, false);        // Update arrival Position
         myArrivalPosition = parse<double>(myRideMove.firstOriginalLanePosition) + offsetLane;
@@ -248,7 +248,7 @@ Boundary
 GNERide::getCenteringBoundary() const {
     Boundary rideBoundary;
     // return the combination of all edge parents's boundaries
-    for (const auto &i : getEdgeParents()) {
+    for (const auto& i : getEdgeParents()) {
         rideBoundary.add(i->getCenteringBoundary());
     }
     // check if is valid
@@ -324,7 +324,7 @@ GNERide::getAttribute(SumoXMLAttr key) const {
 }
 
 
-double 
+double
 GNERide::getAttributeDouble(SumoXMLAttr key) const {
     switch (key) {
         case SUMO_ATTR_ARRIVALPOS:
@@ -388,7 +388,7 @@ GNERide::isValid(SumoXMLAttr key, const std::string& value) {
 }
 
 
-void 
+void
 GNERide::enableAttribute(SumoXMLAttr /*key*/, GNEUndoList* /*undoList*/) {
     //
 }
@@ -524,7 +524,7 @@ GNERide::setAttribute(SumoXMLAttr key, const std::string& value) {
 }
 
 
-void 
+void
 GNERide::setEnabledAttribute(const int /*enabledAttributes*/) {
     //
 }

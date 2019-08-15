@@ -139,7 +139,7 @@ public:
 
         /// @brief begin iterator
         std::vector<Segment>::const_iterator begin() const;
-        
+
         /// @brief end iterator
         std::vector<Segment>::const_iterator end() const;
 
@@ -150,7 +150,7 @@ public:
         /// @brief vector of segments that constitutes the shape
         std::vector<Segment> myShapeSegments;
     };
-    
+
     /// @brief struct for pack all variables related with Demand Element moving
     struct DemandElementMove {
         /// @brief boundary used during moving of elements (to avoid insertion in RTREE)
@@ -183,7 +183,7 @@ public:
         std::vector<GNEEdge*> calculateDijkstraRoute(SUMOVehicleClass vClass, const std::vector<GNEEdge*>& partialEdges) const;
 
         /// @brief calculate Dijkstra route between a list of partial edges (in string format)
-        std::vector<GNEEdge*> calculateDijkstraRoute(GNENet *net, SUMOVehicleClass vClass, const std::vector<std::string>& partialEdgesStr) const;
+        std::vector<GNEEdge*> calculateDijkstraRoute(GNENet* net, SUMOVehicleClass vClass, const std::vector<std::string>& partialEdgesStr) const;
 
         /// @brief check if exist a route between the two given consecutives edges
         bool areEdgesConsecutives(SUMOVehicleClass vClass, GNEEdge* from, GNEEdge* to) const;
@@ -256,10 +256,10 @@ public:
     ~GNEDemandElement();
 
     /// @brief get demand element geometry
-    const DemandElementGeometry &getDemandElementGeometry() const;
+    const DemandElementGeometry& getDemandElementGeometry() const;
 
     /// @brief get demand element segment geometry
-    const DemandElementSegmentGeometry &getDemandElementSegmentGeometry() const;
+    const DemandElementSegmentGeometry& getDemandElementSegmentGeometry() const;
 
     /// @brief mark demand element segment geometry as deprecated
     void markSegmentGeometryDeprecated();
@@ -454,10 +454,10 @@ public:
 protected:
     /// @brief The GNEViewNet this demand element element belongs
     GNEViewNet* myViewNet;
-    
+
     /// @brief demand element geometry
     DemandElementGeometry myDemandElementGeometry;
-    
+
     /// @brief demand element segment geometry
     DemandElementSegmentGeometry myDemandElementSegmentGeometry;
 

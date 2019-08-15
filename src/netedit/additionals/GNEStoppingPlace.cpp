@@ -263,7 +263,7 @@ GNEStoppingPlace::moveGeometry(const Position& offset) {
             }
         }
         // update demand element children
-        for (const auto &i : getDemandElementChildren()) {
+        for (const auto& i : getDemandElementChildren()) {
             // if child is a person plan, update geometry of their person parent
             if (i->getTagProperty().isPersonPlan()) {
                 i->getDemandElementParents().front()->markSegmentGeometryDeprecated();
@@ -292,7 +292,7 @@ GNEStoppingPlace::commitGeometryMoving(GNEUndoList* undoList) {
         }
         undoList->p_end();
         // update demand element children
-        for (const auto &i : getDemandElementChildren()) {
+        for (const auto& i : getDemandElementChildren()) {
             // if child is a person plan, update geometry of their person parent
             if (i->getTagProperty().isPersonPlan()) {
                 i->getDemandElementParents().front()->markSegmentGeometryDeprecated();

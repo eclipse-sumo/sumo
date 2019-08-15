@@ -210,33 +210,33 @@ for i in range(5):
 # appendStage
 traci.person.add("p3", "1fi", -10)
 stage = traci._simulation.Stage(
-        type=traci.constants.STAGE_WALKING,
-        vType="", line="", destStop="",
-        edges=["1fi", "1si"],
-        travelTime=-1, cost=-1, length=-1,
-        intended="", depart=-1, departPos=-20, arrivalPos=10,
-        description="foo")
+    type=traci.constants.STAGE_WALKING,
+    vType="", line="", destStop="",
+    edges=["1fi", "1si"],
+    travelTime=-1, cost=-1, length=-1,
+    intended="", depart=-1, departPos=-20, arrivalPos=10,
+    description="foo")
 stage2 = traci._simulation.Stage(
-        type=traci.constants.STAGE_WALKING,
-        vType="car", line="", destStop="",
-        edges=["1fi", "1o"],
-        travelTime=-1, cost=-1, length=-1,
-        intended="", depart=-1, departPos=-20, arrivalPos=10,
-        description="foo")
+    type=traci.constants.STAGE_WALKING,
+    vType="car", line="", destStop="",
+    edges=["1fi", "1o"],
+    travelTime=-1, cost=-1, length=-1,
+    intended="", depart=-1, departPos=-20, arrivalPos=10,
+    description="foo")
 stage3 = traci._simulation.Stage(
-        type=traci.constants.STAGE_WALKING,
-        vType="car", line="", destStop="",
-        edges=["1o", "3o"],
-        travelTime=-1, cost=-1, length=-1,
-        intended="", depart=-1, departPos=-20, arrivalPos=10,
-        description="foo")
+    type=traci.constants.STAGE_WALKING,
+    vType="car", line="", destStop="",
+    edges=["1o", "3o"],
+    travelTime=-1, cost=-1, length=-1,
+    intended="", depart=-1, departPos=-20, arrivalPos=10,
+    description="foo")
 stage4 = traci._simulation.Stage(
-        type=traci.constants.STAGE_WALKING,
-        vType="car", line="", destStop="",
-        edges=["1o", "4o"],
-        travelTime=-1, cost=-1, length=-1,
-        intended="", depart=-1, departPos=-20, arrivalPos=10,
-        description="foo")
+    type=traci.constants.STAGE_WALKING,
+    vType="car", line="", destStop="",
+    edges=["1o", "4o"],
+    travelTime=-1, cost=-1, length=-1,
+    intended="", depart=-1, departPos=-20, arrivalPos=10,
+    description="foo")
 
 traci.person.appendStage("p3", stage)
 for i in range(10):

@@ -13,7 +13,7 @@
 /// @date    2009-11-23
 /// @version $Id$
 ///
-// 
+//
 /****************************************************************************/
 
 #ifndef OutputDeviceMock_h
@@ -34,29 +34,29 @@
 // ===========================================================================
 /**
  * @class OutputDeviceMock
- * Mock Implementation for Unit Tests 
+ * Mock Implementation for Unit Tests
  *
  */
 class OutputDeviceMock : public OutputDevice {
 public:
-    /** @brief Constructor    
+    /** @brief Constructor
      */
-	OutputDeviceMock() {}
+    OutputDeviceMock() {}
 
     /// @brief Destructor
-	~OutputDeviceMock()  {}
+    ~OutputDeviceMock()  {}
 
 
-    /** @brief Returns the current content as a string   
+    /** @brief Returns the current content as a string
      */
     std::string getString()  {
         return myStream.str();
     }
 
-protected:    
-    /** @brief Returns the associated ostream    
+protected:
+    /** @brief Returns the associated ostream
      */
-    std::ostream &getOStream()  {
+    std::ostream& getOStream()  {
         return myStream;
     }
 

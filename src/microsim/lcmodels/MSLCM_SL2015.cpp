@@ -1745,8 +1745,8 @@ MSLCM_SL2015::_wantsChangeSublane(
                 || computeSpeedGain(latDistSublane, defaultNextSpeed) < -mySublaneParam) {
             // do not risk losing speed
 #if defined(DEBUG_WANTSCHANGE)
-            if (gDebugFlag2) std::cout << "   aborting sublane change to avoid speed loss (mySpeedLossProbThreshold=" << mySpeedLossProbThreshold 
-                << " speedGain=" << computeSpeedGain(latDistSublane, defaultNextSpeed) << ")\n";
+            if (gDebugFlag2) std::cout << "   aborting sublane change to avoid speed loss (mySpeedLossProbThreshold=" << mySpeedLossProbThreshold
+                                           << " speedGain=" << computeSpeedGain(latDistSublane, defaultNextSpeed) << ")\n";
 #endif
             latDistSublane = 0;
         }
@@ -1755,7 +1755,9 @@ MSLCM_SL2015::_wantsChangeSublane(
                 && (myPreviousState & (LCA_STRATEGIC | LCA_COOPERATIVE | LCA_KEEPRIGHT | LCA_SPEEDGAIN)) != 0
                 && ((myManeuverDist < 0 && latDistSublane > 0) || (myManeuverDist > 0 && latDistSublane < 0))) {
 #if defined(DEBUG_WANTSCHANGE)
-            if (gDebugFlag2) std::cout << "   aborting sublane change due to prior maneuver\n";
+            if (gDebugFlag2) {
+                std::cout << "   aborting sublane change due to prior maneuver\n";
+            }
 #endif
             latDistSublane = 0;
         }
@@ -1776,8 +1778,8 @@ MSLCM_SL2015::_wantsChangeSublane(
                 int priorReason = (myPreviousState & LCA_CHANGE_REASONS & ~LCA_SUBLANE);
                 ret |= priorReason;
 #ifdef DEBUG_WANTSCHANGE
-                if (gDebugFlag2 && priorReason != 0) std::cout << "   including prior reason " << toString((LaneChangeAction)priorReason) 
-                    << " prevManeuverDist=" << myPreviousManeuverDist << "\n";
+                if (gDebugFlag2 && priorReason != 0) std::cout << "   including prior reason " << toString((LaneChangeAction)priorReason)
+                            << " prevManeuverDist=" << myPreviousManeuverDist << "\n";
 #endif
             }
             if (!cancelRequest(ret, laneOffset)) {

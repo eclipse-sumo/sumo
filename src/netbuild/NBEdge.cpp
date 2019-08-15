@@ -1608,8 +1608,8 @@ NBEdge::buildInnerEdges(const NBNode& n, int noInternalNoSplits, int& linkIndex,
                         if (needsCont || (bothPrio && oppositeLeftIntersect)) {
                             crossingPositions.second.push_back(index);
                             const PositionVector otherShape = n.computeInternalLaneShape(*i2, *k2, numPoints, 0, shapeFlag);
-                            const double minDV = firstIntersection(shape, otherShape, width2, 
-                                    "Could not compute intersection of conflicting internal lanes at node '" + myTo->getID() + "'");
+                            const double minDV = firstIntersection(shape, otherShape, width2,
+                                                                   "Could not compute intersection of conflicting internal lanes at node '" + myTo->getID() + "'");
                             if (minDV < shape.length() - POSITION_EPS && minDV > POSITION_EPS) { // !!!?
                                 assert(minDV >= 0);
                                 if (crossingPositions.first < 0 || crossingPositions.first > minDV) {
@@ -2990,8 +2990,8 @@ NBEdge::expandableBy(NBEdge* possContinuation, std::string& reason) const {
         } else if (myLanes[i].permissions != possContinuation->myLanes[i].permissions) {
             reason = "lane " + toString(i) + " permissions";
             return false;
-        } else if (myLanes[i].width != possContinuation->myLanes[i].width && 
-               fabs(myLanes[i].width - possContinuation->myLanes[i].width) > OptionsCont::getOptions().getFloat("geometry.remove.width-tolerance")) {
+        } else if (myLanes[i].width != possContinuation->myLanes[i].width &&
+                   fabs(myLanes[i].width - possContinuation->myLanes[i].width) > OptionsCont::getOptions().getFloat("geometry.remove.width-tolerance")) {
             reason = "lane " + toString(i) + " width";
             return false;
         }
@@ -3763,7 +3763,7 @@ NBEdge::getViaSuccessors(SUMOVehicleClass vClass) const {
         // special case for Persons in Netedit
         if (vClass == SVC_PEDESTRIAN) {         //
             myViaSuccessors.push_back(pair);    //
-        } else if (con.fromLane >= 0 && con.toLane >= 0 && 
+        } else if (con.fromLane >= 0 && con.toLane >= 0 &&
                    con.toEdge != nullptr &&
                    (getPermissions(con.fromLane) & con.toEdge->getPermissions(con.toLane) & vClass) != 0) {
             // ignore duplicates

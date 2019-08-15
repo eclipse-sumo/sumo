@@ -88,8 +88,8 @@ GUIBasePersonHelper::drawAction_drawAsPoly(const double angle, const double leng
 
 
 void
-GUIBasePersonHelper::drawAction_drawAsImage(const double angle, const double lenght, const double width, const std::string& file, 
-                                            const SUMOVehicleShape guiShape, const double exaggeration) {
+GUIBasePersonHelper::drawAction_drawAsImage(const double angle, const double lenght, const double width, const std::string& file,
+        const SUMOVehicleShape guiShape, const double exaggeration) {
     // first check if filename isn't empty
     if (file != "") {
         if (guiShape == SVS_PEDESTRIAN) {

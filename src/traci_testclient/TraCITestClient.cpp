@@ -912,7 +912,7 @@ TraCITestClient::testAPI() {
     //vehicle.addSubscriptionFilterLeadFollow(std::vector<int>({0}));
     //vehicle.addSubscriptionFilterCFManeuver();
     vehicle.addSubscriptionFilterLCManeuver(1);
-    
+
     simulationStep();
     answerLog << "    context subscription results:\n";
     libsumo::SubscriptionResults result5 = vehicle.getContextSubscriptionResults("1");

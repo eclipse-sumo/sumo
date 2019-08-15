@@ -64,7 +64,7 @@ SUMOVehicleParserHelper::parseFlowAttributes(const SUMOSAXAttributes& attrs, con
             return handleError(hardFail, abortCreation, "Invalid flow id '" + id + "'.");
         }
         if (attrs.hasAttribute(SUMO_ATTR_PERIOD) && attrs.hasAttribute(SUMO_ATTR_VEHSPERHOUR)) {
-            return handleError(hardFail, abortCreation, 
+            return handleError(hardFail, abortCreation,
                                "At most one of '" + attrs.getName(SUMO_ATTR_PERIOD) +
                                "' and '" + attrs.getName(SUMO_ATTR_VEHSPERHOUR) +
                                "' has to be given in the definition of flow '" + id + "'.");
@@ -76,7 +76,7 @@ SUMOVehicleParserHelper::parseFlowAttributes(const SUMOSAXAttributes& attrs, con
                                "' has to be given in the definition of flow '" + id + "'.");
         }
         if (attrs.hasAttribute(SUMO_ATTR_PROB) && attrs.hasAttribute(SUMO_ATTR_VEHSPERHOUR)) {
-            return handleError(hardFail, abortCreation, 
+            return handleError(hardFail, abortCreation,
                                "At most one of '" + attrs.getName(SUMO_ATTR_PROB) +
                                "' and '" + attrs.getName(SUMO_ATTR_VEHSPERHOUR) +
                                "' has to be given in the definition of flow '" + id + "'.");
@@ -84,7 +84,7 @@ SUMOVehicleParserHelper::parseFlowAttributes(const SUMOSAXAttributes& attrs, con
         if (attrs.hasAttribute(SUMO_ATTR_PERIOD) || attrs.hasAttribute(SUMO_ATTR_VEHSPERHOUR)
                 || attrs.hasAttribute(SUMO_ATTR_PERSONSPERHOUR) || attrs.hasAttribute(SUMO_ATTR_PROB)) {
             if (attrs.hasAttribute(SUMO_ATTR_END) && attrs.hasAttribute(SUMO_ATTR_NUMBER)) {
-                return handleError(hardFail, abortCreation, 
+                return handleError(hardFail, abortCreation,
                                    "If '" + attrs.getName(SUMO_ATTR_PERIOD) +
                                    "', '" + attrs.getName(SUMO_ATTR_VEHSPERHOUR) +
                                    "' or '" + attrs.getName(SUMO_ATTR_PROB) +
@@ -94,7 +94,7 @@ SUMOVehicleParserHelper::parseFlowAttributes(const SUMOSAXAttributes& attrs, con
             }
         } else {
             if (!attrs.hasAttribute(SUMO_ATTR_NUMBER)) {
-                return handleError(hardFail, abortCreation, 
+                return handleError(hardFail, abortCreation,
                                    "At least one of '" + attrs.getName(SUMO_ATTR_PERIOD) +
                                    "', '" + attrs.getName(SUMO_ATTR_VEHSPERHOUR) +
                                    "', '" + attrs.getName(SUMO_ATTR_PROB) +
@@ -236,7 +236,7 @@ SUMOVehicleParserHelper::parseVehicleAttributes(const SUMOSAXAttributes& attrs, 
         id = attrs.getOpt<std::string>(SUMO_ATTR_ID, nullptr, ok, "");
     } else {
         // parse ID
-        id = parseID(attrs, isPerson? SUMO_TAG_PERSON : SUMO_TAG_VEHICLE);
+        id = parseID(attrs, isPerson ? SUMO_TAG_PERSON : SUMO_TAG_VEHICLE);
     }
     // only continue if id is valid, or if is optional
     if (optionalID || !id.empty()) {
@@ -273,13 +273,13 @@ SUMOVehicleParserHelper::parseVehicleAttributes(const SUMOSAXAttributes& attrs, 
         return ret;
     } else {
         if (hardFail) {
-            if(isPerson) {
+            if (isPerson) {
                 throw ProcessError("Person cannot be created");
             } else {
                 throw ProcessError("Vehicle cannot be created");
             }
         } else {
-            if(isPerson) {
+            if (isPerson) {
                 WRITE_ERROR("Person cannot be created");
             } else {
                 WRITE_ERROR("Vehicle cannot be created");
@@ -289,7 +289,7 @@ SUMOVehicleParserHelper::parseVehicleAttributes(const SUMOSAXAttributes& attrs, 
     }
 }
 
-std::string 
+std::string
 SUMOVehicleParserHelper::parseID(const SUMOSAXAttributes& attrs, const SumoXMLTag element) {
     bool ok = true;
     std::string id;
@@ -350,7 +350,7 @@ SUMOVehicleParserHelper::parseCommonAttributes(const SUMOSAXAttributes& attrs, c
     // parse depart lane information
     if (attrs.hasAttribute(SUMO_ATTR_DEPARTLANE)) {
         const std::string helper = attrs.get<std::string>(SUMO_ATTR_DEPARTLANE, ret->id.c_str(), ok);
-        int lane; 
+        int lane;
         DepartLaneDefinition dld;
         if (SUMOVehicleParameter::parseDepartLane(helper, element, ret->id, lane, dld, error)) {
             ret->parametersSet |= VEHPARS_DEPARTLANE_SET;
@@ -584,7 +584,7 @@ SUMOVehicleParserHelper::beginVTypeParsing(const SUMOSAXAttributes& attrs, const
             try {
                 vtype->emissionClass = PollutantsInterface::getClassByName(parsedEmissionClass);
                 vtype->parametersSet |= VTYPEPARS_EMISSIONCLASS_SET;
-            } catch(...) {
+            } catch (...) {
                 if (hardFail) {
                     throw InvalidArgument(toString(SUMO_ATTR_EMISSIONCLASS) + " with name '" + parsedEmissionClass + "' doesn't exist.");
                 } else {
@@ -790,15 +790,15 @@ SUMOVehicleParserHelper::beginVTypeParsing(const SUMOSAXAttributes& attrs, const
         }
         // try to parse embedded vType
         if (!parseVTypeEmbedded(*vtype, vtype->cfModel, attrs, hardFail, true)) {
-            handleError(hardFail, abortCreation, "Invalid parsing embedded VType"); 
+            handleError(hardFail, abortCreation, "Invalid parsing embedded VType");
         }
         // try to parse Lane Change Model params
         if (!parseLCParams(*vtype, vtype->lcModel, attrs, hardFail)) {
-            handleError(hardFail, abortCreation, "Invalid Lane Change Model Parameters"); 
+            handleError(hardFail, abortCreation, "Invalid Lane Change Model Parameters");
         }
         // try to Junction Model params
         if (!parseJMParams(*vtype, attrs, hardFail)) {
-            handleError(hardFail, abortCreation, "Invalid Junction Model Parameters"); 
+            handleError(hardFail, abortCreation, "Invalid Junction Model Parameters");
         }
         if (!abortCreation) {
             delete vtype;
@@ -840,7 +840,7 @@ SUMOVehicleParserHelper::parseVTypeEmbedded(SUMOVTypeParameter& into, const Sumo
     }
     // set CFM values
     bool ok = true;
-    for (const auto &it : cf_it->second) {
+    for (const auto& it : cf_it->second) {
         if (attrs.hasAttribute(it)) {
             // first obtain  CFM attribute in string format
             std::string parsedCFMAttribute = attrs.get<std::string>(it, into.id.c_str(), ok);
@@ -940,7 +940,7 @@ SUMOVehicleParserHelper::parseVTypeEmbedded(SUMOVTypeParameter& into, const Sumo
                     if (it == SUMO_ATTR_TAU) {
                         // check tau in time format
                         if ((string2time(parsedCFMAttribute) < DELTA_T) && gSimulation) {
-                            WRITE_WARNING("Value of tau=" + parsedCFMAttribute + " in car following model '" + 
+                            WRITE_WARNING("Value of tau=" + parsedCFMAttribute + " in car following model '" +
                                           toString(into.cfModel) + "' lower than simulation step size may cause collisions");
                         }
                     }
@@ -1193,7 +1193,7 @@ SUMOVehicleParserHelper::parseLCParams(SUMOVTypeParameter& into, LaneChangeModel
     }
     bool ok = true;
     std::set<SumoXMLAttr> allowed = allowedLCModelAttrs[model];
-    for (const auto &it : allowed) {
+    for (const auto& it : allowed) {
         if (attrs.hasAttribute(it)) {
             // first obtain  CFM attribute in string format
             std::string parsedLCMAttribute = attrs.get<std::string>(it, into.id.c_str(), ok);
@@ -1275,7 +1275,7 @@ SUMOVehicleParserHelper::parseJMParams(SUMOVTypeParameter& into, const SUMOSAXAt
         allowedJMAttrs.insert(SUMO_ATTR_JM_TIMEGAP_MINOR);
     }
     bool ok = true;
-    for (const auto &it : allowedJMAttrs) {
+    for (const auto& it : allowedJMAttrs) {
         if (attrs.hasAttribute(it)) {
             // first obtain  CFM attribute in string format
             std::string parsedJMAttribute = attrs.get<std::string>(it, into.id.c_str(), ok);
@@ -1418,7 +1418,7 @@ SUMOVehicleParserHelper::processActionStepLength(double given) {
 
 
 SUMOVehicleParameter*
-SUMOVehicleParserHelper::handleError(const bool hardFail, bool &abortCreation, const std::string &message) {
+SUMOVehicleParserHelper::handleError(const bool hardFail, bool& abortCreation, const std::string& message) {
     if (hardFail) {
         abortCreation = true;
         throw ProcessError(message);

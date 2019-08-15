@@ -584,7 +584,7 @@ GLHelper::drawShapeDottedContourRectangle(const GUIVisualizationSettings& s, con
 }
 
 
-void 
+void
 GLHelper::drawShapeDottedContourPartialShapes(const GUIVisualizationSettings& s, const int type, const Position& begin, const Position& end, const double width) {
     // check that both positions are valid and differents
     if (!s.drawForSelecting && (begin != Position::INVALID) && (end != Position::INVALID) && (begin != end)) {
@@ -601,7 +601,7 @@ GLHelper::drawShapeDottedContourPartialShapes(const GUIVisualizationSettings& s,
         // draw contour
         GLHelper::drawLine(shape, GLHelper::getDottedcontourColors((int)shape.size()));
         // move shape to other side
-        shape.move2side(width*-2);
+        shape.move2side(width * -2);
         // draw contour
         GLHelper::drawLine(shape, GLHelper::getDottedcontourColors((int)shape.size()));
         //restore line width
@@ -682,7 +682,7 @@ GLHelper::drawText(const std::string& text, const Position& pos,
     if (myGL2PSActive) {
         glRasterPos3d(pos.x(), pos.y(), layer);
         GLfloat color[] = {col.red() / 255.f, col.green() / 255.f, col.blue() / 255.f, col.alpha() / 255.f};
-        gl2psTextOptColor(text.c_str(), "Roboto", 10, align == 0 ? GL2PS_TEXT_C : align, (GLfloat)-angle, color);
+        gl2psTextOptColor(text.c_str(), "Roboto", 10, align == 0 ? GL2PS_TEXT_C : align, (GLfloat) - angle, color);
         glPopMatrix();
         return;
     }
@@ -808,16 +808,16 @@ GLHelper::debugVertices(const PositionVector& shape, double size, double layer) 
 }
 
 
-void 
+void
 GLHelper::drawBoundary(const Boundary& b) {
     glPushMatrix();
     GLHelper::setColor(RGBColor::MAGENTA);
     // draw on top
     glTranslated(0, 0, 1024);
-    drawLine(Position(b.xmin(),b.ymax()), Position(b.xmax(),b.ymax()));
-    drawLine(Position(b.xmax(),b.ymax()), Position(b.xmax(),b.ymin()));
-    drawLine(Position(b.xmax(),b.ymin()), Position(b.xmin(),b.ymin()));
-    drawLine(Position(b.xmin(),b.ymin()), Position(b.xmin(),b.ymax()));
+    drawLine(Position(b.xmin(), b.ymax()), Position(b.xmax(), b.ymax()));
+    drawLine(Position(b.xmax(), b.ymax()), Position(b.xmax(), b.ymin()));
+    drawLine(Position(b.xmax(), b.ymin()), Position(b.xmin(), b.ymin()));
+    drawLine(Position(b.xmin(), b.ymin()), Position(b.xmin(), b.ymax()));
     glPopMatrix();
 }
 

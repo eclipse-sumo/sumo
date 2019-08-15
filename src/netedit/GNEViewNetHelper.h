@@ -333,7 +333,7 @@ struct GNEViewNetHelper {
 
     /// @brief struct used to group all variables related to view options in all supermodes
     struct CommonViewOptions {
-        
+
         /// @brief default constructor
         CommonViewOptions(GNEViewNet* viewNet);
 
@@ -344,7 +344,7 @@ struct GNEViewNetHelper {
         void hideCommonViewOptionsMenuChecks();
 
         /// @brief get visible common menu commands
-        void getVisibleCommonMenuCommands(std::vector<FXMenuCheck*> &commands) const;
+        void getVisibleCommonMenuCommands(std::vector<FXMenuCheck*>& commands) const;
 
         /// @brief menu check to show grid button
         FXMenuCheck* menuCheckShowGrid;
@@ -373,7 +373,7 @@ struct GNEViewNetHelper {
         void hideNetworkViewOptionsMenuChecks();
 
         /// @brief get visible network menu commands
-        void getVisibleNetworkMenuCommands(std::vector<FXMenuCheck*> &commands) const;
+        void getVisibleNetworkMenuCommands(std::vector<FXMenuCheck*>& commands) const;
 
         /// @brief check if show demand elements checkbox is enabled
         bool showDemandElements() const;
@@ -443,10 +443,10 @@ struct GNEViewNetHelper {
         void hideDemandViewOptionsMenuChecks();
 
         /// @brief get visible demand menu commands
-        void getVisibleDemandMenuCommands(std::vector<FXMenuCheck*> &commands) const;
+        void getVisibleDemandMenuCommands(std::vector<FXMenuCheck*>& commands) const;
 
         /// @brief check if non inspected element has to be hidden
-        bool showNonInspectedDemandElements(const GNEDemandElement *demandElement) const;
+        bool showNonInspectedDemandElements(const GNEDemandElement* demandElement) const;
 
         /// @brief check if shapes has to be hide
         bool showShapes() const;
@@ -455,13 +455,13 @@ struct GNEViewNetHelper {
         bool showAllPersonPlans() const;
 
         /// @brief lock person
-        void lockPerson(const GNEDemandElement * person);
+        void lockPerson(const GNEDemandElement* person);
 
         /// @brief unlock person
         void unlockPerson();
 
         /// @brief get locked person
-        const GNEDemandElement *getLockedPerson() const;
+        const GNEDemandElement* getLockedPerson() const;
 
         /// @brief Hide shapes (Polygons and POIs)
         FXMenuCheck* menuCheckHideShapes;
@@ -480,7 +480,7 @@ struct GNEViewNetHelper {
         GNEViewNet* myViewNet;
 
         /// @brief pointer to locked person
-        const GNEDemandElement *myLockedPerson;
+        const GNEDemandElement* myLockedPerson;
 
         /// @brief Invalidated copy constructor.
         DemandViewOptions(const DemandViewOptions&) = delete;

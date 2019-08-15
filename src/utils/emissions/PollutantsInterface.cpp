@@ -40,10 +40,10 @@ HelpersHBEFA PollutantsInterface::myHBEFA2Helper;
 HelpersHBEFA3 PollutantsInterface::myHBEFA3Helper;
 HelpersPHEMlight PollutantsInterface::myPHEMlightHelper;
 HelpersEnergy PollutantsInterface::myEnergyHelper;
-PollutantsInterface::Helper* PollutantsInterface::myHelpers[] = { 
+PollutantsInterface::Helper* PollutantsInterface::myHelpers[] = {
     &PollutantsInterface::myHBEFA2Helper, &PollutantsInterface::myHBEFA3Helper,
     &PollutantsInterface::myPHEMlightHelper, &PollutantsInterface::myEnergyHelper
-    };
+};
 std::vector<std::string> PollutantsInterface::myAllClassesStr;
 
 // ===========================================================================
@@ -79,17 +79,17 @@ PollutantsInterface::getAllClasses() {
 }
 
 
-const std::vector<std::string> &
+const std::vector<std::string>&
 PollutantsInterface::getAllClassesStr() {
     // first check if myAllClassesStr has to be filled
-    if(myAllClassesStr.empty()) {
-        // first obtain all emissionClasses 
+    if (myAllClassesStr.empty()) {
+        // first obtain all emissionClasses
         std::vector<SUMOEmissionClass> emissionClasses;
         for (int i = 0; i < 3; i++) {
             myHelpers[i]->addAllClassesInto(emissionClasses);
         }
         // now write all emissionClasses in myAllClassesStr
-        for (const auto &i : emissionClasses) {
+        for (const auto& i : emissionClasses) {
             myAllClassesStr.push_back(getName(i));
         }
     }

@@ -276,7 +276,7 @@ MSCFModel::freeSpeed(const MSVehicle* const veh, double speed, double seen, doub
 
 
 double
-MSCFModel::insertionFollowSpeed(const MSVehicle* const /* v */, double speed, double gap2pred, double predSpeed, double predMaxDecel, const MSVehicle* const /*pred*/ ) const {
+MSCFModel::insertionFollowSpeed(const MSVehicle* const /* v */, double speed, double gap2pred, double predSpeed, double predMaxDecel, const MSVehicle* const /*pred*/) const {
     if (MSGlobals::gSemiImplicitEulerUpdate) {
         return maximumSafeFollowSpeed(gap2pred, speed, predSpeed, predMaxDecel, true);
     } else {

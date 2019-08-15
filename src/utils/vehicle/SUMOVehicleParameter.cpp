@@ -151,7 +151,7 @@ SUMOVehicleParameter::write(OutputDevice& dev, const OptionsCont& oc, const Sumo
 }
 
 
-SUMOVehicleParameter::Stop::Stop() : 
+SUMOVehicleParameter::Stop::Stop() :
     Parameterised(),
     startPos(0),
     endPos(0),
@@ -274,7 +274,7 @@ SUMOVehicleParameter::parseDepartLane(const std::string& val, const std::string&
     }
     if (!ok) {
         if (id.empty()) {
-            error = "Invalid departLane definition for " + element +". Must be one of (\"random\", \"free\", \"allowed\", \"best\", \"first\", or an int>=0)";
+            error = "Invalid departLane definition for " + element + ". Must be one of (\"random\", \"free\", \"allowed\", \"best\", \"first\", or an int>=0)";
         } else {
             error = "Invalid departLane definition for " + element + " '" + id + "';\n must be one of (\"random\", \"free\", \"allowed\", \"best\", \"first\", or an int>=0)";
         }
@@ -519,8 +519,8 @@ SUMOVehicleParameter::interpretEdgePos(double pos, double maximumValue, SumoXMLA
 }
 
 
-bool 
-SUMOVehicleParameter::parsePersonModes(const std::string& modes, const std::string& element, const std::string& id, SVCPermissions &modeSet, std::string& error) {
+bool
+SUMOVehicleParameter::parsePersonModes(const std::string& modes, const std::string& element, const std::string& id, SVCPermissions& modeSet, std::string& error) {
     // separte modes in different strings, and check if modes are valid
     for (StringTokenizer st(modes); st.hasNext();) {
         const std::string mode = st.next();

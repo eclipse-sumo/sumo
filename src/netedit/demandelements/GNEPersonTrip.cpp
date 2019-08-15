@@ -42,32 +42,32 @@
 // method definitions
 // ===========================================================================
 
-GNEPersonTrip::GNEPersonTrip(GNEViewNet* viewNet, GNEDemandElement *personParent, const std::vector<GNEEdge*>& edges, const std::vector<std::string> &types, 
-    const std::vector<std::string> &modes, double arrivalPosition) :
+GNEPersonTrip::GNEPersonTrip(GNEViewNet* viewNet, GNEDemandElement* personParent, const std::vector<GNEEdge*>& edges, const std::vector<std::string>& types,
+                             const std::vector<std::string>& modes, double arrivalPosition) :
     GNEDemandElement(viewNet->getNet()->generateDemandElementID("", SUMO_TAG_PERSONTRIP_FROMTO), viewNet, GLO_PERSONTRIP, SUMO_TAG_PERSONTRIP_FROMTO,
-    edges, {}, {}, {}, {personParent}, {}, {}, {}, {}, {}),
-    Parameterised(),
-    myVTypes(types),
-    myModes(modes),
-    myArrivalPosition(arrivalPosition) {
+                     edges, {}, {}, {}, {personParent}, {}, {}, {}, {}, {}),
+                        Parameterised(),
+                        myVTypes(types),
+                        myModes(modes),
+myArrivalPosition(arrivalPosition) {
 }
 
 
-GNEPersonTrip::GNEPersonTrip(GNEViewNet* viewNet, GNEDemandElement *personParent, const std::vector<GNEEdge*>& edges, GNEAdditional *busStop, 
-    const std::vector<std::string> &types, const std::vector<std::string> &modes) :
+GNEPersonTrip::GNEPersonTrip(GNEViewNet* viewNet, GNEDemandElement* personParent, const std::vector<GNEEdge*>& edges, GNEAdditional* busStop,
+                             const std::vector<std::string>& types, const std::vector<std::string>& modes) :
     GNEDemandElement(viewNet->getNet()->generateDemandElementID("", SUMO_TAG_PERSONTRIP_BUSSTOP), viewNet, GLO_PERSONTRIP, SUMO_TAG_PERSONTRIP_BUSSTOP,
-    edges, {}, {}, {busStop}, {personParent}, {}, {}, {}, {}, {}),
-    Parameterised(),
-    myVTypes(types),
-    myModes(modes),
-    myArrivalPosition(-1) {
+                     edges, {}, {}, {busStop}, {personParent}, {}, {}, {}, {}, {}),
+Parameterised(),
+myVTypes(types),
+myModes(modes),
+myArrivalPosition(-1) {
 }
 
 
 GNEPersonTrip::~GNEPersonTrip() {}
 
 
-SUMOVehicleClass 
+SUMOVehicleClass
 GNEPersonTrip::getVClass() const {
     return getDemandElementParents().front()->getVClass();
 }
@@ -154,7 +154,7 @@ GNEPersonTrip::isDemandElementValid() const {
 }
 
 
-std::string 
+std::string
 GNEPersonTrip::getDemandElementProblem() const {
     if (getEdgeParents().size() == 0) {
         return ("A personTrip need at least one edge");
@@ -171,13 +171,13 @@ GNEPersonTrip::getDemandElementProblem() const {
 }
 
 
-void 
+void
 GNEPersonTrip::fixDemandElementProblem() {
     // currently the only solution is removing PersonTrip
 }
 
 
-void 
+void
 GNEPersonTrip::startGeometryMoving() {
     // only start geometry moving if arrival position isn't -1
     if (myArrivalPosition != -1) {
@@ -191,7 +191,7 @@ GNEPersonTrip::startGeometryMoving() {
 }
 
 
-void 
+void
 GNEPersonTrip::endGeometryMoving() {
     // check that myArrivalPosition isn't -1 and endGeometryMoving was called only once
     if ((myArrivalPosition != -1) && myPersonTripMove.movingGeometryBoundary.isInitialised()) {
@@ -211,7 +211,7 @@ GNEPersonTrip::moveGeometry(const Position& offset) {
         // filtern position using snap to active grid
         newPosition = myViewNet->snapToActiveGrid(newPosition);
         // obtain lane shape (to improve code legibility)
-        const PositionVector &laneShape = getEdgeParents().back()->getLanes().front()->getGeometry().shape;
+        const PositionVector& laneShape = getEdgeParents().back()->getLanes().front()->getGeometry().shape;
         // calculate offset lane
         double offsetLane = laneShape.nearest_offset_to_point2D(newPosition, false) - laneShape.nearest_offset_to_point2D(myPersonTripMove.originalViewPosition, false);        // Update arrival Position
         myArrivalPosition = parse<double>(myPersonTripMove.firstOriginalLanePosition) + offsetLane;
@@ -257,7 +257,7 @@ Boundary
 GNEPersonTrip::getCenteringBoundary() const {
     Boundary personTripBoundary;
     // return the combination of all edge parents's boundaries
-    for (const auto &i : getEdgeParents()) {
+    for (const auto& i : getEdgeParents()) {
         personTripBoundary.add(i->getCenteringBoundary());
     }
     // check if is valid
@@ -335,7 +335,7 @@ GNEPersonTrip::getAttribute(SumoXMLAttr key) const {
 }
 
 
-double 
+double
 GNEPersonTrip::getAttributeDouble(SumoXMLAttr key) const {
     switch (key) {
         case SUMO_ATTR_ARRIVALPOS:
@@ -379,7 +379,7 @@ GNEPersonTrip::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_MODES: {
             SVCPermissions dummyModeSet;
             std::string dummyError;
-            return SUMOVehicleParameter::parsePersonModes(value, myTagProperty.getTagStr(), getID(), dummyModeSet , dummyError);
+            return SUMOVehicleParameter::parsePersonModes(value, myTagProperty.getTagStr(), getID(), dummyModeSet, dummyError);
         }
         case SUMO_ATTR_VTYPES:
             return canParse<std::vector<std::string> >(value);
@@ -405,7 +405,7 @@ GNEPersonTrip::isValid(SumoXMLAttr key, const std::string& value) {
 }
 
 
-void 
+void
 GNEPersonTrip::enableAttribute(SumoXMLAttr /*key*/, GNEUndoList* /*undoList*/) {
     //
 }
@@ -545,7 +545,7 @@ GNEPersonTrip::setAttribute(SumoXMLAttr key, const std::string& value) {
 }
 
 
-void 
+void
 GNEPersonTrip::setEnabledAttribute(const int /*enabledAttributes*/) {
     //
 }

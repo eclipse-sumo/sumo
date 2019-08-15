@@ -38,7 +38,7 @@ MFXCheckableButton::MFXCheckableButton(bool amChecked, FXComposite* p,
                                        FXObject* tgt, FXSelector sel,
                                        FXuint opts,
                                        FXint x, FXint y, FXint w, FXint h,
-                                       FXint pl, FXint pr, FXint pt, FXint pb) : 
+                                       FXint pl, FXint pr, FXint pt, FXint pb) :
     FXButton(p, text, ic, tgt, sel, opts, x, y, w, h, pl, pr, pt, pb),
     myAmChecked(amChecked), myAmInitialised(false) {
     border = 0;

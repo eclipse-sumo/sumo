@@ -121,7 +121,7 @@ public:
         FREE_FLOW,
     }
 
-private:
+    private:
     class VehicleVariables : public MSCFModel::VehicleVariables {
     public:
         VehicleVariables() : lastStatus(FREE_FLOW) {}
@@ -143,13 +143,13 @@ private:
     const double myCC5;   // Positive 'Following' Threshold - m/s
     const double myCC6;   // Speed Dependency of Oscillation - 10^-4 rad/s
     const double myCC7;   // Oscillation Acceleration - m/s^2
-    const double myCC8;   // Standstill Acceleration - m/s^2 
+    const double myCC8;   // Standstill Acceleration - m/s^2
     const double myCC9;   // Acceleration at 80km/h - m/s^2
     /// @}
 
 
     void computeThresholds(double speed, double predSpeed, double leaderAccel, double rndVal,
-            double& sdxc, double& sdxo, double& sdxv) const;
+                           double& sdxc, double& sdxo, double& sdxv) const;
 
 private:
     /// @brief Invalidated assignment operator

@@ -348,7 +348,7 @@ public:
     /// @brief to be called when the font context is invalidated
     static void resetFont();
 
-    static void setGL2PS(bool active=true) {
+    static void setGL2PS(bool active = true) {
         myGL2PSActive = active;
     }
 

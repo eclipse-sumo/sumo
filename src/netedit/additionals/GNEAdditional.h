@@ -155,7 +155,7 @@ public:
     /// @brief obtain AdditionalGeometry
     const AdditionalGeometry& getAdditionalGeometry() const;
 
-    /// @brief set special color 
+    /// @brief set special color
     void setSpecialColor(const RGBColor* color);
 
     /// @name members and functions relative to write additionals into XML
@@ -270,7 +270,7 @@ public:
      * @return string with the value associated to key
      */
     virtual std::string getAttribute(SumoXMLAttr key) const = 0;
-    
+
     /**@brief method for setting the attribute and letting the object perform additional changes
      * @param[in] key The attribute key
      * @param[in] value The new value
@@ -380,7 +380,7 @@ protected:
     BlockIcon myBlockIcon;
 
     /// @brief pointer to special color (used for drawing Additional with a certain color, mainly used for selections)
-    const RGBColor *mySpecialColor;
+    const RGBColor* mySpecialColor;
 
     /// @brief change all attributes of additional with their default values (note: this cannot be undo)
     void setDefaultValues();

@@ -204,8 +204,8 @@ enum SUMOVehicleClass {
     /// @brief classes which drive on tracks
     SVC_RAIL_CLASSES = SVC_RAIL_ELECTRIC | SVC_RAIL_FAST | SVC_RAIL | SVC_RAIL_URBAN | SVC_TRAM,
     /// @brief classes which drive on roads
-    SVC_ROAD_CLASSES = (SVC_PEDESTRIAN | SVC_PASSENGER | SVC_HOV | SVC_TAXI | SVC_BUS | SVC_COACH | SVC_DELIVERY 
-            | SVC_TRUCK | SVC_TRAILER | SVC_MOTORCYCLE | SVC_MOPED | SVC_BICYCLE | SVC_E_VEHICLE), 
+    SVC_ROAD_CLASSES = (SVC_PEDESTRIAN | SVC_PASSENGER | SVC_HOV | SVC_TAXI | SVC_BUS | SVC_COACH | SVC_DELIVERY
+                        | SVC_TRUCK | SVC_TRAILER | SVC_MOTORCYCLE | SVC_MOPED | SVC_BICYCLE | SVC_E_VEHICLE),
     /// @brief classes which (normally) do not drive on normal roads
     SVC_NON_ROAD = SVC_RAIL_CLASSES | SVC_SHIP
 };
@@ -281,7 +281,7 @@ extern bool canParseVehicleClasses(const std::string& classes);
  * @param[in] allowedS Definition which classes are allowed
  * @param[in] disallowedS Definition which classes are not allowed
  */
-extern SVCPermissions parseVehicleClasses(const std::string& allowedS, const std::string& disallowedS, double networkVersion=NETWORK_VERSION);
+extern SVCPermissions parseVehicleClasses(const std::string& allowedS, const std::string& disallowedS, double networkVersion = NETWORK_VERSION);
 
 /** @brief Encodes the given vector of allowed classs into a bitset
  * Unlike the methods which parse a string it gives immediately a warning output on deprecated vehicle classes.

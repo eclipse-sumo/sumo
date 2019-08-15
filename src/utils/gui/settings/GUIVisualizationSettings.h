@@ -230,7 +230,7 @@ struct GUIVisualizationColorSettings {
 
     /// @brief color for Stops
     static const RGBColor stops;
-        
+
     /// @brief color for vehicle trips
     static const RGBColor vehicleTrips;
 
@@ -334,7 +334,7 @@ struct GUIVisualizationDetailSettings {
     /// @brief details for draw person as person shapes
     static const double personShapes;
 
-    /// @brief Exaggeration for persons (only used in NETEDIT) 
+    /// @brief Exaggeration for persons (only used in NETEDIT)
     static const double personExaggeration;
 };
 
@@ -633,7 +633,7 @@ public:
 
     /// @brief whether drawing is performed for the purpose of selecting objects
     bool drawForSelecting;
-    
+
     /// @brief flag to force draw to selecting (see drawForSelecting)
     bool forceDrawForSelecting;
 

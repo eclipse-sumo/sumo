@@ -1101,7 +1101,7 @@ GNETLSEditorFrame::TLSPhases::initPhaseTable(int index) {
         // however, the scroll pane uses getDefaultWidth to determine the
         // horizontal scrolling area which can only be changed via
         // getDefColumnWidth, hence the baroque work-around
-        
+
         int neededWidth = 0;
         for (int i = 0; i < cols; i++) {
             neededWidth += myPhaseTable->getColumnWidth(i);

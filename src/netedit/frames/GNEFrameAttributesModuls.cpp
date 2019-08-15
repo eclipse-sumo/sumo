@@ -7,7 +7,7 @@
 // http://www.eclipse.org/legal/epl-v20.html
 // SPDX-License-Identifier: EPL-2.0
 /****************************************************************************/
-/// @file    GNEFrameAttributesModuls.h
+/// @file    GNEFrameAttributesModuls.cpp
 /// @author  Pablo Alvarez Lopez
 /// @date    Aug 2019
 /// @version $Id$
@@ -130,7 +130,7 @@ GNEFrameAttributesModuls::AttributesCreatorRow::AttributesCreatorRow(AttributesC
     if (getParent()->id()) {
         // create AttributesCreatorRow
         FXHorizontalFrame::create();
-        // reset invalid value 
+        // reset invalid value
         myInvalidValue = "";
         // show label, button for edit colors or radio button
         if (myAttrProperties.isColor()) {
@@ -208,7 +208,7 @@ GNEFrameAttributesModuls::AttributesCreatorRow::AttributesCreatorRow(AttributesC
 }
 
 
-void 
+void
 GNEFrameAttributesModuls::AttributesCreatorRow::destroy() {
     // only destroy if parent was created
     if (getParent()->id()) {
@@ -532,8 +532,8 @@ GNEFrameAttributesModuls::AttributesCreatorRow::onCmdSelectRadioButton(FXObject*
 }
 
 
-std::string 
-GNEFrameAttributesModuls::AttributesCreatorRow::checkComplexAttribute(const std::string &value) {
+std::string
+GNEFrameAttributesModuls::AttributesCreatorRow::checkComplexAttribute(const std::string& value) {
     // declare values needed to check if given complex parameters are valid
     std::string errorMessage;
     DepartDefinition dd;
@@ -555,32 +555,32 @@ GNEFrameAttributesModuls::AttributesCreatorRow::checkComplexAttribute(const std:
         case SUMO_ATTR_BEGIN:
             SUMOVehicleParameter::parseDepart(value, myAttrProperties.getAttrStr(), "", valueSUMOTime, dd, errorMessage);
             break;
-        case SUMO_ATTR_DEPARTLANE: 
+        case SUMO_ATTR_DEPARTLANE:
             SUMOVehicleParameter::parseDepartLane(value, myAttrProperties.getAttrStr(), "", valueInt, dld, errorMessage);
             break;
-        case SUMO_ATTR_DEPARTPOS: 
+        case SUMO_ATTR_DEPARTPOS:
             SUMOVehicleParameter::parseDepartPos(value, myAttrProperties.getAttrStr(), "", valueDouble, dpd, errorMessage);
             break;
-        case SUMO_ATTR_DEPARTSPEED: 
+        case SUMO_ATTR_DEPARTSPEED:
             SUMOVehicleParameter::parseDepartSpeed(value, myAttrProperties.getAttrStr(), "", valueDouble, dsd, errorMessage);
             break;
-        case SUMO_ATTR_ARRIVALLANE: 
+        case SUMO_ATTR_ARRIVALLANE:
             SUMOVehicleParameter::parseArrivalLane(value, myAttrProperties.getAttrStr(), "", valueInt, ald, errorMessage);
             break;
-        case SUMO_ATTR_ARRIVALPOS: 
+        case SUMO_ATTR_ARRIVALPOS:
             SUMOVehicleParameter::parseArrivalPos(value, myAttrProperties.getAttrStr(), "", valueDouble, apd, errorMessage);
             break;
-        case SUMO_ATTR_ARRIVALSPEED: 
+        case SUMO_ATTR_ARRIVALSPEED:
             SUMOVehicleParameter::parseArrivalSpeed(value, myAttrProperties.getAttrStr(), "", valueDouble, asd, errorMessage);
             break;
-        case SUMO_ATTR_DEPARTPOS_LAT: 
+        case SUMO_ATTR_DEPARTPOS_LAT:
             SUMOVehicleParameter::parseDepartPosLat(value, myAttrProperties.getAttrStr(), "", valueDouble, dpld, errorMessage);
             break;
-        case SUMO_ATTR_ARRIVALPOS_LAT: 
+        case SUMO_ATTR_ARRIVALPOS_LAT:
             SUMOVehicleParameter::parseArrivalPosLat(value, myAttrProperties.getAttrStr(), "", valueDouble, apld, errorMessage);
             break;
         case SUMO_ATTR_MODES:
-            SUMOVehicleParameter::parsePersonModes(value, myAttrProperties.getAttrStr(), "", mode , errorMessage);
+            SUMOVehicleParameter::parsePersonModes(value, myAttrProperties.getAttrStr(), "", mode, errorMessage);
             break;
         default:
             throw ProcessError("Invalid complex attribute");
@@ -620,7 +620,7 @@ GNEFrameAttributesModuls::AttributesCreator::showAttributesCreatorModul(const GN
         }
     }
     // iterate over tag attributes and create a AttributesCreatorRow
-    for (const auto &i : myTagProperties) {
+    for (const auto& i : myTagProperties) {
         //  make sure that only non-unique attributes are created (And depending of includeExtendedAttributes)
         if (!i.isUnique()) {
             myAttributesCreatorRows.at(i.getPositionListed()) = new AttributesCreatorRow(this, i);
@@ -665,7 +665,7 @@ GNEFrameAttributesModuls::AttributesCreator::getAttributesAndValues(bool include
 }
 
 
-GNEAttributeCarrier::TagProperties 
+GNEAttributeCarrier::TagProperties
 GNEFrameAttributesModuls::AttributesCreator::getCurrentTagProperties() const {
     return myTagProperties;
 }
@@ -675,7 +675,7 @@ void
 GNEFrameAttributesModuls::AttributesCreator::showWarningMessage(std::string extra) const {
     std::string errorMessage;
     // iterate over standar parameters
-    for (const auto &i : myTagProperties) {
+    for (const auto& i : myTagProperties) {
         if (errorMessage.empty() && myAttributesCreatorRows.at(i.getPositionListed())) {
             // Return string with the error if at least one of the parameter isn't valid
             std::string attributeValue = myAttributesCreatorRows.at(i.getPositionListed())->isAttributeValid();
@@ -1009,7 +1009,7 @@ GNEFrameAttributesModuls::AttributesEditorRow::AttributesEditorRow(GNEFrameAttri
         }
         // special case for Default vehicle types (ID cannot be edited)
         if ((ACAttr.getTagPropertyParent().getTag() == SUMO_TAG_VTYPE) && (ACAttr.getAttr() == SUMO_ATTR_ID) &&
-            ((value == DEFAULT_VTYPE_ID) || (value == DEFAULT_PEDTYPE_ID) || (value == DEFAULT_BIKETYPE_ID))) {
+                ((value == DEFAULT_VTYPE_ID) || (value == DEFAULT_PEDTYPE_ID) || (value == DEFAULT_BIKETYPE_ID))) {
             myValueTextFieldStrings->disable();
         }
         // Show AttributesEditorRow
@@ -1018,7 +1018,7 @@ GNEFrameAttributesModuls::AttributesEditorRow::AttributesEditorRow(GNEFrameAttri
 }
 
 
-void 
+void
 GNEFrameAttributesModuls::AttributesEditorRow::destroy() {
     // only destroy if parent was created
     if (getParent()->id()) {
@@ -1045,7 +1045,7 @@ GNEFrameAttributesModuls::AttributesEditorRow::refreshAttributesEditorRow(const 
     }
     // set check buton
     if (myAttributeCheckButton->shown()) {
-        myAttributeCheckButton->setCheck(/*disjointAttributeEnabled*/ FALSE );
+        myAttributeCheckButton->setCheck(/*disjointAttributeEnabled*/ FALSE);
     }
     if (myValueTextFieldInt->shown()) {
         // set last valid value and restore color if onlyValid is disabled
@@ -1106,7 +1106,7 @@ GNEFrameAttributesModuls::AttributesEditorRow::refreshAttributesEditorRow(const 
     // if Tag correspond to an network element but we're in demand mode (or vice versa), disable all elements
     if (myACAttr.getAttr() != SUMO_ATTR_NOTHING) {
         if (((myAttributesEditorParent->getFrameParent()->myViewNet->getEditModes().currentSupermode == GNE_SUPERMODE_NETWORK) && myACAttr.getTagPropertyParent().isDemandElement()) ||
-            ((myAttributesEditorParent->getFrameParent()->myViewNet->getEditModes().currentSupermode == GNE_SUPERMODE_DEMAND) && !myACAttr.getTagPropertyParent().isDemandElement())) {
+                ((myAttributesEditorParent->getFrameParent()->myViewNet->getEditModes().currentSupermode == GNE_SUPERMODE_DEMAND) && !myACAttr.getTagPropertyParent().isDemandElement())) {
             myAttributeColorButton->disable();
             myAttributeRadioButton->disable();
             myAttributeCheckButton->disable();
@@ -1123,7 +1123,7 @@ GNEFrameAttributesModuls::AttributesEditorRow::refreshAttributesEditorRow(const 
         }
         // special case for Default vehicle types (ID cannot be edited)
         if ((myACAttr.getTagPropertyParent().getTag() == SUMO_TAG_VTYPE) && (myACAttr.getAttr() == SUMO_ATTR_ID) &&
-            ((value == DEFAULT_VTYPE_ID) || (value == DEFAULT_PEDTYPE_ID) || (value == DEFAULT_BIKETYPE_ID))) {
+                ((value == DEFAULT_VTYPE_ID) || (value == DEFAULT_PEDTYPE_ID) || (value == DEFAULT_BIKETYPE_ID))) {
             myValueTextFieldStrings->disable();
         }
     }
@@ -1499,7 +1499,7 @@ GNEFrameAttributesModuls::AttributesEditor::refreshAttributeEditor(bool forceRef
 }
 
 
-GNEFrame* 
+GNEFrame*
 GNEFrameAttributesModuls::AttributesEditor::getFrameParent() const {
     return myFrameParent;
 }

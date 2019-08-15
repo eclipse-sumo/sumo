@@ -188,7 +188,7 @@ FXDEFMAP(GNEApplicationWindow) GNEApplicationWindowMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_F1_ONLINEDOCUMENTATION,  GNEApplicationWindow::onCmdHelp),
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_F2_ABOUT,                GNEApplicationWindow::onCmdAbout),
 
-    // alt + <number> 
+    // alt + <number>
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_ALT_0_TOOGLEEDITOPTION,      GNEApplicationWindow::onCmdToogleEditOptions),
     FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_ALT_0_TOOGLEEDITOPTION,      GNEApplicationWindow::onUpdNeedsNetwork),
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_ALT_1_TOOGLEEDITOPTION,      GNEApplicationWindow::onCmdToogleEditOptions),
@@ -469,7 +469,7 @@ GNEApplicationWindow::onCmdEditChosen(FXObject*, FXSelector, void*) {
 long
 GNEApplicationWindow::onCmdNewNetwork(FXObject*, FXSelector, void*) {
     // first check that current edited Net can be closed (und therefore the undo-list cleared, see #5753)
-    if (myViewNet && !onCmdClose(0,0,0)) {
+    if (myViewNet && !onCmdClose(0, 0, 0)) {
         return 1;
     } else {
         OptionsCont& oc = OptionsCont::getOptions();
@@ -484,7 +484,7 @@ GNEApplicationWindow::onCmdNewNetwork(FXObject*, FXSelector, void*) {
 long
 GNEApplicationWindow::onCmdOpenConfiguration(FXObject*, FXSelector, void*) {
     // first check that current edited Net can be closed (und therefore the undo-list cleared, see #5753)
-    if (myViewNet && !onCmdClose(0,0,0)) {
+    if (myViewNet && !onCmdClose(0, 0, 0)) {
         return 1;
     } else {
         // get the new file name
@@ -510,7 +510,7 @@ GNEApplicationWindow::onCmdOpenConfiguration(FXObject*, FXSelector, void*) {
 long
 GNEApplicationWindow::onCmdOpenNetwork(FXObject*, FXSelector, void*) {
     // first check that current edited Net can be closed (und therefore the undo-list cleared, see #5753)
-    if (myViewNet && !onCmdClose(0,0,0)) {
+    if (myViewNet && !onCmdClose(0, 0, 0)) {
         return 1;
     } else {
         // get the new file name
@@ -539,7 +539,7 @@ GNEApplicationWindow::onCmdOpenNetwork(FXObject*, FXSelector, void*) {
 long
 GNEApplicationWindow::onCmdOpenForeign(FXObject*, FXSelector, void*) {
     // first check that current edited Net can be closed (und therefore the undo-list cleared, see #5753)
-    if (myViewNet && !onCmdClose(0,0,0)) {
+    if (myViewNet && !onCmdClose(0, 0, 0)) {
         return 1;
     } else {
         // get the new file name
@@ -704,7 +704,7 @@ GNEApplicationWindow::onCmdOpenDemandElements(FXObject*, FXSelector, void*) {
 long
 GNEApplicationWindow::onCmdOpenRecent(FXObject* sender, FXSelector, void* fileData) {
     // first check that current edited Net can be closed (und therefore the undo-list cleared, see #5753)
-    if (myViewNet && !onCmdClose(0,0,0)) {
+    if (myViewNet && !onCmdClose(0, 0, 0)) {
         return 1;
     } else if (myAmLoading) {
         myStatusbar->getStatusLine()->setText("Already loading!");
@@ -720,7 +720,7 @@ GNEApplicationWindow::onCmdOpenRecent(FXObject* sender, FXSelector, void* fileDa
 long
 GNEApplicationWindow::onCmdReload(FXObject*, FXSelector, void*) {
     // first check that current edited Net can be closed (und therefore the undo-list cleared, see #5753)
-    if (myViewNet && !onCmdClose(0,0,0)) {
+    if (myViewNet && !onCmdClose(0, 0, 0)) {
         return 1;
     } else {
         // @note. If another network has been load during this session, it might not be desirable to set useStartupOptions
@@ -1002,78 +1002,78 @@ GNEApplicationWindow::FileMenuCommands::FileMenuCommands(GNEApplicationWindow* G
 void
 GNEApplicationWindow::FileMenuCommands::buildFileMenuCommands(FXMenuPane* fileMenu) {
     new FXMenuCommand(fileMenu,
-        "&New Network...\tCtrl+N\tCreate a new network.",
-        GUIIconSubSys::getIcon(ICON_OPEN_NET), myGNEApp, MID_HOTKEY_CTRL_N_NEWNETWORK);
+                      "&New Network...\tCtrl+N\tCreate a new network.",
+                      GUIIconSubSys::getIcon(ICON_OPEN_NET), myGNEApp, MID_HOTKEY_CTRL_N_NEWNETWORK);
     new FXMenuCommand(fileMenu,
-        "&Open Network...\tCtrl+O\tOpen a SUMO network.",
-        GUIIconSubSys::getIcon(ICON_OPEN_NET), myGNEApp, MID_OPEN_NETWORK);
+                      "&Open Network...\tCtrl+O\tOpen a SUMO network.",
+                      GUIIconSubSys::getIcon(ICON_OPEN_NET), myGNEApp, MID_OPEN_NETWORK);
     new FXMenuCommand(fileMenu,
-        "Open Netconvert Configura&tion...\tCtrl+Shift+O\tOpen a configuration file with NETCONVERT options.",
-        GUIIconSubSys::getIcon(ICON_OPEN_CONFIG), myGNEApp, MID_OPEN_CONFIG);
+                      "Open Netconvert Configura&tion...\tCtrl+Shift+O\tOpen a configuration file with NETCONVERT options.",
+                      GUIIconSubSys::getIcon(ICON_OPEN_CONFIG), myGNEApp, MID_OPEN_CONFIG);
     new FXMenuCommand(fileMenu,
-        "Import &Foreign Network...\t\tImport a foreign network such as OSM.",
-        GUIIconSubSys::getIcon(ICON_OPEN_NET), myGNEApp, MID_GNE_TOOLBARFILE_OPENFOREIGN);
+                      "Import &Foreign Network...\t\tImport a foreign network such as OSM.",
+                      GUIIconSubSys::getIcon(ICON_OPEN_NET), myGNEApp, MID_GNE_TOOLBARFILE_OPENFOREIGN);
     new FXMenuCommand(fileMenu,
-        "&Reload\tCtrl+R\tReloads the network.",
-        GUIIconSubSys::getIcon(ICON_RELOAD), myGNEApp, MID_HOTKEY_CTRL_R_RELOAD);
+                      "&Reload\tCtrl+R\tReloads the network.",
+                      GUIIconSubSys::getIcon(ICON_RELOAD), myGNEApp, MID_HOTKEY_CTRL_R_RELOAD);
     new FXMenuCommand(fileMenu,
-        "&Save Network...\tCtrl+S\tSave the network.",
-        GUIIconSubSys::getIcon(ICON_SAVE), myGNEApp, MID_HOTKEY_CTRL_S_STOPSIMULATION_SAVENETWORK);
+                      "&Save Network...\tCtrl+S\tSave the network.",
+                      GUIIconSubSys::getIcon(ICON_SAVE), myGNEApp, MID_HOTKEY_CTRL_S_STOPSIMULATION_SAVENETWORK);
     new FXMenuCommand(fileMenu,
-        "Save Net&work As...\tCtrl+Shift+S\tSave the network in another file.",
-        GUIIconSubSys::getIcon(ICON_SAVE), myGNEApp, MID_HOTKEY_CTRL_SHIFT_S_SAVENETWORK_AS);
+                      "Save Net&work As...\tCtrl+Shift+S\tSave the network in another file.",
+                      GUIIconSubSys::getIcon(ICON_SAVE), myGNEApp, MID_HOTKEY_CTRL_SHIFT_S_SAVENETWORK_AS);
     new FXMenuCommand(fileMenu,
-        "Save plain XM&L...\tCtrl+L\tSave plain xml representation the network.",
-        GUIIconSubSys::getIcon(ICON_SAVE), myGNEApp, MID_HOTKEY_CTRL_L_SAVEASPLAINXML);
+                      "Save plain XM&L...\tCtrl+L\tSave plain xml representation the network.",
+                      GUIIconSubSys::getIcon(ICON_SAVE), myGNEApp, MID_HOTKEY_CTRL_L_SAVEASPLAINXML);
     new FXMenuCommand(fileMenu,
-        "Save &joined junctions...\tCtrl+J\tSave log of joined junctions (allows reproduction of joins).",
-        GUIIconSubSys::getIcon(ICON_SAVE), myGNEApp, MID_HOTKEY_CTRL_J_SAVEJOINEDJUNCTIONS);
+                      "Save &joined junctions...\tCtrl+J\tSave log of joined junctions (allows reproduction of joins).",
+                      GUIIconSubSys::getIcon(ICON_SAVE), myGNEApp, MID_HOTKEY_CTRL_J_SAVEJOINEDJUNCTIONS);
     // create Additionals menu options
     myGNEApp->myFileMenuAdditionals = new FXMenuPane(myGNEApp);
     new FXMenuCommand(myGNEApp->myFileMenuAdditionals,
-        "Load A&dditionals...\tCtrl+A\tLoad additionals and shapes.",
-        GUIIconSubSys::getIcon(ICON_OPEN_ADDITIONALS), myGNEApp, MID_HOTKEY_CTRL_A_STARTSIMULATION_OPENADDITIONALS);
+                      "Load A&dditionals...\tCtrl+A\tLoad additionals and shapes.",
+                      GUIIconSubSys::getIcon(ICON_OPEN_ADDITIONALS), myGNEApp, MID_HOTKEY_CTRL_A_STARTSIMULATION_OPENADDITIONALS);
     saveAdditionals = new FXMenuCommand(myGNEApp->myFileMenuAdditionals,
-        "Save Additionals\tCtrl+Shift+A\tSave additionals and shapes.",
-        GUIIconSubSys::getIcon(ICON_SAVE), myGNEApp, MID_HOTKEY_CTRL_SHIFT_A_SAVEADDITIONALS);
+                                        "Save Additionals\tCtrl+Shift+A\tSave additionals and shapes.",
+                                        GUIIconSubSys::getIcon(ICON_SAVE), myGNEApp, MID_HOTKEY_CTRL_SHIFT_A_SAVEADDITIONALS);
     saveAdditionals->disable();
     saveAdditionalsAs = new FXMenuCommand(myGNEApp->myFileMenuAdditionals,
-        "Save Additionals As...\t\tSave additional elements in another file.",
-        GUIIconSubSys::getIcon(ICON_SAVE), myGNEApp, MID_GNE_TOOLBARFILE_SAVEADDITIONALS_AS);
+                                          "Save Additionals As...\t\tSave additional elements in another file.",
+                                          GUIIconSubSys::getIcon(ICON_SAVE), myGNEApp, MID_GNE_TOOLBARFILE_SAVEADDITIONALS_AS);
     saveAdditionalsAs->disable();
     new FXMenuCascade(fileMenu, "Additionals and shapes", GUIIconSubSys::getIcon(ICON_MODEADDITIONAL), myGNEApp->myFileMenuAdditionals);
     // create TLS menu options
     myGNEApp->myFileMenuTLS = new FXMenuPane(myGNEApp);
     new FXMenuCommand(myGNEApp->myFileMenuTLS,
-        "load TLS Programs...\tCtrl+K\tload TLS Programs in all Traffic Lights of the net.",
-        GUIIconSubSys::getIcon(ICON_OPEN_TLSPROGRAMS), myGNEApp, MID_HOTKEY_CTRL_K_OPENTLSPROGRAMS);
+                      "load TLS Programs...\tCtrl+K\tload TLS Programs in all Traffic Lights of the net.",
+                      GUIIconSubSys::getIcon(ICON_OPEN_TLSPROGRAMS), myGNEApp, MID_HOTKEY_CTRL_K_OPENTLSPROGRAMS);
     saveTLSPrograms = new FXMenuCommand(myGNEApp->myFileMenuTLS,
-        "Save TLS Programs \tCtrl+Shift+K\tSave TLS Programs of all Traffic Lights of the current net.",
-        GUIIconSubSys::getIcon(ICON_SAVE), myGNEApp, MID_HOTKEY_CTRL_SHIFT_K_SAVETLS);
+                                        "Save TLS Programs \tCtrl+Shift+K\tSave TLS Programs of all Traffic Lights of the current net.",
+                                        GUIIconSubSys::getIcon(ICON_SAVE), myGNEApp, MID_HOTKEY_CTRL_SHIFT_K_SAVETLS);
     saveTLSPrograms->disable();
     new FXMenuCommand(myGNEApp->myFileMenuTLS,
-        "Save TLS Programs As...\t\tSave TLS Programs of all Traffic Lights of the current net in another file.",
-        GUIIconSubSys::getIcon(ICON_SAVE), myGNEApp, MID_GNE_TOOLBARFILE_SAVETLSPROGRAMS_AS);
+                      "Save TLS Programs As...\t\tSave TLS Programs of all Traffic Lights of the current net in another file.",
+                      GUIIconSubSys::getIcon(ICON_SAVE), myGNEApp, MID_GNE_TOOLBARFILE_SAVETLSPROGRAMS_AS);
     new FXMenuCascade(fileMenu, "Traffic Lights", GUIIconSubSys::getIcon(ICON_MODETLS), myGNEApp->myFileMenuTLS);
     // create DemandElements menu options
     myGNEApp->myFileMenuDemandElements = new FXMenuPane(myGNEApp);
     new FXMenuCommand(myGNEApp->myFileMenuDemandElements,
-        "Load demand elements...\tCtrl+D\tLoad demand elements.",
-        GUIIconSubSys::getIcon(ICON_OPEN_ADDITIONALS), myGNEApp, MID_HOTKEY_CTRL_D_SINGLESIMULATIONSTEP_OPENDEMAND);
+                      "Load demand elements...\tCtrl+D\tLoad demand elements.",
+                      GUIIconSubSys::getIcon(ICON_OPEN_ADDITIONALS), myGNEApp, MID_HOTKEY_CTRL_D_SINGLESIMULATIONSTEP_OPENDEMAND);
     saveDemandElements = new FXMenuCommand(myGNEApp->myFileMenuDemandElements,
-        "Save demand elements\tCtrl+Shift+D\tSave demand elements.",
-        GUIIconSubSys::getIcon(ICON_SAVE), myGNEApp, MID_HOTKEY_CTRL_SHIFT_D_SAVEDEMANDELEMENTS);
+                                           "Save demand elements\tCtrl+Shift+D\tSave demand elements.",
+                                           GUIIconSubSys::getIcon(ICON_SAVE), myGNEApp, MID_HOTKEY_CTRL_SHIFT_D_SAVEDEMANDELEMENTS);
     saveDemandElements->disable();
     saveDemandElementsAs = new FXMenuCommand(myGNEApp->myFileMenuDemandElements,
-        "Save demand elements as...\t\tSave demand elements in another file.",
-        GUIIconSubSys::getIcon(ICON_SAVE), myGNEApp, MID_GNE_TOOLBARFILE_SAVEDEMAND_AS);
+            "Save demand elements as...\t\tSave demand elements in another file.",
+            GUIIconSubSys::getIcon(ICON_SAVE), myGNEApp, MID_GNE_TOOLBARFILE_SAVEDEMAND_AS);
     saveDemandElementsAs->disable();
     new FXMenuCascade(fileMenu, "Demand elements", GUIIconSubSys::getIcon(ICON_SUPERMODEDEMAND), myGNEApp->myFileMenuDemandElements);
     // close network
     new FXMenuSeparator(fileMenu);
     new FXMenuCommand(fileMenu,
-        "Close\tCtrl+W\tClose the net&work.",
-        GUIIconSubSys::getIcon(ICON_CLOSE), myGNEApp, MID_HOTKEY_CTRL_W_CLOSESIMULATION);
+                      "Close\tCtrl+W\tClose the net&work.",
+                      GUIIconSubSys::getIcon(ICON_CLOSE), myGNEApp, MID_HOTKEY_CTRL_W_CLOSESIMULATION);
     // build recent files
     myGNEApp->myMenuBarFile.buildRecentFiles(fileMenu);
     new FXMenuSeparator(fileMenu);
@@ -1084,7 +1084,7 @@ GNEApplicationWindow::FileMenuCommands::buildFileMenuCommands(FXMenuPane* fileMe
 // GNEApplicationWindow::EditMenuCommands::NetworkMenuCommands - methods
 // ---------------------------------------------------------------------------
 
-GNEApplicationWindow::EditMenuCommands::NetworkMenuCommands::NetworkMenuCommands(const EditMenuCommands *editMenuCommandsParent) :
+GNEApplicationWindow::EditMenuCommands::NetworkMenuCommands::NetworkMenuCommands(const EditMenuCommands* editMenuCommandsParent) :
     createEdgeMode(nullptr),
     moveMode(nullptr),
     deleteMode(nullptr),
@@ -1143,41 +1143,41 @@ void
 GNEApplicationWindow::EditMenuCommands::NetworkMenuCommands::buildNetworkMenuCommands(FXMenuPane* editMenu) {
     // build every FXMenuCommand giving it a shortcut
     createEdgeMode = new FXMenuCommand(editMenu,
-        "&Edge mode\tE\tCreate junction and edges.",
-        GUIIconSubSys::getIcon(ICON_MODECREATEEDGE), myEditMenuCommandsParent->myGNEApp, MID_HOTKEY_E_EDGEMODE);
+                                       "&Edge mode\tE\tCreate junction and edges.",
+                                       GUIIconSubSys::getIcon(ICON_MODECREATEEDGE), myEditMenuCommandsParent->myGNEApp, MID_HOTKEY_E_EDGEMODE);
     moveMode = new FXMenuCommand(editMenu,
-        "&Move mode\tM\tMove elements.",
-        GUIIconSubSys::getIcon(ICON_MODEMOVE), myEditMenuCommandsParent->myGNEApp, MID_HOTKEY_M_MOVEMODE);
+                                 "&Move mode\tM\tMove elements.",
+                                 GUIIconSubSys::getIcon(ICON_MODEMOVE), myEditMenuCommandsParent->myGNEApp, MID_HOTKEY_M_MOVEMODE);
     deleteMode = new FXMenuCommand(editMenu,
-        "&Delete mode\tD\tDelete elements.",
-        GUIIconSubSys::getIcon(ICON_MODEDELETE), myEditMenuCommandsParent->myGNEApp, MID_HOTKEY_D_DELETEMODE);
+                                   "&Delete mode\tD\tDelete elements.",
+                                   GUIIconSubSys::getIcon(ICON_MODEDELETE), myEditMenuCommandsParent->myGNEApp, MID_HOTKEY_D_DELETEMODE);
     inspectMode = new FXMenuCommand(editMenu,
-        "&Inspect mode\tI\tInspect elements and change their attributes.",
-        GUIIconSubSys::getIcon(ICON_MODEINSPECT), myEditMenuCommandsParent->myGNEApp, MID_HOTKEY_I_INSPECTMODE);
+                                    "&Inspect mode\tI\tInspect elements and change their attributes.",
+                                    GUIIconSubSys::getIcon(ICON_MODEINSPECT), myEditMenuCommandsParent->myGNEApp, MID_HOTKEY_I_INSPECTMODE);
     selectMode = new FXMenuCommand(editMenu,
-        "&Select mode\tS\tSelect elements.",
-        GUIIconSubSys::getIcon(ICON_MODESELECT), myEditMenuCommandsParent->myGNEApp, MID_HOTKEY_S_SELECTMODE);
+                                   "&Select mode\tS\tSelect elements.",
+                                   GUIIconSubSys::getIcon(ICON_MODESELECT), myEditMenuCommandsParent->myGNEApp, MID_HOTKEY_S_SELECTMODE);
     connectMode = new FXMenuCommand(editMenu,
-        "&Connection mode\tC\tEdit connections between lanes.",
-        GUIIconSubSys::getIcon(ICON_MODECONNECTION), myEditMenuCommandsParent->myGNEApp, MID_HOTKEY_C_CONNECTMODE_PERSONPLANMODE);
+                                    "&Connection mode\tC\tEdit connections between lanes.",
+                                    GUIIconSubSys::getIcon(ICON_MODECONNECTION), myEditMenuCommandsParent->myGNEApp, MID_HOTKEY_C_CONNECTMODE_PERSONPLANMODE);
     prohibitionMode = new FXMenuCommand(editMenu,
-        "Pro&hibition mode\tW\tEdit connection prohibitions.",
-        GUIIconSubSys::getIcon(ICON_MODEPROHIBITION), myEditMenuCommandsParent->myGNEApp, MID_HOTKEY_W_PROHIBITIONMODE_PERSONTYPEMODE);
+                                        "Pro&hibition mode\tW\tEdit connection prohibitions.",
+                                        GUIIconSubSys::getIcon(ICON_MODEPROHIBITION), myEditMenuCommandsParent->myGNEApp, MID_HOTKEY_W_PROHIBITIONMODE_PERSONTYPEMODE);
     TLSMode = new FXMenuCommand(editMenu,
-        "&Traffic light mode\tT\tEdit traffic lights over junctions.",
-        GUIIconSubSys::getIcon(ICON_MODETLS), myEditMenuCommandsParent->myGNEApp, MID_HOTKEY_T_TLSMODE_VTYPEMODE);
+                                "&Traffic light mode\tT\tEdit traffic lights over junctions.",
+                                GUIIconSubSys::getIcon(ICON_MODETLS), myEditMenuCommandsParent->myGNEApp, MID_HOTKEY_T_TLSMODE_VTYPEMODE);
     additionalMode = new FXMenuCommand(editMenu,
-        "&Additional mode\tA\tCreate additional elements.",
-        GUIIconSubSys::getIcon(ICON_MODEADDITIONAL), myEditMenuCommandsParent->myGNEApp, MID_HOTKEY_A_ADDITIONALMODE_STOPMODE);
+                                       "&Additional mode\tA\tCreate additional elements.",
+                                       GUIIconSubSys::getIcon(ICON_MODEADDITIONAL), myEditMenuCommandsParent->myGNEApp, MID_HOTKEY_A_ADDITIONALMODE_STOPMODE);
     crossingMode = new FXMenuCommand(editMenu,
-        "C&rossing mode\tR\tCreate crossings between edges.",
-        GUIIconSubSys::getIcon(ICON_MODECROSSING), myEditMenuCommandsParent->myGNEApp, MID_HOTKEY_R_CROSSINGMODE_ROUTEMODE);
+                                     "C&rossing mode\tR\tCreate crossings between edges.",
+                                     GUIIconSubSys::getIcon(ICON_MODECROSSING), myEditMenuCommandsParent->myGNEApp, MID_HOTKEY_R_CROSSINGMODE_ROUTEMODE);
     TAZMode = new FXMenuCommand(editMenu,
-        "TA&Z mode\tZ\tCreate Traffic Assignment Zones.",
-        GUIIconSubSys::getIcon(ICON_MODETAZ), myEditMenuCommandsParent->myGNEApp, MID_HOTKEY_Z_TAZMODE);
+                                "TA&Z mode\tZ\tCreate Traffic Assignment Zones.",
+                                GUIIconSubSys::getIcon(ICON_MODETAZ), myEditMenuCommandsParent->myGNEApp, MID_HOTKEY_Z_TAZMODE);
     shapeMode = new FXMenuCommand(editMenu,
-        "&POI-Poly mode\tP\tCreate Points-Of-Interest and polygons.",
-        GUIIconSubSys::getIcon(ICON_MODEPOLYGON), myEditMenuCommandsParent->myGNEApp, MID_HOTKEY_P_POLYGONMODE_PERSONMODE);
+                                  "&POI-Poly mode\tP\tCreate Points-Of-Interest and polygons.",
+                                  GUIIconSubSys::getIcon(ICON_MODEPOLYGON), myEditMenuCommandsParent->myGNEApp, MID_HOTKEY_P_POLYGONMODE_PERSONMODE);
     // build separator
     myHorizontalSeparator = new FXMenuSeparator(editMenu);
 }
@@ -1186,7 +1186,7 @@ GNEApplicationWindow::EditMenuCommands::NetworkMenuCommands::buildNetworkMenuCom
 // GNEApplicationWindow::EditMenuCommands::DemandMenuCommands - methods
 // ---------------------------------------------------------------------------
 
-GNEApplicationWindow::EditMenuCommands::DemandMenuCommands::DemandMenuCommands(const EditMenuCommands *editMenuCommandsParent) :
+GNEApplicationWindow::EditMenuCommands::DemandMenuCommands::DemandMenuCommands(const EditMenuCommands* editMenuCommandsParent) :
     routeMode(nullptr),
     vehicleMode(nullptr),
     vehicleTypeMode(nullptr),
@@ -1230,26 +1230,26 @@ void
 GNEApplicationWindow::EditMenuCommands::DemandMenuCommands::buildDemandMenuCommands(FXMenuPane* editMenu) {
     // build every FXMenuCommand giving it a shortcut
     routeMode = new FXMenuCommand(editMenu,
-        "Route mode\tR\tCreate Routes.",
-        GUIIconSubSys::getIcon(ICON_MODEROUTE), myEditMenuCommandsParent->myGNEApp, MID_HOTKEY_R_CROSSINGMODE_ROUTEMODE);
+                                  "Route mode\tR\tCreate Routes.",
+                                  GUIIconSubSys::getIcon(ICON_MODEROUTE), myEditMenuCommandsParent->myGNEApp, MID_HOTKEY_R_CROSSINGMODE_ROUTEMODE);
     vehicleMode = new FXMenuCommand(editMenu,
-        "Vehicle mode\tV\tCreate vehicles.",
-        GUIIconSubSys::getIcon(ICON_MODEVEHICLE), myEditMenuCommandsParent->myGNEApp, MID_HOTKEY_V_VEHICLEMODE);
+                                    "Vehicle mode\tV\tCreate vehicles.",
+                                    GUIIconSubSys::getIcon(ICON_MODEVEHICLE), myEditMenuCommandsParent->myGNEApp, MID_HOTKEY_V_VEHICLEMODE);
     vehicleTypeMode = new FXMenuCommand(editMenu,
-        "Vehicle type mode\tT\tCreate vehicle types.",
-        GUIIconSubSys::getIcon(ICON_MODEVEHICLETYPE), myEditMenuCommandsParent->myGNEApp, MID_HOTKEY_T_TLSMODE_VTYPEMODE);
+                                        "Vehicle type mode\tT\tCreate vehicle types.",
+                                        GUIIconSubSys::getIcon(ICON_MODEVEHICLETYPE), myEditMenuCommandsParent->myGNEApp, MID_HOTKEY_T_TLSMODE_VTYPEMODE);
     stopMode = new FXMenuCommand(editMenu,
-        "Stop mode\tA\tCreate stops.",
-        GUIIconSubSys::getIcon(ICON_MODESTOP), myEditMenuCommandsParent->myGNEApp, MID_HOTKEY_A_ADDITIONALMODE_STOPMODE);
+                                 "Stop mode\tA\tCreate stops.",
+                                 GUIIconSubSys::getIcon(ICON_MODESTOP), myEditMenuCommandsParent->myGNEApp, MID_HOTKEY_A_ADDITIONALMODE_STOPMODE);
     personTypeMode = new FXMenuCommand(editMenu,
-        "Person type mode\tW\tCreate person types.",
-        GUIIconSubSys::getIcon(ICON_MODEPERSONTYPE), myEditMenuCommandsParent->myGNEApp, MID_HOTKEY_W_PROHIBITIONMODE_PERSONTYPEMODE);
+                                       "Person type mode\tW\tCreate person types.",
+                                       GUIIconSubSys::getIcon(ICON_MODEPERSONTYPE), myEditMenuCommandsParent->myGNEApp, MID_HOTKEY_W_PROHIBITIONMODE_PERSONTYPEMODE);
     personMode = new FXMenuCommand(editMenu,
-        "Person mode\tP\tCreate persons.",
-        GUIIconSubSys::getIcon(ICON_MODEPERSON), myEditMenuCommandsParent->myGNEApp, MID_HOTKEY_P_POLYGONMODE_PERSONMODE);
+                                   "Person mode\tP\tCreate persons.",
+                                   GUIIconSubSys::getIcon(ICON_MODEPERSON), myEditMenuCommandsParent->myGNEApp, MID_HOTKEY_P_POLYGONMODE_PERSONMODE);
     personPlanMode = new FXMenuCommand(editMenu,
-        "Person plan mode\tC\tCreate person plans.",
-        GUIIconSubSys::getIcon(ICON_MODEPERSONPLAN), myEditMenuCommandsParent->myGNEApp, MID_HOTKEY_C_CONNECTMODE_PERSONPLANMODE);
+                                       "Person plan mode\tC\tCreate person plans.",
+                                       GUIIconSubSys::getIcon(ICON_MODEPERSONPLAN), myEditMenuCommandsParent->myGNEApp, MID_HOTKEY_C_CONNECTMODE_PERSONPLANMODE);
     // build separator
     myHorizontalSeparator = new FXMenuSeparator(editMenu);
 }
@@ -1269,11 +1269,11 @@ void
 GNEApplicationWindow::EditMenuCommands::buildEditMenuCommands(FXMenuPane* fileMenu) {
     // build undo/redo command
     undoLastChange = new FXMenuCommand(fileMenu,
-        "&Undo\tCtrl+Z\tUndo the last change.",
-        GUIIconSubSys::getIcon(ICON_UNDO), myGNEApp, MID_HOTKEY_CTRL_Z_UNDO);
+                                       "&Undo\tCtrl+Z\tUndo the last change.",
+                                       GUIIconSubSys::getIcon(ICON_UNDO), myGNEApp, MID_HOTKEY_CTRL_Z_UNDO);
     redoLastChange = new FXMenuCommand(fileMenu,
-        "&Redo\tCtrl+Y\tRedo the last change.",
-        GUIIconSubSys::getIcon(ICON_REDO), myGNEApp, MID_HOTKEY_CTRL_Y_REDO);
+                                       "&Redo\tCtrl+Y\tRedo the last change.",
+                                       GUIIconSubSys::getIcon(ICON_REDO), myGNEApp, MID_HOTKEY_CTRL_Y_REDO);
     // build separator
     new FXMenuSeparator(fileMenu);
     // build Supermode commands and hide it
@@ -1286,18 +1286,18 @@ GNEApplicationWindow::EditMenuCommands::buildEditMenuCommands(FXMenuPane* fileMe
     demandMenuCommands.buildDemandMenuCommands(fileMenu);
     demandMenuCommands.hideDemandMenuCommands();
     editViewScheme = new FXMenuCommand(fileMenu,
-        "Edit Visualisation\tCtrl+V\tOpens a dialog for editing visualization settings.",
-        nullptr, myGNEApp, MID_EDITVIEWSCHEME);
+                                       "Edit Visualisation\tCtrl+V\tOpens a dialog for editing visualization settings.",
+                                       nullptr, myGNEApp, MID_EDITVIEWSCHEME);
     editViewPort = new FXMenuCommand(fileMenu,
-        "Edit Viewport\tCtrl+I\tOpens a dialog for editing viewing are, zoom and rotation.",
-        nullptr, myGNEApp, MID_EDITVIEWPORT);
+                                     "Edit Viewport\tCtrl+I\tOpens a dialog for editing viewing are, zoom and rotation.",
+                                     nullptr, myGNEApp, MID_EDITVIEWPORT);
     toogleGrid = new FXMenuCommand(fileMenu,
-        "Toggle Grid\tCtrl+G\tToggles background grid (and snap-to-grid functionality).",
-        nullptr, myGNEApp, MID_HOTKEY_CTRL_G_GAMINGMODE_TOOGLEGRID);
+                                   "Toggle Grid\tCtrl+G\tToggles background grid (and snap-to-grid functionality).",
+                                   nullptr, myGNEApp, MID_HOTKEY_CTRL_G_GAMINGMODE_TOOGLEGRID);
     new FXMenuSeparator(fileMenu);
     openInSUMOGUI = new FXMenuCommand(fileMenu,
-        "Open in SUMO GUI\tCtrl+T\tOpens the SUMO GUI application with the current network.",
-        GUIIconSubSys::getIcon(ICON_SUMO_MINI), myGNEApp, MID_HOTKEY_CTRL_T_OPENSUMONETEDIT);
+                                      "Open in SUMO GUI\tCtrl+T\tOpens the SUMO GUI application with the current network.",
+                                      GUIIconSubSys::getIcon(ICON_SUMO_MINI), myGNEApp, MID_HOTKEY_CTRL_T_OPENSUMONETEDIT);
 }
 
 // ---------------------------------------------------------------------------
@@ -1313,39 +1313,39 @@ void
 GNEApplicationWindow::ProcessingMenuCommands::buildProcessingMenuCommands(FXMenuPane* fileMenu) {
     // build network processing menu commands
     recompute = new FXMenuCommand(fileMenu,
-        "Compute Junctions\tF5\tComputes junction shape and logic.",
-        GUIIconSubSys::getIcon(ICON_COMPUTEJUNCTIONS), myGNEApp, MID_HOTKEY_F5_COMPUTEJUNCTIONS);
+                                  "Compute Junctions\tF5\tComputes junction shape and logic.",
+                                  GUIIconSubSys::getIcon(ICON_COMPUTEJUNCTIONS), myGNEApp, MID_HOTKEY_F5_COMPUTEJUNCTIONS);
     recomputeVolatile = new FXMenuCommand(fileMenu,
-        "Compute Junctions with volatile options\tShift+F5\tComputes junction shape and logic using volatile junctions.",
-        GUIIconSubSys::getIcon(ICON_COMPUTEJUNCTIONS), myGNEApp, MID_HOTKEY_SHIFT_F5_COMPUTEJUNCTIONS_VOLATILE);
+                                          "Compute Junctions with volatile options\tShift+F5\tComputes junction shape and logic using volatile junctions.",
+                                          GUIIconSubSys::getIcon(ICON_COMPUTEJUNCTIONS), myGNEApp, MID_HOTKEY_SHIFT_F5_COMPUTEJUNCTIONS_VOLATILE);
     cleanJunctions = new FXMenuCommand(fileMenu,
-        "Clean Junctions\tF6\tRemoves solitary junctions.",
-        GUIIconSubSys::getIcon(ICON_CLEANJUNCTIONS), myGNEApp, MID_GNE_HOTKEY_F6_CLEAN_SOLITARYJUNCTIONS_UNUSEDROUTES);
+                                       "Clean Junctions\tF6\tRemoves solitary junctions.",
+                                       GUIIconSubSys::getIcon(ICON_CLEANJUNCTIONS), myGNEApp, MID_GNE_HOTKEY_F6_CLEAN_SOLITARYJUNCTIONS_UNUSEDROUTES);
     joinJunctions = new FXMenuCommand(fileMenu,
-        "Join Selected Junctions\tF7\tJoins selected junctions into a single junction.",
-        GUIIconSubSys::getIcon(ICON_JOINJUNCTIONS), myGNEApp, MID_GNE_HOTKEY_F7_JOIN_SELECTEDJUNCTIONS_ROUTES);
+                                      "Join Selected Junctions\tF7\tJoins selected junctions into a single junction.",
+                                      GUIIconSubSys::getIcon(ICON_JOINJUNCTIONS), myGNEApp, MID_GNE_HOTKEY_F7_JOIN_SELECTEDJUNCTIONS_ROUTES);
     clearInvalidCrossings = new FXMenuCommand(fileMenu,
-        "Clean invalid crossings\tF8\tClear invalid crossings.",
-        GUIIconSubSys::getIcon(ICON_JOINJUNCTIONS), myGNEApp, MID_GNE_HOTKEY_F8_CLEANINVALID_CROSSINGS_DEMANDELEMENTS);
-     // build demand  processing menu commands
+            "Clean invalid crossings\tF8\tClear invalid crossings.",
+            GUIIconSubSys::getIcon(ICON_JOINJUNCTIONS), myGNEApp, MID_GNE_HOTKEY_F8_CLEANINVALID_CROSSINGS_DEMANDELEMENTS);
+    // build demand  processing menu commands
     cleanRoutes = new FXMenuCommand(fileMenu,
-        "Clean routes\tF6\tRemoves routes without vehicles.",
-        GUIIconSubSys::getIcon(ICON_CLEANROUTES), myGNEApp, MID_GNE_HOTKEY_F6_CLEAN_SOLITARYJUNCTIONS_UNUSEDROUTES);
+                                    "Clean routes\tF6\tRemoves routes without vehicles.",
+                                    GUIIconSubSys::getIcon(ICON_CLEANROUTES), myGNEApp, MID_GNE_HOTKEY_F6_CLEAN_SOLITARYJUNCTIONS_UNUSEDROUTES);
     joinRoutes = new FXMenuCommand(fileMenu,
-        "Join routes\tF7\tJoins routes with the same edges.",
-        GUIIconSubSys::getIcon(ICON_JOINROUTES), myGNEApp, MID_GNE_HOTKEY_F7_JOIN_SELECTEDJUNCTIONS_ROUTES);
+                                   "Join routes\tF7\tJoins routes with the same edges.",
+                                   GUIIconSubSys::getIcon(ICON_JOINROUTES), myGNEApp, MID_GNE_HOTKEY_F7_JOIN_SELECTEDJUNCTIONS_ROUTES);
     clearInvalidDemandElements = new FXMenuCommand(fileMenu,
-        "Clean invalid route elements\tF8\tClear elements with an invalid path (routes, Trips, Flows...).",
-        GUIIconSubSys::getIcon(ICON_JOINJUNCTIONS), myGNEApp, MID_GNE_HOTKEY_F8_CLEANINVALID_CROSSINGS_DEMANDELEMENTS);
+            "Clean invalid route elements\tF8\tClear elements with an invalid path (routes, Trips, Flows...).",
+            GUIIconSubSys::getIcon(ICON_JOINJUNCTIONS), myGNEApp, MID_GNE_HOTKEY_F8_CLEANINVALID_CROSSINGS_DEMANDELEMENTS);
     // add separator (because optionsmenu is commmon for Network and Demand modes
     new FXMenuSeparator(fileMenu);
     optionMenus = new FXMenuCommand(fileMenu,
-        "Options\tF10\t\tConfigure Processing Options.",
-        GUIIconSubSys::getIcon(ICON_OPTIONS), myGNEApp, MID_GNE_HOTKEY_F10_OPTIONSMENU);
+                                    "Options\tF10\t\tConfigure Processing Options.",
+                                    GUIIconSubSys::getIcon(ICON_OPTIONS), myGNEApp, MID_GNE_HOTKEY_F10_OPTIONSMENU);
 }
 
 
-void 
+void
 GNEApplicationWindow::ProcessingMenuCommands::showNetworkProcessingMenuCommands() {
     // first enable menu commands
     recompute->enable();
@@ -1362,7 +1362,7 @@ GNEApplicationWindow::ProcessingMenuCommands::showNetworkProcessingMenuCommands(
 }
 
 
-void 
+void
 GNEApplicationWindow::ProcessingMenuCommands::hideNetworkProcessingMenuCommands() {
     // first disable menu commands
     recompute->disable();
@@ -1379,7 +1379,7 @@ GNEApplicationWindow::ProcessingMenuCommands::hideNetworkProcessingMenuCommands(
 }
 
 
-void 
+void
 GNEApplicationWindow::ProcessingMenuCommands::showDemandProcessingMenuCommands() {
     // first enable menu commands
     cleanRoutes->enable();
@@ -1392,7 +1392,7 @@ GNEApplicationWindow::ProcessingMenuCommands::showDemandProcessingMenuCommands()
 }
 
 
-void 
+void
 GNEApplicationWindow::ProcessingMenuCommands::hideDemandProcessingMenuCommands() {
     // first disable menu commands
     cleanRoutes->disable();
@@ -1417,32 +1417,32 @@ void
 GNEApplicationWindow::LocateMenuCommands::buildLocateMenuCommands(FXMenuPane* fileMenu) {
     // build locate menu commands
     new FXMenuCommand(fileMenu,
-        "Locate &Junctions\tShift+J\tOpen a dialog for locating a Junction.",
-        GUIIconSubSys::getIcon(ICON_LOCATEJUNCTION), myGNEApp, MID_LOCATEJUNCTION);
+                      "Locate &Junctions\tShift+J\tOpen a dialog for locating a Junction.",
+                      GUIIconSubSys::getIcon(ICON_LOCATEJUNCTION), myGNEApp, MID_LOCATEJUNCTION);
     new FXMenuCommand(fileMenu,
-        "Locate &Edges\tShift+E\tOpen a dialog for locating an Edge.",
-        GUIIconSubSys::getIcon(ICON_LOCATEEDGE), myGNEApp, MID_LOCATEEDGE);
+                      "Locate &Edges\tShift+E\tOpen a dialog for locating an Edge.",
+                      GUIIconSubSys::getIcon(ICON_LOCATEEDGE), myGNEApp, MID_LOCATEEDGE);
     new FXMenuCommand(fileMenu,
-        "Locate &Vehicles\tShift+V\tOpen a dialog for locating a Vehicle.",
-        GUIIconSubSys::getIcon(ICON_LOCATEVEHICLE), myGNEApp, MID_LOCATEVEHICLE);
+                      "Locate &Vehicles\tShift+V\tOpen a dialog for locating a Vehicle.",
+                      GUIIconSubSys::getIcon(ICON_LOCATEVEHICLE), myGNEApp, MID_LOCATEVEHICLE);
     new FXMenuCommand(fileMenu,
-        "Locate &Route\tShift+R\tOpen a dialog for locating a Route.",
-        GUIIconSubSys::getIcon(ICON_LOCATEROUTE), myGNEApp, MID_LOCATEROUTE);
+                      "Locate &Route\tShift+R\tOpen a dialog for locating a Route.",
+                      GUIIconSubSys::getIcon(ICON_LOCATEROUTE), myGNEApp, MID_LOCATEROUTE);
     new FXMenuCommand(fileMenu,
-        "Locate &Stops\tShift+S\tOpen a dialog for locating a Stop.",
-        GUIIconSubSys::getIcon(ICON_LOCATESTOP), myGNEApp, MID_LOCATESTOP);
+                      "Locate &Stops\tShift+S\tOpen a dialog for locating a Stop.",
+                      GUIIconSubSys::getIcon(ICON_LOCATESTOP), myGNEApp, MID_LOCATESTOP);
     new FXMenuCommand(fileMenu,
-        "Locate &TLS\tShift+T\tOpen a dialog for locating a Traffic Light.",
-        GUIIconSubSys::getIcon(ICON_LOCATETLS), myGNEApp, MID_LOCATETLS);
+                      "Locate &TLS\tShift+T\tOpen a dialog for locating a Traffic Light.",
+                      GUIIconSubSys::getIcon(ICON_LOCATETLS), myGNEApp, MID_LOCATETLS);
     new FXMenuCommand(fileMenu,
-        "Locate &Additional\tShift+A\tOpen a dialog for locating an Additional Structure.",
-        GUIIconSubSys::getIcon(ICON_LOCATEADD), myGNEApp, MID_LOCATEADD);
+                      "Locate &Additional\tShift+A\tOpen a dialog for locating an Additional Structure.",
+                      GUIIconSubSys::getIcon(ICON_LOCATEADD), myGNEApp, MID_LOCATEADD);
     new FXMenuCommand(fileMenu,
-        "Locate P&oI\tShift+O\tOpen a dialog for locating a Point of Interest.",
-        GUIIconSubSys::getIcon(ICON_LOCATEPOI), myGNEApp, MID_LOCATEPOI);
+                      "Locate P&oI\tShift+O\tOpen a dialog for locating a Point of Interest.",
+                      GUIIconSubSys::getIcon(ICON_LOCATEPOI), myGNEApp, MID_LOCATEPOI);
     new FXMenuCommand(fileMenu,
-        "Locate Po&lygon\tShift+L\tOpen a dialog for locating a Polygon.",
-        GUIIconSubSys::getIcon(ICON_LOCATEPOLY), myGNEApp, MID_LOCATEPOLY);
+                      "Locate Po&lygon\tShift+L\tOpen a dialog for locating a Polygon.",
+                      GUIIconSubSys::getIcon(ICON_LOCATEPOLY), myGNEApp, MID_LOCATEPOLY);
 }
 
 // ---------------------------------------------------------------------------
@@ -2070,10 +2070,10 @@ GNEApplicationWindow::onCmdToogleGrid(FXObject* obj, FXSelector sel, void* ptr) 
 }
 
 
-long 
+long
 GNEApplicationWindow::onCmdToogleEditOptions(FXObject* obj, FXSelector sel, void* ptr) {
     // first check that we have a ViewNet
-    if(myViewNet) {
+    if (myViewNet) {
         // first check what selector was called
         int numericalKeyPressed = sel - FXSEL(SEL_COMMAND, MID_HOTKEY_ALT_0_TOOGLEEDITOPTION) - 1;
         // check that numericalKeyPressed is valid

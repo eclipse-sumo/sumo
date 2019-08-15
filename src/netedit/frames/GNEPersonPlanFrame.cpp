@@ -87,48 +87,48 @@ GNEPersonPlanFrame::HelpCreation::updateHelpCreation() {
     // create information label
     std::ostringstream information;
     // first check if Person Plan selector is shown
-    if(myPersonPlanFrameParent->myPersonSelector->isDemandElementSelectorShown()) {
+    if (myPersonPlanFrameParent->myPersonSelector->isDemandElementSelectorShown()) {
         // set text depending of selected person plan
         switch (myPersonPlanFrameParent->myPersonPlanTagSelector->getCurrentTagProperties().getTag()) {
             case SUMO_TAG_PERSONTRIP_FROMTO:
                 information
-                    << "- Click over edges to\n"
-                    << "  create a trip.";
+                        << "- Click over edges to\n"
+                        << "  create a trip.";
                 break;
             case SUMO_TAG_PERSONTRIP_BUSSTOP:
                 information
-                    << "- Click over an edge and\n"
-                    << "  a bus to create a trip.";
+                        << "- Click over an edge and\n"
+                        << "  a bus to create a trip.";
                 break;
             case SUMO_TAG_WALK_EDGES:
                 information
-                    << "- Click over a sequenz of\n"
-                    << "  consecutive edges to\n"
-                    << "  create a walk.";
+                        << "- Click over a sequenz of\n"
+                        << "  consecutive edges to\n"
+                        << "  create a walk.";
                 break;
             case SUMO_TAG_WALK_FROMTO:
                 information
-                    << "- Click over edges to\n"
-                    << "  create a walk.";
+                        << "- Click over edges to\n"
+                        << "  create a walk.";
                 break;
             case SUMO_TAG_WALK_BUSSTOP:
                 information
-                    << "- Click over an edge and\n"
-                    << "  a bus to create a walk.";
+                        << "- Click over an edge and\n"
+                        << "  a bus to create a walk.";
                 break;
             case SUMO_TAG_WALK_ROUTE:
                 information
-                    << "- Click over a route";
+                        << "- Click over a route";
                 break;
             case SUMO_TAG_RIDE_FROMTO:
                 information
-                    << "- Click over edges to\n"
-                    << "  create a ride.";
+                        << "- Click over edges to\n"
+                        << "  create a ride.";
                 break;
             case SUMO_TAG_RIDE_BUSSTOP:
                 information
-                    << "- Click over an edge and\n"
-                    << "  a bus to create a ride";
+                        << "- Click over an edge and\n"
+                        << "  a bus to create a ride";
                 break;
             default:
                 break;
@@ -169,8 +169,8 @@ GNEPersonPlanFrame::PersonPlanCreator::PersonPlanCreator(GNEPersonPlanFrame* fra
 GNEPersonPlanFrame::PersonPlanCreator::~PersonPlanCreator() {}
 
 
-void 
-GNEPersonPlanFrame::PersonPlanCreator::edgePathCreatorName(const std::string &name) {
+void
+GNEPersonPlanFrame::PersonPlanCreator::edgePathCreatorName(const std::string& name) {
     // header needs the first capitalized letter
     std::string nameWithFirstCapitalizedLetter = name;
     nameWithFirstCapitalizedLetter[0] = (char)toupper(nameWithFirstCapitalizedLetter.at(0));
@@ -192,7 +192,7 @@ GNEPersonPlanFrame::PersonPlanCreator::hidePersonPlanCreator() {
 }
 
 
-void 
+void
 GNEPersonPlanFrame::PersonPlanCreator::refreshPersonPlanCreator() {
     // disable buttons
     myFinishCreationButton->disable();
@@ -312,7 +312,7 @@ GNEPersonPlanFrame::PersonPlanCreator::drawTemporalRoute() const {
 }
 
 
-void 
+void
 GNEPersonPlanFrame::PersonPlanCreator::abortPersonPlanCreation() {
     if (myAbortCreationButton->isEnabled()) {
         onCmdAbortPersonPlanCreation(nullptr, 0, nullptr);
@@ -320,7 +320,7 @@ GNEPersonPlanFrame::PersonPlanCreator::abortPersonPlanCreation() {
 }
 
 
-void 
+void
 GNEPersonPlanFrame::PersonPlanCreator::finishPersonPlanCreation() {
     if (myFinishCreationButton->isEnabled()) {
         onCmdFinishPersonPlanCreation(nullptr, 0, nullptr);
@@ -328,7 +328,7 @@ GNEPersonPlanFrame::PersonPlanCreator::finishPersonPlanCreation() {
 }
 
 
-void 
+void
 GNEPersonPlanFrame::PersonPlanCreator::removeLastAddedElement() {
     if (myRemoveLastEdge->isEnabled()) {
         onCmdRemoveLastElement(nullptr, 0, nullptr);
@@ -417,7 +417,7 @@ void
 GNEPersonPlanFrame::show() {
     // Only show moduls if there is at least one person
     if ((myViewNet->getNet()->getAttributeCarriers().demandElements.at(SUMO_TAG_PERSON).size() > 0) ||
-        (myViewNet->getNet()->getAttributeCarriers().demandElements.at(SUMO_TAG_PERSONFLOW).size() > 0)) {
+            (myViewNet->getNet()->getAttributeCarriers().demandElements.at(SUMO_TAG_PERSONFLOW).size() > 0)) {
         // refresh demand element selector
         myPersonSelector->refreshDemandElementSelector();
         // refresh item selector
@@ -459,9 +459,9 @@ GNEPersonPlanFrame::addPersonPlan(const GNEViewNetHelper::ObjectsUnderCursor& ob
     // declare flags to check required elements
     /*SUMO_TAG_PERSONSTOP_LANE;*/
     bool requireRoute = (personPlanTag == SUMO_TAG_WALK_ROUTE);
-    bool requireBusStop = ((personPlanTag == SUMO_TAG_PERSONTRIP_BUSSTOP) || (personPlanTag == SUMO_TAG_WALK_BUSSTOP) || 
+    bool requireBusStop = ((personPlanTag == SUMO_TAG_PERSONTRIP_BUSSTOP) || (personPlanTag == SUMO_TAG_WALK_BUSSTOP) ||
                            (personPlanTag == SUMO_TAG_RIDE_BUSSTOP) || (personPlanTag == SUMO_TAG_PERSONSTOP_BUSSTOP));
-    bool requireEdge = ((personPlanTag == SUMO_TAG_PERSONTRIP_FROMTO) || (personPlanTag == SUMO_TAG_WALK_EDGES) || 
+    bool requireEdge = ((personPlanTag == SUMO_TAG_PERSONTRIP_FROMTO) || (personPlanTag == SUMO_TAG_WALK_EDGES) ||
                         (personPlanTag == SUMO_TAG_WALK_FROMTO) || (personPlanTag == SUMO_TAG_RIDE_FROMTO));
     // process personPlanCreated(...) depending of requiered element
     if (requireBusStop && objectsUnderCursor.getAdditionalFront() && (objectsUnderCursor.getAdditionalFront()->getTagProperty().getTag() == SUMO_TAG_BUS_STOP)) {
@@ -485,7 +485,7 @@ GNEPersonPlanFrame::getPersonPlanCreator() const {
 // protected
 // ===========================================================================
 
-void 
+void
 GNEPersonPlanFrame::tagSelected() {
     // first check if person is valid
     if (myPersonPlanTagSelector->getCurrentTagProperties().getTag() != SUMO_TAG_NOTHING) {
@@ -515,7 +515,7 @@ GNEPersonPlanFrame::tagSelected() {
 }
 
 
-void 
+void
 GNEPersonPlanFrame::demandElementSelected() {
     // check if a valid person was selected
     if (myPersonSelector->getCurrentDemandElement()) {

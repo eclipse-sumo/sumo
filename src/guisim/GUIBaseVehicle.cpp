@@ -213,7 +213,7 @@ GUIBaseVehicle::GUIBaseVehiclePopupMenu::onCmdShowFoes(FXObject*, FXSelector, vo
 
 
 long
-GUIBaseVehicle::GUIBaseVehiclePopupMenu::onCmdRemoveObject(FXObject*, FXSelector, void*){
+GUIBaseVehicle::GUIBaseVehiclePopupMenu::onCmdRemoveObject(FXObject*, FXSelector, void*) {
     GUIBaseVehicle* baseVeh = static_cast<GUIBaseVehicle*>(myObject);
     MSVehicle* microVeh = dynamic_cast<MSVehicle*>(&baseVeh->myVehicle);
     if (microVeh != nullptr) {
@@ -300,7 +300,7 @@ GUIBaseVehicle::getPopUpMenu(GUIMainWindow& app,
     }
     new FXMenuCommand(ret, "Select Foes", nullptr, ret, MID_SHOW_FOES);
 
-    
+
     new FXMenuCommand(ret, "Remove", nullptr, ret, MID_REMOVE_OBJECT);
 
     new FXMenuSeparator(ret);

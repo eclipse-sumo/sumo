@@ -53,7 +53,7 @@ SUMORouteHandler::SUMORouteHandler(const std::string& file, const std::string& e
     myCurrentVType(nullptr),
     myBeginDefault(string2time(OptionsCont::getOptions().getString("begin"))),
     myEndDefault(string2time(OptionsCont::getOptions().getString("end"))),
-    myFirstDepart(-1), 
+    myFirstDepart(-1),
     myInsertStopEdgesAt(-1) {
 }
 
@@ -206,9 +206,9 @@ SUMORouteHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
                 WRITE_WARNING("Defining car following parameters in a nested element is deprecated in vType '" + myCurrentVType->id + "', use attributes instead!");
                 if (!SUMOVehicleParserHelper::parseVTypeEmbedded(*myCurrentVType, (SumoXMLTag)element, attrs, myHardFail)) {
                     if (myHardFail) {
-                        throw ProcessError("Invalid parsing embedded VType"); 
+                        throw ProcessError("Invalid parsing embedded VType");
                     } else {
-                        WRITE_ERROR("Invalid parsing embedded VType"); 
+                        WRITE_ERROR("Invalid parsing embedded VType");
                     }
                 }
             }
@@ -323,7 +323,7 @@ SUMORouteHandler::checkStopPos(double& startPos, double& endPos, const double la
 }
 
 
-SUMOTime 
+SUMOTime
 SUMORouteHandler::getFirstDepart() const {
     return myFirstDepart;
 }

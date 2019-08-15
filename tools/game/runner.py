@@ -226,6 +226,7 @@ def computeScoreDRT(gamename):
                 rideWaitingTime, rideDuration, rideCount, rideStarted, rideFinished, avgWT, avgDur))
         return score, rideCount, True
 
+
 def computeScoreSquare(gamename):
     rideWaitingTime = 0
     rideDuration = 0
@@ -240,7 +241,7 @@ def computeScoreSquare(gamename):
             ride.waitingTime = 10000
         rideWaitingTime += float(ride.waitingTime)
         if ride.vType.startswith("ev"):
-            rideWaitingTime += 10* float(ride.waitingTime)   
+            rideWaitingTime += 10 * float(ride.waitingTime)
         if float(ride.duration) >= 0:
             rideDuration += float(ride.duration)
             rideStarted += 1
@@ -259,6 +260,7 @@ def computeScoreSquare(gamename):
             print("rideWaitingTime=%s rideDuration=%s persons=%s started=%s finished=%s avgWT=%s avgDur=%s" % (
                 rideWaitingTime, rideDuration, rideCount, rideStarted, rideFinished, avgWT, avgDur))
         return score, rideCount, True
+
 
 _SCORING_FUNCTION = defaultdict(lambda: computeScoreFromWaitingTime)
 _SCORING_FUNCTION.update({

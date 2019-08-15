@@ -629,8 +629,8 @@ MSTransportable::Stage_Driving::abort(MSTransportable* t) {
         dynamic_cast<MSVehicle*>(myVehicle)->removeTransportable(t);
     } else {
         MSTransportableControl& tc = (dynamic_cast<MSPerson*>(t) != nullptr ?
-                MSNet::getInstance()->getPersonControl() :
-                MSNet::getInstance()->getContainerControl());
+                                      MSNet::getInstance()->getPersonControl() :
+                                      MSNet::getInstance()->getContainerControl());
         tc.abortWaitingForVehicle(t);
     }
 }

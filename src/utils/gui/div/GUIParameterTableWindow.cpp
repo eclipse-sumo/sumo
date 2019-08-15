@@ -156,7 +156,7 @@ GUIParameterTableWindow::onRightButtonPress(FXObject* sender, FXSelector sel, vo
 
     ValueSource<double>* doubleSource = i->getdoubleSourceCopy();
     if (doubleSource != nullptr) {
-        GUIParam_PopupMenuInterface* p = new GUIParam_PopupMenuInterface(*myApplication, *this, *myObject, i->getName(), doubleSource );
+        GUIParam_PopupMenuInterface* p = new GUIParam_PopupMenuInterface(*myApplication, *this, *myObject, i->getName(), doubleSource);
         new FXMenuCommand(p, "Open in new Tracker", nullptr, p, MID_OPENTRACKER);
         // set geometry
         p->setX(static_cast<FXEvent*>(eventData)->root_x);

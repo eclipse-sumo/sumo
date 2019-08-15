@@ -183,10 +183,9 @@ TraCIServerAPI_Person::processSet(TraCIServer& server, tcpip::Storage& inputStor
                     return server.writeErrorStatusCmd(libsumo::CMD_SET_PERSON_VARIABLE, "Adding a person stage requires a compound object.", outputStorage);
                 }
                 int numParameters = inputStorage.readInt();
-                if(numParameters == 13) {
+                if (numParameters == 13) {
                     libsumo::Person::appendStage(*TraCIServerAPI_Simulation::readStage(server, inputStorage), id);
-                }
-                else {
+                } else {
                     int stageType;
                     if (!server.readTypeCheckingInt(inputStorage, stageType)) {
                         return server.writeErrorStatusCmd(libsumo::CMD_SET_VEHICLE_VARIABLE, "The first parameter for adding a stage must be the stage type given as int.", outputStorage);
@@ -269,7 +268,7 @@ TraCIServerAPI_Person::processSet(TraCIServer& server, tcpip::Storage& inputStor
                     return server.writeErrorStatusCmd(libsumo::CMD_SET_PERSON_VARIABLE, "Replacing a person stage requires a compound object of size 2.", outputStorage);
                 }
                 int nextStageIndex = 0;
-                if(!server.readTypeCheckingInt(inputStorage, nextStageIndex)) {
+                if (!server.readTypeCheckingInt(inputStorage, nextStageIndex)) {
                     return server.writeErrorStatusCmd(libsumo::CMD_SET_PERSON_VARIABLE, "First parameter of replace stage should be an integer", outputStorage);
                 }
                 if (inputStorage.readUnsignedByte() != libsumo::TYPE_COMPOUND) {

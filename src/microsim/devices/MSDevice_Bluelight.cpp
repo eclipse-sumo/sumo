@@ -140,7 +140,7 @@ MSDevice_Bluelight::notifyMove(SUMOTrafficObject& veh, double /* oldPos */,
     std::string currentEdgeID = veh.getEdge()->getID();
     for (MSVehicleControl::constVehIt it = vc.loadedVehBegin(); it != vc.loadedVehEnd(); ++it) {
         SUMOVehicle* veh2 = it->second;
-        int maxdist = 25; 
+        int maxdist = 25;
         //Vehicle only from edge should react
         if (currentEdgeID == veh2->getEdge()->getID()) {
             if (veh2->getDevice(typeid(MSDevice_Bluelight)) != nullptr) {
@@ -148,7 +148,7 @@ MSDevice_Bluelight::notifyMove(SUMOTrafficObject& veh, double /* oldPos */,
                 continue;
             }
             double distanceDelta = veh.getPosition().distanceTo(veh2->getPosition());
-            //emergency vehicle has to slow down when entering the resuce lane 
+            //emergency vehicle has to slow down when entering the resuce lane
             if (distanceDelta <= 10 && veh.getID() != veh2->getID() && influencedVehicles.count(veh2->getID()) > 0 && veh2->getSpeed() < 1) {
                 // set ev speed to 20 km/h 0 5.56 m/s
                 std::vector<std::pair<SUMOTime, double> > speedTimeLine;
@@ -162,13 +162,13 @@ MSDevice_Bluelight::notifyMove(SUMOTrafficObject& veh, double /* oldPos */,
             if (distanceDelta <= maxdist && veh.getID() != veh2->getID() && influencedVehicles.count(veh2->getID()) == 0) {
                 //online a percentage of vehicles should react to the emergency vehicle to make the behaviour more realistic
                 double reaction = RandHelper::rand();
-                MSVehicle::Influencer& lanechange = static_cast<MSVehicle*>(veh2)->getInfluencer(); 
+                MSVehicle::Influencer& lanechange = static_cast<MSVehicle*>(veh2)->getInfluencer();
 
                 //other vehicle should not use the rescue lane so they should not make any lane changes
                 lanechange.setLaneChangeMode(1605);//todo change lane back
                 const int numLanes = (int)veh2->getEdge()->getLanes().size();
                 // the vehicles should react according to the distance to the emergency vehicle taken from real world data
-                if (reaction < (distanceDelta * -1.6 +100)/100){
+                if (reaction < (distanceDelta * -1.6 + 100) / 100) {
                     influencedVehicles.insert(static_cast<std::string>(veh2->getID()));
                     influencedTypes.insert(std::make_pair(static_cast<std::string>(veh2->getID()), veh2->getVehicleType().getID()));
 
@@ -178,11 +178,10 @@ MSDevice_Bluelight::notifyMove(SUMOTrafficObject& veh, double /* oldPos */,
                     if (veh2->getLane()->getIndex() == numLanes - 1) {
                         t.setPreferredLateralAlignment(LATALIGN_LEFT);
                         // the alignement is changet to left for the vehicle std::cout << "New alignment to left for vehicle: " << veh2->getID() << " " << veh2->getVehicleType().getPreferredLateralAlignment() << "\n";
-                    }
-                    else {
+                    } else {
                         t.setPreferredLateralAlignment(LATALIGN_RIGHT);
                         // the alignement is changet to right for the vehicle std::cout << "New alignment to right for vehicle: " << veh2->getID() << " " << veh2->getVehicleType().getPreferredLateralAlignment() << "\n";
-                        }
+                    }
                 }
             }
 

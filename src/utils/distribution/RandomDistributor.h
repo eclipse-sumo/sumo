@@ -90,7 +90,7 @@ public:
      * @return true if a new value was added, false if just the probability of an existing one was updated
      */
     bool remove(T val) {
-        for (int i = 0; i < (int)myVals.size();i++) {
+        for (int i = 0; i < (int)myVals.size(); i++) {
             if (myVals[i] == val) {
                 myProb -= myProbs[i];
                 myProbs.erase(myProbs.begin() + i);

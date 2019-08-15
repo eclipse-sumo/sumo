@@ -57,8 +57,7 @@ MSParkingArea::MSParkingArea(const std::string& id,
     myReservationTime(-1),
     myReservations(0),
     myReservationMaxLength(0),
-    myNumAlternatives(0)
-{
+    myNumAlternatives(0) {
     // initialize unspecified defaults
     if (myWidth == 0) {
         myWidth = SUMO_const_laneWidth;

@@ -305,21 +305,21 @@ public:
     PositionVector smoothShape(const PositionVector& shape, bool forElevation);
 
     /// @brief return the first lane that allow a vehicle of type vClass (or the first lane, if none was found)
-    GNELane *getLaneByVClass(const SUMOVehicleClass vClass) const;
+    GNELane* getLaneByVClass(const SUMOVehicleClass vClass) const;
 
     /**@brief return the first lane that allow a vehicle of type vClass (or the first lane, if none was found)
      * @note flag "found" will be changed depending if lane was found
      */
-    GNELane *getLaneByVClass(const SUMOVehicleClass vClass, bool &found) const;
+    GNELane* getLaneByVClass(const SUMOVehicleClass vClass, bool& found) const;
 
     /// @brief draw partial route
-    void drawPartialRoute(const GUIVisualizationSettings& s, const GNEDemandElement *route, const GNEJunction* junction) const;
+    void drawPartialRoute(const GUIVisualizationSettings& s, const GNEDemandElement* route, const GNEJunction* junction) const;
 
     /// @brief draw partial trip and Flow
-    void drawPartialTripFromTo(const GUIVisualizationSettings& s, const GNEDemandElement *tripOrFromTo, const GNEJunction* junction) const;
+    void drawPartialTripFromTo(const GUIVisualizationSettings& s, const GNEDemandElement* tripOrFromTo, const GNEJunction* junction) const;
 
     /// @brief draw partial person plan
-    void drawPartialPersonPlan(const GUIVisualizationSettings& s, const GNEDemandElement *personPlan, const GNEJunction* junction) const;
+    void drawPartialPersonPlan(const GUIVisualizationSettings& s, const GNEDemandElement* personPlan, const GNEJunction* junction) const;
 
 protected:
     /// @brief the underlying NBEdge
@@ -389,7 +389,7 @@ private:
     void drawEdgeName(const GUIVisualizationSettings& s) const;
 
     /// @brief draw Rerouter symbols
-    void drawRerouterSymbol(const GUIVisualizationSettings& s, GNEAdditional *rerouter) const;
+    void drawRerouterSymbol(const GUIVisualizationSettings& s, GNEAdditional* rerouter) const;
 
     /// @brief invalidated copy constructor
     GNEEdge(const GNEEdge& s) = delete;

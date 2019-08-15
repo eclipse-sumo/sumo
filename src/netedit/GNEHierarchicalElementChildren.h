@@ -58,24 +58,24 @@ public:
      * @param[in] demandElementChildren vector of demand element children
      */
     GNEHierarchicalElementChildren(GNEAttributeCarrier* AC,
-                                 const std::vector<GNEEdge*>& edgeChildren,
-                                 const std::vector<GNELane*>& laneChildren,
-                                 const std::vector<GNEShape*>& shapeChildren,
-                                 const std::vector<GNEAdditional*>& additionalChildren,
-                                 const std::vector<GNEDemandElement*>& demandElementChildren);
+                                   const std::vector<GNEEdge*>& edgeChildren,
+                                   const std::vector<GNELane*>& laneChildren,
+                                   const std::vector<GNEShape*>& shapeChildren,
+                                   const std::vector<GNEAdditional*>& additionalChildren,
+                                   const std::vector<GNEDemandElement*>& demandElementChildren);
 
     /// @brief Destructor
     ~GNEHierarchicalElementChildren();
 
     /// @brief get child position calculated in ChildConnections
-    const Position &getChildPosition(const GNELane* lane);
+    const Position& getChildPosition(const GNELane* lane);
 
     /// @brief get child rotation calculated in ChildConnections
     double getChildRotation(const GNELane* lane);
 
     /// @brief update child connections
     void updateChildConnections();
-    
+
     // Draw connections between parent and children
     void drawChildConnections(const GUIVisualizationSettings& s, const GUIGlObjectType GLTypeParent) const;
 
@@ -170,10 +170,10 @@ public:
     bool checkDemandElementChildrenOverlapping() const;
 
     /// @brief get previous demand element to the given demand element
-    GNEDemandElement *getPreviousemandElement(const GNEDemandElement* demandElement) const;
+    GNEDemandElement* getPreviousemandElement(const GNEDemandElement* demandElement) const;
 
     /// @brief get next demand element to the given demand element
-    GNEDemandElement *getNextDemandElement(const GNEDemandElement* demandElement) const;
+    GNEDemandElement* getNextDemandElement(const GNEDemandElement* demandElement) const;
 
     /// @}
 

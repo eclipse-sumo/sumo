@@ -76,14 +76,14 @@ public:
      * @param[in] viewNet view in which this Route is placed
      * @param[in] routeParameters route parameters
      */
-    GNERoute(GNEViewNet* viewNet, const GNERouteHandler::RouteParameter &routeParameters);
+    GNERoute(GNEViewNet* viewNet, const GNERouteHandler::RouteParameter& routeParameters);
 
     /**@brief parameter constructor for embedded routes
      * @param[in] viewNet view in which this Route is placed
      * @param[in] vehicleParent vehicle parent of this embedded route
      * @param[in] routeParameters route parameters
      */
-    GNERoute(GNEViewNet* viewNet, GNEDemandElement* vehicleParent, const GNERouteHandler::RouteParameter &routeParameters);
+    GNERoute(GNEViewNet* viewNet, GNEDemandElement* vehicleParent, const GNERouteHandler::RouteParameter& routeParameters);
 
     /// @brief copy constructor (used to create a route based on the parameters of other GNERoute)
     GNERoute(GNEDemandElement* route);
@@ -231,12 +231,12 @@ public:
     void setGenericParametersStr(const std::string& value);
 
     /// @}
-    
+
 protected:
     /// @brief route color
     RGBColor myColor;
 
-    /// @brief SUMOVehicleClass (Only used for drawing) 
+    /// @brief SUMOVehicleClass (Only used for drawing)
     SUMOVehicleClass myVClass;
 
 private:

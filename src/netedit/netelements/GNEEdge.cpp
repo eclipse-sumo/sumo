@@ -463,7 +463,7 @@ GNEEdge::getCenteringBoundary() const {
         return myMovingGeometryBoundary;
     }  else {
         Boundary b;
-        for (const auto &i : myLanes) {
+        for (const auto& i : myLanes) {
             b.add(i->getCenteringBoundary());
         }
         // ensure that geometry points are selectable even if the lane geometry is strange
@@ -516,7 +516,7 @@ GNEEdge::getOppositeEdge() const {
 void
 GNEEdge::drawGL(const GUIVisualizationSettings& s) const {
     // check if boundary has to be drawn
-    if(s.drawBoundaries) {
+    if (s.drawBoundaries) {
         GLHelper::drawBoundary(getCenteringBoundary());
     }
     // draw lanes
@@ -524,34 +524,34 @@ GNEEdge::drawGL(const GUIVisualizationSettings& s) const {
         i->drawGL(s);
     }
     // draw additional parents
-    for (const auto &i : getAdditionalParents()) {
+    for (const auto& i : getAdditionalParents()) {
         if (i->getTagProperty().getTag() == SUMO_TAG_REROUTER) {
             // draw rerouter symbol
             drawRerouterSymbol(s, i);
         }
     }
     // draw additional children
-    for (const auto &i : getAdditionalChildren()) {
+    for (const auto& i : getAdditionalChildren()) {
         i->drawGL(s);
     }
     // draw edge child
     if (myNet->getViewNet()->getNetworkViewOptions().showDemandElements()) {
         // certain demand elements children can contain loops (for example, routes) and it causes overlapping problems. It's needed to filter it before drawing
-        for (const auto &i : getSortedDemandElementChildrenByType(SUMO_TAG_ROUTE)) {
+        for (const auto& i : getSortedDemandElementChildrenByType(SUMO_TAG_ROUTE)) {
             // first check if route can be drawn
             if (myNet->getViewNet()->getDemandViewOptions().showNonInspectedDemandElements(i)) {
                 // draw partial route
                 drawPartialRoute(s, i, nullptr);
             }
         }
-        for (const auto &i : getSortedDemandElementChildrenByType(SUMO_TAG_EMBEDDEDROUTE)) {
+        for (const auto& i : getSortedDemandElementChildrenByType(SUMO_TAG_EMBEDDEDROUTE)) {
             // first check if embedded route can be drawn
             if (myNet->getViewNet()->getDemandViewOptions().showNonInspectedDemandElements(i)) {
                 // draw partial route
                 drawPartialRoute(s, i, nullptr);
             }
         }
-        for (const auto &i : getSortedDemandElementChildrenByType(SUMO_TAG_TRIP)) {
+        for (const auto& i : getSortedDemandElementChildrenByType(SUMO_TAG_TRIP)) {
             // Start drawing adding an gl identificator
             glPushName(i->getGlID());
             // draw partial trip only if is being inspected or selected
@@ -565,7 +565,7 @@ GNEEdge::drawGL(const GUIVisualizationSettings& s) const {
             // Pop name
             glPopName();
         }
-        for (const auto &i : getSortedDemandElementChildrenByType(SUMO_TAG_FLOW)) {
+        for (const auto& i : getSortedDemandElementChildrenByType(SUMO_TAG_FLOW)) {
             // Start drawing adding an gl identificator
             glPushName(i->getGlID());
             // draw partial trip only if is being inspected or selected
@@ -579,32 +579,32 @@ GNEEdge::drawGL(const GUIVisualizationSettings& s) const {
             // Pop name
             glPopName();
         }
-        for (const auto &i : getSortedDemandElementChildrenByType(SUMO_TAG_PERSONTRIP_FROMTO)) {
+        for (const auto& i : getSortedDemandElementChildrenByType(SUMO_TAG_PERSONTRIP_FROMTO)) {
             drawPartialPersonPlan(s, i, nullptr);
         }
-        for (const auto &i : getSortedDemandElementChildrenByType(SUMO_TAG_PERSONTRIP_BUSSTOP)) {
+        for (const auto& i : getSortedDemandElementChildrenByType(SUMO_TAG_PERSONTRIP_BUSSTOP)) {
             drawPartialPersonPlan(s, i, nullptr);
         }
-        for (const auto &i : getSortedDemandElementChildrenByType(SUMO_TAG_WALK_EDGES)) {
+        for (const auto& i : getSortedDemandElementChildrenByType(SUMO_TAG_WALK_EDGES)) {
             drawPartialPersonPlan(s, i, nullptr);
         }
-        for (const auto &i : getSortedDemandElementChildrenByType(SUMO_TAG_WALK_FROMTO)) {
+        for (const auto& i : getSortedDemandElementChildrenByType(SUMO_TAG_WALK_FROMTO)) {
             drawPartialPersonPlan(s, i, nullptr);
         }
-        for (const auto &i : getSortedDemandElementChildrenByType(SUMO_TAG_WALK_BUSSTOP)) {
+        for (const auto& i : getSortedDemandElementChildrenByType(SUMO_TAG_WALK_BUSSTOP)) {
             drawPartialPersonPlan(s, i, nullptr);
         }
-        for (const auto &i : getSortedDemandElementChildrenByType(SUMO_TAG_WALK_ROUTE)) {
+        for (const auto& i : getSortedDemandElementChildrenByType(SUMO_TAG_WALK_ROUTE)) {
             drawPartialPersonPlan(s, i, nullptr);
         }
-        for (const auto &i : getSortedDemandElementChildrenByType(SUMO_TAG_RIDE_FROMTO)) {
+        for (const auto& i : getSortedDemandElementChildrenByType(SUMO_TAG_RIDE_FROMTO)) {
             drawPartialPersonPlan(s, i, nullptr);
         }
-        for (const auto &i : getSortedDemandElementChildrenByType(SUMO_TAG_RIDE_BUSSTOP)) {
+        for (const auto& i : getSortedDemandElementChildrenByType(SUMO_TAG_RIDE_BUSSTOP)) {
             drawPartialPersonPlan(s, i, nullptr);
         }
     }
-    // draw geometry points if isnt's too small and 
+    // draw geometry points if isnt's too small and
     if ((s.scale > 8.0) && (myNet->getViewNet()->getEditModes().currentSupermode != GNE_SUPERMODE_DEMAND)) {
         drawGeometryPoints(s);
     }
@@ -1185,12 +1185,12 @@ GNEEdge::setResponsible(bool newVal) {
 }
 
 
-GNELane *
+GNELane*
 GNEEdge::getLaneByVClass(const SUMOVehicleClass vClass) const {
     // iterate over all NBEdge lanes
     for (int i = 0; i < (int)myNBEdge.getLanes().size(); i++) {
         // if given VClass is in permissions, return lane
-        if (myNBEdge.getLanes().at(i).permissions &vClass) {
+        if (myNBEdge.getLanes().at(i).permissions & vClass) {
             // return GNELane
             return myLanes.at(i);
         }
@@ -1200,12 +1200,12 @@ GNEEdge::getLaneByVClass(const SUMOVehicleClass vClass) const {
 }
 
 
-GNELane *
-GNEEdge::getLaneByVClass(const SUMOVehicleClass vClass, bool &found) const {
+GNELane*
+GNEEdge::getLaneByVClass(const SUMOVehicleClass vClass, bool& found) const {
     // iterate over all NBEdge lanes
     for (int i = 0; i < (int)myNBEdge.getLanes().size(); i++) {
         // if given VClass is in permissions, return lane
-        if (myNBEdge.getLanes().at(i).permissions &vClass) {
+        if (myNBEdge.getLanes().at(i).permissions & vClass) {
             // change found flag to true
             found = true;
             // return GNELane
@@ -1219,14 +1219,14 @@ GNEEdge::getLaneByVClass(const SUMOVehicleClass vClass, bool &found) const {
 }
 
 
-void 
-GNEEdge::drawPartialRoute(const GUIVisualizationSettings& s, const GNEDemandElement *route, const GNEJunction* junction) const {
+void
+GNEEdge::drawPartialRoute(const GUIVisualizationSettings& s, const GNEDemandElement* route, const GNEJunction* junction) const {
     // calculate route width
     double routeWidth = s.addSize.getExaggeration(s, this) * s.widthSettings.route;
     // obtain color
     RGBColor routeColor;
     if (route->drawUsingSelectColor()) {
-        routeColor =s.colorSettings.selectedRouteColor;
+        routeColor = s.colorSettings.selectedRouteColor;
     } else {
         routeColor = route->getColor();
     }
@@ -1242,13 +1242,13 @@ GNEEdge::drawPartialRoute(const GUIVisualizationSettings& s, const GNEDemandElem
         for (auto segment = route->getDemandElementSegmentGeometry().begin(); segment != route->getDemandElementSegmentGeometry().end(); segment++) {
             // draw partial segment
             if ((segment->junction == junction) && (segment->element == route) && segment->visible) {
-                // Set route color (needed due drawShapeDottedContour) 
+                // Set route color (needed due drawShapeDottedContour)
                 GLHelper::setColor(routeColor);
                 // draw box line
                 GLHelper::drawBoxLine(segment->pos, segment->rotation, segment->length, routeWidth, 0);
                 // check if shape dotted contour has to be drawn
-                if ((myNet->getViewNet()->getDottedAC() == route) && ((segment+1) != route->getDemandElementSegmentGeometry().end())) {
-                    GLHelper::drawShapeDottedContourPartialShapes(s, getType(), segment->pos, (segment+1)->pos, routeWidth);
+                if ((myNet->getViewNet()->getDottedAC() == route) && ((segment + 1) != route->getDemandElementSegmentGeometry().end())) {
+                    GLHelper::drawShapeDottedContourPartialShapes(s, getType(), segment->pos, (segment + 1)->pos, routeWidth);
                 }
             }
         }
@@ -1257,15 +1257,15 @@ GNEEdge::drawPartialRoute(const GUIVisualizationSettings& s, const GNEDemandElem
         for (auto segment = route->getDemandElementSegmentGeometry().begin(); segment != route->getDemandElementSegmentGeometry().end(); segment++) {
             // draw partial segment
             if ((segment->edge == this) && (segment->element == route) && segment->visible) {
-                // Set route color (needed due drawShapeDottedContour) 
+                // Set route color (needed due drawShapeDottedContour)
                 GLHelper::setColor(routeColor);
                 // draw box line
                 GLHelper::drawBoxLine(segment->pos, segment->rotation, segment->length, routeWidth, 0);
                 // check if shape dotted contour has to be drawn
-                if ((myNet->getViewNet()->getDottedAC() == route) && ((segment+1) != route->getDemandElementSegmentGeometry().end())) {
-                    GLHelper::drawShapeDottedContourPartialShapes(s, getType(), segment->pos, (segment+1)->pos, routeWidth);
+                if ((myNet->getViewNet()->getDottedAC() == route) && ((segment + 1) != route->getDemandElementSegmentGeometry().end())) {
+                    GLHelper::drawShapeDottedContourPartialShapes(s, getType(), segment->pos, (segment + 1)->pos, routeWidth);
                 }
-            }    
+            }
         }
     }
     // Pop last matrix
@@ -1277,7 +1277,7 @@ GNEEdge::drawPartialRoute(const GUIVisualizationSettings& s, const GNEDemandElem
     // Pop name
     glPopName();
     // draw route children
-    for (const auto &i : route->getDemandElementChildren()) {
+    for (const auto& i : route->getDemandElementChildren()) {
         if (i->getTagProperty().getTag() == SUMO_TAG_WALK_ROUTE) {
             drawPartialPersonPlan(s, i, junction);
         } else {
@@ -1292,8 +1292,8 @@ GNEEdge::drawPartialRoute(const GUIVisualizationSettings& s, const GNEDemandElem
 }
 
 
-void 
-GNEEdge::drawPartialTripFromTo(const GUIVisualizationSettings& s, const GNEDemandElement *tripOrFromTo, const GNEJunction* junction) const {
+void
+GNEEdge::drawPartialTripFromTo(const GUIVisualizationSettings& s, const GNEDemandElement* tripOrFromTo, const GNEJunction* junction) const {
     // calculate tripOrFromTo width
     double tripOrFromToWidth = s.addSize.getExaggeration(s, this) * s.widthSettings.trip;
     // Add a draw matrix
@@ -1335,8 +1335,8 @@ GNEEdge::drawPartialTripFromTo(const GUIVisualizationSettings& s, const GNEDeman
 }
 
 
-void 
-GNEEdge::drawPartialPersonPlan(const GUIVisualizationSettings& s, const GNEDemandElement *personPlan, const GNEJunction* junction) const {
+void
+GNEEdge::drawPartialPersonPlan(const GUIVisualizationSettings& s, const GNEDemandElement* personPlan, const GNEJunction* junction) const {
     // declare flag to enable or disable draw person plan
     bool drawPersonPlan = false;
     if (myNet->getViewNet()->getDemandViewOptions().showAllPersonPlans()) {
@@ -1354,7 +1354,7 @@ GNEEdge::drawPartialPersonPlan(const GUIVisualizationSettings& s, const GNEDeman
         // calculate personPlan width
         double personPlanWidth = 0;
         // flag to check if width must be duplicated
-        bool duplicateWidth = (myNet->getViewNet()->getDottedAC() == personPlan) || (myNet->getViewNet()->getDottedAC() == personPlan->getDemandElementParents().front())? true : false;
+        bool duplicateWidth = (myNet->getViewNet()->getDottedAC() == personPlan) || (myNet->getViewNet()->getDottedAC() == personPlan->getDemandElementParents().front()) ? true : false;
         // Set width depending of person plan type
         if (personPlan->getTagProperty().isPersonTrip()) {
             personPlanWidth = s.addSize.getExaggeration(s, this) * s.widthSettings.personTrip;
@@ -1388,35 +1388,35 @@ GNEEdge::drawPartialPersonPlan(const GUIVisualizationSettings& s, const GNEDeman
         // draw person plan
         if (junction) {
             // iterate over segments
-            for (auto segment = personPlan->getDemandElementParents().front()->getDemandElementSegmentGeometry().begin(); 
-                    segment != personPlan->getDemandElementParents().front()->getDemandElementSegmentGeometry().end(); 
+            for (auto segment = personPlan->getDemandElementParents().front()->getDemandElementSegmentGeometry().begin();
+                    segment != personPlan->getDemandElementParents().front()->getDemandElementSegmentGeometry().end();
                     segment++) {
                 // draw partial segment
                 if ((segment->junction == junction) && (segment->element == personPlan) && segment->visible) {
-                    // Set person plan color (needed due drawShapeDottedContour) 
+                    // Set person plan color (needed due drawShapeDottedContour)
                     GLHelper::setColor(personPlanColor);
                     // draw box line
                     GLHelper::drawBoxLine(segment->pos, segment->rotation, segment->length, personPlanWidth, 0);
                     // check if shape dotted contour has to be drawn
-                    if ((myNet->getViewNet()->getDottedAC() == personPlan) && ((segment+1) != personPlan->getDemandElementParents().front()->getDemandElementSegmentGeometry().end())) {
-                        GLHelper::drawShapeDottedContourPartialShapes(s, getType(), segment->pos, (segment+1)->pos, personPlanWidth);
+                    if ((myNet->getViewNet()->getDottedAC() == personPlan) && ((segment + 1) != personPlan->getDemandElementParents().front()->getDemandElementSegmentGeometry().end())) {
+                        GLHelper::drawShapeDottedContourPartialShapes(s, getType(), segment->pos, (segment + 1)->pos, personPlanWidth);
                     }
                 }
             }
         } else {
             // iterate over segments
-            for (auto segment = personPlan->getDemandElementParents().front()->getDemandElementSegmentGeometry().begin(); 
-                    segment != personPlan->getDemandElementParents().front()->getDemandElementSegmentGeometry().end(); 
+            for (auto segment = personPlan->getDemandElementParents().front()->getDemandElementSegmentGeometry().begin();
+                    segment != personPlan->getDemandElementParents().front()->getDemandElementSegmentGeometry().end();
                     segment++) {
                 // draw partial segment
                 if ((segment->edge == this) && (segment->element == personPlan) && segment->visible) {
-                    // Set person plan color (needed due drawShapeDottedContour) 
+                    // Set person plan color (needed due drawShapeDottedContour)
                     GLHelper::setColor(personPlanColor);
                     // draw box line
                     GLHelper::drawBoxLine(segment->pos, segment->rotation, segment->length, personPlanWidth, 0);
                     // check if shape dotted contour has to be drawn
-                    if ((myNet->getViewNet()->getDottedAC() == personPlan) && ((segment+1) != personPlan->getDemandElementParents().front()->getDemandElementSegmentGeometry().end())) {
-                        GLHelper::drawShapeDottedContourPartialShapes(s, getType(), segment->pos, (segment+1)->pos, personPlanWidth);
+                    if ((myNet->getViewNet()->getDottedAC() == personPlan) && ((segment + 1) != personPlan->getDemandElementParents().front()->getDemandElementSegmentGeometry().end())) {
+                        GLHelper::drawShapeDottedContourPartialShapes(s, getType(), segment->pos, (segment + 1)->pos, personPlanWidth);
                     }
                 }
             }
@@ -1436,8 +1436,8 @@ GNEEdge::drawPartialPersonPlan(const GUIVisualizationSettings& s, const GNEDeman
             // only draw arrival position point if isn't -1
             if (arrivalPos != -1) {
                 // get lane in which arrival position will be drawn
-                SUMOVehicleClass vClassPersonPlan = personPlan->getTagProperty().isRide()? SVC_PASSENGER : SVC_PEDESTRIAN;
-                GNELane *arrivalPosLane = nullptr;
+                SUMOVehicleClass vClassPersonPlan = personPlan->getTagProperty().isRide() ? SVC_PASSENGER : SVC_PEDESTRIAN;
+                GNELane* arrivalPosLane = nullptr;
                 // obtain arrivalPosLane depending if pesonPlan is a walk over a route
                 if (personPlan->getTagProperty().getTag() == SUMO_TAG_WALK_ROUTE) {
                     arrivalPosLane = personPlan->getDemandElementParents().at(1)->getEdgeParents().back()->getLaneByVClass(vClassPersonPlan);
@@ -1447,7 +1447,7 @@ GNEEdge::drawPartialPersonPlan(const GUIVisualizationSettings& s, const GNEDeman
                 // obtain position or ArrivalPos
                 Position pos = arrivalPosLane->getGeometry().shape.positionAtOffset2D(arrivalPos);
                 // obtain circle width
-                double circleWidth = (duplicateWidth? SNAP_RADIUS : (SNAP_RADIUS/2.0)) * MIN2((double)0.5, s.laneWidthExaggeration);
+                double circleWidth = (duplicateWidth ? SNAP_RADIUS : (SNAP_RADIUS / 2.0)) * MIN2((double)0.5, s.laneWidthExaggeration);
                 double circleWidthSquared = circleWidth * circleWidth;
                 if (!s.drawForSelecting || (myNet->getViewNet()->getPositionInformation().distanceSquaredTo2D(pos) <= (circleWidthSquared + 2))) {
                     glPushMatrix();
@@ -1470,12 +1470,12 @@ GNEEdge::drawPartialPersonPlan(const GUIVisualizationSettings& s, const GNEDeman
             }
         }
         // draw personPlan children
-        for (const auto &i : personPlan->getDemandElementChildren()) {
+        for (const auto& i : personPlan->getDemandElementChildren()) {
             i->drawGL(s);
         }
     }
     // draw person if this edge correspond to the first edge of first Person's person plan
-    GNEEdge *firstEdge = nullptr;
+    GNEEdge* firstEdge = nullptr;
     if (personPlan->getDemandElementParents().front()->getDemandElementChildren().front()->getTagProperty().isPersonStop()) {
         if (personPlan->getDemandElementParents().front()->getDemandElementChildren().front()->getTagProperty().getTag() == SUMO_TAG_PERSONSTOP_LANE) {
             // obtain edge of lane parent
@@ -2037,7 +2037,7 @@ GNEEdge::setShapeEndPos(const Position& pos) {
 }
 
 
-void 
+void
 GNEEdge::drawGeometryPoints(const GUIVisualizationSettings& s) const {
     // Obtain exaggeration of the draw
     const double exaggeration = s.addSize.getExaggeration(s, this);
@@ -2130,7 +2130,7 @@ GNEEdge::drawGeometryPoints(const GUIVisualizationSettings& s) const {
 }
 
 
-void 
+void
 GNEEdge::drawEdgeName(const GUIVisualizationSettings& s) const {
     // draw the name and/or the street name
     const bool drawStreetName = s.streetName.show && (myNBEdge.getStreetName() != "");
@@ -2169,16 +2169,16 @@ GNEEdge::drawEdgeName(const GUIVisualizationSettings& s) const {
 }
 
 
-void 
-GNEEdge::drawRerouterSymbol(const GUIVisualizationSettings& s, GNEAdditional *rerouter) const {
+void
+GNEEdge::drawRerouterSymbol(const GUIVisualizationSettings& s, GNEAdditional* rerouter) const {
     // Draw symbols in every lane
     const double exaggeration = s.addSize.getExaggeration(s, rerouter);
     if (s.scale * exaggeration >= 3) {
         // Start drawing adding an gl identificator
         glPushName(rerouter->getGlID());
         // draw rerouter symbol over all lanes
-        for (const auto &j : myLanes) {
-            const Position &lanePos = rerouter->getChildPosition(j);
+        for (const auto& j : myLanes) {
+            const Position& lanePos = rerouter->getChildPosition(j);
             const double laneRot = rerouter->getChildRotation(j);
             // draw rerouter symbol
             glPushMatrix();
@@ -2198,9 +2198,9 @@ GNEEdge::drawRerouterSymbol(const GUIVisualizationSettings& s, GNEAdditional *re
             glVertex2d(0 + 1.4, 6);
             glEnd();
             // draw "U"
-            if(!s.drawForSelecting) {
+            if (!s.drawForSelecting) {
                 GLHelper::drawText("U", Position(0, 2), .1, 3, RGBColor::BLACK, 180);
-                double probability = parse<double>(rerouter->getAttribute(SUMO_ATTR_PROB))*100;
+                double probability = parse<double>(rerouter->getAttribute(SUMO_ATTR_PROB)) * 100;
                 // draw Probability
                 GLHelper::drawText((toString(probability) + "%").c_str(), Position(0, 4), .1, 0.7, RGBColor::BLACK, 180);
             }

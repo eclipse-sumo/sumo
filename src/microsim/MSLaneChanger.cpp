@@ -767,13 +767,13 @@ MSLaneChanger::checkChange(
 #ifdef DEBUG_CHECK_CHANGE
         if (DEBUG_COND) {
             std::cout << SIMTIME
-                << " backGap=" << neighFollow.second
-                << " vNextFollower=" << vNextFollower
-                << " vNextEgo=" << vNextLeader
-                << " secureGap=" << secureBackGap
-                << " safetyFactor=" << vehicle->getLaneChangeModel().getSafetyFactor()
-                << " blocked=" << (neighFollow.second < secureBackGap * vehicle->getLaneChangeModel().getSafetyFactor())
-                << "\n";
+                      << " backGap=" << neighFollow.second
+                      << " vNextFollower=" << vNextFollower
+                      << " vNextEgo=" << vNextLeader
+                      << " secureGap=" << secureBackGap
+                      << " safetyFactor=" << vehicle->getLaneChangeModel().getSafetyFactor()
+                      << " blocked=" << (neighFollow.second < secureBackGap * vehicle->getLaneChangeModel().getSafetyFactor())
+                      << "\n";
         }
 #endif
         if (neighFollow.second < secureBackGap * vehicle->getLaneChangeModel().getSafetyFactor()) {
@@ -798,13 +798,13 @@ MSLaneChanger::checkChange(
 #ifdef DEBUG_CHECK_CHANGE
         if (DEBUG_COND) {
             std::cout << SIMTIME
-                << " frontGap=" << neighFollow.second
-                << " vNextEgo=" << vNextFollower
-                << " vNextLeader=" << vNextLeader
-                << " secureGap=" << secureFrontGap
-                << " safetyFactor=" << vehicle->getLaneChangeModel().getSafetyFactor()
-                << " blocked=" << (neighLead.second < secureFrontGap * vehicle->getLaneChangeModel().getSafetyFactor())
-                << "\n";
+                      << " frontGap=" << neighFollow.second
+                      << " vNextEgo=" << vNextFollower
+                      << " vNextLeader=" << vNextLeader
+                      << " secureGap=" << secureFrontGap
+                      << " safetyFactor=" << vehicle->getLaneChangeModel().getSafetyFactor()
+                      << " blocked=" << (neighLead.second < secureFrontGap * vehicle->getLaneChangeModel().getSafetyFactor())
+                      << "\n";
         }
 #endif
         if (neighLead.second < secureFrontGap * vehicle->getLaneChangeModel().getSafetyFactor()) {

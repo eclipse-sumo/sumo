@@ -153,15 +153,15 @@ const std::string GUIVisualizationSettings::SCHEME_NAME_PERMISSION_CODE("by perm
 // ---------------------------------------------------------------------------
 
 GUIVisualizationTextSettings::GUIVisualizationTextSettings(bool _show, double _size, RGBColor _color, RGBColor _bgColor, bool _constSize) :
-    show(_show), 
-    size(_size), 
+    show(_show),
+    size(_size),
     color(_color),
-    bgColor(_bgColor), 
+    bgColor(_bgColor),
     constSize(_constSize) {
 }
 
 
-bool 
+bool
 GUIVisualizationTextSettings::operator==(const GUIVisualizationTextSettings& other) {
     return (show == other.show) &&
            (size == other.size) &&
@@ -171,7 +171,7 @@ GUIVisualizationTextSettings::operator==(const GUIVisualizationTextSettings& oth
 }
 
 
-bool 
+bool
 GUIVisualizationTextSettings::operator!=(const GUIVisualizationTextSettings& other) {
     return (show != other.show) ||
            (size != other.size) ||
@@ -181,7 +181,7 @@ GUIVisualizationTextSettings::operator!=(const GUIVisualizationTextSettings& oth
 }
 
 
-void 
+void
 GUIVisualizationTextSettings::print(OutputDevice& dev, const std::string& name) const {
     dev.writeAttr(name + "_show", show);
     dev.writeAttr(name + "_size", size);
@@ -191,7 +191,7 @@ GUIVisualizationTextSettings::print(OutputDevice& dev, const std::string& name) 
 }
 
 
-double 
+double
 GUIVisualizationTextSettings::scaledSize(double scale, double constFactor) const {
     return constSize ? (size / scale) : (size * constFactor);
 }
@@ -201,9 +201,9 @@ GUIVisualizationTextSettings::scaledSize(double scale, double constFactor) const
 // ---------------------------------------------------------------------------
 
 GUIVisualizationSizeSettings::GUIVisualizationSizeSettings(double _minSize, double _exaggeration, bool _constantSize, bool _constantSizeSelected) :
-    minSize(_minSize), 
-    exaggeration(_exaggeration), 
-    constantSize(_constantSize), 
+    minSize(_minSize),
+    exaggeration(_exaggeration),
+    constantSize(_constantSize),
     constantSizeSelected(_constantSizeSelected) {
 }
 
@@ -221,7 +221,7 @@ GUIVisualizationSizeSettings::getExaggeration(const GUIVisualizationSettings& s,
 }
 
 
-bool 
+bool
 GUIVisualizationSizeSettings::operator==(const GUIVisualizationSizeSettings& other) {
     return (constantSize == other.constantSize) &&
            (constantSizeSelected == other.constantSizeSelected) &&
@@ -230,7 +230,7 @@ GUIVisualizationSizeSettings::operator==(const GUIVisualizationSizeSettings& oth
 }
 
 
-bool 
+bool
 GUIVisualizationSizeSettings::operator!=(const GUIVisualizationSizeSettings& other) {
     return (constantSize != other.constantSize) ||
            (constantSizeSelected != other.constantSizeSelected) ||
@@ -239,7 +239,7 @@ GUIVisualizationSizeSettings::operator!=(const GUIVisualizationSizeSettings& oth
 }
 
 
-void 
+void
 GUIVisualizationSizeSettings::print(OutputDevice& dev, const std::string& name) const {
     dev.writeAttr(name + "_minSize", minSize);
     dev.writeAttr(name + "_exaggeration", exaggeration);
@@ -326,7 +326,7 @@ GUIVisualizationSettings::GUIVisualizationSettings(bool _netedit) :
     laneParam("LANE_KEY"),
     edgeData("speed"),
     vehicleQuality(0), showBlinker(true),
-    drawLaneChangePreference(false), 
+    drawLaneChangePreference(false),
     drawMinGap(false),
     drawBrakeGap(false),
     showBTRange(false), vehicleSize(1),
@@ -553,8 +553,8 @@ GUIVisualizationSettings::initSumoGuiDefaults() {
     scheme = GUIColorScheme("by distance (kilometrage)", RGBColor(204, 204, 204));
     scheme.addColor(RGBColor(255, 204, 204), (double)1);
     scheme.addColor(RGBColor::RED, (double)10000);
-    scheme.addColor(RGBColor(204, 204, 255), (double)-1);
-    scheme.addColor(RGBColor::BLUE, (double)-10000);
+    scheme.addColor(RGBColor(204, 204, 255), (double) -1);
+    scheme.addColor(RGBColor::BLUE, (double) -10000);
     scheme.setAllowsNegativeValues(true);
     laneColorer.addScheme(scheme);
     scheme = GUIColorScheme("by abs distance (kilometrage)", RGBColor(204, 204, 204));
@@ -1072,7 +1072,7 @@ GUIVisualizationSettings::initNeteditDefaults() {
     laneColorer.addScheme(scheme);
     scheme = GUIColorScheme("by distance (kilometrage)", RGBColor(204, 204, 204));
     scheme.addColor(RGBColor::RED, (double)1);
-    scheme.addColor(RGBColor::RED, (double)-1);
+    scheme.addColor(RGBColor::RED, (double) -1);
     scheme.setAllowsNegativeValues(true);
     laneColorer.addScheme(scheme);
     scheme = GUIColorScheme("by abs distance (kilometrage)", RGBColor(204, 204, 204));
@@ -1617,7 +1617,7 @@ GUIVisualizationSettings::getTextAngle(double objectAngle) const {
 }
 
 
-bool 
+bool
 GUIVisualizationSettings::drawDetail(const double detail, const double exaggeration) const {
     if (detail <= 0) {
         return true;

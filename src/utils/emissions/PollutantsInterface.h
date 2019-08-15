@@ -277,7 +277,7 @@ public:
     static const std::vector<SUMOEmissionClass> getAllClasses();
 
     /// @brief Get all SUMOEmissionClass in string format
-    static const std::vector<std::string> &getAllClassesStr();
+    static const std::vector<std::string>& getAllClassesStr();
 
     /** @brief Checks whether the string describes a known vehicle class
      * @param[in] eClass The string describing the vehicle emission class
