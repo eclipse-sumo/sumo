@@ -584,7 +584,7 @@ def openNetworkAs(waitTime=2):
 
 def saveNetwork(referencePosition, clickOverReference=False):
     # check if clickOverReference is enabled
-    if (clickOverReference == True):
+    if clickOverReference:
         # click over reference (to avoid problem with undo-redo)
         leftClick(referencePosition, 0, 0)
     # save network using hotkey
@@ -620,7 +620,7 @@ def saveNetworkAs(waitTime=2):
 
 def saveAdditionals(referencePosition, clickOverReference=False):
     # check if clickOverReference is enabled
-    if (clickOverReference == True):
+    if clickOverReference:
         # click over reference (to avoid problem with undo-redo)
         leftClick(referencePosition, 0, 0)
     # save additionals using hotkey
@@ -634,7 +634,7 @@ def saveAdditionals(referencePosition, clickOverReference=False):
 
 def saveRoutes(referencePosition, clickOverReference=True):
     # check if clickOverReference is enabled
-    if (clickOverReference == True):
+    if clickOverReference:
         # click over reference (to avoid problem with undo-redo)
         leftClick(referencePosition, 0, 0)
     # save routes using hotkey

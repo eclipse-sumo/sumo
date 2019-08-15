@@ -25,7 +25,8 @@ from .exceptions import FatalTraCIError
 
 class Stage(object):
 
-    def __init__(self, type, vType, line, destStop, edges, travelTime, cost, length, intended, depart, departPos, arrivalPos, description):
+    def __init__(self, type, vType, line, destStop, edges, travelTime, cost, length, intended,
+                 depart, departPos, arrivalPos, description):
         self.type = type
         self.vType = vType
         self.line = line

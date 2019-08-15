@@ -24,9 +24,7 @@ import sys
 import xml.etree.ElementTree
 import sumolib
 
-try:
-    from functools import lru_cache
-except ImportError:
+if not hasattr(functools, "lru_cache"):
     # python 2.7 fallback (lru_cache is a decorater with arguments: a function that returns a decorator)
     def lru_cache_dummy(maxsize):
         class Cache_info:
@@ -260,7 +258,7 @@ def generate_rerouters_process(parameters):
 def main(cmd_args):
     """ Generate parking area rerouters from the parking area definition. """
     args = get_options(cmd_args)
-    _ = ReroutersGeneration(args)
+    ReroutersGeneration(args)
     logging.info('Done.')
 
 

@@ -61,22 +61,22 @@ def get_options(args=None):
                          default=4, help="lost time for start-up and clearance in each phase")
     optParser.add_option("-g", "--min-green", dest="mingreen", type="int",
                          default=4, help=" minimal green time when there is no traffic volume")
-    optParser.add_option("--green-filter-time", dest="greenFilter", type="int",
-                         default=0, help=" when computing critical flows, do not count phases with a green time below INT")
+    optParser.add_option("--green-filter-time", dest="greenFilter", type="int", default=0,
+                         help="when computing critical flows, do not count phases with a green time below INT")
     optParser.add_option("-c", "--min-cycle", dest="mincycle", type="int",
-                         default=20, help=" minimal cycle length")
+                         default=20, help="minimal cycle length")
     optParser.add_option("-C", "--max-cycle", dest="maxcycle", type="int",
-                         default=120, help=" maximal cycle length")
+                         default=120, help="maximal cycle length")
     optParser.add_option("-e", "--existing-cycle", dest="existcycle", action="store_true",
-                         default=False, help=" use the existing cycle length")
+                         default=False, help="use the existing cycle length")
     optParser.add_option("--write-critical-flows", dest="write_critical_flows", action="store_true",
                          default=False, help="print critical flows for each tls and phase")
-    optParser.add_option("-p", "--program", dest="program",
-                         default="a", help="save new definitions with this program id")
-    optParser.add_option("-H", "--saturation-headway", dest="satheadway", type="float",
-                         default=2, help=" saturation headway in seconds for calcuating hourly saturation flows")
+    optParser.add_option("-p", "--program", dest="program", default="a",
+                         help="save new definitions with this program id")
+    optParser.add_option("-H", "--saturation-headway", dest="satheadway", type="float", default=2,
+                         help="saturation headway in seconds for calcuating hourly saturation flows")
     optParser.add_option("-R", "--restrict-cyclelength", dest="restrict", action="store_true",
-                         default=False, help=" restrict the max. cycle length as the given one")
+                         default=False, help="restrict the max. cycle length as the given one")
     optParser.add_option("-u", "--unified-cycle", dest="unicycle", action="store_true", default=False,
                          help=" use the calculated max cycle length as the cycle length for all intersections")
     optParser.add_option("-v", "--verbose", dest="verbose", action="store_true",

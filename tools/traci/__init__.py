@@ -71,6 +71,7 @@ def _STEPS2TIME(step):
 
 
 def setConnectHook(hookFunc):
+    global _connectHook
     _connectHook = hookFunc
 
 
