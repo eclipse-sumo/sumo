@@ -1261,6 +1261,27 @@ def changePersonPlan(personPlan, subPersonPlan):
     # type enter to save change
     typeEnter()
 
+"""
+@brief change personFlowPlan
+"""
+
+
+def changePersonFlowPlan(personFlowPlan, subPersonFlowPlan):
+    # focus current frame
+    focusOnFrame()
+    # jump to personFlow plan
+    for _ in range(17):
+        typeTab()
+    # paste the new personFlowPlan
+    pasteIntoTextField(personFlowPlan)
+    # jump to personFlow plan
+    for _ in range(2):
+        typeTab()
+    # paste the new subPersonFlowPlan
+    pasteIntoTextField(subPersonFlowPlan)
+    # type enter to save change
+    typeEnter()
+
 #################################################
 # vehicle elements
 #################################################
