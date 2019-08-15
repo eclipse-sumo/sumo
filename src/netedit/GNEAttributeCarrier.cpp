@@ -3587,8 +3587,9 @@ GNEAttributeCarrier::fillPersonElements() {
         // add flow attributes
         fillCommonPersonAttributes(currentTag);
 
+        // set specific attribute depart (note: Persons doesn't support triggered and containerTriggered values)
         attrProperty = AttributeProperties(SUMO_ATTR_DEPART,
-                                           ATTRPROPERTY_COMPLEX | ATTRPROPERTY_DEFAULTVALUESTATIC,
+                                           ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUESTATIC,
                                            "The time step at which the " + toString(currentTag) + " shall enter the network",
                                            "0");
         myTagProperties[currentTag].addAttribute(attrProperty);
