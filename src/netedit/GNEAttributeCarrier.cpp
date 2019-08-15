@@ -3416,17 +3416,17 @@ GNEAttributeCarrier::fillVehicleElements() {
 
         attrProperty = AttributeProperties(SUMO_ATTR_FROM,
                                            ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_UPDATEGEOMETRY,
-                                           "The name of the edge the route starts at");
+                                           "The name of the edge the " + toString(currentTag) + " starts at");
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = AttributeProperties(SUMO_ATTR_TO,
                                            ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_UPDATEGEOMETRY,
-                                           "The name of the edge the route ends at");
+                                           "The name of the edge the " + toString(currentTag) + " ends at");
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = AttributeProperties(SUMO_ATTR_VIA,
                                            ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_UPDATEGEOMETRY | ATTRPROPERTY_LIST | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL,
-                                           "List of intermediate edge ids which shall be part of the route trip");
+                                           "List of intermediate edge ids which shall be part of the " + toString(currentTag));
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         // add common attributes
@@ -3434,7 +3434,7 @@ GNEAttributeCarrier::fillVehicleElements() {
 
         attrProperty = AttributeProperties(SUMO_ATTR_DEPART,
                                            ATTRPROPERTY_COMPLEX | ATTRPROPERTY_DEFAULTVALUESTATIC,
-                                           "The departure time of the (first) " + toString(currentTag) + " which is generated using this trip definition",
+                                           "The departure time of the (first) " + toString(currentTag) + " which is generated using this " + toString(currentTag) + " definition",
                                            "0");
         myTagProperties[currentTag].addAttribute(attrProperty);
     }
@@ -3456,17 +3456,17 @@ GNEAttributeCarrier::fillVehicleElements() {
 
         attrProperty = AttributeProperties(SUMO_ATTR_FROM,
                                            ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_UPDATEGEOMETRY,
-                                           "The name of the edge the route starts at");
+                                           "The name of the edge the " + toString(currentTag) + " starts at");
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = AttributeProperties(SUMO_ATTR_TO,
                                            ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_UPDATEGEOMETRY,
-                                           "The name of the edge the route ends at");
+                                           "The name of the edge the " + toString(currentTag) + " ends at");
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = AttributeProperties(SUMO_ATTR_VIA,
                                            ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_UPDATEGEOMETRY | ATTRPROPERTY_LIST | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL,
-                                           "List of intermediate edge ids which shall be part of the route routeFlow");
+                                           "List of intermediate edge ids which shall be part of the " + toString(currentTag));
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         // add common attributes
