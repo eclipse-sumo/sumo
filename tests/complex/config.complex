@@ -105,6 +105,7 @@ errors:.*UserWarning: {REPLACE UserWarning: }
 errors:^Ran ([0-9]+) tests in ([0-9\.]*)s{REPLACE Ran \1 tests in <ELAPSED>s}
 errors:Traceback (most recent call last):{->}FatalTraCIError
 errors:data\\{REPLACE data/}
+errors:javax.xml.soap.FactoryFinder find
 ps:%%CreationDate
 
 [unordered_text]

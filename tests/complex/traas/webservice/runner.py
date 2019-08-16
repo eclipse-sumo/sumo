@@ -19,6 +19,7 @@ import os
 import subprocess
 import sys
 import time
+import xml.etree.ElementTree as ET
 
 if 'SUMO_HOME' in os.environ:
     tools = os.path.join(os.environ['SUMO_HOME'], 'tools')
@@ -31,9 +32,10 @@ traasJar = os.path.join(os.environ['SUMO_HOME'], "bin", "TraaS.jar")
 assert(os.path.exists(traasJar))
 
 webservice = subprocess.Popen(["java", "-jar", traasJar, "data/ws_config.xml"])
+config = ET.parse("data/ws_config.xml")
 time.sleep(5)  # give webservice some time to start
-subprocess.check_call(["wsimport", "-clientjar", "webservice.jar", "http://127.0.0.1:8080/SUMO?wsdl"])
-for f in sys.argv[1:]:
-    subprocess.check_call(["javac", "-cp", "webservice.jar", "data/%s.java" % f])
-subprocess.check_call(["java", "-cp", os.pathsep.join(["webservice.jar", "data"]), sys.argv[1]])
+url = "http://%s:%s/%s?wsdl" % (config.find("host").attrib["value"], config.find("port").attrib["value"], config.find("name").attrib["value"])
+subprocess.call(["wsimport", "-clientjar", "webservice.jar", url])
+subprocess.call(["javac", "-cp", os.pathsep.join([traasJar, "webservice.jar"]), "data/%s.java" % sys.argv[1]])
+subprocess.call(["java", "-cp", os.pathsep.join([traasJar, "webservice.jar", "data"]), sys.argv[1]])
 webservice.kill()
