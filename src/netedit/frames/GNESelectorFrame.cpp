@@ -145,21 +145,17 @@ GNESelectorFrame::clearCurrentSelection() const {
                 }
                 // due we iterate over all junctions, only it's neccesary iterate over incoming edges
                 for (const auto& j : i.second->getGNEIncomingEdges()) {
-                    // only select edges if "select edges" flag is enabled. In other case, select only lanes
-                    if (myViewNet->getNetworkViewOptions().selectEdges()) {
-                        // check if edge selection is locked
-                        if (!myLockGLObjectTypes->IsObjectTypeLocked(GLO_EDGE)) {
-                            if (j->isAttributeCarrierSelected()) {
-                                j->setAttribute(GNE_ATTR_SELECTED, "false", myViewNet->getUndoList());
-                            }
+                    // check if edge selection is locked
+                    if (!myLockGLObjectTypes->IsObjectTypeLocked(GLO_EDGE)) {
+                        if (j->isAttributeCarrierSelected()) {
+                            j->setAttribute(GNE_ATTR_SELECTED, "false", myViewNet->getUndoList());
                         }
-                    } else {
-                        // check if lane selection is locked
-                        if (!myLockGLObjectTypes->IsObjectTypeLocked(GLO_LANE)) {
-                            for (auto k : j->getLanes()) {
-                                if (k->isAttributeCarrierSelected()) {
-                                    k->setAttribute(GNE_ATTR_SELECTED, "false", myViewNet->getUndoList());
-                                }
+                    }
+                    // check if lane selection is locked
+                    if (!myLockGLObjectTypes->IsObjectTypeLocked(GLO_LANE)) {
+                        for (auto k : j->getLanes()) {
+                            if (k->isAttributeCarrierSelected()) {
+                                k->setAttribute(GNE_ATTR_SELECTED, "false", myViewNet->getUndoList());
                             }
                         }
                     }
