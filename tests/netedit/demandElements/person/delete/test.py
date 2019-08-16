@@ -73,14 +73,14 @@ netedit.leftClick(referencePosition, 400, 295)
 netedit.undo(referencePosition, 2)
 netedit.redo(referencePosition, 2)
 
+# save network
+netedit.saveNetwork(referencePosition)
+
 # save persons
 netedit.saveRoutes(referencePosition)
 
 # save additionals
 netedit.saveAdditionals(referencePosition)
-
-# save network
-netedit.saveNetwork(referencePosition)
 
 # quit netedit
 netedit.quit(neteditProcess)

@@ -26,6 +26,10 @@ Debug: Current saving Status: net saved, additionals unsaved, demand elements un
 Debug: Adding route 'route_1' in GNEChange_DemandElement
 Debug: Adding route 'route_2' in GNEChange_DemandElement
 Debug: Adding route 'route_3' in GNEChange_DemandElement
+Debug: Adding routeFlow 'flow_0' in GNEChange_DemandElement
+Debug: Adding routeFlow 'flow_1' in GNEChange_DemandElement
+Debug: Adding routeFlow 'flow_2' in GNEChange_DemandElement
+Debug: Adding routeFlow 'flow_3' in GNEChange_DemandElement
 Debug: net has to be saved
 Debug: Current saving Status: net unsaved, additionals unsaved, demand elements unsaved
 Debug: Enabled show demand elements throught alt + 1
@@ -52,9 +56,13 @@ GLDebug: 	Removed object edge:gneE6 from SUMORTree with boundary 0.00,48.40,80.0
 GLDebug: 	Removed object edge:gneE7 from SUMORTree with boundary 0.00,10.00,80.00,31.60
 GLDebug: 	Removed object edge:gneE8 from SUMORTree with boundary 0.00,28.40,50.00,50.00
 GLDebug: 	Removed object edge:gneE9 from SUMORTree with boundary 0.00,30.00,50.00,51.60
-Debug: Deleting unreferenced route 'route_3'
+Debug: Deleting unreferenced routeFlow 'flow_3'
 Debug: DemandElements has to be saved
 Debug: Current saving Status: net saved, additionals saved, demand elements unsaved
+Debug: Deleting unreferenced routeFlow 'flow_2'
+Debug: Deleting unreferenced routeFlow 'flow_1'
+Debug: Deleting unreferenced routeFlow 'flow_0'
+Debug: Deleting unreferenced route 'route_3'
 Debug: Deleting unreferenced route 'route_2'
 Debug: Deleting unreferenced route 'route_1'
 Debug: Deleting unreferenced route 'route_0'
@@ -196,5 +204,9 @@ Debug: Deleting unreferenced route 'route_0' in GNENet destructor
 Debug: Deleting unreferenced route 'route_1' in GNENet destructor
 Debug: Deleting unreferenced route 'route_2' in GNENet destructor
 Debug: Deleting unreferenced route 'route_3' in GNENet destructor
+Debug: Deleting unreferenced routeFlow 'flow_0' in GNENet destructor
+Debug: Deleting unreferenced routeFlow 'flow_1' in GNENet destructor
+Debug: Deleting unreferenced routeFlow 'flow_2' in GNENet destructor
+Debug: Deleting unreferenced routeFlow 'flow_3' in GNENet destructor
 Debug: Deleting net builder in GNENet destructor
 GLDebug: Number of objects in SUMORTree during call of the destructor: 16
