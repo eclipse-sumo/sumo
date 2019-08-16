@@ -125,7 +125,7 @@ public class Storage implements Serializable {
             throw new IllegalArgumentException("Error writing byte: byte value may only range from -128 to 127.");
         }
 
-        storageList.add(new Byte((byte)(value)));
+        storageList.add(Byte.valueOf((byte)(value)));
     }
 
     /**
@@ -157,9 +157,9 @@ public class Storage implements Serializable {
         // 255 -> -1
 
         if (value > 127) {
-            storageList.add(new Byte((byte)(value - 256)));
+            storageList.add(Byte.valueOf((byte)(value - 256)));
         } else {
-            storageList.add(new Byte((byte)(value)));
+            storageList.add(Byte.valueOf((byte)(value)));
         }
     }
 

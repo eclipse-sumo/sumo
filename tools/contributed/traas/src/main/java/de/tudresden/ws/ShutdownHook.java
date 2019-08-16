@@ -45,7 +45,7 @@ public class ShutdownHook  extends Thread {
             Thread.sleep(3000);
         } catch (Exception e) {}
 
-        System.out.println("Shutdown finsihed");
+        System.out.println("Shutdown finished");
 
     }
 

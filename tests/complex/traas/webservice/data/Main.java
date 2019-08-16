@@ -21,32 +21,29 @@ import de.tudresden.ws.TraasWS;
 
 public class Main {
 
-	static String sumo_bin = "sumo-gui";
-	static String config_file = "simulation/config.sumo.cfg";
-	static double step_length = 1.0;		
+    static String sumo_bin = "sumo";
+    static String config_file = "data/config.sumocfg";
+    static double step_length = 1.0;
 
-	public static void main(String[] args) {
-		
-		//Start your webservice with the bash or the cmd!
-		ServiceImpl ws = new TraasWS().getServiceImplPort();
-		
-		//optional
-		ws.setSumoBinary(sumo_bin);
-		ws.setConfig(config_file);
-			
-			
-		ws.addOption("start", "");
-		ws.addOption("step-length", step_length+"");
-		ws.start("user");
-			
-		for(int i=0; i<3600; i++){
-				
-			ws.doTimestep();
-			ws.vehicleAdd("v"+i, "car", "r1", 0, 0, 13.8, (byte) 1);
-		}
-			
-		ws.stop("user");
-		
-	}
+    public static void main(String[] args) {
 
+        //Start your webservice with the bash or the cmd!
+        ServiceImpl ws = new TraasWS().getServiceImplPort();
+
+        //optional
+        ws.setSumoBinary(sumo_bin);
+        ws.setConfig(config_file);
+
+        ws.addOption("step-length", step_length + "");
+        ws.start("user");
+
+        for (int i = 0; i < 3600; i++) {
+
+            ws.doTimestep();
+            ws.vehicleAdd("v" + i, "car", "r1", 0, 0, 13.8, (byte) 1);
+        }
+
+        ws.stop("user");
+
+    }
 }

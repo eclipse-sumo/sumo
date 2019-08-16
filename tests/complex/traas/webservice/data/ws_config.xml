@@ -3,6 +3,4 @@
   <host value="127.0.0.1" />
   <port value="8080" />
   <name value="TRAAS_WS" />
-  <config_file value="config.sumocfg" />
-  <sumo_bin value="sumo-gui" />
 </sumo>
