@@ -1,4 +1,4 @@
-TraCITestClient output file. Date: Thu Jan 28 14:30:14 2016
+TraCITestClient output file. Date: Fri Aug 16 10:37:40 2019
 
 
 -> Command sent: <SimulationStep>:
@@ -6,7 +6,7 @@ TraCITestClient output file. Date: Thu Jan 28 14:30:14 2016
 
 -> Command sent: <SubscribeVariable>:
   domID=212 objID=0 with 1 variables
-.. Answered with error to command (212), [description: Could not add subscription (Get Vehicle Variable: unsupported variable 0xff specified).]
+.. Answered with error to command (212), [description: Could not add subscription. Get Vehicle Variable: unsupported variable 0xff specified]
 
 -> Command sent: <SimulationStep>:
 .. Command acknowledged (2), [description: ]
