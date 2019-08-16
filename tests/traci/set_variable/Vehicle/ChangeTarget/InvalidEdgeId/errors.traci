@@ -1,1 +1,1 @@
-Error: Answered with error to command 0xc4: Can not retrieve road with ID e_bla
+Error: Answered with error to command 0xc4: Destination edge 'e_bla' is not known.

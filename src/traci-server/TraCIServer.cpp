@@ -1038,7 +1038,7 @@ TraCIServer::initialiseSubscription(libsumo::Subscription& s) {
             myLastContextSubscription = nullptr;
         }
     } else {
-        writeStatusCmd(s.commandId, libsumo::RTYPE_ERR, "Could not add subscription (" + errors + ").");
+        writeStatusCmd(s.commandId, libsumo::RTYPE_ERR, "Could not add subscription. " + errors);
     }
     myOutputStorage.writeStorage(writeInto);
 }
