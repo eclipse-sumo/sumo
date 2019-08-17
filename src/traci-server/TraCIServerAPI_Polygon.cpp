@@ -164,9 +164,7 @@ TraCIServerAPI_Polygon::processSet(TraCIServer& server, tcpip::Storage& inputSto
                     }
                 }
                 libsumo::TraCIPositionVector tp = libsumo::Helper::makeTraCIPositionVector(shape);
-
-                libsumo::Polygon::add(id, tp, col, fill, lineWidth, type, layer);
-
+                libsumo::Polygon::add(id, tp, col, fill, type, layer, lineWidth);
             }
             break;
             case libsumo::VAR_ADD_DYNAMICS : {

@@ -119,7 +119,7 @@ Polygon::setColor(const std::string& polygonID, const TraCIColor& c) {
 
 
 void
-Polygon::add(const std::string& polygonID, const TraCIPositionVector& shape, const TraCIColor& color, bool fill, double lineWidth, const std::string& polygonType, int layer) {
+Polygon::add(const std::string& polygonID, const TraCIPositionVector& shape, const TraCIColor& color, bool fill, const std::string& polygonType, int layer, double lineWidth) {
     ShapeContainer& shapeCont = MSNet::getInstance()->getShapeContainer();
     PositionVector pShape = Helper::makePositionVector(shape);
     RGBColor col = Helper::makeRGBColor(color);
@@ -128,11 +128,13 @@ Polygon::add(const std::string& polygonID, const TraCIPositionVector& shape, con
     }
 }
 
+
 void
 Polygon::addHighlightPolygon(const std::string& objectID, const int type, const std::string& polygonID, const TraCIPositionVector& shape, const TraCIColor& color, bool fill, double lineWidth, const std::string& polygonType, int layer) {
     MSNet::getInstance()->getShapeContainer().registerHighlight(objectID, type, polygonID);
-    add(polygonID, shape, color, fill, lineWidth, polygonType, layer);
+    add(polygonID, shape, color, fill, polygonType, layer, lineWidth);
 }
+
 
 void
 Polygon::addDynamics(const std::string& polygonID, const std::string& trackedID, const std::vector<double>& timeSpan, const std::vector<double>& alphaSpan, bool looped, bool rotate) {

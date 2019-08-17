@@ -131,6 +131,9 @@ Helper::subscribe(const int commandId, const std::string& id, const std::vector<
 
 void
 Helper::handleSubscriptions(const SUMOTime t) {
+    for (auto& wrapper : myWrapper) {
+        wrapper.second->clear();
+    }
     for (const libsumo::Subscription& s : mySubscriptions) {
         if (s.beginTime > t) {
             continue;
@@ -175,6 +178,11 @@ Helper::handleSingleSubscription(const Subscription& s) {
         throw TraCIException("Unsupported command specified");
     }
     std::shared_ptr<VariableWrapper> handler = wrapper->second;
+    if (s.contextDomain > 0) {
+        handler->setContext(s.id);
+    } else {
+        handler->setContext("");
+    }
     for (const std::string& objID : objIDs) {
         if (!s.variables.empty()) {
             for (const int variable : s.variables) {
@@ -1089,34 +1097,42 @@ Helper::moveToXYMap_matchingRoutePosition(const Position& pos, const std::string
 
 
 Helper::SubscriptionWrapper::SubscriptionWrapper(VariableWrapper::SubscriptionHandler handler, SubscriptionResults& into, ContextSubscriptionResults& context)
-    : VariableWrapper(handler), myResults(into), myContextResults(context), myActiveResults(into) {
+    : VariableWrapper(handler), myResults(into), myContextResults(context), myActiveResults(&into) {
 
 }
 
 
 void
 Helper::SubscriptionWrapper::setContext(const std::string& refID) {
-    myActiveResults = refID == "" ? myResults : myContextResults[refID];
+    myActiveResults = refID == "" ? &myResults : &myContextResults[refID];
+}
+
+
+void
+Helper::SubscriptionWrapper::clear() {
+    myActiveResults = &myResults;
+    myResults.clear();
+    myContextResults.clear();
 }
 
 
 bool
 Helper::SubscriptionWrapper::wrapDouble(const std::string& objID, const int variable, const double value) {
-    myActiveResults[objID][variable] = std::make_shared<TraCIDouble>(value);
+    (*myActiveResults)[objID][variable] = std::make_shared<TraCIDouble>(value);
     return true;
 }
 
 
 bool
 Helper::SubscriptionWrapper::wrapInt(const std::string& objID, const int variable, const int value) {
-    myActiveResults[objID][variable] = std::make_shared<TraCIInt>(value);
+    (*myActiveResults)[objID][variable] = std::make_shared<TraCIInt>(value);
     return true;
 }
 
 
 bool
 Helper::SubscriptionWrapper::wrapString(const std::string& objID, const int variable, const std::string& value) {
-    myActiveResults[objID][variable] = std::make_shared<TraCIString>(value);
+    (*myActiveResults)[objID][variable] = std::make_shared<TraCIString>(value);
     return true;
 }
 
@@ -1125,28 +1141,28 @@ bool
 Helper::SubscriptionWrapper::wrapStringList(const std::string& objID, const int variable, const std::vector<std::string>& value) {
     auto sl = std::make_shared<TraCIStringList>();
     sl->value = value;
-    myActiveResults[objID][variable] = sl;
+    (*myActiveResults)[objID][variable] = sl;
     return true;
 }
 
 
 bool
 Helper::SubscriptionWrapper::wrapPosition(const std::string& objID, const int variable, const TraCIPosition& value) {
-    myActiveResults[objID][variable] = std::make_shared<TraCIPosition>(value);
+    (*myActiveResults)[objID][variable] = std::make_shared<TraCIPosition>(value);
     return true;
 }
 
 
 bool
 Helper::SubscriptionWrapper::wrapColor(const std::string& objID, const int variable, const TraCIColor& value) {
-    myActiveResults[objID][variable] = std::make_shared<TraCIColor>(value);
+    (*myActiveResults)[objID][variable] = std::make_shared<TraCIColor>(value);
     return true;
 }
 
 
 bool
 Helper::SubscriptionWrapper::wrapRoadPosition(const std::string& objID, const int variable, const TraCIRoadPosition& value) {
-    myActiveResults[objID][variable] = std::make_shared<TraCIRoadPosition>(value);
+    (*myActiveResults)[objID][variable] = std::make_shared<TraCIRoadPosition>(value);
     return true;
 }
 

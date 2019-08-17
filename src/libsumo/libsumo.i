@@ -33,6 +33,9 @@ def close():
 def start(args):
     simulation.load(args[1:])
 
+def load(args):
+    simulation.load(args)
+
 def simulationStep(step=0):
     simulation.step(step)
 %}
@@ -159,7 +162,7 @@ static PyObject* parseSubscriptionMap(const std::map<int, std::shared_ptr<libsum
         PyObject* value = SWIG_NewPointerObj(SWIG_as_voidptr(theVal), SWIGTYPE_p_libsumo__TraCIResult, 0);
         PyDict_SetItem(result, PyInt_FromLong(theKey), value);
     }
-	return result;
+    return result;
 }
 %}
 
@@ -179,9 +182,9 @@ static PyObject* parseSubscriptionMap(const std::map<int, std::shared_ptr<libsum
     $result = PyDict_New();
     for (auto iter = $1.begin(); iter != $1.end(); ++iter) {
         PyObject* innerDict = PyDict_New();
-		for (auto inner = iter->second.begin(); inner != iter->second.end(); ++inner) {
+        for (auto inner = iter->second.begin(); inner != iter->second.end(); ++inner) {
             PyDict_SetItem(innerDict, PyUnicode_FromString(inner->first.c_str()), parseSubscriptionMap(inner->second));
-		}
+        }
         PyDict_SetItem($result, PyUnicode_FromString(iter->first.c_str()), innerDict);
     }
 };

@@ -187,6 +187,7 @@ public:
     public:
         SubscriptionWrapper(VariableWrapper::SubscriptionHandler handler, SubscriptionResults& into, ContextSubscriptionResults& context);
         void setContext(const std::string& refID);
+        void clear();
         bool wrapDouble(const std::string& objID, const int variable, const double value);
         bool wrapInt(const std::string& objID, const int variable, const int value);
         bool wrapString(const std::string& objID, const int variable, const std::string& value);
@@ -195,9 +196,9 @@ public:
         bool wrapColor(const std::string& objID, const int variable, const TraCIColor& value);
         bool wrapRoadPosition(const std::string& objID, const int variable, const TraCIRoadPosition& value);
     private:
-        SubscriptionResults myResults;
-        ContextSubscriptionResults myContextResults;
-        SubscriptionResults& myActiveResults;
+        SubscriptionResults& myResults;
+        ContextSubscriptionResults& myContextResults;
+        SubscriptionResults* myActiveResults;
     private:
         /// @brief Invalidated assignment operator
         SubscriptionWrapper& operator=(const SubscriptionWrapper& s) = delete;
