@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Apr 15 15:26:44 2019 by Eclipse SUMO netgenerate Version 1.2.0
+<!-- generated on Mon Aug 19 13:19:31 2019 by Eclipse SUMO netgenerate Version v1_2_0+1645-e8f20614e1
 -->
 
 <xsd:schema elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
@@ -21,6 +21,7 @@
             <xsd:element name="unregulated_nodes" type="unregulated_nodesTopicType" minOccurs="0"/>
             <xsd:element name="junctions" type="junctionsTopicType" minOccurs="0"/>
             <xsd:element name="pedestrian" type="pedestrianTopicType" minOccurs="0"/>
+            <xsd:element name="bicycle" type="bicycleTopicType" minOccurs="0"/>
             <xsd:element name="report" type="reportTopicType" minOccurs="0"/>
             <xsd:element name="random_number" type="random_numberTopicType" minOccurs="0"/>
         </xsd:all>
@@ -125,6 +126,7 @@
             <xsd:element name="default.speed" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="default.priority" type="intOptionType" minOccurs="0"/>
             <xsd:element name="default.sidewalk-width" type="floatOptionType" minOccurs="0"/>
+            <xsd:element name="default.bikelane-width" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="default.crossing-width" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="default.disallow" type="strOptionType" minOccurs="0"/>
             <xsd:element name="default.junctions.keep-clear" type="boolOptionType" minOccurs="0"/>
@@ -140,7 +142,7 @@
             <xsd:element name="tls.unset" type="strOptionType" minOccurs="0"/>
             <xsd:element name="tls.guess" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="tls.guess.threshold" type="floatOptionType" minOccurs="0"/>
-            <xsd:element name="tls-guess.joining" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="tls.guess.joining" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="tls.join" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="tls.join-dist" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="tls.uncontrolled-within" type="boolOptionType" minOccurs="0"/>
@@ -187,6 +189,7 @@
 
     <xsd:complexType name="junctionsTopicType">
         <xsd:all>
+            <xsd:element name="junctions.right-before-left.speed-threshold" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="no-internal-links" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="no-turnarounds" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="no-turnarounds.tls" type="boolOptionType" minOccurs="0"/>
@@ -221,6 +224,16 @@
             <xsd:element name="crossings.guess" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="crossings.guess.speed-threshold" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="walkingareas" type="boolOptionType" minOccurs="0"/>
+        </xsd:all>
+    </xsd:complexType>
+
+    <xsd:complexType name="bicycleTopicType">
+        <xsd:all>
+            <xsd:element name="bikelanes.guess" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="bikelanes.guess.max-speed" type="floatOptionType" minOccurs="0"/>
+            <xsd:element name="bikelanes.guess.min-speed" type="floatOptionType" minOccurs="0"/>
+            <xsd:element name="bikelanes.guess.from-permissions" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="bikelanes.guess.exclude" type="strOptionType" minOccurs="0"/>
         </xsd:all>
     </xsd:complexType>
 

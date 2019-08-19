@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Apr 15 15:26:44 2019 by Eclipse SUMO jtrrouter Version 1.2.0
+<!-- generated on Mon Aug 19 13:19:31 2019 by Eclipse SUMO jtrrouter Version v1_2_0+1645-e8f20614e1
 -->
 
 <xsd:schema elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
@@ -25,6 +25,7 @@
             <xsd:element name="net-file" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="additional-files" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="route-files" type="fileOptionType" minOccurs="0"/>
+            <xsd:element name="phemlight-path" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="turn-ratio-files" type="fileOptionType" minOccurs="0"/>
         </xsd:all>
     </xsd:complexType>
