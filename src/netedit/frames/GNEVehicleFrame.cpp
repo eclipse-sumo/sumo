@@ -299,6 +299,8 @@ GNEVehicleFrame::edgePathCreated() {
     std::map<SumoXMLAttr, std::string> valuesMap = myVehicleAttributes->getAttributesAndValues(false);
     // add ID parameter
     valuesMap[SUMO_ATTR_ID] = myViewNet->getNet()->generateDemandElementID("", vehicleTag);
+    // add VType
+    valuesMap[SUMO_ATTR_TYPE] = myVTypeSelector->getCurrentDemandElement()->getID();
     // check if we're creating a trip or flow
     if (vehicleTag == SUMO_TAG_TRIP) {
         // Add parameter departure
