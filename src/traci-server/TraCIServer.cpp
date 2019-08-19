@@ -1502,7 +1502,7 @@ TraCIServer::readTypeCheckingPolygon(tcpip::Storage& inputStorage, PositionVecto
         double x = inputStorage.readDouble();
         double y = inputStorage.readDouble();
         if (std::isnan(x) || std::isnan(y)) {
-            throw libsumo::TraCIException("NaN-Value in shape");
+            throw libsumo::TraCIException("NaN-Value in shape.");
         }
         into.push_back(Position(x, y));
     }
@@ -1518,9 +1518,11 @@ TraCIServer::setTargetTime(SUMOTime targetTime) {
     }
 }
 
+
 bool
 TraCIServer::centralObject(const libsumo::Subscription& s, const std::string& objID) {
     return (s.id == objID && s.commandId + 32 == s.contextDomain);
 }
+
 
 /****************************************************************************/

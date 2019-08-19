@@ -1417,7 +1417,8 @@ Vehicle::setEffort(const std::string& vehicleID, const std::string& edgeID,
 
 
 void
-Vehicle::rerouteTraveltime(const std::string& vehicleID) {
+Vehicle::rerouteTraveltime(const std::string& vehicleID, const bool currentTravelTimes) {
+    UNUSED_PARAMETER(currentTravelTimes); // !!! see #5943
     MSVehicle* veh = getVehicle(vehicleID);
     veh->reroute(MSNet::getInstance()->getCurrentTimeStep(), "traci:rerouteTraveltime",
                  veh->getInfluencer().getRouterTT(), isOnInit(vehicleID));
@@ -1427,7 +1428,8 @@ Vehicle::rerouteTraveltime(const std::string& vehicleID) {
 void
 Vehicle::rerouteEffort(const std::string& vehicleID) {
     MSVehicle* veh = getVehicle(vehicleID);
-    veh->reroute(MSNet::getInstance()->getCurrentTimeStep(), "traci:rerouteEffort", MSNet::getInstance()->getRouterEffort(), isOnInit(vehicleID));
+    veh->reroute(MSNet::getInstance()->getCurrentTimeStep(), "traci:rerouteEffort", 
+                 MSNet::getInstance()->getRouterEffort(), isOnInit(vehicleID));
 }
 
 
@@ -1765,7 +1767,7 @@ Vehicle::highlight(const std::string& vehicleID, const TraCIColor& col, double s
         lyr += (type + 1) / 257.;
     }
     // Make Polygon
-    Polygon::addHighlightPolygon(vehicleID, type, polyID, circle, col, true, lw, "highlight", (int)lyr);
+    Polygon::addHighlightPolygon(vehicleID, type, polyID, circle, col, true, "highlight", (int)lyr, lw);
 
     // Animation time line
     double maxAttack = 1.0; // maximal fade-in time

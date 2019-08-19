@@ -130,9 +130,9 @@ Polygon::add(const std::string& polygonID, const TraCIPositionVector& shape, con
 
 
 void
-Polygon::addHighlightPolygon(const std::string& objectID, const int type, const std::string& polygonID, const TraCIPositionVector& shape, const TraCIColor& color, bool fill, double lineWidth, const std::string& polygonType, int layer) {
-    MSNet::getInstance()->getShapeContainer().registerHighlight(objectID, type, polygonID);
+Polygon::addHighlightPolygon(const std::string& objectID, const int type, const std::string& polygonID, const TraCIPositionVector& shape, const TraCIColor& color, bool fill, const std::string& polygonType, int layer, double lineWidth) {
     add(polygonID, shape, color, fill, polygonType, layer, lineWidth);
+    MSNet::getInstance()->getShapeContainer().registerHighlight(objectID, type, polygonID);
 }
 
 

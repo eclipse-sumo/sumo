@@ -59,8 +59,7 @@ public:
     static void setColor(const std::string& polygonID, const TraCIColor& c);
     static void add(const std::string& polygonID, const TraCIPositionVector& shape, const TraCIColor& color, bool fill = false, const std::string& polygonType = "", int layer = 0, double lineWidth = 1);
 
-    static void addHighlightPolygon(const std::string& objectID, const int type, const std::string& polygonID, const TraCIPositionVector& shape, const TraCIColor& color, bool fill, double lineWidth, const std::string& polygonType, int layer);
-    static void addDynamics(const std::string& polygonID, const std::string& trackedID, const std::vector<double>& timeSpan, const std::vector<double>& alphaSpan, bool looped, bool rotate);
+    static void addDynamics(const std::string& polygonID, const std::string& trackedID = "", const std::vector<double>& timeSpan = std::vector<double>(), const std::vector<double>& alphaSpan = std::vector<double>(), bool looped=false, bool rotate=true);
     static void remove(const std::string& polygonID, int layer = 0);
 
     static void setFilled(std::string polygonID, bool filled);
@@ -68,6 +67,9 @@ public:
     static void setParameter(const std::string& polygonID, const std::string& key, const std::string& value);
 
     LIBSUMO_SUBSCRIPTION_API
+
+    // currently only used as a Helper function by POI and Vehicle, not part of the public API (and the clients)
+    static void addHighlightPolygon(const std::string& objectID, const int type, const std::string& polygonID, const TraCIPositionVector& shape, const TraCIColor& color, bool fill, const std::string& polygonType, int layer, double lineWidth);
 
     /** @brief Returns a tree filled with polygon instances
      * @return The rtree of polygons

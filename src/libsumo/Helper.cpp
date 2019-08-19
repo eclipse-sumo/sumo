@@ -233,8 +233,11 @@ Helper::makeTraCIPositionVector(const PositionVector& positionVector) {
 PositionVector
 Helper::makePositionVector(const TraCIPositionVector& vector) {
     PositionVector pv;
-    for (int i = 0; i < (int)vector.size(); i++) {
-        pv.push_back(Position(vector[i].x, vector[i].y));
+    for (const TraCIPosition& pos : vector) {
+        if (std::isnan(pos.x) || std::isnan(pos.y)) {
+            throw libsumo::TraCIException("NaN-Value in shape.");
+        }
+        pv.push_back(Position(pos.x, pos.y));
     }
     return pv;
 }

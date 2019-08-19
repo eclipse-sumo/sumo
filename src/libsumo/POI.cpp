@@ -208,7 +208,7 @@ POI::highlight(const std::string& poiID, const TraCIColor& col, double size, con
         lyr += (type + 1) / 257.;
     }
     // Make Polygon
-    Polygon::addHighlightPolygon(poiID, type, polyID, circle, col, true, lw, "highlight", (int)lyr);
+    Polygon::addHighlightPolygon(poiID, type, polyID, circle, col, true, "highlight", (int)lyr, lw);
 
     // Animation time line
     double maxAttack = 1.0; // maximal fade-in time

@@ -171,7 +171,7 @@ public:
                                      double time = INVALID_DOUBLE_VALUE, double begSeconds = 0, double endSeconds = std::numeric_limits<double>::max());
     static void setEffort(const std::string& vehicleID, const std::string& edgeID,
                           double effort = INVALID_DOUBLE_VALUE, double begSeconds = 0, double endSeconds = std::numeric_limits<double>::max());
-    static void rerouteTraveltime(const std::string& vehicleID);
+    static void rerouteTraveltime(const std::string& vehicleID, const bool currentTravelTimes = true);
     static void rerouteEffort(const std::string& vehicleID);
     static void setSignals(const std::string& vehicleID, int signals);
     static void moveTo(const std::string& vehicleID, const std::string& laneID, double position);
