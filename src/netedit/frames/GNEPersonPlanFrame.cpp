@@ -182,12 +182,30 @@ GNEPersonPlanFrame::PersonPlanCreator::edgePathCreatorName(const std::string& na
 
 void
 GNEPersonPlanFrame::PersonPlanCreator::showPersonPlanCreator() {
+    // simply refresh person plan creator
     refreshPersonPlanCreator();
+    // show
+    show();
 }
 
 
 void
 GNEPersonPlanFrame::PersonPlanCreator::hidePersonPlanCreator() {
+    // disable buttons
+    myAbortCreationButton->disable();
+    myFinishCreationButton->disable();
+    myRemoveLastEdge->disable();
+    // restore colors
+    for (const auto& i : myClickedEdges) {
+        for (const auto& j : i->getLanes()) {
+            j->setSpecialColor(nullptr);
+        }
+    }
+    // clear edges
+    myClickedEdges.clear();
+    // clear myTemporalEdgePath
+    myTemporalEdgePath.clear();
+    // hide 
     hide();
 }
 
@@ -208,7 +226,8 @@ GNEPersonPlanFrame::PersonPlanCreator::refreshPersonPlanCreator() {
     myClickedEdges.clear();
     myTemporalEdgePath.clear();
     // first check if person has already demand element children
-    if (myPersonPlanFrameParent->myPersonSelector->getCurrentDemandElement()->getDemandElementChildren().size()) {
+    if (myPersonPlanFrameParent->myPersonSelector->getCurrentDemandElement() && 
+        (myPersonPlanFrameParent->myPersonSelector->getCurrentDemandElement()->getDemandElementChildren().size() > 0)) {
         // obtain last person plan element tag and pointer (to improve code legibliy)
         SumoXMLTag lastPersonPlanElementTag = myPersonPlanFrameParent->myPersonSelector->getCurrentDemandElement()->getDemandElementChildren().back()->getTagProperty().getTag();
         GNEDemandElement* lastPersonPlanElement = myPersonPlanFrameParent->myPersonSelector->getCurrentDemandElement()->getDemandElementChildren().back();
@@ -338,10 +357,8 @@ GNEPersonPlanFrame::PersonPlanCreator::removeLastAddedElement() {
 
 long
 GNEPersonPlanFrame::PersonPlanCreator::onCmdAbortPersonPlanCreation(FXObject*, FXSelector, void*) {
-    // disable buttons
-    myAbortCreationButton->disable();
-    myFinishCreationButton->disable();
-    myRemoveLastEdge->disable();
+    // refresh person plan creator
+    refreshPersonPlanCreator();
     // enable undo/redo
     myPersonPlanFrameParent->myViewNet->getViewParent()->getGNEAppWindows()->enableUndoRedo();
     return 1;
@@ -422,6 +439,8 @@ GNEPersonPlanFrame::show() {
         myPersonSelector->refreshDemandElementSelector();
         // refresh item selector
         myPersonPlanTagSelector->refreshTagProperties();
+        // show myPersonPlanCreator
+        myPersonPlanCreator->showPersonPlanCreator();
         // set first person as demand element
         if (myViewNet->getNet()->getAttributeCarriers().demandElements.at(SUMO_TAG_PERSON).size() > 0) {
             myPersonSelector->setDemandElement(myViewNet->getNet()->getAttributeCarriers().demandElements.at(SUMO_TAG_PERSON).begin()->second);
@@ -439,6 +458,15 @@ GNEPersonPlanFrame::show() {
     }
     // show frame
     GNEFrame::show();
+}
+
+
+void
+GNEPersonPlanFrame::hide() {
+    // abort plan creation
+    myPersonPlanCreator->hidePersonPlanCreator();
+    // hide frame
+    GNEFrame::hide();
 }
 
 

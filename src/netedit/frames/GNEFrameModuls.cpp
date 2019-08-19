@@ -537,12 +537,24 @@ GNEFrameModuls::EdgePathCreator::showEdgePathCreator() {
     myFinishCreationButton->disable();
     myAbortCreationButton->disable();
     myRemoveLastInsertedEdge->disable();
+    // show modul
     show();
 }
 
 
 void
 GNEFrameModuls::EdgePathCreator::hideEdgePathCreator() {
+    // restore colors
+    for (const auto& i : myClickedEdges) {
+        for (const auto& j : i->getLanes()) {
+            j->setSpecialColor(nullptr);
+        }
+    }
+     // clear edges
+    myClickedEdges.clear();
+    // clear myTemporalEdgePath
+    myTemporalRoute.clear();
+    // hide modul
     hide();
 }
 
