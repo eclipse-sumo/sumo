@@ -1,0 +1,7 @@
+[Reported by Windows at 19Aug08:41:10]
+search_string = cannot use waiting vehicle
+use_regexp = 0
+search_file = errors
+full_description = two stops on one edge trigger far away error
+brief_description = see #5938
+
