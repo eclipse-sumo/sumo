@@ -24,8 +24,13 @@ junction_model
 
 # testing the dynamics and interaction of different pedestrian models
 pedestrian_model
+
 rail
+
+# testing opposite-direction driving
 opposite_direction_driving
+
+# testing the sublane model
 sublane_model
 
 # Basic tests with action step length != simulation step length.
