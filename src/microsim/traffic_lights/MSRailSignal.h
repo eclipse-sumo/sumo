@@ -365,6 +365,9 @@ protected:
     /// @brief The current phase
     MSPhaseDefinition myCurrentPhase;
 
+    /// @brief MSTrafficLightLogic requires that the phase index changes whenever signals change their state
+    int myPhaseIndex;
+
     static int myNumWarnings;
 
 };

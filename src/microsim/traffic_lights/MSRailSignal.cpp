@@ -77,7 +77,8 @@ MSRailSignal::MSRailSignal(MSTLLogicControl& tlcontrol,
                            const std::string& id, const std::string& programID,
                            const std::map<std::string, std::string>& parameters) :
     MSTrafficLightLogic(tlcontrol, id, programID, TLTYPE_RAIL_SIGNAL, DELTA_T, parameters),
-    myCurrentPhase(DELTA_T, std::string(SUMO_MAX_CONNECTIONS, 'X'), -1) { // dummy phase
+    myCurrentPhase(DELTA_T, std::string(SUMO_MAX_CONNECTIONS, 'X'), -1), // dummy phase
+    myPhaseIndex(0) {
     myDefaultCycleTime = DELTA_T;
 }
 
@@ -112,7 +113,6 @@ MSRailSignal::adaptLinkInformationFrom(const MSTrafficLightLogic& logic) {
 SUMOTime
 MSRailSignal::trySwitch() {
     updateCurrentPhase();
-    setTrafficLightSignals(MSNet::getInstance()->getCurrentTimeStep());
     return DELTA_T;
 }
 
@@ -162,7 +162,10 @@ MSRailSignal::updateCurrentPhase() {
             }
         }
     }
-    myCurrentPhase.setState(state);
+    if (myCurrentPhase.getState() != state) {
+        myCurrentPhase.setState(state);
+        myPhaseIndex = 1 - myPhaseIndex;
+    }
 #ifdef DEBUG_SIGNALSTATE
     gDebugFlag4 = false;
 #endif
@@ -188,7 +191,7 @@ MSRailSignal::getPhase(int) const {
 // ------------ Dynamic Information Retrieval
 int
 MSRailSignal::getCurrentPhaseIndex() const {
-    return 0;
+    return myPhaseIndex;
 }
 
 const MSPhaseDefinition&
