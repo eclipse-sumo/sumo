@@ -960,7 +960,7 @@ VAR_VEHICLE = 0xc3
 #  append a person stage (person)
 APPEND_STAGE = 0xc4
 
-# replace a person stage (person)
+#  replace a person stage (person)
 REPLACE_STAGE = 0xcd
 
 #  append a person stage (person)
