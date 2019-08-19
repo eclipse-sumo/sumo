@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{444a8363-d743-4797-b5a8-5e5bf92880d6}</ProjectGuid>
+    <ProjectGuid>{b9d7755f-82ab-47e8-8080-b167988acacd}</ProjectGuid>
     <ProjectHome />
     <StartupFile>neteditTestFunctions.py</StartupFile>
     <SearchPath />
@@ -12,6 +12,7 @@
     <ProjectTypeGuids>{888888a0-9f3d-457c-b088-3a5042f75d52}</ProjectTypeGuids>
     <LaunchProvider>Standard Python launcher</LaunchProvider>
     <InterpreterId />
+    <Name>netedit</Name>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)' == 'Debug'" />
   <PropertyGroup Condition="'$(Configuration)' == 'Release'" />
@@ -546,6 +547,7 @@
     <Compile Include="demandElements\flow\create\line\test.py" />
     <Compile Include="demandElements\flow\create\personNumber\test.py" />
     <Compile Include="demandElements\flow\create\vType\test.py" />
+    <Compile Include="demandElements\flow\delete\test.py" />
     <Compile Include="demandElements\flow\inspect\arrivalLane\current\test.py" />
     <Compile Include="demandElements\flow\inspect\arrivalLane\float\test.py" />
     <Compile Include="demandElements\flow\inspect\arrivalPosLat\center\test.py" />
@@ -630,6 +632,20 @@
     <Compile Include="demandElements\flow\inspect_selection\line\test.py" />
     <Compile Include="demandElements\flow\inspect_selection\personNumber\test.py" />
     <Compile Include="demandElements\flow\load\test.py" />
+    <Compile Include="demandElements\flow\volatileRecomputing\test.py" />
+    <Compile Include="demandElements\personFlow\create\color\test.py" />
+    <Compile Include="demandElements\personFlow\create\default_ride\default_ride_busstop\test.py" />
+    <Compile Include="demandElements\personFlow\create\default_ride\default_ride_fromto\test.py" />
+    <Compile Include="demandElements\personFlow\create\default_stop\default_stop_busstop\test.py" />
+    <Compile Include="demandElements\personFlow\create\default_stop\default_stop_lane\test.py" />
+    <Compile Include="demandElements\personFlow\create\default_trip\default_trip_busstop\test.py" />
+    <Compile Include="demandElements\personFlow\create\default_trip\default_trip_fromto\test.py" />
+    <Compile Include="demandElements\personFlow\create\default_walk\default_walk_busstop\test.py" />
+    <Compile Include="demandElements\personFlow\create\default_walk\default_walk_edges\test.py" />
+    <Compile Include="demandElements\personFlow\create\default_walk\default_walk_fromto\test.py" />
+    <Compile Include="demandElements\personFlow\create\default_walk\default_walk_route\test.py" />
+    <Compile Include="demandElements\personFlow\create\departPos\test.py" />
+    <Compile Include="demandElements\personFlow\delete\test.py" />
     <Compile Include="demandElements\person\create\color\test.py" />
     <Compile Include="demandElements\person\create\default_ride\default_ride_busstop\test.py" />
     <Compile Include="demandElements\person\create\default_ride\default_ride_fromto\test.py" />
@@ -643,6 +659,7 @@
     <Compile Include="demandElements\person\create\default_walk\default_walk_route\test.py" />
     <Compile Include="demandElements\person\create\departPos\test.py" />
     <Compile Include="demandElements\person\create\depart\test.py" />
+    <Compile Include="demandElements\person\delete\test.py" />
     <Compile Include="demandElements\routeflow\create\arrivalLane\test.py" />
     <Compile Include="demandElements\routeflow\create\arrivalPosLat\test.py" />
     <Compile Include="demandElements\routeflow\create\arrivalPos\test.py" />
@@ -657,6 +674,7 @@
     <Compile Include="demandElements\routeflow\create\line\test.py" />
     <Compile Include="demandElements\routeflow\create\personNumber\test.py" />
     <Compile Include="demandElements\routeflow\create\vType\test.py" />
+    <Compile Include="demandElements\routeflow\delete\test.py" />
     <Compile Include="demandElements\routeflow\inspect\arrivalLane\current\test.py" />
     <Compile Include="demandElements\routeflow\inspect\arrivalLane\float\test.py" />
     <Compile Include="demandElements\routeflow\inspect\arrivalPosLat\center\test.py" />
@@ -739,6 +757,7 @@
     <Compile Include="demandElements\routeflow\inspect_selection\line\test.py" />
     <Compile Include="demandElements\routeflow\inspect_selection\personNumber\test.py" />
     <Compile Include="demandElements\routeflow\load\test.py" />
+    <Compile Include="demandElements\routeflow\volatileRecomputing\test.py" />
     <Compile Include="demandElements\route\basic\invalid_creationmode\test.py" />
     <Compile Include="demandElements\route\basic\invalid_vclass\test.py" />
     <Compile Include="demandElements\route\create_consecutive\abort\test.py" />
@@ -766,13 +785,13 @@
     <Compile Include="demandElements\route\fix\select\test.py" />
     <Compile Include="demandElements\route\inspect\color\test.py" />
     <Compile Include="demandElements\route\inspect\edges\test.py" />
-    <Compile Include="demandElements\route\inspect\genericparameters\test.py" />
+    <Compile Include="demandElements\route\inspect\genericParameters\test.py" />
     <Compile Include="demandElements\route\inspect\id\test.py" />
     <Compile Include="demandElements\route\inspect_selection\color\test.py" />
-    <Compile Include="demandElements\route\inspect_selection\genericparameters\test.py" />
+    <Compile Include="demandElements\route\inspect_selection\genericParameters\test.py" />
     <Compile Include="demandElements\route\load\edges\test.py" />
     <Compile Include="demandElements\route\load\test.py" />
-    <Compile Include="demandElements\route\volatile_recomputing\test.py" />
+    <Compile Include="demandElements\route\volatileRecomputing\test.py" />
     <Compile Include="demandElements\trip\create\arrivalLane\test.py" />
     <Compile Include="demandElements\trip\create\arrivalPosLat\test.py" />
     <Compile Include="demandElements\trip\create\arrivalPos\test.py" />
@@ -789,6 +808,7 @@
     <Compile Include="demandElements\trip\create\line\test.py" />
     <Compile Include="demandElements\trip\create\personNumber\test.py" />
     <Compile Include="demandElements\trip\create\vType\test.py" />
+    <Compile Include="demandElements\trip\delete\test.py" />
     <Compile Include="demandElements\trip\inspect\arrivalLane\current\test.py" />
     <Compile Include="demandElements\trip\inspect\arrivalLane\float\test.py" />
     <Compile Include="demandElements\trip\inspect\arrivalPosLat\center\test.py" />
@@ -879,6 +899,7 @@
     <Compile Include="demandElements\trip\inspect_selection\line\test.py" />
     <Compile Include="demandElements\trip\inspect_selection\personNumber\test.py" />
     <Compile Include="demandElements\trip\load\test.py" />
+    <Compile Include="demandElements\trip\volatileRecomputing\test.py" />
     <Compile Include="demandElements\vehicletype\load\test.py" />
     <Compile Include="demandElements\vehicle\create\arrivalLane\test.py" />
     <Compile Include="demandElements\vehicle\create\arrivalPosLat\test.py" />
@@ -887,6 +908,7 @@
     <Compile Include="demandElements\vehicle\create\color\test.py" />
     <Compile Include="demandElements\vehicle\create\containerNumber\test.py" />
     <Compile Include="demandElements\vehicle\create\default\test.py" />
+    <Compile Include="demandElements\vehicle\create\default_bike\test.py" />
     <Compile Include="demandElements\vehicle\create\departLane\test.py" />
     <Compile Include="demandElements\vehicle\create\departPosLat\test.py" />
     <Compile Include="demandElements\vehicle\create\departPos\test.py" />
@@ -895,6 +917,7 @@
     <Compile Include="demandElements\vehicle\create\line\test.py" />
     <Compile Include="demandElements\vehicle\create\personNumber\test.py" />
     <Compile Include="demandElements\vehicle\create\vType\test.py" />
+    <Compile Include="demandElements\vehicle\delete\test.py" />
     <Compile Include="demandElements\vehicle\inspect\arrivalLane\current\test.py" />
     <Compile Include="demandElements\vehicle\inspect\arrivalLane\float\test.py" />
     <Compile Include="demandElements\vehicle\inspect\arrivalPosLat\center\test.py" />
@@ -940,6 +963,7 @@
     <Compile Include="demandElements\vehicle\inspect\personNumber\test.py" />
     <Compile Include="demandElements\vehicle\inspect\route\test.py" />
     <Compile Include="demandElements\vehicle\inspect\vType\test.py" />
+    <Compile Include="demandElements\vehicle\inspect\vType_bike\test.py" />
     <Compile Include="demandElements\vehicle\inspect_selection\arrivalLane\current\test.py" />
     <Compile Include="demandElements\vehicle\inspect_selection\arrivalLane\float\test.py" />
     <Compile Include="demandElements\vehicle\inspect_selection\arrivalPosLat\center\test.py" />
@@ -983,6 +1007,7 @@
     <Compile Include="demandElements\vehicle\inspect_selection\line\test.py" />
     <Compile Include="demandElements\vehicle\inspect_selection\personNumber\test.py" />
     <Compile Include="demandElements\vehicle\load\test.py" />
+    <Compile Include="demandElements\vehicle\volatileRecomputing\test.py" />
     <Compile Include="neteditTestFunctions.py" />
     <Compile Include="netElements\connections\create\default\test.py" />
     <Compile Include="netElements\connections\create\invalid\test.py" />
@@ -1194,6 +1219,7 @@
     <Compile Include="netElements\junctions\create\square_double\test.py" />
     <Compile Include="netElements\junctions\create\two_way\test.py" />
     <Compile Include="netElements\junctions\delete\test.py" />
+    <Compile Include="netElements\junctions\inspect\fringe\test.py" />
     <Compile Include="netElements\junctions\inspect\genericparameters\test.py" />
     <Compile Include="netElements\junctions\inspect\id\test.py" />
     <Compile Include="netElements\junctions\inspect\keepclear\test.py" />
@@ -1216,6 +1242,7 @@
     <Compile Include="netElements\junctions\inspect\type\unknown\test.py" />
     <Compile Include="netElements\junctions\inspect\type\unregulated\test.py" />
     <Compile Include="netElements\junctions\inspect\type\zipper\test.py" />
+    <Compile Include="netElements\junctions\inspect_selected\fringe\test.py" />
     <Compile Include="netElements\junctions\inspect_selected\genericparameters\test.py" />
     <Compile Include="netElements\junctions\inspect_selected\keepclear\test.py" />
     <Compile Include="netElements\junctions\inspect_selected\radius\test.py" />
@@ -2092,6 +2119,7 @@
     <Folder Include="demandElements\flow\create\line" />
     <Folder Include="demandElements\flow\create\personNumber" />
     <Folder Include="demandElements\flow\create\vType" />
+    <Folder Include="demandElements\flow\delete" />
     <Folder Include="demandElements\flow\inspect\" />
     <Folder Include="demandElements\flow\inspect\arrivalLane\" />
     <Folder Include="demandElements\flow\inspect\arrivalLane\current" />
@@ -2194,6 +2222,26 @@
     <Folder Include="demandElements\flow\inspect_selection\line" />
     <Folder Include="demandElements\flow\inspect_selection\personNumber" />
     <Folder Include="demandElements\flow\load" />
+    <Folder Include="demandElements\flow\volatileRecomputing" />
+    <Folder Include="demandElements\personFlow\" />
+    <Folder Include="demandElements\personFlow\create\" />
+    <Folder Include="demandElements\personFlow\create\color" />
+    <Folder Include="demandElements\personFlow\create\default_ride\" />
+    <Folder Include="demandElements\personFlow\create\default_ride\default_ride_busstop" />
+    <Folder Include="demandElements\personFlow\create\default_ride\default_ride_fromto" />
+    <Folder Include="demandElements\personFlow\create\default_stop\" />
+    <Folder Include="demandElements\personFlow\create\default_stop\default_stop_busstop" />
+    <Folder Include="demandElements\personFlow\create\default_stop\default_stop_lane" />
+    <Folder Include="demandElements\personFlow\create\default_trip\" />
+    <Folder Include="demandElements\personFlow\create\default_trip\default_trip_busstop" />
+    <Folder Include="demandElements\personFlow\create\default_trip\default_trip_fromto" />
+    <Folder Include="demandElements\personFlow\create\default_walk\" />
+    <Folder Include="demandElements\personFlow\create\default_walk\default_walk_busstop" />
+    <Folder Include="demandElements\personFlow\create\default_walk\default_walk_edges" />
+    <Folder Include="demandElements\personFlow\create\default_walk\default_walk_fromto" />
+    <Folder Include="demandElements\personFlow\create\default_walk\default_walk_route" />
+    <Folder Include="demandElements\personFlow\create\departPos" />
+    <Folder Include="demandElements\personFlow\delete" />
     <Folder Include="demandElements\person\" />
     <Folder Include="demandElements\person\create\" />
     <Folder Include="demandElements\person\create\color" />
@@ -2213,6 +2261,7 @@
     <Folder Include="demandElements\person\create\default_walk\default_walk_route" />
     <Folder Include="demandElements\person\create\depart" />
     <Folder Include="demandElements\person\create\departPos" />
+    <Folder Include="demandElements\person\delete" />
     <Folder Include="demandElements\routeflow\" />
     <Folder Include="demandElements\routeflow\create\" />
     <Folder Include="demandElements\routeflow\create\arrivalLane" />
@@ -2229,6 +2278,7 @@
     <Folder Include="demandElements\routeflow\create\line" />
     <Folder Include="demandElements\routeflow\create\personNumber" />
     <Folder Include="demandElements\routeflow\create\vType" />
+    <Folder Include="demandElements\routeflow\delete" />
     <Folder Include="demandElements\routeflow\inspect\" />
     <Folder Include="demandElements\routeflow\inspect\arrivalLane\" />
     <Folder Include="demandElements\routeflow\inspect\arrivalLane\current" />
@@ -2329,6 +2379,7 @@
     <Folder Include="demandElements\routeflow\inspect_selection\line" />
     <Folder Include="demandElements\routeflow\inspect_selection\personNumber" />
     <Folder Include="demandElements\routeflow\load" />
+    <Folder Include="demandElements\routeflow\volatileRecomputing" />
     <Folder Include="demandElements\route\" />
     <Folder Include="demandElements\route\basic\" />
     <Folder Include="demandElements\route\basic\invalid_creationmode" />
@@ -2362,14 +2413,14 @@
     <Folder Include="demandElements\route\inspect\" />
     <Folder Include="demandElements\route\inspect\color" />
     <Folder Include="demandElements\route\inspect\edges" />
-    <Folder Include="demandElements\route\inspect\genericparameters" />
+    <Folder Include="demandElements\route\inspect\genericParameters" />
     <Folder Include="demandElements\route\inspect\id" />
     <Folder Include="demandElements\route\inspect_selection\" />
     <Folder Include="demandElements\route\inspect_selection\color" />
-    <Folder Include="demandElements\route\inspect_selection\genericparameters" />
+    <Folder Include="demandElements\route\inspect_selection\genericParameters" />
     <Folder Include="demandElements\route\load" />
     <Folder Include="demandElements\route\load\edges" />
-    <Folder Include="demandElements\route\volatile_recomputing" />
+    <Folder Include="demandElements\route\volatileRecomputing" />
     <Folder Include="demandElements\trip\" />
     <Folder Include="demandElements\trip\create\" />
     <Folder Include="demandElements\trip\create\arrivalLane" />
@@ -2388,6 +2439,7 @@
     <Folder Include="demandElements\trip\create\line" />
     <Folder Include="demandElements\trip\create\personNumber" />
     <Folder Include="demandElements\trip\create\vType" />
+    <Folder Include="demandElements\trip\delete" />
     <Folder Include="demandElements\trip\inspect\" />
     <Folder Include="demandElements\trip\inspect\arrivalLane\" />
     <Folder Include="demandElements\trip\inspect\arrivalLane\current" />
@@ -2498,6 +2550,7 @@
     <Folder Include="demandElements\trip\inspect_selection\line" />
     <Folder Include="demandElements\trip\inspect_selection\personNumber" />
     <Folder Include="demandElements\trip\load" />
+    <Folder Include="demandElements\trip\volatileRecomputing" />
     <Folder Include="demandElements\vehicletype\" />
     <Folder Include="demandElements\vehicletype\load" />
     <Folder Include="demandElements\vehicle\" />
@@ -2509,6 +2562,7 @@
     <Folder Include="demandElements\vehicle\create\color" />
     <Folder Include="demandElements\vehicle\create\containerNumber" />
     <Folder Include="demandElements\vehicle\create\default" />
+    <Folder Include="demandElements\vehicle\create\default_bike" />
     <Folder Include="demandElements\vehicle\create\depart" />
     <Folder Include="demandElements\vehicle\create\departLane" />
     <Folder Include="demandElements\vehicle\create\departPos" />
@@ -2517,6 +2571,7 @@
     <Folder Include="demandElements\vehicle\create\line" />
     <Folder Include="demandElements\vehicle\create\personNumber" />
     <Folder Include="demandElements\vehicle\create\vType" />
+    <Folder Include="demandElements\vehicle\delete" />
     <Folder Include="demandElements\vehicle\inspect\" />
     <Folder Include="demandElements\vehicle\inspect\arrivalLane\" />
     <Folder Include="demandElements\vehicle\inspect\arrivalLane\current" />
@@ -2572,6 +2627,7 @@
     <Folder Include="demandElements\vehicle\inspect\personNumber" />
     <Folder Include="demandElements\vehicle\inspect\route" />
     <Folder Include="demandElements\vehicle\inspect\vType" />
+    <Folder Include="demandElements\vehicle\inspect\vType_bike" />
     <Folder Include="demandElements\vehicle\inspect_selection\" />
     <Folder Include="demandElements\vehicle\inspect_selection\arrivalLane\" />
     <Folder Include="demandElements\vehicle\inspect_selection\arrivalLane\current" />
@@ -2625,6 +2681,7 @@
     <Folder Include="demandElements\vehicle\inspect_selection\line" />
     <Folder Include="demandElements\vehicle\inspect_selection\personNumber" />
     <Folder Include="demandElements\vehicle\load" />
+    <Folder Include="demandElements\vehicle\volatileRecomputing" />
     <Folder Include="netElements\" />
     <Folder Include="netElements\connections\" />
     <Folder Include="netElements\connections\create\" />
@@ -2863,6 +2920,7 @@
     <Folder Include="netElements\junctions\create\two_way" />
     <Folder Include="netElements\junctions\delete" />
     <Folder Include="netElements\junctions\inspect\" />
+    <Folder Include="netElements\junctions\inspect\fringe" />
     <Folder Include="netElements\junctions\inspect\genericparameters" />
     <Folder Include="netElements\junctions\inspect\id" />
     <Folder Include="netElements\junctions\inspect\keepclear" />
@@ -2887,6 +2945,7 @@
     <Folder Include="netElements\junctions\inspect\type\unregulated" />
     <Folder Include="netElements\junctions\inspect\type\zipper" />
     <Folder Include="netElements\junctions\inspect_selected\" />
+    <Folder Include="netElements\junctions\inspect_selected\fringe" />
     <Folder Include="netElements\junctions\inspect_selected\genericparameters" />
     <Folder Include="netElements\junctions\inspect_selected\keepclear" />
     <Folder Include="netElements\junctions\inspect_selected\radius" />
