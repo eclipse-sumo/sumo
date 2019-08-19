@@ -28,14 +28,16 @@ class ConfigReader(handler.ContentHandler):
         self._mergeWiki = mergeWikiTxt
         self._intro = {}
         self._end = len(mergeWikiTxt)
-        active = False
+        active = 0
         currSect = ""
         for idx, line in enumerate(mergeWikiTxt):
             line = line.strip('\n\r')
+            if line == "=Options=":
+                active = 2
             if line == "==Options==":
-                active = True
+                active = 3
             if active:
-                if line[:3] == "===":
+                if line[:3] == active * "=":
                     start = idx
                     currSect = line
                 elif line[:2] == "{|":
