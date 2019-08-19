@@ -476,6 +476,7 @@ if (GIT_FOUND)
         COMMAND ${GIT_EXECUTABLE} archive --prefix sumo-${PACKAGE_VERSION}/ -o sumo-${PACKAGE_VERSION}.zip HEAD
         COMMAND unzip -q sumo-${PACKAGE_VERSION}.zip
         COMMAND cp -a docs/tutorial docs/examples sumo-${PACKAGE_VERSION}/docs
+        COMMAND find tools/contributed/saga/ tools/contributed/*matlab -size 1M -type f | grep -v .git | xargs cp --parents --target-dir sumo-${PACKAGE_VERSION}
         COMMAND zip -rq sumo-src-${PACKAGE_VERSION}.zip sumo-${PACKAGE_VERSION}
         COMMAND tar czf sumo-src-${PACKAGE_VERSION}.tar.gz sumo-${PACKAGE_VERSION}
         COMMAND cp -a docs/userdoc docs/pydoc docs/javadoc docs/man docs/doxygen sumo-${PACKAGE_VERSION}/docs
