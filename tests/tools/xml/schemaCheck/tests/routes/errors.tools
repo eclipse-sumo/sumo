@@ -227,6 +227,8 @@ netedit/demandElements/vehicletype/load/carfollowingmodel_params/cf_cc_ploeg_kd/
 netedit/demandElements/vehicletype/load/carfollowingmodel_params/cf_cc_ploeg_kp/input_routes.rou.xml:41:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_1: Element 'vType', attribute 'ploegKp': 'dummy_ploegKp' is not a valid value of the atomic type 'xs:float'.
 netedit/demandElements/vehicletype/load/carfollowingmodel_params/cf_cc_tau/input_routes.rou.xml:41:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_1: Element 'vType', attribute 'tauEngine': 'dummy_tauEngine' is not a valid value of the atomic type 'xs:float'.
 netedit/demandElements/vehicletype/load/carfollowingmodel_params/cf_cc_xi/input_routes.rou.xml:41:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_1: Element 'vType', attribute 'xi': 'dummy_xi' is not a valid value of the atomic type 'xs:float'.
+netedit/demandElements/vehicletype/load/carfollowingmodel_params/cf_idmm_adapt_factor/input_routes.rou.xml:41:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_1: Element 'vType', attribute 'adaptFactor': 'dummy_adaptFactor' is not a valid value of the atomic type 'xs:float'.
+netedit/demandElements/vehicletype/load/carfollowingmodel_params/cf_idmm_adapt_time/input_routes.rou.xml:41:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_1: Element 'vType', attribute 'adaptTime': 'dummy_adaptTime' is not a valid value of the atomic type 'xs:float'.
 netedit/demandElements/vehicletype/load/carfollowingmodel_params/cf_idm_delta/input_routes.rou.xml:41:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_1: Element 'vType', attribute 'delta': 'dummy_delta' is not a valid value of the atomic type 'xs:float'.
 netedit/demandElements/vehicletype/load/carfollowingmodel_params/cf_idm_stepping/input_routes.rou.xml:41:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_1: Element 'vType', attribute 'stepping': 'dummy_stepping' is not a valid value of the atomic type 'positiveIntType'.
 netedit/demandElements/vehicletype/load/carfollowingmodel_params/cf_idm_stepping/input_routes.rou.xml:44:0:ERROR:SCHEMASV:SCHEMAV_CVC_MINEXCLUSIVE_VALID: Element 'vType', attribute 'stepping': [facet 'minExclusive'] The value '-3' must be greater than '0'.
@@ -234,8 +236,6 @@ netedit/demandElements/vehicletype/load/carfollowingmodel_params/cf_idm_stepping
 netedit/demandElements/vehicletype/load/carfollowingmodel_params/cf_idm_stepping/input_routes.rou.xml:47:0:ERROR:SCHEMASV:SCHEMAV_CVC_MINEXCLUSIVE_VALID: Element 'vType', attribute 'stepping': [facet 'minExclusive'] The value '0' must be greater than '0'.
 netedit/demandElements/vehicletype/load/carfollowingmodel_params/cf_idm_stepping/input_routes.rou.xml:47:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_1: Element 'vType', attribute 'stepping': '0' is not a valid value of the atomic type 'positiveIntType'.
 netedit/demandElements/vehicletype/load/carfollowingmodel_params/cf_idm_stepping/input_routes.rou.xml:53:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_1: Element 'vType', attribute 'stepping': '4.5' is not a valid value of the atomic type 'positiveIntType'.
-netedit/demandElements/vehicletype/load/carfollowingmodel_params/cf_idmm_adapt_factor/input_routes.rou.xml:41:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_1: Element 'vType', attribute 'adaptFactor': 'dummy_adaptFactor' is not a valid value of the atomic type 'xs:float'.
-netedit/demandElements/vehicletype/load/carfollowingmodel_params/cf_idmm_adapt_time/input_routes.rou.xml:41:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_1: Element 'vType', attribute 'adaptTime': 'dummy_adaptTime' is not a valid value of the atomic type 'xs:float'.
 netedit/demandElements/vehicletype/load/carfollowingmodel_params/cf_kerner_phi/input_routes.rou.xml:41:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_1: Element 'vType', attribute 'phi': 'dummy_phi' is not a valid value of the atomic type 'xs:float'.
 netedit/demandElements/vehicletype/load/carfollowingmodel_params/cf_pwagner2009_approb/input_routes.rou.xml:41:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_1: Element 'vType', attribute 'apProb': 'dummy_apProb' is not a valid value of the atomic type 'xs:float'.
 netedit/demandElements/vehicletype/load/carfollowingmodel_params/cf_pwagner2009_taulast/input_routes.rou.xml:41:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_1: Element 'vType', attribute 'tauLast': 'dummy_tauLast' is not a valid value of the atomic type 'xs:float'.
@@ -261,14 +261,14 @@ netedit/demandElements/vehicletype/load/carfollowingmodel_params/emergencyDecel/
 netedit/demandElements/vehicletype/load/carfollowingmodel_params/emergencyDecel/input_routes.rou.xml:44:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_1: Element 'vType', attribute 'emergencyDecel': '-3' is not a valid value of the atomic type 'positiveFloatType'.
 netedit/demandElements/vehicletype/load/carfollowingmodel_params/emergencyDecel/input_routes.rou.xml:47:0:ERROR:SCHEMASV:SCHEMAV_CVC_MINEXCLUSIVE_VALID: Element 'vType', attribute 'emergencyDecel': [facet 'minExclusive'] The value '0' must be greater than '0'.
 netedit/demandElements/vehicletype/load/carfollowingmodel_params/emergencyDecel/input_routes.rou.xml:47:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_1: Element 'vType', attribute 'emergencyDecel': '0' is not a valid value of the atomic type 'positiveFloatType'.
-netedit/demandElements/vehicletype/load/carfollowingmodel_params/gc_gain_gap_cacc/input_routes.rou.xml:41:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_1: Element 'vType', attribute 'gapControlGainGap': 'dummy_gapControlGainGap' is not a valid value of the atomic type 'xs:float'.
-netedit/demandElements/vehicletype/load/carfollowingmodel_params/gc_gain_gap_dot_cacc/input_routes.rou.xml:41:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_1: Element 'vType', attribute 'gapControlGainGapDot': 'dummy_gapControlGainGapDot' is not a valid value of the atomic type 'xs:float'.
-netedit/demandElements/vehicletype/load/carfollowingmodel_params/gc_gain_space/input_routes.rou.xml:41:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_1: Element 'vType', attribute 'gapControlGainSpace': 'dummy_gapControlGainSpace' is not a valid value of the atomic type 'xs:float'.
-netedit/demandElements/vehicletype/load/carfollowingmodel_params/gc_gain_speed/input_routes.rou.xml:41:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_1: Element 'vType', attribute 'gapControlGainSpeed': 'dummy_gapControlGainSpeed' is not a valid value of the atomic type 'xs:float'.
 netedit/demandElements/vehicletype/load/carfollowingmodel_params/gcc_gain_gap_cacc/input_routes.rou.xml:41:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_1: Element 'vType', attribute 'gapClosingControlGainGap': 'dummy_gapClosingControlGainGap' is not a valid value of the atomic type 'xs:float'.
 netedit/demandElements/vehicletype/load/carfollowingmodel_params/gcc_gain_gap_dot_cacc/input_routes.rou.xml:41:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_1: Element 'vType', attribute 'gapClosingControlGainGapDot': 'dummy_gapClosingControlGainGapDot' is not a valid value of the atomic type 'xs:float'.
 netedit/demandElements/vehicletype/load/carfollowingmodel_params/gcc_gain_space/input_routes.rou.xml:41:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_1: Element 'vType', attribute 'gapClosingControlGainSpace': 'dummy_gapClosingControlGainSpace' is not a valid value of the atomic type 'xs:float'.
 netedit/demandElements/vehicletype/load/carfollowingmodel_params/gcc_gain_speed/input_routes.rou.xml:41:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_1: Element 'vType', attribute 'gapClosingControlGainSpeed': 'dummy_gapClosingControlGainSpeed' is not a valid value of the atomic type 'xs:float'.
+netedit/demandElements/vehicletype/load/carfollowingmodel_params/gc_gain_gap_cacc/input_routes.rou.xml:41:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_1: Element 'vType', attribute 'gapControlGainGap': 'dummy_gapControlGainGap' is not a valid value of the atomic type 'xs:float'.
+netedit/demandElements/vehicletype/load/carfollowingmodel_params/gc_gain_gap_dot_cacc/input_routes.rou.xml:41:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_1: Element 'vType', attribute 'gapControlGainGapDot': 'dummy_gapControlGainGapDot' is not a valid value of the atomic type 'xs:float'.
+netedit/demandElements/vehicletype/load/carfollowingmodel_params/gc_gain_space/input_routes.rou.xml:41:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_1: Element 'vType', attribute 'gapControlGainSpace': 'dummy_gapControlGainSpace' is not a valid value of the atomic type 'xs:float'.
+netedit/demandElements/vehicletype/load/carfollowingmodel_params/gc_gain_speed/input_routes.rou.xml:41:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_1: Element 'vType', attribute 'gapControlGainSpeed': 'dummy_gapControlGainSpeed' is not a valid value of the atomic type 'xs:float'.
 netedit/demandElements/vehicletype/load/carfollowingmodel_params/headway_time_cacc_to_acc/input_routes.rou.xml:41:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_1: Element 'vType', attribute 'tauCACCToACC': 'dummy_tauCACCToACC' is not a valid value of the atomic type 'xs:float'.
 netedit/demandElements/vehicletype/load/carfollowingmodel_params/k/input_routes.rou.xml:41:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_1: Element 'vType', attribute 'k': 'dummy_k' is not a valid value of the atomic type 'xs:float'.
 netedit/demandElements/vehicletype/load/carfollowingmodel_params/sc_gain/input_routes.rou.xml:41:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_1: Element 'vType', attribute 'speedControlGain': 'dummy_speedControlGain' is not a valid value of the atomic type 'xs:float'.
@@ -297,6 +297,10 @@ netedit/demandElements/vehicletype/load/color/input_routes.rou.xml:44:0:ERROR:SC
 netedit/demandElements/vehicletype/load/containercapacity/input_routes.rou.xml:41:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_1: Element 'vType', attribute 'containerCapacity': 'dummyContainerCapacity' is not a valid value of the atomic type 'xs:nonNegativeInteger'.
 netedit/demandElements/vehicletype/load/containercapacity/input_routes.rou.xml:44:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_1: Element 'vType', attribute 'containerCapacity': '-3' is not a valid value of the atomic type 'xs:nonNegativeInteger'.
 netedit/demandElements/vehicletype/load/containercapacity/input_routes.rou.xml:47:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_1: Element 'vType', attribute 'containerCapacity': '4.5' is not a valid value of the atomic type 'xs:nonNegativeInteger'.
+netedit/demandElements/vehicletype/load/genericParameters/input_routes.rou.xml:44:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'param': The attribute 'key' is required but missing.
+netedit/demandElements/vehicletype/load/genericParameters/input_routes.rou.xml:53:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'param': The attribute 'value' is required but missing.
+netedit/demandElements/vehicletype/load/genericParameters/input_routes.rou.xml:62:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'param': The attribute 'key' is required but missing.
+netedit/demandElements/vehicletype/load/genericParameters/input_routes.rou.xml:62:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'param': The attribute 'value' is required but missing.
 netedit/demandElements/vehicletype/load/id/input_routes.rou.xml:44:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'vType': The attribute 'id' is required but missing.
 netedit/demandElements/vehicletype/load/id/input_routes.rou.xml:47:0:ERROR:SCHEMASV:SCHEMAV_CVC_PATTERN_VALID: Element 'vType', attribute 'id': [facet 'pattern'] The value '' is not accepted by the pattern '[^ \t\n\r|\\;,']+'.
 netedit/demandElements/vehicletype/load/id/input_routes.rou.xml:47:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_1: Element 'vType', attribute 'id': '' is not a valid value of the atomic type 'idType'.
@@ -434,10 +438,6 @@ netedit/demandElements/vehicletype/load/width/input_routes.rou.xml:44:0:ERROR:SC
 netedit/demandElements/vehicletype/load/width/input_routes.rou.xml:44:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_1: Element 'vType', attribute 'width': '-3' is not a valid value of the atomic type 'positiveFloatType'.
 netedit/demandElements/vehicletype/load/width/input_routes.rou.xml:47:0:ERROR:SCHEMASV:SCHEMAV_CVC_MINEXCLUSIVE_VALID: Element 'vType', attribute 'width': [facet 'minExclusive'] The value '0' must be greater than '0'.
 netedit/demandElements/vehicletype/load/width/input_routes.rou.xml:47:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_1: Element 'vType', attribute 'width': '0' is not a valid value of the atomic type 'positiveFloatType'.
-tools/route/routecheck/missing_edges_attribute/routes.rou.xml:4:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'route': The attribute 'edges' is required but missing.
-tools/route/routecheck/missing_edges_attribute/routes.rou.xml:4:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_2_3: Element 'route': Character content other than whitespace is not allowed because the content type is 'element-only'.
-tools/route/routecheck/missing_edges_attribute_fix/routes.rou.xml:4:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'route': The attribute 'edges' is required but missing.
-tools/route/routecheck/missing_edges_attribute_fix/routes.rou.xml:4:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_2_3: Element 'route': Character content other than whitespace is not allowed because the content type is 'element-only'.
 sumo/basic/person/walk_0/input_routes.rou.xml:4:0:ERROR:SCHEMASV:SCHEMAV_CVC_MINEXCLUSIVE_VALID: Element 'walk', attribute 'duration': [facet 'minExclusive'] The value '0' must be greater than '0'.
 sumo/basic/person/walk_0/input_routes.rou.xml:4:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_1: Element 'walk', attribute 'duration': '0' is not a valid value of the atomic type 'positiveFloatType'.
 sumo/basic/routes/parsing/nested_ref/input_routes.rou.xml:4:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_3_2_1: Element 'route', attribute 'id': The attribute 'id' is not allowed.
@@ -449,14 +449,18 @@ sumo/lc_model/errors/lcm_unknown/input_routes.rou.xml:4:0:ERROR:SCHEMASV:SCHEMAV
 sumo/lc_model/errors/lcm_unknown/input_routes.rou.xml:4:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_1: Element 'vType', attribute 'laneChangeModel': 'foo' is not a valid value of the local atomic type.
 Error on parsing 'sumo/meta/xml_invalid_schema/input_routes.rou.xml'!
 Traceback (most recent call last):
-  File "/scr1/sumo/tests/../tools/xml/schemaCheck.py", line 59, in validate
+  File "D:/behr_mi/Projekte/sumo/git/tests\..\tools/xml/schemaCheck.py", line 59, in validate
     schemes[schemaLoc] = etree.XMLSchema(etree.parse(schemaLoc))
-  File "lxml.etree.pyx", line 3197, in lxml.etree.parse (src/lxml/lxml.etree.c:64816)
-  File "parser.pxi", line 1571, in lxml.etree._parseDocument (src/lxml/lxml.etree.c:92729)
-  File "parser.pxi", line 1600, in lxml.etree._parseDocumentFromURL (src/lxml/lxml.etree.c:93013)
-  File "parser.pxi", line 1500, in lxml.etree._parseDocFromFile (src/lxml/lxml.etree.c:92076)
-  File "parser.pxi", line 1047, in lxml.etree._BaseParser._parseDocFromFile (src/lxml/lxml.etree.c:88976)
-  File "parser.pxi", line 577, in lxml.etree._ParserContext._handleParseResultDoc (src/lxml/lxml.etree.c:84385)
-  File "parser.pxi", line 676, in lxml.etree._handleParseResult (src/lxml/lxml.etree.c:85488)
-  File "parser.pxi", line 614, in lxml.etree._raiseParseError (src/lxml/lxml.etree.c:84783)
+  File "src\lxml\lxml.etree.pyx", line 3427, in lxml.etree.parse (src\lxml\lxml.etree.c:80041)
+  File "src\lxml\parser.pxi", line 1782, in lxml.etree._parseDocument (src\lxml\lxml.etree.c:116235)
+  File "src\lxml\parser.pxi", line 1808, in lxml.etree._parseDocumentFromURL (src\lxml\lxml.etree.c:116585)
+  File "src\lxml\parser.pxi", line 1712, in lxml.etree._parseDocFromFile (src\lxml\lxml.etree.c:115473)
+  File "src\lxml\parser.pxi", line 1115, in lxml.etree._BaseParser._parseDocFromFile (src\lxml\lxml.etree.c:110170)
+  File "src\lxml\parser.pxi", line 573, in lxml.etree._ParserContext._handleParseResultDoc (src\lxml\lxml.etree.c:103644)
+  File "src\lxml\parser.pxi", line 683, in lxml.etree._handleParseResult (src\lxml\lxml.etree.c:105298)
+  File "src\lxml\parser.pxi", line 611, in lxml.etree._raiseParseError (src\lxml\lxml.etree.c:104164)
 IOError: Error reading file 'http://sumo.dlr.de/xsd/blub_file.xsd': failed to load external entity "http://sumo.dlr.de/xsd/blub_file.xsd"
+tools/route/routecheck/missing_edges_attribute/routes.rou.xml:4:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'route': The attribute 'edges' is required but missing.
+tools/route/routecheck/missing_edges_attribute/routes.rou.xml:4:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_2_3: Element 'route': Character content other than whitespace is not allowed because the content type is 'element-only'.
+tools/route/routecheck/missing_edges_attribute_fix/routes.rou.xml:4:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'route': The attribute 'edges' is required but missing.
+tools/route/routecheck/missing_edges_attribute_fix/routes.rou.xml:4:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_2_3: Element 'route': Character content other than whitespace is not allowed because the content type is 'element-only'.
