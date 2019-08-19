@@ -79,7 +79,6 @@ MSRailCrossing::adaptLinkInformationFrom(const MSTrafficLightLogic& logic) {
 SUMOTime
 MSRailCrossing::trySwitch() {
     SUMOTime nextTry = updateCurrentPhase();
-    setTrafficLightSignals(MSNet::getInstance()->getCurrentTimeStep());
     //if (getID() == "cluster_1088529493_1260626727") std::cout << " myStep=" << myStep << " nextTry=" << nextTry << "\n";
     return nextTry;
 }
