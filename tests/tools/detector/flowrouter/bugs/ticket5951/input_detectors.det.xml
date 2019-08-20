@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<detectors>
+   <detectorDefinition id="1_0" lane="1_0" pos="50"/>
+   <detectorDefinition id="on7" lane="on7_0" pos="50"/>
+   <detectorDefinition id="on11" lane="on11_0" pos="50"/>
+
+   <detectorDefinition id="3_0" lane="3_0" pos="50"/>
+   <detectorDefinition id="3_1" lane="3_1" pos="50"/>
+   <detectorDefinition id="4_0" lane="4_0" pos="50"/>
+   <detectorDefinition id="4_1" lane="4_1" pos="50"/>
+
+   <detectorDefinition id="off3" lane="off3_0" pos="50"/>
+   <detectorDefinition id="off7" lane="off3_0" pos="50"/>
+   <detectorDefinition id="14_0" lane="14_0" pos="50"/>
+</detectors>

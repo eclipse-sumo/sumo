@@ -1,0 +1,17 @@
+Reading net
+58 edges read
+Reading detectors
+Warning! Edge '-gneE4' is simultaneously source and sink.
+Warning! Edge ':A_w0' is simultaneously source and sink.
+Warning! Edge ':gneJ16_c0' is simultaneously source and sink.
+Warning! Edge ':gneJ16_c1' is simultaneously source and sink.
+Warning! Edge ':gneJ16_c2' is simultaneously source and sink.
+Warning! Edge ':gneJ16_w3' is simultaneously source and sink.
+Warning! Edge 'gneE5' is simultaneously source and sink.
+Loaded 0 sources and 0 sinks from detector file. Added 7 sources and 23 sinks from the network
+Reading flows between 0.0 and 0.0
+Calculating routes
+7 sources, 7 unlimited
+23 sinks, 23 unlimited
+Writing 100 vehicles from 2 sources between time 0 and 60 (minutes)
+  unused sources: -gneE2 gneE1 gneE3 on11b on7b
