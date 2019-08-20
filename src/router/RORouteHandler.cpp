@@ -512,6 +512,10 @@ RORouteHandler::closeVType() {
             myCurrentVTypeDistribution->add(myCurrentVType, myCurrentVType->defaultProbability);
         }
     }
+    if (OptionsCont::getOptions().isSet("restriction-param")) {
+        const std::vector<std::string> paramKeys = OptionsCont::getOptions().getStringVector("restriction-param");
+        myCurrentVType->cacheParamRestrictions(paramKeys);
+    }
     myCurrentVType = nullptr;
 }
 

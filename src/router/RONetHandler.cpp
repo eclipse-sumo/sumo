@@ -119,6 +119,9 @@ RONetHandler::myStartElement(int element,
             }
             break;
         }
+        case SUMO_TAG_PARAM:
+            addParam(attrs);
+            break;
         default:
             break;
     }
@@ -136,6 +139,19 @@ RONetHandler::myEndElement(int element) {
             break;
         default:
             break;
+    }
+}
+
+
+void
+RONetHandler::addParam(const SUMOSAXAttributes& attrs) {
+    bool ok = true;
+    const std::string key = attrs.get<std::string>(SUMO_ATTR_KEY, nullptr, ok);
+    // circumventing empty string test
+    const std::string val = attrs.hasAttribute(SUMO_ATTR_VALUE) ? attrs.getString(SUMO_ATTR_VALUE) : "";
+    // add parameter in current created element, or in myLoadedParameterised
+    if (myCurrentEdge != nullptr) {
+        myCurrentEdge->setParameter(key, val);
     }
 }
 

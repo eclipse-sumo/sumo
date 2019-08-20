@@ -315,6 +315,15 @@ ROEdge::buildTimeLines(const std::string& measure, const bool boundariesOverride
 }
 
 
+void
+ROEdge::cacheParamRestrictions(const std::vector<std::string>& restrictionKeys) {
+    for (const std::string& key : restrictionKeys) {
+        const std::string value = getParameter(key, "1e400");
+        myParamRestrictions.push_back(StringUtils::toDouble(value));
+    }
+}
+
+
 double
 ROEdge::getLengthGeometryFactor() const {
     return myLanes.empty() ? 1. : myLanes[0]->getShape().length() / myLanes[0]->getLength();

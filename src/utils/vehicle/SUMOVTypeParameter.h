@@ -206,6 +206,8 @@ public:
      */
     std::string getJMParamString(const SumoXMLAttr attr, const std::string defaultValue) const;
 
+    void cacheParamRestrictions(const std::vector<std::string>& restrictionKeys);
+
     /// @brief The vehicle type's id
     std::string id;
 
@@ -312,6 +314,9 @@ public:
 
     /// @brief Information whether this is a type-stub, being only referenced but not defined (needed by routers)
     bool onlyReferenced;
+
+    /// @brief cached value of parameters which may restrict access to certain edges
+    std::vector<double> myParamRestrictions;
 
     /** @brief Returns the default acceleration for the given vehicle class
      * This needs to be a function because the actual value is stored in the car following model

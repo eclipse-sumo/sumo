@@ -134,6 +134,9 @@ ROFrame::fillOptions(OptionsCont& oc) {
     oc.doRegister("routing-threads", new Option_Integer(0));
     oc.addDescription("routing-threads", "Processing", "The number of parallel execution threads used for routing");
 
+    oc.doRegister("restriction-param", new Option_String());
+    oc.addDescription("restriction-param", "Processing", "Comma separated list of param keys to compare for additional restrictions");
+
     // register defaults options
     oc.doRegister("departlane", new Option_String());
     oc.addDescription("departlane", "Defaults", "Assigns a default depart lane");
