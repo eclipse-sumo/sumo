@@ -265,8 +265,10 @@ class Net:
             if len(sinks) == 0 and (len(edgeObj.target.outEdges) == 0 or edgeObj in self._possibleSinks):
                 if edgeObj.numLanes > 0:
                     if edgeObj.label in foundSources:
-                        print("Error! Edge '%s' is simultaneously source and sink." % edgeObj.label)
-                        return False
+                        print("Warning! Edge '%s' is simultaneously source and sink." % edgeObj.label)
+                        self.removeEdge(edgeObj)
+                        foundSources.remove(edgeObj.label)
+                        continue
                     self.addSinkEdge(edgeObj)
                     foundSinks.append(edgeObj.label)
         if options.verbose:
