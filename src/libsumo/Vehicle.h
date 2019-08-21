@@ -34,12 +34,12 @@
 // ===========================================================================
 // class declarations
 // ===========================================================================
-class SUMOVehicle;
-class MSVehicle;
-class MSVehicleType;
 namespace libsumo {
 class VariableWrapper;
 }
+class MSVehicle;
+class MSVehicleType;
+class SUMOVehicle;
 
 
 // ===========================================================================
@@ -107,8 +107,7 @@ public:
     static std::pair<int, int> getLaneChangeState(const std::string& vehicleID, int direction);
     static double getLastActionTime(const std::string& vehicleID);
     static std::string getParameter(const std::string& vehicleID, const std::string& key);
-    static std::map<const MSVehicle*, double> getNeighbors(const std::string& vehicleID, const int mode);
-    static const MSVehicleType& getVehicleType(const std::string& vehicleID);
+    static std::vector<std::pair<std::string, double> > getNeighbors(const std::string& vehicleID, const int mode);
     /// @}
 
     LIBSUMO_VEHICLE_TYPE_GETTER
@@ -195,10 +194,10 @@ public:
 
     static bool handleVariable(const std::string& objID, const int variable, VariableWrapper* wrapper);
 
-protected:
-    static MSVehicle* getVehicle(const std::string& id);
 
 private:
+    static MSVehicle* getVehicle(const std::string& id);
+    static const MSVehicleType& getVehicleType(const std::string& vehicleID);
     static bool isVisible(const SUMOVehicle* veh);
 
     static bool isOnInit(const std::string& vehicleID);

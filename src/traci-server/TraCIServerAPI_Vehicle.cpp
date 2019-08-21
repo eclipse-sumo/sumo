@@ -269,11 +269,11 @@ TraCIServerAPI_Vehicle::processGet(TraCIServer& server, tcpip::Storage& inputSto
                     if (!server.readTypeCheckingUnsignedByte(inputStorage, mode)) {
                         return server.writeErrorStatusCmd(libsumo::CMD_GET_VEHICLE_VARIABLE, "Retrieval of neighboring vehicles needs bitset to specify mode.", outputStorage);
                     }
-                    const std::map<const MSVehicle*, double> neighVehicles = libsumo::Vehicle::getNeighbors(id, mode);
+                    const std::vector<std::pair<std::string, double> >& neighVehicles = libsumo::Vehicle::getNeighbors(id, mode);
                     server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_COMPOUND);
                     server.getWrapperStorage().writeInt((int)neighVehicles.size());
                     for (auto& p : neighVehicles) {
-                        server.getWrapperStorage().writeString(p.first->getID());
+                        server.getWrapperStorage().writeString(p.first);
                         server.getWrapperStorage().writeDouble(p.second);
                     }
                     break;

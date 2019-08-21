@@ -93,6 +93,7 @@ Vehicle::isOnInit(const std::string& vehicleID) {
     return sumoVehicle == nullptr || sumoVehicle->getLane() == nullptr;
 }
 
+
 std::vector<std::string>
 Vehicle::getIDList() {
     std::vector<std::string> ids;
@@ -500,6 +501,7 @@ Vehicle::getStopState(const std::string& vehicleID) {
     return result;
 }
 
+
 double
 Vehicle::getDistance(const std::string& vehicleID) {
     MSVehicle* veh = getVehicle(vehicleID);
@@ -560,7 +562,6 @@ Vehicle::getDrivingDistance2D(const std::string& vehicleID, double x, double y) 
 }
 
 
-
 double
 Vehicle::getAllowedSpeed(const std::string& vehicleID) {
     MSVehicle* veh = getVehicle(vehicleID);
@@ -583,20 +584,24 @@ Vehicle::getSpeedMode(const std::string& vehicleID) {
     return getVehicle(vehicleID)->getInfluencer().getSpeedMode();
 }
 
+
 int
 Vehicle::getLaneChangeMode(const std::string& vehicleID) {
     return getVehicle(vehicleID)->getInfluencer().getLaneChangeMode();
 }
+
 
 int
 Vehicle::getRoutingMode(const std::string& vehicleID) {
     return getVehicle(vehicleID)->getInfluencer().getRoutingMode();
 }
 
+
 std::string
 Vehicle::getLine(const std::string& vehicleID) {
     return getVehicle(vehicleID)->getParameter().line;
 }
+
 
 std::vector<std::string>
 Vehicle::getVia(const std::string& vehicleID) {
@@ -654,18 +659,18 @@ Vehicle::getParameter(const std::string& vehicleID, const std::string& key) {
 }
 
 
-std::map<const MSVehicle*, double>
+std::vector<std::pair<std::string, double> >
 Vehicle::getNeighbors(const std::string& vehicleID, const int mode) {
     int dir = (1 & mode) != 0 ? -1 : 1;
     bool queryLeaders = (2 & mode) != 0;
     bool blockersOnly = (4 & mode) != 0;
 
     MSVehicle* veh = getVehicle(vehicleID);
-    std::map<const MSVehicle*, double> neighs;
+    std::vector<std::pair<std::string, double> > neighs;
     auto& lcm = veh->getLaneChangeModel();
 
 #ifdef DEBUG_NEIGHBORS
-    if DEBUG_COND {
+    if (DEBUG_COND) {
     std::cout << "getNeighbors() for veh '" << vehicleID << "': dir=" << dir
               << ", queryLeaders=" << queryLeaders
               << ", blockersOnly=" << blockersOnly << std::endl;
@@ -692,7 +697,7 @@ Vehicle::getNeighbors(const std::string& vehicleID, const int mode) {
         }
 
 #ifdef DEBUG_NEIGHBORS
-        if DEBUG_COND {
+        if (DEBUG_COND) {
             std::cout << " blocked=" << blocked << std::endl;
         }
 #endif
@@ -709,7 +714,9 @@ Vehicle::getNeighbors(const std::string& vehicleID, const int mode) {
         auto vehIt = begin(res->getVehicles());
         while (distIt != end(res->getDistances())) {
             if (*vehIt != nullptr) {
-                neighs[*vehIt] = *distIt;
+                if (neighs.size() == 0 || neighs.back().first != (*vehIt)->getID()) {
+                    neighs.push_back(std::make_pair((*vehIt)->getID(), *distIt));
+                }
             }
             ++vehIt;
             ++distIt;
