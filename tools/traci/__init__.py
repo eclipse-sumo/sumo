@@ -17,8 +17,13 @@
 # @version $Id$
 
 import os
+import warnings
 
-if 'LIBSUMO_AS_TRACI' in os.environ:
-    from libsumo import *
-else:
+if 'LIBSUMO_AS_TRACI' not in os.environ:
     from main import *
+else:
+    try:
+        from libsumo import *
+    except ImportError:
+        warnings.warn("Could not import libsumo, falling back to standard traci.")
+        from main import *
