@@ -23,14 +23,7 @@ import sys
 
 SUMO_HOME = os.path.join(os.path.dirname(__file__), "..", "..", "..", "..", "..")
 sys.path.append(os.path.join(os.environ.get("SUMO_HOME", SUMO_HOME), "tools"))
-if len(sys.argv) > 1:
-    import libsumo as traci  # noqa
-    traci.vehicle.addFull = traci.vehicle.add
-    traci.vehicle.add = traci.vehicle.addLegacy
-else:
-    import traci  # noqa
-    traci._vehicle.VehicleDomain.addFull = traci._vehicle.VehicleDomain.add
-    traci._vehicle.VehicleDomain.add = traci._vehicle.VehicleDomain.addLegacy
+import traci  # noqa
 import traci.constants as tc  # noqa
 import sumolib  # noqa
 
@@ -206,14 +199,14 @@ except traci.TraCIException as e:
         print(e, file=sys.stderr)
         sys.stderr.flush()
     print("recovering from exception after asking for unknown vehicle")
-traci.vehicle.add("1", "horizontal")
+traci.vehicle.addLegacy("1", "horizontal")
 traci.vehicle.setStop("1", "2fi", pos=50.0, laneIndex=0, duration=1, flags=1)
 check("1")
 traci.vehicle.changeTarget("1", "4fi")
 print("routeID", traci.vehicle.getRouteID(vehID))
 print("route", traci.vehicle.getRoute(vehID))
 print("step", step())
-traci.vehicle.addFull("2", "horizontal", line="t")
+traci.vehicle.add("2", "horizontal", line="t")
 print("getIDList", traci.vehicle.getIDList())
 for i in range(6):
     print("step", step())
@@ -237,7 +230,7 @@ for i in range(6):
     print(traci.vehicle.getNextStops(vehID))
 traci.vehicle.remove("1")
 try:
-    traci.vehicle.add("anotherOne", "horizontal", pos=-1)
+    traci.vehicle.addLegacy("anotherOne", "horizontal", pos=-1)
 except traci.TraCIException as e:
     if traci.isLibsumo():
         print(e, file=sys.stderr)
@@ -260,20 +253,20 @@ print(traci.vehicle.getSubscriptionResults(vehID))
 print("step", step())
 print(traci.vehicle.getSubscriptionResults(vehID))
 # test different departure options
-traci.vehicle.add("departInThePast", "horizontal", depart=5)
+traci.vehicle.addLegacy("departInThePast", "horizontal", depart=5)
 print("step", step())
 print("vehicles", traci.vehicle.getIDList())
-traci.vehicle.add("departInTheFuture", "horizontal", depart=30)
+traci.vehicle.addLegacy("departInTheFuture", "horizontal", depart=30)
 for i in range(9):
     print("step", step())
     print("vehicles", traci.vehicle.getIDList())
 # XXX this doesn't work. see #1721
-traci.vehicle.add("departTriggered", "horizontal", "triggered")
+traci.vehicle.addLegacy("departTriggered", "horizontal", "triggered")
 print("step", step())
 print("vehicles", traci.vehicle.getIDList())
 # test for setting a route with busstops
 routeTestVeh = "routeTest"
-traci.vehicle.add(routeTestVeh, "horizontal")
+traci.vehicle.addLegacy(routeTestVeh, "horizontal")
 print("step", step())
 print("vehicle '%s' routeID=%s" %
       (routeTestVeh, traci.vehicle.getRouteID(routeTestVeh)))
@@ -289,7 +282,7 @@ for i in range(14):
           "stopped", traci.vehicle.isStopped(routeTestVeh))
 # test for adding a new vehicle with a route with busstop
 routeTestVeh = "routeTest2"
-traci.vehicle.add(routeTestVeh, "withStop")
+traci.vehicle.addLegacy(routeTestVeh, "withStop")
 for i in range(14):
     print("step", step())
     print("vehicle", routeTestVeh,
@@ -298,7 +291,7 @@ for i in range(14):
           "stopped", traci.vehicle.isStopped(routeTestVeh))
 # test for adding a veh and a busstop
 busVeh = "bus"
-traci.vehicle.add(busVeh, "horizontal")
+traci.vehicle.addLegacy(busVeh, "horizontal")
 traci.vehicle.setBusStop(busVeh, "busstop1", duration=2)
 for i in range(14):
     print("step", step())
@@ -308,13 +301,13 @@ for i in range(14):
           "stopped", traci.vehicle.isStopped(busVeh))
 # test for adding a trip
 traci.route.add("trip", ["3si"])
-traci.vehicle.add("triptest", "trip")
+traci.vehicle.addLegacy("triptest", "trip")
 traci.vehicle.setVia("triptest", ["2o"])
 traci.vehicle.changeTarget("triptest", "4si")
 print("triptest route:", traci.vehicle.getRoute("triptest"))
 # test returned values of parking vehicle
 parkingVeh = "parking"
-traci.vehicle.add(parkingVeh, "horizontal")
+traci.vehicle.addLegacy(parkingVeh, "horizontal")
 traci.vehicle.setStop(parkingVeh, "2fi", pos=20.0, laneIndex=0, duration=10,
                       flags=traci.constants.STOP_PARKING)
 print("nextStop:", traci.vehicle.getNextStops(parkingVeh))
@@ -323,7 +316,7 @@ for i in range(20):
     checkOffRoad(parkingVeh)
 # test moveTo of parking vehicle
 parkingVeh = "parking2"
-traci.vehicle.add(parkingVeh, "horizontal")
+traci.vehicle.addLegacy(parkingVeh, "horizontal")
 traci.vehicle.setStop(parkingVeh, "2fi", pos=20.0, laneIndex=0, duration=10,
                       flags=traci.constants.STOP_PARKING)
 for i in range(8):
@@ -334,8 +327,8 @@ for i in range(8):
     checkOffRoad(parkingVeh)
 # test modifying a vehicle before insertion
 offRoad = "offRoad"
-traci.vehicle.add("blocker", "horizontal")
-traci.vehicle.add(offRoad, "horizontal")
+traci.vehicle.addLegacy("blocker", "horizontal")
+traci.vehicle.addLegacy(offRoad, "horizontal")
 checkOffRoad(offRoad)
 traci.vehicle.setSpeedFactor(offRoad, 1.1)
 traci.vehicle.moveTo(offRoad, "1o_0", 40)
@@ -344,14 +337,14 @@ for i in range(3):
     checkOffRoad(offRoad)
 # test modifying a teleporting vehicle
 tele = "collider"
-traci.vehicle.add("victim", "horizontal")
+traci.vehicle.addLegacy("victim", "horizontal")
 traci.vehicle.setStop("victim", "2fi", pos=5.0, laneIndex=0, duration=10)
 # block the next lane to avoid instant insertion after teleport
-traci.vehicle.add("block_2si", "horizontal")
+traci.vehicle.addLegacy("block_2si", "horizontal")
 traci.vehicle.moveTo("block_2si", "2si_1", 205)
 traci.vehicle.setLength("block_2si", 200)
 # cause collision on insertion
-traci.vehicle.add(tele, "horizontal")
+traci.vehicle.addLegacy(tele, "horizontal")
 traci.vehicle.moveTo(tele, "2fi_0", 3)
 for i in range(5):
     checkOffRoad(tele)
@@ -364,36 +357,36 @@ for i in range(3):
 print("bus waiting time", traci.vehicle.getWaitingTime("bus"))
 print("bus accumulated waiting time", traci.vehicle.getAccumulatedWaitingTime("bus"))
 moved = "movedVeh"
-traci.vehicle.add(moved, "vertical")
+traci.vehicle.addLegacy(moved, "vertical")
 print("step", step())
 traci.vehicle.moveToXY(moved, "dummy", 0, 448.99, 491.19, 90, 0)
 print("step", step())
 check(moved)
 # add vehicle and route between taz
-traci.vehicle.add("tazVeh", "withTaz2")
+traci.vehicle.addLegacy("tazVeh", "withTaz2")
 print("tazVeh edges", traci.vehicle.getRoute("tazVeh"))
 print("step", step())
 print("tazVeh pos=%s edges=%s" % (traci.vehicle.getLanePosition(
     "tazVeh"), traci.vehicle.getRoute("tazVeh")))
 # add vehicle and attempt to route between disconnected edges
-traci.vehicle.add("failVeh", "failRoute")
+traci.vehicle.addLegacy("failVeh", "failRoute")
 print("failVeh edges", traci.vehicle.getRoute("failVeh"))
 for i in range(5):
     print("step", step())
     print("failVeh pos=%s edges=%s" % (traci.vehicle.getLanePosition("failVeh"),
                                        traci.vehicle.getRoute("failVeh")))
 # add vehicle and reroute by travel time
-traci.vehicle.add("rerouteTT", "horizontal")
+traci.vehicle.addLegacy("rerouteTT", "horizontal")
 traci.vehicle.rerouteTraveltime("rerouteTT")
 # reroute again but travel times should only be updated once
 traci.vehicle.rerouteTraveltime("rerouteTT")
-traci.vehicle.add("rerouteEffort", "horizontal")
+traci.vehicle.addLegacy("rerouteEffort", "horizontal")
 traci.vehicle.rerouteEffort("rerouteEffort")
 print("step", step())
 print(traci.vehicle.getSubscriptionResults(vehID))
 
 parkingAreaVeh = "pav"
-traci.vehicle.add(parkingAreaVeh, "horizontal")
+traci.vehicle.addLegacy(parkingAreaVeh, "horizontal")
 traci.vehicle.setParkingAreaStop(parkingAreaVeh, "parkingArea1", duration=2)
 for i in range(18):
     print("step", step())
@@ -404,7 +397,7 @@ for i in range(18):
            ))
 
 electricVeh = "elVeh"
-traci.vehicle.add(electricVeh, "horizontal", typeID="electric")
+traci.vehicle.addLegacy(electricVeh, "horizontal", typeID="electric")
 traci.vehicle.setParameter(electricVeh, "device.battery.maximumBatteryCapacity", "40000")
 traci.vehicle.setParameter(electricVeh, "device.battery.vehicleMass", "1024")
 print("has battery device: %s" % traci.vehicle.getParameter(electricVeh, "has.battery.device"))
@@ -463,18 +456,18 @@ for i in range(10):
     print(traci.vehicle.getSubscriptionResults(electricVeh))
 # test for adding a trip
 traci.route.add("trip2", ["3si", "4si"])
-traci.vehicle.add("triptest2", "trip2", typeID="reroutingType")
+traci.vehicle.addLegacy("triptest2", "trip2", typeID="reroutingType")
 print("triptest route:", traci.vehicle.getRoute("triptest2"))
 step()
 print("triptest route:", traci.vehicle.getRoute("triptest2"))
 # test for adding a vehicle without specifying the route
-traci.vehicle.add("noRouteGiven", "")
+traci.vehicle.addLegacy("noRouteGiven", "")
 step()
 print("noRouteGiven routeID: %s edges: %s" % (
     traci.vehicle.getRouteID("noRouteGiven"),
     traci.vehicle.getRoute("noRouteGiven")))
 # test for adding a vehicle with explicit departLane
-traci.vehicle.addFull("vehDepartLane", "horizontal", departLane="0")
+traci.vehicle.add("vehDepartLane", "horizontal", departLane="0")
 step()
 # done
 traci.close()

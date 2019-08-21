@@ -21,10 +21,7 @@ import os
 import sys
 sys.path.append(os.path.join(
     os.path.dirname(sys.argv[0]), "..", "..", "..", "..", "..", "tools"))
-if len(sys.argv) > 1:
-    import libsumo as traci  # noqa
-else:
-    import traci  # noqa
+import traci  # noqa
 import sumolib  # noqa
 
 traci.start([sumolib.checkBinary('sumo'), "-c", "sumo.sumocfg"])

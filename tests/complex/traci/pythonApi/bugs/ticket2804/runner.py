@@ -21,14 +21,7 @@ import sys
 
 SUMO_HOME = os.path.join(os.path.dirname(__file__), "..", "..", "..", "..", "..", "..")
 sys.path.append(os.path.join(os.environ.get("SUMO_HOME", SUMO_HOME), "tools"))
-if len(sys.argv) > 1:
-    import libsumo as traci  # noqa
-    traci.vehicle.addFull = traci.vehicle.add
-    traci.vehicle.add = traci.vehicle.addLegacy
-else:
-    import traci  # noqa
-    traci._vehicle.VehicleDomain.addFull = traci._vehicle.VehicleDomain.add
-    traci._vehicle.VehicleDomain.add = traci._vehicle.VehicleDomain.addLegacy
+import traci  # noqa
 import sumolib  # noqa
 
 
@@ -55,7 +48,7 @@ traci.start([sumolib.checkBinary('sumo'), "-c", "sumo.sumocfg",
 vehID = "v0"
 traci.simulationStep()
 traci.route.add("beg", ["beg"])
-traci.vehicle.add(vehID, "beg")
+traci.vehicle.addLegacy(vehID, "beg")
 traci.vehicle.setSpeed(vehID, 0)
 for i in range(3):
     traci.simulationStep()

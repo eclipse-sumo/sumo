@@ -24,10 +24,7 @@ if 'SUMO_HOME' in os.environ:
     tools = os.path.join(os.environ['SUMO_HOME'], 'tools')
     sys.path += [tools, os.path.join(tools, 'assign')]
     import sumolib  # noqa
-    if len(sys.argv) > 1:
-        import libsumo as traci  # noqa
-    else:
-        import traci
+    import traci  # noqa
 else:
     sys.exit("please declare environment variable 'SUMO_HOME'")
 

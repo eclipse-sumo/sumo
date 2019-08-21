@@ -21,14 +21,7 @@ import sys
 
 SUMO_HOME = os.path.join(os.path.dirname(__file__), "..", "..", "..", "..", "..")
 sys.path.append(os.path.join(os.environ.get("SUMO_HOME", SUMO_HOME), "tools"))
-if len(sys.argv) > 1:
-    import libsumo as traci  # noqa
-    traci.vehicle.addFull = traci.vehicle.add
-    traci.vehicle.add = traci.vehicle.addLegacy
-else:
-    import traci  # noqa
-    traci._vehicle.VehicleDomain.addFull = traci._vehicle.VehicleDomain.add
-    traci._vehicle.VehicleDomain.add = traci._vehicle.VehicleDomain.addLegacy
+import traci  # noqa
 import sumolib  # noqa
 
 
@@ -122,7 +115,7 @@ traci.person.removeStages("newPerson")
 traci.person.appendDrivingStage("newPerson", "1o", "B42")
 
 traci.route.add("r0", ["3si", "1o"])
-traci.vehicle.add("veh0", "r0", traci.constants.DEPARTFLAG_TRIGGERED, pos=230)
+traci.vehicle.addLegacy("veh0", "r0", traci.constants.DEPARTFLAG_TRIGGERED, pos=230)
 traci.vehicle.setLine("veh0", "B42")
 traci.vehicle.setStop("veh0", "3si", 235, laneIndex=2, startPos=230, duration=1)
 

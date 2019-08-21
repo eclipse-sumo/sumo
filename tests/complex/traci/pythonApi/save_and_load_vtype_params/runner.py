@@ -21,11 +21,7 @@ import sys
 
 SUMO_HOME = os.path.join(os.path.dirname(__file__), "..", "..", "..", "..", "..")
 sys.path.append(os.path.join(os.environ.get("SUMO_HOME", SUMO_HOME), "tools"))
-if sys.argv[1] == "-libsumo":
-    import libsumo as traci  # noqa
-    del sys.argv[1]
-else:
-    import traci  # noqa
+import traci  # noqa
 import sumolib  # noqa
 
 ix = sys.argv.index(":")
