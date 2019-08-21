@@ -108,10 +108,6 @@ public:
     static double getLastActionTime(const std::string& vehicleID);
     static std::string getParameter(const std::string& vehicleID, const std::string& key);
     static std::map<const MSVehicle*, double> getNeighbors(const std::string& vehicleID, const int mode);
-    static std::map<const MSVehicle*, double> getRightFollowers(const std::string& vehicleID, bool blockingOnly = false);
-    static std::map<const MSVehicle*, double> getRightLeaders(const std::string& vehicleID, bool blockingOnly = false);
-    static std::map<const MSVehicle*, double> getLeftFollowers(const std::string& vehicleID, bool blockingOnly = false);
-    static std::map<const MSVehicle*, double> getLeftLeaders(const std::string& vehicleID, bool blockingOnly = false);
     static const MSVehicleType& getVehicleType(const std::string& vehicleID);
     /// @}
 

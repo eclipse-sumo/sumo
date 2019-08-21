@@ -669,12 +669,12 @@ Vehicle::getNeighbors(const std::string& vehicleID, const int mode) {
     std::cout << "getNeighbors() for veh '" << vehicleID << "': dir=" << dir
               << ", queryLeaders=" << queryLeaders
               << ", blockersOnly=" << blockersOnly << std::endl;
-}
+    }
 #endif
 
 
 
-if (blockersOnly) {
+    if (blockersOnly) {
         // Check if a blocking neigh exists in the given direction
         bool blocked = false;
         if (dir == -1) {
@@ -693,11 +693,11 @@ if (blockersOnly) {
 
 #ifdef DEBUG_NEIGHBORS
         if DEBUG_COND {
-        std::cout << " blocked=" << blocked << std::endl;
-    }
+            std::cout << " blocked=" << blocked << std::endl;
+        }
 #endif
 
-    if (!blocked) {
+        if (!blocked) {
             // Not blocked => return empty vector
             return neighs;
         }
@@ -716,46 +716,6 @@ if (blockersOnly) {
         }
     }
     return neighs;
-}
-
-
-std::map<const MSVehicle*, double>
-Vehicle::getRightFollowers(const std::string& vehicleID, bool blockingOnly) {
-    if (blockingOnly) {
-        return getNeighbors(vehicleID, 5);
-    } else {
-        return getNeighbors(vehicleID, 1);
-    }
-}
-
-
-std::map<const MSVehicle*, double>
-Vehicle::getRightLeaders(const std::string& vehicleID, bool blockingOnly) {
-    if (blockingOnly) {
-        return getNeighbors(vehicleID, 7);
-    } else {
-        return getNeighbors(vehicleID, 3);
-    }
-}
-
-
-std::map<const MSVehicle*, double>
-Vehicle::getLeftFollowers(const std::string& vehicleID, bool blockingOnly) {
-    if (blockingOnly) {
-        return getNeighbors(vehicleID, 4);
-    } else {
-        return getNeighbors(vehicleID, 0);
-    }
-}
-
-
-std::map<const MSVehicle*, double>
-Vehicle::getLeftLeaders(const std::string& vehicleID, bool blockingOnly) {
-    if (blockingOnly) {
-        return getNeighbors(vehicleID, 6);
-    } else {
-        return getNeighbors(vehicleID, 2);
-    }
 }
 
 
