@@ -700,7 +700,9 @@ Vehicle::getNeighbors(const std::string& vehicleID, const int mode) {
         auto vehIt = begin(res->getVehicles());
         while (distIt != end(res->getDistances())) {
             if (*vehIt != nullptr) {
-                neighs.push_back(std::make_pair((*vehIt)->getID(), *distIt));
+                if (neighs.size() == 0 || neighs.back().first != (*vehIt)->getID()) {
+                    neighs.push_back(std::make_pair((*vehIt)->getID(), *distIt));
+                }
             }
             ++vehIt;
             ++distIt;
