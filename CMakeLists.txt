@@ -210,9 +210,9 @@ if (SUMO_LIBRARIES AND WIN32)
     set(GRPC_CPP_PLUGIN "${SUMO_LIBRARIES}/grpc-1.10.0/Release/grpc_cpp_plugin.exe")
     # set protobuf
     set(CMAKE_PREFIX_PATH "${CMAKE_PREFIX_PATH};${SUMO_LIBRARIES}/3rdPartyLibs/protobuf-3.9.1")
-    set(Protobuf_PROTOC_EXECUTABLE "${SUMO_LIBRARIES}/3rdPartyLibs/protobuf-3.9.1/cmake/Release/protoc.exe")
-    set(Protobuf_LIBRARY_DEBUG "${CMAKE_LIBRARY_PATH};${SUMO_LIBRARIES}/protobuf-3.9.1/cmake/Debug/libprotobufd.lib")
-    set(Protobuf_LIBRARY "${CMAKE_LIBRARY_PATH};${SUMO_LIBRARIES}/protobuf-3.9.1/cmake/Release/libprotobuf.lib")
+    set(Protobuf_PROTOC_EXECUTABLE "${SUMO_LIBRARIES}/3rdPartyLibs/protobuf-3.9.1/bin/protoc.exe")
+    set(Protobuf_LIBRARY_DEBUG "${CMAKE_LIBRARY_PATH};${SUMO_LIBRARIES}/protobuf-3.9.1/lib/libprotobufd.lib")
+    set(Protobuf_LIBRARY "${CMAKE_LIBRARY_PATH};${SUMO_LIBRARIES}/protobuf-3.9.1/lib/libprotobuf.lib")
     set(MVN_EXECUTABLE "${SUMO_LIBRARIES}/apache-maven-3.6.1/bin/mvn.cmd")
 else ()
     # for Linux and Mac only
