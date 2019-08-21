@@ -18,7 +18,6 @@
 from __future__ import print_function
 from __future__ import absolute_import
 import os
-import subprocess
 import sys
 import time
 sys.path.append(os.path.join(
@@ -26,7 +25,8 @@ sys.path.append(os.path.join(
 import traci  # noqa
 import sumolib  # noqa
 
-traci.start([sumolib.checkBinary('sumo-gui')] + "-S -Q -c sumo.sumocfg --window-size 500,500 --window-pos 50,50".split())
+traci.start([sumolib.checkBinary('sumo-gui')] +
+            "-S -Q -c sumo.sumocfg --window-size 500,500 --window-pos 50,50".split())
 for step in range(3):
     print("step", step)
     traci.simulationStep()
