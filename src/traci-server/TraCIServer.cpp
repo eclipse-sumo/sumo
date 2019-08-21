@@ -190,6 +190,7 @@ TraCIServer::TraCIServer(const SUMOTime begin, const int port, const int numClie
     myVehicleStateChanges[MSNet::VEHICLE_STATE_ARRIVED] = std::vector<std::string>();
     myVehicleStateChanges[MSNet::VEHICLE_STATE_NEWROUTE] = std::vector<std::string>();
     myVehicleStateChanges[MSNet::VEHICLE_STATE_STARTING_PARKING] = std::vector<std::string>();
+    myVehicleStateChanges[MSNet::VEHICLE_STATE_MANOEUVERING] = std::vector<std::string>();
     myVehicleStateChanges[MSNet::VEHICLE_STATE_ENDING_PARKING] = std::vector<std::string>();
     myVehicleStateChanges[MSNet::VEHICLE_STATE_STARTING_STOP] = std::vector<std::string>();
     myVehicleStateChanges[MSNet::VEHICLE_STATE_ENDING_STOP] = std::vector<std::string>();
@@ -249,6 +250,7 @@ TraCIServer::TraCIServer(const SUMOTime begin, const int port, const int numClie
             mySockets[index]->vehicleStateChanges[MSNet::VEHICLE_STATE_ARRIVED] = std::vector<std::string>();
             mySockets[index]->vehicleStateChanges[MSNet::VEHICLE_STATE_NEWROUTE] = std::vector<std::string>();
             mySockets[index]->vehicleStateChanges[MSNet::VEHICLE_STATE_STARTING_PARKING] = std::vector<std::string>();
+            mySockets[index]->vehicleStateChanges[MSNet::VEHICLE_STATE_MANOEUVERING] = std::vector<std::string>();
             mySockets[index]->vehicleStateChanges[MSNet::VEHICLE_STATE_ENDING_PARKING] = std::vector<std::string>();
             mySockets[index]->vehicleStateChanges[MSNet::VEHICLE_STATE_STARTING_STOP] = std::vector<std::string>();
             mySockets[index]->vehicleStateChanges[MSNet::VEHICLE_STATE_ENDING_STOP] = std::vector<std::string>();
@@ -758,7 +760,7 @@ TraCIServer::dispatchCommand() {
                 }
 #ifdef DEBUG_MULTI_CLIENTS
                 std::cout << "       commandId == libsumo::CMD_SIMSTEP"
-                          << ", next target time for client is " << myCurrentSocket->second->targetTime << std::endl;
+                            << ", next target time for client is " << myCurrentSocket->second->targetTime << std::endl;
 #endif
                 if (myCurrentSocket->second->targetTime <= MSNet::getInstance()->getCurrentTimeStep()) {
                     // This is not the last TraCI simstep in the current SUMO simstep -> send single simstep response.

@@ -41,18 +41,18 @@
 // ===========================================================================
 
 SUMOVTypeParameter::VClassDefaultValues::VClassDefaultValues(SUMOVehicleClass vclass) :
-    length(5./*4.3*/),
-    minGap(2.5),
+    length(5./*4.3*/), 
+    minGap(2.5), 
     maxSpeed(200. / 3.6),
-    width(1.8),
-    height(1.5),
+    width(1.8), 
+    height(1.5), 
     shape(SVS_UNKNOWN),
-    emissionClass(PollutantsInterface::getClassByName(EMPREFIX + "PC_G_EU4", vclass)),
-    speedFactor("normc", 1.0, 0.0, 0.2, 2.0),
-    personCapacity(4),
+    emissionClass(PollutantsInterface::getClassByName(EMPREFIX + "PC_G_EU4", vclass)), 
+    speedFactor("normc", 1.0, 0.0, 0.2, 2.0), 
+    personCapacity(4), 
     containerCapacity(0),
     osgFile("car-normal-citrus.obj"),
-    carriageLength(-1),
+    carriageLength(-1), 
     locomotiveLength(-1) {
     // update default values
     switch (vclass) {
@@ -294,8 +294,56 @@ SUMOVTypeParameter::SUMOVTypeParameter(const std::string& vtid, const SUMOVehicl
     } else {
         speedFactor.getParameter()[1] = 0;
     }
+    setManoeuverAngleTimes(vclass);
 }
 
+void
+SUMOVTypeParameter::setManoeuverAngleTimes(const SUMOVehicleClass vclass) {
+
+    myManoeuverAngleTimes.clear();
+    /**
+     * Defaults assume:   approaching at angles between 0-10 and 171-180 (will never be > 180) are approaching a space roughly parallel to the road
+     *                    approaching at angles between 11-80 are approaching an acute angled space that is easiest to drive straight in
+     *                    approaching at angles between 81-110 are approaching a space at approximately right angles to the road so the driver has a choice
+     *                    approaching at angles between 111 and 170 are approaching an obtuse angled space that is easiest to drive past and reverse in 
+     *              More (or less) granular angle ranges can be used - configurable as a vType parameter
+     */
+    switch (vclass) {
+    case SVC_PASSENGER:
+    case SVC_HOV:
+    case SVC_TAXI:
+    case SVC_E_VEHICLE:
+        myManoeuverAngleTimes.insert(std::pair<int, std::pair<SUMOTime, SUMOTime>>( 10, std::pair< SUMOTime, SUMOTime>( 3000, 4000)));   // straight in but potentially needing parallel parking
+        myManoeuverAngleTimes.insert(std::pair<int, std::pair<SUMOTime, SUMOTime>>( 80, std::pair< SUMOTime, SUMOTime>( 1000,11000)));   // straight in
+        myManoeuverAngleTimes.insert(std::pair<int, std::pair<SUMOTime, SUMOTime>>(110, std::pair< SUMOTime, SUMOTime>(11000, 2000)));   // optional forwards/backwards
+        myManoeuverAngleTimes.insert(std::pair<int, std::pair<SUMOTime, SUMOTime>>(170, std::pair< SUMOTime, SUMOTime>( 8000, 3000)));   // backwards into obtuse space
+        myManoeuverAngleTimes.insert(std::pair<int, std::pair<SUMOTime, SUMOTime>>(181, std::pair< SUMOTime, SUMOTime>( 3000, 4000)));   // straight in but potentially needing parallel parking
+        break;
+    case SVC_TRUCK:
+    case SVC_TRAILER:
+    case SVC_BUS:
+    case SVC_COACH:
+    case SVC_DELIVERY:
+        myManoeuverAngleTimes.insert(std::pair<int, std::pair<SUMOTime, SUMOTime>>(10, std::pair< SUMOTime, SUMOTime>(6000, 8000)));    // straight in but potentially needing parallel parking
+        myManoeuverAngleTimes.insert(std::pair<int, std::pair<SUMOTime, SUMOTime>>(80, std::pair< SUMOTime, SUMOTime>(2000, 21000)));   // straight in
+        myManoeuverAngleTimes.insert(std::pair<int, std::pair<SUMOTime, SUMOTime>>(110, std::pair< SUMOTime, SUMOTime>(21000, 2000)));  // optional forwards/backwards
+        myManoeuverAngleTimes.insert(std::pair<int, std::pair<SUMOTime, SUMOTime>>(170, std::pair< SUMOTime, SUMOTime>(14000, 5000)));  // backwards into obtuse space
+        myManoeuverAngleTimes.insert(std::pair<int, std::pair<SUMOTime, SUMOTime>>(181, std::pair< SUMOTime, SUMOTime>(6000, 8000)));   // straight in but potentially needing parallel parking
+        break;
+    case SVC_PEDESTRIAN:
+    case SVC_MOPED:
+    case SVC_BICYCLE:
+        myManoeuverAngleTimes.insert(std::pair<int, std::pair<SUMOTime, SUMOTime>>(181, std::pair< SUMOTime, SUMOTime>(1000, 1000)));  // no dependence on angle
+        break;
+    default:
+        myManoeuverAngleTimes.insert(std::pair<int, std::pair<SUMOTime, SUMOTime>>(10, std::pair< SUMOTime, SUMOTime>(3000, 4000)));    // straight in but potentially needing parallel parking
+        myManoeuverAngleTimes.insert(std::pair<int, std::pair<SUMOTime, SUMOTime>>(80, std::pair< SUMOTime, SUMOTime>(1000, 11000)));   // straight in
+        myManoeuverAngleTimes.insert(std::pair<int, std::pair<SUMOTime, SUMOTime>>(110, std::pair< SUMOTime, SUMOTime>(11000, 2000)));  // optional forwards/backwards
+        myManoeuverAngleTimes.insert(std::pair<int, std::pair<SUMOTime, SUMOTime>>(170, std::pair< SUMOTime, SUMOTime>(8000, 3000)));   // backwards into obtuse space
+        myManoeuverAngleTimes.insert(std::pair<int, std::pair<SUMOTime, SUMOTime>>(181, std::pair< SUMOTime, SUMOTime>(3000, 4000)));   // straight in but potentially needing parallel parking
+        break;
+    }
+}
 
 void
 SUMOVTypeParameter::write(OutputDevice& dev) const {
@@ -377,6 +425,9 @@ SUMOVTypeParameter::write(OutputDevice& dev) const {
     }
     if (wasSet(VTYPEPARS_MINGAP_LAT_SET)) {
         dev.writeAttr(SUMO_ATTR_MINGAP_LAT, minGapLat);
+    }
+    if (wasSet(VTYPEPARS_MANOEUVER_ANGLE_TIMES_SET)) {
+        dev.writeAttr(SUMO_ATTR_MANOEUVER_ANGLE_TIMES, getManoeuverAngleTimesS());
     }
     if (wasSet(VTYPEPARS_LANE_CHANGE_MODEL_SET)) {
         dev.writeAttr(SUMO_ATTR_LANE_CHANGE_MODEL, lcModel);
@@ -465,6 +516,39 @@ SUMOVTypeParameter::getJMParamString(const SumoXMLAttr attr, const std::string d
     } else {
         return defaultValue;
     }
+}
+
+SUMOTime
+SUMOVTypeParameter::getEntryManoeuvreTime(const int angle) const
+{
+    SUMOTime last=0;
+    for (std::pair<int, std::pair<SUMOTime, SUMOTime>> angleTime : myManoeuverAngleTimes) {
+        if (angle <= angleTime.first) return (angleTime.second.first);
+        else last = angleTime.second.first;
+    }
+    return (last);
+}
+
+SUMOTime
+SUMOVTypeParameter::getExitManoeuvreTime(const int angle) const
+{
+    SUMOTime last=0;
+    for (std::pair<int, std::pair<SUMOTime, SUMOTime>> angleTime : myManoeuverAngleTimes) {
+        if (angle <= angleTime.first) return (angleTime.second.second);
+        else last = angleTime.second.second;
+    }
+    return (last);
+}
+
+std::string
+SUMOVTypeParameter::getManoeuverAngleTimesS() const {
+    std::string triplets;
+    int count = 0;
+    for (std::pair<int, std::pair<SUMOTime, SUMOTime>> angleTime : myManoeuverAngleTimes) {
+        if ( count++ > 0 ) triplets += ",";
+        triplets += std::to_string(angleTime.first) + " " + std::to_string(angleTime.second.first) + " " + std::to_string(angleTime.second.second);
+    }
+    return triplets;
 }
 
 

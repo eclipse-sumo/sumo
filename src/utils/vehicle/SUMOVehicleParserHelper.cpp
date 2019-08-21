@@ -28,6 +28,7 @@
 #include <utils/common/FileHelpers.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/RandHelper.h>
+#include <utils/common/StringTokenizer.h>
 #include <utils/common/StringUtils.h>
 #include <utils/common/ToString.h>
 #include <utils/common/UtilExceptions.h>
@@ -64,7 +65,7 @@ SUMOVehicleParserHelper::parseFlowAttributes(const SUMOSAXAttributes& attrs, con
             return handleError(hardFail, abortCreation, "Invalid flow id '" + id + "'.");
         }
         if (attrs.hasAttribute(SUMO_ATTR_PERIOD) && attrs.hasAttribute(SUMO_ATTR_VEHSPERHOUR)) {
-            return handleError(hardFail, abortCreation,
+            return handleError(hardFail, abortCreation, 
                                "At most one of '" + attrs.getName(SUMO_ATTR_PERIOD) +
                                "' and '" + attrs.getName(SUMO_ATTR_VEHSPERHOUR) +
                                "' has to be given in the definition of flow '" + id + "'.");
@@ -76,7 +77,7 @@ SUMOVehicleParserHelper::parseFlowAttributes(const SUMOSAXAttributes& attrs, con
                                "' has to be given in the definition of flow '" + id + "'.");
         }
         if (attrs.hasAttribute(SUMO_ATTR_PROB) && attrs.hasAttribute(SUMO_ATTR_VEHSPERHOUR)) {
-            return handleError(hardFail, abortCreation,
+            return handleError(hardFail, abortCreation, 
                                "At most one of '" + attrs.getName(SUMO_ATTR_PROB) +
                                "' and '" + attrs.getName(SUMO_ATTR_VEHSPERHOUR) +
                                "' has to be given in the definition of flow '" + id + "'.");
@@ -84,7 +85,7 @@ SUMOVehicleParserHelper::parseFlowAttributes(const SUMOSAXAttributes& attrs, con
         if (attrs.hasAttribute(SUMO_ATTR_PERIOD) || attrs.hasAttribute(SUMO_ATTR_VEHSPERHOUR)
                 || attrs.hasAttribute(SUMO_ATTR_PERSONSPERHOUR) || attrs.hasAttribute(SUMO_ATTR_PROB)) {
             if (attrs.hasAttribute(SUMO_ATTR_END) && attrs.hasAttribute(SUMO_ATTR_NUMBER)) {
-                return handleError(hardFail, abortCreation,
+                return handleError(hardFail, abortCreation, 
                                    "If '" + attrs.getName(SUMO_ATTR_PERIOD) +
                                    "', '" + attrs.getName(SUMO_ATTR_VEHSPERHOUR) +
                                    "' or '" + attrs.getName(SUMO_ATTR_PROB) +
@@ -94,7 +95,7 @@ SUMOVehicleParserHelper::parseFlowAttributes(const SUMOSAXAttributes& attrs, con
             }
         } else {
             if (!attrs.hasAttribute(SUMO_ATTR_NUMBER)) {
-                return handleError(hardFail, abortCreation,
+                return handleError(hardFail, abortCreation, 
                                    "At least one of '" + attrs.getName(SUMO_ATTR_PERIOD) +
                                    "', '" + attrs.getName(SUMO_ATTR_VEHSPERHOUR) +
                                    "', '" + attrs.getName(SUMO_ATTR_PROB) +
@@ -289,7 +290,7 @@ SUMOVehicleParserHelper::parseVehicleAttributes(const SUMOSAXAttributes& attrs, 
     }
 }
 
-std::string
+std::string 
 SUMOVehicleParserHelper::parseID(const SUMOSAXAttributes& attrs, const SumoXMLTag element) {
     bool ok = true;
     std::string id;
@@ -350,7 +351,7 @@ SUMOVehicleParserHelper::parseCommonAttributes(const SUMOSAXAttributes& attrs, c
     // parse depart lane information
     if (attrs.hasAttribute(SUMO_ATTR_DEPARTLANE)) {
         const std::string helper = attrs.get<std::string>(SUMO_ATTR_DEPARTLANE, ret->id.c_str(), ok);
-        int lane;
+        int lane; 
         DepartLaneDefinition dld;
         if (SUMOVehicleParameter::parseDepartLane(helper, element, ret->id, lane, dld, error)) {
             ret->parametersSet |= VEHPARS_DEPARTLANE_SET;
@@ -788,17 +789,27 @@ SUMOVehicleParserHelper::beginVTypeParsing(const SUMOSAXAttributes& attrs, const
                 handleError(hardFail, abortCreation, "Unknown lateral alignment '" + alignS + "' when parsing vType '" + vtype->id + "'");
             }
         }
+        if (attrs.hasAttribute(SUMO_ATTR_MANOEUVER_ANGLE_TIMES)) {
+            bool ok = true;
+            const std::string angleTimesS = attrs.get<std::string>(SUMO_ATTR_MANOEUVER_ANGLE_TIMES, vtype->id.c_str(), ok);
+            if (ok && parseAngleTimesMap(*vtype, angleTimesS, hardFail)) {
+                vtype->parametersSet |= VTYPEPARS_MANOEUVER_ANGLE_TIMES_SET;
+            } else {
+                handleError(hardFail, abortCreation, "Invalid manoeuver angle times map for vType '" + vtype->id + "'");
+            }
+        }
+
         // try to parse embedded vType
         if (!parseVTypeEmbedded(*vtype, vtype->cfModel, attrs, hardFail, true)) {
-            handleError(hardFail, abortCreation, "Invalid parsing embedded VType");
+            handleError(hardFail, abortCreation, "Invalid parsing embedded VType"); 
         }
         // try to parse Lane Change Model params
         if (!parseLCParams(*vtype, vtype->lcModel, attrs, hardFail)) {
-            handleError(hardFail, abortCreation, "Invalid Lane Change Model Parameters");
+            handleError(hardFail, abortCreation, "Invalid Lane Change Model Parameters"); 
         }
         // try to Junction Model params
         if (!parseJMParams(*vtype, attrs, hardFail)) {
-            handleError(hardFail, abortCreation, "Invalid Junction Model Parameters");
+            handleError(hardFail, abortCreation, "Invalid Junction Model Parameters"); 
         }
         if (!abortCreation) {
             delete vtype;
@@ -815,6 +826,46 @@ SUMOVehicleParserHelper::beginVTypeParsing(const SUMOSAXAttributes& attrs, const
         } else {
             return nullptr;
         }
+    }
+}
+
+bool
+SUMOVehicleParserHelper::parseAngleTimesMap(SUMOVTypeParameter& vtype, const std::string atm, const bool hardFail) {
+    StringTokenizer st(atm, ",");
+    std::map<int, std::pair<SUMOTime, SUMOTime>> angleTimesMap;
+    int tripletCount = 0;
+
+    while (st.hasNext()) {
+        StringTokenizer pos(st.next());
+        if (pos.size() != 3) {
+            if (hardFail) {
+                throw ProcessError("manoeuverAngleTimes format for vType '" + vtype.id + "' " + atm + " contains an invalid triplet.");
+            } else {
+                WRITE_ERROR("manoeuverAngleTimes format for vType '" + vtype.id + "' " + atm + " contains an invalid triplet.");
+            }
+        } else {
+            try {
+                int angle = StringUtils::toInt(pos.next());
+                SUMOTime t1 = static_cast<SUMOTime>(StringUtils::toDouble(pos.next())); t1 = TIME2STEPS(t1);
+                SUMOTime t2 = static_cast<SUMOTime>(StringUtils::toDouble(pos.next())); t2 = TIME2STEPS(t2);
+
+                angleTimesMap.insert((std::pair<int, std::pair<SUMOTime, SUMOTime>>(angle, std::pair< SUMOTime, SUMOTime>(t1, t2))));
+            }
+            catch (...) {
+                WRITE_ERROR("Triplet '" + st.get(tripletCount) + "' for vType '" + vtype.id + "' manoeuverAngleTimes cannot be parsed as 'int double double'");
+            }
+            tripletCount++;
+        }
+    }
+
+    if (angleTimesMap.size() > 0) {
+        vtype.myManoeuverAngleTimes.clear();
+        for (std::pair<int, std::pair<SUMOTime, SUMOTime>> angleTime : angleTimesMap)
+            vtype.myManoeuverAngleTimes.insert(std::pair<int, std::pair<SUMOTime, SUMOTime>>(angleTime));
+        angleTimesMap.clear();
+        return true;
+    } else {
+        return false;
     }
 }
 
@@ -940,7 +991,7 @@ SUMOVehicleParserHelper::parseVTypeEmbedded(SUMOVTypeParameter& into, const Sumo
                     if (it == SUMO_ATTR_TAU) {
                         // check tau in time format
                         if ((string2time(parsedCFMAttribute) < DELTA_T) && gSimulation) {
-                            WRITE_WARNING("Value of tau=" + parsedCFMAttribute + " in car following model '" +
+                            WRITE_WARNING("Value of tau=" + parsedCFMAttribute + " in car following model '" + 
                                           toString(into.cfModel) + "' lower than simulation step size may cause collisions");
                         }
                     }

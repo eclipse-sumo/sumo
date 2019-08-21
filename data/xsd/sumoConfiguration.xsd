@@ -148,6 +148,7 @@
             <xsd:element name="pedestrian.striping.jamtime.crossing" type="timeOptionType" minOccurs="0"/>
             <xsd:element name="pedestrian.remote.address" type="strOptionType" minOccurs="0"/>
             <xsd:element name="ride.stop-tolerance" type="floatOptionType" minOccurs="0"/>
+            <xsd:element name="modelparkingmanoeuver" type="boolOptionType" minOccurs="0"/>
         </xsd:all>
     </xsd:complexType>
 
