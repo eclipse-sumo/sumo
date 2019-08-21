@@ -41,18 +41,18 @@
 // ===========================================================================
 
 SUMOVTypeParameter::VClassDefaultValues::VClassDefaultValues(SUMOVehicleClass vclass) :
-    length(5./*4.3*/), 
-    minGap(2.5), 
+    length(5./*4.3*/),
+    minGap(2.5),
     maxSpeed(200. / 3.6),
-    width(1.8), 
-    height(1.5), 
+    width(1.8),
+    height(1.5),
     shape(SVS_UNKNOWN),
-    emissionClass(PollutantsInterface::getClassByName(EMPREFIX + "PC_G_EU4", vclass)), 
-    speedFactor("normc", 1.0, 0.0, 0.2, 2.0), 
-    personCapacity(4), 
+    emissionClass(PollutantsInterface::getClassByName(EMPREFIX + "PC_G_EU4", vclass)),
+    speedFactor("normc", 1.0, 0.0, 0.2, 2.0),
+    personCapacity(4),
     containerCapacity(0),
     osgFile("car-normal-citrus.obj"),
-    carriageLength(-1), 
+    carriageLength(-1),
     locomotiveLength(-1) {
     // update default values
     switch (vclass) {

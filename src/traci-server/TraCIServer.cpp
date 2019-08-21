@@ -760,7 +760,7 @@ TraCIServer::dispatchCommand() {
                 }
 #ifdef DEBUG_MULTI_CLIENTS
                 std::cout << "       commandId == libsumo::CMD_SIMSTEP"
-                            << ", next target time for client is " << myCurrentSocket->second->targetTime << std::endl;
+                          << ", next target time for client is " << myCurrentSocket->second->targetTime << std::endl;
 #endif
                 if (myCurrentSocket->second->targetTime <= MSNet::getInstance()->getCurrentTimeStep()) {
                     // This is not the last TraCI simstep in the current SUMO simstep -> send single simstep response.
