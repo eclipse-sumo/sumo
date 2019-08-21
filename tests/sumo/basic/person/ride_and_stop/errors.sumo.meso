@@ -1,3 +1,1 @@
 Warning: Vehicle 'v1' stops on edge 'middle', time 27.98 without ending the previous stop entered at time -0.00
-Warning: Person 'p3' aborted waiting for v1 at edge 'beg'.
-Warning: Person 'p4' aborted waiting for v1 at edge 'beg'.

@@ -1,3 +1,0 @@
-Warning: person0 at edge '1/4to2/4' position 30.00 cannot use waiting vehicle 'car0' at position 0.00 because it is too far away.
-Warning: Person 'person0' aborted waiting for car0 at edge '1/4to2/4'.
-Warning: Vehicle car0 aborted waiting for a person or a container that will never come.
