@@ -177,7 +177,7 @@ NBEdgeCont::ignoreFilterMatch(NBEdge* edge) {
     }
     // check whether the edge is a named edge to keep
     if (!myRemoveEdgesAfterJoining && myEdges2Keep.size() != 0) {
-        if (find(myEdges2Keep.begin(), myEdges2Keep.end(), edge->getID()) == myEdges2Keep.end()) {
+        if (myEdges2Keep.count(edge->getID()) == 0) {
             // explicit whitelisting may be combined additively with other filters
             if (myVehicleClasses2Keep == 0 && myVehicleClasses2Remove == 0
                     && myTypes2Keep.size() == 0 && myTypes2Remove.size() == 0
@@ -191,7 +191,7 @@ NBEdgeCont::ignoreFilterMatch(NBEdge* edge) {
     }
     // check whether the edge is a named edge to remove
     if (myEdges2Remove.size() != 0) {
-        if (find(myEdges2Remove.begin(), myEdges2Remove.end(), edge->getID()) != myEdges2Remove.end()) {
+        if (myEdges2Remove.count(edge->getID()) != 0) {
             return true;
         }
     }
@@ -641,11 +641,11 @@ NBEdgeCont::splitAt(NBDistrictCont& dc,
         }
     }
     if (myRemoveEdgesAfterJoining) {
-        if (find(myEdges2Keep.begin(), myEdges2Keep.end(), edge->getID()) != myEdges2Keep.end()) {
+        if (myEdges2Keep.count(edge->getID()) != 0) {
             myEdges2Keep.insert(one->getID());
             myEdges2Keep.insert(two->getID());
         }
-        if (find(myEdges2Remove.begin(), myEdges2Remove.end(), edge->getID()) != myEdges2Remove.end()) {
+        if (myEdges2Remove.count(edge->getID()) != 0) {
             myEdges2Remove.insert(one->getID());
             myEdges2Remove.insert(two->getID());
         }
