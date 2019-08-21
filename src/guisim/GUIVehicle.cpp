@@ -227,6 +227,7 @@ GUIVehicle::getTypeParameterWindow(GUIMainWindow& app,
     for (auto item : myType->getParameter().jmParameter) {
         ret->mkItem(toString(item.first).c_str(), false, toString(item.second));
     }
+    if(MSGlobals::gModelParkingManoeuver) ret->mkItem("manoeuver Angle vs Times",false, myType->getParameter().getManoeuverAngleTimesS());
 
     // close building
     ret->closeBuilding(&(myType->getParameter()));

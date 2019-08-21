@@ -542,12 +542,15 @@ SUMOVTypeParameter::getExitManoeuvreTime(const int angle) const
 
 std::string
 SUMOVTypeParameter::getManoeuverAngleTimesS() const {
-    std::string triplets;
+    std::stringstream stream;
+
+    stream << std::fixed << std::setprecision(1);
     int count = 0;
     for (std::pair<int, std::pair<SUMOTime, SUMOTime>> angleTime : myManoeuverAngleTimes) {
-        if ( count++ > 0 ) triplets += ",";
-        triplets += std::to_string(angleTime.first) + " " + std::to_string(angleTime.second.first) + " " + std::to_string(angleTime.second.second);
+        if (count++ > 0) stream << ",";
+        stream << toString(angleTime.first) + " " << STEPS2TIME(angleTime.second.first) << " " << STEPS2TIME(angleTime.second.second);
     }
+    std::string triplets = stream.str();
     return triplets;
 }
 
