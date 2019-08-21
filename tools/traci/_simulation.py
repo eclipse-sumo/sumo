@@ -154,6 +154,8 @@ _RETURN_VALUE_FUNC = {tc.VAR_TIME: Storage.readDouble,
 
 class SimulationDomain(Domain):
 
+    Stage = Stage
+
     def __init__(self):
         Domain.__init__(self, "simulation", tc.CMD_GET_SIM_VARIABLE, tc.CMD_SET_SIM_VARIABLE,
                         tc.CMD_SUBSCRIBE_SIM_VARIABLE, tc.RESPONSE_SUBSCRIBE_SIM_VARIABLE,

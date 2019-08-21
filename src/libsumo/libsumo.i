@@ -387,6 +387,7 @@ def wrapAsClassMethod(func, module):
     return wrapper
 
 exceptions.TraCIException = TraCIException
+simulation.Stage = TraCIStage
 trafficlight.Phase = TraCIPhase
 trafficlight.Logic = TraCILogic
 vehicle.addFull = vehicle.add

@@ -339,7 +339,7 @@ struct TraCIBestLanesData {
 class TraCIStage {
 public:
     TraCIStage() {} // only to make swig happy
-    TraCIStage(int _type) : type(_type) {}
+    TraCIStage(int type) : type(type) {}
     /// @brief The type of stage (walking, driving, ...)
     int type;
     /// @brief The vehicle type when using a private car or bike
