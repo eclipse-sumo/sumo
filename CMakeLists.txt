@@ -146,34 +146,39 @@ if (SUMO_LIBRARIES AND WIN32)
     if("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU" AND WIN32)
         if(USE_MINGW_64BITS)
             message(STATUS "Using 64 bit libraries from SUMO_LIBRARIES placed in " ${SUMO_LIBRARIES} " for MinGW compilation")
-            set(LIB_VERSION "_64")
         else()
             message(STATUS "Using 32 bit libraries from SUMO_LIBRARIES placed in " ${SUMO_LIBRARIES} " for MinGW compilation")
+            # Use 32 bits libraries
+            set(LIB_VERSION "/32bits")
+            # disable optional libraries
             set(CHECK_OPTIONAL_LIBS false)
         endif()
     elseif("${CMAKE_MODULE_LINKER_FLAGS}" STREQUAL "/machine:x64")
         message(STATUS "Using 64 bit libraries from SUMO_LIBRARIES placed in " ${SUMO_LIBRARIES})
-        set(LIB_VERSION "_64")
     else()
         message(STATUS "Using 32 bit libraries from SUMO_LIBRARIES placed in " ${SUMO_LIBRARIES})
+        # Use 32 bits libraries
+        set(LIB_VERSION "/32bits")
+        # disable optional libraries
         set(CHECK_OPTIONAL_LIBS false)
     endif()
     if("${MSVC_VERSION}" STREQUAL "1800")
-        file(GLOB XERCES_PATH "${SUMO_LIBRARIES}/msvc12/xerces-c-3.?.?${LIB_VERSION}")
+        file(GLOB XERCES_PATH "${SUMO_LIBRARIES}/msvc12/${LIB_VERSION}xerces-c-3.?.?")
     else()
-        file(GLOB XERCES_PATH "${SUMO_LIBRARIES}/xerces-c-3.?.?${LIB_VERSION}")
+        file(GLOB XERCES_PATH "${SUMO_LIBRARIES}${LIB_VERSION}/xerces-c-3.?.?")
     endif()
-    file(GLOB ZLIB_PATH "${SUMO_LIBRARIES}/3rdPartyLibs/zlib-?.?.??${LIB_VERSION}")
-    file(GLOB PROJ_PATH "${SUMO_LIBRARIES}/proj_gdal-????${LIB_VERSION}")
-    file(GLOB FOX_PATH "${SUMO_LIBRARIES}/fox-1.6.??${LIB_VERSION}")
+    file(GLOB ZLIB_PATH "${SUMO_LIBRARIES}${LIB_VERSION}/3rdPartyLibs/zlib-?.?.??")
+    file(GLOB PROJ_PATH "${SUMO_LIBRARIES}${LIB_VERSION}/proj_gdal-????")
+    file(GLOB FOX_PATH "${SUMO_LIBRARIES}${LIB_VERSION}/fox-1.6.??")
     set(CMAKE_PREFIX_PATH "${CMAKE_PREFIX_PATH};${XERCES_PATH};${ZLIB_PATH};${ZLIB_PATH}/Release;${ZLIB_PATH}/Debug;${PROJ_PATH};${FOX_PATH}")
     file(GLOB SUMO_LIBRARIES_DLL "${XERCES_PATH}/bin/*.dll"
                                  "${PROJ_PATH}/bin/*.dll"
                                  "${FOX_PATH}/lib/*.dll"
-                                 "${SUMO_LIBRARIES}/3rdPartyLibs/bzip2-?.?.?${LIB_VERSION}/*.dll"
-                                 "${SUMO_LIBRARIES}/3rdPartyLibs/libpng-?.?.??${LIB_VERSION}/*/*.dll"
-                                 "${SUMO_LIBRARIES}/3rdPartyLibs/tiff-?.?.?${LIB_VERSION}/libtiff/*/*.dll"
-                                 "${SUMO_LIBRARIES}/3rdPartyLibs/zlib-?.?.??${LIB_VERSION}/*/*.dll")
+                                 "${SUMO_LIBRARIES}${LIB_VERSION}/3rdPartyLibs/bzip2-?.?.?/*.dll"
+                                 "${SUMO_LIBRARIES}${LIB_VERSION}/3rdPartyLibs/libpng-?.?.??/bin/*.dll"
+                                 "${SUMO_LIBRARIES}${LIB_VERSION}/3rdPartyLibs/tiff-?.?.?/bin/*.dll"
+                                 "${SUMO_LIBRARIES}${LIB_VERSION}/3rdPartyLibs/zlib-?.?.??/bin/*.dll")
+                                 # "${SUMO_LIBRARIES}${LIB_VERSION}/3rdPartyLibs/sqlite-?.?.?/*.dll")
     file(GLOB GTEST_ROOT "${SUMO_LIBRARIES}/googletest-?.?.?/googletest")
     # set GoogleTest only if compiler isn't mingw32
     if("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU" AND WIN32 AND NOT USE_MINGW_64BITS)
@@ -186,12 +191,12 @@ if (SUMO_LIBRARIES AND WIN32)
         set(GTEST_BOTH_LIBRARIES "gtest" "gtest_main")
         set(GTEST_FOUND true)
     endif()
-    file(GLOB FFMPEG_PATH "${SUMO_LIBRARIES}/FFMPEG-?.?.?${LIB_VERSION}")
-    file(GLOB OSG_PATH "${SUMO_LIBRARIES}/OSG-?.?.?${LIB_VERSION}")
+    file(GLOB FFMPEG_PATH "${SUMO_LIBRARIES}/FFMPEG-?.?.?")
+    file(GLOB OSG_PATH "${SUMO_LIBRARIES}/OSG-?.?.?")
     if("${MSVC_VERSION}" STREQUAL "1800")
-        file(GLOB GL2PS_PATH "${SUMO_LIBRARIES}/msvc12/gl2ps-?.?.?${LIB_VERSION}")
+        file(GLOB GL2PS_PATH "${SUMO_LIBRARIES}${LIB_VERSION}/msvc12/gl2ps-?.?.?")
     else()
-        file(GLOB GL2PS_PATH "${SUMO_LIBRARIES}/gl2ps-?.?.?${LIB_VERSION}")
+        file(GLOB GL2PS_PATH "${SUMO_LIBRARIES}${LIB_VERSION}/gl2ps-?.?.?")
     endif()
     set(CMAKE_LIBRARY_PATH "${CMAKE_LIBRARY_PATH};${GL2PS_PATH}/Release")
     set(CMAKE_PREFIX_PATH "${CMAKE_PREFIX_PATH};${FFMPEG_PATH};${OSG_PATH};${GL2PS_PATH}")
@@ -199,15 +204,15 @@ if (SUMO_LIBRARIES AND WIN32)
     # set SWIG
     set(SWIG_EXECUTABLE "${SUMO_LIBRARIES}/swigwin-3.0.12/swig.exe")
     # set GRPC
-    set(CMAKE_PREFIX_PATH "${CMAKE_PREFIX_PATH};${SUMO_LIBRARIES}/grpc-1.10.0${LIB_VERSION}")
-    set(CMAKE_LIBRARY_PATH "${CMAKE_LIBRARY_PATH};${SUMO_LIBRARIES}/grpc-1.10.0${LIB_VERSION}/Debug")
-    set(CMAKE_LIBRARY_PATH "${CMAKE_LIBRARY_PATH};${SUMO_LIBRARIES}/grpc-1.10.0${LIB_VERSION}/Release")
-    set(GRPC_CPP_PLUGIN "${SUMO_LIBRARIES}/grpc-1.10.0${LIB_VERSION}/Release/grpc_cpp_plugin.exe")
+    set(CMAKE_PREFIX_PATH "${CMAKE_PREFIX_PATH};${SUMO_LIBRARIES}/grpc-1.10.0")
+    set(CMAKE_LIBRARY_PATH "${CMAKE_LIBRARY_PATH};${SUMO_LIBRARIES}/grpc-1.10.0/Debug")
+    set(CMAKE_LIBRARY_PATH "${CMAKE_LIBRARY_PATH};${SUMO_LIBRARIES}/grpc-1.10.0/Release")
+    set(GRPC_CPP_PLUGIN "${SUMO_LIBRARIES}/grpc-1.10.0/Release/grpc_cpp_plugin.exe")
     # set protobuf
-    set(CMAKE_PREFIX_PATH "${CMAKE_PREFIX_PATH};${SUMO_LIBRARIES}/3rdPartyLibs/protobuf-3.5.1${LIB_VERSION}")
-    set(Protobuf_PROTOC_EXECUTABLE "${SUMO_LIBRARIES}/3rdPartyLibs/protobuf-3.5.1${LIB_VERSION}/cmake/Release/protoc.exe")
-    set(Protobuf_LIBRARY_DEBUG "${CMAKE_LIBRARY_PATH};${SUMO_LIBRARIES}/protobuf-3.5.1${LIB_VERSION}/cmake/Debug/libprotobufd.lib")
-    set(Protobuf_LIBRARY "${CMAKE_LIBRARY_PATH};${SUMO_LIBRARIES}/protobuf-3.5.1${LIB_VERSION}/cmake/Release/libprotobuf.lib")
+    set(CMAKE_PREFIX_PATH "${CMAKE_PREFIX_PATH};${SUMO_LIBRARIES}/3rdPartyLibs/protobuf-3.5.1")
+    set(Protobuf_PROTOC_EXECUTABLE "${SUMO_LIBRARIES}/3rdPartyLibs/protobuf-3.5.1/cmake/Release/protoc.exe")
+    set(Protobuf_LIBRARY_DEBUG "${CMAKE_LIBRARY_PATH};${SUMO_LIBRARIES}/protobuf-3.5.1/cmake/Debug/libprotobufd.lib")
+    set(Protobuf_LIBRARY "${CMAKE_LIBRARY_PATH};${SUMO_LIBRARIES}/protobuf-3.5.1/cmake/Release/libprotobuf.lib")
     set(MVN_EXECUTABLE "${SUMO_LIBRARIES}/apache-maven-3.6.1/bin/mvn.cmd")
 else ()
     # for Linux and Mac only
@@ -299,7 +304,7 @@ include_directories(${CMAKE_CURRENT_SOURCE_DIR}/src)
 set(commonlibs
         utils_distribution utils_shapes utils_options
         utils_xml utils_geom utils_common utils_importio utils_iodevices foreign_tcpip
-		${XercesC_LIBRARIES} ${ZLIB_LIBRARIES} ${PROJ_LIBRARY})
+        ${XercesC_LIBRARIES} ${ZLIB_LIBRARIES} ${PROJ_LIBRARY})
 if (MSVC)
     set(commonlibs ${commonlibs} ws2_32)
 endif ()
