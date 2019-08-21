@@ -37,6 +37,9 @@ class PositionVector;
 class RGBColor;
 class MSEdge;
 class MSPerson;
+class MSVehicle;
+class MSVehicleType;
+
 
 // ===========================================================================
 // type definitions
@@ -119,6 +122,9 @@ public:
     static MSEdge* getEdge(const std::string& edgeID);
     static const MSLane* getLaneChecking(const std::string& edgeID, int laneIndex, double pos);
     static std::pair<MSLane*, double> convertCartesianToRoadMap(const Position& pos, const SUMOVehicleClass vClass);
+
+    static MSVehicle* getVehicle(const std::string& id);
+    static const MSVehicleType& getVehicleType(const std::string& vehicleID);
 
     static void findObjectShape(int domain, const std::string& id, PositionVector& shape);
 

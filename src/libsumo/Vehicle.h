@@ -37,8 +37,6 @@
 namespace libsumo {
 class VariableWrapper;
 }
-class MSVehicle;
-class MSVehicleType;
 class SUMOVehicle;
 
 
@@ -51,7 +49,6 @@ class SUMOVehicle;
  */
 namespace libsumo {
 class Vehicle {
-    friend class Helper;
 public:
     /// @name Value retrieval
     /// @{
@@ -196,8 +193,6 @@ public:
 
 
 private:
-    static MSVehicle* getVehicle(const std::string& id);
-    static const MSVehicleType& getVehicleType(const std::string& vehicleID);
     static bool isVisible(const SUMOVehicle* veh);
 
     static bool isOnInit(const std::string& vehicleID);

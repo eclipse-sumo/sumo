@@ -335,6 +335,26 @@ Helper::convertCartesianToRoadMap(const Position& pos, const SUMOVehicleClass vC
 }
 
 
+MSVehicle*
+Helper::getVehicle(const std::string& id) {
+    SUMOVehicle* sumoVehicle = MSNet::getInstance()->getVehicleControl().getVehicle(id);
+    if (sumoVehicle == nullptr) {
+        throw TraCIException("Vehicle '" + id + "' is not known.");
+    }
+    MSVehicle* v = dynamic_cast<MSVehicle*>(sumoVehicle);
+    if (v == nullptr) {
+        throw TraCIException("Vehicle '" + id + "' is not a micro-simulation vehicle.");
+    }
+    return v;
+}
+
+
+const MSVehicleType&
+Helper::getVehicleType(const std::string& vehicleID) {
+    return getVehicle(vehicleID)->getVehicleType();
+}
+
+
 void
 Helper::cleanup() {
     for (const auto i : myObjects) {
@@ -497,7 +517,7 @@ Helper::applySubscriptionFilters(const Subscription& s, std::set<std::string>& o
             // Specifies maximal downstream distance for vehicles in context subscription result
             upstreamDist = s.filterUpstreamDist;
         }
-        MSVehicle* v = libsumo::Vehicle::getVehicle(s.id);
+        MSVehicle* v = getVehicle(s.id);
         if (!v->isOnRoad()) {
             return;
         }
@@ -739,7 +759,7 @@ Helper::applySubscriptionFilters(const Subscription& s, std::set<std::string>& o
             // Only return vehicles of the given vClass in context subscription result
             auto i = objIDs.begin();
             while (i != objIDs.end()) {
-                MSVehicle* veh = libsumo::Vehicle::getVehicle(*i);
+                MSVehicle* veh = getVehicle(*i);
                 if ((veh->getVehicleType().getVehicleClass() & s.filterVClasses) == 0) {
                     i = objIDs.erase(i);
                 } else {
@@ -751,7 +771,7 @@ Helper::applySubscriptionFilters(const Subscription& s, std::set<std::string>& o
             // Only return vehicles of the given vType in context subscription result
             auto i = objIDs.begin();
             while (i != objIDs.end()) {
-                MSVehicle* veh = libsumo::Vehicle::getVehicle(*i);
+                MSVehicle* veh = getVehicle(*i);
                 if (s.filterVTypes.find(veh->getVehicleType().getID()) == s.filterVTypes.end()) {
                     i = objIDs.erase(i);
                 } else {
