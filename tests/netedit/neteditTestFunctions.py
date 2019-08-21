@@ -1261,6 +1261,7 @@ def changePersonPlan(personPlan, subPersonPlan):
     # type enter to save change
     typeEnter()
 
+
 """
 @brief change personFlowPlan
 """
