@@ -2412,8 +2412,24 @@ GNENet::isDemandElementsSaved() const {
 std::string
 GNENet::generateDemandElementID(const std::string& prefix, SumoXMLTag type) const {
     int counter = 0;
-    while (myAttributeCarriers.demandElements.at(type).count(prefix + toString(type) + "_" + toString(counter)) != 0) {
-        counter++;
+    if ((type == SUMO_TAG_VEHICLE) || (type == SUMO_TAG_TRIP) || (type == SUMO_TAG_ROUTEFLOW) || (type == SUMO_TAG_FLOW)) {
+        // special case for vehicles (Vehicles, Flows, Trips and routeFlows share nameSpaces)
+        while ((myAttributeCarriers.demandElements.at(SUMO_TAG_VEHICLE).count(prefix + toString(type) + "_" + toString(counter)) != 0) ||
+               (myAttributeCarriers.demandElements.at(SUMO_TAG_TRIP).count(prefix + toString(type) + "_" + toString(counter)) != 0) ||
+               (myAttributeCarriers.demandElements.at(SUMO_TAG_ROUTEFLOW).count(prefix + toString(type) + "_" + toString(counter)) != 0) ||
+               (myAttributeCarriers.demandElements.at(SUMO_TAG_FLOW).count(prefix + toString(type) + "_" + toString(counter)) != 0)) {
+            counter++;
+        }
+    } else if ((type == SUMO_TAG_PERSON) || (type == SUMO_TAG_PERSONFLOW)) {
+        // special case for persons (person and personFlows share nameSpaces)
+        while ((myAttributeCarriers.demandElements.at(SUMO_TAG_PERSON).count(prefix + toString(type) + "_" + toString(counter)) != 0) ||
+               (myAttributeCarriers.demandElements.at(SUMO_TAG_PERSONFLOW).count(prefix + toString(type) + "_" + toString(counter)) != 0)) {
+            counter++;
+        }
+    } else {
+        while (myAttributeCarriers.demandElements.at(type).count(prefix + toString(type) + "_" + toString(counter)) != 0) {
+            counter++;
+        }
     }
     return (prefix + toString(type) + "_" + toString(counter));
 }
