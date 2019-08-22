@@ -44,14 +44,15 @@ BINARIES = ("activitygen", "emissionsDrivingCycle", "emissionsMap",
 
 
 def repositoryUpdate(options, repoLogFile):
-    if not options.update:
-        return ""
+    gitrev = ""
     with open(repoLogFile, 'w') as log:
         cwd = os.getcwd()
-        os.chdir(os.path.join(options.rootDir, "git"))
-        subprocess.call(["git", "pull"], stdout=log, stderr=subprocess.STDOUT)
-        subprocess.call(["git", "submodule", "update"], stdout=log, stderr=subprocess.STDOUT)
-        gitrev = version.gitDescribe()
+        for d in options.repositories.split(","):
+            os.chdir(os.path.join(options.rootDir, d))
+            subprocess.call(["git", "pull"], stdout=log, stderr=subprocess.STDOUT)
+            subprocess.call(["git", "submodule", "update"], stdout=log, stderr=subprocess.STDOUT)
+            if gitrev == "":
+                gitrev = version.gitDescribe()
         os.chdir(cwd)
     return gitrev
 
@@ -128,13 +129,13 @@ optParser.add_option("-t", "--tests-dir", dest="testsDir", default=r"git\tests",
                      help="directory containg the tests, relative to the root dir")
 optParser.add_option("-m", "--remote-dir", dest="remoteDir", default="S:\\daily",
                      help="directory to move the results to")
-optParser.add_option("-u", "--no-update", dest="update", action="store_false",
-                     default=True, help="skip repository update")
 optParser.add_option("-n", "--no-tests", dest="tests", action="store_false",
                      default=True, help="skip tests")
 optParser.add_option("-x", "--x64only", action="store_true",
                      default=False, help="skip Win32 and debug build (as well as netedit tests)")
 optParser.add_option("-p", "--python", help="path to python interpreter to use")
+optParser.add_option("-u", "--repositories", default="git",
+                     help="repositories to update")
 (options, args) = optParser.parse_args()
 
 sys.path.append(os.path.join(options.rootDir, options.testsDir))
@@ -201,10 +202,10 @@ for platform in (["x64"] if options.x64only else ["Win32", "x64"]):
                         binDir = f
                 elif f.endswith('/') and '/docs/' in f and f.count('/') == 3:
                     write = not f.endswith('/doxygen/')
-                elif write:
+                elif write and not f.endswith(".jar"):
                     zipf.writestr(f, srcZip.read(f))
             srcZip.close()
-            for ext in ("*.exe", "*.dll", "*.lib", "*.exp", "*.bat", "*.py", "*.pyd", "*.jar"):
+            for ext in ("*.exe", "*.dll", "*.lib", "*.exp", "*.jar"):
                 for f in sorted(glob.glob(os.path.join(options.rootDir, options.binDir, ext))):
                     base = os.path.basename(f)
                     nameInZip = os.path.join(binDir, base)
