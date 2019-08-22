@@ -137,7 +137,7 @@ NIImporter_SUMO::_loadNetwork(OptionsCont& oc) {
             continue;
         }
         if (from == to) {
-            WRITE_ERROR("Edge's '" + ed->id + "' from-node and to-node '" + ed->toNode + "' art identical.");
+            WRITE_ERROR("Edge's '" + ed->id + "' from-node and to-node '" + ed->toNode + "' are identical.");
             continue;
         }
         // edge shape
