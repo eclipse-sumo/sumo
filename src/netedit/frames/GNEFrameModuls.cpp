@@ -355,6 +355,11 @@ GNEFrameModuls::DemandElementSelector::getCurrentDemandElement() const {
 }
 
 
+const std::vector<SumoXMLTag>& 
+GNEFrameModuls::DemandElementSelector::getAllowedTags() const {
+    return myDemandElementTags;
+}
+
 void
 GNEFrameModuls::DemandElementSelector::setDemandElement(GNEDemandElement* demandElement) {
     // first check that demandElement tag correspond to a tag of myDemandElementTags
@@ -457,7 +462,14 @@ GNEFrameModuls::DemandElementSelector::refreshDemandElementSelector() {
         } else if (myDemandElementsMatchBox->getItem(0).text() == DEFAULT_PEDTYPE_ID) {
             myCurrentDemandElement = myFrameParent->getViewNet()->getNet()->getAttributeCarriers().demandElements.at(SUMO_TAG_PTYPE).at(DEFAULT_PEDTYPE_ID);
         } else {
-            myCurrentDemandElement = myFrameParent->getViewNet()->getNet()->getAttributeCarriers().demandElements.at(myDemandElementTags.front()).begin()->second;
+            // disable myCurrentDemandElement 
+            myCurrentDemandElement = nullptr;
+            // update myCurrentDemandElement with the first allowed element
+            for (auto i = myDemandElementTags.begin(); (i != myDemandElementTags.end()) && (myCurrentDemandElement == nullptr); i++) {
+                if (myFrameParent->getViewNet()->getNet()->getAttributeCarriers().demandElements.at(*i).size() > 0) {
+                    myCurrentDemandElement = myFrameParent->getViewNet()->getNet()->getAttributeCarriers().demandElements.at(*i).begin()->second;
+                }
+            }
         }
     }
 }

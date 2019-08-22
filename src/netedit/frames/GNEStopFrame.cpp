@@ -95,6 +95,9 @@ GNEStopFrame::HelpCreation::updateHelpCreation() {
                     << "  create a stop.";
             break;
         default:
+            information
+                    << "- No stop parents in\n"
+                    << "  current network.";
             break;
     }
     // set information label
@@ -133,10 +136,30 @@ GNEStopFrame::~GNEStopFrame() {}
 
 void
 GNEStopFrame::show() {
-    // refresh vType selector
-    myStopParentSelector->refreshDemandElementSelector();
-    // refresh item selector
-    myStopTagSelector->refreshTagProperties();
+    // first check if stop frame moduls can be shown
+    bool validStopParent = false;
+    // check if at least there an item that supports an stop
+    for (auto i = myStopParentSelector->getAllowedTags().begin(); (i != myStopParentSelector->getAllowedTags().end()) && (validStopParent == false); i++) {
+        if (myViewNet->getNet()->getAttributeCarriers().demandElements.at(*i).size() > 0) {
+            validStopParent = true;
+        }
+    }
+    if (validStopParent) {
+        myStopParentSelector->showDemandElementSelector();
+        myStopTagSelector->showTagSelector();
+        // refresh vType selector
+        myStopParentSelector->refreshDemandElementSelector();
+        // refresh item selector
+        myStopTagSelector->refreshTagProperties();
+    } else {
+        // hide moduls (except help creation)
+        myStopParentSelector->hideDemandElementSelector();
+        myStopTagSelector->hideTagSelector();
+        myStopAttributes->hideAttributesCreatorModul();
+        myNeteditAttributes->hideNeteditAttributesModul();
+        // show help creation modul
+        myHelpCreation->showHelpCreation();
+    }
     // show frame
     GNEFrame::show();
 }

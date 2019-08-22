@@ -128,6 +128,9 @@ public:
         /// @brief get current demand element
         GNEDemandElement* getCurrentDemandElement() const;
 
+        // @brief obtain allowed tags (derived from tagTypes)
+        const std::vector<SumoXMLTag>& getAllowedTags() const;
+
         /// @brief set current demand element
         void setDemandElement(GNEDemandElement* demandElement);
 
