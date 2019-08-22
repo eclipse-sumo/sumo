@@ -57,6 +57,15 @@ def repositoryUpdate(options, repoLogFile):
     return gitrev
 
 
+def killall(debugSuffix):
+    bins = set([name + debugSuffix + ".exe" for name in BINARIES])
+    for taskline in subprocess.check_output(["tasklist", "/nh"]).splitlines():
+        task = taskline.split()
+        if task and task[0] in bins:
+            subprocess.call(["taskkill", "/f", "/im", task[0]])
+            bins.remove(task[0])
+
+
 def runTests(options, env, gitrev, withNetedit, debugSuffix=""):
     if not options.tests:
         return
@@ -71,10 +80,9 @@ def runTests(options, env, gitrev, withNetedit, debugSuffix=""):
     shutil.rmtree(env["TEXTTEST_TMP"], True)
     if not os.path.exists(env["SUMO_REPORT"]):
         os.makedirs(env["SUMO_REPORT"])
+    killall(debugSuffix)
     for name in BINARIES:
-        image = name + debugSuffix + ".exe"
-        subprocess.call(["taskkill", "/f", "/im", image])
-        binary = os.path.join(options.rootDir, options.binDir, image)
+        binary = os.path.join(options.rootDir, options.binDir, name + debugSuffix + ".exe")
         if name == "sumo-gui":
             if os.path.exists(binary):
                 env["GUISIM_BINARY"] = binary
@@ -97,8 +105,7 @@ def runTests(options, env, gitrev, withNetedit, debugSuffix=""):
                         stdout=log, stderr=subprocess.STDOUT, shell=True)
     subprocess.call([ttBin, "-b", env["FILEPREFIX"], "-coll"], env=env,
                     stdout=log, stderr=subprocess.STDOUT, shell=True)
-    for name in BINARIES:
-        subprocess.call(["taskkill", "/f", "/im", name + debugSuffix + ".exe"])
+    killall(debugSuffix)
     log.close()
 
 
