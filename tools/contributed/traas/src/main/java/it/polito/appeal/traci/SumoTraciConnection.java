@@ -95,7 +95,7 @@ public class SumoTraciConnection {
     }
 
     private String configFile;
-    private int randomSeed;
+    private int randomSeed = -1;
     private int remotePort;
     private Socket socket;
 
