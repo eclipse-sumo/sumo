@@ -115,7 +115,7 @@ public class SimulationControlUnits {
         complexCodes.put("yOO", LightColor.YELLOW);
         complexCodes.put("yyo", LightColor.YELLOW);
         complexCodes.put("yyO", LightColor.YELLOW);
-        complexCodes.put("yoO", LightColor.OFF);
+        complexCodes.put("yoO", LightColor.YELLOW);
         complexCodes.put("uOO", LightColor.RED_YELLOW);
         complexCodes.put("uoO", LightColor.RED_YELLOW);
         complexCodes.put("OGo", LightColor.DARK_GREEN);
