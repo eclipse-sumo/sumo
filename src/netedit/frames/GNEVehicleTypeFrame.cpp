@@ -20,14 +20,14 @@
 // ===========================================================================
 #include <config.h>
 
-#include <utils/gui/windows/GUIAppEnum.h>
-#include <utils/gui/div/GUIDesigns.h>
-#include <netedit/changes/GNEChange_DemandElement.h>
-#include <netedit/dialogs/GNEVehicleTypeDialog.h>
-#include <netedit/demandelements/GNEVehicleType.h>
 #include <netedit/GNENet.h>
-#include <netedit/GNEViewNet.h>
 #include <netedit/GNEUndoList.h>
+#include <netedit/GNEViewNet.h>
+#include <netedit/changes/GNEChange_DemandElement.h>
+#include <netedit/demandelements/GNEVehicleType.h>
+#include <netedit/dialogs/GNEVehicleTypeDialog.h>
+#include <utils/gui/div/GUIDesigns.h>
+#include <utils/gui/windows/GUIAppEnum.h>
 
 #include "GNEVehicleTypeFrame.h"
 
@@ -145,6 +145,14 @@ GNEVehicleTypeFrame::VehicleTypeSelector::refreshVehicleTypeSelector() {
     myVehicleTypeFrameParent->myVehicleTypeEditor->refreshVehicleTypeEditorModul();
     // show Attribute Editor modul if selected item is valid
     myVehicleTypeFrameParent->myVehicleTypeAttributesEditor->showAttributeEditorModul({myCurrentVehicleType}, false);
+}
+
+
+void
+GNEVehicleTypeFrame::VehicleTypeSelector::refreshVehicleTypeSelectorIDs() {
+    if (myCurrentVehicleType) {
+        myTypeMatchBox->setItem(myTypeMatchBox->getCurrentItem(), myCurrentVehicleType->getID().c_str());
+    }
 }
 
 
@@ -404,7 +412,8 @@ GNEVehicleTypeFrame::getVehicleTypeSelector() const {
 
 void
 GNEVehicleTypeFrame::attributeUpdated() {
-    myVehicleTypeSelector->refreshVehicleTypeSelector();
+    // after changing an attribute myVehicleTypeSelector, we need to update the list of vehicleTypeSelector, because ID could be changed
+    myVehicleTypeSelector->refreshVehicleTypeSelectorIDs();
 }
 
 

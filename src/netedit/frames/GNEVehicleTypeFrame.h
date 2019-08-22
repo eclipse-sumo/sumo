@@ -60,8 +60,11 @@ public:
         /// @brief set current Vehicle Type
         void setCurrentVehicleType(GNEDemandElement* vType);
 
-        /// @brief refresh vehicle type
+        /// @brief refresh vehicle type selector
         void refreshVehicleTypeSelector();
+
+        /// @brief refresh vehicle type selector (only IDs, without refreshing attributes)
+        void refreshVehicleTypeSelectorIDs();
 
         /// @name FOX-callbacks
         /// @{
