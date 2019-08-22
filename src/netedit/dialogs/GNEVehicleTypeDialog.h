@@ -426,7 +426,7 @@ public:
         class CarFollowingModelRow : public FXHorizontalFrame {
         public:
             /// @brief constructor
-            CarFollowingModelRow(CarFollowingModelParameters* carFollowingModelParametersParent, FXVerticalFrame* verticalFrame, SumoXMLAttr attr);
+            CarFollowingModelRow(CarFollowingModelParameters* carFollowingModelParametersParent, FXVerticalFrame* verticalFrame, SumoXMLAttr attr, bool allowString = false);
 
             /// @brief set Variablen in VehicleType
             void setVariable();
@@ -442,7 +442,7 @@ public:
             SumoXMLAttr myAttr;
 
             /// @brief text field
-            FXTextField* textField;
+            FXTextField* myTextField;
         };
 
     private:

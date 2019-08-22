@@ -1216,8 +1216,8 @@ GNEVehicleTypeDialog::CarFollowingModelParameters::CarFollowingModelParameters(G
     myTmp5Row = new CarFollowingModelRow(this, myVerticalFrameRows, SUMO_ATTR_TMP5);
     myRows.push_back(myTmp5Row);
 
-    // 19 create FX and Label for Estimation
-    myTrainTypeRow = new CarFollowingModelRow(this, myVerticalFrameRows, SUMO_ATTR_TRAIN_TYPE);
+    // 19 create FX and Label for trainType (allow strings)
+    myTrainTypeRow = new CarFollowingModelRow(this, myVerticalFrameRows, SUMO_ATTR_TRAIN_TYPE, true);
     myRows.push_back(myTrainTypeRow);
 
     // 20 create FX and Label for Tau Last
@@ -1555,31 +1555,36 @@ GNEVehicleTypeDialog::onCmdReset(FXObject*, FXSelector, void*) {
 // GNEVehicleTypeDialog - private methods
 // ---------------------------------------------------------------------------
 
-GNEVehicleTypeDialog::CarFollowingModelParameters::CarFollowingModelRow::CarFollowingModelRow(CarFollowingModelParameters* carFollowingModelParametersParent, FXVerticalFrame* verticalFrame, SumoXMLAttr attr) :
+GNEVehicleTypeDialog::CarFollowingModelParameters::CarFollowingModelRow::CarFollowingModelRow(CarFollowingModelParameters* carFollowingModelParametersParent, FXVerticalFrame* verticalFrame, SumoXMLAttr attr, bool allowString) :
     FXHorizontalFrame(verticalFrame, GUIDesignAuxiliarHorizontalFrame),
     myCarFollowingModelParametersParent(carFollowingModelParametersParent),
-    myAttr(attr) {
+    myAttr(attr),
+    myTextField(nullptr) {
     new FXLabel(this, toString(attr).c_str(), nullptr, GUIDesignLabelAttribute150);
-    textField = new FXTextField(this, GUIDesignTextFieldNCol, carFollowingModelParametersParent, MID_GNE_SET_ATTRIBUTE, GUIDesignTextFielWidth180Real);
+    if (allowString) {
+        myTextField = new FXTextField(this, GUIDesignTextFieldNCol, carFollowingModelParametersParent, MID_GNE_SET_ATTRIBUTE, GUIDesignTextFielWidth180);
+    } else {
+        myTextField = new FXTextField(this, GUIDesignTextFieldNCol, carFollowingModelParametersParent, MID_GNE_SET_ATTRIBUTE, GUIDesignTextFielWidth180Real);
+    }
 }
 
 
 void
 GNEVehicleTypeDialog::CarFollowingModelParameters::CarFollowingModelRow::setVariable() {
     // set color of textField, depending if current value is valid or not
-    if (myCarFollowingModelParametersParent->myVehicleTypeDialog->myEditedDemandElement->isValid(myAttr, textField->getText().text())) {
+    if (myCarFollowingModelParametersParent->myVehicleTypeDialog->myEditedDemandElement->isValid(myAttr, myTextField->getText().text())) {
         // set color depending if is a default value
-        if (myCarFollowingModelParametersParent->myVehicleTypeDialog->myEditedDemandElement->getTagProperty().getDefaultValue(myAttr) != textField->getText().text()) {
-            textField->setTextColor(FXRGB(0, 0, 0));
+        if (myCarFollowingModelParametersParent->myVehicleTypeDialog->myEditedDemandElement->getTagProperty().getDefaultValue(myAttr) != myTextField->getText().text()) {
+            myTextField->setTextColor(FXRGB(0, 0, 0));
         } else {
-            textField->setTextColor(FXRGB(195, 195, 195));
+            myTextField->setTextColor(FXRGB(195, 195, 195));
         }
-        myCarFollowingModelParametersParent->myVehicleTypeDialog->myEditedDemandElement->setAttribute(myAttr, textField->getText().text(),
+        myCarFollowingModelParametersParent->myVehicleTypeDialog->myEditedDemandElement->setAttribute(myAttr, myTextField->getText().text(),
                 myCarFollowingModelParametersParent->myVehicleTypeDialog->myEditedDemandElement->getViewNet()->getUndoList());
         // update value after setting it
         updateValue();
     } else {
-        textField->setTextColor(FXRGB(255, 0, 0));
+        myTextField->setTextColor(FXRGB(255, 0, 0));
         // mark VType as invalid
         myCarFollowingModelParametersParent->myVehicleTypeDialog->myVehicleTypeValid = false;
         myCarFollowingModelParametersParent->myVehicleTypeDialog->myInvalidAttr = myAttr;
@@ -1590,12 +1595,12 @@ GNEVehicleTypeDialog::CarFollowingModelParameters::CarFollowingModelRow::setVari
 void
 GNEVehicleTypeDialog::CarFollowingModelParameters::CarFollowingModelRow::updateValue() {
     // set text of myTextField using current value of VType
-    textField->setText(myCarFollowingModelParametersParent->myVehicleTypeDialog->myEditedDemandElement->getAttribute(myAttr).c_str());
+    myTextField->setText(myCarFollowingModelParametersParent->myVehicleTypeDialog->myEditedDemandElement->getAttribute(myAttr).c_str());
     // set color depending if is a default value
-    if (myCarFollowingModelParametersParent->myVehicleTypeDialog->myEditedDemandElement->getTagProperty().getDefaultValue(myAttr) != textField->getText().text()) {
-        textField->setTextColor(FXRGB(0, 0, 0));
+    if (myCarFollowingModelParametersParent->myVehicleTypeDialog->myEditedDemandElement->getTagProperty().getDefaultValue(myAttr) != myTextField->getText().text()) {
+        myTextField->setTextColor(FXRGB(0, 0, 0));
     } else {
-        textField->setTextColor(FXRGB(195, 195, 195));
+        myTextField->setTextColor(FXRGB(195, 195, 195));
     }
 }
 
