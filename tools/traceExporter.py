@@ -33,6 +33,7 @@ import sumolib.output.convert.omnet as omnet  # noqa
 import sumolib.output.convert.shawn as shawn  # noqa
 import sumolib.output.convert.ns2 as ns2  # noqa
 import sumolib.output.convert.gpsdat as gpsdat  # noqa
+import sumolib.output.convert.kml as kml  # noqa
 import sumolib.output.convert.gpx as gpx  # noqa
 import sumolib.output.convert.poi as poi  # noqa
 import sumolib.output.convert.fcdfilter as fcdfilter  # noqa
@@ -190,7 +191,9 @@ output format. Optionally the output can be sampled, filtered and distorted.
     # GPSDAT
     optParser.add_option("--gpsdat-output", dest="gpsdat", metavar="FILE",
                          help="Defines the name of the gpsdat file to generate")
-
+    # KML
+    optParser.add_option("--kml-output", dest="kml", metavar="FILE",
+                         help="Defines the name of the kml file to generate")
     # GPX
     optParser.add_option("--gpx-output", dest="gpx", metavar="FILE",
                          help="Defines the name of the gpx file to generate")
@@ -244,6 +247,11 @@ output format. Optionally the output can be sampled, filtered and distorted.
     if options.gpsdat:
         runMethod(options.fcd, options.gpsdat, gpsdat.fcd2gpsdat, options)
     # ----- GPSDAT
+
+    # ----- KML
+    if options.kml:
+        runMethod(options.fcd, options.kml, kml.fcd2kml, options)
+    # ----- KML
 
     # ----- GPX
     if options.gpx:
