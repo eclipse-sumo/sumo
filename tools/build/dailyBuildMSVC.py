@@ -50,6 +50,7 @@ def repositoryUpdate(options, repoLogFile):
         cwd = os.getcwd()
         os.chdir(os.path.join(options.rootDir, "git"))
         subprocess.call(["git", "pull"], stdout=log, stderr=subprocess.STDOUT)
+        subprocess.call(["git", "submodule", "update"], stdout=log, stderr=subprocess.STDOUT)
         gitrev = version.gitDescribe()
         os.chdir(cwd)
     return gitrev
@@ -205,20 +206,23 @@ for platform in (["x64"] if options.x64only else ["Win32", "x64"]):
             srcZip.close()
             for ext in ("*.exe", "*.dll", "*.lib", "*.exp", "*.bat", "*.py", "*.pyd", "*.jar"):
                 for f in sorted(glob.glob(os.path.join(options.rootDir, options.binDir, ext))):
-                    nameInZip = os.path.join(binDir, os.path.basename(f))
+                    base = os.path.basename(f)
+                    nameInZip = os.path.join(binDir, base)
                     # filter debug dlls
                     if nameInZip[-5:] in ("d.dll", "D.dll") and nameInZip[:-5] + ".dll" in zipf.namelist():
-                        continue
-                    if nameInZip not in srcZip.namelist():
+                        write = False
+                    elif ext == "*.exe":
+                        write = any([base.startswith(b) for b in BINARIES])
+                    else:
+                        write = True
+                    if write:
                         zipf.write(f, nameInZip)
             zipf.close()
             if options.suffix == "":
                 # installers only for the vanilla build
                 wix.buildMSI(binaryZip, binaryZip.replace(".zip", ".msi"), log=log)
         except IOError as ziperr:
-            (errno, strerror) = ziperr.args
-            print("Warning: Could not zip to %s!" % binaryZip, file=log)
-            print("I/O error(%s): %s" % (errno, strerror), file=log)
+            print("Warning: Could not zip to %s (%s)!" % (binaryZip, ziperr), file=log)
     try:
         setup = os.path.join(env["SUMO_HOME"], 'tools', 'game', 'setup.py')
         subprocess.call(['python', setup, binaryZip], stdout=log, stderr=subprocess.STDOUT)
@@ -238,9 +242,7 @@ for platform in (["x64"] if options.x64only else ["Win32", "x64"]):
                 zipf.write(f, os.path.join(binDir, os.path.basename(f)))
             zipf.close()
         except IOError as ziperr:
-            (errno, strerror) = ziperr.args
-            print("Warning: Could not zip to %s!" % binaryZip, file=log)
-            print("I/O error(%s): %s" % (errno, strerror), file=log)
+            print("Warning: Could not zip to %s (%s)!" % (binaryZip, ziperr), file=log)
     runTests(options, env, gitrev, platform == "x64" and not options.x64only)
     with open(statusLog, 'w') as log:
         status.printStatus(makeLog, makeAllLog, env["SMTP_SERVER"], log)
