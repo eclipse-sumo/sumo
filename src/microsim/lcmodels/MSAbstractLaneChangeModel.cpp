@@ -150,9 +150,9 @@ MSAbstractLaneChangeModel::updateSafeLatDist(const double travelledLatDist) {
 void
 MSAbstractLaneChangeModel::setManeuverDist(const double dist) {
 #ifdef DEBUG_MANEUVER
-    if DEBUG_COND {
-    std::cout << SIMTIME
-              << " veh=" << myVehicle.getID()
+    if (DEBUG_COND) {
+        std::cout << SIMTIME
+                  << " veh=" << myVehicle.getID()
                   << " setManeuverDist() old=" << myManeuverDist << " new=" << dist
                   << std::endl;
     }

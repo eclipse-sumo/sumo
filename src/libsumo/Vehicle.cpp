@@ -657,9 +657,9 @@ Vehicle::getNeighbors(const std::string& vehicleID, const int mode) {
 
 #ifdef DEBUG_NEIGHBORS
     if (DEBUG_COND) {
-    std::cout << "getNeighbors() for veh '" << vehicleID << "': dir=" << dir
-              << ", queryLeaders=" << queryLeaders
-              << ", blockersOnly=" << blockersOnly << std::endl;
+        std::cout << "getNeighbors() for veh '" << vehicleID << "': dir=" << dir
+                  << ", queryLeaders=" << queryLeaders
+                  << ", blockersOnly=" << blockersOnly << std::endl;
     }
 #endif
 
@@ -1375,7 +1375,7 @@ Vehicle::rerouteTraveltime(const std::string& vehicleID, const bool currentTrave
 void
 Vehicle::rerouteEffort(const std::string& vehicleID) {
     MSVehicle* veh = Helper::getVehicle(vehicleID);
-    veh->reroute(MSNet::getInstance()->getCurrentTimeStep(), "traci:rerouteEffort", 
+    veh->reroute(MSNet::getInstance()->getCurrentTimeStep(), "traci:rerouteEffort",
                  MSNet::getInstance()->getRouterEffort(), isOnInit(vehicleID));
 }
 
@@ -1410,8 +1410,8 @@ Vehicle::moveTo(const std::string& vehicleID, const std::string& laneID, double 
     }
     if (it == veh->getRoute().end() ||
             // internal edge must continue the route
-            (destinationEdge->isInternal() && 
-             ((it + 1) == veh->getRoute().end() 
+            (destinationEdge->isInternal() &&
+             ((it + 1) == veh->getRoute().end()
               || l->getNextNormal() != *(it + 1)))) {
         throw TraCIException("Lane '" + laneID + "' is not on the route of vehicle '" + vehicleID + "'.");
     }

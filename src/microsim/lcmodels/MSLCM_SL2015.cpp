@@ -875,8 +875,8 @@ MSLCM_SL2015::prepareStep() {
     // XXX only do this when (sub)lane changing is possible
     std::vector<double> newExpectedSpeeds;
 #ifdef DEBUG_INFORM
-    if DEBUG_COND {
-    std::cout << SIMTIME << " veh=" << myVehicle.getID() << " myExpectedSublaneSpeeds=" << toString(myExpectedSublaneSpeeds) << "\n";
+    if (DEBUG_COND) {
+        std::cout << SIMTIME << " veh=" << myVehicle.getID() << " myExpectedSublaneSpeeds=" << toString(myExpectedSublaneSpeeds) << "\n";
     }
 #endif
     if (myExpectedSublaneSpeeds.size() != myVehicle.getLane()->getEdge().getSubLaneSides().size()) {

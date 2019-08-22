@@ -1054,8 +1054,8 @@ MSVehicle::~MSVehicle() {
 void
 MSVehicle::onRemovalFromNet(const MSMoveReminder::Notification reason) {
 #ifdef DEBUG_ACTIONSTEPS
-    if DEBUG_COND {
-    std::cout << SIMTIME << " Removing vehicle '" << getID() << "' (reason: " << toString(reason) << ")" << std::endl;
+    if (DEBUG_COND) {
+        std::cout << SIMTIME << " Removing vehicle '" << getID() << "' (reason: " << toString(reason) << ")" << std::endl;
     }
 #endif
     MSVehicleTransfer::getInstance()->remove(this);
@@ -1314,7 +1314,7 @@ MSVehicle::getPositionAlongBestLanes(double offset) const {
     assert(MSGlobals::gUsingInternalLanes);
     const std::vector<MSLane*>& bestLanes = getBestLanesContinuation();
     auto nextBestLane = bestLanes.begin();
-    const bool opposite = getLaneChangeModel().isOpposite(); 
+    const bool opposite = getLaneChangeModel().isOpposite();
     double pos = opposite ? myLane->getLength() - myState.myPos : myState.myPos;
     const MSLane* lane = opposite ? myLane->getOpposite() : getLane();
     assert(lane != 0);
@@ -2155,8 +2155,8 @@ MSVehicle::planMove(const SUMOTime t, const MSLeaderInfo& ahead, const double le
 
     if (!checkActionStep(t)) {
 #ifdef DEBUG_ACTIONSTEPS
-        if DEBUG_COND {
-        std::cout << STEPS2TIME(t) << " vehicle '" << getID() << "' skips action." << std::endl;
+        if (DEBUG_COND) {
+            std::cout << STEPS2TIME(t) << " vehicle '" << getID() << "' skips action." << std::endl;
         }
 #endif
         // During non-action passed drive items still need to be removed
@@ -2165,8 +2165,8 @@ MSVehicle::planMove(const SUMOTime t, const MSLeaderInfo& ahead, const double le
         return;
     } else {
 #ifdef DEBUG_ACTIONSTEPS
-        if DEBUG_COND {
-        std::cout << STEPS2TIME(t) << " vehicle = '" << getID() << "' takes action." << std::endl;
+        if (DEBUG_COND) {
+            std::cout << STEPS2TIME(t) << " vehicle = '" << getID() << "' takes action." << std::endl;
         }
 #endif
 
@@ -2364,8 +2364,8 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
                         myNextTurn.second = linkDir;
                         encounteredTurn = true;
 #ifdef DEBUG_NEXT_TURN
-                        if DEBUG_COND {
-                        std::cout << SIMTIME << " veh '" << getID() << "' nextTurn: " << toString(myNextTurn.second)
+                        if (DEBUG_COND) {
+                            std::cout << SIMTIME << " veh '" << getID() << "' nextTurn: " << toString(myNextTurn.second)
                                       << " at " << myNextTurn.first << "m." << std::endl;
                         }
 #endif
@@ -2460,8 +2460,8 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
         const double stopDist = MAX2(0., seen - laneStopOffset);
 
 #ifdef DEBUG_PLAN_MOVE
-        if DEBUG_COND {
-        std::cout << SIMTIME << " veh=" << getID() << " effective stopOffset on lane '" << lane->getID()
+        if (DEBUG_COND) {
+            std::cout << SIMTIME << " veh=" << getID() << " effective stopOffset on lane '" << lane->getID()
                       << "' is " << laneStopOffset << " (-> stopDist=" << stopDist << ")" << std::endl;
         }
 #endif
@@ -3226,8 +3226,8 @@ MSVehicle::processTraCISpeedControl(double vSafe, double vNext) {
 void
 MSVehicle::removePassedDriveItems() {
 #ifdef DEBUG_ACTIONSTEPS
-    if DEBUG_COND {
-    std::cout << SIMTIME << " veh=" << getID() << " removePassedDriveItems()\n"
+    if (DEBUG_COND) {
+        std::cout << SIMTIME << " veh=" << getID() << " removePassedDriveItems()\n"
                   << "    Current items: ";
         for (auto& j : myLFLinkLanes) {
             if (j.myLink == 0) {
@@ -3255,9 +3255,9 @@ MSVehicle::removePassedDriveItems() {
 #endif
     for (auto j = myLFLinkLanes.begin(); j != myNextDriveItem; ++j) {
 #ifdef DEBUG_ACTIONSTEPS
-        if DEBUG_COND {
-        std::cout << "    Removing item: ";
-        if (j->myLink == 0) {
+        if (DEBUG_COND) {
+            std::cout << "    Removing item: ";
+            if (j->myLink == 0) {
                 std::cout << "Stop at distance " << j->myDistance;
             } else {
                 const MSLane* to = j->myLink->getViaLaneOrLane();
@@ -3685,8 +3685,8 @@ MSVehicle::executeMove() {
         // Actuate control (i.e. choose bounds for safe speed in current simstep (euler), resp. after current sim step (ballistic))
         processLinkApproaches(vSafe, vSafeMin, vSafeMinDist);
 #ifdef DEBUG_ACTIONSTEPS
-        if DEBUG_COND {
-        std::cout << SIMTIME << " vehicle '" << getID() << "'\n"
+        if (DEBUG_COND) {
+            std::cout << SIMTIME << " vehicle '" << getID() << "'\n"
                       "   vsafe from processLinkApproaches(): vsafe " << vSafe << std::endl;
         }
 #endif
@@ -3694,8 +3694,8 @@ MSVehicle::executeMove() {
         // Continue with current acceleration
         vSafe = getSpeed() + ACCEL2SPEED(myAcceleration);
 #ifdef DEBUG_ACTIONSTEPS
-        if DEBUG_COND {
-        std::cout << SIMTIME << " vehicle '" << getID() << "' skips processLinkApproaches()\n"
+        if (DEBUG_COND) {
+            std::cout << SIMTIME << " vehicle '" << getID() << "' skips processLinkApproaches()\n"
                       "   continues with constant accel " <<  myAcceleration << "...\n"
                       << "speed: "  << getSpeed() << " -> " << vSafe << std::endl;
         }
@@ -3786,8 +3786,8 @@ MSVehicle::executeMove() {
             passedLanes.clear(); // ignore back occupation
         }
 #ifdef DEBUG_ACTIONSTEPS
-        if DEBUG_COND {
-        std::cout << SIMTIME << " veh '" << getID() << "' updates further lanes." << std::endl;
+        if (DEBUG_COND) {
+            std::cout << SIMTIME << " veh '" << getID() << "' updates further lanes." << std::endl;
         }
 #endif
         myState.myBackPos = updateFurtherLanes(myFurtherLanes, myFurtherLanesPosLat, passedLanes);
@@ -3815,8 +3815,8 @@ MSVehicle::executeMove() {
             getLaneChangeModel().prepareStep();
         } else {
 #ifdef DEBUG_ACTIONSTEPS
-            if DEBUG_COND {
-            std::cout << SIMTIME << " veh '" << getID() << "' skips LCM->prepareStep()." << std::endl;
+            if (DEBUG_COND) {
+                std::cout << SIMTIME << " veh '" << getID() << "' skips LCM->prepareStep()." << std::endl;
             }
 #endif
         }
@@ -4297,7 +4297,9 @@ MSVehicle::checkRewindLinkLanes(const double lengthsInFront, DriveItemVector& lf
                 const double brakeGap = getCarFollowModel().brakeGap(myState.mySpeed, getCarFollowModel().getMaxDecel(), 0.);
                 lfLinks[removalBegin].myVLinkPass = lfLinks[removalBegin].myVLinkWait;
 #ifdef DEBUG_CHECKREWINDLINKLANES
-                if (DEBUG_COND) std::cout << " removalBegin=" << removalBegin << " brakeGap=" << brakeGap << " dist=" << lfLinks[removalBegin].myDistance << " speed=" << myState.mySpeed << " a2s=" << ACCEL2SPEED(getCarFollowModel().getMaxDecel()) << "\n"; 
+                if (DEBUG_COND) {
+                    std::cout << " removalBegin=" << removalBegin << " brakeGap=" << brakeGap << " dist=" << lfLinks[removalBegin].myDistance << " speed=" << myState.mySpeed << " a2s=" << ACCEL2SPEED(getCarFollowModel().getMaxDecel()) << "\n";
+                }
 #endif
                 if (lfLinks[removalBegin].myDistance >= brakeGap || (lfLinks[removalBegin].myDistance > 0 && myState.mySpeed < ACCEL2SPEED(getCarFollowModel().getMaxDecel()))) {
                     lfLinks[removalBegin].mySetRequest = false;
@@ -5387,9 +5389,9 @@ MSVehicle::lateralDistanceToLane(const int offset) const {
         latLaneDist = leftLimit + (getWidth() + NUMERICAL_EPS);
     }
 #ifdef DEBUG_ACTIONSTEPS
-    if DEBUG_COND {
-    std::cout << SIMTIME
-              << " veh=" << getID()
+    if (DEBUG_COND) {
+        std::cout << SIMTIME
+                  << " veh=" << getID()
                   << " halfCurrentLaneWidth=" << halfCurrentLaneWidth
                   << " halfVehWidth=" << halfVehWidth
                   << " latPos=" << latPos
@@ -5889,7 +5891,7 @@ MSVehicle::ignoreRed(const MSLink* link, bool canBrake) const {
         std::cout << SIMTIME << " veh=" << getID() << " link=" << link->getViaLaneOrLane()->getID() << " state=" << toString(link->getState()) << "\n";
     }
 #endif
-     if (ignoreRedTime < 0) {
+    if (ignoreRedTime < 0) {
         const double ignoreYellowTime = getVehicleType().getParameter().getJMParam(SUMO_ATTR_JM_DRIVE_AFTER_YELLOW_TIME, 0);
         if (ignoreYellowTime > 0 && link->haveYellow()) {
             assert(link->getTLLogic() != 0);
@@ -6131,7 +6133,7 @@ MSVehicle::getDriverState() const {
 
 double
 MSVehicle::getCurrentApparentDecel() const {
-        //return MAX2(-myAcceleration, getCarFollowModel().getApparentDecel());
+    //return MAX2(-myAcceleration, getCarFollowModel().getApparentDecel());
     return getCarFollowModel().getApparentDecel();
 }
 

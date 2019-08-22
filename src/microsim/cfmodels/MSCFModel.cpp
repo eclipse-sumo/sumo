@@ -185,12 +185,12 @@ MSCFModel::finalizeSpeed(MSVehicle* const veh, double vPos) const {
 #endif
 
 #ifdef DEBUG_FINALIZE_SPEED
-    if DEBUG_COND {
-    std::cout << "\n" << SIMTIME << " FINALIZE_SPEED\n";
-}
+    if (DEBUG_COND) {
+        std::cout << "\n" << SIMTIME << " FINALIZE_SPEED\n";
+    }
 #endif
 
-vMax = MAX2(vMin, vMax);
+    vMax = MAX2(vMin, vMax);
     // apply further speed adaptations
     double vNext = patchSpeedBeforeLC(veh, vMin, vMax);
 #ifdef DEBUG_FINALIZE_SPEED
@@ -204,8 +204,8 @@ vMax = MAX2(vMin, vMax);
     assert(vNext <= vMax);
 
 #ifdef DEBUG_FINALIZE_SPEED
-    if DEBUG_COND {
-    std::cout << std::setprecision(gPrecision)
+    if (DEBUG_COND) {
+        std::cout << std::setprecision(gPrecision)
                   << "veh '" << veh->getID() << "' oldV=" << oldV
                   << " vPos" << vPos
                   << " vMin=" << vMin
@@ -990,8 +990,8 @@ MSCFModel::applyHeadwayAndSpeedDifferencePerceptionErrors(const MSVehicle* const
     const double perceivedSpeedDifference = veh->getDriverState()->getPerceivedSpeedDifference(predSpeed - speed, gap, pred);
 
 #ifdef DEBUG_DRIVER_ERRORS
-    if DEBUG_COND {
-    if (!veh->getDriverState()->debugLocked()) {
+    if (DEBUG_COND) {
+        if (!veh->getDriverState()->debugLocked()) {
             veh->getDriverState()->lockDebug();
             std::cout << SIMTIME << " veh '" << veh->getID() << "' -> MSCFModel_Krauss::applyHeadwayAndSpeedDifferencePerceptionErrors()\n"
                       << "  speed=" << speed << " gap=" << gap << " leaderSpeed=" << predSpeed
@@ -1022,8 +1022,8 @@ MSCFModel::applyHeadwayPerceptionError(const MSVehicle* const veh, double speed,
     const double perceivedGap = veh->getDriverState()->getPerceivedHeadway(gap);
 
 #ifdef DEBUG_DRIVER_ERRORS
-    if DEBUG_COND {
-    if (!veh->getDriverState()->debugLocked()) {
+    if (DEBUG_COND) {
+        if (!veh->getDriverState()->debugLocked()) {
             veh->getDriverState()->lockDebug();
             std::cout << SIMTIME << " veh '" << veh->getID() << "' -> MSCFModel_Krauss::applyHeadwayPerceptionError()\n"
                       << "  speed=" << speed << " gap=" << gap << "\n  perceivedGap=" << perceivedGap << std::endl;

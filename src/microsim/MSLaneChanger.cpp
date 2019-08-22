@@ -278,8 +278,8 @@ MSLaneChanger::change() {
 
     if (!vehicle->isActive()) {
 #ifdef DEBUG_ACTIONSTEPS
-        if DEBUG_COND {
-        std::cout << SIMTIME << " veh '" << vehicle->getID() << "' skips regular change checks." << std::endl;
+        if (DEBUG_COND) {
+            std::cout << SIMTIME << " veh '" << vehicle->getID() << "' skips regular change checks." << std::endl;
         }
 #endif
         bool changed = false;
@@ -888,17 +888,17 @@ MSLaneChanger::checkChange(
         if (estimatedLCDuration == -1) {
             // Can't guarantee that LC will succeed if vehicle is braking -> assert(lcm.myMaxSpeedLatStanding==0)
 #ifdef DEBUG_CHECK_CHANGE
-            if DEBUG_COND {
-            std::cout << SIMTIME << " checkChange() too slow to guarantee completion of continuous lane change."
-                      << "\nestimatedLCDuration=" << estimatedLCDuration
-                      << "\ndistToNeighLane=" << distToNeighLane
-                      << std::endl;
-        }
+            if (DEBUG_COND) {
+                std::cout << SIMTIME << " checkChange() too slow to guarantee completion of continuous lane change."
+                          << "\nestimatedLCDuration=" << estimatedLCDuration
+                          << "\ndistToNeighLane=" << distToNeighLane
+                          << std::endl;
+            }
 #endif
-        state |= LCA_INSUFFICIENT_SPEED;
-    } else {
-        // Compute covered distance, when braking for the whole lc duration
-        const double decel = vehicle->getCarFollowModel().getMaxDecel() * estimatedLCDuration;
+            state |= LCA_INSUFFICIENT_SPEED;
+        } else {
+            // Compute covered distance, when braking for the whole lc duration
+            const double decel = vehicle->getCarFollowModel().getMaxDecel() * estimatedLCDuration;
             const double avgSpeed = 0.5 * (
                                         MAX2(0., vehicle->getSpeed() - ACCEL2SPEED(vehicle->getCarFollowModel().getMaxDecel())) +
                                         MAX2(0., vehicle->getSpeed() - decel));
@@ -907,18 +907,18 @@ MSLaneChanger::checkChange(
             // Available distance for LC maneuver (distance till next turn)
             double seen = myCandi->lane->getLength() - vehicle->getPositionOnLane();
 #ifdef DEBUG_CHECK_CHANGE
-            if DEBUG_COND {
-            std::cout << SIMTIME << " checkChange() checking continuous lane change..."
-                      << "\ndistToNeighLane=" << distToNeighLane
-                      << " estimatedLCDuration=" << estimatedLCDuration
-                      << " space2change=" << space2change
-                      << " avgSpeed=" << avgSpeed
-                      << std::endl;
-        }
+            if (DEBUG_COND) {
+                std::cout << SIMTIME << " checkChange() checking continuous lane change..."
+                          << "\ndistToNeighLane=" << distToNeighLane
+                          << " estimatedLCDuration=" << estimatedLCDuration
+                          << " space2change=" << space2change
+                          << " avgSpeed=" << avgSpeed
+                          << std::endl;
+            }
 #endif
 
-        // for finding turns it doesn't matter whether we look along the current lane or the target lane
-        const std::vector<MSLane*>& bestLaneConts = vehicle->getBestLanesContinuation();
+            // for finding turns it doesn't matter whether we look along the current lane or the target lane
+            const std::vector<MSLane*>& bestLaneConts = vehicle->getBestLanesContinuation();
             int view = 1;
             MSLane* nextLane = vehicle->getLane();
             MSLinkCont::const_iterator link = MSLane::succLinkSec(*vehicle, view, *nextLane, bestLaneConts);

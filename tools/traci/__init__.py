@@ -20,10 +20,10 @@ import os
 import warnings
 
 if 'LIBSUMO_AS_TRACI' not in os.environ:
-    from main import *
+    from main import *  # noqa
 else:
     try:
-        from libsumo import *
+        from libsumo import *  # noqa
     except ImportError:
         warnings.warn("Could not import libsumo, falling back to standard traci.")
-        from main import *
+        from main import *  # noqa

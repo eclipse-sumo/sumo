@@ -7,7 +7,7 @@
 # http://www.eclipse.org/legal/epl-v20.html
 # SPDX-License-Identifier: EPL-2.0
 
-# @file    __init__.py
+# @file    main.py
 # @author  Michael Behrisch
 # @author  Lena Kalleske
 # @author  Mario Krumnow

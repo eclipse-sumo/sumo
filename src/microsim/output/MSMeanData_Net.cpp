@@ -124,9 +124,9 @@ MSMeanData_Net::MSLaneMeanDataValues::notifyMoveInternal(
     const double travelledDistanceVehicleOnLane,
     const double meanLengthOnLane) {
 #ifdef DEBUG_OCCUPANCY
-    if DEBUG_COND {
-    std::cout << SIMTIME << "\n  MSMeanData_Net::MSLaneMeanDataValues::notifyMoveInternal()\n"
-              << "  veh '" << veh.getID() << "' on lane '" << veh.getLane()->getID() << "'"
+    if (DEBUG_COND) {
+        std::cout << SIMTIME << "\n  MSMeanData_Net::MSLaneMeanDataValues::notifyMoveInternal()\n"
+                  << "  veh '" << veh.getID() << "' on lane '" << veh.getLane()->getID() << "'"
                   << ", timeOnLane=" << timeOnLane
                   << ", meanSpeedVehicleOnLane=" << meanSpeedVehicleOnLane
                   << ",\ntravelledDistanceFrontOnLane=" << travelledDistanceFrontOnLane

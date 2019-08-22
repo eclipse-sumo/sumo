@@ -205,7 +205,7 @@ GNEPersonPlanFrame::PersonPlanCreator::hidePersonPlanCreator() {
     myClickedEdges.clear();
     // clear myTemporalEdgePath
     myTemporalEdgePath.clear();
-    // hide 
+    // hide
     hide();
 }
 
@@ -226,8 +226,8 @@ GNEPersonPlanFrame::PersonPlanCreator::refreshPersonPlanCreator() {
     myClickedEdges.clear();
     myTemporalEdgePath.clear();
     // first check if person has already demand element children
-    if (myPersonPlanFrameParent->myPersonSelector->getCurrentDemandElement() && 
-        (myPersonPlanFrameParent->myPersonSelector->getCurrentDemandElement()->getDemandElementChildren().size() > 0)) {
+    if (myPersonPlanFrameParent->myPersonSelector->getCurrentDemandElement() &&
+            (myPersonPlanFrameParent->myPersonSelector->getCurrentDemandElement()->getDemandElementChildren().size() > 0)) {
         // obtain last person plan element tag and pointer (to improve code legibliy)
         SumoXMLTag lastPersonPlanElementTag = myPersonPlanFrameParent->myPersonSelector->getCurrentDemandElement()->getDemandElementChildren().back()->getTagProperty().getTag();
         GNEDemandElement* lastPersonPlanElement = myPersonPlanFrameParent->myPersonSelector->getCurrentDemandElement()->getDemandElementChildren().back();

@@ -1443,7 +1443,7 @@ GNEFrameAttributesModuls::AttributesEditor::showAttributeEditorModul(const std::
             // show AttributesEditor
             show();
             // check if attribute is enabled
-            bool attributeEnabled = i.isEnablitable()? myEditedACs.front()->isAttributeEnabled(i.getAttr()) : true;
+            bool attributeEnabled = i.isEnablitable() ? myEditedACs.front()->isAttributeEnabled(i.getAttr()) : true;
             // create attribute editor row
             myAttributesEditorRows[i.getPositionListed()] = new AttributesEditorRow(this, i, value, attributeEnabled);
         }
@@ -1485,7 +1485,7 @@ GNEFrameAttributesModuls::AttributesEditor::refreshAttributeEditor(bool forceRef
                 oss << *it_val;
             }
             // check if attribute is enabled
-            bool attributeEnabled = i.isEnablitable()? myEditedACs.front()->isAttributeEnabled(i.getAttr()) : true;
+            bool attributeEnabled = i.isEnablitable() ? myEditedACs.front()->isAttributeEnabled(i.getAttr()) : true;
             // Check if refresh of Position or Shape has to be forced
             if ((i.getAttr()  == SUMO_ATTR_SHAPE) && forceRefreshShape) {
                 myAttributesEditorRows[i.getPositionListed()]->refreshAttributesEditorRow(oss.str(), true, attributeEnabled);
