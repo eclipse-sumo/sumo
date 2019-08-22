@@ -50,7 +50,7 @@ def write_diff(options):
                                                           attr_conversions=attr_conversions)])
     origDurations = Statistics('original durations',   histogram=options.useHist, scale=options.histScale)
     durations = Statistics('new durations',            histogram=options.useHist, scale=options.histScale)
-    durationDiffs = Statistics('duration differences', histogram=options.useHist, scale=options.histScale)
+    durationDiffs = Statistics('duration differences new-old', histogram=options.useHist, scale=options.histScale)
     numNew = 0
     numMissing = 0
     with open(options.output, 'w') as f:
