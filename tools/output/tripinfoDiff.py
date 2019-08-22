@@ -51,6 +51,8 @@ def write_diff(options):
     origDurations = Statistics('original durations',   histogram=options.useHist, scale=options.histScale)
     durations = Statistics('new durations',            histogram=options.useHist, scale=options.histScale)
     durationDiffs = Statistics('duration differences', histogram=options.useHist, scale=options.histScale)
+    numNew = 0
+    numMissing = 0
     with open(options.output, 'w') as f:
         f.write("<tripDiffs>\n")
         for v in parse(options.new, 'tripinfo', attr_conversions=attr_conversions):
@@ -65,10 +67,16 @@ def write_diff(options):
                 del vehicles_orig[v.id]
             else:
                 f.write('    <vehicle id="%s" comment="new"/>\n' % v.id)
+                numNew += 1
         for id in vehicles_orig.keys():
             f.write('    <vehicle id="%s" comment="missing"/>\n' % id)
+            numMissing += 1
         f.write("</tripDiffs>\n")
 
+    if numMissing > 0:
+        print("missing: %s" % numMissing)
+    if numNew > 0:
+        print("new: %s" % numNew)
     print(origDurations)
     print(durations)
     print(durationDiffs)
