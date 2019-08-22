@@ -597,7 +597,40 @@ GNEFrameModuls::EdgePathCreator::getClickedBusStop() const {
 
 bool
 GNEFrameModuls::EdgePathCreator::addEdge(GNEEdge* edge) {
-    if ((mySelectedBusStop == nullptr) && (myClickedEdges.empty() || ((myClickedEdges.size() > 0) && (myClickedEdges.back() != edge)))) {
+    bool addEdge = true;
+    // check if final busStop was selected
+    if (mySelectedBusStop != nullptr) {
+        addEdge = false;
+        // write status bar text
+        myFrameParent->getViewNet()->setStatusBarText("Final " + mySelectedBusStop->getTagProperty().getTagStr() + " selected");
+        // Write Warning in console if we're in testing mode
+        WRITE_DEBUG("Final " + mySelectedBusStop->getTagProperty().getTagStr() + " selected");
+    } else if ((myClickedEdges.size() > 0) && (myClickedEdges.back() == edge)) {
+        // avoid duplicated consecutive edges
+        addEdge = false;
+        // write status bar text
+        myFrameParent->getViewNet()->setStatusBarText("Duplicated consecutive edges aren't allowed");
+        // Write Warning in console if we're in testing mode
+        WRITE_DEBUG("Duplicated consecutive edges aren't allowed");
+    }
+    // check permissions
+    if (addEdge) {
+        addEdge = false;
+        for (const auto &i : edge->getNBEdge()->getLanes()) {
+            if ((i.permissions & myVClass) != 0) {
+                addEdge = true;
+            }
+        }
+        if (addEdge == false) {
+            // write status bar text
+            myFrameParent->getViewNet()->setStatusBarText("Invalid edge permissions");
+            // Write Warning in console if we're in testing mode
+            WRITE_DEBUG("Invalid edge permissions");
+        }
+    }
+    // check if edge can be added
+    if (addEdge) {
+        // insert edge in myClickedEdges
         myClickedEdges.push_back(edge);
         // enable abort route button
         myAbortCreationButton->enable();
