@@ -107,19 +107,24 @@ public class SimulationControlUnits {
         complexCodes.put("rGO", LightColor.RED);
         complexCodes.put("rOO", LightColor.RED);
         complexCodes.put("roO", LightColor.RED);
+        complexCodes.put("ryo", LightColor.RED);
+        complexCodes.put("ryO", LightColor.RED);
+        complexCodes.put("ruO", LightColor.RED);
+        complexCodes.put("ruo", LightColor.RED);
+        complexCodes.put("yGO", LightColor.YELLOW);
         complexCodes.put("yOO", LightColor.YELLOW);
         complexCodes.put("yyo", LightColor.YELLOW);
         complexCodes.put("yyO", LightColor.YELLOW);
         complexCodes.put("yoO", LightColor.OFF);
         complexCodes.put("uOO", LightColor.RED_YELLOW);
         complexCodes.put("uoO", LightColor.RED_YELLOW);
-        complexCodes.put("ruO", LightColor.RED_YELLOW);
-        complexCodes.put("ruo", LightColor.RED_YELLOW);
         complexCodes.put("OGo", LightColor.DARK_GREEN);
         complexCodes.put("GoO", LightColor.DARK_GREEN);
         complexCodes.put("goO", LightColor.DARK_GREEN);
         complexCodes.put("GoG", LightColor.GREEN);
         complexCodes.put("GOG", LightColor.GREEN);
+        complexCodes.put("OGO", LightColor.GREEN);
+
 
 
         // this is a hack for halle_vital.net intersection A
