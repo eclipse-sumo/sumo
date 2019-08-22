@@ -484,8 +484,8 @@ if (GIT_FOUND)
         COMMAND find tools/contributed/saga/ tools/contributed/*matlab -type f | grep -v .git | xargs cp --parents --target-dir sumo-${PACKAGE_VERSION}
         COMMAND zip -rq sumo-src-${PACKAGE_VERSION}.zip sumo-${PACKAGE_VERSION}
         COMMAND tar czf sumo-src-${PACKAGE_VERSION}.tar.gz sumo-${PACKAGE_VERSION}
-        COMMAND cp -a docs/userdoc docs/pydoc docs/javadoc docs/man docs/doxygen sumo-${PACKAGE_VERSION}/docs
-        COMMAND cp bin/*.jar bin/*.bat sumo-${PACKAGE_VERSION}/bin
+        COMMAND cp -a docs/userdoc docs/pydoc docs/javadoc docs/man sumo-${PACKAGE_VERSION}/docs
+        COMMAND cp bin/*.jar sumo-${PACKAGE_VERSION}/bin
         COMMAND cp -a tests sumo-${PACKAGE_VERSION}
         COMMAND zip -rq sumo-all-${PACKAGE_VERSION}.zip sumo-${PACKAGE_VERSION}
         COMMAND tar czf sumo-all-${PACKAGE_VERSION}.tar.gz sumo-${PACKAGE_VERSION}
