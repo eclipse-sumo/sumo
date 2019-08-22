@@ -2071,22 +2071,29 @@ GNEViewNet::onCmdEditCrossingShape(FXObject*, FXSelector, void*) {
 
 
 long
-GNEViewNet::onCmdToogleShowDemandElements(FXObject*, FXSelector, void*) {
+GNEViewNet::onCmdToogleShowDemandElements(FXObject*, FXSelector sel, void*) {
     // update view to show demand elements
     update();
+    // set focus in menu check again, if this function was called clicking over menu check instead using alt+<key number>
+    if (sel == FXSEL(SEL_COMMAND, MID_GNE_NETWORKVIEWOPTIONS_SHOWDEMANDELEMENTS)) {
+        myNetworkViewOptions.menuCheckShowDemandElements->setFocus();
+    }
     return 1;
 }
 
 
 long
-GNEViewNet::onCmdToogleSelectEdges(FXObject*, FXSelector, void*) {
-    // nothing to do
+GNEViewNet::onCmdToogleSelectEdges(FXObject*, FXSelector sel, void*) {
+    // set focus in menu check again, if this function was called clicking over menu check instead using alt+<key number>
+    if (sel == FXSEL(SEL_COMMAND, MID_GNE_NETWORKVIEWOPTIONS_SELECTEDGES)) {
+        myNetworkViewOptions.menuCheckSelectEdges->setFocus();
+    }
     return 1;
 }
 
 
 long
-GNEViewNet::onCmdToogleShowConnections(FXObject*, FXSelector, void*) {
+GNEViewNet::onCmdToogleShowConnections(FXObject*, FXSelector sel, void*) {
     // if show was enabled, init GNEConnections
     if (myNetworkViewOptions.menuCheckShowConnections->getCheck() == TRUE) {
         getNet()->initGNEConnections();
@@ -2097,36 +2104,52 @@ GNEViewNet::onCmdToogleShowConnections(FXObject*, FXSelector, void*) {
     getNet()->requireRecompute();
     // Update viewnNet to show/hide conections
     update();
+    // set focus in menu check again, if this function was called clicking over menu check instead using alt+<key number>
+    if (sel == FXSEL(SEL_COMMAND, MID_GNE_NETWORKVIEWOPTIONS_SHOWCONNECTIONS)) {
+        myNetworkViewOptions.menuCheckShowConnections->setFocus();
+    }
     return 1;
 }
 
 
 long
-GNEViewNet::onCmdToogleHideConnections(FXObject*, FXSelector, void*) {
+GNEViewNet::onCmdToogleHideConnections(FXObject*, FXSelector sel, void*) {
     // Update viewnNet to show/hide conections
     update();
+    // set focus in menu check again, if this function was called clicking over menu check instead using alt+<key number>
+    if (sel == FXSEL(SEL_COMMAND, MID_GNE_NETWORKVIEWOPTIONS_HIDECONNECTIONS)) {
+        myNetworkViewOptions.menuCheckHideConnections->setFocus();
+    }
     return 1;
 }
 
 
 long
-GNEViewNet::onCmdToogleExtendSelection(FXObject*, FXSelector, void*) {
+GNEViewNet::onCmdToogleExtendSelection(FXObject*, FXSelector sel, void*) {
     // Only update view
     update();
+    // set focus in menu check again, if this function was called clicking over menu check instead using alt+<key number>
+    if (sel == FXSEL(SEL_COMMAND, MID_GNE_NETWORKVIEWOPTIONS_EXTENDSELECTION)) {
+        myNetworkViewOptions.menuCheckExtendSelection->setFocus();
+    }
     return 1;
 }
 
 
 long
-GNEViewNet::onCmdToogleChangeAllPhases(FXObject*, FXSelector, void*) {
+GNEViewNet::onCmdToogleChangeAllPhases(FXObject*, FXSelector sel, void*) {
     // Only update view
     update();
+    // set focus in menu check again, if this function was called clicking over menu check instead using alt+<key number>
+    if (sel == FXSEL(SEL_COMMAND, MID_GNE_NETWORKVIEWOPTIONS_CHANGEALLPHASES)) {
+        myNetworkViewOptions.menuCheckChangeAllPhases->setFocus();
+    }
     return 1;
 }
 
 
 long
-GNEViewNet::onCmdToogleShowGrid(FXObject*, FXSelector, void*) {
+GNEViewNet::onCmdToogleShowGrid(FXObject*, FXSelector sel, void*) {
     // show or hidde grid depending of myNetworkViewOptions.menuCheckShowGrid
     if (myCommonViewOptions.menuCheckShowGrid->getCheck()) {
         myVisualizationSettings->showGrid = true;
@@ -2135,76 +2158,112 @@ GNEViewNet::onCmdToogleShowGrid(FXObject*, FXSelector, void*) {
     }
     // update view to show grid
     update();
+    // set focus in menu check again, if this function was called clicking over menu check instead using alt+<key number>
+    if (sel == FXSEL(SEL_COMMAND, MID_GNE_COMMONVIEWOPTIONS_SHOWGRID)) {
+        myCommonViewOptions.menuCheckShowGrid->setFocus();
+    }
     return 1;
 }
 
 
 long
-GNEViewNet::onCmdToogleWarnAboutMerge(FXObject*, FXSelector, void*) {
+GNEViewNet::onCmdToogleWarnAboutMerge(FXObject*, FXSelector sel, void*) {
     // Only update view
     update();
+    // set focus in menu check again, if this function was called clicking over menu check instead using alt+<key number>
+    if (sel == FXSEL(SEL_COMMAND, MID_GNE_NETWORKVIEWOPTIONS_ASKFORMERGE)) {
+        myNetworkViewOptions.menuCheckWarnAboutMerge->setFocus();
+    }
     return 1;
 }
 
 
 long
-GNEViewNet::onCmdToogleShowJunctionBubbles(FXObject*, FXSelector, void*) {
+GNEViewNet::onCmdToogleShowJunctionBubbles(FXObject*, FXSelector sel, void*) {
     // Only update view
     update();
+    // set focus in menu check again, if this function was called clicking over menu check instead using alt+<key number>
+    if (sel == FXSEL(SEL_COMMAND, MID_GNE_NETWORKVIEWOPTIONS_SHOWBUBBLES)) {
+        myNetworkViewOptions.menuCheckShowJunctionBubble->setFocus();
+    }
     return 1;
 }
 
 
 long
-GNEViewNet::onCmdToogleMoveElevation(FXObject*, FXSelector, void*) {
+GNEViewNet::onCmdToogleMoveElevation(FXObject*, FXSelector sel, void*) {
     // Only update view
     update();
+    // set focus in menu check again, if this function was called clicking over menu check instead using alt+<key number>
+    if (sel == FXSEL(SEL_COMMAND, MID_GNE_NETWORKVIEWOPTIONS_MOVEELEVATION)) {
+        myNetworkViewOptions.menuCheckMoveElevation->setFocus();
+    }
     return 1;
 }
 
 
 long
-GNEViewNet::onCmdToogleChainEdges(FXObject*, FXSelector, void*) {
+GNEViewNet::onCmdToogleChainEdges(FXObject*, FXSelector sel, void*) {
     // Only update view
     update();
+    // set focus in menu check again, if this function was called clicking over menu check instead using alt+<key number>
+    if (sel == FXSEL(SEL_COMMAND, MID_GNE_NETWORKVIEWOPTIONS_CHAINEDGES)) {
+        myNetworkViewOptions.menuCheckChainEdges->setFocus();
+    }
     return 1;
 }
 
 
 long
-GNEViewNet::onCmdToogleAutoOppositeEdge(FXObject*, FXSelector, void*) {
+GNEViewNet::onCmdToogleAutoOppositeEdge(FXObject*, FXSelector sel, void*) {
     // Only update view
     update();
+    // set focus in menu check again, if this function was called clicking over menu check instead using alt+<key number>
+    if (sel == FXSEL(SEL_COMMAND, MID_GNE_NETWORKVIEWOPTIONS_AUTOOPPOSITEEDGES)) {
+        myNetworkViewOptions.menuCheckAutoOppositeEdge->setFocus();
+    }
     return 1;
 }
 
 
 long
-GNEViewNet::onCmdToogleHideNonInspecteDemandElements(FXObject*, FXSelector, void*) {
+GNEViewNet::onCmdToogleHideNonInspecteDemandElements(FXObject*, FXSelector sel, void*) {
     // Only update view
     update();
+    // set focus in menu check again, if this function was called clicking over menu check instead using alt+<key number>
+    if (sel == FXSEL(SEL_COMMAND, MID_GNE_DEMANDVIEWOPTIONS_HIDENONINSPECTED)) {
+        myDemandViewOptions.menuCheckHideNonInspectedDemandElements->setFocus();
+    }
     return 1;
 }
 
 
 long
-GNEViewNet::onCmdToogleHideShapes(FXObject*, FXSelector, void*) {
+GNEViewNet::onCmdToogleHideShapes(FXObject*, FXSelector sel, void*) {
     // Only update view
     update();
+    // set focus in menu check again, if this function was called clicking over menu check instead using alt+<key number>
+    if (sel == FXSEL(SEL_COMMAND, MID_GNE_DEMANDVIEWOPTIONS_HIDESHAPES)) {
+        myDemandViewOptions.menuCheckHideShapes->setFocus();
+    }
     return 1;
 }
 
 
 long
-GNEViewNet::onCmdToogleShowAllPersonPlans(FXObject*, FXSelector, void*) {
+GNEViewNet::onCmdToogleShowAllPersonPlans(FXObject*, FXSelector sel, void*) {
     // Only update view
     update();
+    // set focus in menu check again, if this function was called clicking over menu check instead using alt+<key number>
+    if (sel == FXSEL(SEL_COMMAND, MID_GNE_DEMANDVIEWOPTIONS_SHOWALLPERSONPLANS)) {
+        myDemandViewOptions.menuCheckShowAllPersonPlans->setFocus();
+    }
     return 1;
 }
 
 
 long
-GNEViewNet::onCmdToogleLockPerson(FXObject*, FXSelector, void*) {
+GNEViewNet::onCmdToogleLockPerson(FXObject*, FXSelector sel, void*) {
     // lock or unlock current inspected person depending of menuCheckLockPerson value
     if (myDemandViewOptions.menuCheckLockPerson->getCheck()) {
         // obtan locked person or person plan
@@ -2229,6 +2288,10 @@ GNEViewNet::onCmdToogleLockPerson(FXObject*, FXSelector, void*) {
     }
     // update view
     update();
+    // set focus in menu check again, if this function was called clicking over menu check instead using alt+<key number>
+    if (sel == FXSEL(SEL_COMMAND, MID_GNE_DEMANDVIEWOPTIONS_LOCKPERSON)) {
+        myDemandViewOptions.menuCheckLockPerson->setFocus();
+    }
     return 1;
 }
 
