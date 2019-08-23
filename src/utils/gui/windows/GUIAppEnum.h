@@ -162,11 +162,11 @@ enum {
     MID_HOTKEY_F3_SUPERMODE_NETWORK,
     /// @brief hot key <F4> set demand mode in NETEDIT
     MID_HOTKEY_F4_SUPERMODE_DEMAND,
-    /// @brief compute junctions
-    MID_HOTKEY_F5_COMPUTEJUNCTIONS,
-    /// @brief clean junctions without edges in networkmode and unused routes in demand mode
+    /// @brief compute Network in network mode and Demand elements in demand mode 
+    MID_HOTKEY_F5_COMPUTE_NETWORK_DEMAND,
+    /// @brief clean junctions without edges in network mode and unused routes in demand mode
     MID_GNE_HOTKEY_F6_CLEAN_SOLITARYJUNCTIONS_UNUSEDROUTES,
-    /// @brief join selected junctions in networkmode and normalice demand element ids in demand mode
+    /// @brief join selected junctions in network mode and normalice demand element ids in demand mode
     MID_GNE_HOTKEY_F7_JOIN_SELECTEDJUNCTIONS_ROUTES,
     /// @brief clean invalid crossings in network mode and demand elements in demand mode
     MID_GNE_HOTKEY_F8_CLEANINVALID_CROSSINGS_DEMANDELEMENTS,

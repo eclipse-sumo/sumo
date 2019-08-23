@@ -25,6 +25,7 @@ colorwheel.xpm \
 colour_lane.xpm \
 colour_vehicle.xpm \
 computejunctions.xpm \
+computedemand.xpm \
 connection.xpm \
 cont.xpm \
 containerstop.xpm \
