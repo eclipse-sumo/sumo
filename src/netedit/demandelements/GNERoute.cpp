@@ -116,12 +116,6 @@ myVClass(route->getVClass()) {
 GNERoute::~GNERoute() {}
 
 
-SUMOVehicleClass
-GNERoute::getVClass() const {
-    return myVClass;
-}
-
-
 GUIGLObjectPopupMenu*
 GNERoute::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     GUIGLObjectPopupMenu* ret = new GNERoutePopupMenu(app, parent, *this);
@@ -146,11 +140,6 @@ GNERoute::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     new FXMenuSeparator(ret);
     new FXMenuCommand(ret, "Apply distance along route", nullptr, ret, MID_GNE_ROUTE_APPLY_DISTANCE);
     return ret;
-}
-
-const RGBColor&
-GNERoute::getColor() const {
-    return myColor;
 }
 
 
@@ -215,6 +204,36 @@ GNERoute::getDemandElementProblem() const {
 void
 GNERoute::fixDemandElementProblem() {
     // currently the only solution is removing Route
+}
+
+
+GNEEdge* 
+GNERoute::getFromEdge() const {
+    return getEdgeParents().front();
+}
+
+
+GNEEdge* 
+GNERoute::getToEdge() const {
+    return getEdgeParents().back();
+}
+
+
+SUMOVehicleClass 
+GNERoute::getVClass() const {
+    return myVClass;
+}
+
+
+const RGBColor& 
+GNERoute::getColor() const {
+    return myColor;
+}
+
+
+void 
+GNERoute::compute() {
+    // Nothing to compute
 }
 
 

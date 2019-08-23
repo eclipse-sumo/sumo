@@ -65,12 +65,6 @@ public:
     /// @brief destructor
     ~GNEPersonTrip();
 
-    /// @brief obtain VClass related with this demand element
-    SUMOVehicleClass getVClass() const;
-
-    /// @brief get color
-    const RGBColor& getColor() const;
-
     /**@brief writte demand element element into a xml file
      * @param[in] device device in which write parameters of demand element element
      */
@@ -84,6 +78,25 @@ public:
 
     /// @brief fix demand element problem (by default throw an exception, has to be reimplemented in children)
     void fixDemandElementProblem();
+
+    /// @name members and functions relative to elements common to all demand elements
+    /// @{
+    /// @brief obtain from edge of this demand element
+    GNEEdge* getFromEdge() const;
+
+    /// @brief obtain to edge of this demand element
+    GNEEdge* getToEdge() const;
+
+    /// @brief obtain VClass related with this demand element
+    SUMOVehicleClass getVClass() const;
+
+    /// @brief get color
+    const RGBColor& getColor() const;
+
+    /// @brief compute demand element
+    void compute();
+
+    /// @}
 
     /// @name Functions related with geometry of element
     /// @{

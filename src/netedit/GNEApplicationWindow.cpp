@@ -1912,7 +1912,7 @@ GNEApplicationWindow::onCmdProcessButton(FXObject*, FXSelector sel, void*) {
                 case MID_HOTKEY_F5_COMPUTE_NETWORK_DEMAND:
                     // show extra information for tests
                     WRITE_DEBUG("Key F5 (Compute) pressed");
-                    myNet->computeDemandElements();
+                    myNet->computeDemandElements(this);
                     updateControls();
                     break;
                 case MID_GNE_HOTKEY_F6_CLEAN_SOLITARYJUNCTIONS_UNUSEDROUTES:

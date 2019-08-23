@@ -68,12 +68,6 @@ myArrivalPosition(arrivalPosition) {
 GNEWalk::~GNEWalk() {}
 
 
-SUMOVehicleClass
-GNEWalk::getVClass() const {
-    return getDemandElementParents().front()->getVClass();
-}
-
-
 GUIGLObjectPopupMenu*
 GNEWalk::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     GUIGLObjectPopupMenu* ret = new GUIGLObjectPopupMenu(app, parent, *this);
@@ -96,12 +90,6 @@ GNEWalk::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     }
     new FXMenuCommand(ret, ("Cursor position in view: " + toString(getPositionInView().x()) + "," + toString(getPositionInView().y())).c_str(), nullptr, nullptr, 0);
     return ret;
-}
-
-
-const RGBColor&
-GNEWalk::getColor() const {
-    return getDemandElementParents().front()->getColor();
 }
 
 
@@ -178,6 +166,46 @@ GNEWalk::getDemandElementProblem() const {
 void
 GNEWalk::fixDemandElementProblem() {
     // currently the only solution is removing Walk
+}
+
+
+GNEEdge* 
+GNEWalk::getFromEdge() const {
+    if (getDemandElementParents().size() == 2) {
+        // obtain position and rotation of first edge route
+        return getDemandElementParents().at(1)->getFromEdge();
+    } else {
+        return getEdgeParents().front();
+    }
+}
+
+
+GNEEdge* 
+GNEWalk::getToEdge() const {
+    if (getDemandElementParents().size() == 2) {
+        // obtain position and rotation of first edge route
+        return getDemandElementParents().at(1)->getToEdge();
+    } else {
+        return getEdgeParents().back();
+    }
+}
+
+
+SUMOVehicleClass 
+GNEWalk::getVClass() const {
+    return getDemandElementParents().front()->getVClass();
+}
+
+
+const RGBColor& 
+GNEWalk::getColor() const {
+    return getDemandElementParents().front()->getColor();
+}
+
+
+void 
+GNEWalk::compute() {
+    // Nothing to compute
 }
 
 

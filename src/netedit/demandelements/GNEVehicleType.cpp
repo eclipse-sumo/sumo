@@ -80,18 +80,6 @@ myDefaultVehicleTypeModified(false) {
 GNEVehicleType::~GNEVehicleType() {}
 
 
-SUMOVehicleClass
-GNEVehicleType::getVClass() const {
-    return vehicleClass;
-}
-
-
-const RGBColor&
-GNEVehicleType::getColor() const {
-    return color;
-}
-
-
 void
 GNEVehicleType::writeDemandElement(OutputDevice& device) const {
     // only write default vehicle types if it was modified
@@ -102,6 +90,36 @@ GNEVehicleType::writeDemandElement(OutputDevice& device) const {
     } else {
         write(device);
     }
+}
+
+
+GNEEdge* 
+GNEVehicleType::getFromEdge() const {
+    return nullptr;
+}
+
+
+GNEEdge* 
+GNEVehicleType::getToEdge() const {
+    return nullptr;
+}
+
+
+SUMOVehicleClass 
+GNEVehicleType::getVClass() const {
+    return vehicleClass;
+}
+
+
+const RGBColor& 
+GNEVehicleType::getColor() const {
+    return color;
+}
+
+
+void 
+GNEVehicleType::compute() {
+    // Nothing to compute
 }
 
 

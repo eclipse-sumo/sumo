@@ -1486,8 +1486,15 @@ GNENet::computeNetwork(GNEApplicationWindow* window, bool force, bool volatileOp
 
 
 void
-GNENet::computeDemandElements() {
-
+GNENet::computeDemandElements(GNEApplicationWindow* window) {
+    window->setStatusBarText("Computing demand elements ...");
+    // iterate over all demand elements and compute
+    for (const auto &i : myAttributeCarriers.demandElements) {
+        for (const auto &j : i.second) {
+            j.second->compute();
+        }
+    }
+    window->setStatusBarText("Finished computing demand elements.");
 }
 
 

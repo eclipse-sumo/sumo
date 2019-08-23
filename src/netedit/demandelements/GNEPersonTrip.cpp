@@ -67,12 +67,6 @@ myArrivalPosition(-1) {
 GNEPersonTrip::~GNEPersonTrip() {}
 
 
-SUMOVehicleClass
-GNEPersonTrip::getVClass() const {
-    return getDemandElementParents().front()->getVClass();
-}
-
-
 GUIGLObjectPopupMenu*
 GNEPersonTrip::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     GUIGLObjectPopupMenu* ret = new GUIGLObjectPopupMenu(app, parent, *this);
@@ -95,12 +89,6 @@ GNEPersonTrip::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     }
     new FXMenuCommand(ret, ("Cursor position in view: " + toString(getPositionInView().x()) + "," + toString(getPositionInView().y())).c_str(), nullptr, nullptr, 0);
     return ret;
-}
-
-
-const RGBColor&
-GNEPersonTrip::getColor() const {
-    return getDemandElementParents().front()->getColor();
 }
 
 
@@ -174,6 +162,36 @@ GNEPersonTrip::getDemandElementProblem() const {
 void
 GNEPersonTrip::fixDemandElementProblem() {
     // currently the only solution is removing PersonTrip
+}
+
+
+GNEEdge* 
+GNEPersonTrip::getFromEdge() const {
+    return getEdgeParents().front();
+}
+
+
+GNEEdge* 
+GNEPersonTrip::getToEdge() const {
+    return getEdgeParents().back();
+}
+
+
+SUMOVehicleClass 
+GNEPersonTrip::getVClass() const {
+    return getDemandElementParents().front()->getVClass();
+}
+
+
+const RGBColor& 
+GNEPersonTrip::getColor() const {
+    return getDemandElementParents().front()->getColor();
+}
+
+
+void 
+GNEPersonTrip::compute() {
+    // Nothing to compute
 }
 
 

@@ -181,12 +181,6 @@ SUMOVehicleParameter(personparameters) {
 GNEPerson::~GNEPerson() {}
 
 
-SUMOVehicleClass
-GNEPerson::getVClass() const {
-    return getDemandElementParents().front()->getVClass();
-}
-
-
 std::string
 GNEPerson::getBegin() const {
     // obtain depart depending if is a Person, trip or routeFlow
@@ -203,12 +197,6 @@ GNEPerson::getBegin() const {
         departStr.insert(departStr.begin(), '0');
     }
     return departStr;
-}
-
-
-const RGBColor&
-GNEPerson::getColor() const {
-    return color;
 }
 
 
@@ -273,6 +261,36 @@ GNEPerson::getDemandElementProblem() const {
 void
 GNEPerson::fixDemandElementProblem() {
     // nothing to fix
+}
+
+
+GNEEdge* 
+GNEPerson::getFromEdge() const {
+    return getDemandElementChildren().front()->getFromEdge();
+}
+
+
+GNEEdge* 
+GNEPerson::getToEdge() const {
+    return getDemandElementChildren().front()->getToEdge();
+}
+
+
+SUMOVehicleClass 
+GNEPerson::getVClass() const {
+    return getDemandElementParents().front()->getVClass();
+}
+
+
+const RGBColor& 
+GNEPerson::getColor() const {
+    return color;
+}
+
+
+void 
+GNEPerson::compute() {
+    // Nothing to compute
 }
 
 

@@ -264,11 +264,27 @@ public:
     /// @brief mark demand element segment geometry as deprecated
     void markSegmentGeometryDeprecated();
 
+    /// @brief gererate a new ID for an element child
+    std::string generateChildID(SumoXMLTag childTag);
+
+    /// @name members and functions relative to elements common to all demand elements
+    /// @{
+    /// @brief obtain from edge of this demand element
+    virtual GNEEdge* getFromEdge() const = 0;
+
+    /// @brief obtain to edge of this demand element
+    virtual GNEEdge* getToEdge() const = 0;
+
     /// @brief obtain VClass related with this demand element
     virtual SUMOVehicleClass getVClass() const = 0;
 
-    /// @brief gererate a new ID for an element child
-    std::string generateChildID(SumoXMLTag childTag);
+    /// @brief get color
+    virtual const RGBColor& getColor() const = 0;
+
+    /// @brief compute demand element (used by flows, trips, personPlans<from-to>,...)
+    virtual void compute() = 0;
+
+    /// @}
 
     /// @name members and functions relative to write demand elements into XML
     /// @{
@@ -326,9 +342,6 @@ public:
 
     /// @brief Returns a pointer to GNEViewNet in which demand element element is located
     GNEViewNet* getViewNet() const;
-
-    /// @brief get color
-    virtual const RGBColor& getColor() const = 0;
 
     /// @name members and functions relative to RouteCalculator isntance
     /// @{

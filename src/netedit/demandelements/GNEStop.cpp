@@ -43,44 +43,28 @@
 
 GNEStop::GNEStop(SumoXMLTag tag, GNEViewNet* viewNet, const SUMOVehicleParameter::Stop& stopParameter, GNEAdditional* stoppingPlace, GNEDemandElement* stopParent) :
     GNEDemandElement(stopParent, viewNet, stopParent->getTagProperty().isPerson() ? GLO_PERSONSTOP : GLO_STOP, tag,
-{}, {}, {}, {stoppingPlace}, {stopParent}, {}, {}, {}, {}, {}),
-SUMOVehicleParameter::Stop(stopParameter),
-myFriendlyPosition(false) {
+    {}, {}, {}, {stoppingPlace}, {stopParent}, {}, {}, {}, {}, {}),
+    SUMOVehicleParameter::Stop(stopParameter),
+    myFriendlyPosition(false) {
 }
 
 
 GNEStop::GNEStop(GNEViewNet* viewNet, const SUMOVehicleParameter::Stop& stopParameter, GNELane* lane, bool friendlyPosition, GNEDemandElement* stopParent) :
     GNEDemandElement(stopParent, viewNet,
-                     stopParent->getTagProperty().isPerson() ? GLO_PERSONSTOP : GLO_STOP,
-                     stopParent->getTagProperty().isPerson() ? SUMO_TAG_PERSONSTOP_LANE : SUMO_TAG_STOP_LANE,
-{}, {lane}, {}, {}, {stopParent}, {}, {}, {}, {}, {}),
-SUMOVehicleParameter::Stop(stopParameter),
-myFriendlyPosition(friendlyPosition) {
+        stopParent->getTagProperty().isPerson() ? GLO_PERSONSTOP : GLO_STOP,
+        stopParent->getTagProperty().isPerson() ? SUMO_TAG_PERSONSTOP_LANE : SUMO_TAG_STOP_LANE,
+    {}, {lane}, {}, {}, {stopParent}, {}, {}, {}, {}, {}),
+    SUMOVehicleParameter::Stop(stopParameter),
+    myFriendlyPosition(friendlyPosition) {
 }
 
 
 GNEStop::~GNEStop() {}
 
 
-SUMOVehicleClass
-GNEStop::getVClass() const {
-    return getDemandElementParents().front()->getVClass();
-}
-
-
 std::string
 GNEStop::getBegin() const {
     return "";
-}
-
-
-const RGBColor&
-GNEStop::getColor() const {
-    if (myTagProperty.isPersonStop()) {
-        return myViewNet->getVisualisationSettings()->colorSettings.personStops;
-    } else {
-        return myViewNet->getVisualisationSettings()->colorSettings.stops;
-    }
 }
 
 
@@ -163,6 +147,48 @@ GNEStop::getDemandElementProblem() const {
 void
 GNEStop::fixDemandElementProblem() {
     //
+}
+
+
+GNEEdge* 
+GNEStop::getFromEdge() const {
+    if (getAdditionalParents().size() > 0) {
+        return &getAdditionalParents().front()->getLaneParents().front()->getParentEdge();
+    } else {
+        return &getLaneParents().front()->getParentEdge();
+    }
+}
+
+
+GNEEdge* 
+GNEStop::getToEdge() const {
+    if (getAdditionalParents().size() > 0) {
+        return &getAdditionalParents().front()->getLaneParents().front()->getParentEdge();
+    } else {
+        return &getLaneParents().front()->getParentEdge();
+    }
+}
+
+
+SUMOVehicleClass 
+GNEStop::getVClass() const {
+    return getDemandElementParents().front()->getVClass();
+}
+
+
+const RGBColor& 
+GNEStop::getColor() const {
+    if (myTagProperty.isPersonStop()) {
+        return myViewNet->getVisualisationSettings()->colorSettings.personStops;
+    } else {
+        return myViewNet->getVisualisationSettings()->colorSettings.stops;
+    }
+}
+
+
+void 
+GNEStop::compute() {
+    // Nothing to compute
 }
 
 

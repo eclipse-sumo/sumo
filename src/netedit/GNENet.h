@@ -522,8 +522,10 @@ public:
      */
     void computeNetwork(GNEApplicationWindow* window, bool force = false, bool volatileOptions = false, std::string additionalPath = "", std::string demandPath = "");
 
-    // @brief compute demand elements
-    void computeDemandElements();
+    /**@brief compute demand elements
+     * param[in] window The window to inform about delay
+     */
+    void computeDemandElements(GNEApplicationWindow* window);
 
     // @brief compute geometry of all demand elements
     void updateGeometryDemandElements();

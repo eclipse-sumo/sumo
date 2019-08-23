@@ -62,12 +62,6 @@ myArrivalPosition(-1) {
 GNERide::~GNERide() {}
 
 
-SUMOVehicleClass
-GNERide::getVClass() const {
-    return getDemandElementParents().front()->getVClass();
-}
-
-
 GUIGLObjectPopupMenu*
 GNERide::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     GUIGLObjectPopupMenu* ret = new GUIGLObjectPopupMenu(app, parent, *this);
@@ -90,12 +84,6 @@ GNERide::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     }
     new FXMenuCommand(ret, ("Cursor position in view: " + toString(getPositionInView().x()) + "," + toString(getPositionInView().y())).c_str(), nullptr, nullptr, 0);
     return ret;
-}
-
-
-const RGBColor&
-GNERide::getColor() const {
-    return getDemandElementParents().front()->getColor();
 }
 
 
@@ -163,6 +151,36 @@ GNERide::getDemandElementProblem() const {
 void
 GNERide::fixDemandElementProblem() {
     // currently the only solution is removing Ride
+}
+
+
+GNEEdge* 
+GNERide::getFromEdge() const {
+    return getEdgeParents().front();
+}
+
+
+GNEEdge* 
+GNERide::getToEdge() const {
+    return getEdgeParents().back();
+}
+
+
+SUMOVehicleClass 
+GNERide::getVClass() const {
+    return getDemandElementParents().front()->getVClass();
+}
+
+
+const RGBColor& 
+GNERide::getColor() const {
+    return getDemandElementParents().front()->getColor();
+}
+
+
+void 
+GNERide::compute() {
+    // Nothing to compute
 }
 
 

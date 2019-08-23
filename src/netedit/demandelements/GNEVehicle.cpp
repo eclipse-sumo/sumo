@@ -260,8 +260,8 @@ GNEVehicle::GNESelectedVehiclesPopupMenu::onCmdTransform(FXObject* obj, FXSelect
 
 GNEVehicle::GNEVehicle(SumoXMLTag tag, GNEViewNet* viewNet, const std::string& vehicleID, GNEDemandElement* vehicleType, GNEDemandElement* route) :
     GNEDemandElement(vehicleID, viewNet, (tag == SUMO_TAG_ROUTEFLOW) ? GLO_ROUTEFLOW : GLO_VEHICLE, tag,
-{}, {}, {}, {}, {vehicleType, route}, {}, {}, {}, {}, {}),
-SUMOVehicleParameter() {
+        {}, {}, {}, {}, {vehicleType, route}, {}, {}, {}, {}, {}),
+    SUMOVehicleParameter() {
     // SUMOVehicleParameter ID has to be set manually
     id = vehicleID;
     // set manually vtypeID (needed for saving)
@@ -271,8 +271,8 @@ SUMOVehicleParameter() {
 
 GNEVehicle::GNEVehicle(GNEViewNet* viewNet, GNEDemandElement* vehicleType, GNEDemandElement* route, const SUMOVehicleParameter& vehicleParameters) :
     GNEDemandElement(vehicleParameters.id, viewNet, (vehicleParameters.tag == SUMO_TAG_ROUTEFLOW) ? GLO_ROUTEFLOW : GLO_VEHICLE, vehicleParameters.tag,
-{}, {}, {}, {}, {vehicleType, route}, {}, {}, {}, {}, {}),
-SUMOVehicleParameter(vehicleParameters) {
+        {}, {}, {}, {}, {vehicleType, route}, {}, {}, {}, {}, {}),
+    SUMOVehicleParameter(vehicleParameters) {
     // SUMOVehicleParameter ID has to be set manually
     id = vehicleParameters.id;
     // set manually vtypeID (needed for saving)
@@ -282,8 +282,8 @@ SUMOVehicleParameter(vehicleParameters) {
 
 GNEVehicle::GNEVehicle(GNEViewNet* viewNet, GNEDemandElement* vehicleType, const SUMOVehicleParameter& vehicleParameters) :
     GNEDemandElement(vehicleParameters.id, viewNet, (vehicleParameters.tag == SUMO_TAG_ROUTEFLOW) ? GLO_ROUTEFLOW : GLO_VEHICLE, vehicleParameters.tag,
-{}, {}, {}, {}, {vehicleType}, {}, {}, {}, {}, {}),
-SUMOVehicleParameter(vehicleParameters) {
+        {}, {}, {}, {}, {vehicleType}, {}, {}, {}, {}, {}),
+    SUMOVehicleParameter(vehicleParameters) {
     // SUMOVehicleParameter ID has to be set manually
     id = vehicleParameters.id;
     // reset routeid
@@ -294,28 +294,20 @@ SUMOVehicleParameter(vehicleParameters) {
 
 
 GNEVehicle::GNEVehicle(SumoXMLTag tag, GNEViewNet* viewNet, const std::string& vehicleID, GNEDemandElement* vehicleType, const std::vector<GNEEdge*>& edges) :
-    GNEDemandElement(vehicleID, viewNet, (tag == SUMO_TAG_FLOW) ? GLO_FLOW : GLO_TRIP, tag, {
-    edges
-}, {}, {}, {}, {vehicleType}, {}, {}, {}, {}, {}),
-SUMOVehicleParameter() {
+    GNEDemandElement(vehicleID, viewNet, (tag == SUMO_TAG_FLOW) ? GLO_FLOW : GLO_TRIP, tag, 
+        {edges}, {}, {}, {}, {vehicleType}, {}, {}, {}, {}, {}),
+    SUMOVehicleParameter() {
 }
 
 
 GNEVehicle::GNEVehicle(GNEViewNet* viewNet, GNEDemandElement* vehicleType, const std::vector<GNEEdge*>& edges, const SUMOVehicleParameter& vehicleParameters) :
-    GNEDemandElement(vehicleParameters.id, viewNet, (vehicleParameters.tag == SUMO_TAG_FLOW) ? GLO_FLOW : GLO_TRIP, vehicleParameters.tag, {
-    edges
-}, {}, {}, {}, {vehicleType}, {}, {}, {}, {}, {}),
-SUMOVehicleParameter(vehicleParameters) {
+    GNEDemandElement(vehicleParameters.id, viewNet, (vehicleParameters.tag == SUMO_TAG_FLOW) ? GLO_FLOW : GLO_TRIP, vehicleParameters.tag, 
+        {edges}, {}, {}, {}, {vehicleType}, {}, {}, {}, {}, {}),
+    SUMOVehicleParameter(vehicleParameters) {
 }
 
 
 GNEVehicle::~GNEVehicle() {}
-
-
-SUMOVehicleClass
-GNEVehicle::getVClass() const {
-    return getDemandElementParents().front()->getVClass();
-}
 
 
 std::string
@@ -334,12 +326,6 @@ GNEVehicle::getBegin() const {
         departStr.insert(departStr.begin(), '0');
     }
     return departStr;
-}
-
-
-const RGBColor&
-GNEVehicle::getColor() const {
-    return color;
 }
 
 
@@ -445,6 +431,56 @@ GNEVehicle::getDemandElementProblem() const {
 void
 GNEVehicle::fixDemandElementProblem() {
 
+}
+
+
+GNEEdge* 
+GNEVehicle::getFromEdge() const {
+    if (getDemandElementParents().size() == 2) {
+        // oobtain edge of route
+        return getDemandElementParents().at(1)->getFromEdge();
+    } else if (getEdgeParents().size() > 0) {
+        return getEdgeParents().front();
+    } else if (getDemandElementChildren().size() > 0) {
+        // obtain edge of embedded route
+        return getDemandElementChildren().at(0)->getFromEdge();
+    } else {
+        throw ProcessError("Undefined from edge");
+    }
+}
+
+
+GNEEdge* 
+GNEVehicle::getToEdge() const {
+    if (getDemandElementParents().size() == 2) {
+        // oobtain edge of route
+        return getDemandElementParents().at(1)->getToEdge();
+    } else if (getEdgeParents().size() > 0) {
+        return getEdgeParents().back();
+    } else if (getDemandElementChildren().size() > 0) {
+        // obtain edge of embedded route
+        return getDemandElementChildren().at(0)->getToEdge();
+    } else {
+        throw ProcessError("Undefined to edge");
+    }
+}
+
+
+SUMOVehicleClass 
+GNEVehicle::getVClass() const {
+    return getDemandElementParents().front()->getVClass();
+}
+
+
+const RGBColor& 
+GNEVehicle::getColor() const {
+    return color;
+}
+
+
+void 
+GNEVehicle::compute() {
+    // Nothing to compute
 }
 
 

@@ -49,16 +49,29 @@ public:
     /// @brief destructor
     ~GNEVehicleType();
 
+    /**@brief writte demand element element into a xml file
+     * @param[in] device device in which write parameters of demand element element
+     */
+    void writeDemandElement(OutputDevice& device) const;
+
+    /// @name members and functions relative to elements common to all demand elements
+    /// @{
+    /// @brief obtain from edge of this demand element
+    GNEEdge* getFromEdge() const;
+
+    /// @brief obtain to edge of this demand element
+    GNEEdge* getToEdge() const;
+
     /// @brief obtain VClass related with this demand element
     SUMOVehicleClass getVClass() const;
 
     /// @brief get color
     const RGBColor& getColor() const;
 
-    /**@brief writte demand element element into a xml file
-     * @param[in] device device in which write parameters of demand element element
-     */
-    void writeDemandElement(OutputDevice& device) const;
+    /// @brief compute demand element
+    void compute();
+
+    /// @}
 
     /// @name Functions related with geometry of element
     /// @{
