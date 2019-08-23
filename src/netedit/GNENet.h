@@ -527,9 +527,6 @@ public:
      */
     void computeDemandElements(GNEApplicationWindow* window);
 
-    // @brief compute geometry of all demand elements
-    void updateGeometryDemandElements();
-
     /**@brief join selected junctions
      * @note difference to mergeJunctions:
      *  - can join more than 2

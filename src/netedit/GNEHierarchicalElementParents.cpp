@@ -397,6 +397,26 @@ GNEHierarchicalElementParents::changeEdgeParents(GNEDemandElement* elementChild,
 
 
 void
+GNEHierarchicalElementParents::changeEdgeParents(GNEDemandElement* elementChild, const std::vector<GNEEdge*>& newEdges) {
+    // remove demandElement of edge parents
+    for (const auto& i : myEdgeParents) {
+        i->removeDemandElementChild(elementChild);
+    }
+    // set new edges
+    myEdgeParents = newEdges;
+    // check that lane parets aren't empty
+    if (myEdgeParents.empty()) {
+        throw InvalidArgument("New list of edge parents cannot be empty");
+    } else {
+        // add demandElement into edge parents
+        for (const auto& i : myEdgeParents) {
+            i->addDemandElementChild(elementChild);
+        }
+    }
+}
+
+
+void
 GNEHierarchicalElementParents::changeLaneParents(GNEAdditional* elementChild, const std::string& newLaneIDs) {
     // remove additional of edge parents
     for (const auto& i : myLaneParents) {

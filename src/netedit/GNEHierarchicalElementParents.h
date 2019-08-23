@@ -179,6 +179,9 @@ protected:
     /// @brief change edge parents of a demandElement
     void changeEdgeParents(GNEDemandElement* elementChild, const std::string& newEdgeIDs);
 
+    /// @brief change edge parents of a demandElement (GNEEdge version)
+    void changeEdgeParents(GNEDemandElement* elementChild, const std::vector<GNEEdge*>& newEdges);
+
     /// @brief change edge parents of a shape
     void changeLaneParents(GNEShape* elementChild, const std::string& newLaneIDs);
 

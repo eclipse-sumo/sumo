@@ -1499,23 +1499,6 @@ GNENet::computeDemandElements(GNEApplicationWindow* window) {
 
 
 void
-GNENet::updateGeometryDemandElements() {
-    // first mark all geometries as deprecated
-    for (const auto& i : myAttributeCarriers.demandElements) {
-        for (const auto& j : i.second) {
-            j.second->markSegmentGeometryDeprecated();
-        }
-    }
-    // now update all geometries
-    for (const auto& i : myAttributeCarriers.demandElements) {
-        for (const auto& j : i.second) {
-            j.second->updateGeometry();
-        }
-    }
-}
-
-
-void
 GNENet::computeJunction(GNEJunction* junction) {
     // recompute tl-logics
     OptionsCont& oc = OptionsCont::getOptions();

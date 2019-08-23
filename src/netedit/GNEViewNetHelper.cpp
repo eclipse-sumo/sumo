@@ -1416,8 +1416,8 @@ GNEViewNetHelper::EditModes::setDemandEditMode(DemandEditMode mode, bool force) 
         myViewNet->myNet->computeNetwork(myViewNet->myViewParent->getGNEAppWindows());
         // update DijkstraRouter of RouteCalculatorInstance
         GNEDemandElement::getRouteCalculatorInstance()->updateDijkstraRouter();
-        // update geometry of all demand elements (because certain geometry changes affect to demand elements
-        myViewNet->getNet()->updateGeometryDemandElements();
+        // compute demand elements (currently disabled)
+        // myViewNet->getNet()->computeDemandElements(myViewNet->myViewParent->getGNEAppWindows());
         // update network mode specific controls
         myViewNet->updateDemandModeSpecificControls();
     }

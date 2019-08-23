@@ -157,11 +157,11 @@ public:
     /// @brief parameter constructor for vehicles and routeFlows with embedded routes (note: After creation create immediately a embedded route referencing this vehicle)
     GNEVehicle(GNEViewNet* viewNet, GNEDemandElement* vehicleType, const SUMOVehicleParameter& vehicleParameters);
 
-    /// @brief default constructor for trips and Flows (note: Edges : from + via + to)
-    GNEVehicle(SumoXMLTag tag, GNEViewNet* viewNet, const std::string& vehicleID, GNEDemandElement* vehicleType, const std::vector<GNEEdge*>& edges);
+    /// @brief default constructor for trips and Flows
+    GNEVehicle(SumoXMLTag tag, GNEViewNet* viewNet, const std::string& vehicleID, GNEDemandElement* vehicleType, GNEEdge* fromEdge, GNEEdge* toEdge);
 
-    /// @brief parameter constructor for trips and Flows (note: Edges : from + via + to)
-    GNEVehicle(GNEViewNet* viewNet, GNEDemandElement* vehicleType, const std::vector<GNEEdge*>& edges, const SUMOVehicleParameter& vehicleParameters);
+    /// @brief parameter constructor for trips and Flows
+    GNEVehicle(GNEViewNet* viewNet, GNEDemandElement* vehicleType, GNEEdge* fromEdge, GNEEdge* toEdge, const SUMOVehicleParameter& vehicleParameters);
 
     /// @brief destructor
     ~GNEVehicle();
@@ -357,6 +357,12 @@ protected:
 
     /// @brief sets the color according to the currente settings
     void setColor(const GUIVisualizationSettings& s) const;
+
+    /// @brief from edge (used by flows and trips)
+    GNEEdge *myFromEdge;
+
+    /// @brief to edge (used by flows and trips)
+    GNEEdge *myToEdge;
 
 private:
     /// @brief method for setting the attribute and nothing else
