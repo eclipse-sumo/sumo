@@ -3169,7 +3169,7 @@ MSDevice_SSM::getUpstreamVehicles(const UpstreamScanStartInfo& scanStart, FoeInf
     const MSJunction* junction = scanStart.edge->getFromJunction();
 
     // Collect vehicles from incoming edges of the junction
-    if (!scanStart.edge->isInternal() && scanStart.egoConflictLane->isInternal()) {
+    if (!scanStart.edge->isInternal() /*&& scanStart.egoConflictLane->isInternal()*/) {
         // collect vehicles on preceding junction (for internal edges this is already done in caller,
         // i.e. findSurroundingVehicles() or the recursive call from getUpstreamVehicles())
 
