@@ -211,20 +211,20 @@ FXDEFMAP(GNEApplicationWindow) GNEApplicationWindowMap[] = {
     FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_ALT_9_TOOGLEEDITOPTION,      GNEApplicationWindow::onUpdNeedsNetwork),
 
     // key events
-    FXMAPFUNC(SEL_KEYPRESS,     0,                      GNEApplicationWindow::onKeyPress),
-    FXMAPFUNC(SEL_KEYRELEASE,   0,                      GNEApplicationWindow::onKeyRelease),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_HOTKEY_ESC,         GNEApplicationWindow::onCmdAbort),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_HOTKEY_DEL,         GNEApplicationWindow::onCmdDel),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_HOTKEY_ENTER,       GNEApplicationWindow::onCmdEnter),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_HOTKEY_BACKSPACE,   GNEApplicationWindow::onCmdBackspace),
+    FXMAPFUNC(SEL_KEYPRESS,     0,                          GNEApplicationWindow::onKeyPress),
+    FXMAPFUNC(SEL_KEYRELEASE,   0,                          GNEApplicationWindow::onKeyRelease),
+    FXMAPFUNC(SEL_COMMAND,      MID_GNE_HOTKEY_ESC,         GNEApplicationWindow::onCmdAbort),
+    FXMAPFUNC(SEL_COMMAND,      MID_GNE_HOTKEY_DEL,         GNEApplicationWindow::onCmdDel),
+    FXMAPFUNC(SEL_COMMAND,      MID_GNE_HOTKEY_ENTER,       GNEApplicationWindow::onCmdEnter),
+    FXMAPFUNC(SEL_COMMAND,      MID_GNE_HOTKEY_BACKSPACE,   GNEApplicationWindow::onCmdBackspace),
 
     // threads events
-    FXMAPFUNC(FXEX::SEL_THREAD_EVENT, ID_LOADTHREAD_EVENT,  GNEApplicationWindow::onLoadThreadEvent),
-    FXMAPFUNC(FXEX::SEL_THREAD,       ID_LOADTHREAD_EVENT,  GNEApplicationWindow::onLoadThreadEvent),
+    FXMAPFUNC(FXEX::SEL_THREAD_EVENT,   ID_LOADTHREAD_EVENT,    GNEApplicationWindow::onLoadThreadEvent),
+    FXMAPFUNC(FXEX::SEL_THREAD,         ID_LOADTHREAD_EVENT,    GNEApplicationWindow::onLoadThreadEvent),
 
     // Other
-    FXMAPFUNC(SEL_CLIPBOARD_REQUEST, 0,             GNEApplicationWindow::onClipboardRequest),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_HOTKEY_F12,     GNEApplicationWindow::onCmdFocusFrame),
+    FXMAPFUNC(SEL_CLIPBOARD_REQUEST,    0,                                  GNEApplicationWindow::onClipboardRequest),
+    FXMAPFUNC(SEL_COMMAND,              MID_HOTKEY_F12_FOCUSUPPERELEMENT,   GNEApplicationWindow::onCmdFocusFrame),
 };
 
 // Object implementation

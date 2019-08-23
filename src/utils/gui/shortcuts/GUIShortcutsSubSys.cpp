@@ -246,13 +246,15 @@ GUIShortcutsSubSys::buildNETEDITAccelerators(GNEApplicationWindow* GNEApp) {
     GNEApp->getAccelTable()->addAccel(parseKey(KEY_8, KEYMODIFIER_ALT), GNEApp, FXSEL(SEL_COMMAND, MID_HOTKEY_ALT_8_TOOGLEEDITOPTION));
     GNEApp->getAccelTable()->addAccel(parseKey(KEY_9, KEYMODIFIER_ALT), GNEApp, FXSEL(SEL_COMMAND, MID_HOTKEY_ALT_9_TOOGLEEDITOPTION));
 
-    GNEApp->getAccelTable()->addAccel(parseKey(KEY_F4, KEYMODIFIER_ALT), GNEApp, FXSEL(SEL_COMMAND, MID_HOTKEY_ALT_F4_CLOSE));
-
-    // initialize Function Hotkeys
+    // Function Hotkeys
 
     GNEApp->getAccelTable()->addAccel(parseKey(KEY_F3),  GNEApp, FXSEL(SEL_COMMAND, MID_HOTKEY_F3_SUPERMODE_NETWORK));
     GNEApp->getAccelTable()->addAccel(parseKey(KEY_F4),  GNEApp, FXSEL(SEL_COMMAND, MID_HOTKEY_F4_SUPERMODE_DEMAND));
-    GNEApp->getAccelTable()->addAccel(parseKey(KEY_F12), GNEApp, FXSEL(SEL_COMMAND, MID_GNE_HOTKEY_F12));
+    GNEApp->getAccelTable()->addAccel(parseKey(KEY_F12), GNEApp, FXSEL(SEL_COMMAND, MID_HOTKEY_F12_FOCUSUPPERELEMENT));
+
+    // Alt + Function Hotkeys
+
+    GNEApp->getAccelTable()->addAccel(parseKey(KEY_F4, KEYMODIFIER_ALT), GNEApp, FXSEL(SEL_COMMAND, MID_HOTKEY_ALT_F4_CLOSE));
 
     // initialize rest of hotkeys
 

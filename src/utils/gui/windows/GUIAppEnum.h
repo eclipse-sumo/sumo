@@ -39,9 +39,9 @@ enum {
     /// @brief Show about - dialog
     ID_ABOUT = FXMainWindow::ID_LAST,
 
-
     /// @name hotkeys
     /// @{
+
     /// @brief hotkey for mode editing additionals AND stops
     MID_HOTKEY_A_ADDITIONALMODE_STOPMODE,
     /// @brief hotkey for mode connecting lanes
@@ -73,6 +73,7 @@ enum {
 
     /// @name Ctrl hotkeys
     /// @{
+
     /// @brief Start the simulation in SUMO and open Additionals Elemements in NETEDIT
     MID_HOTKEY_CTRL_A_STARTSIMULATION_OPENADDITIONALS,
     /// @brief Edit simulation breakpoints
@@ -110,6 +111,7 @@ enum {
 
     /// @name Alt hotkeys
     /// @{
+
     /// @brief toogle edit option
     MID_HOTKEY_ALT_0_TOOGLEEDITOPTION,
     /// @brief toogle edit option
@@ -137,6 +139,7 @@ enum {
 
     /// @name Ctrl + Shift hotkeys
     /// @{
+
     /// @brief Save Additional Elements
     MID_HOTKEY_CTRL_SHIFT_A_SAVEADDITIONALS,
     /// @brief Save Demand Elements
@@ -148,12 +151,9 @@ enum {
 
     /// @}
 
-    /// @name Other hotkeys
+    /// @name Functional hotkeys
     /// @{
-    /// @brief compute junctions
-    MID_HOTKEY_F5_COMPUTEJUNCTIONS,
-    /// @brief compute junctions with volatile options
-    MID_HOTKEY_SHIFT_F5_COMPUTEJUNCTIONS_VOLATILE,
+
     /// @brief hot key <F1> open online documentation
     MID_HOTKEY_F1_ONLINEDOCUMENTATION,
     /// @brief hot key <F2> open about dialog
@@ -162,16 +162,8 @@ enum {
     MID_HOTKEY_F3_SUPERMODE_NETWORK,
     /// @brief hot key <F4> set demand mode in NETEDIT
     MID_HOTKEY_F4_SUPERMODE_DEMAND,
-    /// @brief hot key <ESC> abort current edit operation
-    MID_GNE_HOTKEY_ESC,
-    /// @brief hot key <F12> focus upper element of current frame
-    MID_GNE_HOTKEY_F12,
-    /// @brief hot key <DEL> delete selections or elements
-    MID_GNE_HOTKEY_DEL,
-    /// @brief hot key <ENTER> accept current operation
-    MID_GNE_HOTKEY_ENTER,
-    /// @brief hot key <Backspace> remove last sub-operation
-    MID_GNE_HOTKEY_BACKSPACE,
+    /// @brief compute junctions
+    MID_HOTKEY_F5_COMPUTEJUNCTIONS,
     /// @brief clean junctions without edges in networkmode and unused routes in demand mode
     MID_GNE_HOTKEY_F6_CLEAN_SOLITARYJUNCTIONS_UNUSEDROUTES,
     /// @brief join selected junctions in networkmode and normalice demand element ids in demand mode
@@ -180,6 +172,29 @@ enum {
     MID_GNE_HOTKEY_F8_CLEANINVALID_CROSSINGS_DEMANDELEMENTS,
     /// @brief open options menu
     MID_GNE_HOTKEY_F10_OPTIONSMENU,
+    /// @brief hot key <F12> focus upper element of current frame
+    MID_HOTKEY_F12_FOCUSUPPERELEMENT,
+    /// @}
+
+    /// @name shift + Functional hotkeys
+    /// @{
+
+    /// @brief compute junctions with volatile options
+    MID_HOTKEY_SHIFT_F5_COMPUTEJUNCTIONS_VOLATILE,
+
+    /// @}
+
+    /// @name Other hotkeys
+    /// @{
+   
+    /// @brief hot key <ESC> abort current edit operation
+    MID_GNE_HOTKEY_ESC,
+    /// @brief hot key <DEL> delete selections or elements
+    MID_GNE_HOTKEY_DEL,
+    /// @brief hot key <ENTER> accept current operation
+    MID_GNE_HOTKEY_ENTER,
+    /// @brief hot key <Backspace> remove last sub-operation
+    MID_GNE_HOTKEY_BACKSPACE,
 
     /// @}
 
@@ -191,7 +206,6 @@ enum {
 
     /// @}
 
-
     /// @name for common buttons
     /// @{
 
@@ -200,7 +214,6 @@ enum {
     /// @brief Cancel-button pressed
     MID_CANCEL,
     /// @}
-
 
     /// @name Main Window File Menu - IDs
     /// @{
@@ -215,15 +228,16 @@ enum {
     MID_OPEN_EDGEDATA,
     /// @brief Loads a file previously loaded
     MID_RECENTFILE,
-    /// @}
 
+    /// @}
 
     /// @name Main Window Simulation Control - IDs
     /// @{
+
     /// @brief Save state to file
     MID_SIMSAVE,
-    /// @}
 
+    /// @}
 
     /// @name Main window windows control - IDs
     /// @{
@@ -232,8 +246,8 @@ enum {
     MID_NEW_MICROVIEW,
     /// @brief Open a new microscopic 3D view
     MID_NEW_OSGVIEW,
-    /// @}
 
+    /// @}
 
     /// @name SubThread - IDs
     /// @{
@@ -244,8 +258,8 @@ enum {
     ID_RUNTHREAD_EVENT,
     /// @brief ID for message passing between threads
     ID_THREAD_EVENT,
-    /// @}
 
+    /// @}
 
     /// @name Edit Menu Item - IDs
     /// @{
@@ -254,8 +268,8 @@ enum {
     MID_EDITCHOSEN,
     /// @brief Open in netedit
     MID_NETEDIT,
-    /// @}
 
+    /// @}
 
     /// @name Settings Menu Item - IDs
     /// @{
@@ -268,8 +282,8 @@ enum {
     MID_LISTTELEPORTING,
     /// @brief The Simulation delay control
     MID_SIMDELAY,
-    /// @}
 
+    /// @}
 
     /// @brief Clear simulation output
     MID_CLEARMESSAGEWINDOW,
@@ -279,7 +293,6 @@ enum {
     MID_SHOWVEHSTATS,
     /// @brief Show person statistics
     MID_SHOWPERSONSTATS,
-
     /// @brief update traci status
     MID_TRACI_STATUS,
 
@@ -328,7 +341,6 @@ enum {
     MID_DEMAND_SCALE,
     /// @}
 
-
     /// @name Common view IDs
     /// @{
 
@@ -336,6 +348,7 @@ enum {
     MID_GLCANVAS,
     /// @brief chore
     MID_CHORE,
+
     /// @}
 
 
@@ -344,8 +357,8 @@ enum {
 
     /// @brief Change coloring scheme - combo
     MID_COLOURSCHEMECHANGE,
-    /// @}
 
+    /// @}
 
     /// @name Object PopUp Entries - IDs
     /// @{
@@ -416,8 +429,8 @@ enum {
     MID_SHOW_WALKINGAREA_PATH,
     /// @brief Hide persons's path on walkingarea
     MID_HIDE_WALKINGAREA_PATH,
-    /// @}
 
+    /// @}
 
     /// @name IDs used by Trackers
     /// @{
@@ -428,8 +441,8 @@ enum {
     MID_SIMSTEP,
     /// @brief A Tracker shall be opened
     MID_OPENTRACKER,
-    /// @}
 
+    /// @}
 
     /// @name General Setting Dialogs - IDs
     /// @{
@@ -438,8 +451,8 @@ enum {
     MID_SETTINGS_OK,
     /// @brief Cancel-button was pushed
     MID_SETTINGS_CANCEL,
-    /// @}
 
+    /// @}
 
     /// @name Application Settings - Dialog IDs
     /// @{
@@ -454,8 +467,8 @@ enum {
     MID_ALLOWTEXTURES,
     /// @brief Locate links in messages - Option
     MID_LOCATELINKS,
-    /// @}
 
+    /// @}
 
     /// @name GLObjChooser - Dialog IDs
     /// @{
@@ -470,8 +483,8 @@ enum {
     MID_CHOOSER_LIST,
     /// @brief Filter selected
     MID_CHOOSER_FILTER,
-    /// @}
 
+    /// @}
 
     /// @name GLChosenEditor - Dialog IDs
     /// @{
@@ -494,6 +507,7 @@ enum {
     MID_CHOOSEN_INVERT,
     /// @brief Deselect selected items
     MID_CHOOSEN_NAME,
+
     /// @}
 
     /// @name IDs for visualization settings - Dialog
@@ -515,6 +529,7 @@ enum {
     MID_SIMPLE_VIEW_LOAD_DECALS,
     /// @brief For the save-decals - button
     MID_SIMPLE_VIEW_SAVE_DECALS,
+
     /// @}
 
     ///@brief help button
@@ -529,6 +544,7 @@ enum {
     MID_CLOSE_EDGE,
     /// @brief add rerouter
     MID_ADD_REROUTER,
+
     /// @}
 
     /// @name Toolbar file messages
@@ -542,16 +558,16 @@ enum {
     MID_GNE_TOOLBARFILE_SAVETLSPROGRAMS_AS,
     /// @brief save demand elements as
     MID_GNE_TOOLBARFILE_SAVEDEMAND_AS,
-    /// @}
 
+    /// @}
 
     /// @name GNEViewParent dialog messages
     /// @{
 
     /// @brief Size of frame area updated
     MID_GNE_VIEWPARENT_FRAMEAREAWIDTH,
-    /// @}
 
+    /// @}
 
     /// @name GNEViewNet view options messages
     /// @{
@@ -590,7 +606,6 @@ enum {
     MID_GNE_DEMANDVIEWOPTIONS_LOCKPERSON,
 
     /// @}
-
 
     /// @name GNEFrame messages
     /// @{
@@ -660,8 +675,8 @@ enum {
     MID_GNE_OVERLAPPED_SHOWLIST,
     /// @brief list item selected in overlapped modul
     MID_GNE_OVERLAPPED_ITEMSELECTED,
-    /// @}
 
+    /// @}
 
     /// @name GNESelectorFrame messages
     /// @{
@@ -674,8 +689,8 @@ enum {
     MID_GNE_SELECTORFRAME_PROCESSSTRING,
     /// @brief changes the visual scaling of selected items
     MID_GNE_SELECTORFRAME_SELECTSCALE,
-    /// @}
 
+    /// @}
 
     /// @name GNEConnectorFrame messages
     /// @{
@@ -688,15 +703,16 @@ enum {
     MID_GNE_CONNECTORFRAME_SELECTCONFLICTS,
     /// @brief select lanes with connections that have the pass attribute set to 'true'
     MID_GNE_CONNECTORFRAME_SELECTPASS,
-    /// @}
 
+    /// @}
 
     /// @name GNEInspectorFrame messages
     /// @{
+
     /// @brief go back to the previous element
     MID_GNE_INSPECTORFRAME_GOBACK,
-    /// @}
 
+    /// @}
 
     /// @name GNETLSEditorFrame messages
     /// @{
@@ -737,8 +753,8 @@ enum {
     MID_GNE_TLSFRAME_LOAD_PROGRAM,
     /// @brief cleanup unused states
     MID_GNE_TLSFRAME_SAVE_PROGRAM,
-    /// @}
 
+    /// @}
 
     /// @name GNEAdditionalFrame messages
     /// @{
@@ -763,8 +779,8 @@ enum {
     MID_GNE_ADDITIONALFRAME_STOPSELECTION,
     /// @brief abort selection of consecutive egdes/lanes
     MID_GNE_ADDITIONALFRAME_ABORTSELECTION,
-    /// @}
 
+    /// @}
 
     /// @name GNEProhibitionFrame messages
     /// @{
@@ -775,8 +791,8 @@ enum {
     MID_GNE_PROHIBITIONFRAME_SELECTPROHIBITED,
     /// @brief abort drawing polygon
     MID_GNE_PROHIBITIONFRAME_ABORTDRAWING,
-    /// @}
 
+    /// @}
 
     /// @name GNERoute messages
     /// @{
@@ -785,6 +801,7 @@ enum {
     MID_GNE_ROUTEFRAME_ROUTEMODE,
     /// @brief select a VClass
     MID_GNE_ROUTEFRAME_VCLASS,
+
     /// @}
 
     /// @name GNEEdge messages
@@ -810,8 +827,8 @@ enum {
     MID_GNE_EDGE_REVERSE,
     /// @brief add reverse edge
     MID_GNE_EDGE_ADD_REVERSE,
-    /// @}
 
+    /// @}
 
     /// @name GNEJunction messages
     /// @{
@@ -830,14 +847,15 @@ enum {
     MID_GNE_JUNCTION_EDIT_SHAPE,
     /// @brief reset junction shape
     MID_GNE_JUNCTION_RESET_SHAPE,
-    /// @}
 
+    /// @}
 
     /// @name GNEConnection messages
     /// @{
 
     /// @brief edit junction shape
     MID_GNE_CONNECTION_EDIT_SHAPE,
+
     /// @}
 
 
@@ -846,6 +864,7 @@ enum {
 
     /// @brief edit junction shape
     MID_GNE_CROSSING_EDIT_SHAPE,
+
     /// @}
 
 
@@ -862,14 +881,15 @@ enum {
     MID_GNE_POLYGON_SET_FIRST_POINT,
     /// @brief delete geometry point
     MID_GNE_POLYGON_DELETE_GEOMETRY_POINT,
-    /// @}
 
+    /// @}
 
     /// @name GNEPOI messages
     /// @{
 
     /// @brief Transform POI to POILane, and viceversa
     MID_GNE_POI_TRANSFORM,
+
     /// @}
 
     /// @name GNELane messages
@@ -903,6 +923,7 @@ enum {
     MID_GNE_LANE_REMOVE_BUS,
     /// @brief remove greenVerge
     MID_GNE_LANE_REMOVE_GREENVERGE,
+
     /// @}
 
     /// @name GNEDemandEleemnts messages
@@ -916,7 +937,6 @@ enum {
     MID_GNE_PERSON_TRANSFORM,
     /// @}
 
-
     /// @name Additional Dialog messages (used in all GNEAdditionalDialogs)
     /// @{
 
@@ -926,18 +946,20 @@ enum {
     MID_GNE_ADDITIONALDIALOG_BUTTONCANCEL,
     /// @brief reset button
     MID_GNE_ADDITIONALDIALOG_BUTTONRESET,
+
     /// @}
 
     /// @name Variable Speed Sign Dialog messages
     /// @{
+
     /// @brief add row
     MID_GNE_VARIABLESPEEDSIGN_ADDROW,
     /// @brief Click over Table
     MID_GNE_VARIABLESPEEDSIGN_TABLE,
     /// @brief sort table values
     MID_GNE_VARIABLESPEEDSIGN_SORT,
-    /// @}
 
+    /// @}
 
     /// @name Rerouter Dialog messages
     /// @{
@@ -970,8 +992,8 @@ enum {
     MID_GNE_REROUTEDIALOG_ADD_PARKINGAREAREROUTE,
     /// @brief edit interval
     MID_GNE_REROUTEDIALOG_EDIT_INTERVAL,
-    /// @}
 
+    /// @}
 
     /// @name Calibrator Dialog messages
     /// @{
@@ -989,6 +1011,7 @@ enum {
     MID_GNE_CALIBRATORDIALOG_ADD_VEHICLETYPE,
     /// @brief set new variable
     MID_GNE_CALIBRATORDIALOG_SET_VARIABLE,
+
     /// @}
 
     /// @name allowDisallow Dialog messages
@@ -1002,14 +1025,15 @@ enum {
     MID_GNE_ALLOWDISALLOW_UNSELECTALL,
     /// @brief select only non road vehicles
     MID_GNE_ALLOWDISALLOW_SELECTONLYROAD,
-    /// @}
 
+    /// @}
 
     /// @name Fix Stoppingplaces Dialog messages
     /// @{
 
     /// @brief FixStoppingPlaces dialog
     MID_GNE_FIXSTOPPINGPLACES_CHANGE,
+
     /// @}
 
     /// @name Generic Parameters Dialog messages
@@ -1023,8 +1047,8 @@ enum {
     MID_GNE_GENERICPARAMETERS_CLEAR,
     /// @brief Generic parameters dialog sort
     MID_GNE_GENERICPARAMETERS_SORT,
-    /// @}
 
+    /// @}
 
     /// @brief last element of enum (not used)
     MID_LAST
