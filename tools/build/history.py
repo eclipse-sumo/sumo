@@ -29,7 +29,7 @@ import version
 
 
 optParser = optparse.OptionParser()
-optParser.add_option("-b", "--begin", default="1e86430b48", help="first revision to build")
+optParser.add_option("-b", "--begin", default="v1_3_0", help="first revision to build")
 optParser.add_option("-e", "--end", default="HEAD", help="last revision to build")
 options, args = optParser.parse_args()
 
@@ -51,7 +51,9 @@ try:
             ret = subprocess.call(["git", "checkout", "-q", h])
             if ret != 0:
                 continue
-            subprocess.call('make clean; make -j', shell=True)
+            os.chdir("build/cmake-build")
+            subprocess.call('make clean; make -j32', shell=True)
+            os.chdir("../..")
             haveBuild = True
             shutil.copytree('bin', '../bin%s' % desc,
                             ignore=shutil.ignore_patterns('Makefile*', '*.bat', '*.jar'))
