@@ -62,3 +62,9 @@ pos0
 
 # trying to re-use one of the existing end points as split id should result in error
 attach_invalid
+
+# adding splits too close to each other
+too_close
+
+# adding splits with duplicate id
+duplicate_id
