@@ -1405,7 +1405,7 @@ GNENet::retrieveAttributeCarriers(SumoXMLTag type) {
 
 
 void
-GNENet::computeEverything(GNEApplicationWindow* window, bool force, bool volatileOptions, std::string additionalPath, std::string demandPath) {
+GNENet::computeNetwork(GNEApplicationWindow* window, bool force, bool volatileOptions, std::string additionalPath, std::string demandPath) {
     if (!myNeedRecompute) {
         if (force) {
             if (volatileOptions) {
@@ -1482,6 +1482,12 @@ GNENet::computeEverything(GNEApplicationWindow* window, bool force, bool volatil
     }
     window->getApp()->endWaitCursor();
     window->setStatusBarText("Finished computing junctions.");
+}
+
+
+void
+GNENet::computeDemandElements() {
+
 }
 
 

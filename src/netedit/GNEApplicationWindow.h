@@ -627,11 +627,11 @@ private:
 
         /// @name Processing FXMenuCommands for Network mode
         /// @{
-        /// @brief FXMenuCommand for recompute network
-        FXMenuCommand* recompute;
+        /// @brief FXMenuCommand for compute network
+        FXMenuCommand* computeNetwork;
 
-        /// @brief FXMenuCommand for recompute network with volatile options
-        FXMenuCommand* recomputeVolatile;
+        /// @brief FXMenuCommand for compute network with volatile options
+        FXMenuCommand* computeNetworkVolatile;
 
         /// @brief FXMenuCommand for clean junctions without edges
         FXMenuCommand* cleanJunctions;
@@ -645,6 +645,9 @@ private:
 
         /// @name Processing FXMenuCommands for Demand mode
         /// @{
+        /// @brief FXMenuCommand for compute demand elements
+        FXMenuCommand* computeDemand;
+
         /// @brief FXMenuCommand for clean routes without vehicles
         FXMenuCommand* cleanRoutes;
 

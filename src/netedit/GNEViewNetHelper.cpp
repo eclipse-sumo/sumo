@@ -1377,7 +1377,7 @@ GNEViewNetHelper::EditModes::setNetworkEditMode(NetworkEditMode mode, bool force
             case GNE_NMODE_PROHIBITION:
             case GNE_NMODE_TLS:
                 // modes which depend on computed data
-                myViewNet->myNet->computeEverything(myViewNet->myViewParent->getGNEAppWindows());
+                myViewNet->myNet->computeNetwork(myViewNet->myViewParent->getGNEAppWindows());
                 break;
             default:
                 break;
@@ -1413,7 +1413,7 @@ GNEViewNetHelper::EditModes::setDemandEditMode(DemandEditMode mode, bool force) 
             networkEditMode = GNE_NMODE_MOVE;
         }
         // demand modes requiere ALWAYS a recomputing
-        myViewNet->myNet->computeEverything(myViewNet->myViewParent->getGNEAppWindows());
+        myViewNet->myNet->computeNetwork(myViewNet->myViewParent->getGNEAppWindows());
         // update DijkstraRouter of RouteCalculatorInstance
         GNEDemandElement::getRouteCalculatorInstance()->updateDijkstraRouter();
         // update geometry of all demand elements (because certain geometry changes affect to demand elements

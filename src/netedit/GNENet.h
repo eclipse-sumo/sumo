@@ -520,7 +520,10 @@ public:
      * param[in] additionalPath path in wich additionals were saved before recomputing with volatile options
      * param[in] demandPath path in wich demand elements were saved before recomputing with volatile options
      */
-    void computeEverything(GNEApplicationWindow* window, bool force = false, bool volatileOptions = false, std::string additionalPath = "", std::string demandPath = "");
+    void computeNetwork(GNEApplicationWindow* window, bool force = false, bool volatileOptions = false, std::string additionalPath = "", std::string demandPath = "");
+
+    // @brief compute demand elements
+    void computeDemandElements();
 
     // @brief compute geometry of all demand elements
     void updateGeometryDemandElements();
