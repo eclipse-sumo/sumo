@@ -58,7 +58,7 @@ class MSDevice_SSM : public MSVehicleDevice {
 
 private:
     /// All currently existing SSM devices
-    static std::set<MSDevice_SSM*, ComparatorNumericalIdLess>* myInstances;
+    static std::set<MSDevice_SSM*>* instances;
 
 public:
     /// @brief Different types of encounters corresponding to relative positions of the vehicles.
@@ -377,7 +377,7 @@ public:
 
     /** @brief returns all currently existing SSM devices
      */
-    static const std::set<MSDevice_SSM*, ComparatorNumericalIdLess>& getInstances();
+    static const std::set<MSDevice_SSM*>& getInstances();
 
     /** @brief This is called once per time step in MSNet::writeOutput() and
      *         collects the surrounding vehicles, updates information on encounters
@@ -421,11 +421,11 @@ public:
 
     /** @brief Collects all vehicles within range 'range' upstream of the position 'pos' on the edge 'edge' into foeCollector
      */
-    static void getUpstreamVehicles(const UpstreamScanStartInfo& scanStart, FoeInfoMap& foeCollector, std::set<const MSJunction*>& seenJunctions);
+    static void getUpstreamVehicles(const UpstreamScanStartInfo& scanStart, FoeInfoMap& foeCollector, std::set<const MSLane*>& seenLanes);
 
     /** @brief Collects all vehicles on the junction into foeCollector
      */
-    static void getVehiclesOnJunction(const MSJunction*, double egoDistToConflictLane, const MSLane* const egoConflictLane, FoeInfoMap& foeCollector);
+    static void getVehiclesOnJunction(const MSJunction*, const MSLane* egoJunctionLane, double egoDistToConflictLane, const MSLane* const egoConflictLane, FoeInfoMap& foeCollector, std::set<const MSLane*>& seenLanes);
 
 
     /// @name Methods called on vehicle movement / state change, overwriting MSDevice
