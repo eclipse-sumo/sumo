@@ -309,7 +309,7 @@ protected:
         void checkCrossingFlanks(MSLink* dwLink, const LaneSet& visited);
 
         /// @brief find upstream protection from the given link
-        void findFlankProtection(MSLink* link, double length, LaneSet& visited);
+        void findFlankProtection(MSLink* link, double length, LaneSet& visited, MSLink* origLink);
     };
 
     /* The driveways for each link
@@ -350,6 +350,9 @@ protected:
 
     /// @brief return logicID_linkIndex
     static std::string getTLLinkID(MSLink* link);
+
+    /// @brief return logicID_linkIndex in a way that allows clicking in sumo-gui
+    static std::string getClickableTLLinkID(MSLink* link);
 
     /// @brief print link descriptions
     static std::string describeLinks(std::vector<MSLink*> links);

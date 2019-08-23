@@ -230,6 +230,11 @@ MSRailSignal::getTLLinkID(MSLink* link) {
 }
 
 std::string
+MSRailSignal::getClickableTLLinkID(MSLink* link) {
+    return "junction '" +  link->getTLLogic()->getID() + "', link " + toString(link->getTLIndex());
+}
+
+std::string
 MSRailSignal::describeLinks(std::vector<MSLink*> links) {
     std::string result;
     for (MSLink* link : links) {
@@ -421,7 +426,7 @@ MSRailSignal::LinkInfo::buildDriveWay(MSRouteIterator first, MSRouteIterator end
 
     for (MSLink* link : dw.myFlankSwitches) {
         //std::cout << getID() << " flankSwitch=" << link->getDescription() << "\n";
-        dw.findFlankProtection(link, 0, visited);
+        dw.findFlankProtection(link, 0, visited, link);
     }
 
 #ifdef DEBUG_BUILD_DRIVEWAY
@@ -671,7 +676,7 @@ MSRailSignal::DriveWay::findProtection(const Approaching& veh, MSLink* link) con
         tmp.myFlank.push_back(before);
         LaneSet visited;
         for (auto ili : before->getIncomingLanes()) {
-            tmp.findFlankProtection(ili.viaLink, myMaxFlankLength, visited);
+            tmp.findFlankProtection(ili.viaLink, myMaxFlankLength, visited, ili.viaLink);
         }
         tmp.myConflictLanes = tmp.myFlank;
         tmp.myRoute = myRoute;
@@ -732,8 +737,8 @@ MSRailSignal::DriveWay::buildRoute(MSLink* origin, double length,
     while ((seekForwardSignal || seekBidiSwitch)) {
         if (length > MAX_BLOCK_LENGTH) {
             if (myNumWarnings < MAX_SIGNAL_WARNINGS) {
-                WRITE_WARNING("Block after rail signal junction '" + getTLLinkID(origin) +
-                              "' exceeds maximum length (stopped searching after edge '" + toLane->getEdge().getID() + "' (length=" + toString(length) + "m).");
+                WRITE_WARNING("Block after rail signal " + getClickableTLLinkID(origin) +
+                              " exceeds maximum length (stopped searching after edge '" + toLane->getEdge().getID() + "' (length=" + toString(length) + "m).");
             }
             myNumWarnings++;
             // length exceeded
@@ -741,7 +746,7 @@ MSRailSignal::DriveWay::buildRoute(MSLink* origin, double length,
         }
         //std::cout << "   toLane=" << toLane->getID() << " visited=" << joinNamedToString(visited, " ") << "\n";
         if (visited.count(toLane) != 0) {
-            WRITE_WARNING("Found circular block after railSignal junction '" + getTLLinkID(origin) + "' (" + toString(myRoute.size()) + " edges, length " + toString(length) + ")");
+            WRITE_WARNING("Found circular block after railSignal " + getClickableTLLinkID(origin) + " (" + toString(myRoute.size()) + " edges, length " + toString(length) + ")");
             return;
         }
         if (toLane->getEdge().isNormal()) {
@@ -789,7 +794,7 @@ MSRailSignal::DriveWay::buildRoute(MSLink* origin, double length,
                 toLane = link->getViaLaneOrLane();
                 if (link->getTLLogic() != nullptr) {
                     if (link->getTLLogic() == origin->getTLLogic()) {
-                        WRITE_WARNING("Found circular block at railSignal junction '" + getTLLinkID(origin) + "' (" + toString(myRoute.size()) + " edges, length " + toString(length) + ")");
+                        WRITE_WARNING("Found circular block at railSignal " + getClickableTLLinkID(origin) + " (" + toString(myRoute.size()) + " edges, length " + toString(length) + ")");
                         return;
                     }
                     seekForwardSignal = false;
@@ -867,9 +872,9 @@ MSRailSignal::DriveWay::checkCrossingFlanks(MSLink* dwLink, const LaneSet& visit
 }
 
 void
-MSRailSignal::DriveWay::findFlankProtection(MSLink* link, double length, LaneSet& visited) {
+MSRailSignal::DriveWay::findFlankProtection(MSLink* link, double length, LaneSet& visited, MSLink* origLink) {
 #ifdef DEBUG_CHECK_FLANKS
-    std::cout << "  findFlankProtection link=" << link->getDescription() << " length=" << length << "\n";
+    std::cout << "  findFlankProtection link=" << link->getDescription() << " length=" << length << " origLink=" << origLink->getDescription() << "\n";
 #endif
     if (link->getTLLogic() != nullptr) {
         // guarded by signal
@@ -877,7 +882,7 @@ MSRailSignal::DriveWay::findFlankProtection(MSLink* link, double length, LaneSet
     } else if (length > MAX_BLOCK_LENGTH) {
         // length exceeded
         if (myNumWarnings < MAX_SIGNAL_WARNINGS) {
-            WRITE_WARNING("Incoming block exceeds maximum length (stopped searching after lane '" + link->getLane()->getID() + "' (length=" + toString(length) + "m).");
+            WRITE_WARNING("Incoming block at junction '" + origLink->getJunction()->getID() + "', link " + toString(origLink->getIndex()) + " exceeds maximum length (stopped searching after lane '" + link->getLane()->getID() + "' (length=" + toString(length) + "m).");
         }
         myNumWarnings++;
     } else {
@@ -888,7 +893,7 @@ MSRailSignal::DriveWay::findFlankProtection(MSLink* link, double length, LaneSet
             length += lane->getLength();
             if (lane->isInternal()) {
                 myFlank.push_back(lane);
-                findFlankProtection(lane->getIncomingLanes().front().viaLink, length, visited);
+                findFlankProtection(lane->getIncomingLanes().front().viaLink, length, visited, origLink);
             } else {
                 bool foundPSwitch = false;
                 for (MSLink* l2 : lane->getLinkCont()) {
@@ -909,7 +914,7 @@ MSRailSignal::DriveWay::findFlankProtection(MSLink* link, double length, LaneSet
                     // continue search for protection upstream recursively
                     for (auto ili : lane->getIncomingLanes()) {
                         if (ili.viaLink->getDirection() != LINKDIR_TURN) {
-                            findFlankProtection(ili.viaLink, length, visited);
+                            findFlankProtection(ili.viaLink, length, visited, origLink);
                         }
                     }
                 }
