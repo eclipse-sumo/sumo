@@ -14,4 +14,4 @@
 
 from __future__ import absolute_import
 
-from . import phem, omnet, ns2, shawn, gpsdat, gpx, fcdfilter, poi  # noqa
+from . import phem, omnet, ns2, shawn, gpsdat, kml, gpx, fcdfilter, poi  # noqa
