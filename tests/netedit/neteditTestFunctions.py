@@ -311,8 +311,9 @@ def getReferenceMatch(neProcess, waitTime):
     try:
         # capture screen and search reference
         positionOnScreen = pyautogui.locateOnScreen(_REFERENCE_PNG, waitTime)
-    except:  # noqa
+    except Exception as e:
         # we cannot specify the exception here because some versions of pyautogui use one and some don't
+        print(e)
         positionOnScreen = None
     # check if pos was found
     if positionOnScreen:
