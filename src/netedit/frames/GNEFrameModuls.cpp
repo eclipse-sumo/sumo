@@ -558,9 +558,7 @@ void
 GNEFrameModuls::EdgePathCreator::hideEdgePathCreator() {
     // restore colors
     for (const auto& i : myClickedEdges) {
-        for (const auto& j : i->getLanes()) {
-            j->setSpecialColor(nullptr);
-        }
+        restoreEdgeColor(i);
     }
      // clear edges
     myClickedEdges.clear();
@@ -640,14 +638,17 @@ GNEFrameModuls::EdgePathCreator::addEdge(GNEEdge* edge) {
         for (auto i : edge->getLanes()) {
             i->setSpecialColor(&myFrameParent->getEdgeCandidateSelectedColor());
         }
+        // enable remove last edge button
+        myRemoveLastInsertedEdge->enable();
+        // enable finish button
+        myFinishCreationButton->enable();
         // calculate route if there is more than two edges
         if (myClickedEdges.size() > 1) {
-            // enable remove last edge button
-            myRemoveLastInsertedEdge->enable();
-            // enable finish button
-            myFinishCreationButton->enable();
             // calculate temporal route
             myTemporalRoute = GNEDemandElement::getRouteCalculatorInstance()->calculateDijkstraRoute(myVClass, myClickedEdges);
+        } else {
+            // use single edge as temporal route
+            myTemporalRoute = myClickedEdges;
         }
         return true;
     } else {
@@ -671,9 +672,7 @@ void
 GNEFrameModuls::EdgePathCreator::clearEdges() {
     // restore colors
     for (const auto& i : myClickedEdges) {
-        for (const auto& j : i->getLanes()) {
-            j->setSpecialColor(nullptr);
-        }
+        restoreEdgeColor(i);
     }
     // clear edges
     myClickedEdges.clear();
@@ -691,26 +690,7 @@ GNEFrameModuls::EdgePathCreator::clearEdges() {
 void
 GNEFrameModuls::EdgePathCreator::drawTemporalRoute() const {
     // draw depending of number of edges
-    if (myClickedEdges.size() == 1) {
-        // Add a draw matrix
-        glPushMatrix();
-        // Start with the drawing of the area traslating matrix to origin
-        glTranslated(0, 0, GLO_MAX);
-        // set orange color
-        GLHelper::setColor(RGBColor::ORANGE);
-        // set line width
-        glLineWidth(5);
-        // draw line in first selected edge edge
-        GLHelper::drawLine(myClickedEdges.front()->getNBEdge()->getLanes().front().shape.front(),
-                           myClickedEdges.front()->getNBEdge()->getLanes().front().shape.back());
-        // draw line to center of selected bus
-        if (mySelectedBusStop) {
-            GLHelper::drawLine(myClickedEdges.front()->getNBEdge()->getLanes().front().shape.back(),
-                               mySelectedBusStop->getAdditionalGeometry().shape.getLineCenter());
-        }
-        // Pop last matrix
-        glPopMatrix();
-    } else if (myTemporalRoute.size() > 1) {
+    if (myClickedEdges.size() > 0) {
         // Add a draw matrix
         glPushMatrix();
         // Start with the drawing of the area traslating matrix to origin
@@ -766,6 +746,7 @@ GNEFrameModuls::EdgePathCreator::removeLastInsertedElement() {
 
 long
 GNEFrameModuls::EdgePathCreator::onCmdAbortRouteCreation(FXObject*, FXSelector, void*) {
+    // clear edges
     clearEdges();
     // disable buttons
     myAbortCreationButton->disable();
@@ -778,7 +759,7 @@ GNEFrameModuls::EdgePathCreator::onCmdAbortRouteCreation(FXObject*, FXSelector, 
 long
 GNEFrameModuls::EdgePathCreator::onCmdFinishRouteCreation(FXObject*, FXSelector, void*) {
     // only create route if there is more than two edges
-    if (myClickedEdges.size() > 1) {
+    if (myClickedEdges.size() > 0) {
         // call edgePathCreated
         myFrameParent->edgePathCreated();
         // update view
@@ -797,12 +778,30 @@ GNEFrameModuls::EdgePathCreator::onCmdFinishRouteCreation(FXObject*, FXSelector,
 long
 GNEFrameModuls::EdgePathCreator::onCmdRemoveLastInsertedElement(FXObject*, FXSelector, void*) {
     if (myClickedEdges.size() > 1) {
+        // restore color of last clicked edge
+        restoreEdgeColor(myClickedEdges.back());
         // remove last edge
         myClickedEdges.pop_back();
         // calculate temporal route
         myTemporalRoute = GNEDemandElement::getRouteCalculatorInstance()->calculateDijkstraRoute(myVClass, myClickedEdges);
+        // update view (to see the new temporal route)
+        myFrameParent->myViewNet->update();
+        // check if after pop edge, there is more than one edge
+        if (myClickedEdges.size() == 1) {
+            // disable remove last edge button
+            myRemoveLastInsertedEdge->disable();
+        }
     }
     return 1;
+}
+
+
+void 
+GNEFrameModuls::EdgePathCreator::restoreEdgeColor(const GNEEdge* edge) {
+    // restore color of every lane
+    for (const auto& i : edge->getLanes()) {
+        i->setSpecialColor(nullptr);
+    }
 }
 
 // ---------------------------------------------------------------------------

@@ -279,6 +279,9 @@ public:
 
         /// @brief current edge path creator modes
         int myEdgePathCreatorModes;
+
+        /// @brief restore colors of given edge
+        void restoreEdgeColor(const GNEEdge* edge);
     };
 
     // ===========================================================================
