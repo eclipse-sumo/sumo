@@ -1410,6 +1410,7 @@ GNEJunction::getColorValue(const GUIVisualizationSettings& /* s */, int activeSc
                 case NODETYPE_DEAD_END_DEPRECATED:
                     return 8;
                 case NODETYPE_UNKNOWN:
+                    return 8; // may happen before first network computation
                 case NODETYPE_INTERNAL:
                     assert(false);
                     return 8;
