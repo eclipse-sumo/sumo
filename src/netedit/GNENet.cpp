@@ -2359,6 +2359,8 @@ GNENet::requiereSaveDemandElements(bool value) {
 
 void
 GNENet::saveDemandElements(const std::string& filename) {
+    // first recompute demand elements
+    computeDemandElements(myViewNet->getViewParent()->getGNEAppWindows());
     // obtain invalid demandElements depending of number of their lane parents
     std::vector<GNEDemandElement*> invalidSingleLaneDemandElements;
     // iterate over demandElements and obtain invalids
