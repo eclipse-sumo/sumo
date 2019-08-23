@@ -107,6 +107,7 @@ flt:test.flt
 str:test.str
 gpsdat:gpsdat.txt
 gpx:output.gpx
+kml:output.kml
 match:match.txt
 image:image.svg
 csv:out*.csv
