@@ -16,7 +16,10 @@
 from __future__ import print_function
 import os
 import sys
-import subprocess
+try:
+    import subprocess32 as subprocess
+except ImportError:
+    import subprocess
 import pyautogui
 import time
 import pyperclip
@@ -549,15 +552,21 @@ def quit(NeteditProcess, openNetNonSavedDialog=False, saveNet=False,
                 waitQuestion('s')
             else:
                 waitQuestion('q')
-        # wait some seconds
-        time.sleep(DELAY_QUIT_NETEDIT)
-        if NeteditProcess.poll() is not None:
-            # print debug information
-            print("TestFunctions: Netedit closed successfully")
+        # wait some seconds for netedit to quit
+        if hasattr(subprocess, "TimeoutExpired"):
+            try:
+                NeteditProcess.wait(DELAY_QUIT_NETEDIT)
+                print("TestFunctions: Netedit closed successfully")
+                return
+            except subprocess.TimeoutExpired:
+                pass
         else:
-            NeteditProcess.kill()
-            # print debug information
-            print("TestFunctions: Error closing Netedit")
+            time.sleep(DELAY_QUIT_NETEDIT)
+            if NeteditProcess.poll() is not None:
+                print("TestFunctions: Netedit closed successfully")
+                return
+        NeteditProcess.kill()
+        print("TestFunctions: Error closing Netedit")
 
 
 """
