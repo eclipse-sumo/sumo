@@ -85,8 +85,8 @@ class Platoon(object):
             else:
                 # remains the regular platoon situation
                 self.setMode(PlatoonMode.LEADER)
-        except:
-            warn("Ignoring error (probably due to platoon.setMode() operation on non-existing vehicle).")
+        except Exception as e:
+            warn("Ignoring error %s (probably due to platoon.setMode() operation on non-existing vehicle)." % e)
 
     def getID(self):
         '''getID() -> int
@@ -185,7 +185,7 @@ class Platoon(object):
                 success = False
 
         else:
-            raise ValueError("Unknown PlatoonMode %s" % str(mode))
+            raise ValueError("Unknown PlatoonMode %s" % mode)
 
         if rp.VERBOSITY >= 3 and success and not old_mode == mode:
             report("Activated mode {mode} for platoon '{pltnID}' ({pltn_members})".format(

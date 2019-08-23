@@ -53,15 +53,18 @@ def write_diff(options):
     descr = ""
     if options.filterIDs:
         descr = " (%s)" % options.filterIDs
-    origDurations = Statistics('original durations%s' % descr,   histogram=options.useHist, scale=options.histScale)
-    durations = Statistics('new durations%s' % descr,            histogram=options.useHist, scale=options.histScale)
-    durationDiffs = Statistics('duration differences%s new-old' % descr, histogram=options.useHist, scale=options.histScale)
+    origDurations = Statistics('original durations%s' % descr,
+                               histogram=options.useHist, scale=options.histScale)
+    durations = Statistics('new durations%s' % descr,
+                           histogram=options.useHist, scale=options.histScale)
+    durationDiffs = Statistics('duration differences%s new-old' % descr,
+                               histogram=options.useHist, scale=options.histScale)
     numNew = 0
     numMissing = 0
     with open(options.output, 'w') as f:
         f.write("<tripDiffs>\n")
         for v in parse(options.new, 'tripinfo', attr_conversions=attr_conversions):
-            if options.filterIDs and not options.filterIDs in v.id:
+            if options.filterIDs and options.filterIDs not in v.id:
                 del vehicles_orig[v.id]
                 continue
             if v.id in vehicles_orig:
