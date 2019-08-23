@@ -733,7 +733,7 @@ MSRailSignal::DriveWay::buildRoute(MSLink* origin, double length,
         if (length > MAX_BLOCK_LENGTH) {
             if (myNumWarnings < MAX_SIGNAL_WARNINGS) {
                 WRITE_WARNING("Block after rail signal junction '" + getTLLinkID(origin) +
-                              "' exceeds maximum length (stopped searching after edge '" + (*next)->getID() + "' (length=" + toString(length) + "m).");
+                              "' exceeds maximum length (stopped searching after edge '" + toLane->getEdge().getID() + "' (length=" + toString(length) + "m).");
             }
             myNumWarnings++;
             // length exceeded
