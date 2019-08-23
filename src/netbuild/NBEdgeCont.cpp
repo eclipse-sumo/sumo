@@ -653,9 +653,14 @@ NBEdgeCont::splitAt(NBDistrictCont& dc,
     // erase the splitted edge
     patchRoundabouts(edge, one, two, myRoundabouts);
     patchRoundabouts(edge, one, two, myGuessedRoundabouts);
+    const std::string oldID = edge->getID();
     erase(dc, edge);
-    insert(one, true);
-    insert(two, true);
+    if (!insert(one, true)) {
+        WRITE_ERROR("Could not insert edge '" + one->getID() + "' before split of edge '" + oldID + "'");
+    };
+    if (!insert(two, true)) {
+        WRITE_ERROR("Could not insert edge '" + two->getID() + "' after split of edge '" + oldID + "'");
+    }
     myEdgesSplit++;
     return true;
 }

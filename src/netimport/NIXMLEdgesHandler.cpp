@@ -418,6 +418,7 @@ void NIXMLEdgesHandler::addSplit(const SUMOSAXAttributes& attrs) {
             WRITE_ERROR("Edge '" + myCurrentID + "' has already a split at position " + toString(e.pos) + ".");
             return;
         }
+        // XXX rounding to int may duplicate the id of another split
         e.nameID = myCurrentID + "." + toString((int)e.pos);
         if (e.pos < 0) {
             e.pos += myCurrentEdge->getGeometry().length();
