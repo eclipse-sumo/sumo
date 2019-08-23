@@ -1,10 +1,10 @@
 Sumo Webservice is going to start
-The webservice (Version 1.1) is available under http://127.0.0.1:8081/TRAAS_WS
+The webservice (Version 1.1) is available under http://127.0.0.1:8080/TRAAS_WS
 WSDL wird geparst ...
 
 
 
-Die WSDL und die zugehÃ¶rigen Metadaten werden heruntergeladen
+Die WSDL und die zugehörigen Metadaten werden heruntergeladen
 
 
 Code wird generiert ...
@@ -13,5 +13,6 @@ Code wird generiert ...
 Code wird kompiliert ...
 
 
-Die generierten Artefakte werden in ./webservice.jar archiviert.
+Die generierten Artefakte werden in .\webservice.jar archiviert.
 
+Benutzer user startet den Sumo Webservice Service

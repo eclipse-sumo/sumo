@@ -71,6 +71,7 @@ output:^Performance:{->}^Vehicles:
 output:uncheck:
 output:@@[^@]*@@
 output:data\\{REPLACE data/}
+output:.\\webservice{REPLACE ./webservice}
 output:Could not connect to TraCI server
 output:Retrying in
 output:Starting server on port [0-9]*{REPLACE Starting server on port <PORT>}
