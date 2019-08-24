@@ -26,6 +26,7 @@
 #include <config.h>
 
 #include <iostream>
+#include <algorithm>
 #include <utils/common/StringTokenizer.h>
 #include <utils/geom/GeomHelper.h>
 #include <utils/common/StringUtils.h>
@@ -2963,8 +2964,8 @@ MSDevice_SSM::findSurroundingVehicles(const MSVehicle& veh, double range, FoeInf
     } else {
         // Collect all vehicles in range behind ego vehicle
         edge = &(lane->getEdge());
-        upstreamScanStartPositions.push_back(UpstreamScanStartInfo(edge, pos, range + veh.getLength(), distToConflictLane, lane));
-        //seenLanes.insert(lane);
+		double edgeLength = edge->getLength();
+        upstreamScanStartPositions.push_back(UpstreamScanStartInfo(edge, std::min(pos + remainingDownstreamRange, edgeLength), std::min(remainingDownstreamRange + range + veh.getLength(), edgeLength), distToConflictLane, lane));
     }
 
     assert(lane != 0);
@@ -3144,8 +3145,9 @@ MSDevice_SSM::getUpstreamVehicles(const UpstreamScanStartInfo& scanStart, FoeInf
             std::cout << "\t" << lane->getID() << ": Found " << foundCount << "\n";
         }
 #endif
-
-        seenLanes.insert(lane);
+		if (scanStart.rememberLane) {
+			seenLanes.insert(lane);
+		}
     }
 
 #ifdef DEBUG_SSM_SURROUNDING
