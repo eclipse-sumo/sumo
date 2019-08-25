@@ -167,7 +167,7 @@ public:
     static void rerouteEffort(const std::string& vehicleID);
     static void setSignals(const std::string& vehicleID, int signals);
     static void moveTo(const std::string& vehicleID, const std::string& laneID, double position);
-    static void moveToXY(const std::string& vehicleID, const std::string& edgeID, const int laneIndex, const double x, const double y, double angle = INVALID_DOUBLE_VALUE, const int mapMode = 1);
+    static void moveToXY(const std::string& vehicleID, const std::string& edgeID, const int laneIndex, const double x, const double y, double angle = INVALID_DOUBLE_VALUE, const int keepRoute = 1);
     static void remove(const std::string& vehicleID, char reason = REMOVE_VAPORIZED);
     static void setLine(const std::string& vehicleID, const std::string& line);
     static void setVia(const std::string& vehicleID, const std::vector<std::string>& via);

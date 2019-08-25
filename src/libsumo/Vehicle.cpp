@@ -1082,11 +1082,12 @@ Vehicle::add(const std::string& vehicleID,
 
 
 void
-Vehicle::moveToXY(const std::string& vehicleID, const std::string& edgeID, const int laneIndex, const double x, const double y, double angle, const int mapMode) {
+Vehicle::moveToXY(const std::string& vehicleID, const std::string& edgeID, const int laneIndex,
+                  const double x, const double y, double angle, const int keepRoute) {
     MSVehicle* veh = Helper::getVehicle(vehicleID);
-    const bool doKeepRoute = (mapMode & 1) != 0 && veh->getID() != "VTD_EGO";
-    const bool mayLeaveNetwork = (mapMode & 2) != 0;
-    const bool ignorePermissions = (mapMode & 4) != 0;
+    const bool doKeepRoute = (keepRoute & 1) != 0 && veh->getID() != "VTD_EGO";
+    const bool mayLeaveNetwork = (keepRoute & 2) != 0;
+    const bool ignorePermissions = (keepRoute & 4) != 0;
     SUMOVehicleClass vClass = ignorePermissions ? SVC_IGNORING : veh->getVClass();
     // process
     const std::string origID = edgeID + "_" + toString(laneIndex);
@@ -1109,7 +1110,7 @@ Vehicle::moveToXY(const std::string& vehicleID, const std::string& edgeID, const
     Position vehPos = veh->getPosition();
 #ifdef DEBUG_MOVEXY
     std::cout << std::endl << SIMTIME << " moveToXY veh=" << veh->getID() << " vehPos=" << vehPos << " lane=" << Named::getIDSecure(veh->getLane()) << std::endl;
-    std::cout << " wantedPos=" << pos << " origID=" << origID << " laneIndex=" << laneIndex << " origAngle=" << origAngle << " angle=" << angle << " mapMode=" << mapMode << std::endl;
+    std::cout << " wantedPos=" << pos << " origID=" << origID << " laneIndex=" << laneIndex << " origAngle=" << origAngle << " angle=" << angle << " keepRoute=" << keepRoute << std::endl;
 #endif
 
     ConstMSEdgeVector edges;
