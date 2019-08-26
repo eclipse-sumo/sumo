@@ -2893,6 +2893,7 @@ MSDevice_SSM::findSurroundingVehicles(const MSVehicle& veh, double range, FoeInf
 
     // current lane in loop below
     const MSLane* lane = veh.getLane();
+	const MSEdge* egoEdge = &(lane->getEdge());
     assert(lane->isInternal() || lane == *laneIter);
     assert(lane != 0);
     // next non-internal lane on the route
@@ -2965,7 +2966,8 @@ MSDevice_SSM::findSurroundingVehicles(const MSVehicle& veh, double range, FoeInf
         // Collect all vehicles in range behind ego vehicle
         edge = &(lane->getEdge());
 		double edgeLength = edge->getLength();
-        upstreamScanStartPositions.push_back(UpstreamScanStartInfo(edge, std::min(pos + remainingDownstreamRange, edgeLength), std::min(remainingDownstreamRange + range + veh.getLength(), edgeLength), distToConflictLane, lane));
+		double startScanPos = std::min(pos + remainingDownstreamRange, edgeLength);
+        upstreamScanStartPositions.push_back(UpstreamScanStartInfo(edge, startScanPos, std::max(0., startScanPos - pos + range + veh.getLength()), distToConflictLane, lane));
     }
 
     assert(lane != 0);
@@ -2987,7 +2989,7 @@ MSDevice_SSM::findSurroundingVehicles(const MSVehicle& veh, double range, FoeInf
         assert(!edge->isInternal());
         assert(!lane->isInternal());
         assert(pos == 0 || lane == veh.getLane());
-        if (pos + remainingDownstreamRange < lane->getLength()) {
+        if (pos + remainingDownstreamRange < lane->getLength() && edge->getID() != egoEdge->getID()) {
             // scan range ends on this lane
             upstreamScanStartPositions.push_back(UpstreamScanStartInfo(edge, pos + remainingDownstreamRange, remainingDownstreamRange, distToConflictLane, lane));
             // scanned required downstream range
@@ -2995,7 +2997,9 @@ MSDevice_SSM::findSurroundingVehicles(const MSVehicle& veh, double range, FoeInf
         } else {
             // Also need to scan area that reaches beyond the lane
             // Collecting vehicles on non-internal edge ahead
-            upstreamScanStartPositions.push_back(UpstreamScanStartInfo(edge, edge->getLength(), edge->getLength() - pos, distToConflictLane, lane));
+			if (edge->getID() != egoEdge->getID()) {
+				upstreamScanStartPositions.push_back(UpstreamScanStartInfo(edge, edge->getLength(), edge->getLength() - pos, distToConflictLane, lane));
+			}
             // account for scanned distance on lane
             remainingDownstreamRange -= lane->getLength() - pos;
             distToConflictLane += lane->getLength();
@@ -3008,7 +3012,14 @@ MSDevice_SSM::findSurroundingVehicles(const MSVehicle& veh, double range, FoeInf
             // If the vehicle's best lanes go on, collect vehicles on the upcoming junction
             if (laneIter != egoBestLanes.end()) {
                 // Upcoming junction
-                const MSJunction* junction = lane->getEdge().getToJunction();
+				const MSJunction* junction;
+				if (isOpposite) {
+					junction = lane->getOpposite()->getEdge().getToJunction();
+				}
+				else {
+					junction = lane->getEdge().getToJunction();
+				}
+
 
                 // Find connection for ego on the junction
                 nextNonInternalLane = *laneIter;
@@ -3171,7 +3182,8 @@ MSDevice_SSM::getUpstreamVehicles(const UpstreamScanStartInfo& scanStart, FoeInf
     const MSJunction* junction = scanStart.edge->getFromJunction();
 
     // Collect vehicles from incoming edges of the junction
-    if (!scanStart.edge->isInternal() /*&& scanStart.egoConflictLane->isInternal()*/) {
+	int incomingEdgeCount = 0;
+    if (!scanStart.edge->isInternal()) {
         // collect vehicles on preceding junction (for internal edges this is already done in caller,
         // i.e. findSurroundingVehicles() or the recursive call from getUpstreamVehicles())
 
@@ -3181,44 +3193,46 @@ MSDevice_SSM::getUpstreamVehicles(const UpstreamScanStartInfo& scanStart, FoeInf
         for (MSLane* internalLane : internalLanes) {
             if (internalLane->getEdge().getSuccessors()[0]->getID() == scanStart.edge->getID()) {
                 getVehiclesOnJunction(junction, internalLane, scanStart.egoDistToConflictLane, scanStart.egoConflictLane, foeCollector, seenLanes);
+				incomingEdgeCount++;
             }
         }
     }
     // Collect vehicles from incoming edges from the junction representing the origin of 'edge'
-    const ConstMSEdgeVector& incoming = junction->getIncoming();
-    for (ConstMSEdgeVector::const_iterator ei = incoming.begin(); ei != incoming.end(); ++ei) {
-        if ((*ei)->isInternal() || (*ei)->isCrossing()) {
-            continue;
-        }
-        const std::vector<MSLane*> lanes = (*ei)->getLanes();
-        bool skip = false;
-        for (MSLane* lane : lanes) {
-            if (seenLanes.find(lane) != seenLanes.end()) {
-                skip = true;
-                break;
-            }
-        }
-        if (skip) {
+	if(incomingEdgeCount > 0) {
+		const ConstMSEdgeVector& incoming = junction->getIncoming();
+		for (ConstMSEdgeVector::const_iterator ei = incoming.begin(); ei != incoming.end(); ++ei) {
+			if ((*ei)->isInternal() || (*ei)->isCrossing()) {
+				continue;
+			}
+			const std::vector<MSLane*> lanes = (*ei)->getLanes();
+			bool skip = false;
+			for (MSLane* lane : lanes) {
+				if (seenLanes.find(lane) != seenLanes.end()) {
+					skip = true;
+					break;
+				}
+			}
+			if (skip) {
 #ifdef DEBUG_SSM_SURROUNDING
-            //if (gDebugFlag3) std::cout << "Scan skips already seen edge " << (*ei)->getID() << "\n";
+				//if (gDebugFlag3) std::cout << "Scan skips already seen edge " << (*ei)->getID() << "\n";
 #endif
-            continue;
-        }
+				continue;
+			}
 
-        const MSEdge* inEdge = *ei;
-        assert(inEdge != 0);
-        double distOnJunction = scanStart.edge->isInternal() ? 0. : inEdge->getInternalFollowingLengthTo(scanStart.edge);
-        if (distOnJunction >= remainingRange) {
+			const MSEdge* inEdge = *ei;
+			assert(inEdge != 0);
+			double distOnJunction = scanStart.edge->isInternal() ? 0. : inEdge->getInternalFollowingLengthTo(scanStart.edge);
+			if (distOnJunction >= remainingRange) {
 #ifdef DEBUG_SSM_SURROUNDING
-            //if (gDebugFlag3) std::cout << "Scan stops on junction (between " << inEdge->getID() << " and " << scanStart.edge->getID() << ") at rel. dist " << distOnJunction << "\n";
+				//if (gDebugFlag3) std::cout << "Scan stops on junction (between " << inEdge->getID() << " and " << scanStart.edge->getID() << ") at rel. dist " << distOnJunction << "\n";
 #endif
-            continue;
-        }
-        // account for vehicles on the predecessor edge
-        UpstreamScanStartInfo nextInfo(inEdge, inEdge->getLength(), remainingRange - distOnJunction, scanStart.egoDistToConflictLane, scanStart.egoConflictLane);
-        getUpstreamVehicles(nextInfo, foeCollector, seenLanes);
-    }
-
+				continue;
+			}
+			// account for vehicles on the predecessor edge
+			UpstreamScanStartInfo nextInfo(inEdge, inEdge->getLength(), remainingRange - distOnJunction, scanStart.egoDistToConflictLane, scanStart.egoConflictLane);
+			getUpstreamVehicles(nextInfo, foeCollector, seenLanes);
+		}
+	}
 }
 
 void
@@ -3299,6 +3313,7 @@ MSDevice_SSM::getVehiclesOnJunction(const MSJunction* junction, const MSLane* co
     // Collect vehicles on conflicting lanes
 	const MSLink* entryLink = egoJunctionLane->getEntryLink();
 	if (entryLink->getFoeLanes().size() > 0) {
+
 		const std::vector<MSLane*> foeLanes = junction->getFoeInternalLanes(entryLink);
 		for (MSLane* lane : foeLanes) {
 			if (seenLanes.find(lane) != seenLanes.end()) {
