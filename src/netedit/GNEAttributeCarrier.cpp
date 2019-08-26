@@ -1274,6 +1274,14 @@ GNEAttributeCarrier::allowedTagsByCategory(int tagPropertyCategory, bool onlyDra
             }
         }
     }
+    if (tagPropertyCategory & TAGTYPE_ROUTE) {
+        // fill demand tags
+        for (const auto& i : myTagProperties) {
+            if (i.second.isRoute() && (!onlyDrawables || i.second.isDrawable())) {
+                allowedTags.push_back(i.first);
+            }
+        }
+    }
     if (tagPropertyCategory & TAGTYPE_VEHICLE) {
         // fill demand tags
         for (const auto& i : myTagProperties) {
