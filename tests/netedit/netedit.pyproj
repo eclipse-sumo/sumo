@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{b9d7755f-82ab-47e8-8080-b167988acacd}</ProjectGuid>
+    <ProjectGuid>{31b1b60a-a64b-4f1b-8640-9011e8c1e13a}</ProjectGuid>
     <ProjectHome />
     <StartupFile>neteditTestFunctions.py</StartupFile>
     <SearchPath />
@@ -12,7 +12,6 @@
     <ProjectTypeGuids>{888888a0-9f3d-457c-b088-3a5042f75d52}</ProjectTypeGuids>
     <LaunchProvider>Standard Python launcher</LaunchProvider>
     <InterpreterId />
-    <Name>netedit</Name>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)' == 'Debug'" />
   <PropertyGroup Condition="'$(Configuration)' == 'Release'" />
@@ -792,6 +791,51 @@
     <Compile Include="demandElements\route\load\edges\test.py" />
     <Compile Include="demandElements\route\load\test.py" />
     <Compile Include="demandElements\route\volatileRecomputing\test.py" />
+    <Compile Include="demandElements\stop\basic\invalid_parent\test.py" />
+    <Compile Include="demandElements\stop\basic\invalid_type\test.py" />
+    <Compile Include="demandElements\stop\basic\no_parents\test.py" />
+    <Compile Include="demandElements\stop\stopBusStop\create\actType\test.py" />
+    <Compile Include="demandElements\stop\stopBusStop\create\containerTrigger\test.py" />
+    <Compile Include="demandElements\stop\stopBusStop\create\default\test.py" />
+    <Compile Include="demandElements\stop\stopBusStop\create\duration\test.py" />
+    <Compile Include="demandElements\stop\stopBusStop\create\expectedContainer\test.py" />
+    <Compile Include="demandElements\stop\stopBusStop\create\expected\test.py" />
+    <Compile Include="demandElements\stop\stopBusStop\create\index\test.py" />
+    <Compile Include="demandElements\stop\stopBusStop\create\no_parent\test.py" />
+    <Compile Include="demandElements\stop\stopBusStop\create\parking\test.py" />
+    <Compile Include="demandElements\stop\stopBusStop\create\triggered\test.py" />
+    <Compile Include="demandElements\stop\stopBusStop\create\tripID\test.py" />
+    <Compile Include="demandElements\stop\stopBusStop\create\until\test.py" />
+    <Compile Include="demandElements\stop\stopBusStop\delete\test.py" />
+    <Compile Include="demandElements\stop\stopBusStop\inspect\actType\test.py" />
+    <Compile Include="demandElements\stop\stopBusStop\inspect\containerTrigger\test.py" />
+    <Compile Include="demandElements\stop\stopBusStop\inspect\duration\test.py" />
+    <Compile Include="demandElements\stop\stopBusStop\inspect\expectedContainer\test.py" />
+    <Compile Include="demandElements\stop\stopBusStop\inspect\expected\test.py" />
+    <Compile Include="demandElements\stop\stopBusStop\inspect\genericParameters\test.py" />
+    <Compile Include="demandElements\stop\stopBusStop\inspect\index\test.py" />
+    <Compile Include="demandElements\stop\stopBusStop\inspect\parking\test.py" />
+    <Compile Include="demandElements\stop\stopBusStop\inspect\triggered\test.py" />
+    <Compile Include="demandElements\stop\stopBusStop\inspect\tripID\test.py" />
+    <Compile Include="demandElements\stop\stopBusStop\inspect\until\test.py" />
+    <Compile Include="demandElements\stop\stopBusStop\inspect_selection\actType\test.py" />
+    <Compile Include="demandElements\stop\stopBusStop\inspect_selection\containerTrigger\test.py" />
+    <Compile Include="demandElements\stop\stopBusStop\inspect_selection\duration\test.py" />
+    <Compile Include="demandElements\stop\stopBusStop\inspect_selection\expectedContainer\test.py" />
+    <Compile Include="demandElements\stop\stopBusStop\inspect_selection\expected\test.py" />
+    <Compile Include="demandElements\stop\stopBusStop\inspect_selection\genericParameters\test.py" />
+    <Compile Include="demandElements\stop\stopBusStop\inspect_selection\index\test.py" />
+    <Compile Include="demandElements\stop\stopBusStop\inspect_selection\parking\test.py" />
+    <Compile Include="demandElements\stop\stopBusStop\inspect_selection\triggered\test.py" />
+    <Compile Include="demandElements\stop\stopBusStop\inspect_selection\tripID\test.py" />
+    <Compile Include="demandElements\stop\stopBusStop\inspect_selection\until\test.py" />
+    <Compile Include="demandElements\stop\stopBusStop\load\test.py" />
+    <Compile Include="demandElements\stop\stopBusStop\move\test.py" />
+    <Compile Include="demandElements\stop\stopBusStop\volatileRecomputing\test.py" />
+    <Compile Include="demandElements\stop\stopChargingStation\volatileRecomputing\test.py" />
+    <Compile Include="demandElements\stop\stopContainerStop\volatileRecomputing\test.py" />
+    <Compile Include="demandElements\stop\stopLane\volatileRecomputing\test.py" />
+    <Compile Include="demandElements\stop\stopParkingArea\volatileRecomputing\test.py" />
     <Compile Include="demandElements\trip\create\arrivalLane\test.py" />
     <Compile Include="demandElements\trip\create\arrivalPosLat\test.py" />
     <Compile Include="demandElements\trip\create\arrivalPos\test.py" />
@@ -2421,6 +2465,61 @@
     <Folder Include="demandElements\route\load" />
     <Folder Include="demandElements\route\load\edges" />
     <Folder Include="demandElements\route\volatileRecomputing" />
+    <Folder Include="demandElements\stop\" />
+    <Folder Include="demandElements\stop\basic\" />
+    <Folder Include="demandElements\stop\basic\invalid_parent" />
+    <Folder Include="demandElements\stop\basic\invalid_type" />
+    <Folder Include="demandElements\stop\basic\no_parents" />
+    <Folder Include="demandElements\stop\stopBusStop\" />
+    <Folder Include="demandElements\stop\stopBusStop\create\" />
+    <Folder Include="demandElements\stop\stopBusStop\create\actType" />
+    <Folder Include="demandElements\stop\stopBusStop\create\containerTrigger" />
+    <Folder Include="demandElements\stop\stopBusStop\create\default" />
+    <Folder Include="demandElements\stop\stopBusStop\create\duration" />
+    <Folder Include="demandElements\stop\stopBusStop\create\expected" />
+    <Folder Include="demandElements\stop\stopBusStop\create\expectedContainer" />
+    <Folder Include="demandElements\stop\stopBusStop\create\index" />
+    <Folder Include="demandElements\stop\stopBusStop\create\no_parent" />
+    <Folder Include="demandElements\stop\stopBusStop\create\parking" />
+    <Folder Include="demandElements\stop\stopBusStop\create\triggered" />
+    <Folder Include="demandElements\stop\stopBusStop\create\tripID" />
+    <Folder Include="demandElements\stop\stopBusStop\create\until" />
+    <Folder Include="demandElements\stop\stopBusStop\delete" />
+    <Folder Include="demandElements\stop\stopBusStop\inspect\" />
+    <Folder Include="demandElements\stop\stopBusStop\inspect\actType" />
+    <Folder Include="demandElements\stop\stopBusStop\inspect\containerTrigger" />
+    <Folder Include="demandElements\stop\stopBusStop\inspect\duration" />
+    <Folder Include="demandElements\stop\stopBusStop\inspect\expected" />
+    <Folder Include="demandElements\stop\stopBusStop\inspect\expectedContainer" />
+    <Folder Include="demandElements\stop\stopBusStop\inspect\genericParameters" />
+    <Folder Include="demandElements\stop\stopBusStop\inspect\index" />
+    <Folder Include="demandElements\stop\stopBusStop\inspect\parking" />
+    <Folder Include="demandElements\stop\stopBusStop\inspect\triggered" />
+    <Folder Include="demandElements\stop\stopBusStop\inspect\tripID" />
+    <Folder Include="demandElements\stop\stopBusStop\inspect\until" />
+    <Folder Include="demandElements\stop\stopBusStop\inspect_selection\" />
+    <Folder Include="demandElements\stop\stopBusStop\inspect_selection\actType" />
+    <Folder Include="demandElements\stop\stopBusStop\inspect_selection\containerTrigger" />
+    <Folder Include="demandElements\stop\stopBusStop\inspect_selection\duration" />
+    <Folder Include="demandElements\stop\stopBusStop\inspect_selection\expected" />
+    <Folder Include="demandElements\stop\stopBusStop\inspect_selection\expectedContainer" />
+    <Folder Include="demandElements\stop\stopBusStop\inspect_selection\genericParameters" />
+    <Folder Include="demandElements\stop\stopBusStop\inspect_selection\index" />
+    <Folder Include="demandElements\stop\stopBusStop\inspect_selection\parking" />
+    <Folder Include="demandElements\stop\stopBusStop\inspect_selection\triggered" />
+    <Folder Include="demandElements\stop\stopBusStop\inspect_selection\tripID" />
+    <Folder Include="demandElements\stop\stopBusStop\inspect_selection\until" />
+    <Folder Include="demandElements\stop\stopBusStop\load" />
+    <Folder Include="demandElements\stop\stopBusStop\move" />
+    <Folder Include="demandElements\stop\stopBusStop\volatileRecomputing" />
+    <Folder Include="demandElements\stop\stopChargingStation\" />
+    <Folder Include="demandElements\stop\stopChargingStation\volatileRecomputing" />
+    <Folder Include="demandElements\stop\stopContainerStop\" />
+    <Folder Include="demandElements\stop\stopContainerStop\volatileRecomputing" />
+    <Folder Include="demandElements\stop\stopLane\" />
+    <Folder Include="demandElements\stop\stopLane\volatileRecomputing" />
+    <Folder Include="demandElements\stop\stopParkingArea\" />
+    <Folder Include="demandElements\stop\stopParkingArea\volatileRecomputing" />
     <Folder Include="demandElements\trip\" />
     <Folder Include="demandElements\trip\create\" />
     <Folder Include="demandElements\trip\create\arrivalLane" />

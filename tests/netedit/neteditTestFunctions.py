@@ -1293,6 +1293,48 @@ def changePersonFlowPlan(personFlowPlan, subPersonFlowPlan):
     # type enter to save change
     typeEnter()
 
+
+#################################################
+# stop elements
+#################################################
+
+
+def stopMode():
+    """
+    @brief change to person mode
+    """
+    typeKey('a')
+
+
+def changeStopParent(stopParent):
+    """
+    @brief change stop parent
+    """
+    # focus current frame
+    focusOnFrame()
+    # jump to stop parent
+    typeTab()
+    # paste the new stop parent
+    pasteIntoTextField(stopParent)
+    # type enter to save change
+    typeEnter()
+
+
+def changeStopType(stopType):
+    """
+    @brief change stop type
+    """
+    # focus current frame
+    focusOnFrame()
+    # jump to stop type
+    for _ in range(3):
+        typeTab()
+    # paste the new personPlan
+    pasteIntoTextField(stopType)
+    # type enter to save change
+    typeEnter()
+
+
 #################################################
 # vehicle elements
 #################################################
