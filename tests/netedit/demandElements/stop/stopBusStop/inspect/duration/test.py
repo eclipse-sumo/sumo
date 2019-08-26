@@ -37,9 +37,39 @@ netedit.changeStopType("stopBusStop")
 # create stop
 netedit.leftClick(referencePosition, 327, 208)
 
+# go to inspect mode
+netedit.inspectMode()
+
+# inspect stop
+netedit.leftClick(referencePosition, 327, 208)
+
+# change value
+netedit.modifyBoolAttribute(0, True)
+
+# change value
+netedit.modifyBoolAttribute(0, True)
+
+# change value
+netedit.modifyBoolAttribute(0, True)
+
+# change value
+netedit.modifyAttribute(1, "dummyValue", True)
+
+# change value
+netedit.modifyAttribute(1, "", True)
+
+# change value
+netedit.modifyAttribute(1, "-5", True)
+
+# change value
+netedit.modifyAttribute(1, "0", True)
+
+# change value
+netedit.modifyAttribute(1, "3.5", True)
+
 # Check undo redo
-netedit.undo(referencePosition, 2)
-netedit.redo(referencePosition, 2)
+netedit.undo(referencePosition, 5)
+netedit.redo(referencePosition, 5)
 
 # save additionals
 netedit.saveAdditionals(referencePosition)
