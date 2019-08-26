@@ -601,12 +601,8 @@ SUMOVehicleParserHelper::beginVTypeParsing(const SUMOSAXAttributes& attrs, const
             } else {
                 double impatience = attrs.get<double>(SUMO_ATTR_IMPATIENCE, vtype->id.c_str(), okDouble);
                 if (okDouble) {
-                    if (impatience < 0) {
-                        handleError(hardFail, abortCreation, toString(SUMO_ATTR_IMPATIENCE) + " must be equal or greater than 0");
-                    } else {
-                        vtype->impatience = impatience;
-                        vtype->parametersSet |= VTYPEPARS_IMPATIENCE_SET;
-                    }
+                    vtype->impatience = impatience;
+                    vtype->parametersSet |= VTYPEPARS_IMPATIENCE_SET;
                 }
             }
         }
@@ -1217,6 +1213,12 @@ SUMOVehicleParserHelper::parseLCParams(SUMOVTypeParameter& into, LaneChangeModel
                     case SUMO_ATTR_LCA_PUSHYGAP:
                     case SUMO_ATTR_LCA_MAXSPEEDLATSTANDING:
                     case SUMO_ATTR_LCA_IMPATIENCE:
+                    case SUMO_ATTR_LCA_OVERTAKE_RIGHT:
+                    case SUMO_ATTR_LCA_ASSERTIVE:
+                    case SUMO_ATTR_LCA_LOOKAHEADLEFT:
+                    case SUMO_ATTR_LCA_SPEEDGAINRIGHT:
+                    case SUMO_ATTR_LCA_TURN_ALIGNMENT_DISTANCE:
+                    case SUMO_ATTR_LCA_TIME_TO_IMPATIENCE:
                         if (LCMAttribute < 0) {
                             ok = false;
                             if (hardFail) {
@@ -1230,14 +1232,7 @@ SUMOVehicleParserHelper::parseLCParams(SUMOVTypeParameter& into, LaneChangeModel
                 }
                 // check attributes of type "positiveFloatType" (> 0)
                 switch (it) {
-                    case SUMO_ATTR_LCA_ASSERTIVE:
-                    case SUMO_ATTR_LCA_LOOKAHEADLEFT:
-                    case SUMO_ATTR_LCA_SPEEDGAINRIGHT:
-                    case SUMO_ATTR_LCA_TURN_ALIGNMENT_DISTANCE:
-                    case SUMO_ATTR_LCA_TIME_TO_IMPATIENCE:
                     case SUMO_ATTR_LCA_ACCEL_LAT:
-                    case SUMO_ATTR_LCA_MAXSPEEDLATFACTOR:
-                    case SUMO_ATTR_LCA_OVERTAKE_RIGHT:
                         if (LCMAttribute <= 0) {
                             ok = false;
                             if (hardFail) {

@@ -55,12 +55,12 @@
         <xsd:attribute name="lcOpposite" type="xsd:float"/>
         <xsd:attribute name="lcPushy" type="xsd:float"/>
         <xsd:attribute name="lcPushyGap" type="nonNegativeFloatType"/>
-        <xsd:attribute name="lcAssertive" type="positiveFloatType"/>
-        <xsd:attribute name="lcLookaheadLeft" type="positiveFloatType"/>
-        <xsd:attribute name="lcSpeedGainRight" type="positiveFloatType"/>
-        <xsd:attribute name="lcTurnAlignmentDistance" type="positiveFloatType"/>
+        <xsd:attribute name="lcAssertive" type="nonNegativeFloatType"/>
+        <xsd:attribute name="lcLookaheadLeft" type="nonNegativeFloatType"/>
+        <xsd:attribute name="lcSpeedGainRight" type="nonNegativeFloatType"/>
+        <xsd:attribute name="lcTurnAlignmentDistance" type="nonNegativeFloatType"/>
         <xsd:attribute name="lcImpatience" type="nonNegativeFloatType"/>
-        <xsd:attribute name="lcTimeToImpatience" type="positiveFloatType"/>
+        <xsd:attribute name="lcTimeToImpatience" type="nonNegativeFloatType"/>
         <xsd:attribute name="lcAccelLat" type="positiveFloatType"/>
         <xsd:attribute name="lcMaxSpeedLatStanding" type="nonNegativeFloatType"/>
         <xsd:attribute name="lcMaxSpeedLatFactor" type="positiveFloatType"/>
