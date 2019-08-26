@@ -543,7 +543,7 @@ GNEStop::getAttribute(SumoXMLAttr key) const {
                 return "";
             }
         case SUMO_ATTR_ACTTYPE:
-            return "";  // CHECK
+            return "waiting";
         case SUMO_ATTR_TRIP_ID:
             if (parametersSet & STOP_TRIP_ID_SET) {
                 return tripId;
@@ -676,14 +676,20 @@ GNEStop::isValid(SumoXMLAttr key, const std::string& value) {
             if (value.empty()) {
                 return true;
             } else {
-                return canParse<std::vector<std::string> >(value);
+                std::vector<std::string> IDs = parse<std::vector<std::string>>(value);
+                for (const auto &i : IDs) {
+                    if (SUMOXMLDefinitions::isValidVehicleID(i) == false) {
+                        return false;
+                    }
+                }
+                return true;
             }
         case SUMO_ATTR_PARKING:
             return canParse<bool>(value);
         case SUMO_ATTR_ACTTYPE:
-            return false;  // CHECK
+            return (value == "waiting");
         case SUMO_ATTR_TRIP_ID:
-            return SUMOXMLDefinitions::isValidAttribute(value);
+            return SUMOXMLDefinitions::isValidVehicleID(value);
         // specific of Stops over stoppingPlaces
         case SUMO_ATTR_BUS_STOP:
             return (myViewNet->getNet()->retrieveAdditional(SUMO_TAG_BUS_STOP, value, false) != nullptr);
