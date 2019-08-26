@@ -355,7 +355,7 @@ GNEFrameModuls::DemandElementSelector::getCurrentDemandElement() const {
 }
 
 
-const std::vector<SumoXMLTag>& 
+const std::vector<SumoXMLTag>&
 GNEFrameModuls::DemandElementSelector::getAllowedTags() const {
     return myDemandElementTags;
 }
@@ -462,7 +462,7 @@ GNEFrameModuls::DemandElementSelector::refreshDemandElementSelector() {
         } else if (myDemandElementsMatchBox->getItem(0).text() == DEFAULT_PEDTYPE_ID) {
             myCurrentDemandElement = myFrameParent->getViewNet()->getNet()->getAttributeCarriers().demandElements.at(SUMO_TAG_PTYPE).at(DEFAULT_PEDTYPE_ID);
         } else {
-            // disable myCurrentDemandElement 
+            // disable myCurrentDemandElement
             myCurrentDemandElement = nullptr;
             // update myCurrentDemandElement with the first allowed element
             for (auto i = myDemandElementTags.begin(); (i != myDemandElementTags.end()) && (myCurrentDemandElement == nullptr); i++) {
@@ -560,7 +560,7 @@ GNEFrameModuls::EdgePathCreator::hideEdgePathCreator() {
     for (const auto& i : myClickedEdges) {
         restoreEdgeColor(i);
     }
-     // clear edges
+    // clear edges
     myClickedEdges.clear();
     // clear myTemporalEdgePath
     myTemporalRoute.clear();
@@ -614,7 +614,7 @@ GNEFrameModuls::EdgePathCreator::addEdge(GNEEdge* edge) {
     // check permissions
     if (addEdge) {
         addEdge = false;
-        for (const auto &i : edge->getNBEdge()->getLanes()) {
+        for (const auto& i : edge->getNBEdge()->getLanes()) {
             if ((i.permissions & myVClass) != 0) {
                 addEdge = true;
             }
@@ -796,7 +796,7 @@ GNEFrameModuls::EdgePathCreator::onCmdRemoveLastInsertedElement(FXObject*, FXSel
 }
 
 
-void 
+void
 GNEFrameModuls::EdgePathCreator::restoreEdgeColor(const GNEEdge* edge) {
     // restore color of every lane
     for (const auto& i : edge->getLanes()) {

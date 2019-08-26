@@ -260,10 +260,10 @@ GNEVehicle::GNESelectedVehiclesPopupMenu::onCmdTransform(FXObject* obj, FXSelect
 
 GNEVehicle::GNEVehicle(SumoXMLTag tag, GNEViewNet* viewNet, const std::string& vehicleID, GNEDemandElement* vehicleType, GNEDemandElement* route) :
     GNEDemandElement(vehicleID, viewNet, (tag == SUMO_TAG_ROUTEFLOW) ? GLO_ROUTEFLOW : GLO_VEHICLE, tag,
-        {}, {}, {}, {}, {vehicleType, route}, {}, {}, {}, {}, {}),
-    SUMOVehicleParameter(),
-    myFromEdge(nullptr), 
-    myToEdge(nullptr) {
+{}, {}, {}, {}, {vehicleType, route}, {}, {}, {}, {}, {}),
+SUMOVehicleParameter(),
+myFromEdge(nullptr),
+myToEdge(nullptr) {
     // SUMOVehicleParameter ID has to be set manually
     id = vehicleID;
     // set manually vtypeID (needed for saving)
@@ -273,10 +273,10 @@ GNEVehicle::GNEVehicle(SumoXMLTag tag, GNEViewNet* viewNet, const std::string& v
 
 GNEVehicle::GNEVehicle(GNEViewNet* viewNet, GNEDemandElement* vehicleType, GNEDemandElement* route, const SUMOVehicleParameter& vehicleParameters) :
     GNEDemandElement(vehicleParameters.id, viewNet, (vehicleParameters.tag == SUMO_TAG_ROUTEFLOW) ? GLO_ROUTEFLOW : GLO_VEHICLE, vehicleParameters.tag,
-        {}, {}, {}, {}, {vehicleType, route}, {}, {}, {}, {}, {}),
-    SUMOVehicleParameter(vehicleParameters),
-    myFromEdge(nullptr), 
-    myToEdge(nullptr) {
+{}, {}, {}, {}, {vehicleType, route}, {}, {}, {}, {}, {}),
+SUMOVehicleParameter(vehicleParameters),
+myFromEdge(nullptr),
+myToEdge(nullptr) {
     // SUMOVehicleParameter ID has to be set manually
     id = vehicleParameters.id;
     // set manually vtypeID (needed for saving)
@@ -286,10 +286,10 @@ GNEVehicle::GNEVehicle(GNEViewNet* viewNet, GNEDemandElement* vehicleType, GNEDe
 
 GNEVehicle::GNEVehicle(GNEViewNet* viewNet, GNEDemandElement* vehicleType, const SUMOVehicleParameter& vehicleParameters) :
     GNEDemandElement(vehicleParameters.id, viewNet, (vehicleParameters.tag == SUMO_TAG_ROUTEFLOW) ? GLO_ROUTEFLOW : GLO_VEHICLE, vehicleParameters.tag,
-        {}, {}, {}, {}, {vehicleType}, {}, {}, {}, {}, {}),
-    SUMOVehicleParameter(vehicleParameters),
-    myFromEdge(nullptr), 
-    myToEdge(nullptr) {
+{}, {}, {}, {}, {vehicleType}, {}, {}, {}, {}, {}),
+SUMOVehicleParameter(vehicleParameters),
+myFromEdge(nullptr),
+myToEdge(nullptr) {
     // SUMOVehicleParameter ID has to be set manually
     id = vehicleParameters.id;
     // reset routeid
@@ -300,22 +300,22 @@ GNEVehicle::GNEVehicle(GNEViewNet* viewNet, GNEDemandElement* vehicleType, const
 
 
 GNEVehicle::GNEVehicle(SumoXMLTag tag, GNEViewNet* viewNet, const std::string& vehicleID, GNEDemandElement* vehicleType, GNEEdge* fromEdge, GNEEdge* toEdge) :
-    GNEDemandElement(vehicleID, viewNet, (tag == SUMO_TAG_FLOW) ? GLO_FLOW : GLO_TRIP, tag, 
-        {}, {}, {}, {}, {vehicleType}, {}, {}, {}, {}, {}),
-    SUMOVehicleParameter(),
-    myFromEdge(fromEdge), 
-    myToEdge(toEdge) {
+    GNEDemandElement(vehicleID, viewNet, (tag == SUMO_TAG_FLOW) ? GLO_FLOW : GLO_TRIP, tag,
+{}, {}, {}, {}, {vehicleType}, {}, {}, {}, {}, {}),
+SUMOVehicleParameter(),
+myFromEdge(fromEdge),
+myToEdge(toEdge) {
     // recompute vehicle
     compute();
 }
 
 
 GNEVehicle::GNEVehicle(GNEViewNet* viewNet, GNEDemandElement* vehicleType, GNEEdge* fromEdge, GNEEdge* toEdge, const SUMOVehicleParameter& vehicleParameters) :
-    GNEDemandElement(vehicleParameters.id, viewNet, (vehicleParameters.tag == SUMO_TAG_FLOW) ? GLO_FLOW : GLO_TRIP, vehicleParameters.tag, 
-        {}, {}, {}, {}, {vehicleType}, {}, {}, {}, {}, {}),
-    SUMOVehicleParameter(vehicleParameters),
-    myFromEdge(fromEdge), 
-    myToEdge(toEdge) {
+    GNEDemandElement(vehicleParameters.id, viewNet, (vehicleParameters.tag == SUMO_TAG_FLOW) ? GLO_FLOW : GLO_TRIP, vehicleParameters.tag,
+{}, {}, {}, {}, {vehicleType}, {}, {}, {}, {}, {}),
+SUMOVehicleParameter(vehicleParameters),
+myFromEdge(fromEdge),
+myToEdge(toEdge) {
     // recompute vehicle
     compute();
 }
@@ -448,7 +448,7 @@ GNEVehicle::fixDemandElementProblem() {
 }
 
 
-GNEEdge* 
+GNEEdge*
 GNEVehicle::getFromEdge() const {
     if (getDemandElementParents().size() == 2) {
         // oobtain edge of route
@@ -464,7 +464,7 @@ GNEVehicle::getFromEdge() const {
 }
 
 
-GNEEdge* 
+GNEEdge*
 GNEVehicle::getToEdge() const {
     if (getDemandElementParents().size() == 2) {
         // oobtain edge of route
@@ -480,19 +480,19 @@ GNEVehicle::getToEdge() const {
 }
 
 
-SUMOVehicleClass 
+SUMOVehicleClass
 GNEVehicle::getVClass() const {
     return getDemandElementParents().front()->getVClass();
 }
 
 
-const RGBColor& 
+const RGBColor&
 GNEVehicle::getColor() const {
     return color;
 }
 
 
-void 
+void
 GNEVehicle::compute() {
     // only recompute flows and trips
     if (myFromEdge && myToEdge) {
@@ -561,9 +561,9 @@ GNEVehicle::updateGeometry() {
             // add lane geometry
             for (int i = 0; i < ((int)lane->getGeometry().shape.size() - 1); i++) {
                 myDemandElementSegmentGeometry.insertEdgeLengthRotSegment(this, getEdgeParents().at(0),
-                lane->getGeometry().shape[i],
-                lane->getGeometry().shapeLengths[i],
-                lane->getGeometry().shapeRotations[i], true, true);
+                        lane->getGeometry().shape[i],
+                        lane->getGeometry().shapeLengths[i],
+                        lane->getGeometry().shapeRotations[i], true, true);
             }
         } else {
             // declare a matrix to save found connections

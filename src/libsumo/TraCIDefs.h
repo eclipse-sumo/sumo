@@ -234,7 +234,7 @@ class TraCILogic {
 public:
     TraCILogic() {}
     TraCILogic(const std::string& _programID, const int _type, const int _currentPhaseIndex,
-               const std::vector<libsumo::TraCIPhase>& _phases=std::vector<libsumo::TraCIPhase>())
+               const std::vector<libsumo::TraCIPhase>& _phases = std::vector<libsumo::TraCIPhase>())
         : programID(_programID), type(_type), currentPhaseIndex(_currentPhaseIndex), phases(_phases) {}
     ~TraCILogic() {}
 

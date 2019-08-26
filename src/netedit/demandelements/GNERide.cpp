@@ -154,31 +154,31 @@ GNERide::fixDemandElementProblem() {
 }
 
 
-GNEEdge* 
+GNEEdge*
 GNERide::getFromEdge() const {
     return getEdgeParents().front();
 }
 
 
-GNEEdge* 
+GNEEdge*
 GNERide::getToEdge() const {
     return getEdgeParents().back();
 }
 
 
-SUMOVehicleClass 
+SUMOVehicleClass
 GNERide::getVClass() const {
     return getDemandElementParents().front()->getVClass();
 }
 
 
-const RGBColor& 
+const RGBColor&
 GNERide::getColor() const {
     return getDemandElementParents().front()->getColor();
 }
 
 
-void 
+void
 GNERide::compute() {
     // Nothing to compute
 }

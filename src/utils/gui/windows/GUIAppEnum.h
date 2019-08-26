@@ -162,7 +162,7 @@ enum {
     MID_HOTKEY_F3_SUPERMODE_NETWORK,
     /// @brief hot key <F4> set demand mode in NETEDIT
     MID_HOTKEY_F4_SUPERMODE_DEMAND,
-    /// @brief compute Network in network mode and Demand elements in demand mode 
+    /// @brief compute Network in network mode and Demand elements in demand mode
     MID_HOTKEY_F5_COMPUTE_NETWORK_DEMAND,
     /// @brief clean junctions without edges in network mode and unused routes in demand mode
     MID_GNE_HOTKEY_F6_CLEAN_SOLITARYJUNCTIONS_UNUSEDROUTES,
@@ -186,7 +186,7 @@ enum {
 
     /// @name Other hotkeys
     /// @{
-   
+
     /// @brief hot key <ESC> abort current edit operation
     MID_GNE_HOTKEY_ESC,
     /// @brief hot key <DEL> delete selections or elements

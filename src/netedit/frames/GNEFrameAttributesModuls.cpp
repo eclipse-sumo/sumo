@@ -1009,13 +1009,13 @@ GNEFrameAttributesModuls::AttributesEditorRow::AttributesEditorRow(GNEFrameAttri
         }
         // special case for Default vehicle types (ID cannot be edited)
         if ((ACAttr.getTagPropertyParent().getTag() == SUMO_TAG_VTYPE) && (ACAttr.getAttr() == SUMO_ATTR_ID) &&
-            ((value == DEFAULT_VTYPE_ID) || (value == DEFAULT_PEDTYPE_ID) || (value == DEFAULT_BIKETYPE_ID))) {
+                ((value == DEFAULT_VTYPE_ID) || (value == DEFAULT_PEDTYPE_ID) || (value == DEFAULT_BIKETYPE_ID))) {
             myValueTextFieldStrings->disable();
         }
         // special case for stops over stopping places (value cannot be changed)
-        if ((ACAttr.getTagPropertyParent().isStop() || ACAttr.getTagPropertyParent().isPersonStop() ) && 
-            ((ACAttr.getAttr() == SUMO_ATTR_BUS_STOP) || (ACAttr.getAttr() == SUMO_ATTR_CONTAINER_STOP) || 
-             (ACAttr.getAttr() == SUMO_ATTR_CHARGING_STATION) || (ACAttr.getAttr() == SUMO_ATTR_PARKING_AREA))) {
+        if ((ACAttr.getTagPropertyParent().isStop() || ACAttr.getTagPropertyParent().isPersonStop()) &&
+                ((ACAttr.getAttr() == SUMO_ATTR_BUS_STOP) || (ACAttr.getAttr() == SUMO_ATTR_CONTAINER_STOP) ||
+                 (ACAttr.getAttr() == SUMO_ATTR_CHARGING_STATION) || (ACAttr.getAttr() == SUMO_ATTR_PARKING_AREA))) {
             myValueTextFieldStrings->disable();
         }
         // Show AttributesEditorRow
@@ -1133,9 +1133,9 @@ GNEFrameAttributesModuls::AttributesEditorRow::refreshAttributesEditorRow(const 
             myValueTextFieldStrings->disable();
         }
         // special case for stops over stopping places (value cannot be changed)
-        if ((myACAttr.getTagPropertyParent().isStop() || myACAttr.getTagPropertyParent().isPersonStop() ) && 
-            ((myACAttr.getAttr() == SUMO_ATTR_BUS_STOP) || (myACAttr.getAttr() == SUMO_ATTR_CONTAINER_STOP) || 
-             (myACAttr.getAttr() == SUMO_ATTR_CHARGING_STATION) || (myACAttr.getAttr() == SUMO_ATTR_PARKING_AREA))) {
+        if ((myACAttr.getTagPropertyParent().isStop() || myACAttr.getTagPropertyParent().isPersonStop()) &&
+                ((myACAttr.getAttr() == SUMO_ATTR_BUS_STOP) || (myACAttr.getAttr() == SUMO_ATTR_CONTAINER_STOP) ||
+                 (myACAttr.getAttr() == SUMO_ATTR_CHARGING_STATION) || (myACAttr.getAttr() == SUMO_ATTR_PARKING_AREA))) {
             myValueTextFieldStrings->disable();
         }
     }

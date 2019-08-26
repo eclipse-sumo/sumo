@@ -264,31 +264,31 @@ GNEPerson::fixDemandElementProblem() {
 }
 
 
-GNEEdge* 
+GNEEdge*
 GNEPerson::getFromEdge() const {
     return getDemandElementChildren().front()->getFromEdge();
 }
 
 
-GNEEdge* 
+GNEEdge*
 GNEPerson::getToEdge() const {
     return getDemandElementChildren().front()->getToEdge();
 }
 
 
-SUMOVehicleClass 
+SUMOVehicleClass
 GNEPerson::getVClass() const {
     return getDemandElementParents().front()->getVClass();
 }
 
 
-const RGBColor& 
+const RGBColor&
 GNEPerson::getColor() const {
     return color;
 }
 
 
-void 
+void
 GNEPerson::compute() {
     // Nothing to compute
 }

@@ -169,7 +169,7 @@ GNEWalk::fixDemandElementProblem() {
 }
 
 
-GNEEdge* 
+GNEEdge*
 GNEWalk::getFromEdge() const {
     if (getDemandElementParents().size() == 2) {
         // obtain position and rotation of first edge route
@@ -180,7 +180,7 @@ GNEWalk::getFromEdge() const {
 }
 
 
-GNEEdge* 
+GNEEdge*
 GNEWalk::getToEdge() const {
     if (getDemandElementParents().size() == 2) {
         // obtain position and rotation of first edge route
@@ -191,19 +191,19 @@ GNEWalk::getToEdge() const {
 }
 
 
-SUMOVehicleClass 
+SUMOVehicleClass
 GNEWalk::getVClass() const {
     return getDemandElementParents().front()->getVClass();
 }
 
 
-const RGBColor& 
+const RGBColor&
 GNEWalk::getColor() const {
     return getDemandElementParents().front()->getColor();
 }
 
 
-void 
+void
 GNEWalk::compute() {
     // Nothing to compute
 }

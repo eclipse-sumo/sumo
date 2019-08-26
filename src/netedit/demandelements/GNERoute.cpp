@@ -207,31 +207,31 @@ GNERoute::fixDemandElementProblem() {
 }
 
 
-GNEEdge* 
+GNEEdge*
 GNERoute::getFromEdge() const {
     return getEdgeParents().front();
 }
 
 
-GNEEdge* 
+GNEEdge*
 GNERoute::getToEdge() const {
     return getEdgeParents().back();
 }
 
 
-SUMOVehicleClass 
+SUMOVehicleClass
 GNERoute::getVClass() const {
     return myVClass;
 }
 
 
-const RGBColor& 
+const RGBColor&
 GNERoute::getColor() const {
     return myColor;
 }
 
 
-void 
+void
 GNERoute::compute() {
     // Nothing to compute
 }

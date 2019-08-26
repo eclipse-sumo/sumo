@@ -993,10 +993,10 @@ GNERouteHandler::transformToTrip(GNEVehicle* originalVehicle) {
         // make transformation depending of vehicle tag
         if ((originalVehicle->getTagProperty().getTag() == SUMO_TAG_VEHICLE) || (originalVehicle->getTagProperty().getTag() == SUMO_TAG_ROUTEFLOW)) {
             // create trip using values of original vehicle (including ID) and route's edges
-            GNEVehicle* trip = new GNEVehicle(originalVehicle->getViewNet(), vType, 
-                originalVehicle->getDemandElementParents().at(1)->getEdgeParents().front(), 
-                originalVehicle->getDemandElementParents().at(1)->getEdgeParents().back(), 
-            newVehicleParameters);
+            GNEVehicle* trip = new GNEVehicle(originalVehicle->getViewNet(), vType,
+                                              originalVehicle->getDemandElementParents().at(1)->getEdgeParents().front(),
+                                              originalVehicle->getDemandElementParents().at(1)->getEdgeParents().back(),
+                                              newVehicleParameters);
             // first remove vehicle (to avoid problem with ID)
             undoList->add(new GNEChange_DemandElement(originalVehicle, false), true);
             // add new vehicle
@@ -1053,10 +1053,10 @@ GNERouteHandler::transformToFlow(GNEVehicle* originalVehicle) {
         // make transformation depending of vehicle tag
         if ((originalVehicle->getTagProperty().getTag() == SUMO_TAG_VEHICLE) || (originalVehicle->getTagProperty().getTag() == SUMO_TAG_ROUTEFLOW)) {
             // create Vehicle using values of original vehicle (including ID) and route's edges
-            GNEVehicle* flow = new GNEVehicle(originalVehicle->getViewNet(), vType, 
-                originalVehicle->getDemandElementParents().at(1)->getEdgeParents().front(),
-                originalVehicle->getDemandElementParents().at(1)->getEdgeParents().back(),
-            newVehicleParameters);
+            GNEVehicle* flow = new GNEVehicle(originalVehicle->getViewNet(), vType,
+                                              originalVehicle->getDemandElementParents().at(1)->getEdgeParents().front(),
+                                              originalVehicle->getDemandElementParents().at(1)->getEdgeParents().back(),
+                                              newVehicleParameters);
             // first remove vehicle (to avoid problem with ID)
             undoList->add(new GNEChange_DemandElement(originalVehicle, false), true);
             // add new flow

@@ -93,31 +93,31 @@ GNEVehicleType::writeDemandElement(OutputDevice& device) const {
 }
 
 
-GNEEdge* 
+GNEEdge*
 GNEVehicleType::getFromEdge() const {
     return nullptr;
 }
 
 
-GNEEdge* 
+GNEEdge*
 GNEVehicleType::getToEdge() const {
     return nullptr;
 }
 
 
-SUMOVehicleClass 
+SUMOVehicleClass
 GNEVehicleType::getVClass() const {
     return vehicleClass;
 }
 
 
-const RGBColor& 
+const RGBColor&
 GNEVehicleType::getColor() const {
     return color;
 }
 
 
-void 
+void
 GNEVehicleType::compute() {
     // Nothing to compute
 }
