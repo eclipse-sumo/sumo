@@ -318,7 +318,7 @@ ROEdge::buildTimeLines(const std::string& measure, const bool boundariesOverride
 void
 ROEdge::cacheParamRestrictions(const std::vector<std::string>& restrictionKeys) {
     for (const std::string& key : restrictionKeys) {
-        const std::string value = getParameter(key, "1e400");
+        const std::string value = getParameter(key, "1e40");
         myParamRestrictions.push_back(StringUtils::toDouble(value));
     }
 }

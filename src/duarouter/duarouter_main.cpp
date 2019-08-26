@@ -101,7 +101,7 @@ computeRoutes(RONet& net, ROLoader& loader, OptionsCont& oc) {
     const SUMOTime end = string2time(oc.getString("end"));
     if (measure == "traveltime") {
         if (routingAlgorithm == "dijkstra") {
-            if (oc.isSet("restriction-param")) {
+            if (oc.isSet("restriction-params")) {
                 router = new DijkstraRouter<ROEdge, ROVehicle, SUMOAbstractRouterRestrictions<ROEdge, ROVehicle> >(
                     ROEdge::getAllEdges(), oc.getBool("ignore-errors"), ttFunction);
             } else if (net.hasPermissions()) {
@@ -112,7 +112,7 @@ computeRoutes(RONet& net, ROLoader& loader, OptionsCont& oc) {
                     ROEdge::getAllEdges(), oc.getBool("ignore-errors"), ttFunction);
             }
         } else if (routingAlgorithm == "astar") {
-            if (oc.isSet("restriction-param")) {
+            if (oc.isSet("restriction-params")) {
                 typedef AStarRouter<ROEdge, ROVehicle, SUMOAbstractRouterRestrictions<ROEdge, ROVehicle> > AStar;
                 std::shared_ptr<const AStar::LookupTable> lookup;
                 if (oc.isSet("astar.all-distances")) {
@@ -159,7 +159,7 @@ computeRoutes(RONet& net, ROLoader& loader, OptionsCont& oc) {
             const SUMOTime weightPeriod = (oc.isSet("weight-files") ?
                                            string2time(oc.getString("weight-period")) :
                                            std::numeric_limits<int>::max());
-            if (oc.isSet("restriction-param")) {
+            if (oc.isSet("restriction-params")) {
                 router = new CHRouter<ROEdge, ROVehicle, SUMOAbstractRouterRestrictions<ROEdge, ROVehicle> >(
                     ROEdge::getAllEdges(), oc.getBool("ignore-errors"), &ROEdge::getTravelTimeStatic, SVC_IGNORING, weightPeriod, true);
             } else if (net.hasPermissions()) {

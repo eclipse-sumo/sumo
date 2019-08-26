@@ -129,8 +129,8 @@ ROLoader::loadNet(RONet& toFill, ROAbstractEdgeBuilder& eb) {
     } else {
         PROGRESS_DONE_MESSAGE();
     }
-    if (myOptions.isSet("restriction-param")) {
-        const std::vector<std::string> paramKeys = myOptions.getStringVector("restriction-param");
+    if (myOptions.isSet("restriction-params")) {
+        const std::vector<std::string> paramKeys = myOptions.getStringVector("restriction-params");
         for (auto& edgeIt : toFill.getEdgeMap()) {
             edgeIt.second->cacheParamRestrictions(paramKeys);
         }
