@@ -301,12 +301,12 @@ GNEStopFrame::getStopParameter(SUMOVehicleParameter::Stop& stop, bool& friendlyP
     if (valuesMap.count(SUMO_ATTR_DURATION) > 0) {
         stop.duration = string2time(valuesMap.at(SUMO_ATTR_DURATION));
     } else {
-        stop.duration = string2time(GNEAttributeCarrier::getTagProperties(stopTag).getAttributeProperties(SUMO_ATTR_DURATION).getDefaultValue());
+        stop.duration = -1;
     }
     if (valuesMap.count(SUMO_ATTR_UNTIL) > 0) {
         stop.until = string2time(valuesMap[SUMO_ATTR_UNTIL]);
     } else {
-        stop.until = string2time(GNEAttributeCarrier::getTagProperties(stopTag).getAttributeProperties(SUMO_ATTR_UNTIL).getDefaultValue());
+        stop.until = -1;
     }
     if (valuesMap.count(SUMO_ATTR_TRIGGERED) > 0) {
         stop.triggered = GNEAttributeCarrier::parse<bool>(valuesMap.at(SUMO_ATTR_TRIGGERED));

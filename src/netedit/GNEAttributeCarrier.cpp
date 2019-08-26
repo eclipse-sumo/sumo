@@ -4341,15 +4341,15 @@ GNEAttributeCarrier::fillCommonStopAttributes(SumoXMLTag currentTag) {
     AttributeProperties attrProperty;
 
     attrProperty = AttributeProperties(SUMO_ATTR_DURATION,
-                                       ATTRPROPERTY_FLOAT | ATTRPROPERTY_OPTIONAL | ATTRPROPERTY_DEFAULTVALUESTATIC,
+                                       ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_OPTIONAL | ATTRPROPERTY_DEFAULTVALUESTATIC,
                                        "Minimum duration for stopping",
                                        "60");
     myTagProperties[currentTag].addAttribute(attrProperty);
 
     attrProperty = AttributeProperties(SUMO_ATTR_UNTIL,
-                                       ATTRPROPERTY_FLOAT | ATTRPROPERTY_OPTIONAL | ATTRPROPERTY_DEFAULTVALUESTATIC,
+                                       ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_OPTIONAL | ATTRPROPERTY_DEFAULTVALUESTATIC,
                                        "The time step at which the route continues",
-                                       "-1");
+                                       "0");
     myTagProperties[currentTag].addAttribute(attrProperty);
 
     attrProperty = AttributeProperties(SUMO_ATTR_INDEX,

@@ -124,8 +124,12 @@ GNEFrameAttributesModuls::AttributesCreatorRow::AttributesCreatorRow(AttributesC
     myValueTextFieldStrings->hide();
     myValueCheckButton = new FXCheckButton(this, "Disabled", this, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButton);
     myValueCheckButton->hide();
-    // by default attribute check button is true
-    myAttributeCheckButton->setCheck(true);
+    // by default attribute check button is true (except for until)
+    if ((attrProperties.getTagPropertyParent().isStop() || attrProperties.getTagPropertyParent().isPersonStop()) && (attrProperties.getAttr() == SUMO_ATTR_UNTIL)) {
+        myAttributeCheckButton->setCheck(FALSE);
+    } else {
+        myAttributeCheckButton->setCheck(TRUE);
+    }
     // only create if parent was created
     if (getParent()->id()) {
         // create AttributesCreatorRow
@@ -655,8 +659,10 @@ GNEFrameAttributesModuls::AttributesCreator::getAttributesAndValues(bool include
             bool hasDefaultStaticValue = !myAttributesCreatorRows.at(i)->getAttrProperties().hasStaticDefaultValue() || (myAttributesCreatorRows.at(i)->getAttrProperties().getDefaultValue() != myAttributesCreatorRows.at(i)->getValue());
             // flag for enablitables attributes
             bool isEnablitableAttribute = myAttributesCreatorRows.at(i)->getAttrProperties().isEnablitable();
+            // flag for optional attributes
+            bool isOptionalAttribute = myAttributesCreatorRows.at(i)->getAttrProperties().isOptional() && myAttributesCreatorRows.at(i)->getAttributeCheckButtonCheck();
             // check if flags configuration allow to include values
-            if (rowEnabled && (includeAll || hasDefaultStaticValue || isEnablitableAttribute)) {
+            if (rowEnabled && (includeAll || hasDefaultStaticValue || isEnablitableAttribute || isOptionalAttribute)) {
                 values[myAttributesCreatorRows.at(i)->getAttrProperties().getAttr()] = myAttributesCreatorRows.at(i)->getValue();
             }
         }
