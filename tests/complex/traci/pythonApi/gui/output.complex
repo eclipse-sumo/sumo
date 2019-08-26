@@ -3,6 +3,7 @@ Loading configuration... done.
 step 0
 step 1
 step 2
+hasGUI True
 views ('View #0',)
 examining View #0
 zoom 100.0

@@ -43,7 +43,7 @@ vehID = "v0"
 
 
 def check(x, y, angle, exLane, exPos, exPosLat, comment):
-    traci.vehicle.moveToXY(vehID, "", angle, x, y)
+    traci.vehicle.moveToXY(vehID, "", 0, x, y, angle)
     traci.simulationStep()
     x2, y2 = traci.vehicle.getPosition(vehID)
     lane2 = traci.vehicle.getLaneID(vehID)

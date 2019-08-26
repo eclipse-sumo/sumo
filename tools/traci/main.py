@@ -134,6 +134,14 @@ def isLibsumo():
     return False
 
 
+def hasGUI():
+    try:
+        gui.getIDList()
+        return True
+    except TraCIException:
+        return False
+
+
 def load(args):
     """load([optionOrParam, ...])
     Let sumo load a simulation using the given command line like options

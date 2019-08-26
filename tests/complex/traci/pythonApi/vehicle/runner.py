@@ -453,7 +453,7 @@ for i in range(10):
         traci.vehicle.getEmissionClass(electricVeh),
         traci.vehicle.getElectricityConsumption(electricVeh),
     ))
-    print(traci.vehicle.getSubscriptionResults(electricVeh))
+    print(sorted(traci.vehicle.getSubscriptionResults(electricVeh).items()))
 # test for adding a trip
 traci.route.add("trip2", ["3si", "4si"])
 traci.vehicle.addLegacy("triptest2", "trip2", typeID="reroutingType")

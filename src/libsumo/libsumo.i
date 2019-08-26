@@ -24,6 +24,9 @@ from traci import constants, exceptions, _vehicle, _person, _trafficlight
 def isLibsumo():
     return True
 
+def hasGUI():
+    return False
+
 def init(port):
     print("Warning! To make your code usable with traci and libsumo, please use traci.start instead of traci.init.")
 
@@ -401,6 +404,7 @@ vehicle.getRightFollowers = wrapAsClassMethod(_vehicle.VehicleDomain.getRightFol
 vehicle.getRightLeaders = wrapAsClassMethod(_vehicle.VehicleDomain.getRightLeaders, vehicle)
 vehicle.getLeftFollowers = wrapAsClassMethod(_vehicle.VehicleDomain.getLeftFollowers, vehicle)
 vehicle.getLeftLeaders = wrapAsClassMethod(_vehicle.VehicleDomain.getLeftLeaders, vehicle)
+vehicle.getLaneChangeStatePretty = wrapAsClassMethod(_vehicle.VehicleDomain.getLaneChangeStatePretty, vehicle)
 person.removeStages = wrapAsClassMethod(_person.PersonDomain.removeStages, person)
 trafficlight.setLinkState = wrapAsClassMethod(_trafficlight.TrafficLightDomain.setLinkState, trafficlight)
 %}

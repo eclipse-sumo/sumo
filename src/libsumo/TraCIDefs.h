@@ -233,10 +233,16 @@ namespace libsumo {
 class TraCILogic {
 public:
     TraCILogic() {}
-    TraCILogic(const std::string& _programID, const int _type, const int _currentPhaseIndex)
-        : programID(_programID), type(_type), currentPhaseIndex(_currentPhaseIndex) {}
+    TraCILogic(const std::string& _programID, const int _type, const int _currentPhaseIndex,
+               const std::vector<libsumo::TraCIPhase>& _phases=std::vector<libsumo::TraCIPhase>())
+        : programID(_programID), type(_type), currentPhaseIndex(_currentPhaseIndex), phases(_phases) {}
     ~TraCILogic() {}
 
+#ifndef SWIGJAVA
+    std::vector<TraCIPhase> getPhases() {
+        return phases;
+    }
+#endif
     std::string programID;
     int type;
     int currentPhaseIndex;

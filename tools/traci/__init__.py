@@ -16,14 +16,15 @@
 # @date    2008-10-09
 # @version $Id$
 
+from __future__ import absolute_import
 import os
 import warnings
 
 if 'LIBSUMO_AS_TRACI' not in os.environ:
-    from main import *  # noqa
+    from .main import *  # noqa
 else:
     try:
         from libsumo import *  # noqa
     except ImportError:
         warnings.warn("Could not import libsumo, falling back to standard traci.")
-        from main import *  # noqa
+        from .main import *  # noqa

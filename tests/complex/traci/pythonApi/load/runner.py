@@ -41,17 +41,11 @@ traci.simulationStep()
 traci.close()
 
 
-sumoBinary = sumolib.checkBinary('sumo-gui')
-
-PORT = sumolib.miscutils.getFreeSocketPort()
-sumoProcess = subprocess.Popen(
-    "%s -S -Q -c sumo.sumocfg -l log.txt --remote-port %s" % (sumoBinary, PORT), shell=True, stdout=sys.stdout)
-traci.init(PORT)
+traci.start([sumolib.checkBinary('sumo-gui'), "-S", "-Q", "-c", "sumo.sumocfg", "-l", "log.txt"])
 for i in range(3):
     traci.simulationStep()
     print("step=%s departed=%s" % (traci.simulation.getCurrentTime(),
                                    traci.simulation.getDepartedIDList()))
-
 
 print("reloading")
 traci.load(["-S", "-Q", "-c", "sumo.sumocfg"])
@@ -60,4 +54,3 @@ while traci.simulation.getMinExpectedNumber() > 0:
     print("step=%s departed=%s" % (traci.simulation.getCurrentTime(),
                                    traci.simulation.getDepartedIDList()))
 traci.close()
-sumoProcess.wait()

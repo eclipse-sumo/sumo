@@ -71,7 +71,7 @@ for step in range(3, 6):
 traci.trafficlight.setLinkState(tlsID, 4, 'u')
 try:
     traci.trafficlight.setLinkState(tlsID, 16, 'u')
-except traci.exceptions.TraCIException as e:
+except traci.TraCIException as e:
     print("caught", e)
 check()
 traci.trafficlight.setRedYellowGreenState(tlsID, "gGyruOorrrrrrrrr")

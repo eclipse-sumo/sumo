@@ -6,10 +6,10 @@ step 2.0
 vehicles ('horiz',)
 vehicle count 1
 examining horiz
-speed 4.03334372395
+speed 4.033343723951839
 speedLat 0.0
-speed w/o traci 4.03334372395
-acceleration 2.59949394504
+speed w/o traci 4.033343723951839
+acceleration 2.5994939450407406
 pos (989.4962096581543, 501.65)
 pos3D (989.4962096581543, 501.65, 0.0)
 angle 270.0
@@ -20,16 +20,16 @@ type DEFAULT_VEHTYPE
 routeID horizontal
 routeIndex 0
 route ('2fi', '2si', '1o', '1fi', '1si', '3o', '3fi', '3si', '4o', '4fi', '4si')
-lanePos 10.5671935029
+lanePos 10.567193502862938
 color (255, 255, 0, 255)
 bestLanes (('2fi_0', 3000.0, 0.0, 0, True, ('2fi_0', '2si_1', '1o_0', '1fi_0', '1si_0', '3o_0', '3fi_0', '3si_1', '4o_0')),)
-CO2 4962.09802901
-CO 148.404394312
-HC 0.793287746206
-PMx 0.106890250159
-NOx 2.197042561
-fuel 2.1330214171
-noise 68.9661301311
+CO2 4962.098029013955
+CO 148.4043943117062
+HC 0.793287746205698
+PMx 0.10689025015863887
+NOx 2.197042560996833
+fuel 2.133021417095528
+noise 68.96613013111516
 Elec 0.0
 traveltime -1073741824.0
 effort -1073741824.0
@@ -37,7 +37,7 @@ route valid True
 signals 0
 routingMode 0
 length 5.0
-maxSpeed 55.5555555556
+maxSpeed 55.55555555555556
 speedFactor 1.0
 allowedSpeed 11.11
 accel 2.6
@@ -65,8 +65,8 @@ person number 0
 personCapacity 4
 waiting time 0.0
 accumulated waiting time 0.0
-driving dist 2991.4328065
-driving dist 2D 1090.03642823
+driving dist 2991.432806497137
+driving dist 2D 1090.0364282275193
 line 
 via ()
 lane change state right (1073741824, 1073741824)
@@ -86,10 +86,10 @@ new decel=5.1, automatically increased emergencyDecel=5.1
 vehicles ('horiz',)
 vehicle count 1
 examining horiz
-speed 10.5458580181
+speed 10.545858018114231
 speedLat 0.0
-speed w/o traci 10.5458580181
-acceleration 1.91336914733
+speed w/o traci 10.545858018114231
+acceleration 1.9133691473305223
 pos (964.2637932489363, 501.45)
 pos3D (964.2637932489363, 501.45, 0.0)
 angle 270.0
@@ -100,7 +100,7 @@ type DEFAULT_VEHTYPE@horiz
 routeID horizontal
 routeIndex 0
 route ('2fi', '2si', '1o', '1fi', '1si', '3o', '3fi', '3si', '4o', '4fi', '4si')
-lanePos 35.9519182606
+lanePos 35.95191826062743
 color (255, 0, 0, 255)
 bestLanes (('2fi_0', 250.0, 0.0, 0, True, ('2fi_0',)),)
 CO2 0.0
@@ -145,8 +145,8 @@ person number 0
 personCapacity 4
 waiting time 0.0
 accumulated waiting time 0.0
-driving dist 2966.04808174
-driving dist 2D 1064.65170347
+driving dist 2966.0480817393727
+driving dist 2D 1064.651703469755
 line S46
 via ('3o', '4o')
 lane change state right (1073741824, 1073741824)
@@ -197,7 +197,7 @@ route valid True
 signals 0
 routingMode 0
 length 5.0
-maxSpeed 55.5555555556
+maxSpeed 55.55555555555556
 speedFactor 1.0
 allowedSpeed -1073741824.0
 accel 2.6
@@ -260,10 +260,10 @@ step 12.0
 vehicles ('1', '2', 'horiz')
 vehicle count 3
 examining 2
-speed 3.95381717598
+speed 3.9538171759806575
 speedLat 0.0
-speed w/o traci 3.95381717598
-acceleration 2.27560119752
+speed w/o traci 3.9538171759806575
+acceleration 2.275601197523065
 pos (989.3323590444884, 501.65)
 pos3D (989.3323590444884, 501.65, 0.0)
 angle 270.0
@@ -274,16 +274,16 @@ type DEFAULT_VEHTYPE
 routeID horizontal
 routeIndex 0
 route ('2fi', '2si', '1o', '1fi', '1si', '3o', '3fi', '3si', '4o', '4fi', '4si')
-lanePos 10.7320331544
+lanePos 10.732033154438248
 color (255, 255, 0, 255)
 bestLanes (('2fi_0', 3000.0, 0.0, 0, True, ('2fi_0', '2si_1', '1o_0', '1fi_0', '1si_0', '3o_0', '3fi_0', '3si_1', '4o_0')),)
-CO2 4579.72999871
-CO 141.672414579
-HC 0.75316195339
-PMx 0.0972524482405
-NOx 2.01875840038
-fuel 1.96866177856
-noise 67.5152741624
+CO2 4579.7299987052065
+CO 141.67241457908355
+HC 0.7531619533898394
+PMx 0.09725244824049893
+NOx 2.0187584003816523
+fuel 1.9686617785551788
+noise 67.51527416238669
 Elec 0.0
 traveltime -1073741824.0
 effort -1073741824.0
@@ -291,7 +291,7 @@ route valid True
 signals 0
 routingMode 0
 length 5.0
-maxSpeed 55.5555555556
+maxSpeed 55.55555555555556
 speedFactor 1.0
 allowedSpeed 11.11
 accel 2.6
@@ -319,8 +319,8 @@ person number 0
 personCapacity 4
 waiting time 0.0
 accumulated waiting time 0.0
-driving dist 2991.26796685
-driving dist 2D 1089.87158858
+driving dist 2991.2679668455617
+driving dist 2D 1089.871588575944
 line t
 via ()
 lane change state right (1073741824, 1073741824)
@@ -401,87 +401,87 @@ vehicle 'routeTest' routeID=withStop
 step 36.0
 vehicle routeTest lane 2fi_0 lanePos 0.0 stopped False
 step 37.0
-vehicle routeTest lane 2fi_0 lanePos 1.62288662673 stopped False
+vehicle routeTest lane 2fi_0 lanePos 1.622886626725085 stopped False
 step 38.0
-vehicle routeTest lane 2fi_0 lanePos 5.25308517355 stopped False
+vehicle routeTest lane 2fi_0 lanePos 5.253085173550062 stopped False
 step 39.0
-vehicle routeTest lane 2fi_0 lanePos 11.3844600331 stopped False
+vehicle routeTest lane 2fi_0 lanePos 11.384460033103824 stopped False
 step 40.0
-vehicle routeTest lane 2fi_0 lanePos 20.1035598584 stopped False
+vehicle routeTest lane 2fi_0 lanePos 20.103559858375228 stopped False
 step 41.0
-vehicle routeTest lane 2fi_0 lanePos 26.0965028008 stopped False
+vehicle routeTest lane 2fi_0 lanePos 26.09650280076312 stopped False
 step 42.0
-vehicle routeTest lane 2fi_0 lanePos 28.9062828539 stopped False
+vehicle routeTest lane 2fi_0 lanePos 28.90628285389394 stopped False
 step 43.0
-vehicle routeTest lane 2fi_0 lanePos 29.7300877438 stopped False
+vehicle routeTest lane 2fi_0 lanePos 29.730087743836787 stopped False
 step 44.0
-vehicle routeTest lane 2fi_0 lanePos 29.8967890308 stopped False
+vehicle routeTest lane 2fi_0 lanePos 29.896789030800985 stopped False
 step 45.0
-vehicle routeTest lane 2fi_0 lanePos 29.9487665182 stopped False
+vehicle routeTest lane 2fi_0 lanePos 29.948766518177113 stopped False
 step 46.0
-vehicle routeTest lane 2fi_0 lanePos 29.9929779505 stopped True
+vehicle routeTest lane 2fi_0 lanePos 29.99297795051751 stopped True
 step 47.0
-vehicle routeTest lane 2fi_0 lanePos 29.9929779505 stopped True
+vehicle routeTest lane 2fi_0 lanePos 29.99297795051751 stopped True
 step 48.0
-vehicle routeTest lane 2fi_0 lanePos 29.9929779505 stopped True
+vehicle routeTest lane 2fi_0 lanePos 29.99297795051751 stopped True
 step 49.0
-vehicle routeTest lane 2fi_0 lanePos 29.9929779505 stopped True
+vehicle routeTest lane 2fi_0 lanePos 29.99297795051751 stopped True
 step 50.0
 vehicle routeTest2 lane 2fi_0 lanePos 0.0 stopped False
 step 51.0
-vehicle routeTest2 lane 2fi_0 lanePos 1.49684341634 stopped False
+vehicle routeTest2 lane 2fi_0 lanePos 1.496843416336924 stopped False
 step 52.0
-vehicle routeTest2 lane 2fi_0 lanePos 5.34216009658 stopped False
+vehicle routeTest2 lane 2fi_0 lanePos 5.3421600965783 stopped False
 step 53.0
-vehicle routeTest2 lane 2fi_0 lanePos 10.5764163266 stopped False
+vehicle routeTest2 lane 2fi_0 lanePos 10.576416326593607 stopped False
 step 54.0
-vehicle routeTest2 lane 2fi_0 lanePos 17.1251496935 stopped False
+vehicle routeTest2 lane 2fi_0 lanePos 17.12514969354961 stopped False
 step 55.0
-vehicle routeTest2 lane 2fi_0 lanePos 25.7358849637 stopped False
+vehicle routeTest2 lane 2fi_0 lanePos 25.73588496368611 stopped False
 step 56.0
-vehicle routeTest2 lane 2fi_0 lanePos 29.8466202338 stopped False
+vehicle routeTest2 lane 2fi_0 lanePos 29.846620233822613 stopped False
 step 57.0
-vehicle routeTest2 lane 2fi_0 lanePos 29.9987874249 stopped False
+vehicle routeTest2 lane 2fi_0 lanePos 29.998787424920152 stopped False
 step 58.0
-vehicle routeTest2 lane 2fi_0 lanePos 29.9995989974 stopped True
+vehicle routeTest2 lane 2fi_0 lanePos 29.999598997398053 stopped True
 step 59.0
-vehicle routeTest2 lane 2fi_0 lanePos 29.9995989974 stopped True
+vehicle routeTest2 lane 2fi_0 lanePos 29.999598997398053 stopped True
 step 60.0
-vehicle routeTest2 lane 2fi_0 lanePos 29.9995989974 stopped True
+vehicle routeTest2 lane 2fi_0 lanePos 29.999598997398053 stopped True
 step 61.0
-vehicle routeTest2 lane 2fi_0 lanePos 29.9995989974 stopped True
+vehicle routeTest2 lane 2fi_0 lanePos 29.999598997398053 stopped True
 step 62.0
-vehicle routeTest2 lane 2fi_0 lanePos 32.5432502387 stopped False
+vehicle routeTest2 lane 2fi_0 lanePos 32.54325023874152 stopped False
 step 63.0
-vehicle routeTest2 lane 2fi_0 lanePos 36.7332972879 stopped False
+vehicle routeTest2 lane 2fi_0 lanePos 36.73329728786811 stopped False
 step 64.0
 vehicle bus lane 2fi_0 lanePos 0.0 stopped False
 step 65.0
-vehicle bus lane 2fi_0 lanePos 2.37043801141 stopped False
+vehicle bus lane 2fi_0 lanePos 2.370438011409715 stopped False
 step 66.0
-vehicle bus lane 2fi_0 lanePos 6.36760513496 stopped False
+vehicle bus lane 2fi_0 lanePos 6.367605134961196 stopped False
 step 67.0
-vehicle bus lane 2fi_0 lanePos 12.3636430252 stopped False
+vehicle bus lane 2fi_0 lanePos 12.363643025164492 stopped False
 step 68.0
-vehicle bus lane 2fi_0 lanePos 20.3390393582 stopped False
+vehicle bus lane 2fi_0 lanePos 20.33903935824055 stopped False
 step 69.0
-vehicle bus lane 2fi_0 lanePos 27.0489387529 stopped False
+vehicle bus lane 2fi_0 lanePos 27.048938752932003 stopped False
 step 70.0
-vehicle bus lane 2fi_0 lanePos 29.2588381476 stopped False
+vehicle bus lane 2fi_0 lanePos 29.258838147623454 stopped False
 step 71.0
-vehicle bus lane 2fi_0 lanePos 29.7772240972 stopped False
+vehicle bus lane 2fi_0 lanePos 29.77722409716942 stopped False
 step 72.0
-vehicle bus lane 2fi_0 lanePos 29.8906144479 stopped False
+vehicle bus lane 2fi_0 lanePos 29.890614447870554 stopped False
 step 73.0
-vehicle bus lane 2fi_0 lanePos 29.9512952679 stopped False
+vehicle bus lane 2fi_0 lanePos 29.95129526790415 stopped False
 step 74.0
-vehicle bus lane 2fi_0 lanePos 29.996849141 stopped True
+vehicle bus lane 2fi_0 lanePos 29.996849141033184 stopped True
 step 75.0
-vehicle bus lane 2fi_0 lanePos 29.996849141 stopped True
+vehicle bus lane 2fi_0 lanePos 29.996849141033184 stopped True
 step 76.0
-vehicle bus lane 2fi_0 lanePos 29.996849141 stopped True
+vehicle bus lane 2fi_0 lanePos 29.996849141033184 stopped True
 step 77.0
-vehicle bus lane 2fi_0 lanePos 32.2610415413 stopped False
+vehicle bus lane 2fi_0 lanePos 32.26104154127725 stopped False
 triptest route: ('3si', '2o', '2fi', '2si', '4o', '4fi', '4si')
 nextStop: (('2fi_0', 20.0, '', 2, 10.0, -0.001),)
 step 78.0
@@ -595,13 +595,13 @@ route ('1si',)
 lanePos 197.49
 color (255, 255, 0, 255)
 bestLanes (('1si_0', 250.0, 0.0, 0, True, ('1si_0',)), ('1si_1', 250.0, 0.0, 0, True, ('1si_1',)), ('1si_2', 250.0, 0.0, 0, True, ('1si_2',)))
-CO2 52627.9791072
-CO 1029.35056461
-HC 5.98867722278
-PMx 1.32455766181
-NOx 24.4336324919
-fuel 22.6220640459
-noise 122.892969481
+CO2 52627.97910722222
+CO 1029.3505646111112
+HC 5.988677222777778
+PMx 1.3245576618055555
+NOx 24.43363249194445
+fuel 22.622064045896973
+noise 122.89296948077977
 Elec 0.0
 traveltime -1073741824.0
 effort -1073741824.0
@@ -609,7 +609,7 @@ route valid True
 signals 0
 routingMode 0
 length 5.0
-maxSpeed 55.5555555556
+maxSpeed 55.55555555555556
 speedFactor 1.0
 allowedSpeed 13.89
 accel 2.6
@@ -632,7 +632,7 @@ lcSpeedGain 1.00
 maxSpeedLat 1.0
 minGapLat 0.6
 lateralAlignment center
-lanePosLat -0.56
+lanePosLat -0.5600000000000023
 person number 0
 personCapacity 4
 waiting time 0.0
@@ -658,9 +658,9 @@ failVeh pos=-1073741824.0 edges=('3fi', 'disconnected')
 step 130.0
 failVeh pos=0.0 edges=('3fi', 'disconnected')
 step 131.0
-failVeh pos=1.82320116151 edges=('3fi', 'disconnected')
+failVeh pos=1.823201161506586 edges=('3fi', 'disconnected')
 step 132.0
-failVeh pos=5.45903770537 edges=('3fi', 'disconnected')
+failVeh pos=5.459037705371157 edges=('3fi', 'disconnected')
 step 133.0
 {80: '4o', 86: 246.3030799140489}
 step 134.0
@@ -676,23 +676,23 @@ pav edge= pos=-1073741824.0 stopState=0
 step 139.0
 pav edge=2fi pos=0.0 stopState=0
 step 140.0
-pav edge=2fi pos=2.56287424134 stopState=0
+pav edge=2fi pos=2.562874241336249 stopState=0
 step 141.0
-pav edge=2fi pos=7.19631093729 stopState=0
+pav edge=2fi pos=7.196310937288217 stopState=0
 step 142.0
-pav edge=2fi pos=13.2400137924 stopState=0
+pav edge=2fi pos=13.24001379243564 stopState=0
 step 143.0
-pav edge=2fi pos=20.5925319127 stopState=0
+pav edge=2fi pos=20.592531912704 stopState=0
 step 144.0
-pav edge=2fi pos=29.2937819141 stopState=0
+pav edge=2fi pos=29.293781914073044 stopState=0
 step 145.0
-pav edge=2fi pos=38.4967377612 stopState=0
+pav edge=2fi pos=38.496737761160986 stopState=0
 step 146.0
-pav edge=2fi pos=43.5196005651 stopState=0
+pav edge=2fi pos=43.51960056506778 stopState=0
 step 147.0
-pav edge=2fi pos=44.6427358657 stopState=0
+pav edge=2fi pos=44.64273586573628 stopState=0
 step 148.0
-pav edge=2fi pos=44.883654926 stopState=0
+pav edge=2fi pos=44.88365492604706 stopState=0
 step 149.0
 pav edge=2fi pos=-1073741824.0 stopState=131
 step 150.0
@@ -741,7 +741,7 @@ route valid True
 signals 0
 routingMode 0
 length 7.0
-maxSpeed 55.5555555556
+maxSpeed 55.55555555555556
 speedFactor 1.0
 allowedSpeed -1073741824.0
 accel 2.6
@@ -885,7 +885,7 @@ route valid True
 signals 0
 routingMode 0
 length 7.0
-maxSpeed 55.5555555556
+maxSpeed 55.55555555555556
 speedFactor 1.0
 allowedSpeed -1073741824.0
 accel 2.6
@@ -997,26 +997,26 @@ lane change wish right False
 lane change wish left False
 recovering from exception after asking for unknown device
 recovering from exception after asking for unknown device parameter
-elVeh speed="0.0" consumed="0.00" charged="0.00" cap="17500.00" maxCap="40000.00" station="NULL" mass=1024.00 emissionClass=Energy/unknown electricityConsumption=0.0308641975309
-{57: (1000.0, 501.65, 0.0), 66: (1000.0, 501.65)}
-elVeh speed="1.32176906015" consumed="0.35" charged="0.00" cap="17499.65" maxCap="40000.00" station="NULL" mass=1024.00 emissionClass=Energy/unknown electricityConsumption=0.341787207161
-{57: (998.686161554213, 501.65, 0.0), 66: (998.686161554213, 501.65)}
-elVeh speed="2.72959040802" consumed="1.48" charged="0.00" cap="17498.17" maxCap="40000.00" station="NULL" mass=1024.00 emissionClass=Energy/unknown electricityConsumption=1.0050485097
-{57: (995.9729486886459, 501.65, 0.0), 66: (995.9729486886459, 501.65)}
-elVeh speed="5.25725744015" consumed="4.73" charged="0.00" cap="17493.44" maxCap="40000.00" station="NULL" mass=1024.00 emissionClass=Energy/unknown electricityConsumption=3.38655115806
-{57: (990.7472347931362, 501.65, 0.0), 66: (990.7472347931362, 501.65)}
-elVeh speed="7.23534312127" consumed="4.37" charged="0.00" cap="17489.07" maxCap="40000.00" station="NULL" mass=1024.00 emissionClass=Energy/unknown electricityConsumption=4.27465114906
-{57: (983.5553037305922, 501.65, 0.0), 66: (983.5553037305922, 501.65)}
-elVeh speed="9.52029818846" consumed="6.86" charged="0.00" cap="17482.21" maxCap="40000.00" station="NULL" mass=1024.00 emissionClass=Energy/unknown electricityConsumption=6.70856884858
-{57: (974.0921273312639, 501.65, 0.0), 66: (974.0921273312639, 501.65)}
-elVeh speed="8.79881130343" consumed="-1.01" charged="0.00" cap="17483.22" maxCap="40000.00" station="NULL" mass=1024.00 emissionClass=Energy/unknown electricityConsumption=-0.981138992356
-{57: (965.346108895656, 501.65, 0.0), 66: (965.346108895656, 501.65)}
-elVeh speed="8.96314434099" consumed="1.17" charged="0.00" cap="17482.05" maxCap="40000.00" station="NULL" mass=1024.00 emissionClass=Energy/unknown electricityConsumption=1.15411279844
-{57: (956.4367434207072, 501.65, 0.0), 66: (956.4367434207072, 501.65)}
-elVeh speed="9.36199422821" consumed="1.93" charged="0.00" cap="17480.12" maxCap="40000.00" station="NULL" mass=1024.00 emissionClass=Energy/unknown electricityConsumption=1.89969476155
-{57: (947.1309211578671, 501.65, 0.0), 66: (947.1309211578671, 501.65)}
-elVeh speed="8.96203421759" consumed="-0.32" charged="0.00" cap="17480.44" maxCap="40000.00" station="NULL" mass=1024.00 emissionClass=Energy/unknown electricityConsumption=-0.307832548111
-{57: (938.2226591455785, 501.65, 0.0), 66: (938.2226591455785, 501.65)}
+elVeh speed="0.0" consumed="0.00" charged="0.00" cap="17500.00" maxCap="40000.00" station="NULL" mass=1024.00 emissionClass=Energy/unknown electricityConsumption=0.0308641975308642
+[(57, (1000.0, 501.65, 0.0)), (66, (1000.0, 501.65))]
+elVeh speed="1.3217690601479262" consumed="0.35" charged="0.00" cap="17499.65" maxCap="40000.00" station="NULL" mass=1024.00 emissionClass=Energy/unknown electricityConsumption=0.3417872071607475
+[(57, (998.686161554213, 501.65, 0.0)), (66, (998.686161554213, 501.65))]
+elVeh speed="2.7295904080150644" consumed="1.48" charged="0.00" cap="17498.17" maxCap="40000.00" station="NULL" mass=1024.00 emissionClass=Energy/unknown electricityConsumption=1.0050485097026114
+[(57, (995.9729486886459, 501.65, 0.0)), (66, (995.9729486886459, 501.65))]
+elVeh speed="5.257257440150715" consumed="4.73" charged="0.00" cap="17493.44" maxCap="40000.00" station="NULL" mass=1024.00 emissionClass=Energy/unknown electricityConsumption=3.3865511580628285
+[(57, (990.7472347931362, 501.65, 0.0)), (66, (990.7472347931362, 501.65))]
+elVeh speed="7.23534312127158" consumed="4.37" charged="0.00" cap="17489.07" maxCap="40000.00" station="NULL" mass=1024.00 emissionClass=Energy/unknown electricityConsumption=4.27465114905545
+[(57, (983.5553037305922, 501.65, 0.0)), (66, (983.5553037305922, 501.65))]
+elVeh speed="9.520298188459128" consumed="6.86" charged="0.00" cap="17482.21" maxCap="40000.00" station="NULL" mass=1024.00 emissionClass=Energy/unknown electricityConsumption=6.708568848584705
+[(57, (974.0921273312639, 501.65, 0.0)), (66, (974.0921273312639, 501.65))]
+elVeh speed="8.798811303428375" consumed="-1.01" charged="0.00" cap="17483.22" maxCap="40000.00" station="NULL" mass=1024.00 emissionClass=Energy/unknown electricityConsumption=-0.9811389923561696
+[(57, (965.346108895656, 501.65, 0.0)), (66, (965.346108895656, 501.65))]
+elVeh speed="8.963144340994768" consumed="1.17" charged="0.00" cap="17482.05" maxCap="40000.00" station="NULL" mass=1024.00 emissionClass=Energy/unknown electricityConsumption=1.1541127984397046
+[(57, (956.4367434207072, 501.65, 0.0)), (66, (956.4367434207072, 501.65))]
+elVeh speed="9.361994228209369" consumed="1.93" charged="0.00" cap="17480.12" maxCap="40000.00" station="NULL" mass=1024.00 emissionClass=Energy/unknown electricityConsumption=1.8996947615510225
+[(57, (947.1309211578671, 501.65, 0.0)), (66, (947.1309211578671, 501.65))]
+elVeh speed="8.96203421759419" consumed="-0.32" charged="0.00" cap="17480.44" maxCap="40000.00" station="NULL" mass=1024.00 emissionClass=Energy/unknown electricityConsumption=-0.3078325481111897
+[(57, (938.2226591455785, 501.65, 0.0)), (66, (938.2226591455785, 501.65))]
 triptest route: ('3si', '4si')
 triptest route: ('3si', '4o', '4fi', '4si')
 noRouteGiven routeID: DUMMY_ROUTE_passenger edges: ('1fi',)

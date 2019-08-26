@@ -72,4 +72,4 @@ def runSingle(traciEndTime, laneIndex, vehID):
 
 sys.stdout.flush()
 sys.stderr.flush()
-runSingle(50, float(sys.argv[2]), "collider")
+runSingle(50, int(sys.argv[2]), "collider")

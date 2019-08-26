@@ -31,6 +31,7 @@ for step in range(3):
     print("step", step)
     traci.simulationStep()
 time.sleep(1)  # give the gui a chance to draw itself
+print("hasGUI", traci.hasGUI())
 print("views", traci.gui.getIDList())
 viewID = traci.gui.DEFAULT_VIEW
 print("examining", viewID)
