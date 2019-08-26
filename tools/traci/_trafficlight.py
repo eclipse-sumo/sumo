@@ -217,8 +217,8 @@ class TrafficLightDomain(Domain):
         Sets the state for the given tls and link index. The state must be one
         of rRgGyYoOu for red, red-yellow, green, yellow, off, where lower case letters mean that the stream has
         to decelerate.
-        The link index is shown the gui when setting the appropriate junctino
-        visualization optin.
+        The link index is shown in the GUI when setting the appropriate junction
+        visualization option.
         """
         fullState = list(self.getRedYellowGreenState(tlsID))
         if tlsLinkIndex >= len(fullState):
