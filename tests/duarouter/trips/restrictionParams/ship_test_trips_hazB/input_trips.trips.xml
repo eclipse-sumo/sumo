@@ -1,0 +1,6 @@
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+	<vType id="0" vClass="ship">
+        <param key="hazardB" value="0"/>
+    </vType>
+    <trip id="0" depart="0" from="absBeg" to="absEnd" type="0"/>
+</routes>
