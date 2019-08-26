@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu May 23 23:01:45 2019 by Eclipse SUMO duarouter Version v1_2_0+0149-6b40db9d1b
+<!-- generated on 08/26/19 13:56:01 by Eclipse SUMO duarouter Version v1_3_0+0081-36f1e9c334b
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/duarouterConfiguration.xsd">
@@ -134,6 +134,9 @@
 
         <!-- The number of parallel execution threads used for routing -->
         <routing-threads value="0" type="INT"/>
+
+        <!-- Comma separated list of param keys to compare for additional restrictions -->
+        <restriction-params value="" type="STR"/>
 
         <!-- Expand weights behind the simulation&apos;s end -->
         <weights.expand value="false" synonymes="expand-weights" type="BOOL"/>

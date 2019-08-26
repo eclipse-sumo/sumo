@@ -1,4 +1,4 @@
-Eclipse SUMO duarouter Version v1_2_0+0149-6b40db9d1b
+Eclipse SUMO duarouter Version v1_3_0+0081-36f1e9c334b
  Copyright (C) 2001-2019 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 Shortest path router and DUE computer for the microscopic, multi-modal traffic
   simulation SUMO.
@@ -84,6 +84,8 @@ Processing Options:
                                         origin
   --routing-threads INT               The number of parallel execution threads
                                         used for routing
+  --restriction-params STR            Comma separated list of param keys to
+                                        compare for additional restrictions
   --weights.expand                    Expand weights behind the simulation's
                                         end
   --weights.random-factor FLOAT       Edge weights for routing are dynamically
