@@ -96,3 +96,6 @@ ticket5831
 
 # moveTo with internal lane
 ticket5932
+
+# use changeLaneRelative to change to the right
+ticket5990
