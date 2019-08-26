@@ -140,8 +140,9 @@ SUMORouteHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
             break;
         case SUMO_TAG_VTYPE:
             // delete if myCurrentVType isn't null
-            if (myCurrentVType) {
+            if (myCurrentVType != nullptr) {
                 delete myCurrentVType;
+                myCurrentVType = nullptr;
             }
             // create a new vType
             myCurrentVType = SUMOVehicleParserHelper::beginVTypeParsing(attrs, myHardFail, getFileName());
