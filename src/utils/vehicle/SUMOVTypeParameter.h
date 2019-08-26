@@ -316,7 +316,7 @@ public:
     bool onlyReferenced;
 
     /// @brief cached value of parameters which may restrict access to certain edges
-    std::vector<double> myParamRestrictions;
+    std::vector<double> paramRestrictions;
 
     /** @brief Returns the default acceleration for the given vehicle class
      * This needs to be a function because the actual value is stored in the car following model

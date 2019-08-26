@@ -471,8 +471,7 @@ SUMOVTypeParameter::getJMParamString(const SumoXMLAttr attr, const std::string d
 void
 SUMOVTypeParameter::cacheParamRestrictions(const std::vector<std::string>& restrictionKeys) {
     for (const std::string& key : restrictionKeys) {
-        const std::string value = getParameter(key, "0");
-        myParamRestrictions.push_back(StringUtils::toDouble(value));
+        paramRestrictions.push_back(StringUtils::toDouble(getParameter(key, "0")));
     }
 }
 
