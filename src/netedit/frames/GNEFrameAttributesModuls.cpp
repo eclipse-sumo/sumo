@@ -464,8 +464,25 @@ GNEFrameAttributesModuls::AttributesCreatorRow::onCmdSetAttribute(FXObject* obj,
         std::string index = myValueTextFieldStrings->getText().text();
         if ((index != "fit") && (index != "end") && !GNEAttributeCarrier::canParse<int>(index)) {
             myInvalidValue = "index isn't either 'fit' or 'end' or a valid positive int";
-        } else if (GNEAttributeCarrier::parse<int>(index) < 0) {
+        } else if (GNEAttributeCarrier::canParse<int>(index) && (GNEAttributeCarrier::parse<int>(index) < 0)) {
             myInvalidValue = "index cannot be negative";
+        }
+    } else if ((myAttrProperties.getAttr() == SUMO_ATTR_EXPECTED) || (myAttrProperties.getAttr() == SUMO_ATTR_EXPECTED_CONTAINERS)) {
+        // check if attribute can be parsed in a list of Ids
+        std::vector<std::string> vehicleIDs = GNEAttributeCarrier::parse<std::vector<std::string> >(myValueTextFieldStrings->getText().text());
+        // check every ID
+        for (const auto &i : vehicleIDs) {
+            if (!SUMOXMLDefinitions::isValidVehicleID(i)) {
+                myInvalidValue = "invalid id used in " + myAttrProperties.getAttrStr();
+            }
+        }
+    } else if (myAttrProperties.getAttr() == SUMO_ATTR_ACTTYPE) {
+        if (myValueTextFieldStrings->getText().text() != "waiting") {
+            myInvalidValue = "invalid " + myAttrProperties.getAttrStr();
+        }
+    } else if (myAttrProperties.getAttr() == SUMO_ATTR_TRIP_ID) {
+        if (!SUMOXMLDefinitions::isValidVehicleID(myValueTextFieldStrings->getText().text())) {
+            myInvalidValue = "invalid id used in " + myAttrProperties.getAttrStr();
         }
     }
     // change color of text field depending of myCurrentValueValid
