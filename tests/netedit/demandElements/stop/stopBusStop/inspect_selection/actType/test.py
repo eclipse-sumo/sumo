@@ -28,18 +28,39 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot, ['--g
 # go to demand mode
 netedit.supermodeDemand()
 
-# go to stop mode
-netedit.stopMode()
+# go to select mode
+netedit.selectMode()
 
-# change stop type with a valid value
-netedit.changeStopType("stopBusStop")
+# select all using invert
+netedit.selectionInvertDemand()
 
-# create stop
+# go to demand mode
+netedit.supermodeDemand()
+
+# go to select mode
+netedit.selectMode()
+
+# select all using invert
+netedit.selectionInvertDemand()
+
+# go to inspect mode
+netedit.inspectMode()
+
+# inspect selection
 netedit.leftClick(referencePosition, 327, 208)
 
+# change value
+netedit.modifyAttribute(10, "dummy", True)
+
+# change value
+netedit.modifyAttribute(10, "", True)
+
+# change value
+netedit.modifyAttribute(10, "waiting", True)
+
 # Check undo redo
-netedit.undo(referencePosition, 2)
-netedit.redo(referencePosition, 2)
+netedit.undo(referencePosition, 3)
+netedit.redo(referencePosition, 3)
 
 # save additionals
 netedit.saveAdditionals(referencePosition)
