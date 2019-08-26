@@ -30,8 +30,12 @@ netedit.changeEditMode('1')
 
 # Recompute
 netedit.rebuildNetwork()
+
 # save routes
 netedit.saveRoutes(referencePosition)
+
+# save additionals
+netedit.saveAdditionals(referencePosition)
 
 # save network
 netedit.saveNetwork(referencePosition)

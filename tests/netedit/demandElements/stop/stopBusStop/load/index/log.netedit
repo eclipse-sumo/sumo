@@ -1,0 +1,9 @@
+Error: Attribute 'index' in definition of a stop is not of type int.
+Error: Invalid 'index' for stop at 'busStop' in route ''.
+Error: Attribute 'index' in definition of a stop is empty.
+Error: Attribute 'index' in definition of a stop is empty.
+Error: Invalid 'index' for stop at 'busStop' in route ''.
+Error: Invalid 'index' for stop at 'busStop' in route ''.
+Error: Attribute 'index' in definition of a stop is not of type int.
+Error: Invalid 'index' for stop at 'busStop' in route ''.
+Error: Loading of C:/Users/alva_pa/.texttest/tmp/netedit.gui.26Aug151851.12076/netedit.gui/demandElements/stop/stopBusStop/load/index\input_routes.rou.xml failed.
