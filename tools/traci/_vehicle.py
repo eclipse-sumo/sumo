@@ -1031,7 +1031,7 @@ class VehicleDomain(Domain):
         self._connection._beginMessage(
             tc.CMD_SET_VEHICLE_VARIABLE, tc.CMD_CHANGELANE, vehID, 1 + 4 + 1 + 1 + 1 + 8 + 1 + 1)
         self._connection._string += struct.pack(
-            "!BiBBBdBB", tc.TYPE_COMPOUND, 3, tc.TYPE_BYTE, indexOffset, tc.TYPE_DOUBLE, duration, tc.TYPE_BYTE, 1)
+            "!BiBbBdBB", tc.TYPE_COMPOUND, 3, tc.TYPE_BYTE, indexOffset, tc.TYPE_DOUBLE, duration, tc.TYPE_BYTE, 1)
         self._connection._sendExact()
 
     def changeSublane(self, vehID, latDist):
