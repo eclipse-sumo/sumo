@@ -17,7 +17,6 @@
 from __future__ import print_function
 from __future__ import absolute_import
 import os
-import subprocess
 import sys
 
 if 'SUMO_HOME' in os.environ:
@@ -28,14 +27,6 @@ else:
 
 import traci  # noqa
 import sumolib  # noqa
-
-sumoBinary = os.environ["SUMO_BINARY"]
-PORT = sumolib.miscutils.getFreeSocketPort()
-sumoProcess = subprocess.Popen([sumoBinary,
-                                '-n', 'input_net.net.xml',
-                                '--no-step-log',
-                                # '-S', '-Q',
-                                '--remote-port', str(PORT)], stdout=sys.stdout)
 
 ANGLE_UNDEF = traci.constants.INVALID_DOUBLE_VALUE
 INVALID = traci.constants.INVALID_DOUBLE_VALUE
@@ -62,7 +53,7 @@ def check(x, y, angle, exLane, exPos, exPosLat, comment):
         pass
 
 
-traci.init(PORT)
+traci.start([sumolib.checkBinary("sumo"), '-n', 'input_net.net.xml', '--no-step-log'])
 traci.simulationStep()
 traci.route.add("beg", ["beg"])
 traci.vehicle.add(vehID, "beg")
@@ -74,4 +65,3 @@ check(201, -1, 0,            "middle_0", 100, -1.41,       "internal corner (out
 check(203, -4, 0,            "", INVALID, INVALID,         "internal corner (outside, far)")
 print("vehicleList", traci.vehicle.getIDList())
 traci.close()
-sumoProcess.wait()

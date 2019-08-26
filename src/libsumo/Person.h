@@ -79,7 +79,7 @@ public:
     static void removeStage(const std::string& personID, int nextStageIndex);
     static void rerouteTraveltime(const std::string& personID);
     static void moveTo(const std::string& personID, const std::string& edgeID, double position);
-    static void moveToXY(const std::string& personID, const std::string& edgeID, const double x, const double y, double angle, const int mapMode = 1);
+    static void moveToXY(const std::string& personID, const std::string& edgeID, const double x, const double y, double angle = INVALID_DOUBLE_VALUE, const int keepRoute = 1);
     static void setParameter(const std::string& personID, const std::string& key, const std::string& value);
     static void setSpeed(const std::string& personID, double speed);
     static void setType(const std::string& personID, const std::string& typeID);

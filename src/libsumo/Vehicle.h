@@ -148,7 +148,7 @@ public:
     static void changeSublane(const std::string& vehicleID, double latDist);
 
     static void slowDown(const std::string& vehicleID, double speed, double duration);
-    static void openGap(const std::string& vehicleID, double newTimeHeadway, double newSpaceHeadway, double duration, double changeRate, double maxDecel, const std::string& referenceVehID = "");
+    static void openGap(const std::string& vehicleID, double newTimeHeadway, double newSpaceHeadway, double duration, double changeRate, double maxDecel = INVALID_DOUBLE_VALUE, const std::string& referenceVehID = "");
     static void deactivateGapControl(const std::string& vehicleID);
     static void requestToC(const std::string& vehID, double leadTime);
     static void setSpeed(const std::string& vehicleID, double speed);

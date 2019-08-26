@@ -711,11 +711,11 @@ Person::moveTo(const std::string& personID, const std::string& edgeID, double /*
 
 
 void
-Person::moveToXY(const std::string& personID, const std::string& edgeID, const double x, const double y, double angle, const int mapMode) {
+Person::moveToXY(const std::string& personID, const std::string& edgeID, const double x, const double y, double angle, const int keepRoute) {
     MSPerson* p = getPerson(personID);
-    const bool doKeepRoute = (mapMode & 1) != 0;
-    const bool mayLeaveNetwork = (mapMode & 2) != 0;
-    const bool ignorePermissions = (mapMode & 4) != 0;
+    const bool doKeepRoute = (keepRoute & 1) != 0;
+    const bool mayLeaveNetwork = (keepRoute & 2) != 0;
+    const bool ignorePermissions = (keepRoute & 4) != 0;
     SUMOVehicleClass vClass = ignorePermissions ? SVC_IGNORING : p->getVClass();
     Position pos(x, y);
 #ifdef DEBUG_MOVEXY
@@ -734,7 +734,7 @@ Person::moveToXY(const std::string& personID, const std::string& edgeID, const d
     Position currentPos = p->getPosition();
 #ifdef DEBUG_MOVEXY
     std::cout << std::endl << "begin person " << p->getID() << " lanePos:" << p->getEdgePos() << " edge:" << Named::getIDSecure(p->getEdge()) << "\n";
-    std::cout << " want pos:" << pos << " edgeID:" << edgeID <<  " origAngle:" << origAngle << " angle:" << angle << " mapMode:" << mapMode << std::endl;
+    std::cout << " want pos:" << pos << " edgeID:" << edgeID <<  " origAngle:" << origAngle << " angle:" << angle << " keepRoute:" << keepRoute << std::endl;
 #endif
 
     ConstMSEdgeVector edges;
