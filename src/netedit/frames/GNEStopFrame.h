@@ -94,6 +94,9 @@ protected:
     /// @brief Tag selected in TagSelector
     void tagSelected();
 
+    /// @brief selected demand element in DemandElementSelector
+    void demandElementSelected();
+
 private:
     /// @brief Stop parent selectors
     GNEFrameModuls::DemandElementSelector* myStopParentSelector;
