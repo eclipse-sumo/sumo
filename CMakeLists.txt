@@ -248,6 +248,8 @@ endif (X11_FOUND)
 find_package(ZLIB)
 if (ZLIB_FOUND)
     set(HAVE_ZLIB 1)
+    link_directories(${ZLIB_LIBRARY_DIR})
+    include_directories(${ZLIB_INCLUDE_DIR})
 endif ()
 
 if (CHECK_OPTIONAL_LIBS)
