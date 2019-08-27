@@ -37,7 +37,7 @@
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-    <route edges="gneE0 gneE1" color="yellow" id="route_0">
+    <trip id="trip_1" depart="0.00" from="gneE0" to="gneE1">
 	
         <stop containerStop="containerStop" index="dummy"/>
 		
@@ -51,5 +51,5 @@
 		
 		<stop containerStop="containerStop" index="4"/>
 		
-    </route>
+    </trip>
 </routes>
