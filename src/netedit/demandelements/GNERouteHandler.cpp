@@ -23,8 +23,11 @@
 #include <netedit/GNEUndoList.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/additionals/GNEBusStop.h>
-#include <netedit/changes/GNEChange_DemandElement.h>
+#include <netedit/additionals/GNEChargingStation.h>
+#include <netedit/additionals/GNEContainerStop.h>
+#include <netedit/additionals/GNEParkingArea.h>
 #include <netedit/changes/GNEChange_Attribute.h>
+#include <netedit/changes/GNEChange_DemandElement.h>
 #include <netedit/netelements/GNEEdge.h>
 #include <netedit/netelements/GNELane.h>
 
@@ -1519,10 +1522,10 @@ GNERouteHandler::addStop(const SUMOSAXAttributes& attrs) {
     }
     // try to parse the assigned bus stop
     if (stop.stopParameters.busstop != "") {
-        // ok, we have a bus stop
+        // ok, we have a busStop
         GNEBusStop* bs = dynamic_cast<GNEBusStop*>(myViewNet->getNet()->retrieveAdditional(SUMO_TAG_BUS_STOP, stop.stopParameters.busstop, false));
         if (bs == nullptr) {
-            WRITE_ERROR("The busStop '" + stop.stopParameters.busstop + "' is not known" + errorSuffix);
+            WRITE_ERROR(toString(SUMO_TAG_BUS_STOP) + " '" + stop.stopParameters.busstop + "' is not known" + errorSuffix);
             return;
         }
         // save lane
@@ -1535,6 +1538,61 @@ GNERouteHandler::addStop(const SUMOSAXAttributes& attrs) {
         if ((myVehicleParameter != nullptr) && ((myVehicleParameter->tag == SUMO_TAG_PERSON) || (myVehicleParameter->tag == SUMO_TAG_PERSONFLOW))) {
             stop.tag = SUMO_TAG_PERSONSTOP_BUSSTOP;
         }
+    } else if (stop.stopParameters.containerstop != "") {
+        // special case for persons
+        if ((myVehicleParameter != nullptr) && ((myVehicleParameter->tag == SUMO_TAG_PERSON) || (myVehicleParameter->tag == SUMO_TAG_PERSONFLOW))) {
+            WRITE_ERROR("Persons don't support " + toString(SUMO_TAG_CONTAINER_STOP) + "s");
+            return;
+        }
+        // ok, we have a containerStop
+        GNEContainerStop* cs = dynamic_cast<GNEContainerStop*>(myViewNet->getNet()->retrieveAdditional(SUMO_TAG_CONTAINER_STOP, stop.stopParameters.containerstop, false));
+        if (cs == nullptr) {
+            WRITE_ERROR(toString(SUMO_TAG_CONTAINER_STOP) + " '" + stop.stopParameters.containerstop + "' is not known" + errorSuffix);
+            return;
+        }
+        // save lane
+        stop.stopParameters.lane = cs->getAttribute(SUMO_ATTR_LANE);
+        // save stoping place in stop
+        stop.containerStop = cs;
+        // set tag
+        stop.tag = SUMO_TAG_STOP_CONTAINERSTOP;
+
+    } else if (stop.stopParameters.chargingStation != "") {
+        // special case for persons
+        if ((myVehicleParameter != nullptr) && ((myVehicleParameter->tag == SUMO_TAG_PERSON) || (myVehicleParameter->tag == SUMO_TAG_PERSONFLOW))) {
+            WRITE_ERROR("Persons don't support " + toString(SUMO_TAG_CHARGING_STATION) + "s");
+            return;
+        }
+        // ok, we have a chargingStation
+        GNEChargingStation* cs = dynamic_cast<GNEChargingStation*>(myViewNet->getNet()->retrieveAdditional(SUMO_TAG_CHARGING_STATION, stop.stopParameters.chargingStation, false));
+        if (cs == nullptr) {
+            WRITE_ERROR(toString(SUMO_TAG_CHARGING_STATION) + " '" + stop.stopParameters.chargingStation + "' is not known" + errorSuffix);
+            return;
+        }
+        // save lane
+        stop.stopParameters.lane = cs->getAttribute(SUMO_ATTR_LANE);
+        // save stoping place in stop
+        stop.chargingStation = cs;
+        // set tag
+        stop.tag = SUMO_TAG_STOP_CHARGINGSTATION;
+    } else if (stop.stopParameters.parkingarea != "") {
+        // special case for persons
+        if ((myVehicleParameter != nullptr) && ((myVehicleParameter->tag == SUMO_TAG_PERSON) || (myVehicleParameter->tag == SUMO_TAG_PERSONFLOW))) {
+            WRITE_ERROR("Persons don't support " + toString(SUMO_TAG_PARKING_AREA) + "s");
+            return;
+        }
+        // ok, we have a parkingArea
+        GNEParkingArea* pa = dynamic_cast<GNEParkingArea*>(myViewNet->getNet()->retrieveAdditional(SUMO_TAG_PARKING_AREA, stop.stopParameters.parkingarea, false));
+        if (pa == nullptr) {
+            WRITE_ERROR(toString(SUMO_TAG_PARKING_AREA) + " '" + stop.stopParameters.parkingarea + "' is not known" + errorSuffix);
+            return;
+        }
+        // save lane
+        stop.stopParameters.lane = pa->getAttribute(SUMO_ATTR_LANE);
+        // save stoping place in stop
+        stop.parkingArea = pa;
+        // set tag
+        stop.tag = SUMO_TAG_STOP_PARKINGAREA;
     } else {
         // no, the lane and the position should be given
         // get the lane
@@ -1547,7 +1605,8 @@ GNERouteHandler::addStop(const SUMOSAXAttributes& attrs) {
                 return;
             }
         } else {
-            WRITE_ERROR("A stop must be placed on a busStop, a chargingStation, a containerStop a parkingArea or a lane" + errorSuffix);
+            WRITE_ERROR("A stop must be placed over a " + toString(SUMO_TAG_BUS_STOP) + ", a " + toString(SUMO_TAG_CONTAINER_STOP) + 
+                        ", a " + toString(SUMO_TAG_CHARGING_STATION) + ", a " + toString(SUMO_TAG_PARKING_AREA) + " or a " + toString(SUMO_TAG_LANE) + errorSuffix);
             return;
         }
         // calculate start and end position
@@ -1880,6 +1939,9 @@ GNERouteHandler::PersonPlansValues::PersonPlansValues() :
     from(nullptr),
     to(nullptr),
     busStop(nullptr),
+    containerStop(nullptr),
+    chargingStation(nullptr),
+    parkingArea(nullptr),
     route(nullptr),
     arrivalPos(-1),
     laneStop(nullptr),

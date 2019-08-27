@@ -291,6 +291,15 @@ private:
         /// @brief busStop
         GNEAdditional* busStop;
 
+        /// @brief containerStop
+        GNEAdditional* containerStop;
+
+        /// @brief chargingStation
+        GNEAdditional* chargingStation;
+
+        /// @brief parkingArea
+        GNEAdditional* parkingArea;
+
         /// @brief arrival route
         GNEDemandElement* route;
 
