@@ -177,27 +177,27 @@ std::ostream& operator<<(std::ostream& out, MSDevice_SSM::EncounterType type) {
 // static initialisation methods
 // ---------------------------------------------------------------------------
 
-std::set<MSDevice_SSM*>* MSDevice_SSM::instances = new std::set<MSDevice_SSM*>();
+std::set<MSDevice_SSM*, ComparatorNumericalIdLess>* MSDevice_SSM::myInstances = new std::set<MSDevice_SSM*, ComparatorNumericalIdLess>();
 
 std::set<std::string> MSDevice_SSM::createdOutputFiles;
 
 int MSDevice_SSM::issuedParameterWarnFlags = 0;
 
-const std::set<MSDevice_SSM*>&
+const std::set<MSDevice_SSM*, ComparatorNumericalIdLess>&
 MSDevice_SSM::getInstances() {
-    return *instances;
+    return *myInstances;
 }
 
 void
 MSDevice_SSM::cleanup() {
     // Close current encounters and flush conflicts to file for all existing devices
-    if (instances != nullptr) {
-        for (std::set<MSDevice_SSM*>::iterator ii = instances->begin(); ii != instances->end(); ++ii) {
-            (*ii)->resetEncounters();
-            (*ii)->flushConflicts(true);
-            (*ii)->flushGlobalMeasures();
+	if (myInstances != nullptr) {
+		for (MSDevice_SSM* device : *myInstances) {
+			device->resetEncounters();
+			device->flushConflicts(true);
+			device->flushGlobalMeasures();
         }
-        instances->clear();
+        myInstances->clear();
     }
     for (auto& fn : createdOutputFiles) {
         OutputDevice* file = &OutputDevice::getDevice(fn);
@@ -2782,7 +2782,7 @@ MSDevice_SSM::MSDevice_SSM(SUMOVehicle& holder, const std::string& id, std::stri
         createdOutputFiles.insert(outputFilename);
     }
     // register at static instance container
-    instances->insert(this);
+    myInstances->insert(this);
 
 #ifdef DEBUG_SSM
     if (DEBUG_COND(myHolderMS)) {
@@ -2805,7 +2805,7 @@ MSDevice_SSM::MSDevice_SSM(SUMOVehicle& holder, const std::string& id, std::stri
 MSDevice_SSM::~MSDevice_SSM() {
     // Deleted in ~BaseVehicle()
     // unregister from static instance container
-    instances->erase(this);
+    myInstances->erase(this);
     resetEncounters();
     flushConflicts(true);
     flushGlobalMeasures();
