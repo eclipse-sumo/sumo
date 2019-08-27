@@ -172,7 +172,7 @@ public class CommandProcessor extends Query {
                 int type0 = s.readInt();
 
                 s.readUnsignedByte();
-                int subParameter = s.readInt();
+                s.readInt();
 
                 s.readUnsignedByte();
                 int currentPhaseIndex = s.readInt();
@@ -473,7 +473,7 @@ public class CommandProcessor extends Query {
                 SumoTLSController sp = new SumoTLSController();
                 for (int i = 0; i < length; i++) {
                     resp.content().readUnsignedByte(); // type compound
-                    int tmp = resp.content().readInt(); // 5
+                    resp.content().readInt(); // 5
                     //System.out.println("read compound " + tmp);
 
                     resp.content().readUnsignedByte();
@@ -496,7 +496,7 @@ public class CommandProcessor extends Query {
 
                     for (int i1 = 0; i1 < nbPhases; i1++) {
                         resp.content().readUnsignedByte(); // type compound
-                        int tmp2 = resp.content().readInt(); // 6
+                        resp.content().readInt(); // 6
                         //System.out.println("read compound " + tmp2);
 
                         resp.content().readUnsignedByte();
@@ -536,7 +536,7 @@ public class CommandProcessor extends Query {
                     //System.out.println("nParams=" + nParams);
                     for (int i2 = 0; i2 < nParams; i2++) {
                         resp.content().readUnsignedByte();
-                        int tmp3 = resp.content().readInt(); // 2
+                        resp.content().readInt(); // 2
                         //System.out.println("tmp3=" + tmp3);
                         String key = resp.content().readStringASCII();
                         //System.out.println("key=" + key);
@@ -780,7 +780,7 @@ public class CommandProcessor extends Query {
         content.readUnsignedByte();
         result.type = content.readInt();
 
-        int b2 = content.readUnsignedByte();
+        content.readUnsignedByte();
         result.vType = content.readStringASCII();
         content.readUnsignedByte();
         result.line = content.readStringASCII();

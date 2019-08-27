@@ -30,11 +30,10 @@ import java.net.Socket;
 import java.net.SocketAddress;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Observer;
 
-import de.tudresden.sumo.cmd.Vehicle;
 import de.tudresden.sumo.subscription.Subscription;
 import de.tudresden.sumo.util.CommandProcessor;
+import de.tudresden.sumo.util.Observer;
 import de.tudresden.sumo.util.SumoCommand;
 
 /**

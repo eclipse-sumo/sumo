@@ -24,7 +24,6 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
 import java.util.List;
-import java.util.Observable;
 
 import de.tudresden.sumo.config.Constants;
 import de.tudresden.sumo.subscription.ResponseType;
@@ -188,8 +187,7 @@ public abstract class Query extends Observable {
 
                             SubscriptionObject so = new SubscriptionObject(id, rt, domain, name, variable, status, return_type, o);
                             notifyObservers(so);
-                            setChanged();
-
+                      
                         }
                     }
                 } else {
@@ -205,7 +203,6 @@ public abstract class Query extends Observable {
 
                         SubscriptionObject so = new SubscriptionObject(id, rt, variable, status, return_type, o);
                         notifyObservers(so);
-                        setChanged();
 
                     }
 
