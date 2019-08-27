@@ -32,43 +32,43 @@ netedit.supermodeDemand()
 netedit.stopMode()
 
 # change stop type with a valid value
-netedit.changeStopType("stopBusStop")
+netedit.changeStopType("stopChargingStation")
 
 # disable duration
 netedit.changeDefaultBoolValue(4)
 
 # create stop
-netedit.leftClick(referencePosition, 327, 208)
+netedit.leftClick(referencePosition, 327, 220)
 
 # enable duration
 netedit.changeDefaultBoolValue(4)
 
 # create stop
-netedit.leftClick(referencePosition, 327, 208)
+netedit.leftClick(referencePosition, 327, 220)
 
 # set invalid value
 netedit.changeDefaultValue(5, "dummyValue")
 
 # try to create stop
-netedit.leftClick(referencePosition, 327, 208)
+netedit.leftClick(referencePosition, 327, 220)
 
 # set invalid value
 netedit.changeDefaultValue(5, "-20")
 
 # try to create stop
-netedit.leftClick(referencePosition, 327, 208)
+netedit.leftClick(referencePosition, 327, 220)
 
 # set valid value
 netedit.changeDefaultValue(5, "0")
 
 # try to create stop
-netedit.leftClick(referencePosition, 327, 208)
+netedit.leftClick(referencePosition, 327, 220)
 
 # set valid value
 netedit.changeDefaultValue(5, "22.33")
 
 # try to create stop
-netedit.leftClick(referencePosition, 327, 208)
+netedit.leftClick(referencePosition, 327, 220)
 
 # Check undo redo
 netedit.undo(referencePosition, 5)

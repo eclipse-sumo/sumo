@@ -4,11 +4,11 @@
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.26Aug131927.4452/netedit.gui/demandElements/stop/stopBusStop/inspect/containerTrigger\input_net.net.xml"/>
+        <sumo-net-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.26Aug131927.4452/netedit.gui/demandElements/stop/stopChargingStation/inspect/containerTrigger\input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.26Aug131927.4452/netedit.gui/demandElements/stop/stopBusStop/inspect/containerTrigger\net.net.xml"/>
+        <output-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.26Aug131927.4452/netedit.gui/demandElements/stop/stopChargingStation/inspect/containerTrigger\net.net.xml"/>
     </output>
 
     <processing>
@@ -30,14 +30,14 @@
     </pedestrian>
 
     <netedit>
-        <additional-files value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.26Aug131927.4452/netedit.gui/demandElements/stop/stopBusStop/inspect/containerTrigger\additionals.xml"/>
-        <additionals-output value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.26Aug131927.4452/netedit.gui/demandElements/stop/stopBusStop/inspect/containerTrigger\additionals.xml"/>
-        <route-files value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.26Aug131927.4452/netedit.gui/demandElements/stop/stopBusStop/inspect/containerTrigger\routes.xml"/>
-        <demandelements-output value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.26Aug131927.4452/netedit.gui/demandElements/stop/stopBusStop/inspect/containerTrigger\routes.xml"/>
+        <additional-files value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.26Aug131927.4452/netedit.gui/demandElements/stop/stopChargingStation/inspect/containerTrigger\additionals.xml"/>
+        <additionals-output value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.26Aug131927.4452/netedit.gui/demandElements/stop/stopChargingStation/inspect/containerTrigger\additionals.xml"/>
+        <route-files value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.26Aug131927.4452/netedit.gui/demandElements/stop/stopChargingStation/inspect/containerTrigger\routes.xml"/>
+        <demandelements-output value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.26Aug131927.4452/netedit.gui/demandElements/stop/stopChargingStation/inspect/containerTrigger\routes.xml"/>
     </netedit>
 
     <visualisation>
-        <gui-settings-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.26Aug131927.4452/netedit.gui/demandElements/stop/stopBusStop/inspect/containerTrigger\gui-settings.xml"/>
+        <gui-settings-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.26Aug131927.4452/netedit.gui/demandElements/stop/stopChargingStation/inspect/containerTrigger\gui-settings.xml"/>
         <window-size value="700,500"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
@@ -47,12 +47,12 @@
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.26Aug131927.4452/netedit.gui/demandElements/stop/stopBusStop/inspect/containerTrigger\log.txt"/>
+        <error-log value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.26Aug131927.4452/netedit.gui/demandElements/stop/stopChargingStation/inspect/containerTrigger\log.txt"/>
     </report>
 
 </configuration>
 -->
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
-    <busStop id="busStop_gneE1_0_0" lane="gneE1_0" startPos="20" endPos="30"/>
+    <chargingStation id="chargingStation" lane="gneE1_0" startPos="20" endPos="30"/>
 </additional>
