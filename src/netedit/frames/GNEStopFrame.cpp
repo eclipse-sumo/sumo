@@ -259,11 +259,11 @@ GNEStopFrame::getStopParameter(SUMOVehicleParameter::Stop& stop, bool& friendlyP
     } else {
         if (stopTag == SUMO_TAG_STOP_BUSSTOP) {
             WRITE_WARNING("Click over a " + toString(SUMO_TAG_STOP_BUSSTOP) + " to create a stop placed in a " + toString(SUMO_TAG_STOP_BUSSTOP));
-        } else if (stopTag != SUMO_TAG_STOP_CONTAINERSTOP) {
+        } else if (stopTag == SUMO_TAG_STOP_CONTAINERSTOP) {
             WRITE_WARNING("Click over a " + toString(SUMO_TAG_CONTAINER_STOP) + " to create a stop placed in a " + toString(SUMO_TAG_CONTAINER_STOP));
-        } else if (stopTag != SUMO_TAG_CHARGING_STATION) {
+        } else if (stopTag == SUMO_TAG_CHARGING_STATION) {
             WRITE_WARNING("Click over a " + toString(SUMO_TAG_CHARGING_STATION) + " to create a stop placed in a " + toString(SUMO_TAG_CHARGING_STATION));
-        } else if (stopTag != SUMO_TAG_STOP_PARKINGAREA) {
+        } else if (stopTag == SUMO_TAG_STOP_PARKINGAREA) {
             WRITE_WARNING("Click over a " + toString(SUMO_TAG_PARKING_AREA) + " to create a stop placed in a " + toString(SUMO_TAG_PARKING_AREA));
         } else if (stopTag == SUMO_TAG_PERSONTRIP_BUSSTOP) {
             WRITE_WARNING("Click over a " + toString(SUMO_TAG_STOP_BUSSTOP) + " to create a person stop placed in a " + toString(SUMO_TAG_STOP_BUSSTOP));
