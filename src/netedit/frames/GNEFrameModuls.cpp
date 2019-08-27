@@ -699,20 +699,39 @@ GNEFrameModuls::EdgePathCreator::drawTemporalRoute() const {
         GLHelper::setColor(RGBColor::ORANGE);
         // set line width
         glLineWidth(5);
-        // draw first line
-        GLHelper::drawLine(myTemporalRoute.at(0)->getNBEdge()->getLanes().front().shape.front(),
-                           myTemporalRoute.at(0)->getNBEdge()->getLanes().front().shape.back());
-        // draw rest of lines
-        for (int i = 1; i < (int)myTemporalRoute.size(); i++) {
-            GLHelper::drawLine(myTemporalRoute.at(i - 1)->getNBEdge()->getLanes().front().shape.back(),
-                               myTemporalRoute.at(i)->getNBEdge()->getLanes().front().shape.front());
-            GLHelper::drawLine(myTemporalRoute.at(i)->getNBEdge()->getLanes().front().shape.front(),
-                               myTemporalRoute.at(i)->getNBEdge()->getLanes().front().shape.back());
-        }
-        // draw a line to center of selected bus
-        if (mySelectedBusStop) {
-            GLHelper::drawLine(myTemporalRoute.back()->getNBEdge()->getLanes().front().shape.back(),
-                               mySelectedBusStop->getAdditionalGeometry().shape.getLineCenter());
+        // we have two possibilites, depending of myTemporalRoute
+        if (myTemporalRoute.empty()) {
+            // draw first line
+            GLHelper::drawLine(myClickedEdges.at(0)->getNBEdge()->getLanes().front().shape.front(),
+                               myClickedEdges.at(0)->getNBEdge()->getLanes().front().shape.back());
+            // draw rest of lines
+            for (int i = 1; i < (int)myClickedEdges.size(); i++) {
+                GLHelper::drawLine(myClickedEdges.at(i - 1)->getNBEdge()->getLanes().front().shape.back(),
+                                   myClickedEdges.at(i)->getNBEdge()->getLanes().front().shape.front());
+                GLHelper::drawLine(myClickedEdges.at(i)->getNBEdge()->getLanes().front().shape.front(),
+                                   myClickedEdges.at(i)->getNBEdge()->getLanes().front().shape.back());
+            }
+            // draw a line to center of selected bus
+            if (mySelectedBusStop) {
+                GLHelper::drawLine(myClickedEdges.back()->getNBEdge()->getLanes().front().shape.back(),
+                                   mySelectedBusStop->getAdditionalGeometry().shape.getLineCenter());
+            }
+        } else {
+            // draw first line
+            GLHelper::drawLine(myTemporalRoute.at(0)->getNBEdge()->getLanes().front().shape.front(),
+                               myTemporalRoute.at(0)->getNBEdge()->getLanes().front().shape.back());
+            // draw rest of lines
+            for (int i = 1; i < (int)myTemporalRoute.size(); i++) {
+                GLHelper::drawLine(myTemporalRoute.at(i - 1)->getNBEdge()->getLanes().front().shape.back(),
+                                   myTemporalRoute.at(i)->getNBEdge()->getLanes().front().shape.front());
+                GLHelper::drawLine(myTemporalRoute.at(i)->getNBEdge()->getLanes().front().shape.front(),
+                                   myTemporalRoute.at(i)->getNBEdge()->getLanes().front().shape.back());
+            }
+            // draw a line to center of selected bus
+            if (mySelectedBusStop) {
+                GLHelper::drawLine(myTemporalRoute.back()->getNBEdge()->getLanes().front().shape.back(),
+                                   mySelectedBusStop->getAdditionalGeometry().shape.getLineCenter());
+            }
         }
         // Pop last matrix
         glPopMatrix();
