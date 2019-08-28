@@ -60,7 +60,7 @@ GUIDanielPerspectiveChanger::move(int xdiff, int ydiff) {
 
 void
 GUIDanielPerspectiveChanger::zoom(double factor) {
-    if (myCallback.getApp()->reg().readIntEntry("gui", "zoomAtCenter", 1)) {
+    if (myCallback.getApp()->reg().readIntEntry("gui", "zoomAtCenter", 0)) {
         myZoomBase = myViewPort.getCenter();
     }
     if (factor > 0) {
