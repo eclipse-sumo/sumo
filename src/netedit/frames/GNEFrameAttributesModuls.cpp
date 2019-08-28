@@ -435,7 +435,7 @@ GNEFrameAttributesModuls::AttributesCreatorRow::onCmdSetAttribute(FXObject* obj,
             myInvalidValue = "'" + myAttrProperties.getAttrStr() + "' doesn't have a valid 'RBGColor' format";
         }
     } else if (myAttrProperties.isFilename()) {
-        std::string file = myValueTextFieldStrings->getText().text();
+        const std::string file = myValueTextFieldStrings->getText().text();
         // check if filename format is valid
         if (SUMOXMLDefinitions::isValidFilename(file) == false) {
             myInvalidValue = "input contains invalid characters for a filename";
@@ -448,20 +448,20 @@ GNEFrameAttributesModuls::AttributesCreatorRow::onCmdSetAttribute(FXObject* obj,
             }
         }
     } else if (myAttrProperties.getAttr() == SUMO_ATTR_NAME) {
-        std::string name = myValueTextFieldStrings->getText().text();
+        const std::string name = myValueTextFieldStrings->getText().text();
         // check if name format is valid
         if (SUMOXMLDefinitions::isValidAttribute(name) == false) {
             myInvalidValue = "input contains invalid characters";
         }
     } else if (myAttrProperties.getAttr() == SUMO_ATTR_VTYPES) {
-        std::string name = myValueTextFieldStrings->getText().text();
+        const std::string types = myValueTextFieldStrings->getText().text();
         // if list of VTypes isn't empty, check that all characters are valid
-        if (!name.empty() && !SUMOXMLDefinitions::isValidListOfTypeID(name)) {
+        if (!types.empty() && !SUMOXMLDefinitions::isValidListOfTypeID(types)) {
             myInvalidValue = "list of IDs contains invalid characters";
         }
     } else if (myAttrProperties.getAttr() == SUMO_ATTR_INDEX) {
         // special case for stop indx
-        std::string index = myValueTextFieldStrings->getText().text();
+        const std::string index = myValueTextFieldStrings->getText().text();
         if ((index != "fit") && (index != "end") && !GNEAttributeCarrier::canParse<int>(index)) {
             myInvalidValue = "index isn't either 'fit' or 'end' or a valid positive int";
         } else if (GNEAttributeCarrier::canParse<int>(index) && (GNEAttributeCarrier::parse<int>(index) < 0)) {
@@ -477,7 +477,8 @@ GNEFrameAttributesModuls::AttributesCreatorRow::onCmdSetAttribute(FXObject* obj,
             }
         }
     } else if (myAttrProperties.getAttr() == SUMO_ATTR_ACTTYPE) {
-        if (myValueTextFieldStrings->getText().text() != "waiting") {
+        const std::string type = myValueTextFieldStrings->getText().text();
+        if (type != "waiting") {
             myInvalidValue = "invalid " + myAttrProperties.getAttrStr();
         }
     } else if (myAttrProperties.getAttr() == SUMO_ATTR_TRIP_ID) {
