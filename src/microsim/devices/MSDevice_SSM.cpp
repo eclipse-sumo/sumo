@@ -2989,9 +2989,11 @@ MSDevice_SSM::findSurroundingVehicles(const MSVehicle& veh, double range, FoeInf
         assert(!edge->isInternal());
         assert(!lane->isInternal());
         assert(pos == 0 || lane == veh.getLane());
-        if (pos + remainingDownstreamRange < lane->getLength() && edge->getID() != egoEdge->getID()) {
+        if (pos + remainingDownstreamRange < lane->getLength()) {
             // scan range ends on this lane
-            upstreamScanStartPositions.push_back(UpstreamScanStartInfo(edge, pos + remainingDownstreamRange, remainingDownstreamRange, distToConflictLane, lane));
+			if (edge->getID() != egoEdge->getID()) {
+				upstreamScanStartPositions.push_back(UpstreamScanStartInfo(edge, pos + remainingDownstreamRange, remainingDownstreamRange, distToConflictLane, lane));
+			}
             // scanned required downstream range
             break;
         } else {
