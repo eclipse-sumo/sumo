@@ -143,6 +143,9 @@ public:
         /// @brief end iterator
         std::vector<Segment>::const_iterator end() const;
 
+        /// @brief number of segments
+        int size() const;
+
         /// @brief mark geometry as deprecated (used to avoid multiple updates)
         bool geometryDeprecated;
 

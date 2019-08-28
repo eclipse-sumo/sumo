@@ -787,15 +787,15 @@ GNEVehicle::drawGL(const GUIVisualizationSettings& s) const {
         // obtain Position an rotation (it depend of their parents)
         Position vehiclePosition;
         double vehicleRotation = 0;
-        if (getDemandElementParents().size() == 2) {
+        if ((getDemandElementParents().size() == 2) && (getDemandElementParents().at(1)->getDemandElementSegmentGeometry().size() > 0)) {
             // obtain position and rotation of first edge route
             vehiclePosition = getDemandElementParents().at(1)->getDemandElementSegmentGeometry().begin()->pos;
             vehicleRotation = getDemandElementParents().at(1)->getDemandElementSegmentGeometry().begin()->rotation;
-        } else if (getEdgeParents().size() > 0) {
+        } else if ((getEdgeParents().size() > 0) && (myDemandElementSegmentGeometry.size() > 0)) {
             // obtain position and rotation of segments geometry
             vehiclePosition = myDemandElementSegmentGeometry.begin()->pos;
             vehicleRotation = myDemandElementSegmentGeometry.begin()->rotation;
-        } else if (getDemandElementChildren().size() > 0) {
+        } else if ((getDemandElementChildren().size() > 0) && (getDemandElementChildren().at(0)->getDemandElementSegmentGeometry().size() > 0)) {
             // obtain position and rotation of embedded route
             vehiclePosition = getDemandElementChildren().at(0)->getDemandElementSegmentGeometry().begin()->pos;
             vehicleRotation = getDemandElementChildren().at(0)->getDemandElementSegmentGeometry().begin()->rotation;

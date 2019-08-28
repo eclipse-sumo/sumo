@@ -1285,7 +1285,7 @@ GNEEdge::drawPartialRoute(const GUIVisualizationSettings& s, const GNEDemandElem
         }
     }
     // special case for embedded routes
-    if ((route->getTagProperty().getTag() == SUMO_TAG_EMBEDDEDROUTE) && (route->getEdgeParents().front() == this)) {
+    if ((route->getTagProperty().getTag() == SUMO_TAG_EMBEDDEDROUTE) && (route->getDemandElementParents().size() > 0) && (route->getEdgeParents().front() == this)) {
         // draw vehicle parent
         route->getDemandElementParents().at(0)->drawGL(s);
     }

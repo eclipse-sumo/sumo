@@ -51,7 +51,9 @@
 // ---------------------------------------------------------------------------
 
 GNERouteHandler::RouteParameter::RouteParameter() :
-    VClass(SVC_PASSENGER) {
+    VClass(SVC_PASSENGER),
+    loadedID(false),
+    color(RGBColor::BLACK) {
 }
 
 
@@ -115,7 +117,8 @@ GNERouteHandler::RouteParameter::setEdges(GNEViewNet* viewNet, const std::string
 GNERouteHandler::GNERouteHandler(const std::string& file, GNEViewNet* viewNet, bool undoDemandElements) :
     SUMORouteHandler(file, "", false),
     myViewNet(viewNet),
-    myUndoDemandElements(undoDemandElements) {
+    myUndoDemandElements(undoDemandElements),
+    myLoadedVehicleWithEmbebbedRoute(nullptr) {
 }
 
 
@@ -1148,8 +1151,15 @@ void
 GNERouteHandler::openRoute(const SUMOSAXAttributes& attrs) {
     // change abort flag
     myAbort = false;
-    // parse attribute of routes
-    myRouteParameter.routeID = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", SUMO_TAG_ROUTE, SUMO_ATTR_ID, myAbort);
+    // check if route has ID (due embebbed routes)
+    if (attrs.hasAttribute(SUMO_ATTR_ID)) {
+        myRouteParameter.routeID = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", SUMO_TAG_ROUTE, SUMO_ATTR_ID, myAbort);
+        myRouteParameter.loadedID = true;
+    } else {
+        myRouteParameter.routeID.clear();
+        myRouteParameter.loadedID = false;
+    }
+    // parse other attributes
     myRouteParameter.setEdges(myViewNet, GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, myRouteParameter.routeID, SUMO_TAG_ROUTE, SUMO_ATTR_EDGES, myAbort));
     myRouteParameter.color = GNEAttributeCarrier::parseAttributeFromXML<RGBColor>(attrs, myRouteParameter.routeID, SUMO_TAG_ROUTE, SUMO_ATTR_COLOR, myAbort);
 }
@@ -1185,6 +1195,11 @@ GNERouteHandler::closeRoute(const bool /* mayBeDisconnected */) {
     myRouteParameter.genericParameters = myLoadedParameterised;
     // we have two possibilities: Either create a route with their own ID, or create a route within a vehicle
     if (myVehicleParameter) {
+        // extra warning for embebbed routes
+        if (myRouteParameter.loadedID) {
+            WRITE_WARNING("Attribute ID ignored in embedded routes");
+        }
+        // check edges
         if (myRouteParameter.edges.size() == 0) {
             WRITE_ERROR("A route needs at least one edge. Vehicle with ID='" + myVehicleParameter->id + "' cannot be created");
         } else {
@@ -1198,42 +1213,40 @@ GNERouteHandler::closeRoute(const bool /* mayBeDisconnected */) {
                 // due vehicle was loaded without a route, change tag
                 myVehicleParameter->tag = (myVehicleParameter->tag == SUMO_TAG_FLOW) ? SUMO_TAG_ROUTEFLOW : SUMO_TAG_VEHICLE;
                 // create vehicle or trips using myTemporalVehicleParameter without a route
-                GNEVehicle* vehicleOrRouteFlow = new GNEVehicle(myViewNet, vType, *myVehicleParameter);
+                myLoadedVehicleWithEmbebbedRoute = new GNEVehicle(myViewNet, vType, *myVehicleParameter);
                 // creaste embedded route
-                GNERoute* embeddedRoute = new GNERoute(myViewNet, vehicleOrRouteFlow, myRouteParameter);
+                GNERoute* embeddedRoute = new GNERoute(myViewNet, myLoadedVehicleWithEmbebbedRoute, myRouteParameter);
                 // add both to net depending of myUndoDemandElements
                 if (myUndoDemandElements) {
                     myViewNet->getUndoList()->p_begin("add vehicle and " + embeddedRoute->getTagStr());
                     // add both in net using undoList
-                    myViewNet->getUndoList()->add(new GNEChange_DemandElement(vehicleOrRouteFlow, true), true);
+                    myViewNet->getUndoList()->add(new GNEChange_DemandElement(myLoadedVehicleWithEmbebbedRoute, true), true);
                     myViewNet->getUndoList()->add(new GNEChange_DemandElement(embeddedRoute, true), true);
                     // iterate over stops of myActiveRouteStops and create stops associated with it
                     for (const auto& i : myActiveRouteStops) {
-                        buildStop(myViewNet, true, i, vehicleOrRouteFlow, false);
+                        buildStop(myViewNet, true, i, myLoadedVehicleWithEmbebbedRoute, false);
                     }
-                    myViewNet->getUndoList()->p_end();
                 } else {
                     // add vehicleOrRouteFlow in net and in their vehicle type parent
-                    myViewNet->getNet()->insertDemandElement(vehicleOrRouteFlow);
-                    vType->addDemandElementChild(vehicleOrRouteFlow);
-                    vehicleOrRouteFlow->incRef("buildVehicleAndRoute");
+                    myViewNet->getNet()->insertDemandElement(myLoadedVehicleWithEmbebbedRoute);
+                    vType->addDemandElementChild(myLoadedVehicleWithEmbebbedRoute);
+                    myLoadedVehicleWithEmbebbedRoute->incRef("buildVehicleAndRoute");
                     // add route manually in net, and in all of their edges and in vehicleOrRouteFlow
                     myViewNet->getNet()->insertDemandElement(embeddedRoute);
                     for (const auto& i : myRouteParameter.edges) {
-                        i->addDemandElementChild(vehicleOrRouteFlow);
+                        i->addDemandElementChild(myLoadedVehicleWithEmbebbedRoute);
                     }
-                    vehicleOrRouteFlow->addDemandElementChild(embeddedRoute);
+                    myLoadedVehicleWithEmbebbedRoute->addDemandElementChild(embeddedRoute);
                     embeddedRoute->incRef("buildVehicleAndRoute");
                     // iterate over stops of myActiveRouteStops and create stops associated with it
                     for (const auto& i : myActiveRouteStops) {
-                        buildStop(myViewNet, false, i, vehicleOrRouteFlow, false);
+                        buildStop(myViewNet, false, i, myLoadedVehicleWithEmbebbedRoute, false);
                     }
                 }
             }
         }
-        // delete myVehicleParameter because at the end of this function closeVehicle()/closeFlow() will be called
-        delete myVehicleParameter;
-        myVehicleParameter = nullptr;
+    } else if (myRouteParameter.loadedID == false) {
+        WRITE_ERROR(toString(SUMO_TAG_ROUTE) + " needs a valid ID.");
     } else if (!SUMOXMLDefinitions::isValidVehicleID(myRouteParameter.routeID)) {
         WRITE_ERROR(toString(SUMO_TAG_ROUTE) + " ID='" + myRouteParameter.routeID + "' contains invalid characters.");
     } else if (myViewNet->getNet()->retrieveDemandElement(SUMO_TAG_ROUTE, myRouteParameter.routeID, false) != nullptr) {
@@ -1280,10 +1293,16 @@ GNERouteHandler::closeRouteDistribution() {
 
 void
 GNERouteHandler::closeVehicle() {
-    // first check if myVehicleParameter was sucesfully created
-    if (myVehicleParameter) {
-        // build vehicle over route
-        buildVehicleOverRoute(myViewNet, myUndoDemandElements, *myVehicleParameter);
+    // first check if we're closing a vehicle with embebbed routes and stops
+    if (myLoadedVehicleWithEmbebbedRoute) {
+        myLoadedVehicleWithEmbebbedRoute = nullptr;
+        myViewNet->getUndoList()->p_end();
+    } else {
+        // now check if myVehicleParameter was sucesfully created
+        if (myVehicleParameter) {
+            // build vehicle over route
+            buildVehicleOverRoute(myViewNet, myUndoDemandElements, *myVehicleParameter);
+        }
     }
 }
 
@@ -1628,7 +1647,10 @@ GNERouteHandler::addStop(const SUMOSAXAttributes& attrs) {
             stop.tag = SUMO_TAG_PERSONSTOP_LANE;
         }
     }
-    if (myVehicleParameter != nullptr) {
+    // now create or store stop
+    if (myLoadedVehicleWithEmbebbedRoute) {
+        buildStop(myViewNet, true, stop.stopParameters, myLoadedVehicleWithEmbebbedRoute, false);
+    } else if (myVehicleParameter != nullptr) {
         if ((myVehicleParameter->tag == SUMO_TAG_PERSON) || (myVehicleParameter->tag == SUMO_TAG_PERSONFLOW)) {
             myPersonPlanValues.push_back(stop);
         } else {

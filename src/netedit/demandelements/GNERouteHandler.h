@@ -68,6 +68,9 @@ public:
         /// @brief string for saving parsed Route ID
         std::string routeID;
 
+        /// @brief flag to check if route was loaded
+        bool loadedID;
+
         /// @brief edges
         std::vector<GNEEdge*> edges;
 
@@ -339,6 +342,9 @@ private:
 
     /// @brief flag to check if created demand elements must be undo and redo
     bool myUndoDemandElements;
+
+    /// @brief Pointer to loaded vehicle with embebbed route (needed for GNEStops)
+    GNEDemandElement* myLoadedVehicleWithEmbebbedRoute;
 };
 
 

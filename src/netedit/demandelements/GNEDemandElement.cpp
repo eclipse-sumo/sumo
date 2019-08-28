@@ -192,6 +192,12 @@ GNEDemandElement::DemandElementSegmentGeometry::end() const {
     return myShapeSegments.cend();
 }
 
+
+int 
+GNEDemandElement::DemandElementSegmentGeometry::size() const {
+    return (int)myShapeSegments.size();
+}
+
 // ---------------------------------------------------------------------------
 // GNEDemandElement::RouteCalculator - methods
 // ---------------------------------------------------------------------------
