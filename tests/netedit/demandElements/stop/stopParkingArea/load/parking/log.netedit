@@ -1,0 +1,14 @@
+Error: Attribute 'parking' in definition of a stop is not of type bool.
+Warning: Stop at parkingarea overrides attribute 'parking' for stop at 'parkingArea' in vehicle 'vehicle_0'.
+Error: Invalid bool for 'triggered', 'containerTriggered' or 'parking' for stop at 'parkingArea' in vehicle 'vehicle_0'.
+Error: Attribute 'parking' in definition of a stop is empty.
+Warning: Stop at parkingarea overrides attribute 'parking' for stop at 'parkingArea' in vehicle 'vehicle_0'.
+Error: Invalid bool for 'triggered', 'containerTriggered' or 'parking' for stop at 'parkingArea' in vehicle 'vehicle_0'.
+Error: Attribute 'parking' in definition of a stop is not of type bool.
+Warning: Stop at parkingarea overrides attribute 'parking' for stop at 'parkingArea' in vehicle 'vehicle_0'.
+Error: Invalid bool for 'triggered', 'containerTriggered' or 'parking' for stop at 'parkingArea' in vehicle 'vehicle_0'.
+Warning: Stop at parkingarea overrides attribute 'parking' for stop at 'parkingArea' in vehicle 'vehicle_0'.
+Error: Attribute 'parking' in definition of a stop is not of type bool.
+Warning: Stop at parkingarea overrides attribute 'parking' for stop at 'parkingArea' in vehicle 'vehicle_0'.
+Error: Invalid bool for 'triggered', 'containerTriggered' or 'parking' for stop at 'parkingArea' in vehicle 'vehicle_0'.
+Error: Loading of C:/Users/alva_pa/.texttest/tmp/netedit.gui.28Aug142833.8020/netedit.gui/demandElements/stop/stopParkingArea/load/parking\input_routes.rou.xml failed.
