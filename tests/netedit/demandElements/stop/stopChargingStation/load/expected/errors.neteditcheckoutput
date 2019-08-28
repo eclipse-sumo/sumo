@@ -1,3 +1,4 @@
+Error: Attribute 'expected' in definition of a stop is empty.
 Warning: Vehicle flow_1.0 aborted waiting for a person or a container that will never come.
 Warning: Vehicle flow_1.1 aborted waiting for a person or a container that will never come.
 Warning: Vehicle flow_1.10 aborted waiting for a person or a container that will never come.
