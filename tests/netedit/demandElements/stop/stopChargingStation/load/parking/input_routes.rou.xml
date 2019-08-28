@@ -30,26 +30,26 @@
     </pedestrian>
 
     <netedit>
-        <route-files value="D:\sumo\tests\netedit\demandElements\stop\stopBusStop\inspect_selection\input_routes.rou.xml"/>
+        <route-files value="D:\sumo\tests\netedit\demandElements\stop\stopChargingStation\inspect_selection\input_routes.rou.xml"/>
     </netedit>
 
 </configuration>
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-    <route edges="gneE0 gneE1" color="yellow" id="route_0">
+    <flow id="flow_1" begin="0.00" end="36.00" number="18" from="gneE0" to="gneE1">
 	
-        <stop busStop="busStop" parking="dummy"/>
+        <stop chargingStation="chargingStation" parking="dummy"/>
 		
-		<stop busStop="busStop" parking=""/>
+		<stop chargingStation="chargingStation" parking=""/>
 		
-		<stop busStop="busStop" parking="-4"/>
+		<stop chargingStation="chargingStation" parking="-4"/>
 		
-		<stop busStop="busStop" parking="0"/>
+		<stop chargingStation="chargingStation" parking="0"/>
 		
-		<stop busStop="busStop" parking="2.3"/>
+		<stop chargingStation="chargingStation" parking="2.3"/>
 		
-		<stop busStop="busStop" parking="true"/>
+		<stop chargingStation="chargingStation" parking="true"/>
 		
-    </route>
+    </flow>
 </routes>

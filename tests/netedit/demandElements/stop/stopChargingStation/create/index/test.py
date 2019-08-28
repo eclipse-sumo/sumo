@@ -32,37 +32,37 @@ netedit.supermodeDemand()
 netedit.stopMode()
 
 # change stop type with a valid value
-netedit.changeStopType("stopBusStop")
+netedit.changeStopType("stopChargingStation")
 
 # set invalid index
 netedit.changeDefaultValue(7, "dummyValue")
 
 # try to create stop
-netedit.leftClick(referencePosition, 327, 208)
+netedit.leftClick(referencePosition, 327, 220)
 
 # set invalid index
 netedit.changeDefaultValue(7, "")
 
 # try to create stop
-netedit.leftClick(referencePosition, 327, 208)
+netedit.leftClick(referencePosition, 327, 220)
 
 # set valid index
 netedit.changeDefaultValue(7, "fit")
 
 # create stop
-netedit.leftClick(referencePosition, 327, 208)
+netedit.leftClick(referencePosition, 327, 220)
 
 # set valid index
 netedit.changeDefaultValue(7, "end")
 
 # create stop
-netedit.leftClick(referencePosition, 327, 208)
+netedit.leftClick(referencePosition, 327, 220)
 
 # set valid index
 netedit.changeDefaultValue(7, "5")
 
 # create stop
-netedit.leftClick(referencePosition, 327, 208)
+netedit.leftClick(referencePosition, 327, 220)
 
 # Check undo redo
 netedit.undo(referencePosition, 5)

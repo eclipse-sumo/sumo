@@ -30,14 +30,14 @@
     </pedestrian>
 
     <netedit>
-        <additional-files value="D:\sumo\tests\netedit\demandElements\stop\stopBusStop\inspect_selection\input_additionals.add.xml"/>
-        <route-files value="D:\sumo\tests\netedit\demandElements\stop\stopBusStop\inspect_selection\input_routes.rou.xml"/>
+        <additional-files value="D:\sumo\tests\netedit\demandElements\stop\stopChargingStation\inspect_selection\input_additionals.add.xml"/>
+        <route-files value="D:\sumo\tests\netedit\demandElements\stop\stopChargingStation\inspect_selection\input_routes.rou.xml"/>
     </netedit>
 
 </configuration>
 -->
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
-    <busStop id="busStop_gneE0_0_1" lane="gneE0_0" startPos="20.00" endPos="30.00"/>
-    <busStop id="busStop_gneE1_0_0" lane="gneE1_0" startPos="20" endPos="30"/>
+    <chargingStation id="chargingStationA" lane="gneE0_0" startPos="20.00" endPos="30.00"/>
+    <chargingStation id="chargingStationB" lane="gneE1_0" startPos="20" endPos="30"/>
 </additional>

@@ -1,9 +1,9 @@
 Error: Attribute 'parking' in definition of a stop is not of type bool.
-Error: Invalid bool for 'triggered', 'containerTriggered' or 'parking' for stop at 'busStop' in route ''.
+Error: Invalid bool for 'triggered', 'containerTriggered' or 'parking' for stop at 'chargingStation' in flow 'flow_1'.
 Error: Attribute 'parking' in definition of a stop is empty.
-Error: Invalid bool for 'triggered', 'containerTriggered' or 'parking' for stop at 'busStop' in route ''.
+Error: Invalid bool for 'triggered', 'containerTriggered' or 'parking' for stop at 'chargingStation' in flow 'flow_1'.
 Error: Attribute 'parking' in definition of a stop is not of type bool.
-Error: Invalid bool for 'triggered', 'containerTriggered' or 'parking' for stop at 'busStop' in route ''.
+Error: Invalid bool for 'triggered', 'containerTriggered' or 'parking' for stop at 'chargingStation' in flow 'flow_1'.
 Error: Attribute 'parking' in definition of a stop is not of type bool.
-Error: Invalid bool for 'triggered', 'containerTriggered' or 'parking' for stop at 'busStop' in route ''.
-Error: Loading of C:/Users/alva_pa/.texttest/tmp/netedit.gui.26Aug152405.4520/netedit.gui/demandElements/stop/stopBusStop/load/parking\input_routes.rou.xml failed.
+Error: Invalid bool for 'triggered', 'containerTriggered' or 'parking' for stop at 'chargingStation' in flow 'flow_1'.
+Error: Loading of C:/Users/alva_pa/.texttest/tmp/netedit.gui.27Aug143928.7696/netedit.gui/demandElements/stop/stopChargingStation/load/parking\input_routes.rou.xml failed.

@@ -9,34 +9,28 @@ GLDebug: 	Inserted edge:gneE2 into SUMORTree with boundary -10.00,10.00,60.00,44
 GLDebug: 	Inserted edge:gneE4 into SUMORTree with boundary -10.00,8.40,60.00,30.00
 Debug: Selected item 'DEFAULT_VEHTYPE' in DemandElementSelector
 Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
-Debug: Adding busStop 'busStop_gneE0_0_0' in GNEChange_Additional
+Debug: Adding chargingStation 'chargingStation_gneE0_0_0' in GNEChange_Additional
 Debug: Additionals has to be saved
 Debug: Current saving Status: net saved, additionals unsaved, demand elements saved
-Debug: Adding busStop 'busStop_gneE1_0_1' in GNEChange_Additional
-Debug: Adding busStop 'busStop_gneE2_0_7' in GNEChange_Additional
-Debug: Adding busStop 'busStop_gneE2_1_6' in GNEChange_Additional
-Debug: Adding busStop 'busStop_gneE2_2_5' in GNEChange_Additional
-Debug: Adding busStop 'busStop_gneE2_3_4' in GNEChange_Additional
-Debug: Adding busStop 'busStop_gneE2_4_3' in GNEChange_Additional
-Debug: Adding busStop 'busStop_gneE4_0_2' in GNEChange_Additional
-Debug: Adding route 'route_0' in GNEChange_DemandElement
+Debug: Adding chargingStation 'chargingStation_gneE1_0_1' in GNEChange_Additional
+Debug: Adding chargingStation 'chargingStation_gneE2_0_7' in GNEChange_Additional
+Debug: Adding chargingStation 'chargingStation_gneE2_1_6' in GNEChange_Additional
+Debug: Adding chargingStation 'chargingStation_gneE2_2_5' in GNEChange_Additional
+Debug: Adding chargingStation 'chargingStation_gneE2_3_4' in GNEChange_Additional
+Debug: Adding chargingStation 'chargingStation_gneE2_4_3' in GNEChange_Additional
+Debug: Adding chargingStation 'chargingStation_gneE4_0_2' in GNEChange_Additional
+Debug: Adding flow 'flow_0' in GNEChange_DemandElement
 Debug: DemandElements has to be saved
 Debug: Current saving Status: net saved, additionals unsaved, demand elements unsaved
-Debug: Adding stopBusStop 'route_0stopBusStop0' in GNEChange_DemandElement
-Debug: Adding stopBusStop 'route_0stopBusStop1' in GNEChange_DemandElement
-Debug: Adding stopBusStop 'route_0stopBusStop2' in GNEChange_DemandElement
-Debug: Adding stopBusStop 'route_0stopBusStop3' in GNEChange_DemandElement
-Debug: Adding stopBusStop 'route_0stopBusStop4' in GNEChange_DemandElement
-Debug: Adding stopBusStop 'route_0stopBusStop5' in GNEChange_DemandElement
-Debug: Adding route 'route_1' in GNEChange_DemandElement
-Debug: Adding stopBusStop 'route_1stopBusStop0' in GNEChange_DemandElement
-Debug: Adding stopBusStop 'route_1stopBusStop1' in GNEChange_DemandElement
-Debug: Adding stopBusStop 'route_1stopBusStop2' in GNEChange_DemandElement
-Debug: Adding stopBusStop 'route_1stopBusStop3' in GNEChange_DemandElement
-Debug: Adding stopBusStop 'route_1stopBusStop4' in GNEChange_DemandElement
-Debug: Adding stopBusStop 'route_1stopBusStop5' in GNEChange_DemandElement
-Debug: Adding stopBusStop 'route_1stopBusStop6' in GNEChange_DemandElement
-Debug: Adding stopBusStop 'route_1stopBusStop7' in GNEChange_DemandElement
+Debug: Adding stopChargingStation 'flow_0stopChargingStation0' in GNEChange_DemandElement
+Debug: Adding stopChargingStation 'flow_0stopChargingStation1' in GNEChange_DemandElement
+Debug: Adding stopChargingStation 'flow_0stopChargingStation2' in GNEChange_DemandElement
+Debug: Adding stopChargingStation 'flow_0stopChargingStation3' in GNEChange_DemandElement
+Debug: Adding stopChargingStation 'flow_0stopChargingStation4' in GNEChange_DemandElement
+Debug: Adding stopChargingStation 'flow_0stopChargingStation5' in GNEChange_DemandElement
+Debug: Adding flow 'flow_1' in GNEChange_DemandElement
+Debug: Adding stopChargingStation 'flow_1stopChargingStation0' in GNEChange_DemandElement
+Debug: Adding stopChargingStation 'flow_1stopChargingStation1' in GNEChange_DemandElement
 Debug: net has to be saved
 Debug: Current saving Status: net unsaved, additionals unsaved, demand elements unsaved
 Debug: Keys Shift + F5 (Compute with volatile options) pressed
@@ -54,34 +48,28 @@ GLDebug: 	Removed object edge:gneE0 from SUMORTree with boundary -10.00,-11.60,6
 GLDebug: 	Removed object edge:gneE1 from SUMORTree with boundary -10.00,-10.00,60.00,11.60
 GLDebug: 	Removed object edge:gneE2 from SUMORTree with boundary -10.00,10.00,60.00,44.40
 GLDebug: 	Removed object edge:gneE4 from SUMORTree with boundary -10.00,8.40,60.00,30.00
-Debug: Deleting unreferenced stopBusStop 'route_1stopBusStop7'
+Debug: Deleting unreferenced stopChargingStation 'flow_1stopChargingStation1'
 Debug: DemandElements has to be saved
 Debug: Current saving Status: net saved, additionals saved, demand elements unsaved
-Debug: Deleting unreferenced stopBusStop 'route_1stopBusStop6'
-Debug: Deleting unreferenced stopBusStop 'route_1stopBusStop5'
-Debug: Deleting unreferenced stopBusStop 'route_1stopBusStop4'
-Debug: Deleting unreferenced stopBusStop 'route_1stopBusStop3'
-Debug: Deleting unreferenced stopBusStop 'route_1stopBusStop2'
-Debug: Deleting unreferenced stopBusStop 'route_1stopBusStop1'
-Debug: Deleting unreferenced stopBusStop 'route_1stopBusStop0'
-Debug: Deleting unreferenced route 'route_1'
-Debug: Deleting unreferenced stopBusStop 'route_0stopBusStop5'
-Debug: Deleting unreferenced stopBusStop 'route_0stopBusStop4'
-Debug: Deleting unreferenced stopBusStop 'route_0stopBusStop3'
-Debug: Deleting unreferenced stopBusStop 'route_0stopBusStop2'
-Debug: Deleting unreferenced stopBusStop 'route_0stopBusStop1'
-Debug: Deleting unreferenced stopBusStop 'route_0stopBusStop0'
-Debug: Deleting unreferenced route 'route_0'
-Debug: Deleting unreferenced busStop 'busStop_gneE4_0_2'
+Debug: Deleting unreferenced stopChargingStation 'flow_1stopChargingStation0'
+Debug: Deleting unreferenced flow 'flow_1'
+Debug: Deleting unreferenced stopChargingStation 'flow_0stopChargingStation5'
+Debug: Deleting unreferenced stopChargingStation 'flow_0stopChargingStation4'
+Debug: Deleting unreferenced stopChargingStation 'flow_0stopChargingStation3'
+Debug: Deleting unreferenced stopChargingStation 'flow_0stopChargingStation2'
+Debug: Deleting unreferenced stopChargingStation 'flow_0stopChargingStation1'
+Debug: Deleting unreferenced stopChargingStation 'flow_0stopChargingStation0'
+Debug: Deleting unreferenced flow 'flow_0'
+Debug: Deleting unreferenced chargingStation 'chargingStation_gneE4_0_2'
 Debug: Additionals has to be saved
 Debug: Current saving Status: net saved, additionals unsaved, demand elements unsaved
-Debug: Deleting unreferenced busStop 'busStop_gneE2_4_3'
-Debug: Deleting unreferenced busStop 'busStop_gneE2_3_4'
-Debug: Deleting unreferenced busStop 'busStop_gneE2_2_5'
-Debug: Deleting unreferenced busStop 'busStop_gneE2_1_6'
-Debug: Deleting unreferenced busStop 'busStop_gneE2_0_7'
-Debug: Deleting unreferenced busStop 'busStop_gneE1_0_1'
-Debug: Deleting unreferenced busStop 'busStop_gneE0_0_0'
+Debug: Deleting unreferenced chargingStation 'chargingStation_gneE2_4_3'
+Debug: Deleting unreferenced chargingStation 'chargingStation_gneE2_3_4'
+Debug: Deleting unreferenced chargingStation 'chargingStation_gneE2_2_5'
+Debug: Deleting unreferenced chargingStation 'chargingStation_gneE2_1_6'
+Debug: Deleting unreferenced chargingStation 'chargingStation_gneE2_0_7'
+Debug: Deleting unreferenced chargingStation 'chargingStation_gneE1_0_1'
+Debug: Deleting unreferenced chargingStation 'chargingStation_gneE0_0_0'
 GLDebug: initJunctionsAndEdges function called in computeAndUpdate(...) due recomputing with volatile options
 GLDebug: 	Inserted junction:gneJ0 into SUMORTree with boundary -10.00,-15.20,10.00,15.20
 GLDebug: 	Inserted junction:gneJ1 into SUMORTree with boundary 40.00,-15.20,60.00,15.20
@@ -91,14 +79,24 @@ GLDebug: 	Inserted edge:gneE0 into SUMORTree with boundary -10.00,-14.20,60.00,1
 GLDebug: 	Inserted edge:gneE1 into SUMORTree with boundary -10.00,-10.00,60.00,14.20
 GLDebug: 	Inserted edge:gneE2 into SUMORTree with boundary -10.00,10.00,60.00,47.00
 GLDebug: 	Inserted edge:gneE4 into SUMORTree with boundary -10.00,8.40,60.00,30.00
-Debug: Adding busStop 'busStop_gneE0_0_0' in GNEChange_Additional
-Debug: Adding busStop 'busStop_gneE1_0_1' in GNEChange_Additional
-Debug: Adding busStop 'busStop_gneE2_0_7' in GNEChange_Additional
-Debug: Adding busStop 'busStop_gneE2_1_6' in GNEChange_Additional
-Debug: Adding busStop 'busStop_gneE2_2_5' in GNEChange_Additional
-Debug: Adding busStop 'busStop_gneE2_3_4' in GNEChange_Additional
-Debug: Adding busStop 'busStop_gneE2_4_3' in GNEChange_Additional
-Debug: Adding busStop 'busStop_gneE4_0_2' in GNEChange_Additional
+Debug: Adding chargingStation 'chargingStation_gneE0_0_0' in GNEChange_Additional
+Debug: Adding chargingStation 'chargingStation_gneE1_0_1' in GNEChange_Additional
+Debug: Adding chargingStation 'chargingStation_gneE2_0_7' in GNEChange_Additional
+Debug: Adding chargingStation 'chargingStation_gneE2_1_6' in GNEChange_Additional
+Debug: Adding chargingStation 'chargingStation_gneE2_2_5' in GNEChange_Additional
+Debug: Adding chargingStation 'chargingStation_gneE2_3_4' in GNEChange_Additional
+Debug: Adding chargingStation 'chargingStation_gneE2_4_3' in GNEChange_Additional
+Debug: Adding chargingStation 'chargingStation_gneE4_0_2' in GNEChange_Additional
+Debug: Adding flow 'flow_0' in GNEChange_DemandElement
+Debug: Adding stopChargingStation 'flow_0stopChargingStation0' in GNEChange_DemandElement
+Debug: Adding stopChargingStation 'flow_0stopChargingStation1' in GNEChange_DemandElement
+Debug: Adding stopChargingStation 'flow_0stopChargingStation2' in GNEChange_DemandElement
+Debug: Adding stopChargingStation 'flow_0stopChargingStation3' in GNEChange_DemandElement
+Debug: Adding stopChargingStation 'flow_0stopChargingStation4' in GNEChange_DemandElement
+Debug: Adding stopChargingStation 'flow_0stopChargingStation5' in GNEChange_DemandElement
+Debug: Adding flow 'flow_1' in GNEChange_DemandElement
+Debug: Adding stopChargingStation 'flow_1stopChargingStation0' in GNEChange_DemandElement
+Debug: Adding stopChargingStation 'flow_1stopChargingStation1' in GNEChange_DemandElement
 Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 Debug: demand elements saved
 Debug: Additionals saved
@@ -126,16 +124,28 @@ Debug: Created connection 'fromgneE0_1togneE1_1' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE1_1togneE0_1' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE2_5togneE4_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE4_0togneE2_5' in retrieveGNEConnection()
-Debug: Deleting unreferenced busStop 'busStop_gneE4_0_2'
+Debug: Deleting unreferenced stopChargingStation 'flow_1stopChargingStation1'
+Debug: DemandElements has to be saved
+Debug: Current saving Status: net saved, additionals saved, demand elements unsaved
+Debug: Deleting unreferenced stopChargingStation 'flow_1stopChargingStation0'
+Debug: Deleting unreferenced flow 'flow_1'
+Debug: Deleting unreferenced stopChargingStation 'flow_0stopChargingStation5'
+Debug: Deleting unreferenced stopChargingStation 'flow_0stopChargingStation4'
+Debug: Deleting unreferenced stopChargingStation 'flow_0stopChargingStation3'
+Debug: Deleting unreferenced stopChargingStation 'flow_0stopChargingStation2'
+Debug: Deleting unreferenced stopChargingStation 'flow_0stopChargingStation1'
+Debug: Deleting unreferenced stopChargingStation 'flow_0stopChargingStation0'
+Debug: Deleting unreferenced flow 'flow_0'
+Debug: Deleting unreferenced chargingStation 'chargingStation_gneE4_0_2'
 Debug: Additionals has to be saved
-Debug: Current saving Status: net saved, additionals unsaved, demand elements saved
-Debug: Deleting unreferenced busStop 'busStop_gneE2_4_3'
-Debug: Deleting unreferenced busStop 'busStop_gneE2_3_4'
-Debug: Deleting unreferenced busStop 'busStop_gneE2_2_5'
-Debug: Deleting unreferenced busStop 'busStop_gneE2_1_6'
-Debug: Deleting unreferenced busStop 'busStop_gneE2_0_7'
-Debug: Deleting unreferenced busStop 'busStop_gneE1_0_1'
-Debug: Deleting unreferenced busStop 'busStop_gneE0_0_0'
+Debug: Current saving Status: net saved, additionals unsaved, demand elements unsaved
+Debug: Deleting unreferenced chargingStation 'chargingStation_gneE2_4_3'
+Debug: Deleting unreferenced chargingStation 'chargingStation_gneE2_3_4'
+Debug: Deleting unreferenced chargingStation 'chargingStation_gneE2_2_5'
+Debug: Deleting unreferenced chargingStation 'chargingStation_gneE2_1_6'
+Debug: Deleting unreferenced chargingStation 'chargingStation_gneE2_0_7'
+Debug: Deleting unreferenced chargingStation 'chargingStation_gneE1_0_1'
+Debug: Deleting unreferenced chargingStation 'chargingStation_gneE0_0_0'
 Debug: Deleting unreferenced edge 'gneE0' in GNENet destructor
 Debug: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor
 Debug: Deleting unreferenced lane 'gneE0_1' in GNEEdge destructor
@@ -162,27 +172,5 @@ Debug: Deleting unreferenced junction 'gneJ3' in GNENet destructor
 Debug: Deleting unreferenced vType 'DEFAULT_BIKETYPE' in GNENet destructor
 Debug: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in GNENet destructor
 Debug: Deleting unreferenced pType 'DEFAULT_PEDTYPE' in GNENet destructor
-Debug: Deleting unreferenced route 'route_0' in GNENet destructor
-Debug: Deleting unreferenced route 'route_1' in GNENet destructor
-Debug: Deleting unreferenced stopBusStop 'route_0stopBusStop0' in GNENet destructor
-Debug: Deleting unreferenced stopBusStop 'route_0stopBusStop1' in GNENet destructor
-Debug: Deleting unreferenced stopBusStop 'route_0stopBusStop2' in GNENet destructor
-Debug: Deleting unreferenced stopBusStop 'route_0stopBusStop3' in GNENet destructor
-Debug: Deleting unreferenced stopBusStop 'route_0stopBusStop4' in GNENet destructor
-Debug: Deleting unreferenced stopBusStop 'route_0stopBusStop5' in GNENet destructor
-Debug: Deleting unreferenced stopBusStop 'route_1stopBusStop0' in GNENet destructor
-Debug: Deleting unreferenced stopBusStop 'route_1stopBusStop1' in GNENet destructor
-Debug: Deleting unreferenced stopBusStop 'route_1stopBusStop10' in GNENet destructor
-Debug: Deleting unreferenced stopBusStop 'route_1stopBusStop11' in GNENet destructor
-Debug: Deleting unreferenced stopBusStop 'route_1stopBusStop12' in GNENet destructor
-Debug: Deleting unreferenced stopBusStop 'route_1stopBusStop13' in GNENet destructor
-Debug: Deleting unreferenced stopBusStop 'route_1stopBusStop2' in GNENet destructor
-Debug: Deleting unreferenced stopBusStop 'route_1stopBusStop3' in GNENet destructor
-Debug: Deleting unreferenced stopBusStop 'route_1stopBusStop4' in GNENet destructor
-Debug: Deleting unreferenced stopBusStop 'route_1stopBusStop5' in GNENet destructor
-Debug: Deleting unreferenced stopBusStop 'route_1stopBusStop6' in GNENet destructor
-Debug: Deleting unreferenced stopBusStop 'route_1stopBusStop7' in GNENet destructor
-Debug: Deleting unreferenced stopBusStop 'route_1stopBusStop8' in GNENet destructor
-Debug: Deleting unreferenced stopBusStop 'route_1stopBusStop9' in GNENet destructor
 Debug: Deleting net builder in GNENet destructor
 GLDebug: Number of objects in SUMORTree during call of the destructor: 8

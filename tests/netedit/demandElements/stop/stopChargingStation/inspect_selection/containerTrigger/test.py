@@ -47,7 +47,7 @@ netedit.selectionInvertDemand()
 netedit.inspectMode()
 
 # inspect selection
-netedit.leftClick(referencePosition, 327, 208)
+netedit.leftClick(referencePosition, 327, 220)
 
 # Check undo redo
 netedit.undo(referencePosition, 3)

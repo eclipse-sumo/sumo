@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 26.08.2019 14:27:30 by Eclipse SUMO netedit Version v1_3_0+0089-e417f0f6df
+<!-- generated on 27.08.2019 15:52:53 by Eclipse SUMO netedit Version v1_3_1+0005-d6efcb2757
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.26Aug142412.12136/netedit.gui/demandElements/stop/stopBusStop/inspect_selection/expected\input_net.net.xml"/>
+        <sumo-net-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.27Aug153624.10164/netedit.gui/demandElements/stop/stopChargingStation/inspect_selection/expected\input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.26Aug142412.12136/netedit.gui/demandElements/stop/stopBusStop/inspect_selection/expected\net.net.xml"/>
+        <output-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.27Aug153624.10164/netedit.gui/demandElements/stop/stopChargingStation/inspect_selection/expected\net.net.xml"/>
     </output>
 
     <processing>
@@ -30,14 +30,14 @@
     </pedestrian>
 
     <netedit>
-        <additional-files value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.26Aug142412.12136/netedit.gui/demandElements/stop/stopBusStop/inspect_selection/expected\additionals.xml"/>
-        <additionals-output value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.26Aug142412.12136/netedit.gui/demandElements/stop/stopBusStop/inspect_selection/expected\additionals.xml"/>
-        <route-files value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.26Aug142412.12136/netedit.gui/demandElements/stop/stopBusStop/inspect_selection/expected\routes.xml"/>
-        <demandelements-output value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.26Aug142412.12136/netedit.gui/demandElements/stop/stopBusStop/inspect_selection/expected\routes.xml"/>
+        <additional-files value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.27Aug153624.10164/netedit.gui/demandElements/stop/stopChargingStation/inspect_selection/expected\additionals.xml"/>
+        <additionals-output value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.27Aug153624.10164/netedit.gui/demandElements/stop/stopChargingStation/inspect_selection/expected\additionals.xml"/>
+        <route-files value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.27Aug153624.10164/netedit.gui/demandElements/stop/stopChargingStation/inspect_selection/expected\routes.xml"/>
+        <demandelements-output value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.27Aug153624.10164/netedit.gui/demandElements/stop/stopChargingStation/inspect_selection/expected\routes.xml"/>
     </netedit>
 
     <visualisation>
-        <gui-settings-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.26Aug142412.12136/netedit.gui/demandElements/stop/stopBusStop/inspect_selection/expected\gui-settings.xml"/>
+        <gui-settings-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.27Aug153624.10164/netedit.gui/demandElements/stop/stopChargingStation/inspect_selection/expected\gui-settings.xml"/>
         <window-size value="700,500"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
@@ -47,15 +47,15 @@
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.26Aug142412.12136/netedit.gui/demandElements/stop/stopBusStop/inspect_selection/expected\log.txt"/>
+        <error-log value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.27Aug153624.10164/netedit.gui/demandElements/stop/stopChargingStation/inspect_selection/expected\log.txt"/>
     </report>
 
 </configuration>
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-    <route edges="gneE0 gneE1" color="yellow" id="route_0">
-        <stop busStop="busStop_gneE0_0_1" duration="70.00" until="12.00" triggered="1" containerTriggered="1" parking="1" expected="ID2" expectedContainers="IDB" tripId="IDC"/>
-        <stop busStop="busStop_gneE1_0_0" duration="60.00" expected="ID2"/>
-    </route>
+    <flow id="flow_0" begin="0.00" from="gneE0" to="gneE1" end="36.00" number="18">
+        <stop chargingStation="chargingStationA" duration="70.00" until="12.00" triggered="1" containerTriggered="1" parking="1" expected="ID2" expectedContainers="IDB"/>
+        <stop chargingStation="chargingStationB" duration="60.00" expected="ID2"/>
+    </flow>
 </routes>
