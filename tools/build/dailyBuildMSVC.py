@@ -66,7 +66,7 @@ def killall(debugSuffix):
             bins.remove(task[0])
 
 
-def runTests(options, env, gitrev, withNetedit, debugSuffix=""):
+def runTests(options, env, gitrev, debugSuffix=""):
     if not options.tests:
         return
     prefix = env["FILEPREFIX"] + debugSuffix
@@ -98,9 +98,6 @@ def runTests(options, env, gitrev, withNetedit, debugSuffix=""):
     else:
         subprocess.call([ttBin] + fullOpt, env=env,
                         stdout=log, stderr=subprocess.STDOUT, shell=True)
-        if withNetedit:
-            subprocess.call([ttBin, "-a", "netedit.daily"] + fullOpt, env=env,
-                            stdout=log, stderr=subprocess.STDOUT, shell=True)
         subprocess.call([ttBin, "-a", "sumo.gui"] + fullOpt, env=env,
                         stdout=log, stderr=subprocess.STDOUT, shell=True)
     subprocess.call([ttBin, "-b", env["FILEPREFIX"], "-coll"], env=env,
@@ -225,6 +222,12 @@ for platform in (["x64"] if options.x64only else ["Win32", "x64"]):
                         write = True
                     if write:
                         zipf.write(f, nameInZip)
+            includeDir = binDir.replace("bin", "include")
+            for f in glob.glob(os.path.join(options.rootDir, "src", "libsumo", "*.h")):
+                base = os.path.basename(f)
+                nameInZip = os.path.join(includeDir, "libsumo", base)
+                if base != "Helper.h":
+                    zipf.write(f, nameInZip)
             zipf.close()
             if options.suffix == "":
                 # installers only for the vanilla build
@@ -251,10 +254,10 @@ for platform in (["x64"] if options.x64only else ["Win32", "x64"]):
             zipf.close()
         except IOError as ziperr:
             print("Warning: Could not zip to %s (%s)!" % (binaryZip, ziperr), file=log)
-    runTests(options, env, gitrev, platform == "x64" and not options.x64only)
+    runTests(options, env, gitrev)
     with open(statusLog, 'w') as log:
         status.printStatus(makeLog, makeAllLog, env["SMTP_SERVER"], log)
 if not options.x64only:
-    runTests(options, env, gitrev, True, "D")
+    runTests(options, env, gitrev, "D")
     with open(prefix + "Dstatus.log", 'w') as log:
         status.printStatus(makeAllLog, makeAllLog, env["SMTP_SERVER"], log)
