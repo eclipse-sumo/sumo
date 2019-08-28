@@ -193,6 +193,7 @@ MSNet::MSNet(MSVehicleControl* vc, MSEventControl* beginOfTimestepEvents,
              ShapeContainer* shapeCont):
     myAmInterrupted(false),
     myVehiclesMoved(0),
+    myPersonsMoved(0),
     myHavePermissions(false),
     myHasInternalLinks(false),
     myHasElevation(false),
@@ -388,6 +389,9 @@ MSNet::generateStatistics(SUMOTime start) {
         msg.setf(std::ios::fixed, std::ios::floatfield);     // use decimal format
         msg.setf(std::ios::showpoint);    // print decimal point
         msg << " UPS: " << ((double)myVehiclesMoved / ((double)duration / 1000)) << "\n";
+        if (myPersonsMoved > 0) {
+            msg << " UPS-Persons: " << ((double)myPersonsMoved / ((double)duration / 1000)) << "\n";
+        }
     }
     // print vehicle statistics
     const std::string discardNotice = ((myVehicleControl->getLoadedVehicleNo() != myVehicleControl->getDepartedVehicleNo()) ?
@@ -569,6 +573,9 @@ MSNet::simulationStep() {
     if (myLogExecutionTime) {
         mySimStepDuration = SysUtils::getCurrentMillis() - mySimStepDuration;
         myVehiclesMoved += myVehicleControl->getRunningVehicleNo();
+        if (myPersonControl != nullptr) {
+            myPersonsMoved += myPersonControl->getRunningNumber();
+        }
     }
     myStep += DELTA_T;
 }

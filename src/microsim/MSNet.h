@@ -757,6 +757,7 @@ protected:
 
     /// @brief The overall number of vehicle movements
     long long int myVehiclesMoved;
+    long long int myPersonsMoved;
     //}
 
 
