@@ -49,7 +49,6 @@
 #include <utils/xml/XMLSubSys.h>
 #include <router/ROLoader.h>
 #include <router/RONet.h>
-#include <router/ROFrame.h>
 #include "RODFEdgeBuilder.h"
 #include "RODFFrame.h"
 #include "RODFNet.h"
