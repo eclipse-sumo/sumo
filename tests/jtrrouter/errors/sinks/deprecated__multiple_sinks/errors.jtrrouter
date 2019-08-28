@@ -1,2 +1,2 @@
-Warning: Please note that using ';' as list separator is deprecated.
- From 1.0 onwards, only ',' will be accepted.
+Error: The edge 'end;left2end;right2end' declared as a sink is not known.
+Quitting (on error).

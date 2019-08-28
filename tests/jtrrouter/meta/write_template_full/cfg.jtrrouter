@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu May 23 23:01:54 2019 by Eclipse SUMO jtrrouter Version v1_2_0+0149-6b40db9d1b
+<!-- generated on 08/28/19 15:40:12 by Eclipse SUMO jtrrouter Version v1_3_0+0081-36f1e9c334b
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/jtrrouterConfiguration.xsd">
@@ -48,6 +48,7 @@
         <with-taz value="false" type="BOOL" help="Use origin and destination zones (districts) for in- and output"/>
         <bulk-routing value="false" type="BOOL" help="Aggregate routing queries with the same origin"/>
         <routing-threads value="0" type="INT" help="The number of parallel execution threads used for routing"/>
+        <restriction-params value="" type="STR" help="Comma separated list of param keys to compare for additional restrictions"/>
         <max-edges-factor value="2" type="FLOAT" help="Routes are cut off when the route edges to net edges ratio is larger than FLOAT"/>
         <turn-defaults value="30,50,20" synonymes="T" type="STR" help="Use STR as default turn definition"/>
         <sink-edges value="" synonymes="sinks" type="STR" help="Use STR as list of sink edges"/>

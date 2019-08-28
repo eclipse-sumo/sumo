@@ -1,4 +1,4 @@
-Eclipse SUMO jtrrouter Version v1_2_0+0149-6b40db9d1b
+Eclipse SUMO jtrrouter Version v1_3_0+0081-36f1e9c334b
  Copyright (C) 2001-2019 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 Router for the microscopic, multi-modal traffic simulation SUMO based on
   junction turning ratios.
@@ -66,6 +66,8 @@ Processing Options:
                                      origin
   --routing-threads INT            The number of parallel execution threads
                                      used for routing
+  --restriction-params STR         Comma separated list of param keys to
+                                     compare for additional restrictions
   --max-edges-factor FLOAT         Routes are cut off when the route edges to
                                      net edges ratio is larger than FLOAT
   -T, --turn-defaults STR          Use STR as default turn definition
