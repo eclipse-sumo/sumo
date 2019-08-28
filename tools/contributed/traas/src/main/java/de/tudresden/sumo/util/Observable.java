@@ -14,8 +14,6 @@ public class Observable {
    }
 
    public void notifyObservers(SubscriptionObject so){
-	   
-	  System.out.println("here!!!!");
       for (Observer observer : observers) {observer.update(this, so);}
    } 	
 
