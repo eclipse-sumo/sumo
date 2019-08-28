@@ -342,14 +342,13 @@ private:
     /// @brief Auxiliary structure used to handle upstream scanning start points
     /// Upstream scan has to be started after downstream scan is completed, see #5644
     struct UpstreamScanStartInfo {
-        UpstreamScanStartInfo(const MSEdge* edge, double pos, double range, double egoDistToConflictLane, const MSLane* egoConflictLane, bool rememberLane = true) :
-            edge(edge), pos(pos), range(range), egoDistToConflictLane(egoDistToConflictLane), egoConflictLane(egoConflictLane), rememberLane(rememberLane) {};
+        UpstreamScanStartInfo(const MSEdge* edge, double pos, double range, double egoDistToConflictLane, const MSLane* egoConflictLane) :
+            edge(edge), pos(pos), range(range), egoDistToConflictLane(egoDistToConflictLane), egoConflictLane(egoConflictLane) {};
         const MSEdge* edge;
         double pos;
         double range;
         double egoDistToConflictLane;
         const MSLane* egoConflictLane;
-		bool rememberLane;
     };
 
     typedef std::priority_queue<Encounter*, std::vector<Encounter*>, Encounter::compare> EncounterQueue;

@@ -3170,9 +3170,7 @@ MSDevice_SSM::getUpstreamVehicles(const UpstreamScanStartInfo& scanStart, FoeInf
             std::cout << "\t" << lane->getID() << ": Found " << foundCount << "\n";
         }
 #endif
-		if (scanStart.rememberLane) {
-			seenLanes.insert(lane);
-		}
+		seenLanes.insert(lane);
     }
 
 #ifdef DEBUG_SSM_SURROUNDING
