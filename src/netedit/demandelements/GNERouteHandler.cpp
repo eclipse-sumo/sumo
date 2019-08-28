@@ -1296,7 +1296,10 @@ GNERouteHandler::closeVehicle() {
     // first check if we're closing a vehicle with embebbed routes and stops
     if (myLoadedVehicleWithEmbebbedRoute) {
         myLoadedVehicleWithEmbebbedRoute = nullptr;
-        myViewNet->getUndoList()->p_end();
+        // check if current command group size has to be ended
+        if (myViewNet->getUndoList()->currentCommandGroupSize() > 0) {
+            myViewNet->getUndoList()->p_end();
+        }
     } else {
         // now check if myVehicleParameter was sucesfully created
         if (myVehicleParameter) {
