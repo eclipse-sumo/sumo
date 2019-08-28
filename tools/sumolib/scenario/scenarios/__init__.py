@@ -398,4 +398,4 @@ def getScenario(which, useName, params, withDefaultDemand=True):
     elif which == "BasicRiLSACorridor3":
         from . import basic_rilsacorridor3
         return basic_rilsacorridor3.Scenario_BasicRiLSACorridor3(useName, params, withDefaultDemand)
-    raise RuntimeError("unknown scenario '%s'" % name)
+    raise RuntimeError("unknown scenario '%s'" % which)

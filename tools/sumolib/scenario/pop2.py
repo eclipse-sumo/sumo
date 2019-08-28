@@ -96,11 +96,11 @@ class ScenarioSet:
         if paramFile is None:
             return
         fd = open(paramFile)
-        for l in fd.readlines():
-            l = l.strip()
-            if len(l) == 0:
+        for line in fd.readlines():
+            line = line.strip()
+            if len(line) == 0:
                 continue
-            v = l.split(":")
+            v = line.split(":")
             tlsProg.addParameter(v[0], v[1])
         fd.close()
 
@@ -3555,8 +3555,8 @@ def getScenarioSet(name, params):
         return ScenarioSet_TurnIteration(params)
     if name == "CorrFlowsDistancesA":
         return ScenarioSet_CorrFlowsDistancesA(params)
-    if name == "NetFlowsA":
-        return ScenarioSet_NetFlowsA(params)
+#    if name == "NetFlowsA":  # seems not to be implemented
+#        return ScenarioSet_NetFlowsA(params)
     if name == "NetFlowsDistancesA":
         return ScenarioSet_NetFlowsDistancesA(params)
     if name == "RealWorld":

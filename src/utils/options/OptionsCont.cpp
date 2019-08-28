@@ -61,7 +61,7 @@ OptionsCont::getOptions() {
 
 
 OptionsCont::OptionsCont()
-    : myAddresses(), myValues(), myDeprecatedSynonymes(), myHaveInformedAboutDeprecatedDivider(false) {
+    : myAddresses(), myValues(), myDeprecatedSynonymes() {
     myCopyrightNotices.push_back("Copyright (C) 2001-2019 German Aerospace Center (DLR) and others; https://sumo.dlr.de");
 }
 
@@ -919,13 +919,7 @@ OptionsCont::writeXMLHeader(std::ostream& os, const bool includeConfig) const {
 
 std::vector<std::string>
 OptionsCont::getStringVector(const std::string& name) const {
-    Option* o = getSecure(name);
-    std::string def = o->getString();
-    if (def.find(';') != std::string::npos && !myHaveInformedAboutDeprecatedDivider) {
-        WRITE_WARNING("Please note that using ';' as list separator is deprecated.\n From 1.0 onwards, only ',' will be accepted.");
-        myHaveInformedAboutDeprecatedDivider = true;
-    }
-    StringTokenizer st(def, ";,", true);
+    StringTokenizer st(getSecure(name)->getString(), ",", true);
     std::vector<std::string> ret = st.getVector();
     for (std::vector<std::string>::iterator i = ret.begin(); i != ret.end(); ++i) {
         (*i) = StringUtils::prune(*i);

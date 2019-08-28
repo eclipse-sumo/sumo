@@ -755,9 +755,6 @@ private:
     /// A map from deprecated options to a bool indicating whether we warned about deprecation
     mutable std::map<std::string, bool> myDeprecatedSynonymes;
 
-    /// Information whether a warning a deprecated divider
-    mutable bool myHaveInformedAboutDeprecatedDivider;
-
     /// Information whether we should always include license information in file headers
     bool myWriteLicense;
 

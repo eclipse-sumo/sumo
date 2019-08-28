@@ -31,11 +31,11 @@ class Scenario_RealWorld(Scenario):
         self.NAME = os.path.join(self.NAME, which)
         self.params = {}
         fd = open(os.path.join(self.THIS_DIR, "meta.txt"))
-        for l in fd:
-            l = l.strip()
-            if len(l) == 0:
+        for line in fd:
+            line = line.strip()
+            if len(line) == 0:
                 continue
-            (key, value) = l.split(":")
+            (key, value) = line.split(":")
             self.params[key] = value
         fd.close()
         self.NET_FILE = os.path.join(self.THIS_DIR, self.params["net"])
