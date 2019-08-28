@@ -27,6 +27,7 @@ from os.path import join
 import optparse
 import glob
 import shutil
+import shlex
 import subprocess
 from collections import defaultdict
 
@@ -159,7 +160,7 @@ for p in [
         skip = False
         appOptions = []
         for f in reversed(optionsFiles):
-            for o in open(f).read().split():
+            for o in shlex.split(open(f).read()):
                 if skip:
                     skip = False
                     continue
@@ -240,10 +241,10 @@ for p in [
             if not haveConfig:
                 appOptions[-2:] = ["bin/" + app]
         if not haveConfig:
-            tool = join("$SUMO_HOME", appOptions[-1])
-            open(nameBase + ".sh", "w").write(tool + " " + " ".join(appOptions[:-1]))
-            tool = join("%SUMO_HOME%", appOptions[-1])
-            open(nameBase + ".bat", "w").write(tool + " " + " ".join(appOptions[:-1]))
+            tool = "$SUMO_HOME/" + appOptions[-1]
+            open(nameBase + ".sh", "w").write(tool + " " + " ".join([o if " " not in o else "'%s'" % o for o in appOptions[:-1]]))
+            tool = "%SUMO_HOME%/" + appOptions[-1]
+            open(nameBase + ".bat", "w").write(tool + " " + " ".join([o if " " not in o else '"%s"' % o for o in appOptions[:-1]]))
         os.chdir(oldWorkDir)
     if options.python_script:
         pyBatch.write(']:\n    if p.wait() != 0:\n        sys.exit(1)\n')
