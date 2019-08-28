@@ -1,2 +1,2 @@
-Warning: Please note that using ';' as list separator is deprecated.
- From 1.0 onwards, only ',' will be accepted.
+Error: Unknown vehicle class 'pedestrian;bicycle'.
+Quitting (on error).

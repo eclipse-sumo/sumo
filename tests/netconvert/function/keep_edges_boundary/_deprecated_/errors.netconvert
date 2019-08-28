@@ -1,2 +1,2 @@
-Warning: Please note that using ';' as list separator is deprecated.
- From 1.0 onwards, only ',' will be accepted.
+Error: Invalid Number Format '(double) -1000;0;1000;1000'
+Quitting (on error).
