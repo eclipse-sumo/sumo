@@ -129,6 +129,12 @@ ROLoader::loadNet(RONet& toFill, ROAbstractEdgeBuilder& eb) {
     } else {
         PROGRESS_DONE_MESSAGE();
     }
+    if (myOptions.isSet("restriction-params")) {
+        const std::vector<std::string> paramKeys = myOptions.getStringVector("restriction-params");
+        for (auto& edgeIt : toFill.getEdgeMap()) {
+            edgeIt.second->cacheParamRestrictions(paramKeys);
+        }
+    }
     if (!deprecatedVehicleClassesSeen.empty()) {
         WRITE_WARNING("Deprecated vehicle classes '" + toString(deprecatedVehicleClassesSeen) + "' in input network.");
         deprecatedVehicleClassesSeen.clear();

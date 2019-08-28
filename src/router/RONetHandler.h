@@ -90,6 +90,9 @@ protected:
     /// @name called from myStartElement
     //@{
 
+    /// @brief assign arbitrary vehicle parameters
+    void addParam(const SUMOSAXAttributes& attrs);
+
     /** @brief Parses and builds an edge
      *
      * Parses attributes from an "edge"-element (id, from/to-nodes, function, etc.).

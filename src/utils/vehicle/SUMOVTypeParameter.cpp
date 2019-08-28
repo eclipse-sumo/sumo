@@ -468,6 +468,14 @@ SUMOVTypeParameter::getJMParamString(const SumoXMLAttr attr, const std::string d
 }
 
 
+void
+SUMOVTypeParameter::cacheParamRestrictions(const std::vector<std::string>& restrictionKeys) {
+    for (const std::string& key : restrictionKeys) {
+        paramRestrictions.push_back(StringUtils::toDouble(getParameter(key, "0")));
+    }
+}
+
+
 double
 SUMOVTypeParameter::getDefaultAccel(const SUMOVehicleClass vc) {
     switch (vc) {

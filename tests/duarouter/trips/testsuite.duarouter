@@ -121,5 +121,8 @@ bulk_parallel_warn
 # test whether CHRouter detects vClass specific connectivity issues
 CHWrapper_lane_connectivity
 
+# test restriction parameters
+restrictionParams
+
 # Tests false input
 errors

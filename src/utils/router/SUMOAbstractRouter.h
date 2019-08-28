@@ -259,7 +259,7 @@ class SUMOAbstractRouterPermissions : public SUMOAbstractRouter<E, V> {
 public:
     /// Constructor
     SUMOAbstractRouterPermissions(const std::string& type, bool unbuildIsWarning,
-                                  typename SUMOAbstractRouter<E, V>::Operation operation = nullptr, typename SUMOAbstractRouter<E, V>::Operation ttOperation = nullptr) :
+        typename SUMOAbstractRouter<E, V>::Operation operation = nullptr, typename SUMOAbstractRouter<E, V>::Operation ttOperation = nullptr) :
         SUMOAbstractRouter<E, V>(type, unbuildIsWarning, operation, ttOperation) {
     }
 
@@ -272,6 +272,39 @@ public:
             return true;
         }
         return edge->prohibits(vehicle);
+    }
+
+    void prohibit(const std::vector<E*>& toProhibit) {
+        myProhibited = toProhibit;
+    }
+
+protected:
+    std::vector<E*> myProhibited;
+
+};
+
+
+template<class E, class V>
+class SUMOAbstractRouterRestrictions : public SUMOAbstractRouter<E, V> {
+public:
+    /// Constructor
+    SUMOAbstractRouterRestrictions(const std::string& type, bool unbuildIsWarning,
+        typename SUMOAbstractRouter<E, V>::Operation operation = nullptr, typename SUMOAbstractRouter<E, V>::Operation ttOperation = nullptr) :
+        SUMOAbstractRouter<E, V>(type, unbuildIsWarning, operation, ttOperation) {
+    }
+
+    /// Destructor
+    virtual ~SUMOAbstractRouterRestrictions() {
+    }
+
+    bool isProhibited(const E* const edge, const V* const vehicle) const {
+        if (std::find(myProhibited.begin(), myProhibited.end(), edge) != myProhibited.end()) {
+            return true;
+        }
+        if (edge->prohibits(vehicle)) {
+            return true;
+        }
+        return edge->restricts(vehicle);
     }
 
     void prohibit(const std::vector<E*>& toProhibit) {

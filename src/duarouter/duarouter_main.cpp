@@ -101,7 +101,10 @@ computeRoutes(RONet& net, ROLoader& loader, OptionsCont& oc) {
     const SUMOTime end = string2time(oc.getString("end"));
     if (measure == "traveltime") {
         if (routingAlgorithm == "dijkstra") {
-            if (net.hasPermissions()) {
+            if (oc.isSet("restriction-params")) {
+                router = new DijkstraRouter<ROEdge, ROVehicle, SUMOAbstractRouterRestrictions<ROEdge, ROVehicle> >(
+                    ROEdge::getAllEdges(), oc.getBool("ignore-errors"), ttFunction);
+            } else if (net.hasPermissions()) {
                 router = new DijkstraRouter<ROEdge, ROVehicle, SUMOAbstractRouterPermissions<ROEdge, ROVehicle> >(
                     ROEdge::getAllEdges(), oc.getBool("ignore-errors"), ttFunction);
             } else {
@@ -109,7 +112,21 @@ computeRoutes(RONet& net, ROLoader& loader, OptionsCont& oc) {
                     ROEdge::getAllEdges(), oc.getBool("ignore-errors"), ttFunction);
             }
         } else if (routingAlgorithm == "astar") {
-            if (net.hasPermissions()) {
+            if (oc.isSet("restriction-params")) {
+                typedef AStarRouter<ROEdge, ROVehicle, SUMOAbstractRouterRestrictions<ROEdge, ROVehicle> > AStar;
+                std::shared_ptr<const AStar::LookupTable> lookup;
+                if (oc.isSet("astar.all-distances")) {
+                    lookup = std::make_shared<const AStar::FLT>(oc.getString("astar.all-distances"), (int)ROEdge::getAllEdges().size());
+                } else if (oc.isSet("astar.landmark-distances")) {
+                    CHRouterWrapper<ROEdge, ROVehicle, SUMOAbstractRouterRestrictions<ROEdge, ROVehicle> > router(
+                        ROEdge::getAllEdges(), true, &ROEdge::getTravelTimeStatic,
+                        begin, end, std::numeric_limits<int>::max(), 1);
+                    ROVehicle defaultVehicle(SUMOVehicleParameter(), nullptr, net.getVehicleTypeSecure(DEFAULT_VTYPE_ID), &net);
+                    lookup = std::make_shared<const AStar::LMLT>(oc.getString("astar.landmark-distances"), ROEdge::getAllEdges(), &router, &defaultVehicle,
+                        oc.isSet("astar.save-landmark-distances") ? oc.getString("astar.save-landmark-distances") : "", oc.getInt("routing-threads"));
+                }
+                router = new AStar(ROEdge::getAllEdges(), oc.getBool("ignore-errors"), ttFunction, lookup);
+            } else if (net.hasPermissions()) {
                 typedef AStarRouter<ROEdge, ROVehicle, SUMOAbstractRouterPermissions<ROEdge, ROVehicle> > AStar;
                 std::shared_ptr<const AStar::LookupTable> lookup;
                 if (oc.isSet("astar.all-distances")) {
@@ -142,7 +159,10 @@ computeRoutes(RONet& net, ROLoader& loader, OptionsCont& oc) {
             const SUMOTime weightPeriod = (oc.isSet("weight-files") ?
                                            string2time(oc.getString("weight-period")) :
                                            std::numeric_limits<int>::max());
-            if (net.hasPermissions()) {
+            if (oc.isSet("restriction-params")) {
+                router = new CHRouter<ROEdge, ROVehicle, SUMOAbstractRouterRestrictions<ROEdge, ROVehicle> >(
+                    ROEdge::getAllEdges(), oc.getBool("ignore-errors"), &ROEdge::getTravelTimeStatic, SVC_IGNORING, weightPeriod, true);
+            } else if (net.hasPermissions()) {
                 router = new CHRouter<ROEdge, ROVehicle, SUMOAbstractRouterPermissions<ROEdge, ROVehicle> >(
                     ROEdge::getAllEdges(), oc.getBool("ignore-errors"), &ROEdge::getTravelTimeStatic, SVC_IGNORING, weightPeriod, true);
             } else {

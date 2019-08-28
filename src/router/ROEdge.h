@@ -70,7 +70,7 @@ typedef std::vector<std::pair<const ROEdge*, const ROEdge*> > ROConstEdgePairVec
  *  the weights, it is needed to call "buildTimeLines" in order to initialise
  *  these time lines.
  */
-class ROEdge : public Named {
+class ROEdge : public Named, public Parameterised {
 public:
     /** @brief Constructor
      *
@@ -173,6 +173,8 @@ public:
      * @param[in] measure The name of the measure to use.
      */
     void buildTimeLines(const std::string& measure, const bool boundariesOverride);
+
+    void cacheParamRestrictions(const std::vector<std::string>& restrictionKeys);
     //@}
 
 
@@ -266,6 +268,21 @@ public:
 
     inline SVCPermissions getPermissions() const {
         return myCombinedPermissions;
+    }
+
+    /** @brief Returns whether this edge has restriction parameters forbidding the given vehicle to pass it
+    * @param[in] vehicle The vehicle for which the information has to be returned
+    * @return Whether the vehicle must not enter this edge
+    */
+    inline bool restricts(const ROVehicle* const vehicle) const {
+        const std::vector<double>& vTypeRestrictions = vehicle->getType()->paramRestrictions;
+        assert(vTypeRestrictions.size() == myParamRestrictions.size());
+        for (int i = 0; i < (int)vTypeRestrictions.size(); i++) {
+            if (vTypeRestrictions[i] > myParamRestrictions[i]) {
+                return true;
+            }
+        }
+        return false;
     }
 
 
@@ -548,6 +565,9 @@ protected:
 
     /// @brief flat penalty when computing traveltime
     double myTimePenalty;
+
+    /// @brief cached value of parameters which may restrict access
+    std::vector<double> myParamRestrictions;
 
     static ROEdgeVector myEdges;
 
