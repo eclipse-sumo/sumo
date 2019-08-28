@@ -241,10 +241,10 @@ for p in [
             if not haveConfig:
                 appOptions[-2:] = ["bin/" + app]
         if not haveConfig:
-            tool = "$SUMO_HOME/" + appOptions[-1]
-            open(nameBase + ".sh", "w").write(tool + " " + " ".join([o if " " not in o else "'%s'" % o for o in appOptions[:-1]]))
-            tool = "%SUMO_HOME%/" + appOptions[-1]
-            open(nameBase + ".bat", "w").write(tool + " " + " ".join([o if " " not in o else '"%s"' % o for o in appOptions[:-1]]))
+            cmd = ["$SUMO_HOME/" + appOptions[-1]] + [o if " " not in o else "'%s'" % o for o in appOptions[:-1]]
+            open(nameBase + ".sh", "w").write(" ".join(cmd))
+            cmd = ["%SUMO_HOME%/" + appOptions[-1]] + [o if " " not in o else '"%s"' % o for o in appOptions[:-1]]
+            open(nameBase + ".bat", "w").write(" ".join(cmd))
         os.chdir(oldWorkDir)
     if options.python_script:
         pyBatch.write(']:\n    if p.wait() != 0:\n        sys.exit(1)\n')

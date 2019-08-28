@@ -82,4 +82,3 @@ netedit.saveNetwork(referencePosition)
 
 # quit netedit
 netedit.quit(neteditProcess)
-
