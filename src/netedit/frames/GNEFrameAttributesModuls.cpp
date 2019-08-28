@@ -1636,7 +1636,7 @@ GNEFrameAttributesModuls::GenericParametersEditor::~GenericParametersEditor() {
 
 void
 GNEFrameAttributesModuls::GenericParametersEditor::showGenericParametersEditor(GNEAttributeCarrier* AC) {
-    if (AC != nullptr) {
+    if ((AC != nullptr) && AC->getTagProperty().hasGenericParameters()) {
         myAC = AC;
         myACs.clear();
         // obtain a copy of generic parameters of AC
@@ -1647,13 +1647,15 @@ GNEFrameAttributesModuls::GenericParametersEditor::showGenericParametersEditor(G
         refreshGenericParametersEditor();
         // show groupbox
         show();
+    } else {
+        hide();
     }
 }
 
 
 void
 GNEFrameAttributesModuls::GenericParametersEditor::showGenericParametersEditor(std::vector<GNEAttributeCarrier*> ACs) {
-    if (ACs.size() > 0) {
+    if ((ACs.size() > 0) && ACs.front()->getTagProperty().hasGenericParameters()) {
         myAC = nullptr;
         myACs = ACs;
         // check if generic parameters are different
@@ -1674,6 +1676,8 @@ GNEFrameAttributesModuls::GenericParametersEditor::showGenericParametersEditor(s
         refreshGenericParametersEditor();
         // show groupbox
         show();
+    } else {
+        hide();
     }
 }
 

@@ -43,9 +43,9 @@
 
 GNEStop::GNEStop(SumoXMLTag tag, GNEViewNet* viewNet, const SUMOVehicleParameter::Stop& stopParameter, GNEAdditional* stoppingPlace, GNEDemandElement* stopParent) :
     GNEDemandElement(stopParent, viewNet, stopParent->getTagProperty().isPerson() ? GLO_PERSONSTOP : GLO_STOP, tag,
-{}, {}, {}, {stoppingPlace}, {stopParent}, {}, {}, {}, {}, {}),
-SUMOVehicleParameter::Stop(stopParameter),
-myFriendlyPosition(false) {
+    {}, {}, {}, {stoppingPlace}, {stopParent}, {}, {}, {}, {}, {}),
+    SUMOVehicleParameter::Stop(stopParameter),
+    myFriendlyPosition(false) {
 }
 
 
@@ -53,9 +53,9 @@ GNEStop::GNEStop(GNEViewNet* viewNet, const SUMOVehicleParameter::Stop& stopPara
     GNEDemandElement(stopParent, viewNet,
                      stopParent->getTagProperty().isPerson() ? GLO_PERSONSTOP : GLO_STOP,
                      stopParent->getTagProperty().isPerson() ? SUMO_TAG_PERSONSTOP_LANE : SUMO_TAG_STOP_LANE,
-{}, {lane}, {}, {}, {stopParent}, {}, {}, {}, {}, {}),
-SUMOVehicleParameter::Stop(stopParameter),
-myFriendlyPosition(friendlyPosition) {
+    {}, {lane}, {}, {}, {stopParent}, {}, {}, {}, {}, {}),
+    SUMOVehicleParameter::Stop(stopParameter),
+    myFriendlyPosition(friendlyPosition) {
 }
 
 
@@ -576,8 +576,6 @@ GNEStop::getAttribute(SumoXMLAttr key) const {
         //
         case GNE_ATTR_SELECTED:
             return toString(isAttributeCarrierSelected());
-        case GNE_ATTR_GENERIC:
-            return getGenericParametersStr();
         case GNE_ATTR_PARENT:
             return getDemandElementParents().front()->getID();
         default:
@@ -635,7 +633,6 @@ GNEStop::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* un
         case SUMO_ATTR_ENDPOS:
         case SUMO_ATTR_FRIENDLY_POS:
         //
-        case GNE_ATTR_GENERIC:
         case GNE_ATTR_SELECTED:
             undoList->p_add(new GNEChange_Attribute(this, myViewNet->getNet(), key, value));
             break;
@@ -727,8 +724,6 @@ GNEStop::isValid(SumoXMLAttr key, const std::string& value) {
         //
         case GNE_ATTR_SELECTED:
             return canParse<bool>(value);
-        case GNE_ATTR_GENERIC:
-            return isGenericParametersValid(value);
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
@@ -823,52 +818,21 @@ GNEStop::getEndGeometryPositionOverLane() const {
 
 std::string
 GNEStop::getGenericParametersStr() const {
-    std::string result;
-    // Generate an string using the following structure: "key1=value1|key2=value2|...
-    for (auto i : getParametersMap()) {
-        result += i.first + "=" + i.second + "|";
-    }
-    // remove the last "|"
-    if (!result.empty()) {
-        result.pop_back();
-    }
-    return result;
+    // stops don't support generic parameters
+    return "";
 }
 
 
 std::vector<std::pair<std::string, std::string> >
 GNEStop::getGenericParameters() const {
-    std::vector<std::pair<std::string, std::string> >  result;
-    // iterate over parameters map and fill result
-    for (auto i : getParametersMap()) {
-        result.push_back(std::make_pair(i.first, i.second));
-    }
-    return result;
+    // stops don't support generic parameters
+    return std::vector<std::pair<std::string, std::string> >();
 }
 
 
 void
-GNEStop::setGenericParametersStr(const std::string& value) {
-    // clear parameters
-    clearParameter();
-    // separate value in a vector of string using | as separator
-    std::vector<std::string> parsedValues;
-    StringTokenizer stValues(value, "|", true);
-    while (stValues.hasNext()) {
-        parsedValues.push_back(stValues.next());
-    }
-    // check that parsed values (A=B)can be parsed in generic parameters
-    for (auto i : parsedValues) {
-        std::vector<std::string> parsedParameters;
-        StringTokenizer stParam(i, "=", true);
-        while (stParam.hasNext()) {
-            parsedParameters.push_back(stParam.next());
-        }
-        // Check that parsed parameters are exactly two and contains valid chracters
-        if (parsedParameters.size() == 2 && SUMOXMLDefinitions::isValidGenericParameterKey(parsedParameters.front()) && SUMOXMLDefinitions::isValidGenericParameterValue(parsedParameters.back())) {
-            setParameter(parsedParameters.front(), parsedParameters.back());
-        }
-    }
+GNEStop::setGenericParametersStr(const std::string& /*value*/) {
+    // stops don't support generic parameters
 }
 
 // ===========================================================================
@@ -986,9 +950,6 @@ GNEStop::setAttribute(SumoXMLAttr key, const std::string& value) {
             } else {
                 unselectAttributeCarrier();
             }
-            break;
-        case GNE_ATTR_GENERIC:
-            setGenericParametersStr(value);
             break;
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
