@@ -16,8 +16,6 @@
 ///
 //
 /****************************************************************************/
-import java.util.Observer;
-import java.util.Observable;
 import it.polito.appeal.traci.SumoTraciConnection;
 import it.polito.appeal.traci.TraCIException;
 import de.tudresden.sumo.cmd.Simulation;
@@ -25,6 +23,8 @@ import de.tudresden.sumo.cmd.Vehicle;
 import de.tudresden.sumo.cmd.Inductionloop;
 import de.tudresden.sumo.cmd.Trafficlight;
 import de.tudresden.sumo.config.Constants;
+import de.tudresden.sumo.util.Observer;
+import de.tudresden.sumo.util.Observable;
 import de.tudresden.sumo.subscription.VariableSubscription;
 import de.tudresden.sumo.subscription.SubscribtionVariable;
 import de.tudresden.sumo.subscription.SubscriptionObject;
@@ -82,8 +82,7 @@ public class Subscription implements Observer {
 
     }
 
-    public void update(Observable arg0, Object arg1) {
-        SubscriptionObject so = (SubscriptionObject) arg1;
+    public void update(Observable arg0, SubscriptionObject so) {
         //System.out.println("Subscription id=" + so.id + " domain=" +  so.domain + " name=" + so.name + " var=" + so.variable + " status=" + so.status + " ret=" + so.return_type + " resp=" + so.response.getID());
 
         if (so.response == ResponseType.SIM_VARIABLE) {
