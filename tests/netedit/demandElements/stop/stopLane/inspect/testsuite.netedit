@@ -1,9 +1,3 @@
-lane
-
-startPos
-
-endPos
-
 friendlyPos
 
 duration
@@ -24,6 +18,4 @@ parking
 
 actType
 
-tripID
-
-genericParameters
+#tripID
