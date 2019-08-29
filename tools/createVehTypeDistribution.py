@@ -27,6 +27,7 @@ nameOfAttribute; valueOfAttribute [; limits]
 ValueOfAttribute can be a string, a scalar value or a distribution definition. \
 Available distributions and its syntax are:
 "normal(mu,sd)" with mu and sd being floating numbers: Normal distribution with mean mu and standard deviation sd.
+"lognormal(mu,sd)" with mu and sd being floating numbers: Log-Normal distribution with mean mu and standard deviation sd.
 "uniform(a,b)" with limits a and b being floating numbers: Uniform distribution between a and b.
 "gamma(alpha,beta)" with parameters alpha and beta: Gamma distribution.
 
@@ -100,6 +101,14 @@ class NormalDistribution(FixDistribution):
     def _sampleValue(self):
         return random.normalvariate(self._params[0], self._params[1])
 
+class LogNormalDistribution(FixDistribution):
+
+    def __init__(self, loc, scale):
+        FixDistribution.__init__(self, (loc, scale))
+
+    def _sampleValue(self):
+        return random.lognormvariate(self._params[0], self._params[1])
+
 
 class NormalCappedDistribution(FixDistribution):
 
@@ -164,6 +173,7 @@ def readConfigFile(options):
     result = {}
     floatRegex = ['\s*(-?[0-9]+(\.[0-9]+)?)\s*']
     distSyntaxes = {'normal': 'normal\(%s\)' % (",".join(2 * floatRegex)),
+                    'lognormal': 'lognormal\(%s\)' % (",".join(2 * floatRegex)),
                     'normalCapped': 'normalCapped\(%s\)' % (",".join(4 * floatRegex)),
                     'uniform': 'uniform\(%s\)' % (",".join(2 * floatRegex)),
                     'gamma': 'gamma\(%s\)' % (",".join(2 * floatRegex))}
@@ -202,6 +212,8 @@ def readConfigFile(options):
 
                             if distName == 'normal':
                                 value = NormalDistribution(distPar1, distPar2)
+                            if distName == 'lognormal':
+                                value = LogNormalDistribution(distPar1, distPar2)
                             elif distName == 'normalCapped':
                                 cutLow = float(items[0][4])
                                 cutHigh = float(items[0][6])
