@@ -618,6 +618,9 @@ public:
         /// @brief IDs of containers the vehicle has to wait for until departing
         std::set<std::string> awaitedContainers;
 
+        /// @brief enable or disable friendly position (used by NETEDIT)
+        bool friendlyPos;
+
         /// @brief id of the trip within a cyclical public transport route
         std::string tripId;
 

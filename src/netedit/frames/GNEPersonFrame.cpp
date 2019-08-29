@@ -507,11 +507,10 @@ GNEPersonFrame::buildPersonOverStop(GNELane* lane, GNEAdditional* busStop) {
     } else {
         // declare stop parameters and friendly position
         SUMOVehicleParameter::Stop stopParameter;
-        bool friendlyPosition;
-        if (GNEStopFrame::getStopParameter(stopParameter, friendlyPosition, myPersonPlanTagSelector->getCurrentTagProperties().getTag(),
+        if (GNEStopFrame::getStopParameter(stopParameter, myPersonPlanTagSelector->getCurrentTagProperties().getTag(),
                                            myViewNet, myPersonPlanAttributes, myNeteditAttributes, lane, busStop)) {
             // create it in RouteFrame
-            GNERouteHandler::buildStop(myViewNet, true, stopParameter, buildPerson(), friendlyPosition);
+            GNERouteHandler::buildStop(myViewNet, true, stopParameter, buildPerson());
             // end undo-redo operation
             myViewNet->getUndoList()->p_end();
             // stop sucesfully created, then return true

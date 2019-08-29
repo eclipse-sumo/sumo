@@ -117,7 +117,7 @@ public:
     static void buildFlow(GNEViewNet* viewNet, bool undoDemandElements, const SUMOVehicleParameter& vehicleParameters, const std::vector<GNEEdge*>& edges);
 
     /// @brief build stop
-    static void buildStop(GNEViewNet* viewNet, bool undoDemandElements, const SUMOVehicleParameter::Stop& stopParameters, GNEDemandElement* stopParent, bool friendlyPosition);
+    static void buildStop(GNEViewNet* viewNet, bool undoDemandElements, const SUMOVehicleParameter::Stop& stopParameters, GNEDemandElement* stopParent);
 
     /// @brief build person
     static void buildPerson(GNEViewNet* viewNet, bool undoDemandElements, const SUMOVehicleParameter& personParameters);
@@ -320,9 +320,6 @@ private:
 
         /// @brief laneStop
         GNELane* laneStop;
-
-        /// @brief friendly position
-        bool friendlyPos;
 
         /// @brief stop parameters
         SUMOVehicleParameter::Stop stopParameters;

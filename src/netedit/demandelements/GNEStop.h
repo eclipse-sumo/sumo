@@ -39,7 +39,7 @@ public:
     GNEStop(SumoXMLTag tag, GNEViewNet* viewNet, const SUMOVehicleParameter::Stop& stopParameter, GNEAdditional* stoppingPlace, GNEDemandElement* stopParent);
 
     /// @brief constructor used for stops over lanes
-    GNEStop(GNEViewNet* viewNet, const SUMOVehicleParameter::Stop& stopParameter, GNELane* lane, bool friendlyPosition, GNEDemandElement* stopParent);
+    GNEStop(GNEViewNet* viewNet, const SUMOVehicleParameter::Stop& stopParameter, GNELane* lane, GNEDemandElement* stopParent);
 
     /// @brief destructor
     ~GNEStop();
@@ -203,9 +203,6 @@ public:
 protected:
     /// @brief variable demand element move
     DemandElementMove myStopMove;
-
-    /// @brief Flag for friendly position
-    bool myFriendlyPosition;
 
 private:
     /// @brief method for setting the attribute and nothing else

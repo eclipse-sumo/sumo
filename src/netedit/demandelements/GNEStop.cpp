@@ -44,18 +44,16 @@
 GNEStop::GNEStop(SumoXMLTag tag, GNEViewNet* viewNet, const SUMOVehicleParameter::Stop& stopParameter, GNEAdditional* stoppingPlace, GNEDemandElement* stopParent) :
     GNEDemandElement(stopParent, viewNet, stopParent->getTagProperty().isPerson() ? GLO_PERSONSTOP : GLO_STOP, tag,
     {}, {}, {}, {stoppingPlace}, {stopParent}, {}, {}, {}, {}, {}),
-    SUMOVehicleParameter::Stop(stopParameter),
-    myFriendlyPosition(false) {
+    SUMOVehicleParameter::Stop(stopParameter) {
 }
 
 
-GNEStop::GNEStop(GNEViewNet* viewNet, const SUMOVehicleParameter::Stop& stopParameter, GNELane* lane, bool friendlyPosition, GNEDemandElement* stopParent) :
+GNEStop::GNEStop(GNEViewNet* viewNet, const SUMOVehicleParameter::Stop& stopParameter, GNELane* lane, GNEDemandElement* stopParent) :
     GNEDemandElement(stopParent, viewNet,
                      stopParent->getTagProperty().isPerson() ? GLO_PERSONSTOP : GLO_STOP,
                      stopParent->getTagProperty().isPerson() ? SUMO_TAG_PERSONSTOP_LANE : SUMO_TAG_STOP_LANE,
     {}, {lane}, {}, {}, {stopParent}, {}, {}, {}, {}, {}),
-    SUMOVehicleParameter::Stop(stopParameter),
-    myFriendlyPosition(friendlyPosition) {
+    SUMOVehicleParameter::Stop(stopParameter) {
 }
 
 
@@ -79,7 +77,7 @@ GNEStop::isDemandElementValid() const {
     // only Stops placed over lanes can be invalid
     if (myTagProperty.getTag() != SUMO_TAG_STOP_LANE) {
         return true;
-    } else if (myFriendlyPosition) {
+    } else if (friendlyPos) {
         // with friendly position enabled position are "always fixed"
         return true;
     } else {
@@ -575,7 +573,7 @@ GNEStop::getAttribute(SumoXMLAttr key) const {
                 return "";
             }
         case SUMO_ATTR_FRIENDLY_POS:
-            return toString(myFriendlyPosition);
+            return toString(friendlyPos);
         //
         case GNE_ATTR_SELECTED:
             return toString(isAttributeCarrierSelected());
@@ -710,7 +708,7 @@ GNEStop::isValid(SumoXMLAttr key, const std::string& value) {
             if (value.empty()) {
                 return true;
             } else if (canParse<double>(value)) {
-                return GNEStoppingPlace::checkStoppinPlacePosition(value, toString(endPos), getLaneParents().front()->getParentEdge().getNBEdge()->getFinalLength(), myFriendlyPosition);
+                return GNEStoppingPlace::checkStoppinPlacePosition(value, toString(endPos), getLaneParents().front()->getParentEdge().getNBEdge()->getFinalLength(), friendlyPos);
             } else {
                 return false;
             }
@@ -718,7 +716,7 @@ GNEStop::isValid(SumoXMLAttr key, const std::string& value) {
             if (value.empty()) {
                 return true;
             } else if (canParse<double>(value)) {
-                return GNEStoppingPlace::checkStoppinPlacePosition(toString(startPos), value, getLaneParents().front()->getParentEdge().getNBEdge()->getFinalLength(), myFriendlyPosition);
+                return GNEStoppingPlace::checkStoppinPlacePosition(toString(startPos), value, getLaneParents().front()->getParentEdge().getNBEdge()->getFinalLength(), friendlyPos);
             } else {
                 return false;
             }
@@ -944,7 +942,7 @@ GNEStop::setAttribute(SumoXMLAttr key, const std::string& value) {
             }
             break;
         case SUMO_ATTR_FRIENDLY_POS:
-            myFriendlyPosition = parse<bool>(value);
+            friendlyPos = parse<bool>(value);
             break;
         //
         case GNE_ATTR_SELECTED:

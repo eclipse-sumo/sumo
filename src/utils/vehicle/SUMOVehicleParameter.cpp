@@ -159,7 +159,8 @@ SUMOVehicleParameter::Stop::Stop() :
     until(0),
     triggered(false),
     containerTriggered(false),
-    parking(false) {
+    parking(false),
+    friendlyPos(false) {
 }
 
 
@@ -213,6 +214,10 @@ SUMOVehicleParameter::Stop::write(OutputDevice& dev) const {
     }
     if ((parametersSet & STOP_LINE_SET) != 0) {
         dev.writeAttr(SUMO_ATTR_LINE, line);
+    }
+    // only write friendly position if is true
+    if (friendlyPos == true) {
+        dev.writeAttr(SUMO_ATTR_FRIENDLY_POS, friendlyPos);
     }
     dev.closeTag();
 }

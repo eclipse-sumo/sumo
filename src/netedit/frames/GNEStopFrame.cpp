@@ -188,13 +188,12 @@ GNEStopFrame::addStop(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCu
         }
         // declare a Stop
         SUMOVehicleParameter::Stop stopParameter;
-        bool friendlyPosition = false;
         // check if stop parameters was sucesfully obtained
-        if (getStopParameter(stopParameter, friendlyPosition, myStopTagSelector->getCurrentTagProperties().getTag(),
+        if (getStopParameter(stopParameter, myStopTagSelector->getCurrentTagProperties().getTag(),
                              myViewNet, myStopAttributes, myNeteditAttributes,
                              objectsUnderCursor.getLaneFront(), objectsUnderCursor.getAdditionalFront())) {
             // create it in RouteFrame
-            GNERouteHandler::buildStop(myViewNet, true, stopParameter, myStopParentSelector->getCurrentDemandElement(), friendlyPosition);
+            GNERouteHandler::buildStop(myViewNet, true, stopParameter, myStopParentSelector->getCurrentDemandElement());
             // stop sucesfully created, then return true
             return true;
         } else {
@@ -204,8 +203,9 @@ GNEStopFrame::addStop(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCu
 }
 
 bool
-GNEStopFrame::getStopParameter(SUMOVehicleParameter::Stop& stop, bool& friendlyPosition, const SumoXMLTag stopTag,
-                               GNEViewNet* viewNet, const GNEFrameAttributesModuls::AttributesCreator* stopAttributes, const GNEFrameAttributesModuls::NeteditAttributes* myNeteditAttributes,
+GNEStopFrame::getStopParameter(SUMOVehicleParameter::Stop& stop, const SumoXMLTag stopTag, GNEViewNet* viewNet, 
+                               const GNEFrameAttributesModuls::AttributesCreator* stopAttributes, 
+                               const GNEFrameAttributesModuls::NeteditAttributes* myNeteditAttributes,
                                const GNELane* lane, const GNEAdditional* stoppingPlace) {
     // first check that current selected Stop is valid
     if (stopTag == SUMO_TAG_NOTHING) {
@@ -295,7 +295,7 @@ GNEStopFrame::getStopParameter(SUMOVehicleParameter::Stop& stop, bool& friendlyP
     }
     // obtain friendly position
     if (valuesMap.count(SUMO_ATTR_FRIENDLY_POS) > 0) {
-        friendlyPosition = GNEAttributeCarrier::parse<bool>(valuesMap.at(SUMO_ATTR_FRIENDLY_POS));
+        stop.friendlyPos = GNEAttributeCarrier::parse<bool>(valuesMap.at(SUMO_ATTR_FRIENDLY_POS));
     }
     // fill rest of parameters depending if it was edited
     if (valuesMap.count(SUMO_ATTR_DURATION) > 0) {
