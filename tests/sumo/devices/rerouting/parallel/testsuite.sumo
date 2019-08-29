@@ -1,0 +1,17 @@
+# parallel execution of auto_flow
+parallel_flow
+
+# parallel execution of auto_flow with astar
+parallel_astar
+
+# parallel execution of auto_flow with chwrapper
+parallel_ch
+
+# running A* with districts and an empty landmark file, computing in parallel
+taz_astar_landmark_parallel
+
+# parallel execution with faulty routes
+parallel_disconnected
+
+# trips as input, no edges, districts used
+trip_taz_noedge_disconnected_parallel

@@ -7,6 +7,9 @@ routes_explicite_routes
 # whether the devices are properly assigned
 assignment
 
+# tests for parallel simulation routing
+parallel
+
 # various tests for computing edge weights during routing
 weights
 
@@ -24,9 +27,6 @@ stops
 
 # handle input errors
 errors
-
-# parallel execution with faulty routes
-parallel_disconnected
 
 # faulty routes
 disconnected

@@ -16,15 +16,6 @@ auto_trip
 # all vehicles have the device due to flow def without route
 auto_flow
 
-# parallel execution of auto_flow
-parallel_flow
-
-# parallel execution of auto_flow with astar
-parallel_astar
-
-# parallel execution of auto_flow with chwrapper
-parallel_ch
-
 # all vehicles have the device, using probability=1 and flows as input
 all_by_prob_flow
 
@@ -75,9 +66,6 @@ taz_astar_landmark_missing
 
 # running A* with districts and an empty landmark file
 taz_astar_landmark_empty
-
-# running A* with districts and an empty landmark file, computing in parallel
-taz_astar_landmark_parallel
 
 # all vehicles have the device due to trip def
 auto_trip_with_stop
