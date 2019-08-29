@@ -2,3 +2,6 @@ ticket1153
 
 # Copy of ticket1153
 ticket4010
+
+# Copied from speedGain/default, added option --lanechangeDuration=2.5
+ticket4364
