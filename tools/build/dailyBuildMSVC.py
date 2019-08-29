@@ -23,7 +23,7 @@ hard coded into this script.
 from __future__ import absolute_import
 from __future__ import print_function
 import io
-from datetime import date
+import datetime
 import optparse
 import os
 import glob
@@ -91,7 +91,7 @@ def runTests(options, env, gitrev, debugSuffix=""):
     log = open(testLog, 'w')
     # provide more information than just the date:
     fullOpt = ["-b", prefix, "-name", "%sr%s" %
-               (date.today().strftime("%d%b%y"), gitrev)]
+               (datetime.date.today().strftime("%d%b%y"), gitrev)]
     ttBin = "texttestc.py"
     if options.suffix == "extra":
         runExtraTests.run(debugSuffix, fullOpt, log, True, True, debugSuffix == "")
@@ -223,7 +223,8 @@ for platform in (["x64"] if options.x64only else ["Win32", "x64"]):
                     if write:
                         zipf.write(f, nameInZip)
             includeDir = binDir.replace("bin", "include")
-            for f in glob.glob(os.path.join(options.rootDir, "src", "libsumo", "*.h")):
+            print("%s: Creating sumo.zip." % datetime.datetime.now(), file=log)
+            for f in glob.glob(os.path.join(options.rootDir, options.binDir.replace("bin", "src"), "libsumo", "*.h")):
                 base = os.path.basename(f)
                 nameInZip = os.path.join(includeDir, "libsumo", base)
                 if base != "Helper.h":
@@ -231,30 +232,35 @@ for platform in (["x64"] if options.x64only else ["Win32", "x64"]):
             zipf.close()
             if options.suffix == "":
                 # installers only for the vanilla build
+                print("%s: Creating sumo.msi." % datetime.datetime.now(), file=log)
                 wix.buildMSI(binaryZip, binaryZip.replace(".zip", ".msi"), log=log)
         except IOError as ziperr:
             print("Warning: Could not zip to %s (%s)!" % (binaryZip, ziperr), file=log)
-    try:
-        setup = os.path.join(env["SUMO_HOME"], 'tools', 'game', 'setup.py')
-        subprocess.call(['python', setup, binaryZip], stdout=log, stderr=subprocess.STDOUT)
-    except Exception as e:
-        print("Warning: Could not create nightly sumo-game.zip! (%s)" % e, file=log)
-    log.close()
-    with open(makeAllLog, 'a') as log:
-        ret = subprocess.call(["cmake", "--build", ".", "--config", "Debug"],
-                              cwd=buildDir, stdout=log, stderr=subprocess.STDOUT)
-    if ret == 0 and sumoAllZip:
+    if platform == "x64":
+        print("%s: Creating sumo-game.zip." % datetime.datetime.now(), file=log)
         try:
-            debugZip = sumoAllZip.replace("-all-", "-%s%sDebug-" %
-                                          (platform.lower().replace("x", "win"), options.suffix))
-            zipf = zipfile.ZipFile(debugZip, 'w', zipfile.ZIP_DEFLATED)
-            for f in (glob.glob(os.path.join(options.rootDir, options.binDir, "*D.exe")) +
-                      glob.glob(os.path.join(options.rootDir, options.binDir, "*D.pdb"))):
-                zipf.write(f, os.path.join(binDir, os.path.basename(f)))
-            zipf.close()
-        except IOError as ziperr:
-            print("Warning: Could not zip to %s (%s)!" % (binaryZip, ziperr), file=log)
+            setup = os.path.join(env["SUMO_HOME"], 'tools', 'game', 'setup.py')
+            subprocess.call(['python', setup, binaryZip], stdout=log, stderr=subprocess.STDOUT)
+        except Exception as e:
+            print("Warning: Could not create nightly sumo-game.zip! (%s)" % e, file=log)
+    with open(makeAllLog, 'a') as debugLog:
+        ret = subprocess.call(["cmake", "--build", ".", "--config", "Debug"],
+                              cwd=buildDir, stdout=debugLog, stderr=subprocess.STDOUT)
+        if ret == 0 and sumoAllZip:
+            print("%s: Creating sumoDebug.zip." % datetime.datetime.now(), file=debugLog)
+            try:
+                debugZip = sumoAllZip.replace("-all-", "-%s%sDebug-" %
+                                            (platform.lower().replace("x", "win"), options.suffix))
+                zipf = zipfile.ZipFile(debugZip, 'w', zipfile.ZIP_DEFLATED)
+                for ext in ("*D.exe", "*.dll", "*D.pdb"):
+                    for f in glob.glob(os.path.join(options.rootDir, options.binDir, ext)):
+                        zipf.write(f, os.path.join(binDir, os.path.basename(f)))
+                zipf.close()
+            except IOError as ziperr:
+                print("Warning: Could not zip to %s (%s)!" % (binaryZip, ziperr), file=debugLog)
+    print("%s: Running tests." % datetime.datetime.now(), file=log)
     runTests(options, env, gitrev)
+    log.close()
     with open(statusLog, 'w') as log:
         status.printStatus(makeLog, makeAllLog, env["SMTP_SERVER"], log)
 if not options.x64only:
