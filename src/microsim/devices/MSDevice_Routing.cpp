@@ -129,7 +129,7 @@ MSDevice_Routing::buildVehicleDevices(SUMOVehicle& v, std::vector<MSVehicleDevic
         // can still be used to disable periodic rerouting after insertion for
         // parts of the fleet
         const SUMOTime period = equip || oc.isDefault("device.rerouting.probability") ? string2time(oc.getString("device.rerouting.period")) : 0;
-        const SUMOTime prePeriod = string2time(oc.getString("device.rerouting.pre-period"));
+        const SUMOTime prePeriod = MAX2((SUMOTime)0, string2time(oc.getString("device.rerouting.pre-period")));
         MSRoutingEngine::initWeightUpdate();
         // build the device
         into.push_back(new MSDevice_Routing(v, "routing_" + v.getID(), period, prePeriod));
