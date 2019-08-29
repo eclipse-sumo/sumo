@@ -167,6 +167,9 @@ MSDevice_Routing::notifyEnter(SUMOTrafficObject& /*veh*/, MSMoveReminder::Notifi
         // clean up pre depart rerouting
         if (myRerouteCommand != nullptr) {
             myRerouteCommand->deschedule();
+        } else if (myPreInsertionPeriod > 0 && myHolder.getDepartDelay() > myPreInsertionPeriod) {
+            // pre-insertion rerouting was disabled. Reroute once if insertion was delayed
+            reroute(MSNet::getInstance()->getCurrentTimeStep());
         }
         myRerouteCommand = nullptr;
         // build repetition trigger if routing shall be done more often
@@ -206,6 +209,12 @@ MSDevice_Routing::preInsertionReroute(const SUMOTime currentTime) {
     } catch (ProcessError&) {
         myRerouteCommand = nullptr;
         throw;
+    }
+    // avoid repeated pre-insertion rerouting when the departure edge is fix and
+    // the departure lane does not depend on the route
+    if (myPreInsertionPeriod > 0 && !source->isTazConnector() && myHolder.getParameter().departLaneProcedure != DEPART_LANE_BEST_FREE) {
+        myRerouteCommand = nullptr;
+        return 0;
     }
     return myPreInsertionPeriod;
 }
