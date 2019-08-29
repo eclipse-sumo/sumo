@@ -2100,7 +2100,7 @@ GNEViewNet::onCmdToogleShowConnections(FXObject*, FXSelector sel, void*) {
     }
     // change flag "showLane2Lane" in myVisualizationSettings
     myVisualizationSettings->showLane2Lane = (myNetworkViewOptions.menuCheckShowConnections->getCheck() == TRUE);
-    // Hide/show connections requiere recompute
+    // Hide/show connections require recompute
     getNet()->requireRecompute();
     // Update viewnNet to show/hide conections
     update();

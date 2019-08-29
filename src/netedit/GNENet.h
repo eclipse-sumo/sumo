@@ -457,7 +457,7 @@ public:
     std::vector<GNEShape*> retrieveShapes(bool onlySelected = false);
 
     /// @brief inform that net has to be saved
-    void requiereSaveNet(bool value);
+    void requireSaveNet(bool value);
 
     /// @brief return if net has to be saved
     bool isNetSaved() const;
@@ -612,7 +612,7 @@ public:
     void updateAdditionalID(const std::string& oldID, GNEAdditional* additional);
 
     /// @brief inform that additionals has to be saved
-    void requiereSaveAdditionals(bool value);
+    void requireSaveAdditionals(bool value);
 
     /**@brief save additional elements of the network
     * @param[in] filename name of the file in wich save additionals
@@ -659,7 +659,7 @@ public:
     void updateDemandElementBegin(const std::string& oldBegin, GNEDemandElement* demandElement);
 
     /// @brief inform that demand elements has to be saved
-    void requiereSaveDemandElements(bool value);
+    void requireSaveDemandElements(bool value);
 
     /**@brief save demand element elements of the network
     * @param[in] filename name of the file in wich save demand elements
@@ -703,7 +703,7 @@ public:
     /// @name Functions related to TLS Programs
     /// @{
     /// @brief inform that TLS Programs has to be saved
-    void requiereSaveTLSPrograms();
+    void requireSaveTLSPrograms();
 
     /**@brief save TLS Programs elements of the network
      * @param[in] filename name of the file in wich save TLS Programs

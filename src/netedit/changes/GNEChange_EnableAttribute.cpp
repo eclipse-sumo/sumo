@@ -73,11 +73,11 @@ GNEChange_EnableAttribute::undo() {
     myAC->setEnabledAttribute(myOriginalAttributes);
     // check if netElements, additional or shapes has to be saved
     if (myAC->getTagProperty().isNetElement()) {
-        myNet->requiereSaveNet(true);
+        myNet->requireSaveNet(true);
     } else if (myAC->getTagProperty().isAdditional() || myAC->getTagProperty().isShape()) {
-        myNet->requiereSaveAdditionals(true);
+        myNet->requireSaveAdditionals(true);
     } else if (myAC->getTagProperty().isDemandElement()) {
-        myNet->requiereSaveDemandElements(true);
+        myNet->requireSaveDemandElements(true);
     }
 }
 
@@ -90,11 +90,11 @@ GNEChange_EnableAttribute::redo() {
     myAC->setEnabledAttribute(myNewAttributes);
     // check if netElements, additional or shapes has to be saved
     if (myAC->getTagProperty().isNetElement()) {
-        myNet->requiereSaveNet(true);
+        myNet->requireSaveNet(true);
     } else if (myAC->getTagProperty().isAdditional() || myAC->getTagProperty().isShape()) {
-        myNet->requiereSaveAdditionals(true);
+        myNet->requireSaveAdditionals(true);
     } else if (myAC->getTagProperty().isDemandElement()) {
-        myNet->requiereSaveDemandElements(true);
+        myNet->requireSaveDemandElements(true);
     }
 }
 

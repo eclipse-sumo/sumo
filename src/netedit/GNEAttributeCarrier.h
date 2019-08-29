@@ -89,7 +89,7 @@ public:
         ATTRPROPERTY_SYNONYM =             1 << 22,  // Attribute will be written with a different name in der XML
         ATTRPROPERTY_RANGE =               1 << 23,  // Attribute only accept a range of elements (example: Probability [0,1]
         ATTRPROPERTY_EXTENDED =            1 << 24,  // Attribute is extended (in Frame will not be shown, see VType attributes)
-        ATTRPROPERTY_UPDATEGEOMETRY =      1 << 25,  // Attribute requiere update geometry at the end of function setAttribute(...)
+        ATTRPROPERTY_UPDATEGEOMETRY =      1 << 25,  // Attribute require update geometry at the end of function setAttribute(...)
         ATTRPROPERTY_OPTIONAL =            1 << 26,  // Attribute is optional, i.e. can be enabled/disabled using a checkbox in frame
         ATTRPROPERTY_COMPLEX =             1 << 27,  // Attribute is complex: Requiere a special function to check if their given value is valid
         ATTRPROPERTY_ENABLITABLE =         1 << 28,  // Attribute is enablitable: Can be enabled or disabled.
@@ -234,8 +234,8 @@ public:
         /// @brief return true if atribute is extended
         bool isExtended() const;
 
-        /// @brief return true if atribute requieres a update geometry in setAttribute(...)
-        bool requiereUpdateGeometry() const;
+        /// @brief return true if atribute requires a update geometry in setAttribute(...)
+        bool requireUpdateGeometry() const;
 
         /// @brief return true if atribute is optional
         bool isOptional() const;

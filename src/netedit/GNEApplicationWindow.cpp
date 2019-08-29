@@ -931,7 +931,7 @@ GNEApplicationWindow::handleEvent_NetworkLoaded(GUIEvent* e) {
     }
     // after loading net shouldn't be saved
     if (myNet) {
-        myNet->requiereSaveNet(false);
+        myNet->requireSaveNet(false);
     }
     // update app
     update();

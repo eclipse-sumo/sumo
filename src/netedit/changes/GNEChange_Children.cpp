@@ -98,7 +98,7 @@ GNEChange_Children::undo() {
         }
     }
     // Requiere always save childrens
-    myNet->requiereSaveDemandElements(true);
+    myNet->requireSaveDemandElements(true);
 }
 
 
@@ -132,7 +132,7 @@ GNEChange_Children::redo() {
         }
     }
     // Requiere always save childrens
-    myNet->requiereSaveDemandElements(true);
+    myNet->requireSaveDemandElements(true);
 }
 
 

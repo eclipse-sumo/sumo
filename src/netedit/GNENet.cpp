@@ -479,7 +479,7 @@ GNENet::deleteEdge(GNEEdge* edge, GNEUndoList* undoList, bool recomputeConnectio
     }
     // Delete edge
     undoList->add(new GNEChange_Edge(edge, false), true);
-    // remove edge requieres always a recompute (due geometry and connections)
+    // remove edge requires always a recompute (due geometry and connections)
     requireRecompute();
     // finish delete edge
     undoList->p_end();
@@ -573,7 +573,7 @@ GNENet::deleteLane(GNELane* lane, GNEUndoList* undoList, bool recomputeConnectio
         // delete lane
         const NBEdge::Lane& laneAttrs = edge->getNBEdge()->getLaneStruct(lane->getIndex());
         undoList->add(new GNEChange_Lane(edge, lane, laneAttrs, false, recomputeConnections), true);
-        // remove lane requieres always a recompute (due geometry and connections)
+        // remove lane requires always a recompute (due geometry and connections)
         requireRecompute();
         undoList->p_end();
     }
@@ -589,7 +589,7 @@ GNENet::deleteConnection(GNEConnection* connection, GNEUndoList* undoList) {
     junctionDestiny->markAsModified(undoList);
     undoList->add(new GNEChange_Connection(connection->getEdgeFrom(), connection->getNBEdgeConnection(), connection->isAttributeCarrierSelected(), false), true);
     junctionDestiny->invalidateTLS(undoList, deleted);
-    // remove connection requieres always a recompute (due geometry and connections)
+    // remove connection requires always a recompute (due geometry and connections)
     requireRecompute();
     undoList->p_end();
 }
@@ -606,7 +606,7 @@ GNENet::deleteCrossing(GNECrossing* crossing, GNEUndoList* undoList) {
                                          crossing->getNBCrossing()->customShape,
                                          crossing->isAttributeCarrierSelected(),
                                          false), true);
-    // remove crossing requieres always a recompute (due geometry and connections)
+    // remove crossing requires always a recompute (due geometry and connections)
     requireRecompute();
     undoList->p_end();
 }
@@ -930,7 +930,7 @@ GNENet::checkJunctionPosition(const Position& pos) {
 
 
 void
-GNENet::requiereSaveNet(bool value) {
+GNENet::requireSaveNet(bool value) {
     if (myNetSaved == true) {
         WRITE_DEBUG("net has to be saved");
         std::string additionalsSaved = (myAdditionalsSaved ? "saved" : "unsaved");
@@ -2177,14 +2177,14 @@ GNENet::updateAdditionalID(const std::string& oldID, GNEAdditional* additional) 
         myAttributeCarriers.additionals.at(additional->getTagProperty().getTag()).erase(oldID);
         myAttributeCarriers.additionals.at(additional->getTagProperty().getTag()).insert(std::make_pair(additional->getID(), additional));
         // additionals has to be saved
-        requiereSaveAdditionals(true);
+        requireSaveAdditionals(true);
     }
 }
 
 
 void
-GNENet::requiereSaveAdditionals(bool value) {
-    if (myAdditionalsSaved == true) {
+GNENet::requireSaveAdditionals(bool value) {
+    if (myAdditionalsSaved) {
         WRITE_DEBUG("Additionals has to be saved");
         std::string netSaved = (myNetSaved ? "saved" : "unsaved");
         std::string demandElementsSaved = (myDemandElementsSaved ? "saved" : "unsaved");
@@ -2319,7 +2319,7 @@ GNENet::updateDemandElementID(const std::string& oldID, GNEDemandElement* demand
             }
         }
         // demand elements has to be saved
-        requiereSaveDemandElements(true);
+        requireSaveDemandElements(true);
     }
 }
 
@@ -2339,7 +2339,7 @@ GNENet::updateDemandElementBegin(const std::string& oldBegin, GNEDemandElement* 
 
 
 void
-GNENet::requiereSaveDemandElements(bool value) {
+GNENet::requireSaveDemandElements(bool value) {
     if (myDemandElementsSaved == true) {
         WRITE_DEBUG("DemandElements has to be saved");
         std::string netSaved = (myNetSaved ? "saved" : "unsaved");
@@ -2593,7 +2593,7 @@ GNENet::getNumberOfShapes() const {
 
 
 void
-GNENet::requiereSaveTLSPrograms() {
+GNENet::requireSaveTLSPrograms() {
     if (myTLSProgramsSaved == true) {
         WRITE_DEBUG("TLSPrograms has to be saved");
     }
@@ -2673,7 +2673,7 @@ GNENet::insertAdditional(GNEAdditional* additional) {
             additional->updateGeometry();
         }
         // additionals has to be saved
-        requiereSaveAdditionals(true);
+        requireSaveAdditionals(true);
     } else {
         throw ProcessError(additional->getTagStr() + " with ID='" + additional->getID() + "' already exist");
     }
@@ -2702,7 +2702,7 @@ GNENet::deleteAdditional(GNEAdditional* additional, bool updateViewAfterDeleting
             myViewNet->update();
         }
         // additionals has to be saved
-        requiereSaveAdditionals(true);
+        requireSaveAdditionals(true);
         // additional removed, then return true
         return true;
     } else {
@@ -2750,7 +2750,7 @@ GNENet::insertDemandElement(GNEDemandElement* demandElement) {
             demandElement->updateGeometry();
         }
         // demandElements has to be saved
-        requiereSaveDemandElements(true);
+        requireSaveDemandElements(true);
     } else {
         throw ProcessError(demandElement->getTagStr() + " with ID='" + demandElement->getID() + "' already exist");
     }
@@ -2787,7 +2787,7 @@ GNENet::deleteDemandElement(GNEDemandElement* demandElement, bool updateViewAfte
             myViewNet->update();
         }
         // demandElements has to be saved
-        requiereSaveDemandElements(true);
+        requireSaveDemandElements(true);
         // demandElement removed, then return true
         return true;
     } else {
@@ -2960,8 +2960,8 @@ GNENet::insertShape(GNEShape* shape, bool updateViewAfterDeleting) {
     if (shape->isAttributeCarrierSelected()) {
         shape->selectAttributeCarrier(false);
     }
-    // insert shape requieres always save additionals
-    requiereSaveAdditionals(true);
+    // insert shape requires always save additionals
+    requireSaveAdditionals(true);
     // after inserting, update geometry (needed for POILanes
     shape->updateGeometry();
     // check if view has to be updated
@@ -2992,7 +2992,7 @@ GNENet::removeShape(GNEShape* shape, bool updateViewAfterDeleting) {
         shape->unselectAttributeCarrier(false);
     }
     // remove shape requires always save additionals
-    requiereSaveAdditionals(true);
+    requireSaveAdditionals(true);
     // check if view has to be updated
     if (updateViewAfterDeleting) {
         myViewNet->update();

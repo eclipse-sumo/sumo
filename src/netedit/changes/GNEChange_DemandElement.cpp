@@ -187,7 +187,7 @@ GNEChange_DemandElement::undo() {
         myNet->getViewNet()->getViewParent()->getVehicleTypeFrame()->getVehicleTypeSelector()->refreshVehicleTypeSelector();
     }
     // Requiere always save elements
-    myNet->requiereSaveDemandElements(true);
+    myNet->requireSaveDemandElements(true);
 }
 
 
@@ -273,7 +273,7 @@ GNEChange_DemandElement::redo() {
         myNet->getViewNet()->getViewParent()->getVehicleTypeFrame()->getVehicleTypeSelector()->refreshVehicleTypeSelector();
     }
     // Requiere always save elements
-    myNet->requiereSaveDemandElements(true);
+    myNet->requireSaveDemandElements(true);
 }
 
 

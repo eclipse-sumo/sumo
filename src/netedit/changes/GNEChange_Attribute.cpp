@@ -89,17 +89,17 @@ GNEChange_Attribute::undo() {
     myAC->setAttribute(myKey, myOrigValue);
     // certain attributes needs extra operations
     if (myKey != GNE_ATTR_SELECTED) {
-        // check if updated attribute requieres a update geometry
-        if (myAC->getTagProperty().hasAttribute(myKey) && myAC->getTagProperty().getAttributeProperties(myKey).requiereUpdateGeometry()) {
+        // check if updated attribute requires a update geometry
+        if (myAC->getTagProperty().hasAttribute(myKey) && myAC->getTagProperty().getAttributeProperties(myKey).requireUpdateGeometry()) {
             myAC->updateGeometry();
         }
         // check if netElements, additional or shapes has to be saved (only if key isn't GNE_ATTR_SELECTED)
         if (myAC->getTagProperty().isNetElement()) {
-            myNet->requiereSaveNet(true);
+            myNet->requireSaveNet(true);
         } else if (myAC->getTagProperty().isAdditional() || myAC->getTagProperty().isShape()) {
-            myNet->requiereSaveAdditionals(true);
+            myNet->requireSaveAdditionals(true);
         } else if (myAC->getTagProperty().isDemandElement()) {
-            myNet->requiereSaveDemandElements(true);
+            myNet->requireSaveDemandElements(true);
         }
     }
 }
@@ -113,17 +113,17 @@ GNEChange_Attribute::redo() {
     myAC->setAttribute(myKey, myNewValue);
     // certain attributes needs extra operations
     if (myKey != GNE_ATTR_SELECTED) {
-        // check if updated attribute requieres a update geometry
-        if (myAC->getTagProperty().hasAttribute(myKey) && myAC->getTagProperty().getAttributeProperties(myKey).requiereUpdateGeometry()) {
+        // check if updated attribute requires a update geometry
+        if (myAC->getTagProperty().hasAttribute(myKey) && myAC->getTagProperty().getAttributeProperties(myKey).requireUpdateGeometry()) {
             myAC->updateGeometry();
         }
         // check if netElements, additional or shapes has to be saved (only if key isn't GNE_ATTR_SELECTED)
         if (myAC->getTagProperty().isNetElement()) {
-            myNet->requiereSaveNet(true);
+            myNet->requireSaveNet(true);
         } else if (myAC->getTagProperty().isAdditional() || myAC->getTagProperty().isShape()) {
-            myNet->requiereSaveAdditionals(true);
+            myNet->requireSaveAdditionals(true);
         } else if (myAC->getTagProperty().isDemandElement()) {
-            myNet->requiereSaveDemandElements(true);
+            myNet->requireSaveDemandElements(true);
         }
     }
 }

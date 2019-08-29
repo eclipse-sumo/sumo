@@ -51,8 +51,8 @@
 // ---------------------------------------------------------------------------
 
 GNERouteHandler::RouteParameter::RouteParameter() :
-    VClass(SVC_PASSENGER),
     loadedID(false),
+    vClass(SVC_PASSENGER),
     color(RGBColor::BLACK) {
 }
 
@@ -62,8 +62,8 @@ GNERouteHandler::RouteParameter::RouteParameter(GNEDemandElement* originalDemand
             originalDemandElement->getID() :
             originalDemandElement->getViewNet()->getNet()->generateDemandElementID(originalDemandElement->getID(), SUMO_TAG_ROUTE)),
     edges(originalDemandElement->getEdgeParents()),
-    color(originalDemandElement->getColor()),
-    VClass(originalDemandElement->getVClass()) {
+    vClass(originalDemandElement->getVClass()),
+    color(originalDemandElement->getColor()) {
 }
 
 
@@ -1771,7 +1771,7 @@ GNERouteHandler::addPersonTrip(const SUMOSAXAttributes& attrs) {
                 myPersonPlanValues.push_back(personTripValuesLoaded);
             }
         } else {
-            WRITE_ERROR("A personTrip requieres either a from-to edges or a from edge and a busStop");
+            WRITE_ERROR("A personTrip requires either a from-to edges or a from edge and a busStop");
         }
     }
 }
@@ -1862,7 +1862,7 @@ GNERouteHandler::addWalk(const SUMOSAXAttributes& attrs) {
             myPersonPlanValues.push_back(walkValuesLoaded);
         }
     } else {
-        WRITE_ERROR("A walk requieres either a from-to edges, a from edge and a busStop or a route");
+        WRITE_ERROR("A walk requires either a from-to edges, a from edge and a busStop or a route");
     }
 }
 
@@ -1939,7 +1939,7 @@ GNERouteHandler::addRide(const SUMOSAXAttributes& attrs) {
             myPersonPlanValues.push_back(rideValuesLoaded);
         }
     } else {
-        WRITE_ERROR("A ride requieres either a from-to edges or a from edge and a busStop");
+        WRITE_ERROR("A ride requires either a from-to edges or a from edge and a busStop");
     }
 }
 

@@ -181,7 +181,7 @@ GNEChange_Additional::undo() {
         }
     }
     // Requiere always save additionals
-    myNet->requiereSaveAdditionals(true);
+    myNet->requireSaveAdditionals(true);
 }
 
 
@@ -263,7 +263,7 @@ GNEChange_Additional::redo() {
         }
     }
     // Requiere always save additionals
-    myNet->requiereSaveAdditionals(true);
+    myNet->requireSaveAdditionals(true);
 }
 
 

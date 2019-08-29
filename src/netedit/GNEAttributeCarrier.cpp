@@ -91,7 +91,7 @@ GNEAttributeCarrier::AttributeProperties::AttributeProperties(const SumoXMLAttr 
     }
     // Attributes that can write optionally their values in XML must have either a static or a mutable efault value
     if ((attributeProperty & ATTRPROPERTY_WRITEXMLOPTIONAL) && !((attributeProperty & ATTRPROPERTY_DEFAULTVALUESTATIC) || (attributeProperty & ATTRPROPERTY_DEFAULTVALUEMUTABLE))) {
-        throw FormatException("Attribute '" + toString(attribute) + "' requieres a either static or mutable default value");
+        throw FormatException("Attribute '" + toString(attribute) + "' requires a either static or mutable default value");
     }
 }
 
@@ -467,7 +467,7 @@ GNEAttributeCarrier::AttributeProperties::isExtended() const {
 
 
 bool
-GNEAttributeCarrier::AttributeProperties::requiereUpdateGeometry() const {
+GNEAttributeCarrier::AttributeProperties::requireUpdateGeometry() const {
     return (myAttributeProperty & ATTRPROPERTY_UPDATEGEOMETRY) != 0;
 }
 

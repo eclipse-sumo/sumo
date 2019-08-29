@@ -396,7 +396,7 @@ GNERouteFrame::ConsecutiveEdges::onCmdCreateRoute(FXObject*, FXSelector, void*) 
         // fill rest of elements
         routeParameters.color = GNEAttributeCarrier::parse<RGBColor>(routeAttributes.at(SUMO_ATTR_COLOR));
         routeParameters.edges = myRouteEdges;
-        routeParameters.VClass = myRouteFrameParent->myRouteModeSelector->getCurrentVehicleClass();
+        routeParameters.vClass = myRouteFrameParent->myRouteModeSelector->getCurrentVehicleClass();
         // create route
         GNERoute* route = new GNERoute(myRouteFrameParent->getViewNet(), routeParameters);
         // add it into GNENet using GNEChange_DemandElement (to allow undo-redo)
@@ -622,7 +622,7 @@ GNERouteFrame::NonConsecutiveEdges::onCmdCreateRoute(FXObject*, FXSelector, void
         routeParameters.routeID = myRouteFrameParent->getViewNet()->getNet()->generateDemandElementID("", SUMO_TAG_ROUTE);
         // fill rest of elements
         routeParameters.color = GNEAttributeCarrier::parse<RGBColor>(routeAttributes.at(SUMO_ATTR_COLOR));
-        routeParameters.VClass = myRouteFrameParent->myRouteModeSelector->getCurrentVehicleClass();
+        routeParameters.vClass = myRouteFrameParent->myRouteModeSelector->getCurrentVehicleClass();
         // create route
         GNERoute* route = new GNERoute(myRouteFrameParent->getViewNet(), routeParameters);
         // add it into GNENet using GNEChange_DemandElement (to allow undo-redo)

@@ -74,11 +74,11 @@ public:
         /// @brief edges
         std::vector<GNEEdge*> edges;
 
+        /// @brief vClass used by this route
+        SUMOVehicleClass vClass;
+
         /// @brief string for saving parsed route colors
         RGBColor color;
-
-        /// @brief VClass used by this route
-        SUMOVehicleClass VClass;
 
         /// @brief generic parameters
         Parameterised genericParameters;

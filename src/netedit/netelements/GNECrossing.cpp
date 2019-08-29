@@ -229,7 +229,7 @@ GNECrossing::getAttribute(SumoXMLAttr key) const {
     auto crossing = myParentJunction->getNBNode()->getCrossing(myCrossingEdges, (key != SUMO_ATTR_ID));
     switch (key) {
         case SUMO_ATTR_ID:
-            // get attribute requieres a special case
+            // get attribute requires a special case
             if (crossing) {
                 return crossing->id;
             } else {

@@ -68,7 +68,7 @@ GNEChange_Connection::undo() {
         myEdge->addConnection(myNBEdgeConnection, mySelected);
     }
     // enable save netElements
-    myNet->requiereSaveNet(true);
+    myNet->requireSaveNet(true);
 }
 
 
@@ -91,7 +91,7 @@ GNEChange_Connection::redo() {
         myEdge->removeConnection(myNBEdgeConnection);
     }
     // enable save netElements
-    myNet->requiereSaveNet(true);
+    myNet->requireSaveNet(true);
 }
 
 

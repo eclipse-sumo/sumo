@@ -1371,7 +1371,7 @@ GNEViewNetHelper::EditModes::setNetworkEditMode(NetworkEditMode mode, bool force
         } else if (networkEditMode == GNE_NMODE_MOVE) {
             demandEditMode = GNE_DMODE_MOVE;
         }
-        // certain modes requiere a recomputing
+        // certain modes require a recomputing
         switch (mode) {
             case GNE_NMODE_CONNECT:
             case GNE_NMODE_PROHIBITION:
@@ -1412,7 +1412,7 @@ GNEViewNetHelper::EditModes::setDemandEditMode(DemandEditMode mode, bool force) 
         } else if (demandEditMode == GNE_DMODE_MOVE) {
             networkEditMode = GNE_NMODE_MOVE;
         }
-        // demand modes requiere ALWAYS a recomputing
+        // demand modes require ALWAYS a recomputing
         myViewNet->myNet->computeNetwork(myViewNet->myViewParent->getGNEAppWindows());
         // update DijkstraRouter of RouteCalculatorInstance
         GNEDemandElement::getRouteCalculatorInstance()->updateDijkstraRouter();
