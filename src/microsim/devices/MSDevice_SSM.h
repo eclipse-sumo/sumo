@@ -58,7 +58,7 @@ class MSDevice_SSM : public MSVehicleDevice {
 
 private:
     /// All currently existing SSM devices
-	static std::set<MSDevice_SSM*, ComparatorNumericalIdLess>* myInstances;
+    static std::set<MSDevice_SSM*, ComparatorNumericalIdLess>* myInstances;
 
 public:
     /// @brief Different types of encounters corresponding to relative positions of the vehicles.
@@ -336,7 +336,7 @@ private:
     //       findSurroundingVehicles() would then deliver a vector of such foeCollectors
     //       (one for each possible egoConflictLane) instead of a map vehicle->foeInfo
     //       This could be helpful to resolve the resolution for several different
-    //	 	 projected conflicts with the same foe.
+    //          projected conflicts with the same foe.
 
 
     /// @brief Auxiliary structure used to handle upstream scanning start points
@@ -377,7 +377,7 @@ public:
 
     /** @brief returns all currently existing SSM devices
      */
-	static const std::set<MSDevice_SSM*, ComparatorNumericalIdLess>& getInstances();
+    static const std::set<MSDevice_SSM*, ComparatorNumericalIdLess>& getInstances();
 
     /** @brief This is called once per time step in MSNet::writeOutput() and
      *         collects the surrounding vehicles, updates information on encounters
@@ -657,11 +657,11 @@ private:
      *         for estimated leaving times, current deceleration is extrapolated, and acceleration is neglected.
      *         Returns 0.0 if no deceleration is required by the follower to avoid a crash, INVALID if collision is detected.
      *  @param[in] eInfo infos on the encounter. Used variables:
-     *  			 dEntry1,dEntry2 The distances to the conflict area entry
-     *  			 dExit1,dExit2 The distances to the conflict area exit
-     *  			 v1,v2 The current speeds
-     *  			 tEntry1,tEntry2 The estimated conflict entry times (including extrapolation of current acceleration)
-     *  		     tExit1,tExit2 The estimated conflict exit times (including extrapolation of current acceleration)
+     *               dEntry1,dEntry2 The distances to the conflict area entry
+     *               dExit1,dExit2 The distances to the conflict area exit
+     *               v1,v2 The current speeds
+     *               tEntry1,tEntry2 The estimated conflict entry times (including extrapolation of current acceleration)
+     *               tExit1,tExit2 The estimated conflict exit times (including extrapolation of current acceleration)
      */
     static double computeDRAC(const EncounterApproachInfo& eInfo);
 
