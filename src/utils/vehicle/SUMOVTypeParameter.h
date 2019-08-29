@@ -71,6 +71,7 @@ const int VTYPEPARS_HASDRIVERSTATE_SET = 1 << 24;
 const int VTYPEPARS_CARRIAGE_LENGTH_SET = 1 << 25;
 const int VTYPEPARS_LOCOMOTIVE_LENGTH_SET = 1 << 26;
 const int VTYPEPARS_CARRIAGE_GAP_SET = 1 << 27;
+const int VTYPEPARS_MANOEUVER_ANGLE_TIMES_SET = 1 << 28;
 
 
 const int VTYPEPARS_DEFAULT_EMERGENCYDECEL_DEFAULT = -1;
@@ -349,6 +350,37 @@ public:
 
     /// @brief return the default parameters, this is a function due to the http://www.parashift.com/c++-faq/static-init-order.html
     static const SUMOVTypeParameter& getDefault();
+
+    /// @brief Map of manoeuver angles versus the times (entry, exit) to execute the manoeuver 
+    std::map<int, std::pair<SUMOTime, SUMOTime>>  myManoeuverAngleTimes;
+
+/** @brief Initialise the default mapping between manoeuver angle and times dependant on vehicle class
+ *  @param[in] vclass The vehicle class
+ *  @note  These default values were 'informed' by a paper by Purnawan, and Yousif:
+ *  @note    usir.salford.ac.uk/id/eprint/9729/3/Paper_Kassel_%28Seminar%29.pdf (no reverse park values in paper)
+ *  @note    truck values were simply doubled - all are modifiable in the vehicle type definition and there is no limit to the no of triplets
+ *    TODO:
+ *        optionality for 90 degree bay entry (forwards or reverse) not implemented - probably should be a driver propensity
+ *        the defaults assume reverse entry - a reverse manoeuvre has to happen and there will be a small difference in timings depending whether its reverse in or out
+ */
+    void setManoeuverAngleTimes(const SUMOVehicleClass vclass);
+
+    /** @brief Returns the time that will be needed for the vehicle type to execute the (entry) manoeuvre (and be blocking the lane)
+     * @param[in] angle The angle, in degrees through which the vehicle needs to manoeuver (0-180 degrees)
+     * @return The SUMOTime value
+     */
+    SUMOTime getEntryManoeuvreTime(const int angle) const;
+
+    /** @brief Returns the time that will be needed for the vehicle type to execute the (exit) manoeuvre (and be blocking the lane)
+      * @param[in] angle The angle, in degrees through which the vehicle needs to manoeuver (0-180 degrees)
+      * @return The SUMOTime value
+      */
+    SUMOTime getExitManoeuvreTime(const int angle) const;
+
+    /** @brief Returns myManoeuverAngleTimes as a string for xml output
+     *  @return A string of , separated triplets (angle entry-time exit-time)
+     */
+    std::string getManoeuverAngleTimesS() const;
 };
 
 #endif
