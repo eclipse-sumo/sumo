@@ -4392,10 +4392,12 @@ GNEAttributeCarrier::fillCommonStopAttributes(SumoXMLTag currentTag) {
                                        "waiting");
     myTagProperties[currentTag].addAttribute(attrProperty);
 
+    /** Attribute currently disabled. It will be implemented in #6011
     attrProperty = AttributeProperties(SUMO_ATTR_TRIP_ID,
                                        ATTRPROPERTY_STRING | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL,
                                        "Value used for trips that uses this stop");
     myTagProperties[currentTag].addAttribute(attrProperty);
+    */
 }
 
 
