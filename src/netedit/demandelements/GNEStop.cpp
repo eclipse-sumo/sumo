@@ -422,10 +422,13 @@ GNEStop::drawGL(const GUIVisualizationSettings& s) const {
                 // draw front of Stop
                 GLHelper::drawBoxLine(Position(0, 0), 0, exaggeration * 0.5, exaggeration);
             }
+            // move to "S" position
+            glTranslated(0, 1, 0);
             // only draw text if isn't being drawn for selecting
-            if (s.drawDetail(s.detailSettings.stopsText, exaggeration) && !s.drawForSelecting) {
-                // move to "S" position
-                glTranslated(0, 1, 0);
+            if (s.drawForSelecting) {
+                GLHelper::setColor(stopColor);
+                GLHelper::drawBoxLine(Position(0, 1), 0, 2, 1);
+            } else if (s.drawDetail(s.detailSettings.stopsText, exaggeration)) {
                 // draw "S" symbol
                 GLHelper::drawText("S", Position(), .1, 2.8, stopColor);
                 // move to subtitle positin
