@@ -41,7 +41,7 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 327, 220)
 
 # change value
-netedit.modifyBoolAttribute(7, True)
+netedit.modifyAttribute(7, "true", True)
 
 # change value
 netedit.modifyAttribute(8, "dummyValue", True)

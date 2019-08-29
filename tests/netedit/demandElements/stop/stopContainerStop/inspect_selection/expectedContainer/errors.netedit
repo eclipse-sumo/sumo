@@ -34,7 +34,8 @@ Debug: Setting new attribute selected 'true' into trip 'trip_0'
 Debug: Setting new attribute selected 'true' into stopContainerStop 'trip_0stopContainerStop0'
 Debug: Setting new attribute selected 'true' into stopContainerStop 'trip_0stopContainerStop1'
 Debug: ObjectsUnderCursor: GUIGlObjects: 2, AttributeCarriers: 2, NetElements: 0, Additionals: 1, DemandElements: 1, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
-Debug: Value ' ' for attribute containerTriggered of stopContainerStop isn't valid
+Debug: Setting new attribute containerTriggered 'true' into stopContainerStop 'trip_0stopContainerStop0'
+Debug: Setting new attribute containerTriggered 'true' into stopContainerStop 'trip_0stopContainerStop1'
 Debug: Setting new attribute expectedContainers 'dummyValue' into stopContainerStop 'trip_0stopContainerStop0'
 Debug: Setting new attribute expectedContainers 'dummyValue' into stopContainerStop 'trip_0stopContainerStop1'
 Debug: Setting new attribute expectedContainers '' into stopContainerStop 'trip_0stopContainerStop0'
@@ -58,14 +59,12 @@ Debug: Keys Ctrl + Z (Undo) pressed
 Debug: Setting previous attribute expectedContainers '' into stopContainerStop 'trip_0stopContainerStop1'
 Debug: Setting previous attribute expectedContainers 'IDB' into stopContainerStop 'trip_0stopContainerStop0'
 Debug: Keys Ctrl + Z (Undo) pressed
-Debug: Setting previous attribute selected '0' into stopContainerStop 'trip_0stopContainerStop1'
-Debug: Setting previous attribute selected '0' into stopContainerStop 'trip_0stopContainerStop0'
-Debug: Setting previous attribute selected '0' into trip 'trip_0'
+Debug: Setting previous attribute containerTriggered '0' into stopContainerStop 'trip_0stopContainerStop1'
+Debug: Setting previous attribute containerTriggered '1' into stopContainerStop 'trip_0stopContainerStop0'
 Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 Debug: Keys Ctrl + Y (Redo) pressed
-Debug: Setting new attribute selected 'true' into trip 'trip_0'
-Debug: Setting new attribute selected 'true' into stopContainerStop 'trip_0stopContainerStop0'
-Debug: Setting new attribute selected 'true' into stopContainerStop 'trip_0stopContainerStop1'
+Debug: Setting new attribute containerTriggered 'true' into stopContainerStop 'trip_0stopContainerStop0'
+Debug: Setting new attribute containerTriggered 'true' into stopContainerStop 'trip_0stopContainerStop1'
 Debug: Keys Ctrl + Y (Redo) pressed
 Debug: Setting new attribute expectedContainers 'dummyValue' into stopContainerStop 'trip_0stopContainerStop0'
 Debug: Setting new attribute expectedContainers 'dummyValue' into stopContainerStop 'trip_0stopContainerStop1'
