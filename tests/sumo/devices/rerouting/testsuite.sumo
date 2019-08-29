@@ -26,7 +26,10 @@ reroute_congestions
 stops
 
 # handle input errors
-errors
+invalid_adaptation_interval
+
+# handle input errors
+invalid_pre_period
 
 # faulty routes
 disconnected
