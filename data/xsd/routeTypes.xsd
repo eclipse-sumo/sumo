@@ -35,7 +35,7 @@
         <xsd:attribute name="speedDev" type="nonNegativeFloatType"/>
         <xsd:attribute name="vClass" type="xsd:string"/>
         <xsd:attribute name="emissionClass" type="xsd:string"/>
-        <xsd:attribute name="manoeuverAngleTimes" type="xsd:string"/>
+        <xsd:attribute name="maneuverAngleTimes" type="xsd:string"/>
         <xsd:attribute name="guiShape" type="xsd:string"/>
         <xsd:attribute name="width" type="positiveFloatType"/>
         <xsd:attribute name="height" type="positiveFloatType"/>

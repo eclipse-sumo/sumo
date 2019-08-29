@@ -462,7 +462,7 @@ enum SumoXMLAttr {
     SUMO_ATTR_BOARDING_DURATION,
     SUMO_ATTR_LOADING_DURATION,
     /// @brief Class specific timing values for vehicle manoeuvering through angle ranges
-    SUMO_ATTR_MANOEUVER_ANGLE_TIMES,
+    SUMO_ATTR_MANEUVER_ANGLE_TIMES,
     /// @}
 
     /// @name charging stations attributes

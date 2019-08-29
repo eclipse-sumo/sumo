@@ -785,11 +785,11 @@ SUMOVehicleParserHelper::beginVTypeParsing(const SUMOSAXAttributes& attrs, const
                 handleError(hardFail, abortCreation, "Unknown lateral alignment '" + alignS + "' when parsing vType '" + vtype->id + "'");
             }
         }
-        if (attrs.hasAttribute(SUMO_ATTR_MANOEUVER_ANGLE_TIMES)) {
+        if (attrs.hasAttribute(SUMO_ATTR_MANEUVER_ANGLE_TIMES)) {
             bool ok = true;
-            const std::string angleTimesS = attrs.get<std::string>(SUMO_ATTR_MANOEUVER_ANGLE_TIMES, vtype->id.c_str(), ok);
+            const std::string angleTimesS = attrs.get<std::string>(SUMO_ATTR_MANEUVER_ANGLE_TIMES, vtype->id.c_str(), ok);
             if (ok && parseAngleTimesMap(*vtype, angleTimesS, hardFail)) {
-                vtype->parametersSet |= VTYPEPARS_MANOEUVER_ANGLE_TIMES_SET;
+                vtype->parametersSet |= VTYPEPARS_MANEUVER_ANGLE_TIMES_SET;
             } else {
                 handleError(hardFail, abortCreation, "Invalid manoeuver angle times map for vType '" + vtype->id + "'");
             }

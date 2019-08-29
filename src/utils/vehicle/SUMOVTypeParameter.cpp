@@ -426,8 +426,8 @@ SUMOVTypeParameter::write(OutputDevice& dev) const {
     if (wasSet(VTYPEPARS_MINGAP_LAT_SET)) {
         dev.writeAttr(SUMO_ATTR_MINGAP_LAT, minGapLat);
     }
-    if (wasSet(VTYPEPARS_MANOEUVER_ANGLE_TIMES_SET)) {
-        dev.writeAttr(SUMO_ATTR_MANOEUVER_ANGLE_TIMES, getManoeuverAngleTimesS());
+    if (wasSet(VTYPEPARS_MANEUVER_ANGLE_TIMES_SET)) {
+        dev.writeAttr(SUMO_ATTR_MANEUVER_ANGLE_TIMES, getManoeuverAngleTimesS());
     }
     if (wasSet(VTYPEPARS_LANE_CHANGE_MODEL_SET)) {
         dev.writeAttr(SUMO_ATTR_LANE_CHANGE_MODEL, lcModel);
