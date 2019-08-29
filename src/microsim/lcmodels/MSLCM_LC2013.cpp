@@ -1017,7 +1017,9 @@ void
 MSLCM_LC2013::prepareStep() {
     MSAbstractLaneChangeModel::prepareStep();
     // keep information about strategic change direction
-    myOwnState = (myOwnState & LCA_STRATEGIC) ? (myOwnState & LCA_WANTS_LANECHANGE) : 0;
+    if (!isChangingLanes()) {
+        myOwnState = (myOwnState & LCA_STRATEGIC) ? (myOwnState & LCA_WANTS_LANECHANGE) : 0;
+    }
     myLeadingBlockerLength = 0;
     myLeftSpace = 0;
     myLCAccelerationAdvices.clear();
