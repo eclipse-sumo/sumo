@@ -558,8 +558,8 @@ public:
         VEHICLE_STATE_COLLISION,
         /// @brief The vehicle had to brake harder than permitted
         VEHICLE_STATE_EMERGENCYSTOP,
-        /// @brief Vehicle manoeuvering either entering or exiting a parking space
-        VEHICLE_STATE_MANOEUVERING
+        /// @brief Vehicle maneuvering either entering or exiting a parking space
+        VEHICLE_STATE_MANEUVERING
     };
 
 

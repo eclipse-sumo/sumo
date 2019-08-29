@@ -96,11 +96,11 @@ TraCIServerAPI_Simulation::processGet(TraCIServer& server, tcpip::Storage& input
             case libsumo::VAR_PARKING_STARTING_VEHICLES_IDS:
                 writeVehicleStateIDs(server, server.getWrapperStorage(), MSNet::VEHICLE_STATE_STARTING_PARKING);
                 break;
-            case libsumo::VAR_PARKING_MANOEUVERING_VEHICLES_NUMBER:
-                writeVehicleStateNumber(server, server.getWrapperStorage(), MSNet::VEHICLE_STATE_MANOEUVERING);
+            case libsumo::VAR_PARKING_MANEUVERING_VEHICLES_NUMBER:
+                writeVehicleStateNumber(server, server.getWrapperStorage(), MSNet::VEHICLE_STATE_MANEUVERING);
                 break;
-            case libsumo::VAR_PARKING_MANOEUVERING_VEHICLES_IDS:
-                writeVehicleStateIDs(server, server.getWrapperStorage(), MSNet::VEHICLE_STATE_MANOEUVERING);
+            case libsumo::VAR_PARKING_MANEUVERING_VEHICLES_IDS:
+                writeVehicleStateIDs(server, server.getWrapperStorage(), MSNet::VEHICLE_STATE_MANEUVERING);
                 break;
             case libsumo::VAR_PARKING_ENDING_VEHICLES_NUMBER:
                 writeVehicleStateNumber(server, server.getWrapperStorage(), MSNet::VEHICLE_STATE_ENDING_PARKING);

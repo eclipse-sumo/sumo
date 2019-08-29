@@ -900,11 +900,11 @@ TRACI_CONST int VAR_PARKING_STARTING_VEHICLES_NUMBER = 0x6c;
 // ids of vehicles starting to park (get: simulation)
 TRACI_CONST int VAR_PARKING_STARTING_VEHICLES_IDS = 0x6d;
 
-// number of vehicles manoeuvering (get: simulation)
-TRACI_CONST int VAR_PARKING_MANOEUVERING_VEHICLES_NUMBER = 0x3a;
+// number of vehicles maneuvering (get: simulation)
+TRACI_CONST int VAR_PARKING_MANEUVERING_VEHICLES_NUMBER = 0x3a;
 
-// ids of vehicles manoeuvering (get: simulation)
-TRACI_CONST int VAR_PARKING_MANOEUVERING_VEHICLES_IDS = 0x3b;
+// ids of vehicles maneuvering (get: simulation)
+TRACI_CONST int VAR_PARKING_MANEUVERING_VEHICLES_IDS = 0x3b;
 
 // number of vehicles ending to park (get: simulation)
 TRACI_CONST int VAR_PARKING_ENDING_VEHICLES_NUMBER = 0x6e;

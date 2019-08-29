@@ -6288,7 +6288,7 @@ MSVehicle::Manoeuvre::entryManoeuvreIsComplete( MSVehicle* veh )
         {
             if (configureEntryManoeuvre(veh))
             {
-                MSNet::getInstance()->informVehicleStateListener(veh, MSNet::VEHICLE_STATE_MANOEUVERING);
+                MSNet::getInstance()->informVehicleStateListener(veh, MSNet::VEHICLE_STATE_MANEUVERING);
                 return(false);
             }
             else  // cannot configure entry so stop trying
