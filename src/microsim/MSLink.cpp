@@ -538,6 +538,9 @@ MSLink::opened(SUMOTime arrivalTime, double arrivalSpeed, double leaveSpeed, dou
     }
 #endif
 
+    if (MSGlobals::gUseMesoSim && impatience == 1) {
+        return true;
+    }
     for (std::vector<MSLink*>::const_iterator i = myFoeLinks.begin(); i != myFoeLinks.end(); ++i) {
         if (MSGlobals::gUseMesoSim) {
             if ((*i)->haveRed()) {
