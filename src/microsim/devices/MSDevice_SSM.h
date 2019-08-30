@@ -336,7 +336,7 @@ private:
     //       findSurroundingVehicles() would then deliver a vector of such foeCollectors
     //       (one for each possible egoConflictLane) instead of a map vehicle->foeInfo
     //       This could be helpful to resolve the resolution for several different
-    //	 	 projected conflicts with the same foe.
+    //          projected conflicts with the same foe.
 
 
     /// @brief Auxiliary structure used to handle upstream scanning start points
@@ -421,11 +421,11 @@ public:
 
     /** @brief Collects all vehicles within range 'range' upstream of the position 'pos' on the edge 'edge' into foeCollector
      */
-    static void getUpstreamVehicles(const UpstreamScanStartInfo& scanStart, FoeInfoMap& foeCollector, std::set<const MSJunction*>& seenJunctions);
+    static void getUpstreamVehicles(const UpstreamScanStartInfo& scanStart, FoeInfoMap& foeCollector, std::set<const MSLane*>& seenLanes);
 
     /** @brief Collects all vehicles on the junction into foeCollector
      */
-    static void getVehiclesOnJunction(const MSJunction*, double egoDistToConflictLane, const MSLane* const egoConflictLane, FoeInfoMap& foeCollector);
+    static void getVehiclesOnJunction(const MSJunction*, const MSLane* egoJunctionLane, double egoDistToConflictLane, const MSLane* const egoConflictLane, FoeInfoMap& foeCollector, std::set<const MSLane*>& seenLanes);
 
 
     /// @name Methods called on vehicle movement / state change, overwriting MSDevice
@@ -657,11 +657,11 @@ private:
      *         for estimated leaving times, current deceleration is extrapolated, and acceleration is neglected.
      *         Returns 0.0 if no deceleration is required by the follower to avoid a crash, INVALID if collision is detected.
      *  @param[in] eInfo infos on the encounter. Used variables:
-     *  			 dEntry1,dEntry2 The distances to the conflict area entry
-     *  			 dExit1,dExit2 The distances to the conflict area exit
-     *  			 v1,v2 The current speeds
-     *  			 tEntry1,tEntry2 The estimated conflict entry times (including extrapolation of current acceleration)
-     *  		     tExit1,tExit2 The estimated conflict exit times (including extrapolation of current acceleration)
+     *               dEntry1,dEntry2 The distances to the conflict area entry
+     *               dExit1,dExit2 The distances to the conflict area exit
+     *               v1,v2 The current speeds
+     *               tEntry1,tEntry2 The estimated conflict entry times (including extrapolation of current acceleration)
+     *               tExit1,tExit2 The estimated conflict exit times (including extrapolation of current acceleration)
      */
     static double computeDRAC(const EncounterApproachInfo& eInfo);
 
