@@ -173,8 +173,8 @@ NBNodeTypeComputer::computeNodeTypes(NBNodeCont& nc, NBTrafficLightLogicCont& tl
         }
         // check whether the node is a waterway node. Set to unregulated by default
         bool waterway = true;
-        for (EdgeVector::const_iterator i = n->getEdges().begin(); i != n->getEdges().end(); ++i) {
-            if (!isWaterway((*i)->getPermissions())) {
+        for (NBEdge* e : n->getEdges()) {
+            if (!isWaterway(e->getPermissions())) {
                 waterway = false;
                 break;
             }
