@@ -633,7 +633,7 @@ GUILane::drawGL(const GUIVisualizationSettings& s) const {
                         }
                     }
                     if ((!isInternal || isCrossing)) {
-                        if (MSGlobals::gLateralResolution > 0 && s.showSublanes && !hiddenBidi && !isCrossing) {
+                        if (MSGlobals::gLateralResolution > 0 && s.showSublanes && !hiddenBidi && (myPermissions & ~(SVC_PEDESTRIAN | SVC_RAIL_CLASSES)) != 0) {
                             // draw sublane-borders
                             const double offsetSign = MSNet::getInstance()->lefthand() ? -1 : 1;
                             GLHelper::setColor(GLHelper::getColor().changedBrightness(51));
