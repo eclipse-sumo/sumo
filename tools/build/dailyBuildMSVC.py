@@ -43,17 +43,21 @@ BINARIES = ("activitygen", "emissionsDrivingCycle", "emissionsMap",
             "TraCITestClient")
 
 
-def repositoryUpdate(options, repoLogFile):
+def printLog(msg, log):
+    print(u"%s: %s" % (datetime.datetime.now(), msg), file=log)
+    log.flush()
+
+
+def repositoryUpdate(options, log):
     gitrev = ""
-    with open(repoLogFile, 'w') as log:
-        cwd = os.getcwd()
-        for d in options.repositories.split(","):
-            os.chdir(os.path.join(options.rootDir, d))
-            subprocess.call(["git", "pull"], stdout=log, stderr=subprocess.STDOUT)
-            subprocess.call(["git", "submodule", "update"], stdout=log, stderr=subprocess.STDOUT)
-            if gitrev == "":
-                gitrev = version.gitDescribe()
-        os.chdir(cwd)
+    cwd = os.getcwd()
+    for d in options.repositories.split(","):
+        os.chdir(os.path.join(options.rootDir, d))
+        subprocess.call(["git", "pull"], stdout=log, stderr=subprocess.STDOUT)
+        subprocess.call(["git", "submodule", "update"], stdout=log, stderr=subprocess.STDOUT)
+        if gitrev == "":
+            gitrev = version.gitDescribe()
+    os.chdir(cwd)
     return gitrev
 
 
@@ -115,10 +119,10 @@ def generateCMake(generator, log, checkOptionalLibs, python):
         cmakeOpt += ["-DSUMO_UTILS=True"]
     # Create directory or clear it if already exists
     if os.path.exists(buildDir):
-        print("Cleaning directory of", generator, file=log)
+        printLog("Cleaning directory of %s." % generator, log)
         shutil.rmtree(buildDir)
     os.makedirs(buildDir)
-    print("Creating solution for", generator, file=log)
+    printLog("Creating solution for %s." % generator, log)
     subprocess.call(["cmake", "../..", "-G", generator] + cmakeOpt, cwd=buildDir, stdout=log, stderr=subprocess.STDOUT)
     return buildDir
 
@@ -152,8 +156,9 @@ if "SUMO_HOME" not in env:
 env["PYTHON"] = "python"
 env["SMTP_SERVER"] = "smtprelay.dlr.de"
 msvcVersion = "msvc12"
-gitrev = repositoryUpdate(options, os.path.join(
-    options.remoteDir, msvcVersion + options.suffix + "Update.log"))
+with io.open(os.path.join(options.remoteDir,msvcVersion + options.suffix + "Update.log"), 'w') as log:
+    printLog("Running %s build using python %s." % (msvcVersion, sys.version), log)
+    gitrev = repositoryUpdate(options, log)
 
 maxTime = 0
 sumoAllZip = None
@@ -223,7 +228,7 @@ for platform in (["x64"] if options.x64only else ["Win32", "x64"]):
                     if write:
                         zipf.write(f, nameInZip)
             includeDir = binDir.replace("bin", "include")
-            print("%s: Creating sumo.zip." % datetime.datetime.now(), file=log)
+            printLog("Creating sumo.zip.", log)
             for f in glob.glob(os.path.join(options.rootDir, options.binDir.replace("bin", "src"), "libsumo", "*.h")):
                 base = os.path.basename(f)
                 nameInZip = os.path.join(includeDir, "libsumo", base)
@@ -232,22 +237,22 @@ for platform in (["x64"] if options.x64only else ["Win32", "x64"]):
             zipf.close()
             if options.suffix == "":
                 # installers only for the vanilla build
-                print("%s: Creating sumo.msi." % datetime.datetime.now(), file=log)
+                printLog("Creating sumo.msi.", log)
                 wix.buildMSI(binaryZip, binaryZip.replace(".zip", ".msi"), log=log)
         except IOError as ziperr:
-            print("Warning: Could not zip to %s (%s)!" % (binaryZip, ziperr), file=log)
+            printLog("Warning: Could not zip to %s (%s)!" % (binaryZip, ziperr), log)
     if platform == "x64":
-        print("%s: Creating sumo-game.zip." % datetime.datetime.now(), file=log)
+        printLog("Creating sumo-game.zip.", log)
         try:
             setup = os.path.join(env["SUMO_HOME"], 'tools', 'game', 'setup.py')
             subprocess.call(['python', setup, binaryZip], stdout=log, stderr=subprocess.STDOUT)
         except Exception as e:
-            print("Warning: Could not create nightly sumo-game.zip! (%s)" % e, file=log)
+            printLog("Warning: Could not create nightly sumo-game.zip! (%s)" % e, log)
     with open(makeAllLog, 'a') as debugLog:
         ret = subprocess.call(["cmake", "--build", ".", "--config", "Debug"],
                               cwd=buildDir, stdout=debugLog, stderr=subprocess.STDOUT)
         if ret == 0 and sumoAllZip:
-            print("%s: Creating sumoDebug.zip." % datetime.datetime.now(), file=debugLog)
+            printLog("Creating sumoDebug.zip.", debugLog)
             try:
                 debugZip = sumoAllZip.replace("-all-", "-%s%sDebug-" %
                                             (platform.lower().replace("x", "win"), options.suffix))
@@ -257,13 +262,15 @@ for platform in (["x64"] if options.x64only else ["Win32", "x64"]):
                         zipf.write(f, os.path.join(binDir, os.path.basename(f)))
                 zipf.close()
             except IOError as ziperr:
-                print("Warning: Could not zip to %s (%s)!" % (binaryZip, ziperr), file=debugLog)
-    print("%s: Running tests." % datetime.datetime.now(), file=log)
+                printLog("Warning: Could not zip to %s (%s)!" % (binaryZip, ziperr), debugLog)
+    printLog("Running tests.", log)
     runTests(options, env, gitrev)
     log.close()
     with open(statusLog, 'w') as log:
         status.printStatus(makeLog, makeAllLog, env["SMTP_SERVER"], log)
 if not options.x64only:
+    with open(makeAllLog, 'a') as debugLog:
+        printLog("Running debug tests.", debugLog)
     runTests(options, env, gitrev, "D")
     with open(prefix + "Dstatus.log", 'w') as log:
         status.printStatus(makeAllLog, makeAllLog, env["SMTP_SERVER"], log)
