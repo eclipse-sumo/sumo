@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Aug 13 17:23:52 2019 by Eclipse SUMO netconvert Version v1_2_0+1567-3b34009
+<!-- generated on Fri Aug 30 13:04:58 2019 by Eclipse SUMO netconvert Version v1_3_1+0077-834a7e2
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -94,6 +94,7 @@
         <geometry.max-angle value="99" type="FLOAT" help="Warn about edge geometries with an angle above DEGREES in successive segments"/>
         <geometry.min-radius value="9" type="FLOAT" help="Warn about edge geometries with a turning radius less than METERS at the start or end"/>
         <geometry.min-radius.fix value="false" type="BOOL" help="Straighten edge geometries to avoid turning radii less than geometry.min-radius"/>
+        <geometry.min-radius.fix.railways value="true" type="BOOL" help="Straighten edge geometries to avoid turning radii less than geometry.min-radius (only railways)"/>
         <geometry.junction-mismatch-threshold value="20" type="FLOAT" help="Warn if the junction shape is to far away from the original node position"/>
         <geometry.check-overlap value="0" type="FLOAT" help="Warn if edges overlap by more than the given threshold value"/>
         <geometry.check-overlap.vertical-threshold value="4" type="FLOAT" help="Ignore overlapping edges if they are separated vertically by the given threshold."/>

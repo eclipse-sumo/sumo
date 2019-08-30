@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Aug 13 17:23:57 2019 by Eclipse SUMO netconvert Version v1_2_0+1567-3b34009
+<!-- generated on Fri Aug 30 13:04:58 2019 by Eclipse SUMO netconvert Version v1_3_1+0077-834a7e2
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -245,6 +245,9 @@
 
         <!-- Straighten edge geometries to avoid turning radii less than geometry.min-radius -->
         <geometry.min-radius.fix value="false" type="BOOL"/>
+
+        <!-- Straighten edge geometries to avoid turning radii less than geometry.min-radius (only railways) -->
+        <geometry.min-radius.fix.railways value="true" type="BOOL"/>
 
         <!-- Warn if the junction shape is to far away from the original node position -->
         <geometry.junction-mismatch-threshold value="20" type="FLOAT"/>

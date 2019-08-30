@@ -244,16 +244,11 @@ Warning: Found sharp turn with radius 6.03 at the start of edge '122820534#0'.
 Warning: Found sharp turn with radius 3.23 at the start of edge '131611527#1'.
 Warning: Found sharp turn with radius 3.02 at the end of edge '131611527#1'.
 Warning: Found sharp turn with radius 7.95 at the start of edge '137085429'.
-Warning: Found sharp turn with radius 1.40 at the start of edge '144014242#1'.
 Warning: Found sharp turn with radius 7.23 at the end of edge '150634670#1'.
 Warning: Found sharp turn with radius 7.81 at the start of edge '150634670#2'.
-Warning: Found sharp turn with radius 1.76 at the end of edge '153522299#3'.
-Warning: Found sharp turn with radius 4.73 at the start of edge '167140670#3'.
-Warning: Found sharp turn with radius 6.47 at the start of edge '167272512#2'.
 Warning: Found sharp turn with radius 5.24 at the start of edge '170392873'.
 Warning: Found sharp turn with radius 6.53 at the start of edge '173278835'.
 Warning: Found sharp turn with radius 3.03 at the start of edge '195268589'.
-Warning: Found sharp turn with radius 4.82 at the end of edge '195411594#3'.
 Warning: Found sharp turn with radius 8.25 at the start of edge '196850626#3'.
 Warning: Found sharp turn with radius 8.60 at the start of edge '198495314'.
 Warning: Found sharp turn with radius 5.15 at the start of edge '202157020'.
@@ -284,8 +279,6 @@ Warning: Found sharp turn with radius 2.37 at the start of edge '280007140#1'.
 Warning: Found sharp turn with radius 6.37 at the start of edge '280007140#5'.
 Warning: Found sharp turn with radius 1.10 at the start of edge '280007142#1'.
 Warning: Found sharp turn with radius 5.72 at the start of edge '285825377'.
-Warning: Found sharp turn with radius 8.03 at the end of edge '30123145#0'.
-Warning: Found sharp turn with radius 4.29 at the start of edge '30123145#2'.
 Warning: Found angle of 112.94 degrees at edge '304514893#6', segment 2
 Warning: Found angle of 136.05 degrees at edge '304514893#8', segment 9
 Warning: Found angle of 117.77 degrees at edge '304517627#2', segment 0
@@ -295,9 +288,7 @@ Warning: Found angle of 103.04 degrees at edge '304517627#3', segment 9
 Warning: Found sharp turn with radius 3.24 at the start of edge '312532334#1'.
 Warning: Found sharp turn with radius 6.09 at the start of edge '316301061'.
 Warning: Found angle of 179.72 degrees at edge '32590429', segment 0
-Warning: Found sharp turn with radius 0.01 at the start of edge '32590429'.
 Warning: Found angle of 179.79 degrees at edge '32590435', segment 13
-Warning: Found sharp turn with radius 0.01 at the end of edge '32590435'.
 Warning: Found sharp turn with radius 7.94 at the start of edge '330832909'.
 Warning: Found sharp turn with radius 2.76 at the start of edge '335576648#1'.
 Warning: Found sharp turn with radius 3.30 at the start of edge '335576650#1'.
@@ -490,5 +481,6 @@ Warning: Vehicle 'pt_tram_M2:0.1' teleports beyond arrival edge '148458500#1', t
 Warning: Vehicle 'pt_tram_M2:0.1' skips stop on lane '148458500#1_0' time=513.00.
 Warning: Teleporting vehicle 'pt_tram_M2:0.2'; frontal collision with vehicle 'pt_tram_M2:2.2', lane='148458500#0_0', gap=-1.00, time=747.00 stage=move.
 Warning: Vehicle 'pt_tram_M2:0.2' ends teleporting on edge '148458500#1', time 751.00.
-Warning: Person 'ped186' aborted waiting for S3:1 at busStop '27411231'.
+Warning: Person 'ped135' aborted waiting for N42:1 at busStop '270727260'.
 Warning: Person 'ped68' aborted waiting for 100:1 at busStop '3867910421'.
+Warning: Person 'ped186' aborted waiting for S3:1 at busStop '27411231'.
