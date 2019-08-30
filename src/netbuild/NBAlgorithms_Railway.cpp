@@ -878,24 +878,30 @@ NBRailwayTopologyAnalyzer::addBidiEdgesForStops(NBNetBuilder& nb) {
     int numDisconnected = 0;
     std::set<NBEdge*> addBidiStops;
     std::set<NBEdge*> addBidiEdges;
-    std::set<std::pair<NBPTStop*, NBPTStop*> > visited;
+    std::set<std::pair<NBEdge*, NBEdge*> > visited;
     for (const auto& item : nb.getPTLineCont().getLines()) {
         NBPTLine* line = item.second;
-        std::vector<NBPTStop*> stops = line->getStops();
+        std::vector<NBEdge*> stops = line->getStopEdges(ec);
+        NBEdge* routeStart = line->getRouteStart(ec);
+        NBEdge* routeEnd = line->getRouteEnd(ec);
+        if (routeStart != nullptr) {
+            stops.insert(stops.begin(), routeStart);
+        }
+        if (routeEnd != nullptr) {
+            stops.push_back(routeEnd);
+        }
         if (stops.size() < 2) {
             continue;
         }
         for (auto it = stops.begin(); it + 1 != stops.end(); ++it) {
-            std::pair<NBPTStop*, NBPTStop*> trip(*it, *(it + 1));
+            NBEdge* fromEdge = *it;
+            NBEdge* toEdge = *(it + 1);
+            std::pair<NBEdge*, NBEdge*> trip(fromEdge, toEdge);
+            //std::cout << " trip=" << Named::getIDSecure(fromEdge) << "->" << Named::getIDSecure(toEdge) << " visited=" << (visited.count(trip) != 0) << "\n";
             if (visited.count(trip) != 0) {
                 continue;
             } else {
                 visited.insert(trip);
-            }
-            NBEdge* fromEdge = ec.getByID((*it)->getEdgeId());
-            NBEdge* toEdge = ec.getByID((*(it + 1))->getEdgeId());
-            if (fromEdge == nullptr || toEdge == nullptr) {
-                continue;
             }
             if (stopTracks.count(fromEdge) == 0
                     || stopTracks.count(toEdge) == 0) {

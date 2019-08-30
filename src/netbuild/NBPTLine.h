@@ -65,6 +65,14 @@ public:
     void replaceStops(std::vector<NBPTStop*> stops) {
         myPTStops = stops;
     }
+    /// @brief get stop edges
+    std::vector<NBEdge*> getStopEdges(const NBEdgeCont& ec) const;
+
+    /// @brief return first valid edge of myRoute (if it doest not lie after the first stop)
+    NBEdge* getRouteStart(const NBEdgeCont& ec) const;
+
+    /// @brief return last valid edge of myRoute (if it doest not lie before the last stop)
+    NBEdge* getRouteEnd(const NBEdgeCont& ec) const;
 
 private:
     std::string myName;

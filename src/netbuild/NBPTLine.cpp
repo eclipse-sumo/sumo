@@ -20,6 +20,7 @@
 #include <utility>
 #include <utils/common/ToString.h>
 #include <utils/common/StringUtils.h>
+#include <utils/common/MsgHandler.h>
 #include "NBEdgeCont.h"
 #include "NBPTLine.h"
 #include "NBPTStop.h"
@@ -41,6 +42,7 @@ void NBPTLine::addPTStop(NBPTStop* pStop) {
 std::vector<NBPTStop*> NBPTLine::getStops() {
     return myPTStops;
 }
+
 void NBPTLine::write(OutputDevice& device, NBEdgeCont& ec) {
     device.openTag(SUMO_TAG_PT_LINE);
     device.writeAttr(SUMO_ATTR_ID, myPTLineId);
@@ -115,4 +117,74 @@ void NBPTLine::setMyNumOfStops(int numStops) {
 }
 const std::vector<NBEdge*>& NBPTLine::getRoute() const {
     return myRoute;
+}
+
+std::vector<NBEdge*> 
+NBPTLine::getStopEdges(const NBEdgeCont& ec) const {
+    std::vector<NBEdge*> result;
+    for (NBPTStop* stop : myPTStops) {
+        NBEdge* e = ec.retrieve(stop->getEdgeId());
+        if (e != nullptr) {
+            result.push_back(e);
+        }
+    }
+    return result;
+}
+
+NBEdge* 
+NBPTLine::getRouteStart(const NBEdgeCont& ec) const {
+    std::vector<NBEdge*> validEdges;
+    // filter out edges that have been removed due to joining junctions
+    for (NBEdge* e : myRoute) {
+        if (ec.retrieve(e->getID())) {
+            validEdges.push_back(e);
+        }
+    }
+    if (validEdges.size() == 0) {
+        return nullptr;
+    }
+    // filter out edges after the first stop
+    if (myPTStops.size() > 0) {
+        NBEdge* firstStopEdge = ec.retrieve(myPTStops.front()->getEdgeId());
+        if (firstStopEdge == nullptr) {
+            WRITE_WARNING("Could not retrieve edge '" + myPTStops.front()->getEdgeId() + "' for first stop of line '" + myName + "'");
+            return nullptr;
+
+        }
+        auto it = std::find(validEdges.begin(), validEdges.end(), firstStopEdge);
+        if (it == validEdges.end()) {
+            WRITE_WARNING("First stop edge '" + firstStopEdge->getID() + "' is not part of the route of line '" + myName + "'");
+            return nullptr;
+        }
+    }
+    return validEdges.front();
+}
+
+NBEdge* 
+NBPTLine::getRouteEnd(const NBEdgeCont& ec) const {
+    std::vector<NBEdge*> validEdges;
+    // filter out edges that have been removed due to joining junctions
+    for (NBEdge* e : myRoute) {
+        if (ec.retrieve(e->getID())) {
+            validEdges.push_back(e);
+        }
+    }
+    if (validEdges.size() == 0) {
+        return nullptr;
+    }
+    // filter out edges after the last stop
+    if (myPTStops.size() > 0) {
+        NBEdge* lastStopEdge = ec.retrieve(myPTStops.back()->getEdgeId());
+        if (lastStopEdge == nullptr) {
+            WRITE_WARNING("Could not retrieve edge '" + myPTStops.back()->getEdgeId() + "' for last stop of line '" + myName + "'");
+            return nullptr;
+
+        }
+        auto it = std::find(validEdges.begin(), validEdges.end(), lastStopEdge);
+        if (it == validEdges.end()) {
+            WRITE_WARNING("Last stop edge '" + lastStopEdge->getID() + "' is not part of the route of line '" + myName + "'");
+            return nullptr;
+        }
+    }
+    return validEdges.back();
 }
