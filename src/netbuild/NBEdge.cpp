@@ -1588,7 +1588,7 @@ NBEdge::buildInnerEdges(const NBNode& n, int noInternalNoSplits, int& linkIndex,
                             width2 *= 0.5;
                         }
                         const bool foes = n.foes(this, con.toEdge, *i2, (*k2).toEdge);
-                        bool needsCont = n.needsCont(this, *i2, con, *k2);
+                        bool needsCont = !isRailway(conPermissions) && n.needsCont(this, *i2, con, *k2);
                         bool oppositeLeftIntersect = !foes && bothLeftIntersect(n, shape, dir, *i2, *k2, numPoints, width2);
                         int shapeFlag = 0;
                         // do not warn if only bicycles pedestrians or delivery vehicles are involved as this is a typical occurence
