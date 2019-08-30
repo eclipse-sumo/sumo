@@ -142,6 +142,9 @@ public class APITest {
 
             conn.do_job_set(Poi.setParameter("t0", "poiParam", "poiValue"));
             System.out.println("Poi.getParameter: " + (String)conn.do_job_get(Poi.getParameter("t0", "poiParam")));
+            
+            SumoStringList controlledJunctions = (SumoStringList)conn.do_job_get(Trafficlight.getControlledJunctions("gneJ1"));
+            System.out.println("Trafficlight.getControlledJunctions: " + controlledJunctions);
 
             conn.do_job_set(Trafficlight.setParameter("gneJ1", "tlsParam", "tlsValue"));
             System.out.println("Trafficlight.getParameter: " + (String)conn.do_job_get(Trafficlight.getParameter("gneJ1", "tlsParam")));

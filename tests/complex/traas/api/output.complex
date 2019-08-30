@@ -61,6 +61,7 @@ Edge.getParameter: edgeValue
 Lane.getParameter: laneValue
 Route.getParameter: routeValue
 Poi.getParameter: poiValue
+Trafficlight.getControlledJunctions: [gneJ1]
 Trafficlight.getParameter: tlsValue
 Trafficlight.getCompleteRedYellowGreenDefinition: {0=0#0#0#GGgGGGrrrr#42.0#42.0#42.0#[]#North-South#yyyyyyrrrr#3.0#3.0#3.0#[]#Transition to East-West#rrrrrrGGGG#42.0#42.0#42.0#[]#East-West#rrrrrryyyy#3.0#3.0#3.0#[]#Transition to North-South#, 1=1#0#2#GGgGGGrrrr#22.0#22.0#22.0#[]#North-South#yyyyyyrrrr#3.0#3.0#3.0#[]#Transition to East-West#rrrrrrGGGG#22.0#22.0#22.0#[]#East-West#rrrrrryyyy#3.0#3.0#3.0#[]#Transition to North-South#, 2=2#0#0#GGgGGGrrrr#50.0#50.0#50.0#[1]#North-South#yyyyyyrrrr#3.0#3.0#3.0#[]#Transition to East-West#rrrrrrGGGG#50.0#50.0#50.0#[3, 0]#East-West#rrrrrryyyy#3.0#3.0#3.0#[]#Transition to North-South#}
 Trafficlight.getPhaseDuration: 50.0
