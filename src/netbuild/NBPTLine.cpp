@@ -61,7 +61,7 @@ void NBPTLine::write(OutputDevice& device, NBEdgeCont& ec) {
 
     std::vector<std::string> validEdgeIDs;
     // filter out edges that have been removed due to joining junctions
-    // (therest of the route is valid)
+    // (the rest of the route is valid)
     for (NBEdge* e : myRoute) {
         if (ec.retrieve(e->getID())) {
             validEdgeIDs.push_back(e->getID());
