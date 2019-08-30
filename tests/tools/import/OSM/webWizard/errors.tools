@@ -211,6 +211,10 @@ Warning: PT stop: 4015961303 has been moved to edge: -196850606#4
 Warning: PT stop: 3867910426 has been moved to edge: -275177453
 Warning: Could not re-assign PT stop: 366500582 probably broken osm file
 Warning: Incomplete route for ptline '6593455' (RB22: Königs Wusterhausen => Berlin Friedrichstraße)
+Warning: Last stop edge '207364192#0' is not part of the route of line 'Straßenbahnlinie 12: Weißensee, Pasedagplatz => Mitte, Am Kupfergraben'
+Warning: Last stop edge '207364191#0' is not part of the route of line 'Straßenbahnlinie M1: Niederschönhausen, Schillerstraße => Mitte, Am Kupfergraben'
+Warning: Last stop edge '207364191#0' is not part of the route of line 'Straßenbahnlinie M1: Rosenthal Nord => Mitte, Am Kupfergraben'
+Warning: Last stop edge '387892378' is not part of the route of line 'Buslinie N65: Köpenick, Müggelschlößchenweg => S Hackescher Markt'
 Warning: Not joining junctions 160503259,171440823,4237827432 (only 1 exit node)
 Warning: Not joining junctions 1803575761,2480337678,2656298207,29219440,341340978,3831343134,4566145594,4566145597,5747234974,5747234975,768074054 (7 incoming edges)
 Warning: Reducing junction cluster 2796729135,2856686315,4673135622,735132788 (not compact (maxEdge=83517332#0 length=6.06))
