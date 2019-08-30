@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Aug 30 08:52:23 2019 by Eclipse SUMO netconvert Version v1_3_1+0064-bad0029
+<!-- generated on Fri Aug 30 10:25:06 2019 by Eclipse SUMO netconvert Version v1_3_1+0068-6b9b87b
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -58,14 +58,15 @@ SPDX-License-Identifier: EPL-2.0
         <error id="c" meaning="an incoming edge has a sharp angle to all outgoing edges"/>
         <error id="d" meaning="an outgoing edge has a sharp angle from all incoming edges"/>
     </legend>
-    <railNodeType in="0" out="1">
+    <railNodeType in="1" out="1">
+        <node id="gneJ44"/>
         <node id="gneJ47"/>
     </railNodeType>
-    <railNodeType in="1" out="0">
-        <node id="gneJ44"/>
-    </railNodeType>
-    <railNodeType in="1" out="1">
+    <railNodeType in="2" out="2">
         <node id="gneJ45"/>
         <node id="gneJ46"/>
     </railNodeType>
+    <bidiEdge id="a" bidi="-a"/>
+    <bidiEdge id="b" bidi="-b"/>
+    <bidiEdge id="c" bidi="-c"/>
 </railwayTopology>
