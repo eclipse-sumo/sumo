@@ -78,6 +78,9 @@ NIXMLPTHandler::myStartElement(int element,
         case SUMO_TAG_PT_LINE:
             addPTLine(attrs);
             break;
+        case SUMO_TAG_ROUTE:
+            addRoute(attrs);
+            break;
         case SUMO_TAG_PARAM:
             if (myLastParameterised.size() != 0) {
                 bool ok = true;
@@ -162,16 +165,29 @@ NIXMLPTHandler::addPTLine(const SUMOSAXAttributes& attrs) {
     const int intervalS = attrs.getOpt<int>(SUMO_ATTR_PERIOD, id.c_str(), ok, -1);
     const std::string nightService = attrs.getStringSecure("nightService", "");
     myCurrentCompletion = StringUtils::toDouble(attrs.getStringSecure("completeness", "1"));
-    /// XXX parse route child
-    //if (!myRoute.empty()) {
-    //    device.openTag(SUMO_TAG_ROUTE);
-    //    device.writeAttr(SUMO_ATTR_EDGES, validEdgeIDs);
-    //    device.closeTag();
-    //}
     if (ok) {
         myCurrentLine = new NBPTLine(id, name, type, line, intervalS / 60, nightService);
         myLineCont.insert(myCurrentLine);
     }
+}
+
+void
+NIXMLPTHandler::addRoute(const SUMOSAXAttributes& attrs) {
+    if (myCurrentLine == nullptr) {
+        WRITE_ERROR("Found route outside line definition");
+        return;
+    }
+    const std::vector<std::string>& edgeIDs = attrs.getStringVector(SUMO_ATTR_EDGES);
+    EdgeVector edges;
+    for (const std::string& edgeID : edgeIDs) {
+        NBEdge* edge = myEdgeCont.retrieve(edgeID);
+        if (edge == nullptr) {
+            WRITE_ERROR("Edge '" + edgeID + "' in route of line '" + myCurrentLine->getName() + "' not found");
+        } else {
+            edges.push_back(edge);
+        }
+    }
+    myCurrentLine->addEdgeVector(edges.begin(), edges.end());
 }
 
 
