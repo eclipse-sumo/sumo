@@ -3,5 +3,3 @@ Error: Edge '220198808#0' occurred at least twice in the input.
 Error: Edge '81639675#0' occurred at least twice in the input.
 Error: Problems on adding junction '1704693564'.
 Error: Problems on adding junction '1704693568'.
-Warning: Found angle of 99.78 degrees at edge '581635138#2', segment 0
-Warning: Found sharp turn with radius 6.58 at the start of edge '581635138#2'.

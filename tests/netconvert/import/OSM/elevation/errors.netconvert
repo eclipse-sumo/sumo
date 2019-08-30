@@ -13,8 +13,6 @@ Warning: Ignoring restriction relation '1727169' with unknown from-way.
 Warning: Ignoring restriction relation '1727169' with unknown to-way.
 Warning: No way found for reference '48858193' in relation '2439689'
 Warning: Ignoring restriction relation '2439689' with unknown from-way.
-Warning: Found sharp turn with radius 1.71 at the start of edge '128643746#0'.
-Warning: Found sharp turn with radius 1.80 at the end of edge '128643746#1'.
 Warning: Edge '-172014854#1' has a grade of 11.14%.
 Warning: Edge '-24214694#1' has a grade of 16.46%.
 Warning: Edge '-24214694#4' has a grade of 11.61%.
