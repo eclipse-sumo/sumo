@@ -194,6 +194,11 @@ NBNodeTypeComputer::computeNodeTypes(NBNodeCont& nc, NBTrafficLightLogicCont& tl
             n->myType = NODETYPE_PRIORITY;
             continue;
         }
+        if (isRailwayNode(n)) {
+            // priority instead of unregulated to ensure that collisiosn can be detected
+            n->myType = NODETYPE_PRIORITY;
+            continue;
+        }
         // determine the type
         SumoXMLNodeType type = NODETYPE_RIGHT_BEFORE_LEFT;
         for (EdgeVector::const_iterator i = n->myIncomingEdges.begin(); i != n->myIncomingEdges.end(); i++) {
