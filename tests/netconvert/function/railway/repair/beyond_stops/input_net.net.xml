@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Fri 30 Aug 2019 08:52:19 AM CEST by Eclipse SUMO netedit Version v1_3_1+0064-bad0029
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="input_net.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="input_net.net.xml"/>
+    </output>
+
+    <processing>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+        <opposites.guess.fix-lengths value="true"/>
+        <lefthand value="false"/>
+    </processing>
+
+    <junctions>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="5"/>
+        <junctions.limit-turn-speed value="-1"/>
+        <rectangular-lane-cut value="false"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="false"/>
+    </pedestrian>
+
+    <netedit>
+        <additional-files value="input_ptstops.xml"/>
+    </netedit>
+
+</configuration>
+-->
+
+<net version="1.3" junctionCornerDetail="5" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+
+    <location netOffset="0.00,0.00" convBoundary="-100.00,-200.00,200.00,-200.00" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
+
+    <edge id=":gneJ45_0" function="internal">
+        <lane id=":gneJ45_0_0" index="0" allow="rail_urban" speed="27.78" length="0.10" shape="0.00,-200.00 0.00,-200.00"/>
+    </edge>
+    <edge id=":gneJ46_0" function="internal">
+        <lane id=":gneJ46_0_0" index="0" allow="rail_urban" speed="27.78" length="0.10" shape="100.00,-200.00 100.00,-200.00"/>
+    </edge>
+
+    <edge id="a" from="gneJ45" to="gneJ44" priority="-1" spreadType="center">
+        <lane id="a_0" index="0" allow="rail_urban" speed="27.78" length="100.00" shape="0.00,-200.00 -100.00,-200.00"/>
+    </edge>
+    <edge id="b" from="gneJ46" to="gneJ45" priority="-1" spreadType="center">
+        <lane id="b_0" index="0" allow="rail_urban" speed="27.78" length="100.00" shape="100.00,-200.00 0.00,-200.00"/>
+    </edge>
+    <edge id="c" from="gneJ47" to="gneJ46" priority="-1" spreadType="center">
+        <lane id="c_0" index="0" allow="rail_urban" speed="27.78" length="100.00" shape="200.00,-200.00 100.00,-200.00"/>
+    </edge>
+
+    <junction id="gneJ44" type="dead_end" x="-100.00" y="-200.00" incLanes="a_0" intLanes="" shape="-100.00,-198.40 -100.00,-201.60"/>
+    <junction id="gneJ45" type="priority" x="0.00" y="-200.00" incLanes="b_0" intLanes=":gneJ45_0_0" shape="0.00,-198.40 0.00,-201.60 0.00,-198.40">
+        <request index="0" response="0" foes="0" cont="0"/>
+    </junction>
+    <junction id="gneJ46" type="priority" x="100.00" y="-200.00" incLanes="c_0" intLanes=":gneJ46_0_0" shape="100.00,-198.40 100.00,-201.60 100.00,-198.40">
+        <request index="0" response="0" foes="0" cont="0"/>
+    </junction>
+    <junction id="gneJ47" type="dead_end" x="200.00" y="-200.00" incLanes="" intLanes="" shape="200.00,-201.60 200.00,-198.40"/>
+
+    <connection from="b" to="a" fromLane="0" toLane="0" via=":gneJ45_0_0" dir="s" state="M"/>
+    <connection from="c" to="b" fromLane="0" toLane="0" via=":gneJ46_0_0" dir="s" state="M"/>
+
+    <connection from=":gneJ45_0" to="a" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":gneJ46_0" to="b" fromLane="0" toLane="0" dir="s" state="M"/>
+
+</net>

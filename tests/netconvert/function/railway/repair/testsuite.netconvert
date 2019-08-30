@@ -33,3 +33,7 @@ stops_bidi_between
 
 # import a network where the public transport line contains a direction reversal at a side branch
 stops_reverse_en_route
+
+# repair track direction before the first and after the last stop based on terminal line edges (virtual stops)
+# 
+beyond_stops
