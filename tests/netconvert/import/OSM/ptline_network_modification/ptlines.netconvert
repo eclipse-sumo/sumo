@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Mar 13 23:14:06 2019 by Eclipse SUMO netconvert Version v1_1_0+0435-678c69824b
+<!-- generated on Fri Aug 30 12:03:40 2019 by Eclipse SUMO netconvert Version v1_3_1+0075-5dbf82b
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -46,17 +46,17 @@ SPDX-License-Identifier: EPL-2.0
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <ptLine id="1901599" name="Buslinie 104: Neu-Westend, Brixplatz =&gt; Stralau, Tunnelstraße" line="104" type="bus" completeness="1.00">
-        <route edges="110450334#1 110450334#2 338412122 391493949 391493950#0 391493950#1 391493952#0 391493952#1 391493952#2 391493954#0 391493954#1 391493954#2 391493954#3"/>
+        <route edges="338412128 7742634 338412126 4619354 245193868 110450334#0 110450334#1 110450334#2 338412122 391493949 391493950#0 391493950#1 391493952#0 391493952#1 391493952#2 391493954#0 391493954#1 391493954#2 391493954#3 456455657#0 456455657#1 391493953#0 391493953#1 391493946 391493948 456455656 391493951 456455655"/>
         <busStop id="3959807221" name="Kolonnenbrücke"/>
         <busStop id="3959807200" name="Dudenstraße/Katzbachstraße"/>
     </ptLine>
     <ptLine id="1901600" name="Buslinie 104: Stralau, Tunnelstraße =&gt; Neu-Westend, Brixplatz" line="104" type="bus" completeness="1.00">
-        <route edges="-391493954#3 -391493954#2 -391493954#1 -391493954#0 -391493952#2 -391493952#1 -391493952#0 -391493950#1 -391493950#0 -391493949 -338412122 -110450334#2 -110450334#1"/>
+        <route edges="-456455655 -391493951 -456455656 -391493948 -391493946 -391493953#1 -391493953#0 -456455657#1 -456455657#0 -391493954#3 -391493954#2 -391493954#1 -391493954#0 -391493952#2 -391493952#1 -391493952#0 -391493950#1 -391493950#0 -391493949 -338412122 -110450334#2 -110450334#1 -110450334#0 -245193868 -4619354 -338412126 -7742634 -338412128"/>
         <busStop id="-3959807201" name="Dudenstraße/Katzbachstraße"/>
         <busStop id="-3959807220" name="Kolonnenbrücke"/>
     </ptLine>
     <ptLine id="2000799" name="Buslinie 140: S+U Tempelhof =&gt; S Ostbahnhof" line="140" type="bus" completeness="0.06">
-        <route edges="391493945#1 391493945#2 391493945#3 161159325#0 161159325#1 -53356539#1 -53356539#0"/>
+        <route edges="111325188#0 111325188#1 111325188#2 391493945#0 391493945#1 391493945#2 391493945#3 161159325#0 161159325#1 -53356539#1 -53356539#0"/>
         <busStop id="2029039195" name="Dudenstraße/Katzbachstraße"/>
         <busStop id="-4032629820" name="Monumentenstraße"/>
     </ptLine>
@@ -68,11 +68,12 @@ SPDX-License-Identifier: EPL-2.0
         <busStop id="2029039146" name="Badener Ring"/>
     </ptLine>
     <ptLine id="6187328" name="Buslinie N42: S+U Alexanderplatz =&gt; U Theodor-Heuss-Platz" line="N42" type="bus" completeness="0.12">
+        <route edges="-456455655 -391493951 -456455656 -391493948 -391493946 -391493953#1 -391493953#0 -456455657#1 -456455657#0 -391493952#2 -391493952#1 -391493952#0 -391493950#1 -391493950#0 -391493949 -338412122 -110450334#2 -110450334#1 -110450334#0 -245193868 -4619354 -338412126 -7742634 -338412128"/>
         <busStop id="-3959807201" name="Dudenstraße/Katzbachstraße"/>
         <busStop id="-3959807220" name="Kolonnenbrücke"/>
     </ptLine>
     <ptLine id="6187329" name="Buslinie N42: U Theodor-Heuss-Platz =&gt; S+U Alexanderplatz" line="N42" type="bus" completeness="0.11">
-        <route edges="110450334#1 110450334#2 338412122 391493949 391493950#0 391493950#1 391493952#0 391493952#1 391493952#2 456455657#0 456455657#1 391493953#0 391493953#1 391493946 391493948 456455656 391493951 456455655"/>
+        <route edges="338412128 7742634 338412126 4619354 245193868 110450334#0 110450334#1 110450334#2 338412122 391493949 391493950#0 391493950#1 391493952#0 391493952#1 391493952#2 456455657#0 456455657#1 391493953#0 391493953#1 391493946 391493948 456455656 391493951 456455655"/>
         <busStop id="3959807221" name="Kolonnenbrücke"/>
         <busStop id="3959807200" name="Dudenstraße/Katzbachstraße"/>
     </ptLine>
