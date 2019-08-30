@@ -941,7 +941,7 @@ NBEdge::reduceGeometry(const double minDist) {
 
 
 void
-NBEdge::checkGeometry(const double maxAngle, const double minRadius, bool fix) {
+NBEdge::checkGeometry(const double maxAngle, const double minRadius, bool fix, bool silent) {
     if (myGeom.size() < 3) {
         return;
     }
@@ -956,7 +956,7 @@ NBEdge::checkGeometry(const double maxAngle, const double minRadius, bool fix) {
     for (int i = 0; i < (int)angles.size() - 1; ++i) {
         const double relAngle = fabs(GeomHelper::angleDiff(angles[i], angles[i + 1]));
         //std::cout << relAngle << " ";
-        if (maxAngle > 0 && relAngle > maxAngle) {
+        if (maxAngle > 0 && relAngle > maxAngle && !silent) {
             WRITE_WARNING("Found angle of " + toString(RAD2DEG(relAngle)) + " degrees at edge '" + getID() + "', segment " + toString(i));
         }
         if (relAngle < DEG2RAD(1)) {
@@ -972,9 +972,9 @@ NBEdge::checkGeometry(const double maxAngle, const double minRadius, bool fix) {
                     WRITE_MESSAGE("Removing sharp turn with radius " + toString(r) + " at the " +
                                   (start ? "start" : "end") + " of edge '" + getID() + "'.");
                     myGeom.erase(myGeom.begin() + (start ? 1 : i + 1));
-                    checkGeometry(maxAngle, minRadius, fix);
+                    checkGeometry(maxAngle, minRadius, fix, silent);
                     return;
-                } else {
+                } else if (!silent) {
                     WRITE_WARNING("Found sharp turn with radius " + toString(r) + " at the " +
                                   (start ? "start" : "end") + " of edge '" + getID() + "'.");
                 }
