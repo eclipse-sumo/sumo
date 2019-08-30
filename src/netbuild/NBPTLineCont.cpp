@@ -262,24 +262,7 @@ void NBPTLineCont::constructRoute(NBPTLine* pTLine, NBEdgeCont& cont) {
         currentWayEdges.clear();
         currentWayMinusEdges.clear();
     }
-
-    auto fr = edges.begin();
-    NBPTStop* frStop = pTLine->getStops()[0];
-    for (; fr != edges.end(); fr++) {
-        if ((*fr)->getID() == frStop->getEdgeId()) {
-            break;
-        }
-    }
-    auto to = fr;
-    NBPTStop* toStop = *(pTLine->getStops().end() - 1);
-    for (; to != edges.end(); to++) {
-        if ((*to)->getID() == toStop->getEdgeId()) {
-            to++;
-            break;
-        }
-    }
-
-    pTLine->addEdgeVector(fr, to);
+    pTLine->addEdgeVector(edges.begin(), edges.end());
 }
 
 
