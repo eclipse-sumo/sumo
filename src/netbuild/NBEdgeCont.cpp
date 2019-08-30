@@ -732,10 +732,10 @@ NBEdgeCont::reduceGeometries(const double minDist) {
 
 
 void
-NBEdgeCont::checkGeometries(const double maxAngle, const double minRadius, bool fix) {
+NBEdgeCont::checkGeometries(const double maxAngle, const double minRadius, bool fix, bool fixRailways) {
     if (maxAngle > 0 || minRadius > 0) {
-        for (EdgeCont::iterator i = myEdges.begin(); i != myEdges.end(); ++i) {
-            (*i).second->checkGeometry(maxAngle, minRadius, fix);
+        for (auto& item : myEdges) {
+            item.second->checkGeometry(maxAngle, minRadius, fix || (fixRailways && isRailway(item.second->getPermissions())));
         }
     }
 }

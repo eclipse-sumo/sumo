@@ -343,7 +343,8 @@ NBNetBuilder::compute(OptionsCont& oc, const std::set<std::string>& explicitTurn
         myEdgeCont.checkGeometries(
             DEG2RAD(oc.getFloat("geometry.max-angle")),
             oc.getFloat("geometry.min-radius"),
-            oc.getBool("geometry.min-radius.fix"));
+            oc.getBool("geometry.min-radius.fix"),
+            oc.getBool("geometry.min-radius.fix.railways"));
     }
 
     // GEOMETRY COMPUTATION

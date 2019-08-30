@@ -160,6 +160,9 @@ NBFrame::fillOptions(bool forNetgen) {
         oc.doRegister("geometry.min-radius.fix", new Option_Bool(false));
         oc.addDescription("geometry.min-radius.fix", "Processing", "Straighten edge geometries to avoid turning radii less than geometry.min-radius");
 
+        oc.doRegister("geometry.min-radius.fix.railways", new Option_Bool(true));
+        oc.addDescription("geometry.min-radius.fix.railways", "Processing", "Straighten edge geometries to avoid turning radii less than geometry.min-radius (only railways)");
+
         oc.doRegister("geometry.junction-mismatch-threshold", new Option_Float(20));
         oc.addDescription("geometry.junction-mismatch-threshold", "Processing", "Warn if the junction shape is to far away from the original node position");
 
