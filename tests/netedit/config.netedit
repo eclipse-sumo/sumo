@@ -61,7 +61,9 @@ errors:Java{LINES 1}
 errors:Could not load{LINES 1}
 errors:Debug: Modules:
 errors:{INTERNAL writedir}{REPLACE <TEXTTEST_SANDBOX>}
+errors:\\{REPLACE /}
 log:{INTERNAL writedir}{REPLACE <TEXTTEST_SANDBOX>}
+log:\\{REPLACE /}
 
 [floating_point_tolerance]
 net:0.0101
