@@ -130,59 +130,62 @@ void
 GNECalibrator::drawGL(const GUIVisualizationSettings& s) const {
     // get values
     const double exaggeration = s.addSize.getExaggeration(s, this);
-    // begin draw
-    glPushName(getGlID());
-    glLineWidth(1.0);
-    // iterate over every Calibrator symbol
-    for (int i = 0; i < (int)myGeometry.shape.size(); ++i) {
-        const Position& pos = myGeometry.shape[i];
-        double rot = myGeometry.shapeRotations[i];
-        glPushMatrix();
-        glTranslated(pos.x(), pos.y(), getType());
-        glRotated(rot, 0, 0, 1);
-        glTranslated(0, 0, getType());
-        glScaled(exaggeration, exaggeration, 1);
-        glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-        // set color
-        if (drawUsingSelectColor()) {
-            GLHelper::setColor(s.colorSettings.selectedAdditionalColor);
-        } else {
-            GLHelper::setColor(s.colorSettings.calibrator);
-        }
-        // base
-        glBegin(GL_TRIANGLES);
-        glVertex2d(0 - 1.4, 0);
-        glVertex2d(0 - 1.4, 6);
-        glVertex2d(0 + 1.4, 6);
-        glVertex2d(0 + 1.4, 0);
-        glVertex2d(0 - 1.4, 0);
-        glVertex2d(0 + 1.4, 6);
-        glEnd();
-        // draw text if isn't being drawn for selecting
-        if (!s.drawForSelecting && s.drawDetail(s.detailSettings.calibratorText, exaggeration)) {
-            // set color depending of selection status
-            RGBColor textColor = drawUsingSelectColor() ? s.colorSettings.selectionColor : RGBColor::BLACK;
-            // draw "C"
-            GLHelper::drawText("C", Position(0, 1.5), 0.1, 3, textColor, 180);
-            // draw "edge" or "lane "
-            if (getLaneParents().size() > 0) {
-                GLHelper::drawText("lane", Position(0, 3), .1, 1, textColor, 180);
-            } else if (getEdgeParents().size() > 0) {
-                GLHelper::drawText("edge", Position(0, 3), .1, 1, textColor, 180);
+    // first check if additional has to be drawn
+    if (s.drawAdditionals(exaggeration)) {
+        // begin draw
+        glPushName(getGlID());
+        glLineWidth(1.0);
+        // iterate over every Calibrator symbol
+        for (int i = 0; i < (int)myGeometry.shape.size(); ++i) {
+            const Position& pos = myGeometry.shape[i];
+            double rot = myGeometry.shapeRotations[i];
+            glPushMatrix();
+            glTranslated(pos.x(), pos.y(), getType());
+            glRotated(rot, 0, 0, 1);
+            glTranslated(0, 0, getType());
+            glScaled(exaggeration, exaggeration, 1);
+            glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+            // set color
+            if (drawUsingSelectColor()) {
+                GLHelper::setColor(s.colorSettings.selectedAdditionalColor);
             } else {
-                throw ProcessError("Both myEdge and myLane aren't defined");
+                GLHelper::setColor(s.colorSettings.calibrator);
+            }
+            // base
+            glBegin(GL_TRIANGLES);
+            glVertex2d(0 - 1.4, 0);
+            glVertex2d(0 - 1.4, 6);
+            glVertex2d(0 + 1.4, 6);
+            glVertex2d(0 + 1.4, 0);
+            glVertex2d(0 - 1.4, 0);
+            glVertex2d(0 + 1.4, 6);
+            glEnd();
+            // draw text if isn't being drawn for selecting
+            if (!s.drawForSelecting && s.drawDetail(s.detailSettings.calibratorText, exaggeration)) {
+                // set color depending of selection status
+                RGBColor textColor = drawUsingSelectColor() ? s.colorSettings.selectionColor : RGBColor::BLACK;
+                // draw "C"
+                GLHelper::drawText("C", Position(0, 1.5), 0.1, 3, textColor, 180);
+                // draw "edge" or "lane "
+                if (getLaneParents().size() > 0) {
+                    GLHelper::drawText("lane", Position(0, 3), .1, 1, textColor, 180);
+                } else if (getEdgeParents().size() > 0) {
+                    GLHelper::drawText("edge", Position(0, 3), .1, 1, textColor, 180);
+                } else {
+                    throw ProcessError("Both myEdge and myLane aren't defined");
+                }
+            }
+            glPopMatrix();
+            // check if dotted contour has to be drawn
+            if (myViewNet->getDottedAC() == this) {
+                GLHelper::drawShapeDottedContourRectangle(s, getType(), pos, 2.8, 6, rot, 0, 3);
             }
         }
-        glPopMatrix();
-        // check if dotted contour has to be drawn
-        if (myViewNet->getDottedAC() == this) {
-            GLHelper::drawShapeDottedContourRectangle(s, getType(), pos, 2.8, 6, rot, 0, 3);
-        }
+        // draw name
+        drawName(getPositionInView(), s.scale, s.addName);
+        // pop name
+        glPopName();
     }
-    // draw name
-    drawName(getPositionInView(), s.scale, s.addName);
-    // pop name
-    glPopName();
 }
 
 

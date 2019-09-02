@@ -103,98 +103,101 @@ GNEParkingArea::getCenteringBoundary() const {
 
 void
 GNEParkingArea::drawGL(const GUIVisualizationSettings& s) const {
-    // check if boundary has to be drawn
-    if (s.drawBoundaries) {
-        GLHelper::drawBoundary(getCenteringBoundary());
-    }
     // Obtain exaggeration of the draw
     const double exaggeration = s.addSize.getExaggeration(s, this);
-    // Push name
-    glPushName(getGlID());
-    // Push base matrix
-    glPushMatrix();
-    // Traslate matrix
-    glTranslated(0, 0, getType());
-    // Set Color
-    if (drawUsingSelectColor()) {
-        GLHelper::setColor(s.colorSettings.selectedAdditionalColor);
-    } else {
-        GLHelper::setColor(s.colorSettings.parkingArea);
-    }
-    // Draw base
-    GLHelper::drawBoxLines(myGeometry.shape, myGeometry.shapeRotations, myGeometry.shapeLengths, myWidth * exaggeration);
-    // Check if the distance is enought to draw details and if is being drawn for selecting
-    if (s.drawForSelecting) {
-        // only draw circle depending of distance between sign and mouse cursor
-        if (myViewNet->getPositionInformation().distanceSquaredTo2D(mySignPos) <= (myCircleWidthSquared + 2)) {
-            // Add a draw matrix for details
-            glPushMatrix();
-            // Start drawing sign traslating matrix to signal position
-            glTranslated(mySignPos.x(), mySignPos.y(), 0);
-            // scale matrix depending of the exaggeration
-            glScaled(exaggeration, exaggeration, 1);
-            // set color
-            GLHelper::setColor(s.colorSettings.busStop);
-            // Draw circle
-            GLHelper::drawFilledCircle(myCircleWidth, s.getCircleResolution());
-            // pop draw matrix
-            glPopMatrix();
+    // first check if additional has to be drawn
+    if (s.drawAdditionals(exaggeration)) {
+        // check if boundary has to be drawn
+        if (s.drawBoundaries) {
+            GLHelper::drawBoundary(getCenteringBoundary());
         }
-    } else if (s.drawDetail(s.detailSettings.stoppingPlaceDetails, exaggeration)) {
-        // Push matrix for details
+        // Push name
+        glPushName(getGlID());
+        // Push base matrix
         glPushMatrix();
-        // Set position over sign
-        glTranslated(mySignPos.x(), mySignPos.y(), 0);
-        // Scale matrix
-        glScaled(exaggeration, exaggeration, 1);
-        // Set base color
+        // Traslate matrix
+        glTranslated(0, 0, getType());
+        // Set Color
         if (drawUsingSelectColor()) {
             GLHelper::setColor(s.colorSettings.selectedAdditionalColor);
         } else {
             GLHelper::setColor(s.colorSettings.parkingArea);
         }
-        // Draw extern
-        GLHelper::drawFilledCircle(myCircleWidth, s.getCircleResolution());
-        // Move to top
-        glTranslated(0, 0, .1);
-        // Set sign color
-        if (drawUsingSelectColor()) {
-            GLHelper::setColor(s.colorSettings.selectionColor);
-        } else {
-            GLHelper::setColor(s.colorSettings.parkingAreaSign);
-        }
-        // Draw internt sign
-        GLHelper::drawFilledCircle(myCircleInWidth, s.getCircleResolution());
-        // Draw sign 'C'
-        if (s.drawDetail(s.detailSettings.stoppingPlaceText, exaggeration)) {
-            if (drawUsingSelectColor()) {
-                GLHelper::drawText("P", Position(), .1, myCircleInText, s.colorSettings.selectedAdditionalColor, myBlockIcon.rotation);
-            } else {
-                GLHelper::drawText("P", Position(), .1, myCircleInText, s.colorSettings.parkingArea, myBlockIcon.rotation);
+        // Draw base
+        GLHelper::drawBoxLines(myGeometry.shape, myGeometry.shapeRotations, myGeometry.shapeLengths, myWidth * exaggeration);
+        // Check if the distance is enought to draw details and if is being drawn for selecting
+        if (s.drawForSelecting) {
+            // only draw circle depending of distance between sign and mouse cursor
+            if (myViewNet->getPositionInformation().distanceSquaredTo2D(mySignPos) <= (myCircleWidthSquared + 2)) {
+                // Add a draw matrix for details
+                glPushMatrix();
+                // Start drawing sign traslating matrix to signal position
+                glTranslated(mySignPos.x(), mySignPos.y(), 0);
+                // scale matrix depending of the exaggeration
+                glScaled(exaggeration, exaggeration, 1);
+                // set color
+                GLHelper::setColor(s.colorSettings.busStop);
+                // Draw circle
+                GLHelper::drawFilledCircle(myCircleWidth, s.getCircleResolution());
+                // pop draw matrix
+                glPopMatrix();
             }
+        } else if (s.drawDetail(s.detailSettings.stoppingPlaceDetails, exaggeration)) {
+            // Push matrix for details
+            glPushMatrix();
+            // Set position over sign
+            glTranslated(mySignPos.x(), mySignPos.y(), 0);
+            // Scale matrix
+            glScaled(exaggeration, exaggeration, 1);
+            // Set base color
+            if (drawUsingSelectColor()) {
+                GLHelper::setColor(s.colorSettings.selectedAdditionalColor);
+            } else {
+                GLHelper::setColor(s.colorSettings.parkingArea);
+            }
+            // Draw extern
+            GLHelper::drawFilledCircle(myCircleWidth, s.getCircleResolution());
+            // Move to top
+            glTranslated(0, 0, .1);
+            // Set sign color
+            if (drawUsingSelectColor()) {
+                GLHelper::setColor(s.colorSettings.selectionColor);
+            } else {
+                GLHelper::setColor(s.colorSettings.parkingAreaSign);
+            }
+            // Draw internt sign
+            GLHelper::drawFilledCircle(myCircleInWidth, s.getCircleResolution());
+            // Draw sign 'C'
+            if (s.drawDetail(s.detailSettings.stoppingPlaceText, exaggeration)) {
+                if (drawUsingSelectColor()) {
+                    GLHelper::drawText("P", Position(), .1, myCircleInText, s.colorSettings.selectedAdditionalColor, myBlockIcon.rotation);
+                } else {
+                    GLHelper::drawText("P", Position(), .1, myCircleInText, s.colorSettings.parkingArea, myBlockIcon.rotation);
+                }
+            }
+            // Pop sign matrix
+            glPopMatrix();
+            // Draw icon
+            myBlockIcon.drawIcon(s, exaggeration);
         }
-        // Pop sign matrix
+        // Pop base matrix
         glPopMatrix();
-        // Draw icon
-        myBlockIcon.drawIcon(s, exaggeration);
-    }
-    // Pop base matrix
-    glPopMatrix();
-    // Draw name if isn't being drawn for selecting
-    drawName(getPositionInView(), s.scale, s.addName);
-    if (s.addFullName.show && (myAdditionalName != "") && !s.drawForSelecting) {
-        GLHelper::drawText(myAdditionalName, mySignPos, GLO_MAX - getType(), s.addFullName.scaledSize(s.scale), s.addFullName.color, myBlockIcon.rotation);
-    }
-    // check if dotted contour has to be drawn
-    if (myViewNet->getDottedAC() == this) {
-        GLHelper::drawShapeDottedContourAroundShape(s, getType(), myGeometry.shape, myWidth * exaggeration);
-    }
-    // Pop name matrix
-    glPopName();
-    // draw demand element children
-    for (const auto& i : getDemandElementChildren()) {
-        if (!i->getTagProperty().isPlacedInRTree()) {
-            i->drawGL(s);
+        // Draw name if isn't being drawn for selecting
+        drawName(getPositionInView(), s.scale, s.addName);
+        if (s.addFullName.show && (myAdditionalName != "") && !s.drawForSelecting) {
+            GLHelper::drawText(myAdditionalName, mySignPos, GLO_MAX - getType(), s.addFullName.scaledSize(s.scale), s.addFullName.color, myBlockIcon.rotation);
+        }
+        // check if dotted contour has to be drawn
+        if (myViewNet->getDottedAC() == this) {
+            GLHelper::drawShapeDottedContourAroundShape(s, getType(), myGeometry.shape, myWidth * exaggeration);
+        }
+        // Pop name matrix
+        glPopName();
+        // draw demand element children
+        for (const auto& i : getDemandElementChildren()) {
+            if (!i->getTagProperty().isPlacedInRTree()) {
+                i->drawGL(s);
+            }
         }
     }
 }

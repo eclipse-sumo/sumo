@@ -142,98 +142,104 @@ GNEDetectorE1Instant::updateGeometry() {
 
 void
 GNEDetectorE1Instant::drawGL(const GUIVisualizationSettings& s) const {
-    // get values
-    const double width = (double) 2.0 * s.scale;
+    // Obtain exaggeration of the draw
     const double exaggeration = s.addSize.getExaggeration(s, this);
-    // start drawing
-    glPushName(getGlID());
-    glLineWidth(1.0);
-    // set color
-    if (drawUsingSelectColor()) {
-        GLHelper::setColor(s.colorSettings.selectedAdditionalColor);
-    } else {
-        GLHelper::setColor(s.colorSettings.E1Instant);
-    }
-    // draw shape
-    glPushMatrix();
-    glTranslated(0, 0, getType());
-    glTranslated(myGeometry.shape[0].x(), myGeometry.shape[0].y(), 0);
-    glRotated(myGeometry.shapeRotations[0], 0, 0, 1);
-    glScaled(exaggeration, exaggeration, 1);
-    glBegin(GL_QUADS);
-    glVertex2d(-1.0,  2);
-    glVertex2d(-1.0, -2);
-    glVertex2d(1.0, -2);
-    glVertex2d(1.0,  2);
-    glEnd();
-    glTranslated(0, 0, .01);
-    glBegin(GL_LINES);
-    glVertex2d(0, 2 - .1);
-    glVertex2d(0, -2 + .1);
-    glEnd();
-    // outline if isn't being drawn for selecting
-    if ((width * exaggeration > 1) && !s.drawForSelecting) {
+    // first check if additional has to be drawn
+    if (s.drawAdditionals(exaggeration)) {
+        // obatin width
+        const double width = (double) 2.0 * s.scale;
+        // start drawing
+        glPushName(getGlID());
+        glLineWidth(1.0);
         // set color
         if (drawUsingSelectColor()) {
-            GLHelper::setColor(s.colorSettings.selectionColor);
+            GLHelper::setColor(s.colorSettings.selectedAdditionalColor);
         } else {
-            GLHelper::setColor(RGBColor::WHITE);
+            GLHelper::setColor(s.colorSettings.E1Instant);
         }
-        glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-        glBegin(GL_QUADS);
-        glVertex2f(-1.0,  2);
-        glVertex2f(-1.0, -2);
-        glVertex2f(1.0, -2);
-        glVertex2f(1.0,  2);
-        glEnd();
-        glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-    }
-    // position indicator if isn't being drawn for selecting
-    if ((width * exaggeration > 1) && !s.drawForSelecting) {
-        // set color
-        if (drawUsingSelectColor()) {
-            GLHelper::setColor(s.colorSettings.selectionColor);
-        } else {
-            GLHelper::setColor(RGBColor::WHITE);
-        }
-        glRotated(90, 0, 0, -1);
-        glBegin(GL_LINES);
-        glVertex2d(0, 1.7);
-        glVertex2d(0, -1.7);
-        glEnd();
-    }
-    // Pop shape matrix
-    glPopMatrix();
-    // Check if the distance is enought to draw details and isn't being drawn for selecting
-    if ((s.drawDetail(s.detailSettings.detectorDetails, exaggeration)) && !s.drawForSelecting) {
-        // Push matrix
+        // draw shape
         glPushMatrix();
-        // Traslate to center of detector
-        glTranslated(myGeometry.shape.getLineCenter().x(), myGeometry.shape.getLineCenter().y(), getType() + 0.1);
-        // Rotate depending of myBlockIcon.rotation
-        glRotated(myBlockIcon.rotation, 0, 0, -1);
-        //move to logo position
-        glTranslated(-1, 0, 0);
-        // draw E1 logo
-        if (drawUsingSelectColor()) {
-            GLHelper::drawText("E1", Position(), .1, 1.5, s.colorSettings.selectionColor);
-        } else {
-            GLHelper::drawText("E1", Position(), .1, 1.5, RGBColor::BLACK);
+        glTranslated(0, 0, getType());
+        glTranslated(myGeometry.shape[0].x(), myGeometry.shape[0].y(), 0);
+        glRotated(myGeometry.shapeRotations[0], 0, 0, 1);
+        glScaled(exaggeration, exaggeration, 1);
+        glBegin(GL_QUADS);
+        glVertex2d(-1.0,  2);
+        glVertex2d(-1.0, -2);
+        glVertex2d(1.0, -2);
+        glVertex2d(1.0,  2);
+        glEnd();
+        glTranslated(0, 0, .01);
+        glBegin(GL_LINES);
+        glVertex2d(0, 2 - .1);
+        glVertex2d(0, -2 + .1);
+        glEnd();
+        // outline if isn't being drawn for selecting
+        if ((width * exaggeration > 1) && !s.drawForSelecting) {
+            // set color
+            if (drawUsingSelectColor()) {
+                GLHelper::setColor(s.colorSettings.selectionColor);
+            } else {
+                GLHelper::setColor(RGBColor::WHITE);
+            }
+            glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+            glBegin(GL_QUADS);
+            glVertex2f(-1.0,  2);
+            glVertex2f(-1.0, -2);
+            glVertex2f(1.0, -2);
+            glVertex2f(1.0,  2);
+            glEnd();
+            glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
         }
-        // pop matrix
+        // position indicator if isn't being drawn for selecting
+        if ((width * exaggeration > 1) && !s.drawForSelecting) {
+            // set color
+            if (drawUsingSelectColor()) {
+                GLHelper::setColor(s.colorSettings.selectionColor);
+            } else {
+                GLHelper::setColor(RGBColor::WHITE);
+            }
+            glRotated(90, 0, 0, -1);
+            glBegin(GL_LINES);
+            glVertex2d(0, 1.7);
+            glVertex2d(0, -1.7);
+            glEnd();
+        }
+        // Pop shape matrix
         glPopMatrix();
-        // Show Lock icon depending of the Edit mode
-        myBlockIcon.drawIcon(s, exaggeration);
+        // Check if the distance is enought to draw details and isn't being drawn for selecting
+        if ((s.drawDetail(s.detailSettings.detectorDetails, exaggeration)) && !s.drawForSelecting) {
+            // Push matrix
+            glPushMatrix();
+            // Traslate to center of detector
+            glTranslated(myGeometry.shape.getLineCenter().x(), myGeometry.shape.getLineCenter().y(), getType() + 0.1);
+            // Rotate depending of myBlockIcon.rotation
+            glRotated(myBlockIcon.rotation, 0, 0, -1);
+            //move to logo position
+            glTranslated(-1, 0, 0);
+            // scale text
+            glScaled(exaggeration, exaggeration, 1);
+            // draw E1 logo
+            if (drawUsingSelectColor()) {
+                GLHelper::drawText("E1", Position(), .1, 1.5, s.colorSettings.selectionColor);
+            } else {
+                GLHelper::drawText("E1", Position(), .1, 1.5, RGBColor::BLACK);
+            }
+            // pop matrix
+            glPopMatrix();
+            // Show Lock icon depending of the Edit mode
+            myBlockIcon.drawIcon(s, exaggeration);
+        }
+        // Finish draw if isn't being drawn for selecting
+        if (!s.drawForSelecting) {
+            drawName(getPositionInView(), s.scale, s.addName);
+        }
+        // check if dotted contour has to be drawn
+        if (myViewNet->getDottedAC() == this) {
+            GLHelper::drawShapeDottedContourRectangle(s, getType(), myGeometry.shape[0], 2, 4, myGeometry.shapeRotations[0]);
+        }
+        glPopName();
     }
-    // Finish draw if isn't being drawn for selecting
-    if (!s.drawForSelecting) {
-        drawName(getPositionInView(), s.scale, s.addName);
-    }
-    // check if dotted contour has to be drawn
-    if (myViewNet->getDottedAC() == this) {
-        GLHelper::drawShapeDottedContourRectangle(s, getType(), myGeometry.shape[0], 2, 4, myGeometry.shapeRotations[0]);
-    }
-    glPopName();
 }
 
 

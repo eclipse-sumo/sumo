@@ -117,9 +117,9 @@ GUIE3Collector::MyWrapper::drawSingleCrossing(const Position& pos,
         double rot, double upscale) const {
     glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
     glPushMatrix();
-    glScaled(upscale, upscale, 1);
     glTranslated(pos.x(), pos.y(), 0);
     glRotated(rot, 0, 0, 1);
+    glScaled(upscale, upscale, 1);
     glBegin(GL_LINES);
     glVertex2d(1.7, 0);
     glVertex2d(-1.7, 0);

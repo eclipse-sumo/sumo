@@ -123,46 +123,51 @@ void
 GNERerouter::drawGL(const GUIVisualizationSettings& s) const {
     // Obtain exaggeration of the draw
     const double exaggeration = s.addSize.getExaggeration(s, this);
-    // check if boundary has to be drawn
-    if (s.drawBoundaries) {
-        GLHelper::drawBoundary(getCenteringBoundary());
-    }
-    // Start drawing adding an gl identificator
-    glPushName(getGlID());
-    // Add a draw matrix for drawing logo
-    glPushMatrix();
-    glTranslated(myPosition.x(), myPosition.y(), getType());
-    // Draw icon depending of detector is selected and if isn't being drawn for selecting
-    if (!s.drawForSelecting && s.drawDetail(s.detailSettings.laneTextures, exaggeration)) {
-        glColor3d(1, 1, 1);
-        glRotated(180, 0, 0, 1);
-        if (drawUsingSelectColor()) {
-            GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(GNETEXTURE_REROUTERSELECTED), 1);
+    // first check if additional has to be drawn
+    if (s.drawAdditionals(exaggeration)) {
+        // check if boundary has to be drawn
+        if (s.drawBoundaries) {
+            GLHelper::drawBoundary(getCenteringBoundary());
+        }
+        // Start drawing adding an gl identificator
+        glPushName(getGlID());
+        // Add a draw matrix for drawing logo
+        glPushMatrix();
+        glTranslated(myPosition.x(), myPosition.y(), getType());
+        // scale
+        glScaled(exaggeration, exaggeration, 1);
+        // Draw icon depending of detector is selected and if isn't being drawn for selecting
+        if (!s.drawForSelecting && s.drawDetail(s.detailSettings.laneTextures, exaggeration)) {
+            glColor3d(1, 1, 1);
+            glRotated(180, 0, 0, 1);
+            if (drawUsingSelectColor()) {
+                GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(GNETEXTURE_REROUTERSELECTED), 1);
+            } else {
+                GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(GNETEXTURE_REROUTER), 1);
+            }
         } else {
-            GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(GNETEXTURE_REROUTER), 1);
+            GLHelper::setColor(RGBColor::RED);
+            GLHelper::drawBoxLine(Position(0, 1), 0, 2, 1);
         }
-    } else {
-        GLHelper::setColor(RGBColor::RED);
-        GLHelper::drawBoxLine(Position(0, 1), 0, 2, 1);
-    }
-    // Pop draw matrix
-    glPopMatrix();
-    // Show Lock icon
-    myBlockIcon.drawIcon(s, exaggeration, 0.4);
-    // Draw child connections
-    drawChildConnections(s, getType());
-    // check if dotted contour has to be drawn
-    if (myViewNet->getDottedAC() == this) {
-        GLHelper::drawShapeDottedContourRectangle(s, getType(), myPosition, 2, 2);
-        // draw shape dotte contour aroud alld connections between child and parents
-        for (auto i : myChildConnections.connectionPositions) {
-            GLHelper::drawShapeDottedContourAroundShape(s, getType(), i, 0);
+        // Pop draw matrix
+        glPopMatrix();
+        // Show Lock icon
+        myBlockIcon.drawIcon(s, exaggeration, 0.4);
+        // Draw child connections
+        drawChildConnections(s, getType());
+        // check if dotted contour has to be drawn
+        if (myViewNet->getDottedAC() == this) {
+            GLHelper::drawShapeDottedContourRectangle(s, getType(), myPosition, 2, 2);
+            // draw shape dotte contour aroud alld connections between child and parents
+            for (auto i : myChildConnections.connectionPositions) {
+                GLHelper::drawShapeDottedContourAroundShape(s, getType(), i, 0);
+            }
         }
+        // Draw name
+        drawName(getPositionInView(), s.scale, s.addName);
+        // Pop name
+        glPopName();
     }
-    // Draw name
-    drawName(getPositionInView(), s.scale, s.addName);
-    // Pop name
-    glPopName();
 }
 
 

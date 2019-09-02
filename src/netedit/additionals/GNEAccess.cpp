@@ -163,31 +163,34 @@ void
 GNEAccess::drawGL(const GUIVisualizationSettings& s) const {
     // Obtain exaggeration of the draw
     const double exaggeration = s.addSize.getExaggeration(s, this);
-    // Start drawing adding an gl identificator
-    glPushName(getGlID());
-    // push matrix
-    glPushMatrix();
-    // set color depending of selection
-    if (drawUsingSelectColor()) {
-        GLHelper::setColor(s.colorSettings.selectedAdditionalColor);
-    } else {
-        GLHelper::setColor(s.colorSettings.busStop);
-    }
-    glTranslated(myGeometry.shape[0].x(), myGeometry.shape[0].y(), GLO_ACCESS);
-    // draw circle
-    if (s.drawForSelecting) {
-        GLHelper::drawFilledCircle((double) 0.5 * exaggeration, 8);
-    } else {
-        std::vector<Position> vertices = GLHelper::drawFilledCircleReturnVertices((double) 0.5 * exaggeration, 16);
-        // check if dotted contour has to be drawn
-        if (myViewNet->getDottedAC() == this) {
-            GLHelper::drawShapeDottedContourAroundClosedShape(s, getType(), vertices);
+    // first check if additional has to be drawn
+    if (s.drawAdditionals(exaggeration)) {
+        // Start drawing adding an gl identificator
+        glPushName(getGlID());
+        // push matrix
+        glPushMatrix();
+        // set color depending of selection
+        if (drawUsingSelectColor()) {
+            GLHelper::setColor(s.colorSettings.selectedAdditionalColor);
+        } else {
+            GLHelper::setColor(s.colorSettings.busStop);
         }
+        glTranslated(myGeometry.shape[0].x(), myGeometry.shape[0].y(), GLO_ACCESS);
+        // draw circle
+        if (s.drawForSelecting) {
+            GLHelper::drawFilledCircle((double) 0.5 * exaggeration, 8);
+        } else {
+            std::vector<Position> vertices = GLHelper::drawFilledCircleReturnVertices((double) 0.5 * exaggeration, 16);
+            // check if dotted contour has to be drawn
+            if (myViewNet->getDottedAC() == this) {
+                GLHelper::drawShapeDottedContourAroundClosedShape(s, getType(), vertices);
+            }
+        }
+        // pop matrix
+        glPopMatrix();
+        // pop gl identficador
+        glPopName();
     }
-    // pop matrix
-    glPopMatrix();
-    // pop gl identficador
-    glPopName();
 }
 
 

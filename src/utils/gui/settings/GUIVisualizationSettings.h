@@ -387,6 +387,9 @@ public:
     /// @brief return an angle that is suitable for reading text aligned with the given angle (degrees)
     double getTextAngle(double objectAngle) const;
 
+    /// @brief check if additionals must be drawn
+    bool drawAdditionals(const double exaggeration) const;
+
     /// @brief check if details can be drawn for the given GUIVisualizationDetailSettings and current scale and exxageration
     bool drawDetail(const double detail, const double exaggeration) const;
 

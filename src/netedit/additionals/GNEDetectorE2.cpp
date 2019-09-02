@@ -390,110 +390,109 @@ GNEDetectorE2::checkE2MultilaneIntegrity() {
 
 void
 GNEDetectorE2::drawGL(const GUIVisualizationSettings& s) const {
-    // Start drawing adding an gl identificator
-    glPushName(getGlID());
-
-    // Add a draw matrix
-    glPushMatrix();
-
-    // Start with the drawing of the area traslating matrix to origin
-    glTranslated(0, 0, getType());
-
-    // Set color of the base
-    if (drawUsingSelectColor()) {
-        GLHelper::setColor(s.colorSettings.selectedAdditionalColor);
-    } else {
-        // set color depending if is or isn't valid
-        if (myE2valid) {
-            GLHelper::setColor(s.colorSettings.E2);
-        } else {
-            GLHelper::setColor(RGBColor::RED);
-        }
-    }
-
     // Obtain exaggeration of the draw
     const double exaggeration = s.addSize.getExaggeration(s, this);
-
-    // check if we have to drawn a E2 single lane or a E2 multiLane
-    if (myGeometry.shape.size() > 0) {
-        // Draw the area using shape, shapeRotations, shapeLengths and value of exaggeration
-        GLHelper::drawBoxLines(myGeometry.shape, myGeometry.shapeRotations, myGeometry.shapeLengths, exaggeration);
-    } else {
-        // iterate over multishapes
-        for (int i = 0; i < (int)myGeometry.multiShape.size(); i++) {
-            // don't draw shapes over connections if "show connections" is enabled
-            if (!myViewNet->getNetworkViewOptions().showConnections() || (i % 2 == 0)) {
-                GLHelper::drawBoxLines(myGeometry.multiShape.at(i), myGeometry.multiShapeRotations.at(i), myGeometry.multiShapeLengths.at(i), exaggeration);
-            }
-        }
-    }
-
-    // Pop last matrix
-    glPopMatrix();
-
-    // Check if the distance is enougth to draw details and isn't being drawn for selecting
-    if ((s.drawDetail(s.detailSettings.detectorDetails, exaggeration)) && !s.drawForSelecting) {
-        // draw logo depending if this is an Multilane E2 detector
-        if (myTagProperty.getTag() == SUMO_TAG_E2DETECTOR) {
-            // Push matrix
-            glPushMatrix();
-            // Traslate to center of detector
-            glTranslated(myGeometry.shape.getLineCenter().x(), myGeometry.shape.getLineCenter().y(), getType() + 0.1);
-            // Rotate depending of myBlockIcon.rotation
-            glRotated(myBlockIcon.rotation, 0, 0, -1);
-            //move to logo position
-            glTranslated(-0.75, 0, 0);
-            // draw E2 logo
-            if (drawUsingSelectColor()) {
-                GLHelper::drawText("E2", Position(), .1, 1.5, s.colorSettings.selectionColor);
-            } else {
-                GLHelper::drawText("E2", Position(), .1, 1.5, RGBColor::BLACK);
-            }
+    // first check if additional has to be drawn
+    if (s.drawAdditionals(exaggeration)) {
+        // Start drawing adding an gl identificator
+        glPushName(getGlID());
+        // Add a draw matrix
+        glPushMatrix();
+        // Start with the drawing of the area traslating matrix to origin
+        glTranslated(0, 0, getType());
+        // Set color of the base
+        if (drawUsingSelectColor()) {
+            GLHelper::setColor(s.colorSettings.selectedAdditionalColor);
         } else {
-            // Push matrix
-            glPushMatrix();
-            // Traslate to center of detector
-            glTranslated(myBlockIcon.position.x(), myBlockIcon.position.y(), getType() + 0.1);
-            // Rotate depending of myBlockIcon.rotation
-            glRotated(myBlockIcon.rotation, 0, 0, -1);
-            //move to logo position
-            glTranslated(-1.5, 0, 0);
-            // draw E2 logo
-            if (drawUsingSelectColor()) {
-                GLHelper::drawText("E2", Position(), .1, 1.5, s.colorSettings.selectionColor);
+            // set color depending if is or isn't valid
+            if (myE2valid) {
+                GLHelper::setColor(s.colorSettings.E2);
             } else {
-                GLHelper::drawText("E2", Position(), .1, 1.5, RGBColor::BLACK);
-            }
-            //move to logo position
-            glTranslated(1.2, 0, 0);
-            // Rotate depending of myBlockIcon.rotation
-            glRotated(90, 0, 0, 1);
-            if (drawUsingSelectColor()) {
-                GLHelper::drawText("multi", Position(), .1, 0.9, s.colorSettings.selectedAdditionalColor);
-            } else {
-                GLHelper::drawText("multi", Position(), .1, 0.9, RGBColor::BLACK);
+                GLHelper::setColor(RGBColor::RED);
             }
         }
-        // pop matrix
-        glPopMatrix();
-        // Show Lock icon depending of the Edit mode
-        myBlockIcon.drawIcon(s, exaggeration);
-    }
-
-    // Draw name if isn't being drawn for selecting
-    if (!s.drawForSelecting) {
-        drawName(getPositionInView(), s.scale, s.addName);
-    }
-    // check if dotted contour has to be drawn
-    if (myViewNet->getDottedAC() == this) {
+        // check if we have to drawn a E2 single lane or a E2 multiLane
         if (myGeometry.shape.size() > 0) {
-            GLHelper::drawShapeDottedContourAroundShape(s, getType(), myGeometry.shape, exaggeration);
+            // Draw the area using shape, shapeRotations, shapeLengths and value of exaggeration
+            GLHelper::drawBoxLines(myGeometry.shape, myGeometry.shapeRotations, myGeometry.shapeLengths, exaggeration);
         } else {
-            GLHelper::drawShapeDottedContourAroundShape(s, getType(), myGeometry.multiShapeUnified, exaggeration);
+            // iterate over multishapes
+            for (int i = 0; i < (int)myGeometry.multiShape.size(); i++) {
+                // don't draw shapes over connections if "show connections" is enabled
+                if (!myViewNet->getNetworkViewOptions().showConnections() || (i % 2 == 0)) {
+                    GLHelper::drawBoxLines(myGeometry.multiShape.at(i), myGeometry.multiShapeRotations.at(i), myGeometry.multiShapeLengths.at(i), exaggeration);
+                }
+            }
         }
+        // Pop last matrix
+        glPopMatrix();
+        // Check if the distance is enougth to draw details and isn't being drawn for selecting
+        if ((s.drawDetail(s.detailSettings.detectorDetails, exaggeration)) && !s.drawForSelecting) {
+            // draw logo depending if this is an Multilane E2 detector
+            if (myTagProperty.getTag() == SUMO_TAG_E2DETECTOR) {
+                // Push matrix
+                glPushMatrix();
+                // Traslate to center of detector
+                glTranslated(myGeometry.shape.getLineCenter().x(), myGeometry.shape.getLineCenter().y(), getType() + 0.1);
+                // Rotate depending of myBlockIcon.rotation
+                glRotated(myBlockIcon.rotation, 0, 0, -1);
+                // move to logo position
+                glTranslated(-0.75, 0, 0);
+                // scale text
+            glScaled(exaggeration, exaggeration, 1);
+                // draw E2 logo
+                if (drawUsingSelectColor()) {
+                    GLHelper::drawText("E2", Position(), .1, 1.5, s.colorSettings.selectionColor);
+                } else {
+                    GLHelper::drawText("E2", Position(), .1, 1.5, RGBColor::BLACK);
+                }
+            } else {
+                // Push matrix
+                glPushMatrix();
+                // Traslate to center of detector
+                glTranslated(myBlockIcon.position.x(), myBlockIcon.position.y(), getType() + 0.1);
+                // Rotate depending of myBlockIcon.rotation
+                glRotated(myBlockIcon.rotation, 0, 0, -1);
+                //move to logo position
+                glTranslated(-1.5, 0, 0);
+                // scale text
+                glScaled(exaggeration, exaggeration, 1);
+                // draw E2 logo
+                if (drawUsingSelectColor()) {
+                    GLHelper::drawText("E2", Position(), .1, 1.5, s.colorSettings.selectionColor);
+                } else {
+                    GLHelper::drawText("E2", Position(), .1, 1.5, RGBColor::BLACK);
+                }
+                //move to logo position
+                glTranslated(1.2, 0, 0);
+                // Rotate depending of myBlockIcon.rotation
+                glRotated(90, 0, 0, 1);
+                if (drawUsingSelectColor()) {
+                    GLHelper::drawText("multi", Position(), .1, 0.9, s.colorSettings.selectedAdditionalColor);
+                } else {
+                    GLHelper::drawText("multi", Position(), .1, 0.9, RGBColor::BLACK);
+                }
+            }
+            // pop matrix
+            glPopMatrix();
+            // Show Lock icon depending of the Edit mode
+            myBlockIcon.drawIcon(s, exaggeration);
+        }
+        // Draw name if isn't being drawn for selecting
+        if (!s.drawForSelecting) {
+            drawName(getPositionInView(), s.scale, s.addName);
+        }
+        // check if dotted contour has to be drawn
+        if (myViewNet->getDottedAC() == this) {
+            if (myGeometry.shape.size() > 0) {
+                GLHelper::drawShapeDottedContourAroundShape(s, getType(), myGeometry.shape, exaggeration);
+            } else {
+                GLHelper::drawShapeDottedContourAroundShape(s, getType(), myGeometry.multiShapeUnified, exaggeration);
+            }
+        }
+        // Pop name
+        glPopName();
     }
-    // Pop name
-    glPopName();
 }
 
 

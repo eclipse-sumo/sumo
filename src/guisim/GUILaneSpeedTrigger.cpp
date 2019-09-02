@@ -323,11 +323,10 @@ GUILaneSpeedTrigger::drawGL(const GUIVisualizationSettings& s) const {
         const Position& pos = myFGPositions[i];
         double rot = myFGRotations[i];
         glPushMatrix();
-        glScaled(exaggeration, exaggeration, 1);
         glTranslated(pos.x(), pos.y(), 0);
         glRotated(rot, 0, 0, 1);
         glTranslated(0, -1.5, 0);
-
+        glScaled(exaggeration, exaggeration, 1);
         int noPoints = 9;
         if (s.scale > 25) {
             noPoints = (int)(9.0 + s.scale / 10.0);
@@ -366,7 +365,6 @@ GUILaneSpeedTrigger::drawGL(const GUIVisualizationSettings& s) const {
             glColor3d(1, 1, 0);
             glTranslated(0, 0, .1);
             glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-
             // draw last value string
             GLHelper::drawText(myLastValueString.c_str(), Position(0, 0), .1, 1.2, RGBColor(255, 255, 0), 180);
         }
