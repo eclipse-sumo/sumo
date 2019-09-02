@@ -198,7 +198,7 @@ def createTrips(options):
                      'to="%s"%s>\n') % (
                         tripID, options.vtypeprefix, line.type, begin, edges[0], edges[-1], vias))
             else:
-                if options.extendFringe and len(edges) > 1:
+                if options.extendFringe and len(edges) > len(stop_ids):
                     fr = edges[0]
                     to = edges[-1]
                 else:
