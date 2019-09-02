@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 26.08.2019 13:40:28 by Eclipse SUMO netedit Version v1_3_0+0086-d4fd00b226
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="D:\sumo\tests\netedit\demandElements\stop\input_net.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="D:\sumo\tests\netedit\demandElements\stop\input_net.net.xml"/>
+    </output>
+
+    <processing>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+        <opposites.guess.fix-lengths value="true"/>
+        <lefthand value="false"/>
+    </processing>
+
+    <junctions>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="5"/>
+        <junctions.limit-turn-speed value="5.5"/>
+        <rectangular-lane-cut value="false"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="false"/>
+    </pedestrian>
+
+    <netedit>
+        <route-files value="D:\sumo\tests\netedit\demandElements\stop\stopLane\inspect_selection\input_routes.rou.xml"/>
+    </netedit>
+
+</configuration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <person id="person_0" depart="0.00" color="cyan">
+		<walk edges="gneE0 gneE1"/>
+	
+        <stop lane="gneE1_0" startPos="25.00" endPos="35.00" parking="dummy"/>
+		
+		<stop lane="gneE1_0" startPos="25.00" endPos="35.00" parking=""/>
+		
+		<stop lane="gneE1_0" startPos="25.00" endPos="35.00" parking="-4"/>
+		
+		<stop lane="gneE1_0" startPos="25.00" endPos="35.00" parking="0"/>
+		
+		<stop lane="gneE1_0" startPos="25.00" endPos="35.00" parking="2.3"/>
+		
+		<stop lane="gneE1_0" startPos="25.00" endPos="35.00" parking="true"/>
+		
+    </person>
+</routes>

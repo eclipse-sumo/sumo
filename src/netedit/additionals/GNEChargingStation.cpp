@@ -85,105 +85,108 @@ void
 GNEChargingStation::drawGL(const GUIVisualizationSettings& s) const {
     // Get exaggeration
     const double exaggeration = s.addSize.getExaggeration(s, this);
-    // Push name
-    glPushName(getGlID());
-    // Push base matrix
-    glPushMatrix();
-    // Traslate matrix
-    glTranslated(0, 0, getType());
-    // Set Color
-    if (drawUsingSelectColor()) {
-        GLHelper::setColor(s.colorSettings.selectedAdditionalColor);
-    } else {
-        GLHelper::setColor(s.colorSettings.chargingStation);
-    }
-    // Draw base
-    GLHelper::drawBoxLines(myGeometry.shape, myGeometry.shapeRotations, myGeometry.shapeLengths, exaggeration);
-    // Check if the distance is enought to draw details and if is being drawn for selecting
-    if (s.drawForSelecting) {
-        // only draw circle depending of distance between sign and mouse cursor
-        if (myViewNet->getPositionInformation().distanceSquaredTo2D(mySignPos) <= (myCircleWidthSquared + 2)) {
-            // Add a draw matrix for details
-            glPushMatrix();
-            // Start drawing sign traslating matrix to signal position
-            glTranslated(mySignPos.x(), mySignPos.y(), 0);
-            // scale matrix depending of the exaggeration
-            glScaled(exaggeration, exaggeration, 1);
-            // set color
-            GLHelper::setColor(s.colorSettings.chargingStation);
-            // Draw circle
-            GLHelper::drawFilledCircle(myCircleWidth, s.getCircleResolution());
-            // pop draw matrix
-            glPopMatrix();
-        }
-    } else if (s.drawDetail(s.detailSettings.stoppingPlaceDetails, exaggeration)) {
-        // Push matrix for details
+    // first check if additional has to be drawn
+    if (s.drawAdditionals(exaggeration)) {
+        // Push name
+        glPushName(getGlID());
+        // Push base matrix
         glPushMatrix();
-        // draw power depending of detailSettings
-        if (s.drawDetail(s.detailSettings.stoppingPlaceText, exaggeration)) {
-            // push a new matrix for charging power
-            glPushMatrix();
-            // draw line with a color depending of the selection status
-            if (drawUsingSelectColor()) {
-                GLHelper::drawText((toString(myChargingPower) + " W").c_str(), mySignPos + Position(1.2, 0), .1, 1.f, s.colorSettings.selectionColor, myBlockIcon.rotation, FONS_ALIGN_LEFT);
-            } else {
-                GLHelper::drawText((toString(myChargingPower) + " W").c_str(), mySignPos + Position(1.2, 0), .1, 1.f, s.colorSettings.chargingStation, myBlockIcon.rotation, FONS_ALIGN_LEFT);
-            }
-            // pop matrix for charging power
-            glPopMatrix();
-        }
-        // Set position over sign
-        glTranslated(mySignPos.x(), mySignPos.y(), 0);
-        // Scale matrix
-        glScaled(exaggeration, exaggeration, 1);
-        // Set base color
+        // Traslate matrix
+        glTranslated(0, 0, getType());
+        // Set Color
         if (drawUsingSelectColor()) {
             GLHelper::setColor(s.colorSettings.selectedAdditionalColor);
         } else {
             GLHelper::setColor(s.colorSettings.chargingStation);
         }
-        // Draw extern
-        GLHelper::drawFilledCircle(myCircleWidth, s.getCircleResolution());
-        // Move to top
-        glTranslated(0, 0, .1);
-        // Set sign color
-        if (drawUsingSelectColor()) {
-            GLHelper::setColor(s.colorSettings.selectionColor);
-        } else {
-            GLHelper::setColor(s.colorSettings.chargingStation_sign);
-        }
-        // Draw internt sign
-        GLHelper::drawFilledCircle(myCircleInWidth, s.getCircleResolution());
-        // Draw sign 'C' depending of detail settings
-        if (s.drawDetail(s.detailSettings.stoppingPlaceText, exaggeration)) {
-            if (drawUsingSelectColor()) {
-                GLHelper::drawText("C", Position(), .1, myCircleInText, s.colorSettings.selectedAdditionalColor, myBlockIcon.rotation);
-            } else {
-                GLHelper::drawText("C", Position(), .1, myCircleInText, s.colorSettings.chargingStation, myBlockIcon.rotation);
+        // Draw base
+        GLHelper::drawBoxLines(myGeometry.shape, myGeometry.shapeRotations, myGeometry.shapeLengths, exaggeration);
+        // Check if the distance is enought to draw details and if is being drawn for selecting
+        if (s.drawForSelecting) {
+            // only draw circle depending of distance between sign and mouse cursor
+            if (myViewNet->getPositionInformation().distanceSquaredTo2D(mySignPos) <= (myCircleWidthSquared + 2)) {
+                // Add a draw matrix for details
+                glPushMatrix();
+                // Start drawing sign traslating matrix to signal position
+                glTranslated(mySignPos.x(), mySignPos.y(), 0);
+                // scale matrix depending of the exaggeration
+                glScaled(exaggeration, exaggeration, 1);
+                // set color
+                GLHelper::setColor(s.colorSettings.chargingStation);
+                // Draw circle
+                GLHelper::drawFilledCircle(myCircleWidth, s.getCircleResolution());
+                // pop draw matrix
+                glPopMatrix();
             }
+        } else if (s.drawDetail(s.detailSettings.stoppingPlaceDetails, exaggeration)) {
+            // Push matrix for details
+            glPushMatrix();
+            // draw power depending of detailSettings
+            if (s.drawDetail(s.detailSettings.stoppingPlaceText, exaggeration)) {
+                // push a new matrix for charging power
+                glPushMatrix();
+                // draw line with a color depending of the selection status
+                if (drawUsingSelectColor()) {
+                    GLHelper::drawText((toString(myChargingPower) + " W").c_str(), mySignPos + Position(1.2, 0), .1, 1.f, s.colorSettings.selectionColor, myBlockIcon.rotation, FONS_ALIGN_LEFT);
+                } else {
+                    GLHelper::drawText((toString(myChargingPower) + " W").c_str(), mySignPos + Position(1.2, 0), .1, 1.f, s.colorSettings.chargingStation, myBlockIcon.rotation, FONS_ALIGN_LEFT);
+                }
+                // pop matrix for charging power
+                glPopMatrix();
+            }
+            // Set position over sign
+            glTranslated(mySignPos.x(), mySignPos.y(), 0);
+            // Scale matrix
+            glScaled(exaggeration, exaggeration, 1);
+            // Set base color
+            if (drawUsingSelectColor()) {
+                GLHelper::setColor(s.colorSettings.selectedAdditionalColor);
+            } else {
+                GLHelper::setColor(s.colorSettings.chargingStation);
+            }
+            // Draw extern
+            GLHelper::drawFilledCircle(myCircleWidth, s.getCircleResolution());
+            // Move to top
+            glTranslated(0, 0, .1);
+            // Set sign color
+            if (drawUsingSelectColor()) {
+                GLHelper::setColor(s.colorSettings.selectionColor);
+            } else {
+                GLHelper::setColor(s.colorSettings.chargingStation_sign);
+            }
+            // Draw internt sign
+            GLHelper::drawFilledCircle(myCircleInWidth, s.getCircleResolution());
+            // Draw sign 'C' depending of detail settings
+            if (s.drawDetail(s.detailSettings.stoppingPlaceText, exaggeration)) {
+                if (drawUsingSelectColor()) {
+                    GLHelper::drawText("C", Position(), .1, myCircleInText, s.colorSettings.selectedAdditionalColor, myBlockIcon.rotation);
+                } else {
+                    GLHelper::drawText("C", Position(), .1, myCircleInText, s.colorSettings.chargingStation, myBlockIcon.rotation);
+                }
+            }
+            // Pop sign matrix
+            glPopMatrix();
+            // Draw icon
+            myBlockIcon.drawIcon(s, exaggeration);
         }
-        // Pop sign matrix
+        // Pop base matrix
         glPopMatrix();
-        // Draw icon
-        myBlockIcon.drawIcon(s, exaggeration);
-    }
-    // Pop base matrix
-    glPopMatrix();
-    // Draw name if isn't being drawn for selecting
-    drawName(getPositionInView(), s.scale, s.addName);
-    if (s.addFullName.show && (myAdditionalName != "") && !s.drawForSelecting) {
-        GLHelper::drawText(myAdditionalName, mySignPos, GLO_MAX - getType(), s.addFullName.scaledSize(s.scale), s.addFullName.color, myBlockIcon.rotation);
-    }
-    // check if dotted contour has to be drawn
-    if (myViewNet->getDottedAC() == this) {
-        GLHelper::drawShapeDottedContourAroundShape(s, getType(), myGeometry.shape, exaggeration);
-    }
-    // Pop name matrix
-    glPopName();
-    // draw demand element children
-    for (const auto& i : getDemandElementChildren()) {
-        if (!i->getTagProperty().isPlacedInRTree()) {
-            i->drawGL(s);
+        // Draw name if isn't being drawn for selecting
+        drawName(getPositionInView(), s.scale, s.addName);
+        if (s.addFullName.show && (myAdditionalName != "") && !s.drawForSelecting) {
+            GLHelper::drawText(myAdditionalName, mySignPos, GLO_MAX - getType(), s.addFullName.scaledSize(s.scale), s.addFullName.color, myBlockIcon.rotation);
+        }
+        // check if dotted contour has to be drawn
+        if (myViewNet->getDottedAC() == this) {
+            GLHelper::drawShapeDottedContourAroundShape(s, getType(), myGeometry.shape, exaggeration);
+        }
+        // Pop name matrix
+        glPopName();
+        // draw demand element children
+        for (const auto& i : getDemandElementChildren()) {
+            if (!i->getTagProperty().isPlacedInRTree()) {
+                i->drawGL(s);
+            }
         }
     }
 }

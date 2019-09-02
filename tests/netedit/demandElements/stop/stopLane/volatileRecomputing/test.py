@@ -29,6 +29,9 @@ neteditProcess, referencePosition = netedit.setupAndStart(
 # Recompute with volatile options
 netedit.rebuildNetworkWithVolatileOptions()
 
+# save routes
+netedit.saveRoutes(referencePosition)
+
 # save additionals
 netedit.saveAdditionals(referencePosition)
 

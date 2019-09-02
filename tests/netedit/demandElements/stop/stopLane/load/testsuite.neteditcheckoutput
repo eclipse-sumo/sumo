@@ -1,6 +1,4 @@
-startPos
-
-endPos
+default
 
 friendlyPos
 
@@ -22,6 +20,4 @@ parking
 
 actType
 
-tripID
-
-genericParameters
+#tripID

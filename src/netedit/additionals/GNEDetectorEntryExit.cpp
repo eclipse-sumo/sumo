@@ -149,116 +149,121 @@ void
 GNEDetectorEntryExit::drawGL(const GUIVisualizationSettings& s) const {
     // Set initial values
     const double exaggeration = s.addSize.getExaggeration(s, this);
-    // Start drawing adding gl identificator
-    glPushName(getGlID());
-    // Push detector matrix
-    glPushMatrix();
-    glTranslated(0, 0, getType());
-    // Set color
-    if (drawUsingSelectColor()) {
-        GLHelper::setColor(s.colorSettings.selectedAdditionalColor);
-    } else if (myTagProperty.getTag() == SUMO_TAG_DET_ENTRY) {
-        GLHelper::setColor(s.colorSettings.E3Entry);
-    } else if (myTagProperty.getTag() == SUMO_TAG_DET_EXIT) {
-        GLHelper::setColor(s.colorSettings.E3Exit);
-    }
-    glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-    // Push polygon matrix
-    glPushMatrix();
-    glScaled(exaggeration, exaggeration, 1);
-    glTranslated(myGeometry.shape[0].x(), myGeometry.shape[0].y(), 0);
-    glRotated(myGeometry.shapeRotations[0], 0, 0, 1);
-    // draw details if isn't being drawn for selecting
-    if (!s.drawForSelecting) {
-        // Draw polygon
-        glBegin(GL_LINES);
-        glVertex2d(1.7, 0);
-        glVertex2d(-1.7, 0);
-        glEnd();
-        glBegin(GL_QUADS);
-        glVertex2d(-1.7, .5);
-        glVertex2d(-1.7, -.5);
-        glVertex2d(1.7, -.5);
-        glVertex2d(1.7, .5);
-        glEnd();
-        // first Arrow
-        glTranslated(1.5, 0, 0);
-        GLHelper::drawBoxLine(Position(0, 4), 0, 2, .05);
-        GLHelper::drawTriangleAtEnd(Position(0, 4), Position(0, 1), (double) 1, (double) .25);
-        // second Arrow
-        glTranslated(-3, 0, 0);
-        GLHelper::drawBoxLine(Position(0, 4), 0, 2, .05);
-        GLHelper::drawTriangleAtEnd(Position(0, 4), Position(0, 1), (double) 1, (double) .25);
-    } else {
-        // Draw square in drawy for selecting mode
-        glBegin(GL_QUADS);
-        glVertex2d(-1.7, 4.3);
-        glVertex2d(-1.7, -.5);
-        glVertex2d(1.7, -.5);
-        glVertex2d(1.7, 4.3);
-        glEnd();
-    }
-    // Pop polygon matrix
-    glPopMatrix();
-    // Pop detector matrix
-    glPopMatrix();
-    // Check if the distance is enought to draw details
-    if (!s.drawForSelecting && s.drawDetail(s.detailSettings.detectorDetails, exaggeration)) {
-        // Push matrix
+    // first check if additional has to be drawn
+    if (s.drawAdditionals(exaggeration)) {
+        // Start drawing adding gl identificator
+        glPushName(getGlID());
+        // Push detector matrix
         glPushMatrix();
-        // Traslate to center of detector
-        glTranslated(myGeometry.shape.getLineCenter().x(), myGeometry.shape.getLineCenter().y(), getType() + 0.1);
-        // Rotate depending of myBlockIcon.rotation
-        glRotated(myBlockIcon.rotation, 0, 0, -1);
-        //move to logo position
-        glTranslated(1.9, 0, 0);
-        // draw Entry or Exit logo if isn't being drawn for selecting
-        if (s.drawForSelecting) {
-            GLHelper::setColor(s.colorSettings.E3Entry);
-            GLHelper::drawBoxLine(Position(0, 1), 0, 2, 1);
-        } else if (drawUsingSelectColor()) {
-            GLHelper::drawText("E3", Position(), .1, 2.8, s.colorSettings.selectedAdditionalColor);
+        glTranslated(0, 0, getType());
+        // Set color
+        if (drawUsingSelectColor()) {
+            GLHelper::setColor(s.colorSettings.selectedAdditionalColor);
         } else if (myTagProperty.getTag() == SUMO_TAG_DET_ENTRY) {
-            GLHelper::drawText("E3", Position(), .1, 2.8, s.colorSettings.E3Entry);
-        } else if (myTagProperty.getTag() == SUMO_TAG_DET_EXIT) {
-            GLHelper::drawText("E3", Position(), .1, 2.8, s.colorSettings.E3Exit);
-        }
-        //move to logo position
-        glTranslated(1.7, 0, 0);
-        // Rotate depending of myBlockIcon.rotation
-        glRotated(90, 0, 0, 1);
-        // draw Entry or Exit text if isn't being drawn for selecting
-        if (s.drawForSelecting) {
             GLHelper::setColor(s.colorSettings.E3Entry);
-            GLHelper::drawBoxLine(Position(0, 1), 0, 2, 1);
-        } else if (drawUsingSelectColor()) {
-            if (myTagProperty.getTag() == SUMO_TAG_DET_ENTRY) {
-                GLHelper::drawText("Entry", Position(), .1, 1, s.colorSettings.selectedAdditionalColor);
-            } else if (myTagProperty.getTag() == SUMO_TAG_DET_EXIT) {
-                GLHelper::drawText("Exit", Position(), .1, 1, s.colorSettings.selectedAdditionalColor);
-            }
-        } else {
-            if (myTagProperty.getTag() == SUMO_TAG_DET_ENTRY) {
-                GLHelper::drawText("Entry", Position(), .1, 1, s.colorSettings.E3Entry);
-            } else if (myTagProperty.getTag() == SUMO_TAG_DET_EXIT) {
-                GLHelper::drawText("Exit", Position(), .1, 1, s.colorSettings.E3Exit);
-            }
+        } else if (myTagProperty.getTag() == SUMO_TAG_DET_EXIT) {
+            GLHelper::setColor(s.colorSettings.E3Exit);
         }
-        // pop matrix
+        glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+        // Push polygon matrix
+        glPushMatrix();
+        glTranslated(myGeometry.shape[0].x(), myGeometry.shape[0].y(), 0);
+        glRotated(myGeometry.shapeRotations[0], 0, 0, 1);
+        glScaled(exaggeration, exaggeration, 1);
+        // draw details if isn't being drawn for selecting
+        if (!s.drawForSelecting) {
+            // Draw polygon
+            glBegin(GL_LINES);
+            glVertex2d(1.7, 0);
+            glVertex2d(-1.7, 0);
+            glEnd();
+            glBegin(GL_QUADS);
+            glVertex2d(-1.7, .5);
+            glVertex2d(-1.7, -.5);
+            glVertex2d(1.7, -.5);
+            glVertex2d(1.7, .5);
+            glEnd();
+            // first Arrow
+            glTranslated(1.5, 0, 0);
+            GLHelper::drawBoxLine(Position(0, 4), 0, 2, .05);
+            GLHelper::drawTriangleAtEnd(Position(0, 4), Position(0, 1), (double) 1, (double) .25);
+            // second Arrow
+            glTranslated(-3, 0, 0);
+            GLHelper::drawBoxLine(Position(0, 4), 0, 2, .05);
+            GLHelper::drawTriangleAtEnd(Position(0, 4), Position(0, 1), (double) 1, (double) .25);
+        } else {
+            // Draw square in drawy for selecting mode
+            glBegin(GL_QUADS);
+            glVertex2d(-1.7, 4.3);
+            glVertex2d(-1.7, -.5);
+            glVertex2d(1.7, -.5);
+            glVertex2d(1.7, 4.3);
+            glEnd();
+        }
+        // Pop polygon matrix
         glPopMatrix();
-        // draw lock icon
-        myBlockIcon.drawIcon(s, exaggeration, 0.4);
+        // Pop detector matrix
+        glPopMatrix();
+        // Check if the distance is enought to draw details
+        if (!s.drawForSelecting && s.drawDetail(s.detailSettings.detectorDetails, exaggeration)) {
+            // Push matrix
+            glPushMatrix();
+            // Traslate to center of detector
+            glTranslated(myGeometry.shape.getLineCenter().x(), myGeometry.shape.getLineCenter().y(), getType() + 0.1);
+            // Rotate depending of myBlockIcon.rotation
+            glRotated(myBlockIcon.rotation, 0, 0, -1);
+            //move to logo position
+            glTranslated(1.9, 0, 0);
+            // scale
+            glScaled(exaggeration, exaggeration, 1);
+            // draw Entry or Exit logo if isn't being drawn for selecting
+            if (s.drawForSelecting) {
+                GLHelper::setColor(s.colorSettings.E3Entry);
+                GLHelper::drawBoxLine(Position(0, 1), 0, 2, 1);
+            } else if (drawUsingSelectColor()) {
+                GLHelper::drawText("E3", Position(), .1, 2.8, s.colorSettings.selectedAdditionalColor);
+            } else if (myTagProperty.getTag() == SUMO_TAG_DET_ENTRY) {
+                GLHelper::drawText("E3", Position(), .1, 2.8, s.colorSettings.E3Entry);
+            } else if (myTagProperty.getTag() == SUMO_TAG_DET_EXIT) {
+                GLHelper::drawText("E3", Position(), .1, 2.8, s.colorSettings.E3Exit);
+            }
+            //move to logo position
+            glTranslated(1.7, 0, 0);
+            // Rotate depending of myBlockIcon.rotation
+            glRotated(90, 0, 0, 1);
+            // draw Entry or Exit text if isn't being drawn for selecting
+            if (s.drawForSelecting) {
+                GLHelper::setColor(s.colorSettings.E3Entry);
+                GLHelper::drawBoxLine(Position(0, 1), 0, 2, 1);
+            } else if (drawUsingSelectColor()) {
+                if (myTagProperty.getTag() == SUMO_TAG_DET_ENTRY) {
+                    GLHelper::drawText("Entry", Position(), .1, 1, s.colorSettings.selectedAdditionalColor);
+                } else if (myTagProperty.getTag() == SUMO_TAG_DET_EXIT) {
+                    GLHelper::drawText("Exit", Position(), .1, 1, s.colorSettings.selectedAdditionalColor);
+                }
+            } else {
+                if (myTagProperty.getTag() == SUMO_TAG_DET_ENTRY) {
+                    GLHelper::drawText("Entry", Position(), .1, 1, s.colorSettings.E3Entry);
+                } else if (myTagProperty.getTag() == SUMO_TAG_DET_EXIT) {
+                    GLHelper::drawText("Exit", Position(), .1, 1, s.colorSettings.E3Exit);
+                }
+            }
+            // pop matrix
+            glPopMatrix();
+            // draw lock icon
+            myBlockIcon.drawIcon(s, exaggeration, 0.4);
+        }
+        // Draw name if isn't being drawn for selecting
+        if (!s.drawForSelecting) {
+            drawName(getPositionInView(), s.scale, s.addName);
+        }
+        // check if dotted contour has to be drawn
+        if (myViewNet->getDottedAC() == this) {
+            GLHelper::drawShapeDottedContourRectangle(s, getType(), myGeometry.shape[0], 3.4, 5, myGeometry.shapeRotations[0], 0, 2);
+        }
+        // pop gl identificator
+        glPopName();
     }
-    // Draw name if isn't being drawn for selecting
-    if (!s.drawForSelecting) {
-        drawName(getPositionInView(), s.scale, s.addName);
-    }
-    // check if dotted contour has to be drawn
-    if (myViewNet->getDottedAC() == this) {
-        GLHelper::drawShapeDottedContourRectangle(s, getType(), myGeometry.shape[0], 3.4, 5, myGeometry.shapeRotations[0], 0, 2);
-    }
-    // pop gl identificator
-    glPopName();
 }
 
 

@@ -111,46 +111,49 @@ void
 GNEParkingSpace::drawGL(const GUIVisualizationSettings& s) const {
     // Set initial values
     const double exaggeration = s.addSize.getExaggeration(s, this);
-    // check if boundary has to be drawn
-    if (s.drawBoundaries) {
-        GLHelper::drawBoundary(getCenteringBoundary());
-    }
-    // push name and matrix
-    glPushName(getGlID());
-    glPushMatrix();
-    // Traslate matrix and draw green contour
-    glTranslated(myPosition.x(), myPosition.y(), getType() + 0.1);
-    glRotated(myAngle, 0, 0, 1);
-    // only drawn small box if isn't being drawn for selecting
-    if (!s.drawForSelecting) {
+    // first check if additional has to be drawn
+    if (s.drawAdditionals(exaggeration)) {
+        // check if boundary has to be drawn
+        if (s.drawBoundaries) {
+            GLHelper::drawBoundary(getCenteringBoundary());
+        }
+        // push name and matrix
+        glPushName(getGlID());
+        glPushMatrix();
+        // Traslate matrix and draw green contour
+        glTranslated(myPosition.x(), myPosition.y(), getType() + 0.1);
+        glRotated(myAngle, 0, 0, 1);
+        // only drawn small box if isn't being drawn for selecting
+        if (!s.drawForSelecting) {
+            // Set Color depending of selection
+            if (drawUsingSelectColor()) {
+                GLHelper::setColor(s.colorSettings.selectedAdditionalColor);
+            } else {
+                GLHelper::setColor(s.colorSettings.parkingSpace);
+            }
+            GLHelper::drawBoxLine(Position(0, myLength + 0.05), 0, myLength + 0.1, (myWidth / 2) + 0.05);
+        }
+        // Traslate matrix and draw blue innen
+        glTranslated(0, 0, 0.1);
         // Set Color depending of selection
         if (drawUsingSelectColor()) {
             GLHelper::setColor(s.colorSettings.selectedAdditionalColor);
         } else {
-            GLHelper::setColor(s.colorSettings.parkingSpace);
+            GLHelper::setColor(s.colorSettings.parkingSpaceInnen);
         }
-        GLHelper::drawBoxLine(Position(0, myLength + 0.05), 0, myLength + 0.1, (myWidth / 2) + 0.05);
+        GLHelper::drawBoxLine(Position(0, myLength), 0, myLength, myWidth / 2);
+        // Traslate matrix and draw lock icon if isn't being drawn for selecting
+        glTranslated(0, myLength / 2, 0.1);
+        myBlockIcon.drawIcon(s, exaggeration);
+        // pop draw matrix
+        glPopMatrix();
+        // check if dotted contour has to be drawn
+        if (myViewNet->getDottedAC() == this) {
+            GLHelper::drawShapeDottedContourRectangle(s, getType(), myPosition, myWidth, myLength, myAngle, 0, myLength / 2);
+        }
+        // pop name
+        glPopName();
     }
-    // Traslate matrix and draw blue innen
-    glTranslated(0, 0, 0.1);
-    // Set Color depending of selection
-    if (drawUsingSelectColor()) {
-        GLHelper::setColor(s.colorSettings.selectedAdditionalColor);
-    } else {
-        GLHelper::setColor(s.colorSettings.parkingSpaceInnen);
-    }
-    GLHelper::drawBoxLine(Position(0, myLength), 0, myLength, myWidth / 2);
-    // Traslate matrix and draw lock icon if isn't being drawn for selecting
-    glTranslated(0, myLength / 2, 0.1);
-    myBlockIcon.drawIcon(s, exaggeration);
-    // pop draw matrix
-    glPopMatrix();
-    // check if dotted contour has to be drawn
-    if (myViewNet->getDottedAC() == this) {
-        GLHelper::drawShapeDottedContourRectangle(s, getType(), myPosition, myWidth, myLength, myAngle, 0, myLength / 2);
-    }
-    // pop name
-    glPopName();
 }
 
 

@@ -115,82 +115,86 @@ GNEVaporizer::getParentName() const {
 
 void
 GNEVaporizer::drawGL(const GUIVisualizationSettings& s) const {
-    // get values
+    // Obtain exaggeration of the draw
     const double exaggeration = s.addSize.getExaggeration(s, this);
-    const int numberOfLanes = int(getEdgeParents().front()->getLanes().size());
-    const double width = (double) 2.0 * s.scale;
-    // begin draw
-    glPushName(getGlID());
-    glLineWidth(1.0);
-    // set color
-    if (drawUsingSelectColor()) {
-        GLHelper::setColor(s.colorSettings.selectedAdditionalColor);
-    } else {
-        GLHelper::setColor(s.colorSettings.vaporizer);
-    }
-    // draw shape
-    glPushMatrix();
-    glTranslated(0, 0, getType());
-    glTranslated(myGeometry.shape[0].x(), myGeometry.shape[0].y(), 0);
-    glRotated(myGeometry.shapeRotations[0], 0, 0, 1);
-    glScaled(exaggeration, exaggeration, 1);
-    glTranslated(-1.6, -1.6, 0);
-    glBegin(GL_QUADS);
-    glVertex2d(0,  0.25);
-    glVertex2d(0, -0.25);
-    glVertex2d((numberOfLanes * 3.3), -0.25);
-    glVertex2d((numberOfLanes * 3.3),  0.25);
-    glEnd();
-    glTranslated(0, 0, .01);
-    glBegin(GL_LINES);
-    glVertex2d(0, 0.25 - .1);
-    glVertex2d(0, -0.25 + .1);
-    glEnd();
-    // draw position indicator (White) if isn't being drawn for selecting
-    if ((width * exaggeration > 1) && !s.drawForSelecting) {
+    // first check if additional has to be drawn
+    if (s.drawAdditionals(exaggeration)) {
+        // get values
+        const int numberOfLanes = int(getEdgeParents().front()->getLanes().size());
+        const double width = (double) 2.0 * s.scale;
+        // begin draw
+        glPushName(getGlID());
+        glLineWidth(1.0);
+        // set color
         if (drawUsingSelectColor()) {
-            GLHelper::setColor(s.colorSettings.selectionColor);
+            GLHelper::setColor(s.colorSettings.selectedAdditionalColor);
         } else {
-            GLHelper::setColor(RGBColor::WHITE);
+            GLHelper::setColor(s.colorSettings.vaporizer);
         }
-        glRotated(90, 0, 0, -1);
-        glBegin(GL_LINES);
-        glVertex2d(0, 0);
-        glVertex2d(0, (numberOfLanes * 3.3));
+        // draw shape
+        glPushMatrix();
+        glTranslated(0, 0, getType());
+        glTranslated(myGeometry.shape[0].x(), myGeometry.shape[0].y(), 0);
+        glRotated(myGeometry.shapeRotations[0], 0, 0, 1);
+        glScaled(exaggeration, exaggeration, 1);
+        glTranslated(-1.6, -1.6, 0);
+        glBegin(GL_QUADS);
+        glVertex2d(0,  0.25);
+        glVertex2d(0, -0.25);
+        glVertex2d((numberOfLanes * 3.3), -0.25);
+        glVertex2d((numberOfLanes * 3.3),  0.25);
         glEnd();
-    }
-    // Pop shape matrix
-    glPopMatrix();
-    // Add a draw matrix for drawing logo
-    glPushMatrix();
-    glTranslated(myGeometry.shape[0].x(), myGeometry.shape[0].y(), getType());
-    glRotated(myGeometry.shapeRotations[0], 0, 0, 1);
-    glTranslated((-2.56), (-1.6), 0);
-    // Draw icon depending of Vaporizer is selected and if isn't being drawn for selecting
-    if (!s.drawForSelecting && s.drawDetail(s.detailSettings.laneTextures, exaggeration)) {
-        glColor3d(1, 1, 1);
-        glRotated(-90, 0, 0, 1);
-        if (drawUsingSelectColor()) {
-            GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(GNETEXTURE_VAPORIZERSELECTED), 1);
-        } else {
-            GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(GNETEXTURE_VAPORIZER), 1);
+        glTranslated(0, 0, .01);
+        glBegin(GL_LINES);
+        glVertex2d(0, 0.25 - .1);
+        glVertex2d(0, -0.25 + .1);
+        glEnd();
+        // draw position indicator (White) if isn't being drawn for selecting
+        if ((width * exaggeration > 1) && !s.drawForSelecting) {
+            if (drawUsingSelectColor()) {
+                GLHelper::setColor(s.colorSettings.selectionColor);
+            } else {
+                GLHelper::setColor(RGBColor::WHITE);
+            }
+            glRotated(90, 0, 0, -1);
+            glBegin(GL_LINES);
+            glVertex2d(0, 0);
+            glVertex2d(0, (numberOfLanes * 3.3));
+            glEnd();
         }
-    } else {
-        GLHelper::setColor(s.colorSettings.vaporizer);
-        GLHelper::drawBoxLine(Position(0, 1), 0, 2, 1);
+        // Pop shape matrix
+        glPopMatrix();
+        // Add a draw matrix for drawing logo
+        glPushMatrix();
+        glTranslated(myGeometry.shape[0].x(), myGeometry.shape[0].y(), getType());
+        glRotated(myGeometry.shapeRotations[0], 0, 0, 1);
+        glTranslated((-2.56), (-1.6), 0);
+        // Draw icon depending of Vaporizer is selected and if isn't being drawn for selecting
+        if (!s.drawForSelecting && s.drawDetail(s.detailSettings.laneTextures, exaggeration)) {
+            glColor3d(1, 1, 1);
+            glRotated(-90, 0, 0, 1);
+            if (drawUsingSelectColor()) {
+                GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(GNETEXTURE_VAPORIZERSELECTED), 1);
+            } else {
+                GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(GNETEXTURE_VAPORIZER), 1);
+            }
+        } else {
+            GLHelper::setColor(s.colorSettings.vaporizer);
+            GLHelper::drawBoxLine(Position(0, 1), 0, 2, 1);
+        }
+        // Pop logo matrix
+        glPopMatrix();
+        // Show Lock icon
+        myBlockIcon.drawIcon(s, exaggeration, 0.4);
+        // draw name
+        drawName(getPositionInView(), s.scale, s.addName);
+        // check if dotted contour has to be drawn
+        if (myViewNet->getDottedAC() == this) {
+            GLHelper::drawShapeDottedContourRectangle(s, getType(), myGeometry.shape[0], 2, 2, myGeometry.shapeRotations[0], -2.56, -1.6);
+        }
+        // pop name
+        glPopName();
     }
-    // Pop logo matrix
-    glPopMatrix();
-    // Show Lock icon
-    myBlockIcon.drawIcon(s, exaggeration, 0.4);
-    // draw name
-    drawName(getPositionInView(), s.scale, s.addName);
-    // check if dotted contour has to be drawn
-    if (myViewNet->getDottedAC() == this) {
-        GLHelper::drawShapeDottedContourRectangle(s, getType(), myGeometry.shape[0], 2, 2, myGeometry.shapeRotations[0], -2.56, -1.6);
-    }
-    // pop name
-    glPopName();
 }
 
 

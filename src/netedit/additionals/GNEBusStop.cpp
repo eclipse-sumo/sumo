@@ -88,117 +88,120 @@ void
 GNEBusStop::drawGL(const GUIVisualizationSettings& s) const {
     // Obtain exaggeration of the draw
     const double exaggeration = s.addSize.getExaggeration(s, this);
-    // Start drawing adding an gl identificator
-    glPushName(getGlID());
-    // Add a draw matrix
-    glPushMatrix();
-    // Start with the drawing of the area traslating matrix to origin
-    glTranslated(0, 0, getType());
-    // Set color of the base
-    if (mySpecialColor) {
-        GLHelper::setColor(*mySpecialColor);
-    } else if (drawUsingSelectColor()) {
-        GLHelper::setColor(s.colorSettings.selectedAdditionalColor);
-    } else {
-        GLHelper::setColor(s.colorSettings.busStop);
-    }
-    // Draw the area using shape, shapeRotations, shapeLengths and value of exaggeration
-    GLHelper::drawBoxLines(myGeometry.shape, myGeometry.shapeRotations, myGeometry.shapeLengths, exaggeration);
-    // Check if the distance is enought to draw details and if is being drawn for selecting
-    if (s.drawForSelecting) {
-        // only draw circle depending of distance between sign and mouse cursor
-        if (myViewNet->getPositionInformation().distanceSquaredTo2D(mySignPos) <= (myCircleWidthSquared + 2)) {
-            // Add a draw matrix for details
-            glPushMatrix();
-            // Start drawing sign traslating matrix to signal position
-            glTranslated(mySignPos.x(), mySignPos.y(), 0);
-            // scale matrix depending of the exaggeration
-            glScaled(exaggeration, exaggeration, 1);
-            // set color
-            GLHelper::setColor(s.colorSettings.busStop);
-            // Draw circle
-            GLHelper::drawFilledCircle(myCircleWidth, s.getCircleResolution());
-            // pop draw matrix
-            glPopMatrix();
-        }
-    } else if (s.drawDetail(s.detailSettings.stoppingPlaceDetails, exaggeration)) {
-        // draw lines between BusStops and Acces
-        for (auto i : getAdditionalChildren()) {
-            GLHelper::drawBoxLine(i->getShape()[0], RAD2DEG(mySignPos.angleTo2D(i->getShape()[0])) - 90, mySignPos.distanceTo2D(i->getShape()[0]), .05);
-        }
-        // Add a draw matrix for details
+    // first check if additional has to be drawn
+    if (s.drawAdditionals(exaggeration)) {
+        // Start drawing adding an gl identificator
+        glPushName(getGlID());
+        // Add a draw matrix
         glPushMatrix();
-        // draw lines depending of detailSettings
-        if (s.drawDetail(s.detailSettings.stoppingPlaceText, exaggeration)) {
-            // Iterate over every line
-            for (int i = 0; i < (int)myLines.size(); ++i) {
-                // push a new matrix for every line
-                glPushMatrix();
-                // Rotate and traslaste
-                glTranslated(mySignPos.x(), mySignPos.y(), 0);
-                glRotated(-1 * myBlockIcon.rotation, 0, 0, 1);
-                // draw line with a color depending of the selection status
-                if (drawUsingSelectColor()) {
-                    GLHelper::drawText(myLines[i].c_str(), Position(1.2, (double)i), .1, 1.f, s.colorSettings.selectionColor, 0, FONS_ALIGN_LEFT);
-                } else {
-                    GLHelper::drawText(myLines[i].c_str(), Position(1.2, (double)i), .1, 1.f, s.colorSettings.busStop, 0, FONS_ALIGN_LEFT);
-                }
-                // pop matrix for every line
-                glPopMatrix();
-            }
-        }
-        // Start drawing sign traslating matrix to signal position
-        glTranslated(mySignPos.x(), mySignPos.y(), 0);
-        // scale matrix depending of the exaggeration
-        glScaled(exaggeration, exaggeration, 1);
-        // Set color of the externe circle
-        if (drawUsingSelectColor()) {
+        // Start with the drawing of the area traslating matrix to origin
+        glTranslated(0, 0, getType());
+        // Set color of the base
+        if (mySpecialColor) {
+            GLHelper::setColor(*mySpecialColor);
+        } else if (drawUsingSelectColor()) {
             GLHelper::setColor(s.colorSettings.selectedAdditionalColor);
         } else {
             GLHelper::setColor(s.colorSettings.busStop);
         }
-        // Draw circle
-        GLHelper::drawFilledCircle(myCircleWidth, s.getCircleResolution());
-        // Traslate to front
-        glTranslated(0, 0, .1);
-        // Set color of the interne circle
-        if (drawUsingSelectColor()) {
-            GLHelper::setColor(s.colorSettings.selectionColor);
-        } else {
-            GLHelper::setColor(s.colorSettings.busStop_sign);
-        }
-        // draw another circle in the same position, but a little bit more small
-        GLHelper::drawFilledCircle(myCircleInWidth, s.getCircleResolution());
-        // draw H depending of detailSettings
-        if (s.drawDetail(s.detailSettings.stoppingPlaceText, exaggeration)) {
-            if (drawUsingSelectColor()) {
-                GLHelper::drawText("H", Position(), .1, myCircleInText, s.colorSettings.selectedAdditionalColor, myBlockIcon.rotation);
-            } else {
-                GLHelper::drawText("H", Position(), .1, myCircleInText, s.colorSettings.busStop, myBlockIcon.rotation);
+        // Draw the area using shape, shapeRotations, shapeLengths and value of exaggeration
+        GLHelper::drawBoxLines(myGeometry.shape, myGeometry.shapeRotations, myGeometry.shapeLengths, exaggeration);
+        // Check if the distance is enought to draw details and if is being drawn for selecting
+        if (s.drawForSelecting) {
+            // only draw circle depending of distance between sign and mouse cursor
+            if (myViewNet->getPositionInformation().distanceSquaredTo2D(mySignPos) <= (myCircleWidthSquared + 2)) {
+                // Add a draw matrix for details
+                glPushMatrix();
+                // Start drawing sign traslating matrix to signal position
+                glTranslated(mySignPos.x(), mySignPos.y(), 0);
+                // scale matrix depending of the exaggeration
+                glScaled(exaggeration, exaggeration, 1);
+                // set color
+                GLHelper::setColor(s.colorSettings.busStop);
+                // Draw circle
+                GLHelper::drawFilledCircle(myCircleWidth, s.getCircleResolution());
+                // pop draw matrix
+                glPopMatrix();
             }
+        } else if (s.drawDetail(s.detailSettings.stoppingPlaceDetails, exaggeration)) {
+            // draw lines between BusStops and Acces
+            for (auto i : getAdditionalChildren()) {
+                GLHelper::drawBoxLine(i->getShape()[0], RAD2DEG(mySignPos.angleTo2D(i->getShape()[0])) - 90, mySignPos.distanceTo2D(i->getShape()[0]), .05);
+            }
+            // Add a draw matrix for details
+            glPushMatrix();
+            // draw lines depending of detailSettings
+            if (s.drawDetail(s.detailSettings.stoppingPlaceText, exaggeration)) {
+                // Iterate over every line
+                for (int i = 0; i < (int)myLines.size(); ++i) {
+                    // push a new matrix for every line
+                    glPushMatrix();
+                    // Rotate and traslaste
+                    glTranslated(mySignPos.x(), mySignPos.y(), 0);
+                    glRotated(-1 * myBlockIcon.rotation, 0, 0, 1);
+                    // draw line with a color depending of the selection status
+                    if (drawUsingSelectColor()) {
+                        GLHelper::drawText(myLines[i].c_str(), Position(1.2, (double)i), .1, 1.f, s.colorSettings.selectionColor, 0, FONS_ALIGN_LEFT);
+                    } else {
+                        GLHelper::drawText(myLines[i].c_str(), Position(1.2, (double)i), .1, 1.f, s.colorSettings.busStop, 0, FONS_ALIGN_LEFT);
+                    }
+                    // pop matrix for every line
+                    glPopMatrix();
+                }
+            }
+            // Start drawing sign traslating matrix to signal position
+            glTranslated(mySignPos.x(), mySignPos.y(), 0);
+            // scale matrix depending of the exaggeration
+            glScaled(exaggeration, exaggeration, 1);
+            // Set color of the externe circle
+            if (drawUsingSelectColor()) {
+                GLHelper::setColor(s.colorSettings.selectedAdditionalColor);
+            } else {
+                GLHelper::setColor(s.colorSettings.busStop);
+            }
+            // Draw circle
+            GLHelper::drawFilledCircle(myCircleWidth, s.getCircleResolution());
+            // Traslate to front
+            glTranslated(0, 0, .1);
+            // Set color of the interne circle
+            if (drawUsingSelectColor()) {
+                GLHelper::setColor(s.colorSettings.selectionColor);
+            } else {
+                GLHelper::setColor(s.colorSettings.busStop_sign);
+            }
+            // draw another circle in the same position, but a little bit more small
+            GLHelper::drawFilledCircle(myCircleInWidth, s.getCircleResolution());
+            // draw H depending of detailSettings
+            if (s.drawDetail(s.detailSettings.stoppingPlaceText, exaggeration)) {
+                if (drawUsingSelectColor()) {
+                    GLHelper::drawText("H", Position(), .1, myCircleInText, s.colorSettings.selectedAdditionalColor, myBlockIcon.rotation);
+                } else {
+                    GLHelper::drawText("H", Position(), .1, myCircleInText, s.colorSettings.busStop, myBlockIcon.rotation);
+                }
+            }
+            // pop draw matrix
+            glPopMatrix();
+            // Show Lock icon depending of the Edit mode
+            myBlockIcon.drawIcon(s, exaggeration);
         }
         // pop draw matrix
         glPopMatrix();
-        // Show Lock icon depending of the Edit mode
-        myBlockIcon.drawIcon(s, exaggeration);
-    }
-    // pop draw matrix
-    glPopMatrix();
-    // Draw name if isn't being drawn for selecting
-    drawName(getPositionInView(), s.scale, s.addName);
-    if (s.addFullName.show && (myAdditionalName != "") && !s.drawForSelecting) {
-        GLHelper::drawText(myAdditionalName, mySignPos, GLO_MAX - getType(), s.addFullName.scaledSize(s.scale), s.addFullName.color, myBlockIcon.rotation);
-    }
-    // check if dotted contour has to be drawn
-    if (myViewNet->getDottedAC() == this) {
-        GLHelper::drawShapeDottedContourAroundShape(s, getType(), myGeometry.shape, exaggeration);
-    }
-    // Pop name
-    glPopName();
-    // draw demand element children
-    for (const auto& i : getDemandElementChildren()) {
-        if (!i->getTagProperty().isPlacedInRTree()) {
-            i->drawGL(s);
+        // Draw name if isn't being drawn for selecting
+        drawName(getPositionInView(), s.scale, s.addName);
+        if (s.addFullName.show && (myAdditionalName != "") && !s.drawForSelecting) {
+            GLHelper::drawText(myAdditionalName, mySignPos, GLO_MAX - getType(), s.addFullName.scaledSize(s.scale), s.addFullName.color, myBlockIcon.rotation);
+        }
+        // check if dotted contour has to be drawn
+        if (myViewNet->getDottedAC() == this) {
+            GLHelper::drawShapeDottedContourAroundShape(s, getType(), myGeometry.shape, exaggeration);
+        }
+        // Pop name
+        glPopName();
+        // draw demand element children
+        for (const auto& i : getDemandElementChildren()) {
+            if (!i->getTagProperty().isPlacedInRTree()) {
+                i->drawGL(s);
+            }
         }
     }
 }

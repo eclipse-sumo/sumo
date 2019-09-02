@@ -2171,9 +2171,10 @@ GNEEdge::drawEdgeName(const GUIVisualizationSettings& s) const {
 
 void
 GNEEdge::drawRerouterSymbol(const GUIVisualizationSettings& s, GNEAdditional* rerouter) const {
-    // Draw symbols in every lane
+    // Obtain exaggeration of the draw
     const double exaggeration = s.addSize.getExaggeration(s, rerouter);
-    if (s.scale * exaggeration >= 3) {
+    // first check if additional has to be drawn
+    if (s.drawAdditionals(exaggeration)) {
         // Start drawing adding an gl identificator
         glPushName(rerouter->getGlID());
         // draw rerouter symbol over all lanes

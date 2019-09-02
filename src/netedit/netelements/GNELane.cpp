@@ -351,6 +351,30 @@ GNELane::drawGL(const GUIVisualizationSettings& s) const {
         glPopMatrix();
         // Pop Lane Name
         glPopName();
+        // draw parents
+        for (const auto& i : getAdditionalParents()) {
+            if (i->getTagProperty().getTag() == SUMO_TAG_VSS) {
+                // draw VSS Symbol
+                drawVSSSymbol(s, i);
+            }
+        }
+        // draw shape children
+        for (const auto& i : getShapeChildren()) {
+            i->drawGL(s);
+        }
+        // draw additional children
+        for (const auto& i : getAdditionalChildren()) {
+            // check that ParkingAreas aren't draw two times
+            if (!i->getTagProperty().isPlacedInRTree()) {
+                i->drawGL(s);
+            }
+        }
+        // draw demand element children
+        for (const auto& i : getDemandElementChildren()) {
+            if (!i->getTagProperty().isPlacedInRTree()) {
+                i->drawGL(s);
+            }
+        }
     } else {
         // we draw the lanes with reduced width so that the lane markings below are visible
         // (this avoids artifacts at geometry corners without having to
@@ -1183,49 +1207,53 @@ GNELane::drawDirectionIndicators(double exaggeration, bool spreadSuperposed) con
 
 void
 GNELane::drawVSSSymbol(const GUIVisualizationSettings& s, GNEAdditional* vss) const {
-    // obtain VSSExaggeration, lane pos and route
+    // Obtain exaggeration of the draw
     const double exaggeration = s.addSize.getExaggeration(s, vss);
-    const Position& lanePos = vss->getChildPosition(this);
-    const double laneRot = vss->getChildRotation(this);
-    // Start drawing adding an VSS gl identificator (used to identify element after clicking)
-    glPushName(vss->getGlID());
-    // start drawing symbol
-    glPushMatrix();
-    glScaled(exaggeration, exaggeration, 1);
-    glTranslated(lanePos.x(), lanePos.y(), vss->getType());
-    glRotated(-1 * laneRot, 0, 0, 1);
-    glTranslated(0, -1.5, 0);
-    // draw circle
-    int noPoints = 9;
-    if (s.scale > 25) {
-        noPoints = (int)(9.0 + s.scale / 10.0);
-        if (noPoints > 36) {
-            noPoints = 36;
+    // first check if additional has to be drawn
+    if (s.drawAdditionals(exaggeration)) {
+        // obtain lanePos and route
+        const Position& lanePos = vss->getChildPosition(this);
+        const double laneRot = vss->getChildRotation(this);
+        // Start drawing adding an VSS gl identificator (used to identify element after clicking)
+        glPushName(vss->getGlID());
+        // start drawing symbol
+        glPushMatrix();
+        glTranslated(lanePos.x(), lanePos.y(), vss->getType());
+        glRotated(-1 * laneRot, 0, 0, 1);
+        glTranslated(0, -1.5, 0);
+        glScaled(exaggeration, exaggeration, 1);
+        // draw circle
+        int noPoints = 9;
+        if (s.scale > 25) {
+            noPoints = (int)(9.0 + s.scale / 10.0);
+            if (noPoints > 36) {
+                noPoints = 36;
+            }
         }
+        glColor3d(1, 0, 0);
+        GLHelper::drawFilledCircle((double) 1.3, noPoints);
+        if (!s.drawForSelecting && (s.scale >= 5)) {
+            glTranslated(0, 0, .1);
+            glColor3d(0, 0, 0);
+            GLHelper::drawFilledCircle((double) 1.1, noPoints);
+            // draw the speed string
+            glColor3d(1, 1, 0);
+            glTranslated(0, 0, .1);
+            glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+            // draw last value string
+            GLHelper::drawText("S", Position(0, 0), .1, 1.2, RGBColor(255, 255, 0), 180);
+        }
+        // Pop symbol matrix
+        glPopMatrix();
+        // Pop VSS name
+        glPopName();
+        // check if dotted contour has to be drawn
+        if (myNet->getViewNet()->getDottedAC() == vss) {
+            GLHelper::drawShapeDottedContourRectangle(s, getType(), lanePos, 2.6, 2.6, -1 * laneRot, 0, -1.5);
+        }
+        // Draw connections
+        vss->drawChildConnections(s, getType());
     }
-    glColor3d(1, 0, 0);
-    GLHelper::drawFilledCircle((double) 1.3, noPoints);
-    if (!s.drawForSelecting && (s.scale >= 5)) {
-        glTranslated(0, 0, .1);
-        glColor3d(0, 0, 0);
-        GLHelper::drawFilledCircle((double) 1.1, noPoints);
-        // draw the speed string
-        glColor3d(1, 1, 0);
-        glTranslated(0, 0, .1);
-        glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-        // draw last value string
-        GLHelper::drawText("S", Position(0, 0), .1, 1.2, RGBColor(255, 255, 0), 180);
-    }
-    // Pop symbol matrix
-    glPopMatrix();
-    // Pop VSS name
-    glPopName();
-    // check if dotted contour has to be drawn
-    if (myNet->getViewNet()->getDottedAC() == vss) {
-        GLHelper::drawShapeDottedContourRectangle(s, getType(), lanePos, 2.6, 2.6, -1 * laneRot, 0, -1.5);
-    }
-    // Draw connections
-    vss->drawChildConnections(s, getType());
 }
 
 

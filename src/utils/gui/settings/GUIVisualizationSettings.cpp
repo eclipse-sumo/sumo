@@ -1617,6 +1617,12 @@ GUIVisualizationSettings::getTextAngle(double objectAngle) const {
 }
 
 
+bool 
+GUIVisualizationSettings::drawAdditionals(const double exaggeration) const {
+    return (scale * exaggeration) > 1.;
+}
+
+
 bool
 GUIVisualizationSettings::drawDetail(const double detail, const double exaggeration) const {
     if (detail <= 0) {

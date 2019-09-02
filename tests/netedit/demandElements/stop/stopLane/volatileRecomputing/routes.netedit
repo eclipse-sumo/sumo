@@ -1,19 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 07.08.2019 08:43:28 by Eclipse SUMO netedit Version v1_2_0+1449-4e81e5b6f5
+<!-- generated on 29.08.2019 13:12:24 by Eclipse SUMO netedit Version v1_3_1+0045-54a241ab37
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.07Aug081821.3780/netedit.gui/additionalElements/busstop/volatileRecomputing\input_net.net.xml"/>
+        <sumo-net-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.29Aug131217.1188/netedit.gui/demandElements/stop/stopLane/volatileRecomputing\input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.07Aug081821.3780/netedit.gui/additionalElements/busstop/volatileRecomputing\net.net.xml"/>
+        <output-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.29Aug131217.1188/netedit.gui/demandElements/stop/stopLane/volatileRecomputing\net.net.xml"/>
     </output>
 
     <processing>
         <geometry.max-grade.fix value="false"/>
         <offset.disable-normalization value="true"/>
+        <opposites.guess.fix-lengths value="true"/>
         <lefthand value="false"/>
     </processing>
 
@@ -31,14 +32,14 @@
     </pedestrian>
 
     <netedit>
-        <additional-files value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.07Aug081821.3780/netedit.gui/additionalElements/busstop/volatileRecomputing\additionals.xml"/>
-        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.07Aug081821.3780/netedit.gui/additionalElements/busstop/volatileRecomputing\additionals.xml"/>
-        <route-files value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.07Aug081821.3780/netedit.gui/additionalElements/busstop/volatileRecomputing\routes.xml"/>
-        <demandelements-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.07Aug081821.3780/netedit.gui/additionalElements/busstop/volatileRecomputing\routes.xml"/>
+        <additional-files value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.29Aug131217.1188/netedit.gui/demandElements/stop/stopLane/volatileRecomputing\additionals.xml"/>
+        <additionals-output value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.29Aug131217.1188/netedit.gui/demandElements/stop/stopLane/volatileRecomputing\additionals.xml"/>
+        <route-files value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.29Aug131217.1188/netedit.gui/demandElements/stop/stopLane/volatileRecomputing\routes.xml"/>
+        <demandelements-output value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.29Aug131217.1188/netedit.gui/demandElements/stop/stopLane/volatileRecomputing\routes.xml"/>
     </netedit>
 
     <visualisation>
-        <gui-settings-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.07Aug081821.3780/netedit.gui/additionalElements/busstop/volatileRecomputing\gui-settings.xml"/>
+        <gui-settings-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.29Aug131217.1188/netedit.gui/demandElements/stop/stopLane/volatileRecomputing\gui-settings.xml"/>
         <window-size value="700,500"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
@@ -48,11 +49,25 @@
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.07Aug081821.3780/netedit.gui/additionalElements/busstop/volatileRecomputing\log.txt"/>
+        <error-log value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.29Aug131217.1188/netedit.gui/demandElements/stop/stopLane/volatileRecomputing\log.txt"/>
     </report>
 
 </configuration>
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <person id="person_0" depart="0.00" color="cyan">
+        <walk edges="gneE0 gneE1"/>
+        <stop lane="gneE4_0" startPos="15.00" endPos="20.00" duration="60.00"/>
+        <stop lane="gneE2_4" startPos="20.00" endPos="22.00" duration="60.00"/>
+        <stop lane="gneE2_3" startPos="24.00" endPos="30.00" duration="60.00"/>
+        <stop lane="gneE2_2" startPos="31.00" endPos="35.00" duration="60.00"/>
+        <stop lane="gneE2_1" startPos="38.00" endPos="42.00" duration="60.00"/>
+        <stop lane="gneE2_0" startPos="42.00" endPos="44.00" duration="60.00"/>
+    </person>
+    <person id="person_1" depart="0.00" color="cyan">
+        <walk edges="gneE0 gneE1"/>
+        <stop lane="gneE1_0" startPos="25.00" endPos="35.00" duration="60.00"/>
+        <stop lane="gneE0_0" startPos="35.00" endPos="45.00" duration="60.00"/>
+    </person>
 </routes>

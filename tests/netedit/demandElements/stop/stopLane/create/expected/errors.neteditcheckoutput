@@ -1,0 +1,5 @@
+Warning: Teleporting vehicle 'vehicle_0'; waited too long (jam), lane='gneE1_0', time=314.00.
+Warning: Vehicle 'vehicle_0' teleports beyond arrival edge 'gneE1', time 314.00.
+Warning: Vehicle 'vehicle_0' skips stop on lane 'gneE1_0' time=314.00.
+Warning: Vehicle 'vehicle_0' skips stop on lane 'gneE1_0' time=314.00.
+Warning: Vehicle 'vehicle_0' skips stop on lane 'gneE1_0' time=314.00.
