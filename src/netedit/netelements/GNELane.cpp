@@ -1122,7 +1122,7 @@ GNELane::getColorValue(const GUIVisualizationSettings& s, int activeScheme) cons
         case 4:
             return myParentEdge.getNBEdge()->getNumLanes();
         case 5: {
-            return myParentEdge.getNBEdge()->getLoadedLength() / myParentEdge.getNBEdge()->getLength();
+            return myParentEdge.getNBEdge()->getLoadedLength() / myParentEdge.getNBEdge()->getLaneStruct(myIndex).shape.length();
         }
         // case 6: by angle (functional)
         case 7: {
