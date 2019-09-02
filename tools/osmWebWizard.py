@@ -252,6 +252,8 @@ class Builder(object):
                 "--stopinfos-file", self.files["pt_stopinfos"],
                 "--routes-file", self.files["pt_vehroutes"],
                 "--trips-file", self.files["pt_trips"],
+                "--min-stops", "0",
+                "--extend-to-fringe",
                 "--verbose",
             ]
             ptlines2flows.main(ptlines2flows.get_options(ptOptions))
