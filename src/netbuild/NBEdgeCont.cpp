@@ -859,6 +859,22 @@ NBEdgeCont::computeEdgeShapes(double smoothElevationThreshold) {
     for (EdgeCont::iterator i = myEdges.begin(); i != myEdges.end(); i++) {
         (*i).second->computeEdgeShape(smoothElevationThreshold);
     }
+    // equalize length of opposite edges
+    for (EdgeCont::iterator i = myEdges.begin(); i != myEdges.end(); i++) {
+        NBEdge* edge = i->second;
+        const std::string& oppositeID = edge->getLanes().back().oppositeID;
+        if (oppositeID != "" && oppositeID != "-") {
+            NBEdge* oppEdge = retrieve(oppositeID.substr(0, oppositeID.rfind("_")));
+            if (oppEdge == nullptr || oppEdge->getLaneID(oppEdge->getNumLanes() - 1) != oppositeID) {
+                continue;
+            }
+            if (fabs(oppEdge->getLength() - edge->getLength()) > NUMERICAL_EPS) {
+                double avgLength = (oppEdge->getLength() + edge->getLength()) / 2;
+                edge->setAverageLengthWithOpposite(avgLength);
+                oppEdge->setAverageLengthWithOpposite(avgLength);
+            }
+        }
+    }
 }
 
 

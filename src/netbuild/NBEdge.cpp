@@ -3457,6 +3457,11 @@ NBEdge::setLoadedLength(double val) {
     myLoadedLength = val;
 }
 
+void
+NBEdge::setAverageLengthWithOpposite(double val) {
+    myLength = val;
+}
+
 
 void
 NBEdge::dismissVehicleClassInformation() {

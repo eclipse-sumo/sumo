@@ -1054,6 +1054,9 @@ public:
     /// @brief set loaded lenght
     void setLoadedLength(double val);
 
+    /// @brief patch average lane length in regard to the opposite edge
+    void setAverageLengthWithOpposite(double val);
+
     /// @brief dimiss vehicle class information
     void dismissVehicleClassInformation();
 
