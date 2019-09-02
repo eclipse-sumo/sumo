@@ -147,13 +147,13 @@ NBPTLine::getRouteStart(const NBEdgeCont& ec) const {
     if (myPTStops.size() > 0) {
         NBEdge* firstStopEdge = ec.retrieve(myPTStops.front()->getEdgeId());
         if (firstStopEdge == nullptr) {
-            WRITE_WARNING("Could not retrieve edge '" + myPTStops.front()->getEdgeId() + "' for first stop of line '" + myName + "'");
+            WRITE_WARNING("Could not retrieve edge '" + myPTStops.front()->getEdgeId() + "' for first stop of line '" + myPTLineId + "'");
             return nullptr;
 
         }
         auto it = std::find(validEdges.begin(), validEdges.end(), firstStopEdge);
         if (it == validEdges.end()) {
-            WRITE_WARNING("First stop edge '" + firstStopEdge->getID() + "' is not part of the route of line '" + myName + "'");
+            WRITE_WARNING("First stop edge '" + firstStopEdge->getID() + "' is not part of the route of line '" + myPTLineId + "'");
             return nullptr;
         }
     }
@@ -176,13 +176,13 @@ NBPTLine::getRouteEnd(const NBEdgeCont& ec) const {
     if (myPTStops.size() > 0) {
         NBEdge* lastStopEdge = ec.retrieve(myPTStops.back()->getEdgeId());
         if (lastStopEdge == nullptr) {
-            WRITE_WARNING("Could not retrieve edge '" + myPTStops.back()->getEdgeId() + "' for last stop of line '" + myName + "'");
+            WRITE_WARNING("Could not retrieve edge '" + myPTStops.back()->getEdgeId() + "' for last stop of line '" + myPTLineId + "'");
             return nullptr;
 
         }
         auto it = std::find(validEdges.begin(), validEdges.end(), lastStopEdge);
         if (it == validEdges.end()) {
-            WRITE_WARNING("Last stop edge '" + lastStopEdge->getID() + "' is not part of the route of line '" + myName + "'");
+            WRITE_WARNING("Last stop edge '" + lastStopEdge->getID() + "' is not part of the route of line '" + myPTLineId + "'");
             return nullptr;
         }
     }
