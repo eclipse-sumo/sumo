@@ -55,6 +55,8 @@ def get_options(args=None):
                          default="", help="additional flow attributes")
     optParser.add_option("--use-osm-routes", default=False, action="store_true",
                          dest='osmRoutes', help="use osm routes")
+    optParser.add_option("--extend-to-fringe", default=False, action="store_true",
+                         dest='extendFringe', help="let routes of incomplete lines start/end at the network border if the route edges are known")
     optParser.add_option("--random-begin", default=False, action="store_true",
                          dest='randomBegin', help="randomize begin times within period")
     optParser.add_option("--seed", type="int", help="random seed")
@@ -132,20 +134,21 @@ def createTrips(options):
             stop_ids = []
             if not line.hasAttribute("period"):
                 line.setAttribute("period", options.period)
-            for stop in line.busStop:
-                if stop.id not in stopsLanes:
-                    sys.stderr.write("Warning: skipping unknown stop '%s'\n" % stop.id)
-                    continue
-                laneId = stopsLanes[stop.id]
-                try:
-                    edge_id, lane_index = laneId.rsplit("_", 1)
-                except ValueError:
-                    if options.ignoreErrors:
-                        sys.stderr.write("Warning: ignoring stop '%s' on invalid lane '%s'\n" % (stop.id, laneId))
+            if line.busStop is not None:
+                for stop in line.busStop:
+                    if stop.id not in stopsLanes:
+                        sys.stderr.write("Warning: skipping unknown stop '%s'\n" % stop.id)
                         continue
-                    else:
-                        sys.exit("Invalid lane '%s' for stop '%s'" % (laneId, stop.id))
-                stop_ids.append(stop.id)
+                    laneId = stopsLanes[stop.id]
+                    try:
+                        edge_id, lane_index = laneId.rsplit("_", 1)
+                    except ValueError:
+                        if options.ignoreErrors:
+                            sys.stderr.write("Warning: ignoring stop '%s' on invalid lane '%s'\n" % (stop.id, laneId))
+                            continue
+                        else:
+                            sys.exit("Invalid lane '%s' for stop '%s'" % (laneId, stop.id))
+                    stop_ids.append(stop.id)
 
             if options.types is not None and line.type not in options.types:
                 if options.verbose:
@@ -180,7 +183,12 @@ def createTrips(options):
             tripID = "%s_%s_%s" % (trp_nr, line.type, lineRef)
 
             begin = departTimes[trp_nr]
-            if options.osmRoutes and line.route is not None:
+            edges = []
+            if line.route is not None:
+                edges = line.route[0].edges.split()
+            if options.osmRoutes and len(edges) == 0 and options.verbose:
+                print("Cannot use OSM route for line '%s' (no edges given)" % line.id)
+            elif options.osmRoutes and len(edges) > 0:
                 edges = line.route[0].edges.split()
                 vias = ''
                 if len(edges) > 2:
@@ -190,12 +198,18 @@ def createTrips(options):
                      'to="%s"%s>\n') % (
                         tripID, options.vtypeprefix, line.type, begin, edges[0], edges[-1], vias))
             else:
-                if len(stop_ids) == 0:
-                    sys.stderr.write("Warning: skipping line '%s' because it has no stops\n" % line.id)
-                    numSkipped += 1
-                    continue
-                fr, _ = stopsLanes[stop_ids[0]].rsplit("_", 1)
-                to, _ = stopsLanes[stop_ids[-1]].rsplit("_", 1)
+                if options.extendFringe and len(edges) > 1:
+                    fr = edges[0]
+                    to = edges[-1]
+                else:
+                    if options.extendFringe and options.verbose:
+                        print("Cannot extend route to fringe for line '%s' (not enough edges given)" % line.id)
+                    if len(stop_ids) == 0:
+                        sys.stderr.write("Warning: skipping line '%s' because it has no stops\n" % line.id)
+                        numSkipped += 1
+                        continue
+                    fr, _ = stopsLanes[stop_ids[0]].rsplit("_", 1)
+                    to, _ = stopsLanes[stop_ids[-1]].rsplit("_", 1)
                 fouttrips.write(
                     ('    <trip id="%s" type="%s%s" depart="%s" departLane="best" from="%s" ' +
                      'to="%s">\n') % (
