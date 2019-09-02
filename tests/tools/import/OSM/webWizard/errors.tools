@@ -278,11 +278,6 @@ Warning: Connection '101699692#1_0->101694131#0_0' is only 0.08 short.
 Warning: Connection '101699692#1_0->153522302#0_0' is only 0.08 short.
 Warning: Intersecting left turns at junction '1769589042' from lane '4610472#2_1' and lane '-34848160#0_1'. (increase junction radius to avoid this)
 Warning: Speed of straight connection '100405009#0_1->100405009#1_1' reduced by 6.39 due to turning radius of 10.21 (length=1.42 angle=23.19)
-Warning: skipping line '300432' (train_RB21) because it has too few stops
-Warning: skipping line '6593330' (train_RB21) because it has too few stops
-Warning: skipping line '6593454' (train_RB22) because it has too few stops
-Warning: skipping line '6593455' (train_RB22) because it has too few stops
-Warning: skipping line '6784107' (bus_265) because it has too few stops
 Warning: At actuated tlLogic 'cluster_21432801_2938442114_295705005_3139140896_3178759584_735967920_735967921_735967926_961816249_961816257', actuated phase 5 has no controlling detector
 Warning: At actuated tlLogic 'joinedS_0', linkIndex 16 has no controlling detector
 Warning: At actuated tlLogic 'joinedS_0', linkIndex 17 has no controlling detector
@@ -297,14 +292,11 @@ Warning: busStop '2175753204' on lane '207364192#0_0' is too short for vehicle '
 Warning: busStop '1673526976' on lane '167272512#2_0' is too short for vehicle '21_tram_12:1'.
 Warning: busStop '30731700' on lane '167272531#9_0' is too short for vehicle '21_tram_12:1'.
 Warning: busStop '1668497956' on lane '153537614#2_0' is too short for vehicle '28_tram_M1:2'.
-Warning: Vehicle '36_bus_N6:0' is not allowed to depart on any lane of its first edge.
+Warning: Vehicle '36_bus_N6:0' is not allowed to stop on lane '388702039#10_0'.
+Warning: Vehicle '36_bus_N6:0' is not allowed to stop on lane '388702039#10_0'.
 Warning: busStop '3869306762' on lane '111251382#2_1' is too short for vehicle '37_bus_147:0'.
-Warning: Teleporting vehicle '9_tram_M2:0'; frontal collision with vehicle '11_tram_M2:2', lane='148458500#0_0', gap=-1.00, time=146.00 stage=move.
-Warning: Vehicle '9_tram_M2:0' ends teleporting on edge '148458500#1', time 150.00.
 Warning: busStop '2071423352' on lane '295250361_0' is too short for vehicle '62_subway_U6:0'.
 Warning: Vehicle '70_bus_N6:1' is not allowed to stop on lane '388702041#11_0'.
-Warning: Vehicle '70_bus_N6:1' is not allowed on destination edge '388702041#11'.
-Warning: busStop '3869306764' for vehicle '70_bus_N6:1' on lane '4402228_1' is not downstream the current route.
 Warning: Vehicle '70_bus_N6:1' is not allowed to stop on lane '388702041#11_0'.
 Warning: At actuated tlLogic 'cluster_21432801_2938442114_295705005_3139140896_3178759584_735967920_735967921_735967926_961816249_961816257', actuated phase 5 has no controlling detector
 Warning: At actuated tlLogic 'joinedS_0', linkIndex 16 has no controlling detector
@@ -319,15 +311,14 @@ Warning: busStop '1633759766' on lane '421641064_0' is too short for vehicle 'pt
 Warning: busStop '2175753204' on lane '207364192#0_0' is too short for vehicle 'pt_tram_12:0.0'.
 Warning: busStop '1673526976' on lane '167272512#2_0' is too short for vehicle 'pt_tram_12:1.0'.
 Warning: busStop '30731700' on lane '167272531#9_0' is too short for vehicle 'pt_tram_12:1.0'.
-Warning: Teleporting vehicle 'pt_tram_M2:0.0'; frontal collision with vehicle 'pt_tram_M2:2.0', lane='148458500#0_0', gap=-1.00, time=147.00 stage=move.
-Warning: Vehicle 'pt_tram_M2:0.0' ends teleporting on edge '148458500#1', time 151.00.
 Warning: busStop '1668497956' on lane '153537614#2_0' is too short for vehicle 'pt_tram_M1:2.0'.
 Warning: busStop '3869306762' on lane '111251382#2_1' is too short for vehicle 'pt_bus_147:0.0'.
 Warning: busStop '2071423352' on lane '295250361_0' is too short for vehicle 'pt_subway_U6:0.0'.
-Warning: Teleporting vehicle 'pt_tram_M2:0.1'; frontal collision with vehicle 'pt_tram_M2:2.1', lane='148458500#0_0', gap=-1.00, time=447.00 stage=move.
-Warning: Vehicle 'pt_tram_M2:0.1' teleports beyond arrival edge '148458500#1', time 513.00.
-Warning: Vehicle 'pt_tram_M2:0.1' skips stop on lane '148458500#1_0' time=513.00.
-Warning: Teleporting vehicle 'pt_tram_M2:0.2'; frontal collision with vehicle 'pt_tram_M2:2.2', lane='148458500#0_0', gap=-1.00, time=747.00 stage=move.
-Warning: Vehicle 'pt_tram_M2:0.2' ends teleporting on edge '148458500#1', time 751.00.
-Warning: Person 'ped68' aborted waiting for 100:1 at busStop '3867910421'.
-Warning: Person 'ped186' aborted waiting for S3:1 at busStop '27411231'.
+Warning: Teleporting vehicle 'pt_tram_M2:0.1'; frontal collision with vehicle 'pt_tram_M2:3.0', lane='-148458500#1_0', gap=-1.00, time=499.00 stage=move.
+Warning: Vehicle 'pt_tram_M2:0.1' teleports beyond arrival edge '148458500#1', time 499.00.
+Warning: Vehicle 'pt_tram_M2:0.1' skips stop on lane '148458500#1_0' time=499.00.
+Warning: Person 'ped37' aborted waiting for 147:1 at busStop '-3869306770'.
+Warning: Person 'ped70' aborted waiting for M5:0 at busStop '1668685086'.
+Warning: Person 'ped75' aborted waiting for 200:0 at busStop '271296293'.
+Warning: Person 'ped79' aborted waiting for 147:0 at busStop '3869306762'.
+Warning: Person 'ped68' aborted waiting for TXL:0 at busStop '3870475228'.
