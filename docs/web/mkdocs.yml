@@ -1,8 +1,8 @@
 site_name: SUMO Documentation
 site_url: https://angelobanse.github.io/sumo-documentation2/
 site_favicon: favicon.ico
-repo_url: https://github.com/angelobanse/sumo-documentation2
-#repo_url: https://github.com/eclipse/sumo/doc
+repo_url: https://github.com/eclipse/sumo/
+edit_uri: edit/master/docs/web/docs/
 site_description: SUMO Documentation
 #google_analytics:
 use_directory_urls: false
@@ -20,10 +20,6 @@ nav:
   - ChangeLog: ChangeLog.md
   - Developer: Developer/Main.md
   - Recent Changes: https://github.com/eclipse/sumo/commits/master/docs
-
-#theme: 
-#  name: readthedocs
-#  custom_dir: theme2/
 
 theme:
   name: mkdocs

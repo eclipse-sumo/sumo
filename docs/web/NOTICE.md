@@ -1,6 +1,6 @@
 ## Third-party Content
 
-This project leverages the following third party content.
+This Documentation leverages the following third party content.
 
 mkdocs (1.0.4)
 
@@ -35,3 +35,9 @@ mkdocs-git-revision-date-plugin (0.1.5)
 * License: MIT License
 * Project: https://pypi.org/project/mkdocs-git-revision-date-plugin/
 * Source: https://github.com/zhaoterryy/mkdocs-git-revision-date-plugin
+
+mdx_truly_sane_lists (1.2)
+* Author: @radude
+* License: MIT License
+* Project: https://pypi.org/project/mdx-truly-sane-lists/
+* Source: https://github.com/radude/mdx_truly_sane_lists

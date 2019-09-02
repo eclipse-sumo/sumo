@@ -1,6 +1,3 @@
-[![Build Status](https://travis-ci.org/angelobanse/sumo-documentation2.svg?branch=master)](https://travis-ci.org/angelobanse/sumo-documentation2)
-![Repo Size](https://img.shields.io/github/repo-size/angelobanse/sumo-documentation2.svg)
-
 # SUMO Documentation :book:
 
 The SUMO Documentation is generated using [MkDocs](https://www.mkdocs.org/).
@@ -19,12 +16,15 @@ pip install mkdocs-macros-plugin
 pip install mdx_gh_links
 pip install pymdown-extensions
 pip install mkdocs-git-revision-date-plugin
+pip install mdx_truly_sane_lists
 ```
 
 Next step is to clone this repository:
 ```
-git clone https://github.com/angelobanse/sumo-documentation2.git
+git clone https://github.com/eclipse/sumo.git
 ```
+
+Navigate to this path (`sumo/docs/web`).
 
 To run the built-in development server, use:
 ```
@@ -43,11 +43,4 @@ This should create the *site* directory, containing all the necessary HTML and C
 
 ## Contributing
 
-
-
-## Contact
-
-[Olaf.BanseBueno@dlr.de](mailto:Olaf.BanseBueno@dlr.de)
-
-
-
+Feel free to contribute and improve the SUMO Documentation.
