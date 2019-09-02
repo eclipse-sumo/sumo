@@ -377,17 +377,19 @@ GNEHierarchicalElementParents::changeEdgeParents(GNEAdditional* elementChild, co
 
 
 void
-GNEHierarchicalElementParents::changeEdgeParents(GNEDemandElement* elementChild, const std::string& newEdgeIDs) {
-    // remove demandElement of edge parents
-    for (const auto& i : myEdgeParents) {
-        i->removeDemandElementChild(elementChild);
+GNEHierarchicalElementParents::changeEdgeParents(GNEDemandElement* elementChild, const std::string& newEdgeIDs, bool updateReferences) {
+    if (updateReferences) {
+        // remove demandElement of edge parents
+        for (const auto& i : myEdgeParents) {
+            i->removeDemandElementChild(elementChild);
+        }
     }
     // obtain new parent edges
     myEdgeParents = GNEAttributeCarrier::parse<std::vector<GNEEdge*> >(elementChild->getViewNet()->getNet(), newEdgeIDs);
     // check that lane parets aren't empty
     if (myEdgeParents.empty()) {
         throw InvalidArgument("New list of edge parents cannot be empty");
-    } else {
+    } else if (updateReferences) {
         // add demandElement into edge parents
         for (const auto& i : myEdgeParents) {
             i->addDemandElementChild(elementChild);
@@ -397,17 +399,19 @@ GNEHierarchicalElementParents::changeEdgeParents(GNEDemandElement* elementChild,
 
 
 void
-GNEHierarchicalElementParents::changeEdgeParents(GNEDemandElement* elementChild, const std::vector<GNEEdge*>& newEdges) {
-    // remove demandElement of edge parents
-    for (const auto& i : myEdgeParents) {
-        i->removeDemandElementChild(elementChild);
+GNEHierarchicalElementParents::changeEdgeParents(GNEDemandElement* elementChild, const std::vector<GNEEdge*>& newEdges, bool updateReferences) {
+    if (updateReferences) {
+        // remove demandElement of edge parents
+        for (const auto& i : myEdgeParents) {
+            i->removeDemandElementChild(elementChild);
+        }
     }
     // set new edges
     myEdgeParents = newEdges;
     // check that lane parets aren't empty
     if (myEdgeParents.empty()) {
         throw InvalidArgument("New list of edge parents cannot be empty");
-    } else {
+    } else if (updateReferences) {
         // add demandElement into edge parents
         for (const auto& i : myEdgeParents) {
             i->addDemandElementChild(elementChild);

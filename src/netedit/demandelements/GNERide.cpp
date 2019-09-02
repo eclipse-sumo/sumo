@@ -501,7 +501,7 @@ GNERide::setAttribute(SumoXMLAttr key, const std::string& value) {
             // calculate route for passengers (Not for SVC_PEDESTRIAN)
             std::vector<GNEEdge*> route = getRouteCalculatorInstance()->calculateDijkstraRoute(myViewNet->getNet(), SVC_PASSENGER, FromViaToEdges);
             // change edge parents
-            changeEdgeParents(this, toString(route));
+            changeEdgeParents(this, toString(route), true);
             break;
         }
         case SUMO_ATTR_TO: {
@@ -514,7 +514,7 @@ GNERide::setAttribute(SumoXMLAttr key, const std::string& value) {
             // calculate route
             std::vector<GNEEdge*> route = getRouteCalculatorInstance()->calculateDijkstraRoute(myViewNet->getNet(), SVC_PASSENGER, FromViaToEdges);
             // change edge parents
-            changeEdgeParents(this, toString(route));
+            changeEdgeParents(this, toString(route), true);
             break;
         }
         case SUMO_ATTR_BUS_STOP:

@@ -301,23 +301,23 @@ myToEdge(nullptr) {
 
 GNEVehicle::GNEVehicle(SumoXMLTag tag, GNEViewNet* viewNet, const std::string& vehicleID, GNEDemandElement* vehicleType, GNEEdge* fromEdge, GNEEdge* toEdge) :
     GNEDemandElement(vehicleID, viewNet, (tag == SUMO_TAG_FLOW) ? GLO_FLOW : GLO_TRIP, tag,
-{}, {}, {}, {}, {vehicleType}, {}, {}, {}, {}, {}),
-SUMOVehicleParameter(),
-myFromEdge(fromEdge),
-myToEdge(toEdge) {
-    // recompute vehicle
-    compute();
+    {}, {}, {}, {}, {vehicleType}, {}, {}, {}, {}, {}),
+    SUMOVehicleParameter(),
+    myFromEdge(fromEdge),
+    myToEdge(toEdge) {
+    // compute vehicle without referencing edges
+    computeWithoutReferences();
 }
 
 
 GNEVehicle::GNEVehicle(GNEViewNet* viewNet, GNEDemandElement* vehicleType, GNEEdge* fromEdge, GNEEdge* toEdge, const SUMOVehicleParameter& vehicleParameters) :
     GNEDemandElement(vehicleParameters.id, viewNet, (vehicleParameters.tag == SUMO_TAG_FLOW) ? GLO_FLOW : GLO_TRIP, vehicleParameters.tag,
-{}, {}, {}, {}, {vehicleType}, {}, {}, {}, {}, {}),
-SUMOVehicleParameter(vehicleParameters),
-myFromEdge(fromEdge),
-myToEdge(toEdge) {
-    // recompute vehicle
-    compute();
+    {}, {}, {}, {}, {vehicleType}, {}, {}, {}, {}, {}),
+    SUMOVehicleParameter(vehicleParameters),
+    myFromEdge(fromEdge),
+    myToEdge(toEdge) {
+    // compute vehicle without referencing edges
+    computeWithoutReferences();
 }
 
 
@@ -508,9 +508,9 @@ GNEVehicle::compute() {
         std::vector<GNEEdge*> route = getRouteCalculatorInstance()->calculateDijkstraRoute(myViewNet->getNet(), getDemandElementParents().at(0)->getVClass(), FromViaToEdges);
         // check if rute is valid
         if (route.size() > 0) {
-            changeEdgeParents(this, route);
+            changeEdgeParents(this, route, true);
         } else {
-            changeEdgeParents(this, getEdgeParents().front()->getID() + " " + toString(via) + " " + getEdgeParents().back()->getID());
+            changeEdgeParents(this, getEdgeParents().front()->getID() + " " + toString(via) + " " + getEdgeParents().back()->getID(), true);
         }
         // mark geometry as deprecated
         myDemandElementSegmentGeometry.geometryDeprecated = true;
@@ -1881,6 +1881,34 @@ GNEVehicle::setAttribute(SumoXMLAttr key, const std::string& value) {
 void
 GNEVehicle::setEnabledAttribute(const int enabledAttributes) {
     parametersSet = enabledAttributes;
+}
+
+
+void 
+GNEVehicle::computeWithoutReferences() {
+    // only recompute flows and trips
+    if (myFromEdge && myToEdge) {
+        // declare a from-via-to edges vector
+        std::vector<std::string> FromViaToEdges;
+        // add from edge
+        FromViaToEdges.push_back(myFromEdge->getID());
+        // add via edges
+        FromViaToEdges.insert(FromViaToEdges.end(), via.begin(), via.end());
+        // add to edge
+        FromViaToEdges.push_back(myToEdge->getID());
+        // calculate route
+        std::vector<GNEEdge*> route = getRouteCalculatorInstance()->calculateDijkstraRoute(myViewNet->getNet(), getDemandElementParents().at(0)->getVClass(), FromViaToEdges);
+        // check if rute is valid
+        if (route.size() > 0) {
+            changeEdgeParents(this, route, false);
+        } else {
+            changeEdgeParents(this, getEdgeParents().front()->getID() + " " + toString(via) + " " + getEdgeParents().back()->getID(), false);
+        }
+        // mark geometry as deprecated
+        myDemandElementSegmentGeometry.geometryDeprecated = true;
+        // update geometry
+        updateGeometry();
+    }
 }
 
 /****************************************************************************/

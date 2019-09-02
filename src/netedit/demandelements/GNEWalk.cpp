@@ -541,7 +541,7 @@ GNEWalk::setAttribute(SumoXMLAttr key, const std::string& value) {
             // calculate route
             std::vector<GNEEdge*> route = getRouteCalculatorInstance()->calculateDijkstraRoute(myViewNet->getNet(), getDemandElementParents().at(0)->getVClass(), FromViaToEdges);
             // change edge parents
-            changeEdgeParents(this, toString(route));
+            changeEdgeParents(this, toString(route), true);
             break;
         }
         case SUMO_ATTR_TO: {
@@ -556,7 +556,7 @@ GNEWalk::setAttribute(SumoXMLAttr key, const std::string& value) {
             // calculate route
             std::vector<GNEEdge*> route = getRouteCalculatorInstance()->calculateDijkstraRoute(myViewNet->getNet(), getDemandElementParents().at(0)->getVClass(), FromViaToEdges);
             // change edge parents
-            changeEdgeParents(this, toString(route));
+            changeEdgeParents(this, toString(route), true);
             break;
         }
         case SUMO_ATTR_VIA: {
@@ -578,7 +578,7 @@ GNEWalk::setAttribute(SumoXMLAttr key, const std::string& value) {
             // calculate route
             std::vector<GNEEdge*> route = getRouteCalculatorInstance()->calculateDijkstraRoute(myViewNet->getNet(), getDemandElementParents().at(0)->getVClass(), FromViaToEdges);
             // change edge parents
-            changeEdgeParents(this, toString(route));
+            changeEdgeParents(this, toString(route), true);
             break;
         }
         case SUMO_ATTR_ROUTE:
