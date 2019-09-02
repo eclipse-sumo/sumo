@@ -1,5 +1,5 @@
 ---
-title: Models Emissions HBEFA3-based
+title: Models/Emissions/HBEFA3-based
 permalink: /Models/Emissions/HBEFA3-based/
 ---
 
@@ -8,22 +8,22 @@ emissions based on the database application HBEFA in version 3.1. Though
 HBEFA contains information about other pollutants, we decided to
 implement only the following, major ones:
 
-  - CO<sub>2</sub>
-  - CO
-  - HC
-  - NO<sub>x</sub>
-  - PM<sub>x</sub>
-  - fuel consumption
+- CO<sub>2</sub>
+- CO
+- HC
+- NO<sub>x</sub>
+- PM<sub>x</sub>
+- fuel consumption
 
 ## Vehicle Emission Classes
 
 The vehicle classes below map directly to vehicle classes supplied by
 [HBEFA](http://www.hbefa.net/). This is a major difference to the
 clustering done with [HBEFA
-2.1](Models/Emissions/HBEFA-based.md). Note, that within HBEFA
+2.1](../../Models/Emissions/HBEFA-based.md). Note, that within HBEFA
 these classes are aggregates of more specific vehicle classes. To use
 the emission classes below prepend the class name with the HBEFA3
-prefix, e.g. "HBEFA3/PC_G_EU4"}}.
+prefix, e.g. `emissionClass="HBEFA3/PC_G_EU4"`.
 
 The following tables give the emissionClass strings to use in the
 definition of vehicle types.

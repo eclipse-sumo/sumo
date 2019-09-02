@@ -1,5 +1,5 @@
 ---
-title: Models Emissions HBEFA-based
+title: Models/Emissions/HBEFA-based
 permalink: /Models/Emissions/HBEFA-based/
 ---
 
@@ -12,12 +12,12 @@ is able to simulate vehicular pollutant emissions based on this database
 application. Though HBEFA contains information about other pollutants,
 we decided to implement only the following, major ones:
 
-  - CO<sub>2</sub>
-  - CO
-  - HC
-  - NO<sub>x</sub>
-  - PM<sub>x</sub>
-  - fuel consumption
+- CO<sub>2</sub>
+- CO
+- HC
+- NO<sub>x</sub>
+- PM<sub>x</sub>
+- fuel consumption
 
 We have remodeled [HBEFA](http://www.hbefa.net/) data for the following
 reasons:
@@ -155,10 +155,12 @@ clusters in dependence to the class number/cluster**
 
 ## Special Classes
 
-The special class  may be used to specify a vehicle without emissions.
+The special class `zero` may be used to specify a vehicle without emissions.
 
-In addition to the these strings, it is also possible to add the code
+In addition to the these strings, it is also possible to add the code `A0`
 in order to get emission models which ignore vehicle acceleration.
 
-` emissionClass="P_A0_7_7"`
-` emissionClass="HDV_A0_3_2"`
+```
+emissionClass="P_A0_7_7"
+emissionClass="HDV_A0_3_2"
+```

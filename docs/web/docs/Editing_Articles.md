@@ -124,6 +124,8 @@ You can also use a custom note type.
 
 **`-s <SEED_VALUE>`**
 
+*η<sub>recup</sub>*
+
 <hr>
 
 ## See also

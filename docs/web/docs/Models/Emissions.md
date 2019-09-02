@@ -1,5 +1,5 @@
 ---
-title: Models Emissions
+title: Models/Emissions
 permalink: /Models/Emissions/
 ---
 
@@ -7,20 +7,20 @@ permalink: /Models/Emissions/
 
 SUMO includes the following emission models:
 
-  - [HBEFA v2.1-based](Models/Emissions/HBEFA-based.md): A
-    continuous reformulation of the [HBEFA](http://www.hbefa.net/) v2.1
-    emissions data base (open source);
-  - [HBEFA v3.1-based](Models/Emissions/HBEFA3-based.md): A
-    continuous reformulation of the [HBEFA](http://www.hbefa.net/) v3.1
-    emissions data base (open source);
-  - [PHEMlight](Models/Emissions/PHEMlight.md), a derivation of
-    the original
-    [PHEM](http://www.ivt.tugraz.at/de/forschung/emissionen.html)
-    emission model (closed source, commercial).
-  - [Electric Vehicle
-    Model](Models/Electric#Emission_Output.md): an
-    electricity-consumption model by [Kurczveil, T., López, P.A.,
-    Schnieder](Models/Electric#Publications.md).
+- [HBEFA v2.1-based](../Models/Emissions/HBEFA-based.md): A
+  continuous reformulation of the [HBEFA](http://www.hbefa.net/) v2.1
+  emissions data base (open source);
+- [HBEFA v3.1-based](../Models/Emissions/HBEFA3-based.md): A
+  continuous reformulation of the [HBEFA](http://www.hbefa.net/) v3.1
+  emissions data base (open source);
+- [PHEMlight](../Models/Emissions/PHEMlight.md), a derivation of
+  the original
+  [PHEM](http://www.ivt.tugraz.at/de/forschung/emissionen.html)
+  emission model (closed source, commercial).
+- [Electric Vehicle
+  Model](../Models/Electric.md#emission_output): an
+  electricity-consumption model by [Kurczveil, T., López, P.A.,
+  Schnieder](../Models/Electric.md#publications).
 
 Literature on the Models and their implementation can be found at [the
 DLR electronic library
@@ -30,64 +30,106 @@ DLR electronic library
 
 All models implement different vehicle emission classes. These classes
 can be assigned to vehicles by using the vehicle type attribute
-"<span class="inlxml">emissionClass</span>". Available emission classes
+"`emissionClass`". Available emission classes
 can be found within the emission model descriptions ([HBEFA
-v2.1-based](Models/Emissions/HBEFA-based.md), [HBEFA
-v3.1-based](Models/Emissions/HBEFA3-based.md),
-[PHEMlight](Models/Emissions/PHEMlight.md)). The current default
+v2.1-based](../Models/Emissions/HBEFA-based.md), [HBEFA
+v3.1-based](../Models/Emissions/HBEFA3-based.md),
+[PHEMlight](../Models/Emissions/PHEMlight.md)). The current default
 model is `HBEFA3/PC_G_EU4` (a gasoline powered Euro norm 4 passenger car
 modeled using the HBEFA3 based model).
 
 # Pollutants covered by models
 
-<center>
-
-| model            | pollutant / measurement |
-| ---------------- | ----------------------- |
-| CO<sub>2</sub>   | CO                      |
-| HBEFA v2.1-based | x                       |
-| HBEFA v3.1-based | x                       |
-| PHEMlight        | x                       |
-|                  |                         |
-
-</center>
+<table class="tg">
+  <tr>
+    <th class="tg-uzvj" rowspan="2">model</th>
+    <th class="tg-7btt" colspan="6">pollutant / measurement</th>
+  </tr>
+  <tr>
+    <td class="tg-7btt">CO<sub>2</sub></td>
+    <td class="tg-7btt">CO</td>
+    <td class="tg-7btt">HC</td>
+    <td class="tg-7btt">NO<sub>x</sub></td>
+    <td class="tg-7btt">PM<sub>x</sub></td>
+    <td class="tg-uzvj">fuel consumption</td>
+  </tr>
+  <tr>
+    <td class="tg-0pky">HBEFA v2.1-based</td>
+    <td class="tg-c3ow">x</td>
+    <td class="tg-c3ow">x</td>
+    <td class="tg-c3ow">x</td>
+    <td class="tg-c3ow">x</td>
+    <td class="tg-c3ow">x</td>
+    <td class="tg-c3ow">x</td>
+  </tr>
+  <tr>
+    <td class="tg-0pky">HBEFA v3.1-based</td>
+    <td class="tg-c3ow">x</td>
+    <td class="tg-c3ow">x</td>
+    <td class="tg-c3ow">x</td>
+    <td class="tg-c3ow">x</td>
+    <td class="tg-c3ow">x</td>
+    <td class="tg-c3ow">x</td>
+  </tr>
+  <tr>
+    <td class="tg-lboi">PHEMlight</td>
+    <td class="tg-c3ow">x</td>
+    <td class="tg-c3ow">x</td>
+    <td class="tg-c3ow">x</td>
+    <td class="tg-c3ow">x</td>
+    <td class="tg-c3ow">x</td>
+    <td class="tg-9wq8">x</td>
+  </tr>
+</table>
 
 # Outputs
 
 Pollutants emitted by the simulated vehicles can be visualised using
-[SUMO-GUI](SUMO-GUI.md) or be written into output files, both by
-[SUMO](SUMO.md) and [SUMO-GUI](SUMO-GUI.md). The
+[SUMO-GUI](../SUMO-GUI.md) or be written into output files, both by
+[SUMO](../SUMO.md) and [SUMO-GUI](../SUMO-GUI.md). The
 following output can be used:
 
-  - [trip information](Simulation/Output/TripInfo.md): In
-    combination with the emissions device, the tripinfo output contains
-    the sum of all pollutants emitted / fuel consumed during a vehicle's
-    journey. To record emissions for all trips add the options  and .
-    Alternatively, you can configure emission recording for selected
-    vehicles using [generic
-    parameters](Definition_of_Vehicles,_Vehicle_Types,_and_Routes#Devices.md).
-  - [edgelane
-    emissions](Simulation/Output/Lane-_or_Edge-based_Emissions_Measures.md):
-    These output files contain the pollutants emitted at an edge / a
-    lane, aggregated over a variable time span
-  - [emission-output](Simulation/Output/EmissionOutput.md):
-    Unaggregated emission values for every vehicle and time step
-  - [Color vehicles by
-    emissions](SUMO-GUI#Vehicle_Visualisation_Settings.md): This
-    can be used to show the emissions for each vehicle during each
-    simulation step
-  - [Color lanes/edges by
-    emissions](SUMO-GUI#Edge.2FLane_Visualisation_Settings.md):
-    This can be used to show the emissions for all vehicles on a lane
-    during each simulation step (or for the whole edge in
-    [Simulation/Meso](Simulation/Meso.md)).
+- [trip information](../Simulation/Output/TripInfo.md): In
+  combination with the emissions device, the tripinfo output contains
+  the sum of all pollutants emitted / fuel consumed during a vehicle's
+  journey. To record emissions for all trips add the options **--tripinfo-output** and **--device.emissions.probability 1.0**.
+  Alternatively, you can configure emission recording for selected
+  vehicles using [generic
+  parameters](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#devices).
+- [edgelane
+  emissions](../Simulation/Output/Lane-_or_Edge-based_Emissions_Measures.md):
+  These output files contain the pollutants emitted at an edge / a
+  lane, aggregated over a variable time span
+- [emission-output](../Simulation/Output/EmissionOutput.md):
+  Unaggregated emission values for every vehicle and time step
+- [Color vehicles by
+  emissions](../SUMO-GUI.md#vehicle_visualisation_settings): This
+  can be used to show the emissions for each vehicle during each
+  simulation step
+- [Color lanes/edges by
+  emissions](../SUMO-GUI.md#edgelane_visualisation_settings):
+  This can be used to show the emissions for all vehicles on a lane
+  during each simulation step (or for the whole edge in
+  [Simulation/Meso](../Simulation/Meso.md)).
 
 # Further Interfaces
 
-The tool [traceExporter.py](Tools/TraceExporter.md) converts
-SUMO's [fcd-output](Simulation/Output/FCDOutput.md) into files
+The tool [traceExporter.py](../Tools/TraceExporter.md) converts
+SUMO's [fcd-output](../Simulation/Output/FCDOutput.md) into files
 that can be directly read by the
 [PHEM](http://www.ivt.tugraz.at/de/forschung/emissionen.html)
 application. A [tutorial on generating trace files (including PHEM input
-files)](Tutorials/Trace_File_Generation.md) using this tool is
+files)](../Tutorials/Trace_File_Generation.md) using this tool is
 available.
+
+<div style="border:1px solid #909090; min-height: 35px;" align="right">
+<span style="float: right; margin-top: -5px;"><a href="http://cordis.europa.eu/fp7/home_en.html"><img src="../images/FP7-small.gif" alt="Seventh Framework Programme"></a>
+<a href="http://colombo-fp7.eu/"><img src="../images/COLOMBO-small.png" alt="COLOMBO project"></a></span>
+<span style="">This part of SUMO was developed, reworked, or extended within the project 
+<a href="http://colombo-fp7.eu/">"COLOMBO"</a>, co-funded by the European Commission within the <a href="http://cordis.europa.eu/fp7/home_en.html">Seventh Framework Programme</a>.</span></div>
+
+<div style="border:1px solid #909090; min-height: 35px;" align="right">
+<span style="float: right; margin-top: -5px;"><a href="http://cordis.europa.eu/fp7/home_en.html"><img src="../../images/FP7-small.gif" alt="Seventh Framework Programme"></a>
+<a href="http://amitran.eu/"><img src="../../images/AMITRAN-small.png" alt="AMITRAN project"></a></span>
+<span style="">This part of SUMO was developed, reworked, or extended within the project 
+<a href="http://amitran.eu/">"AMITRAN"</a>, co-funded by the European Commission within the <a href="http://cordis.europa.eu/fp7/home_en.html">Seventh Framework Programme</a>.</span></div>

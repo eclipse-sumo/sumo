@@ -119,9 +119,9 @@ The simulation can be stopped automatically to allow investigating
 specific points in time. Breakpoints can be set via any of the following
 methods:
 
-  - via menu *Edit-\>Breakpoints*
-  - by setting option
-  - by loading \#Configuration_Files with breakpoint information
+- via menu *Edit-\>Breakpoints*
+- by setting option
+- by loading \#Configuration_Files with breakpoint information
 
 ## Keyboard Shortcuts
 
@@ -130,53 +130,53 @@ documented directly in the menu. (i.e. Ctrl-l Ctrl-e opens the edge
 locator, Ctrl-d performs a single simulation step). Additional shortcuts
 are listed below:
 
-  - Ctrl-LeftClick: toggle selection status of object under cursor
-  - Arrow Keys: move the view
-  - Ctrl + Arrow keys: move the view less
-  - PageUp / PageDow: move the view up/down (a lot)
-  - Shift + PageUp / PageDow: move the view left/right (a lot)
-  - \+/-, Keypad +/-: zoom in/out
-  - Home/Keypad Home: recenter view
-  - Ctrl + v: open view settings dialog
+- Ctrl-LeftClick: toggle selection status of object under cursor
+- Arrow Keys: move the view
+- Ctrl + Arrow keys: move the view less
+- PageUp / PageDow: move the view up/down (a lot)
+- Shift + PageUp / PageDow: move the view left/right (a lot)
+- \+/-, Keypad +/-: zoom in/out
+- Home/Keypad Home: recenter view
+- Ctrl + v: open view settings dialog
 
 ## Object Properties / Right-Click-Functions
 
 Right-clicking simulation objects gives access to additional
 information:
 
-  - copy object id
-  - object parameter dialog (menu item *Show Parameter*)
-  - position information (x,y and lat,lon)
-  - select/deselect object
+- copy object id
+- object parameter dialog (menu item *Show Parameter*)
+- position information (x,y and lat,lon)
+- select/deselect object
 
 The following objects can be accessed by right-click:
 
-  - Vehicles (some attributes are only availabe when using a specific
-    simulation model, i.e. [MESO](Simulation/Meso.md) or [sublane
-    model](Simulation/SublaneModel.md#New_Parameters))
-  - Persons
-  - Lanes
-  - Junctions
-  - Traffic Lights (by clicking on the green/red colored bars)
-  - Detectors
-  - Rerouters
-  - Variable Speed Signs
-  - POIs
-  - Polygons
-  - Simulation (by clicking the background where there is no other
-    object). Also accessible by clicking the
-    ![Image:simulationParameters.png](images/SimulationParameters.png
-    "Image:simulationParameters.png") button.
+- Vehicles (some attributes are only availabe when using a specific
+  simulation model, i.e. [MESO](Simulation/Meso.md) or [sublane
+  model](Simulation/SublaneModel.md#New_Parameters))
+- Persons
+- Lanes
+- Junctions
+- Traffic Lights (by clicking on the green/red colored bars)
+- Detectors
+- Rerouters
+- Variable Speed Signs
+- POIs
+- Polygons
+- Simulation (by clicking the background where there is no other
+  object). Also accessible by clicking the
+  ![Image:simulationParameters.png](images/SimulationParameters.png
+  "Image:simulationParameters.png") button.
 
 The following additional functions are available via right-click:
 
-  - Tracking movements (vehicles and persons)
-  - Activate additional visualizations (persons and vehicles)
-  - Select junction foe vehicles (vehicles). Requires coloring vehicles
-    *by selection* to be visible
-  - Close for traffic (edges and lanes)
-  - Switch programs (traffic lights)
-  - Set speed limit (variable speed sign)
+- Tracking movements (vehicles and persons)
+- Activate additional visualizations (persons and vehicles)
+- Select junction foe vehicles (vehicles). Requires coloring vehicles
+  *by selection* to be visible
+- Close for traffic (edges and lanes)
+- Switch programs (traffic lights)
+- Set speed limit (variable speed sign)
 
 ## Selecting Objects
 
@@ -207,18 +207,18 @@ locate dialog ![Image:Locate.png](images/Locate.png "Image:Locate.png"). By
 clicking this button a sub-menu for selecting the object type is
 openend. The following types are available:
 
-  - [Junction](Networks/Building_Networks_from_own_XML-descriptions#Node_Descriptions.md)
-  - [Edge](Networks/Building_Networks_from_own_XML-descriptions#Edge_Descriptions.md)
-  - [Vehicle](Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md)
-  - [Person](Specification/Persons.md)
-  - [Traffic light](Simulation/Traffic_Lights.md)
-  - Additional infrastructure for
-    [detecting](Simulation/Output#simulated_detectors.md) or for
-    [influencing
-    traffic](SUMO_User_Documentation#Traffic_Management_and_Other_Structures.md).
-  - [Point of Interest
-    (PoI)](Simulation/Shapes#POI_.28Point_of_interest.29_Definitions.md)
-  - [Polygon](Simulation/Shapes#Polygon_Definitions.md)
+- [Junction](Networks/Building_Networks_from_own_XML-descriptions#Node_Descriptions.md)
+- [Edge](Networks/Building_Networks_from_own_XML-descriptions#Edge_Descriptions.md)
+- [Vehicle](Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md)
+- [Person](Specification/Persons.md)
+- [Traffic light](Simulation/Traffic_Lights.md)
+- Additional infrastructure for
+  [detecting](Simulation/Output#simulated_detectors.md) or for
+  [influencing
+  traffic](SUMO_User_Documentation#Traffic_Management_and_Other_Structures.md).
+- [Point of Interest
+  (PoI)](Simulation/Shapes#POI_.28Point_of_interest.29_Definitions.md)
+- [Polygon](Simulation/Shapes#Polygon_Definitions.md)
 
 After selecting the object type, a dialog opens that provides a text box
 for entering the object ID. Search for objects starts after the first
@@ -260,10 +260,10 @@ or edges can be reopened for traffic by selecting *Reopen lane* or
 
 In the future more interactions are planned for exploratory simulation:
 
-  - changing simulation options dynamically (i.e.
-  - adding traffic
-  - changing vehicle or vehicle type parameters
-  - testing TraCI function calls
+- changing simulation options dynamically (i.e.
+- adding traffic
+- changing vehicle or vehicle type parameters
+- testing TraCI function calls
 
 # Understanding what you see
 
@@ -275,39 +275,39 @@ target lanes from one lane, the bar is split in smaller parts each
 indication the rules for one connection. The colors a defined as
 follows:
 
-  - <span style="color:#00FF00; background:#00FF00">FOO</span> Traffic
-    light, green phase, vehicle has right of way
-  - <span style="color:#00B300; background:#00B300">FOO</span> Traffic
-    light, green phase, vehicle has to yield to some streams
-  - <span style="color:#FF0000; background:#FF0000">FOO</span> Traffic
-    light, red phase, vehicle has to wait
-  - <span style="color:#FF8000; background:#FF8000">FOO</span> Traffic
-    light, red/yellow phase, indicates upcoming green phase, vehicle has
-    to wait
-  - <span style="color:#FFFF00; background:#FFFF00">FOO</span> Traffic
-    light, yellow phase, vehicle should stop if possible
-  - <span style="color:#804000; background:#804000">FOO</span> Traffic
-    light, off-blinking, vehicle has to yield
-  - <span style="color:#00FFFF; background:#00FFFF">FOO</span> Traffic
-    light, off-no-signal, vehicle has right of way
-  - <span style="color:#FFFFFF; background:#FFFFFF">FOO</span>
-    uncontrolled, vehicle has right of way
-  - <span style="color:#333333; background:#333333">FOO</span>
-    uncontrolled, vehicle has to yield to some streams
-  - <span style="color:#808080; background:#808080">FOO</span>
-    uncontrolled, right-before-left rules, all vehicles yield to the
-    rightmost incoming lane
-  - <span style="color:#800080; background:#800080">FOO</span>
-    uncontrolled, stop-sign / controlled, right-turn arrow, vehicle has
-    to stop and then yield
-  - <span style="color:#0000C0; background:#0000C0">FOO</span>
-    uncontrolled, allway-stop, all vehicles have to stop and then drive
-    in the order of arrival
-  - <span style="color:#c08140; background:#c08140">FOO</span>
-    uncontrolled, zipper, vehicles have to perform [zipper
-    merging](https://en.wikipedia.org/wiki/Merge_%28traffic%29)
-  - <span style="color:#000000; background:#000000">FOO</span> dead-end,
-    vehicle may not drive there
+- <span style="color:#00FF00; background:#00FF00">FOO</span> Traffic
+  light, green phase, vehicle has right of way
+- <span style="color:#00B300; background:#00B300">FOO</span> Traffic
+  light, green phase, vehicle has to yield to some streams
+- <span style="color:#FF0000; background:#FF0000">FOO</span> Traffic
+  light, red phase, vehicle has to wait
+- <span style="color:#FF8000; background:#FF8000">FOO</span> Traffic
+  light, red/yellow phase, indicates upcoming green phase, vehicle has
+  to wait
+- <span style="color:#FFFF00; background:#FFFF00">FOO</span> Traffic
+  light, yellow phase, vehicle should stop if possible
+- <span style="color:#804000; background:#804000">FOO</span> Traffic
+  light, off-blinking, vehicle has to yield
+- <span style="color:#00FFFF; background:#00FFFF">FOO</span> Traffic
+  light, off-no-signal, vehicle has right of way
+- <span style="color:#FFFFFF; background:#FFFFFF">FOO</span>
+  uncontrolled, vehicle has right of way
+- <span style="color:#333333; background:#333333">FOO</span>
+  uncontrolled, vehicle has to yield to some streams
+- <span style="color:#808080; background:#808080">FOO</span>
+  uncontrolled, right-before-left rules, all vehicles yield to the
+  rightmost incoming lane
+- <span style="color:#800080; background:#800080">FOO</span>
+  uncontrolled, stop-sign / controlled, right-turn arrow, vehicle has
+  to stop and then yield
+- <span style="color:#0000C0; background:#0000C0">FOO</span>
+  uncontrolled, allway-stop, all vehicles have to stop and then drive
+  in the order of arrival
+- <span style="color:#c08140; background:#c08140">FOO</span>
+  uncontrolled, zipper, vehicles have to perform [zipper
+  merging](https://en.wikipedia.org/wiki/Merge_%28traffic%29)
+- <span style="color:#000000; background:#000000">FOO</span> dead-end,
+  vehicle may not drive there
 
 ## Road Access Permissions
 
@@ -323,20 +323,20 @@ realistic way and also show some basic [access
 permissions](Simulation/VehiclePermissions.md). The road colors
 have to following meaning:
 
-  - <span style="color:#808080; background:#808080">FOO</span> sidewalk
-    ()
-  - <span style="color:#C0422C; background:#C0422C">FOO</span> bike lane
-    ()
-  - <span style="color:#96C8C8; background:#96C8C8">FOO</span> waterway
-    ()
-  - <span style="color:#FF0000; background:#FF0000">FOO</span> closed
-    lane ()
-  - <span style="color:#FFFFFF; background:#FFFFFF">FOO</span> green
-    verge ()
-  - <span style="color:#5C5C5C; background:#5C5C5C">FOO</span> anything
-    else that does not allow passenger
-  - <span style="color:#000000; background:#000000">FOO</span> anything
-    else
+- <span style="color:#808080; background:#808080">FOO</span> sidewalk
+  ()
+- <span style="color:#C0422C; background:#C0422C">FOO</span> bike lane
+  ()
+- <span style="color:#96C8C8; background:#96C8C8">FOO</span> waterway
+  ()
+- <span style="color:#FF0000; background:#FF0000">FOO</span> closed
+  lane ()
+- <span style="color:#FFFFFF; background:#FFFFFF">FOO</span> green
+  verge ()
+- <span style="color:#5C5C5C; background:#5C5C5C">FOO</span> anything
+  else that does not allow passenger
+- <span style="color:#000000; background:#000000">FOO</span> anything
+  else
 
 ### Color by *permission code*
 
@@ -370,22 +370,22 @@ example, when a lane targets two lanes one the same edge beyond the
 intersection, only one arrow will be drawn even though two distinct
 connections exist.
 
-  - To see all connections, activate the junction visualization option
-    *Show lane to lane connections*. The collors of the connection lines
-    correspond to the
-    [\#Right_of_way](#Right_of_way.md)-colors.
-  - Each connection at an intersection has a unique index starting at 0
-    and going clockwise around the intersection. These indices can be
-    shown using the junction visualization option *Show link junction
-    index*.
-  - Each connection that is controlled by a traffic light has a unique
-    index with regard to that traffic light. By default each traffic
-    light controls one intersection and these indices are identical to
-    the *link junction index* mentioned above. In the case of joined
-    traffic lights which control multiple intersections, the indices are
-    different. Also, the indices may be freely customized by the user
-    (e.g. to define signal groups). These indices are shown using the
-    junction visualization option *Show link tls index*.
+- To see all connections, activate the junction visualization option
+  *Show lane to lane connections*. The collors of the connection lines
+  correspond to the
+  [\#Right_of_way](#Right_of_way.md)-colors.
+- Each connection at an intersection has a unique index starting at 0
+  and going clockwise around the intersection. These indices can be
+  shown using the junction visualization option *Show link junction
+  index*.
+- Each connection that is controlled by a traffic light has a unique
+  index with regard to that traffic light. By default each traffic
+  light controls one intersection and these indices are identical to
+  the *link junction index* mentioned above. In the case of joined
+  traffic lights which control multiple intersections, the indices are
+  different. Also, the indices may be freely customized by the user
+  (e.g. to define signal groups). These indices are shown using the
+  junction visualization option *Show link tls index*.
 
 # Changing the appearance/visualisation of the simulation
 
@@ -415,21 +415,21 @@ Separate settings exist for different simulation objects such as
 vehicle, lanes, persons and detectors. Some options exist for all (or
 most) of these objects:
 
-  - Size options
-      - *Exaggerate by*: Draws objects bigger to make them more visible
-      - *Minimum Size*: Do not draw objects below a minimum size
-      - *Draw with constant size when zoomed out*: Automatically
-        increase the drawing size when zooming out to keep the visual
-        size constant.
-  - Name options
-      - *Show name*: Disable drawing of object IDs
-      - *Size*: Size of the drawn ID (visual size will stay constant
-        when zooming)
-      - *Color*: Color of drawn ID
-  - Coloring options: Color by some attribute and change the color
-    value/range
-      - Show color value: show the numerical value that is used for
-        coloring
+- Size options
+  - *Exaggerate by*: Draws objects bigger to make them more visible
+  - *Minimum Size*: Do not draw objects below a minimum size
+  - *Draw with constant size when zoomed out*: Automatically
+    increase the drawing size when zooming out to keep the visual
+    size constant.
+- Name options
+  - *Show name*: Disable drawing of object IDs
+  - *Size*: Size of the drawn ID (visual size will stay constant
+    when zooming)
+  - *Color*: Color of drawn ID
+- Coloring options: Color by some attribute and change the color
+value/range
+  - Show color value: show the numerical value that is used for
+    coloring
 
 ## Vehicle Visualisation Settings
 
@@ -728,15 +728,15 @@ present which can be used to open a 3D-View.
 Several applications generated edge-related measures for one or more
 time-intervals.
 
-  - [edgeData-output
-    files](Simulation/Output/Lane-_or_Edge-based_Traffic_Measures.md)
-  - edge-probability files generated by
-    [randomTrips.py](Tools/Trip#Customized_Weights.md)
-  - [MAROUTER netload-output](MAROUTER#Macroscopic_Outputs.md)
-  - [Smoothed traveltimes from
-    device.rerouting](Demand/Automatic_Routing.md) when running
-    [SUMO](SUMO.md) with option .
-  - [showDepartsAndArrivalsPerEdge.py](Tools/Routes.md#showdepartsandarrivalsperedge)
+- [edgeData-output
+  files](Simulation/Output/Lane-_or_Edge-based_Traffic_Measures.md)
+- edge-probability files generated by
+  [randomTrips.py](Tools/Trip#Customized_Weights.md)
+- [MAROUTER netload-output](MAROUTER#Macroscopic_Outputs.md)
+- [Smoothed traveltimes from
+  device.rerouting](Demand/Automatic_Routing.md) when running
+  [SUMO](SUMO.md) with option .
+- [showDepartsAndArrivalsPerEdge.py](Tools/Routes.md#showdepartsandarrivalsperedge)
 
 These files can be used with
 [DUAROUTER](Demand/Shortest_or_Optimal_Path_Routing#Custom_edge_weights.md)
@@ -777,10 +777,10 @@ coloring scheme to show the whole data range.
 When defining a color scheme two data values can be used to diagnose
 missing data:
 
-  - **-2**: the attribute does not exist in the loaded data for that
-    particular edge
-  - **-1**: the attribute exists but no data is available for that edge
-    for the current time
+- **-2**: the attribute does not exist in the loaded data for that
+  particular edge
+- **-1**: the attribute exists but no data is available for that edge
+  for the current time
 
 # Usage Examples
 
@@ -791,22 +791,22 @@ Simulation](Simulation/Shapes.md)
 
 ## Showing routes and route-related information
 
-  - To show the route(s) of a vehicle in the simulation, right-click and
-    select *Show Current Route* or *Show all Routes*. To show only the
-    remaining portion of the current route, select *Show Future Route*.
-  - Thow show the route of person, right click and select *Show Current
-    Route*. To show the trajectory on a walkingarea, select *Show
-    Walkingarea Path*.
-  - To highlight an arbitrary set of edges in the simulation create a
-    [selection file](#Selecting_Objects.md) and [color edges *by
-    selection*](#Edge.2FLane_Visualisation_Settings.md)
-  - To Visualize all routes in a route file use the tool
-    [Tools/Routes\#route2poly.py](Tools/Routes#route2poly.py.md)
-    or
-    [Tools/Routes\#route2sel.py](Tools/Routes#route2sel.py.md)
-  - To Visualize the number of vehicles arriving or departing at any
-    edge use the tool
-    [Tools/Routes\#showDepartsAndArrivalsPerEdge](Tools/Routes#showDepartsAndArrivalsPerEdge.md)
+- To show the route(s) of a vehicle in the simulation, right-click and
+  select *Show Current Route* or *Show all Routes*. To show only the
+  remaining portion of the current route, select *Show Future Route*.
+- Thow show the route of person, right click and select *Show Current
+  Route*. To show the trajectory on a walkingarea, select *Show
+  Walkingarea Path*.
+- To highlight an arbitrary set of edges in the simulation create a
+  [selection file](#Selecting_Objects.md) and [color edges *by
+  selection*](#Edge.2FLane_Visualisation_Settings.md)
+- To Visualize all routes in a route file use the tool
+  [Tools/Routes\#route2poly.py](Tools/Routes#route2poly.py.md)
+  or
+  [Tools/Routes\#route2sel.py](Tools/Routes#route2sel.py.md)
+- To Visualize the number of vehicles arriving or departing at any
+  edge use the tool
+  [Tools/Routes\#showDepartsAndArrivalsPerEdge](Tools/Routes#showDepartsAndArrivalsPerEdge.md)
 
 ## Investigating internal edges and lanes
 
@@ -818,18 +818,18 @@ corresponds to which movement as their IDs may be referenced in the
 output or in error messages. The following visualisation settings are
 helpful:
 
-  - Junction settings:
-      - disable *draw junction shape*
-      - *show internal edge name*
-      - *show internal junction name*
-      - *show link junction index* (to see the correspondence between
-        IDs and link indices)
-  - Edge settings:
-      - *Exaggerate width by 0.1* (otherwise the shapes overlap which
-        makes it hard to understand them)
-      - *Color by selection* (coloring individual lanes makes it easier
-        to understand geometry before and after [internal
-        junctions](Networks/SUMO_Road_Networks#Internal_Junctions.md))
+- Junction settings:
+  - disable *draw junction shape*
+  - *show internal edge name*
+  - *show internal junction name*
+  - *show link junction index* (to see the correspondence between
+    IDs and link indices)
+- Edge settings:
+  - *Exaggerate width by 0.1* (otherwise the shapes overlap which
+    makes it hard to understand them)
+  - *Color by selection* (coloring individual lanes makes it easier
+    to understand geometry before and after [internal
+    junctions](Networks/SUMO_Road_Networks#Internal_Junctions.md))
 
 -----
 
