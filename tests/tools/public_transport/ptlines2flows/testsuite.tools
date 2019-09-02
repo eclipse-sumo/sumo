@@ -20,3 +20,6 @@ reverse_at_stop
 
 # Copy of basic
 night
+
+# extend train route beyond terminal stops (for incomplete line)
+extendFringe
