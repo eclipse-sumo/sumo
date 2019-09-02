@@ -116,8 +116,8 @@ GNEFrameAttributesModuls::AttributesCreatorRow::AttributesCreatorRow(AttributesC
     myAttributeColorButton = new FXButton(this, "ColorButton", nullptr, this, MID_GNE_SET_ATTRIBUTE_DIALOG, GUIDesignButtonAttribute);
     myAttributeColorButton->hide();
     // Create right visual elements
-    myValueTextFieldStrings = new FXTextField(this, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
-    myValueTextFieldStrings->hide();
+    myValueTextField = new FXTextField(this, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
+    myValueTextField->hide();
     myValueCheckButton = new FXCheckButton(this, "Disabled", this, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButton);
     myValueCheckButton->hide();
     // by default attribute check button is true (except for until)
@@ -166,16 +166,16 @@ GNEFrameAttributesModuls::AttributesCreatorRow::AttributesCreatorRow(AttributesC
                 myValueCheckButton->disable();
             }
         } else {
-            myValueTextFieldStrings->setTextColor(FXRGB(0, 0, 0));
-            myValueTextFieldStrings->setText(attrProperties.getDefaultValue().c_str());
-            myValueTextFieldStrings->show();
-            // if it's associated to a radio button and is disabled, then disable myValueTextFieldStrings
+            myValueTextField->setTextColor(FXRGB(0, 0, 0));
+            myValueTextField->setText(attrProperties.getDefaultValue().c_str());
+            myValueTextField->show();
+            // if it's associated to a radio button and is disabled, then disable myValueTextField
             if (myAttributeRadioButton->shown() && (myAttributeRadioButton->getCheck() == FALSE)) {
-                myValueTextFieldStrings->disable();
+                myValueTextField->disable();
             }
-            // if it's associated to a label button and is disabled, then disable myValueTextFieldStrings
+            // if it's associated to a label button and is disabled, then disable myValueTextField
             if (myAttributeCheckButton->shown() && (myAttributeCheckButton->getCheck() == FALSE)) {
-                myValueTextFieldStrings->disable();
+                myValueTextField->disable();
             }
         }
         // show AttributesCreatorRow
@@ -204,7 +204,7 @@ GNEFrameAttributesModuls::AttributesCreatorRow::getValue() const {
     if (myAttrProperties.isBool()) {
         return (myValueCheckButton->getCheck() == 1) ? "1" : "0";
     } else {
-        return myValueTextFieldStrings->getText().text();
+        return myValueTextField->getText().text();
     }
 }
 
@@ -229,13 +229,13 @@ GNEFrameAttributesModuls::AttributesCreatorRow::setAttributeRadioButtonCheck(boo
             if (myAttrProperties.isBool()) {
                 myValueCheckButton->enable();
             } else {
-                myValueTextFieldStrings->enable();
+                myValueTextField->enable();
             }
         } else {
             if (myAttrProperties.isBool()) {
                 myValueCheckButton->disable();
             } else {
-                myValueTextFieldStrings->disable();
+                myValueTextField->disable();
             }
         }
     }
@@ -262,13 +262,13 @@ GNEFrameAttributesModuls::AttributesCreatorRow::setAttributeCheckButtonCheck(boo
             if (myAttrProperties.isBool()) {
                 myValueCheckButton->enable();
             } else {
-                myValueTextFieldStrings->enable();
+                myValueTextField->enable();
             }
         } else {
             if (myAttrProperties.isBool()) {
                 myValueCheckButton->disable();
             } else {
-                myValueTextFieldStrings->disable();
+                myValueTextField->disable();
             }
         }
     }
@@ -280,7 +280,7 @@ GNEFrameAttributesModuls::AttributesCreatorRow::enableAttributesCreatorRow() {
     if (myAttrProperties.isBool()) {
         return myValueCheckButton->enable();
     } else {
-        return myValueTextFieldStrings->enable();
+        return myValueTextField->enable();
     }
 }
 
@@ -290,7 +290,7 @@ GNEFrameAttributesModuls::AttributesCreatorRow::disableAttributesCreatorRow() {
     if (myAttrProperties.isBool()) {
         return myValueCheckButton->disable();
     } else {
-        return myValueTextFieldStrings->disable();
+        return myValueTextField->disable();
     }
 }
 
@@ -302,7 +302,7 @@ GNEFrameAttributesModuls::AttributesCreatorRow::isAttributesCreatorRowEnabled() 
     } else if (myAttrProperties.isBool()) {
         return myValueCheckButton->isEnabled();
     } else {
-        return myValueTextFieldStrings->isEnabled();
+        return myValueTextField->isEnabled();
     }
 }
 
@@ -334,27 +334,34 @@ GNEFrameAttributesModuls::AttributesCreatorRow::onCmdSetAttribute(FXObject* obj,
         myAttributesCreatorParent->updateDisjointAttributes(nullptr);
     } else if (myAttrProperties.isComplex()) {
         // check complex attribute
-        myInvalidValue = checkComplexAttribute(myValueTextFieldStrings->getText().text());
+        myInvalidValue = checkComplexAttribute(myValueTextField->getText().text());
     } else if (myAttrProperties.isInt()) {
-        if (GNEAttributeCarrier::canParse<int>(myValueTextFieldStrings->getText().text())) {
-            // convert string to int
-            int intValue = GNEAttributeCarrier::parse<int>(myValueTextFieldStrings->getText().text());
-            // Check if int value must be positive
-            if (myAttrProperties.isPositive() && (intValue < 0)) {
-                myInvalidValue = "'" + myAttrProperties.getAttrStr() + "' cannot be negative";
+        // first filter int attributes
+        if (GNEAttributeCarrier::canParse<double>(myValueTextField->getText().text())) {
+            // obtain parsed attribute
+            double parsedDouble = GNEAttributeCarrier::parse<double>(myValueTextField->getText().text());
+            // check if parsed double doesn't have decimal part (or is 0)
+            if ((parsedDouble - (int)parsedDouble) == 0) {
+                myValueTextField->setText(toString((int)parsedDouble).c_str(), FALSE);
+                // Check if int value must be positive
+                if (myAttrProperties.isPositive() && (parsedDouble < 0)) {
+                    myInvalidValue = "'" + myAttrProperties.getAttrStr() + "' cannot be negative";
+                }
+            } else {
+                myInvalidValue = "'" + myAttrProperties.getAttrStr() + "' doesn't have a valid 'int' format";
             }
         } else {
             myInvalidValue = "'" + myAttrProperties.getAttrStr() + "' doesn't have a valid 'int' format";
         }
     } else if (myAttrProperties.isSUMOTime()) {
         // time attributes work as positive doubles
-        if (!GNEAttributeCarrier::canParse<SUMOTime>(myValueTextFieldStrings->getText().text())) {
+        if (!GNEAttributeCarrier::canParse<SUMOTime>(myValueTextField->getText().text())) {
             myInvalidValue = "'" + myAttrProperties.getAttrStr() + "' doesn't have a valid SUMOTime format";
         }
     } else if (myAttrProperties.isFloat()) {
-        if (GNEAttributeCarrier::canParse<double>(myValueTextFieldStrings->getText().text())) {
+        if (GNEAttributeCarrier::canParse<double>(myValueTextField->getText().text())) {
             // convert string to double
-            double doubleValue = GNEAttributeCarrier::parse<double>(myValueTextFieldStrings->getText().text());
+            double doubleValue = GNEAttributeCarrier::parse<double>(myValueTextField->getText().text());
             // Check if double value must be positive
             if (myAttrProperties.isPositive() && (doubleValue < 0)) {
                 myInvalidValue = "'" + myAttrProperties.getAttrStr() + "' cannot be negative";
@@ -371,11 +378,11 @@ GNEFrameAttributesModuls::AttributesCreatorRow::onCmdSetAttribute(FXObject* obj,
         }
     } else if (myAttrProperties.isColor()) {
         // check if filename format is valid
-        if (GNEAttributeCarrier::canParse<RGBColor>(myValueTextFieldStrings->getText().text()) == false) {
+        if (GNEAttributeCarrier::canParse<RGBColor>(myValueTextField->getText().text()) == false) {
             myInvalidValue = "'" + myAttrProperties.getAttrStr() + "' doesn't have a valid 'RBGColor' format";
         }
     } else if (myAttrProperties.isFilename()) {
-        const std::string file = myValueTextFieldStrings->getText().text();
+        const std::string file = myValueTextField->getText().text();
         // check if filename format is valid
         if (SUMOXMLDefinitions::isValidFilename(file) == false) {
             myInvalidValue = "input contains invalid characters for a filename";
@@ -388,20 +395,20 @@ GNEFrameAttributesModuls::AttributesCreatorRow::onCmdSetAttribute(FXObject* obj,
             }
         }
     } else if (myAttrProperties.getAttr() == SUMO_ATTR_NAME) {
-        const std::string name = myValueTextFieldStrings->getText().text();
+        const std::string name = myValueTextField->getText().text();
         // check if name format is valid
         if (SUMOXMLDefinitions::isValidAttribute(name) == false) {
             myInvalidValue = "input contains invalid characters";
         }
     } else if (myAttrProperties.getAttr() == SUMO_ATTR_VTYPES) {
-        const std::string types = myValueTextFieldStrings->getText().text();
+        const std::string types = myValueTextField->getText().text();
         // if list of VTypes isn't empty, check that all characters are valid
         if (!types.empty() && !SUMOXMLDefinitions::isValidListOfTypeID(types)) {
             myInvalidValue = "list of IDs contains invalid characters";
         }
     } else if (myAttrProperties.getAttr() == SUMO_ATTR_INDEX) {
         // special case for stop indx
-        const std::string index = myValueTextFieldStrings->getText().text();
+        const std::string index = myValueTextField->getText().text();
         if ((index != "fit") && (index != "end") && !GNEAttributeCarrier::canParse<int>(index)) {
             myInvalidValue = "index isn't either 'fit' or 'end' or a valid positive int";
         } else if (GNEAttributeCarrier::canParse<int>(index) && (GNEAttributeCarrier::parse<int>(index) < 0)) {
@@ -409,7 +416,7 @@ GNEFrameAttributesModuls::AttributesCreatorRow::onCmdSetAttribute(FXObject* obj,
         }
     } else if ((myAttrProperties.getAttr() == SUMO_ATTR_EXPECTED) || (myAttrProperties.getAttr() == SUMO_ATTR_EXPECTED_CONTAINERS)) {
         // check if attribute can be parsed in a list of Ids
-        std::vector<std::string> vehicleIDs = GNEAttributeCarrier::parse<std::vector<std::string> >(myValueTextFieldStrings->getText().text());
+        std::vector<std::string> vehicleIDs = GNEAttributeCarrier::parse<std::vector<std::string> >(myValueTextField->getText().text());
         // check every ID
         for (const auto &i : vehicleIDs) {
             if (!SUMOXMLDefinitions::isValidVehicleID(i)) {
@@ -417,22 +424,22 @@ GNEFrameAttributesModuls::AttributesCreatorRow::onCmdSetAttribute(FXObject* obj,
             }
         }
     } else if (myAttrProperties.getAttr() == SUMO_ATTR_ACTTYPE) {
-        const std::string type = myValueTextFieldStrings->getText().text();
+        const std::string type = myValueTextField->getText().text();
         if (type != "waiting") {
             myInvalidValue = "invalid " + myAttrProperties.getAttrStr();
         }
     } else if (myAttrProperties.getAttr() == SUMO_ATTR_TRIP_ID) {
-        if (!SUMOXMLDefinitions::isValidVehicleID(myValueTextFieldStrings->getText().text())) {
+        if (!SUMOXMLDefinitions::isValidVehicleID(myValueTextField->getText().text())) {
             myInvalidValue = "invalid id used in " + myAttrProperties.getAttrStr();
         }
     }
     // change color of text field depending of myCurrentValueValid
     if (myInvalidValue.size() == 0) {
-        myValueTextFieldStrings->setTextColor(FXRGB(0, 0, 0));
-        myValueTextFieldStrings->killFocus();
+        myValueTextField->setTextColor(FXRGB(0, 0, 0));
+        myValueTextField->killFocus();
     } else {
         // IF value of TextField isn't valid, change their color to Red
-        myValueTextFieldStrings->setTextColor(FXRGB(255, 0, 0));
+        myValueTextField->setTextColor(FXRGB(255, 0, 0));
     }
     // Update aditional frame
     update();
@@ -445,11 +452,11 @@ GNEFrameAttributesModuls::AttributesCreatorRow::onCmdSelectCheckButton(FXObject*
     if (myAttributeCheckButton->getCheck()) {
         // enable input values
         myValueCheckButton->enable();
-        myValueTextFieldStrings->enable();
+        myValueTextField->enable();
     } else {
         // disable input values
         myValueCheckButton->disable();
-        myValueTextFieldStrings->disable();
+        myValueTextField->disable();
     }
     return 0;
 }
@@ -461,14 +468,14 @@ GNEFrameAttributesModuls::AttributesCreatorRow::onCmdSelectColorButton(FXObject*
     FXColorDialog colordialog(this, tr("Color Dialog"));
     colordialog.setTarget(this);
     // If previous attribute wasn't correct, set black as default color
-    if (GNEAttributeCarrier::canParse<RGBColor>(myValueTextFieldStrings->getText().text())) {
-        colordialog.setRGBA(MFXUtils::getFXColor(RGBColor::parseColor(myValueTextFieldStrings->getText().text())));
+    if (GNEAttributeCarrier::canParse<RGBColor>(myValueTextField->getText().text())) {
+        colordialog.setRGBA(MFXUtils::getFXColor(RGBColor::parseColor(myValueTextField->getText().text())));
     } else {
         colordialog.setRGBA(MFXUtils::getFXColor(RGBColor::parseColor(myAttrProperties.getDefaultValue())));
     }
     // execute dialog to get a new color
     if (colordialog.execute()) {
-        myValueTextFieldStrings->setText(toString(MFXUtils::getRGBColor(colordialog.getRGBA())).c_str());
+        myValueTextField->setText(toString(MFXUtils::getRGBColor(colordialog.getRGBA())).c_str());
         onCmdSetAttribute(nullptr, 0, nullptr);
     }
     return 0;
@@ -788,8 +795,8 @@ GNEFrameAttributesModuls::AttributesEditorRow::AttributesEditorRow(GNEFrameAttri
     myAttributeColorButton = new FXButton(this, "attributeColorButton", nullptr, this, MID_GNE_SET_ATTRIBUTE_DIALOG, GUIDesignButtonAttribute);
     myAttributeColorButton->hide();
     // Create and hide textField for string attributes
-    myValueTextFieldStrings = new FXTextField(this, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
-    myValueTextFieldStrings->hide();
+    myValueTextField = new FXTextField(this, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
+    myValueTextField->hide();
     // Create and hide ComboBox
     myValueComboBoxChoices = new FXComboBox(this, GUIDesignComboBoxNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignComboBoxAttribute);
     myValueComboBoxChoices->hide();
@@ -802,14 +809,14 @@ GNEFrameAttributesModuls::AttributesEditorRow::AttributesEditorRow(GNEFrameAttri
         FXHorizontalFrame::create();
         // start enabling all elements, depending if attribute is editable and enabled
         if (myACAttr.isNonEditable() || !attributeEnabled) {
-            myValueTextFieldStrings->disable();
+            myValueTextField->disable();
             myValueComboBoxChoices->disable();
             myValueCheckButton->disable();
             myAttributeButtonCombinableChoices->disable();
             myAttributeColorButton->disable();
             myAttributeCheckButton->disable();
         } else {
-            myValueTextFieldStrings->enable();
+            myValueTextField->enable();
             myValueComboBoxChoices->enable();
             myValueCheckButton->enable();
             myAttributeButtonCombinableChoices->enable();
@@ -877,12 +884,12 @@ GNEFrameAttributesModuls::AttributesEditorRow::AttributesEditorRow(GNEFrameAttri
                 myValueCheckButton->show();
             } else {
                 // show list of bools (0 1)
-                myValueTextFieldStrings->setText(value.c_str());
-                myValueTextFieldStrings->setTextColor(FXRGB(0, 0, 0));
-                myValueTextFieldStrings->show();
+                myValueTextField->setText(value.c_str());
+                myValueTextField->setTextColor(FXRGB(0, 0, 0));
+                myValueTextField->show();
                 // enable or disable depending if attribute is editable and is enabled (used by disjoint attributes)
                 if (myACAttr.isNonEditable() || !attributeEnabled) {
-                    myValueTextFieldStrings->disable();
+                    myValueTextField->disable();
                 }
             }
         } else if (myACAttr.isDiscrete()) {
@@ -894,9 +901,9 @@ GNEFrameAttributesModuls::AttributesEditorRow::AttributesEditorRow(GNEFrameAttri
                 myAttributeButtonCombinableChoices->setText(myACAttr.getAttrStr().c_str());
                 myAttributeButtonCombinableChoices->show();
                 // Show string with the values
-                myValueTextFieldStrings->setText(value.c_str());
-                myValueTextFieldStrings->setTextColor(FXRGB(0, 0, 0));
-                myValueTextFieldStrings->show();
+                myValueTextField->setText(value.c_str());
+                myValueTextField->setTextColor(FXRGB(0, 0, 0));
+                myValueTextField->show();
             } else if (!myMultiple) {
                 // fill comboBox
                 myValueComboBoxChoices->clearItems();
@@ -910,18 +917,18 @@ GNEFrameAttributesModuls::AttributesEditorRow::AttributesEditorRow(GNEFrameAttri
                 myValueComboBoxChoices->show();
             } else {
                 // represent combinable choices in multiple selections always with a textfield instead with a comboBox
-                myValueTextFieldStrings->setText(value.c_str());
-                myValueTextFieldStrings->setTextColor(FXRGB(0, 0, 0));
-                myValueTextFieldStrings->show();
+                myValueTextField->setText(value.c_str());
+                myValueTextField->setTextColor(FXRGB(0, 0, 0));
+                myValueTextField->show();
             }
         } else {
             // In any other case (String, list, etc.), show value as String
-            myValueTextFieldStrings->setText(value.c_str());
-            myValueTextFieldStrings->setTextColor(FXRGB(0, 0, 0));
-            myValueTextFieldStrings->show();
+            myValueTextField->setText(value.c_str());
+            myValueTextField->setTextColor(FXRGB(0, 0, 0));
+            myValueTextField->show();
             // we need an extra check for connection attribute "TLIndex", because it cannot be edited if junction's connection doesn' have a TLS
             if ((myACAttr.getTagPropertyParent().getTag() == SUMO_TAG_CONNECTION) && (myACAttr.getAttr() == SUMO_ATTR_TLLINKINDEX) && (value == "No TLS")) {
-                myValueTextFieldStrings->disable();
+                myValueTextField->disable();
             }
         }
         // if Tag correspond to an network element but we're in demand mode (or vice versa), disable all elements
@@ -930,25 +937,25 @@ GNEFrameAttributesModuls::AttributesEditorRow::AttributesEditorRow(GNEFrameAttri
             myAttributeColorButton->disable();
             myAttributeRadioButton->disable();
             myAttributeCheckButton->disable();
-            myValueTextFieldStrings->disable();
+            myValueTextField->disable();
             myValueComboBoxChoices->disable();
             myValueCheckButton->disable();
             myAttributeButtonCombinableChoices->disable();
         }
         // special case for Traffic Lights
         if ((myACAttr.getTagPropertyParent().getTag() == SUMO_TAG_JUNCTION) && (myACAttr.getAttr() == SUMO_ATTR_TLID) && value.empty()) {
-            myValueTextFieldStrings->disable();
+            myValueTextField->disable();
         }
         // special case for Default vehicle types (ID cannot be edited)
         if ((ACAttr.getTagPropertyParent().getTag() == SUMO_TAG_VTYPE) && (ACAttr.getAttr() == SUMO_ATTR_ID) &&
                 ((value == DEFAULT_VTYPE_ID) || (value == DEFAULT_PEDTYPE_ID) || (value == DEFAULT_BIKETYPE_ID))) {
-            myValueTextFieldStrings->disable();
+            myValueTextField->disable();
         }
         // special case for stops over stopping places (value cannot be changed)
         if ((ACAttr.getTagPropertyParent().isStop() || ACAttr.getTagPropertyParent().isPersonStop()) &&
                 ((ACAttr.getAttr() == SUMO_ATTR_BUS_STOP) || (ACAttr.getAttr() == SUMO_ATTR_CONTAINER_STOP) ||
                  (ACAttr.getAttr() == SUMO_ATTR_CHARGING_STATION) || (ACAttr.getAttr() == SUMO_ATTR_PARKING_AREA))) {
-            myValueTextFieldStrings->disable();
+            myValueTextField->disable();
         }
         // Show AttributesEditorRow
         show();
@@ -968,7 +975,7 @@ GNEFrameAttributesModuls::AttributesEditorRow::destroy() {
 void
 GNEFrameAttributesModuls::AttributesEditorRow::refreshAttributesEditorRow(const std::string& value, bool forceRefresh, bool disjointAttributeEnabled) {
     // start enabling all elements
-    myValueTextFieldStrings->enable();
+    myValueTextField->enable();
     myValueComboBoxChoices->enable();
     myValueCheckButton->enable();
     myAttributeButtonCombinableChoices->enable();
@@ -983,15 +990,15 @@ GNEFrameAttributesModuls::AttributesEditorRow::refreshAttributesEditorRow(const 
     if (myAttributeCheckButton->shown()) {
         myAttributeCheckButton->setCheck(/*disjointAttributeEnabled*/ FALSE);
     }
-    if (myValueTextFieldStrings->shown()) {
+    if (myValueTextField->shown()) {
         // set last valid value and restore color if onlyValid is disabled
-        if (myValueTextFieldStrings->getTextColor() == FXRGB(0, 0, 0) || forceRefresh) {
-            myValueTextFieldStrings->setText(value.c_str());
-            myValueTextFieldStrings->setTextColor(FXRGB(0, 0, 0));
+        if (myValueTextField->getTextColor() == FXRGB(0, 0, 0) || forceRefresh) {
+            myValueTextField->setText(value.c_str());
+            myValueTextField->setTextColor(FXRGB(0, 0, 0));
         }
         // disable depending of disjointAttributeEnabled
         if (myACAttr.isNonEditable() || !disjointAttributeEnabled) {
-            myValueTextFieldStrings->disable();
+            myValueTextField->disable();
         }
     } else if (myValueComboBoxChoices->shown()) {
         // fill comboBox again
@@ -1026,25 +1033,25 @@ GNEFrameAttributesModuls::AttributesEditorRow::refreshAttributesEditorRow(const 
             myAttributeColorButton->disable();
             myAttributeRadioButton->disable();
             myAttributeCheckButton->disable();
-            myValueTextFieldStrings->disable();
+            myValueTextField->disable();
             myValueComboBoxChoices->disable();
             myValueCheckButton->disable();
             myAttributeButtonCombinableChoices->disable();
         }
         // special case for Traffic Lights
         if ((myACAttr.getTagPropertyParent().getTag() == SUMO_TAG_JUNCTION) && (myACAttr.getAttr() == SUMO_ATTR_TLID) && value.empty()) {
-            myValueTextFieldStrings->disable();
+            myValueTextField->disable();
         }
         // special case for Default vehicle types (ID cannot be edited)
         if ((myACAttr.getTagPropertyParent().getTag() == SUMO_TAG_VTYPE) && (myACAttr.getAttr() == SUMO_ATTR_ID) &&
                 ((value == DEFAULT_VTYPE_ID) || (value == DEFAULT_PEDTYPE_ID) || (value == DEFAULT_BIKETYPE_ID))) {
-            myValueTextFieldStrings->disable();
+            myValueTextField->disable();
         }
         // special case for stops over stopping places (value cannot be changed)
         if ((myACAttr.getTagPropertyParent().isStop() || myACAttr.getTagPropertyParent().isPersonStop()) &&
                 ((myACAttr.getAttr() == SUMO_ATTR_BUS_STOP) || (myACAttr.getAttr() == SUMO_ATTR_CONTAINER_STOP) ||
                  (myACAttr.getAttr() == SUMO_ATTR_CHARGING_STATION) || (myACAttr.getAttr() == SUMO_ATTR_PARKING_AREA))) {
-            myValueTextFieldStrings->disable();
+            myValueTextField->disable();
         }
     }
 }
@@ -1052,7 +1059,7 @@ GNEFrameAttributesModuls::AttributesEditorRow::refreshAttributesEditorRow(const 
 
 bool
 GNEFrameAttributesModuls::AttributesEditorRow::isAttributesEditorRowValid() const {
-    return ((myValueTextFieldStrings->getTextColor() == FXRGB(0, 0, 0)) && (myValueComboBoxChoices->getTextColor() == FXRGB(0, 0, 0)));
+    return ((myValueTextField->getTextColor() == FXRGB(0, 0, 0)) && (myValueComboBoxChoices->getTextColor() == FXRGB(0, 0, 0)));
 }
 
 
@@ -1063,8 +1070,8 @@ GNEFrameAttributesModuls::AttributesEditorRow::onCmdOpenAttributeDialog(FXObject
         FXColorDialog colordialog(this, tr("Color Dialog"));
         colordialog.setTarget(this);
         // If previous attribute wasn't correct, set black as default color
-        if (GNEAttributeCarrier::canParse<RGBColor>(myValueTextFieldStrings->getText().text())) {
-            colordialog.setRGBA(MFXUtils::getFXColor(RGBColor::parseColor(myValueTextFieldStrings->getText().text())));
+        if (GNEAttributeCarrier::canParse<RGBColor>(myValueTextField->getText().text())) {
+            colordialog.setRGBA(MFXUtils::getFXColor(RGBColor::parseColor(myValueTextField->getText().text())));
         } else if (!myACAttr.getDefaultValue().empty()) {
             colordialog.setRGBA(MFXUtils::getFXColor(RGBColor::parseColor(myACAttr.getDefaultValue())));
         } else {
@@ -1073,7 +1080,7 @@ GNEFrameAttributesModuls::AttributesEditorRow::onCmdOpenAttributeDialog(FXObject
         // execute dialog to get a new color
         if (colordialog.execute()) {
             std::string newValue = toString(MFXUtils::getRGBColor(colordialog.getRGBA()));
-            myValueTextFieldStrings->setText(newValue.c_str());
+            myValueTextField->setText(newValue.c_str());
             if (myAttributesEditorParent->getEditedACs().front()->isValid(myACAttr.getAttr(), newValue)) {
                 // if its valid for the first AC than its valid for all (of the same type)
                 if (myAttributesEditorParent->getEditedACs().size() > 1) {
@@ -1084,8 +1091,8 @@ GNEFrameAttributesModuls::AttributesEditorRow::onCmdOpenAttributeDialog(FXObject
                     it_ac->setAttribute(myACAttr.getAttr(), newValue, myAttributesEditorParent->getFrameParent()->myViewNet->getUndoList());
                 }
                 // If previously value was incorrect, change font color to black
-                myValueTextFieldStrings->setTextColor(FXRGB(0, 0, 0));
-                myValueTextFieldStrings->killFocus();
+                myValueTextField->setTextColor(FXRGB(0, 0, 0));
+                myValueTextField->killFocus();
             }
         }
         return 0;
@@ -1131,38 +1138,44 @@ GNEFrameAttributesModuls::AttributesEditorRow::onCmdSetAttribute(FXObject*, FXSe
                 newVal = "false";
             }
         } else {
-            // obtain boolean value of myValueTextFieldStrings (because we're inspecting multiple attribute carriers with different values)
-            newVal = myValueTextFieldStrings->getText().text();
+            // obtain boolean value of myValueTextField (because we're inspecting multiple attribute carriers with different values)
+            newVal = myValueTextField->getText().text();
         }
     } else if (myACAttr.isDiscrete()) {
         // Check if are combinable choices (for example, Vehicle Types)
         if ((myACAttr.getDiscreteValues().size() > 0) &&
                 myACAttr.isCombinable()) {
             // Get value obtained using AttributesEditor
-            newVal = myValueTextFieldStrings->getText().text();
+            newVal = myValueTextField->getText().text();
         } else if (!myMultiple) {
             // Get value of ComboBox
             newVal = myValueComboBoxChoices->getText().text();
         } else {
-            // due this is a multiple selection, obtain value of myValueTextFieldStrings instead of comboBox
-            newVal = myValueTextFieldStrings->getText().text();
+            // due this is a multiple selection, obtain value of myValueTextField instead of comboBox
+            newVal = myValueTextField->getText().text();
         }
     } else {
         // Check if default value of attribute must be set
-        if (myValueTextFieldStrings->getText().empty() && myACAttr.hasStaticDefaultValue()) {
+        if (myValueTextField->getText().empty() && myACAttr.hasStaticDefaultValue()) {
             newVal = myACAttr.getDefaultValue();
-            myValueTextFieldStrings->setText(newVal.c_str());
+            myValueTextField->setText(newVal.c_str());
+        } else if (myACAttr.isInt() && GNEAttributeCarrier::canParse<double>(myValueTextField->getText().text())) {
+            // filter int attributes
+            double doubleValue = GNEAttributeCarrier::parse<double>(myValueTextField->getText().text());
+            // check if myValueTextField has to be updated
+            if ((doubleValue - (int)doubleValue) == 0) {
+                newVal = toString((int)doubleValue);
+                myValueTextField->setText(newVal.c_str(), FALSE);
+            }
         } else {
-            // obtain value of myValueTextFieldStrings
-            newVal = myValueTextFieldStrings->getText().text();
+            // obtain value of myValueTextField
+            newVal = myValueTextField->getText().text();
         }
     }
-
     // we need a extra check for Position and Shape Values, due #2658
     if ((myACAttr.getAttr() == SUMO_ATTR_POSITION) || (myACAttr.getAttr() == SUMO_ATTR_SHAPE)) {
         newVal = stripWhitespaceAfterComma(newVal);
     }
-
     // Check if attribute must be changed
     if (myAttributesEditorParent->getEditedACs().front()->isValid(myACAttr.getAttr(), newVal)) {
         // if its valid for the first AC than its valid for all (of the same type)
@@ -1184,29 +1197,29 @@ GNEFrameAttributesModuls::AttributesEditorRow::onCmdSetAttribute(FXObject*, FXSe
         }
         // If previously value was incorrect, change font color to black
         if (myACAttr.isCombinable()) {
-            myValueTextFieldStrings->setTextColor(FXRGB(0, 0, 0));
-            myValueTextFieldStrings->killFocus();
+            myValueTextField->setTextColor(FXRGB(0, 0, 0));
+            myValueTextField->killFocus();
             // in this case, we need to refresh the other values (For example, allow/Disallow objects)
             myAttributesEditorParent->refreshAttributeEditor(false, false);
         } else if (myACAttr.isDiscrete()) {
             myValueComboBoxChoices->setTextColor(FXRGB(0, 0, 0));
             myValueComboBoxChoices->killFocus();
-        } else if (myValueTextFieldStrings != nullptr) {
-            myValueTextFieldStrings->setTextColor(FXRGB(0, 0, 0));
-            myValueTextFieldStrings->killFocus();
+        } else if (myValueTextField != nullptr) {
+            myValueTextField->setTextColor(FXRGB(0, 0, 0));
+            myValueTextField->killFocus();
         }
         // update frame parent after attribute sucesfully set
         myAttributesEditorParent->getFrameParent()->attributeUpdated();
     } else {
         // If value of TextField isn't valid, change color to Red depending of type
         if (myACAttr.isCombinable()) {
-            myValueTextFieldStrings->setTextColor(FXRGB(255, 0, 0));
-            myValueTextFieldStrings->killFocus();
+            myValueTextField->setTextColor(FXRGB(255, 0, 0));
+            myValueTextField->killFocus();
         } else if (myACAttr.isDiscrete()) {
             myValueComboBoxChoices->setTextColor(FXRGB(255, 0, 0));
             myValueComboBoxChoices->killFocus();
-        } else if (myValueTextFieldStrings != nullptr) {
-            myValueTextFieldStrings->setTextColor(FXRGB(255, 0, 0));
+        } else if (myValueTextField != nullptr) {
+            myValueTextField->setTextColor(FXRGB(255, 0, 0));
         }
         // Write Warning in console if we're in testing mode
         WRITE_DEBUG("Value '" + newVal + "' for attribute " + myACAttr.getAttrStr() + " of " + myACAttr.getTagPropertyParent().getTagStr() + " isn't valid");
@@ -1220,11 +1233,11 @@ GNEFrameAttributesModuls::AttributesEditorRow::onCmdSelectCheckButton(FXObject*,
     if (myAttributeCheckButton->getCheck()) {
         // enable input values
         myValueCheckButton->enable();
-        myValueTextFieldStrings->enable();
+        myValueTextField->enable();
     } else {
         // disable input values
         myValueCheckButton->disable();
-        myValueTextFieldStrings->disable();
+        myValueTextField->disable();
     }
     return 0;
 }

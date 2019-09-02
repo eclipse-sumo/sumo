@@ -138,7 +138,7 @@ public:
         FXButton* myAttributeColorButton;
 
         /// @brief textField to modify the default value of string parameters
-        FXTextField* myValueTextFieldStrings;
+        FXTextField* myValueTextField;
 
         /// @brief check button to enable/disable the value of boolean parameters
         FXCheckButton* myValueCheckButton;
@@ -277,7 +277,7 @@ public:
         FXButton* myAttributeColorButton;
 
         /// @brief textField to modify the value of string attributes
-        FXTextField* myValueTextFieldStrings;
+        FXTextField* myValueTextField;
 
         /// @brief pointer to combo box choices
         FXComboBox* myValueComboBoxChoices;
