@@ -46,25 +46,17 @@ Debug: Setting new attribute selected 'true' into vehicle 'vehicle_0'
 Debug: Setting new attribute selected 'true' into stopParkingArea 'vehicle_0stopParkingArea1'
 Debug: Setting new attribute selected 'true' into stopParkingArea 'vehicle_0stopParkingArea2'
 Debug: ObjectsUnderCursor: GUIGlObjects: 2, AttributeCarriers: 2, NetElements: 0, Additionals: 1, DemandElements: 1, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
-Debug: Value 'dummyValue' for attribute index of stopParkingArea isn't valid
-Debug: Value '-5' for attribute index of stopParkingArea isn't valid
-Debug: Setting new attribute index '0' into stopParkingArea 'vehicle_0stopParkingArea1'
-Debug: Setting new attribute index '0' into stopParkingArea 'vehicle_0stopParkingArea2'
-Debug: Value '3.5' for attribute index of stopParkingArea isn't valid
-Debug: Setting new attribute index 'fit' into stopParkingArea 'vehicle_0stopParkingArea1'
-Debug: Setting new attribute index 'fit' into stopParkingArea 'vehicle_0stopParkingArea2'
-Debug: Setting new attribute index 'end' into stopParkingArea 'vehicle_0stopParkingArea1'
-Debug: Setting new attribute index 'end' into stopParkingArea 'vehicle_0stopParkingArea2'
+Debug: Value 'dummyValue' for attribute triggered of stopParkingArea isn't valid
+Debug: Value '' for attribute triggered of stopParkingArea isn't valid
+Debug: Value '-5' for attribute triggered of stopParkingArea isn't valid
+Debug: Setting new attribute triggered '0' into stopParkingArea 'vehicle_0stopParkingArea1'
+Debug: Value '3.5' for attribute triggered of stopParkingArea isn't valid
+Debug: Value 'fit' for attribute triggered of stopParkingArea isn't valid
+Debug: Value 'end' for attribute triggered of stopParkingArea isn't valid
+Debug: Value 'endi' for attribute triggered of stopParkingArea isn't valid
 Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 Debug: Keys Ctrl + Z (Undo) pressed
-Debug: Setting previous attribute index 'fit' into stopParkingArea 'vehicle_0stopParkingArea2'
-Debug: Setting previous attribute index 'fit' into stopParkingArea 'vehicle_0stopParkingArea1'
-Debug: Keys Ctrl + Z (Undo) pressed
-Debug: Setting previous attribute index '0' into stopParkingArea 'vehicle_0stopParkingArea2'
-Debug: Setting previous attribute index '0' into stopParkingArea 'vehicle_0stopParkingArea1'
-Debug: Keys Ctrl + Z (Undo) pressed
-Debug: Setting previous attribute index 'end' into stopParkingArea 'vehicle_0stopParkingArea2'
-Debug: Setting previous attribute index 'end' into stopParkingArea 'vehicle_0stopParkingArea1'
+Debug: Setting previous attribute triggered '1' into stopParkingArea 'vehicle_0stopParkingArea1'
 Debug: Keys Ctrl + Z (Undo) pressed
 Debug: Setting previous attribute selected '0' into stopParkingArea 'vehicle_0stopParkingArea2'
 Debug: Setting previous attribute selected '0' into stopParkingArea 'vehicle_0stopParkingArea1'
@@ -82,6 +74,8 @@ Debug: Removing parkingArea 'parkingArea_gneE1_0_0' in GNEChange_Additional
 GLDebug: 	Removed object parkingArea:parkingArea_gneE1_0_0 from SUMORTree with boundary 15.80,2.20,34.20,10.60
 Debug: Removing parkingArea 'parkingArea_gneE0_0_1' in GNEChange_Additional
 GLDebug: 	Removed object parkingArea:parkingArea_gneE0_0_1 from SUMORTree with boundary 15.80,-10.60,34.20,-2.20
+Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Keys Ctrl + Z (Undo) pressed
 Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 Debug: Keys Ctrl + Y (Redo) pressed
 Debug: Adding parkingArea 'parkingArea_gneE0_0_1' in GNEChange_Additional
@@ -103,14 +97,9 @@ Debug: Setting new attribute selected 'true' into vehicle 'vehicle_0'
 Debug: Setting new attribute selected 'true' into stopParkingArea 'vehicle_0stopParkingArea1'
 Debug: Setting new attribute selected 'true' into stopParkingArea 'vehicle_0stopParkingArea2'
 Debug: Keys Ctrl + Y (Redo) pressed
-Debug: Setting new attribute index '0' into stopParkingArea 'vehicle_0stopParkingArea1'
-Debug: Setting new attribute index '0' into stopParkingArea 'vehicle_0stopParkingArea2'
+Debug: Setting new attribute triggered '0' into stopParkingArea 'vehicle_0stopParkingArea1'
 Debug: Keys Ctrl + Y (Redo) pressed
-Debug: Setting new attribute index 'fit' into stopParkingArea 'vehicle_0stopParkingArea1'
-Debug: Setting new attribute index 'fit' into stopParkingArea 'vehicle_0stopParkingArea2'
 Debug: Keys Ctrl + Y (Redo) pressed
-Debug: Setting new attribute index 'end' into stopParkingArea 'vehicle_0stopParkingArea1'
-Debug: Setting new attribute index 'end' into stopParkingArea 'vehicle_0stopParkingArea2'
 Debug: Additionals saved
 Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 Debug: demand elements saved

@@ -49,6 +49,9 @@ netedit.inspectMode()
 # inspect selection
 netedit.leftClick(referencePosition, 327, 177)
 
+# change value
+netedit.modifyAttribute(7, "true", True)
+
 # Check undo redo
 netedit.undo(referencePosition, 3)
 netedit.redo(referencePosition, 3)
