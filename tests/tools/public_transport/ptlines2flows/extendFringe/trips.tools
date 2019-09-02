@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- generated on 2019-09-02 12:11:03.179968 by $Id$
+<!-- generated on 2019-09-02 13:25:23.059985 by $Id$
   options: -n net.net.xml -s input_additional.add.xml -l ptlines.xml -o out.flows.xml -p 600 <doubleminus>min-stops 0 <doubleminus>extend-to-fringe <doubleminus>verbose
 -->
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
@@ -22,6 +22,10 @@
         <stop busStop="2029039199" duration="30"/>
     </trip>
     <trip id="3_bus_3:0" type="bus" depart="0" departLane="best" from="53356539#1" to="111325187#1">
+        <stop busStop="4032629819" duration="30"/>
+        <stop busStop="2029039199" duration="30"/>
+    </trip>
+    <trip id="5_bus_5:0" type="bus" depart="0" departLane="best" from="53356539#1" to="111325187#1">
         <stop busStop="4032629819" duration="30"/>
         <stop busStop="2029039199" duration="30"/>
     </trip>

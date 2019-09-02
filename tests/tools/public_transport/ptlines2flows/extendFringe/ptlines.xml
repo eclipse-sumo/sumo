@@ -53,4 +53,9 @@ SPDX-License-Identifier: EPL-2.0
     </ptLine>
     <ptLine id="4" name="noRouteNoStop" line="4" type="bus">
     </ptLine>
+    <ptLine id="5" name="StopsNotInRoute" line="5" type="bus">
+        <route edges="4710636#0 4710636#1 4710636#2"/>
+        <busStop id="4032629819" name="Monumentenstraße"/>
+        <busStop id="2029039199" name="Dudenstraße/Katzbachstraße"/>
+    </ptLine>
 </additional>
