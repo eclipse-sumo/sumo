@@ -2313,7 +2313,7 @@ NBEdge::recheckLanes() {
     }
     // check involuntary dead end at "real" junctions
     if (getPermissions() != SVC_PEDESTRIAN) {
-        if (myConnections.empty() && myTo->getOutgoingEdges().size() > 1) {
+        if (myConnections.empty() && myTo->getOutgoingEdges().size() > 1 && (getPermissions() & ~SVC_PEDESTRIAN) != 0) {
             WRITE_WARNING("Edge '" + getID() + "' is not connected to outgoing edges at junction '" + myTo->getID() + "'.");
         }
         const EdgeVector& incoming = myFrom->getIncomingEdges();
