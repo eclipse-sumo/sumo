@@ -103,6 +103,8 @@ def writeTypes(fout, prefix):
     <vType id="%saerialway" vClass="bus"/>
     <vType id="%sferry" vClass="ship"/>""" % tuple([prefix] * 9), file=fout)
 
+def getStopEdge(stopsLanes, stop):
+    return stopsLanes[stop].rsplit("_", 1)[0]
 
 def createTrips(options):
     print("generating trips...")
@@ -201,6 +203,21 @@ def createTrips(options):
                 if options.extendFringe and len(edges) > len(stop_ids):
                     fr = edges[0]
                     to = edges[-1]
+                    # ensure that route actually covers the terminal stops
+                    # (otherwise rail network may be invalid beyond stops)
+                    if len(stop_ids) > 0:
+                        firstStop = getStopEdge(stopsLanes, stop_ids[0])
+                        lastStop = getStopEdge(stopsLanes, stop_ids[-1])
+                        if not firstStop in edges:
+                            fr = firstStop
+                            if options.verbose:
+                                print("Cannot extend route before first stop for line '%s' (stop edge %s not in route)" % (
+                                    line.id, firstStop))
+                        if not lastStop in edges:
+                            to = lastStop
+                            if options.verbose:
+                                print("Cannot extend route after last stop for line '%s' (stop edge %s not in route)" % (
+                                    line.id, lastStop))
                 else:
                     if options.extendFringe and options.verbose:
                         print("Cannot extend route to fringe for line '%s' (not enough edges given)" % line.id)
@@ -208,8 +225,8 @@ def createTrips(options):
                         sys.stderr.write("Warning: skipping line '%s' because it has no stops\n" % line.id)
                         numSkipped += 1
                         continue
-                    fr, _ = stopsLanes[stop_ids[0]].rsplit("_", 1)
-                    to, _ = stopsLanes[stop_ids[-1]].rsplit("_", 1)
+                    fr = getStopEdge(stopsLanes, stop_ids[0])
+                    to = getStopEdge(stopsLanes, stop_ids[-1])
                 fouttrips.write(
                     ('    <trip id="%s" type="%s%s" depart="%s" departLane="best" from="%s" ' +
                      'to="%s">\n') % (
