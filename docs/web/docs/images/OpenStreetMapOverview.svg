@@ -1,0 +1,564 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="446.4567"
+   height="248.03149"
+   viewBox="9 -1 238.7 140"
+   id="svg2"
+   version="1.1"
+   inkscape:version="0.47 r22583"
+   sodipodi:docname="OSMActivityGenTutorialOverview.svg">
+  <metadata
+     id="metadata496">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <defs
+     id="defs494">
+    <inkscape:perspective
+       sodipodi:type="inkscape:persp3d"
+       inkscape:vp_x="0 : 336.61417 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_z="637.79529 : 336.61417 : 1"
+       inkscape:persp3d-origin="318.89764 : 224.40944 : 1"
+       id="perspective498" />
+  </defs>
+  <sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="992"
+     inkscape:window-height="970"
+     id="namedview492"
+     showgrid="false"
+     inkscape:document-units="mm"
+     units="mm"
+     inkscape:zoom="1.9867548"
+     inkscape:cx="223.22835"
+     inkscape:cy="124.01575"
+     inkscape:window-x="0"
+     inkscape:window-y="24"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="svg2" />
+  <g
+     id="g4"
+     transform="translate(-96.370002,-0.44002192)">
+    <rect
+       style="fill:#ffffff"
+       x="190"
+       y="120"
+       width="70"
+       height="18.9578"
+       id="rect6" />
+    <rect
+       style="fill:none;stroke:#000000;stroke-width:0.56444401"
+       x="190"
+       y="120"
+       width="70"
+       height="18.9578"
+       id="rect8" />
+    <text
+       style="font-size:5.64444017px;font-style:normal;font-weight:700;text-anchor:middle;fill:#000000;font-family:sanserif"
+       x="225"
+       y="127.673"
+       id="text10">
+      <tspan
+         x="225"
+         y="127.673"
+         id="tspan12">&lt;&lt;file&gt;&gt;</tspan>
+      <tspan
+         x="225"
+         y="134.729"
+         id="tspan14">eichstaett.net.xml</tspan>
+    </text>
+  </g>
+  <g
+     id="g16"
+     transform="translate(-96.370002,-0.44002192)">
+    <rect
+       style="fill:#ffffff"
+       x="190"
+       y="40"
+       width="70"
+       height="18.9578"
+       id="rect18" />
+    <rect
+       style="fill:none;stroke:#000000;stroke-width:0.56444401"
+       x="190"
+       y="40"
+       width="70"
+       height="18.9578"
+       id="rect20" />
+    <text
+       style="font-size:5.64444017px;font-style:normal;font-weight:700;text-anchor:middle;fill:#000000;font-family:sanserif"
+       x="225"
+       y="47.673302"
+       id="text22">
+      <tspan
+         x="225"
+         y="47.673302"
+         id="tspan24">&lt;&lt;file&gt;&gt;</tspan>
+      <tspan
+         x="225"
+         y="54.728901"
+         id="tspan26">eichstaett.osm.xml</tspan>
+    </text>
+  </g>
+  <g
+     id="g112"
+     transform="translate(-96.370002,-0.44002192)">
+    <rect
+       style="fill:#005293"
+       x="196"
+       y="0"
+       width="58"
+       height="18.9578"
+       id="rect114" />
+    <path
+       style="fill:#005293"
+       d="m 196,0 a 6,6 0 0 0 -6,6 l 6,0 z"
+       id="path116" />
+    <path
+       style="fill:#005293"
+       d="m 260,6 a 6,6 0 0 0 -6,-6 l 0,6 z"
+       id="path118" />
+    <rect
+       style="fill:#005293"
+       x="190"
+       y="6"
+       width="70"
+       height="6.9577799"
+       id="rect120" />
+    <path
+       style="fill:#005293"
+       d="m 190,12.9578 a 6,6 0 0 0 6,6 l 0,-6 z"
+       id="path122" />
+    <path
+       style="fill:#005293"
+       d="m 254,18.9578 a 6,6 0 0 0 6,-6 l -6,0 z"
+       id="path124" />
+    <line
+       style="fill:none;stroke:#000000;stroke-width:0.56"
+       x1="196"
+       y1="0"
+       x2="254"
+       y2="0"
+       id="line126" />
+    <line
+       style="fill:none;stroke:#000000;stroke-width:0.56"
+       x1="196"
+       y1="18.9578"
+       x2="254"
+       y2="18.9578"
+       id="line128" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.56"
+       d="m 196,0 a 6,6 0 0 0 -6,6"
+       id="path130" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.56"
+       d="M 260,6 A 6,6 0 0 0 254,0"
+       id="path132" />
+    <line
+       style="fill:none;stroke:#000000;stroke-width:0.56"
+       x1="190"
+       y1="6"
+       x2="190"
+       y2="12.9578"
+       id="line134" />
+    <line
+       style="fill:none;stroke:#000000;stroke-width:0.56"
+       x1="260"
+       y1="6"
+       x2="260"
+       y2="12.9578"
+       id="line136" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.56"
+       d="m 190,12.9578 a 6,6 0 0 0 6,6"
+       id="path138" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.56"
+       d="m 254,18.9578 a 6,6 0 0 0 6,-6"
+       id="path140" />
+    <text
+       style="font-size:5.64444017px;font-style:normal;font-weight:700;text-anchor:middle;fill:#ffffff;font-family:sanserif"
+       x="225"
+       y="7.6733298"
+       id="text142">
+      <tspan
+         x="225"
+         y="7.6733298"
+         id="tspan144">Extract map from</tspan>
+      <tspan
+         x="225"
+         y="14.7289"
+         id="tspan146">OpenStreetMap</tspan>
+    </text>
+  </g>
+  <g
+     id="g148"
+     transform="translate(-96.370002,-0.44002192)">
+    <rect
+       style="fill:#98c6ea"
+       x="196"
+       y="80"
+       width="58"
+       height="18.9578"
+       id="rect150" />
+    <path
+       style="fill:#98c6ea"
+       d="m 196,80 a 6,6 0 0 0 -6,6 l 6,0 z"
+       id="path152" />
+    <path
+       style="fill:#98c6ea"
+       d="m 260,86 a 6,6 0 0 0 -6,-6 l 0,6 z"
+       id="path154" />
+    <rect
+       style="fill:#98c6ea"
+       x="190"
+       y="86"
+       width="70"
+       height="6.9577799"
+       id="rect156" />
+    <path
+       style="fill:#98c6ea"
+       d="m 190,92.9578 a 6,6 0 0 0 6,6 l 0,-6 z"
+       id="path158" />
+    <path
+       style="fill:#98c6ea"
+       d="m 254,98.9578 a 6,6 0 0 0 6,-6 l -6,0 z"
+       id="path160" />
+    <line
+       style="fill:none;stroke:#000000;stroke-width:0.56"
+       x1="196"
+       y1="80"
+       x2="254"
+       y2="80"
+       id="line162" />
+    <line
+       style="fill:none;stroke:#000000;stroke-width:0.56"
+       x1="196"
+       y1="98.957802"
+       x2="254"
+       y2="98.957802"
+       id="line164" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.56"
+       d="m 196,80 a 6,6 0 0 0 -6,6"
+       id="path166" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.56"
+       d="m 260,86 a 6,6 0 0 0 -6,-6"
+       id="path168" />
+    <line
+       style="fill:none;stroke:#000000;stroke-width:0.56"
+       x1="190"
+       y1="86"
+       x2="190"
+       y2="92.957802"
+       id="line170" />
+    <line
+       style="fill:none;stroke:#000000;stroke-width:0.56"
+       x1="260"
+       y1="86"
+       x2="260"
+       y2="92.957802"
+       id="line172" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.56"
+       d="m 190,92.9578 a 6,6 0 0 0 6,6"
+       id="path174" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.56"
+       d="m 254,98.9578 a 6,6 0 0 0 6,-6"
+       id="path176" />
+    <text
+       style="font-size:5.64444017px;font-style:normal;font-weight:700;text-anchor:middle;fill:#000000;font-family:sanserif"
+       x="225"
+       y="87.673302"
+       id="text178">
+      <tspan
+         x="225"
+         y="87.673302"
+         id="tspan180">Run</tspan>
+      <tspan
+         x="225"
+         y="94.728897"
+         id="tspan182">netconvert</tspan>
+    </text>
+  </g>
+  <g
+     id="g256"
+     transform="translate(-96.370002,-0.44002192)">
+    <rect
+       style="fill:#ffffff"
+       x="280"
+       y="40"
+       width="70"
+       height="18.9578"
+       id="rect258" />
+    <rect
+       style="fill:none;stroke:#000000;stroke-width:0.56"
+       x="280"
+       y="40"
+       width="70"
+       height="18.9578"
+       id="rect260" />
+    <text
+       style="font-size:5.64444017px;font-style:normal;font-weight:700;text-anchor:middle;fill:#000000;font-family:sanserif"
+       x="315"
+       y="47.673302"
+       id="text262">
+      <tspan
+         x="315"
+         y="47.673302"
+         id="tspan264">&lt;&lt;file&gt;&gt;</tspan>
+      <tspan
+         x="315"
+         y="54.728901"
+         id="tspan266">eichstaett.typ.xml</tspan>
+    </text>
+  </g>
+  <g
+     id="g268"
+     transform="translate(-96.370002,-0.44002192)">
+    <rect
+       style="fill:#ffffff"
+       x="100"
+       y="40"
+       width="70"
+       height="18.9578"
+       id="rect270" />
+    <rect
+       style="fill:none;stroke:#9c9d9f;stroke-width:0.56"
+       x="100"
+       y="40"
+       width="70"
+       height="18.9578"
+       id="rect272" />
+    <text
+       style="font-size:5.64444017px;font-style:normal;font-weight:700;text-anchor:middle;fill:#9c9d9f;font-family:sanserif"
+       x="135"
+       y="47.673302"
+       id="text274">
+      <tspan
+         x="135"
+         y="47.673302"
+         id="tspan276">&lt;&lt;file&gt;&gt;</tspan>
+      <tspan
+         x="135"
+         y="54.728901"
+         id="tspan278">eichstaett.con.xml</tspan>
+    </text>
+  </g>
+  <g
+     id="g292"
+     transform="translate(-96.370002,-0.44002192)">
+    <polyline
+       style="fill:none;stroke:#9c9d9f;stroke-width:0.84666699"
+       points="135,58.9578 135,89.4789 184.553,89.4789 "
+       id="polyline294" />
+    <polygon
+       style="fill:#9c9d9f"
+       points="183.053,92.4789 184.553,89.4789 183.053,86.4789 189.053,89.4789 "
+       id="polygon296" />
+    <polygon
+       style="fill:none;stroke:#9c9d9f;stroke-width:0.84666699"
+       points="183.053,92.4789 184.553,89.4789 183.053,86.4789 189.053,89.4789 "
+       id="polygon298" />
+  </g>
+  <g
+     id="g300"
+     transform="translate(-96.370002,-0.44002192)">
+    <polyline
+       style="fill:none;stroke:#000000;stroke-width:0.84666699"
+       points="315,58.9578 315,89.4789 265.447,89.4789 "
+       id="polyline302" />
+    <polygon
+       style="fill:#000000"
+       points="266.947,86.4789 265.447,89.4789 266.947,92.4789 260.947,89.4789 "
+       id="polygon304" />
+    <polygon
+       style="fill:none;stroke:#000000;stroke-width:0.84666699"
+       points="266.947,86.4789 265.447,89.4789 266.947,92.4789 260.947,89.4789 "
+       id="polygon306" />
+  </g>
+  <g
+     id="g308"
+     transform="translate(-96.370002,-0.44002192)">
+    <polyline
+       style="fill:none;stroke:#000000;stroke-width:0.84666699"
+       points="225,58.9578 225,58.9578 225,74.5534 "
+       id="polyline310" />
+    <polygon
+       style="fill:#000000"
+       points="222,73.0534 225,74.5534 228,73.0534 225,79.0534 "
+       id="polygon312" />
+    <polygon
+       style="fill:none;stroke:#000000;stroke-width:0.84666699"
+       points="222,73.0534 225,74.5534 228,73.0534 225,79.0534 "
+       id="polygon314" />
+  </g>
+  <g
+     id="g340"
+     transform="translate(-96.370002,-0.44002192)">
+    <polyline
+       style="fill:none;stroke:#000000;stroke-width:0.84666699"
+       points="225,98.9578 225,98.9578 225,114.553 "
+       id="polyline342" />
+    <polygon
+       style="fill:#000000"
+       points="222,113.053 225,114.553 228,113.053 225,119.053 "
+       id="polygon344" />
+    <polygon
+       style="fill:none;stroke:#000000;stroke-width:0.84666699"
+       points="222,113.053 225,114.553 228,113.053 225,119.053 "
+       id="polygon346" />
+  </g>
+  <g
+     id="g348"
+     transform="translate(-96.370002,-0.44002192)">
+    <polyline
+       style="fill:none;stroke:#000000;stroke-width:0.84666699"
+       points="225,18.9578 225,18.9578 225,34.5534 "
+       id="polyline350" />
+    <polygon
+       style="fill:#000000"
+       points="222,33.0534 225,34.5534 228,33.0534 225,39.0534 "
+       id="polygon352" />
+    <polygon
+       style="fill:none;stroke:#000000;stroke-width:0.84666699"
+       points="222,33.0534 225,34.5534 228,33.0534 225,39.0534 "
+       id="polygon354" />
+  </g>
+  <g
+     id="g448"
+     transform="translate(-96.370002,-0.44002192)">
+    <rect
+       style="fill:#005293"
+       x="286"
+       y="0"
+       width="58"
+       height="18.9578"
+       id="rect450" />
+    <path
+       style="fill:#005293"
+       d="m 286,0 a 6,6 0 0 0 -6,6 l 6,0 z"
+       id="path452" />
+    <path
+       style="fill:#005293"
+       d="m 350,6 a 6,6 0 0 0 -6,-6 l 0,6 z"
+       id="path454" />
+    <rect
+       style="fill:#005293"
+       x="280"
+       y="6"
+       width="70"
+       height="6.9577799"
+       id="rect456" />
+    <path
+       style="fill:#005293"
+       d="m 280,12.9578 a 6,6 0 0 0 6,6 l 0,-6 z"
+       id="path458" />
+    <path
+       style="fill:#005293"
+       d="m 344,18.9578 a 6,6 0 0 0 6,-6 l -6,0 z"
+       id="path460" />
+    <line
+       style="fill:none;stroke:#000000;stroke-width:0.56"
+       x1="286"
+       y1="0"
+       x2="344"
+       y2="0"
+       id="line462" />
+    <line
+       style="fill:none;stroke:#000000;stroke-width:0.56"
+       x1="286"
+       y1="18.9578"
+       x2="344"
+       y2="18.9578"
+       id="line464" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.56"
+       d="m 286,0 a 6,6 0 0 0 -6,6"
+       id="path466" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.56"
+       d="M 350,6 A 6,6 0 0 0 344,0"
+       id="path468" />
+    <line
+       style="fill:none;stroke:#000000;stroke-width:0.56"
+       x1="280"
+       y1="6"
+       x2="280"
+       y2="12.9578"
+       id="line470" />
+    <line
+       style="fill:none;stroke:#000000;stroke-width:0.56"
+       x1="350"
+       y1="6"
+       x2="350"
+       y2="12.9578"
+       id="line472" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.56"
+       d="m 280,12.9578 a 6,6 0 0 0 6,6"
+       id="path474" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.56"
+       d="m 344,18.9578 a 6,6 0 0 0 6,-6"
+       id="path476" />
+    <text
+       style="font-size:5.64444017px;font-style:normal;font-weight:700;text-anchor:middle;fill:#ffffff;font-family:sanserif"
+       x="315"
+       y="7.6733298"
+       id="text478">
+      <tspan
+         x="315"
+         y="7.6733298"
+         id="tspan480">Configure the OSM</tspan>
+      <tspan
+         x="315"
+         y="14.7289"
+         id="tspan482">highway types</tspan>
+    </text>
+  </g>
+  <g
+     id="g484"
+     transform="translate(-96.370002,-0.44002192)">
+    <line
+       style="fill:none;stroke:#000000;stroke-width:0.84666699"
+       x1="315"
+       y1="18.9578"
+       x2="315"
+       y2="34.553398"
+       id="line486" />
+    <polygon
+       style="fill:#000000"
+       points="312,33.0534 315,34.5534 318,33.0534 315,39.0534 "
+       id="polygon488" />
+    <polygon
+       style="fill:none;stroke:#000000;stroke-width:0.84666699"
+       points="312,33.0534 315,34.5534 318,33.0534 315,39.0534 "
+       id="polygon490" />
+  </g>
+</svg>

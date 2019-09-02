@@ -1,0 +1,239 @@
+---
+title: Demand/Routes from Observation Points
+permalink: /Demand/Routes_from_Observation_Points/
+---
+
+Since version 0.9.5, the SUMO-package contains a routing module named
+[DFROUTER](../DFROUTER.md). The idea behind this router is that
+nowadays, most highways are well equipped with induction loops,
+measuring each of the highways' entering and leaving flows. Given this
+information one may assume that the flows on the highway are completely
+known. [DFROUTER](../DFROUTER.md) uses directly the information
+collected from induction loops to rebuild the vehicle amounts and
+routes. This is done in several steps, being mainly:
+
+1.  Computing (and optionally saving) the detector types in the means
+    that each induction is set to be a source detector, a sink detector
+    or an in-between detector
+2.  Computing (and optionally saving) the routes between the detectors
+3.  Computing the flow amounts between the detectors
+4.  Saving the flow amounts and further control structures
+
+!!! caution
+    The [DFROUTER](../DFROUTER.md) application has known deficiencies when used on highly meshed networks as found in cities. Alternatives are [the flowrouter tool](../Tools/Detector.md#flowrouterpy) or [dynamic calibration](../Simulation/Calibrator.md#building_a_scenario_without_knowledge_of_routes_based_on_flow_measurements).
+
+## Computing Detector Types
+
+The idea behind the [DFROUTER](../DFROUTER.md) assumes that a
+network is completely covered by detectors, meaning that all off- and
+on-ramps have an induction loop placed on them. Such an information
+whether an induction loop is a pure source or sink or whether it is
+placed between such is but not given initially. It must be computed. To
+do this, the [DFROUTER](../DFROUTER.md) needs the underlying
+network as well as a list of detector definitions where each describes
+the position of an induction loop. The network, being a previously built
+SUMO-network, is supplied to the [DFROUTER](../DFROUTER.md) as
+usual using the **--net-file <SUMO_NET_FILE\>** (**-n**) option, the list of induction loops using **--detector-files <DETECTOR_FILE\>[,<DETECTOR_FILE\>]+** (**-d** for
+short). A detector file should look as follows:
+
+```
+<detectors>
+    <detectorDefinition id="<DETECTOR_ID>" lane="<LANE_ID>" pos="<POS>"/>
+... further detectors ...
+</detectors>
+```
+
+This means that each detector is initially described using its id, a
+lane it is placed on, and a position on the lane. To be exact:
+
+- id: A string holding the id of the detector
+- lane: The id of the lane the detector lies on. Must be a lane within
+  the network.
+- pos: The position on the lane the detector shall be laid on in
+  meters. The position must be a value between -1\*lane's length and
+  the lane's length. In the case of a negative value, the position
+  will be computed backward from the lane's end (the position the
+  vehicles drive towards).
+
+Given a network and the list of detectors,
+[DFROUTER](../DFROUTER.md) assigns types to detectors and saves the
+so extended list into a file if the option **--detectors-output <DETECTOR_OUTPUT_FILE\>** is given. This list looks
+like the input described above except that an aditional attribute is
+given for each detector, "type", which may have one of the following
+values: "source", "sink", "between", and "discarded". You can also
+generate a list of points of interests (POIs) which can be read by
+[SUMO-GUI](../SUMO-GUI.md) where each POI represents a detector and
+is colored by the detector type: green for source detectors, red for
+sink detectors, blue for in-between detectors, and black for discarded
+detectors. To force [DFROUTER](../DFROUTER.md) to do this, use **--detectors-poi-output <POI_FILENAME\>**.
+
+When wished, if for example other parameters chage, the extended
+<DETECTOR_OUTPUT_FILE\> can be fed back again into
+[DFROUTER](../DFROUTER.md) instead of the previous <DETECTOR_FILE\>.
+In this case the detector types do not have to be computed again. To
+force [DFROUTER](../DFROUTER.md) to recompute the types, use **--revalidate-detectors**.
+
+## Computing Routes
+
+Now that we do know where vehicles enter and where they leave the
+network, we may compute routes for each of the pairs. The
+[DFROUTER](../DFROUTER.md) is told to build and save routes using **--routes-output <ROUTE_OUTPUT_FILE\>**
+where <ROUTE_OUTPUT_FILE\> is the name of the file the computed routes
+shall be written to. The generated file only contains routes, no vehicle
+type definitions and no vehicles.
+
+Normally, only routes starting at source detectors and ending at sink
+detectors are computed. Using the option **--routes-for-all** you can force
+[DFROUTER](../DFROUTER.md) to also build routes that start at
+in-between detectors. The option **--all-end-follower** will make the routes not end at the
+edge the source detector is placed on, but on all edges that follow this
+edge. **--keep-unfinished-routes** will also keep those routes where a sink detector could not be
+found for what may be the case if the network is not completely covered
+with induction loops.
+
+## Computing Flows
+
+The next step is to use the computed routes and flow amounts from the
+real-world detectors to compute flows across the modelled network. The
+flows are given to DFROUTER using **--measure-files** {{DT_STR}} (or **-f <DETECTOR_FLOWS\>[,<DETECTOR_FLOWS\>]+**. They are assumed to be stored
+in CSV-format using ';' as dividing character. The file should look as
+follows:
+
+```
+Detector;Time;qPKW;qLKW;vPKW;vLKW
+myDet1;0;10;2;100;80
+... further entries ...
+```
+
+This means the first time has to name the entries (columns). Their order
+is not of importance, but at least the following columns must be
+included:
+
+- Detector: A string holding the id of the detector this line
+  describes; should be one of the ids used in <DETECTOR_FILE\>
+- Time: The time period begin that this entry describes (in minutes)
+- qPKW: The number of passenger cars that drove over the detector
+  within this time period
+- vPKW: The average speed of passenger cars that drove over the
+  detector within this time period in km/h
+
+The following columns may optionally be included:
+
+- qLKW: The number of transport vehicles that drove over the detector
+  within this time period
+- vLKW: The average speed of transport vehicles that drove over the
+  detector within this time period in km/h
+
+These are not quite the values to be found in induction loop output. We
+had to constrain the <DETECTOR_FLOWS\> files this way because DFROUTER is
+meant to read very many of such definitions and to do this as fast as
+possible.
+
+Because in some cases one reads detector flow definitions starting at a
+certain time but wants the simulation to begin at another, it is
+possible to add a time offset using **--time-offset** {{DT_INT}} which is the number of seconds to
+subtracted from the read times.
+
+### Algorithm Properties
+
+[DFROUTER](../DFROUTER.md) works best when all possible source and
+sink edges are supplied with detector values and these values are evenly
+spaced in time. The algorithm works under the assumption that the sum of
+source flows matches the sum of sink flows for every measurement
+interval (thus somewhat ignoring travel time). Some properties of
+[Vehicle generation](#generating_vehicles):
+
+- The number of generated vehicles for each measurement interval is
+determined by source detectors alone.
+  - Excess flow at sink detectors is ignored
+  - If sink detectors measure less flow, it will nevertheless arrive
+    there in proportion to the measured flow
+  - If sink detectors measure no flow at all, all vehicles will
+    drive to one (arbitrary) sink
+
+The number of will be determined by
+
+## Generating Vehicles
+
+If flow definitions were supplied, we can let the DFROUTER save the
+computed vehicles together with their routes. Vehicles will be generated
+at the source detectors which are placed at certain positions of the
+networks' lanes. DFROUTER generates vehicle with the option **--emitters-output <EMITTER_OUTPUT_FILE\>**. This file
+will contain vehicle (emitter) declarations for each of the source
+detectors. If no value is given, vehicles will not be written.
+Accompanying, there will be `routeDistributions` each with the same name as a detector.
+These reflect the distribution of routes at the detector with the same
+ID.
+
+By default vehicles are inserted with even spacing over each measurement
+interval. This can be changed by adding the option **--randomize-flows**.
+
+The generated file contains individual vehicles which are assigned
+routes from the [routes-output file](#computing_routes).
+
+!!! note
+    The emitters output also contains a `<routeDistribution>` for each source detector but this distribution is not used by the vehicles. It is generated for information purposes and shows the route distribution aggregated over the whole simulation time (this distribution assumes that source flows data matches sink flow data).
+
+## Further Outputs
+
+### Variable Speed Signs
+
+As some approaches use a speed limit to avoid open-end boundary
+problems, the DFROUTER can generate a list of speed triggers (see
+"Variable Speed Signs (VSS)") placed on the positions of sink detectors.
+The name to save the declaration of these speed triggers into is given
+using the option **--variable-speed-sign-output <VSS_OUTPUT_FILE\>**. The according variable speed sign definitions will be
+written into files named "vss_<DETECTOR_ID\>.def.xml" where
+<DETECTOR_ID\> is the name of the according sink detector.
+
+### Rerouters
+
+In order not to end vehicle routes on off-ramps, it is possible to place
+rerouters (see "Rerouter") at the positions of the sink detectors, too.
+Giving the option **--end-reroute-output <REROUTER_OUTPUT_FILE\>** will generate a list of rerouter declarations. Please
+remark that in this case, no rerouter definitions are written, because
+the DFROUTER has no further information about possible routes beyond the
+area covered by the detectors.
+
+### Validation Detectors
+
+It's quite nice to have the possibility to check whether the simulation
+does what one wants. To validate whether the same flows are found within
+the simulation as within the reality, the option **--validation-output <SUMO_DETECTORS_OUTPUT\>** may be helpful. It
+generates a list of detector definitions (see "[inductive loop
+detectors](../Simulation/Output/Induction_Loops_Detectors_(E1).md)")
+placed at the positions of sink and in-between detectors. Their output
+will be saved into files named "validation_det_<DETECTOR_ID\>.xml" and
+should be easily comparable to the detector flows previously fed to the
+router. The option **--validation-output.add-sources** will let DFROUTER also build inductive loop
+detectors for source detectors which are place 1m behind the real-life
+detector's position.
+
+## How to include the files
+
+The [DFROUTER](../DFROUTER.md) is unique among the **SUMO**-routing
+applications in that it outputs routes and vehicles separately. [You
+need to make sure that the list of input files is in the correct order
+for resolving references](../SUMO.md#loading_order_of_input_files).
+Furthermore, [DFROUTER](../DFROUTER.md) currently returns unsorted
+vehicles in its emitters-output. Assuming that
+[DFROUTER](../DFROUTER.md) was called with the options
+
+```
+dfrouter --net-file net.net.xml --routes-output routes.rou.xml --emitters-output vehicles.xml ...
+```
+
+SUMO must be called in the following way:
+
+```
+sumo --net-file net.net.xml --additional-files routes.rou.xml,emitters.rou.xml
+```
+
+If you run the tool
+[Tools/Routes\#sort_routes.py](../Tools/Routes.md#sort_routespy)
+to sort the emitters, either of the following will work:
+
+```
+sumo --net-file net.net.xml --route-files routes.rou.xml,sorted_emitters.rou.xml
+sumo --net-file net.net.xml --route-files sorted_emitters.rou.xml --additional-files routes.rou.xml
+```
