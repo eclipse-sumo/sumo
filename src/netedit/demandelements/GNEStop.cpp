@@ -538,11 +538,7 @@ GNEStop::getAttribute(SumoXMLAttr key) const {
                 return "";
             }
         case SUMO_ATTR_PARKING:
-            if (parametersSet & STOP_PARKING_SET) {
-                return toString(parking);
-            } else {
-                return "";
-            }
+            return toString(parking);
         case SUMO_ATTR_ACTTYPE:
             return "waiting";
         case SUMO_ATTR_TRIP_ID:
@@ -743,6 +739,9 @@ GNEStop::enableAttribute(SumoXMLAttr key, GNEUndoList* undoList) {
         case SUMO_ATTR_EXPECTED_CONTAINERS:
             newParametersSet |= STOP_CONTAINER_TRIGGER_SET;
             break;
+        case SUMO_ATTR_PARKING:
+            newParametersSet |= STOP_PARKING_SET;
+            break;
         default:
             break;
     }
@@ -758,6 +757,8 @@ GNEStop::isAttributeEnabled(SumoXMLAttr key) const {
             return (parametersSet & STOP_TRIGGER_SET) != 0;
         case SUMO_ATTR_EXPECTED_CONTAINERS:
             return (parametersSet & STOP_CONTAINER_TRIGGER_SET) != 0;
+        case SUMO_ATTR_PARKING:
+            return (parametersSet & STOP_PARKING_SET) != 0;
         default:
             return true;
     };

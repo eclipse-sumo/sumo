@@ -4381,7 +4381,7 @@ GNEAttributeCarrier::fillCommonStopAttributes(SumoXMLTag currentTag) {
     myTagProperties[currentTag].addAttribute(attrProperty);
 
     attrProperty = AttributeProperties(SUMO_ATTR_PARKING,
-                                       ATTRPROPERTY_BOOL | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL,
+                                       ATTRPROPERTY_BOOL | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_OPTIONAL | ATTRPROPERTY_WRITEXMLOPTIONAL,
                                        "whether the vehicle stops on the road or beside ",
                                        "0");
     myTagProperties[currentTag].addAttribute(attrProperty);
