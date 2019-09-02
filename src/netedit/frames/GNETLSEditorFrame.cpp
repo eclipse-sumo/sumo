@@ -843,7 +843,7 @@ GNETLSEditorFrame::TLSAttributes::TLSAttributes(GNETLSEditorFrame* TLSEditorPare
     // create frame, label and TextField for Offset (By default disabled)
     FXHorizontalFrame* offsetFrame = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
     myOffsetLabel = new FXLabel(offsetFrame, "Offset", nullptr, GUIDesignLabelAttribute);
-    myOffsetTextField = new FXTextField(offsetFrame, GUIDesignTextFieldNCol, myTLSEditorParent, MID_GNE_TLSFRAME_OFFSET, GUIDesignTextFieldReal);
+    myOffsetTextField = new FXTextField(offsetFrame, GUIDesignTextFieldNCol, myTLSEditorParent, MID_GNE_TLSFRAME_OFFSET, GUIDesignTextField);
     myOffsetTextField->disable();
 }
 

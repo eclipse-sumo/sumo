@@ -112,8 +112,6 @@ public:
 
             /// @brief Attribute type
             enum RowAttrType {
-                ROWTYPE_INT,
-                ROWTYPE_REAL,
                 ROWTYPE_STRING,
                 ROWTYPE_COLOR,
                 ROWTYPE_FILENAME,
@@ -426,7 +424,7 @@ public:
         class CarFollowingModelRow : public FXHorizontalFrame {
         public:
             /// @brief constructor
-            CarFollowingModelRow(CarFollowingModelParameters* carFollowingModelParametersParent, FXVerticalFrame* verticalFrame, SumoXMLAttr attr, bool allowString = false);
+            CarFollowingModelRow(CarFollowingModelParameters* carFollowingModelParametersParent, FXVerticalFrame* verticalFrame, SumoXMLAttr attr);
 
             /// @brief set Variablen in VehicleType
             void setVariable();

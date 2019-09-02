@@ -137,12 +137,6 @@ public:
         /// @brief Button for open color editor
         FXButton* myAttributeColorButton;
 
-        /// @brief textField to modify the default value of int/float/string parameters
-        FXTextField* myValueTextFieldInt;
-
-        /// @brief textField to modify the default value of real/times parameters
-        FXTextField* myValueTextFieldReal;
-
         /// @brief textField to modify the default value of string parameters
         FXTextField* myValueTextFieldStrings;
 
@@ -281,12 +275,6 @@ public:
 
         /// @brief Button for open color editor
         FXButton* myAttributeColorButton;
-
-        /// @brief textField to modify the value of int attributes
-        FXTextField* myValueTextFieldInt;
-
-        /// @brief textField to modify the value of real/Time attributes
-        FXTextField* myValueTextFieldReal;
 
         /// @brief textField to modify the value of string attributes
         FXTextField* myValueTextFieldStrings;

@@ -208,7 +208,7 @@ GNECrossingFrame::CrossingParameters::CrossingParameters(GNECrossingFrame* cross
     // create label and textfield for width
     crossingParameter = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
     myCrossingWidthLabel = new FXLabel(crossingParameter, toString(SUMO_ATTR_WIDTH).c_str(), nullptr, GUIDesignLabelAttribute);
-    myCrossingWidth = new FXTextField(crossingParameter, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextFieldReal);
+    myCrossingWidth = new FXTextField(crossingParameter, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
     myCrossingWidthLabel->disable();
     myCrossingWidth->disable();
     // Create help button

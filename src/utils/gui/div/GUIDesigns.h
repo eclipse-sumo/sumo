@@ -33,23 +33,8 @@
 /// @brief text field extended over Frame with thick frame
 #define GUIDesignTextField                  (FRAME_THICK | LAYOUT_FILL_X | LAYOUT_FIX_HEIGHT), 0, 0, 0, 23, 2, 2, 2, 2
 
-/// @brief text field extended over Frame with thick frame and limited to Integers
-#define GUIDesignTextFieldInt               (FRAME_THICK | LAYOUT_FILL_X | LAYOUT_FIX_HEIGHT | TEXTFIELD_INTEGER), 0, 0, 0, 23, 2, 2, 2, 2
-
-/// @brief text field extended over Frame with thick frame and limited to doubles/floats
-#define GUIDesignTextFieldReal              (FRAME_THICK | LAYOUT_FILL_X | LAYOUT_FIX_HEIGHT | TEXTFIELD_REAL), 0, 0, 0, 23, 2, 2, 2, 2
-
 /// @brief text field with thick frame and size of 100x23
 #define GUIDesignTextFielWidth100           (FRAME_THICK | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT), 0, 0, 100, 23, 2, 2, 2, 2
-
-/// @brief text field with thick frame and size of 100x23
-#define GUIDesignTextFielWidth100Real       (FRAME_THICK | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT), 0, 0, 100, 23, 2, 2, 2, 2
-
-/// @brief text field with thick frame, size of 180x23 and limited to integers (Used in GNEVehicleType)
-#define GUIDesignTextFielWidth180Int        (FRAME_THICK | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT | TEXTFIELD_INTEGER), 0, 0, 180, 23, 2, 2, 2, 2
-
-/// @brief text field with thick frame, size of 180x23 and limited to doubles/floats (Used in GNEVehicleType)
-#define GUIDesignTextFielWidth180Real       (FRAME_THICK | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT | TEXTFIELD_REAL), 0, 0, 180, 23, 2, 2, 2, 2
 
 /// @brief text field with thick frame, size of 180x23 /doubles (Used in GNEVehicleType)
 #define GUIDesignTextFielWidth180           (FRAME_THICK | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT), 0, 0, 180, 23, 2, 2, 2, 2
