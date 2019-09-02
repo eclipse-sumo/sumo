@@ -2159,9 +2159,9 @@ NBNode::setCustomShape(const PositionVector& shape) {
 
 NBEdge*
 NBNode::getConnectionTo(NBNode* n) const {
-    for (EdgeVector::const_iterator i = myOutgoingEdges.begin(); i != myOutgoingEdges.end(); i++) {
-        if ((*i)->getToNode() == n) {
-            return (*i);
+    for (NBEdge* e : myOutgoingEdges) {
+        if (e->getToNode() == n && e->getPermissions() != 0) {
+            return e;
         }
     }
     return nullptr;
