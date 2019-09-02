@@ -1,3 +1,0 @@
-Error: Opposite lane 'SC_1' (length 193.60) differs in length from edge 'EC' (length 206.40). Set --opposites.guess.fix-lengths to fix this.
-Error: Opposite lane 'EC_1' (length 206.40) differs in length from edge 'SC' (length 193.60). Set --opposites.guess.fix-lengths to fix this.
-Quitting (on error).
