@@ -172,6 +172,9 @@ public:
     /// @brief smooth elevation with regard to adjoining edges
     long onCmdSmoothEdgesElevation(FXObject*, FXSelector, void*);
 
+    /// @brief reset custom edge lengths
+    long onCmdResetLength(FXObject*, FXSelector, void*);
+
     /// @brief simply shape of current polygon
     long onCmdSimplifyShape(FXObject*, FXSelector, void*);
 

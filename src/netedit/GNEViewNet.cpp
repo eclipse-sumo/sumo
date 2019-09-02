@@ -133,6 +133,7 @@ FXDEFMAP(GNEViewNet) GNEViewNetMap[] = {
     FXMAPFUNC(SEL_COMMAND, MID_GNE_EDGE_SMOOTH,                             GNEViewNet::onCmdSmoothEdges),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_EDGE_STRAIGHTEN_ELEVATION,               GNEViewNet::onCmdStraightenEdgesElevation),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_EDGE_SMOOTH_ELEVATION,                   GNEViewNet::onCmdSmoothEdgesElevation),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_EDGE_RESET_LENGTH,                       GNEViewNet::onCmdResetLength),
     // Lanes
     FXMAPFUNC(SEL_COMMAND, MID_GNE_LANE_DUPLICATE,                          GNEViewNet::onCmdDuplicateLane),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_LANE_RESET_CUSTOMSHAPE,                  GNEViewNet::onCmdResetLaneCustomShape),
@@ -1368,6 +1369,25 @@ GNEViewNet::onCmdSmoothEdgesElevation(FXObject*, FXSelector, void*) {
             myUndoList->p_begin("smooth edge elevation");
             edge->smoothElevation(myUndoList);
             myUndoList->p_end();
+        }
+    }
+    return 1;
+}
+
+
+long
+GNEViewNet::onCmdResetLength(FXObject*, FXSelector, void*) {
+    GNEEdge* edge = getEdgeAtPopupPosition();
+    if (edge != nullptr) {
+        if (edge->isAttributeCarrierSelected()) {
+            myUndoList->p_begin("reset edge lengthss");
+            std::vector<GNEEdge*> edges = myNet->retrieveEdges(true);
+            for (auto it : edges) {
+                it->setAttribute(SUMO_ATTR_LENGTH, "-1", myUndoList);
+            }
+            myUndoList->p_end();
+        } else {
+            edge->setAttribute(SUMO_ATTR_LENGTH, "-1", myUndoList);
         }
     }
     return 1;
