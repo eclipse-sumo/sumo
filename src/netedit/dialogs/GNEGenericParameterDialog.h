@@ -25,6 +25,7 @@
 
 #include <utils/common/SUMOVehicleClass.h>
 #include <utils/xml/SUMOSAXHandler.h>
+#include <netedit/frames/GNEFrameAttributesModuls.h>
 
 // ===========================================================================
 // class definitions
@@ -57,19 +58,13 @@ public:
 
     public:
         /// @brief constructor
-        GenericParametersValues(FXHorizontalFrame* frame, std::vector<std::pair<std::string, std::string> >* genericParameters);
+        GenericParametersValues(FXHorizontalFrame* frame, GNEGenericParameterDialog *genericParameterDialogParent);
 
         /// @brief destructor
         ~GenericParametersValues();
 
         /// @brief update values
         void updateValues();
-
-        /// @brief get current edited generic parameters
-        const std::vector<std::pair<std::string, std::string> >* getGenericParameters() const;
-
-        /// @brief get a copy of current edited generic parameters
-        std::vector<std::pair<std::string, std::string> > getCopyOfGenericParameters() const;
 
         /// @brief set generic parameters
         void setGenericParameters(const std::vector<std::pair<std::string, std::string> >& newGenericParameters);
@@ -145,8 +140,8 @@ public:
         /// @brief vector with the GenericParameterRows
         std::vector<GenericParameterRow*> myGenericParameterRows;
 
-        /// @brief edited generic parameters
-        std::vector<std::pair<std::string, std::string> >* myGenericParameters;
+        /// @brief pointer to genericParameterDialog parent
+        GNEGenericParameterDialog *myGenericParameterDialogParent;
     };
 
     // ===========================================================================
@@ -159,7 +154,7 @@ public:
 
     public:
         /// @brief constructor
-        GenericParametersOptions(FXHorizontalFrame* frame, GNEGenericParameterDialog* genericParameterDialogParent);
+        GenericParametersOptions(FXHorizontalFrame* frame, GNEGenericParameterDialog *genericParameterDialogParent);
 
         /// @brief destructor
         ~GenericParametersOptions();
@@ -194,7 +189,7 @@ public:
         class GNEGenericParameterHandler : public SUMOSAXHandler {
         public:
             /// @brief Constructor
-            GNEGenericParameterHandler(GNEGenericParameterDialog* genericParameterDialogParent, const std::string& file);
+            GNEGenericParameterHandler(GenericParametersOptions* genericParametersOptionsParent, const std::string& file);
 
             /// @brief Destructor
             ~GNEGenericParameterHandler();
@@ -210,8 +205,8 @@ public:
             void myStartElement(int element, const SUMOSAXAttributes& attrs);
 
         private:
-            /// @brief pointer to genericParameterDialog parent
-            GNEGenericParameterDialog* myGenericParameterDialogParent;
+            /// @brief pointer to GenericParametersOptions parent
+            GenericParametersOptions* myGenericParametersOptionsParent;
         };
 
         /// @brief pointer to Shape Frame Parent
@@ -234,7 +229,7 @@ public:
     };
 
     /// @brief Constructor
-    GNEGenericParameterDialog(GNEViewNet* viewNet, std::vector<std::pair<std::string, std::string> >* genericParameters);
+    GNEGenericParameterDialog(GNEFrameAttributesModuls::GenericParametersEditor *genericParametersEditor);
 
     /// @brief destructor
     ~GNEGenericParameterDialog();
@@ -255,8 +250,14 @@ protected:
     /// @brief FOX needs this
     GNEGenericParameterDialog() {}
 
-    /// @pointer to viewNet
-    GNEViewNet* myViewNet;
+    /// @brief pointer to GenericParametersEditor
+    GNEFrameAttributesModuls::GenericParametersEditor *myGenericParametersEditor;
+
+    /// @brief pointer to generic parameters values
+    GenericParametersValues* myGenericParametersValues;
+
+    /// @brief pointer to generic parameters options
+    GenericParametersOptions* myGenericParametersOptions;
 
     /// @brief accept button
     FXButton* myAcceptButton;
@@ -267,17 +268,13 @@ protected:
     /// @brief cancel button
     FXButton* myResetButton;
 
-private:
-
-    /// @brief pointer to generic parameters values
-    GenericParametersValues* myGenericParametersValues;
-
-    /// @brief pointer to generic parameters options
-    GenericParametersOptions* myGenericParametersOptions;
+    /// @brief current edited generic parameters
+    std::vector<std::pair<std::string, std::string> > myEditedGenericParameters;
 
     // @brief copy of current edited Generic Parameters (used for reset)
     const std::vector<std::pair<std::string, std::string> > myCopyOfGenericParameters;
 
+private:
     /// @brief Invalidated copy constructor.
     GNEGenericParameterDialog(const GNEGenericParameterDialog&) = delete;
 
