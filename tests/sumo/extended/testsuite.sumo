@@ -13,6 +13,9 @@ wauts
 # Tests whether stops work
 stops
 
+# test waypoint definition (stops with speed > 0)
+waypoints
+
 # vehicle removal via vaporizer
 vaporizer
 
