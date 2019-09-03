@@ -8,14 +8,13 @@ permalink: /OD2TRIPS/
 **OD2TRIPS** imports O/D-matrices and splits them into single vehicle
 trips.
 
-  -
-    **Purpose:** Conversion of O/D-matrices to single vehicle trips
-    **System:** portable (Linux/Windows is tested); runs on command line
-      - **Input (mandatory):**
-        A) O/D-Matrix
-        B) a set of districts
-    **Output:** A list of vehicle trip definitions
-    **Programming Language:** C++
+- **Purpose:** Conversion of O/D-matrices to single vehicle trips
+- **System:** portable (Linux/Windows is tested); runs on command line
+- **Input (mandatory):**
+  - A) O/D-Matrix
+  - B) a set of districts
+- **Output:** A list of vehicle trip definitions
+- **Programming Language:** C++
 
 # Usage Description
 
@@ -34,364 +33,105 @@ configuration:
 All applications of the **SUMO**-suite handle configuration options the
 same way. These options are discussed at [Basics/Using the Command Line
 Applications\#Configuration
-Files](Basics/Using_the_Command_Line_Applications#Configuration_Files.md).
+Files](Basics/Using_the_Command_Line_Applications.md#configuration_files).
 
-<table>
-<thead>
-<tr class="header">
-<th><p>Option</p></th>
-<th><p>Description</p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><p><br />
-</p></td>
-<td><p>Loads the named config on startup</p></td>
-</tr>
-<tr class="even">
-<td><p><br />
-</p></td>
-<td><p>Saves current configuration into FILE</p></td>
-</tr>
-<tr class="odd">
-<td></td>
-<td><p>Saves a configuration template (empty) into FILE</p></td>
-</tr>
-<tr class="even">
-<td></td>
-<td><p>Saves the configuration schema into FILE</p></td>
-</tr>
-<tr class="odd">
-<td></td>
-<td><p>Adds comments to saved template, configuration, or schema; <em>default: <strong>false</strong></em></p></td>
-</tr>
-<tr class="even">
-<td></td>
-<td></td>
-</tr>
-</tbody>
-</table>
+| Option                                   | Description                                                               |
+|------------------------------------------|---------------------------------------------------------------------------|
+| **-c** {{DT_FILE}}<br>**--configuration-file** {{DT_FILE}} | Loads the named config on startup                                         |
+| **-C** {{DT_FILE}}<br>**--save-configuration** {{DT_FILE}} | Saves current configuration into FILE                                     |
+| **--save-template** {{DT_FILE}}                   | Saves a configuration template (empty) into FILE                          |
+| **--save-schema** {{DT_FILE}}                     | Saves the configuration schema into FILE                                  |
+| **--save-commented** {{DT_BOOL}}                  | Adds comments to saved template, configuration, or schema; *default: **false*** |
 
 ### Input
 
-<table>
-<thead>
-<tr class="header">
-<th><p>Option</p></th>
-<th><p>Description</p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><p><br />
-</p></td>
-<td><p>Loads TAZ (districts; also from networks) from FILE(s)</p></td>
-</tr>
-<tr class="even">
-<td><p><br />
-</p></td>
-<td><p>Loads O/D-files from FILE(s)</p></td>
-</tr>
-<tr class="odd">
-<td></td>
-<td><p>Loads O/D-matrix in Amitran format from FILE(s)</p></td>
-</tr>
-<tr class="even">
-<td></td>
-<td></td>
-</tr>
-</tbody>
-</table>
+| Option                                | Description                                            |
+|---------------------------------------|--------------------------------------------------------|
+| **-n** {{DT_FILE}}<br>**--taz-files** {{DT_FILE}}       | Loads TAZ (districts; also from networks) from FILE(s) |
+| **-d** {{DT_FILE}}<br>**--od-matrix-files** {{DT_FILE}} | Loads O/D-files from FILE(s)                           |
+| **--od-amitran-files** {{DT_FILE}}             | Loads O/D-matrix in Amitran format from FILE(s)        |
 
 ### Output
 
-<table>
-<thead>
-<tr class="header">
-<th><p>Option</p></th>
-<th><p>Description</p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td></td>
-<td><p>Include license info into every output file; <em>default: <strong>false</strong></em></p></td>
-</tr>
-<tr class="even">
-<td></td>
-<td><p>Prefix which is applied to all output files. The special string 'TIME' is replaced by the current time.</p></td>
-</tr>
-<tr class="odd">
-<td></td>
-<td><p>Defines the number of digits after the comma for floating point output; <em>default: <strong>2</strong></em></p></td>
-</tr>
-<tr class="even">
-<td></td>
-<td><p>Defines the number of digits after the comma for lon,lat output; <em>default: <strong>6</strong></em></p></td>
-</tr>
-<tr class="odd">
-<td><p><br />
-</p></td>
-<td><p>Write time values as hour:minute:second or day:hour:minute:second rathern than seconds; <em>default: <strong>false</strong></em></p></td>
-</tr>
-<tr class="even">
-<td><p><br />
-</p></td>
-<td><p>Writes trip definitions into FILE</p></td>
-</tr>
-<tr class="odd">
-<td></td>
-<td><p>Writes flow definitions into FILE</p></td>
-</tr>
-<tr class="even">
-<td></td>
-<td><p>Writes probabilistic flow instead of evenly spaced flow; <em>default: <strong>false</strong></em></p></td>
-</tr>
-<tr class="odd">
-<td></td>
-<td><p>Writes pedestrians instead of vehicles; <em>default: <strong>false</strong></em></p></td>
-</tr>
-<tr class="even">
-<td></td>
-<td><p>Writes persontrips instead of vehicles; <em>default: <strong>false</strong></em></p></td>
-</tr>
-<tr class="odd">
-<td></td>
-<td><p>Does not save vtype information; <em>default: <strong>false</strong></em></p></td>
-</tr>
-<tr class="even">
-<td></td>
-<td></td>
-</tr>
-</tbody>
-</table>
+| Option  | Description  |
+|---|---|
+| **--write-license** {{DT_BOOL}}  | Include license info into every output file; *default: **false***  |
+| **--output-prefix** {{DT_STR}}  | Prefix which is applied to all output files. The special string 'TIME' is replaced by the current time.  |
+| **--precision** {{DT_INT}}  | Defines the number of digits after the comma for floating point output; *default: **2***  |
+| **--precision.geo** {{DT_INT}}  | Defines the number of digits after the comma for lon,lat output; *default: **6***  |
+| **-H** {{DT_BOOL}}<br>**--human-readable-time** {{DT_BOOL}}  | Write time values as hour:minute:second or day:hour:minute:second rathern than seconds; *default: **false***  |
+| **-o** {{DT_FILE}}<br>**--output-file** {{DT_FILE}}  | Writes trip definitions into FILE  |
+| **--flow-output** {{DT_FILE}}  | Writes flow definitions into FILE  |
+| **--flow-output.probability** {{DT_BOOL}}  | Writes probabilistic flow instead of evenly spaced flow; *default: **false***  |
+| **--pedestrians** {{DT_BOOL}}  | Writes pedestrians instead of vehicles; *default: **false***  |
+| **--persontrips** {{DT_BOOL}}  | Writes persontrips instead of vehicles; *default: **false***  |
+| **--ignore-vehicle-type** {{DT_BOOL}}  | Does not save vtype information; *default: **false***  |
 
 ### Time
 
-<table>
-<thead>
-<tr class="header">
-<th><p>Option</p></th>
-<th><p>Description</p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><p><br />
-</p></td>
-<td><p>Defines the begin time; Previous trips will be discarded; <em>default: <strong>0</strong></em></p></td>
-</tr>
-<tr class="even">
-<td><p><br />
-</p></td>
-<td><p>Defines the end time; Later trips will be discarded; Defaults to the maximum time that SUMO can represent; <em>default: <strong>9223372036854774</strong></em></p></td>
-</tr>
-<tr class="odd">
-<td></td>
-<td></td>
-</tr>
-</tbody>
-</table>
+| Option                      | Description                                                                                                                          |
+|-----------------------------|--------------------------------------------------------------------------------------------------------------------------------------|
+| **-b** {{DT_TIME}}<br>**--begin** {{DT_TIME}} | Defines the begin time; Previous trips will be discarded; *default: **0***                                         |
+| **-e** {{DT_TIME}}<br>**--end** {{DT_TIME}}   | Defines the end time; Later trips will be discarded; Defaults to the maximum time that SUMO can represent; *default: **9223372036854774*** |
 
 ### Processing
 
-<table>
-<thead>
-<tr class="header">
-<th><p>Option</p></th>
-<th><p>Description</p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><p><br />
-</p></td>
-<td><p>Scales the loaded flows by FLOAT; <em>default: <strong>1</strong></em></p></td>
-</tr>
-<tr class="even">
-<td></td>
-<td><p>Spreads trips uniformly over each time period; <em>default: <strong>false</strong></em></p></td>
-</tr>
-<tr class="odd">
-<td></td>
-<td><p>Always choose source and sink edge which are not identical; <em>default: <strong>false</strong></em></p></td>
-</tr>
-<tr class="even">
-<td></td>
-<td><p>Defines the name of the vehicle type to use</p></td>
-</tr>
-<tr class="odd">
-<td></td>
-<td><p>Defines the prefix for vehicle names</p></td>
-</tr>
-<tr class="even">
-<td></td>
-<td><p>Uses STR as a timeline definition</p></td>
-</tr>
-<tr class="odd">
-<td></td>
-<td><p>Uses STR as a 24h-timeline definition; <em>default: <strong>false</strong></em></p></td>
-</tr>
-<tr class="even">
-<td></td>
-<td><p>Disable console output of current time step; <em>default: <strong>false</strong></em></p></td>
-</tr>
-<tr class="odd">
-<td></td>
-<td></td>
-</tr>
-</tbody>
-</table>
+| Option                         | Description                                                                |
+|--------------------------------|----------------------------------------------------------------------------|
+| **-s** {{DT_FLOAT}}<br>**--scale** {{DT_FLOAT}}  | Scales the loaded flows by FLOAT; *default: **1***                               |
+| **--spread.uniform** {{DT_BOOL}}        | Spreads trips uniformly over each time period; *default: **false***              |
+| **--different-source-sink** {{DT_BOOL}} | Always choose source and sink edge which are not identical; *default: **false*** |
+| **--vtype** {{DT_STR}}               | Defines the name of the vehicle type to use                                |
+| **--prefix** {{DT_STR}}              | Defines the prefix for vehicle names                                       |
+| **--timeline** {{DT_STR}}            | Uses STR as a timeline definition                                          |
+| **--timeline.day-in-hours** {{DT_BOOL}} | Uses STR as a 24h-timeline definition; *default: **false***                      |
+| **--no-step-log** {{DT_BOOL}}           | Disable console output of current time step; *default: **false***                |
 
 ### Defaults
 
-<table>
-<thead>
-<tr class="header">
-<th><p>Option</p></th>
-<th><p>Description</p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td></td>
-<td><p>Assigns a default depart lane; <em>default: <strong>free</strong></em></p></td>
-</tr>
-<tr class="even">
-<td></td>
-<td><p>Assigns a default depart position</p></td>
-</tr>
-<tr class="odd">
-<td></td>
-<td><p>Assigns a default depart speed; <em>default: <strong>max</strong></em></p></td>
-</tr>
-<tr class="even">
-<td></td>
-<td><p>Assigns a default arrival lane</p></td>
-</tr>
-<tr class="odd">
-<td></td>
-<td><p>Assigns a default arrival position</p></td>
-</tr>
-<tr class="even">
-<td></td>
-<td><p>Assigns a default arrival speed</p></td>
-</tr>
-<tr class="odd">
-<td></td>
-<td></td>
-</tr>
-</tbody>
-</table>
+| Option                  | Description                                  |
+|-------------------------|----------------------------------------------|
+| **--departlane** {{DT_STR}}   | Assigns a default depart lane; *default: **free*** |
+| **--departpos** {{DT_STR}}    | Assigns a default depart position            |
+| **--departspeed** {{DT_STR}}  | Assigns a default depart speed; *default: **max*** |
+| **--arrivallane** {{DT_STR}}  | Assigns a default arrival lane               |
+| **--arrivalpos** {{DT_STR}}   | Assigns a default arrival position           |
+| **--arrivalspeed** {{DT_STR}} | Assigns a default arrival speed              |
 
 ### Report
 
 All applications of the **SUMO**-suite handle most of the reporting
 options the same way. These options are discussed at [Basics/Using the
 Command Line Applications\#Reporting
-Options](Basics/Using_the_Command_Line_Applications#Reporting_Options.md).
+Options](Basics/Using_the_Command_Line_Applications.md#reporting_options).
 
-<table>
-<thead>
-<tr class="header">
-<th><p>Option</p></th>
-<th><p>Description</p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><p><br />
-</p></td>
-<td><p>Switches to verbose output; <em>default: <strong>false</strong></em></p></td>
-</tr>
-<tr class="even">
-<td></td>
-<td><p>Prints option values before processing; <em>default: <strong>false</strong></em></p></td>
-</tr>
-<tr class="odd">
-<td><p><br />
-</p></td>
-<td><p>Prints this screen; <em>default: <strong>false</strong></em></p></td>
-</tr>
-<tr class="even">
-<td><p><br />
-</p></td>
-<td><p>Prints the current version; <em>default: <strong>false</strong></em></p></td>
-</tr>
-<tr class="odd">
-<td><p><br />
-</p></td>
-<td><p>Set schema validation scheme of XML inputs ("never", "auto" or "always"); <em>default: <strong>auto</strong></em></p></td>
-</tr>
-<tr class="even">
-<td></td>
-<td><p>Set schema validation scheme of SUMO network inputs ("never", "auto" or "always"); <em>default: <strong>never</strong></em></p></td>
-</tr>
-<tr class="odd">
-<td><p><br />
-</p></td>
-<td><p>Disables output of warnings; <em>default: <strong>false</strong></em></p></td>
-</tr>
-<tr class="even">
-<td><p><br />
-</p></td>
-<td><p>Writes all messages to FILE (implies verbose)</p></td>
-</tr>
-<tr class="odd">
-<td></td>
-<td><p>Writes all non-error messages to FILE (implies verbose)</p></td>
-</tr>
-<tr class="even">
-<td></td>
-<td><p>Writes all warnings and errors to FILE</p></td>
-</tr>
-<tr class="odd">
-<td></td>
-<td><p>Continue on broken input; <em>default: <strong>false</strong></em></p></td>
-</tr>
-<tr class="even">
-<td></td>
-<td></td>
-</tr>
-</tbody>
-</table>
+| Option  | Description  |
+|---|---|
+| **-v** {{DT_BOOL}}<br>**--verbose** {{DT_BOOL}}  | Switches to verbose output; *default: **false***  |
+| **--print-options** {{DT_BOOL}}  | Prints option values before processing; *default: **false***  |
+| **-?** {{DT_BOOL}}<br>**--help** {{DT_BOOL}}  | Prints this screen; *default: **false***  |
+| **-V** {{DT_BOOL}}<br>**--version** {{DT_BOOL}}  | Prints the current version; *default: **false***  |
+| **-X** {{DT_STR}}<br>**--xml-validation** {{DT_STR}}  | Set schema validation scheme of XML inputs ("never", "auto" or "always"); *default: **auto***  |
+| **--xml-validation.net** {{DT_STR}}  | Set schema validation scheme of SUMO network inputs ("never", "auto" or "always"); *default: **never***  |
+| **-W** {{DT_BOOL}}<br>**--no-warnings** {{DT_BOOL}}  | Disables output of warnings; *default: **false***  |
+| **-l** {{DT_FILE}}<br>**--log** {{DT_FILE}}  | Writes all messages to FILE (implies verbose)  |
+| **--message-log** {{DT_FILE}}  | Writes all non-error messages to FILE (implies verbose)  |
+| **--error-log** {{DT_FILE}}  | Writes all warnings and errors to FILE  |
+| **--ignore-errors** {{DT_BOOL}}  | Continue on broken input; *default: **false***  |
 
 ### Random Number
 
 All applications of the **SUMO**-suite handle randomisation options the
 same way. These options are discussed at [Basics/Using the Command Line
 Applications\#Random Number
-Options](Basics/Using_the_Command_Line_Applications#Random_Number_Options.md).
+Options](Basics/Using_the_Command_Line_Applications.md#random_number_options).
 
-<table>
-<thead>
-<tr class="header">
-<th><p>Option</p></th>
-<th><p>Description</p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td></td>
-<td><p>Initialises the random number generator with the current system time; <em>default: <strong>false</strong></em></p></td>
-</tr>
-<tr class="even">
-<td></td>
-<td><p>Initialises the random number generator with the given value; <em>default: <strong>23423</strong></em></p></td>
-</tr>
-<tr class="odd">
-<td></td>
-<td></td>
-</tr>
-</tbody>
-</table>
+| Option          | Description                                                                          |
+|-----------------|--------------------------------------------------------------------------------------|
+| **--random** {{DT_BOOL}} | Initialises the random number generator with the current system time; *default: **false*** |
+| **--seed** {{DT_INT}}    | Initialises the random number generator with the given value; *default: **23423***         |
 
 # Notes
 
 The option --vtype only works when "--od-matrix-files" is used. For
 "Amitran" format, this is given by the "id" property of "actorConfig".
-
------
-
-[Category:ApplicationDescription](Category:ApplicationDescription.md)

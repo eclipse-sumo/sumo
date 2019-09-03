@@ -1,5 +1,5 @@
 ---
-title: Networks Import OpenStreetMapDownload
+title: Networks/Import/OpenStreetMapDownload
 permalink: /Networks/Import/OpenStreetMapDownload/
 ---
 
@@ -24,13 +24,13 @@ inter-modal simulations.
 
 This page describes how OpenStreetMap data can be obtained. OSM data
 must be converted before it can be used with Sumo (see
-[Networks/Import/OpenStreetMap](Networks/Import/OpenStreetMap.md)).
-The page [OpenStreetMap file](OpenStreetMap_file.md) gives
+[Networks/Import/OpenStreetMap](../../Networks/Import/OpenStreetMap.md)).
+The page [OpenStreetMap file](../../OpenStreetMap_file.md) gives
 further general information on the data format.
 
 # Downloading a small rectangular area
 
-## Using the [osmWebWizard](Tools/Import/OSM.md)
+## Using the [osmWebWizard](../../Tools/Import/OSM.md)
 
 Data can be downloaded by selecting an area in the browser. In addition
 to downloading and building the network, demand for various traffic
@@ -72,8 +72,10 @@ page](http://www.openstreetmap.de/karte.html) by pointing your mouse at
 the appropriate map location and observing the coordinates in the status
 bar. The inner city of Berlin lies within the following coordinates:
 
-`SW-corner: 13.278 52.473`
-`NE-corner: 13.471 52.552`
+```
+SW-corner: 13.278 52.473
+NE-corner: 13.471 52.552
+```
 
 ## Download the area
 
@@ -82,20 +84,26 @@ adress)](http://en.wikipedia.org/wiki/Uniform_Resource_Identifier) from
 the geo-coordinates and download the data from that URI. The URI takes
 the following form:
 
-<http://api.openstreetmap.org/api/0.6/map?bbox=>`<SW-longitude,SW-latitude,NE-longitude,NE-latitude>`
+```
+http://api.openstreetmap.org/api/0.6/map?bbox=<SW-longitude,SW-latitude,NE-longitude,NE-latitude>
+```
 
 for the above example this becomes
 
-<http://api.openstreetmap.org/api/0.6/map?bbox=13.278,52.473,13.471,52.552>
+```
+http://api.openstreetmap.org/api/0.6/map?bbox=13.278,52.473,13.471,52.552
+```
 
 you can download your data by entering the URI in a web-browers or by
 using another program such as [wget](http://wget.addictivecode.org/).
 
-`wget.exe "`<http://api.openstreetmap.org/api/0.6/map?bbox=13.278,52.473,13.471,52.552>`" -O berlin.osm.xml`
+```
+wget.exe "http://api.openstreetmap.org/api/0.6/map?bbox=13.278,52.473,13.471,52.552" -O berlin.osm.xml
+```
 
 **Important:** the API version number *0.6* will eventually be outdated.
 Refer to the [openstreetmap API
-page](http://wiki.openstreetmap.org/wiki/API) for the latest version..
+page](http://wiki.openstreetmap.org/wiki/API) for the latest version.
 
 # Downloading a City
 
@@ -161,7 +169,7 @@ your query.
  </relation>
 ```
 
-The important parts of result data are the <relation id="..."> elements.
+The important parts of result data are the `<relation id="...">` elements.
 This `id` attribute will be used to download the OSM-data for your
 chosen city.
 
@@ -200,7 +208,7 @@ page](http://www.overpass-api.de/query_form.html).
  </osm-script>
 ```
 
-Replace the number for the <area-query ref="..."> by the number from
+Replace the number for the `<area-query ref="...">` by the number from
 above and click the accompanying button "Download". This will prompt you
 to download or open a file containing the OSM-data for your city.
 
@@ -220,17 +228,22 @@ about 60GB of RAM\!
 ## Custom Areas
 
 The OpenStreetMap-API still limits the size of an area to extract. The
-help script *osmGet.py* located within /tools/import/osm allows to
+help script *osmGet.py* located within {{SUMO}}/tools/import/osm allows to
 extract a larger area by splitting the requests. The call is:
 
-`osmGet.py `<PREFIX>` `<BOUNDING_BOX>` `<TILES_NUMBER>
+```
+osmGet.py <PREFIX> <BOUNDING_BOX> <TILES_NUMBER>
+```
 
 The bounding box must be given as
-<LAT_MIN>,<LONG_MIN>,<LAT_MAX>,<LONG_MAX>.
+<LAT_MIN\>,<LONG_MIN\>,<LAT_MAX\>,<LONG_MAX\>.
 
-This script will extract OSM-data as *n* files with *n* =<TILES_NUMBER>,
-named "<PREFIX><INDEX>_<TILES_NUMBER>.osm.xml". These files can be
+!!! note
+    "wget" must be installed and located in the execution path.
+
+This script will extract OSM-data as *n* files with *n* =<TILES_NUMBER\>,
+named "<PREFIX\><INDEX\>_<TILES_NUMBER\>.osm.xml". These files can be
 imported by the scripts *osmBuild.Py* and *osmBuildPolys.py*, also
-located in /tools/import/osm. This is described in
+located in {{SUMO}}/tools/import/osm. This is described in
 [Networks/Import/OpenStreetMap\#Import
-Scripts](Networks/Import/OpenStreetMap#Import_Scripts.md).
+Scripts](../../Networks/Import/OpenStreetMap.md#import_scripts).
