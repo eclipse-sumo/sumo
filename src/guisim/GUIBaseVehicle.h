@@ -322,11 +322,11 @@ public:
     /// @}
 
     /// @brief sets the color according to the current scheme index and some vehicle function
-    static bool setFunctionalColor(int activeScheme, const MSBaseVehicle* veh);
+    static bool setFunctionalColor(int activeScheme, const MSBaseVehicle* veh, RGBColor& col);
 
 protected:
     /// @brief sets the color according to the currente settings
-    void setColor(const GUIVisualizationSettings& s) const;
+    RGBColor setColor(const GUIVisualizationSettings& s) const;
 
     /// @brief returns the seat position for the person with the given index
     const Position& getSeatPosition(int personIndex) const;

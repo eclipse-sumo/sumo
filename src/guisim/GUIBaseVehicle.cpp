@@ -560,65 +560,68 @@ GUIBaseVehicle::drawLinkItem(const Position& pos, SUMOTime arrivalTime, SUMOTime
 }
 
 
-void
+RGBColor
 GUIBaseVehicle::setColor(const GUIVisualizationSettings& s) const {
+    RGBColor col;
     const GUIColorer& c = s.vehicleColorer;
-    if (!setFunctionalColor(c.getActive(), &myVehicle)) {
-        GLHelper::setColor(c.getScheme().getColor(getColorValue(s, c.getActive())));
+    if (!setFunctionalColor(c.getActive(), &myVehicle, col)) {
+        col = c.getScheme().getColor(getColorValue(s, c.getActive()));
     }
+    GLHelper::setColor(col);
+    return col;
 }
 
 
 bool
-GUIBaseVehicle::setFunctionalColor(int activeScheme, const MSBaseVehicle* veh) {
+GUIBaseVehicle::setFunctionalColor(int activeScheme, const MSBaseVehicle* veh, RGBColor& col) {
     switch (activeScheme) {
         case 0: {
             //test for emergency vehicle
             if (veh->getVehicleType().getGuiShape() == SVS_EMERGENCY) {
-                GLHelper::setColor(RGBColor::WHITE);
+                col = RGBColor::WHITE;
                 return true;
             }
             //test for firebrigade
             if (veh->getVehicleType().getGuiShape() == SVS_FIREBRIGADE) {
-                GLHelper::setColor(RGBColor::RED);
+                col = RGBColor::RED;
                 return true;
             }
             //test for police car
             if (veh->getVehicleType().getGuiShape() == SVS_POLICE) {
-                GLHelper::setColor(RGBColor::BLUE);
+                col = RGBColor::BLUE;
                 return true;
             }
             if (veh->getParameter().wasSet(VEHPARS_COLOR_SET)) {
-                GLHelper::setColor(veh->getParameter().color);
+                col = veh->getParameter().color;
                 return true;
             }
             if (veh->getVehicleType().wasSet(VTYPEPARS_COLOR_SET)) {
-                GLHelper::setColor(veh->getVehicleType().getColor());
+                col = veh->getVehicleType().getColor();
                 return true;
             }
             if (&(veh->getRoute().getColor()) != &RGBColor::DEFAULT_COLOR) {
-                GLHelper::setColor(veh->getRoute().getColor());
+                col = veh->getRoute().getColor();
                 return true;
             }
             return false;
         }
         case 2: {
             if (veh->getParameter().wasSet(VEHPARS_COLOR_SET)) {
-                GLHelper::setColor(veh->getParameter().color);
+                col = veh->getParameter().color;
                 return true;
             }
             return false;
         }
         case 3: {
             if (veh->getVehicleType().wasSet(VTYPEPARS_COLOR_SET)) {
-                GLHelper::setColor(veh->getVehicleType().getColor());
+                col = veh->getVehicleType().getColor();
                 return true;
             }
             return false;
         }
         case 4: {
             if (&(veh->getRoute().getColor()) != &RGBColor::DEFAULT_COLOR) {
-                GLHelper::setColor(veh->getRoute().getColor());
+                col = veh->getRoute().getColor();
                 return true;
             }
             return false;
@@ -629,7 +632,7 @@ GUIBaseVehicle::setFunctionalColor(int activeScheme, const MSBaseVehicle* veh) {
             Position center = b.getCenter();
             double hue = 180. + atan2(center.x() - p.x(), center.y() - p.y()) * 180. / M_PI;
             double sat = p.distanceTo(center) / center.distanceTo(Position(b.xmin(), b.ymin()));
-            GLHelper::setColor(RGBColor::fromHSV(hue, sat, 1.));
+            col = RGBColor::fromHSV(hue, sat, 1.);
             return true;
         }
         case 6: {
@@ -638,7 +641,7 @@ GUIBaseVehicle::setFunctionalColor(int activeScheme, const MSBaseVehicle* veh) {
             Position center = b.getCenter();
             double hue = 180. + atan2(center.x() - p.x(), center.y() - p.y()) * 180. / M_PI;
             double sat = p.distanceTo(center) / center.distanceTo(Position(b.xmin(), b.ymin()));
-            GLHelper::setColor(RGBColor::fromHSV(hue, sat, 1.));
+            col = RGBColor::fromHSV(hue, sat, 1.);
             return true;
         }
         case 7: {
@@ -649,14 +652,14 @@ GUIBaseVehicle::setFunctionalColor(int activeScheme, const MSBaseVehicle* veh) {
             Position minp(b.xmin(), b.ymin());
             Position maxp(b.xmax(), b.ymax());
             double sat = pb.distanceTo(pe) / minp.distanceTo(maxp);
-            GLHelper::setColor(RGBColor::fromHSV(hue, sat, 1.));
+            col = RGBColor::fromHSV(hue, sat, 1.);
             return true;
         }
         case 30: { // color randomly (by pointer hash)
             std::hash<const MSBaseVehicle*> ptr_hash;
             const double hue = (double)(ptr_hash(veh) % 360); // [0-360]
             const double sat = ((ptr_hash(veh) / 360) % 67) / 100.0 + 0.33; // [0.33-1]
-            GLHelper::setColor(RGBColor::fromHSV(hue, sat, 1.));
+            col = RGBColor::fromHSV(hue, sat, 1.);
             return true;
         }
     }
@@ -690,26 +693,7 @@ GUIBaseVehicle::removeActiveAddVisualisation(GUISUMOAbstractView* const parent, 
 
 void
 GUIBaseVehicle::drawRoute(const GUIVisualizationSettings& s, int routeNo, double darken, bool future) const {
-    setColor(s);
-    GLdouble colors[4];
-    glGetDoublev(GL_CURRENT_COLOR, colors);
-    colors[0] -= darken;
-    if (colors[0] < 0) {
-        colors[0] = 0;
-    }
-    colors[1] -= darken;
-    if (colors[1] < 0) {
-        colors[1] = 0;
-    }
-    colors[2] -= darken;
-    if (colors[2] < 0) {
-        colors[2] = 0;
-    }
-    colors[3] -= darken;
-    if (colors[3] < 0) {
-        colors[3] = 0;
-    }
-    glColor3dv(colors);
+    GLHelper::setColor(setColor(s).changedBrightness(darken * -255));
     if (routeNo == 0) {
         drawRouteHelper(s, myVehicle.getRoute(), future);
         return;
