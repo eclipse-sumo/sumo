@@ -1,3 +1,10 @@
+REM Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+REM Copyright (C) 2008-2019 German Aerospace Center (DLR) and others.
+REM This program and the accompanying materials
+REM are made available under the terms of the Eclipse Public License v2.0
+REM which accompanies this distribution, and is available at
+REM http://www.eclipse.org/legal/epl-v20.html
+REM SPDX-License-Identifier: EPL-2.0
 set TEXTTEST_HOME=%~dp0
 IF "%SUMO_HOME%"=="" SET SUMO_HOME=%~dp0\..
 set ACTIVITYGEN_BINARY=%~dp0\..\bin\activitygen%1.exe
@@ -19,3 +26,5 @@ set PYTHON=python
 SET TEXTTESTPY=texttest.py
 python -c "import texttestlib"
 IF NOT ERRORLEVEL 1 SET TEXTTESTPY=texttest.pyw
+where.exe texttest.exe > NUL 2> NUL
+IF NOT ERRORLEVEL 1 SET TEXTTESTPY=texttest.exe
