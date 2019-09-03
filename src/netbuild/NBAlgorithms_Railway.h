@@ -131,7 +131,7 @@ private:
     static void addBidiEdgesForStops(NBNetBuilder& nb);
 
     /// @brief add bidi-edges to connect straight tracks
-    static void addBidiEdgesForStraightConnectivity(NBNetBuilder& nb);
+    static void addBidiEdgesForStraightConnectivity(NBNetBuilder& nb, bool geometryLike);
 
     /// recompute turning directions for both nodes of the given edge
     static void updateTurns(NBEdge* edge);
