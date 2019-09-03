@@ -78,4 +78,7 @@ person_number
 
 # person ride for restricted capacity
 capacity
+
+# person uses lines="ANY", vehicle stops at a lane rather than a busStop
+ride_ANY_stopLane
 errors
