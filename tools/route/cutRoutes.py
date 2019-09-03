@@ -33,7 +33,7 @@ import sort_routes
 if 'SUMO_HOME' in os.environ:
     tools = os.path.join(os.environ['SUMO_HOME'], 'tools')
     sys.path.append(os.path.join(tools))
-    from sumolib.output import parse, parse_fast  # noqa
+    from sumolib.xml import parse, parse_fast  # noqa
     from sumolib.net import readNet  # noqa
     import sumolib
 else:
@@ -53,7 +53,7 @@ extrapolated based on edge-lengths and maximum speeds multiplied with --speed-fa
                          default=0, help="minimum route length in the subnetwork (in #edges)")
     optParser.add_option("--min-air-dist", type='int', dest="min_air_dist",
                          default=0, help="minimum route length in the subnetwork (in meters)")
-    optParser.add_option("--routes-output", help="output route file")
+    optParser.add_option("-o", "--routes-output", help="output route file")
     optParser.add_option("--stops-output", help="output filtered stop file")
     optParser.add_option(
         "-a", "--additional-input", help="additional file (for bus stop locations)")
@@ -62,8 +62,7 @@ extrapolated based on edge-lengths and maximum speeds multiplied with --speed-fa
                               "(default 1.0)")
     optParser.add_option("--default.stop-duration", type='float', default=0.0, dest="defaultStopDuration",
                          help="default duration for stops in stand-alone routes")
-    optParser.add_option(
-        "--orig-net", help="complete network for retrieving edge lengths")
+    optParser.add_option("--orig-net", help="complete network for retrieving edge lengths")
     optParser.add_option("-b", "--big", action="store_true", default=False,
                          help="Perform out-of-memory sort using module sort_routes (slower but more memory efficient)")
     optParser.add_option("-d", "--disconnected-action", type='choice', default='discard',
@@ -98,6 +97,7 @@ extrapolated based on edge-lengths and maximum speeds multiplied with --speed-fa
 def cut_routes(aEdges, orig_net, options, busStopEdges=None):
     areaEdges = set(aEdges)
     num_vehicles = 0
+    num_persons = 0
     num_returned = 0
     missingEdgeOccurences = defaultdict(lambda: 0)
     # routes which enter the sub-scenario multiple times
@@ -114,24 +114,32 @@ def cut_routes(aEdges, orig_net, options, busStopEdges=None):
 
     for routeFile in options.routeFiles:
         print("Parsing routes from %s" % routeFile)
-        for vehicle in parse(routeFile, 'vehicle'):
-            num_vehicles += 1
-            if type(vehicle.route) == list:
-                edges = vehicle.route[0].edges.split()
-                routeRef = False
-            else:
-                newDepart = standaloneRoutesDepart.get(vehicle.route)
-                if newDepart is 'discard':
-                    # route was already checked and discared
-                    continue
-                elif newDepart is not None:
-                    # route was already treated
-                    vehicle.depart = "%.2f" % (newDepart + float(vehicle.depart))
-                    yield vehicle.depart, vehicle
-                    continue
+        for moving in parse(routeFile, ('vehicle', 'person')):
+            if moving.name == 'vehicle':
+                num_vehicles += 1
+                if type(moving.route) == list:
+                    old_route = moving.route[0]
+                    edges = old_route.edges.split()
+                    routeRef = False
                 else:
-                    routeRef = standaloneRoutes[vehicle.route]
-                    edges = routeRef.edges.split()
+                    newDepart = standaloneRoutesDepart.get(moving.route)
+                    if newDepart is 'discard':
+                        # route was already checked and discarded
+                        continue
+                    elif newDepart is not None:
+                        # route was already treated
+                        moving.depart = "%.2f" % (newDepart + float(moving.depart))
+                        yield moving.depart, moving
+                        continue
+                    else:
+                        routeRef = standaloneRoutes[moving.route]
+                        edges = routeRef.edges.split()
+            else:
+                num_persons += 1
+                if moving.walk:
+                    old_route = moving.walk[0]
+                    edges = old_route.edges.split()
+                    routeRef = False
             firstIndex = getFirstIndex(areaEdges, edges)
             if firstIndex is None:
                 continue  # route does not touch the area
@@ -170,48 +178,47 @@ def cut_routes(aEdges, orig_net, options, busStopEdges=None):
                             standaloneRoutesDepart[vehicle.route] = 'discard'
                         continue
                 # compute new departure
-                if routeRef or vehicle.route[0].exitTimes is None:
+                if routeRef or old_route.exitTimes is None:
                     if orig_net is not None:
                         # extrapolate new departure using default speed
-                        newDepart = (float(vehicle.depart) +
+                        newDepart = (float(moving.depart) +
                                      sum([(orig_net.getEdge(e).getLength() /
                                            (orig_net.getEdge(e).getSpeed() * options.speed_factor))
                                           for e in edges[:fromIndex]]))
                     else:
-                        print(
-                            "Could not reconstruct new departure time for vehicle '%s'. Using old departure time." %
-                            vehicle.id)
+                        print("Could not reconstruct new departure time for vehicle '%s'. Using old departure time." %
+                              vehicle.id)
                         newDepart = float(vehicle.depart)
                 else:
-                    exitTimes = vehicle.route[0].exitTimes.split()
-                    departTimes = [vehicle.depart] + exitTimes[:-1]
+                    exitTimes = old_route.exitTimes.split()
+                    departTimes = [moving.depart] + exitTimes[:-1]
                     teleportFactor = len(departTimes) / float(len(edges))
                     teleportFactorSum += teleportFactor
                     # assume teleports were spread evenly across the vehicles route
                     newDepart = float(departTimes[int(fromIndex * teleportFactor)])
-                    del vehicle.route[0].exitTimes
+                    del old_route.exitTimes
                 departShift = None
                 if routeRef:
-                    departShift = newDepart - float(vehicle.depart)
-                    standaloneRoutesDepart[vehicle.route] = departShift
+                    departShift = newDepart - float(moving.depart)
+                    standaloneRoutesDepart[moving.route] = departShift
                 remaining = edges[fromIndex:toIndex + 1]
-                stops = cut_stops(vehicle, busStopEdges, remaining)
+                stops = cut_stops(moving, busStopEdges, remaining)
                 if routeRef:
                     routeRef.stop = cut_stops(routeRef, busStopEdges, remaining,
                                               departShift, options.defaultStopDuration)
                     routeRef.edges = " ".join(remaining)
                     yield None, routeRef
                 else:
-                    vehicle.route[0].edges = " ".join(remaining)
-                vehicle.stop = stops
-                vehicle.depart = "%.2f" % newDepart
+                    old_route.edges = " ".join(remaining)
+                moving.stop = stops
+                moving.depart = "%.2f" % newDepart
                 if len(route_parts) > 1:
                     # return copies of the vehicle for each route part
-                    yield_veh = copy.deepcopy(vehicle)
-                    yield_veh.id = vehicle.id + "_part" + str(ix_part)
-                    yield newDepart, yield_veh
+                    yield_mov = copy.deepcopy(moving)
+                    yield_mov.id = moving.id + "_part" + str(ix_part)
+                    yield newDepart, yield_mov
                 else:
-                    yield newDepart, vehicle
+                    yield newDepart, moving
                 num_returned += 1
 
     if teleportFactorSum > 0:
@@ -220,8 +227,8 @@ def cut_routes(aEdges, orig_net, options, busStopEdges=None):
     else:
         teleports = ""
 
-    print("Parsed %s vehicles and kept %s routes%s" %
-          (num_vehicles, num_returned, teleports))
+    print("Parsed %s vehicles, %s persons and kept %s routes%s" %
+          (num_vehicles, num_persons, num_returned, teleports))
     if too_short > 0:
         print("Discarded %s routes because they have less than %s edges" %
               (too_short, options.min_length))
