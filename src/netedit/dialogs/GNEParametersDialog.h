@@ -7,15 +7,15 @@
 // http://www.eclipse.org/legal/epl-v20.html
 // SPDX-License-Identifier: EPL-2.0
 /****************************************************************************/
-/// @file    GNEGenericParameterDialog.h
+/// @file    GNEParametersDialog.h
 /// @author  Pablo Alvarez Lopez
 /// @date    Jul 2018
 /// @version $Id$
 ///
-// Dialog for edit rerouters
+// Dialog for edit parameters
 /****************************************************************************/
-#ifndef GNEGenericParameterDialog_h
-#define GNEGenericParameterDialog_h
+#ifndef GNEParametersDialog_h
+#define GNEParametersDialog_h
 
 // ===========================================================================
 // included modules
@@ -39,41 +39,41 @@ class GNEViewNet;
 // ===========================================================================
 
 /**
- * @class GNEGenericParameterDialog
- * @brief Dialog for edit generic parameters
+ * @class GNEParametersDialog
+ * @brief Dialog for edit  parameters
  */
-class GNEGenericParameterDialog : public FXDialogBox {
+class GNEParametersDialog : public FXDialogBox {
     /// @brief FOX-declaration
-    FXDECLARE(GNEGenericParameterDialog)
+    FXDECLARE(GNEParametersDialog)
 
 public:
 
     // ===========================================================================
-    // class GenericParametersValues
+    // class ParametersValues
     // ===========================================================================
 
-    class GenericParametersValues : protected FXGroupBox {
+    class ParametersValues : protected FXGroupBox {
         /// @brief FOX-declaration
-        FXDECLARE(GNEGenericParameterDialog::GenericParametersValues)
+        FXDECLARE(GNEParametersDialog::ParametersValues)
 
     public:
         /// @brief constructor
-        GenericParametersValues(FXHorizontalFrame* frame, GNEGenericParameterDialog *genericParameterDialogParent);
+        ParametersValues(FXHorizontalFrame* frame, GNEParametersDialog *ParameterDialogParent);
 
         /// @brief destructor
-        ~GenericParametersValues();
+        ~ParametersValues();
 
         /// @brief update values
         void updateValues();
 
-        /// @brief set generic parameters
-        void setGenericParameters(const std::vector<std::pair<std::string, std::string> >& newGenericParameters);
+        /// @brief set  parameters
+        void setParameters(const std::vector<std::pair<std::string, std::string> >& newParameters);
 
-        /// @brief add a single generic parameter
-        void addGenericParameter(std::pair<std::string, std::string> newGenericParameter);
+        /// @brief add a single  parameter
+        void addParameter(std::pair<std::string, std::string> newParameter);
 
-        /// @brief clear all generic parameters
-        void clearGenericParameters();
+        /// @brief clear all  parameters
+        void clearParameters();
 
         /// @name FOX-callbacks
         /// @{
@@ -90,18 +90,18 @@ public:
 
     protected:
         /// @brief FOX needs this
-        GenericParametersValues() {}
+        ParametersValues() {}
 
     private:
-        /// @brief class for generic parameters Row
-        class GenericParameterRow {
+        /// @brief class for  parameters Row
+        class ParameterRow {
 
         public:
             /// @brief constructor
-            GenericParameterRow(GenericParametersValues* genericParametersValues, FXVerticalFrame* verticalFrameParent);
+            ParameterRow(ParametersValues* ParametersValues, FXVerticalFrame* verticalFrameParent);
 
             /// @brief destructor
-            ~GenericParameterRow();
+            ~ParameterRow();
 
             /// @brief disable row
             void disableRow();
@@ -116,7 +116,7 @@ public:
             bool isButtonInAddMode() const;
 
             /// @brief copy values of other parameter Row
-            void copyValues(const GenericParameterRow& other);
+            void copyValues(const ParameterRow& other);
 
             /// @brief TextField for parameter
             FXTextField* keyField;
@@ -127,7 +127,7 @@ public:
             /// @brief Button for add or remove row
             FXButton* button;
         private:
-            /// @brief frame in which elements of GenericParameterRow are placed
+            /// @brief frame in which elements of ParameterRow are placed
             FXHorizontalFrame* horizontalFrame;
         };
 
@@ -137,80 +137,80 @@ public:
         /// @brief vertical frame in which rows are placed
         FXVerticalFrame* myVerticalFrameRow;
 
-        /// @brief vector with the GenericParameterRows
-        std::vector<GenericParameterRow*> myGenericParameterRows;
+        /// @brief vector with the ParameterRows
+        std::vector<ParameterRow*> myParameterRows;
 
-        /// @brief pointer to genericParameterDialog parent
-        GNEGenericParameterDialog *myGenericParameterDialogParent;
+        /// @brief pointer to ParameterDialog parent
+        GNEParametersDialog *myParameterDialogParent;
     };
 
     // ===========================================================================
-    // class GenericParametersOptions
+    // class ParametersOptions
     // ===========================================================================
 
-    class GenericParametersOptions : protected FXGroupBox {
+    class ParametersOptions : protected FXGroupBox {
         /// @brief FOX-declaration
-        FXDECLARE(GNEGenericParameterDialog::GenericParametersOptions)
+        FXDECLARE(GNEParametersDialog::ParametersOptions)
 
     public:
         /// @brief constructor
-        GenericParametersOptions(FXHorizontalFrame* frame, GNEGenericParameterDialog *genericParameterDialogParent);
+        ParametersOptions(FXHorizontalFrame* frame, GNEParametersDialog *ParameterDialogParent);
 
         /// @brief destructor
-        ~GenericParametersOptions();
+        ~ParametersOptions();
 
         /// @name FOX-callbacks
         /// @{
-        /// @brief event when user press load generic parameters button
-        long onCmdLoadGenericParameters(FXObject*, FXSelector, void*);
+        /// @brief event when user press load  parameters button
+        long onCmdLoadParameters(FXObject*, FXSelector, void*);
 
-        /// @brief event when user press save generic parameters button
-        long onCmdSaveGenericParameters(FXObject*, FXSelector, void*);
+        /// @brief event when user press save  parameters button
+        long onCmdSaveParameters(FXObject*, FXSelector, void*);
 
-        /// @brief event when user press clear generic parameters button
-        long onCmdClearGenericParameters(FXObject*, FXSelector, void*);
+        /// @brief event when user press clear  parameters button
+        long onCmdClearParameters(FXObject*, FXSelector, void*);
 
-        /// @brief event when user press sort generic parameters button
-        long onCmdSortGenericParameters(FXObject*, FXSelector, void*);
+        /// @brief event when user press sort  parameters button
+        long onCmdSortParameters(FXObject*, FXSelector, void*);
 
-        /// @brief event when user press help generic parameters button
-        long onCmdHelpGenericParameter(FXObject*, FXSelector, void*);
+        /// @brief event when user press help  parameters button
+        long onCmdHelpParameter(FXObject*, FXSelector, void*);
 
         /// @}
 
     protected:
         /// @brief FOX needs this
-        GenericParametersOptions() {}
+        ParametersOptions() {}
 
     private:
 
-        /// @class GNEGenericParameterHandler
-        /// @brief load generic parameters from a filename
-        class GNEGenericParameterHandler : public SUMOSAXHandler {
+        /// @class GNEParameterHandler
+        /// @brief load  parameters from a filename
+        class GNEParameterHandler : public SUMOSAXHandler {
         public:
             /// @brief Constructor
-            GNEGenericParameterHandler(GenericParametersOptions* genericParametersOptionsParent, const std::string& file);
+            GNEParameterHandler(ParametersOptions* ParametersOptionsParent, const std::string& file);
 
             /// @brief Destructor
-            ~GNEGenericParameterHandler();
+            ~GNEParameterHandler();
 
-            /// @name inherited from GenericSAXHandler
+            /// @name inherited from SAXHandler
             /// @{
             /**@brief Called on the opening of a tag;
              * @param[in] element ID of the currently opened element
              * @param[in] attrs Attributes within the currently opened element
              * @exception ProcessError If something fails
-             * @see GenericSAXHandler::myStartElement
+             * @see SAXHandler::myStartElement
              */
             void myStartElement(int element, const SUMOSAXAttributes& attrs);
 
         private:
-            /// @brief pointer to GenericParametersOptions parent
-            GenericParametersOptions* myGenericParametersOptionsParent;
+            /// @brief pointer to ParametersOptions parent
+            ParametersOptions* myParametersOptionsParent;
         };
 
         /// @brief pointer to Shape Frame Parent
-        GNEGenericParameterDialog* myGenericParameterDialogParent;
+        GNEParametersDialog* myParameterDialogParent;
 
         /// @brief sort button
         FXButton* mySortButton;
@@ -229,10 +229,10 @@ public:
     };
 
     /// @brief Constructor
-    GNEGenericParameterDialog(GNEFrameAttributesModuls::GenericParametersEditor *genericParametersEditor);
+    GNEParametersDialog(GNEFrameAttributesModuls::GenericParametersEditor *ParametersEditor);
 
     /// @brief destructor
-    ~GNEGenericParameterDialog();
+    ~GNEParametersDialog();
 
     /// @name FOX-callbacks
     /// @{
@@ -248,16 +248,16 @@ public:
 
 protected:
     /// @brief FOX needs this
-    GNEGenericParameterDialog() {}
+    GNEParametersDialog() {}
 
-    /// @brief pointer to GenericParametersEditor
-    GNEFrameAttributesModuls::GenericParametersEditor *myGenericParametersEditor;
+    /// @brief pointer to ParametersEditor
+    GNEFrameAttributesModuls::GenericParametersEditor *myParametersEditor;
 
-    /// @brief pointer to generic parameters values
-    GenericParametersValues* myGenericParametersValues;
+    /// @brief pointer to  parameters values
+    ParametersValues* myParametersValues;
 
-    /// @brief pointer to generic parameters options
-    GenericParametersOptions* myGenericParametersOptions;
+    /// @brief pointer to  parameters options
+    ParametersOptions* myParametersOptions;
 
     /// @brief accept button
     FXButton* myAcceptButton;
@@ -268,18 +268,18 @@ protected:
     /// @brief cancel button
     FXButton* myResetButton;
 
-    /// @brief current edited generic parameters
-    std::vector<std::pair<std::string, std::string> > myEditedGenericParameters;
+    /// @brief current edited  parameters
+    std::vector<std::pair<std::string, std::string> > myEditedParameters;
 
-    // @brief copy of current edited Generic Parameters (used for reset)
-    const std::vector<std::pair<std::string, std::string> > myCopyOfGenericParameters;
+    // @brief copy of current edited  Parameters (used for reset)
+    const std::vector<std::pair<std::string, std::string> > myCopyOfParameters;
 
 private:
     /// @brief Invalidated copy constructor.
-    GNEGenericParameterDialog(const GNEGenericParameterDialog&) = delete;
+    GNEParametersDialog(const GNEParametersDialog&) = delete;
 
     /// @brief Invalidated assignment operator.
-    GNEGenericParameterDialog& operator=(const GNEGenericParameterDialog&) = delete;
+    GNEParametersDialog& operator=(const GNEParametersDialog&) = delete;
 };
 
 #endif

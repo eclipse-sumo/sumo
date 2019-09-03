@@ -25,7 +25,7 @@
 #include <netedit/GNEUndoList.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/dialogs/GNEDialog_AllowDisallow.h>
-#include <netedit/dialogs/GNEGenericParameterDialog.h>
+#include <netedit/dialogs/GNEParametersDialog.h>
 #include <netedit/netelements/GNELane.h>
 #include <utils/common/StringTokenizer.h>
 #include <utils/gui/div/GUIDesigns.h>
@@ -1668,7 +1668,7 @@ GNEFrameAttributesModuls::GenericParametersEditor::onCmdEditGenericParameter(FXO
     // write debug information
     WRITE_DEBUG("Open generic parameter dialog");
     // edit generic parameters using dialog
-    if (GNEGenericParameterDialog(this).execute()) {
+    if (GNEParametersDialog(this).execute()) {
         // write debug information
         WRITE_DEBUG("Close generic parameter dialog");
         // set values edited in Parameter dialog in Edited AC
