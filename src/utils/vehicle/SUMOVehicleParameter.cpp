@@ -160,8 +160,9 @@ SUMOVehicleParameter::Stop::Stop() :
     triggered(false),
     containerTriggered(false),
     parking(false),
-    friendlyPos(false) {
-}
+    friendlyPos(false),
+    speed(0)
+{ }
 
 
 void
@@ -214,6 +215,9 @@ SUMOVehicleParameter::Stop::write(OutputDevice& dev) const {
     }
     if ((parametersSet & STOP_LINE_SET) != 0) {
         dev.writeAttr(SUMO_ATTR_LINE, line);
+    }
+    if ((parametersSet & STOP_SPEED_SET) != 0) {
+        dev.writeAttr(SUMO_ATTR_SPEED, speed);
     }
     // only write friendly position if is true
     if (friendlyPos == true) {

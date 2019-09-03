@@ -1767,7 +1767,8 @@ bool
 MSVehicle::keepStopping(bool afterProcessing) const {
     if (isStopped()) {
         // after calling processNextStop, DELTA_T has already been subtracted from the duration
-        return myStops.front().duration + (afterProcessing ? DELTA_T : 0) > 0 || isStoppedTriggered() || myStops.front().collision;
+        return (myStops.front().duration + (afterProcessing ? DELTA_T : 0) > 0 || isStoppedTriggered() || myStops.front().collision 
+                || (myStops.front().pars.speed > 0 && myState.myPos < myStops.front().pars.endPos));
     } else {
         return false;
     }
@@ -1923,9 +1924,9 @@ MSVehicle::processNextStop(double currentVelocity) {
             // we have to wait some more time
             stop.duration -= getActionStepLength();
 
-            if (MSGlobals::gSemiImplicitEulerUpdate) {
+            if (MSGlobals::gSemiImplicitEulerUpdate || stop.pars.speed > 0) {
                 // euler
-                return 0;
+                return stop.pars.speed;
             } else {
                 // ballistic:
                 return getSpeed() - getCarFollowModel().getMaxDecel();
@@ -1978,7 +1979,7 @@ MSVehicle::processNextStop(double currentVelocity) {
                 std::cout <<  "   pos=" << myState.pos() << " speed=" << currentVelocity << " targetPos=" << targetPos << " fits=" << fitsOnStoppingPlace << " reachedThresh=" << reachedThreshold << "\n";
             }
 #endif
-           if (myState.pos() >= reachedThreshold && fitsOnStoppingPlace && currentVelocity <= SUMO_const_haltingSpeed && myLane == stop.lane
+           if (myState.pos() >= reachedThreshold && fitsOnStoppingPlace && currentVelocity <= stop.pars.speed + SUMO_const_haltingSpeed && myLane == stop.lane
                   &&  (!MSGlobals::gModelParkingManoeuver || myManoeuvre.entryManoeuvreIsComplete(this)) ) {
                 // ok, we may stop (have reached the stop)  and either we are not modelling manoeuvering or have completed entry
                 stop.reached = true;
@@ -1999,6 +2000,10 @@ MSVehicle::processNextStop(double currentVelocity) {
                     } else {
                         stop.duration = MAX2(stop.duration, stop.pars.until - time);
                     }
+                }
+                if (stop.pars.speed > 0) {
+                    // ignore duration and until in waypoint mode
+                    stop.duration = 0;
                 }
                 if (stop.busstop != nullptr) {
                     // let the bus stop know the vehicle
@@ -2321,7 +2326,8 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
         }
 
         // process stops
-        if (!myStops.empty() && &myStops.begin()->lane->getEdge() == &lane->getEdge() && !myStops.begin()->reached
+        if (!myStops.empty() && &myStops.begin()->lane->getEdge() == &lane->getEdge() 
+                && (!myStops.begin()->reached || (myStops.begin()->pars.speed > 0 && keepStopping()))
                 // ignore stops that occur later in a looped route
                 && myStops.front().edge == myCurrEdge + view) {
             // we are approaching a stop on the edge; must not drive further
@@ -2330,12 +2336,31 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
             if (stop.parkingarea != nullptr) {
                 // leave enough space so parking vehicles can exit
                 endPos = stop.parkingarea->getLastFreePosWithReservation(t, *this);
+            } else if (stop.pars.speed > 0 && !stop.reached) {
+                // waypoint mode
+                endPos = stop.pars.startPos;
             }
             myStopDist = seen + endPos - lane->getLength();
             // regular stops are not emergencies
-            const double stopSpeed = MAX2(cfModel.stopSpeed(this, getSpeed(), myStopDist), vMinComfortable);
-            if (lastLink != nullptr) {
-                lastLink->adaptLeaveSpeed(cfModel.stopSpeed(this, vLinkPass, endPos));
+            double stopSpeed;
+            if (stop.pars.speed > 0) {
+                // waypoint mode
+                if (stop.reached) {
+                    stopSpeed = stop.pars.speed;
+                    if (myState.myPos >= stop.pars.endPos) {
+                        myStopDist = std::numeric_limits<double>::max();
+                    }
+                } else {
+                    stopSpeed = MAX2(cfModel.freeSpeed(this, getSpeed(), myStopDist, stop.pars.speed), vMinComfortable);
+                    if (lastLink != nullptr) {
+                        lastLink->adaptLeaveSpeed(cfModel.freeSpeed(this, vLinkPass, endPos, stop.pars.speed));
+                    }
+                }
+            } else {
+                stopSpeed = MAX2(cfModel.stopSpeed(this, getSpeed(), myStopDist), vMinComfortable);
+                if (lastLink != nullptr) {
+                    lastLink->adaptLeaveSpeed(cfModel.stopSpeed(this, vLinkPass, endPos));
+                }
             }
             v = MIN2(v, stopSpeed);
             if (lane->isInternal()) {

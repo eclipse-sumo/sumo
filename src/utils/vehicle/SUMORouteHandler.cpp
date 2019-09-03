@@ -383,6 +383,9 @@ SUMORouteHandler::parseStop(SUMOVehicleParameter::Stop& stop, const SUMOSAXAttri
     if (attrs.hasAttribute(SUMO_ATTR_LINE)) {
         stop.parametersSet |= STOP_LINE_SET;
     }
+    if (attrs.hasAttribute(SUMO_ATTR_SPEED)) {
+        stop.parametersSet |= STOP_SPEED_SET;
+    }
     bool ok = true;
     stop.busstop = attrs.getOpt<std::string>(SUMO_ATTR_BUS_STOP, nullptr, ok, "");
     stop.chargingStation = attrs.getOpt<std::string>(SUMO_ATTR_CHARGING_STATION, nullptr, ok, "");
@@ -399,8 +402,15 @@ SUMORouteHandler::parseStop(SUMOVehicleParameter::Stop& stop, const SUMOSAXAttri
     } else {
         errorSuffix = " on lane '" + stop.lane + "'" + errorSuffix;
     }
+    // speed for counting as stopped
+    stop.speed = attrs.getOpt<double>(SUMO_ATTR_SPEED, nullptr, ok, 0);
+    if (stop.speed < 0) {
+        errorOutput->inform("Speed cannot be negative for stop" + errorSuffix);
+        return false;
+    }
+
     // get the standing duration
-    if (!attrs.hasAttribute(SUMO_ATTR_DURATION) && !attrs.hasAttribute(SUMO_ATTR_UNTIL)) {
+    if (!attrs.hasAttribute(SUMO_ATTR_DURATION) && !attrs.hasAttribute(SUMO_ATTR_UNTIL) && !attrs.hasAttribute(SUMO_ATTR_SPEED)) {
         if (attrs.hasAttribute(SUMO_ATTR_CONTAINER_TRIGGERED)) {
             stop.containerTriggered = attrs.getOpt<bool>(SUMO_ATTR_CONTAINER_TRIGGERED, nullptr, ok, true);
             stop.triggered = attrs.getOpt<bool>(SUMO_ATTR_TRIGGERED, nullptr, ok, false);
@@ -413,7 +423,7 @@ SUMORouteHandler::parseStop(SUMOVehicleParameter::Stop& stop, const SUMOSAXAttri
     } else {
         stop.duration = attrs.getOptSUMOTimeReporting(SUMO_ATTR_DURATION, nullptr, ok, -1);
         stop.until = attrs.getOptSUMOTimeReporting(SUMO_ATTR_UNTIL, nullptr, ok, -1);
-        if (!ok || (stop.duration < 0 && stop.until < 0)) {
+        if (!ok || (stop.duration < 0 && stop.until < 0 && stop.speed == 0)) {
             errorOutput->inform("Invalid duration or end time is given for a stop" + errorSuffix);
             return false;
         }

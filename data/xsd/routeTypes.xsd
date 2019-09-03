@@ -691,6 +691,7 @@
         <xsd:attribute name="actType" type="xsd:string"/>
         <xsd:attribute name="tripId" type="xsd:string"/>
         <xsd:attribute name="line" type="xsd:string"/>
+        <xsd:attribute name="speed" type="nonNegativeFloatType"/>
     </xsd:complexType>
 
     <xsd:complexType name="vTypeDistributionType">

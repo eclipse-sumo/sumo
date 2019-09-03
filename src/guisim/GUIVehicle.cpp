@@ -610,7 +610,13 @@ GUIVehicle::drawRouteHelper(const GUIVisualizationSettings& s, const MSRoute& r,
     std::map<std::pair<const MSLane*, double>, int> repeat; // count repeated occurrences of the same position
     int stopIndex = 0;
     for (const Stop& stop : myStops) {
-        Position pos = stop.lane->geometryPositionAtOffset(stop.reached ? getPositionOnLane() : stop.getEndPos(*this));
+        double stopLanePos;
+        if (stop.pars.speed > 0) {
+            stopLanePos = stop.reached ? stop.pars.endPos : stop.pars.startPos;
+        } else {
+            stopLanePos = stop.reached ? getPositionOnLane() : stop.getEndPos(*this);
+        }
+        Position pos = stop.lane->geometryPositionAtOffset(stopLanePos);
         GLHelper::drawBoxLines(stop.lane->getShape().getOrthogonal(pos, 10, true, stop.lane->getWidth()), 0.1);
         std::string label = stop.reached ? "stopped" : "stop " + toString(stopIndex);
 #ifdef _DEBUG

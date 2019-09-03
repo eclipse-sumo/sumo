@@ -80,6 +80,7 @@ const int STOP_CONTAINER_TRIGGER_SET = 2 << 4;
 const int STOP_EXPECTED_CONTAINERS_SET = 2 << 5;
 const int STOP_TRIP_ID_SET = 2 << 6;
 const int STOP_LINE_SET = 2 << 7;
+const int STOP_SPEED_SET = 2 << 8;
 
 const double MIN_STOP_LENGTH = 2 * POSITION_EPS;
 
@@ -626,6 +627,9 @@ public:
 
         /// @brief the new line id of the trip within a cyclical public transport route
         std::string line;
+
+        /// @brief the speed at which this stop counts as reached (waypoint mode)
+        double speed;
 
         /// @brief lanes and positions connected to this stop (only used by duarouter where Stop is used to store stopping places)
         std::vector<std::tuple<std::string, double, double> > accessPos;
