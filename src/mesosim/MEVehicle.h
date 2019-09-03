@@ -176,6 +176,10 @@ public:
         return false;
     };
 
+    bool stopsAtEdge(const MSEdge* /*edge*/) const {
+        return false;
+    };
+
     /** @brief Returns until when to stop at the given segment
      * @param[in] seg The segment in question
      * @param[in] time the current time

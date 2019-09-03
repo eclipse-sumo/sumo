@@ -1012,6 +1012,9 @@ public:
 
     /** @brief Returns whether the vehicle stops at the given stopping place */
     bool stopsAt(MSStoppingPlace* stop) const;
+    
+    /** @brief Returns whether the vehicle stops at the given edge */
+    bool stopsAtEdge(const MSEdge* edge) const;
 
     /** @brief Returns whether the vehicle will stop on the current edge
      */

@@ -565,7 +565,10 @@ bool
 MSTransportable::Stage_Driving::isWaitingFor(const SUMOVehicle* vehicle) const {
     return (myLines.count(vehicle->getID()) > 0
             || myLines.count(vehicle->getParameter().line) > 0
-            || (myLines.count("ANY") > 0 && vehicle->stopsAt(myDestinationStop)));
+            || (myLines.count("ANY") > 0 && (
+                    myDestinationStop == nullptr 
+                    ? vehicle->stopsAtEdge(myDestination)
+                    : vehicle->stopsAt(myDestinationStop))));
 }
 
 

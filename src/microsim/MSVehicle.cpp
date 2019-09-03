@@ -2084,6 +2084,16 @@ MSVehicle::stopsAt(MSStoppingPlace* stop) const {
     return false;
 }
 
+bool
+MSVehicle::stopsAtEdge(const MSEdge* edge) const {
+    for (const Stop& s : myStops) {
+        if (&s.lane->getEdge() == edge) {
+            return true;
+        }
+    }
+    return false;
+}
+
 double
 MSVehicle::getBrakeGap() const {
     return getCarFollowModel().brakeGap(getSpeed());

@@ -288,6 +288,9 @@ public:
     /** @brief Returns whether the vehicle stops at the given stopping place */
     virtual bool stopsAt(MSStoppingPlace* stop) const = 0;
 
+    /** @brief Returns whether the vehicle stops at the given edge */
+    virtual bool stopsAtEdge(const MSEdge* edge) const = 0;
+
     virtual void setChosenSpeedFactor(const double factor) = 0;
 
     virtual SUMOTime getAccumulatedWaitingTime() const = 0;
