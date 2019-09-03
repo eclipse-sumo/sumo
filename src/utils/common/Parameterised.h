@@ -95,6 +95,12 @@ public:
     /// @brief Returns the inner key/value map
     const std::map<std::string, std::string>& getParametersMap() const;
 
+    /// @brief Returns the inner key/value map in string format
+    std::string getParametersStr() const;
+
+    /// @brief set the inner key/value map in string format
+    void setParametersStr(const std::string& value);
+
     /// @brief write Params in the given outputdevice
     void writeParams(OutputDevice& device) const;
 

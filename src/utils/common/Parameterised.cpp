@@ -19,9 +19,11 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
+
 #include <config.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/StringUtils.h>
+#include <utils/common/StringTokenizer.h>
 #include <utils/iodevices/OutputDevice.h>
 
 #include "Parameterised.h"
@@ -104,6 +106,36 @@ Parameterised::clearParameter() {
 const std::map<std::string, std::string>&
 Parameterised::getParametersMap() const {
     return myMap;
+}
+
+
+std::string 
+Parameterised::getParametersStr() const {
+    std::string result;
+    // Generate an string using the following structure: "key1=value1|key2=value2|...|keyN=valueN"
+    for (const auto &i : myMap) {
+        result += i.first + "=" + i.second + "|";
+    }
+    // remove the last "|"
+    if (!result.empty()) {
+        result.pop_back();
+    }
+    return result;
+}
+
+
+void 
+Parameterised::setParametersStr(const std::string& value) {
+    // clear parameters
+    myMap.clear();
+    // separate value in a vector of string using | as separator
+    StringTokenizer parameters(value, "|", true);
+    // iterate over all values
+    while (parameters.hasNext()) {
+        // obtain key and value and save it in myGenericParameters
+        StringTokenizer keyValue(parameters.next(), "=", true);
+        myMap[keyValue.front()] = keyValue.next();
+    }
 }
 
 

@@ -406,8 +406,20 @@ public:
         /// @brief refresh netedit attributes
         void refreshGenericParametersEditor();
 
+        /// @brief get generic parameters as map
+        const std::map<std::string, std::string> &getParametersMap() const;
+
         /// @brief get generic parameters as string
-        std::string getGenericParametersStr() const;
+        std::string getParametersStr() const;
+
+        /// @brief get generic parameters as vector of strings
+        std::vector<std::pair<std::string, std::string> > getParametersVectorStr() const;
+
+        /// @brief set generic parameters
+        void setParameters(const std::vector<std::pair<std::string, std::string> > &parameters);
+
+        /// @brief pointer to frame parent
+        GNEFrame* getFrameParent() const;
 
         /// @name FOX-callbacks
         /// @{
@@ -423,7 +435,7 @@ public:
         GenericParametersEditor() {}
 
     private:
-        /// @brief pointer to inspector frame parent
+        /// @brief pointer to frame parent
         GNEFrame* myFrameParent;
 
         /// @brief edited Attribute Carrier
@@ -433,7 +445,7 @@ public:
         std::vector<GNEAttributeCarrier*> myACs;
 
         /// @brief pointer to current vector of generic parameters
-        std::vector<std::pair<std::string, std::string> >* myGenericParameters;
+        std::map<std::string, std::string> myGenericParameters;
 
         /// @brief text field for write generic parameter
         FXTextField* myTextFieldGenericParameter;

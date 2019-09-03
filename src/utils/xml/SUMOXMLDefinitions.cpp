@@ -1021,7 +1021,7 @@ SUMOXMLDefinitions::isValidListOfTypeID(const std::string& value) {
         return false;
     } else {
         // check that gives IDs are valid
-        for (auto i : typeIDs) {
+        for (const auto &i : typeIDs) {
             if (!SUMOXMLDefinitions::isValidTypeID(i)) {
                 return false;
             }
@@ -1034,7 +1034,11 @@ SUMOXMLDefinitions::isValidListOfTypeID(const std::string& value) {
 bool
 SUMOXMLDefinitions::isValidGenericParameterKey(const std::string& value) {
     // Generic parameters keys cannot be empty
-    return (value.size() > 0);
+    if (value.empty()) {
+        return false;
+    } else {
+        return isValidAttribute(value);
+    }
 }
 
 

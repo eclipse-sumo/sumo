@@ -1483,19 +1483,14 @@ GNEFrameAttributesModuls::AttributesEditorExtended::onCmdOpenDialog(FXObject*, F
 GNEFrameAttributesModuls::GenericParametersEditor::GenericParametersEditor(GNEFrame* inspectorFrameParent) :
     FXGroupBox(inspectorFrameParent->myContentFrame, "Generic parameters", GUIDesignGroupBoxFrame),
     myFrameParent(inspectorFrameParent),
-    myAC(nullptr),
-    myGenericParameters(nullptr) {
-    // create empty vector with generic parameters
-    myGenericParameters = new std::vector<std::pair<std::string, std::string> >;
+    myAC(nullptr) {
     // create textfield and buttons
     myTextFieldGenericParameter = new FXTextField(this, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
     myEditGenericParameterButton = new FXButton(this, "Edit generic parameter", nullptr, this, MID_GNE_SET_ATTRIBUTE_DIALOG, GUIDesignButton);
 }
 
 
-GNEFrameAttributesModuls::GenericParametersEditor::~GenericParametersEditor() {
-    delete myGenericParameters;
-}
+GNEFrameAttributesModuls::GenericParametersEditor::~GenericParametersEditor() {}
 
 
 void
@@ -1505,7 +1500,18 @@ GNEFrameAttributesModuls::GenericParametersEditor::showGenericParametersEditor(G
         myACs.clear();
         // obtain a copy of generic parameters of AC
         if (myAC) {
-            *myGenericParameters = myAC->getGenericParameters();
+            // obtain string
+            std::string genericParametersStr = myAC->getAttribute(GNE_ATTR_GENERIC);
+            // clear parameters
+            myGenericParameters.clear();
+            // separate value in a vector of string using | as separator
+            StringTokenizer parameters(genericParametersStr, "|", true);
+            // iterate over all values
+            while (parameters.hasNext()) {
+                // obtain key and value and save it in myGenericParameters
+                StringTokenizer keyValue(parameters.next(), "=", true);
+                myGenericParameters[keyValue.front()] = keyValue.next();
+            }
         }
         // refresh GenericParametersEditor
         refreshGenericParametersEditor();
@@ -1532,9 +1538,20 @@ GNEFrameAttributesModuls::GenericParametersEditor::showGenericParametersEditor(s
         }
         // set generic Parameters editor
         if (differentsGenericParameters) {
-            myGenericParameters->clear();
+            myGenericParameters.clear();
         } else {
-            *myGenericParameters = myACs.front()->getGenericParameters();
+            // obtain string
+            std::string genericParametersStr = myACs.front()->getAttribute(GNE_ATTR_GENERIC);
+            // clear parameters
+            myGenericParameters.clear();
+            // separate value in a vector of string using | as separator
+            std::vector<std::string> parameters = StringTokenizer(genericParametersStr, "|", true).getVector();
+            // iterate over all values
+            for (const auto &i : parameters) {
+                // obtain key and value and save it in myGenericParameters
+                std::vector<std::string> keyValue = StringTokenizer(i, "=", true).getVector();
+                myGenericParameters[keyValue.front()] = keyValue.back();
+            }
         }
         // refresh GenericParametersEditor
         refreshGenericParametersEditor();
@@ -1592,12 +1609,18 @@ GNEFrameAttributesModuls::GenericParametersEditor::refreshGenericParametersEdito
 }
 
 
+const std::map<std::string, std::string> &
+GNEFrameAttributesModuls::GenericParametersEditor::getParametersMap() const {
+    return myGenericParameters;
+}
+
+
 std::string
-GNEFrameAttributesModuls::GenericParametersEditor::getGenericParametersStr() const {
+GNEFrameAttributesModuls::GenericParametersEditor::getParametersStr() const {
     std::string result;
     // Generate an string using the following structure: "key1=value1|key2=value2|...
-    for (auto i = myGenericParameters->begin(); i != myGenericParameters->end(); i++) {
-        result += i->first + "=" + i->second + "|";
+    for (const auto &i : myGenericParameters) {
+        result += i.first + "=" + i.second + "|";
     }
     // remove the last "|"
     if (!result.empty()) {
@@ -1606,22 +1629,55 @@ GNEFrameAttributesModuls::GenericParametersEditor::getGenericParametersStr() con
     return result;
 }
 
+std::vector<std::pair<std::string, std::string> >
+GNEFrameAttributesModuls::GenericParametersEditor::getParametersVectorStr() const {
+    std::vector<std::pair<std::string, std::string> > result;
+    // Generate an vector string using the following structure: "<key1,value1>, <key2, value2>,...
+    for (const auto &i : myGenericParameters) {
+        result.push_back(std::make_pair(i.first, i.second));
+    }
+    return result;
+}
+
+
+void 
+GNEFrameAttributesModuls::GenericParametersEditor::setParameters(const std::vector<std::pair<std::string, std::string> > &parameters) {
+    // declare result string
+    std::string result;
+    // Generate an string using the following structure: "key1=value1|key2=value2|...
+    for (const auto &i : parameters) {
+        result += i.first + "=" + i.second + "|";
+    }
+    // remove the last "|"
+    if (!result.empty()) {
+        result.pop_back();
+    }
+    // set result in textField (and call onCmdEditGenericParameter)
+    myTextFieldGenericParameter->setText(result.c_str(), TRUE);
+}
+
+
+GNEFrame* 
+GNEFrameAttributesModuls::GenericParametersEditor::getFrameParent() const {
+    return myFrameParent;
+}
+
 
 long
 GNEFrameAttributesModuls::GenericParametersEditor::onCmdEditGenericParameter(FXObject*, FXSelector, void*) {
     // write debug information
     WRITE_DEBUG("Open generic parameter dialog");
     // edit generic parameters using dialog
-    if (GNEGenericParameterDialog(myFrameParent->myViewNet, myGenericParameters).execute()) {
+    if (GNEGenericParameterDialog(this).execute()) {
         // write debug information
         WRITE_DEBUG("Close generic parameter dialog");
         // set values edited in Parameter dialog in Edited AC
         if (myAC) {
-            myAC->setAttribute(GNE_ATTR_GENERIC, getGenericParametersStr(), myFrameParent->myViewNet->getUndoList());
+            myAC->setAttribute(GNE_ATTR_GENERIC, getParametersStr(), myFrameParent->myViewNet->getUndoList());
         } else if (myACs.size() > 0) {
             myFrameParent->myViewNet->getUndoList()->p_begin("Change multiple generic attributes");
             for (auto i : myACs) {
-                i->setAttribute(GNE_ATTR_GENERIC, getGenericParametersStr(), myFrameParent->myViewNet->getUndoList());
+                i->setAttribute(GNE_ATTR_GENERIC, getParametersStr(), myFrameParent->myViewNet->getUndoList());
             }
             myFrameParent->myViewNet->getUndoList()->p_end();
             // update frame parent after attribute sucesfully set
@@ -1639,69 +1695,46 @@ GNEFrameAttributesModuls::GenericParametersEditor::onCmdEditGenericParameter(FXO
 
 long
 GNEFrameAttributesModuls::GenericParametersEditor::onCmdSetGenericParameter(FXObject*, FXSelector, void*) {
-    // separate value in a vector of string using | as separator
-    std::vector<std::string> parsedValues;
-    StringTokenizer st(myTextFieldGenericParameter->getText().text(), "|", true);
-    while (st.hasNext()) {
-        parsedValues.push_back(st.next());
-    }
-    // first check if parsed generic parameters are valid
-    for (auto i : parsedValues) {
-        if (!GNEAttributeCarrier::isGenericParametersValid(i)) {
-            WRITE_WARNING("Invalid format of Generic Parameter (" + i + ")");
-            myTextFieldGenericParameter->setTextColor(FXRGB(255, 0, 0));
-            return 1;
+    // check if current given string is valid
+    if (!GNEAttributeCarrier::isGenericParametersValid(myTextFieldGenericParameter->getText().text(), true)) {
+        myTextFieldGenericParameter->setTextColor(FXRGB(255, 0, 0));
+    } else {
+        // parsed generic parameters ok, then set text field black and continue
+        myTextFieldGenericParameter->setTextColor(FXRGB(0, 0, 0));
+        myTextFieldGenericParameter->killFocus();
+        // obtain genericParmeters "key=value"
+        std::vector<std::string> genericParameters = StringTokenizer(myTextFieldGenericParameter->getText().text(), "|", true).getVector();
+        // clear current existent generic parameters and set parsed generic parameters
+        myGenericParameters.clear();
+        // iterate over genericParameters
+        for (const auto &i : genericParameters) {
+            // obtain key, value
+            std::vector<std::string> keyParam = StringTokenizer(i, "=", true).getVector();
+            // save it in myGenericParameters
+            myGenericParameters[keyParam.front()] = keyParam.back();
         }
-    }
-    // now check if there is duplicated parameters
-    std::sort(parsedValues.begin(), parsedValues.end());
-    for (auto i = parsedValues.begin(); i != parsedValues.end(); i++) {
-        if (((i + 1) != parsedValues.end())) {
-            std::vector<std::string> firstKey, secondKey;
-            StringTokenizer stKey1(*i, "=", true);
-            StringTokenizer stKey2(*(i + 1), "=", true);
-            //parse both keys
-            while (stKey1.hasNext()) {
-                firstKey.push_back(stKey1.next());
+        // overwritte myTextFieldGenericParameter (to remove duplicated generic parameters
+        myTextFieldGenericParameter->setText(getParametersStr().c_str(), FALSE);
+        // if we're editing generic attributes of an AttributeCarrier, set it
+        if (myAC) {
+            // begin undo list
+            myFrameParent->myViewNet->getUndoList()->p_begin("change generic attributes");
+            // set generic attribute
+            myAC->setAttribute(GNE_ATTR_GENERIC, getParametersStr(), myFrameParent->myViewNet->getUndoList());
+            // end undo list
+            myFrameParent->myViewNet->getUndoList()->p_end();
+        } else if (myACs.size() > 0) {
+            // begin undo list
+            myFrameParent->myViewNet->getUndoList()->p_begin("change multiple generic attributes");
+            // set generic attribute in all ACs
+            for (const auto &i : myACs) {
+                i->setAttribute(GNE_ATTR_GENERIC, getParametersStr(), myFrameParent->myViewNet->getUndoList());
             }
-            while (stKey2.hasNext()) {
-                secondKey.push_back(stKey2.next());
-            }
-            // compare both keys and stop if are equal
-            if ((firstKey.size() != 2) || (secondKey.size() != 2) || (firstKey.front() == secondKey.front())) {
-                WRITE_WARNING("Generic Parameters wit the same key aren't allowed (" + (*i) + "," + * (i + 1) + ")");
-                myTextFieldGenericParameter->setTextColor(FXRGB(255, 0, 0));
-                return 1;
-            }
+            // end undo list
+            myFrameParent->myViewNet->getUndoList()->p_end();
+            // update frame parent after attribute sucesfully set
+            myFrameParent->attributeUpdated();
         }
-    }
-    // parsed generic parameters ok, then set text field black and continue
-    myTextFieldGenericParameter->setTextColor(FXRGB(0, 0, 0));
-    myTextFieldGenericParameter->killFocus();
-    // clear current existent generic parameters and set parsed generic parameters
-    myGenericParameters->clear();
-    for (auto i : parsedValues) {
-        std::vector<std::string> parsedParameters;
-        StringTokenizer stParam(i, "=", true);
-        while (stParam.hasNext()) {
-            parsedParameters.push_back(stParam.next());
-        }
-        // Check that parsed parameters are exactly two and contains valid chracters
-        if (parsedParameters.size() == 2 && SUMOXMLDefinitions::isValidGenericParameterKey(parsedParameters.front()) && SUMOXMLDefinitions::isValidGenericParameterValue(parsedParameters.back())) {
-            myGenericParameters->push_back(std::make_pair(parsedParameters.front(), parsedParameters.back()));
-        }
-    }
-    // if we're editing generic attributes of an AttributeCarrier, set it
-    if (myAC) {
-        myAC->setAttribute(GNE_ATTR_GENERIC, getGenericParametersStr(), myFrameParent->myViewNet->getUndoList());
-    } else if (myACs.size() > 0) {
-        myFrameParent->myViewNet->getUndoList()->p_begin("Change multiple generic attributes");
-        for (auto i : myACs) {
-            i->setAttribute(GNE_ATTR_GENERIC, getGenericParametersStr(), myFrameParent->myViewNet->getUndoList());
-        }
-        myFrameParent->myViewNet->getUndoList()->p_end();
-        // update frame parent after attribute sucesfully set
-        myFrameParent->attributeUpdated();
     }
     return 1;
 }
