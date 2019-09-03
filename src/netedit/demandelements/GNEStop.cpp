@@ -817,26 +817,6 @@ GNEStop::getEndGeometryPositionOverLane() const {
     }
 }
 
-
-std::string
-GNEStop::getGenericParametersStr() const {
-    // stops don't support generic parameters
-    return "";
-}
-
-
-std::vector<std::pair<std::string, std::string> >
-GNEStop::getGenericParameters() const {
-    // stops don't support generic parameters
-    return std::vector<std::pair<std::string, std::string> >();
-}
-
-
-void
-GNEStop::setGenericParametersStr(const std::string& /*value*/) {
-    // stops don't support generic parameters
-}
-
 // ===========================================================================
 // private
 // ===========================================================================

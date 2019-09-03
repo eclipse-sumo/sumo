@@ -106,7 +106,7 @@ GNEDestProbReroute::getAttribute(SumoXMLAttr key) const {
         case GNE_ATTR_PARENT:
             return getAdditionalParents().at(0)->getID();
         case GNE_ATTR_GENERIC:
-            return getGenericParametersStr();
+            return getParametersStr();
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
@@ -176,7 +176,7 @@ GNEDestProbReroute::setAttribute(SumoXMLAttr key, const std::string& value) {
             myProbability = parse<double>(value);
             break;
         case GNE_ATTR_GENERIC:
-            setGenericParametersStr(value);
+            setParametersStr(value);
             break;
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");

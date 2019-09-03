@@ -453,7 +453,7 @@ GNEVehicleType::getAttribute(SumoXMLAttr key) const {
                 return myTagProperty.getDefaultValue(SUMO_ATTR_CARRIAGE_GAP);
             }
         case GNE_ATTR_GENERIC:
-            return getGenericParametersStr();
+            return getParametersStr();
         case GNE_ATTR_DEFAULT_VTYPE:
             return toString((getDemandElementID() == DEFAULT_VTYPE_ID) ||
                             (getDemandElementID() == DEFAULT_PEDTYPE_ID) ||
@@ -1099,7 +1099,7 @@ GNEVehicleType::overwriteVType(GNEDemandElement* vType, SUMOVTypeParameter* newV
     if (!genericParametersStr.empty()) {
         genericParametersStr.pop_back();
     }
-    if (genericParametersStr != vType->getGenericParametersStr()) {
+    if (genericParametersStr != vType->getAttribute(GNE_ATTR_GENERIC)) {
         vType->setAttribute(GNE_ATTR_GENERIC, genericParametersStr, undoList);
     }
     // close undo list
@@ -1150,57 +1150,6 @@ GNEVehicleType::initRailVisualizationParameters() {
     if (SUMOVTypeParameter::knowsParameter("carriageGap")) {
         carriageGap = StringUtils::toDouble(SUMOVTypeParameter::getParameter("carriageGap"));
         parametersSet |= VTYPEPARS_CARRIAGE_GAP_SET;
-    }
-}
-
-
-std::string
-GNEVehicleType::getGenericParametersStr() const {
-    std::string result;
-    // Generate an string using the following structure: "key1=value1|key2=value2|...
-    for (auto i : getParametersMap()) {
-        result += i.first + "=" + i.second + "|";
-    }
-    // remove the last "|"
-    if (!result.empty()) {
-        result.pop_back();
-    }
-    return result;
-}
-
-
-std::vector<std::pair<std::string, std::string> >
-GNEVehicleType::getGenericParameters() const {
-    std::vector<std::pair<std::string, std::string> >  result;
-    // iterate over parameters map and fill result
-    for (auto i : getParametersMap()) {
-        result.push_back(std::make_pair(i.first, i.second));
-    }
-    return result;
-}
-
-
-void
-GNEVehicleType::setGenericParametersStr(const std::string& value) {
-    // clear parameters
-    clearParameter();
-    // separate value in a vector of string using | as separator
-    std::vector<std::string> parsedValues;
-    StringTokenizer stValues(value, "|", true);
-    while (stValues.hasNext()) {
-        parsedValues.push_back(stValues.next());
-    }
-    // check that parsed values (A=B)can be parsed in generic parameters
-    for (auto i : parsedValues) {
-        std::vector<std::string> parsedParameters;
-        StringTokenizer stParam(i, "=", true);
-        while (stParam.hasNext()) {
-            parsedParameters.push_back(stParam.next());
-        }
-        // Check that parsed parameters are exactly two and contains valid chracters
-        if (parsedParameters.size() == 2 && SUMOXMLDefinitions::isValidGenericParameterKey(parsedParameters.front()) && SUMOXMLDefinitions::isValidGenericParameterValue(parsedParameters.back())) {
-            setParameter(parsedParameters.front(), parsedParameters.back());
-        }
     }
 }
 
@@ -1674,7 +1623,7 @@ GNEVehicleType::setAttribute(SumoXMLAttr key, const std::string& value) {
             }
             break;
         case GNE_ATTR_GENERIC:
-            setGenericParametersStr(value);
+            setParametersStr(value);
             break;
         case GNE_ATTR_DEFAULT_VTYPE_MODIFIED:
             myDefaultVehicleTypeModified = parse<bool>(value);

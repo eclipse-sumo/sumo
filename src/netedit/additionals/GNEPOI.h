@@ -188,20 +188,6 @@ public:
     bool isValid(SumoXMLAttr key, const std::string& value);
     /// @}
 
-    /// @name Function related with generic parameters
-    /// @{
-
-    /// @brief return generic parameters in string format
-    std::string getGenericParametersStr() const;
-
-    /// @brief return generic parameters as vector of pairs format
-    std::vector<std::pair<std::string, std::string> > getGenericParameters() const;
-
-    /// @brief set generic parameters in string format
-    void setGenericParametersStr(const std::string& value);
-
-    /// @}
-
 protected:
     /// @brief Position of POI in GEO coordinates (Only used by POIs that aren't placed over lanes)
     Position myGEOPosition;

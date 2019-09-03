@@ -304,20 +304,6 @@ public:
     virtual std::string getHierarchyName() const = 0;
     /// @}
 
-    /// @name Functions related with Generic Paramters
-    /// @{
-
-    /// @brief return generic parameters in string format
-    std::string getGenericParametersStr() const;
-
-    /// @brief return generic parameters as vector of pairs format
-    std::vector<std::pair<std::string, std::string> > getGenericParameters() const;
-
-    /// @brief set generic parameters in string format
-    void setGenericParametersStr(const std::string& value);
-
-    /// @}
-
 protected:
 
     /// @brief struct for pack all variables related with additional move

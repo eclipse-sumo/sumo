@@ -1350,28 +1350,17 @@ GNEAttributeCarrier::allowedTagsByCategory(int tagPropertyCategory, bool onlyDra
 }
 
 
-bool
-GNEAttributeCarrier::isGenericParametersValid(const std::string& value) {
-    // separate value in a vector of string using | as separator
-    std::vector<std::string> parsedValues;
-    StringTokenizer stValues(value, "|", true);
-    while (stValues.hasNext()) {
-        parsedValues.push_back(stValues.next());
-    }
-    // check that parsed values (A=B)can be parsed in generic parameters
-    for (auto i : parsedValues) {
-        std::vector<std::string> parsedParameters;
-        StringTokenizer stParam(i, "=", true);
-        while (stParam.hasNext()) {
-            parsedParameters.push_back(stParam.next());
-        }
-        // Check that parsed parameters are exactly two
-        if (parsedParameters.size() == 2) {
-            // check that key and value contains valid characters
-            if (!SUMOXMLDefinitions::isValidGenericParameterKey(parsedParameters.front()) || !SUMOXMLDefinitions::isValidGenericParameterValue(parsedParameters.back())) {
-                return false;
-            }
-        } else {
+bool 
+GNEAttributeCarrier::isGenericParametersValid(const std::string& value, bool report) {
+    StringTokenizer st(value, "|", true);
+    // first check if parsed generic parameters are valid
+    while (st.hasNext()) {
+        // obtain 'key=value'
+        std::string keyValue = st.next();
+        // check if single generic parameter is valid
+        if (isSingleGenericParameterValid(keyValue, report) == false) {
+            if (report)
+                WRITE_WARNING("Invalid format of Generic Parameter (" + keyValue + ")");
             return false;
         }
     }
@@ -4641,4 +4630,29 @@ GNEAttributeCarrier::parseMaskedPositionAttribute(const SUMOSAXAttributes& attrs
     // continue creation of element
     return true;
 }
+
+
+bool
+GNEAttributeCarrier::isSingleGenericParameterValid(const std::string& value, bool report) {
+    // first check if value has character "|"
+    if (std::find(value.begin(), value.end(), '|') != value.end()) {
+        return false;
+    }
+    // separate key and value
+    StringTokenizer keyValue(value, "=", true);
+    // Check that keyValue size is exactly 2 (key, value)
+    if (keyValue.size() == 2) {
+        // check that key and value contains valid characters
+        if (SUMOXMLDefinitions::isValidGenericParameterKey(keyValue.front()) == false) {
+            return false;
+        } else if (SUMOXMLDefinitions::isValidGenericParameterValue(keyValue.next()) == false) {
+            return false;
+        } else {
+            return true;
+        }
+    } else {
+        return false;
+    }
+}
+
 /****************************************************************************/

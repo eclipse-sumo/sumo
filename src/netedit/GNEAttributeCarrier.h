@@ -24,6 +24,7 @@
 #include <config.h>
 
 #include <utils/common/MsgHandler.h>
+#include <utils/common/Parameterised.h>
 #include <utils/common/ToString.h>
 #include <utils/common/UtilExceptions.h>
 #include <utils/gui/images/GUIIcons.h>
@@ -623,22 +624,8 @@ public:
     /// @brief get tags of all editable element types using TagProperty Type (TAGTYPE_NETELEMENT, TAGTYPE_ADDITIONAL, etc.)
     static std::vector<SumoXMLTag> allowedTagsByCategory(int tagPropertyCategory, bool onlyDrawables);
 
-    /// @name This functions related with generic parameters has to be implemented in all GNEAttributeCarriers
-    /// @{
-
-    /// @brief return generic parameters in string format
-    virtual std::string getGenericParametersStr() const = 0;
-
-    /// @brief return generic parameters as vector of pairs format
-    virtual std::vector<std::pair<std::string, std::string> > getGenericParameters() const = 0;
-
-    /// @brief set generic parameters in string format
-    virtual void setGenericParametersStr(const std::string& value) = 0;
-
-    /// @}
-
-    /// @brief check if given string can be parsed to a map/list of generic parameters
-    static bool isGenericParametersValid(const std::string& value);
+    /// @brief check if given string can be parsed to a generic parameter "key1=value1|key1=value1|..."
+    static bool isGenericParametersValid(const std::string& value, bool report = false);
 
     /// @brief true if a value of type T can be parsed from string
     template<typename T>
@@ -854,11 +841,14 @@ private:
 
     /// @brief parse and check attribute (note: This function is only to improve legilibility)
     static bool checkParsedAttribute(const TagProperties& tagProperties, const AttributeProperties& attrProperties, const SumoXMLAttr attribute,
-                                     std::string& defaultValue, std::string& parsedAttribute, std::string& warningMessage);
+        std::string& defaultValue, std::string& parsedAttribute, std::string& warningMessage);
 
     /// @brief parse and check masked  (note: This function is only to improve legilibility)
     static bool parseMaskedPositionAttribute(const SUMOSAXAttributes& attrs, const std::string& objectID, const TagProperties& tagProperties,
-            const AttributeProperties& attrProperties, std::string& parsedAttribute, std::string& warningMessage);
+        const AttributeProperties& attrProperties, std::string& parsedAttribute, std::string& warningMessage);
+
+    /// @brief check if given string can be parsed to a generic parameter "key=value"
+    static bool isSingleGenericParameterValid(const std::string& value, bool report = false);
 
     /// @brief map with the tags properties
     static std::map<SumoXMLTag, TagProperties> myTagProperties;
