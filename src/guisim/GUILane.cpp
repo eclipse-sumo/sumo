@@ -498,6 +498,7 @@ GUILane::drawGL(const GUIVisualizationSettings& s) const {
     const bool hasRailSignal = myEdge->getToJunction()->getType() == NODETYPE_RAIL_SIGNAL;
     const bool detailZoom = s.scale * exaggeration > 5;
     const bool drawDetails = (detailZoom || s.junctionSize.minSize == 0 || hasRailSignal) && !s.drawForSelecting;
+    const bool drawRails = drawAsRailway(s);
     if (isCrossing || isWalkingArea) {
         // draw internal lanes on top of junctions
         glTranslated(0, 0, GLO_JUNCTION + 0.1);
@@ -543,10 +544,10 @@ GUILane::drawGL(const GUIVisualizationSettings& s) const {
             glPopMatrix();
         } else {
             GUINet* net = (GUINet*) MSNet::getInstance();
-            const bool spreadSuperposed = s.spreadSuperposed && myEdge->getBidiEdge() != nullptr && drawAsRailway(s);
+            const bool spreadSuperposed = s.spreadSuperposed && myEdge->getBidiEdge() != nullptr && drawRails;
             if (hiddenBidi && !spreadSuperposed) {
                 // do not draw shape
-            } else if (drawAsRailway(s) && (!s.drawForSelecting || spreadSuperposed)) {
+            } else if (drawRails) {
                 // draw as railway: assume standard gauge of 1435mm when lane width is not set
                 // draw foot width 150mm, assume that distance between rail feet inner sides is reduced on both sides by 39mm with regard to the gauge
                 // assume crosstie length of 181% gauge (2600mm for standard gauge)
@@ -622,7 +623,7 @@ GUILane::drawGL(const GUIVisualizationSettings& s) const {
                 glTranslated(0, 0, .5);
                 if (drawDetails) {
                     if (s.showLaneDirection) {
-                        if (drawAsRailway(s)) {
+                        if (drawRails) {
                             // improve visibility of superposed rail edges
                             GLHelper::setColor(setColor(s).changedBrightness(100));
                         } else {
@@ -641,7 +642,7 @@ GUILane::drawGL(const GUIVisualizationSettings& s) const {
                                 GLHelper::drawBoxLines(myShape, myShapeRotations, myShapeLengths, 0.01, 0, -offset * offsetSign);
                             }
                         }
-                        if (s.showLinkDecals && !drawAsRailway(s) && !drawAsWaterway(s) && myPermissions != SVC_PEDESTRIAN) {
+                        if (s.showLinkDecals && !drawRails && !drawAsWaterway(s) && myPermissions != SVC_PEDESTRIAN) {
                             drawArrows();
                         }
                         glTranslated(0, 0, 1000);
