@@ -414,7 +414,7 @@ private:
     GEOAttributesEditor* myGEOAttributesEditor;
 
     /// @brief Generic parameters editor
-    GNEFrameAttributesModuls::GenericParametersEditor* myGenericParametersEditor;
+    GNEFrameAttributesModuls::ParametersEditor* myParametersEditor;
 
     /// @brief Template editor
     TemplateEditor* myTemplateEditor;

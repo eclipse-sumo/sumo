@@ -1032,7 +1032,7 @@ SUMOXMLDefinitions::isValidListOfTypeID(const std::string& value) {
 
 
 bool
-SUMOXMLDefinitions::isValidGenericParameterKey(const std::string& value) {
+SUMOXMLDefinitions::isValidParameterKey(const std::string& value) {
     // Generic parameters keys cannot be empty
     if (value.empty()) {
         return false;
@@ -1043,7 +1043,7 @@ SUMOXMLDefinitions::isValidGenericParameterKey(const std::string& value) {
 
 
 bool
-SUMOXMLDefinitions::isValidGenericParameterValue(const std::string& /*value*/) {
+SUMOXMLDefinitions::isValidParameterValue(const std::string& /*value*/) {
     // Generic parameters should not be restricted (characters such as <>'" only
     // reach this function if they are properly escaped in the xml inputs (and
     // they are also escaped when writing)

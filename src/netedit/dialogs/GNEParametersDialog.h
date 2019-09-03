@@ -229,7 +229,7 @@ public:
     };
 
     /// @brief Constructor
-    GNEParametersDialog(GNEFrameAttributesModuls::GenericParametersEditor *ParametersEditor);
+    GNEParametersDialog(GNEFrameAttributesModuls::ParametersEditor *ParametersEditor);
 
     /// @brief destructor
     ~GNEParametersDialog();
@@ -251,7 +251,7 @@ protected:
     GNEParametersDialog() {}
 
     /// @brief pointer to ParametersEditor
-    GNEFrameAttributesModuls::GenericParametersEditor *myParametersEditor;
+    GNEFrameAttributesModuls::ParametersEditor *myParametersEditor;
 
     /// @brief pointer to  parameters values
     ParametersValues* myParametersValues;

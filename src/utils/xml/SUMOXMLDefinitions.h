@@ -1432,10 +1432,10 @@ public:
     static bool isValidListOfTypeID(const std::string& value);
 
     /// @brief whether the given string is a valid key for a generic parameter
-    static bool isValidGenericParameterKey(const std::string& value);
+    static bool isValidParameterKey(const std::string& value);
 
     /// @brief whether the given string is a valid value for a generic parameter
-    static bool isValidGenericParameterValue(const std::string& value);
+    static bool isValidParameterValue(const std::string& value);
 
     /// @brief return the junction id when given an edge of type internal, crossing or WalkingArea
     static std::string getJunctionIDFromInternalEdge(const std::string internalEdge);

@@ -160,7 +160,7 @@ public:
     PersonTypeSelector* getPersonTypeSelector() const;
 
 protected:
-    /// @brief function called after set a valid attribute in AttributeCreator/AttributeEditor/GenericParametersEditor/...
+    /// @brief function called after set a valid attribute in AttributeCreator/AttributeEditor/ParametersEditor/...
     void attributeUpdated();
 
 private:

@@ -625,7 +625,7 @@ public:
     static std::vector<SumoXMLTag> allowedTagsByCategory(int tagPropertyCategory, bool onlyDrawables);
 
     /// @brief check if given string can be parsed to a generic parameter "key1=value1|key1=value1|..."
-    static bool isGenericParametersValid(const std::string& value, bool report = false);
+    static bool areParametersValid(const std::string& value, bool report = false);
 
     /// @brief true if a value of type T can be parsed from string
     template<typename T>
@@ -847,8 +847,8 @@ private:
     static bool parseMaskedPositionAttribute(const SUMOSAXAttributes& attrs, const std::string& objectID, const TagProperties& tagProperties,
         const AttributeProperties& attrProperties, std::string& parsedAttribute, std::string& warningMessage);
 
-    /// @brief check if given string can be parsed to a generic parameter "key=value"
-    static bool isSingleGenericParameterValid(const std::string& value, bool report = false);
+    /// @brief check if given string can be parsed to a parameter of type "key=value"
+    static bool isParameterValid(const std::string& value, bool report = false);
 
     /// @brief map with the tags properties
     static std::map<SumoXMLTag, TagProperties> myTagProperties;

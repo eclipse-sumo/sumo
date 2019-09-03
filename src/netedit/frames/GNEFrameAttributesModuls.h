@@ -380,42 +380,42 @@ public:
     };
 
     // ===========================================================================
-    // class GenericParametersEditor
+    // class ParametersEditor
     // ===========================================================================
 
-    class GenericParametersEditor : private FXGroupBox {
+    class ParametersEditor : private FXGroupBox {
         /// @brief FOX-declaration
-        FXDECLARE(GNEFrameAttributesModuls::GenericParametersEditor)
+        FXDECLARE(GNEFrameAttributesModuls::ParametersEditor)
 
     public:
         /// @brief constructor
-        GenericParametersEditor(GNEFrame* frameParent);
+        ParametersEditor(GNEFrame* frameParent);
 
         /// @brief destructor
-        ~GenericParametersEditor();
+        ~ParametersEditor();
 
-        /// @brief show netedit attributes editor (used for edit generic parameters of an existent AC)
-        void showGenericParametersEditor(GNEAttributeCarrier* AC);
+        /// @brief show netedit attributes editor (used for edit parameters of an existent AC)
+        void showParametersEditor(GNEAttributeCarrier* AC);
 
-        /// @brief show netedit attributes editor (used for edit generic parameters of an existent list of AC)
-        void showGenericParametersEditor(std::vector<GNEAttributeCarrier*> ACs);
+        /// @brief show netedit attributes editor (used for edit parameters of an existent list of AC)
+        void showParametersEditor(std::vector<GNEAttributeCarrier*> ACs);
 
         /// @brief hide netedit attributes editor
-        void hideGenericParametersEditor();
+        void hideParametersEditor();
 
         /// @brief refresh netedit attributes
-        void refreshGenericParametersEditor();
+        void refreshParametersEditor();
 
-        /// @brief get generic parameters as map
+        /// @brief get parameters as map
         const std::map<std::string, std::string> &getParametersMap() const;
 
-        /// @brief get generic parameters as string
+        /// @brief get parameters as string
         std::string getParametersStr() const;
 
-        /// @brief get generic parameters as vector of strings
+        /// @brief get parameters as vector of strings
         std::vector<std::pair<std::string, std::string> > getParametersVectorStr() const;
 
-        /// @brief set generic parameters
+        /// @brief set parameters
         void setParameters(const std::vector<std::pair<std::string, std::string> > &parameters);
 
         /// @brief pointer to frame parent
@@ -423,16 +423,16 @@ public:
 
         /// @name FOX-callbacks
         /// @{
-        /// @brief Called when user clicks over add generic parameter
-        long onCmdEditGenericParameter(FXObject*, FXSelector, void*);
+        /// @brief Called when user clicks over add parameter
+        long onCmdEditParameters(FXObject*, FXSelector, void*);
 
-        /// @brief Called when user udpate the generic parameter text field
-        long onCmdSetGenericParameter(FXObject*, FXSelector, void*);
+        /// @brief Called when user udpate the parameter text field
+        long onCmdSetParameters(FXObject*, FXSelector, void*);
         /// @}
 
     protected:
         /// @brief FOX needs this
-        GenericParametersEditor() {}
+        ParametersEditor() {}
 
     private:
         /// @brief pointer to frame parent
@@ -444,14 +444,14 @@ public:
         /// @brief list of edited ACs
         std::vector<GNEAttributeCarrier*> myACs;
 
-        /// @brief pointer to current vector of generic parameters
-        std::map<std::string, std::string> myGenericParameters;
+        /// @brief pointer to current map of parameters
+        std::map<std::string, std::string> myParameters;
 
-        /// @brief text field for write generic parameter
-        FXTextField* myTextFieldGenericParameter;
+        /// @brief text field for write parameters
+        FXTextField* myTextFieldParameters;
 
-        /// @brief button for add generic parameter
-        FXButton* myEditGenericParameterButton;
+        /// @brief button for edit parameters using specific dialog
+        FXButton* myButtonEditParameters;
     };
 
     // ===========================================================================

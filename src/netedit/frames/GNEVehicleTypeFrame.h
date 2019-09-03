@@ -163,7 +163,7 @@ public:
     VehicleTypeSelector* getVehicleTypeSelector() const;
 
 protected:
-    /// @brief function called after set a valid attribute in AttributeCreator/AttributeEditor/GenericParametersEditor/...
+    /// @brief function called after set a valid attribute in AttributeCreator/AttributeEditor/ParametersEditor/...
     void attributeUpdated();
 
     /// @brief open AttributesCreator extended dialog (used for editing advance attributes of Vehicle Types)

@@ -100,7 +100,7 @@ GNEInspectorFrame::GNEInspectorFrame(FXHorizontalFrame* horizontalFrameParent, G
     myGEOAttributesEditor = new GEOAttributesEditor(this);
 
     // create Generic parameters Editor modul
-    myGenericParametersEditor = new GNEFrameAttributesModuls::GenericParametersEditor(this);
+    myParametersEditor = new GNEFrameAttributesModuls::ParametersEditor(this);
 
     // Create Netedit Attributes Editor modul
     myNeteditAttributesEditor = new NeteditAttributesEditor(this);
@@ -240,7 +240,7 @@ GNEInspectorFrame::inspectMultisection(const std::vector<GNEAttributeCarrier*>& 
     myAttributesEditor->hideAttributesEditorModul();
     myNeteditAttributesEditor->hideNeteditAttributesEditor();
     myGEOAttributesEditor->hideGEOAttributesEditor();
-    myGenericParametersEditor->hideGenericParametersEditor();
+    myParametersEditor->hideParametersEditor();
     myTemplateEditor->hideTemplateEditor();
     myAttributeCarrierHierarchy->hideAttributeCarrierHierarchy();
     myOverlappedInspection->hideOverlappedInspection();
@@ -276,9 +276,9 @@ GNEInspectorFrame::inspectMultisection(const std::vector<GNEAttributeCarrier*>& 
 
         // show generic attributes editor
         if (ACs.size() == 1) {
-            myGenericParametersEditor->showGenericParametersEditor(ACs.front());
+            myParametersEditor->showParametersEditor(ACs.front());
         } else {
-            myGenericParametersEditor->showGenericParametersEditor(ACs);
+            myParametersEditor->showParametersEditor(ACs);
         }
 
         // If attributes correspond to an Edge and we aren't in demand mode, show template editor
@@ -374,7 +374,7 @@ GNEInspectorFrame::updateFrameAfterUndoRedo() {
     // refresh Attribute Editor
     myAttributesEditor->refreshAttributeEditor(false, false);
     // refresh GenericParameters
-    myGenericParametersEditor->refreshGenericParametersEditor();
+    myParametersEditor->refreshParametersEditor();
     // refresh AC Hierarchy
     myAttributeCarrierHierarchy->refreshAttributeCarrierHierarchy();
 }

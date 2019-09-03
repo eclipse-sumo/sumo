@@ -132,7 +132,7 @@ Parameterised::setParametersStr(const std::string& value) {
     StringTokenizer parameters(value, "|", true);
     // iterate over all values
     while (parameters.hasNext()) {
-        // obtain key and value and save it in myGenericParameters
+        // obtain key and value and save it in myParameters
         StringTokenizer keyValue(parameters.next(), "=", true);
         myMap[keyValue.front()] = keyValue.next();
     }

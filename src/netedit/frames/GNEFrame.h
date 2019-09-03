@@ -96,7 +96,7 @@ protected:
     /// @brief build a shaped element using the drawed shape (can be reimplemented in frame children)
     virtual bool shapeDrawed();
 
-    /// @brief function called after set a valid attribute in AttributeCreator/AttributeEditor/GenericParametersEditor/...
+    /// @brief function called after set a valid attribute in AttributeCreator/AttributeEditor/ParametersEditor/...
     virtual void attributeUpdated();
 
     /// @brief open AttributesCreator extended dialog (can be reimplemented in frame children)

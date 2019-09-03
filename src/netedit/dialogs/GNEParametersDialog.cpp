@@ -150,7 +150,7 @@ GNEParametersDialog::ParametersValues::onCmdSetAttribute(FXObject* obj, FXSelect
             // change key of  Parameter
             myParameterDialogParent->myEditedParameters.at(i).first = myParameterRows.at(i)->keyField->getText().text();
             // change color of text field depending if key is valid or empty
-            if (myParameterDialogParent->myEditedParameters.at(i).first.empty() || SUMOXMLDefinitions::isValidGenericParameterKey(myParameterDialogParent->myEditedParameters.at(i).first)) {
+            if (myParameterDialogParent->myEditedParameters.at(i).first.empty() || SUMOXMLDefinitions::isValidParameterKey(myParameterDialogParent->myEditedParameters.at(i).first)) {
                 myParameterRows.at(i)->keyField->setTextColor(FXRGB(0, 0, 0));
             } else {
                 myParameterRows.at(i)->keyField->setTextColor(FXRGB(255, 0, 0));
@@ -160,7 +160,7 @@ GNEParametersDialog::ParametersValues::onCmdSetAttribute(FXObject* obj, FXSelect
             // change value of  Parameter
             myParameterDialogParent->myEditedParameters.at(i).second = myParameterRows.at(i)->valueField->getText().text();
             // change color of text field depending if attribute is valid
-            if (SUMOXMLDefinitions::isValidGenericParameterValue(myParameterDialogParent->myEditedParameters.at(i).second)) {
+            if (SUMOXMLDefinitions::isValidParameterValue(myParameterDialogParent->myEditedParameters.at(i).second)) {
                 myParameterRows.at(i)->valueField->setTextColor(FXRGB(0, 0, 0));
             } else {
                 myParameterRows.at(i)->valueField->setTextColor(FXRGB(255, 0, 0));
@@ -234,7 +234,7 @@ void
 GNEParametersDialog::ParametersValues::ParameterRow::enableRow(const std::string& parameter, const std::string& value) const {
     // restore color and enable key field
     keyField->setText(parameter.c_str());
-    if (parameter.empty() || SUMOXMLDefinitions::isValidGenericParameterKey(parameter)) {
+    if (parameter.empty() || SUMOXMLDefinitions::isValidParameterKey(parameter)) {
         keyField->setTextColor(FXRGB(0, 0, 0));
     } else {
         keyField->setTextColor(FXRGB(255, 0, 0));
@@ -242,7 +242,7 @@ GNEParametersDialog::ParametersValues::ParameterRow::enableRow(const std::string
     keyField->enable();
     // restore color and enable value field
     valueField->setText(value.c_str());
-    if (SUMOXMLDefinitions::isValidGenericParameterValue(value)) {
+    if (SUMOXMLDefinitions::isValidParameterValue(value)) {
         valueField->setTextColor(FXRGB(0, 0, 0));
     } else {
         valueField->setTextColor(FXRGB(255, 0, 0));
@@ -458,13 +458,13 @@ GNEParametersDialog::ParametersOptions::GNEParameterHandler::myStartElement(int 
                     std::string key = attrs.getString(SUMO_ATTR_KEY);
                     std::string value = attrs.getString(SUMO_ATTR_VALUE);
                     // check that parsed values are correct
-                    if (!SUMOXMLDefinitions::isValidGenericParameterKey(key)) {
+                    if (!SUMOXMLDefinitions::isValidParameterKey(key)) {
                         if (key.size() == 0) {
                             WRITE_WARNING("Key of  Parameter cannot be empty");
                         } else {
                             WRITE_WARNING("Key '" + key + "' of  Parameter contains invalid characters");
                         }
-                    } else if (!SUMOXMLDefinitions::isValidGenericParameterValue(value)) {
+                    } else if (!SUMOXMLDefinitions::isValidParameterValue(value)) {
                         WRITE_WARNING("Value '" + value + "'of  Parameter contains invalid characters");
                     } else {
                         // add  parameter to vector of myParameterDialogParent
@@ -482,7 +482,7 @@ GNEParametersDialog::ParametersOptions::GNEParameterHandler::myStartElement(int 
 // GNEParametersDialog - methods
 // ---------------------------------------------------------------------------
 
-GNEParametersDialog::GNEParametersDialog(GNEFrameAttributesModuls::GenericParametersEditor *ParametersEditor) :
+GNEParametersDialog::GNEParametersDialog(GNEFrameAttributesModuls::ParametersEditor *ParametersEditor) :
     FXDialogBox(ParametersEditor->getFrameParent()->getViewNet()->getApp(), "Edit  parameters", GUIDesignDialogBoxExplicitStretchable(400, 300)),
     myParametersEditor(ParametersEditor),
     myEditedParameters(ParametersEditor->getParametersVectorStr()),
@@ -524,7 +524,7 @@ GNEParametersDialog::onCmdAccept(FXObject*, FXSelector, void*) {
             // write warning if netedit is running in testing mode
             WRITE_DEBUG("Closed FXMessageBox of type 'warning' with 'OK'");
             return 1;
-        } else if (!SUMOXMLDefinitions::isValidGenericParameterKey(i.first)) {
+        } else if (!SUMOXMLDefinitions::isValidParameterKey(i.first)) {
             // write warning if netedit is running in testing mode
             WRITE_DEBUG("Opening FXMessageBox of type 'warning'");
             // open warning Box
@@ -532,7 +532,7 @@ GNEParametersDialog::onCmdAccept(FXObject*, FXSelector, void*) {
             // write warning if netedit is running in testing mode
             WRITE_DEBUG("Closed FXMessageBox of type 'warning' with 'OK'");
             return 1;
-        } else if (!SUMOXMLDefinitions::isValidGenericParameterValue(i.second)) {
+        } else if (!SUMOXMLDefinitions::isValidParameterValue(i.second)) {
             // write warning if netedit is running in testing mode
             WRITE_DEBUG("Opening FXMessageBox of type 'warning'");
             // open warning Box
