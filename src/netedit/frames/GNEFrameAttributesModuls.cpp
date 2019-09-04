@@ -1696,7 +1696,7 @@ GNEFrameAttributesModuls::ParametersEditor::onCmdEditParameters(FXObject*, FXSel
 long
 GNEFrameAttributesModuls::ParametersEditor::onCmdSetParameters(FXObject*, FXSelector, void*) {
     // check if current given string is valid
-    if (!GNEAttributeCarrier::areParametersValid(myTextFieldParameters->getText().text(), true)) {
+    if (Parameterised::areParametersValid(myTextFieldParameters->getText().text(), true) == false) {
         myTextFieldParameters->setTextColor(FXRGB(255, 0, 0));
     } else {
         // parsed generic parameters ok, then set text field black and continue

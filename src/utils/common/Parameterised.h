@@ -104,7 +104,13 @@ public:
     /// @brief write Params in the given outputdevice
     void writeParams(OutputDevice& device) const;
 
+    /// @brief check if given string can be parsed to a generic parameter "key1=value1|key1=value1|...|keyN=valueN"
+    static bool areParametersValid(const std::string& value, bool report = false);
+
 private:
+    /// @brief check if given string can be parsed to a parameter of type "key=value"
+    static bool isParameterValid(const std::string& value, bool report = false);
+
     /// @brief The key->value map
     std::map<std::string, std::string> myMap;
 };

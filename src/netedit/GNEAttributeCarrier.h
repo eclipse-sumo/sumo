@@ -624,9 +624,6 @@ public:
     /// @brief get tags of all editable element types using TagProperty Type (TAGTYPE_NETELEMENT, TAGTYPE_ADDITIONAL, etc.)
     static std::vector<SumoXMLTag> allowedTagsByCategory(int tagPropertyCategory, bool onlyDrawables);
 
-    /// @brief check if given string can be parsed to a generic parameter "key1=value1|key1=value1|..."
-    static bool areParametersValid(const std::string& value, bool report = false);
-
     /// @brief true if a value of type T can be parsed from string
     template<typename T>
     static bool canParse(const std::string& string) {
@@ -846,9 +843,6 @@ private:
     /// @brief parse and check masked  (note: This function is only to improve legilibility)
     static bool parseMaskedPositionAttribute(const SUMOSAXAttributes& attrs, const std::string& objectID, const TagProperties& tagProperties,
         const AttributeProperties& attrProperties, std::string& parsedAttribute, std::string& warningMessage);
-
-    /// @brief check if given string can be parsed to a parameter of type "key=value"
-    static bool isParameterValid(const std::string& value, bool report = false);
 
     /// @brief map with the tags properties
     static std::map<SumoXMLTag, TagProperties> myTagProperties;

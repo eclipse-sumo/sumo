@@ -150,5 +150,58 @@ Parameterised::writeParams(OutputDevice& device) const {
     }
 }
 
+
+bool 
+Parameterised::areParametersValid(const std::string& value, bool report) {
+    // obtain vector of strings using '|' as delimiter
+    std::vector<std::string> parameters = StringTokenizer(value, "|", true).getVector();
+    // first check if parsed parameters are valid
+    for (const auto &i : parameters) {
+        // check if parameter is valid
+        if (isParameterValid(i, report) == false) {
+            // report depending of flag
+            if (report) {
+                WRITE_WARNING("Invalid format of parameter (" + i + ")");
+            }
+            return false;
+        }
+    }
+    // all ok, then return true
+    return true;
+}
+
+// ===========================================================================
+// private
+// ===========================================================================
+
+bool
+Parameterised::isParameterValid(const std::string& value, bool report) {
+    // first check if value has the character "|"
+    if (std::find(value.begin(), value.end(), '|') != value.end()) {
+        return false;
+    }
+    // now check if value has the character "="
+    if (std::find(value.begin(), value.end(), '=') == value.end()) {
+        return false;
+    }
+    // separate key and value
+    std::vector<std::string> keyValue = StringTokenizer(value, "=", true).getVector();
+    // Check that keyValue size is exactly 2 (key, value)
+    if (keyValue.size() == 2) {
+        // check if key and value contains valid characters
+        if (SUMOXMLDefinitions::isValidParameterKey(keyValue.front()) == false) {
+            return false;
+        } else if (SUMOXMLDefinitions::isValidParameterValue(keyValue.back()) == false) {
+            return false;
+        } else {
+            // key=value valid, then return true
+            return true;
+        }
+    } else {
+        // invalid format
+        return false;
+    }
+}
+
 /****************************************************************************/
 

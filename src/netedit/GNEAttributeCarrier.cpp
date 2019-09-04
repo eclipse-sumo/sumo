@@ -1349,25 +1349,6 @@ GNEAttributeCarrier::allowedTagsByCategory(int tagPropertyCategory, bool onlyDra
     return allowedTags;
 }
 
-
-bool 
-GNEAttributeCarrier::areParametersValid(const std::string& value, bool report) {
-    StringTokenizer st(value, "|", true);
-    // first check if parsed generic parameters are valid
-    while (st.hasNext()) {
-        // obtain 'key=value'
-        std::string keyValue = st.next();
-        // check if single generic parameter is valid
-        if (isParameterValid(keyValue, report) == false) {
-            if (report)
-                WRITE_WARNING("Invalid format of Generic Parameter (" + keyValue + ")");
-            return false;
-        }
-    }
-    // all ok, then return true
-    return true;
-}
-
 // ===========================================================================
 // private
 // ===========================================================================
@@ -4629,30 +4610,6 @@ GNEAttributeCarrier::parseMaskedPositionAttribute(const SUMOSAXAttributes& attrs
     }
     // continue creation of element
     return true;
-}
-
-
-bool
-GNEAttributeCarrier::isParameterValid(const std::string& value, bool report) {
-    // first check if value has character "|"
-    if (std::find(value.begin(), value.end(), '|') != value.end()) {
-        return false;
-    }
-    // separate key and value
-    StringTokenizer keyValue(value, "=", true);
-    // Check that keyValue size is exactly 2 (key, value)
-    if (keyValue.size() == 2) {
-        // check that key and value contains valid characters
-        if (SUMOXMLDefinitions::isValidParameterKey(keyValue.front()) == false) {
-            return false;
-        } else if (SUMOXMLDefinitions::isValidParameterValue(keyValue.next()) == false) {
-            return false;
-        } else {
-            return true;
-        }
-    } else {
-        return false;
-    }
 }
 
 /****************************************************************************/

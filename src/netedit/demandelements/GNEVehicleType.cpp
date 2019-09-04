@@ -783,7 +783,7 @@ GNEVehicleType::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_CARRIAGE_GAP:
             return canParse<double>(value) && (parse<double>(value) >= 0);
         case GNE_ATTR_GENERIC:
-            return areParametersValid(value);
+            return Parameterised::areParametersValid(value);
         case GNE_ATTR_DEFAULT_VTYPE_MODIFIED:
             if (myDefaultVehicleType) {
                 return canParse<bool>(value);
