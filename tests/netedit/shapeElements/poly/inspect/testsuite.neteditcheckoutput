@@ -35,8 +35,8 @@ geo_shape
 # edit use geo
 geo_use
 
-# edit poly generic parameters
-genericparameters
+# edit poly parameters
+parameters
 
 # edit poly block move
 blockmove

@@ -35,8 +35,8 @@ relativepath
 # edit POI angle
 angle
 
-# edit POI generic parameters
-genericparameters
+# edit POI parameters
+parameters
 
 # edit POI block move
 blockmove
