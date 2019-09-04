@@ -7,15 +7,15 @@
 // http://www.eclipse.org/legal/epl-v20.html
 // SPDX-License-Identifier: EPL-2.0
 /****************************************************************************/
-/// @file    GNEDialog_FixDemandElements.h
+/// @file    GNEFixDemandElements.h
 /// @author  Pablo Alvarez Lopez
 /// @date    March 2019
 /// @version $Id$
 ///
 // Dialog used to fix demand elements during saving
 /****************************************************************************/
-#ifndef GNEDialog_FixDemandElements_h
-#define GNEDialog_FixDemandElements_h
+#ifndef GNEFixDemandElements_h
+#define GNEFixDemandElements_h
 
 // ===========================================================================
 // included modules
@@ -36,19 +36,19 @@ class GNEViewNet;
 // ===========================================================================
 
 /**
- * @class GNEDialog_FixDemandElements
+ * @class GNEFixDemandElements
  * @brief Dialog for edit rerouters
  */
-class GNEDialog_FixDemandElements : public FXDialogBox {
+class GNEFixDemandElements : public FXDialogBox {
     /// @brief FOX-declaration
-    FXDECLARE(GNEDialog_FixDemandElements)
+    FXDECLARE(GNEFixDemandElements)
 
 public:
     /// @brief Constructor
-    GNEDialog_FixDemandElements(GNEViewNet* viewNet, const std::vector<GNEDemandElement*>& invalidDemandElements);
+    GNEFixDemandElements(GNEViewNet* viewNet, const std::vector<GNEDemandElement*>& invalidDemandElements);
 
     /// @brief destructor
-    ~GNEDialog_FixDemandElements();
+    ~GNEFixDemandElements();
 
     /// @name FOX-callbacks
     /// @{
@@ -68,7 +68,7 @@ protected:
 
     public:
         /// @brief constructor
-        DemandList(GNEDialog_FixDemandElements* fixDemandElementsDialogParents, const std::vector<GNEDemandElement*>& invalidDemandElements);
+        DemandList(GNEFixDemandElements* fixDemandElementsDialogParents, const std::vector<GNEDemandElement*>& invalidDemandElements);
 
         /// @brief vector with the invalid routes
         std::vector<GNEDemandElement*> myInvalidRoutes;
@@ -88,7 +88,7 @@ protected:
 
     public:
         /// @brief constructor
-        FixRouteOptions(GNEDialog_FixDemandElements* fixDemandElementsDialogParents);
+        FixRouteOptions(GNEFixDemandElements* fixDemandElementsDialogParents);
 
         /// @brief select option
         void selectOption(FXObject* option);
@@ -114,7 +114,7 @@ protected:
 
     public:
         /// @brief constructor
-        FixVehicleOptions(GNEDialog_FixDemandElements* fixDemandElementsDialogParents);
+        FixVehicleOptions(GNEFixDemandElements* fixDemandElementsDialogParents);
 
         /// @brief select option
         void selectOption(FXObject* option);
@@ -140,7 +140,7 @@ protected:
 
     public:
         /// @brief build Position Options
-        FixStopOptions(GNEDialog_FixDemandElements* fixDemandElementsDialogParents);
+        FixStopOptions(GNEFixDemandElements* fixDemandElementsDialogParents);
 
         /// @brief select option
         void selectOption(FXObject* option);
@@ -165,7 +165,7 @@ protected:
     };
 
     /// @brief FOX needs this
-    GNEDialog_FixDemandElements() {}
+    GNEFixDemandElements() {}
 
     /// @brief view net
     GNEViewNet* myViewNet;
@@ -193,10 +193,10 @@ protected:
 
 private:
     /// @brief Invalidated copy constructor.
-    GNEDialog_FixDemandElements(const GNEDialog_FixDemandElements&) = delete;
+    GNEFixDemandElements(const GNEFixDemandElements&) = delete;
 
     /// @brief Invalidated assignment operator.
-    GNEDialog_FixDemandElements& operator=(const GNEDialog_FixDemandElements&) = delete;
+    GNEFixDemandElements& operator=(const GNEFixDemandElements&) = delete;
 };
 
 #endif

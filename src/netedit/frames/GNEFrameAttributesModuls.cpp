@@ -24,7 +24,7 @@
 #include <netedit/GNENet.h>
 #include <netedit/GNEUndoList.h>
 #include <netedit/GNEViewNet.h>
-#include <netedit/dialogs/GNEDialog_AllowDisallow.h>
+#include <netedit/dialogs/GNEAllowDisallow.h>
 #include <netedit/dialogs/GNEParametersDialog.h>
 #include <netedit/netelements/GNELane.h>
 #include <utils/common/StringTokenizer.h>
@@ -1101,8 +1101,8 @@ GNEFrameAttributesModuls::AttributesEditorRow::onCmdOpenAttributeDialog(FXObject
         if (myAttributesEditorParent->getEditedACs().size() > 1) {
             myAttributesEditorParent->getFrameParent()->myViewNet->getUndoList()->p_begin("Change multiple attributes");
         }
-        // open GNEDialog_AllowDisallow
-        GNEDialog_AllowDisallow(myAttributesEditorParent->getFrameParent()->myViewNet, myAttributesEditorParent->getEditedACs().front()).execute();
+        // open GNEAllowDisallow
+        GNEAllowDisallow(myAttributesEditorParent->getFrameParent()->myViewNet, myAttributesEditorParent->getEditedACs().front()).execute();
         std::string allowed = myAttributesEditorParent->getEditedACs().front()->getAttribute(SUMO_ATTR_ALLOW);
         // Set new value of attribute in all selected ACs
         for (const auto& it_ac : myAttributesEditorParent->getEditedACs()) {

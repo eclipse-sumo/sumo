@@ -44,8 +44,8 @@
 #include <netedit/changes/GNEChange_Junction.h>
 #include <netedit/changes/GNEChange_Lane.h>
 #include <netedit/changes/GNEChange_Shape.h>
-#include <netedit/dialogs/GNEDialog_FixAdditionalElements.h>
-#include <netedit/dialogs/GNEDialog_FixDemandElements.h>
+#include <netedit/dialogs/GNEFixAdditionalElements.h>
+#include <netedit/dialogs/GNEFixDemandElements.h>
 #include <netedit/frames/GNEInspectorFrame.h>
 #include <netedit/netelements/GNEConnection.h>
 #include <netedit/netelements/GNECrossing.h>
@@ -2217,11 +2217,11 @@ GNENet::saveAdditionals(const std::string& filename) {
             }
         }
     }
-    // if there are invalid StoppingPlaces or detectors, open GNEDialog_FixAdditionalElements
+    // if there are invalid StoppingPlaces or detectors, open GNEFixAdditionalElements
     if (invalidSingleLaneAdditionals.size() > 0 || invalidMultiLaneAdditionals.size() > 0) {
         // 0 -> Canceled Saving, with or whithout selecting invalid stopping places and E2
         // 1 -> Invalid stoppingPlaces and E2 fixed, friendlyPos enabled, or saved with invalid positions
-        GNEDialog_FixAdditionalElements fixAdditionalElementsDialog(myViewNet, invalidSingleLaneAdditionals, invalidMultiLaneAdditionals);
+        GNEFixAdditionalElements fixAdditionalElementsDialog(myViewNet, invalidSingleLaneAdditionals, invalidMultiLaneAdditionals);
         if (fixAdditionalElementsDialog.execute() == 0) {
             // show debug information
             WRITE_DEBUG("Additionals saving aborted");
@@ -2372,11 +2372,11 @@ GNENet::saveDemandElements(const std::string& filename) {
             }
         }
     }
-    // if there are invalid demand elements, open GNEDialog_FixDemandElements
+    // if there are invalid demand elements, open GNEFixDemandElements
     if (invalidSingleLaneDemandElements.size() > 0) {
         // 0 -> Canceled Saving, with or whithout selecting invalid demand elements
         // 1 -> Invalid demand elements fixed, friendlyPos enabled, or saved with invalid positions
-        GNEDialog_FixDemandElements fixDemandElementsDialog(myViewNet, invalidSingleLaneDemandElements);
+        GNEFixDemandElements fixDemandElementsDialog(myViewNet, invalidSingleLaneDemandElements);
         if (fixDemandElementsDialog.execute() == 0) {
             // show debug information
             WRITE_DEBUG("demand elements saving aborted");

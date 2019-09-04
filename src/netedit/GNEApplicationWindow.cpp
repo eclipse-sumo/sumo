@@ -23,7 +23,7 @@
 #include <netbuild/NBFrame.h>
 #include <netedit/additionals/GNEAdditionalHandler.h>
 #include <netedit/demandelements/GNERouteHandler.h>
-#include <netedit/dialogs/GNEDialog_About.h>
+#include <netedit/dialogs/GNEAbout.h>
 #include <netedit/frames/GNETAZFrame.h>
 #include <netedit/frames/GNETLSEditorFrame.h>
 #include <netimport/NIFrame.h>
@@ -776,7 +776,7 @@ GNEApplicationWindow::onCmdAbout(FXObject*, FXSelector, void*) {
     // write warning if netedit is running in testing mode
     WRITE_DEBUG("Opening about dialog");
     // create and open about dialog
-    GNEDialog_About* about = new GNEDialog_About(this);
+    GNEAbout* about = new GNEAbout(this);
     about->create();
     about->show(PLACEMENT_OWNER);
     // write warning if netedit is running in testing mode

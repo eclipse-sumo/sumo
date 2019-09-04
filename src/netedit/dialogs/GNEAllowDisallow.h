@@ -7,15 +7,15 @@
 // http://www.eclipse.org/legal/epl-v20.html
 // SPDX-License-Identifier: EPL-2.0
 /****************************************************************************/
-/// @file    GNEDialog_AllowDisallow.h
+/// @file    GNEAllowDisallow.h
 /// @author  Pablo Alvarez Lopez
 /// @date    Feb 2017
 /// @version $Id$
 ///
-// Dialog for edit rerouters
+// Dialog for edit allow and disallow attributes
 /****************************************************************************/
-#ifndef GNEDialog_AllowDisallow_h
-#define GNEDialog_AllowDisallow_h
+#ifndef GNEAllowDisallow_h
+#define GNEAllowDisallow_h
 
 // ===========================================================================
 // included modules
@@ -37,19 +37,19 @@ class GNEViewNet;
 // ===========================================================================
 
 /**
- * @class GNEDialog_AllowDisallow
+ * @class GNEAllowDisallow
  * @brief Dialog for edit rerouters
  */
-class GNEDialog_AllowDisallow : public FXDialogBox {
+class GNEAllowDisallow : public FXDialogBox {
     /// @brief FOX-declaration
-    FXDECLARE(GNEDialog_AllowDisallow)
+    FXDECLARE(GNEAllowDisallow)
 
 public:
     /// @brief Constructor
-    GNEDialog_AllowDisallow(GNEViewNet* viewNet, GNEAttributeCarrier* AC);
+    GNEAllowDisallow(GNEViewNet* viewNet, GNEAttributeCarrier* AC);
 
     /// @brief destructor
-    ~GNEDialog_AllowDisallow();
+    ~GNEAllowDisallow();
 
     /// @name FOX-callbacks
     /// @{
@@ -77,7 +77,7 @@ public:
 
 protected:
     /// @brief FOX needs this
-    GNEDialog_AllowDisallow() {}
+    GNEAllowDisallow() {}
 
     /// @pointer to viewNet
     GNEViewNet* myViewNet;
@@ -111,10 +111,10 @@ private:
     void buildVClass(FXVerticalFrame* contentsFrame, SUMOVehicleClass vclass, GUIIcon vclassIcon, const std::string& description);
 
     /// @brief Invalidated copy constructor.
-    GNEDialog_AllowDisallow(const GNEDialog_AllowDisallow&) = delete;
+    GNEAllowDisallow(const GNEAllowDisallow&) = delete;
 
     /// @brief Invalidated assignment operator.
-    GNEDialog_AllowDisallow& operator=(const GNEDialog_AllowDisallow&) = delete;
+    GNEAllowDisallow& operator=(const GNEAllowDisallow&) = delete;
 };
 
 #endif

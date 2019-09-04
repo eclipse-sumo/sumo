@@ -7,15 +7,15 @@
 // http://www.eclipse.org/legal/epl-v20.html
 // SPDX-License-Identifier: EPL-2.0
 /****************************************************************************/
-/// @file    GNEDialog_About.h
+/// @file    GNEAbout.h
 /// @author  Jakob Erdmann
 /// @date    Feb 2011
 /// @version $Id$
 ///
 // The "About" - dialog for NETEDIT, (adapted from GUIDialog_AboutSUMO)
 /****************************************************************************/
-#ifndef GNEDialog_About_h
-#define GNEDialog_About_h
+#ifndef GNEAbout_h
+#define GNEAbout_h
 
 
 // ===========================================================================
@@ -30,18 +30,18 @@
 // class definitions
 // ===========================================================================
 /**
- * @class GNEDialog_About
+ * @class GNEAbout
  * @brief The application's "About" - dialog
  */
-class GNEDialog_About : public FXDialogBox {
+class GNEAbout : public FXDialogBox {
 public:
     /**@brief Constructor
      * @param[in] parent The parent window
      */
-    GNEDialog_About(FXWindow* parent);
+    GNEAbout(FXWindow* parent);
 
     /// @brief Destructor
-    ~GNEDialog_About();
+    ~GNEAbout();
 
     /// @brief Creates the widget
     void create();

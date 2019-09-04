@@ -7,7 +7,7 @@
 // http://www.eclipse.org/legal/epl-v20.html
 // SPDX-License-Identifier: EPL-2.0
 /****************************************************************************/
-/// @file    GNEDialog_FixDemandElements.cpp
+/// @file    GNEFixDemandElements.cpp
 /// @author  Pablo Alvarez Lopez
 /// @date    Jul 2017
 /// @version $Id$
@@ -27,27 +27,27 @@
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNEUndoList.h>
 
-#include "GNEDialog_FixDemandElements.h"
+#include "GNEFixDemandElements.h"
 
 
 // ===========================================================================
 // FOX callback mapping
 // ===========================================================================
 
-FXDEFMAP(GNEDialog_FixDemandElements) GNEDialog_FixDemandElementsMap[] = {
-    FXMAPFUNC(SEL_COMMAND,  MID_CHOOSEN_OPERATION,                  GNEDialog_FixDemandElements::onCmdSelectOption),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_ADDITIONALDIALOG_BUTTONACCEPT,  GNEDialog_FixDemandElements::onCmdAccept),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_ADDITIONALDIALOG_BUTTONCANCEL,  GNEDialog_FixDemandElements::onCmdCancel),
+FXDEFMAP(GNEFixDemandElements) GNEFixDemandElementsMap[] = {
+    FXMAPFUNC(SEL_COMMAND,  MID_CHOOSEN_OPERATION,                  GNEFixDemandElements::onCmdSelectOption),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_ADDITIONALDIALOG_BUTTONACCEPT,  GNEFixDemandElements::onCmdAccept),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_ADDITIONALDIALOG_BUTTONCANCEL,  GNEFixDemandElements::onCmdCancel),
 };
 
 // Object implementation
-FXIMPLEMENT(GNEDialog_FixDemandElements, FXDialogBox, GNEDialog_FixDemandElementsMap, ARRAYNUMBER(GNEDialog_FixDemandElementsMap))
+FXIMPLEMENT(GNEFixDemandElements, FXDialogBox, GNEFixDemandElementsMap, ARRAYNUMBER(GNEFixDemandElementsMap))
 
 // ===========================================================================
 // member method definitions
 // ===========================================================================
 
-GNEDialog_FixDemandElements::GNEDialog_FixDemandElements(GNEViewNet* viewNet, const std::vector<GNEDemandElement*>& invalidDemandElements) :
+GNEFixDemandElements::GNEFixDemandElements(GNEViewNet* viewNet, const std::vector<GNEDemandElement*>& invalidDemandElements) :
     FXDialogBox(viewNet->getApp(), "Fix demand elements problems", GUIDesignDialogBoxExplicit(500, 420)),
     myViewNet(viewNet) {
     // set busStop icon for this dialog
@@ -85,12 +85,12 @@ GNEDialog_FixDemandElements::GNEDialog_FixDemandElements(GNEViewNet* viewNet, co
 }
 
 
-GNEDialog_FixDemandElements::~GNEDialog_FixDemandElements() {
+GNEFixDemandElements::~GNEFixDemandElements() {
 }
 
 
 long
-GNEDialog_FixDemandElements::onCmdSelectOption(FXObject* obj, FXSelector, void*) {
+GNEFixDemandElements::onCmdSelectOption(FXObject* obj, FXSelector, void*) {
     myFixRouteOptions->selectOption(obj);
     myFixVehicleOptions->selectOption(obj);
     myFixStopOptions->selectOption(obj);
@@ -99,7 +99,7 @@ GNEDialog_FixDemandElements::onCmdSelectOption(FXObject* obj, FXSelector, void*)
 
 
 long
-GNEDialog_FixDemandElements::onCmdAccept(FXObject*, FXSelector, void*) {
+GNEFixDemandElements::onCmdAccept(FXObject*, FXSelector, void*) {
     bool continueSaving = true;
     // first check options for invalid routes
     if (myDemandList->myInvalidRoutes.size() > 0) {
@@ -190,17 +190,17 @@ GNEDialog_FixDemandElements::onCmdAccept(FXObject*, FXSelector, void*) {
 
 
 long
-GNEDialog_FixDemandElements::onCmdCancel(FXObject*, FXSelector, void*) {
+GNEFixDemandElements::onCmdCancel(FXObject*, FXSelector, void*) {
     // Stop Modal (abort saving)
     getApp()->stopModal(this, FALSE);
     return 1;
 }
 
 // ---------------------------------------------------------------------------
-// GNEDialog_FixDemandElements::DemandList - methods
+// GNEFixDemandElements::DemandList - methods
 // ---------------------------------------------------------------------------
 
-GNEDialog_FixDemandElements::DemandList::DemandList(GNEDialog_FixDemandElements* fixDemandElementsDialogParents, const std::vector<GNEDemandElement*>& invalidDemandElements) :
+GNEFixDemandElements::DemandList::DemandList(GNEFixDemandElements* fixDemandElementsDialogParents, const std::vector<GNEDemandElement*>& invalidDemandElements) :
     FXGroupBox(fixDemandElementsDialogParents->myMainFrame, "Routes and Vehicles with conflicts", GUIDesignGroupBoxFrameFill) {
     // Create table, copy intervals and update table
     myTable = new FXTable(this, this, MID_GNE_FIXSTOPPINGPLACES_CHANGE, GUIDesignTableAdditionals);
@@ -288,10 +288,10 @@ GNEDialog_FixDemandElements::DemandList::DemandList(GNEDialog_FixDemandElements*
 
 
 // ---------------------------------------------------------------------------
-// GNEDialog_FixDemandElements::FixRouteOptions - methods
+// GNEFixDemandElements::FixRouteOptions - methods
 // ---------------------------------------------------------------------------
 
-GNEDialog_FixDemandElements::FixRouteOptions::FixRouteOptions(GNEDialog_FixDemandElements* fixDemandElementsDialogParents) :
+GNEFixDemandElements::FixRouteOptions::FixRouteOptions(GNEFixDemandElements* fixDemandElementsDialogParents) :
     FXGroupBox(fixDemandElementsDialogParents->myMainFrame, "Solution for routes", GUIDesignGroupBoxFrame) {
     // create horizontal frames for radio buttons
     FXHorizontalFrame* radioButtonsFrame = new FXHorizontalFrame(this, GUIDesignHorizontalFrame);
@@ -310,7 +310,7 @@ GNEDialog_FixDemandElements::FixRouteOptions::FixRouteOptions(GNEDialog_FixDeman
 
 
 void
-GNEDialog_FixDemandElements::FixRouteOptions::selectOption(FXObject* option) {
+GNEFixDemandElements::FixRouteOptions::selectOption(FXObject* option) {
     if (option == removeInvalidRoutes) {
         removeInvalidRoutes->setCheck(true);
         saveInvalidRoutes->setCheck(false);
@@ -328,7 +328,7 @@ GNEDialog_FixDemandElements::FixRouteOptions::selectOption(FXObject* option) {
 
 
 void
-GNEDialog_FixDemandElements::FixRouteOptions::enableFixRouteOptions() {
+GNEFixDemandElements::FixRouteOptions::enableFixRouteOptions() {
     removeInvalidRoutes->enable();
     saveInvalidRoutes->enable();
     selectInvalidRoutesAndCancel->enable();
@@ -336,17 +336,17 @@ GNEDialog_FixDemandElements::FixRouteOptions::enableFixRouteOptions() {
 
 
 void
-GNEDialog_FixDemandElements::FixRouteOptions::disableFixRouteOptions() {
+GNEFixDemandElements::FixRouteOptions::disableFixRouteOptions() {
     removeInvalidRoutes->disable();
     saveInvalidRoutes->disable();
     selectInvalidRoutesAndCancel->disable();
 }
 
 // ---------------------------------------------------------------------------
-// GNEDialog_FixDemandElements::FixVehicleOptions - methods
+// GNEFixDemandElements::FixVehicleOptions - methods
 // ---------------------------------------------------------------------------
 
-GNEDialog_FixDemandElements::FixVehicleOptions::FixVehicleOptions(GNEDialog_FixDemandElements* fixDemandElementsDialogParents) :
+GNEFixDemandElements::FixVehicleOptions::FixVehicleOptions(GNEFixDemandElements* fixDemandElementsDialogParents) :
     FXGroupBox(fixDemandElementsDialogParents->myMainFrame, "Solution for vehicles", GUIDesignGroupBoxFrame) {
     // create horizontal frames for radio buttons
     FXHorizontalFrame* radioButtonsFrame = new FXHorizontalFrame(this, GUIDesignHorizontalFrame);
@@ -365,7 +365,7 @@ GNEDialog_FixDemandElements::FixVehicleOptions::FixVehicleOptions(GNEDialog_FixD
 
 
 void
-GNEDialog_FixDemandElements::FixVehicleOptions::selectOption(FXObject* option) {
+GNEFixDemandElements::FixVehicleOptions::selectOption(FXObject* option) {
     if (option == removeInvalidVehicles) {
         removeInvalidVehicles->setCheck(true);
         saveInvalidVehicles->setCheck(false);
@@ -383,7 +383,7 @@ GNEDialog_FixDemandElements::FixVehicleOptions::selectOption(FXObject* option) {
 
 
 void
-GNEDialog_FixDemandElements::FixVehicleOptions::enableFixVehicleOptions() {
+GNEFixDemandElements::FixVehicleOptions::enableFixVehicleOptions() {
     removeInvalidVehicles->enable();
     saveInvalidVehicles->enable();
     selectInvalidVehiclesAndCancel->enable();
@@ -391,17 +391,17 @@ GNEDialog_FixDemandElements::FixVehicleOptions::enableFixVehicleOptions() {
 
 
 void
-GNEDialog_FixDemandElements::FixVehicleOptions::disableFixVehicleOptions() {
+GNEFixDemandElements::FixVehicleOptions::disableFixVehicleOptions() {
     removeInvalidVehicles->disable();
     saveInvalidVehicles->disable();
     selectInvalidVehiclesAndCancel->disable();
 }
 
 // ---------------------------------------------------------------------------
-// GNEDialog_FixDemandElements::FixStopOptions - methods
+// GNEFixDemandElements::FixStopOptions - methods
 // ---------------------------------------------------------------------------
 
-GNEDialog_FixDemandElements::FixStopOptions::FixStopOptions(GNEDialog_FixDemandElements* fixDemandElementsDialogParents) :
+GNEFixDemandElements::FixStopOptions::FixStopOptions(GNEFixDemandElements* fixDemandElementsDialogParents) :
     FXGroupBox(fixDemandElementsDialogParents->myMainFrame, "Select a solution for stops", GUIDesignGroupBoxFrame) {
     // create horizontal frames for radio buttons
     FXHorizontalFrame* RadioButtons = new FXHorizontalFrame(this, GUIDesignHorizontalFrame);
@@ -423,7 +423,7 @@ GNEDialog_FixDemandElements::FixStopOptions::FixStopOptions(GNEDialog_FixDemandE
 
 
 void
-GNEDialog_FixDemandElements::FixStopOptions::selectOption(FXObject* option) {
+GNEFixDemandElements::FixStopOptions::selectOption(FXObject* option) {
     if (option == activateFriendlyPositionAndSave) {
         activateFriendlyPositionAndSave->setCheck(true);
         fixPositionsAndSave->setCheck(false);
@@ -449,7 +449,7 @@ GNEDialog_FixDemandElements::FixStopOptions::selectOption(FXObject* option) {
 
 
 void
-GNEDialog_FixDemandElements::FixStopOptions::enableFixStopOptions() {
+GNEFixDemandElements::FixStopOptions::enableFixStopOptions() {
     activateFriendlyPositionAndSave->enable();
     fixPositionsAndSave->enable();
     saveInvalid->enable();
@@ -458,7 +458,7 @@ GNEDialog_FixDemandElements::FixStopOptions::enableFixStopOptions() {
 
 
 void
-GNEDialog_FixDemandElements::FixStopOptions::disableFixStopOptions() {
+GNEFixDemandElements::FixStopOptions::disableFixStopOptions() {
     activateFriendlyPositionAndSave->disable();
     fixPositionsAndSave->disable();
     saveInvalid->disable();

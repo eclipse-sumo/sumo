@@ -7,7 +7,7 @@
 // http://www.eclipse.org/legal/epl-v20.html
 // SPDX-License-Identifier: EPL-2.0
 /****************************************************************************/
-/// @file    GNEDialog_About.cpp
+/// @file    GNEAbout.cpp
 /// @author  Jakob Erdmann
 /// @date    Feb 2011
 /// @version $Id$
@@ -30,13 +30,13 @@
 #include <utils/gui/images/GUIIconSubSys.h>
 #include <utils/gui/div/GUIDesigns.h>
 
-#include "GNEDialog_About.h"
+#include "GNEAbout.h"
 
 
 // ===========================================================================
 // method definitions
 // ===========================================================================
-GNEDialog_About::GNEDialog_About(FXWindow* parent) :
+GNEAbout::GNEAbout(FXWindow* parent) :
     FXDialogBox(parent, "About Eclipse SUMO netedit", GUIDesignDialogBox) {
     // set dialog icon
     setIcon(GUIIconSubSys::getIcon(ICON_NETEDIT));
@@ -84,12 +84,12 @@ GNEDialog_About::GNEDialog_About(FXWindow* parent) :
 
 
 void
-GNEDialog_About::create() {
+GNEAbout::create() {
     FXDialogBox::create();
 }
 
 
-GNEDialog_About::~GNEDialog_About() {
+GNEAbout::~GNEAbout() {
     delete myHeadlineFont;
 }
 
