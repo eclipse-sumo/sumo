@@ -1,5 +1,5 @@
 ---
-title: TraCI Vehicle Signalling
+title: TraCI/Vehicle Signalling
 permalink: /TraCI/Vehicle_Signalling/
 ---
 
@@ -15,20 +15,20 @@ computed in each step.
 The following signals are computed in each time step. The value set via
 TraCI is only retained for the current time step.
 
-  - **VEH_SIGNAL_BRAKELIGHT**: The brake light is set whenever the
-    vehicle is standing (not stopped) or when the vehicle decelerates
-    beyond a threshold value. The signal value is used by the vehicles
-    when [trying to avoid jamming on an intersection](../Simulation/Intersections.md#junction_blocking).
-  - **VEH_SIGNAL_BLINKER_RIGHT** and **VEH_SIGNAL_BLINKER_LEFT**:
-    The blinker is activated in either of the following conditions
-      - The vehicle is about to take a turn at an intersection
-        (activated 7 seconds before reachin the intersection)
-      - Either of the [continous lane-change models](../Simulation/SublaneModel.md) is active
-      - A desired lane change cannot be executed due to neighboring
-        vehicles.
-  - **VEH_SIGNAL_EMERGENCY_BLUE**: when switched on, a blinking blue
-    light is shown in the GUI for vehicles with vClass="emergency" and
-    shapeClass="emergency"
+- **VEH_SIGNAL_BRAKELIGHT**: The brake light is set whenever the
+vehicle is standing (not stopped) or when the vehicle decelerates
+beyond a threshold value. The signal value is used by the vehicles
+when [trying to avoid jamming on an intersection](../Simulation/Intersections.md#junction_blocking).
+- **VEH_SIGNAL_BLINKER_RIGHT** and **VEH_SIGNAL_BLINKER_LEFT**:
+The blinker is activated in either of the following conditions
+  - The vehicle is about to take a turn at an intersection
+    (activated 7 seconds before reachin the intersection)
+  - Either of the [continous lane-change models](../Simulation/SublaneModel.md) is active
+  - A desired lane change cannot be executed due to neighboring
+    vehicles.
+- **VEH_SIGNAL_EMERGENCY_BLUE**: when switched on, a blinking blue
+light is shown in the GUI for vehicles with vClass="emergency" and
+shapeClass="emergency"
 
 # Defined Signals
 
@@ -56,6 +56,6 @@ The following table shows the defined signals.
 
 # See Also
 
-  - [Vehicle Value Retrieval](TraCI/Vehicle_Value_Retrieval.md)
-  - [Change Vehicle State](TraCI/Change_Vehicle_State.md)
-  - [Accessing signal state without TraCI using **--fcd-output**](Simulation/Output/FCDOutput#Further_Options.md)
+- [Vehicle Value Retrieval](../TraCI/Vehicle_Value_Retrieval.md)
+- [Change Vehicle State](../TraCI/Change_Vehicle_State.md)
+- [Accessing signal state without TraCI using **--fcd-output**](../Simulation/Output/FCDOutput.md#further_options)

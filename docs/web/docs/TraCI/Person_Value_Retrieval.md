@@ -5,9 +5,8 @@ permalink: /TraCI/Person_Value_Retrieval/
 
 ## Command 0xae: Get Person Variable
 
-|          |           |
-| :------: | :-------: |
 |  ubyte   |  string   |
+| :------: | :-------: |
 | Variable | Person ID |
 
 Asks for the value of a certain variable of the named person. The value
@@ -20,8 +19,12 @@ returned.
 The following variable values can be retrieved, the type of the return
 value is also shown in the table.
 
-| Variable                | ValueType               | Description                                                                                                                                                    | [Python Method](TraCI/Interfacing_TraCI_from_Python.md)                              |
-| ----------------------- | ----------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------- |
+<center>
+**Overview Retrievable Person Variables**
+</center>
+
+| Variable                | ValueType               | Description      | [Python Method](../TraCI/Interfacing_TraCI_from_Python.md)   |
+| ----------------------- | ----------------------- | ---------------- | ------------------------------------------------------------ |
 | id list (0x00)          | stringList              | Returns a list of ids of all persons currently running within the scenario (the given person ID is ignored)                                                    | [getIDList](https://sumo.dlr.de/pydoc/traci._person.html#PersonDomain-getIDList)             |
 | count (0x01)            | int                     | Returns the number of persons currently running within the scenario (the given person ID is ignored)                                                           | [getIDCount](https://sumo.dlr.de/pydoc/traci._person.html#PersonDomain-getIDCount)           |
 | speed (0x40)            | double                  | Returns the speed of the named person within the last step \[m/s\]; error value: -2^30                                                                         | [getSpeed](https://sumo.dlr.de/pydoc/traci._person.html#PersonDomain-getSpeed)               |
@@ -40,16 +43,12 @@ value is also shown in the table.
 | next edge (0xc1)        | string                  | Returns the next edge on the persons route while it is walking. If there is no further edge or the person is in another stage, returns the empty string.       | [getNextEdge](https://sumo.dlr.de/pydoc/traci._person.html#PersonDomain-getNextEdge)         |
 | remaining stages (0xc2) | int                     | Returns the number of remaining stages for the given person including the current stage.                                                                       | [getRemainingStages](https://sumo.dlr.de/pydoc/traci._person.html#PersonDomain-getStage)     |
 | vehicle (0xc3)          | string                  | Returns the id of the vehicle if the person is in stage driving and has entered a vehicle.                                                                     | [getVehicle](https://sumo.dlr.de/pydoc/traci._person.html#PersonDomain-getVehicle)           |
-|                         |                         |                                                                                                                                                                |                                                                                              |
-
-**Overview Retrievable Person Variables**
 
 ## Response 0xb4: Person Variable
 
-|          |           |                             |                  |
+|  ubyte   |  string   |            ubyte            |  <return_type\>   |
 | :------: | :-------: | :-------------------------: | :--------------: |
-|  ubyte   |  string   |            ubyte            |  <return_type>   |
-| Variable | Person ID | Return type of the variable | <VARIABLE_VALUE> |
+| Variable | Person ID | Return type of the variable | <VARIABLE_VALUE\> |
 
 The respond to a **"Command Get Person Variable"**.
 
@@ -57,11 +56,11 @@ The respond to a **"Command Get Person Variable"**.
 
 Some further messages require additional parameters.
 
+<center>
 **Overview Extended Variables Retrieval**
+</center>
 
-| Variable     | Request ValueType      | Response ValueType | Description                                                                                                                                                                                                                                                    | [Python Method](TraCI/Interfacing_TraCI_from_Python.md)                |
-| ------------ | ---------------------- | ------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------ |
+| Variable   | Request ValueType   | Response ValueType | Description    | [Python Method](../TraCI/Interfacing_TraCI_from_Python.md) |
+| ---------- | ------------------- | ------------------ | -------------- | ---------------------------------------------------------- |
 | stage (0xc0) | next stage index (int) | [TraCIStage](../TraCI/Change_Person_State.md#append_stage_280xc429)                | Returns the a compound object that describes nth next stage. Index 0 retrieves the value for the current stage. The given index must be lower than the value of 'remaining stages'.  | [getStage](https://sumo.dlr.de/pydoc/traci._person.html#PersonDomain-getStage) |
 | edges (0x54) | next stage index (int) | stringList         | Returns the edges of the nth next stage. Index 0 retrieves the value for the current stage. The given index must be lower than the value of 'remaining stages'. For driving stages only origin and destination edge are returned.                              | [getEdges](https://sumo.dlr.de/pydoc/traci._person.html#PersonDomain-getEdges) |
-|              |                        |                    |                                                                                                                                                                                                                                                                |                                                                                |
-

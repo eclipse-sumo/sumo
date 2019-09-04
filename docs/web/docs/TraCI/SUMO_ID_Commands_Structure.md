@@ -1,5 +1,5 @@
 ---
-title: TraCI SUMO ID Commands Structure
+title: TraCI/SUMO ID Commands Structure
 permalink: /TraCI/SUMO_ID_Commands_Structure/
 ---
 
@@ -15,9 +15,8 @@ object.
 
 ### Command to SUMO
 
-|          |         |
-| :------: | :-----: |
 |  ubyte   | string  |
+| :------: | :-----: |
 | variable | SUMO ID |
 
 The variable depends on the particular command and selects a special
@@ -28,14 +27,13 @@ command.
 
 ### Answer from SUMO
 
-|          |         |                             |                  |
+|  ubyte   | string  |            ubyte            |  <return_type\>   |
 | :------: | :-----: | :-------------------------: | :--------------: |
-|  ubyte   | string  |            ubyte            |  <return_type>   |
-| variable | SUMO ID | return type of the variable | <VARIABLE_VALUE> |
+| variable | SUMO ID | return type of the variable | <VARIABLE_VALUE\> |
 
 Variable and SUMO ID repeat the values from the command. The return type
 depends on the variable and can be either a general TraCI data type
-described [here](TraCI/Protocol#Data_types.md) or a special
+described [here](../TraCI/Protocol.md#data_types) or a special
 compound type for this variable which is documented with the particular
 command.
 
@@ -46,9 +44,8 @@ They set a certain value of a particular object.
 
 ### Command to SUMO
 
-|          |         |                   |              |
+|  ubyte   | string  |       ubyte       | <value_type\> |
 | :------: | :-----: | :---------------: | :----------: |
-|  ubyte   | string  |       ubyte       | <value_type> |
 | variable | SUMO ID | type of the value |  new value   |
 
 Additional to variable and SUMO ID like the value retrieval commands we
@@ -60,5 +57,5 @@ command for details.
 ### Answer from SUMO
 
 The answer to a state change command always consists only of the status
-response described [here](TraCI/Protocol#Status_Response.md).
+response described [here](../TraCI/Protocol.md#status_response).
 Nothing else will be returned.

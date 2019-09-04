@@ -1,12 +1,12 @@
 ---
-title: Traci GenericParameters
+title: Traci/GenericParameters
 permalink: /Traci/GenericParameters/
 ---
 
 # Variable 0x7e: Parameter
 
 [Generic parameters are supported by various simulation
-objects](Simulation/GenericParameters.md). They can be read and
+objects](../Simulation/GenericParameters.md). They can be read and
 set with the following commands:
 
 ## supported domains (get / set)
@@ -23,18 +23,15 @@ set with the following commands:
 | edge          | 0xaa        | 0xca        |
 | person        | 0xae        | 0xce        |
 | simulation    | 0xab        | 0xcb        |
-|               |             |             |
 
 ## get parameter
 
-|                        |                       |           |                     |           |
-| :--------------------: | :-------------------: | :-------: | :-----------------: | :-------: |
 |          byte          |         byte          |  string   |        byte         |  string   |
+| :--------------------: | :-------------------: | :-------: | :-----------------: | :-------: |
 | command get for domain | type parameter (0x7e) | object id | value type *string* | parameter |
 
 ## set parameter
 
-|                        |                       |           |                       |     |                     |           |                     |        |
-| :--------------------: | :-------------------: | :-------: | :-------------------: | :-: | :-----------------: | :-------: | :-----------------: | :----: |
-|          byte          |         byte          |  string   |         byte          | int |        byte         |  string   |        byte         | string |
+|          byte    |         byte    |  string   |         byte   | int |        byte         |  string   |        byte         | string |
+| :--------------: | :-------------: | :-------: | :------------: | :-: | :-----------------: | :-------: | :-----------------: | :----: |
 | command set for domain | type parameter (0x7e) | object id | value type *compound* |  2  | value type *string* | parameter | value type *string* | value  |

@@ -5,9 +5,8 @@ permalink: /TraCI/VehicleType_Value_Retrieval/
 
 ## Command 0xa5: Get Vehicle Type Variable
 
-|          |                 |
-| :------: | :-------------: |
 |  ubyte   |     string      |
+| :------: | :-------------: |
 | Variable | Vehicle Type ID |
 
 Asks for the value of a certain variable of the named vehicle type.
@@ -15,8 +14,8 @@ Asks for the value of a certain variable of the named vehicle type.
 The following variable values can be retrieved, the type of the return
 value is also shown in the table.
 
-| Variable                  | ValueType           | Description                                                                                    | [Python Method](TraCI/Interfacing_TraCI_from_Python.md)                                                |
-| ------------------------- | ------------------- | ---------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------- |
+| Variable                  | ValueType           | Description     | [Python Method](../TraCI/Interfacing_TraCI_from_Python.md) |
+| ------------------------- | ------------------- | --------------- | ---------------------------------------------------------- |
 | id list (0x00)            | stringList          | Returns a list of ids of currently loaded vehicle types (the given vehicle type ID is ignored) | [getIDList](https://sumo.dlr.de/pydoc/traci._vehicletype.html#VehicleTypeDomain-getIDList)                     |
 | count (0x01)              | int                 | Returns the number of currently loaded vehicle types (the given vehicle type ID is ignored)    | [getIDCount](https://sumo.dlr.de/pydoc/traci._vehicletype.html#VehicleTypeDomain-getIDCount)                   |
 | length (0x44)             | double              | Returns the length of the vehicles of this type \[m\]                                          | [getLength](https://sumo.dlr.de/pydoc/traci._vehicletype.html#VehicleTypeDomain-getLength)                     |
@@ -44,9 +43,8 @@ value is also shown in the table.
 
 ## Response 0xb5: Vehicle Type Variable
 
-|          |                 |                             |                  |
+|  ubyte   |     string      |            ubyte            |  <return_type\>   |
 | :------: | :-------------: | :-------------------------: | :--------------: |
-|  ubyte   |     string      |            ubyte            |  <return_type>   |
-| Variable | Vehicle Type ID | Return type of the variable | <VARIABLE_VALUE> |
+| Variable | Vehicle Type ID | Return type of the variable | <VARIABLE_VALUE\> |
 
 The respond to a **"Command Get Vehicle Type Variable"**.
