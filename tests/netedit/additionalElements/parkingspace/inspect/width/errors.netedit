@@ -26,6 +26,7 @@ Debug: ObjectsUnderCursor: GUIGlObjects: 1, AttributeCarriers: 1, NetElements: 1
 Debug: Adding space 'parkingArea_gneE2_1_0space0' in GNEChange_Additional
 GLDebug: 	Inserted parkingSpace:parkingArea_gneE2_1_0space0 into SUMORTree with boundary 10.40,-2.00,23.60,13.00
 Debug: ObjectsUnderCursor: GUIGlObjects: 1, AttributeCarriers: 1, NetElements: 0, Additionals: 1, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
+Debug: Value 'dummyWidth' for attribute width of space isn't valid
 Debug: Value '-5' for attribute width of space isn't valid
 Debug: Value '0' for attribute width of space isn't valid
 Debug: Setting new attribute width '2.3' into space 'parkingArea_gneE2_1_0space0'

@@ -50,6 +50,7 @@ Debug: Setting new attribute selected 'true' into connection 'from8_1to1_1'
 Debug: Setting new attribute selected 'true' into junction 'D'
 Debug: Setting new attribute selected 'true' into edge '4'
 Debug: ObjectsUnderCursor: GUIGlObjects: 2, AttributeCarriers: 2, NetElements: 2, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 1, Edges: 0, Lanes: 0, Crossings: 0, Connections: 1, TAZs: 0, POIs: 0, Polys: 0
+Debug: Value 'dummySpeed' for attribute speed of connection isn't valid
 Debug: Value '-3' for attribute speed of connection isn't valid
 Debug: Setting new attribute speed '0' into connection 'from5_0to4_0'
 Debug: net has to be saved

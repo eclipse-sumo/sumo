@@ -67,6 +67,7 @@ Debug: Created crossing ':Center_c0' in retrieveGNECrossing()
 Debug: Created crossing ':Center_c1' in retrieveGNECrossing()
 Debug: Current Viewport values: 50.00, 50.00, 50.00. Zoom = '248.00'
 Debug: ObjectsUnderCursor: GUIGlObjects: 2, AttributeCarriers: 2, NetElements: 2, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 1, Edges: 0, Lanes: 0, Crossings: 1, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
+Debug: Value 'dummyWidth' for attribute width of crossing isn't valid
 Debug: Value '-5' for attribute width of crossing isn't valid
 Debug: Setting new attribute width '8.1' into crossing ':Center_c1'
 Debug: net has to be saved

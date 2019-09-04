@@ -22,6 +22,7 @@ GLDebug: 	Inserted parkingArea:parkingArea_gneE2_1_0 into SUMORTree with boundar
 Debug: Additionals has to be saved
 Debug: Current saving Status: net saved, additionals unsaved, demand elements saved
 Debug: ObjectsUnderCursor: GUIGlObjects: 2, AttributeCarriers: 2, NetElements: 1, Additionals: 1, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 1, Lanes: 1, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
+Debug: Value 'dummyEndPos' for attribute endPos of parkingArea isn't valid
 Debug: Setting new attribute endPos '' into parkingArea 'parkingArea_gneE2_1_0'
 GLDebug: 	Removed object parkingArea:parkingArea_gneE2_1_0 from SUMORTree with boundary 7.80,9.40,26.20,17.80
 GLDebug: 	Inserted parkingArea:parkingArea_gneE2_1_0 into SUMORTree with boundary 7.80,9.40,26.20,17.80

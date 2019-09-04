@@ -22,15 +22,13 @@ Error: Invalid Lane Change Model Parameters
 Debug: Adding vType 'vType0' in GNEChange_DemandElement
 Debug: DemandElements has to be saved
 Debug: Current saving Status: net saved, additionals saved, demand elements unsaved
-Error: Invalid Lane-Change-Model Attribute lcAssertive. Must be greater than 0
+Error: Invalid Lane-Change-Model Attribute lcAssertive. Must be equal or greater than 0
 Error: Invalid Lane Change Model Parameters
 Debug: Adding vType 'vType1' in GNEChange_DemandElement
-Error: Invalid Lane-Change-Model Attribute lcAssertive. Must be greater than 0
-Error: Invalid Lane Change Model Parameters
 Debug: Adding vType 'vType2' in GNEChange_DemandElement
 Debug: Adding vType 'vType3' in GNEChange_DemandElement
 Debug: Adding vType 'vType4' in GNEChange_DemandElement
-Error: Loading of C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.07Aug081749.192/netedit.gui/demandElements/vehicletype/load/lanechangemodel_params/lc_assertive\input_routes.rou.xml failed.
+Error: Loading of C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.03Sep083941.1072/netedit.gui/demandElements/vehicletype/load/lanechangemodel_params/lc_assertive\input_routes.rou.xml failed.
 Debug: net has to be saved
 Debug: Current saving Status: net unsaved, additionals saved, demand elements unsaved
 Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0

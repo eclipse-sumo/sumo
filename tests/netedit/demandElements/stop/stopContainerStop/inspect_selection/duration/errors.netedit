@@ -34,8 +34,7 @@ Debug: Setting new attribute selected 'true' into trip 'trip_0'
 Debug: Setting new attribute selected 'true' into stopContainerStop 'trip_0stopContainerStop0'
 Debug: Setting new attribute selected 'true' into stopContainerStop 'trip_0stopContainerStop1'
 Debug: ObjectsUnderCursor: GUIGlObjects: 2, AttributeCarriers: 2, NetElements: 0, Additionals: 1, DemandElements: 1, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
-Debug: Setting new attribute duration '60' into stopContainerStop 'trip_0stopContainerStop0'
-Debug: Setting new attribute duration '60' into stopContainerStop 'trip_0stopContainerStop1'
+Debug: Value 'dummyValue' for attribute duration of stopContainerStop isn't valid
 Debug: Setting new attribute duration '60' into stopContainerStop 'trip_0stopContainerStop0'
 Debug: Setting new attribute duration '60' into stopContainerStop 'trip_0stopContainerStop1'
 Debug: Value '-5' for attribute duration of stopContainerStop isn't valid
@@ -52,22 +51,26 @@ Debug: Setting previous attribute duration '60.00' into stopContainerStop 'trip_
 Debug: Setting previous attribute duration '60.00' into stopContainerStop 'trip_0stopContainerStop0'
 Debug: Keys Ctrl + Z (Undo) pressed
 Debug: Setting previous attribute duration '60.00' into stopContainerStop 'trip_0stopContainerStop1'
-Debug: Setting previous attribute duration '60.00' into stopContainerStop 'trip_0stopContainerStop0'
-Debug: Keys Ctrl + Z (Undo) pressed
-Debug: Setting previous attribute duration '60.00' into stopContainerStop 'trip_0stopContainerStop1'
 Debug: Setting previous attribute duration '70.00' into stopContainerStop 'trip_0stopContainerStop0'
 Debug: Keys Ctrl + Z (Undo) pressed
 Debug: Setting previous attribute selected '0' into stopContainerStop 'trip_0stopContainerStop1'
 Debug: Setting previous attribute selected '0' into stopContainerStop 'trip_0stopContainerStop0'
 Debug: Setting previous attribute selected '0' into trip 'trip_0'
+Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Removing stopContainerStop 'trip_0stopContainerStop1' in GNEChange_DemandElement
+Debug: Removed inspected element from Inspected ACs. 1 ACs remains.
+Debug: Removing stopContainerStop 'trip_0stopContainerStop0' in GNEChange_DemandElement
+Debug: Removed inspected element from Inspected ACs. 0 ACs remains.
+Debug: Removing trip 'trip_0' in GNEChange_DemandElement
 Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
+Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Adding trip 'trip_0' in GNEChange_DemandElement
+Debug: Adding stopContainerStop 'trip_0stopContainerStop0' in GNEChange_DemandElement
+Debug: Adding stopContainerStop 'trip_0stopContainerStop1' in GNEChange_DemandElement
 Debug: Keys Ctrl + Y (Redo) pressed
 Debug: Setting new attribute selected 'true' into trip 'trip_0'
 Debug: Setting new attribute selected 'true' into stopContainerStop 'trip_0stopContainerStop0'
 Debug: Setting new attribute selected 'true' into stopContainerStop 'trip_0stopContainerStop1'
-Debug: Keys Ctrl + Y (Redo) pressed
-Debug: Setting new attribute duration '60' into stopContainerStop 'trip_0stopContainerStop0'
-Debug: Setting new attribute duration '60' into stopContainerStop 'trip_0stopContainerStop1'
 Debug: Keys Ctrl + Y (Redo) pressed
 Debug: Setting new attribute duration '60' into stopContainerStop 'trip_0stopContainerStop0'
 Debug: Setting new attribute duration '60' into stopContainerStop 'trip_0stopContainerStop1'

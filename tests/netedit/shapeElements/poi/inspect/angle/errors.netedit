@@ -15,6 +15,7 @@ GLDebug: 	Inserted poi:POI_0 into SUMORTree with boundary -2.00,17.00,4.00,23.00
 Debug: Additionals has to be saved
 Debug: Current saving Status: net saved, additionals unsaved, demand elements saved
 Debug: ObjectsUnderCursor: GUIGlObjects: 1, AttributeCarriers: 1, NetElements: 0, Additionals: 0, DemandElements: 0, Shapes: 1, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 1, Polys: 0
+Debug: Value 'dummyAngle' for attribute angle of poi isn't valid
 Debug: Setting new attribute angle '-12' into poi 'POI_0'
 Debug: Setting new attribute angle '500' into poi 'POI_0'
 Debug: Setting new attribute angle '30' into poi 'POI_0'

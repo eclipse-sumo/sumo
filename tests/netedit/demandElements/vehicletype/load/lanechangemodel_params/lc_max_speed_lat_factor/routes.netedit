@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 31.07.2019 13:26:04 by Eclipse SUMO netedit Version v1_2_0+1347-d1917ff3c6
+<!-- generated on 03.09.2019 12:45:55 by Eclipse SUMO netedit Version v1_3_1+0117-f1e92b5873
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.31Jul132146.5996/netedit.gui/demandElements/vehicletype/load/lanechangemodel_params/lc_max_speed_lat_factor\input_net.net.xml"/>
+        <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.03Sep083941.1072/netedit.gui/demandElements/vehicletype/load/lanechangemodel_params/lc_max_speed_lat_factor\input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.31Jul132146.5996/netedit.gui/demandElements/vehicletype/load/lanechangemodel_params/lc_max_speed_lat_factor\net.net.xml"/>
+        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.03Sep083941.1072/netedit.gui/demandElements/vehicletype/load/lanechangemodel_params/lc_max_speed_lat_factor\net.net.xml"/>
     </output>
 
     <processing>
@@ -29,13 +29,14 @@
     </pedestrian>
 
     <netedit>
-        <additional-files value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.31Jul132146.5996/netedit.gui/demandElements/vehicletype/load/lanechangemodel_params/lc_max_speed_lat_factor\additionals.xml"/>
-        <additionals-output value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.31Jul132146.5996/netedit.gui/demandElements/vehicletype/load/lanechangemodel_params/lc_max_speed_lat_factor\additionals.xml"/>
-        <route-files value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.31Jul132146.5996/netedit.gui/demandElements/vehicletype/load/lanechangemodel_params/lc_max_speed_lat_factor\routes.xml"/>
-        <demandelements-output value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.31Jul132146.5996/netedit.gui/demandElements/vehicletype/load/lanechangemodel_params/lc_max_speed_lat_factor\routes.xml"/>
+        <additional-files value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.03Sep083941.1072/netedit.gui/demandElements/vehicletype/load/lanechangemodel_params/lc_max_speed_lat_factor\additionals.xml"/>
+        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.03Sep083941.1072/netedit.gui/demandElements/vehicletype/load/lanechangemodel_params/lc_max_speed_lat_factor\additionals.xml"/>
+        <route-files value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.03Sep083941.1072/netedit.gui/demandElements/vehicletype/load/lanechangemodel_params/lc_max_speed_lat_factor\routes.xml"/>
+        <demandelements-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.03Sep083941.1072/netedit.gui/demandElements/vehicletype/load/lanechangemodel_params/lc_max_speed_lat_factor\routes.xml"/>
     </netedit>
 
     <visualisation>
+        <gui-settings-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.03Sep083941.1072/netedit.gui/demandElements/vehicletype/load/lanechangemodel_params/lc_max_speed_lat_factor\gui-settings.xml"/>
         <window-size value="700,500"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
@@ -45,7 +46,7 @@
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.31Jul132146.5996/netedit.gui/demandElements/vehicletype/load/lanechangemodel_params/lc_max_speed_lat_factor\log.txt"/>
+        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.03Sep083941.1072/netedit.gui/demandElements/vehicletype/load/lanechangemodel_params/lc_max_speed_lat_factor\log.txt"/>
     </report>
 
 </configuration>
@@ -53,8 +54,8 @@
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
     <vType id="vType0" laneChangeModel="LC2013"/>
-    <vType id="vType1" laneChangeModel="LC2013"/>
-    <vType id="vType2" laneChangeModel="LC2013"/>
+    <vType id="vType1" laneChangeModel="LC2013" lcMaxSpeedLatFactor="-3"/>
+    <vType id="vType2" laneChangeModel="LC2013" lcMaxSpeedLatFactor="0"/>
     <vType id="vType3" laneChangeModel="LC2013" lcMaxSpeedLatFactor="2"/>
     <vType id="vType4" laneChangeModel="LC2013" lcMaxSpeedLatFactor="5.5"/>
 </routes>

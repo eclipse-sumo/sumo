@@ -20,11 +20,11 @@ Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
 Debug: Adding route 'route_0' in GNEChange_DemandElement
 Debug: DemandElements has to be saved
 Debug: Current saving Status: net saved, additionals saved, demand elements unsaved
-Error: route ID='' contains invalid characters.
+Error: route needs a valid ID.
 Error: route ID='' contains invalid characters.
 Error: route ID='' contains invalid characters.
 Error: There is another route with the same ID='route_0'.
-Error: Loading of C:/Users/alva_pa/.texttest/tmp/netedit.gui.19Aug090028.9296/netedit.gui/demandElements/route/load/id\input_routes.rou.xml failed.
+Error: Loading of C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.03Sep083941.1072/netedit.gui/demandElements/route/load/id\input_routes.rou.xml failed.
 Debug: net has to be saved
 Debug: Current saving Status: net unsaved, additionals saved, demand elements unsaved
 Debug: Enabled show demand elements throught alt + 1

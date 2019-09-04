@@ -77,11 +77,11 @@ Debug: Current Viewport values: 50.00, 50.00, 50.00. Zoom = '248.00'
 Debug: ObjectsUnderCursor: GUIGlObjects: 2, AttributeCarriers: 2, NetElements: 2, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 1, Edges: 0, Lanes: 0, Crossings: 1, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 Debug: ObjectsUnderCursor: GUIGlObjects: 2, AttributeCarriers: 2, NetElements: 2, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 1, Edges: 0, Lanes: 0, Crossings: 1, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 Debug: ObjectsUnderCursor: GUIGlObjects: 2, AttributeCarriers: 2, NetElements: 2, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 1, Edges: 0, Lanes: 0, Crossings: 1, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
-Debug: Setting new attribute width '4.00' into crossing ':Center_c0'
-Debug: net has to be saved
-Debug: Current saving Status: net unsaved, additionals saved, demand elements saved
+Debug: Value 'dummyWidth' for attribute width of crossing isn't valid
 Debug: Value '-5' for attribute width of crossing isn't valid
 Debug: Setting new attribute width '8.1' into crossing ':Center_c0'
+Debug: net has to be saved
+Debug: Current saving Status: net unsaved, additionals saved, demand elements saved
 Debug: Setting new attribute width '8.1' into crossing ':Center_c1'
 Debug: Key F5 (Compute) pressed
 GLDebug: Removing junctions during recomputing
@@ -117,7 +117,7 @@ GLDebug: 	Inserted edge:8 into SUMORTree with boundary 40.00,40.00,110.00,64.80
 Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 Debug: Keys Ctrl + Z (Undo) pressed
 Debug: Setting previous attribute width '4.00' into crossing ':Center_c1'
-Debug: Setting previous attribute width '4.00' into crossing ':Center_c0'
+Debug: Setting previous attribute width '3.00' into crossing ':Center_c0'
 Debug: Key F5 (Compute) pressed
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:A from SUMORTree with boundary 33.60,-10.00,66.40,10.00

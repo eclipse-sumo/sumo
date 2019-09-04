@@ -112,7 +112,7 @@ GLDebug: 	Inserted edge:6 into SUMORTree with boundary 35.20,40.00,60.00,110.00
 GLDebug: 	Inserted edge:7 into SUMORTree with boundary -10.00,35.20,60.00,60.00
 GLDebug: 	Inserted edge:8 into SUMORTree with boundary 40.00,40.00,110.00,64.80
 Debug: ObjectsUnderCursor: GUIGlObjects: 2, AttributeCarriers: 2, NetElements: 2, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 1, Edges: 0, Lanes: 0, Crossings: 1, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
-Debug: Value '-1' for attribute linkIndex of crossing isn't valid
+Debug: Value '4 8' for attribute linkIndex of crossing isn't valid
 Debug: Key F5 (Compute) pressed
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:A from SUMORTree with boundary 33.60,-10.00,66.40,10.00

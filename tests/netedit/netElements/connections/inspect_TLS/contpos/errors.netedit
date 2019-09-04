@@ -21,6 +21,7 @@ Debug: Created connection 'from8_1to3_1' in retrieveGNEConnection()
 Debug: Created connection 'from8_1to1_1' in retrieveGNEConnection()
 Debug: Enabled show connections throught alt + 3
 Debug: ObjectsUnderCursor: GUIGlObjects: 2, AttributeCarriers: 2, NetElements: 2, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 1, Edges: 0, Lanes: 0, Crossings: 0, Connections: 1, TAZs: 0, POIs: 0, Polys: 0
+Debug: Value 'dummyContPos' for attribute contPos of connection isn't valid
 Debug: Value '-3' for attribute contPos of connection isn't valid
 Debug: Setting new attribute contPos '0' into connection 'from8_0to3_0'
 Debug: net has to be saved

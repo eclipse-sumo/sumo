@@ -27,18 +27,14 @@ Debug: Created connection 'fromgneE9_0togneE2_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE9_0togneE2_1' in retrieveGNEConnection()
 Debug: ObjectsUnderCursor: GUIGlObjects: 1, AttributeCarriers: 1, NetElements: 1, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 1, Lanes: 1, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 Debug: ObjectsUnderCursor: swapped Lanes to edges
+Debug: Value 'dummyWidth' for attribute width of edge isn't valid
 Debug: Setting new attribute width '-1' into lane 'gneE2_0'
 Debug: net has to be saved
 Debug: Current saving Status: net unsaved, additionals unsaved, demand elements saved
 Debug: Setting new attribute width '-1' into lane 'gneE2_1'
 Debug: Setting new attribute width '-1' into edge 'gneE2'
-Debug: Setting new attribute width '-1' into lane 'gneE2_0'
-Debug: Setting new attribute width '-1' into lane 'gneE2_1'
-Debug: Setting new attribute width '-1' into edge 'gneE2'
 Debug: Value '-2' for attribute width of edge isn't valid
-Debug: Setting new attribute width '-1' into lane 'gneE2_0'
-Debug: Setting new attribute width '-1' into lane 'gneE2_1'
-Debug: Setting new attribute width '-1' into edge 'gneE2'
+Debug: Value 'default' for attribute width of edge isn't valid
 Debug: Setting new attribute width '4' into lane 'gneE2_0'
 Debug: Setting new attribute width '4' into lane 'gneE2_1'
 Debug: Setting new attribute width '4' into edge 'gneE2'

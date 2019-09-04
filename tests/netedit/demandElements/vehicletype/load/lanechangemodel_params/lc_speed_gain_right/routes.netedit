@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 31.07.2019 13:24:30 by Eclipse SUMO netedit Version v1_2_0+1347-d1917ff3c6
+<!-- generated on 03.09.2019 12:43:59 by Eclipse SUMO netedit Version v1_3_1+0117-f1e92b5873
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.31Jul132146.5996/netedit.gui/demandElements/vehicletype/load/lanechangemodel_params/lc_speed_gain_right\input_net.net.xml"/>
+        <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.03Sep083941.1072/netedit.gui/demandElements/vehicletype/load/lanechangemodel_params/lc_speed_gain_right\input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.31Jul132146.5996/netedit.gui/demandElements/vehicletype/load/lanechangemodel_params/lc_speed_gain_right\net.net.xml"/>
+        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.03Sep083941.1072/netedit.gui/demandElements/vehicletype/load/lanechangemodel_params/lc_speed_gain_right\net.net.xml"/>
     </output>
 
     <processing>
@@ -29,13 +29,14 @@
     </pedestrian>
 
     <netedit>
-        <additional-files value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.31Jul132146.5996/netedit.gui/demandElements/vehicletype/load/lanechangemodel_params/lc_speed_gain_right\additionals.xml"/>
-        <additionals-output value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.31Jul132146.5996/netedit.gui/demandElements/vehicletype/load/lanechangemodel_params/lc_speed_gain_right\additionals.xml"/>
-        <route-files value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.31Jul132146.5996/netedit.gui/demandElements/vehicletype/load/lanechangemodel_params/lc_speed_gain_right\routes.xml"/>
-        <demandelements-output value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.31Jul132146.5996/netedit.gui/demandElements/vehicletype/load/lanechangemodel_params/lc_speed_gain_right\routes.xml"/>
+        <additional-files value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.03Sep083941.1072/netedit.gui/demandElements/vehicletype/load/lanechangemodel_params/lc_speed_gain_right\additionals.xml"/>
+        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.03Sep083941.1072/netedit.gui/demandElements/vehicletype/load/lanechangemodel_params/lc_speed_gain_right\additionals.xml"/>
+        <route-files value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.03Sep083941.1072/netedit.gui/demandElements/vehicletype/load/lanechangemodel_params/lc_speed_gain_right\routes.xml"/>
+        <demandelements-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.03Sep083941.1072/netedit.gui/demandElements/vehicletype/load/lanechangemodel_params/lc_speed_gain_right\routes.xml"/>
     </netedit>
 
     <visualisation>
+        <gui-settings-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.03Sep083941.1072/netedit.gui/demandElements/vehicletype/load/lanechangemodel_params/lc_speed_gain_right\gui-settings.xml"/>
         <window-size value="700,500"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
@@ -45,7 +46,7 @@
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.31Jul132146.5996/netedit.gui/demandElements/vehicletype/load/lanechangemodel_params/lc_speed_gain_right\log.txt"/>
+        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.03Sep083941.1072/netedit.gui/demandElements/vehicletype/load/lanechangemodel_params/lc_speed_gain_right\log.txt"/>
     </report>
 
 </configuration>
@@ -54,7 +55,7 @@
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
     <vType id="vType0" laneChangeModel="LC2013"/>
     <vType id="vType1" laneChangeModel="LC2013"/>
-    <vType id="vType2" laneChangeModel="LC2013"/>
+    <vType id="vType2" laneChangeModel="LC2013" lcSpeedGainRight="0"/>
     <vType id="vType3" laneChangeModel="LC2013" lcSpeedGainRight="2"/>
     <vType id="vType4" laneChangeModel="LC2013" lcSpeedGainRight="5.5"/>
 </routes>

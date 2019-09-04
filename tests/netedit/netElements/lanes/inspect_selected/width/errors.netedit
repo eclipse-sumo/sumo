@@ -29,15 +29,13 @@ Debug: Disabled select edges throught alt + 2
 Debug: ObjectsUnderCursor: GUIGlObjects: 1, AttributeCarriers: 1, NetElements: 1, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 1, Lanes: 1, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 Debug: ObjectsUnderCursor: GUIGlObjects: 1, AttributeCarriers: 1, NetElements: 1, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 1, Lanes: 1, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 Debug: ObjectsUnderCursor: GUIGlObjects: 1, AttributeCarriers: 1, NetElements: 1, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 1, Lanes: 1, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
+Debug: Value 'dummyWidth' for attribute width of lane isn't valid
 Debug: Setting new attribute width '-1' into lane 'gneE2_1'
 Debug: net has to be saved
 Debug: Current saving Status: net unsaved, additionals unsaved, demand elements saved
 Debug: Setting new attribute width '-1' into lane 'gneE3_0'
-Debug: Setting new attribute width '-1' into lane 'gneE2_1'
-Debug: Setting new attribute width '-1' into lane 'gneE3_0'
 Debug: Value '-2' for attribute width of lane isn't valid
-Debug: Setting new attribute width '-1' into lane 'gneE2_1'
-Debug: Setting new attribute width '-1' into lane 'gneE3_0'
+Debug: Value 'default' for attribute width of lane isn't valid
 Debug: Setting new attribute width '4' into lane 'gneE2_1'
 Debug: Setting new attribute width '4' into lane 'gneE3_0'
 Debug: Key F5 (Compute) pressed

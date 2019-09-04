@@ -19,6 +19,7 @@ Debug: Created crossing ':gneJ1_c0' in retrieveGNECrossing()
 Debug: Created crossing ':gneJ1_c1' in retrieveGNECrossing()
 Debug: Key F5 (Compute) pressed
 Debug: ObjectsUnderCursor: GUIGlObjects: 2, AttributeCarriers: 2, NetElements: 1, Additionals: 1, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 1, Lanes: 1, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
+Debug: Value 'dummy' for attribute end of vaporizer isn't valid
 Debug: Value '-10' for attribute end of vaporizer isn't valid
 Debug: Setting new attribute end '2' into vaporizer 'gneE3'
 Debug: Setting new attribute end '20' into vaporizer 'gneE3'
