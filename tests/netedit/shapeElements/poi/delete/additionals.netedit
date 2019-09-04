@@ -4,11 +4,11 @@
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.7_from_09Aug150634.2936/netedit.gui/shapeElements/poi/delete\input_net.net.xml"/>
+        <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.7_from_09Aug150634.2936/netedit.gui/shapeElements/poi/delete\input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.7_from_09Aug150634.2936/netedit.gui/shapeElements/poi/delete\net.net.xml"/>
+        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.7_from_09Aug150634.2936/netedit.gui/shapeElements/poi/delete\net.net.xml"/>
     </output>
 
     <processing>
@@ -29,14 +29,14 @@
     </pedestrian>
 
     <netedit>
-        <additional-files value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.7_from_09Aug150634.2936/netedit.gui/shapeElements/poi/delete\additionals.xml"/>
-        <additionals-output value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.7_from_09Aug150634.2936/netedit.gui/shapeElements/poi/delete\additionals.xml"/>
-        <route-files value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.7_from_09Aug150634.2936/netedit.gui/shapeElements/poi/delete\routes.xml"/>
-        <demandelements-output value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.7_from_09Aug150634.2936/netedit.gui/shapeElements/poi/delete\routes.xml"/>
+        <additional-files value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.7_from_09Aug150634.2936/netedit.gui/shapeElements/poi/delete\additionals.xml"/>
+        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.7_from_09Aug150634.2936/netedit.gui/shapeElements/poi/delete\additionals.xml"/>
+        <route-files value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.7_from_09Aug150634.2936/netedit.gui/shapeElements/poi/delete\routes.xml"/>
+        <demandelements-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.7_from_09Aug150634.2936/netedit.gui/shapeElements/poi/delete\routes.xml"/>
     </netedit>
 
     <visualisation>
-        <gui-settings-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.7_from_09Aug150634.2936/netedit.gui/shapeElements/poi/delete\gui-settings.xml"/>
+        <gui-settings-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.7_from_09Aug150634.2936/netedit.gui/shapeElements/poi/delete\gui-settings.xml"/>
         <window-size value="700,500"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
@@ -45,12 +45,12 @@
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.7_from_09Aug150634.2936/netedit.gui/shapeElements/poi/delete\log.txt"/>
+        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.7_from_09Aug150634.2936/netedit.gui/shapeElements/poi/delete\log.txt"/>
     </report>
 
 </configuration>
 -->
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
-    <poi id="POI_B" color="white" layer="0.00" x="12.40" y="17.50" imgFile="C:/Users/alva_pa/.texttest/tmp/netedit.gui.7_from_09Aug150634.2936/netedit.gui/shapeElements/poi/delete\berlin_icon.ico" width="5.00" height="5.00"/>
+    <poi id="POI_B" color="white" layer="0.00" x="12.40" y="17.50" imgFile="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.7_from_09Aug150634.2936/netedit.gui/shapeElements/poi/delete\berlin_icon.ico" width="5.00" height="5.00"/>
 </additional>

@@ -39,10 +39,10 @@ GLDebug: 	Removed object e3Detector:e3Detector_00 from SUMORTree with boundary -
 GLDebug: 	Inserted e3Detector:e3Detector_00 into SUMORTree with boundary -20.00,-10.00,20.00,30.00
 GLDebug: 	Removed object e3Detector:e3Detector_00 from SUMORTree with boundary -20.00,-10.00,20.00,30.00
 GLDebug: 	Inserted e3Detector:e3Detector_00 into SUMORTree with boundary -20.00,-10.00,20.00,30.00
-Debug: Inserting generic parameter 'key1|value1' into additional detExit.
-Debug: Inserting generic parameter 'key1|value4' into additional detExit.
-Debug: Inserting generic parameter 'key2|' into additional detExit.
-Debug: Inserting generic parameter 'key4|value5' into additional detExit.
+Debug: Inserting parameter 'key1|value1' into additional detExit.
+Debug: Inserting parameter 'key1|value4' into additional detExit.
+Debug: Inserting parameter 'key2|' into additional detExit.
+Debug: Inserting parameter 'key4|value5' into additional detExit.
 Debug: net has to be saved
 Debug: Current saving Status: net unsaved, additionals unsaved, shapes saved
 Debug: Additionals saved

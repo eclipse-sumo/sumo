@@ -16,7 +16,7 @@ Debug: Adding poi 'POI_2' into viewNet
 GLDebug: 	Inserted poi:POI_2 into SUMORTree with boundary 27.50,17.50,32.50,22.50
 Debug: net has to be saved
 Debug: Current saving Status: net unsaved, additionals unsaved, demand elements saved
-Error: Could not load 'C:/Users/alva_pa/.texttest/tmp/netedit.gui.08Aug110224.2512/netedit.gui/shapeElements/poi/load/imgfile\paris.ico'.
+Error: Could not load 'C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.08Aug110224.2512/netedit.gui/shapeElements/poi/load/imgfile\paris.ico'.
 Loading failed!
 Debug: Additionals saved
 GLDebug: Removing junctions during recomputing

@@ -8,7 +8,7 @@
     </input>
 
     <output>
-        <output-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.08Aug100252.6148/netedit.gui/bugs/grid/ticket3281\net.net.xml"/>
+        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.08Aug100252.6148/netedit.gui/bugs/grid/ticket3281\net.net.xml"/>
     </output>
 
     <processing>
@@ -16,14 +16,14 @@
     </processing>
 
     <netedit>
-        <additional-files value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.08Aug100252.6148/netedit.gui/bugs/grid/ticket3281\additionals.xml"/>
-        <additionals-output value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.08Aug100252.6148/netedit.gui/bugs/grid/ticket3281\additionals.xml"/>
-        <route-files value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.08Aug100252.6148/netedit.gui/bugs/grid/ticket3281\routes.xml"/>
-        <demandelements-output value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.08Aug100252.6148/netedit.gui/bugs/grid/ticket3281\routes.xml"/>
+        <additional-files value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.08Aug100252.6148/netedit.gui/bugs/grid/ticket3281\additionals.xml"/>
+        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.08Aug100252.6148/netedit.gui/bugs/grid/ticket3281\additionals.xml"/>
+        <route-files value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.08Aug100252.6148/netedit.gui/bugs/grid/ticket3281\routes.xml"/>
+        <demandelements-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.08Aug100252.6148/netedit.gui/bugs/grid/ticket3281\routes.xml"/>
     </netedit>
 
     <visualisation>
-        <gui-settings-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.08Aug100252.6148/netedit.gui/bugs/grid/ticket3281\gui-settings.xml"/>
+        <gui-settings-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.08Aug100252.6148/netedit.gui/bugs/grid/ticket3281\gui-settings.xml"/>
         <window-size value="700,500"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
@@ -32,7 +32,7 @@
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.08Aug100252.6148/netedit.gui/bugs/grid/ticket3281\log.txt"/>
+        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.08Aug100252.6148/netedit.gui/bugs/grid/ticket3281\log.txt"/>
     </report>
 
 </configuration>

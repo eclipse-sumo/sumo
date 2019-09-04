@@ -4,11 +4,11 @@
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.24Jul105014.11996/netedit.gui/demandElements/trip/create/depart\input_net.net.xml"/>
+        <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.24Jul105014.11996/netedit.gui/demandElements/trip/create/depart\input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.24Jul105014.11996/netedit.gui/demandElements/trip/create/depart\net.net.xml"/>
+        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.24Jul105014.11996/netedit.gui/demandElements/trip/create/depart\net.net.xml"/>
     </output>
 
     <processing>
@@ -29,10 +29,10 @@
     </pedestrian>
 
     <netedit>
-        <additional-files value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.24Jul105014.11996/netedit.gui/demandElements/trip/create/depart\additionals.xml"/>
-        <additionals-output value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.24Jul105014.11996/netedit.gui/demandElements/trip/create/depart\additionals.xml"/>
-        <route-files value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.24Jul105014.11996/netedit.gui/demandElements/trip/create/depart\routes.xml"/>
-        <demandelements-output value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.24Jul105014.11996/netedit.gui/demandElements/trip/create/depart\routes.xml"/>
+        <additional-files value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.24Jul105014.11996/netedit.gui/demandElements/trip/create/depart\additionals.xml"/>
+        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.24Jul105014.11996/netedit.gui/demandElements/trip/create/depart\additionals.xml"/>
+        <route-files value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.24Jul105014.11996/netedit.gui/demandElements/trip/create/depart\routes.xml"/>
+        <demandelements-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.24Jul105014.11996/netedit.gui/demandElements/trip/create/depart\routes.xml"/>
     </netedit>
 
     <visualisation>
@@ -45,7 +45,7 @@
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.24Jul105014.11996/netedit.gui/demandElements/trip/create/depart\log.txt"/>
+        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.24Jul105014.11996/netedit.gui/demandElements/trip/create/depart\log.txt"/>
     </report>
 
 </configuration>

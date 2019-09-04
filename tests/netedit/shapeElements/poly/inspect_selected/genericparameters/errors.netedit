@@ -9,14 +9,14 @@ Debug: Adding poly 'poly_0' into viewNet
 GLDebug: 	Inserted polygon:poly_0 into SUMORTree with boundary 0.00,6.00,14.00,20.00
 Debug: Additionals has to be saved
 Debug: Current saving Status: net saved, additionals unsaved, demand elements saved
-Debug: Inserting generic parameter 'keyA1|valueA1' into shape.
-Debug: Inserting generic parameter 'keyA2|valueA2' into shape.
-Debug: Inserting generic parameter 'keyA3|valueA3' into shape.
+Debug: Inserting parameter 'keyA1|valueA1' into shape.
+Debug: Inserting parameter 'keyA2|valueA2' into shape.
+Debug: Inserting parameter 'keyA3|valueA3' into shape.
 Debug: Adding poly 'poly_1' into viewNet
 GLDebug: 	Inserted polygon:poly_1 into SUMORTree with boundary 20.00,6.00,34.00,20.00
-Debug: Inserting generic parameter 'keyB1|valueB1' into shape.
-Debug: Inserting generic parameter 'keyB2|valueB2' into shape.
-Debug: Inserting generic parameter 'keyB3|valueB3' into shape.
+Debug: Inserting parameter 'keyB1|valueB1' into shape.
+Debug: Inserting parameter 'keyB2|valueB2' into shape.
+Debug: Inserting parameter 'keyB3|valueB3' into shape.
 Debug: net has to be saved
 Debug: Current saving Status: net unsaved, additionals unsaved, demand elements saved
 Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0

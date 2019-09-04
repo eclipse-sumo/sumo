@@ -4,11 +4,11 @@
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.16Nov095838.5744/netedit.gui/additionalElements/access/inspect/blockmove\input_net.net.xml"/>
+        <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.16Nov095838.5744/netedit.gui/additionalElements/access/inspect/blockmove\input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.16Nov095838.5744/netedit.gui/additionalElements/access/inspect/blockmove\net.net.xml"/>
+        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.16Nov095838.5744/netedit.gui/additionalElements/access/inspect/blockmove\net.net.xml"/>
     </output>
 
     <processing>
@@ -28,12 +28,12 @@
     </pedestrian>
 
     <netedit>
-        <additionals-output value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.16Nov095838.5744/netedit.gui/additionalElements/access/inspect/blockmove\additionals.xml"/>
-        <shapes-output value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.16Nov095838.5744/netedit.gui/additionalElements/access/inspect/blockmove\shapes.xml"/>
+        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.16Nov095838.5744/netedit.gui/additionalElements/access/inspect/blockmove\additionals.xml"/>
+        <shapes-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.16Nov095838.5744/netedit.gui/additionalElements/access/inspect/blockmove\shapes.xml"/>
     </netedit>
 
     <visualisation>
-        <gui-settings-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.16Nov095838.5744/netedit.gui/additionalElements/access/inspect/blockmove\gui-settings.xml"/>
+        <gui-settings-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.16Nov095838.5744/netedit.gui/additionalElements/access/inspect/blockmove\gui-settings.xml"/>
         <window-size value="700,500"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
@@ -42,7 +42,7 @@
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.16Nov095838.5744/netedit.gui/additionalElements/access/inspect/blockmove\log.txt"/>
+        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.16Nov095838.5744/netedit.gui/additionalElements/access/inspect/blockmove\log.txt"/>
     </report>
 
 </configuration>

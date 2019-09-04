@@ -6,4 +6,4 @@ Error: Vehicle cannot be created
 Error: Invalid vehicle id 'id with spaces'. Contains invalid characters.
 Error: Vehicle cannot be created
 Error: There is another trip with the same ID='trip_valid'.
-Error: Loading of C:/Users/alva_pa/.texttest/tmp/netedit.gui.08Aug160045.1964/netedit.gui/demandElements/trip/load/id\input_routes.rou.xml failed.
+Error: Loading of C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.08Aug160045.1964/netedit.gui/demandElements/trip/load/id\input_routes.rou.xml failed.

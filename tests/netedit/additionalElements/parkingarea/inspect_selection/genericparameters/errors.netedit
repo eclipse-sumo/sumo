@@ -3,13 +3,13 @@ Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
 Debug: Adding parkingArea 'parkingAreaA' in GNEChange_Additional
 Debug: Additionals has to be saved
 Debug: Current saving Status: net saved, additionals unsaved, demand elements saved
-Debug: Inserting generic parameter 'KeyA1|valueA1' into additional parkingArea.
-Debug: Inserting generic parameter 'KeyA2|valueA2' into additional parkingArea.
-Debug: Inserting generic parameter 'KeyA3|valueA3' into additional parkingArea.
+Debug: Inserting parameter 'KeyA1|valueA1' into additional parkingArea.
+Debug: Inserting parameter 'KeyA2|valueA2' into additional parkingArea.
+Debug: Inserting parameter 'KeyA3|valueA3' into additional parkingArea.
 Debug: Adding parkingArea 'parkingAreaB' in GNEChange_Additional
-Debug: Inserting generic parameter 'KeyB1|valueB1' into additional parkingArea.
-Debug: Inserting generic parameter 'KeyB2|valueB2' into additional parkingArea.
-Debug: Inserting generic parameter 'KeyB3|valueB3' into additional parkingArea.
+Debug: Inserting parameter 'KeyB1|valueB1' into additional parkingArea.
+Debug: Inserting parameter 'KeyB2|valueB2' into additional parkingArea.
+Debug: Inserting parameter 'KeyB3|valueB3' into additional parkingArea.
 Debug: net has to be saved
 Debug: Current saving Status: net unsaved, additionals unsaved, demand elements saved
 Debug: Setting new attribute selected 'true' into junction 'gneJ0'

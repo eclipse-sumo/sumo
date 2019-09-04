@@ -4,11 +4,11 @@
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.17Jul083626.8980/netedit.gui/demandElements/route/create_nonconsecutive/remove_last_button\input_net.net.xml"/>
+        <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.17Jul083626.8980/netedit.gui/demandElements/route/create_nonconsecutive/remove_last_button\input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.17Jul083626.8980/netedit.gui/demandElements/route/create_nonconsecutive/remove_last_button\net.net.xml"/>
+        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.17Jul083626.8980/netedit.gui/demandElements/route/create_nonconsecutive/remove_last_button\net.net.xml"/>
     </output>
 
     <processing>
@@ -29,10 +29,10 @@
     </pedestrian>
 
     <netedit>
-        <additional-files value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.17Jul083626.8980/netedit.gui/demandElements/route/create_nonconsecutive/remove_last_button\additionals.xml"/>
-        <additionals-output value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.17Jul083626.8980/netedit.gui/demandElements/route/create_nonconsecutive/remove_last_button\additionals.xml"/>
-        <route-files value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.17Jul083626.8980/netedit.gui/demandElements/route/create_nonconsecutive/remove_last_button\routes.xml"/>
-        <demandelements-output value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.17Jul083626.8980/netedit.gui/demandElements/route/create_nonconsecutive/remove_last_button\routes.xml"/>
+        <additional-files value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.17Jul083626.8980/netedit.gui/demandElements/route/create_nonconsecutive/remove_last_button\additionals.xml"/>
+        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.17Jul083626.8980/netedit.gui/demandElements/route/create_nonconsecutive/remove_last_button\additionals.xml"/>
+        <route-files value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.17Jul083626.8980/netedit.gui/demandElements/route/create_nonconsecutive/remove_last_button\routes.xml"/>
+        <demandelements-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.17Jul083626.8980/netedit.gui/demandElements/route/create_nonconsecutive/remove_last_button\routes.xml"/>
     </netedit>
 
     <visualisation>
@@ -45,7 +45,7 @@
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.17Jul083626.8980/netedit.gui/demandElements/route/create_nonconsecutive/remove_last_button\log.txt"/>
+        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.17Jul083626.8980/netedit.gui/demandElements/route/create_nonconsecutive/remove_last_button\log.txt"/>
     </report>
 
 </configuration>

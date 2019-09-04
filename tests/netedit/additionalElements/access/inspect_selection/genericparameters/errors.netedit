@@ -9,14 +9,14 @@ Debug: Adding busStop 'busStopA' in GNEChange_Additional
 Debug: Additionals has to be saved
 Debug: Current saving Status: net saved, additionals unsaved, demand elements saved
 Debug: Adding access 'busStopAaccess0' in GNEChange_Additional
-Debug: Inserting generic parameter 'KeyA1|valueA1' into additional access.
-Debug: Inserting generic parameter 'KeyA3|valueA2' into additional access.
-Debug: Inserting generic parameter 'KeyA2|valueA3' into additional access.
+Debug: Inserting parameter 'KeyA1|valueA1' into additional access.
+Debug: Inserting parameter 'KeyA3|valueA2' into additional access.
+Debug: Inserting parameter 'KeyA2|valueA3' into additional access.
 Debug: Adding busStop 'busStopB' in GNEChange_Additional
 Debug: Adding access 'busStopBaccess0' in GNEChange_Additional
-Debug: Inserting generic parameter 'KeyB1|valueB1' into additional access.
-Debug: Inserting generic parameter 'KeyB3|valueB2' into additional access.
-Debug: Inserting generic parameter 'KeyB2|valueB3' into additional access.
+Debug: Inserting parameter 'KeyB1|valueB1' into additional access.
+Debug: Inserting parameter 'KeyB3|valueB2' into additional access.
+Debug: Inserting parameter 'KeyB2|valueB3' into additional access.
 Debug: net has to be saved
 Debug: Current saving Status: net unsaved, additionals unsaved, demand elements saved
 Debug: Current Viewport values: 20.00, 0.00, 17.00. Zoom = '435.29'

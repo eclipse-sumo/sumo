@@ -3,4 +3,4 @@ Error: Unknown lateral alignment '-3' when parsing vType 'vType1'
 Error: Unknown lateral alignment '0' when parsing vType 'vType2'
 Error: Unknown lateral alignment '12' when parsing vType 'vType3'
 Error: Unknown lateral alignment '4.5' when parsing vType 'vType4'
-Error: Loading of C:/Users/alva_pa/.texttest/tmp/netedit.gui.29Jul104640.8056/netedit.gui/demandElements/vehicletype/load/latalignment\input_routes.rou.xml failed.
+Error: Loading of C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.29Jul104640.8056/netedit.gui/demandElements/vehicletype/load/latalignment\input_routes.rou.xml failed.

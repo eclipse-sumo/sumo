@@ -10,10 +10,10 @@ GLDebug: 	Inserted e3Detector:e3Detector_0 into SUMORTree with boundary 17.97,1.
 Debug: Additionals has to be saved
 Debug: Current saving Status: net saved, additionals unsaved, demand elements saved
 Debug: Adding detEntry 'e3Detector_0detEntry0' in GNEChange_Additional
-Debug: Inserting generic parameter 'key1|value1' into additional detEntry.
-Debug: Inserting generic parameter 'key1|value4' into additional detEntry.
-Debug: Inserting generic parameter 'key2|' into additional detEntry.
-Debug: Inserting generic parameter 'key4|value5' into additional detEntry.
+Debug: Inserting parameter 'key1|value1' into additional detEntry.
+Debug: Inserting parameter 'key1|value4' into additional detEntry.
+Debug: Inserting parameter 'key2|' into additional detEntry.
+Debug: Inserting parameter 'key4|value5' into additional detEntry.
 Debug: Adding detExit 'e3Detector_0detExit1' in GNEChange_Additional
 Debug: net has to be saved
 Debug: Current saving Status: net unsaved, additionals unsaved, demand elements saved

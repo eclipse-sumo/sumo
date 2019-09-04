@@ -9,10 +9,10 @@ Debug: Adding poi 'POI_0' into viewNet
 GLDebug: 	Inserted poi:POI_0 into SUMORTree with boundary -33.00,27.00,-27.00,33.00
 Debug: Additionals has to be saved
 Debug: Current saving Status: net saved, additionals unsaved, demand elements saved
-Debug: Inserting generic parameter 'key1|value1' into shape.
-Debug: Inserting generic parameter 'key1|value4' into shape.
-Debug: Inserting generic parameter 'key2|' into shape.
-Debug: Inserting generic parameter 'key4|value5' into shape.
+Debug: Inserting parameter 'key1|value1' into shape.
+Debug: Inserting parameter 'key1|value4' into shape.
+Debug: Inserting parameter 'key2|' into shape.
+Debug: Inserting parameter 'key4|value5' into shape.
 Debug: net has to be saved
 Debug: Current saving Status: net unsaved, additionals unsaved, demand elements saved
 Debug: Additionals saved

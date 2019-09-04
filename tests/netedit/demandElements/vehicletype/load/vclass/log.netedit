@@ -1,3 +1,3 @@
 Error: The class for vType 'vType0' is not known.
 Error: Attribute 'vClass' in definition of vType 'vType1' is empty.
-Error: Loading of C:/Users/alva_pa/.texttest/tmp/netedit.gui.25Jul164157.4672/netedit.gui/demandElements/vehicletype/load/vclass\input_routes.rou.xml failed.
+Error: Loading of C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.25Jul164157.4672/netedit.gui/demandElements/vehicletype/load/vclass\input_routes.rou.xml failed.

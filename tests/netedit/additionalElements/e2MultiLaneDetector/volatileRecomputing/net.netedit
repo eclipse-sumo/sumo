@@ -4,11 +4,11 @@
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.11Mar104317.11056/netedit.gui/additionalElements/e2MultiLaneDetector/volatileRecomputing\input_net.net.xml"/>
+        <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.11Mar104317.11056/netedit.gui/additionalElements/e2MultiLaneDetector/volatileRecomputing\input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.11Mar104317.11056/netedit.gui/additionalElements/e2MultiLaneDetector/volatileRecomputing\net.net.xml"/>
+        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.11Mar104317.11056/netedit.gui/additionalElements/e2MultiLaneDetector/volatileRecomputing\net.net.xml"/>
     </output>
 
     <processing>
@@ -32,13 +32,13 @@
     </pedestrian>
 
     <netedit>
-        <additional-files value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.11Mar104317.11056/netedit.gui/additionalElements/e2MultiLaneDetector/volatileRecomputing\input_additionals.add.xml"/>
-        <additionals-output value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.11Mar104317.11056/netedit.gui/additionalElements/e2MultiLaneDetector/volatileRecomputing\additionals.xml"/>
-        <demandelements-output value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.11Mar104317.11056/netedit.gui/additionalElements/e2MultiLaneDetector/volatileRecomputing\routes.xml"/>
+        <additional-files value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.11Mar104317.11056/netedit.gui/additionalElements/e2MultiLaneDetector/volatileRecomputing\input_additionals.add.xml"/>
+        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.11Mar104317.11056/netedit.gui/additionalElements/e2MultiLaneDetector/volatileRecomputing\additionals.xml"/>
+        <demandelements-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.11Mar104317.11056/netedit.gui/additionalElements/e2MultiLaneDetector/volatileRecomputing\routes.xml"/>
     </netedit>
 
     <visualisation>
-        <gui-settings-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.11Mar104317.11056/netedit.gui/additionalElements/e2MultiLaneDetector/volatileRecomputing\gui-settings.xml"/>
+        <gui-settings-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.11Mar104317.11056/netedit.gui/additionalElements/e2MultiLaneDetector/volatileRecomputing\gui-settings.xml"/>
         <window-size value="700,500"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
@@ -48,7 +48,7 @@
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.11Mar104317.11056/netedit.gui/additionalElements/e2MultiLaneDetector/volatileRecomputing\log.txt"/>
+        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.11Mar104317.11056/netedit.gui/additionalElements/e2MultiLaneDetector/volatileRecomputing\log.txt"/>
     </report>
 
 </configuration>

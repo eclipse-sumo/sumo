@@ -5,15 +5,15 @@ Debug: Additionals has to be saved
 Debug: Current saving Status: net saved, additionals unsaved, demand elements saved
 Debug: Adding detEntry 'e3Detector_AdetEntry0' in GNEChange_Additional
 Debug: Adding detExit 'e3Detector_AdetExit1' in GNEChange_Additional
-Debug: Inserting generic parameter 'keyA1|valueA1' into additional e3Detector.
-Debug: Inserting generic parameter 'keyA2|valueA2' into additional e3Detector.
-Debug: Inserting generic parameter 'keyA3|valueA3' into additional e3Detector.
+Debug: Inserting parameter 'keyA1|valueA1' into additional e3Detector.
+Debug: Inserting parameter 'keyA2|valueA2' into additional e3Detector.
+Debug: Inserting parameter 'keyA3|valueA3' into additional e3Detector.
 Debug: Adding e3Detector 'e3Detector_B' in GNEChange_Additional
 Debug: Adding detEntry 'e3Detector_BdetEntry0' in GNEChange_Additional
 Debug: Adding detExit 'e3Detector_BdetExit1' in GNEChange_Additional
-Debug: Inserting generic parameter 'keyB1|valueB1' into additional e3Detector.
-Debug: Inserting generic parameter 'keyB2|valueB2' into additional e3Detector.
-Debug: Inserting generic parameter 'keyB3|valueB3' into additional e3Detector.
+Debug: Inserting parameter 'keyB1|valueB1' into additional e3Detector.
+Debug: Inserting parameter 'keyB2|valueB2' into additional e3Detector.
+Debug: Inserting parameter 'keyB3|valueB3' into additional e3Detector.
 Debug: net has to be saved
 Debug: Current saving Status: net unsaved, additionals unsaved, demand elements saved
 Debug: Setting new attribute selected 'true' into junction 'gneJ0'

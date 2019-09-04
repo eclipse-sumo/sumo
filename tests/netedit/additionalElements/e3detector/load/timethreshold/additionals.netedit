@@ -4,11 +4,11 @@
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.22Nov104814.4140/netedit.gui/additionalElements/e3detector/load/timethreshold\input_net.net.xml"/>
+        <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.22Nov104814.4140/netedit.gui/additionalElements/e3detector/load/timethreshold\input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.22Nov104814.4140/netedit.gui/additionalElements/e3detector/load/timethreshold\net.net.xml"/>
+        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.22Nov104814.4140/netedit.gui/additionalElements/e3detector/load/timethreshold\net.net.xml"/>
     </output>
 
     <processing>
@@ -28,13 +28,13 @@
     </pedestrian>
 
     <netedit>
-        <sumo-additionals-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.22Nov104814.4140/netedit.gui/additionalElements/e3detector/load/timethreshold\input_additionals.add.xml"/>
-        <additionals-output value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.22Nov104814.4140/netedit.gui/additionalElements/e3detector/load/timethreshold\additionals.xml"/>
-        <shapes-output value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.22Nov104814.4140/netedit.gui/additionalElements/e3detector/load/timethreshold\shapes.xml"/>
+        <sumo-additionals-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.22Nov104814.4140/netedit.gui/additionalElements/e3detector/load/timethreshold\input_additionals.add.xml"/>
+        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.22Nov104814.4140/netedit.gui/additionalElements/e3detector/load/timethreshold\additionals.xml"/>
+        <shapes-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.22Nov104814.4140/netedit.gui/additionalElements/e3detector/load/timethreshold\shapes.xml"/>
     </netedit>
 
     <visualisation>
-        <gui-settings-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.22Nov104814.4140/netedit.gui/additionalElements/e3detector/load/timethreshold\gui-settings.xml"/>
+        <gui-settings-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.22Nov104814.4140/netedit.gui/additionalElements/e3detector/load/timethreshold\gui-settings.xml"/>
         <window-size value="700,500"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
@@ -44,7 +44,7 @@
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.22Nov104814.4140/netedit.gui/additionalElements/e3detector/load/timethreshold\log.txt"/>
+        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.22Nov104814.4140/netedit.gui/additionalElements/e3detector/load/timethreshold\log.txt"/>
     </report>
 
 </configuration>

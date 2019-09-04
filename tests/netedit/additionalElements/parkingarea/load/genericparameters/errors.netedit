@@ -11,10 +11,10 @@ GLDebug: 	Removed object parkingArea:parkingArea_0 from SUMORTree with boundary 
 GLDebug: 	Inserted parkingArea:parkingArea_0 into SUMORTree with boundary -8.00,-28.20,23.00,-2.20
 Debug: Additionals has to be saved
 Debug: Current saving Status: net saved, additionals unsaved, demand elements saved
-Debug: Inserting generic parameter 'key1|value1' into additional parkingArea.
-Debug: Inserting generic parameter 'key1|value4' into additional parkingArea.
-Debug: Inserting generic parameter 'key2|' into additional parkingArea.
-Debug: Inserting generic parameter 'key4|value5' into additional parkingArea.
+Debug: Inserting parameter 'key1|value1' into additional parkingArea.
+Debug: Inserting parameter 'key1|value4' into additional parkingArea.
+Debug: Inserting parameter 'key2|' into additional parkingArea.
+Debug: Inserting parameter 'key4|value5' into additional parkingArea.
 Debug: net has to be saved
 Debug: Current saving Status: net unsaved, additionals unsaved, demand elements saved
 Debug: Additionals saved

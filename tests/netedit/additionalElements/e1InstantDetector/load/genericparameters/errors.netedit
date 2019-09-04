@@ -8,10 +8,10 @@ Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
 Debug: Adding instantInductionLoop 'E1_01' in GNEChange_Additional
 Debug: Additionals has to be saved
 Debug: Current saving Status: net saved, additionals unsaved, demand elements saved
-Debug: Inserting generic parameter 'key1|value1' into additional instantInductionLoop.
-Debug: Inserting generic parameter 'key1|value4' into additional instantInductionLoop.
-Debug: Inserting generic parameter 'key2|' into additional instantInductionLoop.
-Debug: Inserting generic parameter 'key4|value5' into additional instantInductionLoop.
+Debug: Inserting parameter 'key1|value1' into additional instantInductionLoop.
+Debug: Inserting parameter 'key1|value4' into additional instantInductionLoop.
+Debug: Inserting parameter 'key2|' into additional instantInductionLoop.
+Debug: Inserting parameter 'key4|value5' into additional instantInductionLoop.
 Debug: net has to be saved
 Debug: Current saving Status: net unsaved, additionals unsaved, demand elements saved
 Debug: Additionals saved

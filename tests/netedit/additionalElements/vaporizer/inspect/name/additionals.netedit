@@ -4,11 +4,11 @@
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.08Aug092021.6696/netedit.gui/additionalElements/vaporizer/inspect/name\input_net.net.xml"/>
+        <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.08Aug092021.6696/netedit.gui/additionalElements/vaporizer/inspect/name\input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.08Aug092021.6696/netedit.gui/additionalElements/vaporizer/inspect/name\net.net.xml"/>
+        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.08Aug092021.6696/netedit.gui/additionalElements/vaporizer/inspect/name\net.net.xml"/>
     </output>
 
     <processing>
@@ -30,14 +30,14 @@
     </pedestrian>
 
     <netedit>
-        <additional-files value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.08Aug092021.6696/netedit.gui/additionalElements/vaporizer/inspect/name\additionals.xml"/>
-        <additionals-output value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.08Aug092021.6696/netedit.gui/additionalElements/vaporizer/inspect/name\additionals.xml"/>
-        <route-files value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.08Aug092021.6696/netedit.gui/additionalElements/vaporizer/inspect/name\routes.xml"/>
-        <demandelements-output value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.08Aug092021.6696/netedit.gui/additionalElements/vaporizer/inspect/name\routes.xml"/>
+        <additional-files value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.08Aug092021.6696/netedit.gui/additionalElements/vaporizer/inspect/name\additionals.xml"/>
+        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.08Aug092021.6696/netedit.gui/additionalElements/vaporizer/inspect/name\additionals.xml"/>
+        <route-files value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.08Aug092021.6696/netedit.gui/additionalElements/vaporizer/inspect/name\routes.xml"/>
+        <demandelements-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.08Aug092021.6696/netedit.gui/additionalElements/vaporizer/inspect/name\routes.xml"/>
     </netedit>
 
     <visualisation>
-        <gui-settings-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.08Aug092021.6696/netedit.gui/additionalElements/vaporizer/inspect/name\gui-settings.xml"/>
+        <gui-settings-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.08Aug092021.6696/netedit.gui/additionalElements/vaporizer/inspect/name\gui-settings.xml"/>
         <window-size value="700,500"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
@@ -46,7 +46,7 @@
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.08Aug092021.6696/netedit.gui/additionalElements/vaporizer/inspect/name\log.txt"/>
+        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.08Aug092021.6696/netedit.gui/additionalElements/vaporizer/inspect/name\log.txt"/>
     </report>
 
 </configuration>

@@ -4,11 +4,11 @@
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.1_from_16Aug112326.6704/netedit.gui/demandElements/route/volatileRecomputing\input_net.net.xml"/>
+        <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.1_from_16Aug112326.6704/netedit.gui/demandElements/route/volatileRecomputing\input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.1_from_16Aug112326.6704/netedit.gui/demandElements/route/volatileRecomputing\net.net.xml"/>
+        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.1_from_16Aug112326.6704/netedit.gui/demandElements/route/volatileRecomputing\net.net.xml"/>
     </output>
 
     <processing>
@@ -33,14 +33,14 @@
     </pedestrian>
 
     <netedit>
-        <additional-files value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.1_from_16Aug112326.6704/netedit.gui/demandElements/route/volatileRecomputing\additionals.xml"/>
-        <additionals-output value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.1_from_16Aug112326.6704/netedit.gui/demandElements/route/volatileRecomputing\additionals.xml"/>
-        <route-files value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.1_from_16Aug112326.6704/netedit.gui/demandElements/route/volatileRecomputing\routes.xml"/>
-        <demandelements-output value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.1_from_16Aug112326.6704/netedit.gui/demandElements/route/volatileRecomputing\routes.xml"/>
+        <additional-files value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.1_from_16Aug112326.6704/netedit.gui/demandElements/route/volatileRecomputing\additionals.xml"/>
+        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.1_from_16Aug112326.6704/netedit.gui/demandElements/route/volatileRecomputing\additionals.xml"/>
+        <route-files value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.1_from_16Aug112326.6704/netedit.gui/demandElements/route/volatileRecomputing\routes.xml"/>
+        <demandelements-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.1_from_16Aug112326.6704/netedit.gui/demandElements/route/volatileRecomputing\routes.xml"/>
     </netedit>
 
     <visualisation>
-        <gui-settings-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.1_from_16Aug112326.6704/netedit.gui/demandElements/route/volatileRecomputing\gui-settings.xml"/>
+        <gui-settings-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.1_from_16Aug112326.6704/netedit.gui/demandElements/route/volatileRecomputing\gui-settings.xml"/>
         <window-size value="700,500"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
@@ -50,7 +50,7 @@
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.1_from_16Aug112326.6704/netedit.gui/demandElements/route/volatileRecomputing\log.txt"/>
+        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.1_from_16Aug112326.6704/netedit.gui/demandElements/route/volatileRecomputing\log.txt"/>
     </report>
 
 </configuration>

@@ -18,7 +18,7 @@ GLDebug: 	Inserted edge:gneE9 into SUMORTree with boundary 0.00,30.00,50.00,51.6
 Debug: Selected item 'DEFAULT_VEHTYPE' in DemandElementSelector
 Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
 Error: A route needs at least one edge.
-Error: Loading of C:/Users/alva_pa/.texttest/tmp/netedit.gui.16Aug092936.6276/netedit.gui/demandElements/trip/delete\input_routes.rou.xml failed.
+Error: Loading of C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.16Aug092936.6276/netedit.gui/demandElements/trip/delete\input_routes.rou.xml failed.
 Debug: net has to be saved
 Debug: Current saving Status: net unsaved, additionals saved, demand elements saved
 GLDebug: Removing junctions during recomputing

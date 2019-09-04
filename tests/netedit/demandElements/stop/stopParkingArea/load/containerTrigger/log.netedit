@@ -6,4 +6,4 @@ Error: Attribute 'containerTriggered' in definition of a stop is not of type boo
 Error: Invalid bool for 'triggered', 'containerTriggered' or 'parking' for stop at 'parkingArea' in vehicle 'vehicle_0'.
 Error: Attribute 'containerTriggered' in definition of a stop is not of type bool.
 Error: Invalid bool for 'triggered', 'containerTriggered' or 'parking' for stop at 'parkingArea' in vehicle 'vehicle_0'.
-Error: Loading of C:/Users/alva_pa/.texttest/tmp/netedit.gui.28Aug142833.8020/netedit.gui/demandElements/stop/stopParkingArea/load/containerTrigger\input_routes.rou.xml failed.
+Error: Loading of C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.28Aug142833.8020/netedit.gui/demandElements/stop/stopParkingArea/load/containerTrigger\input_routes.rou.xml failed.
