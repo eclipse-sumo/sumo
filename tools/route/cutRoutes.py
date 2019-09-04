@@ -157,7 +157,7 @@ def cut_routes(aEdges, orig_net, options, busStopEdges=None):
                 multiAffectedRoutes += 1
                 if options.disconnected_action == 'discard':
                     if routeRef:
-                        standaloneRoutesDepart[vehicle.route] = 'discard'
+                        standaloneRoutesDepart[moving.route] = 'discard'
                     continue
             # loop over different route parts
             for ix_part, ix_interval in enumerate(route_parts):
@@ -167,7 +167,7 @@ def cut_routes(aEdges, orig_net, options, busStopEdges=None):
                 if toIndex - fromIndex + 1 < options.min_length:
                     too_short += 1
                     if routeRef:
-                        standaloneRoutesDepart[vehicle.route] = 'discard'
+                        standaloneRoutesDepart[moving.route] = 'discard'
                     continue
                 if options.min_air_dist > 0:
                     fromPos = orig_net.getEdge(edges[fromIndex]).getFromNode().getCoord()
@@ -175,7 +175,7 @@ def cut_routes(aEdges, orig_net, options, busStopEdges=None):
                     if sumolib.miscutils.euclidean(fromPos, toPos) < options.min_air_dist:
                         too_short_airdist += 1
                         if routeRef:
-                            standaloneRoutesDepart[vehicle.route] = 'discard'
+                            standaloneRoutesDepart[moving.route] = 'discard'
                         continue
                 # compute new departure
                 if routeRef or old_route.exitTimes is None:
@@ -187,8 +187,8 @@ def cut_routes(aEdges, orig_net, options, busStopEdges=None):
                                           for e in edges[:fromIndex]]))
                     else:
                         print("Could not reconstruct new departure time for vehicle '%s'. Using old departure time." %
-                              vehicle.id)
-                        newDepart = float(vehicle.depart)
+                              moving.id)
+                        newDepart = float(moving.depart)
                 else:
                     exitTimes = old_route.exitTimes.split()
                     departTimes = [moving.depart] + exitTimes[:-1]
