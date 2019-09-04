@@ -35,10 +35,10 @@ Debug: Setting new attribute genericParameter 'key1=|key2=|key3=' into calibrato
 Debug: Setting new attribute genericParameter 'key1=|key2=|key3=' into calibrator 'calibratorB'
 Debug: Setting new attribute genericParameter '' into calibrator 'calibratorA'
 Debug: Setting new attribute genericParameter '' into calibrator 'calibratorB'
+Debug: Setting new attribute genericParameter 'key1duplicated=value2|key3=value3' into calibrator 'calibratorA'
+Debug: Setting new attribute genericParameter 'key1duplicated=value2|key3=value3' into calibrator 'calibratorB'
 Debug: Setting new attribute genericParameter 'key1=valueDuplicated|key2=valueDuplicated|key3=valueDuplicated' into calibrator 'calibratorA'
 Debug: Setting new attribute genericParameter 'key1=valueDuplicated|key2=valueDuplicated|key3=valueDuplicated' into calibrator 'calibratorB'
-Debug: Setting new attribute genericParameter 'key2=value2|key3=value3|keyInvalid.;%>%$$=value1' into calibrator 'calibratorA'
-Debug: Setting new attribute genericParameter 'key2=value2|key3=value3|keyInvalid.;%>%$$=value1' into calibrator 'calibratorB'
 Debug: Setting new attribute genericParameter 'key1=valueInvalid%;%$<>$$%|key2=value2|key3=value3' into calibrator 'calibratorA'
 Debug: Setting new attribute genericParameter 'key1=valueInvalid%;%$<>$$%|key2=value2|key3=value3' into calibrator 'calibratorB'
 Debug: Setting new attribute genericParameter 'keyFinal1=value1|keyFinal2=value2|keyFinal3=value3' into calibrator 'calibratorA'
@@ -48,11 +48,11 @@ Debug: Keys Ctrl + Z (Undo) pressed
 Debug: Setting previous attribute genericParameter 'key1=valueInvalid%;%$<>$$%|key2=value2|key3=value3' into calibrator 'calibratorB'
 Debug: Setting previous attribute genericParameter 'key1=valueInvalid%;%$<>$$%|key2=value2|key3=value3' into calibrator 'calibratorA'
 Debug: Keys Ctrl + Z (Undo) pressed
-Debug: Setting previous attribute genericParameter 'key2=value2|key3=value3|keyInvalid.;%>%$$=value1' into calibrator 'calibratorB'
-Debug: Setting previous attribute genericParameter 'key2=value2|key3=value3|keyInvalid.;%>%$$=value1' into calibrator 'calibratorA'
-Debug: Keys Ctrl + Z (Undo) pressed
 Debug: Setting previous attribute genericParameter 'key1=valueDuplicated|key2=valueDuplicated|key3=valueDuplicated' into calibrator 'calibratorB'
 Debug: Setting previous attribute genericParameter 'key1=valueDuplicated|key2=valueDuplicated|key3=valueDuplicated' into calibrator 'calibratorA'
+Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Setting previous attribute genericParameter 'key1duplicated=value2|key3=value3' into calibrator 'calibratorB'
+Debug: Setting previous attribute genericParameter 'key1duplicated=value2|key3=value3' into calibrator 'calibratorA'
 Debug: Keys Ctrl + Z (Undo) pressed
 Debug: Setting previous attribute genericParameter '' into calibrator 'calibratorB'
 Debug: Setting previous attribute genericParameter '' into calibrator 'calibratorA'
@@ -118,11 +118,11 @@ Debug: Keys Ctrl + Y (Redo) pressed
 Debug: Setting new attribute genericParameter '' into calibrator 'calibratorA'
 Debug: Setting new attribute genericParameter '' into calibrator 'calibratorB'
 Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Setting new attribute genericParameter 'key1duplicated=value2|key3=value3' into calibrator 'calibratorA'
+Debug: Setting new attribute genericParameter 'key1duplicated=value2|key3=value3' into calibrator 'calibratorB'
+Debug: Keys Ctrl + Y (Redo) pressed
 Debug: Setting new attribute genericParameter 'key1=valueDuplicated|key2=valueDuplicated|key3=valueDuplicated' into calibrator 'calibratorA'
 Debug: Setting new attribute genericParameter 'key1=valueDuplicated|key2=valueDuplicated|key3=valueDuplicated' into calibrator 'calibratorB'
-Debug: Keys Ctrl + Y (Redo) pressed
-Debug: Setting new attribute genericParameter 'key2=value2|key3=value3|keyInvalid.;%>%$$=value1' into calibrator 'calibratorA'
-Debug: Setting new attribute genericParameter 'key2=value2|key3=value3|keyInvalid.;%>%$$=value1' into calibrator 'calibratorB'
 Debug: Keys Ctrl + Y (Redo) pressed
 Debug: Setting new attribute genericParameter 'key1=valueInvalid%;%$<>$$%|key2=value2|key3=value3' into calibrator 'calibratorA'
 Debug: Setting new attribute genericParameter 'key1=valueInvalid%;%$<>$$%|key2=value2|key3=value3' into calibrator 'calibratorB'

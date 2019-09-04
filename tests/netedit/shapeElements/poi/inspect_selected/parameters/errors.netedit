@@ -28,10 +28,10 @@ Debug: Setting new attribute genericParameter 'key1=|key2=|key3=' into poi 'POI_
 Debug: Setting new attribute genericParameter 'key1=|key2=|key3=' into poi 'POI_2'
 Debug: Setting new attribute genericParameter '' into poi 'POI_1'
 Debug: Setting new attribute genericParameter '' into poi 'POI_2'
+Debug: Setting new attribute genericParameter 'key1duplicated=value2|key3=value3' into poi 'POI_1'
+Debug: Setting new attribute genericParameter 'key1duplicated=value2|key3=value3' into poi 'POI_2'
 Debug: Setting new attribute genericParameter 'key1=valueDuplicated|key2=valueDuplicated|key3=valueDuplicated' into poi 'POI_1'
 Debug: Setting new attribute genericParameter 'key1=valueDuplicated|key2=valueDuplicated|key3=valueDuplicated' into poi 'POI_2'
-Debug: Setting new attribute genericParameter 'key2=value2|key3=value3|keyInvalid.;%>%$$=value1' into poi 'POI_1'
-Debug: Setting new attribute genericParameter 'key2=value2|key3=value3|keyInvalid.;%>%$$=value1' into poi 'POI_2'
 Debug: Setting new attribute genericParameter 'key1=valueInvalid%;%$<>$$%|key2=value2|key3=value3' into poi 'POI_1'
 Debug: Setting new attribute genericParameter 'key1=valueInvalid%;%$<>$$%|key2=value2|key3=value3' into poi 'POI_2'
 Debug: Setting new attribute genericParameter 'keyFinal1=value1|keyFinal2=value2|keyFinal3=value3' into poi 'POI_1'
@@ -41,11 +41,11 @@ Debug: Keys Ctrl + Z (Undo) pressed
 Debug: Setting previous attribute genericParameter 'key1=valueInvalid%;%$<>$$%|key2=value2|key3=value3' into poi 'POI_2'
 Debug: Setting previous attribute genericParameter 'key1=valueInvalid%;%$<>$$%|key2=value2|key3=value3' into poi 'POI_1'
 Debug: Keys Ctrl + Z (Undo) pressed
-Debug: Setting previous attribute genericParameter 'key2=value2|key3=value3|keyInvalid.;%>%$$=value1' into poi 'POI_2'
-Debug: Setting previous attribute genericParameter 'key2=value2|key3=value3|keyInvalid.;%>%$$=value1' into poi 'POI_1'
-Debug: Keys Ctrl + Z (Undo) pressed
 Debug: Setting previous attribute genericParameter 'key1=valueDuplicated|key2=valueDuplicated|key3=valueDuplicated' into poi 'POI_2'
 Debug: Setting previous attribute genericParameter 'key1=valueDuplicated|key2=valueDuplicated|key3=valueDuplicated' into poi 'POI_1'
+Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Setting previous attribute genericParameter 'key1duplicated=value2|key3=value3' into poi 'POI_2'
+Debug: Setting previous attribute genericParameter 'key1duplicated=value2|key3=value3' into poi 'POI_1'
 Debug: Keys Ctrl + Z (Undo) pressed
 Debug: Setting previous attribute genericParameter '' into poi 'POI_2'
 Debug: Setting previous attribute genericParameter '' into poi 'POI_1'
@@ -81,11 +81,11 @@ Debug: Keys Ctrl + Y (Redo) pressed
 Debug: Setting new attribute genericParameter '' into poi 'POI_1'
 Debug: Setting new attribute genericParameter '' into poi 'POI_2'
 Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Setting new attribute genericParameter 'key1duplicated=value2|key3=value3' into poi 'POI_1'
+Debug: Setting new attribute genericParameter 'key1duplicated=value2|key3=value3' into poi 'POI_2'
+Debug: Keys Ctrl + Y (Redo) pressed
 Debug: Setting new attribute genericParameter 'key1=valueDuplicated|key2=valueDuplicated|key3=valueDuplicated' into poi 'POI_1'
 Debug: Setting new attribute genericParameter 'key1=valueDuplicated|key2=valueDuplicated|key3=valueDuplicated' into poi 'POI_2'
-Debug: Keys Ctrl + Y (Redo) pressed
-Debug: Setting new attribute genericParameter 'key2=value2|key3=value3|keyInvalid.;%>%$$=value1' into poi 'POI_1'
-Debug: Setting new attribute genericParameter 'key2=value2|key3=value3|keyInvalid.;%>%$$=value1' into poi 'POI_2'
 Debug: Keys Ctrl + Y (Redo) pressed
 Debug: Setting new attribute genericParameter 'key1=valueInvalid%;%$<>$$%|key2=value2|key3=value3' into poi 'POI_1'
 Debug: Setting new attribute genericParameter 'key1=valueInvalid%;%$<>$$%|key2=value2|key3=value3' into poi 'POI_2'

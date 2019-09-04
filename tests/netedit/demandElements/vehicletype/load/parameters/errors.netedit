@@ -22,11 +22,17 @@ Error: Attribute 'key' is missing in definition of a param.
 Debug: Adding route 'route_0' in GNEChange_DemandElement
 Debug: DemandElements has to be saved
 Debug: Current saving Status: net saved, additionals saved, demand elements unsaved
-Error: Loading of C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.07Aug081749.192/netedit.gui/demandElements/route/load/genericparameters\input_routes.rou.xml failed.
+Error: Loading of C:/Users/alva_pa/.texttest/tmp/netedit.gui.04Sep123340.10180/netedit.gui/demandElements/vehicletype/load/parameters\input_routes.rou.xml failed.
 Debug: net has to be saved
 Debug: Current saving Status: net unsaved, additionals saved, demand elements unsaved
-Debug: Enabled show demand elements throught alt + 1
-Debug: Key F5 (Compute) pressed
+Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
+Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Removing route 'route_0' in GNEChange_DemandElement
+Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
+Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Adding route 'route_0' in GNEChange_DemandElement
+Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
+Debug: demand elements saved
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ4 from SUMORTree with boundary -2.00,8.00,22.00,32.00
 GLDebug: 	Removed object junction:gneJ5 from SUMORTree with boundary 58.00,8.00,82.00,32.00
@@ -74,43 +80,6 @@ Debug: Created connection 'fromgneE6_0togneE3_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE6_0togneE3_1' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE8_0togneE9_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE9_0togneE11_0' in retrieveGNEConnection()
-Debug: demand elements saved
-GLDebug: Removing junctions during recomputing
-GLDebug: 	Removed object junction:gneJ4 from SUMORTree with boundary 0.00,6.80,20.00,33.20
-GLDebug: 	Removed object junction:gneJ5 from SUMORTree with boundary 49.60,6.80,86.40,37.20
-GLDebug: 	Removed object junction:gneJ6 from SUMORTree with boundary 49.60,42.80,86.40,73.20
-GLDebug: 	Removed object junction:gneJ7 from SUMORTree with boundary -2.00,45.30,23.50,73.20
-GLDebug: 	Removed object junction:gneJ8 from SUMORTree with boundary -2.00,26.80,23.50,54.70
-GLDebug: 	Removed object junction:gneJ9 from SUMORTree with boundary 30.00,26.80,50.00,53.20
-GLDebug: Removing edges during recomputing
-GLDebug: 	Removed object edge:gneE10 from SUMORTree with boundary -1.00,30.00,20.00,70.00
-GLDebug: 	Removed object edge:gneE11 from SUMORTree with boundary 0.00,30.00,21.00,70.00
-GLDebug: 	Removed object edge:gneE2 from SUMORTree with boundary 0.00,8.40,80.00,30.00
-GLDebug: 	Removed object edge:gneE3 from SUMORTree with boundary 55.20,10.00,80.00,70.00
-GLDebug: 	Removed object edge:gneE4 from SUMORTree with boundary 60.00,10.00,84.80,70.00
-GLDebug: 	Removed object edge:gneE5 from SUMORTree with boundary 0.00,50.00,80.00,71.60
-GLDebug: 	Removed object edge:gneE6 from SUMORTree with boundary 0.00,48.40,80.00,70.00
-GLDebug: 	Removed object edge:gneE7 from SUMORTree with boundary 0.00,10.00,80.00,31.60
-GLDebug: 	Removed object edge:gneE8 from SUMORTree with boundary 0.00,28.40,50.00,50.00
-GLDebug: 	Removed object edge:gneE9 from SUMORTree with boundary 0.00,30.00,50.00,51.60
-GLDebug: Add junctions during recomputing after calling myNetBuilder->compute(...)
-GLDebug: 	Inserted junction:gneJ4 into SUMORTree with boundary 0.00,6.80,20.00,33.20
-GLDebug: 	Inserted junction:gneJ5 into SUMORTree with boundary 49.60,6.80,86.40,37.20
-GLDebug: 	Inserted junction:gneJ6 into SUMORTree with boundary 49.60,42.80,86.40,73.20
-GLDebug: 	Inserted junction:gneJ7 into SUMORTree with boundary -2.00,45.30,23.50,73.20
-GLDebug: 	Inserted junction:gneJ8 into SUMORTree with boundary -2.00,26.80,23.50,54.70
-GLDebug: 	Inserted junction:gneJ9 into SUMORTree with boundary 30.00,26.80,50.00,53.20
-GLDebug: Add egdges during recomputing after calling myNetBuilder->compute(...)
-GLDebug: 	Inserted edge:gneE10 into SUMORTree with boundary -1.00,30.00,20.00,70.00
-GLDebug: 	Inserted edge:gneE11 into SUMORTree with boundary 0.00,30.00,21.00,70.00
-GLDebug: 	Inserted edge:gneE2 into SUMORTree with boundary 0.00,8.40,80.00,30.00
-GLDebug: 	Inserted edge:gneE3 into SUMORTree with boundary 55.20,10.00,80.00,70.00
-GLDebug: 	Inserted edge:gneE4 into SUMORTree with boundary 60.00,10.00,84.80,70.00
-GLDebug: 	Inserted edge:gneE5 into SUMORTree with boundary 0.00,50.00,80.00,71.60
-GLDebug: 	Inserted edge:gneE6 into SUMORTree with boundary 0.00,48.40,80.00,70.00
-GLDebug: 	Inserted edge:gneE7 into SUMORTree with boundary 0.00,10.00,80.00,31.60
-GLDebug: 	Inserted edge:gneE8 into SUMORTree with boundary 0.00,28.40,50.00,50.00
-GLDebug: 	Inserted edge:gneE9 into SUMORTree with boundary 0.00,30.00,50.00,51.60
 Debug: Deleting unreferenced route 'route_0'
 Debug: DemandElements has to be saved
 Debug: Current saving Status: net saved, additionals saved, demand elements unsaved

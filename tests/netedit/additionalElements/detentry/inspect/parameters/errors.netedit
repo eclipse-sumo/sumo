@@ -21,17 +21,17 @@ Debug: ObjectsUnderCursor: GUIGlObjects: 2, AttributeCarriers: 2, NetElements: 1
 Debug: Setting new attribute genericParameter 'key1=value1|key2=value2|key3=value3' into detEntry 'e3Detector_0detEntry0'
 Debug: Setting new attribute genericParameter 'key1=|key2=|key3=' into detEntry 'e3Detector_0detEntry0'
 Debug: Setting new attribute genericParameter '' into detEntry 'e3Detector_0detEntry0'
+Debug: Setting new attribute genericParameter 'key1duplicated=value2|key3=value3' into detEntry 'e3Detector_0detEntry0'
 Debug: Setting new attribute genericParameter 'key1=valueDuplicated|key2=valueDuplicated|key3=valueDuplicated' into detEntry 'e3Detector_0detEntry0'
-Debug: Setting new attribute genericParameter 'key2=value2|key3=value3|keyInvalid.;%>%$$=value1' into detEntry 'e3Detector_0detEntry0'
 Debug: Setting new attribute genericParameter 'key1=valueInvalid%;%$<>$$%|key2=value2|key3=value3' into detEntry 'e3Detector_0detEntry0'
 Debug: Setting new attribute genericParameter 'keyFinal1=value1|keyFinal2=value2|keyFinal3=value3' into detEntry 'e3Detector_0detEntry0'
 Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 Debug: Keys Ctrl + Z (Undo) pressed
 Debug: Setting previous attribute genericParameter 'key1=valueInvalid%;%$<>$$%|key2=value2|key3=value3' into detEntry 'e3Detector_0detEntry0'
 Debug: Keys Ctrl + Z (Undo) pressed
-Debug: Setting previous attribute genericParameter 'key2=value2|key3=value3|keyInvalid.;%>%$$=value1' into detEntry 'e3Detector_0detEntry0'
-Debug: Keys Ctrl + Z (Undo) pressed
 Debug: Setting previous attribute genericParameter 'key1=valueDuplicated|key2=valueDuplicated|key3=valueDuplicated' into detEntry 'e3Detector_0detEntry0'
+Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Setting previous attribute genericParameter 'key1duplicated=value2|key3=value3' into detEntry 'e3Detector_0detEntry0'
 Debug: Keys Ctrl + Z (Undo) pressed
 Debug: Setting previous attribute genericParameter '' into detEntry 'e3Detector_0detEntry0'
 Debug: Keys Ctrl + Z (Undo) pressed
@@ -61,9 +61,9 @@ Debug: Setting new attribute genericParameter 'key1=|key2=|key3=' into detEntry 
 Debug: Keys Ctrl + Y (Redo) pressed
 Debug: Setting new attribute genericParameter '' into detEntry 'e3Detector_0detEntry0'
 Debug: Keys Ctrl + Y (Redo) pressed
-Debug: Setting new attribute genericParameter 'key1=valueDuplicated|key2=valueDuplicated|key3=valueDuplicated' into detEntry 'e3Detector_0detEntry0'
+Debug: Setting new attribute genericParameter 'key1duplicated=value2|key3=value3' into detEntry 'e3Detector_0detEntry0'
 Debug: Keys Ctrl + Y (Redo) pressed
-Debug: Setting new attribute genericParameter 'key2=value2|key3=value3|keyInvalid.;%>%$$=value1' into detEntry 'e3Detector_0detEntry0'
+Debug: Setting new attribute genericParameter 'key1=valueDuplicated|key2=valueDuplicated|key3=valueDuplicated' into detEntry 'e3Detector_0detEntry0'
 Debug: Keys Ctrl + Y (Redo) pressed
 Debug: Setting new attribute genericParameter 'key1=valueInvalid%;%$<>$$%|key2=value2|key3=value3' into detEntry 'e3Detector_0detEntry0'
 Debug: Keys Ctrl + Y (Redo) pressed

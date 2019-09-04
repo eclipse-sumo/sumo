@@ -26,17 +26,17 @@ Debug: net has to be saved
 Debug: Current saving Status: net unsaved, additionals saved, demand elements saved
 Debug: Setting new attribute genericParameter 'key1=|key2=|key3=' into connection 'from8_0to3_0'
 Debug: Setting new attribute genericParameter '' into connection 'from8_0to3_0'
+Debug: Setting new attribute genericParameter 'key1duplicated=value2|key3=value3' into connection 'from8_0to3_0'
 Debug: Setting new attribute genericParameter 'key1=valueDuplicated|key2=valueDuplicated|key3=valueDuplicated' into connection 'from8_0to3_0'
-Debug: Setting new attribute genericParameter 'key2=value2|key3=value3|keyInvalid.;%>%$$=value1' into connection 'from8_0to3_0'
 Debug: Setting new attribute genericParameter 'key1=valueInvalid%;%$<>$$%|key2=value2|key3=value3' into connection 'from8_0to3_0'
 Debug: Setting new attribute genericParameter 'keyFinal1=value1|keyFinal2=value2|keyFinal3=value3' into connection 'from8_0to3_0'
 Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 Debug: Keys Ctrl + Z (Undo) pressed
 Debug: Setting previous attribute genericParameter 'key1=valueInvalid%;%$<>$$%|key2=value2|key3=value3' into connection 'from8_0to3_0'
 Debug: Keys Ctrl + Z (Undo) pressed
-Debug: Setting previous attribute genericParameter 'key2=value2|key3=value3|keyInvalid.;%>%$$=value1' into connection 'from8_0to3_0'
-Debug: Keys Ctrl + Z (Undo) pressed
 Debug: Setting previous attribute genericParameter 'key1=valueDuplicated|key2=valueDuplicated|key3=valueDuplicated' into connection 'from8_0to3_0'
+Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Setting previous attribute genericParameter 'key1duplicated=value2|key3=value3' into connection 'from8_0to3_0'
 Debug: Keys Ctrl + Z (Undo) pressed
 Debug: Setting previous attribute genericParameter '' into connection 'from8_0to3_0'
 Debug: Keys Ctrl + Z (Undo) pressed
@@ -54,9 +54,9 @@ Debug: Setting new attribute genericParameter 'key1=|key2=|key3=' into connectio
 Debug: Keys Ctrl + Y (Redo) pressed
 Debug: Setting new attribute genericParameter '' into connection 'from8_0to3_0'
 Debug: Keys Ctrl + Y (Redo) pressed
-Debug: Setting new attribute genericParameter 'key1=valueDuplicated|key2=valueDuplicated|key3=valueDuplicated' into connection 'from8_0to3_0'
+Debug: Setting new attribute genericParameter 'key1duplicated=value2|key3=value3' into connection 'from8_0to3_0'
 Debug: Keys Ctrl + Y (Redo) pressed
-Debug: Setting new attribute genericParameter 'key2=value2|key3=value3|keyInvalid.;%>%$$=value1' into connection 'from8_0to3_0'
+Debug: Setting new attribute genericParameter 'key1=valueDuplicated|key2=valueDuplicated|key3=valueDuplicated' into connection 'from8_0to3_0'
 Debug: Keys Ctrl + Y (Redo) pressed
 Debug: Setting new attribute genericParameter 'key1=valueInvalid%;%$<>$$%|key2=value2|key3=value3' into connection 'from8_0to3_0'
 Debug: Keys Ctrl + Y (Redo) pressed

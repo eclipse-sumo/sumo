@@ -9,9 +9,12 @@ Debug: Adding busStop 'busStop_00' in GNEChange_Additional
 Debug: Additionals has to be saved
 Debug: Current saving Status: net saved, additionals unsaved, demand elements saved
 Debug: Inserting parameter 'key1|value1' into additional busStop.
-Debug: Inserting parameter 'key1|value4' into additional busStop.
+Error: Attribute 'key' in definition of a param is empty.
+Debug: Inserting parameter 'key1|value5' into additional busStop.
 Debug: Inserting parameter 'key2|' into additional busStop.
-Debug: Inserting parameter 'key4|value5' into additional busStop.
+Debug: Inserting parameter 'key2|' into additional busStop.
+Debug: Inserting parameter 'keyFinal|valueFinal' into additional busStop.
+Error: Loading of C:/Users/alva_pa/.texttest/tmp/netedit.gui.04Sep123340.10180/netedit.gui/additionalElements/busstop/load/parameters\input_additionals.add.xml failed.
 Debug: net has to be saved
 Debug: Current saving Status: net unsaved, additionals unsaved, demand elements saved
 Debug: Additionals saved

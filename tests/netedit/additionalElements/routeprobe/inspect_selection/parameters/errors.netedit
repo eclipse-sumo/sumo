@@ -30,10 +30,10 @@ Debug: Setting new attribute genericParameter 'key1=|key2=|key3=' into routeProb
 Debug: Setting new attribute genericParameter 'key1=|key2=|key3=' into routeProbe 'routeProbe_02'
 Debug: Setting new attribute genericParameter '' into routeProbe 'routeProbe_01'
 Debug: Setting new attribute genericParameter '' into routeProbe 'routeProbe_02'
+Debug: Setting new attribute genericParameter 'key1duplicated=value2|key3=value3' into routeProbe 'routeProbe_01'
+Debug: Setting new attribute genericParameter 'key1duplicated=value2|key3=value3' into routeProbe 'routeProbe_02'
 Debug: Setting new attribute genericParameter 'key1=valueDuplicated|key2=valueDuplicated|key3=valueDuplicated' into routeProbe 'routeProbe_01'
 Debug: Setting new attribute genericParameter 'key1=valueDuplicated|key2=valueDuplicated|key3=valueDuplicated' into routeProbe 'routeProbe_02'
-Debug: Setting new attribute genericParameter 'key2=value2|key3=value3|keyInvalid.;%>%$$=value1' into routeProbe 'routeProbe_01'
-Debug: Setting new attribute genericParameter 'key2=value2|key3=value3|keyInvalid.;%>%$$=value1' into routeProbe 'routeProbe_02'
 Debug: Setting new attribute genericParameter 'key1=valueInvalid%;%$<>$$%|key2=value2|key3=value3' into routeProbe 'routeProbe_01'
 Debug: Setting new attribute genericParameter 'key1=valueInvalid%;%$<>$$%|key2=value2|key3=value3' into routeProbe 'routeProbe_02'
 Debug: Setting new attribute genericParameter 'keyFinal1=value1|keyFinal2=value2|keyFinal3=value3' into routeProbe 'routeProbe_01'
@@ -43,11 +43,11 @@ Debug: Keys Ctrl + Z (Undo) pressed
 Debug: Setting previous attribute genericParameter 'key1=valueInvalid%;%$<>$$%|key2=value2|key3=value3' into routeProbe 'routeProbe_02'
 Debug: Setting previous attribute genericParameter 'key1=valueInvalid%;%$<>$$%|key2=value2|key3=value3' into routeProbe 'routeProbe_01'
 Debug: Keys Ctrl + Z (Undo) pressed
-Debug: Setting previous attribute genericParameter 'key2=value2|key3=value3|keyInvalid.;%>%$$=value1' into routeProbe 'routeProbe_02'
-Debug: Setting previous attribute genericParameter 'key2=value2|key3=value3|keyInvalid.;%>%$$=value1' into routeProbe 'routeProbe_01'
-Debug: Keys Ctrl + Z (Undo) pressed
 Debug: Setting previous attribute genericParameter 'key1=valueDuplicated|key2=valueDuplicated|key3=valueDuplicated' into routeProbe 'routeProbe_02'
 Debug: Setting previous attribute genericParameter 'key1=valueDuplicated|key2=valueDuplicated|key3=valueDuplicated' into routeProbe 'routeProbe_01'
+Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Setting previous attribute genericParameter 'key1duplicated=value2|key3=value3' into routeProbe 'routeProbe_02'
+Debug: Setting previous attribute genericParameter 'key1duplicated=value2|key3=value3' into routeProbe 'routeProbe_01'
 Debug: Keys Ctrl + Z (Undo) pressed
 Debug: Setting previous attribute genericParameter '' into routeProbe 'routeProbe_02'
 Debug: Setting previous attribute genericParameter '' into routeProbe 'routeProbe_01'
@@ -71,11 +71,11 @@ Debug: Keys Ctrl + Y (Redo) pressed
 Debug: Setting new attribute genericParameter '' into routeProbe 'routeProbe_01'
 Debug: Setting new attribute genericParameter '' into routeProbe 'routeProbe_02'
 Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Setting new attribute genericParameter 'key1duplicated=value2|key3=value3' into routeProbe 'routeProbe_01'
+Debug: Setting new attribute genericParameter 'key1duplicated=value2|key3=value3' into routeProbe 'routeProbe_02'
+Debug: Keys Ctrl + Y (Redo) pressed
 Debug: Setting new attribute genericParameter 'key1=valueDuplicated|key2=valueDuplicated|key3=valueDuplicated' into routeProbe 'routeProbe_01'
 Debug: Setting new attribute genericParameter 'key1=valueDuplicated|key2=valueDuplicated|key3=valueDuplicated' into routeProbe 'routeProbe_02'
-Debug: Keys Ctrl + Y (Redo) pressed
-Debug: Setting new attribute genericParameter 'key2=value2|key3=value3|keyInvalid.;%>%$$=value1' into routeProbe 'routeProbe_01'
-Debug: Setting new attribute genericParameter 'key2=value2|key3=value3|keyInvalid.;%>%$$=value1' into routeProbe 'routeProbe_02'
 Debug: Keys Ctrl + Y (Redo) pressed
 Debug: Setting new attribute genericParameter 'key1=valueInvalid%;%$<>$$%|key2=value2|key3=value3' into routeProbe 'routeProbe_01'
 Debug: Setting new attribute genericParameter 'key1=valueInvalid%;%$<>$$%|key2=value2|key3=value3' into routeProbe 'routeProbe_02'

@@ -1,4 +1,8 @@
-Warning: Error parsing key from additional generic parameter. Key doesn't exist
-Warning: Error parsing key from additional generic parameter. Key contains invalid characters
-Warning: Error parsing value from additional generic parameter. Value contains invalid characters
-Warning: Error parsing key from additional generic parameter. Key doesn't exist
+Warning: Error parsing key from additional parameter. Key doesn't exist
+Warning: Error parsing key from additional parameter. Key doesn't exist
+Error: Attribute 'key' in definition of a param is empty.
+Warning: Error parsing key from additional parameter. Key cannot be empty
+Warning: Error parsing key from additional parameter. Key contains invalid characters
+Warning: Error parsing key from additional parameter. Key contains invalid characters
+Warning: Error parsing value from additional parameter. Value contains invalid characters
+Error: Loading of C:/Users/alva_pa/.texttest/tmp/netedit.gui.04Sep123340.10180/netedit.gui/additionalElements/parkingarea/load/parameters\input_additionals.add.xml failed.

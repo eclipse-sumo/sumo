@@ -9,9 +9,12 @@ Debug: Adding instantInductionLoop 'E1_01' in GNEChange_Additional
 Debug: Additionals has to be saved
 Debug: Current saving Status: net saved, additionals unsaved, demand elements saved
 Debug: Inserting parameter 'key1|value1' into additional instantInductionLoop.
-Debug: Inserting parameter 'key1|value4' into additional instantInductionLoop.
+Error: Attribute 'key' in definition of a param is empty.
+Debug: Inserting parameter 'key1|value5' into additional instantInductionLoop.
 Debug: Inserting parameter 'key2|' into additional instantInductionLoop.
-Debug: Inserting parameter 'key4|value5' into additional instantInductionLoop.
+Debug: Inserting parameter 'key2|' into additional instantInductionLoop.
+Debug: Inserting parameter 'keyFinal|valueFinal' into additional instantInductionLoop.
+Error: Loading of C:/Users/alva_pa/.texttest/tmp/netedit.gui.04Sep123340.10180/netedit.gui/additionalElements/e1InstantDetector/load/parameters\input_additionals.add.xml failed.
 Debug: net has to be saved
 Debug: Current saving Status: net unsaved, additionals unsaved, demand elements saved
 Debug: Additionals saved
