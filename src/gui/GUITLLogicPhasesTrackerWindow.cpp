@@ -177,6 +177,7 @@ GUITLLogicPhasesTrackerWindow::GUITLLogicPhasesTrackerWindow(
     setTitle((logic.getID() + " - " + logic.getProgramID() + " - tracker").c_str());
     setIcon(GUIIconSubSys::getIcon(ICON_APP_TLSTRACKER));
     setHeight(height);
+    setWidth(700);
 }
 
 
@@ -204,6 +205,7 @@ GUITLLogicPhasesTrackerWindow::GUITLLogicPhasesTrackerWindow(
     setTitle((logic.getID() + " - " + logic.getProgramID() + " - tracker").c_str());
     setIcon(GUIIconSubSys::getIcon(ICON_APP_TLSTRACKER));
     setHeight(height);
+    setWidth(700);
 }
 
 
@@ -419,7 +421,9 @@ GUITLLogicPhasesTrackerWindow::drawValues(GUITLLogicPhasesTrackerPanel& caller) 
         double glpos = (double) pos / width;
         const double ticSize = 4 / height;
         while (pos < width + 50) {
-            const std::string timeStr = time2string(currTime);
+            const std::string timeStr = (gHumanReadableTime 
+                ? time2string(currTime % 3600000).substr(3) // only write mn:ss
+                : toString((int)STEPS2TIME(currTime)));
             const double w = 50 / width;
             glTranslated(glpos - w / 2., glh - h20, 0);
             GLHelper::drawText(timeStr, Position(0, 0), 1, fontHeight, RGBColor::WHITE, 0, FONS_ALIGN_LEFT | FONS_ALIGN_MIDDLE, fontWidth);
