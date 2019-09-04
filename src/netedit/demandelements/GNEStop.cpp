@@ -877,12 +877,7 @@ GNEStop::setAttribute(SumoXMLAttr key, const std::string& value) {
             }
             break;
         case SUMO_ATTR_PARKING:
-            if (value.empty()) {
-                parametersSet &= ~STOP_PARKING_SET;
-            } else {
-                parking = parse<bool>(value);
-                parametersSet |= STOP_PARKING_SET;
-            }
+            parking = parse<bool>(value);
             break;
         case SUMO_ATTR_ACTTYPE:
             // CHECK
