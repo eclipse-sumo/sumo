@@ -211,7 +211,7 @@ GNEDialog_FixDemandElements::DemandList::DemandList(GNEDialog_FixDemandElements*
     for (const auto& i : invalidDemandElements) {
         if (i->getTagProperty().isVehicle()) {
             myInvalidVehicles.push_back(i);
-        } else if (i->getTagProperty().isStop()) {
+        } else if (i->getTagProperty().isStop() || i->getTagProperty().isPersonPlan()) {
             myInvalidStops.push_back(i);
         } else {
             myInvalidRoutes.push_back(i);
@@ -220,7 +220,7 @@ GNEDialog_FixDemandElements::DemandList::DemandList(GNEDialog_FixDemandElements*
     // clear table
     myTable->clearItems();
     // set number of rows
-    myTable->setTableSize((int)(myInvalidRoutes.size() + myInvalidVehicles.size()), 3);
+    myTable->setTableSize((int)(myInvalidRoutes.size() + myInvalidVehicles.size() + myInvalidStops.size()), 3);
     // Configure list
     myTable->setVisibleColumns(4);
     myTable->setColumnWidth(0, GUIDesignTableIconCellWidth);
