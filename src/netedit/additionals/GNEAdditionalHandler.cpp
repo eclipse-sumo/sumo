@@ -81,12 +81,12 @@ void
 GNEAdditionalHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
     // Obtain tag of element
     SumoXMLTag tag = static_cast<SumoXMLTag>(element);
-    // check if we're parsing a generic parameter
+    // check if we're parsing a parameter
     if (tag == SUMO_TAG_PARAM) {
         // push element int stack
         myHierarchyInsertedAdditionals.insertElement(tag);
-        // parse generic parameter
-        parseGenericParameter(attrs);
+        // parse parameter
+        parseParameter(attrs);
     } else if (tag != SUMO_TAG_NOTHING) {
         // push element int stack
         if (tag == SUMO_TAG_TRAIN_STOP) {
@@ -2408,7 +2408,7 @@ GNEAdditionalHandler::parseAndBuildPOI(const SUMOSAXAttributes& attrs) {
 
 
 void
-GNEAdditionalHandler::parseGenericParameter(const SUMOSAXAttributes& attrs) {
+GNEAdditionalHandler::parseParameter(const SUMOSAXAttributes& attrs) {
     // we have two cases: if we're parsing a Shape or we're parsing an Additional
     if (getLastParameterised()) {
         bool ok = true;
@@ -2417,64 +2417,64 @@ GNEAdditionalHandler::parseGenericParameter(const SUMOSAXAttributes& attrs) {
             // obtain key
             key = attrs.get<std::string>(SUMO_ATTR_KEY, nullptr, ok);
             if (key.empty()) {
-                WRITE_WARNING("Error parsing key from shape generic parameter. Key cannot be empty");
+                WRITE_WARNING("Error parsing key from shape parameter. Key cannot be empty");
                 ok = false;
             }
             if (!SUMOXMLDefinitions::isValidTypeID(key)) {
-                WRITE_WARNING("Error parsing key from shape generic parameter. Key contains invalid characters");
+                WRITE_WARNING("Error parsing key from shape parameter. Key contains invalid characters");
                 ok = false;
             }
         } else {
-            WRITE_WARNING("Error parsing key from shape generic parameter. Key doesn't exist");
+            WRITE_WARNING("Error parsing key from shape parameter. Key doesn't exist");
             ok = false;
         }
         // circumventing empty string test
         const std::string val = attrs.hasAttribute(SUMO_ATTR_VALUE) ? attrs.getString(SUMO_ATTR_VALUE) : "";
         if (!SUMOXMLDefinitions::isValidAttribute(val)) {
-            WRITE_WARNING("Error parsing value from shape generic parameter. Value contains invalid characters");
+            WRITE_WARNING("Error parsing value from shape parameter. Value contains invalid characters");
             ok = false;
         }
         // set parameter in last inserted additional
         if (ok) {
-            WRITE_DEBUG("Inserting generic parameter '" + key + "|" + val + "' into shape.");
+            WRITE_DEBUG("Inserting parameter '" + key + "|" + val + "' into shape.");
             getLastParameterised()->setParameter(key, val);
         }
     } else if (myHierarchyInsertedAdditionals.getLastInsertedAdditional()) {
-        // first check if given additional supports generic parameters
-        if (myHierarchyInsertedAdditionals.getLastInsertedAdditional()->getTagProperty().hasGenericParameters()) {
+        // first check if given additional supports parameters
+        if (myHierarchyInsertedAdditionals.getLastInsertedAdditional()->getTagProperty().hasParameters()) {
             bool ok = true;
             std::string key;
             if (attrs.hasAttribute(SUMO_ATTR_KEY)) {
                 // obtain key
                 key = attrs.get<std::string>(SUMO_ATTR_KEY, nullptr, ok);
                 if (key.empty()) {
-                    WRITE_WARNING("Error parsing key from additional generic parameter. Key cannot be empty");
+                    WRITE_WARNING("Error parsing key from additional parameter. Key cannot be empty");
                     ok = false;
                 }
                 if (!SUMOXMLDefinitions::isValidTypeID(key)) {
-                    WRITE_WARNING("Error parsing key from additional generic parameter. Key contains invalid characters");
+                    WRITE_WARNING("Error parsing key from additional parameter. Key contains invalid characters");
                     ok = false;
                 }
             } else {
-                WRITE_WARNING("Error parsing key from additional generic parameter. Key doesn't exist");
+                WRITE_WARNING("Error parsing key from additional parameter. Key doesn't exist");
                 ok = false;
             }
             // circumventing empty string test
             const std::string val = attrs.hasAttribute(SUMO_ATTR_VALUE) ? attrs.getString(SUMO_ATTR_VALUE) : "";
             if (!SUMOXMLDefinitions::isValidAttribute(val)) {
-                WRITE_WARNING("Error parsing value from additional generic parameter. Value contains invalid characters");
+                WRITE_WARNING("Error parsing value from additional parameter. Value contains invalid characters");
                 ok = false;
             }
             // set parameter in last inserted additional
             if (ok) {
-                WRITE_DEBUG("Inserting generic parameter '" + key + "|" + val + "' into additional " + myHierarchyInsertedAdditionals.getLastInsertedAdditional()->getTagStr() + ".");
+                WRITE_DEBUG("Inserting parameter '" + key + "|" + val + "' into additional " + myHierarchyInsertedAdditionals.getLastInsertedAdditional()->getTagStr() + ".");
                 myHierarchyInsertedAdditionals.getLastInsertedAdditional()->setParameter(key, val);
             }
         } else {
-            WRITE_WARNING("Additionals of type '" + myHierarchyInsertedAdditionals.getLastInsertedAdditional()->getTagStr() + "' doesn't support Generic Parameters");
+            WRITE_WARNING("Additionals of type '" + myHierarchyInsertedAdditionals.getLastInsertedAdditional()->getTagStr() + "' doesn't support parameters");
         }
     } else {
-        WRITE_WARNING("Generic Parameters has to be declared within the definition of an additional or a shape element");
+        WRITE_WARNING("Parameters has to be declared within the definition of an additional or a shape element");
     }
 }
 

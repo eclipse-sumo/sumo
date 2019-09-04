@@ -1191,8 +1191,8 @@ GNERouteHandler::openTrip(const SUMOSAXAttributes& attrs) {
 
 void
 GNERouteHandler::closeRoute(const bool /* mayBeDisconnected */) {
-    // first copy generic parameters from SUMORouteHanlder to myRouteParameter
-    myRouteParameter.genericParameters = myLoadedParameterised;
+    // first copy parameters from SUMORouteHanlder to myRouteParameter
+    myRouteParameter.parameters = myLoadedParameterised;
     // we have two possibilities: Either create a route with their own ID, or create a route within a vehicle
     if (myVehicleParameter) {
         // extra warning for embebbed routes

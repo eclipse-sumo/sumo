@@ -332,7 +332,7 @@ GNERide::getAttribute(SumoXMLAttr key) const {
             return toString(myArrivalPosition);
         case GNE_ATTR_SELECTED:
             return toString(isAttributeCarrierSelected());
-        case GNE_ATTR_GENERIC:
+        case GNE_ATTR_PARAMETERS:
             return getParametersStr();
         case GNE_ATTR_PARENT:
             return getDemandElementParents().front()->getID();
@@ -365,7 +365,7 @@ GNERide::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* un
         case SUMO_ATTR_LINES:
         case SUMO_ATTR_ARRIVALPOS:
         case GNE_ATTR_SELECTED:
-        case GNE_ATTR_GENERIC:
+        case GNE_ATTR_PARAMETERS:
             undoList->p_add(new GNEChange_Attribute(this, myViewNet->getNet(), key, value));
             break;
         default:
@@ -398,7 +398,7 @@ GNERide::isValid(SumoXMLAttr key, const std::string& value) {
             }
         case GNE_ATTR_SELECTED:
             return canParse<bool>(value);
-        case GNE_ATTR_GENERIC:
+        case GNE_ATTR_PARAMETERS:
             return Parameterised::areParametersValid(value);
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
@@ -482,7 +482,7 @@ GNERide::setAttribute(SumoXMLAttr key, const std::string& value) {
                 unselectAttributeCarrier();
             }
             break;
-        case GNE_ATTR_GENERIC:
+        case GNE_ATTR_PARAMETERS:
             setParametersStr(value);
             break;
         default:

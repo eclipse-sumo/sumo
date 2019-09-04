@@ -914,8 +914,8 @@ GNESelectorFrame::MatchAttribute::onCmdSelMBTag(FXObject*, FXSelector, void*) {
         for (auto it : tagValue) {
             myMatchAttrComboBox->appendItem(it.getAttrStr().c_str());
         }
-        // Add extra attribute "generic"
-        myMatchAttrComboBox->appendItem(toString(GNE_ATTR_GENERIC).c_str());
+        // Add extra attribute "Parameter"
+        myMatchAttrComboBox->appendItem(toString(GNE_ATTR_PARAMETERS).c_str());
         // check if item can block movement
         if (tagValue.canBlockMovement()) {
             myMatchAttrComboBox->appendItem(toString(GNE_ATTR_BLOCK_MOVEMENT).c_str());
@@ -952,11 +952,11 @@ GNESelectorFrame::MatchAttribute::onCmdSelMBAttribute(FXObject*, FXSelector, voi
     auto tagPropertiesCopy = GNEAttributeCarrier::getTagProperties(myCurrentTag);
     // obtain tag property (only for improve code legibility)
     const auto& tagValue = GNEAttributeCarrier::getTagProperties(myCurrentTag);
-    // add an extra AttributeValues to allow select ACs using as criterium "generic parameters"
+    // add an extra AttributeValues to allow select ACs using as criterium "parameters"
     GNEAttributeCarrier::AttributeProperties extraAttrProperty;
-    extraAttrProperty = GNEAttributeCarrier::AttributeProperties(GNE_ATTR_GENERIC,
+    extraAttrProperty = GNEAttributeCarrier::AttributeProperties(GNE_ATTR_PARAMETERS,
                         GNEAttributeCarrier::AttrProperty::ATTRPROPERTY_STRING,
-                        "Generic Parameters");
+                        "Parameters");
     tagPropertiesCopy.addAttribute(extraAttrProperty);
     // add extra attribute if item can block movement
     if (tagValue.canBlockMovement()) {

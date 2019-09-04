@@ -920,7 +920,7 @@ GNEEdge::getAttribute(SumoXMLAttr key) const {
             return toString(myNBEdge.isBidiRail());
         case GNE_ATTR_SELECTED:
             return toString(isAttributeCarrierSelected());
-        case GNE_ATTR_GENERIC:
+        case GNE_ATTR_PARAMETERS:
             return myNBEdge.getParametersStr();
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
@@ -1003,7 +1003,7 @@ GNEEdge::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* un
         case GNE_ATTR_SHAPE_START:
         case GNE_ATTR_SHAPE_END:
         case GNE_ATTR_SELECTED:
-        case GNE_ATTR_GENERIC:
+        case GNE_ATTR_PARAMETERS:
             undoList->p_add(new GNEChange_Attribute(this, myNet, key, value));
             break;
         case SUMO_ATTR_NAME:
@@ -1120,7 +1120,7 @@ GNEEdge::isValid(SumoXMLAttr key, const std::string& value) {
             return false;
         case GNE_ATTR_SELECTED:
             return canParse<bool>(value);
-        case GNE_ATTR_GENERIC:
+        case GNE_ATTR_PARAMETERS:
             return Parameterised::areParametersValid(value);
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
@@ -1568,7 +1568,7 @@ GNEEdge::setAttribute(SumoXMLAttr key, const std::string& value) {
                 unselectAttributeCarrier();
             }
             break;
-        case GNE_ATTR_GENERIC:
+        case GNE_ATTR_PARAMETERS:
             myNBEdge.setParametersStr(value);
             break;
         default:

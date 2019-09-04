@@ -116,7 +116,7 @@ GNEVariableSpeedSignStep::getAttribute(SumoXMLAttr key) const {
             return toString(mySpeed);
         case GNE_ATTR_PARENT:
             return getAdditionalParents().at(0)->getID();
-        case GNE_ATTR_GENERIC:
+        case GNE_ATTR_PARAMETERS:
             return getParametersStr();
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
@@ -133,7 +133,7 @@ GNEVariableSpeedSignStep::setAttribute(SumoXMLAttr key, const std::string& value
         case SUMO_ATTR_ID:
         case SUMO_ATTR_TIME:
         case SUMO_ATTR_SPEED:
-        case GNE_ATTR_GENERIC:
+        case GNE_ATTR_PARAMETERS:
             undoList->p_add(new GNEChange_Attribute(this, myViewNet->getNet(), key, value));
             break;
         default:
@@ -168,7 +168,7 @@ GNEVariableSpeedSignStep::isValid(SumoXMLAttr key, const std::string& value) {
             }
         case SUMO_ATTR_SPEED:
             return canParse<double>(value);
-        case GNE_ATTR_GENERIC:
+        case GNE_ATTR_PARAMETERS:
             return Parameterised::areParametersValid(value);
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
@@ -203,7 +203,7 @@ GNEVariableSpeedSignStep::setAttribute(SumoXMLAttr key, const std::string& value
         case SUMO_ATTR_SPEED:
             mySpeed = parse<double>(value);
             break;
-        case GNE_ATTR_GENERIC:
+        case GNE_ATTR_PARAMETERS:
             setParametersStr(value);
             break;
         default:

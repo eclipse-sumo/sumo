@@ -1038,17 +1038,17 @@ enum {
 
     /// @}
 
-    /// @name Generic Parameters Dialog messages
+    /// @name GNEParameters Dialog messages
     /// @{
 
-    /// @brief Generic parameters dialog load
-    MID_GNE_GENERICPARAMETERS_LOAD,
-    /// @brief Generic parameters dialog save
-    MID_GNE_GENERICPARAMETERS_SAVE,
-    /// @brief Generic parameters dialog clear
-    MID_GNE_GENERICPARAMETERS_CLEAR,
-    /// @brief Generic parameters dialog sort
-    MID_GNE_GENERICPARAMETERS_SORT,
+    /// @brief load parameters
+    MID_GNE_PARAMETERS_LOAD,
+    /// @brief save parameters
+    MID_GNE_PARAMETERS_SAVE,
+    /// @brief clear parameters
+    MID_GNE_PARAMETERS_CLEAR,
+    /// @brief sort parameters
+    MID_GNE_PARAMETERS_SORT,
 
     /// @}
 

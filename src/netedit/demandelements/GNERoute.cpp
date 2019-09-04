@@ -89,7 +89,7 @@ myVClass(SVC_PASSENGER) {
 GNERoute::GNERoute(GNEViewNet* viewNet, const GNERouteHandler::RouteParameter& routeParameters) :
     GNEDemandElement(routeParameters.routeID, viewNet, GLO_ROUTE, SUMO_TAG_ROUTE,
                      routeParameters.edges, {}, {}, {}, {}, {}, {}, {}, {}, {}),
-    Parameterised(routeParameters.genericParameters),
+    Parameterised(routeParameters.parameters),
     myColor(routeParameters.color),
     myVClass(routeParameters.vClass) {
 }
@@ -98,7 +98,7 @@ GNERoute::GNERoute(GNEViewNet* viewNet, const GNERouteHandler::RouteParameter& r
 GNERoute::GNERoute(GNEViewNet* viewNet, GNEDemandElement* vehicleParent, const GNERouteHandler::RouteParameter& routeParameters) :
     GNEDemandElement(viewNet->getNet()->generateDemandElementID("", SUMO_TAG_EMBEDDEDROUTE), viewNet, GLO_EMBEDDEDROUTE, SUMO_TAG_EMBEDDEDROUTE,
                      routeParameters.edges, {}, {}, {}, {vehicleParent}, {}, {}, {}, {}, {}),
-    Parameterised(routeParameters.genericParameters),
+    Parameterised(routeParameters.parameters),
     myColor(routeParameters.color),
     myVClass(routeParameters.vClass) {
 }
@@ -158,7 +158,7 @@ GNERoute::writeDemandElement(OutputDevice& device) const {
             }
         }
     }
-    // write generic parameters
+    // write parameters
     writeParams(device);
     // close tag
     device.closeTag();
@@ -422,7 +422,7 @@ GNERoute::getAttribute(SumoXMLAttr key) const {
             return toString(myColor);
         case GNE_ATTR_SELECTED:
             return toString(isAttributeCarrierSelected());
-        case GNE_ATTR_GENERIC:
+        case GNE_ATTR_PARAMETERS:
             return getParametersStr();
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
@@ -446,7 +446,7 @@ GNERoute::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* u
         case SUMO_ATTR_EDGES:
         case SUMO_ATTR_COLOR:
         case GNE_ATTR_SELECTED:
-        case GNE_ATTR_GENERIC:
+        case GNE_ATTR_PARAMETERS:
             undoList->p_add(new GNEChange_Attribute(this, myViewNet->getNet(), key, value));
             break;
         default:
@@ -471,7 +471,7 @@ GNERoute::isValid(SumoXMLAttr key, const std::string& value) {
             return canParse<RGBColor>(value);
         case GNE_ATTR_SELECTED:
             return canParse<bool>(value);
-        case GNE_ATTR_GENERIC:
+        case GNE_ATTR_PARAMETERS:
             return Parameterised::areParametersValid(value);
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
@@ -527,7 +527,7 @@ GNERoute::setAttribute(SumoXMLAttr key, const std::string& value) {
                 unselectAttributeCarrier();
             }
             break;
-        case GNE_ATTR_GENERIC:
+        case GNE_ATTR_PARAMETERS:
             setParametersStr(value);
             break;
         default:

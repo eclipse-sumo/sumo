@@ -984,8 +984,8 @@ enum SumoXMLAttr {
     GNE_ATTR_CLOSE_SHAPE,
     /// @brief parent of an additional element
     GNE_ATTR_PARENT,
-    /// @brief generic attribute
-    GNE_ATTR_GENERIC,
+    /// @brief parameters "key1=value1|key2=value2|...|keyN=valueN"
+    GNE_ATTR_PARAMETERS,
     /// @brief min source (used only by TAZs)
     GNE_ATTR_MIN_SOURCE,
     /// @brief min sink (used only by TAZs)
@@ -1431,10 +1431,10 @@ public:
     /// @brief whether the given string is a valid list of ids for an edge or vehicle type (empty aren't allowed)
     static bool isValidListOfTypeID(const std::string& value);
 
-    /// @brief whether the given string is a valid key for a generic parameter
+    /// @brief whether the given string is a valid key for a parameter
     static bool isValidParameterKey(const std::string& value);
 
-    /// @brief whether the given string is a valid value for a generic parameter
+    /// @brief whether the given string is a valid value for a parameter
     static bool isValidParameterValue(const std::string& value);
 
     /// @brief return the junction id when given an edge of type internal, crossing or WalkingArea

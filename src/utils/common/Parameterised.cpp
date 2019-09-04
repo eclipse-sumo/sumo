@@ -129,12 +129,12 @@ Parameterised::setParametersStr(const std::string& value) {
     // clear parameters
     myMap.clear();
     // separate value in a vector of string using | as separator
-    StringTokenizer parameters(value, "|", true);
+    std::vector<std::string> parameters = StringTokenizer(value, "|", true).getVector();
     // iterate over all values
-    while (parameters.hasNext()) {
+    for (const auto &i : parameters) {
         // obtain key and value and save it in myParameters
-        StringTokenizer keyValue(parameters.next(), "=", true);
-        myMap[keyValue.front()] = keyValue.next();
+        std::vector<std::string> keyValue = StringTokenizer(i, "=", true).getVector();
+        myMap[keyValue.front()] = keyValue.back();
     }
 }
 

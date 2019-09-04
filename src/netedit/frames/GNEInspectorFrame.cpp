@@ -99,7 +99,7 @@ GNEInspectorFrame::GNEInspectorFrame(FXHorizontalFrame* horizontalFrameParent, G
     // Create GEO Parameters Editor modul
     myGEOAttributesEditor = new GEOAttributesEditor(this);
 
-    // create Generic parameters Editor modul
+    // create parameters Editor modul
     myParametersEditor = new GNEFrameAttributesModuls::ParametersEditor(this);
 
     // Create Netedit Attributes Editor modul
@@ -274,7 +274,7 @@ GNEInspectorFrame::inspectMultisection(const std::vector<GNEAttributeCarrier*>& 
         // Show GEO Attributes Editor if we're inspecting elements with GEO Attributes
         myGEOAttributesEditor->showGEOAttributesEditor();
 
-        // show generic attributes editor
+        // show parameters editor
         if (ACs.size() == 1) {
             myParametersEditor->showParametersEditor(ACs.front());
         } else {
@@ -373,7 +373,7 @@ void
 GNEInspectorFrame::updateFrameAfterUndoRedo() {
     // refresh Attribute Editor
     myAttributesEditor->refreshAttributeEditor(false, false);
-    // refresh GenericParameters
+    // refresh parametersEditor
     myParametersEditor->refreshParametersEditor();
     // refresh AC Hierarchy
     myAttributeCarrierHierarchy->refreshAttributeCarrierHierarchy();

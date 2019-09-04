@@ -34,33 +34,33 @@
 // ===========================================================================
 
 FXDEFMAP(GNEParametersDialog) GNEParametersDialogMap[] = {
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_ADDITIONALDIALOG_BUTTONACCEPT,      GNEParametersDialog::onCmdAccept),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_ADDITIONALDIALOG_BUTTONCANCEL,      GNEParametersDialog::onCmdCancel),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_ADDITIONALDIALOG_BUTTONRESET,       GNEParametersDialog::onCmdReset),
-    FXMAPFUNC(SEL_CHORE,    FXDialogBox::ID_CANCEL,                     GNEParametersDialog::onCmdCancel),
-    FXMAPFUNC(SEL_TIMEOUT,  FXDialogBox::ID_CANCEL,                     GNEParametersDialog::onCmdCancel),
-    FXMAPFUNC(SEL_COMMAND,  FXDialogBox::ID_CANCEL,                     GNEParametersDialog::onCmdCancel),
-    FXMAPFUNC(SEL_CLOSE,    0,                                          GNEParametersDialog::onCmdCancel),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_ADDITIONALDIALOG_BUTTONACCEPT,  GNEParametersDialog::onCmdAccept),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_ADDITIONALDIALOG_BUTTONCANCEL,  GNEParametersDialog::onCmdCancel),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_ADDITIONALDIALOG_BUTTONRESET,   GNEParametersDialog::onCmdReset),
+    FXMAPFUNC(SEL_CHORE,    FXDialogBox::ID_CANCEL,                 GNEParametersDialog::onCmdCancel),
+    FXMAPFUNC(SEL_TIMEOUT,  FXDialogBox::ID_CANCEL,                 GNEParametersDialog::onCmdCancel),
+    FXMAPFUNC(SEL_COMMAND,  FXDialogBox::ID_CANCEL,                 GNEParametersDialog::onCmdCancel),
+    FXMAPFUNC(SEL_CLOSE,    0,                                      GNEParametersDialog::onCmdCancel),
 };
 
 FXDEFMAP(GNEParametersDialog::ParametersValues) ParametersValuesMap[] = {
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE,                      GNEParametersDialog::ParametersValues::onCmdSetAttribute),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_REMOVE_ATTRIBUTE,                   GNEParametersDialog::ParametersValues::onCmdButtonPress),
-    FXMAPFUNC(SEL_PAINT,    0,                                          GNEParametersDialog::ParametersValues::onPaint),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE,      GNEParametersDialog::ParametersValues::onCmdSetAttribute),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_REMOVE_ATTRIBUTE,   GNEParametersDialog::ParametersValues::onCmdButtonPress),
+    FXMAPFUNC(SEL_PAINT,    0,                          GNEParametersDialog::ParametersValues::onPaint),
 };
 
 FXDEFMAP(GNEParametersDialog::ParametersOptions) ParametersOptionsMap[] = {
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_GENERICPARAMETERS_LOAD,             GNEParametersDialog::ParametersOptions::onCmdLoadParameters),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_GENERICPARAMETERS_SAVE,             GNEParametersDialog::ParametersOptions::onCmdSaveParameters),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_GENERICPARAMETERS_CLEAR,            GNEParametersDialog::ParametersOptions::onCmdClearParameters),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_GENERICPARAMETERS_SORT,             GNEParametersDialog::ParametersOptions::onCmdSortParameters),
-    FXMAPFUNC(SEL_COMMAND,  MID_HELP,                                   GNEParametersDialog::ParametersOptions::onCmdHelpParameter),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_PARAMETERS_LOAD,    GNEParametersDialog::ParametersOptions::onCmdLoadParameters),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_PARAMETERS_SAVE,    GNEParametersDialog::ParametersOptions::onCmdSaveParameters),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_PARAMETERS_CLEAR,   GNEParametersDialog::ParametersOptions::onCmdClearParameters),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_PARAMETERS_SORT,    GNEParametersDialog::ParametersOptions::onCmdSortParameters),
+    FXMAPFUNC(SEL_COMMAND,  MID_HELP,                   GNEParametersDialog::ParametersOptions::onCmdHelpParameter),
 };
 
 // Object implementation
-FXIMPLEMENT(GNEParametersDialog, FXDialogBox, GNEParametersDialogMap, ARRAYNUMBER(GNEParametersDialogMap))
-FXIMPLEMENT(GNEParametersDialog::ParametersValues, FXGroupBox, ParametersValuesMap, ARRAYNUMBER(ParametersValuesMap))
-FXIMPLEMENT(GNEParametersDialog::ParametersOptions, FXGroupBox, ParametersOptionsMap, ARRAYNUMBER(ParametersOptionsMap))
+FXIMPLEMENT(GNEParametersDialog,                    FXDialogBox,    GNEParametersDialogMap,     ARRAYNUMBER(GNEParametersDialogMap))
+FXIMPLEMENT(GNEParametersDialog::ParametersValues,  FXGroupBox,     ParametersValuesMap,        ARRAYNUMBER(ParametersValuesMap))
+FXIMPLEMENT(GNEParametersDialog::ParametersOptions, FXGroupBox,     ParametersOptionsMap,       ARRAYNUMBER(ParametersOptionsMap))
 
 // ===========================================================================
 // member method definitions
@@ -288,10 +288,10 @@ GNEParametersDialog::ParametersOptions::ParametersOptions(FXHorizontalFrame* fra
     FXGroupBox(frame, "Options", GUIDesignGroupBoxFrame100),
     myParameterDialogParent(ParameterDialogParent) {
     // create buttons
-    mySortButton = new FXButton(this, "Sort", GUIIconSubSys::getIcon(ICON_RELOAD), this, MID_GNE_GENERICPARAMETERS_SORT, GUIDesignButtonRectangular100x23);
-    myClearButton = new FXButton(this, "Clear", GUIIconSubSys::getIcon(ICON_CLEANJUNCTIONS), this, MID_GNE_GENERICPARAMETERS_CLEAR, GUIDesignButtonRectangular100x23);
-    myLoadButton = new FXButton(this, "Load", GUIIconSubSys::getIcon(ICON_OPEN_CONFIG), this, MID_GNE_GENERICPARAMETERS_LOAD, GUIDesignButtonRectangular100x23);
-    mySaveButton = new FXButton(this, "Save", GUIIconSubSys::getIcon(ICON_SAVE), this, MID_GNE_GENERICPARAMETERS_SAVE, GUIDesignButtonRectangular100x23);
+    mySortButton = new FXButton(this, "Sort", GUIIconSubSys::getIcon(ICON_RELOAD), this, MID_GNE_PARAMETERS_SORT, GUIDesignButtonRectangular100x23);
+    myClearButton = new FXButton(this, "Clear", GUIIconSubSys::getIcon(ICON_CLEANJUNCTIONS), this, MID_GNE_PARAMETERS_CLEAR, GUIDesignButtonRectangular100x23);
+    myLoadButton = new FXButton(this, "Load", GUIIconSubSys::getIcon(ICON_OPEN_CONFIG), this, MID_GNE_PARAMETERS_LOAD, GUIDesignButtonRectangular100x23);
+    mySaveButton = new FXButton(this, "Save", GUIIconSubSys::getIcon(ICON_SAVE), this, MID_GNE_PARAMETERS_SAVE, GUIDesignButtonRectangular100x23);
     myHelpButton = new FXButton(this, "Help", GUIIconSubSys::getIcon(ICON_HELP), this, MID_HELP, GUIDesignButtonRectangular100x23);
 }
 

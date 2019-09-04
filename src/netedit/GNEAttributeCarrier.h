@@ -316,7 +316,7 @@ public:
         TAGPROPERTY_MASKSTARTENDPOS =       1 << 13,    // Element mask attributes StartPos and EndPos as "lenght" (Only used in the appropiate GNEFrame)
         TAGPROPERTY_MASKXYZPOSITION =       1 << 14,    // Element mask attributes X, Y and Z as "Position"
         TAGPROPERTY_WRITECHILDRENSEPARATE = 1 << 15,    // Element writes their children in a separated filename
-        TAGPROPERTY_NOGENERICPARAMETERS =   1 << 16,    // Element doesn't accept Generic Parameters (by default all tags supports generic parameters)
+        TAGPROPERTY_NOPARAMETERS =          1 << 16,    // Element doesn't accept parameters "key1=value1|key2=value2|...|keyN=valueN" (by default all tags supports parameters)
         TAGPROPERTY_RTREE =                 1 << 17,    // Element is placed in RTREE
         TAGPROPERTY_SORTINGCHILDREN =       1 << 18,    // Element can be sorted in their parent element manually (in ACHierarchy)
     };
@@ -459,8 +459,8 @@ public:
         /// @brief return true if tag correspond to an element that only have a limited number of children
         bool hasMinimumNumberOfChildren() const;
 
-        /// @brief return true if Tag correspond to an element that supports generic parameters
-        bool hasGenericParameters() const;
+        /// @brief return true if Tag correspond to an element that supports parameters "key1=value1|key2=value2|...|keyN=valueN"
+        bool hasParameters() const;
 
         /// @brief return true if Tag correspond to an element that has has to be placed in RTREE
         bool isPlacedInRTree() const;

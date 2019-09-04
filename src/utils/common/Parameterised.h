@@ -45,7 +45,7 @@ public:
     /// @brief Constructor
     Parameterised();
 
-    /** @brief Constructor with parameters
+    /**@brief Constructor with parameters
      * @param[in] mapArg Pre-given parameter
      */
     Parameterised(const std::map<std::string, std::string>& mapArg);
@@ -53,36 +53,36 @@ public:
     /// @brief Destructor
     ~Parameterised();
 
-    /** @brief Sets a parameter
+    /**@brief Sets a parameter
      * @param[in] key The parameter's name
      * @param[in] value The parameter's value
      */
     void setParameter(const std::string& key, const std::string& value);
 
-    /** @brief Removes a parameter
+    /**@brief Removes a parameter
      * @param[in] key The parameter's name
      */
     void unsetParameter(const std::string& key);
 
-    /** @brief Adds or updates all given parameters from the map
+    /**@brief Adds or updates all given parameters from the map
      * @param[in] mapArg The keys/values to insert
      */
     void updateParameter(const std::map<std::string, std::string>& mapArg);
 
-    /** @brief Returns whether the parameter is known
+    /**@brief Returns whether the parameter is known
      * @param[in] key The key to ask for
      * @return Whether the key is known
      */
     bool knowsParameter(const std::string& key) const;
 
-    /** @brief Returns the value for a given key
+    /**@brief Returns the value for a given key
      * @param[in] key The key to ask for
      * @param[in] defaultValue The default value to return if no value is stored under the key
      * @return The value stored under the key
      */
     const std::string getParameter(const std::string& key, const std::string& defaultValue = "") const;
 
-    /** @brief Returns the value for a given key converted to a double
+    /**@brief Returns the value for a given key converted to a double
      * @param[in] key The key to ask for
      * @param[in] defaultValue The default value to return if no value is stored under the key
      * @return The value stored under the key
@@ -95,21 +95,21 @@ public:
     /// @brief Returns the inner key/value map
     const std::map<std::string, std::string>& getParametersMap() const;
 
-    /// @brief Returns the inner key/value map in string format
+    /// @brief Returns the inner key/value map in string format "key1=value1|key2=value2|...|keyN=valueN"
     std::string getParametersStr() const;
 
-    /// @brief set the inner key/value map in string format
+    /// @brief set the inner key/value map in string format "key1=value1|key2=value2|...|keyN=valueN"
     void setParametersStr(const std::string& value);
 
     /// @brief write Params in the given outputdevice
     void writeParams(OutputDevice& device) const;
 
-    /// @brief check if given string can be parsed to a generic parameter "key1=value1|key1=value1|...|keyN=valueN"
+    /// @brief check if given string can be parsed to a parameters map "key1=value1|key2=value2|...|keyN=valueN"
     static bool areParametersValid(const std::string& value, bool report = false);
 
 private:
     /// @brief check if given string can be parsed to a parameter of type "key=value"
-    static bool isParameterValid(const std::string& value, bool report = false);
+    static bool isParameterValid(const std::string& value, bool report);
 
     /// @brief The key->value map
     std::map<std::string, std::string> myMap;

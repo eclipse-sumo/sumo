@@ -80,8 +80,8 @@ public:
         /// @brief string for saving parsed route colors
         RGBColor color;
 
-        /// @brief generic parameters
-        Parameterised genericParameters;
+        /// @brief parameters
+        Parameterised parameters;
     };
 
     /// @brief Constructor

@@ -819,7 +819,7 @@ GNELane::getAttribute(SumoXMLAttr key) const {
             return toString(myIndex);
         case GNE_ATTR_SELECTED:
             return toString(isAttributeCarrierSelected());
-        case GNE_ATTR_GENERIC:
+        case GNE_ATTR_PARAMETERS:
             return myParentEdge.getNBEdge()->getLaneStruct(myIndex).getParametersStr();
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
@@ -850,7 +850,7 @@ GNELane::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* un
         case SUMO_ATTR_CUSTOMSHAPE:
         case SUMO_ATTR_INDEX:
         case GNE_ATTR_SELECTED:
-        case GNE_ATTR_GENERIC:
+        case GNE_ATTR_PARAMETERS:
             // no special handling
             undoList->p_add(new GNEChange_Attribute(this, myNet, key, value));
             break;
@@ -889,7 +889,7 @@ GNELane::isValid(SumoXMLAttr key, const std::string& value) {
             return canParse<int>(value) && (parse<int>(value) == myIndex);
         case GNE_ATTR_SELECTED:
             return canParse<bool>(value);
-        case GNE_ATTR_GENERIC:
+        case GNE_ATTR_PARAMETERS:
             return Parameterised::areParametersValid(value);
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
@@ -947,7 +947,7 @@ GNELane::setAttribute(SumoXMLAttr key, const std::string& value) {
                 unselectAttributeCarrier();
             }
             break;
-        case GNE_ATTR_GENERIC:
+        case GNE_ATTR_PARAMETERS:
             myParentEdge.getNBEdge()->getLaneStruct(myIndex).setParametersStr(value);
             break;
         default:

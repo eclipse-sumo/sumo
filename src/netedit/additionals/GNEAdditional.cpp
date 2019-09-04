@@ -295,7 +295,7 @@ GNEAdditional::writeAdditional(OutputDevice& device) const {
                 }
             }
         }
-        // save generic parameters (Always after children to avoid problems with additionals.xsd)
+        // write parameters (Always after children to avoid problems with additionals.xsd)
         writeParams(device);
         // Close tag
         device.closeTag();

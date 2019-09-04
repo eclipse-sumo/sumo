@@ -106,7 +106,7 @@ GNETAZSourceSink::getAttribute(SumoXMLAttr key) const {
             return toString(myDepartWeight);
         case GNE_ATTR_PARENT:
             return getAdditionalParents().at(0)->getID();
-        case GNE_ATTR_GENERIC:
+        case GNE_ATTR_PARAMETERS:
             return getParametersStr();
         case GNE_ATTR_TAZCOLOR: {
             // obtain max and min weight source
@@ -146,7 +146,7 @@ GNETAZSourceSink::setAttribute(SumoXMLAttr key, const std::string& value, GNEUnd
         switch (key) {
             case SUMO_ATTR_ID:
             case SUMO_ATTR_WEIGHT:
-            case GNE_ATTR_GENERIC:
+            case GNE_ATTR_PARAMETERS:
                 undoList->p_add(new GNEChange_Attribute(this, myViewNet->getNet(), key, value));
                 break;
             default:
@@ -163,7 +163,7 @@ GNETAZSourceSink::isValid(SumoXMLAttr key, const std::string& value) {
             return isValidAdditionalID(value);
         case SUMO_ATTR_WEIGHT:
             return canParse<double>(value) && (parse<double>(value) >= 0);
-        case GNE_ATTR_GENERIC:
+        case GNE_ATTR_PARAMETERS:
             return Parameterised::areParametersValid(value);
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
@@ -197,7 +197,7 @@ GNETAZSourceSink::setAttribute(SumoXMLAttr key, const std::string& value) {
             // update statictis of TAZ parent
             getAdditionalParents().at(0)->updateAdditionalParent();
             break;
-        case GNE_ATTR_GENERIC:
+        case GNE_ATTR_PARAMETERS:
             setParametersStr(value);
             break;
         default:

@@ -452,7 +452,7 @@ GNEVehicleType::getAttribute(SumoXMLAttr key) const {
             } else {
                 return myTagProperty.getDefaultValue(SUMO_ATTR_CARRIAGE_GAP);
             }
-        case GNE_ATTR_GENERIC:
+        case GNE_ATTR_PARAMETERS:
             return getParametersStr();
         case GNE_ATTR_DEFAULT_VTYPE:
             return toString((getDemandElementID() == DEFAULT_VTYPE_ID) ||
@@ -604,7 +604,7 @@ GNEVehicleType::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoL
         case SUMO_ATTR_CARRIAGE_LENGTH:
         case SUMO_ATTR_LOCOMOTIVE_LENGTH:
         case SUMO_ATTR_CARRIAGE_GAP:
-        case GNE_ATTR_GENERIC:
+        case GNE_ATTR_PARAMETERS:
             // if we change the original value of a default vehicle Type, change also flag "myDefaultVehicleType"
             if (myDefaultVehicleType) {
                 undoList->p_add(new GNEChange_Attribute(this, myViewNet->getNet(), true, GNE_ATTR_DEFAULT_VTYPE_MODIFIED, "true"));
@@ -782,7 +782,7 @@ GNEVehicleType::isValid(SumoXMLAttr key, const std::string& value) {
             return canParse<double>(value) && (parse<double>(value) >= -1);
         case SUMO_ATTR_CARRIAGE_GAP:
             return canParse<double>(value) && (parse<double>(value) >= 0);
-        case GNE_ATTR_GENERIC:
+        case GNE_ATTR_PARAMETERS:
             return Parameterised::areParametersValid(value);
         case GNE_ATTR_DEFAULT_VTYPE_MODIFIED:
             if (myDefaultVehicleType) {
@@ -1089,18 +1089,18 @@ GNEVehicleType::overwriteVType(GNEDemandElement* vType, SUMOVTypeParameter* newV
     if (newVTypeParameter->knowsParameter(toString(SUMO_ATTR_CARRIAGE_GAP))) {
         vType->setAttribute(SUMO_ATTR_CARRIAGE_GAP, newVTypeParameter->getParameter(toString(SUMO_ATTR_CARRIAGE_GAP), ""), undoList);
     }
-    // parse generic parameters
-    std::string genericParametersStr;
+    // parse parameters
+    std::string parametersStr;
     // Generate an string using the following structure: "key1=value1|key2=value2|...
     for (auto i : newVTypeParameter->getParametersMap()) {
-        genericParametersStr += i.first + "=" + i.second + "|";
+        parametersStr += i.first + "=" + i.second + "|";
     }
     // remove the last "|"
-    if (!genericParametersStr.empty()) {
-        genericParametersStr.pop_back();
+    if (!parametersStr.empty()) {
+        parametersStr.pop_back();
     }
-    if (genericParametersStr != vType->getAttribute(GNE_ATTR_GENERIC)) {
-        vType->setAttribute(GNE_ATTR_GENERIC, genericParametersStr, undoList);
+    if (parametersStr != vType->getAttribute(GNE_ATTR_PARAMETERS)) {
+        vType->setAttribute(GNE_ATTR_PARAMETERS, parametersStr, undoList);
     }
     // close undo list
     undoList->p_end();
@@ -1622,7 +1622,7 @@ GNEVehicleType::setAttribute(SumoXMLAttr key, const std::string& value) {
                 SUMOVTypeParameter::unsetParameter(toString(key));
             }
             break;
-        case GNE_ATTR_GENERIC:
+        case GNE_ATTR_PARAMETERS:
             setParametersStr(value);
             break;
         case GNE_ATTR_DEFAULT_VTYPE_MODIFIED:

@@ -102,7 +102,7 @@ GNERerouterInterval::getAttribute(SumoXMLAttr key) const {
             return time2string(myEnd);
         case GNE_ATTR_PARENT:
             return getAdditionalParents().at(0)->getID();
-        case GNE_ATTR_GENERIC:
+        case GNE_ATTR_PARAMETERS:
             return getParametersStr();
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
@@ -127,7 +127,7 @@ GNERerouterInterval::setAttribute(SumoXMLAttr key, const std::string& value, GNE
         }
         case SUMO_ATTR_BEGIN:
         case SUMO_ATTR_END:
-        case GNE_ATTR_GENERIC:
+        case GNE_ATTR_PARAMETERS:
             undoList->p_add(new GNEChange_Attribute(this, myViewNet->getNet(), key, value));
             break;
         default:
@@ -145,7 +145,7 @@ GNERerouterInterval::isValid(SumoXMLAttr key, const std::string& value) {
             return canParse<SUMOTime>(value) && (parse<SUMOTime>(value) < myEnd);
         case SUMO_ATTR_END:
             return canParse<SUMOTime>(value) && (parse<SUMOTime>(value) > myBegin);
-        case GNE_ATTR_GENERIC:
+        case GNE_ATTR_PARAMETERS:
             return Parameterised::areParametersValid(value);
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
@@ -180,7 +180,7 @@ GNERerouterInterval::setAttribute(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_END:
             myEnd = parse<SUMOTime>(value);
             break;
-        case GNE_ATTR_GENERIC:
+        case GNE_ATTR_PARAMETERS:
             setParametersStr(value);
             break;
         default:

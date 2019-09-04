@@ -725,10 +725,10 @@ private:
      */
     void parseAndBuildPOI(const SUMOSAXAttributes& attrs);
 
-    /**@brief Parse generic parameter and insert it in the last created additional
-     * @param[in] attrs SAX-attributes which define the generic parameter
+    /**@brief Parse parameter and insert it in the last created additional
+     * @param[in] attrs SAX-attributes which define the parameter
      */
-    void parseGenericParameter(const SUMOSAXAttributes& attrs);
+    void parseParameter(const SUMOSAXAttributes& attrs);
 
     /// @brief pointer to View's Net
     GNEViewNet* myViewNet;
