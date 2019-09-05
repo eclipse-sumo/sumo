@@ -156,8 +156,10 @@ GNEVehicleFrame::addVehicle(const GNEViewNetHelper::ObjectsUnderCursor& objectsU
     }
     // Declare map to keep attributes from Frames from Frame
     std::map<SumoXMLAttr, std::string> valuesMap = myVehicleAttributes->getAttributesAndValues(false);
-    // add ID parameter
-    valuesMap[SUMO_ATTR_ID] = myViewNet->getNet()->generateDemandElementID("", vehicleTag);
+    // Check if ID has to be generated
+    if (valuesMap.count(SUMO_ATTR_ID) == 0) {
+        valuesMap[SUMO_ATTR_ID] = myViewNet->getNet()->generateDemandElementID("", vehicleTag);
+    }
     // add VType
     valuesMap[SUMO_ATTR_TYPE] = myVTypeSelector->getCurrentDemandElement()->getID();
     // set route or edges depending of vehicle type
@@ -297,8 +299,10 @@ GNEVehicleFrame::edgePathCreated() {
     SumoXMLTag vehicleTag = myVehicleTagSelector->getCurrentTagProperties().getTag();
     // Declare map to keep attributes from Frames from Frame
     std::map<SumoXMLAttr, std::string> valuesMap = myVehicleAttributes->getAttributesAndValues(false);
-    // add ID parameter
-    valuesMap[SUMO_ATTR_ID] = myViewNet->getNet()->generateDemandElementID("", vehicleTag);
+    // Check if ID has to be generated
+    if (valuesMap.count(SUMO_ATTR_ID) == 0) {
+        valuesMap[SUMO_ATTR_ID] = myViewNet->getNet()->generateDemandElementID("", vehicleTag);
+    }
     // add VType
     valuesMap[SUMO_ATTR_TYPE] = myVTypeSelector->getCurrentDemandElement()->getID();
     // check if we're creating a trip or flow

@@ -133,8 +133,10 @@ GNEAdditionalFrame::SelectorLaneParents::stopConsecutiveLaneSelector() {
     std::map<SumoXMLAttr, std::string> valuesMap = myAdditionalFrameParent->myAdditionalAttributes->getAttributesAndValues(true);
     // fill valuesOfElement with Netedit attributes from Frame
     myAdditionalFrameParent->myNeteditAttributes->getNeteditAttributesAndValues(valuesMap, nullptr);
-    // Generate id of element
-    valuesMap[SUMO_ATTR_ID] = myAdditionalFrameParent->generateID(nullptr);
+    // Check if ID has to be generated
+    if (valuesMap.count(SUMO_ATTR_ID) == 0) {
+        valuesMap[SUMO_ATTR_ID] = myAdditionalFrameParent->generateID(nullptr);
+    }
     // obtain lane IDs
     std::vector<std::string> laneIDs;
     for (auto i : mySelectedLanes) {
@@ -655,7 +657,7 @@ GNEAdditionalFrame::addAdditional(const GNEViewNetHelper::ObjectsUnderCursor& ob
     // obtain tagproperty (only for improve code legibility)
     const auto& tagValues = myAdditionalTagSelector->getCurrentTagProperties();
 
-    // Declare map to keep attributes from Frames from Frame
+    // Declare map to keep attributes obtained in frame
     std::map<SumoXMLAttr, std::string> valuesMap = myAdditionalAttributes->getAttributesAndValues(true);
 
     // fill netedit attributes
@@ -839,8 +841,10 @@ GNEAdditionalFrame::buildAdditionalOverEdge(std::map<SumoXMLAttr, std::string>& 
     if (lane) {
         // Get attribute lane's edge
         valuesMap[SUMO_ATTR_EDGE] = lane->getParentEdge().getID();
-        // Generate id of element based on the lane's edge
-        valuesMap[SUMO_ATTR_ID] = generateID(&lane->getParentEdge());
+        // Check if ID has to be generated
+        if (valuesMap.count(SUMO_ATTR_ID) == 0) {
+            valuesMap[SUMO_ATTR_ID] = generateID(&lane->getParentEdge());
+        }
     } else {
         return false;
     }
@@ -876,8 +880,10 @@ GNEAdditionalFrame::buildAdditionalOverLane(std::map<SumoXMLAttr, std::string>& 
     if (lane != nullptr) {
         // Get attribute lane
         valuesMap[SUMO_ATTR_LANE] = lane->getID();
-        // Generate id of element based on the lane
-        valuesMap[SUMO_ATTR_ID] = generateID(lane);
+        // Check if ID has to be generated
+        if (valuesMap.count(SUMO_ATTR_ID) == 0) {
+            valuesMap[SUMO_ATTR_ID] = generateID(lane);
+        }
     } else {
         return false;
     }
@@ -926,8 +932,10 @@ GNEAdditionalFrame::buildAdditionalOverLanes(std::map<SumoXMLAttr, std::string>&
         mySelectorLaneParents->startConsecutiveLaneSelector(lane, myViewNet->getPositionInformation());
         return false;
     } else {
-        // Generate id of element based on the first lane
-        valuesMap[SUMO_ATTR_ID] = generateID(mySelectorLaneParents->getSelectedLanes().front().first);
+        // Check if ID has to be generated
+        if (valuesMap.count(SUMO_ATTR_ID) == 0) {
+            valuesMap[SUMO_ATTR_ID] = generateID(mySelectorLaneParents->getSelectedLanes().front().first);
+        }
         // obtain lane IDs
         std::vector<std::string> laneIDs;
         for (auto i : mySelectorLaneParents->getSelectedLanes()) {
@@ -971,8 +979,10 @@ GNEAdditionalFrame::buildAdditionalOverLanes(std::map<SumoXMLAttr, std::string>&
 
 bool
 GNEAdditionalFrame::buildAdditionalOverView(std::map<SumoXMLAttr, std::string>& valuesMap, const GNEAttributeCarrier::TagProperties& tagValues) {
-    // Generate id of element
-    valuesMap[SUMO_ATTR_ID] = generateID(nullptr);
+    // Check if ID has to be generated
+    if (valuesMap.count(SUMO_ATTR_ID) == 0) {
+        valuesMap[SUMO_ATTR_ID] = generateID(nullptr);
+    }
     // Obtain position as the clicked position over view
     valuesMap[SUMO_ATTR_POSITION] = toString(myViewNet->snapToActiveGrid(myViewNet->getPositionInformation()));
     // parse common attributes

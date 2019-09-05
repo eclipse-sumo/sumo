@@ -89,7 +89,7 @@ FXIMPLEMENT(GNEFrameAttributesModuls::AttributesCreator,            FXGroupBox, 
 FXIMPLEMENT(GNEFrameAttributesModuls::AttributesEditorRow,          FXHorizontalFrame,  AttributesEditorRowMap,         ARRAYNUMBER(AttributesEditorRowMap))
 FXIMPLEMENT(GNEFrameAttributesModuls::AttributesEditor,             FXGroupBox,         AttributesEditorMap,            ARRAYNUMBER(AttributesEditorMap))
 FXIMPLEMENT(GNEFrameAttributesModuls::AttributesEditorExtended,     FXGroupBox,         AttributesEditorExtendedMap,    ARRAYNUMBER(AttributesEditorExtendedMap))
-FXIMPLEMENT(GNEFrameAttributesModuls::ParametersEditor,      FXGroupBox,         ParametersEditorMap,     ARRAYNUMBER(ParametersEditorMap))
+FXIMPLEMENT(GNEFrameAttributesModuls::ParametersEditor,             FXGroupBox,         ParametersEditorMap,            ARRAYNUMBER(ParametersEditorMap))
 FXIMPLEMENT(GNEFrameAttributesModuls::DrawingShape,                 FXGroupBox,         DrawingShapeMap,                ARRAYNUMBER(DrawingShapeMap))
 FXIMPLEMENT(GNEFrameAttributesModuls::NeteditAttributes,            FXGroupBox,         NeteditAttributesMap,           ARRAYNUMBER(NeteditAttributesMap))
 
@@ -132,50 +132,65 @@ GNEFrameAttributesModuls::AttributesCreatorRow::AttributesCreatorRow(AttributesC
         FXHorizontalFrame::create();
         // reset invalid value
         myInvalidValue = "";
-        // show label, button for edit colors or radio button
-        if (myAttrProperties.isColor()) {
-            myAttributeColorButton->setTextColor(FXRGB(0, 0, 0));
-            myAttributeColorButton->setText(myAttrProperties.getAttrStr().c_str());
-            myAttributeColorButton->show();
-        } else if (myAttrProperties.isEnablitable()) {
-            myAttributeRadioButton->setTextColor(FXRGB(0, 0, 0));
-            myAttributeRadioButton->setText(myAttrProperties.getAttrStr().c_str());
-            myAttributeRadioButton->show();
-        } else if (myAttrProperties.isOptional()) {
+        // special case for attribute ID
+        if (attrProperties.getAttr() == SUMO_ATTR_ID) {
+            // show check button and disable it
             myAttributeCheckButton->setText(myAttrProperties.getAttrStr().c_str());
+            myAttributeCheckButton->setCheck(false);
             myAttributeCheckButton->show();
-        } else {
-            myAttributeLabel->setText(myAttrProperties.getAttrStr().c_str());
-            myAttributeLabel->show();
-        }
-        if (myAttrProperties.isBool()) {
-            if (GNEAttributeCarrier::parse<bool>(attrProperties.getDefaultValue())) {
-                myValueCheckButton->setCheck(true);
-                myValueCheckButton->setText("true");
-            } else {
-                myValueCheckButton->setCheck(false);
-                myValueCheckButton->setText("false");
-            }
-            myValueCheckButton->show();
-            // if it's associated to a radio button and is disabled, then disable myValueCheckButton
-            if (myAttributeRadioButton->shown() && (myAttributeRadioButton->getCheck() == FALSE)) {
-                myValueCheckButton->disable();
-            }
-            // if it's associated to a label button and is disabled, then disable myValueCheckButton
-            if (myAttributeCheckButton->shown() && (myAttributeCheckButton->getCheck() == FALSE)) {
-                myValueCheckButton->disable();
-            }
-        } else {
-            myValueTextField->setTextColor(FXRGB(0, 0, 0));
+            // generate ID
             myValueTextField->setText(attrProperties.getDefaultValue().c_str());
+
+            // show text field and disable it
+            myValueTextField->setTextColor(FXRGB(0, 0, 0));
+            myValueTextField->disable();
             myValueTextField->show();
-            // if it's associated to a radio button and is disabled, then disable myValueTextField
-            if (myAttributeRadioButton->shown() && (myAttributeRadioButton->getCheck() == FALSE)) {
-                myValueTextField->disable();
+        } else {
+            // show label, button for edit colors or radio button
+            if (myAttrProperties.isColor()) {
+                myAttributeColorButton->setTextColor(FXRGB(0, 0, 0));
+                myAttributeColorButton->setText(myAttrProperties.getAttrStr().c_str());
+                myAttributeColorButton->show();
+            } else if (myAttrProperties.isEnablitable()) {
+                myAttributeRadioButton->setTextColor(FXRGB(0, 0, 0));
+                myAttributeRadioButton->setText(myAttrProperties.getAttrStr().c_str());
+                myAttributeRadioButton->show();
+            } else if (myAttrProperties.isOptional()) {
+                myAttributeCheckButton->setText(myAttrProperties.getAttrStr().c_str());
+                myAttributeCheckButton->show();
+            } else {
+                myAttributeLabel->setText(myAttrProperties.getAttrStr().c_str());
+                myAttributeLabel->show();
             }
-            // if it's associated to a label button and is disabled, then disable myValueTextField
-            if (myAttributeCheckButton->shown() && (myAttributeCheckButton->getCheck() == FALSE)) {
-                myValueTextField->disable();
+            if (myAttrProperties.isBool()) {
+                if (GNEAttributeCarrier::parse<bool>(attrProperties.getDefaultValue())) {
+                    myValueCheckButton->setCheck(true);
+                    myValueCheckButton->setText("true");
+                } else {
+                    myValueCheckButton->setCheck(false);
+                    myValueCheckButton->setText("false");
+                }
+                myValueCheckButton->show();
+                // if it's associated to a radio button and is disabled, then disable myValueCheckButton
+                if (myAttributeRadioButton->shown() && (myAttributeRadioButton->getCheck() == FALSE)) {
+                    myValueCheckButton->disable();
+                }
+                // if it's associated to a label button and is disabled, then disable myValueCheckButton
+                if (myAttributeCheckButton->shown() && (myAttributeCheckButton->getCheck() == FALSE)) {
+                    myValueCheckButton->disable();
+                }
+            } else {
+                myValueTextField->setTextColor(FXRGB(0, 0, 0));
+                myValueTextField->setText(attrProperties.getDefaultValue().c_str());
+                myValueTextField->show();
+                // if it's associated to a radio button and is disabled, then disable myValueTextField
+                if (myAttributeRadioButton->shown() && (myAttributeRadioButton->getCheck() == FALSE)) {
+                    myValueTextField->disable();
+                }
+                // if it's associated to a label button and is disabled, then disable myValueTextField
+                if (myAttributeCheckButton->shown() && (myAttributeCheckButton->getCheck() == FALSE)) {
+                    myValueTextField->disable();
+                }
             }
         }
         // show AttributesCreatorRow
@@ -599,8 +614,8 @@ GNEFrameAttributesModuls::AttributesCreator::showAttributesCreatorModul(const GN
     }
     // iterate over tag attributes and create a AttributesCreatorRow
     for (const auto& i : myTagProperties) {
-        //  make sure that only non-unique attributes are created (And depending of includeExtendedAttributes)
-        if (!i.isUnique()) {
+        //  make sure that only non-unique attributes (except ID) are created (And depending of includeExtendedAttributes)
+        if ((i.isUnique() == false) || (i.getAttr() == SUMO_ATTR_ID)) {
             myAttributesCreatorRows.at(i.getPositionListed()) = new AttributesCreatorRow(this, i);
         }
     }

@@ -532,8 +532,10 @@ GNEPersonFrame::buildPerson() {
     myViewNet->getUndoList()->p_begin("create " + toString(personTag) + " and " + toString(personPlanTag));
     // Declare map to keep attributes from myPersonAttributes
     std::map<SumoXMLAttr, std::string> valuesMap = myPersonAttributes->getAttributesAndValues(false);
-    // add ID parameter
-    valuesMap[SUMO_ATTR_ID] = myViewNet->getNet()->generateDemandElementID("", personTag);
+    // Check if ID has to be generated
+    if (valuesMap.count(SUMO_ATTR_ID) == 0) {
+        valuesMap[SUMO_ATTR_ID] = myViewNet->getNet()->generateDemandElementID("", personTag);
+    }
     // add pType parameter
     valuesMap[SUMO_ATTR_TYPE] = myPTypeSelector->getCurrentDemandElement()->getID();
     // check if we're creating a person or personFlow
