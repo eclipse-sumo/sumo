@@ -38,10 +38,13 @@ selection:selection.txt
 net:<!--{[->]}-->
 additionals:<!--{[->]}-->
 additionals:{INTERNAL writedir}{REPLACE <TEXTTEST_SANDBOX>}
+additionals:\\{REPLACE /}
 routes:<!--{[->]}-->
 routes:{INTERNAL writedir}{REPLACE <TEXTTEST_SANDBOX>}
+routes:\\{REPLACE /}
 shapes:<!--{[->]}-->
 shapes:{INTERNAL writedir}{REPLACE <TEXTTEST_SANDBOX>}
+shapes:\\{REPLACE /}
 netcon:<!--{[->]}-->
 netedg:<!--{[->]}-->
 netnod:<!--{[->]}-->
