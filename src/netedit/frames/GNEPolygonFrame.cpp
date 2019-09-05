@@ -205,6 +205,8 @@ GNEPolygonFrame::GEOPOICreator::onCmdCreateGEOPOI(FXObject*, FXSelector, void*) 
                 WRITE_WARNING("Could not create GEO POI");
             }
         }
+        // refresh shape attributes
+        myPolygonFrameParent->myShapeAttributes->refreshRows();
     }
     return 1;
 }
@@ -275,11 +277,13 @@ GNEPolygonFrame::processClick(const Position& clickedPosition, const GNEViewNetH
         valuesMap[SUMO_ATTR_GEO] = "false";
         // return ADDSHAPE_SUCCESS if POI was sucesfully created
         if (addPOI(valuesMap)) {
+            // refresh shape attributes
+            myShapeAttributes->refreshRows();
             return ADDSHAPE_SUCCESS;
         } else {
             return ADDSHAPE_INVALID;
         }
-    } else  if (myShapeTagSelector->getCurrentTagProperties().getTag() == SUMO_TAG_POILANE) {
+    } else if (myShapeTagSelector->getCurrentTagProperties().getTag() == SUMO_TAG_POILANE) {
         // abort if lane is nullptr
         if (objectsUnderCursor.getLaneFront() == nullptr) {
             WRITE_WARNING(toString(SUMO_TAG_POILANE) + " can be only placed over lanes");
@@ -304,6 +308,8 @@ GNEPolygonFrame::processClick(const Position& clickedPosition, const GNEViewNetH
         valuesMap[SUMO_ATTR_POSITION] = toString(objectsUnderCursor.getLaneFront()->getGeometry().shape.nearest_offset_to_point2D(clickedPosition));
         // return ADDSHAPE_SUCCESS if POI was sucesfully created
         if (addPOILane(valuesMap)) {
+            // refresh shape attributes
+            myShapeAttributes->refreshRows();
             return ADDSHAPE_SUCCESS;
         } else {
             return ADDSHAPE_INVALID;
@@ -376,8 +382,12 @@ GNEPolygonFrame::shapeDrawed() {
         valuesMap[SUMO_ATTR_SHAPE] = toString(temporalShape);
         // obtain geo (by default false)
         valuesMap[SUMO_ATTR_GEO] = "false";
-        // return ADDSHAPE_SUCCESS if POI was sucesfully created
-        return addPolygon(valuesMap);
+        // return true if POI was sucesfully created
+        if(addPolygon(valuesMap)) {
+            // refresh shape attributes
+            myShapeAttributes->refreshRows();
+            return true;
+        }
     }
 }
 

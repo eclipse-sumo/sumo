@@ -138,12 +138,12 @@ GNEFrameAttributesModuls::AttributesCreatorRow::AttributesCreatorRow(AttributesC
             myAttributeCheckButton->setText(myAttrProperties.getAttrStr().c_str());
             myAttributeCheckButton->setCheck(false);
             myAttributeCheckButton->show();
-            // generate ID
-            myValueTextField->setText(attrProperties.getDefaultValue().c_str());
-
             // show text field and disable it
             myValueTextField->setTextColor(FXRGB(0, 0, 0));
             myValueTextField->disable();
+            // generate ID
+            myValueTextField->setText(generateID().c_str());
+            // show textField
             myValueTextField->show();
         } else {
             // show label, button for edit colors or radio button
@@ -322,6 +322,15 @@ GNEFrameAttributesModuls::AttributesCreatorRow::isAttributesCreatorRowEnabled() 
 }
 
 
+void 
+GNEFrameAttributesModuls::AttributesCreatorRow::refreshRow() const {
+    // currently only row with ID attribute must be updated
+    if (myAttrProperties.getAttr() == SUMO_ATTR_ID) {
+        myValueTextField->setText(generateID().c_str());
+    }
+}
+
+
 const std::string&
 GNEFrameAttributesModuls::AttributesCreatorRow::isAttributeValid() const {
     return myInvalidValue;
@@ -487,6 +496,8 @@ GNEFrameAttributesModuls::AttributesCreatorRow::onCmdSelectCheckButton(FXObject*
         // enable input values
         myValueCheckButton->enable();
         myValueTextField->enable();
+        // refresh row
+        refreshRow();
     } else {
         // disable input values
         myValueCheckButton->disable();
@@ -582,6 +593,28 @@ GNEFrameAttributesModuls::AttributesCreatorRow::checkComplexAttribute(const std:
     return errorMessage;
 }
 
+
+std::string
+GNEFrameAttributesModuls::AttributesCreatorRow::generateID() const {
+    if (myAttrProperties.getTagPropertyParent().isShape()) {
+        return myAttributesCreatorParent->getFrameParent()->getViewNet()->getNet()->generateShapeID(myAttrProperties.getTagPropertyParent().getTag());
+    } else if (myAttrProperties.getTagPropertyParent().isAdditional()) {
+        return myAttributesCreatorParent->getFrameParent()->getViewNet()->getNet()->generateAdditionalID(myAttrProperties.getTagPropertyParent().getTag());
+    } else if (myAttrProperties.getTagPropertyParent().isDemandElement()) {
+        return myAttributesCreatorParent->getFrameParent()->getViewNet()->getNet()->generateDemandElementID("", myAttrProperties.getTagPropertyParent().getTag());
+    } else {
+        return "";
+    }
+}
+
+
+bool
+GNEFrameAttributesModuls::AttributesCreatorRow::isValidID(const std::string &id) const {
+    return (myAttributesCreatorParent->getFrameParent()->getViewNet()->getNet()->retrieveAdditional(
+            myAttrProperties.getTagPropertyParent().getTag(), 
+            myValueTextField->getText().text(), false) == nullptr);
+}
+
 // ---------------------------------------------------------------------------
 // GNEFrameAttributesModuls::AttributesCreator - methods
 // ---------------------------------------------------------------------------
@@ -633,6 +666,12 @@ GNEFrameAttributesModuls::AttributesCreator::showAttributesCreatorModul(const GN
 void
 GNEFrameAttributesModuls::AttributesCreator::hideAttributesCreatorModul() {
     hide();
+}
+
+
+GNEFrame* 
+GNEFrameAttributesModuls::AttributesCreator::getFrameParent() const {
+    return myFrameParent;
 }
 
 
@@ -796,6 +835,14 @@ GNEFrameAttributesModuls::AttributesCreator::updateDisjointAttributes(Attributes
     }
 }
 
+
+ void 
+GNEFrameAttributesModuls::AttributesCreator::refreshRows() {
+     // currently only row with attribute ID must be refresh
+     if (myTagProperties.hasAttribute(SUMO_ATTR_ID)) {
+         myAttributesCreatorRows[myTagProperties.getAttributeProperties(SUMO_ATTR_ID).getPositionListed()]->refreshRow();
+     }
+}
 
 long
 GNEFrameAttributesModuls::AttributesCreator::onCmdHelp(FXObject*, FXSelector, void*) {
@@ -1800,18 +1847,17 @@ GNEFrameAttributesModuls::DrawingShape::DrawingShape(GNEFrame* frameParent) :
     myStartDrawingButton = new FXButton(this, "Start drawing", 0, this, MID_GNE_STARTDRAWING, GUIDesignButton);
     myStopDrawingButton = new FXButton(this, "Stop drawing", 0, this, MID_GNE_STOPDRAWING, GUIDesignButton);
     myAbortDrawingButton = new FXButton(this, "Abort drawing", 0, this, MID_GNE_ABORTDRAWING, GUIDesignButton);
-
     // create information label
     std::ostringstream information;
     information
-            << "- 'Start drawing' or ENTER\n"
-            << "  draws shape boundary.\n"
-            << "- 'Stop drawing' or ENTER\n"
-            << "  creates shape.\n"
-            << "- 'Shift + Click'\n"
-            << "  removes last created point.\n"
-            << "- 'Abort drawing' or ESC\n"
-            << "  removes drawed shape.";
+        << "- 'Start drawing' or ENTER\n"
+        << "  draws shape boundary.\n"
+        << "- 'Stop drawing' or ENTER\n"
+        << "  creates shape.\n"
+        << "- 'Shift + Click'removes\n"
+        << "  last created point.\n"
+        << "- 'Abort drawing' or ESC\n"
+        << "  removes drawed shape.";
     myInformationLabel = new FXLabel(this, information.str().c_str(), 0, GUIDesignLabelFrameInformation);
     // disable stop and abort functions as init
     myStopDrawingButton->disable();

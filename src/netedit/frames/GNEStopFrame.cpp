@@ -204,7 +204,7 @@ GNEStopFrame::addStop(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCu
 
 bool
 GNEStopFrame::getStopParameter(SUMOVehicleParameter::Stop& stop, const SumoXMLTag stopTag, GNEViewNet* viewNet, 
-                               const GNEFrameAttributesModuls::AttributesCreator* stopAttributes, 
+                               GNEFrameAttributesModuls::AttributesCreator* stopAttributes, 
                                const GNEFrameAttributesModuls::NeteditAttributes* myNeteditAttributes,
                                const GNELane* lane, const GNEAdditional* stoppingPlace) {
     // first check that current selected Stop is valid
@@ -343,6 +343,8 @@ GNEStopFrame::getStopParameter(SUMOVehicleParameter::Stop& stop, const SumoXMLTa
     } else {
         stop.index = STOP_INDEX_END;
     }
+    // refresh stop attributes
+    stopAttributes->refreshRows();
     // all ok, then return true
     return true;
 }

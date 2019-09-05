@@ -87,6 +87,9 @@ public:
         /// @brief check if row is enabled
         bool isAttributesCreatorRowEnabled() const;
 
+        /// @brief refresh row
+        void refreshRow() const;
+
         /// @brief returns a empty string if current value is valid, a string with information about invalid value in other case
         const std::string& isAttributeValid() const;
 
@@ -114,6 +117,12 @@ public:
 
         /// @brief check if given complex attribute is valid
         std::string checkComplexAttribute(const std::string& value);
+
+        /// @brief generate ID
+        std::string generateID() const;
+
+        /// @brief check if given ID is valid
+        bool isValidID(const std::string &id) const;
 
     private:
         /// @brief pointer to AttributesCreator
@@ -168,6 +177,9 @@ public:
         /// @brief hide group box
         void hideAttributesCreatorModul();
 
+        /// @brief return frame parent
+        GNEFrame* getFrameParent() const;
+
         /// @brief get attributes and their values
         std::map<SumoXMLAttr, std::string> getAttributesAndValues(bool includeAll) const;
 
@@ -188,6 +200,9 @@ public:
 
         /// @brief update disjoint attributes
         void updateDisjointAttributes(AttributesCreatorRow* row);
+
+        /// @brief refresh rows (called after creating an element)
+        void refreshRows();
 
     protected:
         /// @brief FOX needs this

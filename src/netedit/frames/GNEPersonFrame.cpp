@@ -464,6 +464,9 @@ GNEPersonFrame::edgePathCreated() {
             default:
                 throw InvalidArgument("Invalid person plan tag");
         }
+        // refresh person and personPlan attributes
+        myPersonAttributes->refreshRows();
+        myPersonPlanAttributes->refreshRows();
     }
 }
 
@@ -569,6 +572,10 @@ GNEPersonFrame::buildPerson() {
         // delete personFlowParameters
         delete personFlowParameters;
     }
+    // refresh person and personPlan attributes
+    myPersonAttributes->refreshRows();
+    myPersonPlanAttributes->refreshRows();
+    // return created person
     return myViewNet->getNet()->retrieveDemandElement(personTag, valuesMap[SUMO_ATTR_ID]);
 }
 

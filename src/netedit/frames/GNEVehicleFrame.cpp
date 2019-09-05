@@ -229,6 +229,8 @@ GNEVehicleFrame::addVehicle(const GNEViewNetHelper::ObjectsUnderCursor& objectsU
                     delete routeFlowParameters;
                 }
             }
+            // refresh myVehicleAttributes
+            myVehicleAttributes->refreshRows();
             // all ok, then return true;
             return true;
         } else {
@@ -336,6 +338,8 @@ GNEVehicleFrame::edgePathCreated() {
         // delete flowParameters
         delete flowParameters;
     }
+    // refresh myVehicleAttributes
+    myVehicleAttributes->refreshRows();
 }
 
 /****************************************************************************/

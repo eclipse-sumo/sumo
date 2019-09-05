@@ -394,6 +394,8 @@ GNERouteFrame::ConsecutiveEdges::onCmdCreateRoute(FXObject*, FXSelector, void*) 
         // Check if ID has to be generated
         if (valuesMap.count(SUMO_ATTR_ID) == 0) {
             routeParameters.routeID = myRouteFrameParent->getViewNet()->getNet()->generateDemandElementID("", SUMO_TAG_ROUTE);
+        } else {
+            routeParameters.routeID = valuesMap[SUMO_ATTR_ID];
         }
         // fill rest of elements
         routeParameters.color = GNEAttributeCarrier::parse<RGBColor>(valuesMap.at(SUMO_ATTR_COLOR));
@@ -407,6 +409,8 @@ GNERouteFrame::ConsecutiveEdges::onCmdCreateRoute(FXObject*, FXSelector, void*) 
         myRouteFrameParent->getViewNet()->getUndoList()->p_end();
         // abort route creation (because route was already created and vector/colors has to be cleaned)
         onCmdAbortRoute(0, 0, 0);
+        // refresh route attributes
+        myRouteFrameParent->myRouteAttributes->refreshRows();
     }
     return 1;
 }
@@ -635,6 +639,8 @@ GNERouteFrame::NonConsecutiveEdges::onCmdCreateRoute(FXObject*, FXSelector, void
         myRouteFrameParent->getViewNet()->getUndoList()->p_end();
         // abort route creation (because route was already created and vector/colors has to be cleaned)
         onCmdAbortRoute(0, 0, 0);
+        // refresh route attributes
+        myRouteFrameParent->myRouteAttributes->refreshRows();
     }
     return 1;
 }

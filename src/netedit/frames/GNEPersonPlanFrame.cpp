@@ -726,6 +726,8 @@ GNEPersonPlanFrame::personPlanCreated(GNEAdditional* busStop, GNEDemandElement* 
         myPersonHierarchy->refreshAttributeCarrierHierarchy();
         // refresh also Person Plan creator
         myPersonPlanCreator->refreshPersonPlanCreator();
+        // refresh personPlan attributes
+        myPersonPlanAttributes->refreshRows();
         // person plan element created, then return true
         return true;
     }

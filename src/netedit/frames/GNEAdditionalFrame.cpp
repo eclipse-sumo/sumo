@@ -162,6 +162,8 @@ GNEAdditionalFrame::SelectorLaneParents::stopConsecutiveLaneSelector() {
         if (GNEAdditionalHandler::buildAdditional(myAdditionalFrameParent->myViewNet, true, myAdditionalFrameParent->myAdditionalTagSelector->getCurrentTagProperties().getTag(), SUMOSAXAttrs, nullptr)) {
             // abort consecutive lane selector
             abortConsecutiveLaneSelector();
+            // refresh additional attributes
+            myAdditionalFrameParent->myAdditionalAttributes->refreshRows();
             return true;
         } else {
             return false;
@@ -653,23 +655,18 @@ GNEAdditionalFrame::addAdditional(const GNEViewNetHelper::ObjectsUnderCursor& ob
         myViewNet->setStatusBarText("Current selected additional isn't valid.");
         return false;
     }
-
     // obtain tagproperty (only for improve code legibility)
     const auto& tagValues = myAdditionalTagSelector->getCurrentTagProperties();
-
     // Declare map to keep attributes obtained in frame
     std::map<SumoXMLAttr, std::string> valuesMap = myAdditionalAttributes->getAttributesAndValues(true);
-
     // fill netedit attributes
     if (!myNeteditAttributes->getNeteditAttributesAndValues(valuesMap, objectsUnderCursor.getLaneFront())) {
         return false;
     }
-
     // If element owns an additional parent, get id of parent from AdditionalParentSelector
     if (tagValues.hasParent() && !buildAdditionalWithParent(valuesMap, objectsUnderCursor.getAdditionalFront(), tagValues)) {
         return false;
     }
-
     // If consecutive Lane Selector is enabled, it means that either we're selecting lanes or we're finished or we'rent started
     if (tagValues.hasAttribute(SUMO_ATTR_EDGE) || (tagValues.getTag() == SUMO_TAG_VAPORIZER)) {
         return buildAdditionalOverEdge(valuesMap, objectsUnderCursor.getLaneFront(), tagValues);
@@ -866,6 +863,8 @@ GNEAdditionalFrame::buildAdditionalOverEdge(std::map<SumoXMLAttr, std::string>& 
             // clear selected eddges and lanes
             mySelectorEdgeChildren->onCmdClearSelection(nullptr, 0, nullptr);
             mySelectorLaneChildren->onCmdClearSelection(nullptr, 0, nullptr);
+            // refresh additional attributes
+            myAdditionalAttributes->refreshRows();
             return true;
         } else {
             return false;
@@ -909,6 +908,8 @@ GNEAdditionalFrame::buildAdditionalOverLane(std::map<SumoXMLAttr, std::string>& 
             // clear selected eddges and lanes
             mySelectorEdgeChildren->onCmdClearSelection(nullptr, 0, nullptr);
             mySelectorLaneChildren->onCmdClearSelection(nullptr, 0, nullptr);
+            // refresh additional attributes
+            myAdditionalAttributes->refreshRows();
             return true;
         } else {
             return false;
@@ -967,6 +968,8 @@ GNEAdditionalFrame::buildAdditionalOverLanes(std::map<SumoXMLAttr, std::string>&
                 myAdditionalParent->refreshSelectorParentModul();
                 // abort lane selector
                 mySelectorLaneParents->abortConsecutiveLaneSelector();
+                // refresh additional attributes
+                myAdditionalAttributes->refreshRows();
                 return true;
             } else {
                 // additional cannot be build
@@ -1003,6 +1006,8 @@ GNEAdditionalFrame::buildAdditionalOverView(std::map<SumoXMLAttr, std::string>& 
             // clear selected eddges and lanes
             mySelectorEdgeChildren->onCmdClearSelection(nullptr, 0, nullptr);
             mySelectorLaneChildren->onCmdClearSelection(nullptr, 0, nullptr);
+            // refresh additional attributes
+            myAdditionalAttributes->refreshRows();
             return true;
         } else {
             return false;
