@@ -32,7 +32,7 @@ netedit.shapeMode()
 netedit.changeElement("poly")
 
 # change fill
-netedit.changeDefaultBoolValue(4)
+netedit.changeDefaultBoolValue(5)
 
 # create polygon with default values
 netedit.createSquaredPoly(referencePosition, 100, 50, 100, True)

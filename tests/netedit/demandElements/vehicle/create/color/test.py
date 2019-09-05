@@ -43,19 +43,19 @@ netedit.typeEnter()
 netedit.vehicleMode()
 
 # set invalid color
-netedit.changeDefaultValue(5, "dummyColor")
+netedit.changeDefaultValue(6, "dummyColor")
 
 # try to create vehicle
 netedit.leftClick(referencePosition, 274, 414)
 
 # set valid color
-netedit.changeDefaultValue(5, "cyan")
+netedit.changeDefaultValue(6, "cyan")
 
 # create vehicle
 netedit.leftClick(referencePosition, 274, 414)
 
 # set valid color
-netedit.changeDefaultValue(5, "12,13,14")
+netedit.changeDefaultValue(6, "12,13,14")
 
 # create vehicle
 netedit.leftClick(referencePosition, 274, 414)

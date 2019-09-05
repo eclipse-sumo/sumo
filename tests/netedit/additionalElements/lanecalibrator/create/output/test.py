@@ -32,13 +32,13 @@ netedit.additionalMode()
 netedit.changeElement("laneCalibrator")
 
 # change output with an invalid value
-netedit.changeDefaultValue(6, "%%%%##;;#!!!")
+netedit.changeDefaultValue(7, "%%%%##;;#!!!")
 
 # create calibrator with a valid parameter in other lane
 netedit.leftClick(referencePosition, 240, 250)
 
 # change output with an valid value
-netedit.changeDefaultValue(6, "myOwnOutput")
+netedit.changeDefaultValue(7, "myOwnOutput")
 
 # create calibrator with a valid parameter in other lane
 netedit.leftClick(referencePosition, 240, 250)

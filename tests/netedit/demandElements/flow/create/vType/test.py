@@ -35,7 +35,7 @@ netedit.vehicleMode()
 netedit.changeElement("flow")
 
 # set invalid vType
-netedit.changeDefaultValue(2, "blue")
+netedit.changeDefaultValue(3, "blue")
 
 # try to create flow
 netedit.leftClick(referencePosition, 274, 414)
@@ -45,7 +45,7 @@ netedit.leftClick(referencePosition, 280, 60)
 netedit.typeEnter()
 
 # set valid vType
-netedit.changeDefaultValue(2, "custom_vType")
+netedit.changeDefaultValue(3, "custom_vType")
 
 # create flow
 netedit.leftClick(referencePosition, 274, 414)

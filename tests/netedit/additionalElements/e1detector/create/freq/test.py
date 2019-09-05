@@ -38,13 +38,13 @@ netedit.changeDefaultValue(2, "dummyFrequency")
 netedit.leftClick(referencePosition, 250, 250)
 
 # set a invalid  frequency
-netedit.changeDefaultValue(2, "-30")
+netedit.changeDefaultValue(3, "-30")
 
 # try to create E1 with invalid frequency
 netedit.leftClick(referencePosition, 250, 250)
 
 # set a valid frequency
-netedit.changeDefaultValue(2, "150")
+netedit.changeDefaultValue(3, "150")
 
 # create E1 with valid frequency
 netedit.leftClick(referencePosition, 250, 250)

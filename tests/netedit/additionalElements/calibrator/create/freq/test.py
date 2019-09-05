@@ -32,19 +32,19 @@ netedit.additionalMode()
 netedit.changeElement("calibrator")
 
 # change frequency with an invalid value (dummy)
-netedit.changeDefaultValue(3, "dummyFreq")
+netedit.changeDefaultValue(4, "dummyFreq")
 
 # create calibrator with an invalid parameter (Default value will be used)
 netedit.leftClick(referencePosition, 240, 250)
 
 # change frequency with an invalid value (negative)
-netedit.changeDefaultValue(3, "-30")
+netedit.changeDefaultValue(4, "-30")
 
 # create calibrator with an invalid parameter (Default value will be used)
 netedit.leftClick(referencePosition, 240, 250)
 
 # change frequency with a valid value
-netedit.changeDefaultValue(3, "250.5")
+netedit.changeDefaultValue(4, "250.5")
 
 # create calibrator with a valid parameter
 netedit.leftClick(referencePosition, 240, 250)

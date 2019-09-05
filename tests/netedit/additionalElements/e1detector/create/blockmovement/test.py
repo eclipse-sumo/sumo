@@ -32,7 +32,7 @@ netedit.additionalMode()
 netedit.changeElement("e1Detector")
 
 # Change block movement
-netedit.changeDefaultBoolValue(8)
+netedit.changeDefaultBoolValue(9)
 
 # create E1 with different block movement
 netedit.leftClick(referencePosition, 500, 250)

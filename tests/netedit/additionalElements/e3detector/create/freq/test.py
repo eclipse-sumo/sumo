@@ -35,19 +35,19 @@ netedit.additionalMode()
 netedit.changeElement("e3Detector")
 
 # set invalid frequency
-netedit.changeDefaultValue(2, "dummyFreq")
+netedit.changeDefaultValue(3, "dummyFreq")
 
 # try to create E3 with invalid frequency
 netedit.leftClick(referencePosition, 100, 100)
 
 # set invalid frequency (negative)
-netedit.changeDefaultValue(2, "-30")
+netedit.changeDefaultValue(3, "-30")
 
 # try to create E3 with different frequency
 netedit.leftClick(referencePosition, 100, 100)
 
 # set valid frequency
-netedit.changeDefaultValue(2, "150.5")
+netedit.changeDefaultValue(3, "150.5")
 
 # create E3 with valid frequency
 netedit.leftClick(referencePosition, 100, 100)

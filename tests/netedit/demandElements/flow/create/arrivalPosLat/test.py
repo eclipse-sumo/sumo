@@ -35,7 +35,7 @@ netedit.vehicleMode()
 netedit.changeElement("flow")
 
 # set invalid arrival pos
-netedit.changeDefaultValue(17, "dummyPos")
+netedit.changeDefaultValue(18, "dummyPos")
 
 # try to create flow
 netedit.leftClick(referencePosition, 274, 414)
@@ -45,7 +45,7 @@ netedit.leftClick(referencePosition, 280, 60)
 netedit.typeEnter()
 
 # set invalid arrival pos
-netedit.changeDefaultValue(17, "-12")
+netedit.changeDefaultValue(18, "-12")
 
 # create flow
 netedit.leftClick(referencePosition, 274, 414)
@@ -55,7 +55,7 @@ netedit.leftClick(referencePosition, 280, 60)
 netedit.typeEnter()
 
 # set valid arrival pos
-netedit.changeDefaultValue(17, "center")
+netedit.changeDefaultValue(18, "center")
 
 # create flow
 netedit.leftClick(referencePosition, 274, 414)
@@ -65,7 +65,7 @@ netedit.leftClick(referencePosition, 280, 60)
 netedit.typeEnter()
 
 # set valid arrival pos
-netedit.changeDefaultValue(17, "20")
+netedit.changeDefaultValue(18, "20")
 
 # create flow
 netedit.leftClick(referencePosition, 274, 414)

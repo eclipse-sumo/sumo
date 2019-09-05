@@ -32,7 +32,7 @@ netedit.additionalMode()
 netedit.changeElement("e2Detector")
 
 # Change block movement
-netedit.changeDefaultBoolValue(12)
+netedit.changeDefaultBoolValue(13)
 
 # create E2 with different block movement
 netedit.leftClick(referencePosition, 300, 220)

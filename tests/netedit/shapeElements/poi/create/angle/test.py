@@ -32,25 +32,25 @@ netedit.shapeMode()
 netedit.changeElement("poi")
 
 # change angle (invalid)
-netedit.changeDefaultValue(10, "dummyAngle")
+netedit.changeDefaultValue(11, "dummyAngle")
 
 # try to create POI
 netedit.leftClick(referencePosition, 100, 50)
 
 # change angle (valid, but > 360)
-netedit.changeDefaultValue(10, "500")
+netedit.changeDefaultValue(11, "500")
 
 # create POI
 netedit.leftClick(referencePosition, 150, 50)
 
 # change angle (valid, < 0)
-netedit.changeDefaultValue(10, "-27")
+netedit.changeDefaultValue(11, "-27")
 
 # create POI
 netedit.leftClick(referencePosition, 200, 50)
 
 # change angle (valid)
-netedit.changeDefaultValue(10, "45")
+netedit.changeDefaultValue(11, "45")
 
 # create POI
 netedit.leftClick(referencePosition, 250, 50)

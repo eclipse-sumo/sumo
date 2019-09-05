@@ -32,7 +32,7 @@ netedit.additionalMode()
 netedit.changeElement("busStop")
 
 # set own lines
-netedit.changeDefaultValue(4, "lineA lineB")
+netedit.changeDefaultValue(5, "lineA lineB")
 
 # create busStop in mode "reference left"
 netedit.leftClick(referencePosition, 250, 250)

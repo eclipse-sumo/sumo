@@ -32,19 +32,19 @@ netedit.additionalMode()
 netedit.changeElement("e2Detector")
 
 # set invalid time threshold (dummy)
-netedit.changeDefaultValue(7, "dummyTimeTreshold")
+netedit.changeDefaultValue(8, "dummyTimeTreshold")
 
 # try to create E2 with invalid time threshold
 netedit.leftClick(referencePosition, 250, 220)
 
 # set invalid time threshold (negative)
-netedit.changeDefaultValue(7, "-12")
+netedit.changeDefaultValue(8, "-12")
 
 # try to create E2 with invalid time threshold
 netedit.leftClick(referencePosition, 250, 220)
 
 # set valid time threshold
-netedit.changeDefaultValue(7, "10.5")
+netedit.changeDefaultValue(8, "10.5")
 
 # create E2 with valid time threshold
 netedit.leftClick(referencePosition, 250, 220)

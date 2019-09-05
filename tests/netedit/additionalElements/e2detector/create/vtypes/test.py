@@ -32,13 +32,13 @@ netedit.additionalMode()
 netedit.changeElement("e2Detector")
 
 # set invalid vehicle types (invalid IDs)
-netedit.changeDefaultValue(6, "%%;$$$ %%$$ type.3")
+netedit.changeDefaultValue(7, "%%;$$$ %%$$ type.3")
 
 # try to create E2 with invalid vehicle types
 netedit.leftClick(referencePosition, 300, 220)
 
 # set valid vehicle types
-netedit.changeDefaultValue(6, "type1 type2 type3")
+netedit.changeDefaultValue(7, "type1 type2 type3")
 
 # create E2 with valid vehicle types
 netedit.leftClick(referencePosition, 300, 220)

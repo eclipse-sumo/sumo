@@ -32,19 +32,19 @@ netedit.additionalMode()
 netedit.changeElement("laneCalibrator")
 
 # change position with an invalid value (dummy)
-netedit.changeDefaultValue(2, "dummyValue")
+netedit.changeDefaultValue(3, "dummyValue")
 
 # try to create calibrator with an invalid parameter
 netedit.leftClick(referencePosition, 240, 250)
 
 # change position with an invalid value (negative)
-netedit.changeDefaultValue(2, "-5")
+netedit.changeDefaultValue(3, "-5")
 
 # try to create calibrator with an invalid parameter
 netedit.leftClick(referencePosition, 240, 250)
 
 # change position with a valid value
-netedit.changeDefaultValue(2, "10")
+netedit.changeDefaultValue(3, "10")
 
 # create calibrator with an invalid parameter
 netedit.leftClick(referencePosition, 240, 250)

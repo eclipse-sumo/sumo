@@ -35,19 +35,19 @@ netedit.additionalMode()
 netedit.changeElement("e3Detector")
 
 # set invalid speedTreshold
-netedit.changeDefaultValue(7, "dummySpeedTreshold")
+netedit.changeDefaultValue(8, "dummySpeedTreshold")
 
 # try to create E3 with different speedTreshold
 netedit.leftClick(referencePosition, 100, 100)
 
 # set invalid speedTreshold
-netedit.changeDefaultValue(7, "-3.80")
+netedit.changeDefaultValue(8, "-3.80")
 
 # try to create E3 with different speedTreshold
 netedit.leftClick(referencePosition, 100, 100)
 
 # set valid speedTreshold
-netedit.changeDefaultValue(7, "2.51")
+netedit.changeDefaultValue(8, "2.51")
 
 # create E3 with different speedTreshold
 netedit.leftClick(referencePosition, 100, 100)

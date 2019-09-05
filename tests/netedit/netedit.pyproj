@@ -109,7 +109,6 @@
     <Compile Include="additionalElements\chargingstation\create\power\test.py" />
     <Compile Include="additionalElements\chargingstation\create\references\test.py" />
     <Compile Include="additionalElements\chargingstation\create\references_lenght\test.py" />
-    <Compile Include="additionalElements\chargingstation\create\test.py" />
     <Compile Include="additionalElements\chargingstation\delete\test.py" />
     <Compile Include="additionalElements\chargingstation\inspect\blockmove\test.py" />
     <Compile Include="additionalElements\chargingstation\inspect\chargedelay\test.py" />

@@ -29,7 +29,7 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot, ['--g
 netedit.shapeMode()
 
 # change block move
-netedit.changeDefaultBoolValue(13)
+netedit.changeDefaultBoolValue(14)
 
 # create polygon
 netedit.createSquaredPoly(referencePosition, 100, 50, 100, True)

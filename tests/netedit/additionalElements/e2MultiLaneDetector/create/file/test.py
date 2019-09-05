@@ -39,13 +39,13 @@ netedit.leftClick(referencePosition, 190, 255)
 netedit.leftClick(referencePosition, 440, 255)
 
 # set invalid filename
-netedit.changeDefaultValue(4, "&&&&&&&&")
+netedit.changeDefaultValue(5, "&&&&&&&&")
 
 # create E2 with default parameters
 netedit.typeEnter()
 
 # set valid filename
-netedit.changeDefaultValue(4, "myOwnFilename.txt")
+netedit.changeDefaultValue(5, "myOwnFilename.txt")
 
 # create E2 with default parameters
 netedit.typeEnter()

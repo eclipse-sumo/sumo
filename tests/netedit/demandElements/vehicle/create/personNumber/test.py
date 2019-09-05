@@ -43,25 +43,25 @@ netedit.typeEnter()
 netedit.vehicleMode()
 
 # set invalid personNumber
-netedit.changeDefaultValue(13, "dummycontainerNumber")
+netedit.changeDefaultValue(14, "dummycontainerNumber")
 
 # try to create vehicle
 netedit.leftClick(referencePosition, 274, 414)
 
 # set invalid personNumber
-netedit.changeDefaultValue(13, "-12")
+netedit.changeDefaultValue(14, "-12")
 
 # try to create vehicle
 netedit.leftClick(referencePosition, 274, 414)
 
 # set invalid personNumber
-netedit.changeDefaultValue(13, "3.5")
+netedit.changeDefaultValue(14, "3.5")
 
 # try to create vehicle
 netedit.leftClick(referencePosition, 274, 414)
 
 # set valid personNumber
-netedit.changeDefaultValue(13, "13")
+netedit.changeDefaultValue(14, "13")
 
 # create vehicle
 netedit.leftClick(referencePosition, 274, 414)

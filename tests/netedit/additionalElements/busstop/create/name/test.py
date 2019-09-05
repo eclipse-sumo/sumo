@@ -32,7 +32,7 @@ netedit.additionalMode()
 netedit.changeElement("busStop")
 
 # set name
-netedit.changeDefaultValue(2, "custom bus stop name")
+netedit.changeDefaultValue(3, "custom bus stop name")
 
 # create busStop in mode "reference left"
 netedit.leftClick(referencePosition, 250, 250)

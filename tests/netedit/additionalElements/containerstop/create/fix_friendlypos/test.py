@@ -32,19 +32,19 @@ netedit.additionalMode()
 netedit.changeElement("containerStop")
 
 # Change length
-netedit.changeDefaultValue(8, "20")
+netedit.changeDefaultValue(9, "20")
 
 # create containerStop in mode "reference left"
 netedit.leftClick(referencePosition, 500, 250)
 
 # change reference to right
-netedit.changeDefaultValue(6, "reference right")
+netedit.changeDefaultValue(7, "reference right")
 
 # create containerStop in mode "reference right"
 netedit.leftClick(referencePosition, 230, 250)
 
 # change reference to center
-netedit.changeDefaultValue(6, "reference center")
+netedit.changeDefaultValue(7, "reference center")
 
 # create containerStop in mode "reference center"
 netedit.leftClick(referencePosition, 425, 250)

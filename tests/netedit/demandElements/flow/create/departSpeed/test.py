@@ -35,7 +35,7 @@ netedit.vehicleMode()
 netedit.changeElement("flow")
 
 # set invalid depart speed
-netedit.changeDefaultValue(8, "dummySpeed")
+netedit.changeDefaultValue(9, "dummySpeed")
 
 # try to create flow
 netedit.leftClick(referencePosition, 274, 414)
@@ -45,7 +45,7 @@ netedit.leftClick(referencePosition, 280, 60)
 netedit.typeEnter()
 
 # set invalid depart speed
-netedit.changeDefaultValue(8, "-12")
+netedit.changeDefaultValue(9, "-12")
 
 # create flow
 netedit.leftClick(referencePosition, 274, 414)
@@ -55,7 +55,7 @@ netedit.leftClick(referencePosition, 280, 60)
 netedit.typeEnter()
 
 # set valid depart speed
-netedit.changeDefaultValue(8, "max")
+netedit.changeDefaultValue(9, "max")
 
 # create flow
 netedit.leftClick(referencePosition, 274, 414)
@@ -65,7 +65,7 @@ netedit.leftClick(referencePosition, 280, 60)
 netedit.typeEnter()
 
 # set valid depart speed
-netedit.changeDefaultValue(8, "20")
+netedit.changeDefaultValue(9, "20")
 
 # create flow
 netedit.leftClick(referencePosition, 274, 414)

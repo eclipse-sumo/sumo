@@ -35,19 +35,19 @@ netedit.additionalMode()
 netedit.changeElement("e3Detector")
 
 # set invalid timeTreshold
-netedit.changeDefaultValue(6, "dummyTimeTreshold")
+netedit.changeDefaultValue(7, "dummyTimeTreshold")
 
 # try to create E3 with invalid timeTreshold
 netedit.leftClick(referencePosition, 100, 100)
 
 # set invalid timeTreshold
-netedit.changeDefaultValue(6, "-4")
+netedit.changeDefaultValue(7, "-4")
 
 # try to create E3 with invalid timeTreshold
 netedit.leftClick(referencePosition, 100, 100)
 
 # set valid timeTreshold
-netedit.changeDefaultValue(6, "5")
+netedit.changeDefaultValue(7, "5")
 
 # create E3 with valid timeTreshold
 netedit.leftClick(referencePosition, 100, 100)

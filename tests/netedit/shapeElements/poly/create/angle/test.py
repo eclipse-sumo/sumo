@@ -32,25 +32,25 @@ netedit.shapeMode()
 netedit.changeElement("poly")
 
 # change angle (invalid)
-netedit.changeDefaultValue(10, "dummyAngle")
+netedit.changeDefaultValue(11, "dummyAngle")
 
 # try to create polygon
 netedit.createSquaredPoly(referencePosition, 100, 50, 100, True)
 
 # change angle (valid, but > 360)
-netedit.changeDefaultValue(10, "365")
+netedit.changeDefaultValue(11, "365")
 
 # try to create polygon
 netedit.createSquaredPoly(referencePosition, 200, 50, 100, True)
 
 # change angle (valid, < 0)
-netedit.changeDefaultValue(10, "-5")
+netedit.changeDefaultValue(11, "-5")
 
 # create polygon
 netedit.createSquaredPoly(referencePosition, 300, 50, 100, True)
 
 # change angle (0 < angle < 360)
-netedit.changeDefaultValue(10, "5")
+netedit.changeDefaultValue(11, "5")
 
 # create polygon
 netedit.createSquaredPoly(referencePosition, 400, 50, 100, True)

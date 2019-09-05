@@ -35,7 +35,7 @@ netedit.changeElement("poi")
 netedit.GEOPOILonLat()
 
 # set GEO Position
-netedit.changeDefaultValue(16, "10.511086, 0.000126")
+netedit.changeDefaultValue(17, "10.511086, 0.000126")
 
 # create POI
 netedit.createGEOPOI()

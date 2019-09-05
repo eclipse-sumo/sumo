@@ -35,13 +35,13 @@ netedit.additionalMode()
 netedit.changeElement("e3Detector")
 
 # set block movement
-netedit.changeDefaultBoolValue(9)
+netedit.changeDefaultBoolValue(10)
 
 # try to create E3 with block movement
 netedit.leftClick(referencePosition, 100, 100)
 
 # restore block movement
-netedit.changeDefaultBoolValue(9)
+netedit.changeDefaultBoolValue(10)
 
 # select entry detector
 netedit.changeElement("detEntry")

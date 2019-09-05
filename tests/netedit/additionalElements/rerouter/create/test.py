@@ -38,109 +38,109 @@ netedit.changeElement("rerouter")
 netedit.leftClick(referencePosition, 50, 100)
 
 # select edge child
-netedit.selectAdditionalChild(12, 0)
+netedit.selectAdditionalChild(13, 0)
 
 # create rerouter with default parameters
 netedit.leftClick(referencePosition, 100, 100)
 
 # select edge child
-netedit.selectAdditionalChild(12, 0)
+netedit.selectAdditionalChild(13, 0)
 
 # set invalid filename
-netedit.changeDefaultValue(2, "$$&&$$$$$$")
+netedit.changeDefaultValue(3, "$$&&$$$$$$")
 
 # try to create rerouter with invalid name
 netedit.leftClick(referencePosition, 200, 100)
 
 # set valid name
-netedit.changeDefaultValue(2, "custom Name")
+netedit.changeDefaultValue(3, "custom Name")
 
 # create rerouter with valid name
 netedit.leftClick(referencePosition, 200, 100)
 
 # select edge child
-netedit.selectAdditionalChild(12, 0)
+netedit.selectAdditionalChild(13, 0)
 
 # set invalid filename
-netedit.changeDefaultValue(3, "$$$$$$$$")
+netedit.changeDefaultValue(4, "$$$$$$$$")
 
 # try to create rerouter with invalid filename
 netedit.leftClick(referencePosition, 300, 100)
 
 # set valid filename
-netedit.changeDefaultValue(3, "myOwnFilenameRerouter.txt")
+netedit.changeDefaultValue(4, "myOwnFilenameRerouter.txt")
 
 # create rerouter with valid filename
 netedit.leftClick(referencePosition, 300, 100)
 
 # select edge child
-netedit.selectAdditionalChild(12, 0)
+netedit.selectAdditionalChild(13, 0)
 
 # set invalid probability
-netedit.changeDefaultValue(4, "2")
+netedit.changeDefaultValue(5, "2")
 
 # try to create rerouter with invalid probability
 netedit.leftClick(referencePosition, 400, 100)
 
 # set valid probability
-netedit.changeDefaultValue(4, "0.3")
+netedit.changeDefaultValue(5, "0.3")
 
 # create rerouter with valid probability
 netedit.leftClick(referencePosition, 400, 100)
 
 # select edge child
-netedit.selectAdditionalChild(12, 0)
+netedit.selectAdditionalChild(13, 0)
 
 # set invalid time treshold (dummy)
-netedit.changeDefaultValue(5, "dummyFrequency")
+netedit.changeDefaultValue(6, "dummyFrequency")
 
 # try to create rerouter with invalid time treshold
 netedit.leftClick(referencePosition, 500, 100)
 
 # select edge child
-netedit.selectAdditionalChild(12, 0)
+netedit.selectAdditionalChild(13, 0)
 
 # set invalid time treshold (negative)
-netedit.changeDefaultValue(5, "-3")
+netedit.changeDefaultValue(6, "-3")
 
 # try to create rerouter with invalid time treshold
 netedit.leftClick(referencePosition, 500, 100)
 
 # set valid time treshold
-netedit.changeDefaultValue(5, "2.7")
+netedit.changeDefaultValue(6, "2.7")
 
 # create rerouter with valid time treshold
 netedit.leftClick(referencePosition, 500, 100)
 
 # select edge child
-netedit.selectAdditionalChild(12, 0)
+netedit.selectAdditionalChild(13, 0)
 
 # set invalid vtypes
-netedit.changeDefaultValue(6, "%%% type2 &&&&")
+netedit.changeDefaultValue(7, "%%% type2 &&&&")
 
 # create rerouter with valid time treshold
 netedit.leftClick(referencePosition, 550, 100)
 
 # set valid time treshold
-netedit.changeDefaultValue(6, "type1 type2 type3")
+netedit.changeDefaultValue(7, "type1 type2 type3")
 
 # create rerouter with valid time treshold
 netedit.leftClick(referencePosition, 550, 100)
 
 # select edge child
-netedit.selectAdditionalChild(12, 0)
+netedit.selectAdditionalChild(13, 0)
 
 # change off
-netedit.changeDefaultBoolValue(7)
+netedit.changeDefaultBoolValue(8)
 
 # create route with different off
 netedit.leftClick(referencePosition, 600, 100)
 
 # select edge child
-netedit.selectAdditionalChild(12, 0)
+netedit.selectAdditionalChild(13, 0)
 
 # change block movement
-netedit.changeDefaultBoolValue(9)
+netedit.changeDefaultBoolValue(10)
 
 # try to create rerouter with different timeTreshold
 netedit.leftClick(referencePosition, 200, 200)

@@ -39,13 +39,13 @@ netedit.leftClick(referencePosition, 190, 255)
 netedit.leftClick(referencePosition, 440, 255)
 
 # set invalid vehicle types (invalid IDs)
-netedit.changeDefaultValue(5, "%%;$$$ %%$$ type.3")
+netedit.changeDefaultValue(6, "%%;$$$ %%$$ type.3")
 
 # create E2 with default parameters
 netedit.typeEnter()
 
 # set valid vehicle type
-netedit.changeDefaultValue(5, "private passenger taxi bus")
+netedit.changeDefaultValue(6, "private passenger taxi bus")
 
 # create E2 with default parameters
 netedit.typeEnter()

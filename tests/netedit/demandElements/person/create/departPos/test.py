@@ -35,7 +35,7 @@ netedit.personMode()
 netedit.changePersonPlan("walks", "walkEdges")
 
 # set invalid depart
-netedit.changeDefaultValue(6, "dummyDepartPos")
+netedit.changeDefaultValue(7, "dummyDepartPos")
 
 # try to create person
 netedit.leftClick(referencePosition, 274, 414)
@@ -45,7 +45,7 @@ netedit.leftClick(referencePosition, 180, 60)
 netedit.typeEnter()
 
 # set invalid depart
-netedit.changeDefaultValue(6, "-12")
+netedit.changeDefaultValue(7, "-12")
 
 # try to create person
 netedit.leftClick(referencePosition, 274, 414)
@@ -55,7 +55,7 @@ netedit.leftClick(referencePosition, 180, 60)
 netedit.typeEnter()
 
 # set valid depart
-netedit.changeDefaultValue(6, "5000")
+netedit.changeDefaultValue(7, "5000")
 
 # try to create person
 netedit.leftClick(referencePosition, 274, 414)
@@ -65,7 +65,7 @@ netedit.leftClick(referencePosition, 180, 60)
 netedit.typeEnter()
 
 # set valid depart (output will be changed)
-netedit.changeDefaultValue(6, "20")
+netedit.changeDefaultValue(7, "20")
 
 # try to create person
 netedit.leftClick(referencePosition, 274, 414)
@@ -75,7 +75,7 @@ netedit.leftClick(referencePosition, 180, 60)
 netedit.typeEnter()
 
 # set valid depart (output will be changed)
-netedit.changeDefaultValue(6, "random")
+netedit.changeDefaultValue(7, "random")
 
 # try to create person
 netedit.leftClick(referencePosition, 274, 414)
@@ -85,7 +85,7 @@ netedit.leftClick(referencePosition, 180, 60)
 netedit.typeEnter()
 
 # set valid depart (output will be changed)
-netedit.changeDefaultValue(6, "free")
+netedit.changeDefaultValue(7, "free")
 
 # try to create person
 netedit.leftClick(referencePosition, 274, 414)
@@ -95,7 +95,7 @@ netedit.leftClick(referencePosition, 180, 60)
 netedit.typeEnter()
 
 # set valid depart (output will be changed)
-netedit.changeDefaultValue(6, "base")
+netedit.changeDefaultValue(7, "base")
 
 # try to create person
 netedit.leftClick(referencePosition, 274, 414)
@@ -105,7 +105,7 @@ netedit.leftClick(referencePosition, 180, 60)
 netedit.typeEnter()
 
 # set valid depart (output will be changed)
-netedit.changeDefaultValue(6, "random_free")
+netedit.changeDefaultValue(7, "random_free")
 
 # try to create person
 netedit.leftClick(referencePosition, 274, 414)
@@ -115,7 +115,7 @@ netedit.leftClick(referencePosition, 180, 60)
 netedit.typeEnter()
 
 # set valid depart (output will be changed)
-netedit.changeDefaultValue(6, "last")
+netedit.changeDefaultValue(7, "last")
 
 # try to create person
 netedit.leftClick(referencePosition, 274, 414)

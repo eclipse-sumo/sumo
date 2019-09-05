@@ -32,19 +32,19 @@ netedit.additionalMode()
 netedit.changeElement("chargingStation")
 
 # set invalid chargeDelay (dummy)
-netedit.changeDefaultValue(7, "dummyChargeDelay")
+netedit.changeDefaultValue(8, "dummyChargeDelay")
 
 # try to create chargingStation in mode "reference left"
 netedit.leftClick(referencePosition, 250, 250)
 
 # set invalid chargeDelay (negative)
-netedit.changeDefaultValue(7, "-50")
+netedit.changeDefaultValue(8, "-50")
 
 # try to create chargingStation in mode "reference left"
 netedit.leftClick(referencePosition, 250, 250)
 
 # set valid chargeDelay (double)
-netedit.changeDefaultValue(7, "20.5")
+netedit.changeDefaultValue(8, "20.5")
 
 # try to create chargingStation in mode "reference left"
 netedit.leftClick(referencePosition, 250, 250)

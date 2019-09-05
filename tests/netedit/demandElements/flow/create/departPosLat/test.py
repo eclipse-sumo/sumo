@@ -35,7 +35,7 @@ netedit.vehicleMode()
 netedit.changeElement("flow")
 
 # set invalid depart pos
-netedit.changeDefaultValue(16, "dummyPos")
+netedit.changeDefaultValue(17, "dummyPos")
 
 # try to create flow
 netedit.leftClick(referencePosition, 274, 414)
@@ -45,7 +45,7 @@ netedit.leftClick(referencePosition, 280, 60)
 netedit.typeEnter()
 
 # set invalid depart pos
-netedit.changeDefaultValue(16, "-12")
+netedit.changeDefaultValue(17, "-12")
 
 # create flow
 netedit.leftClick(referencePosition, 274, 414)
@@ -55,7 +55,7 @@ netedit.leftClick(referencePosition, 280, 60)
 netedit.typeEnter()
 
 # set valid depart pos
-netedit.changeDefaultValue(16, "random_free")
+netedit.changeDefaultValue(17, "random_free")
 
 # create flow
 netedit.leftClick(referencePosition, 274, 414)
@@ -65,7 +65,7 @@ netedit.leftClick(referencePosition, 280, 60)
 netedit.typeEnter()
 
 # set valid depart pos
-netedit.changeDefaultValue(16, "20")
+netedit.changeDefaultValue(17, "20")
 
 # create flow
 netedit.leftClick(referencePosition, 274, 414)

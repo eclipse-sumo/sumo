@@ -35,7 +35,7 @@ netedit.personMode()
 netedit.changePersonPlan("walks", "walkEdges")
 
 # set invalid depart
-netedit.changeDefaultValue(7, "dummyDepart")
+netedit.changeDefaultValue(8, "dummyDepart")
 
 # try to create person
 netedit.leftClick(referencePosition, 274, 414)
@@ -45,7 +45,7 @@ netedit.leftClick(referencePosition, 180, 60)
 netedit.typeEnter()
 
 # set invalid depart
-netedit.changeDefaultValue(7, "-12")
+netedit.changeDefaultValue(8, "-12")
 
 # try to create person
 netedit.leftClick(referencePosition, 274, 414)
@@ -55,7 +55,7 @@ netedit.leftClick(referencePosition, 180, 60)
 netedit.typeEnter()
 
 # set valid depart
-netedit.changeDefaultValue(7, "30")
+netedit.changeDefaultValue(8, "30")
 
 # try to create person
 netedit.leftClick(referencePosition, 274, 414)
@@ -65,7 +65,7 @@ netedit.leftClick(referencePosition, 180, 60)
 netedit.typeEnter()
 
 # set valid depart (output will be changed)
-netedit.changeDefaultValue(7, "20")
+netedit.changeDefaultValue(8, "20")
 
 # try to create person
 netedit.leftClick(referencePosition, 274, 414)

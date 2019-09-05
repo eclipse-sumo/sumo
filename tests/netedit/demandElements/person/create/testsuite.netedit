@@ -6,6 +6,8 @@ default_ride
 
 default_stop
 
+id
+
 color
 
 departPos

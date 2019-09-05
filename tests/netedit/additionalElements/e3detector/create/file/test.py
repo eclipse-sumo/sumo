@@ -35,13 +35,13 @@ netedit.additionalMode()
 netedit.changeElement("e3Detector")
 
 # set invalid file
-netedit.changeDefaultValue(4, "%%%$$%%$%")
+netedit.changeDefaultValue(5, "%%%$$%%$%")
 
 # try to create E3 with invalid file
 netedit.leftClick(referencePosition, 100, 100)
 
 # set valid file
-netedit.changeDefaultValue(4, "myOwnFile.txt")
+netedit.changeDefaultValue(5, "myOwnFile.txt")
 
 # create E3 with valid file
 netedit.leftClick(referencePosition, 100, 100)

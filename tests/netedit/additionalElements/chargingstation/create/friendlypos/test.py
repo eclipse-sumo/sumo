@@ -32,7 +32,7 @@ netedit.additionalMode()
 netedit.changeElement("chargingStation")
 
 # set friendlyPos
-netedit.changeDefaultBoolValue(3)
+netedit.changeDefaultBoolValue(4)
 
 # create chargingStation in mode "reference left"
 netedit.leftClick(referencePosition, 250, 250)

@@ -32,7 +32,7 @@ netedit.shapeMode()
 netedit.changeElement("poiLane")
 
 # change block
-netedit.changeDefaultBoolValue(13)
+netedit.changeDefaultBoolValue(14)
 
 # create poi
 netedit.leftClick(referencePosition, 150, 215)

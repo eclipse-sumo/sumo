@@ -39,19 +39,19 @@ netedit.leftClick(referencePosition, 190, 255)
 netedit.leftClick(referencePosition, 440, 255)
 
 # set invalid frequency
-netedit.changeDefaultValue(2, "dummyFreq")
+netedit.changeDefaultValue(3, "dummyFreq")
 
 # create E2 with default parameters
 netedit.typeEnter()
 
 # set invalid frequency
-netedit.changeDefaultValue(2, "-30")
+netedit.changeDefaultValue(3, "-30")
 
 # create E2 with default parameters
 netedit.typeEnter()
 
 # set valid frequency
-netedit.changeDefaultValue(2, "120")
+netedit.changeDefaultValue(3, "120")
 
 # create E2 with default parameters
 netedit.typeEnter()

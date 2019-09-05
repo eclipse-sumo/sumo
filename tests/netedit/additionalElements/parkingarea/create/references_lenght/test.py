@@ -32,13 +32,13 @@ netedit.additionalMode()
 netedit.changeElement("parkingArea")
 
 # Change length
-netedit.changeDefaultValue(12, "6")
+netedit.changeDefaultValue(13, "6")
 
 # create a parkingArea in mode "reference left"
 netedit.leftClick(referencePosition, 300, 250)
 
 # change reference to "reference right"
-netedit.changeDefaultValue(10, "reference right")
+netedit.changeDefaultValue(11, "reference right")
 
 # create a parkingArea in mode "reference right"
 netedit.leftClick(referencePosition, 200, 250)

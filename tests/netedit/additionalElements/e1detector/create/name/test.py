@@ -32,13 +32,13 @@ netedit.additionalMode()
 netedit.changeElement("e1Detector")
 
 # set invalid name
-netedit.changeDefaultValue(3, "\"\"\";;")
+netedit.changeDefaultValue(4, "\"\"\";;")
 
 # try to create E1 with invalid name
 netedit.leftClick(referencePosition, 300, 250)
 
 # set valid name
-netedit.changeDefaultValue(3, "customName")
+netedit.changeDefaultValue(4, "customName")
 
 # create E1 with valid name
 netedit.leftClick(referencePosition, 300, 250)

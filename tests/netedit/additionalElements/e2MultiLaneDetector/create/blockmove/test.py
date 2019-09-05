@@ -39,7 +39,7 @@ netedit.leftClick(referencePosition, 190, 255)
 netedit.leftClick(referencePosition, 440, 255)
 
 # Change block movement
-netedit.changeDefaultBoolValue(11)
+netedit.changeDefaultBoolValue(12)
 
 # create E2 with default parameters
 netedit.typeEnter()

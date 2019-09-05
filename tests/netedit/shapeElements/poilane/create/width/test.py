@@ -32,19 +32,19 @@ netedit.shapeMode()
 netedit.changeElement("poiLane")
 
 # change width (invalid, dummy)
-netedit.changeDefaultValue(7, "dummyWidth")
+netedit.changeDefaultValue(8, "dummyWidth")
 
 # try to create poi
 netedit.leftClick(referencePosition, 150, 215)
 
 # change width (invalid, negative)
-netedit.changeDefaultValue(7, "-2")
+netedit.changeDefaultValue(8, "-2")
 
 # try to create poi
 netedit.leftClick(referencePosition, 200, 215)
 
 # change width (valid)
-netedit.changeDefaultValue(7, "2.5")
+netedit.changeDefaultValue(8, "2.5")
 
 # create poi
 netedit.leftClick(referencePosition, 250, 215)

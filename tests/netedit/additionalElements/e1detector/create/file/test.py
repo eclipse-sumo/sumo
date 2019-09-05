@@ -32,13 +32,13 @@ netedit.additionalMode()
 netedit.changeElement("e1Detector")
 
 # set invalid filename
-netedit.changeDefaultValue(4, "&&&&&&&&")
+netedit.changeDefaultValue(5, "&&&&&&&&")
 
 # try to create E1 with invalid filename
 netedit.leftClick(referencePosition, 350, 250)
 
 # set valid filename
-netedit.changeDefaultValue(4, "myOwnFilename.txt")
+netedit.changeDefaultValue(5, "myOwnFilename.txt")
 
 # try to create E1 with invalid filename
 netedit.leftClick(referencePosition, 350, 250)

@@ -35,13 +35,13 @@ netedit.additionalMode()
 netedit.changeElement("e3Detector")
 
 # set invalid name
-netedit.changeDefaultValue(3, "\"\"\";;")
+netedit.changeDefaultValue(4, "\"\"\";;")
 
 # try to create E3 with invalid frequency
 netedit.leftClick(referencePosition, 100, 100)
 
 # set valid name
-netedit.changeDefaultValue(3, "customName")
+netedit.changeDefaultValue(4, "customName")
 
 # create E3 with valid frequency
 netedit.leftClick(referencePosition, 100, 100)

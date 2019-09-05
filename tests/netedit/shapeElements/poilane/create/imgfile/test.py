@@ -32,19 +32,19 @@ netedit.shapeMode()
 netedit.changeElement("poiLane")
 
 # change imgfile (invalid)
-netedit.changeDefaultValue(9, "%%$%$&$%$%$")
+netedit.changeDefaultValue(10, "%%$%$&$%$%$")
 
 # try to create POI
 netedit.leftClick(referencePosition, 150, 215)
 
 # change imgfile (non exist)
-netedit.changeDefaultValue(9, "paris.ico")
+netedit.changeDefaultValue(10, "paris.ico")
 
 # try to create POI
 netedit.leftClick(referencePosition, 200, 215)
 
 # change imgfile (valid)
-netedit.changeDefaultValue(9, "berlin_icon.ico")
+netedit.changeDefaultValue(10, "berlin_icon.ico")
 
 # create POI
 netedit.leftClick(referencePosition, 250, 215)

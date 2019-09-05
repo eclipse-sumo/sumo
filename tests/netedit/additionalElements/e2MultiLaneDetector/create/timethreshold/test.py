@@ -39,13 +39,13 @@ netedit.leftClick(referencePosition, 190, 255)
 netedit.leftClick(referencePosition, 440, 255)
 
 # set invalid time threshold
-netedit.changeDefaultValue(6, "-12")
+netedit.changeDefaultValue(7, "-12")
 
 # create E2 with default parameters
 netedit.typeEnter()
 
 # set valid time threshold
-netedit.changeDefaultValue(6, "10")
+netedit.changeDefaultValue(7, "10")
 
 # create E2 with default parameters
 netedit.typeEnter()

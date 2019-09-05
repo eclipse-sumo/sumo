@@ -32,13 +32,13 @@ netedit.additionalMode()
 netedit.changeElement("instantInductionLoop")
 
 # set invalid vehicle types (invalid IDs)
-netedit.changeDefaultValue(4, "%%;$$$ %%$$ type.3")
+netedit.changeDefaultValue(5, "%%;$$$ %%$$ type.3")
 
 # try to create E1 with invalid vehicle types
 netedit.leftClick(referencePosition, 400, 250)
 
 # set valid vehicle type
-netedit.changeDefaultValue(4, "type1 type2 type3")
+netedit.changeDefaultValue(5, "type1 type2 type3")
 
 # create E1 Instant with valid vehicle types
 netedit.leftClick(referencePosition, 400, 250)
