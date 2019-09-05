@@ -353,6 +353,25 @@ GNEFrameAttributesModuls::AttributesCreatorRow::onCmdSetAttribute(FXObject* obj,
         } else {
             myInvalidValue = "'" + myAttrProperties.getAttrStr() + "' doesn't have a valid 'int' format";
         }
+
+    } else if (myAttrProperties.getAttr() == SUMO_ATTR_ANGLE) {
+        if (GNEAttributeCarrier::canParse<double>(myValueTextField->getText().text())) {
+            // filter angle
+            double angle = GNEAttributeCarrier::parse<double>(myValueTextField->getText().text());
+            // filter if angle isn't between [0,360]
+            if ((angle < 0) || (angle > 360)) {
+                // apply modul
+                angle = fmod (angle,360);
+                // extra filter for negative angles
+                if (angle < 0) {
+                    angle += 360;
+                }
+            }
+            // update Textfield
+            myValueTextField->setText(toString(angle).c_str(), FALSE);
+        } else {
+            myInvalidValue = "'" + myAttrProperties.getAttrStr() + "' doesn't have a valid 'float' format between [0, 360]";
+        }
     } else if (myAttrProperties.isSUMOTime()) {
         // time attributes work as positive doubles
         if (!GNEAttributeCarrier::canParse<SUMOTime>(myValueTextField->getText().text())) {
@@ -1143,8 +1162,7 @@ GNEFrameAttributesModuls::AttributesEditorRow::onCmdSetAttribute(FXObject*, FXSe
         }
     } else if (myACAttr.isDiscrete()) {
         // Check if are combinable choices (for example, Vehicle Types)
-        if ((myACAttr.getDiscreteValues().size() > 0) &&
-                myACAttr.isCombinable()) {
+        if ((myACAttr.getDiscreteValues().size() > 0) && myACAttr.isCombinable()) {
             // Get value obtained using AttributesEditor
             newVal = myValueTextField->getText().text();
         } else if (!myMultiple) {
@@ -1167,6 +1185,22 @@ GNEFrameAttributesModuls::AttributesEditorRow::onCmdSetAttribute(FXObject*, FXSe
                 newVal = toString((int)doubleValue);
                 myValueTextField->setText(newVal.c_str(), FALSE);
             }
+        } else if ((myACAttr.getAttr() == SUMO_ATTR_ANGLE) && GNEAttributeCarrier::canParse<double>(myValueTextField->getText().text())) {
+            // filter angle
+            double angle = GNEAttributeCarrier::parse<double>(myValueTextField->getText().text());
+            // filter if angle isn't between [0,360]
+            if ((angle < 0) || (angle > 360)) {
+                // apply modul
+                angle = fmod (angle,360);
+                // extra filter for negative angles
+                if (angle < 0) {
+                    angle += 360;
+                }
+            }
+            // set newVal
+            newVal = toString(angle);
+            // update Textfield
+            myValueTextField->setText(newVal.c_str(), FALSE);
         } else {
             // obtain value of myValueTextField
             newVal = myValueTextField->getText().text();
