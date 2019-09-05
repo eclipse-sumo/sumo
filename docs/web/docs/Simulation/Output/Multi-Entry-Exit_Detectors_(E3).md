@@ -1,11 +1,11 @@
 ---
-title: Simulation Output Multi-Entry-Exit Detectors (E3)
+title: Simulation/Output/Multi-Entry-Exit Detectors (E3)
 permalink: /Simulation/Output/Multi-Entry-Exit_Detectors_(E3)/
 ---
 
 ## Instantiating within the Simulation
 
-Multi-Entry-Exit Detectors are defined within an  which has to be loaded
+Multi-Entry-Exit Detectors are defined within an {{AdditionalFile}} which has to be loaded
 by the simulation.
 
 The descriptions of Multi-Entry-Exit Detectors has to include the set of
@@ -13,43 +13,32 @@ entry- and the set of exit-cross-sections. Due to this, it is not
 possible to use a single tag to specify a detector. Instead, the
 description consists of the following parts:
 
-  - A beginning tag that describes some global attributes of the
-    detector just as the descriptions of [inductive loop
-    detectors](Simulation/Output/Induction_Loops_Detectors_\(E1\).md)
-    and [areal
-    detectors](Simulation/Output/Lanearea_Detectors_\(E2\).md)
-    do.
-
-<!-- end list -->
-
-  - A set of tags that describe the detector's entry points.
-
-<!-- end list -->
-
-  - A set of tags that describe the detector's exit points.
-
-<!-- end list -->
-
-  - A closing tag that must match the opening tag.
+- A beginning tag that describes some global attributes of the
+  detector just as the descriptions of [inductive loop
+  detectors](../../Simulation/Output/Induction_Loops_Detectors_(E1).md)
+  and [areal
+  detectors](../../Simulation/Output/Lanearea_Detectors_(E2).md)
+  do.
+- A set of tags that describe the detector's entry points.
+- A set of tags that describe the detector's exit points.
+- A closing tag that must match the opening tag.
 
 The definition:
 
+```
 <additional>
-`   `<entryExitDetector id="''<ID>''" freq="<''AGGREGATION_TIME>''" file="''<OUTPUT_XMLFILE>''"
-    timeThreshold="''<FLOAT>''" speedThreshold="''<FLOAT>''">
-`      `<detEntry lane="''<LANE_ID1>*`"``
- ``pos="`*<POSITION_ON_LANE>*`"``   ``friendlyPos="`*<BOOL>`''"/>`
-`      `<detEntry lane="''<LANE_ID2>*`"``
- ``pos="`*<POSITION_ON_LANE>*`"``   ``friendlyPos="`*<BOOL>`''"/>`
-`      `<detExit lane="''<LANE_ID1>*`"``
- ``pos="`*<POSITION_ON_LANE>*`"``   ``friendlyPos="`*<BOOL>`''"/>`
-`      `<detExit lane="''<LANE_ID3>*`"``
- ``pos="`*<POSITION_ON_LANE>*`"``   ``friendlyPos="`*<BOOL>`''"/>`
+   <entryExitDetector id="<ID>" freq="<AGGREGATION_TIME>" file="<OUTPUT_XMLFILE>" 
+   timeThreshold="<FLOAT>" speedThreshold="<FLOAT>">
+      <detEntry lane="<LANE_ID1>" pos="<POSITION_ON_LANE>" friendlyPos="<BOOL>"/>
+      <detEntry lane="<LANE_ID2>" pos="<POSITION_ON_LANE>" friendlyPos="<BOOL>"/>
+      <detExit lane="<LANE_ID1>" pos="<POSITION_ON_LANE>" friendlyPos="<BOOL>"/>
+      <detExit lane="<LANE_ID3>" pos="<POSITION_ON_LANE>" friendlyPos="<BOOL>"/>
 
-`      ... further entries ...`
+      ... further entries ...
 
-`   `</entryExitDetector>
+   </entryExitDetector>
 </additional>
+```
 
 will build a Multi-Entry-Exit Detector starting at either lane
 "LANE_ID1" or "LANE_ID2" and end at the same lane of "LANE_ID1" or
@@ -62,28 +51,29 @@ configuration was read in/the program has been started within.
 
 The complete list of attributes is:
 
-| Attribute Name | Value Type  | Description                                                                                                                                                                                                                                                                             |
-| -------------- | ----------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **id**         | id (string) | A string holding the id of the detector                                                                                                                                                                                                                                                 |
-| **file**       | filename    | The path to the output file. The path may be relative.                                                                                                                                                                                                                                  |
-| freq           | int         | The aggregation period the values the detector collects shall be summed up.                                                                                                                                                                                                             |
-| timeThreshold  | float       | The time-based threshold that describes how much time has to pass until a vehicle is recognized as halting; *in s, default: 1s*.                                                                                                                                                        |
-| speedThreshold | float       | The speed-based threshold that describes how slow a vehicle has to be to be recognized as halting; *in m/s, default: 5/3.6m/s*.                                                                                                                                                         |
+| Attribute Name | Value Type  | Description                                          |
+| -------------- | ----------- | ---------------------------------------------------- |
+| **id**         | id (string) | A string holding the id of the detector              |
+| **file**       | filename    | The path to the output file. The path may be relative.    |
+| freq           | int         | The aggregation period the values the detector collects shall be summed up.     |
+| timeThreshold  | float       | The time-based threshold that describes how much time has to pass until a vehicle is recognized as halting; *in s, default: 1s*.    |
+| speedThreshold | float       | The speed-based threshold that describes how slow a vehicle has to be to be recognized as halting; *in m/s, default: 5/3.6m/s*.    |
 | openEntry      | bool        | If set to *true*, no error will be reported if vehicles leave the detector without first entering it. This can be useful when tracking vehicles for a particular combination of entry and exit lane at an intersection and other vehicles may also use the exit lane. *default: false*. |
-| vTypes         | string      | space separated list of vehicle type ids to consider, "" means all; default "".                                                                                                                                                                                                         |
+| vTypes         | string      | space separated list of vehicle type ids to consider, "" means all; default "".       |
 
 ## Generated Output
 
 A single data line within the output of a simulated Multi-Entry-Exit
 Detector looks as following:
 
-<interval begin="''<BEGIN_TIME>*`"``   ``end="`*<END_TIME>*`"``
- ``id="`*<ID>*`"``   ``meanTravelTime="`*<MEAN_TT>`''" `
-`meanOverlapTravelTime="`*<MEAN_OVERLAP_TT>*`" meanSpeed="`*<MEAN_SPEED>*`" `
-`meanHaltsPerVehicle="`*<MEAN_HALT_NUMBER>*`" vehicleSum="`*`<#VEHICLES>`*`" meanSpeedWithin="`*<MEAN_SPEED>*`" `
-`meanHaltsPerVehicleWithin="`*<MEAN_HALT_NUMBER>*`" meanDurationWithin="`*<MEAN_HALT_DURATION>*`" `
-`vehicleSumWithin="`*`<#VEHICLES>`*`" meanIntervalSpeedWithin="`*<MEAN_SPEED>*`" `
-`meanIntervalHaltsPerVehicleWithin="`*<MEAN_HALT_NUMBER>*`" meanIntervalDurationWithin="`*<MEAN_HALT_DURATION>*`"/>`
+```
+<interval begin="<BEGIN_TIME>" end="<END_TIME>" id="<ID>" meanTravelTime="<MEAN_TT>" 
+meanOverlapTravelTime="<MEAN_OVERLAP_TT>" meanSpeed="<MEAN_SPEED>" 
+meanHaltsPerVehicle="<MEAN_HALT_NUMBER>" vehicleSum="<#VEHICLES>" meanSpeedWithin="<MEAN_SPEED>" 
+meanHaltsPerVehicleWithin="<MEAN_HALT_NUMBER>" meanDurationWithin="<MEAN_HALT_DURATION>" 
+vehicleSumWithin="<#VEHICLES>" meanIntervalSpeedWithin="<MEAN_SPEED>" 
+meanIntervalHaltsPerVehicleWithin="<MEAN_HALT_NUMBER>" meanIntervalDurationWithin="<MEAN_HALT_DURATION>"/>
+```
 
 As for lane area detectors, the measures generated by Multi-Entry-Exit
 Detector may be grouped by the way they are computed. The plain measures
@@ -95,8 +85,8 @@ measures made up of only those samples that were collected within the
 current interval ("...Interval..."). The value are described one by one
 in the following table.
 
-| Name                              | Type                 | Description                                                                                                                                                                                                   |
-| --------------------------------- | -------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Name                              | Type                 | Description               |
+| --------------------------------- | -------------------- | ---------------------------------------------------------------------------------------------------- |
 | begin                             | (simulation) seconds | The first time step the values were collected in                                                                                                                                                              |
 | end                               | (simulation) seconds | The last time step + DELTA_T the values were collected in (may be equal to begin)                                                                                                                            |
 | id                                | id                   | The id of the detector                                                                                                                                                                                        |
@@ -117,33 +107,33 @@ in the following table.
 
 ## Further Notes
 
-  - All measurements concerning durations refer to the end of the
-    relevant interval
-  - Simulated multi-entry-exit detectors can be accessed using
-    [TraCI](TraCI/Multi-Entry/Multi-Exit_Detectors_Value_Retrieval.md)
-  - You can generate detector definitions automatically. See [output
-    tools](Tools/Output.md) for more information.
-  - The simulation does not check whether the area defined by the
-    detector entries and exits is really closed, so if you keep getting
-    warnings about vehicles leaving the area which did not enter (or
-    vice versa) check whether your entries and exits really cover all
-    possible lanes.
-      - The same applies for vehicles starting or ending the route (or
-        teleporting) inside the area surrounded by the entries and
-        exits. They are not considered by the measurements and will
-        potentially generate warnings (when leaving without entering or
-        by ending their route)
-  - The detector interpolates entry and exit times, so if a vehicle has
-    at time 10 the position 95 and at time 11 the position 105 with a
-    detector entry being at position 100, 10.5 is recorded as entry time
-    (and used in the subsequent calculations also for the mean speeds).
-  - If you use small detector intervals (down to the time step length)
-    the interpolation behavior may result in discretization errors. In
-    the example above the vehicle will have not been recorded in the
-    interval \[10,11) because it actually moves into the detector at
-    step 11 only, but will have a duration of 1.5 inside the detector
-    (meanDurationWithin, meanIntervalDurationWithin) for the next
-    interval \[11,12).
-  - If a vehicle happens to be placed exactly on the entry position it
-    is not counted yet because for the calculation of a speed we need a
-    non zero movement inside the detector.
+- All measurements concerning durations refer to the end of the
+  relevant interval
+- Simulated multi-entry-exit detectors can be accessed using
+  [TraCI](../../TraCI/Multi-Entry-Exit_Detectors_Value_Retrieval.md)
+- You can generate detector definitions automatically. See [output
+  tools](../../Tools/Output.md) for more information.
+- The simulation does not check whether the area defined by the
+  detector entries and exits is really closed, so if you keep getting
+  warnings about vehicles leaving the area which did not enter (or
+  vice versa) check whether your entries and exits really cover all
+  possible lanes.
+  - The same applies for vehicles starting or ending the route (or
+    teleporting) inside the area surrounded by the entries and
+    exits. They are not considered by the measurements and will
+    potentially generate warnings (when leaving without entering or
+    by ending their route)
+- The detector interpolates entry and exit times, so if a vehicle has
+  at time 10 the position 95 and at time 11 the position 105 with a
+  detector entry being at position 100, 10.5 is recorded as entry time
+  (and used in the subsequent calculations also for the mean speeds).
+- If you use small detector intervals (down to the time step length)
+  the interpolation behavior may result in discretization errors. In
+  the example above the vehicle will have not been recorded in the
+  interval \[10,11) because it actually moves into the detector at
+  step 11 only, but will have a duration of 1.5 inside the detector
+  (meanDurationWithin, meanIntervalDurationWithin) for the next
+  interval \[11,12).
+- If a vehicle happens to be placed exactly on the entry position it
+  is not counted yet because for the calculation of a speed we need a
+  non zero movement inside the detector.

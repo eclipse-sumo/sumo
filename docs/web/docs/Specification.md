@@ -33,24 +33,24 @@ specifying the start and end behavior. Additional parameters such as
 color only serve visualization purposes. A vehicle can have routes and
 stops as child elements.
 
-| Attribute    | Type              | Range                                                  | Default      | Remark                                                                                                                                                                                                                                                                                                                                                                                                |
-| ------------ | ----------------- | ------------------------------------------------------ | ------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| id           | string            | valid XML ids                                          | \-           |                                                                                                                                                                                                                                                                                                                                                                                                       |
-| route        | string            | route or routedist id                                  | \-           | either this id or a route child element are mandatory                                                                                                                                                                                                                                                                                                                                                 |
-| type         | string            | vType or vTypeDistribution id                          | default type |                                                                                                                                                                                                                                                                                                                                                                                                       |
-| depart       | float(s)/string   | ≥0;"triggered"                                         |              |                                                                                                                                                                                                                                                                                                                                                                                                       |
-| departLane   | int/string        | ≥0,"random","free"                                     | 0            | "free" is the least occupied lane (by sum of the vehicle lengths)                                                                                                                                                                                                                                                                                                                                     |
+| Attribute    | Type              | Range                                                  | Default      | Remark    |
+| ------------ | ----------------- | ------------------------------------------------------ | ------------ | ----------------------- |
+| id           | string            | valid XML ids                                          | \-           |                         |
+| route        | string            | route or routedist id                                  | \-           | either this id or a route child element are mandatory   |
+| type         | string            | vType or vTypeDistribution id                          | default type |                       |
+| depart       | float(s)/string   | ≥0;"triggered"                                         |              |                         |
+| departLane   | int/string        | ≥0,"random","free"                                     | 0            | "free" is the least occupied lane (by sum of the vehicle lengths)  |
 | departPos    | float(m)/string   | ≥0<sup>(2)</sup>,"random","free","random_free","base" | "base"       | "free" means the point closest to the start of the depart lane where it is possible to insert the vehicle. "random_free" tries forcefully to find a free random position and if that fails, places the vehicle at the next "free" position. "base" sets the vehicle's depart position to the vehicle's length + eps (eps=.1m), this means the vehicle is completely at the begin of the depart lane. |
 | departSpeed  | float(m/s)/string | ≥0,"random","max"                                      | 0            | "max" refers to the maximum velocity the vehicle can achieve when being inserted                                                                                                                                                                                                                                                                                                                      |
-| arrivalLane  | int/string        | ≥0,"current"                                           | "current"    |                                                                                                                                                                                                                                                                                                                                                                                                       |
-| arrivalPos   | float(m)/string   | ≥0<sup>(2)</sup>,"random","max"                        | "max"        |                                                                                                                                                                                                                                                                                                                                                                                                       |
-| arrivalSpeed | float(m/s)/string | ≥0,"current"                                           | "current"    |                                                                                                                                                                                                                                                                                                                                                                                                       |
+| arrivalLane  | int/string        | ≥0,"current"                                           | "current"    |      |
+| arrivalPos   | float(m)/string   | ≥0<sup>(2)</sup>,"random","max"                        | "max"        |      |
+| arrivalSpeed | float(m/s)/string | ≥0,"current"                                           | "current"    |      |
 
-  - (2): in fact, negative positions are currently allowed, too. In this
-    case, this value is added to the lane's length. This means, the
-    position is counted from the end of the lane. Values lying beyond
-    the edge borders (positive and negative) are silently moved to the
-    closest edge border.
+- (2): in fact, negative positions are currently allowed, too. In this
+case, this value is added to the lane's length. This means, the
+position is counted from the end of the lane. Values lying beyond
+the edge borders (positive and negative) are silently moved to the
+closest edge border.
 
 ### Flows (repeated insertion)
 
@@ -152,7 +152,7 @@ vehicles of a type.
 </tr>
 <tr class="odd">
 <td><p>color</p></td>
-<td></td>
+<td>&lt;COLOR&gt;</td>
 <td></td>
 <td></td>
 <td><p>the color to use for vehicles of this type.</p></td>
@@ -165,11 +165,11 @@ vehicles of a type.
 <td></td>
 </tr>
 <tr class="odd">
-<td><p>carFollowModel</p></td>
+<td style="background:red;"><p>carFollowModel</p></td>
 <td><p>string</p></td>
 <td></td>
 <td></td>
-<td><p>not yet implemented (see #663")</p></td>
+<td style="background:red;"><p>not yet implemented (see #663")</p></td>
 </tr>
 <tr class="even">
 <td><p>laneChangeModel</p></td>
@@ -197,7 +197,7 @@ vehicles of a type.
 <td><p>string</p></td>
 <td></td>
 <td><p>P_7_7</p></td>
-<td><p>the emission class, see <a href="Models/Emissions" title="wikilink">Models/Emissions</a>.</p></td>
+<td><p>the emission class, see <a href="Models/Emissions.html" title="wikilink">Models/Emissions</a>.</p></td>
 </tr>
 <tr class="even">
 <td><p>probability</p></td>
@@ -228,7 +228,7 @@ vehicles of a type.
 <td><p>Image file for rendering vehicles of this type (should be grayscale to allow functional coloring);</p></td>
 </tr>
 <tr class="even">
-<td><p>osgFile</p></td>
+<td style="background:yellow;"><p>osgFile</p></td>
 <td><p>string</p></td>
 <td></td>
 <td></td>
@@ -269,8 +269,8 @@ There is a default type defined with the id "DEFAULT_VEHTYPE", having
 all the default parameters above, which may be redefined once but only
 if it was not used beforehand (either by a vehicle or as a refId).
 Redefining the default type does not change the defaults if defining a
-new type, that means <vType refId="DEFAULT_VEHTYPE"/> may be different
-from <vType/>.
+new type, that means `<vType refId="DEFAULT_VEHTYPE"/>` may be different
+from `<vType/>`.
 
 The distrbution for a speedFactor can currently only be given as
 "norm(mean, dev)" or "normc(mean, dev, min, max)" which result in the
@@ -313,11 +313,11 @@ always embedded into the plane, they also need x- and y-coordinates. A
 type may be given if the one determined by
 [NETCONVERT](NETCONVERT.md) is not correct.
 
-| Attribute | Type     | Range                                         | Default | Remark                                                                                              |
-| --------- | -------- | --------------------------------------------- | ------- | --------------------------------------------------------------------------------------------------- |
-| id        | string   | valid XML ids                                 | \-      |                                                                                                     |
-| x         | float(m) | \-10^6\<x\<10^6                               | \-      |                                                                                                     |
-| y         | float(m) | \-10^6\<y\<10^6                               | \-      |                                                                                                     |
+| Attribute | Type     | Range                                         | Default | Remark       |
+| --------- | -------- | --------------------------------------------- | ------- | ------------ |
+| id        | string   | valid XML ids                                 | \-      |              |
+| x         | float(m) | \-10^6<x<10^6                               | \-      |              |
+| y         | float(m) | \-10^6<y<10^6                               | \-      |              |
 | type      | string   | priority, right_before_left, traffic_light | \-      | if no value is given, [NETCONVERT](NETCONVERT.md) tries to determine the type heuristically |
 
 ## Streets
@@ -349,7 +349,7 @@ given in m/s.
 | length     | float(m)   | ≥0                     | \-      |                                                                                |
 | numLanes   | int        | \>0                    | \-      | either this one or lane child elements are mandatory                           |
 | speed      | float(m/s) | \>0                    | \-      |                                                                                |
-| departLane | int        | 0≤departLane\<numLanes | 0       |                                                                                |
+| departLane | int        | 0≤departLane<numLanes  | 0       |                                                                                |
 
 ### Lanes
 
@@ -361,7 +361,7 @@ disallowed list and contains some member of the allowed list.
 
 | Attribute | Type       | Range                    | Default                     | Remark |
 | --------- | ---------- | ------------------------ | --------------------------- | ------ |
-| index     | int        | 0≤index\<edge.numLanes   | smallest non-explicit index |        |
+| index     | int        | 0≤index<edge.numLanes    | smallest non-explicit index |        |
 | speed     | float(m/s) | ≥0                       | 13.9                        |        |
 | allow     | string     | list of category ids,all | all                         |        |
 | disallow  | string     | list of category ids     | empty list                  |        |
@@ -396,8 +396,8 @@ Stops can be childs of vehicles, routes or persons.
 | Attribute          | Type              | Range                                                                          | Default            | Remark                                                                                                 |
 | ------------------ | ----------------- | ------------------------------------------------------------------------------ | ------------------ | ------------------------------------------------------------------------------------------------------ |
 | busStop            | string            | valid [bus stop](Simulation/Public_Transport.md) ids                   | \-                 | if given, edge, lane, startPos and endPos are not allowed                                              |
-| containerStop      | string            | valid [container stop](Specification/Logistics#Container_stops.md) ids | \-                 | if given, edge, lane, startPos and endPos are not allowed                                              |
-| lane               | string            | lane id                                                                        | \-                 | the lane id takes the form <edge_id>_<lane_index>. the edge has to be part of the corresponding route |
+| containerStop      | string            | valid [container stop](Specification/Logistics.md#container_stops) ids | \-                 | if given, edge, lane, startPos and endPos are not allowed                                              |
+| lane               | string            | lane id                                                                        | \-                 | the lane id takes the form <edge_id\>_<lane_index\>. the edge has to be part of the corresponding route |
 | endPos             | float(m)          | ε≤endPos≤edge.length                                                           | edge.length        |                                                                                                        |
 | startPos           | float(m)          | 0≤startPos≤endPos-ε                                                            | endPos-ε           |                                                                                                        |
 | friendlyPos        | bool              | true,false                                                                     | false              | whether invalid stop positions should be corrected automatically                                       |
@@ -420,6 +420,11 @@ incremented by the difference of vehicle creation time and "begin" of
 the flow. If neither "duration" nor "until" are given, "triggered"
 defaults to true. If "triggered" is set to false explicitly the vehicle
 will stop forever.
+
+!!! caution
+    If *triggered* is true then *parking* will also be set to true by default. If you then set *parking* to false you may create deadlocks which prevent the simulation from terminating
+!!! note
+    Bus stops must have a length of at least 10
 
 ## How the vehicle drives
 
