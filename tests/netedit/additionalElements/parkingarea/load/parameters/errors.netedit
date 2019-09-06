@@ -12,9 +12,12 @@ GLDebug: 	Inserted parkingArea:parkingArea_0 into SUMORTree with boundary -8.00,
 Debug: Additionals has to be saved
 Debug: Current saving Status: net saved, additionals unsaved, demand elements saved
 Debug: Inserting parameter 'key1|value1' into additional parkingArea.
-Debug: Inserting parameter 'key1|value4' into additional parkingArea.
+Error: Attribute 'key' in definition of a param is empty.
+Debug: Inserting parameter 'key1|value5' into additional parkingArea.
 Debug: Inserting parameter 'key2|' into additional parkingArea.
-Debug: Inserting parameter 'key4|value5' into additional parkingArea.
+Debug: Inserting parameter 'key2|' into additional parkingArea.
+Debug: Inserting parameter 'keyFinal|valueFinal' into additional parkingArea.
+Error: Loading of C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.04Sep134854.3920/netedit.gui/additionalElements/parkingarea/load/parameters\input_additionals.add.xml failed.
 Debug: net has to be saved
 Debug: Current saving Status: net unsaved, additionals unsaved, demand elements saved
 Debug: Additionals saved

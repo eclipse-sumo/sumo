@@ -12,9 +12,11 @@ Debug: Adding e2MultilaneDetector 'e2MultilaneDetector_0' in GNEChange_Additiona
 Debug: Additionals has to be saved
 Debug: Current saving Status: net saved, additionals unsaved, demand elements saved
 Debug: Inserting parameter 'key1|value1' into additional e2MultilaneDetector.
-Debug: Inserting parameter 'key1|value4' into additional e2MultilaneDetector.
+Error: Attribute 'key' in definition of a param is empty.
+Debug: Inserting parameter 'key1|value5' into additional e2MultilaneDetector.
 Debug: Inserting parameter 'key2|' into additional e2MultilaneDetector.
-Debug: Inserting parameter 'key4|value5' into additional e2MultilaneDetector.
+Debug: Inserting parameter 'key2|' into additional e2MultilaneDetector.
+Error: Loading of C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.04Sep134854.3920/netedit.gui/additionalElements/e2MultiLaneDetector/load/parameters\input_additionals.add.xml failed.
 Debug: net has to be saved
 Debug: Current saving Status: net unsaved, additionals unsaved, demand elements saved
 Debug: Key F5 (Compute) pressed

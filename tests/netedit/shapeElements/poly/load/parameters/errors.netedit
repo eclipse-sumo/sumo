@@ -10,9 +10,12 @@ GLDebug: 	Inserted polygon:poly_0 into SUMORTree with boundary -52.00,28.00,-38.
 Debug: Additionals has to be saved
 Debug: Current saving Status: net saved, additionals unsaved, demand elements saved
 Debug: Inserting parameter 'key1|value1' into shape.
-Debug: Inserting parameter 'key1|value4' into shape.
+Error: Attribute 'key' in definition of a param is empty.
+Debug: Inserting parameter 'key1|value5' into shape.
 Debug: Inserting parameter 'key2|' into shape.
-Debug: Inserting parameter 'key4|value5' into shape.
+Debug: Inserting parameter 'key2|' into shape.
+Debug: Inserting parameter 'keyFinal|valueFinal' into shape.
+Error: Loading of C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.04Sep134854.3920/netedit.gui/shapeElements/poly/load/parameters\input_additionals.add.xml failed.
 Debug: net has to be saved
 Debug: Current saving Status: net unsaved, additionals unsaved, demand elements saved
 Debug: Additionals saved

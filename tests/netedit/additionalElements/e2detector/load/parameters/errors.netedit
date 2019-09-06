@@ -9,9 +9,12 @@ Debug: Adding e2Detector 'E2_01' in GNEChange_Additional
 Debug: Additionals has to be saved
 Debug: Current saving Status: net saved, additionals unsaved, demand elements saved
 Debug: Inserting parameter 'key1|value1' into additional e2Detector.
-Debug: Inserting parameter 'key1|value4' into additional e2Detector.
+Error: Attribute 'key' in definition of a param is empty.
+Debug: Inserting parameter 'key1|value5' into additional e2Detector.
 Debug: Inserting parameter 'key2|' into additional e2Detector.
-Debug: Inserting parameter 'key4|value5' into additional e2Detector.
+Debug: Inserting parameter 'key2|' into additional e2Detector.
+Debug: Inserting parameter 'keyFinal|valueFinal' into additional e2Detector.
+Error: Loading of C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.04Sep134854.3920/netedit.gui/additionalElements/e2detector/load/parameters\input_additionals.add.xml failed.
 Debug: net has to be saved
 Debug: Current saving Status: net unsaved, additionals unsaved, demand elements saved
 Debug: Additionals saved

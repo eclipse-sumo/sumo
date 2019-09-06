@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 11.03.2019 13:33:45 by Eclipse SUMO netedit Version v1_1_0+1177-ae4e665b46
+<!-- generated on 05.09.2019 11:21:40 by Eclipse SUMO netedit Version v1_3_1+0139-0c4b838657
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.11Mar133250.11216/netedit.gui/additionalElements/routeprobe/load/genericparameters\input_net.net.xml"/>
+        <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.04Sep134854.3920/netedit.gui/additionalElements/routeprobe/load/parameters\input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.11Mar133250.11216/netedit.gui/additionalElements/routeprobe/load/genericparameters\net.net.xml"/>
+        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.04Sep134854.3920/netedit.gui/additionalElements/routeprobe/load/parameters\net.net.xml"/>
     </output>
 
     <processing>
@@ -29,13 +29,14 @@
     </pedestrian>
 
     <netedit>
-        <additional-files value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.11Mar133250.11216/netedit.gui/additionalElements/routeprobe/load/genericparameters\input_additionals.add.xml"/>
-        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.11Mar133250.11216/netedit.gui/additionalElements/routeprobe/load/genericparameters\additionals.xml"/>
-        <demandelements-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.11Mar133250.11216/netedit.gui/additionalElements/routeprobe/load/genericparameters\routes.xml"/>
+        <additional-files value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.04Sep134854.3920/netedit.gui/additionalElements/routeprobe/load/parameters\additionals.xml"/>
+        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.04Sep134854.3920/netedit.gui/additionalElements/routeprobe/load/parameters\additionals.xml"/>
+        <route-files value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.04Sep134854.3920/netedit.gui/additionalElements/routeprobe/load/parameters\routes.xml"/>
+        <demandelements-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.04Sep134854.3920/netedit.gui/additionalElements/routeprobe/load/parameters\routes.xml"/>
     </netedit>
 
     <visualisation>
-        <gui-settings-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.11Mar133250.11216/netedit.gui/additionalElements/routeprobe/load/genericparameters\gui-settings.xml"/>
+        <gui-settings-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.04Sep134854.3920/netedit.gui/additionalElements/routeprobe/load/parameters\gui-settings.xml"/>
         <window-size value="700,500"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
@@ -45,7 +46,7 @@
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.11Mar133250.11216/netedit.gui/additionalElements/routeprobe/load/genericparameters\log.txt"/>
+        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.04Sep134854.3920/netedit.gui/additionalElements/routeprobe/load/parameters\log.txt"/>
     </report>
 
 </configuration>
@@ -53,8 +54,8 @@
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <routeProbe id="routeProbe_01" edge="gneE1" freq="100.00" file="fileA.txt" begin="0.00">
-        <param key="key1" value="value4"/>
+        <param key="key1" value="value5"/>
         <param key="key2" value=""/>
-        <param key="key4" value="value5"/>
+        <param key="keyFinal" value="valueFinal"/>
     </routeProbe>
 </additional>
