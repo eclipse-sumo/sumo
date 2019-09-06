@@ -63,9 +63,9 @@ FXDEFMAP(GNEInspectorFrame::GEOAttributesEditor) GEOAttributesEditorMap[] = {
 };
 
 FXDEFMAP(GNEInspectorFrame::TemplateEditor) TemplateEditorMap[] = {
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_TEMPLATE_COPY,  GNEInspectorFrame::TemplateEditor::onCmdCopyTemplate),
-    FXMAPFUNC(SEL_UPDATE,   MID_GNE_TEMPLATE_COPY,  GNEInspectorFrame::TemplateEditor::onUpdCopyTemplate),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_TEMPLATE_SET,   GNEInspectorFrame::TemplateEditor::onCmdSetTemplate)
+    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_SHIFT_F2_TEMPLATE_COPY,  GNEInspectorFrame::TemplateEditor::onCmdCopyTemplate),
+    FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_SHIFT_F2_TEMPLATE_COPY,  GNEInspectorFrame::TemplateEditor::onUpdCopyTemplate),
+    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_SHIFT_F1_TEMPLATE_SET,   GNEInspectorFrame::TemplateEditor::onCmdSetTemplate)
 };
 
 // Object implementation
@@ -1079,11 +1079,11 @@ GNEInspectorFrame::TemplateEditor::TemplateEditor(GNEInspectorFrame* inspectorFr
     myEdgeTemplate(nullptr) {
 
     // Create copy template button
-    myCopyTemplateButton = new FXButton(this, "", nullptr, this, MID_GNE_TEMPLATE_COPY, GUIDesignButton);
+    myCopyTemplateButton = new FXButton(this, "", nullptr, this, MID_HOTKEY_SHIFT_F2_TEMPLATE_COPY, GUIDesignButton);
     myCopyTemplateButton->hide();
 
     // Create set template button
-    mySetTemplateButton = new FXButton(this, "Set as Template\t\t", nullptr, this, MID_GNE_TEMPLATE_SET, GUIDesignButton);
+    mySetTemplateButton = new FXButton(this, "Set as Template\t\t", nullptr, this, MID_HOTKEY_SHIFT_F1_TEMPLATE_SET, GUIDesignButton);
     mySetTemplateButton->hide();
 }
 

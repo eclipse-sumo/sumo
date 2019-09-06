@@ -187,6 +187,12 @@ enum {
     /// @name shift + Functional hotkeys
     /// @{
 
+    /// @brief set template
+    MID_HOTKEY_SHIFT_F1_TEMPLATE_SET,
+    /// @brief copy template
+    MID_HOTKEY_SHIFT_F2_TEMPLATE_COPY,
+    /// @brief clear template
+    MID_HOTKEY_SHIFT_F3_TEMPLATE_CLEAR,
     /// @brief compute junctions with volatile options
     MID_HOTKEY_SHIFT_F5_COMPUTEJUNCTIONS_VOLATILE,
 
@@ -663,10 +669,6 @@ enum {
     MID_GNE_ACHIERARCHY_MOVEUP,
     /// @brief In AttributeCarrierHierarchy list, move element to down
     MID_GNE_ACHIERARCHY_MOVEDOWN,
-    /// @brief set object as template
-    MID_GNE_TEMPLATE_SET,
-    /// @brief copy template
-    MID_GNE_TEMPLATE_COPY,
     /// @brief start drawing polygon
     MID_GNE_STARTDRAWING,
     /// @brief stop drawing polygon

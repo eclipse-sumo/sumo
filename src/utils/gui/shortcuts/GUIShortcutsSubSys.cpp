@@ -272,6 +272,13 @@ GUIShortcutsSubSys::buildNETEDITAccelerators(GNEApplicationWindow* GNEApp) {
     GNEApp->getAccelTable()->addAccel(parseKey(KEY_F10), GNEApp, FXSEL(SEL_COMMAND, MID_GNE_HOTKEY_F10_OPTIONSMENU));
     GNEApp->getAccelTable()->addAccel(parseKey(KEY_F12), GNEApp, FXSEL(SEL_COMMAND, MID_HOTKEY_F12_FOCUSUPPERELEMENT));
 
+    // Shift + Function Hotkeys
+
+    GNEApp->getAccelTable()->addAccel(parseKey(KEY_F1, KEYMODIFIER_SHIFT),  GNEApp, FXSEL(SEL_COMMAND, MID_HOTKEY_SHIFT_F1_TEMPLATE_SET));
+    GNEApp->getAccelTable()->addAccel(parseKey(KEY_F2, KEYMODIFIER_SHIFT),  GNEApp, FXSEL(SEL_COMMAND, MID_HOTKEY_SHIFT_F2_TEMPLATE_COPY));
+    GNEApp->getAccelTable()->addAccel(parseKey(KEY_F3, KEYMODIFIER_SHIFT),  GNEApp, FXSEL(SEL_COMMAND, MID_HOTKEY_SHIFT_F3_TEMPLATE_CLEAR));
+    GNEApp->getAccelTable()->addAccel(parseKey(KEY_F5, KEYMODIFIER_SHIFT),  GNEApp, FXSEL(SEL_COMMAND, MID_HOTKEY_SHIFT_F5_COMPUTEJUNCTIONS_VOLATILE));
+
     // Alt + Function Hotkeys
 
     GNEApp->getAccelTable()->addAccel(parseKey(KEY_F4, KEYMODIFIER_ALT), GNEApp, FXSEL(SEL_COMMAND, MID_HOTKEY_ALT_F4_CLOSE));
