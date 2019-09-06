@@ -147,6 +147,9 @@ FXDEFMAP(GNEApplicationWindow) GNEApplicationWindowMap[] = {
     FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_CTRL_G_GAMINGMODE_TOOGLEGRID,        GNEApplicationWindow::onUpdNeedsNetwork),
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_CTRL_T_OPENSUMONETEDIT,              GNEApplicationWindow::onCmdOpenSUMOGUI),
     FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_CTRL_T_OPENSUMONETEDIT,              GNEApplicationWindow::onUpdNeedsNetwork),
+    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_CTRL_X_CUT,                          GNEApplicationWindow::onCmdCut),
+    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_CTRL_C_COPY,                         GNEApplicationWindow::onCmdCopy),
+    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_CTRL_V_PASTE,                        GNEApplicationWindow::onCmdPaste),
 
     // Toolbar processing
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_F5_COMPUTE_NETWORK_DEMAND,                       GNEApplicationWindow::onCmdProcessButton),
@@ -2353,6 +2356,31 @@ GNEApplicationWindow::onCmdRedo(FXObject*, FXSelector, void*) {
             myViewNet->getViewParent()->getCurrentShownFrame()->updateFrameAfterUndoRedo();
         }
     }
+    return 1;
+}
+
+
+
+long 
+GNEApplicationWindow::onCmdCut(FXObject*, FXSelector, void*) {
+    WRITE_DEBUG("Key Ctrl+X (Cut) pressed");
+    // Prepared for #6042
+    return 1;
+}
+
+
+long 
+GNEApplicationWindow::onCmdCopy(FXObject*, FXSelector, void*) {
+    WRITE_DEBUG("Key Ctrl+C (Copy) pressed");
+    // Prepared for #6042
+    return 1;
+}
+
+
+long 
+GNEApplicationWindow::onCmdPaste(FXObject*, FXSelector, void*) {
+    WRITE_DEBUG("Key Ctrl+V (Paste) pressed");
+    // Prepared for #6042
     return 1;
 }
 

@@ -327,6 +327,16 @@ public:
 
     // @brief called when user press Ctrl+Y
     long onCmdRedo(FXObject*, FXSelector, void*);
+
+    /// @brief called when user press Ctrl+Z
+    long onCmdCut(FXObject*, FXSelector, void*);
+
+    // @brief called when user press Ctrl+Y
+    long onCmdCopy(FXObject*, FXSelector, void*);
+
+    // @brief called when user press Ctrl+Y
+    long onCmdPaste(FXObject*, FXSelector, void*);
+
     /// @}
 
     /// @name inherited from GUIMainWindow
