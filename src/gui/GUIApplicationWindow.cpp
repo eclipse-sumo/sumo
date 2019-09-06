@@ -110,7 +110,7 @@ FXDEFMAP(GUIApplicationWindow) GUIApplicationWindowMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_CTRL_W_CLOSESIMULATION,  GUIApplicationWindow::onCmdClose),
     FXMAPFUNC(SEL_COMMAND,  MID_EDITCHOSEN,                     GUIApplicationWindow::onCmdEditChosen),
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_CTRL_B_EDITBREAKPOINT,   GUIApplicationWindow::onCmdEditBreakpoints),
-    FXMAPFUNC(SEL_COMMAND,  MID_EDITVIEWSCHEME,                 GUIApplicationWindow::onCmdEditViewScheme),
+    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_F9_EDIT_VIEWSCHEME,      GUIApplicationWindow::onCmdEditViewScheme),
     FXMAPFUNC(SEL_COMMAND,  MID_EDITVIEWPORT,                   GUIApplicationWindow::onCmdEditViewport),
     FXMAPFUNC(SEL_COMMAND,  MID_NETEDIT,                        GUIApplicationWindow::onCmdNetedit),
 
@@ -155,7 +155,7 @@ FXDEFMAP(GUIApplicationWindow) GUIApplicationWindowMap[] = {
     FXMAPFUNC(SEL_UPDATE,   MID_SIMSAVE,                                        GUIApplicationWindow::onUpdNeedsSimulation),
     FXMAPFUNC(SEL_UPDATE,   MID_EDITCHOSEN,                                     GUIApplicationWindow::onUpdNeedsSimulation),
     FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_CTRL_B_EDITBREAKPOINT,                   GUIApplicationWindow::onUpdNeedsSimulation),
-    FXMAPFUNC(SEL_UPDATE,   MID_EDITVIEWSCHEME,                                 GUIApplicationWindow::onUpdNeedsSimulation),
+    FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_F9_EDIT_VIEWSCHEME,                      GUIApplicationWindow::onUpdNeedsSimulation),
     FXMAPFUNC(SEL_UPDATE,   MID_EDITVIEWPORT,                                   GUIApplicationWindow::onUpdNeedsSimulation),
     FXMAPFUNC(SEL_UPDATE,   MID_NETEDIT,                                        GUIApplicationWindow::onUpdNeedsSimulation),
     FXMAPFUNC(SEL_UPDATE,   MID_DEMAND_SCALE,                                   GUIApplicationWindow::onUpdNeedsSimulation),
@@ -449,8 +449,8 @@ GUIApplicationWindow::fillMenuBar() {
                       "Edit Breakpoints\tCtrl+B\tOpens a dialog for editing breakpoints.",
                       nullptr, this, MID_HOTKEY_CTRL_B_EDITBREAKPOINT);
     new FXMenuCommand(myEditMenu,
-                      "Edit Visualisation\tCtrl+V\tOpens a dialog for editing visualization settings.",
-                      nullptr, this, MID_EDITVIEWSCHEME);
+                      "Edit Visualisation\tF9\tOpens a dialog for editing visualization settings.",
+                      nullptr, this, MID_HOTKEY_F9_EDIT_VIEWSCHEME);
     new FXMenuCommand(myEditMenu,
                       "Edit Viewport\tCtrl+I\tOpens a dialog for editing viewing are, zoom and rotation.",
                       nullptr, this, MID_EDITVIEWPORT);

@@ -135,8 +135,8 @@ FXDEFMAP(GNEApplicationWindow) GNEApplicationWindowMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_P_POLYGONMODE_PERSONMODE,            GNEApplicationWindow::onCmdSetMode),
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_V_VEHICLEMODE,                       GNEApplicationWindow::onCmdSetMode),
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_W_PROHIBITIONMODE_PERSONTYPEMODE,    GNEApplicationWindow::onCmdSetMode),
-    FXMAPFUNC(SEL_COMMAND,  MID_EDITVIEWSCHEME,                             GNEApplicationWindow::onCmdEditViewScheme),
-    FXMAPFUNC(SEL_UPDATE,   MID_EDITVIEWSCHEME,                             GNEApplicationWindow::onUpdNeedsNetwork),
+    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_F9_EDIT_VIEWSCHEME,                  GNEApplicationWindow::onCmdEditViewScheme),
+    FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_F9_EDIT_VIEWSCHEME,                  GNEApplicationWindow::onUpdNeedsNetwork),
     FXMAPFUNC(SEL_COMMAND,  MID_EDITVIEWPORT,                               GNEApplicationWindow::onCmdEditViewport),
     FXMAPFUNC(SEL_UPDATE,   MID_EDITVIEWPORT,                               GNEApplicationWindow::onUpdNeedsNetwork),
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_CTRL_Z_UNDO,                         GNEApplicationWindow::onCmdUndo),
@@ -1286,8 +1286,8 @@ GNEApplicationWindow::EditMenuCommands::buildEditMenuCommands(FXMenuPane* fileMe
     demandMenuCommands.buildDemandMenuCommands(fileMenu);
     demandMenuCommands.hideDemandMenuCommands();
     editViewScheme = new FXMenuCommand(fileMenu,
-                                       "Edit Visualisation\tCtrl+V\tOpens a dialog for editing visualization settings.",
-                                       nullptr, myGNEApp, MID_EDITVIEWSCHEME);
+                                       "Edit Visualisation\tF9\tOpens a dialog for editing visualization settings.",
+                                       nullptr, myGNEApp, MID_HOTKEY_F9_EDIT_VIEWSCHEME);
     editViewPort = new FXMenuCommand(fileMenu,
                                      "Edit Viewport\tCtrl+I\tOpens a dialog for editing viewing are, zoom and rotation.",
                                      nullptr, myGNEApp, MID_EDITVIEWPORT);

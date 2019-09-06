@@ -78,6 +78,8 @@ enum {
     MID_HOTKEY_CTRL_A_STARTSIMULATION_OPENADDITIONALS,
     /// @brief Edit simulation breakpoints
     MID_HOTKEY_CTRL_B_EDITBREAKPOINT,
+    /// @brief Copy the current selection / element
+    MID_HOTKEY_CTRL_C_COPY,
     /// @brief Perform a single simulation step in SUMO and open Demand Elements in NETEDIT
     MID_HOTKEY_CTRL_D_SINGLESIMULATIONSTEP_OPENDEMAND,
     /// @brief Toogle Gaming mode in SUMO and grid in NETEDIT
@@ -100,8 +102,12 @@ enum {
     MID_HOTKEY_CTRL_R_RELOAD,
     /// @brief Open current network in SUMO or in NETEDIT
     MID_HOTKEY_CTRL_T_OPENSUMONETEDIT,
+    /// @brief paste the current selection / element
+    MID_HOTKEY_CTRL_V_PASTE,
     /// @brief Close simulation - ID
     MID_HOTKEY_CTRL_W_CLOSESIMULATION,
+    /// @brief cut the current selection / element
+    MID_HOTKEY_CTRL_X_CUT,
     /// @brief Undo
     MID_HOTKEY_CTRL_Y_REDO,
     /// @brief Redo
@@ -170,6 +176,8 @@ enum {
     MID_GNE_HOTKEY_F7_JOIN_SELECTEDJUNCTIONS_ROUTES,
     /// @brief clean invalid crossings in network mode and demand elements in demand mode
     MID_GNE_HOTKEY_F8_CLEANINVALID_CROSSINGS_DEMANDELEMENTS,
+    /// @brief open edit scheme menu
+    MID_HOTKEY_F9_EDIT_VIEWSCHEME,
     /// @brief open options menu
     MID_GNE_HOTKEY_F10_OPTIONSMENU,
     /// @brief hot key <F12> focus upper element of current frame
@@ -325,8 +333,6 @@ enum {
     MID_LOCATEPOLY,
     /// @brief Open viewport editor - button
     MID_EDITVIEWPORT,
-    /// @brief Open view editor - button
-    MID_EDITVIEWSCHEME,
     /// @brief Show tool tips - button
     MID_SHOWTOOLTIPS,
     /// @brief Make snapshot - button
