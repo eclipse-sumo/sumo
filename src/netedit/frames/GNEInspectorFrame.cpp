@@ -592,7 +592,7 @@ GNEInspectorFrame::OverlappedInspection::inspectOverlappedAttributeCarrier() {
     // change current inspected item
     GNEAttributeCarrier* AC = myOverlappedACs.at(myItemIndex);
     // if is an lane and selectEdges checkBox is enabled, inspect their edge
-    if (AC->getTagProperty().getTag() == SUMO_TAG_LANE && myInspectorFrameParent->getViewNet()->getNetworkViewOptions().selectEdges()) {
+    if (AC->getTagProperty().getTag() == SUMO_TAG_LANE && myInspectorFrameParent->myViewNet->getNetworkViewOptions().selectEdges()) {
         myInspectorFrameParent->inspectSingleElement(&dynamic_cast<GNELane*>(AC)->getParentEdge());
     } else {
         myInspectorFrameParent->inspectSingleElement(AC);
@@ -602,7 +602,7 @@ GNEInspectorFrame::OverlappedInspection::inspectOverlappedAttributeCarrier() {
     // update current index button
     myCurrentIndexButton->setText((toString(myItemIndex + 1) + " / " + toString(myOverlappedACs.size())).c_str());
     // update view (due dotted contour)
-    myInspectorFrameParent->getViewNet()->update();
+    myInspectorFrameParent->myViewNet->update();
 }
 
 // ---------------------------------------------------------------------------
@@ -727,8 +727,8 @@ GNEInspectorFrame::NeteditAttributesEditor::showNeteditAttributesEditor() {
             myTextFieldAdditionalParent->setText(toString(parents).c_str());
         }
         // disable all editable elements if we're in demand mode and inspected AC isn't a demand element
-        if (((myInspectorFrameParent->getViewNet()->getEditModes().currentSupermode == GNE_SUPERMODE_NETWORK) && myInspectorFrameParent->myAttributesEditor->getEditedACs().front()->getTagProperty().isDemandElement()) ||
-                ((myInspectorFrameParent->getViewNet()->getEditModes().currentSupermode == GNE_SUPERMODE_DEMAND) && !myInspectorFrameParent->myAttributesEditor->getEditedACs().front()->getTagProperty().isDemandElement())) {
+        if (((myInspectorFrameParent->myViewNet->getEditModes().currentSupermode == GNE_SUPERMODE_NETWORK) && myInspectorFrameParent->myAttributesEditor->getEditedACs().front()->getTagProperty().isDemandElement()) ||
+                ((myInspectorFrameParent->myViewNet->getEditModes().currentSupermode == GNE_SUPERMODE_DEMAND) && !myInspectorFrameParent->myAttributesEditor->getEditedACs().front()->getTagProperty().isDemandElement())) {
             myTextFieldAdditionalParent->disable();
             myCheckBoxBlockMovement->disable();
             myCheckBoxBlockShape->disable();
@@ -817,16 +817,16 @@ GNEInspectorFrame::NeteditAttributesEditor::onCmdSetNeteditAttribute(FXObject* o
     if (myInspectorFrameParent->myAttributesEditor->getEditedACs().size() > 0) {
         // check if we're changing multiple attributes
         if (myInspectorFrameParent->myAttributesEditor->getEditedACs().size() > 1) {
-            myInspectorFrameParent->getViewNet()->getUndoList()->p_begin("Change multiple attributes");
+            myInspectorFrameParent->myViewNet->getUndoList()->p_begin("Change multiple attributes");
         }
         if (obj == myCheckBoxBlockMovement) {
             // set new values in all inspected Attribute Carriers
             for (const auto& i : myInspectorFrameParent->myAttributesEditor->getEditedACs()) {
                 if (myCheckBoxBlockMovement->getCheck() == 1) {
-                    i->setAttribute(GNE_ATTR_BLOCK_MOVEMENT, "true", myInspectorFrameParent->getViewNet()->getUndoList());
+                    i->setAttribute(GNE_ATTR_BLOCK_MOVEMENT, "true", myInspectorFrameParent->myViewNet->getUndoList());
                     myCheckBoxBlockMovement->setText("true");
                 } else {
-                    i->setAttribute(GNE_ATTR_BLOCK_MOVEMENT, "false", myInspectorFrameParent->getViewNet()->getUndoList());
+                    i->setAttribute(GNE_ATTR_BLOCK_MOVEMENT, "false", myInspectorFrameParent->myViewNet->getUndoList());
                     myCheckBoxBlockMovement->setText("false");
                 }
             }
@@ -834,10 +834,10 @@ GNEInspectorFrame::NeteditAttributesEditor::onCmdSetNeteditAttribute(FXObject* o
             // set new values in all inspected Attribute Carriers
             for (const auto& i : myInspectorFrameParent->myAttributesEditor->getEditedACs()) {
                 if (myCheckBoxBlockShape->getCheck() == 1) {
-                    i->setAttribute(GNE_ATTR_BLOCK_SHAPE, "true", myInspectorFrameParent->getViewNet()->getUndoList());
+                    i->setAttribute(GNE_ATTR_BLOCK_SHAPE, "true", myInspectorFrameParent->myViewNet->getUndoList());
                     myCheckBoxBlockShape->setText("true");
                 } else {
-                    i->setAttribute(GNE_ATTR_BLOCK_SHAPE, "false", myInspectorFrameParent->getViewNet()->getUndoList());
+                    i->setAttribute(GNE_ATTR_BLOCK_SHAPE, "false", myInspectorFrameParent->myViewNet->getUndoList());
                     myCheckBoxBlockShape->setText("false");
                 }
             }
@@ -845,10 +845,10 @@ GNEInspectorFrame::NeteditAttributesEditor::onCmdSetNeteditAttribute(FXObject* o
             // set new values in all inspected Attribute Carriers
             for (const auto& i : myInspectorFrameParent->myAttributesEditor->getEditedACs()) {
                 if (myCheckBoxCloseShape->getCheck() == 1) {
-                    i->setAttribute(GNE_ATTR_CLOSE_SHAPE, "true", myInspectorFrameParent->getViewNet()->getUndoList());
+                    i->setAttribute(GNE_ATTR_CLOSE_SHAPE, "true", myInspectorFrameParent->myViewNet->getUndoList());
                     myCheckBoxCloseShape->setText("true");
                 } else {
-                    i->setAttribute(GNE_ATTR_CLOSE_SHAPE, "false", myInspectorFrameParent->getViewNet()->getUndoList());
+                    i->setAttribute(GNE_ATTR_CLOSE_SHAPE, "false", myInspectorFrameParent->myViewNet->getUndoList());
                     myCheckBoxCloseShape->setText("false");
                 }
             }
@@ -856,7 +856,7 @@ GNEInspectorFrame::NeteditAttributesEditor::onCmdSetNeteditAttribute(FXObject* o
             if (myInspectorFrameParent->myAttributesEditor->getEditedACs().front()->isValid(GNE_ATTR_PARENT, myTextFieldAdditionalParent->getText().text())) {
                 // change parent of all inspected elements
                 for (const auto& i : myInspectorFrameParent->myAttributesEditor->getEditedACs()) {
-                    i->setAttribute(GNE_ATTR_PARENT, myTextFieldAdditionalParent->getText().text(), myInspectorFrameParent->getViewNet()->getUndoList());
+                    i->setAttribute(GNE_ATTR_PARENT, myTextFieldAdditionalParent->getText().text(), myInspectorFrameParent->myViewNet->getUndoList());
                 }
                 myTextFieldAdditionalParent->setTextColor(FXRGB(0, 0, 0));
             } else {
@@ -866,7 +866,7 @@ GNEInspectorFrame::NeteditAttributesEditor::onCmdSetNeteditAttribute(FXObject* o
         }
         // finish change multiple attributes
         if (myInspectorFrameParent->myAttributesEditor->getEditedACs().size() > 1) {
-            myInspectorFrameParent->getViewNet()->getUndoList()->p_end();
+            myInspectorFrameParent->myViewNet->getUndoList()->p_end();
         }
         // force refresh values of AttributesEditor and GEOAttributesEditor
         myInspectorFrameParent->myAttributesEditor->refreshAttributeEditor(true, true);
@@ -968,8 +968,8 @@ GNEInspectorFrame::GEOAttributesEditor::showGEOAttributesEditor() {
             }
         }
         // disable all editable elements if we're in demand mode and inspected AC isn't a demand element
-        if (((myInspectorFrameParent->getViewNet()->getEditModes().currentSupermode == GNE_SUPERMODE_NETWORK) && myInspectorFrameParent->myAttributesEditor->getEditedACs().front()->getTagProperty().isDemandElement()) ||
-                ((myInspectorFrameParent->getViewNet()->getEditModes().currentSupermode == GNE_SUPERMODE_DEMAND) && !myInspectorFrameParent->myAttributesEditor->getEditedACs().front()->getTagProperty().isDemandElement())) {
+        if (((myInspectorFrameParent->myViewNet->getEditModes().currentSupermode == GNE_SUPERMODE_NETWORK) && myInspectorFrameParent->myAttributesEditor->getEditedACs().front()->getTagProperty().isDemandElement()) ||
+                ((myInspectorFrameParent->myViewNet->getEditModes().currentSupermode == GNE_SUPERMODE_DEMAND) && !myInspectorFrameParent->myAttributesEditor->getEditedACs().front()->getTagProperty().isDemandElement())) {
             myGEOAttributeTextField->disable();
             myUseGEOCheckButton->disable();
         }
@@ -1013,7 +1013,7 @@ GNEInspectorFrame::GEOAttributesEditor::onCmdSetGEOAttribute(FXObject* obj, FXSe
             // Change GEO Attribute depending of type (Position or shape)
             if (tagProperty.hasGEOPosition()) {
                 if (myInspectorFrameParent->myAttributesEditor->getEditedACs().front()->isValid(SUMO_ATTR_GEOPOSITION, myGEOAttributeTextField->getText().text())) {
-                    myInspectorFrameParent->myAttributesEditor->getEditedACs().front()->setAttribute(SUMO_ATTR_GEOPOSITION, myGEOAttributeTextField->getText().text(), myInspectorFrameParent->getViewNet()->getUndoList());
+                    myInspectorFrameParent->myAttributesEditor->getEditedACs().front()->setAttribute(SUMO_ATTR_GEOPOSITION, myGEOAttributeTextField->getText().text(), myInspectorFrameParent->myViewNet->getUndoList());
                     myGEOAttributeTextField->setTextColor(FXRGB(0, 0, 0));
                 } else {
                     myGEOAttributeTextField->setTextColor(FXRGB(255, 0, 0));
@@ -1021,7 +1021,7 @@ GNEInspectorFrame::GEOAttributesEditor::onCmdSetGEOAttribute(FXObject* obj, FXSe
                 }
             } else if (tagProperty.hasGEOShape()) {
                 if (myInspectorFrameParent->myAttributesEditor->getEditedACs().front()->isValid(SUMO_ATTR_GEOSHAPE, myGEOAttributeTextField->getText().text())) {
-                    myInspectorFrameParent->myAttributesEditor->getEditedACs().front()->setAttribute(SUMO_ATTR_GEOSHAPE, myGEOAttributeTextField->getText().text(), myInspectorFrameParent->getViewNet()->getUndoList());
+                    myInspectorFrameParent->myAttributesEditor->getEditedACs().front()->setAttribute(SUMO_ATTR_GEOSHAPE, myGEOAttributeTextField->getText().text(), myInspectorFrameParent->myViewNet->getUndoList());
                     myGEOAttributeTextField->setTextColor(FXRGB(0, 0, 0));
                 } else {
                     myGEOAttributeTextField->setTextColor(FXRGB(255, 0, 0));
@@ -1034,10 +1034,10 @@ GNEInspectorFrame::GEOAttributesEditor::onCmdSetGEOAttribute(FXObject* obj, FXSe
             // update GEO Attribute of entire selection
             for (const auto& i : myInspectorFrameParent->myAttributesEditor->getEditedACs()) {
                 if (myUseGEOCheckButton->getCheck() == 1) {
-                    i->setAttribute(SUMO_ATTR_GEO, "true", myInspectorFrameParent->getViewNet()->getUndoList());
+                    i->setAttribute(SUMO_ATTR_GEO, "true", myInspectorFrameParent->myViewNet->getUndoList());
                     myUseGEOCheckButton->setText("true");
                 } else {
-                    i->setAttribute(SUMO_ATTR_GEO, "false", myInspectorFrameParent->getViewNet()->getUndoList());
+                    i->setAttribute(SUMO_ATTR_GEO, "false", myInspectorFrameParent->myViewNet->getUndoList());
                     myUseGEOCheckButton->setText("false");
                 }
             }
@@ -1077,21 +1077,21 @@ GNEInspectorFrame::TemplateEditor::TemplateEditor(GNEInspectorFrame* inspectorFr
     FXGroupBox(inspectorFrameParent->myContentFrame, "Templates", GUIDesignGroupBoxFrame),
     myInspectorFrameParent(inspectorFrameParent),
     myEdgeTemplate(nullptr) {
-
-    // Create copy template button
-    myCopyTemplateButton = new FXButton(this, "", nullptr, this, MID_HOTKEY_SHIFT_F2_TEMPLATE_COPY, GUIDesignButton);
-    myCopyTemplateButton->hide();
-
     // Create set template button
     mySetTemplateButton = new FXButton(this, "Set as Template\t\t", nullptr, this, MID_HOTKEY_SHIFT_F1_TEMPLATE_SET, GUIDesignButton);
     mySetTemplateButton->hide();
+    // Create copy template button
+    myCopyTemplateButton = new FXButton(this, "", nullptr, this, MID_HOTKEY_SHIFT_F2_TEMPLATE_COPY, GUIDesignButton);
+    myCopyTemplateButton->hide();
 }
 
 
 GNEInspectorFrame::TemplateEditor::~TemplateEditor() {
+    // before destroy template editor, we need to check if there is an active edge template
     if (myEdgeTemplate) {
-        // delete template
+        // decrease reference
         myEdgeTemplate->decRef("GNEInspectorFrame::~GNEInspectorFrame");
+        // delete edge template if is unreferenced
         if (myEdgeTemplate->unreferenced()) {
             delete myEdgeTemplate;
         }
@@ -1102,8 +1102,8 @@ GNEInspectorFrame::TemplateEditor::~TemplateEditor() {
 void
 GNEInspectorFrame::TemplateEditor::showTemplateEditor() {
     // show template editor only if we're editing an edge in Network mode
-    if ((myInspectorFrameParent->getViewNet()->getEditModes().currentSupermode == GNE_SUPERMODE_NETWORK) &&
-            (myInspectorFrameParent->myAttributesEditor->getEditedACs().front()->getTagProperty().getTag() == SUMO_TAG_EDGE)) {
+    if ((myInspectorFrameParent->myViewNet->getEditModes().currentSupermode == GNE_SUPERMODE_NETWORK) &&
+        (myInspectorFrameParent->myAttributesEditor->getEditedACs().front()->getTagProperty().getTag() == SUMO_TAG_EDGE)) {
         show();
         // show "Copy Template" (caption supplied via onUpdate)
         myCopyTemplateButton->show();
@@ -1132,36 +1132,59 @@ GNEInspectorFrame::TemplateEditor::getEdgeTemplate() const {
 }
 
 
-void
-GNEInspectorFrame::TemplateEditor::setEdgeTemplate(GNEEdge* tpl) {
-    if (myEdgeTemplate) {
-        myEdgeTemplate->decRef("GNEInspectorFrame::setEdgeTemplate");
-        if (myEdgeTemplate->unreferenced()) {
-            delete myEdgeTemplate;
-        }
+void 
+GNEInspectorFrame::TemplateEditor::setTemplate() {
+    // check if template editor AND mySetTemplateButton is enabled
+    if (shown() && mySetTemplateButton->isEnabled()) {
+        onCmdSetTemplate(nullptr, 0, nullptr);
     }
-    myEdgeTemplate = tpl;
-    myEdgeTemplate->incRef("GNEInspectorFrame::setEdgeTemplate");
+}
+
+
+void
+GNEInspectorFrame::TemplateEditor::copyTemplate() {
+    // check if template editor AND myCopyTemplateButton is enabled
+    if (shown() && myCopyTemplateButton->isEnabled()) {
+        onCmdCopyTemplate(nullptr, 0, nullptr);
+    }
+}
+
+
+void
+GNEInspectorFrame::TemplateEditor::clearTemplate() {
+    /*
+    if (shown()) {
+        onCmdCopyTemplate(nullptr, 0, nullptr);
+    }
+    */
 }
 
 
 long
 GNEInspectorFrame::TemplateEditor::onCmdCopyTemplate(FXObject*, FXSelector, void*) {
     for (const auto& it : myInspectorFrameParent->myAttributesEditor->getEditedACs()) {
-        GNEEdge* edge = dynamic_cast<GNEEdge*>(it);
-        assert(edge);
-        edge->copyTemplate(myEdgeTemplate, myInspectorFrameParent->getViewNet()->getUndoList());
-        myInspectorFrameParent->inspectMultisection(myInspectorFrameParent->myAttributesEditor->getEditedACs());
+        // retrieve edge ID (and throw exception if edge doesn't exist)
+        GNEEdge* edge = myInspectorFrameParent->myViewNet->getNet()->retrieveEdge(it->getID());
+        // copy template
+        edge->copyTemplate(myEdgeTemplate, myInspectorFrameParent->myViewNet->getUndoList());
+        // refresh inspector parent
+        myInspectorFrameParent->myAttributesEditor->refreshAttributeEditor(true, true);
     }
+    // update view (to see visual changes)
+    myInspectorFrameParent->myViewNet->update();
     return 1;
 }
 
 
 long
 GNEInspectorFrame::TemplateEditor::onCmdSetTemplate(FXObject*, FXSelector, void*) {
-    assert(myInspectorFrameParent->myAttributesEditor->getEditedACs().size() == 1);
-    GNEEdge* edge = dynamic_cast<GNEEdge*>(myInspectorFrameParent->myAttributesEditor->getEditedACs().front());
-    assert(edge);
+    // first check that there is exactly an inspected edge
+    if (myInspectorFrameParent->myAttributesEditor->getEditedACs().size() != 1) {
+        throw ProcessError("Only one edge must be inspected");
+    }
+    // retrieve edge ID (and throw exception if edge doesn't exist)
+    GNEEdge* edge = myInspectorFrameParent->myViewNet->getNet()->retrieveEdge(myInspectorFrameParent->myAttributesEditor->getEditedACs().front()->getID());
+    // set template
     setEdgeTemplate(edge);
     return 1;
 }
@@ -1184,6 +1207,30 @@ GNEInspectorFrame::TemplateEditor::onUpdCopyTemplate(FXObject* sender, FXSelecto
     }
     sender->handle(this, FXSEL(SEL_COMMAND, FXLabel::ID_SETSTRINGVALUE), (void*)&caption);
     return 1;
+}
+
+
+void
+GNEInspectorFrame::TemplateEditor::setEdgeTemplate(GNEEdge* tpl) {
+    // before change edge template, we need to check if there is another active edge template
+    if (myEdgeTemplate) {
+        // decrease reference
+        myEdgeTemplate->decRef("GNEInspectorFrame::setEdgeTemplate");
+        // delete edge template if is unreferenced
+        if (myEdgeTemplate->unreferenced()) {
+            delete myEdgeTemplate;
+        }
+    }
+    // check if we're setting a new edge template or removing it
+    if (tpl) {
+        // set new edge template
+        myEdgeTemplate = tpl;
+        // increase reference
+        myEdgeTemplate->incRef("GNEInspectorFrame::setEdgeTemplate");
+    } else {
+        // clear edge template
+        myEdgeTemplate = nullptr;
+    }
 }
 
 /****************************************************************************/

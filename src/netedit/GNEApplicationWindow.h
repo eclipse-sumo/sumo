@@ -337,6 +337,15 @@ public:
     // @brief called when user press Ctrl+Y
     long onCmdPaste(FXObject*, FXSelector, void*);
 
+    // @brief called when user press Ctrl+F1
+    long onCmdSetTemplate(FXObject*, FXSelector, void*);
+
+    // @brief called when user press Ctrl+F2
+    long onCmdCopyTemplate(FXObject*, FXSelector, void*);
+
+    // @brief called when user press Ctrl+F3
+    long onCmdClearTemplate(FXObject*, FXSelector, void*);
+
     /// @}
 
     /// @name inherited from GUIMainWindow

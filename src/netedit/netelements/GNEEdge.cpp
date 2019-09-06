@@ -806,9 +806,11 @@ GNEEdge::getGNECrossings() {
 
 void
 GNEEdge::copyTemplate(GNEEdge* tpl, GNEUndoList* undoList) {
+    // begin undo list
     undoList->p_begin("copy template");
-    setAttribute(SUMO_ATTR_NUMLANES,   tpl->getAttribute(SUMO_ATTR_NUMLANES),  undoList);
-    setAttribute(SUMO_ATTR_TYPE,       tpl->getAttribute(SUMO_ATTR_TYPE),     undoList);
+    // copy edge-specific attributes
+    setAttribute(SUMO_ATTR_NUMLANES,   tpl->getAttribute(SUMO_ATTR_NUMLANES), undoList);
+    setAttribute(SUMO_ATTR_TYPE,       tpl->getAttribute(SUMO_ATTR_TYPE), undoList);
     setAttribute(SUMO_ATTR_PRIORITY,   tpl->getAttribute(SUMO_ATTR_PRIORITY), undoList);
     setAttribute(SUMO_ATTR_SPREADTYPE, tpl->getAttribute(SUMO_ATTR_SPREADTYPE), undoList);
     // copy raw values for lane-specific attributes
@@ -822,6 +824,7 @@ GNEEdge::copyTemplate(GNEEdge* tpl, GNEUndoList* undoList) {
         myLanes[i]->setAttribute(SUMO_ATTR_WIDTH, tpl->myLanes[i]->getAttribute(SUMO_ATTR_WIDTH), undoList);
         myLanes[i]->setAttribute(SUMO_ATTR_ENDOFFSET, tpl->myLanes[i]->getAttribute(SUMO_ATTR_ENDOFFSET), undoList);
     }
+    // end undo list
     undoList->p_end();
 }
 

@@ -26,6 +26,7 @@
 #include <netedit/dialogs/GNEAbout.h>
 #include <netedit/frames/GNETAZFrame.h>
 #include <netedit/frames/GNETLSEditorFrame.h>
+#include <netedit/frames/GNEInspectorFrame.h>
 #include <netimport/NIFrame.h>
 #include <netwrite/NWFrame.h>
 #include <utils/common/SysUtils.h>
@@ -224,6 +225,11 @@ FXDEFMAP(GNEApplicationWindow) GNEApplicationWindowMap[] = {
     // threads events
     FXMAPFUNC(FXEX::SEL_THREAD_EVENT,   ID_LOADTHREAD_EVENT,    GNEApplicationWindow::onLoadThreadEvent),
     FXMAPFUNC(FXEX::SEL_THREAD,         ID_LOADTHREAD_EVENT,    GNEApplicationWindow::onLoadThreadEvent),
+
+    // Edge template functions
+    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_SHIFT_F1_TEMPLATE_SET,       GNEApplicationWindow::onCmdSetTemplate),
+    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_SHIFT_F2_TEMPLATE_COPY,      GNEApplicationWindow::onCmdCopyTemplate),
+    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_SHIFT_F3_TEMPLATE_CLEAR,     GNEApplicationWindow::onCmdClearTemplate),
 
     // Other
     FXMAPFUNC(SEL_CLIPBOARD_REQUEST,    0,                                  GNEApplicationWindow::onClipboardRequest),
@@ -2381,6 +2387,42 @@ long
 GNEApplicationWindow::onCmdPaste(FXObject*, FXSelector, void*) {
     WRITE_DEBUG("Key Ctrl+V (Paste) pressed");
     // Prepared for #6042
+    return 1;
+}
+
+
+long 
+GNEApplicationWindow::onCmdSetTemplate(FXObject*, FXSelector, void*) {
+    WRITE_DEBUG("Key Ctrl+F1 (Set Template) pressed");
+    // first check if myViewNet exist
+    if (myViewNet) {
+        // call set template in inspector frame
+        myViewNet->getViewParent()->getInspectorFrame()->getTemplateEditor()->setTemplate();
+    }
+    return 1;
+}
+
+
+long 
+GNEApplicationWindow::onCmdCopyTemplate(FXObject*, FXSelector, void*) {
+    WRITE_DEBUG("Key Ctrl+F2 (Copy Template) pressed");
+    // first check if myViewNet exist
+    if (myViewNet) {
+        // call copy template in inspector frame
+        myViewNet->getViewParent()->getInspectorFrame()->getTemplateEditor()->copyTemplate();
+    }
+    return 1;
+}
+
+
+long 
+GNEApplicationWindow::onCmdClearTemplate(FXObject*, FXSelector, void*) {
+    WRITE_DEBUG("Key Ctrl+F3 (Clear Template) pressed");
+    // first check if myViewNet exist
+    if (myViewNet) {
+        // call clear template in inspector frame
+        myViewNet->getViewParent()->getInspectorFrame()->getTemplateEditor()->clearTemplate();
+    }
     return 1;
 }
 

@@ -293,8 +293,14 @@ public:
         /// @brief get the template edge (to copy attributes from)
         GNEEdge* getEdgeTemplate() const;
 
-        /// @brief seh the template edge (we assume shared responsibility via reference counting)
-        void setEdgeTemplate(GNEEdge* tpl);
+        /// @brief set template (used by shortcut)
+        void setTemplate();
+
+        /// @brief copy template (used by shortcut)
+        void copyTemplate();
+
+        /// @brief clear template (used by shortcut)
+        void clearTemplate();
 
         /// @name FOX-callbacks
         /// @{
@@ -313,17 +319,20 @@ public:
         /// @brief FOX needs this
         TemplateEditor() {}
 
+        /// @brief seh the template edge (we assume shared responsibility via reference counting)
+        void setEdgeTemplate(GNEEdge* tpl);
+
     private:
         /// @brief current GNEInspectorFrame parent
         GNEInspectorFrame* myInspectorFrameParent;
 
-        /// @brief copy template button
-        FXButton* myCopyTemplateButton;
-
         /// @brief set template button
         FXButton* mySetTemplateButton;
 
-        /// @brief the edge template
+        /// @brief copy template button
+        FXButton* myCopyTemplateButton;
+
+        /// @brief pointer to edge template
         GNEEdge* myEdgeTemplate;
     };
 
