@@ -304,15 +304,15 @@ public:
 
         /// @name FOX-callbacks
         /// @{
+        
+        /// @brief set current edge as new template
+        long onCmdSetTemplate(FXObject*, FXSelector, void*);
 
         /// @brief copy edge attributes from edge template
         long onCmdCopyTemplate(FXObject*, FXSelector, void*);
 
-        /// @brief set current edge as new template
-        long onCmdSetTemplate(FXObject*, FXSelector, void*);
-
-        /// @brief update the copy button with the name of the template
-        long onUpdCopyTemplate(FXObject*, FXSelector, void*);
+        /// @brief clear current edge template
+        long onCmdClearTemplate(FXObject*, FXSelector, void*);
         /// @}
 
     protected:
@@ -321,6 +321,9 @@ public:
 
         /// @brief seh the template edge (we assume shared responsibility via reference counting)
         void setEdgeTemplate(GNEEdge* tpl);
+
+        /// @brief update buttons
+        void updateButtons();
 
     private:
         /// @brief current GNEInspectorFrame parent
@@ -331,6 +334,9 @@ public:
 
         /// @brief copy template button
         FXButton* myCopyTemplateButton;
+
+        /// @brief clear template button
+        FXButton* myClearTemplateButton;
 
         /// @brief pointer to edge template
         GNEEdge* myEdgeTemplate;
