@@ -50,7 +50,7 @@ The documentation in this Documentation is continuously updated and always refer
 - [Developer Documentation <i class="fa fa-book"></i>](Developer/Main.md)
 - [GitHub project <i class="fa fa-github"></i>](https://github.com/eclipse/sumo)
 - [Issue Tracking <i class="fa fa-bug"></i>](https://github.com/eclipse/sumo/issues)
-- [Status page](https://sumo.dlr.de/daily/) - log files and test results of nightly builds
+- [Status page](https://sumo.dlr.de/daily/)
 
 ## Extensions
 **Open Source Software**
