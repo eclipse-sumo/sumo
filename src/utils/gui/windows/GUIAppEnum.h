@@ -171,15 +171,15 @@ enum {
     /// @brief compute Network in network mode and Demand elements in demand mode
     MID_HOTKEY_F5_COMPUTE_NETWORK_DEMAND,
     /// @brief clean junctions without edges in network mode and unused routes in demand mode
-    MID_GNE_HOTKEY_F6_CLEAN_SOLITARYJUNCTIONS_UNUSEDROUTES,
+    MID_HOTKEY_F6_CLEAN_SOLITARYJUNCTIONS_UNUSEDROUTES,
     /// @brief join selected junctions in network mode and normalice demand element ids in demand mode
-    MID_GNE_HOTKEY_F7_JOIN_SELECTEDJUNCTIONS_ROUTES,
+    MID_HOTKEY_F7_JOIN_SELECTEDJUNCTIONS_ROUTES,
     /// @brief clean invalid crossings in network mode and demand elements in demand mode
-    MID_GNE_HOTKEY_F8_CLEANINVALID_CROSSINGS_DEMANDELEMENTS,
+    MID_HOTKEY_F8_CLEANINVALID_CROSSINGS_DEMANDELEMENTS,
     /// @brief open edit scheme menu
     MID_HOTKEY_F9_EDIT_VIEWSCHEME,
     /// @brief open options menu
-    MID_GNE_HOTKEY_F10_OPTIONSMENU,
+    MID_HOTKEY_F10_OPTIONSMENU,
     /// @brief hot key <F12> focus upper element of current frame
     MID_HOTKEY_F12_FOCUSUPPERELEMENT,
     /// @}
@@ -202,13 +202,13 @@ enum {
     /// @{
 
     /// @brief hot key <ESC> abort current edit operation
-    MID_GNE_HOTKEY_ESC,
+    MID_HOTKEY_ESC,
     /// @brief hot key <DEL> delete selections or elements
-    MID_GNE_HOTKEY_DEL,
+    MID_HOTKEY_DEL,
     /// @brief hot key <ENTER> accept current operation
-    MID_GNE_HOTKEY_ENTER,
+    MID_HOTKEY_ENTER,
     /// @brief hot key <Backspace> remove last sub-operation
-    MID_GNE_HOTKEY_BACKSPACE,
+    MID_HOTKEY_BACKSPACE,
 
     /// @}
 
