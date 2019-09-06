@@ -28,9 +28,9 @@ Below, you will find the descriptions of tools that should work with the
 current outputs [SUMO](SUMO.md)/[SUMO-GUI](SUMO-GUI.md)
 generate. To run them, you'll need:
 
-  - to install Python
-  - to install [matplotlib](http://matplotlib.org/)
-  - to set
+- to install Python
+- to install [matplotlib](http://matplotlib.org/)
+- to set
 
 All scripts are executed from the command line and you have to give the
 command line options as listed in the descriptions below. Please note
@@ -48,11 +48,11 @@ Example use:
 
 The option  supports different plot styles:
 
-  - td: time vs distance
-  - ts: time vs speed
-  - ta: time vs acceleration
-  - ds: distance vs speed
-  - da: distance vs acceleration
+- td: time vs distance
+- ts: time vs speed
+- ta: time vs acceleration
+- ds: distance vs speed
+- da: distance vs acceleration
 
 When option  is set, a interactive plot is opened that allows
 identifying vehicles by clicking on the respective line (vehicle ids is
