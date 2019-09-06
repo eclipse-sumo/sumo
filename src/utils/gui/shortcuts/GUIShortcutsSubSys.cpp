@@ -270,7 +270,7 @@ GUIShortcutsSubSys::buildNETEDITAccelerators(GNEApplicationWindow* GNEApp) {
     GNEApp->getAccelTable()->addAccel(parseKey(KEY_F7),  GNEApp, FXSEL(SEL_COMMAND, MID_GNE_HOTKEY_F7_JOIN_SELECTEDJUNCTIONS_ROUTES));
     GNEApp->getAccelTable()->addAccel(parseKey(KEY_F8),  GNEApp, FXSEL(SEL_COMMAND, MID_GNE_HOTKEY_F8_CLEANINVALID_CROSSINGS_DEMANDELEMENTS));
     GNEApp->getAccelTable()->addAccel(parseKey(KEY_F9),  GNEApp, FXSEL(SEL_COMMAND, MID_HOTKEY_F9_EDIT_VIEWSCHEME));
-    GNEApp->getAccelTable()->addAccel(parseKey(KEY_F10), GNEApp, FXSEL(SEL_COMMAND, MID_GNE_HOTKEY_F10_OPTIONSMENU,));
+    GNEApp->getAccelTable()->addAccel(parseKey(KEY_F10), GNEApp, FXSEL(SEL_COMMAND, MID_GNE_HOTKEY_F10_OPTIONSMENU));
     GNEApp->getAccelTable()->addAccel(parseKey(KEY_F12), GNEApp, FXSEL(SEL_COMMAND, MID_HOTKEY_F12_FOCUSUPPERELEMENT));
 
     // Alt + Function Hotkeys
