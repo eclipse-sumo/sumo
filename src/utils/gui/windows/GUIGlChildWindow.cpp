@@ -37,12 +37,12 @@
 // FOX callback mapping
 // ===========================================================================
 FXDEFMAP(GUIGlChildWindow) GUIGlChildWindowMap[] = {
-    FXMAPFUNC(SEL_COMMAND,  MID_RECENTERVIEW,               GUIGlChildWindow::onCmdRecenterView),
-    FXMAPFUNC(SEL_COMMAND,  MID_EDITVIEWPORT,               GUIGlChildWindow::onCmdEditViewport),
-    FXMAPFUNC(SEL_COMMAND,  MID_SHOWTOOLTIPS,               GUIGlChildWindow::onCmdShowToolTips),
-    FXMAPFUNC(SEL_COMMAND,  MID_ZOOM_STYLE,                 GUIGlChildWindow::onCmdZoomStyle),
-    FXMAPFUNC(SEL_COMMAND,  MID_COLOURSCHEMECHANGE,         GUIGlChildWindow::onCmdChangeColorScheme),
-    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_F9_EDIT_VIEWSCHEME,  GUIGlChildWindow::onCmdEditViewScheme),
+    FXMAPFUNC(SEL_COMMAND,  MID_RECENTERVIEW,                   GUIGlChildWindow::onCmdRecenterView),
+    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_CTRL_I_EDITVIEWPORT,     GUIGlChildWindow::onCmdEditViewport),
+    FXMAPFUNC(SEL_COMMAND,  MID_SHOWTOOLTIPS,                   GUIGlChildWindow::onCmdShowToolTips),
+    FXMAPFUNC(SEL_COMMAND,  MID_ZOOM_STYLE,                     GUIGlChildWindow::onCmdZoomStyle),
+    FXMAPFUNC(SEL_COMMAND,  MID_COLOURSCHEMECHANGE,             GUIGlChildWindow::onCmdChangeColorScheme),
+    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_F9_EDIT_VIEWSCHEME,      GUIGlChildWindow::onCmdEditViewScheme),
 };
 
 FXIMPLEMENT(GUIGlChildWindow, FXMDIChild, GUIGlChildWindowMap, ARRAYNUMBER(GUIGlChildWindowMap))
@@ -118,7 +118,7 @@ GUIGlChildWindow::buildNavigationToolBar() {
     // add viewport button
     new FXButton(myGripNavigationToolbar ? myGripNavigationToolbar : myStaticNavigationToolBar,
                  "\tEdit ViewporttOpens a menu which lets you edit the viewport.",
-                 GUIIconSubSys::getIcon(ICON_EDITVIEWPORT), this, MID_EDITVIEWPORT, GUIDesignButtonToolbar);
+                 GUIIconSubSys::getIcon(ICON_EDITVIEWPORT), this, MID_HOTKEY_CTRL_I_EDITVIEWPORT, GUIDesignButtonToolbar);
     // toggle button for zooming style
     MFXCheckableButton* zoomBut = new MFXCheckableButton(false, myGripNavigationToolbar ? myGripNavigationToolbar : myStaticNavigationToolBar,
             "\tToggles Zooming Style\tToggles whether zooming is based at cursor position or at the center of the view.",

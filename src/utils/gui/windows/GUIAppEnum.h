@@ -84,6 +84,8 @@ enum {
     MID_HOTKEY_CTRL_D_SINGLESIMULATIONSTEP_OPENDEMAND,
     /// @brief Toogle Gaming mode in SUMO and grid in NETEDIT
     MID_HOTKEY_CTRL_G_GAMINGMODE_TOOGLEGRID,
+    /// @brief Open viewport editor
+    MID_HOTKEY_CTRL_I_EDITVIEWPORT,
     /// @brief Fullscreen mode - menu entry
     MID_HOTKEY_CTRL_F_FULSCREENMODE,
     /// @brief save joined junctions
@@ -337,8 +339,6 @@ enum {
     MID_LOCATEPOI,
     /// @brief Locate polygons - button
     MID_LOCATEPOLY,
-    /// @brief Open viewport editor - button
-    MID_EDITVIEWPORT,
     /// @brief Show tool tips - button
     MID_SHOWTOOLTIPS,
     /// @brief Make snapshot - button

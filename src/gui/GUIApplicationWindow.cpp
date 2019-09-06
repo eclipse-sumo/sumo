@@ -111,7 +111,7 @@ FXDEFMAP(GUIApplicationWindow) GUIApplicationWindowMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_EDITCHOSEN,                     GUIApplicationWindow::onCmdEditChosen),
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_CTRL_B_EDITBREAKPOINT,   GUIApplicationWindow::onCmdEditBreakpoints),
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_F9_EDIT_VIEWSCHEME,      GUIApplicationWindow::onCmdEditViewScheme),
-    FXMAPFUNC(SEL_COMMAND,  MID_EDITVIEWPORT,                   GUIApplicationWindow::onCmdEditViewport),
+    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_CTRL_I_EDITVIEWPORT,     GUIApplicationWindow::onCmdEditViewport),
     FXMAPFUNC(SEL_COMMAND,  MID_NETEDIT,                        GUIApplicationWindow::onCmdNetedit),
 
     FXMAPFUNC(SEL_COMMAND,  MID_APPSETTINGS,                            GUIApplicationWindow::onCmdAppSettings),
@@ -123,7 +123,7 @@ FXDEFMAP(GUIApplicationWindow) GUIApplicationWindowMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_F2_ABOUT,                        GUIApplicationWindow::onCmdAbout),
     FXMAPFUNC(SEL_COMMAND,  MID_NEW_MICROVIEW,                          GUIApplicationWindow::onCmdNewView),
 #ifdef HAVE_OSG
-    FXMAPFUNC(SEL_COMMAND,  MID_NEW_OSGVIEW,        GUIApplicationWindow::onCmdNewOSG),
+    FXMAPFUNC(SEL_COMMAND,  MID_NEW_OSGVIEW,    GUIApplicationWindow::onCmdNewOSG),
 #endif
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_CTRL_A_STARTSIMULATION_OPENADDITIONALS,  GUIApplicationWindow::onCmdStart),
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_CTRL_S_STOPSIMULATION_SAVENETWORK,       GUIApplicationWindow::onCmdStop),
@@ -138,16 +138,16 @@ FXDEFMAP(GUIApplicationWindow) GUIApplicationWindowMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_SHOWVEHSTATS,       GUIApplicationWindow::onCmdShowStats),
     FXMAPFUNC(SEL_COMMAND,  MID_SHOWPERSONSTATS,    GUIApplicationWindow::onCmdShowStats),
 
-    FXMAPFUNC(SEL_UPDATE,   MID_OPEN_CONFIG,                GUIApplicationWindow::onUpdOpen),
-    FXMAPFUNC(SEL_UPDATE,   MID_OPEN_NETWORK,               GUIApplicationWindow::onUpdOpen),
-    FXMAPFUNC(SEL_UPDATE,   MID_OPEN_NETWORK,               GUIApplicationWindow::onUpdOpen),
-    FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_CTRL_P,              GUIApplicationWindow::onUpdNeedsSimulation),
-    FXMAPFUNC(SEL_UPDATE,   MID_OPEN_EDGEDATA,              GUIApplicationWindow::onUpdNeedsSimulation),
-    FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_CTRL_R_RELOAD,       GUIApplicationWindow::onUpdReload),
-    FXMAPFUNC(SEL_UPDATE,   MID_RECENTFILE,                 GUIApplicationWindow::onUpdOpenRecent),
-    FXMAPFUNC(SEL_UPDATE,   MID_NEW_MICROVIEW,              GUIApplicationWindow::onUpdAddView),
+    FXMAPFUNC(SEL_UPDATE,   MID_OPEN_CONFIG,            GUIApplicationWindow::onUpdOpen),
+    FXMAPFUNC(SEL_UPDATE,   MID_OPEN_NETWORK,           GUIApplicationWindow::onUpdOpen),
+    FXMAPFUNC(SEL_UPDATE,   MID_OPEN_NETWORK,           GUIApplicationWindow::onUpdOpen),
+    FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_CTRL_P,          GUIApplicationWindow::onUpdNeedsSimulation),
+    FXMAPFUNC(SEL_UPDATE,   MID_OPEN_EDGEDATA,          GUIApplicationWindow::onUpdNeedsSimulation),
+    FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_CTRL_R_RELOAD,   GUIApplicationWindow::onUpdReload),
+    FXMAPFUNC(SEL_UPDATE,   MID_RECENTFILE,             GUIApplicationWindow::onUpdOpenRecent),
+    FXMAPFUNC(SEL_UPDATE,   MID_NEW_MICROVIEW,          GUIApplicationWindow::onUpdAddView),
 #ifdef HAVE_OSG
-    FXMAPFUNC(SEL_UPDATE,   MID_NEW_OSGVIEW,        GUIApplicationWindow::onUpdAddView),
+    FXMAPFUNC(SEL_UPDATE,   MID_NEW_OSGVIEW,    GUIApplicationWindow::onUpdAddView),
 #endif
     FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_CTRL_A_STARTSIMULATION_OPENADDITIONALS,  GUIApplicationWindow::onUpdStart),
     FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_CTRL_S_STOPSIMULATION_SAVENETWORK,       GUIApplicationWindow::onUpdStop),
@@ -156,7 +156,7 @@ FXDEFMAP(GUIApplicationWindow) GUIApplicationWindowMap[] = {
     FXMAPFUNC(SEL_UPDATE,   MID_EDITCHOSEN,                                     GUIApplicationWindow::onUpdNeedsSimulation),
     FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_CTRL_B_EDITBREAKPOINT,                   GUIApplicationWindow::onUpdNeedsSimulation),
     FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_F9_EDIT_VIEWSCHEME,                      GUIApplicationWindow::onUpdNeedsSimulation),
-    FXMAPFUNC(SEL_UPDATE,   MID_EDITVIEWPORT,                                   GUIApplicationWindow::onUpdNeedsSimulation),
+    FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_CTRL_I_EDITVIEWPORT,                     GUIApplicationWindow::onUpdNeedsSimulation),
     FXMAPFUNC(SEL_UPDATE,   MID_NETEDIT,                                        GUIApplicationWindow::onUpdNeedsSimulation),
     FXMAPFUNC(SEL_UPDATE,   MID_DEMAND_SCALE,                                   GUIApplicationWindow::onUpdNeedsSimulation),
     FXMAPFUNC(SEL_UPDATE,   MID_TRACI_STATUS,                                   GUIApplicationWindow::onUpdTraCIStatus),
@@ -184,10 +184,10 @@ FXDEFMAP(GUIApplicationWindow) GUIApplicationWindowMap[] = {
 
     FXMAPFUNC(SEL_CLIPBOARD_REQUEST, 0, GUIApplicationWindow::onClipboardRequest),
 
-    FXMAPFUNC(FXEX::SEL_THREAD_EVENT, ID_LOADTHREAD_EVENT, GUIApplicationWindow::onLoadThreadEvent),
-    FXMAPFUNC(FXEX::SEL_THREAD_EVENT, ID_RUNTHREAD_EVENT,  GUIApplicationWindow::onRunThreadEvent),
-    FXMAPFUNC(FXEX::SEL_THREAD, ID_LOADTHREAD_EVENT,       GUIApplicationWindow::onLoadThreadEvent),
-    FXMAPFUNC(FXEX::SEL_THREAD, ID_RUNTHREAD_EVENT,        GUIApplicationWindow::onRunThreadEvent),
+    FXMAPFUNC(FXEX::SEL_THREAD_EVENT, ID_LOADTHREAD_EVENT,  GUIApplicationWindow::onLoadThreadEvent),
+    FXMAPFUNC(FXEX::SEL_THREAD_EVENT, ID_RUNTHREAD_EVENT,   GUIApplicationWindow::onRunThreadEvent),
+    FXMAPFUNC(FXEX::SEL_THREAD,       ID_LOADTHREAD_EVENT,  GUIApplicationWindow::onLoadThreadEvent),
+    FXMAPFUNC(FXEX::SEL_THREAD,       ID_RUNTHREAD_EVENT,   GUIApplicationWindow::onRunThreadEvent),
 };
 
 // Object implementation
@@ -453,7 +453,7 @@ GUIApplicationWindow::fillMenuBar() {
                       nullptr, this, MID_HOTKEY_F9_EDIT_VIEWSCHEME);
     new FXMenuCommand(myEditMenu,
                       "Edit Viewport\tCtrl+I\tOpens a dialog for editing viewing are, zoom and rotation.",
-                      nullptr, this, MID_EDITVIEWPORT);
+                      nullptr, this, MID_HOTKEY_CTRL_I_EDITVIEWPORT);
     new FXMenuSeparator(myEditMenu);
     new FXMenuCommand(myEditMenu,
                       "Open in Netedit\tCtrl+T\tOpens the netedit application with the current network.",
