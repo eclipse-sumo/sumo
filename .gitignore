@@ -17,17 +17,20 @@
 /compile
 /latex
 /mirror
-# eclipse project files
+# IDE project files
 /.settings
 /.cproject
 /.project
 /.pydevproject
+/.vs
+/CMakeSettings.json
 # build dir 
 /cmake-build*
 /cmake_build*
 /build/cmake-build*
 /build/cmake_build*
 /build/cmake-codeblocks*
+/out
 # bin dir
 /bin/TraCITestClient*
 /bin/activitygen*
@@ -54,9 +57,7 @@
 /bin/*.so
 /bin/*.pyd
 /bin/osgPlugins*
-/bin/TraaS.jar
-/bin/RelWithDebInfo
-/bin/libsumo.py
+/bin/libsumoc*
 # docs dir, make artifacts
 /docs/doxygen
 /docs/examples
@@ -103,14 +104,10 @@
 /tools/contributed/traas/javadoc
 /tools/contributed/traas/release
 /tools/contributed/traas/target
-/tools/contributed/traas/examples/simulation/loops.out.xml
-/tools/libsumo/_libsumo.so
 /tools/libsumo/java/
+/tools/libsumo/_libsumo.*
 /tools/libsumo/libsumo.py
-/tools/libsumo/_libsumo.pyd
 /tools/libsumo/libsumoPYTHON_wrap.cxx
-/tools/libsumo/setup.py
-/tools/libsumo/libsumoc.so
 # extracted tests
 /tests/_*
 # global patterns
