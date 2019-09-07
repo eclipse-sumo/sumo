@@ -5,7 +5,7 @@ permalink: /Simulation/Output/StopOutput/
 
 ## Instantiating within the Simulation
 
-Stop output is activated by setting the simulation option --stop-output {{DT_FILE}} on the
+Stop output is activated by setting the simulation option **--stop-output** {{DT_FILE}} on the
 command line or in a *.sumocfg* file. This output contains the
 information about each vehicle's scheduled
 [`<stop>`](../../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#stops):
@@ -18,10 +18,10 @@ every time a stop ends.
 The format is the following:
 
 ```
-    <stops>
-        <stopinfo ''ATTRIBUTES''...\>
-        ...
-    </stops>
+<stops>
+    <stopinfo ''ATTRIBUTES''...\>
+    ...
+</stops>
 ```
 
 The following output attributes are generated:
@@ -41,7 +41,7 @@ The following output attributes are generated:
 | initialContainers  | int           | The number of containers in the vehicle when arriving at the stop    |
 | loadedContainers   | int           | The number of containers that entered the vehicle at this stop       |
 | unloadedContainers | int           | The number of containers that left the vehicle at this stop          |
-| busStop            | id (optional) | The id of the busStop if this stop took place at a named             |
-| containerStop      | id (optional) | The id of the containerStop if this stop took place at a named       |
-| parkingArea        | id (optional) | The id of the parkingArea if this stop took place at a named         |
-| chargingStation    | id (optional) | The id of the chargingStation if this stop took place at a named     |
+| busStop            | id (optional) | The id of the busStop if this stop took place at a named `<busStop/>`|
+| containerStop      | id (optional) | The id of the containerStop if this stop took place at a named `<containerStop/>` |
+| parkingArea        | id (optional) | The id of the parkingArea if this stop took place at a named  `<parkingArea/>`    |
+| chargingStation    | id (optional) | The id of the chargingStation if this stop took place at a named `<chargingStation/>`  |

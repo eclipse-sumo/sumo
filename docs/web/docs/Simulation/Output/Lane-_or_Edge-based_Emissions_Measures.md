@@ -1,5 +1,5 @@
 ---
-title: Simulation Output Lane- or Edge-based Emissions Measures
+title: Simulation/Output/Lane- or Edge-based Emissions Measures
 permalink: /Simulation/Output/Lane-_or_Edge-based_Emissions_Measures/
 ---
 
@@ -11,8 +11,8 @@ duration and the edge's/lane's length.
 
 Please note, that each vehicle type in SUMO may belong to a certain
 emission class (see [Definition of Vehicles, Vehicle Types, and
-Routes](Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md)
-and [Models/Emissions](Models/Emissions.md)). When using the
+Routes](../../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md)
+and [Models/Emissions](../../Models/Emissions.md)). When using the
 emissions output, you should assure your vehicles reflect a realistic
 population in the means of vehicle emission class distribution.
 
@@ -20,40 +20,34 @@ population in the means of vehicle emission class distribution.
 
 ### Edge-Based Emission Output
 
-An edge-based emissions output is defined way within an  as following:
+An edge-based emissions output is defined way within an {{AdditionalFile}} as following:
 
-<div class="inlxml">
-
-\<edgeData id="<DETECTOR_ID>" type="emissions" freq="<FREQUENCY>"
-file="<OUTPUT_FILE>" \[excludeEmpty="true"\]/\>
-
-</div>
+```
+<edgeData id="<DETECTOR_ID>" type="emissions" freq="<FREQUENCY>" file="<OUTPUT_FILE>" [excludeEmpty="true"]/>
+```
 
 ### Lane-Based Emission Output
 
-A lane-based emissions output is defined way within an  as following:
+A lane-based emissions output is defined way within an {{AdditionalFile}} as following:
 
-<div class="inlxml">
-
-\<laneData id="<DETECTOR_ID>" type="emissions" freq="<FREQUENCY>"
-file="<OUTPUT_FILE>" \[excludeEmpty="true"\]/\>
-
-</div>
+```
+<laneData id="<DETECTOR_ID>" type="emissions" freq="<FREQUENCY>" file="<OUTPUT_FILE>" [excludeEmpty="true"]/>
+```
 
 ### Attributes, for both Edge- and Lane-Based Emission Output
 
-| Attribute Name | Value Type                     | Description                                                                                                                                                                                                                                     |
-| -------------- | ------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **id**         | id (string)                    | The id of the detector                                                                                                                                                                                                                          |
-| **file**       | filename                       | The path to the output file. The path may be relative.                                                                                                                                                                                          |
-| freq           | int (time)                     | The aggregation period the values the detector collects shall be summed up. If not given, the whole time range between begin and end is aggregated                                                                                              |
-| begin          | int (time)                     | The time to start writing (intervals starting before this time are discarded). If not given, the simulation's begin is used.                                                                                                                    |
-| end            | int (time)                     | The time to end writing (intervals starting at or after this time are discarded). If not given the simulation's end is used.                                                                                                                    |
-| withInternal   | bool                           | If set, junction internal edges/lanes will be written as well; *default: false*.                                                                                                                                                                |
-| maxTraveltime  | float (time)                   | The maximum traveltime in seconds to write if only very small movements occur; *default 100000*.                                                                                                                                                |
-| minSamples     | float (time)                   | The minimum total number of seconds vehicles have to be on the edge / lane to consider it non-empty; *default: \>0*.                                                                                                                            |
+| Attribute Name | Value Type                     | Description        |
+| -------------- | ------------------------------ | --------------------------------------- |
+| **id**         | id (string)                    | The id of the detector             |
+| **file**       | filename                       | The path to the output file. The path may be relative.     |
+| freq           | int (time)                     | The aggregation period the values the detector collects shall be summed up. If not given, the whole time range between begin and end is aggregated   |
+| begin          | int (time)                     | The time to start writing (intervals starting before this time are discarded). If not given, the simulation's begin is used.    |
+| end            | int (time)                     | The time to end writing (intervals starting at or after this time are discarded). If not given the simulation's end is used.     |
+| withInternal   | bool                     | If set, junction internal edges/lanes will be written as well; *default: false*.  |
+| maxTraveltime  | float (time)                   | The maximum traveltime in seconds to write if only very small movements occur; *default 100000*.   |
+| minSamples     | float (time)                   | The minimum total number of seconds vehicles have to be on the edge / lane to consider it non-empty; *default: \>0*.    |
 | excludeEmpty   | string (true, false, defaults) | If set to true, edges/lanes which were not use by a vehicle during this period will not be written; *default: false*. If set to "defaults" default values for travel time and emissions depending on edge length and maximum speed get printed. |
-| vTypes         | string                         | space separated list of vehicle type ids to consider, "" means all; *default ""*.                                                                                                                                                               |
+| vTypes         | string                   | space separated list of vehicle type ids to consider, "" means all; *default ""*. |
 
 ## Generated Output
 
@@ -63,12 +57,12 @@ file="<OUTPUT_FILE>" \[excludeEmpty="true"\]/\>
 
 ### Value Descriptions
 
-| Name                | Type                 | Description                                                                                                                                                                       |
-| ------------------- | -------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| begin               | (simulation) seconds | The first time step the values were collected in                                                                                                                                  |
-| end                 | (simulation) seconds | The last time step + DELTA_T in which the reported values were collected                                                                                                         |
-| edge@id             | (edge) id            | The name of the reported edge                                                                                                                                                     |
-| lane@id             | (lane) id            | The name of the reported lane                                                                                                                                                     |
+| Name                | Type                 | Description                     |
+| ------------------- | -------------------- | --------------------------------------------------- |
+| begin               | (simulation) seconds | The first time step the values were collected in   |
+| end                 | (simulation) seconds | The last time step + DELTA_T in which the reported values were collected |
+| edge\@id             | (edge) id            | The name of the reported edge         |
+| lane\@id             | (lane) id            | The name of the reported lane             |
 | sampledSeconds      | s                    | Number seconds vehicles were measured on the edge/lane (may be subseconds if a vehicle enters/leaves the edge/lane). This value is the sum of the measured times of all vehicles. |
 | traveltime          | s                    | Time needed to pass the edge/lane, note that this is just an estimation based on the mean speed, not the exact time the vehicles needed.                                          |
 | CO_abs             | mg                   | The complete amount of CO emitted by the vehicles on this lane/edge during the aggregation period                                                                                 |
@@ -91,45 +85,45 @@ file="<OUTPUT_FILE>" \[excludeEmpty="true"\]/\>
 | PMx_perVeh         | mg                   | Assumed PM<sub>x</sub> emissions a vehicle would produce when passing the edge                                                                                                    |
 | NOx_perVeh         | mg                   | Assumed NO<sub>x</sub> emissions a vehicle would produce when passing the edge                                                                                                    |
 | fuel_perVeh        | ml                   | Assumed fuel consumption a vehicle would need when passing the edge                                                                                                               |
-| electricity_perVeh | Wh                   | Assumed electricity consumption a vehicle would need when passing the edge                                                                                                        |
+| electricity_perVeh | Wh                   | Assumed electricity consumption a vehicle would need when passing the edge     |
 
 ## Notes
 
 Notes:
 
-  - Per default, all edges are written, even those on which no vehicle
-    drove. It can be disabled setting the
-    <span class="inlxml">excludeEmpty</span> attribute to true.
-  - The interval end is the interval begin + aggregation time, meaning
-    that values were collected within these steps excluding the end time
-    itself. If the simulation ends before the last interval is over, the
-    interval will be prunned.
-  - The output file will be generated, does not have to exist earlier
-    and will be overwritten if existing without any warning. The folder
-    the output file shall be generated in must exist.
-  - If you need only information about the network states during certain
-    time periods, you may constraint generation of the dumps by giving
-    attributes "<span class="inlxml">begin="<TIME>\[,<TIME>\]+"</span>"
-    and "<span class="inlxml">end="<TIME>\[,<TIME>\]+"</span>". When at
-    least one combination is given, dumps will be written only if an
-    according begin/end-pair exists for the current time. This means,
-    only those intervals will be saved for which
-    begin\[x\]\<=INTERVAL_END and end\[x\]\>=INTERVAL_BEGIN. All dumps
-    will cover the complete simulation if no values for begin/end are
-    given.
+- Per default, all edges are written, even those on which no vehicle
+  drove. It can be disabled setting the
+  `excludeEmpty` attribute to true.
+- The interval end is the interval begin + aggregation time, meaning
+  that values were collected within these steps excluding the end time
+  itself. If the simulation ends before the last interval is over, the
+  interval will be prunned.
+- The output file will be generated, does not have to exist earlier
+  and will be overwritten if existing without any warning. The folder
+  the output file shall be generated in must exist.
+- If you need only information about the network states during certain
+  time periods, you may constraint generation of the dumps by giving
+  attributes "`begin="<TIME>\[,<TIME>\]+"`"
+  and "`end="<TIME>\[,<TIME>\]+"`". When at
+  least one combination is given, dumps will be written only if an
+  according begin/end-pair exists for the current time. This means,
+  only those intervals will be saved for which
+  begin\[x\]<=INTERVAL_END and end\[x\]\>=INTERVAL_BEGIN. All dumps
+  will cover the complete simulation if no values for begin/end are
+  given.
 
 ## See Also
 
-  - [edge/lane-based network performace measures
-    output](Simulation/Output/Lane-_or_Edge-based_Traffic_Measures.md)
-    and [edge/lane-based vehicular noise emission
-    output](Simulation/Output/Lane-_or_Edge-based_Noise_Measures.md)
-    which have similar formats
-  - The
-    [mpl_dump_onNet.py](Tools/Visualization#mpl_dump_onNet.py.md)
-    script can display values of this output as a colored net (and
-    further [visualization tools](Tools/Visualization.md)
-    exist).
+- [edge/lane-based network performace measures
+  output](../../Simulation/Output/Lane-_or_Edge-based_Traffic_Measures.md)
+  and [edge/lane-based vehicular noise emission
+  output](../../Simulation/Output/Lane-_or_Edge-based_Noise_Measures.md)
+  which have similar formats
+- The
+  [mpl_dump_onNet.py](../../Tools/Visualization.md#mpl_dump_onnetpy)
+  script can display values of this output as a colored net (and
+  further [visualization tools](../../Tools/Visualization.md)
+  exist).
 
 ## Discussion
 

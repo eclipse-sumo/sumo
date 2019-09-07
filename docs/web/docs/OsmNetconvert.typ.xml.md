@@ -3,6 +3,8 @@ title: OsmNetconvert.typ.xml
 permalink: /OsmNetconvert.typ.xml/
 ---
 
+[{{SUMO}}/data/typemap/osmNetconvert.typ.xml]({{Source}}data/typemap/osmNetconvert.typ.xml)
+
 Default SUMO edge type file for importing OpenStreetMap files. It
 contains the edge type configuration for roads outside of towns and
 located in Germany. If you want to import such an OpenStreetMap file,
@@ -19,7 +21,7 @@ content.
 </tr>
 <tr class="even">
 <td><p>Source</p></td>
-<td><p>Own work (see also <a href="SUMO_edge_type_file" title="wikilink">SUMO edge type file</a>)</p></td>
+<td><p>Own work (see also <a href="SUMO_edge_type_file.html" title="wikilink">SUMO edge type file</a>)</p></td>
 </tr>
 <tr class="odd">
 <td><p>History</p></td>
@@ -27,7 +29,9 @@ content.
 </tr>
 <tr class="even">
 <td><p>License</p></td>
-<td></td>
+<td>
+<p style="border: 1px solid #909090; padding: 1px 4px"><a href="http://creativecommons.org/publicdomain/zero/1.0/"><img src="images/CC-CC0-small.png"></a> This work is licensed under a <a href="http://creativecommons.org/publicdomain/zero/1.0/">Creative Commons CC0 1.0 Universal license</a>. To the extent possible under law, the person who associated CC0 with this work has waived all copyright and related or neighboring rights to this work.</p>
+</td>
 </tr>
 </tbody>
 </table>

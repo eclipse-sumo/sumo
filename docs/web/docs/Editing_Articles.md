@@ -8,6 +8,10 @@ The static html pages are then generated using [Mkdocs](https://www.mkdocs.org/)
 !!! note
     Although HTML can be written within Markdown, please avoid using it and keep everything in native Markdown as much as possible.
 
+## Tables
+
+[Online Tables generator](https://www.tablesgenerator.com/markdown_tables)
+
 ## Styling
 
 Element | Code | Will show as

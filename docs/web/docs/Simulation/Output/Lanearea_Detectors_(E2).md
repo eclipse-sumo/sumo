@@ -1,5 +1,5 @@
 ---
-title: Simulation Output Lanearea Detectors (E2)
+title: Simulation/Output/Lanearea Detectors (E2)
 permalink: /Simulation/Output/Lanearea_Detectors_(E2)/
 ---
 
@@ -8,13 +8,12 @@ permalink: /Simulation/Output/Lanearea_Detectors_(E2)/
 A laneAreaDetector is used to capture traffic on an area along a lane or
 lanes. In reality this would be similar to a vehicle tracking cameras.
 In contrast to an [induction
-loop](Simulation/Output/Induction_Loops_Detectors_\(E1\).md), a
-lane-area detector has a certain length which is specified by the
-attribute or by the attributes . The outputs of an E2 Detector are
+loop](../../Simulation/Output/Induction_Loops_Detectors_(E1).md), a
+lane-area detector has a certain length which is specified by the `length`
+attribute or by the attributes `pos,endPos`. The outputs of an E2 Detector are
 tailored for measuring queues of standing/jammed vehicles and it keeps
-track of all vehicles which currently are on its area, see attributes ,
-, and  in the table below. Further it is possible to couple the E2
-detector with a traffic light, see attributes  and .
+track of all vehicles which currently are on its area, see attributes `timeThreshold`, `speedThreshold` and `jamThreshold` in the table below. Further it is possible to couple the E2
+detector with a traffic light, see attributes `tl` and `to`.
 
 # Instantiating within the Simulation
 
@@ -23,32 +22,38 @@ an additional file.
 
 ## Explicit sequence of lanes
 
-The first variant specifies the detector's location as a sequence of ,
+The first variant specifies the detector's location as a sequence of `lanes`,
 on which the detector resides and, optionally, a start position on the
 first lane and an end position on the last lane (these may be negative
 values to indicate a distance from the lane's end).
 
+```
 <additional>
-`   `<laneAreaDetector id="''<ID>*`"``
- ``lanes="`*<LANE_ID1>` `<LANE_ID2>` ... `<LANE_IDN>`''" `
-`   pos="`*<START_POSITION_ON_FIRST_LANE>*`" endPos="`*<END_POSITION_ON_LAST_LANE>*`" `
-`   friendlyPos="`*<BOOL>*`" freq="`*<AGGREGATION_TIME>*`" file="`*<OUTPUT_FILE>*`" `
-`   timeThreshold="`*<FLOAT>*`" speedThreshold="`*<FLOAT>*`" jamThreshold="`*<FLOAT>*`"`
-`   tl="`*<TRAFFIC_LIGHT_ID>*`"  to="`*<LANE_ID>*`"/>  `
+   <laneAreaDetector id="<ID>" lanes="<LANE_ID1> <LANE_ID2> ... <LANE_IDN>" 
+   pos="<START_POSITION_ON_FIRST_LANE>" endPos="<END_POSITION_ON_LAST_LANE>" 
+   friendlyPos="<BOOL>" freq="<AGGREGATION_TIME>" file="<OUTPUT_FILE>" 
+   timeThreshold="<FLOAT>" speedThreshold="<FLOAT>" jamThreshold="<FLOAT>"
+   tl="<TRAFFIC_LIGHT_ID>"  to="<LANE_ID>"/>  
 </additional>
+```
+
+!!! note
+    For this type of specification it is required that the lanes form a continuous sequence, i.e., a link from each lane in the sequence exists to the consecutive lane.
 
 ## Anchoring lane and length
 
 Another possible specification allows to give a single anchoring lane
-plus two of the attributes , , and  like this:
+plus two of the attributes `pos`, `endPos`, and `length` like this:
 
+```
 <additional>
-`   <laneAreaDetector id="`*<ID>*`" lane="`*<LANE_ID>*`" `
-`   pos="`*<START_POSITION_ON_LANE>*`" endPos="`*<END_POSITION_ON_LANE>*`" length="`*<DETECTOR_LENGTH>*`"  // <- only two of those`
-`   friendlyPos="`*<BOOL>*`" freq="`*<AGGREGATION_TIME>*`" file="`*<OUTPUT_FILE>*`" `
-`   timeThreshold="`*<FLOAT>*`" speedThreshold="`*<FLOAT>*`" jamThreshold="`*<FLOAT>*`" `
-`   tl="`*<TRAFFIC_LIGHT_ID>*`"  to="`*<LANE_ID>*`"/>  `
+   <laneAreaDetector id="<ID>" lane="<LANE_ID>" 
+   pos="<START_POSITION_ON_LANE>" endPos="<END_POSITION_ON_LANE>" length="<DETECTOR_LENGTH>"  // <- only two of those
+   friendlyPos="<BOOL>" freq="<AGGREGATION_TIME>" file="<OUTPUT_FILE>" 
+   timeThreshold="<FLOAT>" speedThreshold="<FLOAT>" jamThreshold="<FLOAT>" 
+   tl="<TRAFFIC_LIGHT_ID>"  to="<LANE_ID>"/>  
 </additional>
+```
 
 If start position and end position are given, the detector is assumed to
 lie on a single lane. If one of these is given together with a length,
@@ -63,38 +68,37 @@ lanes shorter than 0.1m.
 
 The complete list of attributes is:
 
-| Attribute Name | Value Type              | Description                                                                                                                                                                                                                                                                         |
-| -------------- | ----------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **id**         | id (string)             | A string holding the id of the detector                                                                                                                                                                                                                                             |
-| **lane**       | referenced lane id      | The id of the lane the detector shall be laid on. The lane must be a part of the network used. This argument excludes the argument **lanes**.                                                                                                                                       |
-| **lanes**      | referenced lane id list | A space-seperated list of lane-ids which are to be covered by the detector. All lanes must be a part of the network and form a continuous sequence. This argument excludes the arguments **lane** and **length**.                                                                   |
-| **pos**        | float                   | The position on the first lane covered by the detector. See information about the same attribute within the detector loop description for further information. Per default, the start position is placed at the first lane's begin.                                                 |
-| **endPos**     | float                   | The end position on the last lane covered by the detector. Per default the end position is placed at the last lane's end.                                                                                                                                                           |
-| **length**     | float                   | The length of the detector in meters. If the detector reaches over the lane's end, it is extended to preceeding / consecutive lanes.                                                                                                                                                |
-| **file**       | filename                | The path to the output file. The path may be relative.                                                                                                                                                                                                                              |
-| freq           | int                     | The aggregation period the values the detector collects shall be summed up. Either *freq* or *tl* must be specified                                                                                                                                                                 |
-| tl             | id                      | The [traffic light that triggers aggregation when switching](Simulation/Output/Traffic_Lights#Coupled_Areal_Detectors.md). Either *freq* or *tl* must be specified                                                                                                          |
-| to             | id                      | The id of an outgoing lane that [triggers aggregation in conjunction with traffic light switching](Simulation/Output/Traffic_Lights#Coupled_Areal_Detectors.md). This is only used together with *tl*.                                                                      |
-| timeThreshold  | float                   | The time-based threshold that describes how much time has to pass until a vehicle is recognized as halting; *in s, default: 1s*.                                                                                                                                                    |
-| speedThreshold | float                   | The speed-based threshold that describes how slow a vehicle has to be to be recognized as halting; *in m/s, default: 5/3.6m/s*.                                                                                                                                                     |
-| jamThreshold   | float                   | The minimum distance to the next standing vehicle in order to make this vehicle count as a participant to the jam; *in m, default: 10m*.                                                                                                                                            |
+| Attribute Name | Value Type              | Description             |
+| -------------- | ----------------------- | -------------------------------------------------------------- |
+| **id**         | id (string)             | A string holding the id of the detector   |
+| **lane**       | referenced lane id      | The id of the lane the detector shall be laid on. The lane must be a part of the network used. This argument excludes the argument **lanes**.   |
+| **lanes**      | referenced lane id list | A space-seperated list of lane-ids which are to be covered by the detector. All lanes must be a part of the network and form a continuous sequence. This argument excludes the arguments **lane** and **length**. |
+| **pos**        | float                   | The position on the first lane covered by the detector. See information about the same attribute within the detector loop description for further information. Per default, the start position is placed at the first lane's begin.   |
+| **endPos**     | float                   | The end position on the last lane covered by the detector. Per default the end position is placed at the last lane's end.    |
+| **length**     | float                   | The length of the detector in meters. If the detector reaches over the lane's end, it is extended to preceeding / consecutive lanes.   |
+| **file**       | filename                | The path to the output file. The path may be relative.   |
+| freq           | int                     | The aggregation period the values the detector collects shall be summed up. Either *freq* or *tl* must be specified      |
+| tl             | id                      | The [traffic light that triggers aggregation when switching](../../Simulation/Output/Traffic_Lights.md#coupled_areal_detectors). Either *freq* or *tl* must be specified   |
+| to             | id                      | The id of an outgoing lane that [triggers aggregation in conjunction with traffic light switching](../../Simulation/Output/Traffic_Lights.md#coupled_areal_detectors). This is only used together with *tl*.   |
+| timeThreshold  | float                   | The time-based threshold that describes how much time has to pass until a vehicle is recognized as halting; *in s, default: 1s*.      |
+| speedThreshold | float                   | The speed-based threshold that describes how slow a vehicle has to be to be recognized as halting; *in m/s, default: 5/3.6m/s*.   |
+| jamThreshold   | float                   | The minimum distance to the next standing vehicle in order to make this vehicle count as a participant to the jam; *in m, default: 10m*.     |
 | friendlyPos    | bool                    | If set, no error will be reported if the detector is placed behind the lane. Instead, the detector will be placed 0.1 meters from the lane's end or at position 0.1, if the position was negative and larger than the lane's length after multiplication with -1; *default: false*. |
-| vTypes         | string                  | space separated list of vehicle type ids to consider, "" means all; default "".                                                                                                                                                                                                     |
+| vTypes         | string                  | space separated list of vehicle type ids to consider, "" means all; default "".  |
 
 # Generated Output
 
 A single data line within the output of a simulated lane area detector
 looks as following (the line is not broken within the output):
-<span class="inlxml">
 
-`   <interval begin="`<BEGIN_TIME>`" end="`<END_TIME>`" id="`<DETECTOR_ID>`" sampledSeconds="`<DATA_SAMPLES>`" \`
-`    nVehEntered="`<VAL>`" nVehLeft="`<VAL>`" nVehSeen="`<VAL>`" meanSpeed="`<MEAN_SPEED>`"  meanTimeLoss="`<MEAN_TIMELOSS>`" \`
-`    meanOccupancy="`<MEAN_OCCUPANCY>`" maxOccupancy="`<MAX_OCCUPANCY>`" meanMaxJamLengthInVehicles="`<VAL>`" meanMaxJamLengthInMeters="`<VAL>`" \`
-`    maxJamLengthInVehicles="`<VAL>`" maxJamLengthInMeters="`<VAL>`" jamLengthInVehiclesSum="`<VAL>`" jamLengthInMetersSum="`<VAL>`" \`
-`    meanHaltingDuration="`<VAL>`" maxHaltingDuration="`<VAL>`" haltingDurationSum="`<VAL>`" meanIntervalHaltingDuration="`<VAL>`" \`
-`    maxIntervalHaltingDuration="`<VAL>`" intervalHaltingDurationSum="`<VAL>`" startedHalts="`<VAL>`" meanVehicleNumber="`<VAL>`" maxVehicleNumber="`<VAL>`" />`
-
-</span>
+```
+ <interval begin="<BEGIN_TIME>" end="<END_TIME>" id="<DETECTOR_ID>" sampledSeconds="<DATA_SAMPLES>" \
+    nVehEntered="<VAL>" nVehLeft="<VAL>" nVehSeen="<VAL>" meanSpeed="<MEAN_SPEED>"  meanTimeLoss="<MEAN_TIMELOSS>" \
+    meanOccupancy="<MEAN_OCCUPANCY>" maxOccupancy="<MAX_OCCUPANCY>" meanMaxJamLengthInVehicles="<VAL>" meanMaxJamLengthInMeters="<VAL>" \
+    maxJamLengthInVehicles="<VAL>" maxJamLengthInMeters="<VAL>" jamLengthInVehiclesSum="<VAL>" jamLengthInMetersSum="<VAL>" \
+    meanHaltingDuration="<VAL>" maxHaltingDuration="<VAL>" haltingDurationSum="<VAL>" meanIntervalHaltingDuration="<VAL>" \
+    maxIntervalHaltingDuration="<VAL>" intervalHaltingDurationSum="<VAL>" startedHalts="<VAL>" meanVehicleNumber="<VAL>" maxVehicleNumber="<VAL>" />
+```
 
 To explain this vast amount of measures, a short note about how a lane
 area detector works is needfull. A lane area detector takes note about
@@ -155,16 +159,16 @@ The values are described in the following table.
 
 # Further notes
 
-  - You can generate detector definitions automatically. See [output
-    tools](Tools/Output.md) for more information.
-  - The mean speed given by the detector is rather the length divided by
-    the mean travel time, so even if all vehicles drive with constant
-    speed the result will differ from the measurements of an induction
-    loop.
-  - Unlike the [multi-entry/multi-exit
-    detectors](Simulation/Output/Multi-Entry_Multi-Exit_Detectors_\(E3\).md)
-    this detector
-      - takes into account vehicles which start or end their route on
-        the detector (or enter / leave by teleport)
-      - counts also vehicles which only touch the starting position of
-        the detector
+- You can generate detector definitions automatically. See [output
+tools](../../Tools/Output.md) for more information.
+- The mean speed given by the detector is rather the length divided by
+the mean travel time, so even if all vehicles drive with constant
+speed the result will differ from the measurements of an induction
+loop.
+- Unlike the [multi-entry/multi-exit
+detectors](../../Simulation/Output/Multi-Entry-Exit_Detectors_(E3).md)
+this detector
+  - takes into account vehicles which start or end their route on
+    the detector (or enter / leave by teleport)
+  - counts also vehicles which only touch the starting position of
+    the detector

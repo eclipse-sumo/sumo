@@ -80,6 +80,7 @@ extra:
     DT_INT: '[*&lt;INT&gt;*](Basics/Notation.md#referenced_data_types)'
     DT_NET: '[*&lt;NETWORK_FILE&gt;*](Basics/Notation.md#referenced_data_types)'
     DT_PATH: '[*&lt;PATH&gt;*](Basics/Notation.md#referenced_data_types)'
+    DT_PROJ_DEF: '[*&lt;PROJ_DEFINITION&gt;*](Basics/Notation.md#referenced_data_types)'
     DT_Routes: '[*&lt;ROUTES_FILE&gt;*](Basics/Notation.md#referenced_data_types)'
     DT_STR: '[*&lt;STRING&gt;*](Basics/Notation.md#referenced_data_types)'
     DT_TIME: '[*&lt;TIME&gt;*](Basics/Notation.md#referenced_data_types)'
