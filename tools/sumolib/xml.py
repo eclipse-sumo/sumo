@@ -91,12 +91,13 @@ def compound_object(element_name, attrnames, warn=False):
         _original_fields = sorted(attrnames)
         _fields = [_prefix_keyword(a, warn) for a in _original_fields]
 
-        def __init__(self, values, child_dict, text=None):
+        def __init__(self, values, child_dict=None, text=None, child_list=None):
             for name, val in zip(self._fields, values):
                 self.__dict__[name] = val
-            self._child_dict = child_dict
+            self._child_dict = child_dict if child_dict else {}
             self.name = element_name
             self._text = text
+            self._child_list = child_list if child_list else {}
 
         def getAttributes(self):
             return [(k, getattr(self, k)) for k in self._fields]
@@ -125,10 +126,9 @@ def compound_object(element_name, attrnames, warn=False):
             if attrs is None:
                 attrs = {}
             clazz = compound_object(name, attrs.keys())
-            child = clazz([attrs.get(a) for a in sorted(attrs.keys())], _NO_CHILDREN)
-            if len(self._child_dict) == 0:
-                self._child_dict = OrderedDict()
+            child = clazz([attrs.get(a) for a in sorted(attrs.keys())])
             self._child_dict.setdefault(name, []).append(child)
+            self._child_list.append(child)
             return child
 
         def getText(self):
@@ -144,12 +144,19 @@ def compound_object(element_name, attrnames, warn=False):
 
         def __setattr__(self, name, value):
             if name != "_child_dict" and name in self._child_dict:
+                # this could be optimized by using the child_list only if there are different children
+                for c in self._child_dict[name]:
+                    self._child_list.remove(c)
                 self._child_dict[name] = value
+                for c in value:
+                    self._child_list.append(c)
             else:
                 self.__dict__[name] = value
 
         def __delattr__(self, name):
             if name in self._child_dict:
+                for c in self._child_dict[name]:
+                    self._child_list.remove(c)
                 del self._child_dict[name]
             else:
                 if name in self.__dict__:
@@ -172,11 +179,9 @@ def compound_object(element_name, attrnames, warn=False):
             if not self._child_dict and self._text is None:
                 return "%s<%s %s/>\n" % (initialIndent, self.name, " ".join(fields))
             else:
-                s = "%s<%s %s>\n" % (
-                    initialIndent, self.name, " ".join(fields))
-                for l in self._child_dict.values():
-                    for c in l:
-                        s += c.toXML(initialIndent + indent)
+                s = "%s<%s %s>\n" % (initialIndent, self.name, " ".join(fields))
+                for c in self._child_list:
+                    s += c.toXML(initialIndent + indent)
                 if self._text is not None:
                     s += self._text.strip()
                 return s + "%s</%s>\n" % (initialIndent, self.name)
@@ -231,9 +236,6 @@ def parse(xmlfile, element_names, element_attrs={}, attr_conversions={},
             parsenode.clear()
 
 
-_NO_CHILDREN = {}
-
-
 def _IDENTITY(x):
     return x
 
@@ -249,17 +251,17 @@ def _get_compound_object(node, elementTypes, element_name, element_attrs, attr_c
         elementTypes[element_name] = compound_object(
             element_name, attrnames, warn)
     # prepare children
-    child_dict = _NO_CHILDREN  # conserve space by reusing singleton
+    child_dict = {}
+    child_list = []
     if len(node) > 0:
-        child_dict = OrderedDict()
         for c in node:
-            child_dict.setdefault(c.tag, []).append(_get_compound_object(
-                c, elementTypes, c.tag, element_attrs, attr_conversions,
-                heterogeneous, warn))
+            child = _get_compound_object(c, elementTypes, c.tag, element_attrs, attr_conversions, heterogeneous, warn)
+            child_dict.setdefault(c.tag, []).append(child)
+            child_list.append(child)
     attrnames = elementTypes[element_name]._original_fields
     return elementTypes[element_name](
         [attr_conversions.get(a, _IDENTITY)(node.get(a)) for a in attrnames],
-        child_dict, node.text)
+        child_dict, node.text, child_list)
 
 
 def create_document(root_element_name, attrs=None, schema=None):
