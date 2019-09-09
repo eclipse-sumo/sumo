@@ -158,6 +158,12 @@ GNEFrameAttributesModuls::AttributesCreatorRow::AttributesCreatorRow(AttributesC
             } else if (myAttrProperties.isOptional()) {
                 myAttributeCheckButton->setText(myAttrProperties.getAttrStr().c_str());
                 myAttributeCheckButton->show();
+                // special case for attribute "Parking" (by default disabled)
+                if (myAttrProperties.getAttr() == SUMO_ATTR_PARKING) {
+                    myAttributeCheckButton->setCheck(FALSE);
+                } else {
+                    myAttributeCheckButton->setCheck(TRUE);
+                }
             } else {
                 myAttributeLabel->setText(myAttrProperties.getAttrStr().c_str());
                 myAttributeLabel->show();
@@ -609,7 +615,7 @@ GNEFrameAttributesModuls::AttributesCreatorRow::generateID() const {
 
 
 bool
-GNEFrameAttributesModuls::AttributesCreatorRow::isValidID(const std::string &id) const {
+GNEFrameAttributesModuls::AttributesCreatorRow::isValidID() const {
     return (myAttributesCreatorParent->getFrameParent()->getViewNet()->getNet()->retrieveAdditional(
             myAttrProperties.getTagPropertyParent().getTag(), 
             myValueTextField->getText().text(), false) == nullptr);

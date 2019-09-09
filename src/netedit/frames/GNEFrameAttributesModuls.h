@@ -121,8 +121,8 @@ public:
         /// @brief generate ID
         std::string generateID() const;
 
-        /// @brief check if given ID is valid
-        bool isValidID(const std::string &id) const;
+        /// @brief check if current ID placed in myValueTextField is valid
+        bool isValidID() const;
 
     private:
         /// @brief pointer to AttributesCreator
