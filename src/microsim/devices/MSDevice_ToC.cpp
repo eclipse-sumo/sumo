@@ -334,6 +334,7 @@ MSDevice_ToC::MSDevice_ToC(SUMOVehicle& holder, const std::string& id, const std
     myPrepareToCCommand(nullptr),
     myOutputFile(nullptr),
     myEvents(),
+	myEventLanes(),
     myPreviousLCMode(-1),
     myOpenGapParams(ogp),
     myDynamicToCThreshold(dynamicToCThreshold),
@@ -584,6 +585,7 @@ MSDevice_ToC::requestToC(SUMOTime timeTillMRM, SUMOTime responseTime) {
         // Record event
         if (generatesOutput()) {
             myEvents.push(std::make_pair(SIMSTEP, "TOR"));
+			myEventLanes.push(std::make_pair(myHolder.getLane()->getID(), myHolder.getPositionOnLane())); // add lane and lanepos
         }
     } else {
         // Switch to automated mode is performed immediately
@@ -617,6 +619,7 @@ MSDevice_ToC::triggerMRM(SUMOTime /* t */) {
     // Record event
     if (generatesOutput()) {
         myEvents.push(std::make_pair(SIMSTEP, "MRM"));
+		myEventLanes.push(std::make_pair(myHolder.getLane()->getID(), myHolder.getPositionOnLane())); // add lane and lanepos
     }
 
     return 0;
@@ -645,6 +648,7 @@ MSDevice_ToC::triggerUpwardToC(SUMOTime /* t */) {
     // Record event
     if (generatesOutput()) {
         myEvents.push(std::make_pair(SIMSTEP, "ToCup"));
+		myEventLanes.push(std::make_pair(myHolder.getLane()->getID(), myHolder.getPositionOnLane())); // add lane and lanepos
     }
 
     return 0;
@@ -680,6 +684,7 @@ MSDevice_ToC::triggerDownwardToC(SUMOTime /* t */) {
     // Record event
     if (generatesOutput()) {
         myEvents.push(std::make_pair(SIMSTEP, "ToCdown"));
+		myEventLanes.push(std::make_pair(myHolder.getLane()->getID(), myHolder.getPositionOnLane())); // add lane and lanepos
     }
     return 0;
 }
@@ -834,6 +839,7 @@ MSDevice_ToC::notifyMove(SUMOTrafficObject& /*veh*/,
         // Record event
         if (generatesOutput()) {
             myEvents.push(std::make_pair(SIMSTEP, "DYNTOR"));
+			myEventLanes.push(std::make_pair(myHolder.getLane()->getID(), myHolder.getPositionOnLane())); // add lane and lanepos
         }
         // Leadtime for dynamic ToC is proportional to the time assumed for the dynamic ToC threshold
         const double leadTime = myDynamicToCThreshold * 1000 * DYNAMIC_TOC_LEADTIME_FACTOR;
@@ -846,6 +852,7 @@ MSDevice_ToC::notifyMove(SUMOTrafficObject& /*veh*/,
         // Record event
         if (generatesOutput()) {
             myEvents.push(std::make_pair(SIMSTEP, "~DYNTOR"));
+			myEventLanes.push(std::make_pair(myHolder.getLane()->getID(), myHolder.getPositionOnLane())); // add lane and lanepos
         }
         // NOTE: This should not occur if lane changing is prevented during ToC preparation...
         // TODO: Reset response time to the original value (unnecessary if re-sampling for each call to requestToC)
@@ -1021,10 +1028,13 @@ MSDevice_ToC::writeOutput() {
     }
     while (!myEvents.empty()) {
         std::pair<SUMOTime, std::string>& e = myEvents.front();
+		std::pair<std::string, double>& l = myEventLanes.front();
         myOutputFile->openTag(e.second);
         myOutputFile->writeAttr("id", myHolder.getID()).writeAttr("t", STEPS2TIME(e.first));
+		myOutputFile->writeAttr("lane", l.first).writeAttr("lanePos", STEPS2TIME(l.second));
         myOutputFile->closeTag();
         myEvents.pop();
+		myEventLanes.pop();
     }
 }
 

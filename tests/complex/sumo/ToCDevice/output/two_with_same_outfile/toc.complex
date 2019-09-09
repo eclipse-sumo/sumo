@@ -1,6 +1,6 @@
 <ToCDeviceLog>
-    <TOR id="ToC_veh" t="202.00"/>
-    <TOR id="ToC_veh2" t="204.00"/>
-    <ToCdown id="ToC_veh" t="225.00"/>
-    <ToCdown id="ToC_veh2" t="227.00"/>
+    <TOR id="ToC_veh" t="202.00" lane="5/1to6/1_0" lanePos="0.92"/>
+    <TOR id="ToC_veh2" t="204.00" lane="5/1to6/1_0" lanePos="0.93"/>
+    <ToCdown id="ToC_veh" t="225.00" lane="6/1to7/1_0" lanePos="0.39"/>
+    <ToCdown id="ToC_veh2" t="227.00" lane="6/1to7/1_0" lanePos="0.40"/>
 </ToCDeviceLog>

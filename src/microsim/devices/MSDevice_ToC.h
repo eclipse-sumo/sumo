@@ -324,6 +324,9 @@ private:
     /// @brief Storage for events to be written to the output
     std::queue<std::pair<SUMOTime, std::string> > myEvents;
 
+	/// @brief Storage for events to be written to the output
+	std::queue<std::pair<std::string, double> > myEventLanes;
+
     /// @brief LC mode overridden during MRM, stored for restoration
     int myPreviousLCMode;
 
