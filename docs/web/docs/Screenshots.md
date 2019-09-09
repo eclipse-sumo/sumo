@@ -25,7 +25,7 @@ permalink: /Screenshots/
 [<font color="#0174DF">Tra</font><font color="#FF0000">NS</font>
 website](http://trans.epfl.ch/)
 
-![](images/trans.gif)Main TraNS v1.2 screen
+![](images/Trans.gif)Main TraNS v1.2 screen
 
 ## From 'eWorld'
 
@@ -38,10 +38,10 @@ website](http://trans.epfl.ch/)
 [SUMO Traffic Modeler
 website](http://sourceforge.net/projects/trafficmodeler/)
 
-![](images/trafficmodeller.gif "Plain Bologna import")Plain Bologna import
+![](images/Trafficmodeller.gif "Plain Bologna import")Plain Bologna import
 
 # Screenshots from Versions 0.7/0.8
 
-![](images/scr_ernst-ruska.gif "Simulation of the area around our institute in Berlin Adlershof; streets are coloured by the maximum speed allowed")Simulation of the area around our institute
+![](images/Scr_ernst-ruska.gif "Simulation of the area around our institute in Berlin Adlershof; streets are coloured by the maximum speed allowed")Simulation of the area around our institute
 in Berlin Adlershof; streets are coloured by the maximum speed allowed
-![](images/scr_koeln_fastlane.gif "Simulation of the City of Cologne")Simulation of the City of Cologne
+![](images/Scr_koeln_fastlane.gif "Simulation of the City of Cologne")Simulation of the City of Cologne
