@@ -277,6 +277,12 @@ public:
     /// @brief called when the command/FXCall clear message windows is executed
     long onCmdClearMsgWindow(FXObject*, FXSelector, void*);
 
+    /// @brief called when user toogle windows checkbox "load additionals"
+    long onCmdLoadAdditionalsInSUMOGUI(FXObject*, FXSelector, void*);
+
+    /// @brief called when user toogle windows checkbox "load demand"
+    long onCmdLoadDemandInSUMOGUI(FXObject*, FXSelector, void*);
+
     /// @brief called when the command/FXCall load thread is executed
     long onLoadThreadEvent(FXObject*, FXSelector, void*);
 
@@ -615,6 +621,12 @@ private:
         /// @brief FXMenuCommand for toogle grid
         FXMenuCommand* toogleGrid;
 
+        /// @brief menu check for load additionals in SUMO GUI
+        FXMenuCheck *loadAdditionalsInSUMOGUI;
+
+        /// @brief menu check for load demand in SUMO GUI
+        FXMenuCheck *loadDemandInSUMOGUI;
+
         /// @brief FXMenuCommand for open in SUMO GUI
         FXMenuCommand* openInSUMOGUI;
 
@@ -692,7 +704,21 @@ private:
         LocateMenuCommands(GNEApplicationWindow* GNEApp);
 
         /// @brief build menu commands
-        void buildLocateMenuCommands(FXMenuPane* editMenu);
+        void buildLocateMenuCommands(FXMenuPane* locateMenu);
+
+    private:
+        /// @brief pointer to current GNEApplicationWindows
+        GNEApplicationWindow* myGNEApp;
+    };
+
+    /// @brief struct for windows menu commands
+    struct WindowsMenuCommands {
+
+        /// @brief constructor
+        WindowsMenuCommands(GNEApplicationWindow* GNEApp);
+
+        /// @brief build menu commands
+        void buildWindowsMenuCommands(FXMenuPane* windowsMenu);
 
     private:
         /// @brief pointer to current GNEApplicationWindows
@@ -745,6 +771,9 @@ private:
 
     /// @brief Locate Menu Commands
     LocateMenuCommands myLocateMenuCommands;
+
+    /// @brief Windows Menu Commands
+    WindowsMenuCommands myWindowsMenuCommands;
 
     /// @brief Supermode Commands
     SupermodeCommands mySupermodeCommands;

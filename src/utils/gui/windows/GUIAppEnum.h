@@ -573,6 +573,16 @@ enum {
 
     /// @}
 
+    /// @name Toolbar windows messages
+    /// @{
+
+    /// @brief load additionals in SUMO-GUI after press ctrl+T
+    MID_GNE_TOOLBAREDIT_LOADADDITIONALS,
+    /// @brief load demand in SUMO-GUI after press ctrl+T
+    MID_GNE_TOOLBAREDIT_LOADDEMAND,
+
+    /// @}
+
     /// @name GNEViewParent dialog messages
     /// @{
 
