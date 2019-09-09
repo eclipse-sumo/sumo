@@ -475,7 +475,7 @@ if __name__ == "__main__":
                     raise
 
         # build everything together
-        tlLogic = TlLogic(key, subkey, cycleTime, parameters=parameters, net=net, debug=options.debug)
+        tlLogic = TlLogic(key, subkey, cycleTime, offset, parameters=parameters, net=net, debug=options.debug)
         tlLogic.addSignalGroups(signalGroups, signalGroupOrder)
         tlLogic.setSignalGroupRelations(sgToLinks)
         tlLogic.setFreeTime()
