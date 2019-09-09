@@ -97,7 +97,7 @@ def compound_object(element_name, attrnames, warn=False):
             self._child_dict = child_dict if child_dict else {}
             self.name = element_name
             self._text = text
-            self._child_list = child_list if child_list else {}
+            self._child_list = child_list if child_list else []
 
         def getAttributes(self):
             return [(k, getattr(self, k)) for k in self._fields]

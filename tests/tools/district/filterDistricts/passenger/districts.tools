@@ -8,11 +8,11 @@
         <tazSink id="g" weight="1"/>
     </taz>
     <taz id="5">
-        <tazSource id="e" weight="2.5"/>
         <tazSink id="g" weight="1"/>
+        <tazSource id="e" weight="2.5"/>
     </taz>
     <taz edges="a b" id="6">
-        <tazSource id="e" weight="2.5"/>
         <tazSink id="g" weight="1"/>
+        <tazSource id="e" weight="2.5"/>
     </taz>
 </tazs>
