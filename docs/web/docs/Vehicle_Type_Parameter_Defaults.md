@@ -35,7 +35,7 @@ maxSpeed</p></th>
 <tr class="odd">
 <td><p>pedestrian</p></td>
 <td><figure>
-<img src="images/Wikicommons_pedestrian.jpg" title="wikicommons_pedestrian.jpg" width="100" alt="" /><figcaption>wikicommons_pedestrian.jpg</figcaption>
+<img src="images/images/Wikicommons_pedestrian.jpg" title="wikicommons_pedestrian.jpg" width="100" alt="" /><figcaption>wikicommons_pedestrian.jpg</figcaption>
 </figure></td>
 <td><p>pedestrian</p></td>
 <td><p>0.215m<sup>(1)</sup><br />
@@ -65,7 +65,7 @@ maxSpeed</p></th>
 <tr class="odd">
 <td><p>bicycle</p></td>
 <td><figure>
-<img src="wikicommons_bicycle.jpg" title="wikicommons_bicycle.jpg" width="100" alt="" /><figcaption>wikicommons_bicycle.jpg</figcaption>
+<img src="images/Wikicommons_bicycle.jpg" title="wikicommons_bicycle.jpg" width="100" alt="" /><figcaption>wikicommons_bicycle.jpg</figcaption>
 </figure></td>
 <td><p>bicycle</p></td>
 <td><p>1.6m<sup>(17)</sup><br />
@@ -82,7 +82,7 @@ maxSpeed</p></th>
 <tr class="even">
 <td><p>moped</p></td>
 <td><figure>
-<img src="wikicommons_moped.jpg" title="wikicommons_moped.jpg" width="100" alt="" /><figcaption>wikicommons_moped.jpg</figcaption>
+<img src="images/Wikicommons_moped.jpg" title="wikicommons_moped.jpg" width="100" alt="" /><figcaption>wikicommons_moped.jpg</figcaption>
 </figure></td>
 <td><p>moped</p></td>
 <td><p>2.1m<sup>(17)</sup><br />
@@ -99,7 +99,7 @@ maxSpeed</p></th>
 <tr class="odd">
 <td><p>motorcycle</p></td>
 <td><figure>
-<img src="wikicommons_motorcycle.jpg" title="wikicommons_motorcycle.jpg" width="100" alt="" /><figcaption>wikicommons_motorcycle.jpg</figcaption>
+<img src="images/Wikicommons_motorcycle.jpg" title="wikicommons_motorcycle.jpg" width="100" alt="" /><figcaption>wikicommons_motorcycle.jpg</figcaption>
 </figure></td>
 <td><p>motorcycle</p></td>
 <td><p>2.2m<sup>(28)</sup><br />
@@ -129,7 +129,7 @@ maxSpeed</p></th>
 <tr class="odd">
 <td><p>passenger</p></td>
 <td><figure>
-<img src="wikicommons_passenger.jpg" title="wikicommons_passenger.jpg" width="100" alt="" /><figcaption>wikicommons_passenger.jpg</figcaption>
+<img src="images/Wikicommons_passenger.jpg" title="wikicommons_passenger.jpg" width="100" alt="" /><figcaption>wikicommons_passenger.jpg</figcaption>
 </figure></td>
 <td><p>passenger</p></td>
 <td><p>4.3m<sup>(29)</sup><br />
@@ -145,7 +145,7 @@ maxSpeed</p></th>
 </tr>
 <tr class="even">
 <td><figure>
-<img src="wikicommons_passenger_sedan.jpg" title="wikicommons_passenger_sedan.jpg" width="100" alt="" /><figcaption>wikicommons_passenger_sedan.jpg</figcaption>
+<img src="images/Wikicommons_passenger_sedan.jpg" title="wikicommons_passenger_sedan.jpg" width="100" alt="" /><figcaption>wikicommons_passenger_sedan.jpg</figcaption>
 </figure></td>
 <td><p>passenger/sedan</p></td>
 <td><p><em>see above</em></p></td>
@@ -160,7 +160,7 @@ maxSpeed</p></th>
 </tr>
 <tr class="odd">
 <td><figure>
-<img src="wikicommons_passenger_hatchback.jpg" title="wikicommons_passenger_hatchback.jpg" width="100" alt="" /><figcaption>wikicommons_passenger_hatchback.jpg</figcaption>
+<img src="images/Wikicommons_passenger_hatchback.jpg" title="wikicommons_passenger_hatchback.jpg" width="100" alt="" /><figcaption>wikicommons_passenger_hatchback.jpg</figcaption>
 </figure></td>
 <td><p>passenger/hatchback</p></td>
 <td><p><em>see above</em></p></td>
@@ -175,7 +175,7 @@ maxSpeed</p></th>
 </tr>
 <tr class="even">
 <td><figure>
-<img src="wikicommons_passenger_wagon.jpg" title="wikicommons_passenger_wagon.jpg" width="100" alt="" /><figcaption>wikicommons_passenger_wagon.jpg</figcaption>
+<img src="images/Wikicommons_passenger_wagon.jpg" title="wikicommons_passenger_wagon.jpg" width="100" alt="" /><figcaption>wikicommons_passenger_wagon.jpg</figcaption>
 </figure></td>
 <td><p>passenger/wagon</p></td>
 <td><p><em>see above</em></p></td>
@@ -190,7 +190,7 @@ maxSpeed</p></th>
 </tr>
 <tr class="odd">
 <td><figure>
-<img src="wikicommons_passenger_van.jpg" title="wikicommons_passenger_van.jpg" width="100" alt="" /><figcaption>wikicommons_passenger_van.jpg</figcaption>
+<img src="images/Wikicommons_passenger_van.jpg" title="wikicommons_passenger_van.jpg" width="100" alt="" /><figcaption>wikicommons_passenger_van.jpg</figcaption>
 </figure></td>
 <td><p>passenger/van</p></td>
 <td><p>4.7m<sup>(16)</sup><br />
@@ -208,7 +208,7 @@ maxSpeed</p></th>
 <tr class="even">
 <td><p>emergency</p></td>
 <td><figure>
-<img src="wikicommons_emergency.jpg" title="wikicommons_emergency.jpg" width="100" alt="" /><figcaption>wikicommons_emergency.jpg</figcaption>
+<img src="images/Wikicommons_emergency.jpg" title="wikicommons_emergency.jpg" width="100" alt="" /><figcaption>wikicommons_emergency.jpg</figcaption>
 </figure></td>
 <td><p>delivery</p></td>
 <td><p>6.5m<sup>(37)</sup><br />
@@ -225,7 +225,7 @@ maxSpeed</p></th>
 <tr class="odd">
 <td><p>delivery</p></td>
 <td><figure>
-<img src="wikicommons_delivery.jpg" title="wikicommons_delivery.jpg" width="100" alt="" /><figcaption>wikicommons_delivery.jpg</figcaption>
+<img src="images/Wikicommons_delivery.jpg" title="wikicommons_delivery.jpg" width="100" alt="" /><figcaption>wikicommons_delivery.jpg</figcaption>
 </figure></td>
 <td><p>delivery</p></td>
 <td><p>6.5m<sup>(37)</sup><br />
@@ -255,7 +255,7 @@ maxSpeed</p></th>
 <tr class="odd">
 <td><p>truck</p></td>
 <td><figure>
-<img src="wikicommons_transport.jpg" title="wikicommons_transport.jpg" width="100" alt="" /><figcaption>wikicommons_transport.jpg</figcaption>
+<img src="images/Wikicommons_transport.jpg" title="wikicommons_transport.jpg" width="100" alt="" /><figcaption>wikicommons_transport.jpg</figcaption>
 </figure></td>
 <td><p>truck</p></td>
 <td><p>7.1m<sup>(30)</sup><br />
@@ -272,7 +272,7 @@ maxSpeed</p></th>
 <tr class="even">
 <td><p>trailer</p></td>
 <td><figure>
-<img src="wikicommons_transport_semitrailer.jpg" title="wikicommons_transport_semitrailer.jpg" width="100" alt="" /><figcaption>wikicommons_transport_semitrailer.jpg</figcaption>
+<img src="images/Wikicommons_transport_semitrailer.jpg" title="wikicommons_transport_semitrailer.jpg" width="100" alt="" /><figcaption>wikicommons_transport_semitrailer.jpg</figcaption>
 </figure></td>
 <td><p>truck/semitrailer</p></td>
 <td><p>16.5m<sup>(14)</sup><br />
@@ -288,7 +288,7 @@ max. 4m<sup>(13)</sup></p></td>
 </tr>
 <tr class="odd">
 <td><figure>
-<img src="wikicommons_transport_trailer.jpg" title="wikicommons_transport_trailer.jpg" width="100" alt="" /><figcaption>wikicommons_transport_trailer.jpg</figcaption>
+<img src="images/Wikicommons_transport_trailer.jpg" title="wikicommons_transport_trailer.jpg" width="100" alt="" /><figcaption>wikicommons_transport_trailer.jpg</figcaption>
 </figure></td>
 <td><p>truck/trailer</p></td>
 <td><p>max. 18.75m<sup>(13)</sup><br />
@@ -319,7 +319,7 @@ max. 4m<sup>(13)</sup></p></td>
 <tr class="odd">
 <td><p>bus</p></td>
 <td><figure>
-<img src="wikicommons_bus_city.jpg" title="wikicommons_bus_city.jpg" width="100" alt="" /><figcaption>wikicommons_bus_city.jpg</figcaption>
+<img src="images/Wikicommons_bus_city.jpg" title="wikicommons_bus_city.jpg" width="100" alt="" /><figcaption>wikicommons_bus_city.jpg</figcaption>
 </figure></td>
 <td><p>bus</p></td>
 <td><p>12m<sup>(3)</sup><br />
@@ -335,7 +335,7 @@ max. 4m<sup>(13)</sup></p></td>
 </tr>
 <tr class="even">
 <td><figure>
-<img src="wikicommons_bus_flexible.jpg" title="wikicommons_bus_flexible.jpg" width="100" alt="" /><figcaption>wikicommons_bus_flexible.jpg</figcaption>
+<img src="images/Wikicommons_bus_flexible.jpg" title="wikicommons_bus_flexible.jpg" width="100" alt="" /><figcaption>wikicommons_bus_flexible.jpg</figcaption>
 </figure></td>
 <td><p>bus/flexible</p></td>
 <td><p>17.9m<sup>(3)</sup><br />
@@ -353,7 +353,7 @@ max. 4m<sup>(13)</sup></p></td>
 <tr class="odd">
 <td><p>coach</p></td>
 <td><figure>
-<img src="wikicommons_overland.jpg" title="wikicommons_overland.jpg" width="100" alt="" /><figcaption>wikicommons_overland.jpg</figcaption>
+<img src="images/Wikicommons_overland.jpg" title="wikicommons_overland.jpg" width="100" alt="" /><figcaption>wikicommons_overland.jpg</figcaption>
 </figure></td>
 <td><p>bus/coach</p></td>
 <td><p>14m<sup>(10)</sup><br />
@@ -383,7 +383,7 @@ max. 4m<sup>(13)</sup></p></td>
 <tr class="odd">
 <td><p>tram</p></td>
 <td><figure>
-<img src="wikicommons_lightrail.jpg" title="wikicommons_lightrail.jpg" width="100" alt="" /><figcaption>wikicommons_lightrail.jpg</figcaption>
+<img src="images/Wikicommons_lightrail.jpg" title="wikicommons_lightrail.jpg" width="100" alt="" /><figcaption>wikicommons_lightrail.jpg</figcaption>
 </figure></td>
 <td><p>rail/railcar</p></td>
 <td><p>~22m<sup>(7)</sup><br />
@@ -400,7 +400,7 @@ max. 4m<sup>(13)</sup></p></td>
 <tr class="even">
 <td><p>rail_urban</p></td>
 <td><figure>
-<img src="wikicommons_rail_city.jpg" title="wikicommons_rail_city.jpg" width="100" alt="" /><figcaption>wikicommons_rail_city.jpg</figcaption>
+<img src="images/Wikicommons_rail_city.jpg" title="wikicommons_rail_city.jpg" width="100" alt="" /><figcaption>wikicommons_rail_city.jpg</figcaption>
 </figure></td>
 <td><p>rail/railcar</p></td>
 <td><p>36.5m(*2/*4)<sup>(4)</sup><br />
@@ -417,7 +417,7 @@ max. 4m<sup>(13)</sup></p></td>
 <tr class="odd">
 <td><p>rail</p></td>
 <td><figure>
-<img src="wikicommons_rail_slow.jpg" title="wikicommons_rail_slow.jpg" width="100" alt="" /><figcaption>wikicommons_rail_slow.jpg</figcaption>
+<img src="images/Wikicommons_rail_slow.jpg" title="wikicommons_rail_slow.jpg" width="100" alt="" /><figcaption>wikicommons_rail_slow.jpg</figcaption>
 </figure></td>
 <td><p>rail</p></td>
 <td><p>67.5m(*2)<sup>(11)</sup><br />
@@ -433,7 +433,7 @@ max. 4m<sup>(13)</sup></p></td>
 </tr>
 <tr class="even">
 <td><figure>
-<img src="wikicommons_rail_cargo.jpg" title="wikicommons_rail_cargo.jpg" width="100" alt="" /><figcaption>wikicommons_rail_cargo.jpg</figcaption>
+<img src="images/Wikicommons_rail_cargo.jpg" title="wikicommons_rail_cargo.jpg" width="100" alt="" /><figcaption>wikicommons_rail_cargo.jpg</figcaption>
 </figure></td>
 <td><p>rail/cargo</p></td>
 <td><p>750m (~18.9m + x*~16m)<sup>(5, 6, 8)</sup><br />
@@ -451,7 +451,7 @@ max. 4m<sup>(13)</sup></p></td>
 <tr class="odd">
 <td><p>rail_electric</p></td>
 <td><figure>
-<img src="wikicommons_rail_fast.jpg" title="wikicommons_rail_fast.jpg" width="100" alt="" /><figcaption>wikicommons_rail_fast.jpg</figcaption>
+<img src="images/Wikicommons_rail_fast.jpg" title="wikicommons_rail_fast.jpg" width="100" alt="" /><figcaption>wikicommons_rail_fast.jpg</figcaption>
 </figure></td>
 <td><p>rail</p></td>
 <td><p>~25m(*8)<sup>(12)</sup><br />

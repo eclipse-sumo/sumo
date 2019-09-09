@@ -1,13 +1,12 @@
 ---
-title: TraCI Lane Value Retrieval
+title: TraCI/Lane Value Retrieval
 permalink: /TraCI/Lane_Value_Retrieval/
 ---
 
 # Command 0xa3: Get Lane Variable
 
-|          |         |
-| :------: | :-----: |
 |  ubyte   | string  |
+| :------: | :-----: |
 | Variable | Lane ID |
 
 Asks for the value of a certain variable of the named lane.
@@ -15,8 +14,12 @@ Asks for the value of a certain variable of the named lane.
 The following variable values can be retrieved, the type of the return
 value is also shown in the table.
 
-| Variable                             | ValueType  | Description                                                                                                                               | [Python Method](TraCI/Interfacing_TraCI_from_Python.md)                                              |
-| ------------------------------------ | ---------- | ----------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------ |
+<center>
+**Overview Retrievable Lane Variables**
+</center>
+
+| Variable                             | ValueType  | Description       | [Python Method](../TraCI/Interfacing_TraCI_from_Python.md)                      |
+| ------------------------------------ | ---------- | ----------------------------------------------------------------------------------------- | ------------------- |
 | id list (0x00)                       | stringList | Returns a list of ids of all lanes within the scenario (the given Lane ID is ignored)                                                     | [getIDList](https://sumo.dlr.de/pydoc/traci._lane.html#LaneDomain-getIDList)                                 |
 | count (0x01)                         | int        | Returns the number of lanes within the scenario (the given Lane ID is ignored)                                                            | [getIDCount](https://sumo.dlr.de/pydoc/traci._lane.html#LaneDomain-getIDCount)                               |
 | link number (0x30)                   | ubyte      | Returns the number of links outgoing from this lane \[\#\]                                                                                | [getLinkNumber](https://sumo.dlr.de/pydoc/traci._lane.html#LaneDomain-getLinkNumber)                         |
@@ -44,16 +47,12 @@ value is also shown in the table.
 | waiting time (0x7a)                  | double     | Returns the waiting time for all vehicles on the lane \[s\]                                                                               | [getWaitingTime](https://sumo.dlr.de/pydoc/traci._lane.html#LaneDomain-getWaitingTime)                       |
 | traveltime (0x5a)                    | double     | Returns the estimated travel time for the last time step on the given lane \[s\]                                                          | [getTraveltime](https://sumo.dlr.de/pydoc/traci._lane.html#LaneDomain-getTraveltime)                         |
 | last step halting number (0x14)      | int        | Returns the total number of halting vehicles for the last time step on the given lane. A speed of less than 0.1 m/s is considered a halt. | [getLastStepHaltingNumber](https://sumo.dlr.de/pydoc/traci._lane.html#LaneDomain-getLastStepHaltingNumber)   |
-|                                      |            |                                                                                                                                           |                                                                                                              |
-
-**Overview Retrievable Lane Variables**
 
 ## Response 0xb3: Lane Variable
 
-|          |         |                             |                  |
+|  ubyte   | string  |            ubyte            |  <return_type\>   |
 | :------: | :-----: | :-------------------------: | :--------------: |
-|  ubyte   | string  |            ubyte            |  <return_type>   |
-| Variable | Lane ID | Return type of the variable | <VARIABLE_VALUE> |
+| Variable | Lane ID | Return type of the variable | <VARIABLE_VALUE\> |
 
 The respond to a **"Command Get Lane Variable"**.
 
@@ -63,26 +62,28 @@ If you request the list of links, an compound object is returned,
 structured as following. Attention, each part is fowarded by a byte
 which represents its data type, except "length".
 
-|         |                 |        |     |        |
-| :-----: | :-------------: | :----: | :-: | :----: |
 | integer | type + integer  |  link  | ... |  link  |
+| :-----: | :-------------: | :----: | :-: | :----: |
 | Length  | Number of links | Link 1 | ... | Link n |
 
 where **length** is the total number of following elements -- counting
 each element of **link** separatley -- and **link** is decribed by:
 
-|                               |                           |                               |                            |                                      |                                                                             |                                                                       |                                                       |
-| :---------------------------: | :-----------------------: | :---------------------------: | :------------------------: | :----------------------------------: | :-------------------------------------------------------------------------: | :-------------------------------------------------------------------: | :---------------------------------------------------: |
-|         type + string         |       type + string       |         type + ubyte          |        type + ubyte        |             type + ubyte             |                                type + string                                |                             type + string                             |                     type + double                     |
-| consecutive not internal lane | consecutive internal lane | has priority (=1) or not (=0) | is opened (=1) or not (=0) | has approaching foe (=1) or not (=0) | [(current) state](Networks/SUMO_Road_Networks#Plain_Connections.md) | [direction](Networks/SUMO_Road_Networks#Plain_Connections.md) | length \[m\] - only valid if not using internal lanes |
+|  type + string  | type + string  |  type + ubyte   |   type + ubyte    |  type + ubyte   |   type + string     |      type + string      |     type + double  |
+| :----------: | :-------: | :---------------: | :------------------------: | :------------: | :-----------------------: | :----------------------------: | :----------------: |
+| consecutive not internal lane | consecutive internal lane | has priority (=1) or not (=0) | is opened (=1) or not (=0) | has approaching foe (=1) or not (=0) | [(current) state](../Networks/SUMO_Road_Networks.md#plain_connections) | [direction](../Networks/SUMO_Road_Networks.md#plain_connections) | length \[m\] - only valid if not using internal lanes |
+
+!!! caution
+    Please note that the information "is opened" and "has approaching foe" currently refer to the current time step; this is rather inappropriate and will be probably changed in the next future.
 
 ## Extended retrieval messages
 
 Some further messages require additional parameters.
 
-| Variable    | Request ValueType | Response ValueType | Description                                                                                                                                                                                                                                                                                                                                                                                                                        | [Python Method](TraCI/Interfacing_TraCI_from_Python.md)          |
-| ----------- | ----------------- | ------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------ |
-| foes (0x37) | toLane (string)   | stringVector       | Returns the list of foe lanes. There are two modes for calling this method. If **toLane** is a normal road lane that is reachable from the laneID argument, the list contains all lanes that are the origin of a connection with right-of-way over the connection between **laneID** and **toLane**. If **toLane** is empty and **laneID** is an internal lane, the list contains all internal lanes that intersect with *laneID*. | [getFoes](https://sumo.dlr.de/pydoc/traci._lane.html#LaneDomain-getFoes) |
-|             |                   |                    |                                                                                                                                                                                                                                                                                                                                                                                                                                    |                                                                          |
-
+<center>
 **Overview Extended Variables Retrieval**
+</center>
+
+| Variable    | Request ValueType | Response ValueType | Description      | [Python Method](../TraCI/Interfacing_TraCI_from_Python.md)          |
+| ----------- | ----------------- | ------------------ | ------------------------------------------- | ------------------------------------------------------------------------ |
+| foes (0x37) | toLane (string)   | stringVector       | Returns the list of foe lanes. There are two modes for calling this method. If **toLane** is a normal road lane that is reachable from the laneID argument, the list contains all lanes that are the origin of a connection with right-of-way over the connection between **laneID** and **toLane**. If **toLane** is empty and **laneID** is an internal lane, the list contains all internal lanes that intersect with *laneID*. | [getFoes](https://sumo.dlr.de/pydoc/traci._lane.html#LaneDomain-getFoes) |

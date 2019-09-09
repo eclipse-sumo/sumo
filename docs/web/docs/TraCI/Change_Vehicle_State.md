@@ -1,5 +1,5 @@
 ---
-title: TraCI Change Vehicle State
+title: TraCI/Change Vehicle State
 permalink: /TraCI/Change_Vehicle_State/
 ---
 

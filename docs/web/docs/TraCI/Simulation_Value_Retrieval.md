@@ -5,9 +5,8 @@ permalink: /TraCI/Simulation_Value_Retrieval/
 
 ## Command 0xab: Get Simulation Variable
 
-|          |                               |
-| :------: | :---------------------------: |
 |  ubyte   |            string             |
+| :------: | :---------------------------: |
 | Variable | Simulation ID (always unused) |
 
 Asks for the value of a certain simulation variable
@@ -360,9 +359,9 @@ call](Traci/GenericParameters#get_parameter.md). The *object id*
 refers to the object (i.e. chargingStation) id. The following parameters
 are supported:
 
-  - chargingStation.totalEnergyCharged
-  - chargingStation.name
-  - parkingArea.capacity
-  - parkingArea.occupancy
-  - parkingArea.name
-  - busStop.name
+- chargingStation.totalEnergyCharged
+- chargingStation.name
+- parkingArea.capacity
+- parkingArea.occupancy
+- parkingArea.name
+- busStop.name
