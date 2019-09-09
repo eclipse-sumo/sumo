@@ -32,7 +32,7 @@ netedit.additionalMode()
 netedit.changeElement("parkingArea")
 
 # change reference to center
-netedit.changeDefaultValue(10, "reference center")
+netedit.changeDefaultValue(11, "reference center")
 
 # create parkingArea in mode "reference center"
 netedit.leftClick(referencePosition, 250, 165)

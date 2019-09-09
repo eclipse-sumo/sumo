@@ -32,7 +32,7 @@ netedit.shapeMode()
 netedit.changeElement("poly")
 
 # enable block move
-netedit.changeDefaultBoolValue(12)
+netedit.changeDefaultBoolValue(13)
 
 # create polygon
 netedit.createSquaredPoly(referencePosition, 400, 150, 100, True)

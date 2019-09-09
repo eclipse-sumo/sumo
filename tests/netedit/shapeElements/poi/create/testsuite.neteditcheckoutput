@@ -2,6 +2,8 @@
 # GEO POI Creator
 geo_poi
 
+id
+
 # create default
 default
 

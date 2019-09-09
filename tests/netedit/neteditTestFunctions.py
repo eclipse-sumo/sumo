@@ -1813,9 +1813,9 @@ def createGEOPOI():
     # focus current frame
     focusOnFrame()
     # place cursor in create GEO POI
-    for _ in range(19):
+    for _ in range(20):
         typeTab()
-    # Change current value
+    # create geoPOI
     typeSpace()
 
 
@@ -1828,7 +1828,7 @@ def GEOPOILonLat():
     # focus current frame
     focusOnFrame()
     # place cursor in lon-lat
-    for _ in range(15):
+    for _ in range(16):
         typeTab()
     # Change current value
     typeSpace()
@@ -1843,7 +1843,7 @@ def GEOPOILatLon():
     # focus current frame
     focusOnFrame()
     # place cursor in lat-lon
-    for _ in range(16):
+    for _ in range(17):
         typeTab()
     # Change current value
     typeSpace()
