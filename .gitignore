@@ -23,7 +23,6 @@
 /.project
 /.pydevproject
 /.vs
-/CMakeSettings.json
 # build dir 
 /cmake-build*
 /cmake_build*
