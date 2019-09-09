@@ -1,10 +1,9 @@
 site_name: SUMO Documentation
-site_url: https://angelobanse.github.io/sumo-documentation2/
+site_url: https://dlr.de/sumo/site/
 site_favicon: favicon.ico
 repo_url: https://github.com/eclipse/sumo/
 edit_uri: edit/master/docs/web/docs/
 site_description: SUMO Documentation
-#google_analytics:
 use_directory_urls: false
 dev_addr: 127.0.0.1:8000
 #docs_dir: docs
@@ -19,7 +18,7 @@ nav:
   - Contact: Contact.md
   - ChangeLog: ChangeLog.md
   - Developer: Developer/Main.md
-  - Recent Changes: https://github.com/eclipse/sumo/commits/master/docs
+  - Recent Changes: https://github.com/eclipse/sumo/commits/master/docs/web
 
 theme:
   name: mkdocs
