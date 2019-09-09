@@ -987,7 +987,7 @@ GNERouteHandler::transformToTrip(GNEVehicle* originalVehicle) {
         bool selected = originalVehicle->isAttributeCarrierSelected();
         // first check if originalVehicle has an embedded route, and if true, separate it
         if (((originalVehicle->getTagProperty().getTag() == SUMO_TAG_VEHICLE) || (originalVehicle->getTagProperty().getTag() == SUMO_TAG_ROUTEFLOW)) &&
-                (originalVehicle->getDemandElementParents().size() == 1)) {
+            (originalVehicle->getDemandElementParents().size() == 1)) {
             originalVehicle = separateEmbeddedRoute(originalVehicle, undoList);
         }
         // obtain VType of original vehicle
@@ -1046,7 +1046,8 @@ GNERouteHandler::transformToFlow(GNEVehicle* originalVehicle) {
         // declare flag to save if vehicle is selected
         bool selected = originalVehicle->isAttributeCarrierSelected();
         // first check if originalVehicle has an embedded route, and if true, separate it
-        if (originalVehicle->getDemandElementParents().size() == 1) {
+        if (((originalVehicle->getTagProperty().getTag() == SUMO_TAG_VEHICLE) || (originalVehicle->getTagProperty().getTag() == SUMO_TAG_ROUTEFLOW)) &&
+            (originalVehicle->getDemandElementParents().size() == 1)) {
             originalVehicle = separateEmbeddedRoute(originalVehicle, undoList);
             separatedEmbeddedRoute = originalVehicle->getDemandElementParents().at(1);
         }
