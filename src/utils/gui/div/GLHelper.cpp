@@ -28,6 +28,7 @@
 #include <utils/common/StdDefs.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/ToString.h>
+#include <utils/options/OptionsCont.h>
 #define FONTSTASH_IMPLEMENTATION // Expands implementation
 #ifdef _MSC_VER
 #pragma warning(disable: 4505) // do not warn about unused functions
@@ -526,8 +527,13 @@ GLHelper::drawShapeDottedContourBetweenLanes(const GUIVisualizationSettings& s, 
         // build contour using shapes of first and last lane shapes
         PositionVector contourFront = frontLaneShape;
         PositionVector contourback = backLaneShape;
-        contourFront.move2side(offsetFrontLaneShape);
-        contourback.move2side(offsetBackLaneShape);
+        if (OptionsCont::getOptions().getBool("lefthand")) {
+            contourFront.move2side(offsetFrontLaneShape * -1);
+            contourback.move2side(offsetBackLaneShape * -1);
+        } else {
+            contourFront.move2side(offsetFrontLaneShape);
+            contourback.move2side(offsetBackLaneShape);
+        }
         contourback = contourback.reverse();
         for (auto i : contourback) {
             contourFront.push_back(i);
