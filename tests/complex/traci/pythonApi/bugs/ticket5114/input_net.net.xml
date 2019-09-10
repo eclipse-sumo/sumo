@@ -61,9 +61,7 @@
     </edge>
 
     <edge id="-gneE0" from="gneJ1" to="gneJ0" priority="-1">
-        <lane id="-gneE0_0" index="0" speed="13.89" length="200.00" shape="200.00,1.60 0.00,1.60">
-            <neigh lane="gneE0_0"/>
-        </lane>
+        <lane id="-gneE0_0" index="0" speed="13.89" length="200.00" shape="200.00,1.60 0.00,1.60"/>
     </edge>
     <edge id="-gneE1" from="gneJ3" to="gneJ2" priority="-1">
         <lane id="-gneE1_0" index="0" speed="13.89" length="200.00" shape="200.00,41.60 0.00,41.60"/>
@@ -81,9 +79,7 @@
         <lane id="-gneE5_0" index="0" speed="13.89" length="86.80" shape="398.40,200.00 398.40,113.20"/>
     </edge>
     <edge id="gneE0" from="gneJ0" to="gneJ1" priority="-1">
-        <lane id="gneE0_0" index="0" speed="13.89" length="200.00" shape="0.00,-1.60 200.00,-1.60">
-            <neigh lane="-gneE0_0"/>
-        </lane>
+        <lane id="gneE0_0" index="0" speed="13.89" length="200.00" shape="0.00,-1.60 200.00,-1.60"/>
     </edge>
     <edge id="gneE1" from="gneJ2" to="gneJ3" priority="-1">
         <lane id="gneE1_0" index="0" speed="13.89" length="200.00" shape="0.00,38.40 200.00,38.40"/>
