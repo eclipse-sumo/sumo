@@ -1,10 +1,10 @@
 ---
-title: Tools Visualization
+title: Tools/Visualization
 permalink: /Tools/Visualization/
 ---
 
-[SUMO](SUMO.md) offers a wide range of
-[outputs](Simulation/Output.md), but one may find it hard to
+[SUMO](../SUMO.md) offers a wide range of
+[outputs](../Simulation/Output.md), but one may find it hard to
 parse and visualize them. Below, you may find some tools that allow to
 visualize a simulation run's results for being included in a scientific
 paper. Additional tools read plain .csv-files and were added to the
@@ -14,27 +14,27 @@ All these tools are just wrappers around the wonderful
 [matplotlib](http://matplotlib.org/) library. If you are familiar with
 Python, you must have a look.
 
-The tools share a set of [common options](#common_options.md) to
+The tools share a set of [common options](#common_options) to
 fine-tune the appearence of the generated figures. These options' names
 where chosen similar to the [matplotlib](http://matplotlib.org/) calls.
 
 The tools are implemented in Python and need
 [matplotlib](http://matplotlib.org/) to be installed. The tools can be
-found in /tools/visualization.
+found in {{SUMO}}/tools/visualization.
 
 # Current Tools
 
 Below, you will find the descriptions of tools that should work with the
-current outputs [SUMO](SUMO.md)/[SUMO-GUI](SUMO-GUI.md)
+current outputs [SUMO](../SUMO.md)/[SUMO-GUI](../SUMO-GUI.md)
 generate. To run them, you'll need:
 
 - to install Python
 - to install [matplotlib](http://matplotlib.org/)
-- to set
+- to set {{SUMO}}
 
 All scripts are executed from the command line and you have to give the
 command line options as listed in the descriptions below. Please note
-that [\#common options](#common_options.md) may be applied to
+that [\#common options](#common_options) may be applied to
 all the scripts listed in the following sub-sections albeit few options
 may not work for certain scripts.
 
@@ -44,9 +44,11 @@ Show plots for all trajectories in a given  file.
 
 Example use:
 
-` python plot_trajectories.py fcd.xml -t td -o plot.png -s`
+```
+python plot_trajectories.py fcd.xml -t td -o plot.png -s
+```
 
-The option  supports different plot styles:
+The option **-t (--trajectory-type)** supports different plot styles:
 
 - td: time vs distance
 - ts: time vs speed
@@ -54,32 +56,31 @@ The option  supports different plot styles:
 - ds: distance vs speed
 - da: distance vs acceleration
 
-When option  is set, a interactive plot is opened that allows
+When option **-s** is set, a interactive plot is opened that allows
 identifying vehicles by clicking on the respective line (vehicle ids is
 printed in the console).
 
-Option  allows restricting the plot to all trajectories that contain the
+Option **--filter-route EDGE1,EDGE2,...** allows restricting the plot to all trajectories that contain the
 given set of edges.
 
-![plot_trajectories.png](plot_trajectories.png "plot_trajectories.png")
+![plot_trajectories.png](../images/Plot_trajectories.png "plot_trajectories.png")
 
 ## plot_net_dump.py
 
 plot_net_dump.py shows a network, where the network edges' colors and
 width are set in dependence to defined edge attributes. The edge weights
 are read from "edgedumps" - [edgelane
-traffic](Simulation/Output/Lane-_or_Edge-based_Traffic_Measures.md),
+traffic](../Simulation/Output/Lane-_or_Edge-based_Traffic_Measures.md),
 [edgelane
-emissions](Simulation/Output/Lane-_or_Edge-based_Emissions_Measures.md),
+emissions](../Simulation/Output/Lane-_or_Edge-based_Emissions_Measures.md),
 or [edgelane
-noise](Simulation/Output/Lane-_or_Edge-based_Noise_Measures.md).
+noise](../Simulation/Output/Lane-_or_Edge-based_Noise_Measures.md).
 
 <table>
 <tbody>
 <tr class="odd">
 <td><figure>
-<img src="plot_net_dump.png" title="plot_net_dump.png" width="300" alt="" /><figcaption>plot_net_dump.png</figcaption>
-</figure></td>
+<img src="../images/Plot_net_dump.png" title="plot_net_dump.png" width="300" alt="" /></figure></td>
 <td><p><code>python plot_dump_net.py -v -n bs.net.xml \</code><br />
 <code> --xticks 7000,14001,2000,16 --yticks 9000,16001,1000,16 \</code><br />
 <code> --measures entered,entered --xlabel [m] --ylabel [m] \</code><br />
@@ -94,8 +95,7 @@ noise](Simulation/Output/Lane-_or_Edge-based_Noise_Measures.md).
 </tr>
 <tr class="even">
 <td><figure>
-<img src="plot_net_dump2.png" title="plot_net_dump2.png" width="300" alt="" /><figcaption>plot_net_dump2.png</figcaption>
-</figure></td>
+<img src="../images/Plot_net_dump2.png" title="plot_net_dump2.png" width="300" alt="" /></figure></td>
 <td><p><code>python plot_dump_net.py -v -n bs.net.xml \</code><br />
 <code> --xticks 7000,14001,2000,16 --yticks 9000,16001,1000,16 \</code><br />
 <code> --measures NOx_normed,NOx_normed --xlabel [m] --ylabel [m] \</code><br />
@@ -107,105 +107,37 @@ noise](Simulation/Output/Lane-_or_Edge-based_Noise_Measures.md).
 <code> --colormap #0:#00c000,.25:#408040,.5:#808080,.75:#804040,1:#c00000</code></p>
 <p>Showing the according changes in NOx emissions.</p></td>
 </tr>
-<tr class="odd">
-<td></td>
-<td></td>
-</tr>
 </tbody>
 </table>
 
-Look, all these scripts have capabilities for being improved, this one
-especially.
-
-  - both,  as well as  expect two entries being divided by a ','. The
-    first is used for the edges' color, the second for their widths. But
-    you may simply skip one entry. Then, the deafult values are used.
-  - dump-files cover usually more than one interval, but the script
-    stops after the first one (only the first one is plotted)
+- both, **--dump-inputs** {{DT_FILE}},{{DT_FILE}} as well as **--measures** {{DT_STR}},{{DT_STR}} expect two entries being divided by a ','. The
+  first is used for the edges' color, the second for their widths. But
+  you may simply skip one entry. Then, the deafult values are used.
+- dump-files cover usually more than one interval. To generate an extra output file for each interval, use the string '%s' as part of the output filename (this part will be replaced with the corresponding begin time).
 
 **Options**
 
-<table>
-<thead>
-<tr class="header">
-<th><p>Option</p></th>
-<th><p>Description</p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><p><br />
-</p></td>
-<td><p>Defines the network to read</p></td>
-</tr>
-<tr class="even">
-<td><p><br />
-</p></td>
-<td><p>Defines the dump-output files to use as input</p></td>
-</tr>
-<tr class="odd">
-<td><p><br />
-</p></td>
-<td><p>Define which measure to plot;default: speed,entered</p></td>
-</tr>
-<tr class="even">
-<td><p><br />
-</p></td>
-<td><p>Defines the default edge width; default: .1</p></td>
-</tr>
-<tr class="odd">
-<td><p><br />
-</p></td>
-<td><p>If set, the progress is printed on the screen</p></td>
-</tr>
-<tr class="even">
-<td></td>
-<td><p>Defines the minimum edge width; default: .5</p></td>
-</tr>
-<tr class="odd">
-<td></td>
-<td><p>Defines the maximumedge width; default: 3</p></td>
-</tr>
-<tr class="even">
-<td></td>
-<td><p>If set, colors are log-scaled</p></td>
-</tr>
-<tr class="odd">
-<td></td>
-<td><p>If set, widths are log-scaled</p></td>
-</tr>
-<tr class="even">
-<td></td>
-<td><p>If set, defines the minimum edge color value</p></td>
-</tr>
-<tr class="odd">
-<td></td>
-<td><p>If set, defines the maximum edge color value</p></td>
-</tr>
-<tr class="even">
-<td></td>
-<td><p>If set, defines the minimum edge width value</p></td>
-</tr>
-<tr class="odd">
-<td></td>
-<td><p>If set, defines the maximum edge width value</p></td>
-</tr>
-<tr class="even">
-<td><p><br />
-</p></td>
-<td><p>If set, the progress is printed on the screen</p></td>
-</tr>
-<tr class="odd">
-<td></td>
-<td></td>
-</tr>
-</tbody>
-</table>
+| Option                                               | Description                                         |
+|------------------------------------------------------|-----------------------------------------------------|
+| **-n** {{DT_FILE}}<br>**--net** {{DT_FILE}}                            | Defines the network to read                         |
+| **-i** {{DT_FILE}},{{DT_FILE}}<br>**--dump-inputs** {{DT_FILE}},{{DT_FILE}}      | Defines the dump-output files to use as input       |
+| **-m** {{DT_STR}},{{DT_STR}}<br>**--measures** {{DT_STR}},{{DT_STR}} | Define which measure to plot;default: speed,entered |
+| **-w** {{DT_FLOAT}}<br>**--default-width** {{DT_FLOAT}}                | Defines the default edge width; default: .1         |
+| **-c** {{DT_Color}}<br> **--default-color** {{DT_Color}}                | If set, the progress is printed on the screen       |
+| **--min-width** {{DT_FLOAT}}                                  | Defines the minimum edge width; default: .5         |
+| **--max-width** {{DT_FLOAT}}                                  | Defines the maximumedge width; default: 3           |
+| **--log-colors**                                         | If set, colors are log-scaled                       |
+| **--log-widths**                                         | If set, widths are log-scaled                       |
+| **--min-color-value** {{DT_FLOAT}}                            | If set, defines the minimum edge color value        |
+| **--max-color-value** {{DT_FLOAT}}                            | If set, defines the maximum edge color value        |
+| **--min-width-value** {{DT_FLOAT}}                            | If set, defines the minimum edge width value        |
+| **--max-width-value** {{DT_FLOAT}}                            | If set, defines the maximum edge width value        |
+| **-v**<br>**--verbose**                                     | If set, the progress is printed on the screen       |
 
 ## plot_net_selection.py
 
 plot_net_selection.py reads a road network and a selection file as
-written by [SUMO-GUI](SUMO-GUI.md). It plots the road network,
+written by [SUMO-GUI](../SUMO-GUI.md). It plots the road network,
 choosing a different color and width for the edges which are within the
 selection (all edge with at least one lane in the selection).
 
@@ -213,8 +145,7 @@ selection (all edge with at least one lane in the selection).
 <tbody>
 <tr class="odd">
 <td><figure>
-<img src="plot_net_selection.png" title="plot_net_selection.png" width="300" alt="" /><figcaption>plot_net_selection.png</figcaption>
-</figure></td>
+<img src="../images/Plot_net_selection.png" title="plot_net_selection.png" width="300" alt="" /></figure></td>
 <td><p><code>python plot_selection.py -n bs.net.xml \</code><br />
 <code> --xlim 7000,14000 --ylim 9000,16000 \</code><br />
 <code> -i selection_environmental_zone.txt \</code><br />
@@ -224,60 +155,20 @@ selection (all edge with at least one lane in the selection).
 <code> --edge-color #606060 --selected-color #800000 </code></p>
 <p>The example shows the selection of an "environmental zone".</p></td>
 </tr>
-<tr class="even">
-<td></td>
-<td></td>
-</tr>
 </tbody>
 </table>
 
 **Options**
 
-<table>
-<thead>
-<tr class="header">
-<th><p>Option</p></th>
-<th><p>Description</p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><p><br />
-</p></td>
-<td><p>Defines the network to read</p></td>
-</tr>
-<tr class="even">
-<td><p><br />
-</p></td>
-<td><p>Defines selection file to read</p></td>
-</tr>
-<tr class="odd">
-<td></td>
-<td><p>Defines the width for selected edges;default: 1</p></td>
-</tr>
-<tr class="even">
-<td></td>
-<td><p>Defines the color for selected edges; default: r (red)</p></td>
-</tr>
-<tr class="odd">
-<td></td>
-<td><p>Defines the default edge width; default: .2</p></td>
-</tr>
-<tr class="even">
-<td></td>
-<td><p>Defines the default edge color; default: #606060</p></td>
-</tr>
-<tr class="odd">
-<td><p><br />
-</p></td>
-<td><p>If set, the progress is printed on the screen</p></td>
-</tr>
-<tr class="even">
-<td></td>
-<td></td>
-</tr>
-</tbody>
-</table>
+| Option                          | Description                                            |
+|---------------------------------|--------------------------------------------------------|
+| **-n** {{DT_FILE}}<br>**--net** {{DT_FILE}}       | Defines the network to read                            |
+| **-i** {{DT_FILE}}<br>**--selection** {{DT_FILE}} | Defines selection file to read                         |
+| **--selected-width** {{DT_FLOAT}}        | Defines the width for selected edges;default: 1        |
+| **--selected-color** {{DT_Color}}        | Defines the color for selected edges; default: r (red) |
+| **--edge-width** {{DT_FLOAT}}            | Defines the default edge width; default: .2            |
+| **--edge-color** {{DT_Color}}            | Defines the default edge color; default: \#606060       |
+| **-v**<br>**--verbose**                 | If set, the progress is printed on the screen          |
 
 ## plot_net_speeds.py
 
@@ -289,8 +180,7 @@ read from the network file.
 <tbody>
 <tr class="odd">
 <td><figure>
-<img src="plot_net_speeds.png" title="plot_net_speeds.png" width="300" alt="" /><figcaption>plot_net_speeds.png</figcaption>
-</figure></td>
+<img src="../images/Plot_net_speeds.png" title="plot_net_speeds.png" width="300" alt="" /></figure></td>
 <td><p><code>python plot_speeds.py -n bs.net.xml --xlim 1000,25000 \</code><br />
 <code> --ylim 2000,26000 --edge-width .5 -o speeds2.png \</code><br />
 <code> --minV 0 --maxV 60 --xticks 16 --yticks 16 \</code><br />
@@ -298,55 +188,19 @@ read from the network file.
 <code> --colormap jet</code></p>
 <p>The example colors the streets in Brunswick, Germany by their maximum allowed speed.</p></td>
 </tr>
-<tr class="even">
-<td></td>
-<td></td>
-</tr>
 </tbody>
 </table>
 
 **Options**
 
-<table>
-<thead>
-<tr class="header">
-<th><p>Option</p></th>
-<th><p>Description</p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><p><br />
-</p></td>
-<td><p>Defines the network to read</p></td>
-</tr>
-<tr class="even">
-<td></td>
-<td><p>Defines the default edge width; default: .2</p></td>
-</tr>
-<tr class="odd">
-<td></td>
-<td><p>Defines the default edge color; default: #606060</p></td>
-</tr>
-<tr class="even">
-<td></td>
-<td><p>Define the minimum value boundary</p></td>
-</tr>
-<tr class="odd">
-<td></td>
-<td><p>Define the maximum value boundary</p></td>
-</tr>
-<tr class="even">
-<td><p><br />
-</p></td>
-<td><p>If set, the script says what it's doing</p></td>
-</tr>
-<tr class="odd">
-<td></td>
-<td></td>
-</tr>
-</tbody>
-</table>
+| Option                    | Description                                      |
+|---------------------------|--------------------------------------------------|
+| **-n** {{DT_FILE}}<br>**--net** {{DT_FILE}} | Defines the network to read                      |
+| **--edge-width** {{DT_FLOAT}}      | Defines the default edge width; default: .2      |
+| **--edge-color** {{DT_Color}}      | Defines the default edge color; default: \#606060 |
+| **--minV** {{DT_FLOAT}}            | Define the minimum value boundary                |
+| **--maxV** {{DT_FLOAT}}            | Define the maximum value boundary                |
+| **-v**<br>**--verbose**           | If set, the script says what it's doing          |
 
 ## plot_net_trafficLights.py
 
@@ -358,8 +212,7 @@ are part of the net.
 <tbody>
 <tr class="odd">
 <td><figure>
-<img src="plot_net_trafficLights.png" title="plot_net_trafficLights.png" width="300" alt="" /><figcaption>plot_net_trafficLights.png</figcaption>
-</figure></td>
+<img src="../images/Plot_net_trafficLights.png" title="plot_net_trafficLights.png" width="300" alt="" /></figure></td>
 <td><p><code>python plot_trafficLights.py -n bs.net.xml \</code><br />
 <code> --xlim 1000,25000 --ylim 2000,26000 --edge-width .5 \</code><br />
 <code> --xticks 16 --yticks 16 --xlabel [m] --ylabel [m] \ </code><br />
@@ -367,70 +220,33 @@ are part of the net.
 <code> --edge-color #606060</code></p>
 <p>The example shows the traffic lights in Brunswick.</p></td>
 </tr>
-<tr class="even">
-<td></td>
-<td></td>
-</tr>
 </tbody>
 </table>
 
 **Options**
 
-<table>
-<thead>
-<tr class="header">
-<th><p>Option</p></th>
-<th><p>Description</p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><p><br />
-</p></td>
-<td><p>Defines the network to read</p></td>
-</tr>
-<tr class="even">
-<td></td>
-<td><p>Defines the default edge width; default: .2</p></td>
-</tr>
-<tr class="odd">
-<td></td>
-<td><p>Defines the default edge color; default: #606060</p></td>
-</tr>
-<tr class="even">
-<td></td>
-<td><p>Define the minimum value boundary</p></td>
-</tr>
-<tr class="odd">
-<td></td>
-<td><p>Define the maximum value boundary</p></td>
-</tr>
-<tr class="even">
-<td><p><br />
-</p></td>
-<td><p>If set, the script says what it's doing</p></td>
-</tr>
-<tr class="odd">
-<td></td>
-<td></td>
-</tr>
-</tbody>
-</table>
+| Option                    | Description                                      |
+|---------------------------|--------------------------------------------------|
+| **-n** {{DT_FILE}}<br>**--net** {{DT_FILE}} | Defines the network to read                      |
+| **--edge-width** {{DT_FLOAT}}      | Defines the default edge width; default: .2      |
+| **--edge-color** {{DT_Color}}      | Defines the default edge color; default: \#606060 |
+| **--minV** {{DT_FLOAT}}            | Define the minimum value boundary                |
+| **--maxV** {{DT_FLOAT}}            | Define the maximum value boundary                |
+| **-v**<br>**--verbose**           | If set, the script says what it's doing          |
 
 ## plot_summary.py
 
 plot_summary.py reads one or multiple
-[summary-files](Simulation/Output/Summary.md) and plots a
+[summary-files](../Simulation/Output/Summary.md) and plots a
 selected measure (attribute of the read
-[summary-files](Simulation/Output/Summary.md)). The measure is
+[summary-files](../Simulation/Output/Summary.md)). The measure is
 visualised as a time line along the simulation time.
 
 <table>
 <tbody>
 <tr class="odd">
 <td><figure>
-<img src="summary_running.png" title="summary_running.png" width="300" alt="" /><figcaption>summary_running.png</figcaption>
-</figure></td>
+<img src="../images/Summary_running.png" title="summary_running.png" width="300" alt="" /></figure></td>
 <td><p><code>python plot_summary.py </code><br />
 <code> -i mo.xml,dido.xml,fr.xml,sa.xml,so.xml \</code><br />
 <code> -l Mo,Di-Do,Fr,Sa,So --xlim 0,86400 --ylim 0,10000 </code><br />
@@ -438,11 +254,7 @@ visualised as a time line along the simulation time.
 <code> --xticks 0,86401,14400,14 --xtime1 --ygrid \</code><br />
 <code> --ylabel "running vehicles [#]" --xlabel "time" \</code><br />
 <code> --title "running vehicles over time" --adjust .14,.1 </code></p>
-<p>The example shows the numbers of vehicles running in a large-scale scenario of the city of Brunswick over the day for the standard week day classes. "mo.xml", "dido.xml", "fr.xml", "sa.xml", and "so.xml" are <a href="Simulation/Output/Summary" title="wikilink">summary-files</a> resulting from simulations of the weekday-types Monday, Tuesday-Thursday, Friday, Saturday, and Sunday, respectively.</p></td>
-</tr>
-<tr class="even">
-<td></td>
-<td></td>
+<p>The example shows the numbers of vehicles running in a large-scale scenario of the city of Brunswick over the day for the standard week day classes. "mo.xml", "dido.xml", "fr.xml", "sa.xml", and "so.xml" are <a href="../Simulation/Output/Summary.html" title="wikilink">summary-files</a> resulting from simulations of the weekday-types Monday, Tuesday-Thursday, Friday, Saturday, and Sunday, respectively.</p></td>
 </tr>
 </tbody>
 </table>
@@ -482,9 +294,9 @@ visualised as a time line along the simulation time.
 ## plot_tripinfo_distributions.py
 
 plot_tripinfo_distributions.py reads one or multiple
-[tripinfo-files](Simulation/Output/TripInfo.md) and plots a
+[tripinfo-files](../Simulation/Output/TripInfo.md) and plots a
 selected measure (attribute of the read
-[tripinfo-files](Simulation/Output/TripInfo.md)). The measure is
+[tripinfo-files](../Simulation/Output/TripInfo.md)). The measure is
 visualised as vertical bars that represent the numbers of occurences of
 the measure (vehicles) that fall into a bin.
 
@@ -783,8 +595,8 @@ name/value-pairs are visualised as a bar chart.
 The following options are common to all previously listed tools. They
 can be divided into two groups:
 
-  - options for formatting the figure (including adding captions etc.)
-  - options for determining what to do with the generated figure
+- options for formatting the figure (including adding captions etc.)
+- options for determining what to do with the generated figure
 
 The options are listed and discussed in the following sub-sections,
 respectively.
@@ -947,9 +759,9 @@ the figure (once known it is as it should be). In such cases, the option
 
 # Further Visualization Methods
 
-## Coloring edges in [SUMO-GUI](SUMO-GUI.md) according to arbitrary data
+## Coloring edges in [SUMO-GUI](../SUMO-GUI.md) according to arbitrary data
 
-[SUMO-GUI](SUMO-GUI.md) can load weight files and show their
+[SUMO-GUI](../SUMO-GUI.md) can load weight files and show their
 values when setting edge coloring mode to *by loaded weight*. When
 stepping through the simulation, different time intervals contained in
 the weight file can be shown.
@@ -957,21 +769,21 @@ the weight file can be shown.
 ` sumo-gui -n NET --weight-files FILE --weight-attribute ATTR -e 86400`
 
 Suitable weight files are those produced by
-[edgeData-output](Simulation/Output/Lane-_or_Edge-based_Traffic_Measures.md).
+[edgeData-output](../Simulation/Output/Lane-_or_Edge-based_Traffic_Measures.md).
 To show the number of departed vehicles for each edge, the option  would
 be used.
 
 The weight files generated by
 \[\[Tools/Trip\#Customized_Weights|randomTrips option ). Plots the
-network using the geometries read from *<NET>*. Both the width and the
+network using the geometries read from *<NET\>*. Both the width and the
 colors used for each edge are determined using  where both
-*<WIDTHVALUE>* and *<COLORVALUE>* are attributes within the dump-file
+*<WIDTHVALUE\>* and *<COLORVALUE\>* are attributes within the dump-file
 that exist for each edge.
 
-You can change the used color map by setting . *<DEFINITION>* is made of
+You can change the used color map by setting . *<DEFINITION\>* is made of
 a sorted list of values (between 0 and 1) and assigned colors. This
 means that the default *0:\#ff0000,.5:\#ffff00,1:\#00ff00* let streets
-with low value for *<COLORVALUE>* appear red, for those in the middle
+with low value for *<COLORVALUE\>* appear red, for those in the middle
 yellow and for those with a high value green. For values between the
 given values, the color is determined using linear interpolation. Please
 note that only lowercase hexadecimal characters may be used.
@@ -981,7 +793,7 @@ set).
 
 sums up the values found for each edge and divides the result by the
 number of these values. If join is not set and  is given, one should
-choose an output name which looks as following: *<NAME>%05d*.png. The
+choose an output name which looks as following: *<NAME\>%05d*.png. The
 *%05d* will be replaced by the current time step written.
 
 If you have generated a set of images by not "joining" (aggregating) the
