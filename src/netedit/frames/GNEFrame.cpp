@@ -193,6 +193,12 @@ GNEFrame::attributesEditorExtendedDialogOpened()  {
 }
 
 
+void 
+GNEFrame::selectedOverlappedElement(GNEAttributeCarrier */*AC*/) {
+    // this function has to be reimplemente in all child frames that uses a OverlappedInspection
+}
+
+
 void
 GNEFrame::openHelpAttributesDialog(const GNEAttributeCarrier::TagProperties& tagProperties) const {
     FXDialogBox* attributesHelpDialog = new FXDialogBox(myScrollWindowsContents, ("Parameters of " + tagProperties.getTagStr()).c_str(), GUIDesignDialogBoxResizable, 0, 0, 0, 0, 10, 10, 10, 38, 4, 4);

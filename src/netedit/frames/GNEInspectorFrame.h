@@ -37,94 +37,6 @@ class GNEInspectorFrame : public GNEFrame {
 
 public:
     // ===========================================================================
-    // class OverlappedInspection
-    // ===========================================================================
-
-    class OverlappedInspection : private FXGroupBox {
-        /// @brief FOX-declaration
-        FXDECLARE(GNEInspectorFrame::OverlappedInspection)
-
-    public:
-        /// @brief constructor
-        OverlappedInspection(GNEInspectorFrame* inspectorFrameParent);
-
-        /// @brief destructor
-        ~OverlappedInspection();
-
-        /// @brief show template editor
-        void showOverlappedInspection(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor, const Position& clickedPosition);
-
-        /// @brief hide template editor
-        void hideOverlappedInspection();
-
-        /// @brief check if overlappedInspection modul is shown
-        bool overlappedInspectionShown() const;
-
-        /// @brief check if given position is near to saved position
-        bool checkSavedPosition(const Position& clickedPosition) const;
-
-        /// @brief try to go to next element if clicked position is near to saved position
-        bool nextElement(const Position& clickedPosition);
-
-        /// @brief try to go to previous element if clicked position is near to saved position
-        bool previousElement(const Position& clickedPosition);
-
-        /// @name FOX-callbacks
-        /// @{
-
-        /// @brief Inspect next Element (from top to bot)
-        long onCmdNextElement(FXObject*, FXSelector, void*);
-
-        /// @brief Inspect previous element (from top to bot)
-        long onCmdPreviousElement(FXObject*, FXSelector, void*);
-
-        /// @brief show list of overlapped elements
-        long onCmdShowList(FXObject*, FXSelector, void*);
-
-        /// @brief called when a list item is selected
-        long onCmdListItemSelected(FXObject*, FXSelector, void*);
-
-        /// @brief Called when user press the help button
-        long onCmdOverlappingHelp(FXObject*, FXSelector, void*);
-        /// @}
-
-    protected:
-        /// @brief FOX needs this
-        OverlappedInspection() {}
-
-    private:
-        /// @brief current GNEInspectorFrame parent
-        GNEInspectorFrame* myInspectorFrameParent;
-
-        /// @brief Previous element button
-        FXButton* myPreviousElement;
-
-        /// @brief Button for current index
-        FXButton* myCurrentIndexButton;
-
-        /// @brief Next element button
-        FXButton* myNextElement;
-
-        /// @brief list of overlapped elements
-        FXList* myOverlappedElementList;
-
-        /// @brief button for help
-        FXButton* myHelpButton;
-
-        /// @brief objects under cursor
-        std::vector<GNEAttributeCarrier*> myOverlappedACs;
-
-        /// @brief current index item
-        size_t myItemIndex;
-
-        /// @brief saved clicked position
-        Position mySavedClickedPosition;
-
-        /// @brief inspect attributeCarrier correspond to current index
-        void inspectOverlappedAttributeCarrier();
-    };
-
-    // ===========================================================================
     // class NeteditAttributesEditor
     // ===========================================================================
 
@@ -393,7 +305,7 @@ public:
     TemplateEditor* getTemplateEditor() const;
 
     /// @brief get OverlappedInspection modul
-    OverlappedInspection* getOverlappedInspection() const;
+    GNEFrameModuls::OverlappedInspection* getOverlappedInspection() const;
 
     /// @name FOX-callbacks
     /// @{
@@ -404,6 +316,9 @@ public:
 
     /// @brief function called after undo/redo in the current frame (can be reimplemented in frame children)
     void updateFrameAfterUndoRedo();
+
+    /// @brief open AttributesCreator extended dialog (can be reimplemented in frame children)
+    void selectedOverlappedElement(GNEAttributeCarrier *AC);
 
 protected:
     /// @brief FOX needs this
@@ -417,7 +332,7 @@ protected:
 
 private:
     /// @brief Overlapped Inspection
-    OverlappedInspection* myOverlappedInspection;
+    GNEFrameModuls::OverlappedInspection* myOverlappedInspection;
 
     /// @brief Attribute editor
     GNEFrameAttributesModuls::AttributesEditor* myAttributesEditor;

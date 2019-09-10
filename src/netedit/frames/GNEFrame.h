@@ -102,6 +102,9 @@ protected:
     /// @brief open AttributesCreator extended dialog (can be reimplemented in frame children)
     virtual void attributesEditorExtendedDialogOpened();
 
+    /// @brief open AttributesCreator extended dialog (can be reimplemented in frame children)
+    virtual void selectedOverlappedElement(GNEAttributeCarrier *AC);
+
     /// @}
 
     /// @brief Open help attributes dialog
