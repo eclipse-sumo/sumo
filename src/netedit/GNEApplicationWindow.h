@@ -600,6 +600,11 @@ private:
         /// @brief build edit menu commands
         void buildEditMenuCommands(FXMenuPane* editMenu);
 
+    private:
+        /// @brief pointer to current GNEApplicationWindows
+        GNEApplicationWindow* myGNEApp;
+
+    public:
         /// @brief FXMenuCommand for undo last change
         FXMenuCommand* undoLastChange;
 
@@ -630,9 +635,6 @@ private:
         /// @brief FXMenuCommand for open in SUMO GUI
         FXMenuCommand* openInSUMOGUI;
 
-    private:
-        /// @brief pointer to current GNEApplicationWindows
-        GNEApplicationWindow* myGNEApp;
     };
 
     /// @brief struct for processing menu commands

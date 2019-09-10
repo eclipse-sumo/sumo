@@ -359,7 +359,7 @@ GNEPolygonFrame::getDrawingShapeModul() const {
 bool
 GNEPolygonFrame::shapeDrawed() {
     // show warning dialogbox and stop check if input parameters are valid
-    if (myShapeAttributes->areValuesValid() == false) {
+    if (!myShapeAttributes->areValuesValid()) {
         myShapeAttributes->showWarningMessage();
         return false;
     } else if (myDrawingShape->getTemporalShape().size() == 0) {
@@ -389,6 +389,7 @@ GNEPolygonFrame::shapeDrawed() {
         }
         return true;
     }
+    return false;
 }
 
 

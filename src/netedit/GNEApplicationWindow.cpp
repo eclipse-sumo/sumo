@@ -1289,7 +1289,7 @@ GNEApplicationWindow::EditMenuCommands::DemandMenuCommands::buildDemandMenuComma
 // ---------------------------------------------------------------------------
 
 GNEApplicationWindow::EditMenuCommands::EditMenuCommands(GNEApplicationWindow* GNEApp) :
-    myGNEApp(GNEApp) ,
+    myGNEApp(GNEApp),
     networkMenuCommands(this),
     demandMenuCommands(this),
     undoLastChange(nullptr),

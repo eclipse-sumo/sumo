@@ -158,7 +158,7 @@ Parameterised::areParametersValid(const std::string& value, bool report) {
     // first check if parsed parameters are valid
     for (const auto &i : parameters) {
         // check if parameter is valid
-        if (isParameterValid(i, report) == false) {
+        if (!isParameterValid(i, report)) {
             // report depending of flag
             if (report) {
                 WRITE_WARNING("Invalid format of parameter (" + i + ")");
@@ -175,7 +175,7 @@ Parameterised::areParametersValid(const std::string& value, bool report) {
 // ===========================================================================
 
 bool
-Parameterised::isParameterValid(const std::string& value, bool report) {
+Parameterised::isParameterValid(const std::string& value, bool /* report */) {
     // first check if value has the character "|"
     if (std::find(value.begin(), value.end(), '|') != value.end()) {
         return false;
