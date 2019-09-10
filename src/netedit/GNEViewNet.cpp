@@ -48,6 +48,7 @@
 #include <netedit/netelements/GNEEdge.h>
 #include <netedit/netelements/GNEJunction.h>
 #include <netedit/netelements/GNELane.h>
+#include <netbuild/NBEdgeCont.h>
 #include <utils/gui/cursors/GUICursorSubSys.h>
 #include <utils/gui/div/GLHelper.h>
 #include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
@@ -525,6 +526,26 @@ GNEViewNet::GNEViewNet() :
     mySelectingArea(this),
     myEditShapes(this) {
 }
+
+std::vector<std::string>
+GNEViewNet::getEdgeLaneParamKeys(bool edgeKeys) const {
+    std::set<std::string> keys;
+    for (const NBEdge* e : myNet->getEdgeCont().getAllEdges()) {
+        if (edgeKeys) {
+            for (const auto& item : e->getParametersMap()) {
+                keys.insert(item.first);
+            }
+        } else {
+            for (const auto lane : e->getLanes()) {
+                for (const auto& item : lane.getParametersMap()) {
+                    keys.insert(item.first);
+                }
+            }
+        }
+    }
+    return std::vector<std::string>(keys.begin(), keys.end());
+}
+
 
 
 int

@@ -1093,8 +1093,11 @@ GNELane::getColorValue(const GUIVisualizationSettings& s, int activeScheme) cons
             try {
                 return StringUtils::toDouble(myParentEdge.getNBEdge()->getParameter(s.edgeParam, "0"));
             } catch (NumberFormatException&) {
-                WRITE_WARNING("Edge parameter '" + myParentEdge.getNBEdge()->getParameter(s.edgeParam, "0") + "' key '" + s.edgeParam + "' is not a number for edge '" + myParentEdge.getID() + "'");
-                return 0;
+                try {
+                    return StringUtils::toBool(myParentEdge.getNBEdge()->getParameter(s.edgeParam, "0"));
+                } catch (BoolFormatException&) {
+                    return -1;
+                }
             }
         }
         case 13: {
@@ -1102,8 +1105,11 @@ GNELane::getColorValue(const GUIVisualizationSettings& s, int activeScheme) cons
             try {
                 return StringUtils::toDouble(myParentEdge.getNBEdge()->getLaneStruct(myIndex).getParameter(s.laneParam, "0"));
             } catch (NumberFormatException&) {
-                WRITE_WARNING("Lane parameter '" + myParentEdge.getNBEdge()->getLaneStruct(myIndex).getParameter(s.laneParam, "0") + "' key '" + s.laneParam + "' is not a number for lane '" + getID() + "'");
-                return 0;
+                try {
+                    return StringUtils::toBool(myParentEdge.getNBEdge()->getLaneStruct(myIndex).getParameter(s.laneParam, "0"));
+                } catch (BoolFormatException&) {
+                    return -1;
+                }
             }
         }
         case 14: {

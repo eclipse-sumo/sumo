@@ -87,6 +87,9 @@ public:
     void buildColorRainbow(const GUIVisualizationSettings& s, GUIColorScheme& scheme, int active, GUIGlObjectType objectType,
                            bool hide = false, double hideThreshold = 0.);
 
+    /// @brief return list of available edge parameters
+    std::vector<std::string> getEdgeLaneParamKeys(bool edgeKeys) const;
+
     //@brief open object dialog
     void openObjectDialog();
 
