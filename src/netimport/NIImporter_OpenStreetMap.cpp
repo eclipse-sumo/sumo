@@ -1716,7 +1716,7 @@ NIImporter_OpenStreetMap::usableType(const std::string& type, const std::string&
         double width = NBEdge::UNSPECIFIED_WIDTH;
         double sidewalkWidth = NBEdge::UNSPECIFIED_WIDTH;
         double bikelaneWidth = NBEdge::UNSPECIFIED_WIDTH;
-        bool defaultIsOneWay = false;
+        bool defaultIsOneWay = true;
         SVCPermissions permissions = 0;
         bool discard = true;
         for (auto& type2 : types) {
@@ -1725,7 +1725,7 @@ NIImporter_OpenStreetMap::usableType(const std::string& type, const std::string&
                 maxSpeed = MAX2(maxSpeed, tc.getSpeed(type2));
                 prio = MAX2(prio, tc.getPriority(type2));
                 defaultIsOneWay &= tc.getIsOneWay(type2);
-                //std::cout << "merging component " << type2 << " into type " << newType << " allows=" << getVehicleClassNames(tc.getPermissions(type2)) << "\n";
+                //std::cout << "merging component " << type2 << " into type " << newType << " allows=" << getVehicleClassNames(tc.getPermissions(type2)) << " oneway=" << defaultIsOneWay << "\n";
                 permissions |= tc.getPermissions(type2);
                 width = MAX2(width, tc.getWidth(type2));
                 sidewalkWidth = MAX2(sidewalkWidth, tc.getSidewalkWidth(type2));
