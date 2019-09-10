@@ -161,8 +161,8 @@ SUMOVehicleParameter::Stop::Stop() :
     containerTriggered(false),
     parking(false),
     friendlyPos(false),
-    speed(0)
-{ }
+    speed(0) { 
+}
 
 
 void
@@ -222,6 +222,10 @@ SUMOVehicleParameter::Stop::write(OutputDevice& dev) const {
     // only write friendly position if is true
     if (friendlyPos == true) {
         dev.writeAttr(SUMO_ATTR_FRIENDLY_POS, friendlyPos);
+    }
+    // only write act type if isn't empty
+    if (!actType.empty()) {
+        dev.writeAttr(SUMO_ATTR_ACTTYPE, actType);
     }
     dev.closeTag();
 }

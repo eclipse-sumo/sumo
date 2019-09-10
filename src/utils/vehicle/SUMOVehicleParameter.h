@@ -622,6 +622,9 @@ public:
         /// @brief enable or disable friendly position (used by NETEDIT)
         bool friendlyPos;
 
+        /// @brief act Type (only used by Persons) (used by NETEDIT)
+        std::string actType;
+
         /// @brief id of the trip within a cyclical public transport route
         std::string tripId;
 

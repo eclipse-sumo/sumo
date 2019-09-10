@@ -540,7 +540,7 @@ GNEStop::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_PARKING:
             return toString(parking);
         case SUMO_ATTR_ACTTYPE:
-            return "waiting";
+            return actType;
         case SUMO_ATTR_TRIP_ID:
             if (parametersSet & STOP_TRIP_ID_SET) {
                 return tripId;
@@ -681,7 +681,7 @@ GNEStop::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_PARKING:
             return canParse<bool>(value);
         case SUMO_ATTR_ACTTYPE:
-            return (value == "waiting");
+            return true;
         case SUMO_ATTR_TRIP_ID:
             return SUMOXMLDefinitions::isValidVehicleID(value);
         // specific of Stops over stoppingPlaces
@@ -880,7 +880,7 @@ GNEStop::setAttribute(SumoXMLAttr key, const std::string& value) {
             parking = parse<bool>(value);
             break;
         case SUMO_ATTR_ACTTYPE:
-            // CHECK
+            actType = value;
             break;
         case SUMO_ATTR_TRIP_ID:
             if (value.empty()) {

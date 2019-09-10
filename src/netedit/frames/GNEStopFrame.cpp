@@ -297,6 +297,10 @@ GNEStopFrame::getStopParameter(SUMOVehicleParameter::Stop& stop, const SumoXMLTa
     if (valuesMap.count(SUMO_ATTR_FRIENDLY_POS) > 0) {
         stop.friendlyPos = GNEAttributeCarrier::parse<bool>(valuesMap.at(SUMO_ATTR_FRIENDLY_POS));
     }
+    // obtain actType
+    if (valuesMap.count(SUMO_ATTR_ACTTYPE) > 0) {
+        stop.actType = valuesMap.at(SUMO_ATTR_ACTTYPE);
+    }
     // fill rest of parameters depending if it was edited
     if (valuesMap.count(SUMO_ATTR_DURATION) > 0) {
         stop.duration = string2time(valuesMap.at(SUMO_ATTR_DURATION));

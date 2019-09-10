@@ -472,11 +472,6 @@ GNEFrameAttributesModuls::AttributesCreatorRow::onCmdSetAttribute(FXObject* obj,
                 myInvalidValue = "invalid id used in " + myAttrProperties.getAttrStr();
             }
         }
-    } else if (myAttrProperties.getAttr() == SUMO_ATTR_ACTTYPE) {
-        const std::string type = myValueTextField->getText().text();
-        if (type != "waiting") {
-            myInvalidValue = "invalid " + myAttrProperties.getAttrStr();
-        }
     } else if (myAttrProperties.getAttr() == SUMO_ATTR_TRIP_ID) {
         if (!SUMOXMLDefinitions::isValidVehicleID(myValueTextField->getText().text())) {
             myInvalidValue = "invalid id used in " + myAttrProperties.getAttrStr();
