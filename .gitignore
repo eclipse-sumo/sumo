@@ -64,6 +64,9 @@
 /docs/pydoc
 /docs/tutorial
 /docs/userdoc
+/docs/web/site/
+/docs/web/__pycache__/
+/docs/web/*.pyc
 # src dir, mostly configure / make stuff
 /src/config.h
 /src/config.h.in
