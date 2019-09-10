@@ -241,7 +241,6 @@ Warning: Found sharp turn with radius 6.03 at the start of edge '122820534#0'.
 Warning: Found sharp turn with radius 8.49 at the start of edge '23852053#1'.
 Warning: Found sharp turn with radius 5.72 at the start of edge '285825377'.
 Warning: Found sharp turn with radius 6.39 at the end of edge '52348720#0'.
-Warning: Lane '-24540240#5_0' is not connected from any incoming edge at junction '768038179'.
 Warning: Invalid pedestrian topology: crossing ':cluster_2010745295_2010745299_2045862310_2058568011_3754652237_4217234963_4603453643_4603453644_4603453647_c2' across '195411601#1 -4402228 4402228 165409971#1' has no target.
 Warning: The rail crossing '1157325170' does not have any roads.
 Warning: The rail crossing '4402536776' does not have any roads.
@@ -317,8 +316,9 @@ Warning: busStop '2071423352' on lane '295250361_0' is too short for vehicle 'pt
 Warning: Teleporting vehicle 'pt_tram_M2:0.1'; frontal collision with vehicle 'pt_tram_M2:3.0', lane='-148458500#1_0', gap=-1.00, time=499.00 stage=move.
 Warning: Vehicle 'pt_tram_M2:0.1' teleports beyond arrival edge '148458500#1', time 499.00.
 Warning: Vehicle 'pt_tram_M2:0.1' skips stop on lane '148458500#1_0' time=499.00.
-Warning: Person 'ped37' aborted waiting for 147:1 at busStop '-3869306770'.
-Warning: Person 'ped70' aborted waiting for M5:0 at busStop '1668685086'.
-Warning: Person 'ped75' aborted waiting for 200:0 at busStop '271296293'.
-Warning: Person 'ped79' aborted waiting for 147:0 at busStop '3869306762'.
+Warning: Person 'ped44' aborted waiting for 147:1 at busStop '-3869306770'.
+Warning: Person 'ped129' aborted waiting for N6:0 at busStop '-3869306770'.
+Warning: Person 'ped54' aborted waiting for M1:0 at busStop '30731700'.
+Warning: Person 'ped158' aborted waiting for N2:0 at busStop '272408975'.
+Warning: Person 'ped133' aborted waiting for 200:0 at busStop '272408975'.
 Warning: Person 'ped68' aborted waiting for TXL:0 at busStop '3870475228'.
