@@ -145,7 +145,7 @@ permalink: /Z/Changes_from_Version_0.23.0_to_Version_0.24.0/
     double-mirroring technique.
   - Edge types can now be used to [define *vClass*-specific speed limits](../Networks/PlainXML.md#vehicle-class_specific_speed_limits). #1800
   - Additional attributes are now supported to specify the node that
-    is generated when [splitting an edge](../Networks/PlainXML.md.md#road_segment_refining). #1843
+    is generated when [splitting an edge](../Networks/PlainXML.md#road_segment_refining). #1843
 
 - DUAROUTER
   - option **--ignore-errors** now also applies if no input trips/routes are loaded.

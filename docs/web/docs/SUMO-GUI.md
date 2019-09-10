@@ -559,7 +559,7 @@ well](#Changing_the_appearance.2Fvisualisation_of_the_simulation.md).
 In addition to changing the appearance of simulated structures, one may
 also load additional background images ("decals") into
 [SUMO-GUI](SUMO-GUI.md). For this, open the visualisation
-settings using ![Image:colorwheel.gif](colorwheel.gif
+settings using ![Image:colorwheel.gif](images/Colorwheel.gif
 "Image:colorwheel.gif") and - if you are not yet here - choose the
 "Background" panel (figure 1.1). You will see a table with following
 columns: **picture file**, **center x**, **center y**, **width**,

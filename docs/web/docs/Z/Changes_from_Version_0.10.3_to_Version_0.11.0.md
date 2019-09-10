@@ -33,7 +33,7 @@ permalink: /Z/Changes_from_Version_0.10.3_to_Version_0.11.0/
       (including [defect 73: false end step information in detectors output](http://apps.sourceforge.net/trac/sumo/ticket/73))
   - removed TrafficOnline classes; new approaches will be
     described/discussed at
-    [TrafficOnline](TrafficOnline.md); was: [enhancement 57: remove TrafficOnline classes from simulation core](http://apps.sourceforge.net/trac/sumo/ticket/57)
+    TrafficOnline; was: [enhancement 57: remove TrafficOnline classes from simulation core](http://apps.sourceforge.net/trac/sumo/ticket/57)
     - [edgelane traffic](../Simulation/Output/Lane-_or_Edge-based_Traffic_Measures.md),
       [edgelane hbefa](../Simulation/Output/Lane-_or_Edge-based_Emissions_Measures.md),
       and [edgelane harmonoise]../(Simulation/Output/Lane-_or_Edge-based_Noise_Measures.md)

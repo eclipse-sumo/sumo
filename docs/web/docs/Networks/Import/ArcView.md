@@ -77,8 +77,8 @@ descriptions](../../Networks/PlainXML.md#connection_descriptions).
 ArcView-networks are encoded using geocoordinates which have to be
 converted to the cartesian coordinates system used by SUMO. To describe
 how to convert the coordinates, one should know in which UTM-zone your
-network is located. Use [projection
-options](projection_options.md) to set the correct one.
+network is located. Use projection
+options to set the correct one.
 
 !!! caution
     Road geometries must be encoded with type 'linestring'

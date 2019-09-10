@@ -5,7 +5,7 @@ permalink: /Tools/LiSuM/
 
 # Introduction
 
-![LisaSumoIcon.png](LisaSumoIcon.png "LisaSumoIcon.png")
+![LisaSumoIcon.png](../images/LisaSumoIcon.png "LisaSumoIcon.png")
 
 LiSuM is a middleware that couples
 [LISA+](https://www.schlothauer.de/en/software-systems/lisa/) and SUMO
@@ -24,7 +24,7 @@ system. LiSuM is licensed under the
 [GPL](http://www.gnu.org/licenses/gpl.html) and its current version is
 the 1.0.0.
 
-![flowws.png](flowws.png "flowws.png")
+![flowws.png](../images/Flowws.png "flowws.png")
 
 Two versions of LiSuM are provided: A graphical version called
 [\#LiSuM-GUI](#LiSuM-GUI.md) and a command line version suitable
@@ -34,7 +34,7 @@ for batch processing called [\#LiSuM-Core](#LiSuM-Core.md)
 
 ## Installation
 
-![LISASumo.MainWindow.PNG](LISASumo.MainWindow.PNG
+![LISASumo.MainWindow.PNG](../images/LISASumo.MainWindow.PNG
 "LISASumo.MainWindow.PNG")
 
 The installation of LiSuM is straightforward and it may not present
@@ -93,7 +93,7 @@ use different naming conventions for their elements, the fields
 `controlUnits` and `detectors` tell LiSuM how are they called in each
 system.
 
-![Classes.PNG](Classes.PNG "Classes.PNG")
+![Classes.PNG](../images/Classes.PNG "Classes.PNG")
 
 **Example:**
 
@@ -127,7 +127,7 @@ system.
        </controlUnits>
     </simulation>
 
-![LoggingLevels.PNG](LoggingLevels.PNG "LoggingLevels.PNG")
+![LoggingLevels.PNG](../images/LoggingLevels.PNG "LoggingLevels.PNG")
 
 The configuration file shown above declares the following:
 
@@ -159,7 +159,7 @@ The configuration file shown above declares the following:
 
 ### Control Units Management
 
-![LISASumo.ControlUnitsOptionsWindow.PNG](LISASumo.ControlUnitsOptionsWindow.PNG
+![LISASumo.ControlUnitsOptionsWindow.PNG](../images/LISASumo.ControlUnitsOptionsWindow.PNG
 "LISASumo.ControlUnitsOptionsWindow.PNG")
 
 The Control Units Managemente dialog window gets opened by pressing
@@ -174,7 +174,7 @@ unclicking the check box right of the control units combo box (image
 below). Per default, LISA+ controls units not being assigned to any Sumo
 intersection appear disabled.
 
-![Controlunits_on.PNG](Controlunits_on.PNG "Controlunits_on.PNG")
+![Controlunits_on.PNG](../images/Controlunits_on.PNG "Controlunits_on.PNG")
 
 ### LISA+ Virtual Controller
 
@@ -197,7 +197,7 @@ Per default the LISA+ Virtual Controller and its configuration file
 the LiSuM installation directory. This path can be changed in the System
 Preferences Window (*Menu: Tools -\> Preferences*).
 
-![VirtualController.PNG](VirtualController.PNG "VirtualController.PNG")
+![VirtualController.PNG](../images/VirtualController.PNG "VirtualController.PNG")
 
 ## Simulations directory
 

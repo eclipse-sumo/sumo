@@ -36,10 +36,10 @@ path to *sumo/tools* directly as in the line
 
 In general it is very easy to interface with SUMO from Python (the
 following example is a modification of
-[tutorial/traci_tls](Tutorials/TraCI4Traffic_Lights.md)):
+[tutorial/traci_tls](../Tutorials/TraCI4Traffic_Lights.md)):
 
 First you compose the command line to start either
-[SUMO](SUMO.md) or [SUMO-GUI](SUMO-GUI.md) (leaving out
+[SUMO](../SUMO.md) or [SUMO-GUI](../SUMO-GUI.md) (leaving out
 the option  which was needed before 0.28.0):
 
 `sumoBinary = "/path/to/sumo-gui"`
@@ -104,7 +104,7 @@ you can ask the module for the result of all current subscriptions after
 each time step. In order to subscribe for variables you need to the
 domain id of the objects that shall be retrieved and the variable ids
 which can be looked up in the traci/constants.py file. The domain id
-always has the form CMD_GET_<DOMAIN>_VARIABLE. The following code
+always has the form CMD_GET_<DOMAIN\>_VARIABLE. The following code
 retrieves all vehicle speeds and waiting times within range (42m) of a
 junction (the vehicle ids are retrieved implicitly).
 
@@ -150,16 +150,16 @@ vehicle-to-vehicle form for a successful application.
 
 The following filter types are available:
 
-  - Lanes: Return surrounding vehicles on lanes specified relatively to
-    the reference vehicle
-  - CFManeuver: Return leader and follower on the reference vehicle's
-    lane
-  - LCManeuver: Return leader and follower on the reference vehicle's
-    lane and neighboring lane(s)
-  - Turn: Return conflicting vehicles on upcoming junctions along the
-    vehicle's route
-  - VType: Only return vehicles of the specified vTypes
-  - VClass: Only return vehicles of the specified vClasses
+- Lanes: Return surrounding vehicles on lanes specified relatively to
+  the reference vehicle
+- CFManeuver: Return leader and follower on the reference vehicle's
+  lane
+- LCManeuver: Return leader and follower on the reference vehicle's
+  lane and neighboring lane(s)
+- Turn: Return conflicting vehicles on upcoming junctions along the
+  vehicle's route
+- VType: Only return vehicles of the specified vTypes
+- VClass: Only return vehicles of the specified vClasses
 
 See the [pydoc
 documentation](http://sumo.dlr.de/daily/pydoc/traci._vehicle.html#VehicleDomain-addSubscriptionFilterCFManeuver)
@@ -251,7 +251,7 @@ directly and have the scripts executed in SUMO. The syntax is completely
 the same, except that you leave out the calls to init and close and you
 need to start sumo with the option --python-script. This feature is
 considered deprecated and will be replaced by
-[libsumo](libsumo.md). It does currently *not* work with the GUI
+[libsumo](../Libsumo.md). It does currently *not* work with the GUI
 version of sumo.
 
 Since the feature is not well tested yet, you need to enable embedded
@@ -261,32 +261,32 @@ instructions below
 
 ### Linux
 
-  - install the python devel package files
-  - call configure using the --with-python option
-  - make && make install as usual
+- install the python devel package files
+- call configure using the --with-python option
+- make && make install as usual
 
 ### Windows
 
-  - make sure python is installed and is in your PATH
-  - call tools\\build\\pythonPropsMSVC.py to generate / modify the
-    build\\msvc10\\config.props file
-  - build the Win32 Release version as usual
-  - the debug build is somewhat more involved and is disabled by
-    default, the following instructions are [taken from
-    here](http://upp-mirror.googlecode.com/svn-history/r3552/trunk/bazaar/Py/install.txt)
-      - download the python source package fitting your python version
-      - open the pcbuild.sln in the PCbuild subdir with Visual Studio
-      - do the Win32 Debug build for python, it will have lots of errors
-        but the main parts (hopefully) succeed
-      - from the PCbuild dir copy
-          - python27_d.dll to the Python dir (something like
-            C:\\Python27)
-          - python27_d.lib, python27_d.pdb, python27_d.exp to the
-            libs dir (C:\\Python27\\libs)
-          - every \*_d.pyd to the DLLs dir (C:\\Python27\\DLLs)
-      - enable the python debug build by editing
-        build\\msvc10\\Win32.props
-      - now you can do the Win32 Debug build for SUMO
+- make sure python is installed and is in your PATH
+- call tools\\build\\pythonPropsMSVC.py to generate / modify the
+build\\msvc10\\config.props file
+- build the Win32 Release version as usual
+- the debug build is somewhat more involved and is disabled by
+default, the following instructions are [taken from
+here](http://upp-mirror.googlecode.com/svn-history/r3552/trunk/bazaar/Py/install.txt)
+  - download the python source package fitting your python version
+  - open the pcbuild.sln in the PCbuild subdir with Visual Studio
+  - do the Win32 Debug build for python, it will have lots of errors
+    but the main parts (hopefully) succeed
+  - from the PCbuild dir copy
+    - python27_d.dll to the Python dir (something like
+      C:\\Python27)
+    - python27_d.lib, python27_d.pdb, python27_d.exp to the
+      libs dir (C:\\Python27\\libs)
+    - every \*_d.pyd to the DLLs dir (C:\\Python27\\DLLs)
+  - enable the python debug build by editing
+    build\\msvc10\\Win32.props
+  - now you can do the Win32 Debug build for SUMO
 
 Earlier versions of Visual Studio and 64bit build are currently not
 directly supported (but the interested programmer should be able to
@@ -297,19 +297,19 @@ modify the files accordingly).
 When using TraCI there are some common tasks which are not covered by
 the traci library such as
 
-  - Analyzing the road network
-  - Parsing simulation outputs
+- Analyzing the road network
+- Parsing simulation outputs
 
 For this functionality it is recommended to use
-[Tools/Sumolib](Tools/Sumolib.md)
+[Tools/Sumolib](../Tools/Sumolib.md)
 
 ## Pitfalls and Solutions
 
-  - Note that strings, if exchanged, have to be ASCII-encoded.
-  - If you start sumo from within your python script using
-    subprocess.Popen, be sure to call wait() on the resulting process
-    object before quitting your script. You might loose output
-    otherwise.
+- Note that strings, if exchanged, have to be ASCII-encoded.
+- If you start sumo from within your python script using
+  subprocess.Popen, be sure to call wait() on the resulting process
+  object before quitting your script. You might loose output
+  otherwise.
 
 ### Debugging a TraCI session on Linux
 
@@ -349,7 +349,7 @@ Then add the vehicle with that route
 This will cause the vehicle to compute a new route from startEdge to
 endEdge according to the estimated travel times in the network at the
 time of departure. For details of this mechanism see
-[Demand/Automatic_Routing](Demand/Automatic_Routing.md).
+[Demand/Automatic_Routing](../Demand/Automatic_Routing.md).
 
 ### coordinate transformations
 
@@ -388,6 +388,6 @@ traci.close()
 
 ## Further Resources
 
-  - The module [Simpla](Simpla.md) provides a library for
-    platooning functions that can be integrated with user client
-    scripts.
+- The module [Simpla](../Simpla.md) provides a library for
+  platooning functions that can be integrated with user client
+  scripts.

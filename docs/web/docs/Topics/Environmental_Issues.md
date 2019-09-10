@@ -138,7 +138,7 @@ within the [iTETRIS](http://www.ict-itetris.eu/)[\[7\]](#references) project and
 reported in its deliverable D3.1[\[3\]](#references). Further steps using real-world
 scenarios are given in [\[7\]](#references), [\[8\]](#references) and [\[9\]](#references). To gain deeper
 knowledge about the dynamics of the processes, later investigations
-([\!\!\!](!!!.md), [\[10\]](#references), [\[11\]](#references)) were performed using
+([\[10\]](#references), [\[11\]](#references)) were performed using
 synthetic scenarios.
 
 ## Evaluation of real Traffic Management Actions

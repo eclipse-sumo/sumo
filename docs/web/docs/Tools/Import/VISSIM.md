@@ -7,7 +7,7 @@ permalink: /Tools/Import/VISSIM/
 
 **TODO:**
 
-  - translation to english
+- translation to english
 
 test math: \(\sqrt{\pi} +4\)
 
@@ -54,17 +54,17 @@ weitere Anpassungen nach der Konversion vornehmen zu müssen. Die
 folgenden Abbildungen zeigen eine beispielhafte Konversion eines
 `.inpx-Netzes` in ein SUMO-Netz.
 
-![Vissim_net.png](Vissim_net.png "Vissim_net.png")
-![SUMO_net.png](SUMO_net.png "SUMO_net.png")
+![Vissim_net.png](../../images/Vissim_net.png "Vissim_net.png")
+![SUMO_net.png](../../images/SUMO_net.png "SUMO_net.png")
 
 Abbildung "Junction conversion" zeigt eine komplexe Kreuzung, welche in
 VISSIM erstellt und anschließend in SUMO konvertiert wurde. Die
 Abbildung zeigt, dass die Geometrien (und Abbiegerelationen) korrekt
 übersetzt werden.
 
-![TurningRelation_VISSIM.png](TurningRelation_VISSIM.png
+![TurningRelation_VISSIM.png](../../images/TurningRelation_VISSIM.png
 "TurningRelation_VISSIM.png")
-![TurningRelation_SUMO.png](TurningRelation_SUMO.png
+![TurningRelation_SUMO.png](../../images/TurningRelation_SUMO.png
 "TurningRelation_SUMO.png")
 
 ## Priorisierung gemäß VISSIM-Konfliktflächen
@@ -78,8 +78,8 @@ den Geradeausfahrern korrekt übersetzt wurden.
 
 **Conflict areas**
 
-![conflArea_vissim.png](conflArea_vissim.png "conflArea_vissim.png")
-![conflArea_sumo.png](conflArea_sumo.png "conflArea_sumo.png")
+![conflArea_vissim.png](../../images/conflArea_vissim.png "conflArea_vissim.png")
+![conflArea_sumo.png](../../images/conflArea_sumo.png "conflArea_sumo.png")
 
 Die Daten zur Dargestellten Situation finden sich im Verzeichnis der
 Testdaten unter `tests/netconvert/import/leftist_conflictarea-prio/`, wo
@@ -194,13 +194,13 @@ Bei der Konversion durch das Tool
 `convert_vissimXML_flows_statRoutes.py` werden folgende VISSIM-Attribute
 übernommen:
 
-  - statische Routenentscheidungen
-  - Zuflüsse
-  - Fahrzeugtypen
-      - Geschwindigkeit
-      - Länge
-      - maximale Beschleunigung
-      - Fahrzeugzusammensetzung
+- statische Routenentscheidungen
+- Zuflüsse
+- Fahrzeugtypen
+  - Geschwindigkeit
+  - Länge
+  - maximale Beschleunigung
+  - Fahrzeugzusammensetzung
 
 Da es sich in VISSIM bei Geschwindigkeit, Beschleunigung und Länge um
 Wahrscheinlichkeitsverteilungen handelt, müssen aus den Daten erst
@@ -383,10 +383,12 @@ Während der Simulation können die Signalprogramme entweder in dem GUI
 per Hand oder durch das Kindelement <wautSwitch> zu einem angegebenen
 Zeitpunkt verändert werden:
 
-`  `<WAUT refTime="0" id="myWAUT" startProg="weekday_night">
-`     `<wautSwitch time="21600" to="weekday_day"/>
-`     `<wautSwitch time="79200" to="weekday_night"/>
-`  `</WAUT>
+```
+  <WAUT refTime="0" id="myWAUT" startProg="weekday_night">
+     <wautSwitch time="21600" to="weekday_day"/>
+     <wautSwitch time="79200" to="weekday_night"/>
+  </WAUT>
+```
 
 Nähere Beschreibungen zur Definition von Lichtsignalanlagen befinden
 sich unter <http://sumo.dlr.de/wiki/Simulation/Traffic_Lights> (zuletzt
@@ -407,8 +409,8 @@ und wird aus dieser übernommen.
 
 ## Beispiel
 
-![311_vissim.png](311_vissim.png "311_vissim.png")
-![311_sumo.png](311_sumo.png "311_sumo.png")
+![311_vissim.png](../../images/311_vissim.png "311_vissim.png")
+![311_sumo.png](../../images/311_sumo.png "311_sumo.png")
 
 Hier ein Vergleich zweier Signalprogramme über die graphische Oberfläche
 von VISSIM und SUMO zu sehen. Die Abbildung zeigt, dass die umgesetzten
@@ -429,7 +431,9 @@ auszulesen und in das zuvor durch `netconvert` konvertierte SUMO-Netz zu
 `.add.xml-Datei`, welche anschließend der SUMO config-Datei für die
 Simulation hinzugefügt werden muss. Der Aufruf erfolgt über:
 
-`   convert_detectors2SUMO.py -V `<vissim-file>` -S `<sumo-file>` -o `<output-filename>
+```
+   convert_detectors2SUMO.py -V <vissim-file> -S <sumo-file> -o <output-filename>
+```
 
 ## Detektor-Definition VISSIM
 
@@ -438,17 +442,21 @@ Querschnittsmessungen werden in VISSIM durch den XML-tag
 Detektoren ist durch den jeweiligen Fahrstreifen der Strecke sowie deren
 Laufmeter gegeben:
 
-`  `<dataCollectionPoint lane="108 1" name="301.41" no="1" pos="162.558473"/>
-`  `<dataCollectionPoint lane="262 4" name="301.12" no="10" pos="32.960054"/>
+```
+  <dataCollectionPoint lane="108 1" name="301.41" no="1" pos="162.558473"/>
+  <dataCollectionPoint lane="262 4" name="301.12" no="10" pos="32.960054"/>
+```
 
 Resezeitmessungen sind in VISSIM nicht fahrstreifen- sondern
 streckenbezogen. Hierfür wird die Strecke und der Laufmeter für den
 Start- und Endpunkt festgelegt:
 
-`  `<vehicleTravelTimeMeasurement name="Wienerstrasse_Sueden" no="1">
-`     `<start link="207" pos="239.836000"/>
-`     `<end link="126" pos="12.867000"/>
-`  `</vehicleTravelTimeMeasurement>
+```
+  <vehicleTravelTimeMeasurement name="Wienerstrasse_Sueden" no="1">
+     <start link="207" pos="239.836000"/>
+     <end link="126" pos="12.867000"/>
+  </vehicleTravelTimeMeasurement>
+```
 
 ## Detektor-Definition SUMO
 
@@ -457,8 +465,10 @@ Querschnittsmessungen in VISSIM. Zur Positionierung werden ebenfalls
 Fahrstreifen und Laufmeter angegeben. Es ist jedoch zusätzlich möglich
 das Zeitintervall zu definieren, in dem die Daten aggregiert werden.
 
-`  `<inductionLoop file="ind_out.xml" freq="900" id="1_301.41" lane="108_0" pos="162.554736186"/>
-`  `<inductionLoop file="ind_out.xml" freq="900" id="33_359.21" lane="123_0" pos="28.1962390136"/>
+```
+  <inductionLoop file="ind_out.xml" freq="900" id="1_301.41" lane="108_0" pos="162.554736186"/>
+  <inductionLoop file="ind_out.xml" freq="900" id="33_359.21" lane="123_0" pos="28.1962390136"/>
+```
 
 Wie bei den Induktionsschleifen sind auch die Reisezeitmessungen durch
 das Zeitintervall der Aggregierung und deren Position definiert. In SUMO
@@ -466,12 +476,14 @@ muss sich jedoch im Gegensatz zu VISSIM die Reisezeitmessung nicht auf
 die ganze Strecke beziehen, da definiert wird, welche Fahrstreifen
 berücksichtigt werden sollen.
 
-`  `<entryExitDetector file="time_out.xml" freq="900" id="1">
-`     `<detEntry lane="207_0" pos="239.753789696"/>
-`     `<detEntry lane="207_1" pos="241.370532161"/>
-`     `<detExit lane="126_0" pos="23.2884507277"/>
-`     `<detExit lane="126_1" pos="23.2873152316"/>
-`  `</entryExitDetector>
+```
+  <entryExitDetector file="time_out.xml" freq="900" id="1">
+     <detEntry lane="207_0" pos="239.753789696"/>
+     <detEntry lane="207_1" pos="241.370532161"/>
+     <detExit lane="126_0" pos="23.2884507277"/>
+     <detExit lane="126_1" pos="23.2873152316"/>
+  </entryExitDetector>
+```
 
 ## Umsetzung
 

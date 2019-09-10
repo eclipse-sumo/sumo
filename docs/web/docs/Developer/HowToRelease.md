@@ -88,8 +88,8 @@ and committing the changes after careful inspection
 - check the documentation
   - update the [change log](../ChangeLog.md) again and include
     version and release date
-  - modify the [version template (Version)](../../mkdocs.yml) and
-    the [release date (ReleaseDate)](../../mkdocs.yml) in the **extra:** section at the end on *mkdocs.yml* to update
+  - modify the version template (Version) [in mkdocs.yml]({{Source}}docs/web/mkdocs.yml) and
+    the release date (ReleaseDate) [in mkdocs.yml]({{Source}}docs/web/mkdocs.yml) in the **extra:** section at the end on *mkdocs.yml* to update
     [download links](../Downloads.md).
 
 ### Release day

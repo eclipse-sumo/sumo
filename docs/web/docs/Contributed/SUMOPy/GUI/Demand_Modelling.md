@@ -26,7 +26,7 @@ The currently implemented demand generation methods are:
 
 - [Zone to zone demand flows](../../../Contributed/SUMOPy/Demand/Zone_To_Zone.md)
 - [Turn flows](../../../Contributed/SUMOPy/Demand/Turn_Flows.md)
-- [Virtual Population](../../../Contributed/SUMOPy/Demand/Virtual_Population.md)
+- Virtual Population
 
 The different demand generation methods can be used in combination: For
 example trips generated with method *Zone to zone demand flows* can be

@@ -111,7 +111,7 @@ upwards, green) and "bad" (arrow downwards, red) influences on the
 overall simulation quality.
 
 - ![Image:level16px_00.gif](../../images/Level16px_00.gif "Image:level16px_00.gif") Network Topology and Edge Parameter (from OSM)
-  - ![Image:level16px_+3.gif](../../images/Level16px_+3.gif "Image:level16px_+3.gif") Completeness
+  - ![Image:level16px_+3.gif](../../images/level16px_+3.gif "Image:level16px_+3.gif") Completeness
     - Seems to be quite complete (including even minor roads) when
       compared to other (commercial or administral) road networks;
       still, there is no information about "black spots";
@@ -151,10 +151,10 @@ overall simulation quality.
 - ![Image:level16px_-2.gif](../../images/Level16px_-2.gif "Image:level16px_-2.gif") Public Transport
   - completely ungiven
 - ![Image:level16px_-1.gif](../../images/Level16px_-1.gif "Image:level16px_-1.gif") Demand Data
-  - ![Image:level16px_+5.gif](../../images/Level16px_+5.gif "Image:level16px_+5.gif") Activity-Based single Person Trips
-    - ![Image:level16px_+5.gif](../../images/Level16px_+5.gif
+  - ![Image:level16px_+5.gif](../../images/level16px_+5.gif "Image:level16px_+5.gif") Activity-Based single Person Trips
+    - ![Image:level16px_+5.gif](../../images/level16px_+5.gif
       "Image:level16px_+5.gif") No Time Aggregation
-    - ![Image:level16px_+5.gif](../../images/Level16px_+5.gif
+    - ![Image:level16px_+5.gif](../../images/level16px_+5.gif
       "Image:level16px_+5.gif") No Start/End Position Aggregation
   - ![Image:level16px_-2.gif](../../images/Level16px_-2.gif "Image:level16px_-2.gif") unverified
   - ![Image:level16px_-1.gif](../../images/Level16px_-1.gif "Image:level16px_-1.gif") starts partially at highways

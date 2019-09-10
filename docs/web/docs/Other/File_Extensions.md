@@ -49,11 +49,11 @@ corresponding executable with "cfg" appended)
     ([xsd](http://sumo.dlr.de/xsd/routes_file.xsd),
     [description](../Demand/Dynamic_User_Assignment.md#general_behavior))
   - **\*.add.xml**:
-    [SUMO](SUMO.md)/[SUMO-GUI](../SUMO-GUI.md) - {{AdditionalFile}}
-    ([xsd](http://sumo.dlr.de/xsd/additional_file.xsd), [missing description](missing_description.md))
+    [SUMO](../SUMO.md)/[SUMO-GUI](../SUMO-GUI.md) - {{AdditionalFile}}
+    ([xsd](http://sumo.dlr.de/xsd/additional_file.xsd), missing description)
     - traffic lights only
-      ([xsd](http://sumo.dlr.de/xsd/tllogic_file.xsd), [missing
-      description](missing_description.md))
+      ([xsd](http://sumo.dlr.de/xsd/tllogic_file.xsd), missing
+      description)
   - **\*.edg.xml**: [NETCONVERT](../NETCONVERT.md) - edges file
     ([xsd](http://sumo.dlr.de/xsd/edges_file.xsd),
     [description](../Networks/PlainXML.md#edge_descriptions))
@@ -122,8 +122,8 @@ corresponding executable with "cfg" appended)
 
 - Other files
   - **\*.xml**: edge diff
-    ([xsd](http://sumo.dlr.de/xsd/edgediff_file.xsd), [missing
-    description](missing_description.md))
+    ([xsd](http://sumo.dlr.de/xsd/edgediff_file.xsd), missing
+    description)
 
 ## Imported Files
 
