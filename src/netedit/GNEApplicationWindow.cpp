@@ -1343,7 +1343,7 @@ GNEApplicationWindow::EditMenuCommands::buildEditMenuCommands(FXMenuPane* editMe
         myGNEApp, MID_GNE_TOOLBAREDIT_LOADDEMAND);
     loadDemandInSUMOGUI->setCheck(TRUE);
     openInSUMOGUI = new FXMenuCommand(editMenu,
-        "Open in SUMO GUI\tCtrl+T\tOpens the SUMO GUI application with the current network.",
+        "Open in SUMO-GUI\tCtrl+T\tOpens the SUMO-GUI application with the current network.",
         GUIIconSubSys::getIcon(ICON_SUMO_MINI), myGNEApp, MID_HOTKEY_CTRL_T_OPENSUMONETEDIT);
 }
 
