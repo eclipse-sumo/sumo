@@ -21,7 +21,7 @@ at all intersections. Moreover, a higher priority has been given to the
 eastbound and westbound traffic. The corresponding network layout is
 shown in Figure 1.1.
 
-![model-names.PNG](../images/model-names.PNG "model-names.PNG")
+![model-names.PNG](../images/Model-names.PNG "model-names.PNG")
 
 **Figure 1.1. Network layout**
 
@@ -101,7 +101,7 @@ referring to the network from your configuration.
   direction*** or select the option ***two-way*** during the creation
   process of an edge.
 
-![sixth.png](../images/sixth.png "sixth.png") 
+![sixth.png](../images/Sixth.png "sixth.png") 
 ![Seventh.png](../images/Seventh.png "Seventh.png")
 
 - Furthermore, one attribute must be changed to get a similar output
