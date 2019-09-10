@@ -71,7 +71,7 @@ extra:
     AdditionalFiles: '[*additional-files*](SUMO.md#format_of_additional_files)'
     DT_2DBoundingBox: '[*&lt;2D-BOUNDING_BOX&gt;*](Basics/Notation.md#referenced_data_types)'
     DT_2DPosition: '[*&lt;2D-POSITION&gt;*](Basics/Notation.md#referenced_data_types)'
-    DT_BOOL: '[*&lt;BOOL&gt;*](Basics/Notation.md#referenced_data_types)'
+    DT_BOOL: '[*&lt;BOOL&gt;*](/docs/Basics/Notation.html#referenced_data_types)'
     DT_Color: '[*&lt;COLOR&gt;*](Basics/Notation.md#referenced_data_types)'
     DT_FILE: '[*&lt;FILE&gt;*](Basics/Notation.md#referenced_data_types)'
     DT_FLOAT: '[*&lt;FLOAT&gt;*](Basics/Notation.md#referenced_data_types)'
