@@ -16,9 +16,9 @@ also possible to define the demand file manually or to edit generated
 files with a text editor. Before starting, it is important to know that
 a vehicle in SUMO consists of three parts:
 
-  - a vehicle type which describes the vehicle's physical properties,
-  - a route the vehicle shall take,
-  - and the vehicle itself.
+- a vehicle type which describes the vehicle's physical properties,
+- a route the vehicle shall take,
+- and the vehicle itself.
 
 Both routes and vehicle types can be shared by several vehicles. It is
 not mandatory to define a vehicle type. If not given, a default type is
@@ -744,9 +744,8 @@ lists which parameter are used by which model(s).
 | lcTimeToImpatience      | Time to reach maximum impatience (of 1). Impatience grows whenever a lane-change manoeuvre is blocked.. *default: infinity (disables impatience growth)*                                                                                                 | SL2015         |
 | lcAccelLat              | maximum lateral acceleration per second. *default: 1.0*                                                                                                                                                                                                  | SL2015         |
 | lcTurnAlignmentDistance | Distance to an upcoming turn on the vehicles route, below which the alignment should be dynamically adapted to match the turn direction. *default: 0.0 (i.e., disabled)*                                                                                 | SL2015         |
-| lcMaxSpeedLatStanding   | Upper bound on lateral speed when standing. *default: maxSpeedLat (i.e., disabled)*                                                                                                                                                                      | SL2015         |
-| lcMaxSpeedLatFactor     | Upper bound on lateral speed while moving computed as lcMaxSpeedLatStanding + lcMaxSpeedLatFactor \* getSpeed(). *default: 1.0*                                                                                                                          | SL2015         |
-|                         |                                                                                                                                                                                                                                                          |                |
+| lcMaxSpeedLatStanding   | Upper bound on lateral speed when standing. *default: maxSpeedLat (i.e., disabled)*   | LC2013, SL2015         |
+| lcMaxSpeedLatFactor     | Upper bound on lateral speed while moving computed as lcMaxSpeedLatStanding + lcMaxSpeedLatFactor \* getSpeed(). *default: 1.0*                                                                                                                          | LC2013, SL2015         |
 
 The parameters are set within the :
 
@@ -955,16 +954,17 @@ as output (device.fcd) or behavior (device.rerouting).
 The following device names are supported and can be used for the
 placeholder  below
 
-  - emission
-  - battery
-  - btreiver
-  - btsender
-  - rerouting
-  - [ssm](Simulation/Output/SSM_Device.md)
-  - [toc](ToC_Device.md)
-  - [driverstate](Driver_State.md)
-  - fcd
-  - example
+- emission
+- battery
+- btreiver
+- btsender
+- bluelight
+- rerouting
+- [ssm](Simulation/Output/SSM_Device.md)
+- [toc](ToC_Device.md)
+- [driverstate](Driver_State.md)
+- fcd
+- example
 
 ## Automatic assignment
 

@@ -25,23 +25,27 @@ below. Each person must have at least one stage in its plan.
 </person>
 ```
 
-| Attribute | Type      | Range              | Default          | Remark                                                 |
-| --------- | --------- | ------------------ | ---------------- | ------------------------------------------------------ |
-| id        | string    | valid XML ids      | \-               |                                                        |
-| depart    | float(s)  | ≥0                 | \-               |                                                        |
-| departPos | float(s)  | ≥0                 | \-               | the distance along the edge that the person is created |
-| type      | string    | any declared vType | DEFAULT_PEDTYPE | the type should have vClass pedestrian                 |
-| color     | rgb color |                    |                  |                                                        |
+| Attribute           | Type      | Range              | Default         | Remark      |
+|---------------------|-----------|--------------------|-----------------|---------------------------|
+| id                  | string    | valid XML ids      | -               |                          |
+| depart              | float(s)  | ≥0                 | -               |                            |
+| departPos           | float(s)  | ≥0                 | -               | the distance along the edge that the person is created      |
+| type                | string    | any declared vType | DEFAULT_PEDTYPE | the type should have vClass pedestrian              |
+| width               | float (s) | ≥0                 | 0,48            | The person's width [m]        |
+| lenght              | float (s) | ≥0                 | 0,21            | The person's netto-length (length) (in m)       |
+| mingap              | float (s) | ≥0                 | 0,25            | Empty space after leader [m]                |
+| maxSpeed            | float (s) | ≥0                 | 1,39            | The person's maximum velocity (in m/s)             |
+| jmDriveAfterRedTime | float (s) | ≥0                 | -1              | This value causes persons to violate a red light if the duration of the red phase is lower than the given threshold. When set to 0, persons will always walk at yellow but will try to stop at red. If this behavior causes a person to walk so fast that stopping is not possible any more it will not attempt to stop. |
 
-When specifying a <span class="inlxml">type</span>, the set of
+When specifying a `type`, the set of
 attributes which are in effect during simulation depend on the selected
 [pedestrian model](../Simulation/Pedestrians.md#pedestrian_models).
-Attributes such as , ,  and  are always used for visualization.
+Attributes such as `width`, `length`, `imgFile` and `color` are always used for visualization.
 
 # Repeated persons (personFlows)
 
-To define multiple persons with the same plan, the element  can be used.
-It uses the same parameters and child elements as  except for the
+To define multiple persons with the same plan, the element `<personFlow>` can be used.
+It uses the same parameters and child elements as `<person>` except for the
 departure time. The id of the created persons is
 "personFlowId.runningNumber" and they are distributed either equally or
 randomly in the given interval. The following additional parameters are
@@ -62,7 +66,9 @@ known:
    <personFlow id="p" begin="0" end="10" period="2">
        <walk from="beg" to="end"/>
    </personFlow>
+```
 
+```
    <personFlow id="person" begin="0" end="1" number="4" departPos="80">
        <walk from="2/3to1/3" to="1/3to0/3" arrivalPos="55"/>
        <ride from="1/3to0/3" to="0/4to1/4" lines="train0"/>
@@ -76,6 +82,9 @@ known:
 
 The input for a person consists of a sequence of *stages* of the 3 types
 give below.
+
+!!! note
+    Person plans can also be generated with [intermodal routing](../IntermodalRouting.md)
 
 ## Rides
 

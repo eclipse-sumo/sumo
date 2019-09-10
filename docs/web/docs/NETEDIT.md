@@ -1468,17 +1468,17 @@ To make a unidirectional track usable in both directions,
 
 # Planned Features
 
-- Support for editing traffic demand (the application will have a big
-toogle switch between controls for editing the network and editing
-the demand)
 - Support for editing features already supported by
 [NETCONVERT](NETCONVERT.md)
-  - Editing  information for
+  - Editing `<neigh>` information for
     [Simulation/OppositeDirectionDriving](Simulation/OppositeDirectionDriving.md).
 
+    !!! note
+        Currently, the only support is in switching on **--opposites.guess** via the [F10-menu](#processing_menu_options).
+
   - Editing [walkingarea
-    shapes](Networks/PlainXML#Walking_Areas.md)
-  - ...
+    shapes](Networks/PlainXML.md#walking_areas)
 - Integration of [NETGENERATE](NETGENERATE.md)
+- Integration of [netdiff](Tools/Net.md#netdiffpy)
 - Adding / merging of sub-networks to the existing network
 - ...

@@ -96,7 +96,7 @@ and committing the changes after careful inspection
 
 The nightly build should have generated all releasable packages. If not,
 delay the release. (The complete documentation, tests and source
-distribution build can be achieved via "make dist-complete".) The
+distribution build can be achieved via "make dist".) The
 following things need to be there:
 
 - the platform independent part of the distribution;

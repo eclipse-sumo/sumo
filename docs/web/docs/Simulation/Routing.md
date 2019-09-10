@@ -57,9 +57,7 @@ argument to *traci.simulation.findRoute*.
 
 ## Routing Mode *traci.constants.ROUTING_MODE_DEFAULT*
 
-The following order of steps is taken to retrieve the travel time for
-each edge (If one step fails due to lack of data, the next step is
-taken):
+The following order of steps is taken to retrieve the travel time for each edge. If a step provides data, this is used, otherwise the next step is attempted: 
 
 1.  The vehicle retrieves it's individual data storage. This can be set
     and retrieved using the TraCI vehicle methods [*change edge travel time information*](../TraCI/Change_Vehicle_State.md#change_edge_travel_time_information_0x58)

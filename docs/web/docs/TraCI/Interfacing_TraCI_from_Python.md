@@ -246,51 +246,7 @@ call *simulationStep* to allow the simulation to advance:
 
 ## Embedded Python
 
-As an experimental feature, it is also possible to link SUMO with python
-directly and have the scripts executed in SUMO. The syntax is completely
-the same, except that you leave out the calls to init and close and you
-need to start sumo with the option --python-script. This feature is
-considered deprecated and will be replaced by
-[libsumo](../Libsumo.md). It does currently *not* work with the GUI
-version of sumo.
-
-Since the feature is not well tested yet, you need to enable embedded
-python explicitly when building SUMO (it is *not* enabled in the release
-versions and the nightly build). In order to do so, follow the
-instructions below
-
-### Linux
-
-- install the python devel package files
-- call configure using the --with-python option
-- make && make install as usual
-
-### Windows
-
-- make sure python is installed and is in your PATH
-- call tools\\build\\pythonPropsMSVC.py to generate / modify the
-build\\msvc10\\config.props file
-- build the Win32 Release version as usual
-- the debug build is somewhat more involved and is disabled by
-default, the following instructions are [taken from
-here](http://upp-mirror.googlecode.com/svn-history/r3552/trunk/bazaar/Py/install.txt)
-  - download the python source package fitting your python version
-  - open the pcbuild.sln in the PCbuild subdir with Visual Studio
-  - do the Win32 Debug build for python, it will have lots of errors
-    but the main parts (hopefully) succeed
-  - from the PCbuild dir copy
-    - python27_d.dll to the Python dir (something like
-      C:\\Python27)
-    - python27_d.lib, python27_d.pdb, python27_d.exp to the
-      libs dir (C:\\Python27\\libs)
-    - every \*_d.pyd to the DLLs dir (C:\\Python27\\DLLs)
-  - enable the python debug build by editing
-    build\\msvc10\\Win32.props
-  - now you can do the Win32 Debug build for SUMO
-
-Earlier versions of Visual Studio and 64bit build are currently not
-directly supported (but the interested programmer should be able to
-modify the files accordingly).
+This feature has been removed Please use [libsumo](../Libsumo.md) instead.
 
 ## Additional Functions
 

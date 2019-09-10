@@ -161,3 +161,5 @@ permalink: /Other/Projects/
 - [Integrated Framework for Mathematical Simulations (IFMS)](https://github.com/nitindesh/IFMS)
 - [Veins](https://github.com/sommer/veins)
 - [Secure Cycle project established during the BCX 2018](https://github.com/kratz00/bcx18_secureCycle)
+- [An open source traffic light control program](https://github.com/MartijnHarmenzon/openTLC)
+- [Web-based 3D visualization of SUMO microsimulations using TraCI and three.js](https://github.com/sidewalklabs/sumo-web3d)

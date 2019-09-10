@@ -10,6 +10,35 @@ toolchain are included in our [building on
 Linux](../Installing/Linux_Build.md) pages. Please note that you
 may also [download pre-built Windows binaries](../Downloads.md).
 
+## Recommended Windows setup
+
+- Download [Visual C++ Community Edition](https://www.visualstudio.com/vs/community/)
+  - Start the installer and select:
+    - Python Development (including native tools)
+    - C++ for desktop
+
+![](../images/VSInstall.png)
+
+- clone https://github.com/eclipse/sumo
+- go to team explorer
+  - choose Manage Connections, then "Local Git"->Clone https://github.com/DLR-TS/SUMOLibraries
+  - now CMake should start configuring, if not choose Project->"Generate Cache"
+  - build all
+- set SUMO_HOME
+- Install Texttest https://ci.appveyor.com/project/behrisch/texttest/builds/27281341/job/gb7f6opi6npcvbxf/artifacts
+
+### optional but still recommended steps
+
+- Install notepad++
+- Install TortoiseGit
+- Install Git command line tools (this is mandatory if you install TortoiseGit)
+- If you decide to use the Python which comes with Visual Studio
+  - Test start a python script and add association
+  - Add Python to the path (also the Scripts dir), find it at C:\Program Files (x86)\Microsoft Visual Studio\Shared\Python37_64
+  - Install pyautogui, matplotlib, rtree, pyproj, lxml following the instructions https://docs.microsoft.com/en-us/visualstudio/python/tutorial-working-with-python-in-visual-studio-step-05-installing-packages?view=vs-2019
+- If not use `pip install pyautogui, matplotlib, rtree, pyproj, lxml`
+- (after 30 days) Setup a Microsoft account (if you do not already have one) and register your Visual Studio
+
 ## Short overview
 
 - Download [Visual C++ Community
@@ -53,13 +82,10 @@ including updating and comitting)
   - then for <https://github.com/DLR-TS/SUMOLibraries>
 - Visual Studio will try to generate the solutions using CMake
 automatically
-  - will fail because the path to SUMOLibraries is not set (it does
-    not find Xerces)
-  - Choose to edit CMakeCache.txt from the CMake menu and set the
-    path (e.g.
-    SUMO_LIBRARIES:PATH=C:/Users/testus/source/repos/SUMOLibraries)
-  - Select Generate again from CMake menu
-- Select CMake-\>Build All
+  - will fail at first try if SUMOLibraries is not cloned yet or is in an unusual location (it does not find Xerces)
+  - Select CMake->Generate to try again (it is Project->"Generate Cache" in VS 2019)
+    - If it still fails, edit CMakeCache.txt from the CMake menu and set the path (e.g. SUMO_LIBRARIES:PATH=C:/Users/testus/source/repos/SUMOLibraries) and retry
+- Select CMake->"Build All" (Build->"BuildAll" in VS 2019)
 
 ## Libraries
 

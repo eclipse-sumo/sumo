@@ -112,8 +112,7 @@ The option **--sidewalks.guess.exclude** {{DT_IDList}}[,{{DT_IDList}}\]\* applie
 ### Adding sidewalks with [NETEDIT](../NETEDIT.md)
 
 To add sidewalks to a set of edges in [NETEDIT](../NETEDIT.md)
-select these and right click on them. From the context-menu select *add
-special lanes-\>Sidewalks*.
+select these and right click on them. From the context-menu select *lane operations->add restricted lane->Sidewalks*.
 
 ### Non-exclusive sidewalks
 

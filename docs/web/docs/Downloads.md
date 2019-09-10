@@ -147,18 +147,18 @@ packages can be obtained:
 
 - <https://sumo.dlr.de/daily/sumo-src-git.tar.gz> (sources)
 - <https://sumo.dlr.de/daily/sumo-src-git.zip> (sources)
-- <https://sumo.dlr.de/daily/sumo-msvc12Win32-git.zip> (windows,
+- <https://sumo.dlr.de/daily/sumo-win32-git.zip> (windows,
     32bit)
-- <https://sumo.dlr.de/daily/sumo-msvc12x64-git.zip> (windows, 64bit)
+- <https://sumo.dlr.de/daily/sumo-win64-git.zip> (windows, 64bit)
 - <https://sumo.dlr.de/daily/sumo-all-git.tar.gz> (sources,
     documentation and tests)
-- <https://sumo.dlr.de/daily/sumo-game-msvc12Win32-git.zip> (windows
+- <https://sumo.dlr.de/daily/sumo-game-win32-git.zip> (windows
     32bit binaries of the sumo game)
-- <https://sumo.dlr.de/daily/sumo-game-msvc12x64-git.zip> (windows
+- <https://sumo.dlr.de/daily/sumo-game-win64-git.zip> (windows
     64bit binaries of the sumo game)
-- <https://sumo.dlr.de/daily/sumo-msvc12Win32-git.msi> (windows
+- <https://sumo.dlr.de/daily/sumo-win32-git.msi> (windows
     installer, 32bit)
-- <https://sumo.dlr.de/daily/sumo-msvc12x64-git.msi> (windows
+- <https://sumo.dlr.de/daily/sumo-win64-git.msi> (windows
     installer, 64bit)
 - <https://sumo.dlr.de/daily/sumo-msvc12extrax64-git.zip> (windows
     64bit with GDAL, FFmpeg, OSG, GL2PS, SWIG)
@@ -182,17 +182,17 @@ locations
 
 - <http://sumo.sourceforge.net/daily/sumo-src-git.tar.gz> (sources)
 - <http://sumo.sourceforge.net/daily/sumo-src-git.zip> (sources)
-- <http://sumo.sourceforge.net/daily/sumo-msvc12Win32-git.zip>
+- <http://sumo.sourceforge.net/daily/sumo-win32-git.zip>
     (windows, 32bit)
-- <http://sumo.sourceforge.net/daily/sumo-msvc12x64-git.zip> (windows,
+- <http://sumo.sourceforge.net/daily/sumo-win64-git.zip> (windows,
     64bit)
-- <http://sumo.sourceforge.net/daily/sumo-game-msvc12Win32-git.zip>
+- <http://sumo.sourceforge.net/daily/sumo-game-win32-git.zip>
     (windows 32bit binaries of the sumo game)
-- <http://sumo.sourceforge.net/daily/sumo-game-msvc12x64-git.zip>
+- <http://sumo.sourceforge.net/daily/sumo-game-win64-git.zip>
     (windows 64bit binaries of the sumo game)
-- <http://sumo.sourceforge.net/daily/sumo-msvc12Win32-git.msi>
+- <http://sumo.sourceforge.net/daily/sumo-win32-git.msi>
     (windows installer, 32bit)
-- <http://sumo.sourceforge.net/daily/sumo-msvc12x64-git.msi> (windows
+- <http://sumo.sourceforge.net/daily/sumo-win64-git.msi> (windows
     installer, 64bit)
 - <http://sumo.sourceforge.net/daily/sumo-win64extra-git.zip> (windows 64bit with GDAL, FFmpeg, OSG, GL2PS, SWIG)
 

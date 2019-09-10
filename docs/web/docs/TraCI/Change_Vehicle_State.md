@@ -179,16 +179,16 @@ won't be affected by further changes to the original type.
 <td><p><a href="https://sumo.dlr.de/pydoc/traci._vehicle.html#VehicleDomain-updateBestLanes">updateBestLanes</a></p></td>
 </tr>
 <tr class="odd">
-<td><p>add (0x80)</p></td>
+<td><p>add (0x85)</p></td>
 <td><p>complex (see below)</p></td>
 <td><p>Adds the defined vehicle. See below.</p></td>
-<td><p><a href="https://sumo.dlr.de/pydoc/traci._vehicle.html#VehicleDomain-add">add</a></p></td>
+<td><p><a href="https://sumo.dlr.de/pydoc/traci._vehicle.html#VehicleDomain-add">add</a> (alias addFull) </p></td>
 </tr>
 <tr class="even">
-<td><p>add_full (0x85)</p></td>
+<td><p>add_legacy (0x80)</p></td>
 <td><p>complex (see below)</p></td>
-<td><p>Adds the defined vehicle. See below.</p></td>
-<td><p><a href="https://sumo.dlr.de/pydoc/traci._vehicle.html#VehicleDomain-addFull">addFull</a></p></td>
+<td><p>Adds the defined vehicle (fewer parameters, obsolete). See below.</p></td>
+<td><p><a href="https://sumo.dlr.de/pydoc/traci._vehicle.html#VehicleDomain-addFull">addLegacy</a></p></td>
 </tr>
 <tr class="odd">
 <td><p>remove (0x81)</p></td>
@@ -388,22 +388,19 @@ rate is applied. If the optional reference vehicle ID is specified, the
 method does not use the current leader as a reference for the gap
 creation but the specified vehicle.
 
+!!! note
+    When using the Euler integration method, the time headway control does not work properly for low speeds.
+
 ### move to (0x5c)
 
-|                       |                        |                     |         |                     |                     |
-| :-------------------: | :--------------------: | :-----------------: | :-----: | :-----------------: | :-----------------: |
 |         byte          |        integer         |        byte         | string  |        byte         |       double        |
+| :-------------------: | :--------------------: | :-----------------: | :-----: | :-----------------: | :-----------------: |
 | value type *compound* | item number (always 2) | value type *string* | Lane ID | value type *double* | Position along lane |
 
-The vehicle will be removed from its lane and moved to the given
-position on the given lane. No collision checks are done, this means
-that moving the vehicle may cause a collisions or a situations leading
-to collision. The vehicle keeps its speed - in the next time step it is
-at given position + speed. Note that the lane must be a part of the
-following route, this means it must be either a part of the edge the
-vehicle is currently on or a part of an edge the vehicle will pass in
-future; setting a new route before moving the vehicle if needed should
-work.
+The vehicle will be removed from its lane and moved to the given position on the given lane. No collision checks are done, this means that moving the vehicle may cause a collisions or a situations leading to collision. The vehicle keeps its speed - in the next time step it is at given position + speed. Note that the lane must be a part of the route, this means it must be either a part of any of the edges within the vehicles route or an internal lane that connects route edges. To overcome this limitation, the route can be modified prior to calling moveTo. 
+
+!!! note
+    This can also be used to force a vehicle into the network that [has been loaded](../Simulation/VehicleInsertion.md#loading) but could not depart due to having it's departure lane blocked.
 
 ### move to XY (0xb4)
 
@@ -586,36 +583,34 @@ the *internal* request this is resolved by the current value of the
 vehicles *lane change mode*. The given integer is interpreted as a
 bitset (bit0 is the least significant bit) with the following fields:
 
-  - bit1, bit0: 00 = do no strategic changes; 01 = do strategic changes
-    if not in conflict with a TraCI request; 10 = do strategic change
-    even if overriding TraCI request
-  - bit3, bit2: 00 = do no cooperative changes; 01 = do cooperative
-    changes if not in conflict with a TraCI request; 10 = do cooperative
-    change even if overriding TraCI request
-  - bit5, bit4: 00 = do no changes; 01 = do speed gain changes if not in
-    conflict with a TraCI request; 10 = do speed gain change even if
-    overriding TraCI request
-  - bit7, bit6: 00 = do no right drive changes; 01 = do right drive
-    changes if not in conflict with a TraCI request; 10 = do right drive
-    change even if overriding TraCI request
+- bit1, bit0: 00 = do no strategic changes; 01 = do strategic changes
+if not in conflict with a TraCI request; 10 = do strategic change
+even if overriding TraCI request
+- bit3, bit2: 00 = do no cooperative changes; 01 = do cooperative
+changes if not in conflict with a TraCI request; 10 = do cooperative
+change even if overriding TraCI request
+- bit5, bit4: 00 = do no changes; 01 = do speed gain changes if not in
+conflict with a TraCI request; 10 = do speed gain change even if
+overriding TraCI request
+- bit7, bit6: 00 = do no right drive changes; 01 = do right drive
+changes if not in conflict with a TraCI request; 10 = do right drive
+change even if overriding TraCI request
 
-<!-- end list -->
 
-  - bit9, bit8:
-      - 00 = do not respect other drivers when following TraCI requests,
-        adapt speed to fulfill request
-      - 01 = avoid immediate collisions when following a TraCI request,
-        adapt speed to fulfill request
-      - 10 = respect the speed / brake gaps of others when changing
-        lanes, adapt speed to fulfill request
-      - 11 = respect the speed / brake gaps of others when changing
-        lanes, no speed adaption
+- bit9, bit8:
+  - 00 = do not respect other drivers when following TraCI requests,
+    adapt speed to fulfill request
+  - 01 = avoid immediate collisions when following a TraCI request,
+    adapt speed to fulfill request
+  - 10 = respect the speed / brake gaps of others when changing
+    lanes, adapt speed to fulfill request
+  - 11 = respect the speed / brake gaps of others when changing
+    lanes, no speed adaption
 
-<!-- end list -->
 
-  - bit11, bit10: 00 = do no sublane changes; 01 = do sublane changes if
-    not in conflict with a TraCI request; 10 = do sublane change even if
-    overriding TraCI request
+- bit11, bit10: 00 = do no sublane changes; 01 = do sublane changes if
+not in conflict with a TraCI request; 10 = do sublane change even if
+overriding TraCI request
 
 The default lane change mode is 0b011001010101 = **1621** which means
 that the laneChangeModel may execute all changes unless in conflict with
@@ -627,33 +622,35 @@ To disable all autonomous changing but still handle safety checks in the
 simulation, either one of the modes **256** (collision avoidance) or
 **512** (collision avoidance and safety-gap enforcement) may be used.
 
-### add (0x80)
+### add (legacy) (0x80)
 
-|                       |                               |                     |                              |                     |                       |                      |                  |                     |                 |                     |              |                   |             |
-| :-------------------: | :---------------------------: | :-----------------: | :--------------------------: | :-----------------: | :-------------------: | :------------------: | :--------------: | :-----------------: | :-------------: | :-----------------: | :----------: | :---------------: | :---------: |
 |         byte          |              int              |        byte         |            string            |        byte         |        string         |         byte         |       int        |        byte         |     double      |        byte         |    double    |       byte        |    byte     |
+| :-------------------: | :---------------------------: | :-----------------: | :--------------------------: | :-----------------: | :-------------------: | :------------------: | :--------------: | :-----------------: | :-------------: | :-----------------: | :----------: | :---------------: | :---------: |
 | value type *compound* | number of elements (always=6) | value type *string* | vehicle type ID (must exist) | value type *string* | route ID (must exist) | value type *integer* | depart time (ms) | value type *double* | depart position | value type *double* | depart speed | value type *byte* | depart lane |
+
+!!! note
+    Please note that the values are not checked in a very elaborated way. Make sure they are correct before sending.
 
 If a negative departure time is set, one of the following fixed time
 settings will be used:
 
-  - \-1: "triggered"
-  - \-2: "containerTriggered"
+- \-1: "triggered"
+- \-2: "containerTriggered"
 
 If a negative departure speed is set, one of the following fixed speed
 settings will be used:
 
-  - \-2: "random"
-  - \-3: "max"
+- \-2: "random"
+- \-3: "max"
 
 If a negative departure position is set, one of the following position
 settings will be used:
 
-  - \-2: "random"
-  - \-3: "free"
-  - \-4: "base"
-  - \-5: "last"
-  - \-6: "random_free"
+- \-2: "random"
+- \-3: "free"
+- \-4: "base"
+- \-5: "last"
+- \-6: "random_free"
 
 Please note that giving 0 as depart position will result in the vehicle
 starting with its front at the begin of lane (unlike the simulation
@@ -662,11 +659,11 @@ default which is the vehicle placed completely on the lane "base")
 If a negative departure lane is set, one of the following lane settings
 will be used:
 
-  - \-2: "random"
-  - \-3: "free"
-  - \-4: "allowed"
-  - \-5: "best"
-  - \-6: "first"
+- \-2: "random"
+- \-3: "free"
+- \-4: "allowed"
+- \-5: "best"
+- \-6: "first"
 
 If an empty routeID is given, the vehicle will be placed on an route
 that consists of a single arbitrary edge (with suitalbe vClass
@@ -675,9 +672,8 @@ controlled vehicle (moveToXY).
 
 ### add_full (0x85)
 
-|                       |                                |                     |                       |                     |                              |                     |             |                     |             |                     |                 |                     |              |                     |              |                     |                  |                     |               |                     |                            |                     |                               |                     |                             |                      |                 |                      |               |
-| :-------------------: | :----------------------------: | :-----------------: | :-------------------: | :-----------------: | :--------------------------: | :-----------------: | :---------: | :-----------------: | :---------: | :-----------------: | :-------------: | :-----------------: | :----------: | :-----------------: | :----------: | :-----------------: | :--------------: | :-----------------: | :-----------: | :-----------------: | :------------------------: | :-----------------: | :---------------------------: | :-----------------: | :-------------------------: | :------------------: | :-------------: | :------------------: | :-----------: |
 |         byte          |              int               |        byte         |        string         |        byte         |            string            |        byte         |   string    |        byte         |   string    |        byte         |     string      |        byte         |    string    |        byte         |    string    |        byte         |      string      |        byte         |    string     |        byte         |           string           |        byte         |            string             |        byte         |           string            |         byte         |       int       |         byte         |      int      |
+| :-------------------: | :----------------------------: | :-----------------: | :-------------------: | :-----------------: | :--------------------------: | :-----------------: | :---------: | :-----------------: | :---------: | :-----------------: | :-------------: | :-----------------: | :----------: | :-----------------: | :----------: | :-----------------: | :--------------: | :-----------------: | :-----------: | :-----------------: | :------------------------: | :-----------------: | :---------------------------: | :-----------------: | :-------------------------: | :------------------: | :-------------: | :------------------: | :-----------: |
 | value type *compound* | number of elements (always=14) | value type *string* | route ID (must exist) | value type *string* | vehicle type ID (must exist) | value type *string* | depart time | value type *string* | depart lane | value type *string* | depart position | value type *string* | depart speed | value type *string* | arrival lane | value type *string* | arrival position | value type *string* | arrival speed | value type *string* | from taz (origin district) | value type *string* | to taz (destination district) | value type *string* | line (for public ttansport) | value type *integer* | person capacity | value type *integer* | person number |
 
 If an empty routeID is given, the vehicle will be placed on an route
@@ -685,26 +681,27 @@ that consists of a single arbitrary edge (with suitalbe vClass
 permissions). This can be used to simply the initialization of remote
 controlled vehicle (moveToXY).
 
+!!! note
+    Please note that the values are not checked in a very elaborated way. Make sure they are correct before sending.
+
 ### remove (0x81)
 
-|                   |        |
-| :---------------: | :----: |
 |       byte        |  byte  |
+| :---------------: | :----: |
 | value type *byte* | reason |
 
 The following reasons may be given:
 
-  - 0: NOTIFICATION_TELEPORT
-  - 1: NOTIFICATION_PARKING
-  - 2: NOTIFICATION_ARRIVED
-  - 3: NOTIFICATION_VAPORIZED
-  - 4: NOTIFICATION_TELEPORT_ARRIVED
+- 0: NOTIFICATION_TELEPORT
+- 1: NOTIFICATION_PARKING
+- 2: NOTIFICATION_ARRIVED
+- 3: NOTIFICATION_VAPORIZED
+- 4: NOTIFICATION_TELEPORT_ARRIVED
 
 ### highlight (0xc7)
 
-|                       |                                  |                    |       |                     |                     |                    |                     |                     |                     |                    |                                                 |
-| :-------------------: | :------------------------------: | :----------------: | :---: | :-----------------: | :-----------------: | :----------------: | :-----------------: | :-----------------: | :-----------------: | :----------------: | :---------------------------------------------: |
 |         ubyte         |               int                |       ubyte        | color |        ubyte        |       double        |       ubyte        |        ubyte        |        ubyte        |       double        |       ubyte        |                      ubyte                      |
+| :-------------------: | :------------------------------: | :----------------: | :---: | :-----------------: | :-----------------: | :----------------: | :-----------------: | :-----------------: | :-----------------: | :----------------: | :---------------------------------------------: |
 | value type *compound* | number of items in {0,1,2,3,4,5} | value type *color* | color | value type *double* | size (radius in m.) | value type *ubyte* | maximal alpha value | value type *double* | duration (in secs.) | value type *ubyte* | type ID (allows different highlight categories) |
 
 The highlight method adds a circle of the specified size and color
@@ -720,25 +717,25 @@ call](Traci/GenericParameters#set_parameter.md).
 
 ## Supported Device Parameters
 
-  - device.battery.actualBatteryCapacity (double literal)
-  - device.battery.maximumBatteryCapacity (double literal)
-  - device.battery.vehicleMass (double literal)
-  - device.rerouting.period (double literal, set rerouting period in
-    seconds)
-  - device.rerouting.edge:EDGE_ID (double literal, set assumed travel
-    time for rerouting for **all** vehicles (where EDGE_ID is the id if
-    a network edge). This value is overwritten at the next update
-    interval ().
-  - device.example.customValue1 (double literal)
+- device.battery.actualBatteryCapacity (double literal)
+- device.battery.maximumBatteryCapacity (double literal)
+- device.battery.vehicleMass (double literal)
+- device.rerouting.period (double literal, set rerouting period in
+  seconds)
+- device.rerouting.edge:EDGE_ID (double literal, set assumed travel
+  time for rerouting for **all** vehicles (where EDGE_ID is the id if
+  a network edge). This value is overwritten at the next update
+  interval ().
+- device.example.customValue1 (double literal)
+- has.rerouting.device ("true"): can be used to dynamically enable
+  [automatic rerouting](Demand/Automatic_Routing.md)
 
-<!-- end list -->
-
-  - has.rerouting.device ("true"): can be used to dynamically enable
-    [automatic rerouting](Demand/Automatic_Routing.md)
+!!! caution
+    If the vehicles does not carry the respective device an error is returned.
 
 ## Supported LaneChangeModel Parameters
 
-  - laneChangeModel.<ATTRNAME> , (double literal): <ATTRNAME> must be
+  - laneChangeModel.<ATTRNAME\> , (double literal): <ATTRNAME\> must be
     one of the [parameters supported by the
     laneChangeModel](Definition_of_Vehicles,_Vehicle_Types,_and_Routes#Lane-Changing_Models.md)
     of the vehicle. i.e. *lcStrategic*)

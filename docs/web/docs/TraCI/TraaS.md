@@ -37,16 +37,16 @@ double timeSeconds = (double)conn.do_job_get(Simulation.getTime());
 
 ## Examples
 
-The examples must becomplied using
+The examples must be compiled using
 
 ```
-javac -cp sumo/tools/contributed/traas/examples/java_library:sumo/bin/TraaS.jar ExampleName.java
+ javac -cp sumo/bin/TraaS.jar ExampleName.java
 ```
 
 after compiling they can be run using
 
 ```
-java -cp sumo/tools/contributed/traas/examples/java_library:sumo/bin/TraaS.jar ExampleName
+ java -cp .:sumo/bin/TraaS.jar ExampleName
 ```
 
 ### Insert Vehicles and Access Induction Loop Data
@@ -79,6 +79,6 @@ JavaDoc for TraaS can be found at <https://sumo.dlr.de/javadoc/traas/>
 
 # Building TraaS
 
-The file {{SUMO}}*/bin/TraaS.jar* is inclued in every SUMO release. To build
+The file {{SUMO}}*/bin/TraaS.jar* is included in every SUMO release. To build
 TraaS locally, Apache [Maven](https://maven.apache.org/) is required. To build,
 simply call *mvn package* within the traas folder or call make traas when you have a configured cmake build. 

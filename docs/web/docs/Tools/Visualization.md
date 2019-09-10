@@ -112,7 +112,7 @@ noise](../Simulation/Output/Lane-_or_Edge-based_Noise_Measures.md).
 
 - both, **--dump-inputs** {{DT_FILE}},{{DT_FILE}} as well as **--measures** {{DT_STR}},{{DT_STR}} expect two entries being divided by a ','. The
   first is used for the edges' color, the second for their widths. But
-  you may simply skip one entry. Then, the deafult values are used.
+  you may simply skip one entry. Then, the default values are used.
 - dump-files cover usually more than one interval. To generate an extra output file for each interval, use the string '%s' as part of the output filename (this part will be replaced with the corresponding begin time).
 
 **Options**
