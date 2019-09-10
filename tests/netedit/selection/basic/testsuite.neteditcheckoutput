@@ -13,3 +13,4 @@ undo_redo
 # try to select elements with wrong parameters
 wrong_parameters
 
+contextual_menu
