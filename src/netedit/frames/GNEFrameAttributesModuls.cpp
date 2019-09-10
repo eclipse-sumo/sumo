@@ -654,7 +654,7 @@ GNEFrameAttributesModuls::AttributesCreator::showAttributesCreatorModul(const GN
     // iterate over tag attributes and create a AttributesCreatorRow
     for (const auto& i : myTagProperties) {
         //  make sure that only non-unique attributes (except ID) are created (And depending of includeExtendedAttributes)
-        if ((i.isUnique() == false) || (i.getAttr() == SUMO_ATTR_ID)) {
+        if ((i.isUnique() == false) || ((i.getAttr() == SUMO_ATTR_ID) && (i.getTagPropertyParent().getTag() != SUMO_TAG_VAPORIZER))) {
             myAttributesCreatorRows.at(i.getPositionListed()) = new AttributesCreatorRow(this, i);
         }
     }
