@@ -1,20 +1,20 @@
 ---
-title: Demand Shortest or Optimal Path Routing
+title: Demand/Shortest or Optimal Path Routing
 permalink: /Demand/Shortest_or_Optimal_Path_Routing/
 ---
 
 # Introduction
 
-[DUAROUTER](DUAROUTER.md) can be used to import demand data
+[DUAROUTER](../DUAROUTER.md) can be used to import demand data
 given by source and destination edges (so called *trips* and ''flows
 ''). Furthermore, it can be used to repair an existing *route*-file i.e.
 if a given route has an unconnected edge list. To achieve dynamic user
-assignment, [DUAROUTER](DUAROUTER.md) and
-[SUMO](SUMO.md) must be called iteratively. This is described in
+assignment, [DUAROUTER](../DUAROUTER.md) and
+[SUMO](../SUMO.md) must be called iteratively. This is described in
 [Demand/Dynamic User
-Assignment](Demand/Dynamic_User_Assignment.md). Beginning with
-version 0.29.0, [DUAROUTER](DUAROUTER.md) also supports
-[IntermodalRouting](IntermodalRouting.md).
+Assignment](../Demand/Dynamic_User_Assignment.md). Beginning with
+version 0.29.0, [DUAROUTER](../DUAROUTER.md) also supports
+[IntermodalRouting](../IntermodalRouting.md).
 
 # Trip Definitions
 
@@ -31,8 +31,8 @@ from="<ORIGIN_EDGE_ID>" to="<DESTINATION_EDGE_ID>"
 | from           | edge id                                                 | The name of the edge the route starts at; the edge must be a part of the used network                                                                                                                                                                                                                                                                                                                                                                       |
 | to             | edge id                                                 | The name of the edge the route ends at; the edge must be a part of the used network                                                                                                                                                                                                                                                                                                                                                                         |
 | via            | edge ids                                                | List of intermediate edge ids which shall be part of the route; the edges must be a part of the used network                                                                                                                                                                                                                                                                                                                                                |
-| fromTaz        | district id                                             | The name of the [district](Demand/Importing_O/D_Matrices#Describing_the_TAZ.md) the route starts at. [TAZ edges are selected so that travel time is minimized.](Definition_of_Vehicles,_Vehicle_Types,_and_Routes#Traffic_assignement_zones_.28TAZ.29.md)                                                                                                                                                                                   |
-| toTaz          | district id                                             | The name of the [district](Demand/Importing_O/D_Matrices#Describing_the_TAZ.md) the route ends at. [TAZ edges are selected so that travel time is minimized.](Definition_of_Vehicles,_Vehicle_Types,_and_Routes#Traffic_assignement_zones_.28TAZ.29.md)                                                                                                                                                                                     |
+| fromTaz        | district id                                             | The name of the [district](../Demand/Importing_O/D_Matrices.md#describing_the_taz) the route starts at. [TAZ edges are selected so that travel time is minimized.](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#traffic_assignement_zones_taz)                                                                                                                                                                                   |
+| toTaz          | district id                                             | The name of the [district](../Demand/Importing_O/D_Matrices.md#describing_the_taz) the route ends at. [TAZ edges are selected so that travel time is minimized.](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#traffic_assignement_zones_taz)                                                                                                                                                                                     |
 | color          | color                                                   | This generated vehicle's color                                                                                                                                                                                                                                                                                                                                                                                                                              |
 | departLane     | int/string (≥0,"random","free","departlane")            | The lane on which the vehicle shall be inserted                                                                                                                                                                                                                                                                                                                                                                                                             |
 | departPos      | float(m)/string ("random","free","random_free","base") | The position at which the vehicle shall enter the net; "free" means the point closest to the start of the departlane where it is possible to insert the vehicle. "random_free" tries forcefully to find a free random position and if that fails, places the vehicle at the next "free" position. "base" sets the vehicle's depart position to the vehicle's length + eps (eps=.1m), this means the vehicle is completely at the begin of the depart lane. |
@@ -95,14 +95,14 @@ Let's review flow parameter:
 | arrivalPos       | float(m)/string (≥0<sup>(1)</sup>,"random","max")       | The position at which the vehicle shall leave the network                                                                                                                                                                                                                                                                                                                                                                                                   |
 | arrivalSpeed     | float(m/s)/string (≥0,"current")                        | The speed with which the vehicle shall leave the network                                                                                                                                                                                                                                                                                                                                                                                                    |
 
-<sup>(1)</sup> [JTRROUTER](JTRROUTER.md) does not need this
-parameter, [DUAROUTER](DUAROUTER.md) requires it
+<sup>(1)</sup> [JTRROUTER](../JTRROUTER.md) does not need this
+parameter, [DUAROUTER](../DUAROUTER.md) requires it
 
 # Custom edge weights
 
 The option  can be used to affect the weights used during routing. The
 input format conforms to the output format of the [edge based traffic
-measures](Simulation/Output/Lane-_or_Edge-based_Traffic_Measures.md).
+measures](../Simulation/Output/Lane-_or_Edge-based_Traffic_Measures.md).
 By default this uses the **traveltime** attribute of edges. The option
 can be used to use other attributes for routing. Weight files that only
 contain some of the network edges are permitted. If undefined, the
@@ -137,7 +137,7 @@ network file ''road.net.xml ''.
 ```
 
 Trips may contain [source and destination
-districts](Demand/Importing_O/D_Matrices#Describing_the_TAZ.md)
+districts](../Demand/Importing_O/D_Matrices.md#describing_the_taz)
 as well as edges. If the districts shall be used for routing this has to
 be specified using the option "--with-taz". Furthermore (if the net does
 not contain the districts) a districts file needs to be provided:
@@ -162,7 +162,7 @@ example:
 
 # Dealing with Errors During Routing
 
-When running [DUAROUTER](DUAROUTER.md) you may encounter errors
+When running [DUAROUTER](../DUAROUTER.md) you may encounter errors
 of the type
 
 `Error: No connection between 'edge1' and 'edge2' found`
@@ -173,5 +173,5 @@ particular vehicle classes which is less obvious from the GUI. You can
 ignore these routes using the option . However, if a large proportion of
 your routes cause this error you should definitely investigate your
 network file for problems. The tool
-[Tools/Net\#netcheck.py](Tools/Net#netcheck.py.md) can be used
+[Tools/Net\#netcheck.py](../Tools/Net.md#netcheckpy) can be used
 to pin down the connectivity gaps in your network.

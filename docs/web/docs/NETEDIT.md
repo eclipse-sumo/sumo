@@ -7,13 +7,11 @@ permalink: /NETEDIT/
 
 [NETEDIT](NETEDIT.md) is a graphical network editor for SUMO.
 
-  -
-    **Purpose:** create and modify SUMO networks
-    **System:** portable (Linux/Windows is tested); opens a window
-    **Input (optional):** road network definitions to import
-    **Output:** A generated SUMO-road network; optionally also other
-    outputs
-    **Programming Language:** c++
+- **Purpose:** create and modify SUMO networks
+- **System:** portable (Linux/Windows is tested); opens a window
+- **Input (optional):** road network definitions to import
+- **Output:** A generated SUMO-road network; optionally also other outputs
+- **Programming Language:** c++
 
 # Usage Description
 
@@ -27,9 +25,9 @@ rule of thumb, anything [NETCONVERT](NETCONVERT.md) can do,
 [NETEDIT](NETEDIT.md) has unlimited undo/redo capabilities and
 thus allows editing mistakes to be quickly corrected. Editing commands
 are generally issued with a left-click (according to the current [edit
-mode](NETEDIT#Edit_Modes.md)). The user interface closely
+mode](#edit_modes)). The user interface closely
 follows that of
-[SUMO-GUI](SUMO-GUI#Interaction_with_the_View.md). Additional
+[SUMO-GUI](SUMO-GUI.md#interaction_with_the_view). Additional
 keyboard hotkeys are documented in the *Help* menu.
 
 ## Input
@@ -37,14 +35,14 @@ keyboard hotkeys are documented in the *Help* menu.
 [NETEDIT](NETEDIT.md) is a GUI-Application and inputs are chosen
 via menus. The following input formats are supported:
 
-  - SUMO-net files
-  - OSM-files
-  - [NETCONVERT](NETCONVERT.md)-configuration files
+- SUMO-net files
+- OSM-files
+- [NETCONVERT](NETCONVERT.md)-configuration files
 
 ## Output
 
-  - SUMO-net files
-  - plain-xml files
+- SUMO-net files
+- plain-xml files
 
 ## Hotkeys
 
@@ -129,71 +127,71 @@ via menus. The following input formats are supported:
 In addition to these hotkeys, [all hotkeys for moving and zooming in
 SUMO-GUI](SUMO-GUI#Keyboard_Shortcuts.md) are supported.
 
-  - <Button-Left>: Execute mode specific action
-  - <Button-Right>: Open context-menu
-  - <Button-Right-Drag>: Change zoom
-  - <Button-Left-Drag>: Move the view around (*panning*)
-      - in 'Move'-mode pointing at an edge: move or create geometry
-        points
-      - in 'Move'-mode pointing at a junction: move the junction
-      - in 'Move'-mode pointing at a selected object: move all selected
-        junctions and edges including geometry. If both junctions of an
-        edge are selected, move the whole geometry. Otherwise, move only
-        the geometry near the cursor
-  - <ESC>
-      - in 'Create Edge'-mode: clear the currently selected source
-        junction
-      - in 'Select'-mode: clear the current selection; cancel rectangle
-        selection
-      - in 'Connect'-mode: deselect current lane and cancel all changes
-      - in 'Traffic Light'-mode: revert changes to current traffic light
-      - when editing a junction shape: abort editing the current
-        junction shape
-  - <DELETE>: delete all currently selected items
-  - <SHIFT>:
-      - in 'Select'-mode: hold <SHIFT> and drag the mouse for rectangle
-        selection
-      - in 'Select'-mode: <SHIFT>-left-click selects lanes instead of
-        edges
-      - in 'Inspect'-mode: <SHIFT>-left-click inspects lanes instead of
-        edges
-      - in 'Delete'-mode: <SHIFT>-left-click deletes lanes instead of
-        edges
-  - <CTRL>:
-      - in 'Create Edge'-mode, allow moving the view without defining
-        junctions
-      - in 'Create Additional'-mode, allow moving the view without
-        adding additionals
-      - in 'POI-Poly'-mode, allow moving the view without adding POIs
-  - <Enter>
-      - in 'Inspect'-mode: confirm attribute changes
-      - in 'Connect'-mode: deselect current lane and save all changes
-      - in 'Traffic Light'-mode: save changes to current traffic light
-      - in 'TAZ'-mode: save changes to current traffic light
-      - when editing a junction shape: save the current junction shape
+- <Button-Left\>: Execute mode specific action
+- <Button-Right\>: Open context-menu
+- <Button-Right-Drag\>: Change zoom
+- <Button-Left-Drag\>: Move the view around (*panning*)
+  - in 'Move'-mode pointing at an edge: move or create geometry
+    points
+  - in 'Move'-mode pointing at a junction: move the junction
+  - in 'Move'-mode pointing at a selected object: move all selected
+    junctions and edges including geometry. If both junctions of an
+    edge are selected, move the whole geometry. Otherwise, move only
+    the geometry near the cursor
+- <ESC\>
+  - in 'Create Edge'-mode: clear the currently selected source
+    junction
+  - in 'Select'-mode: clear the current selection; cancel rectangle
+    selection
+  - in 'Connect'-mode: deselect current lane and cancel all changes
+  - in 'Traffic Light'-mode: revert changes to current traffic light
+  - when editing a junction shape: abort editing the current
+    junction shape
+- <DELETE\>: delete all currently selected items
+- <SHIFT\>:
+  - in 'Select'-mode: hold <SHIFT\> and drag the mouse for rectangle
+    selection
+  - in 'Select'-mode: <SHIFT\>-left-click selects lanes instead of
+    edges
+  - in 'Inspect'-mode: <SHIFT\>-left-click inspects lanes instead of
+    edges
+  - in 'Delete'-mode: <SHIFT\>-left-click deletes lanes instead of
+    edges
+- <CTRL\>:
+  - in 'Create Edge'-mode, allow moving the view without defining
+    junctions
+  - in 'Create Additional'-mode, allow moving the view without
+    adding additionals
+  - in 'POI-Poly'-mode, allow moving the view without adding POIs
+- <Enter\>
+  - in 'Inspect'-mode: confirm attribute changes
+  - in 'Connect'-mode: deselect current lane and save all changes
+  - in 'Traffic Light'-mode: save changes to current traffic light
+  - in 'TAZ'-mode: save changes to current traffic light
+  - when editing a junction shape: save the current junction shape
 
 ## Processing Menu Options
 
-  - **Compute Junctions** (F5): recomputes the geometry and logic of all
-    junctions. This is triggered automatically when entering modes which
-    require this information (Connect, Traffic Lights).
-  - **Clean Junctions** (F6): removes all junctions that do not have any
-    adjacent edges (These junctions are not included when saving the
-    network. They are kept in the editor until cleaned for potential
-    reuse).
-  - **Join Selected Junctions** (F7): joins the selected junctions into
-    a single junction (See [joining
-    junctions](Networks/Building_Networks_from_own_XML-descriptions#Joining_Nodes.md)).
-  - **Options** (F10): inspect and set all options. These are the same
-    options that [NETCONVERT](NETCONVERT.md) accepts on the
-    commandline or in a configuration.
+- **Compute Junctions** (F5): recomputes the geometry and logic of all
+  junctions. This is triggered automatically when entering modes which
+  require this information (Connect, Traffic Lights).
+- **Clean Junctions** (F6): removes all junctions that do not have any
+  adjacent edges (These junctions are not included when saving the
+  network. They are kept in the editor until cleaned for potential
+  reuse).
+- **Join Selected Junctions** (F7): joins the selected junctions into
+  a single junction (See [joining
+  junctions](Networks/PlainXML.md#joining_nodes)).
+- **Options** (F10): inspect and set all options. These are the same
+  options that [NETCONVERT](NETCONVERT.md) accepts on the
+  commandline or in a configuration.
 
 ## Customizing Visualization
 
 Most of the visualization options that are available in
-[SUMO-GUI](SUMO-GUI#Changing_the_appearance.2Fvisualisation_of_the_simulation.md)
+[SUMO-GUI](SUMO-GUI.md#Changing_the_appearance.2Fvisualisation_of_the_simulation.md)
 can also be set in NETEDIT. This includes the facilities for [loading
-background images](SUMO-GUI#Using_Decals_within_SUMO-GUI.md).
+background images](SUMO-GUI.md#Using_Decals_within_SUMO-GUI.md).
 
 It is also possible to load [POIs and
 Polygons](Simulation/Shapes.md) using the menu *File-\>Load
@@ -202,7 +200,7 @@ Shapes*.
 ### Background Grid
 
 When activating the background grid via the visualization settings
-dialog ![Image:colorwheel.gif](colorwheel.gif "Image:colorwheel.gif") or
+dialog ![Image:colorwheel.gif](images/Colorwheel.gif "Image:colorwheel.gif") or
 via the *show grid* option in [Create Edge
 Mode](#Create_Edges.md), all clicks that create or move objects
 will snap to the nearest grid point. The resolution of the grid can be
@@ -534,10 +532,10 @@ To deselect the source edge or cancel the declared connections press
 ###### Conflict reasons
 
   - [double
-    connection](Networks/Building_Networks_from_own_XML-descriptions#Multiple_connections_from_the_same_edge_to_the_same_target_lane.md).
+    connection](Networks/PlainXML#Multiple_connections_from_the_same_edge_to_the_same_target_lane.md).
     Usually each lane only has one predecessor from the same edge. A
     counter-example would be a [zipper
-    node](Networks/Building_Networks_from_own_XML-descriptions#Node_types.md).
+    node](Networks/PlainXML#Node_types.md).
     May also be useful to model bus bays.
   - Incompatible permissions: The source and target lanes have no
     [allowed vehicle class](Simulation/VehiclePermissions.md) in
@@ -594,7 +592,7 @@ separately when running the simulation
 ### Crossings
 
 Add [pedestrian
-crossings](Networks/Building_Networks_from_own_XML-descriptions#Pedestrian_Crossings.md)
+crossings](Networks/PlainXML#Pedestrian_Crossings.md)
 for use with [pedestrian simulation](Simulation/Pedestrians.md).
 Crossings are define relative a junction and edges at this junction.
 Their width can be customized and they can either be configured as
@@ -831,7 +829,7 @@ with [NETEDIT](NETEDIT.md).
 
 ### Junctions
 
-[Junctions](Networks/Building_Networks_from_own_XML-descriptions#Node_Descriptions.md),
+[Junctions](Networks/PlainXML#Node_Descriptions.md),
 (also referred to as *Nodes*), represent intersections. A SUMO junction
 is equivalent to a Vertex in graph theory.
 
@@ -840,7 +838,7 @@ Image:GNEJunction.png|Example of different junctions
 ### Edges
 
 In the SUMO-context,
-[edges](Networks/Building_Networks_from_own_XML-descriptions#Edge_Descriptions.md)
+[edges](Networks/PlainXML#Edge_Descriptions.md)
 represent roads or streets. Note that edges are unidirectional. It's
 equivalent to a edge in a graph theory.
 
@@ -850,7 +848,7 @@ Image:GNEEdge.png|Example of edge. Note that the box "select edge" is
 ### Lanes
 
 Each SUMO edge is composed of a set of
-[lanes](Networks/Building_Networks_from_own_XML-descriptions#Lane-specific_Definitions.md)
+[lanes](Networks/PlainXML#Lane-specific_Definitions.md)
 (At least one).
 
 Image:GNELane.png|Example of lane. Note that the box "select edge" is
@@ -858,7 +856,7 @@ Image:GNELane.png|Example of lane. Note that the box "select edge" is
 
 ### Connections
 
-[Connections](Networks/Building_Networks_from_own_XML-descriptions#Connection_Descriptions.md)
+[Connections](Networks/PlainXML#Connection_Descriptions.md)
 describe how incoming and outgoing edges of junctions are connected (for
 example to prohibit left-turns at some junctions).
 
@@ -868,7 +866,7 @@ a target lane
 ### Traffic Lights
 
 A [traffic light
-program](Networks/Building_Networks_from_own_XML-descriptions#Traffic_Light_Program_Definition.md)
+program](Networks/PlainXML#Traffic_Light_Program_Definition.md)
 defines the phases of a traffic light.
 
 Image:GNETLS.png|Example of Traffic light
@@ -1011,7 +1009,7 @@ passed over a certain position on the lane.
 ##### Induction Loops Detectors (E1)
 
 A [E1
-detector](Simulation/Output/Induction_Loops_Detectors_\(E1\).md)
+detector](Simulation/Output/Induction_Loops_Detectors_(E1).md)
 owns a ID parameter generated by [NETEDIT](NETEDIT.md), a
 position at a certain lane, a *freq* attribute which describes the
 period over which collected values shall be aggregated, a list of
@@ -1023,9 +1021,9 @@ Image:GNEE1.png|Detector E1
 ##### Lane Area Detectors (E2)
 
 Most of the [E2
-detectors](Simulation/Output/Lanearea_Detectors_\(E2\).md)'
+detectors](Simulation/Output/Lanearea_Detectors_(E2).md)'
 attributes have the same meaning as for [E1 induction
-loops](Simulation/Output/Induction_Loops_Detectors_\(E1\).md),
+loops](Simulation/Output/Induction_Loops_Detectors_(E1).md),
 including automatic ID and position at a certain lane. As a real
 detector has a certain length, "length" must be supplied as a further
 parameter. It may be a negative number which let the detector be
@@ -1039,9 +1037,9 @@ Image:GNEE2.png|Detector E2
 ##### Multi-Entry Multi-Exit Detectors (E3)
 
 A [Detector
-E3](Simulation/Output/Multi-Entry_Multi-Exit_Detectors_\(E3\).md)
+E3](Simulation/Output/Multi-Entry_Multi-Exit_Detectors_(E3).md)
 is an AdditionalSet with the same attributes as [Induction Loop Detector
-E1](Simulation/Output/Induction_Loops_Detectors_\(E1\).md). The
+E1](Simulation/Output/Induction_Loops_Detectors_(E1).md). The
 difference is that detectors E3 have as childs the Entry/Exit detectors.
 
 Image:GNEE3.png|Detector E3
@@ -1049,7 +1047,7 @@ Image:GNEE3.png|Detector E3
 ##### DetEntry/DetExit
 
 Childs of an AdditionalSet [Multi-Entry Multi-Exit Detectors
-E3](Simulation/Output/Multi-Entry_Multi-Exit_Detectors_\(E3\).md).
+E3](Simulation/Output/Multi-Entry_Multi-Exit_Detectors_(E3).md).
 These additionals have only the attributes ID of a lane in which it is
 placed and positioned over a lane.
 
@@ -1058,7 +1056,7 @@ Image:GNEEntry.png|Detector entry Image:GNEExit.png|Detector exit
 ##### Instant Induction Loops Detectors (E1Instant)
 
 A [E1
-detector](Simulation/Output/Induction_Loops_Detectors_\(E1\).md)
+detector](Simulation/Output/Induction_Loops_Detectors_(E1).md)
 owns a ID parameter generated by [NETEDIT](NETEDIT.md), a
 position at a certain lane, a *freq* attribute which describes the
 period over which collected values shall be aggregated, a list of
@@ -1470,19 +1468,17 @@ To make a unidirectional track usable in both directions,
 
 # Planned Features
 
-  - Support for editing traffic demand (the application will have a big
-    toogle switch between controls for editing the network and editing
-    the demand)
-  - Support for editing features already supported by
-    [NETCONVERT](NETCONVERT.md)
-      - Editing  information for
-        [Simulation/OppositeDirectionDriving](Simulation/OppositeDirectionDriving.md).
+- Support for editing traffic demand (the application will have a big
+toogle switch between controls for editing the network and editing
+the demand)
+- Support for editing features already supported by
+[NETCONVERT](NETCONVERT.md)
+  - Editing  information for
+    [Simulation/OppositeDirectionDriving](Simulation/OppositeDirectionDriving.md).
 
-      - Editing [walkingarea
-        shapes](Networks/PlainXML#Walking_Areas.md)
-      - ...
-  - Integration of [NETGENERATE](NETGENERATE.md)
-  - Adding / merging of sub-networks to the existing network
+  - Editing [walkingarea
+    shapes](Networks/PlainXML#Walking_Areas.md)
   - ...
-
-[Category:ApplicationDescription](Category:ApplicationDescription.md)
+- Integration of [NETGENERATE](NETGENERATE.md)
+- Adding / merging of sub-networks to the existing network
+- ...

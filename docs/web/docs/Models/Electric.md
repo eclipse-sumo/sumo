@@ -105,7 +105,7 @@ Charging stations are defined in additional using the following format:
 
 And are represented in the simulation as shown:
 
-![](../images/Chargingstation.png "Representation of chargingStation in GUI")
+![](../images/ChargingStation.png "Representation of chargingStation in GUI")
 Representation of chargingStation in GUI
 
 ![](../images/ChargingStationCharging.png "Color of chargingStation during charge")

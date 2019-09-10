@@ -8,15 +8,11 @@ permalink: /SUMO-GUI/
 **SUMO-GUI** is basically the same application as
 [SUMO](SUMO.md), just extended by a graphical user interface.
 
->    **Purpose:** Simulates a defined scenario
-
->    **System:** portable (Linux/Windows is tested); opens a window
-
->    **Input (mandatory):** A SUMO-configuration file (see [SUMO](SUMO.md))
-
->    **Output:** SUMO-GUI generates the same output as [SUMO](SUMO.md)
-
->    **Programming Language:** C++
+- **Purpose:** Simulates a defined scenario
+- **System:** portable (Linux/Windows is tested); opens a window
+- **Input (mandatory):** A SUMO-configuration file (see [SUMO](SUMO.md))
+- **Output:** SUMO-GUI generates the same output as [SUMO](SUMO.md)
+- **Programming Language:** C++
 
 # Usage Description
 
@@ -29,7 +25,7 @@ click. After this, an empty window should show up, similar to the one
 shown in the image.
 
 Using either the "File-\>Open Simulation..." menu entry or by using the
-"open"-icon (![Image:open_sim.gif](images/open_sim.gif)),
+"open"-icon (![Image:open_sim.gif](images/Open_sim.gif)),
 you should be able to load an existing [SUMO](SUMO.md)
 [configuration
 file](Basics/Using_the_Command_Line_Applications#Configuration_Files.md),
@@ -391,17 +387,17 @@ connections exist.
 
 The View Settings menu allows to change and customize the simulations'
 appearance and visualization. To open the visualization settings use
-![Image:colorwheel.gif](colorwheel.gif "Image:colorwheel.gif") in the
+![Image:colorwheel.gif](images/Colorwheel.gif "Image:colorwheel.gif") in the
 menu bar at the top of the view.
 
 For customizing the simulation one can make changes e.g. to the
 background coloring, streets and vehicle appearance as well as the
 visualization of POIs. Furthermore one can save
-(![Image:Save_to_registry.gif](Save_to_registry.gif
+(![Image:Save_to_registry.gif](images/Save_to_registry.gif
 "Image:Save_to_registry.gif")) and delete
-(![Image:Delete_from_registry.gif](Delete_from_registry.gif
+(![Image:Delete_from_registry.gif](images/Delete_from_registry.gif
 "Image:Delete_from_registry.gif")‎) settings to the registry or export
-(![Image:Save.gif](Save.gif "Image:Save.gif")) custom made settings
+(![Image:Save.gif](images/Save.gif "Image:Save.gif")) custom made settings
 files and load previews settings again
 ![Image:Open_sim.gif](images/Open_sim.gif). So one can
 use different favorite settings files for any simulation.
@@ -569,7 +565,7 @@ settings using ![Image:colorwheel.gif](colorwheel.gif
 columns: **picture file**, **center x**, **center y**, **width**,
 **height**, and **rotation**.
 
-![decals_gui.gif](decals_gui.gif "decals_gui.gif")
+![decals_gui.gif](images/Decals_gui.gif "decals_gui.gif")
 
 **Fig. 1.1: The decals GUI.**
 
@@ -579,7 +575,7 @@ the path by pressing RETURN should force [SUMO-GUI](SUMO-GUI.md)
 to load and display the file below the road network, as shown in figure
 1.2.
 
-![background_example.gif](background_example.gif
+![background_example.gif](images/Background_example.gif
 "background_example.gif")
 
 **Fig. 1.2: Example of a background image (decal).**
@@ -601,7 +597,9 @@ be loaded by pressing the "Load Decals" button.
 
 When defining decals in XML a single line which looks like this:
 
+```
 <decal filename="background.gif" centerX="550.00" centerY="1530.00" width="64.00" height="64.00" rotation="0.00"/>
+```
 
 The following attributse are supported
 
@@ -638,15 +636,16 @@ you save a configuration file with default settings by calling ` sumo
 to [SUMO-GUI](SUMO-GUI.md). It allows you to load a previously
 saved gui-settings file. The easiest way to obtain a gui-settings file
 is via the *View Settings*-Dialog
-![Image:Open_viewsettings_editor.gif](Open_viewsettings_editor.gif
+![Image:Open_viewsettings_editor.gif](images/Open_viewsettings_editor.gif
 "Image:Open_viewsettings_editor.gif"). Simply modify the settings and
-save ![Image:save.gif](save.gif "Image:save.gif").
+save ![Image:save.gif](images/Save.gif "Image:save.gif").
 
 Note, that the gui-settings-file obtained this way only contain
 information about the viewport (zoom and offset), delay, breakpoints and
 decals if the corresponding check-boxes are activated before saving.
 When you are done the configuration files should look like below:
 
+```
 *example.sumocfg*
 
     <configuration>
@@ -667,6 +666,7 @@ When you are done the configuration files should look like below:
         <breakpoint value="42"/>
         <breakpoint value="1337"/>
     </viewsettings>
+```
 
 Alternatively, you can manually add a breakpoint-file definition to your
 settings
@@ -759,7 +759,7 @@ When using [SUMO-GUI](SUMO-GUI.md) for visualizing weight files
 with values that change over time (files containing multiple intervals)
 and no vehicles are being simulated, it is helpful to load the
 simulation with option  to avoid premature simulation and to set a
-*delay* value or [\#Breakpoints](#Breakpoints.md) because the
+*delay* value or [\#Breakpoints](#breakpoints) because the
 simulation will otherwise exit quickly when running without vehicles).
 
 ## Version 1.2.0 and later
@@ -798,7 +798,7 @@ Simulation](Simulation/Shapes.md)
   Route*. To show the trajectory on a walkingarea, select *Show
   Walkingarea Path*.
 - To highlight an arbitrary set of edges in the simulation create a
-  [selection file](#Selecting_Objects.md) and [color edges *by
+  [selection file](#selecting_objects) and [color edges *by
   selection*](#Edge.2FLane_Visualisation_Settings.md)
 - To Visualize all routes in a route file use the tool
   [Tools/Routes\#route2poly.py](Tools/Routes#route2poly.py.md)

@@ -103,7 +103,6 @@ following documents describe the basic functioning of the GUI.
 - [Demand modelling with GUI](../Contributed/SUMOPy/GUI/Demand_Modelling.md)
   - [Zone to zone demand flows](../Contributed/SUMOPy/Demand/Zone_To_Zone.md)
   - [Turn flows](../Contributed/SUMOPy/Demand/Turn_Flows.md)
-  - [Virtual Population](../Contributed/SUMOPy/Demand/Virtual_Population.md)
 
 # Simulation processes
 
