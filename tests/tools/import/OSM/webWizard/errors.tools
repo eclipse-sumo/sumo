@@ -1,3 +1,7 @@
+Warning: Ignoring track count 2 for edge '194973341'.
+Warning: Ignoring track count 2 for edge '321754188'.
+Warning: Ignoring track count 2 for edge '321754191'.
+Warning: Ignoring track count 2 for edge '321754197'.
 Warning: Discarding unknown compound 'usage.main' in type 'railway.light_rail|usage.main' (first occurence for edge '4471817').
 Warning: Discarding unknown compound 'cycleway.opposite' in type 'cycleway.opposite|highway.residential' (first occurence for edge '4610354').
 Warning: Discarding unknown compound 'cycleway.share_busway' in type 'cycleway.share_busway|highway.primary' (first occurence for edge '4611698').

@@ -1002,10 +1002,10 @@ NIImporter_OpenStreetMap::EdgesHandler::myStartElement(int element,
             }
         } else if (key == "tracks") {
             try {
-                if (StringUtils::toInt(value) > 1) {
-                    myCurrentEdge->myIsOneWay = "false";
-                } else {
+                if (StringUtils::toInt(value) == 1) {
                     myCurrentEdge->myIsOneWay = "true";
+                } else {
+                    WRITE_WARNING("Ignoring track count " + value + " for edge '" + toString(myCurrentEdge->id) + "'.");
                 }
             } catch (...) {
                 WRITE_WARNING("Value of key '" + key + "' is not numeric ('" + value + "') in edge '" +
