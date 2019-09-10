@@ -10,7 +10,7 @@
 The content of this Documentation is freely editable according to the [wiki style](https://en.wikipedia.org/wiki/Wiki). That means, whenever You find a solution to a problem mentioned on the [mailing lists](Contact.md), feel free to add an article to this Documentation or an entry to the [frequently asked questions](FAQ.md). Write access is restricted. In order to edit this Documentation, click on the "Edit on GitHub" button on the upper right corner and submit a Pull Request.
 Here is a short help on [editing articles](Editing_Articles.md).
 
-The documentation in this Documentation is continuously updated and always refers to the latest development version. Documentation for a specific release version of SUMO is included in the download of that version.
+This Documentation is continuously updated and always refers to the latest development version. Documentation for a specific release version of SUMO is included in the download of that version.
 
 ## Documentation
 
