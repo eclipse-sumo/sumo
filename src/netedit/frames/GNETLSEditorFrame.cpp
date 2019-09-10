@@ -93,6 +93,9 @@ GNETLSEditorFrame::GNETLSEditorFrame(FXHorizontalFrame* horizontalFrameParent, G
     GNEFrame(horizontalFrameParent, viewNet, "Edit Traffic Light"),
     myEditedDef(nullptr) {
 
+    // Create Overlapped Inspection modul
+    myOverlappedInspection = new GNEFrameModuls::OverlappedInspection(this, SUMO_TAG_JUNCTION);
+
     // create TLSJunction modul
     myTLSJunction = new GNETLSEditorFrame::TLSJunction(this);
 
@@ -124,22 +127,27 @@ GNETLSEditorFrame::~GNETLSEditorFrame() {
 }
 
 
+void 
+GNETLSEditorFrame::show() {
+    // hide myOverlappedInspection
+    myOverlappedInspection->hideOverlappedInspection();
+    GNEFrame::show();
+}
+
 void
-GNETLSEditorFrame::editJunction(GNEJunction* junction) {
-    if (myTLSJunction->getCurrentJunction() == nullptr || (!myTLSModifications->checkHaveModifications() && (junction != myTLSJunction->getCurrentJunction()))) {
-        onCmdCancel(nullptr, 0, nullptr);
-        myViewNet->getUndoList()->p_begin("modifying traffic light definition");
-        myTLSJunction->setCurrentJunction(junction);
-        myTLSAttributes->initTLSAttributes(myTLSJunction->getCurrentJunction());
-        myTLSJunction->updateJunctionDescription();
-        myTLSJunction->getCurrentJunction()->selectTLS(true);
-        if (myTLSAttributes->getNumberOfTLSDefinitions() > 0) {
-            for (NBNode* node : myTLSAttributes->getCurrentTLSDefinition()->getNodes()) {
-                myViewNet->getNet()->retrieveJunction(node->getID())->selectTLS(true);
-            }
+GNETLSEditorFrame::editTLS(const Position& clickedPosition, const GNEViewNetHelper::ObjectsUnderCursor &objectsUnderCursor) {
+    // first check if in objectsUnderCursor there is a junction
+    if (objectsUnderCursor.getJunctionFront()) {
+        // show objects under cursor
+        myOverlappedInspection->showOverlappedInspection(objectsUnderCursor, clickedPosition);
+        // hide if we inspect only one junction
+        if (myOverlappedInspection->getNumberOfOverlappedACs() == 1) {
+            myOverlappedInspection->hideOverlappedInspection();
         }
+        // set junction
+        editJunction(objectsUnderCursor.getJunctionFront());
     } else {
-        myViewNet->setStatusBarText("Unsaved modifications. Abort or Save");
+        myViewNet->setStatusBarText("Click over a junction to edit a TLS");
     }
 }
 
@@ -434,11 +442,19 @@ GNETLSEditorFrame::onCmdPhaseSwitch(FXObject*, FXSelector, void*) {
     return 1;
 }
 
+
 bool
 GNETLSEditorFrame::fixedDuration() const {
     assert(myEditedDef != nullptr);
     return myEditedDef->getType() == TLTYPE_STATIC;
 }
+
+
+void 
+GNETLSEditorFrame::selectedOverlappedElement(GNEAttributeCarrier *AC) {
+    editJunction(dynamic_cast<GNEJunction*>(AC));
+}
+
 
 long
 GNETLSEditorFrame::onCmdPhaseCreate(FXObject*, FXSelector, void*) {
@@ -617,15 +633,15 @@ GNETLSEditorFrame::onCmdPhaseEdit(FXObject*, FXSelector, void* ptr) {
         // next edited
         bool ok = true;
         if (GNEAttributeCarrier::canParse<std::vector<int> >(value.text())) {
-            std::vector<int> next = GNEAttributeCarrier::parse<std::vector<int> >(value.text());
-            for (int n : next) {
+            std::vector<int> nextEdited = GNEAttributeCarrier::parse<std::vector<int> >(value.text());
+            for (int n : nextEdited) {
                 if (n < 0 || n >= myTLSPhases->getPhaseTable()->getNumRows()) {
                     ok = false;
                     break;
                 }
             }
             if (ok) {
-                myEditedDef->getLogic()->setPhaseNext(tp->row, next);
+                myEditedDef->getLogic()->setPhaseNext(tp->row, nextEdited);
                 myTLSModifications->setHaveModifications(true);
                 return 1;
             }
@@ -681,8 +697,8 @@ GNETLSEditorFrame::buildIinternalLanes(NBTrafficLightDefinition* tlDef) {
     if (tlDef != nullptr) {
         const int NUM_POINTS = 10;
         assert(myTLSJunction->getCurrentJunction());
-        NBNode* nbn = myTLSJunction->getCurrentJunction()->getNBNode();
-        std::string innerID = ":" + nbn->getID(); // see NWWriter_SUMO::writeInternalEdges
+        NBNode* nbnCurrentJunction = myTLSJunction->getCurrentJunction()->getNBNode();
+        std::string innerID = ":" + nbnCurrentJunction->getID(); // see NWWriter_SUMO::writeInternalEdges
         const NBConnectionVector& links = tlDef->getControlledLinks();
         for (auto it : links) {
             int tlIndex = it.getTLIndex();
@@ -814,9 +830,28 @@ GNETLSEditorFrame::controlsEdge(GNEEdge& edge) const {
 }
 
 
+void
+GNETLSEditorFrame::editJunction(GNEJunction* junction) {
+    if (myTLSJunction->getCurrentJunction() == nullptr || (!myTLSModifications->checkHaveModifications() && (junction != myTLSJunction->getCurrentJunction()))) {
+        onCmdCancel(nullptr, 0, nullptr);
+        myViewNet->getUndoList()->p_begin("modifying traffic light definition");
+        myTLSJunction->setCurrentJunction(junction);
+        myTLSAttributes->initTLSAttributes(myTLSJunction->getCurrentJunction());
+        myTLSJunction->updateJunctionDescription();
+        myTLSJunction->getCurrentJunction()->selectTLS(true);
+        if (myTLSAttributes->getNumberOfTLSDefinitions() > 0) {
+            for (NBNode* node : myTLSAttributes->getCurrentTLSDefinition()->getNodes()) {
+                myViewNet->getNet()->retrieveJunction(node->getID())->selectTLS(true);
+            }
+        }
+    } else {
+        myViewNet->setStatusBarText("Unsaved modifications. Abort or Save");
+    }
+}
+
+
 SUMOTime
 GNETLSEditorFrame::getSUMOTime(const FXString& string) {
-    assert(GNEAttributeCarrier::canParse<double>(string.text()));
     return TIME2STEPS(GNEAttributeCarrier::parse<double>(string.text()));
 }
 

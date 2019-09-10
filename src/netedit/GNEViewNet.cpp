@@ -3149,7 +3149,8 @@ GNEViewNet::processLeftButtonPressNetwork(void* eventData) {
         }
         case GNE_NMODE_TLS: {
             if (myObjectsUnderCursor.getJunctionFront()) {
-                myViewParent->getTLSEditorFrame()->editJunction(myObjectsUnderCursor.getJunctionFront());
+                // edit TLS in TLSEditor frame
+                myViewParent->getTLSEditorFrame()->editTLS(getPositionInformation(), myObjectsUnderCursor);
                 update();
             }
             // process click

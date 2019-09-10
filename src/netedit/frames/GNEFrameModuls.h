@@ -531,6 +531,9 @@ public:
         /// @brief constructor
         OverlappedInspection(GNEFrame* frameParent);
 
+        /// @brief constructor (used for filter objects under cusor
+        OverlappedInspection(GNEFrame* frameParent, const SumoXMLTag filteredTag);
+
         /// @brief destructor
         ~OverlappedInspection();
 
@@ -542,6 +545,9 @@ public:
 
         /// @brief check if overlappedInspection modul is shown
         bool overlappedInspectionShown() const;
+
+        /// @brief get number of overlapped ACSs
+        int getNumberOfOverlappedACs() const;
 
         /// @brief check if given position is near to saved position
         bool checkSavedPosition(const Position& clickedPosition) const;
@@ -573,7 +579,10 @@ public:
 
     protected:
         /// @brief FOX needs this
-        OverlappedInspection() {}
+        OverlappedInspection();
+
+        /// @brief build Fox Toolkit elemements
+        void buildFXElements();
 
     private:
         /// @brief current frame parent
@@ -593,6 +602,9 @@ public:
 
         /// @brief button for help
         FXButton* myHelpButton;
+
+        /// @brief filtered tag
+        const SumoXMLTag myFilteredTag;
 
         /// @brief objects under cursor
         std::vector<GNEAttributeCarrier*> myOverlappedACs;

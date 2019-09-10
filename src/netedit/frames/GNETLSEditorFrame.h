@@ -308,9 +308,14 @@ public:
     /// @brief Destructor
     ~GNETLSEditorFrame();
 
-    /// @brief edits the traffic light for the given junction
-    /// @param[in] junction The junction of which the traffic light shall be edited
-    void editJunction(GNEJunction* junction);
+    /// @brief show inspector frame
+    void show();
+
+    /**@brief edits the traffic light for the given clicked junction
+     * @param[in] clickedPosition clicked position
+     * @param[in] objectsUnderCursor The clicked objects under cursor
+     */
+    void editTLS(const Position& clickedPosition, const GNEViewNetHelper::ObjectsUnderCursor &objectsUnderCursor);
 
     /// @brief check if modifications in TLS was saved
     bool isTLSSaved();
@@ -404,14 +409,25 @@ public:
     /// @brief whether the current traffic light uses fixed phase durations
     bool fixedDuration() const;
 
+    /// @brief open AttributesCreator extended dialog (can be reimplemented in frame children)
+    void selectedOverlappedElement(GNEAttributeCarrier *AC);
+
 protected:
     /// @brief FOX needs this
     GNETLSEditorFrame() {}
+
+    /**@brief edits the traffic light for the given junction
+     * @param[in] junction The junction of which the traffic light shall be edited
+     */
+    void editJunction(GNEJunction* junction);
 
     /// @brief converts to SUMOTime
     static SUMOTime getSUMOTime(const FXString& string);
 
 private:
+    /// @brief Overlapped Inspection
+    GNEFrameModuls::OverlappedInspection* myOverlappedInspection;
+
     /// @brief modul for TLS Junction
     GNETLSEditorFrame::TLSJunction* myTLSJunction;
 

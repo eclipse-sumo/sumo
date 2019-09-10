@@ -386,8 +386,8 @@ GNEPolygonFrame::shapeDrawed() {
         if(addPolygon(valuesMap)) {
             // refresh shape attributes
             myShapeAttributes->refreshRows();
-            return true;
         }
+        return true;
     }
 }
 
