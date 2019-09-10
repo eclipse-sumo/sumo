@@ -355,6 +355,7 @@ NBEdge::NBEdge(const std::string& id, NBNode* from, NBNode* to, const NBEdge* tp
             setStopOffsets(i, tpl->myLanes[tplIndex].stopOffsets);
         }
     }
+    updateParameter(tpl->getParametersMap());
 }
 
 
