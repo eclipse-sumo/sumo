@@ -16,7 +16,7 @@ permalink: /ChangeLog/
   - Fixed crash when defining walks between disconnected locations. Issue #5369
 
 - NETCONVERT
-  - Fixed bugs in classifikation of roundabouts. Issue #6032
+  - Fixed bugs in classification of roundabouts. Issue #6032
 
 - SUMO-GUI
   - Sublane-borders are no longer drawn for railways and sidewalks (where the sublane model does not apply).
