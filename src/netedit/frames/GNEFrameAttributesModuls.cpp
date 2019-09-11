@@ -393,10 +393,6 @@ GNEFrameAttributesModuls::AttributesCreatorRow::onCmdSetAttribute(FXObject* obj,
             if ((angle < 0) || (angle > 360)) {
                 // apply modul
                 angle = fmod (angle,360);
-                // extra filter for negative angles
-                if ((OptionsCont::getOptions().getBool("allow-negative-angles") == false) && (angle < 0)) {
-                    angle += 360;
-                }
             }
             // update Textfield
             myValueTextField->setText(toString(angle).c_str(), FALSE);
@@ -1268,10 +1264,6 @@ GNEFrameAttributesModuls::AttributesEditorRow::onCmdSetAttribute(FXObject*, FXSe
             if ((angle < 0) || (angle > 360)) {
                 // apply modul
                 angle = fmod (angle,360);
-                // extra filter for negative angles
-                if ((OptionsCont::getOptions().getBool("allow-negative-angles") == false) && (angle < 0)) {
-                    angle += 360;
-                }
             }
             // set newVal
             newVal = toString(angle);
