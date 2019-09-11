@@ -363,7 +363,8 @@ GUIVisualizationSettings::GUIVisualizationSettings(bool _netedit) :
     selectionScale(1.),
     drawForSelecting(false),
     forceDrawForSelecting(false),
-    lefthand(false) {
+    lefthand(false),
+    disableLaneIcons(false) {
 
     if (netedit) {
         initNeteditDefaults();

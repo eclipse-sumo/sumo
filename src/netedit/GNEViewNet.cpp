@@ -554,8 +554,9 @@ GNEViewNet::doPaintGL(int mode, const Boundary& bound) {
     if (!myVisualizationSettings->drawForSelecting && myVisualizationSettings->forceDrawForSelecting) {
         myVisualizationSettings->drawForSelecting = true;
     }
-    // set lefthand
+    // set lefthand and laneIcons
     myVisualizationSettings->lefthand = OptionsCont::getOptions().getBool("lefthand");
+    myVisualizationSettings->disableLaneIcons = OptionsCont::getOptions().getBool("disable-laneIcons");
 
     glRenderMode(mode);
     glMatrixMode(GL_MODELVIEW);

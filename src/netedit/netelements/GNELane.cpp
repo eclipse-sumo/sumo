@@ -461,7 +461,7 @@ GNELane::drawGL(const GUIVisualizationSettings& s) const {
             }
         }
         // If there are texture of restricted lanes to draw, check if icons can be drawn
-        if (!s.drawForSelecting && !OptionsCont::getOptions().getBool("disable-laneIcons") && (myLaneRestrictedTexturePositions.size() > 0) && s.drawDetail(s.detailSettings.laneTextures, exaggeration)) {
+        if (!s.drawForSelecting && !s.disableLaneIcons && (myLaneRestrictedTexturePositions.size() > 0) && s.drawDetail(s.detailSettings.laneTextures, exaggeration)) {
             // Declare default width of icon (3)
             double iconWidth = 1;
             // Obtain width of icon, if width of lane is different
