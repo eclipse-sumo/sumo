@@ -2885,7 +2885,7 @@ GNEAttributeCarrier::fillShapes() {
         // set values of attributes
         attrProperty = AttributeProperties(SUMO_ATTR_ID,
                                            ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE,
-                                           "The id of the POI");
+                                           "The id of the " + toString(currentTag));
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = AttributeProperties(SUMO_ATTR_POSITION,
@@ -2895,19 +2895,19 @@ GNEAttributeCarrier::fillShapes() {
 
         attrProperty = AttributeProperties(SUMO_ATTR_COLOR,
                                            ATTRPROPERTY_STRING | ATTRPROPERTY_COLOR | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL,
-                                           "The color with which the poi shall be displayed",
+                                           "The color with which the " + toString(currentTag) + " shall be displayed",
                                            "red");
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = AttributeProperties(SUMO_ATTR_TYPE,
                                            ATTRPROPERTY_STRING | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL,
-                                           "A typename for the poi",
+                                           "A typename for the " + toString(currentTag),
                                            toString(Shape::DEFAULT_TYPE));
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = AttributeProperties(SUMO_ATTR_LAYER,
                                            ATTRPROPERTY_FLOAT | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL,
-                                           "The layer of the poi for drawing and selecting",
+                                           "The layer of the " + toString(currentTag) + " for drawing and selecting",
                                            toString(Shape::DEFAULT_LAYER_POI));
         myTagProperties[currentTag].addAttribute(attrProperty);
 
@@ -2925,7 +2925,7 @@ GNEAttributeCarrier::fillShapes() {
 
         attrProperty = AttributeProperties(SUMO_ATTR_IMGFILE,
                                            ATTRPROPERTY_STRING | ATTRPROPERTY_FILENAME | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL,
-                                           "A bitmap to use for rendering this poi",
+                                           "A bitmap to use for rendering this " + toString(currentTag),
                                            toString(Shape::DEFAULT_IMG_FILE));
         myTagProperties[currentTag].addAttribute(attrProperty);
 
@@ -2948,40 +2948,40 @@ GNEAttributeCarrier::fillShapes() {
         // set values of attributes
         attrProperty = AttributeProperties(SUMO_ATTR_ID,
                                            ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE,
-                                           "The id of the POI");
+                                           "The id of the " + toString(currentTag));
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = AttributeProperties(SUMO_ATTR_LANE,
                                            ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE,
-                                           "The name of the lane the poi is located at");
+                                           "The name of the lane at which the " + toString(currentTag) + " is located at");
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = AttributeProperties(SUMO_ATTR_POSITION,
                                            ATTRPROPERTY_FLOAT | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_UPDATEGEOMETRY,
-                                           "The position on the named lane or in the net in meters at which the poi is located at");
+                                           "The position on the named lane or in the net in meters at which the " + toString(currentTag) + " is located at");
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = AttributeProperties(SUMO_ATTR_POSITION_LAT,
                                            ATTRPROPERTY_FLOAT | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL | ATTRPROPERTY_UPDATEGEOMETRY,
-                                           "The lateral offset on the named lane at which the poi is located at",
+                                           "The lateral offset on the named lane at which the " + toString(currentTag) + " is located at",
                                            "0.00");
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = AttributeProperties(SUMO_ATTR_COLOR,
                                            ATTRPROPERTY_STRING | ATTRPROPERTY_COLOR | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL,
-                                           "The color with which the poi shall be displayed",
+                                           "The color with which the " + toString(currentTag) + " shall be displayed",
                                            "red");
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = AttributeProperties(SUMO_ATTR_TYPE,
                                            ATTRPROPERTY_STRING | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL,
-                                           "A typename for the poi",
+                                           "A typename for the " + toString(currentTag),
                                            toString(Shape::DEFAULT_TYPE));
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = AttributeProperties(SUMO_ATTR_LAYER,
                                            ATTRPROPERTY_FLOAT | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL,
-                                           "The layer of the poi for drawing and selecting",
+                                           "The layer of the " + toString(currentTag) + " for drawing and selecting",
                                            toString(Shape::DEFAULT_LAYER_POI));
         myTagProperties[currentTag].addAttribute(attrProperty);
 
@@ -2999,7 +2999,7 @@ GNEAttributeCarrier::fillShapes() {
 
         attrProperty = AttributeProperties(SUMO_ATTR_IMGFILE,
                                            ATTRPROPERTY_STRING | ATTRPROPERTY_FILENAME | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL,
-                                           "A bitmap to use for rendering this poi",
+                                           "A bitmap to use for rendering this " + toString(currentTag),
                                            toString(Shape::DEFAULT_IMG_FILE));
         myTagProperties[currentTag].addAttribute(attrProperty);
 
