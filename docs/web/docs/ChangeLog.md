@@ -11,24 +11,31 @@ permalink: /ChangeLog/
   - Fixed crash when setting a negative value for option **--device.rerouting.pre-period** Issue #6012
   - Avoiding unnecessary rerouting while trips and flows are delayed from insertion. Issue #6013
   - Lanechange reason is now written in lanechange-output when using the [simple continuous lanechange model](Simulation/SublaneModel.md#simple_continous_lane-change_model). Issue #6014
+  - Fixed invalid mode change from car during intermodal routing. Issue #6070
 
 - NETEDIT
   - Fixed crash when defining walks between disconnected locations. Issue #5369
   - Fixed crash transforming trips to flows. Issue #6050
   - Now blocked shapes can be moved again. Issue #6053
   - Fixed invalid snap to grid when trying to move junction. Issue #6067
+  - Coloring edges by generic parameter is now working. Issue #6062  
 
 - NETCONVERT
   - Fixed bugs in classification of roundabouts. Issue #6032
   - Preventing invalid double tracks when using typemap [osmNetconvertRailUsage.typ.xml]({{Source}}data/typemap/osmNetconvertRailUsage.typ.xml). Issue #6056
   - Disabling invalid handling of railway track count in OSM input. Issue #6057
   - Missing track numbers in bidirectional railway edges. Issue #6058
+  - fixed invalid junction and connection shapes in plain-xml-output when using option **--proj.plain-geo** Issue 6066
 
 - SUMO-GUI
   - Sublane-borders are no longer drawn for railways and sidewalks (where the sublane model does not apply).
 
+- DUAROUTER
+  - Fixed invalid mode change from car during intermodal routing. Issue #6070
+
 - TraCI
-  - TraaS function *Trafficlight.getControlledJunctions* is now working. Issue #6019
+  - TraaS function *Trafficlight.getControlledJunctions* is now working. Issue #6019  
+
 
 ### Enhancements
 
@@ -45,7 +52,7 @@ permalink: /ChangeLog/
   - The option **--opposites.guess.fix-length** is no longer required when using networks with default lengths (no user-set values). The resulting networks will automatically adapt their edge lengths when changing geometry. Issue #6028
 
 - Netedit
-  - Now additionals and routes are loaded using option "Open in SUMO-GUI"). Issue #6049
+  - Now additionals and routes can optionally be loaded using option "Open in SUMO-GUI"). Issue #6049
   - Added shortcuts (Shift F1,F2,F3) for edge templates. Issue #6033
   - VTypes can be edited in multiple selected vehicles. Issue #6051
   
