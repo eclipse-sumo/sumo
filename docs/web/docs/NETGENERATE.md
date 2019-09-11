@@ -8,13 +8,12 @@ permalink: /NETGENERATE/
 **NETGENERATE** generates abstract road networks that may be used by
 other SUMO-applications.
 
-  -
-    **Purpose:** Abstract road network generation
-    **System:** portable (Linux/Windows is tested); runs on command line
-    **Input (mandatory):** Command line parameter
-    **Output:** A generated SUMO-road network; optionally also other
-    outputs
-    **Programming Language:** C++
+- **Purpose:** Abstract road network generation
+- **System:** portable (Linux/Windows is tested); runs on command line
+- **Input (mandatory):** Command line parameter
+- **Output:** A generated SUMO-road network; optionally also other
+outputs
+- **Programming Language:** C++
 
 # Usage Description
 
@@ -32,313 +31,87 @@ configuration:
 All applications of the **SUMO**-suite handle configuration options the
 same way. These options are discussed at [Basics/Using the Command Line
 Applications\#Configuration
-Files](Basics/Using_the_Command_Line_Applications#Configuration_Files.md).
+Files](Basics/Using_the_Command_Line_Applications.md#configuration_files).
 
-<table>
-<thead>
-<tr class="header">
-<th><p>Option</p></th>
-<th><p>Description</p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><p><br />
-</p></td>
-<td><p>Loads the named config on startup</p></td>
-</tr>
-<tr class="even">
-<td><p><br />
-</p></td>
-<td><p>Saves current configuration into FILE</p></td>
-</tr>
-<tr class="odd">
-<td></td>
-<td><p>Saves a configuration template (empty) into FILE</p></td>
-</tr>
-<tr class="even">
-<td></td>
-<td><p>Saves the configuration schema into FILE</p></td>
-</tr>
-<tr class="odd">
-<td></td>
-<td><p>Adds comments to saved template, configuration, or schema; <em>default: <strong>false</strong></em></p></td>
-</tr>
-<tr class="even">
-<td></td>
-<td></td>
-</tr>
-</tbody>
-</table>
+| Option                                   | Description                                                               |
+|------------------------------------------|---------------------------------------------------------------------------|
+| **-c** {{DT_FILE}}<br>**--configuration-file** {{DT_FILE}} | Loads the named config on startup                                         |
+| **-C** {{DT_FILE}}<br>**--save-configuration** {{DT_FILE}} | Saves current configuration into FILE                                     |
+| **--save-template** {{DT_FILE}}                   | Saves a configuration template (empty) into FILE                          |
+| **--save-schema** {{DT_FILE}}                     | Saves the configuration schema into FILE                                  |
+| **--save-commented** {{DT_BOOL}}                  | Adds comments to saved template, configuration, or schema; *default: **false*** |
 
 ### Grid Network
 
-<table>
-<thead>
-<tr class="header">
-<th><p>Option</p></th>
-<th><p>Description</p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><p><br />
-</p></td>
-<td><p>Forces NETGEN to build a grid-like network; <em>default: <strong>false</strong></em></p></td>
-</tr>
-<tr class="even">
-<td></td>
-<td><p>The number of junctions in both dirs; <em>default: <strong>5</strong></em></p></td>
-</tr>
-<tr class="odd">
-<td></td>
-<td><p>The length of streets in both dirs; <em>default: <strong>100</strong></em></p></td>
-</tr>
-<tr class="even">
-<td></td>
-<td><p>The number of junctions in x-dir; Overrides --grid-number; <em>default: <strong>5</strong></em></p></td>
-</tr>
-<tr class="odd">
-<td></td>
-<td><p>The number of junctions in y-dir; Overrides --grid-number; <em>default: <strong>5</strong></em></p></td>
-</tr>
-<tr class="even">
-<td></td>
-<td><p>The length of horizontal streets; Overrides --grid-length; <em>default: <strong>100</strong></em></p></td>
-</tr>
-<tr class="odd">
-<td></td>
-<td><p>The length of vertical streets; Overrides --grid-length; <em>default: <strong>100</strong></em></p></td>
-</tr>
-<tr class="even">
-<td></td>
-<td><p>The length of streets attached at the boundary; 0 means no streets are attached; <em>default: <strong>0</strong></em></p></td>
-</tr>
-<tr class="odd">
-<td></td>
-<td></td>
-</tr>
-</tbody>
-</table>
+| Option                       | Description                                                                                 |
+|------------------------------|---------------------------------------------------------------------------------------------|
+| **-g** {{DT_BOOL}}<br>**--grid** {{DT_BOOL}}   | Forces NETGEN to build a grid-like network; *default: **false***                                  |
+| **--grid.number** {{DT_INT}}          | The number of junctions in both dirs; *default: **5***                                            |
+| **--grid.length** {{DT_FLOAT}}        | The length of streets in both dirs; *default: **100***                                            |
+| **--grid.x-number** {{DT_INT}}        | The number of junctions in x-dir; Overrides --grid-number; *default: **5***                       |
+| **--grid.y-number** {{DT_INT}}        | The number of junctions in y-dir; Overrides --grid-number; *default: **5***                       |
+| **--grid.x-length** {{DT_FLOAT}}      | The length of horizontal streets; Overrides --grid-length; *default: **100***                     |
+| **--grid.y-length** {{DT_FLOAT}}      | The length of vertical streets; Overrides --grid-length; *default: **100***                       |
+| **--grid.attach-length** {{DT_FLOAT}} | The length of streets attached at the boundary; 0 means no streets are attached; *default: **0*** |
 
 ### Spider Network
 
-<table>
-<thead>
-<tr class="header">
-<th><p>Option</p></th>
-<th><p>Description</p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><p><br />
-</p></td>
-<td><p>Forces NETGEN to build a spider-net-like network; <em>default: <strong>false</strong></em></p></td>
-</tr>
-<tr class="even">
-<td></td>
-<td><p>The number of axes within the net; <em>default: <strong>13</strong></em></p></td>
-</tr>
-<tr class="odd">
-<td></td>
-<td><p>The number of circles of the net; <em>default: <strong>20</strong></em></p></td>
-</tr>
-<tr class="even">
-<td></td>
-<td><p>The distances between the circles; <em>default: <strong>100</strong></em></p></td>
-</tr>
-<tr class="odd">
-<td></td>
-<td><p>Omit the central node of the network; <em>default: <strong>false</strong></em></p></td>
-</tr>
-<tr class="even">
-<td></td>
-<td></td>
-</tr>
-</tbody>
-</table>
+| Option                        | Description                                                      |
+|-------------------------------|------------------------------------------------------------------|
+| **-s** {{DT_BOOL}}<br>**--spider** {{DT_BOOL}}  | Forces NETGEN to build a spider-net-like network; *default: **false*** |
+| **--spider.arm-number** {{DT_INT}}     | The number of axes within the net; *default: **13***                   |
+| **--spider.circle-number** {{DT_INT}}  | The number of circles of the net; *default: **20***                    |
+| **--spider.space-radius** {{DT_FLOAT}} | The distances between the circles; *default: **100***                  |
+| **--spider.omit-center** {{DT_BOOL}}   | Omit the central node of the network; *default: **false***             |
 
 ### Random Network
 
-<table>
-<thead>
-<tr class="header">
-<th><p>Option</p></th>
-<th><p>Description</p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><p><br />
-</p></td>
-<td><p>Forces NETGEN to build a random network; <em>default: <strong>false</strong></em></p></td>
-</tr>
-<tr class="even">
-<td></td>
-<td><p>Describes how many times an edge shall be added to the net; <em>default: <strong>2000</strong></em></p></td>
-</tr>
-<tr class="odd">
-<td></td>
-<td><p>Defines the probability to build a reverse edge; <em>default: <strong>1</strong></em></p></td>
-</tr>
-<tr class="even">
-<td></td>
-<td><p>The maximum distance for each edge; <em>default: <strong>250</strong></em></p></td>
-</tr>
-<tr class="odd">
-<td></td>
-<td><p>The minimum distance for each edge; <em>default: <strong>100</strong></em></p></td>
-</tr>
-<tr class="even">
-<td></td>
-<td><p>The minimum angle for each pair of (bidirectional) roads; <em>default: <strong>0.785398</strong></em></p></td>
-</tr>
-<tr class="odd">
-<td></td>
-<td><p>The number of tries for creating each node; <em>default: <strong>50</strong></em></p></td>
-</tr>
-<tr class="even">
-<td></td>
-<td><p>Probability for roads to continue at each node; <em>default: <strong>0.95</strong></em></p></td>
-</tr>
-<tr class="odd">
-<td></td>
-<td><p>Probability for a node having exactly 1 neighbor; <em>default: <strong>0</strong></em></p></td>
-</tr>
-<tr class="even">
-<td></td>
-<td><p>Probability for a node having exactly 2 neighbors; <em>default: <strong>0</strong></em></p></td>
-</tr>
-<tr class="odd">
-<td></td>
-<td><p>Probability for a node having exactly 3 neighbors; <em>default: <strong>10</strong></em></p></td>
-</tr>
-<tr class="even">
-<td></td>
-<td><p>Probability for a node having exactly 4 neighbors; <em>default: <strong>10</strong></em></p></td>
-</tr>
-<tr class="odd">
-<td></td>
-<td><p>Probability for a node having exactly 5 neighbors; <em>default: <strong>2</strong></em></p></td>
-</tr>
-<tr class="even">
-<td></td>
-<td><p>Probability for a node having exactly 6 neighbors; <em>default: <strong>1</strong></em></p></td>
-</tr>
-<tr class="odd">
-<td></td>
-<td><p>Draw lane numbers randomly from [1,default.lanenumber]; <em>default: <strong>false</strong></em></p></td>
-</tr>
-<tr class="even">
-<td></td>
-<td><p>Draw edge priority randomly from [1,default.priority]; <em>default: <strong>false</strong></em></p></td>
-</tr>
-<tr class="odd">
-<td></td>
-<td><p>Place nodes on a regular grid with spacing rand.min-distance; <em>default: <strong>false</strong></em></p></td>
-</tr>
-<tr class="even">
-<td></td>
-<td></td>
-</tr>
-</tbody>
-</table>
+!!! note
+    It is not recommended to set **--rand.connectivity** to 1 as the algorithm may fail to terminate in this case.
+
+| Option                          | Description                                                                      |
+|---------------------------------|----------------------------------------------------------------------------------|
+| **-r** {{DT_BOOL}}<br>**--rand** {{DT_BOOL}}      | Forces NETGEN to build a random network; *default: **false***                          |
+| **--rand.iterations** {{DT_INT}}         | Describes how many times an edge shall be added to the net; *default: **2000***        |
+| **--rand.bidi-probability** {{DT_FLOAT}} | Defines the probability to build a reverse edge; *default: **1***                      |
+| **--rand.max-distance** {{DT_FLOAT}}     | The maximum distance for each edge; *default: **250***                                 |
+| **--rand.min-distance** {{DT_FLOAT}}     | The minimum distance for each edge; *default: **100***                                 |
+| **--rand.min-angle** {{DT_FLOAT}}        | The minimum angle for each pair of (bidirectional) roads in DEGREES; *default: **45*** |
+| **--rand.num-tries** {{DT_INT}}          | The number of tries for creating each node; *default: **50***                          |
+| **--rand.connectivity** {{DT_FLOAT}}     | Probability for roads to continue at each node; *default: **0.95***                    |
+| **--rand.neighbor-dist1** {{DT_FLOAT}}   | Probability for a node having exactly 1 neighbor; *default: **0***                     |
+| **--rand.neighbor-dist2** {{DT_FLOAT}}   | Probability for a node having exactly 2 neighbors; *default: **0***                    |
+| **--rand.neighbor-dist3** {{DT_FLOAT}}   | Probability for a node having exactly 3 neighbors; *default: **10***                   |
+| **--rand.neighbor-dist4** {{DT_FLOAT}}   | Probability for a node having exactly 4 neighbors; *default: **10***                   |
+| **--rand.neighbor-dist5** {{DT_FLOAT}}   | Probability for a node having exactly 5 neighbors; *default: **2***                    |
+| **--rand.neighbor-dist6** {{DT_FLOAT}}   | Probability for a node having exactly 6 neighbors; *default: **1***                    |
+| **--rand.random-lanenumber** {{DT_BOOL}} | Draw lane numbers randomly from [1,default.lanenumber]; *default: **false***           |
+| **--rand.random-priority** {{DT_BOOL}}   | Draw edge priority randomly from [1,default.priority]; *default: **false***            |
+| **--rand.grid** {{DT_BOOL}}              | Place nodes on a regular grid with spacing rand.min-distance; *default: **false***     |
 
 ### Output
 
-<table>
-<thead>
-<tr class="header">
-<th><p>Option</p></th>
-<th><p>Description</p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td></td>
-<td><p>Include license info into every output file; <em>default: <strong>false</strong></em></p></td>
-</tr>
-<tr class="even">
-<td></td>
-<td><p>Prefix which is applied to all output files. The special string 'TIME' is replaced by the current time.</p></td>
-</tr>
-<tr class="odd">
-<td></td>
-<td><p>Defines the number of digits after the comma for floating point output; <em>default: <strong>2</strong></em></p></td>
-</tr>
-<tr class="even">
-<td></td>
-<td><p>Defines the number of digits after the comma for lon,lat output; <em>default: <strong>6</strong></em></p></td>
-</tr>
-<tr class="odd">
-<td><p><br />
-</p></td>
-<td><p>Write time values as hour:minute:second or day:hour:minute:second rathern than seconds; <em>default: <strong>false</strong></em></p></td>
-</tr>
-<tr class="even">
-<td></td>
-<td><p>The Ids of generated nodes use an alphanumerical code for easier readability when possible; <em>default: <strong>true</strong></em></p></td>
-</tr>
-<tr class="odd">
-<td><p><br />
-</p></td>
-<td><p>The generated net will be written to FILE</p></td>
-</tr>
-<tr class="even">
-<td></td>
-<td><p>Prefix of files to write plain xml nodes, edges and connections to</p></td>
-</tr>
-<tr class="odd">
-<td></td>
-<td><p>Writes information about joined junctions to FILE (can be loaded as additional node-file to reproduce joins</p></td>
-</tr>
-<tr class="even">
-<td></td>
-<td><p>Defines a prefix for edge and junction names</p></td>
-</tr>
-<tr class="odd">
-<td></td>
-<td><p>The generated net will be written to FILE using Amitran format</p></td>
-</tr>
-<tr class="even">
-<td></td>
-<td><p>The generated net will be written to FILE using MATsim format</p></td>
-</tr>
-<tr class="odd">
-<td></td>
-<td><p>The generated net will be written to FILE using OpenDRIVE format</p></td>
-</tr>
-<tr class="even">
-<td></td>
-<td><p>The generated net will be written to dlr-navteq files with the given PREFIX</p></td>
-</tr>
-<tr class="odd">
-<td></td>
-<td><p>The network coordinates are written with the specified level of output precision; <em>default: <strong>2</strong></em></p></td>
-</tr>
-<tr class="even">
-<td></td>
-<td><p>Street names will be included in the output (if available); <em>default: <strong>false</strong></em></p></td>
-</tr>
-<tr class="odd">
-<td></td>
-<td><p>Writes original names, if given, as parameter; <em>default: <strong>false</strong></em></p></td>
-</tr>
-<tr class="even">
-<td></td>
-<td><p>Writes street signs as POIs to FILE</p></td>
-</tr>
-<tr class="odd">
-<td></td>
-<td><p>Builds parameterized curves whenever the angular change between straight segments exceeds FLOAT degrees; <em>default: <strong>1e-08</strong></em></p></td>
-</tr>
-<tr class="even">
-<td></td>
-<td></td>
-</tr>
-</tbody>
-</table>
+| Option  | Description  |
+|---|---|
+| **--write-license** {{DT_BOOL}}  | Include license info into every output file; *default: **false***  |
+| **--output-prefix** {{DT_STR}}  | Prefix which is applied to all output files. The special string 'TIME' is replaced by the current time.  |
+| **--precision** {{DT_INT}}  | Defines the number of digits after the comma for floating point output; *default: **2***  |
+| **--precision.geo** {{DT_INT}}  | Defines the number of digits after the comma for lon,lat output; *default: **6*** |
+| **-H** {{DT_BOOL}}<br>**--human-readable-time** {{DT_BOOL}}  | Write time values as hour:minute:second or day:hour:minute:second rathern than seconds; *default: **false***  |
+| **--alphanumerical-ids** {{DT_BOOL}}  | The Ids of generated nodes use an alphanumerical code for easier readability when possible; *default: **true***  |
+| **-o** {{DT_FILE}}<br>**--output-file** {{DT_FILE}}  | The generated net will be written to FILE  |
+| **--plain-output-prefix** {{DT_FILE}}  | Prefix of files to write plain xml nodes, edges and connections to  |
+| **--junctions.join-output** {{DT_FILE}}  | Writes information about joined junctions to FILE (can be loaded as additional node-file to reproduce joins  |
+| **--prefix** {{DT_STR}}  | Defines a prefix for edge and junction names  |
+| **--amitran-output** {{DT_FILE}}  | The generated net will be written to FILE using Amitran format  |
+| **--matsim-output** {{DT_FILE}}  | The generated net will be written to FILE using MATsim format  |
+| **--opendrive-output** {{DT_FILE}}  | The generated net will be written to FILE using OpenDRIVE format  |
+| **--dlr-navteq-output** {{DT_FILE}}  | The generated net will be written to dlr-navteq files with the given PREFIX  |
+| **--dlr-navteq.precision** {{DT_INT}}  | The network coordinates are written with the specified level of output precision; *default: **2***  |
+| **--output.street-names** {{DT_BOOL}}  | Street names will be included in the output (if available); *default: **false***  |
+| **--output.original-names** {{DT_BOOL}}  | Writes original names, if given, as parameter; *default: **false***  |
+| **--street-sign-output** {{DT_FILE}}  | Writes street signs as POIs to FILE  |
+| **--opendrive-output.straight-threshold** {{DT_FLOAT}}  | Builds parameterized curves whenever the angular change between straight segments exceeds FLOAT degrees; *default: **1e-08*** |
 
 ### Processing
 
@@ -351,602 +124,173 @@ given, the normalization is disabled automatically (thus there is no
 need to give --offset.disable-normalization if there is at least one of
 the offsets given).
 
-<table>
-<thead>
-<tr class="header">
-<th><p>Option</p></th>
-<th><p>Description</p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td></td>
-<td><p>Generate INT left-turn lanes; <em>default: <strong>0</strong></em></p></td>
-</tr>
-<tr class="even">
-<td></td>
-<td><p>Set the length of generated turning lanes to FLOAT; <em>default: <strong>20</strong></em></p></td>
-</tr>
-<tr class="odd">
-<td></td>
-<td><p>Apply random spatial pertubation in x direction according the the given distribution; <em>default: <strong>0</strong></em></p></td>
-</tr>
-<tr class="even">
-<td></td>
-<td><p>Apply random spatial pertubation in y direction according the the given distribution; <em>default: <strong>0</strong></em></p></td>
-</tr>
-<tr class="odd">
-<td></td>
-<td><p>Apply random spatial pertubation in z direction according the the given distribution; <em>default: <strong>0</strong></em></p></td>
-</tr>
-<tr class="even">
-<td></td>
-<td><p>Remaps alphanumerical IDs of nodes and edges to ensure that all IDs are integers; <em>default: <strong>false</strong></em></p></td>
-</tr>
-<tr class="odd">
-<td></td>
-<td><p>Ensures that generated ids do not included any of the typed IDs from FILE (SUMO-GUI selection file format)</p></td>
-</tr>
-<tr class="even">
-<td></td>
-<td><p>Warn about edge geometries with a grade in % above FLOAT.; <em>default: <strong>10</strong></em></p></td>
-</tr>
-<tr class="odd">
-<td></td>
-<td><p>Smooth edge edge geometries with a grade in above the warning threshold.; <em>default: <strong>true</strong></em></p></td>
-</tr>
-<tr class="even">
-<td></td>
-<td><p>Turn off normalizing node positions; <em>default: <strong>false</strong></em></p></td>
-</tr>
-<tr class="odd">
-<td></td>
-<td><p>Adds FLOAT to net x-positions; <em>default: <strong>0</strong></em></p></td>
-</tr>
-<tr class="even">
-<td></td>
-<td><p>Adds FLOAT to net y-positions; <em>default: <strong>0</strong></em></p></td>
-</tr>
-<tr class="odd">
-<td></td>
-<td><p>Flips the y-coordinate along zero; <em>default: <strong>false</strong></em></p></td>
-</tr>
-<tr class="even">
-<td></td>
-<td><p>Enable roundabout-guessing; <em>default: <strong>true</strong></em></p></td>
-</tr>
-<tr class="odd">
-<td></td>
-<td><p>Enable guessing of opposite direction lanes usable for overtaking; <em>default: <strong>false</strong></em></p></td>
-</tr>
-<tr class="even">
-<td></td>
-<td><p>Ensure that opposite edges have the same length; <em>default: <strong>false</strong></em></p></td>
-</tr>
-<tr class="odd">
-<td></td>
-<td><p>Assumes left-hand traffic on the network; <em>default: <strong>false</strong></em></p></td>
-</tr>
-<tr class="even">
-<td></td>
-<td><p>Merges edges which connect the same nodes and are close to each other (recommended for VISSIM import); <em>default: <strong>false</strong></em></p></td>
-</tr>
-<tr class="odd">
-<td></td>
-<td></td>
-</tr>
-</tbody>
-</table>
+| Option                                | Description                                                                                                           |
+|---------------------------------------|-----------------------------------------------------------------------------------------------------------------------|
+| **--turn-lanes** {{DT_INT}}                    | Generate INT left-turn lanes; *default: **0***                                                                              |
+| **--turn-lanes.length** {{DT_FLOAT}}           | Set the length of generated turning lanes to FLOAT; *default: **20***                                                       |
+| **--perturb-x** {{DT_STR}}                  | Apply random spatial pertubation in x direction according the the given distribution; *default: **0***                      |
+| **--perturb-y** {{DT_STR}}                  | Apply random spatial pertubation in y direction according the the given distribution; *default: **0***                      |
+| **--perturb-z** {{DT_STR}}                  | Apply random spatial pertubation in z direction according the the given distribution; *default: **0***                      |
+| **--numerical-ids** {{DT_BOOL}}                | Remaps alphanumerical IDs of nodes and edges to ensure that all IDs are integers; *default: **false***                      |
+| **--reserved-ids** {{DT_FILE}}                 | Ensures that generated ids do not included any of the typed IDs from FILE (SUMO-GUI selection file format)            |
+| **--geometry.max-grade** {{DT_FLOAT}}          | Warn about edge geometries with a grade in % above FLOAT.; *default: **10***                                                |
+| **--geometry.max-grade.fix** {{DT_BOOL}}       | Smooth edge edge geometries with a grade in above the warning threshold.; *default: **true***                               |
+| **--offset.disable-normalization** {{DT_BOOL}} | Turn off normalizing node positions; *default: **false***                                                                   |
+| **--offset.x** {{DT_FLOAT}}                    | Adds FLOAT to net x-positions; *default: **0***                                                                             |
+| **--offset.y** {{DT_FLOAT}}                    | Adds FLOAT to net y-positions; *default: **0***                                                                             |
+| **--flip-y-axis** {{DT_BOOL}}                  | Flips the y-coordinate along zero; *default: **false***                                                                     |
+| **--roundabouts.guess** {{DT_BOOL}}            | Enable roundabout-guessing; *default: **true***                                                                             |
+| **--opposites.guess** {{DT_BOOL}}              | Enable guessing of opposite direction lanes usable for overtaking; *default: **false***                                     |
+| **--opposites.guess.fix-lengths** {{DT_BOOL}}  | Ensure that opposite edges have the same length; *default: **false***                                                       |
+| **--lefthand** {{DT_BOOL}}                     | Assumes left-hand traffic on the network; *default: **false***                                                              |
+| **--edges.join** {{DT_BOOL}}                   | Merges edges which connect the same nodes and are close to each other (recommended for VISSIM import); *default: **false*** |
 
 ### Building Defaults
 
-<table>
-<thead>
-<tr class="header">
-<th><p>Option</p></th>
-<th><p>Description</p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><p><br />
-</p></td>
-<td><p>The default number of lanes in an edge; <em>default: <strong>1</strong></em></p></td>
-</tr>
-<tr class="even">
-<td></td>
-<td><p>The default width of lanes; <em>default: <strong>-1</strong></em></p></td>
-</tr>
-<tr class="odd">
-<td><p><br />
-</p></td>
-<td><p>The default speed on an edge (in m/s); <em>default: <strong>13.89</strong></em></p></td>
-</tr>
-<tr class="even">
-<td><p><br />
-</p></td>
-<td><p>The default priority of an edge; <em>default: <strong>-1</strong></em></p></td>
-</tr>
-<tr class="odd">
-<td></td>
-<td><p>The default width of added sidewalks; <em>default: <strong>2</strong></em></p></td>
-</tr>
-<tr class="even">
-<td></td>
-<td><p>The default width of a pedestrian crossing; <em>default: <strong>4</strong></em></p></td>
-</tr>
-<tr class="odd">
-<td></td>
-<td><p>The default for disallowed vehicle classes</p></td>
-</tr>
-<tr class="even">
-<td></td>
-<td><p>Whether junctions should be kept clear by default; <em>default: <strong>true</strong></em></p></td>
-</tr>
-<tr class="odd">
-<td></td>
-<td><p>The default turning radius of intersections; <em>default: <strong>4</strong></em></p></td>
-</tr>
-<tr class="even">
-<td></td>
-<td><p>The default algorithm for computing right of way rules ('default', 'edgePriority'); <em>default: <strong>default</strong></em></p></td>
-</tr>
-<tr class="odd">
-<td><p><br />
-</p></td>
-<td><p>[traffic_light|priority|right_before_left|traffic_light_right_on_red|priority_stop|allway_stop|...] Determines junction type (see wiki/Networks/PlainXML#Node_types)</p></td>
-</tr>
-<tr class="even">
-<td></td>
-<td></td>
-</tr>
-</tbody>
-</table>
+| Option                                          | Description                 |
+|-------------------------------------------------|--------------------------------------------------------------|
+| **-L** {{DT_INT}}<br>**--default.lanenumber** {{DT_INT}}          | The default number of lanes in an edge; *default: **1***        |
+| **--default.lanewidth** {{DT_FLOAT}}                     | The default width of lanes; *default: **-1***                   |
+| **-S** {{DT_FLOAT}}<br>**--default.speed** {{DT_FLOAT}}           | The default speed on an edge (in m/s); *default: **13.89***       |
+| **-P** {{DT_INT}}<br>**--default.priority** {{DT_INT}}            | The default priority of an edge; *default: **-1***                   |
+| **--default.sidewalk-width** {{DT_FLOAT}}                | The default width of added sidewalks; *default: **2***                |
+| **--default.bikelane-width** {{DT_FLOAT}}                | The default width of added bike lanes; *default: **1***             |
+| **--default.crossing-width** {{DT_FLOAT}}                | The default width of a pedestrian crossing; *default: **4***                |
+| **--default.disallow** {{DT_STR}}                     | The default for disallowed vehicle classes                          |
+| **--default.junctions.keep-clear** {{DT_BOOL}}           | Whether junctions should be kept clear by default; *default: **true***        |
+| **--default.junctions.radius** {{DT_FLOAT}}              | The default turning radius of intersections; *default: **4***                 |
+| **--default.right-of-way** {{DT_STR}}                 | The default algorithm for computing right of way rules ('default', 'edgePriority'); *default: **default***  |
+| **-j** {{DT_STR}}<br>**--default-junction-type** {{DT_STR}} | [traffic_light\|priority\|right_before_left\|traffic_light_right_on_red\|priority_stop\|allway_stop\|...\] Determines junction type (see [Node types](Networks/PlainXML.md#node_types)) |
 
 ### Tls Building
 
-<table>
-<thead>
-<tr class="header">
-<th><p>Option</p></th>
-<th><p>Description</p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td></td>
-<td><p>Interprets STR as list of junctions to be controlled by TLS</p></td>
-</tr>
-<tr class="even">
-<td></td>
-<td><p>Interprets STR as list of junctions to be not controlled by TLS</p></td>
-</tr>
-<tr class="odd">
-<td></td>
-<td><p>Turns on TLS guessing; <em>default: <strong>false</strong></em></p></td>
-</tr>
-<tr class="even">
-<td></td>
-<td><p>Sets minimum value for the sum of all incoming lane speeds when guessing TLS; <em>default: <strong>69.4444</strong></em></p></td>
-</tr>
-<tr class="odd">
-<td></td>
-<td><p>Includes node clusters into guess; <em>default: <strong>false</strong></em></p></td>
-</tr>
-<tr class="even">
-<td></td>
-<td><p>Tries to cluster tls-controlled nodes; <em>default: <strong>false</strong></em></p></td>
-</tr>
-<tr class="odd">
-<td></td>
-<td><p>Determines the maximal distance for joining traffic lights (defaults to 20); <em>default: <strong>20</strong></em></p></td>
-</tr>
-<tr class="even">
-<td></td>
-<td><p>Do not control edges that lie fully within a joined traffic light. This may cause collisions but allows old traffic light plans to be used; <em>default: <strong>false</strong></em></p></td>
-</tr>
-<tr class="odd">
-<td></td>
-<td><p>Use INT as cycle duration; <em>default: <strong>90</strong></em></p></td>
-</tr>
-<tr class="even">
-<td></td>
-<td><p>Use INT as green phase duration; <em>default: <strong>31</strong></em></p></td>
-</tr>
-<tr class="odd">
-<td><p><br />
-</p></td>
-<td><p>Defines smallest vehicle deceleration; <em>default: <strong>3</strong></em></p></td>
-</tr>
-<tr class="even">
-<td></td>
-<td><p>Given yellow times are patched even if being too short; <em>default: <strong>false</strong></em></p></td>
-</tr>
-<tr class="odd">
-<td></td>
-<td><p>Set INT as fixed time for yellow phase durations; <em>default: <strong>-1</strong></em></p></td>
-</tr>
-<tr class="even">
-<td></td>
-<td><p>Set INT as fixed time for red phase duration at traffic lights that do not have a conflicting flow; <em>default: <strong>5</strong></em></p></td>
-</tr>
-<tr class="odd">
-<td></td>
-<td><p>Set INT as fixed time for intermediate red phase after every switch; <em>default: <strong>0</strong></em></p></td>
-</tr>
-<tr class="even">
-<td></td>
-<td><p>Use FLOAT as threshold for allowing left-turning vehicles to move in the same phase as oncoming straight-going vehicles; <em>default: <strong>19.44</strong></em></p></td>
-</tr>
-<tr class="odd">
-<td></td>
-<td><p>Use INT as green phase duration for left turns (s). Setting this value to 0 disables additional left-turning phases; <em>default: <strong>6</strong></em></p></td>
-</tr>
-<tr class="even">
-<td></td>
-<td><p>Use INT as minimum green duration for pedestrian crossings (s).; <em>default: <strong>4</strong></em></p></td>
-</tr>
-<tr class="odd">
-<td></td>
-<td><p>Use INT as clearance time for pedestrian crossings (s).; <em>default: <strong>5</strong></em></p></td>
-</tr>
-<tr class="even">
-<td></td>
-<td><p>Use INT as green phase duration for pedestrian scramble phase (s).; <em>default: <strong>5</strong></em></p></td>
-</tr>
-<tr class="odd">
-<td></td>
-<td><p>TLSs in STR will be shifted by half-phase</p></td>
-</tr>
-<tr class="even">
-<td></td>
-<td><p>TLSs in STR will be shifted by quarter-phase</p></td>
-</tr>
-<tr class="odd">
-<td></td>
-<td><p>TLSs with unspecified type will use STR as their algorithm; <em>default: <strong>static</strong></em></p></td>
-</tr>
-<tr class="even">
-<td></td>
-<td><p>Set phase layout four grouping opposite directions or grouping all movements for one incoming edge ['opposites', 'incoming']; <em>default: <strong>opposites</strong></em></p></td>
-</tr>
-<tr class="odd">
-<td></td>
-<td><p>Default minimum phase duration for traffic lights with variable phase length; <em>default: <strong>5</strong></em></p></td>
-</tr>
-<tr class="even">
-<td></td>
-<td><p>Default maximum phase duration for traffic lights with variable phase length; <em>default: <strong>50</strong></em></p></td>
-</tr>
-<tr class="odd">
-<td></td>
-<td></td>
-</tr>
-</tbody>
-</table>
+| Option                                       | Description                                                                                                                                                |
+|----------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **--tls.set** {{DT_STR}}                           | Interprets STR as list of junctions to be controlled by TLS                                                                                                |
+| **--tls.unset** {{DT_STR}}                         | Interprets STR as list of junctions to be not controlled by TLS                                                                                            |
+| **--tls.guess** {{DT_BOOL}}                           | Turns on TLS guessing; *default: **false***                                                                                                                  |
+| **--tls.guess.threshold** {{DT_FLOAT}}                | Sets minimum value for the sum of all incoming lane speeds when guessing TLS; *default: **69.4444***                                                        |
+| **--tls.guess.joining** {{DT_BOOL}}                   | Includes node clusters into guess; *default: **false***                                                                                                      |
+| **--tls.join** {{DT_BOOL}}                            | Tries to cluster tls-controlled nodes; *default: **false***                                                                                                  |
+| **--tls.join-dist** {{DT_FLOAT}}                      | Determines the maximal distance for joining traffic lights (defaults to 20); *default: **20***                                                               |
+| **--tls.uncontrolled-within** {{DT_BOOL}}             | Do not control edges that lie fully within a joined traffic light. This may cause collisions but allows old traffic light plans to be used; *default: **false*** |
+| **--tls.cycle.time** {{DT_INT}}                       | Use INT as cycle duration; *default: **90***                                                                                                             |
+| **--tls.green.time** {{DT_INT}}                       | Use INT as green phase duration; *default: **31***                                                                                                         |
+| **-D** {{DT_FLOAT}}<br>**--tls.yellow.min-decel** {{DT_FLOAT}} | Defines smallest vehicle deceleration; *default: **3***                                                                                            |
+| **--tls.yellow.patch-small** {{DT_BOOL}}              | Given yellow times are patched even if being too short; *default: **false***                                                                                 |
+| **--tls.yellow.time** {{DT_INT}}                      | Set INT as fixed time for yellow phase durations; *default: **-1***                                                                                         |
+| **--tls.red.time** {{DT_INT}}                         | Set INT as fixed time for red phase duration at traffic lights that do not have a conflicting flow; *default: **5***                                     |
+| **--tls.allred.time** {{DT_INT}}                      | Set INT as fixed time for intermediate red phase after every switch; *default: **0***                                                                     |
+| **--tls.minor-left.max-speed** {{DT_FLOAT}}           | Use FLOAT as threshold for allowing left-turning vehicles to move in the same phase as oncoming straight-going vehicles; *default: **19.44***                |
+| **--tls.left-green.time** {{DT_INT}}                  | Use INT as green phase duration for left turns (s). Setting this value to 0 disables additional left-turning phases; *default: **6***                        |
+| **--tls.crossing-min.time** {{DT_INT}}                | Use INT as minimum green duration for pedestrian crossings (s).; *default: **4***                                                                        |
+| **--tls.crossing-clearance.time** {{DT_INT}}          | Use INT as clearance time for pedestrian crossings (s).; *default: **5***                                                                                 |
+| **--tls.scramble.time** {{DT_INT}}                    | Use INT as green phase duration for pedestrian scramble phase (s).; *default: **5***                                                                       |
+| **--tls.half-offset** {{DT_STR}}                   | TLSs in STR will be shifted by half-phase                                                                                                                  |
+| **--tls.quarter-offset** {{DT_STR}}                | TLSs in STR will be shifted by quarter-phase                                                                                                               |
+| **--tls.default-type** {{DT_STR}}                  | TLSs with unspecified type will use STR as their algorithm; *default: **static***                                                                            |
+| **--tls.layout** {{DT_STR}}                        | Set phase layout four grouping opposite directions or grouping all movements for one incoming edge ['opposites', 'incoming']; *default: **opposites***       |
+| **--tls.min-dur** {{DT_INT}}                          | Default minimum phase duration for traffic lights with variable phase length; *default: **5***                                                             |
+| **--tls.max-dur** {{DT_INT}}                          | Default maximum phase duration for traffic lights with variable phase length; *default: **50***                                                             |
 
 ### Edge Removal
 
-<table>
-<thead>
-<tr class="header">
-<th><p>Option</p></th>
-<th><p>Description</p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td></td>
-<td><p>Only keep edges with speed in meters/second &gt; FLOAT; <em>default: <strong>-1</strong></em></p></td>
-</tr>
-<tr class="even">
-<td></td>
-<td><p>Remove edges in STR</p></td>
-</tr>
-<tr class="odd">
-<td></td>
-<td><p>Only keep edges in STR or those which are kept due to other keep-edges or remove-edges options</p></td>
-</tr>
-<tr class="even">
-<td></td>
-<td><p>Only keep edges in FILE (Each id on a single line. Selection files from SUMO-GUI are also supported) or those which are kept due to other keep-edges or remove-edges options</p></td>
-</tr>
-<tr class="odd">
-<td></td>
-<td><p>Remove edges in FILE. (Each id on a single line. Selection files from SUMO-GUI are also supported)</p></td>
-</tr>
-<tr class="even">
-<td></td>
-<td><p>Only keep edges which are located within the given boundary (given either as CARTESIAN corner coordinates &lt;xmin,ymin,xmax,ymax&gt; or as polygon &lt;x0,y0,x1,y1,...&gt;)</p></td>
-</tr>
-<tr class="odd">
-<td></td>
-<td><p>Only keep edges which are located within the given boundary (given either as GEODETIC corner coordinates &lt;lon-min,lat-min,lon-max,lat-max&gt; or as polygon &lt;lon0,lat0,lon1,lat1,...&gt;)</p></td>
-</tr>
-<tr class="even">
-<td></td>
-<td></td>
-</tr>
-</tbody>
-</table>
+| Option                                | Description                                                                                                                            |
+|---------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------|
+| **--keep-edges.min-speed** {{DT_FLOAT}}        | Only keep edges with speed in meters/second > FLOAT; *default: **-1***                                                                                            |
+| **--remove-edges.explicit** {{DT_STR}}      | Remove edges in STR                                                                                                                                           |
+| **--keep-edges.explicit** {{DT_STR}}        | Only keep edges in STR or those which are kept due to other keep-edges or remove-edges options                                                                    |
+| **--keep-edges.input-file** {{DT_FILE}}        | Only keep edges in FILE (Each id on a single line. Selection files from SUMO-GUI are also supported) or those which are kept due to other keep-edges or remove-edges options |
+| **--remove-edges.input-file** {{DT_FILE}}      | Remove edges in FILE. (Each id on a single line. Selection files from SUMO-GUI are also supported)                                                                 |
+| **--keep-edges.in-boundary** {{DT_STR}}     | Only keep edges which are located within the given boundary (given either as CARTESIAN corner coordinates <xmin,ymin,xmax,ymax\> or as polygon <x0,y0,x1,y1,...\>)       |
+| **--keep-edges.in-geo-boundary** {{DT_STR}} | Only keep edges which are located within the given boundary (given either as GEODETIC corner coordinates <lon-min,lat-min,lon-max,lat-max\> or as polygon <lon0,lat0,lon1,lat1,...\>) |
 
 ### Unregulated Nodes
 
-<table>
-<thead>
-<tr class="header">
-<th><p>Option</p></th>
-<th><p>Description</p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td></td>
-<td><p>All nodes will be unregulated; <em>default: <strong>false</strong></em></p></td>
-</tr>
-<tr class="even">
-<td></td>
-<td><p>Do not regulate nodes in STR</p></td>
-</tr>
-<tr class="odd">
-<td></td>
-<td><p>Do not regulate district nodes; <em>default: <strong>false</strong></em></p></td>
-</tr>
-<tr class="even">
-<td></td>
-<td></td>
-</tr>
-</tbody>
-</table>
+| Option                                         | Description                                    |
+|------------------------------------------------|------------------------------------------------|
+| **--keep-nodes-unregulated** {{DT_BOOL}}                | All nodes will be unregulated; *default: **false***  |
+| **--keep-nodes-unregulated.explicit** {{DT_STR}}     | Do not regulate nodes in STR                   |
+| **--keep-nodes-unregulated.district-nodes** {{DT_BOOL}} | Do not regulate district nodes; *default: **false*** |
 
 ### Junctions
 
-<table>
-<thead>
-<tr class="header">
-<th><p>Option</p></th>
-<th><p>Description</p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td></td>
-<td><p>Omits internal links; <em>default: <strong>false</strong></em></p></td>
-</tr>
-<tr class="even">
-<td></td>
-<td><p>Disables building turnarounds; <em>default: <strong>false</strong></em></p></td>
-</tr>
-<tr class="odd">
-<td></td>
-<td><p>Disables building turnarounds at tls-controlled junctions; <em>default: <strong>false</strong></em></p></td>
-</tr>
-<tr class="even">
-<td></td>
-<td><p>Disables building turnarounds at geometry-like junctions; <em>default: <strong>true</strong></em></p></td>
-</tr>
-<tr class="odd">
-<td></td>
-<td><p>Disables building turnarounds except at dead end junctions; <em>default: <strong>false</strong></em></p></td>
-</tr>
-<tr class="even">
-<td></td>
-<td><p>Disables building connections to left; <em>default: <strong>false</strong></em></p></td>
-</tr>
-<tr class="odd">
-<td></td>
-<td><p>Joins junctions that are close to each other (recommended for OSM import); <em>default: <strong>false</strong></em></p></td>
-</tr>
-<tr class="even">
-<td></td>
-<td><p>Determines the maximal distance for joining junctions (defaults to 10); <em>default: <strong>10</strong></em></p></td>
-</tr>
-<tr class="odd">
-<td></td>
-<td><p>Generate INT intermediate points to smooth out intersection corners; <em>default: <strong>5</strong></em></p></td>
-</tr>
-<tr class="even">
-<td></td>
-<td><p>Generate INT intermediate points to smooth out lanes within the intersection; <em>default: <strong>5</strong></em></p></td>
-</tr>
-<tr class="odd">
-<td></td>
-<td><p>Generate longer intersections to allow for smooth s-curves when the number of lanes changes; <em>default: <strong>0</strong></em></p></td>
-</tr>
-<tr class="even">
-<td></td>
-<td><p>Builds common edges for turning connections with common from- and to-edge. This causes discrepancies between geometrical length and assigned length due to averaging but enables lane-changing while turning; <em>default: <strong>false</strong></em></p></td>
-</tr>
-<tr class="odd">
-<td></td>
-<td><p>Limits speed on junctions to an average lateral acceleration of at most FLOAT m/s^2); <em>default: <strong>5.5</strong></em></p></td>
-</tr>
-<tr class="even">
-<td></td>
-<td><p>Do not limit turn speed for angular changes below FLOAT (degrees). The value is subtracted from the geometric angle before computing the turning radius.; <em>default: <strong>15</strong></em></p></td>
-</tr>
-<tr class="odd">
-<td></td>
-<td><p>Do not limit turn speed for angular changes below FLOAT (degrees) on railway edges. The value is subtracted from the geometric angle before computing the turning radius.; <em>default: <strong>35</strong></em></p></td>
-</tr>
-<tr class="even">
-<td></td>
-<td><p>Warn about turn speed limits that reduce the speed of straight connections by more than FLOAT; <em>default: <strong>5</strong></em></p></td>
-</tr>
-<tr class="odd">
-<td></td>
-<td><p>Warn about turn speed limits that reduce the speed of turning connections (no u-turns) by more than FLOAT; <em>default: <strong>22</strong></em></p></td>
-</tr>
-<tr class="even">
-<td></td>
-<td><p>Default radius for junctions that do not require wide vehicle turns; <em>default: <strong>1.5</strong></em></p></td>
-</tr>
-<tr class="odd">
-<td></td>
-<td><p>Forces rectangular cuts between lanes and intersections; <em>default: <strong>false</strong></em></p></td>
-</tr>
-<tr class="even">
-<td></td>
-<td><p>Allow driving onto a multi-lane road if there are foes on other lanes (at roundabouts); <em>default: <strong>true</strong></em></p></td>
-</tr>
-<tr class="odd">
-<td></td>
-<td><p>Allow driving onto a multi-lane road if there are foes on other lanes (everywhere); <em>default: <strong>false</strong></em></p></td>
-</tr>
-<tr class="even">
-<td></td>
-<td></td>
-</tr>
-</tbody>
-</table>
+| Option                                                 | Description                                                             |
+|--------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------|
+| **--junctions.right-before-left.speed-threshold** {{DT_FLOAT}}  | Allow building right-before-left junctions when the incoming edge speeds are below FLOAT (m/s); *default: **13.6111***           |
+| **--no-internal-links** {{DT_BOOL}}                             | Omits internal links; *default: **false***          |
+| **--no-turnarounds** {{DT_BOOL}}                                | Disables building turnarounds; *default: **false***       |
+| **--no-turnarounds.tls** {{DT_BOOL}}                            | Disables building turnarounds at tls-controlled junctions; *default: **false***         |
+| **--no-turnarounds.geometry** {{DT_BOOL}}                       | Disables building turnarounds at geometry-like junctions; *default: **true***         |
+| **--no-turnarounds.except-deadend** {{DT_BOOL}}                 | Disables building turnarounds except at dead end junctions; *default: **false***        |
+| **--no-left-connections** {{DT_BOOL}}                           | Disables building connections to left; *default: **false***                             |
+| **--junctions.join** {{DT_BOOL}}                                | Joins junctions that are close to each other (recommended for OSM import); *default: **false***      |
+| **--junctions.join-dist** {{DT_FLOAT}}                          | Determines the maximal distance for joining junctions (defaults to 10); *default: **10***          |
+| **--junctions.corner-detail** {{DT_INT}}                        | Generate INT intermediate points to smooth out intersection corners; *default: **5***             |
+| **--junctions.internal-link-detail** {{DT_INT}}                 | Generate INT intermediate points to smooth out lanes within the intersection; *default: **5***             |
+| **--junctions.scurve-stretch** {{DT_FLOAT}}                     | Generate longer intersections to allow for smooth s-curves when the number of lanes changes; *default: **0***       |
+| **--junctions.join-turns** {{DT_BOOL}}                          | Builds common edges for turning connections with common from- and to-edge. This causes discrepancies between geometrical length and assigned length due to averaging but enables lane-changing while turning; *default: **false*** |
+| **--junctions.limit-turn-speed** {{DT_FLOAT}}                   | Limits speed on junctions to an average lateral acceleration of at most FLOAT m/s^2); *default: **5.5***     |
+| **--junctions.limit-turn-speed.min-angle** {{DT_FLOAT}}         | Do not limit turn speed for angular changes below FLOAT (degrees). The value is subtracted from the geometric angle before computing the turning radius.; *default: **15***   |
+| **--junctions.limit-turn-speed.min-angle.railway** {{DT_FLOAT}} | Do not limit turn speed for angular changes below FLOAT (degrees) on railway edges. The value is subtracted from the geometric angle before computing the turning radius.; *default: **35***    |
+| **--junctions.limit-turn-speed.warn.straight** {{DT_FLOAT}}     | Warn about turn speed limits that reduce the speed of straight connections by more than FLOAT; *default: **5***         |
+| **--junctions.limit-turn-speed.warn.turn** {{DT_FLOAT}}         | Warn about turn speed limits that reduce the speed of turning connections (no u-turns) by more than FLOAT; *default: **22***        |
+| **--junctions.small-radius** {{DT_FLOAT}}                       | Default radius for junctions that do not require wide vehicle turns; *default: **1.5***            |
+| **--rectangular-lane-cut** {{DT_BOOL}}                          | Forces rectangular cuts between lanes and intersections; *default: **false***       |
+| **--check-lane-foes.roundabout** {{DT_BOOL}}                    | Allow driving onto a multi-lane road if there are foes on other lanes (at roundabouts); *default: **true***       |
+| **--check-lane-foes.all** {{DT_BOOL}}                           | Allow driving onto a multi-lane road if there are foes on other lanes (everywhere); *default: **false***          |
 
 ### Pedestrian
 
-<table>
-<thead>
-<tr class="header">
-<th><p>Option</p></th>
-<th><p>Description</p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td></td>
-<td><p>Guess pedestrian sidewalks based on edge speed; <em>default: <strong>false</strong></em></p></td>
-</tr>
-<tr class="even">
-<td></td>
-<td><p>Add sidewalks for edges with a speed equal or below the given limit; <em>default: <strong>13.89</strong></em></p></td>
-</tr>
-<tr class="odd">
-<td></td>
-<td><p>Add sidewalks for edges with a speed above the given limit; <em>default: <strong>5.8</strong></em></p></td>
-</tr>
-<tr class="even">
-<td></td>
-<td><p>Add sidewalks for edges that allow pedestrians on any of their lanes regardless of speed; <em>default: <strong>false</strong></em></p></td>
-</tr>
-<tr class="odd">
-<td></td>
-<td><p>Do not guess sidewalks for the given list of edges</p></td>
-</tr>
-<tr class="even">
-<td></td>
-<td><p>Guess pedestrian crossings based on the presence of sidewalks; <em>default: <strong>false</strong></em></p></td>
-</tr>
-<tr class="odd">
-<td></td>
-<td><p>At uncontrolled nodes, do not build crossings across edges with a speed above the threshold; <em>default: <strong>13.89</strong></em></p></td>
-</tr>
-<tr class="even">
-<td></td>
-<td><p>Always build walking areas even if there are no crossings; <em>default: <strong>false</strong></em></p></td>
-</tr>
-<tr class="odd">
-<td></td>
-<td></td>
-</tr>
-</tbody>
-</table>
+| Option                                    | Description                                                                                                 |
+|-------------------------------------------|-------------------------------------------------------------------------------------------------------------|
+| **--sidewalks.guess** {{DT_BOOL}}                  | Guess pedestrian sidewalks based on edge speed; *default: **false***                                              |
+| **--sidewalks.guess.max-speed** {{DT_FLOAT}}       | Add sidewalks for edges with a speed equal or below the given limit; *default: **13.89***                         |
+| **--sidewalks.guess.min-speed** {{DT_FLOAT}}       | Add sidewalks for edges with a speed above the given limit; *default: **5.8***                                    |
+| **--sidewalks.guess.from-permissions** {{DT_BOOL}} | Add sidewalks for edges that allow pedestrians on any of their lanes regardless of speed; *default: **false***    |
+| **--sidewalks.guess.exclude** {{DT_STR}}        | Do not guess sidewalks for the given list of edges                                                          |
+| **--crossings.guess** {{DT_BOOL}}                  | Guess pedestrian crossings based on the presence of sidewalks; *default: **false***                               |
+| **--crossings.guess.speed-threshold** {{DT_FLOAT}} | At uncontrolled nodes, do not build crossings across edges with a speed above the threshold; *default: **13.89*** |
+| **--walkingareas** {{DT_BOOL}}                     | Always build walking areas even if there are no crossings; *default: **false***                                   |
+
+### Bicycle
+
+| Option                                    | Description                                                                                            |
+|-------------------------------------------|--------------------------------------------------------------------------------------------------------|
+| **--bikelanes.guess** {{DT_BOOL}}                  | Guess bike lanes based on edge speed; *default: **false***                                                   |
+| **--bikelanes.guess.max-speed** {{DT_FLOAT}}       | Add bike lanes for edges with a speed equal or below the given limit; *default: **22.22***                   |
+| **--bikelanes.guess.min-speed** {{DT_FLOAT}}       | Add bike lanes for edges with a speed above the given limit; *default: **5.8***                              |
+| **--bikelanes.guess.from-permissions** {{DT_BOOL}} | Add bike lanes for edges that allow bicycles on any of their lanes regardless of speed; *default: **false*** |
+| **--bikelanes.guess.exclude** {{DT_STR}}        | Do not guess bikelanes for the given list of edges                                                     |
 
 ### Report
 
 All applications of the **SUMO**-suite handle most of the reporting
 options the same way. These options are discussed at [Basics/Using the
 Command Line Applications\#Reporting
-Options](Basics/Using_the_Command_Line_Applications#Reporting_Options.md).
+Options](Basics/Using_the_Command_Line_Applications.md#reporting_options).
 
-<table>
-<thead>
-<tr class="header">
-<th><p>Option</p></th>
-<th><p>Description</p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><p><br />
-</p></td>
-<td><p>Switches to verbose output; <em>default: <strong>false</strong></em></p></td>
-</tr>
-<tr class="even">
-<td></td>
-<td><p>Prints option values before processing; <em>default: <strong>false</strong></em></p></td>
-</tr>
-<tr class="odd">
-<td><p><br />
-</p></td>
-<td><p>Prints this screen or selected topics; <em>default: <strong>false</strong></em></p></td>
-</tr>
-<tr class="even">
-<td><p><br />
-</p></td>
-<td><p>Prints the current version; <em>default: <strong>false</strong></em></p></td>
-</tr>
-<tr class="odd">
-<td><p><br />
-</p></td>
-<td><p>Set schema validation scheme of XML inputs ("never", "auto" or "always"); <em>default: <strong>auto</strong></em></p></td>
-</tr>
-<tr class="even">
-<td></td>
-<td><p>Set schema validation scheme of SUMO network inputs ("never", "auto" or "always"); <em>default: <strong>never</strong></em></p></td>
-</tr>
-<tr class="odd">
-<td><p><br />
-</p></td>
-<td><p>Disables output of warnings; <em>default: <strong>false</strong></em></p></td>
-</tr>
-<tr class="even">
-<td><p><br />
-</p></td>
-<td><p>Writes all messages to FILE (implies verbose)</p></td>
-</tr>
-<tr class="odd">
-<td></td>
-<td><p>Writes all non-error messages to FILE (implies verbose)</p></td>
-</tr>
-<tr class="even">
-<td></td>
-<td><p>Writes all warnings and errors to FILE</p></td>
-</tr>
-<tr class="odd">
-<td></td>
-<td></td>
-</tr>
-</tbody>
-</table>
+| Option  | Description  |
+|---|---|
+| **-v** {{DT_BOOL}}<br>**--verbose** {{DT_BOOL}}  | Switches to verbose output; *default: **false***  |
+| **--print-options** {{DT_BOOL}}  | Prints option values before processing; *default: **false***  |
+| **-?** {{DT_BOOL}}<br>**--help** {{DT_BOOL}}  | Prints this screen or selected topics; *default: **false***  |
+| **-V** {{DT_BOOL}}<br>**--version** {{DT_BOOL}}  | Prints the current version; *default: **false***  |
+| **-X** {{DT_STR}}<br>**--xml-validation** {{DT_STR}}  | Set schema validation scheme of XML inputs ("never", "auto" or "always"); *default: **auto***  |
+| **--xml-validation.net** {{DT_STR}}  | Set schema validation scheme of SUMO network inputs ("never", "auto" or "always"); *default: **never***  |
+| **-W** {{DT_BOOL}}<br>**--no-warnings** {{DT_BOOL}}  | Disables output of warnings; *default: **false***  |
+| **-l** {{DT_FILE}}<br>**--log** {{DT_FILE}}  | Writes all messages to FILE (implies verbose)  |
+| **--message-log** {{DT_FILE}}  | Writes all non-error messages to FILE (implies verbose)  |
+| **--error-log** {{DT_FILE}}  | Writes all warnings and errors to FILE  |
 
 ### Random Number
 
 All applications of the **SUMO**-suite handle randomisation options the
 same way. These options are discussed at [Basics/Using the Command Line
 Applications\#Random Number
-Options](Basics/Using_the_Command_Line_Applications#Random_Number_Options.md).
+Options](Basics/Using_the_Command_Line_Applications.md#random_number_options).
 
-<table>
-<thead>
-<tr class="header">
-<th><p>Option</p></th>
-<th><p>Description</p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td></td>
-<td><p>Initialises the random number generator with the current system time; <em>default: <strong>false</strong></em></p></td>
-</tr>
-<tr class="even">
-<td></td>
-<td><p>Initialises the random number generator with the given value; <em>default: <strong>23423</strong></em></p></td>
-</tr>
-<tr class="odd">
-<td></td>
-<td></td>
-</tr>
-</tbody>
-</table>
-
------
-
-[Category:ApplicationDescription](Category:ApplicationDescription.md)
+| Option          | Description                                                                          |
+|-----------------|--------------------------------------------------------------------------------------|
+| **--random** {{DT_BOOL}} | Initialises the random number generator with the current system time; *default: **false*** |
+| **--seed** {{DT_INT}}    | Initialises the random number generator with the given value; *default: **23423***         |
