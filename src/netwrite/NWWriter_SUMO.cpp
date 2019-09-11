@@ -664,7 +664,7 @@ NWWriter_SUMO::writeInternalNodes(OutputDevice& into, const NBNode& n) {
 
 void
 NWWriter_SUMO::writeConnection(OutputDevice& into, const NBEdge& from, const NBEdge::Connection& c,
-                               bool includeInternal, ConnectionStyle style) {
+                               bool includeInternal, ConnectionStyle style, bool geoAccuracy) {
     assert(c.toEdge != 0);
     into.openTag(SUMO_TAG_CONNECTION);
     into.writeAttr(SUMO_ATTR_FROM, from.getID());
@@ -687,7 +687,13 @@ NWWriter_SUMO::writeConnection(OutputDevice& into, const NBEdge& from, const NBE
         into.writeAttr(SUMO_ATTR_SPEED, c.speed);
     }
     if (c.customShape.size() != 0 && style != TLL) {
+        if (geoAccuracy) {
+            into.setPrecision(gPrecisionGeo);
+        }
         into.writeAttr(SUMO_ATTR_SHAPE, c.customShape);
+        if (geoAccuracy) {
+            into.setPrecision();
+        }
     }
     if (c.uncontrolled != false && style != TLL) {
         into.writeAttr(SUMO_ATTR_UNCONTROLLED, c.uncontrolled);

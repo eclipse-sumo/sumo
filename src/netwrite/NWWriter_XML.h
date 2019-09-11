@@ -112,6 +112,8 @@ private:
 
     /// @brief writes imported parking areas to file
     static void writeParkingAreas(const OptionsCont& cont, NBParkingCont& pc, NBEdgeCont& ec);
+
+    static void writeShape(OutputDevice& out, const GeoConvHelper& gch, PositionVector shape, SumoXMLAttr attr, bool useGeo, bool geoAccuracy);
 };
 
 

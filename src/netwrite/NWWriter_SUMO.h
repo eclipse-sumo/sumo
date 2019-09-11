@@ -79,7 +79,7 @@ public:
      * @param[in] plain Whether only plain-xml output should be written (omit some attributes)
      */
     static void writeConnection(OutputDevice& into, const NBEdge& from, const NBEdge::Connection& c,
-                                bool includeInternal, ConnectionStyle style = SUMONET);
+                                bool includeInternal, ConnectionStyle style = SUMONET, bool geoAccuracy=false);
 
     /// @brief writes the given prohibitions
     static void writeProhibitions(OutputDevice& into, const NBConnectionProhibits& prohibitions);
