@@ -2,3 +2,4 @@
 --route-files=input_routes.rou.xml -o routes.rou.xml
 --intermodal-network-output additional.xml
 --intermodal-weight-output weights.xml
+--persontrip.transfer.car-walk ptStops

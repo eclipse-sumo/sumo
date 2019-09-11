@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Sun Jun  3 21:27:11 2018 by Eclipse SUMO duarouter Version caa5032
+<!-- generated on Wed Sep 11 13:17:35 2019 by Eclipse SUMO duarouter Version v1_3_1+0234-c526b02
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -89,7 +89,6 @@ SPDX-License-Identifier: EPL-2.0
         <edge id="beg2left_bwd250.00:beg2left" traveltime="0.00" effort="0.00"/>
         <edge id="beg2left:beg2left_bwd-1.00" traveltime="0.00" effort="0.00"/>
         <edge id="beg2left_car250.00" traveltime="0.00" effort="0.00"/>
-        <edge id="beg2left_car-1.00:beg2left" traveltime="0.00" effort="0.00"/>
         <edge id="beg2left_depart_connector250.00" traveltime="0.00" effort="0.00"/>
         <edge id="beg2left_arrival_connector250.00" traveltime="0.00" effort="0.00"/>
         <edge id="beg2left2_fwd0.00" traveltime="143.42" effort="0.00"/>
@@ -99,7 +98,6 @@ SPDX-License-Identifier: EPL-2.0
         <edge id="beg2left2_bwd0.00:beg2left" traveltime="0.00" effort="0.00"/>
         <edge id="beg2left:beg2left2_bwd-1.00" traveltime="0.00" effort="0.00"/>
         <edge id="beg2left2_car0.00" traveltime="7.17" effort="0.00"/>
-        <edge id="beg2left2_car-1.00:beg2left" traveltime="0.00" effort="0.00"/>
         <edge id="beg2left2_depart_connector0.00" traveltime="0.00" effort="0.00"/>
         <edge id="beg2left2_arrival_connector0.00" traveltime="0.00" effort="0.00"/>
     </interval>

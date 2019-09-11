@@ -88,6 +88,9 @@ access_walk
 walk_access_walk
 car_public_walk
 
+# Copy of car_public_walk
+car_public_walk_transfer_forbidden
+
 # bug: person does not board the train when changing access position to 450
 car_public_walk2
 

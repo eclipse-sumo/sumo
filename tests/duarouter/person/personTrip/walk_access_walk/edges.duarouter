@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Mar 15 13:42:14 2019 by Eclipse SUMO duarouter Version v1_1_0+0435-678c69824b
+<!-- generated on Wed Sep 11 13:17:35 2019 by Eclipse SUMO duarouter Version v1_3_1+0234-c526b02
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -73,8 +73,8 @@ SPDX-License-Identifier: EPL-2.0
     <edge id="endleft_walking_connector" line="!connector" length="0.00" successors="left_bwd-1.00 left2end_fwd-1.00"/>
     <edge id="rabsEnd_walking_connector" line="!connector" length="0.00" successors="rend_bwd-1.00"/>
     <edge id="beg_car-1.00" line="!car" length="500.00" successors="beg2left_car-1.00 beg_arrival_connector"/>
-    <edge id="beg2left_car-1.00" line="!car" length="250.00" successors="beg2left_car250.00 beg2left_car-1.00:beg2left beg2left_arrival_connector"/>
-    <edge id="beg2left2_car-1.00" line="!car" length="0.00" successors="beg2left2_car0.00 beg2left2_car-1.00:beg2left beg2left2_arrival_connector"/>
+    <edge id="beg2left_car-1.00" line="!car" length="250.00" successors="beg2left_car250.00 beg2left_arrival_connector"/>
+    <edge id="beg2left2_car-1.00" line="!car" length="0.00" successors="beg2left2_car0.00 beg2left2_arrival_connector"/>
     <edge id="end_car-1.00" line="!car" length="500.00" successors="rend_car-1.00 end_arrival_connector"/>
     <edge id="gneE0_car-1.00" line="!car" length="1529.03" successors="gneE0_arrival_connector"/>
     <edge id="left_car-1.00" line="!car" length="998.37" successors="left2end_car-1.00 left_arrival_connector"/>
@@ -88,7 +88,6 @@ SPDX-License-Identifier: EPL-2.0
     <edge id="beg2left_bwd250.00:beg2left" line="!access" length="1529.03" successors="beg2left"/>
     <edge id="beg2left:beg2left_bwd-1.00" line="!access" length="250.00" successors="beg2left_bwd-1.00"/>
     <edge id="beg2left_car250.00" line="!car" length="0.00" successors="beg2left_arrival_connector250.00"/>
-    <edge id="beg2left_car-1.00:beg2left" line="!access" length="1529.03" successors="beg2left"/>
     <edge id="beg2left_depart_connector250.00" line="!connector" length="0.00" successors="beg2left_fwd250.00 beg2left_bwd250.00 beg2left_car250.00"/>
     <edge id="beg2left_arrival_connector250.00" line="!connector" length="0.00" successors=""/>
     <edge id="beg2left2_fwd0.00" line="!ped" length="199.19" successors="begleft_walking_connector beg2left2_arrival_connector0.00"/>
@@ -98,7 +97,6 @@ SPDX-License-Identifier: EPL-2.0
     <edge id="beg2left2_bwd0.00:beg2left" line="!access" length="1529.03" successors="beg2left"/>
     <edge id="beg2left:beg2left2_bwd-1.00" line="!access" length="199.19" successors="beg2left2_bwd-1.00"/>
     <edge id="beg2left2_car0.00" line="!car" length="199.19" successors="left_car-1.00 beg2left2_arrival_connector0.00"/>
-    <edge id="beg2left2_car-1.00:beg2left" line="!access" length="1529.03" successors="beg2left"/>
     <edge id="beg2left2_depart_connector0.00" line="!connector" length="199.19" successors="beg2left2_fwd0.00 beg2left2_bwd0.00 beg2left2_car0.00"/>
     <edge id="beg2left2_arrival_connector0.00" line="!connector" length="199.19" successors=""/>
 </intermodal>
