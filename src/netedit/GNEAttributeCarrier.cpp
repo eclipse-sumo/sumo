@@ -2067,7 +2067,6 @@ GNEAttributeCarrier::fillAdditionals() {
                                            "If set, no error will be reported if element is placed behind the lane. Instead,it will be placed 0.1 meters from the lanes end or at position 0.1, if the position was negative and larger than the lanes length after multiplication with - 1",
                                            "0");
         myTagProperties[currentTag].addAttribute(attrProperty);
-
     }
     currentTag = SUMO_TAG_E2DETECTOR;
     {
@@ -2484,7 +2483,7 @@ GNEAttributeCarrier::fillAdditionals() {
         myTagProperties[currentTag] = TagProperties(currentTag, TAGTYPE_ADDITIONAL, TAGPROPERTY_PARENT, ICON_FLOW, SUMO_TAG_CALIBRATOR);
         // set values of attributes
         attrProperty = AttributeProperties(SUMO_ATTR_TYPE,
-                                           ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_UPDATEGEOMETRY,
+                                           ATTRPROPERTY_STRING | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_UPDATEGEOMETRY,
                                            "The id of the vehicle type to use for this " + toString(currentTag),
                                            DEFAULT_VTYPE_ID);
         myTagProperties[currentTag].addAttribute(attrProperty);
@@ -3330,7 +3329,7 @@ GNEAttributeCarrier::fillVehicleElements() {
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = AttributeProperties(SUMO_ATTR_TYPE,
-                                           ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_DEFAULTVALUESTATIC,
+                                           ATTRPROPERTY_STRING | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_UPDATEGEOMETRY,
                                            "The id of the vehicle type to use for this " + toString(currentTag),
                                            DEFAULT_VTYPE_ID);
         myTagProperties[currentTag].addAttribute(attrProperty);
@@ -3360,7 +3359,7 @@ GNEAttributeCarrier::fillVehicleElements() {
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = AttributeProperties(SUMO_ATTR_TYPE,
-                                           ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_UPDATEGEOMETRY,
+                                           ATTRPROPERTY_STRING | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_UPDATEGEOMETRY,
                                            "The id of the " + toString(currentTag) + " type to use for this " + toString(currentTag),
                                            DEFAULT_VTYPE_ID);
         myTagProperties[currentTag].addAttribute(attrProperty);
@@ -3382,12 +3381,12 @@ GNEAttributeCarrier::fillVehicleElements() {
         myTagProperties[currentTag] = TagProperties(currentTag, TAGTYPE_DEMANDELEMENT | TAGTYPE_VEHICLE, TAGPROPERTY_DRAWABLE | TAGPROPERTY_SELECTABLE, ICON_TRIP);
         // set values of attributes
         attrProperty = AttributeProperties(SUMO_ATTR_ID,
-                                           ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_DEFAULTVALUESTATIC,
+                                           ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE,
                                            "The name of " + toString(currentTag) + "s that will be generated using this trip definition");
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = AttributeProperties(SUMO_ATTR_TYPE,
-                                           ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_DEFAULTVALUESTATIC,
+                                           ATTRPROPERTY_STRING | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_UPDATEGEOMETRY,
                                            "The id of the " + toString(currentTag) + " type to use for this " + toString(currentTag),
                                            DEFAULT_VTYPE_ID);
         myTagProperties[currentTag].addAttribute(attrProperty);
@@ -3427,7 +3426,7 @@ GNEAttributeCarrier::fillVehicleElements() {
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = AttributeProperties(SUMO_ATTR_TYPE,
-                                           ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_UPDATEGEOMETRY,
+                                           ATTRPROPERTY_STRING | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_UPDATEGEOMETRY,
                                            "The id of the " + toString(currentTag) + " type to use for this " + toString(currentTag),
                                            DEFAULT_VTYPE_ID);
         myTagProperties[currentTag].addAttribute(attrProperty);
@@ -4286,7 +4285,7 @@ GNEAttributeCarrier::fillCommonPersonAttributes(SumoXMLTag currentTag) {
     myTagProperties[currentTag].addAttribute(attrProperty);
 
     attrProperty = AttributeProperties(SUMO_ATTR_TYPE,
-                                       ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_DEFAULTVALUESTATIC,
+                                       ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_UPDATEGEOMETRY,
                                        "The id of the " + toString(currentTag) + " type to use for this " + toString(currentTag) +
                                        DEFAULT_VTYPE_ID);
     myTagProperties[currentTag].addAttribute(attrProperty);
