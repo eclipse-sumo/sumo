@@ -16,6 +16,7 @@ permalink: /ChangeLog/
   - Fixed crash when defining walks between disconnected locations. Issue #5369
   - Fixed crash transforming trips to flows. Issue #6050
   - Now blocked shapes can be moved again. Issue #6053
+  - Fixed invalid snap to grid when trying to move junction. Issue #6067
 
 - NETCONVERT
   - Fixed bugs in classification of roundabouts. Issue #6032
