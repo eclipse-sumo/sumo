@@ -605,17 +605,17 @@ private:
         GNEApplicationWindow* myGNEApp;
 
     public:
-        /// @brief FXMenuCommand for undo last change
-        FXMenuCommand* undoLastChange;
-
-        /// @brief FXMenuCommand for redo last change
-        FXMenuCommand* redoLastChange;
-
         /// @brief Network Menu Commands
         NetworkMenuCommands networkMenuCommands;
 
         /// @brief Demand Menu Commands
         DemandMenuCommands demandMenuCommands;
+
+        /// @brief FXMenuCommand for undo last change
+        FXMenuCommand* undoLastChange;
+
+        /// @brief FXMenuCommand for redo last change
+        FXMenuCommand* redoLastChange;
 
         /// @brief FXMenuCommand for edit view scheme
         FXMenuCommand* editViewScheme;
