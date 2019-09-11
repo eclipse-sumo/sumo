@@ -46,96 +46,26 @@ configuration:
 
 ### Configuration
 
-<table>
-<thead>
-<tr class="header">
-<th><p>Option</p></th>
-<th><p>Description</p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><p><br />
-</p></td>
-<td><p>Loads the named config on startup</p></td>
-</tr>
-<tr class="even">
-<td><p><br />
-</p></td>
-<td><p>Saves current configuration into FILE</p></td>
-</tr>
-<tr class="odd">
-<td></td>
-<td><p>Saves a configuration template (empty) into FILE</p></td>
-</tr>
-<tr class="even">
-<td></td>
-<td><p>Saves the configuration schema into FILE</p></td>
-</tr>
-<tr class="odd">
-<td></td>
-<td><p>Adds comments to saved template, configuration, or schema; <em>default: <strong>false</strong></em></p></td>
-</tr>
-<tr class="even">
-<td></td>
-<td></td>
-</tr>
-</tbody>
-</table>
+| Option                                   | Description                                                               |
+|------------------------------------------|---------------------------------------------------------------------------|
+| **-c** {{DT_FILE}}<br>**--configuration-file** {{DT_FILE}} | Loads the named config on startup                                         |
+| **-C** {{DT_FILE}}<br>**--save-configuration** {{DT_FILE}} | Saves current configuration into FILE                                     |
+| **--save-template** {{DT_FILE}}                   | Saves a configuration template (empty) into FILE                          |
+| **--save-schema** {{DT_FILE}}                     | Saves the configuration schema into FILE                                  |
+| **--save-commented** {{DT_BOOL}}                 | Adds comments to saved template, configuration, or schema; *default: **false*** |
 
 ### Input
 
-<table>
-<thead>
-<tr class="header">
-<th><p>Option</p></th>
-<th><p>Description</p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><p><br />
-</p></td>
-<td><p>Load road network description from FILE</p></td>
-</tr>
-<tr class="even">
-<td><p><br />
-</p></td>
-<td><p>Load routes descriptions from FILE(s)</p></td>
-</tr>
-<tr class="odd">
-<td><p><br />
-</p></td>
-<td><p>Load further descriptions from FILE(s)</p></td>
-</tr>
-<tr class="even">
-<td><p><br />
-</p></td>
-<td><p>Load edge/lane weights for online rerouting from FILE</p></td>
-</tr>
-<tr class="odd">
-<td><p><br />
-</p></td>
-<td><p>Name of the xml attribute which gives the edge weight; <em>default: <strong>traveltime</strong></em></p></td>
-</tr>
-<tr class="even">
-<td></td>
-<td><p>Loads a network state from FILE</p></td>
-</tr>
-<tr class="odd">
-<td></td>
-<td><p>Shifts all times loaded from a saved state by the given offset; <em>default: <strong>0</strong></em></p></td>
-</tr>
-<tr class="even">
-<td></td>
-<td><p>Removes vehicles with the given IDs from the loaded state</p></td>
-</tr>
-<tr class="odd">
-<td></td>
-<td></td>
-</tr>
-</tbody>
-</table>
+| Option                                     | Description                                                                |
+|--------------------------------------------|----------------------------------------------------------------------------|
+| **-n** {{DT_FILE}}<br>**--net-file** {{DT_FILE}}             | Load road network description from FILE                                    |
+| **-r** {{DT_FILE}}<br>**--route-files** {{DT_FILE}}          | Load routes descriptions from FILE(s)                                      |
+| **-a** {{DT_FILE}}<br>**--additional-files** {{DT_FILE}}     | Load further descriptions from FILE(s)                                     |
+| **-w** {{DT_FILE}}<br>**--weight-files** {{DT_FILE}}         | Load edge/lane weights for online rerouting from FILE                      |
+| **-x** {{DT_STR}}<br>**--weight-attribute** {{DT_STR}} | Name of the xml attribute which gives the edge weight; *default: **traveltime*** |
+| **--load-state** {{DT_FILE}}                        | Loads a network state from FILE                                            |
+| **--load-state.offset** {{DT_TIME}}                 | Shifts all times loaded from a saved state by the given offset; *default: **0*** |
+| **--load-state.remove-vehicles** {{DT_STR}}      | Removes vehicles with the given IDs from the loaded state                  |
 
 ### Output
 
@@ -1380,24 +1310,24 @@ a file that is loaded earlier, or by being put into the same file on an
 earlier line.
 
 This is of particular importance in regard to files loaded with the
-options  and . The most important feature of the option  is that it
+options **--route-files** {{DT_FILE}} and **--additional-files** {{DT_FILE}}. The most important feature of the option **--route-files** {{DT_FILE}} is that it
 loads the files incrementally thus saving memory. However, this means
-vehicles and flows must be sorted by their  and  times.
+vehicles and flows must be sorted by their `departure` and `begin` times.
 
-The option  is handled before option  and the given files are fully
+The option **--additional-files** {{DT_FILE}} is handled before option **--route-files** {{DT_FILE}} and the given files are fully
 loaded before the simulation starts. All items which can be put into a
 *route-file* can also be put into an *additional-file* (no vehicle
 sorting is necessary). Some objects must be available at the start of
 the simulation (such as output objects) and thus need to be loaded with
 this option, but is also useful for loading things referenced by route
-files such as -elements, named  elements or .
+files such as `<vType>`-elements, named `<route>` elements or `<routeDistribution>`.
 
 When multiple files are given as a comma-separated list, they are loaded
 from left to right.
 
 # Format of additional files
 
-Files loaded with the option  may included a wide range of network
+Files loaded with the option **--additional-files** {{DT_FILE}} may included a wide range of network
 elements such as [traffic light
 programs](Simulation/Traffic_Lights.md), [detector
 definitions](Simulation/Output/Induction_Loops_Detectors_(E1).md),
@@ -1409,7 +1339,7 @@ measures](Simulation/Output.md#values_for_edges_or_lanes) or
 information](Simulation/Output.md#traffic_lights-based_information).
 Furthermore, any element permitted in a route file such as
 [vTypes](Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#vehicle_types),
-[routes](Definition_of_Vehicles,_Vehicle_Types,_and_Routes#Routes.md)
+[routes](Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#routes)
 and
 [vehicles](Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#vehicles_and_routes)
 can be added. All elements may be put into the same additional file or

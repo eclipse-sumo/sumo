@@ -6,11 +6,11 @@ permalink: /Downloads/
 Here, you will find SUMO both as sources and as compiled binaries.
 
 !!! note
-    Windows users probably want to use [this installer](http://prdownloads.sourceforge.net/sumo/sumo-win64-1.2.0.msi?download), Linux users might want to look at the available [repositories](Downloads.md#repositories) or use the [source](http://prdownloads.sourceforge.net/sumo/sumo-src-1.2.0.tar.gz?download).
+    Windows users probably want to use [this installer](https://sumo.dlr.de/releases/{{Version}}/sumo-win64-{{Version}}.msi), Linux users might want to look at the available [repositories](Downloads.md#repositories) or use the [source](https://sumo.dlr.de/releases/{{Version}}/sumo-src-{{Version}}.tar.gz).
 
 Please [contact](Contact.md) us if you have any problems. If you
 want to report a bug, please [open a GitHub
-issue](https://github.com/DLR-TS/sumo/issues/new). For further
+issue](https://github.com/eclipse/sumo/issues/new). For further
 information about the changes between releases see the
 [ChangeLog](ChangeLog.md).
 
@@ -69,11 +69,11 @@ This is still an experimental feature, feedback is welcome.
 Contains the binaries (32 or 64 bit), all dlls needed, the examples,
 tools, and documentation in HTML format.
 
-- Download 64 bit installer: [sumo-win64-{{Version}}.msi](https://prdownloads.sourceforge.net/sumo/sumo-win64-{{Version}}.msi?download)
-- Download 64 bit zip: [sumo-win64-{{Version}}.zip](https://prdownloads.sourceforge.net/sumo/sumo-win64-{{Version}}.zip?download)
-- Download 64 bit zip with all extras: [sumo-win64extra-{{Version}}.zip](https://prdownloads.sourceforge.net/sumo/sumo-win64extra-{{Version}}.zip?download)
-- Download 32 bit installer: [sumo-win32-{{Version}}.msi](https://prdownloads.sourceforge.net/sumo/sumo-win32-{{Version}}.msi?download)
-- Download 32 bit zip: [sumo-win32-{{Version}}.zip](https://prdownloads.sourceforge.net/sumo/sumo-win32-{{Version}}.zip?download)
+- Download 64 bit installer: [sumo-win64-{{Version}}.msi](https://sumo.dlr.de/releases/{{Version}}/sumo-win64-{{Version}}.msi)
+- Download 64 bit zip: [sumo-win64-{{Version}}.zip](https://sumo.dlr.de/releases/{{Version}}/sumo-win64-{{Version}}.zip)
+- Download 64 bit zip with all extras: [sumo-win64extra-{{Version}}.zip](https://sumo.dlr.de/releases/{{Version}}/sumo-win64extra-{{Version}}.zip)
+- Download 32 bit installer: [sumo-win32-{{Version}}.msi](https://sumo.dlr.de/releases/{{Version}}/sumo-win32-{{Version}}.msi)
+- Download 32 bit zip: [sumo-win32-{{Version}}.zip](https://sumo.dlr.de/releases/{{Version}}/sumo-win32-{{Version}}.zip)
 
 ### Linux binaries
 
@@ -92,7 +92,6 @@ repositories include a nightly build as well (called sumo_nightly).
 - [openSUSE Leap 15.0 repository](http://download.opensuse.org/repositories/home:/behrisch/openSUSE_Leap_15.0/)
 - [openSUSE Leap 15.1 repository](http://download.opensuse.org/repositories/home:/behrisch/openSUSE_Leap_15.1/)
 - [openSUSE Tumbleweed repository](http://download.opensuse.org/repositories/home:/behrisch/openSUSE_Tumbleweed/)
-- [Fedora 25 repository](http://download.opensuse.org/repositories/home:/behrisch/Fedora_25/)
 - [Fedora 26 repository](http://download.opensuse.org/repositories/home:/behrisch/Fedora_26/)
 - [Fedora 27 repository](http://download.opensuse.org/repositories/home:/behrisch/Fedora_27/)
 - [Fedora 28 repository](http://download.opensuse.org/repositories/home:/behrisch/Fedora_28/)
@@ -122,14 +121,14 @@ README](https://github.com/DLR-TS/homebrew-sumo/blob/master/README.md).
 Includes sources, examples, and CMake-files for creating Visual Studio
 solutions or Linux Makefiles. Does not contain tests. Download as:
 
-- [sumo-src-{{Version}}.tar.gz](https://prdownloads.sourceforge.net/sumo/sumo-src-{{Version}}.tar.gz?download)
-- [sumo-src-{{Version}}.zip](https://prdownloads.sourceforge.net/sumo/sumo-src-{{Version}}.zip?download)
+- [sumo-src-{{Version}}.tar.gz](https://sumo.dlr.de/releases/{{Version}}/sumo-src-{{Version}}.tar.gz)
+- [sumo-src-{{Version}}.zip](https://sumo.dlr.de/releases/{{Version}}/sumo-src-{{Version}}.zip)
 
 ### All-inclusive-tarball
 
 Includes sources, tests and docs but no binaries. Download as:
 
-- [sumo-all-{{Version}}.tar.gz](https://prdownloads.sourceforge.net/sumo/sumo-all-{{Version}}.tar.gz?download)
+- [sumo-all-{{Version}}.tar.gz](https://sumo.dlr.de/releases/{{Version}}/sumo-all-{{Version}}.tar.gz)
 
 ## SUMO - Latest Development Version
 
@@ -204,9 +203,9 @@ Normally, they should compile and complete our test suite successfully.
 To assess the current state of the build, you may take a look at the
 [nightly test statistics](https://sumo.dlr.de/daily/).
 
-## SUMO - older releases
+## SUMO - Alternative download and older releases
 
-Older releases can be obtained via the [sourceforge download
+All releases can also be obtained via the [sourceforge download
 portal](https://sourceforge.net/projects/sumo/files/sumo/)
 
 ## Dependencies for developers

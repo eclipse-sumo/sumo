@@ -58,7 +58,7 @@ software (Veins, VSimRTI, flow etc.) at this stage.
 - check the internal tests (same procedure as above), especially the
   (to be) published scenarios
 - GitHub
-  - add new [milestone](https://github.com/DLR-TS/sumo/milestones)
+  - add new [milestone](https://github.com/eclipse/sumo/milestones)
     if necessary
   - check all remaining tickets and assign them to later milestones
     or to persons.
@@ -66,7 +66,7 @@ software (Veins, VSimRTI, flow etc.) at this stage.
   - prepare scenarios for release if the previous version does not
     run with the current release or significant changes were made to
     the scenarios
-- update submodules by running `git submodule update` and committing
+- update submodules by running `git submodule update --remote` and committing
   the changes if necessary
 
 The trunk is now frozen. All commits which do not refer to an open
@@ -83,7 +83,7 @@ All scenarios should be fixed by now.
   - in src/config.h.cmake, also disable the HAVE_VERSION_H macro
   - in CMakeLists.txt, configure.ac and build/wix/sumo.wxs
   - commit the changes
-- recheck whether submodules changed by doing `git submodule update`
+- recheck whether submodules changed by doing `git submodule update --remote`
 and committing the changes after careful inspection
 - check the documentation
   - update the [change log](../ChangeLog.md) again and include
@@ -110,6 +110,8 @@ following things need to be there:
 If everything is fine:
 
 - make a new folder in S:\\Sumo\\Releases
+- make new sumo.dlr.de-release
+  - copy the folder from S:\Sumo\Releases to the releases dir `scp -r /media/S/Releases/x.y.z delphi@ts-sim-front-ba.intra.dlr.de:docs/releases`
 - make new sourceforge-release
   - make a new release within the sumo package (named "version
     x.y.z")

@@ -1,1 +1,1 @@
-1.  REDIRECT [Tools/LiSuM](Tools/LiSuM.md)
+1.  REDIRECT [Tools/LiSuM](../Tools/LiSuM.md)
