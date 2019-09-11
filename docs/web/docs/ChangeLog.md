@@ -20,7 +20,7 @@ permalink: /ChangeLog/
 
 - NETCONVERT
   - Fixed bugs in classification of roundabouts. Issue #6032
-  - Preventing invalid double tracks when using typemap [osmNetconvertRailUsage.typ.xml](../../../data/typemap/osmNetconvertRailUsage.typ.xml). Issue #6056
+  - Preventing invalid double tracks when using typemap [osmNetconvertRailUsage.typ.xml]({{Source}}data/typemap/osmNetconvertRailUsage.typ.xml). Issue #6056
   - Disabling invalid handling of railway track count in OSM input. Issue #6057
   - Missing track numbers in bidirectional railway edges. Issue #6058
 
