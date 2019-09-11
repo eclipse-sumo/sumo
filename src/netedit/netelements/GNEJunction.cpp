@@ -666,23 +666,13 @@ GNEJunction::endGeometryMoving(bool extendToNeighbors) {
 
 void
 GNEJunction::moveGeometry(const Position& oldPos, const Position& offset) {
-    // Abort moving if there is another junction in the exactly target position
-    bool abort = false;
-    std::vector<GNEJunction*> junctionNeighbours = getJunctionNeighbours();
-    for (auto i : junctionNeighbours) {
-        if (i->getPositionInView() == myNBNode.getPosition()) {
-            abort = true;
-        }
-    }
-    if (!abort) {
-        // calculate new position
-        Position newPosition = oldPos;
-        newPosition.add(offset);
-        // filtern position using snap to active grid
-        newPosition = myNet->getViewNet()->snapToActiveGrid(newPosition, offset.z() == 0);
-        // move junction geometry without updating grid
-        moveJunctionGeometry(newPosition);
-    }
+    // calculate new position
+    Position newPosition = oldPos;
+    newPosition.add(offset);
+    // filtern position using snap to active grid
+    newPosition = myNet->getViewNet()->snapToActiveGrid(newPosition, offset.z() == 0);
+    // move junction geometry without updating grid
+    moveJunctionGeometry(newPosition);
 }
 
 
