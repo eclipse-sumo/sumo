@@ -31,6 +31,7 @@
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/gui/images/GUITexturesHelper.h>
 #include <utils/gui/windows/GUIAppEnum.h>
+#include <utils/options/OptionsCont.h>
 #include <utils/vehicle/SUMOVehicleParameter.h>
 
 #include "GNEFrame.h"
@@ -393,7 +394,7 @@ GNEFrameAttributesModuls::AttributesCreatorRow::onCmdSetAttribute(FXObject* obj,
                 // apply modul
                 angle = fmod (angle,360);
                 // extra filter for negative angles
-                if (angle < 0) {
+                if ((OptionsCont::getOptions().getBool("allow-negative-angles") == false) && (angle < 0)) {
                     angle += 360;
                 }
             }
@@ -1256,7 +1257,7 @@ GNEFrameAttributesModuls::AttributesEditorRow::onCmdSetAttribute(FXObject*, FXSe
                 // apply modul
                 angle = fmod (angle,360);
                 // extra filter for negative angles
-                if (angle < 0) {
+                if ((OptionsCont::getOptions().getBool("allow-negative-angles") == false) && (angle < 0)) {
                     angle += 360;
                 }
             }
