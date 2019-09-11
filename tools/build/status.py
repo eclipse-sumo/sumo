@@ -27,8 +27,9 @@ def findErrors(line, warnings, errors, failed):
     if re.search("[Ww]arn[ui]ng[: ]", line) or "[WARNING]" in line:
         warnings += 1
     if re.search("[Ee]rror[: ]", line) or re.search("[Ff]ehler:", line) or "[ERROR]" in line:
-        errors += 1
-        failed += line
+        if " test-case " not in line:
+            errors += 1
+            failed += line
     return warnings, errors, failed
 
 
