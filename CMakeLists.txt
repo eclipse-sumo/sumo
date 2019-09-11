@@ -398,9 +398,9 @@ set_property(TARGET doxygen PROPERTY EXCLUDE_FROM_DEFAULT_BUILD TRUE)
 set_property(TARGET doxygen PROPERTY FOLDER "doc")
 
 add_custom_target(userdoc
-    COMMAND tools/build/buildHTMLDocs.py -o docs/userdoc -i docs/wiki/index.html -p docs/pydoc -c -r ${PACKAGE_VERSION}
-    COMMAND cp docs/wiki/*.png docs/wiki/*.css docs/userdoc
-    WORKING_DIRECTORY ${CMAKE_SOURCE_DIR})
+    COMMAND ../../tools/build/buildPyDoc.py -p ../pydoc -c
+    COMMAND mkdocs build -d ../userdoc
+    WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}/docs/web)
 set_property(TARGET userdoc PROPERTY EXCLUDE_FROM_DEFAULT_BUILD TRUE)
 set_property(TARGET userdoc PROPERTY FOLDER "doc")
 
