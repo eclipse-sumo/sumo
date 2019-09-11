@@ -252,8 +252,8 @@ public:
         /// @brief called when user press a check button
         long onCmdSelectCheckButton(FXObject*, FXSelector, void*);
 
-        /// @brief set new disjoint attribute
-        long onCmdSelectRadioButton(FXObject*, FXSelector, void*);
+        /// @brief called when user press the radio button or the checkbox for enabling/disabling attributes
+        long onCmdEnableAttribute(FXObject* obj, FXSelector, void*);
 
         /// @brief open model dialog for more comfortable attribute editing
         long onCmdOpenAttributeDialog(FXObject*, FXSelector, void*);

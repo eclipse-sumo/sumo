@@ -46,7 +46,7 @@ FXDEFMAP(GNEFrameAttributesModuls::AttributesCreatorRow) RowCreatorMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE,              GNEFrameAttributesModuls::AttributesCreatorRow::onCmdSetAttribute),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE_BOOL,         GNEFrameAttributesModuls::AttributesCreatorRow::onCmdSelectCheckButton),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE_DIALOG,       GNEFrameAttributesModuls::AttributesCreatorRow::onCmdSelectColorButton),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE_RADIOBUTTON,  GNEFrameAttributesModuls::AttributesCreatorRow::onCmdSelectRadioButton)
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE_BUTTON,       GNEFrameAttributesModuls::AttributesCreatorRow::onCmdSelectRadioButton)
 };
 
 FXDEFMAP(GNEFrameAttributesModuls::AttributesCreator) AttributesCreatorMap[] = {
@@ -57,7 +57,7 @@ FXDEFMAP(GNEFrameAttributesModuls::AttributesEditorRow) AttributesEditorRowMap[]
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE,              GNEFrameAttributesModuls::AttributesEditorRow::onCmdSetAttribute),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE_BOOL,         GNEFrameAttributesModuls::AttributesEditorRow::onCmdSelectCheckButton),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE_DIALOG,       GNEFrameAttributesModuls::AttributesEditorRow::onCmdOpenAttributeDialog),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE_RADIOBUTTON,  GNEFrameAttributesModuls::AttributesEditorRow::onCmdSelectRadioButton)
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE_BUTTON,       GNEFrameAttributesModuls::AttributesEditorRow::onCmdEnableAttribute)
 };
 
 FXDEFMAP(GNEFrameAttributesModuls::AttributesEditor) AttributesEditorMap[] = {
@@ -110,7 +110,7 @@ GNEFrameAttributesModuls::AttributesCreatorRow::AttributesCreatorRow(AttributesC
     // Create left visual elements
     myAttributeLabel = new FXLabel(this, "name", nullptr, GUIDesignLabelAttribute);
     myAttributeLabel->hide();
-    myAttributeRadioButton = new FXRadioButton(this, "name", this, MID_GNE_SET_ATTRIBUTE_RADIOBUTTON, GUIDesignRadioButtonAttribute);
+    myAttributeRadioButton = new FXRadioButton(this, "name", this, MID_GNE_SET_ATTRIBUTE_BUTTON, GUIDesignRadioButtonAttribute);
     myAttributeRadioButton->hide();
     myAttributeCheckButton = new FXCheckButton(this, "name", this, MID_GNE_SET_ATTRIBUTE_BOOL, GUIDesignCheckButtonAttribute);
     myAttributeCheckButton->hide();
@@ -866,10 +866,10 @@ GNEFrameAttributesModuls::AttributesEditorRow::AttributesEditorRow(GNEFrameAttri
     myAttributeLabel = new FXLabel(this, "attributeLabel", nullptr, GUIDesignLabelAttribute);
     myAttributeLabel->hide();
     // Create and hide radio button
-    myAttributeRadioButton = new FXRadioButton(this, "attributeRadioButton", this, MID_GNE_SET_ATTRIBUTE_RADIOBUTTON, GUIDesignRadioButtonAttribute);
+    myAttributeRadioButton = new FXRadioButton(this, "attributeRadioButton", this, MID_GNE_SET_ATTRIBUTE_BUTTON, GUIDesignRadioButtonAttribute);
     myAttributeRadioButton->hide();
     // Create and hide check button
-    myAttributeCheckButton = new FXCheckButton(this, "attributeCheckButton", this, MID_GNE_SET_ATTRIBUTE_BOOL, GUIDesignCheckButtonAttribute);
+    myAttributeCheckButton = new FXCheckButton(this, "attributeCheckButton", this, MID_GNE_SET_ATTRIBUTE_BUTTON, GUIDesignCheckButtonAttribute);
     myAttributeCheckButton->hide();
     // Create and hide ButtonCombinableChoices
     myAttributeButtonCombinableChoices = new FXButton(this, "attributeButtonCombinableChoices", nullptr, this, MID_GNE_SET_ATTRIBUTE_DIALOG, GUIDesignButtonAttribute);
@@ -916,6 +916,18 @@ GNEFrameAttributesModuls::AttributesEditorRow::AttributesEditorRow(GNEFrameAttri
             myAttributeCheckButton->setText(myACAttr.getAttrStr().c_str());
             myAttributeCheckButton->setCheck(FALSE);
             myAttributeCheckButton->show();
+            // enable or disable depending if is editable
+            if (myACAttr.isNonEditable()) {
+                myAttributeCheckButton->disable();
+            } else {
+                myAttributeCheckButton->enable();
+            }
+            // check if radio button has to be check
+            if (attributeEnabled) {
+                myAttributeCheckButton->setCheck(TRUE);
+            } else {
+                myAttributeCheckButton->setCheck(FALSE);
+            }
         } else if (myACAttr.isEnablitable()) {
             myAttributeRadioButton->setTextColor(FXRGB(0, 0, 0));
             myAttributeRadioButton->setText(myACAttr.getAttrStr().c_str());
@@ -1342,17 +1354,36 @@ GNEFrameAttributesModuls::AttributesEditorRow::onCmdSelectCheckButton(FXObject*,
 
 
 long
-GNEFrameAttributesModuls::AttributesEditorRow::onCmdSelectRadioButton(FXObject*, FXSelector, void*) {
+GNEFrameAttributesModuls::AttributesEditorRow::onCmdEnableAttribute(FXObject* obj, FXSelector, void*) {
     // obtain undoList (To improve code legibly)
     GNEUndoList* undoList = myAttributesEditorParent->getFrameParent()->myViewNet->getUndoList();
-    // write debug (for Netedit tests)
-    WRITE_DEBUG("Selected radio button for attribute '" + myACAttr.getAttrStr() + "'");
     // begin undoList
-    undoList->p_begin("enable attribute '" + myACAttr.getAttrStr() + "'");
-    // change disjoint attribute with undo/redo
-    myAttributesEditorParent->getEditedACs().front()->enableAttribute(myACAttr.getAttr(), undoList);
-    // begin undoList
+    if (obj == myAttributeRadioButton) {
+        // write debug (for Netedit tests)
+        WRITE_DEBUG("Selected radio button for attribute '" + myACAttr.getAttrStr() + "'");
+        // begin undo list
+        undoList->p_begin("enable attribute '" + myACAttr.getAttrStr() + "'");
+        // change attribute with undo/redo
+        myAttributesEditorParent->getEditedACs().front()->enableAttribute(myACAttr.getAttr(), undoList);
+        // end undoList
     undoList->p_end();
+    } else if (obj == myAttributeCheckButton) { 
+        // write debug (for Netedit tests)
+        WRITE_DEBUG("Selected checkBox for attribute '" + myACAttr.getAttrStr() + "'");
+        if (myAttributeCheckButton->getCheck() == TRUE) {
+            // begin undo list
+            undoList->p_begin("enable attribute '" + myACAttr.getAttrStr() + "'");
+            // enable attribute with undo/redo
+            myAttributesEditorParent->getEditedACs().front()->enableAttribute(myACAttr.getAttr(), undoList);
+        } else {
+            // begin undo list
+            undoList->p_begin("disable attribute '" + myACAttr.getAttrStr() + "'");
+            // disable attribute with undo/redo
+            myAttributesEditorParent->getEditedACs().front()->enableAttribute(myACAttr.getAttr(), undoList);
+        }
+        // end undoList
+        undoList->p_end();
+    }
     // refresh Attributes edito parent
     myAttributesEditorParent->refreshAttributeEditor(false, false);
     return 0;
@@ -1440,10 +1471,8 @@ GNEFrameAttributesModuls::AttributesEditor::showAttributeEditorModul(const std::
             }
             // show AttributesEditor
             show();
-            // check if attribute is enabled
-            bool attributeEnabled = i.isEnablitable() ? myEditedACs.front()->isAttributeEnabled(i.getAttr()) : true;
             // create attribute editor row
-            myAttributesEditorRows[i.getPositionListed()] = new AttributesEditorRow(this, i, value, attributeEnabled);
+            myAttributesEditorRows[i.getPositionListed()] = new AttributesEditorRow(this, i, value, myEditedACs.front()->isAttributeEnabled(i.getAttr()));
         }
     }
     // reparent help button (to place it at bottom)

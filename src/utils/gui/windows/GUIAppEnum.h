@@ -665,8 +665,8 @@ enum {
     MID_GNE_SET_ATTRIBUTE_BOOL,
     /// @brief attribute edited trought dialog
     MID_GNE_SET_ATTRIBUTE_DIALOG,
-    /// @brief attribute selected using a radio button
-    MID_GNE_SET_ATTRIBUTE_RADIOBUTTON,
+    /// @brief attribute selected using button (radio button or checkbox)
+    MID_GNE_SET_ATTRIBUTE_BUTTON,
     /// @brief abort edge path creation
     MID_GNE_EDGEPATH_ABORT,
     /// @brief finish edge path creation
