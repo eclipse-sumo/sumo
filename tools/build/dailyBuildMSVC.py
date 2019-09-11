@@ -70,14 +70,13 @@ def killall(debugSuffix):
             bins.remove(task[0])
 
 
-def runTests(options, env, gitrev, debugSuffix=""):
+def runTests(options, env, gitrev, log, debugSuffix=""):
     if not options.tests:
         return
     prefix = env["FILEPREFIX"] + debugSuffix
     env["SUMO_BATCH_RESULT"] = os.path.join(
         options.rootDir, prefix + "batch_result")
     env["SUMO_REPORT"] = os.path.join(options.remoteDir, prefix + "report")
-    testLog = os.path.join(options.remoteDir, prefix + "test.log")
     env["TEXTTEST_TMP"] = os.path.join(
         options.rootDir, prefix + "texttesttmp")
     env["TEXTTEST_HOME"] = os.path.join(options.rootDir, options.testsDir)
@@ -92,7 +91,6 @@ def runTests(options, env, gitrev, debugSuffix=""):
                 env["GUISIM_BINARY"] = binary
         elif os.path.exists(binary):
             env[name.upper() + "_BINARY"] = binary
-    log = open(testLog, 'w')
     # provide more information than just the date:
     fullOpt = ["-b", prefix, "-name", "%sr%s" %
                (datetime.date.today().strftime("%d%b%y"), gitrev)]
@@ -107,7 +105,6 @@ def runTests(options, env, gitrev, debugSuffix=""):
     subprocess.call([ttBin, "-b", env["FILEPREFIX"], "-coll"], env=env,
                     stdout=log, stderr=subprocess.STDOUT, shell=True)
     killall(debugSuffix)
-    log.close()
 
 
 def generateCMake(generator, log, checkOptionalLibs, python):
@@ -156,9 +153,6 @@ if "SUMO_HOME" not in env:
 env["PYTHON"] = "python"
 env["SMTP_SERVER"] = "smtprelay.dlr.de"
 msvcVersion = "msvc12"
-with io.open(os.path.join(options.remoteDir,msvcVersion + options.suffix + "Update.log"), 'w') as log:
-    printLog("Running %s build using python %s." % (msvcVersion, sys.version), log)
-    gitrev = repositoryUpdate(options, log)
 
 maxTime = 0
 sumoAllZip = None
@@ -182,7 +176,10 @@ for platform in (["x64"] if options.x64only else ["Win32", "x64"]):
             os.remove(f)
         except WindowsError:
             pass
-    with open(makeLog, 'a') as log:
+    # we need to use io.open here due to http://bugs.python.org/issue16273
+    with io.open(makeLog, 'a') as log:
+        printLog("Running %s build using python %s." % (msvcVersion, sys.version), log)
+        gitrev = repositoryUpdate(options, log)
         generator = "Visual Studio 12 2013"
         if platform == "x64":
             generator += " Win64"
@@ -193,84 +190,81 @@ for platform in (["x64"] if options.x64only else ["Win32", "x64"]):
                               cwd=buildDir, stdout=log, stderr=subprocess.STDOUT)
         ret = subprocess.call(["cmake", "--build", ".", "--target", "lisum-gui"],
                               cwd=buildDir, stdout=log, stderr=subprocess.STDOUT)
-    # we need to use io.open here due to http://bugs.python.org/issue16273
-    log = io.open(makeLog, 'a')
-    if ret == 0 and sumoAllZip:
-        try:
-            binaryZip = sumoAllZip.replace("-all-", "-%s%s-" % (platform.lower().replace("x", "win"), options.suffix))
-            zipf = zipfile.ZipFile(binaryZip, 'w', zipfile.ZIP_DEFLATED)
-            srcZip = zipfile.ZipFile(sumoAllZip)
-            write = False
-            for f in srcZip.namelist():
-                if f.count('/') == 1:
-                    write = f.endswith(".md") or os.path.basename(f) in ["AUTHORS", "ChangeLog", "LICENSE"]
-                if f.endswith('/') and f.count('/') == 2:
-                    write = (f.endswith('/bin/') or
-                             f.endswith('/tools/') or f.endswith('/data/') or f.endswith('/docs/'))
-                    if f.endswith('/bin/'):
-                        binDir = f
-                elif f.endswith('/') and '/docs/' in f and f.count('/') == 3:
-                    write = not f.endswith('/doxygen/')
-                elif write and not f.endswith(".jar"):
-                    zipf.writestr(f, srcZip.read(f))
-            srcZip.close()
-            for ext in ("*.exe", "*.dll", "*.lib", "*.exp", "*.jar"):
-                for f in sorted(glob.glob(os.path.join(options.rootDir, options.binDir, ext))):
-                    base = os.path.basename(f)
-                    nameInZip = os.path.join(binDir, base)
-                    # filter debug dlls
-                    if nameInZip[-5:] in ("d.dll", "D.dll") and nameInZip[:-5] + ".dll" in zipf.namelist():
-                        write = False
-                    elif ext == "*.exe":
-                        write = any([base.startswith(b) for b in BINARIES])
-                    else:
-                        write = True
-                    if write:
-                        zipf.write(f, nameInZip)
-            includeDir = binDir.replace("bin", "include")
-            printLog("Creating sumo.zip.", log)
-            for f in glob.glob(os.path.join(options.rootDir, options.binDir.replace("bin", "src"), "libsumo", "*.h")):
-                base = os.path.basename(f)
-                nameInZip = os.path.join(includeDir, "libsumo", base)
-                if base != "Helper.h":
-                    zipf.write(f, nameInZip)
-            zipf.close()
-            if options.suffix == "":
-                # installers only for the vanilla build
-                printLog("Creating sumo.msi.", log)
-                wix.buildMSI(binaryZip, binaryZip.replace(".zip", ".msi"), log=log)
-        except IOError as ziperr:
-            printLog("Warning: Could not zip to %s (%s)!" % (binaryZip, ziperr), log)
-    if platform == "x64":
-        printLog("Creating sumo-game.zip.", log)
-        try:
-            setup = os.path.join(env["SUMO_HOME"], 'tools', 'game', 'setup.py')
-            subprocess.call(['python', setup, binaryZip], stdout=log, stderr=subprocess.STDOUT)
-        except Exception as e:
-            printLog("Warning: Could not create nightly sumo-game.zip! (%s)" % e, log)
-    with open(makeAllLog, 'a') as debugLog:
-        ret = subprocess.call(["cmake", "--build", ".", "--config", "Debug"],
-                              cwd=buildDir, stdout=debugLog, stderr=subprocess.STDOUT)
         if ret == 0 and sumoAllZip:
-            printLog("Creating sumoDebug.zip.", debugLog)
             try:
-                debugZip = sumoAllZip.replace("-all-", "-%s%sDebug-" %
-                                            (platform.lower().replace("x", "win"), options.suffix))
-                zipf = zipfile.ZipFile(debugZip, 'w', zipfile.ZIP_DEFLATED)
-                for ext in ("*D.exe", "*.dll", "*D.pdb"):
-                    for f in glob.glob(os.path.join(options.rootDir, options.binDir, ext)):
-                        zipf.write(f, os.path.join(binDir, os.path.basename(f)))
+                binaryZip = sumoAllZip.replace("-all-", "-%s%s-" % (platform.lower().replace("x", "win"), options.suffix))
+                zipf = zipfile.ZipFile(binaryZip, 'w', zipfile.ZIP_DEFLATED)
+                srcZip = zipfile.ZipFile(sumoAllZip)
+                write = False
+                for f in srcZip.namelist():
+                    if f.count('/') == 1:
+                        write = f.endswith(".md") or os.path.basename(f) in ["AUTHORS", "ChangeLog", "LICENSE"]
+                    if f.endswith('/') and f.count('/') == 2:
+                        write = (f.endswith('/bin/') or
+                                f.endswith('/tools/') or f.endswith('/data/') or f.endswith('/docs/'))
+                        if f.endswith('/bin/'):
+                            binDir = f
+                    elif f.endswith('/') and '/docs/' in f and f.count('/') == 3:
+                        write = not f.endswith('/doxygen/')
+                    elif write and not f.endswith(".jar"):
+                        zipf.writestr(f, srcZip.read(f))
+                srcZip.close()
+                for ext in ("*.exe", "*.dll", "*.lib", "*.exp", "*.jar"):
+                    for f in sorted(glob.glob(os.path.join(options.rootDir, options.binDir, ext))):
+                        base = os.path.basename(f)
+                        nameInZip = os.path.join(binDir, base)
+                        # filter debug dlls
+                        if nameInZip[-5:] in ("d.dll", "D.dll") and nameInZip[:-5] + ".dll" in zipf.namelist():
+                            write = False
+                        elif ext == "*.exe":
+                            write = any([base.startswith(b) for b in BINARIES])
+                        else:
+                            write = True
+                        if write:
+                            zipf.write(f, nameInZip)
+                includeDir = binDir.replace("bin", "include")
+                printLog("Creating sumo.zip.", log)
+                for f in glob.glob(os.path.join(options.rootDir, options.binDir.replace("bin", "src"), "libsumo", "*.h")):
+                    base = os.path.basename(f)
+                    nameInZip = os.path.join(includeDir, "libsumo", base)
+                    if base != "Helper.h":
+                        zipf.write(f, nameInZip)
                 zipf.close()
+                if options.suffix == "":
+                    # installers only for the vanilla build
+                    printLog("Creating sumo.msi.", log)
+                    wix.buildMSI(binaryZip, binaryZip.replace(".zip", ".msi"), log=log)
             except IOError as ziperr:
-                printLog("Warning: Could not zip to %s (%s)!" % (binaryZip, ziperr), debugLog)
-    printLog("Running tests.", log)
-    runTests(options, env, gitrev)
-    log.close()
+                printLog("Warning: Could not zip to %s (%s)!" % (binaryZip, ziperr), log)
+        if platform == "x64":
+            printLog("Creating sumo-game.zip.", log)
+            try:
+                setup = os.path.join(env["SUMO_HOME"], 'tools', 'game', 'setup.py')
+                subprocess.call(['python', setup, binaryZip], stdout=log, stderr=subprocess.STDOUT)
+            except Exception as e:
+                printLog("Warning: Could not create nightly sumo-game.zip! (%s)" % e, log)
+        with open(makeAllLog, 'a') as debugLog:
+            ret = subprocess.call(["cmake", "--build", ".", "--config", "Debug"],
+                                cwd=buildDir, stdout=debugLog, stderr=subprocess.STDOUT)
+            if ret == 0 and sumoAllZip:
+                printLog("Creating sumoDebug.zip.", debugLog)
+                try:
+                    debugZip = sumoAllZip.replace("-all-", "-%s%sDebug-" %
+                                                (platform.lower().replace("x", "win"), options.suffix))
+                    zipf = zipfile.ZipFile(debugZip, 'w', zipfile.ZIP_DEFLATED)
+                    for ext in ("*D.exe", "*.dll", "*D.pdb"):
+                        for f in glob.glob(os.path.join(options.rootDir, options.binDir, ext)):
+                            zipf.write(f, os.path.join(binDir, os.path.basename(f)))
+                    zipf.close()
+                except IOError as ziperr:
+                    printLog("Warning: Could not zip to %s (%s)!" % (binaryZip, ziperr), debugLog)
+        printLog("Running tests.", log)
+        runTests(options, env, gitrev, log)
     with open(statusLog, 'w') as log:
         status.printStatus(makeLog, makeAllLog, env["SMTP_SERVER"], log)
 if not options.x64only:
     with open(makeAllLog, 'a') as debugLog:
         printLog("Running debug tests.", debugLog)
-    runTests(options, env, gitrev, "D")
+        runTests(options, env, gitrev, debugLog, "D")
     with open(prefix + "Dstatus.log", 'w') as log:
         status.printStatus(makeAllLog, makeAllLog, env["SMTP_SERVER"], log)
