@@ -485,6 +485,12 @@ GNERoute::enableAttribute(SumoXMLAttr /*key*/, GNEUndoList* /*undoList*/) {
 }
 
 
+void
+GNERoute::disableAttribute(SumoXMLAttr /*key*/, GNEUndoList* /*undoList*/) {
+    //
+}
+
+
 bool
 GNERoute::isAttributeEnabled(SumoXMLAttr /*key*/) const {
     return true;

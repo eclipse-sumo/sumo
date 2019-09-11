@@ -238,7 +238,7 @@ public:
         void destroy();
 
         /// @brief refresh current row
-        void refreshAttributesEditorRow(const std::string& value, bool forceRefresh, bool disjointAttributeEnabled);
+        void refreshAttributesEditorRow(const std::string& value, bool forceRefresh, bool attributeEnabled);
 
         /// @brief check if current attribute of TextField/ComboBox is valid
         bool isAttributesEditorRowValid() const;

@@ -750,6 +750,29 @@ GNEStop::enableAttribute(SumoXMLAttr key, GNEUndoList* undoList) {
 }
 
 
+void
+GNEStop::disableAttribute(SumoXMLAttr key, GNEUndoList* undoList) {
+    // obtain a copy of parameter sets
+    int newParametersSet = parametersSet;
+    // modify parametersSetCopy depending of attr
+    switch (key) {
+        case SUMO_ATTR_EXPECTED:
+            newParametersSet &= ~STOP_TRIGGER_SET;
+            break;
+        case SUMO_ATTR_EXPECTED_CONTAINERS:
+            newParametersSet &= ~STOP_CONTAINER_TRIGGER_SET;
+            break;
+        case SUMO_ATTR_PARKING:
+            newParametersSet &= ~STOP_PARKING_SET;
+            break;
+        default:
+            break;
+    }
+    // add GNEChange_EnableAttribute
+    undoList->add(new GNEChange_EnableAttribute(this, myViewNet->getNet(), parametersSet, newParametersSet), true);
+}
+
+
 bool
 GNEStop::isAttributeEnabled(SumoXMLAttr key) const {
     switch (key) {

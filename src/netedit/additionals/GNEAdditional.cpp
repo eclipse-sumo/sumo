@@ -668,6 +668,12 @@ GNEAdditional::enableAttribute(SumoXMLAttr /*key*/, GNEUndoList* /*undoList*/) {
 }
 
 
+void
+GNEAdditional::disableAttribute(SumoXMLAttr /*key*/, GNEUndoList* /*undoList*/) {
+    //
+}
+
+
 bool
 GNEAdditional::isAttributeEnabled(SumoXMLAttr /*key*/) const {
     return true;

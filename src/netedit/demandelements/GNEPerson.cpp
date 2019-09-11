@@ -880,6 +880,12 @@ GNEPerson::enableAttribute(SumoXMLAttr key, GNEUndoList* undoList) {
 }
 
 
+void
+GNEPerson::disableAttribute(SumoXMLAttr /*key*/, GNEUndoList* /*undoList*/) {
+    // nothing to disable
+}
+
+
 bool
 GNEPerson::isAttributeEnabled(SumoXMLAttr key) const {
     switch (key) {

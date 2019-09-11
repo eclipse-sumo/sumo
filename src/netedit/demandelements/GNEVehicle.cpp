@@ -1358,6 +1358,12 @@ GNEVehicle::enableAttribute(SumoXMLAttr key, GNEUndoList* undoList) {
 }
 
 
+void
+GNEVehicle::disableAttribute(SumoXMLAttr /*key*/, GNEUndoList* /*undoList*/) {
+    // nothing to disable
+}
+
+
 bool
 GNEVehicle::isAttributeEnabled(SumoXMLAttr key) const {
     switch (key) {

@@ -167,12 +167,19 @@ public:
      */
     virtual bool isValid(SumoXMLAttr key, const std::string& value) = 0;
 
-    /* @brief method for enabling attribute
+    /* @brief method for enable attribute
      * @param[in] key The attribute key
      * @param[in] undoList The undoList on which to register changes
-     * @note only certain attributes can be enabled, and can produce the disabling of other attributes
+     * @note certain attributes can be only enabled, and can produce the disabling of other attributes
      */
     void enableAttribute(SumoXMLAttr key, GNEUndoList* undoList);
+
+    /* @brief method for enable attribute
+     * @param[in] key The attribute key
+     * @param[in] undoList The undoList on which to register changes
+     * @note certain attributes can be only enabled, and can produce the disabling of other attributes
+     */
+    void disableAttribute(SumoXMLAttr key, GNEUndoList* undoList);
 
     /* @brief method for check if the value for certain attribute is set
      * @param[in] key The attribute key

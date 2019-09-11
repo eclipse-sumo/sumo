@@ -798,8 +798,15 @@ GNEVehicleType::isValid(SumoXMLAttr key, const std::string& value) {
 
 void
 GNEVehicleType::enableAttribute(SumoXMLAttr /*key*/, GNEUndoList* /*undoList*/) {
-
+    // nothing to enable
 }
+
+
+void
+GNEVehicleType::disableAttribute(SumoXMLAttr /*key*/, GNEUndoList* /*undoList*/) {
+    // nothing to disable
+}
+
 
 bool
 GNEVehicleType::isAttributeEnabled(SumoXMLAttr key) const {
