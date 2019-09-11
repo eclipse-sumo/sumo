@@ -100,9 +100,9 @@ own and also on how to use different versions and additional libraries
 see
 [Installing/Windows_Libraries](../Installing/Windows_Libraries.md).
 Make sure that the subdirectories `fox-1.6.54/lib`, `proj_gdal-1911/bin`
-and `xerces-c-3.2.0/bin` are in PATH. Note: for 64 bits compilations
-folders are `fox-1.6.54_64/lib`, `proj_gdal-1911_64/bin` and
-`xerces-c-3.2.0_64/bin`. You can add both to the path but always add the
+and `xerces-c-3.2.0/bin` are in PATH. Note: for 32 bits compilations
+folders are `32bits/fox-1.6.54/lib`, `32bits/proj_gdal-1911/bin` and
+`32bits/xerces-c-3.2.0/bin`. You can add both to the path but always add the
 64 bit version first.
 
 ## Tests

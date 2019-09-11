@@ -81,8 +81,7 @@ into account:
   this with a factor, configurable via option **--persontrip.walkfactor** {{DT_FLOAT}} (default *0.9*). The
   factor is used to account for delays due to intersections and
   pedestrian interactions
-- Public transport uses the difference of the *until*-times between
-  successive stops
+- Public transport uses the time to the next train departure (waiting time) and the difference of the *until*-times between successive stops
 - [Accessing a stop from another part of the network](Simulation/Public_Transport.md#access_lanes) takes
   time in direct proportion to the straight-line distance with a
-  configurable factor ([NETCONVERT](NETCONVERT.md) option **--railway.access-factor** {{DT_FLOAT}})
+  configurable factor ([NETCONVERT](NETCONVERT.md) option **--railway.access-factor** {{DT_FLOAT}}). The distance can be customized in the access definition.

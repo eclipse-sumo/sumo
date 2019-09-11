@@ -13,8 +13,7 @@ SUMO's netedit tests use
   - openSUSE 15.0: `sudo zypper in python2-PyAutoGUI python2-pyperclip scrot` (there are python3 versions too)
   - Windows / ubuntu: [follow the
     docs](https://pyautogui.readthedocs.io/en/latest/install.html)
-- Running on Linux without visual display will need Xvfb and fluxbox
-  too
+- Running on Linux without visual display will need Xvfb and fluxbox too´
   - openSUSE: `sudo zypper in xorg-x11-server fluxbox`
   - ubuntu: `sudo apt in xvfb fluxbox`
 

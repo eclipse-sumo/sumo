@@ -81,7 +81,7 @@ All scenarios should be fixed by now.
 
 - patch the version information
   - in src/config.h.cmake, also disable the HAVE_VERSION_H macro
-  - in configure.ac and build/wix/sumo.wxs
+  - in CMakeLists.txt, configure.ac and build/wix/sumo.wxs
   - commit the changes
 - recheck whether submodules changed by doing `git submodule update`
 and committing the changes after careful inspection
