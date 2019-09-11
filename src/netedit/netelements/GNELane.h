@@ -234,10 +234,10 @@ private:
     void drawTLSLinkNo(const GUIVisualizationSettings& s) const;
 
     /// @brief draw link rules
-    void drawLinkRules() const;
+    void drawLinkRules(const GUIVisualizationSettings& s) const;
 
     /// @brief draw arrows
-    void drawArrows() const;
+    void drawArrows(const GUIVisualizationSettings& s) const;
 
     /// @brief draw lane to lane connections
     void drawLane2LaneConnections() const;

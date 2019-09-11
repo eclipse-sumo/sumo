@@ -554,6 +554,9 @@ GNEViewNet::doPaintGL(int mode, const Boundary& bound) {
     if (!myVisualizationSettings->drawForSelecting && myVisualizationSettings->forceDrawForSelecting) {
         myVisualizationSettings->drawForSelecting = true;
     }
+    // set lefthand
+    myVisualizationSettings->lefthand = OptionsCont::getOptions().getBool("lefthand");
+
     glRenderMode(mode);
     glMatrixMode(GL_MODELVIEW);
     glPushMatrix();

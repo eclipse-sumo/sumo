@@ -640,6 +640,12 @@ public:
     /// @brief flag to force draw to selecting (see drawForSelecting)
     bool forceDrawForSelecting;
 
+    /**@brief whether drawing is performed in left-hand networks
+     * @note used to avoid calls to OptionsCont::getOptions() in every drawgl(...) function, and
+     * updated in every doPaintGL(int mode, const Boundary& bound) call
+     */
+    bool lefthand;
+
     /// @brief scheme names
     static const std::string SCHEME_NAME_EDGE_PARAM_NUMERICAL;
     static const std::string SCHEME_NAME_LANE_PARAM_NUMERICAL;

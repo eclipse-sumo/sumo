@@ -161,11 +161,10 @@ GNELane::drawLinkNo(const GUIVisualizationSettings& s) const {
     glTranslated(0, 0, GLO_JUNCTION + 0.5);
     double w = myParentEdge.getNBEdge()->getLaneWidth(myIndex) / (double) noLinks;
     double x1 = myParentEdge.getNBEdge()->getLaneWidth(myIndex) / 2;
-    const bool lefthand = OptionsCont::getOptions().getBool("lefthand");
     for (int i = noLinks; --i >= 0;) {
         double x2 = x1 - (double)(w / 2.);
         const int linkIndex = myParentEdge.getNBEdge()->getToNode()->getConnectionIndex(myParentEdge.getNBEdge(),
-                              cons[lefthand ? noLinks - 1 - i : i]);
+                              cons[s.lefthand ? noLinks - 1 - i : i]);
         GLHelper::drawTextAtEnd(toString(linkIndex), myGeometry.shape, x2, s.drawLinkJunctionIndex.size, s.drawLinkJunctionIndex.color);
         x1 -= w;
     }
@@ -185,10 +184,9 @@ GNELane::drawTLSLinkNo(const GUIVisualizationSettings& s) const {
     glTranslated(0, 0, GLO_JUNCTION + 0.5);
     double w = myParentEdge.getNBEdge()->getLaneWidth(myIndex) / (double) noLinks;
     double x1 = myParentEdge.getNBEdge()->getLaneWidth(myIndex) / 2;
-    const bool lefthand = OptionsCont::getOptions().getBool("lefthand");
     for (int i = noLinks; --i >= 0;) {
         double x2 = x1 - (double)(w / 2.);
-        int linkNo = cons[lefthand ? noLinks - 1 - i : i].tlLinkIndex;
+        int linkNo = cons[s.lefthand ? noLinks - 1 - i : i].tlLinkIndex;
         GLHelper::drawTextAtEnd(toString(linkNo), myGeometry.shape, x2, s.drawLinkTLIndex.size, s.drawLinkTLIndex.color);
         x1 -= w;
     }
@@ -197,12 +195,13 @@ GNELane::drawTLSLinkNo(const GUIVisualizationSettings& s) const {
 
 
 void
-GNELane::drawLinkRules() const {
+GNELane::drawLinkRules(const GUIVisualizationSettings& /*s*/) const {
+    // currently unused
 }
 
 
 void
-GNELane::drawArrows() const {
+GNELane::drawArrows(const GUIVisualizationSettings& s) const {
     const Position& end = myGeometry.shape.back();
     const Position& f = myGeometry.shape[-2];
     double rot = (double) atan2((end.x() - f.x()), (f.y() - end.y())) * (double) 180.0 / (double)M_PI;
@@ -217,7 +216,7 @@ GNELane::drawArrows() const {
     NBNode* dest = myParentEdge.getNBEdge()->myTo;
     for (auto i : edgeCons) {
         if (i.fromLane == myIndex) {
-            LinkDirection dir = dest->getDirection(myParentEdge.getNBEdge(), i.toEdge, OptionsCont::getOptions().getBool("lefthand"));
+            LinkDirection dir = dest->getDirection(myParentEdge.getNBEdge(), i.toEdge, s.lefthand);
             switch (dir) {
                 case LINKDIR_STRAIGHT:
                     GLHelper::drawBoxLine(Position(0, 4), 0, 2, .05);
@@ -442,7 +441,7 @@ GNELane::drawGL(const GUIVisualizationSettings& s) const {
             }
             // draw ROWs only if target junction has a valid logic)
             if (s.showLinkDecals && myParentEdge.getGNEJunctionDestiny()->isLogicValid() && s.scale > 3) {
-                drawArrows();
+                drawArrows(s);
             }
             // Draw direction indicators if the correspondient option is enabled
             if (s.showLaneDirection) {
@@ -527,7 +526,7 @@ GNELane::drawGL(const GUIVisualizationSettings& s) const {
 
 
 void
-GNELane::drawMarkings(const GUIVisualizationSettings& /* s */, double scale) const {
+GNELane::drawMarkings(const GUIVisualizationSettings& s, double scale) const {
     glPushMatrix();
     glTranslated(0, 0, GLO_EDGE);
     const double myHalfLaneWidth = myParentEdge.getNBEdge()->getLaneWidth(myIndex) / 2;
@@ -535,7 +534,7 @@ GNELane::drawMarkings(const GUIVisualizationSettings& /* s */, double scale) con
     if (myIndex > 0 && (myParentEdge.getNBEdge()->getPermissions(myIndex - 1) & myParentEdge.getNBEdge()->getPermissions(myIndex)) != 0) {
         double mw = (myHalfLaneWidth + SUMO_const_laneMarkWidth) * scale;
         double mw2 = (myHalfLaneWidth - SUMO_const_laneMarkWidth) * scale;
-        if (OptionsCont::getOptions().getBool("lefthand")) {
+        if (s.lefthand) {
             mw *= -1;
             mw2 *= -1;
         }

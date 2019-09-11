@@ -527,7 +527,7 @@ GLHelper::drawShapeDottedContourBetweenLanes(const GUIVisualizationSettings& s, 
         // build contour using shapes of first and last lane shapes
         PositionVector contourFront = frontLaneShape;
         PositionVector contourback = backLaneShape;
-        if (OptionsCont::getOptions().getBool("lefthand")) {
+        if (s.lefthand) {
             contourFront.move2side(offsetFrontLaneShape * -1);
             contourback.move2side(offsetBackLaneShape * -1);
         } else {

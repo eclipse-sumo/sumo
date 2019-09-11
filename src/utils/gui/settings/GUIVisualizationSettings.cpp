@@ -362,7 +362,8 @@ GUIVisualizationSettings::GUIVisualizationSettings(bool _netedit) :
     drawBoundaries(false),
     selectionScale(1.),
     drawForSelecting(false),
-    forceDrawForSelecting(false) {
+    forceDrawForSelecting(false),
+    lefthand(false) {
 
     if (netedit) {
         initNeteditDefaults();
