@@ -643,8 +643,8 @@ GNEViewNetHelper::MoveSingleElementValues::calculatePolyValues() {
             }
         } else {
             myViewNet->myMoveSingleElementValues.movingIndexShape = -1;
-            // poly values wasn't calculated, then return false
-            return false;
+            // check if polygon has the entire movement blocked, or only the shape blocked
+            return (myPolyToMove->isMovementBlocked() == false);
         }
     }
 }
@@ -757,8 +757,8 @@ GNEViewNetHelper::MoveSingleElementValues::calculateTAZValues() {
     } else {
         // abort moving index shape
         myViewNet->myMoveSingleElementValues.movingIndexShape = -1;
-        // TAZ values wasn't calculated, then return false
-        return false;
+        // check if TAZ has the entire movement blocked, or only the shape blocked
+        return (myTAZToMove->isAdditionalBlocked() == false);
     }
 }
 
