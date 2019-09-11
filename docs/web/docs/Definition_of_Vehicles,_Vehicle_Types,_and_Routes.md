@@ -901,28 +901,14 @@ Stops can be childs of vehicles, routes, persons or containers.
 | tripId             | string            | arbitrary                                                                                    |                    | parameter to be applied to the vehicle to track the trip id within a cyclical public transport route                   |
 | line               | string            | arbitrary                                                                                    |                    | new line attribute to be set on the vehicle when reaching this stop (for cyclical public transport route)              |
 
-  - If "duration" *and* "until" are given, the vehicle will stop for at
-    least "duration" seconds.
-  - If "duration" is 0 the vehicle will decelerate to reach velocity 0
-    and then start to accelerate again.
-  - If "until" is given and "duration" is not and the vehicle arrives at
-    the stop at or after the time step defined by "until" it will
-    decelerate to speed 0 and then accelerate again.
-  - If persons board the vehicle, the stop is extended by the
-    "boardingDuration" of the vehicle or until the "personCapacity" is
-    reached. (or "loadingDuration" and "containerCapacity" for
-    containers).
-  - If until is defined in the context of a repeated vehicle insertion
-    (flow) it will be incremented by the difference of vehicle creation
-    time and "begin" of the flow.
-  - If neither "duration" nor "until" are given, "triggered" defaults to
-    true. If "triggered" is set to false explicitly the vehicle will
-    stop forever.
-  - if "duration" or "until" are given along with "triggered", then the
-    vehicle will stop until the given duration/until is reached **and**
-    a person has boarded
-  - If "parking" is set to true. The vehicle stops besides the road
-    without blocking other vehicles.
+- If "duration" *and* "until" are given, the vehicle will stop for at least "duration" seconds.
+- If "duration" is 0 the vehicle will decelerate to reach velocity 0 and then start to accelerate again.
+- If "until" is given and "duration" is not and the vehicle arrives at the stop at or after the time step defined by "until" it will decelerate to speed 0 and then accelerate again.
+- If persons board the vehicle, the stop is extended by the "boardingDuration" of the vehicle or until the "personCapacity" is reached. (or "loadingDuration" and "containerCapacity" for containers).
+- If until is defined in the context of a repeated vehicle insertion (flow) it will be incremented by the difference of vehicle creation time and "begin" of the flow.
+- If neither "duration" nor "until" are given, "triggered" defaults to true. If "triggered" is set to false explicitly the vehicle will stop forever.
+- if "duration" or "until" are given along with "triggered", then the vehicle will stop until the given duration/until is reached **and** a person has boarded
+- If "parking" is set to true. The vehicle stops besides the road without blocking other vehicles.
 
 # Colors
 
