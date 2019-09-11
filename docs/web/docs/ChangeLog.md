@@ -14,6 +14,8 @@ permalink: /ChangeLog/
 
 - NETEDIT
   - Fixed crash when defining walks between disconnected locations. Issue #5369
+  - Fixed crash transforming trips to flows. Issue #6050
+  - Now blocked shapes can be moved again. Issue #6053
 
 - NETCONVERT
   - Fixed bugs in classification of roundabouts. Issue #6032
@@ -41,7 +43,8 @@ permalink: /ChangeLog/
 - Netedit
   - Now additionals and routes are loaded using option "Open in SUMO-GUI"). Issue #6049
   - Added shortcuts (Shift F1,F2,F3) for edge templates. Issue #6033
-
+  - VTypes can be edited in multiple selected vehicles. Issue #6051
+  
 - Tools
   - When importing public transport traffic with osmWebWizard, vehicles from incomplete lines now start and end their routes at the network border instead of starting at the first stop. Issue #6025
 
