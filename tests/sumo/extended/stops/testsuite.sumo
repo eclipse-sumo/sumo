@@ -50,6 +50,9 @@ triggered_defaults_to_parking
 # test behavior of a vehicle with triggered stop as well as stop duration
 triggered_duration
 
+# test behavior of a vehicle with triggered stop as well as stop duration, the person does not come and eventually the stop is aborted
+triggered_duration_abort
+
 # Tests whether stopped vehicles can be overtaken
 overtaking
 
