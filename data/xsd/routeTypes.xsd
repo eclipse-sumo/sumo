@@ -680,9 +680,9 @@
         <xsd:attribute name="startPos" type="xsd:float"/>
         <xsd:attribute name="endPos" type="xsd:float"/>
         <xsd:attribute name="friendlyPos" type="boolType"/>
-        <xsd:attribute name="duration" type="timeTime"/>
+        <xsd:attribute name="duration" type="timeType"/>
         <xsd:attribute name="until" type="timeType"/>
-        <xsd:attribute name="extension" type="timeTime"/>
+        <xsd:attribute name="extension" type="timeType"/>
         <xsd:attribute name="index" type="xsd:string"/>
         <xsd:attribute name="parking" type="boolType"/>
         <xsd:attribute name="triggered" type="boolType"/>
