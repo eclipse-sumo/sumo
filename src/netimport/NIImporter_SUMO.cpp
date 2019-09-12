@@ -140,21 +140,12 @@ NIImporter_SUMO::_loadNetwork(OptionsCont& oc) {
             WRITE_ERROR("Edge's '" + ed->id + "' from-node and to-node '" + ed->toNode + "' are identical.");
             continue;
         }
-        // edge shape
-        PositionVector geom;
-        if (ed->shape.size() > 0) {
-            geom = ed->shape;
-        } else {
-            // either the edge has default shape consisting only of the two node
-            // positions or we have a legacy network
-            geom = reconstructEdgeShape(ed, from->getPosition(), to->getPosition());
-        }
         // build and insert the edge
         NBEdge* e = new NBEdge(ed->id, from, to,
                                ed->type, ed->maxSpeed,
                                (int) ed->lanes.size(),
                                ed->priority, NBEdge::UNSPECIFIED_WIDTH, NBEdge::UNSPECIFIED_OFFSET,
-                               geom, ed->streetName, "", ed->lsf, true); // always use tryIgnoreNodePositions to keep original shape
+                               ed->shape, ed->streetName, "", ed->lsf, true); // always use tryIgnoreNodePositions to keep original shape
         e->setLoadedLength(ed->length);
         e->updateParameter(ed->getParametersMap());
         e->setDistance(ed->distance);
@@ -918,50 +909,6 @@ NIImporter_SUMO::addPhase(const SUMOSAXAttributes& attrs, NBLoadedSUMOTLDef* cur
     if (ok) {
         currentTL->addPhase(duration, state, minDuration, maxDuration, nextPhases, name);
     }
-}
-
-
-PositionVector
-NIImporter_SUMO::reconstructEdgeShape(const EdgeAttrs* edge, const Position& from, const Position& to) {
-    PositionVector result;
-    result.push_back(from);
-
-    if (edge->lanes[0]->customShape) {
-        // this is a new network where edge shapes are writen if they exist.
-        result.push_back(to);
-        return result;
-    }
-    const PositionVector& firstLane = edge->lanes[0]->shape;
-
-    // reverse logic of NBEdge::computeLaneShape
-    // !!! this will only work for old-style constant width lanes
-    const int noLanes = (int)edge->lanes.size();
-    double offset;
-    if (edge->lsf == LANESPREAD_RIGHT) {
-        offset = (SUMO_const_laneWidth + SUMO_const_laneOffset) / 2.; // @todo: why is the lane offset counted in here?
-    } else {
-        offset = (SUMO_const_laneWidth) / 2. - (SUMO_const_laneWidth * (double)noLanes - 1) / 2.; ///= -2.; // @todo: actually, when looking at the road networks, the center line is not in the center
-    }
-    for (int i = 1; i < (int)firstLane.size() - 1; i++) {
-        const Position& from = firstLane[i - 1];
-        const Position& me = firstLane[i];
-        const Position& to = firstLane[i + 1];
-        Position offsets = PositionVector::sideOffset(from, me, offset);
-        Position offsets2 = PositionVector::sideOffset(me, to, offset);
-
-        PositionVector l1(from - offsets, me - offsets);
-        l1.extrapolate(100);
-        PositionVector l2(me - offsets2, to - offsets2);
-        l2.extrapolate(100);
-        if (l1.intersects(l2)) {
-            result.push_back(l1.intersectionPosition2D(l2));
-        } else {
-            WRITE_WARNING("Could not reconstruct shape for edge '" + edge->id + "'.");
-        }
-    }
-
-    result.push_back(to);
-    return result;
 }
 
 
