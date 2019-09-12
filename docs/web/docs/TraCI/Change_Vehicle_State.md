@@ -5,9 +5,8 @@ permalink: /TraCI/Change_Vehicle_State/
 
 # Command 0xc4: Change Vehicle State
 
-|          |            |                   |              |
+|  ubyte   |   string   |       ubyte       | <value_type\> |
 | :------: | :--------: | :---------------: | :----------: |
-|  ubyte   |   string   |       ubyte       | <value_type> |
 | Variable | Vehicle ID | Type of the value |  New Value   |
 
 Changes the state of a vehicle. Because it is possible to change
@@ -15,309 +14,62 @@ different values of a vehicle, the number of parameter to supply and
 their types differ between commands. The following values can be
 changed, the parameter which must be given are also shown in the table.
 Furthermore it is possible to change all values mentioned in
-[TraCI/Change_VehicleType_State](TraCI/Change_VehicleType_State.md).
-If you do so, the vehicle gets a new type (named "typeid@vehid") and
+[TraCI/Change_VehicleType_State](../TraCI/Change_VehicleType_State.md).
+If you do so, the vehicle gets a new type (named "typeid\@vehid") and
 won't be affected by further changes to the original type.
 
-<table>
-<caption><strong>Overview Changeable Vehicle Variables</strong></caption>
-<thead>
-<tr class="header">
-<th><p>Variable</p></th>
-<th><p>ValueType</p></th>
-<th><p>Description</p></th>
-<th><p><a href="TraCI/Interfacing_TraCI_from_Python" title="wikilink">Python Method</a></p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><p>stop (0x12)</p></td>
-<td><p>compound (string, double, byte, double), see below</p></td>
-<td><p>Lets the vehicle stop at the given edge, at the given position and lane. The vehicle will stop for the given duration. Re-issuing a stop command with the same lane and position allows changing the duration. Setting the duration to 0 cancels an existing stop.</p></td>
-<td><p><a href="https://sumo.dlr.de/pydoc/traci._vehicle.html#VehicleDomain-setStop">setStop</a><br />
-<a href="https://sumo.dlr.de/pydoc/traci._vehicle.html#VehicleDomain-setBusStop">setBusStop</a><br />
-<a href="https://sumo.dlr.de/pydoc/traci._vehicle.html#VehicleDomain-setContainerStop">setContainerStop</a><br />
-<a href="https://sumo.dlr.de/pydoc/traci._vehicle.html#VehicleDomain-setChargingStationStop">setChargingStationStop</a><br />
-<a href="https://sumo.dlr.de/pydoc/traci._vehicle.html#VehicleDomain-setParkingAreaStop">setParkingAreaStop</a></p></td>
-</tr>
-<tr class="even">
-<td><p>change lane (0x13)</p></td>
-<td><p>compound (byte, double), see below</p></td>
-<td><p>Forces a lane change to the lane with the given index; if successful, the lane will be chosen for the given amount of time (in seconds).</p></td>
-<td><p><a href="https://sumo.dlr.de/pydoc/traci._vehicle.html#VehicleDomain-changeLane">changeLane</a></p></td>
-</tr>
-<tr class="odd">
-<td><p>change sublane (0x15)</p></td>
-<td><p>double (lateral distance)</p></td>
-<td><p>Forces a lateral change by the given amount (negative values indicate changing to the right, positive to the left). This will override any other lane change motivations but conform to safety-constraints as configured by laneChangeMode.</p></td>
-<td><p><a href="https://sumo.dlr.de/pydoc/traci._vehicle.html#VehicleDomain-changeSublane">changeSublane</a></p></td>
-</tr>
-<tr class="even">
-<td><p>slow down (0x14)</p></td>
-<td><p>compound (double, double), see below</p></td>
-<td><p>Changes the speed smoothly to the given value over the given amount of time in seconds (can also be used to increase speed).</p></td>
-<td><p><a href="https://sumo.dlr.de/pydoc/traci._vehicle.html#VehicleDomain-slowDown">slowDown</a></p></td>
-</tr>
-<tr class="odd">
-<td><p>resume (0x19)</p></td>
-<td><p>compound (), see below</p></td>
-<td><p>Resumes from a stop</p></td>
-<td><p><a href="https://sumo.dlr.de/pydoc/traci._vehicle.html#VehicleDomain-resume">resume</a></p></td>
-</tr>
-<tr class="even">
-<td><p>change target (0x31)</p></td>
-<td><p>string (destination edge id)</p></td>
-<td><p>The vehicle's destination edge is set to the given. The route is rebuilt.</p></td>
-<td><p><a href="https://sumo.dlr.de/pydoc/traci._vehicle.html#VehicleDomain-changeTarget">changeTarget</a></p></td>
-</tr>
-<tr class="odd">
-<td><p>speed (0x40)</p></td>
-<td><p>double (new speed)</p></td>
-<td><p>Sets the vehicle speed to the given value. The speed will be followed according to the current <a href="#speed_mode_.280xb3.29" title="wikilink">speed mode</a>. By default the vehicle may drive slower than the set speed according to the safety rules of the car-follow model. When sending a value of -1 the vehicle will revert to its original behavior (using the <em>maxSpeed</em> of its vehicle type and following all safety rules).</p></td>
-<td><p><a href="https://sumo.dlr.de/pydoc/traci._vehicle.html#VehicleDomain-setSpeed">setSpeed</a></p></td>
-</tr>
-<tr class="even">
-<td><p>color (0x45)</p></td>
-<td><p>ubyte,ubyte,ubyte,ubyte (RGBA)</p></td>
-<td><p>Sets the vehicle's color.</p></td>
-<td><p><a href="https://sumo.dlr.de/pydoc/traci._vehicle.html#VehicleDomain-setColor">setColor</a></p></td>
-</tr>
-<tr class="odd">
-<td><p>change route by id (0x53)</p></td>
-<td><p>string (route id)</p></td>
-<td><p>Assigns the named route to the vehicle, assuming a) the named route exists, and b) it starts on the edge the vehicle is currently at<sup>(1)(2)</sup>.</p></td>
-<td><p><a href="https://sumo.dlr.de/pydoc/traci._vehicle.html#VehicleDomain-setRouteID">setRouteID</a></p></td>
-</tr>
-<tr class="even">
-<td><p>change route (0x57)</p></td>
-<td><p>stringList (ids of edges to pass)</p></td>
-<td><p>Assigns the list of edges as the vehicle's new route assuming the first edge given is the one the vehicle is curently at<sup>(1)(2)</sup>.</p></td>
-<td><p><a href="https://sumo.dlr.de/pydoc/traci._vehicle.html#VehicleDomain-setRoute">setRoute</a></p></td>
-</tr>
-<tr class="odd">
-<td><p>reroute parking area (0xc2)</p></td>
-<td><p>string (parking area id)</p></td>
-<td><p>Changes the next parking area in parkingAreaID, updates the vehicle route, and preserve consistency in case of passengers/containers on board.</p></td>
-<td><p><a href="https://sumo.dlr.de/pydoc/traci._vehicle.html#VehicleDomain-rerouteParkingArea">rerouteParkingArea</a></p></td>
-</tr>
-<tr class="even">
-<td><p>change edge travel time information (0x58)</p></td>
-<td><p>compound (begin time, end time, edgeID, value), see below</p></td>
-<td><p>Inserts the information about the travel time (in seconds) of edge "edgeID" valid from begin time to end time (in seconds) into the vehicle's internal edge weights container.</p></td>
-<td><p><a href="https://sumo.dlr.de/pydoc/traci._vehicle.html#VehicleDomain-setAdaptedTraveltime">setAdaptedTraveltime</a></p></td>
-</tr>
-<tr class="odd">
-<td><p>change edge effort information (0x59)</p></td>
-<td><p>compound (begin time, end time, edgeID, value), see below</p></td>
-<td><p>Inserts the information about the effort of edge "edgeID" valid from begin time to end time (in seconds) into the vehicle's internal edge weights container.</p></td>
-<td><p><a href="https://sumo.dlr.de/pydoc/traci._vehicle.html#VehicleDomain-setEffort">setEffort</a></p></td>
-</tr>
-<tr class="even">
-<td><p>signal states (0x5b)</p></td>
-<td><p>int</p></td>
-<td><p>Sets a new state of signal. See <a href="TraCI/Vehicle_Signalling" title="wikilink">TraCI/Vehicle Signalling</a> for more information.</p></td>
-<td><p><a href="https://sumo.dlr.de/pydoc/traci._vehicle.html#VehicleDomain-setSignals">setSignals</a></p></td>
-</tr>
-<tr class="odd">
-<td><p>routing mode (0x89)</p></td>
-<td><p>int</p></td>
-<td><p>Sets the <a href="Simulation/Routing#Travel-time_values_for_routing" title="wikilink">routing mode</a> (0: default, 1: aggregated)</p></td>
-<td><p><a href="https://sumo.dlr.de/pydoc/traci._vehicle.html#VehicleDomain-setRoutingMode">setRoutingMode</a></p></td>
-</tr>
-<tr class="even">
-<td><p>move to (0x5c)</p></td>
-<td><p>compound (lane ID, position along lane)</p></td>
-<td><p>Moves the vehicle to a new position along the current route <sup>(3)</sup>.</p></td>
-<td><p><a href="https://sumo.dlr.de/pydoc/traci._vehicle.html#VehicleDomain-moveTo">moveTo</a></p></td>
-</tr>
-<tr class="odd">
-<td><p>move to XY (0xb4)</p></td>
-<td><p>compound (edgeID, laneIndex, x, y, angle, keepRoute) (see below)</p></td>
-<td><p>Moves the vehicle to a new position after normal vehicle movements have taken place. Also forces the angle of the vehicle to the given value (navigational angle in degree). <a href="#move_to_XY_.280xb4.29" title="wikilink">See below for additional details</a></p></td>
-<td><p><a href="https://sumo.dlr.de/pydoc/traci._vehicle.html#VehicleDomain-moveToXY">moveToXY</a></p></td>
-</tr>
-<tr class="even">
-<td><p>reroute (compute new route) by travel time (0x90)</p></td>
-<td><p>compound (<empty>), see below</p></td>
-<td><p>Computes a new route to the current destination that minimizes travel time. The assumed values for each edge in the network can be customized in various ways. See <a href="Simulation/Routing#Travel-time_values_for_routing" title="wikilink">Simulation/Routing#Travel-time_values_for_routing</a>. Replaces the current route by the found<sup>(2)</sup>.</p></td>
-<td><p><a href="https://sumo.dlr.de/pydoc/traci._vehicle.html#VehicleDomain-rerouteTraveltime">rerouteTraveltime</a></p></td>
-</tr>
-<tr class="odd">
-<td><p>reroute (compute new route) by effort (0x91)</p></td>
-<td><p>compound (<empty>), see below</p></td>
-<td><p>Computes a new route using the vehicle's internal and the global edge effort information. Replaces the current route by the found<sup>(2)</sup>.</p></td>
-<td><p><a href="https://sumo.dlr.de/pydoc/traci._vehicle.html#VehicleDomain-rerouteEffort">rerouteEffort</a></p></td>
-</tr>
-<tr class="even">
-<td><p>speed mode (0xb3)</p></td>
-<td><p>int bitset (see below)</p></td>
-<td><p>Sets how the values set by speed (0x40) and slowdown (0x14) shall be treated. Also allows to configure the behavior at junctions. See below.</p></td>
-<td><p><a href="https://sumo.dlr.de/pydoc/traci._vehicle.html#VehicleDomain-setSpeedMode">setSpeedMode</a></p></td>
-</tr>
-<tr class="odd">
-<td><p>speed factor (0x5e)</p></td>
-<td><p>double</p></td>
-<td><p>Sets the vehicle's speed factor to the given value</p></td>
-<td><p><a href="https://sumo.dlr.de/pydoc/traci._vehicle.html#VehicleDomain-setSpeedFactor">setSpeedFactor</a></p></td>
-</tr>
-<tr class="even">
-<td><p>max speed (0x41)</p></td>
-<td><p>double</p></td>
-<td><p>Sets the vehicle's maximum speed to the given value</p></td>
-<td><p><a href="https://sumo.dlr.de/pydoc/traci._vehicle.html#VehicleDomain-setMaxSpeed">setMaxSpeed</a></p></td>
-</tr>
-<tr class="odd">
-<td><p>lane change mode (0xb6)</p></td>
-<td><p>int bitset (see <a href="#lane_change_mode_.280xb6.29" title="wikilink">below</a>)</p></td>
-<td><p>Sets how lane changing in general and lane changing requests by TraCI are performed. See below.</p></td>
-<td><p><a href="https://sumo.dlr.de/pydoc/traci._vehicle.html#VehicleDomain-setLaneChangeMode">setLaneChangeMode</a></p></td>
-</tr>
-<tr class="even">
-<td><p>update bestLanes (0x6a)</p></td>
-<td></td>
-<td><p>updates internal data structures for strategic lane choice. (e.g. after modifying access permissions). </p></td>
-<td><p><a href="https://sumo.dlr.de/pydoc/traci._vehicle.html#VehicleDomain-updateBestLanes">updateBestLanes</a></p></td>
-</tr>
-<tr class="odd">
-<td><p>add (0x85)</p></td>
-<td><p>complex (see below)</p></td>
-<td><p>Adds the defined vehicle. See below.</p></td>
-<td><p><a href="https://sumo.dlr.de/pydoc/traci._vehicle.html#VehicleDomain-add">add</a> (alias addFull) </p></td>
-</tr>
-<tr class="even">
-<td><p>add_legacy (0x80)</p></td>
-<td><p>complex (see below)</p></td>
-<td><p>Adds the defined vehicle (fewer parameters, obsolete). See below.</p></td>
-<td><p><a href="https://sumo.dlr.de/pydoc/traci._vehicle.html#VehicleDomain-addFull">addLegacy</a></p></td>
-</tr>
-<tr class="odd">
-<td><p>remove (0x81)</p></td>
-<td><p>complex (see below)</p></td>
-<td><p>Removes the defined vehicle. See below.</p></td>
-<td><p><a href="https://sumo.dlr.de/pydoc/traci._vehicle.html#VehicleDomain-remove">remove</a></p></td>
-</tr>
-<tr class="even">
-<td><p>length (0x44)</p></td>
-<td><p>double</p></td>
-<td><p>Sets the vehicle's length to the given value</p></td>
-<td><p><a href="https://sumo.dlr.de/pydoc/traci._vehicle.html#VehicleDomain-setLength">setLength</a></p></td>
-</tr>
-<tr class="odd">
-<td><p>vehicle class (0x49)</p></td>
-<td><p>string</p></td>
-<td><p>Sets the vehicle's vehicle class to the given value</p></td>
-<td><p><a href="https://sumo.dlr.de/pydoc/traci._vehicle.html#VehicleDomain-setVehicleClass">setVehicleClass</a></p></td>
-</tr>
-<tr class="even">
-<td><p>emission class (0x4a)</p></td>
-<td><p>string</p></td>
-<td><p>Sets the vehicle's emission class to the given value</p></td>
-<td><p><a href="https://sumo.dlr.de/pydoc/traci._vehicle.html#VehicleDomain-setEmissionClass">setEmissionClass</a></p></td>
-</tr>
-<tr class="odd">
-<td><p>width (0x4d)</p></td>
-<td><p>double</p></td>
-<td><p>Sets the vehicle's width to the given value</p></td>
-<td><p><a href="https://sumo.dlr.de/pydoc/traci._vehicle.html#VehicleDomain-setWidth">setWidth</a></p></td>
-</tr>
-<tr class="even">
-<td><p>height (0xbc)</p></td>
-<td><p>double</p></td>
-<td><p>Sets the vehicle's height to the given value</p></td>
-<td><p><a href="https://sumo.dlr.de/pydoc/traci._vehicle.html#VehicleDomain-setHeight">setHeight</a></p></td>
-</tr>
-<tr class="odd">
-<td><p>min gap (0x4c)</p></td>
-<td><p>double</p></td>
-<td><p>Sets the vehicle's minimum headway gap to the given value</p></td>
-<td><p><a href="https://sumo.dlr.de/pydoc/traci._vehicle.html#VehicleDomain-setMinGap">setMinGap</a></p></td>
-</tr>
-<tr class="even">
-<td><p>shape class (0x4b)</p></td>
-<td><p>string</p></td>
-<td><p>Sets the vehicle's shape class to the given value</p></td>
-<td><p><a href="https://sumo.dlr.de/pydoc/traci._vehicle.html#VehicleDomain-setShapeClass">setShapeClass</a></p></td>
-</tr>
-<tr class="odd">
-<td><p>acceleration (0x46)</p></td>
-<td><p>double</p></td>
-<td><p>Sets the vehicle's wished maximum acceleration to the given value</p></td>
-<td><p><a href="https://sumo.dlr.de/pydoc/traci._vehicle.html#VehicleDomain-setAccel">setAccel</a></p></td>
-</tr>
-<tr class="even">
-<td><p>deceleration (0x47)</p></td>
-<td><p>double</p></td>
-<td><p>Sets the vehicle's wished maximum deceleration to the given value</p></td>
-<td><p><a href="https://sumo.dlr.de/pydoc/traci._vehicle.html#VehicleDomain-setDecel">setDecel</a></p></td>
-</tr>
-<tr class="odd">
-<td><p>imperfection (0x5d)</p></td>
-<td><p>double</p></td>
-<td><p>Sets the vehicle's driver imperfection (sigma) to the given value</p></td>
-<td><p><a href="https://sumo.dlr.de/pydoc/traci._vehicle.html#VehicleDomain-setImperfection">setImperfection</a></p></td>
-</tr>
-<tr class="even">
-<td><p>tau (0x48)</p></td>
-<td><p>double</p></td>
-<td><p>Sets the vehicle's wished headway time to the given value.</p></td>
-<td><p><a href="https://sumo.dlr.de/pydoc/traci._vehicle.html#VehicleDomain-setTau">setTau</a></p></td>
-</tr>
-<tr class="odd">
-<td><p>type (0x4f)</p></td>
-<td><p>string</p></td>
-<td><p>Sets the id of the type for the named vehicle.</p></td>
-<td><p><a href="https://sumo.dlr.de/pydoc/traci._vehicle.html#VehicleDomain-setType">setType</a></p></td>
-</tr>
-<tr class="even">
-<td><p>via (0xbe)</p></td>
-<td><p>stringList</p></td>
-<td><p>Changes the via edges to the given edges list (to be used during subsequent rerouting calls).</p></td>
-<td><p><a href="https://sumo.dlr.de/pydoc/traci._vehicle.html#VehicleDomain-setVia">setVia</a></p></td>
-</tr>
-<tr class="odd">
-<td><p>max lateral speed (0xba)</p></td>
-<td><p>double</p></td>
-<td><p>Sets the maximum lateral speed in m/s for this vehicle.</p></td>
-<td><p><a href="https://sumo.dlr.de/pydoc/traci._vehicle.html#VehicleDomain-setMaxSpeedLat">setMaxSpeedLat</a></p></td>
-</tr>
-<tr class="even">
-<td><p>lateral gap (0xbb)</p></td>
-<td><p>double</p></td>
-<td><p>Sets the minimum lateral gap of the vehicle at 50km/h in m.</p></td>
-<td><p><a href="https://sumo.dlr.de/pydoc/traci._vehicle.html#VehicleDomain-setMinGapLat">setMinGapLat</a></p></td>
-</tr>
-<tr class="odd">
-<td><p>lateral alignment (0xb9)</p></td>
-<td><p>string</p></td>
-<td><p>Sets the preferred lateral alignment for this vehicle.</p></td>
-<td><p><a href="https://sumo.dlr.de/pydoc/traci._vehicle.html#VehicleDomain-setLateralAlignment">setLateralAlignment</a></p></td>
-</tr>
-<tr class="even">
-<td><p>parameter (0x7e)</p></td>
-<td><p>string, string</p></td>
-<td><p><a href="#Setting_Device_and_LaneChangeModel_Parameters_.280x7e.29" title="wikilink">Sets the string value for the given string parameter</a></p></td>
-<td><p><a href="https://sumo.dlr.de/pydoc/traci._vehicle.html#VehicleDomain-setParameter">setParameter</a></p></td>
-</tr>
-<tr class="odd">
-<td><p>action step length (0x7d)</p></td>
-<td><p>double (new action step length), boolean (reset action offset)</p></td>
-<td><p>Sets the current action step length for the vehicle in s. If the boolean value resetActionOffset is true, an action step is scheduled immediately for the vehicle.</p></td>
-<td><p><a href="https://sumo.dlr.de/pydoc/traci._vehicle.html#VehicleDomain-setActionStepLength">setActionStepLength</a></p></td>
-</tr>
-<tr class="even">
-<td><p>highlight (0xc7)</p></td>
-<td><p>highlight specification, see below</p></td>
-<td><p>Adds a highlight to the vehicle</p></td>
-<td><p><a href="http://sumo.sourceforge.net/pydoc/traci._vehicle.html#VehicleDomain-highlight">highlight</a></p></td>
-</tr>
-<tr class="odd">
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-</tbody>
-</table>
+<center>
+**Overview Changeable Vehicle Variables**
+</center>
+
+| Variable  | ValueType  | Description  | [Python Method](../TraCI/Interfacing_TraCI_from_Python.md)  |
+|---|---|---|---|
+| stop (0x12)  | compound (string, double, byte, double), see below  |   |   |
+|   |   |   |   |
+|   |   |   |   |
+|   |   |   |   |
+|   |   |   |   |
+|   |   |   |   |
+|   |   |   |   |
+|   |   |   |   |
+|   |   |   |   |
+|   |   |   |   |
+|   |   |   |   |
+|   |   |   |   |
+|   |   |   |   |
+|   |   |   |   |
+|   |   |   |   |
+|   |   |   |   |
+|   |   |   |   |
+|   |   |   |   |
+|   |   |   |   |
+|   |   |   |   |
+|   |   |   |   |
+|   |   |   |   |
+|   |   |   |   |
+|   |   |   |   |
+|   |   |   |   |
+|   |   |   |   |
+|   |   |   |   |
+|   |   |   |   |
+|   |   |   |   |
+|   |   |   |   |
+|   |   |   |   |
+|   |   |   |   |
+|   |   |   |   |
+|   |   |   |   |
+|   |   |   |   |
+|   |   |   |   |
+|   |   |   |   |
+|   |   |   |   |
+|   |   |   |   |
+|   |   |   |   |
+|   |   |   |   |
+|   |   |   |   |
+|   |   |   |   |
+|   |   |   |   |
+|   |   |   |   |
+|   |   |   |   |
 
 Please note:
 

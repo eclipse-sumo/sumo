@@ -16,11 +16,15 @@ The value returned is the state of the asked variable/value within the
 last simulation step. Please note that for asking values from your
 detectors [you have to define
 them](../Simulation/Output/Induction_Loops_Detectors_(E1).md)
-within an  and load them at the start of the simulation. The  and
+within an {{AdditionalFile}} and load them at the start of the simulation. The `freq` and `file`
 attributes do not matter for TraCI.
 
 The following variable values can be retrieved, the type of the return
 value is also shown in the table.
+
+<center>
+**Overview Retrievable Induction Loop Variables**
+</center>
 
 | Variable                                     | ValueType           | Description       | [Python Method](../TraCI/Interfacing_TraCI_from_Python.md)     |
 | -------------------------------------------- | ------------------- | ----------------- | -------------------------------------------------------------- |
@@ -28,7 +32,7 @@ value is also shown in the table.
 | position (0x42)                              | double              | Returns the position of the induction loop at it's lane, counted from the lane's begin, in meters.               | [getPosition](https://sumo.dlr.de/pydoc/traci._inductionloop.html#InductionLoopDomain-getPosition)                           |
 | lane ID (0x51)                               | string              | Returns the ID of the lane the induction loop is placed at.                                                      | [getLaneID](https://sumo.dlr.de/pydoc/traci._inductionloop.html#InductionLoopDomain-getLaneID)                               |
 | count (0x01)                                 | int                 | Returns the number of induction loops within the scenario (the given Induction Loop ID is ignored)               | [getIDCount](https://sumo.dlr.de/pydoc/traci._inductionloop.html#InductionLoopDomain-getIDCount)                             |
-| last step vehicle number (0x10)              | int                 | Returns the number of vehicles that were on the named induction loop within the last simulation step \[\#\];     | [getLastStepVehicleNumber](https://sumo.dlr.de/pydoc/traci._inductionloop.html#InductionLoopDomain-getLastStepVehicleNumber) |
+| last step vehicle number (0x10)              | int                 | Returns the number of vehicles that were on the named induction loop within the last simulation step \[\#\];<br><br>**Note:**This value corresponds to the *nVehEntered* measure of [induction loops](../Simulation/Output/Induction_Loops_Detectors_(E1).md).     | [getLastStepVehicleNumber](https://sumo.dlr.de/pydoc/traci._inductionloop.html#InductionLoopDomain-getLastStepVehicleNumber) |
 | last step mean speed (0x11)                  | double              | Returns the mean speed of vehicles that were on the named induction loop within the last simulation step \[m/s\] | [getLastStepMeanSpeed](https://sumo.dlr.de/pydoc/traci._inductionloop.html#InductionLoopDomain-getLastStepMeanSpeed)         |
 | last step vehicle ids (0x12)                 | stringList          | Returns the list of ids of vehicles that were on the named induction loop in the last simulation step            | [getLastStepVehicleIDs](https://sumo.dlr.de/pydoc/traci._inductionloop.html#InductionLoopDomain-getLastStepVehicleIDs)       |
 | last step occupancy (0x13)                   | double              | Returns the percentage of time the detector was occupied by a vehicle \[%\]                                      | [getLastStepOccupancy](https://sumo.dlr.de/pydoc/traci._inductionloop.html#InductionLoopDomain-getLastStepOccupancy)         |
@@ -36,7 +40,6 @@ value is also shown in the table.
 | last step's time since last detection (0x16) | double              | The time since last detection \[s\]                                                                              | [getTimeSinceDetection](https://sumo.dlr.de/pydoc/traci._inductionloop.html#InductionLoopDomain-getTimeSinceDetection)       |
 | last step's vehicle data (0x17)              | complex (see below) | A complex structure containing several information about vehicles which passed the detector                      | [getVehicleData](https://sumo.dlr.de/pydoc/traci._inductionloop.html#InductionLoopDomain-getVehicleData)                     |
 
-**Overview Retrievable Induction Loop Variables**
 
 ## Response 0xb0: Induction Loop Variable
 
