@@ -159,7 +159,7 @@ The vehicle will be removed from its lane and moved to the given position on the
 The vehicle (the center of it's front bumper) is moved to the network
 position that best matches the given x,y network coordinates. The edgeID
 and laneIndex are compared against the original [OpenDRIVE lane
-id](Networks/Import/OpenDRIVE#Referencing_original_IDs.md) when
+id](../Networks/Import/OpenDRIVE.md#referencing_original_ids) when
 possible to resolve ambiguities. The optional keepRoute flag influences
 mapping as follows
 
@@ -171,7 +171,7 @@ mapping as follows
     current route is replaced by a new route which consists of that edge
     only. If no suitable position is found within 100m mapping fails
     with an error. When using the [sublane
-    model](Simulation/SublaneModel.md) the best lateral position
+    model](../Simulation/SublaneModel.md) the best lateral position
     that is fully within the lane will be used. Otherwise, the vehicle
     will drive in the center of the closest lane.
   - keepRoute = **2**: The vehicle is mapped to the exact position in
@@ -480,7 +480,7 @@ call](Traci/GenericParameters#set_parameter.md).
   interval ().
 - device.example.customValue1 (double literal)
 - has.rerouting.device ("true"): can be used to dynamically enable
-  [automatic rerouting](Demand/Automatic_Routing.md)
+  [automatic rerouting](../Demand/Automatic_Routing.md)
 
 !!! caution
     If the vehicles does not carry the respective device an error is returned.

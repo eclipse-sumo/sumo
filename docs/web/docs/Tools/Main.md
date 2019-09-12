@@ -1,1 +1,1 @@
-1.  REDIRECT [Tools](Tools.md)
+1.  REDIRECT [Tools](../Tools.md)

@@ -78,8 +78,8 @@ den Geradeausfahrern korrekt übersetzt wurden.
 
 **Conflict areas**
 
-![conflArea_vissim.png](../../images/conflArea_vissim.png "conflArea_vissim.png")
-![conflArea_sumo.png](../../images/conflArea_sumo.png "conflArea_sumo.png")
+![conflArea_vissim.png](../../images/ConflArea_vissim.png "conflArea_vissim.png")
+![conflArea_sumo.png](../../images/ConflArea_sumo.png "conflArea_sumo.png")
 
 Die Daten zur Dargestellten Situation finden sich im Verzeichnis der
 Testdaten unter `tests/netconvert/import/leftist_conflictarea-prio/`, wo

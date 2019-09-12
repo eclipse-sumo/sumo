@@ -29,7 +29,7 @@ a simulation scenario:
   description in XML and importing it using
   [NETCONVERT](../NETCONVERT.md) or by c) importing an existing
   road network using [NETCONVERT](../NETCONVERT.md); see
-  [building the networks](../NetworkBuild.md) for further
+  building the networks for further
   information
 
 **2. Build the demand**
@@ -37,7 +37,7 @@ a simulation scenario:
   This can be either done by a) describing explicit vehicle routes, b)
   using flows and turning percentages only, c) generating random
   routes, d) importing OD-matrices, or e) importing existing routes;
-  see [building the demand](../RoutesBuilding.md) for further
+  see building the demand for further
   information
 
 **3a. If needed, compute the dynamic user assignment**
@@ -46,8 +46,7 @@ a simulation scenario:
 
 **4. Perform the simulation to get your desired output;**
 
-  See [performing the simulation](../Simulation.md) and
-  [available simulation outputs](../SimulationOutput.md)
+  See performing the simulation and available simulation outputs
 
 This process is also visualised within the next figure.
 
@@ -65,7 +64,7 @@ results easily evaluable. Abstract networks have for example been used
 for evaluating the vulnerability of C2C-networks by [Clemens
 Honomichl](../Publications.md#honomichl2008).
 
-If one wants to investigate real life traffic, he should try to [reuse
-the data he has](../ImportingData.md). If no data is available, one
+If one wants to investigate real life traffic, he should try to reuse
+the data he has. If no data is available, one
 could try to use the [free
 scenarios](../Data/Networks.md#scenarios) available within SUMO.
