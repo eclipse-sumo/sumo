@@ -119,6 +119,7 @@ NIImporter_SUMO::_loadNetwork(OptionsCont& oc) {
         PROGRESS_DONE_MESSAGE();
     }
     // build edges
+    const double maxSegmentLength = oc.getFloat("geometry.max-segment-length");
     for (std::map<std::string, EdgeAttrs*>::const_iterator i = myEdges.begin(); i != myEdges.end(); ++i) {
         EdgeAttrs* ed = (*i).second;
         // skip internal edges
@@ -139,6 +140,12 @@ NIImporter_SUMO::_loadNetwork(OptionsCont& oc) {
         if (from == to) {
             WRITE_ERROR("Edge's '" + ed->id + "' from-node and to-node '" + ed->toNode + "' are identical.");
             continue;
+        }
+        if (ed->shape.size() == 0 && maxSegmentLength > 0) {
+            ed->shape.push_back(from->getPosition());
+            ed->shape.push_back(to->getPosition());
+            // shape is already cartesian but we must use a copy because the original will be modified
+            NBNetBuilder::addGeometrySegments(ed->shape, PositionVector(ed->shape), maxSegmentLength);
         }
         // build and insert the edge
         NBEdge* e = new NBEdge(ed->id, from, to,

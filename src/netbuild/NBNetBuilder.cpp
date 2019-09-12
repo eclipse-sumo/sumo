@@ -700,30 +700,34 @@ NBNetBuilder::transformCoordinates(PositionVector& from, bool includeInBoundary,
         for (int i = 0; i < (int) from.size(); i++) {
             transformCoordinate(copy[i], false);
         }
-        // check lengths and insert new points where needed (in the original
-        // coordinate system)
-        int inserted = 0;
-        for (int i = 0; i < (int)copy.size() - 1; i++) {
-            Position start = from[i + inserted];
-            Position end = from[i + inserted + 1];
-            double length = copy[i].distanceTo(copy[i + 1]);
-            const Position step = (end - start) * (maxLength / length);
-            int steps = 0;
-            while (length > maxLength) {
-                length -= maxLength;
-                steps++;
-                from.insert(from.begin() + i + inserted + 1, start + (step * steps));
-                inserted++;
-            }
-        }
-        // now perform the transformation again so that height mapping can be
-        // performed for the new points
+        addGeometrySegments(from, copy, maxLength);
     }
     bool ok = true;
     for (int i = 0; i < (int) from.size(); i++) {
         ok = ok && transformCoordinate(from[i], includeInBoundary, from_srs);
     }
     return ok;
+}
+
+int 
+NBNetBuilder::addGeometrySegments(PositionVector& from, const PositionVector& cartesian, const double maxLength) {
+    // check lengths and insert new points where needed (in the original
+    // coordinate system)
+    int inserted = 0;
+    for (int i = 0; i < (int)cartesian.size() - 1; i++) {
+        Position start = from[i + inserted];
+        Position end = from[i + inserted + 1];
+        double length = cartesian[i].distanceTo(cartesian[i + 1]);
+        const Position step = (end - start) * (maxLength / length);
+        int steps = 0;
+        while (length > maxLength) {
+            length -= maxLength;
+            steps++;
+            from.insert(from.begin() + i + inserted + 1, start + (step * steps));
+            inserted++;
+        }
+    }
+    return inserted;
 }
 
 

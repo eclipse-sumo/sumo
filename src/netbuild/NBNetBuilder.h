@@ -213,6 +213,9 @@ public:
     static bool transformCoordinate(Position& from, bool includeInBoundary = true, GeoConvHelper* from_srs = 0);
     static bool transformCoordinates(PositionVector& from, bool includeInBoundary = true, GeoConvHelper* from_srs = 0);
 
+    /// @brief insertion geometry points to ensure maximum segment length between points
+    static int addGeometrySegments(PositionVector& from, const PositionVector& cartesian, const double maxLength);
+
     /// @brief whether netbuilding takes place in the context of NETEDIT
     static bool runningNetedit();
 
