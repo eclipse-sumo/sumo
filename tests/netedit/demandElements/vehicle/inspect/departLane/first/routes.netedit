@@ -1,20 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 14.08.2019 09:08:14 by Eclipse SUMO netedit Version v1_2_0+1570-8b6d0e5f59
+<!-- generated on 12.09.2019 11:08:55 by Eclipse SUMO netedit Version v1_3_1+0241-396fe64648
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.14Aug090722.3652/netedit.gui/demandElements/vehicle/inspect/departLane\input_net.net.xml"/>
+        <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.5_from_12Sep102425.3816/netedit.gui/demandElements/vehicle/inspect/departLane/first\input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.14Aug090722.3652/netedit.gui/demandElements/vehicle/inspect/departLane\net.net.xml"/>
+        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.5_from_12Sep102425.3816/netedit.gui/demandElements/vehicle/inspect/departLane/first\net.net.xml"/>
     </output>
 
     <processing>
         <geometry.max-grade.fix value="false"/>
         <offset.disable-normalization value="true"/>
-        <opposites.guess.fix-lengths value="true"/>
         <lefthand value="false"/>
     </processing>
 
@@ -30,13 +29,14 @@
     </pedestrian>
 
     <netedit>
-        <additional-files value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.14Aug090722.3652/netedit.gui/demandElements/vehicle/inspect/departLane\additionals.xml"/>
-        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.14Aug090722.3652/netedit.gui/demandElements/vehicle/inspect/departLane\additionals.xml"/>
-        <route-files value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.14Aug090722.3652/netedit.gui/demandElements/vehicle/inspect/departLane\routes.xml"/>
-        <demandelements-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.14Aug090722.3652/netedit.gui/demandElements/vehicle/inspect/departLane\routes.xml"/>
+        <additional-files value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.5_from_12Sep102425.3816/netedit.gui/demandElements/vehicle/inspect/departLane/first\additionals.xml"/>
+        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.5_from_12Sep102425.3816/netedit.gui/demandElements/vehicle/inspect/departLane/first\additionals.xml"/>
+        <route-files value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.5_from_12Sep102425.3816/netedit.gui/demandElements/vehicle/inspect/departLane/first\routes.xml"/>
+        <demandelements-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.5_from_12Sep102425.3816/netedit.gui/demandElements/vehicle/inspect/departLane/first\routes.xml"/>
     </netedit>
 
     <visualisation>
+        <gui-settings-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.5_from_12Sep102425.3816/netedit.gui/demandElements/vehicle/inspect/departLane/first\gui-settings.xml"/>
         <window-size value="700,500"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
@@ -46,7 +46,7 @@
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.14Aug090722.3652/netedit.gui/demandElements/vehicle/inspect/departLane\log.txt"/>
+        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.5_from_12Sep102425.3816/netedit.gui/demandElements/vehicle/inspect/departLane/first\log.txt"/>
     </report>
 
 </configuration>
@@ -54,5 +54,5 @@
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
     <route edges="gneE2 gneE4 gneE5" color="yellow" id="route_0"/>
-    <vehicle id="vehicle_0" depart="0.00" departLane="0" route="route_0"/>
+    <vehicle id="vehicle_0" depart="0.00" route="route_0"/>
 </routes>

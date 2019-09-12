@@ -34,8 +34,8 @@ DELAY_QUIT_NETEDIT = 4
 DELAY_QUIT_SUMOGUI = 3
 DELAY_UNDOREDO = 1
 DELAY_SELECT = 0.1
-DELAY_RECOMPUTE = 2
-DELAY_RECOMPUTE_VOLATILE = 2
+DELAY_RECOMPUTE = 3
+DELAY_RECOMPUTE_VOLATILE = 3
 DELAY_REMOVESELECTION = 0.1
 
 _NETEDIT_APP = os.environ.get("NETEDIT_BINARY", "netedit")
@@ -1261,7 +1261,7 @@ def changePersonPlan(personPlan, subPersonPlan):
     # focus current frame
     focusOnFrame()
     # jump to person plan
-    for _ in range(10):
+    for _ in range(11):
         typeTab()
     # paste the new personPlan
     pasteIntoTextField(personPlan)
@@ -1283,7 +1283,7 @@ def changePersonFlowPlan(personFlowPlan, subPersonFlowPlan):
     # focus current frame
     focusOnFrame()
     # jump to personFlow plan
-    for _ in range(17):
+    for _ in range(18):
         typeTab()
     # paste the new personFlowPlan
     pasteIntoTextField(personFlowPlan)
