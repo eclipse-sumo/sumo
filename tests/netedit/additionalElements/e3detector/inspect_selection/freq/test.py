@@ -38,6 +38,9 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 160, 260)
 
 # Set invalid freq
+netedit.modifyAttribute(0, "%%%;:..&&%$%$", True)
+
+# Set invalid freq
 netedit.modifyAttribute(0, "-30", True)
 
 # Set valid freq
