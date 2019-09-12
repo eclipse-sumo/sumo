@@ -181,7 +181,7 @@ def call(command, log):
 
 
 def writeRouteConf(duarouterBinary, step, options, dua_args, file,
-                   output, routesInfo, initial_type):
+                   output, routesInfo):
     filename = os.path.basename(file)
     filename = filename.split('.')[0]
     cfgname = "iteration_%03i_%s.duarcfg" % (step, filename)
@@ -490,13 +490,10 @@ def main(args=None):
     starttime = datetime.now()
     if options.trips:
         input_demands = options.trips.split(",")
-        initial_type = "trip"
     elif options.flows:
         input_demands = options.flows.split(",")
-        initial_type = "flow"
     else:
         input_demands = options.routes.split(",")
-        initial_type = "route"
     if options.externalgawron:
         # avoid dependency on numpy for normal duaIterate
         from routeChoices import getRouteChoices, calFirstRouteProbs
@@ -539,7 +536,7 @@ def main(args=None):
                 btime = datetime.now()
                 print(">>> Begin time: %s" % btime)
                 cfgname = writeRouteConf(duaBinary, step, options, dua_args, router_input,
-                                         output, options.routefile, initial_type)
+                                         output, options.routefile)
                 log.flush()
                 sys.stdout.flush()
                 call([duaBinary, "-c", cfgname], log)
