@@ -304,13 +304,17 @@ GNEStopFrame::getStopParameter(SUMOVehicleParameter::Stop& stop, const SumoXMLTa
     // fill rest of parameters depending if it was edited
     if (valuesMap.count(SUMO_ATTR_DURATION) > 0) {
         stop.duration = string2time(valuesMap.at(SUMO_ATTR_DURATION));
+        stop.parametersSet |= STOP_DURATION_SET;
     } else {
         stop.duration = -1;
+        stop.parametersSet &= ~STOP_DURATION_SET;
     }
     if (valuesMap.count(SUMO_ATTR_UNTIL) > 0) {
         stop.until = string2time(valuesMap[SUMO_ATTR_UNTIL]);
+        stop.parametersSet |= STOP_UNTIL_SET;
     } else {
         stop.until = -1;
+        stop.parametersSet &= ~STOP_UNTIL_SET;
     }
     if (valuesMap.count(SUMO_ATTR_TRIGGERED) > 0) {
         stop.triggered = GNEAttributeCarrier::parse<bool>(valuesMap.at(SUMO_ATTR_TRIGGERED));

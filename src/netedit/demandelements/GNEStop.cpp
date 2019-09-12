@@ -500,9 +500,17 @@ GNEStop::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_ID:
             return getDemandElementID();
         case SUMO_ATTR_DURATION:
-            return time2string(duration);
+            if (parametersSet & STOP_DURATION_SET) {
+                return time2string(duration);
+            } else {
+                return "";
+            }
         case SUMO_ATTR_UNTIL:
-            return time2string(until);
+            if (parametersSet & STOP_UNTIL_SET) {
+                return time2string(until);
+            } else {
+                return "";
+            }
         case SUMO_ATTR_INDEX:
             if (index == STOP_INDEX_END) {
                 return "end";
@@ -557,13 +565,13 @@ GNEStop::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_LANE:
             return getLaneParents().front()->getID();
         case SUMO_ATTR_STARTPOS:
-            if (parametersSet & STOP_START_SET) {
+            if (parametersSet & STOP_START_SET) {    
                 return toString(startPos);
             } else {
                 return "";
             }
         case SUMO_ATTR_ENDPOS:
-            if (parametersSet & STOP_END_SET) {
+            if (parametersSet & STOP_END_SET) {    
                 return toString(endPos);
             } else {
                 return "";
@@ -733,6 +741,18 @@ GNEStop::enableAttribute(SumoXMLAttr key, GNEUndoList* undoList) {
     int newParametersSet = parametersSet;
     // modify parametersSetCopy depending of attr
     switch (key) {
+        case SUMO_ATTR_STARTPOS:
+            newParametersSet |= STOP_START_SET;
+            break;
+        case SUMO_ATTR_ENDPOS:
+            newParametersSet |= STOP_END_SET;
+            break;
+        case SUMO_ATTR_DURATION:
+            newParametersSet |= STOP_DURATION_SET;
+            break;
+        case SUMO_ATTR_UNTIL:
+            newParametersSet |= STOP_UNTIL_SET;
+            break;
         case SUMO_ATTR_EXPECTED:
             newParametersSet |= STOP_TRIGGER_SET;
             break;
@@ -747,6 +767,12 @@ GNEStop::enableAttribute(SumoXMLAttr key, GNEUndoList* undoList) {
     }
     // add GNEChange_EnableAttribute
     undoList->add(new GNEChange_EnableAttribute(this, myViewNet->getNet(), parametersSet, newParametersSet), true);
+    // certain attributes requieres update geometry
+    if (myTagProperty.getAttributeProperties(key).requireUpdateGeometry()) {
+        updateGeometry();
+        // update view
+        myViewNet->update();
+    }
 }
 
 
@@ -756,6 +782,18 @@ GNEStop::disableAttribute(SumoXMLAttr key, GNEUndoList* undoList) {
     int newParametersSet = parametersSet;
     // modify parametersSetCopy depending of attr
     switch (key) {
+        case SUMO_ATTR_STARTPOS:
+            newParametersSet &= ~STOP_START_SET;
+            break;
+        case SUMO_ATTR_ENDPOS:
+            newParametersSet &= ~STOP_END_SET;
+            break;
+        case SUMO_ATTR_DURATION:
+            newParametersSet &= ~STOP_DURATION_SET;
+            break;
+        case SUMO_ATTR_UNTIL:
+            newParametersSet &= ~STOP_UNTIL_SET;
+            break;
         case SUMO_ATTR_EXPECTED:
             newParametersSet &= ~STOP_TRIGGER_SET;
             break;
@@ -770,12 +808,26 @@ GNEStop::disableAttribute(SumoXMLAttr key, GNEUndoList* undoList) {
     }
     // add GNEChange_EnableAttribute
     undoList->add(new GNEChange_EnableAttribute(this, myViewNet->getNet(), parametersSet, newParametersSet), true);
+    // certain attributes requieres update geometry
+    if (myTagProperty.getAttributeProperties(key).requireUpdateGeometry()) {
+        updateGeometry();
+        // update view
+        myViewNet->update();
+    }
 }
 
 
 bool
 GNEStop::isAttributeEnabled(SumoXMLAttr key) const {
     switch (key) {
+        case SUMO_ATTR_STARTPOS:
+            return (parametersSet & STOP_START_SET) != 0;
+        case SUMO_ATTR_ENDPOS:
+            return (parametersSet & STOP_END_SET) != 0;
+        case SUMO_ATTR_DURATION:
+            return (parametersSet & STOP_DURATION_SET) != 0;
+        case SUMO_ATTR_UNTIL:
+            return (parametersSet & STOP_UNTIL_SET) != 0;
         case SUMO_ATTR_EXPECTED:
             return (parametersSet & STOP_TRIGGER_SET) != 0;
         case SUMO_ATTR_EXPECTED_CONTAINERS:
@@ -813,31 +865,35 @@ GNEStop::getHierarchyName() const {
 
 double
 GNEStop::getStartGeometryPositionOverLane() const {
-    if (parametersSet & STOP_END_SET) {
-        double fixedPos = startPos;
-        const double len = getLaneParents().front()->getParentEdge().getNBEdge()->getFinalLength();
-        if (fixedPos < 0) {
-            fixedPos += len;
-        }
-        return fixedPos * getLaneParents().front()->getLengthGeometryFactor();
+    double fixedPos = 0;
+    if (parametersSet & STOP_START_SET) {
+        fixedPos = startPos;
+    } else if (parametersSet & STOP_END_SET) {
+        fixedPos = endPos - MIN_STOP_LENGTH;
     } else {
-        return 0;
+        fixedPos = getLaneParents().front()->getParentEdge().getNBEdge()->getFinalLength() - MIN_STOP_LENGTH;
     }
+    const double len = getLaneParents().front()->getParentEdge().getNBEdge()->getFinalLength();
+    if (fixedPos < 0) {
+        fixedPos += len;
+    }
+    return fixedPos * getLaneParents().front()->getLengthGeometryFactor();
 }
 
 
 double
 GNEStop::getEndGeometryPositionOverLane() const {
-    if (parametersSet & STOP_START_SET) {
-        double fixedPos = endPos;
-        const double len = getLaneParents().front()->getParentEdge().getNBEdge()->getFinalLength();
-        if (fixedPos < 0) {
-            fixedPos += len;
-        }
-        return fixedPos * getLaneParents().front()->getLengthGeometryFactor();
+    double fixedPos = 0;
+    if (parametersSet & STOP_END_SET) {
+        fixedPos = endPos;
     } else {
-        return 0;
+        fixedPos = getLaneParents().front()->getParentEdge().getNBEdge()->getFinalLength();
     }
+    const double len = getLaneParents().front()->getParentEdge().getNBEdge()->getFinalLength();
+    if (fixedPos < 0) {
+        fixedPos += len;
+    }
+    return fixedPos * getLaneParents().front()->getLengthGeometryFactor();
 }
 
 // ===========================================================================
@@ -851,10 +907,20 @@ GNEStop::setAttribute(SumoXMLAttr key, const std::string& value) {
             changeDemandElementID(value);
             break;
         case SUMO_ATTR_DURATION:
-            duration = string2time(value);
+            if (value.empty()) {
+                parametersSet &= ~STOP_DURATION_SET;
+            } else {
+                duration = string2time(value);
+                parametersSet |= STOP_DURATION_SET;
+            }
             break;
         case SUMO_ATTR_UNTIL:
-            until = string2time(value);
+            if (value.empty()) {
+                parametersSet &= ~STOP_UNTIL_SET;
+            } else {
+                until = string2time(value);
+                parametersSet |= STOP_UNTIL_SET;
+            }
             break;
         case SUMO_ATTR_INDEX:
             if (value == "fit") {

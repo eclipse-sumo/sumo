@@ -356,6 +356,12 @@ SUMORouteHandler::addParam(const SUMOSAXAttributes& attrs) {
 bool
 SUMORouteHandler::parseStop(SUMOVehicleParameter::Stop& stop, const SUMOSAXAttributes& attrs, std::string errorSuffix, MsgHandler* const errorOutput) {
     stop.parametersSet = 0;
+    if (attrs.hasAttribute(SUMO_ATTR_DURATION)) {
+        stop.parametersSet |= STOP_DURATION_SET;
+    }
+    if (attrs.hasAttribute(SUMO_ATTR_UNTIL)) {
+        stop.parametersSet |= STOP_UNTIL_SET;
+    }
     if (attrs.hasAttribute(SUMO_ATTR_ENDPOS)) {
         stop.parametersSet |= STOP_END_SET;
     }

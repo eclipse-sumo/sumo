@@ -71,16 +71,18 @@ const int VEHPARS_VIA_SET = 2 << 22;
 const int STOP_INDEX_END = -1;
 const int STOP_INDEX_FIT = -2;
 
-const int STOP_END_SET = 1;
-const int STOP_START_SET = 2;
-const int STOP_TRIGGER_SET = 2 << 1;
-const int STOP_PARKING_SET = 2 << 2;
-const int STOP_EXPECTED_SET = 2 << 3;
-const int STOP_CONTAINER_TRIGGER_SET = 2 << 4;
-const int STOP_EXPECTED_CONTAINERS_SET = 2 << 5;
-const int STOP_TRIP_ID_SET = 2 << 6;
-const int STOP_LINE_SET = 2 << 7;
-const int STOP_SPEED_SET = 2 << 8;
+const int STOP_START_SET = 1;
+const int STOP_END_SET = 2;
+const int STOP_DURATION_SET = 2 << 1;
+const int STOP_UNTIL_SET = 2 << 2;
+const int STOP_TRIGGER_SET = 2 << 3;
+const int STOP_PARKING_SET = 2 << 4;
+const int STOP_EXPECTED_SET = 2 << 5;
+const int STOP_CONTAINER_TRIGGER_SET = 2 << 6;
+const int STOP_EXPECTED_CONTAINERS_SET = 2 << 7;
+const int STOP_TRIP_ID_SET = 2 << 8;
+const int STOP_LINE_SET = 2 << 9;
+const int STOP_SPEED_SET = 2 << 10;
 
 const double MIN_STOP_LENGTH = 2 * POSITION_EPS;
 
