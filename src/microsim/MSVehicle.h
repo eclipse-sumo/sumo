@@ -962,6 +962,9 @@ public:
 
         /// @brief get a short description for showing in the gui
         std::string getDescription() const;
+
+        /// @brief the maximum time at which persons may board this vehicle 
+        SUMOTime endBoarding;
     private:
         /// @brief Invalidated assignment operator
         Stop& operator=(const Stop& src);

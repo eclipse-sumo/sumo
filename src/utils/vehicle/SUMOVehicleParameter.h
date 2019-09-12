@@ -606,6 +606,9 @@ public:
         /// @brief The time at which the vehicle may continue its journey
         SUMOTime until;
 
+        /// @brief The maximum time extension for boarding / loading
+        SUMOTime extension;
+
         /// @brief whether an arriving person lets the vehicle continue
         bool triggered;
 

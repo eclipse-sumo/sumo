@@ -436,6 +436,7 @@ SUMORouteHandler::parseStop(SUMOVehicleParameter::Stop& stop, const SUMOSAXAttri
         stop.triggered = attrs.getOpt<bool>(SUMO_ATTR_TRIGGERED, nullptr, ok, false);
         stop.containerTriggered = attrs.getOpt<bool>(SUMO_ATTR_CONTAINER_TRIGGERED, nullptr, ok, false);
     }
+    stop.extension = attrs.getOptSUMOTimeReporting(SUMO_ATTR_EXTENSION, nullptr, ok, -1);
     stop.parking = attrs.getOpt<bool>(SUMO_ATTR_PARKING, nullptr, ok, stop.triggered || stop.containerTriggered || stop.parkingarea != "");
     if (stop.parkingarea != "" && !stop.parking) {
         WRITE_WARNING("Stop at parkingarea overrides attribute 'parking' for stop" + errorSuffix);

@@ -1842,8 +1842,9 @@ MSVehicle::processNextStop(double currentVelocity) {
         // ok, we have already reached the next stop
         // any waiting persons may board now
         MSNet* const net = MSNet::getInstance();
-        const bool boarded = net->hasPersons() && net->getPersonControl().boardAnyWaiting(&myLane->getEdge(), this,
-                             stop.pars, stop.timeToBoardNextPerson, stop.duration) && stop.numExpectedPerson == 0;
+        const bool boarded = (time > stop.endBoarding || (net->hasPersons() 
+                    && net->getPersonControl().boardAnyWaiting(&myLane->getEdge(), this, stop.pars, stop.timeToBoardNextPerson, stop.duration) 
+                    && stop.numExpectedPerson == 0));
         // load containers
         const bool loaded = net->hasContainers() && net->getContainerControl().loadAnyWaiting(&myLane->getEdge(), this,
                             stop.pars, stop.timeToLoadNextContainer, stop.duration) && stop.numExpectedContainer == 0;
@@ -2001,6 +2002,7 @@ MSVehicle::processNextStop(double currentVelocity) {
                         stop.duration = MAX2(stop.duration, stop.pars.until - time);
                     }
                 }
+                stop.endBoarding = stop.pars.extension >= 0 ? time + stop.duration + stop.pars.extension : SUMOTime_MAX;
                 if (stop.pars.speed > 0) {
                     // ignore duration and until in waypoint mode
                     stop.duration = 0;

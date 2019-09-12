@@ -449,6 +449,7 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "number",                 SUMO_ATTR_NUMBER },
     { "duration",               SUMO_ATTR_DURATION },
     { "until",                  SUMO_ATTR_UNTIL },
+    { "extension",              SUMO_ATTR_EXTENSION },
     { "routeProbe",             SUMO_ATTR_ROUTEPROBE },
     { "crossingEdges",          SUMO_ATTR_CROSSING_EDGES },
     // Traffic light & Nodes
