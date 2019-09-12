@@ -255,13 +255,13 @@ with multiple elements of the same type this mode behaves differently:
 - All selected elements of the same type are modified at the same time
   when setting a new value
 
-![](images/inspectMode1.png)Changing the number of lanes of an edge.
-![](images/inspectMode2.png)Number of lanes of the edge changed
+![](images/InspectMode1.png)Changing the number of lanes of an edge.
+![](images/InspectMode2.png)Number of lanes of the edge changed
 
-![](images/inspectMode3.png)Changing the width of a lane. Note that option
+![](images/InspectMode3.png)Changing the width of a lane. Note that option
 "select edges" is disabled. 
 
-![](images/inspectMode4.png)Width of lane changed
+![](images/InspectMode4.png)Width of lane changed
 (gaps will disappear upon triggering recomputation with **F5**)
 
 #### Edge template
@@ -327,10 +327,10 @@ can be moved or deleted together. It is also possible to set attributes
 for all selected junctions (or all edges) at the same time using
 **inspect mode**.
 
-![](images/modeSelect1.png)The left frame shows information about the current
+![](images/ModeSelect1.png)The left frame shows information about the current
 selected elements. 
 
-![](images/modeSelect2.png)Selected elements are painted
+![](images/ModeSelect2.png)Selected elements are painted
 with a different color.
 
 #### Methods for selecting
@@ -407,36 +407,36 @@ comparison operator ('', '=', '\!', '^') and a string.
 
 #### Examples
 
-![](images/modeSelect3.png)We want to select the most external lane of every
+![](images/ModeSelect3.png)We want to select the most external lane of every
 edge (i.e. lanes which contains _0 in their id)
 
-![](images/modeSelect4.png)We can do it selecting lane as type of element,
+![](images/ModeSelect4.png)We can do it selecting lane as type of element,
 and using the match over the attribute "id".
 
-![](images/modeSelect3.png)We want now to select the second lane of every
+![](images/ModeSelect3.png)We want now to select the second lane of every
 edge (i.e. lanes which contains _1 in their id)
 
-![](images/modeSelect5.png)Only two lanes are selected because the rest of
+![](images/ModeSelect5.png)Only two lanes are selected because the rest of
 edges only have one lane.
 
-![](images/modeSelect5.png)We can select all lanes of our net using the
+![](images/ModeSelect5.png)We can select all lanes of our net using the
 previous selection and the operator "add". 
 
-![](images/modeSelect6.png)All
+![](images/ModeSelect6.png)All
 lanes of the net are selected using selection of lanes which contains
 _0 in their id with the "add" operator
 
-![](images/modeSelect6.png)With the previous element and the operator invert,
+![](images/ModeSelect6.png)With the previous element and the operator invert,
 we can select all junctions of the network. 
 
-![](images/modeSelect7.png)Invert
+![](images/ModeSelect7.png)Invert
 operation select all elements of the net and subtract the current
 selected elements
 
-![](images/modeSelect3.png)If we have a empty selection, we can select easy
+![](images/ModeSelect3.png)If we have a empty selection, we can select easy
 all elements of net . 
 
-![](images/modeSelect8.png)With the invert button, we
+![](images/ModeSelect8.png)With the invert button, we
 select all elements of net.
 
 ### Move
@@ -449,7 +449,7 @@ By default, the junction shape is updated while moving. However the
 final shape after saving or activating full recomputation (F5) may be
 slightly different.
 
-![](images/createEdge7.png)By setting the option "show junctions as bubbles",
+![](images/CreateEdge7.png)By setting the option "show junctions as bubbles",
 circles are drawn instead of detailed junction shapes which can improve
 visibility.
 
@@ -474,27 +474,27 @@ attributes will be taken from the current
 [\#Edge_template](#edge_template). If no template is set,
 default options such as **default.lanenumber** will be used.
 
-![](images/createEdge1.png)In "Create Edge" mode, click over a empty area of
+![](images/CreateEdge1.png)In "Create Edge" mode, click over a empty area of
 the view to create the junction 
 
-![](images/createEdge2.png)Then click in
+![](images/CreateEdge2.png)Then click in
 another empty area to create another junction. An edge with one lane
 between both junctions will be created.
 
-![](images/createEdge3.png)To connect two already created edges, click over
+![](images/CreateEdge3.png)To connect two already created edges, click over
 the first junction. 
 
-![](images/createEdge4.png)Click over the second junction
+![](images/CreateEdge4.png)Click over the second junction
 to create an edge between both.
 
 #### Creating a chain of edges
 
-![](images/createEdge5.png)A list of connected junctions can be quickly
+![](images/CreateEdge5.png)A list of connected junctions can be quickly
 created by enabling the option *chain*.
 
 #### Creating two-way roads
 
-![](images/createEdge6.png)When setting the option *two-way*, the reverse
+![](images/CreateEdge6.png)When setting the option *two-way*, the reverse
 direction for an edge will be created automatically (otherwise further
 clicks are needed to create the reverse direction manually).
 
@@ -1250,8 +1250,8 @@ values editor.
 - *Split edge here*: Split an edge into two differentes edges
   connected with a junction.
 
-![](images/netEditSplit1.png)Edge is splitted in the mouse cursor position
-![](images/netEditSplit2.png)New edges are connected by a new junction
+![](images/NetEditSplit1.png)Edge is splitted in the mouse cursor position
+![](images/NetEditSplit2.png)New edges are connected by a new junction
 
 - *Split edge in both directions here*: Is similar to *Split edge
   here*, but generate splitted edges in both directions.
@@ -1261,23 +1261,23 @@ values editor.
 - *Add reverse direction*: If don't exist, add a revere edge between
   two junctions
 
-![](images/netEditReversedirection1.png)In this case, a direction from right
-to left will be created ![](images/netEditReversedirection2.png)New edge is
+![](images/NetEditReversedirection1.png)In this case, a direction from right
+to left will be created ![](images/NetEditReversedirection2.png)New edge is
 parallel to their reverse edge
 
 - *Set geometry endpoint here*: Create an geometry end point. It's
   usefull to mark the start and the end of an road
 
-![](images/netEditEndpoint1.png)Geometry endpoint will be created in the
-mouse cursor position ![](images/netEditEndpoint2.png)There isn't an visual
+![](images/NetEditEndpoint1.png)Geometry endpoint will be created in the
+mouse cursor position ![](images/NetEditEndpoint2.png)There isn't an visual
 connection between end point and their end junction
 
 - *Restore geometry endpoint*: Restore a geometry endpoint to a normal
   edge
 - *Straighten edge*: Allow to restore the visual shape of an edge
 
-![](images/netEditStraighten1.png)With the operation move visual shape of an
-edge can be modificed ![](images/netEditStraighten2.png)Straighten edge
+![](images/NetEditStraighten1.png)With the operation move visual shape of an
+edge can be modificed ![](images/NetEditStraighten2.png)Straighten edge
 restore the original shape of an edge
 
 - *Duplicate lane*: duplicate a lane of an edge
@@ -1293,16 +1293,16 @@ restricted lane is allowed in every edge (For example, an edge can own
 two restricted lane, one for buses and another for bikes, but not two or
 more different restricted lanes for buses.
 
-![](images/restrictedLane1.png)Example of edge with three restricted lanes
+![](images/RestrictedLane1.png)Example of edge with three restricted lanes
 
 There are two ways to add a restricted lane, either transforming a
 existent lane or adding a new restricted lane
 
-![](images/restrictedLane2.png)Adding a sidewalk using "add restricted lane"
-![](images/restrictedLane3.png)Sidewalk added
+![](images/RestrictedLane2.png)Adding a sidewalk using "add restricted lane"
+![](images/RestrictedLane3.png)Sidewalk added
 
-![](images/restrictedLane4.png)Adding a sidewalk using "transform to special
-lane" ![](images/restrictedLane5.png)Lane transformed to a sidewalk
+![](images/RestrictedLane4.png)Adding a sidewalk using "transform to special
+lane" ![](images/RestrictedLane5.png)Lane transformed to a sidewalk
 
 A restricted lane can be transformed in a normal lane with the option
 *revert transformation*, or can be removed with the option *Remove
@@ -1318,8 +1318,8 @@ restricted lane*
   instead. The shape is a polygon defined by a sequence of (x,y,z)
   geometry points.
 
-![](images/customShape1.png)Editing junction shape
-![](images/customShape2.png)Junction after editing shape
+![](images/CustomShape1.png)Editing junction shape
+![](images/CustomShape2.png)Junction after editing shape
 
 ## Connection
 
@@ -1333,8 +1333,8 @@ restricted lane*
   [\#Modifiable Poly](#modifiable_poly) (see below). The
   shape is confirmed with *<Enter\>*.
 
-![](images/customShape3.png)Editing crossing shape
-![](images/customShape4.png)Crossing after editing their shape
+![](images/CustomShape3.png)Editing crossing shape
+![](images/CustomShape4.png)Crossing after editing their shape
 
 ## Modifiable Poly
 
@@ -1357,16 +1357,16 @@ left-clicking anywhere on the outline and dragging.
   and lane position if the position of the mouse with respect to the
   length of lane
 
-![](images/netEditPositions.png)Position's parameter of Charging Station
+![](images/NetEditPositions.png)Position's parameter of Charging Station
 
 - *Position in view and number of childs*: shows the number of childs
   that own an Additionals, and their position in view
 
-![](images/netEditChilds.png)Position and childs of a E3 Detector
+![](images/NetEditChilds.png)Position and childs of a E3 Detector
 
 - *show parameters*: show all parameters of additional.
 
-![](images/netEditShowParameters.png)Showing of parameters of charging
+![](images/NetEditShowParameters.png)Showing of parameters of charging
 Stations
 
 # Usage Examples
