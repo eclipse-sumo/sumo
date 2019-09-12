@@ -83,10 +83,12 @@ public:
             return i->second;
         } else {
             // this vClass is requested for the first time. rebuild all successors
-            const std::set<std::pair<const E*, const E*> > classedCarFollowers = std::set<std::pair<const E*, const E*> >(this->getEdge()->getViaSuccessors(vClass).begin(), this->getEdge()->getViaSuccessors(vClass).end());
+            std::set<const E*> classedCarFollowers;
+            for (const auto& pair : this->getEdge()->getViaSuccessors(vClass)) {
+                classedCarFollowers.insert(pair.first);
+            }
             for (const std::pair<const _IntermodalEdge*, const _IntermodalEdge*>& e : this->myFollowingViaEdges) {
-                const auto viaPair = std::make_pair(e.first->getEdge(), e.second == nullptr ? nullptr : e.second->getEdge());
-                if (!e.first->includeInRoute(false) || e.first->getEdge() == this->getEdge() || classedCarFollowers.count(viaPair) > 0) {
+                if (!e.first->includeInRoute(false) || e.first->getEdge() == this->getEdge() || classedCarFollowers.count(e.first->getEdge()) > 0) {
                     myClassesViaSuccessorMap[vClass].push_back(e);
                 }
             }
