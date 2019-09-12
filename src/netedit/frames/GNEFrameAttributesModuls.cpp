@@ -841,7 +841,7 @@ GNEFrameAttributesModuls::AttributesCreator::updateDisjointAttributes(Attributes
  void 
 GNEFrameAttributesModuls::AttributesCreator::refreshRows() {
      // currently only row with attribute ID must be refresh
-     if (myTagProperties.hasAttribute(SUMO_ATTR_ID)) {
+     if (myTagProperties.hasAttribute(SUMO_ATTR_ID) && (myTagProperties.getTag() != SUMO_TAG_VAPORIZER)) {
          myAttributesCreatorRows[myTagProperties.getAttributeProperties(SUMO_ATTR_ID).getPositionListed()]->refreshRow();
      }
 }
