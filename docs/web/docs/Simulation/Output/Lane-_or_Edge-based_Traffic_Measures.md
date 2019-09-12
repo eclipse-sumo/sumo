@@ -1,5 +1,5 @@
 ---
-title: Simulation Output Lane- or Edge-based Traffic Measures
+title: Simulation/Output/Lane- or Edge-based Traffic Measures
 permalink: /Simulation/Output/Lane-_or_Edge-based_Traffic_Measures/
 ---
 
@@ -22,24 +22,20 @@ possibilities to constraint the outputs are given.
 
 An edge-based state dump is defined within an {{AdditionalFile}} as following:
 
-<div class="inlxml">
-
+```
 <edgeData id="<MEASUREMENT_ID>" file="<OUTPUT_FILE>"/\>
-
-</div>
+```
 
 For a lane based dump simply write:
 
-<div class="inlxml">
-
+```
 <laneData id="<MEASUREMENT_ID>" file="<OUTPUT_FILE>"/\>
-
-</div>
+```
 
 For additional attributes see the table below.
 
-| Attribute Name | Value Type                     | Description                                                                                                                                                                                                                                 |
-| -------------- | ------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Attribute Name | Value Type                     | Description                             |
+| -------------- | ------------------------------ | --------------------------------------- |
 | **id**         | id (string)                    | The id of this set of measurements. This user-defined id is needed for differentiating between multiple sets of measurements in a single output file.                                                                                       |
 | **file**       | filename                       | The path to the output file. The path may be relative.                                                                                                                                                                                      |
 | freq           | int (time)                     | The aggregation period the values the detector collects shall be summed up. If not given the whole time interval from begin to end (see below) is aggregated.                                                                               |
@@ -52,7 +48,7 @@ For additional attributes see the table below.
 | speedThreshold | float (m/s)                    | The maximum speed to consider a vehicle halting; *default 0.1*.                                                                                                                                                                             |
 | vTypes         | string                         | space separated list of vehicle type ids to consider, "" means all; *default ""*.                                                                                                                                                           |
 | trackVehicles  | bool                           | whether aggregation should be performed over all vehicles that entered the edge/lane in the aggregation interval                                                                                                                            |
-| detectPersons  | string list                    | whether pedestrians shall be recorded instead of vehicles. Allowed value is *walk*.                                                                                                                                                         |
+| detectPersons  | string list                    | whether pedestrians shall be recorded instead of vehicles. Allowed value is *walk*.<br>**Note:** further modes are planned           |
 
 ## Generated Output
 
@@ -61,23 +57,25 @@ For additional attributes see the table below.
 For edge-based state dumps, the output file will look like the
 following:
 
-    <meandata>
-       <interval begin="<INTERVAL_BEGIN>" end="<INTERVAL_END>" id="<DETECTOR_ID>">
-          <edge id="<EDGE_ID>" sampledSeconds="<COLLECTED_VEHICLE_SECONDS>" \
-                traveltime="<MEAN_TRAVEL_TIME>" \
-                density="<MEAN_DENSITY>" occupancy="<MEAN_OCCUPANCY>" \
-                waitingTime="<TOTAL_WAITING_TIME>" speed="<MEAN_SPEED>" \
-                departed="<EMITTED_VEH_NUMBER>" arrived="<ARRIVED_VEH_NUMBER>" \
-                entered="<ENTERED_VEH_NUMBER>" left="<LEFT_VEH_NUMBER>" \
-                laneChangedFrom="NUMBER_OF_LANE_LEAVERS" laneChangedTO="NUMBER_OF_LANE_ENTERER"/>
+```
+<meandata>
+    <interval begin="<INTERVAL_BEGIN>" end="<INTERVAL_END>" id="<DETECTOR_ID>">
+      <edge id="<EDGE_ID>" sampledSeconds="<COLLECTED_VEHICLE_SECONDS>" \
+            traveltime="<MEAN_TRAVEL_TIME>" \
+            density="<MEAN_DENSITY>" occupancy="<MEAN_OCCUPANCY>" \
+            waitingTime="<TOTAL_WAITING_TIME>" speed="<MEAN_SPEED>" \
+            departed="<EMITTED_VEH_NUMBER>" arrived="<ARRIVED_VEH_NUMBER>" \
+            entered="<ENTERED_VEH_NUMBER>" left="<LEFT_VEH_NUMBER>" \
+            laneChangedFrom="NUMBER_OF_LANE_LEAVERS" laneChangedTO="NUMBER_OF_LANE_ENTERER"/>
 
-          ... more edges ...
+      ... more edges ...
 
-       </interval>
+    </interval>
 
-       ... further intervals ...
+    ... further intervals ...
 
-    </meandata>
+</meandata>
+```
 
 Please note, that in contrary to the example above, for each edge, all
 values are reported in one line.
@@ -86,28 +84,30 @@ values are reported in one line.
 
 The generated output looks like the following:
 
-    <meandata>
-       <interval begin="<INTERVAL_BEGIN>" end="<INTERVAL_END>" id="<DETECTOR_ID>">
-          <edge id="<EDGE_ID>">
-             <lane id="<LANE_ID>" sampledSeconds="<COLLECTED_VEHICLE_SECONDS>" \
-                   traveltime="<MEAN_TRAVEL_TIME>" \
-                   density="<MEAN_DENSITY>" occupancy="<MEAN_OCCUPANCY>" \
-                   waitingTime="<TOTAL_WAITING_TIME>" speed="<MEAN_SPEED>" \
-                   departed="<EMITTED_VEH_NUMBER>" arrived="<ARRIVED_VEH_NUMBER>" \
-                   entered="<ENTERED_VEH_NUMBER>" left="<LEFT_VEH_NUMBER>" \
-                   laneChangedFrom="NUMBER_OF_LANE_LEAVERS" laneChangedTo="NUMBER_OF_LANE_ENTERER"/>
+```
+<meandata>
+    <interval begin="<INTERVAL_BEGIN>" end="<INTERVAL_END>" id="<DETECTOR_ID>">
+      <edge id="<EDGE_ID>">
+          <lane id="<LANE_ID>" sampledSeconds="<COLLECTED_VEHICLE_SECONDS>" \
+                traveltime="<MEAN_TRAVEL_TIME>" \
+                density="<MEAN_DENSITY>" occupancy="<MEAN_OCCUPANCY>" \
+                waitingTime="<TOTAL_WAITING_TIME>" speed="<MEAN_SPEED>" \
+                departed="<EMITTED_VEH_NUMBER>" arrived="<ARRIVED_VEH_NUMBER>" \
+                entered="<ENTERED_VEH_NUMBER>" left="<LEFT_VEH_NUMBER>" \
+                laneChangedFrom="NUMBER_OF_LANE_LEAVERS" laneChangedTo="NUMBER_OF_LANE_ENTERER"/>
 
-             ... more lanes...
+          ... more lanes...
 
-          </edge>
+      </edge>
 
-          ... more edges ...
+      ... more edges ...
 
-       </interval>
+    </interval>
 
-       ... further intervals ...
+    ... further intervals ...
 
-    </meandata>
+</meandata>
+```
 
 Please note, that in contrary to the example above, for each lane, all
 values are reported in one line.
@@ -124,19 +124,19 @@ number of lanes of the edge.
 
 The meanings of the written values are given in the following table.
 
-| Name              | Type                 | Description                                                                                                                                                                                                                   |
-| ----------------- | -------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Name              | Type                 | Description                                      |
+| ----------------- | -------------------- | ------------------------------------------------ |
 | begin             | (simulation) seconds | The first time step the values were collected in                                                                                                                                                                              |
 | end               | (simulation) seconds | The last time step + DELTA_T in which the reported values were collected                                                                                                                                                     |
-| edge@id           | (edge) id            | The name of the reported edge                                                                                                                                                                                                 |
-| lane@id           | (lane) id            | The name of the reported lane                                                                                                                                                                                                 |
+| edge\@id           | (edge) id            | The name of the reported edge                                                                                                                                                                                                 |
+| lane\@id           | (lane) id            | The name of the reported lane                                                                                                                                                                                                 |
 | sampledSeconds    | s                    | The number of vehicles that are present on the edge/lane in each second summed up over the measurement interval (may be subseconds if a vehicle enters/leaves the edge/lane).                                                 |
 | traveltime        | s                    | Time needed to pass the edge/lane, note that this is just an estimation based on the mean speed, not the exact time the vehicles needed. The value is based on the time needed for the front of the vehicle to pass the edge. |
 | overlapTraveltime | s                    | Time needed to pass the edge/lane completely, note that this is just an estimation based on the mean speed, not the exact time the vehicles needed. The value is based on the time any part of the vehicle was the edge.      |
 | density           | \#veh/km             | Vehicle density on the lane/edge                                                                                                                                                                                              |
 | occupancy         | %                    | Occupancy of the edge/lane in %. A value of 100 would indicate vehicles standing bumper to bumper on the whole edge (minGap=0).                                                                                               |
 | waitingTime       | s                    | The total number of seconds vehicles were considered stopped (summed up over all vehicles)                                                                                                                                                                 |
-| speed             | m/s                  | The mean speed on the edge/lane within the reported interval.                                                                                                                                                                 |
+| speed             | m/s                  | The mean speed on the edge/lane within the reported interval.<br><br>**Caution:** This is an average over time and space (space-mean-speed), rather than a local average over the vehicles (time-mean-speed). Since slow vehicles spend more time on the edge they will have a proportionally bigger influence on average speed.                                                                                                                                                                 |
 | departed          | \#veh                | The number of vehicles that have been emitted onto the edge/lane within the described interval                                                                                                                                |
 | arrived           | \#veh                | The number of vehicles that have finished their route on the edge lane                                                                                                                                                        |
 | entered           | \#veh                | The number of vehicles that have entered the edge/lane by moving from upstream                                                                                                                                                |
@@ -168,14 +168,14 @@ have long and slow vehicles you cannot aggregate as above.
 The following measurements can be derived from the values given (period
 denotes the length of the aggregation interval):
 
-  - Average number of vehicles on the edge (\#) = sampledSeconds /
-    period
-  - Average traffic volume (\#/h) = speed \* 3.6 \* density
-  - Traffic volume at the begin of the lane / edge (\#/h) = 3600 \*
-    entered / period
-  - Traffic volume at the end of the lane / edge (\#/h) = 3600 \* left /
-    period
-  - Total distance travelled (m) = speed \* sampledSeconds
+- Average number of vehicles on the edge (\#) = sampledSeconds /
+  period
+- Average traffic volume (\#/h) = speed \* 3.6 \* density
+- Traffic volume at the begin of the lane / edge (\#/h) = 3600 \*
+  entered / period
+- Traffic volume at the end of the lane / edge (\#/h) = 3600 \* left /
+  period
+- Total distance travelled (m) = speed \* sampledSeconds
 
 Sometimes one wants to know how many vehicles were on an edge. The exact
 definition of this value depends on how departed, arrived and
@@ -185,54 +185,57 @@ lane-changing vehicles are counted. Each vehicle is either in *arrived*,
 counted multiple times in *laneChangedFrom* and *laneChangedTo* if it
 performed back-and-forth lane changing.
 
-The following  values are all reasonable counts in that they count each
+The following `<edgeData>` values are all reasonable counts in that they count each
 vehicle only once but they include/exclude some special cases.
 
-  - entered
-  - entered + departed
-  - left
-  - left + arrived
+- entered
+- entered + departed
+- left
+- left + arrived
+
+!!! note
+    When using `<laneData>` the sum *left* + *arrived* excludes all the vehicles that exited the lane by lane-changing. whereas the sum *left* + *arrived* + *laneChangedFrom* may count vehicles multiple times. If total counts on a lane are needed it is better to use a [detector](../../Simulation/Output.md#simulated_detectors).
 
 ## Notes
 
-  - Per default, all edges are written, even those on which no vehicle
-    drove. If the lane / edge collected no data the attributes speed,
-    traveltime, density, occupancy and waitingTime are not written. One
-    can disable writing unused edges/lanes by setting the
-    <span class="inlxml">excludeEmpty</span> attribute to true.
-  - Even on lanes/edges which have sampledSeconds="0.00" since the real
-    number of sampledSeconds may be 0.001 and was cut off in the output.
-    To define a minimum number of samples before you consider your data
-    valid, use <span class="inlxml">minSamples</span> in the meandata
-    definition.
-  - Even though no data was collected (sampledSeconds="0") departed and
-    laneChangedTo may be different from 0 because internally lane
-    changes and departures happen at the end of a time step.
-  - The interval end is the interval begin + aggregation time, meaning
-    that values were collected within these steps excluding the end time
-    itself. If the simulation ends before the last interval is over, the
-    interval will be pruned.
-  - The output file will be generated, does not have to exist earlier
-    and will be overwritten if existing without any warning. The folder
-    the output file shall be generated in must exist.
-  - If you need only information about the network states during certain
-    time periods, you may constraint generation of the dumps by creating
-    multiple dumps with the attributes
-    <span class="inlxml">begin="<TIME>"</span> and
-    <span class="inlxml">end="<TIME>"</span>. All of them may have
-    identical ids and write to the same output file.
+- Per default, all edges are written, even those on which no vehicle
+  drove. If the lane / edge collected no data the attributes speed,
+  traveltime, density, occupancy and waitingTime are not written. One
+  can disable writing unused edges/lanes by setting the
+  `excludeEmpty` attribute to true.
+- Even on lanes/edges which have sampledSeconds="0.00" since the real
+  number of sampledSeconds may be 0.001 and was cut off in the output.
+  To define a minimum number of samples before you consider your data
+  valid, use `minSamples` in the meandata
+  definition.
+- Even though no data was collected (sampledSeconds="0") departed and
+  laneChangedTo may be different from 0 because internally lane
+  changes and departures happen at the end of a time step.
+- The interval end is the interval begin + aggregation time, meaning
+  that values were collected within these steps excluding the end time
+  itself. If the simulation ends before the last interval is over, the
+  interval will be pruned.
+- The output file will be generated, does not have to exist earlier
+  and will be overwritten if existing without any warning. The folder
+  the output file shall be generated in must exist.
+- If you need only information about the network states during certain
+  time periods, you may constraint generation of the dumps by creating
+  multiple dumps with the attributes
+  `begin=""` and
+  `end=""`. All of them may have
+  identical ids and write to the same output file.
 
 ## See Also
 
-  - [edge/lane-based vehicular pollutant emission
-    output](Simulation/Output/Lane-_or_Edge-based_Emissions_Measures.md)
-    and [edge/lane-based vehicular noise emission
-    output](Simulation/Output/Lane-_or_Edge-based_Noise_Measures.md)
-    which have similar formats
-  - The
-    [mpl_dump_onNet.py](Tools/Visualization#mpl_dump_onNet.py.md)
-    script can display values of this output as a colored net (and
-    further [visualization tools](Tools/Visualization.md)
-    exist).
-  - You can generate mean data definitions automatically. See [output
-    tools](Tools/Output.md) for more information.
+- [edge/lane-based vehicular pollutant emission
+  output](../../Simulation/Output/Lane-_or_Edge-based_Emissions_Measures.md)
+  and [edge/lane-based vehicular noise emission
+  output](../../Simulation/Output/Lane-_or_Edge-based_Noise_Measures.md)
+  which have similar formats
+- The
+  [mpl_dump_onNet.py](../../Tools/Visualization.md#mpl_dump_onnetpy)
+  script can display values of this output as a colored net (and
+  further [visualization tools](../../Tools/Visualization.md)
+  exist).
+- You can generate mean data definitions automatically. See [output
+  tools](../../Tools/Output.md) for more information.
