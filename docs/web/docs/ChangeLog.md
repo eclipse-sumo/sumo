@@ -34,6 +34,7 @@ permalink: /ChangeLog/
 
 - DUAROUTER
   - Fixed invalid mode change from car during intermodal routing. Issue #6070
+  - Fixed invalid car routes during intermodal routing. Issue #6077
 
 - TraCI
   - TraaS function *Trafficlight.getControlledJunctions* is now working. Issue #6019  
