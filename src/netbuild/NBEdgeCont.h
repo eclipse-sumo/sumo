@@ -343,7 +343,7 @@ public:
      * @param[in] nc The node container needed to build (geometry) nodes
      * @see NBEdge::splitGeometry
      */
-    void splitGeometry(NBNodeCont& nc);
+    void splitGeometry(NBDistrictCont& dc, NBNodeCont& nc);
 
 
     /** @brief

@@ -715,12 +715,26 @@ NBEdgeCont::removeUnwishedEdges(NBDistrictCont& dc) {
 
 
 void
-NBEdgeCont::splitGeometry(NBNodeCont& nc) {
-    for (EdgeCont::iterator i = myEdges.begin(); i != myEdges.end(); ++i) {
-        if ((*i).second->getGeometry().size() < 3) {
+NBEdgeCont::splitGeometry(NBDistrictCont& dc, NBNodeCont& nc) {
+    for (auto& item : myEdges) {
+        NBEdge* edge = item.second;
+        if (edge->getGeometry().size() < 3) {
             continue;
         }
-        (*i).second->splitGeometry(*this, nc);
+        PositionVector geom = edge->getGeometry();
+        const std::string id = edge->getID();
+        double offset = 0;
+        for (int i = 1; i < (int)geom.size() - 1; i++) {
+            offset += geom[i - 1].distanceTo(geom[i]);
+            std::string nodeID = id + "." + toString((int)offset);
+            if (!nc.insert(nodeID, geom[i])) {
+                WRITE_WARNING("Could not split geometry of edge '" + id + "' at index " + toString(i));
+                continue;
+            }
+            NBNode* node = nc.retrieve(nodeID);
+            splitAt(dc, edge, node, edge->getID(), nodeID, edge->getNumLanes(), edge->getNumLanes());
+            edge = retrieve(nodeID);
+        }
     }
 }
 

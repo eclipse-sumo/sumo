@@ -264,7 +264,7 @@ NBNetBuilder::compute(OptionsCont& oc, const std::set<std::string>& explicitTurn
     if (mayAddOrRemove &&  oc.exists("geometry.split") && oc.getBool("geometry.split")) {
         before = SysUtils::getCurrentMillis();
         PROGRESS_BEGIN_MESSAGE("Splitting geometry edges");
-        myEdgeCont.splitGeometry(myNodeCont);
+        myEdgeCont.splitGeometry(myDistrictCont, myNodeCont);
         PROGRESS_TIME_MESSAGE(before);
     }
     // turning direction

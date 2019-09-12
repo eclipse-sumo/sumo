@@ -763,13 +763,6 @@ public:
         return myLaneSpreadFunction;
     }
 
-    /** @brief Splits this edge at geometry points
-     * @param[in] ec The edge cont to add new edges to
-     * @param[in] nc The node cont to add new nodes to
-     * @return Whether the geometry was changed
-     */
-    bool splitGeometry(NBEdgeCont& ec, NBNodeCont& nc);
-
     /** @brief Removes points with a distance lesser than the given
      * @param[in] minDist The minimum distance between two position to keep the second
      */
