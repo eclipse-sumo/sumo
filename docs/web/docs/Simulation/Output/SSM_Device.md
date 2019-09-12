@@ -4,7 +4,7 @@ permalink: /Simulation/Output/SSM_Device/
 ---
 
 ## Equipping vehicles
-A vehicle can be equipped with an SSM Device which logs the conflicts of the vehicle and other traffic participants (currently only vehicles) and corresponding safety surrogate measures. To attach an SSM device to a vehicle, the [[Definition_of_Vehicles,_Vehicle_Types,_and_Routes#Devices|standard device-equipment procedures]] can be applied using <code><device name>=ssm</code>.
+A vehicle can be equipped with an SSM Device which logs the conflicts of the vehicle and other traffic participants (currently only vehicles) and corresponding safety surrogate measures. To attach an SSM device to a vehicle, the [standard device-equipment procedures](../../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#devices) can be applied using `<device name>=ssm`.
 
 For instance, a single vehicle can be equipped (with a device parametrized by default values) as in the following minimal example
 
@@ -18,11 +18,11 @@ For instance, a single vehicle can be equipped (with a device parametrized by de
 </routes>
 ```
 
-The SSM device generates an output file (one for each vehicle named <code>ssm_<vehicleID>.xml</code> per default, but several vehicles may write to the same file). The top level elements of the generated file are 
+The SSM device generates an output file (one for each vehicle named `ssm_<vehicleID>.xml` per default, but several vehicles may write to the same file). The top level elements of the generated file are 
 
-<code><conflict begin="<log-begin-time>" end="<log-end-time>" ego="<equipped-vehicleID>" foe="<opponent-vehicleID>"> ... </conflict></code>.
+`<conflict begin="<log-begin-time>" end="<log-end-time>" ego="<equipped-vehicleID>" foe="<opponent-vehicleID>"> ... </conflict>`.
 
-The detail of information given for each conflict and the criteria to qualify an encounter as a conflict (i.e., produce a corresponding <code>conflict</code> element in the output) can be customized by a number of generic parameters to the vehicle or device, resp.. A full parametrization (redundantly assigning the default values, here) could look as follows:
+The detail of information given for each conflict and the criteria to qualify an encounter as a conflict (i.e., produce a corresponding `conflict` element in the output) can be customized by a number of generic parameters to the vehicle or device, resp.. A full parametrization (redundantly assigning the default values, here) could look as follows:
 
 ```
 <routes>
@@ -42,95 +42,68 @@ The detail of information given for each conflict and the criteria to qualify an
 ```
 
 ## Parameters
+
 The possible parameters are summarized in the following table
-{|border="1" cellpadding="5" cellspacing="0"
-!Parameter !!Type      !!Default  !!Remark
-|-
-|measures   ||list of strings    ||All available SSMs||This space-separated list of SSM-identifiers determines, which encounter-specific SSMs are calculated for the equipped vehicle's encounters and which global measures are recorded (see [[#Available_SSMs|below]])
-|-
-|thresholds ||list of floats     ||default thresholds for specified measures ||This space-separated list of SSM-thresholds determines, which encounters are classified as conflicts (if their measurements exceed a threshold) and thus written to the output file as a <code><conflict></code>-element. The default thresholds for the available SSMs are: TTC<3.0[s], DRAC>3.0[m/s^2], PET<2.0[s], BR>0.0[m/s^2], SGAP<0.2[m], TGAP<[0.5s]. This list is required to have the same length as the list of measures if given.
-!!! note
-    Currently the global measures are recorded as a single timeline for the whole simulation span and thresholds have only effect insofar a leader is looked for in the distance corresponding to the SGAP and, respectively, TGAP values.
-|-
-|range   ||double    ||50.0 [m] || The devices detection range in meters. Other vehicles are tracked as soon as the are closer than <range> to the the equipped vehicle ''along the road-network''. A tree search is performed to find all vehicles up to range upstream and downstream to the vehicle's current position. Further, for all downstream junctions in range, an upstream search for the given range is performed.
-|-
-|extratime   ||double    ||5.0 [s] || The extra time that an encounter is tracked on after not being associated to a potential conflict (either after crossing the conflict area, deviating from a common route, changing lanes, or because vehicles leave the device range, etc.).
-|-
-|file   ||string    || "ssm_<equipped_vehicleID>.xml" || The filename for storing the conflict information of the equipped vehicle. Several vehicles may write to the same file. Conflicts of a single vehicle are written in the order of the log-begin of the encounter.
-|-
-|trajectories   ||bool    || false || Whether the full time lines of the different measured values shall be written to the output. This includes logging the time values, encounter types, vehicle positions and velocities, values of the selected SSMs, and associated conflict point locations. If turned off (default) only the extremal values for the selected SSMs are written.
-|-
-|geo   ||bool    || false || Whether the positions in the output file shall be given in the original coordinate reference system of the network (if available).
-|}
+
+| Parameter  | Type  | Default  | Remark  |
+|---|---|---|---|
+| measures  | list of strings  | All available SSMs  | This space-separated list of SSM-identifiers determines, which encounter-specific SSMs are calculated for the equipped vehicle's encounters and which global measures are recorded (see [below](#available_ssms))   |
+| thresholds  | list of floats  | default thresholds for specified measures  | This space-separated list of SSM-thresholds determines, which encounters are classified as conflicts (if their measurements exceed a threshold) and thus written to the output file as a `<conflict>`-element. The default thresholds for the available SSMs are: TTC<3.0[s], DRAC>3.0[m/s^2], PET<2.0[s], BR>0.0[m/s^2], SGAP<0.2[m], TGAP<[0.5s]. This list is required to have the same length as the list of measures if given.<br><br>**Note:** Currently the global measures are recorded as a single timeline for the whole simulation span and thresholds have only effect insofar a leader is looked for in the distance corresponding to the SGAP and, respectively, TGAP values.   |
+| range  | double  | 50.0 [m]  | The devices detection range in meters. Other vehicles are tracked as soon as the are closer than `<range>` to the the equipped vehicle *along the road-network*. A tree search is performed to find all vehicles up to range upstream and downstream to the vehicle's current position. Further, for all downstream junctions in range, an upstream search for the given range is performed.  |
+| extratime  | double  | 5.0 [s]  | The extra time that an encounter is tracked on after not being associated to a potential conflict (either after crossing the conflict area, deviating from a common route, changing lanes, or because vehicles leave the device range, etc.).  |
+| file  | string  | "ssm_<equipped_vehicleID\>.xml"  | The filename for storing the conflict information of the equipped vehicle. Several vehicles may write to the same file. Conflicts of a single vehicle are written in the order of the log-begin of the encounter.   |
+| trajectories  | bool  | false  | Whether the full time lines of the different measured values shall be written to the output. This includes logging the time values, encounter types, vehicle positions and velocities, values of the selected SSMs, and associated conflict point locations. If turned off (default) only the extremal values for the selected SSMs are written.  |
+| geo  | bool  | false  | Whether the positions in the output file shall be given in the original coordinate reference system of the network (if available).  |
 
 ## Encounter types
 Different types of encounters, e.g. crossing, merging, or lead/follow situations, may imply different calculation procedures for the safety measures. Therefore the SSM-device keeps track of these classifications and provides them in the output to allow the correct interpretation of the corresponding values.
 
 The following table lists the different encounter types along with their codes, which will appear in the output file. 
 
-{|border="1" cellpadding="5" cellspacing="0"
-!Code !!Name      !!Description
-|-
-|0   ||NOCONFLICT_AHEAD    || Foe vehicle is closer than range, but not on a lane conflicting with the ego's route ahead.
-|-
-|<span style="color:grey">1</span>   ||<span style="color:grey">FOLLOWING</span>    || <span style="color:grey">General follow/lead situation (incomplete type, used only internally).</span>
-|-
-|2   ||FOLLOWING_FOLLOWER   || Ego vehicle is following the foe vehicle.
-|-
-|3   ||FOLLOWING_LEADER   || Foe vehicle is following the ego vehicle.
-|-
-|4   ||ON_ADJACENT_LANES   || Foe vehicle is on a neighboring lane of the ego vehicle's lane, driving in the same direction.
-|-
-|<span style="color:grey">5</span>   ||<span style="color:grey">MERGING</span>   || <span style="color:grey">Ego and foe share an upcoming edge of their routes while the merging point for the routes is still ahead (incomplete type, only used internally).</span>
-|-
-|6   ||MERGING_LEADER   || As 5. The estimated arrival at the merge point is earlier for the foe than for the ego vehicle.
-|-
-|7   ||MERGING_FOLLOWER   || As 5. The estimated arrival at the merge point is earlier for the ego than for the foe vehicle.
-|-
-|8   ||MERGING_ADJACENT   || As 5. The Vehicles' current routes lead to adjacent lanes on the same edge.
-|-
-|<span style="color:grey">9</span>   ||<span style="color:grey">CROSSING</span>   || <span style="color:grey">Ego's and foe's routes have crossing edges (incomplete type, only used internally)</span>
-|-
-|10   ||CROSSING_LEADER   || As 6. The estimated arrival of the ego at the conflict point is earlier than for the foe vehicle.
-|-
-|11   ||CROSSING_FOLLOWER   || As 6. The estimated arrival of the foe at the conflict point is earlier than for the ego vehicle.
-|-
-|<span style="color:grey">12</span>   ||<span style="color:grey">EGO_ENTERED_CONFLICT_AREA</span>   || <span style="color:grey">The encounter is a possible crossing conflict, and the ego vehicle has entered the conflict area. (Is currently not logged -> TODO)</span>
-|-
-|<span style="color:grey">13</span>   ||<span style="color:grey">FOE_ENTERED_CONFLICT_AREA</span>  || <span style="color:grey">The encounter is a possible crossing conflict, and the foe vehicle has entered the conflict area. (Is currently not logged -> TODO)</span>
-|-
-|14   ||EGO_LEFT_CONFLICT_AREA   || The encounter has been a possible crossing conflict, but the ego vehicle has left the conflict area.
-|-
-|15   ||FOE_LEFT_CONFLICT_AREA   || The encounter has been a possible crossing conflict, but the foe vehicle has left the conflict area.
-|-
-|<span style="color:grey">16</span>   ||<span style="color:grey">BOTH_ENTERED_CONFLICT_AREA</span>   || <span style="color:grey">The encounter has been a possible crossing conflict, and both vehicles have entered the conflict area (auxiliary type, only used internally, is evaluated to BOTH_LEFT_CONFLICT_AREA or to COLLISION).</span>
-|-
-|17   ||BOTH_LEFT_CONFLICT_AREA   || The encounter has been a possible crossing conflict, but both vehicle have left the conflict area.
-|-
-|18   ||FOLLOWING_PASSED   || The encounter has been a following situation, but is not active any more.
-|-
-|19   ||MERGING_PASSED   || The encounter has been a merging situation, but is not active any more.
-|-
-|20   ||ONCOMING   || The vehicles are driving [[Simulation/OppositeDirectionDriving|towards each other on the same lane]].
-|-
-|<span style="color:grey">111</span>   ||<span style="color:grey">COLLISION</span>   || <span style="color:grey">Collision (currently not implemented, might be differentiated further).</span>
-|}
+| Code | Name                       | Description                                                                                                                              |
+|------|----------------------------|------------------------------------------------------------------------------------------------------------------------------------------|
+| 0    | NOCONFLICT_AHEAD           | Foe vehicle is closer than range, but not on a lane conflicting with the ego's route ahead.                                                                                                            |
+| <font color="lightgray">1    | <font color="lightgray">FOLLOWING                  | <font color="lightgray">General follow/lead situation (incomplete type, used only internally).                                                                                                                                 |
+| 2    | FOLLOWING_FOLLOWER         | Ego vehicle is following the foe vehicle.                                                                                                                                                              |
+| 3    | FOLLOWING_LEADER           | Foe vehicle is following the ego vehicle.                                                                                                                                                              |
+| 4    | ON_ADJACENT_LANES          | Foe vehicle is on a neighboring lane of the ego vehicle's lane, driving in the same direction.                                                                                                         |
+| <font color="lightgray">5    | <font color="lightgray">MERGING                    | <font color="lightgray">Ego and foe share an upcoming edge of their routes while the merging point for the routes is still ahead (incomplete type, only used internally).                                                      |
+| 6    | MERGING_LEADER             | As 5. The estimated arrival at the merge point is earlier for the foe than for the ego vehicle.                                                                                                        |
+| 7    | MERGING_FOLLOWER           | As 5. The estimated arrival at the merge point is earlier for the ego than for the foe vehicle.                                                                                                        |
+| 8    | MERGING_ADJACENT           | As 5. The Vehicles' current routes lead to adjacent lanes on the same edge.                                                                                                                            |
+| <font color="lightgray">9    | <font color="lightgray">CROSSING                   | <font color="lightgray">Ego's and foe's routes have crossing edges (incomplete type, only used internally)                                                                                                                     |
+| 10   | CROSSING_LEADER            | As 6. The estimated arrival of the ego at the conflict point is earlier than for the foe vehicle.                                                                                                      |
+| 11   | CROSSING_FOLLOWER          | As 6. The estimated arrival of the foe at the conflict point is earlier than for the ego vehicle.                                                                                                      |
+| <font color="lightgray">12   | <font color="lightgray">EGO_ENTERED_CONFLICT_AREA  | <font color="lightgray">The encounter is a possible crossing conflict, and the ego vehicle has entered the conflict area. (Is currently not logged -> TODO)                                                                    |
+| <font color="lightgray">13   | <font color="lightgray">FOE_ENTERED_CONFLICT_AREA  | <font color="lightgray">The encounter is a possible crossing conflict, and the foe vehicle has entered the conflict area. (Is currently not logged -> TODO)                                                                    |
+| 14   | EGO_LEFT_CONFLICT_AREA     | The encounter has been a possible crossing conflict, but the ego vehicle has left the conflict area.                                                                                                   |
+| 15   | FOE_LEFT_CONFLICT_AREA     | The encounter has been a possible crossing conflict, but the foe vehicle has left the conflict area.                                                                                                   |
+| <font color="lightgray">16   | <font color="lightgray">BOTH_ENTERED_CONFLICT_AREA | <font color="lightgray">The encounter has been a possible crossing conflict, and both vehicles have entered the conflict area (auxiliary type, only used internally, is evaluated to BOTH_LEFT_CONFLICT_AREA or to COLLISION). |
+| 17   | BOTH_LEFT_CONFLICT_AREA    | The encounter has been a possible crossing conflict, but both vehicle have left the conflict area.                                                                                                     |
+| 18   | FOLLOWING_PASSED           | The encounter has been a following situation, but is not active any more.                                                                                                                              |
+| 19   | MERGING_PASSED             | The encounter has been a merging situation, but is not active any more.                                                                                                                                |
+| 20   | ONCOMING                   | The vehicles are driving [towards each other on the same lane](../../Simulation/OppositeDirectionDriving.md).                                                                                                                                          |
+| <font color="lightgray">111  | <font color="lightgray">COLLISION                  | <font color="lightgray">Collision (currently not implemented, might be differentiated further).                                                                                                                                |
 
 ## Available SSMs
 Currently, the following safety surrogate measures are implemented:
-* [[#TTC|TTC]] (time to collision)
-* [[#DRAC|DRAC]] (deceleration rate to avoid a crash)
-* [[#PET|PET]] (post encroachment time)
+
+- [TTC](#ttc) (time to collision)
+- [DRAC](#drac) (deceleration rate to avoid a crash)
+- [PET](#pet) (post encroachment time)
+
 Further, the following additional safety-relevant output can be generated, which will not be linked to a specific encounter:
-* [[#BR|BR]] (brake rate)
-* [[#SGAP|SGAP]] (spacing)
-* [[#TGAP|TGAP]] (time headway)
+
+- [BR](#br) (brake rate)
+- [SGAP](#sgap) (spacing)
+- [TGAP](#tgap) (time headway)
 For the selection in the device's output, the abbreviations have to be used.
 
 Basically, we distinguish between three types of encounters for two vehicles:
-* Lead/follow situation
-* Crossing situation
-* Merging Situation
+
+- Lead/follow situation
+- Crossing situation
+- Merging Situation
 
 Please note that some SSMs only apply to a specific encounter or are computed differently for different encounters.
 For crossing and merging situations, we consider "expected" entry and exit times with respect to the conflict zone. 
@@ -142,20 +115,28 @@ For some reference to definitions of SSMs see for instance [Guido et al. (2011) 
 ### TTC
 The time-to-collision is defined for all follow-lead situations for which the follower is faster than the leader. It is given as
 
-    TTC = space_gap/speed-difference.
+```
+TTC = space_gap/speed-difference.
+```
 
 For a crossing or merging situation the TTC is only considered defined if for the case that the expected conflict area exit time of the vehicle A is larger than the expected conflict area entry time for vehicle B, where A is the vehicle with the smaller expected conflict area entry time. If this is the case the TTC is defined as
 
-   TTC = B's distance to conflict area entry / B's current speed.
+```
+TTC = B's distance to conflict area entry / B's current speed.
+```
 
 ### DRAC
 For a lead/follow-situation the DRAC (deceleration to avoid a crash) where the follower vehicle's speed is larger than the leader vehicle's speed is defined as
 
-    DRAC = 0.5*speed_difference^2/space_gap.
+```
+DRAC = 0.5*speed_difference^2/space_gap.
+```
 
-For a crossing situation the DRAC is considered defined only if the expected conflict area exit time tA for the first vehicle (A) is larger than the ''linearly extrapolated'' conflict area entry time for the second vehicle (B). In that case, the DRAC is defined as follows:
+For a crossing situation the DRAC is considered defined only if the expected conflict area exit time tA for the first vehicle (A) is larger than the *linearly extrapolated* conflict area entry time for the second vehicle (B). In that case, the DRAC is defined as follows:
 
-    DRAC = 2*(speedB - distConflictB/tA)/tA.
+```
+DRAC = 2*(speedB - distConflictB/tA)/tA.
+```
 
 This value is chosen such that constant deceleration with the corresponding rate would imply that B enters the conflict area exactly at time tA, when vehicle A leaves it.
 
@@ -167,7 +148,9 @@ For a merging situation, both variants for the DRAC calculation must be tested a
 ### PET
 For merging and crossing situations, the PET (post encroachment time) is defined as the difference of the leading vehicle's conflict area exit time tA and the following vehicle's conflict area entry time tB:
 
-    PET = tB - tA.
+```
+PET = tB - tA.
+```
 
 For lead/follow situations, no PET is calculated.
 
@@ -180,23 +163,24 @@ For lead/follow situations, no PET is calculated.
 
     3) DRAC calculation for merging conflicts is still incomplete
     
-    4) Lateral conflicts for opposite or neighboring lane's traffic are ignored}}
+    4) Lateral conflicts for opposite or neighboring lane's traffic are ignored
 
 
 ### BR
 The brake rate is recorded at each simulation step. If the vehicle accelerates, a value of 0.0 is logged.
 ### SGAP
-The spacing is measured as the bumper to bumper distance to the ego vehicle's leader minus the vehicle's [[Definition_of_Vehicles,_Vehicle_Types,_and_Routes#Vehicle_Types|minGap]]
+The spacing is measured as the bumper to bumper distance to the ego vehicle's leader minus the vehicle's [minGap](../../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#vehicle_types)
 ### TGAP
 The time headway to the leading vehicle equals spacing/speed.
 
 ## Output
-The output for an SSM device is written to a file specified by the parameter <code>device.ssm.file</code> in the routes definition file, see [[#Equipping_vehicles|above]].
-The extent of output can be controlled by the parameters <code>device.ssm.measures</code> (which SSMs to report) and <code>device.ssm.trajectories</code> (whether to report complete trajectories for vehicles, the tracked SSMs, and the encounter types).
+The output for an SSM device is written to a file specified by the parameter `device.ssm.file` in the routes definition file, see [above](#equipping_vehicles).
+The extent of output can be controlled by the parameters `device.ssm.measures` (which SSMs to report) and `device.ssm.trajectories` (whether to report complete trajectories for vehicles, the tracked SSMs, and the encounter types).
 
-The resulting file contains a root element <code><SSMLog></code>, which contains several <code><conflict></code> elements and one <code><globalMeasures></code> element. Each reported <code><conflict></code> corresponds to a tracked encounter, during which an SSM's criticality threshold was exceeded during the simulation. The <code><globalMeasures></code> Elementholds a timeline for all simulated times and the corresponding values for the selected measures, which are not associated to specific conflicts, see [[#Available_SSMs|Available_SSMs]].
+The resulting file contains a root element `<SSMLog>`, which contains several `<conflict>` elements and one `<globalMeasures>` element. Each reported `<conflict>` corresponds to a tracked encounter, during which an SSM's criticality threshold was exceeded during the simulation. The `<globalMeasures>` Elementholds a timeline for all simulated times and the corresponding values for the selected measures, which are not associated to specific conflicts, see [Available_SSMs](#available_ssms).
 
 An example for the contents of an output file:
+
 ```
 <SSMLog>
      <conflict begin="6.50" end="13.90" ego="ego1" foe="foe1">
@@ -230,83 +214,47 @@ value="3.66"/>
 </SSMLog>
 ```
 
-Elements of type <code><conflict></code> hold the following information in their child elements:
+Elements of type `<conflict>` hold the following information in their child elements:
 
-{|border="1" cellpadding="5" cellspacing="0"
-!Element !!Attribute   !!Type   !!Description
-|-
-|timeSpan   || values || list of floats    || All simulation time points within the duration of the encounter. All other entries of elements with list-type are given with respect to the corresponding time points.
-|-
-|typeSpan || values  ||list of integers <br>(Encounter type codes)   || Timeseries of classifications for the tracked encounter.
-|-
-|egoPosition || values || list of 2D-coordinates || Timeseries of the ego vehicle's positions.
-|-
-|egoVelocity || values || list of 2D-vectors || Timeseries of the ego vehicle's velocity vectors.
-|-
-|foePosition || values || list of 2D-coordinates || Timeseries of the foe vehicle's positions.
-|-
-|foeVelocity || values || list of 2D-vectors || Timeseries of the ego vehicle's velocity vectors.
-|-
-|conflictPoint || values || list of 2D-coordinates || Timeseries of the (eventually extrapolated) coordinates of the conflict point. The ''conflict point'' is taken as the respective ''entry point to the conflict area''.  
-|-
-|TTCSpan   || values || list of floats    || Timeseries of the calculated TTC values. May contain entries 'NA' corresponding to times, where TTC is not defined.
-|-
-|DRACSpan   || values || list of floats    || Timeseries of the calculated DRAC values. May contain entries 'NA' corresponding to times, where DRAC is not defined.
-|-
-|minTTC   || time || float    || Time point of the minimal measured value for the TTC.
-|-
-|   || position || 2D-coordinate    || Coordinate of the corresponding conflict point.
-|-
-|   || type || integer <br>(Encounter type code)  || [[#Encounter_types|Type code]] of the corresponding encounter type. (Defines the variant of [[#TTC|TTC-calculation]].)
-|-
-|   || value || float >= 0  || The minimal measured TTC-value.
-|-
-|maxDRAC   || time || float    || Time point of the maximal measured value for the DRAC.
-|-
-|   || position || 2D-coordinate    || Coordinate of the corresponding conflict point.
-|-
-|   || type || integer <br>(Encounter type code)  || [[#Encounter_types|Type code]] of the corresponding encounter type. (Defines the variant of [[#DRAC|DRAC-calculation]].)
-|-
-|   || value || float >= 0  || The maximal measured DRAC-value.
-|-
-|PET   || time || float    || Time point of the minimal measured value for the PET. (Usually the PET is only measured once, therefore no PETSpan is reported.)
-|-
-|   || position || 2D-coordinate    || Coordinate of the corresponding encroachment point.
-|-
-|   || type || integer <br>(Encounter type code)  || [[#Encounter_types|Type code]] of the corresponding encounter type.
-|-
-|   || value || float >= 0  || The measured PET-value.
-|}
+| Element  | Attribute  | Type  | Description  |
+|---|---|---|---|
+| timeSpan  | values  | list of floats  | All simulation time points within the duration of the encounter. All other entries of elements with list-type are given with respect to the corresponding time points.   |
+| typeSpan  | values  | list of integers (Encounter type codes)  | Timeseries of classifications for the tracked encounter.  |
+| egoPosition  | values  | list of 2D-coordinates  | Timeseries of the ego vehicle's positions.  |
+| egoVelocity  | values  | list of 2D-vectors  | Timeseries of the ego vehicle's velocity vectors.  |
+| foePosition  | values  | list of 2D-coordinates  | Timeseries of the foe vehicle's positions.  |
+| foeVelocity  | values  | list of 2D-vectors  | Timeseries of the ego vehicle's velocity vectors.  |
+| conflictPoint  | values  | list of 2D-coordinates  | Timeseries of the (eventually extrapolated) coordinates of the conflict point. The *conflict* point is taken as the respective *entry point to the conflict area*.   |
+| TTCSpan  | values  | list of floats  | Timeseries of the calculated TTC values. May contain entries 'NA' corresponding to times, where TTC is not defined.  |
+| DRACSpan  | values  | list of floats  | Timeseries of the calculated DRAC values. May contain entries 'NA' corresponding to times, where DRAC is not defined.  |
+| minTTC  | time  | float  | Time point of the minimal measured value for the TTC.  |
+|   | position  | 2D-coordinate  | Coordinate of the corresponding conflict point.  |
+|   | type  | integer (Encounter type code)  | [Type code](#encounter_types) of the corresponding encounter type. (Defines the variant of [TTC-calculation](#ttc).)  |
+|   | value  | float >= 0  | The minimal measured TTC-value. |
+| maxDRAC  | time  | float  | Time point of the maximal measured value for the DRAC.  |
+|   | position  | 2D-coordinate  | Coordinate of the corresponding conflict point.  |
+|   | type  | integer (Encounter type code)  | [Type code](#encounter_types) of the corresponding encounter type. (Defines the variant of [DRAC-calculation](#drac).)  |
+|   | value  | float >= 0  | The maximal measured DRAC-value.  |
+| PET  | time  | float  | Time point of the minimal measured value for the PET. (Usually the PET is only measured once, therefore no PETSpan is reported.)  |
+|   | position  | 2D-coordinate  | Coordinate of the corresponding encroachment point.  |
+|   | type  | integer (Encounter type code)  | [Type code](#encounter_types) of the corresponding encounter type.  |
+|   | value  | float >= 0  | The measured PET-value.  |
 
 
-The <code><globalMeasures></code> element has the following structure:
+The `<globalMeasures>` element has the following structure:
 
-{|border="1" cellpadding="5" cellspacing="0"
-!Element !!Attribute   !!Type   !!Description
-|-
-|timeSpan   || values || list of floats    || Simulation time points at which the reported measures are logged.
-|-
-|BRSpan     || values || list of floats    || Values of the brake rate at the time points given in timeSpan.
-|-
-|SGAPSpan   || values || list of floats    || Values of the spacing at the time points given in timeSpan.
-|-
-|TGAPSpan   || values || list of floats    || Values of the time headway at the time points given in timeSpan.
-|-
-|maxBR      || time   || float             || Time at which the maximal value of the brake rate was recorded.
-|-
-|           || value  || float             || Maximal recorded value for the brake rate.
-|-
-|           || position || 2D-coordinate   || Position of the ego vehicle, where the maximal brake rate was recorded.
-|-
-|minSGAP    || time   || float             || Time at which the minimal spacing was recorded.
-|-
-|           || value  || float             || Minimal recorded value for the spacing.
-|-
-|           || position || 2D-coordinate   || Position of the ego vehicle, where the minimal spacing was recorded.
-|-
-|minTGAP    || time   || float             || Time at which the minimal time headway was recorded.
-|-
-|           || value  || float             || Minimal recorded value for the time headway.
-|-
-|           || position || 2D-coordinate   || Position of the ego vehicle, where the minimal time headway was recorded.
-|-}
+| Element  | Attribute | Type           | Description                                                               |
+|----------|-----------|----------------|---------------------------------------------------------------------------|
+| timeSpan | values    | list of floats | Simulation time points at which the reported measures are logged.         |
+| BRSpan   | values    | list of floats | Values of the brake rate at the time points given in timeSpan.            |
+| SGAPSpan | values    | list of floats | Values of the spacing at the time points given in timeSpan.               |
+| TGAPSpan | values    | list of floats | Values of the time headway at the time points given in timeSpan.          |
+| maxBR    | time      | float          | Time at which the maximal value of the brake rate was recorded.           |
+|          | value     | float          | Maximal recorded value for the brake rate.                                |
+|          | position  | 2D-coordinate  | Position of the ego vehicle, where the maximal brake rate was recorded.   |
+| minSGAP  | time      | float          | Time at which the minimal spacing was recorded.                           |
+|          | value     | float          | Minimal recorded value for the spacing.                                   |
+|          | position  | 2D-coordinate  | Position of the ego vehicle, where the minimal spacing was recorded.      |
+| minTGAP  | time      | float          | Time at which the minimal time headway was recorded.                      |
+|          | value     | float          | Minimal recorded value for the time headway.                              |
+|          | position  | 2D-coordinate  | Position of the ego vehicle, where the minimal time headway was recorded. |
