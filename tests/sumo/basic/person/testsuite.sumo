@@ -4,9 +4,6 @@ walk_unconnected
 # a bus will stop at two busstop that are located at the same edge and a person is waiting at the second bus stop. the person has to enter the bus when the bus stops at the second busstop and not before.
 two_busstops_at_one_edge
 
-# busses have a large boarding duration such that the stop duration will be extended by the boarding of the passengers
-boarding_duration_extension
-
 # person with a single ride
 ride
 
@@ -16,8 +13,14 @@ ride_ignore_line
 # person rides and then stops
 ride_and_stop
 
+# busses have a large boarding duration such that the stop duration will be extended by the boarding of the passengers
+boarding_duration_extension
+
 # busses have a small boarding duration such that the stop duration will not be extended by the boarding of the passengers
 boarding_duration_no_extension
+
+# busses have a large boarding duration but the stop duration extension is limited
+boarding_duration_extension_limited
 
 # person with a single walk
 walk
