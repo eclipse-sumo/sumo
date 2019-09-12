@@ -35,6 +35,8 @@ Lorem *ipsum* dolor sit amet, *consetetur sadipscing elitr*, sed diam **nonumy**
 
 The escape character is `\`. When writing text inside the `` marks, no escape character are required.
 
+\| needs a escaping character
+
 **Example:**
 ```
 `<TEST1>` using code. No escape character is required here.
