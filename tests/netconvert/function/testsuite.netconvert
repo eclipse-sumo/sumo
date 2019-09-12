@@ -46,6 +46,7 @@ no_left
 
 # test option --geometry.max-segment-length
 max_segment_length
+geometry.split
 
 # tests related to adding sidewalks
 sidewalks
