@@ -638,6 +638,8 @@ public:
             parse<T>(string);
         } catch (NumberFormatException&) {
             return false;
+        } catch (TimeFormatException&) {
+                return false;
         } catch (EmptyData&) {
             return false;
         } catch (BoolFormatException&) {

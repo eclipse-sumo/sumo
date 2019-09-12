@@ -935,7 +935,7 @@ template<> SUMOTime
 GNEAttributeCarrier::parse(const std::string& string) {
     SUMOTime time = string2time(string);
     if (time < 0) {
-        throw NumberFormatException("SUMOTIME cannot be negative");
+        throw TimeFormatException("SUMOTIME cannot be negative");
     } else {
         return time;
     }

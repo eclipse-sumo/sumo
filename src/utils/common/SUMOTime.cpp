@@ -38,12 +38,13 @@ SUMOTime DELTA_T = 1000;
 // ===========================================================================
 // method definitions
 // ===========================================================================
+
 SUMOTime
 string2time(const std::string& r) {
     if (r.find(":") == std::string::npos) {
         const double time = StringUtils::toDouble(r);
         if (time > STEPS2TIME(SUMOTime_MAX)) {
-            throw ProcessError("Input string '" + r + "' exceeds the time value range.");
+            throw TimeFormatException("Input string '" + r + "' exceeds the time value range.");
         }
         return TIME2STEPS(time);
     } else {
@@ -56,7 +57,7 @@ string2time(const std::string& r) {
             //std::cout << "parsed '" << r << "' as " << (24 * 3600 * string2time(hrt[0]) + 3600 * string2time(hrt[1]) + 60 * string2time(hrt[2]) + string2time(hrt[3])) << "\n";
             return 24 * 3600 * string2time(hrt[0]) + 3600 * string2time(hrt[1]) + 60 * string2time(hrt[2]) + string2time(hrt[3]);
         }
-        throw ProcessError("Input string '" + r + "' is not a valid time format (jj:HH:MM:SS.S).");
+        throw TimeFormatException("Input string '" + r + "' is not a valid time format (jj:HH:MM:SS.S).");
     }
 }
 

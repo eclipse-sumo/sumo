@@ -102,6 +102,19 @@ public:
 
 
 /**
+ * TimeFormatException
+ * Thrown when the string that shall be converted into a
+ * time representation HH:MM:SS isn't valid
+ */
+class TimeFormatException : public FormatException {
+public:
+    /// @brief constructor
+    TimeFormatException(const std::string& data)
+        : FormatException("Invalid Time Format '" + data + "'") {}
+};
+
+
+/**
  * BoolFormatException
  * Thrown when the string that shall be converted into a
  * boolean does not match
@@ -143,7 +156,9 @@ public:
         : ProcessError(msg) {}
 };
 
-
+/**
+ * UnknownElement
+ */
 class IOError : public ProcessError {
 public:
     /// @brief constructor
