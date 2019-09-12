@@ -159,8 +159,9 @@ GNEFrameAttributesModuls::AttributesCreatorRow::AttributesCreatorRow(AttributesC
             } else if (myAttrProperties.isOptional()) {
                 myAttributeCheckButton->setText(myAttrProperties.getAttrStr().c_str());
                 myAttributeCheckButton->show();
-                // special case for attribute "Parking" (by default disabled)
-                if (myAttrProperties.getAttr() == SUMO_ATTR_PARKING) {
+                // special case for attributes "Parking" and "until" (by default disabled)
+                if ((myAttrProperties.getTagPropertyParent().isStop() || myAttrProperties.getTagPropertyParent().isPersonStop()) && 
+                    ((myAttrProperties.getAttr() == SUMO_ATTR_UNTIL) || (myAttrProperties.getAttr() == SUMO_ATTR_PARKING))) {
                     myAttributeCheckButton->setCheck(FALSE);
                 } else {
                     myAttributeCheckButton->setCheck(TRUE);

@@ -3478,13 +3478,15 @@ GNEAttributeCarrier::fillStopElements() {
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = AttributeProperties(SUMO_ATTR_STARTPOS,
-                                           ATTRPROPERTY_FLOAT | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL | ATTRPROPERTY_UPDATEGEOMETRY,
-                                           "The begin position on the lane (the lower position on the lane) in meters");
+                                           ATTRPROPERTY_FLOAT | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_OPTIONAL |  ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL | ATTRPROPERTY_UPDATEGEOMETRY,
+                                           "The begin position on the lane (the lower position on the lane) in meters",
+                                           "0");
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = AttributeProperties(SUMO_ATTR_ENDPOS,
-                                           ATTRPROPERTY_FLOAT | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL | ATTRPROPERTY_UPDATEGEOMETRY,
-                                           "The end position on the lane (the higher position on the lane) in meters, must be larger than startPos by more than 0.1m");
+                                           ATTRPROPERTY_FLOAT | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_OPTIONAL | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL | ATTRPROPERTY_UPDATEGEOMETRY,
+                                           "The end position on the lane (the higher position on the lane) in meters, must be larger than startPos by more than 0.1m",
+                                           "0");
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = AttributeProperties(SUMO_ATTR_FRIENDLY_POS,
