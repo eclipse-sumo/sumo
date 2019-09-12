@@ -13,11 +13,14 @@ which values they contain. Then, the meanings of the values are given as
 well as a description of intervals. At last, some additional
 possibilities to constraint the outputs are given.
 
+!!! note
+    Please remark that these outputs are also called "aggregated lane/edge states", "meandata", or "edge/lane-dumps".
+
 ## Instantiating within the Simulation
 
 ### Meandata Definition
 
-An edge-based state dump is defined within an  as following:
+An edge-based state dump is defined within an {{AdditionalFile}} as following:
 
 <div class="inlxml">
 
