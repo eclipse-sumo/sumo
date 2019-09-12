@@ -25,7 +25,9 @@ permalink: /ChangeLog/
   - Preventing invalid double tracks when using typemap [osmNetconvertRailUsage.typ.xml]({{Source}}data/typemap/osmNetconvertRailUsage.typ.xml). Issue #6056
   - Disabling invalid handling of railway track count in OSM input. Issue #6057
   - Missing track numbers in bidirectional railway edges. Issue #6058
-  - fixed invalid junction and connection shapes in plain-xml-output when using option **--proj.plain-geo** Issue #6066
+  - Fixed invalid junction and connection shapes in plain-xml-output when using option **--proj.plain-geo** Issue #6066
+  - Fixed invalid geometry when using option **--geometry.max-segment-length** Issue #6074
+  - Fixed invalid network when using option **--geometry.split** Issue #6075
 
 - SUMO-GUI
   - Sublane-borders are no longer drawn for railways and sidewalks (where the sublane model does not apply).
