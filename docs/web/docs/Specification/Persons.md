@@ -108,13 +108,13 @@ the following conditions are met
 - the 'line' attribute of the vehicle or the 'id' of the vehicle is
   given in the list defined by the 'lines' attribute of the ride OR
   the lines attribute contains 'ANY' and the vehicle stops at the
-  destination 'busStop' of the ride.
+  destination 'busStop' of the ride (or at the destination edge if no destination busStop is defined).
 - the vehicle has a triggered stop and the person is position within
-  the range of  of the stop.
+  the range of `startpos,endPos` of the stop.
 - the vehicle has a timed stop and the person is waiting within 10m of
   the vehicle position
 
-The position of the person is either it's  or the arrival position of
+The position of the person is either it's `departPos` or the arrival position of
 the preceding plan element
 
 A given bus stop may serve as a replacement for a destination edge and
@@ -138,15 +138,15 @@ They are child elements of plan definitions.
 | departPos  | float(m)   |                    | 0       | initial position on the starting edge (deprecated, determined by the departPos of the person or the arrival pos of the previous step) |
 | arrivalPos | float(m)   |                    | \-1     | arrival position on the destination edge                                        |
 
-You can define either a -id, or a list of  to travel or a  and a  edge.
+You can define either a `route`-id, or a list of `edges` to travel or a `from` and a `to` edge.
 In the first and second case the route edges are traveled in the listed
 order. They do not need to be joined in the net. If travelling between
 stops on the same edge then only include the edge once. In the latter
 case a shortest path calculation is performed and it is an error if
-there is no path connecting  and .
+there is no path connecting `from` and `to`.
 
-When given as router input input using the attributes  and  will be
-transformed into a walk using the attribute  by routing along edges
+When given as router input input using the attributes `from` and `to` will be
+transformed into a walk using the attribute `edges` by routing along edges
 permissible for pedestrian (i.e. sidewalks).
 
 A given bus stop may serve as a replacement for a destination edge and
@@ -159,7 +159,7 @@ Stops define a delay until the next element of a plan is started. They
 can be used to model activities such as working or shopping. Stops for
 persons follow the specification at
 [Specification\#Stops](../Specification.md#stops). However, only
-the attributes ,  and  are evaluated. Using these attributes it is
+the attributes `lane`, `duration` and `until` are evaluated. Using these attributes it is
 possible to model activities with a fixed duration as well as those with
 a fixed end time. If a person needs to be transferred between two
 positions without delay, it is possible to use two stops in conjunction.
@@ -189,11 +189,11 @@ finished and the person proceeds with the next step in the plan.
 The walking behavior of a person depends on the selected [pedestrian
 model](../Simulation/Pedestrians.md#pedestrian_models). Generally,
 the person follows the given sequence of edges with a speed bounded by
-the  attribute of the persons type. It starts either at the position
-from the previous stage of its plan or at the specified  if no previous
-stage exists. The walk concludes at the specified  which defaults to the
+the `maxSpeed` attribute of the persons type. It starts either at the position
+from the previous stage of its plan or at the specified `departPos` if no previous
+stage exists. The walk concludes at the specified `arrivalPos` which defaults to the
 end of the final edge. Both position attributes support the special
-values  and  which work as described [for
+values `max` and `random` which work as described [for
 vehicles](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#s_vehicles_depart_and_arrival_parameter).
 
 ## Stopping
@@ -221,6 +221,12 @@ possible to switch to a car or bicycle after a different mode.
 | modes      | list     | any combination of "public", "car", "bicycle" | \-      | list of possible traffic modes. Walking is always possible regardless of this value.     |
 | departPos  | float(m) |                                               | 0       | initial position on the starting edge (deprecated, determined by the departPos of the person or the arrival pos of the previous step) |
 | arrivalPos | float(m) |                                               | \-eps   | arrival position on the destination edge                      |
+
+!!! note
+    It is an error for subsequent trips to be unconnected.
+
+!!! note
+    If no itinerary for performing the trip is found and the option **--ignore-route-errors** is set, the trip will be transformed into a walk which consists of the start and arrival edge. The person will teleport to complete the walk.
 
 # Example
 
@@ -258,13 +264,13 @@ should have access lanes. The movement of person0 in the example above
 could also be written as
 
 ```
-    <person id="person0" depart="0">
-        <walk from="2/3to1/3" busStop="busStop0" departPos="80" arrivalPos="55"/>
-        <ride busStop="busStop1" lines="train0"/>
-        <walk to="1/4to2/4" arrivalPos="30"/>
-        <stop lane="1/4to2/4_0" duration="20" startPos="40" actType="singing"/>
-        <ride from="1/4to2/4" to="3/4to4/4" lines="car0"/>
-    </person>
+<person id="person0" depart="0">
+    <walk from="2/3to1/3" busStop="busStop0" departPos="80" arrivalPos="55"/>
+    <ride busStop="busStop1" lines="train0"/>
+    <walk to="1/4to2/4" arrivalPos="30"/>
+    <stop lane="1/4to2/4_0" duration="20" startPos="40" actType="singing"/>
+    <ride from="1/4to2/4" to="3/4to4/4" lines="car0"/>
+</person>
 ```
 
 # Visualization
@@ -292,7 +298,7 @@ persons:
 
 The following features are not yet implemented.
 
-- state saving and loading, see
+- state saving and loading, see #2792
 - [Simulation routing for
   persons](../Demand/Automatic_Routing.md)
   (person-device.rerouting)

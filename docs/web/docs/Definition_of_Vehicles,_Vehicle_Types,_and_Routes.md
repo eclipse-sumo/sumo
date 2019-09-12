@@ -212,8 +212,8 @@ traffic assignment zone.
 
 ## A Vehicle's depart and arrival parameter
 
-Using the <span class="inlxml">depart...</span> and
-<span class="inlxml">arrival...</span>-attributes, it is possible to
+Using the `depart...` and
+`arrival...`-attributes, it is possible to
 control how a vehicle is inserted into the network and how it leaves it.
 
 ### depart
@@ -233,19 +233,19 @@ network, the actual depart time may be later.
 
 Determines on which lane the vehicle is tried to be inserted;
 
-  - <span class="inlxml">≥0</span>: the index of the lane, starting with
+  - `≥0`: the index of the lane, starting with
     rightmost=0
-  - "<span class="inlxml">random</span>": a random lane is chosen;
+  - "`random`": a random lane is chosen;
     please note that a vehicle insertion is not retried if it could not
     be inserted
-  - "<span class="inlxml">free</span>": the most free (least occupied)
+  - "`free`": the most free (least occupied)
     lane is chosen
-  - "<span class="inlxml">allowed</span>": the "free" lane (see above)
+  - "`allowed`": the "free" lane (see above)
     of those lane of the depart edge which allow vehicles of the class
     the vehicle belongs to
-  - "<span class="inlxml">best</span>": the "free" lane of those who
+  - "`best`": the "free" lane of those who
     allow the vehicle the longest ride without the need to lane change
-  - "<span class="inlxml">first</span>": the rightmost lane the vehicle
+  - "`first`": the rightmost lane the vehicle
     may use
 
 BTW, I like "best" at most - dkrajzew
@@ -255,74 +255,64 @@ BTW, I like "best" at most - dkrajzew
 Determines the position on the chosen departure lane at which the
 vehicle is tried to be inserted;
 
-  - : the position on the lane, starting at the lane's begin; must be
-    smaller than the starting lane's length
-
-  - : a random position is chosen; it is not retried to insert the
-    vehicle if the first try fails
-
-  - : a free position (if existing) is used
-
-  - : at first, the "random" position is tried, then the "free", if the
-    first one failed
-
-  - : the vehicle is tried to be inserted at the position which lets its
-    back be at the beginning of the lane (vehicle's front
-    position=vehicle length)
-
-  - : the vehicle is inserted with the given speed as close as possible
-    behind the last vehicle on the lane. If the lane is empty it is
-    inserted at the end of the lane instead
+- `≥0`: the position on the lane, starting at the lane's begin; must be
+  smaller than the starting lane's length
+- `"random"`: a random position is chosen; it is not retried to insert the
+  vehicle if the first try fails
+- `"free"`: a free position (if existing) is used
+- `"random_free"`: at first, ten random positions are tried, if all fail, "free" is applied
+- `"base"`: the vehicle is tried to be inserted at the position which lets its
+  back be at the beginning of the lane (vehicle's front
+  position=vehicle length)
+- `"last"`: the vehicle is inserted with the given speed as close as possible
+  behind the last vehicle on the lane. If the lane is empty it is
+  inserted at the end of the lane instead. When departSpeed="max" is set, vehicle speed will not be adapted.
 
 ### departSpeed
 
-Determines the speed of the vehicle at insertion;
+Determines the speed of the vehicle at insertion, where maxSpeed = MIN(speedLimit * speedFactor, vTypeMaxSpeed);
 
-  - <span class="inlxml">≥0</span>: The vehicle is tried to be inserted
-    using the given speed. If that speed is unsafe, departure is
-    delayed.
-  - "<span class="inlxml">random</span>": A random speed between 0 and
-    MIN(vehicle's maximum velocity, lane's maximum velocity) is used,
-    the speed may be adapted to ensure a safe distance to the leader
-    vehicle.
-  - "<span class="inlxml">max</span>": The maximum safe velocity
-    (speedLimit \* speedFactor)
-  - "<span class="inlxml">desired</span>": The maximum velocity
-    (speedLimit \* speedFactor). If that speed is unsafe, departure is
-    delayed.
-  - "<span class="inlxml">speedLimit</span>": The speedLimit is used. If
-    that speed is unsafe, departure is delayed.
+- `≥0`: The vehicle is tried to be inserted
+  using the given speed. If that speed is unsafe, departure is
+  delayed.
+- "`random`": A random speed between 0 and
+  maxSpeed is used,
+  the speed may be adapted to ensure a safe distance to the leader
+  vehicle.
+- "`max`": The maxSpeed is used, the speed may be adapted to ensure a safe distance to the leader vehicle.
+- "`desired`": The maxSpeed is used. If that speed is unsafe, departure is delayed.
+- "`speedLimit`": The speed limit of the lane is used. If that speed is unsafe, departure is delayed.
 
 ### arrivalLane
 
 Determines the speed at which the vehicle should end its route;
 
-  - "<span class="inlxml">current</span>": the vehicle will not change
-    it's lane when nearing arrival. It will use whatever lane is more
-    convenient to reach its arrival position. *(default behavior)*
-  - <span class="inlxml">≥0</span>: the vehicle changes lanes to end
-    it's route on the specified lane
+- "`current`": the vehicle will not change
+  it's lane when nearing arrival. It will use whatever lane is more
+  convenient to reach its arrival position. *(default behavior)*
+- `≥0`: the vehicle changes lanes to end
+  it's route on the specified lane
 
 ### arrivalPos
 
 Determines the position along the destination edge where the vehicle is
 conisdered to have arrived;
 
-  - "<span class="inlxml">max</span>": the vehicle will drive up to the
+  - "`max`": the vehicle will drive up to the
     end of its final lane. *(default behavior)*
-  - <span class="inlxml"></span>: the position on the lane, starting at
+  - ``: the position on the lane, starting at
     the lane's begin; Negative values count from the end of the lane
-  - "<span class="inlxml">random</span>": a random position is chosen at
+  - "`random`": a random position is chosen at
     departure; If vehicle is rerouted a new random position is selected.
 
 ### arrivalSpeed
 
 Determines the speed at which the vehicle should end its route;
 
-  - "<span class="inlxml">current</span>": the vehicle will not modify
+  - "`current`": the vehicle will not modify
     it's speed when nearing arrival. It will drive as fast as (safely)
     possible. *(default behavior)*
-  - <span class="inlxml">≥0</span>: the vehicle approaches it's arrival
+  - `≥0`: the vehicle approaches it's arrival
     position to end with the specified speed
 
 # Vehicle Types
@@ -416,10 +406,22 @@ In SUMO this is modeled by a speed distribution using the attributes
 !!! note
     Since version 1.0.0 speed distributions are used by default (speedDev="0.1"). In older version, speed distributions had to be defined for every vehicle type to avoid homogeneous speeds (and consequently invalid driving behavior because vehicles would never catch up with their leader vehicle)
 
+### Vehicle class specific defaults
+
+When defining a vehicle type with a *vClass*, the following default speed-deviation will be used.
+
+- passenger (default vClass): 0.1
+- pedestrian: 0.1
+- bicycle: 0.1
+- truck, trailer, coach, delivery, taxi: 0.05
+- tram, rail_urban, rail, rail_electric, rail_fast: 0
+- emergency: 0
+- everything else: 0.1
+
 ### Global Configuration
 
-Instead of configuring speed distributions in a  definition (as
-explained below), the [SUMO](SUMO.md)-option  can be used to set
+Instead of configuring speed distributions in a `<vType>` definition (as
+explained below), the [SUMO](SUMO.md)-option **--default.speeddev** {{DT_FLOAT}} can be used to set
 a global default. Seeting this value to 0 restores pre-1.0.0 behavior.
 
 ### Defining speed limit violations explicitly
@@ -476,9 +478,9 @@ defined as **speedFactor**="1" **speedDev**="0.1".
 ## Vehicle Length
 
 Due to the work on [car following models](#Car-Following_Models.md), we decided to use two values
-for vehicle length. The <span class="inlxml">length</span>-attribute
+for vehicle length. The `length`-attribute
 describes the length of the vehicle itself. Additionally, the
-<span class="inlxml">minGap</span>-attribute describes the offset to the
+`minGap`-attribute describes the offset to the
 leading vehicle when standing in a jam.
 
 This is illustrated in the following image:
@@ -486,14 +488,14 @@ This is illustrated in the following image:
 ![length_vs_minGap.svg](images/Length_vs_minGap.svg "length_vs_minGap.svg")
 
 Within the simulation, each vehicle needs - when ignoring the safe gap -
-<span class="inlxml">length</span>+<span class="inlxml">minGap</span>.
-But only <span class="inlxml">length</span> of the road should be marked
+`length`+`minGap`.
+But only `length` of the road should be marked
 as being occupied.
 
 ## Abstract Vehicle Class
 
 A SUMO vehicle may be assigned to an "abstract vehicle class", defined
-by using the attribute <span class="inlxml">vClass</span>. These classes
+by using the attribute `vClass`. These classes
 are used in lane definitions and allow/disallow the usage of lanes for
 certain vehicle types. One may think of having a road with three lanes,
 where the rightmost may only be used by "taxis" or "buses". The default
@@ -560,7 +562,7 @@ compatibility:
 ## Vehicle Emission Classes
 
 The emission class represents a certain emission class. It is defined
-using the <span class="inlxml">emissionClass</span> attribute. Possible
+using the `emissionClass` attribute. Possible
 values are given in [Models/Emissions](Models/Emissions.md) and
 its subsections.
 
@@ -568,7 +570,7 @@ its subsections.
 
 For a nicer visualization of the traffic, the appearance of a vehicle
 type's vehicles may be changed by assigning them a certain shape using
-the <span class="inlxml">guiShape</span> attribute. These shapes are
+the `guiShape` attribute. These shapes are
 used when setting the drawing mode for vehicles to **simple shapes**.
 The following shapes are known:
 
@@ -601,7 +603,7 @@ Some of these classes are drawn as a sequence of carriages. The length
 of a single carriage is indicated in parentheses after the type. For
 these types, the length of the vehicleType is used as the overall length
 of the train (all carriages combined). For example, a vehicle with shape
-<span class="inlxml">rail/cargo</span> and length 70m will have 5
+`rail/cargo` and length 70m will have 5
 carriages. The number of carriages will always be a whole number and no
 carriage will be shorter than the length given in brackets but may be
 longer to meet the length requirements of the whole vehicle. When
@@ -609,7 +611,7 @@ drawing vehicles with raster images, the image will be repeated for each
 carriage.
 
 In addition, one can determine the width of the vehicle using the
-attribute <span class="inlxml">width</span>. When using shapes, one
+attribute `width`. When using shapes, one
 should consider that different vehicle classes (passenger vehicles or
 buses) have different lengths. Passenger vehicles with more than 10m
 length look quite odd, buses with 2m length, too.
@@ -787,8 +789,8 @@ an intersection). The impatience value is computed as
 ` MAX(0, MIN(1.0, baseImpatience + waitingTime / timeToMaxImpatience))`
 
 Where baseImpatience is configured by setting the vType-attribute
-*impatience* and timeToMaxImpatience is set using the option  (default
-300s). The value of baseImpatience may negative to slow the growth of
+*impatience* and timeToMaxImpatience is set using the option **--time-to-impatience** (default
+300s). Setting this option to 0 disables impatience growth. The value of baseImpatience may be negative to slow the growth of
 the dynamically computed impatience. It may also be defined with the
 value **off** to prevent drivers from becoming impatient.
 
@@ -802,10 +804,10 @@ values interpolate smoothly between these extremes.
 
 ## Default Vehicle Type
 
-If the <span class="inlxml">type</span> attribute of a vehicle is not
-defined it defaults to <span class="inlxml">"DEFAULT_VEHTYPE"</span>.
-By defining a vehicle type with this id (<span class="inlxml">\<vType
-id="DEFAULT_VEHTYPE" ..../\></span>) the default parameters for
+If the `type` attribute of a vehicle is not
+defined it defaults to `"DEFAULT_VEHTYPE"`.
+By defining a vehicle type with this id (`\<vType
+id="DEFAULT_VEHTYPE" ..../\>`) the default parameters for
 vehicles without an explicititly defined type can be changed. The change
 of the default vehicle type needs to occur before any reference to the
 type was made, so basically before any vehicle or vehicle type was

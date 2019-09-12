@@ -100,7 +100,7 @@ different default for the different vehicle classes then insert the
 relevant code into [{{SUMO}}/src/utils/vehicle/SUMOVTypeParameter.cpp]({{Source}}src/utils/vehicle/SUMOVTypeParameter.cpp). You can only
 have floating point values as model parameters at the moment.
 
-You also have to define which parameter must be read in [{{SUMO}}/src/utils/xml/SUMOVehicleParserHelper.cpp]({{Source}}src/utils/xml/SUMOVehicleParserHelper.cpp), method getAllowedCFModelAttrs():
+You also have to define which parameter must be read in [{{SUMO}}/src/utils/vehicle/SUMOVehicleParserHelper.cpp]({{Source}}src/utils/vehicle/SUMOVehicleParserHelper.cpp), method getAllowedCFModelAttrs():
 
 ```
 std::set<SumoXMLAttr> smartSKParams;

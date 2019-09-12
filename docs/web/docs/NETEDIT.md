@@ -817,8 +817,8 @@ be change the route trip.
 Vehicle types can be created and edited using Vehicle Type mode. A
 vehicle Type isn't a visual element that can be observed in the view,
 but is an "abstract" element that have a big influence in other elements
-(for example, vehicles). Every simulation has always three default
-vehicle types for Vehicles, Bikes and pedestrians. This default vehicle
+(for example, vehicles). Every simulation has always two default
+vehicle types for Vehicles and Bikes. This default vehicle
 type can be edited but not deleted, and only is written in XML if one of
 their default value is modified. Due a Vehicle Type has a big number of
 parameters, only the most relevant parameters can be edited in left

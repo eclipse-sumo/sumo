@@ -74,8 +74,7 @@ Another way to resolve ambiguity is to add route restrictions:
 
 ### Restricting generated routes
 
-With the option **--flow-restrictions** {{DT_FILE}}, flow restriction for routes may be given. The input
-file takes the form
+With the option **--flow-restrictions** {{DT_FILE}}, flow restriction for routes may be given. Each line in the input file takes the form:
 
 ```
 <FLOW1> <EDGE1> <EDGE2> ... <EDGEk>

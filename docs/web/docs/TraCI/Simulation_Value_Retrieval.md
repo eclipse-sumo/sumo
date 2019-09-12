@@ -361,7 +361,10 @@ are supported:
 
 - chargingStation.totalEnergyCharged
 - chargingStation.name
+- chargingStation.lane
 - parkingArea.capacity
 - parkingArea.occupancy
 - parkingArea.name
+- parkingArea.lane
 - busStop.name
+- busStop.lane

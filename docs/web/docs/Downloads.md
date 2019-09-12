@@ -37,7 +37,7 @@ listed in the table below.
 |---|------|--------|--------------------|------------|---------------------------|-------|-----------|------------|--------|----------------------|-------|
 | sumo-src-*XXX*.tar.gz sumo-src-*XXX*.zip  |   | X | X |   |   | X | X | X |   | X |   |
 |  sumo-win??-*XXX*.zip sumo-win??-*XXX*.msi | X |   |   | X |   | X | X | X |   | X | X |
-| sumo-all-*XXX*.tar.gz sumo-all-*XXX*.zip  |   | X | X | X | X | X | X | X | X | X | X |
+| sumo-all-*XXX*.tar.gz sumo-all-*XXX*.zip  |   | X | X | X |   | X | X | X | X | X | X |
 | rpm  | (X) |   |   | X |   | X | X | X |   | X |   |
 
 ### Repositories

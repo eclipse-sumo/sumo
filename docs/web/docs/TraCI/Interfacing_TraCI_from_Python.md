@@ -26,7 +26,7 @@ path. This is typically done with a stanza like this:
 ```
 
 This assumes that the [environment variable
-**SUMO_HOME**](Basics/Basic_Computer_Skills.md#additional_environment_variables)
+**SUMO_HOME**](../Basics/Basic_Computer_Skills.md#additional_environment_variables)
 is set before running the script. Alternatively, you can declare the
 path to *sumo/tools* directly as in the line
 

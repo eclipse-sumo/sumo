@@ -169,6 +169,10 @@ headway = defaultHeadway * cycleTime / (cycleTime - p * redDuration)
 link (this is disabled when --meso-junction-control.limited is set and
 junction control is active for that link)
 
+### Impatience
+
+Vehicles that reach an [impatience](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#impatience) value of 1 (maximum) can pass an intersection regardless of foe traffic with higher priority. The time to reach maximum impatience can be configured with option **--time-to-impatience** {{DT_TIME}}. 
+
 ## Outputs
 
 Many of the output options of SUMO are supported but the resulting files
@@ -195,6 +199,7 @@ The following SUMO features are not supported:
 - Wireless model
 - Opposite-direction driving
 - Sublane-model
+- Boarding durations for passengers
 
 # MESO-GUI
 

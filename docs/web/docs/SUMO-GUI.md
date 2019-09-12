@@ -749,7 +749,7 @@ contained data to see how various traffic measures changed over time
 (without running a simulation at the same time).
 
 !!! note
-    The function 'Recalibrate Rainbow' can be used to adapt the coloring to the data range of the current attribute.
+    In the gui-settings dialog, the function 'Recalibrate Rainbow' can be used to adapt the coloring to the data range of the current attribute.
 
 ## Version 1.2.0 and later
 

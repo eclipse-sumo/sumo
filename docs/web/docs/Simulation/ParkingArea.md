@@ -96,6 +96,20 @@ For a complete list of attributes for the "stop"-element of a vehicle
 see
 [Definition_of_Vehicles,_Vehicle_Types,_and_Routes\#Stops](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#stops).
 
+# Modelling Maneuvering times when Entering and leaving the parking Space
+
+When setting the (boolean) option **--parking.maneuver**, vehicles will spend extra time on the road when leaving and entering a parkingArea. This time depends on the angle of the parking lot relative to the road lane and can be configured with the vType attribute *maneuverAngleTimes*. This is a comma-separated list of numer-triplets of the form *ANGLE ENTERINGTIME LEAVINGTIME*:
+
+```
+<vType id="example" maneuverAngleTimes="10 3.0 4.0,80 1.6 11.0,110 11.0 2.0,170 8.1 3.0,181 3.0 4.0"/>
+```
+
+The value corresponding to the closest angle is used. The value of maneuverAngleTimes is initialized to a vClass-specific value:
+
+- default: `manoeuverAngleTimes="10 3 4,80 1 11,110 11 2,170 8 3,181 3 4"`
+- truck, trailer, coach, delivery: all times doubled compared to default
+- bicycle, moped: `manoeuverAngleTimes="181 1 1"`
+
 # Rerouting when the current parkingArea is full
 
 If a vehicle reaches a parkingArea that is filled to capacity it must
