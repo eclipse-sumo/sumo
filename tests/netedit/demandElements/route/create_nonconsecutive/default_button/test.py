@@ -40,7 +40,7 @@ netedit.leftClick(referencePosition, 280, 60)
 
 # press button to create route
 netedit.focusOnFrame()
-for _ in range(8):
+for _ in range(9):
     netedit.typeTab()
 netedit.typeSpace()
 

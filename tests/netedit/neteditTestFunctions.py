@@ -368,6 +368,8 @@ def supermodeNetwork():
 
 def supermodeDemand():
     typeKey('F4')
+    # wait for output
+    time.sleep(DELAY_RECOMPUTE)
 
 
 """

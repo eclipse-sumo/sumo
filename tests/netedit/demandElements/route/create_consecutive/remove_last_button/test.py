@@ -38,7 +38,7 @@ netedit.leftClick(referencePosition, 280, 60)
 
 # remove last inserted edge using button
 netedit.focusOnFrame()
-for _ in range(10):
+for _ in range(11):
     netedit.typeTab()
 netedit.typeSpace()
 

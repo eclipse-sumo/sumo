@@ -38,7 +38,7 @@ netedit.leftClick(referencePosition, 280, 60)
 
 # press abort button
 netedit.focusOnFrame()
-for _ in range(9):
+for _ in range(10):
     netedit.typeTab()
 netedit.typeSpace()
 

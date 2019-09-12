@@ -35,7 +35,7 @@ netedit.changeElement("poly")
 netedit.changeDefaultValue(4, "white")
 
 # change fill
-netedit.changeDefaultBoolValue(4)
+netedit.changeDefaultBoolValue(5)
 
 # change imgfile (invalid)
 netedit.changeDefaultValue(9, "%%$%$&$%$%$")
