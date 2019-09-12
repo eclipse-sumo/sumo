@@ -33,7 +33,13 @@ Debug: Selected item 'stopContainerStop' in TagSelector
 Debug: ObjectsUnderCursor: GUIGlObjects: 1, AttributeCarriers: 1, NetElements: 0, Additionals: 1, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 Debug: Adding stopContainerStop 'trip_0stopContainerStop0' in GNEChange_DemandElement
 Debug: ObjectsUnderCursor: GUIGlObjects: 2, AttributeCarriers: 2, NetElements: 0, Additionals: 1, DemandElements: 1, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
-Debug: Setting new attribute until '0' into stopContainerStop 'trip_0stopContainerStop0'
+Debug: Selected checkBox for attribute 'until'
+Debug: Setting new attribute into stopContainerStop 'trip_0stopContainerStop0'
+Debug: Selected checkBox for attribute 'until'
+Debug: Setting new attribute into stopContainerStop 'trip_0stopContainerStop0'
+Debug: Selected checkBox for attribute 'until'
+Debug: Setting new attribute into stopContainerStop 'trip_0stopContainerStop0'
+Debug: Value 'dummyValue' for attribute until of stopContainerStop isn't valid
 Debug: Setting new attribute until '0' into stopContainerStop 'trip_0stopContainerStop0'
 Debug: Value '-5' for attribute until of stopContainerStop isn't valid
 Debug: Setting new attribute until '0' into stopContainerStop 'trip_0stopContainerStop0'
@@ -44,17 +50,16 @@ Debug: Setting previous attribute until '0.00' into stopContainerStop 'trip_0sto
 Debug: Keys Ctrl + Z (Undo) pressed
 Debug: Setting previous attribute until '0.00' into stopContainerStop 'trip_0stopContainerStop0'
 Debug: Keys Ctrl + Z (Undo) pressed
-Debug: Setting previous attribute until '0.00' into stopContainerStop 'trip_0stopContainerStop0'
-Debug: Keys Ctrl + Z (Undo) pressed
 Debug: Setting previous attribute until '-0.00' into stopContainerStop 'trip_0stopContainerStop0'
 Debug: Keys Ctrl + Z (Undo) pressed
-Debug: Removing stopContainerStop 'trip_0stopContainerStop0' in GNEChange_DemandElement
-Debug: Removed inspected element from Inspected ACs. 0 ACs remains.
+Debug: Setting previous attribute into stopContainerStop 'trip_0stopContainerStop0'
+Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Setting previous attribute into stopContainerStop 'trip_0stopContainerStop0'
 Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 Debug: Keys Ctrl + Y (Redo) pressed
-Debug: Adding stopContainerStop 'trip_0stopContainerStop0' in GNEChange_DemandElement
+Debug: Setting new attribute into stopContainerStop 'trip_0stopContainerStop0'
 Debug: Keys Ctrl + Y (Redo) pressed
-Debug: Setting new attribute until '0' into stopContainerStop 'trip_0stopContainerStop0'
+Debug: Setting new attribute into stopContainerStop 'trip_0stopContainerStop0'
 Debug: Keys Ctrl + Y (Redo) pressed
 Debug: Setting new attribute until '0' into stopContainerStop 'trip_0stopContainerStop0'
 Debug: Keys Ctrl + Y (Redo) pressed
