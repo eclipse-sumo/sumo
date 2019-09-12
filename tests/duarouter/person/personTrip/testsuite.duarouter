@@ -7,6 +7,9 @@ vtype
 # car use requested
 car
 
+# car use requested, network contains bicycle lanes
+car_intermodal_net
+
 # car use of a special type requested
 car_type
 
