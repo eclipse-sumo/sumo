@@ -49,11 +49,14 @@ public_wait
 # bus arrives past it's until time but still picks up person
 public_brief_stop
 
-# person waiting to get a lift
+# vehicle is waiting at stop for a person
 triggered
 
 # car waiting for person
 vehicle_triggered
+
+# person starting in a vehicle
+person_triggered
 
 # person stops for a given duration
 stop_duration
