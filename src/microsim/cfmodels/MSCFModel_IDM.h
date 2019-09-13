@@ -76,6 +76,20 @@ public:
      */
     double finalizeSpeed(MSVehicle* const veh, double vPos) const;
 
+    /** @brief Computes the vehicle's safe speed without a leader
+     *
+     * Returns the velocity of the vehicle in dependence to the length of the free street and the target
+     *  velocity at the end of the free range. If onInsertion is true, the vehicle may still brake
+     *  before the next movement.
+     * @param[in] veh The vehicle (EGO)
+     * @param[in] speed The vehicle's speed
+     * @param[in] seen The look ahead distance
+     * @param[in] maxSpeed The maximum allowed speed
+     * @param[in] onInsertion whether speed at insertion is asked for
+     * @return EGO's safe speed
+     */
+    virtual double freeSpeed(const MSVehicle* const veh, double speed, double seen,
+                             double maxSpeed, const bool onInsertion = false) const;
 
     /** @brief Computes the vehicle's safe speed (no dawdling)
      * @param[in] veh The vehicle (EGO)
