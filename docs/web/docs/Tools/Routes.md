@@ -34,6 +34,18 @@ vehicle.
 - When working in **--fix**-mode a vehicle type file must be given
 - No tests for dealing with networks that have internal edges
 
+# analyzePersonPlans.py
+Count the different types of person plans according to the sequence of used modes. Private rides are distinguished from public transport rides using the assumption that the name of the private vehicle will start with the name of the person (as happens for [DUAROUTER](../DUAROUTER.md)-generated person plans).
+```
+tools\route\analyzePersonPlans.py -r routes.xml
+```
+example output:
+```
+34: walk public walk
+55: car walk
+90: walk
+```
+
 # routes_Join.py
 
 Joins routes belonging to two networks. A map file with the following
