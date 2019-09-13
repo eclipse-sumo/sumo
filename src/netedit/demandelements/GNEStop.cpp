@@ -511,6 +511,12 @@ GNEStop::getAttribute(SumoXMLAttr key) const {
             } else {
                 return "";
             }
+        case SUMO_ATTR_EXTENSION:
+            if (parametersSet & STOP_EXTENSION_SET) {
+                return time2string(extension);
+            } else {
+                return "";
+            }
         case SUMO_ATTR_INDEX:
             if (index == STOP_INDEX_END) {
                 return "end";
@@ -619,6 +625,7 @@ GNEStop::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* un
         case SUMO_ATTR_ID:
         case SUMO_ATTR_DURATION:
         case SUMO_ATTR_UNTIL:
+        case SUMO_ATTR_EXTENSION:
         case SUMO_ATTR_INDEX:
         case SUMO_ATTR_TRIGGERED:
         case SUMO_ATTR_CONTAINER_TRIGGERED:
@@ -656,6 +663,7 @@ GNEStop::isValid(SumoXMLAttr key, const std::string& value) {
             return isValidDemandElementID(value);
         case SUMO_ATTR_DURATION:
         case SUMO_ATTR_UNTIL:
+        case SUMO_ATTR_EXTENSION:
             if (canParse<SUMOTime>(value)) {
                 return parse<SUMOTime>(value) >= 0;
             } else {
@@ -753,6 +761,9 @@ GNEStop::enableAttribute(SumoXMLAttr key, GNEUndoList* undoList) {
         case SUMO_ATTR_UNTIL:
             newParametersSet |= STOP_UNTIL_SET;
             break;
+        case SUMO_ATTR_EXTENSION:
+            newParametersSet |= STOP_EXTENSION_SET;
+            break;
         case SUMO_ATTR_EXPECTED:
             newParametersSet |= STOP_TRIGGER_SET;
             break;
@@ -767,11 +778,27 @@ GNEStop::enableAttribute(SumoXMLAttr key, GNEUndoList* undoList) {
     }
     // add GNEChange_EnableAttribute
     undoList->add(new GNEChange_EnableAttribute(this, myViewNet->getNet(), parametersSet, newParametersSet), true);
-    // certain attributes requieres update geometry
-    if (myTagProperty.getAttributeProperties(key).requireUpdateGeometry()) {
-        updateGeometry();
-        // update view
-        myViewNet->update();
+    // modify parametersSetCopy depending of attr
+    switch (key) {
+        case SUMO_ATTR_STARTPOS:
+            if (parametersSet & STOP_END_SET) {
+                undoList->p_add(new GNEChange_Attribute(this, myViewNet->getNet(), key, toString(endPos - MIN_STOP_LENGTH)));
+            } else {
+                undoList->p_add(new GNEChange_Attribute(this, myViewNet->getNet(), key, toString(getLaneParents().front()->getParentEdge().getNBEdge()->getFinalLength() - MIN_STOP_LENGTH)));
+            }
+            break;
+        case SUMO_ATTR_ENDPOS:
+            undoList->p_add(new GNEChange_Attribute(this, myViewNet->getNet(), key, toString(getLaneParents().front()->getParentEdge().getNBEdge()->getFinalLength())));
+            break;
+        case SUMO_ATTR_DURATION:
+            undoList->p_add(new GNEChange_Attribute(this, myViewNet->getNet(), key, myTagProperty.getAttributeProperties(key).getDefaultValue()));
+            break;
+        case SUMO_ATTR_UNTIL:
+        case SUMO_ATTR_EXTENSION:
+            undoList->p_add(new GNEChange_Attribute(this, myViewNet->getNet(), key, myTagProperty.getAttributeProperties(key).getDefaultValue()));
+            break;
+        default:
+            break;
     }
 }
 
@@ -793,6 +820,9 @@ GNEStop::disableAttribute(SumoXMLAttr key, GNEUndoList* undoList) {
             break;
         case SUMO_ATTR_UNTIL:
             newParametersSet &= ~STOP_UNTIL_SET;
+            break;
+        case SUMO_ATTR_EXTENSION:
+            newParametersSet &= ~STOP_EXTENSION_SET;
             break;
         case SUMO_ATTR_EXPECTED:
             newParametersSet &= ~STOP_TRIGGER_SET;
@@ -828,6 +858,8 @@ GNEStop::isAttributeEnabled(SumoXMLAttr key) const {
             return (parametersSet & STOP_DURATION_SET) != 0;
         case SUMO_ATTR_UNTIL:
             return (parametersSet & STOP_UNTIL_SET) != 0;
+        case SUMO_ATTR_EXTENSION:
+            return (parametersSet & STOP_EXTENSION_SET) != 0;
         case SUMO_ATTR_EXPECTED:
             return (parametersSet & STOP_TRIGGER_SET) != 0;
         case SUMO_ATTR_EXPECTED_CONTAINERS:
@@ -920,6 +952,14 @@ GNEStop::setAttribute(SumoXMLAttr key, const std::string& value) {
             } else {
                 until = string2time(value);
                 parametersSet |= STOP_UNTIL_SET;
+            }
+            break;
+        case SUMO_ATTR_EXTENSION:
+            if (value.empty()) {
+                parametersSet &= ~STOP_EXTENSION_SET;
+            } else {
+                extension = string2time(value);
+                parametersSet |= STOP_EXTENSION_SET;
             }
             break;
         case SUMO_ATTR_INDEX:

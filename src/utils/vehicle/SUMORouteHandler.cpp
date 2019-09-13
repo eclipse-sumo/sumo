@@ -362,6 +362,9 @@ SUMORouteHandler::parseStop(SUMOVehicleParameter::Stop& stop, const SUMOSAXAttri
     if (attrs.hasAttribute(SUMO_ATTR_UNTIL)) {
         stop.parametersSet |= STOP_UNTIL_SET;
     }
+    if (attrs.hasAttribute(SUMO_ATTR_EXTENSION)) {
+        stop.parametersSet |= STOP_EXTENSION_SET;
+    }
     if (attrs.hasAttribute(SUMO_ATTR_ENDPOS)) {
         stop.parametersSet |= STOP_END_SET;
     }

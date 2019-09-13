@@ -196,7 +196,7 @@ SUMOVehicleParameter::Stop::write(OutputDevice& dev) const {
     if ((parametersSet & STOP_UNTIL_SET) && (until >= 0)) {
         dev.writeAttr(SUMO_ATTR_UNTIL, time2string(until));
     }
-    if (extension >= 0) {
+    if ((parametersSet & STOP_EXTENSION_SET) && (extension >= 0)) {
         dev.writeAttr(SUMO_ATTR_EXTENSION, time2string(extension));
     }
     if ((parametersSet & STOP_TRIGGER_SET) != 0) {

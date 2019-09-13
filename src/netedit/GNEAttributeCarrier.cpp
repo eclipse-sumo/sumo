@@ -4323,6 +4323,12 @@ GNEAttributeCarrier::fillCommonStopAttributes(SumoXMLTag currentTag) {
                                        "0");
     myTagProperties[currentTag].addAttribute(attrProperty);
 
+    attrProperty = AttributeProperties(SUMO_ATTR_EXTENSION,
+                                       ATTRPROPERTY_SUMOTIME | ATTRPROPERTY_OPTIONAL | ATTRPROPERTY_DEFAULTVALUESTATIC,
+                                       "If set to a non-negative time value, then the stop duration can be extended at most by the extension value in seconds",
+                                       "0");
+    myTagProperties[currentTag].addAttribute(attrProperty);
+
     attrProperty = AttributeProperties(SUMO_ATTR_INDEX,
                                        ATTRPROPERTY_STRING | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL,
                                        "Where to insert the stop in the vehicle's list of stops",
