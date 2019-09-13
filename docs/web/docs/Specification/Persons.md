@@ -28,7 +28,7 @@ below. Each person must have at least one stage in its plan.
 | Attribute           | Type      | Range              | Default         | Remark      |
 |---------------------|-----------|--------------------|-----------------|---------------------------|
 | id                  | string    | valid XML ids      | -               |                          |
-| depart              | float(s)  | ≥0                 | -               |                            |
+| depart              | float(s)  | ≥0 or 'triggered'  | -               | See [ride](Persons.md#rides) for an explanation of 'triggered'|
 | departPos           | float(s)  | ≥0                 | -               | the distance along the edge that the person is created      |
 | type                | string    | any declared vType | DEFAULT_PEDTYPE | the type should have vClass pedestrian              |
 | width               | float (s) | ≥0                 | 0,48            | The person's width [m]        |
@@ -120,6 +120,15 @@ the preceding plan element
 A given bus stop may serve as a replacement for a destination edge and
 arrival position. If an arrival position is given nevertheless it has to
 be inside the range of the stop.
+
+### Starting the simulation in a Vehicle
+To start the simulation while riding in a vehicle, the following conditions must be met:
+- the depart attribute must be set to 'triggered'
+- the first stage of the plan must be a ride
+- the lines attribute of the first ride must contain the ID of the vehicle to start in
+- the starting vehicle must already be loaded in the input file
+
+The person will then depart at the time of the vehicle departure and appear in the simulation as soon as the vehicle enters the network.
 
 ## Walks
 
