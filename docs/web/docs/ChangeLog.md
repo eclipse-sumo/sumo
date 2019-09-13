@@ -47,6 +47,7 @@ permalink: /ChangeLog/
   - Vehicle stop elements now support attribute 'speed'. This can be used to force a vehicle to drive with a fixed speed on a particular stretch of lane. Issue #1020
   - When defining a person ride, setting attribute `lines="ANY"` can now be used to take any vehicle that stops at the destination busStop or destination edge. Issue #6039
   - when defining vehicle stops, the new attribute 'extension' can be used to limit delays when too many people are boarding or when expected persons do not show up. Issue #6072 #3635
+  - Improved smoothness of acceleration / deceleration for carFollowModel 'IDM' when speed limits change and there is no leader vehicle. Issue #6080
 
 - Meso
   - Vehicles that reach maximum impatience can now pass junctions from an unprioritized road regardless of foe traffic. The old behavior can be restored by disabling impatience growth via **--time-to-impatience 0**. Issue #5830
