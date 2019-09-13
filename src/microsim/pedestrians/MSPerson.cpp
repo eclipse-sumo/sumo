@@ -417,6 +417,19 @@ MSPerson::MSPersonStage_Driving::proceed(MSNet* net, MSTransportable* person, SU
     const MSStoppingPlace* start = (previous->getStageType() == TRIP
                                     ? previous->getOriginStop()
                                     : previous->getDestinationStop());
+    myWaitingSince = now;
+    if (person->getParameter().departProcedure == DEPART_TRIGGERED 
+            && person->getNumRemainingStages() == person->getNumStages() - 1) { 
+        // we are the first real stage (stage 0 is WAITING_FOR_DEPART)
+        const std::string vehID = *myLines.begin();
+        SUMOVehicle* startVeh = net->getVehicleControl().getVehicle(vehID);
+        if (startVeh == nullptr) {
+            throw ProcessError("Vehicle '" + vehID + "' not found for triggered departure of person '" + person->getID() + "'.");
+        }
+        setVehicle(startVeh);
+        myVehicle->addPerson(person);
+        return;
+    }
     if (start != nullptr) {
         // the arrival stop may have an access point
         myWaitingEdge = &start->getLane().getEdge();
@@ -427,7 +440,6 @@ MSPerson::MSPersonStage_Driving::proceed(MSNet* net, MSTransportable* person, SU
         myStopWaitPos = Position::INVALID;
         myWaitingPos = previous->getEdgePos(now);
     }
-    myWaitingSince = now;
     SUMOVehicle* availableVehicle = net->getVehicleControl().getWaitingVehicle(person, myWaitingEdge, myWaitingPos);
     if (availableVehicle != nullptr && availableVehicle->getParameter().departProcedure == DEPART_TRIGGERED && !availableVehicle->hasDeparted()) {
         setVehicle(availableVehicle);

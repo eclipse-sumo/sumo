@@ -543,6 +543,16 @@
         </xsd:union>
     </xsd:simpleType>
 
+    <xsd:simpleType name="personDepartType">
+        <xsd:union memberTypes="timeType">
+            <xsd:simpleType>
+                <xsd:restriction base="xsd:string">
+                    <xsd:enumeration value="triggered"/>
+                </xsd:restriction>
+            </xsd:simpleType> 
+        </xsd:union>
+    </xsd:simpleType>
+
     <xsd:simpleType name="departLaneType">
         <xsd:union memberTypes="xsd:nonNegativeInteger">
             <xsd:simpleType>
@@ -724,7 +734,7 @@
     <xsd:complexType name="personType">
         <xsd:complexContent>
             <xsd:extension base="personBaseType">
-                <xsd:attribute name="depart" type="timeType" use="required"/>
+                <xsd:attribute name="depart" type="personDepartType" use="required"/>
             </xsd:extension>
         </xsd:complexContent>
     </xsd:complexType>

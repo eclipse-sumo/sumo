@@ -132,6 +132,10 @@ MSRouteHandler::parseFromViaTo(std::string element,
 void
 MSRouteHandler::myStartElement(int element,
                                const SUMOSAXAttributes& attrs) {
+    if (myActivePlan != nullptr && myActivePlan->empty() && myVehicleParameter->departProcedure == DEPART_TRIGGERED
+            && (element == SUMO_TAG_WALK || element == SUMO_TAG_PERSONTRIP || element == SUMO_TAG_STOP)) {
+        throw ProcessError("Triggered departure for person '" + myVehicleParameter->id + "' requires starting with a ride.");
+    } 
     SUMORouteHandler::myStartElement(element, attrs);
     try {
         switch (element) {
@@ -166,6 +170,25 @@ MSRouteHandler::myStartElement(int element,
                 }
                 double arrivalPos = attrs.getOpt<double>(SUMO_ATTR_ARRIVALPOS, myVehicleParameter->id.c_str(), ok,
                                     bs == nullptr ? -NUMERICAL_EPS : bs->getEndLanePosition());
+
+                SUMOVehicle* startVeh = nullptr;
+                if (myActivePlan->empty() && myVehicleParameter->departProcedure == DEPART_TRIGGERED) {
+                    if (st.size() != 1) {
+                        throw ProcessError("Triggered departure for person '" + pid + "' requires a unique lines value.");
+                    }
+                    // person starts
+                    MSVehicleControl& vehControl = MSNet::getInstance()->getVehicleControl();
+                    const std::string vehID = st.front();
+                    startVeh = vehControl.getVehicle(vehID);
+                    if (startVeh == nullptr) {
+                        throw ProcessError("Unknown vehicle '" + vehID + "' in triggered departure for person '" + pid + "'.");
+                    }
+                    if (startVeh->getParameter().departProcedure == DEPART_TRIGGERED) {
+                        throw ProcessError("Cannot use triggered vehicle '" + vehID + "' in triggered departure for person '" + pid + "'.");
+                    }
+                    myVehicleParameter->depart = startVeh->getParameter().depart;
+                }
+
                 if (attrs.hasAttribute(SUMO_ATTR_FROM)) {
                     const std::string fromID = attrs.get<std::string>(SUMO_ATTR_FROM, pid.c_str(), ok);
                     from = MSEdge::dictionary(fromID);
@@ -174,6 +197,9 @@ MSRouteHandler::myStartElement(int element,
                     }
                     if (!myActivePlan->empty() && myActivePlan->back()->getDestination() != from) {
                         throw ProcessError("Disconnected plan for person '" + myVehicleParameter->id + "' (" + fromID + "!=" + myActivePlan->back()->getDestination()->getID() + ").");
+                    }
+                    if (startVeh != nullptr && startVeh->getRoute().getEdges().front() != from) {
+                        throw ProcessError("Disconnected plan for triggered person '" + pid + "' (" + fromID + "!=" + startVeh->getRoute().getEdges().front()->getID() + ").");
                     }
                     if (myActivePlan->empty()) {
                         myActivePlan->push_back(new MSTransportable::Stage_Waiting(
