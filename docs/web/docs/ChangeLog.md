@@ -62,6 +62,9 @@ permalink: /ChangeLog/
   - Added shortcuts (Shift F1,F2,F3) for edge templates. Issue #6033
   - VTypes can be edited in multiple selected vehicles. Issue #6051
   
+- SUMO-GUI
+  - The currently loaded options can now be saved to a configuration via the file menu. Issue #5707
+  
 - Tools
   - When importing public transport traffic with osmWebWizard, vehicles from incomplete lines now start and end their routes at the network border instead of starting at the first stop. Issue #6025
 
