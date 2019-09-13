@@ -316,6 +316,10 @@ GNEStopFrame::getStopParameter(SUMOVehicleParameter::Stop& stop, const SumoXMLTa
         stop.until = -1;
         stop.parametersSet &= ~STOP_UNTIL_SET;
     }
+    if (valuesMap.count(SUMO_ATTR_EXTENSION) > 0) {
+        stop.extension = string2time(valuesMap.at(SUMO_ATTR_EXTENSION));
+        stop.parametersSet |= STOP_EXTENSION_SET;
+    }
     if (valuesMap.count(SUMO_ATTR_TRIGGERED) > 0) {
         stop.triggered = GNEAttributeCarrier::parse<bool>(valuesMap.at(SUMO_ATTR_TRIGGERED));
         stop.parametersSet |= STOP_TRIGGER_SET;
