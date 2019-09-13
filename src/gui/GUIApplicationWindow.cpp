@@ -107,6 +107,7 @@ FXDEFMAP(GUIApplicationWindow) GUIApplicationWindowMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_OPEN_EDGEDATA,                  GUIApplicationWindow::onCmdOpenEdgeData),
     FXMAPFUNC(SEL_COMMAND,  MID_RECENTFILE,                     GUIApplicationWindow::onCmdOpenRecent),
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_CTRL_R_RELOAD,           GUIApplicationWindow::onCmdReload),
+    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_CTRL_SHIFT_S_SAVENETWORK_AS,  GUIApplicationWindow::onCmdSaveConfig),
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_CTRL_W_CLOSESIMULATION,  GUIApplicationWindow::onCmdClose),
     FXMAPFUNC(SEL_COMMAND,  MID_EDITCHOSEN,                     GUIApplicationWindow::onCmdEditChosen),
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_CTRL_B_EDITBREAKPOINT,   GUIApplicationWindow::onCmdEditBreakpoints),
@@ -388,6 +389,9 @@ GUIApplicationWindow::fillMenuBar() {
                       "&Reload\tCtrl+R\tReloads the simulation / the network.",
                       GUIIconSubSys::getIcon(ICON_RELOAD), this, MID_HOTKEY_CTRL_R_RELOAD);
     new FXMenuSeparator(myFileMenu);
+    new FXMenuCommand(myFileMenu,
+                      "Save Configuration\tCtrl+Shift+S\tSave current options as a configuration file.",
+                      GUIIconSubSys::getIcon(ICON_SAVE), this, MID_HOTKEY_CTRL_SHIFT_S_SAVENETWORK_AS);
     new FXMenuCommand(myFileMenu,
                       "Close\tCtrl+W\tClose the simulation.",
                       GUIIconSubSys::getIcon(ICON_CLOSE), this, MID_HOTKEY_CTRL_W_CLOSESIMULATION);
@@ -955,6 +959,33 @@ GUIApplicationWindow::onCmdOpenRecent(FXObject* sender, FXSelector, void* data) 
 
 
 long
+GUIApplicationWindow::onCmdSaveConfig(FXObject*, FXSelector, void*) {
+    // get the new file name
+    FXFileDialog opendialog(this, "Save Sumo Configuration");
+    opendialog.setIcon(GUIIconSubSys::getIcon(ICON_SAVE));
+    opendialog.setSelectMode(SELECTFILE_ANY);
+    opendialog.setPatternList("Config (*.sumocfg)");
+    if (gCurrentFolder.length() != 0) {
+        opendialog.setDirectory(gCurrentFolder);
+    }
+    if (!opendialog.execute() || !MFXUtils::userPermitsOverwritingWhenFileExists(this, opendialog.getFilename())) {
+        return 1;
+    }
+    std::string file = MFXUtils::assureExtension(opendialog.getFilename(),
+                    opendialog.getPatternText(opendialog.getCurrentPattern()).after('.').before(')')).text();
+    std::ofstream out(file);
+    if (out.good()) {
+        OptionsCont::getOptions().writeConfiguration(out, true, false, false);
+        setStatusBarText("Configuration saved to " + file);
+    } else {
+        setStatusBarText("Could not save onfiguration to " + file);
+    }
+    out.close();
+    return 1;
+}
+
+
+long
 GUIApplicationWindow::onCmdClose(FXObject*, FXSelector, void*) {
     closeAllWindows();
     return 1;
@@ -1056,10 +1087,10 @@ GUIApplicationWindow::onCmdSaveState(FXObject*, FXSelector, void*) {
         return 1;
     }
 
-    FXString file = MFXUtils::assureExtension(opendialog.getFilename(),
-                    opendialog.getPatternText(opendialog.getCurrentPattern()).after('.').before(')'));
-    MSStateHandler::saveState(file.text(), MSNet::getInstance()->getCurrentTimeStep());
-    myStatusbar->getStatusLine()->setText("Simulation saved to " + file);
+    const std::string file = MFXUtils::assureExtension(opendialog.getFilename(),
+                    opendialog.getPatternText(opendialog.getCurrentPattern()).after('.').before(')')).text();
+    MSStateHandler::saveState(file, MSNet::getInstance()->getCurrentTimeStep());
+    setStatusBarText("Simulation saved to " + file);
     return 1;
 }
 
@@ -1779,7 +1810,6 @@ GUIApplicationWindow::loadOnStartup() {
 void
 GUIApplicationWindow::setStatusBarText(const std::string& text) {
     myStatusbar->getStatusLine()->setText(text.c_str());
-
     myStatusbar->getStatusLine()->setNormalText(text.c_str());
 }
 

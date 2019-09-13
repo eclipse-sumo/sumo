@@ -142,6 +142,9 @@ public:
     long onCmdOpenRecent(FXObject*, FXSelector, void*);
 
     /// @brief Called on menu File->Close
+    long onCmdSaveConfig(FXObject*, FXSelector, void*);
+
+    /// @brief Called on menu File->Close
     long onCmdClose(FXObject*, FXSelector, void*);
 
     /** @brief Called by FOX if the application shall be closed
