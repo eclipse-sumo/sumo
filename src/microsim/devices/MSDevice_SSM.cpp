@@ -2909,8 +2909,9 @@ MSDevice_SSM::findSurroundingVehicles(const MSVehicle& veh, double range, FoeInf
     // distToConflictLane is the distance of the ego vehicle to the start of the currently considered potential conflict lane (can be negative for its current lane)
     double distToConflictLane = isOpposite ? pos - veh.getLane()->getLength() : -pos;
 
-    // remember already visited lanes (no matter whether internal or not)
+    // remember already visited lanes (no matter whether internal or not) and junctions downstream along the route
     std::set<const MSLane*> seenLanes;
+    std::set<const MSJunction*> routeJunctions;
 
     // Starting points for upstream scans to be executed after downstream scan is complete.
     // Holds pairs (starting edge, starting position on edge)
@@ -2935,6 +2936,7 @@ MSDevice_SSM::findSurroundingVehicles(const MSVehicle& veh, double range, FoeInf
         const MSJunction* junction = edge->getToJunction();
         // Collect vehicles on the junction
         getVehiclesOnJunction(junction, lane, distToConflictLane, lane, foeCollector, seenLanes);
+        routeJunctions.insert(junction);
 
         // Collect vehicles on incoming edges.
         // Note that this includes the previous edge on the ego vehicle's route.
@@ -3051,6 +3053,8 @@ MSDevice_SSM::findSurroundingVehicles(const MSVehicle& veh, double range, FoeInf
                 if (seenLanes.count(lane) == 0) {
                     // Collect vehicles on the junction, if it wasn't considered already
                     getVehiclesOnJunction(junction, lane, distToConflictLane, lane, foeCollector, seenLanes);
+                    routeJunctions.insert(junction);
+
                     // Collect vehicles on incoming edges (except the last edge, where we already collected). Use full range.
                     if (isOpposite) {
                         const ConstMSEdgeVector& outgoing = junction->getOutgoing();
@@ -3102,10 +3106,13 @@ MSDevice_SSM::findSurroundingVehicles(const MSVehicle& veh, double range, FoeInf
             }
         }
     }
+    // add junction from the end of the route
+    routeJunctions.insert(lane->getEdge().getToJunction());
+
 
     // Scan upstream branches from collected starting points
     for (UpstreamScanStartInfo& i : upstreamScanStartPositions) {
-        getUpstreamVehicles(i, foeCollector, seenLanes);
+        getUpstreamVehicles(i, foeCollector, seenLanes, routeJunctions);
     }
 
 #ifdef DEBUG_SSM_SURROUNDING
@@ -3122,7 +3129,7 @@ MSDevice_SSM::findSurroundingVehicles(const MSVehicle& veh, double range, FoeInf
 }
 
 void
-MSDevice_SSM::getUpstreamVehicles(const UpstreamScanStartInfo& scanStart, FoeInfoMap& foeCollector, std::set<const MSLane*>& seenLanes) {
+MSDevice_SSM::getUpstreamVehicles(const UpstreamScanStartInfo& scanStart, FoeInfoMap& foeCollector, std::set<const MSLane*>& seenLanes, const std::set<const MSJunction*>& routeJunctions) {
 #ifdef DEBUG_SSM_SURROUNDING
     if (gDebugFlag3) {
         std::cout << SIMTIME << " getUpstreamVehicles() for edge '" << scanStart.edge->getID() << "'"
@@ -3193,6 +3200,11 @@ MSDevice_SSM::getUpstreamVehicles(const UpstreamScanStartInfo& scanStart, FoeInf
     // Junction representing the origin of 'edge'
     const MSJunction* junction = scanStart.edge->getFromJunction();
 
+    // stop if upstream search reaches the ego route
+    if (routeJunctions.find(junction) != routeJunctions.end()) {
+        return;
+    }
+
     // Collect vehicles from incoming edges of the junction
     int incomingEdgeCount = 0;
     if (!scanStart.edge->isInternal()) {
@@ -3242,7 +3254,7 @@ MSDevice_SSM::getUpstreamVehicles(const UpstreamScanStartInfo& scanStart, FoeInf
             }
             // account for vehicles on the predecessor edge
             UpstreamScanStartInfo nextInfo(inEdge, inEdge->getLength(), remainingRange - distOnJunction, scanStart.egoDistToConflictLane, scanStart.egoConflictLane);
-            getUpstreamVehicles(nextInfo, foeCollector, seenLanes);
+            getUpstreamVehicles(nextInfo, foeCollector, seenLanes, routeJunctions);
         }
     }
 }
