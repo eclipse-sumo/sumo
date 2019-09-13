@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 07/30/19 11:10:18 by Eclipse SUMO Version v1_2_0+0887-b1cdbe7c315
+<!-- generated on Fri Sep 13 15:42:11 2019 by Eclipse SUMO Version v1_3_1+0308-99ae728
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -226,13 +226,13 @@ SPDX-License-Identifier: EPL-2.0
         <minTTC time="144.00" position="2348.34,16.89" type="20" value="3.94"/>
         <maxDRAC time="NA" position="NA" type="NA" value="NA"/>
     </conflict>
-    <conflict begin="186.00" end="189.00" ego="WE.2" foe="EW.10">
-        <minTTC time="187.00" position="1430.33,12.48" type="20" value="4.30"/>
-        <maxDRAC time="NA" position="NA" type="NA" value="NA"/>
-    </conflict>
     <conflict begin="162.00" end="186.00" ego="EW.14" foe="EW.4">
         <minTTC time="181.00" position="2576.89,21.29" type="2" value="1.53"/>
         <maxDRAC time="181.00" position="2576.89,21.29" type="2" value="1.59"/>
+    </conflict>
+    <conflict begin="186.00" end="189.00" ego="WE.2" foe="EW.10">
+        <minTTC time="187.00" position="1430.33,12.48" type="20" value="4.30"/>
+        <maxDRAC time="NA" position="NA" type="NA" value="NA"/>
     </conflict>
     <conflict begin="166.00" end="195.00" ego="stopping" foe="EW.9">
         <minTTC time="185.00" position="1922.88,18.15" type="3" value="0.70"/>
