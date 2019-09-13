@@ -1,15 +1,18 @@
 ---
-title: Tools Import VISSIM
+title: Tools/Import/VISSIM
 permalink: /Tools/Import/VISSIM/
 ---
 
 # Extension tools to import features from VISSIM \*.inpx files
 
+!!! caution
+    documentation is WORK IN PROGRESS -- more doc to come...
+
 **TODO:**
 
 - translation to english
 
-test math: \(\sqrt{\pi} +4\)
+<img src="http://latex.codecogs.com/gif.latex?\sqrt{\pi} +4" border="0" style="margin:0;"/>
 
 # Erweiterung der SUMO Netzkonversion
 
@@ -38,7 +41,9 @@ ermöglichen.
 
 Der Aufruf von `netconvert` für VISSIM-Netze erfolgt über:
 
-`   netconvert –vissim-file=<VISSIM_FILE –output-file=MySUMOFile.net.xml`
+```
+netconvert –vissim-file=<VISSIM_FILE –output-file=MySUMOFile.net.xml
+```
 
 Die Unterscheidung, ob es sich um ein VISSIM-Netz im neuen `inpx`- oder
 alten `inp`-Format handelt wird während der Konversion geprüft. Somit
@@ -96,12 +101,14 @@ und wird bei der Simulation als Argument angegeben. Bei der Konversion
 werden **nur statische Routendefinitionen** unterstützt, die eine exakte
 Routenabfolge beinhalten. Der Aufruf erfolgt über:
 
-`   convert_vissimXML_flows_statRoutes.py -V `<vissim-file>` -n `<sumo-net-file>` -o `<output-filename>
+```
+convert_vissimXML_flows_statRoutes.py -V <vissim-file> -n <sumo-net-file> -o <output-filename>
+```
 
 ## Routendefinition VISSIM
 
 Zuflüsse sind in der .inpx-Datei durch den XML-tag
-<timeIntervalVehVolume> gekennzeichnet. Ein Zufluss ist immer einer
+`<timeIntervalVehVolume>` gekennzeichnet. Ein Zufluss ist immer einer
 Strecke zugewiesen und durch einen Namen (der auch leer sein kann) und
 einer eindeutige ID definiert. Da sich der Fahrzeugzufluss mit der Zeit
 ändern kann, werden einem Zufluss Zeitintervalle hinzugefügt, die durch
@@ -110,14 +117,16 @@ Beginnzeiten der Zeitintervalle sind in Millisekunden angegeben und die
 Verkehrsstärke hat die Einheit Fz/h. Eine Zuflussdefinition sieht in
 VISSIM wie folgt aus:
 
-`  `<vehicleInput anmFlag="false" link="9" name="Parkplatz 30221" no="1">
-`     `<timeIntVehVols>
-`        `<timeIntervalVehVolume cont="false" timeInt="1 0" vehComp="6" volType="STOCHASTIC" volume="48.000000"/>
-`        `<timeIntervalVehVolume cont="false" timeInt="1 900000" vehComp="6" volType="STOCHASTIC" volume="84.000000"/>
-`        `<timeIntervalVehVolume cont="false" timeInt="1 1800000" vehComp="6" volType="STOCHASTIC" volume="120.040000"/>
-`        `<timeIntervalVehVolume cont="false" timeInt="1 2700000" vehComp="6" volType="STOCHASTIC" volume="120.040000"/>
-`     `</timeIntVehVols>
-`  `</vehicleInput>
+```
+  <vehicleInput anmFlag="false" link="9" name="Parkplatz 30221" no="1">
+     <timeIntVehVols>
+        <timeIntervalVehVolume cont="false" timeInt="1 0" vehComp="6" volType="STOCHASTIC" volume="48.000000"/>
+        <timeIntervalVehVolume cont="false" timeInt="1 900000" vehComp="6" volType="STOCHASTIC" volume="84.000000"/>
+        <timeIntervalVehVolume cont="false" timeInt="1 1800000" vehComp="6" volType="STOCHASTIC" volume="120.040000"/>
+        <timeIntervalVehVolume cont="false" timeInt="1 2700000" vehComp="6" volType="STOCHASTIC" volume="120.040000"/>
+     </timeIntVehVols>
+  </vehicleInput>
+```
 
 Routenentscheidungen werden in VISSIM durch ihre Startpunkte
 zusammengefasst. Von einer Strecke können mehrere statische Routen
@@ -126,22 +135,24 @@ das Attribut `destLink` gegeben. Für jede Route werden wie bei den
 Zuflüssen Zeitintervalle festgelegt, für welche die relativen Anteile
 der Zuflüsse für die Routen definiert sind. Der Verlauf der Route ist
 durch die angeführte Streckenfolge gegeben, welche durch den XML-tag
-<linkSeq> eingeleitet wird. Eine Routendefinition zeigt folgendes
+`<linkSeq>` eingeleitet wird. Eine Routendefinition zeigt folgendes
 Beispiel:
 
-`  `<vehicleRoutingDecisionStatic allVehTypes="true" anmFlag="false" combineStaRoutDec="false" link="9" name="Parkplatz 30221" no="1" pos="1.000000">
-`     `<vehicleRouteStatic destLink="205" destPos="20.916000" name="" no="113" relFlow="2 0:4.000000, 2 900000:6.990000, 2 1800000:9.990000, 2 2700000:9.990000, 2 3600000:12.660000, 2 4500000:16.330000, 2 5400000:20.990000, 2 6300000:15.660000, 2 7200000:16.660000, 2 8100000:16.330000">
-`        `<linkSeq>
-`           `<intObjectRef key="10381"/>
-`           `<intObjectRef key="269"/>
-`           `<intObjectRef key="10154"/>
-`           `<intObjectRef key="117"/>
-`           `<intObjectRef key="10150"/>
-`           `<intObjectRef key="76"/>
-`           `<intObjectRef key="10145"/>
-`        `</linkSeq>
-`     `</vehicleRouteStatic>
-`  `</vehicleRoutingDecisionStatic>
+```
+<vehicleRoutingDecisionStatic allVehTypes="true" anmFlag="false" combineStaRoutDec="false" link="9" name="Parkplatz 30221" no="1" pos="1.000000">
+     <vehicleRouteStatic destLink="205" destPos="20.916000" name="" no="113" relFlow="2 0:4.000000, 2 900000:6.990000, 2 1800000:9.990000, 2 2700000:9.990000, 2 3600000:12.660000, 2 4500000:16.330000, 2 5400000:20.990000, 2 6300000:15.660000, 2 7200000:16.660000, 2 8100000:16.330000">
+        <linkSeq>
+           <intObjectRef key="10381"/>
+           <intObjectRef key="269"/>
+           <intObjectRef key="10154"/>
+           <intObjectRef key="117"/>
+           <intObjectRef key="10150"/>
+           <intObjectRef key="76"/>
+           <intObjectRef key="10145"/>
+        </linkSeq>
+     </vehicleRouteStatic>
+  </vehicleRoutingDecisionStatic>
+```
 
 ## Routendefinition SUMO
 
@@ -152,13 +163,15 @@ Wahrscheinlichkeit definiert. Die Summe der Wahrscheinlichkeiten aller
 Routen muss immer 1 ergeben und die Referenzierung auf eine
 Routen-Verteilung erfolgt über deren eindeutige ID:
 
-`  `<routeDistribution id="81_900.0">
-`     `<route edges="81 83 210 211 268 117 76 115 213 212 114 265 203 204 263 109 52 188 297 190 296 186 70 298 238 299 124" id="163" probability="0.372751499001"/>
-`     `<route edges="81 83 210 211 268 117 76 115 213 212 114 265 203 204 263 109 52 188 297 190 296 186 70 298 238 299 239 72 " id="181" probability="0.125916055963"/>
-`     `<route edges="81 83 210 211 268 117 76 115 213 212 114 265 203 204 263 109 52 188 297 190 296 186 181 184" id="187" probability="0.171219187209"/>
-`     `<route edges="81 83 215 216 217 272 16" id="193" probability="0.211192538308"/>
-`     `<route edges="81 83 210 211 268 13" id="195" probability="0.11892071952"/>
-`  `</routeDistribution>
+```
+  <routeDistribution id="81_900.0">
+     <route edges="81 83 210 211 268 117 76 115 213 212 114 265 203 204 263 109 52 188 297 190 296 186 70 298 238 299 124" id="163" probability="0.372751499001"/>
+     <route edges="81 83 210 211 268 117 76 115 213 212 114 265 203 204 263 109 52 188 297 190 296 186 70 298 238 299 239 72 " id="181" probability="0.125916055963"/>
+     <route edges="81 83 210 211 268 117 76 115 213 212 114 265 203 204 263 109 52 188 297 190 296 186 181 184" id="187" probability="0.171219187209"/>
+     <route edges="81 83 215 216 217 272 16" id="193" probability="0.211192538308"/>
+     <route edges="81 83 210 211 268 13" id="195" probability="0.11892071952"/>
+  </routeDistribution>
+```
 
 Des weiteren gehören zur Routendefinition auch Fahzeugtyp-Verteilungen .
 Diese geben die Eigenschaften und die Wahrscheinlichkeit der definierten
@@ -166,10 +179,12 @@ Fahrzeugtypen an und müssen vorher definiert werden. Wie bei der
 Routen-Verteilung erfolgt die Referenzierung auch hier über die
 eindeutige ID:
 
-`  `<vTypeDistribution id="6">
-`     `<vType accel="3.500000" id="t1001_D6" length="4.454081632653061" maxSpeed="14.722222222222221" probability="0.900000"/>
-`     `<vType accel="7.300000" id="t1002_D6" length="10.086636363636364" maxSpeed="14.722222222222221" vClass="truck" probability="0.100000"/>
-`  `</vTypeDistribution>
+```
+<vTypeDistribution id="6">
+   <vType accel="3.500000" id="t1001_D6" length="4.454081632653061" maxSpeed="14.722222222222221" probability="0.900000"/>
+   <vType accel="7.300000" id="t1002_D6" length="10.086636363636364" maxSpeed="14.722222222222221" vClass="truck" probability="0.100000"/>
+</vTypeDistribution>
+```
 
 Auch die Fahrzeugzuflüsse werden in der Routen-Datei definiert. Diese
 werden wie in VISSIM für ein gewisses Zeitintervall festgelegt. Wichtig
@@ -179,13 +194,15 @@ wird des Weiteren noch eine zuvor definierte Routen-Verteilung, eine
 Fahrzeugtypen-Verteilung sowie eine ID zugeordnet. Zuflüsse werden in
 SUMO wie folgt definiert:
 
-`  `<flow begin="0.0" color="1,1,0" end="900.0" id="fl81_st0.0" route="81_0.0" type="6" vehsPerHour="94.56"/>
-`  `<flow begin="900.0" color="1,1,0" end="1800.0" id="fl81_st900.0" route="81_900.0" type="6" vehsPerHour="120.08"/>
-`  `<flow begin="1800.0" color="1,1,0" end="2700.0" id="fl108_st1800.0" route="108_1800.0" type="6" vehsPerHour="161.88"/>
+```
+<flow begin="0.0" color="1,1,0" end="900.0" id="fl81_st0.0" route="81_0.0" type="6" vehsPerHour="94.56"/>
+<flow begin="900.0" color="1,1,0" end="1800.0" id="fl81_st900.0" route="81_900.0" type="6" vehsPerHour="120.08"/>
+<flow begin="1800.0" color="1,1,0" end="2700.0" id="fl108_st1800.0" route="108_1800.0" type="6" vehsPerHour="161.88"/>
+```
 
 Allgemeine Informationen zur Definition von Routen und Zuflüssen finden
 sich unter
-<http://sumo.dlr.de/wiki/Definition_of_Vehicles,_Vehicle_Types,_and_Routes>
+<http://sumo.dlr.de/docs/Definition_of_Vehicles,_Vehicle_Types,_and_Routes.html>
 (zuletzt geprüft am 28.07.2015).
 
 ## Umsetzung
@@ -218,7 +235,9 @@ Das zusätzliche Tool `tls_vissimXML2SUMO.py` ermöglicht es, VISSIM
 Lichtsignalanlagen zu parsen und das konvertierte SUMO-Netz mit diesen
 Informationen zu erweitern. Der Aufruf erfolgt über:
 
-`   tls_vissimXML2SUMO.py -V `<vissim-file>` -S `<sumo-file>` -o `<output-filename>
+```
+tls_vissimXML2SUMO.py -V <vissim-file> -S <sumo-file> -o <output-filename>
+```
 
 ## LSA-Definition: VISSIM
 
@@ -233,38 +252,42 @@ aussieht.
 ### .inpx-Datei
 
 In der `.inpx-Datei` sind die Lichtsignalanlagen durch den XML-tag
-<signalController> gekennzeichnet. Die benötigten Attribute für die
+`<signalController>` gekennzeichnet. Die benötigten Attribute für die
 Konversion in das SUMO-Format sind die zugehörige `.sig-Datei` sowie die
 Auflistung der definierten Signalgruppen. Signalgruppen können mehreren
 Fahrstreifen zugewiesen werden und sind durch eine Signalabfolge
 definiert. Diese sind als Attribut des Kindelementes
-<signalOutputConfigurationElement> vorzufinden. Eine
+`<signalOutputConfigurationElement>` vorzufinden. Eine
 Lichtsignalanlagen-Definition sieht in VISSIM wie folgt aus:
 
-`  `<signalController active="true" cycTm="0.000000" cycTmIsVar="true" debug="false" guiFile="VISSIG_GUI.dll" name="VLSA 301 (WienerStr./JudendorferStr.)" no="301" offset="0.000000" progFile="VISSIG_Controller.dll" progNo="1" scDetRecFile="VISSIM_302.ldp" scDetRecShortNam="false" sigTmsTabAutoConfig="true" supplyFile1="vissig.config" supplyFile2="TestsiteGraz_v01301.sig" supplyFile3="" type="FIXEDTIME">
-`     `<sGs>
-`        `<signalGroup amber="0.000000" greenFlsh="0.000000" minGreen="0.000000" minRed="0.000000" name="11GR" no="1" redAmber="0.000000" type="NORMAL"/>
-`        < ... >`
-`        `<signalGroup amber="0.000000" greenFlsh="0.000000" minGreen="0.000000" minRed="0.000000" name="14R" no="8" redAmber="0.000000" type="NORMAL"/>
-`     `</sGs>
-`     `<wttFiles>
-`        `<intObjectRef key="1"/>
-`     `</wttFiles>
-`     `<sigTmsTabConfig>
-`        `<signalOutputConfigurationElement configName="SIGGRP" detPort="0" sg="301 1" title="" varNo="1" wttFilename="vissim"/>
-`        `<signalOutputConfigurationElement configName="SIGGRP" detPort="0" sg="301 2" title="" varNo="2" wttFilename="vissim"/>
-`     `</sigTmsTabConfig>
-`  `</signalController>
+```
+<signalController active="true" cycTm="0.000000" cycTmIsVar="true" debug="false" guiFile="VISSIG_GUI.dll" name="VLSA 301 (WienerStr./JudendorferStr.)" no="301" offset="0.000000" progFile="VISSIG_Controller.dll" progNo="1" scDetRecFile="VISSIM_302.ldp" scDetRecShortNam="false" sigTmsTabAutoConfig="true" supplyFile1="vissig.config" supplyFile2="TestsiteGraz_v01301.sig" supplyFile3="" type="FIXEDTIME">
+     <sGs>
+        <signalGroup amber="0.000000" greenFlsh="0.000000" minGreen="0.000000" minRed="0.000000" name="11GR" no="1" redAmber="0.000000" type="NORMAL"/>
+        < ... >
+        <signalGroup amber="0.000000" greenFlsh="0.000000" minGreen="0.000000" minRed="0.000000" name="14R" no="8" redAmber="0.000000" type="NORMAL"/>
+     </sGs>
+     <wttFiles>
+        <intObjectRef key="1"/>
+     </wttFiles>
+     <sigTmsTabConfig>
+        <signalOutputConfigurationElement configName="SIGGRP" detPort="0" sg="301 1" title="" varNo="1" wttFilename="vissim"/>
+        <signalOutputConfigurationElement configName="SIGGRP" detPort="0" sg="301 2" title="" varNo="2" wttFilename="vissim"/>
+     </sigTmsTabConfig>
+  </signalController>
+```
 
 In der .inpx-Datei befinden sich ebenfalls die Definitionen der
 Lichtsignalgeber aller Lichtsignalanlagen. Diese sind einem Fahrstreifen
 einer Strecke zugewiesen und gehören zu einer zuvor definierten
 Signalgruppe:
 
-`  `<signalHeads>
-`     `<signalHead allPedTypes="true" allVehTypes="true" complRate="1.000000" dischRecAct="false" isBlockSig="false" lane="223 1" localNo="6" name="" no="1" pos="98.115000" sg="305 6" slowDownDist="3.000000" type="CIRCULAR" vAmberBlock="0.000000"/>
-`     `<signalHead allPedTypes="true" allVehTypes="true" complRate="1.000000" dischRecAct="false" isBlockSig="false" lane="276 3" localNo="5" name="" no="2" pos="82.377000" sg="305 5" slowDownDist="3.000000" type="CIRCULAR" vAmberBlock="0.000000"/>
-`  `</signalHeads>
+```
+<signalHeads>
+     <signalHead allPedTypes="true" allVehTypes="true" complRate="1.000000" dischRecAct="false" isBlockSig="false" lane="223 1" localNo="6" name="" no="1" pos="98.115000" sg="305 6" slowDownDist="3.000000" type="CIRCULAR" vAmberBlock="0.000000"/>
+     <signalHead allPedTypes="true" allVehTypes="true" complRate="1.000000" dischRecAct="false" isBlockSig="false" lane="276 3" localNo="5" name="" no="2" pos="82.377000" sg="305 5" slowDownDist="3.000000" type="CIRCULAR" vAmberBlock="0.000000"/>
+  </signalHeads>
+```
 
 ### .sig-Datei
 
@@ -272,10 +295,12 @@ Die Signalphasen werden in der `.sig-Datei` über ihre ID referenziert.
 Welche ID zu welcher Phase gehört, wird am Anfang der Datei wie folgt
 definiert:
 
-`  `<signaldisplays>
-`     `<display id="1" name="Red" state="RED"/>
-`     `<display id="2" name="Red/Amber" state="REDAMBER"/>
-`  `</signaldisplays>
+```
+ <signaldisplays>
+     <display id="1" name="Red" state="RED"/>
+     <display id="2" name="Red/Amber" state="REDAMBER"/>
+  </signaldisplays></source>
+```
 
 </source>
 
@@ -284,40 +309,46 @@ fixe Signalsequenzen verwendet, die ebenfalls am Anfang der `.sig-Datei`
 zu finden sind. Diese definieren die Abfolge der Phasen und die
 Referenzierung erfolgt über die jeweilige ID:
 
-`  `<signalsequences>
-`     `<signalsequence id="5" name="Red-Red/Amber-Green-Flashing Green-Amber">
-`        `<state display="1" isFixedDuration="false" isClosed="true" defaultDuration="1000" />
-`        `<state display="2" isFixedDuration="true" isClosed="true" defaultDuration="1000" />
-`        `<state display="3" isFixedDuration="false" isClosed="false" defaultDuration="5000" />
-`        `<state display="5" isFixedDuration="true" isClosed="false" defaultDuration="4000" />
-`        `<state display="4" isFixedDuration="true" isClosed="true" defaultDuration="3000" />
-`     `</signalsequence>
-`     `<signalsequence id="12" name="Off-Green">
-`        `<state display="7" isFixedDuration="false" isClosed="true" defaultDuration="1000" />
-`        `<state display="3" isFixedDuration="false" isClosed="false" defaultDuration="5000" />
-`     `</signalsequence>
-`  `</signalsequences>
+```
+ <signalsequences>
+     <signalsequence id="5" name="Red-Red/Amber-Green-Flashing Green-Amber">
+        <state display="1" isFixedDuration="false" isClosed="true" defaultDuration="1000" />
+        <state display="2" isFixedDuration="true" isClosed="true" defaultDuration="1000" />
+        <state display="3" isFixedDuration="false" isClosed="false" defaultDuration="5000" />
+        <state display="5" isFixedDuration="true" isClosed="false" defaultDuration="4000" />
+        <state display="4" isFixedDuration="true" isClosed="true" defaultDuration="3000" />
+     </signalsequence>
+     <signalsequence id="12" name="Off-Green">
+        <state display="7" isFixedDuration="false" isClosed="true" defaultDuration="1000" />
+        <state display="3" isFixedDuration="false" isClosed="false" defaultDuration="5000" />
+     </signalsequence>
+  </signalsequences>
+```
 
 Anschließend erfolgt die Definition aller Signalprogramme und deren
 Umlaufzeiten:
 
-`  `<prog id="1" cycletime="80000" switchpoint="0" offset="13000" intergreens="0" fitness="0.000000" vehicleCount="0" name="Morgenprogramm S 2.7"/>
+```
+<prog id="1" cycletime="80000" switchpoint="0" offset="13000" intergreens="0" fitness="0.000000" vehicleCount="0" name="Morgenprogramm S 2.7"/>
+```
 
 Die Definition der Signalgruppen besteht aus den Beginnzeiten der Rot-
 und Grünphase und den Zeitdauern der restlichen Phasen, welche sich in
 der zugehörigen Signalsequenz befinden:
 
-`  `<sg sg_id="1" signal_sequence="5">
-`     `<cmds>
-`        `<cmd display="3" begin="13000" />
-`        `<cmd display="1" begin="46000" />
-`     `</cmds>
-`     `<fixedstates>
-`        `<fixedstate display="2" duration="2000" />
-`        `<fixedstate display="5" duration="4000" />
-`        `<fixedstate display="4" duration="3000" />
-`     `</fixedstates>
-`  `</sg>
+```
+<sg sg_id="1" signal_sequence="5">
+     <cmds>
+        <cmd display="3" begin="13000" />
+        <cmd display="1" begin="46000" />
+     </cmds>
+     <fixedstates>
+        <fixedstate display="2" duration="2000" />
+        <fixedstate display="5" duration="4000" />
+        <fixedstate display="4" duration="3000" />
+     </fixedstates>
+  </sg>
+```
 
 ## LSA Definition: SUMO
 
@@ -329,7 +360,7 @@ Nachfolgend findet sich die Erklärung einer beispielhaften
 LSA-Definition in SUMO.
 
 Eine Lichtsignale ist in der SUMO-Netzdatei durch den XML Element Node
-<tlLogic> gekennzeichnet. Es können die Attribute `id`, `type`, `offset`
+`<tlLogic>` gekennzeichnet. Es können die Attribute `id`, `type`, `offset`
 und `programID` vergeben werden, wobei bei der Konversion nur die `id`
 und die `programID` definiert werden. Die ID der LSA muss identisch mit
 der ID der zugeordneten Kreuzung sein (junction id = tlLogic id) und die
@@ -342,12 +373,14 @@ Schaltung, welche durch eine Zeitspanne in Sekunden und einen Zustand
 gekennzeichnet sind. Jeder Buchstabe des `states` definiert den
 aktuellen Zustand eines Fahrstreifens:
 
-`  `<tlLogic id="69" type="static" programID="Tagesprogramm S 5.3" offset="0.00">
-`     `<phase duration="20.00" state="Grrr"/>
-`     `<phase duration="20.00" state="yyyy"/>
-`     `<phase duration="100.00" state="rGGG"/>
-`     `<phase duration="100.00" state="yyyy"/>
-`  `</tlLogic>
+```
+<tlLogic id="69" type="static" programID="Tagesprogramm S 5.3" offset="0.00">
+     <phase duration="20.00" state="Grrr"/>
+     <phase duration="20.00" state="yyyy"/>
+     <phase duration="100.00" state="rGGG"/>
+     <phase duration="100.00" state="yyyy"/>
+  </tlLogic>
+```
 
 Welcher `state-Index` zu welchem Fahrstreifen zugeordnet wird, ist in
 der zugehörigen *Connection* durch deren `linkIndex` definiert.
@@ -355,10 +388,12 @@ Zusätzlich muss jede *Connection*, die von einer Lichtsignalanlage
 beeinflusst wird, dieser auch zugewiesen werden. Hierfür wird dem
 Attribut `tl` die ID der jeweiligen LSA zugeteilt:
 
-`  `<connection dir="r" from="117" fromLane="0" to="88" toLane="0" via=":69_1_0" tl="69" linkIndex="2" state="o"/>
-`  `<connection dir="s" from="117" fromLane="0" to="76" toLane="0" via=":69_2_0" tl="69" linkIndex="3" state="o"/>
-`  `<connection dir="s" from="117" fromLane="1" to="76" toLane="1" via=":69_2_1" tl="69" linkIndex="1" state="o"/>
-`  `<connection dir="r" from="89" fromLane="0" to="76" toLane="0" via=":69_0_0" tl="69" linkIndex="0" state="o"/>
+```
+ <connection dir="r" from="117" fromLane="0" to="88" toLane="0" via=":69_1_0" tl="69" linkIndex="2" state="o"/>
+  <connection dir="s" from="117" fromLane="0" to="76" toLane="0" via=":69_2_0" tl="69" linkIndex="3" state="o"/>
+  <connection dir="s" from="117" fromLane="1" to="76" toLane="1" via=":69_2_1" tl="69" linkIndex="1" state="o"/>
+  <connection dir="r" from="89" fromLane="0" to="76" toLane="0" via=":69_0_0" tl="69" linkIndex="0" state="o"/>
+```
 
 Auch die *junction*, auf der die Lichtsignalanlage platziert werden
 soll, muss als solche definiert werden. Dies geschieht über das Attribut
@@ -366,12 +401,14 @@ soll, muss als solche definiert werden. Dies geschieht über das Attribut
 *junction* eine LSA zugewiesen so muss der `type` auf “’traffic_light”’
 gesetzt werden:
 
-`  `<junction id="69" incLanes="89_0 117_0 117_1" intLanes=":69_0_0 :69_1_0 :69_2_0 :69_2_1" shape="3276.61,1952.22 3277.64,1946.15 3275.74,1944.30 3269.32,1943.27 3265.23,1952.29 3274.96,1953.43" type="traffic_light" x="3273.91" y="1947.87">
-`     `<request cont="0" foes="1100" index="0" response="1100"/>
-`     `<request cont="0" foes="0000" index="1" response="0000"/>
-`     `<request cont="0" foes="0001" index="2" response="0000"/>
-`     `<request cont="0" foes="0001" index="3" response="0000"/>
-`  `</junction>
+```
+<junction id="69" incLanes="89_0 117_0 117_1" intLanes=":69_0_0 :69_1_0 :69_2_0 :69_2_1" shape="3276.61,1952.22 3277.64,1946.15 3275.74,1944.30 3269.32,1943.27 3265.23,1952.29 3274.96,1953.43" type="traffic_light" x="3273.91" y="1947.87">
+     <request cont="0" foes="1100" index="0" response="1100"/>
+     <request cont="0" foes="0000" index="1" response="0000"/>
+     <request cont="0" foes="0001" index="2" response="0000"/>
+     <request cont="0" foes="0001" index="3" response="0000"/>
+  </junction>
+```
 
 Zusätzlich ist es möglich in SUMO mehrere Programme für eine LSA zu
 definieren. Dies geschieht über die Definition einer
@@ -380,7 +417,7 @@ festgelegt, welches Programm am Anfang der Simulation ausgewählt werden
 soll. Dieses Startprogramm wird aus der VISSIM `.inpx-Datei` übernommen
 und die Zuordnung der Signalprogramme geschieht über deren ProgramID.
 Während der Simulation können die Signalprogramme entweder in dem GUI
-per Hand oder durch das Kindelement <wautSwitch> zu einem angegebenen
+per Hand oder durch das Kindelement `<wautSwitch>` zu einem angegebenen
 Zeitpunkt verändert werden:
 
 ```
@@ -391,7 +428,7 @@ Zeitpunkt verändert werden:
 ```
 
 Nähere Beschreibungen zur Definition von Lichtsignalanlagen befinden
-sich unter <http://sumo.dlr.de/wiki/Simulation/Traffic_Lights> (zuletzt
+sich unter <http://sumo.dlr.de/docs/Simulation/Traffic_Lights.html> (zuletzt
 geprüft am 28.07.2015).
 
 ## Umsetzung
@@ -432,19 +469,19 @@ auszulesen und in das zuvor durch `netconvert` konvertierte SUMO-Netz zu
 Simulation hinzugefügt werden muss. Der Aufruf erfolgt über:
 
 ```
-   convert_detectors2SUMO.py -V <vissim-file> -S <sumo-file> -o <output-filename>
+convert_detectors2SUMO.py -V <vissim-file> -S <sumo-file> -o <output-filename>
 ```
 
 ## Detektor-Definition VISSIM
 
 Querschnittsmessungen werden in VISSIM durch den XML-tag
-<dataCollectionPoint> gekennzeichnet. Die Position der einzelnen
+`<dataCollectionPoint>` gekennzeichnet. Die Position der einzelnen
 Detektoren ist durch den jeweiligen Fahrstreifen der Strecke sowie deren
 Laufmeter gegeben:
 
 ```
-  <dataCollectionPoint lane="108 1" name="301.41" no="1" pos="162.558473"/>
-  <dataCollectionPoint lane="262 4" name="301.12" no="10" pos="32.960054"/>
+<dataCollectionPoint lane="108 1" name="301.41" no="1" pos="162.558473"/>
+<dataCollectionPoint lane="262 4" name="301.12" no="10" pos="32.960054"/>
 ```
 
 Resezeitmessungen sind in VISSIM nicht fahrstreifen- sondern

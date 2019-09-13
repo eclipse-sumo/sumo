@@ -12,6 +12,10 @@ The static html pages are then generated using [Mkdocs](https://www.mkdocs.org/)
 
 [Online Tables generator](https://www.tablesgenerator.com/markdown_tables)
 
+## Math
+
+<img src="http://latex.codecogs.com/gif.latex?R" border="0" style="margin:0;"/>
+
 ## Styling
 
 Element | Code | Will show as

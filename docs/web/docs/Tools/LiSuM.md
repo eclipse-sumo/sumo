@@ -1,5 +1,5 @@
 ---
-title: Tools LiSuM
+title: Tools/LiSuM
 permalink: /Tools/LiSuM/
 ---
 
@@ -25,17 +25,18 @@ system. LiSuM is licensed under the
 the 1.0.0.
 
 ![flowws.png](../images/Flowws.png "flowws.png")
+SUMO communicates with the LISA+ virtual controller through LiSuM
 
 Two versions of LiSuM are provided: A graphical version called
-[\#LiSuM-GUI](#LiSuM-GUI.md) and a command line version suitable
-for batch processing called [\#LiSuM-Core](#LiSuM-Core.md)
+[\#LiSuM-GUI](#lisum-gui) and a command line version suitable
+for batch processing called [\#LiSuM-Core](#lisum-core)
 
 # LiSuM-GUI
 
 ## Installation
 
 ![LISASumo.MainWindow.PNG](../images/LISASumo.MainWindow.PNG
-"LISASumo.MainWindow.PNG")
+"LISASumo.MainWindow.PNG")LiSuM Main window
 
 The installation of LiSuM is straightforward and it may not present
 major difficulties. It is recomended to have Java SE Runtime Environment
@@ -75,10 +76,10 @@ located in the workspace.
 
 A simulation project is a directory containing:
 
-  - A LiSuM configuration file (lisum.xml)
-  - SUMO files (\*.add.xml, \*.net.xml, \*.rou.xml, \*.sumocfg, etc)
-  - A directory containing LISA+ control units files (exported from
-    LISA+ to Vissim)
+- A LiSuM configuration file (lisum.xml)
+- SUMO files (\*.add.xml, \*.net.xml, \*.rou.xml, \*.sumocfg, etc)
+- A directory containing LISA+ control units files (exported from
+   LISA+ to Vissim)
 
 #### Configuration file
 
@@ -97,70 +98,69 @@ system.
 
 **Example:**
 
-    <simulation>
-       <input>
-          <lisa>lisaDirectory</lisa>
-       </input>
+```
+<simulation>
+   <input>
+      <lisa>lisaDirectory</lisa>
+   </input>
 
-       <controlUnits>
-          <controlUnit  lisa="z1_fg1" sumo="gneJ1" >
-             <signalGroups>
-                <signalGroup  lisa="K1" sumo="0" />
-                <signalGroup  lisa="K2" sumo="1" />
-                <signalGroup  lisa="K3" sumo="2" />
-                <signalGroup  lisa="K4" sumo="3" />
-             </signalGroups>
+   <controlUnits>
+      <controlUnit  lisa="z1_fg1" sumo="gneJ1" >
+         <signalGroups>
+            <signalGroup  lisa="K1" sumo="0" />
+            <signalGroup  lisa="K2" sumo="1" />
+            <signalGroup  lisa="K3" sumo="2" />
+            <signalGroup  lisa="K4" sumo="3" />
+         </signalGroups>
 
-             <detectors>
-                <detector  lisa="D1" sumo="myLoop1" />
-             </detectors>
-          </controlUnit>
+         <detectors>
+            <detector  lisa="D1" sumo="myLoop1" />
+         </detectors>
+      </controlUnit>
 
-          <controlUnit  lisa="z1_fg2" sumo="gneJ2" >
-             <signalGroups>
-                <signalGroup lisa="K1" sumo="0,1,2" />
-                <signalGroup lisa="K2" sumo="3,4" />
-                <signalGroup lisa="K3" sumo="5,6,7"/>
-                <signalGroup lisa="K4" sumo="8" main="K3" />
-             </signalGroups>
-          </controlUnit>
-       </controlUnits>
-    </simulation>
+      <controlUnit  lisa="z1_fg2" sumo="gneJ2" >
+         <signalGroups>
+            <signalGroup lisa="K1" sumo="0,1,2" />
+            <signalGroup lisa="K2" sumo="3,4" />
+            <signalGroup lisa="K3" sumo="5,6,7"/>
+            <signalGroup lisa="K4" sumo="8" main="K3" />
+         </signalGroups>
+      </controlUnit>
+   </controlUnits>
+</simulation>
+```
 
-![LoggingLevels.PNG](../images/LoggingLevels.PNG "LoggingLevels.PNG")
+![LoggingLevels.PNG](../images/LoggingLevels.PNG "LoggingLevels.PNG")Logging levels
 
 The configuration file shown above declares the following:
 
-  - The LISA+ control unit files are in the directory
-    <span style="background:#ffe6e6"><SIMULATION_DIRECTORY>/lisaDirectory</span>.
-  - There are two control units where...
-      - the first control unit...
-          - matches the LISA+'s control unit <b><i>z1_fg1</i></b> with
-            <b><i>gneJ1</i></b> in SUMO.
-          - is composed of four signal groups for LISA+ and four for
-            SUMO
-          - contains one detector called D1 in LISA+ and myLoop1 in
-            SUMO.
-      - and the second control unit...
-          - is called <b><i>z1_fg2</i></b> in LISA+ and
-            <b><i>gneJ2</i></b> in SUMO.
-          - contains also four signal groups in LISA+ and 9 in SUMO,
-            where, for example, the LISA+ signal group <b>K2</b>
-            controls the behaviour of the SUMO signal groups number 3
-            and 4.
-          - the fourth signal group contains the attribute
-            <span style="background:#ffe6e6">main</span> set to
-            <b>K3</b>. This means that if the LISA+ signal group
-            <b>K4</b> is disabled (<i>OFF</i>) at any time of the cycle,
-            the SUMO signal group number 8 will take the state of the
-            signal group <b>K3</b> of LISA+.
+- The LISA+ control unit files are in the directory
+   <span style="background:#ffe6e6">`<SIMULATION_DIRECTORY>/lisaDirectory`</span>.
+- There are two control units where...
+   - the first control unit...
+     - matches the LISA+'s control unit <b><i>z1_fg1</i></b> with <b><i>gneJ1</i></b> in SUMO.
+     - is composed of four signal groups for LISA+ and four for SUMO
+     - contains one detector called D1 in LISA+ and myLoop1 in SUMO.
+   - and the second control unit...
+     - is called <b><i>z1_fg2</i></b> in LISA+ and
+      <b><i>gneJ2</i></b> in SUMO.
+     - contains also four signal groups in LISA+ and 9 in SUMO,
+      where, for example, the LISA+ signal group <b>K2</b>
+      controls the behaviour of the SUMO signal groups number 3
+      and 4.
+     - the fourth signal group contains the attribute
+      <span style="background:#ffe6e6">main</span> set to
+      <b>K3</b>. This means that if the LISA+ signal group
+      <b>K4</b> is disabled (<i>OFF</i>) at any time of the cycle,
+      the SUMO signal group number 8 will take the state of the
+      signal group <b>K3</b> of LISA+.
 
 ## Tools
 
 ### Control Units Management
 
 ![LISASumo.ControlUnitsOptionsWindow.PNG](../images/LISASumo.ControlUnitsOptionsWindow.PNG
-"LISASumo.ControlUnitsOptionsWindow.PNG")
+"LISASumo.ControlUnitsOptionsWindow.PNG")Control units management window
 
 The Control Units Managemente dialog window gets opened by pressing
 Ctrl+M or by clicking on the "Grid" button on the simulation toolbar. In
@@ -174,7 +174,7 @@ unclicking the check box right of the control units combo box (image
 below). Per default, LISA+ controls units not being assigned to any Sumo
 intersection appear disabled.
 
-![Controlunits_on.PNG](../images/Controlunits_on.PNG "Controlunits_on.PNG")
+![Controlunits_on.PNG](../images/Controlunits_on.PNG "Controlunits_on.PNG")Checkbox to deactivate the communication with LISA+
 
 ### LISA+ Virtual Controller
 
@@ -197,7 +197,7 @@ Per default the LISA+ Virtual Controller and its configuration file
 the LiSuM installation directory. This path can be changed in the System
 Preferences Window (*Menu: Tools -\> Preferences*).
 
-![VirtualController.PNG](../images/VirtualController.PNG "VirtualController.PNG")
+![VirtualController.PNG](../images/VirtualController.PNG "VirtualController.PNG")LISA+ Virtual Controller (Windows 7)
 
 ## Simulations directory
 
@@ -209,7 +209,7 @@ the loaded *lisum.xml* file.
 # Examples
 
 Example inputs can be found at
-[1](https://github.com/maxidigital/LisumExamples)
+[\[1\]](https://github.com/maxidigital/LisumExamples)
 
 # Miscellaneous
 

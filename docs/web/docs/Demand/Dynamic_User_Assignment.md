@@ -78,9 +78,9 @@ The two methods which are implemented are called
 The input for each of the methods is a weight or cost function \(w\) on
 the edges of the net, coming from the simulation or default costs (in
 the first step or for edges which have not been traveled yet), and a set
-of routes \(R\) where each route \(r\) has an old cost \(c_r\) and an
-old probability \(p_r\) (from the last iteration) and needs a new cost
-\(c_r'\) and a new probability \(p_r'\).
+of routes <img src="http://latex.codecogs.com/gif.latex?R" border="0" style="margin:0;"/> where each route <img src="http://latex.codecogs.com/gif.latex?r" border="0" style="margin:0;"/> has an old cost <img src="http://latex.codecogs.com/gif.latex?c_r" border="0" style="margin:0;"/> and an
+old probability <img src="http://latex.codecogs.com/gif.latex?p_r" border="0" style="margin:0;"/> (from the last iteration) and needs a new cost
+<img src="http://latex.codecogs.com/gif.latex?c_r'" border="0" style="margin:0;"/> and a new probability <img src="http://latex.codecogs.com/gif.latex?p_r'" border="0" style="margin:0;"/>.
 
 ### Gawron (default)
 
@@ -88,9 +88,9 @@ The Gawron algorithm computes probabilities for chosing from a set of
 alterantive routes for each driver. The following values are considered
 to compute these probabilities:
 
-  - the travel time along the used route in the previous simulation step
-  - the sum of edge travel times for a set of alternative routes
-  - the previous probability of chosing a route
+- the travel time along the used route in the previous simulation step
+- the sum of edge travel times for a set of alternative routes
+- the previous probability of chosing a route
 
 ### Logit
 
@@ -99,16 +99,16 @@ the new probability. It ignores old costs and old probabilities and
 takes the route cost directly as the sum of the edge costs from the last
 simulation.
 
-\(c_r' = \sum_{e\in r}w(e)\)
+<img src="http://latex.codecogs.com/gif.latex?c_r' = \sum_{e\in r}w(e)" border="0" style="margin:0;"/>
 
 The probabilities are calculated from an exponential function with
-parameter \(\theta\) scaled by the sum over all route values:
+parameter <img src="http://latex.codecogs.com/gif.latex?\theta" border="0" style="margin:0;"/> scaled by the sum over all route values:
 
-\(p_r' = \frac{\exp(\theta c_r')}{\sum_{s\in R}\exp(\theta c_s')}\)
+<img src="http://latex.codecogs.com/gif.latex?p_r' = \frac{\exp(\theta c_r')}{\sum_{s\in R}\exp(\theta c_s')}" border="0" style="margin:0;"/>
 
 ## Termination
 
-The option  may be used to detect convergence and abort iterations
+The option **--max-convergence-deviation** may be used to detect convergence and abort iterations
 automatically. Otherwise, a fixed number of iterations is used. Once the
 script finishes any of the resulting *.rou.xml* files may be used for
 simulation but the last one(s) should be the best.
@@ -121,14 +121,14 @@ By default, vehicle types are taken from the input trip file and are
 then propagated through [DUAROUTER](../DUAROUTER.md) iterations
 (always as part of the written route file).
 
-In order to use vehicle type definitions from an , further options must
+In order to use vehicle type definitions from an {{AdditionalFile}}, further options must
 be set
 
 ```
-duaIterate.py -n ... -t ... -l ... 
-  --additional-file *<FILE_WITH_VTYPES>*
-  duarouter--aditional-file *<FILE_WITH_VTYPES>*
-  duarouter--vtype-output dummy.xml
+duaIterate.py -n ... -t ... -l ... 
+  --additional-file <FILE_WITH_VTYPES> 
+  duarouter--aditional-file <FILE_WITH_VTYPES> 
+  duarouter--vtype-output dummy.xml
 ```
 
 Options preceeded by the string *duarouter--* are passed directly to
@@ -139,8 +139,8 @@ files.
 # oneShot-assignment
 
 An alternative to the iterative user assignment above is incremental
-assignment. This happens automatically when using  input directly in
-[SUMO](../SUMO.md) instead of s with pre-defined routes. In this
+assignment. This happens automatically when using `<trip>` input directly in
+[SUMO](../SUMO.md) instead of `<vehicle>`s with pre-defined routes. In this
 case each vehicle will compute a fastest-path computation at the time of
 departure which prevents all vehicles from driving blindly into the same
 jam and works pretty well empirically (for larger scenarios).

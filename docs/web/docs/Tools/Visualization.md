@@ -40,7 +40,7 @@ may not work for certain scripts.
 
 ## plot_trajectories.py
 
-Show plots for all trajectories in a given  file.
+Show plots for all trajectories in a given **--fcd-output** file.
 
 Example use:
 
@@ -80,7 +80,7 @@ noise](../Simulation/Output/Lane-_or_Edge-based_Noise_Measures.md).
 <tbody>
 <tr class="odd">
 <td><figure>
-<img src="../images/Plot_net_dump.png" title="plot_net_dump.png" width="300" alt="" /></figure></td>
+<img src="../images/Plot_net_dump.png" title="plot_net_dump.png" width="500" alt="" /></figure></td>
 <td><p><code>python plot_dump_net.py -v -n bs.net.xml \</code><br />
 <code> --xticks 7000,14001,2000,16 --yticks 9000,16001,1000,16 \</code><br />
 <code> --measures entered,entered --xlabel [m] --ylabel [m] \</code><br />
@@ -95,7 +95,7 @@ noise](../Simulation/Output/Lane-_or_Edge-based_Noise_Measures.md).
 </tr>
 <tr class="even">
 <td><figure>
-<img src="../images/Plot_net_dump2.png" title="plot_net_dump2.png" width="300" alt="" /></figure></td>
+<img src="../images/Plot_net_dump2.png" title="plot_net_dump2.png" width="500" alt="" /></figure></td>
 <td><p><code>python plot_dump_net.py -v -n bs.net.xml \</code><br />
 <code> --xticks 7000,14001,2000,16 --yticks 9000,16001,1000,16 \</code><br />
 <code> --measures NOx_normed,NOx_normed --xlabel [m] --ylabel [m] \</code><br />
@@ -145,7 +145,7 @@ selection (all edge with at least one lane in the selection).
 <tbody>
 <tr class="odd">
 <td><figure>
-<img src="../images/Plot_net_selection.png" title="plot_net_selection.png" width="300" alt="" /></figure></td>
+<img src="../images/Plot_net_selection.png" title="plot_net_selection.png" width="500" alt="" /></figure></td>
 <td><p><code>python plot_selection.py -n bs.net.xml \</code><br />
 <code> --xlim 7000,14000 --ylim 9000,16000 \</code><br />
 <code> -i selection_environmental_zone.txt \</code><br />
@@ -180,7 +180,7 @@ read from the network file.
 <tbody>
 <tr class="odd">
 <td><figure>
-<img src="../images/Plot_net_speeds.png" title="plot_net_speeds.png" width="300" alt="" /></figure></td>
+<img src="../images/Plot_net_speeds.png" title="plot_net_speeds.png" width="500" alt="" /></figure></td>
 <td><p><code>python plot_speeds.py -n bs.net.xml --xlim 1000,25000 \</code><br />
 <code> --ylim 2000,26000 --edge-width .5 -o speeds2.png \</code><br />
 <code> --minV 0 --maxV 60 --xticks 16 --yticks 16 \</code><br />
@@ -212,7 +212,7 @@ are part of the net.
 <tbody>
 <tr class="odd">
 <td><figure>
-<img src="../images/Plot_net_trafficLights.png" title="plot_net_trafficLights.png" width="300" alt="" /></figure></td>
+<img src="../images/Plot_net_trafficLights.png" title="plot_net_trafficLights.png" width="500" alt="" /></figure></td>
 <td><p><code>python plot_trafficLights.py -n bs.net.xml \</code><br />
 <code> --xlim 1000,25000 --ylim 2000,26000 --edge-width .5 \</code><br />
 <code> --xticks 16 --yticks 16 --xlabel [m] --ylabel [m] \ </code><br />
@@ -246,7 +246,7 @@ visualised as a time line along the simulation time.
 <tbody>
 <tr class="odd">
 <td><figure>
-<img src="../images/Summary_running.png" title="summary_running.png" width="300" alt="" /></figure></td>
+<img src="../images/Summary_running.png" title="summary_running.png" width="500" alt="" /></figure></td>
 <td><p><code>python plot_summary.py </code><br />
 <code> -i mo.xml,dido.xml,fr.xml,sa.xml,so.xml \</code><br />
 <code> -l Mo,Di-Do,Fr,Sa,So --xlim 0,86400 --ylim 0,10000 </code><br />
@@ -261,35 +261,11 @@ visualised as a time line along the simulation time.
 
 **Options**
 
-<table>
-<thead>
-<tr class="header">
-<th><p>Option</p></th>
-<th><p>Description</p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><p><br />
-</p></td>
-<td><p>Defines the <a href="Simulation/Output/Summary" title="wikilink">summary-file</a>(s) to read</p></td>
-</tr>
-<tr class="even">
-<td><p><br />
-</p></td>
-<td><p>Defines the measure to read from the summary file; default: <em>running</em></p></td>
-</tr>
-<tr class="odd">
-<td><p><br />
-</p></td>
-<td><p>If set, the progress is printed on the screen</p></td>
-</tr>
-<tr class="even">
-<td></td>
-<td></td>
-</tr>
-</tbody>
-</table>
+| Option                                                   | Description                                                         |
+|----------------------------------------------------------|---------------------------------------------------------------------|
+| **-i** {{DT_FILE}}\[,{{DT_FILE}}\]\*<br>**--summary-inputs** {{DT_FILE}}[,{{DT_FILE}}]* | Defines the [summary-file](../Simulation/Output/Summary.md)(s) to read            |
+| **-m** {{DT_STR}}<br>**--measure** {{DT_STR}}                        | Defines the measure to read from the summary file; default: *running* |
+| **-v**<br>**--verbose**                                          | If set, the progress is printed on the screen                       |
 
 ## plot_tripinfo_distributions.py
 
@@ -304,7 +280,7 @@ the measure (vehicles) that fall into a bin.
 <tbody>
 <tr class="odd">
 <td><figure>
-<img src="tripinfo_distribution_duration.png" title="tripinfo_distribution_duration.png" width="300" alt="" /><figcaption>tripinfo_distribution_duration.png</figcaption>
+<img src="../images/Tripinfo_distribution_duration.png" title="tripinfo_distribution_duration.png" width="500" alt="" />
 </figure></td>
 <td><p><code>python plot_tripinfo_distributions.py \</code><br />
 <code> -i mo.xml,dido.xml,fr.xml,sa.xml,so.xml \</code><br />
@@ -314,120 +290,51 @@ the measure (vehicles) that fall into a bin.
 <code> --title "duration distribution" \</code><br />
 <code> --yticks 14 --xlabelsize 14 --ylabelsize 14 --titlesize 16 \</code><br />
 <code> -l mon,tue-thu,fri,sat,sun --adjust .14,.1 --xlim 0,3600</code></p>
-<p>The example shows the travel time distribution for the vehicles of different week day classes (Braunschweig scenario). "mo.xml", "dido.xml", "fr.xml", "sa.xml", and "so.xml" are <a href="Simulation/Output/TripInfo" title="wikilink">tripinfo-files</a> resulting from simulations of the weekday-types Monday, Tuesday-Thursday, Friday, Saturday, and Sunday, respectively.</p></td>
-</tr>
-<tr class="even">
-<td></td>
-<td></td>
+<p>The example shows the travel time distribution for the vehicles of different week day classes (Braunschweig scenario). "mo.xml", "dido.xml", "fr.xml", "sa.xml", and "so.xml" are <a href="../Simulation/Output/TripInfo.html" title="wikilink">tripinfo-files</a> resulting from simulations of the weekday-types Monday, Tuesday-Thursday, Friday, Saturday, and Sunday, respectively.</p></td>
 </tr>
 </tbody>
 </table>
 
 **Options**
 
-<table>
-<thead>
-<tr class="header">
-<th><p>Option</p></th>
-<th><p>Description</p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><p><br />
-</p></td>
-<td><p>Defines the <a href="Simulation/Output/Summary" title="wikilink">summary-file</a>(s) to read</p></td>
-</tr>
-<tr class="even">
-<td><p><br />
-</p></td>
-<td><p>Defines the measure to read from the summary file</p></td>
-</tr>
-<tr class="odd">
-<td><p><br />
-</p></td>
-<td><p>If set, the progress is printed on the screen</p></td>
-</tr>
-<tr class="even">
-<td></td>
-<td><p>The number of bins to devide the values into</p></td>
-</tr>
-<tr class="odd">
-<td></td>
-<td><p>Defines a number by which read values are divided; default: 1.0</p></td>
-</tr>
-<tr class="even">
-<td></td>
-<td><p>The minimum value; if set, read values that are lower than this value are set to this value</p></td>
-</tr>
-<tr class="odd">
-<td></td>
-<td><p>The maximum value; if set, read values that are higher than this value are set to this value</p></td>
-</tr>
-<tr class="even">
-<td></td>
-<td></td>
-</tr>
-</tbody>
-</table>
+| Option                                                     | Description                                                                                  |
+|------------------------------------------------------------|----------------------------------------------------------------------------------------------|
+| **-i** {{DT_FILE}}[,{{DT_FILE}}]\*<br>**--tripinfos-inputs** {{DT_FILE}}[,{{DT_FILE}}]* | Defines the [summary-file](../Simulation/Output/Summary.md)(s) to read         |
+| **-m** {{DT_STR}}<br>**--measure** {{DT_STR}}                          | Defines the measure to read from the summary file                                            |
+| **-v**<br>**--verbose**                                            | If set, the progress is printed on the screen                                                |
+| **--bins** {{DT_INT}}                                               | The number of bins to devide the values into                                                 |
+| **--norm** {{DT_FLOAT}}                                             | Defines a number by which read values are divided; default: 1.0                              |
+| **--minV** {{DT_FLOAT}}                                             | The minimum value; if set, read values that are lower than this value are set to this value  |
+| **--maxV** {{DT_FLOAT}}                                             | The maximum value; if set, read values that are higher than this value are set to this value |
 
 ## plot_csv_timeline.py
 
 plot_csv_timeline.py reads a .csv file and plots columns selected
-using the  option. The values are visualised as lines.
+using the **--columns** {{DT_INT}}\[,{{DT_INT}}\]\* option. The values are visualised as lines.
 
 <table>
 <tbody>
 <tr class="odd">
 <td><figure>
-<img src="nefz.png" title="nefz.png" width="300" alt="" /><figcaption>nefz.png</figcaption>
-</figure></td>
+<img src="../images/Nefz.png" title="nefz.png" width="500" alt="" /></figure></td>
 <td><p><code>plot_csv_timeline.py \</code><br />
 <code> -i nefz.csv -c 1 --no-legend --xlabel "time [s]" \</code><br />
 <code> --ylabel "velocity [km/h]" --xlabelsize 14 --ylabelsize 14 \</code><br />
 <code> --xticks 14 --yticks 14 --colors k --ylim 0,125 \</code><br />
 <code> --output nefz.png \</code><br />
 <code> --title "New European Driving Cycle (NEDC)" --titlesize 16</code></p>
-<p>The example shows the <a href="Tools/Emissions#Driving_Cycles" title="wikilink">New European Driving Cycle (NEDC)</a>.</p></td>
-</tr>
-<tr class="even">
-<td></td>
-<td></td>
+<p>The example shows the <a href="../Tools/Emissions.html#driving_cycles" title="wikilink">New European Driving Cycle (NEDC)</a>.</p></td>
 </tr>
 </tbody>
 </table>
 
 **Options**
 
-<table>
-<thead>
-<tr class="header">
-<th><p>Option</p></th>
-<th><p>Description</p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><p><br />
-</p></td>
-<td><p>Defines the input file to use</p></td>
-</tr>
-<tr class="even">
-<td><p><br />
-</p></td>
-<td><p>Defines which columns shall be plotted</p></td>
-</tr>
-<tr class="odd">
-<td><p><br />
-</p></td>
-<td><p>If set, the progress is printed on the screen</p></td>
-</tr>
-<tr class="even">
-<td></td>
-<td></td>
-</tr>
-</tbody>
-</table>
+| Option                                        | Description                                   |
+|-----------------------------------------------|-----------------------------------------------|
+| **-i** {{DT_FILE}}<br>**--input** {{DT_FILE}}                   | Defines the input file to use                 |
+| **-c** {{DT_INT}}\[,{{DT_INT}}\]\*<br>**--columns** {{DT_INT}}\[,{{DT_INT}}\]\* | Defines which columns shall be plotted        |
+| **-v**<br>**--verbose**                               | If set, the progress is printed on the screen |
 
 ## plot_csv_pie.py
 
@@ -439,66 +346,25 @@ name/value-pairs are visualised as a pie chart.
 <tbody>
 <tr class="odd">
 <td><figure>
-<img src="paradigm.png" title="paradigm.png" width="300" alt="" /><figcaption>paradigm.png</figcaption>
+<img src="../images/Paradigm.png" title="paradigm.png" width="500" alt="" />
 </figure></td>
 <td><p><code>plot_csv_pie.py \</code><br />
-<code> -i paradigm.csv -b --colormap Accent --no-legend -s 6,6 </code></p></td>
-</tr>
-<tr class="even">
-<td></td>
-<td></td>
+<code> -i paradigm.csv -b --colormap Accent --no-legend -s 6,6 </code></p><br><br><b>Note:</b> Please note that you should set the width and the height to the same value using the <b>--size</b> &lt;FLOAT&gt;,&lt;FLOAT&gt; option, see <a href="#common_options">#common options</a>. Otherwise you'll get an oval.</td>
 </tr>
 </tbody>
 </table>
 
 **Options**
 
-<table>
-<thead>
-<tr class="header">
-<th><p>Option</p></th>
-<th><p>Description</p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><p><br />
-</p></td>
-<td><p>Defines the input file to read</p></td>
-</tr>
-<tr class="even">
-<td><p><br />
-</p></td>
-<td><p>Interprets read measures as percentages</p></td>
-</tr>
-<tr class="odd">
-<td><p><br />
-</p></td>
-<td><p>Reverts the order of read values before plotting them</p></td>
-</tr>
-<tr class="even">
-<td></td>
-<td><p>Does not plot the labels</p></td>
-</tr>
-<tr class="odd">
-<td></td>
-<td><p>Puts a shadow below the circle</p></td>
-</tr>
-<tr class="even">
-<td></td>
-<td><p>Sets the start angle</p></td>
-</tr>
-<tr class="odd">
-<td><p><br />
-</p></td>
-<td><p>If set, the progress is printed on the screen</p></td>
-</tr>
-<tr class="even">
-<td></td>
-<td></td>
-</tr>
-</tbody>
-</table>
+| Option                      | Description                                           |
+|-----------------------------|-------------------------------------------------------|
+| **-i** {{DT_FILE}}<br>**--input** {{DT_FILE}} | Defines the input file to read                        |
+| **-p**<br>**--percentage**          | Interprets read measures as percentages               |
+| **-r**<br>**--revert**              | Reverts the order of read values before plotting them |
+| **--no-labels**                 | Does not plot the labels                              |
+| **--shadow**                    | Puts a shadow below the circle                        |
+| **--startangle** {{DT_FLOAT}}        | Sets the start angle                                  |
+| **-v**<br>**--verbose**             | If set, the progress is printed on the screen         |
 
 ## plot_csv_bars.py
 
@@ -510,85 +376,31 @@ name/value-pairs are visualised as a bar chart.
 <tbody>
 <tr class="odd">
 <td><figure>
-<img src="nox_effects_bars.png" title="nox_effects_bars.png" width="300" alt="" /><figcaption>nox_effects_bars.png</figcaption>
+<img src="../images/Nox_effects_bars.png" title="nox_effects_bars.png" width="500" alt="" />
 </figure></td>
 <td><p><code>plot_csv_bars.py \</code><br />
 <code> -i nox_effects.txt --colormap RdYlGn --no-legend --width .4 \</code><br />
 <code> -s 8,4 --revert --xlim 0,50 --xticks 0,51,10,16 --yticks 16 \</code><br />
 <code> --adjust .28,.1,.95,.9 --show-values </code></p></td>
 </tr>
-<tr class="even">
-<td></td>
-<td></td>
-</tr>
 </tbody>
 </table>
 
 **Options**
 
-<table>
-<thead>
-<tr class="header">
-<th><p>Option</p></th>
-<th><p>Description</p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><p><br />
-</p></td>
-<td><p>Defines the csv file to use as input</p></td>
-</tr>
-<tr class="even">
-<td><p><br />
-</p></td>
-<td><p>Defines which column of the read .csv-file shall be plotted; default: 1</p></td>
-</tr>
-<tr class="odd">
-<td><p><br />
-</p></td>
-<td><p>Reverts the order of read values before plotting them</p></td>
-</tr>
-<tr class="even">
-<td><p><br />
-</p></td>
-<td><p>Defines the width of the bars; default: .8</p></td>
-</tr>
-<tr class="odd">
-<td></td>
-<td><p>Defines the space between the bars; default: .2</p></td>
-</tr>
-<tr class="even">
-<td></td>
-<td><p>Defines a number by which read values are divided; default: 1.0</p></td>
-</tr>
-<tr class="odd">
-<td></td>
-<td><p>Shows the values</p></td>
-</tr>
-<tr class="even">
-<td></td>
-<td><p>Position offset for values</p></td>
-</tr>
-<tr class="odd">
-<td></td>
-<td><p>Draws vertical bars (default are horizontal bars)</p></td>
-</tr>
-<tr class="even">
-<td></td>
-<td><p>Does not plot the labels</p></td>
-</tr>
-<tr class="odd">
-<td><p><br />
-</p></td>
-<td><p>If set, the progress is printed on the screen</p></td>
-</tr>
-<tr class="even">
-<td></td>
-<td></td>
-</tr>
-</tbody>
-</table>
+| Option                        | Description                                                             |
+|-------------------------------|-------------------------------------------------------------------------|
+| **-i** {{DT_FILE}}<br>**--input** {{DT_FILE}}   | Defines the csv file to use as input                                    |
+| **-x** {{DT_INT}}<br>**--column** {{DT_INT}}    | Defines which column of the read .csv-file shall be plotted; default: 1 |
+| **-r**<br>**--revert**                | Reverts the order of read values before plotting them                   |
+| **-w** {{DT_FLOAT}}<br>**--width** {{DT_FLOAT}} | Defines the width of the bars; default: .8                              |
+| **--space** {{DT_FLOAT}}               | Defines the space between the bars; default: .2                         |
+| **--norm** {{DT_FLOAT}}                | Defines a number by which read values are divided; default: 1.0         |
+| **--show-values**                 | Shows the values                                                        |
+| **--values-offset** {{DT_FLOAT}}       | Position offset for values                                              |
+| **--vertical**                    | Draws vertical bars (default are horizontal bars)                       |
+| **--no-labels**                   | Does not plot the labels                                                |
+| **-v**<br>**--verbose**               | If set, the progress is printed on the screen                           |
 
 ## common options
 
@@ -603,159 +415,48 @@ respectively.
 
 ### Formatting Options
 
-<table>
-<thead>
-<tr class="header">
-<th><p>Option</p></th>
-<th><p>Description</p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td></td>
-<td><p>Uses the given colors; the number of given colors must be the same as the number of measures to plot</p></td>
-</tr>
-<tr class="even">
-<td></td>
-<td><p>Uses the named colormap</p></td>
-</tr>
-<tr class="odd">
-<td><p><br />
-</p></td>
-<td><p>Uses the given labels; the number of given labels must be the same as the number of measures to plot</p></td>
-</tr>
-<tr class="even">
-<td></td>
-<td><p>Describes the limits of the figure along the x-axis</p></td>
-</tr>
-<tr class="odd">
-<td></td>
-<td><p>Describes the limits of the figure along the y-axis</p></td>
-</tr>
-<tr class="even">
-<td><p><br />
-</p></td>
-<td><p>If only one number is given, it is interpreted as the size of the tick labels on the x-axis; if four numbers are given, they are interpreted as the lowest ticks position, the highest ticks position, the step between ticks, and the tick's size, respectively, all along the x-axis</p></td>
-</tr>
-<tr class="odd">
-<td><p><br />
-</p></td>
-<td><p>If only one number is given, it is interpreted as the size of the tick labels on the y-axis; if four numbers are given, they are interpreted as the lowest ticks position, the highest ticks position, the step between ticks, and the tick's size, respectively, all along the y-axis</p></td>
-</tr>
-<tr class="even">
-<td></td>
-<td><p>If set, the tick labels along the x-axis are formatted as time entries (hh:mm)</p></td>
-</tr>
-<tr class="odd">
-<td></td>
-<td><p>If set, the tick labels along the y-axis are formatted as time entries (hh:mm)</p></td>
-</tr>
-<tr class="even">
-<td></td>
-<td><p>If set, the tick labels along the x-axis are formatted as time entries (hh:mm:ss)</p></td>
-</tr>
-<tr class="odd">
-<td></td>
-<td><p>If set, the tick labels along the y-axis are formatted as time entries (hh:mm:ss)</p></td>
-</tr>
-<tr class="even">
-<td></td>
-<td><p>If set, a grid along the ticks on the x-axis is drawn</p></td>
-</tr>
-<tr class="odd">
-<td></td>
-<td><p>If set, a grid along the ticks on the y-axis is drawn</p></td>
-</tr>
-<tr class="even">
-<td></td>
-<td><p>The orientation of the x-ticks (in °); default: matplotlib default</p></td>
-</tr>
-<tr class="odd">
-<td></td>
-<td><p>The orientation of the y-ticks (in °); default: matplotlib default</p></td>
-</tr>
-<tr class="even">
-<td></td>
-<td><p>Defines the label to set for the x-axis</p></td>
-</tr>
-<tr class="odd">
-<td></td>
-<td><p>Defines the label to set for the y-axis</p></td>
-</tr>
-<tr class="even">
-<td></td>
-<td><p>Defines the size of the label of the x-axis</p></td>
-</tr>
-<tr class="odd">
-<td></td>
-<td><p>Defines the size of the label of the y-axis</p></td>
-</tr>
-<tr class="even">
-<td></td>
-<td><p>Defines the title of the figure</p></td>
-</tr>
-<tr class="odd">
-<td></td>
-<td><p>Defines the size of the title</p></td>
-</tr>
-<tr class="even">
-<td><p><br />
-</p></td>
-<td><p>Adjust the plot; If two floats are given, they are interpreted as left and bottom values, if four numbers are given, they are interpreted as left, bottom, right, top</p></td>
-</tr>
-<tr class="odd">
-<td></td>
-<td><p>Defines the size of figure</p></td>
-</tr>
-<tr class="even">
-<td></td>
-<td><p>If set, no legend is drawn</p></td>
-</tr>
-<tr class="odd">
-<td></td>
-<td><p>Defines the position of the legend; default: matplolib default</p></td>
-</tr>
-<tr class="even">
-<td></td>
-<td></td>
-</tr>
-</tbody>
-</table>
+| Option                                                               | Description                                                 |
+|----------------------------------------------------------------------|-------------------------------------------------------------|
+| **--colors** {{DT_Color}}                                                    | Uses the given colors; the number of given colors must be the same as the number of measures to plot                                                                                                                                                                                   |
+| **--colormap** {{DT_STR}}                                                  | Uses the named colormap                                                                                                                                                                                                                                                                |
+| **--labels** `<LABELS>`<br>**-l** `<LABELS>`                                     | Uses the given labels; the number of given labels must be the same as the number of measures to plot                                                                                                                                                                                   |
+| **--xlim** `<XMIN>`,`<XMAX>`                                                 | Describes the limits of the figure along the x-axis                                                                                                                                                                                                                                    |
+| **--ylim** `<YMIN>`,`<YMAX>`                                                 | Describes the limits of the figure along the y-axis                                                                                                                                                                                                                                    |
+| **--xticks** `<XMIN>`,`<XMAX>`,`<XSTEP>`,`<XSIZE>`<br>**--yticks** `<XSIZE>`           | If only one number is given, it is interpreted as the size of the tick labels on the x-axis; if four numbers are given, they are interpreted as the lowest ticks position, the highest ticks position, the step between ticks, and the tick's size, respectively, all along the x-axis |
+| **--yticks** `<XMIN>`,`<XMAX>`,`<XSTEP>`,`<XSIZE>` <br>**--yticks** `<XSIZE>`           | If only one number is given, it is interpreted as the size of the tick labels on the y-axis; if four numbers are given, they are interpreted as the lowest ticks position, the highest ticks position, the step between ticks, and the tick's size, respectively, all along the y-axis |
+| **--xtime1**                                                             | If set, the tick labels along the x-axis are formatted as time entries (hh:mm)                                                                                                                                                                                                         |
+| **--ytime1**                                                             | If set, the tick labels along the y-axis are formatted as time entries (hh:mm)                                                                                                                                                                                                         |
+| **--xtime2**                                                             | If set, the tick labels along the x-axis are formatted as time entries (hh:mm:ss)                                                                                                                                                                                                      |
+| **--ytime2**                                                             | If set, the tick labels along the y-axis are formatted as time entries (hh:mm:ss)                                                                                                                                                                                                      |
+| **--xgrid**                                                              | If set, a grid along the ticks on the x-axis is drawn                                                                                                                                                                                                                                  |
+| **--ygrid**                                                              | If set, a grid along the ticks on the y-axis is drawn                                                                                                                                                                                                                                  |
+| **--xticksorientation** {{DT_FLOAT}}                                          | The orientation of the x-ticks (in °); default: matplotlib default                                                                                                                                                                                                                     |
+| **--yticksorientation** {{DT_FLOAT}}                                          | The orientation of the y-ticks (in °); default: matplotlib default                                                                                                                                                                                                                     |
+| **--xlabel** {{DT_STR}}                                                    | Defines the label to set for the x-axis                                                                                                                                                                                                                                                |
+| **--ylabel** {{DT_STR}}                                                    | Defines the label to set for the y-axis                                                                                                                                                                                                                                                |
+| **--xlabelsize** {{DT_FLOAT}}                                                 | Defines the size of the label of the x-axis                                                                                                                                                                                                                                            |
+| **--ylabelsize** {{DT_FLOAT}}                                                 | Defines the size of the label of the y-axis                                                                                                                                                                                                                                            |
+| **--title** {{DT_STR}}                                                     | Defines the title of the figure                                                                                                                                                                                                                                                        |
+| **--titlesize** {{DT_FLOAT}}                                                  | Defines the size of the title                                                                                                                                                                                                                                                          |
+| **--adjust** {{DT_FLOAT}},{{DT_FLOAT}}<br>**--adjust** {{DT_FLOAT}},{{DT_FLOAT}},{{DT_FLOAT}},{{DT_FLOAT}} | Adjust the plot; If two floats are given, they are interpreted as left and bottom values, if four numbers are given, they are interpreted as left, bottom, right, top                                                                                                                  |
+| **--size** {{DT_FLOAT}},{{DT_FLOAT}}                                               | Defines the size of figure                                                                                                                                                                                                                                                             |
+| **--no-legend**                                                          | If set, no legend is drawn                                                                                                                                                                                                                                                             |
+| **--legend-position** {{DT_STR}}                                           | Defines the position of the legend; default: matplolib default                                                                                                                                                                                                                         |
 
 ### Interaction Options
 
 If one of the scripts is simply started with no options that are listed
 below, the figure will be shown. To write the figure additionally into a
-file, the filename to generate must be given using the  (or  for short).
+file, the filename to generate must be given using the **--output** {{DT_FILE}} (or **-o** {{DT_FILE}} for short).
 
 If the script is run in a batch file, it is often not convenient to show
 the figure (once known it is as it should be). In such cases, the option
- () can be used that suppresses showing the figure.
+**--blind** (**-b**) can be used that suppresses showing the figure.
 
-<table>
-<thead>
-<tr class="header">
-<th><p>Option</p></th>
-<th><p>Description</p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><p><br />
-</p></td>
-<td><p>Defines the name under which the figure shall be saved</p></td>
-</tr>
-<tr class="even">
-<td><p><br />
-</p></td>
-<td><p>If set, the figure will not be shown</p></td>
-</tr>
-<tr class="odd">
-<td></td>
-<td></td>
-</tr>
-</tbody>
-</table>
+| Option                       | Description                                            |
+|------------------------------|--------------------------------------------------------|
+| **-o** {{DT_FILE}}<br>**--output** {{DT_FILE}} | Defines the name under which the figure shall be saved |
+| **-b**<br>**--blind**                | If set, the figure will not be shown                   |
 
 # Further Visualization Methods
 
@@ -766,43 +467,82 @@ values when setting edge coloring mode to *by loaded weight*. When
 stepping through the simulation, different time intervals contained in
 the weight file can be shown.
 
-` sumo-gui -n NET --weight-files FILE --weight-attribute ATTR -e 86400`
+```
+sumo-gui -n NET --weight-files FILE --weight-attribute ATTR -e 86400
+```
 
 Suitable weight files are those produced by
 [edgeData-output](../Simulation/Output/Lane-_or_Edge-based_Traffic_Measures.md).
-To show the number of departed vehicles for each edge, the option  would
+To show the number of departed vehicles for each edge, the option **--weight-attribute departed** would
 be used.
 
-The weight files generated by
-\[\[Tools/Trip\#Customized_Weights|randomTrips option ). Plots the
-network using the geometries read from *<NET\>*. Both the width and the
-colors used for each edge are determined using  where both
-*<WIDTHVALUE\>* and *<COLORVALUE\>* are attributes within the dump-file
-that exist for each edge.
+The weight files generated by [randomTrips option **--weights-output-prefix**](../Tools/Trip.md#customized_weights) can also be used (to visualize depart/arrival probabilties). 
 
-You can change the used color map by setting . *<DEFINITION\>* is made of
-a sorted list of values (between 0 and 1) and assigned colors. This
-means that the default *0:\#ff0000,.5:\#ffff00,1:\#00ff00* let streets
-with low value for *<COLORVALUE\>* appear red, for those in the middle
-yellow and for those with a high value green. For values between the
-given values, the color is determined using linear interpolation. Please
-note that only lowercase hexadecimal characters may be used.
+## Intersection Flow Diagram
 
-Either shows the plot (when  is set) or saves it into a file (when  is
-set).
+To visualize the flow on an intersection with line widths according to the amount of traffic, the tool [route2poly.py](../Tools/Routes.md#route2polypy) can be used.
 
-sums up the values found for each edge and divides the result by the
-number of these values. If join is not set and  is given, one should
-choose an output name which looks as following: *<NAME\>%05d*.png. The
-*%05d* will be replaced by the current time step written.
+1. Use [NETEDIT](../NETEDIT.md) to select all edges at one or more intersection for which the flow shall be visualized and save the selection to a file (e.g. *sel.txt*)
+2. generate polygons with widths according to the number of vehicles passing the selected edges. When setting **--scale-width to 0.01**, 100 vehicles using the same edge sequence will correspond to a polygon width of 1m. The option **--spread** is used to prevent overlapping of the generated polygons and should be adapted according the the polygon width.
 
-If you have generated a set of images by not "joining" (aggregating) the
-data, you can convert the obtained pictures into an animated gif using
-ImageMagick and the following command:
+        route2poly.py NET routes.rou.xml -o flows.poly.xml --filter-output.file sel.txt --scale-width 0.01 --internal --spread 1 --hue cycle
 
-`convert -delay 20 *.png -loop 0 animation.gif`
+3. visualize the flows in [SUMO-GUI](../SUMO-GUI.md)
+
+        sumo-gui -n NET -a flows.poly.xml
+
+![](../images/Route2poly_intersectionFlow.png)
+
+# Outdated
+
+The tools are meant to be named as following: <API\>__<DESCRIPTION\>.py, where:
+
+- *<API\>*: mpl for matplotlib
+- : the SUMO-output that is processed (mainly)
+- *<DESCRIPTION\>*: what the tool does
+
+## mpl_dump_twoAgainst.py
+
+Reads two dump files (mandatory options **--dump1** {{DT_FILE}} and **--dump2** {{DT_FILE}}, or, for short **-1** {{DT_FILE}} and **-2** {{DT_FILE}}). Extracts the value described by **--value** (default: *speed*). Plots the values of dump2 over the according (same interval time and edge) values from dump1.
+
+Either shows the plot (when **--show** is set) or saves it into a file (when **--output** {{DT_FILE}} is set).
+
+You can additionally plot the normed sums of the value using (**--join**). In the other case, you can try to use **--time-coloring** to assign different colors to the read intervals.
+
+You can format the axes by using **--xticks** **<XMIN,XMAX,XSTEP,FONTSIZE\>** and **--yticks** **<YMIN,YMAX,YSTEP,FONTSIZE\>** and set theit limits using **--xlim** **<XMIN,XMAX\>** and **--ylim** **<YMIN,YMAX\>**. The output size of the image may be set using **--size** **<WIDTH,HEIGHT\>**. 
+
+## mpl_tripinfos_twoAgainst.py
+
+Reads two tripinfos files (mandatory options **--tripinfos1** {{DT_FILE}} and **--tripinfos2** {{DT_FILE}}, or, for short **-1** {{DT_FILE}} and **-2** {{DT_FILE}}). Extracts the value described by **--value** (default: *duration*). Plots the values of tripinfos2 over the according (same vehicle) values from tripinfos1.
+
+Either shows the plot (when **--show** is set) or saves it into a file (when **--output** {{DT_FILE}} is set).
+
+You can format the axes by using **--xticks** **<XMIN,XMAX,XSTEP,FONTSIZE\>** and **--yticks** **<YMIN,YMAX,YSTEP,FONTSIZE\>** and set theit limits using **--xlim** **<XMIN,XMAX\>** and **--ylim** **<YMIN,YMAX\>**. The output size of the image may be set using **--size** **<WIDTH,HEIGHT\>**. 
+
+## mpl_dump_timeline.py
+
+Reads a value (given as **--value** **<VALUE\>**, default speed) for edges defined via **--edges** **<EDGEID\>\[,<EDGEID\>\]\*** from the dumps defined via **--dumps** **<DUMP\>\[,<DUMP\>\]\***. Plots them as time lines, using the colors defined via **--colors** **<MPL_COLOR\>\[,<MPLCOLOR\>\]\***. Please note that the number of colors must be equal to number of edges * number of dumps.
+
+Either shows the plot (when **--show** is set) or saves it into a file (when **--output** **<FILENAME\>** is set).
+
+You can format the axes by using **--xticks** **<XMIN,XMAX,XSTEP,FONTSIZE\>** and **--yticks** **<YMIN,YMAX,YSTEP,FONTSIZE\>** and set theit limits using **--xlim** **<XMIN,XMAX\>** and **--ylim** **<YMIN,YMAX\>**. The output size of the image may be set using **--size** **<WIDTH,HEIGHT\>**. 
+
+## mpl_dump_onNet.py
+
+Reads a network (defined using **--net-file** **<NET\>** or **-n** **<NET\>**) and an edge-dump file (**--dump** **<DUMPFILE\>** or **-d** **<DUMP_FILE\>**). **Plots the network using the geometries read from <NET\>. Both the width and the colors used for each edge are determined using --value <WIDTHVALUE\>,<COLORVALUE\> where both <WIDTHVALUE\> and <COLORVALUE\> are attributes within the dump-file that exist for each edge.**
+
+You can change the used color map by setting **--color-map** **<DEFINITION\>**. <DEFINITION\> is made of a sorted list of values (between 0 and 1) and assigned colors. This means that the default 0:#ff0000,.5:#ffff00,1:\#00ff00 let streets with low value for <COLORVALUE\> appear red, for those in the middle yellow and for those with a high value green. For values between the given values, the color is determined using linear interpolation. Please note that only lowercase hexadecimal characters may be used.
+
+Either shows the plot (when **--show** is set) or saves it into a file (when **--output** **<FILENAME\>** is set).
+
+**--join** sums up the values found for each edge and divides the result by the number of these values. If join is not set and **--output** is given, one should choose an output name which looks as following: <NAME\>**'%05d.png. The %05d will be replaced by the current time step written.**
+
+If you have generated a set of images by not "joining" (aggregating) the data, you can convert the obtained pictures into an animated gif using ImageMagick and the following command:
+
+```
+convert -delay 20 *.png -loop 0 animation.gif
+```
 
 (loop 0 means that the animation repeats from begin after the end)
 
-You can format the axes by using  and  and set theit limits using  and .
-The output size of the image may be set using .
+You can format the axes by using **--xticks** **<XMIN,XMAX,XSTEP,FONTSIZE\>** and **--yticks** **<YMIN,YMAX,YSTEP,FONTSIZE\>** and set theit limits using **--xlim** **<XMIN,XMAX\>** and **--ylim** **<YMIN,YMAX\>**. The output size of the image may be set using **--size** **<WIDTH,HEIGHT\>**.
