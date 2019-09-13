@@ -50,9 +50,6 @@ netedit.modifyBoolAttribute(4, True)
 netedit.modifyBoolAttribute(4, True)
 
 # change value
-netedit.modifyBoolAttribute(4, True)
-
-# change value
 netedit.modifyAttribute(5, "dummyValue", True)
 
 # change value

@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{de4e7bb3-632a-4162-acb6-05bc0415ebfb}</ProjectGuid>
+    <ProjectGuid>{461e03a0-6ca3-4e18-87c6-63fb4b2ce776}</ProjectGuid>
     <ProjectHome />
     <StartupFile>neteditTestFunctions.py</StartupFile>
     <SearchPath />
@@ -1584,7 +1584,6 @@
     <Compile Include="shapeElements\poilane\load\test.py" />
     <Compile Include="shapeElements\poilane\lock_unlock\test.py" />
     <Compile Include="shapeElements\poilane\move\test.py" />
-    <Compile Include="shapeElements\poilane\test.py" />
     <Compile Include="shapeElements\poilane\volatileRecomputing\test.py" />
     <Compile Include="shapeElements\poi\create\angle\test.py" />
     <Compile Include="shapeElements\poi\create\blockmove\test.py" />
@@ -1782,7 +1781,7 @@
     <Folder Include="additionalElements\calibrator\load" />
     <Folder Include="additionalElements\calibrator\volatileRecomputing" />
     <Folder Include="additionalElements\chargingstation\" />
-    <Folder Include="additionalElements\chargingstation\create" />
+    <Folder Include="additionalElements\chargingstation\create\" />
     <Folder Include="additionalElements\chargingstation\create\blockmovement" />
     <Folder Include="additionalElements\chargingstation\create\chargedelay" />
     <Folder Include="additionalElements\chargingstation\create\chargeintransit" />
@@ -3470,7 +3469,7 @@
     <Folder Include="shapeElements\basic\" />
     <Folder Include="shapeElements\basic\shape_invalid" />
     <Folder Include="shapeElements\basic\shape_saveDialog" />
-    <Folder Include="shapeElements\poilane" />
+    <Folder Include="shapeElements\poilane\" />
     <Folder Include="shapeElements\poilane\create\" />
     <Folder Include="shapeElements\poilane\create\angle" />
     <Folder Include="shapeElements\poilane\create\blockmove" />

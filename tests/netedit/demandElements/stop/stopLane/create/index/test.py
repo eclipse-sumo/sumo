@@ -35,31 +35,31 @@ netedit.stopMode()
 netedit.changeStopType("stopLane")
 
 # set invalid index
-netedit.changeDefaultValue(8, "dummyValue")
+netedit.changeDefaultValue(9, "dummyValue")
 
 # try to create stop
 netedit.leftClick(referencePosition, 327, 220)
 
 # set invalid index
-netedit.changeDefaultValue(8, "")
+netedit.changeDefaultValue(9, "")
 
 # try to create stop
 netedit.leftClick(referencePosition, 327, 220)
 
 # set valid index
-netedit.changeDefaultValue(8, "fit")
+netedit.changeDefaultValue(9, "fit")
 
 # create stop
 netedit.leftClick(referencePosition, 327, 220)
 
 # set valid index
-netedit.changeDefaultValue(8, "end")
+netedit.changeDefaultValue(9, "end")
 
 # create stop
 netedit.leftClick(referencePosition, 327, 220)
 
 # set valid index
-netedit.changeDefaultValue(8, "5")
+netedit.changeDefaultValue(9, "5")
 
 # create stop
 netedit.leftClick(referencePosition, 327, 220)

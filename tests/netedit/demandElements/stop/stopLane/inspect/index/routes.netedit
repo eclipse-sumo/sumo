@@ -1,20 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 28.08.2019 10:24:58 by Eclipse SUMO netedit Version v1_3_1+0010-babbcffb4d
+<!-- generated on 13.09.2019 16:01:30 by Eclipse SUMO netedit Version v1_3_1+0293-e31b3a23a0
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.28Aug102256.16220/netedit.gui/demandElements/stop/stopLane/inspect/index\input_net.net.xml"/>
+        <sumo-net-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.2_from_13Sep153708.3836/netedit.gui/demandElements/stop/stopLane/inspect/index\input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.28Aug102256.16220/netedit.gui/demandElements/stop/stopLane/inspect/index\net.net.xml"/>
+        <output-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.2_from_13Sep153708.3836/netedit.gui/demandElements/stop/stopLane/inspect/index\net.net.xml"/>
     </output>
 
     <processing>
         <geometry.max-grade.fix value="false"/>
         <offset.disable-normalization value="true"/>
-        <opposites.guess.fix-lengths value="true"/>
         <lefthand value="false"/>
     </processing>
 
@@ -30,14 +29,14 @@
     </pedestrian>
 
     <netedit>
-        <additional-files value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.28Aug102256.16220/netedit.gui/demandElements/stop/stopLane/inspect/index\additionals.xml"/>
-        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.28Aug102256.16220/netedit.gui/demandElements/stop/stopLane/inspect/index\additionals.xml"/>
-        <route-files value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.28Aug102256.16220/netedit.gui/demandElements/stop/stopLane/inspect/index\routes.xml"/>
-        <demandelements-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.28Aug102256.16220/netedit.gui/demandElements/stop/stopLane/inspect/index\routes.xml"/>
+        <additional-files value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.2_from_13Sep153708.3836/netedit.gui/demandElements/stop/stopLane/inspect/index\additionals.xml"/>
+        <additionals-output value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.2_from_13Sep153708.3836/netedit.gui/demandElements/stop/stopLane/inspect/index\additionals.xml"/>
+        <route-files value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.2_from_13Sep153708.3836/netedit.gui/demandElements/stop/stopLane/inspect/index\routes.xml"/>
+        <demandelements-output value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.2_from_13Sep153708.3836/netedit.gui/demandElements/stop/stopLane/inspect/index\routes.xml"/>
     </netedit>
 
     <visualisation>
-        <gui-settings-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.28Aug102256.16220/netedit.gui/demandElements/stop/stopLane/inspect/index\gui-settings.xml"/>
+        <gui-settings-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.2_from_13Sep153708.3836/netedit.gui/demandElements/stop/stopLane/inspect/index\gui-settings.xml"/>
         <window-size value="700,500"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
@@ -47,15 +46,15 @@
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.28Aug102256.16220/netedit.gui/demandElements/stop/stopLane/inspect/index\log.txt"/>
+        <error-log value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.2_from_13Sep153708.3836/netedit.gui/demandElements/stop/stopLane/inspect/index\log.txt"/>
     </report>
 
 </configuration>
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-    <vehicle id="vehicle_0" depart="0.00">
-        <route edges="gneE0 gneE1" color="yellow"/>
-        <stop lane="lane_gneE1_0_0" duration="60.00"/>
-    </vehicle>
+    <person id="person_0" depart="0.00" color="cyan">
+        <walk edges="gneE0 gneE1"/>
+        <stop lane="gneE1_0" startPos="25.00" endPos="35.00" duration="60.00"/>
+    </person>
 </routes>
