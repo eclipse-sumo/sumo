@@ -1,0 +1,1720 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Thu Sep 12 14:02:50 2019 by Eclipse SUMO duarouter Version v1_3_1+0271-f54e37b
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/duarouterConfiguration.xsd">
+
+    <input>
+        <net-file value="osm.net.xml"/>
+        <additional-files value="osm_stops.add.xml,osm_pt.rou.xml"/>
+        <route-files value="osm.pedestrian.trips.xml"/>
+    </input>
+
+    <output>
+        <output-file value="carPublic.rou.xml"/>
+        <alternatives-output value="carPublic.rou.alt.xml"/>
+    </output>
+
+    <report>
+        <no-warnings value="true"/>
+        <ignore-errors value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+</configuration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vType id="ped_pedestrian" vClass="pedestrian"/>
+    <person id="ped0" type="ped_pedestrian" depart="0.00">
+        <walk edges="335703510 335703511#1 335703511#0 254523894 274513542 274513577#1 335704573 335704572 274513573 43185718#2 43185718#3 394345494#1 274513552 335043660 274513581#3 43185731 70163730#1 465376241 22972195#2 -11483007 169999355 461526153 194069450#1 194069450#0 196850609#2 196850609#1 196850609#0 -35557143#0 35557143#1" busStop="3869306767"/> <!-- U Französische Straße -->
+        <ride busStop="3869306774" lines="147:1" intended="pt_bus_147:1.0" depart="695.00"/> <!-- Werderscher Markt -->
+        <walk edges="23755950#0 23755950#1 23755950#2 23755950#3 -43346200#4 -15973619#0"/>
+    </person>
+    <person id="ped1" type="ped_pedestrian" depart="2.00">
+        <walk edges="169195791#0 -4612981 532972718#0 532972718#2 195401013#2 195401013#3 24914992#0" busStop="270727248"/> <!-- S+U Alexanderplatz -->
+        <ride busStop="1827996417" lines="M48:1" intended="pt_bus_M48:1.0" depart="221.00"/> <!-- Spandauer Straße/Marienkirche -->
+        <ride busStop="271296293" lines="200:0" intended="pt_bus_200:0.0" depart="427.00"/> <!-- Staatsoper -->
+        <walk edges="169195795#5 4610494#1 4610494#0 -330840134#2 340498976#8" busStop="247603398"/> <!-- Am Kupfergraben -->
+        <walk edges="463829467 -132460632#0 132460632#1"/>
+    </person>
+    <person id="ped2" type="ped_pedestrian" depart="4.00">
+        <walk edges="388702041#8 388702041#7 388702041#6 388702041#5 388702041#4 374734396#3 388702039#8 388702039#9 388702047#3" busStop="990017251"/> <!-- U Oranienburger Tor -->
+        <ride busStop="247600965" lines="12:0" intended="pt_tram_12:0.0" depart="195.00"/> <!-- S+U Friedrichstraße -->
+        <walk edges="465376241 70163730#1 43185731 274513581#3 335043660 274513552 394345494#1 43185718#3 43185718#2 43185718#1 43185718#0 43185719 237526578#1 237526578#0" busStop="29805120"/> <!-- Berlin Friedrichstraße -->
+        <ride busStop="2776873647" lines="RB14:0" intended="pt_train_RB14:0" depart="568.00"/> <!-- Berlin Alexanderplatz -->
+        <walk edges="272757323#0 272757328#0 272757283 272757293 272757343#0 272757295 272757317#1 272757347#1 272757348#1 377634147#1 377634147#0 346229515#0"/>
+    </person>
+    <person id="ped3" type="ped_pedestrian" depart="6.00">
+        <walk edges="51167927#1 51167927#0 23852053#1 30721662#1 -30721662#2 23809677 275008387#0 275008387#1" busStop="1745157971"/> <!-- S Hackescher Markt -->
+        <ride busStop="2603331695" lines="S5:0" intended="pt_light_rail_S5:0.0" depart="287.00"/> <!-- S Friedrichstraße -->
+        <walk edges="335043665#1" busStop="27412232"/> <!-- S Friedrichstraße -->
+        <walk edges="254523901#1 237520773#3 237520773#4 237520773#5 237520773#6 237520773#7 237520773#8 196845298#1 196845298#2 440946429 237519487#1 -292429063#0"/>
+    </person>
+    <vehicle id="ped4_0" depart="triggered">
+        <route edges="24243052#3 465376240 195411604 22972195#2 465376239 465376255#0 465376255#1 190447767#1 190447766#0 190447766#1 4402228 465376254 222328410 -6228081 541295974 30720544#0 30720544#1 -168940071#4 -168940071#3 -168940071#2"/>
+    </vehicle>
+    <person id="ped4" type="ped_pedestrian" depart="8.00">
+        <ride from="24243052#3" to="-168940071#2" lines="ped4_0"/>
+    </person>
+    <person id="ped5" type="ped_pedestrian" depart="10.00">
+        <walk edges="125513274 137630047 23851908#1 23851927#1 23851927#0 81112790#1 82649618#2 82649618#1 82649618#0 4611726 312532334#2 312532334#1 312532334#0 312493778 558867477 312175526#1 312176585#1 346212659 199485599 346229517 377634147#1 272757348#1"/>
+    </person>
+    <person id="ped6" type="ped_pedestrian" depart="12.00">
+        <walk edges="-15973619#6 -15973619#5 -15973619#4 -15973619#3 -15973619#2 -15973619#1 -15973619#0 43346200#2 4611696#1 4611696#2 -4611696#3 -54781811#0 -54781811#1 305153174 43230886 4611694 354528932 168937986#0 168937986#2 168937986#3 168937986#4 4610480 83517334#1 22972219#0 22972219#1 35578559 195397541#1 23852035#1 137630046 235503139#1 26733828#0 466923185 104991252#0"/>
+    </person>
+    <person id="ped7" type="ped_pedestrian" depart="14.00">
+        <walk edges="340498976#5 340498976#4 122820534#1 195262644 -4610476#2" busStop="1673526976"/> <!-- Georgenstraße/Am Kupfergraben -->
+        <ride busStop="1823298700" lines="12:1" intended="pt_tram_12:1.0" depart="237.00"/> <!-- S+U Friedrichstraße -->
+        <walk edges="175885742 175885746#3 175885746#1 175885746#0 465376259#1 254523888#0 335704571 254523912#1 254523912#0 254523897 254523901#0 254523901#1 237520773#2 335576648#0 335576644#0 254523877 254523906#0 254523906#1 254523882 274524377#0"/>
+    </person>
+    <person id="ped8" type="ped_pedestrian" depart="16.00">
+        <walk edges="131420077#1 -27628624#1 27628624#0 7917219#3 7917219#1 389705411 465376252 518508124#0 518508124#1 518508124#2 318915602#3 -4396823#1 -4396823#0" busStop="1668717159"/> <!-- S Oranienburger Straße -->
+        <ride busStop="963600646" lines="M1:0" intended="pt_tram_M1:0" depart="598.00"/> <!-- Monbijouplatz -->
+        <walk edges="437325047#0 30721660#5 30721660#4 4610351#1 4610351#0 -454285423#0 -454285423#1 -454285423#3 310548395"/>
+    </person>
+    <person id="ped9" type="ped_pedestrian" depart="18.00">
+        <walk edges="4610526 168937986#0 340498982#7 340498982#5 340498982#4 340498982#3" busStop="3870475228"/> <!-- Staatsoper -->
+        <ride busStop="1827996414" lines="200:1" intended="pt_bus_200:1.0" depart="328.00"/> <!-- Spandauer Straße/Marienkirche -->
+        <walk edges="72157174#1 534588621#1 534588621#0 61583424#2 61583424#1 61583424#0 72157172 606078066#1 606078066#0 156364553#1 156364553#0 -128396189#2 -128396189#1"/>
+    </person>
+    <person id="ped10" type="ped_pedestrian" depart="20.00">
+        <walk edges="4610375 168940071#0 168940071#1 -4610374 -6227658#1 35269774#0 374734393#4 374734393#3 388702047#1 374734396#2 374734396#1"/>
+    </person>
+    <person id="ped11" type="ped_pedestrian" depart="22.00">
+        <walk edges="196850614 196850624#1 196850609#1 196850609#2 194069450#0 194069450#1 461526152" busStop="3869306771"/> <!-- Unter den Linden/Friedrichstraße -->
+        <ride busStop="270718978" lines="200:1" intended="pt_bus_200:1.0" depart="269.00"/> <!-- S+U Alexanderplatz/Memhardstraße -->
+        <walk edges="405100405 139877314#0 139877314#1 61579356 346206362#1 346206362#2 272795483 272795497#0 272795495#1" busStop="2094266778"/> <!-- U Alexanderplatz -->
+        <ride busStop="2094266781" lines="U2:0" intended="pt_subway_U2:0.2" depart="1008.00"/> <!-- U Klosterstraße -->
+        <walk edges="82658674#2 -4612973#1 -4612973#0"/>
+    </person>
+    <person id="ped12" type="ped_pedestrian" depart="24.00">
+        <walk edges="59286188#3 449849679#1 449849679#0 48435239 449849683 59286191 59286499 83517332#2" busStop="1668497956"/> <!-- S Hackescher Markt -->
+        <walk edges="46140376#1 -316746323#0 48664687#0 48664687#1 170302412#1 170302411 -47986661#2 475297967#1 275008387#1" busStop="1745157971"/> <!-- S Hackescher Markt -->
+        <ride busStop="2603331695" lines="S7:0" intended="pt_light_rail_S7:0.0" depart="468.00"/> <!-- S Friedrichstraße -->
+        <walk edges="335043665#2 254523876 254523899 335703512 335703509 335576646#4 254523912#1 335704571 254523888#0 254523888#1 195411602#1" busStop="2792364395"/> <!-- S+U Friedrichstraße -->
+        <ride busStop="2071423334" lines="U6:1" intended="pt_subway_U6:1.1" depart="854.00"/> <!-- U Französische Straße -->
+        <walk edges="196850608#0 196850608#1 196850606#0 196850606#1 196850606#2 196850606#3"/>
+    </person>
+    <vehicle id="ped13_0" depart="triggered">
+        <route edges="-310176513#4 310176513#4 310176513#5 310176513#6 156364559#4 156364559#5 156364559#6 -24992424#5 -24992424#4 -24992424#3 -24992424#2 -24992424#1 -24992424#0 4612964#0 4612964#1 4612964#2 24992428 606078065 156364553#0 156364553#1 606078066#0 606078066#1 72157172 61583424#0 61583424#1 61583424#2 534588621#0 534588621#1 24913519#1 24913519#2 541763975 202156995#0 202156995#1 4067932#0 4067932#1 339201219 61584187#1 61584187#2 61584187#3 61584187#4 54048863 15971197 4611699 169195795#0 169195795#1 169195795#2 169195795#5 169195795#6 169195795#7 169195795#8 114667396#0 -15977422#0 -195411605#0 -31313667#2 -31313667#1 -31313667#0"/>
+    </vehicle>
+    <person id="ped13" type="ped_pedestrian" depart="26.00">
+        <ride from="-310176513#4" to="-31313667#0" lines="ped13_0"/>
+    </person>
+    <vehicle id="ped14_0" depart="triggered">
+        <route edges="465376254 222328410 -6228081 541295974 30720544#0 30720544#1 -168940071#4 -168940071#3 -168940071#2 -168940071#1 -168940071#0 24243107#2 437325054#0 -165415464#1 165415454#0 165415454#1 -312651888#2 -312651888#1 312651888#1"/>
+    </vehicle>
+    <person id="ped14" type="ped_pedestrian" depart="28.00">
+        <ride from="465376254" to="312651888#1" lines="ped14_0"/>
+    </person>
+    <person id="ped17" type="ped_pedestrian" depart="34.00">
+        <walk edges="228484735 30721660#1 30721660#0 46140382 235503140#0 235503140#1 235503140#2 475297457#2 475297457#1 475297457#0 47986658#0 47986658#1 280007140#3"/>
+    </person>
+    <person id="ped18" type="ped_pedestrian" depart="36.00">
+        <walk edges="4613295#1 4613295#0 19002363#1 -19002363#2 55741054 -168942727#1 -168942727#0 -48664717#1 -48664717#0 275008387#2 275008387#1" busStop="1745157971"/> <!-- S Hackescher Markt -->
+        <ride busStop="2603331695" lines="S5:0" intended="pt_light_rail_S5:0.1" depart="887.00"/> <!-- S Friedrichstraße -->
+        <walk edges="194073677#1 -194073677#0 465376246#1 82165084 82165083 82168025 25959593 -169660686#1 -169660686#0 164039095#0 327518240#0"/>
+    </person>
+    <person id="ped19" type="ped_pedestrian" depart="38.00">
+        <walk edges="4773024#1 4773024#0 61584187#2" busStop="3867910420"/> <!-- Lustgarten -->
+        <ride busStop="272408975" lines="100:0" intended="pt_bus_100:0.0" depart="331.00"/> <!-- Unter den Linden/Friedrichstraße -->
+        <walk edges="188386313#0 169999355" busStop="3869306772"/> <!-- Unter den Linden/Friedrichstraße -->
+        <ride busStop="3869306762" lines="147:0" intended="pt_bus_147:0.0" depart="594.00"/> <!-- Friedrichstraße/Reinhardtstraße -->
+        <walk edges="111251382#2 -111251382#2 -42103020 -30720544#1 30720544#1"/>
+    </person>
+    <person id="ped20" type="ped_pedestrian" depart="40.00">
+        <walk edges="37612430 -4403559#0 169660686#1 25959593 82168025 82165083 82165084 465376246#1 -194073677#0 422002325 237520773#1 237520773#2 254523901#1" busStop="27412232"/> <!-- S Friedrichstraße -->
+        <ride busStop="27411240" lines="S3:1" intended="pt_light_rail_S3:1.0" depart="396.00"/> <!-- S Hackescher Markt -->
+        <walk edges="377110621#0 377110617 377110622#1 377110622#0 28016309#3 475297968#0 475297968#1 170098545#1 170098545#2 46517262#0 46517262#1 46517262#2 46517262#3 46517262#4" busStop="1633759760"/> <!-- S Hackescher Markt -->
+        <ride busStop="30731481" lines="M4:2" intended="pt_tram_M4:2.1" depart="768.00"/> <!-- Spandauer Straße/Marienkirche -->
+        <walk edges="202157002#2 202157002#3 -534588621#1 -534588621#0 606078071#0 606078071#1 606078071#2 606078071#3 -562707499 -136571494#7 194963395 -194963395"/>
+    </person>
+    <person id="ped21" type="ped_pedestrian" depart="42.00">
+        <walk edges="133895404 24913519#2 24913519#1 202157002#3 202157002#2 202157002#1 202157002#0 156364556#1 46517262#6 46517262#5 46517262#4 170852455 170852451"/>
+    </person>
+    <person id="ped22" type="ped_pedestrian" depart="44.00">
+        <walk edges="-26322535#2 -26322535#3 -26322535#4 -26322535#5 -26322535#6 159200257#1 159200257#2 159200257#3 23813201 23851917#1" busStop="3352479220"/> <!-- Fischerinsel -->
+        <ride busStop="1827996414" lines="M48:0" intended="pt_bus_M48:0.0" depart="255.00"/> <!-- Spandauer Straße/Marienkirche -->
+        <walk edges="72157174#1 4773465#1" busStop="3867910438"/> <!-- Spandauer Straße/Marienkirche -->
+        <ride busStop="-2915545317" lines="N8:1" intended="pt_bus_N8:1.0" depart="573.00"/> <!-- U Weinmeisterstraße/Gipsstraße -->
+        <walk edges="-36892597#1 -36892597#2 -4610355#0 -4610355#1 310548395 -454285423#4 493008124#0 137085414 137085430#2 137085434#3 137085410#5 137085410#4"/>
+    </person>
+    <person id="ped23" type="ped_pedestrian" depart="46.00">
+        <walk edges="-32508518 -32508516#0 205728152#1 110676320 169195795#8"/>
+    </person>
+    <person id="ped24" type="ped_pedestrian" depart="48.00">
+        <walk edges="335576646#2 335576646#3 254523912#0 254523897 254523901#0 254523901#1" busStop="27412232"/> <!-- S Friedrichstraße -->
+        <ride busStop="27411240" lines="S5:1" intended="pt_light_rail_S5:1.0" depart="204.00"/> <!-- S Hackescher Markt -->
+        <walk edges="377110615 377110622#3 280007142#1 475297967#0 275008387#0 -31959089 -31959087#0 -31959087#1 -23809670#3 -23809670#4 23809670#5 15971191#1 15971191#0 553649892 4610599 202156991#1 202157030#0"/>
+    </person>
+    <person id="ped25" type="ped_pedestrian" depart="50.00">
+        <walk edges="205728152#2 205728152#1 110676320 340498982#3" busStop="3870475228"/> <!-- Staatsoper -->
+        <ride busStop="270718978" lines="200:1" intended="pt_bus_200:1.0" depart="328.00"/> <!-- S+U Alexanderplatz/Memhardstraße -->
+        <walk edges="405100405 139877314#0 171829099#5 171829099#4 171829099#2 171829099#1 112128419#1 318282850#1 318282850#0 24914141#6 -268002748#0 112128825#0"/>
+    </person>
+    <person id="ped26" type="ped_pedestrian" depart="52.00">
+        <walk edges="165415454#1 225400588#2 225400588#1 225400588#0 461165665#0 461165667" busStop="1668717159"/> <!-- S Oranienburger Straße -->
+        <ride busStop="1633759760" lines="M5:1" intended="pt_tram_M5:1" depart="201.00"/> <!-- S Hackescher Markt -->
+        <walk edges="100950875#1 100950875#2 100950875#3 47986664#3 222470309#0 222470309#1 370359204#0 -48664717#0 -48664717#1 577274550 474154191#1 566154989"/>
+    </person>
+    <person id="ped27" type="ped_pedestrian" depart="54.00">
+        <walk edges="339201239 260138638#0 136571494#1 136571494#2 136571494#3 136571494#4 136571494#6 562707499 328920970 72157172 606078066#1 606078066#0 156364553#1 156364553#0 128396189#2 128396189#1 128396189#0 309489394#1 312362360#1 312493778 558867477 195407521 309155392 316092515 315245296#0 315245296#1 315245295"/>
+    </person>
+    <person id="ped28" type="ped_pedestrian" depart="56.00">
+        <walk edges="-546927052 -23755950#1 -23755950#2 -23755950#3 -4611696#1 -4611696#2 4611696#3 4611696#4 4611696#5 8008608 -120675240#1 -120675240#0 -43156728#4 -43156728#2 43156728#1 43156728#0 52328295#1 52328295#0 23851917#0 23851917#1" busStop="3352479220"/> <!-- Fischerinsel -->
+        <ride busStop="3867910416" lines="248:1" intended="pt_bus_248:1.1" depart="939.00"/> <!-- Berliner Rathaus -->
+        <walk edges="60333311#2 289965634 -4612968#3 -344595607#0 285825378#0 -285825378#1 -285825378#2 285825377 313323170#1 344595605#1 384309028 344595602 384309031#1 384309031#0"/>
+    </person>
+    <person id="ped29" type="ped_pedestrian" depart="58.00">
+        <walk edges="-493008124#1 493008124#1 493008124#0 -454285423#4 310548395 4610355#1 4610355#0 36892597#2" busStop="3867910441"/> <!-- U Weinmeisterstraße/Gipsstraße -->
+        <ride busStop="2915590925" lines="N40:1" intended="pt_bus_N40:1.0" depart="510.00"/> <!-- Spandauer Straße/Marienkirche -->
+        <walk edges="202157002#2 202157002#3 375901777 202157023#1 202157023#0 202157026#2 202157026#1 169067264#0 260138646#0 360464647 229531159"/>
+    </person>
+    <person id="ped30" type="ped_pedestrian" depart="60.00">
+        <walk edges="82648766#0 82648766#2 313193879#0 24992428 606078065 156364553#0 156364553#1 606078066#0 606078066#1 72157172 61583424#0 61583424#1 61583424#2 534588621#0 534588621#1 4773465#1" busStop="3867910438"/> <!-- Spandauer Straße/Marienkirche -->
+        <ride busStop="-2915579613" lines="N8:1" intended="pt_bus_N8:1.0" depart="573.00"/> <!-- S Hackescher Markt -->
+        <walk edges="-275177453 -478396988 370359204#2 370359204#0 275008387#2 275008387#1" busStop="1745157971"/> <!-- S Hackescher Markt -->
+        <ride busStop="2603331695" lines="S5:0" intended="pt_light_rail_S5:0.1" depart="887.00"/> <!-- S Friedrichstraße -->
+        <walk edges="335043665#2 254523876 254523899 335703512 335703509 335576646#4 335576646#3 335576646#2 335703511#1"/>
+    </person>
+    <person id="ped31" type="ped_pedestrian" depart="62.00">
+        <walk edges="281922265#0 54698846#2 -4612973#0 -4612973#1" busStop="29495029"/> <!-- U Klosterstraße -->
+        <ride busStop="2094266780" lines="U2:1" intended="pt_subway_U2:1.0" depart="455.00"/> <!-- U Alexanderplatz -->
+        <walk edges="377634145 503071092 272795500#3 377634139 272795476 272795502#0 272795502#1 272795502#2 272795485 272780728 272780727 272780749#0 346229515#2 346229515#1 377634147#0 377634147#1 272757348#1 272757348#2 272757316#0 272757277 272757329 272757337#1 272757292 272757274" busStop="574265352"/> <!-- S Alexanderplatz -->
+        <ride busStop="2603331695" lines="S5:0" intended="pt_light_rail_S5:0.1" depart="811.00"/> <!-- S Friedrichstraße -->
+        <walk edges="335043665#2 254523876 254523899 335703512 335703509 335576646#4 254523912#1 335704571 254523888#0 254523888#1 195411602#1" busStop="2792364395"/> <!-- S+U Friedrichstraße -->
+        <walk edges="422000253#2 274513556#1 274513571#0 38711947#1 35578576#0 35578576#1"/>
+    </person>
+    <person id="ped32" type="ped_pedestrian" depart="64.00">
+        <walk edges="465218216 465218218 465218213 465218214 607001337 465376244#0 378150067#2 378150067#1 378150067#0 196845298#2 196845298#1 237520773#8 237520773#7 237520773#6 237520773#5 237520773#4 237520773#3 237520773#2 335576648#0 335576644#1 254523890#0 254339580 335576652#0 440946427 254523879 335043668#1" busStop="1930939368"/> <!-- S Friedrichstraße -->
+        <ride busStop="1769645503" lines="S2:1" intended="pt_light_rail_S2:1" depart="391.00"/> <!-- S Oranienburger Straße -->
+        <walk edges="165415454#0 -165415464#1 437325048#0"/>
+    </person>
+    <person id="ped33" type="ped_pedestrian" depart="66.00">
+        <walk edges="133957854 553121566#1 553121565 4610599 553649892 15971191#0 15971191#1 23809670#5 -23809670#4 -23809670#3 -31959087#1 -31959087#0 -31959089 275008387#0 275008387#1" busStop="1745157971"/> <!-- S Hackescher Markt -->
+        <ride busStop="2603331695" lines="S3:0" intended="pt_light_rail_S3:0.0" depart="649.00"/> <!-- S Friedrichstraße -->
+        <walk edges="194073677#1 -194073677#0 465376246#1 82165084 82165083 82168025 25959593 -169660686#1"/>
+    </person>
+    <person id="ped34" type="ped_pedestrian" depart="68.00">
+        <walk edges="183415643 46140378 46140382 30721660#0 30721660#1 30721660#2 30721660#3 30721660#4 30721660#5" busStop="1661927028"/> <!-- Monbijouplatz -->
+        <ride busStop="990017251" lines="M1:2" intended="pt_tram_M1:2" depart="310.00"/> <!-- U Oranienburger Tor -->
+        <walk edges="388702047#3 388702039#11 42103020 168940071#4 541295973#0 165832574#0"/>
+    </person>
+    <person id="ped35" type="ped_pedestrian" depart="70.00">
+        <walk edges="113589280#3 225400609#1 474154190#1 474154190#0 437325047#0" busStop="963600646"/> <!-- Monbijouplatz -->
+        <ride busStop="1633759760" lines="M5:1" intended="pt_tram_M5:1" depart="266.00"/> <!-- S Hackescher Markt -->
+        <walk edges="46517262#4 170852455 170852451 170852468 170852466 170852444 -170370361#2 569067826"/>
+    </person>
+    <person id="ped36" type="ped_pedestrian" depart="72.00">
+        <walk edges="4840977#1 -4840977#0 202157024#0 202157024#1 23809670#5 23809670#4 23852027 137630051#1 137630051#0 345088426 51234180 181587286#0"/>
+    </person>
+    <person id="ped37" type="ped_pedestrian" depart="74.00">
+        <walk edges="344595598 528042858#1 344595604 181618202 198495314 -24992424#2 -24992424#1 -24992424#0 4612964#0 4612964#1 4612964#2 82648766#2 313193879#0 24992428 606078065" busStop="271430924"/> <!-- Berliner Rathaus -->
+        <ride busStop="-2915579613" lines="N8:1" intended="pt_bus_N8:1.0" depart="490.00"/> <!-- S Hackescher Markt -->
+        <walk edges="-275177453 -478396988 370359204#2 370359204#0 275008387#2 475297457#1 475297457#2 235503140#2 235503140#1"/>
+    </person>
+    <person id="ped38" type="ped_pedestrian" depart="76.00">
+        <walk edges="533594858#1 23852041#8 -437325047#2 437325047#3 437325047#5 560370523 437325048#0 165415464#0" busStop="30353449"/> <!-- S Oranienburger Straße -->
+        <ride busStop="474368351" lines="S2:0" intended="pt_light_rail_S2:0" depart="371.00"/> <!-- S Friedrichstraße -->
+        <walk edges="254339581#2 428486923 335009920 254339591#1 254339591#2 254339591#3 254339591#4 254339591#5 254339591#6 237520773#3 254523901#1 422002327 335703513#0 335703513#1 335703509 254523910"/>
+    </person>
+    <person id="ped39" type="ped_pedestrian" depart="78.00">
+        <walk edges="164874306 164874309#0 164874309#1 164874301 4610599 553649892 15971191#0 15971191#1 23809670#5 23809670#4 23809670#3 30721662#3 30721662#2 30721662#1 4610362#8 4610362#7 4610362#6 4610362#5 4610362#3 -4610362#2 4610361" busStop="1661927028"/> <!-- Monbijouplatz -->
+        <ride busStop="1668685086" lines="M5:0" intended="pt_tram_M5:0" depart="624.00"/> <!-- U Oranienburger Tor -->
+        <walk edges="-204032443#1 153692976#0"/>
+    </person>
+    <vehicle id="ped40_0" depart="triggered">
+        <route edges="289830408 289830064 19801545 289966845 289967595#0 289967595#1 82659290#0 82659290#1 30826268#1 30826268#2 316092515 309155392 195407521 309147331#0 309147331#1 344594962 312357351 309479676 4611726 82649618#0 82649618#1 82649618#2 606078065 156364553#0 156364553#1 606078066#0 606078066#1 72157172 61583424#0 61583424#1 61583424#2 534588621#0 534588621#1 72157174#1 171826984#0 171826984#1 171826984#2 171826984#3 171826984#4 171826984#5 24913524#0 24913524#1 195401006 195401017#0 195401017#1 195401017#3 405100405 139877314#0 139877314#1 139877314#2 310357283#0 310357283#1 100405009#0 100405009#1 100405009#2 100405009#3 100405009#4 100405009#5 305093247#0 305093247#2 305093328#0 305093328#1 305093328#2 163368988#3"/>
+    </vehicle>
+    <person id="ped40" type="ped_pedestrian" depart="80.00">
+        <ride from="289830408" to="163368988#3" lines="ped40_0"/>
+    </person>
+    <person id="ped41" type="ped_pedestrian" depart="82.00">
+        <walk edges="310176513#0 312125717#1 310320077#1 310320077#0 310010117#1 289965634 60333311#2 110769140 82649618#1 82649618#2 606078065" busStop="271430924"/> <!-- Berliner Rathaus -->
+        <ride busStop="3867910438" lines="N8:1" intended="pt_bus_N8:1.0" depart="490.00"/> <!-- Spandauer Straße/Marienkirche -->
+        <walk edges="4773465#1 4773465#2 4773465#3 490365295#0 490365295#1 490365295#2 46517262#6 46517262#5 46517262#4 46517262#3 46517262#2 46517262#1 46517262#0 170098545#2 170098545#1 170098545#0 -30721662#3 23852046#0 23852046#1 23852029#1 51234180 181587286#0 181587286#1 31959086#0 51235555 51235556"/>
+    </person>
+    <person id="ped42" type="ped_pedestrian" depart="84.00">
+        <walk edges="237520773#4 237520773#3 254523901#1" busStop="27412232"/> <!-- S Friedrichstraße -->
+        <ride busStop="27411231" lines="S5:1" intended="pt_light_rail_S5:1.0" depart="204.00"/> <!-- S Alexanderplatz -->
+        <walk edges="272757337#1 272757329 272757277 272757316#0 272757348#2 272757347#0 272757325#1 272757279 272757315 272757346#0 272757339#0 272757309 272757304 272757318#1 272757349#1 272757349#2 272757275#0 272757275#1 -24540240#4 -45235049#2 202157012 202157028#1 312493778 312362360#1 309489394#1 128396189#0 128396189#1"/>
+    </person>
+    <person id="ped43" type="ped_pedestrian" depart="86.00">
+        <walk edges="83517334#1 -83517339 -340498976#8" busStop="247603398"/> <!-- Am Kupfergraben -->
+        <ride busStop="1823298700" lines="M1:0" intended="pt_tram_M1:0" depart="190.00"/> <!-- S+U Friedrichstraße -->
+        <walk edges="43185731 274513581#3 335043660 274513552 394345494#1 43185718#3 43185718#2 43185718#1 43185718#0 43185719 237526578#1 237526578#0" busStop="29805120"/> <!-- Berlin Friedrichstraße -->
+        <ride busStop="2776873647" lines="RB14:0" intended="pt_train_RB14:0" depart="568.00"/> <!-- Berlin Alexanderplatz -->
+        <walk edges="272757323#0 272757328#0 272757283 272757293 272757343#0 272757295 272757317#1 272757347#1 272757348#1 377634147#1 377634147#0 346229515#1 272780762#1 272780762#0 272780732"/>
+    </person>
+    <person id="ped44" type="ped_pedestrian" depart="88.00">
+        <walk edges="-30721662#1 -30721662#2 23809677 275008387#0 275008387#1" busStop="1745157971"/> <!-- S Hackescher Markt -->
+        <ride busStop="2603331695" lines="S5:0" intended="pt_light_rail_S5:0.0" depart="287.00"/> <!-- S Friedrichstraße -->
+        <walk edges="194073677#1 -194073677#2 -4402228" busStop="-3869306765"/> <!-- S+U Friedrichstraße -->
+        <ride busStop="-3869306770" lines="147:1" intended="pt_bus_147:1.0" depart="475.00"/> <!-- Unter den Linden/Friedrichstraße -->
+        <walk edges="-194069450#1 342968607#1 236092221#2 236092221#1 -195089504 -195089288#3"/>
+    </person>
+    <person id="ped45" type="ped_pedestrian" depart="90.00">
+        <walk edges="-340498976#7 -340498976#8" busStop="247603398"/> <!-- Am Kupfergraben -->
+        <walk edges="340498976#8 83517339 -4610480 -4610600 -15971189 -339201177#0 330840132 330840133"/>
+    </person>
+    <person id="ped46" type="ped_pedestrian" depart="92.00">
+        <walk edges="449849679#1 449849679#0 48435239 449849683 59286191 59286499 83517332#2" busStop="1668497956"/> <!-- S Hackescher Markt -->
+        <ride busStop="1862699772" lines="M1:2" intended="pt_tram_M1:2" depart="246.00"/> <!-- S Oranienburger Straße -->
+        <walk edges="461165667 461165665#0 225400588#0" busStop="30353449"/> <!-- S Oranienburger Straße -->
+        <ride busStop="474368351" lines="S2:2" intended="pt_light_rail_S2:2" depart="505.00"/> <!-- S Friedrichstraße -->
+        <walk edges="24243056"/>
+    </person>
+    <person id="ped48" type="ped_pedestrian" depart="96.00">
+        <walk edges="83387877 -4610609#1 4610610#0 4610610#1 4610610#2 -52328295#1 52328295#0 23851917#0 23851917#1" busStop="3352479220"/> <!-- Fischerinsel -->
+        <ride busStop="3867910438" lines="N42:1" intended="pt_bus_N42:1.0" depart="590.00"/> <!-- Spandauer Straße/Marienkirche -->
+        <walk edges="4773465#1" busStop="30731481"/> <!-- Spandauer Straße/Marienkirche -->
+        <ride busStop="30731508" lines="M4:2" intended="pt_tram_M4:2.1" depart="820.00"/> <!-- S+U Alexanderplatz/Gontardstraße -->
+        <walk edges="175499828#0 169230291#4 169230291#5 72157175#0 346212656#7 346212656#6 346212656#5" busStop="2094266777"/> <!-- U Alexanderplatz -->
+        <walk edges="272795502#2 272795502#1"/>
+    </person>
+    <person id="ped49" type="ped_pedestrian" depart="98.00">
+        <walk edges="61584187#4 61584187#3 61584187#2 4773023#0"/>
+    </person>
+    <person id="ped50" type="ped_pedestrian" depart="100.00">
+        <walk edges="-133885749#0 133885750#4 553121560 553121566#0 553121565 4610599 553649892 15971191#0 15971191#1 28016312#0 28016312#1 156364556#1 202157002#0 202157002#1 202157002#2" busStop="30731481"/> <!-- Spandauer Straße/Marienkirche -->
+        <ride busStop="30731497" lines="M5:3" intended="pt_tram_M5:3" depart="591.00"/> <!-- U Alexanderplatz -->
+        <walk edges="565537148#0 346206389#3 305093328#2 305093328#1 305093328#0 305093247#2 305093247#0 163368220#2 301241681#5 301241681#6 246052428 301167584#0 301167584#1 301167584#2 379904842#2"/>
+    </person>
+    <person id="ped51" type="ped_pedestrian" depart="102.00">
+        <walk edges="35269774#1 374734393#4 374734393#3 388702039#9 388702047#3" busStop="990017251"/> <!-- U Oranienburger Tor -->
+        <ride busStop="247600965" lines="12:0" intended="pt_tram_12:0.0" depart="195.00"/> <!-- S+U Friedrichstraße -->
+        <walk edges="465376239 465376255#0 465376255#1 274513556#0 274513556#1 274513571#1 274513549 274513551 335043657 274513545 274513558"/>
+    </person>
+    <person id="ped52" type="ped_pedestrian" depart="104.00">
+        <walk edges="165415454#0 -165415464#1 165415464#0" busStop="30353449"/> <!-- S Oranienburger Straße -->
+        <ride busStop="474368351" lines="S2:0" intended="pt_light_rail_S2:0" depart="371.00"/> <!-- S Friedrichstraße -->
+        <walk edges="254339581#2 428486923 335009920 254339591#1 254339591#2 254339591#3 254339591#4 254339591#5 254339591#6 237520773#3 254523901#1 254523901#0 254523897 254523912#0 254523912#1 335704571"/>
+    </person>
+    <vehicle id="ped53_0" depart="triggered">
+        <route edges="-35557143#0 196850609#0 196850609#1 196850609#2 194069450#0 194069450#1 461526152 340498982#0 340498982#1 340498982#3 340498982#4 340498982#5 340498982#7 354528932 251884680 339201217 15971196#0 15971196#1 54048862#0 54048862#1 54048862#2 54048862#3 23013165#0 23013165#1 23013165#2 4611698#0 4611698#1 202156994#0 202156994#1 -534588621#1 -534588621#0 606078071#0 606078071#1 606078071#2 606078071#3 61583423#0 61583423#1 -156364553#1 -156364553#0 -606078065 4612963 156364566#1 60333309#0 60333309#1 24992424#0"/>
+    </vehicle>
+    <person id="ped53" type="ped_pedestrian" depart="106.00">
+        <ride from="-35557143#0" to="24992424#0" lines="ped53_0"/>
+    </person>
+    <person id="ped54" type="ped_pedestrian" depart="108.00">
+        <walk edges="254523888#1 195411602#1" busStop="2792364395"/> <!-- S+U Friedrichstraße -->
+        <walk edges="422000253#2 274513556#1 274513571#0 38711947#1 35578576#0 35578576#1 -589906053#0 589906053#1"/>
+    </person>
+    <person id="ped55" type="ped_pedestrian" depart="110.00">
+        <walk edges="4840974#2 202157024#0 202157024#1 15971191#1 15971191#0 553649892 4610599 164874301"/>
+    </person>
+    <person id="ped56" type="ped_pedestrian" depart="112.00">
+        <walk edges="272757341#1 272757273 272757274 272757292 272757337#1 272757329 272757277 272757316#0 272757348#2 272757348#1 377634147#1 377634147#0 346229515#1 272780762#1 272780758#1 272780740 272780755#0 272780747#1" busStop="2094266777"/> <!-- U Alexanderplatz -->
+        <walk edges="346206377#2 346212656#4" busStop="2094266778"/> <!-- U Alexanderplatz -->
+        <ride busStop="2094266781" lines="U2:0" intended="pt_subway_U2:0.0" depart="528.00"/> <!-- U Klosterstraße -->
+        <walk edges="313323170#3 -576310023#0 -576310033#0"/>
+    </person>
+    <person id="ped57" type="ped_pedestrian" depart="114.00">
+        <walk edges="530111226 -4588220#2 4588217#3 4588217#2 4588217#1 4588217#0 194069450#0 194069450#1 461526152" busStop="3869306771"/> <!-- Unter den Linden/Friedrichstraße -->
+        <ride busStop="3867910421" lines="N2:1" intended="pt_bus_N2:1.0" depart="582.00"/> <!-- Lustgarten -->
+        <walk edges="54048862#3 23013165#0 23013165#1 424344287 424344292 137630049 339201228 202157019 424344316 424344283 424344315 424344298 48095234 424344305 48095488 48095588#3"/>
+    </person>
+    <person id="ped58" type="ped_pedestrian" depart="116.00">
+        <walk edges="171829094 379904843#2 310357283#1 310357283#0 139877314#2 61579356 346206368#0 346206368#1 346206368#2 346206368#3 346206368#5 346206368#6 72157168#3 72157168#4 75228233 272757349#0 272757318#1 272757304 272757309 272757339#0 272757339#1 272757339#2 272757294 272757295 272757343#0 272757293 272757283 272757328#0 272757323#0 272757306 272757297" busStop="3419694885"/> <!-- Berlin Alexanderplatz -->
+        <ride busStop="2603331683" lines="RE7:0" intended="pt_train_RE7:0" depart="668.00"/> <!-- Berlin Friedrichstraße -->
+        <walk edges="335043665#0 254523886 335703507"/>
+    </person>
+    <person id="ped59" type="ped_pedestrian" depart="118.00">
+        <walk edges="314433242 -173197451#2 -173197451#0 112128418#6 41404377#0 41404377#1 24914141#3 24914141#4 268002748#0 268002748#1 369223458#1 369223458#0" busStop="2094266782"/> <!-- U Rosa-Luxemburg-Platz -->
+        <ride busStop="2094266781" lines="U2:0" intended="pt_subway_U2:0.1" depart="693.00"/> <!-- U Klosterstraße -->
+        <walk edges="313323170#3 82658671#1 82658671#0 -4612969#2 -4612969#1 289966281 289830408 -4612965"/>
+    </person>
+    <person id="ped60" type="ped_pedestrian" depart="120.00">
+        <walk edges="427637455#0 -153698390#1 -541295974 6228081 -222328410 -465376254 -4402228 190447768#1 195411602#0 195411602#1" busStop="2792364395"/> <!-- S+U Friedrichstraße -->
+        <walk edges="274513566#1 274513544 335043658 274513581#1 43185718#2 274513573"/>
+    </person>
+    <person id="ped61" type="ped_pedestrian" depart="122.00">
+        <walk edges="437500499 15971191#1 28016312#0 28016312#1 156364556#1 202157002#0 202157002#1 202157002#2" busStop="30731481"/> <!-- Spandauer Straße/Marienkirche -->
+        <ride busStop="30731508" lines="M5:1" intended="pt_tram_M5:1" depart="412.00"/> <!-- S+U Alexanderplatz/Gontardstraße -->
+        <walk edges="175499828#0 169230291#4 169230291#5 72157175#0 346212656#7 346212656#6 346212656#5" busStop="2094266777"/> <!-- U Alexanderplatz -->
+        <walk edges="272795502#2 272795482 272795503#2"/>
+    </person>
+    <person id="ped62" type="ped_pedestrian" depart="124.00">
+        <walk edges="-104991251 -4610375 24243107#1 24243107#0 -24243101 4610472#0 4610472#1 -4610472#2 -465376254 -4402228" busStop="-3869306765"/> <!-- S+U Friedrichstraße -->
+        <ride busStop="-3867910422" lines="147:2" intended="pt_bus_147:2.0" depart="821.00"/> <!-- Neumannsgasse -->
+        <walk edges="-43156728#0 -43156728#1 43156728#2 561049083 -194177700#0 -194177692#1 194177692#0"/>
+    </person>
+    <person id="ped63" type="ped_pedestrian" depart="126.00">
+        <walk edges="-147066248#3 482809614 -15973619#2 -15973619#1 -15973619#0 43346200#2 4611696#1 4611696#2 4611696#3 54781811#0 54781811#1 -305153174 -43230886 -4611694 251884680 339201217 15971196#0 15971196#1 54048862#0 54048862#1 54048862#2 339201219 4067932#1 4067932#0 202156995#1 202156995#0 541763975 24913519#2 24913519#1 375901779#6 375901779#7 557076767#1 557076776#1 557076768"/>
+    </person>
+    <person id="ped64" type="ped_pedestrian" depart="128.00">
+        <walk edges="48524700 346206356#3 346206393" busStop="30731497"/> <!-- U Alexanderplatz -->
+        <walk edges="565537148#0 346206389#3 305093328#2 305093328#1 305093328#0 305093247#2 305093247#0 100405009#5 100405009#4 100405009#3 100405009#2 100405009#1 100405009#0 310357284#1 310357284#0 4613308#2"/>
+    </person>
+    <person id="ped65" type="ped_pedestrian" depart="130.00">
+        <walk edges="175885745 175885747#4 22972195#2 83517336#0 83517336#1 153698394#1 -153698394#2 66071373#1 243854725#1 243854725#0 -22972473#0 -22972473#1"/>
+    </person>
+    <person id="ped66" type="ped_pedestrian" depart="132.00">
+        <walk edges="48435438 583761436#0 583761436#1 583761435 449849685 583761434 84960597#1 84960597#3 46140376#1 -316746323#0 -316746323#1 316746323#2 370359204#0 370359204#2 478396988" busStop="3867910428"/> <!-- S Hackescher Markt -->
+        <ride busStop="2915590925" lines="N2:0" intended="pt_bus_N2:0.0" depart="506.00"/> <!-- Spandauer Straße/Marienkirche -->
+        <walk edges="202157002#2 202157002#3 -534588621#1 312392969 564139999#4 312392976#0 574993697#1"/>
+    </person>
+    <person id="ped67" type="ped_pedestrian" depart="134.00">
+        <walk edges="-292429056#0 171423001#2" busStop="2071423352"/> <!-- U Französische Straße -->
+        <ride busStop="3869306769" lines="U6:0" intended="pt_subway_U6:0.0" depart="462.00"/> <!-- S+U Friedrichstraße -->
+        <walk edges="-4402228 190447768#1 195411602#0 254523888#1 254523888#0 335704571 254523912#1 335576646#3 335576646#2 335703511#1 254523871 254339584 274524379#0" busStop="29805120"/> <!-- Berlin Friedrichstraße -->
+        <ride busStop="2776873647" lines="RE7:1" intended="pt_train_RE7:1" depart="677.00"/> <!-- Berlin Alexanderplatz -->
+        <walk edges="272757323#0 272757328#0 272757283 272757293 272757343#0 272757295 272757294 272757339#2 272757339#1 272757339#0 272757309"/>
+    </person>
+    <person id="ped68" type="ped_pedestrian" depart="136.00">
+        <walk edges="-24243092#0 15977422#0 -114667396#0 169195795#8 340498982#3" busStop="3870475228"/> <!-- Staatsoper -->
+        <ride busStop="3867910421" lines="N2:1" intended="pt_bus_N2:1.0" depart="641.00"/> <!-- Lustgarten -->
+        <walk edges="54048862#3 23013165#0 23013165#1 424344287 424344292 137630049 339201228 202157019 424344316"/>
+    </person>
+    <person id="ped69" type="ped_pedestrian" depart="138.00">
+        <walk edges="43158961#2 43158961#1 159482051 81112790#1 606078065" busStop="271430924"/> <!-- Berliner Rathaus -->
+        <ride busStop="1827996414" lines="M48:0" intended="pt_bus_M48:0.0" depart="364.00"/> <!-- Spandauer Straße/Marienkirche -->
+        <walk edges="72157174#1 4773465#1" busStop="3867910438"/> <!-- Spandauer Straße/Marienkirche -->
+        <ride busStop="-2915579613" lines="N8:1" intended="pt_bus_N8:1.0" depart="573.00"/> <!-- S Hackescher Markt -->
+        <walk edges="-275177453 -478396988 370359204#2 370359204#0 275008387#2 275008387#1" busStop="1745157971"/> <!-- S Hackescher Markt -->
+        <ride busStop="2603331695" lines="S5:0" intended="pt_light_rail_S5:0.1" depart="887.00"/> <!-- S Friedrichstraße -->
+        <walk edges="194073677#1 422002325 335576648#1 335576644#1 254523890#0 254339580 335576652#0 440946427 254523879 335043668#1" busStop="1930939368"/> <!-- S Friedrichstraße -->
+        <ride busStop="1769645503" lines="S26:0" intended="pt_light_rail_S26:0.1" depart="1244.00"/> <!-- S Oranienburger Straße -->
+        <walk edges="165415454#0 -165415464#1 -437325048#1"/>
+    </person>
+    <person id="ped70" type="ped_pedestrian" depart="140.00">
+        <walk edges="272757266 272757335#2 272757335#1 272757314" busStop="3419694885"/> <!-- Berlin Alexanderplatz -->
+        <walk edges="272757341#0 272757271" busStop="574265352"/> <!-- S Alexanderplatz -->
+        <ride busStop="2603331695" lines="S5:0" intended="pt_light_rail_S5:0.0" depart="211.00"/> <!-- S Friedrichstraße -->
+        <walk edges="194073677#1 -194073677#2 -4402228" busStop="3869306769"/> <!-- S+U Friedrichstraße -->
+        <ride busStop="3043709616" lines="U6:0" intended="pt_subway_U6:0.0" depart="535.00"/> <!-- U Oranienburger Tor -->
+        <walk edges="388702041#10 388702041#9 388702041#8 388702041#7 388702041#6 388702041#5 388702041#4 388702041#3 388702041#2 374734394#5 374734394#6 374734394#7 374734394#8 27628628#1"/>
+    </person>
+    <person id="ped71" type="ped_pedestrian" depart="142.00">
+        <walk edges="164874307 4067932#1 339201219 54048862#2 54048862#1 54048862#0 15971196#1 15971196#0 339201217 251884680 -4611694 -43230886 -305153174 54781811#1 54781811#0 4611696#3 4611696#2 4611696#1 43346200#2 -15973619#0 482809616"/>
+    </person>
+    <person id="ped72" type="ped_pedestrian" depart="144.00">
+        <walk edges="24243107#1 570058775#1 181587285 26733828#3 26733828#2 181587282 339201225 181587281 235503139#1 235503139#0 -51167934#5 51236794 31959086#1 31959086#0 23852041#0 51167566 23852041#3 23852041#4 23852041#5 23852041#6 23852041#7 23852041#8 474154190#0 474154190#1 225400609#10 243911462 113589280#1 113589281#2"/>
+    </person>
+    <person id="ped73" type="ped_pedestrian" depart="146.00">
+        <walk edges="274513573 43185718#2 274513581#1 274513581#0 335043667 274513551 274513549 274513571#1 274513571#0 38711947#0"/>
+    </person>
+    <person id="ped74" type="ped_pedestrian" depart="148.00">
+        <walk edges="107747047#3 465376247#0 465376247#1 82165084 82165083 82168025 25959593 169660686#1 -4403559#0 -4403559#1 -31112516#0 -176043807#1 176043807#2 176043807#3"/>
+    </person>
+    <vehicle id="ped75_0" depart="triggered">
+        <route edges="82659290#1 30826268#1 30826268#2 316092515 309155392 195407521 309147331#0 309147331#1 344594962 312357351 309479676 4611726 82649618#0 82649618#1 82649618#2 606078065 156364553#0 156364553#1 606078066#0 606078066#1 72157172 61583424#0 61583424#1 61583424#2 534588621#0 534588621#1 24913519#1 24913519#2 541763975 202156995#0 202156995#1 4067932#0 4067932#1 339201219 61584187#1 61584187#2 61584187#3 61584187#4 54048863 15971197 4611699 169195795#0 169195795#1 169195795#2 169195795#5 169195795#6 169195795#7 169195795#8 114667396#0 340498976#1 340498976#2 340498976#4 340498976#5"/>
+    </vehicle>
+    <person id="ped75" type="ped_pedestrian" depart="150.00">
+        <ride from="82659290#1" to="340498976#5" lines="ped75_0"/>
+    </person>
+    <person id="ped76" type="ped_pedestrian" depart="152.00">
+        <walk edges="251884680 339201217 15971196#0 15971196#1 54048862#0 54048862#1 54048862#2 54048862#3" busStop="3867910421"/> <!-- Lustgarten -->
+        <ride busStop="270718978" lines="200:1" intended="pt_bus_200:1.0" depart="432.00"/> <!-- S+U Alexanderplatz/Memhardstraße -->
+        <walk edges="405100405 139877314#0 171829099#5 171829092" busStop="1840333892"/> <!-- Memhardstraße -->
+        <ride busStop="1615531689" lines="M2:0" intended="pt_tram_M2:0.2" depart="733.00"/> <!-- S+U Alexanderplatz/Dircksenstraße -->
+        <walk edges="72157168#5" busStop="2094266775"/> <!-- U Alexanderplatz -->
+        <walk edges="272780751#0 272780751#1 346229513 346229515#0 346229515#1 272780762#1 272780758#0"/>
+    </person>
+    <person id="ped77" type="ped_pedestrian" depart="154.00">
+        <walk edges="-409506039#0 561049080 -43156728#4 -202817674#0 -202817674#1 38208961 -136571494#0 -136571494#1 229531165 360464647 260138646#0 169067264#0 169067264#1 169067264#2 4611698#0 23013165#2 23013165#1 23013165#0 54048862#3 -23121445#5 -23121445#4 -23121445#3 -23121445#2 -23121445#1 -23121445#0 -339201177#4 133885745#1"/>
+    </person>
+    <vehicle id="ped78_0" depart="triggered">
+        <route edges="196850608#1 196850607#1 196850607#2 -42102542#1 196850609#0 196850609#1 196850609#2 194069450#0 194069450#1 461526152 340498982#0 340498982#1 340498982#3 340498982#4 340498982#5 340498982#7 354528932 251884680 339201217 15971196#0 15971196#1 54048862#0 54048862#1 54048862#2 54048862#3 23013165#0 23013165#1 23013165#2 4611698#0 4611698#1 202156994#0 202156994#1 72157174#1 171826984#0 171826984#1 171826984#2 171826984#3 171826984#4 171826984#5 24913524#0 24913524#1 195401006 195401017#0 195401017#1 195401017#3 405100405 139877314#0 139877314#1 139877314#2 310357283#0"/>
+    </vehicle>
+    <person id="ped78" type="ped_pedestrian" depart="156.00">
+        <ride from="196850608#1" to="310357283#0" lines="ped78_0"/>
+    </person>
+    <person id="ped79" type="ped_pedestrian" depart="158.00">
+        <walk edges="134021300#4 4773023#1 4773023#0 61584187#1 54048862#3" busStop="3867910421"/> <!-- Lustgarten -->
+        <ride busStop="1827996414" lines="200:1" intended="pt_bus_200:1.0" depart="432.00"/> <!-- Spandauer Straße/Marienkirche -->
+        <walk edges="72157174#1 534588621#1 534588621#0 61583424#2 61583424#1 61583424#0 72157172 606078066#1 606078066#0 156364553#1 156364553#0 128396189#2 128396189#1 128396189#0 128396190#4"/>
+    </person>
+    <person id="ped80" type="ped_pedestrian" depart="160.00">
+        <walk edges="-243854725#1 -24242882#0 196850609#2 196850609#1 196850609#0" busStop="2071423352"/> <!-- U Französische Straße -->
+        <ride busStop="3869306769" lines="U6:0" intended="pt_subway_U6:0.0" depart="462.00"/> <!-- S+U Friedrichstraße -->
+        <walk edges="465376257#1 465376258#1 422000253#2" busStop="2792364395"/> <!-- S+U Friedrichstraße -->
+        <walk edges="274513566#1 274513544 335043658 274513581#1 43185718#3 394345494#1 274513552 335043660"/>
+    </person>
+    <person id="ped81" type="ped_pedestrian" depart="162.00">
+        <walk edges="133957852 133885750#3 133885750#4 553121560 553121566#0 553121565 4610599 553649892 15971191#0 15971191#1 23809670#5 -23809670#4 -23809670#3 -31959087#1 -31959087#0 -31959089 275008387#0 275008387#1" busStop="1745157971"/> <!-- S Hackescher Markt -->
+        <ride busStop="2603331695" lines="S3:0" intended="pt_light_rail_S3:0.0" depart="649.00"/> <!-- S Friedrichstraße -->
+        <walk edges="194073677#1 -194073677#2 -4402228" busStop="3869306769"/> <!-- S+U Friedrichstraße -->
+        <ride busStop="3043709616" lines="U6:0" intended="pt_subway_U6:0.1" depart="835.00"/> <!-- U Oranienburger Tor -->
+        <walk edges="388702039#1 388702039#0" busStop="29058100"/> <!-- U Oranienburger Tor -->
+        <walk edges="518508119#0 7917219#1 52348718#1 52348719#0 61585626#3 61585626#2 61585626#1 61585626#0 52348718#0"/>
+    </person>
+    <person id="ped82" type="ped_pedestrian" depart="164.00">
+        <walk edges="475297967#0 280007142#1 377110622#3" busStop="1745157971"/> <!-- S Hackescher Markt -->
+        <ride busStop="2603331695" lines="S5:0" intended="pt_light_rail_S5:0.0" depart="287.00"/> <!-- S Friedrichstraße -->
+        <walk edges="194073677#1 -194073677#2 -4402228" busStop="-3869306765"/> <!-- S+U Friedrichstraße -->
+        <ride busStop="-3869306770" lines="147:1" intended="pt_bus_147:1.0" depart="475.00"/> <!-- Unter den Linden/Friedrichstraße -->
+        <walk edges="-194069450#1 -194069449 -243854725#1"/>
+    </person>
+    <person id="ped83" type="ped_pedestrian" depart="166.00">
+        <walk edges="137085430#2 137085414 493008124#0 -454285423#4 310548395 -4610355#1 -4610355#0 -36892597#2 -36892597#1 -36892597#0 -24241790#3 -24241790#2" busStop="4655287360"/> <!-- U Weinmeisterstraße -->
+        <ride busStop="2094266775" lines="U8:1" intended="pt_subway_U8:1.1" depart="840.00"/> <!-- U Alexanderplatz -->
+        <walk edges="483624524#0 483624524#1 346212656#6 346212656#5 346212656#4 346212656#3 346212656#1 346212656#0"/>
+    </person>
+    <person id="ped84" type="ped_pedestrian" depart="168.00">
+        <walk edges="114667396#0 169195795#8 340498982#3" busStop="3870475228"/> <!-- Staatsoper -->
+        <ride busStop="1827996414" lines="200:1" intended="pt_bus_200:1.0" depart="328.00"/> <!-- Spandauer Straße/Marienkirche -->
+        <walk edges="72157174#1 4773465#1" busStop="3867910438"/> <!-- Spandauer Straße/Marienkirche -->
+        <ride busStop="-2915579613" lines="N40:0" intended="pt_bus_N40:0.0" depart="658.00"/> <!-- S Hackescher Markt -->
+        <walk edges="-275177453 -478396988 370359204#2 370359204#0 275008387#2 475297457#1 475297457#2 235503140#2 235503140#1 235503140#0 46140382 30721660#0 30721660#1 30721660#2 30721660#3 4610351#1 4610351#0 -454285423#0 -454285423#1 -448027458"/>
+    </person>
+    <person id="ped85" type="ped_pedestrian" depart="170.00">
+        <walk edges="564139999#5 312392969 534588621#1 4773465#1" busStop="30731481"/> <!-- Spandauer Straße/Marienkirche -->
+        <ride busStop="30731497" lines="M5:1" intended="pt_tram_M5:1" depart="412.00"/> <!-- U Alexanderplatz -->
+        <walk edges="565537148#0 346206389#3 163368988#3 301610520 301733776 301733777#0 301733777#1 301733777#2"/>
+    </person>
+    <person id="ped86" type="ped_pedestrian" depart="172.00">
+        <walk edges="272757258#7 272757339#2 272757294 272757295 272757343#0 272757293 272757283 272757328#0 272757323#0 272757306 272757297" busStop="3419694885"/> <!-- Berlin Alexanderplatz -->
+        <ride busStop="2603331683" lines="RE1:1" intended="pt_train_RE1:1" depart="288.00"/> <!-- Berlin Friedrichstraße -->
+        <walk edges="254523901#1 237520773#2 237520773#1 422002325 -194073677#0 465376246#1 82165084 82165083 82168025 25959593 -169660686#1 4403559#0"/>
+    </person>
+    <person id="ped87" type="ped_pedestrian" depart="174.00">
+        <walk edges="4610476#3 195262644 122820534#1 340498976#4 340498976#5 340498976#6 340498976#7 340498976#8 -83517339"/>
+    </person>
+    <vehicle id="ped88_0" depart="triggered">
+        <route edges="-31313667#1 31313667#1 31313667#2 31313667#3 24243092#0 35578576#0 35578576#1 35578576#2 153698394#1 153698394#2 340498988 188386313#0 188386313#1 188386313#2 24913304#1"/>
+    </vehicle>
+    <person id="ped88" type="ped_pedestrian" depart="176.00">
+        <ride from="-31313667#1" to="24913304#1" lines="ped88_0"/>
+    </person>
+    <person id="ped89" type="ped_pedestrian" depart="178.00">
+        <walk edges="24273323#0 100405009#3 100405009#4 100405009#5 305093247#0 305093247#2 305093328#0 305093328#1 305093328#2 346206389#3 346206389#2 346206389#1 346212656#4" busStop="2094266778"/> <!-- U Alexanderplatz -->
+        <ride busStop="2094266781" lines="U2:0" intended="pt_subway_U2:0.0" depart="528.00"/> <!-- U Klosterstraße -->
+        <walk edges="313323170#3 82658671#1 82658671#0 -4612969#2 82658675#0 266572299#0 266572299#1 266572297#0"/>
+    </person>
+    <person id="ped90" type="ped_pedestrian" depart="180.00">
+        <walk edges="384309030 384309031#1 344595602 384309028 344595605#0 -82658674#0 -82658674#1 -4612973#1" busStop="29495029"/> <!-- U Klosterstraße -->
+        <ride busStop="2094266780" lines="U2:1" intended="pt_subway_U2:1.0" depart="455.00"/> <!-- U Alexanderplatz -->
+        <walk edges="346206389#1 346206389#2 346206389#3 109819341#1 346213311#1"/>
+    </person>
+    <person id="ped91" type="ped_pedestrian" depart="182.00">
+        <walk edges="72463267#1 72463267#2 72463266#1 23809678#4 23809678#1 23809678#0 11103418 -84960597#0 -84960597#1 -84960597#3 46140376#1 -316746323#0 -316746323#1"/>
+    </person>
+    <person id="ped92" type="ped_pedestrian" depart="184.00">
+        <walk edges="23755950#1 23755950#0 66071366#3 66071366#2 -66071366#1" busStop="-3869306773"/> <!-- Werderscher Markt -->
+        <ride busStop="-3869306766" lines="147:0" intended="pt_bus_147:0.0" depart="421.00"/> <!-- U Französische Straße -->
+        <walk edges="-35557143#1 -35557143#0 196850609#0 196850609#1 196850626#2 196850612 196850611"/>
+    </person>
+    <person id="ped93" type="ped_pedestrian" depart="186.00">
+        <walk edges="4773024#1 202157029#2 4773023#0 61584187#1 54048862#3" busStop="3867910421"/> <!-- Lustgarten -->
+        <ride busStop="1827996414" lines="200:1" intended="pt_bus_200:1.0" depart="432.00"/> <!-- Spandauer Straße/Marienkirche -->
+        <walk edges="72157174#1 534588621#1 534588621#0 61583424#2 61583424#1 61583424#0 72157172 606078066#1 606078066#0 156364553#1 156364553#0"/>
+    </person>
+    <person id="ped94" type="ped_pedestrian" depart="188.00">
+        <walk edges="-83517339 340498976#8 340498976#7 340498976#6 340498976#5 340498976#4 122820534#1 195262644 -4610476#3 -24243092#0 38711947#1 274513571#0 274513556#1 422000253#2" busStop="2792364395"/> <!-- S+U Friedrichstraße -->
+        <walk edges="195411602#1 254523888#1 254523888#0 335704571 254523912#1 254523912#0 254523897 254523901#0 254523901#1 237520773#3 237520773#4 254339598#0"/>
+    </person>
+    <person id="ped95" type="ped_pedestrian" depart="190.00">
+        <walk edges="24243052#3 465376243 196845298#1 237526578#0" busStop="29805120"/> <!-- Berlin Friedrichstraße -->
+        <ride busStop="2776873647" lines="RE2:1" intended="pt_train_RE2:1" depart="465.00"/> <!-- Berlin Alexanderplatz -->
+        <walk edges="272757323#0 272757328#0 272757283 272757293 272757343#0 272757295 272757294 272757339#2 272757339#1 272757346#1 272757346#2 272757290 272757338#2 272757350#0 272811798 169230291#2 169230291#1"/>
+    </person>
+    <vehicle id="ped96_0" depart="triggered">
+        <route edges="156364559#1 156364559#2 156364559#3 156364559#4 156364559#5 54698846#0 54698846#1 54698846#2"/>
+    </vehicle>
+    <person id="ped96" type="ped_pedestrian" depart="192.00">
+        <ride from="156364559#1" to="54698846#2" lines="ped96_0"/>
+    </person>
+    <person id="ped97" type="ped_pedestrian" depart="194.00">
+        <walk edges="254339581#1 428486923 335009920 254339591#0 237520773#8 196845298#1 465376243 24243052#3 465376240 195411604 11483007 -169999355 -461526153 461526152" busStop="3869306771"/> <!-- Unter den Linden/Friedrichstraße -->
+        <ride busStop="3867910421" lines="100:1" intended="pt_bus_100:1.1" depart="750.00"/> <!-- Lustgarten -->
+        <walk edges="54048862#3 61584187#1 61584187#2 4773024#0"/>
+    </person>
+    <person id="ped98" type="ped_pedestrian" depart="196.00">
+        <walk edges="280007133 280007142#2 377110622#3" busStop="1745157971"/> <!-- S Hackescher Markt -->
+        <ride busStop="2603331695" lines="S5:0" intended="pt_light_rail_S5:0.0" depart="287.00"/> <!-- S Friedrichstraße -->
+        <walk edges="335043665#2 254523876 254523899 335703512 335703509 335576646#4 254523912#1 335704571 254523888#0 254523888#1 195411602#1" busStop="2792364395"/> <!-- S+U Friedrichstraße -->
+        <ride busStop="2071423334" lines="U6:1" intended="pt_subway_U6:1.0" depart="554.00"/> <!-- U Französische Straße -->
+        <walk edges="196850608#0 196850608#1 196850606#0 -196850606#1"/>
+    </person>
+    <person id="ped99" type="ped_pedestrian" depart="198.00">
+        <walk edges="84960597#0 84960597#1 84960597#3 46140376#1 -316746323#0 -316746323#1 316746323#2 370359204#0 370359204#2 478396988" busStop="3867910428"/> <!-- S Hackescher Markt -->
+        <ride busStop="271296293" lines="N2:0" intended="pt_bus_N2:0.0" depart="506.00"/> <!-- Staatsoper -->
+        <walk edges="169195795#5 169195795#6 169195795#7 169195795#8 114667396#0 463829477#1"/>
+    </person>
+    <person id="ped100" type="ped_pedestrian" depart="200.00">
+        <walk edges="61583423#0 606078071#3 606078071#2 606078071#1 606078071#0 -534588621#0 -534588621#1 202157002#3 202157002#2 202157002#1 202157002#0 156364556#1 28016312#1 28016312#0 15971191#1 15971191#0 553649892 4610599 202156991#1 202156991#0 -23121444 -339201177#4 -133885742 133885750#1 133885750#0 553121559 553649890"/>
+    </person>
+    <person id="ped101" type="ped_pedestrian" depart="202.00">
+        <walk edges="465376258#1 465376257#1" busStop="3869306769"/> <!-- S+U Friedrichstraße -->
+        <walk edges="-4402228" busStop="-3869306765"/> <!-- S+U Friedrichstraße -->
+        <ride busStop="-3869306770" lines="N6:0" intended="pt_bus_N6:0.0" depart="363.00"/> <!-- Unter den Linden/Friedrichstraße -->
+        <walk edges="-194069450#1 -194069450#0 -24242882#0 -24242882#1 -515998815"/>
+    </person>
+    <person id="ped102" type="ped_pedestrian" depart="204.00">
+        <walk edges="272757308 272757322#1 272757322#0 272757342#2 72157168#1 72157171 114133914#1"/>
+    </person>
+    <person id="ped103" type="ped_pedestrian" depart="206.00">
+        <walk edges="237522574#1 237520773#7 237520773#8 196845298#1 465376243 24243052#3 465376240 195411604 11483007 -169999355 -461526153 461526152" busStop="3869306771"/> <!-- Unter den Linden/Friedrichstraße -->
+        <ride busStop="3867910421" lines="100:1" intended="pt_bus_100:1.1" depart="750.00"/> <!-- Lustgarten -->
+        <walk edges="54048862#3 -23121445#5 -23121445#4 -23121445#3 -23121445#2 -23121445#1 -23121445#0"/>
+    </person>
+    <person id="ped104" type="ped_pedestrian" depart="208.00">
+        <walk edges="228484736 30721660#0 46140382 235503140#0 235503140#1 235503140#2 475297457#2 170302412#1 170302411 -47986661#2 475297967#1 475297967#0 280007142#1 377110622#3 377110615" busStop="27411240"/> <!-- S Hackescher Markt -->
+        <ride busStop="27411231" lines="S3:1" intended="pt_light_rail_S3:1.0" depart="581.00"/> <!-- S Alexanderplatz -->
+        <walk edges="272757337#1 272757329 272757277 272757316#0 272757348#2 272757347#0 272757325#1 272757279 272757315 272757346#0 272757339#0 272757309 272757304 272757318#1 272757349#0 75228233"/>
+    </person>
+    <person id="ped105" type="ped_pedestrian" depart="210.00">
+        <walk edges="164874307 4067932#1 339201219 61584187#1 61584187#2" busStop="3867910420"/> <!-- Lustgarten -->
+        <ride busStop="272408975" lines="200:0" intended="pt_bus_200:0.0" depart="535.00"/> <!-- Unter den Linden/Friedrichstraße -->
+        <walk edges="188386313#0 188386313#1 188386313#2 373292157#0 373292157#1 24913267#0 24913267#1 24913267#2 24913267#3 326116286#0 326116286#1 326116286#2 4402014#0 4402014#1 4402014#2 4402014#3"/>
+    </person>
+    <person id="ped106" type="ped_pedestrian" depart="212.00">
+        <walk edges="254523892#0 254523892#1" busStop="1930939368"/> <!-- S Friedrichstraße -->
+        <ride busStop="1769645503" lines="S2:1" intended="pt_light_rail_S2:1" depart="391.00"/> <!-- S Oranienburger Straße -->
+        <walk edges="165415454#0 -165415464#1 437325054#0 24243107#2 24243107#1"/>
+    </person>
+    <person id="ped107" type="ped_pedestrian" depart="214.00">
+        <walk edges="59286191 59286499 83517332#2" busStop="1668497956"/> <!-- S Hackescher Markt -->
+        <walk edges="46140376#1 -316746323#0 48664687#0 48664687#1 170302412#1 170302411 -47986661#2 475297967#1 475297967#0 280007142#1 377110622#3 377110615" busStop="27411240"/> <!-- S Hackescher Markt -->
+        <ride busStop="27411231" lines="S3:1" intended="pt_light_rail_S3:1.0" depart="581.00"/> <!-- S Alexanderplatz -->
+        <walk edges="272757337#1 272757329 272757277 272757316#0 272757348#2 272757348#1 377634147#1 377634147#0 346229515#1 272780762#1 272780758#1 272780740 272780755#0 272780747#1" busStop="2094266777"/> <!-- U Alexanderplatz -->
+        <walk edges="346206377#2 346206377#4 346206372#2 346206372#1 312138362#1 312138362#0 76865764#0 82659291#0"/>
+    </person>
+    <person id="ped108" type="ped_pedestrian" depart="216.00">
+        <walk edges="28016312#0 23809670#5 23809670#4 23809670#3 30721662#3 30721662#2 30721662#1 4610362#8 4610362#7 4610362#6 4610362#5 4610362#3 -4610362#2 4610361" busStop="1661927028"/> <!-- Monbijouplatz -->
+        <ride busStop="1668685086" lines="M5:0" intended="pt_tram_M5:0" depart="624.00"/> <!-- U Oranienburger Tor -->
+        <walk edges="378662086"/>
+    </person>
+    <person id="ped109" type="ped_pedestrian" depart="218.00">
+        <walk edges="-4612969#2 4612969#2 4612969#1 310320077#0 310010117#1 289965634 60333311#2 110769140 82649618#1 82649618#2 606078065" busStop="271430924"/> <!-- Berliner Rathaus -->
+        <ride busStop="3867910438" lines="N42:1" intended="pt_bus_N42:1.0" depart="679.00"/> <!-- Spandauer Straße/Marienkirche -->
+        <walk edges="4773465#1 171826987#0"/>
+    </person>
+    <person id="ped110" type="ped_pedestrian" depart="220.00">
+        <walk edges="61583422 312392967#0 171826984#2 171826986#3 171826986#1 171826986#0 171826985#3" busStop="4673135647"/> <!-- Spandauer Straße/Marienkirche -->
+        <ride busStop="1633759766" lines="M4:0" intended="pt_tram_M4:0.0" depart="394.00"/> <!-- S Hackescher Markt -->
+        <ride busStop="1661927028" lines="M5:0" intended="pt_tram_M5:0" depart="549.00"/> <!-- Monbijouplatz -->
+        <walk edges="30721660#5"/>
+    </person>
+    <person id="ped111" type="ped_pedestrian" depart="222.00">
+        <walk edges="274524364#1 274524364#0" busStop="366500582"/> <!-- Berlin Friedrichstraße -->
+        <walk edges="274524379#2 254339569 335703510 335703511#1 335576646#2 335576646#3 254523912#1 335704571 254523888#0 254523888#1 195411602#0 190447768#1 -4402228" busStop="-3869306765"/> <!-- S+U Friedrichstraße -->
+        <ride busStop="-3867910422" lines="147:1" intended="pt_bus_147:1.0" depart="475.00"/> <!-- Neumannsgasse -->
+        <walk edges="-43156728#0 -43156728#1 4610607 -170097526 409506038#1 409506038#2"/>
+    </person>
+    <person id="ped112" type="ped_pedestrian" depart="224.00">
+        <walk edges="-22972219#0 83517334#1 4610480 -4610600 -15971189 -339201177#0 -339201177#1 -339201177#2 -339201177#3 -339201177#4 -23121444 202156991#0 202156991#1 4610599 553649892 15971191#0 15971191#1 23809670#5 -23809670#4 -23809670#3 -31959087#1 -31959087#0 -31959089 275008387#0 475297967#0 280007142#1 377110622#3 377110615" busStop="27411240"/> <!-- S Hackescher Markt -->
+        <ride busStop="27411231" lines="S7:1" intended="pt_light_rail_S7:1.1" depart="1038.00"/> <!-- S Alexanderplatz -->
+        <walk edges="272757337#1 272757329 272757277 272757316#0 272757348#2 272757348#1 377634147#1 346229517 199485599 346212659 312176585#1 312176585#0 309155392 316092515 315245296#0 315245296#1 315245295 310010749"/>
+    </person>
+    <person id="ped113" type="ped_pedestrian" depart="226.00">
+        <walk edges="272757345#0 272757287 272757320#0 114133914#2 169230291#0 169230291#1 175499833#0 175499825" busStop="1860777041"/> <!-- S+U Alexanderplatz/Gontardstraße -->
+        <ride busStop="1633759766" lines="M4:1" intended="pt_tram_M4:1.0" depart="328.00"/> <!-- S Hackescher Markt -->
+        <ride busStop="1862699772" lines="M5:0" intended="pt_tram_M5:0" depart="549.00"/> <!-- S Oranienburger Straße -->
+        <walk edges="-4396823#0 -437325054#1 24243107#2 24243107#1 570058775#1 181587285 26733828#3 466923186"/>
+    </person>
+    <person id="ped114" type="ped_pedestrian" depart="228.00">
+        <walk edges="-4613302 -112128825#0 -268002748#1 369223458#1 369223458#0" busStop="2094266782"/> <!-- U Rosa-Luxemburg-Platz -->
+        <ride busStop="2094266778" lines="U2:0" intended="pt_subway_U2:0.1" depart="693.00"/> <!-- U Alexanderplatz -->
+        <walk edges="272795500#5 272795500#4 272795500#3 272795500#2 272795500#1 272795500#0 272795481 272795498#1 272795496#0 272795475 272795486 346206365 312138362#0 76865764#0 59334310#3 59334310#2 59334310#1 59334310#0"/>
+    </person>
+    <person id="ped115" type="ped_pedestrian" depart="230.00">
+        <walk edges="-26322535#3 -26322535#4 -26322535#5 -26322535#6 159200257#1 159200257#2 159200257#3 23813201 23851917#1" busStop="3352479220"/> <!-- Fischerinsel -->
+        <ride busStop="3867910438" lines="N42:1" intended="pt_bus_N42:1.0" depart="590.00"/> <!-- Spandauer Straße/Marienkirche -->
+        <walk edges="4773465#1" busStop="30731481"/> <!-- Spandauer Straße/Marienkirche -->
+        <ride busStop="30731508" lines="M4:2" intended="pt_tram_M4:2.1" depart="820.00"/> <!-- S+U Alexanderplatz/Gontardstraße -->
+        <walk edges="169195791#2 169195791#1 169195791#0 72678525 -72157169#1 -72157169#0"/>
+    </person>
+    <person id="ped117" type="ped_pedestrian" depart="234.00">
+        <walk edges="137085413 -137085411#3 137085411#2 -137085426 -225400578#0 51167934#0 51167934#1 51167934#2 51167934#4 51167934#5 235503139#0 235503139#1 181587281 339201225 181587282 26733828#2 26733828#3 181587285 570058775#1 339201248 181587283 181587284#1 181587284#0 165832576 165832577 165832575 165832574#0 165832574#1 165832574#2 -389705415#1"/>
+    </person>
+    <person id="ped118" type="ped_pedestrian" depart="236.00">
+        <walk edges="51167562#0 23852041#3 51167566 23852041#0 31959086#0 31959086#1 51236794 -51167934#5 235503139#0 235503139#1 137630046 23852035#1 -137630045 -31313667#0 -31313667#1 -31313667#2 339201224 150634670#2"/>
+    </person>
+    <person id="ped119" type="ped_pedestrian" depart="238.00">
+        <walk edges="312176585#1 346212659 199485599 346229517 377634147#1 272757348#1 272757348#2 272757316#0 272757277 272757329 272757337#1 272757292 272757274 272757273 272757341#1 272757341#0" busStop="3419694885"/> <!-- Berlin Alexanderplatz -->
+        <ride busStop="2603331683" lines="RE2:2" intended="pt_train_RE2:2.0" depart="494.00"/> <!-- Berlin Friedrichstraße -->
+        <walk edges="274524381#1 440946431 428486924 254339598#1 237520773#5 237520773#6 237520773#7 237520773#8 196845298#1 196845298#2 378150067#0 378150067#1 24243052#1 292429063#0 327519009#0 327519012#2 327519012#3 327519008#0"/>
+    </person>
+    <person id="ped120" type="ped_pedestrian" depart="240.00">
+        <walk edges="24241797#2 24241797#1 24241797#0 4613292#1 4613292#0 -19002363#1 -19002363#2 -19002363#3 -19002363#4 -19002363#6 -24241790#1 -24241790#2" busStop="4655287360"/> <!-- U Weinmeisterstraße -->
+        <ride busStop="2094266775" lines="U8:1" intended="pt_subway_U8:1.0" depart="540.00"/> <!-- U Alexanderplatz -->
+        <walk edges="72157168#5 72157175#0 72157175#1 312176585#2 312176585#1 312176585#0 309155392 316092515 315245296#0 315245296#1 315245295 309848027#1"/>
+    </person>
+    <person id="ped121" type="ped_pedestrian" depart="242.00">
+        <walk edges="272795489#1 272795489#0 272795502#2 272795485 272780728 272780727 272780749#0 346229515#2 346229515#1 377634147#0 377634147#1 272757348#0 272760868 346212657 -24540240#2 312392972#1 312392972#0 312392966#1 574993697#0 202157013#0 312392971 312392977#0 564139999#2"/>
+    </person>
+    <person id="ped122" type="ped_pedestrian" depart="244.00">
+        <walk edges="110676321 68647306#2 28120501#0 28120501#1 -66071366#1" busStop="-3869306773"/> <!-- Werderscher Markt -->
+        <ride busStop="3869306764" lines="147:0" intended="pt_bus_147:0.0" depart="421.00"/> <!-- S+U Friedrichstraße -->
+        <walk edges="4402228 465376258#1 422000253#2" busStop="2792364395"/> <!-- S+U Friedrichstraße -->
+        <walk edges="195411602#1 607001336 465376261#1 465376244#1 465376244#0 607001337 465218214 465218213 465218218 465218216 378150074#0 378150075#1 378150069 378153327"/>
+    </person>
+    <person id="ped123" type="ped_pedestrian" depart="246.00">
+        <walk edges="137085433#0 -137085434#1 137085430#2 137085414 493008124#0 -454285423#4 -454285423#3 -454285423#1 -454285423#0 4610351#0 4610351#1 30721660#3 30721660#2 30721660#1 30721660#0 46140382 235503140#0 235503140#1 235503140#2"/>
+    </person>
+    <person id="ped124" type="ped_pedestrian" depart="248.00">
+        <walk edges="346212660#0 346212660#1 346212656#0 346212656#1 346212656#3 346206389#0 346206381#2 346206362#1 61579356 139877314#1 171829099#5"/>
+    </person>
+    <person id="ped125" type="ped_pedestrian" depart="250.00">
+        <walk edges="188044903#1 188044903#0 24540242#1 76865764#0 312138362#0 312138362#1 346206372#1 346206372#2 346206377#4 346206377#2 346212656#5 346212656#6 346212656#7 72157175#0 169230291#5 272757275#0 272757350#2 272757350#1 272757350#0 272811798 169230291#2" busStop="1860777041"/> <!-- S+U Alexanderplatz/Gontardstraße -->
+        <ride busStop="4673135647" lines="M4:1" intended="pt_tram_M4:1.1" depart="748.00"/> <!-- Spandauer Straße/Marienkirche -->
+        <walk edges="171826985#3 171826985#2 171826985#1 171826985#0 24914992#1" busStop="1827996417"/> <!-- Spandauer Straße/Marienkirche -->
+        <ride busStop="271296293" lines="200:0" intended="pt_bus_200:0.1" depart="1027.00"/> <!-- Staatsoper -->
+        <walk edges="169195795#5 4610494#1 4610494#0 -330840134#2 340498976#7 340498976#6 340498976#5 410310755#6 -410310755#5 410310756"/>
+    </person>
+    <person id="ped126" type="ped_pedestrian" depart="252.00">
+        <walk edges="-24540240#1 -24540240#2 169195791#3 175499828#2 175499828#0 169230291#3 272811798 272757350#0 272757338#2 272757290 272757346#2 272757346#1 272757339#1 272757339#2 272757294 272757295 272757343#0 272757293 272757283 272757328#0 272757323#0 272757306 272757297" busStop="3419694885"/> <!-- Berlin Alexanderplatz -->
+        <ride busStop="2603331683" lines="RE7:0" intended="pt_train_RE7:0" depart="668.00"/> <!-- Berlin Friedrichstraße -->
+        <walk edges="254523901#1 237520773#2 335576648#0 335576644#1 335576644#2 254339571 254339582 254339567#0 254339570 254523907#0"/>
+    </person>
+    <person id="ped127" type="ped_pedestrian" depart="254.00">
+        <walk edges="83517336#3 463829477#1 340498976#2 340498976#4 340498976#5 340498976#6 340498976#7 -330840134#2 4610494#0 31609479 -377215961#0 -377215961#1 -168937986#0 354528932 4611694 43230873#1 43230873#0 -4611696#5 -8008608 -120675240#1 175192743 -4610609#0 83387877"/>
+    </person>
+    <person id="ped128" type="ped_pedestrian" depart="256.00">
+        <walk edges="-24540240#4 272757275#1 272757275#0 272757349#2 272757349#1 272757344#1 114133910#1"/>
+    </person>
+    <person id="ped129" type="ped_pedestrian" depart="258.00">
+        <walk edges="164874307 4067932#0 202156995#1 202156995#0 541763975 24913519#2 24913519#1 375901779#6 375901779#7 557076767#1 557076776#1 557076776#0 -156364570#3 -156364570#2 561333203"/>
+    </person>
+    <person id="ped130" type="ped_pedestrian" depart="260.00">
+        <walk edges="487045187 305153174 -43230886 -4611694 251884680 339201217 15971196#0 15971196#1 54048862#0 54048862#1 54048862#2 54048862#3" busStop="3867910421"/> <!-- Lustgarten -->
+        <ride busStop="3867910438" lines="N2:1" intended="pt_bus_N2:1.0" depart="745.00"/> <!-- Spandauer Straße/Marienkirche -->
+        <walk edges="4773465#1" busStop="30731481"/> <!-- Spandauer Straße/Marienkirche -->
+        <ride busStop="30731497" lines="M6:1" intended="pt_tram_M6:1.1" depart="901.00"/> <!-- U Alexanderplatz -->
+        <walk edges="272810807 199426768#1 199426768#0 48524801#1 48524801#2"/>
+    </person>
+    <person id="ped131" type="ped_pedestrian" depart="262.00">
+        <walk edges="204666792 23852049#1 174759562 23852046#0 23809677 275008387#0 275008387#1" busStop="1745157971"/> <!-- S Hackescher Markt -->
+        <ride busStop="2603331695" lines="S3:0" intended="pt_light_rail_S3:0.0" depart="649.00"/> <!-- S Friedrichstraße -->
+        <walk edges="335043665#2 254523876 254523899 335703512 335703509 335576646#4 254523912#1 335704571 254523888#0 465376259#1 465376240 195411604 11483007 -169999355 -461526153"/>
+    </person>
+    <person id="ped132" type="ped_pedestrian" depart="264.00">
+        <walk edges="463829467" busStop="247603398"/> <!-- Am Kupfergraben -->
+        <walk edges="340498976#8 -330840134#2 4610494#0 4610494#1 169195795#5 330840135 340498982#3" busStop="3870475228"/> <!-- Staatsoper -->
+        <ride busStop="3867910438" lines="N2:1" intended="pt_bus_N2:1.0" depart="641.00"/> <!-- Spandauer Straße/Marienkirche -->
+        <walk edges="4773465#1 375901777 375901784"/>
+    </person>
+    <person id="ped133" type="ped_pedestrian" depart="266.00">
+        <walk edges="316746323#1 48664687#0 48664687#1 170302412#1 170302411 -47986661#2 475297967#1 275008387#1" busStop="1745157971"/> <!-- S Hackescher Markt -->
+        <ride busStop="2603331695" lines="S7:0" intended="pt_light_rail_S7:0.0" depart="468.00"/> <!-- S Friedrichstraße -->
+        <walk edges="194073677#1 -194073677#2 -4402228" busStop="3869306769"/> <!-- S+U Friedrichstraße -->
+        <walk edges="4402228" busStop="3869306764"/> <!-- S+U Friedrichstraße -->
+        <ride busStop="3869306762" lines="147:0" intended="pt_bus_147:0.0" depart="696.00"/> <!-- Friedrichstraße/Reinhardtstraße -->
+        <walk edges="111251382#2 -131420077#0 -27628624#1 27628624#0 7917219#3"/>
+    </person>
+    <person id="ped134" type="ped_pedestrian" depart="268.00">
+        <walk edges="343965618#2 4612972#1 43164692 -4612973#0 -4612973#1" busStop="29495029"/> <!-- U Klosterstraße -->
+        <ride busStop="2094266780" lines="U2:1" intended="pt_subway_U2:1.0" depart="455.00"/> <!-- U Alexanderplatz -->
+        <walk edges="377634145 503071092 272795500#3 377634139 272795476 272795502#0 272795502#1 272795502#2 272795485 272780728 272780727 272780749#0 346229515#2 346229515#1 377634147#0 377634147#1 272757348#1 272757348#2 272757316#0 272757277 272757329 272757337#1 272757292 272757274" busStop="574265352"/> <!-- S Alexanderplatz -->
+        <ride busStop="2603331695" lines="S5:0" intended="pt_light_rail_S5:0.1" depart="811.00"/> <!-- S Friedrichstraße -->
+        <walk edges="194073677#1 -194073677#0 465376246#1 82165084 82165083 82168025 25959593 -169660686#1 169660686#0 -164039095#0 -164039095#1 308669106#1 308669106#0 -131505631#0"/>
+    </person>
+    <person id="ped135" type="ped_pedestrian" depart="270.00">
+        <walk edges="4611696#5 43230873#0 43230873#1 4611694 354528932 340498982#7 340498982#5 340498982#4 340498982#3" busStop="3870475228"/> <!-- Staatsoper -->
+        <ride busStop="270718978" lines="TXL:0" intended="pt_bus_TXL:0.1" depart="772.00"/> <!-- S+U Alexanderplatz/Memhardstraße -->
+        <walk edges="405100405 139877314#0 171829099#5 171829099#4 171829099#2 171829099#1"/>
+    </person>
+    <person id="ped136" type="ped_pedestrian" depart="272.00">
+        <walk edges="346206368#3 346206368#5 346206368#6 72157168#3 72157168#4" busStop="-1615531689"/> <!-- S+U Alexanderplatz/Dircksenstraße -->
+        <ride busStop="30732068" lines="M2:2" intended="pt_tram_M2:2.1" depart="431.00"/> <!-- Memhardstraße -->
+        <walk edges="171829094 379904843#2 310357284#1 310357284#0 4613308#2 4613308#1 4613292#1 4613292#0 -19002363#1 566155001"/>
+    </person>
+    <vehicle id="ped137_0" depart="triggered">
+        <route edges="-454285423#3 -454285423#1 -454285423#0 4610351#0 4610351#1 30721660#4 30721660#5 4610362#0 4610362#1 4610362#2 4610362#3 4610362#5 4610362#6 4610362#7 4610362#8 30721662#1 30721662#2 30721662#3 23809670#3 23809670#4 23809670#5 28016312#0 28016312#1 -156364570#3 -156364570#2 -156364570#1 -156364570#0 -77348147 -387892378 -275177453 -478396988 -370359204#2 -370359204#0"/>
+    </vehicle>
+    <person id="ped137" type="ped_pedestrian" depart="274.00">
+        <ride from="-454285423#3" to="-370359204#0" lines="ped137_0"/>
+    </person>
+    <person id="ped138" type="ped_pedestrian" depart="276.00">
+        <walk edges="-339201177#4 -23121444 202156991#0 202156991#1 4610599 553649892 15971191#0 15971191#1 23809670#5 -23809670#4 -23809670#3 -31959087#1 -31959087#0 -31959089 275008387#0 475297967#0 280007142#1 280007142#2 280007142#3"/>
+    </person>
+    <person id="ped139" type="ped_pedestrian" depart="278.00">
+        <walk edges="168940071#3 541295973#0 165832574#1 165832574#2 -541295974 6228081 -222328410 34848160#0 -34848160#1 -194073677#0 422002325 237520773#1 237520773#2 254523901#1" busStop="27412232"/> <!-- S Friedrichstraße -->
+        <ride busStop="27411231" lines="S5:1" intended="pt_light_rail_S5:1.1" depart="804.00"/> <!-- S Alexanderplatz -->
+        <walk edges="272757337#1 272757329 272757277 272757316#0 272757348#2 272757348#1 377634147#1 377634147#0 346229515#1 272780762#1 272780758#1 272780740 272780755#0 272780747#1" busStop="2094266777"/> <!-- U Alexanderplatz -->
+        <walk edges="346206377#2 346212656#4" busStop="2094266778"/> <!-- U Alexanderplatz -->
+        <ride busStop="2094266781" lines="U2:0" intended="pt_subway_U2:0.3" depart="1248.00"/> <!-- U Klosterstraße -->
+        <walk edges="313323170#3 82658671#1 82658671#0 -4612969#2 82658675#0 82658675#1 312869977"/>
+    </person>
+    <person id="ped140" type="ped_pedestrian" depart="280.00">
+        <walk edges="378662082 518508116 374734393#2 388702047#1 388702047#0 388702039#6 388702039#5 388702039#4 388702039#3 388702039#2 388702039#1" busStop="29058100"/> <!-- U Oranienburger Tor -->
+        <ride busStop="2792364395" lines="U6:1" intended="pt_subway_U6:1.0" depart="483.00"/> <!-- S+U Friedrichstraße -->
+        <walk edges="195411602#1 254523888#1 254523888#0 335704571 254523912#1 335576646#3 335576646#2 335703511#1 254523871 254339584 274524379#0" busStop="29805120"/> <!-- Berlin Friedrichstraße -->
+        <ride busStop="2776873647" lines="RE7:1" intended="pt_train_RE7:1" depart="677.00"/> <!-- Berlin Alexanderplatz -->
+        <walk edges="272757323#0 272757328#0 272757283 272757293 272757343#0 272757295 272757294 272757339#2 272757339#1 272757339#0 272757309 272757304 272757318#1 272757349#0 75228233 72157168#4 72157168#3 346206368#6 346206368#5 346206368#3 346206368#2 346206368#1 346206368#0 61579356 139877314#2 310357283#0 310357283#1 112128418#1 112128418#2 4613304#0 4613304#1 492609984 -110464118#0 110464118#2"/>
+    </person>
+    <person id="ped141" type="ped_pedestrian" depart="282.00">
+        <walk edges="335576644#0 335576648#0 237520773#2 254523901#1" busStop="27412232"/> <!-- S Friedrichstraße -->
+        <ride busStop="27411240" lines="S3:1" intended="pt_light_rail_S3:1.0" depart="396.00"/> <!-- S Hackescher Markt -->
+        <walk edges="377110615 377110622#3 280007142#1 475297967#0 275008387#0 -31959089 -31959087#0 -31959087#1 -23809670#3 -23809670#4 23809670#5 15971191#1 15971191#0 553649892 4610599 164874301 164874303"/>
+    </person>
+    <person id="ped142" type="ped_pedestrian" depart="284.00">
+        <walk edges="272757317#1 272757294 272757339#2 272757339#1 272757346#1 272757346#2 272757290 272757338#2 272757350#0 272811798 169230291#2" busStop="1860777041"/> <!-- S+U Alexanderplatz/Gontardstraße -->
+        <ride busStop="1668685086" lines="M5:0" intended="pt_tram_M5:0" depart="369.00"/> <!-- U Oranienburger Tor -->
+        <walk edges="318915602#3 518508124#2 518508124#1 518508124#0 465376252 389705411 7917219#1 52348718#1 52348719#0 61585626#3 61585626#2 61585626#1 61585626#0 52348718#0"/>
+    </person>
+    <person id="ped143" type="ped_pedestrian" depart="286.00">
+        <walk edges="465376250#0 465376251#0 374734394#10 518508119#2 518508119#1 518508119#0" busStop="29058100"/> <!-- U Oranienburger Tor -->
+        <ride busStop="2792364395" lines="U6:1" intended="pt_subway_U6:1.0" depart="483.00"/> <!-- S+U Friedrichstraße -->
+        <walk edges="195411602#1 254523888#1 254523888#0 335704571 254523912#1 335576646#3 335576646#2 335703511#1 254523871 254339584 274524379#0" busStop="29805120"/> <!-- Berlin Friedrichstraße -->
+        <ride busStop="2776873647" lines="RE7:1" intended="pt_train_RE7:1" depart="677.00"/> <!-- Berlin Alexanderplatz -->
+        <walk edges="272757323#0 272757328#0 272757283 272757293 272757343#0 272757295 272757317#1 272757347#1 272757348#1 377634147#1 377634147#0 346229515#1 272780762#1 272780758#1 272780740 272780755#0 272780747#1" busStop="2094266777"/> <!-- U Alexanderplatz -->
+        <walk edges="346206377#2 346212656#4" busStop="2094266778"/> <!-- U Alexanderplatz -->
+        <ride busStop="2094266781" lines="U2:0" intended="pt_subway_U2:0.3" depart="1248.00"/> <!-- U Klosterstraße -->
+        <walk edges="82658674#2 -4612973#1 -4612973#0 54698846#2 281922265#0 281922265#1 -310176513#3"/>
+    </person>
+    <person id="ped144" type="ped_pedestrian" depart="288.00">
+        <walk edges="24273323#0 100405009#2 -47016368#0 172274769 172274775 139877314#2 139877314#1 139877314#0 405100405 195401017#3 43270574#2 43270574#0 415280722 195401010 195401013#0 195401013#1 195401013#2 195401013#3 24914992#0" busStop="270727248"/> <!-- S+U Alexanderplatz -->
+        <ride busStop="271296293" lines="TXL:1" intended="pt_bus_TXL:1.1" depart="733.00"/> <!-- Staatsoper -->
+        <walk edges="169195795#5 169195795#6 169195795#7 169195795#8 169195795#10"/>
+    </person>
+    <person id="ped145" type="ped_pedestrian" depart="290.00">
+        <walk edges="-111833186#1 -111833186#0 153698380#0 -155186522 -24913267#0 -24913267#1 -24913267#2 -24913267#3 -326116286#0 -326116286#1 -326116286#2 4588217#3 4588217#2 4588217#1 4588217#0 196850609#2 196850609#1 196850609#0 -35557143#0 35557143#1" busStop="3869306767"/> <!-- U Französische Straße -->
+        <ride busStop="3869306774" lines="147:2" intended="pt_bus_147:2.0" depart="980.00"/> <!-- Werderscher Markt -->
+        <walk edges="23755950#0 23755950#1 23755950#2 23755950#3 4611696#1 4611696#2 4611696#3 -4611696#4 43230873#0"/>
+    </person>
+    <person id="ped146" type="ped_pedestrian" depart="292.00">
+        <walk edges="335576650#1 254523906#0 254523877 335576644#0 335576648#0 237520773#2 237520773#3 237520773#4 237520773#5 237520773#6 237520773#7 237520773#8 237526578#0" busStop="29805120"/> <!-- Berlin Friedrichstraße -->
+        <ride busStop="2776873647" lines="RE2:1" intended="pt_train_RE2:1" depart="465.00"/> <!-- Berlin Alexanderplatz -->
+        <walk edges="272757323#0 272757328#0 272757283 272757293 272757343#0 272757295 272757294 272757339#2 272757339#1 272757346#1 272757346#2 272757290 272757338#2 272757350#0 272811798 169230291#3" busStop="30731508"/> <!-- S+U Alexanderplatz/Gontardstraße -->
+        <ride busStop="30731497" lines="M4:3" intended="pt_tram_M4:3.1" depart="813.00"/> <!-- U Alexanderplatz -->
+        <walk edges="565537148#0 346206389#3 305093328#2 305093328#1 305093328#0 305093247#2 305093247#0 163368220#1 163368220#0"/>
+    </person>
+    <person id="ped147" type="ped_pedestrian" depart="294.00">
+        <walk edges="394345496#1 394345496#2 4402228 465376260#1 254523888#0 335704571 254523912#1 254523912#0 254523897 254523901#0 254523901#1" busStop="27412232"/> <!-- S Friedrichstraße -->
+        <ride busStop="27411240" lines="S5:1" intended="pt_light_rail_S5:1.1" depart="804.00"/> <!-- S Hackescher Markt -->
+        <walk edges="377110615 377110622#3" busStop="1745157971"/> <!-- S Hackescher Markt -->
+        <walk edges="275008387#1 475297457#0 47986658#0 47986658#1 280007140#2"/>
+    </person>
+    <person id="ped148" type="ped_pedestrian" depart="296.00">
+        <walk edges="24540240#0 312392978 202157013#1 202157013#0 312392971 312392977#0 564139999#2 312392967#1 171826984#2 171826986#3 171826986#1 171826986#0 171826985#2 171826985#1 171826985#0 24914992#1" busStop="1827996417"/> <!-- Spandauer Straße/Marienkirche -->
+        <ride busStop="271296293" lines="TXL:1" intended="pt_bus_TXL:1.1" depart="789.00"/> <!-- Staatsoper -->
+        <walk edges="169195795#5 4610494#1 4610494#0 -330840134#2 340498976#8" busStop="247603398"/> <!-- Am Kupfergraben -->
+        <walk edges="463829467 -132460632#0"/>
+    </person>
+    <person id="ped149" type="ped_pedestrian" depart="298.00">
+        <walk edges="-24990040 415280722 195401010 195401013#0 195401013#1 195401013#2 195401013#3 24914992#0" busStop="270727248"/> <!-- S+U Alexanderplatz -->
+        <ride busStop="1827996417" lines="N5:0" intended="pt_bus_N5:0" depart="443.00"/> <!-- Spandauer Straße/Marienkirche -->
+        <walk edges="24914992#1 492027387 492027392#0 492027392#1"/>
+    </person>
+    <person id="ped150" type="ped_pedestrian" depart="300.00">
+        <walk edges="521729368#0 521729368#1" busStop="30731700"/> <!-- U Oranienburger Tor -->
+        <walk edges="388702041#11 388702041#10" busStop="3043709616"/> <!-- U Oranienburger Tor -->
+        <walk edges="388702039#1 388702039#0" busStop="29058100"/> <!-- U Oranienburger Tor -->
+        <ride busStop="2792364395" lines="U6:1" intended="pt_subway_U6:1.0" depart="483.00"/> <!-- S+U Friedrichstraße -->
+        <walk edges="195411602#1 254523888#1 254523888#0 335704571 254523912#1 335576646#3 335576646#2 335703511#1 335703510 254339569 274524378"/>
+    </person>
+    <person id="ped151" type="ped_pedestrian" depart="302.00">
+        <walk edges="463829474#0" busStop="1673526976"/> <!-- Georgenstraße/Am Kupfergraben -->
+        <walk edges="4610476#2 4610476#3 -15977422#0 114667396#0 169195795#8 340498982#3" busStop="3870475228"/> <!-- Staatsoper -->
+        <ride busStop="270718978" lines="100:1" intended="pt_bus_100:1.1" depart="810.00"/> <!-- S+U Alexanderplatz/Memhardstraße -->
+        <walk edges="405100405 139877314#0 139877314#1 139877314#2 310357283#0 310357283#1 112128418#1 112128418#2 112128418#3 112128418#5 112128418#6 457031289 309300320#0 309300320#1"/>
+    </person>
+    <person id="ped152" type="ped_pedestrian" depart="304.00">
+        <walk edges="-4611694 251884680 339201217 15971196#0 15971196#1 54048862#0 54048862#1 54048862#2 -23121445#5 -23121445#4 -23121445#3 -23121445#2 202157030#1 202157030#0 202156991#1 4610599 553649892 15971191#0 15971191#1 23809670#5 23809670#4 23809670#3 30721662#3 30721662#2 30721662#1 4610362#8 4610362#7 4610362#6 4610362#5 4610362#3 4610362#2 4610362#1 4610362#0 -437325047#0"/>
+    </person>
+    <person id="ped153" type="ped_pedestrian" depart="306.00">
+        <walk edges="175885746#1 175885746#3 175885742" busStop="1823298700"/> <!-- S+U Friedrichstraße -->
+        <ride busStop="963600646" lines="M1:0" intended="pt_tram_M1:0" depart="387.00"/> <!-- Monbijouplatz -->
+        <walk edges="-437325047#0 23852041#8 23852041#7 23852041#6 23852041#5 23852041#4 23852041#3 51167566 23852041#0 31959086#0 31959086#1 51236796"/>
+    </person>
+    <person id="ped154" type="ped_pedestrian" depart="308.00">
+        <walk edges="454285423#0 4610351#0 4610351#1 -30721660#4 4610361 -4610362#2 4610362#3 4610362#5 4610362#6 4610362#7 4610362#8 30721662#1 30721662#2 30721662#3 23809670#3 23809670#4 23809670#5 15971191#1 15971191#0 553649892 4610599 202156991#1 202157030#0 202157030#1 -23121445#2 -23121445#3 -23121445#4 23121445#5 61584187#1 4773023#0"/>
+    </person>
+    <person id="ped155" type="ped_pedestrian" depart="310.00">
+        <walk edges="51236796 31959086#1 31959086#0 23852041#0 51167566 23852041#3 23852041#4 23852041#5 23852041#6 23852041#7 23852041#8 474154190#0 474154190#1 225400609#10 225400609#9 225400609#8 113589279"/>
+    </person>
+    <vehicle id="ped156_0" depart="triggered">
+        <route edges="156364559#0 156364559#1 156364559#2 156364559#3 156364559#4 156364559#5 156364559#6 -24992424#5 -24992424#4 -24992424#3 -24992424#2 -24992424#1 -24992424#0 4612964#0 4612964#1 4612964#2 24992428 606078065 156364553#0 156364553#1 606078066#0 606078066#1 72157172 61583424#0 61583424#1 61583424#2 534588621#0 534588621#1 24913519#1 24913519#2 541763975 202156995#0 202156995#1 4067932#0 4067932#1 339201219 61584187#1 61584187#2 61584187#3 61584187#4 54048863 15971197 4611699 169195795#0 169195795#1 169195795#2 169195795#5 169195795#6 169195795#7 169195795#8 169195795#10 340498988 169999355 -11483007 22972195#2 465376239 465376255#0 465376255#1 190447767#1 190447766#0 190447766#1 4402228 465376254 222328410 -6228081 541295974 153698390#1 427637455#0 427637455#1 164039095#0 327518240#0 327518240#1 -327518240#1"/>
+    </vehicle>
+    <person id="ped156" type="ped_pedestrian" depart="312.00">
+        <ride from="156364559#0" to="-327518240#1" lines="ped156_0"/>
+    </person>
+    <person id="ped157" type="ped_pedestrian" depart="314.00">
+        <walk edges="437500504#0 437500502 437500499 15971191#1 23809670#5 23809670#4 23809670#3 30721662#3 30721662#2 30721662#1 4610362#8 4610362#7 4610362#6 4610362#5 4610362#3 -4610362#2 4610361 -30721660#4 4610351#1 4610351#0 -454285423#0 -454285423#1 -454285423#3 -454285423#4 493008124#0"/>
+    </person>
+    <person id="ped158" type="ped_pedestrian" depart="316.00">
+        <walk edges="23813206#0 188914559 168942727#1 48664717#2 48664717#1 48664717#0 275008387#2 275008387#1" busStop="1745157971"/> <!-- S Hackescher Markt -->
+        <ride busStop="2603331695" lines="S9:0" intended="pt_light_rail_S9:0" depart="830.00"/> <!-- S Friedrichstraße -->
+        <walk edges="335043665#1" busStop="27412232"/> <!-- S Friedrichstraße -->
+        <walk edges="254523901#1 237520773#3 237520773#4 237520773#5 237520773#6 237520773#7 237520773#8 196845298#1 196845298#2 378150067#0 378150067#1 24243052#1 292429063#0 327519010#0"/>
+    </person>
+    <person id="ped159" type="ped_pedestrian" depart="318.00">
+        <walk edges="-4612969#1 310320077#0 310010117#1 289965634 60333311#2 110769140 82649618#1 82649618#2 606078065" busStop="271430924"/> <!-- Berliner Rathaus -->
+        <ride busStop="3867910438" lines="N42:1" intended="pt_bus_N42:1.0" depart="679.00"/> <!-- Spandauer Straße/Marienkirche -->
+        <walk edges="4773465#1 4773465#2 4773465#3 490365295#0 557076771"/>
+    </person>
+    <person id="ped160" type="ped_pedestrian" depart="320.00">
+        <walk edges="4773463#2 4773463#1 4773463#0 -52328295#0 52328295#1 43156728#0 43156728#1 43156728#2" busStop="3867910423"/> <!-- Neumannsgasse -->
+        <ride busStop="-3869306766" lines="147:3" intended="pt_bus_147:3.0" depart="622.00"/> <!-- U Französische Straße -->
+        <walk edges="-35557143#1 -243854725#0 243854725#1 66071373#1"/>
+    </person>
+    <person id="ped161" type="ped_pedestrian" depart="322.00">
+        <walk edges="4610607 43156728#1 43156728#0 52328295#1 52328295#0 23851917#0 23851917#1" busStop="3352479220"/> <!-- Fischerinsel -->
+        <ride busStop="3867910438" lines="N42:1" intended="pt_bus_N42:1.0" depart="590.00"/> <!-- Spandauer Straße/Marienkirche -->
+        <walk edges="4773465#1" busStop="30731481"/> <!-- Spandauer Straße/Marienkirche -->
+        <ride busStop="30731497" lines="M4:2" intended="pt_tram_M4:2.1" depart="820.00"/> <!-- U Alexanderplatz -->
+        <walk edges="565537148#0 346206389#3 305093328#2 305093328#1 305093328#0 305093247#2 305093247#0 100405009#5 100405009#4 488668302"/>
+    </person>
+    <person id="ped162" type="ped_pedestrian" depart="324.00">
+        <walk edges="-15973619#0 -43346200#4 23755950#3 23755950#2 23755950#1 23755950#0 66071366#3 66071366#2 -66071366#1" busStop="-3869306773"/> <!-- Werderscher Markt -->
+        <ride busStop="3869306764" lines="147:3" intended="pt_bus_147:3.0" depart="762.00"/> <!-- S+U Friedrichstraße -->
+        <walk edges="4402228" busStop="3869306769"/> <!-- S+U Friedrichstraße -->
+        <ride busStop="3043709616" lines="U6:0" intended="pt_subway_U6:0.2" depart="1135.00"/> <!-- U Oranienburger Tor -->
+        <walk edges="388702041#10 388702041#9 388702041#8"/>
+    </person>
+    <person id="ped163" type="ped_pedestrian" depart="326.00">
+        <walk edges="195401010 195401013#0 195401013#1 195401013#2 195401013#3 24914992#0" busStop="270727248"/> <!-- S+U Alexanderplatz -->
+        <ride busStop="1827996417" lines="N5:0" intended="pt_bus_N5:0" depart="443.00"/> <!-- Spandauer Straße/Marienkirche -->
+        <walk edges="24914992#1 171826985#0 113595955#2 113595955#1 113595955#0 25294731#1 170517259 -51912365#0 561333203 -156364570#2 -156364570#3 557076776#0 557076768 557076775"/>
+    </person>
+    <vehicle id="ped164_0" depart="triggered">
+        <route edges="4610354 36892597#0 36892597#1 36892597#2 36892597#3 84960597#0 84960597#1 84960597#3 83517332#0 83517332#1 83517332#2 83517332#3 84960595 316746323#0 316746323#1 316746323#2 370359204#0 370359204#2 478396988 275177453 387892378 77348147 156364570#0 156364570#1 156364570#2 156364570#3 156364556#1 202157002#0 202157002#1 202157002#2 202157002#3 -534588621#1 -534588621#0 606078071#0 606078071#1 606078071#2 606078071#3 61583423#0 61583423#1 -156364553#1 -156364553#0 -606078065 81112790#1 23851927#0 23851927#1 23851927#2 23851930 11549895 23851919 233835641#0 233835641#1 4773463#0"/>
+    </vehicle>
+    <person id="ped164" type="ped_pedestrian" depart="328.00">
+        <ride from="4610354" to="4773463#0" lines="ped164_0"/>
+    </person>
+    <vehicle id="ped165_0" depart="triggered">
+        <route edges="4610607 -505475202#0 43156728#2 43156728#4 120675240#0 120675240#1 -8008608 -4611696#5 -4611696#4 -4611696#3 -4611696#2 -4611696#1 -23755950#3 -23755950#2 -23755950#1 -23755950#0 -66071366#3 -66071366#2 -66071366#1 -66071366#0 -389101365#2 -389101365#1 -389101365#0 -35557143#1 -35557143#0 196850609#0 196850609#1 196850609#2 194069450#0 194069450#1 461526153 169999355 -11483007 22972195#2 465376239 465376255#0 465376255#1 190447767#1 190447766#0 190447766#1 4402228 465376254 222328410 -6228081 541295974 30720544#0 30720544#1 -168940071#4 -168940071#3 -168940071#2 -168940071#1 -168940071#0 24243107#2 437325054#0 -165415464#1 165415454#0"/>
+    </vehicle>
+    <person id="ped165" type="ped_pedestrian" depart="330.00">
+        <ride from="4610607" to="165415454#0" lines="ped165_0"/>
+    </person>
+    <person id="ped166" type="ped_pedestrian" depart="332.00">
+        <walk edges="440946436#1 440946430 254523889 335576652#3 335576652#4 254339585 254523890#1 335576644#1 335576648#0 237520773#2 254523901#1 254523901#0 254523897 254523912#0 254523912#1 335704571 254523888#0 465376259#1 465376261#1 465376261#2 465376242" busStop="247600965"/> <!-- S+U Friedrichstraße -->
+        <ride busStop="3922258748" lines="M1:2" intended="pt_tram_M1:2" depart="639.00"/> <!-- Universitätsstraße -->
+        <walk edges="-340498976#0"/>
+    </person>
+    <person id="ped167" type="ped_pedestrian" depart="334.00">
+        <walk edges="482809615 -15973619#1 -15973619#0 43346200#2 4611696#1 4611696#2 4611696#3 54781811#0 54781811#1 -305153174 -43230886 -4611694 251884680 339201217 15971196#0 15971196#1 54048862#0 54048862#1 54048862#2 54048862#3" busStop="3867910421"/> <!-- Lustgarten -->
+        <ride busStop="1827996414" lines="200:1" intended="pt_bus_200:1.1" depart="1032.00"/> <!-- Spandauer Straße/Marienkirche -->
+        <walk edges="72157174#1 171826987#1" busStop="4673135647"/> <!-- Spandauer Straße/Marienkirche -->
+        <ride busStop="1633759766" lines="M4:0" intended="pt_tram_M4:0.2" depart="1234.00"/> <!-- S Hackescher Markt -->
+        <walk edges="304514893#7 47986664#0 47986658#1 47986658#0 475297457#0"/>
+    </person>
+    <person id="ped168" type="ped_pedestrian" depart="336.00">
+        <walk edges="132460630 132460633#0 -132460631#0 -132460632#0 131765141#0 83517339 -4610480 -168937986#4 168937986#3 168937986#2 168937986#0 354528932 4611694 43230886 305153174 -54781811#1 -54781811#0 -4611696#3 4611696#3"/>
+    </person>
+    <person id="ped169" type="ped_pedestrian" depart="338.00">
+        <walk edges="25959559#2 274513558 274513545 335043657 335043667 274513581#0 274513581#1 43185718#2 43185718#1 43185718#0 43185719 237526578#1 237526578#0" busStop="29805120"/> <!-- Berlin Friedrichstraße -->
+        <ride busStop="2776873647" lines="RB14:0" intended="pt_train_RB14:0" depart="568.00"/> <!-- Berlin Alexanderplatz -->
+        <walk edges="272757323#0 272757328#0 272757283 272757293 272757343#0 272757295 272757294 272757339#2 272757339#1 272757346#1 272757346#2 272757290 272757338#2 272757350#0 272811798 169230291#2 175499833#0"/>
+    </person>
+    <person id="ped170" type="ped_pedestrian" depart="340.00">
+        <walk edges="449982384#1 -449982384#0 25294728 -77348147 156364570#0 156364570#1 156364570#2 156364570#3 -28016312#3 -28016312#0 15971191#1 15971191#0 553649892 4610599 553121565 553121566#0 553121560 133885750#4 133885750#3"/>
+    </person>
+    <vehicle id="ped171_0" depart="triggered">
+        <route edges="-156364570#3 -156364570#2 156364570#2 156364570#3 156364556#1 202157002#0 202157002#1 202157002#2 202157002#3 72157174#1 171826984#0 171826984#1 171826984#2 171826984#3 171826984#4 171826984#5 24913524#0 24913524#1 195401006 195401017#0 195401017#1 195401017#3 405100405 139877314#0 139877314#1 139877314#2 310357283#0 310357283#1 100405009#0 100405009#1 100405009#2"/>
+    </vehicle>
+    <person id="ped171" type="ped_pedestrian" depart="342.00">
+        <ride from="-156364570#3" to="100405009#2" lines="ped171_0"/>
+    </person>
+    <person id="ped172" type="ped_pedestrian" depart="344.00">
+        <walk edges="195089288#0 195089278 4402014#3 4402014#2 4402014#1 4402014#0 4588217#3 4588217#2 4588217#1 4588217#0 196850609#2 196850609#1 196850609#0 -35557143#0 35557143#1" busStop="3869306767"/> <!-- U Französische Straße -->
+        <ride busStop="-3867910422" lines="147:2" intended="pt_bus_147:2.0" depart="980.00"/> <!-- Neumannsgasse -->
+        <walk edges="-43156728#0 -52328295#1 -52328295#0 4773463#0 4773463#1"/>
+    </person>
+    <person id="ped173" type="ped_pedestrian" depart="346.00">
+        <walk edges="606078071#2 606078071#1 606078071#0 -534588621#0 -534588621#1 202157002#3 202157002#2" busStop="30731481"/> <!-- Spandauer Straße/Marienkirche -->
+        <ride busStop="30731508" lines="M4:3" intended="pt_tram_M4:3.1" depart="681.00"/> <!-- S+U Alexanderplatz/Gontardstraße -->
+        <walk edges="169230291#3"/>
+    </person>
+    <person id="ped174" type="ped_pedestrian" depart="348.00">
+        <walk edges="335704573 274513577#1 274513542 254523894 335703511#0 335703511#1 335703510 254339569 274524379#2" busStop="366500582"/> <!-- Berlin Friedrichstraße -->
+        <walk edges="274524381#0 440946431 428486924 254339598#1 237520773#5"/>
+    </person>
+    <person id="ped175" type="ped_pedestrian" depart="350.00">
+        <walk edges="72157169#1 72678525 169230291#0 169230291#1 169230291#2 272811798 272757350#0 272757338#2 272757290 272757346#2 272757346#1 272757339#1 272757339#2 272757294 272757295 272757343#0 272757293 272757283 272757328#0 272757323#0 272757306 272757297" busStop="3419694885"/> <!-- Berlin Alexanderplatz -->
+        <ride busStop="2603331683" lines="RE7:0" intended="pt_train_RE7:0" depart="668.00"/> <!-- Berlin Friedrichstraße -->
+        <walk edges="254523901#1 254523901#0 254523897 254523912#0 254523912#1 335704571 254523888#0 254523888#1 195411602#1" busStop="2792364395"/> <!-- S+U Friedrichstraße -->
+        <walk edges="422000253#2 274513556#0"/>
+    </person>
+    <person id="ped176" type="ped_pedestrian" depart="352.00">
+        <walk edges="566155002 566155003 4613292#0 4613292#1 523630409 19002403#1 318282850#1 318282850#0 24914141#6 24914141#4 -369224774"/>
+    </person>
+    <person id="ped177" type="ped_pedestrian" depart="354.00">
+        <walk edges="61584187#1 54048862#3" busStop="3867910421"/> <!-- Lustgarten -->
+        <ride busStop="270718978" lines="200:1" intended="pt_bus_200:1.0" depart="432.00"/> <!-- S+U Alexanderplatz/Memhardstraße -->
+        <walk edges="405100405 139877314#0 139877314#1 61579356 346206362#1 346206362#2 272795483 272795497#0 272795495#1" busStop="2094266778"/> <!-- U Alexanderplatz -->
+        <ride busStop="2094266781" lines="U2:0" intended="pt_subway_U2:0.2" depart="1008.00"/> <!-- U Klosterstraße -->
+        <walk edges="313323170#3 -576310023#0"/>
+    </person>
+    <person id="ped178" type="ped_pedestrian" depart="356.00">
+        <walk edges="603204007#0 28016312#1 28016312#0 15971191#1 15971191#0 553649892 4610599 164874301 164874309#1 164874309#0 164874306 164874304 164874305 164874310 164874308"/>
+    </person>
+    <person id="ped179" type="ped_pedestrian" depart="358.00">
+        <walk edges="-340498976#1 114667396#0 169195795#8 340498982#3" busStop="3870475228"/> <!-- Staatsoper -->
+        <ride busStop="270718978" lines="TXL:0" intended="pt_bus_TXL:0.1" depart="772.00"/> <!-- S+U Alexanderplatz/Memhardstraße -->
+        <walk edges="405100405 195401017#3 43270574#2 43270574#0 24990040"/>
+    </person>
+    <person id="ped180" type="ped_pedestrian" depart="360.00">
+        <walk edges="384309029 384309030 384309031#1 344595602 384309028 344595605#0 -82658674#0 -82658674#1 -4612973#1" busStop="29495029"/> <!-- U Klosterstraße -->
+        <ride busStop="2094266780" lines="U2:1" intended="pt_subway_U2:1.1" depart="695.00"/> <!-- U Alexanderplatz -->
+        <walk edges="377634145 503071092 272795500#3 377634139 272795476 272795502#0 272795502#1 272795502#2 272795485 272780728 272780727 272780749#0 346229515#2 346229515#1 377634147#0 377634147#1 272757348#1 272757348#2 272757316#0 272757277 272757329 272757337#1 272757292 272757274 272757273 272757341#1 272757341#0" busStop="3419694885"/> <!-- Berlin Alexanderplatz -->
+        <ride busStop="2603331683" lines="RE2:2" intended="pt_train_RE2:2.1" depart="1094.00"/> <!-- Berlin Friedrichstraße -->
+        <walk edges="254523901#1 237520773#2 237520773#1 422002325 -194073677#0 -34848160#1 -34848160#0 -4610472#2 4610472#1 4610472#0 -24243101 -24243107#0 339201248 181587283"/>
+    </person>
+    <person id="ped181" type="ped_pedestrian" depart="362.00">
+        <walk edges="313193879#1 313193879#0 315392489 -4612968#3 -4612968#2 4612970#0 -4612973#1" busStop="29495029"/> <!-- U Klosterstraße -->
+        <ride busStop="2094266780" lines="U2:1" intended="pt_subway_U2:1.1" depart="695.00"/> <!-- U Alexanderplatz -->
+        <walk edges="377634145 503071092 272795500#3 377634139 272795476 272795502#0 272795502#1 272795502#2" busStop="2094266777"/> <!-- U Alexanderplatz -->
+        <walk edges="272780747#1 272780755#0 272780740"/>
+    </person>
+    <person id="ped182" type="ped_pedestrian" depart="364.00">
+        <walk edges="230015283 -133885743#1 -202157031#4 -133885745#0 133885750#1 133885750#0 553121559 553649890 553649891#0 -339201177#2 -339201177#1 -339201177#0 -15971189 4610600 168937986#4 168937986#3 168937986#2 168937986#0 354528932 4611694 43230886 305153174"/>
+    </person>
+    <person id="ped183" type="ped_pedestrian" depart="366.00">
+        <walk edges="159482049 159482050#1 159482050#0 156364553#0 606078065" busStop="271430924"/> <!-- Berliner Rathaus -->
+        <ride busStop="3867910438" lines="N42:1" intended="pt_bus_N42:1.0" depart="679.00"/> <!-- Spandauer Straße/Marienkirche -->
+        <walk edges="4773465#1" busStop="30731481"/> <!-- Spandauer Straße/Marienkirche -->
+        <ride busStop="30731508" lines="M4:2" intended="pt_tram_M4:2.1" depart="820.00"/> <!-- S+U Alexanderplatz/Gontardstraße -->
+        <walk edges="175499828#0 169230291#4 272757275#0 272757350#2 377494314"/>
+    </person>
+    <person id="ped184" type="ped_pedestrian" depart="368.00">
+        <walk edges="-110464118#0 492609984 4613304#1 4613304#0 112128418#2 112128418#1 112128419#1 112128419#2 139877309" busStop="270719334"/> <!-- S+U Alexanderplatz/Memhardstraße -->
+        <ride busStop="3867910420" lines="200:0" intended="pt_bus_200:0.1" depart="884.00"/> <!-- Lustgarten -->
+        <walk edges="61584187#2 61584187#1 23121445#5 -23121445#4 -23121445#3 -23121445#2 202157030#1 202157030#0 202156991#1 553121565 553121566#1"/>
+    </person>
+    <person id="ped185" type="ped_pedestrian" depart="370.00">
+        <walk edges="274513566#1" busStop="2792364395"/> <!-- S+U Friedrichstraße -->
+        <walk edges="195411602#1 195411602#0 190447768#1 -4402228" busStop="-3869306765"/> <!-- S+U Friedrichstraße -->
+        <ride busStop="-3869306770" lines="147:1" intended="pt_bus_147:1.0" depart="475.00"/> <!-- Unter den Linden/Friedrichstraße -->
+        <walk edges="-194069450#1 461526152" busStop="3869306771"/> <!-- Unter den Linden/Friedrichstraße -->
+        <ride busStop="1827996414" lines="200:1" intended="pt_bus_200:1.1" depart="869.00"/> <!-- Spandauer Straße/Marienkirche -->
+        <walk edges="72157174#1 534588621#1 -534588621#0 606078071#0 606078071#1 606078071#2 606078071#3 -562707499 379797004#0 379797004#1"/>
+    </person>
+    <person id="ped186" type="ped_pedestrian" depart="372.00">
+        <walk edges="394345496#3 -4402228 190447768#1 195411602#0 254523888#1 254523888#0 335704571 254523912#1 335576646#3 335576646#2 335703511#1 254523871 254339584 274524379#0" busStop="29805120"/> <!-- Berlin Friedrichstraße -->
+        <ride busStop="2776873647" lines="RB14:0" intended="pt_train_RB14:0" depart="568.00"/> <!-- Berlin Alexanderplatz -->
+        <walk edges="272757323#0 272757328#0 272757283 272757293 272757343#0 272757295 272757294 272757339#2 272757339#1 272757339#0 272757309 272757304 272757318#1 272757349#1 272757349#2 272757275#0 169230291#5 72157175#0 346212656#7"/>
+    </person>
+    <person id="ped187" type="ped_pedestrian" depart="374.00">
+        <walk edges="202157029#1 4773023#1 134021300#4 134021300#3 33207312#0 33207312#1 15968749#0 15968752 121717657#4 164874302 202157016 -339201177#1 -339201177#0 -15971189 -4610600 4610480 83517334#1 22972219#0 22972219#1 35578559 195397541#1 137630045 -339201185 -24243107#0 -24243107#1"/>
+    </person>
+    <person id="ped188" type="ped_pedestrian" depart="376.00">
+        <walk edges="346206372#0 346206372#1 346206372#2 346206377#4 346206377#2" busStop="2094266777"/> <!-- U Alexanderplatz -->
+        <walk edges="272780747#1 272780755#0 272780740 272780758#1 272780762#1 346229515#1 377634147#0 377634147#1 272757348#1 272757348#2 272757316#0 272757277 272757329 272757337#1 272757292 272757274" busStop="574265352"/> <!-- S Alexanderplatz -->
+        <ride busStop="2603331695" lines="S5:0" intended="pt_light_rail_S5:0.1" depart="811.00"/> <!-- S Friedrichstraße -->
+        <walk edges="194073677#1 -194073677#0 -195105328#0 195105328#1"/>
+    </person>
+    <person id="ped189" type="ped_pedestrian" depart="378.00">
+        <walk edges="181587284#0 165832576 165832577 165832575 165832574#0 165832574#1 165832574#2 541295974 -6228081 222328410 465376254 4402228 465376258#1 422000253#2 274513556#0 465376255#1"/>
+    </person>
+    <person id="ped190" type="ped_pedestrian" depart="380.00">
+        <walk edges="379797004#2 379797004#1 379797004#0 -562707499 606078071#3 606078071#2 606078071#1 606078071#0 -534588621#0 534588621#1 72157174#1" busStop="1827996414"/> <!-- Spandauer Straße/Marienkirche -->
+        <ride busStop="270718978" lines="TXL:0" intended="pt_bus_TXL:0.1" depart="940.00"/> <!-- S+U Alexanderplatz/Memhardstraße -->
+        <walk edges="405100405 139877314#0 171829099#6"/>
+    </person>
+    <person id="ped191" type="ped_pedestrian" depart="382.00">
+        <walk edges="175885747#1 175885747#0 195411604 11483007 -169999355 -461526153 461526152" busStop="3869306771"/> <!-- Unter den Linden/Friedrichstraße -->
+        <ride busStop="3870475228" lines="TXL:0" intended="pt_bus_TXL:0.1" depart="711.00"/> <!-- Staatsoper -->
+        <ride busStop="3867910421" lines="100:1" intended="pt_bus_100:1.1" depart="810.00"/> <!-- Lustgarten -->
+        <walk edges="54048862#3 23013165#0 23013165#1 424344287 424344292 137630049 424344310 23813203 260138639#0 260138639#1 339201222 339201239 260138638#1 260138638#2 260138638#3 260138638#4 137630047 23851908#1"/>
+    </person>
+    <vehicle id="ped192_0" depart="triggered">
+        <route edges="23755950#0 23755950#1 23755950#2 23755950#3 4611696#1 4611696#2 4611696#3 4611696#4 4611696#5 8008608 -120675240#1 -120675240#0 -43156728#4 43156728#4 202817674#0 202817674#1 202817674#2 136571494#0 136571494#1 136571494#2 136571494#3 136571494#4 136571494#6 562707499 328920970 61583424#0 61583424#1 61583424#2 534588621#0 534588621#1 72157174#1 171826984#0 171826984#1 171826984#2 171826984#3 171826984#4 171826984#5 24913524#0 24913524#1 195401006 195401017#0 195401017#1 195401017#3 405100405 139877314#0 139877314#1 139877314#2 310357283#0 310357283#1 112128419#1 112128419#2 139877309 415288661 405101794 415280723#0 415280723#1 415280722 195401010 195401013#0 195401013#1 195401013#2 195401013#3 24914992#0 24914992#1 171826985#0 171826985#1 171826985#2 171826985#3 171826985#4"/>
+    </vehicle>
+    <person id="ped192" type="ped_pedestrian" depart="384.00">
+        <ride from="23755950#0" to="171826985#4" lines="ped192_0"/>
+    </person>
+    <vehicle id="ped193_0" depart="triggered">
+        <route edges="-437325047#0 437325047#0 437325047#2 437325047#3 437325047#5 560370523 437325048#0 -437325054#1 -24243107#2 -24243107#1 -24243107#0 -24243101 492340367 31313667#1 31313667#2 31313667#3 24243092#0 35578576#0 35578576#1 35578576#2 153698394#1 153698394#2 -66071373#1 -243854725#1 24242882#1 24242882#2"/>
+    </vehicle>
+    <person id="ped193" type="ped_pedestrian" depart="386.00">
+        <ride from="-437325047#0" to="24242882#2" lines="ped193_0"/>
+    </person>
+    <person id="ped194" type="ped_pedestrian" depart="388.00">
+        <walk edges="566155006 -24993933#2 -24993933#3 -24993933#4 4613308#1 4613308#2 310357284#0 310357284#1 112128419#1 171829099#1 171829093" busStop="1840333892"/> <!-- Memhardstraße -->
+        <ride busStop="1615531689" lines="M2:0" intended="pt_tram_M2:0.2" depart="733.00"/> <!-- S+U Alexanderplatz/Dircksenstraße -->
+        <walk edges="72157168#5" busStop="2094266775"/> <!-- U Alexanderplatz -->
+        <walk edges="272780751#0 272780751#1 346229513 346229515#0 346229515#1 346229515#2"/>
+    </person>
+    <person id="ped195" type="ped_pedestrian" depart="390.00">
+        <walk edges="518508124#6 388702041#12" busStop="30731700"/> <!-- U Oranienburger Tor -->
+        <ride busStop="1633759766" lines="M1:0" intended="pt_tram_M1:0" depart="528.00"/> <!-- S Hackescher Markt -->
+        <walk edges="304514893#7 475297968#0 280007142#6 304514893#9 31959087#0"/>
+    </person>
+    <person id="ped196" type="ped_pedestrian" depart="392.00">
+        <walk edges="172274775 139877314#2 61579356 346206368#0 346206368#1 346206368#2 346206368#3 346206368#5 346206368#6 72157168#3 72157168#4 75228233 272757349#0 272757318#1 272757304 272757309 272757339#0 272757339#1 272757339#2 272757294 272757295 272757343#0 272757293 272757283 272757328#0 272757323#0 272757306 272757297" busStop="3419694885"/> <!-- Berlin Alexanderplatz -->
+        <ride busStop="2603331683" lines="RB14:1" intended="pt_train_RB14:1" depart="842.00"/> <!-- Berlin Friedrichstraße -->
+        <walk edges="254523901#1 237520773#2 237520773#1 422002325 -194073677#0 -34848160#1 274524376 43185699 274524387"/>
+    </person>
+    <person id="ped197" type="ped_pedestrian" depart="394.00">
+        <walk edges="-102408133#1 -4612973#1" busStop="29495029"/> <!-- U Klosterstraße -->
+        <ride busStop="2094266780" lines="U2:1" intended="pt_subway_U2:1.0" depart="455.00"/> <!-- U Alexanderplatz -->
+        <walk edges="377634145 503071092 272795500#3 377634139 272795476 272795502#0 272795502#1 272795502#2 272795485 272780728 272780727 272780749#0 346229515#2 346229515#1 377634147#0 377634147#1 272757348#1 272757348#2 272757316#0 272757277 272757329 272757337#1 272757292 272757274" busStop="574265352"/> <!-- S Alexanderplatz -->
+        <ride busStop="1745157971" lines="S5:0" intended="pt_light_rail_S5:0.1" depart="811.00"/> <!-- S Hackescher Markt -->
+        <walk edges="377110622#3 280007142#2 280007133 28016309#2 28016309#3 475297968#0 475297968#1 170098545#1 170098545#2 46517262#0 46517262#1 46517262#2 170852467 170852441 170852453 170852456 170392872 170370361#0"/>
+    </person>
+    <vehicle id="ped198_0" depart="triggered">
+        <route edges="246052428 301167584#0 301167584#1 301167584#2 19002403#1 523630409 19002357#1 19002363#1 19002363#2 -55741054 -62363401 -234463928#0 -234463931#4 -234463931#3 -234463931#2 -234463931#1 -234463931#0 -387892378 -275177453 -478396988 -370359204#2 -370359204#0 -316746323#2 -316746323#1 -316746323#0 -84960595 183415643 46140378 46140382 30721660#0 30721660#1 30721660#2 30721660#3 30721660#4 30721660#5 4610362#0 4610362#1 4610362#2 4610362#3 4610362#5 4610362#6 4610362#7 4610362#8 30721662#1 30721662#2 30721662#3"/>
+    </vehicle>
+    <person id="ped198" type="ped_pedestrian" depart="396.00">
+        <ride from="246052428" to="30721662#3" lines="ped198_0"/>
+    </person>
+    <person id="ped199" type="ped_pedestrian" depart="398.00">
+        <walk edges="344594961 289966281 310320077#0 310010117#1 289965634 60333311#2 60333311#1 82654055#2 82654055#1 82654055#0 60333313 23851922#1 23851922#0 11549897 23851917#2 23813201 159200257#3 159200257#2 159200257#1 -26322535#6 -26322535#5 26322535#4"/>
+    </person>
+    <person id="ped200" type="ped_pedestrian" depart="400.00">
+        <walk edges="254339574 254523900#0 254523887 335576646#2 335703511#1 254523871 254339584 274524379#0" busStop="29805120"/> <!-- Berlin Friedrichstraße -->
+        <ride busStop="2776873647" lines="RE2:1" intended="pt_train_RE2:1" depart="465.00"/> <!-- Berlin Alexanderplatz -->
+        <walk edges="272757323#0 272757328#0 272757283 272757293 272757343#0 272757295 272757294 272757339#2 272757339#1 272757339#0 272757309 272757304 272757318#1 272757349#0 75228233 72157168#4 72157168#3 72157168#2 72157168#1 72157171 114133914#1"/>
+    </person>
+    <person id="ped201" type="ped_pedestrian" depart="402.00">
+        <walk edges="272757258#9 272757258#8 272757339#2 272757294 272757295 272757343#0 272757293 272757283 272757328#0 272757323#0 272757306 272757297" busStop="3419694885"/> <!-- Berlin Alexanderplatz -->
+        <ride busStop="2603331683" lines="RE2:2" intended="pt_train_RE2:2.0" depart="494.00"/> <!-- Berlin Friedrichstraße -->
+        <walk edges="254523901#1 254523901#0 254523897 254523912#0 254523912#1 335704571 254523888#0 254523888#1 195411602#0 190447768#1 -4402228" busStop="3869306769"/> <!-- S+U Friedrichstraße -->
+        <ride busStop="3043709616" lines="U6:0" intended="pt_subway_U6:0.1" depart="835.00"/> <!-- U Oranienburger Tor -->
+        <walk edges="388702041#10 388702041#11" busStop="30731700"/> <!-- U Oranienburger Tor -->
+        <walk edges="521729368#1 378658639 378660724#1 518508124#1 518508124#0"/>
+    </person>
+    <person id="ped202" type="ped_pedestrian" depart="404.00">
+        <walk edges="45235049#2 -24540240#4 272757275#1 272757275#0 272757349#2 272757349#1 272757318#1 272757304 272757309 272757339#0 272757339#1 272757339#2 272757294 272757295 272757343#0 272757293 272757283 272757328#0 272757323#0 272757306 272757297" busStop="3419694885"/> <!-- Berlin Alexanderplatz -->
+        <ride busStop="2603331683" lines="RE7:0" intended="pt_train_RE7:0" depart="668.00"/> <!-- Berlin Friedrichstraße -->
+        <walk edges="254523901#1 254523901#0 254523897 254523912#0 254523912#1 335704571 254523888#0 254523888#1 195411602#0 190447768#1 -4402228" busStop="-3869306765"/> <!-- S+U Friedrichstraße -->
+        <ride busStop="-3869306770" lines="N6:0" intended="pt_bus_N6:0.1" depart="963.00"/> <!-- Unter den Linden/Friedrichstraße -->
+        <walk edges="-194069450#1 -194069450#0 4588217#0 4588217#1 4588217#2 4588217#3 -4588220#2 -530111226 -530085630"/>
+    </person>
+    <person id="ped203" type="ped_pedestrian" depart="406.00">
+        <walk edges="-285825378#0 -285825378#1 -285825378#2 285825377 313323170#1 313323170#2 -82658674#1 -4612973#1" busStop="29495029"/> <!-- U Klosterstraße -->
+        <ride busStop="2094266780" lines="U2:1" intended="pt_subway_U2:1.1" depart="695.00"/> <!-- U Alexanderplatz -->
+        <walk edges="377634145 503071092 272795500#3 377634139 272795476 272795502#0 272795502#1 272795502#2 272795485 272780728 272780727 272780749#0 346229515#2 346229515#1 346229515#0 346229513 272780751#1 272780751#0"/>
+    </person>
+    <person id="ped204" type="ped_pedestrian" depart="408.00">
+        <walk edges="335043668#1 254523879 440946427 335576652#0 254339580 254523890#0 335576644#1 335576648#0 237520773#2 254523901#1 254523901#0 254523897 254523912#0 254523912#1 335704571 254523888#0 465376259#1 465376240 195411604"/>
+    </person>
+    <person id="ped205" type="ped_pedestrian" depart="410.00">
+        <walk edges="4611706#1 4611706#0 32508498 205728152#1 110676320 169195795#8 114667396#0 463829477#1 -410310755#2 410310755#3"/>
+    </person>
+    <person id="ped206" type="ped_pedestrian" depart="412.00">
+        <walk edges="346212661 346206368#2 346206368#3 346206368#5 346206368#6 72157168#2 272757342#2 272757342#1 272811796 169230291#0 -4612981 532972718#0 532972718#2 195401013#2 195401013#3 24914992#0" busStop="270727248"/> <!-- S+U Alexanderplatz -->
+        <ride busStop="1827996417" lines="TXL:1" intended="pt_bus_TXL:1.1" depart="733.00"/> <!-- Spandauer Straße/Marienkirche -->
+        <ride busStop="3867910420" lines="100:0" intended="pt_bus_100:0.1" depart="829.00"/> <!-- Lustgarten -->
+        <walk edges="61584187#2 61584187#1 23121445#5 23121445#4 23121445#3 23121445#2 23121445#1 23121445#0 -23121444 -133885744#0 133885744#1"/>
+    </person>
+    <person id="ped207" type="ped_pedestrian" depart="414.00">
+        <walk edges="104991252#1 466923185 26733828#0 235503139#1 137630046 23852035#1 -195397541#1 -195397541#0 4610476#1" busStop="1673526976"/> <!-- Georgenstraße/Am Kupfergraben -->
+        <ride busStop="1823298700" lines="12:1" intended="pt_tram_12:1.1" depart="837.00"/> <!-- S+U Friedrichstraße -->
+        <walk edges="465376241 175885747#4 175885747#3 175885747#1 175885747#0 195411604 -158023913#2"/>
+    </person>
+    <person id="ped208" type="ped_pedestrian" depart="416.00">
+        <walk edges="147066248#4 482809615 -15973619#1 -15973619#0 43346200#2 4611696#1 4611696#2 4611696#3 4611696#4 4611696#5 8008608 -120675240#1 -120675240#0 202817674#0 202817674#1 202817674#2 136571494#0 136571494#1 136571494#2 136571494#3 136571494#4 136571494#6 562707499 328920970 72157172 169195164 -24540240#0 -24540240#1 -24540240#2 169195791#3 175499828#2 175499828#0 169230291#3 272811798 272757350#0 272757338#2 272757290 272757346#2 272757346#1 272757339#1 272757339#2 272757294 272757295 272757343#0 272757293 272757283 272757328#0 272757323#0 272757323#1 272757266"/>
+    </person>
+    <person id="ped209" type="ped_pedestrian" depart="418.00">
+        <walk edges="465376261#1 465376259#1 254523888#0 335704571 254523912#1 335576646#3 335576646#2 335703511#1 254523871 254339584 274524379#0" busStop="29805120"/> <!-- Berlin Friedrichstraße -->
+        <ride busStop="2776873647" lines="RB14:0" intended="pt_train_RB14:0" depart="568.00"/> <!-- Berlin Alexanderplatz -->
+        <walk edges="272757323#0 272757328#0 272757283 272757293 272757343#0 272757295 272757294 272757339#2 272757339#1 272757346#1 272757346#2 272757290 272757338#2 272757350#0 272811798 169230291#3 175499828#0 175499828#2 169195791#3 -24540240#2"/>
+    </person>
+    <person id="ped210" type="ped_pedestrian" depart="420.00">
+        <walk edges="23852041#8 -437325047#2 437325047#3 437325047#5 560370523 437325048#0 165415464#0" busStop="30353449"/> <!-- S Oranienburger Straße -->
+        <ride busStop="474368351" lines="S1:0" intended="pt_light_rail_S1:0.1" depart="720.00"/> <!-- S Friedrichstraße -->
+        <walk edges="254339581#2 254339581#1 254339573 335009919"/>
+    </person>
+    <person id="ped211" type="ped_pedestrian" depart="422.00">
+        <walk edges="100944802#1 100944802#0 246052428 301167584#0 301167584#1 301167584#2 112128419#1 112128419#2 139877309" busStop="270719334"/> <!-- S+U Alexanderplatz/Memhardstraße -->
+        <ride busStop="272408975" lines="100:0" intended="pt_bus_100:0.1" depart="687.00"/> <!-- Unter den Linden/Friedrichstraße -->
+        <walk edges="188386313#0 169999355" busStop="3869306772"/> <!-- Unter den Linden/Friedrichstraße -->
+        <ride busStop="3869306762" lines="147:0" intended="pt_bus_147:0.1" depart="1194.00"/> <!-- Friedrichstraße/Reinhardtstraße -->
+        <walk edges="111251382#2 374734394#8 374734394#7 374734394#6 374734394#5"/>
+    </person>
+    <person id="ped212" type="ped_pedestrian" depart="424.00">
+        <walk edges="272757331#1 272757285 272757326 272757258#9 272757258#8 272757339#2 272757294 272757295 272757343#0 272757293 272757283 272757328#0 272757323#0 272757306 272757297" busStop="3419694885"/> <!-- Berlin Alexanderplatz -->
+        <ride busStop="2603331683" lines="RE7:0" intended="pt_train_RE7:0" depart="668.00"/> <!-- Berlin Friedrichstraße -->
+        <walk edges="254523901#1 254523901#0 254523897 254523912#0 254523912#1 335704571 254523888#0 254523888#1 195411602#0 190447768#1 -4402228" busStop="-3869306765"/> <!-- S+U Friedrichstraße -->
+        <ride busStop="-3869306770" lines="N6:0" intended="pt_bus_N6:0.1" depart="963.00"/> <!-- Unter den Linden/Friedrichstraße -->
+        <ride busStop="3869306774" lines="147:1" intended="pt_bus_147:1.1" depart="1221.00"/> <!-- Werderscher Markt -->
+        <walk edges="23755950#0 23755950#1 23755950#2 23755950#3 -43346200#4 15973619#0 15973619#1 15973619#2 15973619#3 15973619#4 15973619#5 482809610 147066248#0"/>
+    </person>
+    <person id="ped213" type="ped_pedestrian" depart="426.00">
+        <walk edges="344595600 156364559#3 156364559#4 156364559#5 156364559#6 -24992424#5 -24992424#4 -24992424#3 -24992424#2 -24992424#1 -24992424#0 4612964#0 4612964#1 4612964#2 82648766#2 313193879#0 24992428 606078065 156364553#0 156364553#1 606078066#0 606078066#1 72157172 328920970 562707499 136571494#6 136571494#4 136571494#3 136571494#2 136571494#1 136571494#0 202817674#2 202817674#1 202817674#0 -120675240#0 -120675240#1"/>
+    </person>
+    <person id="ped214" type="ped_pedestrian" depart="428.00">
+        <walk edges="410310755#3 -410310755#2 463829477#1 83517336#3 -83517336#2 -83517336#1 -83517336#0 22972195#2 465376241 70163730#1 43185731 274513581#3 335043660 274513552 394345494#1 43185718#3"/>
+    </person>
+    <vehicle id="ped215_0" depart="triggered">
+        <route edges="-339201177#3 -339201177#2 -339201177#1 -339201177#0 -15971189 -4610600 -168937986#4 -168937986#3 -168937986#2 -168937986#0 169195795#1 169195795#2 169195795#5 169195795#6 169195795#7 169195795#8 169195795#10 -66071373#1 -243854725#1 243854725#1"/>
+    </vehicle>
+    <person id="ped215" type="ped_pedestrian" depart="430.00">
+        <ride from="-339201177#3" to="243854725#1" lines="ped215_0"/>
+    </person>
+    <person id="ped216" type="ped_pedestrian" depart="432.00">
+        <walk edges="-574993710 -574993713#1 574993713#0 -370359204#0 -316746323#2 -316746323#1 -316746323#0 46140376#1 84960597#3 84960597#1 583761434 449849685 583761435 583761436#1 449849687#1 59286194#2"/>
+    </person>
+    <person id="ped217" type="ped_pedestrian" depart="434.00">
+        <walk edges="272780760 377634140 272780736 346229515#4 346229515#3 346229515#2 346229515#1 377634147#0 377634147#1 272757348#1 272757348#2 272757316#0 272757277 272757329 272757337#1 272757292 272757274 272757273 272757341#1 272757341#0" busStop="3419694885"/> <!-- Berlin Alexanderplatz -->
+        <ride busStop="2603331683" lines="RE7:0" intended="pt_train_RE7:0" depart="668.00"/> <!-- Berlin Friedrichstraße -->
+        <walk edges="254523901#1 254523901#0 254523897 254523912#0 254523912#1 335704571 254523888#0 254523888#1 195411602#1" busStop="2792364395"/> <!-- S+U Friedrichstraße -->
+        <walk edges="422000253#2 274513556#1 274513571#0 38711947#1 24243092#0 -195411605#0"/>
+    </person>
+    <person id="ped218" type="ped_pedestrian" depart="436.00">
+        <walk edges="156364556#1 46517262#6 46517262#5 46517262#4 46517262#3 46517262#2 46517262#1 46517262#0 170098545#2 170098545#1 475297968#1 475297968#0 28016309#3 28016309#2 280007133 280007142#2 377110622#3" busStop="1745157971"/> <!-- S Hackescher Markt -->
+        <ride busStop="2603331695" lines="S9:0" intended="pt_light_rail_S9:0" depart="830.00"/> <!-- S Friedrichstraße -->
+        <walk edges="194073677#1 -194073677#2 -4402228" busStop="3869306769"/> <!-- S+U Friedrichstraße -->
+        <walk edges="465376257#1"/>
+    </person>
+    <person id="ped219" type="ped_pedestrian" depart="438.00">
+        <walk edges="254523900#0 254523887 335576646#2 335703511#1 254523871 254339584 274524379#0" busStop="29805120"/> <!-- Berlin Friedrichstraße -->
+        <ride busStop="2776873647" lines="RB14:0" intended="pt_train_RB14:0" depart="568.00"/> <!-- Berlin Alexanderplatz -->
+        <walk edges="272757323#0 272757328#0 272757283 272757293 272757343#0 272757295 272757294 272757339#2 272757339#1 272757339#0 272757309 272757304 272757318#1 272757349#0 75228233 72157168#4 72157168#3 346206368#6 346206368#5 346206368#3 346206368#2 346206368#1 346206368#0 61579356 139877314#2 310357283#0 310357283#1 112128418#1 112128418#2 112128418#3 112128418#5 112128418#6 -173197451#0 460115469"/>
+    </person>
+    <person id="ped220" type="ped_pedestrian" depart="440.00">
+        <walk edges="346206389#1 346212656#4" busStop="2094266778"/> <!-- U Alexanderplatz -->
+        <ride busStop="2094266781" lines="U2:0" intended="pt_subway_U2:0.0" depart="528.00"/> <!-- U Klosterstraße -->
+        <walk edges="4612970#0 -4612968#2 -4612968#3 315392489 313193879#0 82654050#2 81112790#1"/>
+    </person>
+    <person id="ped221" type="ped_pedestrian" depart="442.00">
+        <walk edges="312362360#1 313323171#1 313323171#0 312532334#2 4611726 82649618#0 110769140 60333311#2 289965634 -4612968#3 4612968#2 -4612970#0 313323170#3 -576310023#0 -576310033#0 576310033#1"/>
+    </person>
+    <person id="ped222" type="ped_pedestrian" depart="444.00">
+        <walk edges="51167566 23852041#3 23852041#4 23852041#5 23852041#6 23852041#7 23852041#8 -437325047#0" busStop="963600646"/> <!-- Monbijouplatz -->
+        <ride busStop="1633759766" lines="M1:0" intended="pt_tram_M1:0" depart="663.00"/> <!-- S Hackescher Markt -->
+        <walk edges="268940759 222470309#0 222470309#1 370359204#2 -478396988" busStop="-3867910429"/> <!-- S Hackescher Markt -->
+        <ride busStop="3867910439" lines="N2:1" intended="pt_bus_N2:1.0" depart="931.00"/> <!-- U Weinmeisterstraße -->
+        <walk edges="23809678#4 -19002363#6 -19002363#4 19002363#3 19002363#2 19002363#1 19002357#1 523630409 19002403#1 318282850#1"/>
+    </person>
+    <person id="ped223" type="ped_pedestrian" depart="446.00">
+        <walk edges="379797004#0 562707499 328920970 72157172 169195164 -24540240#0 -24540240#1 -24540240#2 169195791#3 175499828#2 175499828#0 169230291#3 272811798 272757350#0 272757338#2 272757290 272757346#2 272757346#1 272757339#1 272757258#7 272757310 272757272 272757317#0 272757347#2"/>
+    </person>
+    <person id="ped224" type="ped_pedestrian" depart="448.00">
+        <walk edges="4613302 -4613302 -112128825#0 -268002748#1 -24993933#0 -24993933#1 -24993933#2 -24993933#3 24993933#4 19002357#1 19002363#1 -19002363#2 55741054 -168942727#1 -168942727#0 -48664717#1 -48664717#0 275008387#2 275008387#1 275008387#0 23809677 23852046#0 23852046#1 23852029#1 51234180 554949050 554949051#1 554949051#2 31959084 51236793#0 51236793#1 137630046 23852035#1 -137630045 -4610472#0 -4610472#1 -4610472#2 -34848160#0 274524376 43185699 274524387"/>
+    </person>
+    <person id="ped225" type="ped_pedestrian" depart="450.00">
+        <walk edges="51167934#5 235503139#0 235503139#1 137630046 23852035#1 -195397541#1 -195397541#0 4610476#1" busStop="1673526976"/> <!-- Georgenstraße/Am Kupfergraben -->
+        <ride busStop="1823298700" lines="12:1" intended="pt_tram_12:1.1" depart="837.00"/> <!-- S+U Friedrichstraße -->
+        <walk edges="175885742 175885746#3 175885746#1 175885746#0 465376259#1 254523888#0 335704571 254523912#1 254523912#0 254523897 254523901#0 254523901#1 237520773#3 254339591#6 254339591#5 397579542"/>
+    </person>
+    <person id="ped226" type="ped_pedestrian" depart="452.00">
+        <walk edges="272757264 272811796 169230291#0 -4612981 532972718#0 532972718#2 195401013#2 195401013#3 24914992#0" busStop="270727248"/> <!-- S+U Alexanderplatz -->
+        <ride busStop="1827996417" lines="TXL:1" intended="pt_bus_TXL:1.1" depart="733.00"/> <!-- Spandauer Straße/Marienkirche -->
+        <ride busStop="3867910420" lines="100:0" intended="pt_bus_100:0.1" depart="829.00"/> <!-- Lustgarten -->
+        <walk edges="61584187#2 61584187#1 330840131 54048862#1 54048862#0 15971196#1"/>
+    </person>
+    <person id="ped227" type="ped_pedestrian" depart="454.00">
+        <walk edges="153698380#0 292429062#0 292429062#1 292429062#2 292429062#3 292429063#0 24243052#1 378150067#1 378150067#0 196845298#2 196845298#1 237520773#8 237520773#7 237520773#6 237520773#5 237520773#4 237520773#3 237520773#2 335576648#0 335576644#1 254523890#0 254339580 335576652#0 335576652#1"/>
+    </person>
+    <person id="ped228" type="ped_pedestrian" depart="456.00">
+        <walk edges="43158961#2 202157011 202156999#1 159482050#2 159482050#1 159482050#0 156364553#1 606078066#0 606078066#1 169195164 -24540240#0 -24540240#1 -24540240#2 346212657 272760868 272757348#0 377634147#1 377634147#0 346229515#1 346229515#2 272780749#0 272780727 272780728 272795485"/>
+    </person>
+    <person id="ped229" type="ped_pedestrian" depart="458.00">
+        <walk edges="330832909 330832908 23852041#1 23852041#0 181587286#1 181587286#0 51234180 345088426 137630051#0 137630051#1 137630051#2 437500499 437500502 437500504#0 437500504#1 437500504#2 437500498 437500501 437500497 437500500 437500503 48095588#0 48095588#1 48095588#2 48095588#3 48095488 424344305 48095234 424344298 424344315 424344283 424344316 202157019 339201228 137630049 424344292 424344287 23013165#2 4611698#0 169067264#2"/>
+    </person>
+    <person id="ped230" type="ped_pedestrian" depart="460.00">
+        <walk edges="-24993933#2 -24993933#3 24993933#4 19002357#1 19002363#1 -19002363#2 55741054 -168942727#1 -168942727#0 -48664717#1 -48664717#0 370359204#0 222470309#1 222470309#0 47986664#3 100950875#3 100950875#2 170098545#5 170098545#4"/>
+    </person>
+    <vehicle id="ped231_0" depart="triggered">
+        <route edges="168940071#0 -168940071#0 24243107#2 437325054#0 -437325048#1 -560370523 -437325047#5 -437325047#3 -437325047#2 -437325047#0 4610362#0 4610362#1 4610362#2 4610362#3 4610362#5 4610362#6 4610362#7 4610362#8 30721662#1 30721662#2 30721662#3 23809670#3 23809670#4 23809670#5 28016312#0 28016312#1 -156364570#3 -156364570#2 -156364570#1 -156364570#0 -77348147 25294728 234463931#1 234463931#2 234463931#3 234463931#4 234463931#5 234463928#1 55741054 19002363#3 19002363#4"/>
+    </vehicle>
+    <person id="ped231" type="ped_pedestrian" depart="462.00">
+        <ride from="168940071#0" to="19002363#4" lines="ped231_0"/>
+    </person>
+    <person id="ped232" type="ped_pedestrian" depart="464.00">
+        <walk edges="274513581#0 335043658 274513544 274513566#1" busStop="2792364395"/> <!-- S+U Friedrichstraße -->
+        <walk edges="195411602#1 254523888#1 254523888#0 335704571 254523912#1 254523912#0 254523897 254523901#0 254523901#1" busStop="27412232"/> <!-- S Friedrichstraße -->
+        <ride busStop="27411240" lines="S5:1" intended="pt_light_rail_S5:1.1" depart="804.00"/> <!-- S Hackescher Markt -->
+        <walk edges="377110615 377110622#3 280007142#1 475297967#0 475297967#1 -47986661#2 170302411 170302412#1 48664687#1 48664687#0 -316746323#0 46140376#1 84960597#3 84960597#1 583761434 449849685 583761435 583761436#1 449849687#1 48435510 449849682 59287094 -4610355#1"/>
+    </person>
+    <person id="ped233" type="ped_pedestrian" depart="466.00">
+        <walk edges="136571494#1 229531165 360464647 260138646#0 169067264#0 169067264#1 169067264#2 4611698#0 23013165#2 23013165#1 23013165#0 54048862#3 61584187#1 61584187#2" busStop="3867910420"/> <!-- Lustgarten -->
+        <ride busStop="272408975" lines="100:0" intended="pt_bus_100:0.1" depart="931.00"/> <!-- Unter den Linden/Friedrichstraße -->
+        <walk edges="188386313#0 169999355" busStop="3869306772"/> <!-- Unter den Linden/Friedrichstraße -->
+        <ride busStop="3869306762" lines="147:0" intended="pt_bus_147:0.1" depart="1194.00"/> <!-- Friedrichstraße/Reinhardtstraße -->
+        <walk edges="111251382#2 374734394#8 374734394#7 374734394#6 374734394#5 388702041#2 374734393#4"/>
+    </person>
+    <person id="ped234" type="ped_pedestrian" depart="468.00">
+        <walk edges="377110621#1 377110614 377110615 377110622#3 280007142#1 475297967#0 275008387#0 -31959089 -31959087#0 -31959087#1 -23809670#3 -23809670#4"/>
+    </person>
+    <person id="ped235" type="ped_pedestrian" depart="470.00">
+        <walk edges="23851905 23851908#0 23851908#1 23851927#2 23851930 11549895 23851919 233835641#0 233835641#1 52328295#0 52328295#1 43156728#0 43156728#1 43156728#2" busStop="3867910423"/> <!-- Neumannsgasse -->
+        <ride busStop="3869306764" lines="147:3" intended="pt_bus_147:3.1" depart="1222.00"/> <!-- S+U Friedrichstraße -->
+        <walk edges="4402228" busStop="3869306769"/> <!-- S+U Friedrichstraße -->
+        <walk edges="-4402228 -194073677#2 194073677#1 422002325 335576648#1 335576644#1 254523890#1 254339585 335576652#4 440946433 337147278 274524369#0"/>
+    </person>
+    <person id="ped236" type="ped_pedestrian" depart="472.00">
+        <walk edges="23852051#0 -30721662#3 23809677 275008387#0 475297967#0 280007142#1 377110622#3 377110615" busStop="27411240"/> <!-- S Hackescher Markt -->
+        <ride busStop="27411231" lines="S9:1" intended="pt_light_rail_S9:1" depart="724.00"/> <!-- S Alexanderplatz -->
+        <walk edges="272757337#1 272757329 272757277 272757316#0 272757348#2 272757347#0 272757325#1 272757279 272757315 272757346#0 272757346#1 272757346#2 272757290 272757338#2 272757350#0 272811798 169230291#3" busStop="30731508"/> <!-- S+U Alexanderplatz/Gontardstraße -->
+        <ride busStop="30731497" lines="M4:2" intended="pt_tram_M4:2.1" depart="950.00"/> <!-- U Alexanderplatz -->
+        <walk edges="565537148#0 346206389#3 305093328#2 305093328#1 305093328#0 305093247#2 305093247#0 100405009#5 100405009#4 488668302 112128416"/>
+    </person>
+    <vehicle id="ped237_0" depart="triggered">
+        <route edges="24242882#1 24242882#2 4611706#0 4611706#1 66071366#0 66071366#1 66071366#2 66071366#3 23755950#0 23755950#1 23755950#2 23755950#3 4611696#1 4611696#2 4611696#3 4611696#4 4611696#5 8008608 -120675240#1 -120675240#0 -43156728#4 -43156728#2 -43156728#1 -43156728#0 -52328295#1 -52328295#0 52328295#0"/>
+    </vehicle>
+    <person id="ped237" type="ped_pedestrian" depart="474.00">
+        <ride from="24242882#1" to="52328295#0" lines="ped237_0"/>
+    </person>
+    <person id="ped238" type="ped_pedestrian" depart="476.00">
+        <walk edges="310010749 315245295 315245296#1 315245296#0 316092515 309155392 312176585#0 312176585#1 346212659 199485599 346229517 377634147#1 272757348#1 272757348#2 272757316#0 272757277 272757329 272757337#1 272757292 272757274 272757273 272757341#1 272757341#0" busStop="3419694885"/> <!-- Berlin Alexanderplatz -->
+        <ride busStop="2603331683" lines="RB14:1" intended="pt_train_RB14:1" depart="842.00"/> <!-- Berlin Friedrichstraße -->
+        <walk edges="254523901#1 254523901#0 254523897 254523912#0 254523912#1 335704571 254523888#0 254523888#1 195411602#0 190447768#1 -4402228" busStop="3869306769"/> <!-- S+U Friedrichstraße -->
+        <ride busStop="3043709616" lines="U6:0" intended="pt_subway_U6:0.2" depart="1135.00"/> <!-- U Oranienburger Tor -->
+        <walk edges="388702039#1 388702039#0" busStop="29058100"/> <!-- U Oranienburger Tor -->
+        <walk edges="518508119#0 518508119#1 518508119#2 374734394#10"/>
+    </person>
+    <person id="ped239" type="ped_pedestrian" depart="478.00">
+        <walk edges="473149642 375901779#2 202157002#3 202157002#2" busStop="2915590925"/> <!-- Spandauer Straße/Marienkirche -->
+        <ride busStop="1686199552" lines="N8:0" intended="pt_bus_N8:0.0" depart="647.00"/> <!-- Berliner Rathaus -->
+        <walk edges="156364566#1 82654055#2 82654055#1 -32606312 159482051 43158961#1"/>
+    </person>
+    <person id="ped240" type="ped_pedestrian" depart="480.00">
+        <walk edges="229531165 360464647 260138646#0 169067264#0 169067264#1 169067264#2 4611698#0 23013165#2 23013165#1 23013165#0 54048862#3 61584187#1 61584187#2" busStop="3867910420"/> <!-- Lustgarten -->
+        <ride busStop="271296293" lines="100:0" intended="pt_bus_100:0.1" depart="931.00"/> <!-- Staatsoper -->
+        <walk edges="169195795#5 4610494#1 4610494#0 -330840134#2 340498976#7 340498976#6 340498976#5 -340498976#4 -122820534#1 -122820534#0"/>
+    </person>
+    <person id="ped241" type="ped_pedestrian" depart="482.00">
+        <walk edges="202156999#0 202156999#1 159482050#2 159482050#1 379797004#1 379797004#0 -562707499 606078071#3 606078071#2 606078071#1 606078071#0 -534588621#0 534588621#1 72157174#1" busStop="1827996414"/> <!-- Spandauer Straße/Marienkirche -->
+        <ride busStop="270718978" lines="100:1" intended="pt_bus_100:1.1" depart="983.00"/> <!-- S+U Alexanderplatz/Memhardstraße -->
+        <walk edges="405100405 195401017#3 43270574#2 43270574#0 415280722"/>
+    </person>
+    <person id="ped242" type="ped_pedestrian" depart="484.00">
+        <walk edges="47016365#0 47016365#1 346206389#3 346206389#2 346206389#1 346212656#4 346206377#2" busStop="2094266777"/> <!-- U Alexanderplatz -->
+        <walk edges="272780747#1 272780755#0 272780740 272780758#1 272780762#1 346229515#1 377634147#0 377634147#1 272757348#1 272757348#2 272757316#0 272757277 272757329 272757337#1 272757292 272757274 272757273 272757341#1 272757341#0" busStop="3419694885"/> <!-- Berlin Alexanderplatz -->
+        <ride busStop="2603331683" lines="RE2:2" intended="pt_train_RE2:2.1" depart="1094.00"/> <!-- Berlin Friedrichstraße -->
+        <walk edges="254523901#1 237520773#2 237520773#1 422002325 -194073677#0 -34848160#1 34848160#0 -222328410 6228081 -541295974 -30720544#0 -30720544#1 -42103020 42103021 478432725 35269774#0 35269774#1 35269774#2 588960602"/>
+    </person>
+    <vehicle id="ped243_0" depart="triggered">
+        <route edges="24241797#1 24241797#2 24241797#3 24990040 415280722 195401010 195401013#0 195401013#1 195401013#2 195401013#3 24914992#0 24914992#1 171826985#0 171826985#1 171826985#2 171826985#3 171826985#4 24913519#1 24913519#2 541763975 202156995#0 202156995#1 4067932#0 4067932#1"/>
+    </vehicle>
+    <person id="ped243" type="ped_pedestrian" depart="486.00">
+        <ride from="24241797#1" to="4067932#1" lines="ped243_0"/>
+    </person>
+    <person id="ped244" type="ped_pedestrian" depart="488.00">
+        <walk edges="274524379#1" busStop="29805120"/> <!-- Berlin Friedrichstraße -->
+        <ride busStop="2776873647" lines="RB14:0" intended="pt_train_RB14:0" depart="568.00"/> <!-- Berlin Alexanderplatz -->
+        <walk edges="272757323#0 272757328#0 272757283 272757293 272757343#0 272757295 272757294 272757339#2 272757339#1 272757339#0 272757309 272757304 272757318#1 272757349#1 272757349#2 272757275#0 272757275#1 -24540240#4 -45235049#2 202157012 202157028#1 312493778 312532334#0 312532334#1 312532334#2 312532631#1"/>
+    </person>
+    <person id="ped245" type="ped_pedestrian" depart="490.00">
+        <walk edges="131420077#1 -27628624#1 27628624#0 7917219#3 7917219#1 518508119#0" busStop="29058100"/> <!-- U Oranienburger Tor -->
+        <ride busStop="2792364395" lines="U6:1" intended="pt_subway_U6:1.1" depart="783.00"/> <!-- S+U Friedrichstraße -->
+        <walk edges="195411602#1 254523888#1 254523888#0 335704571 254523912#1 254523912#0 254523897 254523901#0 254523901#1" busStop="27412232"/> <!-- S Friedrichstraße -->
+        <ride busStop="27411231" lines="S3:1" intended="pt_light_rail_S3:1.1" depart="996.00"/> <!-- S Alexanderplatz -->
+        <walk edges="272757337#1 272757329 272757277 272757316#0 272757348#2 272757347#0 272757325#1 272757279 272757315 272757346#0 272757339#0 272757309 272757304 272757318#1 272757349#1 272757349#2 272757275#0 272757275#1 -24540240#4 -45235049#2 202157012 202157028#1 312493778 312362360#1 309489394#1 128396189#0 128396189#1"/>
+    </person>
+    <vehicle id="ped246_0" depart="triggered">
+        <route edges="24992424#4 24992424#5 -24992424#5 -24992424#4 -24992424#3 -24992424#2 -24992424#1 -24992424#0 4612964#0 4612964#1 4612964#2 24992428 606078065 156364553#0 156364553#1 606078066#0 606078066#1 72157172 61583424#0 61583424#1 61583424#2 534588621#0 534588621#1 24913519#1 24913519#2 541763975 202156995#0 202156995#1 4067932#0 4067932#1 339201219 61584187#1 61584187#2 61584187#3 61584187#4 54048863 15971197 4611699 169195795#0 168937986#0 168937986#2 168937986#3 168937986#4 -168937986#4"/>
+    </vehicle>
+    <person id="ped246" type="ped_pedestrian" depart="492.00">
+        <ride from="24992424#4" to="-168937986#4" lines="ped246_0"/>
+    </person>
+    <person id="ped247" type="ped_pedestrian" depart="494.00">
+        <walk edges="196850606#1 -196850606#0 4588219#3 346240665#1 346240656#0"/>
+    </person>
+    <person id="ped248" type="ped_pedestrian" depart="496.00">
+        <walk edges="23809677 -30721662#2 30721662#1 4610362#8 4610362#7 4610362#6 4610362#5 4610362#3 4610362#2 4610362#1 4610362#0 -437325047#0 -437325047#2 -437325047#3 -51167934#0"/>
+    </person>
+    <person id="ped249" type="ped_pedestrian" depart="498.00">
+        <walk edges="266572297#2 266572297#1 331883793 331883789 43164692 -4612973#0 -4612973#1" busStop="29495029"/> <!-- U Klosterstraße -->
+        <ride busStop="2094266780" lines="U2:1" intended="pt_subway_U2:1.1" depart="695.00"/> <!-- U Alexanderplatz -->
+        <walk edges="377634145 503071092 272795500#3 377634139 272795476 272795502#0 272795502#1 272795502#2 272795485 272780728 272780727 272780749#0 346229515#2 346229515#1 377634147#0 377634147#1 272757348#1 272757348#2 272757316#0 272757277 272757329 272757337#1 272757292 272757274" busStop="574265352"/> <!-- S Alexanderplatz -->
+        <ride busStop="1745157971" lines="S3:0" intended="pt_light_rail_S3:0.1" depart="1042.00"/> <!-- S Hackescher Markt -->
+        <walk edges="275008387#1 275008387#0 23809677 -30721662#2 30721662#1 4610362#8 4610362#7 4610362#6 4610362#5 4610362#3 4610362#2 4610362#1 4610362#0 -437325047#0 -437325047#2"/>
+    </person>
+    <person id="ped250" type="ped_pedestrian" depart="500.00">
+        <walk edges="327519012#0 327519010#0 -292429063#0 -292429063#1 195105328#1 465376247#1 82165084 82165083 82168025 25959593 -169660686#1 169660686#0 -164039095#0"/>
+    </person>
+    <vehicle id="ped251_0" depart="triggered">
+        <route edges="234463931#4 -234463931#4 -234463931#3 -234463931#2 -234463931#1 -234463931#0 77348147 156364570#0 156364570#1 156364570#2 156364570#3 156364556#1 202157002#0 202157002#1 202157002#2 202157002#3 24913519#1 24913519#2 541763975 202156995#0 202156995#1 4067932#0 4067932#1 339201219 61584187#1 61584187#2 61584187#3 61584187#4 54048863 15971197 4611699 169195795#0 169195795#1 169195795#2 169195795#5 169195795#6 169195795#7 169195795#8 169195795#10 340498988 188386313#0 188386313#1 188386313#2 153698380#0 292429062#0 292429062#1 292429062#2 292429062#3"/>
+    </vehicle>
+    <person id="ped251" type="ped_pedestrian" depart="502.00">
+        <ride from="234463931#4" to="292429062#3" lines="ped251_0"/>
+    </person>
+    <person id="ped252" type="ped_pedestrian" depart="504.00">
+        <walk edges="-164039095#0 169660686#0 -169660686#1 25959593 82168025 82165083 82165084 465376246#1 -194073677#0 422002325 335576648#1 335576644#0 254523877 254523906#0 335576650#1 337139761 254523863#1 337139762"/>
+    </person>
+    <person id="ped253" type="ped_pedestrian" depart="506.00">
+        <walk edges="-4588217#2 -4588217#1 -4588217#0 194069450#0 194069450#1 461526152" busStop="3869306771"/> <!-- Unter den Linden/Friedrichstraße -->
+        <ride busStop="3867910421" lines="200:1" intended="pt_bus_200:1.1" depart="869.00"/> <!-- Lustgarten -->
+        <walk edges="54048862#3 23013165#0 23013165#1 424344287 424344292 137630049 424344310 23813203 260138639#0 260138639#1 339201222 339201239 260138638#1 260138638#2 260138638#3 260138638#4"/>
+    </person>
+    <person id="ped254" type="ped_pedestrian" depart="508.00">
+        <walk edges="-195411605#0 -15977422#0 114667396#0 169195795#8 340498982#3" busStop="3870475228"/> <!-- Staatsoper -->
+        <ride busStop="1827996414" lines="200:1" intended="pt_bus_200:1.1" depart="928.00"/> <!-- Spandauer Straße/Marienkirche -->
+        <walk edges="72157174#1 375901777 202157023#1 229531158"/>
+    </person>
+    <person id="ped255" type="ped_pedestrian" depart="510.00">
+        <walk edges="113589281#1 113589280#1 243911462 225400609#10 474154190#1 474154190#0 437325047#0" busStop="963600646"/> <!-- Monbijouplatz -->
+        <ride busStop="1633759766" lines="M1:0" intended="pt_tram_M1:0" depart="663.00"/> <!-- S Hackescher Markt -->
+        <walk edges="475297966 222470308 156364556#1 202157002#0 202157002#1 202157002#2" busStop="2915590925"/> <!-- Spandauer Straße/Marienkirche -->
+        <ride busStop="3867910420" lines="N2:0" intended="pt_bus_N2:0.1" depart="1195.00"/> <!-- Lustgarten -->
+        <walk edges="61584187#2 61584187#1 330840131 54048862#1 54048862#0 15971196#1 194962998#0"/>
+    </person>
+    <person id="ped256" type="ped_pedestrian" depart="512.00">
+        <walk edges="424895364 424895368#1 424895365 -437325051#0" busStop="-3869306761"/> <!-- Friedrichstraße/Reinhardtstraße -->
+        <ride busStop="-3869306770" lines="147:2" intended="pt_bus_147:2.0" depart="667.00"/> <!-- Unter den Linden/Friedrichstraße -->
+        <walk edges="-194069450#1 461526152" busStop="3869306771"/> <!-- Unter den Linden/Friedrichstraße -->
+        <ride busStop="3867910421" lines="N2:1" intended="pt_bus_N2:1.1" depart="1182.00"/> <!-- Lustgarten -->
+        <walk edges="54048862#3 23013165#0 23013165#1 23013165#2 4611698#0 169067264#2 202157018#2 202157018#1 229531158"/>
+    </person>
+    <person id="ped257" type="ped_pedestrian" depart="514.00">
+        <walk edges="410310757 -410310755#2 463829477#1 114667396#0 169195795#8 340498982#3" busStop="3870475228"/> <!-- Staatsoper -->
+        <ride busStop="1827996414" lines="200:1" intended="pt_bus_200:1.1" depart="928.00"/> <!-- Spandauer Straße/Marienkirche -->
+        <walk edges="72157174#1 171826987#1" busStop="4673135647"/> <!-- Spandauer Straße/Marienkirche -->
+        <ride busStop="1633759766" lines="M4:0" intended="pt_tram_M4:0.2" depart="1234.00"/> <!-- S Hackescher Markt -->
+        <walk edges="304514893#7 47986664#0 47986658#1 47986658#0 475297457#0 475297457#1 48664687#1 48664687#0 -316746323#0 46140376#1"/>
+    </person>
+    <vehicle id="ped258_0" depart="triggered">
+        <route edges="156364570#2 156364570#3 -156364570#3 -156364570#2 -156364570#1 -156364570#0 -77348147 25294728 234463931#1 234463931#2 234463931#3 234463931#4 234463931#5 234463928#1 55741054 -19002363#2 -19002363#1 4613292#0 4613292#1 -24993933#4 -24993933#3 -24993933#2 -24993933#1 -24993933#0 -268002748#1"/>
+    </vehicle>
+    <person id="ped258" type="ped_pedestrian" depart="516.00">
+        <ride from="156364570#2" to="-268002748#1" lines="ped258_0"/>
+    </person>
+    <person id="ped259" type="ped_pedestrian" depart="518.00">
+        <walk edges="-147066248#3 -147066248#4 -147066248#5 -147066248#6 4611708#2 -4611713#0 66071366#3 66071366#2 -66071366#1" busStop="-3869306773"/> <!-- Werderscher Markt -->
+        <ride busStop="3869306764" lines="147:0" intended="pt_bus_147:0.1" depart="1021.00"/> <!-- S+U Friedrichstraße -->
+        <walk edges="4402228 465376260#1 254523888#0 335704571 254523912#1 335576646#3 335576646#2 335703511#0 274513563 274513559 274513577#0"/>
+    </person>
+    <vehicle id="ped260_0" depart="triggered">
+        <route edges="84960597#3 83517332#0 83517332#1 83517332#2 83517332#3 84960595 316746323#0 316746323#1 316746323#2 370359204#0 370359204#2 478396988 275177453 387892378 77348147 156364570#0 156364570#1 156364570#2 156364570#3 156364556#1 202157002#0 202157002#1 202157002#2 202157002#3 24913519#1 24913519#2 541763975 202156995#0 202156995#1"/>
+    </vehicle>
+    <person id="ped260" type="ped_pedestrian" depart="520.00">
+        <ride from="84960597#3" to="202156995#1" lines="ped260_0"/>
+    </person>
+    <person id="ped261" type="ped_pedestrian" depart="522.00">
+        <walk edges="340498976#6 340498976#7 340498976#8 83517339 -4610480 -4610600 -15971189 -339201177#0 -339201177#1 -339201177#2 553649891#0 553649890 553121559 133885750#0 133885750#1 -133885745#0 -202157031#4 -133885743#1 230015283 230015280 230015278 230015285 230015277 437500506"/>
+    </person>
+    <vehicle id="ped262_0" depart="triggered">
+        <route edges="340498982#4 340498982#5 340498982#7 354528932 251884680 339201217 15971196#0 15971196#1 54048862#0 54048862#1 54048862#2 54048862#3 23013165#0 23013165#1 23013165#2 4611698#0 4611698#1 202156994#0 202156994#1 72157174#1 171826984#0 171826984#1 171826984#2 171826984#3 171826984#4 171826984#5 24913524#0 24913524#1 195401006 195401017#0 195401017#1 195401017#3 405100405 139877314#0 139877314#1 139877314#2 310357283#0 310357283#1 112128419#1 112128419#2 139877309 415288661"/>
+    </vehicle>
+    <person id="ped262" type="ped_pedestrian" depart="524.00">
+        <ride from="340498982#4" to="415288661" lines="ped262_0"/>
+    </person>
+    <person id="ped263" type="ped_pedestrian" depart="526.00">
+        <walk edges="576310031 -82658674#1 -4612973#1" busStop="29495029"/> <!-- U Klosterstraße -->
+        <ride busStop="2094266780" lines="U2:1" intended="pt_subway_U2:1.1" depart="695.00"/> <!-- U Alexanderplatz -->
+        <walk edges="377634145 503071092 272795500#3 377634139 272795476 272795502#0 272795502#1 272795502#2 272795485 272780728 272780727 272780749#0 346229515#2 346229515#1 377634147#0 377634147#1 272757348#1 272757348#2 272757316#0 272757277 272757329 272757337#1 272757292 272757274" busStop="574265352"/> <!-- S Alexanderplatz -->
+        <ride busStop="1745157971" lines="S3:0" intended="pt_light_rail_S3:0.1" depart="1042.00"/> <!-- S Hackescher Markt -->
+        <walk edges="275008387#1 275008387#0 23809677 23852046#0 23852046#1 23852029#1 51234180 554949050 554949051#1 554949051#2 31959084 51236793#0 51236793#1 235503139#1 26733828#0 466923185 104991252#1 104991252#2"/>
+    </person>
+    <person id="ped265" type="ped_pedestrian" depart="530.00">
+        <walk edges="-43231842#0 -4611693#3 -4611693#4 305153173 43230886 -4611694 251884680 339201217 15971196#0 15971196#1 54048862#0 54048862#1 54048862#2 54048862#3" busStop="3867910421"/> <!-- Lustgarten -->
+        <ride busStop="270718978" lines="200:1" intended="pt_bus_200:1.1" depart="1032.00"/> <!-- S+U Alexanderplatz/Memhardstraße -->
+        <walk edges="405100405 139877314#0 139877314#1 61579356 346206362#1 346206381#2 346206389#0 346212656#3"/>
+    </person>
+    <person id="ped266" type="ped_pedestrian" depart="532.00">
+        <walk edges="292429062#2 292429062#3 158023913#0 158023913#1 158023913#2 22972195#2 465376241" busStop="1823298700"/> <!-- S+U Friedrichstraße -->
+        <ride busStop="30731700" lines="12:1" intended="pt_tram_12:1.1" depart="933.00"/> <!-- U Oranienburger Tor -->
+        <walk edges="388702041#11 388702041#10" busStop="3043709616"/> <!-- U Oranienburger Tor -->
+        <walk edges="388702039#1 388702039#0" busStop="29058100"/> <!-- U Oranienburger Tor -->
+        <walk edges="518508119#0 7917219#1 7917219#3 27628624#0 -27628624#1 131420077#1 123264596"/>
+    </person>
+    <person id="ped267" type="ped_pedestrian" depart="534.00">
+        <walk edges="375716658#0 -375716659 -137085411#1 -137085426 225400578#0 437325047#3 -437325047#2 -437325047#0 4610362#0 4610362#1 4610362#2 4610362#3 4610362#5 4610362#6 4610362#7 4610362#8 30721662#1 -30721662#2 -30721662#3 170098545#0 170098545#1 170098545#2 46517262#0 46517262#1 46517262#2 46517262#3 46517262#4 46517262#5 46517262#6 156364556#1 202157002#0 202157002#1 202157002#2" busStop="2915590925"/> <!-- Spandauer Straße/Marienkirche -->
+        <ride busStop="3867910424" lines="N42:0" intended="pt_bus_N42:0.1" depart="1484.00"/> <!-- Nikolaiviertel -->
+        <walk edges="23851927#1 23851908#1 137630047 125513274 125513277 345088393#1 43159545#0 43159545#1"/>
+    </person>
+    <person id="ped268" type="ped_pedestrian" depart="536.00">
+        <walk edges="-52328295#0 52328295#0 23851917#0 23851917#1" busStop="3352479220"/> <!-- Fischerinsel -->
+        <ride busStop="3867910416" lines="248:1" intended="pt_bus_248:1.1" depart="939.00"/> <!-- Berliner Rathaus -->
+        <walk edges="60333311#2 289965634 -4612968#3 -344595607#0 285825378#0 -285825378#1 -285825378#2 285825377 313323170#1"/>
+    </person>
+    <person id="ped269" type="ped_pedestrian" depart="538.00">
+        <walk edges="409506038#2 409507438#0 409507437 -409507435#2 -409506039#0 561049080 -43156728#4 -202817674#0 -202817674#1 38208961 -136571494#0 -136571494#1 229531165 360464647 260138646#0 169067264#0 202157026#1 202157026#2 202157023#0 202157023#1 375901777 4773465#1" busStop="3867910438"/> <!-- Spandauer Straße/Marienkirche -->
+        <ride busStop="3867910439" lines="N42:1" intended="pt_bus_N42:1.1" depart="1388.00"/> <!-- U Weinmeisterstraße -->
+        <walk edges="23809678#4 23809678#1 23809678#0 11103418 -36892597#3"/>
+    </person>
+    <vehicle id="ped270_0" depart="triggered">
+        <route edges="4611708#1 -4611713#0 23755950#0 23755950#1 23755950#2 23755950#3 4611696#1 4611696#2 4611696#3 4611696#4 4611696#5 8008608 -120675240#1 -120675240#0 -43156728#4 -43156728#2 -43156728#1 -43156728#0 -52328295#1 -52328295#0 23851917#0 23851917#1 23851917#2 11549897 23851922#0 23851922#1 60333313 82654055#0 82654055#1 82654055#2 24992428 606078065"/>
+    </vehicle>
+    <person id="ped270" type="ped_pedestrian" depart="540.00">
+        <ride from="4611708#1" to="606078065" lines="ped270_0"/>
+    </person>
+    <person id="ped271" type="ped_pedestrian" depart="542.00">
+        <walk edges="-340498976#0 -114667396#0 169195795#8 110676320 205728152#1 205728152#2 110676321 68647306#2 28120501#0 188488046 -4773029#0 66071366#2 66071366#3 23755950#0 23755950#1 23755950#2 23755950#3 -43346200#4 -15973619#0 -15973619#1 -15973619#2 -15973619#3"/>
+    </person>
+    <person id="ped272" type="ped_pedestrian" depart="544.00">
+        <walk edges="176043824 -31112379#1 -31112379#0 176043806#1 176043806#0 -437325051#1 -437325051#0" busStop="-3869306761"/> <!-- Friedrichstraße/Reinhardtstraße -->
+        <ride busStop="-3867910422" lines="147:1" intended="pt_bus_147:1.1" depart="949.00"/> <!-- Neumannsgasse -->
+        <walk edges="-43156728#0 -43156728#1 43156728#2 43156728#4 202817674#0 202817674#1 202817674#2 136571494#0 136571494#1 136571494#2 136571494#3 136571494#4 136571494#6 562707499 328920970 72157172 169195164 -24540240#0 -24540240#1 -24540240#2 346212657 272760868 272757348#0 377634147#1 377634147#0 346229515#1 346229515#2"/>
+    </person>
+    <person id="ped273" type="ped_pedestrian" depart="546.00">
+        <walk edges="59286194#3 48435427 449849684#1 449849684#0 48435264 449849686 449849679#0 48435239 449849683 59286191 59286499 83517332#2" busStop="1668497956"/> <!-- S Hackescher Markt -->
+        <walk edges="46140376#1 -316746323#0 48664687#0 48664687#1 170302412#1 170302411 -47986661#2 475297967#1 275008387#1" busStop="1745157971"/> <!-- S Hackescher Markt -->
+        <ride busStop="2603331695" lines="S7:0" intended="pt_light_rail_S7:0.1" depart="1068.00"/> <!-- S Friedrichstraße -->
+        <walk edges="335043665#1" busStop="27412232"/> <!-- S Friedrichstraße -->
+        <walk edges="254523901#1 237520773#3 237520773#4 237520773#5 237520773#6 237520773#7 237520773#8 196845298#1 196845298#2 378150067#0 378150067#1 24243052#1 292429063#0 292429062#3 292429062#2 292429062#1 292429062#0 -153698380#2 373292157#0 373292157#1 236092221#2"/>
+    </person>
+    <person id="ped274" type="ped_pedestrian" depart="548.00">
+        <walk edges="378150074#0 465218216 465218218 465218213 465218214 607001337 465376244#0 378150067#2 378150067#1 378150067#0 196845298#2 196845298#1 237520773#8 237520773#7 237520773#6 237520773#5 237520773#4 237520773#3 254523901#1" busStop="27412232"/> <!-- S Friedrichstraße -->
+        <ride busStop="27411231" lines="S5:1" intended="pt_light_rail_S5:1.1" depart="804.00"/> <!-- S Alexanderplatz -->
+        <walk edges="272757337#1 272757329 272757277 272757316#0 272757348#2 272757348#1 377634147#1 377634147#0 346229515#1 272780762#1 272780758#1 272780740 272780755#0 272780747#1" busStop="2094266777"/> <!-- U Alexanderplatz -->
+        <walk edges="346206377#2 346212656#4" busStop="2094266778"/> <!-- U Alexanderplatz -->
+        <ride busStop="2094266781" lines="U2:0" intended="pt_subway_U2:0.3" depart="1248.00"/> <!-- U Klosterstraße -->
+        <walk edges="82658674#2 82658674#3 -24992424#2"/>
+    </person>
+    <person id="ped275" type="ped_pedestrian" depart="550.00">
+        <walk edges="373292157#1 342968607#1 461526152" busStop="3869306771"/> <!-- Unter den Linden/Friedrichstraße -->
+        <ride busStop="3870475228" lines="200:1" intended="pt_bus_200:1.1" depart="869.00"/> <!-- Staatsoper -->
+        <walk edges="340498982#3 340498982#4 340498982#5 340498982#7 168937986#0 168937986#2 168937986#3 168937986#4 4610600 -15971189 -339201177#0 330840132"/>
+    </person>
+    <vehicle id="ped276_0" depart="triggered">
+        <route edges="-326116286#0 -24913267#3 24913267#3 326116286#0 326116286#1 326116286#2 4588220#0 530111226 530085630 -43233756 43233756"/>
+    </vehicle>
+    <person id="ped276" type="ped_pedestrian" depart="552.00">
+        <ride from="-326116286#0" to="43233756" lines="ped276_0"/>
+    </person>
+    <person id="ped277" type="ped_pedestrian" depart="554.00">
+        <walk edges="465376261#3 465376259#1 254523888#0 335704571 254523912#1 254523912#0 254523897 254523901#0 254523901#1" busStop="27412232"/> <!-- S Friedrichstraße -->
+        <ride busStop="27411240" lines="S5:1" intended="pt_light_rail_S5:1.1" depart="804.00"/> <!-- S Hackescher Markt -->
+        <walk edges="377110615 377110622#3" busStop="1745157971"/> <!-- S Hackescher Markt -->
+        <walk edges="275008387#1 275008387#2 370359204#0 370359204#2 478396988" busStop="3867910428"/> <!-- S Hackescher Markt -->
+        <ride busStop="2915590925" lines="N2:0" intended="pt_bus_N2:0.1" depart="1106.00"/> <!-- Spandauer Straße/Marienkirche -->
+        <walk edges="202157002#2 202157002#3 -534588621#1 312392969 564139999#4 312392976#0 312392976#1"/>
+    </person>
+    <person id="ped278" type="ped_pedestrian" depart="556.00">
+        <walk edges="-409506039#0 561049080 -43156728#4 -202817674#0 -202817674#1 38208961 -136571494#0 -136571494#1 229531165 360464647 260138646#0 169067264#0 202157026#1 202157026#2 202157023#0 202157023#1 375901777 4773465#1" busStop="3867910438"/> <!-- Spandauer Straße/Marienkirche -->
+        <ride busStop="-2915579613" lines="N40:0" intended="pt_bus_N40:0.1" depart="1258.00"/> <!-- S Hackescher Markt -->
+        <walk edges="-275177453" busStop="-3867910426"/> <!-- S Hackescher Markt -->
+        <ride busStop="3867910439" lines="N42:1" intended="pt_bus_N42:1.1" depart="1485.00"/> <!-- U Weinmeisterstraße -->
+        <walk edges="23809678#4 72463266#0"/>
+    </person>
+    <person id="ped279" type="ped_pedestrian" depart="558.00">
+        <walk edges="4396823#1 465398529#1 437325048#0 560370523 437325047#5 437325047#3 437325047#2 437325047#0 30721660#5 30721660#4 30721660#3 30721660#2 30721660#1 30721660#0 46140382 46140378 183415643 83517332#3 83517332#2 83517332#1 83517332#0 -84960597#3 -84960597#1 -84960597#0 11103418 23809678#0 23809678#1 23809678#4 -19002363#6 -19002363#4 -19002363#3 -19002363#2 -19002363#1 4613292#0 4613292#1 4613308#1 4613308#2 310357284#0 310357284#1 100405009#0 100405009#1 100405009#2 100405009#3 100405009#4 100405009#5 305093247#0 305093247#2 305093328#0 305093328#1 305093328#2 346206389#3 565537148#0" busStop="30731497"/> <!-- U Alexanderplatz -->
+        <walk edges="272810807 199426768#1 199426768#0 48524801#1 199426766"/>
+    </person>
+    <person id="ped280" type="ped_pedestrian" depart="560.00">
+        <walk edges="24540240#3 169195791#3 169195791#2 169195791#1 175499833#4 175499826" busStop="1860777041"/> <!-- S+U Alexanderplatz/Gontardstraße -->
+        <ride busStop="4673135647" lines="M4:0" intended="pt_tram_M4:0.1" depart="707.00"/> <!-- Spandauer Straße/Marienkirche -->
+        <walk edges="171826985#3 171826985#2 171826985#1 171826985#0 24914992#1" busStop="1827996417"/> <!-- Spandauer Straße/Marienkirche -->
+        <ride busStop="271296293" lines="200:0" intended="pt_bus_200:0.1" depart="1027.00"/> <!-- Staatsoper -->
+        <walk edges="169195795#5 169195795#2 217531416 217531415"/>
+    </person>
+    <person id="ped281" type="ped_pedestrian" depart="562.00">
+        <walk edges="272757349#0 272757318#1 272757304 272757309 272757339#0 272757339#1 272757339#2 272757294 272757295 272757343#0 272757293 272757283 272757328#0 272757323#0 272757306 272757297" busStop="3419694885"/> <!-- Berlin Alexanderplatz -->
+        <ride busStop="2603331683" lines="RE7:0" intended="pt_train_RE7:0" depart="668.00"/> <!-- Berlin Friedrichstraße -->
+        <walk edges="254523901#1 254523901#0 254523897 254523912#0 254523912#1 335704571 254523888#0 254523888#1 195411602#1" busStop="2792364395"/> <!-- S+U Friedrichstraße -->
+        <ride busStop="2071423334" lines="U6:1" intended="pt_subway_U6:1.2" depart="1154.00"/> <!-- U Französische Straße -->
+        <walk edges="373866702#0 196850610 196850619 196850629#1 196850629#0 196850622#1"/>
+    </person>
+    <person id="ped282" type="ped_pedestrian" depart="564.00">
+        <walk edges="465376260#1 254523888#0 335704571 254523912#1 335576646#3 335576646#2 335703511#1 254523871 254339584 274524379#0" busStop="29805120"/> <!-- Berlin Friedrichstraße -->
+        <ride busStop="2776873647" lines="RE7:1" intended="pt_train_RE7:1" depart="677.00"/> <!-- Berlin Alexanderplatz -->
+        <walk edges="272757323#0 272757328#0 272757283 272757293 272757343#0 272757295 272757294 272757339#2 272757339#1 272757339#0 272757309 272757304 272757318#1 272757349#0 75228233 72157168#5" busStop="2094266775"/> <!-- U Alexanderplatz -->
+        <ride busStop="3834324122" lines="U8:1" intended="pt_subway_U8:1.2" depart="1216.00"/> <!-- S+U Jannowitzbrücke -->
+        <walk edges="156364559#1 156364559#2 344595600 4612961#2"/>
+    </person>
+    <person id="ped283" type="ped_pedestrian" depart="566.00">
+        <walk edges="-335768405#1 -26322535#4 -26322535#5 -26322535#6 159200257#1 159200257#2 159200257#3 23813201 23851917#1" busStop="3352479220"/> <!-- Fischerinsel -->
+        <ride busStop="3907105048" lines="248:1" intended="pt_bus_248:1.1" depart="939.00"/> <!-- Littenstraße -->
+        <walk edges="289966845 289967595#0 289967595#1 82659290#0 82659290#1 59334310#3 59334310#2 59334310#1 59334310#0"/>
+    </person>
+    <person id="ped284" type="ped_pedestrian" depart="568.00">
+        <walk edges="335576646#2 335576646#3 254523912#0 254523897 254523901#0 254523901#1" busStop="27412232"/> <!-- S Friedrichstraße -->
+        <ride busStop="27411240" lines="S5:1" intended="pt_light_rail_S5:1.1" depart="804.00"/> <!-- S Hackescher Markt -->
+        <walk edges="377110615 377110622#3" busStop="1745157971"/> <!-- S Hackescher Markt -->
+        <walk edges="275008387#1 275008387#2 -48664717#0 -48664717#1 -168942727#0 -168942727#1 55741054 4613293"/>
+    </person>
+    <person id="ped285" type="ped_pedestrian" depart="570.00">
+        <walk edges="377110622#2 377110622#1 377110622#0 28016309#3 475297968#0 475297968#1 170098545#1 170098545#2 46517262#0 46517262#1 46517262#2 46517262#3 46517262#4" busStop="1633759760"/> <!-- S Hackescher Markt -->
+        <ride busStop="30731481" lines="M4:2" intended="pt_tram_M4:2.1" depart="768.00"/> <!-- Spandauer Straße/Marienkirche -->
+        <walk edges="202157002#2" busStop="2915590925"/> <!-- Spandauer Straße/Marienkirche -->
+        <ride busStop="3867910424" lines="N42:0" intended="pt_bus_N42:0.0" depart="884.00"/> <!-- Nikolaiviertel -->
+        <walk edges="23851927#1 23851927#0 -32606312 82654055#1 82654055#2 156364566#1 60333309#0 60333309#1 24992424#0 24992424#1 24992424#2"/>
+    </person>
+    <person id="ped286" type="ped_pedestrian" depart="572.00">
+        <walk edges="388702039#9 388702039#8 388702039#7 388702039#6 388702039#5 388702039#4 388702039#3 388702039#2 388702039#1" busStop="29058100"/> <!-- U Oranienburger Tor -->
+        <ride busStop="2792364395" lines="U6:1" intended="pt_subway_U6:1.1" depart="783.00"/> <!-- S+U Friedrichstraße -->
+        <walk edges="195411602#1 254523888#1 254523888#0 335704571 254523912#1 254523912#0 254523897 254523901#0 254523901#1" busStop="27412232"/> <!-- S Friedrichstraße -->
+        <ride busStop="27411240" lines="S3:1" intended="pt_light_rail_S3:1.1" depart="996.00"/> <!-- S Hackescher Markt -->
+        <walk edges="377110621#0 377110617 377110622#1 377110622#0 28016309#3 475297968#0 475297968#1 170098545#1 170098545#2 46517262#0 46517262#1 46517262#2 46517262#3 46517262#4 46517262#5 46517262#6 156364556#1 202157002#0 202157002#1 202157002#2 202157002#3 -534588621#1 -534588621#0 606078071#0 606078071#1 606078071#2 606078071#3 61583423#0 606078067"/>
+    </person>
+    <person id="ped287" type="ped_pedestrian" depart="574.00">
+        <walk edges="16873017#2 16873017#1 202157018#2 169067264#2 4611698#0 23013165#2 23013165#1 23013165#0 54048862#3 61584187#1 61584187#2" busStop="3867910420"/> <!-- Lustgarten -->
+        <ride busStop="271296293" lines="100:0" intended="pt_bus_100:0.1" depart="931.00"/> <!-- Staatsoper -->
+        <walk edges="169195795#5 4610494#1 4610494#0"/>
+    </person>
+    <person id="ped288" type="ped_pedestrian" depart="576.00">
+        <walk edges="274513566#0" busStop="2792364395"/> <!-- S+U Friedrichstraße -->
+        <walk edges="195411602#1 254523888#1 254523888#0 335704571 254523912#1 254523912#0 254523897 254523901#0 254523901#1" busStop="27412232"/> <!-- S Friedrichstraße -->
+        <ride busStop="27411231" lines="S5:1" intended="pt_light_rail_S5:1.1" depart="804.00"/> <!-- S Alexanderplatz -->
+        <walk edges="272757337#1 272757329 272757277 272757316#0 272757348#2 272757347#0 272757325#1 272757279 272757315 272757346#0 272757346#1 272757346#2 272757290 272757338#2 272757350#0 272811798 169230291#2 169230291#1 272811796 272757264 272757307 272757333#1 272757299"/>
+    </person>
+    <person id="ped289" type="ped_pedestrian" depart="578.00">
+        <walk edges="24992424#3 -24992424#2 -24992424#1 -24992424#0 4612964#0 4612964#1 4612964#2 82648766#2 313193879#0 24992428 606078065" busStop="271430924"/> <!-- Berliner Rathaus -->
+        <ride busStop="1827996414" lines="M48:0" intended="pt_bus_M48:0.1" depart="964.00"/> <!-- Spandauer Straße/Marienkirche -->
+        <walk edges="72157174#1 202157002#3 202157002#2" busStop="2915590925"/> <!-- Spandauer Straße/Marienkirche -->
+        <ride busStop="272408975" lines="N2:0" intended="pt_bus_N2:0.1" depart="1195.00"/> <!-- Unter den Linden/Friedrichstraße -->
+        <walk edges="188386313#0 -169999355 11483007 195411604 465376240 607001336 195411602#1 195411602#0 190447768#1 -4402228 -465376254 -222328410 6228081 -541295974 389705415#1 389705415#0 541295978 388702047#4 388702047#3 388702047#2 388702047#1 388702047#0 388702039#6 388702039#5 388702039#4 388702039#3 388702039#2 388702039#1"/>
+    </person>
+    <person id="ped290" type="ped_pedestrian" depart="580.00">
+        <walk edges="165832574#2 165832574#1 165832574#0 165832575 165832577 165832576 181587284#0 181587284#1 181587283 339201248 -24243107#1 -24243107#2 437325054#0 465398530#3"/>
+    </person>
+    <person id="ped291" type="ped_pedestrian" depart="582.00">
+        <walk edges="4613302 -4613302 -112128825#0 -268002748#1 -24993933#0 -24993933#1 -24993933#2 -24993933#3 24993933#4 19002357#1 19002363#1 -19002363#2 55741054 234463928#1 234463931#5 234463931#4 234463931#3 234463931#2 234463931#1 25294728 -77348147 156364570#0 156364570#1 156364570#2 156364570#3 -28016312#3 -28016312#0 15971191#1 15971191#0 553649892 4610599 202156991#1 202156991#0 -23121444 -339201177#4 -339201177#3 -339201177#2 -339201177#1 -339201177#0 -15971189 -4610600 -4610480 83517339 340498976#8 340498976#7 340498976#6 340498976#5 340498976#4 340498976#2 463829477#1 83517336#3 83517336#2 83517336#1 83517336#0 158023913#2 158023913#1 158023913#0 -292429062#3"/>
+    </person>
+    <vehicle id="ped292_0" depart="triggered">
+        <route edges="490365295#0 490365295#1 490365295#2 156364556#1 202157002#0 202157002#1 202157002#2 202157002#3 24913519#1 24913519#2 541763975 202156995#0 202156995#1 4067932#0 4067932#1 339201219 61584187#1 61584187#2 61584187#3 61584187#4 54048863 15971197 4611699 169195795#0 354528932 4611694 43230886 305153173 -4611693#4 -4611693#3 -4611693#2 -43346200#4 -4611708#3 -147066248#6 -147066248#5 -147066248#4 -147066248#3 -147066248#2 -147066248#1 -147066248#0 147066248#0"/>
+    </vehicle>
+    <person id="ped292" type="ped_pedestrian" depart="584.00">
+        <ride from="490365295#0" to="147066248#0" lines="ped292_0"/>
+    </person>
+    <person id="ped293" type="ped_pedestrian" depart="586.00">
+        <walk edges="26322535#3 -26322535#4 -26322535#5 -26322535#6 159200257#1 159200257#2 159200257#3 23813201 23851917#1" busStop="3352479220"/> <!-- Fischerinsel -->
+        <ride busStop="3907105048" lines="248:1" intended="pt_bus_248:1.1" depart="939.00"/> <!-- Littenstraße -->
+        <walk edges="289966845 289967595#0 289967595#1 315245296#1 315245296#0 316092515"/>
+    </person>
+    <person id="ped294" type="ped_pedestrian" depart="588.00">
+        <walk edges="228484736 30721660#0 46140382 46140377#3 46140377#4 30721662#1 30721662#2 30721662#3 23809670#3 23809670#4 23809670#5 15971191#1 15971191#0 553649892 4610599 202156991#1 202156991#0 -23121444 -339201177#4 -339201177#3 -339201177#2 -339201177#1 -339201177#0 -15971189 -4610600 -168937986#4 -168937986#3"/>
+    </person>
+    <person id="ped295" type="ped_pedestrian" depart="590.00">
+        <walk edges="465398530#0 165415464#0" busStop="30353449"/> <!-- S Oranienburger Straße -->
+        <ride busStop="474368351" lines="S26:1" intended="pt_light_rail_S26:1.0" depart="651.00"/> <!-- S Friedrichstraße -->
+        <walk edges="-195105328#0 -34848160#1 34848160#0 -222328410 -6228081"/>
+    </person>
+    <person id="ped296" type="ped_pedestrian" depart="592.00">
+        <walk edges="113595955#0 113595955#1 113595955#2 171826985#0 24914992#1" busStop="1827996417"/> <!-- Spandauer Straße/Marienkirche -->
+        <ride busStop="272408975" lines="TXL:1" intended="pt_bus_TXL:1.1" depart="789.00"/> <!-- Unter den Linden/Friedrichstraße -->
+        <walk edges="188386313#0 188386313#1 188386313#2 153698380#0 111833186#0 111833186#1 456400037#1"/>
+    </person>
+    <person id="ped297" type="ped_pedestrian" depart="594.00">
+        <walk edges="196850619 196850629#1 196850607#2 -42102542#1 196850609#0" busStop="2071423352"/> <!-- U Französische Straße -->
+        <ride busStop="3869306769" lines="U6:0" intended="pt_subway_U6:0.1" depart="762.00"/> <!-- S+U Friedrichstraße -->
+        <walk edges="-4402228 190447768#1 195411602#0 254523888#1 254523888#0 335704571 254523912#1 254523912#0 254523897 254523901#0 254523901#1" busStop="27412232"/> <!-- S Friedrichstraße -->
+        <ride busStop="27411240" lines="S3:1" intended="pt_light_rail_S3:1.1" depart="996.00"/> <!-- S Hackescher Markt -->
+        <walk edges="377110615 377110622#3" busStop="1745157971"/> <!-- S Hackescher Markt -->
+        <walk edges="275008387#1 275008387#2 48664717#0 48664717#1"/>
+    </person>
+    <person id="ped298" type="ped_pedestrian" depart="596.00">
+        <walk edges="375901771#1 375901771#0 171826987#5 171826985#4 171826985#3 171826985#2 171826985#1 171826985#0 24914992#1" busStop="1827996417"/> <!-- Spandauer Straße/Marienkirche -->
+        <ride busStop="3867910420" lines="100:0" intended="pt_bus_100:0.1" depart="829.00"/> <!-- Lustgarten -->
+        <walk edges="61584187#2 61584187#3 61584187#4 54048863 15971197 4611699 169195795#0"/>
+    </person>
+    <person id="ped299" type="ped_pedestrian" depart="598.00">
+        <walk edges="-133885742 -339201177#4 -23121444 202156991#0 202156991#1 4610599 553649892 15971191#0 15971191#1 -28016312#0 -28016312#3 222470308 475297966 100950875#3 47986664#3 222470309#0 222470309#1 574993713#0 -574993713#1 574993713#2"/>
+    </person>
+    <person id="ped300" type="ped_pedestrian" depart="600.00">
+        <walk edges="-292429056#0 35557143#0 35557143#1" busStop="3869306767"/> <!-- U Französische Straße -->
+        <ride busStop="-3867910422" lines="147:1" intended="pt_bus_147:1.0" depart="695.00"/> <!-- Neumannsgasse -->
+        <walk edges="-43156728#0 52328295#1 52328295#0 23851917#0 23851917#1" busStop="3352479220"/> <!-- Fischerinsel -->
+        <ride busStop="271430924" lines="N42:1" intended="pt_bus_N42:1.1" depart="1190.00"/> <!-- Berliner Rathaus -->
+        <walk edges="606078065 156364553#0 159482050#0 379797004#2 379797004#3"/>
+    </person>
+    <person id="ped301" type="ped_pedestrian" depart="602.00">
+        <walk edges="272757318#0 272757281 272757260 272757258#3 272757258#2 272757258#1 272757346#2 272757290 272757338#2 272757350#0 272811798 169230291#2" busStop="1860777041"/> <!-- S+U Alexanderplatz/Gontardstraße -->
+        <ride busStop="4673135647" lines="M4:0" intended="pt_tram_M4:0.1" depart="707.00"/> <!-- Spandauer Straße/Marienkirche -->
+        <walk edges="171826985#3 171826985#4 24913519#1 24913519#2 541763975 202156995#0 202157014#1 424344281"/>
+    </person>
+    <person id="ped302" type="ped_pedestrian" depart="604.00">
+        <walk edges="373292157#0 373292157#1 342968607#1 -194069450#1" busStop="-3869306770"/> <!-- Unter den Linden/Friedrichstraße -->
+        <ride busStop="-3867910422" lines="147:2" intended="pt_bus_147:2.0" depart="910.00"/> <!-- Neumannsgasse -->
+        <walk edges="-43156728#0 -43156728#1 43156728#2 43156728#4 202817674#0 202817674#1 202817674#2 136571494#0 260138638#0 339201239 339201222"/>
+    </person>
+    <person id="ped303" type="ped_pedestrian" depart="606.00">
+        <walk edges="272757322#1 272757322#0 272757342#2 72157168#2 72157168#3 72157168#4 72157168#5" busStop="2094266775"/> <!-- U Alexanderplatz -->
+        <walk edges="272780751#0 272780756#1" busStop="2094266983"/> <!-- U Alexanderplatz -->
+        <ride busStop="4655287361" lines="U8:0" intended="pt_subway_U8:0.1" depart="832.00"/> <!-- U Weinmeisterstraße -->
+        <walk edges="380365952 380365961 380365964 380365965 -36892597#1 -36892597#2 -4610355#0 59287094 449849682"/>
+    </person>
+    <person id="ped304" type="ped_pedestrian" depart="608.00">
+        <walk edges="-310176513#5 310176513#6 156364559#4 156364559#5 156364559#6 -24992424#5 -24992424#4 -24992424#3 -24992424#2 -24992424#1 -24992424#0 4612964#0 4612964#1 4612964#2 82648766#2 313193879#0 24992428 606078065" busStop="271430924"/> <!-- Berliner Rathaus -->
+        <ride busStop="3867910438" lines="N40:0" intended="pt_bus_N40:0.1" depart="1141.00"/> <!-- Spandauer Straße/Marienkirche -->
+        <walk edges="4773465#1 4773465#2 4773465#3 490365295#0 490365295#1 490365295#2 46517262#6 46517262#5 46517262#4 46517262#3 46517262#2 46517262#1 46517262#0 170098545#2 170098545#1 170098545#0 -30721662#3 23852046#0 23852046#1 23852029#1 51234180 554949050 554949051#1 554949051#2 31959084 51236793#0 51236793#1 181587281 339201225 181587282 26733828#2 26733828#3 181587285 570058775#1 339201248 181587283 181587284#1 181587284#0 165832576 165832577 165832575 165832574#0 165832574#1 165832574#2 -153698390#1 -427637455#0 -427637455#1 -169660686#0 -4403559#0 37612430 37629773 131611527#2"/>
+    </person>
+    <person id="ped305" type="ped_pedestrian" depart="610.00">
+        <walk edges="373866703#1" busStop="2071423352"/> <!-- U Französische Straße -->
+        <ride busStop="3869306769" lines="U6:0" intended="pt_subway_U6:0.1" depart="762.00"/> <!-- S+U Friedrichstraße -->
+        <walk edges="-4402228 190447768#1 195411602#0 254523888#1 254523888#0 335704571 254523912#1 254523912#0 254523897 254523901#0 254523901#1" busStop="27412232"/> <!-- S Friedrichstraße -->
+        <ride busStop="27411240" lines="S3:1" intended="pt_light_rail_S3:1.1" depart="996.00"/> <!-- S Hackescher Markt -->
+        <walk edges="377110621#0 377110617 377110622#1 377110622#0 28016309#3 475297968#0 475297968#1 170098545#1 170098545#2 46517262#0 46517262#1 175506752"/>
+    </person>
+    <person id="ped306" type="ped_pedestrian" depart="612.00">
+        <walk edges="309147331#1 309147331#0 -45235049#1 -45235049#2 -24540240#4 272757275#1 272757275#0 272757349#2 272757349#1 272757349#0 75228233 72157168#4 72157168#3 72157168#2 272757342#2 272757322#0 272757330 272757259"/>
+    </person>
+    <person id="ped307" type="ped_pedestrian" depart="614.00">
+        <walk edges="272795506#0 199434277 346212654 72157168#4 75228233 272757349#0 272757318#1 272757304 272757309 272757339#0 272757346#0 272757315 272757279 272757325#1 272757347#0 272757348#2 272757316#0 272757277 272757329 272757337#1 272757292 272757274" busStop="574265352"/> <!-- S Alexanderplatz -->
+        <ride busStop="1745157971" lines="S5:0" intended="pt_light_rail_S5:0.1" depart="811.00"/> <!-- S Hackescher Markt -->
+        <walk edges="275008387#1 275008387#0 23809677 -30721662#2 30721662#1 4610362#8 4610362#7 4610362#6 4610362#5 4610362#3 4610362#2 4610362#1 4610362#0 -437325047#0 474154190#0 474154190#1 225400609#10 243911462 113589280#1 113589281#1 243911461"/>
+    </person>
+    <person id="ped308" type="ped_pedestrian" depart="616.00">
+        <walk edges="398956073 398956074#1 225400588#1 225400588#0" busStop="30353449"/> <!-- S Oranienburger Straße -->
+        <ride busStop="474368351" lines="S1:0" intended="pt_light_rail_S1:0.1" depart="720.00"/> <!-- S Friedrichstraße -->
+        <walk edges="24243056 -195105328#1 292429063#1 237519487#1 237519487#2 43186240 195268589"/>
+    </person>
+    <person id="ped309" type="ped_pedestrian" depart="618.00">
+        <walk edges="375901779#5 171826985#4 171826985#3 171826985#2 171826985#1 171826985#0 24914992#1" busStop="1827996417"/> <!-- Spandauer Straße/Marienkirche -->
+        <ride busStop="271296293" lines="TXL:1" intended="pt_bus_TXL:1.1" depart="789.00"/> <!-- Staatsoper -->
+        <walk edges="169195795#5 169195795#2 169195795#1 168937986#0 168937986#2"/>
+    </person>
+    <person id="ped310" type="ped_pedestrian" depart="620.00">
+        <walk edges="156364566#1 82654050#2 82654050#1 379797004#3 379797004#2 379797004#1 379797004#0 136571494#6 136571494#4 136571494#3 136571494#2 136571494#1 136571494#0 202817674#2 202817674#1 202817674#0 -43156728#4 561049080 -409506039#0 -409507435#2 -409506038#2"/>
+    </person>
+    <person id="ped311" type="ped_pedestrian" depart="622.00">
+        <walk edges="100405009#0 310357283#1 310357283#0 139877314#2 61579356 346206368#0 346206368#1 346206368#2 346206368#3 346206368#5 346206368#6 72157168#3 72157168#4 75228233 272757349#0 272757318#1 272757304 272757309 272757339#0 272757339#1 272757339#2 272757294 272757295 272757343#0 272757293 272757283 272757328#0 272757323#0 272757306 272757297" busStop="3419694885"/> <!-- Berlin Alexanderplatz -->
+        <ride busStop="2603331683" lines="RE2:2" intended="pt_train_RE2:2.1" depart="1094.00"/> <!-- Berlin Friedrichstraße -->
+        <walk edges="254523901#1 237520773#2 237520773#1 422002325 -194073677#0 -34848160#1 34848160#0 -222328410 6228081 -541295974 389705415#1 -389705415#0"/>
+    </person>
+    <person id="ped312" type="ped_pedestrian" depart="624.00">
+        <walk edges="274513551 335043657 274513545 274513558 25959559#1 465376258#1 4402228" busStop="3869306764"/> <!-- S+U Friedrichstraße -->
+        <ride busStop="3869306762" lines="147:0" intended="pt_bus_147:0.0" depart="696.00"/> <!-- Friedrichstraße/Reinhardtstraße -->
+        <walk edges="111251382#2 437325051#0 424895365 424895368#1 424895368#2"/>
+    </person>
+    <person id="ped313" type="ped_pedestrian" depart="626.00">
+        <walk edges="-68647306#3 -68647306#2 110676321 205728152#2 205728152#1 110676320 340498982#3" busStop="3870475228"/> <!-- Staatsoper -->
+        <ride busStop="3867910421" lines="200:1" intended="pt_bus_200:1.1" depart="928.00"/> <!-- Lustgarten -->
+        <walk edges="54048862#3 61584187#1 4773023#0 202157029#2 4773024#1 134021300#1 4773025 121717657#2"/>
+    </person>
+    <person id="ped314" type="ped_pedestrian" depart="628.00">
+        <walk edges="272757302 272757278 272757258#5 272757346#0 272757339#0 272757309 272757304 272757318#1 272757349#0 75228233 72157168#5" busStop="2094266775"/> <!-- U Alexanderplatz -->
+        <walk edges="272780751#0 272780756#1" busStop="2094266983"/> <!-- U Alexanderplatz -->
+        <ride busStop="4655287361" lines="U8:0" intended="pt_subway_U8:0.1" depart="832.00"/> <!-- U Weinmeisterstraße -->
+        <walk edges="-24241790#2" busStop="4655287360"/> <!-- U Weinmeisterstraße -->
+        <walk edges="380365962 380365953 380365968#1 380365960"/>
+    </person>
+    <person id="ped317" type="ped_pedestrian" depart="634.00">
+        <walk edges="100944802#0 246052428 301167584#0 301167584#1 301167584#2 112128419#1 112128419#2 139877309" busStop="270719334"/> <!-- S+U Alexanderplatz/Memhardstraße -->
+        <ride busStop="3867910420" lines="200:0" intended="pt_bus_200:0.1" depart="884.00"/> <!-- Lustgarten -->
+        <walk edges="61584187#2 61584187#1 23121445#5 23121445#4 23121445#3 23121445#2 23121445#1 23121445#0 -339201177#4 -133885742 133885750#2 133885750#3"/>
+    </person>
+    <person id="ped318" type="ped_pedestrian" depart="636.00">
+        <walk edges="-577274547 -48664717#0 275008387#2 475297457#1 475297457#2 235503140#2 235503140#1 235503140#0 46140382 30721660#0 30721660#1 30721660#2 30721660#3 4610351#1 4610351#0 -454285423#0 -454285423#1 -454285423#3 -454285423#4 493008124#0 137085414 137085430#2 137085434#3 -137085410#0"/>
+    </person>
+    <person id="ped319" type="ped_pedestrian" depart="638.00">
+        <walk edges="272811796 169230291#1 175499833#0 175499825" busStop="1860777041"/> <!-- S+U Alexanderplatz/Gontardstraße -->
+        <ride busStop="4673135647" lines="M4:0" intended="pt_tram_M4:0.1" depart="707.00"/> <!-- Spandauer Straße/Marienkirche -->
+        <walk edges="171826987#1 375901777 202157023#1 202157023#0 202157026#2 202157026#1 169067264#1"/>
+    </person>
+    <person id="ped320" type="ped_pedestrian" depart="640.00">
+        <walk edges="6227658#2 437325054#0 -437325048#1 -560370523 -437325047#5 -437325047#3 -437325047#2 -437325047#0 4610362#0 4610362#1 4610362#2 4610362#3 4610362#5 4610362#6 4610362#7 4610362#8 30721662#1 -30721662#2 23809677 275008387#0 475297967#0 280007142#1 280007142#2 280007142#3"/>
+    </person>
+    <person id="ped321" type="ped_pedestrian" depart="642.00">
+        <walk edges="374734394#9 541295978 389705415#0 389705415#1 -541295974 6228081 -222328410 -465376254 -4402228" busStop="-3869306765"/> <!-- S+U Friedrichstraße -->
+        <ride busStop="3869306774" lines="147:1" intended="pt_bus_147:1.1" depart="1075.00"/> <!-- Werderscher Markt -->
+        <walk edges="23755950#0 -546927052 -43231842#0"/>
+    </person>
+    <person id="ped322" type="ped_pedestrian" depart="644.00">
+        <walk edges="47986664#2 47986664#1 47986664#0 47986658#1 47986658#0 475297457#0 275008387#1" busStop="1745157971"/> <!-- S Hackescher Markt -->
+        <walk edges="377110622#3 377110615" busStop="27411240"/> <!-- S Hackescher Markt -->
+        <ride busStop="27411231" lines="S5:1" intended="pt_light_rail_S5:1.1" depart="895.00"/> <!-- S Alexanderplatz -->
+        <walk edges="272757337#1 272757329 272757277 272757316#0 272757348#2 272757347#0 272757325#1 272757279 272757315 272757346#0 272757339#0 272757309 272757304 272757318#1 272757349#0 75228233 72157168#4 72157168#3 72157168#2 272757342#2 272757322#0 272757322#1"/>
+    </person>
+    <person id="ped323" type="ped_pedestrian" depart="646.00">
+        <walk edges="483624520 346212656#1 346212656#3 346212656#4 346206377#2" busStop="2094266777"/> <!-- U Alexanderplatz -->
+        <walk edges="272780747#1 272780755#0 272780740 272780758#1 272780762#1 346229515#1 377634147#0 377634147#1 272757348#1 272757348#2 272757316#0 272757277 272757329 272757337#1 272757292 272757274 272757273 272757341#1 272757341#0" busStop="3419694885"/> <!-- Berlin Alexanderplatz -->
+        <ride busStop="2603331683" lines="RE2:2" intended="pt_train_RE2:2.1" depart="1094.00"/> <!-- Berlin Friedrichstraße -->
+        <walk edges="254523901#1 254523901#0 254523897 254523912#0 254523912#1 335704571 254523888#0 254523888#1 195411602#0 190447768#1 465376260#0 304517627#2"/>
+    </person>
+    <person id="ped324" type="ped_pedestrian" depart="648.00">
+        <walk edges="26733828#3 181587285 570058775#1 24243107#1 24243107#2 -437325054#1 165415464#0" busStop="30353449"/> <!-- S Oranienburger Straße -->
+        <ride busStop="474368351" lines="S25:0" intended="pt_light_rail_S25:0.1" depart="1021.00"/> <!-- S Friedrichstraße -->
+        <walk edges="254339581#2 428486923 335009920 254339591#1 254339591#2 254339591#3 254339591#4 254339591#5 254339591#6 237520773#3 237520773#2 335576648#0 335576644#1 335576644#2 254339571 254339582 254339567#1"/>
+    </person>
+    <person id="ped326" type="ped_pedestrian" depart="652.00">
+        <walk edges="566764344 492609984 4613304#1 4613304#0 112128418#2 112128418#1 310357283#1 310357283#0 139877314#2 61579356 346206368#0 346206368#1 346206368#2 346206368#3 346206368#5 346206368#6 72157168#3 72157168#4 75228233 272757349#0 272757318#1 272757304 272757309 272757339#0 272757346#0 272757315 272757279 272757325#1 272757347#0 272757348#2 272757316#0 272757277 272757329 272757337#1 272757292 272757274"/>
+    </person>
+    <person id="ped327" type="ped_pedestrian" depart="654.00">
+        <walk edges="4612961#1 4612961#0 24992424#5 -24992424#4 -24992424#3 -24992424#2 -24992424#1 -24992424#0 4612964#0 4612964#1 4612964#2 82648766#2 313193879#0 24992428 606078065" busStop="271430924"/> <!-- Berliner Rathaus -->
+        <ride busStop="3867910438" lines="N40:0" intended="pt_bus_N40:0.1" depart="1141.00"/> <!-- Spandauer Straße/Marienkirche -->
+        <walk edges="4773465#1 4773465#2 4773465#3 490365295#0 490365295#1 490365295#2 28016312#1 28016312#0 15971191#1 15971191#0 553649892 4610599 202156991#1 202156991#0 -23121444 -339201177#4 -339201177#3 -339201177#2 -339201177#1 -339201177#0 -15971189 -4610600 -4610480 83517339 340498976#8 340498976#7 340498976#6 340498976#5 340498976#4 122820534#1 195262644 -4610476#3 -24243092#0 38711947#1 274513571#0 274513556#1 422000253#2" busStop="2792364395"/> <!-- S+U Friedrichstraße -->
+        <walk edges="195411602#1 254523888#1 254523888#0 335704571 254523912#1 254523912#0 254523897 254523901#0 254523901#1 237520773#3 237520773#4 237520773#5 237520773#6 237522574#0"/>
+    </person>
+    <person id="ped328" type="ped_pedestrian" depart="656.00">
+        <walk edges="-24913267#0 342968607#1 461526152 340498982#0 340498982#1 340498982#3" busStop="3870475228"/> <!-- Staatsoper -->
+        <ride busStop="3867910421" lines="N2:1" intended="pt_bus_N2:1.1" depart="1241.00"/> <!-- Lustgarten -->
+        <walk edges="54048862#3 61584187#1 4773023#0 4773023#1 134021300#4 134021300#3 33207312#0 33207312#1"/>
+    </person>
+    <person id="ped329" type="ped_pedestrian" depart="658.00">
+        <walk edges="-202162473 305093247#2 305093328#0 305093328#1 305093328#2 346206389#3 565537148#0" busStop="30731497"/> <!-- U Alexanderplatz -->
+        <walk edges="272810807 199426768#1 199426768#0 377634148#1" busStop="1789092673"/> <!-- U Alexanderplatz -->
+        <ride busStop="4673135647" lines="M6:0" intended="pt_tram_M6:0.1" depart="925.00"/> <!-- Spandauer Straße/Marienkirche -->
+        <walk edges="171826987#1 375901777 202157023#1 202157023#0 202157026#2 202157026#1 169067264#0 260138646#0 360464647 229531165 -136571494#1 -136571494#0 38208961 -202817674#1 -202817674#0 120675240#0 120675240#1 -8008608 -4611696#5 -4611696#4"/>
+    </person>
+    <person id="ped330" type="ped_pedestrian" depart="660.00">
+        <walk edges="289967595#1 315245296#1 315245296#0 316092515 309155392 312176585#0 312176585#1 312176585#2 72157175#1 72157175#0 169230291#5 272757275#0 272757350#2 272757350#1 272757350#0 272811798 169230291#2 175499833#0 175499825"/>
+    </person>
+    <vehicle id="ped331_0" depart="triggered">
+        <route edges="82658674#3 -24992424#2 -24992424#1 -24992424#0 4612964#0 4612964#1 4612964#2 24992428 81112790#1 23851927#0 23851927#1 23851927#2 23851930 11549895 23851919 233835641#0 233835641#1 52328295#0 52328295#1 43156728#0 43156728#1 43156728#2 43156728#4 120675240#0 120675240#1 -8008608 -4611696#5 -4611696#4 -4611696#3 -4611696#2 -4611696#1 -23755950#3 -23755950#2 -23755950#1 -23755950#0 -66071366#3 -66071366#2 -66071366#1 -66071366#0 -389101365#2 -389101365#1 -389101365#0"/>
+    </vehicle>
+    <person id="ped331" type="ped_pedestrian" depart="662.00">
+        <ride from="82658674#3" to="-389101365#0" lines="ped331_0"/>
+    </person>
+</routes>
