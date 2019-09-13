@@ -130,7 +130,7 @@ public:
 
 protected:
     /**@brief build a shaped element using the drawed shape
-     * return true if was sucesfully created
+     * return true if was successfully created
      * @note called when user stop drawing polygon
      */
     bool shapeDrawed();

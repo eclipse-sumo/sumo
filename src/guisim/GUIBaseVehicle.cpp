@@ -693,13 +693,12 @@ GUIBaseVehicle::removeActiveAddVisualisation(GUISUMOAbstractView* const parent, 
 
 void
 GUIBaseVehicle::drawRoute(const GUIVisualizationSettings& s, int routeNo, double darken, bool future) const {
-    GLHelper::setColor(setColor(s).changedBrightness(darken * -255));
+    GLHelper::setColor(setColor(s).changedBrightness((int)(darken * -255)));
     if (routeNo == 0) {
         drawRouteHelper(s, myVehicle.getRoute(), future);
         return;
     }
-    --routeNo; // only prior routes are stored
-    const MSRoute* route = myRoutes->getRoute(routeNo);
+    const MSRoute* route = myRoutes->getRoute(routeNo - 1); // only prior routes are stored
     if (route != nullptr) {
         drawRouteHelper(s, *route, future);
     }

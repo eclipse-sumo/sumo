@@ -194,7 +194,7 @@ GNEFrame::attributesEditorExtendedDialogOpened()  {
 
 
 void 
-GNEFrame::selectedOverlappedElement(GNEAttributeCarrier */*AC*/) {
+GNEFrame::selectedOverlappedElement(GNEAttributeCarrier* /* AC */) {
     // this function has to be reimplemente in all child frames that uses a OverlappedInspection
 }
 

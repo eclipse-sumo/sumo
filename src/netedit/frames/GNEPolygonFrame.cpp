@@ -382,12 +382,12 @@ GNEPolygonFrame::shapeDrawed() {
         valuesMap[SUMO_ATTR_SHAPE] = toString(temporalShape);
         // obtain geo (by default false)
         valuesMap[SUMO_ATTR_GEO] = "false";
-        // return true if POI was sucesfully created
+        // return true if polygon was successfully created
         if(addPolygon(valuesMap)) {
             // refresh shape attributes
             myShapeAttributes->refreshRows();
+            return true;
         }
-        return true;
     }
     return false;
 }
