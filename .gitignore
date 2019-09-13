@@ -110,6 +110,7 @@
 /tools/libsumo/_libsumo.*
 /tools/libsumo/libsumo.py
 /tools/libsumo/libsumoPYTHON_wrap.cxx
+/tools/libsumo/libsumoc.so
 # extracted tests
 /tests/_*
 # global patterns
