@@ -131,6 +131,9 @@ def compound_object(element_name, attrnames, warn=False):
             self._child_list.append(child)
             return child
 
+        def getChildList(self):
+            return self._child_list
+
         def getText(self):
             return self._text
 
