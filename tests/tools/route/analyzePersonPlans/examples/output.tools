@@ -1,0 +1,19 @@
+Loaded 324 persons
+  1: walk public public walk walk                         - ped1
+  1: walk public walk public public walk                  - ped212
+  1: walk public walk public walk public walk public walk - ped69
+  1: walk public walk public walk walk public walk        - ped143
+  1: walk public walk walk walk                           - ped266
+  1: walk walk walk public walk                           - ped150
+  3: walk walk public walk public walk                    - ped12,ped70,ped185
+  3: walk walk public walk walk                           - ped107,ped273,ped314
+  4: walk public walk walk public walk                    - ped133,ped139,ped274
+  5: walk public public walk                              - ped110,ped113,ped191
+  7: walk public walk public walk walk                    - ped31,ped48,ped76
+  7: walk walk                                            - ped45,ped54,ped60
+ 13: walk walk public walk                                - ped56,ped101,ped111
+ 15: walk public walk walk                                - ped3,ped61,ped80
+ 30: car                                                  - ped4,ped13,ped14
+ 46: walk public walk public walk                         - ped2,ped11,ped19
+ 72: walk                                                 - ped5,ped6,ped10
+113: walk public walk                                     - ped0,ped7,ped8
