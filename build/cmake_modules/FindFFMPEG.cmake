@@ -212,7 +212,7 @@ find_library(_FFMPEG_z_LIBRARY_ z
 
 
 
-if(FFMPEG_INCLUDE_DIR)
+if(FFMPEG_INCLUDE_DIR AND EXISTS ${FFMPEG_INCLUDE_DIR2}/libavutil/ffversion.h)
   if(FFMPEG_avformat_LIBRARY)
     if(FFMPEG_avcodec_LIBRARY)
       if(FFMPEG_avutil_LIBRARY)
