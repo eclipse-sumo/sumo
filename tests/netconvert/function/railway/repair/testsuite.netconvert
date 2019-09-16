@@ -10,6 +10,9 @@ extendBidi
 # some edges marked as buffer stops via <param>
 buffers
 
+# some edges marked as buffer stops via <param>
+buffers_connectStraight
+
 # add bidirectional edges between switches
 switches
 
