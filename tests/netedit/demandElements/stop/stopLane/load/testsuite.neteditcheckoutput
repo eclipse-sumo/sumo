@@ -1,10 +1,16 @@
 default
 
+startPos
+
+endPos
+
 friendlyPos
 
 duration
 
 until
+
+extension
 
 index
 

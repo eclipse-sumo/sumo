@@ -41,17 +41,17 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 244, 220)
 
 # change value
-netedit.modifyAttribute(11, "dummy", True)
+netedit.modifyAttribute(14, "dummy", True)
 
 # change value
-netedit.modifyAttribute(11, "", True)
+netedit.modifyAttribute(14, "", True)
 
 # change value
-netedit.modifyAttribute(11, "waiting", True)
+netedit.modifyAttribute(14, "reading", True)
 
 # Check undo redo
-netedit.undo(referencePosition, 3)
-netedit.redo(referencePosition, 3)
+netedit.undo(referencePosition, 5)
+netedit.redo(referencePosition, 5)
 
 # save additionals
 netedit.saveAdditionals(referencePosition)

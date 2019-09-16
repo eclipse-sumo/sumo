@@ -40,6 +40,15 @@ netedit.inspectMode()
 # inspect selection
 netedit.leftClick(referencePosition, 244, 220)
 
+# change value
+netedit.modifyAttribute(10, "dummy", True)
+
+# change value
+netedit.modifyAttribute(10, "", True)
+
+# change value
+netedit.modifyAttribute(10, "true", True)
+
 # Check undo redo
 netedit.undo(referencePosition, 3)
 netedit.redo(referencePosition, 3)

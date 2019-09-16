@@ -1,0 +1,12 @@
+Error: Attribute 'endPos' in definition of a stop is not of type float.
+Error: Invalid start or end position for stop on lane 'gneE1_0' in person 'person_0'.
+Error: Attribute 'endPos' in definition of a stop is empty.
+Error: Invalid start or end position for stop on lane 'gneE1_0' in person 'person_0'.
+Error: Invalid start or end position for stop on lane 'gneE1_0' in person 'person_0'.
+Error: Invalid start or end position for stop on lane 'gneE1_0' in person 'person_0'.
+Error: Invalid start or end position for stop on lane 'gneE1_0' in person 'person_0'.
+Error: Loading of C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.1_from_16Sep135408.3820/netedit.gui/demandElements/stop/stopLane/load/endPos\input_routes.rou.xml failed.
+Warning: Splitting vector close to end (pos: 0.00, length: 50.00)
+Warning: Splitting vector close to end (pos: 0.00, length: 50.00)
+Warning: Splitting vector close to end (pos: 0.00, length: 50.00)
+Warning: Splitting vector close to end (pos: 0.00, length: 50.00)

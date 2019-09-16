@@ -32,7 +32,7 @@ netedit.additionalMode()
 netedit.changeElement("e1Detector")
 
 # set a invalid  frequency (dummy)
-netedit.changeDefaultValue(2, "dummyFrequency")
+netedit.changeDefaultValue(3, "dummyFrequency")
 
 # try to create E1 with invalid frequency
 netedit.leftClick(referencePosition, 250, 250)
