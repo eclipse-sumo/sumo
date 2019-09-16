@@ -43,6 +43,9 @@ sorted
 # output with route length
 route_length
 
+# record generic vehicle parameters
+params
+
 # write vehroutes for vehicles which have not arrived at simulation end
 write_unfinished
 
