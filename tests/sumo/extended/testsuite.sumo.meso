@@ -7,6 +7,9 @@ vaporizer
 # Tests whether calibrators work
 calibrator
 
+# Tests for HBEFA-based emission computation
+hbefa
+
 # Tests whether variable speed signs work
 variable_speed_signs
 
