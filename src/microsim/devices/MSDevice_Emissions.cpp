@@ -76,6 +76,24 @@ MSDevice_Emissions::notifyMove(SUMOTrafficObject& veh, double /*oldPos*/, double
 
 
 void
+MSDevice_Emissions::notifyMoveInternal(const SUMOTrafficObject& veh,
+                                      const double /* frontOnLane */,
+                                      const double timeOnLane,
+                                      const double /* meanSpeedFrontOnLane */,
+                                      const double meanSpeedVehicleOnLane,
+                                      const double /* travelledDistanceFrontOnLane */,
+                                      const double /* travelledDistanceVehicleOnLane */,
+                                      const double /* meanLengthOnLane */) {
+
+    // called by meso (see MSMeanData_Emissions::MSLaneMeanDataValues::notifyMoveInternal)
+    const double a = veh.getAcceleration();
+    myEmissions.addScaled(PollutantsInterface::computeAll(veh.getVehicleType().getEmissionClass(),
+                          meanSpeedVehicleOnLane, a, veh.getSlope()), timeOnLane);
+}
+
+
+
+void
 MSDevice_Emissions::generateOutput() const {
     if (OptionsCont::getOptions().isSet("tripinfo-output")) {
         OutputDevice& os = OutputDevice::getDeviceByOption("tripinfo-output");
