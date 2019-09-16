@@ -14,14 +14,17 @@ Asks for the value of a certain simulation variable
 The following variable values can be retrieved, the type of the return
 value is also shown in the table.
 
+<center>
+**Overview Retrievable Simulation Variables**
+</center>
+
 <table>
-<caption><strong>Overview Retrievable Simulation Variables</strong></caption>
 <thead>
 <tr class="header">
 <th><p>Variable</p></th>
 <th><p>ValueType</p></th>
 <th><p>Description</p></th>
-<th><p><a href="TraCI/Interfacing_TraCI_from_Python" title="wikilink">Python Method</a></p></th>
+<th><p><a href="../TraCI/Interfacing_TraCI_from_Python.html" title="wikilink">Python Method</a></p></th>
 </tr>
 </thead>
 <tbody>
@@ -204,10 +207,9 @@ value is also shown in the table.
 
 ## Response 0xbb: Simulation Variable
 
-|          |           |                             |                  |
+|  ubyte   |  string   |            ubyte            |  <return_type\>   |
 | :------: | :-------: | :-------------------------: | :--------------: |
-|  ubyte   |  string   |            ubyte            |  <return_type>   |
-| Variable | <invalid> | Return type of the variable | <VARIABLE_VALUE> |
+| Variable | <invalid\> | Return type of the variable | <VARIABLE_VALUE\> |
 
 The respond to a **"Command Get Simulation Variable"**.
 
@@ -215,15 +217,18 @@ The respond to a **"Command Get Simulation Variable"**.
 
 Some further messages require additional parameters.
 
+<center>
+**Overview Extended Variables Retrieval**
+</center>
+
 <table>
-<caption><strong>Overview Extended Variables Retrieval</strong></caption>
 <thead>
 <tr class="header">
 <th><p>Variable</p></th>
 <th><p>Request ValueType</p></th>
 <th><p>Response ValueType</p></th>
 <th><p>Description</p></th>
-<th><p><a href="TraCI/Interfacing_TraCI_from_Python" title="wikilink">Python Method</a></p></th>
+<th><p><a href="../TraCI/Interfacing_TraCI_from_Python.html" title="wikilink">Python Method</a></p></th>
 </tr>
 </thead>
 <tbody>
@@ -259,13 +264,6 @@ Some further messages require additional parameters.
 <td><p>Reads origin and destination position together with usable modes and other person paramters and computes the currently fastest route for the person using the available modes.</p></td>
 <td><p><a href="https://sumo.dlr.de/pydoc/traci._simulation.html#SimulationDomain-findIntermodalRoute">findIntermodalRoute</a></p></td>
 </tr>
-<tr class="odd">
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
 </tbody>
 </table>
 
@@ -273,25 +271,9 @@ Some further messages require additional parameters.
 
 The request needs the following parameter:
 
-<table>
-<tbody>
-<tr class="odd">
-<td style="text-align: center;"><p>byte</p></td>
-<td style="text-align: center;"><p>integer</p></td>
-<td style="text-align: center;"><p><em>Position</em></p></td>
-<td style="text-align: center;"><p>byte</p></td>
-<td style="text-align: center;"><p>ubyte</p></td>
-</tr>
-<tr class="even">
-<td style="text-align: center;"><p>value type <em>compound</em></p></td>
-<td style="text-align: center;"><p>item number (always 2)</p></td>
-<td style="text-align: center;"><p>position to convert</p></td>
-<td style="text-align: center;"><p>value type <em>ubyte</em></p></td>
-<td style="text-align: center;"><p>Type of the<br />
-Position to return</p></td>
-</tr>
-</tbody>
-</table>
+| byte                | integer                | *Position*            | byte             | ubyte                          |
+|---------------------|------------------------|---------------------|------------------|--------------------------------|
+| value type compound | item number (always 2) | position to convert | value type *ubyte* | Type of the Position to return |
 
 Use this command to convert between the different position types used by
 TraCI. The specified *Position* is converted into the requested format
@@ -301,45 +283,49 @@ the given one. In all other cases, the conversion will give an exact
 match. The return values consists of the converted value only.
 
 See [TraCI/Protocol\#Position
-Representations](TraCI/Protocol#Position_Representations.md) for
+Representations](../TraCI/Protocol.md#position_representations) for
 available position formats.
 
 ### Command 0x83: Distance Request
 
 The request needs the following parameter:
 
-|                       |                        |                |              |               |
-| :-------------------: | :--------------------: | :------------: | :----------: | :-----------: |
 |         byte          |        integer         |   *Position*   |  *Position*  |     ubyte     |
+| :-------------------: | :--------------------: | :------------: | :----------: | :-----------: |
 | value type *compound* | item number (always 3) | start position | end position | Distance Type |
 
 where
-
-  -
-    Distance Type==0: air distance
-    Distance Type==1: driving distance
+  
+- Distance Type==0: air distance
+- Distance Type==1: driving distance
 
 The resulting distance is returned.
 
 ### Command 0x86: Find Route
 
-|                       |                        |                     |            |                     |                  |                     |              |                     |                    |                      |                          |
-| :-------------------: | :--------------------: | :-----------------: | :--------: | :-----------------: | :--------------: | :-----------------: | :----------: | :-----------------: | :----------------: | :------------------: | :----------------------: |
 |         byte          |        integer         |        byte         |   string   |        byte         |      string      |        byte         |    string    |        byte         |       double       |         byte         |         integer          |
+| :-------------------: | :--------------------: | :-----------------: | :--------: | :-----------------: | :--------------: | :-----------------: | :----------: | :-----------------: | :----------------: | :------------------: | :----------------------: |
 | value type *compound* | item number (always 5) | value type *string* | start edge | value type *string* | destination edge | value type *string* | vehicle type | value type *double* | departure time (s) | value type *integer* | routing mode (see below) |
+
+!!! caution
+    Routing mode shall be used to specify which data source to use for estimation of edge travel times. This is not yet implemented and the same data sources as for command [vehicle.rerouteTraveltime is used](../Simulation/Routing.md#travel-time_values_for_routing).
 
 The following response is returned:
 
-|                         |                  |                   |                 |                 |
-| :---------------------: | :--------------: | :---------------: | :-------------: | :-------------: |
 |      type + string      |  type + string   | type + stringList |  type + double  |  type + double  |
+| :---------------------: | :--------------: | :---------------: | :-------------: | :-------------: |
 | type (always "driving") | line (always "") |       edges       | travel time (s) | travel time (s) |
+
+!!! note
+    The python and C++ client return a namedtuple / struct with field names *stageType, line, destStop, edges, travelTime, cost*.
+
+!!! note
+    The seemingly unused/redundant fields are reserved for route-by-cost and intermodal routing (see below).
 
 ### Command 0x87: Find Intermodal Route
 
-|                       |                         |                     |            |                     |                  |                     |                 |                     |                    |                      |                          |                     |                     |                     |             |                     |                     |                     |                      |                     |                  |                     |                      |                     |                         |
-| :-------------------: | :---------------------: | :-----------------: | :--------: | :-----------------: | :--------------: | :-----------------: | :-------------: | :-----------------: | :----------------: | :------------------: | :----------------------: | :-----------------: | :-----------------: | :-----------------: | :---------: | :-----------------: | :-----------------: | :-----------------: | :------------------: | :-----------------: | :--------------: | :-----------------: | :------------------: | :-----------------: | :---------------------: |
 |         byte          |         integer         |        byte         |   string   |        byte         |      string      |        byte         |     string      |        byte         |       double       |         byte         |         integer          |        byte         |       double        |        byte         |   double    |        byte         |       double        |        byte         |        double        |        byte         |      double      |        byte         |        string        |        byte         |         string          |
+| :-------------------: | :---------------------: | :-----------------: | :--------: | :-----------------: | :--------------: | :-----------------: | :-------------: | :-----------------: | :----------------: | :------------------: | :----------------------: | :-----------------: | :-----------------: | :-----------------: | :---------: | :-----------------: | :-----------------: | :-----------------: | :------------------: | :-----------------: | :--------------: | :-----------------: | :------------------: | :-----------------: | :---------------------: |
 | value type *compound* | item number (always 12) | value type *string* | start edge | value type *string* | destination edge | value type *string* | available modes | value type *double* | departure time (s) | value type *integer* | routing mode (see above) | value type *double* | walking speed (m/s) | value type *double* | walk factor | value type *double* | depart position (m) | value type *double* | arrival position (m) | value type *double* | departPosLat (m) | value type *string* | vtype of the vehicle | value type *string* | vtype of the pedestrian |
 
 The available modes are "car", "public", "bicycle" or space separated
@@ -355,7 +341,7 @@ findRoute.
 
 The simulation supports retrieval of additional object parameters using
 the [generic parameter retrieval
-call](Traci/GenericParameters#get_parameter.md). The *object id*
+call](../TraCI/GenericParameters.md#get_parameter). The *object id*
 refers to the object (i.e. chargingStation) id. The following parameters
 are supported:
 
