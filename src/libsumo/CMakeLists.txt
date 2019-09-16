@@ -1,3 +1,11 @@
+if (${CMAKE_VERSION} VERSION_GREATER 3.13.0)
+    # UseSWIG generates standard target names
+    cmake_policy(SET CMP0078 NEW)
+endif()
+if (${CMAKE_VERSION} VERSION_GREATER 3.14.0)
+    # pass module name to swig compiler
+    cmake_policy(SET CMP0086 NEW)
+endif()
 set(libsumostatic_STAT_SRCS
     Edge.cpp
     Edge.h
@@ -89,32 +97,34 @@ if(SWIG_FOUND)
             endif()
         endif()
         if(PYTHONLIBS_FOUND)
-            include_directories(${PYTHON_INCLUDE_PATH})
-#            set(CMAKE_SWIG_FLAGS "")
-            set(CMAKE_SWIG_FLAGS "-keyword") # is necessary for using keyword args, but generates lots of warnings
+            if (PYTHON_DEBUG_LIBRARY OR NOT "${CMAKE_BUILD_TYPE}" STREQUAL "Debug")
+                include_directories(${PYTHON_INCLUDE_PATH})
+#                set(CMAKE_SWIG_FLAGS "")
+                set(CMAKE_SWIG_FLAGS "-keyword") # is necessary for using keyword args, but generates lots of warnings
 # other options which should be evaluated: -builtin, -modern, -extranative
-            set(CMAKE_SWIG_OUTDIR ${CMAKE_SOURCE_DIR}/tools/libsumo)
-            set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/tools/libsumo)
-            set(CMAKE_LIBRARY_OUTPUT_DIRECTORY_DEBUG ${CMAKE_SOURCE_DIR}/tools/libsumo)
-            set(CMAKE_LIBRARY_OUTPUT_DIRECTORY_RELEASE ${CMAKE_SOURCE_DIR}/tools/libsumo)
-            set(SWIG_MODULE_libsumo_EXTRA_DEPS ${LIBSUMO_HEADERS})
-            if (${CMAKE_VERSION} VERSION_GREATER 3.8.0)
-                SWIG_ADD_LIBRARY(libsumo LANGUAGE python SOURCES libsumo.i)
-            else()
-                SWIG_ADD_MODULE(libsumo python libsumo.i)
-            endif()
-            if (MSVC OR APPLE)
-                # disable python module for the debug build because virtually no one has a python debug dll to link against
-                set_property(TARGET ${SWIG_MODULE_libsumo_REAL_NAME} PROPERTY EXCLUDE_FROM_DEFAULT_BUILD_DEBUG TRUE)
-                set_property(TARGET ${SWIG_MODULE_libsumo_REAL_NAME} PROPERTY FOLDER "libsumo")
-                swig_link_libraries(libsumo libsumostatic ${sumolibs} ${PYTHON_LIBRARIES})
-            else()
-                swig_link_libraries(libsumo -Wl,--whole-archive libsumostatic ${sumolibs} -Wl,--no-whole-archive ${PYTHON_LIBRARIES})
-            endif()
-            if (NOT ${SETUPTOOLS_MISSING})
-                install(
-                    CODE "execute_process(COMMAND ${PYTHON_EXECUTABLE} ${CMAKE_SOURCE_DIR}/tools/build/setup-libsumo.py clean --all install --root=\$ENV{DESTDIR}/ --prefix=${CMAKE_INSTALL_PREFIX} --optimize=1)"
-                    COMPONENT pylibsumo)
+                set(CMAKE_SWIG_OUTDIR ${CMAKE_SOURCE_DIR}/tools/libsumo)
+                set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/tools/libsumo)
+                set(CMAKE_LIBRARY_OUTPUT_DIRECTORY_DEBUG ${CMAKE_SOURCE_DIR}/tools/libsumo)
+                set(CMAKE_LIBRARY_OUTPUT_DIRECTORY_RELEASE ${CMAKE_SOURCE_DIR}/tools/libsumo)
+                set(SWIG_MODULE_libsumo_EXTRA_DEPS ${LIBSUMO_HEADERS})
+                if (${CMAKE_VERSION} VERSION_GREATER 3.8.0)
+                    SWIG_ADD_LIBRARY(libsumo LANGUAGE python SOURCES libsumo.i)
+                else()
+                    SWIG_ADD_MODULE(libsumo python libsumo.i)
+                endif()
+                if (MSVC OR APPLE)
+                    # disable python module for the debug build because virtually no one has a python debug dll to link against
+                    set_property(TARGET ${SWIG_MODULE_libsumo_REAL_NAME} PROPERTY EXCLUDE_FROM_DEFAULT_BUILD_DEBUG TRUE)
+                    set_property(TARGET ${SWIG_MODULE_libsumo_REAL_NAME} PROPERTY FOLDER "libsumo")
+                    swig_link_libraries(libsumo libsumostatic ${sumolibs} ${PYTHON_LIBRARIES})
+                else()
+                    swig_link_libraries(libsumo -Wl,--whole-archive libsumostatic ${sumolibs} -Wl,--no-whole-archive ${PYTHON_LIBRARIES})
+                endif()
+                if (NOT ${SETUPTOOLS_MISSING})
+                    install(
+                        CODE "execute_process(COMMAND ${PYTHON_EXECUTABLE} ${CMAKE_SOURCE_DIR}/tools/build/setup-libsumo.py clean --all install --root=\$ENV{DESTDIR}/ --prefix=${CMAKE_INSTALL_PREFIX} --optimize=1)"
+                        COMPONENT pylibsumo)
+                endif()
             endif()
         else()
             message(WARNING "ENABLE_PYTHON_BINDINGS is set but python libraries were not found.")

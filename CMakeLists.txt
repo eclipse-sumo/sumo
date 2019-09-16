@@ -2,10 +2,6 @@
 cmake_policy(SET CMP0048 NEW)
 # do not expand quoted variables in if statements
 cmake_policy(SET CMP0054 NEW)
-if (${CMAKE_VERSION} VERSION_GREATER 3.13.0)
-    # UseSWIG generates standard target names
-    cmake_policy(SET CMP0078 NEW)
-endif()
 # Options
 option(CHECK_OPTIONAL_LIBS "Try to download / enable all optional libraries (use only EPL clean libraries, if set to false)" true)
 option(MULTITHREADED_BUILD "Use all available cores for building (applies to Visual Studio only)" true)
@@ -55,11 +51,15 @@ if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU" OR
         set(ENABLED_FEATURES "${ENABLED_FEATURES} Coverage")
     endif ()
 elseif (MSVC)
-    set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} /W3")
-    # set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} /W4 /WX /EHsc")
     # enabling /WX is not possible due to warnings in external headers
     # /Wall brings MSVC to complete halt
-    set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} /W4 /EHsc")
+    if ("${CMAKE_BUILD_TYPE}" STREQUAL "Debug")
+        # this is a workaround to disable lots of warnings for replacing /W3 with /W4 in VS 2019
+        # there is a policy for that starting with CMake 3.15
+        string(REPLACE "/W3" "/W4" CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}")
+    else ()
+        set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} /W4")
+    endif ()
     if (MULTITHREADED_BUILD)
         set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /MP")
     endif ()
