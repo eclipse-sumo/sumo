@@ -5,10 +5,10 @@ GLDebug: 	Inserted edge:gneE0 into SUMORTree with boundary -10.00,-11.60,60.00,1
 GLDebug: 	Inserted edge:gneE1 into SUMORTree with boundary -10.00,-10.00,60.00,11.60
 Debug: Selected item 'DEFAULT_VEHTYPE' in DemandElementSelector
 Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
-Debug: Adding busStop 'busStop_gneE0_0_1' in GNEChange_Additional
+Debug: Adding busStop 'busStopA' in GNEChange_Additional
 Debug: Additionals has to be saved
 Debug: Current saving Status: net saved, additionals unsaved, demand elements saved
-Debug: Adding busStop 'busStop_gneE1_0_0' in GNEChange_Additional
+Debug: Adding busStop 'busStopB' in GNEChange_Additional
 Debug: Adding route 'route_0' in GNEChange_DemandElement
 Debug: DemandElements has to be saved
 Debug: Current saving Status: net saved, additionals unsaved, demand elements unsaved
@@ -97,10 +97,10 @@ Debug: DemandElements has to be saved
 Debug: Current saving Status: net saved, additionals saved, demand elements unsaved
 Debug: Deleting unreferenced stopBusStop 'route_0stopBusStop0'
 Debug: Deleting unreferenced route 'route_0'
-Debug: Deleting unreferenced busStop 'busStop_gneE1_0_0'
+Debug: Deleting unreferenced busStop 'busStopB'
 Debug: Additionals has to be saved
 Debug: Current saving Status: net saved, additionals unsaved, demand elements unsaved
-Debug: Deleting unreferenced busStop 'busStop_gneE0_0_1'
+Debug: Deleting unreferenced busStop 'busStopA'
 Debug: Deleting unreferenced edge 'gneE0' in GNENet destructor
 Debug: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'fromgneE0_0togneE1_0' in GNEEdge destructor

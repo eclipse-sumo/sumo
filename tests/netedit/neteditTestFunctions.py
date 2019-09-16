@@ -450,6 +450,8 @@ def enableGUITesting(referencePosition):
 
 
 def undo(referencePosition, number):
+    # first wait
+    time.sleep(DELAY_UNDOREDO)
     # needed to avoid errors with undo/redo (Provisionally)
     typeKey('i')
     # click over referencePosition
@@ -465,6 +467,8 @@ def undo(referencePosition, number):
 
 
 def redo(referencePosition, number):
+    # first wait
+    time.sleep(DELAY_UNDOREDO)
     # needed to avoid errors with undo/redo (Provisionally)
     typeKey('i')
     # click over referencePosition

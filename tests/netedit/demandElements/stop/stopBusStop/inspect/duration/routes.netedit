@@ -56,6 +56,6 @@
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
     <route edges="gneE0 gneE1" color="yellow" id="route_0"/>
     <vehicle id="vehicle_0" depart="0.00" route="route_0">
-        <stop busStop="busStop_gneE1_0_0" duration="3.50"/>
+        <stop busStop="busStopB" duration="3.50"/>
     </vehicle>
 </routes>

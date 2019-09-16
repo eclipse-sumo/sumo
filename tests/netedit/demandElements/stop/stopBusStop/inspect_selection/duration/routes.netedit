@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 16.09.2019 15:02:43 by Eclipse SUMO netedit Version v1_3_1+0313-ccb31df3eb
+<!-- generated on 16.09.2019 15:57:39 by Eclipse SUMO netedit Version v1_3_1+0313-ccb31df3eb
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.16Sep150159.3904/netedit.gui/demandElements/stop/stopBusStop/inspect_selection/duration\input_net.net.xml"/>
+        <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.16Sep153912.1388/netedit.gui/demandElements/stop/stopBusStop/inspect_selection/duration\input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.16Sep150159.3904/netedit.gui/demandElements/stop/stopBusStop/inspect_selection/duration\net.net.xml"/>
+        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.16Sep153912.1388/netedit.gui/demandElements/stop/stopBusStop/inspect_selection/duration\net.net.xml"/>
     </output>
 
     <processing>
@@ -29,14 +29,14 @@
     </pedestrian>
 
     <netedit>
-        <additional-files value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.16Sep150159.3904/netedit.gui/demandElements/stop/stopBusStop/inspect_selection/duration\additionals.xml"/>
-        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.16Sep150159.3904/netedit.gui/demandElements/stop/stopBusStop/inspect_selection/duration\additionals.xml"/>
-        <route-files value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.16Sep150159.3904/netedit.gui/demandElements/stop/stopBusStop/inspect_selection/duration\routes.xml"/>
-        <demandelements-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.16Sep150159.3904/netedit.gui/demandElements/stop/stopBusStop/inspect_selection/duration\routes.xml"/>
+        <additional-files value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.16Sep153912.1388/netedit.gui/demandElements/stop/stopBusStop/inspect_selection/duration\additionals.xml"/>
+        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.16Sep153912.1388/netedit.gui/demandElements/stop/stopBusStop/inspect_selection/duration\additionals.xml"/>
+        <route-files value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.16Sep153912.1388/netedit.gui/demandElements/stop/stopBusStop/inspect_selection/duration\routes.xml"/>
+        <demandelements-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.16Sep153912.1388/netedit.gui/demandElements/stop/stopBusStop/inspect_selection/duration\routes.xml"/>
     </netedit>
 
     <visualisation>
-        <gui-settings-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.16Sep150159.3904/netedit.gui/demandElements/stop/stopBusStop/inspect_selection/duration\gui-settings.xml"/>
+        <gui-settings-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.16Sep153912.1388/netedit.gui/demandElements/stop/stopBusStop/inspect_selection/duration\gui-settings.xml"/>
         <window-size value="700,500"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
@@ -46,7 +46,7 @@
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.16Sep150159.3904/netedit.gui/demandElements/stop/stopBusStop/inspect_selection/duration\log.txt"/>
+        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.16Sep153912.1388/netedit.gui/demandElements/stop/stopBusStop/inspect_selection/duration\log.txt"/>
     </report>
 
 </configuration>
@@ -54,7 +54,7 @@
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
     <route edges="gneE0 gneE1" color="yellow" id="route_0">
-        <stop busStop="busStop_gneE0_0_1" duration="60.00" until="12.00" extension="10.00" triggered="1" containerTriggered="1" parking="1" expected="IDA" expectedContainers="IDB" tripId="IDC"/>
-        <stop busStop="busStop_gneE1_0_0" duration="60.00" extension="20.00"/>
+        <stop busStop="busStopA" duration="3.50" until="12.00" extension="10.00" triggered="1" containerTriggered="1" parking="1" expected="IDA" expectedContainers="IDB" tripId="IDC"/>
+        <stop busStop="busStopB" duration="3.50" extension="20.00"/>
     </route>
 </routes>

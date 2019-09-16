@@ -55,7 +55,7 @@
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
     <route edges="gneE0 gneE1" color="yellow" id="route_0">
-        <stop busStop="busStop_gneE0_0_1" duration="70.00" until="12.00" triggered="1" containerTriggered="1" parking="1" expected="IDA" expectedContainers="IDB" tripId="IDC"/>
-        <stop busStop="busStop_gneE1_0_0" duration="60.00" tripId="ID2"/>
+        <stop busStop="busStopA" duration="70.00" until="12.00" triggered="1" containerTriggered="1" parking="1" expected="IDA" expectedContainers="IDB" tripId="IDC"/>
+        <stop busStop="busStopB" duration="60.00" tripId="ID2"/>
     </route>
 </routes>
