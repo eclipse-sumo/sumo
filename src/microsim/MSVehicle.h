@@ -276,10 +276,6 @@ public:
      */
     bool replaceRoute(const MSRoute* route, const std::string& info, bool onInit = false, int offset = 0, bool addStops = true, bool removeStops = true);
 
-
-    int getRoutePosition() const;
-    void resetRoutePosition(int index, DepartLaneDefinition departLaneProcedure);
-
     /** @brief Returns the vehicle's internal edge travel times/efforts container
      *
      * If the vehicle does not have such a container, it is built.

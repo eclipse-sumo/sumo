@@ -1176,22 +1176,6 @@ MSVehicle::replaceRoute(const MSRoute* newRoute, const std::string& info, bool o
 }
 
 
-int
-MSVehicle::getRoutePosition() const {
-    return (int) std::distance(myRoute->begin(), myCurrEdge);
-}
-
-
-void
-MSVehicle::resetRoutePosition(int index, DepartLaneDefinition departLaneProcedure) {
-    myCurrEdge = myRoute->begin() + index;
-    const_cast<SUMOVehicleParameter*>(myParameter)->departLaneProcedure = departLaneProcedure;
-    // !!! hack
-    myArrivalPos = (*(myRoute->end() - 1))->getLanes()[0]->getLength();
-}
-
-
-
 const MSEdgeWeightsStorage&
 MSVehicle::getWeightsStorage() const {
     return _getWeightsStorage();

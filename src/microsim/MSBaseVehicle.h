@@ -293,6 +293,13 @@ public:
      */
     virtual bool hasArrived() const;
 
+    /// @brief return index of edge within route
+    int getRoutePosition() const;
+
+    /// @brief reset index of edge within route
+    void resetRoutePosition(int index, DepartLaneDefinition departLaneProcedure);
+
+
     /** @brief Returns the number of new routes this vehicle got
      * @return the number of new routes this vehicle got
      */

@@ -375,6 +375,22 @@ MSBaseVehicle::hasArrived() const {
     return succEdge(1) == nullptr;
 }
 
+
+int
+MSBaseVehicle::getRoutePosition() const {
+    return (int) std::distance(myRoute->begin(), myCurrEdge);
+}
+
+
+void
+MSBaseVehicle::resetRoutePosition(int index, DepartLaneDefinition departLaneProcedure) {
+    myCurrEdge = myRoute->begin() + index;
+    const_cast<SUMOVehicleParameter*>(myParameter)->departLaneProcedure = departLaneProcedure;
+    // !!! hack
+    myArrivalPos = (*(myRoute->end() - 1))->getLanes()[0]->getLength();
+}
+
+
 void
 MSBaseVehicle::addPerson(MSTransportable* person) {
     if (myPersonDevice == nullptr) {
