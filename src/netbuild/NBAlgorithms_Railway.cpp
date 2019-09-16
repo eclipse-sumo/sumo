@@ -117,6 +117,7 @@ NBRailwayTopologyAnalyzer::repairTopology(NBNetBuilder& nb) {
     if (OptionsCont::getOptions().getBool("railway.topology.repair.connect-straight")) {
         addBidiEdgesForStraightConnectivity(nb, true);
         addBidiEdgesForStraightConnectivity(nb, false);
+        extendBidiEdges(nb);
     }
 }
 
