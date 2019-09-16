@@ -82,7 +82,7 @@ SUMO-package. First, create a new network ("File" -\> "New Network...").
   are represented as links in SUMO like in other traffic simulation
   software. To define link characteristics, the identification
   (**id**) of each link has to be defined first either with numbers,
-  word strings, or both.
+  word strings, or both. To edit these values, click on the red circle representing the junction using the left mouse button.
 
 ![Fourth.png](../images/Fourth.png "Fourth.png") 
 ![Fifth.png](../images/Fifth.png "Fifth.png")
