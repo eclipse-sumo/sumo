@@ -204,15 +204,14 @@ public:
      * @brief A structure which describes changes of lane number or speed along the road
      */
     struct Split {
-        Split() : offset(0), offsetFactor(1) {}
         /// @brief The lanes after this change
         std::vector<int> lanes;
         /// @brief The position of this change
-        double pos;
+        double pos = INVALID_DOUBLE;
         /// @brief The speed after this change
-        double speed;
+        double speed = INVALID_DOUBLE;
         /// @brief The new node that is created for this split
-        NBNode* node;
+        NBNode* node = nullptr;
         /// @brief The id for the edge before the split
         std::string idBefore;
         /// @brief The id for the edge after the split
@@ -220,9 +219,9 @@ public:
         /// @brief the default node id
         std::string nameID;
         /// @brief lateral offset to edge geometry
-        double offset;
+        double offset = 0.;
         /// @brief direction in which to apply the offset (used by netgenerate for lefthand networks)
-        int offsetFactor;
+        int offsetFactor = 1;
     };
 
     void processSplits(NBEdge* e, std::vector<Split> splits,

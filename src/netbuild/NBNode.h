@@ -172,17 +172,14 @@ public:
         /// @brief constructor
         WalkingArea(const std::string& _id, double _width) :
             id(_id),
-            width(_width),
-            hasCustomShape(false),
-            minNextCrossingEdges(std::numeric_limits<int>::max()),
-            minPrevCrossingEdges(std::numeric_limits<int>::max()) {
+            width(_width) {
         }
         /// @brief the (edge)-id of this walkingArea
         std::string id;
         /// @brief This lane's width
         double width;
         /// @brief This lane's width
-        double length;
+        double length = INVALID_DOUBLE;
         /// @brief The polygonal shape
         PositionVector shape;
         /// @brief the lane-id of the next crossing(s)
@@ -192,11 +189,11 @@ public:
         /// @brief the lane-id of the previous sidewalk lane or ""
         std::vector<std::string> prevSidewalks;
         /// @brief whether this walkingArea has a custom shape
-        bool hasCustomShape;
+        bool hasCustomShape = false;
         /// @brief minimum number of edges crossed by nextCrossings
-        int minNextCrossingEdges;
+        int minNextCrossingEdges = std::numeric_limits<int>::max();
         /// @brief minimum number of edges crossed by incoming crossings
-        int minPrevCrossingEdges;
+        int minPrevCrossingEdges = std::numeric_limits<int>::max();
     };
 
     struct WalkingAreaCustomShape {

@@ -120,29 +120,29 @@ protected:
     const std::map<int, std::string>& getPredefinedTagsMML() const;
 
     /// @brief View Net
-    GNEViewNet* myViewNet;
+    GNEViewNet* myViewNet = nullptr;
 
     /// @brief Vertical frame that holds all widgets of frame
-    FXVerticalFrame* myContentFrame;
+    FXVerticalFrame* myContentFrame = nullptr;
 
     /// @brief fame for header elements
-    FXHorizontalFrame* myHeaderFrame;
+    FXHorizontalFrame* myHeaderFrame = nullptr;
 
     /// @brief fame for left header elements
-    FXHorizontalFrame* myHeaderLeftFrame;
+    FXHorizontalFrame* myHeaderLeftFrame = nullptr;
 
     /// @brief fame for right header elements
-    FXHorizontalFrame* myHeaderRightFrame;
+    FXHorizontalFrame* myHeaderRightFrame = nullptr;
 
 private:
     /// @brief scroll windows that holds the content frame
-    FXScrollWindow* myScrollWindowsContents;
+    FXScrollWindow* myScrollWindowsContents = nullptr;
 
     /// @brief static Font for the Header (it's common for all headers, then create only one time)
     static FXFont* myFrameHeaderFont;
 
     /// @brief the label for the frame's header
-    FXLabel* myFrameHeaderLabel;
+    FXLabel* myFrameHeaderLabel = nullptr;
 
     /// @brief edge candidate color (used by some modulds to mark edges)
     RGBColor myEdgeCandidateColor;

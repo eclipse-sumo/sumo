@@ -126,7 +126,7 @@ public:
 
     private:
         /// @brief pointer to AttributesCreator
-        AttributesCreator* myAttributesCreatorParent;
+        AttributesCreator* myAttributesCreatorParent = nullptr;
 
         /// @brief attribute properties
         const GNEAttributeCarrier::AttributeProperties myAttrProperties;
@@ -135,22 +135,22 @@ public:
         std::string myInvalidValue;
 
         /// @brief Label with the name of the attribute
-        FXLabel* myAttributeLabel;
+        FXLabel* myAttributeLabel = nullptr;
 
         /// @brief Radio button for disjoint attributes
-        FXRadioButton* myAttributeRadioButton;
+        FXRadioButton* myAttributeRadioButton = nullptr;
 
         /// @brief check button to enable/disable Label attribute
-        FXCheckButton* myAttributeCheckButton;
+        FXCheckButton* myAttributeCheckButton = nullptr;
 
         /// @brief Button for open color editor
-        FXButton* myAttributeColorButton;
+        FXButton* myAttributeColorButton = nullptr;
 
         /// @brief textField to modify the default value of string parameters
-        FXTextField* myValueTextField;
+        FXTextField* myValueTextField = nullptr;
 
         /// @brief check button to enable/disable the value of boolean parameters
-        FXCheckButton* myValueCheckButton;
+        FXCheckButton* myValueCheckButton = nullptr;
     };
 
     // ===========================================================================
@@ -210,7 +210,7 @@ public:
 
     private:
         /// @brief pointer to Frame Parent
-        GNEFrame* myFrameParent;
+        GNEFrame* myFrameParent = nullptr;
 
         /// @brief current edited Tag Properties
         GNEAttributeCarrier::TagProperties myTagProperties;
@@ -219,7 +219,7 @@ public:
         std::vector<AttributesCreatorRow*> myAttributesCreatorRows;
 
         /// @brief help button
-        FXButton* myHelpButton;
+        FXButton* myHelpButton = nullptr;
     };
 
     // ===========================================================================
@@ -343,13 +343,13 @@ public:
 
     private:
         /// @brief pointer to GNEFrame parent
-        GNEFrame* myFrameParent;
+        GNEFrame* myFrameParent = nullptr;
 
         /// @brief list of Attribute editor rows
         std::vector<AttributesEditorRow*> myAttributesEditorRows;
 
         /// @brief button for help
-        FXButton* myHelpButton;
+        FXButton* myHelpButton = nullptr;
 
         /// @brief the multi-selection currently being inspected
         std::vector<GNEAttributeCarrier*> myEditedACs;
@@ -391,7 +391,7 @@ public:
 
     private:
         /// @brief pointer to Frame Parent
-        GNEFrame* myFrameParent;
+        GNEFrame* myFrameParent = nullptr;
     };
 
     // ===========================================================================
@@ -451,10 +451,10 @@ public:
 
     private:
         /// @brief pointer to frame parent
-        GNEFrame* myFrameParent;
+        GNEFrame* myFrameParent = nullptr;
 
         /// @brief edited Attribute Carrier
-        GNEAttributeCarrier* myAC;
+        GNEAttributeCarrier* myAC = nullptr;
 
         /// @brief list of edited ACs
         std::vector<GNEAttributeCarrier*> myACs;
@@ -463,10 +463,10 @@ public:
         std::map<std::string, std::string> myParameters;
 
         /// @brief text field for write parameters
-        FXTextField* myTextFieldParameters;
+        FXTextField* myTextFieldParameters = nullptr;
 
         /// @brief button for edit parameters using specific dialog
-        FXButton* myButtonEditParameters;
+        FXButton* myButtonEditParameters = nullptr;
     };
 
     // ===========================================================================
