@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Sep 11 21:16:10 2017 by SUMO Version dev-SVN-r24506
+<!-- generated on Mon Sep 16 20:58:09 2019 by Eclipse SUMO Version v1_3_1+0348-1784406169
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -15,15 +15,18 @@ SPDX-License-Identifier: EPL-2.0
     </input>
 
     <output>
+        <write-license value="true"/>
         <vehroute-output value="vehroutes.xml"/>
     </output>
 
     <processing>
-        <astar.landmark-distances value="lookuptable"/>
+        <default.speeddev value="0"/>
+        <pedestrian.model value="nonInteracting"/>
     </processing>
 
     <routing>
         <routing-algorithm value="astar"/>
+        <astar.landmark-distances value="lookuptable"/>
     </routing>
 
     <report>
@@ -41,9 +44,7 @@ SPDX-License-Identifier: EPL-2.0
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
     <vehicle id="0" depart="0.00" fromTaz="1" toTaz="2" arrival="59.00">
-        <routeDistribution>
-            <route edges="5/5to5/6 5/6to5/7 5/7to5/8 5/8to5/9 5/9to6/9 6/9to7/9 7/9to8/9 8/9to9/9 9/9to8/9"/>
-        </routeDistribution>
+        <route edges="5/5to5/6 5/6to5/7 5/7to5/8 5/8to5/9 5/9to6/9 6/9to7/9 7/9to8/9 8/9to9/9 9/9to8/9"/>
     </vehicle>
 
 </routes>

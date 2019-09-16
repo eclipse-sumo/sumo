@@ -16,6 +16,9 @@ cf_model
 # testing the dynamics and interaction of pedestrian model non-interacting
 pedestrian_model
 
+# test for vehicle and transportable devices
+devices
+
 # Tests for mesoscopic features
 meso
 
