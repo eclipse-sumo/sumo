@@ -5,9 +5,8 @@ permalink: /TraCI/Vehicle_Value_Retrieval/
 
 ## Command 0xa4: Get Vehicle Variable
 
-|          |            |
-| :------: | :--------: |
 |  ubyte   |   string   |
+| :------: | :--------: |
 | Variable | Vehicle ID |
 
 Asks for the value of a certain variable of the named vehicle. The value
@@ -20,14 +19,17 @@ returned.
 The following variable values can be retrieved, the type of the return
 value is also shown in the table.
 
+<center>
+**Overview Retrievable Vehicle Variables**
+</center>
+
 <table>
-<caption><strong>Overview Retrievable Vehicle Variables</strong></caption>
 <thead>
 <tr class="header">
 <th><p>Variable</p></th>
 <th><p>ValueType</p></th>
 <th><p>Description</p></th>
-<th><p><a href="TraCI/Interfacing_TraCI_from_Python" title="wikilink">Python Method</a></p></th>
+<th><p><a href="../TraCI/Interfacing_TraCI_from_Python.html" title="wikilink">Python Method</a></p></th>
 </tr>
 </thead>
 <tbody>
@@ -142,13 +144,13 @@ value is also shown in the table.
 <tr class="odd">
 <td><p>signal states (0x5b)</p></td>
 <td><p>int</p></td>
-<td><p>An integer encoding the state of a vehicle's signals, see <a href="TraCI/Vehicle_Signalling" title="wikilink">TraCI/Vehicle Signalling</a> for more information.</p></td>
+<td><p>An integer encoding the state of a vehicle's signals, see <a href="../TraCI/Vehicle_Signalling.html" title="wikilink">TraCI/Vehicle Signalling</a> for more information.</p></td>
 <td><p><a href="https://sumo.dlr.de/pydoc/traci._vehicle.html#VehicleDomain-getSignals">getSignals</a></p></td>
 </tr>
 <tr class="even">
 <td><p>routing mode (0x89)</p></td>
 <td><p>int</p></td>
-<td><p>An integer encoding the <a href="Simulation/Routing#Travel-time_values_for_routing" title="wikilink">current routing mode</a> (0: default, 1: aggregated)</p></td>
+<td><p>An integer encoding the <a href="../Simulation/Routing.html#travel-time_values_for_routing" title="wikilink">current routing mode</a> (0: default, 1: aggregated)</p></td>
 <td><p><a href="https://sumo.dlr.de/pydoc/traci._vehicle.html#VehicleDomain-getRoutingMode">getRoutingMode</a></p></td>
 </tr>
 <tr class="odd">
@@ -322,7 +324,7 @@ value is also shown in the table.
 <tr class="even">
 <td><p>accumulated waiting time (0x87)</p></td>
 <td><p>double</p></td>
-<td><p>Returns the accumulated waiting time [s] within the previous time interval of default length 100 s. (length is configurable per option  given to the main application)</p></td>
+<td><p>Returns the accumulated waiting time [s] within the previous time interval of default length 100 s. (length is configurable per option <b>--waiting-time-memory</b> given to the main application)</p></td>
 <td><p><a href="https://sumo.dlr.de/pydoc/traci._vehicle.html#VehicleDomain-getAccumulatedWaitingTime">getAccumulatedWaitingTime</a></p></td>
 </tr>
 <tr class="odd">
@@ -346,12 +348,12 @@ value is also shown in the table.
 <tr class="even">
 <td><p>speed mode (0xb3)</p></td>
 <td><p>int bitset (see below)</p></td>
-<td><p>Retrieves how the values set by speed (0x40) and slowdown (0x14) shall be treated. See the <a href="TraCI/Change_Vehicle_State#speed_mode_.280xb3.29" title="wikilink">set speedmode command</a> for details.</p></td>
+<td><p>Retrieves how the values set by speed (0x40) and slowdown (0x14) shall be treated. See the <a href="../TraCI/Change_Vehicle_State.html#speed_mode_0xb3" title="wikilink">set speedmode command</a> for details.</p></td>
 <td><p><a href="https://sumo.dlr.de/pydoc/traci._vehicle.html#VehicleDomain-getSpeedMode">getSpeedMode</a></p></td>
 </tr>
 <tr class="odd">
 <td><p>lane change mode (0xb6)</p></td>
-<td><p>int bitset (see <a href="TraCI/Change_Vehicle_State#lane_change_mode_.280xb6.29" title="wikilink">below</a>)</p></td>
+<td><p>int bitset (see <a href="../TraCI/Change_Vehicle_State.html#lane_change_mode_0xb6" title="wikilink">below</a>)</p></td>
 <td><p>Get information on how lane changing in general and lane changing requests by TraCI are performed.</p></td>
 <td><p><a href="https://sumo.dlr.de/pydoc/traci._vehicle.html#VehicleDomain-getLaneChangeMode">getLaneChangeMode</a></p></td>
 </tr>
@@ -376,7 +378,7 @@ value is also shown in the table.
 <tr class="odd">
 <td><p>Person Number(0x67)</p></td>
 <td><p>int</p></td>
-<td><p>Returns the total number of persons which includes those defined using attribute 'personNumber' as well as <person>-objects which are riding in this vehicle.</p></td>
+<td><p>Returns the total number of persons which includes those defined using attribute 'personNumber' as well as &lt;person&gt;-objects which are riding in this vehicle.</p></td>
 <td><p><a href="https://sumo.dlr.de/pydoc/traci._vehicle.html#VehicleDomain-getPersonNumber">getPersonNumber</a></p></td>
 </tr>
 <tr class="even">
@@ -450,54 +452,52 @@ value is also shown in the table.
 
 ## Response 0xb4: Vehicle Variable
 
-|          |            |                             |                  |
+|  ubyte   |   string   |            ubyte            |  <return_type\>   |
 | :------: | :--------: | :-------------------------: | :--------------: |
-|  ubyte   |   string   |            ubyte            |  <return_type>   |
-| Variable | Vehicle ID | Return type of the variable | <VARIABLE_VALUE> |
+| Variable | Vehicle ID | Return type of the variable | <VARIABLE_VALUE\> |
 
 The respond to a **"Command Get Vehicle Variable"**.
 
 **next stops (0x73)**
 
-|                       |                                      |                  |
-| :-------------------: | :----------------------------------: | :--------------: |
 |         byte          |                 int                  |       ...        |
+| :-------------------: | :----------------------------------: | :--------------: |
 | value type *compound* | number of following stop information | stop information |
 
 Each stop information is:
 
-|                     |         |                     |        |                     |                 |                      |                                                                                             |                     |                     |                     |                  |
-| :-----------------: | :-----: | :-----------------: | :----: | :-----------------: | :-------------: | :------------------: | :-----------------------------------------------------------------------------------------: | :-----------------: | :-----------------: | :-----------------: | :--------------: |
 |        byte         | string  |        byte         | double |        byte         |     string      |         byte         |                                           integer                                           |        byte         |       double        |        byte         |      double      |
-| value type *string* | lane-id | value type *double* | endPos | value type *string* | stoppingPlaceID | value type *integer* | stopFlags (bit set, see [setStop()](TraCI/Change_Vehicle_State#stop_.280x12.29.md)) | value type *double* | duration in seconds | value type *double* | until in seconds |
+| :-----------------: | :-----: | :-----------------: | :----: | :-----------------: | :-------------: | :------------------: | :-----------------------------------------------------------------------------------------: | :-----------------: | :-----------------: | :-----------------: | :--------------: |
+| value type *string* | lane-id | value type *double* | endPos | value type *string* | stoppingPlaceID | value type *integer* | stopFlags (bit set, see [setStop()](../TraCI/Change_Vehicle_State.md#stop_0x12)) | value type *double* | duration in seconds | value type *double* | until in seconds |
 
 **best lanes (0xb2)**
 
-|                       |                                      |                  |
-| :-------------------: | :----------------------------------: | :--------------: |
 |         byte          |                 int                  |       ...        |
+| :-------------------: | :----------------------------------: | :--------------: |
 | value type *compound* | number of following edge information | edge information |
 
 Each edge information is:
 
-|                     |         |                     |        |                     |            |                   |                     |                    |                                                                 |                         |                               |
-| :-----------------: | :-----: | :-----------------: | :----: | :-----------------: | :--------: | :---------------: | :-----------------: | :----------------: | :-------------------------------------------------------------: | :---------------------: | :---------------------------: |
 |        byte         | string  |        byte         | double |        byte         |   double   |       byte        |    byte (signed)    |        byte        |                         byte (unsigned)                         |          byte           |          stringList           |
+| :-----------------: | :-----: | :-----------------: | :----: | :-----------------: | :--------: | :---------------: | :-----------------: | :----------------: | :-------------------------------------------------------------: | :---------------------: | :---------------------------: |
 | value type *string* | lane-id | value type *double* | length | value type *double* | occupation | value type *byte* | offset to best lane | value type *ubyte* | 0: lane may not be used for continuing drive, 1: it may be used | value type *stringlist* | list of best subsequent lanes |
 
 ## Extended retrieval messages
 
 Some further messages require additional parameters.
 
+<center>
+**Overview Extended Variables Retrieval**
+</center>
+
 <table>
-<caption><strong>Overview Extended Variables Retrieval</strong></caption>
 <thead>
 <tr class="header">
 <th><p>Variable</p></th>
 <th><p>Request ValueType</p></th>
 <th><p>Response ValueType</p></th>
 <th><p>Description</p></th>
-<th><p><a href="TraCI/Interfacing_TraCI_from_Python" title="wikilink">Python Method</a></p></th>
+<th><p><a href="../TraCI/Interfacing_TraCI_from_Python.html" title="wikilink">Python Method</a></p></th>
 </tr>
 </thead>
 <tbody>
@@ -531,25 +531,18 @@ Some further messages require additional parameters.
 </tr>
 <tr class="odd">
 <td><p>change lane information (0x13)</p></td>
-<td><p>compound , <a href="#change_lane_information_.280x13.29" title="wikilink">see below</a></p></td>
-<td><p>int, int <a href="#change_lane_information_.280x13.29" title="wikilink">see below</a></p></td>
+<td><p>compound , <a href="#change_lane_information_0x13" title="wikilink">see below</a></p></td>
+<td><p>int, int <a href="#change_lane_information_0x13" title="wikilink">see below</a></p></td>
 <td><p>Return whether the vehicle could change lanes in the specified direction (right: -1, left: 1. sublane-change within current lane: 0).<br />
 Return the lane change state for the vehicle.</p></td>
 <td><p><a href="https://sumo.dlr.de/pydoc/traci._vehicle.html#VehicleDomain-getLaneChangeState">getLaneChangeState</a> <a href="https://sumo.dlr.de/pydoc/traci._vehicle.html#VehicleDomain-couldChangeLane">couldChangeLane</a> <a href="https://sumo.dlr.de/pydoc/traci._vehicle.html#VehicleDomain-wantsAndCouldChangeLane">wantsAndCouldChangeLane</a></p></td>
 </tr>
 <tr class="even">
 <td><p>neighboring vehicles (0x13)</p></td>
-<td><p>byte , <a href="#change_lane_information_.280x13.29" title="wikilink">see below</a></p></td>
-<td><p>stringList <a href="#change_lane_information_.280x13.29" title="wikilink">see below</a></p></td>
-<td><p>Returns a list of IDs for neighboring vehicle relevant to lane changing (&gt;1 elements only possible for <a href="Simulation/SublaneModel" title="wikilink">sublane model</a>)</p></td>
+<td><p>byte , <a href="#change_lane_information_0x13" title="wikilink">see below</a></p></td>
+<td><p>stringList <a href="#change_lane_information_0x13" title="wikilink">see below</a></p></td>
+<td><p>Returns a list of IDs for neighboring vehicle relevant to lane changing (&gt;1 elements only possible for <a href="../Simulation/SublaneModel.html" title="wikilink">sublane model</a>)</p></td>
 <td><p><a href="https://sumo.dlr.de/daily/pydoc/traci._vehicle.html#VehicleDomain-getNeighbors">getNeighbors</a>, <a href="https://sumo.dlr.de/daily/pydoc/traci._vehicle.html#VehicleDomain-getLeftFollowers">getLeftFollowers</a>, <a href="https://sumo.dlr.de/daily/pydoc/traci._vehicle.html#VehicleDomain-getLeftLeaders">getLeftLeaders</a>, <a href="https://sumo.dlr.de/daily/pydoc/traci._vehicle.html#VehicleDomain-getRightFollowers">getRightFollowers</a>, <a href="https://sumo.dlr.de/daily/pydoc/traci._vehicle.html#VehicleDomain-getRightLeaders">getRightLeaders</a></p></td>
-</tr>
-<tr class="odd">
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
 </tr>
 </tbody>
 </table>
@@ -558,78 +551,72 @@ The request message contents are as following:
 
 ### edge travel time information (0x58)
 
-|                       |                               |                     |                       |                     |         |
-| :-------------------: | :---------------------------: | :-----------------: | :-------------------: | :-----------------: | :-----: |
 |         byte          |              int              |        byte         |        double         |        byte         | string  |
+| :-------------------: | :---------------------------: | :-----------------: | :-------------------: | :-----------------: | :-----: |
 | value type *compound* | number of elements (always=2) | value type *double* | requested time (in s) | value type *string* | edge id |
 
 ### edge effort information (0x59)
 
-|                       |                               |                     |                       |                     |         |
-| :-------------------: | :---------------------------: | :-----------------: | :-------------------: | :-----------------: | :-----: |
 |         byte          |              int              |        byte         |        double         |        byte         | string  |
+| :-------------------: | :---------------------------: | :-----------------: | :-------------------: | :-----------------: | :-----: |
 | value type *compound* | number of elements (always=2) | value type *double* | requested time (in s) | value type *string* | edge id |
 
 ### leader (0x68)
 
-|                     |                                    |
-| :-----------------: | :--------------------------------: |
 |        byte         |               double               |
+| :-----------------: | :--------------------------------: |
 | value type *double* | maximum look ahead distance (in m) |
 
 ### next TLS (0x70)
 
-|                       |                    |                      |                                     |                     |        |                  |                |                     |                 |                   |                                                                             |
-| :-------------------: | :----------------: | :------------------: | :---------------------------------: | :-----------------: | :----: | :--------------: | :------------: | :-----------------: | :-------------: | :---------------: | :-------------------------------------------------------------------------: |
 |         byte          |        int         |         byte         |                 int                 |        byte         | string |       byte       |      int       |        byte         |     double      |       byte        |                                    byte                                     |
-| value type *compound* | number of elements | value type *integer* | number of traffic light links ahead | value type *string* | TLS id | value type *int* | TLS link index | value type *double* | distance to TLS | value type *byte* | [link state](Simulation/Traffic_Lights#Signal_state_definitions.md) |
+| :-------------------: | :----------------: | :------------------: | :---------------------------------: | :-----------------: | :----: | :--------------: | :------------: | :-----------------: | :-------------: | :---------------: | :-------------------------------------------------------------------------: |
+| value type *compound* | number of elements | value type *integer* | number of traffic light links ahead | value type *string* | TLS id | value type *int* | TLS link index | value type *double* | distance to TLS | value type *byte* | [link state](../Simulation/Traffic_Lights.md#signal_state_definitions) |
 
 The last 4 items occur multiple times according to the number of traffic
 lights ahead (2nd return value)
 
 ### change lane information (0x13)
 
-|                       |                                                                             |
-| :-------------------: | :-------------------------------------------------------------------------: |
 |         byte          |                                     int                                     |
+| :-------------------: | :-------------------------------------------------------------------------: |
 | value type *compound* | change direction (-1:right, 0:sublane-change within current lane or 1:left) |
 
 The result consists of two integer values. The first value returns the
 state as computed by the lane change model and the second value returns
 the state after requests where incorporated (see
-[changeLane](TraCI/Change_Vehicle_State#change_lane_.280x13.29.md),
-[setLaneChangeMode](TraCI/Change_Vehicle_State#lane_change_mode_.280xb6.29.md)).
+[changeLane](../TraCI/Change_Vehicle_State.md#change_lane_0x13),
+[setLaneChangeMode](../TraCI/Change_Vehicle_State.md#lane_change_mode_0xb6)).
 Each value is a bitset with the following meaning:
 
-  - 2^0: stay
-  - 2^1: left
-  - 2^2: right
-  - 2^3: strategic
-  - 2^4: cooperative
-  - 2^5: speedGain
-  - 2^6: keepRight
-  - 2^7: TraCI
-  - 2^8: urgent
-  - 2^9: blocked by left leader
-  - 2^10: blocked by left follower
-  - 2^11: blocked by right leader
-  - 2^12: bloecked by right follower
-  - 2^13: overlapping
-  - 2^14: insufficient space
-  - 2^15: sublane
+- 2^0: stay
+- 2^1: left
+- 2^2: right
+- 2^3: strategic
+- 2^4: cooperative
+- 2^5: speedGain
+- 2^6: keepRight
+- 2^7: TraCI
+- 2^8: urgent
+- 2^9: blocked by left leader
+- 2^10: blocked by left follower
+- 2^11: blocked by right leader
+- 2^12: bloecked by right follower
+- 2^13: overlapping
+- 2^14: insufficient space
+- 2^15: sublane
 
 ### neighboring vehicles (0xbf)
 
-|                    |               |
-| :----------------: | :-----------: |
 |        byte        |     ubyte     |
+| :----------------: | :-----------: |
 | value type *ubyte* | mode (bitset) |
 
 The mode's bits specify which neighboring vehicles should be returned:
 
-  - 2^0: right neighbors (else: left)
-  - 2^1: neighbors ahead (else: behind)
-  - 2^2: only neighbors blocking a potential lane change (else: all)
+- 2^0: right neighbors (else: left)
+- 2^1: neighbors ahead (else: behind)
+- 2^2: only neighbors blocking a potential lane change (else: all)
 
 The returned string list contains the IDs of all corresponding
 neighboring vehicles.
@@ -638,32 +625,35 @@ neighboring vehicles.
 
 Vehicles supports retrieval of device parameters using the [generic
 parameter retrieval
-call](Traci/GenericParameters#get_parameter.md).
+call](../TraCI/GenericParameters.md#get_parameter).
 
 ### Supported Device Parameters
 
-  - device.battery.energyConsumed
-  - device.battery.energyCharged
-  - device.battery.actualBatteryCapacity
-  - device.battery.maximumBatteryCapacity
-  - device.battery.chargingStationId
-  - device.battery.vehicleMass
-  - device.person.IDList
-  - device.container.IDList
-  - device.rerouting.period (returns individual rerouting period in
-    seconds)
-  - device.rerouting.edge:EDGE_ID (returns assumed travel time for
-    rerouting where EDGE_ID is the id of a network edge)
-  - device.example.customValue1 (return the value of option )
-  - device.example.customValue2 (return the value of vehicle parameter
-    *example*)
-  - device.example.meaningOfLife (return 42)
-  - has.DEVICENAME.device (returns "true" or "false" depending on
-    whether a device with DEVICENAME is equipped)
+- device.battery.energyConsumed
+- device.battery.energyCharged
+- device.battery.actualBatteryCapacity
+- device.battery.maximumBatteryCapacity
+- device.battery.chargingStationId
+- device.battery.vehicleMass
+- device.person.IDList
+- device.container.IDList
+- device.rerouting.period (returns individual rerouting period in
+  seconds)
+- device.rerouting.edge:EDGE_ID (returns assumed travel time for
+  rerouting where EDGE_ID is the id of a network edge)
+- device.example.customValue1 (return the value of option **--device.example.parameter**)
+- device.example.customValue2 (return the value of vehicle parameter
+  *example*)
+- device.example.meaningOfLife (return 42)
+- has.DEVICENAME.device (returns "true" or "false" depending on
+  whether a device with DEVICENAME is equipped)
+
+!!! caution
+    If the vehicles does not carry the respective device an error is returned when retrieving parameters with the **device**. prefix. This happens when requestion *device.person.IDList* for a vehicle that has not carried any persons up to that point. Either check for existence or handle the error (i.e. by catching TraCIException in the python client).
 
 ### Supported LaneChangeModel Parameters
 
-  - laneChangeModel.<ATTRNAME> (where <ATTRNAME> is one of the
-    [parameters supported by the
-    laneChangeModel](Definition_of_Vehicles,_Vehicle_Types,_and_Routes#Lane-Changing_Models.md)
-    of the vehicle. i.e. *lcStrategic*)
+- laneChangeModel.<ATTRNAME\> (where <ATTRNAME\> is one of the
+  [parameters supported by the
+  laneChangeModel](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#lane-changing_models)
+  of the vehicle. i.e. *lcStrategic*)
