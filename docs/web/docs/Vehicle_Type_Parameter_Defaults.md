@@ -9,518 +9,359 @@ It uses as default always the values in the first line for each vehicle
 class. The other values are just as an information (to be used with own
 vehicle types).
 
-<table>
-<thead>
-<tr class="header">
-<th><p>vClass (SVC)</p></th>
-<th><p>example</p></th>
-<th><p>shape (SVS)</p></th>
-<th><p>length<br />
-width<br />
-height</p></th>
-<th><p>minGap</p></th>
-<th><p>a<sub>max</sub><sup>(**)</sup><br />
-accel</p></th>
-<th><p>b<sup>(**)</sup><br />
-decel</p></th>
-<th><p>b<sub>e</sub><br />
-emergency decel</p></th>
-<th><p>v<sub>max</sub><br />
-maxSpeed</p></th>
-<th><p>seats</p></th>
-<th><p><a href="Models/Emissions/HBEFA3-based" title="wikilink">emissionClass (HBEFA3)</a></p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><p>pedestrian</p></td>
-<td><figure>
-<img src="images/images/Wikicommons_pedestrian.jpg" title="wikicommons_pedestrian.jpg" width="100" alt="" /><figcaption>wikicommons_pedestrian.jpg</figcaption>
-</figure></td>
-<td><p>pedestrian</p></td>
-<td><p>0.215m<sup>(1)</sup><br />
-0.478m<sup>(1)</sup><br />
-1.719m<sup>(1)</sup></p></td>
-<td><p>0.25m</p></td>
-<td><p>1.5m/s<sup>2(23)</sup></p></td>
-<td><p>2m/s<sup>2(23)</sup></p></td>
-<td><p>5m/s<sup>2</sup></p></td>
-<td><p>5.4km/h<sup>(23)</sup></p></td>
-<td><p>-</p></td>
-<td><p>zero</p></td>
-</tr>
-<tr class="even">
-<td><p><strong>two-wheeled vehicle</strong></p></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr class="odd">
-<td><p>bicycle</p></td>
-<td><figure>
-<img src="images/Wikicommons_bicycle.jpg" title="wikicommons_bicycle.jpg" width="100" alt="" /><figcaption>wikicommons_bicycle.jpg</figcaption>
-</figure></td>
-<td><p>bicycle</p></td>
-<td><p>1.6m<sup>(17)</sup><br />
-0.65m<sup>(17)</sup><br />
-1.7m<sup>(*)</sup></p></td>
-<td><p>0.5m</p></td>
-<td><p>1.2m/s<sup>2(19)</sup></p></td>
-<td><p>3m/s<sup>2(19)</sup></p></td>
-<td><p>7m/s<sup>2</sup></p></td>
-<td><p>20km/h<sup>(19)</sup></p></td>
-<td><p>1</p></td>
-<td><p>zero</p></td>
-</tr>
-<tr class="even">
-<td><p>moped</p></td>
-<td><figure>
-<img src="images/Wikicommons_moped.jpg" title="wikicommons_moped.jpg" width="100" alt="" /><figcaption>wikicommons_moped.jpg</figcaption>
-</figure></td>
-<td><p>moped</p></td>
-<td><p>2.1m<sup>(17)</sup><br />
-0.8m<sup>(17)</sup><br />
-1.7m<sup>(*)</sup></p></td>
-<td><p>2.5m</p></td>
-<td><p>1.1m/s<sup>2(25)</sup></p></td>
-<td><p>7m/s<sup>2(26)</sup></p></td>
-<td><p>10m/s<sup>2</sup></p></td>
-<td><p>45km/h<sup>(24)</sup></p></td>
-<td><p>2</p></td>
-<td><p>zero</p></td>
-</tr>
-<tr class="odd">
-<td><p>motorcycle</p></td>
-<td><figure>
-<img src="images/Wikicommons_motorcycle.jpg" title="wikicommons_motorcycle.jpg" width="100" alt="" /><figcaption>wikicommons_motorcycle.jpg</figcaption>
-</figure></td>
-<td><p>motorcycle</p></td>
-<td><p>2.2m<sup>(28)</sup><br />
-0.9m<sup>(28)</sup><br />
-1.5m<sup>(28)</sup></p></td>
-<td><p>2.5m</p></td>
-<td><p>6m/s<sup>2(19)</sup></p></td>
-<td><p>10m/s<sup>2(27)</sup></p></td>
-<td><p>10m/s<sup>2</sup></p></td>
-<td><p>200km/h<sup>(28)</sup></p></td>
-<td><p>2</p></td>
-<td><p>LDV_G_EU6</p></td>
-</tr>
-<tr class="even">
-<td><p><strong>passenger car</strong></p></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr class="odd">
-<td><p>passenger</p></td>
-<td><figure>
-<img src="images/Wikicommons_passenger.jpg" title="wikicommons_passenger.jpg" width="100" alt="" /><figcaption>wikicommons_passenger.jpg</figcaption>
-</figure></td>
-<td><p>passenger</p></td>
-<td><p>4.3m<sup>(29)</sup><br />
-1.8m<sup>(29)</sup><br />
-1.5m<sup>(29)</sup></p></td>
-<td><p>2.5m</p></td>
-<td><p>2.9m/s<sup>2(29)</sup></p></td>
-<td><p>7.5m/s<sup>2(27)</sup></p></td>
-<td><p>9m/s<sup>2</sup></p></td>
-<td><p>180km/h<sup>(29)</sup></p></td>
-<td><p>5</p></td>
-<td><p>LDV_G_EU4</p></td>
-</tr>
-<tr class="even">
-<td><figure>
-<img src="images/Wikicommons_passenger_sedan.jpg" title="wikicommons_passenger_sedan.jpg" width="100" alt="" /><figcaption>wikicommons_passenger_sedan.jpg</figcaption>
-</figure></td>
-<td><p>passenger/sedan</p></td>
-<td><p><em>see above</em></p></td>
-<td><p><em>see above</em></p></td>
-<td><p><em>see above</em></p></td>
-<td><p><em>see above</em></p></td>
-<td><p><em>see above</em></p></td>
-<td><p><em>see above</em></p></td>
-<td><p>5</p></td>
-<td><p>LDV_G_EU4</p></td>
-<td></td>
-</tr>
-<tr class="odd">
-<td><figure>
-<img src="images/Wikicommons_passenger_hatchback.jpg" title="wikicommons_passenger_hatchback.jpg" width="100" alt="" /><figcaption>wikicommons_passenger_hatchback.jpg</figcaption>
-</figure></td>
-<td><p>passenger/hatchback</p></td>
-<td><p><em>see above</em></p></td>
-<td><p><em>see above</em></p></td>
-<td><p><em>see above</em></p></td>
-<td><p><em>see above</em></p></td>
-<td><p><em>see above</em></p></td>
-<td><p><em>see above</em></p></td>
-<td><p>5</p></td>
-<td><p>LDV_G_EU4</p></td>
-<td></td>
-</tr>
-<tr class="even">
-<td><figure>
-<img src="images/Wikicommons_passenger_wagon.jpg" title="wikicommons_passenger_wagon.jpg" width="100" alt="" /><figcaption>wikicommons_passenger_wagon.jpg</figcaption>
-</figure></td>
-<td><p>passenger/wagon</p></td>
-<td><p><em>see above</em></p></td>
-<td><p><em>see above</em></p></td>
-<td><p><em>see above</em></p></td>
-<td><p><em>see above</em></p></td>
-<td><p><em>see above</em></p></td>
-<td><p><em>see above</em></p></td>
-<td><p>5</p></td>
-<td><p>LDV_G_EU4</p></td>
-<td></td>
-</tr>
-<tr class="odd">
-<td><figure>
-<img src="images/Wikicommons_passenger_van.jpg" title="wikicommons_passenger_van.jpg" width="100" alt="" /><figcaption>wikicommons_passenger_van.jpg</figcaption>
-</figure></td>
-<td><p>passenger/van</p></td>
-<td><p>4.7m<sup>(16)</sup><br />
-1.9m<sup>(16)</sup><br />
-1.73m<sup>(16)</sup></p></td>
-<td><p><em>see above</em></p></td>
-<td><p><em>see above</em></p></td>
-<td><p><em>see above</em></p></td>
-<td><p><em>see above</em></p></td>
-<td><p><em>see above</em></p></td>
-<td><p>6</p></td>
-<td><p>LDV_G_EU4</p></td>
-<td></td>
-</tr>
-<tr class="even">
-<td><p>emergency</p></td>
-<td><figure>
-<img src="images/Wikicommons_emergency.jpg" title="wikicommons_emergency.jpg" width="100" alt="" /><figcaption>wikicommons_emergency.jpg</figcaption>
-</figure></td>
-<td><p>delivery</p></td>
-<td><p>6.5m<sup>(37)</sup><br />
-2.16m<sup>(37)</sup><br />
-2.86m<sup>(37)</sup></p></td>
-<td><p><em>see above</em></p></td>
-<td><p><em>see above</em></p></td>
-<td><p><em>see above</em></p></td>
-<td><p><em>see above</em></p></td>
-<td><p><em>see above</em></p></td>
-<td><p>3</p></td>
-<td><p>LDV</p></td>
-</tr>
-<tr class="odd">
-<td><p>delivery</p></td>
-<td><figure>
-<img src="images/Wikicommons_delivery.jpg" title="wikicommons_delivery.jpg" width="100" alt="" /><figcaption>wikicommons_delivery.jpg</figcaption>
-</figure></td>
-<td><p>delivery</p></td>
-<td><p>6.5m<sup>(37)</sup><br />
-2.16m<sup>(37)</sup><br />
-2.86m<sup>(37)</sup></p></td>
-<td><p><em>see above</em></p></td>
-<td><p><em>see above</em></p></td>
-<td><p><em>see above</em></p></td>
-<td><p><em>see above</em></p></td>
-<td><p><em>see above</em></p></td>
-<td><p>3</p></td>
-<td><p>LDV</p></td>
-</tr>
-<tr class="even">
-<td><p><strong>truck</strong></p></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr class="odd">
-<td><p>truck</p></td>
-<td><figure>
-<img src="images/Wikicommons_transport.jpg" title="wikicommons_transport.jpg" width="100" alt="" /><figcaption>wikicommons_transport.jpg</figcaption>
-</figure></td>
-<td><p>truck</p></td>
-<td><p>7.1m<sup>(30)</sup><br />
-2.4m<sup>(30)</sup><br />
-2.4m<sup>(30)</sup></p></td>
-<td><p>2.5m</p></td>
-<td><p>1.3m/s<sup>2(31)</sup></p></td>
-<td><p>4m/s<sup>2(27)</sup></p></td>
-<td><p>7m/s<sup>2</sup></p></td>
-<td><p>130km/h<sup>(35)</sup></p></td>
-<td><p>3</p></td>
-<td><p>HDV</p></td>
-</tr>
-<tr class="even">
-<td><p>trailer</p></td>
-<td><figure>
-<img src="images/Wikicommons_transport_semitrailer.jpg" title="wikicommons_transport_semitrailer.jpg" width="100" alt="" /><figcaption>wikicommons_transport_semitrailer.jpg</figcaption>
-</figure></td>
-<td><p>truck/semitrailer</p></td>
-<td><p>16.5m<sup>(14)</sup><br />
-max. 2.55m<sup>(13)</sup><br />
-max. 4m<sup>(13)</sup></p></td>
-<td><p>2.5m</p></td>
-<td><p>1.1m/s<sup>2(31)</sup></p></td>
-<td><p><em>see above</em></p></td>
-<td><p><em>see above</em></p></td>
-<td><p><em>see above</em></p></td>
-<td><p>3</p></td>
-<td><p>HDV</p></td>
-</tr>
-<tr class="odd">
-<td><figure>
-<img src="images/Wikicommons_transport_trailer.jpg" title="wikicommons_transport_trailer.jpg" width="100" alt="" /><figcaption>wikicommons_transport_trailer.jpg</figcaption>
-</figure></td>
-<td><p>truck/trailer</p></td>
-<td><p>max. 18.75m<sup>(13)</sup><br />
-max. 2.55m<sup>(13)</sup><br />
-max. 4m<sup>(13)</sup></p></td>
-<td><p>2.5m</p></td>
-<td><p>1m/s<sup>2(31)</sup></p></td>
-<td><p><em>see above</em></p></td>
-<td><p><em>see above</em></p></td>
-<td><p><em>see above</em></p></td>
-<td><p>3</p></td>
-<td><p>HDV</p></td>
-<td></td>
-</tr>
-<tr class="even">
-<td><p><strong>bus</strong></p></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr class="odd">
-<td><p>bus</p></td>
-<td><figure>
-<img src="images/Wikicommons_bus_city.jpg" title="wikicommons_bus_city.jpg" width="100" alt="" /><figcaption>wikicommons_bus_city.jpg</figcaption>
-</figure></td>
-<td><p>bus</p></td>
-<td><p>12m<sup>(3)</sup><br />
-2.5m<sup>(3)</sup><br />
-3.4m<sup>(3)</sup></p></td>
-<td><p>2.5m</p></td>
-<td><p>1.2m/s<sup>2(18)</sup></p></td>
-<td><p>4m/s<sup>2(27)</sup></p></td>
-<td><p>7m/s<sup>2</sup></p></td>
-<td><p>85km/h<sup>(3)</sup></p></td>
-<td><p>~85</p></td>
-<td><p>Bus</p></td>
-</tr>
-<tr class="even">
-<td><figure>
-<img src="images/Wikicommons_bus_flexible.jpg" title="wikicommons_bus_flexible.jpg" width="100" alt="" /><figcaption>wikicommons_bus_flexible.jpg</figcaption>
-</figure></td>
-<td><p>bus/flexible</p></td>
-<td><p>17.9m<sup>(3)</sup><br />
-2.5m<sup>(3)</sup><br />
-3.0m<sup>(3)</sup></p></td>
-<td><p>2.5m</p></td>
-<td><p>1.2m/s<sup>2(18)</sup></p></td>
-<td><p><em>see above</em></p></td>
-<td><p><em>see above</em></p></td>
-<td><p><em>see above</em></p></td>
-<td><p>~150</p></td>
-<td><p>Bus</p></td>
-<td></td>
-</tr>
-<tr class="odd">
-<td><p>coach</p></td>
-<td><figure>
-<img src="images/Wikicommons_overland.jpg" title="wikicommons_overland.jpg" width="100" alt="" /><figcaption>wikicommons_overland.jpg</figcaption>
-</figure></td>
-<td><p>bus/coach</p></td>
-<td><p>14m<sup>(10)</sup><br />
-2.6m<sup>(10)</sup><br />
-4.m<sup>(10)</sup></p></td>
-<td><p>2.5m</p></td>
-<td><p>2.0m/s<sup>2(*)</sup></p></td>
-<td><p><em>see above</em></p></td>
-<td><p><em>see above</em></p></td>
-<td><p>100km/h<sup>(32)</sup></p></td>
-<td><p>70<sup>(9)</sup></p></td>
-<td><p>Coach</p></td>
-</tr>
-<tr class="even">
-<td><p><strong>rail</strong></p></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr class="odd">
-<td><p>tram</p></td>
-<td><figure>
-<img src="images/Wikicommons_lightrail.jpg" title="wikicommons_lightrail.jpg" width="100" alt="" /><figcaption>wikicommons_lightrail.jpg</figcaption>
-</figure></td>
-<td><p>rail/railcar</p></td>
-<td><p>~22m<sup>(7)</sup><br />
-~2.4m<sup>(7)</sup><br />
-~3.2m<sup>(7)</sup></p></td>
-<td><p>2.5m</p></td>
-<td><p>1.0m/s<sup>2(18)</sup></p></td>
-<td><p>3.0m/s<sup>2(27)</sup></p></td>
-<td><p>7m/s<sup>2</sup></p></td>
-<td><p>80km/h<sup>(36)</sup></p></td>
-<td><p>~120<sup>(7, *)</sup></p></td>
-<td><p>zero</p></td>
-</tr>
-<tr class="even">
-<td><p>rail_urban</p></td>
-<td><figure>
-<img src="images/Wikicommons_rail_city.jpg" title="wikicommons_rail_city.jpg" width="100" alt="" /><figcaption>wikicommons_rail_city.jpg</figcaption>
-</figure></td>
-<td><p>rail/railcar</p></td>
-<td><p>36.5m(*2/*4)<sup>(4)</sup><br />
-3.0m<sup>(4)</sup><br />
-3.6m<sup>(4)</sup></p></td>
-<td><p>2.5m</p></td>
-<td><p>1.0m/s<sup>2(4)</sup></p></td>
-<td><p>3.0m/s<sup>2(27)</sup></p></td>
-<td><p>7m/s<sup>2</sup></p></td>
-<td><p>100km/h<sup>(4)</sup></p></td>
-<td><p>~300(*2/*4)</p></td>
-<td><p>zero</p></td>
-</tr>
-<tr class="odd">
-<td><p>rail</p></td>
-<td><figure>
-<img src="images/Wikicommons_rail_slow.jpg" title="wikicommons_rail_slow.jpg" width="100" alt="" /><figcaption>wikicommons_rail_slow.jpg</figcaption>
-</figure></td>
-<td><p>rail</p></td>
-<td><p>67.5m(*2)<sup>(11)</sup><br />
-2.84m<sup>(11)</sup><br />
-3.75m<sup>(11)</sup></p></td>
-<td><p>2.5m</p></td>
-<td><p>0.25m/s<sup>2(34)</sup></p></td>
-<td><p>1.3m/s<sup>2(33)</sup></p></td>
-<td><p>5m/s<sup>2</sup></p></td>
-<td><p>160km/h<sup>(11)</sup></p></td>
-<td><p>~434(*2)<sup>(11)</sup></p></td>
-<td><p>HDV_D_EU0</p></td>
-</tr>
-<tr class="even">
-<td><figure>
-<img src="images/Wikicommons_rail_cargo.jpg" title="wikicommons_rail_cargo.jpg" width="100" alt="" /><figcaption>wikicommons_rail_cargo.jpg</figcaption>
-</figure></td>
-<td><p>rail/cargo</p></td>
-<td><p>750m (~18.9m + x*~16m)<sup>(5, 6, 8)</sup><br />
-~4.4m<sup>(6)</sup><br />
-~3.0m<sup>(6)</sup></p></td>
-<td><p>2.5m</p></td>
-<td><p>0.25m/s<sup>2(34)</sup></p></td>
-<td><p>1.3m/s<sup>2(33)</sup></p></td>
-<td><p>5m/s<sup>2</sup></p></td>
-<td><p>120km/h<sup>(5)</sup></p></td>
-<td><p>1</p></td>
-<td><p>HDV_D_EU0</p></td>
-<td></td>
-</tr>
-<tr class="odd">
-<td><p>rail_electric</p></td>
-<td><figure>
-<img src="images/Wikicommons_rail_fast.jpg" title="wikicommons_rail_fast.jpg" width="100" alt="" /><figcaption>wikicommons_rail_fast.jpg</figcaption>
-</figure></td>
-<td><p>rail</p></td>
-<td><p>~25m(*8)<sup>(12)</sup><br />
-2.95m<sup>(12)</sup><br />
-3.89m<sup>(12)</sup></p></td>
-<td><p>2.5m</p></td>
-<td><p>0.5m/s<sup>2(33)</sup></p></td>
-<td><p>1.3m/s<sup>2(33)</sup></p></td>
-<td><p>5m/s<sup>2</sup></p></td>
-<td><p>330km/h<sup>(12)</sup></p></td>
-<td><p>425<sup>(12)</sup></p></td>
-<td><p>zero</p></td>
-</tr>
-<tr class="even">
-<td><p><strong>electric vehicle</strong></p></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr class="odd">
-<td><p>evehicle</p></td>
-<td></td>
-<td><p>evehicle</p></td>
-<td><p>see passenger</p></td>
-<td><p>see passenger</p></td>
-<td><p>see passenger</p></td>
-<td><p>see passenger</p></td>
-<td><p>see passenger</p></td>
-<td><p>see passenger</p></td>
-<td><p>see passenger</p></td>
-<td><p>zero</p></td>
-</tr>
-<tr class="even">
-<td><p><strong>ships</strong></p></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr class="odd">
-<td><p>ship</p></td>
-<td></td>
-<td><p>ship</p></td>
-<td><p>17m<br />
-4m<br />
-4m</p></td>
-<td><p>2.5</p></td>
-<td><p>0.1m/s<sup>2</sup></p></td>
-<td><p>0.1m/s<sup>2</sup></p></td>
-<td><p>1m/s<sup>2</sup></p></td>
-<td><p>4.12 (8 Knots)</p></td>
-<td></td>
-<td><p>HDV_D_EU0</p></td>
-</tr>
-</tbody>
+<style type="text/css">
+.tg  {border-collapse:collapse;border-spacing:0;}
+.tg td{font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:black;}
+.tg th{font-family:Arial, sans-serif;font-size:14px;font-weight:normal;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:black;}
+.tg .tg-cly1{text-align:left;vertical-align:middle}
+.tg .tg-eaoh{font-weight:bold;background-color:#ffdead;text-align:center;vertical-align:top}
+.tg .tg-dr3j{font-weight:bold;background-color:#ffdead;text-align:center;vertical-align:middle}
+.tg .tg-ye8u{background-color:#ffdead;text-align:center;vertical-align:top}
+.tg .tg-0lax{text-align:left;vertical-align:top}
+.tg .tg-c882{font-weight:bold;background-color:#e0ffd0;text-align:center;vertical-align:top}
+</style>
+<table class="tg">
+  <tr>
+    <th class="tg-dr3j">vClass (SVC)</th>
+    <th class="tg-dr3j">example</th>
+    <th class="tg-dr3j">shape (SVS)</th>
+    <th class="tg-dr3j">length<br>width<br>height</th>
+    <th class="tg-dr3j">minGap</th>
+    <th class="tg-dr3j">a<sub>max</sub><sup>(**)</sup>accel<br></th>
+    <th class="tg-dr3j">b<sup>(**)</sup> decel</th>
+    <th class="tg-dr3j">b<sub>e</sub>emergency decel</th>
+    <th class="tg-dr3j">v<sub>max</sub> maxSpeed</th>
+    <th class="tg-dr3j">seats</th>
+    <th class="tg-dr3j"><a href="Models/Emissions/HBEFA3-based.html">emissionClass (HBEFA3)</a></th>
+  </tr>
+  <tr>
+    <td class="tg-cly1">pedestrian</td>
+    <td class="tg-cly1"><img src="images/Wikicommons_pedestrian.jpg" title="wikicommons_pedestrian.jpg" width="200" alt="" /></td>
+    <td class="tg-cly1">pedestrian</td>
+    <td class="tg-cly1">0.215m<sup>(1)</sup><br>0.478m<sup>(1)</sup><br>1.719m<sup>(1)</sup></td>
+    <td class="tg-cly1">0.25m</td>
+    <td class="tg-0lax">1.5m/s<sup>2(23)</sup></td>
+    <td class="tg-0lax">2m/s<sup>2(23)</sup></td>
+    <td class="tg-0lax">5m/s<sup>2</sup></td>
+    <td class="tg-0lax">5.4km/h<sup>(23)</sup></td>
+    <td class="tg-0lax">-</td>
+    <td class="tg-0lax">zero</td>
+  </tr>
+  <tr>
+    <td class="tg-c882" colspan="11">two-wheeled vehicle</td>
+  </tr>
+  <tr>
+    <td class="tg-0lax">bicycle</td>
+    <td class="tg-0lax"><img src="images/Wikicommons_bicycle.jpg" title="wikicommons_bicycle.jpg" width="200" alt="" /></td>
+    <td class="tg-0lax">bicycle</td>
+    <td class="tg-0lax">1.6m<sup>(17)</sup><br>0.65m<sup>(17)</sup><br>1.7m<sup>(*)</sup></td>
+    <td class="tg-0lax">0.5m</td>
+    <td class="tg-0lax">1.2m/s<sup>2(19)</sup></td>
+    <td class="tg-0lax">3m/s<sup>2(19)</sup></td>
+    <td class="tg-0lax">7m/s<sup>2</sup></td>
+    <td class="tg-0lax">20km/h<sup>(19)</sup></td>
+    <td class="tg-0lax">1</td>
+    <td class="tg-0lax">zero</td>
+  </tr>
+  <tr>
+    <td class="tg-0lax">moped</td>
+    <td class="tg-0lax"><img src="images/Wikicommons_moped.jpg" title="wikicommons_moped.jpg" width="200" alt="" /></td>
+    <td class="tg-0lax">moped</td>
+    <td class="tg-0lax">2.1m<sup>(17)</sup><br>0.8m<sup>(17)</sup><br>1.7m<sup>(*)</sup></td>
+    <td class="tg-0lax">2.5m</td>
+    <td class="tg-0lax">1.1m/s<sup>2(25)</sup></td>
+    <td class="tg-0lax">7m/s<sup>2(26)</sup></td>
+    <td class="tg-0lax">10m/s<sup>2</sup></td>
+    <td class="tg-0lax">45km/h<sup>(24)</sup></td>
+    <td class="tg-0lax">2</td>
+    <td class="tg-0lax">zero</td>
+  </tr>
+  <tr>
+    <td class="tg-0lax">motorcycle</td>
+    <td class="tg-0lax"><img src="images/Wikicommons_motorcycle.jpg" title="wikicommons_motorcycle.jpg" width="200" alt="" /></td>
+    <td class="tg-0lax">motorcycle</td>
+    <td class="tg-0lax">2.2m<sup>(28)</sup><br>0.9m<sup>(28)</sup><br>1.5m<sup>(28)</sup></td>
+    <td class="tg-0lax">2.5m</td>
+    <td class="tg-0lax">6m/s<sup>2(19)</sup></td>
+    <td class="tg-0lax">10m/s<sup>2(27)</sup></td>
+    <td class="tg-0lax">10m/s<sup>2</sup></td>
+    <td class="tg-0lax">200km/h<sup>(28)</sup></td>
+    <td class="tg-0lax">2</td>
+    <td class="tg-0lax">LDV_G_EU6</td>
+  </tr>
+  <tr>
+    <td class="tg-c882" colspan="11">passenger car</td>
+  </tr>
+  <tr>
+    <td class="tg-0lax" rowspan="5">passenger</td>
+    <td class="tg-0lax"><img src="images/Wikicommons_passenger.jpg" title="wikicommons_passenger.jpg" width="200" alt="" /></td>
+    <td class="tg-0lax">passenger</td>
+    <td class="tg-0lax">4.3m<sup>(29)</sup><br>1.8m<sup>(29)</sup><br>1.5m<sup>(29)</sup></td>
+    <td class="tg-0lax">2.5m</td>
+    <td class="tg-0lax">2.9m/s<sup>2(29)</sup></td>
+    <td class="tg-0lax">7.5m/s<sup>2(27)</sup></td>
+    <td class="tg-0lax">9m/s<sup>2</sup></td>
+    <td class="tg-0lax">180km/h<sup>(29)</sup></td>
+    <td class="tg-0lax">5</td>
+    <td class="tg-0lax">LDV_G_EU4</td>
+  </tr>
+  <tr>
+    <td class="tg-0lax"><img src="images/Wikicommons_passenger_sedan.jpg" title="wikicommons_passenger_sedan.jpg" width="200" alt="" /></td>
+    <td class="tg-0lax">passenger/sedan</td>
+    <td class="tg-0lax">see above</td>
+    <td class="tg-0lax">see above</td>
+    <td class="tg-0lax">see above</td>
+    <td class="tg-0lax">see above</td>
+    <td class="tg-0lax">see above</td>
+    <td class="tg-0lax">see above</td>
+    <td class="tg-0lax">5</td>
+    <td class="tg-0lax">LDV_G_EU4</td>
+  </tr>
+  <tr>
+    <td class="tg-0lax"><img src="images/Wikicommons_passenger_hatchback.jpg" title="wikicommons_passenger_hatchback.jpg" width="200" alt="" /></td>
+    <td class="tg-0lax">passenger/hatchback</td>
+    <td class="tg-0lax">see above</td>
+    <td class="tg-0lax">see above</td>
+    <td class="tg-0lax">see above</td>
+    <td class="tg-0lax">see above</td>
+    <td class="tg-0lax">see above</td>
+    <td class="tg-0lax">see above</td>
+    <td class="tg-0lax">5</td>
+    <td class="tg-0lax">LDV_G_EU4</td>
+  </tr>
+  <tr>
+    <td class="tg-0lax"><img src="images/Wikicommons_passenger_wagon.jpg" title="wikicommons_passenger_wagon.jpg" width="200" alt="" /></td>
+    <td class="tg-0lax">passenger/wagon</td>
+    <td class="tg-0lax">see above</td>
+    <td class="tg-0lax">see above</td>
+    <td class="tg-0lax">see above</td>
+    <td class="tg-0lax">see above</td>
+    <td class="tg-0lax">see above</td>
+    <td class="tg-0lax">see above</td>
+    <td class="tg-0lax">5</td>
+    <td class="tg-0lax">LDV_G_EU4</td>
+  </tr>
+  <tr>
+    <td class="tg-0lax"><img src="images/Wikicommons_passenger_van.jpg" title="wikicommons_passenger_van.jpg" width="200" alt="" /></td>
+    <td class="tg-0lax">passenger/van</td>
+    <td class="tg-0lax">4.7m<sup>(16)</sup><br>1.9m<sup>(16)</sup><br>1.73m<sup>(16)</sup></td>
+    <td class="tg-0lax">see above</td>
+    <td class="tg-0lax">see above</td>
+    <td class="tg-0lax">see above</td>
+    <td class="tg-0lax">see above</td>
+    <td class="tg-0lax">see above</td>
+    <td class="tg-0lax">6<br></td>
+    <td class="tg-0lax">LDV_G_EU4</td>
+  </tr>
+  <tr>
+    <td class="tg-0lax">emergency</td>
+    <td class="tg-0lax"><img src="images/Wikicommons_emergency.jpg" title="wikicommons_emergency.jpg" width="200" alt="" /></td>
+    <td class="tg-0lax">delivery</td>
+    <td class="tg-0lax">6.5m<sup>(37)</sup><br>2.16m<sup>(37)</sup><br>2.86m<sup>(37)</sup></td>
+    <td class="tg-0lax">see above</td>
+    <td class="tg-0lax">see above</td>
+    <td class="tg-0lax">see above</td>
+    <td class="tg-0lax">see above</td>
+    <td class="tg-0lax">see above</td>
+    <td class="tg-0lax">3</td>
+    <td class="tg-0lax">LDV</td>
+  </tr>
+  <tr>
+    <td class="tg-0lax">delivery</td>
+    <td class="tg-0lax"><img src="images/Wikicommons_delivery.jpg" title="wikicommons_delivery.jpg" width="200" alt="" /></td>
+    <td class="tg-0lax">delivery</td>
+    <td class="tg-0lax">6.5m<sup>(37)</sup><br>2.16m<sup>(37)</sup><br>2.86m<sup>(37)</sup></td>
+    <td class="tg-0lax">see above</td>
+    <td class="tg-0lax">see above</td>
+    <td class="tg-0lax">see above</td>
+    <td class="tg-0lax">see above</td>
+    <td class="tg-0lax">see above</td>
+    <td class="tg-0lax">3</td>
+    <td class="tg-0lax">LDV</td>
+  </tr>
+  <tr>
+    <td class="tg-c882" colspan="11">truck</td>
+  </tr>
+  <tr>
+    <td class="tg-0lax">truck</td>
+    <td class="tg-0lax"><img src="images/Wikicommons_transport.jpg" title="wikicommons_transport.jpg" width="200" alt="" /></td>
+    <td class="tg-0lax">truck</td>
+    <td class="tg-0lax">7.1m<sup>(30)</sup><br>2.4m<sup>(30)</sup><br>2.4m<sup>(30)</sup></td>
+    <td class="tg-0lax">2.5m</td>
+    <td class="tg-0lax">1.3m/s<sup>2(31)</sup></td>
+    <td class="tg-0lax">4m/s2<br>(27)</td>
+    <td class="tg-0lax">7m/s<sup>2</sup></td>
+    <td class="tg-0lax">130km/h<sup>(35)</sup></td>
+    <td class="tg-0lax">3</td>
+    <td class="tg-0lax">HDV</td>
+  </tr>
+  <tr>
+    <td class="tg-0lax" rowspan="2">trailer</td>
+    <td class="tg-0lax"><img src="images/Wikicommons_transport_semitrailer.jpg" title="wikicommons_transport_semitrailer.jpg" width="200" alt="" /></td>
+    <td class="tg-0lax">truck/semitrailer</td>
+    <td class="tg-0lax">16.5m<sup>(14)</sup><br>max. 2.55m<sup>(13)</sup><br>max. 4m<sup>(13)</sup></td>
+    <td class="tg-0lax">2.5m</td>
+    <td class="tg-0lax">1.1m/s<sup>2(31)</sup></td>
+    <td class="tg-0lax">see above</td>
+    <td class="tg-0lax">see above</td>
+    <td class="tg-0lax">see above</td>
+    <td class="tg-0lax">3</td>
+    <td class="tg-0lax">HDV</td>
+  </tr>
+  <tr>
+    <td class="tg-0lax"><img src="images/Wikicommons_transport_trailer.jpg" title="wikicommons_transport_trailer.jpg" width="200" alt="" /></td>
+    <td class="tg-0lax">truck/trailer</td>
+    <td class="tg-0lax">max. 18.75m<sup>(13)</sup><br>max. 2.55m<sup>(13)</sup><br>max. 4m<sup>(13)</sup></td>
+    <td class="tg-0lax">2.5m</td>
+    <td class="tg-0lax">1m/s<sup>2(31)</sup></td>
+    <td class="tg-0lax">see above</td>
+    <td class="tg-0lax">see above</td>
+    <td class="tg-0lax">see above</td>
+    <td class="tg-0lax">3</td>
+    <td class="tg-0lax">HDV</td>
+  </tr>
+  <tr>
+    <td class="tg-c882" colspan="11">bus</td>
+  </tr>
+  <tr>
+    <td class="tg-0lax" rowspan="2">bus</td>
+    <td class="tg-0lax"><img src="images/Wikicommons_bus_city.jpg" title="wikicommons_bus_city.jpg" width="200" alt="" /></td>
+    <td class="tg-0lax">bus</td>
+    <td class="tg-0lax">12m<sup>(3)</sup><br>2.5m<sup>(3)</sup><br>3.4m<sup>(3)</sup></td>
+    <td class="tg-0lax">2.5m</td>
+    <td class="tg-0lax">1.2m/<sup>s2(18)</sup></td>
+    <td class="tg-0lax">4m/s<sup>2(27)</sup></td>
+    <td class="tg-0lax">7m/s<sup>2</sup></td>
+    <td class="tg-0lax">85km/h<sup>(3)</sup></td>
+    <td class="tg-0lax">~85</td>
+    <td class="tg-0lax">Bus</td>
+  </tr>
+  <tr>
+    <td class="tg-0lax"><img src="images/Wikicommons_bus_flexible.jpg" title="wikicommons_bus_flexible.jpg" width="200" alt="" /></td>
+    <td class="tg-0lax">bus/flexible</td>
+    <td class="tg-0lax">17.9m<sup>(3)</sup><br>2.5m<sup>(3)</sup><br>3.0m<sup>(3)</sup></td>
+    <td class="tg-0lax">2.5m</td>
+    <td class="tg-0lax">1.2m/s<sup>2(18)</sup></td>
+    <td class="tg-0lax">see above</td>
+    <td class="tg-0lax">see above</td>
+    <td class="tg-0lax">see above</td>
+    <td class="tg-0lax">~150</td>
+    <td class="tg-0lax">Bus</td>
+  </tr>
+  <tr>
+    <td class="tg-0lax">coach</td>
+    <td class="tg-0lax"><img src="images/Wikicommons_overland.jpg" title="wikicommons_overland.jpg" width="200" alt="" /></td>
+    <td class="tg-0lax">bus/coach</td>
+    <td class="tg-0lax">14m<sup>(10)</sup><br>2.6m<sup>(10)</sup><br>4.m<sup>(10)</sup></td>
+    <td class="tg-0lax">2.5m</td>
+    <td class="tg-0lax">2.0m/s<sup>2(*)</sup></td>
+    <td class="tg-0lax">see above</td>
+    <td class="tg-0lax">see above</td>
+    <td class="tg-0lax">100km/h<sup>(32)</sup></td>
+    <td class="tg-0lax">70<sup>(9)</sup></td>
+    <td class="tg-0lax">Coach</td>
+  </tr>
+  <tr>
+    <td class="tg-c882" colspan="11">rail</td>
+  </tr>
+  <tr>
+    <td class="tg-0lax">tram</td>
+    <td class="tg-0lax"><img src="images/Wikicommons_lightrail.jpg" title="wikicommons_lightrail.jpg" width="200" alt="" /></td>
+    <td class="tg-0lax">rail/railcar</td>
+    <td class="tg-0lax">~22m<sup>(7)</sup><br>~2.4m<sup>(7)</sup><br>~3.2m<sup>(7)</sup></td>
+    <td class="tg-0lax">2.5m</td>
+    <td class="tg-0lax">1.0m/s<sup>2(18)</sup></td>
+    <td class="tg-0lax">3.0m/s<sup>2(27)</sup></td>
+    <td class="tg-0lax">7m/s<sup>2</sup></td>
+    <td class="tg-0lax">80km/h<sup>(36)</sup></td>
+    <td class="tg-0lax">~120<sup>(7, *)</sup></td>
+    <td class="tg-0lax">zero</td>
+  </tr>
+  <tr>
+    <td class="tg-0lax">rail_urban</td>
+    <td class="tg-0lax"><img src="images/Wikicommons_rail_city.jpg" title="wikicommons_rail_city.jpg" width="200" alt="" /></td>
+    <td class="tg-0lax">rail/railcar</td>
+    <td class="tg-0lax">36.5m(*2/*4)<sup>(4)</sup><br>3.0m<sup>(4)</sup><br>3.6m<sup>(4)</sup></td>
+    <td class="tg-0lax">2.5m</td>
+    <td class="tg-0lax">1.0m/s<sup>2(4)</sup></td>
+    <td class="tg-0lax">3.0m/s<sup>2(27)</sup></td>
+    <td class="tg-0lax">7m/s<sup>2</sup></td>
+    <td class="tg-0lax">100km/h<sup>(4)</sup></td>
+    <td class="tg-0lax">~300(*2/*4)</td>
+    <td class="tg-0lax">zero</td>
+  </tr>
+  <tr>
+    <td class="tg-0lax" rowspan="2">rail</td>
+    <td class="tg-0lax"><img src="images/Wikicommons_rail_slow.jpg" title="wikicommons_rail_slow.jpg" width="200" alt="" /></td>
+    <td class="tg-0lax">rail</td>
+    <td class="tg-0lax">67.5m(*2)<sup>(11)</sup><br>2.84m<sup>(11)</sup><br>3.75m<sup>(11)</sup></td>
+    <td class="tg-0lax">2.5m</td>
+    <td class="tg-0lax">0.25m/s<sup>2(34)</sup></td>
+    <td class="tg-0lax">1.3m/s<sup>2(33)</sup></td>
+    <td class="tg-0lax">5m/s<sup>2</sup></td>
+    <td class="tg-0lax">160km/h<sup>(11)</sup></td>
+    <td class="tg-0lax">~434(*2)<sup>(11)</sup></td>
+    <td class="tg-0lax">HDV_D_EU0</td>
+  </tr>
+  <tr>
+    <td class="tg-0lax"><img src="images/Wikicommons_rail_cargo.jpg" title="wikicommons_rail_cargo.jpg" width="200" alt="" /></td>
+    <td class="tg-0lax">rail/cargo</td>
+    <td class="tg-0lax">750m (~18.9m + x*~16m)<sup>(5, 6, 8)</sup><br>~4.4m(6)<br>~3.0m(6)</td>
+    <td class="tg-0lax">2.5m</td>
+    <td class="tg-0lax">0.25m/s<sup>2(34)</sup></td>
+    <td class="tg-0lax">1.3m/s<sup>2(33)</sup></td>
+    <td class="tg-0lax">5m/s<sup>2</sup></td>
+    <td class="tg-0lax">120km/h<sup>(5)</sup></td>
+    <td class="tg-0lax">1</td>
+    <td class="tg-0lax">HDV_D_EU0</td>
+  </tr>
+  <tr>
+    <td class="tg-0lax">rail_electric</td>
+    <td class="tg-0lax"><img src="images/Wikicommons_rail_fast.jpg" title="wikicommons_rail_fast.jpg" width="200" alt="" /></td>
+    <td class="tg-0lax">rail</td>
+    <td class="tg-0lax">~25m(*8)<sup>(12)</sup><br>2.95m<sup>(12)</sup><br>3.89m<sup>(12)</sup></td>
+    <td class="tg-0lax">2.5m</td>
+    <td class="tg-0lax">0.5m/s<sup>2(33)</sup></td>
+    <td class="tg-0lax">1.3m/s<sup>2(33)</sup></td>
+    <td class="tg-0lax">5m/s<sup>2</sup></td>
+    <td class="tg-0lax">330km/h<sup>(12)</sup></td>
+    <td class="tg-0lax">425<sup>(12)</sup></td>
+    <td class="tg-0lax">zero</td>
+  </tr>
+  <tr>
+    <td class="tg-c882" colspan="11">electric vehicle</td>
+  </tr>
+  <tr>
+    <td class="tg-0lax">evehicle</td>
+    <td class="tg-0lax"></td>
+    <td class="tg-0lax">evehicle</td>
+    <td class="tg-0lax">see passenger</td>
+    <td class="tg-0lax">see passenger</td>
+    <td class="tg-0lax">see passenger</td>
+    <td class="tg-0lax">see passenger</td>
+    <td class="tg-0lax">see passenger</td>
+    <td class="tg-0lax">see passenger</td>
+    <td class="tg-0lax">see passenger</td>
+    <td class="tg-0lax">zero</td>
+  </tr>
+  <tr>
+    <td class="tg-c882" colspan="11">ships</td>
+  </tr>
+  <tr>
+    <td class="tg-0lax">ship</td>
+    <td class="tg-0lax"></td>
+    <td class="tg-0lax">ship</td>
+    <td class="tg-0lax">17m<br>4m<br>4m</td>
+    <td class="tg-0lax">2.5</td>
+    <td class="tg-0lax">0.1m/s<sup>2</sup></td>
+    <td class="tg-0lax">0.1m/s<sup>2</sup></td>
+    <td class="tg-0lax">1m/s<sup>2</sup></td>
+    <td class="tg-0lax">4.12 (8 Knots)</td>
+    <td class="tg-0lax"></td>
+    <td class="tg-0lax">HDV_D_EU0</td>
+  </tr>
 </table>
+
 
 - (1):
   <http://www.baua.de/de/Publikationen/AWE/Band3/AWE108.pdf?__blob=publicationFile&v=4>;
@@ -574,6 +415,5 @@ max. 4m<sup>(13)</sup></p></td>
 - (36): <http://ka.stadtwiki.net/H%C3%B6chstgeschwindigkeit_(Bahn)>
 - (37):
   <http://www.rettungsdienst.brk.de/technik/rtw/rtw_by_2010/daten>
-
 - (\*): estimated
 - (\*\*): need to be revisited to fit to model behaviour
