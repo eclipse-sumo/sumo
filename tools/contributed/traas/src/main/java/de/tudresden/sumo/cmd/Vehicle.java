@@ -322,7 +322,7 @@ public class Vehicle {
      * @param edgeID edge id
      * @return the effort
      */
-    public static SumoCommand getEffort(String vehID, int time, String edgeID) {
+    public static SumoCommand getEffort(String vehID, double time, String edgeID) {
         Object[] array = new Object[] {time, edgeID};
         return new SumoCommand(Constants.CMD_GET_VEHICLE_VARIABLE, Constants.VAR_EDGE_EFFORT, vehID, array, Constants.RESPONSE_GET_VEHICLE_VARIABLE, Constants.TYPE_DOUBLE);
     }
