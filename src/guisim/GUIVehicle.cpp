@@ -625,7 +625,7 @@ GUIVehicle::drawRouteHelper(const GUIVisualizationSettings& s, const MSRoute& r,
         if (stop.pars.until >= 0) {
             label += " until:" + time2string(stop.pars.until);
         }
-        if (stop.duration >= 0) {
+        if (stop.duration >= 0 || stop.pars.duration > 0) {
             if (STEPS2TIME(stop.duration) > 3600 * 24) {
                 label += " duration:1day+";
             } else {
