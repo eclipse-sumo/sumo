@@ -33,23 +33,24 @@ Debug: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
 Debug: Setting new attribute selected 'true' into route 'route_0'
 Debug: Setting new attribute selected 'true' into stopBusStop 'route_0stopBusStop0'
 Debug: Setting new attribute selected 'true' into stopBusStop 'route_0stopBusStop1'
-Debug: Setting new attribute selected 'false' into route 'route_0'
-Debug: Setting new attribute selected 'false' into stopBusStop 'route_0stopBusStop0'
-Debug: Setting new attribute selected 'false' into stopBusStop 'route_0stopBusStop1'
 Debug: ObjectsUnderCursor: GUIGlObjects: 4, AttributeCarriers: 4, NetElements: 0, Additionals: 1, DemandElements: 3, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
+Debug: Value 'dummy' for attribute containerTriggered of stopBusStop isn't valid
+Debug: Value '' for attribute containerTriggered of stopBusStop isn't valid
+Debug: Setting new attribute containerTriggered 'true' into stopBusStop 'route_0stopBusStop0'
+Debug: Setting new attribute containerTriggered 'true' into stopBusStop 'route_0stopBusStop1'
 Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 Debug: Keys Ctrl + Z (Undo) pressed
-Debug: Setting previous attribute selected '1' into stopBusStop 'route_0stopBusStop1'
-Debug: Setting previous attribute selected '1' into stopBusStop 'route_0stopBusStop0'
-Debug: Setting previous attribute selected '1' into route 'route_0'
+Debug: Setting previous attribute containerTriggered '0' into stopBusStop 'route_0stopBusStop1'
+Debug: Setting previous attribute containerTriggered '1' into stopBusStop 'route_0stopBusStop0'
 Debug: Keys Ctrl + Z (Undo) pressed
 Debug: Setting previous attribute selected '0' into stopBusStop 'route_0stopBusStop1'
 Debug: Setting previous attribute selected '0' into stopBusStop 'route_0stopBusStop0'
 Debug: Setting previous attribute selected '0' into route 'route_0'
 Debug: Keys Ctrl + Z (Undo) pressed
 Debug: Removing stopBusStop 'route_0stopBusStop1' in GNEChange_DemandElement
-Debug: Removed inspected element from Inspected ACs. 0 ACs remains.
+Debug: Removed inspected element from Inspected ACs. 1 ACs remains.
 Debug: Removing stopBusStop 'route_0stopBusStop0' in GNEChange_DemandElement
+Debug: Removed inspected element from Inspected ACs. 0 ACs remains.
 Debug: Removing route 'route_0' in GNEChange_DemandElement
 Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 Debug: Keys Ctrl + Y (Redo) pressed
@@ -61,9 +62,8 @@ Debug: Setting new attribute selected 'true' into route 'route_0'
 Debug: Setting new attribute selected 'true' into stopBusStop 'route_0stopBusStop0'
 Debug: Setting new attribute selected 'true' into stopBusStop 'route_0stopBusStop1'
 Debug: Keys Ctrl + Y (Redo) pressed
-Debug: Setting new attribute selected 'false' into route 'route_0'
-Debug: Setting new attribute selected 'false' into stopBusStop 'route_0stopBusStop0'
-Debug: Setting new attribute selected 'false' into stopBusStop 'route_0stopBusStop1'
+Debug: Setting new attribute containerTriggered 'true' into stopBusStop 'route_0stopBusStop0'
+Debug: Setting new attribute containerTriggered 'true' into stopBusStop 'route_0stopBusStop1'
 Debug: Additionals saved
 Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 Debug: demand elements saved

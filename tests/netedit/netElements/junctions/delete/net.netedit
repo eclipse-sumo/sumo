@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 25.01.2019 12:20:09 by Eclipse SUMO netedit Version v1_1_0+0076-a16c2aae75
+<!-- generated on 16.09.2019 14:13:20 by Eclipse SUMO netedit Version v1_3_1+0313-ccb31df3eb
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.25Jan121551.1872/netedit.gui/netElements/junctions/delete\input_net.net.xml"/>
+        <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.3_from_16Sep101846.2696/netedit.gui/netElements/junctions/delete\input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.25Jan121551.1872/netedit.gui/netElements/junctions/delete\net.net.xml"/>
+        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.3_from_16Sep101846.2696/netedit.gui/netElements/junctions/delete\net.net.xml"/>
     </output>
 
     <processing>
@@ -29,13 +29,14 @@
     </pedestrian>
 
     <netedit>
-        <additional-files value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.25Jan121551.1872/netedit.gui/netElements/junctions/delete\input_additionals.add.xml"/>
-        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.25Jan121551.1872/netedit.gui/netElements/junctions/delete\additionals.xml"/>
-        <demandelements-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.25Jan121551.1872/netedit.gui/netElements/junctions/delete\routes.xml"/>
+        <additional-files value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.3_from_16Sep101846.2696/netedit.gui/netElements/junctions/delete\additionals.xml"/>
+        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.3_from_16Sep101846.2696/netedit.gui/netElements/junctions/delete\additionals.xml"/>
+        <route-files value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.3_from_16Sep101846.2696/netedit.gui/netElements/junctions/delete\routes.xml"/>
+        <demandelements-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.3_from_16Sep101846.2696/netedit.gui/netElements/junctions/delete\routes.xml"/>
     </netedit>
 
     <visualisation>
-        <gui-settings-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.25Jan121551.1872/netedit.gui/netElements/junctions/delete\gui-settings.xml"/>
+        <gui-settings-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.3_from_16Sep101846.2696/netedit.gui/netElements/junctions/delete\gui-settings.xml"/>
         <window-size value="700,500"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
@@ -44,7 +45,7 @@
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.25Jan121551.1872/netedit.gui/netElements/junctions/delete\log.txt"/>
+        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.3_from_16Sep101846.2696/netedit.gui/netElements/junctions/delete\log.txt"/>
     </report>
 
 </configuration>
@@ -102,12 +103,6 @@
     <edge id=":gneJ18_1" function="internal">
         <lane id=":gneJ18_1_0" index="0" speed="3.90" length="2.58" shape="51.60,36.80 51.70,37.50 52.00,38.00 52.50,38.30 53.20,38.40"/>
     </edge>
-    <edge id=":gneJ6_0" function="internal">
-        <lane id=":gneJ6_0_0" index="0" speed="6.08" length="7.74" shape="3.20,41.60 1.10,41.30 -0.40,40.40 -1.30,38.90 -1.60,36.80"/>
-    </edge>
-    <edge id=":gneJ6_1" function="internal">
-        <lane id=":gneJ6_1_0" index="0" speed="3.90" length="2.58" shape="1.60,36.80 1.70,37.50 2.00,38.00 2.50,38.30 3.20,38.40"/>
-    </edge>
 
     <edge id="-gneE10" from="gneJ14" to="gneJ13" priority="1">
         <lane id="-gneE10_0" index="0" speed="13.89" length="16.80" shape="91.60,3.20 91.60,20.00"/>
@@ -126,12 +121,6 @@
     </edge>
     <edge id="-gneE15" from="gneJ11" to="gneJ18" priority="1">
         <lane id="-gneE15_0" index="0" speed="13.89" length="16.80" shape="70.00,41.60 53.20,41.60"/>
-    </edge>
-    <edge id="-gneE4" from="gneJ7" to="gneJ6" priority="1">
-        <lane id="-gneE4_0" index="0" speed="13.89" length="16.80" shape="20.00,41.60 3.20,41.60"/>
-    </edge>
-    <edge id="-gneE7" from="gneJ6" to="gneJ9" priority="1">
-        <lane id="-gneE7_0" index="0" speed="13.89" length="16.80" shape="-1.60,36.80 -1.60,20.00"/>
     </edge>
     <edge id="-gneE8" from="gneJ12" to="gneJ11" priority="1">
         <lane id="-gneE8_0" index="0" speed="13.89" length="16.80" shape="86.80,41.60 70.00,41.60"/>
@@ -156,12 +145,6 @@
     </edge>
     <edge id="gneE15" from="gneJ18" to="gneJ11" priority="1">
         <lane id="gneE15_0" index="0" speed="13.89" length="16.80" shape="53.20,38.40 70.00,38.40"/>
-    </edge>
-    <edge id="gneE4" from="gneJ6" to="gneJ7" priority="1">
-        <lane id="gneE4_0" index="0" speed="13.89" length="16.80" shape="3.20,38.40 20.00,38.40"/>
-    </edge>
-    <edge id="gneE7" from="gneJ9" to="gneJ6" priority="1">
-        <lane id="gneE7_0" index="0" speed="13.89" length="16.80" shape="1.60,20.00 1.60,36.80"/>
     </edge>
     <edge id="gneE8" from="gneJ11" to="gneJ12" priority="1">
         <lane id="gneE8_0" index="0" speed="13.89" length="16.80" shape="70.00,38.40 86.80,38.40"/>
@@ -205,12 +188,8 @@
     </junction>
     <junction id="gneJ3" type="dead_end" x="60.00" y="60.00" incLanes="" intLanes="" shape="60.00,60.00"/>
     <junction id="gneJ5" type="dead_end" x="100.00" y="60.00" incLanes="" intLanes="" shape="100.00,60.00"/>
-    <junction id="gneJ6" type="priority" x="0.00" y="40.00" incLanes="-gneE4_0 gneE7_0" intLanes=":gneJ6_0_0 :gneJ6_1_0" shape="3.20,43.20 3.20,36.80 -3.20,36.80 -2.49,40.36 -1.60,41.60 -0.36,42.49 1.24,43.02">
-        <request index="0" response="00" foes="00" cont="0"/>
-        <request index="1" response="00" foes="00" cont="0"/>
-    </junction>
-    <junction id="gneJ7" type="dead_end" x="20.00" y="40.00" incLanes="gneE4_0" intLanes="" shape="20.00,40.00 20.00,36.80 20.00,40.00"/>
-    <junction id="gneJ9" type="dead_end" x="0.00" y="20.00" incLanes="-gneE7_0" intLanes="" shape="0.00,20.00 -3.20,20.00 0.00,20.00"/>
+    <junction id="gneJ7" type="dead_end" x="20.00" y="40.00" incLanes="" intLanes="" shape="20.00,40.00"/>
+    <junction id="gneJ9" type="dead_end" x="0.00" y="20.00" incLanes="" intLanes="" shape="0.00,20.00"/>
 
     <connection from="-gneE10" to="-gneE9" fromLane="0" toLane="0" via=":gneJ13_1_0" dir="s" state="M"/>
     <connection from="-gneE11" to="-gneE10" fromLane="0" toLane="0" via=":gneJ14_1_0" dir="l" state="M"/>
@@ -218,7 +197,6 @@
     <connection from="-gneE13" to="-gneE12" fromLane="0" toLane="0" via=":gneJ16_0_0" dir="l" state="M"/>
     <connection from="-gneE14" to="-gneE13" fromLane="0" toLane="0" via=":gneJ17_0_0" dir="s" state="M"/>
     <connection from="-gneE15" to="-gneE14" fromLane="0" toLane="0" via=":gneJ18_0_0" dir="l" state="M"/>
-    <connection from="-gneE4" to="-gneE7" fromLane="0" toLane="0" via=":gneJ6_0_0" dir="l" state="M"/>
     <connection from="-gneE8" to="-gneE15" fromLane="0" toLane="0" via=":gneJ11_0_0" dir="s" state="M"/>
     <connection from="-gneE9" to="-gneE8" fromLane="0" toLane="0" via=":gneJ12_0_0" dir="l" state="M"/>
     <connection from="gneE10" to="gneE11" fromLane="0" toLane="0" via=":gneJ14_0_0" dir="r" state="M"/>
@@ -227,7 +205,6 @@
     <connection from="gneE13" to="gneE14" fromLane="0" toLane="0" via=":gneJ17_1_0" dir="s" state="M"/>
     <connection from="gneE14" to="gneE15" fromLane="0" toLane="0" via=":gneJ18_1_0" dir="r" state="M"/>
     <connection from="gneE15" to="gneE8" fromLane="0" toLane="0" via=":gneJ11_1_0" dir="s" state="M"/>
-    <connection from="gneE7" to="gneE4" fromLane="0" toLane="0" via=":gneJ6_1_0" dir="r" state="M"/>
     <connection from="gneE8" to="gneE9" fromLane="0" toLane="0" via=":gneJ12_1_0" dir="r" state="M"/>
     <connection from="gneE9" to="gneE10" fromLane="0" toLane="0" via=":gneJ13_0_0" dir="s" state="M"/>
 
@@ -247,7 +224,5 @@
     <connection from=":gneJ17_1" to="gneE14" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":gneJ18_0" to="-gneE14" fromLane="0" toLane="0" dir="l" state="M"/>
     <connection from=":gneJ18_1" to="gneE15" fromLane="0" toLane="0" dir="r" state="M"/>
-    <connection from=":gneJ6_0" to="-gneE7" fromLane="0" toLane="0" dir="l" state="M"/>
-    <connection from=":gneJ6_1" to="gneE4" fromLane="0" toLane="0" dir="r" state="M"/>
 
 </net>

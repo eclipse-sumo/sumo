@@ -6,17 +6,19 @@ Warning: Edge 'gneE16' has a grade of 25.00%.
 Warning: Edge 'gneE17' has a grade of 25.00%.
 Warning: Edge 'gneE18' has a grade of 25.00%.
 Warning: Edge 'gneE19' has a grade of 25.00%.
-Warning: Connection '-gneE14_0->-gneE19_0' has a grade of 15.00%.
-Warning: Edge '-gneE16' has a grade of 10.67%.
-Warning: Connection '-gneE17_0->gneE19_0' has a grade of 23.66%.
-Warning: Edge '-gneE18' has a grade of 13.27%.
-Warning: Edge 'gneE16' has a grade of 10.67%.
-Warning: Edge 'gneE18' has a grade of 13.27%.
+Warning: Connection '-gneE14_0->-gneE19_0' has a grade of 10.40%.
+Warning: Edge '-gneE16' has a grade of 14.68%.
+Warning: Connection '-gneE17_0->gneE19_0' has a grade of 17.12%.
+Warning: Edge '-gneE18' has a grade of 19.53%.
+Warning: Edge 'gneE16' has a grade of 14.68%.
+Warning: Edge 'gneE18' has a grade of 19.53%.
+Warning: Connection 'gneE19_0->-gneE13_0' has a grade of 10.64%.
 Warning: Speed of straight connection '-gneE9_0->-gneE8_0' reduced by 6.62 due to turning radius of 9.60 (length=2.83 angle=33.42)
 Warning: Speed of straight connection '-gneE11_0->-gneE10_0' reduced by 6.66 due to turning radius of 9.50 (length=2.88 angle=33.95)
-Warning: Connection '-gneE14_0->-gneE19_0' has a grade of 15.00%.
-Warning: Edge '-gneE16' has a grade of 10.67%.
-Warning: Connection '-gneE17_0->gneE19_0' has a grade of 24.05%.
-Warning: Edge '-gneE18' has a grade of 13.64%.
-Warning: Edge 'gneE16' has a grade of 10.67%.
-Warning: Edge 'gneE18' has a grade of 13.64%.
+Warning: Connection '-gneE14_0->-gneE19_0' has a grade of 10.39%.
+Warning: Edge '-gneE16' has a grade of 14.68%.
+Warning: Connection '-gneE17_0->gneE19_0' has a grade of 17.51%.
+Warning: Edge '-gneE18' has a grade of 20.33%.
+Warning: Edge 'gneE16' has a grade of 14.68%.
+Warning: Edge 'gneE18' has a grade of 20.33%.
+Warning: Connection 'gneE19_0->-gneE13_0' has a grade of 10.62%.

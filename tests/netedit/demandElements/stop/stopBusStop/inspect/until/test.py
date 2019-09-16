@@ -68,8 +68,8 @@ netedit.modifyAttribute(3, "0", True)
 netedit.modifyAttribute(3, "3.5", True)
 
 # Check undo redo
-netedit.undo(referencePosition, 5)
-netedit.redo(referencePosition, 5)
+netedit.undo(referencePosition, 6)
+netedit.redo(referencePosition, 6)
 
 # save additionals
 netedit.saveAdditionals(referencePosition)

@@ -40,8 +40,8 @@ Debug: Setting new attribute duration '60' into stopBusStop 'route_0stopBusStop1
 Debug: Value '-5' for attribute duration of stopBusStop isn't valid
 Debug: Setting new attribute duration '0' into stopBusStop 'route_0stopBusStop0'
 Debug: Setting new attribute duration '0' into stopBusStop 'route_0stopBusStop1'
-Debug: Setting new attribute duration '3.5' into stopBusStop 'route_0stopBusStop0'
-Debug: Setting new attribute duration '3.5' into stopBusStop 'route_0stopBusStop1'
+Debug: Setting new attribute duration '60' into stopBusStop 'route_0stopBusStop0'
+Debug: Setting new attribute duration '60' into stopBusStop 'route_0stopBusStop1'
 Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 Debug: Keys Ctrl + Z (Undo) pressed
 Debug: Setting previous attribute duration '0.00' into stopBusStop 'route_0stopBusStop1'
@@ -78,8 +78,8 @@ Debug: Keys Ctrl + Y (Redo) pressed
 Debug: Setting new attribute duration '0' into stopBusStop 'route_0stopBusStop0'
 Debug: Setting new attribute duration '0' into stopBusStop 'route_0stopBusStop1'
 Debug: Keys Ctrl + Y (Redo) pressed
-Debug: Setting new attribute duration '3.5' into stopBusStop 'route_0stopBusStop0'
-Debug: Setting new attribute duration '3.5' into stopBusStop 'route_0stopBusStop1'
+Debug: Setting new attribute duration '60' into stopBusStop 'route_0stopBusStop0'
+Debug: Setting new attribute duration '60' into stopBusStop 'route_0stopBusStop1'
 Debug: Additionals saved
 Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 Debug: demand elements saved

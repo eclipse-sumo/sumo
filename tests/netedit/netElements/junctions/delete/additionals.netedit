@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 25.01.2019 12:20:08 by Eclipse SUMO netedit Version v1_1_0+0076-a16c2aae75
+<!-- generated on 16.09.2019 14:13:20 by Eclipse SUMO netedit Version v1_3_1+0313-ccb31df3eb
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.25Jan121551.1872/netedit.gui/netElements/junctions/delete\input_net.net.xml"/>
+        <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.3_from_16Sep101846.2696/netedit.gui/netElements/junctions/delete\input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.25Jan121551.1872/netedit.gui/netElements/junctions/delete\net.net.xml"/>
+        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.3_from_16Sep101846.2696/netedit.gui/netElements/junctions/delete\net.net.xml"/>
     </output>
 
     <processing>
@@ -29,13 +29,14 @@
     </pedestrian>
 
     <netedit>
-        <additional-files value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.25Jan121551.1872/netedit.gui/netElements/junctions/delete\input_additionals.add.xml"/>
-        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.25Jan121551.1872/netedit.gui/netElements/junctions/delete\additionals.xml"/>
-        <demandelements-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.25Jan121551.1872/netedit.gui/netElements/junctions/delete\routes.xml"/>
+        <additional-files value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.3_from_16Sep101846.2696/netedit.gui/netElements/junctions/delete\additionals.xml"/>
+        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.3_from_16Sep101846.2696/netedit.gui/netElements/junctions/delete\additionals.xml"/>
+        <route-files value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.3_from_16Sep101846.2696/netedit.gui/netElements/junctions/delete\routes.xml"/>
+        <demandelements-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.3_from_16Sep101846.2696/netedit.gui/netElements/junctions/delete\routes.xml"/>
     </netedit>
 
     <visualisation>
-        <gui-settings-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.25Jan121551.1872/netedit.gui/netElements/junctions/delete\gui-settings.xml"/>
+        <gui-settings-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.3_from_16Sep101846.2696/netedit.gui/netElements/junctions/delete\gui-settings.xml"/>
         <window-size value="700,500"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
@@ -44,15 +45,11 @@
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.25Jan121551.1872/netedit.gui/netElements/junctions/delete\log.txt"/>
+        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.3_from_16Sep101846.2696/netedit.gui/netElements/junctions/delete\log.txt"/>
     </report>
 
 </configuration>
 -->
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
-    <busStop id="busStop_-gneE4_0_2" lane="-gneE4_0" startPos="2.5" endPos="7.5"/>
-    <busStop id="busStop_-gneE7_0_5" lane="-gneE7_0" startPos="2.5" endPos="7.5"/>
-    <busStop id="busStop_gneE4_0_7" lane="gneE4_0" startPos="2.5" endPos="7.5"/>
-    <busStop id="busStop_gneE7_0_6" lane="gneE7_0" startPos="2.5" endPos="7.5"/>
 </additional>

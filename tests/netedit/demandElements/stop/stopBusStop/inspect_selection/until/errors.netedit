@@ -50,7 +50,7 @@ Debug: Keys Ctrl + Z (Undo) pressed
 Debug: Setting previous attribute until '0.00' into stopBusStop 'route_0stopBusStop1'
 Debug: Setting previous attribute until '0.00' into stopBusStop 'route_0stopBusStop0'
 Debug: Keys Ctrl + Z (Undo) pressed
-Debug: Setting previous attribute until '-0.00' into stopBusStop 'route_0stopBusStop1'
+Debug: Setting previous attribute until '' into stopBusStop 'route_0stopBusStop1'
 Debug: Setting previous attribute until '12.00' into stopBusStop 'route_0stopBusStop0'
 Debug: Keys Ctrl + Z (Undo) pressed
 Debug: Setting previous attribute selected '0' into stopBusStop 'route_0stopBusStop1'

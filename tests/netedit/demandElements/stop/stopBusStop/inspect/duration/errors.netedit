@@ -38,8 +38,7 @@ Debug: Selected checkBox for attribute 'duration'
 Debug: Setting new attribute into stopBusStop 'vehicle_0stopBusStop0'
 Debug: Selected checkBox for attribute 'duration'
 Debug: Setting new attribute into stopBusStop 'vehicle_0stopBusStop0'
-Debug: Selected checkBox for attribute 'duration'
-Debug: Setting new attribute into stopBusStop 'vehicle_0stopBusStop0'
+Debug: Setting new attribute duration '60' into stopBusStop 'vehicle_0stopBusStop0'
 Debug: Value 'dummyValue' for attribute duration of stopBusStop isn't valid
 Debug: Setting new attribute duration '60' into stopBusStop 'vehicle_0stopBusStop0'
 Debug: Value '-5' for attribute duration of stopBusStop isn't valid
@@ -53,6 +52,7 @@ Debug: Setting previous attribute duration '60.00' into stopBusStop 'vehicle_0st
 Debug: Keys Ctrl + Z (Undo) pressed
 Debug: Setting previous attribute duration '60.00' into stopBusStop 'vehicle_0stopBusStop0'
 Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Setting previous attribute duration '60.00' into stopBusStop 'vehicle_0stopBusStop0'
 Debug: Setting previous attribute into stopBusStop 'vehicle_0stopBusStop0'
 Debug: Keys Ctrl + Z (Undo) pressed
 Debug: Setting previous attribute into stopBusStop 'vehicle_0stopBusStop0'
@@ -61,6 +61,7 @@ Debug: Keys Ctrl + Y (Redo) pressed
 Debug: Setting new attribute into stopBusStop 'vehicle_0stopBusStop0'
 Debug: Keys Ctrl + Y (Redo) pressed
 Debug: Setting new attribute into stopBusStop 'vehicle_0stopBusStop0'
+Debug: Setting new attribute duration '60' into stopBusStop 'vehicle_0stopBusStop0'
 Debug: Keys Ctrl + Y (Redo) pressed
 Debug: Setting new attribute duration '60' into stopBusStop 'vehicle_0stopBusStop0'
 Debug: Keys Ctrl + Y (Redo) pressed

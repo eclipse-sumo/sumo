@@ -34,15 +34,6 @@ netedit.selectMode()
 # select all using invert
 netedit.selectionInvertDemand()
 
-# go to demand mode
-netedit.supermodeDemand()
-
-# go to select mode
-netedit.selectMode()
-
-# select all using invert
-netedit.selectionInvertDemand()
-
 # go to inspect mode
 netedit.inspectMode()
 
@@ -50,7 +41,13 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 327, 208)
 
 # change value
-netedit.modifyAttribute(9, "true", True)
+netedit.modifyAttribute(12, "dummy", True)
+
+# change value
+netedit.modifyAttribute(12, "", True)
+
+# change value
+netedit.modifyAttribute(12, "true", True)
 
 # Check undo redo
 netedit.undo(referencePosition, 3)

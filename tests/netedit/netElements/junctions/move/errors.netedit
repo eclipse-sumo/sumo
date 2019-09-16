@@ -1,4 +1,5 @@
-Debug: Selected item 'DEFAULT_VEHTYPE' in VTypeSelector
+Debug: Selected item 'DEFAULT_VEHTYPE' in DemandElementSelector
+Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
 Debug: net has to be saved
 Debug: Current saving Status: net unsaved, additionals saved, demand elements saved
 Debug: Key F5 (Compute) pressed
@@ -60,7 +61,7 @@ Debug: Created connection 'fromgneE9_0to-gneE17_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE9_0togneE10_0' in retrieveGNEConnection()
 Debug: ObjectsUnderCursor: GUIGlObjects: 1, AttributeCarriers: 1, NetElements: 1, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 1, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 Debug: ObjectsUnderCursor: GUIGlObjects: 1, AttributeCarriers: 1, NetElements: 1, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 1, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
-Debug: Setting new attribute pos '30.68,18.43,1.00' into junction 'gneJ19'
+Debug: Setting new attribute pos '30.00,18.00,1.40' into junction 'gneJ19'
 Debug: net has to be saved
 Debug: Current saving Status: net unsaved, additionals saved, demand elements saved
 Debug: Key F5 (Compute) pressed
@@ -216,6 +217,6 @@ Debug: Deleting unreferenced junction 'gneJ7' in GNENet destructor
 Debug: Deleting unreferenced junction 'gneJ8' in GNENet destructor
 Debug: Deleting unreferenced junction 'gneJ9' in GNENet destructor
 Debug: Deleting unreferenced vType 'DEFAULT_BIKETYPE' in GNENet destructor
-Debug: Deleting unreferenced vType 'DEFAULT_PEDTYPE' in GNENet destructor
 Debug: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in GNENet destructor
+Debug: Deleting unreferenced pType 'DEFAULT_PEDTYPE' in GNENet destructor
 Debug: Deleting net builder in GNENet destructor

@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 04.09.2019 10:53:22 by Eclipse SUMO netedit Version v1_3_1+0117-f1e92b5873
+<!-- generated on 16.09.2019 14:55:39 by Eclipse SUMO netedit Version v1_3_1+0313-ccb31df3eb
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.03Sep083941.1072/netedit.gui/demandElements/stop/stopBusStop/inspect/expectedContainer\input_net.net.xml"/>
+        <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.16Sep145417.848/netedit.gui/demandElements/stop/stopBusStop/inspect/expectedContainer\input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.03Sep083941.1072/netedit.gui/demandElements/stop/stopBusStop/inspect/expectedContainer\net.net.xml"/>
+        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.16Sep145417.848/netedit.gui/demandElements/stop/stopBusStop/inspect/expectedContainer\net.net.xml"/>
     </output>
 
     <processing>
@@ -29,14 +29,14 @@
     </pedestrian>
 
     <netedit>
-        <additional-files value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.03Sep083941.1072/netedit.gui/demandElements/stop/stopBusStop/inspect/expectedContainer\additionals.xml"/>
-        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.03Sep083941.1072/netedit.gui/demandElements/stop/stopBusStop/inspect/expectedContainer\additionals.xml"/>
-        <route-files value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.03Sep083941.1072/netedit.gui/demandElements/stop/stopBusStop/inspect/expectedContainer\routes.xml"/>
-        <demandelements-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.03Sep083941.1072/netedit.gui/demandElements/stop/stopBusStop/inspect/expectedContainer\routes.xml"/>
+        <additional-files value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.16Sep145417.848/netedit.gui/demandElements/stop/stopBusStop/inspect/expectedContainer\additionals.xml"/>
+        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.16Sep145417.848/netedit.gui/demandElements/stop/stopBusStop/inspect/expectedContainer\additionals.xml"/>
+        <route-files value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.16Sep145417.848/netedit.gui/demandElements/stop/stopBusStop/inspect/expectedContainer\routes.xml"/>
+        <demandelements-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.16Sep145417.848/netedit.gui/demandElements/stop/stopBusStop/inspect/expectedContainer\routes.xml"/>
     </netedit>
 
     <visualisation>
-        <gui-settings-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.03Sep083941.1072/netedit.gui/demandElements/stop/stopBusStop/inspect/expectedContainer\gui-settings.xml"/>
+        <gui-settings-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.16Sep145417.848/netedit.gui/demandElements/stop/stopBusStop/inspect/expectedContainer\gui-settings.xml"/>
         <window-size value="700,500"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
@@ -46,7 +46,7 @@
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.03Sep083941.1072/netedit.gui/demandElements/stop/stopBusStop/inspect/expectedContainer\log.txt"/>
+        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.16Sep145417.848/netedit.gui/demandElements/stop/stopBusStop/inspect/expectedContainer\log.txt"/>
     </report>
 
 </configuration>
@@ -55,6 +55,6 @@
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
     <route edges="gneE0 gneE1" color="yellow" id="route_0"/>
     <vehicle id="vehicle_0" depart="0.00" route="route_0">
-        <stop busStop="busStop_gneE1_0_0" duration="60.00" containerTriggered="1" parking="0" expectedContainers="ID2"/>
+        <stop busStop="busStop_gneE1_0_0" duration="60.00" containerTriggered="1" expectedContainers="ID2"/>
     </vehicle>
 </routes>
