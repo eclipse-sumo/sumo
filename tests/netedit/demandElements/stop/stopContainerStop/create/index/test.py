@@ -35,31 +35,31 @@ netedit.stopMode()
 netedit.changeStopType("stopContainerStop")
 
 # set invalid index
-netedit.changeDefaultValue(7, "dummyValue")
+netedit.changeDefaultValue(8, "dummyValue")
 
 # try to create stop
 netedit.leftClick(referencePosition, 327, 208)
 
 # set invalid index
-netedit.changeDefaultValue(7, "")
+netedit.changeDefaultValue(8, "")
 
 # try to create stop
 netedit.leftClick(referencePosition, 327, 208)
 
 # set valid index
-netedit.changeDefaultValue(7, "fit")
+netedit.changeDefaultValue(8, "fit")
 
 # create stop
 netedit.leftClick(referencePosition, 327, 208)
 
 # set valid index
-netedit.changeDefaultValue(7, "end")
+netedit.changeDefaultValue(8, "end")
 
 # create stop
 netedit.leftClick(referencePosition, 327, 208)
 
 # set valid index
-netedit.changeDefaultValue(7, "5")
+netedit.changeDefaultValue(8, "5")
 
 # create stop
 netedit.leftClick(referencePosition, 327, 208)

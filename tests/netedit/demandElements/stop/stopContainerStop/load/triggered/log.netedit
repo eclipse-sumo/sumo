@@ -1,9 +1,9 @@
 Error: Attribute 'triggered' in definition of a stop is not of type bool.
-Error: Invalid bool for 'triggered', 'containerTriggered' or 'parking' for stop at 'containerStop' in trip 'trip_1'.
+Error: Invalid bool for 'triggered', 'containerTriggered' or 'parking' for stop at 'containerStop' in trip 'trip'.
 Error: Attribute 'triggered' in definition of a stop is empty.
-Error: Invalid bool for 'triggered', 'containerTriggered' or 'parking' for stop at 'containerStop' in trip 'trip_1'.
+Error: Invalid bool for 'triggered', 'containerTriggered' or 'parking' for stop at 'containerStop' in trip 'trip'.
 Error: Attribute 'triggered' in definition of a stop is not of type bool.
-Error: Invalid bool for 'triggered', 'containerTriggered' or 'parking' for stop at 'containerStop' in trip 'trip_1'.
+Error: Invalid bool for 'triggered', 'containerTriggered' or 'parking' for stop at 'containerStop' in trip 'trip'.
 Error: Attribute 'triggered' in definition of a stop is not of type bool.
-Error: Invalid bool for 'triggered', 'containerTriggered' or 'parking' for stop at 'containerStop' in trip 'trip_1'.
-Error: Loading of C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.27Aug143928.7696/netedit.gui/demandElements/stop/stopContainerStop/load/triggered\input_routes.rou.xml failed.
+Error: Invalid bool for 'triggered', 'containerTriggered' or 'parking' for stop at 'containerStop' in trip 'trip'.
+Error: Loading of C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.16Sep162945.1160/netedit.gui/demandElements/stop/stopContainerStop/load/triggered\input_routes.rou.xml failed.

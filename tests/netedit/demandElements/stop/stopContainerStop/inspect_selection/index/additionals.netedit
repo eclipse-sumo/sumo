@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 27.08.2019 11:23:10 by Eclipse SUMO netedit Version v1_3_1+0002-2d02006e75
+<!-- generated on 26.08.2019 13:49:32 by Eclipse SUMO netedit Version v1_3_0+0086-d4fd00b226
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.6_from_27Aug084919.7364/netedit.gui/demandElements/stop/stopContainerStop/inspect_selection/index\input_net.net.xml"/>
+        <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.26Aug134851.11500/netedit.gui/demandElements/stop/stopContainerStop/inspect_selection/index\input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.6_from_27Aug084919.7364/netedit.gui/demandElements/stop/stopContainerStop/inspect_selection/index\net.net.xml"/>
+        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.26Aug134851.11500/netedit.gui/demandElements/stop/stopContainerStop/inspect_selection/index\net.net.xml"/>
     </output>
 
     <processing>
@@ -30,14 +30,14 @@
     </pedestrian>
 
     <netedit>
-        <additional-files value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.6_from_27Aug084919.7364/netedit.gui/demandElements/stop/stopContainerStop/inspect_selection/index\additionals.xml"/>
-        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.6_from_27Aug084919.7364/netedit.gui/demandElements/stop/stopContainerStop/inspect_selection/index\additionals.xml"/>
-        <route-files value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.6_from_27Aug084919.7364/netedit.gui/demandElements/stop/stopContainerStop/inspect_selection/index\routes.xml"/>
-        <demandelements-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.6_from_27Aug084919.7364/netedit.gui/demandElements/stop/stopContainerStop/inspect_selection/index\routes.xml"/>
+        <additional-files value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.26Aug134851.11500/netedit.gui/demandElements/stop/stopContainerStop/inspect_selection/index\additionals.xml"/>
+        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.26Aug134851.11500/netedit.gui/demandElements/stop/stopContainerStop/inspect_selection/index\additionals.xml"/>
+        <route-files value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.26Aug134851.11500/netedit.gui/demandElements/stop/stopContainerStop/inspect_selection/index\routes.xml"/>
+        <demandelements-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.26Aug134851.11500/netedit.gui/demandElements/stop/stopContainerStop/inspect_selection/index\routes.xml"/>
     </netedit>
 
     <visualisation>
-        <gui-settings-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.6_from_27Aug084919.7364/netedit.gui/demandElements/stop/stopContainerStop/inspect_selection/index\gui-settings.xml"/>
+        <gui-settings-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.26Aug134851.11500/netedit.gui/demandElements/stop/stopContainerStop/inspect_selection/index\gui-settings.xml"/>
         <window-size value="700,500"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
@@ -47,7 +47,7 @@
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.6_from_27Aug084919.7364/netedit.gui/demandElements/stop/stopContainerStop/inspect_selection/index\log.txt"/>
+        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.26Aug134851.11500/netedit.gui/demandElements/stop/stopContainerStop/inspect_selection/index\log.txt"/>
     </report>
 
 </configuration>

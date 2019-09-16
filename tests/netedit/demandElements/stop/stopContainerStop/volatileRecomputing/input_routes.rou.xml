@@ -37,16 +37,16 @@
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-    <trip id="trip_0" depart="0.00" from="gneE0" to="gneE1">
-        <stop containerStop="containerStop_gneE4_0_2" duration="60.00"/>
-        <stop containerStop="containerStop_gneE2_4_3" duration="60.00"/>
-        <stop containerStop="containerStop_gneE2_3_4" duration="60.00"/>
-        <stop containerStop="containerStop_gneE2_2_5" duration="60.00"/>
-        <stop containerStop="containerStop_gneE2_1_6" duration="60.00"/>
-        <stop containerStop="containerStop_gneE2_0_7" duration="60.00"/>
+	<trip id="trip0" depart="0.00" from="gneE2" to="gneE4">
+        <stop containerStop="containerStopH" duration="60.00"/>
+        <stop containerStop="containerStopG" duration="60.00"/>
+        <stop containerStop="containerStopF" duration="60.00"/>
+        <stop containerStop="containerStopE" duration="60.00"/>
+        <stop containerStop="containerStopD" duration="60.00"/>
+        <stop containerStop="containerStopC" duration="60.00"/>
     </trip>
-    <trip id="trip_1" depart="0.00" from="gneE0" to="gneE1">
-        <stop containerStop="containerStop_gneE1_0_1" duration="60.00"/>
-        <stop containerStop="containerStop_gneE0_0_0" duration="60.00"/>
+	<trip id="trip1" depart="0.00" from="gneE0" to="gneE1">
+        <stop containerStop="containerStopB" duration="60.00"/>
+        <stop containerStop="containerStopA" duration="60.00"/>
     </trip>
 </routes>

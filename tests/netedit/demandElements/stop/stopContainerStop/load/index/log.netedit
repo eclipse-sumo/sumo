@@ -1,9 +1,9 @@
 Error: Attribute 'index' in definition of a stop is not of type int.
-Error: Invalid 'index' for stop at 'containerStop' in trip 'trip_1'.
+Error: Invalid 'index' for stop at 'containerStop' in trip 'trip'.
 Error: Attribute 'index' in definition of a stop is empty.
 Error: Attribute 'index' in definition of a stop is empty.
-Error: Invalid 'index' for stop at 'containerStop' in trip 'trip_1'.
-Error: Invalid 'index' for stop at 'containerStop' in trip 'trip_1'.
+Error: Invalid 'index' for stop at 'containerStop' in trip 'trip'.
+Error: Invalid 'index' for stop at 'containerStop' in trip 'trip'.
 Error: Attribute 'index' in definition of a stop is not of type int.
-Error: Invalid 'index' for stop at 'containerStop' in trip 'trip_1'.
-Error: Loading of C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.27Aug143928.7696/netedit.gui/demandElements/stop/stopContainerStop/load/index\input_routes.rou.xml failed.
+Error: Invalid 'index' for stop at 'containerStop' in trip 'trip'.
+Error: Loading of C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.16Sep162945.1160/netedit.gui/demandElements/stop/stopContainerStop/load/index\input_routes.rou.xml failed.

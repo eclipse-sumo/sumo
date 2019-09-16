@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 12.09.2019 10:28:04 by Eclipse SUMO netedit Version v1_3_1+0242-939b751989
+<!-- generated on 16.09.2019 16:45:12 by Eclipse SUMO netedit Version v1_3_1+0313-ccb31df3eb
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.12Sep093610.7576/netedit.gui/demandElements/stop/stopContainerStop/inspect/expected\input_net.net.xml"/>
+        <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.16Sep162945.1160/netedit.gui/demandElements/stop/stopContainerStop/inspect/expected\input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.12Sep093610.7576/netedit.gui/demandElements/stop/stopContainerStop/inspect/expected\net.net.xml"/>
+        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.16Sep162945.1160/netedit.gui/demandElements/stop/stopContainerStop/inspect/expected\net.net.xml"/>
     </output>
 
     <processing>
@@ -29,14 +29,14 @@
     </pedestrian>
 
     <netedit>
-        <additional-files value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.12Sep093610.7576/netedit.gui/demandElements/stop/stopContainerStop/inspect/expected\additionals.xml"/>
-        <additionals-output value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.12Sep093610.7576/netedit.gui/demandElements/stop/stopContainerStop/inspect/expected\additionals.xml"/>
-        <route-files value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.12Sep093610.7576/netedit.gui/demandElements/stop/stopContainerStop/inspect/expected\routes.xml"/>
-        <demandelements-output value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.12Sep093610.7576/netedit.gui/demandElements/stop/stopContainerStop/inspect/expected\routes.xml"/>
+        <additional-files value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.16Sep162945.1160/netedit.gui/demandElements/stop/stopContainerStop/inspect/expected\additionals.xml"/>
+        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.16Sep162945.1160/netedit.gui/demandElements/stop/stopContainerStop/inspect/expected\additionals.xml"/>
+        <route-files value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.16Sep162945.1160/netedit.gui/demandElements/stop/stopContainerStop/inspect/expected\routes.xml"/>
+        <demandelements-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.16Sep162945.1160/netedit.gui/demandElements/stop/stopContainerStop/inspect/expected\routes.xml"/>
     </netedit>
 
     <visualisation>
-        <gui-settings-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.12Sep093610.7576/netedit.gui/demandElements/stop/stopContainerStop/inspect/expected\gui-settings.xml"/>
+        <gui-settings-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.16Sep162945.1160/netedit.gui/demandElements/stop/stopContainerStop/inspect/expected\gui-settings.xml"/>
         <window-size value="700,500"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
@@ -46,14 +46,14 @@
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.12Sep093610.7576/netedit.gui/demandElements/stop/stopContainerStop/inspect/expected\log.txt"/>
+        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.16Sep162945.1160/netedit.gui/demandElements/stop/stopContainerStop/inspect/expected\log.txt"/>
     </report>
 
 </configuration>
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-    <trip id="trip_0" depart="0.00" from="gneE0" to="gneE1">
-        <stop containerStop="containerStop" duration="60.00" triggered="1" expected="ID2"/>
+    <trip id="trip" depart="0.00" from="gneE0" to="gneE1">
+        <stop containerStop="containerStopB" duration="60.00" triggered="1" expected="ID2"/>
     </trip>
 </routes>

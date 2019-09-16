@@ -1,20 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 27.08.2019 14:39:34 by Eclipse SUMO netedit Version v1_3_1+0004-4bf5227ace
+<!-- generated on 16.09.2019 16:57:21 by Eclipse SUMO netedit Version v1_3_1+0313-ccb31df3eb
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.27Aug143928.7696/netedit.gui/demandElements/stop/stopContainerStop/load/default\input_net.net.xml"/>
+        <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.16Sep162945.1160/netedit.gui/demandElements/stop/stopContainerStop/load/default\input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.27Aug143928.7696/netedit.gui/demandElements/stop/stopContainerStop/load/default\net.net.xml"/>
+        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.16Sep162945.1160/netedit.gui/demandElements/stop/stopContainerStop/load/default\net.net.xml"/>
     </output>
 
     <processing>
         <geometry.max-grade.fix value="false"/>
         <offset.disable-normalization value="true"/>
-        <opposites.guess.fix-lengths value="true"/>
         <lefthand value="false"/>
     </processing>
 
@@ -30,14 +29,14 @@
     </pedestrian>
 
     <netedit>
-        <additional-files value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.27Aug143928.7696/netedit.gui/demandElements/stop/stopContainerStop/load/default\additionals.xml"/>
-        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.27Aug143928.7696/netedit.gui/demandElements/stop/stopContainerStop/load/default\additionals.xml"/>
-        <route-files value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.27Aug143928.7696/netedit.gui/demandElements/stop/stopContainerStop/load/default\routes.xml"/>
-        <demandelements-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.27Aug143928.7696/netedit.gui/demandElements/stop/stopContainerStop/load/default\routes.xml"/>
+        <additional-files value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.16Sep162945.1160/netedit.gui/demandElements/stop/stopContainerStop/load/default\additionals.xml"/>
+        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.16Sep162945.1160/netedit.gui/demandElements/stop/stopContainerStop/load/default\additionals.xml"/>
+        <route-files value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.16Sep162945.1160/netedit.gui/demandElements/stop/stopContainerStop/load/default\routes.xml"/>
+        <demandelements-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.16Sep162945.1160/netedit.gui/demandElements/stop/stopContainerStop/load/default\routes.xml"/>
     </netedit>
 
     <visualisation>
-        <gui-settings-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.27Aug143928.7696/netedit.gui/demandElements/stop/stopContainerStop/load/default\gui-settings.xml"/>
+        <gui-settings-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.16Sep162945.1160/netedit.gui/demandElements/stop/stopContainerStop/load/default\gui-settings.xml"/>
         <window-size value="700,500"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
@@ -47,14 +46,14 @@
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.27Aug143928.7696/netedit.gui/demandElements/stop/stopContainerStop/load/default\log.txt"/>
+        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.16Sep162945.1160/netedit.gui/demandElements/stop/stopContainerStop/load/default\log.txt"/>
     </report>
 
 </configuration>
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-    <trip id="trip_1" depart="0.00" from="gneE0" to="gneE1">
+    <trip id="trip" depart="0.00" from="gneE0" to="gneE1">
         <stop containerStop="containerStop"/>
     </trip>
 </routes>
