@@ -1971,6 +1971,15 @@ TraCIAPI::TrafficLightScope::getNextSwitch(const std::string& tlsID) const {
 }
 
 
+int
+TraCIAPI::TrafficLightScope::getServedPersonCount(const std::string& tlsID, int index) const {
+    tcpip::Storage content;
+    content.writeByte(libsumo::TYPE_INTEGER);
+    content.writeInt(index);
+    return myParent.getInt(myCmdGetID, libsumo::VAR_PERSON_NUMBER, tlsID, &content);
+}
+
+
 void
 TraCIAPI::TrafficLightScope::setRedYellowGreenState(const std::string& tlsID, const std::string& state) const {
     tcpip::Storage content;

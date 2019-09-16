@@ -25,7 +25,10 @@
 #include <config.h>
 
 #include <microsim/MSLane.h>
+#include <microsim/MSEdge.h>
 #include <microsim/MSNet.h>
+#include <microsim/MSTransportable.h>
+#include <microsim/pedestrians/MSPerson.h>
 #include <microsim/traffic_lights/MSTLLogicControl.h>
 #include <microsim/traffic_lights/MSSimpleTrafficLightLogic.h>
 #include <libsumo/TraCIConstants.h>
@@ -157,6 +160,45 @@ TrafficLight::getNextSwitch(const std::string& tlsID) {
     return STEPS2TIME(getTLS(tlsID).getActive()->getNextSwitchTime());
 }
 
+int
+TrafficLight::getServedPersonCount(const std::string& tlsID, int index) {
+    MSTrafficLightLogic* const active = getTLS(tlsID).getActive();
+    if (index < 0 || active->getPhaseNumber() <= index) {
+        throw TraCIException("The phase index " + toString(index) + " is not in the allowed range [0,"
+                             + toString(active->getPhaseNumber() - 1) + "].");
+    }
+    // find all crossings which have a green light in that phas
+    int result = 0;
+
+    const std::string& state = active->getPhases()[index]->getState();
+    for (int i = 0; i < (int)state.size(); i++) {
+        for (MSLink* link : active->getLinksAt(i)) {
+            if (link->getLane()->getEdge().isCrossing()) {
+                // walking forwards across
+                for (MSTransportable* person : link->getLaneBefore()->getEdge().getPersons()) {
+                    if (static_cast<MSPerson*>(person)->getNextEdge() == link->getLane()->getEdge().getID()) {
+                        result += 1;
+                    }
+                }
+                // walking backwards across
+                MSLane* walkingAreaAcross = link->getLane()->getLinkCont().front()->getLane();
+                for (MSTransportable* person : walkingAreaAcross->getEdge().getPersons()) {
+                    if (static_cast<MSPerson*>(person)->getNextEdge() == link->getLane()->getEdge().getID()) {
+                        result += 1;
+                    }
+                }
+            } else if (link->getLaneBefore()->getEdge().isCrossing()) {
+                // walking backwards across (in case both sides are separately controlled)
+                for (MSTransportable* person : link->getLane()->getEdge().getPersons()) {
+                    if (static_cast<MSPerson*>(person)->getNextEdge() == link->getLaneBefore()->getEdge().getID()) {
+                        result += 1;
+                    }
+                }
+            }
+        }
+    }
+    return result;
+}
 
 std::string
 TrafficLight::getParameter(const std::string& tlsID, const std::string& paramName) {

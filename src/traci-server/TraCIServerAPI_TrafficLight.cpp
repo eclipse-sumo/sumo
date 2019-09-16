@@ -117,6 +117,15 @@ TraCIServerAPI_TrafficLight::processGet(TraCIServer& server, tcpip::Storage& inp
                     server.getWrapperStorage().writeStorage(tempContent);
                     break;
                 }
+                case libsumo::VAR_PERSON_NUMBER: {
+                    int index = 0;
+                    if (!server.readTypeCheckingInt(inputStorage, index)) {
+                        return server.writeErrorStatusCmd(libsumo::CMD_SET_TL_VARIABLE, "The phase index must be given as an integer.", outputStorage);
+                    }
+                    server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_INTEGER);
+                    server.getWrapperStorage().writeInt(libsumo::TrafficLight::getServedPersonCount(id, index));
+                    break;
+                }
                 case libsumo::VAR_PARAMETER: {
                     std::string paramName = "";
                     if (!server.readTypeCheckingString(inputStorage, paramName)) {

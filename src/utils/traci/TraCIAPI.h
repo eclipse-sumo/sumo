@@ -568,6 +568,7 @@ public:
         int getPhase(const std::string& tlsID) const;
         double getPhaseDuration(const std::string& tlsID) const;
         double getNextSwitch(const std::string& tlsID) const;
+        int getServedPersonCount(const std::string& tlsID, int index) const;
         std::string getPhaseName(const std::string& tlsID) const;
 
         void setRedYellowGreenState(const std::string& tlsID, const std::string& state) const;

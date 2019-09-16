@@ -117,6 +117,7 @@ _RETURN_VALUE_FUNC = {tc.TL_RED_YELLOW_GREEN_STATE: Storage.readString,
                       tc.TL_CONTROLLED_LINKS: _readLinks,
                       tc.TL_CURRENT_PROGRAM: Storage.readString,
                       tc.TL_CURRENT_PHASE: Storage.readInt,
+                      tc.VAR_PERSON_NUMBER: Storage.readInt,
                       tc.VAR_NAME: Storage.readString,
                       tc.TL_NEXT_SWITCH: Storage.readDouble,
                       tc.TL_PHASE_DURATION: Storage.readDouble}
@@ -201,6 +202,17 @@ class TrafficLightDomain(Domain):
         is not affected by the elapsed or remaining duration of the current phase.
         """
         return self._getUniversal(tc.TL_PHASE_DURATION, tlsID)
+
+    def getServedPersonCount(self, tlsID, index):
+        """getPhase(string, int) -> int
+        Returns the number of persons that would be served in the given phase
+        """
+        self._connection._beginMessage(
+            self._cmdGetID, tc.VAR_PERSON_NUMBER, tlsID, 1 + 4)
+        self._connection._string += struct.pack("!Bi", tc.TYPE_INTEGER, index)
+        result = self._connection._checkResult(
+            self._cmdGetID, tc.VAR_PERSON_NUMBER, tlsID)
+        return result.readInt()
 
     def setRedYellowGreenState(self, tlsID, state):
         """setRedYellowGreenState(string, string) -> None
