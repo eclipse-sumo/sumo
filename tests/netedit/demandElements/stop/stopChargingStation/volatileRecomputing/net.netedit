@@ -4,11 +4,11 @@
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.03Sep085138.2804/netedit.gui/additionalElements/chargingStation/volatileRecomputing\input_net.net.xml"/>
+        <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.03Sep085138.2804/netedit.gui/additionalElements/busstop/volatileRecomputing\input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.03Sep085138.2804/netedit.gui/additionalElements/chargingStation/volatileRecomputing\net.net.xml"/>
+        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.03Sep085138.2804/netedit.gui/additionalElements/busstop/volatileRecomputing\net.net.xml"/>
     </output>
 
     <processing>
@@ -30,13 +30,13 @@
     </pedestrian>
 
     <netedit>
-        <sumo-additionals-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.03Sep085138.2804/netedit.gui/additionalElements/chargingStation/volatileRecomputing\input_additionals.add.xml"/>
-        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.03Sep085138.2804/netedit.gui/additionalElements/chargingStation/volatileRecomputing\additionals.xml"/>
-        <shapes-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.03Sep085138.2804/netedit.gui/additionalElements/chargingStation/volatileRecomputing\shapes.xml"/>
+        <sumo-additionals-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.03Sep085138.2804/netedit.gui/additionalElements/busstop/volatileRecomputing\input_additionals.add.xml"/>
+        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.03Sep085138.2804/netedit.gui/additionalElements/busstop/volatileRecomputing\additionals.xml"/>
+        <shapes-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.03Sep085138.2804/netedit.gui/additionalElements/busstop/volatileRecomputing\shapes.xml"/>
     </netedit>
 
     <visualisation>
-        <gui-settings-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.03Sep085138.2804/netedit.gui/additionalElements/chargingStation/volatileRecomputing\gui-settings.xml"/>
+        <gui-settings-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.03Sep085138.2804/netedit.gui/additionalElements/busstop/volatileRecomputing\gui-settings.xml"/>
         <window-size value="700,500"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
@@ -46,7 +46,7 @@
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.03Sep085138.2804/netedit.gui/additionalElements/chargingStation/volatileRecomputing\log.txt"/>
+        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.03Sep085138.2804/netedit.gui/additionalElements/busstop/volatileRecomputing\log.txt"/>
     </report>
 
 </configuration>

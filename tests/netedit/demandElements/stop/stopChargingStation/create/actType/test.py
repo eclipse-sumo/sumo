@@ -35,28 +35,28 @@ netedit.stopMode()
 netedit.changeStopType("stopChargingStation")
 
 # set invalid value
-netedit.changeDefaultValue(11, ";;;;;;;;;;")
+netedit.changeDefaultValue(12, ";;;;;;;;;;")
 
 # try to create stop
-netedit.leftClick(referencePosition, 327, 220)
+netedit.leftClick(referencePosition, 327, 208)
 
 # set invalid value
-netedit.changeDefaultValue(11, "")
+netedit.changeDefaultValue(12, "")
 
 # try to create stop
-netedit.leftClick(referencePosition, 327, 220)
+netedit.leftClick(referencePosition, 327, 208)
 
 # set valid value
-netedit.changeDefaultValue(11, "ID1")
+netedit.changeDefaultValue(12, "ID1")
 
 # create stop
-netedit.leftClick(referencePosition, 327, 220)
+netedit.leftClick(referencePosition, 327, 208)
 
 # set valid value
-netedit.changeDefaultValue(11, "ID1 ID2 ID3")
+netedit.changeDefaultValue(12, "ID1 ID2 ID3")
 
 # create stop
-netedit.leftClick(referencePosition, 327, 220)
+netedit.leftClick(referencePosition, 327, 208)
 
 # Check undo redo
 netedit.undo(referencePosition, 6)

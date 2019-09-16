@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 12.09.2019 10:40:05 by Eclipse SUMO netedit Version v1_3_1+0242-939b751989
+<!-- generated on 16.09.2019 16:37:18 by Eclipse SUMO netedit Version v1_3_1+0313-ccb31df3eb
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.12Sep093610.7576/netedit.gui/demandElements/stop/stopChargingStation/create/until\input_net.net.xml"/>
+        <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.16Sep163320.2032/netedit.gui/demandElements/stop/stopChargingStation/create/until\input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.12Sep093610.7576/netedit.gui/demandElements/stop/stopChargingStation/create/until\net.net.xml"/>
+        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.16Sep163320.2032/netedit.gui/demandElements/stop/stopChargingStation/create/until\net.net.xml"/>
     </output>
 
     <processing>
@@ -29,14 +29,14 @@
     </pedestrian>
 
     <netedit>
-        <additional-files value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.12Sep093610.7576/netedit.gui/demandElements/stop/stopChargingStation/create/until\additionals.xml"/>
-        <additionals-output value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.12Sep093610.7576/netedit.gui/demandElements/stop/stopChargingStation/create/until\additionals.xml"/>
-        <route-files value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.12Sep093610.7576/netedit.gui/demandElements/stop/stopChargingStation/create/until\routes.xml"/>
-        <demandelements-output value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.12Sep093610.7576/netedit.gui/demandElements/stop/stopChargingStation/create/until\routes.xml"/>
+        <additional-files value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.16Sep163320.2032/netedit.gui/demandElements/stop/stopChargingStation/create/until\additionals.xml"/>
+        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.16Sep163320.2032/netedit.gui/demandElements/stop/stopChargingStation/create/until\additionals.xml"/>
+        <route-files value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.16Sep163320.2032/netedit.gui/demandElements/stop/stopChargingStation/create/until\routes.xml"/>
+        <demandelements-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.16Sep163320.2032/netedit.gui/demandElements/stop/stopChargingStation/create/until\routes.xml"/>
     </netedit>
 
     <visualisation>
-        <gui-settings-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.12Sep093610.7576/netedit.gui/demandElements/stop/stopChargingStation/create/until\gui-settings.xml"/>
+        <gui-settings-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.16Sep163320.2032/netedit.gui/demandElements/stop/stopChargingStation/create/until\gui-settings.xml"/>
         <window-size value="700,500"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
@@ -46,17 +46,17 @@
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.12Sep093610.7576/netedit.gui/demandElements/stop/stopChargingStation/create/until\log.txt"/>
+        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.16Sep163320.2032/netedit.gui/demandElements/stop/stopChargingStation/create/until\log.txt"/>
     </report>
 
 </configuration>
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-    <flow id="flow_0" begin="0.00" from="gneE0" to="gneE1" end="36.00" number="18">
-        <stop chargingStation="chargingStation" duration="60.00"/>
-        <stop chargingStation="chargingStation" duration="60.00" until="0.00"/>
-        <stop chargingStation="chargingStation" duration="60.00" until="0.00"/>
-        <stop chargingStation="chargingStation" duration="60.00" until="22.33"/>
-    </flow>
+    <trip id="trip" depart="0.00" from="gneE0" to="gneE1">
+        <stop chargingStation="chargingStationB" duration="60.00"/>
+        <stop chargingStation="chargingStationB" duration="60.00" until="0.00"/>
+        <stop chargingStation="chargingStationB" duration="60.00" until="0.00"/>
+        <stop chargingStation="chargingStationB" duration="60.00" until="22.33"/>
+    </trip>
 </routes>

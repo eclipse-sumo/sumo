@@ -35,13 +35,13 @@ netedit.stopMode()
 netedit.changeStopType("stopChargingStation")
 
 # create stop
-netedit.leftClick(referencePosition, 327, 220)
+netedit.leftClick(referencePosition, 327, 208)
 
 # go to delete mode
 netedit.deleteMode()
 
 # delete stop
-netedit.leftClick(referencePosition, 327, 220)
+netedit.leftClick(referencePosition, 327, 208)
 
 # check undo
 netedit.undo(referencePosition, 1)
@@ -49,8 +49,8 @@ netedit.undo(referencePosition, 1)
 # go to delete mode
 netedit.deleteMode()
 
-# delete vehicle
-netedit.leftClick(referencePosition, 111, 254)
+# delete route
+netedit.leftClick(referencePosition, 327, 225)
 
 # check undo
 netedit.undo(referencePosition, 1)
@@ -59,7 +59,7 @@ netedit.undo(referencePosition, 1)
 netedit.deleteMode()
 
 # delete stop
-netedit.leftClick(referencePosition, 327, 220)
+netedit.leftClick(referencePosition, 327, 208)
 
 # Check undo redo
 netedit.undo(referencePosition, 3)

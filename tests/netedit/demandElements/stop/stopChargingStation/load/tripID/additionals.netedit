@@ -4,11 +4,11 @@
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.26Aug152502.4948/netedit.gui/demandElements/stop/stopChargingStation/load/flowID\input_net.net.xml"/>
+        <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.26Aug152502.4948/netedit.gui/demandElements/stop/stopChargingStation/load/tripID\input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.26Aug152502.4948/netedit.gui/demandElements/stop/stopChargingStation/load/flowID\net.net.xml"/>
+        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.26Aug152502.4948/netedit.gui/demandElements/stop/stopChargingStation/load/tripID\net.net.xml"/>
     </output>
 
     <processing>
@@ -30,14 +30,14 @@
     </pedestrian>
 
     <netedit>
-        <additional-files value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.26Aug152502.4948/netedit.gui/demandElements/stop/stopChargingStation/load/flowID\additionals.xml"/>
-        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.26Aug152502.4948/netedit.gui/demandElements/stop/stopChargingStation/load/flowID\additionals.xml"/>
-        <route-files value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.26Aug152502.4948/netedit.gui/demandElements/stop/stopChargingStation/load/flowID\routes.xml"/>
-        <demandelements-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.26Aug152502.4948/netedit.gui/demandElements/stop/stopChargingStation/load/flowID\routes.xml"/>
+        <additional-files value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.26Aug152502.4948/netedit.gui/demandElements/stop/stopChargingStation/load/tripID\additionals.xml"/>
+        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.26Aug152502.4948/netedit.gui/demandElements/stop/stopChargingStation/load/tripID\additionals.xml"/>
+        <route-files value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.26Aug152502.4948/netedit.gui/demandElements/stop/stopChargingStation/load/tripID\routes.xml"/>
+        <demandelements-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.26Aug152502.4948/netedit.gui/demandElements/stop/stopChargingStation/load/tripID\routes.xml"/>
     </netedit>
 
     <visualisation>
-        <gui-settings-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.26Aug152502.4948/netedit.gui/demandElements/stop/stopChargingStation/load/flowID\gui-settings.xml"/>
+        <gui-settings-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.26Aug152502.4948/netedit.gui/demandElements/stop/stopChargingStation/load/tripID\gui-settings.xml"/>
         <window-size value="700,500"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
@@ -47,7 +47,7 @@
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.26Aug152502.4948/netedit.gui/demandElements/stop/stopChargingStation/load/flowID\log.txt"/>
+        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.26Aug152502.4948/netedit.gui/demandElements/stop/stopChargingStation/load/tripID\log.txt"/>
     </report>
 
 </configuration>

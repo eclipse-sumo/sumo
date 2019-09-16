@@ -9,12 +9,12 @@ SPDX-License-Identifier: EPL-2.0
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:\Projects\SUMO_Trunk\tests\netedit\additionalElements\chargingStation\volatileRecomputing\input_net.net.xml"/>
+        <sumo-net-file value="C:\Projects\SUMO_Trunk\tests\netedit\additionalElements\busstop\volatileRecomputing\input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:\Projects\SUMO_Trunk\tests\netedit\additionalElements\chargingStation\volatileRecomputing\input_net.net.xml"/>
-        <plain-output-prefix value="C:\Projects\SUMO_Trunk\tests\netedit\additionalElements\chargingStation\volatileRecomputing\input_net"/>
+        <output-file value="C:\Projects\SUMO_Trunk\tests\netedit\additionalElements\busstop\volatileRecomputing\input_net.net.xml"/>
+        <plain-output-prefix value="C:\Projects\SUMO_Trunk\tests\netedit\additionalElements\busstop\volatileRecomputing\input_net"/>
     </output>
 
     <processing>

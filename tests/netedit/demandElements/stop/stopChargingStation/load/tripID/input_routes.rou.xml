@@ -39,13 +39,13 @@
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
     <flow id="flow_1" begin="0.00" end="36.00" number="18" from="gneE0" to="gneE1">
 	
-        <stop chargingStation="chargingStation" flowID=""/>
+        <stop chargingStation="chargingStation" tripID=""/>
 		
-		<stop chargingStation="chargingStation" flowID=";;;;"/>
+		<stop chargingStation="chargingStation" tripID=";;;;"/>
 		
-		<stop chargingStation="chargingStation" flowID="ID1"/>
+		<stop chargingStation="chargingStation" tripID="ID1"/>
 		
-		<stop chargingStation="chargingStation" flowID="ID1 ID2"/>
+		<stop chargingStation="chargingStation" tripID="ID1 ID2"/>
 		
     </flow>
 </routes>

@@ -35,17 +35,23 @@ netedit.stopMode()
 netedit.changeStopType("stopChargingStation")
 
 # create stop
-netedit.leftClick(referencePosition, 327, 220)
+netedit.leftClick(referencePosition, 327, 208)
 
 # change parking
-netedit.changeDefaultBoolValue(10)
+netedit.changeDefaultBoolValue(11)
 
 # create stop
-netedit.leftClick(referencePosition, 327, 220)
+netedit.leftClick(referencePosition, 327, 208)
+
+# change parking
+netedit.changeDefaultBoolValue(12)
+
+# create stop
+netedit.leftClick(referencePosition, 327, 208)
 
 # Check undo redo
-netedit.undo(referencePosition, 4)
-netedit.redo(referencePosition, 4)
+netedit.undo(referencePosition, 5)
+netedit.redo(referencePosition, 5)
 
 # save additionals
 netedit.saveAdditionals(referencePosition)

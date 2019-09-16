@@ -1,0 +1,5 @@
+Error: Attribute 'extension' in definition of a stop is not a real number.
+Error: Invalid bool for 'triggered', 'containerTriggered' or 'parking' for stop at 'chargingStation' in flow 'flow_1'.
+Error: Attribute 'extension' in definition of a stop is empty.
+Error: Invalid bool for 'triggered', 'containerTriggered' or 'parking' for stop at 'chargingStation' in flow 'flow_1'.
+Error: Loading of C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.16Sep163320.2032/netedit.gui/demandElements/stop/stopChargingStation/load/extension\input_routes.rou.xml failed.
