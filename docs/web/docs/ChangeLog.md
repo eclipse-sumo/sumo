@@ -37,7 +37,7 @@ permalink: /ChangeLog/
   - Fixed invalid car routes during intermodal routing. Issue #6077
 
 - TraCI
-  - TraaS function *Trafficlight.getControlledJunctions* is now working. Issue #6019  
+  - TraaS functions *Trafficlight.getControlledJunctions*, *Edge.setEffort*, *Edge.getEffort*, *Edge.adaptTraveltime*", *Edge.getAdaptedTraveltime* are now working. Issue #6019  
 
 
 ### Enhancements
