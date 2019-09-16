@@ -48,6 +48,7 @@ import randomTrips  # noqa
 MIN_GREEN_TIME = 15
 # the first phase in tls plan. see 'pedcrossing.tll.xml'
 VEHICLE_GREEN_PHASE = 0
+PEDESTRIAN_GREEN_PHASE = 2
 # the id of the traffic light (there is only one). This is identical to the
 # id of the controlled intersection (by default)
 TLSID = 'C'
@@ -104,7 +105,10 @@ def checkWaitingPersons():
         for ped in peds:
             if (traci.person.getWaitingTime(ped) == 1 and
                     traci.person.getNextEdge(ped) in CROSSINGS):
-                print("%s pushes the button" % ped)
+                numWaiting = traci.trafficlight.getServedPersonCount(TLSID,
+                        PEDESTRIAN_GREEN_PHASE)
+                print("%s: pedestrian %s pushes the button (waiting: %s)" % (
+                    traci.simulation.getTime(), ped, numWaiting))
                 return True
     return False
 

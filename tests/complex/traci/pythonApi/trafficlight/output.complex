@@ -1,9 +1,11 @@
 Loading configuration... done.
+ Retrying in 1 seconds
 step 0
 step 1
 step 2
 trafficlight ('0',)
 trafficlight count 1
+waitingPersons 0
 examining 0
 ryg rrrrGGggrrrrGGgg
 rygdef [Logic(programID='0', type=0, currentPhaseIndex=0, phases=[Phase(duration=31.0, state='GGggrrrrGGggrrrr', minDur=31.0, maxDur=31.0, next=(), name='major 1'), Phase(duration=4.0, state='yyggrrrryyggrrrr', minDur=4.0, maxDur=4.0, next=(), name='transition 1-2'), Phase(duration=6.0, state='rrGGrrrrrrGGrrrr', minDur=6.0, maxDur=6.0, next=(), name='major 2'), Phase(duration=4.0, state='rryyrrrrrryyrrrr', minDur=4.0, maxDur=4.0, next=(), name='transition 2-3'), Phase(duration=31.0, state='rrrrGGggrrrrGGgg', minDur=31.0, maxDur=31.0, next=(), name='major 3'), Phase(duration=4.0, state='rrrryyggrrrryygg', minDur=4.0, maxDur=4.0, next=(), name='transition 3-4'), Phase(duration=6.0, state='rrrrrrGGrrrrrrGG', minDur=6.0, maxDur=6.0, next=(), name='major 4'), Phase(duration=4.0, state='rrrrrryyrrrrrryy', minDur=4.0, maxDur=4.0, next=(), name='transition 4-1')], subParameter={}), Logic(programID='custom', type=0, currentPhaseIndex=4, phases=[Phase(duration=30.0, state='rrrrGGggrrrrGGgg', minDur=0.0, maxDur=0.0, next=(1, 2, 3), name='setViaComplete'), Phase(duration=10.0, state='rrrrGGggrrrrGGgg', minDur=0.0, maxDur=0.0, next=()), Phase(duration=40.0, state='rrrrGGggrrrrGGgg', minDur=0.0, maxDur=0.0, next=()), Phase(duration=20.0, state='rrrrGGggrrrrGGgg', minDur=0.0, maxDur=0.0, next=()), Phase(duration=20.0, state='rrrrGGggrrrrGGgg', minDur=0.0, maxDur=0.0, next=(), name='setByTraCI'), Phase(duration=20.0, state='rrrrGGggrrrrGGgg', minDur=0.0, maxDur=0.0, next=())], subParameter={})]
