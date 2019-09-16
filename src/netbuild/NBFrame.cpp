@@ -625,6 +625,9 @@ NBFrame::checkOptions() {
         WRITE_ERROR("default.right-of-way must be one of '" + toString(SUMOXMLDefinitions::RightOfWayValues.getStrings()) + "'");
         ok = false;
     }
+    if (oc.isDefault("railway.topology.repair") && oc.getBool("railway.topology.repair.connect-straight")) {
+        oc.set("railway.topology.repair", "true");
+    }
     return ok;
 }
 
