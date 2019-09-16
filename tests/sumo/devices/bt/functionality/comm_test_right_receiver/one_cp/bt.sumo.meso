@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Mon Sep 16 21:22:27 2019 by Eclipse SUMO Version v1_3_1+0351-74273b056e
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+SPDX-License-Identifier: EPL-2.0
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="three_split.net.xml"/>
+        <additional-files value="input_routes.rou.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <tripinfo-output value="tripinfos.xml"/>
+        <bt-output value="bt.xml"/>
+    </output>
+
+    <time>
+        <begin value="0"/>
+    </time>
+
+    <processing>
+        <default.speeddev value="0"/>
+        <pedestrian.model value="nonInteracting"/>
+    </processing>
+
+    <report>
+        <xml-validation value="never"/>
+        <duration-log.disable value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+    <communication>
+        <device.btreceiver.explicit value="right"/>
+        <device.btreceiver.range value="50"/>
+        <device.btsender.explicit value="left"/>
+    </communication>
+
+    <mesoscopic>
+        <mesosim value="true"/>
+    </mesoscopic>
+
+</configuration>
+-->
+
+<bt-output>
+    <bt id="right">
+        <seen id="left" tBeg="3.00" observerPosBeg="0.00,498.35" observerSpeedBeg="13.89" observerLaneIDBeg="beg" observerLanePosBeg="0.00" seenPosBeg="0.00,498.35" seenSpeedBeg="13.89" seenLaneIDBeg="beg" seenLanePosBeg="0.00" tEnd="7.50" observerPosEnd="50.00,498.35" observerSpeedEnd="13.89" observerLaneIDEnd="beg" observerLanePosEnd="100.00" seenPosEnd="0.00,498.35" seenSpeedEnd="13.89" seenLaneIDEnd="beg" seenLanePosEnd="0.00" observerRoute="beg" seenRoute="beg">
+            <recognitionPoint t="4.00" observerPos="0.00,498.35" observerSpeed="13.89" observerLaneID="beg" observerLanePos="0.00" seenPos="0.00,498.35" seenSpeed="13.89" seenLaneID="beg" seenLanePos="0.00"/>
+        </seen>
+        <seen id="left" tBeg="10.50" observerPosBeg="99.05,498.35" observerSpeedBeg="13.89" observerLaneIDBeg="beg" observerLanePosBeg="100.00" seenPosBeg="49.05,498.35" seenSpeedBeg="13.89" seenLaneIDBeg="beg" seenLanePosBeg="100.00" tEnd="14.50" observerPosEnd="149.05,498.35" observerSpeedEnd="13.89" observerLaneIDEnd="beg" observerLanePosEnd="200.00" seenPosEnd="99.05,498.35" seenSpeedEnd="13.89" seenLaneIDEnd="beg" seenLanePosEnd="100.00" observerRoute="beg" seenRoute="beg">
+            <recognitionPoint t="11.00" observerPos="99.05,498.35" observerSpeed="13.89" observerLaneID="beg" observerLanePos="100.00" seenPos="49.05,498.35" seenSpeed="13.89" seenLaneID="beg" seenLanePos="100.00"/>
+        </seen>
+        <seen id="left" tBeg="17.50" observerPosBeg="198.10,498.35" observerSpeedBeg="13.89" observerLaneIDBeg="beg" observerLanePosBeg="200.00" seenPosBeg="148.10,498.35" seenSpeedBeg="13.89" seenLaneIDBeg="beg" seenLanePosBeg="200.00" tEnd="21.50" observerPosEnd="248.10,498.35" observerSpeedEnd="13.89" observerLaneIDEnd="beg" observerLanePosEnd="300.00" seenPosEnd="198.10,498.35" seenSpeedEnd="13.89" seenLaneIDEnd="beg" seenLanePosEnd="200.00" observerRoute="beg" seenRoute="beg">
+            <recognitionPoint t="18.00" observerPos="198.10,498.35" observerSpeed="13.89" observerLaneID="beg" observerLanePos="200.00" seenPos="148.10,498.35" seenSpeed="13.89" seenLaneID="beg" seenLanePos="200.00"/>
+        </seen>
+        <seen id="left" tBeg="24.50" observerPosBeg="297.15,498.35" observerSpeedBeg="13.89" observerLaneIDBeg="beg" observerLanePosBeg="300.00" seenPosBeg="247.15,498.35" seenSpeedBeg="13.89" seenLaneIDBeg="beg" seenLanePosBeg="300.00" tEnd="28.50" observerPosEnd="347.15,498.35" observerSpeedEnd="13.89" observerLaneIDEnd="beg" observerLanePosEnd="400.00" seenPosEnd="297.15,498.35" seenSpeedEnd="13.89" seenLaneIDEnd="beg" seenLanePosEnd="300.00" observerRoute="beg" seenRoute="beg">
+            <recognitionPoint t="25.00" observerPos="297.15,498.35" observerSpeed="13.89" observerLaneID="beg" observerLanePos="300.00" seenPos="247.15,498.35" seenSpeed="13.89" seenLaneID="beg" seenLanePos="300.00"/>
+        </seen>
+        <seen id="left" tBeg="31.50" observerPosBeg="396.20,498.35" observerSpeedBeg="13.89" observerLaneIDBeg="beg" observerLanePosBeg="400.00" seenPosBeg="346.20,498.35" seenSpeedBeg="13.89" seenLaneIDBeg="beg" seenLanePosBeg="400.00" tEnd="35.49" observerPosEnd="446.18,496.83" observerSpeedEnd="13.89" observerLaneIDEnd="beg2right" observerLanePosEnd="0.00" seenPosEnd="396.20,498.35" seenSpeedEnd="13.89" seenLaneIDEnd="beg" seenLanePosEnd="400.00" observerRoute="beg beg2right" seenRoute="beg">
+            <recognitionPoint t="33.00" observerPos="396.20,498.35" observerSpeed="13.89" observerLaneID="beg" observerLanePos="400.00" seenPos="396.20,498.35" seenSpeed="13.89" seenLaneID="beg" seenLanePos="400.00"/>
+        </seen>
+        <seen id="left" tBeg="38.50" observerPosBeg="498.35,495.25" observerSpeedBeg="13.89" observerLaneIDBeg="beg2right" observerLanePosBeg="0.00" seenPosBeg="448.57,499.89" seenSpeedBeg="13.89" seenLaneIDBeg="beg2left" seenLanePosBeg="0.00" tEnd="43.44" observerPosEnd="498.35,451.56" observerSpeedEnd="13.89" observerLaneIDEnd="beg2right" observerLanePosEnd="100.00" seenPosEnd="501.65,501.45" seenSpeedEnd="13.89" seenLaneIDEnd="beg2left" seenLanePosEnd="0.00" observerRoute="beg2right" seenRoute="beg2left">
+            <recognitionPoint t="39.00" observerPos="498.35,495.25" observerSpeed="13.89" observerLaneID="beg2right" observerLanePos="0.00" seenPos="448.57,499.89" seenSpeed="13.89" seenLaneID="beg2left" seenLanePos="0.00"/>
+        </seen>
+        <seen id="left" tBeg="183.51" observerPosBeg="1504.75,498.35" observerSpeedBeg="13.89" observerLaneIDBeg="end" observerLanePosBeg="0.00" seenPosBeg="1501.62,548.25" seenSpeedBeg="13.89" seenLaneIDBeg="end" seenLanePosBeg="0.00" tEnd="187.50" observerPosEnd="1554.75,498.35" observerSpeedEnd="13.89" observerLaneIDEnd="end" observerLanePosEnd="100.00" seenPosEnd="1504.75,498.35" seenSpeedEnd="13.89" seenLaneIDEnd="end" seenLanePosEnd="0.00" observerRoute="end" seenRoute="end">
+            <recognitionPoint t="185.00" observerPos="1504.75,498.35" observerSpeed="13.89" observerLaneID="end" observerLanePos="0.00" seenPos="1504.75,498.35" seenSpeed="13.89" seenLaneID="end" seenLanePos="0.00"/>
+        </seen>
+        <seen id="left" tBeg="191.50" observerPosBeg="1603.80,498.35" observerSpeedBeg="13.89" observerLaneIDBeg="end" observerLanePosBeg="100.00" seenPosBeg="1553.80,498.35" seenSpeedBeg="13.89" seenLaneIDBeg="end" seenLanePosBeg="100.00" tEnd="194.50" observerPosEnd="1653.80,498.35" observerSpeedEnd="13.89" observerLaneIDEnd="end" observerLanePosEnd="200.00" seenPosEnd="1603.80,498.35" seenSpeedEnd="13.89" seenLaneIDEnd="end" seenLanePosEnd="100.00" observerRoute="end" seenRoute="end">
+            <recognitionPoint t="192.00" observerPos="1603.80,498.35" observerSpeed="13.89" observerLaneID="end" observerLanePos="100.00" seenPos="1553.80,498.35" seenSpeed="13.89" seenLaneID="end" seenLanePos="100.00"/>
+        </seen>
+        <seen id="left" tBeg="198.50" observerPosBeg="1702.85,498.35" observerSpeedBeg="13.89" observerLaneIDBeg="end" observerLanePosBeg="200.00" seenPosBeg="1652.85,498.35" seenSpeedBeg="13.89" seenLaneIDBeg="end" seenLanePosBeg="200.00" tEnd="201.50" observerPosEnd="1752.85,498.35" observerSpeedEnd="13.89" observerLaneIDEnd="end" observerLanePosEnd="300.00" seenPosEnd="1702.85,498.35" seenSpeedEnd="13.89" seenLaneIDEnd="end" seenLanePosEnd="200.00" observerRoute="end" seenRoute="end">
+            <recognitionPoint t="199.00" observerPos="1702.85,498.35" observerSpeed="13.89" observerLaneID="end" observerLanePos="200.00" seenPos="1652.85,498.35" seenSpeed="13.89" seenLaneID="end" seenLanePos="200.00"/>
+        </seen>
+        <seen id="left" tBeg="205.50" observerPosBeg="1801.90,498.35" observerSpeedBeg="13.89" observerLaneIDBeg="end" observerLanePosBeg="300.00" seenPosBeg="1751.90,498.35" seenSpeedBeg="13.89" seenLaneIDBeg="end" seenLanePosBeg="300.00" tEnd="208.50" observerPosEnd="1851.90,498.35" observerSpeedEnd="13.89" observerLaneIDEnd="end" observerLanePosEnd="400.00" seenPosEnd="1801.90,498.35" seenSpeedEnd="13.89" seenLaneIDEnd="end" seenLanePosEnd="300.00" observerRoute="end" seenRoute="end">
+            <recognitionPoint t="206.00" observerPos="1801.90,498.35" observerSpeed="13.89" observerLaneID="end" observerLanePos="300.00" seenPos="1751.90,498.35" seenSpeed="13.89" seenLaneID="end" seenLanePos="300.00"/>
+        </seen>
+        <seen id="left" tBeg="212.50" observerPosBeg="1900.95,498.35" observerSpeedBeg="13.89" observerLaneIDBeg="end" observerLanePosBeg="400.00" seenPosBeg="1850.95,498.35" seenSpeedBeg="13.89" seenLaneIDBeg="end" seenLanePosBeg="400.00" tEnd="215.50" observerPosEnd="1950.95,498.35" observerSpeedEnd="13.89" observerLaneIDEnd="rend" observerLanePosEnd="0.00" seenPosEnd="1900.95,498.35" seenSpeedEnd="13.89" seenLaneIDEnd="end" seenLanePosEnd="400.00" observerRoute="end rend" seenRoute="end">
+            <recognitionPoint t="214.00" observerPos="1900.95,498.35" observerSpeed="13.89" observerLaneID="end" observerLanePos="400.00" seenPos="1900.95,498.35" seenSpeed="13.89" seenLaneID="end" seenLanePos="400.00"/>
+        </seen>
+        <seen id="left" tBeg="219.50" observerPosBeg="2000.00,498.35" observerSpeedBeg="13.89" observerLaneIDBeg="rend" observerLanePosBeg="0.00" seenPosBeg="1950.00,498.35" seenSpeedBeg="13.89" seenLaneIDBeg="rend" seenLanePosBeg="0.00" tEnd="223.50" observerPosEnd="2050.00,498.35" observerSpeedEnd="13.89" observerLaneIDEnd="rend" observerLanePosEnd="100.00" seenPosEnd="2000.00,498.35" seenSpeedEnd="13.89" seenLaneIDEnd="rend" seenLanePosEnd="0.00" observerRoute="rend" seenRoute="rend">
+            <recognitionPoint t="220.00" observerPos="2000.00,498.35" observerSpeed="13.89" observerLaneID="rend" observerLanePos="0.00" seenPos="1950.00,498.35" seenSpeed="13.89" seenLaneID="rend" seenLanePos="0.00"/>
+        </seen>
+        <seen id="left" tBeg="227.50" observerPosBeg="2100.00,498.35" observerSpeedBeg="13.89" observerLaneIDBeg="rend" observerLanePosBeg="100.00" seenPosBeg="2050.00,498.35" seenSpeedBeg="13.89" seenLaneIDBeg="rend" seenLanePosBeg="100.00" tEnd="230.50" observerPosEnd="2150.00,498.35" observerSpeedEnd="13.89" observerLaneIDEnd="rend" observerLanePosEnd="200.00" seenPosEnd="2100.00,498.35" seenSpeedEnd="13.89" seenLaneIDEnd="rend" seenLanePosEnd="100.00" observerRoute="rend" seenRoute="rend">
+            <recognitionPoint t="228.00" observerPos="2100.00,498.35" observerSpeed="13.89" observerLaneID="rend" observerLanePos="100.00" seenPos="2050.00,498.35" seenSpeed="13.89" seenLaneID="rend" seenLanePos="100.00"/>
+        </seen>
+        <seen id="left" tBeg="234.50" observerPosBeg="2200.00,498.35" observerSpeedBeg="13.89" observerLaneIDBeg="rend" observerLanePosBeg="200.00" seenPosBeg="2150.00,498.35" seenSpeedBeg="13.89" seenLaneIDBeg="rend" seenLanePosBeg="200.00" tEnd="237.50" observerPosEnd="2250.00,498.35" observerSpeedEnd="13.89" observerLaneIDEnd="rend" observerLanePosEnd="300.00" seenPosEnd="2200.00,498.35" seenSpeedEnd="13.89" seenLaneIDEnd="rend" seenLanePosEnd="200.00" observerRoute="rend" seenRoute="rend">
+            <recognitionPoint t="235.00" observerPos="2200.00,498.35" observerSpeed="13.89" observerLaneID="rend" observerLanePos="200.00" seenPos="2150.00,498.35" seenSpeed="13.89" seenLaneID="rend" seenLanePos="200.00"/>
+        </seen>
+        <seen id="left" tBeg="241.50" observerPosBeg="2300.00,498.35" observerSpeedBeg="13.89" observerLaneIDBeg="rend" observerLanePosBeg="300.00" seenPosBeg="2250.00,498.35" seenSpeedBeg="13.89" seenLaneIDBeg="rend" seenLanePosBeg="300.00" tEnd="244.50" observerPosEnd="2350.00,498.35" observerSpeedEnd="13.89" observerLaneIDEnd="rend" observerLanePosEnd="400.00" seenPosEnd="2300.00,498.35" seenSpeedEnd="13.89" seenLaneIDEnd="rend" seenLanePosEnd="300.00" observerRoute="rend" seenRoute="rend">
+            <recognitionPoint t="242.00" observerPos="2300.00,498.35" observerSpeed="13.89" observerLaneID="rend" observerLanePos="300.00" seenPos="2250.00,498.35" seenSpeed="13.89" seenLaneID="rend" seenLanePos="300.00"/>
+        </seen>
+        <seen id="left" tBeg="248.50" observerPosBeg="2400.00,498.35" observerSpeedBeg="13.89" observerLaneIDBeg="rend" observerLanePosBeg="400.00" seenPosBeg="2350.00,498.35" seenSpeedBeg="13.89" seenLaneIDBeg="rend" seenLanePosBeg="400.00" tEnd="252.00" observerPosEnd="2400.00,498.35" observerSpeedEnd="13.89" observerLaneIDEnd="rend" observerLanePosEnd="400.00" seenPosEnd="2400.00,498.35" seenSpeedEnd="13.89" seenLaneIDEnd="rend" seenLanePosEnd="400.00" observerRoute="rend" seenRoute="rend">
+            <recognitionPoint t="249.00" observerPos="2400.00,498.35" observerSpeed="13.89" observerLaneID="rend" observerLanePos="400.00" seenPos="2350.00,498.35" seenSpeed="13.89" seenLaneID="rend" seenLanePos="400.00"/>
+        </seen>
+    </bt>
+</bt-output>

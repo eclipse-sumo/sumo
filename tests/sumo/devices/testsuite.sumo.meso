@@ -7,5 +7,8 @@ battery
 # Tests for per-vehicle emissions tracking
 emissions
 
+# tests for wireless (blue-tooth) devices
+bt
+
 # test device for "one shot" in-simulation vehicle routing and periodic rerouting
 rerouting
