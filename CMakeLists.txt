@@ -52,7 +52,7 @@ if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU" OR
     endif ()
 elseif (MSVC)
     # enabling /WX is not possible due to warnings in external headers
-    # /Wall brings MSVC to complete halt
+    # /Wall brings MSVC 2013 to complete halt
     if ("${CMAKE_BUILD_TYPE}" STREQUAL "Debug")
         # this is a workaround to disable lots of warnings for replacing /W3 with /W4 in VS 2019
         # there is a policy for that starting with CMake 3.15
@@ -62,6 +62,9 @@ elseif (MSVC)
     endif ()
     if (MULTITHREADED_BUILD)
         set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /MP")
+    endif ()
+    if (MSVC_VERSION GREATER 1919)
+        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /experimental:external /external:W3")
     endif ()
     # exporting symbols for shared libraries needs to enabled explicitly
     set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS ON)
