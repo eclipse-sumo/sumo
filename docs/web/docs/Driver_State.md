@@ -61,7 +61,7 @@ error dynamics.
 | speedDifferenceChangePerceptionThreshold | float | 0.1                         | Constant controlling the threshold for the perception of changes in the speed difference  |
 | headwayChangePerceptionThreshold         | float | 0.1                         | Constant controlling the threshold for the perception of changes in the distance input.      |
 | minAwareness                             | float | 0.1                         | The minimal value for the driver awareness (a technical parameter to avoid a blow up of the term `1/minAwareness`).   |
-| maximalReactionTime                      | float | original action step length | The value for the driver's actionStepLength atained at minimal awareness. The actionStepLength scales linearly between this and the original value with the awareness between minAwareness and 1.0. |
+| maximalReactionTime                      | float (s) | original action step length | The value for the driver's actionStepLength atained at minimal awareness. The actionStepLength scales linearly between this and the original value with the awareness between minAwareness and 1.0. |
 
 ## Modeling of Perception Errors
 
