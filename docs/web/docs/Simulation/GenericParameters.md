@@ -29,6 +29,7 @@ Parameters support the following functionality
 - Supplying additional information to the user (via
   [SUMO-GUI](../SUMO-GUI.md) dialogs or when inspecting XML
   files)
+- retaining custom information when [saving and loading simulation state][SaveAndLoad.md)
 
 Parameters are always defined as child elements of the respective
 object:
