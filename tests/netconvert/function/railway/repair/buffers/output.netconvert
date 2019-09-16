@@ -3,6 +3,7 @@ Parsing sumo-net from 'input_net.net.xml'... done.
    34 nodes loaded.
    31 edges loaded.
 Removing self-loops... done (0ms).
+Added 3 bidi-edges as extension of existing bidi edges.
 Found 1 reversible edge sequences between broken rail nodes
 Reversed 1 sequences (count by length: 2:1)
 Added 4 edges to connect 2 buffer stops in both directions.
@@ -37,7 +38,7 @@ Processing turnarounds... done (0ms).
 Rechecking of lane endings... 
 done (0ms).
 Computing traffic light control information... done (0ms).
-Computing node logics... done (1ms).
+Computing node logics... done (0ms).
 Computing traffic light logics... done (0ms).
  0 traffic light(s) computed.
 Building inner edges... done (0ms).

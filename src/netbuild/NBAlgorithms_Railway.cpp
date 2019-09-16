@@ -486,9 +486,9 @@ NBRailwayTopologyAnalyzer::extendBidiEdges(NBNetBuilder& nb) {
             added += extendBidiEdges(nb, e->getToNode(), e);
         }
     }
-    //if (added > 0) {
-    //    std::cout << "Addeded " << added << " bidi-edges as extension of existing bidi edges\n";
-    //}
+    if (added > 0) {
+        WRITE_MESSAGE("Added " + toString(added) + " bidi-edges as extension of existing bidi edges.");
+    }
     return added;
 }
 

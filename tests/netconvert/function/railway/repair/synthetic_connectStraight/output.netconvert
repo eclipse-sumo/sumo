@@ -3,6 +3,7 @@ Parsing sumo-net from 'input_net.net.xml'... done.
    34 nodes loaded.
    31 edges loaded.
 Removing self-loops... done (0ms).
+Added 3 bidi-edges as extension of existing bidi edges.
 Found 1 reversible edge sequences between broken rail nodes
 Reversed 1 sequences (count by length: 2:1)
 Added 3 bidi-edges to ensure connectivity of straight tracks at geometry-like nodes.
@@ -26,7 +27,7 @@ Sorting nodes' edges... done (0ms).
 Computing node shapes... done (1ms).
 Computing edge shapes... done (0ms).
 Computing node types... done (0ms).
-Computing priorities... done (1ms).
+Computing priorities... done (0ms).
 Computing approached edges... done (0ms).
 Guessing and setting roundabouts... done (0ms).
 Computing approaching lanes... done (0ms).
@@ -50,5 +51,5 @@ Summary:
   Applied offset     : 0.00,0.00
   Converted boundary : -141.99,-267.85,409.02,87.76
 -----------------------------------------------------
-Writing network... done (4ms).
+Writing network... done (5ms).
 Success.

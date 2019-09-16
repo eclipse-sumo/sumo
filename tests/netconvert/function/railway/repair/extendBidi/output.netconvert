@@ -3,6 +3,7 @@ Parsing sumo-net from 'input_net.net.xml'... done.
    17 nodes loaded.
    18 edges loaded.
 Removing self-loops... done (0ms).
+Added 4 bidi-edges as extension of existing bidi edges.
 Found 22 railway edges and 16 railway nodes (0 signals).
 Railway nodes by number of incoming,outgoing edges:
    0,1 count: 2 broken: 0
