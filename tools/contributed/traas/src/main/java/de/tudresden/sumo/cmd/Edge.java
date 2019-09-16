@@ -41,7 +41,7 @@ public class Edge {
      * @return the travel time value (in s)
      */
 
-    public static SumoCommand getAdaptedTraveltime(String edgeID, int time) {
+    public static SumoCommand getAdaptedTraveltime(String edgeID, double time) {
         Object[] array = new Object[] {time};
         return new SumoCommand(Constants.CMD_GET_EDGE_VARIABLE, Constants.VAR_EDGE_TRAVELTIME, edgeID, array, Constants.RESPONSE_GET_EDGE_VARIABLE, Constants.TYPE_DOUBLE);
     }
@@ -83,7 +83,7 @@ public class Edge {
      *         not exist
      */
 
-    public static SumoCommand getEffort(String edgeID, int time) {
+    public static SumoCommand getEffort(String edgeID, double time) {
         Object[] array = new Object[] {time};
         return new SumoCommand(Constants.CMD_GET_EDGE_VARIABLE, Constants.VAR_EDGE_EFFORT, edgeID, array, Constants.RESPONSE_GET_EDGE_VARIABLE, Constants.TYPE_DOUBLE);
     }
@@ -378,7 +378,7 @@ public class Edge {
      * @return SumoCommand
      */
 
-    public static SumoCommand adaptTraveltime(String edgeID, double time, int begin, int end) {
+    public static SumoCommand adaptTraveltime(String edgeID, double time, double begin, double end) {
         Object[] array = new Object[] {begin, end, time};
         return new SumoCommand(Constants.CMD_SET_EDGE_VARIABLE, Constants.VAR_EDGE_TRAVELTIME, edgeID, array);
     }
@@ -412,7 +412,7 @@ public class Edge {
      * @return SumoCommand
      */
 
-    public static SumoCommand setEffort(String edgeID, double effort, int begin, int end) {
+    public static SumoCommand setEffort(String edgeID, double effort, double begin, double end) {
         Object[] array = new Object[] {begin, end, effort};
         return new SumoCommand(Constants.CMD_SET_EDGE_VARIABLE, Constants.VAR_EDGE_EFFORT, edgeID, array);
     }

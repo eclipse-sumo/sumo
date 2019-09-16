@@ -134,6 +134,16 @@ public class APITest {
             conn.do_job_set(Edge.setParameter("gneE0", "edgeParam", "edgeValue"));
             System.out.println("Edge.getParameter: " + (String)conn.do_job_get(Edge.getParameter("gneE0", "edgeParam")));
 
+            conn.do_job_set(Edge.adaptTraveltime("gneE0", 123, 2000, 4000));
+            System.out.println("Edge.getAdaptatedTraveltime: " + (double)conn.do_job_get(Edge.getAdaptedTraveltime("gneE0", 3000)));
+            System.out.println("Edge.getAdaptatedTraveltime: " + (double)conn.do_job_get(Edge.getAdaptedTraveltime("gneE0", 1000)));
+            System.out.println("Edge.getAdaptatedTraveltime: " + (double)conn.do_job_get(Edge.getAdaptedTraveltime("gneE0", 5000)));
+
+            conn.do_job_set(Edge.setEffort("gneE0", 246, 2000, 4000));
+            System.out.println("Edge.getEffort: " + (double)conn.do_job_get(Edge.getEffort("gneE0", 3000)));
+            System.out.println("Edge.getEffort: " + (double)conn.do_job_get(Edge.getEffort("gneE0", 1000)));
+            System.out.println("Edge.getEffort: " + (double)conn.do_job_get(Edge.getEffort("gneE0", 5000)));
+
             conn.do_job_set(Lane.setParameter("gneE0_1", "laneParam", "laneValue"));
             System.out.println("Lane.getParameter: " + (String)conn.do_job_get(Lane.getParameter("gneE0_1", "laneParam")));
 

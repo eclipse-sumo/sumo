@@ -58,6 +58,12 @@ Vehicletype.getParameter: vehtypeValue
 PersonIDs: p0 p1 p10 p11 p12 p13 p14 p15 p16 p17 p18 p19 p2 p20 p21 p22 p23 p24 p25 p26 p27 p28 p29 p3 p30 p31 p32 p33 p34 p4 p5 p6 p7 p8 p9 
 Person.getStage: 2
 Edge.getParameter: edgeValue
+Edge.getAdaptatedTraveltime: 123.0
+Edge.getAdaptatedTraveltime: -1.0
+Edge.getAdaptatedTraveltime: -1.0
+Edge.getEffort: 246.0
+Edge.getEffort: -1.0
+Edge.getEffort: -1.0
 Lane.getParameter: laneValue
 Route.getParameter: routeValue
 Poi.getParameter: poiValue
