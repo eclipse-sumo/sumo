@@ -1,20 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 28.08.2019 14:31:03 by Eclipse SUMO netedit Version v1_3_1+0011-f5e097af11
+<!-- generated on 17.09.2019 12:54:31 by Eclipse SUMO netedit Version v1_3_1+0357-ef12b9f94a
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.28Aug142833.8020/netedit.gui/demandElements/stop/stopParkingArea/volatileRecomputing\input_net.net.xml"/>
+        <sumo-net-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.17Sep122807.4644/netedit.gui/demandElements/stop/stopParkingArea/volatileRecomputing\input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.28Aug142833.8020/netedit.gui/demandElements/stop/stopParkingArea/volatileRecomputing\net.net.xml"/>
+        <output-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.17Sep122807.4644/netedit.gui/demandElements/stop/stopParkingArea/volatileRecomputing\net.net.xml"/>
     </output>
 
     <processing>
         <geometry.max-grade.fix value="false"/>
         <offset.disable-normalization value="true"/>
-        <opposites.guess.fix-lengths value="true"/>
         <lefthand value="false"/>
     </processing>
 
@@ -32,14 +31,14 @@
     </pedestrian>
 
     <netedit>
-        <additional-files value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.28Aug142833.8020/netedit.gui/demandElements/stop/stopParkingArea/volatileRecomputing\additionals.xml"/>
-        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.28Aug142833.8020/netedit.gui/demandElements/stop/stopParkingArea/volatileRecomputing\additionals.xml"/>
-        <route-files value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.28Aug142833.8020/netedit.gui/demandElements/stop/stopParkingArea/volatileRecomputing\routes.xml"/>
-        <demandelements-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.28Aug142833.8020/netedit.gui/demandElements/stop/stopParkingArea/volatileRecomputing\routes.xml"/>
+        <additional-files value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.17Sep122807.4644/netedit.gui/demandElements/stop/stopParkingArea/volatileRecomputing\additionals.xml"/>
+        <additionals-output value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.17Sep122807.4644/netedit.gui/demandElements/stop/stopParkingArea/volatileRecomputing\additionals.xml"/>
+        <route-files value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.17Sep122807.4644/netedit.gui/demandElements/stop/stopParkingArea/volatileRecomputing\routes.xml"/>
+        <demandelements-output value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.17Sep122807.4644/netedit.gui/demandElements/stop/stopParkingArea/volatileRecomputing\routes.xml"/>
     </netedit>
 
     <visualisation>
-        <gui-settings-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.28Aug142833.8020/netedit.gui/demandElements/stop/stopParkingArea/volatileRecomputing\gui-settings.xml"/>
+        <gui-settings-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.17Sep122807.4644/netedit.gui/demandElements/stop/stopParkingArea/volatileRecomputing\gui-settings.xml"/>
         <window-size value="700,500"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
@@ -49,25 +48,25 @@
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.28Aug142833.8020/netedit.gui/demandElements/stop/stopParkingArea/volatileRecomputing\log.txt"/>
+        <error-log value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.17Sep122807.4644/netedit.gui/demandElements/stop/stopParkingArea/volatileRecomputing\log.txt"/>
     </report>
 
 </configuration>
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-    <vehicle id="vehicle_0" depart="0.00">
-        <route edges="gneE2 gneE4" color="yellow"/>
-        <stop parkingArea="parkingArea_gneE4_0_2" duration="60.00"/>
-        <stop parkingArea="parkingArea_gneE2_4_3" duration="60.00"/>
-        <stop parkingArea="parkingArea_gneE2_3_4" duration="60.00"/>
-        <stop parkingArea="parkingArea_gneE2_2_5" duration="60.00"/>
-        <stop parkingArea="parkingArea_gneE2_1_6" duration="60.00"/>
-        <stop parkingArea="parkingArea_gneE2_0_7" duration="60.00"/>
-    </vehicle>
-    <vehicle id="vehicle_1" depart="0.00">
+    <vehicle id="vehicle0" depart="0.00">
         <route edges="gneE0 gneE1" color="yellow"/>
-        <stop parkingArea="parkingArea_gneE1_0_1" duration="60.00"/>
-        <stop parkingArea="parkingArea_gneE0_0_0" duration="60.00"/>
+        <stop parkingArea="parkingAreaH" duration="60.00"/>
+        <stop parkingArea="parkingAreaG" duration="60.00"/>
+        <stop parkingArea="parkingAreaF" duration="60.00"/>
+        <stop parkingArea="parkingAreaE" duration="60.00"/>
+        <stop parkingArea="parkingAreaD" duration="60.00"/>
+        <stop parkingArea="parkingAreaC" duration="60.00"/>
+    </vehicle>
+    <vehicle id="vehicle1" depart="0.00">
+        <route edges="gneE0 gneE1" color="yellow"/>
+        <stop parkingArea="parkingAreaB" duration="60.00"/>
+        <stop parkingArea="parkingAreaA" duration="60.00"/>
     </vehicle>
 </routes>

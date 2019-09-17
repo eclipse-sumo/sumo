@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 28.08.2019 10:01:51 by Eclipse SUMO netedit Version v1_3_1+0010-babbcffb4d
+<!-- generated on 26.08.2019 12:34:00 by Eclipse SUMO netedit Version v1_3_0+0076-26751b8496
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.28Aug095521.4644/netedit.gui/demandElements/stop/stopParkingArea/create/tripID\input_net.net.xml"/>
+        <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.26Aug123326.2680/netedit.gui/demandElements/stop/stopParkingArea/create/tripID\input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.28Aug095521.4644/netedit.gui/demandElements/stop/stopParkingArea/create/tripID\net.net.xml"/>
+        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.26Aug123326.2680/netedit.gui/demandElements/stop/stopParkingArea/create/tripID\net.net.xml"/>
     </output>
 
     <processing>
@@ -30,14 +30,14 @@
     </pedestrian>
 
     <netedit>
-        <additional-files value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.28Aug095521.4644/netedit.gui/demandElements/stop/stopParkingArea/create/tripID\additionals.xml"/>
-        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.28Aug095521.4644/netedit.gui/demandElements/stop/stopParkingArea/create/tripID\additionals.xml"/>
-        <route-files value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.28Aug095521.4644/netedit.gui/demandElements/stop/stopParkingArea/create/tripID\routes.xml"/>
-        <demandelements-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.28Aug095521.4644/netedit.gui/demandElements/stop/stopParkingArea/create/tripID\routes.xml"/>
+        <additional-files value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.26Aug123326.2680/netedit.gui/demandElements/stop/stopParkingArea/create/tripID\additionals.xml"/>
+        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.26Aug123326.2680/netedit.gui/demandElements/stop/stopParkingArea/create/tripID\additionals.xml"/>
+        <route-files value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.26Aug123326.2680/netedit.gui/demandElements/stop/stopParkingArea/create/tripID\routes.xml"/>
+        <demandelements-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.26Aug123326.2680/netedit.gui/demandElements/stop/stopParkingArea/create/tripID\routes.xml"/>
     </netedit>
 
     <visualisation>
-        <gui-settings-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.28Aug095521.4644/netedit.gui/demandElements/stop/stopParkingArea/create/tripID\gui-settings.xml"/>
+        <gui-settings-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.26Aug123326.2680/netedit.gui/demandElements/stop/stopParkingArea/create/tripID\gui-settings.xml"/>
         <window-size value="700,500"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
@@ -47,15 +47,15 @@
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.28Aug095521.4644/netedit.gui/demandElements/stop/stopParkingArea/create/tripID\log.txt"/>
+        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.26Aug123326.2680/netedit.gui/demandElements/stop/stopParkingArea/create/tripID\log.txt"/>
     </report>
 
 </configuration>
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-    <vehicle id="vehicle_0" depart="0.00">
-        <route edges="gneE0 gneE1" color="yellow"/>
-        <stop parkingArea="parkingArea_gneE1_0_0" duration="60.00" tripId="ID1"/>
+    <route edges="gneE0 gneE1" color="yellow" id="route_0"/>
+    <vehicle id="vehicle_0" depart="0.00" route="route_0">
+        <stop parkingArea="parkingAreaB" duration="60.00" tripId="ID1"/>
     </vehicle>
 </routes>

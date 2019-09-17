@@ -35,13 +35,13 @@ netedit.stopMode()
 netedit.changeStopType("stopParkingArea")
 
 # create stop
-netedit.leftClick(referencePosition, 327, 208)
+netedit.leftClick(referencePosition, 327, 175)
 
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect stop
-netedit.leftClick(referencePosition, 327, 173)
+netedit.leftClick(referencePosition, 327, 175)
 
 # change value
 netedit.modifyBoolAttribute(5, True)

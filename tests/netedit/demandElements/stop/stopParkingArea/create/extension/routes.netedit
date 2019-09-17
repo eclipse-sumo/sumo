@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 17.09.2019 12:31:02 by Eclipse SUMO netedit Version v1_3_1+0357-ef12b9f94a
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.17Sep122807.4644/netedit.gui/demandElements/stop/stopParkingArea/create/extension\input_net.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.17Sep122807.4644/netedit.gui/demandElements/stop/stopParkingArea/create/extension\net.net.xml"/>
+    </output>
+
+    <processing>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="false"/>
+    </processing>
+
+    <junctions>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="5"/>
+        <junctions.limit-turn-speed value="5.5"/>
+        <rectangular-lane-cut value="false"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="false"/>
+    </pedestrian>
+
+    <netedit>
+        <additional-files value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.17Sep122807.4644/netedit.gui/demandElements/stop/stopParkingArea/create/extension\additionals.xml"/>
+        <additionals-output value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.17Sep122807.4644/netedit.gui/demandElements/stop/stopParkingArea/create/extension\additionals.xml"/>
+        <route-files value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.17Sep122807.4644/netedit.gui/demandElements/stop/stopParkingArea/create/extension\routes.xml"/>
+        <demandelements-output value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.17Sep122807.4644/netedit.gui/demandElements/stop/stopParkingArea/create/extension\routes.xml"/>
+    </netedit>
+
+    <visualisation>
+        <gui-settings-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.17Sep122807.4644/netedit.gui/demandElements/stop/stopParkingArea/create/extension\gui-settings.xml"/>
+        <window-size value="700,500"/>
+        <window-pos value="50,50"/>
+        <gui-testing value="true"/>
+        <gui-testing-debug value="true"/>
+        <gui-testing-debug-gl value="true"/>
+    </visualisation>
+
+    <report>
+        <no-warnings value="true"/>
+        <error-log value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.17Sep122807.4644/netedit.gui/demandElements/stop/stopParkingArea/create/extension\log.txt"/>
+    </report>
+
+</configuration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vehicle id="vehicle_0" depart="0.00">
+        <route edges="gneE0 gneE1" color="yellow"/>
+        <stop parkingArea="parkingAreaB" duration="60.00"/>
+        <stop parkingArea="parkingAreaB" duration="60.00" extension="0.00"/>
+        <stop parkingArea="parkingAreaB" duration="60.00" extension="0.00"/>
+        <stop parkingArea="parkingAreaB" duration="60.00" extension="22.33"/>
+    </vehicle>
+</routes>

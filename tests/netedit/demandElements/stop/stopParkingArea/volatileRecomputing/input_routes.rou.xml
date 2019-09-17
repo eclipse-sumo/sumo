@@ -37,29 +37,18 @@
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-    <vehicle id="vehicle_0" depart="0.00">
-		<route edges="gneE2 gneE4" color="yellow"/>
-		
-		<stop parkingArea="parkingArea_gneE4_0_2" duration="60.00"/>
-		
-		<stop parkingArea="parkingArea_gneE2_4_3" duration="60.00"/>
-		
-		<stop parkingArea="parkingArea_gneE2_3_4" duration="60.00"/>
-		
-		<stop parkingArea="parkingArea_gneE2_2_5" duration="60.00"/>
-		
-		<stop parkingArea="parkingArea_gneE2_1_6" duration="60.00"/>
-		
-		<stop parkingArea="parkingArea_gneE2_0_7" duration="60.00"/>
-		
-	</vehicle>
-	
-	<vehicle id="vehicle_1" depart="0.00">
-		<route edges="gneE0 gneE1" color="yellow"/>
-		
-		<stop parkingArea="parkingArea_gneE1_0_1" duration="60.00"/>
-		
-		<stop parkingArea="parkingArea_gneE0_0_0" duration="60.00"/>
-		
-	</vehicle>
+    <vehicle id="vehicle0" depart="0.00">
+	    <route edges="gneE0 gneE1" color="yellow"/>
+        <stop parkingArea="parkingAreaH" duration="60.00"/>
+        <stop parkingArea="parkingAreaG" duration="60.00"/>
+        <stop parkingArea="parkingAreaF" duration="60.00"/>
+        <stop parkingArea="parkingAreaE" duration="60.00"/>
+        <stop parkingArea="parkingAreaD" duration="60.00"/>
+        <stop parkingArea="parkingAreaC" duration="60.00"/>
+    </vehicle>
+    <vehicle id="vehicle1" depart="0.00">
+	    <route edges="gneE0 gneE1" color="yellow"/>
+        <stop parkingArea="parkingAreaB" duration="60.00"/>
+        <stop parkingArea="parkingAreaA" duration="60.00"/>
+    </vehicle>
 </routes>

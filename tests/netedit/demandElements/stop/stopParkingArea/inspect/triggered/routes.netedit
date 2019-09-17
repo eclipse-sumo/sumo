@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 12.09.2019 11:06:53 by Eclipse SUMO netedit Version v1_3_1+0242-939b751989
+<!-- generated on 17.09.2019 13:01:09 by Eclipse SUMO netedit Version v1_3_1+0357-ef12b9f94a
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.12Sep093610.7576/netedit.gui/demandElements/stop/stopParkingArea/inspect/triggered\input_net.net.xml"/>
+        <sumo-net-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.1_from_17Sep122807.7884/netedit.gui/demandElements/stop/stopParkingArea/inspect/triggered\input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.12Sep093610.7576/netedit.gui/demandElements/stop/stopParkingArea/inspect/triggered\net.net.xml"/>
+        <output-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.1_from_17Sep122807.7884/netedit.gui/demandElements/stop/stopParkingArea/inspect/triggered\net.net.xml"/>
     </output>
 
     <processing>
@@ -29,14 +29,14 @@
     </pedestrian>
 
     <netedit>
-        <additional-files value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.12Sep093610.7576/netedit.gui/demandElements/stop/stopParkingArea/inspect/triggered\additionals.xml"/>
-        <additionals-output value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.12Sep093610.7576/netedit.gui/demandElements/stop/stopParkingArea/inspect/triggered\additionals.xml"/>
-        <route-files value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.12Sep093610.7576/netedit.gui/demandElements/stop/stopParkingArea/inspect/triggered\routes.xml"/>
-        <demandelements-output value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.12Sep093610.7576/netedit.gui/demandElements/stop/stopParkingArea/inspect/triggered\routes.xml"/>
+        <additional-files value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.1_from_17Sep122807.7884/netedit.gui/demandElements/stop/stopParkingArea/inspect/triggered\additionals.xml"/>
+        <additionals-output value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.1_from_17Sep122807.7884/netedit.gui/demandElements/stop/stopParkingArea/inspect/triggered\additionals.xml"/>
+        <route-files value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.1_from_17Sep122807.7884/netedit.gui/demandElements/stop/stopParkingArea/inspect/triggered\routes.xml"/>
+        <demandelements-output value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.1_from_17Sep122807.7884/netedit.gui/demandElements/stop/stopParkingArea/inspect/triggered\routes.xml"/>
     </netedit>
 
     <visualisation>
-        <gui-settings-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.12Sep093610.7576/netedit.gui/demandElements/stop/stopParkingArea/inspect/triggered\gui-settings.xml"/>
+        <gui-settings-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.1_from_17Sep122807.7884/netedit.gui/demandElements/stop/stopParkingArea/inspect/triggered\gui-settings.xml"/>
         <window-size value="700,500"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
@@ -46,7 +46,7 @@
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.12Sep093610.7576/netedit.gui/demandElements/stop/stopParkingArea/inspect/triggered\log.txt"/>
+        <error-log value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.1_from_17Sep122807.7884/netedit.gui/demandElements/stop/stopParkingArea/inspect/triggered\log.txt"/>
     </report>
 
 </configuration>
@@ -55,6 +55,6 @@
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
     <vehicle id="vehicle_0" depart="0.00">
         <route edges="gneE0 gneE1" color="yellow"/>
-        <stop parkingArea="parkingArea_gneE1_0_0" duration="60.00" triggered="1"/>
+        <stop parkingArea="parkingAreaB" duration="60.00" triggered="1"/>
     </vehicle>
 </routes>

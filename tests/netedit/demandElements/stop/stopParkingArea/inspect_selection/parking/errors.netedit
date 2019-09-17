@@ -5,22 +5,22 @@ GLDebug: 	Inserted edge:gneE0 into SUMORTree with boundary -10.00,-11.60,60.00,1
 GLDebug: 	Inserted edge:gneE1 into SUMORTree with boundary -10.00,-10.00,60.00,11.60
 Debug: Selected item 'DEFAULT_VEHTYPE' in DemandElementSelector
 Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
-Debug: Adding parkingArea 'parkingArea_gneE0_0_1' in GNEChange_Additional
-GLDebug: 	Inserted parkingArea:parkingArea_gneE0_0_1 into SUMORTree with boundary -0.10,-0.10,0.10,0.10
-GLDebug: 	Removed object parkingArea:parkingArea_gneE0_0_1 from SUMORTree with boundary -0.10,-0.10,0.10,0.10
-GLDebug: 	Inserted parkingArea:parkingArea_gneE0_0_1 into SUMORTree with boundary 15.80,-10.60,34.20,-2.20
+Debug: Adding parkingArea 'parkingAreaA' in GNEChange_Additional
+GLDebug: 	Inserted parkingArea:parkingAreaA into SUMORTree with boundary -0.10,-0.10,0.10,0.10
+GLDebug: 	Removed object parkingArea:parkingAreaA from SUMORTree with boundary -0.10,-0.10,0.10,0.10
+GLDebug: 	Inserted parkingArea:parkingAreaA into SUMORTree with boundary 15.80,-10.60,34.20,-2.20
 Debug: Additionals has to be saved
 Debug: Current saving Status: net saved, additionals unsaved, demand elements saved
-Debug: Adding parkingArea 'parkingArea_gneE1_0_0' in GNEChange_Additional
-GLDebug: 	Inserted parkingArea:parkingArea_gneE1_0_0 into SUMORTree with boundary -0.10,-0.10,0.10,0.10
-GLDebug: 	Removed object parkingArea:parkingArea_gneE1_0_0 from SUMORTree with boundary -0.10,-0.10,0.10,0.10
-GLDebug: 	Inserted parkingArea:parkingArea_gneE1_0_0 into SUMORTree with boundary 15.80,2.20,34.20,10.60
-Debug: Adding vehicle 'vehicle_0' in GNEChange_DemandElement
+Debug: Adding parkingArea 'parkingAreaB' in GNEChange_Additional
+GLDebug: 	Inserted parkingArea:parkingAreaB into SUMORTree with boundary -0.10,-0.10,0.10,0.10
+GLDebug: 	Removed object parkingArea:parkingAreaB from SUMORTree with boundary -0.10,-0.10,0.10,0.10
+GLDebug: 	Inserted parkingArea:parkingAreaB into SUMORTree with boundary 15.80,2.20,34.20,10.60
+Debug: Adding vehicle 'vehicle' in GNEChange_DemandElement
 Debug: DemandElements has to be saved
 Debug: Current saving Status: net saved, additionals unsaved, demand elements unsaved
 Debug: Adding embeddedRoute 'embeddedRoute_0' in GNEChange_DemandElement
-Debug: Adding stopParkingArea 'vehicle_0stopParkingArea1' in GNEChange_DemandElement
-Debug: Adding stopParkingArea 'vehicle_0stopParkingArea2' in GNEChange_DemandElement
+Debug: Adding stopParkingArea 'vehiclestopParkingArea1' in GNEChange_DemandElement
+Debug: Adding stopParkingArea 'vehiclestopParkingArea2' in GNEChange_DemandElement
 Debug: net has to be saved
 Debug: Current saving Status: net unsaved, additionals unsaved, demand elements unsaved
 GLDebug: Removing junctions during recomputing
@@ -37,46 +37,47 @@ GLDebug: 	Inserted edge:gneE0 into SUMORTree with boundary -10.00,-11.60,60.00,1
 GLDebug: 	Inserted edge:gneE1 into SUMORTree with boundary -10.00,-10.00,60.00,11.60
 Debug: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
-GLDebug: 	Removed object parkingArea:parkingArea_gneE0_0_1 from SUMORTree with boundary 15.80,-10.60,34.20,-2.20
-GLDebug: 	Inserted parkingArea:parkingArea_gneE0_0_1 into SUMORTree with boundary 15.80,-10.60,34.20,-2.20
-GLDebug: 	Removed object parkingArea:parkingArea_gneE1_0_0 from SUMORTree with boundary 15.80,2.20,34.20,10.60
-GLDebug: 	Inserted parkingArea:parkingArea_gneE1_0_0 into SUMORTree with boundary 15.80,2.20,34.20,10.60
+GLDebug: 	Removed object parkingArea:parkingAreaA from SUMORTree with boundary 15.80,-10.60,34.20,-2.20
+GLDebug: 	Inserted parkingArea:parkingAreaA into SUMORTree with boundary 15.80,-10.60,34.20,-2.20
+GLDebug: 	Removed object parkingArea:parkingAreaB from SUMORTree with boundary 15.80,2.20,34.20,10.60
+GLDebug: 	Inserted parkingArea:parkingAreaB into SUMORTree with boundary 15.80,2.20,34.20,10.60
 Debug: Setting new attribute selected 'true' into embeddedRoute 'embeddedRoute_0'
-Debug: Setting new attribute selected 'true' into vehicle 'vehicle_0'
-Debug: Setting new attribute selected 'true' into stopParkingArea 'vehicle_0stopParkingArea1'
-Debug: Setting new attribute selected 'true' into stopParkingArea 'vehicle_0stopParkingArea2'
-Debug: Setting new attribute selected 'false' into embeddedRoute 'embeddedRoute_0'
-Debug: Setting new attribute selected 'false' into vehicle 'vehicle_0'
-Debug: Setting new attribute selected 'false' into stopParkingArea 'vehicle_0stopParkingArea1'
-Debug: Setting new attribute selected 'false' into stopParkingArea 'vehicle_0stopParkingArea2'
+Debug: Setting new attribute selected 'true' into vehicle 'vehicle'
+Debug: Setting new attribute selected 'true' into stopParkingArea 'vehiclestopParkingArea1'
+Debug: Setting new attribute selected 'true' into stopParkingArea 'vehiclestopParkingArea2'
 Debug: ObjectsUnderCursor: GUIGlObjects: 2, AttributeCarriers: 2, NetElements: 0, Additionals: 1, DemandElements: 1, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
-Debug: Setting new attribute parking 'true' into stopParkingArea 'vehicle_0stopParkingArea2'
+Debug: Setting new attribute parking 'false' into stopParkingArea 'vehiclestopParkingArea1'
+Debug: Setting new attribute parking 'false' into stopParkingArea 'vehiclestopParkingArea2'
 Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 Debug: Keys Ctrl + Z (Undo) pressed
-Debug: Setting previous attribute parking '' into stopParkingArea 'vehicle_0stopParkingArea2'
+Debug: Setting previous attribute parking '1' into stopParkingArea 'vehiclestopParkingArea2'
+Debug: Setting previous attribute parking '1' into stopParkingArea 'vehiclestopParkingArea1'
 Debug: Keys Ctrl + Z (Undo) pressed
-Debug: Setting previous attribute selected '1' into stopParkingArea 'vehicle_0stopParkingArea2'
-Debug: Setting previous attribute selected '1' into stopParkingArea 'vehicle_0stopParkingArea1'
-Debug: Setting previous attribute selected '1' into vehicle 'vehicle_0'
-Debug: Setting previous attribute selected '1' into embeddedRoute 'embeddedRoute_0'
-Debug: Keys Ctrl + Z (Undo) pressed
-Debug: Setting previous attribute selected '0' into stopParkingArea 'vehicle_0stopParkingArea2'
-Debug: Setting previous attribute selected '0' into stopParkingArea 'vehicle_0stopParkingArea1'
-Debug: Setting previous attribute selected '0' into vehicle 'vehicle_0'
+Debug: Setting previous attribute selected '0' into stopParkingArea 'vehiclestopParkingArea2'
+Debug: Setting previous attribute selected '0' into stopParkingArea 'vehiclestopParkingArea1'
+Debug: Setting previous attribute selected '0' into vehicle 'vehicle'
 Debug: Setting previous attribute selected '0' into embeddedRoute 'embeddedRoute_0'
+Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Removing stopParkingArea 'vehiclestopParkingArea2' in GNEChange_DemandElement
+Debug: Removed inspected element from Inspected ACs. 1 ACs remains.
+Debug: Removing stopParkingArea 'vehiclestopParkingArea1' in GNEChange_DemandElement
+Debug: Removed inspected element from Inspected ACs. 0 ACs remains.
+Debug: Removing embeddedRoute 'embeddedRoute_0' in GNEChange_DemandElement
+Debug: Removing vehicle 'vehicle' in GNEChange_DemandElement
 Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
+Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Adding vehicle 'vehicle' in GNEChange_DemandElement
+Debug: Adding embeddedRoute 'embeddedRoute_0' in GNEChange_DemandElement
+Debug: Adding stopParkingArea 'vehiclestopParkingArea1' in GNEChange_DemandElement
+Debug: Adding stopParkingArea 'vehiclestopParkingArea2' in GNEChange_DemandElement
 Debug: Keys Ctrl + Y (Redo) pressed
 Debug: Setting new attribute selected 'true' into embeddedRoute 'embeddedRoute_0'
-Debug: Setting new attribute selected 'true' into vehicle 'vehicle_0'
-Debug: Setting new attribute selected 'true' into stopParkingArea 'vehicle_0stopParkingArea1'
-Debug: Setting new attribute selected 'true' into stopParkingArea 'vehicle_0stopParkingArea2'
+Debug: Setting new attribute selected 'true' into vehicle 'vehicle'
+Debug: Setting new attribute selected 'true' into stopParkingArea 'vehiclestopParkingArea1'
+Debug: Setting new attribute selected 'true' into stopParkingArea 'vehiclestopParkingArea2'
 Debug: Keys Ctrl + Y (Redo) pressed
-Debug: Setting new attribute selected 'false' into embeddedRoute 'embeddedRoute_0'
-Debug: Setting new attribute selected 'false' into vehicle 'vehicle_0'
-Debug: Setting new attribute selected 'false' into stopParkingArea 'vehicle_0stopParkingArea1'
-Debug: Setting new attribute selected 'false' into stopParkingArea 'vehicle_0stopParkingArea2'
-Debug: Keys Ctrl + Y (Redo) pressed
-Debug: Setting new attribute parking 'true' into stopParkingArea 'vehicle_0stopParkingArea2'
+Debug: Setting new attribute parking 'false' into stopParkingArea 'vehiclestopParkingArea1'
+Debug: Setting new attribute parking 'false' into stopParkingArea 'vehiclestopParkingArea2'
 Debug: Additionals saved
 Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 Debug: demand elements saved
@@ -92,22 +93,22 @@ GLDebug: 	Inserted junction:gneJ1 into SUMORTree with boundary 40.00,-13.20,60.0
 GLDebug: Add egdges during recomputing after calling myNetBuilder->compute(...)
 GLDebug: 	Inserted edge:gneE0 into SUMORTree with boundary -10.00,-11.60,60.00,10.00
 GLDebug: 	Inserted edge:gneE1 into SUMORTree with boundary -10.00,-10.00,60.00,11.60
-GLDebug: 	Removed object parkingArea:parkingArea_gneE0_0_1 from SUMORTree with boundary 15.80,-10.60,34.20,-2.20
-GLDebug: 	Inserted parkingArea:parkingArea_gneE0_0_1 into SUMORTree with boundary 15.80,-10.60,34.20,-2.20
-GLDebug: 	Removed object parkingArea:parkingArea_gneE1_0_0 from SUMORTree with boundary 15.80,2.20,34.20,10.60
-GLDebug: 	Inserted parkingArea:parkingArea_gneE1_0_0 into SUMORTree with boundary 15.80,2.20,34.20,10.60
-Debug: Deleting unreferenced stopParkingArea 'vehicle_0stopParkingArea2'
+GLDebug: 	Removed object parkingArea:parkingAreaA from SUMORTree with boundary 15.80,-10.60,34.20,-2.20
+GLDebug: 	Inserted parkingArea:parkingAreaA into SUMORTree with boundary 15.80,-10.60,34.20,-2.20
+GLDebug: 	Removed object parkingArea:parkingAreaB from SUMORTree with boundary 15.80,2.20,34.20,10.60
+GLDebug: 	Inserted parkingArea:parkingAreaB into SUMORTree with boundary 15.80,2.20,34.20,10.60
+Debug: Deleting unreferenced stopParkingArea 'vehiclestopParkingArea2'
 Debug: DemandElements has to be saved
 Debug: Current saving Status: net saved, additionals saved, demand elements unsaved
-Debug: Deleting unreferenced stopParkingArea 'vehicle_0stopParkingArea1'
+Debug: Deleting unreferenced stopParkingArea 'vehiclestopParkingArea1'
 Debug: Deleting unreferenced embeddedRoute 'embeddedRoute_0'
-Debug: Deleting unreferenced vehicle 'vehicle_0'
-Debug: Deleting unreferenced parkingArea 'parkingArea_gneE1_0_0'
-GLDebug: 	Removed object parkingArea:parkingArea_gneE1_0_0 from SUMORTree with boundary 15.80,2.20,34.20,10.60
+Debug: Deleting unreferenced vehicle 'vehicle'
+Debug: Deleting unreferenced parkingArea 'parkingAreaB'
+GLDebug: 	Removed object parkingArea:parkingAreaB from SUMORTree with boundary 15.80,2.20,34.20,10.60
 Debug: Additionals has to be saved
 Debug: Current saving Status: net saved, additionals unsaved, demand elements unsaved
-Debug: Deleting unreferenced parkingArea 'parkingArea_gneE0_0_1'
-GLDebug: 	Removed object parkingArea:parkingArea_gneE0_0_1 from SUMORTree with boundary 15.80,-10.60,34.20,-2.20
+Debug: Deleting unreferenced parkingArea 'parkingAreaA'
+GLDebug: 	Removed object parkingArea:parkingAreaA from SUMORTree with boundary 15.80,-10.60,34.20,-2.20
 Debug: Deleting unreferenced edge 'gneE0' in GNENet destructor
 Debug: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'fromgneE0_0togneE1_0' in GNEEdge destructor

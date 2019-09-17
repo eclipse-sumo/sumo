@@ -1,9 +1,9 @@
 Error: Attribute 'containerTriggered' in definition of a stop is not of type bool.
-Error: Invalid bool for 'triggered', 'containerTriggered' or 'parking' for stop at 'parkingArea' in vehicle 'vehicle_0'.
+Error: Invalid bool for 'triggered', 'containerTriggered' or 'parking' for stop at 'parkingArea' in vehicle 'vehicle'.
 Error: Attribute 'containerTriggered' in definition of a stop is empty.
-Error: Invalid bool for 'triggered', 'containerTriggered' or 'parking' for stop at 'parkingArea' in vehicle 'vehicle_0'.
+Error: Invalid bool for 'triggered', 'containerTriggered' or 'parking' for stop at 'parkingArea' in vehicle 'vehicle'.
 Error: Attribute 'containerTriggered' in definition of a stop is not of type bool.
-Error: Invalid bool for 'triggered', 'containerTriggered' or 'parking' for stop at 'parkingArea' in vehicle 'vehicle_0'.
+Error: Invalid bool for 'triggered', 'containerTriggered' or 'parking' for stop at 'parkingArea' in vehicle 'vehicle'.
 Error: Attribute 'containerTriggered' in definition of a stop is not of type bool.
-Error: Invalid bool for 'triggered', 'containerTriggered' or 'parking' for stop at 'parkingArea' in vehicle 'vehicle_0'.
-Error: Loading of C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.28Aug142833.8020/netedit.gui/demandElements/stop/stopParkingArea/load/containerTrigger\input_routes.rou.xml failed.
+Error: Invalid bool for 'triggered', 'containerTriggered' or 'parking' for stop at 'parkingArea' in vehicle 'vehicle'.
+Error: Loading of C:/Users/alva_pa/.texttest/tmp/netedit.gui.17Sep122807.4644/netedit.gui/demandElements/stop/stopParkingArea/load/containerTrigger\input_routes.rou.xml failed.
