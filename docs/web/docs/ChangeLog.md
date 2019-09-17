@@ -29,6 +29,10 @@ permalink: /ChangeLog/
   - Fixed invalid geometry when using option **--geometry.max-segment-length** Issue #6074
   - Fixed invalid network when using option **--geometry.split** Issue #6075
 
+- Meso
+  - device.emissions now collects data. Issue #6086
+  - fixed crash when using device.btsender or device.btreceiver. Issue #6087
+
 - SUMO-GUI
   - Sublane-borders are no longer drawn for railways and sidewalks (where the sublane model does not apply).
 
@@ -65,6 +69,9 @@ permalink: /ChangeLog/
   
 - SUMO-GUI
   - The currently loaded options can now be saved to a configuration via the file menu. Issue #5707
+  
+- TraCI
+  - Added function 'traci.trafficlight.getServedPersonCount' to return the number of pedestrians that would be served by all the crossings for a given phase index. Issue #6088
   
 - Tools
   - When importing public transport traffic with osmWebWizard, vehicles from incomplete lines now start and end their routes at the network border instead of starting at the first stop. Issue #6025
