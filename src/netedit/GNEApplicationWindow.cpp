@@ -2004,6 +2004,33 @@ long
 GNEApplicationWindow::onCmdOpenSUMOGUI(FXObject*, FXSelector, void*) {
     // check that currently there is a View
     if (myViewNet) {
+        // first check if network is saved
+        if (!myViewNet->getNet()->isNetSaved()) {
+            // save network
+            onCmdSaveNetwork(nullptr, 0, nullptr);
+            if (!myViewNet->getNet()->isNetSaved()) {
+                return 0;
+            }
+        }
+        // now check if additionals are saved
+        if ((myViewNet->getNet()->getNumberOfAdditionals() > 0) && !myViewNet->getNet()->isAdditionalsSaved()) {
+            // save additionals
+            onCmdSaveAdditionals(nullptr, 0, nullptr);
+            // check if additionals were sucesfully saved
+            if (!myViewNet->getNet()->isAdditionalsSaved()) {
+                return 0;
+            }
+        }
+        // finally check if demand elements are saved
+        if ((myViewNet->getNet()->getNumberOfDemandElements() > 0) && !myViewNet->getNet()->isDemandElementsSaved()) {
+            // save additionals
+            onCmdSaveDemandElements(nullptr, 0, nullptr);
+            // check if demand elements were sucesfully saved
+            if (!myViewNet->getNet()->isDemandElementsSaved()) {
+                return 0;
+            }
+        }
+        // obtain viewport
         FXRegistry reg("SUMO GUI", "Eclipse");
         reg.read();
         reg.writeRealEntry("viewport", "x", myViewNet->getChanger().getXPos());
@@ -2640,7 +2667,7 @@ long
 GNEApplicationWindow::onCmdSaveNetwork(FXObject*, FXSelector, void*) {
     OptionsCont& oc = OptionsCont::getOptions();
     // function onCmdSaveAsNetwork must be executed if this is the first save
-    if (oc.getString("output-file") == "") {
+    if ((oc.getString("output-file") == "") || (oc.getString("output-file") == "net.net.xml")) {
         return onCmdSaveAsNetwork(nullptr, 0, nullptr);
     } else {
         getApp()->beginWaitCursor();
