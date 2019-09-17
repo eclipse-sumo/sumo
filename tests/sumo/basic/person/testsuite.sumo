@@ -22,6 +22,9 @@ boarding_duration_no_extension
 # busses have a large boarding duration but the stop duration extension is limited
 boarding_duration_extension_limited
 
+# busses have a large boarding duration but the stop duration extension is limited
+boarding_duration_extension_limited_no_persons
+
 # person with a single walk
 walk
 

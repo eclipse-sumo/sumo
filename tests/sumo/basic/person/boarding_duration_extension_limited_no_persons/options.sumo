@@ -1,0 +1,3 @@
+--no-step-log --no-duration-log --net-file=three_split.net.xml
+-r=input_routes.rou.xml --tripinfo-output=tripinfos.xml 
+-a input_additional.add.xml
