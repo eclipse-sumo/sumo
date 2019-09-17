@@ -5698,6 +5698,12 @@ MSVehicle::addTraciStop(MSLane* const lane, const double startPos, const double 
     if (parking) {
         newStop.parametersSet |= STOP_PARKING_SET;
     }
+    if (duration >= 0) {
+        newStop.parametersSet |= STOP_DURATION_SET;
+    }
+    if (until >= 0) {
+        newStop.parametersSet |= STOP_UNTIL_SET;
+    }
     const bool result = addStop(newStop, errorMsg);
     if (result) {
         /// XXX handle stops added out of order
