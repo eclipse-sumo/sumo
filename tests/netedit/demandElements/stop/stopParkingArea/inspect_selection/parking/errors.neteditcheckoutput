@@ -1,0 +1,7 @@
+Warning: Stop at parkingarea overrides attribute 'parking' for stop at 'parkingAreaA' in vehicle 'vehicle'.
+Warning: Teleporting vehicle 'vehicle'; waited too long (wrong lane), lane='gneE0_0', time=307.00.
+Warning: Vehicle 'vehicle' skips stop on lane 'gneE0_0' time=307.00.
+Warning: Vehicle 'vehicle' ends teleporting on edge 'gneE1', time 307.00.
+Warning: Teleporting vehicle 'vehicle'; waited too long (jam), lane='gneE1_0', time=611.00.
+Warning: Vehicle 'vehicle' teleports beyond arrival edge 'gneE1', time 611.00.
+Warning: Vehicle 'vehicle' skips stop on lane 'gneE1_0' time=611.00.
