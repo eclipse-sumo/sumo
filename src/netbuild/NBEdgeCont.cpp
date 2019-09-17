@@ -716,7 +716,9 @@ NBEdgeCont::removeUnwishedEdges(NBDistrictCont& dc) {
 
 void
 NBEdgeCont::splitGeometry(NBDistrictCont& dc, NBNodeCont& nc) {
-    for (auto& item : myEdges) {
+    // make a copy of myEdges because splitting will modify it
+    EdgeCont edges = myEdges;
+    for (auto& item : edges) {
         NBEdge* edge = item.second;
         if (edge->getGeometry().size() < 3) {
             continue;
