@@ -45,10 +45,6 @@ markdown_extensions:
   - mdx_truly_sane_lists:
       nested_indent: 2
       truly_sane: true
-  #- mdx_math:
-      #enable_dollar_delimiter: True
-  #  - pymdownx.emoji
-  #- pymdownx.arithmatex
   - pymdownx.tasklist:
       custom_checkbox: true
   - toc:
@@ -60,8 +56,6 @@ markdown_extensions:
   - mdx_gh_links:
       user: eclipse
       repo: sumo
-
-python_module: special_macros
 
 extra:
     Version: 1.3.1
