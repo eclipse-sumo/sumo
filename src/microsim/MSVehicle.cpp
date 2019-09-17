@@ -1826,12 +1826,19 @@ MSVehicle::processNextStop(double currentVelocity) {
         // ok, we have already reached the next stop
         // any waiting persons may board now
         MSNet* const net = MSNet::getInstance();
-        const bool boarded = (time > stop.endBoarding || (net->hasPersons() 
-                    && net->getPersonControl().boardAnyWaiting(&myLane->getEdge(), this, stop.pars, stop.timeToBoardNextPerson, stop.duration) 
-                    && stop.numExpectedPerson == 0));
+        const bool boarded = (time <= stop.endBoarding 
+                && net->hasPersons() 
+                && net->getPersonControl().boardAnyWaiting(&myLane->getEdge(), this, stop.pars, stop.timeToBoardNextPerson, stop.duration) 
+                && stop.numExpectedPerson == 0);
         // load containers
-        const bool loaded = net->hasContainers() && net->getContainerControl().loadAnyWaiting(&myLane->getEdge(), this,
-                            stop.pars, stop.timeToLoadNextContainer, stop.duration) && stop.numExpectedContainer == 0;
+        const bool loaded = (time <= stop.endBoarding 
+                && net->hasContainers()
+                && net->getContainerControl().loadAnyWaiting(&myLane->getEdge(), this, stop.pars, stop.timeToLoadNextContainer, stop.duration) 
+                && stop.numExpectedContainer == 0);
+        if (time > stop.endBoarding) {
+            stop.triggered = false;
+            stop.containerTriggered = false;
+        }
         if (boarded) {
             if (stop.busstop != nullptr) {
                 const std::vector<MSTransportable*>& persons = myPersonDevice->getTransportables();
