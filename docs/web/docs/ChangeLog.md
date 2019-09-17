@@ -61,6 +61,7 @@ permalink: /ChangeLog/
   - Now additionals and routes can optionally be loaded using option "Open in SUMO-GUI"). Issue #6049
   - Added shortcuts (Shift F1,F2,F3) for edge templates. Issue #6033
   - VTypes can be edited in multiple selected vehicles. Issue #6051
+  - Improved support of GNEStops. Issue #5367
   
 - SUMO-GUI
   - The currently loaded options can now be saved to a configuration via the file menu. Issue #5707
