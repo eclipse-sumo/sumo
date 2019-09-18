@@ -25,8 +25,8 @@ This Documentation is continuously updated and always refers to the latest devel
 ## Downloads
 **Release {{Version}}, {{ReleaseDate}}**
 
-- MS Windows binaries: [sumo-win64-{{Version}}.msi](http://sourceforge.net/projects/sumo/files/sumo/version%20{{Version}}/sumo-win64-{{Version}}.msi/download)
-- Source code: [sumo-src-{{Version}}.tar.gz](http://sourceforge.net/projects/sumo/files/sumo/version%20{{Version}}/sumo-src-{{Version}}.tar.gz/download)
+- MS Windows binaries: [sumo-win64-{{Version}}.msi](https://sumo.dlr.de/releases/{{Version}}/sumo-win64-{{Version}}.msi)
+- Source code: [sumo-src-{{Version}}.tar.gz](https://sumo.dlr.de/releases/{{Version}}/sumo-src-{{Version}}.tar.gz)
 - [Repositories for binary Linux versions](http://download.opensuse.org/repositories/home:/behrisch/)
 - macOS binaries: [Installing with Homebrew](Installing/MacOS_Build)
 - [All Downloads of this Release](Downloads.md)
@@ -36,7 +36,7 @@ This Documentation is continuously updated and always refers to the latest devel
 
 **SUMO-Game**
 
-- MS Windows binaries: [sumo-game-{{Version}}.zip](http://sourceforge.net/projects/sumo/files/sumo/version%20{{Version}}/sumo-game-{{Version}}.zip/download)
+- MS Windows binaries: [sumo-game-{{Version}}.zip](https://sumo.dlr.de/releases/{{Version}}/sumo-game-{{Version}}.zip)
 
 ## References
 
