@@ -119,7 +119,7 @@
         </xsd:attribute>
         <xsd:attribute name="tau" type="nonNegativeFloatType"/>
         <xsd:attribute name="delta" type="xsd:float"/>
-        <xsd:attribute name="stepping" type="xsd:float"/>
+        <xsd:attribute name="stepping" type="positiveFloatType"/>
         <xsd:attribute name="adaptTime" type="xsd:float"/>
         <xsd:attribute name="adaptFactor" type="xsd:float"/>
         <xsd:attribute name="tmp1" type="xsd:float"/>
