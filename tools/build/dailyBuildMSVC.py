@@ -192,7 +192,8 @@ for platform in (["x64"] if options.x64only else ["Win32", "x64"]):
                               cwd=buildDir, stdout=log, stderr=subprocess.STDOUT)
         if ret == 0 and sumoAllZip:
             try:
-                binaryZip = sumoAllZip.replace("-all-", "-%s%s-" % (platform.lower().replace("x", "win"), options.suffix))
+                binaryZip = sumoAllZip.replace("-all-", "-%s%s-" %
+                                               (platform.lower().replace("x", "win"), options.suffix))
                 zipf = zipfile.ZipFile(binaryZip, 'w', zipfile.ZIP_DEFLATED)
                 srcZip = zipfile.ZipFile(sumoAllZip)
                 write = False
@@ -201,7 +202,7 @@ for platform in (["x64"] if options.x64only else ["Win32", "x64"]):
                         write = f.endswith(".md") or os.path.basename(f) in ["AUTHORS", "ChangeLog", "LICENSE"]
                     if f.endswith('/') and f.count('/') == 2:
                         write = (f.endswith('/bin/') or
-                                f.endswith('/tools/') or f.endswith('/data/') or f.endswith('/docs/'))
+                                 f.endswith('/tools/') or f.endswith('/data/') or f.endswith('/docs/'))
                         if f.endswith('/bin/'):
                             binDir = f
                     elif f.endswith('/') and '/docs/' in f and f.count('/') == 3:
@@ -224,7 +225,8 @@ for platform in (["x64"] if options.x64only else ["Win32", "x64"]):
                             zipf.write(f, nameInZip)
                 includeDir = binDir.replace("bin", "include")
                 printLog("Creating sumo.zip.", log)
-                for f in glob.glob(os.path.join(options.rootDir, options.binDir.replace("bin", "src"), "libsumo", "*.h")):
+                for f in glob.glob(os.path.join(options.rootDir, options.binDir.replace("bin", "src"),
+                                                "libsumo", "*.h")):
                     base = os.path.basename(f)
                     nameInZip = os.path.join(includeDir, "libsumo", base)
                     if base != "Helper.h":
@@ -245,12 +247,12 @@ for platform in (["x64"] if options.x64only else ["Win32", "x64"]):
                 printLog("Warning: Could not create nightly sumo-game.zip! (%s)" % e, log)
         with open(makeAllLog, 'a') as debugLog:
             ret = subprocess.call(["cmake", "--build", ".", "--config", "Debug"],
-                                cwd=buildDir, stdout=debugLog, stderr=subprocess.STDOUT)
+                                  cwd=buildDir, stdout=debugLog, stderr=subprocess.STDOUT)
             if ret == 0 and sumoAllZip:
                 printLog("Creating sumoDebug.zip.", debugLog)
                 try:
                     debugZip = sumoAllZip.replace("-all-", "-%s%sDebug-" %
-                                                (platform.lower().replace("x", "win"), options.suffix))
+                                                  (platform.lower().replace("x", "win"), options.suffix))
                     zipf = zipfile.ZipFile(debugZip, 'w', zipfile.ZIP_DEFLATED)
                     for ext in ("*D.exe", "*.dll", "*D.pdb"):
                         for f in glob.glob(os.path.join(options.rootDir, options.binDir, ext)):

@@ -105,10 +105,9 @@ def checkWaitingPersons():
         for ped in peds:
             if (traci.person.getWaitingTime(ped) == 1 and
                     traci.person.getNextEdge(ped) in CROSSINGS):
-                numWaiting = traci.trafficlight.getServedPersonCount(TLSID,
-                        PEDESTRIAN_GREEN_PHASE)
-                print("%s: pedestrian %s pushes the button (waiting: %s)" % (
-                    traci.simulation.getTime(), ped, numWaiting))
+                numWaiting = traci.trafficlight.getServedPersonCount(TLSID, PEDESTRIAN_GREEN_PHASE)
+                print("%s: pedestrian %s pushes the button (waiting: %s)" %
+                      (traci.simulation.getTime(), ped, numWaiting))
                 return True
     return False
 

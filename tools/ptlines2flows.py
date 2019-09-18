@@ -55,8 +55,9 @@ def get_options(args=None):
                          default="", help="additional flow attributes")
     optParser.add_option("--use-osm-routes", default=False, action="store_true",
                          dest='osmRoutes', help="use osm routes")
-    optParser.add_option("--extend-to-fringe", default=False, action="store_true",
-                         dest='extendFringe', help="let routes of incomplete lines start/end at the network border if the route edges are known")
+    optParser.add_option("--extend-to-fringe", default=False, action="store_true", dest='extendFringe',
+                         help="let routes of incomplete lines start/end at the network border " +
+                              "if the route edges are known")
     optParser.add_option("--random-begin", default=False, action="store_true",
                          dest='randomBegin', help="randomize begin times within period")
     optParser.add_option("--seed", type="int", help="random seed")
@@ -103,8 +104,10 @@ def writeTypes(fout, prefix):
     <vType id="%saerialway" vClass="bus"/>
     <vType id="%sferry" vClass="ship"/>""" % tuple([prefix] * 9), file=fout)
 
+
 def getStopEdge(stopsLanes, stop):
     return stopsLanes[stop].rsplit("_", 1)[0]
+
 
 def createTrips(options):
     print("generating trips...")
@@ -208,16 +211,16 @@ def createTrips(options):
                     if len(stop_ids) > 0:
                         firstStop = getStopEdge(stopsLanes, stop_ids[0])
                         lastStop = getStopEdge(stopsLanes, stop_ids[-1])
-                        if not firstStop in edges:
+                        if firstStop not in edges:
                             fr = firstStop
                             if options.verbose:
-                                print("Cannot extend route before first stop for line '%s' (stop edge %s not in route)" % (
-                                    line.id, firstStop))
-                        if not lastStop in edges:
+                                print(("Cannot extend route before first stop for line '%s' " +
+                                       "(stop edge %s not in route)") % (line.id, firstStop))
+                        if lastStop not in edges:
                             to = lastStop
                             if options.verbose:
-                                print("Cannot extend route after last stop for line '%s' (stop edge %s not in route)" % (
-                                    line.id, lastStop))
+                                print(("Cannot extend route after last stop for line '%s' " +
+                                       "(stop edge %s not in route)") % (line.id, lastStop))
                 else:
                     if options.extendFringe and options.verbose:
                         print("Cannot extend route to fringe for line '%s' (not enough edges given)" % line.id)

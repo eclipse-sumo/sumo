@@ -21,28 +21,20 @@ from __future__ import print_function
 import os
 import sys
 import shutil
-import datetime
 import pydoc
 import types
 from optparse import OptionParser
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+import traci  # noqa
+import sumolib  # noqa
 from sumolib.miscutils import working_dir  # noqa
 
 
 def pydoc_recursive(module):
     pydoc.writedoc(module)
     for submod in module.__dict__.values():
-        if type(submod) is types.ModuleType and submod.__name__.startswith(module.__name__):
+        if isinstance(submod, types.ModuleType) and submod.__name__.startswith(module.__name__):
             pydoc_recursive(submod)
-
-
-def generate_pydoc(out_dir):
-    os.mkdir(out_dir)
-    import traci
-    import sumolib
-    with working_dir(out_dir):
-        for module in (traci, sumolib):
-            pydoc_recursive(module)
 
 
 optParser = OptionParser()
@@ -53,4 +45,7 @@ optParser.add_option("-c", "--clean", action="store_true", default=False, help="
 if options.pydoc_output:
     if options.clean:
         shutil.rmtree(options.pydoc_output, ignore_errors=True)
-    generate_pydoc(options.pydoc_output)
+    os.mkdir(options.pydoc_output)
+    with working_dir(options.pydoc_output):
+        for module in (traci, sumolib):
+            pydoc_recursive(module)

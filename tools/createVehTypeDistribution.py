@@ -12,11 +12,10 @@
 # @author  Jakob Erdmann
 # @author  Michael Behrisch
 # @date    2016-06-09
-# @version $Id$
+# @version $Id$  # noqa
 
 """
-
-Creates a vehicle type distribution with a number of representative car-following parameter sets. \
+Creates a vehicle type distribution with a number of representative car-following parameter sets.
 Optional parameters can be viewed by using the --help switch.
 Mandatory input:
 path to config file - defines the car-following model parameter distributions for one single vehicle type distribution
@@ -24,17 +23,16 @@ path to config file - defines the car-following model parameter distributions fo
 In the config file, one line is used per vehicle type attribute. The syntax is:
 nameOfAttribute; valueOfAttribute [; limits]
 
-ValueOfAttribute can be a string, a scalar value or a distribution definition. \
+ValueOfAttribute can be a string, a scalar value or a distribution definition.
 Available distributions and its syntax are:
 "normal(mu,sd)" with mu and sd being floating numbers: Normal distribution with mean mu and standard deviation sd.
 "lognormal(mu,sd)" with mu and sd being floating numbers: Log-Normal distribution with mean mu and standard deviation sd.
 "uniform(a,b)" with limits a and b being floating numbers: Uniform distribution between a and b.
 "gamma(alpha,beta)" with parameters alpha and beta: Gamma distribution.
 
-Limits are optional and defined as the allowed interval: e.g. "[0,1]" or "[3.5,5.0]". \
+Limits are optional and defined as the allowed interval: e.g. "[0,1]" or "[3.5,5.0]".
 By default, no negative values are accepted but have to be enabled by
 a negative lower limit.
-
 """
 
 import os
@@ -100,6 +98,7 @@ class NormalDistribution(FixDistribution):
 
     def _sampleValue(self):
         return random.normalvariate(self._params[0], self._params[1])
+
 
 class LogNormalDistribution(FixDistribution):
 

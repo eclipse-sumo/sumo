@@ -13,7 +13,7 @@
 # @version $Id$
 
 """
-Count the number if different person plans in a route file
+Count the number of different person plans in a route file
 """
 from __future__ import absolute_import
 from __future__ import print_function
@@ -26,15 +26,15 @@ from collections import defaultdict
 if 'SUMO_HOME' in os.environ:
     sys.path.append(os.path.join(os.environ['SUMO_HOME'], 'tools'))
 import sumolib  # noqa
-from sumolib.xml import parse
-from sumolib.miscutils import Statistics
+
 
 def get_options(args=None):
     parser = ArgumentParser(description="Analyze person plans")
     parser.add_argument("-r", "--route-files", dest="routeFiles", help="Input route files")
     parser.add_argument("-w", "--merge-walks", dest="mergeWalks", action="store_true", help="merge subsequent walks")
     parser.add_argument("-p", "--public-prefixes", dest="public", help="Distinguis public transport modes by prefix")
-    parser.add_argument("-i", "--ids", dest="ids", default=0, type=int, help="List the given number of person ids for each type of plan")
+    parser.add_argument("-i", "--ids", dest="ids", default=0, type=int,
+                        help="List the given number of person ids for each type of plan")
     options = parser.parse_args(args=args)
     if options.routeFiles is None:
         parser.print_help()
@@ -44,6 +44,7 @@ def get_options(args=None):
     else:
         options.public = []
     return options
+
 
 def stageName(options, person, stage):
     if stage.name == 'ride':
@@ -60,9 +61,9 @@ def stageName(options, person, stage):
 
 
 def main(options):
-    counts = defaultdict(lambda : list())
+    counts = defaultdict(lambda: list())
     for routeFile in options.routeFiles.split(','):
-        for person in parse(routeFile, 'person'):
+        for person in sumolib.xml.parse(routeFile, 'person'):
             stages = tuple([stageName(options, person, s) for s in person.getChildList()])
             if options.mergeWalks:
                 filtered = []
@@ -74,10 +75,10 @@ def main(options):
 
     numPersons = sum(map(len, counts.values()))
     print("Loaded %s persons" % numPersons)
-    maxPadding = max(map(len, [' '.join(k) for k,v in counts.items()]))
-    countSize = len(str(max([len(p) for k,p in counts.items()])))
+    maxPadding = max(map(len, [' '.join(k) for k, v in counts.items()]))
+    countSize = len(str(max([len(p) for k, p in counts.items()])))
     formatStr = "%" + str(countSize) + "s: %s%s"
-    reverseCounts = [(len(p), k) for k,p in counts.items()]
+    reverseCounts = [(len(p), k) for k, p in counts.items()]
     for count, k in sorted(reverseCounts):
         stages = ' '.join(k)
         examples = ""
@@ -85,6 +86,7 @@ def main(options):
             padding = " " * (maxPadding - len(stages))
             examples = padding + " - " + ','.join(counts[k][:options.ids])
         print(formatStr % (count, stages, examples))
+
 
 if __name__ == "__main__":
     main(get_options())
