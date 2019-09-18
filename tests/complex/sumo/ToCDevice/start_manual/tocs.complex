@@ -1,16 +1,16 @@
 <ToCDeviceLog>
-    <ToCup id="ToC_veh" t="2.00"/>
-    <TOR id="ToC_veh" t="127.00"/>
-    <MRM id="ToC_veh" t="139.00"/>
-    <ToCdown id="ToC_veh" t="150.00"/>
-    <ToCup id="ToC_veh" t="202.00"/>
-    <TOR id="ToC_veh" t="227.00"/>
-    <ToCup id="ToC_veh" t="242.00"/>
-    <TOR id="ToC_veh" t="252.00"/>
-    <ToCup id="ToC_veh" t="262.00"/>
-    <TOR id="ToC_veh" t="277.00"/>
-    <ToCdown id="ToC_veh" t="300.00"/>
-    <ToCup id="ToC_veh" t="302.00"/>
-    <TOR id="ToC_veh" t="377.00"/>
-    <ToCdown id="ToC_veh" t="400.00"/>
+    <ToCup id="ToC_veh" t="2.00" lane=":2/1_0_0" lanePos="0.00"/>
+    <TOR id="ToC_veh" t="127.00" lane="4/1to5/1_0" lanePos="0.10"/>
+    <MRM id="ToC_veh" t="139.00" lane="4/1to5/1_0" lanePos="0.30"/>
+    <ToCdown id="ToC_veh" t="150.00" lane="4/1to5/1_0" lanePos="0.42"/>
+    <ToCup id="ToC_veh" t="202.00" lane="5/1to6/1_0" lanePos="0.25"/>
+    <TOR id="ToC_veh" t="227.00" lane="5/1to6/1_0" lanePos="0.67"/>
+    <ToCup id="ToC_veh" t="242.00" lane="5/1to6/1_0" lanePos="0.93"/>
+    <TOR id="ToC_veh" t="252.00" lane="6/1to7/1_0" lanePos="0.11"/>
+    <ToCup id="ToC_veh" t="262.00" lane="6/1to7/1_0" lanePos="0.28"/>
+    <TOR id="ToC_veh" t="277.00" lane="6/1to7/1_0" lanePos="0.53"/>
+    <ToCdown id="ToC_veh" t="300.00" lane="6/1to7/1_0" lanePos="0.92"/>
+    <ToCup id="ToC_veh" t="302.00" lane="6/1to7/1_0" lanePos="0.95"/>
+    <TOR id="ToC_veh" t="377.00" lane="8/1to9/1_0" lanePos="0.25"/>
+    <ToCdown id="ToC_veh" t="400.00" lane="8/1to9/1_0" lanePos="0.64"/>
 </ToCDeviceLog>

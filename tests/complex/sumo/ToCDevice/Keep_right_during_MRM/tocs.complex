@@ -1,5 +1,5 @@
 <ToCDeviceLog>
-    <TOR id="ToC_veh" t="32.00"/>
-    <MRM id="ToC_veh" t="37.00"/>
-    <ToCdown id="ToC_veh" t="72.00"/>
+    <TOR id="ToC_veh" t="32.00" lane="WE_1" lanePos="0.40"/>
+    <MRM id="ToC_veh" t="37.00" lane="WE_1" lanePos="0.47"/>
+    <ToCdown id="ToC_veh" t="72.00" lane="WE_0" lanePos="0.67"/>
 </ToCDeviceLog>
