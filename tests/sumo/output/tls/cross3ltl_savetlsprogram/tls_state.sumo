@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Wed Sep 18 14:56:48 2019 by Eclipse SUMO Version v1_3_1+0382-ec53057
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+SPDX-License-Identifier: EPL-2.0
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+        <additional-files value="input_additional.add.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+    </output>
+
+    <time>
+        <begin value="0"/>
+        <end value="200"/>
+    </time>
+
+    <processing>
+        <default.speeddev value="0"/>
+    </processing>
+
+    <report>
+        <xml-validation value="never"/>
+        <duration-log.disable value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+</configuration>
+-->
+
+<tlsStates xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tlsstates_file.xsd">
+    <tlLogic id="0" type="static" programID="0">
+        <phase duration="31.00" state="GGggrrrrGGggrrrr"/>
+        <phase duration="4.00"  state="yyggrrrryyggrrrr"/>
+        <phase duration="6.00"  state="rrGGrrrrrrGGrrrr"/>
+        <phase duration="4.00"  state="rryyrrrrrryyrrrr"/>
+        <phase duration="31.00" state="rrrrGGggrrrrGGgg"/>
+        <phase duration="4.00"  state="rrrryyggrrrryygg"/>
+        <phase duration="6.00"  state="rrrrrrGGrrrrrrGG"/>
+        <phase duration="4.00"  state="rrrrrryyrrrrrryy"/>
+        <phase duration="31.00" state="GGggrrrrGGggrrrr"/>
+        <phase duration="4.00"  state="yyggrrrryyggrrrr"/>
+        <phase duration="6.00"  state="rrGGrrrrrrGGrrrr"/>
+        <phase duration="4.00"  state="rryyrrrrrryyrrrr"/>
+        <phase duration="31.00" state="rrrrGGggrrrrGGgg"/>
+        <phase duration="4.00"  state="rrrryyggrrrryygg"/>
+        <phase duration="6.00"  state="rrrrrrGGrrrrrrGG"/>
+        <phase duration="4.00"  state="rrrrrryyrrrrrryy"/>
+        <phase duration="20.00" state="GGggrrrrGGggrrrr"/>
+    </tlLogic>
+</tlsStates>
