@@ -652,7 +652,7 @@ Helper::applySubscriptionFilters(const Subscription& s, std::set<std::string>& o
                     fuseLaneCoverage(checkedLanesInDrivingDir, checkedLanes);
                 } else if (!disregardOppositeDirection && offset > 0) {
                     // Check opposite edge, too
-                    assert(vehLane->getIndex() + (unsigned int) offset >= vehEdge->getLanes().size()); // index points beyond this edge
+                    assert(vehLane->getIndex() + offset >= (int)vehEdge->getLanes().size()); // index points beyond this edge
                     const MSEdge* opposite = vehEdge->getOppositeEdge();
                     if (opposite == nullptr) {
 #ifdef DEBUG_SURROUNDING
@@ -895,11 +895,9 @@ Helper::moveToXYMap(const Position& pos, double maxRouteDistance, bool mayLeaveN
 
 
         // weight the lanes...
-        const std::vector<MSLane*>& lanes = e->getLanes();
         const bool perpendicular = false;
-        for (std::vector<MSLane*>::const_iterator k = lanes.begin(); k != lanes.end(); ++k) {
-            MSLane* lane = *k;
-            if (!lane->allowsVehicleClass(vClass)) {
+        for (MSLane* const l : e->getLanes()) {
+            if (!l->allowsVehicleClass(vClass)) {
                 continue;
             }
             double langle = 180.;
@@ -907,18 +905,18 @@ Helper::moveToXYMap(const Position& pos, double maxRouteDistance, bool mayLeaveN
             double perpendicularDist = FAR_AWAY;
             // add some slack to avoid issues from tiny gaps between consecutive lanes
             const double slack = POSITION_EPS;
-            PositionVector shape = lane->getShape();
-            shape.extrapolate2D(slack);
-            double off = shape.nearest_offset_to_point2D(pos, true);
+            PositionVector laneShape = l->getShape();
+			laneShape.extrapolate2D(slack);
+            double off = laneShape.nearest_offset_to_point2D(pos, true);
             if (off != GeomHelper::INVALID_OFFSET) {
-                perpendicularDist = shape.distance2D(pos, true);
+                perpendicularDist = laneShape.distance2D(pos, true);
             }
-            off = lane->getShape().nearest_offset_to_point2D(pos, perpendicular);
+            off = l->getShape().nearest_offset_to_point2D(pos, perpendicular);
             if (off != GeomHelper::INVALID_OFFSET) {
-                dist = lane->getShape().distance2D(pos, perpendicular);
-                langle = GeomHelper::naviDegree(lane->getShape().rotationAtOffset(off));
+                dist = l->getShape().distance2D(pos, perpendicular);
+                langle = GeomHelper::naviDegree(l->getShape().rotationAtOffset(off));
             }
-            bool sameEdge = onRoad && &lane->getEdge() == &currentLane->getEdge() && currentRouteEdge->getLength() > currentLanePos + SPEED2DIST(speed);
+            bool sameEdge = onRoad && e == &currentLane->getEdge() && currentRouteEdge->getLength() > currentLanePos + SPEED2DIST(speed);
             /*
             const MSEdge* rNextEdge = nextEdge;
             while(rNextEdge==0&&lane->getEdge().getPurpose()==MSEdge::EDGEFUNCTION_INTERNAL) {
@@ -934,19 +932,19 @@ Helper::moveToXYMap(const Position& pos, double maxRouteDistance, bool mayLeaveN
             const double angleDiff = (angle == INVALID_DOUBLE_VALUE ? 0 : GeomHelper::getMinAngleDiff(angle, langle));
 #ifdef DEBUG_MOVEXY_ANGLE
             std::cout << std::setprecision(gPrecision)
-                      << " candLane=" << lane->getID() << " lAngle=" << langle << " lLength=" << lane->getLength()
+                      << " candLane=" << l->getID() << " lAngle=" << langle << " lLength=" << l->getLength()
                       << " angleDiff=" << angleDiff
                       << " off=" << off
                       << " pDist=" << perpendicularDist
                       << " dist=" << dist
                       << " dist2=" << dist2
                       << "\n";
-            std::cout << lane->getID() << " param=" << lane->getParameter(SUMO_PARAM_ORIGID, lane->getID()) << " origID='" << origID << "\n";
+            std::cout << l->getID() << " param=" << l->getParameter(SUMO_PARAM_ORIGID, lane->getID()) << " origID='" << origID << "\n";
 #endif
-            lane2utility[lane] = LaneUtility(
+            lane2utility.emplace(l, LaneUtility(
                                      dist2, perpendicularDist, off, angleDiff,
-                                     lane->getParameter(SUMO_PARAM_ORIGID, lane->getID()) == origID,
-                                     onRoute, sameEdge, prevEdge, nextEdge);
+                                     l->getParameter(SUMO_PARAM_ORIGID, l->getID()) == origID,
+                                     onRoute, sameEdge, prevEdge, nextEdge));
             // update scaling value
             maxDist = MAX2(maxDist, MIN2(dist, SUMO_const_laneWidth));
 
@@ -956,9 +954,9 @@ Helper::moveToXYMap(const Position& pos, double maxRouteDistance, bool mayLeaveN
     // get the best lane given the previously computed values
     double bestValue = 0;
     MSLane* bestLane = nullptr;
-    for (std::map<MSLane*, LaneUtility>::iterator i = lane2utility.begin(); i != lane2utility.end(); ++i) {
-        MSLane* l = (*i).first;
-        const LaneUtility& u = (*i).second;
+    for (const auto& it : lane2utility) {
+        MSLane* const l = it.first;
+        const LaneUtility& u = it.second;
         double distN = u.dist > 999 ? -10 : 1. - (u.dist / maxDist);
         double angleDiffN = 1. - (u.angleDiff / 180.);
         double idN = u.ID ? 1 : 0;

@@ -268,7 +268,7 @@ public:
 
     private:
         /// @brief pointer to AttributesEditor parent
-        AttributesEditor* myAttributesEditorParent;
+        AttributesEditor* myAttributesEditorParent = nullptr;
 
         /// @brief current AC Attribute
         const GNEAttributeCarrier::AttributeProperties myACAttr;
@@ -277,28 +277,28 @@ public:
         const bool myMultiple;
 
         /// @brief pointer to attribute label
-        FXLabel* myAttributeLabel;
+        FXLabel* myAttributeLabel = nullptr;
 
         /// @brief Radio button for disjoint attributes
-        FXRadioButton* myAttributeRadioButton;
+        FXRadioButton* myAttributeRadioButton = nullptr;
 
         /// @brief pointer to attribute  menu check
-        FXCheckButton* myAttributeCheckButton;
+        FXCheckButton* myAttributeCheckButton = nullptr;
 
         /// @brief pointer to buttonCombinableChoices
-        FXButton* myAttributeButtonCombinableChoices;
+        FXButton* myAttributeButtonCombinableChoices = nullptr;
 
         /// @brief Button for open color editor
-        FXButton* myAttributeColorButton;
+        FXButton* myAttributeColorButton = nullptr;
 
         /// @brief textField to modify the value of string attributes
-        FXTextField* myValueTextField;
+        FXTextField* myValueTextField = nullptr;
 
         /// @brief pointer to combo box choices
-        FXComboBox* myValueComboBoxChoices;
+        FXComboBox* myValueComboBoxChoices = nullptr;
 
         /// @brief pointer to menu check
-        FXCheckButton* myValueCheckButton;
+        FXCheckButton* myValueCheckButton = nullptr;
     };
 
     // ===========================================================================

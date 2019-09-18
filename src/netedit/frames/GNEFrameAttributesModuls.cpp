@@ -161,8 +161,8 @@ GNEFrameAttributesModuls::AttributesCreatorRow::AttributesCreatorRow(AttributesC
                 myAttributeCheckButton->show();
                 // special case for attributes "Parking", "until" and "duration" (by default disabled)
                 if ((myAttrProperties.getTagPropertyParent().isStop() || myAttrProperties.getTagPropertyParent().isPersonStop()) && 
-                    ((myAttrProperties.getAttr() == SUMO_ATTR_UNTIL) || (myAttrProperties.getAttr() == SUMO_ATTR_EXTENSION)) || 
-                     (myAttrProperties.getAttr() == SUMO_ATTR_PARKING)) {
+                    (myAttrProperties.getAttr() == SUMO_ATTR_UNTIL || myAttrProperties.getAttr() == SUMO_ATTR_EXTENSION || 
+                     myAttrProperties.getAttr() == SUMO_ATTR_PARKING)) {
                     myAttributeCheckButton->setCheck(FALSE);
                 } else {
                     myAttributeCheckButton->setCheck(TRUE);
