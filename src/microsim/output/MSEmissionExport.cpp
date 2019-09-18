@@ -30,6 +30,7 @@
 #include <utils/geom/GeomHelper.h>
 #include <microsim/MSNet.h>
 #include <microsim/MSVehicle.h>
+#include <mesosim/MEVehicle.h>
 #include <microsim/MSVehicleControl.h>
 #include "MSEmissionExport.h"
 
@@ -44,7 +45,6 @@ MSEmissionExport::write(OutputDevice& of, SUMOTime timestep, int precision) {
     MSVehicleControl& vc = MSNet::getInstance()->getVehicleControl();
     for (MSVehicleControl::constVehIt it = vc.loadedVehBegin(); it != vc.loadedVehEnd(); ++it) {
         const SUMOVehicle* veh = it->second;
-        const MSVehicle* microVeh = dynamic_cast<const MSVehicle*>(veh);
         if (veh->isOnRoad()) {
             std::string fclass = veh->getVehicleType().getID();
             fclass = fclass.substr(0, fclass.find_first_of("@"));
@@ -54,7 +54,12 @@ MSEmissionExport::write(OutputDevice& of, SUMOTime timestep, int precision) {
             of.writeAttr("PMx", emiss.PMx).writeAttr("fuel", emiss.fuel).writeAttr("electricity", emiss.electricity);
             of.writeAttr("noise", HelpersHarmonoise::computeNoise(veh->getVehicleType().getEmissionClass(), veh->getSpeed(), veh->getAcceleration()));
             of.writeAttr("route", veh->getRoute().getID()).writeAttr("type", fclass);
-            if (microVeh != nullptr) {
+            if (MSGlobals::gUseMesoSim) {
+                const MEVehicle* mesoVeh = dynamic_cast<const MEVehicle*>(veh);
+                of.writeAttr("waiting", mesoVeh->getWaitingSeconds());
+                of.writeAttr("edge", veh->getEdge()->getID());
+            } else {
+                const MSVehicle* microVeh = dynamic_cast<const MSVehicle*>(veh);
                 of.writeAttr("waiting", microVeh->getWaitingSeconds());
                 of.writeAttr("lane", microVeh->getLane()->getID());
             }
