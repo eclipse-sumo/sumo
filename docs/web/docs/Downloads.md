@@ -159,7 +159,7 @@ packages can be obtained:
     installer, 32bit)
 - <https://sumo.dlr.de/daily/sumo-win64-git.msi> (windows
     installer, 64bit)
-- <https://sumo.dlr.de/daily/sumo-msvc12extrax64-git.zip> (windows
+- <https://sumo.dlr.de/daily/sumo-win64extra-git.zip> (windows
     64bit with GDAL, FFmpeg, OSG, GL2PS, SWIG)
 
 The Linux repositories specified above contain a nightly build as well.
