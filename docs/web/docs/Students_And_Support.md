@@ -136,8 +136,9 @@ would be a nice programming course topic, too.
 
 ## Routing
 
-- other (A\*, highway-hierarchies) routing algorithms (rather a topic
-  for a seminar)
+- multi-criteria-routing (pareto-routing)
+- high-performance-routing (Hub-Labeling etc.)
+- state-of-the-art public transport routing (RAPTOR, Transfer Patterns, etc)
 
 ## Interoperability
 
