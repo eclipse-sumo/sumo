@@ -90,9 +90,13 @@ documentation, submission of code, or other results.
 # Simulation
 
 - [Basic Definition](Simulation/Basic_Definition.md)
-- [Simulation output](Simulation/Output.md)
-- [TraCI (On-line Interaction)](TraCI.md)
 - [Saving and Loading Simulation State](Simulation/SaveAndLoad.md)
+
+## Output
+- [Simulation output overview](Simulation/Output.md)
+
+## TraCI (On-line Interaction)
+- [TraCI overview](TraCI.md)
 
 ## Traffic Management and Other Structures
 
