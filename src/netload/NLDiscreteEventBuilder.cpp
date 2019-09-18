@@ -29,6 +29,7 @@
 #include <microsim/actions/Command_SaveTLSState.h>
 #include <microsim/actions/Command_SaveTLSSwitches.h>
 #include <microsim/actions/Command_SaveTLSSwitchStates.h>
+#include <microsim/actions/Command_SaveTLSProgram.h>
 #include <microsim/MSEventControl.h>
 #include <microsim/traffic_lights/MSTLLogicControl.h>
 #include <microsim/traffic_lights/MSTrafficLightLogic.h>
@@ -46,6 +47,7 @@ NLDiscreteEventBuilder::NLDiscreteEventBuilder(MSNet& net)
     myActions["SaveTLSStates"] = EV_SAVETLSTATE;
     myActions["SaveTLSSwitchTimes"] = EV_SAVETLSWITCHES;
     myActions["SaveTLSSwitchStates"] = EV_SAVETLSWITCHSTATES;
+    myActions["SaveTLSProgram"] = EV_SAVETLSPROGRAM;
 }
 
 
@@ -76,6 +78,9 @@ NLDiscreteEventBuilder::addAction(const SUMOSAXAttributes& attrs,
             break;
         case EV_SAVETLSWITCHSTATES:
             buildSaveTLSwitchStatesCommand(attrs, basePath);
+            break;
+        case EV_SAVETLSPROGRAM:
+            buildSaveTLSProgramCommand(attrs, basePath);
             break;
     }
 }
@@ -164,5 +169,32 @@ NLDiscreteEventBuilder::buildSaveTLSwitchStatesCommand(const SUMOSAXAttributes& 
     }
 }
 
+
+void
+NLDiscreteEventBuilder::buildSaveTLSProgramCommand(const SUMOSAXAttributes& attrs,
+        const std::string& basePath) {
+    bool ok = true;
+    const std::string dest = attrs.getOpt<std::string>(SUMO_ATTR_DEST, nullptr, ok, "");
+    const std::string source = attrs.getOpt<std::string>(SUMO_ATTR_SOURCE, nullptr, ok, "");
+    // check the parameter
+    if (dest == "" || !ok) {
+        throw InvalidArgument("Incomplete description of an 'SaveTLSProgram'-action occurred.");
+    }
+    if (source == "") {
+        const std::vector<std::string> ids = myNet.getTLSControl().getAllTLIds();
+        for (std::vector<std::string>::const_iterator tls = ids.begin(); tls != ids.end(); ++tls) {
+            const MSTLLogicControl::TLSLogicVariants& logics = myNet.getTLSControl().get(*tls);
+            new Command_SaveTLSProgram(logics, OutputDevice::getDevice(FileHelpers::checkForRelativity(dest, basePath)));
+        }
+    } else {
+        // get the logic
+        if (!myNet.getTLSControl().knows(source)) {
+            throw InvalidArgument("The traffic light logic to save (" + source +  ") is not known.");
+        }
+        const MSTLLogicControl::TLSLogicVariants& logics = myNet.getTLSControl().get(source);
+        // build the action
+        new Command_SaveTLSProgram(logics, OutputDevice::getDevice(FileHelpers::checkForRelativity(dest, basePath)));
+    }
+}
 
 /****************************************************************************/

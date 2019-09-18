@@ -5,6 +5,8 @@ set(microsim_actions_STAT_SRCS
    Command_SaveTLSSwitches.h
    Command_SaveTLSSwitchStates.cpp
    Command_SaveTLSSwitchStates.h
+   Command_SaveTLSProgram.cpp
+   Command_SaveTLSProgram.h
    Command_SaveTLCoupledLaneDet.cpp
    Command_SaveTLCoupledLaneDet.h
    Command_SaveTLCoupledDet.cpp
