@@ -132,6 +132,38 @@ Each entry is written into a single line. The values have the same
 meaning as those in the
 [SaveTLSStates-output](#generated_output).
 
+## TLS Programs
+
+### Instantiating within the Simulation
+
+To enable writing tls state information you have to add the following
+definition into one of your [*additional-files*](../../SUMO.md#format_of_additional_files):
+
+`<timedEvent type="SaveTLSProgram" source="<TLS_ID>" dest="<OUTPUT_FILE>"/>`
+
+The attributes have herein the following meanings:
+
+| Attribute Name | Value Type        | Description                                               |
+| -------------- | ----------------- | --------------------------------------------------------- |
+| **type**       | enum (string)     | type of the event trigger; always "SaveTLSStates" herein. |
+| **source**     | referenced tls id | The id of the traffic light which state shall be written. |
+| **dest**       | file name         | The file to save the state into.                          |
+
+### Generated Output
+
+The output is a loadable tlLogic element that records the complete state sequence of a traffic light:
+
+```
+<tlsStates>
+   <tlLogic id="<TLS_ID>" programID="<TLS_SUBID>" type="static/>
+      <phase state="..." duration="..."
+      ...
+   </tlLogic>
+</tlsStates>
+```
+
+A new phase is saved whenever the state changes. A new tlLogic is written whenever the programID changes.
+
 ## Coupled Lane Area Detectors
 
 ### Instantiating within the Simulation
