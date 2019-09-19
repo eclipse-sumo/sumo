@@ -355,3 +355,5 @@ Inside a **Note** element you can use Markdown syntax to insert links, stylize t
 - [SUMO Documentation images]({{Source}}docs/web/docs/images)
 - [Online Markdown Tables generator](https://www.tablesgenerator.com/markdown_tables)
 - [LaTeX Mathematics](https://en.wikibooks.org/wiki/LaTeX/Mathematics)
+
+- [How to Build this Documentation]({{Source}}docs/web/README.md)
