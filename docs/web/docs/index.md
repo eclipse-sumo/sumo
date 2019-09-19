@@ -28,7 +28,7 @@ This Documentation is continuously updated and always refers to the latest devel
 - MS Windows binaries: [sumo-win64-{{Version}}.msi](https://sumo.dlr.de/releases/{{Version}}/sumo-win64-{{Version}}.msi)
 - Source code: [sumo-src-{{Version}}.tar.gz](https://sumo.dlr.de/releases/{{Version}}/sumo-src-{{Version}}.tar.gz)
 - [Repositories for binary Linux versions](http://download.opensuse.org/repositories/home:/behrisch/)
-- macOS binaries: [Installing with Homebrew](Installing/MacOS_Build)
+- macOS binaries: [Installing with Homebrew](Installing/MacOS_Build.md)
 - [All Downloads of this Release](Downloads.md)
 - [Data/Scenarios](Data/Scenarios.md)
 - [Data/Networks](Data/Networks.md)
