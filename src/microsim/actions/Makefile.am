@@ -1,6 +1,7 @@
 noinst_LIBRARIES = libmsactions.a
 
 libmsactions_a_SOURCES = \
+Command_SaveTLSProgram.cpp Command_SaveTLSProgram.h \
 Command_SaveTLSState.cpp Command_SaveTLSState.h \
 Command_SaveTLSSwitches.cpp Command_SaveTLSSwitches.h \
 Command_SaveTLSSwitchStates.cpp Command_SaveTLSSwitchStates.h \
