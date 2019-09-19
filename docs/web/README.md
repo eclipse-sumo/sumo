@@ -48,4 +48,6 @@ This should create the *site* directory, containing all the necessary HTML and C
 Feel free to contribute and improve the SUMO Documentation. All changes need to be via Pull requests.
 You can click on the "Edit on GitHub" button in the top right corner of every page, or just simply press the `e` key on your keyboard.
 
+We encourage you to read [this guide](https://sumo.dlr.de/docs/Editing_Articles.html) on how to edit the articles.
+
 You can also report typos and such, opening an issue [here](https://github.com/eclipse/sumo/issues).
