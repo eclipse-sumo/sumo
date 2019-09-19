@@ -119,6 +119,7 @@ def start(cmd, port=None, numRetries=10, label="default"):
         raise TraCIException("Connection '%s' is already active." % label)
     while numRetries >= 0 and label not in _connections:
         sumoPort = sumolib.miscutils.getFreeSocketPort() if port is None else port
+        print("Calling " + cmd + ["--remote-port", str(sumoPort)])
         sumoProcess = subprocess.Popen(cmd + ["--remote-port", str(sumoPort)])
         try:
             return init(sumoPort, numRetries, "localhost", label, sumoProcess)
