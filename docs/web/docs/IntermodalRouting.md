@@ -49,9 +49,9 @@ will be used for routing regardless of its capacity.
 ```xml
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
     <flow id="bus" from = "beg" to ="end" line="bus" begin="0" end="1000" period="300">
-                <stop busStop="beg_0" until="10"/>
-                <stop busStop="left_0" until="110"/>
-                <stop busStop="end_0" until="210"/>
+                <stop busStop="busStopA" until="10"/>
+                <stop busStop="busStopB" until="110"/>
+                <stop busStop="busStopC" until="210"/>
     </flow>
     <person id="p0" depart="0">
         <personTrip from="beg" to="end" modes="public"/>
