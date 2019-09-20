@@ -89,9 +89,9 @@ GNERouteHandler::RouteParameter::setEdges(GNEViewNet* viewNet, const std::string
         GNEEdge* to = viewNet->getNet()->retrieveEdge(toID, false);
         // check if edges are valid
         if (from == nullptr) {
-            WRITE_ERROR("Invalid 'from' edge used in trip '" + vehicleID + "'.");
+            WRITE_ERROR("Invalid from-edge '" + fromID + "' used in trip '" + vehicleID + "'.");
         } else if (to == nullptr) {
-            WRITE_ERROR("Invalid 'to' edge used in trip '" + vehicleID + "'.");
+            WRITE_ERROR("Invalid to-edge '" + toID + "' used in trip '" + vehicleID + "'.");
         } else if (!GNEAttributeCarrier::canParse<std::vector<GNEEdge*> >(viewNet->getNet(), viaIDs, false)) {
             WRITE_ERROR("Invalid 'via' edges used in trip '" + vehicleID + "'.");
         } else {
