@@ -446,7 +446,7 @@ MSCFModel::estimateArrivalTime(double dist, double initialSpeed, double arrivalS
     double arrivalTime;
     if (accelDist >= dist * 0.5) {
         // maximal speed will not be attained during maneuver
-        arrivalTime = 4 * sqrt(accelDist) / accel;
+        arrivalTime = 4 * sqrt(dist / accel);
     } else {
         // Calculate time to move with constant, maximal lateral speed
         const double constSpeedTime = (dist - accelDist * 2) / maxSpeed;
