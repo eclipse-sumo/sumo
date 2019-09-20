@@ -294,7 +294,8 @@ client version and SUMO version match.
 
   Yes. It is supported since version 0.24.0. To build a network for
   lefthand traffic, the option **--lefthand** must be set. Note, that this option
-  exists in earlier versions but only works correctly since 0.24.0.
+  
+  in earlier versions but only works correctly since 0.24.0.
 
 ### Can SUMO generate movement traces?
 
@@ -489,10 +490,10 @@ At line/column 10/46
 
 ### Why do I get errors about *missing files* / *file not found* even though the file exists?
 
-  Sumo uses the space character to separate file paths. This means it
+  SUMO versions before 1.0.0 use the space character to separate file paths. This means it
   will not be able to load files with a path such as *C:\\Program
-  Files\\foo.xml* (even when adding quotation marks). Additionally,
-  SUMO may fail to load files if the name contains characters outside
+  Files\\foo.xml* even when adding quotation marks. Since 1.0.0 the ',' (comma) is used so these paths should work.
+  Additionally, SUMO may fail to load files if the name contains characters outside
   the basic [ASCII set](https://en.wikipedia.org/wiki/Ascii).
 
 ## NETCONVERT
