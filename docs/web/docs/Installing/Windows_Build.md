@@ -19,11 +19,12 @@ may also [download pre-built Windows binaries](../Downloads.md).
 
 ![](../images/VSInstall.png)
 
-- clone https://github.com/eclipse/sumo
+- clone https://github.com/eclipse/sumo or open your existing local SUMO folder
 - go to team explorer
   - choose Manage Connections, then "Local Git"->Clone https://github.com/DLR-TS/SUMOLibraries
-  - now CMake should start configuring, if not choose Project->"Generate Cache"
-  - build all
+- now be patient until CMake starts configuring
+  - if it does not or you want to reconfigure choose Project->"Generate Cache" (if this option is not there you may need to wait a little longer until Visual Studio has picked up everything)
+- build all
 - set SUMO_HOME
 - Install Texttest https://ci.appveyor.com/project/behrisch/texttest/builds/27281341/job/gb7f6opi6npcvbxf/artifacts
 
