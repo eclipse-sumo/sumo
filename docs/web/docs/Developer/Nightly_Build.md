@@ -16,13 +16,13 @@ perform the following steps:
 7.  upload test results
 
 All the results can be found in the [daily dir on the sumo web
-space](http://sumo.dlr.de/daily/), also see
+space](https://sumo.dlr.de/daily/), also see
 [Downloads\#Nightly_Snapshots](../Downloads.md#nightly_snapshots).
 Coverage information based on running the nightly tests is generated as
 well. The status can be found at [the sumo web
-space](http://sumo.dlr.de/daily/lcov/html/).
+space](https://sumo.dlr.de/daily/lcov/html/).
 
-There is also a local copy in the Daten/Sumo/daily directory (including
+There is also a local copy in the Sumo/daily directory (including
 the most recent game scenarios) the DLR internal tsall NAS. The windows
 script uses the sumo-all package from the local dir to build the binary
 distributable zip and the game zip.
@@ -34,9 +34,25 @@ errors and test result e-mails are directed to the sumo-tests list at
 dlr.de, except for the build service errors which go to a private
 account since the build is currently in a private project.
 
-Additionally there is a continuous integration build on
+## Continuous integration
+
+There are continuous integration builds on
 [Travis](https://travis-ci.org/eclipse/sumo) and on
 [AppVeyor](https://ci.appveyor.com/project/eclipsewebmaster/sumo).
+Both are configured such that they cancel a running build when a 
+new commit occurs, so we do not have build results for all commits
+(but we avoid a large backlog this way).
+
+To get build logs click on the marker beside the commit
+message (red cross, yellow circle or green tick) and choose details
+for the build in question.
+
+The AppVeyor build also provides the binaries as download (currently
+for about six months after the commit). To download choose details 
+using the marker (as above) for the commit from 
+https://github.com/eclipse/sumo/commits/master and then choose the 
+Visual Studio version in question (when in doubt use the latest version)
+and click on artifacts where a bin.zip should be available.
 
 ## Platforms and tests
 
