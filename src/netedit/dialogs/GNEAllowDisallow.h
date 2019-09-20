@@ -20,17 +20,16 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-
 #include <config.h>
-
 #include <utils/common/SUMOVehicleClass.h>
+
 
 // ===========================================================================
 // class definitions
 // ===========================================================================
-
 class GNEAttributeCarrier;
 class GNEViewNet;
+
 
 // ===========================================================================
 // class definitions
@@ -76,8 +75,7 @@ public:
     /// @}
 
 protected:
-    /// @brief FOX needs this
-    GNEAllowDisallow() {}
+    FOX_CONSTRUCTOR(GNEAllowDisallow)
 
     /// @pointer to viewNet
     GNEViewNet* myViewNet;

@@ -75,8 +75,7 @@ public:
     /// @}
 
 protected:
-    /// @brief FOX needs this
-    GNERerouterDialog() {}
+    FOX_CONSTRUCTOR(GNERerouterDialog)
 
     /// @brief button for add new interval
     FXButton* myAddInterval;

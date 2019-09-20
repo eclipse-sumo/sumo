@@ -317,8 +317,7 @@ private:
     void checkGamingEventsDRT();
 
 protected:
-    /// FOX needs this for static members
-    GUIApplicationWindow() { }
+    FOX_CONSTRUCTOR(GUIApplicationWindow)
 
 protected:
     /// Builds the menu bar

@@ -62,8 +62,7 @@ public:
     ~GNEDialogACChooser();
 
 protected:
-    /// FOX needs this
-    GNEDialogACChooser() {}
+    FOX_CONSTRUCTOR(GNEDialogACChooser)
 
     void toggleSelection(int listIndex) override;
 

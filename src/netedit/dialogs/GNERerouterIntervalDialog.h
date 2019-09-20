@@ -20,10 +20,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-
 #include <config.h>
-
-
 #include <netedit/additionals/GNERerouterInterval.h>
 #include <netedit/additionals/GNEClosingLaneReroute.h>
 #include <netedit/additionals/GNEParkingAreaReroute.h>
@@ -123,8 +120,7 @@ public:
     /// @}
 
 protected:
-    /// @brief FOX needs this
-    GNERerouterIntervalDialog() {}
+    FOX_CONSTRUCTOR(GNERerouterIntervalDialog)
 
     /// @brief begin time text field
     FXTextField* myBeginTextField;

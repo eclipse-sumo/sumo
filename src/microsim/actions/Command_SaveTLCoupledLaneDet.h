@@ -50,7 +50,7 @@ public:
      */
     Command_SaveTLCoupledLaneDet(MSTLLogicControl::TLSLogicVariants& tlls,
                                  MSDetectorFileOutput* dtf, SUMOTime begin, OutputDevice& device,
-                                 MSLink* link);
+                                 const MSLink* link);
 
 
     /// @brief Destructor
@@ -72,7 +72,7 @@ public:
 
 private:
     /// @brief The link to observe
-    MSLink* myLink;
+    const MSLink* myLink;
 
     /// @brief The state the link had the last time
     LinkState myLastState;

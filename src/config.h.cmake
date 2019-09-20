@@ -21,6 +21,10 @@
 /* Define for dynamic Fox linkage */
 #define FOXDLL 1
 
+#define FOX_CONSTRUCTOR(classname) __pragma(warning(suppress: 26495)) \
+classname() {}
+#else
+#define FOX_CONSTRUCTOR(classname) classname() {}
 #endif
 
 

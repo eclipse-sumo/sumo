@@ -51,8 +51,7 @@ public:
     virtual ~GUIManipulator();
 
 protected:
-    /// FOX needs this
-    GUIManipulator() { }
+    FOX_CONSTRUCTOR(GUIManipulator)
 
 };
 

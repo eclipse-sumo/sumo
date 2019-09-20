@@ -76,8 +76,7 @@ public:
     /// @}
 
 protected:
-    /// @brief FOX needs this
-    GNEAdditionalDialog() {}
+    FOX_CONSTRUCTOR(GNEAdditionalDialog)
 
     /// @brief pointer to edited aditional
     GNEAdditional* myEditedAdditional;

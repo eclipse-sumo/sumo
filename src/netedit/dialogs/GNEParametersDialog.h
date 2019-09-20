@@ -89,8 +89,7 @@ public:
         /// @}
 
     protected:
-        /// @brief FOX needs this
-        ParametersValues() {}
+        FOX_CONSTRUCTOR(ParametersValues)
 
     private:
         /// @brief class for  parameters Row
@@ -179,8 +178,7 @@ public:
         /// @}
 
     protected:
-        /// @brief FOX needs this
-        ParametersOptions() {}
+        FOX_CONSTRUCTOR(ParametersOptions)
 
     private:
 
@@ -247,8 +245,7 @@ public:
     /// @}
 
 protected:
-    /// @brief FOX needs this
-    GNEParametersDialog() {}
+    FOX_CONSTRUCTOR(GNEParametersDialog)
 
     /// @brief pointer to ParametersEditor
     GNEFrameAttributesModuls::ParametersEditor *myParametersEditor;

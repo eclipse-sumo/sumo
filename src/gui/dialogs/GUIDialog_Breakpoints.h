@@ -78,8 +78,7 @@ public:
     virtual void layout();
 
 protected:
-    /// FOX needs this
-    GUIDialog_Breakpoints() {}
+    FOX_CONSTRUCTOR(GUIDialog_Breakpoints)
 
 private:
     /// @brief Rebuilds the entire list

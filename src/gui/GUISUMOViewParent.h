@@ -120,8 +120,7 @@ public:
     void setToolBarVisibility(const bool value);
 
 protected:
-    /// @brief FOX needs this
-    GUISUMOViewParent() { }
+    FOX_CONSTRUCTOR(GUISUMOViewParent)
 
 };
 

@@ -78,8 +78,7 @@ public:
     /// @}
 
 protected:
-    /// @brief FOX needs this
-    GNEVariableSpeedSignDialog() {}
+    FOX_CONSTRUCTOR(GNEVariableSpeedSignDialog)
 
     /// @brief Table with the data
     FXTable* myStepsTable;

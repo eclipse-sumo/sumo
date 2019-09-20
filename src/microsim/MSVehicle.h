@@ -920,35 +920,37 @@ public:
         /// @brief The edge in the route to stop at
         MSRouteIterator edge;
         /// @brief The lane to stop at
-        const MSLane* lane;
+        const MSLane* lane = nullptr;
         /// @brief (Optional) bus stop if one is assigned to the stop
-        MSStoppingPlace* busstop;
+        MSStoppingPlace* busstop = nullptr;
         /// @brief (Optional) container stop if one is assigned to the stop
-        MSStoppingPlace* containerstop;
+        MSStoppingPlace* containerstop = nullptr;
         /// @brief (Optional) parkingArea if one is assigned to the stop
-        MSParkingArea* parkingarea;
+        MSParkingArea* parkingarea = nullptr;
         /// @brief (Optional) charging station if one is assigned to the stop
-        MSStoppingPlace* chargingStation;
+        MSStoppingPlace* chargingStation = nullptr;
         /// @brief The stop parameter
         const SUMOVehicleParameter::Stop pars;
         /// @brief The stopping duration
-        SUMOTime duration;
+        SUMOTime duration = -1;
         /// @brief whether an arriving person lets the vehicle continue
-        bool triggered;
+        bool triggered = false;
         /// @brief whether an arriving container lets the vehicle continue
-        bool containerTriggered;
+        bool containerTriggered = false;
         /// @brief Information whether the stop has been reached
-        bool reached;
+        bool reached = false;
         /// @brief The number of still expected persons
-        int numExpectedPerson;
+        int numExpectedPerson = 0;
         /// @brief The number of still expected containers
-        int numExpectedContainer;
+        int numExpectedContainer = 0;
         /// @brief The time at which the vehicle is able to board another person
-        SUMOTime timeToBoardNextPerson;
+        SUMOTime timeToBoardNextPerson = 0;
         /// @brief The time at which the vehicle is able to load another container
-        SUMOTime timeToLoadNextContainer;
+        SUMOTime timeToLoadNextContainer = 0;
         /// @brief Whether this stop was triggered by a collision
-        bool collision;
+        bool collision = false;
+        /// @brief the maximum time at which persons may board this vehicle 
+        SUMOTime endBoarding = SUMOTime_MAX;
 
         /// @brief Write the current stop configuration (used for state saving)
         void write(OutputDevice& dev) const;
@@ -959,8 +961,6 @@ public:
         /// @brief get a short description for showing in the gui
         std::string getDescription() const;
 
-        /// @brief the maximum time at which persons may board this vehicle 
-        SUMOTime endBoarding;
     private:
         /// @brief Invalidated assignment operator
         Stop& operator=(const Stop& src);

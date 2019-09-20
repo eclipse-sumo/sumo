@@ -79,7 +79,7 @@ public:
 
 protected:
     /// @brief FOX needs this
-    GNEFrame() {}
+    FOX_CONSTRUCTOR(GNEFrame)
 
     /// @name functions called by moduls that can be reimplemented in frame children
     /// @{

@@ -76,8 +76,7 @@ public:
     /// @}
 
 protected:
-    /// @brief FOX needs this
-    GNEDemandElementDialog() {}
+    FOX_CONSTRUCTOR(GNEDemandElementDialog)
 
     /// @brief pointer to edited aditional
     GNEDemandElement* myEditedDemandElement;

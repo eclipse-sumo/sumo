@@ -67,8 +67,7 @@ public:
     /// @}
 
 protected:
-    /// @brief FOX needs this
-    GNERouteDialog() {}
+    FOX_CONSTRUCTOR(GNERouteDialog)
 
     /// @brief flag to check if current calibrator vehicleType is valid
     bool myCalibratorRouteValid;

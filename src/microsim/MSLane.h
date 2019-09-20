@@ -1574,7 +1574,7 @@ private:
             }
         }
     private:
-        Operation myOperation;
+        Operation myOperation = nullptr;
         MSLane& myLane;
         SUMOTime myTime;
     private:

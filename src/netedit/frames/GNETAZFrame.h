@@ -21,13 +21,15 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
+#include <config.h>
 #include "GNEFrame.h"
+
 
 // ===========================================================================
 // class definitions
 // ===========================================================================
-
 class GNETAZSourceSink;
+
 
 // ===========================================================================
 // class definitions
@@ -214,8 +216,7 @@ public:
         /// @}
 
     protected:
-        /// @brief FOX needs this
-        TAZSaveChanges() {}
+        FOX_CONSTRUCTOR(TAZSaveChanges)
 
     private:
         /// @brief pointer to TAZFrame parent
@@ -271,8 +272,7 @@ public:
         /// @}
 
     protected:
-        /// @brief FOX needs this
-        TAZChildDefaultParameters() {}
+        FOX_CONSTRUCTOR(TAZChildDefaultParameters)
 
     private:
         /// @brief pointer to TAZFrame parent
@@ -352,8 +352,7 @@ public:
         /// @}
 
     protected:
-        /// @brief FOX needs this
-        TAZSelectionStatistics() {}
+        FOX_CONSTRUCTOR(TAZSelectionStatistics)
 
         /// @brief update TAZSelectionStatistics
         void updateStatistics();
@@ -424,8 +423,7 @@ public:
         /// @}
 
     protected:
-        /// @brief FOX needs this
-        TAZParameters() {}
+        FOX_CONSTRUCTOR(TAZParameters)
 
     private:
         /// @brief pointer to GNETAZFrame parent
@@ -475,8 +473,7 @@ public:
         /// @}
 
     protected:
-        /// @brief FOX needs this
-        TAZEdgesGraphic() {}
+        FOX_CONSTRUCTOR(TAZEdgesGraphic)
 
     private:
         /// @brief pointer to TAZFrame parent

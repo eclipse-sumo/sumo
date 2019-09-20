@@ -164,8 +164,7 @@ protected:
         FXRadioButton* selectInvalidStopsAndCancel;
     };
 
-    /// @brief FOX needs this
-    GNEFixDemandElements() {}
+    FOX_CONSTRUCTOR(GNEFixDemandElements)
 
     /// @brief view net
     GNEViewNet* myViewNet;

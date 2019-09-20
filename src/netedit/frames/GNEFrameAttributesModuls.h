@@ -113,7 +113,7 @@ public:
 
     protected:
         /// @brief FOX needs this
-        AttributesCreatorRow() {}
+        FOX_CONSTRUCTOR(AttributesCreatorRow)
 
         /// @brief check if given complex attribute is valid
         std::string checkComplexAttribute(const std::string& value);
@@ -205,8 +205,7 @@ public:
         void refreshRows();
 
     protected:
-        /// @brief FOX needs this
-        AttributesCreator() {};
+        FOX_CONSTRUCTOR(AttributesCreator);
 
     private:
         /// @brief pointer to Frame Parent

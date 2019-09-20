@@ -67,8 +67,7 @@ public:
     /// @}
 
 protected:
-    /// @brief FOX needs this
-    GNECalibratorFlowDialog() {}
+    FOX_CONSTRUCTOR(GNECalibratorFlowDialog)
 
     /// @brief flag to check if current calibrator flow is valid
     bool myCalibratorFlowValid;

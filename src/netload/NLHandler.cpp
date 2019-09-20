@@ -717,7 +717,7 @@ NLHandler::addPhase(const SUMOSAXAttributes& attrs) {
         return;
     }
     // try to get the phase duration
-    SUMOTime duration = attrs.getSUMOTimeReporting(SUMO_ATTR_DURATION, myJunctionControlBuilder.getActiveKey().c_str(), ok);
+    const SUMOTime duration = attrs.getSUMOTimeReporting(SUMO_ATTR_DURATION, myJunctionControlBuilder.getActiveKey().c_str(), ok);
     if (duration == 0) {
         WRITE_ERROR("Duration of phase " + toString(myJunctionControlBuilder.getNumberOfLoadedPhases())
                     + " for tlLogic '" + myJunctionControlBuilder.getActiveKey()
@@ -726,13 +726,13 @@ NLHandler::addPhase(const SUMOSAXAttributes& attrs) {
     }
     // if the traffic light is an actuated traffic light, try to get
     //  the minimum and maximum durations
-    SUMOTime minDuration = attrs.getOptSUMOTimeReporting(
+    const SUMOTime minDuration = attrs.getOptSUMOTimeReporting(
                                SUMO_ATTR_MINDURATION, myJunctionControlBuilder.getActiveKey().c_str(), ok, duration);
-    SUMOTime maxDuration = attrs.getOptSUMOTimeReporting(
+    const SUMOTime maxDuration = attrs.getOptSUMOTimeReporting(
                                SUMO_ATTR_MAXDURATION, myJunctionControlBuilder.getActiveKey().c_str(), ok, duration);
 
 
-    std::vector<int> nextPhases = attrs.getOptIntVector(SUMO_ATTR_NEXT, nullptr, ok);
+    const std::vector<int> nextPhases = attrs.getOptIntVector(SUMO_ATTR_NEXT, nullptr, ok);
     const std::string name = attrs.getOpt<std::string>(SUMO_ATTR_NAME, nullptr, ok, "");
 
     //SOTL attributes
@@ -740,7 +740,6 @@ NLHandler::addPhase(const SUMOSAXAttributes& attrs) {
     //in this way SOTL traffic light logic can recognize the phase as unsuitable or decides other
     //behaviors. See SOTL traffic light logic implementations.
     if (attrs.hasAttribute(SUMO_ATTR_TYPE)) {
-        bool ok = true;
         std::string phaseTypeString;
         bool transient_notdecisional_bit;
         bool commit_bit;
@@ -796,7 +795,6 @@ NLHandler::addPhase(const SUMOSAXAttributes& attrs) {
         }
     } else {
         //Adding the standard parsed phase to have a new MSPhaseDefinition
-
         myJunctionControlBuilder.addPhase(duration, state, nextPhases, minDuration, maxDuration, name);
     }
 }

@@ -21,6 +21,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
+#include <config.h>
 #include "GNEFrame.h"
 
 
@@ -92,8 +93,7 @@ public:
         /// @}
 
     protected:
-        /// @brief FOX needs this
-        SelectorLaneParents() {}
+        FOX_CONSTRUCTOR(SelectorLaneParents)
 
     private:
         /// @brief pointer to additionalFrameParent
@@ -167,8 +167,7 @@ public:
         /// @}
 
     protected:
-        /// @brief FOX needs this
-        SelectorEdgeChildren() {}
+        FOX_CONSTRUCTOR(SelectorEdgeChildren)
 
     private:
         /// @brief pointer to additional frame parent
@@ -236,8 +235,7 @@ public:
         /// @}
 
     protected:
-        /// @brief FOX needs this
-        SelectorLaneChildren() {}
+        FOX_CONSTRUCTOR(SelectorLaneChildren)
 
     private:
         /// @brief pointer to additional frame parent

@@ -139,8 +139,7 @@ protected:
         FXRadioButton* fixPositionsAndSave;
     };
 
-    /// @brief FOX needs this
-    GNEFixAdditionalElements() {}
+    FOX_CONSTRUCTOR(GNEFixAdditionalElements)
 
     /// @brief view net
     GNEViewNet* myViewNet;
