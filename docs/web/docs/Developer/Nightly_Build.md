@@ -56,23 +56,23 @@ and click on artifacts where a bin.zip should be available.
 
 ## Platforms and tests
 
-- "sumo" refers to the publicly available sumo
-- "meso" means the variant with embedded python, OSG and FFMPEG
+- "sumo" refers to the vanilla Eclipse SUMO version without optional libraries
+- "extra" means the variant with GDAL, OSG and FFMPEG
   running mesoscopic and python3 tests
 - the clang build has debugging code enabled via the configure option
   "--enable-debug"
+- all start times are local Berlin time
 
-| variant | platform      | start time    | estimated duration |
-| ------- | ------------- | ------------- | ------------------ |
-| sumo    | 32 bit msvc10 | 02:00         | 1h                 |
-| sumo    | 64 bit msvc10 | (after 32bit) | 1h                 |
-| meso    | 32 bit msvc10 | 05:00         | 1h                 |
-| meso    | 64 bit msvc10 | (after 32bit) | 1h                 |
-| sumo    | 32 bit gcc    | 19:00         | 3h                 |
-| sumo    | 64 bit gcc    | 23:30         | 1.5h               |
-| meso    | 64 bit gcc    | 22:30         | 0.5h               |
-| sumo    | 64 bit clang  | 09:00         | 1.5h               |
-| meso    | 64 bit clang  | 11:00         | 1.5h               |
+| variant | platform / compiler | start time    | estimated duration |
+| ------- | ------------------- | ------------- | ------------------ |
+| sumo    | Win32 msvc12        | 01:00         | 1h                 |
+| sumo    | Win64 msvc12        | (after 32bit) | 4h                 |
+| extra   | Win64 msvc12        | 07:00         | 2h                 |
+| sumo    | ubuntu64 gcc        | 00:00         | 3h                 |
+| extra   | ubuntu64 gcc        | 07:00         | 1h                 |
+| sumo    | ubuntu64 clang      | 03:00         | 4h                 |
+| extra   | ubuntu64 clang      | 08:00         | 1.5h               |
+| sumo    | MacOS clang         | 00:00         | 1h                 |
 
 ## Scenario tests
 
@@ -80,10 +80,7 @@ and click on artifacts where a bin.zip should be available.
 source:trunk/tests and includes the default and the daily tests
   - "weekly" are the weekly test suites of the internal tests
     available at source:trunk/tests
-  - all scenario tests run with the internal (meso) variant of sumo
-- "ics" refers to the iCS tool of colombo (currently disabled)
-- "vabene" refers to the tests in the vabene repository (currently
-disabled)
+  - all scenario tests run with the "extra" variant of sumo
 
 | variant         | platform     | start time         | estimated duration |
 | --------------- | ------------ | ------------------ | ------------------ |
