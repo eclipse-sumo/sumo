@@ -7,7 +7,7 @@
 # http://www.eclipse.org/legal/epl-v20.html
 # SPDX-License-Identifier: EPL-2.0
 
-# @file    generateTurnRatios.py
+# @file    addStops2Routes.py
 # @author  Yun-Pang Floetteroed
 # @date    2019-04-25
 # @version $Id: generateTurnRatios.py
