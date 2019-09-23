@@ -1,6 +1,5 @@
 <ToCDeviceLog>
     <DYNTOR id="ToC_veh" t="81.00" lane="WE_1" lanePos="0.98"/>
     <TOR id="ToC_veh" t="81.00" lane="WE_1" lanePos="0.98"/>
-    <MRM id="ToC_veh" t="92.00" lane="WE_1" lanePos="0.99"/>
-    <ToCdown id="ToC_veh" t="93.00" lane="WE_1" lanePos="0.99"/>
+    <ToCdown id="ToC_veh" t="89.00" lane="WE_1" lanePos="0.99"/>
 </ToCDeviceLog>
