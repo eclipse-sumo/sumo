@@ -126,8 +126,8 @@ public:
      */
     void addAdditionalGLObject(GUIGlObject *o) {
         // check if lock is locked before insert objects
-        if(myLock.locked()) {
-            ProcessError("Mutex of SUMORTree is locked before object insertion");
+        if (myLock.locked()) {
+            throw ProcessError("Mutex of SUMORTree is locked before object insertion");
         }
         // lock mutex
         FXMutexLock locker(myLock);
@@ -156,8 +156,8 @@ public:
      */
     void removeAdditionalGLObject(GUIGlObject *o) {
         // check if lock is locked remove insert objects
-        if(myLock.locked()) {
-            ProcessError("Mutex of SUMORTree is locked before object remove");
+        if (myLock.locked()) {
+            throw ProcessError("Mutex of SUMORTree is locked before object remove");
         }
         // lock mutex
         FXMutexLock locker(myLock);

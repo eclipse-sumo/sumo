@@ -95,8 +95,7 @@ protected:
     ValueSource<double>* mySource;
 
 protected:
-    /// @brief FOX needs this
-    GUIParam_PopupMenuInterface() { }
+	FOX_CONSTRUCTOR(GUIParam_PopupMenuInterface)
 
 };
 

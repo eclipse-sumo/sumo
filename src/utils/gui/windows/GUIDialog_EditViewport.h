@@ -115,8 +115,7 @@ public:
     bool haveGrabbed() const;
 
 protected:
-    /// @brief FOX needs this
-    GUIDialog_EditViewport() { }
+	FOX_CONSTRUCTOR(GUIDialog_EditViewport)
 
     /// @brief save window position to the registry
     void saveWindowPos();

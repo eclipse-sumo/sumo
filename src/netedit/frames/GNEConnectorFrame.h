@@ -83,7 +83,6 @@ public:
         /// @}
 
     protected:
-        /// @brief FOX needs this
         FOX_CONSTRUCTOR(ConnectionModifications)
 
     private:
@@ -138,7 +137,6 @@ public:
         /// @}
 
     protected:
-        /// @brief FOX needs this
         FOX_CONSTRUCTOR(ConnectionOperations)
 
     private:

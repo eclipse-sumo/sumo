@@ -62,8 +62,7 @@ public:
         long onCmdSetOption(FXObject*, FXSelector, void*);
 
     protected:
-        /// @brief FOX needs this
-        InputString() {}
+		FOX_CONSTRUCTOR(InputString)
 
     private:
         /// @brief name
@@ -85,8 +84,7 @@ public:
         long onCmdSetOption(FXObject*, FXSelector, void*);
 
     protected:
-        /// @brief FOX needs this
-        InputBool() {}
+		FOX_CONSTRUCTOR(InputBool)
 
     private:
         /// @brief name
@@ -108,8 +106,7 @@ public:
         long onCmdSetOption(FXObject*, FXSelector, void*);
 
     protected:
-        /// @brief FOX needs this
-        InputInt() {}
+		FOX_CONSTRUCTOR(InputInt)
 
     private:
         /// @brief name
@@ -131,8 +128,7 @@ public:
         long onCmdSetOption(FXObject*, FXSelector, void*);
 
     protected:
-        /// @brief FOX needs this
-        InputFloat() {}
+		FOX_CONSTRUCTOR(InputFloat)
 
     private:
         /// @brief name

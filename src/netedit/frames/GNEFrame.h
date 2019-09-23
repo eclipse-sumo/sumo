@@ -78,7 +78,6 @@ public:
     virtual void updateFrameAfterUndoRedo();
 
 protected:
-    /// @brief FOX needs this
     FOX_CONSTRUCTOR(GNEFrame)
 
     /// @name functions called by moduls that can be reimplemented in frame children

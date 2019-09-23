@@ -238,8 +238,7 @@ private:
     static int numParams(const GUIGlObject* obj);
 
 protected:
-    /// FOX needs this
-    GUIParameterTableWindow() { }
+	FOX_CONSTRUCTOR(GUIParameterTableWindow)
 
 };
 

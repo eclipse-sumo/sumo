@@ -73,8 +73,7 @@ public:
             /// @}
 
         protected:
-            /// @brief FOX needs this
-            ObjectTypeEntry() {}
+			FOX_CONSTRUCTOR(ObjectTypeEntry)
 
         private:
             /// @brief label counter
@@ -151,8 +150,7 @@ public:
         /// @}
 
     protected:
-        /// @brief FOX needs this
-        ModificationMode() {}
+		FOX_CONSTRUCTOR(ModificationMode)
 
     private:
         /// @brief add radio button
@@ -212,8 +210,7 @@ public:
         /// @}
 
     protected:
-        /// @brief FOX needs this
-        ElementSet() {}
+		FOX_CONSTRUCTOR(ElementSet)
 
     private:
         /// @brief pointer to Selector Frame Parent
@@ -273,8 +270,7 @@ public:
         /// @}
 
     protected:
-        /// @brief FOX needs this
-        MatchAttribute() {}
+		FOX_CONSTRUCTOR(MatchAttribute)
 
     private:
         /// @brief pointer to Selector Frame Parent
@@ -320,8 +316,7 @@ public:
         /// @}
 
     protected:
-        /// @brief FOX needs this
-        VisualScaling() {}
+		FOX_CONSTRUCTOR(VisualScaling)
 
     private:
         /// @brief pointer to Selector Frame Parent
@@ -374,8 +369,7 @@ public:
         /// @}
 
     protected:
-        /// @brief FOX needs this
-        SelectionOperation() {}
+		FOX_CONSTRUCTOR(SelectionOperation)
 
     private:
         /// @brief pointer to Selector Frame Parent

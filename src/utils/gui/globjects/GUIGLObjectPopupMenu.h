@@ -103,8 +103,7 @@ public:
     /// @}
 
 protected:
-    /// @brief FOX needs this
-    GUIGLObjectPopupMenu() { }
+	FOX_CONSTRUCTOR(GUIGLObjectPopupMenu)
 
     /// @brief The parent window
     GUISUMOAbstractView* myParent;

@@ -150,8 +150,7 @@ private:
     bool myLocateByName;
 
 protected:
-    /// FOX needs this
-    GUIDialog_GLObjChooser() { }
+	FOX_CONSTRUCTOR(GUIDialog_GLObjChooser)
 
 };
 

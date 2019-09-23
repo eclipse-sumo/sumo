@@ -73,8 +73,7 @@ public:
         /// @}
 
     protected:
-        /// @brief FOX needs this
-        VehicleTypeSelector() {}
+		FOX_CONSTRUCTOR(VehicleTypeSelector)
 
     private:
         /// @brief pointer to Frame Parent
@@ -127,8 +126,7 @@ public:
         /// @}
 
     protected:
-        /// @brief FOX needs this
-        VehicleTypeEditor() {};
+		FOX_CONSTRUCTOR(VehicleTypeEditor)
 
     private:
         /// @brief pointer to vehicle type Frame Parent

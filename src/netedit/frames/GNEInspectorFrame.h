@@ -70,8 +70,7 @@ public:
         /// @}
 
     protected:
-        /// @brief FOX needs this
-        NeteditAttributesEditor() {}
+		FOX_CONSTRUCTOR(NeteditAttributesEditor)
 
     private:
         /// @brief pointer to inspector frame parent
@@ -152,8 +151,7 @@ public:
         /// @}
 
     protected:
-        /// @brief FOX needs this
-        GEOAttributesEditor() {}
+		FOX_CONSTRUCTOR(GEOAttributesEditor)
 
     private:
         /// @brief current GNEInspectorFrame parent
@@ -228,8 +226,7 @@ public:
         /// @}
 
     protected:
-        /// @brief FOX needs this
-        TemplateEditor() {}
+		FOX_CONSTRUCTOR(TemplateEditor)
 
         /// @brief seh the template edge (we assume shared responsibility via reference counting)
         void setEdgeTemplate(GNEEdge* tpl);
@@ -321,8 +318,7 @@ public:
     void selectedOverlappedElement(GNEAttributeCarrier *AC);
 
 protected:
-    /// @brief FOX needs this
-    GNEInspectorFrame() {}
+	FOX_CONSTRUCTOR(GNEInspectorFrame)
 
     /// @brief Inspect a singe element (the front of AC AttributeCarriers of ObjectUnderCursor
     void inspectClickedElement(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor, const Position& clickedPosition);

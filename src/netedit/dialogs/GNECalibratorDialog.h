@@ -85,7 +85,6 @@ public:
     /// @}
 
 protected:
-    /// @brief FOX needs this
     FOX_CONSTRUCTOR(GNECalibratorDialog)
 
 private:

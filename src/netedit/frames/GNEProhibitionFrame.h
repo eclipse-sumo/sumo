@@ -170,8 +170,7 @@ public:
     /// @}
 
 protected:
-    /// @brief FOX needs this
-    GNEProhibitionFrame() {}
+	FOX_CONSTRUCTOR(GNEProhibitionFrame)
 
     /// @brief build prohibition
     void buildProhibition(GNEConnection* conn, bool mayDefinitelyPass, bool allowConflict, bool toggle);

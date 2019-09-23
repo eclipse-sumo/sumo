@@ -70,8 +70,7 @@ public:
         /// @}
 
     protected:
-        /// @brief FOX needs this
-        PersonTypeSelector() {}
+		FOX_CONSTRUCTOR(PersonTypeSelector)
 
     private:
         /// @brief pointer to Frame Parent
@@ -124,8 +123,7 @@ public:
         /// @}
 
     protected:
-        /// @brief FOX needs this
-        PersonTypeEditor() {};
+		FOX_CONSTRUCTOR(PersonTypeEditor)
 
     private:
         /// @brief pointer to person type Frame Parent

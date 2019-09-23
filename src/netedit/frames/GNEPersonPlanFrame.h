@@ -125,8 +125,7 @@ public:
         /// @}
 
     protected:
-        /// @brief FOX needs this
-        PersonPlanCreator() {}
+		FOX_CONSTRUCTOR(PersonPlanCreator)
 
     private:
         /// @brief pointer to Person Plan Frame Parent

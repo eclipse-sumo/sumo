@@ -197,8 +197,7 @@ public:
     /// @}
 
 protected:
-    /// @brief FOX needs this
-    GNEViewParent() {}
+	FOX_CONSTRUCTOR(GNEViewParent)
 
 private:
     /// @brief struct for Frames

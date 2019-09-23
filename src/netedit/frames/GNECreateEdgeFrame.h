@@ -70,7 +70,6 @@ public:
     long onCmdCancel(FXObject*, FXSelector, void*);
 
 protected:
-    /// @brief FOX needs this
     FOX_CONSTRUCTOR(GNECreateEdgeFrame)
 
 private:

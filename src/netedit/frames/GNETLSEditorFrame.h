@@ -281,8 +281,7 @@ public:
         /// @}
 
     protected:
-        /// @brief FOX needs this
-        TLSFile() {}
+		FOX_CONSTRUCTOR(TLSFile)
 
     private:
         /// @brief pointer to TLSEditor Parent
@@ -413,8 +412,7 @@ public:
     void selectedOverlappedElement(GNEAttributeCarrier *AC);
 
 protected:
-    /// @brief FOX needs this
-    GNETLSEditorFrame() {}
+	FOX_CONSTRUCTOR(GNETLSEditorFrame)
 
     /**@brief edits the traffic light for the given junction
      * @param[in] junction The junction of which the traffic light shall be edited

@@ -166,8 +166,7 @@ public:
         GUIMainWindow* myApplication;
 
     protected:
-        /// FOX needs this
-        GUIParameterTrackerPanel() { }
+		FOX_CONSTRUCTOR(GUIParameterTrackerPanel)
     };
 
 public:
@@ -205,8 +204,7 @@ protected:
     FXToolBar* myToolBar;
 
 protected:
-    /// Fox needs this
-    GUIParameterTracker() { }
+	FOX_CONSTRUCTOR(GUIParameterTracker)
 
 };
 

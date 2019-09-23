@@ -112,7 +112,6 @@ public:
         /// @}
 
     protected:
-        /// @brief FOX needs this
         FOX_CONSTRUCTOR(AttributesCreatorRow)
 
         /// @brief check if given complex attribute is valid
@@ -259,8 +258,7 @@ public:
         /// @}
 
     protected:
-        /// @brief FOX needs this
-        AttributesEditorRow();
+		AttributesEditorRow();
 
         /// @brief removed invalid spaces of Positions and shapes
         std::string stripWhitespaceAfterComma(const std::string& stringValue);
@@ -337,8 +335,7 @@ public:
         /// @}
 
     protected:
-        /// @brief FOX needs this
-        AttributesEditor() {}
+		FOX_CONSTRUCTOR(AttributesEditor)
 
     private:
         /// @brief pointer to GNEFrame parent
@@ -385,8 +382,7 @@ public:
         /// @}
 
     protected:
-        /// @brief FOX needs this
-        AttributesEditorExtended() {};
+		FOX_CONSTRUCTOR(AttributesEditorExtended)
 
     private:
         /// @brief pointer to Frame Parent
@@ -445,8 +441,7 @@ public:
         /// @}
 
     protected:
-        /// @brief FOX needs this
-        ParametersEditor() {}
+		FOX_CONSTRUCTOR(ParametersEditor)
 
     private:
         /// @brief pointer to frame parent
@@ -529,8 +524,7 @@ public:
         /// @}
 
     protected:
-        /// @brief FOX needs this
-        DrawingShape() {}
+		FOX_CONSTRUCTOR(DrawingShape)
 
     private:
         /// @brief pointer to frame parent
@@ -589,8 +583,7 @@ public:
         /// @}
 
     protected:
-        /// @brief FOX needs this
-        NeteditAttributes() {}
+		FOX_CONSTRUCTOR(NeteditAttributes)
 
     private:
         /// @brief list of the reference points

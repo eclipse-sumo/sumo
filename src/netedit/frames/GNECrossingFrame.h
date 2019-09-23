@@ -96,7 +96,6 @@ public:
         /// @}
 
     protected:
-        /// @brief FOX needs this
         FOX_CONSTRUCTOR(EdgesSelector)
 
     private:
@@ -174,7 +173,6 @@ public:
         /// @}
 
     protected:
-        /// @brief FOX needs this
         FOX_CONSTRUCTOR(CrossingParameters)
 
     private:
@@ -234,7 +232,6 @@ public:
         /// @}
 
     protected:
-        /// @brief FOX needs this
         FOX_CONSTRUCTOR(CreateCrossing)
 
     private:
@@ -266,7 +263,6 @@ public:
     void createCrossingHotkey();
 
 protected:
-    /// @brief FOX needs this
     FOX_CONSTRUCTOR(GNECrossingFrame)
 
 private:

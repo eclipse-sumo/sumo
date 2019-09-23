@@ -77,8 +77,7 @@ public:
         /// @}
 
     protected:
-        /// @brief FOX needs this
-        GEOPOICreator() {}
+		FOX_CONSTRUCTOR(GEOPOICreator)
 
     private:
         /// @brief pointer to Shape frame parent

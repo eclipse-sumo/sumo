@@ -77,8 +77,7 @@ public:
         /// @}
 
     protected:
-        /// @brief FOX needs this
-        RouteModeSelector() {}
+		FOX_CONSTRUCTOR(RouteModeSelector)
 
     private:
         /// @brief pointer to Frame Parent
@@ -149,8 +148,7 @@ public:
         /// @}
 
     protected:
-        /// @brief FOX needs this
-        ConsecutiveEdges() {}
+		FOX_CONSTRUCTOR(ConsecutiveEdges)
 
         /// @brief update InfoRouteLabel
         void updateInfoRouteLabel();
@@ -224,8 +222,7 @@ public:
         /// @}
 
     protected:
-        /// @brief FOX needs this
-        NonConsecutiveEdges() {}
+		FOX_CONSTRUCTOR(NonConsecutiveEdges)
 
         /// @brief update InfoRouteLabel
         void updateInfoRouteLabel();
