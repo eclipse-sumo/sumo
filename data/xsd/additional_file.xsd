@@ -7,7 +7,7 @@
 
     <xsd:element name="additional" type="additionalType"/>
     <xsd:element name="rerouterValue" type="rerouterValuesType"/>
-    
+
     <xsd:complexType name="additionalType">
         <xsd:choice maxOccurs="unbounded">
             <xsd:element name="location" type="locationType" minOccurs="0" maxOccurs="1"/>
@@ -225,6 +225,7 @@
         <xsd:attribute name="type" use="required">
             <xsd:simpleType>
                 <xsd:restriction base="xsd:string">
+                    <xsd:enumeration value="SaveTLSProgram"/>
                     <xsd:enumeration value="SaveTLSStates"/>
                     <xsd:enumeration value="SaveTLSSwitchTimes"/>
                     <xsd:enumeration value="SaveTLSSwitchStates"/>
