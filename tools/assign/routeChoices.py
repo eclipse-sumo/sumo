@@ -499,7 +499,7 @@ def calFirstRouteProbs(dumpfile, sumoAltFile, addweights, ecoMeasure=None):
     edgesMap = {}
     vehList = []
     vehMap = {}
-    parse(netfile, netReader(edgesList, edgesMap))
+#    parse(netfile, netReader(edgesList, edgesMap))
     parse(addweights, addweightsReader(edgesList, edgesMap))
     parse(dumpfile, dumpsReader(edgesList, edgesMap))
     parse(sumoAltFile, routeReader(vehList, vehMap))

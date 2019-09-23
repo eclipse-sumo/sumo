@@ -450,8 +450,8 @@ class DetectedFlowsReader(handler.ContentHandler):
 
             else:
                 if not self._skip:
-                    self._newdata = DetectedFlows(
-                        attrs['weekday-time'], float(attrs['passengercars']), float(attrs['truckflows']))
+                    # self._newdata = DetectedFlows(
+                    #    attrs['weekday-time'], float(attrs['passengercars']), float(attrs['truckflows']))
                     self._edgeObj.detecteddata[
                         self._newdata.label] = self._newdata
 
