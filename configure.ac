@@ -72,6 +72,7 @@ AM_PROG_LIBTOOL
 
 AC_DEFINE([POSITION_EPS], [0.1], [defines the epsilon to use on position comparison])
 AC_DEFINE([NUMERICAL_EPS], [0.001], [defines the epsilon to use on general floating point comparison])
+AC_DEFINE([FOX_CONSTRUCTOR(classname)], [classname() {}], [Constructor needed by Fox classes])
 
 AM_CONDITIONAL([WITH_VERSION_H], test -d .git)
 if test -d .git || test x$PACKAGE_VERSION == xgit -a -f src/version.h; then
