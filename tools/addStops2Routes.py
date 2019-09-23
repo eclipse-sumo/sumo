@@ -22,12 +22,9 @@
 from __future__ import absolute_import
 from __future__ import print_function
 
-import io
-import os
 import sys
 import optparse
 import sumolib
-
 
 
 def get_options(args=None):
@@ -40,9 +37,9 @@ def get_options(args=None):
                          help="define the output filename")
     optParser.add_option("-t", "--typesfile", dest="typesfile",
                          help="Give a typesfile")
-    optParser.add_option("-d", "--duration", 
+    optParser.add_option("-d", "--duration",
                          help="Give a time, how long the vehicle stands")
-    optParser.add_option("-u", "--until", 
+    optParser.add_option("-u", "--until",
                          help="specify a time until the vehicle is parked")
     optParser.add_option("-p", "--parking", dest="parking", action="store_true",
                          default=False, help="where is the vehicle parking")
@@ -62,41 +59,42 @@ def get_options(args=None):
 
 
 def readTypes(options):
-    vtypes = {None : "passenger"}
+    vtypes = {None: "passenger"}
     for file in options.typesfile.split(','):
-        for vtype in sumolib.output.parse(file,'vType'):
+        for vtype in sumolib.output.parse(file, 'vType'):
             vtypes[vtype.id] = vtype.vClass
-    #print(vtypes)         
+    # print(vtypes)
     return vtypes
-    
+
 
 def main(options):
-    #with io.open(options.outfile, 'w', encoding="utf8") as outf:
-    #with open(options.outfile, 'w', encoding="utf8") as outf:
+    # with io.open(options.outfile, 'w', encoding="utf8") as outf:
+    # with open(options.outfile, 'w', encoding="utf8") as outf:
     with open(options.outfile, 'w') as outf:
         net = sumolib.net.readNet(options.netfile)
         vtypes = readTypes(options)
-        sumolib.writeXMLHeader(outf, "$Id$", "routes")
-        for file in options.routefiles.split(','):            
+        sumolib.writeXMLHeader(outf, "$Id$", "routes")  # noqa
+        for file in options.routefiles.split(','):
             for veh in sumolib.output.parse(file, 'vehicle'):
                 edgesList = veh.route[0].edges.split()
                 lastEdge = net.getEdge(edgesList[-1])
                 lanes = lastEdge.getLanes()
-                for lane in lanes:                  
+                for lane in lanes:
                     if lane.allows(vtypes[veh.type]):
-                        stopAttrs ={"lane": lane.getID()}                       
+                        stopAttrs = {"lane": lane.getID()}
                         if options.parking:
                             stopAttrs["parking"] = "true"
                         if options.duration:
                             stopAttrs["duration"] = options.duration
                         if options.until:
-                            stopAttrs["until"]= options.until
-                        veh.addChild("stop",attrs=stopAttrs)                           
+                            stopAttrs["until"] = options.until
+                        veh.addChild("stop", attrs=stopAttrs)
                         break
-                    
-                outf.write(veh.toXML(' '*4)) 
+
+                outf.write(veh.toXML(' '*4))
         outf.write('</routes>\n')
     outf.close()
+
 
 if __name__ == "__main__":
     options = get_options(sys.argv)
