@@ -36,7 +36,7 @@ Command_SaveTLSProgram::Command_SaveTLSProgram(const MSTLLogicControl::TLSLogicV
     myLogics(logics)
 {
     MSNet::getInstance()->getEndOfTimestepEvents()->addEvent(this);
-    myOutputDevice.writeXMLHeader("tlsStates", "tlsstates_file.xsd");
+    myOutputDevice.writeXMLHeader("additional", "additional_file.xsd");
 }
 
 
