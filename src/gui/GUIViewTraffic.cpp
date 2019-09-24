@@ -539,32 +539,31 @@ GUIViewTraffic::onCmdShowReachability(FXObject* menu, FXSelector, void*) {
             }
         }
         // prepare
-        double traveltime = 0;
         FXMenuCommand* mc = dynamic_cast<FXMenuCommand*>(menu);
         const SUMOVehicleClass svc = SumoVehicleClassStrings.get(mc->getText().text());
         const double defaultMaxSpeed = SUMOVTypeParameter::VClassDefaultValues(svc).maxSpeed;
-        std::set<int> reachableEdges;
         // find reachable
+        std::map<MSEdge*, double> reachableEdges;
+        reachableEdges[&lane->getEdge()] = 0;
         MSEdgeVector check;
         check.push_back(&lane->getEdge());
         while (check.size() > 0) {
             MSEdge* e = check.back();
             check.pop_back();
-            reachableEdges.insert(e->getNumericalID());
+            double traveltime = reachableEdges[e];
             for (MSLane* lane : e->getLanes()) {
                 if (lane->allowsVehicleClass(svc)) {
                     GUILane* gLane = dynamic_cast<GUILane*>(lane);
                     gSelected.select(gLane->getGlID());
-                    if (gLane->getReachability() == UNREACHABLE) {
-                        gLane->setReachability(traveltime);
-                    } else {
-                        gLane->setReachability(MIN2(gLane->getReachability(), traveltime));
-                    }
+                    gLane->setReachability(traveltime);
                 }
             }
             traveltime += e->getLength() / MIN2(e->getSpeedLimit(), defaultMaxSpeed);
             for (MSEdge* next : e->getSuccessors(svc)) {
-                if (reachableEdges.count(next->getNumericalID()) == 0) {
+                if (reachableEdges.count(next) == 0 ||
+                        // revisit edge via faster path
+                        reachableEdges[next] > traveltime) {
+                    reachableEdges[next] = traveltime;
                     check.push_back(next);
                 }
             }
