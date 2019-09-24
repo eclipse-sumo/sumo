@@ -267,14 +267,14 @@ public:
      * @return Always true
      * @see GUIGlObject::drawGLAdditional
      */
-    bool addAdditionalGLVisualisation(const GUIGlObject* const which);
+    bool addAdditionalGLVisualisation(GUIGlObject* const which);
 
     /** @brief Removes an object from the list of objects that show additional things
      * @param[in] which The object to remoe
      * @return True if the object was known, false otherwise
      * @see GUIGlObject::drawGLAdditional
      */
-    bool removeAdditionalGLVisualisation(const GUIGlObject* const which);
+    bool removeAdditionalGLVisualisation(GUIGlObject* const which);
 
     /** @brief Check if an object is added in the additional GL visualitation
      * @param[in] which The object to check
@@ -497,7 +497,7 @@ protected:
     mutable FXMutex myPolyDrawLock;
 
     /// @brief List of objects for which GUIGlObject::drawGLAdditional is called
-    std::map<const GUIGlObject*, int> myAdditionallyDrawn;
+    std::map<GUIGlObject*, int> myAdditionallyDrawn;
 
     /// @brief counter for measuring rendering time
     long myFrameDrawTime;

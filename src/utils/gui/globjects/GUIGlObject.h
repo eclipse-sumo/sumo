@@ -159,6 +159,9 @@ public:
      */
     virtual void drawGLAdditional(GUISUMOAbstractView* const parent, const GUIVisualizationSettings& s) const;
 
+    /// @brief remove additional user-griggered visualisations
+    virtual void removeActiveAddVisualisation(GUISUMOAbstractView* const /*parent*/, int /*which*/) {}
+
 #ifdef HAVE_OSG
     /// @brief get OSG Node
     osg::Node* getNode() const;

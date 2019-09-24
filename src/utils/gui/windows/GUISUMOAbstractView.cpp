@@ -160,6 +160,9 @@ GUISUMOAbstractView::~GUISUMOAbstractView() {
     for (std::vector<GUISUMOAbstractView::Decal>::iterator it = myDecals.begin(); it != myDecals.end(); ++it) {
         delete it->image;
     }
+    for (auto i : myAdditionallyDrawn) {
+        i.first->removeActiveAddVisualisation(this, ~0); // remove all
+    }
 }
 
 
@@ -1542,7 +1545,7 @@ GUISUMOAbstractView::drawDecals() {
 
 // ------------ Additional visualisations
 bool
-GUISUMOAbstractView::addAdditionalGLVisualisation(const GUIGlObject* const which) {
+GUISUMOAbstractView::addAdditionalGLVisualisation(GUIGlObject* const which) {
     if (myAdditionallyDrawn.find(which) == myAdditionallyDrawn.end()) {
         myAdditionallyDrawn[which] = 1;
     } else {
@@ -1554,7 +1557,7 @@ GUISUMOAbstractView::addAdditionalGLVisualisation(const GUIGlObject* const which
 
 
 bool
-GUISUMOAbstractView::removeAdditionalGLVisualisation(const GUIGlObject* const which) {
+GUISUMOAbstractView::removeAdditionalGLVisualisation(GUIGlObject* const which) {
     if (myAdditionallyDrawn.find(which) == myAdditionallyDrawn.end()) {
         return false;
     }

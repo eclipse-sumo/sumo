@@ -697,6 +697,9 @@ GUIBaseVehicle::addActiveAddVisualisation(GUISUMOAbstractView* const parent, int
 void
 GUIBaseVehicle::removeActiveAddVisualisation(GUISUMOAbstractView* const parent, int which) {
     myAdditionalVisualizations[parent] &= ~which;
+    if (myAdditionalVisualizations[parent] == 0) {
+        myAdditionalVisualizations.erase(parent);
+    }
     parent->removeAdditionalGLVisualisation(this);
 }
 
