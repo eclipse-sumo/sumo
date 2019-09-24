@@ -68,7 +68,7 @@ void NBPTLineCont::reviseStops(NBPTLine* myPTLine, NBEdgeCont& cont) {
         std::vector<std::string> waysIds = myPTLine->getMyWays();
         auto waysIdsIt = waysIds.begin();
         if (waysIds.size() <= 1) {
-            WRITE_WARNING("Cannot revise pt stop localization for pt line: " + myPTLine->getName()
+            WRITE_WARNING("Cannot revise pt stop localization for pt line: " + myPTLine->getLineID()
                           + ", which consist of one way only. Ignoring!");
             continue;
         }
@@ -100,14 +100,14 @@ void NBPTLineCont::reviseStops(NBPTLine* myPTLine, NBEdgeCont& cont) {
 
 
         if (waysIdsIt == waysIds.end()) {
-            WRITE_WARNING("Cannot revise pt stop localization for incomplete pt line: " + myPTLine->getName()
+            WRITE_WARNING("Cannot revise pt stop localization for incomplete pt line: " + myPTLine->getLineID()
                           + ". Ignoring!");
             continue;
         }
 
         std::vector<long long int>* way = myPTLine->getWaysNodes(origId);
         if (way == nullptr) {
-            WRITE_WARNING("Cannot revise pt stop localization for incomplete pt line: " + myPTLine->getName()
+            WRITE_WARNING("Cannot revise pt stop localization for incomplete pt line: " + myPTLine->getLineID()
                           + ". Ignoring!");
             continue;
         }
@@ -125,7 +125,7 @@ void NBPTLineCont::reviseStops(NBPTLine* myPTLine, NBEdgeCont& cont) {
         std::vector<long long int>* wayPrev = myPTLine->getWaysNodes(adjIdPrev);
         std::vector<long long int>* wayNext = myPTLine->getWaysNodes(adjIdNext);
         if (wayPrev == nullptr && wayNext == nullptr) {
-            WRITE_WARNING("Cannot revise pt stop localization for incomplete pt line: " + myPTLine->getName()
+            WRITE_WARNING("Cannot revise pt stop localization for incomplete pt line: " + myPTLine->getLineID()
                           + ". Ignoring!");
             continue;
         }
@@ -142,7 +142,7 @@ void NBPTLineCont::reviseStops(NBPTLine* myPTLine, NBEdgeCont& cont) {
                    || wayBegins == wayNextBegins) {
             dir = BWD;
         } else {
-            WRITE_WARNING("Cannot revise pt stop localization for incomplete pt line: " + myPTLine->getName()
+            WRITE_WARNING("Cannot revise pt stop localization for incomplete pt line: " + myPTLine->getLineID()
                           + ". Ignoring!");
             continue;
         }

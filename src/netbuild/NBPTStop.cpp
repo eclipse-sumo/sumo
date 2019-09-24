@@ -214,7 +214,7 @@ NBPTStop::findLaneAndComputeBusStopExtent(NBEdgeCont& ec) {
             return true;
         }
     }
-    return false;
+    return myEdgeId == ""; // loose stop. Try later when processing lines
 }
 
 
