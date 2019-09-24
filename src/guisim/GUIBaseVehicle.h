@@ -154,6 +154,8 @@ public:
      */
     GUIGLObjectPopupMenu* getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent);
 
+    /// @brief notify object about popup menu removal
+    void removedPopupMenu();
 
     /** @brief Returns the boundary to which the view shall be centered in order to show the object
      *
@@ -357,6 +359,9 @@ private:
     MSBaseVehicle& myVehicle;
 
     MSDevice_Vehroutes* myRoutes;
+
+    /// @brief current popup (to clean up in destructor). GUIBaseVehicle is not responsible for removal
+    GUIGLObjectPopupMenu* myPopup;
 
 };
 

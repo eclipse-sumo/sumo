@@ -108,6 +108,9 @@ public:
      */
     virtual GUIGLObjectPopupMenu* getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) = 0;
 
+    /// @brief notify object about popup menu removal
+    virtual void removedPopupMenu() {}
+
     /** @brief Returns an own parameter window
      *
      * @param[in] app The application needed to build the parameter window

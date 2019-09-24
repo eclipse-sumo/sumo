@@ -73,6 +73,7 @@ GUIGLObjectPopupMenu::~GUIGLObjectPopupMenu() {
     for (auto i : myMenuPanes) {
         delete i;
     }
+    myObject->removedPopupMenu();
 }
 
 

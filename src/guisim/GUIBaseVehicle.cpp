@@ -237,7 +237,9 @@ GUIBaseVehicle::GUIBaseVehiclePopupMenu::onCmdRemoveObject(FXObject*, FXSelector
 
 GUIBaseVehicle::GUIBaseVehicle(MSBaseVehicle& vehicle) :
     GUIGlObject(GLO_VEHICLE, vehicle.getID()),
-    myVehicle(vehicle) {
+    myVehicle(vehicle),
+    myPopup(nullptr)
+{
     // as it is possible to show all vehicle routes, we have to store them... (bug [ 2519761 ])
     myRoutes = MSDevice_Vehroutes::buildVehicleDevices(myVehicle, myVehicle.myDevices, 5);
     myVehicle.myMoveReminders.push_back(std::make_pair(myRoutes, 0.));
@@ -255,6 +257,9 @@ GUIBaseVehicle::~GUIBaseVehicle() {
     }
     myLock.unlock();
     delete myRoutes;
+    if (myPopup != nullptr) {
+        myPopup->getParentView()->destroyPopup();
+    }
 }
 
 
@@ -308,9 +313,14 @@ GUIBaseVehicle::getPopUpMenu(GUIMainWindow& app,
     buildShowParamsPopupEntry(ret, false);
     buildShowTypeParamsPopupEntry(ret);
     buildPositionCopyEntry(ret, false);
+    myPopup = ret;
     return ret;
 }
 
+void
+GUIBaseVehicle::removedPopupMenu() {
+    myPopup = nullptr;
+}
 
 Boundary
 GUIBaseVehicle::getCenteringBoundary() const {
