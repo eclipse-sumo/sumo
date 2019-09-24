@@ -236,6 +236,14 @@ public:
      */
     double getLoadedEdgeWeight() const;
 
+    void setReachability(double value) {
+        myReachability = value;
+    }
+
+    double getReachability() const {
+        return myReachability;
+    }
+
 #ifdef HAVE_OSG
     void setGeometry(osg::Geometry* geom) {
         myGeom = geom;
@@ -337,6 +345,9 @@ private:
 
     /// @brief Quarter of lane width, for speed-up
     double myQuarterLaneWidth;
+
+    /// @brief the time distance from a particular edge
+    double myReachability;
 
 #ifdef HAVE_OSG
     osg::Geometry* myGeom;

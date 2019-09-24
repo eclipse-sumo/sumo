@@ -1193,6 +1193,9 @@ GUILane::getColorValue(const GUIVisualizationSettings& s, int activeScheme) cons
         case 35: {
             return fabs(myEdge->getDistance());
         }
+        case 36: {
+            return myReachability;
+        }
     }
     return 0;
 }

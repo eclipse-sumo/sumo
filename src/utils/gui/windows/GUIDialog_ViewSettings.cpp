@@ -171,7 +171,7 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(GUISUMOAbstractView* parent, GUIV
         myLaneColorRainbow = new FXButton(m24, "Recalibrate Rainbow", nullptr, this, MID_SIMPLE_VIEW_COLORCHANGE,
                                           (BUTTON_DEFAULT | FRAME_RAISED | FRAME_THICK | LAYOUT_TOP | LAYOUT_LEFT), 0, 0, 0, 0, 20, 20, 4, 4);
         myLaneColorRainbowCheck = new FXCheckButton(m24, "hide below threshold", this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignCheckButtonViewSettings);
-        myLaneColorRainbowThreshold = new FXRealSpinner(m24, 10, this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignViewSettingsSpinDial2);
+        myLaneColorRainbowThreshold = new FXRealSpinner(m24, 10, this, MID_SIMPLE_VIEW_COLORCHANGE, REALSPIN_NOMIN | GUIDesignViewSettingsSpinDial2);
 
         new FXHorizontalSeparator(frame2, GUIDesignHorizontalSeparator);
         //  ... scale settings

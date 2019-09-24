@@ -563,6 +563,10 @@ GUIVisualizationSettings::initSumoGuiDefaults() {
     scheme.addColor(RGBColor::RED, (double)1);
     scheme.setAllowsNegativeValues(false);
     laneColorer.addScheme(scheme);
+    scheme = GUIColorScheme("by reachability (traveltime)", RGBColor(204, 204, 204));
+    scheme.addColor(RGBColor::RED, (double)1);
+    scheme.setAllowsNegativeValues(true);
+    laneColorer.addScheme(scheme);
 
     /// add vehicle coloring schemes
     vehicleColorer.addScheme(GUIColorScheme("given vehicle/type/route color", RGBColor::YELLOW, "", true));

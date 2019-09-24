@@ -529,9 +529,20 @@ long
 GUIViewTraffic::onCmdShowReachability(FXObject* menu, FXSelector, void*) {
     GUILane* lane = getLaneUnderCursor();
     if (lane != nullptr) {
+        // reset
+        const double UNREACHABLE = -1;
         gSelected.clear();
+        for (MSEdge* e : MSEdge::getAllEdges()) {
+            for (MSLane* lane : e->getLanes()) {
+                GUILane* gLane = dynamic_cast<GUILane*>(lane);
+                gLane->setReachability(UNREACHABLE);
+            }
+        }
+        // prepare
+        double traveltime = 0;
         FXMenuCommand* mc = dynamic_cast<FXMenuCommand*>(menu);
         const SUMOVehicleClass svc = SumoVehicleClassStrings.get(mc->getText().text());
+        const double defaultMaxSpeed = SUMOVTypeParameter::VClassDefaultValues(svc).maxSpeed;
         std::set<int> reachableEdges;
         // find reachable
         MSEdgeVector check;
@@ -544,15 +555,24 @@ GUIViewTraffic::onCmdShowReachability(FXObject* menu, FXSelector, void*) {
                 if (lane->allowsVehicleClass(svc)) {
                     GUILane* gLane = dynamic_cast<GUILane*>(lane);
                     gSelected.select(gLane->getGlID());
+                    if (gLane->getReachability() == UNREACHABLE) {
+                        gLane->setReachability(traveltime);
+                    } else {
+                        gLane->setReachability(MIN2(gLane->getReachability(), traveltime));
+                    }
                 }
             }
+            traveltime += e->getLength() / MIN2(e->getSpeedLimit(), defaultMaxSpeed);
             for (MSEdge* next : e->getSuccessors(svc)) {
                 if (reachableEdges.count(next->getNumericalID()) == 0) {
                     check.push_back(next);
                 }
             }
         }
-        myVisualizationSettings->laneColorer.setActive(1);
+        // switch to 'color by selection' unless coloring 'by reachability'
+        if (myVisualizationSettings->laneColorer.getActive() != 36) {
+            myVisualizationSettings->laneColorer.setActive(1);
+        }
         update();
     }
     return 1;
