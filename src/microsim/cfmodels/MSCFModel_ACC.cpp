@@ -116,7 +116,7 @@ MSCFModel_ACC::stopSpeed(const MSVehicle* const veh, const double speed, double 
 
 
 double
-MSCFModel_ACC::getSecureGap(const double speed, const double leaderSpeed, const double /* leaderMaxDecel */) const {
+MSCFModel_ACC::getSecureGap(const MSVehicle* const /*veh*/, const MSVehicle* const /*pred*/, const double speed, const double leaderSpeed, const double /* leaderMaxDecel */) const {
     // Accel in gap mode should vanish:
     //      0 = myGapControlGainSpeed * (leaderSpeed - speed) + myGapControlGainSpace * (g - myHeadwayTime * speed);
     // <=>  myGapControlGainSpace * g = - myGapControlGainSpeed * (leaderSpeed - speed) + myGapControlGainSpace * myHeadwayTime * speed;

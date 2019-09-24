@@ -125,7 +125,7 @@ MSCFModel_CACC::stopSpeed(const MSVehicle* const veh, const double speed, double
 }
 
 double
-MSCFModel_CACC::getSecureGap(const double speed, const double leaderSpeed, const double leaderMaxDecel) const {
+MSCFModel_CACC::getSecureGap(const MSVehicle* const veh, const MSVehicle* const pred, const double speed, const double leaderSpeed, const double leaderMaxDecel) const {
     // Accel in gap mode should vanish:
     //      0 = myGapControlGainSpeed * (leaderSpeed - speed) + myGapControlGainSpace * (g - myHeadwayTime * speed);
     // <=>  myGapControlGainSpace * g = - myGapControlGainSpeed * (leaderSpeed - speed) + myGapControlGainSpace * myHeadwayTime * speed;
@@ -135,7 +135,7 @@ MSCFModel_CACC::getSecureGap(const double speed, const double leaderSpeed, const
 #if DEBUG_CACC_SECURE_GAP == 1
     std::cout << SIMTIME << "MSCFModel_ACC::getSecureGap speed=" << speed << " leaderSpeed=" << leaderSpeed << " desSpacing=" << desSpacing << " desSpacingACC=" << desSpacingACC << "\n";
 #endif
-    return MAX3(desSpacing, desSpacingACC, MSCFModel::getSecureGap(speed, leaderSpeed, leaderMaxDecel));
+    return MAX3(desSpacing, desSpacingACC, MSCFModel::getSecureGap(veh, pred, speed, leaderSpeed, leaderMaxDecel));
 }
 
 double

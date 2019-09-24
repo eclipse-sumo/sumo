@@ -100,10 +100,10 @@ MSCFModel_Wiedemann::duplicate(const MSVehicleType* vtype) const {
 
 
 double
-MSCFModel_Wiedemann::getSecureGap(const double speed, const double leaderSpeed, const double leaderMaxDecel) const {
+MSCFModel_Wiedemann::getSecureGap(const MSVehicle* const veh, const MSVehicle* const pred, const double speed, const double leaderSpeed, const double leaderMaxDecel) const {
     const double bx = (1 + 7 * mySecurity) * sqrt(speed);
     const double abx = myAX + bx - myType->getLength(); // abx is the brutto gap
-    return MAX2(abx, MSCFModel::getSecureGap(speed, leaderSpeed, leaderMaxDecel));
+    return MAX2(abx, MSCFModel::getSecureGap(veh, pred, speed, leaderSpeed, leaderMaxDecel));
 }
 
 

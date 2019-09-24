@@ -531,7 +531,7 @@ MSLCM_SL2015::informLeader(int blocked,
         const MSVehicle* nv = neighLead.first;
 #ifdef DEBUG_INFORM
         if (gDebugFlag2) std::cout << " blocked by leader nv=" <<  nv->getID() << " nvSpeed=" << nv->getSpeed() << " needGap="
-                                       << myVehicle.getCarFollowModel().getSecureGap(myVehicle.getSpeed(), nv->getSpeed(), nv->getCarFollowModel().getMaxDecel()) << "\n";
+                                       << myVehicle.getCarFollowModel().getSecureGap(&myVehicle, nv, myVehicle.getSpeed(), nv->getSpeed(), nv->getCarFollowModel().getMaxDecel()) << "\n";
 #endif
         // decide whether we want to overtake the leader or follow it
         const double dv = plannedSpeed - nv->getSpeed();
@@ -539,7 +539,7 @@ MSLCM_SL2015::informLeader(int blocked,
                                      + nv->getVehicleType().getLengthWithGap() // drive to front of follower
                                      + myVehicle.getVehicleType().getLength() // ego back reaches follower front
                                      + nv->getCarFollowModel().getSecureGap( // save gap to follower
-                                         nv->getSpeed(), myVehicle.getSpeed(), myVehicle.getCarFollowModel().getMaxDecel()));
+                                         nv, &myVehicle, nv->getSpeed(), myVehicle.getSpeed(), myVehicle.getCarFollowModel().getMaxDecel()));
 
         if (dv < NUMERICAL_EPS
                 // overtaking on the right on an uncongested highway is forbidden (noOvertakeLCLeft)
@@ -595,7 +595,7 @@ MSLCM_SL2015::informLeader(int blocked,
                           << " dv=" << dv
                           << " remainingSeconds=" << remainingSeconds
                           << " currentGap=" << neighLead.second
-                          << " secureGap=" << nv->getCarFollowModel().getSecureGap(nv->getSpeed(), myVehicle.getSpeed(), myVehicle.getCarFollowModel().getMaxDecel())
+                          << " secureGap=" << nv->getCarFollowModel().getSecureGap(nv, &myVehicle, nv->getSpeed(), myVehicle.getSpeed(), myVehicle.getCarFollowModel().getMaxDecel())
                           << " overtakeDist=" << overtakeDist
                           << " leftSpace=" << myLeftSpace
                           << " blockerLength=" << myLeadingBlockerLength
@@ -633,7 +633,7 @@ MSLCM_SL2015::informLeader(int blocked,
                       << " nvSpeed=" << nv->getSpeed()
                       << " gap=" << neighLead.second
                       << " nextGap=" << neighLead.second - dv
-                      << " needGap=" << myVehicle.getCarFollowModel().getSecureGap(myVehicle.getSpeed(), nv->getSpeed(), nv->getCarFollowModel().getMaxDecel())
+                      << " needGap=" << myVehicle.getCarFollowModel().getSecureGap(&myVehicle, nv, myVehicle.getSpeed(), nv->getSpeed(), nv->getCarFollowModel().getMaxDecel())
                       << " targetSpeed=" << targetSpeed
                       << "\n";
         }
@@ -656,12 +656,12 @@ MSLCM_SL2015::informFollower(int blocked,
         const MSVehicle* nv = neighFollow.first;
 #ifdef DEBUG_INFORM
         if (gDebugFlag2) std::cout << " blocked by follower nv=" <<  nv->getID() << " nvSpeed=" << nv->getSpeed() << " needGap="
-                                       << nv->getCarFollowModel().getSecureGap(nv->getSpeed(), myVehicle.getSpeed(), myVehicle.getCarFollowModel().getMaxDecel()) << "\n";
+                                       << nv->getCarFollowModel().getSecureGap(nv, &myVehicle, nv->getSpeed(), myVehicle.getSpeed(), myVehicle.getCarFollowModel().getMaxDecel()) << "\n";
 #endif
 
         // are we fast enough to cut in without any help?
         if (plannedSpeed - nv->getSpeed() >= HELP_OVERTAKE) {
-            const double neededGap = nv->getCarFollowModel().getSecureGap(nv->getSpeed(), plannedSpeed, myVehicle.getCarFollowModel().getMaxDecel());
+            const double neededGap = nv->getCarFollowModel().getSecureGap(nv, &myVehicle, nv->getSpeed(), plannedSpeed, myVehicle.getCarFollowModel().getMaxDecel());
             if ((neededGap - neighFollow.second) / remainingSeconds < (plannedSpeed - nv->getSpeed())) {
 #ifdef DEBUG_INFORM
                 if (gDebugFlag2) {
@@ -688,7 +688,7 @@ MSLCM_SL2015::informFollower(int blocked,
         const double dv = plannedSpeed - neighNewSpeed1s;
         // new gap between follower and self in case the follower does brake for 1s
         const double decelGap = neighFollow.second + dv;
-        const double secureGap = nv->getCarFollowModel().getSecureGap(neighNewSpeed1s, plannedSpeed, myVehicle.getCarFollowModel().getMaxDecel());
+        const double secureGap = nv->getCarFollowModel().getSecureGap(nv, &myVehicle, neighNewSpeed1s, plannedSpeed, myVehicle.getCarFollowModel().getMaxDecel());
 #ifdef DEBUG_INFORM
         if (gDebugFlag2) {
             std::cout << SIMTIME
@@ -720,7 +720,7 @@ MSLCM_SL2015::informFollower(int blocked,
                 std::cout << " wants to cut in before nv=" << nv->getID()
                           << " vsafe1=" << vsafe1
                           << " vsafe=" << vsafe
-                          << " newSecGap=" << nv->getCarFollowModel().getSecureGap(vsafe, plannedSpeed, myVehicle.getCarFollowModel().getMaxDecel())
+                          << " newSecGap=" << nv->getCarFollowModel().getSecureGap(nv, &myVehicle, vsafe, plannedSpeed, myVehicle.getCarFollowModel().getMaxDecel())
                           << "\n";
             }
 #endif
@@ -772,7 +772,7 @@ MSLCM_SL2015::informFollower(int blocked,
                                          + myVehicle.getVehicleType().getLengthWithGap() // follower reaches ego front
                                          + nv->getVehicleType().getLength() // follower back at ego front
                                          + myVehicle.getCarFollowModel().getSecureGap( // follower has safe dist to ego
-                                             plannedSpeed, vhelp, nv->getCarFollowModel().getMaxDecel()));
+                                             &myVehicle, nv, plannedSpeed, vhelp, nv->getCarFollowModel().getMaxDecel()));
             // speed difference to create a sufficiently large gap
             const double needDV = overtakeDist / remainingSeconds;
             // make sure the deceleration is not to strong
@@ -1544,7 +1544,7 @@ MSLCM_SL2015::_wantsChangeSublane(
             CLeaderDist neighLead = getSlowest(neighLeaders);
             if (neighLead.first != 0 && neighLead.first->getSpeed() < vMax) {
                 fullSpeedGap = MAX2(0., MIN2(fullSpeedGap,
-                                             neighLead.second - myVehicle.getCarFollowModel().getSecureGap(
+                                             neighLead.second - myVehicle.getCarFollowModel().getSecureGap(&myVehicle, neighLead.first,
                                                  vMax, neighLead.first->getSpeed(), neighLead.first->getCarFollowModel().getMaxDecel())));
                 fullSpeedDrivingSeconds = MIN2(fullSpeedDrivingSeconds, fullSpeedGap / (vMax - neighLead.first->getSpeed()));
             }
@@ -1559,8 +1559,8 @@ MSLCM_SL2015::_wantsChangeSublane(
                           << " neighDist=" << neighDist
                           << " brakeGap=" << myVehicle.getCarFollowModel().brakeGap(myVehicle.getSpeed())
                           << " leaderSpeed=" << (neighLead.first == 0 ? -1 : neighLead.first->getSpeed())
-                          << " secGap=" << (neighLead.first == 0 ? -1 : myVehicle.getCarFollowModel().getSecureGap(
-                                                myVehicle.getSpeed(), neighLead.first->getSpeed(), neighLead.first->getCarFollowModel().getMaxDecel()))
+                          << " secGap=" << (neighLead.first == 0 ? -1 : myVehicle.getCarFollowModel().getSecureGap(&myVehicle, neighLead.first,
+                                      myVehicle.getSpeed(), neighLead.first->getSpeed(), neighLead.first->getCarFollowModel().getMaxDecel()))
                           << " acceptanceTime=" << acceptanceTime
                           << " fullSpeedGap=" << fullSpeedGap
                           << " fullSpeedDrivingSeconds=" << fullSpeedDrivingSeconds
@@ -2231,7 +2231,7 @@ MSLCM_SL2015::checkBlockingVehicles(
             if (gDebugFlag2) {
                 std::cout << "   foe=" << vehDist.first->getID()
                           << " gap=" << vehDist.second
-                          << " secGap=" << follower->getCarFollowModel().getSecureGap(follower->getSpeed(), leader->getSpeed(), leader->getCarFollowModel().getMaxDecel())
+                          << " secGap=" << follower->getCarFollowModel().getSecureGap(follower, leader, follower->getSpeed(), leader->getSpeed(), leader->getCarFollowModel().getMaxDecel())
                           << " foeRight=" << foeRight
                           << " foeLeft=" << foeLeft
                           << " overlapBefore=" << overlapBefore
@@ -2279,7 +2279,7 @@ MSLCM_SL2015::checkBlockingVehicles(
                     // Determine expected speeds and corresponding secure gap at the extrapolated timepoint
                     const double followerExpectedSpeed = follower->getSpeed() + timeTillAction * followerAccel;
                     const double leaderExpectedSpeed = MAX2(0., leader->getSpeed() + timeTillAction * leaderAccel);
-                    const double expectedSecureGap = follower->getCarFollowModel().getSecureGap(followerExpectedSpeed, leaderExpectedSpeed, leader->getCarFollowModel().getMaxDecel());
+                    const double expectedSecureGap = follower->getCarFollowModel().getSecureGap(follower, leader, followerExpectedSpeed, leaderExpectedSpeed, leader->getCarFollowModel().getMaxDecel());
 
 #if defined(DEBUG_ACTIONSTEPS) && defined(DEBUG_BLOCKING)
                     if (gDebugFlag2) {
@@ -3256,7 +3256,7 @@ MSLCM_SL2015::commitFollowSpeed(double speed, double latDist, double secondsToLe
                 if (gDebugFlag2) {
                     std::cout << "   foe=" << vehDist.first->getID()
                               << " gap=" << vehDist.second
-                              << " secGap=" << myVehicle.getCarFollowModel().getSecureGap(myVehicle.getSpeed(), leader->getSpeed(), leader->getCarFollowModel().getMaxDecel())
+                              << " secGap=" << myVehicle.getCarFollowModel().getSecureGap(&myVehicle, leader, myVehicle.getSpeed(), leader->getSpeed(), leader->getCarFollowModel().getMaxDecel())
                               << " foeRight=" << foeRight
                               << " foeLeft=" << foeLeft
                               << " overlapBefore=" << overlap(rightVehSide, leftVehSide, foeRight, foeLeft)

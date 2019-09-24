@@ -81,14 +81,16 @@ public:
     double stopSpeed(const MSVehicle* const veh, const double speed, double gap2pred) const;
 
     /** @brief Returns the a gap such that the gap mode acceleration of the follower is zero
-        * @param[in] speed EGO's speed
-        * @param[in] leaderSpeed LEADER's speed
-        * @param[in] leaderMaxDecel LEADER's max. deceleration rate
-        */
-    double getSecureGap(const double speed, const double leaderSpeed, const double leaderMaxDecel) const;
+     * @param[in] veh The vehicle itself, for obtaining other values
+     * @param[in] speed EGO's speed
+     * @param[in] leaderSpeed LEADER's speed
+     * @param[in] leaderMaxDecel LEADER's max. deceleration rate
+     */
+    double getSecureGap(const MSVehicle* const veh, const MSVehicle* const pred, const double speed, const double leaderSpeed, const double leaderMaxDecel) const;
 
     /** @brief Computes the vehicle's acceptable speed at insertion
      * @param[in] veh The vehicle (EGO)
+     * @param[in] pred The leader vehicle, for obtaining other values
      * @param[in] speed The vehicle's speed
      * @param[in] gap2pred The (netto) distance to the LEADER
      * @param[in] predSpeed The speed of LEADER

@@ -104,7 +104,7 @@ TEST_F(MSCFModel_IDMTest, test_method_getSecureGap) {
     MSCFModel& m = type->getCarFollowModel();
     for (double v = 0; v < 15; v += 1) { // follower
         for (double u = 0; u < 25; u += 1) { // leader
-            double sg = m.getSecureGap(v, u, m.getMaxDecel());
+            double sg = m.getSecureGap(veh, nullptr, v, u, m.getMaxDecel());
             double vFollow = m.followSpeed(veh, v, sg, u, m.getMaxDecel(), nullptr);
             double accel = SPEED2ACCEL(vFollow - v);
             //std::cout << v << " " << u << " " << sg << " " << vFollow << " " << accel << "\n";

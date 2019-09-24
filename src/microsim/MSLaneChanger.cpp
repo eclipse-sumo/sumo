@@ -762,7 +762,7 @@ MSLaneChanger::checkChange(
         const double vNextFollower = neighFollow.first->getSpeed() + MAX2(0., tauRemainder * neighFollow.first->getAcceleration());
         const double vNextLeader = vehicle->getSpeed() + MIN2(0., tauRemainder * vehicle->getAcceleration());
         // !!! eigentlich: vsafe braucht die Max. Geschwindigkeit beider Spuren
-        secureBackGap = neighFollow.first->getCarFollowModel().getSecureGap(vNextFollower,
+        secureBackGap = neighFollow.first->getCarFollowModel().getSecureGap(neighFollow.first, vehicle, vNextFollower,
                         vNextLeader, vehicle->getCarFollowModel().getMaxDecel());
 #ifdef DEBUG_CHECK_CHANGE
         if (DEBUG_COND) {
@@ -793,7 +793,7 @@ MSLaneChanger::checkChange(
         const double vNextFollower = vehicle->getSpeed() + MAX2(0., tauRemainder * vehicle->getAcceleration());
         const double vNextLeader = neighLead.first->getSpeed() + MIN2(0., tauRemainder * neighLead.first->getAcceleration());
         // !!! eigentlich: vsafe braucht die Max. Geschwindigkeit beider Spuren
-        secureFrontGap = vehicle->getCarFollowModel().getSecureGap(vNextFollower,
+        secureFrontGap = vehicle->getCarFollowModel().getSecureGap(vehicle, neighLead.first, vNextFollower,
                          vNextLeader, neighLead.first->getCarFollowModel().getMaxDecel());
 #ifdef DEBUG_CHECK_CHANGE
         if (DEBUG_COND) {
@@ -836,7 +836,7 @@ MSLaneChanger::checkChange(
     }
 
     if (leader.first != nullptr) {
-        secureOrigFrontGap = vehicle->getCarFollowModel().getSecureGap(vehicle->getSpeed(), leader.first->getSpeed(), leader.first->getCarFollowModel().getMaxDecel());
+        secureOrigFrontGap = vehicle->getCarFollowModel().getSecureGap(vehicle, leader.first, vehicle->getSpeed(), leader.first->getSpeed(), leader.first->getCarFollowModel().getMaxDecel());
     }
 
     MSAbstractLaneChangeModel::MSLCMessager msg(leader.first, neighLead.first, neighFollow.first);
@@ -855,7 +855,7 @@ MSLaneChanger::checkChange(
         if (seen < dist || myCandi->lane->isInternal()) {
             std::pair<MSVehicle* const, double> neighLead2 = targetLane->getCriticalLeader(dist, seen, speed, *vehicle);
             if (neighLead2.first != nullptr && neighLead2.first != neighLead.first) {
-                const double secureGap = vehicle->getCarFollowModel().getSecureGap(vehicle->getSpeed(),
+                const double secureGap = vehicle->getCarFollowModel().getSecureGap(vehicle, neighLead2.first, vehicle->getSpeed(),
                                          neighLead2.first->getSpeed(), neighLead2.first->getCarFollowModel().getMaxDecel());
                 const double secureGap2 = secureGap * vehicle->getLaneChangeModel().getSafetyFactor();
 #ifdef DEBUG_SURROUNDING_VEHICLES
@@ -971,7 +971,7 @@ MSLaneChanger::checkChange(
                     } else {
                         std::pair<MSVehicle* const, double> neighLead2 = targetLane->getLeader(vehicle, -seen, std::vector<MSLane*>());
                         if (neighLead2.first != nullptr && neighLead2.first != neighLead.first
-                                && (neighLead2.second < vehicle->getCarFollowModel().getSecureGap(
+                                && (neighLead2.second < vehicle->getCarFollowModel().getSecureGap(vehicle, neighLead2.first,
                                         vehicle->getSpeed(), neighLead2.first->getSpeed(), neighLead2.first->getCarFollowModel().getMaxDecel()))) {
                             state |= blockedByLeader;
                             break;
@@ -1367,7 +1367,7 @@ MSLaneChanger::computeOvertakingTime(const MSVehicle* vehicle, const MSVehicle* 
                               // drive past the leader
                               + vehicle->getVehicleType().getLength()
                               // allow for safe gap between leader and vehicle
-                              + leader->getCarFollowModel().getSecureGap(u, vMax, d)));
+                              + leader->getCarFollowModel().getSecureGap(leader, vehicle, u, vMax, d)));
     const double sign = -1; // XXX recheck
     // v*t + t*t*a*0.5 = g + u*t
     // solve t
@@ -1475,6 +1475,7 @@ MSLaneChanger::getColumnleader(MSVehicle* vehicle, std::pair<MSVehicle*, double>
     const double safetyFactor = OPPOSITE_OVERTAKING_SAFETY_FACTOR * vehicle->getLaneChangeModel().getOppositeSafetyFactor();
     while (!foundSpaceAhead) {
         const double requiredSpaceAfterLeader = (columnLeader.first->getCarFollowModel().getSecureGap(
+                columnLeader.first, vehicle,
                 columnLeader.first->getSpeed(), overtakingSpeed, vehicle->getCarFollowModel().getMaxDecel())
                                                 + columnLeader.first->getVehicleType().getMinGap()
                                                 + vehicle->getVehicleType().getLengthWithGap());
@@ -1541,7 +1542,8 @@ MSLaneChanger::getColumnleader(MSVehicle* vehicle, std::pair<MSVehicle*, double>
             }
         } else {
             const double requiredSpace = safetyFactor * (requiredSpaceAfterLeader
-                                         + vehicle->getCarFollowModel().getSecureGap(overtakingSpeed, leadLead.first->getSpeed(), leadLead.first->getCarFollowModel().getMaxDecel()));
+                    + vehicle->getCarFollowModel().getSecureGap(vehicle, leadLead.first, 
+                        overtakingSpeed, leadLead.first->getSpeed(), leadLead.first->getCarFollowModel().getMaxDecel()));
 #ifdef DEBUG_CHANGE_OPPOSITE
             if (DEBUG_COND) {
                 std::cout << "   leader's leader " << leadLead.first->getID() << " space=" << leadLead.second

@@ -886,7 +886,7 @@ MSAbstractLaneChangeModel::setFollowerGaps(const MSLeaderDistanceInfo& vehicles)
             const double netGap = vehDist.second + follower->getVehicleType().getMinGap();
             if (netGap < myLastFollowerGap && netGap >= 0) {
                 myLastFollowerGap = netGap;
-                myLastFollowerSecureGap = follower->getCarFollowModel().getSecureGap(follower->getSpeed(), leader->getSpeed(), leader->getCarFollowModel().getMaxDecel());
+                myLastFollowerSecureGap = follower->getCarFollowModel().getSecureGap(follower, leader, follower->getSpeed(), leader->getSpeed(), leader->getCarFollowModel().getMaxDecel());
                 myLastFollowerSpeed = follower->getSpeed();
             }
         }
@@ -906,7 +906,7 @@ MSAbstractLaneChangeModel::setLeaderGaps(const MSLeaderDistanceInfo& vehicles) {
             const double netGap = vehDist.second + follower->getVehicleType().getMinGap();
             if (netGap < myLastLeaderGap && netGap >= 0) {
                 myLastLeaderGap = netGap;
-                myLastLeaderSecureGap = follower->getCarFollowModel().getSecureGap(follower->getSpeed(), leader->getSpeed(), leader->getCarFollowModel().getMaxDecel());
+                myLastLeaderSecureGap = follower->getCarFollowModel().getSecureGap(follower, leader, follower->getSpeed(), leader->getSpeed(), leader->getCarFollowModel().getMaxDecel());
                 myLastLeaderSpeed = leader->getSpeed();
             }
         }
@@ -926,7 +926,7 @@ MSAbstractLaneChangeModel::setOrigLeaderGaps(const MSLeaderDistanceInfo& vehicle
             const double netGap = vehDist.second + follower->getVehicleType().getMinGap();
             if (netGap < myLastOrigLeaderGap && netGap >= 0) {
                 myLastOrigLeaderGap = netGap;
-                myLastOrigLeaderSecureGap = follower->getCarFollowModel().getSecureGap(follower->getSpeed(), leader->getSpeed(), leader->getCarFollowModel().getMaxDecel());
+                myLastOrigLeaderSecureGap = follower->getCarFollowModel().getSecureGap(follower, leader, follower->getSpeed(), leader->getSpeed(), leader->getCarFollowModel().getMaxDecel());
                 myLastOrigLeaderSpeed = leader->getSpeed();
             }
         }

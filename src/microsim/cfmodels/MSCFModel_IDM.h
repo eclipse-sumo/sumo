@@ -140,11 +140,13 @@ public:
 
 
     /** @brief Returns the minimum gap to reserve if the leader is braking at maximum (>=0)
-      * @param[in] speed EGO's speed
-      * @param[in] leaderSpeed LEADER's speed
-      * @param[in] leaderMaxDecel LEADER's max. deceleration rate
-      */
-    double getSecureGap(const double speed, const double leaderSpeed, const double leaderMaxDecel) const;
+     * @param[in] veh The vehicle itself, for obtaining other values
+     * @param[in] pred The leader vehicle, for obtaining other values
+     * @param[in] speed EGO's speed
+     * @param[in] leaderSpeed LEADER's speed
+     * @param[in] leaderMaxDecel LEADER's max. deceleration rate
+     */
+    double getSecureGap(const MSVehicle* const veh, const MSVehicle* const pred, const double speed, const double leaderSpeed, const double leaderMaxDecel) const;
 
     /** @brief Returns the model's name
      * @return The model's name

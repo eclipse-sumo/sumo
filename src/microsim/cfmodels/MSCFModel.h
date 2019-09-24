@@ -276,7 +276,7 @@ public:
      *  speed may depend on the vehicle's current speed (given).
      *
      * @param[in] speed The vehicle's current speed
-     * @param[in] speed The vehicle itself, for obtaining other values
+     * @param[in] veh The vehicle itself, for obtaining other values
      * @return The maximum possible speed for the next step
      */
     virtual double maxNextSpeed(double speed, const MSVehicle* const veh) const;
@@ -321,11 +321,13 @@ public:
     static double freeSpeed(const double currentSpeed, const double decel, const double dist, const double maxSpeed, const bool onInsertion, const double actionStepLength);
 
     /** @brief Returns the minimum gap to reserve if the leader is braking at maximum (>=0)
-      * @param[in] speed EGO's speed
-      * @param[in] leaderSpeed LEADER's speed
-      * @param[in] leaderMaxDecel LEADER's max. deceleration rate
-      */
-    inline virtual double getSecureGap(const double speed, const double leaderSpeed, const double leaderMaxDecel) const {
+     * @param[in] veh The vehicle itself, for obtaining other values
+     * @param[in] pred The leader vehicle, for obtaining other values
+     * @param[in] speed EGO's speed
+     * @param[in] leaderSpeed LEADER's speed
+     * @param[in] leaderMaxDecel LEADER's max. deceleration rate
+     */
+    inline virtual double getSecureGap(const MSVehicle* const /*veh*/, const MSVehicle* const /*pred*/, const double speed, const double leaderSpeed, const double leaderMaxDecel) const {
         // The solution approach leaderBrakeGap >= followerBrakeGap is not
         // secure when the follower can brake harder than the leader because the paths may still cross.
         // As a workaround we use a value of leaderDecel which errs on the side of caution

@@ -1310,7 +1310,7 @@ MSLink::getZipperSpeed(const MSVehicle* ego, const double dist, double vSafe,
         const double te = MAX2(1.0, ceil((te0) / TS) * TS);
 
         const double gap = dist - foe->getVehicleType().getLength() - ego->getVehicleType().getMinGap() - foeDist;
-        const double safeGap = ego->getCarFollowModel().getSecureGap(vEnd, uEnd, foe->getCarFollowModel().getMaxDecel());
+        const double safeGap = ego->getCarFollowModel().getSecureGap(ego, foe, vEnd, uEnd, foe->getCarFollowModel().getMaxDecel());
         // round t to next step size
         // increase gap to safeGap by the time foe reaches link
         // gap + u*t - (t * v + a * t^2 / 2) = safeGap

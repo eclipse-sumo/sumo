@@ -63,7 +63,7 @@ MSCFModel_IDM::freeSpeed(const MSVehicle* const veh, double speed, double seen, 
         // can occur for ballistic update (in context of driving at red light)
         return maxSpeed;
     }
-    const double secGap = getSecureGap(maxSpeed, 0, myDecel);
+    const double secGap = getSecureGap(veh, nullptr, maxSpeed, 0, myDecel);
     double vSafe;
     if (speed <= maxSpeed) {
         // accelerate
@@ -138,7 +138,7 @@ MSCFModel_IDM::interactionGap(const MSVehicle* const veh, double vL) const {
 }
 
 double
-MSCFModel_IDM::getSecureGap(const double speed, const double leaderSpeed, const double /*leaderMaxDecel*/) const {
+MSCFModel_IDM::getSecureGap(const MSVehicle* const /*veh*/, const MSVehicle* const /*pred*/, const double speed, const double leaderSpeed, const double /*leaderMaxDecel*/) const {
     const double delta_v = speed - leaderSpeed;
     return MAX2(0.0, speed * myHeadwayTime + speed * delta_v / myTwoSqrtAccelDecel);
 }
