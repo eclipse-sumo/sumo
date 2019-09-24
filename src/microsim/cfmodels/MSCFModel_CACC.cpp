@@ -127,16 +127,23 @@ MSCFModel_CACC::stopSpeed(const MSVehicle* const veh, const double speed, double
 double
 MSCFModel_CACC::getSecureGap(const MSVehicle* const veh, const MSVehicle* const pred, const double speed, const double leaderSpeed, const double leaderMaxDecel) const {
     // Accel in gap mode should vanish:
-    //      0 = myGapControlGainSpeed * (leaderSpeed - speed) + myGapControlGainSpace * (g - myHeadwayTime * speed);
-    // <=>  myGapControlGainSpace * g = - myGapControlGainSpeed * (leaderSpeed - speed) + myGapControlGainSpace * myHeadwayTime * speed;
-    // <=>  g = - myGapControlGainSpeed * (leaderSpeed - speed) / myGapControlGainSpace + myHeadwayTime * speed;
-    const double desSpacing = myHeadwayTime * speed; // speedGapControl
-    const double desSpacingACC = acc_CFM.myGapControlGainSpeed * (speed - leaderSpeed) / acc_CFM.myGapControlGainSpace + myHeadwayTime * speed; // MSCFModel_ACC::accelGapControl
+    double desSpacing;
+    if (pred->getCarFollowModel().getModelID() != SUMO_TAG_CF_CACC) {
+        //      0 = myGapControlGainSpeed * (leaderSpeed - speed) + myGapControlGainSpace * (g - myHeadwayTime * speed);
+        // <=>  myGapControlGainSpace * g = - myGapControlGainSpeed * (leaderSpeed - speed) + myGapControlGainSpace * myHeadwayTime * speed;
+        // <=>  g = - myGapControlGainSpeed * (leaderSpeed - speed) / myGapControlGainSpace + myHeadwayTime * speed;
+        desSpacing = acc_CFM.myGapControlGainSpeed * (speed - leaderSpeed) / acc_CFM.myGapControlGainSpace + myHeadwayTimeACC * speed; // MSCFModel_ACC::accelGapControl
+    } else {
+        desSpacing = myHeadwayTime * speed; // speedGapControl
+    };
+    const double desSpacingDefault = MSCFModel::getSecureGap(veh, pred, speed, leaderSpeed, leaderMaxDecel);
 #if DEBUG_CACC_SECURE_GAP == 1
-    std::cout << SIMTIME << "MSCFModel_ACC::getSecureGap speed=" << speed << " leaderSpeed=" << leaderSpeed << " desSpacing=" << desSpacing << " desSpacingACC=" << desSpacingACC << "\n";
+    std::cout << SIMTIME << "MSCFModel_ACC::getSecureGap speed=" << speed << " leaderSpeed=" << leaderSpeed 
+        << " desSpacing=" << desSpacing << " desSpacingDefault=" << desSpacingDefault << "\n";
 #endif
-    return MAX3(desSpacing, desSpacingACC, MSCFModel::getSecureGap(veh, pred, speed, leaderSpeed, leaderMaxDecel));
+    return MAX2(desSpacing, desSpacingDefault);
 }
+
 
 double
 MSCFModel_CACC::insertionFollowSpeed(const MSVehicle* const veh, double speed, double gap2pred, double predSpeed, double predMaxDecel, const MSVehicle* const pred) const {
