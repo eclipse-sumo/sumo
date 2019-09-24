@@ -323,6 +323,13 @@ static PyObject* parseSubscriptionMap(const std::map<int, std::shared_ptr<libsum
   %}
 };
 
+%extend libsumo::TraCIPhase {
+  %pythoncode %{
+    def __repr__(self):
+        return "Phase(%s)" % (", ".join(["%s=%s" % (attr, repr(getter(self))) for attr, getter in self.__swig_getmethods__.items()]))
+  %}
+};
+
 %exceptionclass libsumo::TraCIException;
 
 #endif
