@@ -286,6 +286,21 @@ static PyObject* parseSubscriptionMap(const std::map<int, std::shared_ptr<libsum
     }
 };
 
+%typemap(out) std::vector<std::vector<libsumo::TraCILink> > {
+    $result = PyList_New($1.size());
+    int index = 0;
+    for (auto iter = $1.begin(); iter != $1.end(); ++iter) {
+        PyObject* innerList = PyList_New(iter->size());
+        int innerIndex = 0;
+        for (auto inner = iter->begin(); inner != iter->end(); ++inner) {
+            PyList_SetItem(innerList, innerIndex++, PyTuple_Pack(3, PyUnicode_FromString(inner->fromLane.c_str()),
+                                                                    PyUnicode_FromString(inner->toLane.c_str()),
+                                                                    PyUnicode_FromString(inner->viaLane.c_str())));
+        }
+        PyList_SetItem($result, index++, innerList);
+    }
+};
+
 %typemap(out) std::pair<int, int> {
     $result = PyTuple_Pack(2, PyLong_FromLong($1.first), PyLong_FromLong($1.second));
 };
@@ -298,6 +313,13 @@ static PyObject* parseSubscriptionMap(const std::map<int, std::shared_ptr<libsum
   %pythoncode %{
     def __repr__(self):
         return "Stage(%s)" % (", ".join(["%s=%s" % (attr, repr(getter(self))) for attr, getter in self.__swig_getmethods__.items()]))
+  %}
+};
+
+%extend libsumo::TraCILogic {
+  %pythoncode %{
+    def __repr__(self):
+        return "Logic(%s)" % (", ".join(["%s=%s" % (attr, repr(getter(self))) for attr, getter in self.__swig_getmethods__.items()]))
   %}
 };
 
@@ -406,6 +428,7 @@ vehicle.getLeftFollowers = wrapAsClassMethod(_vehicle.VehicleDomain.getLeftFollo
 vehicle.getLeftLeaders = wrapAsClassMethod(_vehicle.VehicleDomain.getLeftLeaders, vehicle)
 vehicle.getLaneChangeStatePretty = wrapAsClassMethod(_vehicle.VehicleDomain.getLaneChangeStatePretty, vehicle)
 person.removeStages = wrapAsClassMethod(_person.PersonDomain.removeStages, person)
+_trafficlight.TraCIException = TraCIException
 trafficlight.setLinkState = wrapAsClassMethod(_trafficlight.TrafficLightDomain.setLinkState, trafficlight)
 %}
 #endif
