@@ -154,7 +154,7 @@ def main():
         net.getDetectedEdges(options.outputdir)
     else:
         foutroute = open('routes.rou.xml', 'w')
-        print("<?xml version="1.0"?>\n<!-- generated on %s by $Id$ -->\n<routes>""" % starttime, file=foutroute)  # noqa
+        print('<?xml version="1.0"?>\n<!-- generated on %s by $Id$ -->\n<routes>' % starttime, file=foutroute)  # noqa
 
     # for counter in range (0, len(matrices)):
     for counter, matrix in enumerate(matrices):
