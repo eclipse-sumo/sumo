@@ -35,6 +35,8 @@ permalink: /ChangeLog/
 
 - SUMO-GUI
   - Sublane-borders are no longer drawn for railways and sidewalks (where the sublane model does not apply).
+  - Fixed crash when using vehicle popup-menu after the vehicle has left the simulation. Issue #6107
+  - Fixed crash after removing view with active vehicle visualization once the vehicle leaves the simulation. Issue #6112
 
 - DUAROUTER
   - Fixed invalid mode change from car during intermodal routing. Issue #6070
