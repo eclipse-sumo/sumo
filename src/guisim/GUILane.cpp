@@ -848,6 +848,14 @@ GUILane::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
         new FXMenuCommand(ret, "Close edge", nullptr, &parent, MID_CLOSE_EDGE);
     }
     new FXMenuCommand(ret, "Add rerouter", nullptr, &parent, MID_ADD_REROUTER);
+    new FXMenuSeparator(ret);
+    // reachability menu
+    FXMenuPane* reachableByClass = new FXMenuPane(ret);
+    std::vector<std::string> vehicleClasses = SumoVehicleClassStrings.getStrings();
+    for (auto i : vehicleClasses) {
+        new FXMenuCommand(reachableByClass, i.c_str(), nullptr, &parent, MID_REACHABILITY);
+    }
+    new FXMenuCascade(ret, "Select reachable", GUIIconSubSys::getIcon(ICON_FLAG), reachableByClass);
     return ret;
 }
 

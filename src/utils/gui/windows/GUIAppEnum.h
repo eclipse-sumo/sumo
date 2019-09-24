@@ -441,6 +441,8 @@ enum {
     MID_SHOW_WALKINGAREA_PATH,
     /// @brief Hide persons's path on walkingarea
     MID_HIDE_WALKINGAREA_PATH,
+    /// @brief show reachability from a given lane
+    MID_REACHABILITY,
 
     /// @}
 

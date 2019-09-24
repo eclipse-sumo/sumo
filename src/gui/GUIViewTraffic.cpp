@@ -69,6 +69,7 @@ FXDEFMAP(GUIViewTraffic) GUIViewTrafficMap[] = {
     FXMAPFUNC(SEL_COMMAND, MID_CLOSE_LANE, GUIViewTraffic::onCmdCloseLane),
     FXMAPFUNC(SEL_COMMAND, MID_CLOSE_EDGE, GUIViewTraffic::onCmdCloseEdge),
     FXMAPFUNC(SEL_COMMAND, MID_ADD_REROUTER, GUIViewTraffic::onCmdAddRerouter),
+    FXMAPFUNC(SEL_COMMAND, MID_REACHABILITY, GUIViewTraffic::onCmdShowReachability),
 };
 
 
@@ -518,6 +519,40 @@ GUIViewTraffic::onCmdAddRerouter(FXObject*, FXSelector, void*) {
     if (lane != nullptr) {
         dynamic_cast<GUIEdge*>(&lane->getEdge())->addRerouter();
         GUIGlObjectStorage::gIDStorage.unblockObject(lane->getGlID());
+        update();
+    }
+    return 1;
+}
+
+
+long
+GUIViewTraffic::onCmdShowReachability(FXObject* menu, FXSelector, void*) {
+    GUILane* lane = getLaneUnderCursor();
+    if (lane != nullptr) {
+        gSelected.clear();
+        FXMenuCommand* mc = dynamic_cast<FXMenuCommand*>(menu);
+        const SUMOVehicleClass svc = SumoVehicleClassStrings.get(mc->getText().text());
+        std::set<int> reachableEdges;
+        // find reachable
+        MSEdgeVector check;
+        check.push_back(&lane->getEdge());
+        while (check.size() > 0) {
+            MSEdge* e = check.back();
+            check.pop_back();
+            reachableEdges.insert(e->getNumericalID());
+            for (MSLane* lane : e->getLanes()) {
+                if (lane->allowsVehicleClass(svc)) {
+                    GUILane* gLane = dynamic_cast<GUILane*>(lane);
+                    gSelected.select(gLane->getGlID());
+                }
+            }
+            for (MSEdge* next : e->getSuccessors(svc)) {
+                if (reachableEdges.count(next->getNumericalID()) == 0) {
+                    check.push_back(next);
+                }
+            }
+        }
+        myVisualizationSettings->laneColorer.setActive(1);
         update();
     }
     return 1;
