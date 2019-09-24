@@ -70,7 +70,8 @@ permalink: /ChangeLog/
   - Improved support of GNEStops. Issue #5367
   
 - SUMO-GUI
-  - The currently loaded options can now be saved to a configuration via the file menu. Issue #5707
+  - Added 'select reachable' function to the lane context-menu to select all lanes that can be reached by a given vehicle class from the origin lane. After such an operating, the coloring scheme 'by reachability' can be used to render an isochrone travel time map. Issue #3650
+  - The currently loaded options can now be saved to a configuration via the file menu. Issue #5707  
   
 - TraCI
   - Added function 'traci.trafficlight.getServedPersonCount' to return the number of pedestrians that would be served by all the crossings for a given phase index. Issue #6088
