@@ -189,11 +189,11 @@ Warning: Incomplete route for ptline '2076230' (Straßenbahnlinie M1: Mitte, Am 
 Warning: Incomplete route for ptline '2076230' (Straßenbahnlinie M1: Mitte, Am Kupfergraben => Rosenthal Nord)
 Warning: Incomplete route for ptline '2076230' (Straßenbahnlinie M1: Mitte, Am Kupfergraben => Rosenthal Nord)
 Warning: Could not re-assign PT stop: 247600965 probably broken osm file
-Warning: Cannot revise pt stop localization for incomplete pt line: Straßenbahnlinie M1: Niederschönhausen, Schillerstraße => Mitte, Am Kupfergraben. Ignoring!
+Warning: Cannot revise pt stop localization for incomplete pt line: 2076231. Ignoring!
 Warning: Incomplete route for ptline '2076231' (Straßenbahnlinie M1: Niederschönhausen, Schillerstraße => Mitte, Am Kupfergraben)
 Warning: Incomplete route for ptline '2076231' (Straßenbahnlinie M1: Niederschönhausen, Schillerstraße => Mitte, Am Kupfergraben)
 Warning: Could not re-assign PT stop: 247600965 probably broken osm file
-Warning: Cannot revise pt stop localization for incomplete pt line: Straßenbahnlinie M1: Rosenthal Nord => Mitte, Am Kupfergraben. Ignoring!
+Warning: Cannot revise pt stop localization for incomplete pt line: 2076232. Ignoring!
 Warning: Incomplete route for ptline '2076232' (Straßenbahnlinie M1: Rosenthal Nord => Mitte, Am Kupfergraben)
 Warning: Incomplete route for ptline '2076232' (Straßenbahnlinie M1: Rosenthal Nord => Mitte, Am Kupfergraben)
 Warning: Incomplete route for ptline '2194813' (Buslinie N65: Köpenick, Müggelschlößchenweg => S Hackescher Markt)
@@ -205,7 +205,7 @@ Warning: PT stop: 3869306760 has been moved to edge: -176043807#2
 Warning: PT stop: 3869306761 has been moved to edge: -437325051#0
 Warning: PT stop: 3867910422 has been moved to edge: -43156728#0
 Warning: PT stop: 3867910429 has been moved to edge: -478396988
-Warning: Cannot revise pt stop localization for incomplete pt line: Buslinie N5: S Hackescher Markt => Hellersdorf, Riesaer Straße. Ignoring!
+Warning: Cannot revise pt stop localization for incomplete pt line: 2211985. Ignoring!
 Warning: PT stop: 2915579613 has been moved to edge: -275177453
 Warning: PT stop: 2915545317 has been moved to edge: -36892597#1
 Warning: Could not re-assign PT stop: 1615531689 probably broken osm file
