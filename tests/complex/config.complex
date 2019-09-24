@@ -94,6 +94,9 @@ state:<!--{[->]}-->
 tls_state:<!--{[->]}-->
 state:<snapshot (.*) version="[^"]*"{REPLACE <snapshot \1 version="<version>"}
 detector:<!--{[->]}-->
+toc:<!--{[->]}-->
+toc2:<!--{[->]}-->
+tocs:<!--{[->]}-->
 errors:Die Adresse wird bereits verwendet{REPLACE Address already in use}
 errors:Leaked object at 
 errors:*** 9 leaks found
