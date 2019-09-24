@@ -178,24 +178,30 @@ Helper::handleSingleSubscription(const Subscription& s) {
         throw TraCIException("Unsupported command specified");
     }
     std::shared_ptr<VariableWrapper> handler = wrapper->second;
+    VariableWrapper* container = handler.get();
     if (s.contextDomain > 0) {
         handler->setContext(s.id);
+        auto containerWrapper = myWrapper.find(s.commandId + 0x20);
+        if (containerWrapper == myWrapper.end()) {
+            throw TraCIException("Unsupported domain specified");
+        }
+        container = containerWrapper->second.get();
     } else {
         handler->setContext("");
     }
     for (const std::string& objID : objIDs) {
         if (!s.variables.empty()) {
             for (const int variable : s.variables) {
-                handler->handle(objID, variable, handler.get());
+                handler->handle(objID, variable, container);
             }
         } else {
             if (s.contextDomain == 0 && getCommandId == libsumo::CMD_GET_VEHICLE_VARIABLE) {
                 // default for vehicles is edge id and lane position
-                handler->handle(objID, VAR_ROAD_ID, handler.get());
-                handler->handle(objID, VAR_LANEPOSITION, handler.get());
-            } else if (s.contextDomain > 0 || !handler->handle(objID, libsumo::LAST_STEP_VEHICLE_NUMBER, handler.get())) {
+                handler->handle(objID, VAR_ROAD_ID, container);
+                handler->handle(objID, VAR_LANEPOSITION, container);
+            } else if (s.contextDomain > 0 || !handler->handle(objID, libsumo::LAST_STEP_VEHICLE_NUMBER, container)) {
                 // default for detectors is vehicle number, for all others (and contexts) id list
-                handler->handle(objID, libsumo::TRACI_ID_LIST, handler.get());
+                handler->handle(objID, libsumo::TRACI_ID_LIST, container);
             }
         }
     }

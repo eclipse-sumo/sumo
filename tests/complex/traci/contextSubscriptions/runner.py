@@ -23,12 +23,7 @@ import math
 SUMO_HOME = os.path.join(os.path.dirname(__file__), "..", "..", "..", "..")
 sys.path.append(os.path.join(os.environ.get("SUMO_HOME", SUMO_HOME), "tools"))
 import sumolib  # noqa
-if sys.argv[1] == "-libsumo":
-    import libsumo as traci  # noqa
-    del sys.argv[1]
-else:
-    import traci  # noqa
-sumoCall = [sumolib.checkBinary(sys.argv[1]), '-S', '-Q']
+import traci  # noqa
 
 
 def dist2(v, w):
@@ -51,18 +46,18 @@ def runSingle(traciEndTime, viewRange, module, objID):
     seen1 = 0
     seen2 = 0
     step = 0
-    traci.start(sumoCall + ["-c", "sumo.sumocfg"])
+    traci.start([sumolib.checkBinary(sys.argv[1]), '-Q', "-c", "sumo.sumocfg"])
     traci.poi.add("poi", 400, 500, (1, 0, 0, 0))
-    traci.polygon.add(
-        "poly", ((400, 400), (450, 400), (450, 400)), (1, 0, 0, 0))
+    traci.polygon.add("poly", ((400, 400), (450, 400), (450, 400)), (1, 0, 0, 0))
     subscribed = False
     while not step > traciEndTime:
+        # print(step)
         responses = traci.simulationStep()
         near1 = set()
         if objID in module.getAllContextSubscriptionResults():
             for v in module.getContextSubscriptionResults(objID):
-                # print(objID, "context:", v)
                 near1.add(v)
+            # print(objID, "context:", sorted(near1))
         vehs = traci.vehicle.getIDList()
         persons = traci.person.getIDList()
         pos = {}
@@ -103,12 +98,10 @@ def runSingle(traciEndTime, viewRange, module, objID):
             seen2 += len(near2)
             for v in near1:
                 if v not in near2:
-                    print(
-                        "timestep %s: %s is missing in surrounding objects" % (step, v))
+                    print("timestep %s: %s is missing in surrounding objects" % (step, v))
             for v in near2:
                 if v not in near1:
-                    print(
-                        "timestep %s: %s is missing in subscription results" % (step, v))
+                    print("timestep %s: %s is missing in subscription results" % (step, v))
 
         step += 1
     module.unsubscribeContext(
