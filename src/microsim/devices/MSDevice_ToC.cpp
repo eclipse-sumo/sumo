@@ -353,7 +353,7 @@ MSDevice_ToC::MSDevice_ToC(SUMOVehicle& holder, const std::string& id, const std
         // TODO: make xsd, include header
         // myOutputFile.writeXMLHeader("ToCDeviceLog", "ToCDeviceLog.xsd");
         if (createdOutputFiles.count(outputFilename) == 0) {
-            myOutputFile->openTag("ToCDeviceLog");
+            myOutputFile->writeXMLHeader("ToCDeviceLog", "");
             createdOutputFiles.insert(outputFilename);
         }
     }
