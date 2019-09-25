@@ -1214,7 +1214,7 @@ GUIApplicationWindow::onCmdAppSettings(FXObject*, FXSelector, void*) {
 long
 GUIApplicationWindow::onCmdGaming(FXObject*, FXSelector, void*) {
     myAmGaming = !myAmGaming;
-    myGLWindows[0]->getView()->getVisualisationSettings()->gaming = myAmGaming;;
+    myGLWindows[0]->getView()->getVisualisationSettings()->gaming = myAmGaming;
     if (myAmGaming) {
         myMenuBar->hide();
         myStatusbar->hide();
