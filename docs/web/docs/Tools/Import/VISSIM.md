@@ -433,8 +433,7 @@ geprüft am 28.07.2015).
 
 ## Umsetzung
 
-Im Gegensatz zu den anderen Tools müssen hierbei zusätzlich alle `.sig
-Files` ausgelesen werden, die für jede Lichtsignalanlage automatisch
+Im Gegensatz zu den anderen Tools müssen hierbei zusätzlich alle `.sig Files` ausgelesen werden, die für jede Lichtsignalanlage automatisch
 erzeugt worden sind. Diese müssen sich wie auch von VISSIM verlangt im
 selben Ordner wie die `.inpx-Datei` befinden. Nach der Konversion aller
 Signalschaltbilder wird die zuvor konvertierte SUMO `.net-Datei` mit den
