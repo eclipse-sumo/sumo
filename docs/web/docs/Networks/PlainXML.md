@@ -274,8 +274,20 @@ If a vehicle is braking in the simulation, the responsible foe vehicle
 Sometimes your network may contain nodes which are very close together
 forming a big cluster. This happens frequently when [Importing Networks from OpenStreetMap](../Networks/Import/OpenStreetMap.md).
 [NETCONVERT](../NETCONVERT.md) supports the option **--junctions.join** to find such
-clusters and join them into a big and well shaped junction. You can
-control the joining algorithm by supplying the option **--junctions.join-dist** {{DT_FLOAT}} which sets a
+clusters and join them into a big and well shaped junction. 
+
+### Reasons for joining node clusters
+Within an intersection, special rules of traffic do apply. When modelling an intersection by a cluster of nodes, the edges within the cluster are regular roads where these rules cannot be applied. 
+- To prevent jamming cross-traffic, vehicles should only enter an intersection space if they are not prevented from leaving by a downstream jam
+- Vehicles that turn left from opposite directions may turn ahead of each other (without intersecting trajectories). In an unjoined cluster long vehicles easily block each other when turning left from opposite directions.
+
+Further Issues:
+- Trajectories of left-turning traffic are invalid in an unjoined cluster. Instead of cutting the corner in a smooth curve, the trajectory would consist of two mostly straight legs with a sharp turn in the middle.
+- Proper modelling of left-turn dynamics requires extra traffic light signals within the cluster to reflect the changing priorities on the second leg of a left turn (which is also the first leg of a straight movement).
+- Automatically generated traffic light plans work much better at a single intersection
+
+### Algorithm for joining node clusters
+You can control the joining algorithm by supplying the option **--junctions.join-dist** {{DT_FLOAT}} which sets a
 search distance for finding clusters *(default 10m)*. The search for
 joinable node clusters works like this:
 
@@ -305,6 +317,8 @@ single junction. It will also prevent the nodes *id13* and *id17* from
 being joined. The **joinExclude**-tag is only usefull together with the
 option **--junctions.join** but the **join**-tag can also be used all by itself. Nodes to be
 excluded from joining can also be specified via the option **--junctions.join-exclude id,[id\]+**.
+
+### Connections after joining nodes
 
 !!! caution
     After merging nodes, the lane-to-lane connections are recalculated. You can override them by resorting to a 2-step process:
