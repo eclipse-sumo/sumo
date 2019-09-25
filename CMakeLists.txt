@@ -175,7 +175,7 @@ if (SUMO_LIBRARIES AND WIN32)
     file(GLOB FOX_PATH "${SUMO_LIBRARIES}${LIB_VERSION}/fox-1.6.??")
     set(CMAKE_PREFIX_PATH "${CMAKE_PREFIX_PATH};${XERCES_PATH};${ZLIB_PATH};${ZLIB_PATH}/Release;${ZLIB_PATH}/Debug;${PROJ_PATH};${FOX_PATH}")
     file(GLOB SUMO_LIBRARIES_DLL "${XERCES_PATH}/bin/*.dll"
-                                 "${PROJ_PATH}/bin/*.dll"
+                                 "${PROJ_PATH}/bin/proj.dll"
                                  "${FOX_PATH}/lib/*.dll"
                                  "${SUMO_LIBRARIES}${LIB_VERSION}/3rdPartyLibs/bzip2-?.?.?/*.dll"
                                  "${SUMO_LIBRARIES}${LIB_VERSION}/3rdPartyLibs/libpng-?.?.??/bin/*.dll"
@@ -203,7 +203,7 @@ if (SUMO_LIBRARIES AND WIN32)
     endif()
     set(CMAKE_LIBRARY_PATH "${CMAKE_LIBRARY_PATH};${GL2PS_PATH}/Release")
     set(CMAKE_PREFIX_PATH "${CMAKE_PREFIX_PATH};${FFMPEG_PATH};${OSG_PATH};${GL2PS_PATH}")
-    file(GLOB SUMO_OPTIONAL_LIBRARIES_DLL "${FFMPEG_PATH}/bin/*.dll" "${GL2PS_PATH}/Release/*.dll")
+    file(GLOB SUMO_OPTIONAL_LIBRARIES_DLL "${PROJ_PATH}/bin/*.dll" "${FFMPEG_PATH}/bin/*.dll" "${GL2PS_PATH}/Release/*.dll")
     # set SWIG
     set(SWIG_EXECUTABLE "${SUMO_LIBRARIES}/swigwin-3.0.12/swig.exe")
     # set GRPC
