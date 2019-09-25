@@ -545,8 +545,8 @@ GUIViewTraffic::onCmdShowReachability(FXObject* menu, FXSelector, void*) {
         MSEdgeVector check;
         check.push_back(&lane->getEdge());
         while (check.size() > 0) {
-            MSEdge* e = check.back();
-            check.pop_back();
+            MSEdge* e = check.front();
+            check.erase(check.begin());
             double traveltime = reachableEdges[e];
             for (MSLane* const l : e->getLanes()) {
                 if (l->allowsVehicleClass(svc)) {
