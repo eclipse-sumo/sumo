@@ -449,7 +449,7 @@ MSEdge::getFreeLane(const std::vector<MSLane*>* allowed, const SUMOVehicleClass 
     if (allowed != nullptr) {
         double largestGap = 0;
         MSLane* resByGap = nullptr;
-        double leastOccupancy = std::numeric_limits<double>::max();;
+        double leastOccupancy = std::numeric_limits<double>::max();
         for (std::vector<MSLane*>::const_iterator i = allowed->begin(); i != allowed->end(); ++i) {
             const double occupancy = (*i)->getBruttoOccupancy();
             if (occupancy < leastOccupancy) {

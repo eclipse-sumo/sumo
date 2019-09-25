@@ -711,7 +711,7 @@ NBNodeShapeComputer::computeUniqueDirectionList(
     GeomsMap& geomsCCW,
     GeomsMap& geomsCW) {
     // store relationships
-    const EdgeVector& all = myNode.myAllEdges;;
+    const EdgeVector& all = myNode.myAllEdges;
     EdgeVector newAll = myNode.myAllEdges;
     for (NBEdge* e1 : all) {
         // determine which of the edges marks the outer boundary

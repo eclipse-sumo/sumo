@@ -75,7 +75,7 @@ public:
             escaping << QUO << escaped << QUO;
             escaped = escaping.str();
         }
-        return escaped;;
+        return escaped;
     }
 
     std::string unescape(std::string str) {

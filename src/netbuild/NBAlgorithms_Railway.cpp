@@ -195,7 +195,7 @@ NBRailwayTopologyAnalyzer::getRailEdges(const NBNode* node,
 
 std::set<NBNode*>
 NBRailwayTopologyAnalyzer::getBrokenRailNodes(NBNetBuilder& nb, bool verbose) {
-    std::set<NBNode*> brokenNodes;;
+    std::set<NBNode*> brokenNodes;
     OutputDevice& device = OutputDevice::getDevice(verbose
                            ? OptionsCont::getOptions().getString("railway.topology.output")
                            : "/dev/null");

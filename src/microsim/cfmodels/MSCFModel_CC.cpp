@@ -791,7 +791,7 @@ void MSCFModel_CC::setParameter(MSVehicle* veh, const std::string& key, const st
             if (vars->engine) {
                 delete vars->engine;
             }
-            int engineModel = StringUtils::toInt(value.c_str());;
+            int engineModel = StringUtils::toInt(value.c_str());
             switch (engineModel) {
                 case CC_ENGINE_MODEL_REALISTIC: {
                     vars->engine = new RealisticEngineModel();

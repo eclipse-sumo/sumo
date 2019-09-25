@@ -1105,7 +1105,7 @@ NBNodeCont::joinNodeCluster(NodeSet cluster, NBDistrictCont& dc, NBEdgeCont& ec,
         if (!insert(id, pos)) {
             // should not fail
             WRITE_WARNING("Could not join junctions " + id);
-            return;;
+            return;
         }
         newNode = retrieve(id);
     }
@@ -1292,7 +1292,7 @@ NBNodeCont::analyzeCluster(NodeSet cluster, std::string& id, Position& pos,
             nodeType = otherType;
         } else if (nodeType != otherType) {
             if (hasTLS) {
-                nodeType = NODETYPE_TRAFFIC_LIGHT;;
+                nodeType = NODETYPE_TRAFFIC_LIGHT;
             } else {
                 if ((nodeType != NODETYPE_PRIORITY && (nodeType != NODETYPE_NOJUNCTION || otherType != NODETYPE_PRIORITY))
                         || (otherType != NODETYPE_NOJUNCTION && otherType != NODETYPE_UNKNOWN && otherType != NODETYPE_PRIORITY)) {

@@ -441,7 +441,7 @@ GUIVehicle::drawAction_drawVehicleBlinker(double length) const {
         drawAction_drawBlinker(-offset, length);
     }
     if (signalSet(MSVehicle::VEH_SIGNAL_BLINKER_LEFT)) {
-        drawAction_drawBlinker(offset, length);;
+        drawAction_drawBlinker(offset, length);
     }
     if (signalSet(MSVehicle::VEH_SIGNAL_BLINKER_EMERGENCY)) {
         drawAction_drawBlinker(-offset, length);

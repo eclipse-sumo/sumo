@@ -429,7 +429,7 @@ NBNode::removeSelfLoops(NBDistrictCont& dc, NBEdgeCont& ec, NBTrafficLightLogicC
         NBEdge* dummy = *j;
         WRITE_WARNING(" Removing self-looping edge '" + dummy->getID() + "'");
         // get the list of incoming edges connected to the self-loop
-        EdgeVector incomingConnected = dummy->getIncomingEdges();;
+        EdgeVector incomingConnected = dummy->getIncomingEdges();
         // get the list of outgoing edges connected to the self-loop
         EdgeVector outgoingConnected = dummy->getConnectedEdges();
         // let the self-loop remap its connections
@@ -762,7 +762,7 @@ NBNode::computeInternalLaneShape(NBEdge* fromE, const NBEdge::Connection& con, i
     }
     const NBEdge::Lane& lane = fromE->getLaneStruct(con.fromLane);
     if (lane.endOffset > 0) {
-        PositionVector beg = lane.shape.getSubpart(lane.shape.length() - lane.endOffset, lane.shape.length());;
+        PositionVector beg = lane.shape.getSubpart(lane.shape.length() - lane.endOffset, lane.shape.length());
         beg.append(ret);
         ret = beg;
     }

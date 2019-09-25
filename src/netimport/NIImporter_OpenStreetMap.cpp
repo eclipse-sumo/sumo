@@ -1334,7 +1334,7 @@ NIImporter_OpenStreetMap::RelationHandler::myEndElement(int element) {
 
                     }
                 }
-                ptStop->setIsMultipleStopPositions(myStops.size() > 1);;
+                ptStop->setIsMultipleStopPositions(myStops.size() > 1);
             }
         } else if (myPTRouteType != "" && myIsRoute && OptionsCont::getOptions().isSet("ptline-output") && myStops.size() > 1) {
             NBPTLine* ptLine = new NBPTLine(toString(myCurrentRelation), myName, myPTRouteType, myRef, myInterval, myNightService);
@@ -1601,7 +1601,7 @@ NIImporter_OpenStreetMap::reconstructLayerElevation(const double layerElevation,
 #ifdef DEBUG_LAYER_ELEVATION
     std::cout << "final elevations:\n";
     for (std::map<NBNode*, double>::iterator it = nodeElevation.begin(); it != nodeElevation.end(); ++it) {
-        std::cout << "  node=" << (it->first)->getID() << " ele=" << it->second << "\n";;
+        std::cout << "  node=" << (it->first)->getID() << " ele=" << it->second << "\n";
     }
 #endif
     // apply node elevations

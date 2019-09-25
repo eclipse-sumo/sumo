@@ -188,7 +188,7 @@ GNETLSEditorFrame::isTLSSaved() {
 bool
 GNETLSEditorFrame::parseTLSPrograms(const std::string& file) {
     NBTrafficLightLogicCont& tllCont = myViewNet->getNet()->getTLLogicCont();
-    NBTrafficLightLogicCont tmpTLLCont;;
+    NBTrafficLightLogicCont tmpTLLCont;
     NIXMLTrafficLightsHandler tllHandler(tmpTLLCont, myViewNet->getNet()->getEdgeCont());
     // existing definitions must be available to update their programs
     std::set<NBTrafficLightDefinition*> origDefs;
@@ -1231,7 +1231,7 @@ GNETLSEditorFrame::TLSFile::onCmdLoadTLSProgram(FXObject*, FXSelector, void*) {
     }
     if (opendialog.execute()) {
         // run parser
-        NBTrafficLightLogicCont tmpTLLCont;;
+        NBTrafficLightLogicCont tmpTLLCont;
         NIXMLTrafficLightsHandler tllHandler(tmpTLLCont, myTLSEditorParent->myViewNet->getNet()->getEdgeCont(), true);
         tmpTLLCont.insert(myTLSEditorParent->myEditedDef);
         XMLSubSys::runParser(tllHandler, opendialog.getFilename().text());
