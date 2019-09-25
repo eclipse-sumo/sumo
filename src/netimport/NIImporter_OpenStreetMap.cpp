@@ -504,6 +504,7 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
 
     const std::string origID = OptionsCont::getOptions().getBool("output.original-names") ? toString(e->id) : "";
     if (ok) {
+        const int offsetFactor = OptionsCont::getOptions().getBool("lefthand") ? -1 : 1;
         LaneSpreadFunction lsf = (addBackward || OptionsCont::getOptions().getBool("osm.oneway-spread-right")) &&
                                  e->myRailDirection == WAY_UNKNOWN ? LANESPREAD_RIGHT : LANESPREAD_CENTER;
 
@@ -520,13 +521,13 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
                 nbe->setPermissions(SVC_BUS, 0);
             }
             if (addBikeLane && (cyclewayType == WAY_UNKNOWN || (cyclewayType & WAY_FORWARD) != 0)) {
-                nbe->addBikeLane(tc.getBikeLaneWidth(type));
+                nbe->addBikeLane(tc.getBikeLaneWidth(type) * offsetFactor);
             } else if (nbe->getPermissions(0) == SVC_BUS) {
                 // bikes drive on buslanes if no separate cycle lane is available
                 nbe->setPermissions(SVC_BUS | SVC_BICYCLE, 0);
             }
             if (addSidewalk && (sidewalkType == WAY_UNKNOWN || (sidewalkType & WAY_FORWARD) != 0)) {
-                nbe->addSidewalk(tc.getSidewalkWidth(type));
+                nbe->addSidewalk(tc.getSidewalkWidth(type) * offsetFactor);
             }
             nbe->updateParameter(e->getParametersMap());
             nbe->setDistance(distanceStart);
@@ -545,13 +546,13 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
                 nbe->setPermissions(SVC_BUS, 0);
             }
             if (addBikeLane && (cyclewayType == WAY_UNKNOWN || (cyclewayType & WAY_BACKWARD) != 0)) {
-                nbe->addBikeLane(tc.getBikeLaneWidth(type));
+                nbe->addBikeLane(tc.getBikeLaneWidth(type) * offsetFactor);
             } else if (nbe->getPermissions(0) == SVC_BUS) {
                 // bikes drive on buslanes if no separate cycle lane is available
                 nbe->setPermissions(SVC_BUS | SVC_BICYCLE, 0);
             }
             if (addSidewalk && (sidewalkType == WAY_UNKNOWN || (sidewalkType & WAY_BACKWARD) != 0)) {
-                nbe->addSidewalk(tc.getSidewalkWidth(type));
+                nbe->addSidewalk(tc.getSidewalkWidth(type) * offsetFactor);
             }
             nbe->updateParameter(e->getParametersMap());
             nbe->setDistance(distanceEnd);

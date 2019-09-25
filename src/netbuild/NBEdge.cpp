@@ -3583,7 +3583,7 @@ NBEdge::addRestrictedLane(double width, SUMOVehicleClass vclass) {
     // add new lane
     myLanes.insert(myLanes.begin(), Lane(this, myLanes[0].getParameter(SUMO_PARAM_ORIGID)));
     myLanes[0].permissions = vclass;
-    myLanes[0].width = width;
+    myLanes[0].width = fabs(width);
     // shift outgoing connections to the left
     for (std::vector<Connection>::iterator it = myConnections.begin(); it != myConnections.end(); ++it) {
         Connection& c = *it;
