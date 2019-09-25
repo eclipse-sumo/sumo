@@ -24,7 +24,6 @@ sys.path.append(os.path.join(sumoHome, "tools"))
 import sumolib  # noqa
 import traci  # noqa
 
-DELTA_T = 1000
 
 if sys.argv[1] == "sumo":
     sumoCall = [os.environ.get("SUMO_BINARY", os.path.join(sumoHome, 'bin', 'sumo'))]
@@ -48,7 +47,7 @@ def runSingle(traciEndTime, viewRange, objID):
                 break
 
             print("[%03d] Context results for vehicle '%s':" % (step, objID))
-            for v in traci.vehicle.getContextSubscriptionResults(objID) or []:
+            for v in sorted(traci.vehicle.getContextSubscriptionResults(objID) or []):
                 print(v)
 
         if not subscribed:
@@ -65,8 +64,7 @@ def runSingle(traciEndTime, viewRange, objID):
             subscribed = True
         step += 1
 
-    print("Print ended at step %s" %
-          (traci.simulation.getCurrentTime() / DELTA_T))
+    print("Print ended at step %s" % step)
     traci.close()
     sys.stdout.flush()
 

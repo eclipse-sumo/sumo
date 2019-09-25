@@ -45,11 +45,9 @@ def runSingle(traciEndTime, downstreamDist, upstreamDist):
         near1 = set()
         if subscribed:
             print("Step %s:\nContext results for veh '%s':" % (step, egoID))
-            results = traci.vehicle.getContextSubscriptionResults(egoID)
-            if results is not None:
-                for v in sorted(results):
-                    print(v)
-                    near1.add(v)
+            for v in sorted(traci.vehicle.getContextSubscriptionResults(egoID) or []):
+                print(v)
+                near1.add(v)
             if egoID in traci.simulation.getArrivedIDList():
                 break
 
@@ -70,8 +68,7 @@ def runSingle(traciEndTime, downstreamDist, upstreamDist):
             print("Error: Unsubscribe did not work")
         else:
             print("Ok: Unsubscribe successful")
-    print("Print ended at step %s" %
-          (traci.simulation.getTime()))
+    print("Print ended at step %s" % traci.simulation.getTime())
     traci.close()
     sys.stdout.flush()
 

@@ -1,5 +1,4 @@
 Loading configuration... done.
- Retrying in 1 seconds
 Subscribing to vehicle context of object 'ego'
 [001] Context results for vehicle 'ego':
 follow_left
@@ -200,4 +199,4 @@ follow_left
 follow_left2
 lead_left
 [031] Vehicle 'ego' has arrived at destination
-Print ended at step 32
+Print ended at step 31

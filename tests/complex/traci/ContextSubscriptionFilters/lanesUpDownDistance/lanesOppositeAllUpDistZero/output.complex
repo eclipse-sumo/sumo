@@ -1,5 +1,4 @@
 Loading configuration... done.
- Retrying in 1 seconds
 Subscribing to vehicle context of object 'ego'
 [001] Context results for vehicle 'ego':
 [002] Context results for vehicle 'ego':
@@ -107,4 +106,4 @@ opposite_follow_middle
 [029] Context results for vehicle 'ego':
 [030] Context results for vehicle 'ego':
 [031] Vehicle 'ego' has arrived at destination
-Print ended at step 32
+Print ended at step 31

@@ -70,8 +70,7 @@ def runSingle(traciEndTime, downstreamDist, upstreamDist, lanes, opposite):
         print("Error: Unsubscribe did not work")
     else:
         print("Ok: Unsubscribe successful")
-    print("Print ended at step %s" %
-          (traci.simulation.getTime()))
+    print("Print ended at step %s" % traci.simulation.getTime())
     traci.close()
     sys.stdout.flush()
 

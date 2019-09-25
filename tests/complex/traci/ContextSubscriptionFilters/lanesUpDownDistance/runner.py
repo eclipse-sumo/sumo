@@ -47,10 +47,8 @@ def runSingle(traciEndTime, viewRange, objID):
                 break
 
             print("[%03d] Context results for vehicle '%s':" % (step, objID))
-            results = traci.vehicle.getContextSubscriptionResults(objID)
-            if results is not None:
-                for v in sorted([v for v in results]):
-                    print(v)
+            for v in sorted(traci.vehicle.getContextSubscriptionResults(objID) or []):
+                print(v)
 
         if not subscribed:
             print("Subscribing to vehicle context of object '%s'" % (objID))
