@@ -634,7 +634,6 @@ private:
 
         /// @brief FXMenuCommand for open in SUMO GUI
         FXMenuCommand* openInSUMOGUI;
-
     };
 
     /// @brief struct for processing menu commands

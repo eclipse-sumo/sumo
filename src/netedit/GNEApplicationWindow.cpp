@@ -2448,6 +2448,11 @@ GNEApplicationWindow::onCmdUndo(FXObject*, FXSelector, void*) {
         if (myViewNet->getViewParent()->getCurrentShownFrame()) {
             myViewNet->getViewParent()->getCurrentShownFrame()->updateFrameAfterUndoRedo();
         }
+        // update manually undo/redo menu commands (see #6005)
+        onUpdUndo(myEditMenuCommands.undoLastChange,0,0);
+        onUpdRedo(myEditMenuCommands.redoLastChange,0,0);
+        // update toolbar undo-redo buttons
+        myViewNet->getViewParent()->updateUndoRedoButtons();
     }
     return 1;
 }
@@ -2462,6 +2467,11 @@ GNEApplicationWindow::onCmdRedo(FXObject*, FXSelector, void*) {
         if (myViewNet->getViewParent()->getCurrentShownFrame()) {
             myViewNet->getViewParent()->getCurrentShownFrame()->updateFrameAfterUndoRedo();
         }
+        // update manually undo/redo menu commands (see #6005)
+        onUpdUndo(myEditMenuCommands.undoLastChange,0,0);
+        onUpdRedo(myEditMenuCommands.redoLastChange,0,0);
+        // update toolbar undo-redo buttons
+        myViewNet->getViewParent()->updateUndoRedoButtons();
     }
     return 1;
 }

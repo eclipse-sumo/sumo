@@ -175,6 +175,9 @@ public:
     /// @brief remove created chooser dialog
     void eraseACChooserDialog(GNEDialogACChooser* chooserDialog);
 
+    /// @brief update toolbar undo/redo buttons (called when user press Ctrl+Z/Y)
+    void updateUndoRedoButtons();
+
     /// @name FOX-callbacks
     /// @{
     /// @brief Called if the user wants to make a snapshot (screenshot)
@@ -319,6 +322,12 @@ private:
 
     /// @brief frame to hold GNEFrames
     FXHorizontalFrame* myFramesArea;
+
+    /// @brief toolbar undo button
+    FXButton *myUndoButton;
+
+    /// @brief toolbar redo button
+    FXButton *myRedoButton;
 
     /// @brief Splitter to divide ViewNet und GNEFrames
     FXSplitter* myFramesSplitter;

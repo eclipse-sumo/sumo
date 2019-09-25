@@ -52,6 +52,7 @@
 #include "GNEViewNet.h"
 #include "GNENet.h"
 #include "GNEViewParent.h"
+#include "GNEUndoList.h"
 
 
 // ===========================================================================
@@ -91,9 +92,9 @@ GNEViewParent::GNEViewParent(FXMDIClient* p, FXMDIMenu* mdimenu, const FXString&
     // Create Vertical separator
     new FXVerticalSeparator(myGripNavigationToolbar, GUIDesignVerticalSeparator);
 
-    // add undo/redo buttons
-    new FXButton(myGripNavigationToolbar, "\tUndo\tUndo the last Change.", GUIIconSubSys::getIcon(ICON_UNDO), parentWindow, MID_HOTKEY_CTRL_Z_UNDO, GUIDesignButtonToolbar);
-    new FXButton(myGripNavigationToolbar, "\tRedo\tRedo the last Change.", GUIIconSubSys::getIcon(ICON_REDO), parentWindow, MID_HOTKEY_CTRL_Y_REDO, GUIDesignButtonToolbar);
+    // Create undo/redo buttons
+    myUndoButton = new FXButton(myGripNavigationToolbar, "\tUndo\tUndo the last Change.", GUIIconSubSys::getIcon(ICON_UNDO), parentWindow, MID_HOTKEY_CTRL_Z_UNDO, GUIDesignButtonToolbar);
+    myRedoButton = new FXButton(myGripNavigationToolbar, "\tRedo\tRedo the last Change.", GUIIconSubSys::getIcon(ICON_REDO), parentWindow, MID_HOTKEY_CTRL_Y_REDO, GUIDesignButtonToolbar);
 
     // Create Frame Splitter
     myFramesSplitter = new FXSplitter(myContentFrame, this, MID_GNE_VIEWPARENT_FRAMEAREAWIDTH, GUIDesignSplitter | SPLITTER_HORIZONTAL);
@@ -342,6 +343,13 @@ GNEViewParent::eraseACChooserDialog(GNEDialogACChooser* chooserDialog) {
     } else {
         throw ProcessError("Unregistered chooserDialog");
     }
+}
+
+
+void 
+GNEViewParent::updateUndoRedoButtons() {
+    myGNEAppWindows->getUndoList()->p_onUpdUndo(myUndoButton, 0, nullptr);
+    myGNEAppWindows->getUndoList()->p_onUpdRedo(myRedoButton, 0, nullptr);
 }
 
 
