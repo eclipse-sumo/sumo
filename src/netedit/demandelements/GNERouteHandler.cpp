@@ -1315,16 +1315,16 @@ void
 GNERouteHandler::closeVType() {
     // first check that VType was sucesfully created
     if (myCurrentVType) {
-        // first check if loaded VType is a default vtype
+        // first check if we're creating a vType or a pType
+        SumoXMLTag vTypeTag = (myCurrentVType->vehicleClass == SVC_PEDESTRIAN) ? SUMO_TAG_PTYPE : SUMO_TAG_VTYPE;
+        // check if loaded vType/pType is a default vtype
         if ((myCurrentVType->id == DEFAULT_VTYPE_ID) || (myCurrentVType->id == DEFAULT_PEDTYPE_ID) || (myCurrentVType->id == DEFAULT_BIKETYPE_ID)) {
             // overwrite default vehicle type
-            GNEVehicleType::overwriteVType(myViewNet->getNet()->retrieveDemandElement(SUMO_TAG_VTYPE, myCurrentVType->id, false), myCurrentVType, myViewNet->getUndoList());
-        } else if (myViewNet->getNet()->retrieveDemandElement(SUMO_TAG_VTYPE, myCurrentVType->id, false) != nullptr) {
-            WRITE_ERROR("There is another " + toString(SUMO_TAG_VTYPE) + " with the same ID='" + myCurrentVType->id + "'.");
+            GNEVehicleType::overwriteVType(myViewNet->getNet()->retrieveDemandElement(vTypeTag, myCurrentVType->id, false), myCurrentVType, myViewNet->getUndoList());
+        } else if (myViewNet->getNet()->retrieveDemandElement(vTypeTag, myCurrentVType->id, false) != nullptr) {
+            WRITE_ERROR("There is another " + toString(vTypeTag) + " with the same ID='" + myCurrentVType->id + "'.");
         } else {
-            // check if we're creating a vType or a pType
-            SumoXMLTag vTypeTag = (myCurrentVType->vehicleClass == SVC_PEDESTRIAN) ? SUMO_TAG_PTYPE : SUMO_TAG_VTYPE;
-            // create VType using myCurrentVType
+            // create vType/pType using myCurrentVType
             GNEVehicleType* vType = new GNEVehicleType(myViewNet, *myCurrentVType, vTypeTag);
             if (myUndoDemandElements) {
                 myViewNet->getUndoList()->p_begin("add " + vType->getTagStr());
