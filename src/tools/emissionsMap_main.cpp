@@ -132,7 +132,6 @@ main(int argc, char** argv) {
         XMLSubSys::init();
         OptionsIO::setArgs(argc, argv);
         OptionsIO::getOptions();
-        OptionsCont& oc = OptionsCont::getOptions();
         if (oc.processMetaOptions(argc < 2)) {
             SystemFrame::close();
             return 0;

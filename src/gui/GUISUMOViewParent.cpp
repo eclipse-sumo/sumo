@@ -184,17 +184,17 @@ long
 GUISUMOViewParent::onCmdLocate(FXObject*, FXSelector sel, void*) {
     std::vector<GUIGlID> ids;
     GUIIcon icon;
-    std::string title;
+    std::string chooserTitle;
     switch (FXSELID(sel)) {
         case MID_LOCATEJUNCTION:
             ids = static_cast<GUINet*>(GUINet::getInstance())->getJunctionIDs(myParent->listInternal());
             icon = ICON_LOCATEJUNCTION;
-            title = "Junction Chooser";
+            chooserTitle = "Junction Chooser";
             break;
         case MID_LOCATEEDGE:
             ids = GUIEdge::getIDs(myParent->listInternal());
             icon = ICON_LOCATEEDGE;
-            title = "Edge Chooser";
+            chooserTitle = "Edge Chooser";
             break;
         case MID_LOCATEVEHICLE:
             if (MSGlobals::gUseMesoSim) {
@@ -204,32 +204,32 @@ GUISUMOViewParent::onCmdLocate(FXObject*, FXSelector sel, void*) {
                     ids, myParent->listParking(), myParent->listTeleporting());
             }
             icon = ICON_LOCATEVEHICLE;
-            title = "Vehicle Chooser";
+            chooserTitle = "Vehicle Chooser";
             break;
         case MID_LOCATEPERSON:
             static_cast<GUITransportableControl&>(MSNet::getInstance()->getPersonControl()).insertPersonIDs(ids);
             icon = ICON_LOCATEPERSON;
-            title = "Person Chooser";
+            chooserTitle = "Person Chooser";
             break;
         case MID_LOCATETLS:
             ids = static_cast<GUINet*>(GUINet::getInstance())->getTLSIDs();
             icon = ICON_LOCATETLS;
-            title = "Traffic Lights Chooser";
+            chooserTitle = "Traffic Lights Chooser";
             break;
         case MID_LOCATEADD:
             ids = GUIGlObject_AbstractAdd::getIDList(GLO_ADDITIONAL);
             icon = ICON_LOCATEADD;
-            title = "Additional Objects Chooser";
+            chooserTitle = "Additional Objects Chooser";
             break;
         case MID_LOCATEPOI:
             ids = static_cast<GUIShapeContainer&>(GUINet::getInstance()->getShapeContainer()).getPOIIds();
             icon = ICON_LOCATEPOI;
-            title = "POI Chooser";
+            chooserTitle = "POI Chooser";
             break;
         case MID_LOCATEPOLY:
             ids = static_cast<GUIShapeContainer&>(GUINet::getInstance()->getShapeContainer()).getPolygonIDs();
             icon = ICON_LOCATEPOLY;
-            title = "Polygon Chooser";
+            chooserTitle = "Polygon Chooser";
             break;
         default:
             throw ProcessError("Unknown Message ID in onCmdLocate");
@@ -237,7 +237,7 @@ GUISUMOViewParent::onCmdLocate(FXObject*, FXSelector sel, void*) {
     myLocatorPopup->popdown();
     myLocatorButton->killFocus();
     myLocatorPopup->update();
-    new GUIDialog_GLObjChooser(this, GUIIconSubSys::getIcon(icon), title.c_str(), ids, GUIGlObjectStorage::gIDStorage);
+    new GUIDialog_GLObjChooser(this, GUIIconSubSys::getIcon(icon), chooserTitle.c_str(), ids, GUIGlObjectStorage::gIDStorage);
     return 1;
 }
 
@@ -276,15 +276,15 @@ GUISUMOViewParent::isSelected(GUIGlObject* o) const {
 
 
 long
-GUISUMOViewParent::onKeyPress(FXObject* o, FXSelector sel, void* data) {
-    myView->onKeyPress(o, sel, data);
+GUISUMOViewParent::onKeyPress(FXObject* o, FXSelector sel, void* ptr) {
+    myView->onKeyPress(o, sel, ptr);
     return 0;
 }
 
 
 long
-GUISUMOViewParent::onKeyRelease(FXObject* o, FXSelector sel, void* data) {
-    myView->onKeyRelease(o, sel, data);
+GUISUMOViewParent::onKeyRelease(FXObject* o, FXSelector sel, void* ptr) {
+    myView->onKeyRelease(o, sel, ptr);
     return 0;
 }
 

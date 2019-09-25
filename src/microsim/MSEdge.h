@@ -816,9 +816,9 @@ protected:
     AllowedLanesByTarget myAllowedTargets;
 
     /// @brief The intersection of lane permissions for this edge
-    SVCPermissions myMinimumPermissions;
+    SVCPermissions myMinimumPermissions = SVCAll;
     /// @brief The union of lane permissions for this edge
-    SVCPermissions myCombinedPermissions;
+    SVCPermissions myCombinedPermissions = 0;
     /// @}
 
     /// @brief the real-world name of this edge (need not be unique)

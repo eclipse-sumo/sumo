@@ -82,8 +82,7 @@ private:
 
 
 protected:
-    /// default constructor (needed by FOX)
-    GUIDialog_AppSettings() { }
+    FOX_CONSTRUCTOR(GUIDialog_AppSettings)
 
 };
 

@@ -206,7 +206,7 @@ GUIApplicationWindow::GUIApplicationWindow(FXApp* a, const std::string& configPa
     GUIMainWindow(a),
     myLoadThread(nullptr), myRunThread(nullptr),
     myAmLoading(false),
-    myAlternateSimDelay(0),
+    myAlternateSimDelay(0.),
     myRecentNets(a, "nets"),
     myConfigPattern(configPattern),
     hadDependentBuild(false),
@@ -947,12 +947,12 @@ GUIApplicationWindow::onCmdReload(FXObject*, FXSelector, void*) {
 
 
 long
-GUIApplicationWindow::onCmdOpenRecent(FXObject* sender, FXSelector, void* data) {
+GUIApplicationWindow::onCmdOpenRecent(FXObject* sender, FXSelector, void* ptr) {
     if (myAmLoading) {
         myStatusbar->getStatusLine()->setText("Already loading!");
         return 1;
     }
-    std::string file((const char*)data);
+    std::string file((const char*)ptr);
     loadConfigOrNet(file, sender == &myRecentNets);
     return 1;
 }
@@ -1859,12 +1859,12 @@ GUIApplicationWindow::updateTimeLCD(SUMOTime time) {
 
 
 long
-GUIApplicationWindow::onKeyPress(FXObject* o, FXSelector sel, void* data) {
-    const long handled = FXMainWindow::onKeyPress(o, sel, data);
+GUIApplicationWindow::onKeyPress(FXObject* o, FXSelector sel, void* ptr) {
+    const long handled = FXMainWindow::onKeyPress(o, sel, ptr);
     if (handled == 0 && myMDIClient->numChildren() > 0) {
         GUISUMOViewParent* w = dynamic_cast<GUISUMOViewParent*>(myMDIClient->getActiveChild());
         if (w != nullptr) {
-            w->onKeyPress(nullptr, sel, data);
+            w->onKeyPress(nullptr, sel, ptr);
         }
     }
     return 0;
@@ -1872,12 +1872,12 @@ GUIApplicationWindow::onKeyPress(FXObject* o, FXSelector sel, void* data) {
 
 
 long
-GUIApplicationWindow::onKeyRelease(FXObject* o, FXSelector sel, void* data) {
-    const long handled = FXMainWindow::onKeyRelease(o, sel, data);
+GUIApplicationWindow::onKeyRelease(FXObject* o, FXSelector sel, void* ptr) {
+    const long handled = FXMainWindow::onKeyRelease(o, sel, ptr);
     if (handled == 0 && myMDIClient->numChildren() > 0) {
         GUISUMOViewParent* w = dynamic_cast<GUISUMOViewParent*>(myMDIClient->getActiveChild());
         if (w != nullptr) {
-            w->onKeyRelease(nullptr, sel, data);
+            w->onKeyRelease(nullptr, sel, ptr);
         }
     }
     return 0;

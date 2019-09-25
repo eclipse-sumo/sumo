@@ -234,15 +234,14 @@ MSEdgeControl::changeLanes(const SUMOTime t) {
                 } else {
 #endif
                     edge.changeLanes(t);
-                    const std::vector<MSLane*>& lanes = edge.getLanes();
-                    for (std::vector<MSLane*>::const_iterator i = lanes.begin(); i != lanes.end(); ++i) {
-                        LaneUsage& lu = myLanes[(*i)->getNumericalID()];
+                    for (MSLane* const lane : edge.getLanes()) {
+                        LaneUsage& lu = myLanes[lane->getNumericalID()];
                         //if ((*i)->getID() == "disabled") {
                         //    std::cout << SIMTIME << " vehicles=" << toString((*i)->getVehiclesSecure()) << "\n";
                         //    (*i)->releaseVehicles();
                         //}
-                        if ((*i)->getVehicleNumber() > 0 && !lu.amActive) {
-                            toAdd.push_back(*i);
+                        if (lane->getVehicleNumber() > 0 && !lu.amActive) {
+                            toAdd.push_back(lane);
                             lu.amActive = true;
                         }
                     }

@@ -529,9 +529,9 @@ GUIViewTraffic::onCmdShowReachability(FXObject* menu, FXSelector, void*) {
         // reset
         const double UNREACHABLE = -1;
         gSelected.clear();
-        for (MSEdge* e : MSEdge::getAllEdges()) {
-            for (MSLane* lane : e->getLanes()) {
-                GUILane* gLane = dynamic_cast<GUILane*>(lane);
+        for (const MSEdge* const e : MSEdge::getAllEdges()) {
+            for (MSLane* const l : e->getLanes()) {
+                GUILane* gLane = dynamic_cast<GUILane*>(l);
                 gLane->setReachability(UNREACHABLE);
             }
         }
@@ -548,20 +548,20 @@ GUIViewTraffic::onCmdShowReachability(FXObject* menu, FXSelector, void*) {
             MSEdge* e = check.back();
             check.pop_back();
             double traveltime = reachableEdges[e];
-            for (MSLane* lane : e->getLanes()) {
-                if (lane->allowsVehicleClass(svc)) {
-                    GUILane* gLane = dynamic_cast<GUILane*>(lane);
+            for (MSLane* const l : e->getLanes()) {
+                if (l->allowsVehicleClass(svc)) {
+                    GUILane* gLane = dynamic_cast<GUILane*>(l);
                     gSelected.select(gLane->getGlID());
                     gLane->setReachability(traveltime);
                 }
             }
             traveltime += e->getLength() / MIN2(e->getSpeedLimit(), defaultMaxSpeed);
-            for (MSEdge* next : e->getSuccessors(svc)) {
-                if (reachableEdges.count(next) == 0 ||
+            for (MSEdge* const nextEdge : e->getSuccessors(svc)) {
+                if (reachableEdges.count(nextEdge) == 0 ||
                         // revisit edge via faster path
-                        reachableEdges[next] > traveltime) {
-                    reachableEdges[next] = traveltime;
-                    check.push_back(next);
+                        reachableEdges[nextEdge] > traveltime) {
+                    reachableEdges[nextEdge] = traveltime;
+                    check.push_back(nextEdge);
                 }
             }
         }

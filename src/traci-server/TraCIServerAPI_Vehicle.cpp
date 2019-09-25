@@ -203,17 +203,14 @@ TraCIServerAPI_Vehicle::processGet(TraCIServer& server, tcpip::Storage& inputSto
                         return server.writeErrorStatusCmd(libsumo::CMD_GET_VEHICLE_VARIABLE, "Retrieval of distance requires position and distance type as parameter.", outputStorage);
                     }
 
-                    double edgePos;
-                    std::string roadID;
-                    int laneIndex;
                     // read position
                     int posType = inputStorage.readUnsignedByte();
                     switch (posType) {
                         case libsumo::POSITION_ROADMAP:
                             try {
-                                std::string roadID = inputStorage.readString();
-                                edgePos = inputStorage.readDouble();
-                                laneIndex = inputStorage.readUnsignedByte();
+                                const std::string roadID = inputStorage.readString();
+                                const double edgePos = inputStorage.readDouble();
+                                const int laneIndex = inputStorage.readUnsignedByte();
                                 server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_DOUBLE);
                                 server.getWrapperStorage().writeDouble(libsumo::Vehicle::getDrivingDistance(id, roadID, edgePos, laneIndex));
                                 break;

@@ -287,7 +287,7 @@ TraCIServerAPI_TrafficLight::processSet(TraCIServer& server, tcpip::Storage& inp
                     if (inputStorage.readUnsignedByte() != libsumo::TYPE_COMPOUND) {
                         return server.writeErrorStatusCmd(libsumo::CMD_SET_TL_VARIABLE, "A compound object is needed for every phase.", outputStorage);
                     }
-                    int items = inputStorage.readInt();
+                    const int items = inputStorage.readInt();
                     if (items != 6 && items != 5) {
                         return server.writeErrorStatusCmd(libsumo::CMD_SET_TL_VARIABLE, "A phase compound object requires 5 or 6 items.", outputStorage);
                     }
@@ -307,18 +307,16 @@ TraCIServerAPI_TrafficLight::processSet(TraCIServer& server, tcpip::Storage& inp
                     if (!server.readTypeCheckingDouble(inputStorage, maxDuration)) {
                         return server.writeErrorStatusCmd(libsumo::CMD_SET_TL_VARIABLE, "set program: 4.4. parameter (max duration) must be a double.", outputStorage);
                     }
-                    auto tmp = inputStorage.readUnsignedByte();
-                    if (tmp != libsumo::TYPE_COMPOUND) {
-                        std::cout << " byte:" << tmp << "\n";
+                    if (inputStorage.readUnsignedByte() != libsumo::TYPE_COMPOUND) {
                         return server.writeErrorStatusCmd(libsumo::CMD_SET_TL_VARIABLE, "set program 4.5 parameter (next) must be a compound (list of ints).", outputStorage);
                     }
                     const int numNext = inputStorage.readInt();
                     for (int k = 0; k < numNext; k++) {
-                        int tmp;
-                        if (!server.readTypeCheckingInt(inputStorage, tmp)) {
+                        int nextEntry;
+                        if (!server.readTypeCheckingInt(inputStorage, nextEntry)) {
                             return server.writeErrorStatusCmd(libsumo::CMD_SET_TL_VARIABLE, "set program: 4.5. parameter (next) must be a list of int.", outputStorage);
                         }
-                        next.push_back(tmp);
+                        next.push_back(nextEntry);
                     }
                     if (items == 6) {
                         if (!server.readTypeCheckingString(inputStorage, name)) {

@@ -301,8 +301,7 @@ GUIOSGView::onPaint(FXObject*, FXSelector, void*) {
         return 1;
     }
     myDecalsLock.lock();
-    for (std::vector<GUISUMOAbstractView::Decal>::iterator l = myDecals.begin(); l != myDecals.end(); ++l) {
-        GUISUMOAbstractView::Decal& d = *l;
+    for (GUISUMOAbstractView::Decal& d : myDecals) {
         if (!d.initialised) {
             if (d.filename.length() == 6 && d.filename.substr(0, 5) == "light") {
                 GUIOSGBuilder::buildLight(d, *myRoot);
@@ -315,14 +314,14 @@ GUIOSGView::onPaint(FXObject*, FXSelector, void*) {
                     if (linkIdx < 0 || linkIdx >= static_cast<int>(vars.getActive()->getLinks().size())) {
                         throw NumberFormatException("");
                     }
-                    const MSLink* const l = vars.getActive()->getLinksAt(linkIdx)[0];
+                    const MSLink* const link = vars.getActive()->getLinksAt(linkIdx)[0];
                     osg::Switch* switchNode = new osg::Switch();
                     switchNode->addChild(GUIOSGBuilder::getTrafficLight(d, d.layer < 0 ? 0 : myGreenLight, osg::Vec4d(0., 1., 0., .3)), false);
                     switchNode->addChild(GUIOSGBuilder::getTrafficLight(d, d.layer < 0 ? 0 : myYellowLight, osg::Vec4d(1., 1., 0., .3)), false);
                     switchNode->addChild(GUIOSGBuilder::getTrafficLight(d, d.layer < 0 ? 0 : myRedLight, osg::Vec4d(1., 0., 0., .3)), false);
                     switchNode->addChild(GUIOSGBuilder::getTrafficLight(d, d.layer < 0 ? 0 : myRedYellowLight, osg::Vec4d(1., .5, 0., .3)), false);
                     myRoot->addChild(switchNode);
-                    vars.addSwitchCommand(new Command_TLSChange(l, switchNode));
+                    vars.addSwitchCommand(new Command_TLSChange(link, switchNode));
                 } catch (NumberFormatException&) {
                     WRITE_ERROR("Invalid link index in '" + d.filename + "'.");
                 } catch (InvalidArgument&) {
@@ -376,11 +375,11 @@ GUIOSGView::onPaint(FXObject*, FXSelector, void*) {
         myVehicles[veh].lights->setValue(2, veh->signalSet(MSVehicle::VEH_SIGNAL_BRAKELIGHT));
     }
     // remove inactive
-    for (auto it = myVehicles.begin(); it != myVehicles.end();) {
-        if (!it->second.active) {
-            removeVeh((it++)->first);
+    for (auto veh = myVehicles.begin(); veh != myVehicles.end();) {
+        if (!veh->second.active) {
+            removeVeh((veh++)->first);
         } else {
-            ++it;
+            ++veh;
         }
     }
 
@@ -406,8 +405,8 @@ GUIOSGView::onPaint(FXObject*, FXSelector, void*) {
     for (auto& item : myPersons) {
         item.second.active = false;
     }
-    for (std::map<std::string, MSTransportable*>::const_iterator it = MSNet::getInstance()->getPersonControl().loadedBegin(); it != MSNet::getInstance()->getPersonControl().loadedEnd(); ++it) {
-        MSTransportable* person = (*it).second;
+    for (auto transIt = MSNet::getInstance()->getPersonControl().loadedBegin(); transIt != MSNet::getInstance()->getPersonControl().loadedEnd(); ++transIt) {
+        MSTransportable* const person = transIt->second;
         // XXX if not departed: continue
         if (person->hasArrived() || !person->hasDeparted()) {
             //std::cout << SIMTIME << " person " << person->getID() << " is loaded but arrived\n";
@@ -427,11 +426,11 @@ GUIOSGView::onPaint(FXObject*, FXSelector, void*) {
         n->setAttitude(osg::Quat(dir, osg::Vec3d(0, 0, 1)));
     }
     // remove inactive
-    for (auto it = myPersons.begin(); it != myPersons.end();) {
-        if (!it->second.active) {
-            removeTransportable((it++)->first);
+    for (auto person = myPersons.begin(); person != myPersons.end();) {
+        if (!person->second.active) {
+            removeTransportable((person++)->first);
         } else {
-            ++it;
+            ++person;
         }
     }
 
@@ -551,12 +550,9 @@ GUIOSGView::getTrackedID() const {
 void
 GUIOSGView::onGamingClick(Position pos) {
     MSTLLogicControl& tlsControl = MSNet::getInstance()->getTLSControl();
-    const std::vector<MSTrafficLightLogic*>& logics = tlsControl.getAllLogics();
-    MSTrafficLightLogic* minTll = 0;
+    const MSTrafficLightLogic* minTll = nullptr;
     double minDist = std::numeric_limits<double>::infinity();
-    for (std::vector<MSTrafficLightLogic*>::const_iterator i = logics.begin(); i != logics.end(); ++i) {
-        // get the logic
-        MSTrafficLightLogic* tll = (*i);
+    for (const MSTrafficLightLogic* const tll : tlsControl.getAllLogics()) {
         if (tlsControl.isActive(tll)) {
             // get the links
             const MSTrafficLightLogic::LaneVector& lanes = tll->getLanesAt(0);

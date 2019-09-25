@@ -69,16 +69,16 @@ protected :
         typeDefs.cfModel = SUMO_TAG_CF_IDM;
         //typeDefs.cfParameter[SUMO_ATTR_CF_IDM_STEPPING] = "1";
         ConstMSEdgeVector edges;
-        MSEdge* edge = new MSEdge("dummy", 0, EDGEFUNC_NORMAL, "", "", -1, 0);
-        MSLane* lane = new MSLane("dummy_0", 50 / 3.6, 100, edge, 0, PositionVector(), SUMO_const_laneWidth, SVCAll, 0, false, "");
+        MSEdge* dummyEdge = new MSEdge("dummy", 0, EDGEFUNC_NORMAL, "", "", -1, 0);
+        MSLane* dummyLane = new MSLane("dummy_0", 50 / 3.6, 100, dummyEdge, 0, PositionVector(), SUMO_const_laneWidth, SVCAll, 0, false, "");
         std::vector<MSLane*> lanes;
-        lanes.push_back(lane);
-        edge->initialize(&lanes);
-        edges.push_back(edge);
+        lanes.push_back(dummyLane);
+        dummyEdge->initialize(&lanes);
+        edges.push_back(dummyEdge);
         route = new MSRoute("dummyRoute", edges, true, 0, defs->stops);
         type = MSVehicleType::build(typeDefs);
         veh = new MSVehicleMock(defs, route, type, 1);
-        veh->setTentativeLaneAndPosition(lane, 0);
+        veh->setTentativeLaneAndPosition(dummyLane, 0);
         MSGlobals::gSemiImplicitEulerUpdate = true;
     }
 
@@ -106,9 +106,8 @@ TEST_F(MSCFModel_IDMTest, test_method_getSecureGap) {
         for (double u = 0; u < 25; u += 1) { // leader
             double sg = m.getSecureGap(veh, nullptr, v, u, m.getMaxDecel());
             double vFollow = m.followSpeed(veh, v, sg, u, m.getMaxDecel(), nullptr);
-            double accel = SPEED2ACCEL(vFollow - v);
-            //std::cout << v << " " << u << " " << sg << " " << vFollow << " " << accel << "\n";
-            EXPECT_GT(accel, -2.2);
+            //std::cout << v << " " << u << " " << sg << " " << vFollow << " " << SPEED2ACCEL(vFollow - v) << "\n";
+            EXPECT_GT(SPEED2ACCEL(vFollow - v), -2.2);
         }
     }
 }

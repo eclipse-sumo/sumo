@@ -430,9 +430,9 @@ Simulation::getDistanceRoad(const std::string& edgeID1, double pos1, const std::
             return distance + route.getDistanceBetween(roadPos1.second, roadPos2.second, &roadPos1.first->getEdge(), &roadPos2.first->getEdge());
         }
     } else {
-        const Position pos1 = roadPos1.first->geometryPositionAtOffset(roadPos1.second);
-        const Position pos2 = roadPos2.first->geometryPositionAtOffset(roadPos2.second);
-        return pos1.distanceTo(pos2);
+        const Position p1 = roadPos1.first->geometryPositionAtOffset(roadPos1.second);
+        const Position p2 = roadPos2.first->geometryPositionAtOffset(roadPos2.second);
+        return p1.distanceTo(p2);
     }
 }
 

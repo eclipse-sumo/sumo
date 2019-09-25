@@ -201,9 +201,9 @@ GUIDialog_Breakpoints::onCmdClose(FXObject*, FXSelector, void*) {
 
 
 long
-GUIDialog_Breakpoints::onCmdEditTable(FXObject*, FXSelector, void* data) {
+GUIDialog_Breakpoints::onCmdEditTable(FXObject*, FXSelector, void* ptr) {
     FXMutexLock lock(*myBreakpointLock);
-    const FXTablePos* const i = (FXTablePos*) data;
+    const FXTablePos* const i = (FXTablePos*) ptr;
     const std::string value = StringUtils::prune(myTable->getItemText(i->row, i->col).text());
     // check whether the inserted value is empty
     const bool empty = value.find_first_not_of(" ") == std::string::npos;

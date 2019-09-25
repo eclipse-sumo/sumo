@@ -1195,7 +1195,6 @@ NLHandler::addConnection(const SUMOSAXAttributes& attrs) {
 
     MSLink* link = nullptr;
     try {
-        bool ok = true;
         const int fromLaneIdx = attrs.get<int>(SUMO_ATTR_FROM_LANE, nullptr, ok);
         const double foeVisibilityDistance = attrs.getOpt<double>(SUMO_ATTR_VISIBILITY_DISTANCE, nullptr, ok, 4.5);
         const int toLaneIdx = attrs.get<int>(SUMO_ATTR_TO_LANE, nullptr, ok);
