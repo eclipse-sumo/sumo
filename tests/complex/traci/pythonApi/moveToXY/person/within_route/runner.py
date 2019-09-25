@@ -34,7 +34,7 @@ traci.start(cmd)
 
 
 def step():
-    s = traci.simulation.getCurrentTime() / 1000
+    s = traci.simulation.getTime()
     traci.simulationStep()
     return s
 

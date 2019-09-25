@@ -47,7 +47,7 @@ traci.vehicletype.setActionStepLength("t1", 2.6)
 traci.vehicletype.setActionStepLength("t1", 1.5)
 # traci.vehicletype.setTau("t1", 1.3)
 traci.vehicletype.setMaxSpeed("t1", 99.9)
-while traci.simulation.getCurrentTime() < (tend - 10.) * 1000:
+while traci.simulation.getTime() < tend - 10.:
     traci.simulationStep()
 
 # traci.vehicle.setImperfection("veh2", 1.0)
@@ -99,7 +99,7 @@ print(traci.vehicle.getWidth("veh2"), "== 3.3")
 print(traci.vehicle.getMaxSpeed("veh2"), "== 99.9")
 print(traci.vehicle.getActionStepLength("veh2"), "==1.5")
 
-while traci.simulation.getCurrentTime() < tend * 1000:
+while traci.simulation.getTime() < tend:
     traci.simulationStep()
 traci.close()
 
@@ -142,6 +142,6 @@ print(traci.vehicle.getWidth("veh2"), "== 3.3")
 print(traci.vehicle.getMaxSpeed("veh2"), "== 99.9")
 print(traci.vehicle.getActionStepLength("veh2"), "==1.5")
 
-while traci.simulation.getCurrentTime() < tend * 1000:
+while traci.simulation.getTime() < tend:
     traci.simulationStep()
 traci.close()

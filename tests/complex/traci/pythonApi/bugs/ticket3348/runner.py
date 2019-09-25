@@ -38,7 +38,7 @@ vehID = "v0"
 stopPos = traci.lane.getLength("beg_0") * 0.9
 while traci.simulation.getMinExpectedNumber() > 0:
     traci.simulationStep()
-    step = traci.simulation.getCurrentTime() / 1000.0
+    step = traci.simulation.getTime()
     if step == 1:
         traci.vehicle.setStop(vehID, "beg", stopPos)
     elif step == 4:

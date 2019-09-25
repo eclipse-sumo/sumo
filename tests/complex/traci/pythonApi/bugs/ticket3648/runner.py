@@ -37,7 +37,7 @@ while traci.simulation.getMinExpectedNumber() > 0:
     traci.simulationStep()
     try:
         print(
-            traci.simulation.getCurrentTime() / 1000.0,
+            traci.simulation.getTime(),
             traci.vehicle.getDistance(vehID),
             traci.vehicle.getRoadID(vehID))
     except traci.TraCIException:

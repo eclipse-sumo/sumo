@@ -44,7 +44,7 @@ traci.vehicletype.setApparentDecel("t1", 6.0)
 traci.vehicletype.setEmergencyDecel("t1", 7.0)
 # traci.vehicletype.setEmissionClass("t1", ??)
 traci.vehicletype.setTau("t1", 1.3)
-while traci.simulation.getCurrentTime() < (tend - 10.) * 1000:
+while traci.simulation.getTime() < tend - 10.:
     traci.simulationStep()
 
 traci.vehicle.setImperfection("veh2", 1.0)
@@ -77,7 +77,7 @@ print(traci.vehicle.getEmergencyDecel("veh2"), "== 7.0 (emergencyDecel)")
 # print(traci.vehicle.getEmissionClass("veh2") , " == ?? (emissionClass)")
 print(traci.vehicle.getTau("veh2"), "== 1.3 (tau)")
 
-while traci.simulation.getCurrentTime() < tend * 1000:
+while traci.simulation.getTime() < tend:
     traci.simulationStep()
 traci.close()
 
@@ -108,6 +108,6 @@ print(traci.vehicle.getEmergencyDecel("veh2"), "== 7.0")
 # print(traci.vehicle.getEmissionClass("veh2") , " == ??")
 print(traci.vehicle.getTau("veh2"), "== 1.3")
 
-while traci.simulation.getCurrentTime() < tend * 1000:
+while traci.simulation.getTime() < tend:
     traci.simulationStep()
 traci.close()

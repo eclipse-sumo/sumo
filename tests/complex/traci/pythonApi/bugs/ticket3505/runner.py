@@ -32,7 +32,7 @@ loadParams = ["-c", "sumo.sumocfg"]
 print("Starting...")
 print("loadParams: %s" % str(loadParams))
 v = traci.start([sumoBinary] + loadParams)
-while traci.simulation.getCurrentTime() < 300 * 1000:
+while traci.simulation.getTime() < 300:
     traci.simulationStep()
-print(traci.simulation.getCurrentTime())
+print(traci.simulation.getTime())
 traci.close()

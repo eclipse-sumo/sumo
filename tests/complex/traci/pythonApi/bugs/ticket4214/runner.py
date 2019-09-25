@@ -37,5 +37,5 @@ cmd = [
 
 traci.start(cmd)
 traci.simulationStep(1.)
-print("step", traci.simulation.getCurrentTime())
+print("step", traci.simulation.getTime())
 traci.close()

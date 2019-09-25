@@ -13,7 +13,7 @@ step 4
 {114: (), 116: ()}
 step 5
 {114: ('horiz2', 'suddenStop', 'collider', 'emergencyStopper'), 116: ('horiz1',)}
-time 6000
+time 6
 #loaded 4
 loaded ('horiz2', 'suddenStop', 'collider', 'emergencyStopper')
 #departed 1
@@ -101,7 +101,7 @@ step 6
 {114: (), 116: ()}
 step 7
 detected collision
-time 14000
+time 14
 #loaded 0
 loaded ()
 #departed 0
@@ -132,7 +132,7 @@ step 9
 {114: (), 116: ()}
 step 10
 detected emergency stop
-time 17000
+time 17
 #loaded 0
 loaded ()
 #departed 0
@@ -159,7 +159,7 @@ teleportEnd ()
 {114: (), 116: ()}
 step 11
 detected emergency stop
-time 18000
+time 18
 #loaded 0
 loaded ()
 #departed 0

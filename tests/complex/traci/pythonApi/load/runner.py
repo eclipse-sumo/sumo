@@ -50,6 +50,6 @@ print("reloading")
 traci.load(["-S", "-Q", "-c", "sumo.sumocfg"])
 while traci.simulation.getMinExpectedNumber() > 0:
     traci.simulationStep()
-    print("step=%s departed=%s" % (traci.simulation.getCurrentTime(),
+    print("step=%s departed=%s" % (traci.simulation.getTime(),
                                    traci.simulation.getDepartedIDList()))
 traci.close()

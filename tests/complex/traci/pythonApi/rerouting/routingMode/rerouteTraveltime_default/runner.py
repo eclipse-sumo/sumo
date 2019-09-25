@@ -27,7 +27,7 @@ import sumolib  # noqa
 traci.start([sumolib.checkBinary('sumo'), '-c', 'sumo.sumocfg'])
 traci.simulationStep()
 while traci.simulation.getMinExpectedNumber() > 0:
-    timeS = traci.simulation.getCurrentTime() / 1000
+    timeS = traci.simulation.getTime()
     for vehID in traci.simulation.getDepartedIDList():
         traci.vehicle.rerouteTraveltime(vehID)
         print("step=%s rerouted=%s" % (timeS, vehID))

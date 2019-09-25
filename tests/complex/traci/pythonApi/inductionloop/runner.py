@@ -50,7 +50,7 @@ for step in range(3, 6):
 
 for i in range(24):
     print("step=%s detVehs=%s vehData=%s" % (
-        traci.simulation.getCurrentTime() / 1000.0,
+        traci.simulation.getTime(),
         traci.inductionloop.getLastStepVehicleIDs(loopID),
         traci.inductionloop.getVehicleData(loopID),
     ))

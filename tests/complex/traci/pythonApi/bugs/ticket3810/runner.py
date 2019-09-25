@@ -37,7 +37,7 @@ for vehID in vehs:
     traci.vehicle.setLaneChangeMode(vehID, 0)
 
 for i in range(8):
-    t = traci.simulation.getCurrentTime() / 1000.0
+    t = traci.simulation.getTime()
     for vehID in vehs:
         for dir in [-1, 1]:
             s, sTraci = traci.vehicle.getLaneChangeStatePretty(vehID, dir)

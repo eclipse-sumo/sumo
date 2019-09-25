@@ -44,7 +44,7 @@ while traci.simulation.getMinExpectedNumber() > 0:
         currLanePos = traci.vehicle.getLanePosition(vehID)
         print(("step=%s road=%s lane=%s pos=%.2f dist=%.2f simDist=%.2f simDistToEnd=%.2f distToInt=%.2f " +
                "distToEnd=%.2f simDist2DToInt=%.2f simDist2DToEnd=%.2f") % (
-            traci.simulation.getCurrentTime() / 1000,
+            traci.simulation.getTime(),
             currEdge,
             traci.vehicle.getLaneID(vehID),
             traci.vehicle.getLanePosition(vehID),

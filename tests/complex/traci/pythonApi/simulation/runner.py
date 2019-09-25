@@ -28,7 +28,7 @@ import sumolib  # noqa
 
 
 def checkVehicleStates():
-    print("time", traci.simulation.getCurrentTime())
+    print("time", traci.simulation.getTime())
     print("#loaded", traci.simulation.getLoadedNumber())
     print("loaded", traci.simulation.getLoadedIDList())
     print("#departed", traci.simulation.getDepartedNumber())

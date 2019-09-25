@@ -24,7 +24,6 @@ sys.path.append(os.path.join(sumoHome, "tools"))
 import sumolib  # noqa
 import traci  # noqa
 
-DELTA_T = 1000
 
 if sys.argv[1] == "sumo":
     sumoCall = [os.environ.get("SUMO_BINARY", os.path.join(sumoHome, 'bin', 'sumo'))]
@@ -64,7 +63,7 @@ def runSingle(traciEndTime, latDist, vehID):
 
         step += 1
 
-    print("Print ended at step %s" % (traci.simulation.getCurrentTime() / DELTA_T))
+    print("Print ended at step %s" % traci.simulation.getTime())
     traci.close()
     sys.stdout.flush()
 
