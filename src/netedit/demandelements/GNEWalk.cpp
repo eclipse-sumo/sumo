@@ -351,10 +351,12 @@ GNEWalk::getAttribute(SumoXMLAttr key) const {
             return getEdgeParents().front()->getID();
         case SUMO_ATTR_TO:
             return getEdgeParents().back()->getID();
-        case SUMO_ATTR_ROUTE:
-            return getDemandElementParents().at(1)->getID();
         case SUMO_ATTR_VIA:
             return toString(myVia);
+        case SUMO_ATTR_EDGES:
+            return parseIDs(getEdgeParents());
+        case SUMO_ATTR_ROUTE:
+            return getDemandElementParents().at(1)->getID();
         case SUMO_ATTR_BUS_STOP:
             return getAdditionalParents().front()->getID();
         case SUMO_ATTR_ARRIVALPOS:
@@ -391,6 +393,7 @@ GNEWalk::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* un
         case SUMO_ATTR_FROM:
         case SUMO_ATTR_TO:
         case SUMO_ATTR_VIA:
+        case SUMO_ATTR_EDGES:
         case SUMO_ATTR_ROUTE:
         case SUMO_ATTR_BUS_STOP:
         case SUMO_ATTR_ARRIVALPOS:
@@ -415,6 +418,13 @@ GNEWalk::isValid(SumoXMLAttr key, const std::string& value) {
                 return true;
             } else {
                 return canParse<std::vector<GNEEdge*> >(myViewNet->getNet(), value, false);
+            }
+        case SUMO_ATTR_EDGES:
+            if (canParse<std::vector<GNEEdge*> >(myViewNet->getNet(), value, false)) {
+                // all edges exist, then check if compounds a valid route
+                return GNEDemandElement::isRouteValid(parse<std::vector<GNEEdge*> >(myViewNet->getNet(), value), false);
+            } else {
+                return false;
             }
         case SUMO_ATTR_BUS_STOP:
             return (myViewNet->getNet()->retrieveAdditional(SUMO_TAG_BUS_STOP, value, false) != nullptr);
@@ -536,6 +546,9 @@ GNEWalk::setAttribute(SumoXMLAttr key, const std::string& value) {
             changeEdgeParents(this, toString(route), true);
             break;
         }
+        case SUMO_ATTR_EDGES:
+            changeEdgeParents(this, value, true);
+            break;
         case SUMO_ATTR_ROUTE:
             changeDemandElementParent(this, value, 1);
             break;
