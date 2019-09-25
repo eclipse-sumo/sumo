@@ -35,7 +35,8 @@ document.getElementById("mkdocs-search-query").addEventListener("keyup", functio
 
 function googleCSE(){
     var query = document.getElementById('mkdocs-search-query').value;
-    var searchURL = "search.html?q="
+    var base_url = window.location.origin;
+    var searchURL = base_url.concat("/docs/search.html?q=");
 
     window.open(searchURL.concat(query),"_self")
 }
