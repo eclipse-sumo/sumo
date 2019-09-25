@@ -799,13 +799,13 @@ private:
     void closeAllWindows();
 
     /// @brief warns about unsaved changes and gives the user the option to abort
-    bool continueWithUnsavedChanges();
+    bool continueWithUnsavedChanges(const std::string &operation);
 
     /// @brief warns about unsaved changes in additionals and gives the user the option to abort
-    bool continueWithUnsavedAdditionalChanges();
+    bool continueWithUnsavedAdditionalChanges(const std::string &operation);
 
     /// @brief warns about unsaved changes in demand elements and gives the user the option to abort
-    bool continueWithUnsavedDemandElementChanges();
+    bool continueWithUnsavedDemandElementChanges(const std::string &operation);
 };
 
 
