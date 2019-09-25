@@ -164,7 +164,7 @@ NBPTStop::getLength() const {
 
 
 bool
-NBPTStop::setEdgeId(std::string edgeId, NBEdgeCont& ec) {
+NBPTStop::setEdgeId(std::string edgeId, const NBEdgeCont& ec) {
     myEdgeId = edgeId;
     return findLaneAndComputeBusStopExtent(ec);
 }
@@ -195,7 +195,7 @@ NBPTStop::setMyPTStopLength(double myPTStopLength) {
 
 
 bool
-NBPTStop::findLaneAndComputeBusStopExtent(NBEdgeCont& ec) {
+NBPTStop::findLaneAndComputeBusStopExtent(const NBEdgeCont& ec) {
     NBEdge* edge = ec.getByID(myEdgeId);
     if (edge != nullptr) {
         int laneNr = -1;

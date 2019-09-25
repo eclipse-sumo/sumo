@@ -57,7 +57,13 @@ private:
     /// @brief The map of names to pt lines
     std::map<std::string, NBPTLine*> myPTLines;
 
-    void reviseStops(NBPTLine* myPTLine, NBEdgeCont& cont);
+    /// @brief find directional edge for all stops of the line
+    void reviseStops(NBPTLine* line, const NBEdgeCont& ec);
+
+    /* @brief find way element corresponding to the stop
+     * @note: if the edge id is updated, the stop extent is recomputed */
+    std::vector<std::string>::const_iterator findWay(NBPTLine* line, NBPTStop* stop, const NBEdgeCont& ec) const; 
+
     void constructRoute(NBPTLine* myPTLine, NBEdgeCont& cont);
 
     std::set<std::string> myServedPTStops;

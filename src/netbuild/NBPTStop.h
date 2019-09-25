@@ -66,10 +66,10 @@ public:
     bool getIsMultipleStopPositions() const;
     void setIsMultipleStopPositions(bool multipleStopPositions);
     double getLength() const;
-    bool setEdgeId(std::string edgeId, NBEdgeCont& ec);
+    bool setEdgeId(std::string edgeId, const NBEdgeCont& ec);
     void registerAdditionalEdge(std::string wayId, std::string edgeId);
     void addPlatformCand(NBPTPlatform platform);
-    bool findLaneAndComputeBusStopExtent(NBEdgeCont& ec);
+    bool findLaneAndComputeBusStopExtent(const NBEdgeCont& ec);
 
     void setMyPTStopId(std::string id);
     void addAccess(std::string laneID, double offset, double length);
