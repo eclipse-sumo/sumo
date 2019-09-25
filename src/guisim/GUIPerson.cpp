@@ -65,10 +65,8 @@ FXIMPLEMENT(GUIPerson::GUIPersonPopupMenu, GUIGLObjectPopupMenu, GUIPersonPopupM
 // -------------------------------------------------------------------------
 
 GUIPerson::GUIPersonPopupMenu::GUIPersonPopupMenu(
-    GUIMainWindow& app, GUISUMOAbstractView& parent,
-    GUIGlObject& o, std::map<GUISUMOAbstractView*, int>& additionalVisualizations) :
-    GUIGLObjectPopupMenu(app, parent, o),
-    myVehiclesAdditionalVisualizations(additionalVisualizations) {
+    GUIMainWindow& app, GUISUMOAbstractView& parent, GUIGlObject& o) :
+    GUIGLObjectPopupMenu(app, parent, o) {
 }
 
 
@@ -186,7 +184,7 @@ GUIPerson::~GUIPerson() {
 
 GUIGLObjectPopupMenu*
 GUIPerson::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
-    GUIGLObjectPopupMenu* ret = new GUIPersonPopupMenu(app, parent, *this, myAdditionalVisualizations);
+    GUIGLObjectPopupMenu* ret = new GUIPersonPopupMenu(app, parent, *this);
     buildPopupHeader(ret, app);
     buildCenterPopupEntry(ret);
     buildNameCopyPopupEntry(ret);

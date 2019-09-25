@@ -73,9 +73,8 @@ FXIMPLEMENT(GUIContainer::GUIContainerPopupMenu, GUIGLObjectPopupMenu, GUIContai
  * GUIContainer::GUIContainerPopupMenu - methods
  * ----------------------------------------------------------------------- */
 GUIContainer::GUIContainerPopupMenu::GUIContainerPopupMenu(
-    GUIMainWindow& app, GUISUMOAbstractView& parent,
-    GUIGlObject& o, std::map<GUISUMOAbstractView*, int>& additionalVisualizations)
-    : GUIGLObjectPopupMenu(app, parent, o), myVehiclesAdditionalVisualizations(additionalVisualizations) {
+    GUIMainWindow& app, GUISUMOAbstractView& parent, GUIGlObject& o)
+    : GUIGLObjectPopupMenu(app, parent, o) {
 }
 
 
@@ -135,7 +134,7 @@ GUIContainer::~GUIContainer() {
 GUIGLObjectPopupMenu*
 GUIContainer::getPopUpMenu(GUIMainWindow& app,
                            GUISUMOAbstractView& parent) {
-    GUIGLObjectPopupMenu* ret = new GUIContainerPopupMenu(app, parent, *this, myAdditionalVisualizations);
+    GUIGLObjectPopupMenu* ret = new GUIContainerPopupMenu(app, parent, *this);
     buildPopupHeader(ret, app);
     buildCenterPopupEntry(ret);
     buildNameCopyPopupEntry(ret);

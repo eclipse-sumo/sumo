@@ -154,10 +154,8 @@ public:
          * @param[in] app The main window for instantiation of other windows
          * @param[in] parent The parent view for changing it
          * @param[in] o The object of interest
-         * @param[in, out] additionalVisualizations Information which additional visualisations are enabled (per view)
          */
-        GUIContainerPopupMenu(GUIMainWindow& app,
-                              GUISUMOAbstractView& parent, GUIGlObject& o, std::map<GUISUMOAbstractView*, int>& additionalVisualizations);
+        GUIContainerPopupMenu(GUIMainWindow& app, GUISUMOAbstractView& parent, GUIGlObject& o);
 
         /// @brief Destructor
         ~GUIContainerPopupMenu();
@@ -170,14 +168,8 @@ public:
         long onCmdStopTrack(FXObject*, FXSelector, void*);
 
     protected:
-        /// @brief Information which additional visualisations are enabled (per view)
-        std::map<GUISUMOAbstractView*, int>& myVehiclesAdditionalVisualizations;
-        /// @brief Needed for parameterless instantiation
-        std::map<GUISUMOAbstractView*, int> dummy;
-
-    protected:
         /// @brief default constructor needed by FOX
-        GUIContainerPopupMenu() : myVehiclesAdditionalVisualizations(dummy) { }
+        FOX_CONSTRUCTOR(GUIContainerPopupMenu)
 
     };
 
