@@ -91,8 +91,7 @@ public:
     virtual bool isSelected(GUIGlObject* o) const;
 
 protected:
-    /// @brief fox need this
-    GUIGlChildWindow() {}
+    FOX_CONSTRUCTOR(GUIGlChildWindow)
 
     /// @brief The parent window
     GUIMainWindow* myParent;

@@ -200,8 +200,7 @@ public:
         /// @}
 
     protected:
-        /// @brief fox need this
-        VTypeAtributes() {}
+        FOX_CONSTRUCTOR(VTypeAtributes)
 
         /// @brief FXTextfield for vehicleTypeID
         FXTextField* myTextFieldVehicleTypeID;
@@ -417,8 +416,7 @@ public:
         /// @}
 
     protected:
-        /// @brief fox need this
-        CarFollowingModelParameters() {}
+		FOX_CONSTRUCTOR(CarFollowingModelParameters)
 
         /// @brief class used for represent rows with Car Following Model parameters
         class CarFollowingModelRow : public FXHorizontalFrame {

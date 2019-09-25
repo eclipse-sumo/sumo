@@ -698,12 +698,11 @@ Helper::applySubscriptionFilters(const Subscription& s, std::set<std::string>& o
                     // Collect vehicles from opposite lanes
                     if (nOpp > 0) {
                         for (auto& laneCov : *checkedLanesInDrivingDir) {
-                            const MSLane* lane = laneCov.first;
-                            if (lane == nullptr || lane->getEdge().getOppositeEdge() == nullptr) {
+                            const MSLane* const l = laneCov.first;
+                            if (l == nullptr || l->getEdge().getOppositeEdge() == nullptr) {
                                 continue;
                             }
-                            const MSEdge* edge = &(lane->getEdge());
-                            const MSEdge* opposite = edge->getOppositeEdge();
+                            const MSEdge* opposite = l->getEdge().getOppositeEdge();
                             const std::pair<double, double>& range = laneCov.second;
                             auto leftMostOppositeLaneIt = opposite->getLanes().rbegin();
                             for (auto oppositeLaneIt = leftMostOppositeLaneIt;

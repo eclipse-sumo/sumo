@@ -171,17 +171,21 @@ public:
     ///@{
     /** @brief Sets the snapshot time to file map
      * @param[in] snaps The snapshots to take at certain times
+     * @param[in] w The snapshot image width
+     * @param[in] w The snapshot image height
      */
-    void addSnapshot(SUMOTime time, const std::string& file, const int width = -1, const int height = -1);
+    void addSnapshot(SUMOTime time, const std::string& file, const int w = -1, const int h = -1);
 
     /** @brief Takes a snapshots and writes it into the given file
      *
      * The format to use is determined from the extension.
      * If compiled with ffmpeg and a video format is requested it will instantiate a video encoder.
      * @param[in] destFile The name of the file to write the snapshot into
+     * @param[in] w The snapshot image width
+     * @param[in] w The snapshot image height
      * @return The error message, if an error occcured; "" otherwise
      */
-    std::string makeSnapshot(const std::string& destFile, const int width = -1, const int height = -1);
+    std::string makeSnapshot(const std::string& destFile, const int w = -1, const int h = -1);
 
     /// @brief Adds a frame to a video snapshot which will be initialized if neccessary
     virtual void saveFrame(const std::string& destFile, FXColor* buf);
@@ -243,7 +247,7 @@ public:
     // @todo: check why this is here
     double getGridWidth() const;
 
-    /// @brief get grid Height
+    /// @brief get grid height
     // @todo: check why this is here
     double getGridHeight() const;
 
@@ -418,8 +422,7 @@ protected:
     void showToolTipFor(const GUIGlID id);
 
 protected:
-    /// @brief FOX need this
-    GUISUMOAbstractView() {}
+	FOX_CONSTRUCTOR(GUISUMOAbstractView)
 
     /// @brief check whether we can read image data or position with gdal
     FXImage* checkGDALImage(Decal& d);

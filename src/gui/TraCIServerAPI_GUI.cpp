@@ -139,7 +139,7 @@ TraCIServerAPI_GUI::processSet(TraCIServer& server, tcpip::Storage& inputStorage
         return server.writeErrorStatusCmd(libsumo::CMD_SET_GUI_VARIABLE, "Change GUI State: unsupported variable " + toHex(variable, 2) + " specified", outputStorage);
     }
     // id
-    std::string id = inputStorage.readString();
+    const std::string id = inputStorage.readString();
     GUISUMOAbstractView* v = getNamedView(id);
     if (v == nullptr) {
         return server.writeErrorStatusCmd(libsumo::CMD_SET_GUI_VARIABLE, "View '" + id + "' is not known", outputStorage);
@@ -211,16 +211,16 @@ TraCIServerAPI_GUI::processSet(TraCIServer& server, tcpip::Storage& inputStorage
         }
         break;
         case libsumo::VAR_TRACK_VEHICLE: {
-            std::string id;
-            if (!server.readTypeCheckingString(inputStorage, id)) {
+            std::string vehID;
+            if (!server.readTypeCheckingString(inputStorage, vehID)) {
                 return server.writeErrorStatusCmd(libsumo::CMD_SET_GUI_VARIABLE, "Tracking requires a string vehicle ID.", outputStorage);
             }
             if (id == "") {
                 v->stopTrack();
             } else {
-                SUMOVehicle* veh = MSNet::getInstance()->getVehicleControl().getVehicle(id);
+                SUMOVehicle* veh = MSNet::getInstance()->getVehicleControl().getVehicle(vehID);
                 if (veh == nullptr) {
-                    return server.writeErrorStatusCmd(libsumo::CMD_SET_GUI_VARIABLE, "Could not find vehicle '" + id + "'.", outputStorage);
+                    return server.writeErrorStatusCmd(libsumo::CMD_SET_GUI_VARIABLE, "Could not find vehicle '" + vehID + "'.", outputStorage);
                 }
                 if (v->getTrackedID() != static_cast<GUIVehicle*>(veh)->getGlID()) {
                     v->startTrack(static_cast<GUIVehicle*>(veh)->getGlID());

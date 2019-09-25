@@ -382,19 +382,17 @@ MESegment::getLink(const MEVehicle* veh, bool penalty) const {
         }
         // try to find any link leading to our next edge, start with the lane pointed to by the que index
         const MSLane* const bestLane = myEdge.getLanes()[veh->getQueIndex()];
-        const MSLinkCont& links = bestLane->getLinkCont();
-        for (std::vector<MSLink*>::const_iterator j = links.begin(); j != links.end(); ++j) {
-            if (&(*j)->getLane()->getEdge() == nextEdge) {
-                return *j;
+        for (MSLink* const link : bestLane->getLinkCont()) {
+            if (&link->getLane()->getEdge() == nextEdge) {
+                return link;
             }
         }
         // this is for the non-multique case, maybe we should use caching here !!!
-        for (std::vector<MSLane*>::const_iterator l = myEdge.getLanes().begin(); l != myEdge.getLanes().end(); ++l) {
-            if ((*l) != bestLane) {
-                const MSLinkCont& links = (*l)->getLinkCont();
-                for (std::vector<MSLink*>::const_iterator j = links.begin(); j != links.end(); ++j) {
-                    if (&(*j)->getLane()->getEdge() == nextEdge) {
-                        return *j;
+        for (const MSLane* const lane : myEdge.getLanes()) {
+            if (lane != bestLane) {
+                for (MSLink* const link : lane->getLinkCont()) {
+                    if (&link->getLane()->getEdge() == nextEdge) {
+                        return link;
                     }
                 }
             }

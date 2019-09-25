@@ -361,12 +361,9 @@ void
 GUIViewTraffic::onGamingClick(Position pos) {
     if (myTLSGame) {
         MSTLLogicControl& tlsControl = MSNet::getInstance()->getTLSControl();
-        const std::vector<MSTrafficLightLogic*>& logics = tlsControl.getAllLogics();
-        MSTrafficLightLogic* minTll = nullptr;
+        const MSTrafficLightLogic* minTll = nullptr;
         double minDist = std::numeric_limits<double>::infinity();
-        for (std::vector<MSTrafficLightLogic*>::const_iterator i = logics.begin(); i != logics.end(); ++i) {
-            // get the logic
-            MSTrafficLightLogic* tll = (*i);
+        for (const MSTrafficLightLogic* const tll : tlsControl.getAllLogics()) {
             if (tlsControl.isActive(tll) && tll->getProgramID() != "off") {
                 // get the links
                 const MSTrafficLightLogic::LaneVector& lanes = tll->getLanesAt(0);

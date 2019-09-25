@@ -59,8 +59,7 @@ public:
     /// @}
 
 protected:
-    /// @brief fox need this
-    MFXCheckableButton() {}
+    FOX_CONSTRUCTOR(MFXCheckableButton)
 
 private:
     /// @brief build color of this MFXCheckableButton

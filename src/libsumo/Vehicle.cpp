@@ -377,26 +377,26 @@ Vehicle::getNextTLS(const std::string& vehicleID) {
     if (veh->isOnRoad()) {
         const MSLane* lane = veh->getLane();
         const std::vector<MSLane*>& bestLaneConts = veh->getBestLanesContinuation(lane);
-        double seen = veh->getLane()->getLength() - veh->getPositionOnLane();
+        double seen = lane->getLength() - veh->getPositionOnLane();
         int view = 1;
-        MSLinkCont::const_iterator link = MSLane::succLinkSec(*veh, view, *lane, bestLaneConts);
-        while (!lane->isLinkEnd(link)) {
+        MSLinkCont::const_iterator linkIt = MSLane::succLinkSec(*veh, view, *lane, bestLaneConts);
+        while (!lane->isLinkEnd(linkIt)) {
             if (!lane->getEdge().isInternal()) {
-                if ((*link)->isTLSControlled()) {
+                if ((*linkIt)->isTLSControlled()) {
                     TraCINextTLSData ntd;
-                    ntd.id = (*link)->getTLLogic()->getID();
-                    ntd.tlIndex = (*link)->getTLIndex();
+                    ntd.id = (*linkIt)->getTLLogic()->getID();
+                    ntd.tlIndex = (*linkIt)->getTLIndex();
                     ntd.dist = seen;
-                    ntd.state = (char)(*link)->getState();
+                    ntd.state = (char)(*linkIt)->getState();
                     result.push_back(ntd);
                 }
             }
-            lane = (*link)->getViaLaneOrLane();
+            lane = (*linkIt)->getViaLaneOrLane();
             if (!lane->getEdge().isInternal()) {
                 view++;
             }
             seen += lane->getLength();
-            link = MSLane::succLinkSec(*veh, view, *lane, bestLaneConts);
+            linkIt = MSLane::succLinkSec(*veh, view, *lane, bestLaneConts);
         }
         // consider edges beyond bestLanes
         const int remainingEdges = (int)(veh->getRoute().end() - veh->getCurrentRouteEdge()) - view;
@@ -406,7 +406,7 @@ Vehicle::getNextTLS(const std::string& vehicleID) {
             const MSEdge* next = *(veh->getCurrentRouteEdge() + view + i);
             const std::vector<MSLane*>* allowed = prev->allowedLanes(*next, veh->getVClass());
             if (allowed != nullptr && allowed->size() != 0) {
-                for (MSLink* link : allowed->front()->getLinkCont()) {
+                for (const MSLink* const link : allowed->front()->getLinkCont()) {
                     if (&link->getLane()->getEdge() == next) {
                         if (link->isTLSControlled()) {
                             TraCINextTLSData ntd;

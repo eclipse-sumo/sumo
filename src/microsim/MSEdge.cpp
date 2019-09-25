@@ -704,7 +704,6 @@ MSEdge::changeLanes(SUMOTime t) {
 }
 
 
-
 const MSEdge*
 MSEdge::getInternalFollowingEdge(const MSEdge* followerAfterInternal) const {
     //@todo to be optimized
@@ -722,6 +721,7 @@ MSEdge::getInternalFollowingEdge(const MSEdge* followerAfterInternal) const {
     return nullptr;
 }
 
+
 double
 MSEdge::getInternalFollowingLengthTo(const MSEdge* followerAfterInternal) const {
     assert(followerAfterInternal != 0);
@@ -735,6 +735,7 @@ MSEdge::getInternalFollowingLengthTo(const MSEdge* followerAfterInternal) const 
     }
     return dist;
 }
+
 
 const MSEdge*
 MSEdge::getNormalBefore() const {
@@ -797,7 +798,6 @@ double
 MSEdge::getRoutingSpeed() const {
     return MSRoutingEngine::getAssumedSpeed(this);
 }
-
 
 
 bool

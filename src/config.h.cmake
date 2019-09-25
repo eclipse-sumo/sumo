@@ -8,6 +8,8 @@
 #pragma warning(disable: 4290)
 /* Disable DLL-Interface warnings */
 #pragma warning(disable: 4251)
+/* Disable integer overflow in arithmetics warnings */
+#pragma warning(disable: 26451)
 
 /* Disable "unsafe" warnings for crt functions in VC++ 2005. */
 #if _MSC_VER >= 1400

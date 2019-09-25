@@ -1059,19 +1059,19 @@ GUISUMOAbstractView::onKeyRelease(FXObject* o, FXSelector sel, void* data) {
 
 // ------------ Dealing with snapshots
 void
-GUISUMOAbstractView::addSnapshot(SUMOTime time, const std::string& file, const int width, const int height) {
+GUISUMOAbstractView::addSnapshot(SUMOTime time, const std::string& file, const int w, const int h) {
 #ifdef DEBUG_SNAPSHOT
     std::cout << "add snapshot time=" << time << " file=" << file << "\n";
 #endif
     FXMutexLock lock(mySnapshotsMutex);
-    mySnapshots[time].push_back(std::make_tuple(file, width, height));
+    mySnapshots[time].push_back(std::make_tuple(file, w, h));
 }
 
 
 std::string
-GUISUMOAbstractView::makeSnapshot(const std::string& destFile, const int width, const int height) {
-    if (width >= 0) {
-        resize(width, height);
+GUISUMOAbstractView::makeSnapshot(const std::string& destFile, const int w, const int h) {
+    if (w >= 0) {
+        resize(w, h);
         repaint();
     }
     std::string errorMessage;
