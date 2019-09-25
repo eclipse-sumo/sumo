@@ -29,6 +29,7 @@ DELAY_KEY = 0.2
 DELAY_KEY_TAB = 0.01
 DELAY_MOUSE = 0.1
 DELAY_QUESTION = 0.1
+DELAY_RELOAD = 10
 DELAY_REFERENCE = 30
 DELAY_QUIT_NETEDIT = 4
 DELAY_QUIT_SUMOGUI = 3
@@ -516,13 +517,58 @@ def waitQuestion(answer):
 
 
 """
-@brief quit Netedit quit
+@brief reload Netedit
+"""
+
+
+def reload(NeteditProcess, openNetNonSavedDialog=False, saveNet=False,
+         openAdditionalsNonSavedDialog=False, saveAdditionals=False,
+         openDemandNonSavedDialog=False, saveDemandElements=False):
+    # first move cursor out of magenta square
+    pyautogui.moveTo(150, 200)
+    # reload using hotkey
+    typeTwoKeys('ctrl', 'r')
+    # Check if net must be saved
+    if openNetNonSavedDialog:
+        # Wait some seconds
+        time.sleep(DELAY_QUESTION)
+        if saveNet:
+            waitQuestion('s')
+            # wait for log
+            time.sleep(DELAY_RECOMPUTE)
+        else:
+            waitQuestion('q')
+    # Check if additionals must be saved
+    if openAdditionalsNonSavedDialog:
+        # Wait some seconds
+        time.sleep(DELAY_QUESTION)
+        if saveAdditionals:
+            waitQuestion('s')
+        else:
+            waitQuestion('q')
+    # Check if demand elements must be saved
+    if openDemandNonSavedDialog:
+        # Wait some seconds
+        time.sleep(DELAY_QUESTION)
+        if saveDemandElements:
+            waitQuestion('s')
+        else:
+            waitQuestion('q')
+    # Wait some seconds
+    time.sleep(DELAY_RELOAD)
+	# check if Netedit was crashed during reloading
+    if NeteditProcess.poll() is not None:
+        print("TestFunctions: Error reloading Netedit")
+
+
+"""
+@brief quit Netedit
 """
 
 
 def quit(NeteditProcess, openNetNonSavedDialog=False, saveNet=False,
          openAdditionalsNonSavedDialog=False, saveAdditionals=False,
-         openShapesNonSavedDialog=False, saveShapes=False):
+         openDemandNonSavedDialog=False, saveDemandElements=False):
     # check if Netedit is already closed
     if NeteditProcess.poll() is not None:
         # print debug information
@@ -550,11 +596,11 @@ def quit(NeteditProcess, openNetNonSavedDialog=False, saveNet=False,
                 waitQuestion('s')
             else:
                 waitQuestion('q')
-        # Check if additionals must be saved
-        if openShapesNonSavedDialog:
+        # Check if demand elements must be saved
+        if openDemandNonSavedDialog:
             # Wait some seconds
             time.sleep(DELAY_QUESTION)
-            if saveShapes:
+            if saveDemandElements:
                 waitQuestion('s')
             else:
                 waitQuestion('q')
