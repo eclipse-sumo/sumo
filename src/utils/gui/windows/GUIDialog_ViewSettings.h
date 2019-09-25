@@ -369,8 +369,7 @@ private:
 
 
 protected:
-    /// @brief Default constructor (needed by FOX)
-    GUIDialog_ViewSettings() { }
+    FOX_CONSTRUCTOR(GUIDialog_ViewSettings)
 
 
 private:

@@ -98,7 +98,6 @@ GUISettingsHandler::myStartElement(int element,
             break;
         }
         case SUMO_TAG_SNAPSHOT: {
-            bool ok = true;
             std::string file = attrs.get<std::string>(SUMO_ATTR_FILE, nullptr, ok);
             if (file != "" && !FileHelpers::isAbsolute(file)) {
                 file = FileHelpers::getConfigurationRelative(getFileName(), file);
@@ -107,7 +106,6 @@ GUISettingsHandler::myStartElement(int element,
         }
         break;
         case SUMO_TAG_VIEWSETTINGS_SCHEME: {
-            bool ok = true;
             mySettings.name = attrs.getOpt<std::string>(SUMO_ATTR_NAME, nullptr, ok, mySettings.name);
             if (gSchemeStorage.contains(mySettings.name)) {
                 mySettings = gSchemeStorage.get(mySettings.name);
@@ -121,7 +119,6 @@ GUISettingsHandler::myStartElement(int element,
             mySettings.forceDrawForSelecting = StringUtils::toBool(attrs.getStringSecure("forceDrawForSelecting", toString(mySettings.forceDrawForSelecting)));
             break;
         case SUMO_TAG_VIEWSETTINGS_BACKGROUND: {
-            bool ok = true;
             mySettings.backgroundColor = RGBColor::parseColorReporting(attrs.getStringSecure("backgroundColor", toString(mySettings.backgroundColor)), "background", nullptr, true, ok);
             mySettings.showGrid = StringUtils::toBool(attrs.getStringSecure("showGrid", toString(mySettings.showGrid)));
             mySettings.gridXSize = StringUtils::toDouble(attrs.getStringSecure("gridXSize", toString(mySettings.gridXSize)));
@@ -182,7 +179,6 @@ GUISettingsHandler::myStartElement(int element,
                 myCurrentScheme = mySettings.polyColorer.getSchemeByName(attrs.getStringSecure(SUMO_ATTR_NAME, ""));
             }
             if (myCurrentScheme && !myCurrentScheme->isFixed()) {
-                bool ok = true;
                 myCurrentScheme->setInterpolated(attrs.getOpt<bool>(SUMO_ATTR_INTERPOLATED, nullptr, ok, false));
                 myCurrentScheme->clear();
             }
@@ -197,7 +193,6 @@ GUISettingsHandler::myStartElement(int element,
                 }
             }
             if (myCurrentScaleScheme && !myCurrentScaleScheme->isFixed()) {
-                bool ok = true;
                 myCurrentScaleScheme->setInterpolated(attrs.getOpt<bool>(SUMO_ATTR_INTERPOLATED, nullptr, ok, false));
                 myCurrentScaleScheme->clear();
             }
@@ -205,7 +200,6 @@ GUISettingsHandler::myStartElement(int element,
 
         case SUMO_TAG_ENTRY:
             if (myCurrentScheme != nullptr) {
-                bool ok = true;
                 RGBColor color = attrs.get<RGBColor>(SUMO_ATTR_COLOR, nullptr, ok);
                 if (myCurrentScheme->isFixed()) {
                     myCurrentScheme->setColor(attrs.getStringSecure(SUMO_ATTR_NAME, ""), color);
@@ -213,7 +207,6 @@ GUISettingsHandler::myStartElement(int element,
                     myCurrentScheme->addColor(color, attrs.getOpt<double>(SUMO_ATTR_THRESHOLD, nullptr, ok, 0));
                 }
             } else if (myCurrentScaleScheme != nullptr) {
-                bool ok = true;
                 double scale = attrs.get<double>(SUMO_ATTR_COLOR, nullptr, ok);
                 if (myCurrentScaleScheme->isFixed()) {
                     myCurrentScaleScheme->setColor(attrs.getStringSecure(SUMO_ATTR_NAME, ""), scale);

@@ -183,7 +183,7 @@ protected:
     static GUIMainWindow* myInstance;
 
 protected:
-    GUIMainWindow() { }
+    FOX_CONSTRUCTOR(GUIMainWindow)
 
     /// @brief perform initial window positioning and sizing according to user options / previous call
     void setWindowSizeAndPos();

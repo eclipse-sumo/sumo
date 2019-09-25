@@ -127,16 +127,16 @@ GUIParameterTracker::addTracked(GUIGlObject& o, ValueSource<double>* src,
 
 
 long
-GUIParameterTracker::onConfigure(FXObject* sender, FXSelector sel, void* data) {
-    myPanel->onConfigure(sender, sel, data);
-    return FXMainWindow::onConfigure(sender, sel, data);
+GUIParameterTracker::onConfigure(FXObject* sender, FXSelector sel, void* ptr) {
+    myPanel->onConfigure(sender, sel, ptr);
+    return FXMainWindow::onConfigure(sender, sel, ptr);
 }
 
 
 long
-GUIParameterTracker::onPaint(FXObject* sender, FXSelector sel, void* data) {
-    myPanel->onPaint(sender, sel, data);
-    return FXMainWindow::onPaint(sender, sel, data);
+GUIParameterTracker::onPaint(FXObject* sender, FXSelector sel, void* ptr) {
+    myPanel->onPaint(sender, sel, ptr);
+    return FXMainWindow::onPaint(sender, sel, ptr);
 }
 
 
@@ -303,10 +303,10 @@ GUIParameterTracker::GUIParameterTrackerPanel::drawValue(TrackerValueDesc& desc,
     glEnd();
     glColor4ub(red, green, blue, 77);
     for (int a = 1; a < 6; a++) {
-        double ypos = (desc.getRange()) / (double) 6.0 * (double) a + desc.getMin();
+        const double yp = desc.getRange() / 6.0 * (double) a + desc.getMin();
         glBegin(GL_LINES);
-        glVertex2d(0, ypos);
-        glVertex2d(2.0, ypos);
+        glVertex2d(0, yp);
+        glVertex2d(2.0, yp);
         glEnd();
     }
     const std::vector<double>& values = desc.getAggregatedValues();
@@ -318,7 +318,7 @@ GUIParameterTracker::GUIParameterTrackerPanel::drawValue(TrackerValueDesc& desc,
     } else {
         latest = values.back();
         // init values
-        double xStep = (double) 2.0 / (double) values.size();
+        const double xStep = 2.0 / (double) values.size();
         std::vector<double>::const_iterator i = values.begin();
         double yp = (*i);
         double xp = 0;
