@@ -788,6 +788,11 @@ long
 GNEFrameModuls::EdgePathCreator::onCmdFinishRouteCreation(FXObject*, FXSelector, void*) {
     // only create route if there is more than two edges
     if (myClickedEdges.size() > 0) {
+        // depending of tag, check if last element is a busStop
+        if ((myEdgePathCreatorModes == GNE_EDGEPATHCREATOR_TO_BUSSTOP) && (mySelectedBusStop == nullptr)) {
+            WRITE_WARNING("Last clicked element must be a " + toString(SUMO_TAG_BUS_STOP));
+            return 1;
+        }
         // call edgePathCreated
         myFrameParent->edgePathCreated();
         // update view
