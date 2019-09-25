@@ -2441,6 +2441,7 @@ GNEApplicationWindow::onCmdOptions(FXObject*, FXSelector, void*) {
 
 long
 GNEApplicationWindow::onCmdUndo(FXObject*, FXSelector, void*) {
+    WRITE_DEBUG("Keys Ctrl+Z (Undo) pressed");
     // Undo needs a viewnet and a enabled undoLastChange menu command
     if (myViewNet && myEditMenuCommands.undoLastChange->isEnabled()) {
         myViewNet->getUndoList()->undo();
@@ -2460,6 +2461,7 @@ GNEApplicationWindow::onCmdUndo(FXObject*, FXSelector, void*) {
 
 long
 GNEApplicationWindow::onCmdRedo(FXObject*, FXSelector, void*) {
+    WRITE_DEBUG("Keys Ctrl+Y (Redo) pressed");
     // redo needs a viewnet and a enabled redoLastChange menu command
     if (myViewNet && myEditMenuCommands.redoLastChange->isEnabled()) {
         myViewNet->getUndoList()->redo();
