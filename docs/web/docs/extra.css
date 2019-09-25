@@ -121,8 +121,24 @@ a {
     color: #0645ad;
 }
 
-.col-md-3{
+.col-md-3 {
     max-width: 350px;
+}
+
+.gsc-above-wrapper-area-container {
+    border: none !important;
+}
+
+.gsc-above-wrapper-area-container td {
+    border: none !important;
+}
+
+.gsc-search-box {
+    border: none !important;
+}
+
+.gsc-search-box td {
+    border: none !important;
 }
 
 a[href ^= "http"]:after {
