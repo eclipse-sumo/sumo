@@ -34,6 +34,9 @@ trafficlight
 # Tests the simulation API
 simulation
 
+# Tests the simulation API
+simulation_copy
+
 # Tests the route API
 route
 
@@ -91,6 +94,9 @@ changeOpposite
 # force driving in the opposite direction
 # changeOpposite (automatically commented due to no test directory being found)
 
+# Test for the StepListener functions
+steplistener
+
 # test various functions and options for influencing the behavior of rerouting functions
 rerouting
 
@@ -99,4 +105,5 @@ moveToXY
 
 # Tests for lateral collisions
 lateralCollision
+
 bugs
