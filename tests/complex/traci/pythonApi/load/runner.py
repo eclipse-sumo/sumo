@@ -43,7 +43,7 @@ traci.close()
 traci.start([sumolib.checkBinary('sumo-gui'), "-S", "-Q", "-c", "sumo.sumocfg", "-l", "log.txt"])
 for i in range(3):
     traci.simulationStep()
-    print("step=%s departed=%s" % (traci.simulation.getCurrentTime(),
+    print("step=%s departed=%s" % (traci.simulation.getTime(),
                                    traci.simulation.getDepartedIDList()))
 
 print("reloading")
