@@ -170,8 +170,11 @@ public:
         /// @brief destructor
         ~AttributesCreator();
 
-        /// @brief show AttributesCreator modul
-        void showAttributesCreatorModul(const GNEAttributeCarrier::TagProperties& myTagProperties);
+        /**@brief show AttributesCreator modul
+         * @param tagProperties GNEAttributeCarrier::TagProperties which contain all attributes
+         * @param hiddenAttributes list of attributes contained in tagProperties but not shown
+         */
+        void showAttributesCreatorModul(const GNEAttributeCarrier::TagProperties& tagProperties, const std::vector<SumoXMLAttr> &hiddenAttributes);
 
         /// @brief hide group box
         void hideAttributesCreatorModul();

@@ -280,7 +280,7 @@ void
 GNEVehicleFrame::demandElementSelected() {
     if (myVTypeSelector->getCurrentDemandElement()) {
         // show vehicle attributes modul
-        myVehicleAttributes->showAttributesCreatorModul(myVehicleTagSelector->getCurrentTagProperties());
+        myVehicleAttributes->showAttributesCreatorModul(myVehicleTagSelector->getCurrentTagProperties(), {});
         // set current VTypeClass in TripCreator
         myEdgePathCreator->setVClass(myVTypeSelector->getCurrentDemandElement()->getVClass());
         // show help creation

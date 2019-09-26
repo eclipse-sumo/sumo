@@ -701,7 +701,7 @@ void
 GNEAdditionalFrame::tagSelected() {
     if (myAdditionalTagSelector->getCurrentTagProperties().getTag() != SUMO_TAG_NOTHING) {
         // show additional attributes modul
-        myAdditionalAttributes->showAttributesCreatorModul(myAdditionalTagSelector->getCurrentTagProperties());
+        myAdditionalAttributes->showAttributesCreatorModul(myAdditionalTagSelector->getCurrentTagProperties(), {});
         // show netedit attributes
         myNeteditAttributes->showNeteditAttributesModul(myAdditionalTagSelector->getCurrentTagProperties());
         // Show myAdditionalFrameParent if we're adding a additional with parent

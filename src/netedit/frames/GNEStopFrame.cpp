@@ -369,7 +369,7 @@ void
 GNEStopFrame::tagSelected() {
     if (myStopTagSelector->getCurrentTagProperties().getTag() != SUMO_TAG_NOTHING) {
         // show Stop type selector modul
-        myStopAttributes->showAttributesCreatorModul(myStopTagSelector->getCurrentTagProperties());
+        myStopAttributes->showAttributesCreatorModul(myStopTagSelector->getCurrentTagProperties(), {});
         myNeteditAttributes->showNeteditAttributesModul(myStopTagSelector->getCurrentTagProperties());
         myHelpCreation->showHelpCreation();
     } else {
@@ -388,7 +388,7 @@ GNEStopFrame::demandElementSelected() {
         myStopTagSelector->showTagSelector();
         if (myStopTagSelector->getCurrentTagProperties().getTag() != SUMO_TAG_NOTHING) {
             // show moduls
-            myStopAttributes->showAttributesCreatorModul(myStopTagSelector->getCurrentTagProperties());
+            myStopAttributes->showAttributesCreatorModul(myStopTagSelector->getCurrentTagProperties(), {});
             myNeteditAttributes->showNeteditAttributesModul(myStopTagSelector->getCurrentTagProperties());
             myHelpCreation->showHelpCreation();
         } else {

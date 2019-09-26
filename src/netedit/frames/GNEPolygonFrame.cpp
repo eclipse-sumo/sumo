@@ -397,7 +397,7 @@ void
 GNEPolygonFrame::tagSelected() {
     if (myShapeTagSelector->getCurrentTagProperties().getTag() != SUMO_TAG_NOTHING) {
         // if there are parmeters, show and Recalc groupBox
-        myShapeAttributes->showAttributesCreatorModul(myShapeTagSelector->getCurrentTagProperties());
+        myShapeAttributes->showAttributesCreatorModul(myShapeTagSelector->getCurrentTagProperties(), {});
         // show netedit attributes
         myNeteditAttributes->showNeteditAttributesModul(myShapeTagSelector->getCurrentTagProperties());
         // Check if drawing mode has to be shown

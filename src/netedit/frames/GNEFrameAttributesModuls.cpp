@@ -633,8 +633,8 @@ GNEFrameAttributesModuls::AttributesCreator::~AttributesCreator() {}
 
 
 void
-GNEFrameAttributesModuls::AttributesCreator::showAttributesCreatorModul(const GNEAttributeCarrier::TagProperties& tagProperties) {
-    // get current tag Properties
+GNEFrameAttributesModuls::AttributesCreator::showAttributesCreatorModul(const GNEAttributeCarrier::TagProperties& tagProperties, const std::vector<SumoXMLAttr> &hiddenAttributes) {
+    // set current tag Properties
     myTagProperties = tagProperties;
     // destroy all rows
     for (int i = 0; i < (int)myAttributesCreatorRows.size(); i++) {
@@ -647,8 +647,22 @@ GNEFrameAttributesModuls::AttributesCreator::showAttributesCreatorModul(const GN
     }
     // iterate over tag attributes and create a AttributesCreatorRow
     for (const auto& i : myTagProperties) {
-        //  make sure that only non-unique attributes (except ID) are created (And depending of includeExtendedAttributes)
-        if ((i.isUnique() == false) || ((i.getAttr() == SUMO_ATTR_ID) && (i.getTagPropertyParent().getTag() != SUMO_TAG_VAPORIZER))) {
+        // declare falg to check conditions for show attribute
+        bool showAttribute = true;
+        // check that only non-unique attributes (except ID) are created (And depending of includeExtendedAttributes)
+        if (i.isUnique() && (i.getAttr() != SUMO_ATTR_ID)) {
+            showAttribute = false;
+        }
+        // check if attribute must stay hidden
+        if (std::find(hiddenAttributes.begin(), hiddenAttributes.end(), i.getAttr()) != hiddenAttributes.end()) {
+            showAttribute = false;
+        }
+        // check special case for vaporizer IDs
+        if ((i.getAttr() == SUMO_ATTR_ID) && (i.getTagPropertyParent().getTag() == SUMO_TAG_VAPORIZER)) {
+            showAttribute = false;
+        }
+        // show attribute depending of showAttribute flag
+        if (showAttribute) {
             myAttributesCreatorRows.at(i.getPositionListed()) = new AttributesCreatorRow(this, i);
         }
     }

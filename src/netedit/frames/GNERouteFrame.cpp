@@ -141,7 +141,7 @@ GNERouteFrame::RouteModeSelector::setCurrentRouteMode(RouteMode routemode) {
             }
         }
         // show route attributes modul
-        myRouteFrameParent->myRouteAttributes->showAttributesCreatorModul(GNEAttributeCarrier::getTagProperties(SUMO_TAG_ROUTE));
+        myRouteFrameParent->myRouteAttributes->showAttributesCreatorModul(GNEAttributeCarrier::getTagProperties(SUMO_TAG_ROUTE), {});
         // show modes moduls
         if ((routemode == ROUTEMODE_CONSECUTIVE_EDGES) && (myCurrentVehicleClass != SVC_IGNORING)) {
             myRouteFrameParent->myConsecutiveEdges->showConsecutiveEdgesModul();
@@ -172,7 +172,7 @@ GNERouteFrame::RouteModeSelector::onCmdSelectRouteMode(FXObject*, FXSelector, vo
             // Set new current type
             myCurrentRouteMode = i.first;
             // show route attributes modul
-            myRouteFrameParent->myRouteAttributes->showAttributesCreatorModul(GNEAttributeCarrier::getTagProperties(SUMO_TAG_ROUTE));
+            myRouteFrameParent->myRouteAttributes->showAttributesCreatorModul(GNEAttributeCarrier::getTagProperties(SUMO_TAG_ROUTE), {});
             // show modes moduls
             if ((myCurrentRouteMode == ROUTEMODE_CONSECUTIVE_EDGES) && (myCurrentVehicleClass != SVC_IGNORING)) {
                 myRouteFrameParent->myConsecutiveEdges->showConsecutiveEdgesModul();
@@ -215,7 +215,7 @@ GNERouteFrame::RouteModeSelector::onCmdSelectVClass(FXObject*, FXSelector, void*
             // change flag
             myValidVClass = true;
             // show route attributes modul
-            myRouteFrameParent->myRouteAttributes->showAttributesCreatorModul(GNEAttributeCarrier::getTagProperties(SUMO_TAG_ROUTE));
+            myRouteFrameParent->myRouteAttributes->showAttributesCreatorModul(GNEAttributeCarrier::getTagProperties(SUMO_TAG_ROUTE), {});
             // enable moduls if current route is valid
             if (myCurrentRouteMode == ROUTEMODE_CONSECUTIVE_EDGES) {
                 myRouteFrameParent->myConsecutiveEdges->showConsecutiveEdgesModul();

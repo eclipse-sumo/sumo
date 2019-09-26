@@ -526,7 +526,7 @@ GNEPersonPlanFrame::tagSelected() {
             myPersonPlanCreator->edgePathCreatorName("ride");
         }
         // show person attributes
-        myPersonPlanAttributes->showAttributesCreatorModul(myPersonPlanTagSelector->getCurrentTagProperties());
+        myPersonPlanAttributes->showAttributesCreatorModul(myPersonPlanTagSelector->getCurrentTagProperties(), {});
         // show edge path creator
         myPersonPlanCreator->showPersonPlanCreator();
         // show help creation
@@ -560,7 +560,7 @@ GNEPersonPlanFrame::demandElementSelected() {
                 myPersonPlanCreator->edgePathCreatorName("ride");
             }
             // show person plan attributes
-            myPersonPlanAttributes->showAttributesCreatorModul(myPersonPlanTagSelector->getCurrentTagProperties());
+            myPersonPlanAttributes->showAttributesCreatorModul(myPersonPlanTagSelector->getCurrentTagProperties(), {});
             // show edge path creator
             myPersonPlanCreator->showPersonPlanCreator();
             // show help creation

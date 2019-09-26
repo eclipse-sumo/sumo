@@ -237,9 +237,14 @@ GNEPersonFrame::tagSelected() {
     if (myPersonTagSelector->getCurrentTagProperties().getTag() != SUMO_TAG_NOTHING) {
         // show PType selector and person plan selector
         myPTypeSelector->showDemandElementSelector();
+        // check if current person type selected is valid
         if (myPTypeSelector->getCurrentDemandElement()) {
-            // show person attributes
-            myPersonAttributes->showAttributesCreatorModul(myPersonTagSelector->getCurrentTagProperties());
+            // show person attributes depending of myPersonPlanTagSelector
+            if (myPersonPlanTagSelector->getCurrentTagProperties().isPersonStop()) {
+                myPersonAttributes->showAttributesCreatorModul(myPersonTagSelector->getCurrentTagProperties(), {SUMO_ATTR_DEPARTPOS});
+            } else {
+                myPersonAttributes->showAttributesCreatorModul(myPersonTagSelector->getCurrentTagProperties(), {});
+            }
             // show person plan tag selector
             myPersonPlanTagSelector->showTagSelector();
             // now check if person plan selected is valid
@@ -250,7 +255,7 @@ GNEPersonFrame::tagSelected() {
                     myPersonPlanAttributes->hideAttributesCreatorModul();
                 } else {
                     // show person plan attributes
-                    myPersonPlanAttributes->showAttributesCreatorModul(myPersonPlanTagSelector->getCurrentTagProperties());
+                    myPersonPlanAttributes->showAttributesCreatorModul(myPersonPlanTagSelector->getCurrentTagProperties(), {});
                 }
                 // check if myEdgePathCreator has to be show
                 if ((myPersonPlanTagSelector->getCurrentTagProperties().getTag() == SUMO_TAG_WALK_ROUTE) ||
@@ -312,8 +317,12 @@ GNEPersonFrame::tagSelected() {
 void
 GNEPersonFrame::demandElementSelected() {
     if (myPTypeSelector->getCurrentDemandElement()) {
-        // show person attributes
-        myPersonAttributes->showAttributesCreatorModul(myPersonTagSelector->getCurrentTagProperties());
+        // show person attributes depending of myPersonPlanTagSelector
+        if (myPersonPlanTagSelector->getCurrentTagProperties().isPersonStop()) {
+            myPersonAttributes->showAttributesCreatorModul(myPersonTagSelector->getCurrentTagProperties(), {SUMO_ATTR_DEPARTPOS});
+        } else {
+            myPersonAttributes->showAttributesCreatorModul(myPersonTagSelector->getCurrentTagProperties(), {});
+        }
         // show person plan tag selector
         myPersonPlanTagSelector->showTagSelector();
         // now check if person plan selected is valid
@@ -324,7 +333,7 @@ GNEPersonFrame::demandElementSelected() {
                 myPersonPlanAttributes->hideAttributesCreatorModul();
             } else {
                 // show person plan attributes
-                myPersonPlanAttributes->showAttributesCreatorModul(myPersonPlanTagSelector->getCurrentTagProperties());
+                myPersonPlanAttributes->showAttributesCreatorModul(myPersonPlanTagSelector->getCurrentTagProperties(), {});
             }
             // check if myEdgePathCreator has to be show
             if ((myPersonPlanTagSelector->getCurrentTagProperties().getTag() == SUMO_TAG_WALK_ROUTE) ||
