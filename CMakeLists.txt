@@ -452,17 +452,21 @@ set_property(TARGET doc PROPERTY FOLDER "doc")
 
 # coverage targets
 if (COVERAGE)
-    add_custom_target(lcov
-    COMMAND rm -rf docs/lcov
-    COMMAND mkdir docs/lcov
-    COMMAND lcov -d . -c --no-external --output-file docs/lcov/lcov.info
-    COMMAND genhtml -o docs/lcov/html docs/lcov/lcov.info
-    WORKING_DIRECTORY ${CMAKE_SOURCE_DIR})
-
-    add_custom_target(lcov-reset
-    COMMAND lcov -d . -z
-    WORKING_DIRECTORY ${CMAKE_SOURCE_DIR})
-endif()
+    find_program(LCOV_EXECUTABLE lcov)
+    if (LCOV_EXECUTABLE)
+        add_custom_target(lcov
+            COMMAND rm -rf docs/lcov
+            COMMAND mkdir docs/lcov
+            COMMAND ${LCOV_EXECUTABLE} -d . -c --no-external --output-file docs/lcov/lcov.info
+            COMMAND genhtml -o docs/lcov/html docs/lcov/lcov.info
+            WORKING_DIRECTORY ${CMAKE_SOURCE_DIR})
+        add_custom_target(lcov-reset
+            COMMAND ${LCOV_EXECUTABLE} -d . -z
+            WORKING_DIRECTORY ${CMAKE_SOURCE_DIR})
+    else ()
+        message(WARNING "COVERAGE is enabled but lcov was not found.")
+    endif ()
+endif ()
 
 # testing
 enable_testing()
