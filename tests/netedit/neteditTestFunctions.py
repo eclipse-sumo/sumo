@@ -28,7 +28,7 @@ import pyperclip
 DELAY_KEY = 0.2
 DELAY_KEY_TAB = 0.01
 DELAY_MOUSE = 0.1
-DELAY_QUESTION = 0.1
+DELAY_QUESTION = 1
 DELAY_RELOAD = 10
 DELAY_REFERENCE = 30
 DELAY_QUIT_NETEDIT = 4
@@ -425,24 +425,6 @@ def joinSelectedJunctions():
 
 def focusOnFrame():
     typeKey('F12')
-
-
-"""
-@brief select options pane and enable the GUI testing option
-"""
-
-
-def enableGUITesting(referencePosition):
-    typeKey('F10')
-    for _ in range(15):
-        typeTab()
-    typeKey("right")
-    for _ in range(6):
-        typeKey("down")
-    typeSpace()
-    for _ in range(6):
-        typeTab()
-    typeSpace()
 
 
 """
