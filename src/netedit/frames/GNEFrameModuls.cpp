@@ -978,8 +978,11 @@ GNEFrameModuls::AttributeCarrierHierarchy::onCmdDeleteItem(FXObject*, FXSelector
         if ((myClickedDemandElement->getTagProperty().getTag() == SUMO_TAG_VTYPE) && (GNEAttributeCarrier::parse<bool>(myClickedDemandElement->getAttribute(GNE_ATTR_DEFAULT_VTYPE)))) {
             WRITE_WARNING("Default Vehicle Type '" + myClickedDemandElement->getAttribute(SUMO_ATTR_ID) + "' cannot be removed");
             return 1;
+        } else if (myClickedDemandElement->getTagProperty().isPersonPlan() && (myClickedDemandElement->getDemandElementParents().front()->getDemandElementChildren().size() == 1)) {
+            // we need to check if we're removing the last person plan of a person.
+            myFrameParent->myViewNet->getNet()->deleteDemandElement(myClickedDemandElement->getDemandElementParents().front(), myFrameParent->myViewNet->getUndoList()); 
         } else {
-            myFrameParent->myViewNet->getNet()->deleteDemandElement(myClickedDemandElement, myFrameParent->myViewNet->getUndoList());
+            myFrameParent->myViewNet->getNet()->deleteDemandElement(myClickedDemandElement, myFrameParent->myViewNet->getUndoList());        
         }
     }
     // update viewNet

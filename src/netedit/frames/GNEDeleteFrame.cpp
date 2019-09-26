@@ -342,7 +342,13 @@ GNEDeleteFrame::removeAttributeCarrier(const GNEViewNetHelper::ObjectsUnderCurso
             } else if (objectsUnderCursor.getShapeFront() && (objectsUnderCursor.getShapeFront() == objectsUnderCursor.getAttributeCarrierFront())) {
                 myViewNet->getNet()->deleteShape(objectsUnderCursor.getShapeFront(), myViewNet->getUndoList());
             } else if (objectsUnderCursor.getDemandElementFront() && (objectsUnderCursor.getDemandElementFront() == objectsUnderCursor.getAttributeCarrierFront())) {
-                myViewNet->getNet()->deleteDemandElement(objectsUnderCursor.getDemandElementFront(), myViewNet->getUndoList());
+                // we need to check if we're removing the last person plan of a person
+                if (objectsUnderCursor.getDemandElementFront()->getTagProperty().isPersonPlan() && 
+                    (objectsUnderCursor.getDemandElementFront()->getDemandElementParents().front()->getDemandElementChildren().size() == 1)) {
+                    myViewNet->getNet()->deleteDemandElement(objectsUnderCursor.getDemandElementFront()->getDemandElementParents().front(), myViewNet->getUndoList());
+                } else {
+                    myViewNet->getNet()->deleteDemandElement(objectsUnderCursor.getDemandElementFront(), myViewNet->getUndoList());
+                }
             }
         }
         // enable update geometry
