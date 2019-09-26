@@ -504,8 +504,8 @@ def waitQuestion(answer):
 
 
 def reload(NeteditProcess, openNetNonSavedDialog=False, saveNet=False,
-         openAdditionalsNonSavedDialog=False, saveAdditionals=False,
-         openDemandNonSavedDialog=False, saveDemandElements=False):
+           openAdditionalsNonSavedDialog=False, saveAdditionals=False,
+           openDemandNonSavedDialog=False, saveDemandElements=False):
     # first move cursor out of magenta square
     pyautogui.moveTo(150, 200)
     # reload using hotkey
@@ -538,7 +538,7 @@ def reload(NeteditProcess, openNetNonSavedDialog=False, saveNet=False,
             waitQuestion('q')
     # Wait some seconds
     time.sleep(DELAY_RELOAD)
-	# check if Netedit was crashed during reloading
+    # check if Netedit was crashed during reloading
     if NeteditProcess.poll() is not None:
         print("TestFunctions: Error reloading Netedit")
 
