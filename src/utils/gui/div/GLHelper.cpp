@@ -476,7 +476,7 @@ GLHelper::drawShapeDottedContourAroundShape(const GUIVisualizationSettings& s, c
             contourFront.push_back(shape.front());
         }
         // resample shape
-        PositionVector resampledShape = contourFront.resample(s.widthSettings.dottedContourSegmentLenght);
+        PositionVector resampledShape = contourFront.resample(s.widthSettings.dottedContourSegmentLength);
         // push matrix
         glPushMatrix();
         // draw contour over shape
@@ -503,7 +503,7 @@ GLHelper::drawShapeDottedContourAroundClosedShape(const GUIVisualizationSettings
             closedShape.push_back(closedShape.front());
         }
         // resample junction shape
-        PositionVector resampledShape = closedShape.resample(s.widthSettings.dottedContourSegmentLenght);
+        PositionVector resampledShape = closedShape.resample(s.widthSettings.dottedContourSegmentLength);
         // push matrix
         glPushMatrix();
         // draw contour over shape
@@ -540,7 +540,7 @@ GLHelper::drawShapeDottedContourBetweenLanes(const GUIVisualizationSettings& s, 
         }
         contourFront.push_back(frontLaneShape.front());
         // resample shape
-        PositionVector resampledShape = contourFront.resample(s.widthSettings.dottedContourSegmentLenght);
+        PositionVector resampledShape = contourFront.resample(s.widthSettings.dottedContourSegmentLength);
         // push matrix
         glPushMatrix();
         // draw contour over shape
@@ -569,7 +569,7 @@ GLHelper::drawShapeDottedContourRectangle(const GUIVisualizationSettings& s, con
         shape.push_back(Position(width / 2, height / -2));
         shape.push_back(Position(width / 2, height / 2));
         // resample shape
-        shape = shape.resample(s.widthSettings.dottedContourSegmentLenght);
+        shape = shape.resample(s.widthSettings.dottedContourSegmentLength);
         // push matrix
         glPushMatrix();
         // translate to center
@@ -597,7 +597,7 @@ GLHelper::drawShapeDottedContourPartialShapes(const GUIVisualizationSettings& s,
         // calculate and resample shape
         PositionVector shape{begin, end};
         shape.move2side(width);
-        shape = shape.resample(s.widthSettings.dottedContourSegmentLenght);
+        shape = shape.resample(s.widthSettings.dottedContourSegmentLength);
         // push matrix
         glPushMatrix();
         // draw contour over shape
