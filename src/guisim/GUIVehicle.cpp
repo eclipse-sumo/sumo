@@ -167,7 +167,6 @@ GUIVehicle::getParameterWindow(GUIMainWindow& app,
                 new FunctionBinding<GUIVehicle, int>(this, &MSVehicle::getPersonNumber));
     ret->mkItem("containers", true,
                 new FunctionBinding<GUIVehicle, int>(this, &MSVehicle::getContainerNumber));
-
     ret->mkItem("lcState right", true, new FunctionBindingString<GUIVehicle>(this, &GUIVehicle::getLCStateRight));
     ret->mkItem("lcState left", true, new FunctionBindingString<GUIVehicle>(this, &GUIVehicle::getLCStateLeft));
     // close building
@@ -187,7 +186,7 @@ GUIParameterTableWindow*
 GUIVehicle::getTypeParameterWindow(GUIMainWindow& app,
                                    GUISUMOAbstractView&) {
     GUIParameterTableWindow* ret =
-        new GUIParameterTableWindow(app, *this, 26
+        new GUIParameterTableWindow(app, *this, 27
                                     + (int)myType->getParameter().getParametersMap().size()
                                     + (int)myType->getParameter().lcParameter.size()
                                     + (int)myType->getParameter().jmParameter.size());
@@ -210,6 +209,9 @@ GUIVehicle::getTypeParameterWindow(GUIMainWindow& app,
     ret->mkItem("apparent deceleration [m/s^2]", false, getCarFollowModel().getApparentDecel());
     ret->mkItem("imperfection (sigma)", false, getCarFollowModel().getImperfection());
     ret->mkItem("desired headway (tau)", false, getCarFollowModel().getHeadwayTime());
+    if (myType->getParameter().wasSet(VTYPEPARS_ACTIONSTEPLENGTH_SET)) {
+        ret->mkItem("action step length [s]", false, myType->getActionStepLengthSecs());
+    }
     ret->mkItem("person capacity", false, myType->getPersonCapacity());
     ret->mkItem("boarding time", false, STEPS2TIME(myType->getBoardingDuration()));
     ret->mkItem("container capacity", false, myType->getContainerCapacity());
