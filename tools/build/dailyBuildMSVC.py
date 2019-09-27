@@ -206,7 +206,7 @@ for platform in (["x64"] if options.x64only else ["Win32", "x64"]):
                         if f.endswith('/bin/'):
                             binDir = f
                     elif f.endswith('/') and '/docs/' in f and f.count('/') == 3:
-                        write = not f.endswith('/doxygen/')
+                        write = not f.endswith('/doxygen/') and not f.endswith('/web/')
                     elif write and not f.endswith(".jar"):
                         zipf.writestr(f, srcZip.read(f))
                 srcZip.close()
