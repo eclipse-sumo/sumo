@@ -56,10 +56,14 @@ NBPTLineCont::insert(NBPTLine* ptLine) {
 }
 
 void NBPTLineCont::process(NBEdgeCont& ec, NBPTStopCont& sc) {
-    for (auto& myPTLine : myPTLines) {
-        constructRoute(myPTLine.second, ec);
-        // map stops to ways, using the constructed route for loose stops
-        reviseStops(myPTLine.second, ec, sc);
+    for (auto& item : myPTLines) {
+        if (item.second->getMyWays().size() > 0) {
+            // loaded from OSM rather than ptline input. We can use extra
+            // information to reconstruct route and stops
+            constructRoute(item.second, ec);
+            // map stops to ways, using the constructed route for loose stops
+            reviseStops(item.second, ec, sc);
+        }
     }
 }
 
@@ -320,7 +324,7 @@ void NBPTLineCont::constructRoute(NBPTLine* pTLine, NBEdgeCont& cont) {
         currentWayEdges.clear();
         currentWayMinusEdges.clear();
     }
-    pTLine->addEdgeVector(edges.begin(), edges.end());
+    pTLine->setEdges(edges);
 }
 
 

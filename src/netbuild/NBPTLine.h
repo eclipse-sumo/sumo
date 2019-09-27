@@ -99,7 +99,7 @@ private:
     SUMOVehicleClass myVClass;
 
 public:
-    void addEdgeVector(std::vector<NBEdge*>::iterator fr, std::vector<NBEdge*>::iterator to);
+    void setEdges(const std::vector<NBEdge*>& edges);
 private:
     // route of ptline
     std::vector<NBEdge*> myRoute;

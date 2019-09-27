@@ -1212,6 +1212,9 @@ public:
     /// @brief restore an previously added BikeLane
     void restoreBikelane(std::vector<NBEdge::Lane> oldLanes, PositionVector oldGeometry, std::vector<NBEdge::Connection> oldConnections);
 
+    /// @brief add a lane of the given width, restricted to the given class and shift existing connections
+    void addRestrictedLane(double width, SUMOVehicleClass vclass);
+
     /// @brief set allowed/disallowed classes for the given lane or for all lanes if -1 is given
     void setPermissions(SVCPermissions permissions, int lane = -1);
 
@@ -1506,9 +1509,6 @@ private:
 
     /// @brief returns whether any lane already allows the given vclass exclusively
     bool hasRestrictedLane(SUMOVehicleClass vclass) const;
-
-    /// @brief add a lane of the given width, restricted to the given class and shift existing connections
-    void addRestrictedLane(double width, SUMOVehicleClass vclass);
 
     /// @brief restore a restricted lane
     void restoreRestrictedLane(SUMOVehicleClass vclass, std::vector<NBEdge::Lane> oldLanes, PositionVector oldGeometry, std::vector<NBEdge::Connection> oldConnections);

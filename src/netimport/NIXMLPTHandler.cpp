@@ -192,7 +192,7 @@ NIXMLPTHandler::addRoute(const SUMOSAXAttributes& attrs) {
             edges.push_back(edge);
         }
     }
-    myCurrentLine->addEdgeVector(edges.begin(), edges.end());
+    myCurrentLine->setEdges(edges);
 }
 
 

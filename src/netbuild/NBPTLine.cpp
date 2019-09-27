@@ -107,10 +107,30 @@ std::vector<long long int>* NBPTLine::getWaysNodes(std::string wayId) {
     return nullptr;
 }
 
-void NBPTLine::addEdgeVector(std::vector<NBEdge*>::iterator fr, std::vector<NBEdge*>::iterator to) {
-    myRoute.insert(myRoute.end(), fr, to);
-
+void 
+NBPTLine::setEdges(const std::vector<NBEdge*>& edges) {
+    myRoute = edges;
+    // ensure permissions
+    for (NBEdge* e: edges) {
+        SVCPermissions permissions = e->getPermissions(); 
+        if ((permissions & myVClass) != myVClass) {
+            SVCPermissions nVuln = ~(SVC_PEDESTRIAN | SVC_BICYCLE);
+            if (permissions != 0 && (permissions & nVuln) == 0) {
+                // this is a footpath or sidewalk. Add another lane
+                e->addRestrictedLane(SUMO_const_laneWidth, myVClass);
+            } else {
+                // add permissions to the rightmost lane that is not exclusively used for pedestrians / bicycles
+                for (int i = 0; i < (int)e->getNumLanes(); i++) {
+                    if ((e->getPermissions(i) & nVuln) != 0) {
+                        e->allowVehicleClass(i, myVClass);
+                        break;
+                    }
+                }
+            }
+        }
+    }
 }
+
 void NBPTLine::setMyNumOfStops(int numStops) {
     myNumOfStops = numStops;
 }
