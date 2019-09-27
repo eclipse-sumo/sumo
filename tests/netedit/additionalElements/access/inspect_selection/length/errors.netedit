@@ -36,13 +36,16 @@ Debug: Value '-7' for attribute length of access isn't valid
 Debug: Setting new attribute length '5.5' into access 'busStopAaccess0'
 Debug: Setting new attribute length '5.5' into access 'busStopBaccess0'
 Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
-Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Keys Ctrl+Z (Undo) pressed
+Debug: Calling GNEUndoList::undo()
 Debug: Setting previous attribute length '' into access 'busStopBaccess0'
 Debug: Setting previous attribute length '' into access 'busStopAaccess0'
-Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Keys Ctrl+Z (Undo) pressed
+Debug: Calling GNEUndoList::undo()
 Debug: Setting previous attribute length '20' into access 'busStopBaccess0'
 Debug: Setting previous attribute length '10' into access 'busStopAaccess0'
-Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Keys Ctrl+Z (Undo) pressed
+Debug: Calling GNEUndoList::undo()
 Debug: Setting previous attribute selected '0' into access 'busStopBaccess0'
 Debug: Setting previous attribute selected '0' into access 'busStopAaccess0'
 Debug: Setting previous attribute selected '0' into busStop 'busStopB'
@@ -51,7 +54,8 @@ Debug: Setting previous attribute selected '0' into edge 'gneE0'
 Debug: Setting previous attribute selected '0' into junction 'gneJ1'
 Debug: Setting previous attribute selected '0' into edge 'gneE1'
 Debug: Setting previous attribute selected '0' into junction 'gneJ0'
-Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Keys Ctrl+Z (Undo) pressed
+Debug: Calling GNEUndoList::undo()
 Debug: Removing access 'busStopBaccess0' in GNEChange_Additional
 Debug: Removed inspected element from Inspected ACs. 1 ACs remains.
 Debug: Removing busStop 'busStopB' in GNEChange_Additional
@@ -59,12 +63,14 @@ Debug: Removing access 'busStopAaccess0' in GNEChange_Additional
 Debug: Removed inspected element from Inspected ACs. 0 ACs remains.
 Debug: Removing busStop 'busStopA' in GNEChange_Additional
 Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
-Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Keys Ctrl+Y (Redo) pressed
+Debug: Calling GNEUndoList::redo()
 Debug: Adding busStop 'busStopA' in GNEChange_Additional
 Debug: Adding access 'busStopAaccess0' in GNEChange_Additional
 Debug: Adding busStop 'busStopB' in GNEChange_Additional
 Debug: Adding access 'busStopBaccess0' in GNEChange_Additional
-Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Keys Ctrl+Y (Redo) pressed
+Debug: Calling GNEUndoList::redo()
 Debug: Setting new attribute selected 'true' into junction 'gneJ0'
 Debug: Setting new attribute selected 'true' into edge 'gneE1'
 Debug: Setting new attribute selected 'true' into junction 'gneJ1'
@@ -73,10 +79,12 @@ Debug: Setting new attribute selected 'true' into busStop 'busStopA'
 Debug: Setting new attribute selected 'true' into busStop 'busStopB'
 Debug: Setting new attribute selected 'true' into access 'busStopAaccess0'
 Debug: Setting new attribute selected 'true' into access 'busStopBaccess0'
-Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Keys Ctrl+Y (Redo) pressed
+Debug: Calling GNEUndoList::redo()
 Debug: Setting new attribute length '' into access 'busStopAaccess0'
 Debug: Setting new attribute length '' into access 'busStopBaccess0'
-Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Keys Ctrl+Y (Redo) pressed
+Debug: Calling GNEUndoList::redo()
 Debug: Setting new attribute length '5.5' into access 'busStopAaccess0'
 Debug: Setting new attribute length '5.5' into access 'busStopBaccess0'
 Debug: Additionals saved

@@ -229,7 +229,8 @@ GLDebug: 	Inserted junction:C into SUMORTree with boundary -10.00,40.00,10.00,60
 GLDebug: 	Inserted junction:D into SUMORTree with boundary 90.00,40.00,110.00,60.00
 GLDebug: Add egdges during recomputing after calling myNetBuilder->compute(...)
 Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
-Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Keys Ctrl+Z (Undo) pressed
+Debug: Calling GNEUndoList::undo()
 Debug: Adding junction 'Center' into net
 GLDebug: 	Inserted junction:Center into SUMORTree with boundary 29.60,29.60,70.40,70.40
 Debug: Adding edge '3' from net
@@ -370,7 +371,8 @@ Debug: Created crossing ':Center_c0' in retrieveGNECrossing()
 Debug: Adding crossing into junction 'Center'
 Debug: Created crossing ':Center_c1' in retrieveGNECrossing()
 Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
-Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Keys Ctrl+Y (Redo) pressed
+Debug: Calling GNEUndoList::redo()
 Debug: Removing crossing from junction 'Center'
 Debug: Deleting unreferenced crossing in rebuildGNECrossings()
 Debug: Removing crossing from junction 'Center'

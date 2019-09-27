@@ -32,25 +32,33 @@ Debug: Value 'dummyLane' for attribute lane of detExit isn't valid
 Debug: Value '' for attribute lane of detExit isn't valid
 Debug: Setting new attribute lane 'gneE3_1' into detExit 'e3Detector_0detExit0'
 Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
-Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Keys Ctrl+Z (Undo) pressed
+Debug: Calling GNEUndoList::undo()
 Debug: Setting previous attribute lane 'gneE3_0' into detExit 'e3Detector_0detExit0'
-Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Keys Ctrl+Z (Undo) pressed
+Debug: Calling GNEUndoList::undo()
 Debug: Removing detEntry 'e3Detector_0detEntry1' in GNEChange_Additional
-Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Keys Ctrl+Z (Undo) pressed
+Debug: Calling GNEUndoList::undo()
 Debug: Removing detExit 'e3Detector_0detExit0' in GNEChange_Additional
 Debug: Removed inspected element from Inspected ACs. 0 ACs remains.
-Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Keys Ctrl+Z (Undo) pressed
+Debug: Calling GNEUndoList::undo()
 Debug: Removing e3Detector 'e3Detector_0' in GNEChange_Additional
 GLDebug: 	Removed object e3Detector:e3Detector_0 from SUMORTree with boundary 17.00,25.00,27.00,35.00
 Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
-Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Keys Ctrl+Y (Redo) pressed
+Debug: Calling GNEUndoList::redo()
 Debug: Adding e3Detector 'e3Detector_0' in GNEChange_Additional
 GLDebug: 	Inserted e3Detector:e3Detector_0 into SUMORTree with boundary 17.00,25.00,27.00,35.00
-Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Keys Ctrl+Y (Redo) pressed
+Debug: Calling GNEUndoList::redo()
 Debug: Adding detExit 'e3Detector_0detExit0' in GNEChange_Additional
-Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Keys Ctrl+Y (Redo) pressed
+Debug: Calling GNEUndoList::redo()
 Debug: Adding detEntry 'e3Detector_0detEntry1' in GNEChange_Additional
-Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Keys Ctrl+Y (Redo) pressed
+Debug: Calling GNEUndoList::redo()
 Debug: Setting new attribute lane 'gneE3_1' into detExit 'e3Detector_0detExit0'
 Debug: Additionals saved
 GLDebug: Removing junctions during recomputing

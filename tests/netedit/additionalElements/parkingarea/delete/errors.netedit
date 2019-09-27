@@ -50,7 +50,8 @@ Debug: Setting new attribute type 'priority' into junction 'gneJ0'
 Debug: Removing edge 'gneE1' from net
 GLDebug: 	Removed object edge:gneE1 from SUMORTree with boundary -10.00,-10.00,60.00,11.60
 Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
-Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Keys Ctrl+Z (Undo) pressed
+Debug: Calling GNEUndoList::undo()
 Debug: Adding edge 'gneE1' from net
 GLDebug: 	Inserted edge:gneE1 into SUMORTree with boundary -10.00,-10.00,60.00,11.60
 Debug: Setting previous attribute type 'traffic_light' into junction 'gneJ0'
@@ -69,12 +70,14 @@ Debug: Adding parkingArea 'parkingArea_1' in GNEChange_Additional
 GLDebug: 	Inserted parkingArea:parkingArea_1 into SUMORTree with boundary 26.00,2.20,44.00,10.20
 GLDebug: 	Removed object parkingArea:parkingArea_1 from SUMORTree with boundary 26.00,2.20,44.00,10.20
 GLDebug: 	Inserted parkingArea:parkingArea_1 into SUMORTree with boundary 26.00,2.20,44.00,10.20
-Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Keys Ctrl+Z (Undo) pressed
+Debug: Calling GNEUndoList::undo()
 Debug: Adding parkingArea 'parkingArea_0' in GNEChange_Additional
 GLDebug: 	Inserted parkingArea:parkingArea_0 into SUMORTree with boundary 28.40,-10.20,46.40,-2.20
 GLDebug: 	Removed object parkingArea:parkingArea_0 from SUMORTree with boundary 28.40,-10.20,46.40,-2.20
 GLDebug: 	Inserted parkingArea:parkingArea_0 into SUMORTree with boundary 28.40,-10.20,46.40,-2.20
-Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Keys Ctrl+Z (Undo) pressed
+Debug: Calling GNEUndoList::undo()
 Debug: Adding parkingArea 'parkingArea_gneE0_0_2' in GNEChange_Additional
 GLDebug: 	Inserted parkingArea:parkingArea_gneE0_0_2 into SUMORTree with boundary 12.80,-10.60,31.20,-2.20
 GLDebug: 	Removed object parkingArea:parkingArea_gneE0_0_2 from SUMORTree with boundary 12.80,-10.60,31.20,-2.20
@@ -84,13 +87,16 @@ Debug: ObjectsUnderCursor: swapped Lanes to edges
 Debug: Opening FXMessageBox 'Force deletion needed'
 Debug: Closed FXMessageBox 'Force deletion needed' with 'OK'
 Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
-Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Keys Ctrl+Y (Redo) pressed
+Debug: Calling GNEUndoList::redo()
 Debug: Removing parkingArea 'parkingArea_gneE0_0_2' in GNEChange_Additional
 GLDebug: 	Removed object parkingArea:parkingArea_gneE0_0_2 from SUMORTree with boundary 12.80,-10.60,31.20,-2.20
-Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Keys Ctrl+Y (Redo) pressed
+Debug: Calling GNEUndoList::redo()
 Debug: Removing parkingArea 'parkingArea_0' in GNEChange_Additional
 GLDebug: 	Removed object parkingArea:parkingArea_0 from SUMORTree with boundary 28.40,-10.20,46.40,-2.20
-Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Keys Ctrl+Y (Redo) pressed
+Debug: Calling GNEUndoList::redo()
 Debug: Removing parkingArea 'parkingArea_1' in GNEChange_Additional
 GLDebug: 	Removed object parkingArea:parkingArea_1 from SUMORTree with boundary 26.00,2.20,44.00,10.20
 Debug: Removing connection 'gneE0_0->gneE1_0' from edge 'gneE0'

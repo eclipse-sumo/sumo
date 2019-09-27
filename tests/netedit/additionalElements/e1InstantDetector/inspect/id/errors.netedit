@@ -15,18 +15,24 @@ Debug: Setting new attribute id 'instantInductionLoop_gneE2_1_1' into instantInd
 Debug: Setting new attribute id 'Id with spaces' into instantInductionLoop 'instantInductionLoop_gneE2_1_1'
 Debug: Setting new attribute id 'correctID' into instantInductionLoop 'Id with spaces'
 Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
-Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Keys Ctrl+Z (Undo) pressed
+Debug: Calling GNEUndoList::undo()
 Debug: Setting previous attribute id 'Id with spaces' into instantInductionLoop 'correctID'
-Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Keys Ctrl+Z (Undo) pressed
+Debug: Calling GNEUndoList::undo()
 Debug: Setting previous attribute id 'instantInductionLoop_gneE2_1_1' into instantInductionLoop 'Id with spaces'
-Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Keys Ctrl+Z (Undo) pressed
+Debug: Calling GNEUndoList::undo()
 Debug: Setting previous attribute id 'instantInductionLoop_gneE3_1_0' into instantInductionLoop 'instantInductionLoop_gneE2_1_1'
 Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
-Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Keys Ctrl+Y (Redo) pressed
+Debug: Calling GNEUndoList::redo()
 Debug: Setting new attribute id 'instantInductionLoop_gneE2_1_1' into instantInductionLoop 'instantInductionLoop_gneE3_1_0'
-Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Keys Ctrl+Y (Redo) pressed
+Debug: Calling GNEUndoList::redo()
 Debug: Setting new attribute id 'Id with spaces' into instantInductionLoop 'instantInductionLoop_gneE2_1_1'
-Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Keys Ctrl+Y (Redo) pressed
+Debug: Calling GNEUndoList::redo()
 Debug: Setting new attribute id 'correctID' into instantInductionLoop 'Id with spaces'
 Debug: Additionals saved
 Debug: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()

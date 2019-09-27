@@ -119,7 +119,8 @@ Debug: Deleting TLS from junction 'Center'
 Debug: Adding TLS into junction 'Center'
 Debug: Key F5 (Compute) pressed
 Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
-Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Keys Ctrl+Z (Undo) pressed
+Debug: Calling GNEUndoList::undo()
 Debug: Removing TLS from junction 'Center'
 Debug: Adding TLS into junction 'Center'
 Debug: Removing TLS from junction 'Center'
@@ -152,7 +153,8 @@ Debug: Removing TLS from junction 'Center'
 Debug: Adding TLS into junction 'Center'
 Debug: Removing TLS from junction 'Center'
 Debug: Adding TLS into junction 'Center'
-Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Keys Ctrl+Z (Undo) pressed
+Debug: Calling GNEUndoList::undo()
 Debug: Removing TLS from junction 'Center'
 Debug: Adding TLS into junction 'Center'
 Debug: Removing TLS from junction 'Center'
@@ -183,7 +185,8 @@ Debug: Removing TLS from junction 'Center'
 Debug: Adding TLS into junction 'Center'
 Debug: Removing TLS from junction 'Center'
 Debug: Adding TLS into junction 'Center'
-Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Keys Ctrl+Z (Undo) pressed
+Debug: Calling GNEUndoList::undo()
 Debug: Setting previous attribute selected '0' into edge '4'
 Debug: Setting previous attribute selected '0' into junction 'D'
 Debug: Setting previous attribute selected '0' into connection 'from8_1to1_1'
@@ -213,11 +216,12 @@ Debug: Setting previous attribute selected '0' into edge '2'
 Debug: Setting previous attribute selected '0' into junction 'B'
 Debug: Setting previous attribute selected '0' into edge '1'
 Debug: Setting previous attribute selected '0' into junction 'A'
-Debug: Keys Ctrl + Z (Undo) pressed
-Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Keys Ctrl+Z (Undo) pressed
+Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Key F5 (Compute) pressed
 Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
-Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Keys Ctrl+Y (Redo) pressed
+Debug: Calling GNEUndoList::redo()
 Debug: Setting new attribute selected 'true' into junction 'A'
 Debug: Setting new attribute selected 'true' into edge '1'
 Debug: Setting new attribute selected 'true' into junction 'B'
@@ -247,7 +251,8 @@ Debug: Setting new attribute selected 'true' into connection 'from8_1to3_1'
 Debug: Setting new attribute selected 'true' into connection 'from8_1to1_1'
 Debug: Setting new attribute selected 'true' into junction 'D'
 Debug: Setting new attribute selected 'true' into edge '4'
-Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Keys Ctrl+Y (Redo) pressed
+Debug: Calling GNEUndoList::redo()
 Debug: Deleting TLS from junction 'Center'
 Debug: Adding TLS into junction 'Center'
 Debug: Deleting TLS from junction 'Center'
@@ -278,7 +283,8 @@ Debug: Deleting TLS from junction 'Center'
 Debug: Adding TLS into junction 'Center'
 Debug: Deleting TLS from junction 'Center'
 Debug: Adding TLS into junction 'Center'
-Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Keys Ctrl+Y (Redo) pressed
+Debug: Calling GNEUndoList::redo()
 Debug: Deleting TLS from junction 'Center'
 Debug: Adding TLS into junction 'Center'
 Debug: Deleting TLS from junction 'Center'
@@ -311,8 +317,8 @@ Debug: Deleting TLS from junction 'Center'
 Debug: Adding TLS into junction 'Center'
 Debug: Deleting TLS from junction 'Center'
 Debug: Adding TLS into junction 'Center'
-Debug: Keys Ctrl + Y (Redo) pressed
-Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Keys Ctrl+Y (Redo) pressed
+Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Deleting unreferenced edge '1' in GNENet destructor
 Debug: Deleting unreferenced lane '1_0' in GNEEdge destructor
 Debug: Deleting unreferenced lane '1_1' in GNEEdge destructor

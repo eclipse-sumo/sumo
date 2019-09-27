@@ -24,19 +24,23 @@ GLDebug: 	Inserted parkingArea:parkingArea_gneE0_0_1 into SUMORTree with boundar
 GLDebug: 	Removed object parkingArea:parkingArea_gneE0_0_1 from SUMORTree with boundary -0.10,-0.10,0.10,0.10
 GLDebug: 	Inserted parkingArea:parkingArea_gneE0_0_1 into SUMORTree with boundary 1.80,-10.60,16.20,-2.20
 Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
-Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Keys Ctrl+Z (Undo) pressed
+Debug: Calling GNEUndoList::undo()
 Debug: Removing parkingArea 'parkingArea_gneE0_0_1' in GNEChange_Additional
 GLDebug: 	Removed object parkingArea:parkingArea_gneE0_0_1 from SUMORTree with boundary 1.80,-10.60,16.20,-2.20
-Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Keys Ctrl+Z (Undo) pressed
+Debug: Calling GNEUndoList::undo()
 Debug: Removing parkingArea 'parkingArea_gneE0_0_0' in GNEChange_Additional
 GLDebug: 	Removed object parkingArea:parkingArea_gneE0_0_0 from SUMORTree with boundary 17.80,-10.60,32.20,-2.20
 Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
-Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Keys Ctrl+Y (Redo) pressed
+Debug: Calling GNEUndoList::redo()
 Debug: Adding parkingArea 'parkingArea_gneE0_0_0' in GNEChange_Additional
 GLDebug: 	Inserted parkingArea:parkingArea_gneE0_0_0 into SUMORTree with boundary 17.80,-10.60,32.20,-2.20
 GLDebug: 	Removed object parkingArea:parkingArea_gneE0_0_0 from SUMORTree with boundary 17.80,-10.60,32.20,-2.20
 GLDebug: 	Inserted parkingArea:parkingArea_gneE0_0_0 into SUMORTree with boundary 17.80,-10.60,32.20,-2.20
-Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Keys Ctrl+Y (Redo) pressed
+Debug: Calling GNEUndoList::redo()
 Debug: Adding parkingArea 'parkingArea_gneE0_0_1' in GNEChange_Additional
 GLDebug: 	Inserted parkingArea:parkingArea_gneE0_0_1 into SUMORTree with boundary 1.80,-10.60,16.20,-2.20
 GLDebug: 	Removed object parkingArea:parkingArea_gneE0_0_1 from SUMORTree with boundary 1.80,-10.60,16.20,-2.20

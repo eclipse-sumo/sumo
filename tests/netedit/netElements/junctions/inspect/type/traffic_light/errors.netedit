@@ -43,7 +43,8 @@ Debug: ObjectsUnderCursor: GUIGlObjects: 1, AttributeCarriers: 1, NetElements: 1
 Debug: Value 'dummyType' for attribute type of junction isn't valid
 Debug: Key F5 (Compute) pressed
 Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
-Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Keys Ctrl+Z (Undo) pressed
+Debug: Calling GNEUndoList::undo()
 Debug: Removing busStop 'busStop_8_0_4' in GNEChange_Additional
 Debug: Removing busStop 'busStop_7_0_1' in GNEChange_Additional
 Debug: Removing busStop 'busStop_6_1_3' in GNEChange_Additional
@@ -54,7 +55,8 @@ Debug: Removing busStop 'busStop_2_0_2' in GNEChange_Additional
 Debug: Removing busStop 'busStop_1_0_7' in GNEChange_Additional
 Debug: Key F5 (Compute) pressed
 Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
-Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Keys Ctrl+Y (Redo) pressed
+Debug: Calling GNEUndoList::redo()
 Debug: Adding busStop 'busStop_1_0_7' in GNEChange_Additional
 Debug: Adding busStop 'busStop_2_0_2' in GNEChange_Additional
 Debug: Adding busStop 'busStop_3_0_0' in GNEChange_Additional

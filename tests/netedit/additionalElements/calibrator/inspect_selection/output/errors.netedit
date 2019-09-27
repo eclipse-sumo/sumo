@@ -33,10 +33,12 @@ Debug: Value '///;;' for attribute output of calibrator isn't valid
 Debug: Setting new attribute output 'myOwnFilename' into calibrator 'calibratorA'
 Debug: Setting new attribute output 'myOwnFilename' into calibrator 'calibratorB'
 Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
-Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Keys Ctrl+Z (Undo) pressed
+Debug: Calling GNEUndoList::undo()
 Debug: Setting previous attribute output 'fileB.txt' into calibrator 'calibratorB'
 Debug: Setting previous attribute output 'fileA.txt' into calibrator 'calibratorA'
-Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Keys Ctrl+Z (Undo) pressed
+Debug: Calling GNEUndoList::undo()
 Debug: Setting previous attribute selected '0' into routeProbe 'customRouteProbeName'
 Debug: Setting previous attribute selected '0' into routeProbe 'RouteProbeB'
 Debug: Setting previous attribute selected '0' into routeProbe 'RouteProbeA'
@@ -50,7 +52,8 @@ Debug: Setting previous attribute selected '0' into edge 'gneE0'
 Debug: Setting previous attribute selected '0' into junction 'gneJ1'
 Debug: Setting previous attribute selected '0' into edge 'gneE1'
 Debug: Setting previous attribute selected '0' into junction 'gneJ0'
-Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Keys Ctrl+Z (Undo) pressed
+Debug: Calling GNEUndoList::undo()
 Debug: Removing routeProbe 'customRouteProbeName' in GNEChange_Additional
 Debug: Removing routeProbe 'RouteProbeB' in GNEChange_Additional
 Debug: Removing routeProbe 'RouteProbeA' in GNEChange_Additional
@@ -58,14 +61,17 @@ Debug: Removing calibrator 'calibratorB' in GNEChange_Additional
 Debug: Removed inspected element from Inspected ACs. 1 ACs remains.
 Debug: Removing calibrator 'calibratorA' in GNEChange_Additional
 Debug: Removed inspected element from Inspected ACs. 0 ACs remains.
+Debug: Keys Ctrl+Z (Undo) pressed
 Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
-Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Keys Ctrl+Y (Redo) pressed
+Debug: Calling GNEUndoList::redo()
 Debug: Adding calibrator 'calibratorA' in GNEChange_Additional
 Debug: Adding calibrator 'calibratorB' in GNEChange_Additional
 Debug: Adding routeProbe 'RouteProbeA' in GNEChange_Additional
 Debug: Adding routeProbe 'RouteProbeB' in GNEChange_Additional
 Debug: Adding routeProbe 'customRouteProbeName' in GNEChange_Additional
-Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Keys Ctrl+Y (Redo) pressed
+Debug: Calling GNEUndoList::redo()
 Debug: Setting new attribute selected 'true' into junction 'gneJ0'
 Debug: Setting new attribute selected 'true' into edge 'gneE1'
 Debug: Setting new attribute selected 'true' into junction 'gneJ1'
@@ -79,10 +85,11 @@ Debug: Setting new attribute selected 'true' into calibrator 'calibratorB'
 Debug: Setting new attribute selected 'true' into routeProbe 'RouteProbeA'
 Debug: Setting new attribute selected 'true' into routeProbe 'RouteProbeB'
 Debug: Setting new attribute selected 'true' into routeProbe 'customRouteProbeName'
-Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Keys Ctrl+Y (Redo) pressed
+Debug: Calling GNEUndoList::redo()
 Debug: Setting new attribute output 'myOwnFilename' into calibrator 'calibratorA'
 Debug: Setting new attribute output 'myOwnFilename' into calibrator 'calibratorB'
-Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Additionals saved
 Debug: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()

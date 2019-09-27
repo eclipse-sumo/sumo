@@ -35,20 +35,24 @@ Debug: Adding crossing into junction 'Center'
 Debug: Created crossing ':Center_c1' in retrieveGNECrossing()
 Debug: Key F5 (Compute) pressed
 Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
-Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Keys Ctrl+Z (Undo) pressed
+Debug: Calling GNEUndoList::undo()
 Debug: removing crossing from junction 'Center'
 Debug: Deleting unreferenced crossing in rebuildGNECrossings()
-Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Keys Ctrl+Z (Undo) pressed
+Debug: Calling GNEUndoList::undo()
 Debug: removing crossing from junction 'Center'
 Debug: Deleting unreferenced crossing in rebuildGNECrossings()
 Debug: Changed flag netBuilder::haveNetworkCrossings from 'true' to 'false'
 Debug: Key F5 (Compute) pressed
 Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
-Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Keys Ctrl+Y (Redo) pressed
+Debug: Calling GNEUndoList::redo()
 Debug: Adding crossing into junction 'Center'
 Debug: Changed flag netBuilder::haveNetworkCrossings from 'false' to 'true'
 Debug: Created crossing ':Center_c0' in retrieveGNECrossing()
-Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Keys Ctrl+Y (Redo) pressed
+Debug: Calling GNEUndoList::redo()
 Debug: Adding crossing into junction 'Center'
 Debug: Created crossing ':Center_c1' in retrieveGNECrossing()
 Debug: Deleting unreferenced edge '1' in GNENet destructor

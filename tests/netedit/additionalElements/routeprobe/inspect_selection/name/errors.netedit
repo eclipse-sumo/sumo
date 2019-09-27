@@ -28,10 +28,12 @@ Debug: Value '%%%;:..&&%$%$' for attribute name of routeProbe isn't valid
 Debug: Setting new attribute name 'customName' into routeProbe 'routeProbe_01'
 Debug: Setting new attribute name 'customName' into routeProbe 'routeProbe_02'
 Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
-Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Keys Ctrl+Z (Undo) pressed
+Debug: Calling GNEUndoList::undo()
 Debug: Setting previous attribute name '' into routeProbe 'routeProbe_02'
 Debug: Setting previous attribute name '' into routeProbe 'routeProbe_01'
-Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Keys Ctrl+Z (Undo) pressed
+Debug: Calling GNEUndoList::undo()
 Debug: Setting previous attribute selected '0' into routeProbe 'routeProbe_02'
 Debug: Setting previous attribute selected '0' into routeProbe 'routeProbe_01'
 Debug: Setting previous attribute selected '0' into connection 'fromgneE0_0togneE1_0'
@@ -40,16 +42,19 @@ Debug: Setting previous attribute selected '0' into junction 'gneJ1'
 Debug: Setting previous attribute selected '0' into connection 'fromgneE1_0togneE0_0'
 Debug: Setting previous attribute selected '0' into edge 'gneE1'
 Debug: Setting previous attribute selected '0' into junction 'gneJ0'
-Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Keys Ctrl+Z (Undo) pressed
+Debug: Calling GNEUndoList::undo()
 Debug: Removing routeProbe 'routeProbe_02' in GNEChange_Additional
 Debug: Removed inspected element from Inspected ACs. 1 ACs remains.
 Debug: Removing routeProbe 'routeProbe_01' in GNEChange_Additional
 Debug: Removed inspected element from Inspected ACs. 0 ACs remains.
 Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
-Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Keys Ctrl+Y (Redo) pressed
+Debug: Calling GNEUndoList::redo()
 Debug: Adding routeProbe 'routeProbe_01' in GNEChange_Additional
 Debug: Adding routeProbe 'routeProbe_02' in GNEChange_Additional
-Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Keys Ctrl+Y (Redo) pressed
+Debug: Calling GNEUndoList::redo()
 Debug: Setting new attribute selected 'true' into junction 'gneJ0'
 Debug: Setting new attribute selected 'true' into edge 'gneE1'
 Debug: Setting new attribute selected 'true' into connection 'fromgneE1_0togneE0_0'
@@ -58,7 +63,8 @@ Debug: Setting new attribute selected 'true' into edge 'gneE0'
 Debug: Setting new attribute selected 'true' into connection 'fromgneE0_0togneE1_0'
 Debug: Setting new attribute selected 'true' into routeProbe 'routeProbe_01'
 Debug: Setting new attribute selected 'true' into routeProbe 'routeProbe_02'
-Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Keys Ctrl+Y (Redo) pressed
+Debug: Calling GNEUndoList::redo()
 Debug: Setting new attribute name 'customName' into routeProbe 'routeProbe_01'
 Debug: Setting new attribute name 'customName' into routeProbe 'routeProbe_02'
 Debug: Additionals saved

@@ -113,7 +113,8 @@ GLDebug: 	Inserted edge:gneE9 into SUMORTree with boundary -10.00,-10.00,11.60,3
 Debug: Created connection 'from-gneE2_0togneE8_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE5_0to-gneE2_0' in retrieveGNEConnection()
 Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
-Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Keys Ctrl+Z (Undo) pressed
+Debug: Calling GNEUndoList::undo()
 Debug: Adding edge 'gneE2' from net
 GLDebug: 	Inserted edge:gneE2 into SUMORTree with boundary -10.00,8.40,60.00,30.00
 Debug: Setting previous attribute modificationStatusNotForPrinting 'loaded' into junction 'gneJ3'
@@ -167,7 +168,8 @@ GLDebug: 	Inserted edge:gneE5 into SUMORTree with boundary 40.00,-10.00,61.60,30
 GLDebug: 	Inserted edge:gneE8 into SUMORTree with boundary -11.60,-10.00,10.00,30.00
 GLDebug: 	Inserted edge:gneE9 into SUMORTree with boundary -10.00,-10.00,11.60,30.00
 Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
-Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Keys Ctrl+Y (Redo) pressed
+Debug: Calling GNEUndoList::redo()
 Debug: Removing busStop 'busStop3' in GNEChange_Additional
 Debug: Removing connection '-gneE2_0->gneE8_0' from edge '-gneE2'
 Debug: Deleting unreferenced connection 'from-gneE2_0togneE8_0' in removeConnection()

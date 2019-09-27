@@ -65,7 +65,8 @@ Debug: Setting new attribute keepClear 'false' into connection 'from8_1to4_1'
 Debug: Setting new attribute keepClear 'false' into junction 'Center'
 Debug: Key F5 (Compute) pressed
 Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
-Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Keys Ctrl+Z (Undo) pressed
+Debug: Calling GNEUndoList::undo()
 Debug: Setting previous attribute keepClear '0' into junction 'Center'
 Debug: Setting previous attribute keepClear '1' into connection 'from8_1to4_1'
 Debug: Setting previous attribute keepClear '1' into connection 'from8_1to1_1'
@@ -89,7 +90,8 @@ Debug: Setting previous attribute keepClear '1' into connection 'from5_0to2_0'
 Debug: Setting previous attribute keepClear '1' into connection 'from5_0to4_0'
 Debug: Key F5 (Compute) pressed
 Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
-Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Keys Ctrl+Y (Redo) pressed
+Debug: Calling GNEUndoList::redo()
 Debug: Setting new attribute keepClear 'false' into connection 'from5_0to4_0'
 Debug: Setting new attribute keepClear 'false' into connection 'from5_0to2_0'
 Debug: Setting new attribute keepClear 'false' into connection 'from5_1to2_1'

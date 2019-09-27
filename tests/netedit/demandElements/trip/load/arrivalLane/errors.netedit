@@ -28,18 +28,20 @@ Debug: Adding trip 'trip_1' in GNEChange_DemandElement
 Debug: Adding trip 'trip_2' in GNEChange_DemandElement
 Debug: Adding trip 'trip_3' in GNEChange_DemandElement
 Debug: Adding trip 'trip_4' in GNEChange_DemandElement
-Error: Loading of C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.07Aug081749.192/netedit.gui/demandElements/trip/load/arrivalLane\input_routes.rou.xml failed.
+Error: Loading of C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.25Sep145557.1772/netedit.gui/demandElements/trip/load/arrivalLane\input_routes.rou.xml failed.
 Debug: net has to be saved
 Debug: Current saving Status: net unsaved, additionals saved, demand elements unsaved
 Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
-Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Keys Ctrl+Z (Undo) pressed
+Debug: Calling GNEUndoList::undo()
 Debug: Removing trip 'trip_4' in GNEChange_DemandElement
 Debug: Removing trip 'trip_3' in GNEChange_DemandElement
 Debug: Removing trip 'trip_2' in GNEChange_DemandElement
 Debug: Removing trip 'trip_1' in GNEChange_DemandElement
 Debug: Removing trip 'trip_0' in GNEChange_DemandElement
 Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
-Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Keys Ctrl+Y (Redo) pressed
+Debug: Calling GNEUndoList::redo()
 Debug: Adding trip 'trip_0' in GNEChange_DemandElement
 Debug: Adding trip 'trip_1' in GNEChange_DemandElement
 Debug: Adding trip 'trip_2' in GNEChange_DemandElement

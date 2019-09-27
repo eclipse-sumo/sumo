@@ -32,10 +32,12 @@ Debug: Value '-5' for attribute timeThreshold of e3Detector isn't valid
 Debug: Setting new attribute timeThreshold '11.3' into e3Detector 'e3Detector_A'
 Debug: Setting new attribute timeThreshold '11.3' into e3Detector 'e3Detector_B'
 Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
-Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Keys Ctrl+Z (Undo) pressed
+Debug: Calling GNEUndoList::undo()
 Debug: Setting previous attribute timeThreshold '2.00' into e3Detector 'e3Detector_B'
 Debug: Setting previous attribute timeThreshold '1.00' into e3Detector 'e3Detector_A'
-Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Keys Ctrl+Z (Undo) pressed
+Debug: Calling GNEUndoList::undo()
 Debug: Setting previous attribute selected '0' into detExit 'e3Detector_BdetExit1'
 Debug: Setting previous attribute selected '0' into detExit 'e3Detector_AdetExit1'
 Debug: Setting previous attribute selected '0' into detEntry 'e3Detector_BdetEntry0'
@@ -46,7 +48,8 @@ Debug: Setting previous attribute selected '0' into edge 'gneE0'
 Debug: Setting previous attribute selected '0' into junction 'gneJ1'
 Debug: Setting previous attribute selected '0' into edge 'gneE1'
 Debug: Setting previous attribute selected '0' into junction 'gneJ0'
-Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Keys Ctrl+Z (Undo) pressed
+Debug: Calling GNEUndoList::undo()
 Debug: Removing detExit 'e3Detector_BdetExit1' in GNEChange_Additional
 Debug: Removing detEntry 'e3Detector_BdetEntry0' in GNEChange_Additional
 Debug: Removing e3Detector 'e3Detector_B' in GNEChange_Additional
@@ -55,15 +58,18 @@ Debug: Removing detExit 'e3Detector_AdetExit1' in GNEChange_Additional
 Debug: Removing detEntry 'e3Detector_AdetEntry0' in GNEChange_Additional
 Debug: Removing e3Detector 'e3Detector_A' in GNEChange_Additional
 Debug: Removed inspected element from Inspected ACs. 0 ACs remains.
+Debug: Keys Ctrl+Z (Undo) pressed
 Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
-Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Keys Ctrl+Y (Redo) pressed
+Debug: Calling GNEUndoList::redo()
 Debug: Adding e3Detector 'e3Detector_A' in GNEChange_Additional
 Debug: Adding detEntry 'e3Detector_AdetEntry0' in GNEChange_Additional
 Debug: Adding detExit 'e3Detector_AdetExit1' in GNEChange_Additional
 Debug: Adding e3Detector 'e3Detector_B' in GNEChange_Additional
 Debug: Adding detEntry 'e3Detector_BdetEntry0' in GNEChange_Additional
 Debug: Adding detExit 'e3Detector_BdetExit1' in GNEChange_Additional
-Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Keys Ctrl+Y (Redo) pressed
+Debug: Calling GNEUndoList::redo()
 Debug: Setting new attribute selected 'true' into junction 'gneJ0'
 Debug: Setting new attribute selected 'true' into edge 'gneE1'
 Debug: Setting new attribute selected 'true' into junction 'gneJ1'
@@ -74,10 +80,11 @@ Debug: Setting new attribute selected 'true' into detEntry 'e3Detector_AdetEntry
 Debug: Setting new attribute selected 'true' into detEntry 'e3Detector_BdetEntry0'
 Debug: Setting new attribute selected 'true' into detExit 'e3Detector_AdetExit1'
 Debug: Setting new attribute selected 'true' into detExit 'e3Detector_BdetExit1'
-Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Keys Ctrl+Y (Redo) pressed
+Debug: Calling GNEUndoList::redo()
 Debug: Setting new attribute timeThreshold '11.3' into e3Detector 'e3Detector_A'
 Debug: Setting new attribute timeThreshold '11.3' into e3Detector 'e3Detector_B'
-Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Additionals saved
 Debug: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()

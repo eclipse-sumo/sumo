@@ -400,7 +400,8 @@ Debug: Created connection 'fromgneE13_0togneE14_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE15_0togneE8_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE9_0togneE10_0' in retrieveGNEConnection()
 Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
-Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Keys Ctrl+Z (Undo) pressed
+Debug: Calling GNEUndoList::undo()
 Debug: Adding junction 'gneJ19' into net
 Debug: Adding edge 'gneE19' from net
 Debug: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ17'
@@ -586,7 +587,8 @@ Debug: Adding connection '-gneE8_0->-gneE15_0' into edge '-gneE8'
 Debug: Created connection 'from-gneE8_0to-gneE15_0' in retrieveGNEConnection()
 Debug: Adding connection '-gneE8_0->-gneE16_0' into edge '-gneE8'
 Debug: Created connection 'from-gneE8_0to-gneE16_0' in retrieveGNEConnection()
-Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Keys Ctrl+Z (Undo) pressed
+Debug: Calling GNEUndoList::undo()
 Debug: Adding junction 'gneJ8' into net
 Debug: Adding edge 'gneE6' from net
 Debug: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ9'
@@ -624,7 +626,8 @@ Debug: Setting previous attribute modificationStatusNotForPrinting 'guessed' int
 Debug: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge '-gneE5'
 Debug: invalidating (removing) connections of edge '-gneE5' due it were guessed
 Debug: Adding busStop 'busStop_gneE5_0_8' in GNEChange_Additional
-Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Keys Ctrl+Z (Undo) pressed
+Debug: Calling GNEUndoList::undo()
 Debug: Adding junction 'gneJ6' into net
 Debug: Adding edge '-gneE7' from net
 Debug: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ9'
@@ -678,7 +681,8 @@ Debug: declaring connections of edge '-gneE5' as loaded (It will not be removed)
 Debug: Adding connection '-gneE5_0->-gneE4_0' into edge '-gneE5'
 Debug: Created connection 'from-gneE5_0to-gneE4_0' in retrieveGNEConnection()
 Debug: Adding busStop 'busStop_-gneE4_0_2' in GNEChange_Additional
-Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Keys Ctrl+Z (Undo) pressed
+Debug: Calling GNEUndoList::undo()
 Debug: Adding junction 'gneJ4' into net
 Debug: Adding edge '-gneE3' from net
 Debug: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ4'
@@ -697,7 +701,8 @@ Debug: Setting previous attribute modificationStatusNotForPrinting 'loaded' into
 Debug: declaring connections of edge '-gneE3' as loaded (It will not be removed)
 Debug: Adding connection '-gneE3_0->gneE3_0' into edge '-gneE3'
 Debug: Created connection 'from-gneE3_0togneE3_0' in retrieveGNEConnection()
-Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Keys Ctrl+Z (Undo) pressed
+Debug: Calling GNEUndoList::undo()
 Debug: Adding junction 'gneJ2' into net
 Debug: Adding edge 'gneE2' from net
 Debug: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ2'
@@ -716,7 +721,8 @@ Debug: Setting previous attribute modificationStatusNotForPrinting 'loaded' into
 Debug: declaring connections of edge 'gneE2' as loaded (It will not be removed)
 Debug: Adding connection 'gneE2_0->gneE1_0' into edge 'gneE2'
 Debug: Created connection 'fromgneE2_0togneE1_0' in retrieveGNEConnection()
-Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Keys Ctrl+Z (Undo) pressed
+Debug: Calling GNEUndoList::undo()
 Debug: Adding junction 'gneJ0' into net
 Debug: Setting previous attribute type 'dead_end' into junction 'gneJ0'
 Debug: Adding edge 'gneE0' from net
@@ -726,7 +732,8 @@ Debug: declaring connections of edge 'gneE0' as loaded (It will not be removed)
 Debug: Setting previous attribute modificationStatusNotForPrinting 'loaded' into junction 'gneJ0'
 Debug: Key F5 (Compute) pressed
 Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
-Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Keys Ctrl+Y (Redo) pressed
+Debug: Calling GNEUndoList::redo()
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ0'
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE0'
 Debug: invalidating (removing) connections of edge 'gneE0' due it were guessed
@@ -734,7 +741,8 @@ Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into jun
 Debug: Removing edge 'gneE0' from net
 Debug: Setting new attribute type 'priority' into junction 'gneJ0'
 Debug: Removing junction 'gneJ0' from net
-Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Keys Ctrl+Y (Redo) pressed
+Debug: Calling GNEUndoList::redo()
 Debug: Removing connection 'gneE2_0->gneE1_0' from edge 'gneE2'
 Debug: Deleting unreferenced connection 'fromgneE2_0togneE1_0' in removeConnection()
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE2'
@@ -753,7 +761,8 @@ Debug: invalidating (removing) connections of edge 'gneE2' due it were guessed
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ2'
 Debug: Removing edge 'gneE2' from net
 Debug: Removing junction 'gneJ2' from net
-Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Keys Ctrl+Y (Redo) pressed
+Debug: Calling GNEUndoList::redo()
 Debug: Removing connection '-gneE3_0->gneE3_0' from edge '-gneE3'
 Debug: Deleting unreferenced connection 'from-gneE3_0togneE3_0' in removeConnection()
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '-gneE3'
@@ -772,7 +781,8 @@ Debug: invalidating (removing) connections of edge '-gneE3' due it were guessed
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ4'
 Debug: Removing edge '-gneE3' from net
 Debug: Removing junction 'gneJ4' from net
-Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Keys Ctrl+Y (Redo) pressed
+Debug: Calling GNEUndoList::redo()
 Debug: Removing busStop 'busStop_-gneE4_0_2' in GNEChange_Additional
 Debug: Removing connection '-gneE5_0->-gneE4_0' from edge '-gneE5'
 Debug: Deleting unreferenced connection 'from-gneE5_0to-gneE4_0' in removeConnection()
@@ -826,7 +836,8 @@ Debug: invalidating (removing) connections of edge 'gneE6' due it were guessed
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ9'
 Debug: Removing edge '-gneE7' from net
 Debug: Removing junction 'gneJ6' from net
-Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Keys Ctrl+Y (Redo) pressed
+Debug: Calling GNEUndoList::redo()
 Debug: Removing busStop 'busStop_gneE5_0_8' in GNEChange_Additional
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '-gneE5'
 Debug: invalidating (removing) connections of edge '-gneE5' due it were guessed
@@ -864,7 +875,8 @@ Debug: invalidating (removing) connections of edge 'gneE6' due it were guessed
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ9'
 Debug: Removing edge 'gneE6' from net
 Debug: Removing junction 'gneJ8' from net
-Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Keys Ctrl+Y (Redo) pressed
+Debug: Calling GNEUndoList::redo()
 Debug: Removing connection '-gneE8_0->-gneE16_0' from edge '-gneE8'
 Debug: Deleting unreferenced connection 'from-gneE8_0to-gneE16_0' in removeConnection()
 Debug: Removing connection '-gneE8_0->-gneE15_0' from edge '-gneE8'

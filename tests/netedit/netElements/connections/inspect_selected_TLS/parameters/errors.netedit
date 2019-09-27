@@ -165,7 +165,8 @@ Debug: Setting new attribute genericParameter 'keyFinal1=value1|keyFinal2=value2
 Debug: Setting new attribute genericParameter 'keyFinal1=value1|keyFinal2=value2|keyFinal3=value3' into connection 'from8_1to3_1'
 Debug: Setting new attribute genericParameter 'keyFinal1=value1|keyFinal2=value2|keyFinal3=value3' into connection 'from8_1to1_1'
 Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
-Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Keys Ctrl+Z (Undo) pressed
+Debug: Calling GNEUndoList::undo()
 Debug: Setting previous attribute genericParameter 'key1=valueInvalid%;%$<>$$%|key2=value2|key3=value3' into connection 'from8_1to1_1'
 Debug: Setting previous attribute genericParameter 'key1=valueInvalid%;%$<>$$%|key2=value2|key3=value3' into connection 'from8_1to3_1'
 Debug: Setting previous attribute genericParameter 'key1=valueInvalid%;%$<>$$%|key2=value2|key3=value3' into connection 'from8_0to3_0'
@@ -182,7 +183,8 @@ Debug: Setting previous attribute genericParameter 'key1=valueInvalid%;%$<>$$%|k
 Debug: Setting previous attribute genericParameter 'key1=valueInvalid%;%$<>$$%|key2=value2|key3=value3' into connection 'from5_1to2_1'
 Debug: Setting previous attribute genericParameter 'key1=valueInvalid%;%$<>$$%|key2=value2|key3=value3' into connection 'from5_0to2_0'
 Debug: Setting previous attribute genericParameter 'key1=valueInvalid%;%$<>$$%|key2=value2|key3=value3' into connection 'from5_0to4_0'
-Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Keys Ctrl+Z (Undo) pressed
+Debug: Calling GNEUndoList::undo()
 Debug: Setting previous attribute genericParameter 'key1=valueDuplicated|key2=valueDuplicated|key3=valueDuplicated' into connection 'from8_1to1_1'
 Debug: Setting previous attribute genericParameter 'key1=valueDuplicated|key2=valueDuplicated|key3=valueDuplicated' into connection 'from8_1to3_1'
 Debug: Setting previous attribute genericParameter 'key1=valueDuplicated|key2=valueDuplicated|key3=valueDuplicated' into connection 'from8_0to3_0'
@@ -199,7 +201,8 @@ Debug: Setting previous attribute genericParameter 'key1=valueDuplicated|key2=va
 Debug: Setting previous attribute genericParameter 'key1=valueDuplicated|key2=valueDuplicated|key3=valueDuplicated' into connection 'from5_1to2_1'
 Debug: Setting previous attribute genericParameter 'key1=valueDuplicated|key2=valueDuplicated|key3=valueDuplicated' into connection 'from5_0to2_0'
 Debug: Setting previous attribute genericParameter 'key1=valueDuplicated|key2=valueDuplicated|key3=valueDuplicated' into connection 'from5_0to4_0'
-Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Keys Ctrl+Z (Undo) pressed
+Debug: Calling GNEUndoList::undo()
 Debug: Setting previous attribute genericParameter 'key1duplicated=value2|key3=value3' into connection 'from8_1to1_1'
 Debug: Setting previous attribute genericParameter 'key1duplicated=value2|key3=value3' into connection 'from8_1to3_1'
 Debug: Setting previous attribute genericParameter 'key1duplicated=value2|key3=value3' into connection 'from8_0to3_0'
@@ -216,7 +219,8 @@ Debug: Setting previous attribute genericParameter 'key1duplicated=value2|key3=v
 Debug: Setting previous attribute genericParameter 'key1duplicated=value2|key3=value3' into connection 'from5_1to2_1'
 Debug: Setting previous attribute genericParameter 'key1duplicated=value2|key3=value3' into connection 'from5_0to2_0'
 Debug: Setting previous attribute genericParameter 'key1duplicated=value2|key3=value3' into connection 'from5_0to4_0'
-Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Keys Ctrl+Z (Undo) pressed
+Debug: Calling GNEUndoList::undo()
 Debug: Setting previous attribute genericParameter '' into connection 'from8_1to1_1'
 Debug: Setting previous attribute genericParameter '' into connection 'from8_1to3_1'
 Debug: Setting previous attribute genericParameter '' into connection 'from8_0to3_0'
@@ -233,7 +237,8 @@ Debug: Setting previous attribute genericParameter '' into connection 'from5_1to
 Debug: Setting previous attribute genericParameter '' into connection 'from5_1to2_1'
 Debug: Setting previous attribute genericParameter '' into connection 'from5_0to2_0'
 Debug: Setting previous attribute genericParameter '' into connection 'from5_0to4_0'
-Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Keys Ctrl+Z (Undo) pressed
+Debug: Calling GNEUndoList::undo()
 Debug: Setting previous attribute genericParameter 'key1=|key2=|key3=' into connection 'from8_1to1_1'
 Debug: Setting previous attribute genericParameter 'key1=|key2=|key3=' into connection 'from8_1to3_1'
 Debug: Setting previous attribute genericParameter 'key1=|key2=|key3=' into connection 'from8_0to3_0'
@@ -250,7 +255,8 @@ Debug: Setting previous attribute genericParameter 'key1=|key2=|key3=' into conn
 Debug: Setting previous attribute genericParameter 'key1=|key2=|key3=' into connection 'from5_1to2_1'
 Debug: Setting previous attribute genericParameter 'key1=|key2=|key3=' into connection 'from5_0to2_0'
 Debug: Setting previous attribute genericParameter 'key1=|key2=|key3=' into connection 'from5_0to4_0'
-Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Keys Ctrl+Z (Undo) pressed
+Debug: Calling GNEUndoList::undo()
 Debug: Setting previous attribute genericParameter 'key1=value1|key2=value2|key3=value3' into connection 'from8_1to1_1'
 Debug: Setting previous attribute genericParameter 'key1=value1|key2=value2|key3=value3' into connection 'from8_1to3_1'
 Debug: Setting previous attribute genericParameter 'key1=value1|key2=value2|key3=value3' into connection 'from8_0to3_0'
@@ -267,7 +273,8 @@ Debug: Setting previous attribute genericParameter 'key1=value1|key2=value2|key3
 Debug: Setting previous attribute genericParameter 'key1=value1|key2=value2|key3=value3' into connection 'from5_1to2_1'
 Debug: Setting previous attribute genericParameter 'key1=value1|key2=value2|key3=value3' into connection 'from5_0to2_0'
 Debug: Setting previous attribute genericParameter 'key1=value1|key2=value2|key3=value3' into connection 'from5_0to4_0'
-Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Keys Ctrl+Z (Undo) pressed
+Debug: Calling GNEUndoList::undo()
 Debug: Setting previous attribute genericParameter '' into connection 'from8_1to1_1'
 Debug: Setting previous attribute genericParameter '' into connection 'from8_1to3_1'
 Debug: Setting previous attribute genericParameter '' into connection 'from8_0to3_0'
@@ -286,7 +293,8 @@ Debug: Setting previous attribute genericParameter '' into connection 'from5_0to
 Debug: Setting previous attribute genericParameter '' into connection 'from5_0to4_0'
 Debug: Key F5 (Compute) pressed
 Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
-Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Keys Ctrl+Y (Redo) pressed
+Debug: Calling GNEUndoList::redo()
 Debug: Setting new attribute genericParameter 'key1=value1|key2=value2|key3=value3' into connection 'from5_0to4_0'
 Debug: Setting new attribute genericParameter 'key1=value1|key2=value2|key3=value3' into connection 'from5_0to2_0'
 Debug: Setting new attribute genericParameter 'key1=value1|key2=value2|key3=value3' into connection 'from5_1to2_1'
@@ -303,7 +311,8 @@ Debug: Setting new attribute genericParameter 'key1=value1|key2=value2|key3=valu
 Debug: Setting new attribute genericParameter 'key1=value1|key2=value2|key3=value3' into connection 'from8_0to3_0'
 Debug: Setting new attribute genericParameter 'key1=value1|key2=value2|key3=value3' into connection 'from8_1to3_1'
 Debug: Setting new attribute genericParameter 'key1=value1|key2=value2|key3=value3' into connection 'from8_1to1_1'
-Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Keys Ctrl+Y (Redo) pressed
+Debug: Calling GNEUndoList::redo()
 Debug: Setting new attribute genericParameter 'key1=|key2=|key3=' into connection 'from5_0to4_0'
 Debug: Setting new attribute genericParameter 'key1=|key2=|key3=' into connection 'from5_0to2_0'
 Debug: Setting new attribute genericParameter 'key1=|key2=|key3=' into connection 'from5_1to2_1'
@@ -320,7 +329,8 @@ Debug: Setting new attribute genericParameter 'key1=|key2=|key3=' into connectio
 Debug: Setting new attribute genericParameter 'key1=|key2=|key3=' into connection 'from8_0to3_0'
 Debug: Setting new attribute genericParameter 'key1=|key2=|key3=' into connection 'from8_1to3_1'
 Debug: Setting new attribute genericParameter 'key1=|key2=|key3=' into connection 'from8_1to1_1'
-Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Keys Ctrl+Y (Redo) pressed
+Debug: Calling GNEUndoList::redo()
 Debug: Setting new attribute genericParameter '' into connection 'from5_0to4_0'
 Debug: Setting new attribute genericParameter '' into connection 'from5_0to2_0'
 Debug: Setting new attribute genericParameter '' into connection 'from5_1to2_1'
@@ -337,7 +347,8 @@ Debug: Setting new attribute genericParameter '' into connection 'from8_0to2_0'
 Debug: Setting new attribute genericParameter '' into connection 'from8_0to3_0'
 Debug: Setting new attribute genericParameter '' into connection 'from8_1to3_1'
 Debug: Setting new attribute genericParameter '' into connection 'from8_1to1_1'
-Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Keys Ctrl+Y (Redo) pressed
+Debug: Calling GNEUndoList::redo()
 Debug: Setting new attribute genericParameter 'key1duplicated=value2|key3=value3' into connection 'from5_0to4_0'
 Debug: Setting new attribute genericParameter 'key1duplicated=value2|key3=value3' into connection 'from5_0to2_0'
 Debug: Setting new attribute genericParameter 'key1duplicated=value2|key3=value3' into connection 'from5_1to2_1'
@@ -354,7 +365,8 @@ Debug: Setting new attribute genericParameter 'key1duplicated=value2|key3=value3
 Debug: Setting new attribute genericParameter 'key1duplicated=value2|key3=value3' into connection 'from8_0to3_0'
 Debug: Setting new attribute genericParameter 'key1duplicated=value2|key3=value3' into connection 'from8_1to3_1'
 Debug: Setting new attribute genericParameter 'key1duplicated=value2|key3=value3' into connection 'from8_1to1_1'
-Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Keys Ctrl+Y (Redo) pressed
+Debug: Calling GNEUndoList::redo()
 Debug: Setting new attribute genericParameter 'key1=valueDuplicated|key2=valueDuplicated|key3=valueDuplicated' into connection 'from5_0to4_0'
 Debug: Setting new attribute genericParameter 'key1=valueDuplicated|key2=valueDuplicated|key3=valueDuplicated' into connection 'from5_0to2_0'
 Debug: Setting new attribute genericParameter 'key1=valueDuplicated|key2=valueDuplicated|key3=valueDuplicated' into connection 'from5_1to2_1'
@@ -371,7 +383,8 @@ Debug: Setting new attribute genericParameter 'key1=valueDuplicated|key2=valueDu
 Debug: Setting new attribute genericParameter 'key1=valueDuplicated|key2=valueDuplicated|key3=valueDuplicated' into connection 'from8_0to3_0'
 Debug: Setting new attribute genericParameter 'key1=valueDuplicated|key2=valueDuplicated|key3=valueDuplicated' into connection 'from8_1to3_1'
 Debug: Setting new attribute genericParameter 'key1=valueDuplicated|key2=valueDuplicated|key3=valueDuplicated' into connection 'from8_1to1_1'
-Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Keys Ctrl+Y (Redo) pressed
+Debug: Calling GNEUndoList::redo()
 Debug: Setting new attribute genericParameter 'key1=valueInvalid%;%$<>$$%|key2=value2|key3=value3' into connection 'from5_0to4_0'
 Debug: Setting new attribute genericParameter 'key1=valueInvalid%;%$<>$$%|key2=value2|key3=value3' into connection 'from5_0to2_0'
 Debug: Setting new attribute genericParameter 'key1=valueInvalid%;%$<>$$%|key2=value2|key3=value3' into connection 'from5_1to2_1'
@@ -388,7 +401,8 @@ Debug: Setting new attribute genericParameter 'key1=valueInvalid%;%$<>$$%|key2=v
 Debug: Setting new attribute genericParameter 'key1=valueInvalid%;%$<>$$%|key2=value2|key3=value3' into connection 'from8_0to3_0'
 Debug: Setting new attribute genericParameter 'key1=valueInvalid%;%$<>$$%|key2=value2|key3=value3' into connection 'from8_1to3_1'
 Debug: Setting new attribute genericParameter 'key1=valueInvalid%;%$<>$$%|key2=value2|key3=value3' into connection 'from8_1to1_1'
-Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Keys Ctrl+Y (Redo) pressed
+Debug: Calling GNEUndoList::redo()
 Debug: Setting new attribute genericParameter 'keyFinal1=value1|keyFinal2=value2|keyFinal3=value3' into connection 'from5_0to4_0'
 Debug: Setting new attribute genericParameter 'keyFinal1=value1|keyFinal2=value2|keyFinal3=value3' into connection 'from5_0to2_0'
 Debug: Setting new attribute genericParameter 'keyFinal1=value1|keyFinal2=value2|keyFinal3=value3' into connection 'from5_1to2_1'

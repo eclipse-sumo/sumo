@@ -248,7 +248,8 @@ Debug: Setting new attribute selected 'false' into poi 'POI_3'
 Debug: Setting new attribute selected 'false' into poiLane 'POI_4'
 Debug: Setting new attribute selected 'false' into poiLane 'POI_5'
 Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
-Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Keys Ctrl+Z (Undo) pressed
+Debug: Calling GNEUndoList::undo()
 Debug: Setting previous attribute selected '1' into poiLane 'POI_5'
 Debug: Setting previous attribute selected '1' into poiLane 'POI_4'
 Debug: Setting previous attribute selected '1' into poi 'POI_3'
@@ -298,7 +299,8 @@ Debug: Setting previous attribute selected '1' into edge '2'
 Debug: Setting previous attribute selected '1' into junction 'B'
 Debug: Setting previous attribute selected '1' into edge '1'
 Debug: Setting previous attribute selected '1' into junction 'A'
-Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Keys Ctrl+Z (Undo) pressed
+Debug: Calling GNEUndoList::undo()
 Debug: Setting previous attribute selected '0' into connection 'from8_2to3_2'
 Debug: Setting previous attribute selected '0' into connection 'from8_2to1_2'
 Debug: Setting previous attribute selected '0' into connection 'from8_1to3_1'
@@ -348,7 +350,8 @@ Debug: Setting previous attribute selected '0' into edge '4'
 Debug: Setting previous attribute selected '0' into edge '3'
 Debug: Setting previous attribute selected '0' into edge '2'
 Debug: Setting previous attribute selected '0' into edge '1'
-Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Keys Ctrl+Z (Undo) pressed
+Debug: Calling GNEUndoList::undo()
 Debug: Setting previous attribute selected '1' into poiLane 'POI_5'
 Debug: Setting previous attribute selected '1' into poiLane 'POI_4'
 Debug: Setting previous attribute selected '1' into poi 'POI_3'
@@ -399,7 +402,8 @@ Debug: Setting previous attribute selected '1' into edge '2'
 Debug: Setting previous attribute selected '1' into junction 'B'
 Debug: Setting previous attribute selected '1' into edge '1'
 Debug: Setting previous attribute selected '1' into junction 'A'
-Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Keys Ctrl+Z (Undo) pressed
+Debug: Calling GNEUndoList::undo()
 Debug: Setting previous attribute selected '0' into poly 'poly_0'
 Debug: Setting previous attribute selected '0' into connection 'from8_2to3_2'
 Debug: Setting previous attribute selected '0' into connection 'from8_2to1_2'
@@ -450,7 +454,8 @@ Debug: Setting previous attribute selected '0' into edge '4'
 Debug: Setting previous attribute selected '0' into edge '3'
 Debug: Setting previous attribute selected '0' into edge '2'
 Debug: Setting previous attribute selected '0' into edge '1'
-Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Keys Ctrl+Z (Undo) pressed
+Debug: Calling GNEUndoList::undo()
 Debug: Removing poiLane 'POI_5' from viewNet
 Debug: Removing poiLane 'POI_4' from viewNet
 Debug: Removing poi 'POI_3' from viewNet
@@ -470,9 +475,10 @@ Debug: Removing e3Detector 'e3Detector_1' in GNEChange_Additional
 Debug: Removing detExit 'e3Detector_0detExit1' in GNEChange_Additional
 Debug: Removing detEntry 'e3Detector_0detEntry0' in GNEChange_Additional
 Debug: Removing e3Detector 'e3Detector_0' in GNEChange_Additional
-Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Keys Ctrl+Z (Undo) pressed
 Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
-Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Keys Ctrl+Y (Redo) pressed
+Debug: Calling GNEUndoList::redo()
 Debug: Adding e3Detector 'e3Detector_0' in GNEChange_Additional
 Debug: Adding detEntry 'e3Detector_0detEntry0' in GNEChange_Additional
 Debug: Adding detExit 'e3Detector_0detExit1' in GNEChange_Additional
@@ -492,7 +498,8 @@ Debug: Adding poi 'POI_2' into viewNet
 Debug: Adding poi 'POI_3' into viewNet
 Debug: Adding poiLane 'POI_4' into viewNet
 Debug: Adding poiLane 'POI_5' into viewNet
-Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Keys Ctrl+Y (Redo) pressed
+Debug: Calling GNEUndoList::redo()
 Debug: Setting new attribute selected '1' into edge '1'
 Debug: Setting new attribute selected '1' into edge '2'
 Debug: Setting new attribute selected '1' into edge '3'
@@ -543,7 +550,8 @@ Debug: Setting new attribute selected '1' into connection 'from8_1to3_1'
 Debug: Setting new attribute selected '1' into connection 'from8_2to1_2'
 Debug: Setting new attribute selected '1' into connection 'from8_2to3_2'
 Debug: Setting new attribute selected '1' into poly 'poly_0'
-Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Keys Ctrl+Y (Redo) pressed
+Debug: Calling GNEUndoList::redo()
 Debug: Setting new attribute selected 'false' into junction 'A'
 Debug: Setting new attribute selected 'false' into edge '1'
 Debug: Setting new attribute selected 'false' into junction 'B'
@@ -594,7 +602,8 @@ Debug: Setting new attribute selected 'false' into poi 'POI_2'
 Debug: Setting new attribute selected 'false' into poi 'POI_3'
 Debug: Setting new attribute selected 'false' into poiLane 'POI_4'
 Debug: Setting new attribute selected 'false' into poiLane 'POI_5'
-Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Keys Ctrl+Y (Redo) pressed
+Debug: Calling GNEUndoList::redo()
 Debug: Setting new attribute selected '1' into edge '1'
 Debug: Setting new attribute selected '1' into edge '2'
 Debug: Setting new attribute selected '1' into edge '3'
@@ -644,7 +653,8 @@ Debug: Setting new attribute selected '1' into connection 'from8_1to2_1'
 Debug: Setting new attribute selected '1' into connection 'from8_1to3_1'
 Debug: Setting new attribute selected '1' into connection 'from8_2to1_2'
 Debug: Setting new attribute selected '1' into connection 'from8_2to3_2'
-Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Keys Ctrl+Y (Redo) pressed
+Debug: Calling GNEUndoList::redo()
 Debug: Setting new attribute selected 'false' into junction 'A'
 Debug: Setting new attribute selected 'false' into edge '1'
 Debug: Setting new attribute selected 'false' into junction 'B'
@@ -694,7 +704,7 @@ Debug: Setting new attribute selected 'false' into poi 'POI_2'
 Debug: Setting new attribute selected 'false' into poi 'POI_3'
 Debug: Setting new attribute selected 'false' into poiLane 'POI_4'
 Debug: Setting new attribute selected 'false' into poiLane 'POI_5'
-Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Additionals saved
 Debug: Removing poiLane 'POI_5' from net in ~GNEChange_Shape()
 Debug: delete poiLane 'POI_5' in ~GNEChange_Shape()

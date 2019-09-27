@@ -16,8 +16,8 @@ Debug: Additionals has to be saved
 Debug: Current saving Status: net saved, additionals unsaved, demand elements saved
 Debug: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
-Debug: Opening FXMessageBox 'Save additionals before exit'
-Debug: Closed FXMessageBox 'Save additionals before exit' with 'Yes'
+Debug: Opening FXMessageBox 'Save additionals before quit'
+Debug: Closed FXMessageBox 'Save additionals before quit' with 'Yes'
 Debug: Additionals saved
 Debug: Removing poly 'poly_0' from net in ~GNEChange_Shape()
 Debug: delete poly 'poly_0' in ~GNEChange_Shape()

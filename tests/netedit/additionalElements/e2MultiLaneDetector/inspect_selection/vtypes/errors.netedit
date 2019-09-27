@@ -33,10 +33,12 @@ Debug: Value 'Type%%%%%1 T;;yp$2 Type3' for attribute vTypes of e2MultilaneDetec
 Debug: Setting new attribute vTypes 'Type1 Type2 Type3' into e2MultilaneDetector 'e2MultilaneDetector_0'
 Debug: Setting new attribute vTypes 'Type1 Type2 Type3' into e2MultilaneDetector 'e2MultilaneDetector_1'
 Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
-Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Keys Ctrl+Z (Undo) pressed
+Debug: Calling GNEUndoList::undo()
 Debug: Setting previous attribute vTypes 'type4 type5 type6' into e2MultilaneDetector 'e2MultilaneDetector_1'
 Debug: Setting previous attribute vTypes 'type1 type2 type3' into e2MultilaneDetector 'e2MultilaneDetector_0'
-Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Keys Ctrl+Z (Undo) pressed
+Debug: Calling GNEUndoList::undo()
 Debug: Setting previous attribute selected '0' into e2MultilaneDetector 'e2MultilaneDetector_1'
 Debug: Setting previous attribute selected '0' into e2MultilaneDetector 'e2MultilaneDetector_0'
 Debug: Setting previous attribute selected '0' into connection 'fromgneE4_0togneE5_0'
@@ -49,16 +51,19 @@ Debug: Setting previous attribute selected '0' into edge 'gneE3'
 Debug: Setting previous attribute selected '0' into junction 'gneJ1'
 Debug: Setting previous attribute selected '0' into edge 'gneE5'
 Debug: Setting previous attribute selected '0' into junction 'gneJ0'
-Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Keys Ctrl+Z (Undo) pressed
+Debug: Calling GNEUndoList::undo()
 Debug: Removing e2MultilaneDetector 'e2MultilaneDetector_1' in GNEChange_Additional
 Debug: Removed inspected element from Inspected ACs. 1 ACs remains.
 Debug: Removing e2MultilaneDetector 'e2MultilaneDetector_0' in GNEChange_Additional
 Debug: Removed inspected element from Inspected ACs. 0 ACs remains.
 Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
-Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Keys Ctrl+Y (Redo) pressed
+Debug: Calling GNEUndoList::redo()
 Debug: Adding e2MultilaneDetector 'e2MultilaneDetector_0' in GNEChange_Additional
 Debug: Adding e2MultilaneDetector 'e2MultilaneDetector_1' in GNEChange_Additional
-Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Keys Ctrl+Y (Redo) pressed
+Debug: Calling GNEUndoList::redo()
 Debug: Setting new attribute selected 'true' into junction 'gneJ0'
 Debug: Setting new attribute selected 'true' into edge 'gneE5'
 Debug: Setting new attribute selected 'true' into junction 'gneJ1'
@@ -71,7 +76,8 @@ Debug: Setting new attribute selected 'true' into edge 'gneE4'
 Debug: Setting new attribute selected 'true' into connection 'fromgneE4_0togneE5_0'
 Debug: Setting new attribute selected 'true' into e2MultilaneDetector 'e2MultilaneDetector_0'
 Debug: Setting new attribute selected 'true' into e2MultilaneDetector 'e2MultilaneDetector_1'
-Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Keys Ctrl+Y (Redo) pressed
+Debug: Calling GNEUndoList::redo()
 Debug: Setting new attribute vTypes 'Type1 Type2 Type3' into e2MultilaneDetector 'e2MultilaneDetector_0'
 Debug: Setting new attribute vTypes 'Type1 Type2 Type3' into e2MultilaneDetector 'e2MultilaneDetector_1'
 Debug: Additionals saved

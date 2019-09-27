@@ -27,7 +27,7 @@ Debug: Adding space 'parkingArea_gneE2_1_0space0' in GNEChange_Additional
 GLDebug: 	Inserted parkingSpace:parkingArea_gneE2_1_0space0 into SUMORTree with boundary 10.40,-2.00,23.60,13.00
 Debug: ObjectsUnderCursor: GUIGlObjects: 1, AttributeCarriers: 1, NetElements: 0, Additionals: 1, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 Debug: Value 'dummyAngle' for attribute angle of space isn't valid
-Debug: Setting new attribute angle '354.00' into space 'parkingArea_gneE2_1_0space0'
+Debug: Setting new attribute angle '-6.00' into space 'parkingArea_gneE2_1_0space0'
 GLDebug: 	Removed object parkingSpace:parkingArea_gneE2_1_0space0 from SUMORTree with boundary 10.40,-2.00,23.60,13.00
 GLDebug: 	Inserted parkingSpace:parkingArea_gneE2_1_0space0 into SUMORTree with boundary 10.41,-2.17,24.11,13.14
 Debug: Setting new attribute angle '140.00' into space 'parkingArea_gneE2_1_0space0'
@@ -37,43 +37,53 @@ Debug: Setting new attribute angle '32.50' into space 'parkingArea_gneE2_1_0spac
 GLDebug: 	Removed object parkingSpace:parkingArea_gneE2_1_0space0 from SUMORTree with boundary 7.56,-6.86,23.23,9.03
 GLDebug: 	Inserted parkingSpace:parkingArea_gneE2_1_0space0 into SUMORTree with boundary 7.96,-2.86,23.35,13.08
 Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
-Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Keys Ctrl+Z (Undo) pressed
+Debug: Calling GNEUndoList::undo()
 Debug: Setting previous attribute angle '140.00' into space 'parkingArea_gneE2_1_0space0'
 GLDebug: 	Removed object parkingSpace:parkingArea_gneE2_1_0space0 from SUMORTree with boundary 7.96,-2.86,23.35,13.08
 GLDebug: 	Inserted parkingSpace:parkingArea_gneE2_1_0space0 into SUMORTree with boundary 7.56,-6.86,23.23,9.03
-Debug: Keys Ctrl + Z (Undo) pressed
-Debug: Setting previous attribute angle '354.00' into space 'parkingArea_gneE2_1_0space0'
+Debug: Keys Ctrl+Z (Undo) pressed
+Debug: Calling GNEUndoList::undo()
+Debug: Setting previous attribute angle '-6.00' into space 'parkingArea_gneE2_1_0space0'
 GLDebug: 	Removed object parkingSpace:parkingArea_gneE2_1_0space0 from SUMORTree with boundary 7.56,-6.86,23.23,9.03
 GLDebug: 	Inserted parkingSpace:parkingArea_gneE2_1_0space0 into SUMORTree with boundary 10.41,-2.17,24.11,13.14
-Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Keys Ctrl+Z (Undo) pressed
+Debug: Calling GNEUndoList::undo()
 Debug: Setting previous attribute angle '0.00' into space 'parkingArea_gneE2_1_0space0'
 GLDebug: 	Removed object parkingSpace:parkingArea_gneE2_1_0space0 from SUMORTree with boundary 10.41,-2.17,24.11,13.14
 GLDebug: 	Inserted parkingSpace:parkingArea_gneE2_1_0space0 into SUMORTree with boundary 10.40,-2.00,23.60,13.00
-Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Keys Ctrl+Z (Undo) pressed
+Debug: Calling GNEUndoList::undo()
 Debug: Removing space 'parkingArea_gneE2_1_0space0' in GNEChange_Additional
 Debug: Removed inspected element from Inspected ACs. 0 ACs remains.
 GLDebug: 	Removed object parkingSpace:parkingArea_gneE2_1_0space0 from SUMORTree with boundary 10.40,-2.00,23.60,13.00
-Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Keys Ctrl+Z (Undo) pressed
+Debug: Calling GNEUndoList::undo()
 Debug: Removing parkingArea 'parkingArea_gneE2_1_0' in GNEChange_Additional
 GLDebug: 	Removed object parkingArea:parkingArea_gneE2_1_0 from SUMORTree with boundary 12.80,9.40,31.20,17.80
 Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
-Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Keys Ctrl+Y (Redo) pressed
+Debug: Calling GNEUndoList::redo()
 Debug: Adding parkingArea 'parkingArea_gneE2_1_0' in GNEChange_Additional
 GLDebug: 	Inserted parkingArea:parkingArea_gneE2_1_0 into SUMORTree with boundary 12.80,9.40,31.20,17.80
 GLDebug: 	Removed object parkingArea:parkingArea_gneE2_1_0 from SUMORTree with boundary 12.80,9.40,31.20,17.80
 GLDebug: 	Inserted parkingArea:parkingArea_gneE2_1_0 into SUMORTree with boundary 12.80,9.40,31.20,17.80
-Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Keys Ctrl+Y (Redo) pressed
+Debug: Calling GNEUndoList::redo()
 Debug: Adding space 'parkingArea_gneE2_1_0space0' in GNEChange_Additional
 GLDebug: 	Inserted parkingSpace:parkingArea_gneE2_1_0space0 into SUMORTree with boundary 10.40,-2.00,23.60,13.00
-Debug: Keys Ctrl + Y (Redo) pressed
-Debug: Setting new attribute angle '354.00' into space 'parkingArea_gneE2_1_0space0'
+Debug: Keys Ctrl+Y (Redo) pressed
+Debug: Calling GNEUndoList::redo()
+Debug: Setting new attribute angle '-6.00' into space 'parkingArea_gneE2_1_0space0'
 GLDebug: 	Removed object parkingSpace:parkingArea_gneE2_1_0space0 from SUMORTree with boundary 10.40,-2.00,23.60,13.00
 GLDebug: 	Inserted parkingSpace:parkingArea_gneE2_1_0space0 into SUMORTree with boundary 10.41,-2.17,24.11,13.14
-Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Keys Ctrl+Y (Redo) pressed
+Debug: Calling GNEUndoList::redo()
 Debug: Setting new attribute angle '140.00' into space 'parkingArea_gneE2_1_0space0'
 GLDebug: 	Removed object parkingSpace:parkingArea_gneE2_1_0space0 from SUMORTree with boundary 10.41,-2.17,24.11,13.14
 GLDebug: 	Inserted parkingSpace:parkingArea_gneE2_1_0space0 into SUMORTree with boundary 7.56,-6.86,23.23,9.03
-Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Keys Ctrl+Y (Redo) pressed
+Debug: Calling GNEUndoList::redo()
 Debug: Setting new attribute angle '32.50' into space 'parkingArea_gneE2_1_0space0'
 GLDebug: 	Removed object parkingSpace:parkingArea_gneE2_1_0space0 from SUMORTree with boundary 7.56,-6.86,23.23,9.03
 GLDebug: 	Inserted parkingSpace:parkingArea_gneE2_1_0space0 into SUMORTree with boundary 7.96,-2.86,23.35,13.08

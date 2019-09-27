@@ -31,10 +31,12 @@ Debug: Value '%%%;:..&&%$%$' for attribute name of e3Detector isn't valid
 Debug: Setting new attribute name 'customName' into e3Detector 'e3Detector_A'
 Debug: Setting new attribute name 'customName' into e3Detector 'e3Detector_B'
 Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
-Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Keys Ctrl+Z (Undo) pressed
+Debug: Calling GNEUndoList::undo()
 Debug: Setting previous attribute name 'B' into e3Detector 'e3Detector_B'
 Debug: Setting previous attribute name 'A' into e3Detector 'e3Detector_A'
-Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Keys Ctrl+Z (Undo) pressed
+Debug: Calling GNEUndoList::undo()
 Debug: Setting previous attribute selected '0' into detExit 'e3Detector_BdetExit1'
 Debug: Setting previous attribute selected '0' into detExit 'e3Detector_AdetExit1'
 Debug: Setting previous attribute selected '0' into detEntry 'e3Detector_BdetEntry0'
@@ -46,7 +48,8 @@ Debug: Setting previous attribute selected '0' into junction 'gneJ1'
 Debug: Setting previous attribute selected '0' into edge 'gneE1'
 Debug: Setting previous attribute selected '0' into junction 'gneJ0'
 Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
-Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Keys Ctrl+Y (Redo) pressed
+Debug: Calling GNEUndoList::redo()
 Debug: Setting new attribute selected 'true' into junction 'gneJ0'
 Debug: Setting new attribute selected 'true' into edge 'gneE1'
 Debug: Setting new attribute selected 'true' into junction 'gneJ1'
@@ -57,7 +60,8 @@ Debug: Setting new attribute selected 'true' into detEntry 'e3Detector_AdetEntry
 Debug: Setting new attribute selected 'true' into detEntry 'e3Detector_BdetEntry0'
 Debug: Setting new attribute selected 'true' into detExit 'e3Detector_AdetExit1'
 Debug: Setting new attribute selected 'true' into detExit 'e3Detector_BdetExit1'
-Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Keys Ctrl+Y (Redo) pressed
+Debug: Calling GNEUndoList::redo()
 Debug: Setting new attribute name 'customName' into e3Detector 'e3Detector_A'
 Debug: Setting new attribute name 'customName' into e3Detector 'e3Detector_B'
 Debug: Additionals saved

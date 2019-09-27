@@ -23,10 +23,12 @@ Debug: Value '%%%$$$$%$' for attribute name of parkingArea isn't valid
 Debug: Setting new attribute name 'new Parking Area Name' into parkingArea 'parkingAreaA'
 Debug: Setting new attribute name 'new Parking Area Name' into parkingArea 'parkingAreaB'
 Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
-Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Keys Ctrl+Z (Undo) pressed
+Debug: Calling GNEUndoList::undo()
 Debug: Setting previous attribute name 'parkingArea2' into parkingArea 'parkingAreaB'
 Debug: Setting previous attribute name 'parkingArea1' into parkingArea 'parkingAreaA'
-Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Keys Ctrl+Z (Undo) pressed
+Debug: Calling GNEUndoList::undo()
 Debug: Setting previous attribute selected '0' into parkingArea 'parkingAreaB'
 Debug: Setting previous attribute selected '0' into parkingArea 'parkingAreaA'
 Debug: Setting previous attribute selected '0' into edge 'gneE0'
@@ -34,14 +36,16 @@ Debug: Setting previous attribute selected '0' into junction 'gneJ1'
 Debug: Setting previous attribute selected '0' into edge 'gneE1'
 Debug: Setting previous attribute selected '0' into junction 'gneJ0'
 Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
-Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Keys Ctrl+Y (Redo) pressed
+Debug: Calling GNEUndoList::redo()
 Debug: Setting new attribute selected 'true' into junction 'gneJ0'
 Debug: Setting new attribute selected 'true' into edge 'gneE1'
 Debug: Setting new attribute selected 'true' into junction 'gneJ1'
 Debug: Setting new attribute selected 'true' into edge 'gneE0'
 Debug: Setting new attribute selected 'true' into parkingArea 'parkingAreaA'
 Debug: Setting new attribute selected 'true' into parkingArea 'parkingAreaB'
-Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Keys Ctrl+Y (Redo) pressed
+Debug: Calling GNEUndoList::redo()
 Debug: Setting new attribute name 'new Parking Area Name' into parkingArea 'parkingAreaA'
 Debug: Setting new attribute name 'new Parking Area Name' into parkingArea 'parkingAreaB'
 Debug: Additionals saved

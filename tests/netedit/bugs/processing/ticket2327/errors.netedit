@@ -446,7 +446,8 @@ Debug: Setting new attribute id 'cluster_gneJ11_gneJ12_gneJ13_gneJ14_gneJ15_gneJ
 Debug: Setting new attribute pos '70.00,20.00' into junction 'cluster_gneJ11_gneJ12_gneJ13_gneJ14_gneJ15_gneJ16_gneJ17_gneJ18_gneJ19'
 Debug: Key F5 (Compute) pressed
 Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
-Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Keys Ctrl+Z (Undo) pressed
+Debug: Calling GNEUndoList::undo()
 Debug: Setting previous attribute pos '70.10,20.10' into junction 'cluster_gneJ11_gneJ12_gneJ13_gneJ14_gneJ15_gneJ16_gneJ17_gneJ18_gneJ19'
 Debug: Setting previous attribute id 'gneJ23' into junction 'cluster_gneJ11_gneJ12_gneJ13_gneJ14_gneJ15_gneJ16_gneJ17_gneJ18_gneJ19'
 Debug: Adding junction 'gneJ19' into net
@@ -695,7 +696,8 @@ Debug: Adding crossing into junction 'gneJ11'
 Debug: Created crossing ':gneJ11_c2' in retrieveGNECrossing()
 Debug: Setting previous attribute type 'unknown' into junction 'gneJ23'
 Debug: Removing junction 'gneJ23' from net
-Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Keys Ctrl+Z (Undo) pressed
+Debug: Calling GNEUndoList::undo()
 Debug: Setting previous attribute id 'gneJ22' into junction 'cluster_gneJ6_gneJ7'
 Debug: Adding junction 'gneJ7' into net
 Debug: Adding junction 'gneJ6' into net
@@ -737,7 +739,8 @@ Debug: Adding crossing into junction 'gneJ6'
 Debug: Created crossing ':gneJ6_c0' in retrieveGNECrossing()
 Debug: Setting previous attribute type 'unknown' into junction 'gneJ22'
 Debug: Removing junction 'gneJ22' from net
-Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Keys Ctrl+Z (Undo) pressed
+Debug: Calling GNEUndoList::undo()
 Debug: Setting previous attribute id 'gneJ21' into junction 'cluster_gneJ2_gneJ3'
 Debug: Adding junction 'gneJ3' into net
 Debug: Adding junction 'gneJ2' into net
@@ -758,7 +761,8 @@ Debug: Adding connection 'gneE2_1->gneE1_1' into edge 'gneE2'
 Debug: Created connection 'fromgneE2_1togneE1_1' in retrieveGNEConnection()
 Debug: Setting previous attribute type 'unknown' into junction 'gneJ21'
 Debug: Removing junction 'gneJ21' from net
-Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Keys Ctrl+Z (Undo) pressed
+Debug: Calling GNEUndoList::undo()
 Debug: Setting previous attribute id 'gneJ20' into junction 'cluster_gneJ0_gneJ1'
 Debug: Adding junction 'gneJ1' into net
 Debug: Setting previous attribute type 'dead_end' into junction 'gneJ1'
@@ -774,7 +778,8 @@ Debug: Setting previous attribute type 'unknown' into junction 'gneJ20'
 Debug: Removing junction 'gneJ20' from net
 Debug: Key F5 (Compute) pressed
 Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
-Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Keys Ctrl+Y (Redo) pressed
+Debug: Calling GNEUndoList::redo()
 Debug: Adding junction 'gneJ20' into net
 Debug: Setting new attribute type 'dead_end' into junction 'gneJ20'
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ0'
@@ -788,7 +793,8 @@ Debug: Removing junction 'gneJ0' from net
 Debug: Setting new attribute type 'priority' into junction 'gneJ1'
 Debug: Removing junction 'gneJ1' from net
 Debug: Setting new attribute id 'cluster_gneJ0_gneJ1' into junction 'gneJ20'
-Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Keys Ctrl+Y (Redo) pressed
+Debug: Calling GNEUndoList::redo()
 Debug: Adding junction 'gneJ21' into net
 Debug: Setting new attribute type 'priority' into junction 'gneJ21'
 Debug: Removing connection 'gneE2_1->gneE1_1' from edge 'gneE2'
@@ -809,7 +815,8 @@ Debug: Removing edge 'gneE2' from net
 Debug: Removing junction 'gneJ2' from net
 Debug: Removing junction 'gneJ3' from net
 Debug: Setting new attribute id 'cluster_gneJ2_gneJ3' into junction 'gneJ21'
-Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Keys Ctrl+Y (Redo) pressed
+Debug: Calling GNEUndoList::redo()
 Debug: Adding junction 'gneJ22' into net
 Debug: Setting new attribute type 'priority' into junction 'gneJ22'
 Debug: Removing crossing from junction 'gneJ6'
@@ -849,7 +856,8 @@ Debug: Created crossing ':gneJ22_c0' in retrieveGNECrossing()
 Debug: Removing junction 'gneJ6' from net
 Debug: Removing junction 'gneJ7' from net
 Debug: Setting new attribute id 'cluster_gneJ6_gneJ7' into junction 'gneJ22'
-Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Keys Ctrl+Y (Redo) pressed
+Debug: Calling GNEUndoList::redo()
 Debug: Adding junction 'gneJ23' into net
 Debug: Setting new attribute type 'priority' into junction 'gneJ23'
 Debug: Removing crossing from junction 'gneJ11'

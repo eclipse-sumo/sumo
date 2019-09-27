@@ -91,7 +91,8 @@ Debug: Created connection 'fromgneE9_0togneE2_1' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE9_0togneE2_2' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE9_0togneE2_3' in retrieveGNEConnection()
 Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
-Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Keys Ctrl+Z (Undo) pressed
+Debug: Calling GNEUndoList::undo()
 Debug: Removing nullptr lane from edge
 Debug: Deleting unreferenced lane 'gneE3_3' in removeLane()
 Debug: Deleting unreferenced connection 'fromgneE3_3togneE2_3' in rebuildGNEConnections()
@@ -150,7 +151,8 @@ Debug: Adding connection 'gneE3_1->gneE2_1' into edge 'gneE3'
 Debug: Created connection 'fromgneE3_1togneE2_1' in retrieveGNEConnection()
 Debug: Key F5 (Compute) pressed
 Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
-Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Keys Ctrl+Y (Redo) pressed
+Debug: Calling GNEUndoList::redo()
 Debug: Removing connection 'gneE3_1->gneE2_1' from edge 'gneE3'
 Debug: Deleting unreferenced connection 'fromgneE3_1togneE2_1' in removeConnection()
 Debug: Removing connection 'gneE3_0->gneE8_0' from edge 'gneE3'
