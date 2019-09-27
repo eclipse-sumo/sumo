@@ -28,7 +28,7 @@ permalink: /ChangeLog/
   - Fixed invalid junction and connection shapes in plain-xml-output when using option **--proj.plain-geo** Issue #6066
   - Fixed invalid geometry when using option **--geometry.max-segment-length** Issue #6074
   - Fixed invalid network when using option **--geometry.split** Issue #6075
-
+  
 - Meso
   - device.emissions now collects data. Issue #6086
   - fixed crash when using device.btsender or device.btreceiver. Issue #6087
@@ -62,6 +62,8 @@ permalink: /ChangeLog/
   - Railway network input with sharp angles along an edge is now corrected by default. (The previous behavior can be enabled with option **--geometry.min-angle.fix.railways false**). Issue #6921
   - Pedestrian paths are no longer checked for minimum turning angles (greatly reducing superfluous warnings). Issue #6022
   - The option **--opposites.guess.fix-length** is no longer required when using networks with default lengths (no user-set values). The resulting networks will automatically adapt their edge lengths when changing geometry. Issue #6028
+  - When importing public transport lines (**--ptline-output**), edge permissions are now adapted to allow the respective public transport vehicle. Issue #3437
+  - When importing public transport lines from OSM, stops that are not part of the road network are now mapped to the nearest line edge (previously, these stops were discarded). Issue #6114
 
 - Netedit
   - Now additionals and routes can optionally be loaded using option "Open in SUMO-GUI"). Issue #6049
