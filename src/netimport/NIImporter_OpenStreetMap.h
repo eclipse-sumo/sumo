@@ -71,7 +71,6 @@ public:
      */
     static void loadNetwork(const OptionsCont& oc, NBNetBuilder& nb);
 
-
 protected:
     /** @brief An internal representation of an OSM-node
      */
@@ -84,7 +83,7 @@ protected:
             railwaySignal(false),
             railwayBufferStop(false),
             ptStopPosition(false), ptStopLength(0), name(""),
-            permissions(SVC_RAIL | SVC_BUS | SVC_TRAM),
+            permissions(SVC_IGNORING),
             positionMeters(std::numeric_limits<double>::max()),
             node(0) { }
 
@@ -125,6 +124,13 @@ protected:
 
 
     };
+
+public:
+    /// @brief translate osm transport designations into sumo vehicle class
+    static SUMOVehicleClass interpretTransportType(const std::string& type, NIOSMNode* toSet=nullptr);
+
+protected:
+
 
     /** @enum CycleWayType
      * @brief details on the kind of cycleway along this road
@@ -304,7 +310,6 @@ private:
 
     /// @brief read distance value from node and return value in m
     static double interpretDistance(NIOSMNode* node);
-
 
 protected:
     static const double MAXSPEED_UNGIVEN;

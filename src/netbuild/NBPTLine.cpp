@@ -25,14 +25,16 @@
 #include "NBPTLine.h"
 #include "NBPTStop.h"
 
-NBPTLine::NBPTLine(const std::string& id, const std::string& name, const std::string& type, const std::string& ref, int interval, const std::string& nightService) :
+NBPTLine::NBPTLine(const std::string& id, const std::string& name, const std::string& type, const std::string& ref, int interval, const std::string& nightService,
+        SUMOVehicleClass vClass) :
     myName(name),
     myType(type),
     myPTLineId(id),
     myRef(ref != "" ? ref : name),
     myInterval(interval),
-    myNightService(nightService) {
-}
+    myNightService(nightService),
+    myVClass(vClass)
+{ }
 
 void NBPTLine::addPTStop(NBPTStop* pStop) {
     myPTStops.push_back(pStop);
@@ -52,6 +54,7 @@ void NBPTLine::write(OutputDevice& device, NBEdgeCont& ec) {
 
     device.writeAttr(SUMO_ATTR_LINE, StringUtils::escapeXML(myRef));
     device.writeAttr(SUMO_ATTR_TYPE, myType);
+    device.writeAttr(SUMO_ATTR_VCLASS, toString(myVClass));
     if (myInterval > 0) {
         // write seconds
         device.writeAttr(SUMO_ATTR_PERIOD, 60 * myInterval);
@@ -81,10 +84,6 @@ void NBPTLine::write(OutputDevice& device, NBEdgeCont& ec) {
         device.writeAttr(SUMO_ATTR_NAME, StringUtils::escapeXML(myPTStop->getName()));
         device.closeTag();
     }
-//    device.writeAttr(SUMO_ATTR_LANE, myLaneId);
-//    device.writeAttr(SUMO_ATTR_STARTPOS, myStartPos);
-//    device.writeAttr(SUMO_ATTR_ENDPOS, myEndPos);
-//    device.writeAttr(SUMO_ATTR_FRIENDLY_POS, "true");
     device.closeTag();
 
 }

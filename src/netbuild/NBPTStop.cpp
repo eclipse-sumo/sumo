@@ -201,7 +201,7 @@ NBPTStop::findLaneAndComputeBusStopExtent(const NBEdgeCont& ec) {
     if (edge != nullptr) {
         int laneNr = -1;
         for (const auto& it : edge->getLanes()) {
-            if ((it.permissions & getPermissions()) > 0) {
+            if ((it.permissions & getPermissions()) == getPermissions()) {
                 ++laneNr;
                 break;
             }

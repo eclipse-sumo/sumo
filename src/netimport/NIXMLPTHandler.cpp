@@ -41,6 +41,7 @@
 #include <utils/common/ToString.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/geom/GeoConvHelper.h>
+#include "NIImporter_OpenStreetMap.h"
 #include "NIXMLNodesHandler.h"
 #include "NIXMLPTHandler.h"
 
@@ -162,11 +163,15 @@ NIXMLPTHandler::addPTLine(const SUMOSAXAttributes& attrs) {
     const std::string name = attrs.getOpt<std::string>(SUMO_ATTR_ID, id.c_str(), ok, "");
     const std::string line = attrs.get<std::string>(SUMO_ATTR_LINE, id.c_str(), ok);
     const std::string type = attrs.get<std::string>(SUMO_ATTR_TYPE, id.c_str(), ok);
+    SUMOVehicleClass vClass = NIImporter_OpenStreetMap::interpretTransportType(type);
+    if (attrs.hasAttribute(SUMO_ATTR_VCLASS)) {
+        vClass = getVehicleClassID(attrs.get<std::string>(SUMO_ATTR_ID, id.c_str(), ok));
+    }
     const int intervalS = attrs.getOpt<int>(SUMO_ATTR_PERIOD, id.c_str(), ok, -1);
     const std::string nightService = attrs.getStringSecure("nightService", "");
     myCurrentCompletion = StringUtils::toDouble(attrs.getStringSecure("completeness", "1"));
     if (ok) {
-        myCurrentLine = new NBPTLine(id, name, type, line, intervalS / 60, nightService);
+        myCurrentLine = new NBPTLine(id, name, type, line, intervalS / 60, nightService, vClass);
         myLineCont.insert(myCurrentLine);
     }
 }

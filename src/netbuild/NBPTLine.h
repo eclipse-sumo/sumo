@@ -35,7 +35,8 @@ class NBPTLine {
 
 public:
     explicit NBPTLine(const std::string& id, const std::string& name,
-                      const std::string& type, const std::string& ref, int interval, const std::string& nightService);
+                      const std::string& type, const std::string& ref, int interval, const std::string& nightService,
+                      SUMOVehicleClass vClass);
 
     void addPTStop(NBPTStop* pStop);
 
@@ -95,6 +96,7 @@ private:
     std::string myRef;
     int myInterval;
     std::string myNightService;
+    SUMOVehicleClass myVClass;
 
 public:
     void addEdgeVector(std::vector<NBEdge*>::iterator fr, std::vector<NBEdge*>::iterator to);

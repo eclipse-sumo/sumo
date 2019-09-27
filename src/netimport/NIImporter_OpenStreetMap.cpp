@@ -704,19 +704,6 @@ NIImporter_OpenStreetMap::NodesHandler::myStartElement(int element, const SUMOSA
                 }
             } else if (key == "name") {
                 myToFill[myLastNodeID]->name = value;
-            } else if (key == "train") {
-                myToFill[myLastNodeID]->permissions = SVC_RAIL;
-                myToFill[myLastNodeID]->ptStopLength = myOptionsCont.getFloat("osm.stop-output.length.train");
-            } else if (key == "subway" || key == "light_rail"
-                       || (key == "station" && (value == "subway" || value == "light_rail"))) {
-                myToFill[myLastNodeID]->permissions = SVC_RAIL_URBAN;
-                myToFill[myLastNodeID]->ptStopLength = myOptionsCont.getFloat("osm.stop-output.length.train");
-            } else if (key == "bus") {
-                myToFill[myLastNodeID]->permissions = SVC_BUS;
-                myToFill[myLastNodeID]->ptStopLength = myOptionsCont.getFloat("osm.stop-output.length.bus");
-            } else if (key == "tram") {
-                myToFill[myLastNodeID]->permissions = SVC_TRAM;
-                myToFill[myLastNodeID]->ptStopLength = myOptionsCont.getFloat("osm.stop-output.length.tram");
             } else if (myImportElevation && key == "ele") {
                 try {
                     myToFill[myLastNodeID]->ele = StringUtils::toDouble(value);
@@ -724,6 +711,11 @@ NIImporter_OpenStreetMap::NodesHandler::myStartElement(int element, const SUMOSA
                     WRITE_WARNING("Value of key '" + key + "' is not numeric ('" + value + "') in node '" +
                                   toString(myLastNodeID) + "'.");
                 }
+            } else if (key == "station") {
+                interpretTransportType(value, myToFill[myLastNodeID]);
+            } else {
+                // v="yes"
+                interpretTransportType(key, myToFill[myLastNodeID]);
             }
         }
     }
@@ -1337,7 +1329,7 @@ NIImporter_OpenStreetMap::RelationHandler::myEndElement(int element) {
                 ptStop->setIsMultipleStopPositions(myStops.size() > 1);
             }
         } else if (myPTRouteType != "" && myIsRoute && OptionsCont::getOptions().isSet("ptline-output") && myStops.size() > 1) {
-            NBPTLine* ptLine = new NBPTLine(toString(myCurrentRelation), myName, myPTRouteType, myRef, myInterval, myNightService);
+            NBPTLine* ptLine = new NBPTLine(toString(myCurrentRelation), myName, myPTRouteType, myRef, myInterval, myNightService, interpretTransportType(myPTRouteType));
             ptLine->setMyNumOfStops((int)myStops.size());
             for (long long ref : myStops) {
                 if (myOSMNodes.find(ref) == myOSMNodes.end()) {
@@ -1844,6 +1836,28 @@ NIImporter_OpenStreetMap::interpretDistance(NIOSMNode* node) {
     }
     return std::numeric_limits<double>::max();
 }
+
+SUMOVehicleClass
+NIImporter_OpenStreetMap::interpretTransportType(const std::string& type, NIOSMNode* toSet) {
+    SUMOVehicleClass result = SVC_IGNORING;
+    std::string stop = type;
+    if (type == "train") {
+        result = SVC_RAIL;
+    } else if (type == "subway" || type == "light_rail") {
+        result = SVC_RAIL_URBAN;
+        stop = "train";
+    } else if (type == "bus") {
+        result = SVC_BUS;
+    } else if (type == "tram") {
+        result = SVC_TRAM;
+    }
+    if (toSet != nullptr && result != SVC_IGNORING) {
+        toSet->permissions |= result;
+        toSet->ptStopLength = OptionsCont::getOptions().getFloat("osm.stop-output.length." + stop);
+    }
+    return result;
+}
+
 
 /****************************************************************************/
 
