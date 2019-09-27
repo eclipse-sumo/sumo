@@ -1,8 +1,8 @@
 Warning: Essential unique string attribute 'from' of trip with ID 'flow_0' is missing; trip cannot be created
-Error: Invalid 'from' edge used in trip 'flow_0'.
+Error: Invalid from-edge '' used in trip 'flow_0'.
 Error: Invalid route '' used in flow 'flow_0'.
-Error: Invalid 'from' edge used in trip 'flow_1'.
+Error: Invalid from-edge '' used in trip 'flow_1'.
 Error: Invalid route '' used in flow 'flow_1'.
-Error: Invalid 'from' edge used in trip 'flow_2'.
+Error: Invalid from-edge 'dummyEdge' used in trip 'flow_2'.
 Error: Invalid route '' used in flow 'flow_2'.
-Error: Loading of C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.05Aug135627.10248/netedit.gui/demandElements/flow/load/from\input_routes.rou.xml failed.
+Error: Loading of C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.25Sep145557.1772/netedit.gui/demandElements/flow/load/from\input_routes.rou.xml failed.
