@@ -94,8 +94,8 @@ const RGBColor GUIVisualizationColorSettings::ride(0, 0, 255);
 // widths of certain NETEDIT objects
 // -------------------------------------------------------------------------
 
-const float GUIVisualizationWidthSettings::dottedContour(3);
-const double GUIVisualizationWidthSettings::dottedContourSegmentLenght(1);
+const double GUIVisualizationWidthSettings::dottedContour(3);
+const double GUIVisualizationWidthSettings::dottedContourSegmentLength(1);
 const double GUIVisualizationWidthSettings::route(0.66);
 const double GUIVisualizationWidthSettings::trip(0.2);
 const double GUIVisualizationWidthSettings::personTrip(0.25);
@@ -113,7 +113,7 @@ const double GUIVisualizationDetailSettings::additionalTextures(20); // original
 const double GUIVisualizationDetailSettings::geometryPointsDetails(10);
 const double GUIVisualizationDetailSettings::geometryPointsText(30);
 const double GUIVisualizationDetailSettings::stoppingPlaceDetails(10);
-const double GUIVisualizationDetailSettings::stoppingPlaceText(30);
+const double GUIVisualizationDetailSettings::stoppingPlaceText(10);
 const double GUIVisualizationDetailSettings::detectorDetails(10);
 const double GUIVisualizationDetailSettings::detectorText(30);
 const double GUIVisualizationDetailSettings::calibratorText(10);

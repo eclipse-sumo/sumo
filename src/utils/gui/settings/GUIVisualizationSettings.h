@@ -252,10 +252,10 @@ struct GUIVisualizationColorSettings {
 struct GUIVisualizationWidthSettings {
 
     /// @brief width of dotted contours (note: must be float)
-    static const float dottedContour;
+    static const double dottedContour;
 
     /// @brief lenght of dotted contour segments
-    static const double dottedContourSegmentLenght;
+    static const double dottedContourSegmentLength;
 
     /// @brief width for routes
     static const double route;
