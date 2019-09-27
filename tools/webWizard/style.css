@@ -25,7 +25,6 @@ canvas {
     width: 250px;
     height: 100%;
     transition: 0.2s right;
-    border-radius: 4px 0 0 4px;
     background: #005ACC;
     color: #FFF;
 }
