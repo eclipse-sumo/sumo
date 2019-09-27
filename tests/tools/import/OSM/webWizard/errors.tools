@@ -174,10 +174,9 @@ Warning: PT line in relation 7797053 with no stops ignored. Probably OSM file is
 Warning: PT line in relation 7797054 with no stops ignored. Probably OSM file is incomplete.
 Warning: Could not re-assign PT stop: 1615531689 probably broken osm file
 Warning: PT stop: 4692172068 has been moved to edge: -326116285#2
+Warning: Incomplete route for ptline '2014286' (Straßenbahnlinie 12: Weißensee, Pasedagplatz => Mitte, Am Kupfergraben)
+Warning: Incomplete route for ptline '2014286' (Straßenbahnlinie 12: Weißensee, Pasedagplatz => Mitte, Am Kupfergraben)
 Warning: Could not re-assign PT stop: 247600965 probably broken osm file
-Warning: Incomplete route for ptline '2014286' (Straßenbahnlinie 12: Weißensee, Pasedagplatz => Mitte, Am Kupfergraben)
-Warning: Incomplete route for ptline '2014286' (Straßenbahnlinie 12: Weißensee, Pasedagplatz => Mitte, Am Kupfergraben)
-Warning: Could not re-assign PT stop: 1823298700 probably broken osm file
 Warning: Incomplete route for ptline '2014287' (Straßenbahnlinie 12: Mitte, Am Kupfergraben => Weißensee, Pasedagplatz)
 Warning: Incomplete route for ptline '2014287' (Straßenbahnlinie 12: Mitte, Am Kupfergraben => Weißensee, Pasedagplatz)
 Warning: Could not re-assign PT stop: 1823298700 probably broken osm file
@@ -188,14 +187,15 @@ Warning: Could not re-assign PT stop: 1823298700 probably broken osm file
 Warning: Incomplete route for ptline '2076230' (Straßenbahnlinie M1: Mitte, Am Kupfergraben => Rosenthal Nord)
 Warning: Incomplete route for ptline '2076230' (Straßenbahnlinie M1: Mitte, Am Kupfergraben => Rosenthal Nord)
 Warning: Incomplete route for ptline '2076230' (Straßenbahnlinie M1: Mitte, Am Kupfergraben => Rosenthal Nord)
-Warning: Could not re-assign PT stop: 247600965 probably broken osm file
-Warning: Cannot revise pt stop localization for incomplete pt line: 2076231. Ignoring!
+Warning: Could not re-assign PT stop: 1823298700 probably broken osm file
 Warning: Incomplete route for ptline '2076231' (Straßenbahnlinie M1: Niederschönhausen, Schillerstraße => Mitte, Am Kupfergraben)
 Warning: Incomplete route for ptline '2076231' (Straßenbahnlinie M1: Niederschönhausen, Schillerstraße => Mitte, Am Kupfergraben)
 Warning: Could not re-assign PT stop: 247600965 probably broken osm file
-Warning: Cannot revise pt stop localization for incomplete pt line: 2076232. Ignoring!
+Warning: Cannot assign stop '247603398' on edge '207364191' to pt line '2076231'. Ignoring!
 Warning: Incomplete route for ptline '2076232' (Straßenbahnlinie M1: Rosenthal Nord => Mitte, Am Kupfergraben)
 Warning: Incomplete route for ptline '2076232' (Straßenbahnlinie M1: Rosenthal Nord => Mitte, Am Kupfergraben)
+Warning: Could not re-assign PT stop: 247600965 probably broken osm file
+Warning: Cannot assign stop '247603398' on edge '207364191' to pt line '2076232'. Ignoring!
 Warning: Incomplete route for ptline '2194813' (Buslinie N65: Köpenick, Müggelschlößchenweg => S Hackescher Markt)
 Warning: PT stop: 3869306765 has been moved to edge: -4402228
 Warning: PT stop: 3869306770 has been moved to edge: -194069450#1
@@ -205,16 +205,16 @@ Warning: PT stop: 3869306760 has been moved to edge: -176043807#2
 Warning: PT stop: 3869306761 has been moved to edge: -437325051#0
 Warning: PT stop: 3867910422 has been moved to edge: -43156728#0
 Warning: PT stop: 3867910429 has been moved to edge: -478396988
-Warning: Cannot revise pt stop localization for incomplete pt line: 2211985. Ignoring!
+Warning: Cannot assign stop '3867910429' on edge '478396988' to pt line '2211985'. Ignoring!
 Warning: PT stop: 2915579613 has been moved to edge: -275177453
 Warning: PT stop: 2915545317 has been moved to edge: -36892597#1
 Warning: Could not re-assign PT stop: 1615531689 probably broken osm file
-Warning: Could not re-assign PT stop: 366500582 probably broken osm file
 Warning: Incomplete route for ptline '300432' (RB21: Wustermark => Berlin Friedrichstraße)
+Warning: Could not re-assign PT stop: 366500582 probably broken osm file
 Warning: PT stop: 4015961303 has been moved to edge: -196850606#4
 Warning: PT stop: 3867910426 has been moved to edge: -275177453
-Warning: Could not re-assign PT stop: 366500582 probably broken osm file
 Warning: Incomplete route for ptline '6593455' (RB22: Königs Wusterhausen => Berlin Friedrichstraße)
+Warning: Could not re-assign PT stop: 366500582 probably broken osm file
 Warning: First stop edge '148458500#1' is not part of the route of line '1981933'
 Warning: Last stop edge '207364192#0' is not part of the route of line '2014286'
 Warning: Last stop edge '207364191#0' is not part of the route of line '2076231'

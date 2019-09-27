@@ -11,10 +11,10 @@ Warning: Done reading first coherent chunk of pt stops. Further stops in relatio
 Warning: PT stop: 3959807201 has been moved to edge: -391493954#3
 Warning: PT stop: 3959807220 has been moved to edge: -110450334#1
 Warning: PT stop: 4032629820 has been moved to edge: -53356539#0
-Warning: Cannot revise pt stop localization for incomplete pt line: 6187328. Ignoring!
 Warning: Incomplete route for ptline '6187328' (Buslinie N42: S+U Alexanderplatz => U Theodor-Heuss-Platz)
-Warning: Cannot revise pt stop localization for incomplete pt line: 6187329. Ignoring!
+Warning: Cannot assign stop '3959807201' on edge '391493954' to pt line '6187328'. Ignoring!
 Warning: Incomplete route for ptline '6187329' (Buslinie N42: U Theodor-Heuss-Platz => S+U Alexanderplatz)
+Warning: Cannot assign stop '3959807200' on edge '391493954' to pt line '6187329'. Ignoring!
 Warning: Can not build ramp on edge '-338412122' - the edge is unsuitable.
 Warning: Found sharp turn with radius 6.74 at the start of edge '-41292662#2'.
 Warning: Found sharp turn with radius 6.45 at the end of edge '186519599'.

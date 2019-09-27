@@ -1,4 +1,4 @@
-Eclipse SUMO netconvert Version v1_3_1+0077-834a7e2
+Eclipse SUMO netconvert Version v1_3_1+0448-0d7d2a7
  Copyright (C) 2001-2019 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 Network importer / builder for the microscopic, multi-modal traffic simulation
   SUMO.
@@ -167,6 +167,9 @@ Processing Options:
                                          permissions and which do not admit
                                          lane-changing (sidewalks and disallowed
                                          lanes)
+  --ptline.match-dist FLOAT            Matches stops outside the road network
+                                         to the referencing pt line when below
+                                         the given distance
   --geometry.max-grade FLOAT           Warn about edge geometries with a grade
                                          in % above FLOAT.
   --geometry.max-grade.fix             Smooth edge edge geometries with a grade
