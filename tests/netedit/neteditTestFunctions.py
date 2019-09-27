@@ -492,7 +492,7 @@ def setZoom(positionX, positionY, zoomLevel):
 
 
 def waitQuestion(answer):
-    # wait 0.5 second to question dialog
+    # wait some second to question dialog
     time.sleep(DELAY_QUESTION)
     # Answer can be "y" or "n"
     typeTwoKeys('alt', answer)
@@ -1159,6 +1159,8 @@ def selectAdditionalChild(numTabs, childNumber):
 
 
 def fixStoppingPlace(solution):
+    # wait some second to question dialog
+    time.sleep(DELAY_QUESTION)
     # select bullet depending of solution
     if (solution == "saveInvalids"):
         for _ in range(3):
