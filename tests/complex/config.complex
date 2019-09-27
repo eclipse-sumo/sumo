@@ -33,6 +33,7 @@ copy_test_path:ARTEMIS_road_Gear3.csv
 copy_test_path:ARTEMIS_urban_Gear3.csv
 copy_test_path:cadc_full.csv
 copy_test_path:runner.py
+copy_test_path:runnerlib.py
 copy_test_path:classes.txt
 copy_test_path:nefz.csv
 copy_test_path:input_additional_template.add.xml

@@ -1,5 +1,5 @@
  Retrying in 1 seconds
-time step 1000
+time step 1
 Driver state device infos for vehicle 'deviceHolder'
 Static parameters:
   minAwareness = 0.01
@@ -40,7 +40,7 @@ new originalReactionTime:3.0 (diff=0.0)
 new actionStepLength:5.0
 
 
-time step 201000
+time step 201
 Driver state device infos for vehicle 'deviceHolder'
 Static parameters:
   minAwareness = 0.05

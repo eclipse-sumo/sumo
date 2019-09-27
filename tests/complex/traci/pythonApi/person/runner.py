@@ -133,7 +133,7 @@ print("riding in vehicle: '%s'" % traci.vehicle.getParameter("veh0", "device.per
 print("riding in vehicle (direct): '%s'" % traci.vehicle.getPersonIDList("veh0"))
 print("persons on edge %s at time %s: %s" % (
     traci.person.getRoadID("newPerson"),
-    traci.simulation.getCurrentTime() / 1000.0,
+    traci.simulation.getTime(),
     traci.edge.getLastStepPersonIDs(traci.person.getRoadID("newPerson"))))
 
 traci.person.removeStages("newPerson")
@@ -183,7 +183,7 @@ traci.person.add(personTT2, "2fi", 10)
 traci.person.appendWalkingStage(personTT2, ["2fi"], -20)
 for i in range(5):
     print("%s person=%s edge=%s pos=%s" % (
-        traci.simulation.getCurrentTime() / 1000,
+        traci.simulation.getTime(),
         personTT2,
         traci.person.getRoadID(personTT2),
         traci.person.getLanePosition(personTT2)))
@@ -193,7 +193,7 @@ traci.person.removeStage(personTT2, 0)
 print("  %s new edges edges=%s" % (personTT2, traci.person.getEdges(personTT2)))
 for i in range(5):
     print("%s person=%s edge=%s pos=%s" % (
-        traci.simulation.getCurrentTime() / 1000,
+        traci.simulation.getTime(),
         personTT2,
         traci.person.getRoadID(personTT2),
         traci.person.getLanePosition(personTT2)))

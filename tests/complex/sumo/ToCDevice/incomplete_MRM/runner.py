@@ -46,7 +46,7 @@ def run():
         traci.simulationStep()
         if step == 200:
             requestToC(ToC_vehicle, timeTillMRM)
-            t = traci.simulation.getCurrentTime() / 1000.
+            t = traci.simulation.getTime()
             print("Requested ToC of veh0 at t=%s (until t=%s)" % (t, t + timeTillMRM))
         printToCParams(ToC_vehicle, True)
         step += 1
@@ -68,7 +68,7 @@ def printToCParams(vehID, only_dynamic=False):
     state = traci.vehicle.getParameter(vehID, "device.toc.state")
     speed = traci.vehicle.getSpeed(vehID)
 
-    print("time step %s" % traci.simulation.getCurrentTime())
+    print("time", traci.simulation.getTime())
     print("ToC device infos for vehicle '%s'" % vehID)
     if not only_dynamic:
         print("Static parameters:")

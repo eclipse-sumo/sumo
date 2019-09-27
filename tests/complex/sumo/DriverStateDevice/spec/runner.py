@@ -64,7 +64,7 @@ def printParams(vehID, only_dynamic=False):
     actionStepLengthVeh = traci.vehicle.getActionStepLength(vehID)
     traci.vehicle.getSpeed(vehID)
 
-    print("time step %s" % traci.simulation.getCurrentTime())
+    print("time", traci.simulation.getTime())
     print("Driver state device infos for vehicle '%s'" % vehID)
     if not only_dynamic:
         print("Static parameters:")
