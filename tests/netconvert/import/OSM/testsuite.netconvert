@@ -32,6 +32,9 @@ bus_stop_position
 # import bus stops
 bus_stop_position_numerical_ids
 
+# import bus stops that are not part of the round network by matching to the nearest line edge
+bus_stop_match_line
+
 # Area around the ITS in Berlin, Adlershof (13.52494,52.42582,13.53625,52.43026)
 adlershof_dlr
 adlershof_dlr_discard-tls

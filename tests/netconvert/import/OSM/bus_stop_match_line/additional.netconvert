@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Fri Sep 27 10:25:26 2019 by Eclipse SUMO netconvert Version v1_3_1+0448-0d7d2a7
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+SPDX-License-Identifier: EPL-2.0
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <osm-files value="osm.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <output-file value="net.net.xml"/>
+        <output.original-names value="true"/>
+        <ptstop-output value="additional.xml"/>
+        <ptline-output value="ptlines.xml"/>
+    </output>
+
+    <projection>
+        <proj.utm value="true"/>
+    </projection>
+
+    <report>
+        <xml-validation value="never"/>
+    </report>
+
+</configuration>
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <busStop id="4526257455" name="变电所" lane="417820309#2_0" startPos="654.76" endPos="679.76" friendlyPos="true" lines="6"/>
+    <busStop id="4526257459" name="变电所" lane="172556825#0_0" startPos="658.27" endPos="683.27" friendlyPos="true" lines="3"/>
+    <busStop id="4526257471" name="谢二矿" lane="417820309#1_0" startPos="494.51" endPos="519.51" friendlyPos="true" lines="6"/>
+    <busStop id="4526257472" name="谢二矿" lane="172556825#3_0" startPos="173.06" endPos="198.06" friendlyPos="true" lines="3"/>
+    <busStop id="4526257478" name="夏郢孜" lane="417820309#0_0" startPos="245.60" endPos="270.60" friendlyPos="true" lines="6"/>
+    <busStop id="4526257479" name="夏郢孜" lane="172556825#3_0" startPos="723.55" endPos="748.55" friendlyPos="true" lines="3"/>
+</additional>
