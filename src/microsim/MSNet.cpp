@@ -780,14 +780,12 @@ MSNet::writeOutput() {
     }
 
     // write SSM output
-    for (std::set<MSDevice_SSM*>::iterator di = MSDevice_SSM::getInstances().begin(); di != MSDevice_SSM::getInstances().end(); ++di) {
-        MSDevice_SSM* dev = (*di);
+    for (MSDevice_SSM* dev : MSDevice_SSM::getInstances()) {
         dev->updateAndWriteOutput();
     }
 
     // write ToC output
-    for (std::set<MSDevice_ToC*>::iterator di = MSDevice_ToC::getInstances().begin(); di != MSDevice_ToC::getInstances().end(); ++di) {
-        MSDevice_ToC* dev = (*di);
+    for (MSDevice_ToC* dev : MSDevice_ToC::getInstances()) {
         if (dev->generatesOutput()) {
             dev->writeOutput();
         }
