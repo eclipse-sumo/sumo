@@ -1428,7 +1428,7 @@ GNEFrameAttributesModuls::AttributesEditor::AttributesEditor(GNEFrame* FramePare
 
 
 void
-GNEFrameAttributesModuls::AttributesEditor::showAttributeEditorModul(const std::vector<GNEAttributeCarrier*>& ACs, bool includeExtended) {
+GNEFrameAttributesModuls::AttributesEditor::showAttributeEditorModul(const std::vector<GNEAttributeCarrier*>& ACs, bool includeExtended, bool forceAttributeEnabled) {
     myEditedACs = ACs;
     myIncludeExtended = includeExtended;
     // remove all rows
@@ -1488,6 +1488,10 @@ GNEFrameAttributesModuls::AttributesEditor::showAttributeEditorModul(const std::
                 } else if ((i.getAttr() == SUMO_ATTR_EXPECTED_CONTAINERS) && (myEditedACs.front()->isAttributeEnabled(SUMO_ATTR_CONTAINER_TRIGGERED) == false)) {
                     attributeEnabled = false;
                 }
+            }
+            // if forceEnablellAttribute is enable, force attributeEnabled
+            if (forceAttributeEnabled) {
+                attributeEnabled = true;
             }
             // create attribute editor row
             myAttributesEditorRows[i.getPositionListed()] = new AttributesEditorRow(this, i, value, attributeEnabled);
@@ -1579,7 +1583,7 @@ GNEFrameAttributesModuls::AttributesEditor::removeEditedAC(GNEAttributeCarrier* 
             // Write Warning in console if we're in testing mode
             WRITE_DEBUG("Removed inspected element from Inspected ACs. " + toString(myEditedACs.size()) + " ACs remains.");
             // Inspect multi selection again (To refresh Modul)
-            showAttributeEditorModul(myEditedACs, myIncludeExtended);
+            showAttributeEditorModul(myEditedACs, myIncludeExtended, false);
         }
     }
 }

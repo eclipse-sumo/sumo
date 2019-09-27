@@ -144,7 +144,7 @@ GNEVehicleTypeFrame::VehicleTypeSelector::refreshVehicleTypeSelector() {
     // refresh vehicle type editor modul
     myVehicleTypeFrameParent->myVehicleTypeEditor->refreshVehicleTypeEditorModul();
     // show Attribute Editor modul if selected item is valid
-    myVehicleTypeFrameParent->myVehicleTypeAttributesEditor->showAttributeEditorModul({myCurrentVehicleType}, false);
+    myVehicleTypeFrameParent->myVehicleTypeAttributesEditor->showAttributeEditorModul({myCurrentVehicleType}, false, true);
 }
 
 
@@ -168,7 +168,7 @@ GNEVehicleTypeFrame::VehicleTypeSelector::onCmdSelectItem(FXObject*, FXSelector,
             // refresh vehicle type editor modul
             myVehicleTypeFrameParent->myVehicleTypeEditor->refreshVehicleTypeEditorModul();
             // show moduls if selected item is valid
-            myVehicleTypeFrameParent->myVehicleTypeAttributesEditor->showAttributeEditorModul({myCurrentVehicleType}, false);
+            myVehicleTypeFrameParent->myVehicleTypeAttributesEditor->showAttributeEditorModul({myCurrentVehicleType}, false, true);
             // Write Warning in console if we're in testing mode
             WRITE_DEBUG(("Selected item '" + myTypeMatchBox->getText() + "' in VehicleTypeSelector").text());
             return 1;
@@ -398,7 +398,7 @@ GNEVehicleTypeFrame::show() {
     // refresh vehicle type and Attribute Editor
     myVehicleTypeSelector->refreshVehicleTypeSelector();
     // show vehicle type attributes editor (except extended attributes)
-    myVehicleTypeAttributesEditor->showAttributeEditorModul({myVehicleTypeSelector->getCurrentVehicleType()}, false);
+    myVehicleTypeAttributesEditor->showAttributeEditorModul({myVehicleTypeSelector->getCurrentVehicleType()}, false, true);
     // show frame
     GNEFrame::show();
 }
@@ -423,7 +423,7 @@ GNEVehicleTypeFrame::attributesEditorExtendedDialogOpened() {
     if (myVehicleTypeSelector->getCurrentVehicleType()) {
         GNEVehicleTypeDialog(myVehicleTypeSelector->getCurrentVehicleType(), true);
         // call "showAttributeEditorModul" to refresh attribute list
-        myVehicleTypeAttributesEditor->showAttributeEditorModul({myVehicleTypeSelector->getCurrentVehicleType()}, false);
+        myVehicleTypeAttributesEditor->showAttributeEditorModul({myVehicleTypeSelector->getCurrentVehicleType()}, false, true);
     }
 }
 

@@ -132,7 +132,7 @@ GNEPersonTypeFrame::PersonTypeSelector::refreshPersonTypeSelector() {
     // refresh person type editor modul
     myPersonTypeFrameParent->myPersonTypeEditor->refreshPersonTypeEditorModul();
     // show Attribute Editor modul if selected item is valid
-    myPersonTypeFrameParent->myPersonTypeAttributesEditor->showAttributeEditorModul({myCurrentPersonType}, false);
+    myPersonTypeFrameParent->myPersonTypeAttributesEditor->showAttributeEditorModul({myCurrentPersonType}, false, true);
 }
 
 
@@ -148,7 +148,7 @@ GNEPersonTypeFrame::PersonTypeSelector::onCmdSelectItem(FXObject*, FXSelector, v
             // refresh person type editor modul
             myPersonTypeFrameParent->myPersonTypeEditor->refreshPersonTypeEditorModul();
             // show moduls if selected item is valid
-            myPersonTypeFrameParent->myPersonTypeAttributesEditor->showAttributeEditorModul({myCurrentPersonType}, false);
+            myPersonTypeFrameParent->myPersonTypeAttributesEditor->showAttributeEditorModul({myCurrentPersonType}, false, true);
             // Write Warning in console if we're in testing mode
             WRITE_DEBUG(("Selected item '" + myTypeMatchBox->getText() + "' in PersonTypeSelector").text());
             return 1;
@@ -373,7 +373,7 @@ GNEPersonTypeFrame::show() {
     // refresh person type and Attribute Editor
     myPersonTypeSelector->refreshPersonTypeSelector();
     // show person type attributes editor (except extended attributes)
-    myPersonTypeAttributesEditor->showAttributeEditorModul({myPersonTypeSelector->getCurrentPersonType()}, false);
+    myPersonTypeAttributesEditor->showAttributeEditorModul({myPersonTypeSelector->getCurrentPersonType()}, false, true);
     // show frame
     GNEFrame::show();
 }
