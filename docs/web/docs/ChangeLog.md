@@ -81,6 +81,7 @@ permalink: /ChangeLog/
 - Tools
   - When importing public transport traffic with osmWebWizard, vehicles from incomplete lines now start and end their routes at the network border instead of starting at the first stop. Issue #6025
   - Added new tool [analyzePersonPlans.py](Tools/Routes.md) to count the different types of plans in a route file. Issue #6083
+  - Added new tool [matsim_importPlans.py](Tools/Import/MATSim.md) to import intermodal traffic plans from MATSim
 
 ### Other
 
