@@ -84,20 +84,25 @@ Debug: Setting new attribute arrivalLane '500' into routeFlow 'flowB'
 Debug: Setting new attribute arrivalLane '0' into routeFlow 'flowA'
 Debug: Setting new attribute arrivalLane '0' into routeFlow 'flowB'
 Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
-Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Keys Ctrl+Z (Undo) pressed
+Debug: Calling GNEUndoList::undo()
 Debug: Setting previous attribute arrivalLane '500' into routeFlow 'flowB'
 Debug: Setting previous attribute arrivalLane '500' into routeFlow 'flowA'
-Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Keys Ctrl+Z (Undo) pressed
+Debug: Calling GNEUndoList::undo()
 Debug: Setting previous attribute arrivalLane 'current' into routeFlow 'flowB'
 Debug: Setting previous attribute arrivalLane 'current' into routeFlow 'flowA'
-Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Keys Ctrl+Z (Undo) pressed
+Debug: Calling GNEUndoList::undo()
 Debug: Setting previous attribute arrivalLane '0' into routeFlow 'flowA'
-Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Keys Ctrl+Z (Undo) pressed
+Debug: Calling GNEUndoList::undo()
 Debug: Setting previous attribute selected '0' into routeFlow 'flowB'
 Debug: Setting previous attribute selected '0' into routeFlow 'flowA'
 Debug: Setting previous attribute selected '0' into route 'routeB'
 Debug: Setting previous attribute selected '0' into route 'routeA'
-Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Keys Ctrl+Z (Undo) pressed
+Debug: Calling GNEUndoList::undo()
 Debug: Removing routeFlow 'flowB' in GNEChange_DemandElement
 Debug: Removed inspected element from Inspected ACs. 1 ACs remains.
 Debug: Removing routeFlow 'flowA' in GNEChange_DemandElement
@@ -105,22 +110,27 @@ Debug: Removed inspected element from Inspected ACs. 0 ACs remains.
 Debug: Removing route 'routeB' in GNEChange_DemandElement
 Debug: Removing route 'routeA' in GNEChange_DemandElement
 Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
-Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Keys Ctrl+Y (Redo) pressed
+Debug: Calling GNEUndoList::redo()
 Debug: Adding route 'routeA' in GNEChange_DemandElement
 Debug: Adding route 'routeB' in GNEChange_DemandElement
 Debug: Adding routeFlow 'flowA' in GNEChange_DemandElement
 Debug: Adding routeFlow 'flowB' in GNEChange_DemandElement
-Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Keys Ctrl+Y (Redo) pressed
+Debug: Calling GNEUndoList::redo()
 Debug: Setting new attribute selected 'true' into route 'routeA'
 Debug: Setting new attribute selected 'true' into route 'routeB'
 Debug: Setting new attribute selected 'true' into routeFlow 'flowA'
 Debug: Setting new attribute selected 'true' into routeFlow 'flowB'
-Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Keys Ctrl+Y (Redo) pressed
+Debug: Calling GNEUndoList::redo()
 Debug: Setting new attribute arrivalLane 'current' into routeFlow 'flowA'
-Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Keys Ctrl+Y (Redo) pressed
+Debug: Calling GNEUndoList::redo()
 Debug: Setting new attribute arrivalLane '500' into routeFlow 'flowA'
 Debug: Setting new attribute arrivalLane '500' into routeFlow 'flowB'
-Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Keys Ctrl+Y (Redo) pressed
+Debug: Calling GNEUndoList::redo()
 Debug: Setting new attribute arrivalLane '0' into routeFlow 'flowA'
 Debug: Setting new attribute arrivalLane '0' into routeFlow 'flowB'
 Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0

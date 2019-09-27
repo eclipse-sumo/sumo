@@ -87,39 +87,49 @@ Debug: Setting new attribute arrivalPos '-10' into routeFlow 'flowB'
 Debug: Setting new attribute arrivalPos '15.5' into routeFlow 'flowA'
 Debug: Setting new attribute arrivalPos '15.5' into routeFlow 'flowB'
 Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
-Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Keys Ctrl+Z (Undo) pressed
+Debug: Calling GNEUndoList::undo()
 Debug: Setting previous attribute arrivalPos '-10.00' into routeFlow 'flowB'
 Debug: Setting previous attribute arrivalPos '-10.00' into routeFlow 'flowA'
-Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Keys Ctrl+Z (Undo) pressed
+Debug: Calling GNEUndoList::undo()
 Debug: Setting previous attribute arrivalPos '500.00' into routeFlow 'flowB'
 Debug: Setting previous attribute arrivalPos '500.00' into routeFlow 'flowA'
-Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Keys Ctrl+Z (Undo) pressed
+Debug: Calling GNEUndoList::undo()
 Debug: Setting previous attribute arrivalPos 'max' into routeFlow 'flowB'
 Debug: Setting previous attribute arrivalPos 'max' into routeFlow 'flowA'
-Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Keys Ctrl+Z (Undo) pressed
+Debug: Calling GNEUndoList::undo()
 Debug: Setting previous attribute arrivalPos 'random' into routeFlow 'flowB'
 Debug: Setting previous attribute arrivalPos '3.00' into routeFlow 'flowA'
-Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Keys Ctrl+Z (Undo) pressed
+Debug: Calling GNEUndoList::undo()
 Debug: Setting previous attribute selected '0' into routeFlow 'flowB'
 Debug: Setting previous attribute selected '0' into routeFlow 'flowA'
 Debug: Setting previous attribute selected '0' into route 'routeB'
 Debug: Setting previous attribute selected '0' into route 'routeA'
 Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
-Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Keys Ctrl+Y (Redo) pressed
+Debug: Calling GNEUndoList::redo()
 Debug: Setting new attribute selected 'true' into route 'routeA'
 Debug: Setting new attribute selected 'true' into route 'routeB'
 Debug: Setting new attribute selected 'true' into routeFlow 'flowA'
 Debug: Setting new attribute selected 'true' into routeFlow 'flowB'
-Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Keys Ctrl+Y (Redo) pressed
+Debug: Calling GNEUndoList::redo()
 Debug: Setting new attribute arrivalPos 'max' into routeFlow 'flowA'
 Debug: Setting new attribute arrivalPos 'max' into routeFlow 'flowB'
-Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Keys Ctrl+Y (Redo) pressed
+Debug: Calling GNEUndoList::redo()
 Debug: Setting new attribute arrivalPos '500' into routeFlow 'flowA'
 Debug: Setting new attribute arrivalPos '500' into routeFlow 'flowB'
-Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Keys Ctrl+Y (Redo) pressed
+Debug: Calling GNEUndoList::redo()
 Debug: Setting new attribute arrivalPos '-10' into routeFlow 'flowA'
 Debug: Setting new attribute arrivalPos '-10' into routeFlow 'flowB'
-Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Keys Ctrl+Y (Redo) pressed
+Debug: Calling GNEUndoList::redo()
 Debug: Setting new attribute arrivalPos '15.5' into routeFlow 'flowA'
 Debug: Setting new attribute arrivalPos '15.5' into routeFlow 'flowB'
 Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
