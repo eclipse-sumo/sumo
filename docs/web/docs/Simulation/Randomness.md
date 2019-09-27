@@ -105,6 +105,7 @@ arrival value (i.e. after rerouting).
   individual trips from an O/D-Matrix
 - [DUAROUTER](../DUAROUTER.md) adds randomness when performing
   [Demand/Dynamic_User_Assignment](../Demand/Dynamic_User_Assignment.md)
+- [DUAROUTER](../DUAROUTER.md) can randomly disturb the fastest-paths by setting opion **--weights.random-factor**
 - [Simulation routing can be
   randomized](../Demand/Automatic_Routing.md#randomness) to
   ensure usage of alternative routes.
