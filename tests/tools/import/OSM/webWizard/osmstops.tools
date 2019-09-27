@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Jul  8 08:33:31 2019 by Eclipse SUMO netconvert Version v1_2_0+0983-38a5650bdb
+<!-- generated on Fri Sep 27 13:52:01 2019 by Eclipse SUMO netconvert Version v1_3_1+0494-6983410
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <type-files value="/home/kobo/dlr/sumo/data/typemap/osmNetconvert.typ.xml,/home/kobo/dlr/sumo/data/typemap/osmNetconvertUrbanDe.typ.xml,/home/kobo/dlr/sumo/data/typemap/osmNetconvertPedestrians.typ.xml,/home/kobo/dlr/sumo/data/typemap/osmNetconvertShips.typ.xml,/home/kobo/dlr/sumo/data/typemap/osmNetconvertBicycle.typ.xml"/>
+        <type-files value="/scr1/sumo/data/typemap/osmNetconvert.typ.xml,/scr1/sumo/data/typemap/osmNetconvertUrbanDe.typ.xml,/scr1/sumo/data/typemap/osmNetconvertPedestrians.typ.xml,/scr1/sumo/data/typemap/osmNetconvertShips.typ.xml,/scr1/sumo/data/typemap/osmNetconvertBicycle.typ.xml"/>
         <osm-files value="osm_bbox.osm.xml"/>
     </input>
 
@@ -360,10 +360,10 @@
         <access lane="465376259#1_0" pos="11.36" length="6.91" friendlyPos="1"/>
     </busStop>
     <busStop id="29058100" name="U Oranienburger Tor" lane="378659152_0" startPos="0.00" endPos="122.42" friendlyPos="true" lines="U6">
-        <access lane="388702039#0_0" pos="4.15" length="2.90" friendlyPos="1"/>
+        <access lane="388702039#0_0" pos="1.63" length="2.90" friendlyPos="1"/>
         <access lane="388702039#1_0" pos="0.00" length="5.39" friendlyPos="1"/>
-        <access lane="389705411_0" pos="4.57" length="7.42" friendlyPos="1"/>
-        <access lane="465376252_0" pos="37.53" length="13.57" friendlyPos="1"/>
+        <access lane="388702041#10_0" pos="27.01" length="13.69" friendlyPos="1"/>
+        <access lane="389705411_0" pos="2.09" length="7.42" friendlyPos="1"/>
         <access lane="518508119#0_0" pos="48.70" length="5.89" friendlyPos="1"/>
     </busStop>
     <busStop id="2915579615" name="S Hackescher Markt" lane="473149636_0" startPos="12.90" endPos="25.40" friendlyPos="true"/>
@@ -395,7 +395,7 @@
     <busStop id="3043709616" name="U Oranienburger Tor" lane="378659151_0" startPos="0.00" endPos="84.33" friendlyPos="true" lines="U6">
         <access lane="35269774#2_0" pos="79.46" length="13.69" friendlyPos="1"/>
         <access lane="374734393#7_0" pos="78.51" length="12.83" friendlyPos="1"/>
-        <access lane="388702039#0_0" pos="4.15" length="12.16" friendlyPos="1"/>
+        <access lane="388702039#0_0" pos="1.63" length="12.16" friendlyPos="1"/>
         <access lane="388702039#1_0" pos="0.00" length="11.57" friendlyPos="1"/>
         <access lane="388702041#10_0" pos="27.07" length="1.13" friendlyPos="1"/>
     </busStop>

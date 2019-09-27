@@ -6,8 +6,7 @@ Parsing public transport lines from 'input_ptlines.xml'... done.
    5 edges loaded.
 Removing self-loops... done (0ms).
 Processing public transport stops... done (0ms).
-Revising public transport stops based on pt lines... 
-done (0ms).
+Revising public transport stops based on pt lines... done (0ms).
 Align pt stop id signs with corresponding edge id signs... done (0ms).
 Added 1 edges to connect 1 buffer stops in both directions.
 DijkstraRouter answered 1 queries and explored 12.00 edges on average.
@@ -57,5 +56,5 @@ Summary:
   Applied offset     : 0.00,0.00
   Converted boundary : -100.95,-200.00,200.00,-176.21
 -----------------------------------------------------
-Writing network... done (3ms).
+Writing network... done (2ms).
 Success.
