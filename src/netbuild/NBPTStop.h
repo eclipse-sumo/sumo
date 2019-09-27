@@ -88,6 +88,10 @@ public:
         return myBidiStop;
     }
 
+    bool isLoose() const {
+        return myIsLoose;
+    }
+
 private:
     void computeExtent(double center, double d);
 
@@ -122,6 +126,8 @@ private:
 
     NBPTStop* myBidiStop;
 
+    /// @brief whether the stop was not part of the road network and must be mapped
+    bool myIsLoose;
 
 private:
     /// @brief Invalidated assignment operator.

@@ -41,6 +41,7 @@ NBPTStop::NBPTStop(std::string ptStopId, Position position, std::string edgeId, 
     myName(name),
     myPermissions(svcPermissions),
     myBidiStop(nullptr),
+    myIsLoose(origEdgeId == ""),
     myIsMultipleStopPositions(false) {
 }
 

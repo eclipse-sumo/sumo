@@ -296,17 +296,19 @@ NBPTStopCont::getReverseEdge(NBEdge* edge) {
 }
 
 
-void
+int
 NBPTStopCont::cleanupDeleted(NBEdgeCont& cont) {
+    int numDeleted = 0;
     for (auto i = myPTStops.begin(); i != myPTStops.end();) {
         if (cont.getByID((*i).second->getEdgeId()) == nullptr) {
             WRITE_WARNING("Removing pt stop:" + (*i).first + " on non existing edge: " + (*i).second->getEdgeId());
             myPTStops.erase(i++);
+            numDeleted++;
         } else {
             i++;
         }
     }
-
+    return numDeleted;
 }
 
 
@@ -341,6 +343,9 @@ NBPTStopCont::alignIdSigns() {
     PTStopsCont stops = myPTStops;
     for (auto& i : stops) {
         const std::string& stopId = i.second->getID();
+        if (i.second->getEdgeId() == "") {
+            continue;
+        }
         const char edgeSign = i.second->getEdgeId().at(0);
         const char stopSign = stopId.at(0);
         if (edgeSign != stopSign && (edgeSign == '-' || stopSign == '-')) {
@@ -404,5 +409,16 @@ NBPTStopCont::findAccessEdgesForRailStops(NBEdgeCont& cont, double maxRadius, in
     }
 }
 
+
+NBPTStop*
+NBPTStopCont::findStop(const std::string& origEdgeID, Position pos, double threshold) const {
+    for (auto& item : myPTStops) {
+        if (item.second->getOrigEdgeId() == origEdgeID &&
+                item.second->getPosition().distanceTo2D(pos) < threshold) {
+            return item.second;
+        }
+    }
+    return nullptr;
+}
 
 /****************************************************************************/

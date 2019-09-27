@@ -178,6 +178,8 @@ NBFrame::fillOptions(bool forNetgen) {
         oc.doRegister("join-lanes", new Option_Bool(false));
         oc.addDescription("join-lanes", "Processing", "join adjacent lanes that have the same permissions and which do not admit lane-changing (sidewalks and disallowed lanes)");
 
+        oc.doRegister("ptline.match-dist", new Option_Float(100));
+        oc.addDescription("ptline.match-dist", "Processing", "Matches stops outside the road network to the referencing pt line when below the given distance");
         // railway processing options
 
         oc.doRegister("railway.topology.repair", new Option_Bool(false));

@@ -74,6 +74,9 @@ public:
     /// @brief return last valid edge of myRoute (if it doest not lie before the last stop)
     NBEdge* getRouteEnd(const NBEdgeCont& ec) const;
 
+    /// @brief replace the given stop
+    void replaceStop(NBPTStop* oldStop, NBPTStop* newStop); 
+
 private:
     std::string myName;
     std::string myType;

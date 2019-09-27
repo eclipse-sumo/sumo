@@ -40,7 +40,7 @@ public:
         return myPTLines;
     }
 
-    void process(NBEdgeCont& cont);
+    void process(NBEdgeCont& ec, NBPTStopCont& sc);
 
     /// @brief add edges that must be kept
     void addEdges2Keep(const OptionsCont& oc, std::set<std::string>& into);
@@ -58,11 +58,11 @@ private:
     std::map<std::string, NBPTLine*> myPTLines;
 
     /// @brief find directional edge for all stops of the line
-    void reviseStops(NBPTLine* line, const NBEdgeCont& ec);
+    void reviseStops(NBPTLine* line, const NBEdgeCont& ec, NBPTStopCont& sc);
 
     /* @brief find way element corresponding to the stop
      * @note: if the edge id is updated, the stop extent is recomputed */
-    std::vector<std::string>::const_iterator findWay(NBPTLine* line, NBPTStop* stop, const NBEdgeCont& ec) const; 
+    NBPTStop* findWay(NBPTLine* line, NBPTStop* stop, const NBEdgeCont& ec, NBPTStopCont& sc) const; 
 
     void constructRoute(NBPTLine* myPTLine, NBEdgeCont& cont);
 
@@ -70,6 +70,8 @@ private:
 
     static double getCost(const NBEdgeCont& ec, SUMOAbstractRouter<NBRouterEdge, NBVehicle>& router,
                           const NBPTStop* from, const NBPTStop* to, const NBVehicle* veh);
+
+    static std::string getWayID(const std::string& edgeID); 
 };
 
 

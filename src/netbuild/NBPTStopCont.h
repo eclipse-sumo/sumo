@@ -68,7 +68,7 @@ public:
      *
      * @param cont
      */
-    void cleanupDeleted(NBEdgeCont& cont);
+    int cleanupDeleted(NBEdgeCont& cont);
 
     void assignLanes(NBEdgeCont& cont);
 
@@ -83,6 +83,8 @@ public:
 
     /// @brief add edges that must be kept
     void addEdges2Keep(const OptionsCont& oc, std::set<std::string>& into);
+
+    NBPTStop* findStop(const std::string& origEdgeID, Position pos, double threshold=1) const;
 
 private:
     /// @brief Definition of the map of names to pt stops

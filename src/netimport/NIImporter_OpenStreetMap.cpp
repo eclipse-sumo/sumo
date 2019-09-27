@@ -1356,16 +1356,13 @@ NIImporter_OpenStreetMap::RelationHandler::myEndElement(int element) {
                 NIOSMNode* n = myOSMNodes.find(ref)->second;
                 NBPTStop* ptStop = myNBPTStopCont->get(toString(n->id));
                 if (ptStop == nullptr) {
-                    //WRITE_WARNING("Relation '" + toString(myCurrentRelation)
-                    //              + "' refers to a non existing pt stop at node: '" + toString(n->id)
-                    //              + "'. Probably OSM file is incomplete.");
-//                    resetValues();
-//                    return;
-                    if (!ptLine->getStops().empty()) {
-                        WRITE_WARNING("Done reading first coherent chunk of pt stops. Further stops in relation " + toString(myCurrentRelation) + " are ignored");
-                        break;
+                    // loose stop, which must later be mapped onto a line way
+                    Position ptPos(n->lon, n->lat, n->ele);
+                    if (!NBNetBuilder::transformCoordinate(ptPos)) {
+                        WRITE_ERROR("Unable to project coordinates for node '" + toString(n->id) + "'.");
                     }
-                    continue;
+                    ptStop = new NBPTStop(toString(n->id), ptPos, "", "", n->ptStopLength, n->name, n->permissions);
+                    myNBPTStopCont->insert(ptStop);
                 }
                 ptLine->addPTStop(ptStop);
             }

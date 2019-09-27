@@ -188,3 +188,12 @@ NBPTLine::getRouteEnd(const NBEdgeCont& ec) const {
     }
     return validEdges.back();
 }
+
+void
+NBPTLine::replaceStop(NBPTStop* oldStop, NBPTStop* newStop) {
+    for (int i = 0; i < (int)myPTStops.size(); i++) {
+        if (myPTStops[i] == oldStop) {
+            myPTStops[i] = newStop;
+        }
+    }
+}
