@@ -243,6 +243,7 @@ permalink: /ChangeLog/
   - Saved states now include lane ids and only the lanes with traffic on them. This reduces state file size and also permits loading state files with a modified network. Issue #5872
   - Initial "pseudo routes" (consisting of start and end edge only) are only written optionally. Issue #5639
   - Traffic lights with type delay_based now use a default detection range of 100m (instead of using the whole lane length). This greatly improves efficiency by avoiding interference from far-away upstream junctions. The default range can be set using the new option **--tls.delay_based.detector-range** {{DT_FLOAT}}. Issue #5897
+  - Added battery model parameter "recuperationEfficencyByDecel" to vary the recuperation efficiency based on the deceleration level. Thanks to Sagaama Insaf for the contribution. Issue #5675
 
 - NETCONVERT
   - Now importing High-Speed-Rail tracks from OSM Issue #5525
