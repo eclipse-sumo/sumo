@@ -61,7 +61,7 @@ def printToCParams(vehID, only_dynamic=False, extra=False):
         print("  initialAwareness = %s" % initialAwareness)
         print("  mrmDecel = %s" % mrmDecel)
         if extra:
-            for p in ("dynamicToCThreshold", "dynamicMRMProbability", "mrmKeepRight", "maxPreparationAccel"):
+            for p in ("lcAbstinence", "dynamicToCThreshold", "dynamicMRMProbability", "mrmKeepRight", "maxPreparationAccel"):
                 print("  %s = %s" % (p, traci.vehicle.getParameter(vehID, "device.toc." + p)))
         print("Dynamic parameters:")
     print("  currentAwareness = %s" % currentAwareness)

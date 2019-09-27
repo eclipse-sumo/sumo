@@ -8,6 +8,7 @@ Static parameters:
   recoveryRate = 0.10
   initialAwareness = 0.50
   mrmDecel = 1.50
+  lcAbstinence = 0.00
   dynamicToCThreshold = 0.00
   dynamicMRMProbability = 0.05
   mrmKeepRight = 0

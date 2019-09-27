@@ -250,13 +250,13 @@ catchup="connected_pCatchup" catchupFollower="connected_pCatchupFollower" />
         self.assertEqual(rp.REPORT_LOG[-1][0], "0.1")
         self.assertEqual(rp.REPORT_LOG[-1][1], "Adding vehicle 'connected.1' (PlatoonManager)")
 
-        while traci.simulation.getCurrentTime() < 2000:
+        while traci.simulation.getTime() < 2:
             traci.simulationStep()
 
         self.assertListEqual(list(sorted(['connected.1', 'conventional.1'])), list(sorted(traci.vehicle.getIDList())))
         self.assertListEqual(['connected.1'], [vehID for vehID in mgr._connectedVehicles.keys()])
 
-        while traci.simulation.getCurrentTime() <= 5000:
+        while traci.simulation.getTime() <= 5:
             traci.simulationStep()
 
         self.assertEqual(rp.REPORT_LOG[-1][0], "3.1")
@@ -268,7 +268,7 @@ catchup="connected_pCatchup" catchupFollower="connected_pCatchupFollower" />
         self.assertListEqual(list(sorted(['connected.1', 'IAMconnectedTOO'])), list(
             sorted([vehID for vehID in mgr._connectedVehicles.keys()])))
 
-        while traci.simulation.getCurrentTime() <= 14000:
+        while traci.simulation.getTime() <= 14:
             traci.simulationStep()
 
         self.assertEqual(rp.REPORT_LOG[-1][0], "11.4")
@@ -276,7 +276,7 @@ catchup="connected_pCatchup" catchupFollower="connected_pCatchupFollower" />
             rp.REPORT_LOG[-1][1], "Platoon '1' joined Platoon '0', which now contains vehicles:\n['connected.1', " +
             "'IAMconnectedTOO'] (PlatoonManager)")
 
-        while traci.simulation.getCurrentTime() <= 17000:
+        while traci.simulation.getTime() <= 17:
             traci.simulationStep()
 
         self.assertEqual(rp.REPORT_LOG[-1][0], "16.0")
@@ -284,7 +284,7 @@ catchup="connected_pCatchup" catchupFollower="connected_pCatchupFollower" />
             rp.REPORT_LOG[-1][1], "Platoon '0' splits (ID of new platoon: '2'):\n    Platoon '0': ['connected.1']\n" +
             "    Platoon '2': ['IAMconnectedTOO'] (PlatoonManager)")
 
-        while traci.simulation.getCurrentTime() <= 18000:
+        while traci.simulation.getTime() <= 18:
             traci.simulationStep()
 
         self.assertEqual(rp.REPORT_LOG[-1][0], "17.3")
@@ -293,7 +293,7 @@ catchup="connected_pCatchup" catchupFollower="connected_pCatchupFollower" />
                              list(sorted(traci.vehicle.getIDList())))
         self.assertListEqual(['IAMconnectedTOO'], [vehID for vehID in mgr._connectedVehicles.keys()])
 
-        while traci.simulation.getCurrentTime() <= 20000:
+        while traci.simulation.getTime() <= 20:
             traci.simulationStep()
 
         self.assertEqual(rp.REPORT_LOG[-1][0], "19.8")
@@ -309,7 +309,7 @@ catchup="connected_pCatchup" catchupFollower="connected_pCatchupFollower" />
 #         simpla.load(self.SIMPLA_CFG)
         mgr = simpla._mgr
 
-        while traci.simulation.getCurrentTime() <= 5000:
+        while traci.simulation.getTime() <= 5:
             traci.simulationStep()
 
         self.assertIn("connected.1", mgr._connectedVehicles)
@@ -319,7 +319,7 @@ catchup="connected_pCatchup" catchupFollower="connected_pCatchupFollower" />
         veh2 = mgr._connectedVehicles["connected.2"]
         self.assertEqual(veh2.getCurrentPlatoonMode(), PlatoonMode.CATCHUP)
 
-        while traci.simulation.getCurrentTime() <= 20000:
+        while traci.simulation.getTime() <= 20:
             traci.simulationStep()
 
 #         self.assertEqual(rp.REPORT_LOG[-1][0], "13.7")

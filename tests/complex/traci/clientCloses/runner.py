@@ -51,8 +51,7 @@ def runSingle(traciEndTime, sumoEndTime=None):
     while not step > traciEndTime:
         traci.simulationStep()
         step += 1
-    print("Print ended at step %s" %
-          (traci.simulation.getCurrentTime() / DELTA_T))
+    print("Print ended at step", traci.simulation.getTime())
     traci.close()
     sumoProcess.wait()
     sys.stdout.flush()

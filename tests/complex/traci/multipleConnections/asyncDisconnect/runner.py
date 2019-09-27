@@ -57,7 +57,7 @@ def traciLoop(port, traciEndTime, index, steplength=0):
             # ~ print(index, "Newly entered vehicles: ", traci.simulation.getDepartedNumber(), "(vehs: ", vehs, ")")
             # ~ sys.stdout.flush()
             step += 1
-        endTime = traci.simulation.getCurrentTime() / DELTA_T
+        endTime = traci.simulation.getTime()
         traci.close()
     except traci.FatalTraCIError as e:
         if str(e) == "connection closed by SUMO":

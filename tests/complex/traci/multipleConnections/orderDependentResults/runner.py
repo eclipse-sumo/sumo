@@ -73,7 +73,7 @@ def traciLoop(port, traciEndTime, i, runNr, steplength=0):
             break
         step += 1
         sys.stdout.flush()
-    endTime = traci.simulation.getCurrentTime() / DELTA_T
+    endTime = traci.simulation.getTime()
     traci.close()
     time.sleep(orderTime * i)  # assure ordering of outputs
     print("Process %s (order %s) ended at step %s" % (i, index, endTime))
