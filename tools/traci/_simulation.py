@@ -188,9 +188,8 @@ class SimulationDomain(Domain):
 
         Returns the current simulation time in ms.
         """
-        # we should raise the awareness by removing the DeprecationWarning category below after 1.0
         warnings.warn("getCurrentTime is deprecated, please use getTime which returns floating point seconds",
-                      DeprecationWarning, stacklevel=2)
+                      stacklevel=2)
         return self._getUniversal(tc.VAR_TIME_STEP)
 
     def getLoadedNumber(self):
@@ -513,7 +512,7 @@ class SimulationDomain(Domain):
         self._connection._packString(destStop)
         answer = self._connection._checkResult(tc.CMD_GET_SIM_VARIABLE, tc.FIND_INTERMODAL_ROUTE, "")
         result = []
-        for c in range(answer.readInt()):
+        for _ in range(answer.readInt()):
             answer.read("!B")                   # Type
             result.append(_readStage(answer))
         return result

@@ -108,7 +108,7 @@ class Domain:
     def _getUniversal(self, varID, objectID=""):
         if self._deprecatedFor:
             warnings.warn("The domain %s is deprecated, use %s instead." % (
-                self._name, self._deprecatedFor))  # , DeprecationWarning)
+                self._name, self._deprecatedFor))
         if self._connection is None:
             raise FatalTraCIError("Not connected.")
         result = self._connection._sendReadOneStringCmd(self._cmdGetID, varID, objectID)
@@ -206,7 +206,7 @@ class Domain:
         return result.readString()
 
     def setParameter(self, objID, param, value):
-        """setParameter(string, string, string) -> string
+        """setParameter(string, string, string) -> None
 
         Sets the value of the given parameter to value for the given objID
         """
