@@ -43,25 +43,25 @@ netedit.typeEnter()
 netedit.vehicleMode()
 
 # set invalid arrival pos
-netedit.changeDefaultValue(11, "dummyPos")
+netedit.changeDefaultValue(12, "dummyPos")
 
 # try to create vehicle
 netedit.leftClick(referencePosition, 274, 414)
 
 # set invalid arrival pos
-netedit.changeDefaultValue(11, "-12")
+netedit.changeDefaultValue(12, "-12")
 
 # create vehicle
 netedit.leftClick(referencePosition, 274, 414)
 
 # set valid arrival pos
-netedit.changeDefaultValue(11, "random_free")
+netedit.changeDefaultValue(12, "random_free")
 
 # create vehicle
 netedit.leftClick(referencePosition, 274, 414)
 
 # set valid arrival pos
-netedit.changeDefaultValue(11, "20")
+netedit.changeDefaultValue(12, "20")
 
 # create vehicle
 netedit.leftClick(referencePosition, 274, 414)

@@ -35,7 +35,7 @@ netedit.vehicleMode()
 netedit.changeElement("trip")
 
 # set invalid arrival pos
-netedit.changeDefaultValue(11, "dummyPos")
+netedit.changeDefaultValue(12, "dummyPos")
 
 # try to create trip
 netedit.leftClick(referencePosition, 274, 414)
@@ -45,7 +45,7 @@ netedit.leftClick(referencePosition, 280, 60)
 netedit.typeEnter()
 
 # set invalid arrival pos
-netedit.changeDefaultValue(11, "-12")
+netedit.changeDefaultValue(12, "-12")
 
 # create trip
 netedit.leftClick(referencePosition, 274, 414)
@@ -55,7 +55,7 @@ netedit.leftClick(referencePosition, 280, 60)
 netedit.typeEnter()
 
 # set valid arrival pos
-netedit.changeDefaultValue(11, "random_free")
+netedit.changeDefaultValue(12, "random_free")
 
 # create trip
 netedit.leftClick(referencePosition, 274, 414)
@@ -65,7 +65,7 @@ netedit.leftClick(referencePosition, 280, 60)
 netedit.typeEnter()
 
 # set valid arrival pos
-netedit.changeDefaultValue(11, "20")
+netedit.changeDefaultValue(12, "20")
 
 # create trip
 netedit.leftClick(referencePosition, 274, 414)

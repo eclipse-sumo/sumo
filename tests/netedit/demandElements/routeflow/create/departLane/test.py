@@ -46,25 +46,25 @@ netedit.vehicleMode()
 netedit.changeElement("routeFlow")
 
 # set invalid depart lane
-netedit.changeDefaultValue(7, "dummyLane")
+netedit.changeDefaultValue(8, "dummyLane")
 
 # try to create vehicle
 netedit.leftClick(referencePosition, 274, 414)
 
 # set invalid depart lane
-netedit.changeDefaultValue(7, "-12")
+netedit.changeDefaultValue(8, "-12")
 
 # try to create vehicle
 netedit.leftClick(referencePosition, 274, 414)
 
 # set valid depart lane
-netedit.changeDefaultValue(7, "random")
+netedit.changeDefaultValue(8, "random")
 
 # create vehicle
 netedit.leftClick(referencePosition, 274, 414)
 
 # set valid depart lane
-netedit.changeDefaultValue(7, "20")
+netedit.changeDefaultValue(8, "20")
 
 # create vehicle
 netedit.leftClick(referencePosition, 274, 414)

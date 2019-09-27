@@ -35,7 +35,7 @@ netedit.vehicleMode()
 netedit.changeElement("flow")
 
 # set invalid line
-netedit.changeDefaultValue(13, "%%%%%%")
+netedit.changeDefaultValue(14, "%%%%%%")
 
 # try to create flow
 netedit.leftClick(referencePosition, 274, 414)
@@ -45,7 +45,7 @@ netedit.leftClick(referencePosition, 280, 60)
 netedit.typeEnter()
 
 # set valid Line
-netedit.changeDefaultValue(13, "ownLine")
+netedit.changeDefaultValue(14, "ownLine")
 
 # create flow
 netedit.leftClick(referencePosition, 274, 414)
@@ -55,7 +55,7 @@ netedit.leftClick(referencePosition, 280, 60)
 netedit.typeEnter()
 
 # set empty line
-netedit.changeDefaultValue(13, "")
+netedit.changeDefaultValue(14, "")
 
 # create flow
 netedit.leftClick(referencePosition, 274, 414)

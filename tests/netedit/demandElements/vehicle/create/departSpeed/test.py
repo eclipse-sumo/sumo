@@ -43,31 +43,31 @@ netedit.typeEnter()
 netedit.vehicleMode()
 
 # set invalid depart speed
-netedit.changeDefaultValue(9, "dummySpeed")
+netedit.changeDefaultValue(10, "dummySpeed")
 
 # try to create vehicle
 netedit.leftClick(referencePosition, 274, 414)
 
 # set invalid depart speed
-netedit.changeDefaultValue(9, "-12")
+netedit.changeDefaultValue(10, "-12")
 
 # try to create vehicle
 netedit.leftClick(referencePosition, 274, 414)
 
 # set invalid depart speed
-netedit.changeDefaultValue(9, "5000")
+netedit.changeDefaultValue(10, "5000")
 
 # try to create vehicle
 netedit.leftClick(referencePosition, 274, 414)
 
 # set valid depart speed
-netedit.changeDefaultValue(9, "max")
+netedit.changeDefaultValue(10, "max")
 
 # create vehicle
 netedit.leftClick(referencePosition, 274, 414)
 
 # set valid depart speed
-netedit.changeDefaultValue(9, "20")
+netedit.changeDefaultValue(10, "20")
 
 # create vehicle
 netedit.leftClick(referencePosition, 274, 414)
