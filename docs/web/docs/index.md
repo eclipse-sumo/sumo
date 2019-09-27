@@ -1,7 +1,7 @@
 <hTitles >Simulation of Urban MObility<hr style="border: 0.5px solid #338033;"></hTitles>
 
 !!! note2 "SUMO User Conference 2020"
-    The [SUMO User Conference 2020](http://sumo.dlr.de/2019/) takes place **May, 11-14, 2020** in Berlin.
+    The [SUMO User Conference 2020](http://sumo.dlr.de/2019/) takes place **May, 11-13, 2020** in Berlin.
 
 <span style="float: right;">![](https://sumo.dlr.de/w/images/thumb/d/de/Eclipse_foundation_logo.jpg/250px-Eclipse_foundation_logo.jpg)</span>
 
