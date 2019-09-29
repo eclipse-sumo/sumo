@@ -482,7 +482,7 @@ GLHelper::drawShapeDottedContourAroundShape(const GUIVisualizationSettings& s, c
         // draw contour over shape
         glTranslated(0, 0, type + 2);
         // set custom line width
-        glLineWidth(s.widthSettings.dottedContour);
+        glLineWidth((GLfloat)s.widthSettings.dottedContour);
         // draw contour
         drawLine(resampledShape, getDottedcontourColors((int)resampledShape.size()));
         //restore line width
@@ -509,7 +509,7 @@ GLHelper::drawShapeDottedContourAroundClosedShape(const GUIVisualizationSettings
         // draw contour over shape
         glTranslated(0, 0, type + 0.1);
         // set custom line width
-        glLineWidth(s.widthSettings.dottedContour);
+        glLineWidth((GLfloat)s.widthSettings.dottedContour);
         // draw contour
         GLHelper::drawLine(resampledShape, GLHelper::getDottedcontourColors((int)resampledShape.size()));
         //restore line width
@@ -546,7 +546,7 @@ GLHelper::drawShapeDottedContourBetweenLanes(const GUIVisualizationSettings& s, 
         // draw contour over shape
         glTranslated(0, 0, type + 2);
         // set custom line width
-        glLineWidth(s.widthSettings.dottedContour);
+        glLineWidth((GLfloat)s.widthSettings.dottedContour);
         // draw contour
         GLHelper::drawLine(resampledShape, getDottedcontourColors((int)resampledShape.size()));
         //restore line width
@@ -603,7 +603,7 @@ GLHelper::drawShapeDottedContourPartialShapes(const GUIVisualizationSettings& s,
         // draw contour over shape
         glTranslated(0, 0, type + 0.1);
         // set custom line width
-        glLineWidth(s.widthSettings.dottedContour);
+        glLineWidth((GLfloat)s.widthSettings.dottedContour);
         // draw contour
         GLHelper::drawLine(shape, GLHelper::getDottedcontourColors((int)shape.size()));
         // move shape to other side
