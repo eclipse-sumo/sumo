@@ -69,6 +69,8 @@ extrapolated based on edge-lengths and maximum speeds multiplied with --speed-fa
                          help="How to deal with routes that are disconnected in the subnetwork. If 'keep' is chosen " +
                               "a disconnected route generates several routes in the subnetwork corresponding to " +
                               "its parts.")
+    optParser.add_option("-e", "--heterogeneous", action="store_true", default=False,
+                         help="enable, if you use mixed style (external and internal routes) in the same file")
     # optParser.add_option("--orig-weights",
     # help="weight file for the original network for extrapolating new departure times")
     options, args = optParser.parse_args(args=args)
@@ -93,6 +95,17 @@ extrapolated based on edge-lengths and maximum speeds multiplied with --speed-fa
     return options
 
 
+def hasMinLength(fromIndex, toIndex, edges, orig_net, options):
+    if toIndex - fromIndex + 1 < options.min_length:
+        return False
+    if options.min_air_dist > 0:
+        fromPos = orig_net.getEdge(edges[fromIndex]).getFromNode().getCoord()
+        toPos = orig_net.getEdge(edges[toIndex]).getToNode().getCoord()
+        if sumolib.miscutils.euclidean(fromPos, toPos) < options.min_air_dist:
+            return False
+    return True
+
+
 def cut_routes(aEdges, orig_net, options, busStopEdges=None):
     areaEdges = set(aEdges)
     num_vehicles = 0
@@ -104,26 +117,26 @@ def cut_routes(aEdges, orig_net, options, busStopEdges=None):
     multiAffectedRoutes = 0
     teleportFactorSum = 0.0
     too_short = 0
-    too_short_airdist = 0
     standaloneRoutes = {}  # routeID -> routeObject
     standaloneRoutesDepart = {}  # routeID -> time or 'discard' or None
     vehicleTypes = {}
     if options.additional_input:
-        parse_standalone_routes(options.additional_input, standaloneRoutes, vehicleTypes)
+        parse_standalone_routes(options.additional_input, standaloneRoutes, vehicleTypes, options.heterogeneous)
     for routeFile in options.routeFiles:
-        parse_standalone_routes(routeFile, standaloneRoutes, vehicleTypes)
+        parse_standalone_routes(routeFile, standaloneRoutes, vehicleTypes, options.heterogeneous)
     for _, t in sorted(vehicleTypes.items()):
         yield -1, t
 
     for routeFile in options.routeFiles:
         print("Parsing routes from %s" % routeFile)
-        for moving in parse(routeFile, ('vehicle', 'person', 'flow')):
+        for moving in parse(routeFile, ('vehicle', 'person', 'flow'), heterogeneous=options.heterogeneous):
             if moving.name == 'vehicle':
                 num_vehicles += 1
+                oldDepart = moving.depart
                 if isinstance(moving.route, list):
                     old_route = moving.route[0]
                     edges = old_route.edges.split()
-                    routeRef = False
+                    routeRef = None
                 else:
                     newDepart = standaloneRoutesDepart.get(moving.route)
                     if newDepart is 'discard':
@@ -140,16 +153,18 @@ def cut_routes(aEdges, orig_net, options, busStopEdges=None):
                         edges = routeRef.edges.split()
             elif moving.name == 'person':
                 num_persons += 1
+                oldDepart = moving.depart
                 if moving.walk:
                     old_route = moving.walk[0]
                     edges = old_route.edges.split()
-                    routeRef = False
+                    routeRef = None
             else:
                 num_flows += 1
+                oldDepart = moving.begin
                 if isinstance(moving.route, list):
                     old_route = moving.route[0]
                     edges = old_route.edges.split()
-                    routeRef = False
+                    routeRef = None
                 else:
                     newDepart = standaloneRoutesDepart.get(moving.route)
                     if newDepart is 'discard':
@@ -180,38 +195,27 @@ def cut_routes(aEdges, orig_net, options, busStopEdges=None):
                         standaloneRoutesDepart[moving.route] = 'discard'
                     continue
             # loop over different route parts
-            for ix_part, ix_interval in enumerate(route_parts):
-                fromIndex, toIndex = ix_interval
-                # print("(fromIndex,toIndex) = (%d,%d)"%(fromIndex,toIndex))
-                # check for minimum length
-                if toIndex - fromIndex + 1 < options.min_length:
+            for ix_part, (fromIndex, toIndex) in enumerate(route_parts):
+                if not hasMinLength(fromIndex, toIndex, edges, orig_net, options):
                     too_short += 1
                     if routeRef:
                         standaloneRoutesDepart[moving.route] = 'discard'
                     continue
-                if options.min_air_dist > 0:
-                    fromPos = orig_net.getEdge(edges[fromIndex]).getFromNode().getCoord()
-                    toPos = orig_net.getEdge(edges[toIndex]).getToNode().getCoord()
-                    if sumolib.miscutils.euclidean(fromPos, toPos) < options.min_air_dist:
-                        too_short_airdist += 1
-                        if routeRef:
-                            standaloneRoutesDepart[moving.route] = 'discard'
-                        continue
                 # compute new departure
                 if routeRef or old_route.exitTimes is None:
                     if orig_net is not None:
                         # extrapolate new departure using default speed
-                        newDepart = (float(moving.depart) +
+                        newDepart = (float(oldDepart) +
                                      sum([(orig_net.getEdge(e).getLength() /
                                            (orig_net.getEdge(e).getSpeed() * options.speed_factor))
                                           for e in edges[:fromIndex]]))
                     else:
                         print("Could not reconstruct new departure time for %s '%s'. Using old departure time." %
                               (moving.name, moving.id))
-                        newDepart = float(moving.depart)
+                        newDepart = float(oldDepart)
                 else:
                     exitTimes = old_route.exitTimes.split()
-                    departTimes = [moving.depart] + exitTimes[:-1]
+                    departTimes = [oldDepart] + exitTimes[:-1]
                     teleportFactor = len(departTimes) / float(len(edges))
                     teleportFactorSum += teleportFactor
                     # assume teleports were spread evenly across the vehicles route
@@ -219,7 +223,7 @@ def cut_routes(aEdges, orig_net, options, busStopEdges=None):
                     del old_route.exitTimes
                 departShift = None
                 if routeRef:
-                    departShift = newDepart - float(moving.depart)
+                    departShift = newDepart - float(oldDepart)
                     standaloneRoutesDepart[moving.route] = departShift
                 remaining = edges[fromIndex:toIndex + 1]
                 stops = cut_stops(moving, busStopEdges, remaining)
@@ -231,7 +235,11 @@ def cut_routes(aEdges, orig_net, options, busStopEdges=None):
                 else:
                     old_route.edges = " ".join(remaining)
                 moving.stop = stops
-                moving.depart = "%.2f" % newDepart
+                if moving.name == 'flow':
+                    moving.begin = "%.2f" % newDepart
+                    moving.end = "%.2f" % (newDepart - float(oldDepart))
+                else:
+                    moving.depart = "%.2f" % newDepart
                 if len(route_parts) > 1:
                     # return copies of the vehicle for each route part
                     yield_mov = copy.deepcopy(moving)
@@ -250,11 +258,10 @@ def cut_routes(aEdges, orig_net, options, busStopEdges=None):
     print("Parsed %s vehicles, %s persons, %s flows and kept %s routes%s" %
           (num_vehicles, num_persons, num_flows, num_returned, teleports))
     if too_short > 0:
-        print("Discarded %s routes because they have less than %s edges" %
-              (too_short, options.min_length))
-    if too_short_airdist > 0:
-        print("Discarded %s routes because the air-line distance between start and end is less than %s" %
-              (too_short_airdist, options.min_air_dist))
+        msg = "Discarded %s routes because they have less than %s edges" % (too_short, options.min_length)
+        if options.min_air_dist > 0:
+            msg += " or the air-line distance between start and end is less than %s" % options.min_air_dist
+        print(msg)
     print("Number of disconnected routes: %s. Most frequent missing edges:" %
           multiAffectedRoutes)
     printTop(missingEdgeOccurences)
@@ -345,12 +352,13 @@ def write_route(file, vehicle):
     file.write(vehicle.toXML('    '))
 
 
-def parse_standalone_routes(file, into, typesMap):
-    for element in parse(file, ('vType', 'route')):
-        if element.name == 'vType':
-            typesMap[element.id] = element
-        else:
-            into[element.id] = element
+def parse_standalone_routes(file, into, typesMap, heterogeneous):
+    for element in parse(file, ('vType', 'route'), heterogeneous=heterogeneous):
+        if element.id is not None:
+            if element.name == 'vType':
+                typesMap[element.id] = element
+            else:
+                into[element.id] = element
 
 
 def main(options):
