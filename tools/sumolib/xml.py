@@ -222,7 +222,7 @@ def parse(xmlfile, element_names, element_attrs={}, attr_conversions={},
     exists (i.e. o.child_element_name = [osub0, osub1, ...])
     @Note: All elements with the same name must have the same type regardless of
     the subtree in which they occur (heterogeneous cases may be handled by
-    setting heterogeneous=False (with reduced parsing speed)
+    setting heterogeneous=True (with reduced parsing speed)
     @Note: Attribute names may be modified to avoid name clashes
     with python keywords. (set warn=True to receive renaming warnings)
     @Note: The element_names may be either a single string or a list of strings.
@@ -231,7 +231,7 @@ def parse(xmlfile, element_names, element_attrs={}, attr_conversions={},
     if isinstance(element_names, str):
         element_names = [element_names]
     elementTypes = {}
-    for event, parsenode in ET.iterparse(xmlfile):
+    for _, parsenode in ET.iterparse(xmlfile):
         if parsenode.tag in element_names:
             yield _get_compound_object(parsenode, elementTypes,
                                        parsenode.tag, element_attrs,
