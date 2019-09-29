@@ -1,0 +1,9 @@
+<routes>
+    <vType id="fast" maxSpeed="50"/>
+    <route id="left" edges="beg beg2left left left2end end rend"/>
+    <flow id="left" route="left" type="fast" begin="0" end="100" number="100"/>
+    <vType id="slow" maxSpeed="5"/>
+    <flow id="straight" type="slow" begin="0" end="100" number="100">
+        <route edges="beg middle end rend"/>
+    </flow>
+</routes>

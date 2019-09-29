@@ -1,0 +1,8 @@
+Valid area contains 4 edges
+Parsing routes from input_routes.rou.xml
+Could not reconstruct new departure time for vehicle 'straight'. Using old departure time.
+Could not reconstruct new departure time for vehicle 'straight_ref'. Using old departure time.
+Parsed 3 vehicles, 0 persons, 0 flows and kept 2 routes
+Number of disconnected routes: 1. Most frequent missing edges:
+1 left
+Wrote 1 routes, 2 vTypes, 2 vehicles

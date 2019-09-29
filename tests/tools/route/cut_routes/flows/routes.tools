@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- generated on 2019-09-29 12:16:44.796727 by cutRoutes.py
+  options: input_net.net.xml input_routes.rou.xml <doubleminus>routes-output out.rou.xml <doubleminus>heterogeneous
+-->
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vType id="fast" maxSpeed="50"/>
+    <vType id="slow" maxSpeed="5"/>
+    <flow begin="0.00" end="0.00" id="straight" number="100" type="slow">
+        <route edges="middle end"/>
+    </flow>
+</routes>

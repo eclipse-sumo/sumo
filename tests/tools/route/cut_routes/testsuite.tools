@@ -36,3 +36,9 @@ routeRef
 
 # filter taz
 taz
+
+# Copy of write_routes
+flows
+
+# mixed style routes
+heterogeneous
