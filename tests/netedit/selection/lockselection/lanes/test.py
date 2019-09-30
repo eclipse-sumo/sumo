@@ -38,7 +38,7 @@ netedit.changeEditMode('3')
 netedit.changeEditMode('2')
 
 # use a rectangle to check add mode
-netedit.selectionRectangle(referencePosition, 25, 0, 550, 470)
+netedit.selectionRectangle(referencePosition, 25, 0, 590, 500)
 
 # clear selection
 netedit.selectionClear()
@@ -47,7 +47,7 @@ netedit.selectionClear()
 netedit.lockSelection(3)
 
 # use a rectangle to check add mode
-netedit.selectionRectangle(referencePosition, 25, 0, 550, 470)
+netedit.selectionRectangle(referencePosition, 25, 0, 590, 500)
 
 # clear selection
 netedit.selectionClear()

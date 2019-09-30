@@ -21,7 +21,6 @@ GLDebug: 	Inserted polygon:poly_0 into SUMORTree with boundary -6.00,7.00,3.00,1
 Debug: Additionals has to be saved
 Debug: Current saving Status: net saved, additionals unsaved, demand elements saved
 Debug: ObjectsUnderCursor: GUIGlObjects: 1, AttributeCarriers: 1, NetElements: 0, Additionals: 0, DemandElements: 0, Shapes: 1, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 1
-Debug: ObjectsUnderCursor: GUIGlObjects: 1, AttributeCarriers: 1, NetElements: 0, Additionals: 0, DemandElements: 0, Shapes: 1, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 1
 Debug: Setting new attribute shape '1.00,-5.00 1.00,15.00 -4.00,15.00 -4.00,9.00 1.00,-5.00' into poly 'poly_0'
 GLDebug: 	Removed object polygon:poly_0 from SUMORTree with boundary -6.00,7.00,3.00,17.00
 GLDebug: 	Inserted polygon:poly_0 into SUMORTree with boundary -6.00,-7.00,3.00,17.00

@@ -34,7 +34,7 @@ DELAY_REFERENCE = 30
 DELAY_QUIT_NETEDIT = 4
 DELAY_QUIT_SUMOGUI = 3
 DELAY_UNDOREDO = 1
-DELAY_SELECT = 0.1
+DELAY_SELECT = 1
 DELAY_RECOMPUTE = 3
 DELAY_RECOMPUTE_VOLATILE = 3
 DELAY_REMOVESELECTION = 0.1
@@ -244,10 +244,14 @@ def dragDrop(referencePosition, x1, y1, x2, y2):
     # obtain from and to position
     fromPosition = [referencePosition[0] + x1, referencePosition[1] + y1]
     tromPosition = [referencePosition[0] + x2, referencePosition[1] + y2]
-    # click relative to offset
-    pyautogui.click(fromPosition)
+    # move to from position
+    pyautogui.moveTo(fromPosition)
+    # wait before every operation
+    time.sleep(DELAY_KEY)
     # drag mouse to X of 100, Y of 200 while holding down left mouse button
     pyautogui.dragTo(tromPosition[0], tromPosition[1], 1, button='left')
+    # wait before every operation
+    time.sleep(DELAY_KEY)
 
 
 #################################################
@@ -1653,10 +1657,14 @@ def modificationModeReplace():
 
 
 def selectionRectangle(referencePosition, startX, startY, endX, endY):
-    # Leave Shift key pressed
+    # Leave Shift key pressedX
     pyautogui.keyDown('shift')
+    # wait after key up
+    time.sleep(DELAY_KEY)
     # move element
     dragDrop(referencePosition, startX, startY, endX, endY)
+    # wait after key up
+    time.sleep(DELAY_KEY)
     # Release Shift key
     pyautogui.keyUp('shift')
     # wait for gl debug
