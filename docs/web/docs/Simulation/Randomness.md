@@ -31,18 +31,16 @@ simulation aspects
 The decoupling is done to ensure that loading vehicles does not affect
 simulation behavior of earlier vehicles. All RNGs use the same seed.
 
-# Vehicle type and route distributions
+# Route Distributions
 
-The easiest way of dynamically modifying vehicle behavior is to choose
-the type or the route from a distribution on loading. Each type / route
-has to be given explicitly with an assigned probability, see [route and
-vehicle type
-distributions](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#route_and_vehicle_type_distributions).
-This gives on the one hand fine grained control of the results but on
-the other hand makes it hard to model something like for instance a
-uniform distribution of vehicle lengths between 5m and 7m.
+Vehicles can be added to the simulation with a fixed route (`<vehicle>`) or with an origin-destination pair (`<trip>`).
+A third alternative is to specify a set of routes (`<routeDistribution>`) and let the vehicle draw a random route from such a distribution. For details, see [route distributions](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#route_distributions).
 
-# [Speed distribution](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#speed_distributions)
+# Vehicle Type Distributions
+
+A simple way of of modelling a heterogeneous vehicle fleet works by defining a `<vTypeDistribution>` and let each vehicle pick it's type randomly from this distribution. For details, see [vehicle type distributions](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#vehicle_type_distributions).
+
+# Speed distribution
 
 By default, vehicles in SUMO adhere to the maximum speed defined for the
 lane they are driving on (if the maximumSpeed of their vehicle type
@@ -52,6 +50,8 @@ attribute also allows the specification of the parameters of a normal
 distribution with optional cutoffs. The random value is selected once
 for each vehicle at the time of its creation. Using a speed deviation is
 the recommended way for getting a heterogenous mix of vehicle speeds.
+By default, a speed distribution with a standard deviation of 10% is active.
+For details, see [speed distribution](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#speed_distributions)
 
 # Car-Following
 
