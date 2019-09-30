@@ -39,6 +39,19 @@ else:
     sys.exit("please declare environment variable 'SUMO_HOME'")
 
 
+class Statistics:
+    def __init__(self):
+        self.num_vehicles = 0
+        self.num_persons = 0
+        self.num_flows = 0
+        self.num_returned = 0
+        self.missingEdgeOccurences = defaultdict(lambda: 0)
+        # routes which enter the sub-scenario multiple times
+        self.multiAffectedRoutes = 0
+        self.teleportFactorSum = 0.0
+        self.too_short = 0
+
+
 def get_options(args=sys.argv[1:]):
     USAGE = """Usage %prog [options] <new_net.xml> <routes> [<routes2> ...]
 If the given routes contain exit times these will be used to compute new
@@ -106,17 +119,78 @@ def hasMinLength(fromIndex, toIndex, edges, orig_net, options):
     return True
 
 
+def cutEdgeList(areaEdges, moving, oldDepart, old_route, edges, routeRef, orig_net, standaloneRoutesDepart, busStopEdges, options, stats):
+    firstIndex = getFirstIndex(areaEdges, edges)
+    if firstIndex is None:
+        return []  # route does not touch the area
+    lastIndex = len(edges) - 1 - getFirstIndex(areaEdges, reversed(edges))
+    # check for connectivity
+    route_parts = [(firstIndex + i, firstIndex + j)
+                    for (i, j) in missingEdges(areaEdges, edges[firstIndex:(lastIndex + 1)],
+                                               stats.missingEdgeOccurences)]
+    if len(route_parts) > 1:
+        stats.multiAffectedRoutes += 1
+        if options.disconnected_action == 'discard':
+            return []
+    # loop over different route parts
+    result = []
+    for ix_part, (fromIndex, toIndex) in enumerate(route_parts):
+        if not hasMinLength(fromIndex, toIndex, edges, orig_net, options):
+            stats.too_short += 1
+            continue
+        # compute new departure
+        if routeRef or old_route.exitTimes is None:
+            if orig_net is not None:
+                # extrapolate new departure using default speed
+                newDepart = (float(oldDepart) +
+                                sum([(orig_net.getEdge(e).getLength() /
+                                    (orig_net.getEdge(e).getSpeed() * options.speed_factor))
+                                    for e in edges[:fromIndex]]))
+            else:
+                print("Could not reconstruct new departure time for %s '%s'. Using old departure time." %
+                        (moving.name, moving.id))
+                newDepart = float(oldDepart)
+        else:
+            exitTimes = old_route.exitTimes.split()
+            departTimes = [oldDepart] + exitTimes[:-1]
+            teleportFactor = len(departTimes) / float(len(edges))
+            stats.teleportFactorSum += teleportFactor
+            # assume teleports were spread evenly across the vehicles route
+            newDepart = float(departTimes[int(fromIndex * teleportFactor)])
+            del old_route.exitTimes
+        departShift = None
+        if routeRef:
+            departShift = newDepart - float(oldDepart)
+            standaloneRoutesDepart[moving.route] = departShift
+        remaining = edges[fromIndex:toIndex + 1]
+        stops = cut_stops(moving, busStopEdges, remaining)
+        if routeRef:
+            routeRef.stop = cut_stops(routeRef, busStopEdges, remaining,
+                                        departShift, options.defaultStopDuration)
+            routeRef.edges = " ".join(remaining)
+            result.append((-1, routeRef))
+        else:
+            old_route.edges = " ".join(remaining)
+        moving.stop = stops
+        if moving.name == 'flow':
+            moving.begin = "%.2f" % newDepart
+            moving.end = "%.2f" % (newDepart - float(oldDepart))
+        else:
+            moving.depart = "%.2f" % newDepart
+        if len(route_parts) > 1:
+            # return copies of the vehicle for each route part
+            yield_mov = copy.deepcopy(moving)
+            yield_mov.id = moving.id + "_part" + str(ix_part)
+            result.append((newDepart, yield_mov))
+        else:
+            result.append((newDepart, moving))
+        stats.num_returned += 1
+    return result
+
+
 def cut_routes(aEdges, orig_net, options, busStopEdges=None):
     areaEdges = set(aEdges)
-    num_vehicles = 0
-    num_persons = 0
-    num_flows = 0
-    num_returned = 0
-    missingEdgeOccurences = defaultdict(lambda: 0)
-    # routes which enter the sub-scenario multiple times
-    multiAffectedRoutes = 0
-    teleportFactorSum = 0.0
-    too_short = 0
+    stats = Statistics()
     standaloneRoutes = {}  # routeID -> routeObject
     standaloneRoutesDepart = {}  # routeID -> time or 'discard' or None
     vehicleTypes = {}
@@ -130,8 +204,9 @@ def cut_routes(aEdges, orig_net, options, busStopEdges=None):
     for routeFile in options.routeFiles:
         print("Parsing routes from %s" % routeFile)
         for moving in parse(routeFile, ('vehicle', 'person', 'flow'), heterogeneous=options.heterogeneous):
+            old_route = None
             if moving.name == 'vehicle':
-                num_vehicles += 1
+                stats.num_vehicles += 1
                 oldDepart = moving.depart
                 if isinstance(moving.route, list):
                     old_route = moving.route[0]
@@ -152,14 +227,15 @@ def cut_routes(aEdges, orig_net, options, busStopEdges=None):
                         routeRef = standaloneRoutes[moving.route]
                         edges = routeRef.edges.split()
             elif moving.name == 'person':
-                num_persons += 1
+                stats.num_persons += 1
                 oldDepart = moving.depart
-                if moving.walk:
-                    old_route = moving.walk[0]
-                    edges = old_route.edges.split()
-                    routeRef = None
+                for item in moving.getChildList():
+                    if item.name == "walk":
+                        old_route = item
+                        edges = old_route.edges.split()
+                        routeRef = None
             else:
-                num_flows += 1
+                stats.num_flows += 1
                 oldDepart = moving.begin
                 if isinstance(moving.route, list):
                     old_route = moving.route[0]
@@ -180,91 +256,28 @@ def cut_routes(aEdges, orig_net, options, busStopEdges=None):
                     else:
                         routeRef = standaloneRoutes[moving.route]
                         edges = routeRef.edges.split()
-            firstIndex = getFirstIndex(areaEdges, edges)
-            if firstIndex is None:
-                continue  # route does not touch the area
-            lastIndex = len(edges) - 1 - getFirstIndex(areaEdges, reversed(edges))
-            # check for connectivity
-            route_parts = [(firstIndex + i, firstIndex + j)
-                           for (i, j) in missingEdges(areaEdges, edges[firstIndex:(lastIndex + 1)],
-                                                      missingEdgeOccurences)]
-            if len(route_parts) > 1:
-                multiAffectedRoutes += 1
-                if options.disconnected_action == 'discard':
-                    if routeRef:
-                        standaloneRoutesDepart[moving.route] = 'discard'
-                    continue
-            # loop over different route parts
-            for ix_part, (fromIndex, toIndex) in enumerate(route_parts):
-                if not hasMinLength(fromIndex, toIndex, edges, orig_net, options):
-                    too_short += 1
-                    if routeRef:
-                        standaloneRoutesDepart[moving.route] = 'discard'
-                    continue
-                # compute new departure
-                if routeRef or old_route.exitTimes is None:
-                    if orig_net is not None:
-                        # extrapolate new departure using default speed
-                        newDepart = (float(oldDepart) +
-                                     sum([(orig_net.getEdge(e).getLength() /
-                                           (orig_net.getEdge(e).getSpeed() * options.speed_factor))
-                                          for e in edges[:fromIndex]]))
-                    else:
-                        print("Could not reconstruct new departure time for %s '%s'. Using old departure time." %
-                              (moving.name, moving.id))
-                        newDepart = float(oldDepart)
-                else:
-                    exitTimes = old_route.exitTimes.split()
-                    departTimes = [oldDepart] + exitTimes[:-1]
-                    teleportFactor = len(departTimes) / float(len(edges))
-                    teleportFactorSum += teleportFactor
-                    # assume teleports were spread evenly across the vehicles route
-                    newDepart = float(departTimes[int(fromIndex * teleportFactor)])
-                    del old_route.exitTimes
-                departShift = None
-                if routeRef:
-                    departShift = newDepart - float(oldDepart)
-                    standaloneRoutesDepart[moving.route] = departShift
-                remaining = edges[fromIndex:toIndex + 1]
-                stops = cut_stops(moving, busStopEdges, remaining)
-                if routeRef:
-                    routeRef.stop = cut_stops(routeRef, busStopEdges, remaining,
-                                              departShift, options.defaultStopDuration)
-                    routeRef.edges = " ".join(remaining)
-                    yield -1, routeRef
-                else:
-                    old_route.edges = " ".join(remaining)
-                moving.stop = stops
-                if moving.name == 'flow':
-                    moving.begin = "%.2f" % newDepart
-                    moving.end = "%.2f" % (newDepart - float(oldDepart))
-                else:
-                    moving.depart = "%.2f" % newDepart
-                if len(route_parts) > 1:
-                    # return copies of the vehicle for each route part
-                    yield_mov = copy.deepcopy(moving)
-                    yield_mov.id = moving.id + "_part" + str(ix_part)
-                    yield newDepart, yield_mov
-                else:
-                    yield newDepart, moving
-                num_returned += 1
+            routeParts = cutEdgeList(areaEdges, moving, oldDepart, old_route, edges, routeRef, orig_net, standaloneRoutesDepart, busStopEdges, options, stats)
+            if routeRef and not routeParts:
+                standaloneRoutesDepart[moving.route] = 'discard'
+            for item in routeParts:
+                yield item
 
-    if teleportFactorSum > 0:
+    if stats.teleportFactorSum > 0:
         teleports = " (avg teleportFactor %s)" % (
-            1 - teleportFactorSum / num_returned)
+            1 - stats.teleportFactorSum / stats.num_returned)
     else:
         teleports = ""
 
     print("Parsed %s vehicles, %s persons, %s flows and kept %s routes%s" %
-          (num_vehicles, num_persons, num_flows, num_returned, teleports))
-    if too_short > 0:
-        msg = "Discarded %s routes because they have less than %s edges" % (too_short, options.min_length)
+          (stats.num_vehicles, stats.num_persons, stats.num_flows, stats.num_returned, teleports))
+    if stats.too_short > 0:
+        msg = "Discarded %s routes because they have less than %s edges" % (stats.too_short, options.min_length)
         if options.min_air_dist > 0:
             msg += " or the air-line distance between start and end is less than %s" % options.min_air_dist
         print(msg)
     print("Number of disconnected routes: %s. Most frequent missing edges:" %
-          multiAffectedRoutes)
-    printTop(missingEdgeOccurences)
+          stats.multiAffectedRoutes)
+    printTop(stats.missingEdgeOccurences)
 
 
 def cut_stops(vehicle, busStopEdges, remaining, departShift=0, defaultDuration=0):
