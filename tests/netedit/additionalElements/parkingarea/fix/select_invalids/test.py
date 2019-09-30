@@ -25,33 +25,38 @@ import neteditTestFunctions as netedit  # noqa
 # Open netedit
 neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot, ['--gui-testing-debug-gl'])
 
-# go to additional mode
-netedit.additionalMode()
+# go to select mode
+netedit.selectMode()
 
-# select parkingArea
-netedit.changeElement("parkingArea")
+# select all using invert
+netedit.selectionInvert()
 
-# Change length
-netedit.changeDefaultValue(13, "30")
+# go to inspect mode
+netedit.inspectMode()
 
-# create a parkingArea in mode "reference left"
-netedit.leftClick(referencePosition, 500, 250)
+# inspect parking areas
+netedit.leftClick(referencePosition, 373, 290)
 
-# change reference to "reference right"
-netedit.changeDefaultValue(11, "reference right")
+# disable friendlyPos
+netedit.modifyBoolAttribute(3, False)
 
-# create a parkingArea in mode "reference right"
-netedit.leftClick(referencePosition, 110, 250)
+# go to select mode
+netedit.selectMode()
 
-# Check undo redo
-netedit.undo(referencePosition, 2)
-netedit.redo(referencePosition, 2)
+# clear selection
+netedit.selectionClear()
 
 # save additionals
 netedit.saveAdditionals(referencePosition)
 
-# Fix stopping places setting friendly pos
-netedit.fixStoppingPlace("activateFriendlyPos")
+# select invalids
+netedit.fixStoppingPlace("selectInvalids")
+
+# remove it using DEL key
+netedit.deleteUsingSuprKey()
+
+# save additionals again
+netedit.saveAdditionals(referencePosition)
 
 # save network
 netedit.saveNetwork(referencePosition)

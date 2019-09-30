@@ -60,12 +60,13 @@ Debug: Created connection 'fromgneE8_0togneE9_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE9_0to-gneE17_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE9_0togneE10_0' in retrieveGNEConnection()
 Debug: ObjectsUnderCursor: GUIGlObjects: 1, AttributeCarriers: 1, NetElements: 1, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 1, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
-Debug: Setting new attribute pos '30.00,18.00,1.40' into junction 'gneJ19'
+Debug: Setting new attribute pos '30.00,20.00,1.40' into junction 'gneJ19'
 Debug: net has to be saved
 Debug: Current saving Status: net unsaved, additionals saved, demand elements saved
 Debug: Key F5 (Compute) pressed
 Debug: ObjectsUnderCursor: GUIGlObjects: 1, AttributeCarriers: 1, NetElements: 1, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 1, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 Debug: Setting new attribute pos '120,20.2' into junction 'gneJ13'
+Debug: Key F5 (Compute) pressed
 Debug: Deleting unreferenced edge '-gneE10' in GNENet destructor
 Debug: Deleting unreferenced lane '-gneE10_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'from-gneE10_0to-gneE9_0' in GNEEdge destructor
@@ -90,8 +91,8 @@ Debug: Deleting unreferenced connection 'from-gneE15_0to-gneE14_0' in GNEEdge de
 Debug: Deleting unreferenced edge '-gneE16' in GNENet destructor
 Debug: Deleting unreferenced lane '-gneE16_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'from-gneE16_0togneE18_0' in GNEEdge destructor
-Debug: Deleting unreferenced connection 'from-gneE16_0togneE17_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'from-gneE16_0togneE19_0' in GNEEdge destructor
+Debug: Deleting unreferenced connection 'from-gneE16_0togneE17_0' in GNEEdge destructor
 Debug: Deleting unreferenced edge '-gneE17' in GNENet destructor
 Debug: Deleting unreferenced lane '-gneE17_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'from-gneE17_0togneE16_0' in GNEEdge destructor
@@ -99,8 +100,8 @@ Debug: Deleting unreferenced connection 'from-gneE17_0togneE18_0' in GNEEdge des
 Debug: Deleting unreferenced connection 'from-gneE17_0togneE19_0' in GNEEdge destructor
 Debug: Deleting unreferenced edge '-gneE18' in GNENet destructor
 Debug: Deleting unreferenced lane '-gneE18_0' in GNEEdge destructor
-Debug: Deleting unreferenced connection 'from-gneE18_0togneE17_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'from-gneE18_0togneE19_0' in GNEEdge destructor
+Debug: Deleting unreferenced connection 'from-gneE18_0togneE17_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'from-gneE18_0togneE16_0' in GNEEdge destructor
 Debug: Deleting unreferenced edge '-gneE19' in GNENet destructor
 Debug: Deleting unreferenced lane '-gneE19_0' in GNEEdge destructor

@@ -23,21 +23,34 @@ sys.path.append(neteditTestRoot)
 import neteditTestFunctions as netedit  # noqa
 
 # Open netedit
-neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
-netedit.rebuildNetwork()
+neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot, ['--gui-testing-debug-gl'])
 
-# Change to move
-netedit.moveMode()
+# go to select mode
+netedit.selectMode()
 
-# move center circular road
-netedit.dragDrop(referencePosition, 350, 300, 100, 300)
-netedit.rebuildNetwork()
+# select all using invert
+netedit.selectionInvert()
 
-# move 3-o'clock node of circular road via attributes
+# go to inspect mode
 netedit.inspectMode()
-netedit.leftClick(referencePosition, 540, 290)
-netedit.modifyAttribute(1, "120,20.2", False)
-netedit.rebuildNetwork()
+
+# inspect parking areas
+netedit.leftClick(referencePosition, 373, 290)
+
+# disable friendlyPos
+netedit.modifyBoolAttribute(3, False)
+
+# go to select mode
+netedit.selectMode()
+
+# clear selection
+netedit.selectionClear()
+
+# save additionals
+netedit.saveAdditionals(referencePosition)
+
+# Fix stopping places position
+netedit.fixStoppingPlace("fixPositions")
 
 # save network
 netedit.saveNetwork(referencePosition)
