@@ -9,7 +9,11 @@ Static parameters:
   recoveryRate = 0.10
   initialAwareness = 0.25
   mrmDecel = 0.50
+  lcAbstinence = 0.00
   dynamicToCThreshold = 15.00
+  dynamicMRMProbability = 0.50
+  mrmKeepRight = 0
+  maxPreparationAccel = 0.00
 Dynamic parameters:
   currentAwareness = 1.00
   currentSpeed = 0.0
@@ -24,7 +28,11 @@ Static parameters:
   recoveryRate = 0.10
   initialAwareness = 0.25
   mrmDecel = 0.50
+  lcAbstinence = 0.00
   dynamicToCThreshold = 15.00
+  dynamicMRMProbability = 0.50
+  mrmKeepRight = 0
+  maxPreparationAccel = 0.00
 Dynamic parameters:
   currentAwareness = 1.00
   currentSpeed = 0.0

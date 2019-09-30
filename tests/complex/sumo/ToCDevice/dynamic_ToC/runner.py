@@ -34,7 +34,7 @@ timeTillMRM = 5
 def run():
     """execute the TraCI control loop"""
     step = 0
-    printToCParams(ToC_vehicle, False)
+    printToCParams(ToC_vehicle, False, extra=True)
     t = traci.simulation.getTime()
     # prevent LCs
     origLCMode = traci.vehicle.getLaneChangeMode(ToC_vehicle)
@@ -75,7 +75,7 @@ if __name__ == "__main__":
     while ToC_vehicle not in traci.vehicle.getIDList():
         traci.simulationStep()
 
-    printToCParams(ToC_vehicle)
+    printToCParams(ToC_vehicle, extra=True)
 
     run()
 

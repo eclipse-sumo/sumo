@@ -66,7 +66,7 @@ if __name__ == "__main__":
     while ToC_vehicle not in traci.vehicle.getIDList():
         traci.simulationStep()
 
-    printToCParams(ToC_vehicle)
+    printToCParams(ToC_vehicle, extra=True)
 
     run()
 
