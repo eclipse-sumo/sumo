@@ -29,7 +29,7 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 netedit.selectMode()
 
 # select all edges with disallow = "ship" and remove it
-netedit.selectItems("Net Element", "edge", "disallow", "=ship")
+netedit.selectItems("Net Element", "edge", "disallow", "ship")
 netedit.deleteSelectedItems()
 
 # recompute

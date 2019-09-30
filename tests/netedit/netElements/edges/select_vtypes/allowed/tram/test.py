@@ -29,7 +29,7 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 netedit.selectMode()
 
 # select all edges with allow = "tram" and remove it
-netedit.selectItems("Net Element", "edge", "allow", "=tram")
+netedit.selectItems("Net Element", "edge", "allow", "tram")
 netedit.deleteSelectedItems()
 
 # recompute

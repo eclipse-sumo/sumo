@@ -29,7 +29,7 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 netedit.selectMode()
 
 # select all edges with allow = "private" and remove it
-netedit.selectItems("Net Element", "edge", "allow", "=private")
+netedit.selectItems("Net Element", "edge", "allow", "private")
 netedit.deleteSelectedItems()
 
 # recompute

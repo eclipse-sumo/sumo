@@ -29,7 +29,7 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 netedit.selectMode()
 
 # select all edges with allow = "custom2" and remove it
-netedit.selectItems("Net Element", "edge", "allow", "=custom2")
+netedit.selectItems("Net Element", "edge", "allow", "custom2")
 netedit.deleteSelectedItems()
 
 # recompute

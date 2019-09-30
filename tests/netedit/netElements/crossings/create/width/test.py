@@ -39,11 +39,9 @@ netedit.modifyCrossingDefaultValue(2, "3 7")
 
 # check invalid width
 netedit.modifyCrossingDefaultValue(4, "dummyWidth")
-netedit.createCrossing()
 
 # check negative width
 netedit.modifyCrossingDefaultValue(4, "-7")
-netedit.createCrossing()
 
 # set invalid width
 netedit.modifyCrossingDefaultValue(4, "5.2")

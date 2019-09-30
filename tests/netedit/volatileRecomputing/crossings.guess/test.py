@@ -15,6 +15,7 @@
 # import common functions for netedit tests
 import os
 import sys
+import time
 
 testRoot = os.path.join(os.environ.get('SUMO_HOME', '.'), 'tests')
 neteditTestRoot = os.path.join(
@@ -28,11 +29,20 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot, ['--c
 # Recompute with volatile options
 netedit.rebuildNetworkWithVolatileOptions()
 
+# recompute
+netedit.rebuildNetwork()
+
+# wait for output
+time.sleep(10)
+
 # save additionals
 netedit.saveAdditionals(referencePosition)
 
 # save network
 netedit.saveNetwork(referencePosition)
+
+# wait for output
+time.sleep(10)
 
 # quit netedit
 netedit.quit(neteditProcess)

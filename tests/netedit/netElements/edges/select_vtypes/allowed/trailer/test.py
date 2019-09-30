@@ -29,7 +29,7 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 netedit.selectMode()
 
 # select all edges with allow = "trailer" and remove it
-netedit.selectItems("Net Element", "edge", "allow", "=trailer")
+netedit.selectItems("Net Element", "edge", "allow", "trailer")
 netedit.deleteSelectedItems()
 
 # recompute

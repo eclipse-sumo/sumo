@@ -29,7 +29,7 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 netedit.selectMode()
 
 # select all edges with disallow = "authority" and remove it
-netedit.selectItems("Net Element", "edge", "disallow", "=authority")
+netedit.selectItems("Net Element", "edge", "disallow", "authority")
 netedit.deleteSelectedItems()
 
 # recompute

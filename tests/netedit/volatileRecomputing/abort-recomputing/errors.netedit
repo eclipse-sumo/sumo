@@ -20,7 +20,7 @@ Debug: Current saving Status: net unsaved, additionals unsaved, demand elements 
 Debug: Keys Shift + F5 (Compute with volatile options) pressed
 Debug: Opening FXMessageBox 'Volatile Recomputing'
 Debug: Closed FXMessageBox 'Volatile Recomputing' with 'No'
-Debug: Additionals saved
+Debug: Key F5 (Compute) pressed
 Debug: Created connection 'from-gneE10_0to-gneE9_0' in retrieveGNEConnection()
 Debug: Created connection 'from-gneE10_0to-gneE17_0' in retrieveGNEConnection()
 Debug: Created connection 'from-gneE11_0to-gneE10_0' in retrieveGNEConnection()
@@ -77,6 +77,7 @@ Debug: Created connection 'fromgneE7_0togneE4_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE8_0togneE9_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE9_0to-gneE17_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE9_0togneE10_0' in retrieveGNEConnection()
+Debug: Additionals saved
 Debug: Deleting unreferenced detExit 'e3Detector_0detExit1'
 Debug: Additionals has to be saved
 Debug: Current saving Status: net saved, additionals unsaved, demand elements saved

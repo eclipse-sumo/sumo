@@ -29,7 +29,7 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 netedit.selectMode()
 
 # select all edges with disallow = "vip" and remove it
-netedit.selectItems("Net Element", "edge", "disallow", "=vip")
+netedit.selectItems("Net Element", "edge", "disallow", "vip")
 netedit.deleteSelectedItems()
 
 # recompute

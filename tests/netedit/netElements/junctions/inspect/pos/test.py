@@ -15,6 +15,7 @@
 # import common functions for netedit tests
 import os
 import sys
+import time
 
 testRoot = os.path.join(os.environ.get('SUMO_HOME', '.'), 'tests')
 neteditTestRoot = os.path.join(
@@ -27,6 +28,9 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot, ['--g
 
 # rebuild network
 netedit.rebuildNetwork()
+
+# wait for output
+time.sleep(10)
 
 # inspect central node
 netedit.leftClick(referencePosition, 325, 250)
@@ -48,17 +52,32 @@ netedit.modifyAttribute(1, "40.00,40.00", False)
 # rebuild network
 netedit.rebuildNetwork()
 
+# wait for output
+time.sleep(10)
+
 # Check undo
 netedit.undo(referencePosition, 1)
 
 # rebuild network
 netedit.rebuildNetwork()
 
+# wait for output
+time.sleep(10)
+
 # Check redo
 netedit.redo(referencePosition, 1)
 
+# rebuild network
+netedit.rebuildNetwork()
+
+# wait for output
+time.sleep(10)
+		
 # save additionals
 netedit.saveAdditionals(referencePosition)
+
+# Fix stopping places position
+netedit.fixStoppingPlace("fixPositions")
 
 # save network
 netedit.saveNetwork(referencePosition)

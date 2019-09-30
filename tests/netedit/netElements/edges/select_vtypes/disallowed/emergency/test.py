@@ -29,7 +29,7 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 netedit.selectMode()
 
 # select all edges with disallow = "emergency" and remove it
-netedit.selectItems("Net Element", "edge", "disallow", "=emergency")
+netedit.selectItems("Net Element", "edge", "disallow", "emergency")
 netedit.deleteSelectedItems()
 
 # recompute

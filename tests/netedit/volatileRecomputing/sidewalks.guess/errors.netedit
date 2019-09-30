@@ -50,7 +50,7 @@ Debug: Adding busStop 'busStop_gneE7_0_6' in GNEChange_Additional
 Debug: Adding e3Detector 'e3Detector_0' in GNEChange_Additional
 Debug: Adding detEntry 'e3Detector_0detEntry0' in GNEChange_Additional
 Debug: Adding detExit 'e3Detector_0detExit1' in GNEChange_Additional
-Debug: Additionals saved
+Debug: Key F5 (Compute) pressed
 Debug: Created connection 'from-gneE10_1to-gneE9_1' in retrieveGNEConnection()
 Debug: Created connection 'from-gneE10_1to-gneE17_1' in retrieveGNEConnection()
 Debug: Created connection 'from-gneE11_1to-gneE10_1' in retrieveGNEConnection()
@@ -107,6 +107,7 @@ Debug: Created connection 'fromgneE7_1togneE4_1' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE8_1togneE9_1' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE9_1to-gneE17_1' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE9_1togneE10_1' in retrieveGNEConnection()
+Debug: Additionals saved
 Debug: Deleting unreferenced detExit 'e3Detector_0detExit1'
 Debug: Additionals has to be saved
 Debug: Current saving Status: net saved, additionals unsaved, demand elements saved

@@ -29,7 +29,7 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 netedit.selectMode()
 
 # select all edges with disallow = "bicycle" and remove it
-netedit.selectItems("Net Element", "edge", "disallow", "=bicycle")
+netedit.selectItems("Net Element", "edge", "disallow", "bicycle")
 netedit.deleteSelectedItems()
 
 # recompute
