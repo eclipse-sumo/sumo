@@ -462,7 +462,7 @@ def waitQuestion(answer):
 def reload(NeteditProcess, openNetNonSavedDialog=False, saveNet=False,
            openAdditionalsNonSavedDialog=False, saveAdditionals=False,
            openDemandNonSavedDialog=False, saveDemandElements=False):
-   """
+    """
     @brief reload Netedit
     """
     # first move cursor out of magenta square
@@ -1295,7 +1295,7 @@ def changeProtectDemandElements(referencePosition):
     @brief Enable or disable 'protect demand elements'
     """
     # select delete mode again to set mode
-    deleteMode():
+    deleteMode()
     # jump to checkbox
     for _ in range(3):
         typeTab()
