@@ -37,7 +37,8 @@ DELAY_UNDOREDO = 1
 DELAY_SELECT = 1
 DELAY_RECOMPUTE = 3
 DELAY_RECOMPUTE_VOLATILE = 3
-DELAY_REMOVESELECTION = 0.1
+DELAY_REMOVESELECTION = 2
+DELAY_CHANGEMODE = 1
 
 _NETEDIT_APP = os.environ.get("NETEDIT_BINARY", "netedit")
 _TEXTTEST_SANDBOX = os.environ.get("TEXTTEST_SANDBOX", os.getcwd())
@@ -47,102 +48,84 @@ _REFERENCE_PNG = os.path.join(os.path.dirname(__file__), "reference.png")
 # interaction functions
 #################################################
 
-"""
-@brief type escape key
-"""
-
-
 def typeEscape():
+    """
+    @brief type escape key
+    """
     # type ESC key
     typeKey('esc')
 
 
-"""
-@brief type enter key
-"""
-
-
 def typeEnter():
+    """
+    @brief type enter key
+    """
     # type enter key
     typeKey('enter')
 
 
-"""
-@brief type space key
-"""
-
-
 def typeSpace():
+    """
+    @brief type space key
+    """
     # type space key
     typeKey('space')
 
 
-"""
-@brief type tab key
-"""
-
-
 def typeTab():
+    """
+    @brief type tab key
+    """
     # wait before every operation
     time.sleep(DELAY_KEY_TAB)
     # type keys
     pyautogui.hotkey('tab')
 
 
-"""
-@brief type backspace key
-"""
-
-
 def typeBackspace():
+    """
+    @brief type backspace key
+    """
     # wait before every operation
     time.sleep(DELAY_KEY)
     # type keys
     pyautogui.hotkey('backspace')
 
 
-"""
-@brief type Shift + Tab keys
-"""
-
-
 def typeInvertTab():
+    """
+    @brief type Shift + Tab keys
+    """
     # wait before every operation
     time.sleep(DELAY_KEY_TAB)
     # type two keys at the same time
     pyautogui.hotkey('shift', 'tab')
 
 
-"""
-@brief type single key
-"""
-
-
 def typeKey(key):
+    """
+    @brief type single key
+    """
     # wait before every operation
     time.sleep(DELAY_KEY)
     # type keys
     pyautogui.hotkey(key)
 
 
-"""
-@brief type two keys at the same time (key1 -> key2)
-"""
-
-
 def typeTwoKeys(key1, key2):
+    """
+    @brief type two keys at the same time (key1 -> key2)
+    """
     # wait before every operation
     time.sleep(DELAY_KEY)
     # type two keys at the same time
     pyautogui.hotkey(key1, key2)
 
 
-"""
-@brief type three keys at the same time (key1 -> key2 -> key3)
-"""
-
-
 def typeThreeKeys(key1, key2, key3):
+    """
+    @brief type three keys at the same time (key1 -> key2 -> key3)
+    """
     # wait before every operation
     time.sleep(DELAY_KEY)
     # type two keys at the same time
@@ -150,6 +133,9 @@ def typeThreeKeys(key1, key2, key3):
 
 
 def translateKeys(value, layout="de"):
+    """
+    @brief translate keys between different keyboards
+    """
     tr = {}
     if layout == "de":
         en = r"""y[];'\z/Y{}:"|Z<>?@#^&*()-_=+§"""
@@ -191,12 +177,10 @@ def leftClick(referencePosition, positionx, positiony):
     print("TestFunctions: Clicked over position", clickedPosition[0], '-', clickedPosition[1])
 
 
-"""
-@brief do left click over a position relative to referencePosition (pink square) while shift key is pressed
-"""
-
-
 def leftClickShift(referencePosition, positionx, positiony):
+    """
+    @brief do left click over a position relative to referencePosition (pink square) while shift key is pressed
+    """
     # Leave Shift key pressed
     pyautogui.keyDown('shift')
     # wait before every operation
@@ -212,12 +196,10 @@ def leftClickShift(referencePosition, positionx, positiony):
     time.sleep(DELAY_KEY)
 
 
-"""
-@brief do left click over a position relative to referencePosition (pink square) while control key is pressed
-"""
-
-
 def leftClickControl(referencePosition, positionx, positiony):
+    """
+    @brief do left click over a position relative to referencePosition (pink square) while control key is pressed
+    """
     # Leave Shift key pressed
     pyautogui.keyDown('ctrl')
     # wait before every operation
@@ -233,12 +215,10 @@ def leftClickControl(referencePosition, positionx, positiony):
     time.sleep(DELAY_KEY)
 
 
-"""
-@brief drag and drop from position 1 to position 2
-"""
-
-
 def dragDrop(referencePosition, x1, y1, x2, y2):
+    """
+    @brief drag and drop from position 1 to position 2
+    """
     # wait before every operation
     time.sleep(DELAY_KEY)
     # obtain from and to position
@@ -252,7 +232,6 @@ def dragDrop(referencePosition, x1, y1, x2, y2):
     pyautogui.dragTo(tromPosition[0], tromPosition[1], 1, button='left')
     # wait before every operation
     time.sleep(DELAY_KEY)
-
 
 #################################################
 # basic functions
@@ -357,43 +336,35 @@ def setupAndStart(testRoot, extraParameters=[], debugInformation=True, waitTime=
     return neteditProcess, getReferenceMatch(neteditProcess, waitTime)
 
 
-"""
-@brief select Network Supermode
-"""
-
-
 def supermodeNetwork():
+    """
+    @brief select Network Supermode
+    """
     typeKey('F3')
 
 
-"""
-@brief select Demand Supermode
-"""
-
-
 def supermodeDemand():
+    """
+    @brief select Demand Supermode
+    """
     typeKey('F4')
     # wait for output
     time.sleep(DELAY_RECOMPUTE)
 
 
-"""
-@brief rebuild network
-"""
-
-
 def rebuildNetwork():
+    """
+    @brief rebuild network
+    """
     typeKey('F5')
     # wait for output
     time.sleep(DELAY_RECOMPUTE)
 
 
-"""
-@brief rebuild network with volatile options
-"""
-
-
 def rebuildNetworkWithVolatileOptions(question=True):
+    """
+    @brief rebuild network with volatile options
+    """
     typeTwoKeys('shift', 'F5')
     # confirm recompute
     if question is True:
@@ -404,39 +375,31 @@ def rebuildNetworkWithVolatileOptions(question=True):
         waitQuestion('n')
 
 
-"""
-@brief clean junction
-"""
-
-
 def cleanJunction():
+    """
+    @brief clean junction
+    """
     typeKey('F6')
 
 
-"""
-@brief join selected junctions
-"""
-
-
 def joinSelectedJunctions():
+    """
+    @brief join selected junctions
+    """
     typeKey('F7')
 
 
-"""
-@brief select focus on upper element of current frame
-"""
-
-
 def focusOnFrame():
+    """
+    @brief select focus on upper element of current frame
+    """
     typeKey('F12')
 
 
-"""
-@brief undo last operation
-"""
-
-
 def undo(referencePosition, number):
+    """
+    @brief undo last operation
+    """
     # first wait
     time.sleep(DELAY_UNDOREDO)
     # needed to avoid errors with undo/redo (Provisionally)
@@ -448,12 +411,10 @@ def undo(referencePosition, number):
         time.sleep(DELAY_UNDOREDO)
 
 
-"""
-@brief undo last operation
-"""
-
-
 def redo(referencePosition, number):
+    """
+    @brief undo last operation
+    """
     # first wait
     time.sleep(DELAY_UNDOREDO)
     # needed to avoid errors with undo/redo (Provisionally)
@@ -465,12 +426,10 @@ def redo(referencePosition, number):
         time.sleep(DELAY_UNDOREDO)
 
 
-"""
-@brief set Zoom
-"""
-
-
 def setZoom(positionX, positionY, zoomLevel):
+    """
+    @brief set Zoom
+    """
     # open edit viewport dialog
     typeTwoKeys('ctrl', 'i')
     # by default is in "load" button, then go to position X
@@ -490,26 +449,22 @@ def setZoom(positionX, positionY, zoomLevel):
     typeTwoKeys('alt', 'o')
 
 
-"""
-@brief wait question of Netedit and select a yes/no answer
-"""
-
-
 def waitQuestion(answer):
+    """
+    @brief wait question of Netedit and select a yes/no answer
+    """
     # wait some second to question dialog
     time.sleep(DELAY_QUESTION)
     # Answer can be "y" or "n"
     typeTwoKeys('alt', answer)
 
 
-"""
-@brief reload Netedit
-"""
-
-
 def reload(NeteditProcess, openNetNonSavedDialog=False, saveNet=False,
            openAdditionalsNonSavedDialog=False, saveAdditionals=False,
            openDemandNonSavedDialog=False, saveDemandElements=False):
+   """
+    @brief reload Netedit
+    """
     # first move cursor out of magenta square
     pyautogui.moveTo(150, 200)
     # reload using hotkey
@@ -547,14 +502,12 @@ def reload(NeteditProcess, openNetNonSavedDialog=False, saveNet=False,
         print("TestFunctions: Error reloading Netedit")
 
 
-"""
-@brief quit Netedit
-"""
-
-
 def quit(NeteditProcess, openNetNonSavedDialog=False, saveNet=False,
          openAdditionalsNonSavedDialog=False, saveAdditionals=False,
          openDemandNonSavedDialog=False, saveDemandElements=False):
+    """
+    @brief quit Netedit
+    """
     # check if Netedit is already closed
     if NeteditProcess.poll() is not None:
         # print debug information
@@ -607,12 +560,10 @@ def quit(NeteditProcess, openNetNonSavedDialog=False, saveNet=False,
         print("TestFunctions: Error closing Netedit")
 
 
-"""
-@brief load network as
-"""
-
-
 def openNetworkAs(waitTime=2):
+    """
+    @brief load network as
+    """
     # open save network as dialog
     typeTwoKeys('ctrl', 'o')
     # jump to filename TextField
@@ -625,12 +576,10 @@ def openNetworkAs(waitTime=2):
     time.sleep(waitTime)
 
 
-"""
-@brief save network
-"""
-
-
 def saveNetwork(referencePosition, clickOverReference=False):
+    """
+    @brief save network
+    """
     # check if clickOverReference is enabled
     if clickOverReference:
         # click over reference (to avoid problem with undo-redo)
@@ -641,12 +590,10 @@ def saveNetwork(referencePosition, clickOverReference=False):
     time.sleep(DELAY_RECOMPUTE)
 
 
-"""
-@brief save network as
-"""
-
-
 def saveNetworkAs(waitTime=2):
+    """
+    @brief save network as
+    """
     # open save network as dialog
     typeThreeKeys('ctrl', 'shift', 's')
     # jump to filename TextField
@@ -661,12 +608,10 @@ def saveNetworkAs(waitTime=2):
     time.sleep(DELAY_RECOMPUTE)
 
 
-"""
-@brief save additionals
-"""
-
-
 def saveAdditionals(referencePosition, clickOverReference=False):
+    """
+    @brief save additionals
+    """
     # check if clickOverReference is enabled
     if clickOverReference:
         # click over reference (to avoid problem with undo-redo)
@@ -675,12 +620,10 @@ def saveAdditionals(referencePosition, clickOverReference=False):
     typeThreeKeys('ctrl', 'shift', 'a')
 
 
-"""
-@brief save routes
-"""
-
-
 def saveRoutes(referencePosition, clickOverReference=True):
+    """
+    @brief save routes
+    """
     # check if clickOverReference is enabled
     if clickOverReference:
         # click over reference (to avoid problem with undo-redo)
@@ -689,12 +632,10 @@ def saveRoutes(referencePosition, clickOverReference=True):
     typeThreeKeys('ctrl', 'shift', 'd')
 
 
-"""
-@brief fix stoppingPlaces
-"""
-
-
 def fixDemandElements(solution):
+    """
+    @brief fix stoppingPlaces
+    """
     # select bullet depending of solution
     if (solution == "saveInvalids"):
         for _ in range(3):
@@ -727,12 +668,10 @@ def fixDemandElements(solution):
         typeSpace()
 
 
-"""
-@brief open and close about dialog
-"""
-
-
 def openAboutDialog(waitingTime=DELAY_QUESTION):
+    """
+    @brief open and close about dialog
+    """
     # type F2 to open about dialog
     typeKey('F2')
     # wait before closing
@@ -741,12 +680,10 @@ def openAboutDialog(waitingTime=DELAY_QUESTION):
     typeSpace()
 
 
-"""
-@brief open configuration using shortcut
-"""
-
-
 def openConfigurationShortcut(waitTime=2):
+    """
+    @brief open configuration using shortcut
+    """
     # open configuration dialog
     typeThreeKeys('ctrl', 'shift', 'o')
     # jump to filename TextField
@@ -759,12 +696,10 @@ def openConfigurationShortcut(waitTime=2):
     time.sleep(waitTime)
 
 
-"""
-@brief save configuration using shortcut
-"""
-
-
 def savePlainXML(waitTime=2):
+    """
+    @brief save configuration using shortcut
+    """
     # open configuration dialog
     typeTwoKeys('ctrl', 'l')
     # jump to filename TextField
@@ -777,59 +712,49 @@ def savePlainXML(waitTime=2):
     time.sleep(waitTime)
 
 
-"""
-@brief Change edit mode (alt+1-9)
-"""
-
-
 def changeEditMode(key):
+    """
+    @brief Change edit mode (alt+1-9)
+    """
     typeTwoKeys('alt', key)
-
 
 #################################################
 # Create nodes and edges
 #################################################
 
-
-"""
-@brief Change to create edge mode
-"""
-
-
 def createEdgeMode():
+    """
+    @brief Change to create edge mode
+    """
     typeKey('e')
-
-
-"""
-@brief Cancel current created edge (used in chain mode)
-"""
+    # wait for gl debug
+    time.sleep(DELAY_CHANGEMODE)
 
 
 def cancelEdge():
+    """
+    @brief Cancel current created edge (used in chain mode)
+    """
     # type ESC to cancel current edge
     typeEscape()
-
 
 #################################################
 # Inspect mode
 #################################################
 
-
-"""
-@brief go to inspect mode
-"""
-
-
 def inspectMode():
+    """
+    @brief go to inspect mode
+    """
     typeKey('i')
-
-
-"""
-@brief modify attribute of type int/float/string
-"""
+    # wait for gl debug
+    time.sleep(DELAY_CHANGEMODE)
 
 
 def modifyAttribute(attributeNumber, value, overlapped):
+    """
+    @brief modify attribute of type int/float/string
+    """
     # focus current frame
     focusOnFrame()
     # jump to attribute depending if it's a overlapped element
@@ -845,12 +770,10 @@ def modifyAttribute(attributeNumber, value, overlapped):
     typeEnter()
 
 
-"""
-@brief modify boolean attribute
-"""
-
-
 def modifyBoolAttribute(attributeNumber, overlapped):
+    """
+    @brief modify boolean attribute
+    """
     # focus current frame
     focusOnFrame()
     # jump to attribute depending if it's a overlapped element
@@ -867,22 +790,19 @@ def modifyBoolAttribute(attributeNumber, overlapped):
 # Move mode
 #################################################
 
-
-"""
-@brief set move mode
-"""
-
-
 def moveMode():
+    """
+    @brief set move mode
+    """
     typeKey('m')
-
-
-"""
-@brief move element
-"""
+    # wait for gl debug
+    time.sleep(DELAY_CHANGEMODE)
 
 
 def moveElement(referencePosition, startX, startY, endX, endY):
+    """
+    @brief move element
+    """
     # move element
     dragDrop(referencePosition, startX, startY, endX, endY)
 
@@ -890,22 +810,19 @@ def moveElement(referencePosition, startX, startY, endX, endY):
 # crossings
 #################################################
 
-
-"""
-@brief Change to crossing mode
-"""
-
-
 def crossingMode():
+    """
+    @brief Change to crossing mode
+    """
     typeKey('r')
-
-
-"""
-@brief create crossing
-"""
+    # wait for gl debug
+    time.sleep(DELAY_CHANGEMODE)
 
 
 def createCrossing():
+    """
+    @brief create crossing
+    """
     # focus current frame
     focusOnFrame()
     # jump to create crossing button
@@ -915,12 +832,10 @@ def createCrossing():
     typeSpace()
 
 
-"""
-@brief change default int/real/string crossing default value
-"""
-
-
 def modifyCrossingDefaultValue(numtabs, value):
+    """
+    @brief change default int/real/string crossing default value
+    """
     # focus current frame
     focusOnFrame()
     # jump to value
@@ -932,12 +847,10 @@ def modifyCrossingDefaultValue(numtabs, value):
     typeEnter()
 
 
-"""
-@brief change default boolean crossing default value
-"""
-
-
 def modifyCrossingDefaultBoolValue(numtabs):
+    """
+    @brief change default boolean crossing default value
+    """
     # focus current frame
     focusOnFrame()
     # jump to value
@@ -947,12 +860,10 @@ def modifyCrossingDefaultBoolValue(numtabs):
     typeSpace()
 
 
-"""
-@brief clear crossing
-"""
-
-
 def crossingClearEdges(useSelectedEdges=False, thereIsSelectedEdges=False):
+    """
+    @brief clear crossing
+    """
     # focus current frame
     focusOnFrame()
     if(useSelectedEdges and thereIsSelectedEdges):
@@ -967,12 +878,10 @@ def crossingClearEdges(useSelectedEdges=False, thereIsSelectedEdges=False):
     typeSpace()
 
 
-"""
-@brief invert crossing
-"""
-
-
 def crossingInvertEdges(useSelectedEdges=False, thereIsSelectedEdges=False):
+    """
+    @brief invert crossing
+    """
     # focus current frame
     focusOnFrame()
     if(useSelectedEdges and thereIsSelectedEdges):
@@ -986,28 +895,24 @@ def crossingInvertEdges(useSelectedEdges=False, thereIsSelectedEdges=False):
     # type space to activate button
     typeSpace()
 
-
 #################################################
 # Connection mode
 #################################################
 
-
-"""
-@brief Change to connection mode
-"""
-
-
 def connectionMode():
+    """
+    @brief Change to connection mode
+    """
     typeKey('c')
-
-
-"""
-@brief create connection
-"""
+    # wait for gl debug
+    time.sleep(DELAY_CHANGEMODE)
 
 
 def createConnection(referencePosition, fromLanePositionX, fromLanePositionY,
                      toLanePositionX, toLanePositionY, mode=""):
+    """
+    @brief create connection
+    """
     # check if connection has to be created in certain mode
     if mode == "conflict":
         pyautogui.keyDown('ctrl')
@@ -1024,12 +929,10 @@ def createConnection(referencePosition, fromLanePositionX, fromLanePositionY,
         pyautogui.keyUp('shift')
 
 
-"""
-@brief Change to crossing mode
-"""
-
-
 def saveConnectionEdit():
+    """
+    @brief Change to crossing mode
+    """
     # focus current frame
     focusOnFrame()
     # go to cancel button
@@ -1040,27 +943,23 @@ def saveConnectionEdit():
     # wait for gl debug
     time.sleep(DELAY_SELECT)
 
-
 #################################################
 # additionals
 #################################################
 
-
-"""
-@brief change to additional mode
-"""
-
-
 def additionalMode():
+    """
+    @brief change to additional mode
+    """
     typeKey('a')
-
-
-"""
-@brief change element (Additional, shape, vehicle...)
-"""
+    # wait for gl debug
+    time.sleep(DELAY_CHANGEMODE)
 
 
 def changeElement(additional):
+    """
+    @brief change element (Additional, shape, vehicle...)
+    """
     # focus current frame
     focusOnFrame()
     # go to first editable element of frame
@@ -1071,12 +970,10 @@ def changeElement(additional):
     typeEnter()
 
 
-"""
-@brief modify default int/double/string value of an additional, shape, vehicle...
-"""
-
-
 def changeDefaultValue(numTabs, length):
+    """
+    @brief modify default int/double/string value of an additional, shape, vehicle...
+    """
     # focus current frame
     focusOnFrame()
     # go to length TextField
@@ -1088,12 +985,10 @@ def changeDefaultValue(numTabs, length):
     typeEnter()
 
 
-"""
-@brief modify default boolean value of an additional, shape, vehicle...
-"""
-
-
 def changeDefaultBoolValue(numTabs):
+    """
+    @brief modify default boolean value of an additional, shape, vehicle...
+    """
     # focus current frame
     focusOnFrame()
     # place cursor in check Box position
@@ -1103,12 +998,10 @@ def changeDefaultBoolValue(numTabs):
     typeSpace()
 
 
-"""
-@brief modify number of stopping place lines
-"""
-
-
 def modifyStoppingPlaceLines(numTabs, numLines):
+    """
+    @brief modify number of stopping place lines
+    """
     # focus current frame
     focusOnFrame()
     # go to add line
@@ -1119,12 +1012,10 @@ def modifyStoppingPlaceLines(numTabs, numLines):
         typeSpace()
 
 
-"""
-@brief fill lines to stopping places
-"""
-
-
 def fillStoppingPlaceLines(numTabs, numLines):
+    """
+    @brief fill lines to stopping places
+    """
     # focus current frame
     focusOnFrame()
     # place cursor in the first line
@@ -1138,12 +1029,10 @@ def fillStoppingPlaceLines(numTabs, numLines):
         typeTab()
 
 
-"""
-@brief select child of additional
-"""
-
-
 def selectAdditionalChild(numTabs, childNumber):
+    """
+    @brief select child of additional
+    """
     # focus current frame
     focusOnFrame()
     # place cursor in the list of childs
@@ -1157,12 +1046,10 @@ def selectAdditionalChild(numTabs, childNumber):
     typeTab()
 
 
-"""
-@brief fix stoppingPlaces
-"""
-
-
 def fixStoppingPlace(solution):
+    """
+    @brief fix stoppingPlaces
+    """
     # wait some second to question dialog
     time.sleep(DELAY_QUESTION)
     # select bullet depending of solution
@@ -1196,27 +1083,23 @@ def fixStoppingPlace(solution):
         typeTab()
         typeSpace()
 
-
 #################################################
 # route elements
 #################################################
 
-
-"""
-@brief change to route mode
-"""
-
-
 def routeMode():
+    """
+    @brief change to route mode
+    """
     typeKey('r')
-
-
-"""
-@brief change route mode
-"""
+    # wait for gl debug
+    time.sleep(DELAY_CHANGEMODE)
 
 
 def changeRouteMode(value):
+    """
+    @brief change route mode
+    """
     # focus current frame
     focusOnFrame()
     # jump to route mode
@@ -1227,12 +1110,10 @@ def changeRouteMode(value):
     typeEnter()
 
 
-"""
-@brief change vClass mode
-"""
-
-
 def changeRouteVClass(value):
+    """
+    @brief change vClass mode
+    """
     # focus current frame
     focusOnFrame()
     # jump to vClass
@@ -1247,22 +1128,19 @@ def changeRouteVClass(value):
 # person elements
 #################################################
 
-
-"""
-@brief change to person mode
-"""
-
-
 def personMode():
+    """
+    @brief change to person mode
+    """
     typeKey('p')
-
-
-"""
-@brief change person mode
-"""
+    # wait for gl debug
+    time.sleep(DELAY_CHANGEMODE)
 
 
 def changePersonMode(value):
+    """
+    @brief change person mode
+    """
     # focus current frame
     focusOnFrame()
     # jump to person mode
@@ -1273,12 +1151,10 @@ def changePersonMode(value):
     typeEnter()
 
 
-"""
-@brief change vClass mode
-"""
-
-
 def changePersonVClass(value):
+    """
+    @brief change vClass mode
+    """
     # focus current frame
     focusOnFrame()
     # jump to vClass
@@ -1290,12 +1166,10 @@ def changePersonVClass(value):
     typeEnter()
 
 
-"""
-@brief change personPlan
-"""
-
-
 def changePersonPlan(personPlan, subPersonPlan):
+    """
+    @brief change personPlan
+    """
     # focus current frame
     focusOnFrame()
     # jump to person plan
@@ -1312,12 +1186,10 @@ def changePersonPlan(personPlan, subPersonPlan):
     typeEnter()
 
 
-"""
-@brief change personFlowPlan
-"""
-
-
 def changePersonFlowPlan(personFlowPlan, subPersonFlowPlan):
+    """
+    @brief change personFlowPlan
+    """
     # focus current frame
     focusOnFrame()
     # jump to personFlow plan
@@ -1333,11 +1205,9 @@ def changePersonFlowPlan(personFlowPlan, subPersonFlowPlan):
     # type enter to save change
     typeEnter()
 
-
 #################################################
 # stop elements
 #################################################
-
 
 def stopMode():
     """
@@ -1374,51 +1244,44 @@ def changeStopType(stopType):
     # type enter to save change
     typeEnter()
 
-
 #################################################
 # vehicle elements
 #################################################
 
-
-"""
-@brief change to vehicle mode
-"""
-
-
 def vehicleMode():
+    """
+    @brief change to vehicle mode
+    """
     typeKey('v')
+    # wait for gl debug
+    time.sleep(DELAY_CHANGEMODE)
 
 #################################################
 # delete
 #################################################
 
-
-"""
-@brief Change to delete mode
-"""
-
-
 def deleteMode():
+    """
+    @brief Change to delete mode
+    """
     typeKey('d')
-
-
-"""
-@brief delete using SUPR key
-"""
+    # wait for gl debug
+    time.sleep(DELAY_CHANGEMODE)
 
 
 def deleteUsingSuprKey():
+    """
+    @brief delete using SUPR key
+    """
     typeKey('del')
     # wait for GL Debug
     time.sleep(DELAY_REMOVESELECTION)
 
 
-"""
-@brief Enable or disable 'automatically delete Additionals'
-"""
-
-
 def changeAutomaticallyDeleteAdditionals(referencePosition):
+    """
+    @brief Enable or disable 'automatically delete Additionals'
+    """
     # select delete mode again to set mode
     deleteMode()
     # use TAB to go to check box
@@ -1427,14 +1290,12 @@ def changeAutomaticallyDeleteAdditionals(referencePosition):
     typeSpace()
 
 
-"""
-@brief Enable or disable 'protect demand elements'
-"""
-
-
 def changeProtectDemandElements(referencePosition):
+    """
+    @brief Enable or disable 'protect demand elements'
+    """
     # select delete mode again to set mode
-    deleteMode()
+    deleteMode():
     # jump to checkbox
     for _ in range(3):
         typeTab()
@@ -1442,12 +1303,10 @@ def changeProtectDemandElements(referencePosition):
     typeSpace()
 
 
-"""
-@brief close warning about automatically delete additionals
-"""
-
-
 def waitDeleteWarning():
+    """
+    @brief close warning about automatically delete additionals
+    """
     # wait 0.5 second to question dialog
     time.sleep(DELAY_QUESTION)
     # press enter to close dialog
@@ -1457,32 +1316,27 @@ def waitDeleteWarning():
 # select mode
 #################################################
 
-
-"""
-@brief Change to select mode
-"""
-
-
 def selectMode():
+    """
+    @brief Change to select mode
+    """
     typeKey('s')
-
-
-"""
-@brief abort current selection
-"""
+    # wait for gl debug
+    time.sleep(DELAY_CHANGEMODE)
 
 
 def abortSelection():
+    """
+    @brief abort current selection
+    """
     # type ESC to abort current selection
     typeEscape()
 
 
-"""
-@brief lock selection by glType
-"""
-
-
 def lockSelection(glType):
+    """
+    @brief lock selection by glType
+    """
     # focus current frame
     focusOnFrame()
     # go to selected glType
@@ -1492,12 +1346,10 @@ def lockSelection(glType):
     typeSpace()
 
 
-"""
-@brief select elements with default frame values
-"""
-
-
 def selectDefault():
+    """
+    @brief select elements with default frame values
+    """
     # focus current frame
     focusOnFrame()
     for _ in range(19):
@@ -1508,12 +1360,10 @@ def selectDefault():
     time.sleep(DELAY_SELECT)
 
 
-"""
-@brief save selection
-"""
-
-
 def saveSelection():
+    """
+    @brief save selection
+    """
     focusOnFrame()
     # jump to save
     for _ in range(24):
@@ -1526,12 +1376,10 @@ def saveSelection():
     typeEnter()
 
 
-"""
-@brief save selection
-"""
-
-
 def loadSelection():
+    """
+    @brief save selection
+    """
     focusOnFrame()
     # jump to save
     for _ in range(25):
@@ -1546,12 +1394,10 @@ def loadSelection():
     time.sleep(DELAY_SELECT)
 
 
-"""
-@brief select items
-"""
-
-
 def selectItems(elementClass, elementType, attribute, value):
+    """
+    @brief select items
+    """
     # focus current frame
     focusOnFrame()
     # jump to elementClass
@@ -1580,23 +1426,19 @@ def selectItems(elementClass, elementType, attribute, value):
     time.sleep(DELAY_SELECT)
 
 
-"""
-@brief delete selected items
-"""
-
-
 def deleteSelectedItems():
+    """
+    @brief delete selected items
+    """
     typeKey('del')
     # wait for gl debug
     time.sleep(DELAY_SELECT)
 
 
-"""
-@brief set modification mode "add"
-"""
-
-
 def modificationModeAdd():
+    """
+    @brief set modification mode "add"
+    """
     # focus current frame
     focusOnFrame()
     # jump to mode "add"
@@ -1606,12 +1448,10 @@ def modificationModeAdd():
     typeSpace()
 
 
-"""
-@brief set modification mode "remove"
-"""
-
-
 def modificationModeRemove():
+    """
+    @brief set modification mode "remove"
+    """
     # focus current frame
     focusOnFrame()
     # jump to mode "remove"
@@ -1621,12 +1461,10 @@ def modificationModeRemove():
     typeSpace()
 
 
-"""
-@brief set modification mode "keep"
-"""
-
-
 def modificationModeKeep():
+    """
+    @brief set modification mode "keep"
+    """
     # focus current frame
     focusOnFrame()
     # jump to mode "keep"
@@ -1636,12 +1474,10 @@ def modificationModeKeep():
     typeSpace()
 
 
-"""
-@brief set modification mode "replace"
-"""
-
-
 def modificationModeReplace():
+    """
+    @brief set modification mode "replace"
+    """
     # focus current frame
     focusOnFrame()
     # jump to mode "replace"
@@ -1651,12 +1487,10 @@ def modificationModeReplace():
     typeSpace()
 
 
-"""
-@brief select using an rectangle
-"""
-
-
 def selectionRectangle(referencePosition, startX, startY, endX, endY):
+    """
+    @brief select using an rectangle
+    """
     # Leave Shift key pressedX
     pyautogui.keyDown('shift')
     # wait after key up
@@ -1671,12 +1505,10 @@ def selectionRectangle(referencePosition, startX, startY, endX, endY):
     time.sleep(DELAY_SELECT)
 
 
-"""
-@brief clear selection
-"""
-
-
 def selectionClear(previouslyInserted=False):
+    """
+    @brief clear selection
+    """
     # focus current frame
     focusOnFrame()
     for _ in range(22):
@@ -1687,12 +1519,10 @@ def selectionClear(previouslyInserted=False):
     time.sleep(DELAY_SELECT)
 
 
-"""
-@brief invert selection
-"""
-
-
 def selectionInvert():
+    """
+    @brief invert selection
+    """
     # focus current frame
     focusOnFrame()
     for _ in range(23):
@@ -1703,12 +1533,10 @@ def selectionInvert():
     time.sleep(DELAY_SELECT)
 
 
-"""
-@brief invert selection (demand mode)
-"""
-
-
 def selectionInvertDemand():
+    """
+    @brief invert selection (demand mode)
+    """
     # focus current frame
     focusOnFrame()
     for _ in range(28):
@@ -1718,27 +1546,23 @@ def selectionInvertDemand():
     # wait for gl debug
     time.sleep(DELAY_SELECT)
 
-
 #################################################
 # traffic light
 #################################################
 
-
-"""
-@brief Change to traffic light mode
-"""
-
-
 def selectTLSMode():
+    """
+    @brief Change to traffic light mode
+    """
     typeKey('t')
-
-
-"""
-@brief Create TLS in the current selected Junction
-"""
+    # wait for gl debug
+    time.sleep(DELAY_CHANGEMODE)
 
 
 def createTLS():
+    """
+    @brief Create TLS in the current selected Junction
+    """
     # focus current frame
     focusOnFrame()
     # type tab 3 times to jump to create TLS button
@@ -1751,22 +1575,19 @@ def createTLS():
 # shapes
 #################################################
 
-
-"""
-@brief change to shape mode
-"""
-
-
 def shapeMode():
+    """
+    @brief change to shape mode
+    """
     typeKey('p')
-
-
-"""
-@brief Create squared Polygon in position with a certain size
-"""
-
+    # wait for gl debug
+    time.sleep(DELAY_CHANGEMODE)
+    
 
 def createSquaredPoly(referencePosition, positionx, positiony, size, close):
+    """
+    @brief Create squared Polygon in position with a certain size
+    """
     # focus current frame
     focusOnFrame()
     # start draw
@@ -1783,12 +1604,10 @@ def createSquaredPoly(referencePosition, positionx, positiony, size, close):
     typeEnter()
 
 
-"""
-@brief Create rectangle Polygon in position with a certain size
-"""
-
-
 def createRectangledPoly(referencePosition, positionx, positiony, sizex, sizey, close):
+    """
+    @brief Create rectangle Polygon in position with a certain size
+    """
     # focus current frame
     focusOnFrame()
     # start draw
@@ -1805,12 +1624,10 @@ def createRectangledPoly(referencePosition, positionx, positiony, sizex, sizey, 
     typeEnter()
 
 
-"""
-@brief Create line Polygon in position with a certain size
-"""
-
-
 def createLinePoly(referencePosition, positionx, positiony, sizex, sizey, close):
+    """
+    @brief Create line Polygon in position with a certain size
+    """
     # focus current frame
     focusOnFrame()
     # start draw
@@ -1825,12 +1642,10 @@ def createLinePoly(referencePosition, positionx, positiony, sizex, sizey, close)
     typeEnter()
 
 
-"""
-@brief modify default color using dialog
-"""
-
-
 def changeColorUsingDialog(numTabs, color):
+    """
+    @brief modify default color using dialog
+    """
     # focus current frame
     focusOnFrame()
     # go to length TextField
@@ -1848,12 +1663,10 @@ def changeColorUsingDialog(numTabs, color):
     typeSpace()
 
 
-"""
-@brief create GEO POI
-"""
-
-
 def createGEOPOI():
+    """
+    @brief create GEO POI
+    """
     # focus current frame
     focusOnFrame()
     # place cursor in create GEO POI
@@ -1863,12 +1676,10 @@ def createGEOPOI():
     typeSpace()
 
 
-"""
-@brief change GEO POI format as Lon Lat
-"""
-
-
 def GEOPOILonLat():
+    """
+    @brief change GEO POI format as Lon Lat
+    """
     # focus current frame
     focusOnFrame()
     # place cursor in lon-lat
@@ -1878,12 +1689,10 @@ def GEOPOILonLat():
     typeSpace()
 
 
-"""
-@brief change GEO POI format as Lat Lon
-"""
-
-
 def GEOPOILatLon():
+    """
+    @brief change GEO POI format as Lat Lon
+    """
     # focus current frame
     focusOnFrame()
     # place cursor in lat-lon
@@ -1892,11 +1701,9 @@ def GEOPOILatLon():
     # Change current value
     typeSpace()
 
-
 #################################################
 # Contextual menu
 #################################################
-
 
 def contextualMenuOperation(referencePosition, positionx, positiony, operation, suboperation1, suboperation2=0):
     # obtain clicked position
