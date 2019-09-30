@@ -7,7 +7,7 @@
 # http://www.eclipse.org/legal/epl-v20.html
 # SPDX-License-Identifier: EPL-2.0
 
-# @file    runner.py
+# @file    runnerlib.py
 # @author  Lena Kalleske
 # @author  Daniel Krajzewicz
 # @author  Michael Behrisch
@@ -38,13 +38,6 @@ def requestToC(vehID, timeTillMRM):
 
 
 def printToCParams(vehID, only_dynamic=False, extra=False):
-    holder = traci.vehicle.getParameter(vehID, "device.toc.holder")
-    manualType = traci.vehicle.getParameter(vehID, "device.toc.manualType")
-    automatedType = traci.vehicle.getParameter(vehID, "device.toc.automatedType")
-    responseTime = traci.vehicle.getParameter(vehID, "device.toc.responseTime")
-    recoveryRate = traci.vehicle.getParameter(vehID, "device.toc.recoveryRate")
-    initialAwareness = traci.vehicle.getParameter(vehID, "device.toc.initialAwareness")
-    mrmDecel = traci.vehicle.getParameter(vehID, "device.toc.mrmDecel")
     currentAwareness = traci.vehicle.getParameter(vehID, "device.toc.currentAwareness")
     state = traci.vehicle.getParameter(vehID, "device.toc.state")
     speed = traci.vehicle.getSpeed(vehID)
@@ -53,16 +46,13 @@ def printToCParams(vehID, only_dynamic=False, extra=False):
     print("ToC device infos for vehicle '%s'" % vehID)
     if not only_dynamic:
         print("Static parameters:")
-        print("  holder = %s" % holder)
-        print("  manualType = %s" % manualType)
-        print("  automatedType = %s" % automatedType)
-        print("  responseTime = %s" % responseTime)
-        print("  recoveryRate = %s" % recoveryRate)
-        print("  initialAwareness = %s" % initialAwareness)
-        print("  mrmDecel = %s" % mrmDecel)
+        params = ["holder", "manualType", "automatedType", "responseTime", "recoveryRate",
+                  "initialAwareness", "mrmDecel"]
         if extra:
-            for p in ("lcAbstinence", "dynamicToCThreshold", "dynamicMRMProbability", "mrmKeepRight", "maxPreparationAccel"):
-                print("  %s = %s" % (p, traci.vehicle.getParameter(vehID, "device.toc." + p)))
+            params += ["lcAbstinence", "dynamicToCThreshold", "dynamicMRMProbability",
+                       "mrmKeepRight", "maxPreparationAccel"]
+        for p in params:
+            print("  %s = %s" % (p, traci.vehicle.getParameter(vehID, "device.toc." + p)))
         print("Dynamic parameters:")
     print("  currentAwareness = %s" % currentAwareness)
     print("  currentSpeed = %s" % speed)
