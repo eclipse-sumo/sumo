@@ -181,19 +181,11 @@ locations
 
 - <http://sumo.sourceforge.net/daily/sumo-src-git.tar.gz> (sources)
 - <http://sumo.sourceforge.net/daily/sumo-src-git.zip> (sources)
-- <http://sumo.sourceforge.net/daily/sumo-win32-git.zip>
-    (windows, 32bit)
-- <http://sumo.sourceforge.net/daily/sumo-win64-git.zip> (windows,
-    64bit)
-- <http://sumo.sourceforge.net/daily/sumo-game-win32-git.zip>
-    (windows 32bit binaries of the sumo game)
-- <http://sumo.sourceforge.net/daily/sumo-game-win64-git.zip>
-    (windows 64bit binaries of the sumo game)
-- <http://sumo.sourceforge.net/daily/sumo-win32-git.msi>
-    (windows installer, 32bit)
-- <http://sumo.sourceforge.net/daily/sumo-win64-git.msi> (windows
-    installer, 64bit)
-- <http://sumo.sourceforge.net/daily/sumo-win64extra-git.zip> (windows 64bit with GDAL, FFmpeg, OSG, GL2PS, SWIG)
+- <http://sumo.sourceforge.net/daily/sumo-win32-git.zip> (windows, 32bit)
+- <http://sumo.sourceforge.net/daily/sumo-win64-git.zip> (windows, 64bit)
+- <http://sumo.sourceforge.net/daily/sumo-game-win64-git.zip> (windows 64bit binaries of the sumo game)
+- <http://sumo.sourceforge.net/daily/sumo-win32-git.msi> (windows installer, 32bit)
+- <http://sumo.sourceforge.net/daily/sumo-win64-git.msi> (windows installer, 64bit)
 
 ### Direct repository access
 
