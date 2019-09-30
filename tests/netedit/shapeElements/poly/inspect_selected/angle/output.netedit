@@ -3,7 +3,7 @@ Finding reference
 TestFunctions: 'reference.png' found. Position: 304 - 168
 TestFunctions: Clicked over position 404 - 221
 TestFunctions: Clicked over position 604 - 221
-TestFunctions: Clicked over position 404 - 228
+TestFunctions: Clicked over position 409 - 238
 dummyAngle
 -5
 365

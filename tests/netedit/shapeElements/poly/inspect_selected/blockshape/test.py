@@ -29,16 +29,16 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot, ['--g
 netedit.selectMode()
 
 # select first polygon
-netedit.leftClick(referencePosition, 100, 60)
+netedit.leftClick(referencePosition, 105, 70)
 
 # select second polygon
-netedit.leftClick(referencePosition, 300, 50)
+netedit.leftClick(referencePosition, 305, 70)
 
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect first polygon
-netedit.leftClick(referencePosition, 100, 60)
+netedit.leftClick(referencePosition, 105, 70)
 
 # Change boolean parameter 14
 netedit.modifyBoolAttribute(14, False)
