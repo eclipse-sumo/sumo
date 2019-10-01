@@ -515,7 +515,7 @@ GNEAdditionalHandler::buildDetectorE1Instant(GNEViewNet* viewNet, bool allowUndo
 
 
 GNEAdditional*
-GNEAdditionalHandler::buildCalibrator(GNEViewNet* viewNet, bool allowUndoRedo, const std::string& id, GNELane* lane, double pos, const std::string& name, const std::string& outfile, const SUMOTime freq, const std::string& routeprobe) {
+GNEAdditionalHandler::buildCalibrator(GNEViewNet* viewNet, bool allowUndoRedo, const std::string& id, GNELane* lane, double pos, const std::string& name, const std::string& outfile, const SUMOTime freq, const std::string& routeprobe, bool centerAfterCreation) {
     if (viewNet->getNet()->retrieveAdditional(SUMO_TAG_CALIBRATOR, id, false) == nullptr) {
         GNECalibrator* calibrator = new GNECalibrator(id, viewNet, lane, pos, freq, name, outfile, routeprobe);
         if (allowUndoRedo) {
@@ -523,7 +523,9 @@ GNEAdditionalHandler::buildCalibrator(GNEViewNet* viewNet, bool allowUndoRedo, c
             viewNet->getUndoList()->add(new GNEChange_Additional(calibrator, true), true);
             viewNet->getUndoList()->p_end();
             // center after creation
-            viewNet->centerTo(calibrator->getPositionInView(), false);
+            if (centerAfterCreation) {
+                viewNet->centerTo(calibrator->getPositionInView(), false);
+            }
         } else {
             viewNet->getNet()->insertAdditional(calibrator);
             lane->addAdditionalChild(calibrator);
@@ -537,7 +539,7 @@ GNEAdditionalHandler::buildCalibrator(GNEViewNet* viewNet, bool allowUndoRedo, c
 
 
 GNEAdditional*
-GNEAdditionalHandler::buildCalibrator(GNEViewNet* viewNet, bool allowUndoRedo, const std::string& id, GNEEdge* edge, double pos, const std::string& name, const std::string& outfile, const SUMOTime freq, const std::string& routeprobe) {
+GNEAdditionalHandler::buildCalibrator(GNEViewNet* viewNet, bool allowUndoRedo, const std::string& id, GNEEdge* edge, double pos, const std::string& name, const std::string& outfile, const SUMOTime freq, const std::string& routeprobe, bool centerAfterCreation) {
     if (viewNet->getNet()->retrieveAdditional(SUMO_TAG_CALIBRATOR, id, false) == nullptr) {
         GNECalibrator* calibrator = new GNECalibrator(id, viewNet, edge, pos, freq, name, outfile, routeprobe);
         if (allowUndoRedo) {
@@ -545,7 +547,9 @@ GNEAdditionalHandler::buildCalibrator(GNEViewNet* viewNet, bool allowUndoRedo, c
             viewNet->getUndoList()->add(new GNEChange_Additional(calibrator, true), true);
             viewNet->getUndoList()->p_end();
             // center after creation
-            viewNet->centerTo(calibrator->getPositionInView(), false);
+            if (centerAfterCreation) {
+                viewNet->centerTo(calibrator->getPositionInView(), false);
+            }
         } else {
             viewNet->getNet()->insertAdditional(calibrator);
             edge->addAdditionalChild(calibrator);
@@ -725,7 +729,7 @@ GNEAdditionalHandler::buildRouteProbReroute(GNEViewNet* viewNet, bool allowUndoR
 
 
 GNEAdditional*
-GNEAdditionalHandler::buildRouteProbe(GNEViewNet* viewNet, bool allowUndoRedo, const std::string& id, GNEEdge* edge, const std::string& freq, const std::string& name, const std::string& file, SUMOTime begin) {
+GNEAdditionalHandler::buildRouteProbe(GNEViewNet* viewNet, bool allowUndoRedo, const std::string& id, GNEEdge* edge, const std::string& freq, const std::string& name, const std::string& file, SUMOTime begin, bool centerAfterCreation) {
     if (viewNet->getNet()->retrieveAdditional(SUMO_TAG_ROUTEPROBE, id, false) == nullptr) {
         GNERouteProbe* routeProbe = new GNERouteProbe(id, viewNet, edge, freq, name, file, begin);
         if (allowUndoRedo) {
@@ -733,7 +737,9 @@ GNEAdditionalHandler::buildRouteProbe(GNEViewNet* viewNet, bool allowUndoRedo, c
             viewNet->getUndoList()->add(new GNEChange_Additional(routeProbe, true), true);
             viewNet->getUndoList()->p_end();
             // center after creation
-            viewNet->centerTo(routeProbe->getPositionInView(), false);
+            if (centerAfterCreation) {
+                viewNet->centerTo(routeProbe->getPositionInView(), false);
+            }
         } else {
             viewNet->getNet()->insertAdditional(routeProbe);
             edge->addAdditionalChild(routeProbe);
@@ -787,14 +793,16 @@ GNEAdditionalHandler::buildVariableSpeedSignStep(GNEViewNet* viewNet, bool allow
 
 
 GNEAdditional*
-GNEAdditionalHandler::buildVaporizer(GNEViewNet* viewNet, bool allowUndoRedo, GNEEdge* edge, SUMOTime startTime, SUMOTime endTime, const std::string& name) {
+GNEAdditionalHandler::buildVaporizer(GNEViewNet* viewNet, bool allowUndoRedo, GNEEdge* edge, SUMOTime startTime, SUMOTime endTime, const std::string& name, bool centerAfterCreation) {
     GNEVaporizer* vaporizer = new GNEVaporizer(viewNet, edge, startTime, endTime, name);
     if (allowUndoRedo) {
         viewNet->getUndoList()->p_begin("add " + toString(SUMO_TAG_VAPORIZER));
         viewNet->getUndoList()->add(new GNEChange_Additional(vaporizer, true), true);
         viewNet->getUndoList()->p_end();
         // center after creation
-        viewNet->centerTo(vaporizer->getPositionInView(), false);
+        if (centerAfterCreation) {
+            viewNet->centerTo(vaporizer->getPositionInView(), false);
+        }
     } else {
         viewNet->getNet()->insertAdditional(vaporizer);
         edge->addAdditionalChild(vaporizer);
@@ -1058,6 +1066,8 @@ GNEAdditionalHandler::parseAndBuildVaporizer(GNEViewNet* viewNet, bool allowUndo
     SUMOTime begin = GNEAttributeCarrier::parseAttributeFromXML<SUMOTime>(attrs, "", SUMO_TAG_VAPORIZER, SUMO_ATTR_BEGIN, abort);
     SUMOTime end = GNEAttributeCarrier::parseAttributeFromXML<SUMOTime>(attrs, "", SUMO_TAG_VAPORIZER, SUMO_ATTR_END, abort);
     std::string name = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", SUMO_TAG_VAPORIZER, SUMO_ATTR_NAME, abort);
+    // extra check for center element after creation
+    bool centerAfterCreation = attrs.hasAttribute(GNE_ATTR_CENTER_AFTER_CREATION);
     // Continue if all parameters were successfully loaded
     if (!abort) {
         // get GNEEdge
@@ -1071,7 +1081,7 @@ GNEAdditionalHandler::parseAndBuildVaporizer(GNEViewNet* viewNet, bool allowUndo
             WRITE_WARNING("Time interval of " + toString(SUMO_TAG_VAPORIZER) + " isn't valid. Attribute '" + toString(SUMO_ATTR_BEGIN) + "' is greater than attribute '" + toString(SUMO_ATTR_END) + "'.");
         } else {
             // build vaporizer
-            GNEAdditional* additionalCreated = buildVaporizer(viewNet, allowUndoRedo, edge, begin, end, name);
+            GNEAdditional* additionalCreated = buildVaporizer(viewNet, allowUndoRedo, edge, begin, end, name, centerAfterCreation);
             // check if insertion has to be commited
             if (insertedAdditionals) {
                 insertedAdditionals->commitElementInsertion(additionalCreated);
@@ -1215,6 +1225,8 @@ GNEAdditionalHandler::parseAndBuildRouteProbe(GNEViewNet* viewNet, bool allowUnd
     std::string name = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, id, SUMO_TAG_ROUTEPROBE, SUMO_ATTR_NAME, abort);
     std::string file = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, id, SUMO_TAG_ROUTEPROBE, SUMO_ATTR_FILE, abort);
     SUMOTime begin = GNEAttributeCarrier::parseAttributeFromXML<SUMOTime>(attrs, id, SUMO_TAG_ROUTEPROBE, SUMO_ATTR_BEGIN, abort);
+    // extra check for center element after creation
+    bool centerAfterCreation = attrs.hasAttribute(GNE_ATTR_CENTER_AFTER_CREATION);
     // Continue if all parameters were sucesfully loaded
     if (!abort) {
         // get edge
@@ -1239,7 +1251,7 @@ GNEAdditionalHandler::parseAndBuildRouteProbe(GNEViewNet* viewNet, bool allowUnd
                 freq = "";
             }
             // save ID of last created element
-            GNEAdditional* additionalCreated = buildRouteProbe(viewNet, allowUndoRedo, id, edge, freq, name, file, begin);
+            GNEAdditional* additionalCreated = buildRouteProbe(viewNet, allowUndoRedo, id, edge, freq, name, file, begin, centerAfterCreation);
             // check if insertion has to be commited
             if (insertedAdditionals) {
                 insertedAdditionals->commitElementInsertion(additionalCreated);
@@ -1981,6 +1993,8 @@ GNEAdditionalHandler::parseAndBuildCalibrator(GNEViewNet* viewNet, bool allowUnd
         std::string name = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, id, SUMO_TAG_CALIBRATOR, SUMO_ATTR_NAME, abort);
         SUMOTime freq = GNEAttributeCarrier::parseAttributeFromXML<SUMOTime>(attrs, id, SUMO_TAG_CALIBRATOR, SUMO_ATTR_FREQUENCY, abort);
         std::string routeProbe = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, id, SUMO_TAG_CALIBRATOR, SUMO_ATTR_ROUTEPROBE, abort);
+        // extra check for center element after creation
+        bool centerAfterCreation = attrs.hasAttribute(GNE_ATTR_CENTER_AFTER_CREATION);
         // Continue if all parameters were sucesfully loaded
         if (!abort) {
             // get pointer and edge
@@ -1992,7 +2006,7 @@ GNEAdditionalHandler::parseAndBuildCalibrator(GNEViewNet* viewNet, bool allowUnd
                 WRITE_WARNING("The  edge '" + edgeID + "' to use within the " + toString(SUMO_TAG_CALIBRATOR) + " '" + id + "' is not known.");
             } else {
                 // save ID of last created element
-                GNEAdditional* additionalCreated = buildCalibrator(viewNet, allowUndoRedo, id, edge, position, name, outfile, freq, routeProbe);
+                GNEAdditional* additionalCreated = buildCalibrator(viewNet, allowUndoRedo, id, edge, position, name, outfile, freq, routeProbe, centerAfterCreation);
                 // check if insertion has to be commited
                 if (insertedAdditionals) {
                     insertedAdditionals->commitElementInsertion(additionalCreated);
@@ -2008,6 +2022,8 @@ GNEAdditionalHandler::parseAndBuildCalibrator(GNEViewNet* viewNet, bool allowUnd
         std::string name = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, id, SUMO_TAG_LANECALIBRATOR, SUMO_ATTR_NAME, abort);
         SUMOTime freq = GNEAttributeCarrier::parseAttributeFromXML<SUMOTime>(attrs, id, SUMO_TAG_LANECALIBRATOR, SUMO_ATTR_FREQUENCY, abort);
         std::string routeProbe = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, id, SUMO_TAG_LANECALIBRATOR, SUMO_ATTR_ROUTEPROBE, abort);
+        // extra check for center element after creation
+        bool centerAfterCreation = attrs.hasAttribute(GNE_ATTR_CENTER_AFTER_CREATION);
         // Continue if all parameters were sucesfully loaded
         if (!abort) {
             // get pointer to lane
@@ -2019,7 +2035,7 @@ GNEAdditionalHandler::parseAndBuildCalibrator(GNEViewNet* viewNet, bool allowUnd
                 WRITE_WARNING("The lane '" + laneId + "' to use within the " + toString(SUMO_TAG_CALIBRATOR) + " '" + id + "' is not known.");
             } else {
                 // save ID of last created element
-                GNEAdditional* additionalCreated = buildCalibrator(viewNet, allowUndoRedo, id, lane, position, name, outfile, freq, routeProbe);
+                GNEAdditional* additionalCreated = buildCalibrator(viewNet, allowUndoRedo, id, lane, position, name, outfile, freq, routeProbe, centerAfterCreation);
                 // check if insertion has to be commited
                 if (insertedAdditionals) {
                     insertedAdditionals->commitElementInsertion(additionalCreated);

@@ -1005,6 +1005,8 @@ enum SumoXMLAttr {
     GNE_ATTR_DEFAULT_VTYPE,
     /// @brief Flag to check if a default VType was modified
     GNE_ATTR_DEFAULT_VTYPE_MODIFIED,
+    /// @brief flag to center camera after element creation
+    GNE_ATTR_CENTER_AFTER_CREATION,
     // @}
 
     /// @name train parameters

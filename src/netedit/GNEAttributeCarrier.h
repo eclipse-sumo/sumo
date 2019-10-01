@@ -319,6 +319,7 @@ public:
         TAGPROPERTY_NOPARAMETERS =          1 << 16,    // Element doesn't accept parameters "key1=value1|key2=value2|...|keyN=valueN" (by default all tags supports parameters)
         TAGPROPERTY_RTREE =                 1 << 17,    // Element is placed in RTREE
         TAGPROPERTY_SORTINGCHILDREN =       1 << 18,    // Element can be sorted in their parent element manually (in ACHierarchy)
+        TAGPROPERTY_CENTERAFTERCREATION =   1 << 19,    // Camera is moved after element creation
     };
 
     /// @brief struct with the attribute Properties
@@ -482,6 +483,9 @@ public:
 
         /// @brief return true if tag correspond to an element that can mask the attributes "X", "Y" and "Z" position as attribute "Position"
         bool canMaskXYZPositions() const;
+
+        /// @brief return true if tag correspond to an element that center camera after creation
+        bool canCenterCameraAfterCreation() const;
 
         /// @brief return true if attribute of this tag is deprecated
         bool isAttributeDeprecated(SumoXMLAttr attr) const;

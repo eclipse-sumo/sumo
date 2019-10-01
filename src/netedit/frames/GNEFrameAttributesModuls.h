@@ -609,29 +609,35 @@ public:
         /// @brief match box with the list of reference points
         FXComboBox* myReferencePointMatchBox;
 
-        /// @brief Label for length
-        FXLabel* myLengthLabel;
+        /// @brief horizontal frame for length
+        FXHorizontalFrame* myLengthFrame;
 
         /// @brief textField for length
         FXTextField* myLengthTextField;
 
-        /// @brief Label for block movement
-        FXLabel* myBlockMovementLabel;
+        /// @brief horizontal frame for block movement
+        FXHorizontalFrame* myBlockMovementFrame;
 
         /// @brief checkBox for block movement
         FXCheckButton* myBlockMovementCheckButton;
 
-        /// @brief Label for block shape
-        FXLabel* myBlockShapeLabel;
+        /// @brief horizontal frame for block shape
+        FXHorizontalFrame* myBlockShapeFrame;
 
         /// @brief checkBox for block shape
         FXCheckButton* myBlockShapeCheckButton;
 
-        /// @brief Label for open/close polygon
-        FXLabel* myClosePolygonLabel;
+        /// @brief horizontal frame for close polygon
+        FXHorizontalFrame* myCloseShapeFrame;
 
-        /// @brief checkbox to enable/disable closing polygon
+        /// @brief checkbox to enable/disable close polygon
         FXCheckButton* myCloseShapeCheckButton;
+
+        /// @brief horizontal frame for center view after creation frame
+        FXHorizontalFrame* myCenterViewAfterCreationFrame;
+
+        /// @brief checkbox to enable/disable center element after creation
+        FXCheckButton* myCenterViewAfterCreationButton;
 
         /// @brief Button for help about the reference point
         FXButton* helpReferencePoint;

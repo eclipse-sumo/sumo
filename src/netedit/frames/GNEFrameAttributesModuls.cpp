@@ -2062,24 +2062,29 @@ GNEFrameAttributesModuls::NeteditAttributes::NeteditAttributes(GNEFrame* framePa
     myReferencePointMatchBox->appendItem("reference right");
     myReferencePointMatchBox->appendItem("reference center");
     // Create Frame for Length Label and textField
-    FXHorizontalFrame* lengthFrame = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
-    myLengthLabel = new FXLabel(lengthFrame, toString(SUMO_ATTR_LENGTH).c_str(), 0, GUIDesignLabelAttribute);
-    myLengthTextField = new FXTextField(lengthFrame, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
+    myLengthFrame = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
+    new FXLabel(myLengthFrame, toString(SUMO_ATTR_LENGTH).c_str(), 0, GUIDesignLabelAttribute);
+    myLengthTextField = new FXTextField(myLengthFrame, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
     myLengthTextField->setText("10");
     // Create Frame for block movement label and checkBox (By default disabled)
-    FXHorizontalFrame* blockMovement = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
-    myBlockMovementLabel = new FXLabel(blockMovement, "block move", 0, GUIDesignLabelAttribute);
-    myBlockMovementCheckButton = new FXCheckButton(blockMovement, "false", this, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButton);
+    myBlockMovementFrame = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
+    new FXLabel(myBlockMovementFrame, "block move", 0, GUIDesignLabelAttribute);
+    myBlockMovementCheckButton = new FXCheckButton(myBlockMovementFrame, "false", this, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButton);
     myBlockMovementCheckButton->setCheck(false);
     // Create Frame for block shape label and checkBox (By default disabled)
-    FXHorizontalFrame* blockShapeFrame = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
-    myBlockShapeLabel = new FXLabel(blockShapeFrame, "block shape", 0, GUIDesignLabelAttribute);
-    myBlockShapeCheckButton = new FXCheckButton(blockShapeFrame, "false", this, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButton);
+    myBlockShapeFrame = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
+    new FXLabel(myBlockShapeFrame, "block shape", 0, GUIDesignLabelAttribute);
+    myBlockShapeCheckButton = new FXCheckButton(myBlockShapeFrame, "false", this, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButton);
     // Create Frame for block close polygon and checkBox (By default disabled)
-    FXHorizontalFrame* closePolygonFrame = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
-    myClosePolygonLabel = new FXLabel(closePolygonFrame, "Close shape", 0, GUIDesignLabelAttribute);
-    myCloseShapeCheckButton = new FXCheckButton(closePolygonFrame, "false", this, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButton);
+    myCloseShapeFrame = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
+    new FXLabel(myCloseShapeFrame, "Close shape", 0, GUIDesignLabelAttribute);
+    myCloseShapeCheckButton = new FXCheckButton(myCloseShapeFrame, "false", this, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButton);
     myBlockShapeCheckButton->setCheck(false);
+    // Create Frame for center element after creation (By default enabled)
+    myCenterViewAfterCreationFrame = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
+    new FXLabel(myCenterViewAfterCreationFrame, "Center view", 0, GUIDesignLabelAttribute);
+    myCenterViewAfterCreationButton = new FXCheckButton(myCenterViewAfterCreationFrame, "false", this, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButton);
+    myCenterViewAfterCreationButton->setCheck(true);
     // Create help button
     helpReferencePoint = new FXButton(this, "Help", 0, this, MID_HELP, GUIDesignButtonRectangular);
     // Set visible items
@@ -2096,44 +2101,44 @@ GNEFrameAttributesModuls::NeteditAttributes::showNeteditAttributesModul(const GN
     bool showFrame = false;
     // check if lenght text field has to be showed
     if (tagProperty.canMaskStartEndPos()) {
-        myLengthLabel->show();
-        myLengthTextField->show();
+        myLengthFrame->show();
         myReferencePointMatchBox->show();
         showFrame = true;
     } else {
-        myLengthLabel->hide();
-        myLengthTextField->hide();
+        myLengthFrame->hide();
         myReferencePointMatchBox->hide();
     }
     // check if block movement check button has to be show
     if (tagProperty.canBlockMovement()) {
-        myBlockMovementLabel->show();
-        myBlockMovementCheckButton->show();
+        myBlockMovementFrame->show();
         showFrame = true;
     } else {
-        myBlockMovementLabel->hide();
-        myBlockMovementCheckButton->hide();
+        myBlockMovementFrame->hide();
     }
     // check if block shape check button has to be show
     if (tagProperty.canBlockShape()) {
-        myBlockShapeLabel->show();
-        myBlockShapeCheckButton->show();
+        myBlockShapeFrame->show();
         showFrame = true;
     } else {
-        myBlockShapeLabel->hide();
-        myBlockShapeCheckButton->hide();
+        myBlockShapeFrame->hide();
     }
     // check if close shape check button has to be show
     if (tagProperty.canCloseShape()) {
-        myClosePolygonLabel->show();
-        myCloseShapeCheckButton->show();
+        myCloseShapeFrame->show();
         showFrame = true;
     } else {
-        myClosePolygonLabel->hide();
-        myCloseShapeCheckButton->hide();
+        myCloseShapeFrame->hide();
+    }
+    // check if center camera after creation check button has to be show
+    if (tagProperty.canCenterCameraAfterCreation()) {
+        myCenterViewAfterCreationFrame->show();
+        showFrame = true;
+    } else {
+        myCenterViewAfterCreationFrame->hide();
     }
     // if at least one element is show, show modul
     if (showFrame) {
+        recalc();
         show();
     } else {
         hide();
@@ -2199,6 +2204,10 @@ GNEFrameAttributesModuls::NeteditAttributes::getNeteditAttributesAndValues(std::
             valuesMap[GNE_ATTR_CLOSE_SHAPE] = "0";
         }
     }
+    // check center element after creation
+    if (myCenterViewAfterCreationButton->shown() && (myCenterViewAfterCreationButton->getCheck() == 1)) {
+        valuesMap[GNE_ATTR_CENTER_AFTER_CREATION] = "1";
+    }
     // all ok, then return true to continue creating element
     return true;
 }
@@ -2223,6 +2232,12 @@ GNEFrameAttributesModuls::NeteditAttributes::onCmdSetNeteditAttribute(FXObject* 
             myCloseShapeCheckButton->setText("true");
         } else {
             myCloseShapeCheckButton->setText("false");
+        }
+    } else if (obj == myCenterViewAfterCreationButton) {
+        if (myCenterViewAfterCreationButton->getCheck()) {
+            myCenterViewAfterCreationButton->setText("true");
+        } else {
+            myCenterViewAfterCreationButton->setText("false");
         }
     } else if (obj == myLengthTextField) {
         // change color of text field depending of the input length
@@ -2278,7 +2293,8 @@ GNEFrameAttributesModuls::NeteditAttributes::onCmdHelp(FXObject*, FXSelector, vo
             << "  - Reference Center will create it with startPos = 85 and endPos = 115.\n"
             << "\n"
             << "- Block movement: if is enabled, the created additional element will be blocked. i.e. cannot be moved with\n"
-            << "  the mouse. This option can be modified inspecting element.";
+            << "  the mouse. This option can be modified inspecting element.\n"
+            << "- Center view: if is enabled, view will be center over created element.";
     // Create label with the help text
     new FXLabel(additionalNeteditAttributesHelpDialog, help.str().c_str(), 0, GUIDesignLabelFrameInformation);
     // Create horizontal separator
