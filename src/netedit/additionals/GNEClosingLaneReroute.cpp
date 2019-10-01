@@ -37,8 +37,8 @@
 
 GNEClosingLaneReroute::GNEClosingLaneReroute(GNERerouterIntervalDialog* rerouterIntervalDialog) :
     GNEAdditional(rerouterIntervalDialog->getEditedAdditional(), rerouterIntervalDialog->getEditedAdditional()->getViewNet(), GLO_REROUTER, SUMO_TAG_CLOSING_LANE_REROUTE, "", false,
-{}, {}, {}, {rerouterIntervalDialog->getEditedAdditional()}, {}, {}, {}, {}, {}, {}),
-myClosedLane(rerouterIntervalDialog->getEditedAdditional()->getAdditionalParents().at(0)->getEdgeChildren().at(0)->getLanes().at(0)) {
+        {}, {}, {}, {rerouterIntervalDialog->getEditedAdditional()}, {}, {}, {}, {}, {}, {}),
+    myClosedLane(rerouterIntervalDialog->getEditedAdditional()->getAdditionalParents().at(0)->getEdgeChildren().at(0)->getLanes().at(0)) {
     // fill closing lane reroute interval with default values
     setDefaultValues();
 }
@@ -46,9 +46,9 @@ myClosedLane(rerouterIntervalDialog->getEditedAdditional()->getAdditionalParents
 
 GNEClosingLaneReroute::GNEClosingLaneReroute(GNEAdditional* rerouterIntervalParent, GNELane* closedLane, SVCPermissions permissions) :
     GNEAdditional(rerouterIntervalParent, rerouterIntervalParent->getViewNet(), GLO_REROUTER, SUMO_TAG_CLOSING_LANE_REROUTE, "", false,
-{}, {}, {}, {rerouterIntervalParent}, {}, {}, {}, {}, {}, {}),
-myClosedLane(closedLane),
-myPermissions(permissions) {
+        {}, {}, {}, {rerouterIntervalParent}, {}, {}, {}, {}, {}, {}),
+    myClosedLane(closedLane),
+    myPermissions(permissions) {
 }
 
 
@@ -114,6 +114,15 @@ GNEClosingLaneReroute::getAttribute(SumoXMLAttr key) const {
             return getParametersStr();
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
+    }
+}
+
+
+double 
+GNEClosingLaneReroute::getAttributeDouble(SumoXMLAttr key) const {
+    switch (key) {
+        default:
+            throw InvalidArgument(getTagStr() + " doesn't have a double attribute of type '" + toString(key) + "'");
     }
 }
 

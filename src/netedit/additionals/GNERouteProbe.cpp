@@ -38,13 +38,11 @@
 // ===========================================================================
 
 GNERouteProbe::GNERouteProbe(const std::string& id, GNEViewNet* viewNet, GNEEdge* edge, const std::string& frequency, const std::string& name, const std::string& filename, SUMOTime begin) :
-    GNEAdditional(id, viewNet, GLO_ROUTEPROBE, SUMO_TAG_ROUTEPROBE, name, false, {
-    edge
-}, {}, {}, {}, {}, {}, {}, {}, {}, {}),
-myFrequency(frequency),
-myFilename(filename),
-myBegin(begin),
-myRelativePositionY(0) {
+    GNEAdditional(id, viewNet, GLO_ROUTEPROBE, SUMO_TAG_ROUTEPROBE, name, false, {edge}, {}, {}, {}, {}, {}, {}, {}, {}, {}),
+    myFrequency(frequency),
+    myFilename(filename),
+    myBegin(begin),
+    myRelativePositionY(0) {
 }
 
 
@@ -224,6 +222,15 @@ GNERouteProbe::getAttribute(SumoXMLAttr key) const {
             return getParametersStr();
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
+    }
+}
+
+
+double 
+GNERouteProbe::getAttributeDouble(SumoXMLAttr key) const {
+    switch (key) {
+        default:
+            throw InvalidArgument(getTagStr() + " doesn't have a double attribute of type '" + toString(key) + "'");
     }
 }
 

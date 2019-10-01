@@ -33,10 +33,8 @@
 // ===========================================================================
 
 GNETAZSourceSink::GNETAZSourceSink(SumoXMLTag sourceSinkTag, GNEAdditional* TAZParent, GNEEdge* edge, double departWeight) :
-    GNEAdditional(TAZParent, TAZParent->getViewNet(), GLO_TAZ, sourceSinkTag, "", false, {
-    edge
-}, {}, {}, {TAZParent}, {}, {}, {}, {}, {}, {}),
-myDepartWeight(departWeight) {
+    GNEAdditional(TAZParent, TAZParent->getViewNet(), GLO_TAZ, sourceSinkTag, "", false, {edge}, {}, {}, {TAZParent}, {}, {}, {}, {}, {}, {}),
+    myDepartWeight(departWeight) {
     //check that this is a TAZ Source OR a TAZ Sink
     if ((sourceSinkTag != SUMO_TAG_TAZSOURCE) && (sourceSinkTag != SUMO_TAG_TAZSINK)) {
         throw InvalidArgument("Invalid TAZ Child Tag");
@@ -130,6 +128,14 @@ GNETAZSourceSink::getAttribute(SumoXMLAttr key) const {
         }
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
+    }
+}
+
+double 
+GNETAZSourceSink::getAttributeDouble(SumoXMLAttr key) const {
+    switch (key) {
+        default:
+            throw InvalidArgument(getTagStr() + " doesn't have a double attribute of type '" + toString(key) + "'");
     }
 }
 

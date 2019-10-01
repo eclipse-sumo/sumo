@@ -33,7 +33,7 @@
 
 GNERerouterInterval::GNERerouterInterval(GNERerouterDialog* rerouterDialog) :
     GNEAdditional(rerouterDialog->getEditedAdditional(), rerouterDialog->getEditedAdditional()->getViewNet(), GLO_REROUTER, SUMO_TAG_INTERVAL, "", false,
-{}, {}, {}, {rerouterDialog->getEditedAdditional()}, {}, {}, {}, {}, {}, {}) {
+        {}, {}, {}, {rerouterDialog->getEditedAdditional()}, {}, {}, {}, {}, {}, {}) {
     // fill reroute interval with default values
     setDefaultValues();
 }
@@ -41,9 +41,9 @@ GNERerouterInterval::GNERerouterInterval(GNERerouterDialog* rerouterDialog) :
 
 GNERerouterInterval::GNERerouterInterval(GNEAdditional* rerouterParent, SUMOTime begin, SUMOTime end) :
     GNEAdditional(rerouterParent, rerouterParent->getViewNet(), GLO_REROUTER, SUMO_TAG_INTERVAL, "", false,
-{}, {}, {}, {rerouterParent}, {}, {}, {}, {}, {}, {}),
-myBegin(begin),
-myEnd(end) {
+        {}, {}, {}, {rerouterParent}, {}, {}, {}, {}, {}, {}),
+    myBegin(begin),
+    myEnd(end) {
 }
 
 
@@ -106,6 +106,15 @@ GNERerouterInterval::getAttribute(SumoXMLAttr key) const {
             return getParametersStr();
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
+    }
+}
+
+
+double 
+GNERerouterInterval::getAttributeDouble(SumoXMLAttr key) const {
+    switch (key) {
+        default:
+            throw InvalidArgument(getTagStr() + " doesn't have a double attribute of type '" + toString(key) + "'");
     }
 }
 

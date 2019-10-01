@@ -37,22 +37,20 @@
 // ===========================================================================
 
 GNECalibrator::GNECalibrator(const std::string& id, GNEViewNet* viewNet, GNEEdge* edge, double pos, SUMOTime frequency, const std::string& name, const std::string& output, const std::string& routeprobe) :
-    GNEAdditional(id, viewNet, GLO_CALIBRATOR, SUMO_TAG_CALIBRATOR, name, false, {
-    edge
-}, {}, {}, {}, {}, {}, {}, {}, {}, {}),
-myPositionOverLane(pos),
-myFrequency(frequency),
-myOutput(output),
-myRouteProbe(routeprobe) {
+    GNEAdditional(id, viewNet, GLO_CALIBRATOR, SUMO_TAG_CALIBRATOR, name, false, {edge}, {}, {}, {}, {}, {}, {}, {}, {}, {}),
+    myPositionOverLane(pos),
+    myFrequency(frequency),
+    myOutput(output),
+    myRouteProbe(routeprobe) {
 }
 
 
 GNECalibrator::GNECalibrator(const std::string& id, GNEViewNet* viewNet, GNELane* lane, double pos, SUMOTime frequency, const std::string& name, const std::string& output, const std::string& routeprobe) :
     GNEAdditional(id, viewNet, GLO_CALIBRATOR, SUMO_TAG_LANECALIBRATOR, name, false, {}, {lane}, {}, {}, {}, {}, {}, {}, {}, {}),
-myPositionOverLane(pos),
-myFrequency(frequency),
-myOutput(output),
-myRouteProbe(routeprobe) {
+    myPositionOverLane(pos),
+    myFrequency(frequency),
+    myOutput(output),
+    myRouteProbe(routeprobe) {
 }
 
 
@@ -221,6 +219,15 @@ GNECalibrator::getAttribute(SumoXMLAttr key) const {
             return getParametersStr();
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
+    }
+}
+
+
+double 
+GNECalibrator::getAttributeDouble(SumoXMLAttr key) const {
+    switch (key) {
+        default:
+            throw InvalidArgument(getTagStr() + " doesn't have a double attribute of type '" + toString(key) + "'");
     }
 }
 

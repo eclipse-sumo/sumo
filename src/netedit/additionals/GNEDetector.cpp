@@ -32,26 +32,25 @@
 // ===========================================================================
 
 GNEDetector::GNEDetector(const std::string& id, GNEViewNet* viewNet, GUIGlObjectType type, SumoXMLTag tag,
-                         double pos, SUMOTime freq, const std::string& filename, const std::string& vehicleTypes,
-                         const std::string& name, bool friendlyPos, bool blockMovement, const std::vector<GNELane*>& laneParents) :
+        double pos, SUMOTime freq, const std::string& filename, const std::string& vehicleTypes,
+        const std::string& name, bool friendlyPos, bool blockMovement, const std::vector<GNELane*>& laneParents) :
     GNEAdditional(id, viewNet, type, tag, name, blockMovement, {}, laneParents, {}, {}, {}, {}, {}, {}, {}, {}),
-              myPositionOverLane(pos),
-              myFreq(freq),
-              myFilename(filename),
-              myVehicleTypes(vehicleTypes),
-myFriendlyPosition(friendlyPos) {
+    myPositionOverLane(pos),
+    myFreq(freq),
+    myFilename(filename),
+    myVehicleTypes(vehicleTypes),
+    myFriendlyPosition(friendlyPos) {
 }
 
 
 GNEDetector::GNEDetector(GNEAdditional* additionalParent, GNEViewNet* viewNet, GUIGlObjectType type, SumoXMLTag tag,
-                         double pos, SUMOTime freq, const std::string& filename,
-                         const std::string& name, bool friendlyPos, bool blockMovement, const std::vector<GNELane*>& laneParents) :
-    GNEAdditional(additionalParent, viewNet, type, tag, name, blockMovement,
-{}, laneParents, {}, {additionalParent}, {}, {}, {}, {}, {}, {}),
-myPositionOverLane(pos),
-myFreq(freq),
-myFilename(filename),
-myFriendlyPosition(friendlyPos) {
+        double pos, SUMOTime freq, const std::string& filename, const std::string& name, bool friendlyPos, 
+        bool blockMovement, const std::vector<GNELane*>& laneParents) :
+    GNEAdditional(additionalParent, viewNet, type, tag, name, blockMovement, {}, laneParents, {}, {additionalParent}, {}, {}, {}, {}, {}, {}),
+    myPositionOverLane(pos),
+    myFreq(freq),
+    myFilename(filename),
+    myFriendlyPosition(friendlyPos) {
 }
 
 
@@ -95,6 +94,15 @@ GNEDetector::getGeometryPositionOverLane() const {
     }
     GNEAdditionalHandler::checkAndFixDetectorPosition(fixedPos, len, true);
     return fixedPos * getLane()->getLengthGeometryFactor();
+}
+
+
+double 
+GNEDetector::getAttributeDouble(SumoXMLAttr key) const {
+    switch (key) {
+        default:
+            throw InvalidArgument(getTagStr() + " doesn't have a double attribute of type '" + toString(key) + "'");
+    }
 }
 
 

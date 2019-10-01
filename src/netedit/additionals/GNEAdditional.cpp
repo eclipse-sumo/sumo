@@ -129,16 +129,16 @@ GNEAdditional::AdditionalGeometry::calculateMultiShapeRotationsAndLengths() {
 // ---------------------------------------------------------------------------
 
 GNEAdditional::GNEAdditional(const std::string& id, GNEViewNet* viewNet, GUIGlObjectType type, SumoXMLTag tag, std::string additionalName, bool blockMovement,
-                             const std::vector<GNEEdge*>& edgeParents,
-                             const std::vector<GNELane*>& laneParents,
-                             const std::vector<GNEShape*>& shapeParents,
-                             const std::vector<GNEAdditional*>& additionalParents,
-                             const std::vector<GNEDemandElement*>& demandElementParents,
-                             const std::vector<GNEEdge*>& edgeChildren,
-                             const std::vector<GNELane*>& laneChildren,
-                             const std::vector<GNEShape*>& shapeChildren,
-                             const std::vector<GNEAdditional*>& additionalChildren,
-                             const std::vector<GNEDemandElement*>& demandElementChildren) :
+        const std::vector<GNEEdge*>& edgeParents,
+        const std::vector<GNELane*>& laneParents,
+        const std::vector<GNEShape*>& shapeParents,
+        const std::vector<GNEAdditional*>& additionalParents,
+        const std::vector<GNEDemandElement*>& demandElementParents,
+        const std::vector<GNEEdge*>& edgeChildren,
+        const std::vector<GNELane*>& laneChildren,
+        const std::vector<GNEShape*>& shapeChildren,
+        const std::vector<GNEAdditional*>& additionalChildren,
+        const std::vector<GNEDemandElement*>& demandElementChildren) :
     GUIGlObject(type, id),
     GNEAttributeCarrier(tag),
     Parameterised(),
@@ -153,16 +153,16 @@ GNEAdditional::GNEAdditional(const std::string& id, GNEViewNet* viewNet, GUIGlOb
 
 
 GNEAdditional::GNEAdditional(GNEAdditional* additionalParent, GNEViewNet* viewNet, GUIGlObjectType type, SumoXMLTag tag, std::string additionalName, bool blockMovement,
-                             const std::vector<GNEEdge*>& edgeParents,
-                             const std::vector<GNELane*>& laneParents,
-                             const std::vector<GNEShape*>& shapeParents,
-                             const std::vector<GNEAdditional*>& additionalParents,
-                             const std::vector<GNEDemandElement*>& demandElementParents,
-                             const std::vector<GNEEdge*>& edgeChildren,
-                             const std::vector<GNELane*>& laneChildren,
-                             const std::vector<GNEShape*>& shapeChildren,
-                             const std::vector<GNEAdditional*>& additionalChildren,
-                             const std::vector<GNEDemandElement*>& demandElementChildren) :
+        const std::vector<GNEEdge*>& edgeParents,
+        const std::vector<GNELane*>& laneParents,
+        const std::vector<GNEShape*>& shapeParents,
+        const std::vector<GNEAdditional*>& additionalParents,
+        const std::vector<GNEDemandElement*>& demandElementParents,
+        const std::vector<GNEEdge*>& edgeChildren,
+        const std::vector<GNELane*>& laneChildren,
+        const std::vector<GNEShape*>& shapeChildren,
+        const std::vector<GNEAdditional*>& additionalChildren,
+        const std::vector<GNEDemandElement*>& demandElementChildren) :
     GUIGlObject(type, additionalParent->generateChildID(tag)),
     GNEAttributeCarrier(tag),
     Parameterised(),

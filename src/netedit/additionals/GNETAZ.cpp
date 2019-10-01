@@ -43,15 +43,15 @@ const double GNETAZ::myHintSizeSquared = 0.64;
 // ===========================================================================
 GNETAZ::GNETAZ(const std::string& id, GNEViewNet* viewNet, PositionVector shape, RGBColor color, bool blockMovement) :
     GNEAdditional(id, viewNet, GLO_TAZ, SUMO_TAG_TAZ, "", blockMovement, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}),
-              myColor(color),
-              myBlockShape(false),
-              myCurrentMovingVertexIndex(-1),
-              myMaxWeightSource(0),
-              myMinWeightSource(0),
-              myAverageWeightSource(0),
-              myMaxWeightSink(0),
-              myMinWeightSink(0),
-myAverageWeightSink(0) {
+    myColor(color),
+    myBlockShape(false),
+    myCurrentMovingVertexIndex(-1),
+    myMaxWeightSource(0),
+    myMinWeightSource(0),
+    myAverageWeightSource(0),
+    myMaxWeightSink(0),
+    myMinWeightSink(0),
+    myAverageWeightSink(0) {
     // set TAZ shape
     myGeometry.shape = shape;
 }
@@ -380,6 +380,15 @@ GNETAZ::getAttribute(SumoXMLAttr key) const {
             return toString(myAverageWeightSink);
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
+    }
+}
+
+
+double 
+GNETAZ::getAttributeDouble(SumoXMLAttr key) const {
+    switch (key) {
+        default:
+            throw InvalidArgument(getTagStr() + " doesn't have a double attribute of type '" + toString(key) + "'");
     }
 }
 

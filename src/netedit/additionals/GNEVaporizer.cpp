@@ -37,11 +37,9 @@
 // ===========================================================================
 
 GNEVaporizer::GNEVaporizer(GNEViewNet* viewNet, GNEEdge* edge, SUMOTime begin, SUMOTime end, const std::string& name) :
-    GNEAdditional(edge->getID(), viewNet, GLO_VAPORIZER, SUMO_TAG_VAPORIZER, name, false, {
-    edge
-}, {}, {}, {}, {}, {}, {}, {}, {}, {}),
-myBegin(begin),
-myEnd(end) {
+    GNEAdditional(edge->getID(), viewNet, GLO_VAPORIZER, SUMO_TAG_VAPORIZER, name, false, {edge}, {}, {}, {}, {}, {}, {}, {}, {}, {}),
+    myBegin(begin),
+    myEnd(end) {
 }
 
 
@@ -216,6 +214,15 @@ GNEVaporizer::getAttribute(SumoXMLAttr key) const {
             return getParametersStr();
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
+    }
+}
+
+
+double 
+GNEVaporizer::getAttributeDouble(SumoXMLAttr key) const {
+    switch (key) {
+        default:
+            throw InvalidArgument(getTagStr() + " doesn't have a double attribute of type '" + toString(key) + "'");
     }
 }
 

@@ -35,8 +35,8 @@
 
 GNEDestProbReroute::GNEDestProbReroute(GNERerouterIntervalDialog* rerouterIntervalDialog) :
     GNEAdditional(rerouterIntervalDialog->getEditedAdditional(), rerouterIntervalDialog->getEditedAdditional()->getViewNet(), GLO_REROUTER, SUMO_TAG_DEST_PROB_REROUTE, "", false,
-{}, {}, {}, {rerouterIntervalDialog->getEditedAdditional()}, {}, {}, {}, {}, {}, {}),
-myNewEdgeDestination(rerouterIntervalDialog->getEditedAdditional()->getAdditionalParents().at(0)->getEdgeChildren().at(0)) {
+        {}, {}, {}, {rerouterIntervalDialog->getEditedAdditional()}, {}, {}, {}, {}, {}, {}),
+    myNewEdgeDestination(rerouterIntervalDialog->getEditedAdditional()->getAdditionalParents().at(0)->getEdgeChildren().at(0)) {
     // fill dest prob reroute interval with default values
     setDefaultValues();
 }
@@ -44,9 +44,9 @@ myNewEdgeDestination(rerouterIntervalDialog->getEditedAdditional()->getAdditiona
 
 GNEDestProbReroute::GNEDestProbReroute(GNEAdditional* rerouterIntervalParent, GNEEdge* newEdgeDestination, double probability):
     GNEAdditional(rerouterIntervalParent, rerouterIntervalParent->getViewNet(), GLO_REROUTER, SUMO_TAG_DEST_PROB_REROUTE, "", false,
-{}, {}, {}, {rerouterIntervalParent}, {}, {}, {}, {}, {}, {}),
-myNewEdgeDestination(newEdgeDestination),
-myProbability(probability) {
+        {}, {}, {}, {rerouterIntervalParent}, {}, {}, {}, {}, {}, {}),
+    myNewEdgeDestination(newEdgeDestination),
+    myProbability(probability) {
 }
 
 
@@ -109,6 +109,15 @@ GNEDestProbReroute::getAttribute(SumoXMLAttr key) const {
             return getParametersStr();
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
+    }
+}
+
+
+double 
+GNEDestProbReroute::getAttributeDouble(SumoXMLAttr key) const {
+    switch (key) {
+        default:
+            throw InvalidArgument(getTagStr() + " doesn't have a double attribute of type '" + toString(key) + "'");
     }
 }
 

@@ -34,12 +34,11 @@
 // ===========================================================================
 
 GNEParkingSpace::GNEParkingSpace(GNEViewNet* viewNet, GNEAdditional* parkingAreaParent, const Position& pos, double width, double length, double angle, bool blockMovement) :
-    GNEAdditional(parkingAreaParent, viewNet, GLO_PARKING_SPACE, SUMO_TAG_PARKING_SPACE, "", blockMovement,
-{}, {}, {}, {parkingAreaParent}, {}, {}, {}, {}, {}, {}),
-myPosition(pos),
-myWidth(width),
-myLength(length),
-myAngle(angle) {
+    GNEAdditional(parkingAreaParent, viewNet, GLO_PARKING_SPACE, SUMO_TAG_PARKING_SPACE, "", blockMovement, {}, {}, {}, {parkingAreaParent}, {}, {}, {}, {}, {}, {}),
+    myPosition(pos),
+    myWidth(width),
+    myLength(length),
+    myAngle(angle) {
 }
 
 
@@ -180,6 +179,15 @@ GNEParkingSpace::getAttribute(SumoXMLAttr key) const {
             return getParametersStr();
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
+    }
+}
+
+
+double 
+GNEParkingSpace::getAttributeDouble(SumoXMLAttr key) const {
+    switch (key) {
+        default:
+            throw InvalidArgument(getTagStr() + " doesn't have a double attribute of type '" + toString(key) + "'");
     }
 }
 

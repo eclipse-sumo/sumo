@@ -38,7 +38,7 @@
 
 GNEVariableSpeedSign::GNEVariableSpeedSign(const std::string& id, GNEViewNet* viewNet, const Position& pos, const std::vector<GNELane*>& lanes, const std::string& name, bool blockMovement) :
     GNEAdditional(id, viewNet, GLO_VSS, SUMO_TAG_VSS, name, blockMovement, {}, {}, {}, {}, {}, {}, lanes, {}, {}, {}),
-myPosition(pos) {
+    myPosition(pos) {
 }
 
 
@@ -189,6 +189,15 @@ GNEVariableSpeedSign::getAttribute(SumoXMLAttr key) const {
             return getParametersStr();
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
+    }
+}
+
+
+double 
+GNEVariableSpeedSign::getAttributeDouble(SumoXMLAttr key) const {
+    switch (key) {
+        default:
+            throw InvalidArgument(getTagStr() + " doesn't have a double attribute of type '" + toString(key) + "'");
     }
 }
 

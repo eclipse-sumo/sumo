@@ -37,11 +37,10 @@
 // ===========================================================================
 
 GNEAccess::GNEAccess(GNEAdditional* busStop, GNELane* lane, GNEViewNet* viewNet, const std::string& pos, const std::string& length, bool friendlyPos, bool blockMovement) :
-    GNEAdditional(busStop, viewNet, GLO_ACCESS, SUMO_TAG_ACCESS, "", blockMovement,
-{}, {lane}, {}, {busStop}, {}, {}, {}, {}, {}, {}),
-myPositionOverLane(pos),
-myLength(length),
-myFriendlyPosition(friendlyPos) {
+    GNEAdditional(busStop, viewNet, GLO_ACCESS, SUMO_TAG_ACCESS, "", blockMovement, {}, {lane}, {}, {busStop}, {}, {}, {}, {}, {}, {}),
+    myPositionOverLane(pos),
+    myLength(length),
+    myFriendlyPosition(friendlyPos) {
 }
 
 
@@ -217,6 +216,15 @@ GNEAccess::getAttribute(SumoXMLAttr key) const {
             return getParametersStr();
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
+    }
+}
+
+
+double 
+GNEAccess::getAttributeDouble(SumoXMLAttr key) const {
+    switch (key) {
+        default:
+            throw InvalidArgument(getTagStr() + " doesn't have a double attribute of type '" + toString(key) + "'");
     }
 }
 

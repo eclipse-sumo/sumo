@@ -135,6 +135,12 @@ public:
      */
     virtual std::string getAttribute(SumoXMLAttr key) const = 0;
 
+    /* @brief method for getting the Attribute of an XML key in double format (to avoid unnecessary parse<double>(...) for certain attributes)
+     * @param[in] key The attribute key
+     * @return double with the value associated to key
+     */
+    double getAttributeDouble(SumoXMLAttr key) const;
+
     /* @brief method for setting the attribute and letting the object perform additional changes
      * @param[in] key The attribute key
      * @param[in] value The new value
