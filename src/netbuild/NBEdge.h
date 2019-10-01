@@ -968,7 +968,7 @@ public:
     void removeFromConnections(NBEdge* toEdge, int fromLane = -1, int toLane = -1, bool tryLater = false, const bool adaptToLaneRemoval = false, const bool keepPossibleTurns = false);
 
     /// @brief remove an existent connection of edge
-    bool removeFromConnections(NBEdge::Connection connectionToRemove);
+    bool removeFromConnections(const NBEdge::Connection &connectionToRemove);
 
     /// @brief invalidate current connections of edge
     void invalidateConnections(bool reallowSetting = false);

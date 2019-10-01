@@ -1301,16 +1301,16 @@ NBEdge::removeFromConnections(NBEdge* toEdge, int fromLane, int toLane, bool try
 
 
 bool
-NBEdge::removeFromConnections(NBEdge::Connection connectionToRemove) {
+NBEdge::removeFromConnections(const NBEdge::Connection &connectionToRemove) {
     // iterate over connections
-    for (std::vector<Connection>::iterator i = myConnections.begin(); i !=  myConnections.end(); i++) {
-        if (((*i).toEdge == connectionToRemove.toEdge) && ((*i).fromLane == connectionToRemove.fromLane) && ((*i).toLane == connectionToRemove.toLane)) {
+    for (auto i = myConnections.begin(); i !=  myConnections.end(); i++) {
+        if ((i->toEdge == connectionToRemove.toEdge) && (i->fromLane == connectionToRemove.fromLane) && (i->toLane == connectionToRemove.toLane)) {
             // remove connection
             myConnections.erase(i);
             return true;
         }
     }
-    assert(false);
+    // assert(false);
     return false;
 }
 
