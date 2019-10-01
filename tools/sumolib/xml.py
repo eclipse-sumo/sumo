@@ -135,6 +135,13 @@ def compound_object(element_name, attrnames, warn=False):
             self._child_dict[child.name].remove(child)
             self._child_list.remove(child)
 
+        def setChildList(self, childs):
+            for c in self._child_list:
+                self._child_dict[c.name].remove(c)
+            for c in childs:
+                self._child_dict.setdefault(c.name, []).append(c)
+            self._child_list = childs
+
         def getChildList(self):
             return self._child_list
 
