@@ -301,7 +301,9 @@ Besides writing to a file, further special notations allow to:
   the application start time
 
 At the moment it is not possible to read input from sockets or from
-stdin.
+stdin. 
+
+The output format for the socket option is XML and an example on how to read it from the socket is availalbe in [xml2csv.py](https://sumo.dlr.de/docs/Tools/Xml.html#xml2csvpy).
 
 As a simple way of modifying output file names, the option **--output-prefix** {{DT_STR}} is provided.
 The given string will be prepended to all files written by an
