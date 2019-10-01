@@ -133,10 +133,7 @@ GNETAZSourceSink::getAttribute(SumoXMLAttr key) const {
 
 double 
 GNETAZSourceSink::getAttributeDouble(SumoXMLAttr key) const {
-    switch (key) {
-        default:
-            throw InvalidArgument(getTagStr() + " doesn't have a double attribute of type '" + toString(key) + "'");
-    }
+    throw InvalidArgument(getTagStr() + " doesn't have a double attribute of type '" + toString(key) + "'");
 }
 
 

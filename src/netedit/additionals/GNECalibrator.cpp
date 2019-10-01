@@ -225,10 +225,7 @@ GNECalibrator::getAttribute(SumoXMLAttr key) const {
 
 double 
 GNECalibrator::getAttributeDouble(SumoXMLAttr key) const {
-    switch (key) {
-        default:
-            throw InvalidArgument(getTagStr() + " doesn't have a double attribute of type '" + toString(key) + "'");
-    }
+    throw InvalidArgument(getTagStr() + " doesn't have a double attribute of type '" + toString(key) + "'");
 }
 
 

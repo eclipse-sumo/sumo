@@ -195,10 +195,7 @@ GNEVariableSpeedSign::getAttribute(SumoXMLAttr key) const {
 
 double 
 GNEVariableSpeedSign::getAttributeDouble(SumoXMLAttr key) const {
-    switch (key) {
-        default:
-            throw InvalidArgument(getTagStr() + " doesn't have a double attribute of type '" + toString(key) + "'");
-    }
+    throw InvalidArgument(getTagStr() + " doesn't have a double attribute of type '" + toString(key) + "'");
 }
 
 
