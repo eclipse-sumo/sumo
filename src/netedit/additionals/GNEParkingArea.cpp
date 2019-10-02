@@ -29,6 +29,7 @@
 #include <utils/gui/div/GLHelper.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/gui/globjects/GLIncludes.h>
+#include <utils/vehicle/SUMORouteHandler.h>
 
 #include "GNEParkingArea.h"
 
@@ -299,7 +300,7 @@ GNEParkingArea::isValid(SumoXMLAttr key, const std::string& value) {
             if (value.empty()) {
                 return true;
             } else if (canParse<double>(value)) {
-                return checkStoppingPlacePosition(parse<double>(value), myEndPosition, getLaneParents().front()->getParentEdge().getNBEdge()->getFinalLength(), myFriendlyPosition);
+                return SUMORouteHandler::isStopPosValid(parse<double>(value), myEndPosition, getLaneParents().front()->getParentEdge().getNBEdge()->getFinalLength(), POSITION_EPS, myFriendlyPosition);
             } else {
                 return false;
             }
@@ -307,7 +308,7 @@ GNEParkingArea::isValid(SumoXMLAttr key, const std::string& value) {
             if (value.empty()) {
                 return true;
             } else if (canParse<double>(value)) {
-                return checkStoppingPlacePosition(myStartPosition, parse<double>(value), getLaneParents().front()->getParentEdge().getNBEdge()->getFinalLength(), myFriendlyPosition);
+                return SUMORouteHandler::isStopPosValid(myStartPosition, parse<double>(value), getLaneParents().front()->getParentEdge().getNBEdge()->getFinalLength(), POSITION_EPS, myFriendlyPosition);
             } else {
                 return false;
             }

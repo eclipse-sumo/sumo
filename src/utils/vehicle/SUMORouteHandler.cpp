@@ -287,8 +287,7 @@ SUMORouteHandler::myEndElement(int element) {
 
 
 bool
-SUMORouteHandler::checkStopPos(double& startPos, double& endPos, const double laneLength,
-                               const double minLength, const bool friendlyPos) {
+SUMORouteHandler::checkStopPos(double& startPos, double& endPos, const double laneLength, const double minLength, const bool friendlyPos) {
     if (minLength > laneLength) {
         return false;
     }
@@ -298,7 +297,7 @@ SUMORouteHandler::checkStopPos(double& startPos, double& endPos, const double la
     if (endPos < 0) {
         endPos += laneLength;
     }
-    if (endPos < minLength || endPos > laneLength) {
+    if ((endPos < minLength) || (endPos > laneLength)) {
         if (!friendlyPos) {
             return false;
         }
@@ -309,18 +308,28 @@ SUMORouteHandler::checkStopPos(double& startPos, double& endPos, const double la
             endPos = laneLength;
         }
     }
-    if (startPos < 0 || startPos > endPos - minLength) {
+    if ((startPos < 0) || (startPos > (endPos - minLength))) {
         if (!friendlyPos) {
             return false;
         }
         if (startPos < 0) {
             startPos = 0;
         }
-        if (startPos > endPos - minLength) {
+        if (startPos > (endPos - minLength)) {
             startPos = endPos - minLength;
         }
     }
     return true;
+}
+
+
+bool 
+SUMORouteHandler::isStopPosValid(const double startPos, const double endPos, const double laneLength, const double minLength, const bool friendlyPos) {
+    // declare dummy start and end positions
+    double dummyStartPos = startPos; 
+    double dummyEndPos = endPos;
+    // return checkStopPos
+    return checkStopPos(dummyStartPos, dummyEndPos, laneLength, minLength, friendlyPos);
 }
 
 

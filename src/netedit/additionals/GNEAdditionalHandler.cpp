@@ -27,6 +27,7 @@
 #include <netedit/GNEUndoList.h>
 #include <netedit/GNENet.h>
 #include <utils/options/OptionsCont.h>
+#include <utils/vehicle/SUMORouteHandler.h>
 
 #include "GNEAdditionalHandler.h"
 #include "GNEBusStop.h"
@@ -1739,7 +1740,7 @@ GNEAdditionalHandler::parseAndBuildBusStop(GNEViewNet* viewNet, bool allowUndoRe
         } else if (lane == nullptr) {
             // Write error if lane isn't valid
             WRITE_WARNING("The lane '" + laneId + "' to use within the " + toString(SUMO_TAG_BUS_STOP) + " '" + id + "' is not known.");
-        } else if (!GNEStoppingPlace::checkStoppingPlacePosition(startPosDouble, endPosDouble, lane->getParentEdge().getNBEdge()->getFinalLength(), friendlyPosition)) {
+        } else if (!SUMORouteHandler::checkStopPos(startPosDouble, endPosDouble, lane->getParentEdge().getNBEdge()->getFinalLength(), POSITION_EPS, friendlyPosition)) {
             // Write error if position isn't valid
             WRITE_WARNING("Invalid position for " + toString(SUMO_TAG_BUS_STOP) + " with ID = '" + id + "'.");
         } else {
@@ -1785,7 +1786,7 @@ GNEAdditionalHandler::parseAndBuildContainerStop(GNEViewNet* viewNet, bool allow
         } else if (lane == nullptr) {
             // Write error if lane isn't valid
             WRITE_WARNING("The lane '" + laneId + "' to use within the " + toString(SUMO_TAG_CONTAINER_STOP) + " '" + id + "' is not known.");
-        } else if (!GNEStoppingPlace::checkStoppingPlacePosition(startPosDouble, endPosDouble, lane->getParentEdge().getNBEdge()->getFinalLength(), friendlyPosition)) {
+        } else if (!SUMORouteHandler::checkStopPos(startPosDouble, endPosDouble, lane->getParentEdge().getNBEdge()->getFinalLength(), POSITION_EPS, friendlyPosition)) {
             // write error if position isn't valid
             WRITE_WARNING("Invalid position for " + toString(SUMO_TAG_CONTAINER_STOP) + " with ID = '" + id + "'.");
         } else {
@@ -1883,7 +1884,7 @@ GNEAdditionalHandler::parseAndBuildChargingStation(GNEViewNet* viewNet, bool all
         } else if (lane == nullptr) {
             // Write error if lane isn't valid
             WRITE_WARNING("The lane '" + laneId + "' to use within the " + toString(SUMO_TAG_CHARGING_STATION) + " '" + id + "' is not known.");
-        } else if (!GNEStoppingPlace::checkStoppingPlacePosition(startPosDouble, endPosDouble, lane->getParentEdge().getNBEdge()->getFinalLength(), friendlyPosition)) {
+        } else if (!SUMORouteHandler::checkStopPos(startPosDouble, endPosDouble, lane->getParentEdge().getNBEdge()->getFinalLength(), POSITION_EPS, friendlyPosition)) {
             // write error if position isn't valid
             WRITE_WARNING("Invalid position for " + toString(SUMO_TAG_CHARGING_STATION) + " with ID = '" + id + "'.");
         } else {
@@ -1934,7 +1935,7 @@ GNEAdditionalHandler::parseAndBuildParkingArea(GNEViewNet* viewNet, bool allowUn
         } else if (lane == nullptr) {
             // Write error if lane isn't valid
             WRITE_WARNING("The lane '" + laneId + "' to use within the " + toString(SUMO_TAG_PARKING_AREA) + " '" + id + "' is not known.");
-        } else if (!GNEStoppingPlace::checkStoppingPlacePosition(startPosDouble, endPosDouble, lane->getParentEdge().getNBEdge()->getFinalLength(), friendlyPosition)) {
+        } else if (!SUMORouteHandler::checkStopPos(startPosDouble, endPosDouble, lane->getParentEdge().getNBEdge()->getFinalLength(), POSITION_EPS, friendlyPosition)) {
             // write error if position isn't valid
             WRITE_WARNING("Invalid position for " + toString(SUMO_TAG_PARKING_AREA) + " with ID = '" + id + "'.");
         } else {

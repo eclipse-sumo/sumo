@@ -27,6 +27,7 @@
 #include <netedit/netelements/GNEEdge.h>
 #include <netedit/netelements/GNELane.h>
 #include <utils/options/OptionsCont.h>
+#include <utils/vehicle/SUMORouteHandler.h>
 
 #include "GNEStoppingPlace.h"
 
@@ -137,75 +138,10 @@ GNEStoppingPlace::fixAdditionalProblem() {
     double newStartPos = myStartPosition;
     double newEndPos = myEndPosition;
     // fix start and end positions using fixStoppingPlacePosition
-    fixStoppingPlacePosition(newStartPos, newEndPos, getLaneParents().front()->getParentEdge().getNBEdge()->getFinalLength(), true);
+    SUMORouteHandler::checkStopPos(newStartPos, newEndPos, getLaneParents().front()->getParentEdge().getNBEdge()->getFinalLength(), POSITION_EPS, true);
     // set new start and end positions
     setAttribute(SUMO_ATTR_STARTPOS, toString(newStartPos), myViewNet->getUndoList());
     setAttribute(SUMO_ATTR_ENDPOS, toString(newEndPos), myViewNet->getUndoList());
-}
-
-
-bool
-GNEStoppingPlace::checkStoppingPlacePosition(double startPos, double endPos, const double laneLength, const bool friendlyPos) {
-    // return check stop pos (note: this is the same function of SUMORouteHandler::checkStopPos)
-    if (POSITION_EPS > laneLength) {
-        return false;
-    }
-    if (startPos < 0) {
-        startPos += laneLength;
-    }
-    if (endPos < 0) {
-        endPos += laneLength;
-    }
-    if ((endPos < POSITION_EPS) || (endPos > laneLength)) {
-        if (!friendlyPos) {
-            return false;
-        }
-    }
-    if ((startPos < 0) || (startPos > endPos - POSITION_EPS)) {
-        if (!friendlyPos) {
-            return false;
-        }
-    }
-    return true;
-}
-
-
-bool
-GNEStoppingPlace::fixStoppingPlacePosition(double& startPos, double& endPos, const double laneLength, const bool friendlyPos) {
-    double minLength = POSITION_EPS + 0.01;
-    // return check stop pos (note: this is the same function of SUMORouteHandler::checkStopPos)
-    if (minLength > laneLength) {
-        return false;
-    }
-    if (startPos < 0) {
-        startPos += laneLength;
-    }
-    if (endPos < 0) {
-        endPos += laneLength;
-    }
-    if ((endPos < minLength) || (endPos > laneLength)) {
-        if (!friendlyPos) {
-            return false;
-        }
-        if (endPos < minLength) {
-            endPos = minLength;
-        }
-        if (endPos > laneLength) {
-            endPos = laneLength;
-        }
-    }
-    if ((startPos < 0) || (startPos > endPos - minLength)) {
-        if (!friendlyPos) {
-            return false;
-        }
-        if (startPos < 0) {
-            startPos = 0;
-        }
-        if (startPos > endPos - minLength) {
-            startPos = endPos - minLength;
-        }
-    }
-    return true;
 }
 
 

@@ -70,24 +70,6 @@ public:
     void fixAdditionalProblem();
     /// @}
 
-    /**@brief check if the position of an stoppingPlace over a lane is valid (without modifications)
-    * @param[in] startPos Start position of stoppingPlace
-    * @param[in] endPos End position of stoppingPlace
-    * @param[in] laneLength Length of the lane
-    * @param[in] friendlyPos Attribute of stoppingPlace
-    * @return true if the stoppingPlace position is valid, false in otherweise
-    */
-    static bool checkStoppingPlacePosition(double startPos, double endPos, const double laneLength, const bool friendlyPos);
-
-    /**@brief check if the position of an stoppingPlace over a la can be fixed
-    * @param[in] startPos Start position of stoppingPlace (note: it can be modified)
-    * @param[in] endPos End position of stoppingPlace (note: it can be modified)
-    * @param[in] laneLength Length of the lane in which stopping place is placed
-    * @param[in] friendlyPos boolean attribute of stoppingPlace
-    * @return true if the stoppingPlace position was sucesfully fixed, false in other case
-    */
-    static bool fixStoppingPlacePosition(double& startPos, double& endPos, const double laneLength, const bool friendlyPos);
-
     /// @brief get start Position
     double getStartPosition() const;
 

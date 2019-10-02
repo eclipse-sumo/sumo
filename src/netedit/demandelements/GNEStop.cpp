@@ -34,6 +34,7 @@
 #include <utils/gui/div/GLHelper.h>
 #include <utils/gui/div/GUIGlobalSelection.h>
 #include <utils/gui/globjects/GLIncludes.h>
+#include <utils/vehicle/SUMORouteHandler.h>
 
 #include "GNEStop.h"
 
@@ -720,7 +721,7 @@ GNEStop::isValid(SumoXMLAttr key, const std::string& value) {
             if (value.empty()) {
                 return true;
             } else if (canParse<double>(value)) {
-                return GNEStoppingPlace::checkStoppingPlacePosition(parse<double>(value), endPos, getLaneParents().front()->getParentEdge().getNBEdge()->getFinalLength(), friendlyPos);
+                return SUMORouteHandler::isStopPosValid(parse<double>(value), endPos, getLaneParents().front()->getParentEdge().getNBEdge()->getFinalLength(), POSITION_EPS, friendlyPos);
             } else {
                 return false;
             }
@@ -728,7 +729,7 @@ GNEStop::isValid(SumoXMLAttr key, const std::string& value) {
             if (value.empty()) {
                 return true;
             } else if (canParse<double>(value)) {
-                return GNEStoppingPlace::checkStoppingPlacePosition(startPos, parse<double>(value), getLaneParents().front()->getParentEdge().getNBEdge()->getFinalLength(), friendlyPos);
+                return SUMORouteHandler::isStopPosValid(startPos, parse<double>(value), getLaneParents().front()->getParentEdge().getNBEdge()->getFinalLength(), POSITION_EPS, friendlyPos);
             } else {
                 return false;
             }
