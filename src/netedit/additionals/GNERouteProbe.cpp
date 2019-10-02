@@ -228,7 +228,12 @@ GNERouteProbe::getAttribute(SumoXMLAttr key) const {
 
 double 
 GNERouteProbe::getAttributeDouble(SumoXMLAttr key) const {
-    throw InvalidArgument(getTagStr() + " doesn't have a double attribute of type '" + toString(key) + "'");
+    switch (key) {
+        case SUMO_ATTR_BEGIN:
+            return STEPS2TIME(myBegin);
+        default:
+            throw InvalidArgument(getTagStr() + " doesn't have a double attribute of type '" + toString(key) + "'");
+    }
 }
 
 

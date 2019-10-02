@@ -220,7 +220,14 @@ GNEVaporizer::getAttribute(SumoXMLAttr key) const {
 
 double 
 GNEVaporizer::getAttributeDouble(SumoXMLAttr key) const {
-    throw InvalidArgument(getTagStr() + " doesn't have a double attribute of type '" + toString(key) + "'");
+    switch (key) {
+        case SUMO_ATTR_BEGIN:
+            return STEPS2TIME(myBegin);
+        case SUMO_ATTR_END:
+            return STEPS2TIME(myEnd);
+        default:
+            throw InvalidArgument(getTagStr() + " doesn't have a double attribute of type '" + toString(key) + "'");
+    }
 }
 
 

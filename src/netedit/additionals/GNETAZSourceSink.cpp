@@ -108,8 +108,8 @@ GNETAZSourceSink::getAttribute(SumoXMLAttr key) const {
             return getParametersStr();
         case GNE_ATTR_TAZCOLOR: {
             // obtain max and min weight source
-            double maxWeightSource = parse<double>(getAdditionalParents().at(0)->getAttribute(GNE_ATTR_MAX_SOURCE));
-            double minWeightSource = parse<double>(getAdditionalParents().at(0)->getAttribute(GNE_ATTR_MIN_SOURCE));
+            double maxWeightSource = getAdditionalParents().at(0)->getAttributeDouble(GNE_ATTR_MAX_SOURCE);
+            double minWeightSource = getAdditionalParents().at(0)->getAttributeDouble(GNE_ATTR_MIN_SOURCE);
             // avoid division between zero
             if ((maxWeightSource - minWeightSource) == 0) {
                 return "0";
@@ -133,7 +133,12 @@ GNETAZSourceSink::getAttribute(SumoXMLAttr key) const {
 
 double 
 GNETAZSourceSink::getAttributeDouble(SumoXMLAttr key) const {
-    throw InvalidArgument(getTagStr() + " doesn't have a double attribute of type '" + toString(key) + "'");
+    switch (key) {
+        case SUMO_ATTR_WEIGHT:
+            return myDepartWeight;
+        default:
+            throw InvalidArgument(getTagStr() + " doesn't have a double attribute of type '" + toString(key) + "'");
+    }
 }
 
 

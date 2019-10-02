@@ -1039,8 +1039,8 @@ GNEAdditionalHandler::checkOverlappingRerouterIntervals(GNEAdditional* rerouter,
     for (auto i : rerouter->getAdditionalChildren()) {
         sortedIntervals.push_back(std::make_pair((SUMOTime)0., (SUMOTime)0.));
         // set begin and end
-        sortedIntervals.back().first = GNEAttributeCarrier::parse<SUMOTime>(i->getAttribute(SUMO_ATTR_BEGIN));
-        sortedIntervals.back().second = GNEAttributeCarrier::parse<SUMOTime>(i->getAttribute(SUMO_ATTR_END));
+        sortedIntervals.back().first = TIME2STEPS(i->getAttributeDouble(SUMO_ATTR_BEGIN));
+        sortedIntervals.back().second = TIME2STEPS(i->getAttributeDouble(SUMO_ATTR_END));
     }
     // add new intervals
     sortedIntervals.push_back(std::make_pair(newBegin, newEnd));

@@ -386,7 +386,22 @@ GNETAZ::getAttribute(SumoXMLAttr key) const {
 
 double 
 GNETAZ::getAttributeDouble(SumoXMLAttr key) const {
-    throw InvalidArgument(getTagStr() + " doesn't have a double attribute of type '" + toString(key) + "'");
+    switch (key) {
+        case GNE_ATTR_MIN_SOURCE:
+            return myMinWeightSource;
+        case GNE_ATTR_MIN_SINK:
+            return myMinWeightSink;
+        case GNE_ATTR_MAX_SOURCE:
+            return myMaxWeightSource;
+        case GNE_ATTR_MAX_SINK:
+            return myMaxWeightSink;
+        case GNE_ATTR_AVERAGE_SOURCE:
+            return myAverageWeightSource;
+        case GNE_ATTR_AVERAGE_SINK:
+            return myAverageWeightSink;
+        default:
+            throw InvalidArgument(getTagStr() + " doesn't have a double attribute of type '" + toString(key) + "'");
+    }
 }
 
 
@@ -468,7 +483,7 @@ GNETAZ::updateAdditionalParent() {
     // iterate over additional children
     for (auto i : getAdditionalChildren()) {
         if (i->getTagProperty().getTag() == SUMO_TAG_TAZSOURCE) {
-            double weight = parse<double>(i->getAttribute(SUMO_ATTR_WEIGHT));
+            double weight = i->getAttributeDouble(SUMO_ATTR_WEIGHT);
             // check max Weight
             if (myMaxWeightSource < weight) {
                 myMaxWeightSource = weight;
@@ -482,7 +497,7 @@ GNETAZ::updateAdditionalParent() {
             // update number of sources
             numberOfSources++;
         } else if (i->getTagProperty().getTag() == SUMO_TAG_TAZSINK) {
-            double weight = parse<double>(i->getAttribute(SUMO_ATTR_WEIGHT));
+            double weight = i->getAttributeDouble(SUMO_ATTR_WEIGHT);
             // check max Weight
             if (myMaxWeightSink < weight) {
                 myMaxWeightSink = weight;

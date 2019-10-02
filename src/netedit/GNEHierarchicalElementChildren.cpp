@@ -186,13 +186,13 @@ GNEHierarchicalElementChildren::sortAdditionalChildren() {
             sortedChildren.push_back(std::make_pair(std::make_pair(0., 0.), i));
             // set begin/start attribute
             if (i->getTagProperty().hasAttribute(SUMO_ATTR_TIME) && GNEAttributeCarrier::canParse<double>(i->getAttribute(SUMO_ATTR_TIME))) {
-                sortedChildren.back().first.first = GNEAttributeCarrier::parse<double>(i->getAttribute(SUMO_ATTR_TIME));
+                sortedChildren.back().first.first = i->getAttributeDouble(SUMO_ATTR_TIME);
             } else if (i->getTagProperty().hasAttribute(SUMO_ATTR_BEGIN) && GNEAttributeCarrier::canParse<double>(i->getAttribute(SUMO_ATTR_BEGIN))) {
-                sortedChildren.back().first.first = GNEAttributeCarrier::parse<double>(i->getAttribute(SUMO_ATTR_BEGIN));
+                sortedChildren.back().first.first = i->getAttributeDouble(SUMO_ATTR_BEGIN);
             }
             // set end attribute
             if (i->getTagProperty().hasAttribute(SUMO_ATTR_END) && GNEAttributeCarrier::canParse<double>(i->getAttribute(SUMO_ATTR_END))) {
-                sortedChildren.back().first.second = GNEAttributeCarrier::parse<double>(i->getAttribute(SUMO_ATTR_END));
+                sortedChildren.back().first.second = i->getAttributeDouble(SUMO_ATTR_END);
             } else {
                 sortedChildren.back().first.second = sortedChildren.back().first.first;
             }
@@ -221,13 +221,13 @@ GNEHierarchicalElementChildren::checkAdditionalChildrenOverlapping() const {
         sortedChildren.push_back(std::make_pair(std::make_pair(0., 0.), i));
         // set begin/start attribute
         if (i->getTagProperty().hasAttribute(SUMO_ATTR_TIME) && GNEAttributeCarrier::canParse<double>(i->getAttribute(SUMO_ATTR_TIME))) {
-            sortedChildren.back().first.first = GNEAttributeCarrier::parse<double>(i->getAttribute(SUMO_ATTR_TIME));
+            sortedChildren.back().first.first = i->getAttributeDouble(SUMO_ATTR_TIME);
         } else if (i->getTagProperty().hasAttribute(SUMO_ATTR_BEGIN) && GNEAttributeCarrier::canParse<double>(i->getAttribute(SUMO_ATTR_BEGIN))) {
-            sortedChildren.back().first.first = GNEAttributeCarrier::parse<double>(i->getAttribute(SUMO_ATTR_BEGIN));
+            sortedChildren.back().first.first = i->getAttributeDouble(SUMO_ATTR_BEGIN);
         }
         // set end attribute
         if (i->getTagProperty().hasAttribute(SUMO_ATTR_END) && GNEAttributeCarrier::canParse<double>(i->getAttribute(SUMO_ATTR_END))) {
-            sortedChildren.back().first.second = GNEAttributeCarrier::parse<double>(i->getAttribute(SUMO_ATTR_END));
+            sortedChildren.back().first.second = i->getAttributeDouble(SUMO_ATTR_END);
         } else {
             sortedChildren.back().first.second = sortedChildren.back().first.first;
         }

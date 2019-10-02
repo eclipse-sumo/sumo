@@ -39,7 +39,7 @@ GNEVariableSpeedSignStep::GNEVariableSpeedSignStep(GNEVariableSpeedSignDialog* v
     setDefaultValues();
     // set time Attribute manually
     if (getAdditionalParents().at(0)->getAdditionalChildren().size() > 0) {
-        myTime = parse<double>(getAdditionalParents().at(0)->getAdditionalChildren().back()->getAttribute(SUMO_ATTR_TIME)) + 1;
+        myTime = getAdditionalParents().at(0)->getAdditionalChildren().back()->getAttributeDouble(SUMO_ATTR_TIME) + 1;
     } else {
         myTime = 0;
     }
@@ -126,7 +126,12 @@ GNEVariableSpeedSignStep::getAttribute(SumoXMLAttr key) const {
 
 double 
 GNEVariableSpeedSignStep::getAttributeDouble(SumoXMLAttr key) const {
-    throw InvalidArgument(getTagStr() + " doesn't have a double attribute of type '" + toString(key) + "'");
+    switch (key) {
+        case SUMO_ATTR_TIME:
+            return myTime;
+        default:
+            throw InvalidArgument(getTagStr() + " doesn't have a double attribute of type '" + toString(key) + "'");
+    }
 }
 
 
@@ -164,7 +169,7 @@ GNEVariableSpeedSignStep::isValid(SumoXMLAttr key, const std::string& value) {
                 // check that there isn't duplicate times
                 int counter = 0;
                 for (auto i : getAdditionalParents().at(0)->getAdditionalChildren()) {
-                    if (parse<double>(i->getAttribute(SUMO_ATTR_TIME)) == newTime) {
+                    if (i->getAttributeDouble(SUMO_ATTR_TIME) == newTime) {
                         counter++;
                     }
                 }

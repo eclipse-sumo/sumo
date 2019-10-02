@@ -125,9 +125,9 @@ GNECalibratorFlow::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_ROUTE:
             return myRoute->getID();
         case SUMO_ATTR_VEHSPERHOUR:
-            return toString(myVehsPerHour);
+            return myVehsPerHour;
         case SUMO_ATTR_SPEED:
-            return toString(mySpeed);
+            return mySpeed;
         case SUMO_ATTR_COLOR:
             return toString(myColor);
         case SUMO_ATTR_BEGIN:
@@ -170,7 +170,14 @@ GNECalibratorFlow::getAttribute(SumoXMLAttr key) const {
 
 double 
 GNECalibratorFlow::getAttributeDouble(SumoXMLAttr key) const {
-    throw InvalidArgument(getTagStr() + " doesn't have a double attribute of type '" + toString(key) + "'");
+    switch (key) {
+        case SUMO_ATTR_BEGIN:
+            return STEPS2TIME(myBegin);
+        case SUMO_ATTR_END:
+            return STEPS2TIME(myEnd);
+        default:
+            throw InvalidArgument(getTagStr() + " doesn't have a double attribute of type '" + toString(key) + "'");
+    }
 }
 
 
