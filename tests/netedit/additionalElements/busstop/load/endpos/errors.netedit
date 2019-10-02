@@ -10,6 +10,9 @@ Debug: Additionals has to be saved
 Debug: Current saving Status: net saved, additionals unsaved, demand elements saved
 Debug: Format of optional optional unique float attribute 'endPos' of busStop with ID 'busStop_02' is invalid; Cannot be parsed to float; Default value will be used.
 Debug: Adding busStop 'busStop_02' in GNEChange_Additional
+Debug: Adding busStop 'busStop_03' in GNEChange_Additional
+Debug: Adding busStop 'busStop_04' in GNEChange_Additional
+Debug: Adding busStop 'busStop_05' in GNEChange_Additional
 Debug: Adding busStop 'busStop_06' in GNEChange_Additional
 Debug: net has to be saved
 Debug: Current saving Status: net unsaved, additionals unsaved, demand elements saved
@@ -31,6 +34,9 @@ Debug: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
 Debug: Deleting unreferenced busStop 'busStop_06'
 Debug: Additionals has to be saved
 Debug: Current saving Status: net saved, additionals unsaved, demand elements saved
+Debug: Deleting unreferenced busStop 'busStop_05'
+Debug: Deleting unreferenced busStop 'busStop_04'
+Debug: Deleting unreferenced busStop 'busStop_03'
 Debug: Deleting unreferenced busStop 'busStop_02'
 Debug: Deleting unreferenced busStop 'busStop_01'
 Debug: Deleting unreferenced edge 'gneE0' in GNENet destructor

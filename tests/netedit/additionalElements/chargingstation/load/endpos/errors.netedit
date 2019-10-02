@@ -10,6 +10,7 @@ Debug: Additionals has to be saved
 Debug: Current saving Status: net saved, additionals unsaved, demand elements saved
 Debug: Format of optional optional unique float attribute 'endPos' of chargingStation with ID 'chargingStation_8' is invalid; Cannot be parsed to float; Default value will be used.
 Debug: Adding chargingStation 'chargingStation_8' in GNEChange_Additional
+Debug: Adding chargingStation 'chargingStation_9' in GNEChange_Additional
 Debug: Adding chargingStation 'chargingStation_10' in GNEChange_Additional
 Debug: net has to be saved
 Debug: Current saving Status: net unsaved, additionals unsaved, demand elements saved
@@ -31,6 +32,7 @@ Debug: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
 Debug: Deleting unreferenced chargingStation 'chargingStation_10'
 Debug: Additionals has to be saved
 Debug: Current saving Status: net saved, additionals unsaved, demand elements saved
+Debug: Deleting unreferenced chargingStation 'chargingStation_9'
 Debug: Deleting unreferenced chargingStation 'chargingStation_8'
 Debug: Deleting unreferenced chargingStation 'chargingStation_7'
 Debug: Deleting unreferenced edge 'gneE0' in GNENet destructor
