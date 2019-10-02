@@ -50,14 +50,23 @@ class SUMOVTypeParameter;
  */
 class SUMORouteHandler : public SUMOSAXHandler {
 public:
+    /// @brief enum for stops
+    enum StopPos {
+        STOPPOS_VALID,
+        STOPPOS_INVALID_STARTPOS,
+        STOPPOS_INVALID_ENDPOS,
+        STOPPOS_INVALID_LANELENGTH
+    };
+
     /// @brief standard constructor
     SUMORouteHandler(const std::string& file, const std::string& expectedRoot, const bool hardFail);
 
     /// @brief standard destructor
     virtual ~SUMORouteHandler();
 
-    /// @brief check start and end position of a stop
-    static bool checkStopPos(double& startPos, double& endPos, const double laneLength, const double minLength, const bool friendlyPos);
+    /**@brief check start and end position of a stop
+     * @brief return */
+    static StopPos checkStopPos(double& startPos, double& endPos, const double laneLength, const double minLength, const bool friendlyPos);
 
     /// @brief check if start and end position of a stop is valid
     static bool isStopPosValid(const double startPos, const double endPos, const double laneLength, const double minLength, const bool friendlyPos);
