@@ -720,7 +720,7 @@ GNEStop::isValid(SumoXMLAttr key, const std::string& value) {
             if (value.empty()) {
                 return true;
             } else if (canParse<double>(value)) {
-                return GNEStoppingPlace::checkStoppinPlacePosition(value, toString(endPos), getLaneParents().front()->getParentEdge().getNBEdge()->getFinalLength(), friendlyPos);
+                return GNEStoppingPlace::checkStoppingPlacePosition(parse<double>(value), endPos, getLaneParents().front()->getParentEdge().getNBEdge()->getFinalLength(), friendlyPos);
             } else {
                 return false;
             }
@@ -728,7 +728,7 @@ GNEStop::isValid(SumoXMLAttr key, const std::string& value) {
             if (value.empty()) {
                 return true;
             } else if (canParse<double>(value)) {
-                return GNEStoppingPlace::checkStoppinPlacePosition(toString(startPos), value, getLaneParents().front()->getParentEdge().getNBEdge()->getFinalLength(), friendlyPos);
+                return GNEStoppingPlace::checkStoppingPlacePosition(startPos, parse<double>(value), getLaneParents().front()->getParentEdge().getNBEdge()->getFinalLength(), friendlyPos);
             } else {
                 return false;
             }

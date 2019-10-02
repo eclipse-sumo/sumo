@@ -1730,13 +1730,16 @@ GNEAdditionalHandler::parseAndBuildBusStop(GNEViewNet* viewNet, bool allowUndoRe
     if (!abort) {
         // get pointer to lane
         GNELane* lane = viewNet->getNet()->retrieveLane(laneId, false, true);
+        // get start and end position in double format
+        double startPosDouble = GNEAttributeCarrier::canParse<double>(startPos) ? GNEAttributeCarrier::parse<double>(startPos) : 0;
+        double endPosDouble = GNEAttributeCarrier::canParse<double>(endPos) ? GNEAttributeCarrier::parse<double>(endPos) : lane->getParentEdge().getNBEdge()->getFinalLength();
         // check that all elements are valid
         if (viewNet->getNet()->retrieveAdditional(SUMO_TAG_BUS_STOP, id, false) != nullptr) {
             WRITE_WARNING("There is another " + toString(SUMO_TAG_BUS_STOP) + " with the same ID='" + id + "'.");
         } else if (lane == nullptr) {
             // Write error if lane isn't valid
             WRITE_WARNING("The lane '" + laneId + "' to use within the " + toString(SUMO_TAG_BUS_STOP) + " '" + id + "' is not known.");
-        } else if (!GNEStoppingPlace::checkStoppinPlacePosition(startPos, endPos, lane->getParentEdge().getNBEdge()->getFinalLength(), friendlyPosition)) {
+        } else if (!GNEStoppingPlace::checkStoppingPlacePosition(startPosDouble, endPosDouble, lane->getParentEdge().getNBEdge()->getFinalLength(), friendlyPosition)) {
             // Write error if position isn't valid
             WRITE_WARNING("Invalid position for " + toString(SUMO_TAG_BUS_STOP) + " with ID = '" + id + "'.");
         } else {
@@ -1773,13 +1776,16 @@ GNEAdditionalHandler::parseAndBuildContainerStop(GNEViewNet* viewNet, bool allow
     if (!abort) {
         // get pointer to lane
         GNELane* lane = viewNet->getNet()->retrieveLane(laneId, false, true);
+        // get start and end position in double format
+        double startPosDouble = GNEAttributeCarrier::canParse<double>(startPos) ? GNEAttributeCarrier::parse<double>(startPos) : 0;
+        double endPosDouble = GNEAttributeCarrier::canParse<double>(endPos) ? GNEAttributeCarrier::parse<double>(endPos) : lane->getParentEdge().getNBEdge()->getFinalLength();
         // check that all elements are valid
         if (viewNet->getNet()->retrieveAdditional(SUMO_TAG_CONTAINER_STOP, id, false) != nullptr) {
             WRITE_WARNING("There is another " + toString(SUMO_TAG_CONTAINER_STOP) + " with the same ID='" + id + "'.");
         } else if (lane == nullptr) {
             // Write error if lane isn't valid
             WRITE_WARNING("The lane '" + laneId + "' to use within the " + toString(SUMO_TAG_CONTAINER_STOP) + " '" + id + "' is not known.");
-        } else if (!GNEStoppingPlace::checkStoppinPlacePosition(startPos, endPos, lane->getParentEdge().getNBEdge()->getFinalLength(), friendlyPosition)) {
+        } else if (!GNEStoppingPlace::checkStoppingPlacePosition(startPosDouble, endPosDouble, lane->getParentEdge().getNBEdge()->getFinalLength(), friendlyPosition)) {
             // write error if position isn't valid
             WRITE_WARNING("Invalid position for " + toString(SUMO_TAG_CONTAINER_STOP) + " with ID = '" + id + "'.");
         } else {
@@ -1868,13 +1874,16 @@ GNEAdditionalHandler::parseAndBuildChargingStation(GNEViewNet* viewNet, bool all
     if (!abort) {
         // get pointer to lane
         GNELane* lane = viewNet->getNet()->retrieveLane(laneId, false, true);
+        // get start and end position in double format
+        double startPosDouble = GNEAttributeCarrier::canParse<double>(startPos) ? GNEAttributeCarrier::parse<double>(startPos) : 0;
+        double endPosDouble = GNEAttributeCarrier::canParse<double>(endPos) ? GNEAttributeCarrier::parse<double>(endPos) : lane->getParentEdge().getNBEdge()->getFinalLength();
         // check that all elements are valid
         if (viewNet->getNet()->retrieveAdditional(SUMO_TAG_CHARGING_STATION, id, false) != nullptr) {
             WRITE_WARNING("There is another " + toString(SUMO_TAG_CHARGING_STATION) + " with the same ID='" + id + "'.");
         } else if (lane == nullptr) {
             // Write error if lane isn't valid
             WRITE_WARNING("The lane '" + laneId + "' to use within the " + toString(SUMO_TAG_CHARGING_STATION) + " '" + id + "' is not known.");
-        } else if (!GNEStoppingPlace::checkStoppinPlacePosition(startPos, endPos, lane->getParentEdge().getNBEdge()->getFinalLength(), friendlyPosition)) {
+        } else if (!GNEStoppingPlace::checkStoppingPlacePosition(startPosDouble, endPosDouble, lane->getParentEdge().getNBEdge()->getFinalLength(), friendlyPosition)) {
             // write error if position isn't valid
             WRITE_WARNING("Invalid position for " + toString(SUMO_TAG_CHARGING_STATION) + " with ID = '" + id + "'.");
         } else {
@@ -1916,13 +1925,16 @@ GNEAdditionalHandler::parseAndBuildParkingArea(GNEViewNet* viewNet, bool allowUn
     if (!abort) {
         // get pointer to lane
         GNELane* lane = viewNet->getNet()->retrieveLane(laneId, false, true);
+        // get start and end position in double format
+        double startPosDouble = GNEAttributeCarrier::canParse<double>(startPos) ? GNEAttributeCarrier::parse<double>(startPos) : 0;
+        double endPosDouble = GNEAttributeCarrier::canParse<double>(endPos) ? GNEAttributeCarrier::parse<double>(endPos) : lane->getParentEdge().getNBEdge()->getFinalLength();
         // check that all elements are valid
         if (viewNet->getNet()->retrieveAdditional(SUMO_TAG_PARKING_AREA, id, false) != nullptr) {
             WRITE_WARNING("There is another " + toString(SUMO_TAG_PARKING_AREA) + " with the same ID='" + id + "'.");
         } else if (lane == nullptr) {
             // Write error if lane isn't valid
             WRITE_WARNING("The lane '" + laneId + "' to use within the " + toString(SUMO_TAG_PARKING_AREA) + " '" + id + "' is not known.");
-        } else if (!GNEStoppingPlace::checkStoppinPlacePosition(startPos, endPos, lane->getParentEdge().getNBEdge()->getFinalLength(), friendlyPosition)) {
+        } else if (!GNEStoppingPlace::checkStoppingPlacePosition(startPosDouble, endPosDouble, lane->getParentEdge().getNBEdge()->getFinalLength(), friendlyPosition)) {
             // write error if position isn't valid
             WRITE_WARNING("Invalid position for " + toString(SUMO_TAG_PARKING_AREA) + " with ID = '" + id + "'.");
         } else {

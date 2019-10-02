@@ -198,9 +198,17 @@ GNEContainerStop::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_LANE:
             return getLaneParents().front()->getID();
         case SUMO_ATTR_STARTPOS:
-            return toString(myStartPosition);
+            if (myParametersSet & STOPPINGPLACE_STARTPOS_SET) {
+                return toString(myStartPosition);
+            } else {
+                return "";
+            }
         case SUMO_ATTR_ENDPOS:
-            return myEndPosition;
+            if (myParametersSet & STOPPINGPLACE_ENDPOS_SET) {
+                return toString(myEndPosition);
+            } else {
+                return "";
+            }
         case SUMO_ATTR_NAME:
             return myAdditionalName;
         case SUMO_ATTR_FRIENDLY_POS:
@@ -258,7 +266,7 @@ GNEContainerStop::isValid(SumoXMLAttr key, const std::string& value) {
             if (value.empty()) {
                 return true;
             } else if (canParse<double>(value)) {
-                return checkStoppinPlacePosition(value, myEndPosition, getLaneParents().front()->getParentEdge().getNBEdge()->getFinalLength(), myFriendlyPosition);
+                return checkStoppingPlacePosition(parse<double>(value), myEndPosition, getLaneParents().front()->getParentEdge().getNBEdge()->getFinalLength(), myFriendlyPosition);
             } else {
                 return false;
             }
@@ -266,7 +274,7 @@ GNEContainerStop::isValid(SumoXMLAttr key, const std::string& value) {
             if (value.empty()) {
                 return true;
             } else if (canParse<double>(value)) {
-                return checkStoppinPlacePosition(myStartPosition, value, getLaneParents().front()->getParentEdge().getNBEdge()->getFinalLength(), myFriendlyPosition);
+                return checkStoppingPlacePosition(myStartPosition, parse<double>(value), getLaneParents().front()->getParentEdge().getNBEdge()->getFinalLength(), myFriendlyPosition);
             } else {
                 return false;
             }
@@ -301,10 +309,20 @@ GNEContainerStop::setAttribute(SumoXMLAttr key, const std::string& value) {
             changeLaneParents(this, value);
             break;
         case SUMO_ATTR_STARTPOS:
-            myStartPosition = value;
+            if (!value.empty()) {
+                myStartPosition = parse<double>(value);
+                myParametersSet |= STOPPINGPLACE_STARTPOS_SET;
+            } else {
+                myParametersSet &= ~STOPPINGPLACE_STARTPOS_SET;
+            }
             break;
         case SUMO_ATTR_ENDPOS:
-            myEndPosition = value;
+            if (!value.empty()) {
+                myEndPosition = parse<double>(value);
+                myParametersSet |= STOPPINGPLACE_ENDPOS_SET;
+            } else {
+                myParametersSet &= ~STOPPINGPLACE_ENDPOS_SET;
+            }
             break;
         case SUMO_ATTR_NAME:
             myAdditionalName = value;

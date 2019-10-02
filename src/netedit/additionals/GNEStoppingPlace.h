@@ -24,6 +24,11 @@
 
 #include "GNEAdditional.h"
 
+// ===========================================================================
+// value definitions
+// ===========================================================================
+const int STOPPINGPLACE_STARTPOS_SET = 1;
+const int STOPPINGPLACE_ENDPOS_SET = 2;
 
 // ===========================================================================
 // class definitions
@@ -66,22 +71,22 @@ public:
     /// @}
 
     /**@brief check if the position of an stoppingPlace over a lane is valid (without modifications)
-    * @param[in] startPosStr Start position of stoppingPlace in string format
-    * @param[in] endPosStr End position of stoppingPlace in string format
+    * @param[in] startPos Start position of stoppingPlace
+    * @param[in] endPos End position of stoppingPlace
     * @param[in] laneLength Length of the lane
     * @param[in] friendlyPos Attribute of stoppingPlace
     * @return true if the stoppingPlace position is valid, false in otherweise
     */
-    static bool checkStoppinPlacePosition(const std::string& startPosStr, const std::string& endPosStr, const double laneLength, const bool friendlyPos);
+    static bool checkStoppingPlacePosition(double startPos, double endPos, const double laneLength, const bool friendlyPos);
 
     /**@brief check if the position of an stoppingPlace over a la can be fixed
-    * @param[in] startPosStr Start position of stoppingPlace in string format (note: it can be modified)
-    * @param[in] endPosStr End position of stoppingPlace in string format (note: it can be modified)
+    * @param[in] startPos Start position of stoppingPlace (note: it can be modified)
+    * @param[in] endPos End position of stoppingPlace (note: it can be modified)
     * @param[in] laneLength Length of the lane in which stopping place is placed
     * @param[in] friendlyPos boolean attribute of stoppingPlace
     * @return true if the stoppingPlace position was sucesfully fixed, false in other case
     */
-    static bool fixStoppinPlacePosition(std::string& startPosStr, std::string& endPosStr, const double laneLength, const bool friendlyPos);
+    static bool fixStoppingPlacePosition(double& startPos, double& endPos, const double laneLength, const bool friendlyPos);
 
     /// @brief get start Position
     double getStartPosition() const;
@@ -161,10 +166,13 @@ public:
 
 protected:
     /// @brief The relative start position this stopping place is located at (optional, if empty takes 0)
-    std::string  myStartPosition;
+    double myStartPosition;
 
     /// @brief The  position this stopping place is located at (optional, if empty takes the lane lenght)
-    std::string myEndPosition;
+    double myEndPosition;
+
+    /// @brief Variable used for set/unset start/endPositions
+    int myParametersSet;
 
     /// @brief Flag for friendly position
     bool myFriendlyPosition;
