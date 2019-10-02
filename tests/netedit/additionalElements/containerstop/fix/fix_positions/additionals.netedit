@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 27.09.2019 14:23:25 by Eclipse SUMO netedit Version v1_3_1+0501-5f9ab4c7a6
+<!-- generated on 02.10.2019 11:34:07 by Eclipse SUMO netedit Version v1_3_1+0547-88a68e35f7
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.27Sep142248.5204/netedit.gui/additionalElements/containerstop/fix/fix_positions\input_net.net.xml"/>
+        <sumo-net-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.02Oct112832.8832/netedit.gui/additionalElements/containerstop/fix/fix_positions\input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.27Sep142248.5204/netedit.gui/additionalElements/containerstop/fix/fix_positions\net.net.xml"/>
+        <output-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.02Oct112832.8832/netedit.gui/additionalElements/containerstop/fix/fix_positions\net.net.xml"/>
     </output>
 
     <processing>
@@ -29,14 +29,14 @@
     </pedestrian>
 
     <netedit>
-        <additional-files value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.27Sep142248.5204/netedit.gui/additionalElements/containerstop/fix/fix_positions\additionals.xml"/>
-        <additionals-output value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.27Sep142248.5204/netedit.gui/additionalElements/containerstop/fix/fix_positions\additionals.xml"/>
-        <route-files value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.27Sep142248.5204/netedit.gui/additionalElements/containerstop/fix/fix_positions\routes.xml"/>
-        <demandelements-output value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.27Sep142248.5204/netedit.gui/additionalElements/containerstop/fix/fix_positions\routes.xml"/>
+        <additional-files value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.02Oct112832.8832/netedit.gui/additionalElements/containerstop/fix/fix_positions\additionals.xml"/>
+        <additionals-output value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.02Oct112832.8832/netedit.gui/additionalElements/containerstop/fix/fix_positions\additionals.xml"/>
+        <route-files value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.02Oct112832.8832/netedit.gui/additionalElements/containerstop/fix/fix_positions\routes.xml"/>
+        <demandelements-output value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.02Oct112832.8832/netedit.gui/additionalElements/containerstop/fix/fix_positions\routes.xml"/>
     </netedit>
 
     <visualisation>
-        <gui-settings-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.27Sep142248.5204/netedit.gui/additionalElements/containerstop/fix/fix_positions\gui-settings.xml"/>
+        <gui-settings-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.02Oct112832.8832/netedit.gui/additionalElements/containerstop/fix/fix_positions\gui-settings.xml"/>
         <window-size value="700,500"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
@@ -46,15 +46,15 @@
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.27Sep142248.5204/netedit.gui/additionalElements/containerstop/fix/fix_positions\log.txt"/>
+        <error-log value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.02Oct112832.8832/netedit.gui/additionalElements/containerstop/fix/fix_positions\log.txt"/>
     </report>
 
 </configuration>
 -->
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
-    <containerStop id="containerStopA" lane="gneE0_0" startPos="2.00" endPos="12.00"/>
+    <containerStop id="containerStopA" lane="gneE0_0" startPos="11.90" endPos="12.00"/>
     <containerStop id="containerStopB" lane="gneE0_0" startPos="38.00" endPos="50.00"/>
     <containerStop id="containerStopC" lane="gneE1_0" startPos="-38.00" endPos="48.00"/>
-    <containerStop id="containerStopD" lane="gneE1_0" startPos="2.00" endPos="12.00"/>
+    <containerStop id="containerStopD" lane="gneE1_0" startPos="37.90" endPos="38.00"/>
 </additional>

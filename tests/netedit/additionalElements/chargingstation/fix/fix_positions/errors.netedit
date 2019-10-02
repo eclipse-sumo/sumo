@@ -34,10 +34,10 @@ Debug: Setting new attribute selected 'false' into chargingStation 'chargingStat
 Debug: Setting new attribute selected 'false' into chargingStation 'chargingStationB'
 Debug: Setting new attribute selected 'false' into chargingStation 'chargingStationC'
 Debug: Setting new attribute selected 'false' into chargingStation 'chargingStationD'
-Debug: Setting new attribute startPos '2.00' into chargingStation 'chargingStationA'
+Debug: Setting new attribute startPos '11.90' into chargingStation 'chargingStationA'
 Debug: Setting new attribute endPos '50.00' into chargingStation 'chargingStationB'
-Debug: Setting new attribute startPos '2.00' into chargingStation 'chargingStationD'
-Debug: Setting new attribute endPos '12.00' into chargingStation 'chargingStationD'
+Debug: Setting new attribute startPos '37.90' into chargingStation 'chargingStationD'
+Debug: Setting new attribute endPos '38.00' into chargingStation 'chargingStationD'
 Debug: Additionals saved after dialog
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -12.00,-12.00,12.00,12.00
