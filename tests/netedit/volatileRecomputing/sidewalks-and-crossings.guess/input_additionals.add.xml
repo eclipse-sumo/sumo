@@ -1,16 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 02.10.2019 14:26:21 by Eclipse SUMO netedit Version v1_3_1+0535-f8c85d5067
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="C:\Projects\sumo\tests\netedit\volatileRecomputing\sidewalks-and-crossings.guess\input_net.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="C:\Projects\sumo\tests\netedit\volatileRecomputing\sidewalks-and-crossings.guess\input_net.net.xml"/>
+        <plain-output-prefix value=""/>
+    </output>
+
+    <processing>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="false"/>
+    </processing>
+
+    <junctions>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="5"/>
+        <junctions.limit-turn-speed value="5.5"/>
+        <rectangular-lane-cut value="false"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="false"/>
+    </pedestrian>
+
+    <netedit>
+        <additional-files value="C:\Projects\sumo\tests\netedit\volatileRecomputing\sidewalks-and-crossings.guess\input_additionals.add.xml"/>
+    </netedit>
+
+</configuration>
+-->
+
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
-    <busStop id="busStop_-gneE3_0_1" lane="-gneE3_0" startPos="2.5" endPos="7.5" friendlyPos="0"/>
-    <busStop id="busStop_-gneE4_0_2" lane="-gneE4_0" startPos="2.5" endPos="7.5" friendlyPos="0"/>
-    <busStop id="busStop_-gneE5_0_3" lane="-gneE5_0" startPos="2.5" endPos="7.5" friendlyPos="0"/>
-    <busStop id="busStop_-gneE6_0_4" lane="-gneE6_0" startPos="2.5" endPos="7.5" friendlyPos="0"/>
-    <busStop id="busStop_-gneE7_0_5" lane="-gneE7_0" startPos="2.5" endPos="7.5" friendlyPos="0"/>
-    <busStop id="busStop_gneE2_0_0" lane="gneE2_0" startPos="2.5" endPos="7.5" friendlyPos="0"/>
-    <busStop id="busStop_gneE4_0_7" lane="gneE4_0" startPos="2.5" endPos="7.5" friendlyPos="0"/>
-    <busStop id="busStop_gneE5_0_8" lane="gneE5_0" startPos="2.5" endPos="7.5" friendlyPos="0"/>
-    <busStop id="busStop_gneE6_0_9" lane="gneE6_0" startPos="2.5" endPos="7.5" friendlyPos="0"/>
-    <busStop id="busStop_gneE7_0_6" lane="gneE7_0" startPos="2.5" endPos="7.5" friendlyPos="0"/>
-    <e3Detector id="e3Detector_0" freq="100" file="e3Detector_0.txt" timeThreshold="1.00" speedThreshold="1.39" pos="60,50">
-        <detEntry lane="gneE14_0" pos="5" friendlyPos="0"/>
-        <detExit lane="gneE9_0" pos="5" friendlyPos="0"/>
+    <busStop id="busStop_-gneE3_0_1" lane="-gneE3_0" startPos="2.5" endPos="7.5"/>
+    <busStop id="busStop_-gneE4_0_2" lane="-gneE4_0" startPos="2.5" endPos="7.5"/>
+    <busStop id="busStop_-gneE5_0_3" lane="-gneE5_0" startPos="2.5" endPos="7.5"/>
+    <busStop id="busStop_-gneE6_0_4" lane="-gneE6_0" startPos="2.5" endPos="7.5"/>
+    <busStop id="busStop_-gneE7_0_5" lane="-gneE7_0" startPos="2.5" endPos="7.5"/>
+    <busStop id="busStop_gneE2_0_0" lane="gneE2_0" startPos="2.5" endPos="7.5"/>
+    <busStop id="busStop_gneE4_0_7" lane="gneE4_0" startPos="2.5" endPos="7.5"/>
+    <busStop id="busStop_gneE5_0_8" lane="gneE5_0" startPos="2.5" endPos="7.5"/>
+    <busStop id="busStop_gneE6_0_9" lane="gneE6_0" startPos="2.5" endPos="7.5"/>
+    <busStop id="busStop_gneE7_0_6" lane="gneE7_0" startPos="2.5" endPos="7.5"/>
+    <e3Detector id="e3Detector_0" pos="70.45,50.79" freq="100.00" file="e3Detector_0.txt">
+        <detEntry lane="gneE14_0" pos="10.29"/>
+        <detExit lane="gneE9_0" pos="8.17"/>
     </e3Detector>
 </additional>

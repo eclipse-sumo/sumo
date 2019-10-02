@@ -1,53 +1,56 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 25/04/2017 16:36:51 by Netedit Version dev-SVN-r22880
-This data file and the accompanying materials
-are made available under the terms of the Eclipse Public License v2.0
-which accompanies this distribution, and is available at
-http://www.eclipse.org/legal/epl-v20.html
-SPDX-License-Identifier: EPL-2.0
+<!-- generated on 02.10.2019 14:26:13 by Eclipse SUMO netedit Version v1_3_1+0535-f8c85d5067
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:\Proyectos\Sumo_Trunk\tests\netedit\netElements\junctions\create\net.netedit"/>
+        <sumo-net-file value="C:\Projects\sumo\tests\netedit\volatileRecomputing\sidewalks-and-crossings.guess\input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:\Proyectos\Sumo_Trunk\tests\netedit\netElements\junctions\create\net.netedit"/>
-        <plain-output-prefix value="C:\Proyectos\Sumo_Trunk\tests\netedit\netElements\junctions\inspect\input_net"/>
+        <output-file value="C:\Projects\sumo\tests\netedit\volatileRecomputing\sidewalks-and-crossings.guess\input_net.net.xml"/>
+        <plain-output-prefix value="C:\Projects\sumo\tests\netedit\volatileRecomputing\sidewalks-and-crossings.guess\input_net"/>
     </output>
 
     <processing>
-        <no-turnarounds value="true"/>
+        <geometry.max-grade.fix value="false"/>
         <offset.disable-normalization value="true"/>
         <lefthand value="false"/>
-        <junctions.corner-detail value="0"/>
-        <rectangular-lane-cut value="false"/>
     </processing>
+
+    <junctions>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="5"/>
+        <junctions.limit-turn-speed value="5.5"/>
+        <rectangular-lane-cut value="false"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="false"/>
+    </pedestrian>
 
 </configuration>
 -->
 
-<nodes version="0.27" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/nodes_file.xsd">
-    <location netOffset="0.00,0.00" convBoundary="-3.00,25.00,97.00,85.00" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
+<nodes version="1.3" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/nodes_file.xsd">
+    <location netOffset="3.00,-25.00" convBoundary="0.00,0.00,100.00,60.00" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
 
-    <node id="gneJ0" x="-3.00" y="85.00" type="dead_end"/>
-    <node id="gneJ1" x="17.00" y="85.00" type="dead_end"/>
-    <node id="gneJ11" x="67.00" y="65.00" type="priority"/>
-    <node id="gneJ12" x="87.00" y="65.00" type="priority"/>
-    <node id="gneJ13" x="87.00" y="45.00" type="priority"/>
-    <node id="gneJ14" x="87.00" y="25.00" type="priority"/>
-    <node id="gneJ15" x="67.00" y="25.00" type="priority"/>
-    <node id="gneJ16" x="47.00" y="25.00" type="priority"/>
-    <node id="gneJ17" x="47.00" y="45.00" type="priority"/>
-    <node id="gneJ18" x="47.00" y="65.00" type="priority"/>
-    <node id="gneJ19" x="67.00" y="45.00" type="priority"/>
-    <node id="gneJ2" x="37.00" y="85.00" type="dead_end"/>
-    <node id="gneJ3" x="57.00" y="85.00" type="dead_end"/>
-    <node id="gneJ4" x="77.00" y="85.00" type="dead_end"/>
-    <node id="gneJ5" x="97.00" y="85.00" type="dead_end"/>
-    <node id="gneJ6" x="-3.00" y="65.00" type="priority"/>
-    <node id="gneJ7" x="17.00" y="65.00" type="priority"/>
-    <node id="gneJ8" x="17.00" y="45.00" type="priority"/>
-    <node id="gneJ9" x="-3.00" y="45.00" type="priority"/>
+    <node id="gneJ0" x="0.00" y="60.00" type="dead_end"/>
+    <node id="gneJ1" x="20.00" y="60.00" type="dead_end"/>
+    <node id="gneJ11" x="70.00" y="40.00" type="priority"/>
+    <node id="gneJ12" x="90.00" y="40.00" type="priority"/>
+    <node id="gneJ13" x="90.00" y="20.00" type="priority"/>
+    <node id="gneJ14" x="90.00" y="0.00" type="priority"/>
+    <node id="gneJ15" x="70.00" y="0.00" type="priority"/>
+    <node id="gneJ16" x="50.00" y="0.00" type="priority"/>
+    <node id="gneJ17" x="50.00" y="20.00" type="priority"/>
+    <node id="gneJ18" x="50.00" y="40.00" type="priority"/>
+    <node id="gneJ2" x="40.00" y="60.00" type="priority"/>
+    <node id="gneJ3" x="60.00" y="60.00" type="priority"/>
+    <node id="gneJ4" x="80.00" y="60.00" type="priority"/>
+    <node id="gneJ5" x="100.00" y="60.00" type="priority"/>
+    <node id="gneJ6" x="0.00" y="40.00" type="priority"/>
+    <node id="gneJ7" x="20.00" y="40.00" type="priority"/>
+    <node id="gneJ8" x="20.00" y="20.00" type="priority"/>
+    <node id="gneJ9" x="0.00" y="20.00" type="priority"/>
 </nodes>

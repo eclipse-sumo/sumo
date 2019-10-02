@@ -1,32 +1,45 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 24.06.2018 19:13:04 by Eclipse SUMO netedit Version 7725fee923
+<!-- generated on 02.10.2019 14:30:26 by Eclipse SUMO netedit Version v1_3_1+0535-f8c85d5067
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-additionals-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.23Jun211908.3056/netedit.gui/volatileRecomputing/sidewalks-and-crossings.guess\input_additionals.add.xml"/>
-        <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.23Jun211908.3056/netedit.gui/volatileRecomputing/sidewalks-and-crossings.guess\input_net.net.xml"/>
+        <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.02Oct142757.3476/netedit.gui/volatileRecomputing/sidewalks-and-crossings.guess\input_net.net.xml"/>
     </input>
 
     <output>
-        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.23Jun211908.3056/netedit.gui/volatileRecomputing/sidewalks-and-crossings.guess\additionals.xml"/>
-        <shapes-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.23Jun211908.3056/netedit.gui/volatileRecomputing/sidewalks-and-crossings.guess\shapes.xml"/>
-        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.23Jun211908.3056/netedit.gui/volatileRecomputing/sidewalks-and-crossings.guess\net.net.xml"/>
+        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.02Oct142757.3476/netedit.gui/volatileRecomputing/sidewalks-and-crossings.guess\net.net.xml"/>
     </output>
 
     <processing>
-        <no-turnarounds value="true"/>
+        <geometry.max-grade.fix value="false"/>
         <offset.disable-normalization value="true"/>
         <lefthand value="false"/>
-        <junctions.corner-detail value="0"/>
+    </processing>
+
+    <junctions>
+        <no-internal-links value="false"/>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="5"/>
+        <junctions.limit-turn-speed value="5.5"/>
         <rectangular-lane-cut value="false"/>
+    </junctions>
+
+    <pedestrian>
         <sidewalks.guess value="true"/>
         <crossings.guess value="true"/>
         <walkingareas value="false"/>
-    </processing>
+    </pedestrian>
+
+    <netedit>
+        <additional-files value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.02Oct142757.3476/netedit.gui/volatileRecomputing/sidewalks-and-crossings.guess\additionals.xml"/>
+        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.02Oct142757.3476/netedit.gui/volatileRecomputing/sidewalks-and-crossings.guess\additionals.xml"/>
+        <route-files value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.02Oct142757.3476/netedit.gui/volatileRecomputing/sidewalks-and-crossings.guess\routes.xml"/>
+        <demandelements-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.02Oct142757.3476/netedit.gui/volatileRecomputing/sidewalks-and-crossings.guess\routes.xml"/>
+    </netedit>
 
     <visualisation>
-        <gui-settings-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.23Jun211908.3056/netedit.gui/volatileRecomputing/sidewalks-and-crossings.guess\gui-settings.xml"/>
+        <gui-settings-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.02Oct142757.3476/netedit.gui/volatileRecomputing/sidewalks-and-crossings.guess\gui-settings.xml"/>
         <window-size value="700,500"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
@@ -35,25 +48,25 @@
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.23Jun211908.3056/netedit.gui/volatileRecomputing/sidewalks-and-crossings.guess\log.txt"/>
+        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.02Oct142757.3476/netedit.gui/volatileRecomputing/sidewalks-and-crossings.guess\log.txt"/>
     </report>
 
 </configuration>
 -->
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
-    <busStop id="busStop_-gneE3_0_1" lane="-gneE3_1" startPos="2.50" endPos="7.50"/>
-    <busStop id="busStop_-gneE4_0_2" lane="-gneE4_1" startPos="2.50" endPos="7.50"/>
-    <busStop id="busStop_-gneE5_0_3" lane="-gneE5_1" startPos="2.50" endPos="7.50"/>
-    <busStop id="busStop_-gneE6_0_4" lane="-gneE6_1" startPos="2.50" endPos="7.50"/>
-    <busStop id="busStop_-gneE7_0_5" lane="-gneE7_1" startPos="2.50" endPos="7.50"/>
-    <busStop id="busStop_gneE2_0_0" lane="gneE2_1" startPos="2.50" endPos="7.50"/>
-    <busStop id="busStop_gneE4_0_7" lane="gneE4_1" startPos="2.50" endPos="7.50"/>
-    <busStop id="busStop_gneE5_0_8" lane="gneE5_1" startPos="2.50" endPos="7.50"/>
-    <busStop id="busStop_gneE6_0_9" lane="gneE6_1" startPos="2.50" endPos="7.50"/>
-    <busStop id="busStop_gneE7_0_6" lane="gneE7_1" startPos="2.50" endPos="7.50"/>
-    <e3Detector id="e3Detector_0" pos="60.00,50.00" freq="100.00" file="e3Detector_0.txt">
-        <detEntry lane="gneE14_1" pos="5.00"/>
-        <detExit lane="gneE9_1" pos="5.00"/>
+    <busStop id="busStop_-gneE3_0_1" lane="-gneE3_1" startPos="2.5" endPos="7.5"/>
+    <busStop id="busStop_-gneE4_0_2" lane="-gneE4_1" startPos="2.5" endPos="7.5"/>
+    <busStop id="busStop_-gneE5_0_3" lane="-gneE5_1" startPos="2.5" endPos="7.5"/>
+    <busStop id="busStop_-gneE6_0_4" lane="-gneE6_1" startPos="2.5" endPos="7.5"/>
+    <busStop id="busStop_-gneE7_0_5" lane="-gneE7_1" startPos="2.5" endPos="7.5"/>
+    <busStop id="busStop_gneE2_0_0" lane="gneE2_1" startPos="2.5" endPos="7.5"/>
+    <busStop id="busStop_gneE4_0_7" lane="gneE4_1" startPos="2.5" endPos="7.5"/>
+    <busStop id="busStop_gneE5_0_8" lane="gneE5_1" startPos="2.5" endPos="7.5"/>
+    <busStop id="busStop_gneE6_0_9" lane="gneE6_1" startPos="2.5" endPos="7.5"/>
+    <busStop id="busStop_gneE7_0_6" lane="gneE7_1" startPos="2.5" endPos="7.5"/>
+    <e3Detector id="e3Detector_0" pos="70.45,50.79" freq="100.00" file="e3Detector_0.txt">
+        <detEntry lane="gneE14_1" pos="10.29"/>
+        <detExit lane="gneE9_1" pos="8.17"/>
     </e3Detector>
 </additional>

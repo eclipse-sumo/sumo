@@ -140,3 +140,12 @@ Debug: Deleting unreferenced junction 'gneJ26' in GNENet destructor
 Debug: Deleting unreferenced junction 'gneJ27' in GNENet destructor
 Debug: Deleting unreferenced junction 'gneJ28' in GNENet destructor
 Debug: Deleting unreferenced junction 'gneJ3' in GNENet destructor
+Debug: Deleting unreferenced junction 'gneJ4' in GNENet destructor
+Debug: Deleting unreferenced junction 'gneJ5' in GNENet destructor
+Debug: Deleting unreferenced junction 'gneJ7' in GNENet destructor
+Debug: Deleting unreferenced junction 'gneJ8' in GNENet destructor
+Debug: Deleting unreferenced junction 'gneJ9' in GNENet destructor
+Debug: Deleting unreferenced vType 'DEFAULT_BIKETYPE' in GNENet destructor
+Debug: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in GNENet destructor
+Debug: Deleting unreferenced pType 'DEFAULT_PEDTYPE' in GNENet destructor
+Debug: Deleting net builder in GNENet destructor
