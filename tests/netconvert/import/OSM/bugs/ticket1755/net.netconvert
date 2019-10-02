@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Apr 29 12:45:10 2019 by Eclipse SUMO netconvert Version v1_2_0+0022-5179cc2293
+<!-- generated on Wed Oct  2 22:03:50 2019 by Eclipse SUMO netconvert Version v1_3_1+0549-1866782b5ee
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -53,9 +53,9 @@ SPDX-License-Identifier: EPL-2.0
     <type id="highway.primary_link" priority="7" numLanes="1" speed="22.22" disallow="tram rail_urban rail rail_electric rail_fast ship" oneway="0"/>
     <type id="highway.raceway" priority="15" numLanes="2" speed="83.33" allow="vip" oneway="0"/>
     <type id="highway.residential" priority="3" numLanes="1" speed="13.89" disallow="tram rail_urban rail rail_electric rail_fast ship" oneway="0"/>
-    <type id="highway.secondary" priority="11" numLanes="2" speed="27.78" disallow="tram rail_urban rail rail_electric rail_fast ship" oneway="0"/>
+    <type id="highway.secondary" priority="11" numLanes="1" speed="27.78" disallow="tram rail_urban rail rail_electric rail_fast ship" oneway="0"/>
     <type id="highway.secondary_link" priority="6" numLanes="1" speed="22.22" disallow="tram rail_urban rail rail_electric rail_fast ship" oneway="0"/>
-    <type id="highway.service" priority="1" numLanes="1" speed="5.56" allow="pedestrian delivery bicycle" oneway="0"/>
+    <type id="highway.service" priority="1" numLanes="1" speed="5.56" disallow="tram rail_urban rail rail_electric rail_fast ship" oneway="0"/>
     <type id="highway.stairs" priority="1" numLanes="1" speed="1.39" allow="pedestrian" oneway="1" width="2.00"/>
     <type id="highway.step" priority="1" numLanes="1" speed="1.39" allow="pedestrian" oneway="1" width="2.00"/>
     <type id="highway.steps" priority="1" numLanes="1" speed="1.39" allow="pedestrian" oneway="1" width="2.00"/>
@@ -123,7 +123,7 @@ SPDX-License-Identifier: EPL-2.0
         <lane id="146404892#1_0" index="0" allow="rail" speed="44.44" length="359.74" shape="53.23,391.50 49.95,352.23 17.72,110.97 9.56,61.72 5.30,35.05"/>
     </edge>
     <edge id="146404892#2" from="1596765647" to="1596765615" priority="20" type="railway.rail" spreadType="center">
-        <lane id="146404892#2_0" index="0" allow="rail" speed="44.44" length="32.64" shape="4.86,32.28 -0.00,-0.00"/>
+        <lane id="146404892#2_0" index="0" allow="rail" speed="44.44" length="32.64" shape="4.86,32.28 0.00,0.00"/>
     </edge>
     <edge id="146404896#0" from="1596765647" to="1596765684" priority="20" type="railway.rail" spreadType="center" shape="5.06,33.60 14.63,68.81 18.33,81.17">
         <lane id="146404896#0_0" index="0" allow="rail" speed="44.44" length="46.76" shape="5.45,35.01 14.63,68.81 17.99,80.05"/>

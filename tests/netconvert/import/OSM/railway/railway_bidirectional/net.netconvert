@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri May  3 19:54:53 2019 by Eclipse SUMO netconvert Version v1_2_0+0149-6b40db9d1b
+<!-- generated on Wed Oct  2 22:03:31 2019 by Eclipse SUMO netconvert Version v1_3_1+0549-1866782b5ee
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -45,9 +45,9 @@ SPDX-License-Identifier: EPL-2.0
     <type id="highway.primary_link" priority="7" numLanes="1" speed="22.22" disallow="tram rail_urban rail rail_electric rail_fast ship" oneway="0"/>
     <type id="highway.raceway" priority="15" numLanes="2" speed="83.33" allow="vip" oneway="0"/>
     <type id="highway.residential" priority="3" numLanes="1" speed="13.89" disallow="tram rail_urban rail rail_electric rail_fast ship" oneway="0"/>
-    <type id="highway.secondary" priority="11" numLanes="2" speed="27.78" disallow="tram rail_urban rail rail_electric rail_fast ship" oneway="0"/>
+    <type id="highway.secondary" priority="11" numLanes="1" speed="27.78" disallow="tram rail_urban rail rail_electric rail_fast ship" oneway="0"/>
     <type id="highway.secondary_link" priority="6" numLanes="1" speed="22.22" disallow="tram rail_urban rail rail_electric rail_fast ship" oneway="0"/>
-    <type id="highway.service" priority="1" numLanes="1" speed="5.56" allow="pedestrian delivery bicycle" oneway="0"/>
+    <type id="highway.service" priority="1" numLanes="1" speed="5.56" disallow="tram rail_urban rail rail_electric rail_fast ship" oneway="0"/>
     <type id="highway.stairs" priority="1" numLanes="1" speed="1.39" allow="pedestrian" oneway="1" width="2.00"/>
     <type id="highway.step" priority="1" numLanes="1" speed="1.39" allow="pedestrian" oneway="1" width="2.00"/>
     <type id="highway.steps" priority="1" numLanes="1" speed="1.39" allow="pedestrian" oneway="1" width="2.00"/>
@@ -66,7 +66,7 @@ SPDX-License-Identifier: EPL-2.0
     <type id="railway.tram" priority="17" numLanes="1" speed="13.89" allow="tram" oneway="1"/>
 
     <edge id=":2440504398_0" function="internal">
-        <lane id=":2440504398_0_0" index="0" allow="rail rail_electric rail_fast" speed="0.10" length="0.10" shape="1.41,0.00 1.41,0.00"/>
+        <lane id=":2440504398_0_0" index="0" allow="rail rail_electric rail_fast" speed="0.10" length="0.10" shape="1.41,-0.00 1.41,-0.00"/>
     </edge>
     <edge id=":2440513258_0" function="internal">
         <lane id=":2440513258_0_0" index="0" allow="rail rail_electric rail_fast" speed="0.10" length="0.10" shape="178.69,47.18 178.69,47.18"/>
@@ -79,7 +79,7 @@ SPDX-License-Identifier: EPL-2.0
     </edge>
 
     <edge id="-235976545" from="2440504398" to="2440513258" priority="20" type="railway.rail" spreadType="center" shape="1.41,0.00 44.31,17.47 89.55,31.25 178.69,47.18" bidi="235976545">
-        <lane id="-235976545_0" index="0" allow="rail rail_electric rail_fast" speed="25.00" length="184.16" shape="1.41,0.00 44.31,17.47 89.55,31.25 178.69,47.18"/>
+        <lane id="-235976545_0" index="0" allow="rail rail_electric rail_fast" speed="25.00" length="184.16" shape="1.41,-0.00 44.31,17.47 89.55,31.25 178.69,47.18"/>
         <param key="railway:track_ref" value="2"/>
     </edge>
     <edge id="-50495070" from="245981493" to="245981495" priority="20" type="railway.rail" spreadType="center" shape="178.56,52.13 87.96,36.29 42.79,22.72 0.00,5.75" bidi="50495070">
@@ -87,7 +87,7 @@ SPDX-License-Identifier: EPL-2.0
         <param key="railway:track_ref" value="1"/>
     </edge>
     <edge id="235976545" from="2440513258" to="2440504398" priority="20" type="railway.rail" spreadType="center" shape="178.69,47.18 89.55,31.25 44.31,17.47 1.41,0.00" bidi="-235976545">
-        <lane id="235976545_0" index="0" allow="rail rail_electric rail_fast" speed="25.00" length="184.16" shape="178.69,47.18 89.55,31.25 44.31,17.47 1.41,0.00"/>
+        <lane id="235976545_0" index="0" allow="rail rail_electric rail_fast" speed="25.00" length="184.16" shape="178.69,47.18 89.55,31.25 44.31,17.47 1.41,-0.00"/>
         <param key="railway:track_ref" value="2"/>
     </edge>
     <edge id="50495070" from="245981495" to="245981493" priority="20" type="railway.rail" spreadType="center" shape="0.00,5.75 42.79,22.72 87.96,36.29 178.56,52.13" bidi="-50495070">
