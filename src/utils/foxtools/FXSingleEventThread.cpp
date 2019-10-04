@@ -35,6 +35,8 @@
 #else
 #include <process.h>
 #endif
+#include <chrono>
+#include <thread>
 
 #ifndef WIN32
 # define PIPE_READ 0
@@ -137,12 +139,7 @@ FXSingleEventThread::onThreadEvent(FXObject*, FXSelector, void*) {
 
 void
 FXSingleEventThread::sleep(long ms) {
-#ifdef WIN32
-    Sleep(ms);
-#else
-    long long us = ms * 1000;
-    usleep(us);
-#endif
+    std::this_thread::sleep_for(std::chrono::milliseconds(ms));
 }
 
 

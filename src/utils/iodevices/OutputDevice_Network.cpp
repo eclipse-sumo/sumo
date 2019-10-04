@@ -21,15 +21,10 @@
 // ==========================================================================
 // included modules
 // ==========================================================================
-#include <config.h> // #ifdef _MSC_VER
+#include <config.h>
 
-#ifdef WIN32
-#define NOMINMAX
-#include <windows.h>
-#undef NOMINMAX
-#else
-#include <unistd.h>
-#endif
+#include <thread>
+#include <chrono>
 #include <vector>
 #include "OutputDevice_Network.h"
 #include "foreign/tcpip/socket.h"
@@ -57,11 +52,7 @@ OutputDevice_Network::OutputDevice_Network(const std::string& host,
             if (wait == 9000) {
                 throw IOError(toString(e.what()) + " (host: " + host + ", port: " + toString(port) + ")");
             }
-#ifdef WIN32
-            Sleep(wait);
-#else
-            usleep(wait * 1000);
-#endif
+            std::this_thread::sleep_for(std::chrono::milliseconds(wait));
         }
     }
     myFilename = host + ":" + toString(port);
