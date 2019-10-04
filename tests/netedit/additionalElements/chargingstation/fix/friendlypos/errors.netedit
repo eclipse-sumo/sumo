@@ -35,8 +35,6 @@ Debug: Setting new attribute selected 'false' into chargingStation 'chargingStat
 Debug: Setting new attribute selected 'false' into chargingStation 'chargingStationC'
 Debug: Setting new attribute selected 'false' into chargingStation 'chargingStationD'
 Debug: Setting new attribute friendlyPos 'true' into chargingStation 'chargingStationA'
-Debug: Setting new attribute friendlyPos 'true' into chargingStation 'chargingStationB'
-Debug: Setting new attribute friendlyPos 'true' into chargingStation 'chargingStationD'
 Debug: Additionals saved after dialog
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -12.00,-12.00,12.00,12.00

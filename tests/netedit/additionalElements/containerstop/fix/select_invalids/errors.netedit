@@ -35,16 +35,10 @@ Debug: Setting new attribute selected 'false' into containerStop 'containerStopB
 Debug: Setting new attribute selected 'false' into containerStop 'containerStopC'
 Debug: Setting new attribute selected 'false' into containerStop 'containerStopD'
 Debug: Setting new attribute selected 'true' into containerStop 'containerStopA'
-Debug: Setting new attribute selected 'true' into containerStop 'containerStopB'
-Debug: Setting new attribute selected 'true' into containerStop 'containerStopD'
 Debug: Additionals saving aborted
 Debug: Key DEL (delete) pressed
 Debug: Removing containerStop 'containerStopA' in GNEChange_Additional
 Debug: Removed inspected element from Inspected ACs. 3 ACs remains.
-Debug: Removing containerStop 'containerStopB' in GNEChange_Additional
-Debug: Removed inspected element from Inspected ACs. 2 ACs remains.
-Debug: Removing containerStop 'containerStopD' in GNEChange_Additional
-Debug: Removed inspected element from Inspected ACs. 1 ACs remains.
 Debug: Additionals saved
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -12.00,-12.00,12.00,12.00
@@ -61,9 +55,9 @@ GLDebug: 	Inserted edge:gneE1 into SUMORTree with boundary -10.00,-10.00,60.00,1
 Debug: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
 Debug: Deleting unreferenced containerStop 'containerStopD'
-Debug: Deleting unreferenced containerStop 'containerStopC'
 Debug: Additionals has to be saved
 Debug: Current saving Status: net saved, additionals unsaved, demand elements saved
+Debug: Deleting unreferenced containerStop 'containerStopC'
 Debug: Deleting unreferenced containerStop 'containerStopB'
 Debug: Deleting unreferenced containerStop 'containerStopA'
 Debug: Deleting unreferenced edge 'gneE0' in GNENet destructor

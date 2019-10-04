@@ -34,10 +34,6 @@ Debug: Setting new attribute selected 'false' into containerStop 'containerStopA
 Debug: Setting new attribute selected 'false' into containerStop 'containerStopB'
 Debug: Setting new attribute selected 'false' into containerStop 'containerStopC'
 Debug: Setting new attribute selected 'false' into containerStop 'containerStopD'
-Debug: Setting new attribute startPos '11.90' into containerStop 'containerStopA'
-Debug: Setting new attribute endPos '50.00' into containerStop 'containerStopB'
-Debug: Setting new attribute startPos '37.90' into containerStop 'containerStopD'
-Debug: Setting new attribute endPos '38.00' into containerStop 'containerStopD'
 Debug: Additionals saved after dialog
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -12.00,-12.00,12.00,12.00

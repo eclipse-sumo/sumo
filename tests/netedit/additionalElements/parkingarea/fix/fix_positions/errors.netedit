@@ -8,7 +8,7 @@ Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
 Debug: Adding parkingArea 'parkingAreaA' in GNEChange_Additional
 GLDebug: 	Inserted parkingArea:parkingAreaA into SUMORTree with boundary -0.10,-0.10,0.10,0.10
 GLDebug: 	Removed object parkingArea:parkingAreaA from SUMORTree with boundary -0.10,-0.10,0.10,0.10
-GLDebug: 	Inserted parkingArea:parkingAreaA into SUMORTree with boundary 7.80,-10.60,52.20,-2.20
+GLDebug: 	Inserted parkingArea:parkingAreaA into SUMORTree with boundary 7.70,-10.60,16.20,-2.20
 Debug: Additionals has to be saved
 Debug: Current saving Status: net saved, additionals unsaved, demand elements saved
 Debug: Adding parkingArea 'parkingAreaB' in GNEChange_Additional
@@ -22,7 +22,7 @@ GLDebug: 	Inserted parkingArea:parkingAreaC into SUMORTree with boundary -2.20,2
 Debug: Adding parkingArea 'parkingAreaD' in GNEChange_Additional
 GLDebug: 	Inserted parkingArea:parkingAreaD into SUMORTree with boundary -0.10,-0.10,0.10,0.10
 GLDebug: 	Removed object parkingArea:parkingAreaD from SUMORTree with boundary -0.10,-0.10,0.10,0.10
-GLDebug: 	Inserted parkingArea:parkingAreaD into SUMORTree with boundary -2.20,2.20,16.20,10.60
+GLDebug: 	Inserted parkingArea:parkingAreaD into SUMORTree with boundary 7.80,2.20,16.30,10.60
 Debug: net has to be saved
 Debug: Current saving Status: net unsaved, additionals unsaved, demand elements saved
 Debug: Setting new attribute selected 'true' into junction 'gneJ0'
@@ -46,26 +46,6 @@ Debug: Setting new attribute selected 'false' into parkingArea 'parkingAreaA'
 Debug: Setting new attribute selected 'false' into parkingArea 'parkingAreaB'
 Debug: Setting new attribute selected 'false' into parkingArea 'parkingAreaC'
 Debug: Setting new attribute selected 'false' into parkingArea 'parkingAreaD'
-Debug: Setting new attribute startPos '11.90' into parkingArea 'parkingAreaA'
-GLDebug: 	Removed object parkingArea:parkingAreaA from SUMORTree with boundary 7.80,-10.60,52.20,-2.20
-GLDebug: 	Inserted parkingArea:parkingAreaA into SUMORTree with boundary 7.80,-10.60,52.20,-2.20
-GLDebug: 	Removed object parkingArea:parkingAreaA from SUMORTree with boundary 7.80,-10.60,52.20,-2.20
-GLDebug: 	Inserted parkingArea:parkingAreaA into SUMORTree with boundary 7.70,-10.60,16.20,-2.20
-Debug: Setting new attribute endPos '50.00' into parkingArea 'parkingAreaB'
-GLDebug: 	Removed object parkingArea:parkingAreaB from SUMORTree with boundary 33.80,-10.60,54.20,-2.20
-GLDebug: 	Inserted parkingArea:parkingAreaB into SUMORTree with boundary 33.80,-10.60,54.20,-2.20
-GLDebug: 	Removed object parkingArea:parkingAreaB from SUMORTree with boundary 33.80,-10.60,54.20,-2.20
-GLDebug: 	Inserted parkingArea:parkingAreaB into SUMORTree with boundary 33.80,-10.60,54.20,-2.20
-Debug: Setting new attribute startPos '37.90' into parkingArea 'parkingAreaD'
-GLDebug: 	Removed object parkingArea:parkingAreaD from SUMORTree with boundary -2.20,2.20,16.20,10.60
-GLDebug: 	Inserted parkingArea:parkingAreaD into SUMORTree with boundary -2.20,2.20,16.20,10.60
-GLDebug: 	Removed object parkingArea:parkingAreaD from SUMORTree with boundary -2.20,2.20,16.20,10.60
-GLDebug: 	Inserted parkingArea:parkingAreaD into SUMORTree with boundary 7.80,2.20,16.30,10.60
-Debug: Setting new attribute endPos '38.00' into parkingArea 'parkingAreaD'
-GLDebug: 	Removed object parkingArea:parkingAreaD from SUMORTree with boundary 7.80,2.20,16.30,10.60
-GLDebug: 	Inserted parkingArea:parkingAreaD into SUMORTree with boundary 7.80,2.20,16.30,10.60
-GLDebug: 	Removed object parkingArea:parkingAreaD from SUMORTree with boundary 7.80,2.20,16.30,10.60
-GLDebug: 	Inserted parkingArea:parkingAreaD into SUMORTree with boundary 7.80,2.20,16.30,10.60
 Debug: Additionals saved after dialog
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -12.00,-12.00,12.00,12.00

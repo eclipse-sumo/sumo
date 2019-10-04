@@ -35,7 +35,7 @@ netedit.selectionInvert()
 netedit.inspectMode()
 
 # inspect parking areas
-netedit.leftClick(referencePosition, 373, 290)
+netedit.leftClick(referencePosition, 343, 190)
 
 # disable friendlyPos
 netedit.modifyBoolAttribute(3, False)

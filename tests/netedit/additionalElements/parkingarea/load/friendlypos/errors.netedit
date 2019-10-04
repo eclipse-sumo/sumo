@@ -19,15 +19,15 @@ GLDebug: 	Inserted parkingArea:parkingArea_1 into SUMORTree with boundary -3.00,
 Debug: Adding parkingArea 'parkingArea_2' in GNEChange_Additional
 GLDebug: 	Inserted parkingArea:parkingArea_2 into SUMORTree with boundary -0.10,-0.10,0.10,0.10
 GLDebug: 	Removed object parkingArea:parkingArea_2 from SUMORTree with boundary -0.10,-0.10,0.10,0.10
-GLDebug: 	Inserted parkingArea:parkingArea_2 into SUMORTree with boundary -13.00,2.20,13.00,28.20
+GLDebug: 	Inserted parkingArea:parkingArea_2 into SUMORTree with boundary -13.00,2.20,13.10,28.20
 Debug: Adding parkingArea 'parkingArea_3' in GNEChange_Additional
 GLDebug: 	Inserted parkingArea:parkingArea_3 into SUMORTree with boundary -0.10,-0.10,0.10,0.10
 GLDebug: 	Removed object parkingArea:parkingArea_3 from SUMORTree with boundary -0.10,-0.10,0.10,0.10
-GLDebug: 	Inserted parkingArea:parkingArea_3 into SUMORTree with boundary -13.00,2.20,43.00,28.20
+GLDebug: 	Inserted parkingArea:parkingArea_3 into SUMORTree with boundary 17.00,2.20,43.10,28.20
 Debug: Adding parkingArea 'parkingArea_4' in GNEChange_Additional
 GLDebug: 	Inserted parkingArea:parkingArea_4 into SUMORTree with boundary -0.10,-0.10,0.10,0.10
 GLDebug: 	Removed object parkingArea:parkingArea_4 from SUMORTree with boundary -0.10,-0.10,0.10,0.10
-GLDebug: 	Inserted parkingArea:parkingArea_4 into SUMORTree with boundary 17.00,2.20,43.00,28.20
+GLDebug: 	Inserted parkingArea:parkingArea_4 into SUMORTree with boundary 17.00,2.20,43.10,28.20
 Debug: net has to be saved
 Debug: Current saving Status: net unsaved, additionals unsaved, demand elements saved
 Debug: Additionals saved
@@ -49,20 +49,20 @@ GLDebug: 	Removed object parkingArea:parkingArea_0 from SUMORTree with boundary 
 GLDebug: 	Inserted parkingArea:parkingArea_0 into SUMORTree with boundary -8.00,-28.20,23.00,-2.20
 GLDebug: 	Removed object parkingArea:parkingArea_1 from SUMORTree with boundary -3.00,2.20,33.00,28.20
 GLDebug: 	Inserted parkingArea:parkingArea_1 into SUMORTree with boundary -3.00,2.20,33.00,28.20
-GLDebug: 	Removed object parkingArea:parkingArea_2 from SUMORTree with boundary -13.00,2.20,13.00,28.20
-GLDebug: 	Inserted parkingArea:parkingArea_2 into SUMORTree with boundary -13.00,2.20,13.00,28.20
-GLDebug: 	Removed object parkingArea:parkingArea_3 from SUMORTree with boundary -13.00,2.20,43.00,28.20
-GLDebug: 	Inserted parkingArea:parkingArea_3 into SUMORTree with boundary -13.00,2.20,43.00,28.20
-GLDebug: 	Removed object parkingArea:parkingArea_4 from SUMORTree with boundary 17.00,2.20,43.00,28.20
-GLDebug: 	Inserted parkingArea:parkingArea_4 into SUMORTree with boundary 17.00,2.20,43.00,28.20
+GLDebug: 	Removed object parkingArea:parkingArea_2 from SUMORTree with boundary -13.00,2.20,13.10,28.20
+GLDebug: 	Inserted parkingArea:parkingArea_2 into SUMORTree with boundary -13.00,2.20,13.10,28.20
+GLDebug: 	Removed object parkingArea:parkingArea_3 from SUMORTree with boundary 17.00,2.20,43.10,28.20
+GLDebug: 	Inserted parkingArea:parkingArea_3 into SUMORTree with boundary 17.00,2.20,43.10,28.20
+GLDebug: 	Removed object parkingArea:parkingArea_4 from SUMORTree with boundary 17.00,2.20,43.10,28.20
+GLDebug: 	Inserted parkingArea:parkingArea_4 into SUMORTree with boundary 17.00,2.20,43.10,28.20
 Debug: Deleting unreferenced parkingArea 'parkingArea_4'
-GLDebug: 	Removed object parkingArea:parkingArea_4 from SUMORTree with boundary 17.00,2.20,43.00,28.20
+GLDebug: 	Removed object parkingArea:parkingArea_4 from SUMORTree with boundary 17.00,2.20,43.10,28.20
 Debug: Additionals has to be saved
 Debug: Current saving Status: net saved, additionals unsaved, demand elements saved
 Debug: Deleting unreferenced parkingArea 'parkingArea_3'
-GLDebug: 	Removed object parkingArea:parkingArea_3 from SUMORTree with boundary -13.00,2.20,43.00,28.20
+GLDebug: 	Removed object parkingArea:parkingArea_3 from SUMORTree with boundary 17.00,2.20,43.10,28.20
 Debug: Deleting unreferenced parkingArea 'parkingArea_2'
-GLDebug: 	Removed object parkingArea:parkingArea_2 from SUMORTree with boundary -13.00,2.20,13.00,28.20
+GLDebug: 	Removed object parkingArea:parkingArea_2 from SUMORTree with boundary -13.00,2.20,13.10,28.20
 Debug: Deleting unreferenced parkingArea 'parkingArea_1'
 GLDebug: 	Removed object parkingArea:parkingArea_1 from SUMORTree with boundary -3.00,2.20,33.00,28.20
 Debug: Deleting unreferenced parkingArea 'parkingArea_0'

@@ -50,11 +50,11 @@ Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edg
 Debug: invalidating (removing) connections of edge 'gneE1' due it were guessed
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ0'
 Debug: Removing edge 'gneE1' from net
-Debug: Removing junction 'gneJ1' from net
+Debug: Removing junction 'gneJ0' from net
 Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Adding junction 'gneJ1' into net
+Debug: Adding junction 'gneJ0' into net
 Debug: Adding edge 'gneE1' from net
 Debug: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ0'
 Debug: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE1'

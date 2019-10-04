@@ -29,7 +29,7 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 netedit.deleteMode()
 
 # delete junction
-netedit.leftClick(referencePosition, 340, 300)
+netedit.leftClick(referencePosition, 100, 230)
 
 # Undo
 netedit.undo(referencePosition, 1)
@@ -41,7 +41,7 @@ netedit.deleteMode()
 netedit.changeAutomaticallyDeleteAdditionals(referencePosition)
 
 # try to delete junction
-netedit.leftClick(referencePosition, 340, 300)
+netedit.leftClick(referencePosition, 100, 230)
 
 # wait warning
 netedit.waitDeleteWarning()
