@@ -34,6 +34,9 @@ netedit.changeElement("routeProbe")
 # create routeProbe
 netedit.leftClick(referencePosition, 380, 215)
 
+# recompute
+netedit.rebuildNetwork()
+
 # Change to delete
 netedit.deleteMode()
 

@@ -35,7 +35,7 @@ netedit.selectionInvert()
 netedit.inspectMode()
 
 # inspect calibrator
-netedit.leftClick(referencePosition, 480, 80)
+netedit.leftClick(referencePosition, 297, 116)
 
 # Change generic parameters with an invalid value (dummy)
 netedit.modifyAttribute(6, "dummyGenericParameters", True)

@@ -38,7 +38,7 @@ netedit.selectionInvert()
 netedit.inspectMode()
 
 # inspect routeProbes
-netedit.leftClick(referencePosition, 310, 200)
+netedit.leftClick(referencePosition, 541, 204)
 
 # Change generic parameters with an invalid value (dummy)
 netedit.modifyAttribute(5, "dummyGenericParameters", False)

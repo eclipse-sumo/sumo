@@ -25,11 +25,14 @@ import neteditTestFunctions as netedit  # noqa
 # Open netedit
 neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot, ['--gui-testing-debug-gl'])
 
+# recompute
+netedit.rebuildNetwork()
+
 # Change to delete
 netedit.deleteMode()
 
 # delete loaded vaporizer
-netedit.leftClick(referencePosition, 310, 215)
+netedit.leftClick(referencePosition, 522, 200)
 
 # delete lane with the loaded vaporizer
 netedit.leftClick(referencePosition, 310, 265)
