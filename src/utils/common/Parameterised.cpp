@@ -56,7 +56,7 @@ Parameterised::unsetParameter(const std::string& key) {
 
 
 void
-Parameterised::updateParameter(const std::map<std::string, std::string>& mapArg) {
+Parameterised::updateParameters(const std::map<std::string, std::string>& mapArg) {
     for (auto i : mapArg) {
         myMap[i.first] = i.second;
     }
@@ -125,11 +125,23 @@ Parameterised::getParametersStr() const {
 
 
 void 
-Parameterised::setParametersStr(const std::string& value) {
+Parameterised::setParameters(const Parameterised& params) {
+    myMap = params.getParametersMap();
+}
+
+
+void 
+Parameterised::setParametersMap(const std::map<std::string, std::string>& paramsMap) {
+    myMap = paramsMap;
+}
+
+
+void 
+Parameterised::setParametersStr(const std::string& paramsString) {
     // clear parameters
     myMap.clear();
     // separate value in a vector of string using | as separator
-    std::vector<std::string> parameters = StringTokenizer(value, "|", true).getVector();
+    std::vector<std::string> parameters = StringTokenizer(paramsString, "|", true).getVector();
     // iterate over all values
     for (const auto &i : parameters) {
         // obtain key and value and save it in myParameters

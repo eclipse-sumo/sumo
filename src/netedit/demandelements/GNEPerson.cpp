@@ -235,6 +235,8 @@ GNEPerson::writeDemandElement(OutputDevice& device) const {
             device.writeAttr(SUMO_ATTR_PROB, repetitionProbability);
         }
     }
+    // write parameters
+    writeParams(device);
     // write demand element children associated to this person (Rides, Walks...)
     for (const auto& i : getDemandElementChildren()) {
         i->writeDemandElement(device);

@@ -67,7 +67,7 @@ public:
     /**@brief Adds or updates all given parameters from the map
      * @param[in] mapArg The keys/values to insert
      */
-    void updateParameter(const std::map<std::string, std::string>& mapArg);
+    void updateParameters(const std::map<std::string, std::string>& mapArg);
 
     /**@brief Returns whether the parameter is known
      * @param[in] key The key to ask for
@@ -98,8 +98,14 @@ public:
     /// @brief Returns the inner key/value map in string format "key1=value1|key2=value2|...|keyN=valueN"
     std::string getParametersStr() const;
 
+    /// @brief set the inner key/value map in map<string, string> format
+    void setParameters(const Parameterised& params);
+
+    /// @brief set the inner key/value map in map<string, string> format
+    void setParametersMap(const std::map<std::string, std::string>& paramsMap);
+
     /// @brief set the inner key/value map in string format "key1=value1|key2=value2|...|keyN=valueN"
-    void setParametersStr(const std::string& value);
+    void setParametersStr(const std::string& paramsString);
 
     /// @brief write Params in the given outputdevice
     void writeParams(OutputDevice& device) const;

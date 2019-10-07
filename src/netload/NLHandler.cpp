@@ -414,7 +414,7 @@ NLHandler::closeEdge() {
     try {
         MSEdge* e = myEdgeControlBuilder.closeEdge();
         MSEdge::dictionary(e->getID(), e);
-        e->updateParameter(myLastEdgeParameters.getParametersMap());
+        e->updateParameters(myLastEdgeParameters.getParametersMap());
     } catch (InvalidArgument& e) {
         WRITE_ERROR(e.what());
     }

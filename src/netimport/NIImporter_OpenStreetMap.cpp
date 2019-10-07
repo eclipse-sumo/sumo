@@ -529,7 +529,7 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
             if (addSidewalk && (sidewalkType == WAY_UNKNOWN || (sidewalkType & WAY_FORWARD) != 0)) {
                 nbe->addSidewalk(tc.getSidewalkWidth(type) * offsetFactor);
             }
-            nbe->updateParameter(e->getParametersMap());
+            nbe->updateParameters(e->getParametersMap());
             nbe->setDistance(distanceStart);
             if (!ec.insert(nbe)) {
                 delete nbe;
@@ -554,7 +554,7 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
             if (addSidewalk && (sidewalkType == WAY_UNKNOWN || (sidewalkType & WAY_BACKWARD) != 0)) {
                 nbe->addSidewalk(tc.getSidewalkWidth(type) * offsetFactor);
             }
-            nbe->updateParameter(e->getParametersMap());
+            nbe->updateParameters(e->getParametersMap());
             nbe->setDistance(distanceEnd);
             if (!ec.insert(nbe)) {
                 delete nbe;

@@ -347,11 +347,15 @@ SUMOVTypeParameter::setManoeuverAngleTimes(const SUMOVehicleClass vclass) {
 
 void
 SUMOVTypeParameter::write(OutputDevice& dev) const {
+    // first check if vehicle type can be written
     if (onlyReferenced) {
         return;
     }
+    // open vehicle tag
     dev.openTag(SUMO_TAG_VTYPE);
+    // write ID (always needed)
     dev.writeAttr(SUMO_ATTR_ID, id);
+    // write parametes depending if is set
     if (wasSet(VTYPEPARS_LENGTH_SET)) {
         dev.writeAttr(SUMO_ATTR_LENGTH, length);
     }
@@ -449,6 +453,7 @@ SUMOVTypeParameter::write(OutputDevice& dev) const {
     }
     // Write rest of parameters
     writeParams(dev);
+    // close tag
     dev.closeTag();
 }
 

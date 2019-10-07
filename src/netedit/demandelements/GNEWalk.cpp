@@ -118,6 +118,8 @@ GNEWalk::writeDemandElement(OutputDevice& device) const {
     if (myArrivalPosition != -1) {
         device.writeAttr(SUMO_ATTR_ARRIVALPOS, myArrivalPosition);
     }
+    // write parameters
+    writeParams(device);
     // close tag
     device.closeTag();
 }

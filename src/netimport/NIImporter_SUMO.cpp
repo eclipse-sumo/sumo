@@ -154,7 +154,7 @@ NIImporter_SUMO::_loadNetwork(OptionsCont& oc) {
                                ed->priority, NBEdge::UNSPECIFIED_WIDTH, NBEdge::UNSPECIFIED_OFFSET,
                                ed->shape, ed->streetName, "", ed->lsf, true); // always use tryIgnoreNodePositions to keep original shape
         e->setLoadedLength(ed->length);
-        e->updateParameter(ed->getParametersMap());
+        e->updateParameters(ed->getParametersMap());
         e->setDistance(ed->distance);
         if (!myNetBuilder.getEdgeCont().insert(e)) {
             WRITE_ERROR("Could not insert edge '" + ed->id + "'.");
@@ -203,7 +203,7 @@ NIImporter_SUMO::_loadNetwork(OptionsCont& oc) {
                     fromLaneIndex, toEdge, c.toLaneIdx, NBEdge::L2L_VALIDATED,
                     true, c.mayDefinitelyPass, c.keepClear, c.contPos, c.visibility, c.speed, c.customShape, uncontrolled);
                 if (c.getParametersMap().size() > 0) {
-                    nbe->getConnectionRef(fromLaneIndex, toEdge, c.toLaneIdx).updateParameter(c.getParametersMap());
+                    nbe->getConnectionRef(fromLaneIndex, toEdge, c.toLaneIdx).updateParameters(c.getParametersMap());
                 }
                 // maybe we have a tls-controlled connection
                 if (c.tlID != "" && myRailSignals.count(c.tlID) == 0) {
@@ -234,7 +234,7 @@ NIImporter_SUMO::_loadNetwork(OptionsCont& oc) {
             nbe->setAcceleration(fromLaneIndex, lane->accelRamp);
             nbe->getLaneStruct(fromLaneIndex).oppositeID = lane->oppositeID;
             nbe->getLaneStruct(fromLaneIndex).type = lane->type;
-            nbe->getLaneStruct(fromLaneIndex).updateParameter(lane->getParametersMap());
+            nbe->getLaneStruct(fromLaneIndex).updateParameters(lane->getParametersMap());
             if (lane->customShape) {
                 nbe->setLaneShape(fromLaneIndex, lane->shape);
             }

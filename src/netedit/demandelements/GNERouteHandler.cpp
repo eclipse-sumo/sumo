@@ -1194,6 +1194,8 @@ void
 GNERouteHandler::closeRoute(const bool /* mayBeDisconnected */) {
     // first copy parameters from SUMORouteHanlder to myRouteParameter
     myRouteParameter.parameters = myLoadedParameterised;
+    // clear loaded parameters after set
+    myLoadedParameterised.clearParameter();
     // we have two possibilities: Either create a route with their own ID, or create a route within a vehicle
     if (myVehicleParameter) {
         // extra warning for embebbed routes

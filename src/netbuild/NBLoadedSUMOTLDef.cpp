@@ -67,7 +67,7 @@ NBLoadedSUMOTLDef::NBLoadedSUMOTLDef(NBTrafficLightDefinition* def, NBTrafficLig
     myControlledLinks = def->getControlledLinks();
     myControlledNodes = def->getNodes();
     NBLoadedSUMOTLDef* sumoDef = dynamic_cast<NBLoadedSUMOTLDef*>(def);
-    updateParameter(def->getParametersMap());
+    updateParameters(def->getParametersMap());
     if (sumoDef != nullptr) {
         myReconstructAddedConnections = sumoDef->myReconstructAddedConnections;
         myReconstructRemovedConnections = sumoDef->myReconstructRemovedConnections;
