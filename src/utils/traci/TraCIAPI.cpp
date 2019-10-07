@@ -1840,6 +1840,23 @@ TraCIAPI::SimulationScope::getDistanceRoad(const std::string& edgeID1, double po
     return 0.;
 }
 
+libsumo::TraCIStage
+TraCIAPI::SimulationScope::findRoute(const std::string& fromEdge, const std::string& toEdge, const std::string& vType, double pos, int routingMode) const {
+	tcpip::Storage content;
+	content.writeByte(libsumo::TYPE_COMPOUND);
+	content.writeInt(5);
+	content.writeUnsignedByte(libsumo::TYPE_STRING);
+	content.writeString(fromEdge);
+	content.writeUnsignedByte(libsumo::TYPE_STRING);
+	content.writeString(toEdge);
+	content.writeUnsignedByte(libsumo::TYPE_STRING);
+	content.writeString(vType);
+	content.writeUnsignedByte(libsumo::TYPE_DOUBLE);
+	content.writeDouble(pos);
+	content.writeUnsignedByte(libsumo::TYPE_INTEGER);
+	content.writeInt(routingMode);
+	return myParent.getTraCIStage(libsumo::CMD_GET_SIM_VARIABLE, libsumo::FIND_ROUTE, "", &content);
+}
 
 // ---------------------------------------------------------------------------
 // TraCIAPI::TrafficLightScope-methods

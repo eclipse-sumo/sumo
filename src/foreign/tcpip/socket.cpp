@@ -450,6 +450,8 @@ namespace tcpip
 		const
 	{
 #ifdef WIN32
+		DWORD timeout = 60 * 1000;
+		setsockopt(socket_, SOL_SOCKET, SO_RCVTIMEO, (char*)&timeout, sizeof(timeout));
 		const int bytesReceived = recv( socket_, (char*)buffer, static_cast<int>(len), 0 );
 #else
 		const int bytesReceived = static_cast<int>(recv( socket_, buffer, len, 0 ));
