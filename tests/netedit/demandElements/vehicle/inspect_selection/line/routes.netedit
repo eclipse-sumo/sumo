@@ -1,20 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 15.08.2019 09:46:14 by Eclipse SUMO netedit Version v1_2_0+1588-1f15f24962
+<!-- generated on 07.10.2019 16:05:15 by Eclipse SUMO netedit Version v1_3_1+0562-aa3c9680cc
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.15Aug093419.3284/netedit.gui/demandElements/vehicle/inspect_selection/line\input_net.net.xml"/>
+        <sumo-net-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.07Oct154426.6384/netedit.gui/demandElements/vehicle/inspect_selection/line\input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.15Aug093419.3284/netedit.gui/demandElements/vehicle/inspect_selection/line\net.net.xml"/>
+        <output-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.07Oct154426.6384/netedit.gui/demandElements/vehicle/inspect_selection/line\net.net.xml"/>
     </output>
 
     <processing>
         <geometry.max-grade.fix value="false"/>
         <offset.disable-normalization value="true"/>
-        <opposites.guess.fix-lengths value="true"/>
         <lefthand value="false"/>
     </processing>
 
@@ -30,13 +29,14 @@
     </pedestrian>
 
     <netedit>
-        <additional-files value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.15Aug093419.3284/netedit.gui/demandElements/vehicle/inspect_selection/line\additionals.xml"/>
-        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.15Aug093419.3284/netedit.gui/demandElements/vehicle/inspect_selection/line\additionals.xml"/>
-        <route-files value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.15Aug093419.3284/netedit.gui/demandElements/vehicle/inspect_selection/line\routes.xml"/>
-        <demandelements-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.15Aug093419.3284/netedit.gui/demandElements/vehicle/inspect_selection/line\routes.xml"/>
+        <additional-files value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.07Oct154426.6384/netedit.gui/demandElements/vehicle/inspect_selection/line\additionals.xml"/>
+        <additionals-output value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.07Oct154426.6384/netedit.gui/demandElements/vehicle/inspect_selection/line\additionals.xml"/>
+        <route-files value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.07Oct154426.6384/netedit.gui/demandElements/vehicle/inspect_selection/line\routes.xml"/>
+        <demandelements-output value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.07Oct154426.6384/netedit.gui/demandElements/vehicle/inspect_selection/line\routes.xml"/>
     </netedit>
 
     <visualisation>
+        <gui-settings-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.07Oct154426.6384/netedit.gui/demandElements/vehicle/inspect_selection/line\gui-settings.xml"/>
         <window-size value="700,500"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
@@ -46,7 +46,7 @@
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.15Aug093419.3284/netedit.gui/demandElements/vehicle/inspect_selection/line\log.txt"/>
+        <error-log value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.07Oct154426.6384/netedit.gui/demandElements/vehicle/inspect_selection/line\log.txt"/>
     </report>
 
 </configuration>
@@ -55,6 +55,14 @@
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
     <route edges="gneE2 gneE4 gneE5" color="yellow" id="routeA"/>
     <route edges="gneE6 gneE3 gneE7" color="yellow" id="routeB"/>
-    <vehicle id="vehicleA" depart="1.00" departLane="0" departPos="2.00" departPosLat="2.00" departSpeed="12.00" arrivalLane="0" arrivalPos="3.00" arrivalPosLat="3.00" arrivalSpeed="12.00" color="red" line="custom Line" personNumber="1" containerNumber="5" route="routeA"/>
-    <vehicle id="vehicleB" depart="2.00" departLane="free" departPos="random" departPosLat="random_free" departSpeed="speedLimit" arrivalLane="current" arrivalPos="random" arrivalPosLat="right" arrivalSpeed="current" color="blue" line="custom Line" personNumber="2" containerNumber="10" route="routeB"/>
+    <vehicle id="vehicleA" depart="1.00" departLane="0" departPos="2.00" departPosLat="2.00" departSpeed="12.00" arrivalLane="0" arrivalPos="3.00" arrivalPosLat="3.00" arrivalSpeed="12.00" color="red" line="custom Line" personNumber="1" containerNumber="5" route="routeA">
+        <param key="KeyA1" value="valueA1"/>
+        <param key="KeyA2" value="valueA3"/>
+        <param key="KeyA3" value="valueA2"/>
+    </vehicle>
+    <vehicle id="vehicleB" depart="2.00" departLane="free" departPos="random" departPosLat="random_free" departSpeed="speedLimit" arrivalLane="current" arrivalPos="random" arrivalPosLat="right" arrivalSpeed="current" color="blue" line="custom Line" personNumber="2" containerNumber="10" route="routeB">
+        <param key="KeyB1" value="valueB1"/>
+        <param key="KeyB2" value="valueB3"/>
+        <param key="KeyB3" value="valueB2"/>
+    </vehicle>
 </routes>

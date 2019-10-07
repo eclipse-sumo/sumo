@@ -19,10 +19,11 @@ Debug: Selected item 'DEFAULT_VEHTYPE' in DemandElementSelector
 Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
 Error: Attribute 'key' is missing in definition of a param.
 Error: Attribute 'key' is missing in definition of a param.
+Error: Attribute 'key' in definition of a param is empty.
 Debug: Adding route 'route_0' in GNEChange_DemandElement
 Debug: DemandElements has to be saved
 Debug: Current saving Status: net saved, additionals saved, demand elements unsaved
-Error: Loading of C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.1_from_10Sep131339.1452/netedit.gui/demandElements/route/load/parameters\input_routes.rou.xml failed.
+Error: Loading of C:/Users/alva_pa/.texttest/tmp/netedit.gui.07Oct122811.9940/netedit.gui/demandElements/route/load/parameters\input_routes.rou.xml failed.
 Debug: net has to be saved
 Debug: Current saving Status: net unsaved, additionals saved, demand elements unsaved
 Debug: Enabled show demand elements throught alt + 1

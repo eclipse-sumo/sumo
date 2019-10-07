@@ -36,29 +36,37 @@
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-  <route edges="gneE2 gneE4 gneE5" color="yellow" id="route_0">
-    <!-- generic parameter -->
-    <param key="key1" value="value1"/>
+	<route edges="gneE2 gneE4 gneE5" color="yellow" id="route_0">
+	
+	    <!-- valid generic parameter (valid) -->
+		<param key="key1" value="value1"/>
 
-    <!-- empty key -->
-    <param value="value2"/>
+		<!-- empty generic parameter (invalid -->
+		<param/>
+		
+		<!-- missin key (invalid) -->
+		<param value="value2"/>
 
-    <!-- invalid key -->
-    <param key="$$key with spaces%%" value="value3"/>
+		<!-- empty key (invalid) -->
+		<param key="" value="value3"/>
 
-    <!-- duplicated key -->
-    <param key="key1" value="value4"/>
+		<!-- key contains invalid characters (invalid) -->
+		<param key="$$key with spaces%%" value="value4"/>
 
-    <!-- empty value -->
-    <param key="key2"/>
+		<!-- duplicated key (valid, overwrites the first one, show warning) -->
+		<param key="key1" value="value5"/>
 
-    <!-- invalid value -->
-    <param key="key3" value="$$value with spaces%%"/>
+		<!-- missing value (invalid, value must exist)-->
+		<param key="key2"/>
 
-    <!-- invalid value -->
-    <param key="key4" value="value5"/>
+		<!-- empty value (valid, value may be empty) -->
+		<param key="key2" value=""/>
 
-    <!-- empty generic parameter -->
-    <param/>
-  </route>
+		<!-- value contains invalid characters (valid - no restrictions on value) -->
+		<param key="key3" value="$$value with spaces%%"/>
+		
+		 <!-- valid generic parameter (valid) -->
+		 <param key="keyFinal" value="valueFinal"/>
+		 
+	</route>
 </routes>
