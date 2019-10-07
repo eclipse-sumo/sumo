@@ -16,7 +16,8 @@ permalink: /SUMO-GUI/
 
 # Usage Description
 
-![guisim_empty.gif](images/Guisim_empty.gif)
+![guisim_empty.png](images/Guisim_empty.png)
+
 *Initial appearence of SUMO-GUI; may differ from what you see*
 
 Being a window-based application, SUMO-GUI is started by a double click
@@ -43,8 +44,8 @@ performed by pressing the "single step" button
 
 If the simulation is running, the current simulation second is shown in
 the "digital digits" field, right to "Time:"
-(![Image:current_step_example.gif](images/Current_step_example.gif
-"Image:current_step_example.gif")). By clicking on the word "Time:", the
+(![Image:Current_step_example.png](images/Current_step_example.png
+"Image:Current_step_example.png")). By clicking on the word "Time:", the
 display can be toggled between showing <seconds\> and
 <hour:minute:seconds\>.
 
@@ -80,7 +81,7 @@ double speed use "Shift".
 
 ## Basic Navigation
 
-![viewport_editor.gif](images/Viewport_editor.gif "viewport_editor.gif")
+![Viewport_editor.png](images/Viewport_editor.png "Viewport_editor.png")
 
 As soon as a network is displayed, one can interact with the view.
 Pressing the left mouse button within the view and moving the mouse with
@@ -578,7 +579,7 @@ settings using ![Image:colorwheel.gif](images/Colorwheel.gif
 columns: **picture file**, **center x**, **center y**, **width**,
 **height**, and **rotation**.
 
-![decals_gui.gif](images/Decals_gui.gif "decals_gui.gif")
+![decals_gui.gif](images/Decals_gui.png "decals_gui.png")
 
 **Fig. 1.1: The decals GUI.**
 
@@ -588,8 +589,8 @@ the path by pressing RETURN should force **SUMO-GUI**
 to load and display the file below the road network, as shown in figure
 1.2.
 
-![background_example.gif](images/Background_example.gif
-"background_example.gif")
+![Background_example.png](images/Background_example.png
+"Background_example.png")
 
 **Fig. 1.2: Example of a background image (decal).**
 
