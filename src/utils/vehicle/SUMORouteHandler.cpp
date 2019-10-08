@@ -24,25 +24,19 @@
 // ===========================================================================
 #include <config.h>
 
-#include <string>
-#include <map>
-#include <vector>
 #include <utils/common/MsgHandler.h>
-#include <utils/common/ToString.h>
-#include <utils/common/UtilExceptions.h>
 #include <utils/options/OptionsCont.h>
-#include <utils/vehicle/SUMOVehicleParameter.h>
 #include <utils/vehicle/SUMOVTypeParameter.h>
-#include <utils/xml/SUMOSAXHandler.h>
 #include <utils/vehicle/SUMOVehicleParserHelper.h>
-#include <utils/xml/SUMOXMLDefinitions.h>
 #include <utils/xml/XMLSubSys.h>
+
 #include "SUMORouteHandler.h"
 
 
 // ===========================================================================
 // method definitions
 // ===========================================================================
+
 SUMORouteHandler::SUMORouteHandler(const std::string& file, const std::string& expectedRoot, const bool hardFail) :
     SUMOSAXHandler(file, XMLSubSys::isValidating() ? expectedRoot : ""),
     myHardFail(hardFail),
@@ -349,15 +343,18 @@ void
 SUMORouteHandler::addParam(const SUMOSAXAttributes& attrs) {
     bool ok = true;
     const std::string key = attrs.get<std::string>(SUMO_ATTR_KEY, nullptr, ok);
-    // circumventing empty string test
-    const std::string val = attrs.hasAttribute(SUMO_ATTR_VALUE) ? attrs.getString(SUMO_ATTR_VALUE) : "";
-    // add parameter in current created element, or in myLoadedParameterised
-    if (myVehicleParameter != nullptr) {
-        myVehicleParameter->setParameter(key, val);
-    } else if (myCurrentVType != nullptr) {
-        myCurrentVType->setParameter(key, val);
-    } else {
-        myLoadedParameterised.setParameter(key, val);
+    // only continue if key isn't empty
+    if (ok && (key.size() > 0)) {
+        // circumventing empty string test
+        const std::string val = attrs.hasAttribute(SUMO_ATTR_VALUE) ? attrs.getString(SUMO_ATTR_VALUE) : "";
+        // add parameter in current created element, or in myLoadedParameterised
+        if (myVehicleParameter != nullptr) {
+            myVehicleParameter->setParameter(key, val);
+        } else if (myCurrentVType != nullptr) {
+            myCurrentVType->setParameter(key, val);
+        } else {
+            myLoadedParameterised.setParameter(key, val);
+        }
     }
 }
 
