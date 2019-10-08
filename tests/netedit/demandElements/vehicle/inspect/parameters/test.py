@@ -50,40 +50,8 @@ netedit.inspectMode()
 
 # inspect vehicle
 netedit.leftClick(referencePosition, 91, 413)
-
-# Change generic parameters with an invalid value (dummy)
-netedit.modifyAttribute(18, "dummyGenericParameters", True)
-
-# Change generic parameters with an invalid value (invalid format)
-netedit.modifyAttribute(18, "key1|key2|key3", True)
-
-# Change generic parameters with a valid value
-netedit.modifyAttribute(18, "key1=value1|key2=value2|key3=value3", True)
-
-# Change generic parameters with a valid value (empty values)
-netedit.modifyAttribute(18, "key1=|key2=|key3=", True)
-
-# Change generic parameters with a valid value (clear parameters)
-netedit.modifyAttribute(18, "", True)
-
-# Change generic parameters with an valid value (duplicated keys)
-netedit.modifyAttribute(18, "key1duplicated=value1|key1duplicated=value2|key3=value3", True)
-
-# Change generic parameters with a valid value (duplicated values)
-netedit.modifyAttribute(18, "key1=valueDuplicated|key2=valueDuplicated|key3=valueDuplicated", True)
-
-# Change generic parameters with an invalid value (invalid key characters)
-netedit.modifyAttribute(18, "keyInvalid.;%>%$$=value1|key2=value2|key3=value3", True)
-
-# Change generic parameters with a invalid value (invalid value characters)
-netedit.modifyAttribute(18, "key1=valueInvalid%;%$<>$$%|key2=value2|key3=value3", True)
-
-# Change generic parameters with a valid value
-netedit.modifyAttribute(18, "keyFinal1=value1|keyFinal2=value2|keyFinal3=value3", True)
-
-# Check undo redo
-netedit.undo(referencePosition, 8)
-netedit.redo(referencePosition, 8)
+# check parameters
+netedit.checkParameters(referencePosition, 18, True)
 
 # save routes
 netedit.saveRoutes(referencePosition)

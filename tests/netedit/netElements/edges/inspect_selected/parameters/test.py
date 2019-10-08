@@ -43,47 +43,8 @@ netedit.inspectMode()
 # inspect selected edges
 netedit.leftClick(referencePosition, 250, 180)
 
-# Change generic parameters with an invalid value (dummy)
-netedit.modifyAttribute(17, "dummyGenericParameters", False)
-
-# Change generic parameters with an invalid value (invalid format)
-netedit.modifyAttribute(17, "key1|key2|key3", False)
-
-# Change generic parameters with a valid value
-netedit.modifyAttribute(17, "key1=value1|key2=value2|key3=value3", False)
-
-# Change generic parameters with a valid value (empty values)
-netedit.modifyAttribute(17, "key1=|key2=|key3=", False)
-
-# Change generic parameters with a valid value (clear parameters)
-netedit.modifyAttribute(17, "", False)
-
-# Change generic parameters with an valid value (duplicated keys)
-netedit.modifyAttribute(17, "key1duplicated=value1|key1duplicated=value2|key3=value3", False)
-
-# Change generic parameters with a valid value (duplicated values)
-netedit.modifyAttribute(17, "key1=valueDuplicated|key2=valueDuplicated|key3=valueDuplicated", False)
-
-# Change generic parameters with an invalid value (invalid key characters)
-netedit.modifyAttribute(17, "keyInvalid.;%>%$$=value1|key2=value2|key3=value3", False)
-
-# Change generic parameters with a invalid value (invalid value characters)
-netedit.modifyAttribute(17, "key1=valueInvalid%;%$<>$$%|key2=value2|key3=value3", False)
-
-# Change generic parameters with a valid value
-netedit.modifyAttribute(17, "keyFinal1=value1|keyFinal2=value2|keyFinal3=value3", False)
-
-# recompute
-netedit.rebuildNetwork()
-
-# Check undos
-netedit.undo(referencePosition, 7)
-
-# recompute
-netedit.rebuildNetwork()
-
-# check redos
-netedit.redo(referencePosition, 7)
+# check parameters
+netedit.checkParameters(referencePosition, 17, False)
 
 # save additionals
 netedit.saveAdditionals(referencePosition)

@@ -786,6 +786,36 @@ def modifyBoolAttribute(attributeNumber, overlapped):
     # type SPACE to change value
     typeSpace()
 
+
+def checkParameters(referencePosition, attributeNumber, overlapped):
+    """
+    @brief Check generic parameters
+    """
+    # Change generic parameters with an invalid value (dummy)
+    modifyAttribute(attributeNumber, "dummyGenericParameters", overlapped)
+    # Change generic parameters with an invalid value (invalid format)
+    modifyAttribute(attributeNumber, "key1|key2|key3", overlapped)
+    # Change generic parameters with a valid value
+    modifyAttribute(attributeNumber, "key1=value1|key2=value2|key3=value3", overlapped)
+    # Change generic parameters with a valid value (empty values)
+    modifyAttribute(attributeNumber, "key1=|key2=|key3=", overlapped)
+    # Change generic parameters with a valid value (clear parameters)
+    modifyAttribute(attributeNumber, "", overlapped)
+    # Change generic parameters with an valid value (duplicated keys)
+    modifyAttribute(attributeNumber, "key1duplicated=value1|key1duplicated=value2|key3=value3", overlapped)
+    # Change generic parameters with a valid value (duplicated values)
+    modifyAttribute(attributeNumber, "key1=valueDuplicated|key2=valueDuplicated|key3=valueDuplicated", overlapped)
+    # Change generic parameters with an invalid value (invalid key characters)
+    modifyAttribute(attributeNumber, "keyInvalid.;%>%$$=value1|key2=value2|key3=value3", overlapped)
+    # Change generic parameters with a invalid value (invalid value characters)
+    modifyAttribute(attributeNumber, "key1=valueInvalid%;%$<>$$%|key2=value2|key3=value3", overlapped)
+    # Change generic parameters with a valid value
+    modifyAttribute(attributeNumber, "keyFinal1=value1|keyFinal2=value2|keyFinal3=value3", overlapped)
+    # Check undo (including load/creation)
+    undo(referencePosition, 8)
+    # Check redo
+    redo(referencePosition, 8)
+
 #################################################
 # Move mode
 #################################################

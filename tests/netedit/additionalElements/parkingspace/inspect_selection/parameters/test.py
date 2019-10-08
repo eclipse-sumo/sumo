@@ -37,39 +37,8 @@ netedit.inspectMode()
 # inspect parking spaces
 netedit.leftClick(referencePosition, 230, 260)
 
-# Change generic parameters with an invalid value (dummy)
-netedit.modifyAttribute(4, "dummyGenericParameters", False)
-
-# Change generic parameters with an invalid value (invalid format)
-netedit.modifyAttribute(4, "key1|key2|key3", False)
-
-# Change generic parameters with a valid value
-netedit.modifyAttribute(4, "key1=value1|key2=value2|key3=value3", False)
-
-# Change generic parameters with a valid value (empty values)
-netedit.modifyAttribute(4, "key1=|key2=|key3=", False)
-
-# Change generic parameters with a valid value (clear parameters)
-netedit.modifyAttribute(4, "", False)
-
-# Change generic parameters with an valid value (duplicated keys)
-netedit.modifyAttribute(4, "key1duplicated=value1|key1duplicated=value2|key3=value3", False)
-
-# Change generic parameters with a valid value (duplicated values)
-netedit.modifyAttribute(4, "key1=valueDuplicated|key2=valueDuplicated|key3=valueDuplicated", False)
-
-# Change generic parameters with an invalid value (invalid key characters)
-netedit.modifyAttribute(4, "keyInvalid.;%>%$$=value1|key2=value2|key3=value3", False)
-
-# Change generic parameters with a invalid value (invalid value characters)
-netedit.modifyAttribute(4, "key1=valueInvalid%;%$<>$$%|key2=value2|key3=value3", False)
-
-# Change generic parameters with a valid value
-netedit.modifyAttribute(4, "keyFinal1=value1|keyFinal2=value2|keyFinal3=value3", False)
-
-# Check undo redo
-netedit.undo(referencePosition, 9)
-netedit.redo(referencePosition, 9)
+# check parameters
+netedit.checkParameters(referencePosition, 4, False)
 
 # save additionals
 netedit.saveAdditionals(referencePosition)

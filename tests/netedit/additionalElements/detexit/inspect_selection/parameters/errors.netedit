@@ -82,26 +82,7 @@ Debug: Setting previous attribute selected '0' into edge 'gneE0'
 Debug: Setting previous attribute selected '0' into junction 'gneJ1'
 Debug: Setting previous attribute selected '0' into edge 'gneE1'
 Debug: Setting previous attribute selected '0' into junction 'gneJ0'
-Debug: Keys Ctrl+Z (Undo) pressed
-Debug: Calling GNEUndoList::undo()
-Debug: Removing detEntry 'E3_1detEntry1' in GNEChange_Additional
-Debug: Removing detExit 'E3_1detExit0' in GNEChange_Additional
-Debug: Removed inspected element from Inspected ACs. 1 ACs remains.
-Debug: Removing e3Detector 'E3_1' in GNEChange_Additional
-Debug: Removing detEntry 'E3_0detEntry1' in GNEChange_Additional
-Debug: Removing detExit 'E3_0detExit0' in GNEChange_Additional
-Debug: Removed inspected element from Inspected ACs. 0 ACs remains.
-Debug: Removing e3Detector 'E3_0' in GNEChange_Additional
-Debug: Keys Ctrl+Z (Undo) pressed
 Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
-Debug: Keys Ctrl+Y (Redo) pressed
-Debug: Calling GNEUndoList::redo()
-Debug: Adding e3Detector 'E3_0' in GNEChange_Additional
-Debug: Adding detExit 'E3_0detExit0' in GNEChange_Additional
-Debug: Adding detEntry 'E3_0detEntry1' in GNEChange_Additional
-Debug: Adding e3Detector 'E3_1' in GNEChange_Additional
-Debug: Adding detExit 'E3_1detExit0' in GNEChange_Additional
-Debug: Adding detEntry 'E3_1detEntry1' in GNEChange_Additional
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Setting new attribute selected 'true' into junction 'gneJ0'
@@ -142,7 +123,6 @@ Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Setting new attribute genericParameter 'keyFinal1=value1|keyFinal2=value2|keyFinal3=value3' into detExit 'E3_0detExit0'
 Debug: Setting new attribute genericParameter 'keyFinal1=value1|keyFinal2=value2|keyFinal3=value3' into detExit 'E3_1detExit0'
-Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Additionals saved
 Debug: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()

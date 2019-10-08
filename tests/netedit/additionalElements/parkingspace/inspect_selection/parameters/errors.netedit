@@ -101,33 +101,7 @@ Debug: Setting previous attribute selected '0' into edge 'gneE0'
 Debug: Setting previous attribute selected '0' into junction 'gneJ1'
 Debug: Setting previous attribute selected '0' into edge 'gneE1'
 Debug: Setting previous attribute selected '0' into junction 'gneJ0'
-Debug: Keys Ctrl+Z (Undo) pressed
-Debug: Calling GNEUndoList::undo()
-Debug: Removing space 'parkingArea_Bspace0' in GNEChange_Additional
-Debug: Removed inspected element from Inspected ACs. 1 ACs remains.
-GLDebug: 	Removed object parkingSpace:parkingArea_Bspace0 from SUMORTree with boundary 25.53,1.79,39.98,23.95
-Debug: Removing parkingArea 'parkingArea_B' in GNEChange_Additional
-GLDebug: 	Removed object parkingArea:parkingArea_B from SUMORTree with boundary 24.80,-10.60,43.20,-2.20
-Debug: Removing space 'parkingArea_Aspace0' in GNEChange_Additional
-Debug: Removed inspected element from Inspected ACs. 0 ACs remains.
-GLDebug: 	Removed object parkingSpace:parkingArea_Aspace0 from SUMORTree with boundary 7.05,0.59,23.41,16.95
-Debug: Removing parkingArea 'parkingArea_A' in GNEChange_Additional
-GLDebug: 	Removed object parkingArea:parkingArea_A from SUMORTree with boundary 7.80,-10.60,26.20,-2.20
 Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
-Debug: Keys Ctrl+Y (Redo) pressed
-Debug: Calling GNEUndoList::redo()
-Debug: Adding parkingArea 'parkingArea_A' in GNEChange_Additional
-GLDebug: 	Inserted parkingArea:parkingArea_A into SUMORTree with boundary 7.80,-10.60,26.20,-2.20
-GLDebug: 	Removed object parkingArea:parkingArea_A from SUMORTree with boundary 7.80,-10.60,26.20,-2.20
-GLDebug: 	Inserted parkingArea:parkingArea_A into SUMORTree with boundary 7.80,-10.60,26.20,-2.20
-Debug: Adding space 'parkingArea_Aspace0' in GNEChange_Additional
-GLDebug: 	Inserted parkingSpace:parkingArea_Aspace0 into SUMORTree with boundary 7.05,0.59,23.41,16.95
-Debug: Adding parkingArea 'parkingArea_B' in GNEChange_Additional
-GLDebug: 	Inserted parkingArea:parkingArea_B into SUMORTree with boundary 24.80,-10.60,43.20,-2.20
-GLDebug: 	Removed object parkingArea:parkingArea_B from SUMORTree with boundary 24.80,-10.60,43.20,-2.20
-GLDebug: 	Inserted parkingArea:parkingArea_B into SUMORTree with boundary 24.80,-10.60,43.20,-2.20
-Debug: Adding space 'parkingArea_Bspace0' in GNEChange_Additional
-GLDebug: 	Inserted parkingSpace:parkingArea_Bspace0 into SUMORTree with boundary 25.53,1.79,39.98,23.95
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Setting new attribute selected 'true' into junction 'gneJ0'

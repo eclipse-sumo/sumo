@@ -40,39 +40,8 @@ netedit.inspectMode()
 # inspect first polygon
 netedit.leftClick(referencePosition, 100, 60)
 
-# Change generic parameters with an invalid value (dummy)
-netedit.modifyAttribute(13, "dummyGenericParameters", False)
-
-# Change generic parameters with an invalid value (invalid format)
-netedit.modifyAttribute(13, "key1|key2|key3", False)
-
-# Change generic parameters with a valid value
-netedit.modifyAttribute(13, "key1=value1|key2=value2|key3=value3", False)
-
-# Change generic parameters with a valid value (empty values)
-netedit.modifyAttribute(13, "key1=|key2=|key3=", False)
-
-# Change generic parameters with a valid value (clear parameters)
-netedit.modifyAttribute(13, "", False)
-
-# Change generic parameters with an valid value (duplicated keys)
-netedit.modifyAttribute(13, "key1duplicated=value1|key1duplicated=value2|key3=value3", False)
-
-# Change generic parameters with a valid value (duplicated values)
-netedit.modifyAttribute(13, "key1=valueDuplicated|key2=valueDuplicated|key3=valueDuplicated", False)
-
-# Change generic parameters with an invalid value (invalid key characters)
-netedit.modifyAttribute(13, "keyInvalid.;%>%$$=value1|key2=value2|key3=value3", False)
-
-# Change generic parameters with a invalid value (invalid value characters)
-netedit.modifyAttribute(13, "key1=valueInvalid%;%$<>$$%|key2=value2|key3=value3", False)
-
-# Change generic parameters with a valid value
-netedit.modifyAttribute(13, "keyFinal1=value1|keyFinal2=value2|keyFinal3=value3", False)
-
-# Check undos and redos
-netedit.undo(referencePosition, 8)
-netedit.redo(referencePosition, 8)
+# check parameters
+netedit.checkParameters(referencePosition, 13, False)
 
 # save shapes
 netedit.saveAdditionals(referencePosition)
