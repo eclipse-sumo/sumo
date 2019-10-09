@@ -252,12 +252,14 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(GUISUMOAbstractView* parent, GUIV
 
         new FXHorizontalSeparator(frame3, GUIDesignHorizontalSeparator);
 
-        FXMatrix* m32 = new FXMatrix(frame3, 3, GUIDesignViewSettingsMatrix3);
+        FXMatrix* m32 = new FXMatrix(frame3, 4, GUIDesignViewSettingsMatrix3);
         new FXLabel(m32, "Color", nullptr, GUIDesignViewSettingsLabel1);
         myVehicleColorMode = new MFXIconComboBox(m32, 20, this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignComboBoxStatic);
         mySettings->vehicleColorer.fill(*myVehicleColorMode);
         myVehicleColorMode->setNumVisible((int)mySettings->vehicleColorer.size());
         myVehicleColorInterpolation = new FXCheckButton(m32, "Interpolate", this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignCheckButtonViewSettings);
+        myVehicleParamKey = new FXComboBox(m32, 1, this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignComboBoxStatic);
+        myVehicleParamKey->disable();
 
         myVehicleColorSettingFrame = new FXVerticalFrame(frame3, GUIDesignViewSettingsVerticalFrame4);
 
@@ -894,6 +896,10 @@ GUIDialog_ViewSettings::onCmdColorChange(FXObject* sender, FXSelector, void* /*v
             tmpSettings.laneParam = myParamKey->getText().text();
         } else if (tmpSettings.laneColorer.getScheme().getName() == GUIVisualizationSettings::SCHEME_NAME_EDGEDATA_NUMERICAL) {
             tmpSettings.edgeData = myParamKey->getText().text();
+        }
+    } else if (sender == myVehicleParamKey) {
+        if (tmpSettings.vehicleColorer.getScheme().getName() == GUIVisualizationSettings::SCHEME_NAME_PARAM_NUMERICAL) {
+            tmpSettings.vehicleParam = myVehicleParamKey->getText().text();
         }
     }
     tmpSettings.laneWidthExaggeration = (double) myLaneWidthUpscaleDialer->getValue();
@@ -1552,7 +1558,7 @@ GUIDialog_ViewSettings::rebuildColorMatrices(bool doCreate) {
     } else {
         myJunctionColorRainbow->enable();
     }
-    const std::string activeSchemeName = myLaneEdgeColorMode->getText().text();
+    std::string activeSchemeName = myLaneEdgeColorMode->getText().text();
     myParamKey->clearItems();
     myParamKey->setEditable(true);
     if (activeSchemeName == GUIVisualizationSettings::SCHEME_NAME_EDGE_PARAM_NUMERICAL) {
@@ -1596,6 +1602,30 @@ GUIDialog_ViewSettings::rebuildColorMatrices(bool doCreate) {
     if (doCreate) {
         m->create();
     }
+    activeSchemeName = myVehicleColorMode->getText().text();
+    myVehicleParamKey->setEditable(true);
+    myVehicleParamKey->clearItems();
+    if (activeSchemeName == GUIVisualizationSettings::SCHEME_NAME_PARAM_NUMERICAL) {
+        for (const std::string& attr : myParent->getVehicleParamKeys(false)) {
+            if (attr != mySettings->vehicleParam) {
+                myVehicleParamKey->appendItem(attr.c_str());
+            }
+        }
+        bool hasValue = false;
+        for (int i = 0; i < (int)myVehicleParamKey->getNumItems(); i++) {
+            if (myVehicleParamKey->getItemText(i) == mySettings->vehicleParam.c_str()) {
+                hasValue = true;
+                break;
+            }
+        }
+        if (!hasValue) {
+            myVehicleParamKey->appendItem(mySettings->vehicleParam.c_str());
+        }
+        myVehicleParamKey->enable();
+    } else {
+        myVehicleParamKey->disable();
+    }
+    myVehicleParamKey->setNumVisible(myVehicleParamKey->getNumItems());
     myVehicleColorSettingFrame->getParent()->recalc();
 
     m = rebuildColorMatrix(myPersonColorSettingFrame, myPersonColors, myPersonThresholds, myPersonButtons, myPersonColorInterpolation, mySettings->personColorer.getScheme());

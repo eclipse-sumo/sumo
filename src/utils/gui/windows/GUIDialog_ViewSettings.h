@@ -297,6 +297,7 @@ private:
     FXRealSpinner* myLaneWidthUpscaleDialer;
     FXRealSpinner* myLaneMinWidthDialer;
 
+    // Vehicles
     MFXIconComboBox* myVehicleColorMode, *myVehicleShapeDetail;
     FXVerticalFrame* myVehicleColorSettingFrame;
     std::vector<FXColorWell*> myVehicleColors;
@@ -304,7 +305,9 @@ private:
     std::vector<FXButton*> myVehicleButtons;
     FXCheckButton* myVehicleColorInterpolation;
     FXCheckButton* myShowBlinker, *myShowMinGap, *myShowBrakeGap, *myShowBTRange; /* *myShowLaneChangePreference,*/
+    FXComboBox* myVehicleParamKey;
 
+    // Persons
     MFXIconComboBox* myPersonColorMode, *myPersonShapeDetail;
     FXVerticalFrame* myPersonColorSettingFrame;
     std::vector<FXColorWell*> myPersonColors;
@@ -312,6 +315,7 @@ private:
     std::vector<FXButton*> myPersonButtons;
     FXCheckButton* myPersonColorInterpolation;
 
+    // Containers
     MFXIconComboBox* myContainerColorMode, *myContainerShapeDetail;
     FXVerticalFrame* myContainerColorSettingFrame;
     std::vector<FXColorWell*> myContainerColors;

@@ -486,7 +486,7 @@ GUIVehicle::drawAction_drawVehicleBlueLight() const {
 
 
 double
-GUIVehicle::getColorValue(const GUIVisualizationSettings& /* s */, int activeScheme) const {
+GUIVehicle::getColorValue(const GUIVisualizationSettings& s, int activeScheme) const {
     switch (activeScheme) {
         case 8:
             return getSpeed();
@@ -545,6 +545,17 @@ GUIVehicle::getColorValue(const GUIVisualizationSettings& /* s */, int activeSch
             return getTimeLossSeconds();
         case 29:
             return getLaneChangeModel().getSpeedLat();
+        case 31: // by numerical param value
+            try {
+                return StringUtils::toDouble(myParameter->getParameter(s.vehicleParam, "0"));
+            } catch (NumberFormatException&) {
+                try {
+                    return StringUtils::toBool(myParameter->getParameter(s.vehicleParam, "0"));
+                } catch (BoolFormatException&) {
+                    WRITE_WARNING("Vehicle parameter '" + myParameter->getParameter(s.vehicleParam, "0") + "' key '" + s.vehicleParam + "' is not a number for vehicle '" + getID() + "'");
+                    return -1;
+                }
+            }
     }
     return 0;
 }

@@ -481,6 +481,8 @@ public:
 
     /// @brief key for coloring by edge parameter
     std::string edgeParam, laneParam;
+    /// @brief key for coloring by vehicle parameter
+    std::string vehicleParam;
 
     /// @brief key for coloring by edgeData
     std::string edgeData;
@@ -655,6 +657,7 @@ public:
     /// @brief scheme names
     static const std::string SCHEME_NAME_EDGE_PARAM_NUMERICAL;
     static const std::string SCHEME_NAME_LANE_PARAM_NUMERICAL;
+    static const std::string SCHEME_NAME_PARAM_NUMERICAL;
     static const std::string SCHEME_NAME_EDGEDATA_NUMERICAL;
     static const std::string SCHEME_NAME_SELECTION;
     static const std::string SCHEME_NAME_TYPE;

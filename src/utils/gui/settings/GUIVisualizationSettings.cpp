@@ -133,6 +133,7 @@ const double GUIVisualizationDetailSettings::personExaggeration(4);
 
 const std::string GUIVisualizationSettings::SCHEME_NAME_EDGE_PARAM_NUMERICAL("by param (numerical, streetwise)");
 const std::string GUIVisualizationSettings::SCHEME_NAME_LANE_PARAM_NUMERICAL("by param (numerical, lanewise)");
+const std::string GUIVisualizationSettings::SCHEME_NAME_PARAM_NUMERICAL("by param (numerical)");
 const std::string GUIVisualizationSettings::SCHEME_NAME_EDGEDATA_NUMERICAL("by edgeData (numerical, streetwise)");
 const std::string GUIVisualizationSettings::SCHEME_NAME_SELECTION("by selection");
 const std::string GUIVisualizationSettings::SCHEME_NAME_TYPE("by type");
@@ -324,6 +325,7 @@ GUIVisualizationSettings::GUIVisualizationSettings(bool _netedit) :
     spreadSuperposed(false),
     edgeParam("EDGE_KEY"),
     laneParam("LANE_KEY"),
+    vehicleParam("VEHICLE_KEY"),
     edgeData("speed"),
     vehicleQuality(0), showBlinker(true),
     drawLaneChangePreference(false),
@@ -691,6 +693,9 @@ GUIVisualizationSettings::initSumoGuiDefaults() {
     scheme.setAllowsNegativeValues(true);
     vehicleColorer.addScheme(scheme);
     vehicleColorer.addScheme(GUIColorScheme("random", RGBColor::YELLOW, "", true));
+    scheme = GUIColorScheme(SCHEME_NAME_PARAM_NUMERICAL, RGBColor(204, 204, 204));
+    scheme.setAllowsNegativeValues(true);
+    vehicleColorer.addScheme(scheme);
 
     /// add person coloring schemes
     personColorer.addScheme(GUIColorScheme("given person/type color", RGBColor::BLUE, "", true));
@@ -1213,6 +1218,7 @@ GUIVisualizationSettings::save(OutputDevice& dev) const {
     dev.writeAttr("spreadSuperposed", spreadSuperposed);
     dev.writeAttr("edgeParam", edgeParam);
     dev.writeAttr("laneParam", laneParam);
+    dev.writeAttr("vehicleParam", vehicleParam);
     dev.writeAttr("edgeData", edgeData);
     dev.lf();
     dev << "               ";
@@ -1424,6 +1430,9 @@ GUIVisualizationSettings::operator==(const GUIVisualizationSettings& v2) {
         return false;
     }
     if (laneParam != v2.laneParam) {
+        return false;
+    }
+    if (vehicleParam != v2.vehicleParam) {
         return false;
     }
     if (edgeData != v2.edgeData) {

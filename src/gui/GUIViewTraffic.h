@@ -94,6 +94,9 @@ public:
     /// @brief return list of available edge parameters
     std::vector<std::string> getEdgeLaneParamKeys(bool edgeKeys) const;
 
+    /// @brief return list of available vehicle parameters
+    std::vector<std::string> getVehicleParamKeys(bool vTypeKeys) const; 
+
     /// @brief handle mouse click in gaming mode
     void onGamingClick(Position pos);
     void onGamingRightClick(Position pos);

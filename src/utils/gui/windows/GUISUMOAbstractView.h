@@ -237,6 +237,11 @@ public:
         return std::vector<std::string>();
     }
 
+    /// @brief return list of available vehicle parameters
+    virtual std::vector<std::string> getVehicleParamKeys(bool /*vTypeKeys*/) const {
+        return std::vector<std::string>();
+    }
+
     /// @brief remove viewport
     void remove(GUIDialog_EditViewport*);
 
