@@ -177,13 +177,10 @@ MSCFModel_CC::finalizeSpeed(MSVehicle* const veh, double vPos) const {
 
     //check whether the vehicle has collided and set the flag in case
     if (!vars->crashed) {
-        std::list<MSVehicle::Stop> stops = veh->getMyStops();
-        for (auto s : stops)
-            if (s.collision) {
-                vars->crashed = true;
-            }
+    	if(MSNet::getInstance()->getVehicleControl().getCollisionCount()>0) {
+             vars->crashed = true;
+	}
     }
-
     if (vars->activeController != Plexe::DRIVER) {
         veh->setChosenSpeedFactor(vars->ccDesiredSpeed / veh->getLane()->getSpeedLimit());
     }
