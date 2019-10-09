@@ -49,6 +49,7 @@ FXDEFMAP(GUIDialog_GLObjChooser) GUIDialog_GLObjChooserMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_CHOOSER_TEXT,   GUIDialog_GLObjChooser::onCmdText),
     FXMAPFUNC(SEL_KEYPRESS, MID_CHOOSER_LIST,   GUIDialog_GLObjChooser::onListKeyPress),
     FXMAPFUNC(SEL_COMMAND,  MID_CHOOSER_FILTER, GUIDialog_GLObjChooser::onCmdFilter),
+    FXMAPFUNC(SEL_COMMAND,  MID_CHOOSER_FILTER_SUBSTR, GUIDialog_GLObjChooser::onCmdFilterSubstr),
     FXMAPFUNC(SEL_COMMAND,  MID_CHOOSEN_INVERT,  GUIDialog_GLObjChooser::onCmdToggleSelection),
     FXMAPFUNC(SEL_COMMAND,  MID_CHOOSEN_NAME,  GUIDialog_GLObjChooser::onCmdLocateByName),
 };
@@ -81,6 +82,7 @@ GUIDialog_GLObjChooser::GUIDialog_GLObjChooser(GUIGlChildWindow* parent, FXIcon*
     }
     new FXHorizontalSeparator(layoutRight, GUIDesignHorizontalSeparator);
     new FXButton(layoutRight, "&Hide Unselected\t\t", GUIIconSubSys::getIcon(ICON_FLAG), this, MID_CHOOSER_FILTER, GUIDesignChooserButtons);
+    new FXButton(layoutRight, "&Filter substring\t\t", nullptr, this, MID_CHOOSER_FILTER_SUBSTR, GUIDesignChooserButtons);
     new FXButton(layoutRight, "&Select/deselect\tSelect/deselect current object\t", GUIIconSubSys::getIcon(ICON_FLAG), this, MID_CHOOSEN_INVERT, GUIDesignChooserButtons);
     new FXButton(layoutRight, "By &Name\tLocate item by name\t", nullptr, this, MID_CHOOSEN_NAME, GUIDesignChooserButtons);
     new FXHorizontalSeparator(layoutRight, GUIDesignHorizontalSeparator);
@@ -212,6 +214,23 @@ GUIDialog_GLObjChooser::onCmdFilter(FXObject*, FXSelector, void*) {
     refreshList(selectedGlIDs);
     return 1;
 }
+
+
+long
+GUIDialog_GLObjChooser::onCmdFilterSubstr(FXObject*, FXSelector, void*) {
+    std::vector<GUIGlID> selectedGlIDs;
+    const int numItems = myList->getNumItems();
+    FXString t = myTextEntry->getText().lower();
+    for (int i = 0; i < numItems; i++) {
+        if (myList->getItemText(i).lower().find(t) >= 0) {
+            const GUIGlID glID = *static_cast<GUIGlID*>(myList->getItemData(i));
+            selectedGlIDs.push_back(glID);
+        }
+    }
+    refreshList(selectedGlIDs);
+    return 1;
+}
+
 
 std::string
 GUIDialog_GLObjChooser::getObjectName(GUIGlObject* o) const {

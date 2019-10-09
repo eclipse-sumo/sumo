@@ -497,6 +497,8 @@ enum {
     MID_CHOOSER_LIST,
     /// @brief Filter selected
     MID_CHOOSER_FILTER,
+    /// @brief Filter list by substring
+    MID_CHOOSER_FILTER_SUBSTR,
 
     /// @}
 
