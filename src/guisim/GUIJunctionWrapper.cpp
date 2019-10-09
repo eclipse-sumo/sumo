@@ -128,6 +128,10 @@ GUIJunctionWrapper::getCenteringBoundary() const {
     return b;
 }
 
+const std::string
+GUIJunctionWrapper::getOptionalName() const {
+    return myJunction.getParameter("name", "");
+}
 
 void
 GUIJunctionWrapper::drawGL(const GUIVisualizationSettings& s) const {
