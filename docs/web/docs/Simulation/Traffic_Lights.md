@@ -602,7 +602,7 @@ setPhase, select the yellow phase that starts the transition to the
 target green phase.
 
 These additional transition phases can be added to the end of the
-program and the optional phase attribute  can be used to indicated the
+program and the optional phase attribute "next" can be used to indicated the
 next phase after the transition ends.
 
 Tutorials for controlling traffic lights in this way can be found at
