@@ -970,7 +970,7 @@ MSPModel_Striping::moveInDirectionOnLane(Pedestrians& pedestrians, const MSLane*
         PState& p = *pedestrians[ii];
         //std::cout << SIMTIME << "CHECKING" << p.myPerson->getID() << "\n";
         Obstacles currentObs = obs;
-        if (p.myDir != dir || changedLane.count(p.myPerson) != 0) {
+        if (p.myDir != dir || changedLane.count(p.myPerson) != 0 || p.myRemoteXYPos != Position::INVALID) {
             if (!p.myWaitingToEnter) {
                 //if DEBUGCOND(p) {
                 //    std::cout << "   obs=" << p.myPerson->getID() << "  y=" << p.myRelY << "  stripe=" << p.stripe() << " oStripe=" << p.otherStripe() << "\n";
@@ -1789,6 +1789,9 @@ MSPModel_Striping::PState::getEdgePos(const MSPerson::MSPersonStage_Walking&, SU
 
 Position
 MSPModel_Striping::PState::getPosition(const MSPerson::MSPersonStage_Walking& stage, SUMOTime) const {
+    if (myRemoteXYPos != Position::INVALID) {
+        return myRemoteXYPos;
+    }
     if (myLane == nullptr) {
         // pedestrian has already finished
         return Position::INVALID;
@@ -1857,18 +1860,18 @@ MSPModel_Striping::PState::moveToXY(MSPerson* p, Position pos, MSLane* lane, dou
     assert(p == myPerson);
     myAngle = angle;
     myAngle = GeomHelper::fromNaviDegree(angle);
-    /*
-    std::cout << " MSPModel_Striping::PState::moveToXY"
-        << " pos=" << pos
-        << " lane=" << lane->getID()
-        << " lanePos=" << lanePos
-        << " lanePosLat=" << lanePosLat
-        << " angle=" << angle
-        << " routeOffset=" << routeOffset
-        << " myRelX=" << myRelX << " myRelY=" << myRelY;
-        */
-    //std::cout << " newX=" << myRelX << " newY=" << myRelY << "\n";
-    if (lane != nullptr) {
+    //std::cout << SIMTIME << " ped=" << p->getID()
+    //    << " moveToXY"
+    //    << " pos=" << pos
+    //    << " lane=" << lane->getID()
+    //    << " lanePos=" << lanePos
+    //    << " lanePosLat=" << lanePosLat
+    //    << " angle=" << angle
+    //    << " routeOffset=" << routeOffset
+    //    << " edges=" << toString(edges)
+    //    << "\n";
+    if (lane != nullptr && 
+            fabs(lanePosLat) < (0.5 * (lane->getWidth() + p->getVehicleType().getWidth()) + SIDEWALK_OFFSET)) {
         myRemoteXYPos = Position::INVALID;
         const MSLane* sidewalk = getSidewalk<MSEdge, MSLane>(&lane->getEdge());
         if (lane != sidewalk) {
@@ -1890,6 +1893,7 @@ MSPModel_Striping::PState::moveToXY(MSPerson* p, Position pos, MSLane* lane, dou
         myLane = lane;
         myRelX = lanePos;
         myRelY = (myLane->getWidth() - stripeWidth) * 0.5 - lanePosLat;
+        //std::cout << " newX=" << myRelX << " newY=" << myRelY << "\n";
     } else {
         // map outside the network
         myRemoteXYPos = pos;
