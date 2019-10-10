@@ -325,7 +325,8 @@ GUIVisualizationSettings::GUIVisualizationSettings(bool _netedit) :
     spreadSuperposed(false),
     edgeParam("EDGE_KEY"),
     laneParam("LANE_KEY"),
-    vehicleParam("VEHICLE_KEY"),
+    vehicleParam("PARAM_NUMERICAL"),
+    vehicleTextParam("PARAM_TEXT"),
     edgeData("speed"),
     vehicleQuality(0), showBlinker(true),
     drawLaneChangePreference(false),
@@ -334,6 +335,7 @@ GUIVisualizationSettings::GUIVisualizationSettings(bool _netedit) :
     showBTRange(false), vehicleSize(1),
     vehicleName(false, 60, RGBColor(204, 153, 0, 255)),
     vehicleValue(false, 80, RGBColor::CYAN),
+    vehicleText(false, 80, RGBColor::RED),
     personQuality(0),
     personSize(1),
     personName(false, 60, RGBColor(0, 153, 204, 255)),
@@ -1219,6 +1221,7 @@ GUIVisualizationSettings::save(OutputDevice& dev) const {
     dev.writeAttr("edgeParam", edgeParam);
     dev.writeAttr("laneParam", laneParam);
     dev.writeAttr("vehicleParam", vehicleParam);
+    dev.writeAttr("vehicleTextParam", vehicleTextParam);
     dev.writeAttr("edgeData", edgeData);
     dev.lf();
     dev << "               ";
@@ -1254,6 +1257,9 @@ GUIVisualizationSettings::save(OutputDevice& dev) const {
     dev.lf();
     dev << "                 ";
     vehicleValue.print(dev, "vehicleValue");
+    dev.lf();
+    dev << "                 ";
+    vehicleText.print(dev, "vehicleText");
     vehicleColorer.save(dev);
     dev.closeTag();
     // persons
@@ -1435,6 +1441,9 @@ GUIVisualizationSettings::operator==(const GUIVisualizationSettings& v2) {
     if (vehicleParam != v2.vehicleParam) {
         return false;
     }
+    if (vehicleTextParam != v2.vehicleTextParam) {
+        return false;
+    }
     if (edgeData != v2.edgeData) {
         return false;
     }
@@ -1466,6 +1475,9 @@ GUIVisualizationSettings::operator==(const GUIVisualizationSettings& v2) {
         return false;
     }
     if (vehicleValue != v2.vehicleValue) {
+        return false;
+    }
+    if (vehicleText != v2.vehicleText) {
         return false;
     }
     if (!(personColorer == v2.personColorer)) {

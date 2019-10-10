@@ -483,6 +483,8 @@ public:
     std::string edgeParam, laneParam;
     /// @brief key for coloring by vehicle parameter
     std::string vehicleParam;
+    /// @brief key for rendering textual parameter
+    std::string vehicleTextParam;
 
     /// @brief key for coloring by edgeData
     std::string edgeData;
@@ -516,7 +518,7 @@ public:
     GUIVisualizationSizeSettings vehicleSize;
 
     // Setting bundles for optional drawing vehicle names or color value
-    GUIVisualizationTextSettings vehicleName, vehicleValue;
+    GUIVisualizationTextSettings vehicleName, vehicleValue, vehicleText;
 
     /// @}
 

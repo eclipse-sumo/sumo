@@ -64,6 +64,7 @@ public:
         FXColorWell* myColorWell;
         FXColorWell* myBGColorWell;
         FXCheckButton* myConstSizeCheck;
+        FXMatrix* myMatrix0;
     };
 
     class SizePanel {
@@ -232,6 +233,9 @@ private:
     /// @brief load window position and size from the registry
     void loadWindowSize();
 
+    /// @brief reload known vehicle parameters
+    void updateVehicleParams();
+
 private:
     /// @brief The parent view (which settings are changed)
     GUISUMOAbstractView* myParent;
@@ -306,6 +310,7 @@ private:
     FXCheckButton* myVehicleColorInterpolation;
     FXCheckButton* myShowBlinker, *myShowMinGap, *myShowBrakeGap, *myShowBTRange; /* *myShowLaneChangePreference,*/
     FXComboBox* myVehicleParamKey;
+    FXComboBox* myVehicleTextParamKey;
 
     // Persons
     MFXIconComboBox* myPersonColorMode, *myPersonShapeDetail;
@@ -359,7 +364,7 @@ private:
                *myJunctionIndexPanel, *myTLIndexPanel,
                *myJunctionNamePanel, *myInternalJunctionNamePanel,
                *myTLSPhaseIndexPanel,
-               *myVehicleNamePanel, *myVehicleValuePanel,
+               *myVehicleNamePanel, *myVehicleValuePanel, *myVehicleTextPanel,
                *myPersonNamePanel, *myPersonValuePanel,
                *myContainerNamePanel,
                *myAddNamePanel, *myAddFullNamePanel, *myPOINamePanel, *myPolyNamePanel, *myPOITypePanel, *myPolyTypePanel;
