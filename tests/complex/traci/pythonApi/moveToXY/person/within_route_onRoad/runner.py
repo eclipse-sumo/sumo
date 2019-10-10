@@ -47,7 +47,7 @@ print("jumping onto the road on the same edge")
 traci.person.moveToXY(p, "", x - 5, y)
 for i in range(20):
     s = step()
+    x, y = traci.person.getPosition(p)
     print("s=%s x=%s y=%s" % (s, x, y))
-x, y = traci.person.getPosition(p)
 step()
 traci.close()
