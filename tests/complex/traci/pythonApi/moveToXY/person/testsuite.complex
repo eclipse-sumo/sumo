@@ -3,3 +3,6 @@ within_route
 
 # move person within the current route but on the road (off the sidewalk)
 within_route_onRoad
+
+# move person outside the road network
+outside_network
