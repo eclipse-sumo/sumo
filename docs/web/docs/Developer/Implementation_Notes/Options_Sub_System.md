@@ -94,16 +94,16 @@ are derived from the class **Option**:
 - Option_StringVector
 
 The names of the classes reflect the types which are awaited as
-parameter for the option. Do also remark, that later acces for reading
+parameter for the option. Do also remark, that later access for reading
 should be done in dependence to the type - it means that you should not
-try to get a string from an **Option_Float**. This yields in an
+try to get a string from an **Option_Float**. This results in an
 exception.
 
 !!! caution
     All subclasses of Option are stored within the files ''{{SUMO}}*/src/utils/options/Option.h* and ''{{SUMO}}*/src/utils/options/Option.cpp*. This is surely not wished as when following the coding styleguide, each class should be stored in a separate pair of files. Also, one could imagine to use templates, here.
 
-Every of the option's subclasses has two constructors: one
-that is parametrised with the appropriate type and a parameterless one.
+Every one of the option's subclasses has two constructors: one
+that is parametrised with the appropriate type and a parameter-less one.
 The parametrised constructor is used to supply default values for
 options, in the other case, no value is known to the system at first. An
 example: settings the "verbose"-switch as following, lets the
@@ -117,7 +117,7 @@ oc.doRegister("verbose", 'v', new Option_Bool(false));
 
 One can also add synonymes for options. If you want to implement the
 option "**name-of-vehicle-that-shall-halt**", but you wish to have a
-shorter name, too, use the following to make the same option accessable
+shorter name, too, use the following to make the same option accessible
 using both "**name-of-vehicle-that-shall-halt**" and "**v2h**":
 
 ```
@@ -131,21 +131,21 @@ If no default value was supplied for an option, you should ask the
 **OptionsCont** whether it has been set. Access to values of unset
 options causes exceptions. This may sound hard, but as it's only the
 developer who accesses the options container in fact, it's the best way
-to assure security of the code. One can determin whether an option is
+to assure security of the code. One can determine whether an option is
 set using
 
 ```
 bool OptionsCont::isSet(const std::string &name) const;
 ```
 
-If one has to know whether an options still stores the default value or
+If one has to know whether an option still stores the default value or
 a value was supplied by the user, he/she may call
 
 ```
 bool OptionsCont::isDefault(const std::string &name) const;
 ```
 
-In dependence to the type of an option, one can retrieve her value using
+Dependent on the type of an option, one can retrieve its value using
 the following methods from OptionsCont:
 
 ```
@@ -154,13 +154,15 @@ long OptionsCont::getLong(const std::string &name) const;
 std::string OptionsCont::getString(const std::string &name) const;
 float OptionsCont::getFloat(const std::string &name) const;
 const IntVector &OptionsCont::getIntVector(const std::string &name) const;
+const FloatVector &OptionsCont::getFloatVector(const std::string &name) const;
+const StringVector &OptionsCont::getStringVector(const std::string &name) const;
 ```
 
-Using an inproper method yields in an exception.
+Using an inproper method yields an exception.
 
 You may have noticed, that there is one method to retrieve a certain
 value less than types available. The type **Option_FileName** returns a
-string, too. The only difference is their type which allows a different
+string-vector, too. The only difference is their type which allows a different
 processing of the values to set when parsing.
 
 Please note, that it is good style to use the long (longest in fact)
