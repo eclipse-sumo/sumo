@@ -464,27 +464,25 @@ Option_BoolExtended::getValueString() const {
  * Option_FileName - methods
  * ----------------------------------------------------------------------- */
 Option_FileName::Option_FileName()
-    : Option_String() {
+    : Option_StringVector() {
     myTypeName = "FILE";
 }
 
 
-Option_FileName::Option_FileName(const std::string& value)
-    : Option_String(value) {
+Option_FileName::Option_FileName(const StringVector& value)
+    : Option_StringVector(value) {
     myTypeName = "FILE";
 }
 
-
-Option_FileName::Option_FileName(const Option_String& s)
-    : Option_String(s) {}
-
+Option_FileName::Option_FileName(const Option_FileName& s)
+    : Option_StringVector(s) {}
 
 Option_FileName::~Option_FileName() {}
 
 
 Option_FileName&
 Option_FileName::operator=(const Option_FileName& s) {
-    Option_String::operator=(s);
+    Option_StringVector::operator=(s);
     return (*this);
 }
 
@@ -497,7 +495,7 @@ Option_FileName::isFileName() const {
 
 std::string
 Option_FileName::getValueString() const {
-    return StringUtils::urlEncode(myValue, " ;%");
+    return StringUtils::urlEncode(Option_StringVector::getValueString(), " ;%");
 }
 
 

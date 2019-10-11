@@ -661,7 +661,7 @@ private:
 /* -------------------------------------------------------------------------
  * Option_FileName
  * ----------------------------------------------------------------------- */
-class Option_FileName : public Option_String {
+class Option_FileName : public Option_StringVector {
 public:
     /** @brief Constructor for an option with no default value
      */
@@ -672,12 +672,10 @@ public:
      *
      * @param[in] value This option's default value
      */
-    Option_FileName(const std::string& value);
-
+    Option_FileName(const StringVector& value);
 
     /** @brief Copy constructor */
-    Option_FileName(const Option_String& s);
-
+    Option_FileName(const Option_FileName& s);
 
     /** @brief Destructor */
     virtual ~Option_FileName();
@@ -703,8 +701,6 @@ public:
      * @return The stored value encoded into a string
      */
     std::string getValueString() const;
-
-
 };
 
 
