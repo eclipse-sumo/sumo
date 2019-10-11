@@ -46,6 +46,7 @@
 //#define DEBUG_COND (myLane->getID()=="43[0]_0" && myLaneBefore->getID()==":33_0_0")
 //#define DEBUG_COND (myLane->getID()=="end_0")
 //#define DEBUG_COND (true)
+//#define DEBUG_COND2(obj) (obj->isSelected())
 //#define DEBUG_COND_ZIPPER (gDebugFlag1)
 //#define DEBUG_COND_ZIPPER (true)
 #define DEBUG_COND_ZIPPER (ego->isSelected())
@@ -366,7 +367,7 @@ MSLink::setApproaching(const SUMOVehicle* approaching, const SUMOTime arrivalTim
                        const bool setRequest, const SUMOTime arrivalTimeBraking, const double arrivalSpeedBraking, const SUMOTime waitingTime, double dist) {
     const SUMOTime leaveTime = getLeaveTime(arrivalTime, arrivalSpeed, leaveSpeed, approaching->getVehicleType().getLength());
 #ifdef DEBUG_APPROACHING
-    if (DEBUG_COND) {
+    if (DEBUG_COND2(approaching)) {
         std::cout << SIMTIME << " Link ''" << (myLaneBefore == 0 ? "NULL" : myLaneBefore->getID()) << "'->'" << (myLane == 0 ? "NULL" : myLane->getID()) << "' Adding approaching vehicle '" << approaching->getID() << "'\nCurrently registered vehicles:" << std::endl;
         for (auto i = myApproachingVehicles.begin(); i != myApproachingVehicles.end(); ++i) {
             std::cout << "'" << i->first->getID() << "'" << std::endl;
@@ -383,7 +384,7 @@ void
 MSLink::setApproaching(const SUMOVehicle* approaching, ApproachingVehicleInformation ai) {
 
 #ifdef DEBUG_APPROACHING
-    if (DEBUG_COND) {
+    if (DEBUG_COND2(approaching)) {
         std::cout << SIMTIME << " Link ''" << (myLaneBefore == 0 ? "NULL" : myLaneBefore->getID()) << "'->'" << (myLane == 0 ? "NULL" : myLane->getID()) << "' Adding approaching vehicle '" << approaching->getID() << "'\nCurrently registered vehicles:" << std::endl;
         for (auto i = myApproachingVehicles.begin(); i != myApproachingVehicles.end(); ++i) {
             std::cout << "'" << i->first->getID() << "'" << std::endl;
@@ -416,7 +417,7 @@ void
 MSLink::removeApproaching(const SUMOVehicle* veh) {
 
 #ifdef DEBUG_APPROACHING
-    if (DEBUG_COND) {
+    if (DEBUG_COND2(veh)) {
         std::cout << SIMTIME << " Link ''" << (myLaneBefore == 0 ? "NULL" : myLaneBefore->getID()) << "'->'" << (myLane == 0 ? "NULL" : myLane->getID()) << std::endl;
         std::cout << "' Removing approaching vehicle '" << veh->getID() << "'\nCurrently registered vehicles:" << std::endl;
         for (auto i = myApproachingVehicles.begin(); i != myApproachingVehicles.end(); ++i) {
