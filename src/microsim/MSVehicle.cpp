@@ -802,7 +802,8 @@ MSVehicle::Influencer::isRemoteAffected(SUMOTime t) const {
 void
 MSVehicle::Influencer::postProcessRemoteControl(MSVehicle* v) {
     const bool wasOnRoad = v->isOnRoad();
-    if (v->isOnRoad()) {
+    const bool keepLane = v->getLane() == myRemoteLane;
+    if (v->isOnRoad() && !keepLane) {
         v->onRemovalFromNet(MSMoveReminder::NOTIFICATION_TELEPORT);
         v->getLane()->removeVehicle(v, MSMoveReminder::NOTIFICATION_TELEPORT);
     }
@@ -814,11 +815,16 @@ MSVehicle::Influencer::postProcessRemoteControl(MSVehicle* v) {
         myRemotePos = myRemoteLane->getLength();
     }
     if (myRemoteLane != nullptr && fabs(myRemotePosLat) < 0.5 * (myRemoteLane->getWidth() + v->getVehicleType().getWidth())) {
-        MSMoveReminder::Notification notify = v->getDeparture() == NOT_YET_DEPARTED
-                                              ? MSMoveReminder::NOTIFICATION_DEPARTED
-                                              : MSMoveReminder::NOTIFICATION_TELEPORT_ARRIVED;
-        myRemoteLane->forceVehicleInsertion(v, myRemotePos, notify, myRemotePosLat);
-        v->updateBestLanes();
+        if (keepLane) {
+            v->myState.myPos = myRemotePos;
+            v->myState.myPosLat = myRemotePosLat;
+        } else {
+            MSMoveReminder::Notification notify = v->getDeparture() == NOT_YET_DEPARTED
+                ? MSMoveReminder::NOTIFICATION_DEPARTED
+                : MSMoveReminder::NOTIFICATION_TELEPORT_ARRIVED;
+            myRemoteLane->forceVehicleInsertion(v, myRemotePos, notify, myRemotePosLat);
+            v->updateBestLanes();
+        }
         if (!wasOnRoad) {
             v->drawOutsideNetwork(false);
         }
