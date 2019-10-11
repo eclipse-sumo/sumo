@@ -102,7 +102,12 @@ Option::getIntVector() const {
 
 const FloatVector&
 Option::getFloatVector() const {
-    throw InvalidArgument("This is not an float vector-option");
+    throw InvalidArgument("This is not a float vector-option");
+}
+
+const StringVector& 
+Option::getStringVector() const {
+    throw InvalidArgument("This is not a string vector-option");
 }
 
 bool
@@ -617,6 +622,56 @@ Option_FloatVector::set(const std::string& v) {
 
 std::string
 Option_FloatVector::getValueString() const {
+    return joinToString(myValue, ',');
+}
+
+
+/* -------------------------------------------------------------------------
+ * Option_StringVector - methods
+ * ----------------------------------------------------------------------- */
+Option_StringVector::Option_StringVector() : Option() { myTypeName = "STR[]"; }
+
+Option_StringVector::Option_StringVector(const StringVector& value)
+    : Option(true), myValue(value) {
+    myTypeName = "STR[]";
+}
+
+Option_StringVector::Option_StringVector(const Option_StringVector& s)
+    : Option(s), myValue(s.myValue) {}
+
+Option_StringVector::~Option_StringVector() {}
+
+Option_StringVector&
+Option_StringVector::operator=(const Option_StringVector& s) {
+    Option::operator=(s);
+    myValue = s.myValue;
+    return (*this);
+}
+
+const StringVector&
+Option_StringVector::getStringVector() const { return myValue; }
+
+bool
+Option_StringVector::set(const std::string& v) {
+    myValue.clear();
+    try {
+        if (v.find(';') != std::string::npos) {
+            WRITE_WARNING("Please note that using ';' as list separator is deprecated and not accepted anymore.");
+        }
+        StringTokenizer st(v, ",", true);
+        while (st.hasNext()) {
+            myValue.push_back(StringUtils::prune(st.next()));
+        }
+        return markSet();
+    } catch (EmptyData&) {
+        throw ProcessError("Empty element occurred in " + v);
+    } catch (...) {
+        throw ProcessError("'" + v + "' is not a valid string vector.");
+    }
+}
+
+std::string
+Option_StringVector::getValueString() const {
     return joinToString(myValue, ',');
 }
 

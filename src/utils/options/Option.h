@@ -44,7 +44,11 @@ typedef std::vector<int> IntVector;
  * @brief Definition of a vector of doubles
  */
 typedef std::vector<double> FloatVector;
-
+/**
+ * @typedef StringVector
+ * @brief Definition of a vector of strings
+ */
+typedef std::vector<std::string> StringVector;
 
 /* -------------------------------------------------------------------------
  * Option
@@ -155,6 +159,15 @@ public:
      */
     virtual const FloatVector& getFloatVector() const;
 
+    /** @brief Returns the stored string vector
+     *
+     * Option_StringVector returns the stored string vector in this method's reimplementation.
+     *  All other option classes do not override this method which throws an InvalidArgument-exception.
+     *
+     * @return Returns the stored string vector if being an instance of Option_StringVector
+     * @exception InvalidArgument If the class is not an instance of Option_StringVector
+     */
+    virtual const StringVector& getStringVector() const;
 
     /** @brief Stores the given value
      *
@@ -832,6 +845,69 @@ public:
 private:
     /** the value, valid only when the base-classes "myAmSet"-member is true */
     FloatVector myValue;
+};
+
+
+/* -------------------------------------------------------------------------
+ * Option_StringVector
+ * ----------------------------------------------------------------------- */
+class Option_StringVector : public Option {
+public:
+    /** @brief Constructor for an option with no default value
+     */
+    Option_StringVector();
+
+    /** @brief Constructor for an option with a default value
+     *
+     * @param[in] value This option's default value
+     */
+    Option_StringVector(const StringVector& value);
+
+    /** @brief Copy constructor */
+    Option_StringVector(const Option_StringVector& s);
+
+    /** @brief Destructor */
+    virtual ~Option_StringVector();
+
+    /** @brief Assignment operator */
+    Option_StringVector& operator=(const Option_StringVector& s);
+
+    /** @brief Returns the stored string vector
+     * @see const StringVector &Option::getStringVector()
+     * @return Returns the stored string vector
+     */
+    const StringVector& getStringVector() const;
+
+    /** @brief Stores the given value after parsing it into a vector of strings
+     *
+     *  The value is converted into a vector of strings and stored in "myValue".
+     *  Then, "markSet" is called in order to know that a value has been set.
+     *
+     * The method returns whether the value could be set (the return value from
+     *  "markSet").
+     *
+     * If the string could not be converted into a vector of strings, an
+     * InvalidArgument is thrown.
+     *
+     * @see bool Option::set(std::string v)
+     * @return Whether the new value could be set
+     * @exception InvalidArgument If the value could not be converted into a
+     * vector of strings
+     */
+    bool set(const std::string& v);
+
+    /** @brief Returns the string-representation of the value
+     *
+     * The stored value is encoded into a string and returned.
+     *
+     * @see std::string Option::getValueString()
+     * @return The stored value encoded into a string
+     */
+    std::string getValueString() const;
+
+private:
+    /** the value, valid only when the base-classes "myAmSet"-member is true */
+    StringVector myValue;
 };
 #endif
 

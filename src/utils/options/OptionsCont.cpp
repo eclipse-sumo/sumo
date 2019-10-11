@@ -239,6 +239,11 @@ OptionsCont::getFloatVector(const std::string& name) const {
     return o->getFloatVector();
 }
 
+const StringVector&
+OptionsCont::getStringVector(const std::string& name) const {
+    Option* o = getSecure(name);
+    return o->getStringVector();
+}
 
 bool
 OptionsCont::set(const std::string& name, const std::string& value) {
@@ -914,17 +919,6 @@ OptionsCont::writeXMLHeader(std::ostream& os, const bool includeConfig) const {
         writeConfiguration(os, true, false, false, true);
     }
     os << "-->\n\n";
-}
-
-
-std::vector<std::string>
-OptionsCont::getStringVector(const std::string& name) const {
-    StringTokenizer st(getSecure(name)->getString(), ",", true);
-    std::vector<std::string> ret = st.getVector();
-    for (std::vector<std::string>::iterator i = ret.begin(); i != ret.end(); ++i) {
-        (*i) = StringUtils::prune(*i);
-    }
-    return ret;
 }
 
 
