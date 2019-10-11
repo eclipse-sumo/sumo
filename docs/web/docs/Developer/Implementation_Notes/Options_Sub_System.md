@@ -90,6 +90,8 @@ are derived from the class **Option**:
 - Option_String
 - Option_FileName
 - Option_IntVector
+- Option_FloatVector
+- Option_StringVector
 
 The names of the classes reflect the types which are awaited as
 parameter for the option. Do also remark, that later acces for reading
