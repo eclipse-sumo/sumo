@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Oct  2 22:03:36 2019 by Eclipse SUMO netconvert Version v1_3_1+0549-1866782b5ee
+<!-- generated on Fri Oct 11 13:08:32 2019 by Eclipse SUMO netconvert Version v1_3_1+0580-e6dd46c
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -51,7 +51,7 @@ SPDX-License-Identifier: EPL-2.0
     <type id="highway.residential" priority="3" numLanes="1" speed="13.89" disallow="tram rail_urban rail rail_electric rail_fast ship" oneway="0"/>
     <type id="highway.secondary" priority="11" numLanes="1" speed="27.78" disallow="tram rail_urban rail rail_electric rail_fast ship" oneway="0"/>
     <type id="highway.secondary_link" priority="6" numLanes="1" speed="22.22" disallow="tram rail_urban rail rail_electric rail_fast ship" oneway="0"/>
-    <type id="highway.service" priority="1" numLanes="1" speed="5.56" disallow="tram rail_urban rail rail_electric rail_fast ship" oneway="0"/>
+    <type id="highway.service" priority="1" numLanes="1" speed="5.56" allow="pedestrian delivery bicycle" oneway="0"/>
     <type id="highway.stairs" priority="1" numLanes="1" speed="1.39" allow="pedestrian" oneway="1" width="2.00"/>
     <type id="highway.step" priority="1" numLanes="1" speed="1.39" allow="pedestrian" oneway="1" width="2.00"/>
     <type id="highway.steps" priority="1" numLanes="1" speed="1.39" allow="pedestrian" oneway="1" width="2.00"/>
@@ -359,7 +359,7 @@ SPDX-License-Identifier: EPL-2.0
         <lane id="456567144_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="27.78" length="808.99" shape="2.12,-2.40 162.35,139.28 173.63,151.25 447.59,399.29 605.87,535.86">
             <param key="origId" value="456567144"/>
         </lane>
-        <lane id="456567144_1" index="1" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="27.78" length="808.99" shape="0.00,-0.00 160.12,141.58 171.39,153.53 445.47,401.69 603.78,538.29">
+        <lane id="456567144_1" index="1" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="27.78" length="808.99" shape="-0.00,-0.00 160.12,141.58 171.39,153.53 445.47,401.69 603.78,538.29">
             <param key="origId" value="456567144"/>
         </lane>
         <lane id="456567144_2" index="2" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="27.78" length="808.99" shape="-2.12,2.40 157.89,143.88 169.14,155.82 443.35,404.09 601.69,540.71">

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Oct  2 22:03:28 2019 by Eclipse SUMO netconvert Version v1_3_1+0549-1866782b5ee
+<!-- generated on Fri Oct 11 13:08:31 2019 by Eclipse SUMO netconvert Version v1_3_1+0580-e6dd46c
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -47,7 +47,7 @@ SPDX-License-Identifier: EPL-2.0
     <type id="highway.residential" priority="3" numLanes="1" speed="13.89" disallow="tram rail_urban rail rail_electric rail_fast ship" oneway="0"/>
     <type id="highway.secondary" priority="11" numLanes="1" speed="27.78" disallow="tram rail_urban rail rail_electric rail_fast ship" oneway="0"/>
     <type id="highway.secondary_link" priority="6" numLanes="1" speed="22.22" disallow="tram rail_urban rail rail_electric rail_fast ship" oneway="0"/>
-    <type id="highway.service" priority="1" numLanes="1" speed="5.56" disallow="tram rail_urban rail rail_electric rail_fast ship" oneway="0"/>
+    <type id="highway.service" priority="1" numLanes="1" speed="5.56" allow="pedestrian delivery bicycle" oneway="0"/>
     <type id="highway.stairs" priority="1" numLanes="1" speed="1.39" allow="pedestrian" oneway="1" width="2.00"/>
     <type id="highway.step" priority="1" numLanes="1" speed="1.39" allow="pedestrian" oneway="1" width="2.00"/>
     <type id="highway.steps" priority="1" numLanes="1" speed="1.39" allow="pedestrian" oneway="1" width="2.00"/>
@@ -121,7 +121,7 @@ SPDX-License-Identifier: EPL-2.0
         <lane id="482129448#1_0" index="0" allow="rail rail_electric rail_fast" speed="44.44" length="306.34" shape="3739.53,769.34 3435.94,810.29"/>
     </edge>
     <edge id="5000772" from="387505108" to="321794392" priority="21" type="railway.highspeed" spreadType="center" shape="2.14,1381.65 114.94,1361.53 210.86,1343.37 313.93,1320.62 417.97,1296.57 904.30,1189.15 973.61,1175.26 1096.27,1152.52 1302.78,1119.77 1855.15,1042.02 2609.50,936.53 3091.34,868.00 3437.44,818.70 3828.38,763.75 4117.82,723.84 4934.90,608.97 5202.41,576.65 6248.28,428.59 6647.68,367.63 7209.49,282.56 7530.25,236.01 8155.09,144.30 8282.85,125.38 9161.86,0.00" distance="-111151.37">
-        <lane id="5000772_0" index="0" allow="rail_fast" speed="69.44" length="9265.69" shape="2.14,1381.65 114.94,1361.53 210.86,1343.37 313.93,1320.62 417.97,1296.57 904.30,1189.15 973.61,1175.26 1096.27,1152.52 1302.78,1119.77 1855.15,1042.02 2609.50,936.53 3091.34,868.00 3437.44,818.70 3828.38,763.75 4117.82,723.84 4934.90,608.97 5202.41,576.65 6248.28,428.59 6647.68,367.63 7209.49,282.56 7530.25,236.01 8155.09,144.30 8282.85,125.38 9161.86,0.00"/>
+        <lane id="5000772_0" index="0" allow="rail_fast" speed="69.44" length="9265.69" shape="2.14,1381.65 114.94,1361.53 210.86,1343.37 313.93,1320.62 417.97,1296.57 904.30,1189.15 973.61,1175.26 1096.27,1152.52 1302.78,1119.77 1855.15,1042.02 2609.50,936.53 3091.34,868.00 3437.44,818.70 3828.38,763.75 4117.82,723.84 4934.90,608.97 5202.41,576.65 6248.28,428.59 6647.68,367.63 7209.49,282.56 7530.25,236.01 8155.09,144.30 8282.85,125.38 9161.86,-0.00"/>
     </edge>
     <edge id="52893619" from="670470857" to="670470893" priority="20" type="railway.rail" spreadType="center">
         <lane id="52893619_0" index="0" allow="rail rail_electric rail_fast" speed="44.44" length="0.20" shape="3751.56,765.14 3751.76,765.13"/>

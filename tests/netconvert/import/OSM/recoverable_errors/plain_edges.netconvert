@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Apr 26 23:30:13 2019 by Eclipse SUMO netconvert Version v1_2_0+0022-5179cc2293
+<!-- generated on Fri Oct 11 13:08:32 2019 by Eclipse SUMO netconvert Version v1_3_1+0580-e6dd46c
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -31,14 +31,12 @@ SPDX-License-Identifier: EPL-2.0
 -->
 
 <edges version="1.3" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edges_file.xsd">
-    <edge id="-10860201" from="2" to="1" priority="17" type="highway.secondary|railway.tram" numLanes="3" speed="27.78">
+    <edge id="-10860201" from="2" to="1" priority="17" type="highway.secondary|railway.tram" numLanes="2" speed="27.78">
         <lane index="0" allow="pedestrian" width="2.00"/>
         <lane index="1" disallow="pedestrian rail_urban rail rail_electric rail_fast ship"/>
-        <lane index="2" disallow="pedestrian rail_urban rail rail_electric rail_fast ship"/>
     </edge>
-    <edge id="10860201" from="1" to="2" priority="17" type="highway.secondary|railway.tram" numLanes="3" speed="27.78">
+    <edge id="10860201" from="1" to="2" priority="17" type="highway.secondary|railway.tram" numLanes="2" speed="27.78">
         <lane index="0" allow="pedestrian" width="2.00"/>
         <lane index="1" disallow="pedestrian rail_urban rail rail_electric rail_fast ship"/>
-        <lane index="2" disallow="pedestrian rail_urban rail rail_electric rail_fast ship"/>
     </edge>
 </edges>

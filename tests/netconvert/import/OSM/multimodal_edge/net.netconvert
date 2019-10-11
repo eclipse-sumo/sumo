@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Apr 29 12:45:08 2019 by Eclipse SUMO netconvert Version v1_2_0+0022-5179cc2293
+<!-- generated on Fri Oct 11 13:08:32 2019 by Eclipse SUMO netconvert Version v1_3_1+0580-e6dd46c
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -49,9 +49,9 @@ SPDX-License-Identifier: EPL-2.0
     <type id="highway.primary_link" priority="7" numLanes="1" speed="22.22" disallow="tram rail_urban rail rail_electric rail_fast ship" oneway="0"/>
     <type id="highway.raceway" priority="15" numLanes="2" speed="83.33" allow="vip" oneway="0"/>
     <type id="highway.residential" priority="3" numLanes="1" speed="13.89" disallow="tram rail_urban rail rail_electric rail_fast ship" oneway="0"/>
-    <type id="highway.secondary" priority="11" numLanes="2" speed="27.78" disallow="tram rail_urban rail rail_electric rail_fast ship" oneway="0"/>
+    <type id="highway.secondary" priority="11" numLanes="1" speed="27.78" disallow="tram rail_urban rail rail_electric rail_fast ship" oneway="0"/>
     <type id="highway.secondary_link" priority="6" numLanes="1" speed="22.22" disallow="tram rail_urban rail rail_electric rail_fast ship" oneway="0"/>
-    <type id="highway.secondary|railway.tram" priority="17" numLanes="2" speed="27.78" disallow="rail_urban rail rail_electric rail_fast ship" oneway="0"/>
+    <type id="highway.secondary|railway.tram" priority="17" numLanes="1" speed="27.78" disallow="rail_urban rail rail_electric rail_fast ship" oneway="0"/>
     <type id="highway.service" priority="1" numLanes="1" speed="5.56" allow="pedestrian delivery bicycle" oneway="0"/>
     <type id="highway.stairs" priority="1" numLanes="1" speed="1.39" allow="pedestrian" oneway="1" width="2.00"/>
     <type id="highway.step" priority="1" numLanes="1" speed="1.39" allow="pedestrian" oneway="1" width="2.00"/>
@@ -74,36 +74,34 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":1_0_0" index="0" disallow="pedestrian rail_urban rail rail_electric rail_fast ship" speed="3.65" length="4.67" shape="-0.76,1.41 -1.44,0.13 -1.41,-0.76 -0.67,-1.28 0.76,-1.41"/>
     </edge>
     <edge id=":2_0" function="internal">
-        <lane id=":2_0_0" index="0" allow="tram" speed="10.48" length="4.85" shape="658.45,351.36 659.70,351.70 660.63,351.35 661.61,350.79 663.01,350.47"/>
+        <lane id=":2_0_0" index="0" allow="tram" speed="10.48" length="4.85" shape="651.95,351.48 653.20,351.81 654.13,351.47 655.11,350.91 656.51,350.59"/>
     </edge>
     <edge id=":2_1" function="internal">
-        <lane id=":2_1_0" index="0" allow="tram" speed="10.49" length="4.85" shape="658.45,351.36 659.70,351.70 660.63,351.35 661.61,350.80 663.01,350.49"/>
+        <lane id=":2_1_0" index="0" allow="tram" speed="10.49" length="4.85" shape="651.95,351.48 653.20,351.81 654.13,351.47 655.11,350.91 656.51,350.60"/>
     </edge>
     <edge id=":2_2" function="internal">
-        <lane id=":2_2_0" index="0" disallow="pedestrian rail_urban rail rail_electric rail_fast ship" speed="3.65" length="4.67" shape="656.93,354.18 657.60,355.45 657.57,356.35 656.84,356.86 655.40,356.99"/>
+        <lane id=":2_2_0" index="0" disallow="pedestrian rail_urban rail rail_electric rail_fast ship" speed="3.65" length="4.67" shape="651.95,351.48 652.62,352.75 652.59,353.65 651.86,354.16 650.42,354.29"/>
     </edge>
 
     <edge id="-10860201" from="2" to="1" name="Sterndamm" priority="17" type="highway.secondary|railway.tram">
-        <lane id="-10860201_0" index="0" allow="pedestrian" speed="27.78" length="746.32" width="2.00" shape="652.64,362.09 -3.53,6.51"/>
-        <lane id="-10860201_1" index="1" disallow="pedestrian rail_urban rail rail_electric rail_fast ship" speed="27.78" length="746.32" shape="653.88,359.80 -2.29,4.22"/>
-        <lane id="-10860201_2" index="2" disallow="pedestrian rail_urban rail rail_electric rail_fast ship" speed="27.78" length="746.32" shape="655.40,356.99 -0.76,1.41"/>
+        <lane id="-10860201_0" index="0" allow="pedestrian" speed="27.78" length="740.66" width="2.00" shape="649.19,356.58 -2.00,3.69"/>
+        <lane id="-10860201_1" index="1" disallow="pedestrian rail_urban rail rail_electric rail_fast ship" speed="27.78" length="740.66" shape="650.42,354.29 -0.76,1.41"/>
     </edge>
     <edge id="10860201" from="1" to="2" name="Sterndamm" priority="17" type="highway.secondary|railway.tram">
-        <lane id="10860201_0" index="0" allow="pedestrian" speed="27.78" length="746.32" width="2.00" shape="3.53,-6.51 659.69,349.08"/>
-        <lane id="10860201_1" index="1" disallow="pedestrian rail_urban rail rail_electric rail_fast ship" speed="27.78" length="746.32" shape="2.29,-4.22 658.45,351.36"/>
-        <lane id="10860201_2" index="2" disallow="pedestrian rail_urban rail rail_electric rail_fast ship" speed="27.78" length="746.32" shape="0.76,-1.41 656.93,354.18"/>
+        <lane id="10860201_0" index="0" allow="pedestrian" speed="27.78" length="740.66" width="2.00" shape="2.00,-3.69 653.19,349.19"/>
+        <lane id="10860201_1" index="1" disallow="pedestrian rail_urban rail rail_electric rail_fast ship" speed="27.78" length="740.66" shape="0.76,-1.41 651.95,351.48"/>
     </edge>
     <edge id="10860202" from="2" to="3" name="Sterndamm" priority="17" type="railway.tram" spreadType="center">
-        <lane id="10860202_0" index="0" allow="tram" speed="13.89" length="6792.15" shape="663.01,350.47 7454.01,225.32"/>
+        <lane id="10860202_0" index="0" allow="tram" speed="13.89" length="6798.65" shape="656.51,350.59 7454.01,225.32"/>
     </edge>
     <edge id="10860203" from="2" to="4" name="Sterndamm" priority="17" type="railway.tram" spreadType="center">
-        <lane id="10860203_0" index="0" allow="tram" speed="13.89" length="13599.93" shape="663.01,350.49 14260.81,109.28"/>
+        <lane id="10860203_0" index="0" allow="tram" speed="13.89" length="13606.43" shape="656.51,350.60 14260.81,109.28"/>
     </edge>
 
-    <junction id="1" type="priority" x="0.00" y="0.00" incLanes="-10860201_0 -10860201_1 -10860201_2" intLanes=":1_0_0" shape="-0.00,0.00 -4.00,7.39 -0.00,0.00">
+    <junction id="1" type="priority" x="0.00" y="0.00" incLanes="-10860201_0 -10860201_1" intLanes=":1_0_0" shape="-0.00,0.00 -2.48,4.57 -0.00,-0.00">
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>
-    <junction id="2" type="priority" x="647.27" y="350.76" incLanes="10860201_0 10860201_1 10860201_2" intLanes=":2_0_0 :2_1_0 :2_2_0" shape="663.04,352.07 662.99,348.89 661.89,348.87 661.51,348.81 661.14,348.69 660.72,348.49 660.17,348.20 652.16,362.97 654.78,363.44 656.28,361.81 657.26,358.95 658.31,355.78 660.03,353.19">
+    <junction id="2" type="priority" x="647.27" y="350.76" incLanes="10860201_0 10860201_1" intLanes=":2_0_0 :2_1_0 :2_2_0" shape="656.54,352.19 656.48,349.00 655.39,348.99 655.01,348.93 654.64,348.80 654.22,348.61 653.66,348.31 648.71,357.46 651.53,357.11 652.41,355.70 653.33,354.10 654.61,352.77">
         <request index="0" response="000" foes="000" cont="0"/>
         <request index="1" response="000" foes="000" cont="0"/>
         <request index="2" response="000" foes="000" cont="0"/>
@@ -111,14 +109,14 @@ SPDX-License-Identifier: EPL-2.0
     <junction id="3" type="dead_end" x="7454.01" y="225.32" incLanes="10860202_0" intLanes="" shape="7453.98,223.72 7454.04,226.92"/>
     <junction id="4" type="dead_end" x="14260.81" y="109.28" incLanes="10860203_0" intLanes="" shape="14260.78,107.68 14260.83,110.88"/>
 
-    <connection from="-10860201" to="10860201" fromLane="2" toLane="2" via=":1_0_0" dir="t" state="M"/>
+    <connection from="-10860201" to="10860201" fromLane="1" toLane="1" via=":1_0_0" dir="t" state="M"/>
     <connection from="10860201" to="10860202" fromLane="1" toLane="0" via=":2_0_0" dir="s" state="M"/>
     <connection from="10860201" to="10860203" fromLane="1" toLane="0" via=":2_1_0" dir="s" state="M"/>
-    <connection from="10860201" to="-10860201" fromLane="2" toLane="2" via=":2_2_0" dir="t" state="M"/>
+    <connection from="10860201" to="-10860201" fromLane="1" toLane="1" via=":2_2_0" dir="t" state="M"/>
 
-    <connection from=":1_0" to="10860201" fromLane="0" toLane="2" dir="t" state="M"/>
+    <connection from=":1_0" to="10860201" fromLane="0" toLane="1" dir="t" state="M"/>
     <connection from=":2_0" to="10860202" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":2_1" to="10860203" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":2_2" to="-10860201" fromLane="0" toLane="2" dir="t" state="M"/>
+    <connection from=":2_2" to="-10860201" fromLane="0" toLane="1" dir="t" state="M"/>
 
 </net>
