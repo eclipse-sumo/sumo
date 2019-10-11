@@ -1,0 +1,5 @@
+<routes>
+    <trip id="ego" depart="0" from="SC" to="CN"/>
+    <flow id="WE" begin="0" period="2" end="10" from="WC" to="CE" departSpeed="max" arrivalPos="10"/>
+    <flow id="EW" begin="1" period="2" end="10" from="EC" to="CW" departSpeed="max" arrivalPos="10"/>
+</routes>

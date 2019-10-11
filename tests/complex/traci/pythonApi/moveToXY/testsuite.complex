@@ -22,5 +22,8 @@ extreme_elevation_keeproute2
 # tests for mapping vehicles with/without regard to permissions
 permissions
 
+# moved vehicle should block intersections on approach and while on the intersection
+intersection
+
 # moveToXY for persons
 person
