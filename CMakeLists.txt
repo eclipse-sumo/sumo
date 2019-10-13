@@ -204,9 +204,9 @@ if (SUMO_LIBRARIES AND WIN32)
     else()
         file(GLOB GL2PS_PATH "${SUMO_LIBRARIES}${LIB_VERSION}/gl2ps-?.?.?")
     endif()
-    set(CMAKE_LIBRARY_PATH "${CMAKE_LIBRARY_PATH};${GL2PS_PATH}/Release")
+    set(CMAKE_LIBRARY_PATH "${CMAKE_LIBRARY_PATH};${GL2PS_PATH}/Release;${GL2PS_PATH}/lib") # "Release" used by old versions of SUMOLibraries
     set(CMAKE_PREFIX_PATH "${CMAKE_PREFIX_PATH};${FFMPEG_PATH};${OSG_PATH};${GL2PS_PATH}")
-    file(GLOB SUMO_OPTIONAL_LIBRARIES_DLL "${PROJ_PATH}/bin/*.dll" "${FFMPEG_PATH}/bin/*.dll" "${GL2PS_PATH}/Release/*.dll")
+    file(GLOB SUMO_OPTIONAL_LIBRARIES_DLL "${PROJ_PATH}/bin/*.dll" "${FFMPEG_PATH}/bin/*.dll" "${GL2PS_PATH}/Release/*.dll" "${GL2PS_PATH}/bin/*.dll")  # "Release" used by old versions of SUMOLibraries
     # set SWIG
     set(SWIG_EXECUTABLE "${SUMO_LIBRARIES}/swigwin-3.0.12/swig.exe")
     # set GRPC
