@@ -1,6 +1,7 @@
 #ifndef __STRICT_FSTREAM_HPP
 #define __STRICT_FSTREAM_HPP
 
+#define __STDC_WANT_LIB_EXT1__ 1
 #include <cassert>
 #include <fstream>
 #include <cstring>
@@ -28,22 +29,16 @@ namespace strict_fstream
 static std::string strerror()
 {
     std::string buff(80, '\0');
-#ifdef _WIN32
+#if defined _WIN32 || defined __STDC_LIB_EXT1__
     if (strerror_s(&buff[0], buff.size(), errno) != 0)
     {
         buff = "Unknown error";
     }
-#elif __APPLE__ || ((_POSIX_C_SOURCE >= 200112L || _XOPEN_SOURCE >= 600) && ! _GNU_SOURCE)
-// XSI-compliant strerror_r()
+#else
     if (strerror_r(errno, &buff[0], buff.size()) != 0)
     {
         buff = "Unknown error";
     }
-#else
-// GNU-specific strerror_r()
-    auto p = strerror_r(errno, &buff[0], buff.size());
-    std::string tmp(p, std::strlen(p));
-    std::swap(buff, tmp);
 #endif
     buff.resize(buff.find('\0'));
     return buff;
