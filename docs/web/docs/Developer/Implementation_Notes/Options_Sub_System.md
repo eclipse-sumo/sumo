@@ -90,7 +90,6 @@ are derived from the class **Option**:
 - Option_String
 - Option_FileName
 - Option_IntVector
-- Option_FloatVector
 - Option_StringVector
 
 The names of the classes reflect the types which are awaited as
@@ -154,7 +153,6 @@ long OptionsCont::getLong(const std::string &name) const;
 std::string OptionsCont::getString(const std::string &name) const;
 float OptionsCont::getFloat(const std::string &name) const;
 const IntVector &OptionsCont::getIntVector(const std::string &name) const;
-const FloatVector &OptionsCont::getFloatVector(const std::string &name) const;
 const StringVector &OptionsCont::getStringVector(const std::string &name) const;
 ```
 

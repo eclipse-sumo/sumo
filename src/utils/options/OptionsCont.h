@@ -490,19 +490,6 @@ public:
      */
     const IntVector& getIntVector(const std::string& name) const;
 
-    /** @brief Returns the list of double-value of the named option (only for Option_FloatVector)
-     *
-     * This method returns the float-vector-value of an existing float-vector-option.
-     * If the named option does not exist or is not a float-vector-option, an
-     *  InvalidArgument is thrown.
-     *
-     * @param[in] name The name of the option to return the float-vector-value of
-     * @return The float-vector-value of the named, existing float-vector-option
-     * @exception InvalidArgument If the option does not exist or is not a float-vector-option
-     */
-    const FloatVector& getFloatVector(const std::string& name) const;
-
-
     /** @brief Returns the list of string-value of the named option (only for Option_StringVector)
      *
      * This method returns the string-vector-value of an existing string-vector-option.

@@ -232,13 +232,6 @@ OptionsCont::getIntVector(const std::string& name) const {
     return o->getIntVector();
 }
 
-
-const FloatVector&
-OptionsCont::getFloatVector(const std::string& name) const {
-    Option* o = getSecure(name);
-    return o->getFloatVector();
-}
-
 const StringVector&
 OptionsCont::getStringVector(const std::string& name) const {
     Option* o = getSecure(name);

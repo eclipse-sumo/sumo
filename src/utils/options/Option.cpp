@@ -100,11 +100,6 @@ Option::getIntVector() const {
     throw InvalidArgument("This is not an int vector-option");
 }
 
-const FloatVector&
-Option::getFloatVector() const {
-    throw InvalidArgument("This is not a float vector-option");
-}
-
 const StringVector& 
 Option::getStringVector() const {
     throw InvalidArgument("This is not a string vector-option");
@@ -517,68 +512,6 @@ Option_IntVector::set(const std::string& v) {
 
 std::string
 Option_IntVector::getValueString() const {
-    return joinToString(myValue, ',');
-}
-
-
-/* -------------------------------------------------------------------------
- * Option_UFloatVector - methods
- * ----------------------------------------------------------------------- */
-Option_FloatVector::Option_FloatVector()
-    : Option() {
-    myTypeName = "FLOAT[]";
-}
-
-
-Option_FloatVector::Option_FloatVector(const FloatVector& value)
-    : Option(true), myValue(value) {
-    myTypeName = "FLOAT[]";
-}
-
-
-Option_FloatVector::Option_FloatVector(const Option_FloatVector& s)
-    : Option(s), myValue(s.myValue) {}
-
-
-Option_FloatVector::~Option_FloatVector() {}
-
-
-Option_FloatVector&
-Option_FloatVector::operator=(const Option_FloatVector& s) {
-    Option::operator=(s);
-    myValue = s.myValue;
-    return (*this);
-}
-
-
-const FloatVector&
-Option_FloatVector::getFloatVector() const {
-    return myValue;
-}
-
-
-bool
-Option_FloatVector::set(const std::string& v) {
-    myValue.clear();
-    try {
-        if (v.find(';') != std::string::npos) {
-            WRITE_WARNING("Please note that using ';' as list separator is deprecated.\n From 1.0 onwards, only ',' will be accepted.");
-        }
-        StringTokenizer st(v, ";,", true);
-        while (st.hasNext()) {
-            myValue.push_back(StringUtils::toDouble(st.next()));
-        }
-        return markSet();
-    } catch (EmptyData&) {
-        throw ProcessError("Empty element occurred in " + v);
-    } catch (...) {
-        throw ProcessError("'" + v + "' is not a valid float vector.");
-    }
-}
-
-
-std::string
-Option_FloatVector::getValueString() const {
     return joinToString(myValue, ',');
 }
 
