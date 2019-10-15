@@ -119,11 +119,12 @@ public:
 
     /** @brief Returns the stored string value
      *
-     * Option_String and Option_FileName return the stored string in this method's reimplementation.
+     * Option_String returns the stored string in this method's reimplementation.
+     *  Option_FileName's reimplementation is only to be used for single filename string-vector options.
      *  All other option classes do not override this method which throws an InvalidArgument-exception.
      *
-     * @return Returns the stored string if being an instance of Option_String
-     * @exception InvalidArgument If the class is not an instance of Option_String
+     * @return Returns the stored string if being an instance of Option_String or Option_FileName
+     * @exception InvalidArgument If the class is not an instance of Option_String or Option_FileName
      */
     virtual std::string getString() const;
 
@@ -658,51 +659,6 @@ private:
 
 };
 
-/* -------------------------------------------------------------------------
- * Option_FileName
- * ----------------------------------------------------------------------- */
-class Option_FileName : public Option_StringVector {
-public:
-    /** @brief Constructor for an option with no default value
-     */
-    Option_FileName();
-
-
-    /** @brief Constructor for an option with a default value
-     *
-     * @param[in] value This option's default value
-     */
-    Option_FileName(const StringVector& value);
-
-    /** @brief Copy constructor */
-    Option_FileName(const Option_FileName& s);
-
-    /** @brief Destructor */
-    virtual ~Option_FileName();
-
-    /** @brief Assignment operator */
-    Option_FileName& operator=(const Option_FileName& s);
-
-
-    /** @brief Returns true, the information whether this option is a file name
-     *
-     * Returns true.
-     *
-     * @return true
-     */
-    bool isFileName() const;
-
-
-    /** @brief Returns the string-representation of the value
-     *
-     * The value is URL-encoded using StringUtils::urlEncode and returned.
-     *
-     * @see std::string Option::getValueString()
-     * @return The stored value encoded into a string
-     */
-    std::string getValueString() const;
-};
-
 
 /* -------------------------------------------------------------------------
  * Option_IntVector
@@ -904,6 +860,58 @@ public:
 private:
     /** the value, valid only when the base-classes "myAmSet"-member is true */
     StringVector myValue;
+};
+
+
+/* -------------------------------------------------------------------------
+ * Option_FileName
+ * ----------------------------------------------------------------------- */
+class Option_FileName : public Option_StringVector {
+public:
+    /** @brief Constructor for an option with no default value
+     */
+    Option_FileName();
+
+    /** @brief Constructor for an option with a default value
+     *
+     * @param[in] value This option's default value
+     */
+    Option_FileName(const StringVector& value);
+
+    /** @brief Copy constructor */
+    Option_FileName(const Option_FileName& s);
+
+    /** @brief Destructor */
+    virtual ~Option_FileName();
+
+    /** @brief Assignment operator */
+    Option_FileName& operator=(const Option_FileName& s);
+
+    /** @brief Returns true, the information whether this option is a file name
+     *
+     * Returns true.
+     *
+     * @return true
+     */
+    bool isFileName() const;
+
+    /** @brief Returns the stored filename string if and only if the string-vector
+     * contains a single element. Otherwise, throws an exception.
+     * 
+     * @see std::string Option::getString()
+     * @return Returns the stored string if and only if the string-vector
+     * contains a single element
+     */
+    std::string getString() const;
+
+    /** @brief Returns the string-representation of the value
+     *
+     * The value is URL-encoded using StringUtils::urlEncode and returned.
+     *
+     * @see std::string Option::getValueString()
+     * @return The stored value encoded into a string
+     */
+    std::string getValueString() const;
 };
 #endif
 

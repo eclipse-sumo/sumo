@@ -459,47 +459,6 @@ Option_BoolExtended::getValueString() const {
 }
 
 
-
-/* -------------------------------------------------------------------------
- * Option_FileName - methods
- * ----------------------------------------------------------------------- */
-Option_FileName::Option_FileName()
-    : Option_StringVector() {
-    myTypeName = "FILE";
-}
-
-
-Option_FileName::Option_FileName(const StringVector& value)
-    : Option_StringVector(value) {
-    myTypeName = "FILE";
-}
-
-Option_FileName::Option_FileName(const Option_FileName& s)
-    : Option_StringVector(s) {}
-
-Option_FileName::~Option_FileName() {}
-
-
-Option_FileName&
-Option_FileName::operator=(const Option_FileName& s) {
-    Option_StringVector::operator=(s);
-    return (*this);
-}
-
-
-bool
-Option_FileName::isFileName() const {
-    return true;
-}
-
-
-std::string
-Option_FileName::getValueString() const {
-    return StringUtils::urlEncode(Option_StringVector::getValueString(), " ;%");
-}
-
-
-
 /* -------------------------------------------------------------------------
  * Option_UIntVector - methods
  * ----------------------------------------------------------------------- */
@@ -671,6 +630,48 @@ Option_StringVector::set(const std::string& v) {
 std::string
 Option_StringVector::getValueString() const {
     return joinToString(myValue, ',');
+}
+
+
+/* -------------------------------------------------------------------------
+ * Option_FileName - methods
+ * ----------------------------------------------------------------------- */
+Option_FileName::Option_FileName() : Option_StringVector() {
+    myTypeName = "FILE";
+}
+
+Option_FileName::Option_FileName(const StringVector& value)
+    : Option_StringVector(value) {
+    myTypeName = "FILE";
+}
+
+Option_FileName::Option_FileName(const Option_FileName& s)
+    : Option_StringVector(s) {}
+
+Option_FileName::~Option_FileName() {}
+
+Option_FileName& Option_FileName::operator=(const Option_FileName& s) {
+    Option_StringVector::operator=(s);
+    return (*this);
+}
+
+bool Option_FileName::isFileName() const { return true; }
+
+std::string
+Option_FileName::getString() const {
+    const StringVector& myFileName = Option_StringVector::getStringVector();
+
+    if (myFileName.size() != 1) {
+        throw ProcessError(
+            "This filename option contains less or more than one element (" +
+            std::to_string(myFileName.size()) + "):\n" + getValueString());
+    }
+
+    return myFileName.front();
+}
+
+std::string Option_FileName::getValueString() const {
+    return StringUtils::urlEncode(Option_StringVector::getValueString(), " ;%");
 }
 
 

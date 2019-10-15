@@ -129,7 +129,7 @@ MSDevice::insertDefaultAssignmentOptions(const std::string& deviceName, const st
     oc.doRegister(prefix + ".probability", new Option_Float(-1.0));// (default: no need to call RNG)
     oc.addDescription(prefix + ".probability", optionsTopic, "The probability for a " + object + " to have a '" + deviceName + "' device");
 
-    oc.doRegister(prefix + ".explicit", new Option_String());
+    oc.doRegister(prefix + ".explicit", new Option_StringVector());
     oc.addSynonyme(prefix + ".explicit", prefix + ".knownveh", true);
     oc.addDescription(prefix + ".explicit", optionsTopic, "Assign a '" + deviceName + "' device to named " + object + "s");
 

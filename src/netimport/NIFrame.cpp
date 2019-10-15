@@ -231,7 +231,7 @@ NIFrame::fillOptions(bool forNetedit) {
     oc.doRegister("shapefile.node-join-dist", new Option_Float(0));
     oc.addDescription("shapefile.node-join-dist", "Formats", "Distance threshold for determining whether distinct shapes are connected (used when from-id and to-id are not available)");
 
-    oc.doRegister("shapefile.add-params", new Option_String());
+    oc.doRegister("shapefile.add-params", new Option_StringVector());
     oc.addDescription("shapefile.add-params", "Formats", "Add the list of field names as edge params");
 
     oc.doRegister("shapefile.use-defaults-on-failure", new Option_Bool(false));

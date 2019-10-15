@@ -75,7 +75,7 @@ ROFrame::fillOptions(OptionsCont& oc) {
     oc.addSynonyme("route-files", "trips", true);
     oc.addDescription("route-files", "Input", "Read sumo routes, alternatives, flows, and trips from FILE(s)");
 
-    oc.doRegister("phemlight-path", new Option_FileName("./PHEMlight/"));
+    oc.doRegister("phemlight-path", new Option_FileName({"./PHEMlight/"}));
     oc.addDescription("phemlight-path", "Input", "Determines where to load PHEMlight definitions from.");
 
     // register the time settings
@@ -134,7 +134,7 @@ ROFrame::fillOptions(OptionsCont& oc) {
     oc.doRegister("routing-threads", new Option_Integer(0));
     oc.addDescription("routing-threads", "Processing", "The number of parallel execution threads used for routing");
 
-    oc.doRegister("restriction-params", new Option_String());
+    oc.doRegister("restriction-params", new Option_StringVector());
     oc.addDescription("restriction-params", "Processing", "Comma separated list of param keys to compare for additional restrictions");
 
     // register defaults options

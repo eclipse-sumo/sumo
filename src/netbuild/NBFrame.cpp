@@ -130,7 +130,7 @@ NBFrame::fillOptions(bool forNetgen) {
         oc.addSynonyme("geometry.remove", "remove-geometry", true);
         oc.addDescription("geometry.remove", "Processing", "Replace nodes which only define edge geometry by geometry points (joins edges)");
 
-        oc.doRegister("geometry.remove.keep-edges.explicit", new Option_String());
+        oc.doRegister("geometry.remove.keep-edges.explicit", new Option_StringVector());
         oc.addDescription("geometry.remove.keep-edges.explicit", "Processing", "Ensure that the given list of edges is not modified");
 
         oc.doRegister("geometry.remove.keep-edges.input-file", new Option_FileName());
@@ -252,8 +252,8 @@ NBFrame::fillOptions(bool forNetgen) {
                       "Determines the maximal distance for joining junctions (defaults to 10)");
 
     if (!forNetgen) {
-        oc.doRegister("junctions.join-exclude", new Option_String());
-        oc.addDescription("junctions.join-exclude", "Junctions", "Interprets STR as list of junctions to exclude from joining");
+        oc.doRegister("junctions.join-exclude", new Option_StringVector());
+        oc.addDescription("junctions.join-exclude", "Junctions", "Interprets STR[] as list of junctions to exclude from joining");
 
         oc.doRegister("speed.offset", new Option_Float(0));
         oc.addDescription("speed.offset", "Processing", "Modifies all edge speeds by adding FLOAT");
@@ -367,13 +367,13 @@ NBFrame::fillOptions(bool forNetgen) {
 
     // tls setting options
     // explicit tls
-    oc.doRegister("tls.set", new Option_String());
+    oc.doRegister("tls.set", new Option_StringVector());
     oc.addSynonyme("tls.set", "explicite-tls", true);
-    oc.addDescription("tls.set", "TLS Building", "Interprets STR as list of junctions to be controlled by TLS");
+    oc.addDescription("tls.set", "TLS Building", "Interprets STR[] as list of junctions to be controlled by TLS");
 
-    oc.doRegister("tls.unset", new Option_String());
+    oc.doRegister("tls.unset", new Option_StringVector());
     oc.addSynonyme("tls.unset", "explicite-no-tls", true);
-    oc.addDescription("tls.unset", "TLS Building", "Interprets STR as list of junctions to be not controlled by TLS");
+    oc.addDescription("tls.unset", "TLS Building", "Interprets STR[] as list of junctions to be not controlled by TLS");
 
     // tls-guessing
     oc.doRegister("tls.guess", new Option_Bool(false));
@@ -456,13 +456,13 @@ NBFrame::fillOptions(bool forNetgen) {
     oc.addDescription("tls.scramble.time", "TLS Building", "Use INT as green phase duration for pedestrian scramble phase (s).");
 
     // tls-shifts
-    oc.doRegister("tls.half-offset", new Option_String());
+    oc.doRegister("tls.half-offset", new Option_StringVector());
     oc.addSynonyme("tls.half-offset", "tl-logics.half-offset", true);
-    oc.addDescription("tls.half-offset", "TLS Building", "TLSs in STR will be shifted by half-phase");
+    oc.addDescription("tls.half-offset", "TLS Building", "TLSs in STR[] will be shifted by half-phase");
 
-    oc.doRegister("tls.quarter-offset", new Option_String());
+    oc.doRegister("tls.quarter-offset", new Option_StringVector());
     oc.addSynonyme("tls.quarter-offset", "tl-logics.quarter-offset", true);
-    oc.addDescription("tls.quarter-offset", "TLS Building", "TLSs in STR will be shifted by quarter-phase");
+    oc.addDescription("tls.quarter-offset", "TLS Building", "TLSs in STR[] will be shifted by quarter-phase");
 
     // tls type
     oc.doRegister("tls.default-type", new Option_String("static"));
@@ -482,13 +482,13 @@ NBFrame::fillOptions(bool forNetgen) {
     oc.addSynonyme("keep-edges.min-speed", "edges-min-speed", true);
     oc.addDescription("keep-edges.min-speed", "Edge Removal", "Only keep edges with speed in meters/second > FLOAT");
 
-    oc.doRegister("remove-edges.explicit", new Option_String());
+    oc.doRegister("remove-edges.explicit", new Option_StringVector());
     oc.addSynonyme("remove-edges.explicit", "remove-edges");
-    oc.addDescription("remove-edges.explicit", "Edge Removal", "Remove edges in STR");
+    oc.addDescription("remove-edges.explicit", "Edge Removal", "Remove edges in STR[]");
 
-    oc.doRegister("keep-edges.explicit", new Option_String());
+    oc.doRegister("keep-edges.explicit", new Option_StringVector());
     oc.addSynonyme("keep-edges.explicit", "keep-edges");
-    oc.addDescription("keep-edges.explicit", "Edge Removal", "Only keep edges in STR or those which are kept due to other keep-edges or remove-edges options");
+    oc.addDescription("keep-edges.explicit", "Edge Removal", "Only keep edges in STR[] or those which are kept due to other keep-edges or remove-edges options");
 
     oc.doRegister("keep-edges.input-file", new Option_FileName());
     oc.addDescription("keep-edges.input-file", "Edge Removal", "Only keep edges in FILE (Each id on a single line. Selection files from SUMO-GUI are also supported) or those which are kept due to other keep-edges or remove-edges options");
@@ -501,27 +501,27 @@ NBFrame::fillOptions(bool forNetgen) {
         oc.addDescription("keep-edges.postload", "Edge Removal", "Remove edges after joining");
     }
 
-    oc.doRegister("keep-edges.in-boundary", new Option_String());
+    oc.doRegister("keep-edges.in-boundary", new Option_StringVector());
     oc.addDescription("keep-edges.in-boundary", "Edge Removal", "Only keep edges which are located within the given boundary (given either as CARTESIAN corner coordinates <xmin,ymin,xmax,ymax> or as polygon <x0,y0,x1,y1,...>)");
 
     oc.doRegister("keep-edges.in-geo-boundary", new Option_String());
     oc.addDescription("keep-edges.in-geo-boundary", "Edge Removal", "Only keep edges which are located within the given boundary (given either as GEODETIC corner coordinates <lon-min,lat-min,lon-max,lat-max> or as polygon <lon0,lat0,lon1,lat1,...>)");
 
     if (!forNetgen) {
-        oc.doRegister("keep-edges.by-vclass", new Option_String());
-        oc.addDescription("keep-edges.by-vclass", "Edge Removal", "Only keep edges which allow one of the vclasss in STR");
+        oc.doRegister("keep-edges.by-vclass", new Option_StringVector());
+        oc.addDescription("keep-edges.by-vclass", "Edge Removal", "Only keep edges which allow one of the vclasss in STR[]");
 
-        oc.doRegister("remove-edges.by-vclass", new Option_String());
-        oc.addDescription("remove-edges.by-vclass", "Edge Removal", "Remove edges which allow only vclasses from STR");
+        oc.doRegister("remove-edges.by-vclass", new Option_StringVector());
+        oc.addDescription("remove-edges.by-vclass", "Edge Removal", "Remove edges which allow only vclasses from STR[]");
 
-        oc.doRegister("keep-edges.by-type", new Option_String());
-        oc.addDescription("keep-edges.by-type", "Edge Removal", "Only keep edges where type is in STR");
+        oc.doRegister("keep-edges.by-type", new Option_StringVector());
+        oc.addDescription("keep-edges.by-type", "Edge Removal", "Only keep edges where type is in STR[]");
 
         oc.doRegister("keep-edges.components", new Option_Integer(0));
         oc.addDescription("keep-edges.components", "Edge Removal", "Only keep the INT largest weakly connected components");
 
-        oc.doRegister("remove-edges.by-type", new Option_String());
-        oc.addDescription("remove-edges.by-type", "Edge Removal", "Remove edges where type is in STR");
+        oc.doRegister("remove-edges.by-type", new Option_StringVector());
+        oc.addDescription("remove-edges.by-type", "Edge Removal", "Remove edges where type is in STR[]");
 
         oc.doRegister("remove-edges.isolated", new Option_Bool(false));
         oc.addSynonyme("remove-edges.isolated", "remove-isolated", true);
@@ -534,10 +534,10 @@ NBFrame::fillOptions(bool forNetgen) {
     oc.addSynonyme("keep-nodes-unregulated", "keep-unregulated");
     oc.addDescription("keep-nodes-unregulated", "Unregulated Nodes", "All nodes will be unregulated");
 
-    oc.doRegister("keep-nodes-unregulated.explicit", new Option_String());
+    oc.doRegister("keep-nodes-unregulated.explicit", new Option_StringVector());
     oc.addSynonyme("keep-nodes-unregulated.explicit", "keep-unregulated.explicit");
     oc.addSynonyme("keep-nodes-unregulated.explicit", "keep-unregulated.nodes", true);
-    oc.addDescription("keep-nodes-unregulated.explicit", "Unregulated Nodes", "Do not regulate nodes in STR");
+    oc.addDescription("keep-nodes-unregulated.explicit", "Unregulated Nodes", "Do not regulate nodes in STR[]");
 
     oc.doRegister("keep-nodes-unregulated.district-nodes", new Option_Bool(false));
     oc.addSynonyme("keep-nodes-unregulated.district-nodes", "keep-unregulated.district-nodes");
@@ -564,11 +564,11 @@ NBFrame::fillOptions(bool forNetgen) {
         oc.addSynonyme("ramps.ramp-length", "ramp-guess.ramp-length", true);
         oc.addDescription("ramps.ramp-length", "Ramp Guessing", "Use FLOAT as ramp-length");
 
-        oc.doRegister("ramps.set", new Option_String());
+        oc.doRegister("ramps.set", new Option_StringVector());
         oc.addSynonyme("ramps.set", "ramp-guess.explicite", true);
         oc.addDescription("ramps.set", "Ramp Guessing", "Tries to handle the given edges as ramps");
 
-        oc.doRegister("ramps.unset", new Option_String());
+        oc.doRegister("ramps.unset", new Option_StringVector());
         oc.addDescription("ramps.unset", "Ramp Guessing", "Do not consider the given edges as ramps");
 
         oc.doRegister("ramps.no-split", new Option_Bool(false));

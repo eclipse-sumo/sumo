@@ -343,13 +343,12 @@ void
 OptionsCont::relocateFiles(const std::string& configuration) const {
     for (Option* const option : myAddresses) {
         if (option->isFileName() && option->isSet()) {
-            std::vector<std::string> fileList = StringTokenizer(option->getString(), ",").getVector();
+            StringVector fileList = StringVector(option->getStringVector());
             for (std::string& f : fileList) {
-                // Pruning is necessary because filenames may be separated by ', ' in the configuration file
-                f = StringUtils::urlDecode(FileHelpers::checkForRelativity(StringUtils::prune(f), configuration));
+                f = StringUtils::urlDecode(FileHelpers::checkForRelativity(f, configuration));
             }
             const std::string conv = joinToString(fileList, ',');
-            if (conv != option->getString()) {
+            if (conv != joinToString(option->getStringVector(), ',')) {
                 const bool hadDefault = option->isDefault();
                 option->set(conv);
                 if (hadDefault) {

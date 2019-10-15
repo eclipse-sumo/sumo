@@ -67,12 +67,12 @@ ROJTRFrame::fillOptions() {
     oc.doRegister("max-edges-factor", new Option_Float(2.0));
     oc.addDescription("max-edges-factor", "Processing", "Routes are cut off when the route edges to net edges ratio is larger than FLOAT");
 
-    oc.doRegister("turn-defaults", 'T', new Option_String("30,50,20"));
-    oc.addDescription("turn-defaults", "Processing", "Use STR as default turn definition");
+    oc.doRegister("turn-defaults", 'T', new Option_StringVector({"30", "50", "20"}));
+    oc.addDescription("turn-defaults", "Processing", "Use STR[] as default turn definition");
 
-    oc.doRegister("sink-edges", new Option_String());
+    oc.doRegister("sink-edges", new Option_StringVector());
     oc.addSynonyme("sink-edges", "sinks");
-    oc.addDescription("sink-edges", "Processing", "Use STR as list of sink edges");
+    oc.addDescription("sink-edges", "Processing", "Use STR[] as list of sink edges");
 
     oc.doRegister("accept-all-destinations", 'A', new Option_Bool(false));
     oc.addDescription("accept-all-destinations", "Processing", "Whether all edges are allowed as sink edges");

@@ -252,10 +252,10 @@ GNELoadThread::fillOptions(OptionsCont& oc) {
     oc.doRegister("registry-viewport", new Option_Bool(false));
     oc.addDescription("registry-viewport", "Visualisation", "Load current viewport from registry");
 
-    oc.doRegister("window-size", new Option_String());
+    oc.doRegister("window-size", new Option_StringVector());
     oc.addDescription("window-size", "Visualisation", "Create initial window with the given x,y size");
 
-    oc.doRegister("window-pos", new Option_String());
+    oc.doRegister("window-pos", new Option_StringVector());
     oc.addDescription("window-pos", "Visualisation", "Create initial window at the given x,y position");
 
     oc.doRegister("gui-testing", new Option_Bool(false));
