@@ -68,7 +68,7 @@ FIND_PATH(PROJ_INCLUDE_DIR NAMES proj.h proj_api.h PATHS
   "$ENV{GDAL_DIR}/include"
   )
 
-FIND_LIBRARY(PROJ_LIBRARY NAMES proj_i proj PATHS
+FIND_LIBRARY(PROJ_LIBRARY NAMES proj_i proj proj_6_1 PATHS
   "$ENV{LIB}"
   "$ENV{LIB_DIR}/lib"
   "$ENV{GDAL_DIR}/lib"

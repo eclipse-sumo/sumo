@@ -57,6 +57,8 @@
 /bin/*.pyd
 /bin/osgPlugins*
 /bin/libsumoc*
+# data dir
+/data/proj
 # docs dir, make artifacts
 /docs/doxygen
 /docs/examples

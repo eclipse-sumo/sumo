@@ -21,7 +21,7 @@ if (NOT CMAKE_BUILD_TYPE AND NOT CMAKE_CONFIGURATION_TYPES)
       STRING "Choose the type of build." FORCE)
   # Set the possible values of build type for cmake-gui
   set_property(CACHE CMAKE_BUILD_TYPE PROPERTY STRINGS "Debug" "Release")
-endif()
+endif ()
 
 project(SUMO)
 set(PACKAGE_VERSION "git")
@@ -32,9 +32,9 @@ set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/build/cmake_modu
 
 set(ENABLED_FEATURES "${CMAKE_SYSTEM} ${CMAKE_SYSTEM_PROCESSOR} ${CMAKE_CXX_COMPILER_ID} ${CMAKE_CXX_COMPILER_VERSION}")
 
-if(COMPILE_DEFINITIONS)
+if (COMPILE_DEFINITIONS)
     add_compile_definitions(${COMPILE_DEFINITIONS})
-endif()
+endif ()
 
 # compiler specific flags
 if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU" OR
@@ -146,8 +146,8 @@ if (NOT SUMO_LIBRARIES AND EXISTS "${CMAKE_SOURCE_DIR}/../SUMOLibraries")
 endif ()
 if (SUMO_LIBRARIES AND WIN32)
     # Special option for MinGW32
-    if("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU" AND WIN32)
-        if(USE_MINGW_64BITS)
+    if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU" AND WIN32)
+        if (USE_MINGW_64BITS)
             message(STATUS "Using 64 bit libraries from SUMO_LIBRARIES placed in " ${SUMO_LIBRARIES} " for MinGW compilation")
         else()
             message(STATUS "Using 32 bit libraries from SUMO_LIBRARIES placed in " ${SUMO_LIBRARIES} " for MinGW compilation")
@@ -155,8 +155,8 @@ if (SUMO_LIBRARIES AND WIN32)
             set(LIB_VERSION "/32bits")
             # disable optional libraries
             set(CHECK_OPTIONAL_LIBS false)
-        endif()
-    elseif("${CMAKE_MODULE_LINKER_FLAGS}" STREQUAL "/machine:x64")
+        endif ()
+    elseif ("${CMAKE_MODULE_LINKER_FLAGS}" STREQUAL "/machine:x64")
         message(STATUS "Using 64 bit libraries from SUMO_LIBRARIES placed in " ${SUMO_LIBRARIES})
     else()
         message(STATUS "Using 32 bit libraries from SUMO_LIBRARIES placed in " ${SUMO_LIBRARIES})
@@ -164,18 +164,28 @@ if (SUMO_LIBRARIES AND WIN32)
         set(LIB_VERSION "/32bits")
         # disable optional libraries
         set(CHECK_OPTIONAL_LIBS false)
-    endif()
-    if("${MSVC_VERSION}" STREQUAL "1800")
+    endif ()
+    if ("${MSVC_VERSION}" STREQUAL "1800")
         file(GLOB XERCES_PATH "${SUMO_LIBRARIES}/msvc12${LIB_VERSION}/xerces-c-3.?.?")
     else()
         file(GLOB XERCES_PATH "${SUMO_LIBRARIES}${LIB_VERSION}/xerces-c-3.?.?")
-    endif()
+    endif ()
     file(GLOB ZLIB_PATH "${SUMO_LIBRARIES}${LIB_VERSION}/3rdPartyLibs/zlib-?.?.??")
-    file(GLOB PROJ_PATH "${SUMO_LIBRARIES}${LIB_VERSION}/proj_gdal-????")
-    file(GLOB FOX_PATH "${SUMO_LIBRARIES}${LIB_VERSION}/fox-1.6.??")
-    set(CMAKE_PREFIX_PATH "${CMAKE_PREFIX_PATH};${XERCES_PATH};${ZLIB_PATH};${ZLIB_PATH}/Release;${ZLIB_PATH}/Debug;${ZLIB_PATH}/bin;${ZLIB_PATH}/lib;${PROJ_PATH};${FOX_PATH}")
+    # set PROJ and GDAL ("proj_gdal-1911" used by old versions of SUMOLibraries)
+    if (EXISTS "${SUMO_LIBRARIES}${LIB_VERSION}/proj_gdal-1911")
+        file(GLOB PROJ_PATH "${SUMO_LIBRARIES}${LIB_VERSION}/proj_gdal-1911")
+        file(GLOB GDAL_PATH "${SUMO_LIBRARIES}${LIB_VERSION}/proj_gdal-1911")
+        set(PROJ_6 0)
+    else()
+        file(GLOB PROJ_PATH "${SUMO_LIBRARIES}${LIB_VERSION}/proj-?.?.?")
+        file(GLOB GDAL_PATH "${SUMO_LIBRARIES}${LIB_VERSION}/gdal-?.?.?")
+        set(PROJ_6 1)
+    endif ()
+    file(GLOB FOX_PATH "${SUMO_LIBRARIES}${LIB_VERSION}/fox-?.?.??")
+    set(CMAKE_PREFIX_PATH "${CMAKE_PREFIX_PATH};${XERCES_PATH};${ZLIB_PATH};${ZLIB_PATH}/Release;${ZLIB_PATH}/Debug;${ZLIB_PATH}/bin;${ZLIB_PATH}/lib;${PROJ_PATH};${GDAL_PATH};${FOX_PATH}")
     file(GLOB SUMO_LIBRARIES_DLL "${XERCES_PATH}/bin/*.dll"
-                                 "${PROJ_PATH}/bin/proj.dll"
+                                 "${PROJ_PATH}/bin/*.dll"
+                                 "${GDAL_PATH}/bin/*.dll"
                                  "${FOX_PATH}/lib/*.dll" # used by old SUMOLibraries versions
                                  "${FOX_PATH}/bin/*.dll"
                                  "${ZLIB_PATH}/bin/*.dll"
@@ -187,7 +197,7 @@ if (SUMO_LIBRARIES AND WIN32)
                                  "${SUMO_LIBRARIES}${LIB_VERSION}/3rdPartyLibs/sqlite-?.?.?/*.dll")
     file(GLOB GTEST_ROOT "${SUMO_LIBRARIES}/googletest-?.?.?/googletest")
     # set GoogleTest only if compiler isn't mingw32
-    if("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU" AND WIN32 AND NOT USE_MINGW_64BITS)
+    if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU" AND WIN32 AND NOT USE_MINGW_64BITS)
         message(STATUS "Disabled Google Test in Mingw32")
     else()
         # Prevent GoogleTest from overriding our compiler/linker options
@@ -196,21 +206,21 @@ if (SUMO_LIBRARIES AND WIN32)
         include_directories("${GTEST_ROOT}/include")
         set(GTEST_BOTH_LIBRARIES "gtest" "gtest_main")
         set(GTEST_FOUND true)
-    endif()
+    endif ()
     file(GLOB FFMPEG_PATH "${SUMO_LIBRARIES}/FFMPEG-?.?.?")
     file(GLOB OSG_PATH "${SUMO_LIBRARIES}/OSG-?.?.?")
-    if("${MSVC_VERSION}" STREQUAL "1800")
+    if ("${MSVC_VERSION}" STREQUAL "1800")
         file(GLOB GL2PS_PATH "${SUMO_LIBRARIES}${LIB_VERSION}/msvc12/gl2ps-?.?.?")
     else()
         file(GLOB GL2PS_PATH "${SUMO_LIBRARIES}${LIB_VERSION}/gl2ps-?.?.?")
-    endif()
+    endif ()
     set(CMAKE_LIBRARY_PATH "${CMAKE_LIBRARY_PATH};${GL2PS_PATH}/Release;${GL2PS_PATH}/lib") # "Release" used by old versions of SUMOLibraries
     set(CMAKE_PREFIX_PATH "${CMAKE_PREFIX_PATH};${FFMPEG_PATH};${OSG_PATH};${GL2PS_PATH}")
     file(GLOB SUMO_OPTIONAL_LIBRARIES_DLL "${PROJ_PATH}/bin/*.dll" "${FFMPEG_PATH}/bin/*.dll" "${GL2PS_PATH}/Release/*.dll" "${GL2PS_PATH}/bin/*.dll")  # "Release" used by old versions of SUMOLibraries
     # set SWIG
     set(SWIG_EXECUTABLE "${SUMO_LIBRARIES}/swigwin-3.0.12/swig.exe")
     # set GRPC ("Release" used by old versions of SUMOLibraries)
-    if(EXISTS "${SUMO_LIBRARIES}/grpc-1.10.0/Release/grpc_cpp_plugin.exe")
+    if (EXISTS "${SUMO_LIBRARIES}/grpc-1.10.0")
         set(CMAKE_PREFIX_PATH "${CMAKE_PREFIX_PATH};${SUMO_LIBRARIES}/grpc-1.10.0")
         set(CMAKE_LIBRARY_PATH "${CMAKE_LIBRARY_PATH};${SUMO_LIBRARIES}/grpc-1.10.0/Release")
         set(GRPC_CPP_PLUGIN "${SUMO_LIBRARIES}/grpc-1.10.0/Release/grpc_cpp_plugin.exe")
@@ -218,7 +228,7 @@ if (SUMO_LIBRARIES AND WIN32)
         set(CMAKE_PREFIX_PATH "${CMAKE_PREFIX_PATH};${SUMO_LIBRARIES}/grpc-1.24.2")
         set(CMAKE_LIBRARY_PATH "${CMAKE_LIBRARY_PATH};${SUMO_LIBRARIES}/grpc-1.24.2/lib")
         set(GRPC_CPP_PLUGIN "${SUMO_LIBRARIES}/grpc-1.24.2/bin/grpc_cpp_plugin.exe")
-    endif()
+    endif ()
     # set protobuf
     set(CMAKE_PREFIX_PATH "${CMAKE_PREFIX_PATH};${SUMO_LIBRARIES}/3rdPartyLibs/protobuf-3.9.1")
     set(Protobuf_PROTOC_EXECUTABLE "${SUMO_LIBRARIES}/3rdPartyLibs/protobuf-3.9.1/bin/protoc.exe")
@@ -302,14 +312,14 @@ if (CHECK_OPTIONAL_LIBS)
         set(ENABLED_FEATURES "${ENABLED_FEATURES} SWIG")
     endif ()
 
-    if(NOT ${MSVC_VERSION} STREQUAL "1800")
+    if (NOT ${MSVC_VERSION} STREQUAL "1800")
         find_package(GRPC)
         find_package(Protobuf)
         if (GRPC_FOUND AND Protobuf_FOUND)
             include_directories(${Protobuf_INCLUDE_DIRS} ${GRPC_INCLUDE_DIRS})
             set(ENABLED_FEATURES "${ENABLED_FEATURES} GRPC")
         endif (GRPC_FOUND AND Protobuf_FOUND)
-    endif()
+    endif ()
     set(SUMO_LIBRARIES_DLL "${SUMO_LIBRARIES_DLL};${SUMO_OPTIONAL_LIBRARIES_DLL}")
 endif (CHECK_OPTIONAL_LIBS)
 
@@ -349,7 +359,8 @@ if (NOT ${SETUPTOOLS_MISSING})
             COMPONENT pysumolib)
     install(CODE "execute_process(COMMAND ${PYTHON_EXECUTABLE} ${CMAKE_SOURCE_DIR}/tools/build/setup-traci.py clean --all install --root=\$ENV{DESTDIR}/ --prefix=${CMAKE_INSTALL_PREFIX} --optimize=1)"
             COMPONENT pytraci)
-endif()
+endif ()
+
 if (SUMO_LIBRARIES AND WIN32)
     string(REPLACE "${SUMO_LIBRARIES}" "" SUMO_LIBRARIES_DLL "${SUMO_LIBRARIES_DLL}")
     add_custom_command(OUTPUT ${CMAKE_SOURCE_DIR}/bin/zlib.dll
@@ -360,10 +371,18 @@ if (SUMO_LIBRARIES AND WIN32)
         add_custom_command(OUTPUT ${OSG_TARGET}
                            COMMAND ${CMAKE_COMMAND} -E copy_directory ${OSG_PATH}/bin ${CMAKE_SOURCE_DIR}/bin
                            DEPENDS ${OSG_PATH})
-    endif ()
-    add_custom_target(install_dll ALL DEPENDS ${CMAKE_SOURCE_DIR}/bin/zlib.dll ${OSG_TARGET})
+    endif (HAVE_OSG)
+
+    if (PROJ_6)
+        # proj 6 needs to copy "share/proj" folder in SUMO_HOME/data
+        set(PROJ_DATA ${PROJ_PATH}/share/proj)
+        add_custom_command(OUTPUT ${PROJ_DATA}
+                           COMMAND ${CMAKE_COMMAND} -E copy_directory ${PROJ_PATH}/share/proj ${CMAKE_SOURCE_DIR}/data/proj
+                           DEPENDS ${PROJ_PATH})
+    endif (PROJ_6)
+    add_custom_target(install_dll ALL DEPENDS ${CMAKE_SOURCE_DIR}/bin/zlib.dll ${OSG_TARGET} ${PROJ_DATA})
     set_property(TARGET install_dll PROPERTY FOLDER "CMake")
-endif()
+endif ()
 
 # java targets
 find_program(MVN_EXECUTABLE mvn)
@@ -399,7 +418,7 @@ if (MVN_EXECUTABLE AND Java_FOUND)
         set_property(TARGET ${JAVAT} PROPERTY EXCLUDE_FROM_DEFAULT_BUILD TRUE)
         set_property(TARGET ${JAVAT} PROPERTY FOLDER "java")
     endforeach ()
-endif()
+endif ()
 
 # doc targets
 add_custom_target(doxygen
@@ -427,7 +446,7 @@ if (MVN_EXECUTABLE)
     set_property(TARGET javadoc PROPERTY EXCLUDE_FROM_DEFAULT_BUILD TRUE)
     set_property(TARGET javadoc PROPERTY FOLDER "doc")
     set(JAVADOC_TARGET javadoc)
-endif()
+endif ()
 
 find_program(HELPMAN_EXECUTABLE help2man)
 if (HELPMAN_EXECUTABLE)
@@ -453,7 +472,7 @@ if (HELPMAN_EXECUTABLE)
     set_property(TARGET man PROPERTY EXCLUDE_FROM_DEFAULT_BUILD TRUE)
     set_property(TARGET man PROPERTY FOLDER "doc")
     set(MAN_TARGET man)
-endif()
+endif ()
 
 add_custom_target(doc)
 add_dependencies(doc doxygen userdoc ${JAVADOC_TARGET} ${MAN_TARGET})
