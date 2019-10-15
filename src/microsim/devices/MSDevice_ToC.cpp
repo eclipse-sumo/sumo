@@ -130,6 +130,8 @@ MSDevice_ToC::insertOptions(OptionsCont& oc) {
     oc.addDescription("device.toc.dynamicMRMProbability", "ToC Device", "Probability that a dynamically triggered TOR is not answered in time.");
     oc.doRegister("device.toc.mrmKeepRight", new Option_Bool(false));
     oc.addDescription("device.toc.mrmKeepRight", "ToC Device", "If true, the vehicle tries to change to the right during an MRM.");
+    oc.doRegister("device.toc.mrmSafeSpot", new Option_String());
+    oc.addDescription("device.toc.mrmSafeSpot", "ToC Device", "If set, the vehicle tries to reach the given named stopping place during an MRM.");
     oc.doRegister("device.toc.maxPreparationAccel", new Option_Float(0.0));
     oc.addDescription("device.toc.maxPreparationAccel", "ToC Device", "Maximal acceleration that may be applied during the ToC preparation phase.");
     oc.doRegister("device.toc.ogNewTimeHeadway", new Option_Float(-1.0));
@@ -151,26 +153,28 @@ void
 MSDevice_ToC::buildVehicleDevices(SUMOVehicle& v, std::vector<MSVehicleDevice*>& into) {
     OptionsCont& oc = OptionsCont::getOptions();
     if (equippedByDefaultAssignmentOptions(oc, "toc", v, false)) {
-        std::string manualType = getManualType(v, oc);
-        std::string automatedType = getAutomatedType(v, oc);
-        SUMOTime responseTime = TIME2STEPS(getResponseTime(v, oc));
-        double recoveryRate = getRecoveryRate(v, oc);
-        double lcAbstinence = getLCAbstinence(v, oc);
-        double initialAwareness = getInitialAwareness(v, oc);
-        double mrmDecel = getMRMDecel(v, oc);
-        bool useColoring = useColorScheme(v, oc);
-        std::string deviceID = "toc_" + v.getID();
-        std::string file = getOutputFilename(v, oc);
-        OpenGapParams ogp = getOpenGapParams(v, oc);
-        const double dynamicToCThreshold = getDynamicToCThreshold(v, oc);
+        const std::string manualType = getStringParam(v, oc, "toc.manualType", DEFAULT_MANUAL_TYPE, true);
+        const std::string automatedType = getStringParam(v, oc, "toc.automatedType", DEFAULT_AUTOMATED_TYPE, true);
+        const SUMOTime responseTime = TIME2STEPS(getFloatParam(v, oc, "toc.responseTime", DEFAULT_RESPONSE_TIME, false));
+        const double recoveryRate = getFloatParam(v, oc, "toc.recoveryRate", DEFAULT_RECOVERY_RATE, false);
+        const double lcAbstinence = getFloatParam(v, oc, "toc.lcAbstinence", DEFAULT_LCABSTINENCE, false);
+        const double initialAwareness = getFloatParam(v, oc, "toc.initialAwareness", DEFAULT_INITIAL_AWARENESS, false);
+        const double mrmDecel = getFloatParam(v, oc, "toc.mrmDecel", DEFAULT_MRM_DECEL, false);
+        const bool useColoring = getBoolParam(v, oc, "toc.useColorScheme", "false", false);
+        const std::string deviceID = "toc_" + v.getID();
+        const std::string file = getOutputFilename(v, oc);
+        const OpenGapParams ogp = getOpenGapParams(v, oc);
+        const double dynamicToCThreshold = getFloatParam(v, oc, "toc.dynamicToCThreshold", DEFAULT_DYNAMIC_TOC_THRESHOLD, false);
         const double dynamicMRMProbability = getDynamicMRMProbability(v, oc);
-        const bool mrmKeepRight = getMRMKeepRight(v, oc);
-        const double maxPreparationAccel = getMaxPreparationAccel(v, oc);
+        const bool mrmKeepRight = getBoolParam(v, oc, "toc.mrmKeepRight", false, false);
+        const std::string mrmSafeSpot = getStringParam(v, oc, "toc.mrmSafeSpot", "", false);
+        const double maxPreparationAccel = getFloatParam(v, oc, "toc.maxPreparationAccel", 0.0, false);
         // build the device
         MSDevice_ToC* device = new MSDevice_ToC(v, deviceID, file,
                                                 manualType, automatedType, responseTime, recoveryRate,
                                                 lcAbstinence, initialAwareness, mrmDecel, dynamicToCThreshold,
-                                                dynamicMRMProbability, maxPreparationAccel, mrmKeepRight, useColoring, ogp);
+                                                dynamicMRMProbability, maxPreparationAccel, mrmKeepRight,
+                                                mrmSafeSpot, useColoring, ogp);
         into.push_back(device);
     }
 }
@@ -198,45 +202,6 @@ MSDevice_ToC::getOutputFilename(const SUMOVehicle& v, const OptionsCont& oc) {
     return file;
 }
 
-std::string
-MSDevice_ToC::getManualType(const SUMOVehicle& v, const OptionsCont& oc) {
-    return getStringParam(v, oc, "toc.manualType", DEFAULT_MANUAL_TYPE, true);
-}
-
-std::string
-MSDevice_ToC::getAutomatedType(const SUMOVehicle& v, const OptionsCont& oc) {
-    return getStringParam(v, oc, "toc.automatedType", DEFAULT_AUTOMATED_TYPE, true);
-}
-
-double
-MSDevice_ToC::getResponseTime(const SUMOVehicle& v, const OptionsCont& oc) {
-    return getFloatParam(v, oc, "toc.responseTime", DEFAULT_RESPONSE_TIME, false);
-}
-
-double
-MSDevice_ToC::getRecoveryRate(const SUMOVehicle& v, const OptionsCont& oc) {
-    return getFloatParam(v, oc, "toc.recoveryRate", DEFAULT_RECOVERY_RATE, false);
-}
-
-double
-MSDevice_ToC::getLCAbstinence(const SUMOVehicle& v, const OptionsCont& oc) {
-    return getFloatParam(v, oc, "toc.lcAbstinence", DEFAULT_LCABSTINENCE, false);
-}
-
-double
-MSDevice_ToC::getInitialAwareness(const SUMOVehicle& v, const OptionsCont& oc) {
-    return getFloatParam(v, oc, "toc.initialAwareness", DEFAULT_INITIAL_AWARENESS, false);
-}
-
-double
-MSDevice_ToC::getMRMDecel(const SUMOVehicle& v, const OptionsCont& oc) {
-    return getFloatParam(v, oc, "toc.mrmDecel", DEFAULT_MRM_DECEL, false);
-}
-
-double
-MSDevice_ToC::getDynamicToCThreshold(const SUMOVehicle& v, const OptionsCont& oc) {
-    return getFloatParam(v, oc, "toc.dynamicToCThreshold", DEFAULT_DYNAMIC_TOC_THRESHOLD, false);
-}
 
 double
 MSDevice_ToC::getDynamicMRMProbability(const SUMOVehicle& v, const OptionsCont& oc) {
@@ -249,20 +214,6 @@ MSDevice_ToC::getDynamicMRMProbability(const SUMOVehicle& v, const OptionsCont& 
     return pMRM;
 }
 
-double
-MSDevice_ToC::getMaxPreparationAccel(const SUMOVehicle& v, const OptionsCont& oc) {
-    return getFloatParam(v, oc, "toc.maxPreparationAccel", 0.0, false);
-}
-
-bool
-MSDevice_ToC::getMRMKeepRight(const SUMOVehicle& v, const OptionsCont& oc) {
-    return getBoolParam(v, oc, "toc.mrmKeepRight", false, false);
-}
-
-bool
-MSDevice_ToC::useColorScheme(const SUMOVehicle& v, const OptionsCont& oc) {
-    return getBoolParam(v, oc, "toc.useColorScheme", "false", false);
-}
 
 MSDevice_ToC::OpenGapParams
 MSDevice_ToC::getOpenGapParams(const SUMOVehicle& v, const OptionsCont& oc) {
@@ -313,10 +264,10 @@ MSDevice_ToC::getOpenGapParams(const SUMOVehicle& v, const OptionsCont& oc) {
 // MSDevice_ToC-methods
 // ---------------------------------------------------------------------------
 MSDevice_ToC::MSDevice_ToC(SUMOVehicle& holder, const std::string& id, const std::string& outputFilename,
-                           std::string manualType, std::string automatedType, SUMOTime responseTime, double recoveryRate,
+                           const std::string& manualType, const std::string& automatedType, SUMOTime responseTime, double recoveryRate,
                            double lcAbstinence, double initialAwareness, double mrmDecel,
                            double dynamicToCThreshold, double dynamicMRMProbability, double maxPreparationAccel,
-                           bool mrmKeepRight, bool useColoring, OpenGapParams ogp) :
+                           bool mrmKeepRight, const std::string& mrmSafeSpot, bool useColorScheme, OpenGapParams ogp) :
     MSVehicleDevice(holder, id),
     myManualTypeID(manualType),
     myAutomatedTypeID(automatedType),
@@ -326,7 +277,7 @@ MSDevice_ToC::MSDevice_ToC(SUMOVehicle& holder, const std::string& id, const std
     myInitialAwareness(initialAwareness),
     myMRMDecel(mrmDecel),
     myCurrentAwareness(1.),
-    myUseColorScheme(useColoring),
+    myUseColorScheme(useColorScheme),
     myTriggerMRMCommand(nullptr),
     myTriggerToCCommand(nullptr),
     myRecoverAwarenessCommand(nullptr),
@@ -343,6 +294,7 @@ MSDevice_ToC::MSDevice_ToC(SUMOVehicle& holder, const std::string& id, const std
     myIssuedDynamicToC(false),
     myDynamicToCLane(-1),
     myMRMKeepRight(mrmKeepRight),
+    myMRMSafeSpot(mrmSafeSpot),
     myMaxPreparationAccel(maxPreparationAccel),
     myOriginalMaxAccel(-1) {
     // Take care! Holder is currently being constructed. Cast occurs before completion.
@@ -608,8 +560,15 @@ MSDevice_ToC::triggerMRM(SUMOTime /* t */) {
     descheduleMRM();
 
     // Start MRM process
-    myExecuteMRMCommand = new WrappingCommand<MSDevice_ToC>(this, &MSDevice_ToC::MRMExecutionStep);
-    MSNet::getInstance()->getBeginOfTimestepEvents()->addEvent(myExecuteMRMCommand, SIMSTEP + DELTA_T);
+    if (myMRMSafeSpot != "") {
+        std::string error;
+        SUMOVehicleParameter::Stop stop;
+        stop.parkingarea = myMRMSafeSpot;
+        myHolderMS->addStop(stop, error);
+    } else {
+        myExecuteMRMCommand = new WrappingCommand<MSDevice_ToC>(this, &MSDevice_ToC::MRMExecutionStep);
+        MSNet::getInstance()->getBeginOfTimestepEvents()->addEvent(myExecuteMRMCommand, SIMSTEP + DELTA_T);
+    }
     if (myState == MANUAL || myState == RECOVERING) {
         switchHolderType(myAutomatedTypeID);
     }
@@ -891,6 +850,8 @@ MSDevice_ToC::getParameter(const std::string& key) const {
         return toString(myMRMProbability);
     } else if (key == "mrmKeepRight") {
         return toString(myMRMKeepRight);
+    } else if (key == "mrmSafeSpot") {
+        return myMRMSafeSpot;
     } else if (key == "maxPreparationAccel") {
         return toString(myMaxPreparationAccel);
     }
@@ -965,6 +926,8 @@ MSDevice_ToC::setParameter(const std::string& key, const std::string& value) {
     } else if (key == "mrmKeepRight")  {
         const bool newValue = StringUtils::toBool(value);
         myMRMKeepRight = newValue;
+    } else if (key == "mrmSafeSpot") {
+        myMRMSafeSpot = value;
     } else if (key == "maxPreparationAccel") {
         const double newValue = StringUtils::toDouble(value);
         if (newValue < 0) {

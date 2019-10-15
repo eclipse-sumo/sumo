@@ -119,18 +119,7 @@ private:
 
     /// @name Helpers for parameter parsing
     /// @{
-    static std::string getManualType(const SUMOVehicle& v, const OptionsCont& oc);
-    static std::string getAutomatedType(const SUMOVehicle& v, const OptionsCont& oc);
-    static double getResponseTime(const SUMOVehicle& v, const OptionsCont& oc);
-    static double getRecoveryRate(const SUMOVehicle& v, const OptionsCont& oc);
-    static double getLCAbstinence(const SUMOVehicle& v, const OptionsCont& oc);
-    static double getInitialAwareness(const SUMOVehicle& v, const OptionsCont& oc);
-    static double getMRMDecel(const SUMOVehicle& v, const OptionsCont& oc);
-    static double getDynamicToCThreshold(const SUMOVehicle& v, const OptionsCont& oc);
     static double getDynamicMRMProbability(const SUMOVehicle& v, const OptionsCont& oc);
-    static double getMaxPreparationAccel(const SUMOVehicle& v, const OptionsCont& oc);
-    static bool getMRMKeepRight(const SUMOVehicle& v, const OptionsCont& oc);
-    static bool useColorScheme(const SUMOVehicle& v, const OptionsCont& oc);
     static std::string getOutputFilename(const SUMOVehicle& v, const OptionsCont& oc);
     static OpenGapParams getOpenGapParams(const SUMOVehicle& v, const OptionsCont& oc);
 
@@ -203,14 +192,16 @@ private:
      * @param[in] lcAbstinence awareness level below which no lane changes are taken out
      * @param[in] initialAwareness value to which the awareness is set after takeover
      * @param[in] mrmDecel constant deceleration rate assumed to be applied during an MRM
+     * @param[in] mrmKeepRight whether the vehicle tries to change to the right during an MRM
+     * @param[in] mrmSafeSpot stopping place to reach during an MRM
      * @param[in] useColorScheme whether the color of the vehicle should be changed according to its current ToC-state
      * @param[in] ogp parameters for the openGap mechanism applied during ToC preparation phase
      */
     MSDevice_ToC(SUMOVehicle& holder, const std::string& id, const std::string& outputFilename,
-                 std::string manualType, std::string automatedType, SUMOTime responseTime, double recoveryRate,
+                 const std::string& manualType, const std::string& automatedType, SUMOTime responseTime, double recoveryRate,
                  double lcAbstinence, double initialAwareness, double mrmDecel,
                  double dynamicToCThreshold, double dynamicMRMProbability, double maxPreparationAccel,
-                 bool mrmKeepRight, bool useColorScheme, OpenGapParams ogp);
+                 bool mrmKeepRight, const std::string& mrmSafeSpot, bool useColorScheme, OpenGapParams ogp);
 
     /** @brief Initialize vehicle colors for different states
      *  @note  For MANUAL and AUTOMATED, the color of the given types are used,
@@ -351,6 +342,9 @@ private:
 
     /// @brief Whether vehicle tries to change to the right during an MRM
     bool myMRMKeepRight;
+
+    /// @brief stop vehicle tries to reach during MRM
+    std::string myMRMSafeSpot;
 
     /// @brief Maximal acceleration that may be applied during the ToC preparation phase
     /// TODO: Make effective
