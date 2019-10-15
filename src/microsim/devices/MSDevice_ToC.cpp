@@ -132,6 +132,8 @@ MSDevice_ToC::insertOptions(OptionsCont& oc) {
     oc.addDescription("device.toc.mrmKeepRight", "ToC Device", "If true, the vehicle tries to change to the right during an MRM.");
     oc.doRegister("device.toc.mrmSafeSpot", new Option_String());
     oc.addDescription("device.toc.mrmSafeSpot", "ToC Device", "If set, the vehicle tries to reach the given named stopping place during an MRM.");
+    oc.doRegister("device.toc.mrmSafeSpotDuration", new Option_Float(60.));
+    oc.addDescription("device.toc.mrmSafeSpotDuration", "ToC Device", "Duration the vehicle stays at the safe spot after an MRM.");
     oc.doRegister("device.toc.maxPreparationAccel", new Option_Float(0.0));
     oc.addDescription("device.toc.maxPreparationAccel", "ToC Device", "Maximal acceleration that may be applied during the ToC preparation phase.");
     oc.doRegister("device.toc.ogNewTimeHeadway", new Option_Float(-1.0));
@@ -168,13 +170,14 @@ MSDevice_ToC::buildVehicleDevices(SUMOVehicle& v, std::vector<MSVehicleDevice*>&
         const double dynamicMRMProbability = getDynamicMRMProbability(v, oc);
         const bool mrmKeepRight = getBoolParam(v, oc, "toc.mrmKeepRight", false, false);
         const std::string mrmSafeSpot = getStringParam(v, oc, "toc.mrmSafeSpot", "", false);
+        const SUMOTime mrmSafeSpotDuration = TIME2STEPS(getFloatParam(v, oc, "toc.mrmSafeSpotDuration", 60., false));
         const double maxPreparationAccel = getFloatParam(v, oc, "toc.maxPreparationAccel", 0.0, false);
         // build the device
         MSDevice_ToC* device = new MSDevice_ToC(v, deviceID, file,
                                                 manualType, automatedType, responseTime, recoveryRate,
                                                 lcAbstinence, initialAwareness, mrmDecel, dynamicToCThreshold,
                                                 dynamicMRMProbability, maxPreparationAccel, mrmKeepRight,
-                                                mrmSafeSpot, useColoring, ogp);
+                                                mrmSafeSpot, mrmSafeSpotDuration, useColoring, ogp);
         into.push_back(device);
     }
 }
@@ -267,7 +270,7 @@ MSDevice_ToC::MSDevice_ToC(SUMOVehicle& holder, const std::string& id, const std
                            const std::string& manualType, const std::string& automatedType, SUMOTime responseTime, double recoveryRate,
                            double lcAbstinence, double initialAwareness, double mrmDecel,
                            double dynamicToCThreshold, double dynamicMRMProbability, double maxPreparationAccel,
-                           bool mrmKeepRight, const std::string& mrmSafeSpot, bool useColorScheme, OpenGapParams ogp) :
+                           bool mrmKeepRight, const std::string& mrmSafeSpot, SUMOTime mrmSafeSpotDuration, bool useColorScheme, OpenGapParams ogp) :
     MSVehicleDevice(holder, id),
     myManualTypeID(manualType),
     myAutomatedTypeID(automatedType),
@@ -295,6 +298,7 @@ MSDevice_ToC::MSDevice_ToC(SUMOVehicle& holder, const std::string& id, const std
     myDynamicToCLane(-1),
     myMRMKeepRight(mrmKeepRight),
     myMRMSafeSpot(mrmSafeSpot),
+    myMRMSafeSpotDuration(mrmSafeSpotDuration),
     myMaxPreparationAccel(maxPreparationAccel),
     myOriginalMaxAccel(-1) {
     // Take care! Holder is currently being constructed. Cast occurs before completion.
@@ -564,6 +568,7 @@ MSDevice_ToC::triggerMRM(SUMOTime /* t */) {
         std::string error;
         SUMOVehicleParameter::Stop stop;
         stop.parkingarea = myMRMSafeSpot;
+        stop.duration = myMRMSafeSpotDuration;
         myHolderMS->addStop(stop, error);
     } else {
         myExecuteMRMCommand = new WrappingCommand<MSDevice_ToC>(this, &MSDevice_ToC::MRMExecutionStep);

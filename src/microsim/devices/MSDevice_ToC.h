@@ -201,7 +201,7 @@ private:
                  const std::string& manualType, const std::string& automatedType, SUMOTime responseTime, double recoveryRate,
                  double lcAbstinence, double initialAwareness, double mrmDecel,
                  double dynamicToCThreshold, double dynamicMRMProbability, double maxPreparationAccel,
-                 bool mrmKeepRight, const std::string& mrmSafeSpot, bool useColorScheme, OpenGapParams ogp);
+                 bool mrmKeepRight, const std::string& mrmSafeSpot, SUMOTime mrmSafeSpotDuration, bool useColorScheme, OpenGapParams ogp);
 
     /** @brief Initialize vehicle colors for different states
      *  @note  For MANUAL and AUTOMATED, the color of the given types are used,
@@ -345,6 +345,9 @@ private:
 
     /// @brief stop vehicle tries to reach during MRM
     std::string myMRMSafeSpot;
+
+    /// @brief duration at stop vehicle tries to reach during MRM
+    SUMOTime myMRMSafeSpotDuration;
 
     /// @brief Maximal acceleration that may be applied during the ToC preparation phase
     /// TODO: Make effective
