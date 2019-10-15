@@ -210,7 +210,7 @@ if (SUMO_LIBRARIES AND WIN32)
     # set SWIG
     set(SWIG_EXECUTABLE "${SUMO_LIBRARIES}/swigwin-3.0.12/swig.exe")
     # set GRPC ("Release" used by old versions of SUMOLibraries)
-    if(EXISTS "${ROOT}/configuration/${customer}/configuration.${project_name}.xml")
+    if(EXISTS "${SUMO_LIBRARIES}/grpc-1.10.0/Release/grpc_cpp_plugin.exe")
         set(CMAKE_PREFIX_PATH "${CMAKE_PREFIX_PATH};${SUMO_LIBRARIES}/grpc-1.10.0")
         set(CMAKE_LIBRARY_PATH "${CMAKE_LIBRARY_PATH};${SUMO_LIBRARIES}/grpc-1.10.0/Release")
         set(GRPC_CPP_PLUGIN "${SUMO_LIBRARIES}/grpc-1.10.0/Release/grpc_cpp_plugin.exe")
