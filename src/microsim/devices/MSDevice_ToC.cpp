@@ -565,11 +565,21 @@ MSDevice_ToC::triggerMRM(SUMOTime /* t */) {
 
     // Start MRM process
     if (myMRMSafeSpot != "") {
-        std::string error;
         SUMOVehicleParameter::Stop stop;
-        stop.parkingarea = myMRMSafeSpot;
-        stop.duration = myMRMSafeSpotDuration;
-        myHolderMS->addStop(stop, error);
+        MSStoppingPlace* s = MSNet::getInstance()->getStoppingPlace(myMRMSafeSpot, SUMO_TAG_PARKING_AREA);
+        if (s == nullptr) {
+            WRITE_WARNING("Ignoring unknown safe spot '" + myMRMSafeSpot + "' for vehicle '" + myHolder.getID() + "'.");
+        } else {
+            stop.parkingarea = myMRMSafeSpot;
+            stop.lane = s->getLane().getID();
+            stop.endPos = s->getEndLanePosition();
+            stop.startPos = s->getBeginLanePosition();
+            stop.duration = myMRMSafeSpotDuration;
+            std::string error;
+            if (!myHolder.addStop(stop, error)) {
+                WRITE_WARNING("Could not set safe spot '" + myMRMSafeSpot + "' for vehicle '" + myHolder.getID() + "'. " + error);
+            }
+        }
     } else {
         myExecuteMRMCommand = new WrappingCommand<MSDevice_ToC>(this, &MSDevice_ToC::MRMExecutionStep);
         MSNet::getInstance()->getBeginOfTimestepEvents()->addEvent(myExecuteMRMCommand, SIMSTEP + DELTA_T);
