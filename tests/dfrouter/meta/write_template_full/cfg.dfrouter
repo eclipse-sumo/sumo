@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Mar 14 15:50:22 2019 by Eclipse SUMO dfrouter Version v1_1_0+0435-678c69824b
+<!-- generated on Tue Oct 15 18:31:44 2019 by Eclipse SUMO dfrouter Version v1_3_1+0470-4a6b08f445
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/dfrouterConfiguration.xsd">
@@ -49,7 +49,7 @@
         <keep-longer-routes value="false" type="BOOL" help="Keeps routes even if a shorter one exists"/>
         <max-search-depth value="30" synonymes="max-nodet-follower" type="INT" help="Number of edges to follow a route without passing a detector"/>
         <emissions-only value="false" type="BOOL" help="Writes only emission times"/>
-        <disallowed-edges value="" type="STR" help="Do not route on these edges"/>
+        <disallowed-edges value="" type="STR[]" help="Do not route on these edges"/>
         <keep-turnarounds value="false" type="BOOL" help="Allow turnarounds as route continuations"/>
         <min-route-length value="-1" synonymes="min-dist min-distance" type="FLOAT" help="Minimum distance in meters between start and end node of every route"/>
         <randomize-flows value="false" type="BOOL" help="generate random departure times for emitted vehicles"/>

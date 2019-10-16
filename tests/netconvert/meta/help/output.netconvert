@@ -1,4 +1,4 @@
-Eclipse SUMO netconvert Version v1_3_1+0448-0d7d2a7
+Eclipse SUMO netconvert Version v1_3_1+0470-4a6b08f445
  Copyright (C) 2001-2019 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 Network importer / builder for the microscopic, multi-modal traffic simulation
   SUMO.
@@ -127,7 +127,7 @@ Processing Options:
   -R, --geometry.remove                Replace nodes which only define edge
                                          geometry by geometry points (joins
                                          edges)
-  --geometry.remove.keep-edges.explicit STR  Ensure that the given list of
+  --geometry.remove.keep-edges.explicit STR[]  Ensure that the given list of
                                          edges is not modified
   --geometry.remove.keep-edges.input-file FILE  Ensure that the edges in FILE
                                          are not modified (Each id on a single
@@ -219,9 +219,9 @@ TLS Building Options:
   --tls.discard-simple                 Does not instatiate traffic lights at
                                          geometry-like nodes loaded from other
                                          formats than plain-XML
-  --tls.set STR                        Interprets STR as list of junctions to
+  --tls.set STR[]                      Interprets STR[] as list of junctions to
                                          be controlled by TLS
-  --tls.unset STR                      Interprets STR as list of junctions to
+  --tls.unset STR[]                    Interprets STR[] as list of junctions to
                                          be not controlled by TLS
   --tls.guess                          Turns on TLS guessing
   --tls.guess.threshold FLOAT          Sets minimum value for the sum of all
@@ -266,9 +266,9 @@ TLS Building Options:
                                          crossings (s).
   --tls.scramble.time INT              Use INT as green phase duration for
                                          pedestrian scramble phase (s).
-  --tls.half-offset STR                TLSs in STR will be shifted by
+  --tls.half-offset STR[]              TLSs in STR[] will be shifted by
                                          half-phase
-  --tls.quarter-offset STR             TLSs in STR will be shifted by
+  --tls.quarter-offset STR[]           TLSs in STR[] will be shifted by
                                          quarter-phase
   --tls.default-type STR               TLSs with unspecified type will use STR
                                          as their algorithm
@@ -293,15 +293,15 @@ Ramp Guessing Options:
   --ramps.min-highway-speed FLOAT      Treat edges with speed < FLOAT as no
                                          highways
   --ramps.ramp-length FLOAT            Use FLOAT as ramp-length
-  --ramps.set STR                      Tries to handle the given edges as ramps
-  --ramps.unset STR                    Do not consider the given edges as ramps
+  --ramps.set STR[]                    Tries to handle the given edges as ramps
+  --ramps.unset STR[]                  Do not consider the given edges as ramps
   --ramps.no-split                     Avoids edge splitting
 
 Edge Removal Options:
   --keep-edges.min-speed FLOAT         Only keep edges with speed in
                                          meters/second > FLOAT
-  --remove-edges.explicit STR          Remove edges in STR
-  --keep-edges.explicit STR            Only keep edges in STR or those which
+  --remove-edges.explicit STR[]        Remove edges in STR[]
+  --keep-edges.explicit STR[]          Only keep edges in STR[] or those which
                                          are kept due to other keep-edges or
                                          remove-edges options
   --keep-edges.input-file FILE         Only keep edges in FILE (Each id on a
@@ -313,29 +313,29 @@ Edge Removal Options:
                                          single line. Selection files from
                                          SUMO-GUI are also supported)
   --keep-edges.postload                Remove edges after joining
-  --keep-edges.in-boundary STR         Only keep edges which are located within
+  --keep-edges.in-boundary STR[]       Only keep edges which are located within
                                          the given boundary (given either as
                                          CARTESIAN corner coordinates
                                          <xmin,ymin,xmax,ymax> or as polygon
                                          <x0,y0,x1,y1,...>)
-  --keep-edges.in-geo-boundary STR     Only keep edges which are located within
+  --keep-edges.in-geo-boundary STR[]   Only keep edges which are located within
                                          the given boundary (given either as
                                          GEODETIC corner coordinates
                                          <lon-min,lat-min,lon-max,lat-max> or as
                                          polygon <lon0,lat0,lon1,lat1,...>)
-  --keep-edges.by-vclass STR           Only keep edges which allow one of the
-                                         vclasss in STR
-  --remove-edges.by-vclass STR         Remove edges which allow only vclasses
-                                         from STR
-  --keep-edges.by-type STR             Only keep edges where type is in STR
+  --keep-edges.by-vclass STR[]         Only keep edges which allow one of the
+                                         vclasss in STR[]
+  --remove-edges.by-vclass STR[]       Remove edges which allow only vclasses
+                                         from STR[]
+  --keep-edges.by-type STR[]           Only keep edges where type is in STR[]
   --keep-edges.components INT          Only keep the INT largest weakly
                                          connected components
-  --remove-edges.by-type STR           Remove edges where type is in STR
+  --remove-edges.by-type STR[]         Remove edges where type is in STR[]
   --remove-edges.isolated              Removes isolated edges
 
 Unregulated Nodes Options:
   --keep-nodes-unregulated             All nodes will be unregulated
-  --keep-nodes-unregulated.explicit STR  Do not regulate nodes in STR
+  --keep-nodes-unregulated.explicit STR[]  Do not regulate nodes in STR[]
   --keep-nodes-unregulated.district-nodes  Do not regulate district nodes
 
 Junctions Options:
@@ -356,7 +356,7 @@ Junctions Options:
                                          other (recommended for OSM import)
   --junctions.join-dist FLOAT          Determines the maximal distance for
                                          joining junctions (defaults to 10)
-  --junctions.join-exclude STR         Interprets STR as list of junctions to
+  --junctions.join-exclude STR[]       Interprets STR[] as list of junctions to
                                          exclude from joining
   --junctions.corner-detail INT        Generate INT intermediate points to
                                          smooth out intersection corners
@@ -413,7 +413,7 @@ Pedestrian Options:
   --sidewalks.guess.from-permissions   Add sidewalks for edges that allow
                                          pedestrians on any of their lanes
                                          regardless of speed
-  --sidewalks.guess.exclude STR        Do not guess sidewalks for the given
+  --sidewalks.guess.exclude STR[]      Do not guess sidewalks for the given
                                          list of edges
   --crossings.guess                    Guess pedestrian crossings based on the
                                          presence of sidewalks
@@ -432,7 +432,7 @@ Bicycle Options:
   --bikelanes.guess.from-permissions   Add bike lanes for edges that allow
                                          bicycles on any of their lanes
                                          regardless of speed
-  --bikelanes.guess.exclude STR        Do not guess bikelanes for the given
+  --bikelanes.guess.exclude STR[]      Do not guess bikelanes for the given
                                          list of edges
 
 Railway Options:
@@ -490,7 +490,7 @@ Formats Options:
                                          whether distinct shapes are connected
                                          (used when from-id and to-id are not
                                          available)
-  --shapefile.add-params STR           Add the list of field names as edge
+  --shapefile.add-params STR[]         Add the list of field names as edge
                                          params
   --shapefile.use-defaults-on-failure  Uses edge type defaults on problems
   --shapefile.all-bidirectional        Insert edges in both directions

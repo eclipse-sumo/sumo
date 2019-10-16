@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Mar 14 15:50:38 2019 by Eclipse SUMO od2trips Version v1_1_0+0435-678c69824b
+<!-- generated on Wed Oct 16 13:29:49 2019 by Eclipse SUMO od2trips Version v1_3_1+0470-4a6b08f445
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/od2tripsConfiguration.xsd">
@@ -96,8 +96,8 @@
         <!-- Defines the prefix for vehicle names -->
         <prefix value="" type="STR"/>
 
-        <!-- Uses STR as a timeline definition -->
-        <timeline value="" type="STR"/>
+        <!-- Uses STR[] as a timeline definition -->
+        <timeline value="" type="STR[]"/>
 
         <!-- Uses STR as a 24h-timeline definition -->
         <timeline.day-in-hours value="false" type="BOOL"/>

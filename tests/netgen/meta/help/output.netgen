@@ -1,4 +1,4 @@
-Eclipse SUMO netgenerate Version v1_2_0+1567-3b34009
+Eclipse SUMO netgenerate Version v1_3_1+0470-4a6b08f445
  Copyright (C) 2001-2019 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 Synthetic network generator for the microscopic, multi-modal traffic simulation
   SUMO.
@@ -176,9 +176,9 @@ Building Defaults Options:
   -j, --default-junction-type STR      [traffic_light|priority|right_before_left|traffic_light_right_on_red|priority_stop|allway_stop|...] Determines junction type (see wiki/Networks/PlainXML#Node_types)
 
 TLS Building Options:
-  --tls.set STR                        Interprets STR as list of junctions to
+  --tls.set STR[]                      Interprets STR[] as list of junctions to
                                          be controlled by TLS
-  --tls.unset STR                      Interprets STR as list of junctions to
+  --tls.unset STR[]                    Interprets STR[] as list of junctions to
                                          be not controlled by TLS
   --tls.guess                          Turns on TLS guessing
   --tls.guess.threshold FLOAT          Sets minimum value for the sum of all
@@ -216,9 +216,9 @@ TLS Building Options:
                                          crossings (s).
   --tls.scramble.time INT              Use INT as green phase duration for
                                          pedestrian scramble phase (s).
-  --tls.half-offset STR                TLSs in STR will be shifted by
+  --tls.half-offset STR[]              TLSs in STR[] will be shifted by
                                          half-phase
-  --tls.quarter-offset STR             TLSs in STR will be shifted by
+  --tls.quarter-offset STR[]           TLSs in STR[] will be shifted by
                                          quarter-phase
   --tls.default-type STR               TLSs with unspecified type will use STR
                                          as their algorithm
@@ -236,8 +236,8 @@ TLS Building Options:
 Edge Removal Options:
   --keep-edges.min-speed FLOAT         Only keep edges with speed in
                                          meters/second > FLOAT
-  --remove-edges.explicit STR          Remove edges in STR
-  --keep-edges.explicit STR            Only keep edges in STR or those which
+  --remove-edges.explicit STR[]        Remove edges in STR[]
+  --keep-edges.explicit STR[]          Only keep edges in STR[] or those which
                                          are kept due to other keep-edges or
                                          remove-edges options
   --keep-edges.input-file FILE         Only keep edges in FILE (Each id on a
@@ -248,12 +248,12 @@ Edge Removal Options:
   --remove-edges.input-file FILE       Remove edges in FILE. (Each id on a
                                          single line. Selection files from
                                          SUMO-GUI are also supported)
-  --keep-edges.in-boundary STR         Only keep edges which are located within
+  --keep-edges.in-boundary STR[]       Only keep edges which are located within
                                          the given boundary (given either as
                                          CARTESIAN corner coordinates
                                          <xmin,ymin,xmax,ymax> or as polygon
                                          <x0,y0,x1,y1,...>)
-  --keep-edges.in-geo-boundary STR     Only keep edges which are located within
+  --keep-edges.in-geo-boundary STR[]   Only keep edges which are located within
                                          the given boundary (given either as
                                          GEODETIC corner coordinates
                                          <lon-min,lat-min,lon-max,lat-max> or as
@@ -261,7 +261,7 @@ Edge Removal Options:
 
 Unregulated Nodes Options:
   --keep-nodes-unregulated             All nodes will be unregulated
-  --keep-nodes-unregulated.explicit STR  Do not regulate nodes in STR
+  --keep-nodes-unregulated.explicit STR[]  Do not regulate nodes in STR[]
   --keep-nodes-unregulated.district-nodes  Do not regulate district nodes
 
 Junctions Options:
@@ -337,7 +337,7 @@ Pedestrian Options:
   --sidewalks.guess.from-permissions   Add sidewalks for edges that allow
                                          pedestrians on any of their lanes
                                          regardless of speed
-  --sidewalks.guess.exclude STR        Do not guess sidewalks for the given
+  --sidewalks.guess.exclude STR[]      Do not guess sidewalks for the given
                                          list of edges
   --crossings.guess                    Guess pedestrian crossings based on the
                                          presence of sidewalks
@@ -356,7 +356,7 @@ Bicycle Options:
   --bikelanes.guess.from-permissions   Add bike lanes for edges that allow
                                          bicycles on any of their lanes
                                          regardless of speed
-  --bikelanes.guess.exclude STR        Do not guess bikelanes for the given
+  --bikelanes.guess.exclude STR[]      Do not guess bikelanes for the given
                                          list of edges
 
 Report Options:

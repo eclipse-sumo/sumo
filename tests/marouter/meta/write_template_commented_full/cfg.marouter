@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Mar 14 15:50:20 2019 by Eclipse SUMO marouter Version v1_1_0+0435-678c69824b
+<!-- generated on Tue Oct 15 18:39:26 2019 by Eclipse SUMO marouter Version v1_3_1+0470-4a6b08f445
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/marouterConfiguration.xsd">
@@ -52,7 +52,7 @@
         <weight-adaption value="0" type="FLOAT"/>
 
         <!-- Parameter key(s) defining source (and sink) taz -->
-        <taz-param value="" type="STR"/>
+        <taz-param value="" type="STR[]"/>
 
     </input>
 
@@ -126,8 +126,8 @@
         <!-- Defines the prefix for vehicle flow names -->
         <prefix value="" type="STR"/>
 
-        <!-- Uses STR as a timeline definition -->
-        <timeline value="" type="STR"/>
+        <!-- Uses STR[] as a timeline definition -->
+        <timeline value="" type="STR[]"/>
 
         <!-- Uses STR as a 24h-timeline definition -->
         <timeline.day-in-hours value="false" type="BOOL"/>

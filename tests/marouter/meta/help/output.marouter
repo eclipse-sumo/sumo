@@ -1,4 +1,4 @@
-Eclipse SUMO marouter Version v1_1_0+0435-678c69824b
+Eclipse SUMO marouter Version v1_3_1+0470-4a6b08f445
  Copyright (C) 2001-2019 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 Import O/D-matrices for macroscopic traffic assignment to generate SUMO routes
 
@@ -27,7 +27,7 @@ Input Options:
                                       edge weight
   --weight-adaption FLOAT           The travel time influence of prior
                                       intervals
-  --taz-param STR                   Parameter key(s) defining source (and sink)
+  --taz-param STR[]                 Parameter key(s) defining source (and sink)
                                       taz
 
 Output Options:
@@ -70,7 +70,7 @@ Processing Options:
   -s, --scale FLOAT                 Scales the loaded flows by FLOAT
   --vtype STR                       Defines the name of the vehicle type to use
   --prefix STR                      Defines the prefix for vehicle flow names
-  --timeline STR                    Uses STR as a timeline definition
+  --timeline STR[]                  Uses STR[] as a timeline definition
   --timeline.day-in-hours           Uses STR as a 24h-timeline definition
   --additive-traffic                Keep traffic flows of all time slots in the
                                       net

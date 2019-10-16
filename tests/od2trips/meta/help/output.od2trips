@@ -1,4 +1,4 @@
-Eclipse SUMO od2trips Version v1_1_0+0435-678c69824b
+Eclipse SUMO od2trips Version v1_3_1+0470-4a6b08f445
  Copyright (C) 2001-2019 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 Importer of O/D-matrices for the microscopic, multi-modal traffic simulation
   SUMO.
@@ -55,7 +55,7 @@ Processing Options:
                                      not identical
   --vtype STR                      Defines the name of the vehicle type to use
   --prefix STR                     Defines the prefix for vehicle names
-  --timeline STR                   Uses STR as a timeline definition
+  --timeline STR[]                 Uses STR[] as a timeline definition
   --timeline.day-in-hours          Uses STR as a 24h-timeline definition
   --no-step-log                    Disable console output of current time step
 

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Aug 13 17:23:54 2019 by Eclipse SUMO netgenerate Version v1_2_0+1567-3b34009
+<!-- generated on Wed Oct 16 18:04:44 2019 by Eclipse SUMO netgenerate Version v1_3_1+0470-4a6b08f445
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netgenerateConfiguration.xsd">
@@ -279,11 +279,11 @@
     </building_defaults>
 
     <tls_building>
-        <!-- Interprets STR as list of junctions to be controlled by TLS -->
-        <tls.set value="" synonymes="explicite-tls" type="STR"/>
+        <!-- Interprets STR[] as list of junctions to be controlled by TLS -->
+        <tls.set value="" synonymes="explicite-tls" type="STR[]"/>
 
-        <!-- Interprets STR as list of junctions to be not controlled by TLS -->
-        <tls.unset value="" synonymes="explicite-no-tls" type="STR"/>
+        <!-- Interprets STR[] as list of junctions to be not controlled by TLS -->
+        <tls.unset value="" synonymes="explicite-no-tls" type="STR[]"/>
 
         <!-- Turns on TLS guessing -->
         <tls.guess value="false" synonymes="guess-tls" type="BOOL"/>
@@ -339,11 +339,11 @@
         <!-- Use INT as green phase duration for pedestrian scramble phase (s). -->
         <tls.scramble.time value="5" type="INT"/>
 
-        <!-- TLSs in STR will be shifted by half-phase -->
-        <tls.half-offset value="" synonymes="tl-logics.half-offset" type="STR"/>
+        <!-- TLSs in STR[] will be shifted by half-phase -->
+        <tls.half-offset value="" synonymes="tl-logics.half-offset" type="STR[]"/>
 
-        <!-- TLSs in STR will be shifted by quarter-phase -->
-        <tls.quarter-offset value="" synonymes="tl-logics.quarter-offset" type="STR"/>
+        <!-- TLSs in STR[] will be shifted by quarter-phase -->
+        <tls.quarter-offset value="" synonymes="tl-logics.quarter-offset" type="STR[]"/>
 
         <!-- TLSs with unspecified type will use STR as their algorithm -->
         <tls.default-type value="static" type="STR"/>
@@ -363,11 +363,11 @@
         <!-- Only keep edges with speed in meters/second &gt; FLOAT -->
         <keep-edges.min-speed value="-1" synonymes="edges-min-speed" type="FLOAT"/>
 
-        <!-- Remove edges in STR -->
-        <remove-edges.explicit value="" synonymes="remove-edges" type="STR"/>
+        <!-- Remove edges in STR[] -->
+        <remove-edges.explicit value="" synonymes="remove-edges" type="STR[]"/>
 
-        <!-- Only keep edges in STR or those which are kept due to other keep-edges or remove-edges options -->
-        <keep-edges.explicit value="" synonymes="keep-edges" type="STR"/>
+        <!-- Only keep edges in STR[] or those which are kept due to other keep-edges or remove-edges options -->
+        <keep-edges.explicit value="" synonymes="keep-edges" type="STR[]"/>
 
         <!-- Only keep edges in FILE (Each id on a single line. Selection files from SUMO-GUI are also supported) or those which are kept due to other keep-edges or remove-edges options -->
         <keep-edges.input-file value="" type="FILE"/>
@@ -376,10 +376,10 @@
         <remove-edges.input-file value="" type="FILE"/>
 
         <!-- Only keep edges which are located within the given boundary (given either as CARTESIAN corner coordinates &lt;xmin,ymin,xmax,ymax&gt; or as polygon &lt;x0,y0,x1,y1,...&gt;) -->
-        <keep-edges.in-boundary value="" type="STR"/>
+        <keep-edges.in-boundary value="" type="STR[]"/>
 
         <!-- Only keep edges which are located within the given boundary (given either as GEODETIC corner coordinates &lt;lon-min,lat-min,lon-max,lat-max&gt; or as polygon &lt;lon0,lat0,lon1,lat1,...&gt;) -->
-        <keep-edges.in-geo-boundary value="" type="STR"/>
+        <keep-edges.in-geo-boundary value="" type="STR[]"/>
 
     </edge_removal>
 
@@ -387,8 +387,8 @@
         <!-- All nodes will be unregulated -->
         <keep-nodes-unregulated value="false" synonymes="keep-unregulated" type="BOOL"/>
 
-        <!-- Do not regulate nodes in STR -->
-        <keep-nodes-unregulated.explicit value="" synonymes="keep-unregulated.explicit keep-unregulated.nodes" type="STR"/>
+        <!-- Do not regulate nodes in STR[] -->
+        <keep-nodes-unregulated.explicit value="" synonymes="keep-unregulated.explicit keep-unregulated.nodes" type="STR[]"/>
 
         <!-- Do not regulate district nodes -->
         <keep-nodes-unregulated.district-nodes value="false" synonymes="keep-unregulated.district-nodes" type="BOOL"/>
@@ -478,7 +478,7 @@
         <sidewalks.guess.from-permissions value="false" type="BOOL"/>
 
         <!-- Do not guess sidewalks for the given list of edges -->
-        <sidewalks.guess.exclude value="" type="STR"/>
+        <sidewalks.guess.exclude value="" type="STR[]"/>
 
         <!-- Guess pedestrian crossings based on the presence of sidewalks -->
         <crossings.guess value="false" type="BOOL"/>
@@ -505,7 +505,7 @@
         <bikelanes.guess.from-permissions value="false" type="BOOL"/>
 
         <!-- Do not guess bikelanes for the given list of edges -->
-        <bikelanes.guess.exclude value="" type="STR"/>
+        <bikelanes.guess.exclude value="" type="STR[]"/>
 
     </bicycle>
 

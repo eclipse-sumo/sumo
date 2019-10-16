@@ -1,4 +1,4 @@
-Eclipse SUMO duarouter Version v1_3_0+0081-36f1e9c334b
+Eclipse SUMO duarouter Version v1_3_1+0470-4a6b08f445
  Copyright (C) 2001-2019 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 Shortest path router and DUE computer for the microscopic, multi-modal traffic
   simulation SUMO.
@@ -84,7 +84,7 @@ Processing Options:
                                         origin
   --routing-threads INT               The number of parallel execution threads
                                         used for routing
-  --restriction-params STR            Comma separated list of param keys to
+  --restriction-params STR[]          Comma separated list of param keys to
                                         compare for additional restrictions
   --weights.expand                    Expand weights behind the simulation's
                                         end
@@ -120,7 +120,7 @@ Processing Options:
                                         values mean auto-estimation)
   --persontrip.walkfactor FLOAT       Use FLOAT as a factor on pedestrian
                                         maximum speed during intermodal routing
-  --persontrip.transfer.car-walk STR  Where are mode changes from car to
+  --persontrip.transfer.car-walk STR[]  Where are mode changes from car to
                                         walking allowed (possible values:
                                         'parkingAreas', 'ptStops',
                                         'allJunctions' and combinations)

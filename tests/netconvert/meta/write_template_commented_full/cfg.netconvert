@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Sep 27 10:14:48 2019 by Eclipse SUMO netconvert Version v1_3_1+0448-0d7d2a7
+<!-- generated on Wed Oct 16 17:45:49 2019 by Eclipse SUMO netconvert Version v1_3_1+0470-4a6b08f445
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -220,7 +220,7 @@
         <geometry.remove value="false" synonymes="R remove-geometry" type="BOOL"/>
 
         <!-- Ensure that the given list of edges is not modified -->
-        <geometry.remove.keep-edges.explicit value="" type="STR"/>
+        <geometry.remove.keep-edges.explicit value="" type="STR[]"/>
 
         <!-- Ensure that the edges in FILE are not modified (Each id on a single line. Selection files from SUMO-GUI are also supported) -->
         <geometry.remove.keep-edges.input-file value="" type="FILE"/>
@@ -354,11 +354,11 @@
         <!-- Does not instatiate traffic lights at geometry-like nodes loaded from other formats than plain-XML -->
         <tls.discard-simple value="false" type="BOOL"/>
 
-        <!-- Interprets STR as list of junctions to be controlled by TLS -->
-        <tls.set value="" synonymes="explicite-tls" type="STR"/>
+        <!-- Interprets STR[] as list of junctions to be controlled by TLS -->
+        <tls.set value="" synonymes="explicite-tls" type="STR[]"/>
 
-        <!-- Interprets STR as list of junctions to be not controlled by TLS -->
-        <tls.unset value="" synonymes="explicite-no-tls" type="STR"/>
+        <!-- Interprets STR[] as list of junctions to be not controlled by TLS -->
+        <tls.unset value="" synonymes="explicite-no-tls" type="STR[]"/>
 
         <!-- Turns on TLS guessing -->
         <tls.guess value="false" synonymes="guess-tls" type="BOOL"/>
@@ -423,11 +423,11 @@
         <!-- Use INT as green phase duration for pedestrian scramble phase (s). -->
         <tls.scramble.time value="5" type="INT"/>
 
-        <!-- TLSs in STR will be shifted by half-phase -->
-        <tls.half-offset value="" synonymes="tl-logics.half-offset" type="STR"/>
+        <!-- TLSs in STR[] will be shifted by half-phase -->
+        <tls.half-offset value="" synonymes="tl-logics.half-offset" type="STR[]"/>
 
-        <!-- TLSs in STR will be shifted by quarter-phase -->
-        <tls.quarter-offset value="" synonymes="tl-logics.quarter-offset" type="STR"/>
+        <!-- TLSs in STR[] will be shifted by quarter-phase -->
+        <tls.quarter-offset value="" synonymes="tl-logics.quarter-offset" type="STR[]"/>
 
         <!-- TLSs with unspecified type will use STR as their algorithm -->
         <tls.default-type value="static" type="STR"/>
@@ -460,10 +460,10 @@
         <ramps.ramp-length value="100" synonymes="ramp-guess.ramp-length" type="FLOAT"/>
 
         <!-- Tries to handle the given edges as ramps -->
-        <ramps.set value="" synonymes="ramp-guess.explicite" type="STR"/>
+        <ramps.set value="" synonymes="ramp-guess.explicite" type="STR[]"/>
 
         <!-- Do not consider the given edges as ramps -->
-        <ramps.unset value="" type="STR"/>
+        <ramps.unset value="" type="STR[]"/>
 
         <!-- Avoids edge splitting -->
         <ramps.no-split value="false" synonymes="ramp-guess.no-split" type="BOOL"/>
@@ -474,11 +474,11 @@
         <!-- Only keep edges with speed in meters/second &gt; FLOAT -->
         <keep-edges.min-speed value="-1" synonymes="edges-min-speed" type="FLOAT"/>
 
-        <!-- Remove edges in STR -->
-        <remove-edges.explicit value="" synonymes="remove-edges" type="STR"/>
+        <!-- Remove edges in STR[] -->
+        <remove-edges.explicit value="" synonymes="remove-edges" type="STR[]"/>
 
-        <!-- Only keep edges in STR or those which are kept due to other keep-edges or remove-edges options -->
-        <keep-edges.explicit value="" synonymes="keep-edges" type="STR"/>
+        <!-- Only keep edges in STR[] or those which are kept due to other keep-edges or remove-edges options -->
+        <keep-edges.explicit value="" synonymes="keep-edges" type="STR[]"/>
 
         <!-- Only keep edges in FILE (Each id on a single line. Selection files from SUMO-GUI are also supported) or those which are kept due to other keep-edges or remove-edges options -->
         <keep-edges.input-file value="" type="FILE"/>
@@ -490,25 +490,25 @@
         <keep-edges.postload value="false" type="BOOL"/>
 
         <!-- Only keep edges which are located within the given boundary (given either as CARTESIAN corner coordinates &lt;xmin,ymin,xmax,ymax&gt; or as polygon &lt;x0,y0,x1,y1,...&gt;) -->
-        <keep-edges.in-boundary value="" type="STR"/>
+        <keep-edges.in-boundary value="" type="STR[]"/>
 
         <!-- Only keep edges which are located within the given boundary (given either as GEODETIC corner coordinates &lt;lon-min,lat-min,lon-max,lat-max&gt; or as polygon &lt;lon0,lat0,lon1,lat1,...&gt;) -->
-        <keep-edges.in-geo-boundary value="" type="STR"/>
+        <keep-edges.in-geo-boundary value="" type="STR[]"/>
 
-        <!-- Only keep edges which allow one of the vclasss in STR -->
-        <keep-edges.by-vclass value="" type="STR"/>
+        <!-- Only keep edges which allow one of the vclasss in STR[] -->
+        <keep-edges.by-vclass value="" type="STR[]"/>
 
-        <!-- Remove edges which allow only vclasses from STR -->
-        <remove-edges.by-vclass value="" type="STR"/>
+        <!-- Remove edges which allow only vclasses from STR[] -->
+        <remove-edges.by-vclass value="" type="STR[]"/>
 
-        <!-- Only keep edges where type is in STR -->
-        <keep-edges.by-type value="" type="STR"/>
+        <!-- Only keep edges where type is in STR[] -->
+        <keep-edges.by-type value="" type="STR[]"/>
 
         <!-- Only keep the INT largest weakly connected components -->
         <keep-edges.components value="0" type="INT"/>
 
-        <!-- Remove edges where type is in STR -->
-        <remove-edges.by-type value="" type="STR"/>
+        <!-- Remove edges where type is in STR[] -->
+        <remove-edges.by-type value="" type="STR[]"/>
 
         <!-- Removes isolated edges -->
         <remove-edges.isolated value="false" synonymes="remove-isolated" type="BOOL"/>
@@ -519,8 +519,8 @@
         <!-- All nodes will be unregulated -->
         <keep-nodes-unregulated value="false" synonymes="keep-unregulated" type="BOOL"/>
 
-        <!-- Do not regulate nodes in STR -->
-        <keep-nodes-unregulated.explicit value="" synonymes="keep-unregulated.explicit keep-unregulated.nodes" type="STR"/>
+        <!-- Do not regulate nodes in STR[] -->
+        <keep-nodes-unregulated.explicit value="" synonymes="keep-unregulated.explicit keep-unregulated.nodes" type="STR[]"/>
 
         <!-- Do not regulate district nodes -->
         <keep-nodes-unregulated.district-nodes value="false" synonymes="keep-unregulated.district-nodes" type="BOOL"/>
@@ -555,8 +555,8 @@
         <!-- Determines the maximal distance for joining junctions (defaults to 10) -->
         <junctions.join-dist value="10" type="FLOAT"/>
 
-        <!-- Interprets STR as list of junctions to exclude from joining -->
-        <junctions.join-exclude value="" type="STR"/>
+        <!-- Interprets STR[] as list of junctions to exclude from joining -->
+        <junctions.join-exclude value="" type="STR[]"/>
 
         <!-- Generate INT intermediate points to smooth out intersection corners -->
         <junctions.corner-detail value="5" type="INT"/>
@@ -613,7 +613,7 @@
         <sidewalks.guess.from-permissions value="false" type="BOOL"/>
 
         <!-- Do not guess sidewalks for the given list of edges -->
-        <sidewalks.guess.exclude value="" type="STR"/>
+        <sidewalks.guess.exclude value="" type="STR[]"/>
 
         <!-- Guess pedestrian crossings based on the presence of sidewalks -->
         <crossings.guess value="false" type="BOOL"/>
@@ -640,7 +640,7 @@
         <bikelanes.guess.from-permissions value="false" type="BOOL"/>
 
         <!-- Do not guess bikelanes for the given list of edges -->
-        <bikelanes.guess.exclude value="" type="STR"/>
+        <bikelanes.guess.exclude value="" type="STR[]"/>
 
     </bicycle>
 
@@ -730,7 +730,7 @@
         <shapefile.node-join-dist value="0" type="FLOAT"/>
 
         <!-- Add the list of field names as edge params -->
-        <shapefile.add-params value="" type="STR"/>
+        <shapefile.add-params value="" type="STR[]"/>
 
         <!-- Uses edge type defaults on problems -->
         <shapefile.use-defaults-on-failure value="false" synonymes="arcview.use-defaults-on-failure" type="BOOL"/>

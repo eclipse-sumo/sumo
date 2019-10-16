@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Aug 12 13:31:39 2019 by Eclipse SUMO polyconvert Version v1_2_0+1531-5689942
+<!-- generated on Wed Oct 16 13:30:14 2019 by Eclipse SUMO polyconvert Version v1_3_1+0470-4a6b08f445
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/polyconvertConfiguration.xsd">
@@ -26,7 +26,7 @@
         <shapefile-prefixes value="" synonymes="shape-files shapefile shapefile-prefix" type="FILE" help="Reads shapes from shapefiles FILE+"/>
         <shapefile.guess-projection value="false" synonymes="arcview.guess-projection" type="BOOL" help="Guesses the shapefile&apos;s projection"/>
         <shapefile.id-column value="" synonymes="shape-files.id-name shapefile.id-name" type="STR" help="Defines in which column the id can be found"/>
-        <shapefile.type-columns value="" synonymes="shapefile.type-column" type="STR" help="Defines which columns form the type id (comma separated list)"/>
+        <shapefile.type-columns value="" synonymes="shapefile.type-column" type="STR[]" help="Defines which columns form the type id (comma separated list)"/>
         <shapefile.use-running-id value="false" type="BOOL" help="A running number will be used as id"/>
         <shapefile.add-param value="false" type="BOOL" help="Extract all additional columns as params"/>
         <shapefile.fill value="" type="STR" help="[auto|true|false]. Forces the &apos;fill&apos; status to the given value. Default &apos;auto&apos; tries to determine it from the data type"/>
@@ -60,7 +60,7 @@
         <prune.in-net.offsets value="0,0,0,0" synonymes="prune.on-net.offsets" type="STR" help="Uses STR as offset definition added to the net boundaries"/>
         <prune.boundary value="" type="STR" help="Uses STR as pruning boundary"/>
         <prune.keep-list value="" synonymes="prune.ignore prune.keep" type="STR" help="Items in STR will be kept though out of boundary"/>
-        <prune.explicit value="" synonymes="remove" type="STR" help="Items with names in STR will be removed"/>
+        <prune.explicit value="" synonymes="remove" type="STR[]" help="Items with names in STR[] will be removed"/>
     </pruning>
 
     <processing>

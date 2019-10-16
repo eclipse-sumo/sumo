@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Mar 14 15:50:20 2019 by Eclipse SUMO marouter Version v1_1_0+0435-678c69824b
+<!-- generated on Tue Oct 15 18:39:26 2019 by Eclipse SUMO marouter Version v1_3_1+0470-4a6b08f445
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/marouterConfiguration.xsd">
@@ -23,7 +23,7 @@
         <lane-weight-files value="" type="FILE" help="Read lane-based network weights from FILE(s)"/>
         <weight-attribute value="traveltime" synonymes="measure x" type="STR" help="Name of the xml attribute which gives the edge weight"/>
         <weight-adaption value="0" type="FLOAT" help="The travel time influence of prior intervals"/>
-        <taz-param value="" type="STR" help="Parameter key(s) defining source (and sink) taz"/>
+        <taz-param value="" type="STR[]" help="Parameter key(s) defining source (and sink) taz"/>
     </input>
 
     <output>
@@ -52,7 +52,7 @@
         <scale value="1" synonymes="s" type="FLOAT" help="Scales the loaded flows by FLOAT"/>
         <vtype value="" type="STR" help="Defines the name of the vehicle type to use"/>
         <prefix value="" type="STR" help="Defines the prefix for vehicle flow names"/>
-        <timeline value="" type="STR" help="Uses STR as a timeline definition"/>
+        <timeline value="" type="STR[]" help="Uses STR[] as a timeline definition"/>
         <timeline.day-in-hours value="false" type="BOOL" help="Uses STR as a 24h-timeline definition"/>
         <additive-traffic value="false" type="BOOL" help="Keep traffic flows of all time slots in the net"/>
         <assignment-method value="incremental" type="STR" help="Choose a assignment method: incremental, UE or SUE"/>
