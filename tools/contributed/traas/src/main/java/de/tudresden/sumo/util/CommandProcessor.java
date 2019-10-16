@@ -19,6 +19,7 @@
 /****************************************************************************/
 package de.tudresden.sumo.util;
 
+import it.polito.appeal.traci.TraCIException;
 import it.polito.appeal.traci.TraCIException.UnexpectedData;
 import it.polito.appeal.traci.protocol.Command;
 import it.polito.appeal.traci.protocol.ResponseContainer;
@@ -371,6 +372,9 @@ public class CommandProcessor extends Query {
         ResponseContainer rc = queryAndVerifySingle(sc.cmd);
         Command resp = rc.getResponse();
 
+        if (resp == null) {
+            throw new TraCIException("Received null repsonse for command " + sc.input1 + " " + sc.input2 + ". (Maybe you need to use do_job_set?)");
+        }
         verifyGetVarResponse(resp, sc.response, sc.input2, sc.input3);
         verify("", sc.output_type, (int)resp.content().readUnsignedByte());
 
