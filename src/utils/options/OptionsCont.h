@@ -540,7 +540,7 @@ public:
      * @todo Try to optimize - at each call, the vector is rebuilt
      */
     bool isInStringVector(const std::string& optionName,
-                          const std::string& itemName);
+                          const std::string& itemName) const;
     /// @}
 
 

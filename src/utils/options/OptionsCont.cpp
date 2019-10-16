@@ -930,7 +930,7 @@ OptionsCont::getStringVector(const std::string& name) const {
 
 bool
 OptionsCont::isInStringVector(const std::string& optionName,
-                              const std::string& itemName) {
+                              const std::string& itemName) const {
     if (isSet(optionName)) {
         std::vector<std::string> values = getStringVector(optionName);
         return std::find(values.begin(), values.end(), itemName) != values.end();

@@ -84,11 +84,8 @@ NBNetBuilder::compute(OptionsCont& oc, const std::set<std::string>& explicitTurn
     }
 
     // MODIFYING THE SETS OF NODES AND EDGES
-
-    long before = SysUtils::getCurrentMillis();
-
-
     // Removes edges that are connecting the same node
+    long before = SysUtils::getCurrentMillis();
     PROGRESS_BEGIN_MESSAGE("Removing self-loops");
     myNodeCont.removeSelfLoops(myDistrictCont, myEdgeCont, myTLLCont);
     PROGRESS_TIME_MESSAGE(before);
@@ -268,7 +265,7 @@ NBNetBuilder::compute(OptionsCont& oc, const std::set<std::string>& explicitTurn
         PROGRESS_DONE_MESSAGE();
     }
     //
-    if (mayAddOrRemove &&  oc.exists("geometry.split") && oc.getBool("geometry.split")) {
+    if (mayAddOrRemove && oc.exists("geometry.split") && oc.getBool("geometry.split")) {
         before = SysUtils::getCurrentMillis();
         PROGRESS_BEGIN_MESSAGE("Splitting geometry edges");
         myEdgeCont.splitGeometry(myDistrictCont, myNodeCont);

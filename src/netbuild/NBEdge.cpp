@@ -2138,7 +2138,7 @@ NBEdge::computeEdge2Edges(bool noLeftMovers) {
         if (fromRail && isRailway((*i)->getPermissions()) &&
                 fabs(NBHelpers::normRelAngle(getAngleAtNode(myTo), (*i)->getAngleAtNode(myTo))) > 90) {
             continue;
-        };
+        }
         myConnections.push_back(Connection(-1, *i, -1));
     }
     myStep = EDGE2EDGES;

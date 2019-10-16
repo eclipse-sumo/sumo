@@ -163,12 +163,19 @@ NBNodesEdgesSorter::swapWhenReversed(const NBNode* const n,
 void
 NBNodeTypeComputer::computeNodeTypes(NBNodeCont& nc, NBTrafficLightLogicCont& tlc) {
     validateRailCrossings(nc, tlc);
-    const double rightBeforeLeftSpeed = OptionsCont::getOptions().getFloat("junctions.right-before-left.speed-threshold");
+    const OptionsCont& oc = OptionsCont::getOptions();
+    const double rightBeforeLeftSpeed = oc.getFloat("junctions.right-before-left.speed-threshold");
     for (std::map<std::string, NBNode*>::const_iterator i = nc.begin(); i != nc.end(); ++i) {
-        NBNode* n = (*i).second;
+        NBNode* const n = (*i).second;
         // the type may already be set from the data
         if (n->myType != NODETYPE_UNKNOWN && n->myType != NODETYPE_DEAD_END) {
             n->myTypeWasGuessed = false;
+            continue;
+        }
+        // check whether the node was set to be unregulated by the user
+        if (oc.getBool("keep-nodes-unregulated") || oc.isInStringVector("keep-nodes-unregulated.explicit", n->getID())
+            || (oc.getBool("keep-nodes-unregulated.district-nodes") && (n->isNearDistrict() || n->isDistrict()))) {
+            n->myType = NODETYPE_NOJUNCTION;
             continue;
         }
         // check whether the node is a waterway node. Set to unregulated by default
@@ -195,7 +202,7 @@ NBNodeTypeComputer::computeNodeTypes(NBNodeCont& nc, NBTrafficLightLogicCont& tl
             continue;
         }
         if (isRailwayNode(n)) {
-            // priority instead of unregulated to ensure that collisiosn can be detected
+            // priority instead of unregulated to ensure that collisions can be detected
             n->myType = NODETYPE_PRIORITY;
             continue;
         }
