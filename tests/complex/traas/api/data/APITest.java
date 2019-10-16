@@ -177,12 +177,27 @@ public class APITest {
             System.out.println("Simulation.convertGeo: " + geoPos);
 
             System.out.println("Lane.getLinks: " + conn.do_job_get(Lane.getLinks(":gneJ1_6_0")));
+
             conn.close();
 
         } catch (Exception ex) {
             ex.printStackTrace();
         }
 
+        try {
+            SumoTraciConnection conn = new SumoTraciConnection(sumo_bin, config_file);
+            conn.addOption("step-length", step_length + "");
+            conn.addOption("start", "true"); //start sumo immediately
+
+            //start Traci Server
+            conn.runServer();
+            conn.setOrder(1);
+
+            // expecting exception here since we use get instead of set
+            conn.do_job_get(Simulation.saveState("file-state-now"));
+        } catch (Exception tex) {
+            System.err.println(tex.getMessage());
+        }
     }
 
 }
