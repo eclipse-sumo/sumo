@@ -592,15 +592,7 @@ bool Option_FileName::isFileName() const { return true; }
 
 std::string
 Option_FileName::getString() const {
-    const StringVector& myFileName = Option_StringVector::getStringVector();
-
-    if (myFileName.size() != 1) {
-        throw ProcessError(
-            "This filename option contains less or more than one element (" +
-            std::to_string(myFileName.size()) + "):\n" + getValueString());
-    }
-
-    return myFileName.front();
+    return Option_StringVector::getValueString();
 }
 
 std::string Option_FileName::getValueString() const {

@@ -810,12 +810,13 @@ public:
      */
     bool isFileName() const;
 
-    /** @brief Returns the stored filename string if and only if the string-vector
-     * contains a single element. Otherwise, throws an exception.
+    /** @brief Legacy method that returns the stored filenames as a comma-separated string.
      * 
      * @see std::string Option::getString()
-     * @return Returns the stored string if and only if the string-vector
-     * contains a single element
+     * @see std::string StringVector::getValueString()
+     * @return Returns comma-separated string of the stored filenames
+     * @deprecated Legacy method used when Option_FileName was still derived from Option_String;
+     * not in line with code style of the Options sub-system.
      */
     std::string getString() const;
 
