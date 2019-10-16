@@ -571,10 +571,12 @@ MSDevice_ToC::triggerMRM(SUMOTime /* t */) {
             WRITE_WARNING("Ignoring unknown safe spot '" + myMRMSafeSpot + "' for vehicle '" + myHolder.getID() + "'.");
         } else {
             stop.parkingarea = myMRMSafeSpot;
+            stop.parking = true;
             stop.lane = s->getLane().getID();
             stop.endPos = s->getEndLanePosition();
             stop.startPos = s->getBeginLanePosition();
             stop.duration = myMRMSafeSpotDuration;
+            myHolderMS->getSingularType().setDecel(myMRMDecel);
             std::string error;
             if (!myHolder.addStop(stop, error)) {
                 WRITE_WARNING("Could not set safe spot '" + myMRMSafeSpot + "' for vehicle '" + myHolder.getID() + "'. " + error);
@@ -867,6 +869,8 @@ MSDevice_ToC::getParameter(const std::string& key) const {
         return toString(myMRMKeepRight);
     } else if (key == "mrmSafeSpot") {
         return myMRMSafeSpot;
+    } else if (key == "mrmSafeSpotDuration") {
+        return toString(STEPS2TIME(myMRMSafeSpotDuration));
     } else if (key == "maxPreparationAccel") {
         return toString(myMaxPreparationAccel);
     }
@@ -943,6 +947,8 @@ MSDevice_ToC::setParameter(const std::string& key, const std::string& value) {
         myMRMKeepRight = newValue;
     } else if (key == "mrmSafeSpot") {
         myMRMSafeSpot = value;
+    } else if (key == "mrmSafeSpotDuration") {
+        myMRMSafeSpotDuration = TIME2STEPS(StringUtils::toDouble(value));
     } else if (key == "maxPreparationAccel") {
         const double newValue = StringUtils::toDouble(value);
         if (newValue < 0) {
