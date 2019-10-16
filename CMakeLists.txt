@@ -141,9 +141,13 @@ endif ()
 
 # Check if libraries have to be found, depending on SUMO_LIBRARIES
 set(SUMO_LIBRARIES "$ENV{SUMO_LIBRARIES}" CACHE PATH "Location of SUMOLibraries dependencies")
+
+# some user place SUMOLibraries in the same SUMO folder
 if (NOT SUMO_LIBRARIES AND EXISTS "${CMAKE_SOURCE_DIR}/../SUMOLibraries")
     set(SUMO_LIBRARIES "${CMAKE_SOURCE_DIR}/../SUMOLibraries")
 endif ()
+
+# check if SUMOLibraries was found (Only in Windows)
 if (SUMO_LIBRARIES AND WIN32)
     # Special option for MinGW32
     if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU" AND WIN32)
@@ -165,24 +169,37 @@ if (SUMO_LIBRARIES AND WIN32)
         # disable optional libraries
         set(CHECK_OPTIONAL_LIBS false)
     endif ()
+    # set Xerces
     if ("${MSVC_VERSION}" STREQUAL "1800")
+        # msvc2012 requieres a special version of xerces 
         file(GLOB XERCES_PATH "${SUMO_LIBRARIES}/msvc12${LIB_VERSION}/xerces-c-3.?.?")
     else()
         file(GLOB XERCES_PATH "${SUMO_LIBRARIES}${LIB_VERSION}/xerces-c-3.?.?")
     endif ()
+    # set zlib
     file(GLOB ZLIB_PATH "${SUMO_LIBRARIES}${LIB_VERSION}/3rdPartyLibs/zlib-?.?.??")
-    # set PROJ and GDAL ("proj_gdal-1911" used by old versions of SUMOLibraries)
+    # set PROJ and GDAL
     if (EXISTS "${SUMO_LIBRARIES}${LIB_VERSION}/proj_gdal-1911")
+        # "proj_gdal-1911" is used by old versions of SUMOLibraries
         file(GLOB PROJ_PATH "${SUMO_LIBRARIES}${LIB_VERSION}/proj_gdal-1911")
         file(GLOB GDAL_PATH "${SUMO_LIBRARIES}${LIB_VERSION}/proj_gdal-1911")
         set(PROJ_6 0)
+    elseif ("${MSVC_VERSION}" STREQUAL "1800")
+        # msvc2012 requieres a special version of proj_gdal 
+        file(GLOB PROJ_PATH "${SUMO_LIBRARIES}/msvc12${LIB_VERSION}/proj_gdal-1911")
+        file(GLOB GDAL_PATH "${SUMO_LIBRARIES}/msvc12${LIB_VERSION}/proj_gdal-1911")
+        set(PROJ_6 0)
     else()
+        # use proj 6 and gdal 3
         file(GLOB PROJ_PATH "${SUMO_LIBRARIES}${LIB_VERSION}/proj-?.?.?")
         file(GLOB GDAL_PATH "${SUMO_LIBRARIES}${LIB_VERSION}/gdal-?.?.?")
         set(PROJ_6 1)
     endif ()
+    # set fox
     file(GLOB FOX_PATH "${SUMO_LIBRARIES}${LIB_VERSION}/fox-?.?.??")
+    # set all paths in prefix
     set(CMAKE_PREFIX_PATH "${CMAKE_PREFIX_PATH};${XERCES_PATH};${ZLIB_PATH};${ZLIB_PATH}/Release;${ZLIB_PATH}/Debug;${ZLIB_PATH}/bin;${ZLIB_PATH}/lib;${PROJ_PATH};${GDAL_PATH};${FOX_PATH}")
+    # save in variable SUMO_LIBRARIES_DLL all paths to dll files
     file(GLOB SUMO_LIBRARIES_DLL "${XERCES_PATH}/bin/*.dll"
                                  "${PROJ_PATH}/bin/*.dll"
                                  "${GDAL_PATH}/bin/*.dll"
