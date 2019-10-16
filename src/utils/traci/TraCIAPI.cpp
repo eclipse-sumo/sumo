@@ -817,12 +817,11 @@ TraCIAPI::EdgeScope::setEffort(const std::string& edgeID, double effort, double 
 void
 TraCIAPI::EdgeScope::setMaxSpeed(const std::string& edgeID, double speed) const {
     tcpip::Storage content;
+    content.writeByte(libsumo::TYPE_DOUBLE);
     content.writeDouble(speed);
     myParent.createCommand(libsumo::CMD_SET_EDGE_VARIABLE, libsumo::VAR_MAXSPEED, edgeID, &content);
     myParent.processSet(libsumo::CMD_SET_EDGE_VARIABLE);
 }
-
-
 
 
 // ---------------------------------------------------------------------------

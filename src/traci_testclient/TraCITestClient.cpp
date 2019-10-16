@@ -657,6 +657,8 @@ TraCITestClient::testAPI() {
     answerLog << "    effort: " << edge.getEffort(edgeID, 0) << "\n";
     answerLog << "    laneNumber: " << edge.getLaneNumber(edgeID) << "\n";
     answerLog << "    streetName: " << edge.getStreetName(edgeID) << "\n";
+    edge.setMaxSpeed(edgeID, 42);
+    answerLog << "    maxSpeed: " << lane.getMaxSpeed(edgeID+"_0") << "\n";
 
     // lane
     answerLog << "  lane:\n";
@@ -692,6 +694,8 @@ TraCITestClient::testAPI() {
     } catch (libsumo::TraCIException& e) {
         answerLog << "    caught TraCIException(" << e.what() << ")\n";
     }
+    lane.setMaxSpeed(laneID, 42);
+    answerLog << "    maxSpeed: " << lane.getMaxSpeed(laneID) << "\n";
     // poi
     answerLog << "  POI:\n";
     answerLog << "    getIDList: " << joinToString(poi.getIDList(), " ") << "\n";
