@@ -330,7 +330,7 @@ NBFrame::fillOptions(bool forNetgen) {
     oc.addDescription("sidewalks.guess.from-permissions", "Pedestrian",
                       "Add sidewalks for edges that allow pedestrians on any of their lanes regardless of speed");
 
-    oc.doRegister("sidewalks.guess.exclude", new Option_String());
+    oc.doRegister("sidewalks.guess.exclude", new Option_StringVector());
     oc.addDescription("sidewalks.guess.exclude", "Pedestrian",
                       "Do not guess sidewalks for the given list of edges");
 
@@ -350,7 +350,7 @@ NBFrame::fillOptions(bool forNetgen) {
     oc.addDescription("bikelanes.guess.from-permissions", "Bicycle",
                       "Add bike lanes for edges that allow bicycles on any of their lanes regardless of speed");
 
-    oc.doRegister("bikelanes.guess.exclude", new Option_String());
+    oc.doRegister("bikelanes.guess.exclude", new Option_StringVector());
     oc.addDescription("bikelanes.guess.exclude", "Bicycle",
                       "Do not guess bikelanes for the given list of edges");
 
@@ -504,7 +504,7 @@ NBFrame::fillOptions(bool forNetgen) {
     oc.doRegister("keep-edges.in-boundary", new Option_StringVector());
     oc.addDescription("keep-edges.in-boundary", "Edge Removal", "Only keep edges which are located within the given boundary (given either as CARTESIAN corner coordinates <xmin,ymin,xmax,ymax> or as polygon <x0,y0,x1,y1,...>)");
 
-    oc.doRegister("keep-edges.in-geo-boundary", new Option_String());
+    oc.doRegister("keep-edges.in-geo-boundary", new Option_StringVector());
     oc.addDescription("keep-edges.in-geo-boundary", "Edge Removal", "Only keep edges which are located within the given boundary (given either as GEODETIC corner coordinates <lon-min,lat-min,lon-max,lat-max> or as polygon <lon0,lat0,lon1,lat1,...>)");
 
     if (!forNetgen) {
