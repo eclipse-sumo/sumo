@@ -1,4 +1,4 @@
-TraCITestClient output file. Date: Wed Jul  3 09:00:14 2019
+TraCITestClient output file. Date: Wed Oct 16 11:33:50 2019
 
 
 -> Command sent: <SetOrder>:
@@ -16,6 +16,7 @@ testAPI:
     effort: 420.00
     laneNumber: 3
     streetName: exampleStreetName1
+    maxSpeed: 42.00
   lane:
     getIDList: :n_m1_0_0 :n_m1_0_1 :n_m1_0_2 :n_m2_0_0 :n_m2_0_1 :n_m2_0_2 :n_m3_0_0 :n_m3_0_1 :n_m3_0_2 :n_m4_0_0 :n_m4_0_1 :n_m4_2_0 :n_m4_2_1 :n_m4_4_0 :n_m4_4_1 :n_m4_4_2 :n_m4_7_0 :n_m5_0_0 :n_m5_0_1 :n_m5_2_0 :n_m5_2_1 :n_m5_4_0 :n_m5_4_1 :n_m5_4_2 :n_m6_0_0 :n_m6_0_1 :n_m6_2_0 :n_m6_2_1 :n_m6_4_0 :n_m6_4_1 :n_m6_4_2 :n_m7_0_0 :n_m7_0_1 :n_m7_0_2 :n_m7_3_0 :n_m7_3_1 :n_m7_3_2 :n_o0_0_0 :n_o0_0_1 :n_o1_0_0 :n_o1_0_1 :n_o1_0_2 :n_o1_3_0 :n_o1_3_1 :n_o2_0_0 :n_o2_0_1 :n_o2_0_2 :n_o2_3_0 :n_o2_3_1 :n_u0_0_0 :n_u0_0_1 :n_u1_0_0 :n_u1_0_1 :n_u1_2_0 :n_u1_2_1 :n_u1_2_2 :n_u2_0_0 :n_u2_0_1 :n_u2_2_0 :n_u2_2_1 :n_u2_2_2 :n_x1_0_0 :n_x1_0_1 e_m0_0 e_m0_1 e_m0_2 e_m1_0 e_m1_1 e_m1_2 e_m2_0 e_m2_1 e_m2_2 e_m3_0 e_m3_1 e_m3_2 e_m4_0 e_m4_1 e_m4_2 e_m5_0 e_m5_1 e_m5_2 e_m6_0 e_m6_1 e_m6_2 e_o0_0 e_o0_1 e_o0_2 e_o1_0 e_o1_1 e_o1_2 e_shape0_0 e_shape0_1 e_shape0_2 e_shape1_0 e_shape1_1 e_shape1_2 e_u0_0 e_u0_1 e_u0_2 e_u1_0 e_u1_1 e_u1_2 e_vo0_0 e_vo0_1 e_vo1_0 e_vo1_1 e_vo2_0 e_vo2_1 e_vu0_0 e_vu0_1 e_vu1_0 e_vu1_1 e_vu2_0 e_vu2_1 e_x0_0 e_x0_1 e_x1_0 e_x1_1
     getIDCount: 118
@@ -29,6 +30,7 @@ testAPI:
     getFoes (invalid):     caught TraCIException(.. Answered with error to command (163), [description: No connection from lane 'e_vu0_0' to lane 'e_m4_1'])
     getInternalFoes: :n_m4_7_0 :n_m4_0_1 :n_m4_4_0 :n_m4_4_1 :n_m4_4_2
     getInternalFoes (invalid):     caught TraCIException(.. Answered with error to command (163), [description: Lane 'dummy' is not known])
+    maxSpeed: 42.00
   POI:
     getIDList: poi0 poi1
     getIDCount: 2
