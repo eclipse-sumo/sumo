@@ -186,7 +186,6 @@ def cut_routes(aEdges, orig_net, options, busStopEdges=None):
                     if planItem.name == "walk":
                         routeParts = cutEdgeList(areaEdges, oldDepart, None,
                                                  planItem.edges.split(), orig_net, options, stats)
-                        print(planItem, routeParts)
                         for depart, edges in routeParts:
                             if newDepart is None:
                                 newDepart = depart
@@ -194,13 +193,18 @@ def cut_routes(aEdges, orig_net, options, busStopEdges=None):
                             walk.edges = " ".join(edges)
                             newPlan.append(walk)
                             remaining.update(edges)
+                    elif planItem.name == "ride":
+                        if newDepart is None:
+                            newDepart = float(planItem.depart)
+                            planItem.lines = planItem.intended
+                        newPlan.append(planItem)
                     else:
                         newPlan.append(planItem)
+                moving.setChildList(newPlan)
                 cut_stops(moving, busStopEdges, remaining)
-                if not newPlan:
+                if not moving.getChildList():
                     continue
                 moving.depart = "%.2f" % newDepart
-                moving.setChildList(newPlan)
                 yield newDepart, moving
             else:
                 if moving.name == 'vehicle':
