@@ -1,3 +1,6 @@
+# save2 test using the deprecated list delimiter ';'
+save2_deprecated_delimiter
+
 # save 2 states
 save2
 
