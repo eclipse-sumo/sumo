@@ -1620,8 +1620,10 @@ GNEFrameAttributesModuls::ParametersEditor::showParametersEditor(GNEAttributeCar
             // iterate over all values
             while (parameters.hasNext()) {
                 // obtain key and value and save it in myParameters
-                StringTokenizer keyValue(parameters.next(), "=", true);
-                myParameters[keyValue.front()] = keyValue.next();
+                const std::vector<std::string> keyValue = StringTokenizer(parameters.next(), "=", true).getVector();
+                if (keyValue.size() == 2) {
+                    myParameters[keyValue.front()] = keyValue.back();
+                }
             }
         }
         // refresh ParametersEditor
