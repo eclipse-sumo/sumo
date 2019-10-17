@@ -254,11 +254,11 @@ def cut_routes(aEdges, orig_net, options, busStopEdges=None):
                         yield -1, routeRef
                     else:
                         old_route.edges = " ".join(remaining)
-                    if moving.name == 'flow':
-                        moving.begin = "%.2f" % newDepart
-                        moving.end = "%.2f" % (newDepart - float(oldDepart))
-                    else:
+                    if moving.name == 'vehicle':
                         moving.depart = "%.2f" % newDepart
+                    else:
+                        moving.begin = "%.2f" % newDepart
+                        moving.end = "%.2f" % (newDepart - float(oldDepart) + float(moving.end))
                     if len(routeParts) > 1:
                         # return copies of the vehicle for each route part
                         yield_mov = copy.deepcopy(moving)
