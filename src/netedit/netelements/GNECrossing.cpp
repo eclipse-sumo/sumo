@@ -242,9 +242,17 @@ GNECrossing::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_EDGES:
             return toString(crossing->edges);
         case SUMO_ATTR_TLLINKINDEX:
-            return toString(crossing->customTLIndex);
+            if (isAttributeEnabled(SUMO_ATTR_TLLINKINDEX)) {
+                return toString(crossing->customTLIndex);
+            } else {
+                return "No TLS";
+            }
         case SUMO_ATTR_TLLINKINDEX2:
-            return toString(crossing->customTLIndex2);
+            if (isAttributeEnabled(SUMO_ATTR_TLLINKINDEX2)) {
+                return toString(crossing->customTLIndex2);
+            } else {
+                return "No TLS";
+            }
         case SUMO_ATTR_CUSTOMSHAPE:
             return toString(crossing->customShape);
         case GNE_ATTR_SELECTED:
@@ -277,6 +285,18 @@ GNECrossing::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList
             break;
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
+    }
+}
+
+
+bool 
+GNECrossing::isAttributeEnabled(SumoXMLAttr key) const {
+    switch (key) {
+        case SUMO_ATTR_TLLINKINDEX:
+        case SUMO_ATTR_TLLINKINDEX2:
+            return (myParentJunction->getNBNode()->getCrossing(myCrossingEdges)->tlID != "");
+        default:
+            return true;
     }
 }
 
@@ -314,8 +334,9 @@ GNECrossing::isValid(SumoXMLAttr key, const std::string& value) {
             return canParse<bool>(value);
         case SUMO_ATTR_TLLINKINDEX:
         case SUMO_ATTR_TLLINKINDEX2:
-            return (crossing->tlID != "" && canParse<int>(value)
-                    // -1 means that tlLinkIndex2 takes on the same value as tlLinkIndex when setting idnices
+            // -1 means that tlLinkIndex2 takes on the same value as tlLinkIndex when setting idnices
+            return (isAttributeEnabled(key) &&
+                    canParse<int>(value)
                     && ((parse<double>(value) >= 0) || ((parse<double>(value) == -1) && (key == SUMO_ATTR_TLLINKINDEX2)))
                     && myParentJunction->getNBNode()->getControllingTLS().size() > 0
                     && (*myParentJunction->getNBNode()->getControllingTLS().begin())->getMaxValidIndex() >= parse<int>(value));

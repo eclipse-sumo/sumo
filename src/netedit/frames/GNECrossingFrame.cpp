@@ -228,6 +228,7 @@ GNECrossingFrame::CrossingParameters::enableCrossingParameters(bool hasTLS) {
     myCrossingEdgesLabel->enable();
     myCrossingEdges->enable();
     myCrossingPriorityLabel->enable();
+    // only enable priority check button if junction's crossing doesn't have TLS
     if (hasTLS) {
         myCrossingPriorityCheckButton->disable();
     } else {
@@ -238,8 +239,12 @@ GNECrossingFrame::CrossingParameters::enableCrossingParameters(bool hasTLS) {
     myHelpCrossingAttribute->enable();
     // set values of parameters
     onCmdSetAttribute(nullptr, 0, nullptr);
-    myCrossingPriorityCheckButton->setCheck(hasTLS ? true :
-                                            GNEAttributeCarrier::parse<bool>(tagProperties.getDefaultValue(SUMO_ATTR_PRIORITY)));
+    // Crossings placed in junctinos with TLS always has priority
+    if (hasTLS) {
+        myCrossingPriorityCheckButton->setCheck(TRUE);
+    } else {
+        myCrossingPriorityCheckButton->setCheck(GNEAttributeCarrier::parse<bool>(tagProperties.getDefaultValue(SUMO_ATTR_PRIORITY)));
+    }
     myCrossingWidth->setText(tagProperties.getDefaultValue(SUMO_ATTR_WIDTH).c_str());
     myCrossingWidth->setTextColor(FXRGB(0, 0, 0));
 }
