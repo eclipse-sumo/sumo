@@ -851,6 +851,12 @@ GNEStop::disableAttribute(SumoXMLAttr key, GNEUndoList* undoList) {
 bool
 GNEStop::isAttributeEnabled(SumoXMLAttr key) const {
     switch (key) {
+        // Currently stops parents cannot be edited
+        case SUMO_ATTR_BUS_STOP:
+        case SUMO_ATTR_CONTAINER_STOP:
+        case SUMO_ATTR_CHARGING_STATION:
+        case SUMO_ATTR_PARKING_AREA:
+            return false;
         case SUMO_ATTR_STARTPOS:
             return (parametersSet & STOP_START_SET) != 0;
         case SUMO_ATTR_ENDPOS:

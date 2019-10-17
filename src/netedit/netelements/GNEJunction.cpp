@@ -1000,10 +1000,19 @@ GNEJunction::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_RADIUS:
             return toString(myNBNode.getRadius());
         case SUMO_ATTR_TLTYPE:
-            // @todo this causes problems if the node were to have multiple programs of different type (plausible)
-            return myNBNode.isTLControlled() ? toString((*myNBNode.getControllingTLS().begin())->getType()) : "";
+            if (isAttributeEnabled(SUMO_ATTR_TLTYPE)) {
+                // @todo this causes problems if the node were to have multiple programs of different type (plausible)
+                return toString((*myNBNode.getControllingTLS().begin())->getType());
+            } else {
+                return "No TLS";
+            }
+
         case SUMO_ATTR_TLID:
-            return myNBNode.isTLControlled() ? toString((*myNBNode.getControllingTLS().begin())->getID()) : "";
+            if (isAttributeEnabled(SUMO_ATTR_TLID)) {
+                return toString((*myNBNode.getControllingTLS().begin())->getID());
+            } else {
+                return "No TLS";
+            }
         case SUMO_ATTR_KEEP_CLEAR:
             // keep clear is only used as a convenience feature in plain xml
             // input. When saving to .net.xml the status is saved only for the connections
@@ -1220,6 +1229,18 @@ GNEJunction::isValid(SumoXMLAttr key, const std::string& value) {
 }
 
 
+bool 
+GNEJunction::isAttributeEnabled(SumoXMLAttr key) const {
+    switch (key) {
+        case SUMO_ATTR_TLTYPE:
+        case SUMO_ATTR_TLID:
+            return myNBNode.isTLControlled();
+        default:
+            return true;
+    }
+}
+
+
 void
 GNEJunction::setResponsible(bool newVal) {
     myAmResponsible = newVal;
@@ -1283,6 +1304,7 @@ GNEJunction::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         }
         case SUMO_ATTR_TLTYPE: {
+            // we need to make a copy of controlling TLS (because original will be updated)
             const std::set<NBTrafficLightDefinition*> copyOfTls = myNBNode.getControllingTLS();
             for (auto it : copyOfTls) {
                 it->setType(SUMOXMLDefinitions::TrafficLightTypes.get(value));

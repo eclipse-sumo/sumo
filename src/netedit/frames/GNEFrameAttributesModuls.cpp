@@ -1036,7 +1036,7 @@ GNEFrameAttributesModuls::AttributesEditorRow::AttributesEditorRow(GNEFrameAttri
         }
         // if Tag correspond to an network element but we're in demand mode (or vice versa), disable all elements
         if (((myAttributesEditorParent->getFrameParent()->myViewNet->getEditModes().currentSupermode == GNE_SUPERMODE_NETWORK) && myACAttr.getTagPropertyParent().isDemandElement()) ||
-                ((myAttributesEditorParent->getFrameParent()->myViewNet->getEditModes().currentSupermode == GNE_SUPERMODE_DEMAND) && !myACAttr.getTagPropertyParent().isDemandElement())) {
+            ((myAttributesEditorParent->getFrameParent()->myViewNet->getEditModes().currentSupermode == GNE_SUPERMODE_DEMAND) && !myACAttr.getTagPropertyParent().isDemandElement())) {
             myAttributeColorButton->disable();
             myAttributeRadioButton->disable();
             myAttributeCheckButton->disable();
@@ -1044,21 +1044,6 @@ GNEFrameAttributesModuls::AttributesEditorRow::AttributesEditorRow(GNEFrameAttri
             myValueComboBoxChoices->disable();
             myValueCheckButton->disable();
             myAttributeButtonCombinableChoices->disable();
-        }
-        // special case for Traffic Lights
-        if ((myACAttr.getTagPropertyParent().getTag() == SUMO_TAG_JUNCTION) && (myACAttr.getAttr() == SUMO_ATTR_TLID) && value.empty()) {
-            myValueTextField->disable();
-        }
-        // special case for Default vehicle types (ID cannot be edited)
-        if ((ACAttr.getTagPropertyParent().getTag() == SUMO_TAG_VTYPE) && (ACAttr.getAttr() == SUMO_ATTR_ID) &&
-                ((value == DEFAULT_VTYPE_ID) || (value == DEFAULT_PEDTYPE_ID) || (value == DEFAULT_BIKETYPE_ID))) {
-            myValueTextField->disable();
-        }
-        // special case for stops over stopping places (value cannot be changed)
-        if ((ACAttr.getTagPropertyParent().isStop() || ACAttr.getTagPropertyParent().isPersonStop()) &&
-                ((ACAttr.getAttr() == SUMO_ATTR_BUS_STOP) || (ACAttr.getAttr() == SUMO_ATTR_CONTAINER_STOP) ||
-                 (ACAttr.getAttr() == SUMO_ATTR_CHARGING_STATION) || (ACAttr.getAttr() == SUMO_ATTR_PARKING_AREA))) {
-            myValueTextField->disable();
         }
         // Show AttributesEditorRow
         show();
@@ -1140,21 +1125,6 @@ GNEFrameAttributesModuls::AttributesEditorRow::refreshAttributesEditorRow(const 
             myValueComboBoxChoices->disable();
             myValueCheckButton->disable();
             myAttributeButtonCombinableChoices->disable();
-        }
-        // special case for Traffic Lights
-        if ((myACAttr.getTagPropertyParent().getTag() == SUMO_TAG_JUNCTION) && (myACAttr.getAttr() == SUMO_ATTR_TLID) && value.empty()) {
-            myValueTextField->disable();
-        }
-        // special case for Default vehicle types (ID cannot be edited)
-        if ((myACAttr.getTagPropertyParent().getTag() == SUMO_TAG_VTYPE) && (myACAttr.getAttr() == SUMO_ATTR_ID) &&
-                ((value == DEFAULT_VTYPE_ID) || (value == DEFAULT_PEDTYPE_ID) || (value == DEFAULT_BIKETYPE_ID))) {
-            myValueTextField->disable();
-        }
-        // special case for stops over stopping places (value cannot be changed)
-        if ((myACAttr.getTagPropertyParent().isStop() || myACAttr.getTagPropertyParent().isPersonStop()) &&
-                ((myACAttr.getAttr() == SUMO_ATTR_BUS_STOP) || (myACAttr.getAttr() == SUMO_ATTR_CONTAINER_STOP) ||
-                 (myACAttr.getAttr() == SUMO_ATTR_CHARGING_STATION) || (myACAttr.getAttr() == SUMO_ATTR_PARKING_AREA))) {
-            myValueTextField->disable();
         }
     }
 }
@@ -1473,8 +1443,8 @@ GNEFrameAttributesModuls::AttributesEditor::showAttributeEditorModul(const std::
                     attributeEnabled = false;
                 }
             }
-            // if forceEnablellAttribute is enable, force attributeEnabled
-            if (forceAttributeEnabled) {
+            // if forceEnablellAttribute is enable, force attributeEnabled (except for ID)
+            if (forceAttributeEnabled && (i.getAttr() != SUMO_ATTR_ID)) {
                 attributeEnabled = true;
             }
             // create attribute editor row

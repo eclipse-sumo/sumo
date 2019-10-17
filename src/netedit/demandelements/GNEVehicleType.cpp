@@ -39,9 +39,9 @@
 
 GNEVehicleType::GNEVehicleType(GNEViewNet* viewNet, const std::string& vTypeID, const SUMOVehicleClass& defaultVClass, SumoXMLTag tag) :
     GNEDemandElement(vTypeID, viewNet, GLO_VTYPE, tag, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}),
-                 SUMOVTypeParameter(vTypeID),
-                 myDefaultVehicleType(true),
-myDefaultVehicleTypeModified(false) {
+    SUMOVTypeParameter(vTypeID),
+    myDefaultVehicleType(true),
+    myDefaultVehicleTypeModified(false) {
     // set default vehicle class
     vehicleClass = defaultVClass;
     parametersSet |= VTYPEPARS_VEHICLECLASS_SET;
@@ -52,9 +52,9 @@ myDefaultVehicleTypeModified(false) {
 
 GNEVehicleType::GNEVehicleType(GNEViewNet* viewNet, const SUMOVTypeParameter& vTypeParameter, SumoXMLTag tag) :
     GNEDemandElement(vTypeParameter.id, viewNet, GLO_VTYPE, tag, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}),
-SUMOVTypeParameter(vTypeParameter),
-myDefaultVehicleType(false),
-myDefaultVehicleTypeModified(false) {
+    SUMOVTypeParameter(vTypeParameter),
+    myDefaultVehicleType(false),
+    myDefaultVehicleTypeModified(false) {
     // if we're creating a Person Type, set manually VClass
     if (tag == SUMO_TAG_PTYPE) {
         vehicleClass = SVC_PEDESTRIAN;
@@ -67,9 +67,9 @@ myDefaultVehicleTypeModified(false) {
 
 GNEVehicleType::GNEVehicleType(GNEViewNet* viewNet, const std::string& vTypeID, GNEVehicleType* vTypeOriginal) :
     GNEDemandElement(vTypeID, viewNet, GLO_VTYPE, vTypeOriginal->getTagProperty().getTag(), {}, {}, {}, {}, {}, {}, {}, {}, {}, {}),
-SUMOVTypeParameter(*vTypeOriginal),
-myDefaultVehicleType(false),
-myDefaultVehicleTypeModified(false) {
+    SUMOVTypeParameter(*vTypeOriginal),
+    myDefaultVehicleType(false),
+    myDefaultVehicleTypeModified(false) {
     // change manually the ID (to avoid to use the ID of vTypeOriginal)
     id = vTypeID;
     // init Rail Visualization Parameters
@@ -626,13 +626,12 @@ GNEVehicleType::isValid(SumoXMLAttr key, const std::string& value) {
     if ((key != SUMO_ATTR_ID) && value.empty()) {
         return true;
     }
-
     switch (key) {
         case SUMO_ATTR_ID:
             // Vtypes and PTypes shares namespace
             if (SUMOXMLDefinitions::isValidVehicleID(value) &&
-                    (myViewNet->getNet()->retrieveDemandElement(SUMO_TAG_VTYPE, value, false) == nullptr) &&
-                    (myViewNet->getNet()->retrieveDemandElement(SUMO_TAG_PTYPE, value, false) == nullptr)) {
+                (myViewNet->getNet()->retrieveDemandElement(SUMO_TAG_VTYPE, value, false) == nullptr) &&
+                (myViewNet->getNet()->retrieveDemandElement(SUMO_TAG_PTYPE, value, false) == nullptr)) {
                 return true;
             } else {
                 return false;
@@ -811,6 +810,12 @@ GNEVehicleType::disableAttribute(SumoXMLAttr /*key*/, GNEUndoList* /*undoList*/)
 bool
 GNEVehicleType::isAttributeEnabled(SumoXMLAttr key) const {
     switch (key) {
+        case SUMO_ATTR_ID:
+            if ((id == DEFAULT_VTYPE_ID) || (id == DEFAULT_PEDTYPE_ID) || (id == DEFAULT_BIKETYPE_ID)) {
+                return false;
+            } else {
+                return true;
+            }
         case SUMO_ATTR_LENGTH:
             return wasSet(VTYPEPARS_LENGTH_SET);
         case SUMO_ATTR_MINGAP:
