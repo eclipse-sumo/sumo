@@ -495,9 +495,9 @@ Option_IntVector::set(const std::string& v) {
     myValue.clear();
     try {
         if (v.find(';') != std::string::npos) {
-            WRITE_WARNING("Please note that using ';' as list separator is deprecated.\n From 1.0 onwards, only ',' will be accepted.");
+            WRITE_WARNING("Please note that using ';' as list separator is deprecated and not accepted anymore.");
         }
-        StringTokenizer st(v, ";,", true);
+        StringTokenizer st(v, ",", true);
         while (st.hasNext()) {
             myValue.push_back(StringUtils::toInt(st.next()));
         }
