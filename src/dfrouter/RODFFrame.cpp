@@ -99,7 +99,7 @@ RODFFrame::fillOptions() {
     oc.doRegister("vtype", new Option_Bool(false));
     oc.addDescription("vtype", "Output", "Add vehicle types to the emitters file (PKW, LKW)");
 
-    oc.doRegister("vtype-output", new Option_FileName({""}));
+    oc.doRegister("vtype-output", new Option_FileName(StringVector({ "" })));
     oc.addDescription("vtype-output", "Output", "Write generated vehicle types into separate FILE instead of including them into the emitters-output");
 
     oc.doRegister("emitters-poi-output", new Option_FileName()); // !!! describe
@@ -154,7 +154,7 @@ RODFFrame::fillOptions() {
     oc.doRegister("emissions-only", new Option_Bool(false));
     oc.addDescription("emissions-only", "Processing", "Writes only emission times");
 
-    oc.doRegister("disallowed-edges", new Option_StringVector({""}));
+    oc.doRegister("disallowed-edges", new Option_StringVector(StringVector({ "" })));
     oc.addDescription("disallowed-edges", "Processing", "Do not route on these edges");
 
     oc.doRegister("keep-turnarounds", new Option_Bool(false));

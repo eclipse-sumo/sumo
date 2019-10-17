@@ -171,7 +171,7 @@ fillOptions() {
     oc.addSynonyme("prune.keep-list", "prune.ignore", true);
     oc.addDescription("prune.keep-list", "Pruning", "Items in STR will be kept though out of boundary");
 
-    oc.doRegister("prune.explicit", new Option_StringVector({""}));
+    oc.doRegister("prune.explicit", new Option_StringVector(StringVector({ "" })));
     oc.addSynonyme("prune.explicit", "remove");
     oc.addDescription("prune.explicit", "Pruning", "Items with names in STR[] will be removed");
 

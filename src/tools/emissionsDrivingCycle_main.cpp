@@ -123,7 +123,7 @@ main(int argc, char** argv) {
     oc.addDescription("sum-output", "Output", "Save the aggregated and normed emission values of each vehicle in CSV");
 
     oc.addOptionSubTopic("Emissions");
-    oc.doRegister("phemlight-path", new Option_FileName({"./PHEMlight/"}));
+    oc.doRegister("phemlight-path", new Option_FileName(StringVector({ "./PHEMlight/" })));
     oc.addDescription("phemlight-path", "Emissions", "Determines where to load PHEMlight definitions from.");
 
     SystemFrame::addReportOptions(oc);

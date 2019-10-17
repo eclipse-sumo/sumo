@@ -168,8 +168,9 @@ RODUAFrame::addDUAOptions() {
     oc.doRegister("persontrip.walkfactor", new Option_Float(double(0.75)));
     oc.addDescription("persontrip.walkfactor", "Processing", "Use FLOAT as a factor on pedestrian maximum speed during intermodal routing");
 
-    oc.doRegister("persontrip.transfer.car-walk", new Option_StringVector({"parkingAreas"}));
-    oc.addDescription("persontrip.transfer.car-walk", "Processing", "Where are mode changes from car to walking allowed (possible values: 'parkingAreas', 'ptStops', 'allJunctions' and combinations)");
+    oc.doRegister("persontrip.transfer.car-walk", new Option_StringVector(StringVector({ "parkingAreas" })));
+    oc.addDescription("persontrip.transfer.car-walk", "Processing",
+                      "Where are mode changes from car to walking allowed (possible values: 'parkingAreas', 'ptStops', 'allJunctions' and combinations)");
 
 }
 

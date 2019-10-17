@@ -100,7 +100,7 @@ MSFrame::fillOptions() {
     oc.addDescription("load-state", "Input", "Loads a network state from FILE");
     oc.doRegister("load-state.offset", new Option_String("0", "TIME"));//!!! check, describe
     oc.addDescription("load-state.offset", "Input", "Shifts all times loaded from a saved state by the given offset");
-    oc.doRegister("load-state.remove-vehicles", new Option_StringVector({""}));
+    oc.doRegister("load-state.remove-vehicles", new Option_StringVector(StringVector({""})));
     oc.addDescription("load-state.remove-vehicles", "Input", "Removes vehicles with the given IDs from the loaded state");
 
     //  register output options
@@ -239,7 +239,7 @@ MSFrame::fillOptions() {
     oc.addDescription("save-state.times", "Output", "Use INT[] as times at which a network state written");
     oc.doRegister("save-state.period", new Option_String("-1", "TIME"));
     oc.addDescription("save-state.period", "Output", "save state repeatedly after TIME period");
-    oc.doRegister("save-state.prefix", new Option_FileName({"state"}));
+    oc.doRegister("save-state.prefix", new Option_FileName(StringVector({ "state" })));
     oc.addDescription("save-state.prefix", "Output", "Prefix for network states");
     oc.doRegister("save-state.suffix", new Option_String(".sbx"));
     oc.addDescription("save-state.suffix", "Output", "Suffix for network states (.sbx or .xml)");
@@ -399,12 +399,12 @@ MSFrame::fillOptions() {
     oc.doRegister("persontrip.walkfactor", new Option_Float(double(0.75)));
     oc.addDescription("persontrip.walkfactor", "Routing", "Use FLOAT as a factor on pedestrian maximum speed during intermodal routing");
 
-    oc.doRegister("persontrip.transfer.car-walk", new Option_StringVector({"parkingAreas"}));
+    oc.doRegister("persontrip.transfer.car-walk", new Option_StringVector(StringVector({ "parkingAreas" })));
     oc.addDescription("persontrip.transfer.car-walk", "Routing", "Where are mode changes from car to walking allowed (possible values: 'parkingAreas', 'ptStops', 'allJunctions' and combinations)");
 
     // devices
     oc.addOptionSubTopic("Emissions");
-    oc.doRegister("phemlight-path", new Option_FileName({"./PHEMlight/"}));
+    oc.doRegister("phemlight-path", new Option_FileName(StringVector({ "./PHEMlight/" })));
     oc.addDescription("phemlight-path", "Emissions", "Determines where to load PHEMlight definitions from.");
 
     oc.addOptionSubTopic("Communication");
