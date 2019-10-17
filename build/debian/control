@@ -18,12 +18,14 @@ Build-Depends: cmake,
                libgl2ps-dev,
                libproj-dev,
                libxerces-c-dev | libxerces-c2-dev,
-               libxrandr-dev
+               libxrandr-dev,
+               swig
 Build-Depends-Indep: doxygen,
-                     ant,
+                     maven,
                      openjdk-8-jdk,
                      python-matplotlib,
-                     python
+                     python,
+                     python-setuptools
 Standards-Version: 3.9.6
 Vcs-Browser: https://anonscm.debian.org/cgit/debian-science/packages/sumo.git
 Vcs-Git: git://anonscm.debian.org/debian-science/packages/sumo.git

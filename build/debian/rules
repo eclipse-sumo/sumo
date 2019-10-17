@@ -21,14 +21,17 @@ export LIBS := -lgl2ps -lGL -lGLU -lglut
 include /usr/share/dpkg/buildflags.mk
 
 override_dh_auto_build-indep:
-	$(MAKE) --directory=$(BUILDDIR) doxygen
-	$(MAKE) --directory=$(BUILDDIR) userdoc || true
-	$(MAKE) --directory=$(BUILDDIR) javadoc
+#	$(MAKE) --directory=$(BUILDDIR) userdoc
+#	$(MAKE) --directory=$(BUILDDIR) traas
 	#Clean some unneeded files and fix permissions
 	find ./tools -name '*.pyc' -print0 | xargs -0 rm -f
 	rm -rf ./tools/contributed/traas/license.txt
 	rm -rf ./tools/contributed/traci4matlab/license.txt
 	rm -rf ./tools/game/sounds/license.txt
+
+override_dh_auto_test:
+	sed -i '/traas/d' ./docs/examples/runAll.py
+	dh_auto_test
 
 override_dh_auto_build-arch:
 	dh_auto_build -a
