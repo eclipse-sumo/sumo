@@ -378,7 +378,12 @@ GNEConnection::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_VISIBILITY_DISTANCE:
             return toString(nbCon.visibility);
         case SUMO_ATTR_TLLINKINDEX:
-            return toString(nbCon.tlLinkIndex);
+            // only show Traffic Light Link Index if junction's connection is a TLS
+            if (isAttributeEnabled(SUMO_ATTR_TLLINKINDEX)) {
+                return toString(nbCon.tlLinkIndex);
+            } else {
+                return "No TLS";
+            }
         case SUMO_ATTR_SPEED:
             return toString(nbCon.speed);
         case SUMO_ATTR_DIR:
@@ -419,7 +424,7 @@ GNEConnection::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoLi
             undoList->p_add(new GNEChange_Attribute(this, myNet, key, value));
             break;
         case SUMO_ATTR_TLLINKINDEX:
-            if (value != getAttribute(key)) {
+            if (isAttributeEnabled(SUMO_ATTR_TLLINKINDEX) && (value != getAttribute(key))) {
                 // trigger GNEChange_TLS
                 undoList->p_begin("change tls linkIndex for connection");
                 // make a copy
@@ -431,8 +436,8 @@ GNEConnection::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoLi
                         NBLoadedSUMOTLDef* newDef = new NBLoadedSUMOTLDef(tlDef, tllogic);
                         newDef->addConnection(getEdgeFrom()->getNBEdge(), getEdgeTo()->getNBEdge(),
                                               getLaneFrom()->getIndex(), getLaneTo()->getIndex(), parse<int>(value), false);
-                        std::vector<NBNode*> nodes = tlDef->getNodes();
-                        for (NBNode* node : nodes) {
+                        // iterate over NBNodes
+                        for (NBNode* node : tlDef->getNodes()) {
                             GNEJunction* junction = getNet()->retrieveJunction(node->getID());
                             undoList->add(new GNEChange_TLS(junction, tlDef, false), true);
                             undoList->add(new GNEChange_TLS(junction, newDef, true), true);
@@ -474,10 +479,12 @@ GNEConnection::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_VISIBILITY_DISTANCE:
             return canParse<double>(value) && (parse<double>(value) >= -1);
         case SUMO_ATTR_TLLINKINDEX:
-            if (getNBEdgeConnection().uncontrolled == false
-                    && getEdgeFrom()->getNBEdge()->getToNode()->getControllingTLS().size() > 0
-                    && canParse<int>(value)
-                    && parse<int>(value) >= 0) {
+            if (isAttributeEnabled(SUMO_ATTR_TLLINKINDEX) && 
+                (getNBEdgeConnection().uncontrolled == false) && 
+                (getEdgeFrom()->getNBEdge()->getToNode()->getControllingTLS().size() > 0) && 
+                canParse<int>(value) && 
+                (parse<int>(value) >= 0)) {
+                // obtan Traffic light definition
                 NBTrafficLightDefinition* def = *getEdgeFrom()->getNBEdge()->getToNode()->getControllingTLS().begin();
                 return def->getMaxValidIndex() >= parse<int>(value);
             } else {
@@ -499,6 +506,28 @@ GNEConnection::isValid(SumoXMLAttr key, const std::string& value) {
             return Parameterised::areParametersValid(value);
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
+    }
+}
+
+
+bool 
+GNEConnection::isAttributeEnabled(SumoXMLAttr key) const {
+    switch (key) {
+        case SUMO_ATTR_TLLINKINDEX: {
+            // iterate over Traffic Light definitions
+            for (NBTrafficLightDefinition* tlDef : getEdgeFrom()->getNBEdge()->getToNode()->getControllingTLS()) {
+                NBLoadedSUMOTLDef* sumoDef = dynamic_cast<NBLoadedSUMOTLDef*>(tlDef);
+                NBTrafficLightLogic* tllogic = sumoDef ? sumoDef->getLogic() : tlDef->compute(OptionsCont::getOptions());
+                if (tllogic != nullptr) {
+                    return true;
+                } else {
+                    return false;
+                }
+            }
+            return false;
+        }
+        default:
+            return true;
     }
 }
 

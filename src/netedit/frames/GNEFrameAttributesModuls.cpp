@@ -1033,10 +1033,6 @@ GNEFrameAttributesModuls::AttributesEditorRow::AttributesEditorRow(GNEFrameAttri
             myValueTextField->setText(value.c_str());
             myValueTextField->setTextColor(FXRGB(0, 0, 0));
             myValueTextField->show();
-            // we need an extra check for connection attribute "TLIndex", because it cannot be edited if junction's connection doesn' have a TLS
-            if ((myACAttr.getTagPropertyParent().getTag() == SUMO_TAG_CONNECTION) && (myACAttr.getAttr() == SUMO_ATTR_TLLINKINDEX) && (value == "No TLS")) {
-                myValueTextField->disable();
-            }
         }
         // if Tag correspond to an network element but we're in demand mode (or vice versa), disable all elements
         if (((myAttributesEditorParent->getFrameParent()->myViewNet->getEditModes().currentSupermode == GNE_SUPERMODE_NETWORK) && myACAttr.getTagPropertyParent().isDemandElement()) ||
@@ -1465,18 +1461,6 @@ GNEFrameAttributesModuls::AttributesEditor::showAttributeEditorModul(const std::
                 oss << *it_val;
             }
             std::string value = oss.str();
-            if ((myEditedACs.front()->getTagProperty().getTag() == SUMO_TAG_CONNECTION) &&
-                    (i.getAttr() == SUMO_ATTR_TLLINKINDEX)
-                    && value == toString(NBConnection::InvalidTlIndex)) {
-                // possibly the connections are newly created (allow assigning
-                // tlIndex if the junction(s) have a traffic light
-                for (const auto& it_ac : myEditedACs) {
-                    if (!it_ac->isValid(SUMO_ATTR_TLLINKINDEX, "0")) {
-                        value =  "No TLS";
-                        break;
-                    }
-                }
-            }
             // show AttributesEditor
             show();
             // declare a flag for enabled attributes
