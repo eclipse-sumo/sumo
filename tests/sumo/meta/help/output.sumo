@@ -1,4 +1,4 @@
-Eclipse SUMO Version v1_3_1+0470-4a6b08f445
+Eclipse SUMO Version v1_3_1+0627-87c998ba19
  Copyright (C) 2001-2019 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 A microscopic, multi-modal traffic simulation.
 
@@ -424,6 +424,11 @@ ToC Device Options:
                                          triggered TOR is not answered in time.
   --device.toc.mrmKeepRight            If true, the vehicle tries to change to
                                          the right during an MRM.
+  --device.toc.mrmSafeSpot STR         If set, the vehicle tries to reach the
+                                         given named stopping place during an
+                                         MRM.
+  --device.toc.mrmSafeSpotDuration FLOAT  Duration the vehicle stays at the
+                                         safe spot after an MRM.
   --device.toc.maxPreparationAccel FLOAT  Maximal acceleration that may be
                                          applied during the ToC preparation
                                          phase.

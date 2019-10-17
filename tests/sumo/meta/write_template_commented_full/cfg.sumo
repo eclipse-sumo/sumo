@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Oct 16 13:31:56 2019 by Eclipse SUMO Version v1_3_1+0470-4a6b08f445
+<!-- generated on Thu Oct 17 16:37:15 2019 by Eclipse SUMO Version v1_3_1+0627-87c998ba19
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -596,6 +596,12 @@
 
         <!-- If true, the vehicle tries to change to the right during an MRM. -->
         <device.toc.mrmKeepRight value="false" type="BOOL"/>
+
+        <!-- If set, the vehicle tries to reach the given named stopping place during an MRM. -->
+        <device.toc.mrmSafeSpot value="" type="STR"/>
+
+        <!-- Duration the vehicle stays at the safe spot after an MRM. -->
+        <device.toc.mrmSafeSpotDuration value="60" type="FLOAT"/>
 
         <!-- Maximal acceleration that may be applied during the ToC preparation phase. -->
         <device.toc.maxPreparationAccel value="0" type="FLOAT"/>
