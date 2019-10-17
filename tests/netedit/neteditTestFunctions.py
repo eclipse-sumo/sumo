@@ -849,15 +849,19 @@ def crossingMode():
     time.sleep(DELAY_CHANGEMODE)
 
 
-def createCrossing():
+def createCrossing(hasTLS):
     """
     @brief create crossing
     """
     # focus current frame
     focusOnFrame()
-    # jump to create crossing button
-    for _ in range(7):
-        typeTab()
+    # jump to create crossing button depending of hasTLS
+    if hasTLS:
+        for _ in range(6):
+            typeTab()
+    else:
+        for _ in range(7):
+            typeTab()
     # type space to create crossing
     typeSpace()
 
