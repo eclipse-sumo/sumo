@@ -882,6 +882,7 @@ TraCITestClient::testAPI() {
     answerLog << "    busStopWaiting: " << simulation.getBusStopWaiting("bs1") << "\n";
     answerLog << "    busStopWaitingIDs: " << joinToString(simulation.getBusStopWaitingIDList("bs1"), " ") << "\n";
     answerLog << "    subscribe to road and pos of vehicle '1':\n";
+    answerLog << "    findRoute: " << joinToString(simulation.findRoute("e_m5", "e_m4").edges, " ") << "\n";
     std::vector<int> vars;
     vars.push_back(libsumo::VAR_ROAD_ID);
     vars.push_back(libsumo::VAR_LANEPOSITION);
