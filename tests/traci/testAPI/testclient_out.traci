@@ -1,4 +1,4 @@
-TraCITestClient output file. Date: Wed Oct 16 11:33:50 2019
+TraCITestClient output file. Date: Thu Oct 17 13:06:19 2019
 
 
 -> Command sent: <SetOrder>:
@@ -126,6 +126,7 @@ testAPI:
     busStopWaiting: 1
     busStopWaitingIDs: pWaiting
     subscribe to road and pos of vehicle '1':
+    findRoute: e_m5 e_m6 e_shape0 e_o1 e_o0 e_vo0 e_m4
     subscription results:
       roadID=e_u1 pos=7.34774
     subscribe to vehicles around edge 'e_u1':
