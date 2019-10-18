@@ -39,12 +39,12 @@ netedit.leftClick(referencePosition, 325, 225)
 
 # select two left edges and create invalid crossing in edge 3
 netedit.leftClick(referencePosition, 150, 200)
-netedit.createCrossing()
+netedit.createCrossing(False)
 netedit.rebuildNetwork()
 
 # select two right edges and create invalid crossing in edge 7
 netedit.leftClick(referencePosition, 500, 200)
-netedit.createCrossing()
+netedit.createCrossing(False)
 netedit.rebuildNetwork()
 
 # Check undo

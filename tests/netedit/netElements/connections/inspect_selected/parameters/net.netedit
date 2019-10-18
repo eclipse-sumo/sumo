@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 08.05.2019 10:36:02 by Eclipse SUMO netedit Version v1_2_0+0242-00a18e6a42
+<!-- generated on 18.10.2019 11:09:44 by Eclipse SUMO netedit Version v1_3_1+0632-150f088757
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.08May082111.2956/netedit.gui/netElements/connections/inspect_selected/genericparameters\input_net.net.xml"/>
+        <sumo-net-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.5_from_18Okt103703.8740\netedit.gui\netElements\connections\inspect_selected\parameters\input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.08May082111.2956/netedit.gui/netElements/connections/inspect_selected/genericparameters\net.net.xml"/>
+        <output-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.5_from_18Okt103703.8740\netedit.gui\netElements\connections\inspect_selected\parameters\net.net.xml"/>
     </output>
 
     <processing>
@@ -30,14 +30,14 @@
     </pedestrian>
 
     <netedit>
-        <additional-files value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.08May082111.2956/netedit.gui/netElements/connections/inspect_selected/genericparameters\additionals.xml"/>
-        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.08May082111.2956/netedit.gui/netElements/connections/inspect_selected/genericparameters\additionals.xml"/>
-        <route-files value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.08May082111.2956/netedit.gui/netElements/connections/inspect_selected/genericparameters\routes.xml"/>
-        <demandelements-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.08May082111.2956/netedit.gui/netElements/connections/inspect_selected/genericparameters\routes.xml"/>
+        <additional-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.5_from_18Okt103703.8740\netedit.gui\netElements\connections\inspect_selected\parameters\additionals.xml"/>
+        <additionals-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.5_from_18Okt103703.8740\netedit.gui\netElements\connections\inspect_selected\parameters\additionals.xml"/>
+        <route-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.5_from_18Okt103703.8740\netedit.gui\netElements\connections\inspect_selected\parameters\routes.xml"/>
+        <demandelements-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.5_from_18Okt103703.8740\netedit.gui\netElements\connections\inspect_selected\parameters\routes.xml"/>
     </netedit>
 
     <visualisation>
-        <gui-settings-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.08May082111.2956/netedit.gui/netElements/connections/inspect_selected/genericparameters\gui-settings.xml"/>
+        <gui-settings-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.5_from_18Okt103703.8740\netedit.gui\netElements\connections\inspect_selected\parameters\gui-settings.xml"/>
         <window-size value="700,500"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
@@ -46,7 +46,7 @@
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.08May082111.2956/netedit.gui/netElements/connections/inspect_selected/genericparameters\log.txt"/>
+        <error-log value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.5_from_18Okt103703.8740\netedit.gui\netElements\connections\inspect_selected\parameters\log.txt"/>
     </report>
 
 </configuration>
@@ -112,21 +112,85 @@
     </junction>
     <junction id="D" type="dead_end" x="100.00" y="50.00" incLanes="4_0 4_1" intLanes="" shape="100.00,50.00 100.00,43.60 100.00,50.00"/>
 
-    <connection from="5" to="4" fromLane="0" toLane="0" dir="r" state="M"/>
-    <connection from="5" to="2" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from="5" to="2" fromLane="1" toLane="1" dir="s" state="M"/>
-    <connection from="5" to="3" fromLane="1" toLane="1" dir="l" state="m"/>
-    <connection from="6" to="3" fromLane="0" toLane="0" dir="r" state="M"/>
-    <connection from="6" to="1" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from="6" to="1" fromLane="1" toLane="1" dir="s" state="M"/>
-    <connection from="6" to="4" fromLane="1" toLane="1" dir="l" state="m"/>
-    <connection from="7" to="1" fromLane="0" toLane="0" dir="r" state="m"/>
-    <connection from="7" to="4" fromLane="0" toLane="0" dir="s" state="m"/>
-    <connection from="7" to="4" fromLane="1" toLane="1" dir="s" state="m"/>
-    <connection from="7" to="2" fromLane="1" toLane="1" dir="l" state="m"/>
-    <connection from="8" to="2" fromLane="0" toLane="0" dir="r" state="m"/>
-    <connection from="8" to="3" fromLane="0" toLane="0" dir="s" state="m"/>
-    <connection from="8" to="3" fromLane="1" toLane="1" dir="s" state="m"/>
-    <connection from="8" to="1" fromLane="1" toLane="1" dir="l" state="m"/>
+    <connection from="5" to="4" fromLane="0" toLane="0" dir="r" state="M">
+        <param key="keyFinal1" value="value1"/>
+        <param key="keyFinal2" value="value2"/>
+        <param key="keyFinal3" value="value3"/>
+    </connection>
+    <connection from="5" to="2" fromLane="0" toLane="0" dir="s" state="M">
+        <param key="keyFinal1" value="value1"/>
+        <param key="keyFinal2" value="value2"/>
+        <param key="keyFinal3" value="value3"/>
+    </connection>
+    <connection from="5" to="2" fromLane="1" toLane="1" dir="s" state="M">
+        <param key="keyFinal1" value="value1"/>
+        <param key="keyFinal2" value="value2"/>
+        <param key="keyFinal3" value="value3"/>
+    </connection>
+    <connection from="5" to="3" fromLane="1" toLane="1" dir="l" state="m">
+        <param key="keyFinal1" value="value1"/>
+        <param key="keyFinal2" value="value2"/>
+        <param key="keyFinal3" value="value3"/>
+    </connection>
+    <connection from="6" to="3" fromLane="0" toLane="0" dir="r" state="M">
+        <param key="keyFinal1" value="value1"/>
+        <param key="keyFinal2" value="value2"/>
+        <param key="keyFinal3" value="value3"/>
+    </connection>
+    <connection from="6" to="1" fromLane="0" toLane="0" dir="s" state="M">
+        <param key="keyFinal1" value="value1"/>
+        <param key="keyFinal2" value="value2"/>
+        <param key="keyFinal3" value="value3"/>
+    </connection>
+    <connection from="6" to="1" fromLane="1" toLane="1" dir="s" state="M">
+        <param key="keyFinal1" value="value1"/>
+        <param key="keyFinal2" value="value2"/>
+        <param key="keyFinal3" value="value3"/>
+    </connection>
+    <connection from="6" to="4" fromLane="1" toLane="1" dir="l" state="m">
+        <param key="keyFinal1" value="value1"/>
+        <param key="keyFinal2" value="value2"/>
+        <param key="keyFinal3" value="value3"/>
+    </connection>
+    <connection from="7" to="1" fromLane="0" toLane="0" dir="r" state="m">
+        <param key="keyFinal1" value="value1"/>
+        <param key="keyFinal2" value="value2"/>
+        <param key="keyFinal3" value="value3"/>
+    </connection>
+    <connection from="7" to="4" fromLane="0" toLane="0" dir="s" state="m">
+        <param key="keyFinal1" value="value1"/>
+        <param key="keyFinal2" value="value2"/>
+        <param key="keyFinal3" value="value3"/>
+    </connection>
+    <connection from="7" to="4" fromLane="1" toLane="1" dir="s" state="m">
+        <param key="keyFinal1" value="value1"/>
+        <param key="keyFinal2" value="value2"/>
+        <param key="keyFinal3" value="value3"/>
+    </connection>
+    <connection from="7" to="2" fromLane="1" toLane="1" dir="l" state="m">
+        <param key="keyFinal1" value="value1"/>
+        <param key="keyFinal2" value="value2"/>
+        <param key="keyFinal3" value="value3"/>
+    </connection>
+    <connection from="8" to="2" fromLane="0" toLane="0" dir="r" state="m">
+        <param key="keyFinal1" value="value1"/>
+        <param key="keyFinal2" value="value2"/>
+        <param key="keyFinal3" value="value3"/>
+    </connection>
+    <connection from="8" to="3" fromLane="0" toLane="0" dir="s" state="m">
+        <param key="keyFinal1" value="value1"/>
+        <param key="keyFinal2" value="value2"/>
+        <param key="keyFinal3" value="value3"/>
+    </connection>
+    <connection from="8" to="3" fromLane="1" toLane="1" dir="s" state="m">
+        <param key="keyFinal1" value="value1"/>
+        <param key="keyFinal2" value="value2"/>
+        <param key="keyFinal3" value="value3"/>
+    </connection>
+    <connection from="8" to="1" fromLane="1" toLane="1" dir="l" state="m">
+        <param key="keyFinal1" value="value1"/>
+        <param key="keyFinal2" value="value2"/>
+        <param key="keyFinal3" value="value3"/>
+    </connection>
 
 </net>

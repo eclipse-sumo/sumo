@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 22.07.2019 14:30:48 by Eclipse SUMO netedit Version v1_2_0+1271-2cae3efbb3
+<!-- generated on 18.10.2019 10:18:50 by Eclipse SUMO netedit Version v1_3_1+0631-64cd301db4
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.22Jul141842.6976/netedit.gui/demandElements/route/load/genericparameters\input_net.net.xml"/>
+        <sumo-net-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.18Oct100011.12232\netedit.gui\demandElements\vehicletype\load\parameters\input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.22Jul141842.6976/netedit.gui/demandElements/route/load/genericparameters\net.net.xml"/>
+        <output-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.18Oct100011.12232\netedit.gui\demandElements\vehicletype\load\parameters\net.net.xml"/>
     </output>
 
     <processing>
@@ -29,13 +29,14 @@
     </pedestrian>
 
     <netedit>
-        <additional-files value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.22Jul141842.6976/netedit.gui/demandElements/route/load/genericparameters\additionals.xml"/>
-        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.22Jul141842.6976/netedit.gui/demandElements/route/load/genericparameters\additionals.xml"/>
-        <route-files value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.22Jul141842.6976/netedit.gui/demandElements/route/load/genericparameters\routes.xml"/>
-        <demandelements-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.22Jul141842.6976/netedit.gui/demandElements/route/load/genericparameters\routes.xml"/>
+        <additional-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.18Oct100011.12232\netedit.gui\demandElements\vehicletype\load\parameters\additionals.xml"/>
+        <additionals-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.18Oct100011.12232\netedit.gui\demandElements\vehicletype\load\parameters\additionals.xml"/>
+        <route-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.18Oct100011.12232\netedit.gui\demandElements\vehicletype\load\parameters\routes.xml"/>
+        <demandelements-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.18Oct100011.12232\netedit.gui\demandElements\vehicletype\load\parameters\routes.xml"/>
     </netedit>
 
     <visualisation>
+        <gui-settings-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.18Oct100011.12232\netedit.gui\demandElements\vehicletype\load\parameters\gui-settings.xml"/>
         <window-size value="700,500"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
@@ -45,7 +46,7 @@
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.22Jul141842.6976/netedit.gui/demandElements/route/load/genericparameters\log.txt"/>
+        <error-log value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.18Oct100011.12232\netedit.gui\demandElements\vehicletype\load\parameters\log.txt"/>
     </report>
 
 </configuration>
@@ -53,7 +54,6 @@
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
     <route edges="gneE2 gneE4 gneE5" color="yellow" id="route_0">
-        <param key="" value=""/>
         <param key="$$key with spaces%%" value="value3"/>
         <param key="key1" value="value4"/>
         <param key="key2" value=""/>
