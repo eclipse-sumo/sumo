@@ -1488,33 +1488,29 @@ GNEVehicle::setColor(const GUIVisualizationSettings& s) const {
         // set color depending of vehicle color active
         switch (c.getActive()) {
             case 0: {
-                //test for emergency vehicle
+                // test for emergency vehicle
                 if (getDemandElementParents().at(0)->getAttribute(SUMO_ATTR_GUISHAPE) == "emergency") {
                     GLHelper::setColor(RGBColor::WHITE);
                     break;
                 }
-                //test for firebrigade
+                // test for firebrigade
                 if (getDemandElementParents().at(0)->getAttribute(SUMO_ATTR_GUISHAPE) == "firebrigade") {
                     GLHelper::setColor(RGBColor::RED);
                     break;
                 }
-                //test for police car
+                // test for police car
                 if (getDemandElementParents().at(0)->getAttribute(SUMO_ATTR_GUISHAPE) == "police") {
                     GLHelper::setColor(RGBColor::BLUE);
                     break;
                 }
+                // check if color was set
                 if (wasSet(VEHPARS_COLOR_SET)) {
                     GLHelper::setColor(color);
                     break;
-                }
-                if (getDemandElementParents().at(0)->isAttributeEnabled(SUMO_ATTR_COLOR)) {
+                } else {
+                    // take their parent's color)
                     GLHelper::setColor(getDemandElementParents().at(0)->getColor());
                     break;
-                }
-                if (&(getDemandElementParents().at(1)->getColor()) != &RGBColor::DEFAULT_COLOR) {
-                    GLHelper::setColor(getDemandElementParents().at(1)->getColor());
-                } else {
-                    GLHelper::setColor(c.getScheme().getColor(0));
                 }
                 break;
             }
