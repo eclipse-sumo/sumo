@@ -163,12 +163,6 @@ GNEShape::disableAttribute(SumoXMLAttr /*key*/, GNEUndoList* /*undoList*/) {
 }
 
 
-bool
-GNEShape::isAttributeEnabled(SumoXMLAttr /*key*/) const {
-    return true;
-}
-
-
 std::string
 GNEShape::getPopUpID() const {
     return getTagStr() + ": " + getID();

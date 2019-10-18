@@ -294,6 +294,17 @@ GNEDetectorE3::checkAdditionalChildRestriction() const {
 }
 
 
+bool 
+GNEDetectorE3::isAttributeEnabled(SumoXMLAttr key) const {
+    // check if we're in supermode Network
+    if (myViewNet->getEditModes().currentSupermode == GNE_SUPERMODE_NETWORK) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+
 std::string
 GNEDetectorE3::getPopUpID() const {
     return getTagStr() + ":" + getID();
