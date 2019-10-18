@@ -903,7 +903,7 @@ GNEFrameAttributesModuls::AttributesEditorRow::AttributesEditorRow(GNEFrameAttri
         // create AttributesEditorRow
         FXHorizontalFrame::create();
         // start enabling all elements, depending if attribute is editable and enabled
-        if (myACAttr.isNonEditable() || !attributeEnabled) {
+        if (attributeEnabled == false) {
             myValueTextField->disable();
             myValueComboBoxChoices->disable();
             myValueCheckButton->disable();
@@ -929,7 +929,7 @@ GNEFrameAttributesModuls::AttributesEditorRow::AttributesEditorRow(GNEFrameAttri
             myAttributeCheckButton->setCheck(FALSE);
             myAttributeCheckButton->show();
             // enable or disable depending if is editable
-            if (myACAttr.isNonEditable()) {
+            if (attributeEnabled == false) {
                 myAttributeCheckButton->disable();
             } else {
                 myAttributeCheckButton->enable();
@@ -945,7 +945,7 @@ GNEFrameAttributesModuls::AttributesEditorRow::AttributesEditorRow(GNEFrameAttri
             myAttributeRadioButton->setText(myACAttr.getAttrStr().c_str());
             myAttributeRadioButton->show();
             // enable or disable depending if is editable
-            if (myACAttr.isNonEditable()) {
+            if (attributeEnabled == false) {
                 myAttributeRadioButton->disable();
             } else {
                 myAttributeRadioButton->enable();
@@ -995,7 +995,7 @@ GNEFrameAttributesModuls::AttributesEditorRow::AttributesEditorRow(GNEFrameAttri
                 myValueTextField->setTextColor(FXRGB(0, 0, 0));
                 myValueTextField->show();
                 // enable or disable depending if attribute is editable and is enabled (used by disjoint attributes)
-                if (myACAttr.isNonEditable() || !attributeEnabled) {
+                if (attributeEnabled == false) {
                     myValueTextField->disable();
                 }
             }
@@ -1085,7 +1085,7 @@ GNEFrameAttributesModuls::AttributesEditorRow::refreshAttributesEditorRow(const 
             myValueTextField->setTextColor(FXRGB(0, 0, 0));
         }
         // disable depending of disjointAttributeEnabled
-        if (myACAttr.isNonEditable() || !attributeEnabled) {
+        if (attributeEnabled == false) {
             myValueTextField->disable();
         }
     } else if (myValueComboBoxChoices->shown()) {
@@ -1100,7 +1100,7 @@ GNEFrameAttributesModuls::AttributesEditorRow::refreshAttributesEditorRow(const 
         myValueComboBoxChoices->setTextColor(FXRGB(0, 0, 0));
         myValueComboBoxChoices->show();
         // disable depending of disjointAttributeEnabled
-        if (myACAttr.isNonEditable() || !attributeEnabled) {
+        if (attributeEnabled == false) {
             myValueComboBoxChoices->disable();
         }
     } else if (myValueCheckButton->shown()) {
@@ -1110,7 +1110,7 @@ GNEFrameAttributesModuls::AttributesEditorRow::refreshAttributesEditorRow(const 
             myValueCheckButton->setCheck(false);
         }
         // disable depending of disjointAttributeEnabled
-        if (myACAttr.isNonEditable() || !attributeEnabled) {
+        if (attributeEnabled == false) {
             myValueCheckButton->disable();
         }
     }

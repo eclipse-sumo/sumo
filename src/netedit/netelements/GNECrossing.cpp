@@ -284,6 +284,9 @@ GNECrossing::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList
 bool 
 GNECrossing::isAttributeEnabled(SumoXMLAttr key) const {
     switch (key) {
+        case SUMO_ATTR_ID:
+            // id isn't editable
+            return false;
         case SUMO_ATTR_TLLINKINDEX:
         case SUMO_ATTR_TLLINKINDEX2:
             return (myParentJunction->getNBNode()->getCrossing(myCrossingEdges)->tlID != "");

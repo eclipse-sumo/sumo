@@ -863,6 +863,7 @@ bool
 GNELane::isValid(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_ID:
+        case SUMO_ATTR_INDEX:
             return false;
         case SUMO_ATTR_SPEED:
             return canParse<double>(value);
@@ -884,14 +885,24 @@ GNELane::isValid(SumoXMLAttr key, const std::string& value) {
             }
             return false;
         }
-        case SUMO_ATTR_INDEX:
-            return canParse<int>(value) && (parse<int>(value) == myIndex);
         case GNE_ATTR_SELECTED:
             return canParse<bool>(value);
         case GNE_ATTR_PARAMETERS:
             return Parameterised::areParametersValid(value);
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
+    }
+}
+
+
+bool 
+GNELane::isAttributeEnabled(SumoXMLAttr key) const {
+    switch (key) {
+        case SUMO_ATTR_ID:
+        case SUMO_ATTR_INDEX:
+            return false;
+        default:
+            return true;
     }
 }
 
@@ -911,6 +922,7 @@ GNELane::setAttribute(SumoXMLAttr key, const std::string& value) {
     NBEdge* edge = myParentEdge.getNBEdge();
     switch (key) {
         case SUMO_ATTR_ID:
+        case SUMO_ATTR_INDEX:
             throw InvalidArgument("Modifying attribute '" + toString(key) + "' of " + getTagStr() + " isn't allowed");
         case SUMO_ATTR_SPEED:
             edge->setSpeed(myIndex, parse<double>(value));

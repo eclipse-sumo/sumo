@@ -179,6 +179,18 @@ GNETAZSourceSink::isValid(SumoXMLAttr key, const std::string& value) {
 }
 
 
+
+bool
+GNETAZSourceSink::isAttributeEnabled(SumoXMLAttr key) const {
+    switch (key) {
+        case SUMO_ATTR_EDGE:
+            return false;
+        default:
+            return true;
+    }
+}
+
+
 std::string
 GNETAZSourceSink::getPopUpID() const {
     return getTagStr();

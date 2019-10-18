@@ -77,23 +77,22 @@ public:
         ATTRPROPERTY_NOTZERO =             1 << 9,   // Attribute cannot be 0 (only for numerical attributes)
         ATTRPROPERTY_UNIQUE =              1 << 10,  // Attribute is unique (cannot be edited in a selection of similar elements (ID, Position...)
         ATTRPROPERTY_FILENAME =            1 << 11,  // Attribute is a filename (string that cannot contains certain characters)
-        ATTRPROPERTY_NONEDITABLE =         1 << 12,  // Attribute is non editable (index of a lane)
-        ATTRPROPERTY_DISCRETE =            1 << 13,  // Attribute is discrete (only certain values are allowed)
-        ATTRPROPERTY_PROBABILITY =         1 << 14,  // Attribute is probability (only allowed values between 0 and 1, including both)
-        ATTRPROPERTY_ANGLE =               1 << 15,  // Attribute is an angle (only takes values between 0 and 360, including both, another value will be automatically reduced
-        ATTRPROPERTY_LIST =                1 << 16,  // Attribute is a list of other elements separated by spaces
-        ATTRPROPERTY_SECUENCIAL =          1 << 17,  // Attribute is a special sequence of elements (for example: secuencial lanes in Multi Lane E2 detectors)
-        ATTRPROPERTY_WRITEXMLOPTIONAL =    1 << 18,  // Attribute will not be written in XML file if current value is the same of their default Static/Mutable value
-        ATTRPROPERTY_DEFAULTVALUESTATIC =  1 << 19,  // Attribute owns a static default value
-        ATTRPROPERTY_DEFAULTVALUEMUTABLE = 1 << 20,  // Attribute owns a mutable default value (Default value depends of value of other attribute)
-        ATTRPROPERTY_COMBINABLE =          1 << 21,  // Attribute is combinable with other attribute (example: Allow/disallow VClasses)
-        ATTRPROPERTY_SYNONYM =             1 << 22,  // Attribute will be written with a different name in der XML
-        ATTRPROPERTY_RANGE =               1 << 23,  // Attribute only accept a range of elements (example: Probability [0,1]
-        ATTRPROPERTY_EXTENDED =            1 << 24,  // Attribute is extended (in Frame will not be shown, see VType attributes)
-        ATTRPROPERTY_UPDATEGEOMETRY =      1 << 25,  // Attribute require update geometry at the end of function setAttribute(...)
-        ATTRPROPERTY_OPTIONAL =            1 << 26,  // Attribute is optional, i.e. can be enabled/disabled using a checkbox in frame
-        ATTRPROPERTY_COMPLEX =             1 << 27,  // Attribute is complex: Requiere a special function to check if their given value is valid
-        ATTRPROPERTY_ENABLITABLE =         1 << 28,  // Attribute is enablitable: Can be enabled or disabled.
+        ATTRPROPERTY_DISCRETE =            1 << 12,  // Attribute is discrete (only certain values are allowed)
+        ATTRPROPERTY_PROBABILITY =         1 << 13,  // Attribute is probability (only allowed values between 0 and 1, including both)
+        ATTRPROPERTY_ANGLE =               1 << 14,  // Attribute is an angle (only takes values between 0 and 360, including both, another value will be automatically reduced
+        ATTRPROPERTY_LIST =                1 << 15,  // Attribute is a list of other elements separated by spaces
+        ATTRPROPERTY_SECUENCIAL =          1 << 16,  // Attribute is a special sequence of elements (for example: secuencial lanes in Multi Lane E2 detectors)
+        ATTRPROPERTY_WRITEXMLOPTIONAL =    1 << 17,  // Attribute will not be written in XML file if current value is the same of their default Static/Mutable value
+        ATTRPROPERTY_DEFAULTVALUESTATIC =  1 << 18,  // Attribute owns a static default value
+        ATTRPROPERTY_DEFAULTVALUEMUTABLE = 1 << 19,  // Attribute owns a mutable default value (Default value depends of value of other attribute)
+        ATTRPROPERTY_COMBINABLE =          1 << 20,  // Attribute is combinable with other attribute (example: Allow/disallow VClasses)
+        ATTRPROPERTY_SYNONYM =             1 << 21,  // Attribute will be written with a different name in der XML
+        ATTRPROPERTY_RANGE =               1 << 22,  // Attribute only accept a range of elements (example: Probability [0,1]
+        ATTRPROPERTY_EXTENDED =            1 << 23,  // Attribute is extended (in Frame will not be shown, see VType attributes)
+        ATTRPROPERTY_UPDATEGEOMETRY =      1 << 24,  // Attribute require update geometry at the end of function setAttribute(...)
+        ATTRPROPERTY_OPTIONAL =            1 << 25,  // Attribute is optional, i.e. can be enabled/disabled using a checkbox in frame
+        ATTRPROPERTY_COMPLEX =             1 << 26,  // Attribute is complex: Requiere a special function to check if their given value is valid
+        ATTRPROPERTY_ENABLITABLE =         1 << 27,  // Attribute is enablitable: Can be enabled or disabled.
     };
 
     /// @brief struct with the attribute Properties
@@ -228,9 +227,6 @@ public:
 
         /// @brief return true if atribute is combinable with other Attribute
         bool isCombinable() const;
-
-        /// @brief return true if atribute isn't editable
-        bool isNonEditable() const;
 
         /// @brief return true if atribute is extended
         bool isExtended() const;

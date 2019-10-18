@@ -1131,6 +1131,17 @@ GNEEdge::isValid(SumoXMLAttr key, const std::string& value) {
 }
 
 
+bool 
+GNEEdge::isAttributeEnabled(SumoXMLAttr key) const {
+    switch (key) {
+        case GNE_ATTR_BIDIR:
+            return false;
+        default:
+            return true;
+    }
+}
+
+
 void
 GNEEdge::setResponsible(bool newVal) {
     myAmResponsible = newVal;

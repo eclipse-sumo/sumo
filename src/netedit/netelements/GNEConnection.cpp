@@ -508,7 +508,15 @@ GNEConnection::isValid(SumoXMLAttr key, const std::string& value) {
 bool 
 GNEConnection::isAttributeEnabled(SumoXMLAttr key) const {
     switch (key) {
-        case SUMO_ATTR_TLLINKINDEX: {
+        case SUMO_ATTR_FROM:
+        case SUMO_ATTR_TO:
+        case SUMO_ATTR_FROM_LANE:
+        case SUMO_ATTR_TO_LANE:
+        case SUMO_ATTR_DIR:
+        case SUMO_ATTR_STATE:
+            // this attributes cannot be edited
+            return false;
+        case SUMO_ATTR_TLLINKINDEX:
             // iterate over Traffic Light definitions
             for (NBTrafficLightDefinition* tlDef : getEdgeFrom()->getNBEdge()->getToNode()->getControllingTLS()) {
                 NBLoadedSUMOTLDef* sumoDef = dynamic_cast<NBLoadedSUMOTLDef*>(tlDef);
@@ -520,7 +528,6 @@ GNEConnection::isAttributeEnabled(SumoXMLAttr key) const {
                 }
             }
             return false;
-        }
         default:
             return true;
     }

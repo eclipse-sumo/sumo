@@ -220,9 +220,6 @@ GNEAttributeCarrier::AttributeProperties::getDescription() const {
     if ((myAttributeProperty & ATTRPROPERTY_POSITIVE) != 0) {
         pre += "positive ";
     }
-    if ((myAttributeProperty & ATTRPROPERTY_NONEDITABLE) != 0) {
-        pre += "non editable ";
-    }
     if ((myAttributeProperty & ATTRPROPERTY_DISCRETE) != 0) {
         pre += "discrete ";
     }
@@ -451,12 +448,6 @@ GNEAttributeCarrier::AttributeProperties::isDiscrete() const {
 bool
 GNEAttributeCarrier::AttributeProperties::isCombinable() const {
     return (myAttributeProperty & ATTRPROPERTY_COMBINABLE) != 0;
-}
-
-
-bool
-GNEAttributeCarrier::AttributeProperties::isNonEditable() const {
-    return (myAttributeProperty & ATTRPROPERTY_NONEDITABLE) != 0;
 }
 
 
@@ -1411,20 +1402,20 @@ GNEAttributeCarrier::fillNetElements() {
 
         attrProperty = AttributeProperties(SUMO_ATTR_SPEED,
                                            ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUESTATIC,
-                                           "The maximum speed allowed on the edge in m/s");
-        toString(oc.getFloat("default.speed"));
+                                           "The maximum speed allowed on the edge in m/s",
+                                           toString(oc.getFloat("default.speed")));
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = AttributeProperties(SUMO_ATTR_PRIORITY,
                                            ATTRPROPERTY_INT | ATTRPROPERTY_DEFAULTVALUESTATIC,
-                                           "The priority of the edge");
-        toString(oc.getInt("default.priority"));
+                                           "The priority of the edge",
+                                           toString(oc.getInt("default.priority")));
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = AttributeProperties(SUMO_ATTR_NUMLANES,
                                            ATTRPROPERTY_INT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUESTATIC,
-                                           "The number of lanes of the edge");
-        toString(oc.getInt("default.lanenumber"));
+                                           "The number of lanes of the edge",
+                                           toString(oc.getInt("default.lanenumber")));
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = AttributeProperties(SUMO_ATTR_TYPE,
@@ -1490,7 +1481,7 @@ GNEAttributeCarrier::fillNetElements() {
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = AttributeProperties(GNE_ATTR_BIDIR,
-                                           ATTRPROPERTY_BOOL | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_NONEDITABLE, // virtual attribute to check of this edge is part of a bidirectional railway (cannot be edited)
+                                           ATTRPROPERTY_BOOL | ATTRPROPERTY_DEFAULTVALUESTATIC, // virtual attribute to check of this edge is part of a bidirectional railway (cannot be edited)
                                            "Show if edge is bidireccional",
                                            "0");
         myTagProperties[currentTag].addAttribute(attrProperty);
@@ -1570,12 +1561,12 @@ GNEAttributeCarrier::fillNetElements() {
         myTagProperties[currentTag] = TagProperties(currentTag, TAGTYPE_NETELEMENT, TAGPROPERTY_DRAWABLE | TAGPROPERTY_SELECTABLE, ICON_LANE);
         // set values of attributes
         attrProperty = AttributeProperties(SUMO_ATTR_ID,
-                                           ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_NONEDITABLE,
+                                           ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE,
                                            "ID of lane (Automatic, non editable)");
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = AttributeProperties(SUMO_ATTR_INDEX,
-                                           ATTRPROPERTY_INT | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_NONEDITABLE | ATTRPROPERTY_UPDATEGEOMETRY,
+                                           ATTRPROPERTY_INT | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_UPDATEGEOMETRY,
                                            "The enumeration index of the lane (0 is the rightmost lane, <NUMBER_LANES>-1 is the leftmost one)");
         myTagProperties[currentTag].addAttribute(attrProperty);
 
@@ -1627,7 +1618,7 @@ GNEAttributeCarrier::fillNetElements() {
         myTagProperties[currentTag] = TagProperties(currentTag, TAGTYPE_NETELEMENT, TAGPROPERTY_DRAWABLE | TAGPROPERTY_SELECTABLE, ICON_CROSSING, SUMO_TAG_JUNCTION);
         // set values of attributes
         attrProperty = AttributeProperties(SUMO_ATTR_ID,
-                                           ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_NONEDITABLE,
+                                           ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE,
                                            "The ID of Crossing");
         myTagProperties[currentTag].addAttribute(attrProperty);
 
@@ -1671,22 +1662,22 @@ GNEAttributeCarrier::fillNetElements() {
         myTagProperties[currentTag] = TagProperties(currentTag, TAGTYPE_NETELEMENT, TAGPROPERTY_DRAWABLE | TAGPROPERTY_SELECTABLE, ICON_CONNECTION, SUMO_TAG_EDGE);
         // set values of attributes
         attrProperty = AttributeProperties(SUMO_ATTR_FROM,
-                                           ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_NONEDITABLE | ATTRPROPERTY_UPDATEGEOMETRY,
+                                           ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_UPDATEGEOMETRY,
                                            "The name of the edge the vehicles leave");
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = AttributeProperties(SUMO_ATTR_TO,
-                                           ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_NONEDITABLE | ATTRPROPERTY_UPDATEGEOMETRY,
+                                           ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_UPDATEGEOMETRY,
                                            "The name of the edge the vehicles may reach when leaving 'from'");
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = AttributeProperties(SUMO_ATTR_FROM_LANE,
-                                           ATTRPROPERTY_INT | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_NONEDITABLE | ATTRPROPERTY_UPDATEGEOMETRY,
+                                           ATTRPROPERTY_INT | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_UPDATEGEOMETRY,
                                            "the lane index of the incoming lane (numbers starting with 0)");
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = AttributeProperties(SUMO_ATTR_TO_LANE,
-                                           ATTRPROPERTY_INT | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_NONEDITABLE | ATTRPROPERTY_UPDATEGEOMETRY,
+                                           ATTRPROPERTY_INT | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_UPDATEGEOMETRY,
                                            "the lane index of the outgoing lane (numbers starting with 0)");
         myTagProperties[currentTag].addAttribute(attrProperty);
 
@@ -1738,12 +1729,12 @@ GNEAttributeCarrier::fillNetElements() {
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = AttributeProperties(SUMO_ATTR_DIR,
-                                           ATTRPROPERTY_STRING | ATTRPROPERTY_NONEDITABLE,
+                                           ATTRPROPERTY_STRING,
                                            "turning direction for this connection (computed)");
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = AttributeProperties(SUMO_ATTR_STATE,
-                                           ATTRPROPERTY_STRING | ATTRPROPERTY_NONEDITABLE,
+                                           ATTRPROPERTY_STRING,
                                            "link state for this connection (computed)");
         myTagProperties[currentTag].addAttribute(attrProperty);
     }
@@ -2785,7 +2776,7 @@ GNEAttributeCarrier::fillAdditionals() {
         myTagProperties[currentTag] = TagProperties(currentTag, TAGTYPE_TAZ, TAGPROPERTY_PARENT, ICON_TAZEDGE, SUMO_TAG_TAZ);
         // set values of attributes
         attrProperty = AttributeProperties(SUMO_ATTR_EDGE,
-                                           ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_NONEDITABLE | ATTRPROPERTY_SYNONYM | ATTRPROPERTY_UPDATEGEOMETRY,
+                                           ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_SYNONYM | ATTRPROPERTY_UPDATEGEOMETRY,
                                            "The id of edge in the simulation network");
         attrProperty.setSynonym(SUMO_ATTR_ID);
         myTagProperties[currentTag].addAttribute(attrProperty);
@@ -2802,7 +2793,7 @@ GNEAttributeCarrier::fillAdditionals() {
         myTagProperties[currentTag] = TagProperties(currentTag, TAGTYPE_TAZ, TAGPROPERTY_PARENT, ICON_TAZEDGE, SUMO_TAG_TAZ);
         // set values of attributes
         attrProperty = AttributeProperties(SUMO_ATTR_EDGE,
-                                           ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_NONEDITABLE | ATTRPROPERTY_SYNONYM | ATTRPROPERTY_UPDATEGEOMETRY,
+                                           ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_SYNONYM | ATTRPROPERTY_UPDATEGEOMETRY,
                                            "The id of edge in the simulation network");
         attrProperty.setSynonym(SUMO_ATTR_ID);
         myTagProperties[currentTag].addAttribute(attrProperty);
