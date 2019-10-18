@@ -378,12 +378,7 @@ GNEConnection::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_VISIBILITY_DISTANCE:
             return toString(nbCon.visibility);
         case SUMO_ATTR_TLLINKINDEX:
-            // only show Traffic Light Link Index if junction's connection is a TLS
-            if (isAttributeEnabled(SUMO_ATTR_TLLINKINDEX)) {
-                return toString(nbCon.tlLinkIndex);
-            } else {
-                return "No TLS";
-            }
+            return toString(nbCon.tlLinkIndex);
         case SUMO_ATTR_SPEED:
             return toString(nbCon.speed);
         case SUMO_ATTR_DIR:

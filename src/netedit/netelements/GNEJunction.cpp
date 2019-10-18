@@ -1006,7 +1006,6 @@ GNEJunction::getAttribute(SumoXMLAttr key) const {
             } else {
                 return "No TLS";
             }
-
         case SUMO_ATTR_TLID:
             if (isAttributeEnabled(SUMO_ATTR_TLID)) {
                 return toString((*myNBNode.getControllingTLS().begin())->getID());

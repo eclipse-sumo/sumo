@@ -242,17 +242,9 @@ GNECrossing::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_EDGES:
             return toString(crossing->edges);
         case SUMO_ATTR_TLLINKINDEX:
-            if (isAttributeEnabled(SUMO_ATTR_TLLINKINDEX)) {
-                return toString(crossing->customTLIndex);
-            } else {
-                return "No TLS";
-            }
+            return toString(crossing->customTLIndex);
         case SUMO_ATTR_TLLINKINDEX2:
-            if (isAttributeEnabled(SUMO_ATTR_TLLINKINDEX2)) {
-                return toString(crossing->customTLIndex2);
-            } else {
-                return "No TLS";
-            }
+            return toString(crossing->customTLIndex2);
         case SUMO_ATTR_CUSTOMSHAPE:
             return toString(crossing->customShape);
         case GNE_ATTR_SELECTED:
