@@ -809,37 +809,42 @@ GNEVehicleType::disableAttribute(SumoXMLAttr /*key*/, GNEUndoList* /*undoList*/)
 
 bool
 GNEVehicleType::isAttributeEnabled(SumoXMLAttr key) const {
-    switch (key) {
-        case SUMO_ATTR_ID:
-            if ((id == DEFAULT_VTYPE_ID) || (id == DEFAULT_PEDTYPE_ID) || (id == DEFAULT_BIKETYPE_ID)) {
-                return false;
-            } else {
+    // check if we're in supermode demand
+    if (myViewNet->getEditModes().currentSupermode == GNE_SUPERMODE_DEMAND) {
+        switch (key) {
+            case SUMO_ATTR_ID:
+                if ((id == DEFAULT_VTYPE_ID) || (id == DEFAULT_PEDTYPE_ID) || (id == DEFAULT_BIKETYPE_ID)) {
+                    return false;
+                } else {
+                    return true;
+                }
+            case SUMO_ATTR_LENGTH:
+                return wasSet(VTYPEPARS_LENGTH_SET);
+            case SUMO_ATTR_MINGAP:
+                return wasSet(VTYPEPARS_MINGAP_SET);
+            case SUMO_ATTR_MAXSPEED:
+                return wasSet(VTYPEPARS_MAXSPEED_SET);
+            case SUMO_ATTR_SPEEDFACTOR:
+                return wasSet(VTYPEPARS_SPEEDFACTOR_SET);
+            case SUMO_ATTR_SPEEDDEV:
+                return wasSet(VTYPEPARS_SPEEDFACTOR_SET);
+            case SUMO_ATTR_PERSON_CAPACITY:
+                return wasSet(VTYPEPARS_PERSON_CAPACITY);
+            case SUMO_ATTR_CONTAINER_CAPACITY:
+                return wasSet(VTYPEPARS_CONTAINER_CAPACITY);
+            case SUMO_ATTR_OSGFILE:
+                return wasSet(VTYPEPARS_OSGFILE_SET);
+            case SUMO_ATTR_CARRIAGE_LENGTH:
+                return wasSet(VTYPEPARS_CARRIAGE_LENGTH_SET);
+            case SUMO_ATTR_LOCOMOTIVE_LENGTH:
+                return wasSet(VTYPEPARS_LOCOMOTIVE_LENGTH_SET);
+            case SUMO_ATTR_CARRIAGE_GAP:
+                return wasSet(VTYPEPARS_CARRIAGE_GAP_SET);
+            default:
                 return true;
-            }
-        case SUMO_ATTR_LENGTH:
-            return wasSet(VTYPEPARS_LENGTH_SET);
-        case SUMO_ATTR_MINGAP:
-            return wasSet(VTYPEPARS_MINGAP_SET);
-        case SUMO_ATTR_MAXSPEED:
-            return wasSet(VTYPEPARS_MAXSPEED_SET);
-        case SUMO_ATTR_SPEEDFACTOR:
-            return wasSet(VTYPEPARS_SPEEDFACTOR_SET);
-        case SUMO_ATTR_SPEEDDEV:
-            return wasSet(VTYPEPARS_SPEEDFACTOR_SET);
-        case SUMO_ATTR_PERSON_CAPACITY:
-            return wasSet(VTYPEPARS_PERSON_CAPACITY);
-        case SUMO_ATTR_CONTAINER_CAPACITY:
-            return wasSet(VTYPEPARS_CONTAINER_CAPACITY);
-        case SUMO_ATTR_OSGFILE:
-            return wasSet(VTYPEPARS_OSGFILE_SET);
-        case SUMO_ATTR_CARRIAGE_LENGTH:
-            return wasSet(VTYPEPARS_CARRIAGE_LENGTH_SET);
-        case SUMO_ATTR_LOCOMOTIVE_LENGTH:
-            return wasSet(VTYPEPARS_LOCOMOTIVE_LENGTH_SET);
-        case SUMO_ATTR_CARRIAGE_GAP:
-            return wasSet(VTYPEPARS_CARRIAGE_GAP_SET);
-        default:
-            return true;
+        }    
+    } else {
+        return false;
     }
 }
 

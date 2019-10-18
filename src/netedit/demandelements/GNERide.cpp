@@ -422,7 +422,12 @@ GNERide::disableAttribute(SumoXMLAttr /*key*/, GNEUndoList* /*undoList*/) {
 
 bool
 GNERide::isAttributeEnabled(SumoXMLAttr /*key*/) const {
-    return true;
+    // check if we're in supermode demand
+    if (myViewNet->getEditModes().currentSupermode == GNE_SUPERMODE_DEMAND) {
+        return true;
+    } else {
+        return false;
+    }
 }
 
 

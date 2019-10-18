@@ -850,32 +850,37 @@ GNEStop::disableAttribute(SumoXMLAttr key, GNEUndoList* undoList) {
 
 bool
 GNEStop::isAttributeEnabled(SumoXMLAttr key) const {
-    switch (key) {
-        // Currently stops parents cannot be edited
-        case SUMO_ATTR_BUS_STOP:
-        case SUMO_ATTR_CONTAINER_STOP:
-        case SUMO_ATTR_CHARGING_STATION:
-        case SUMO_ATTR_PARKING_AREA:
-            return false;
-        case SUMO_ATTR_STARTPOS:
-            return (parametersSet & STOP_START_SET) != 0;
-        case SUMO_ATTR_ENDPOS:
-            return (parametersSet & STOP_END_SET) != 0;
-        case SUMO_ATTR_DURATION:
-            return (parametersSet & STOP_DURATION_SET) != 0;
-        case SUMO_ATTR_UNTIL:
-            return (parametersSet & STOP_UNTIL_SET) != 0;
-        case SUMO_ATTR_EXTENSION:
-            return (parametersSet & STOP_EXTENSION_SET) != 0;
-        case SUMO_ATTR_EXPECTED:
-            return (parametersSet & STOP_TRIGGER_SET) != 0;
-        case SUMO_ATTR_EXPECTED_CONTAINERS:
-            return (parametersSet & STOP_CONTAINER_TRIGGER_SET) != 0;
-        case SUMO_ATTR_PARKING:
-            return (parametersSet & STOP_PARKING_SET) != 0;
-        default:
-            return true;
-    };
+    // check if we're in supermode demand
+    if (myViewNet->getEditModes().currentSupermode == GNE_SUPERMODE_DEMAND) {
+        switch (key) {
+            // Currently stops parents cannot be edited
+            case SUMO_ATTR_BUS_STOP:
+            case SUMO_ATTR_CONTAINER_STOP:
+            case SUMO_ATTR_CHARGING_STATION:
+            case SUMO_ATTR_PARKING_AREA:
+                return false;
+            case SUMO_ATTR_STARTPOS:
+                return (parametersSet & STOP_START_SET) != 0;
+            case SUMO_ATTR_ENDPOS:
+                return (parametersSet & STOP_END_SET) != 0;
+            case SUMO_ATTR_DURATION:
+                return (parametersSet & STOP_DURATION_SET) != 0;
+            case SUMO_ATTR_UNTIL:
+                return (parametersSet & STOP_UNTIL_SET) != 0;
+            case SUMO_ATTR_EXTENSION:
+                return (parametersSet & STOP_EXTENSION_SET) != 0;
+            case SUMO_ATTR_EXPECTED:
+                return (parametersSet & STOP_TRIGGER_SET) != 0;
+            case SUMO_ATTR_EXPECTED_CONTAINERS:
+                return (parametersSet & STOP_CONTAINER_TRIGGER_SET) != 0;
+            case SUMO_ATTR_PARKING:
+                return (parametersSet & STOP_PARKING_SET) != 0;
+            default:
+                return true;
+        }
+    } else {
+        return false;
+    }
 }
 
 

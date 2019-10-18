@@ -897,12 +897,17 @@ GNELane::isValid(SumoXMLAttr key, const std::string& value) {
 
 bool 
 GNELane::isAttributeEnabled(SumoXMLAttr key) const {
-    switch (key) {
-        case SUMO_ATTR_ID:
-        case SUMO_ATTR_INDEX:
-            return false;
-        default:
-            return true;
+    // check if we're in supermode Network
+    if (myNet->getViewNet()->getEditModes().currentSupermode == GNE_SUPERMODE_NETWORK) {
+        switch (key) {
+            case SUMO_ATTR_ID:
+            case SUMO_ATTR_INDEX:
+                return false;
+            default:
+                return true;
+        }
+    } else {
+        return false;
     }
 }
 

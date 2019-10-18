@@ -351,9 +351,14 @@ GNECrossing::isValid(SumoXMLAttr key, const std::string& value) {
 
 bool
 GNECrossing::checkEdgeBelong(GNEEdge* edge) const {
-    auto crossing = myParentJunction->getNBNode()->getCrossing(myCrossingEdges);
-    if (std::find(crossing->edges.begin(), crossing->edges.end(), edge->getNBEdge()) !=  crossing->edges.end()) {
-        return true;
+    // check if we're in supermode Network
+    if (myNet->getViewNet()->getEditModes().currentSupermode == GNE_SUPERMODE_NETWORK) {
+        auto crossing = myParentJunction->getNBNode()->getCrossing(myCrossingEdges);
+        if (std::find(crossing->edges.begin(), crossing->edges.end(), edge->getNBEdge()) !=  crossing->edges.end()) {
+            return true;
+        } else {
+            return false;
+        }
     } else {
         return false;
     }

@@ -1368,20 +1368,25 @@ GNEVehicle::disableAttribute(SumoXMLAttr /*key*/, GNEUndoList* /*undoList*/) {
 
 bool
 GNEVehicle::isAttributeEnabled(SumoXMLAttr key) const {
-    switch (key) {
-        case SUMO_ATTR_END:
-            return (parametersSet & VEHPARS_END_SET) != 0;
-        case SUMO_ATTR_NUMBER:
-            return (parametersSet & VEHPARS_NUMBER_SET) != 0;
-        case SUMO_ATTR_VEHSPERHOUR:
-            return (parametersSet & VEHPARS_VPH_SET) != 0;
-        case SUMO_ATTR_PERIOD:
-            return (parametersSet & VEHPARS_PERIOD_SET) != 0;
-        case SUMO_ATTR_PROB:
-            return (parametersSet & VEHPARS_PROB_SET) != 0;
-        default:
-            return true;
-    };
+    // check if we're in supermode demand
+    if (myViewNet->getEditModes().currentSupermode == GNE_SUPERMODE_DEMAND) {
+        switch (key) {
+            case SUMO_ATTR_END:
+                return (parametersSet & VEHPARS_END_SET) != 0;
+            case SUMO_ATTR_NUMBER:
+                return (parametersSet & VEHPARS_NUMBER_SET) != 0;
+            case SUMO_ATTR_VEHSPERHOUR:
+                return (parametersSet & VEHPARS_VPH_SET) != 0;
+            case SUMO_ATTR_PERIOD:
+                return (parametersSet & VEHPARS_PERIOD_SET) != 0;
+            case SUMO_ATTR_PROB:
+                return (parametersSet & VEHPARS_PROB_SET) != 0;
+            default:
+                return true;
+        }
+    } else {
+        return false;
+    }
 }
 
 
