@@ -832,13 +832,16 @@ GNETLSEditorFrame::controlsEdge(GNEEdge& edge) const {
 
 void
 GNETLSEditorFrame::editJunction(GNEJunction* junction) {
-    if (myTLSJunction->getCurrentJunction() == nullptr || (!myTLSModifications->checkHaveModifications() && (junction != myTLSJunction->getCurrentJunction()))) {
+    if ((myTLSJunction->getCurrentJunction() == nullptr) || (!myTLSModifications->checkHaveModifications() && (junction != myTLSJunction->getCurrentJunction()))) {
         onCmdCancel(nullptr, 0, nullptr);
         myViewNet->getUndoList()->p_begin("modifying traffic light definition");
         myTLSJunction->setCurrentJunction(junction);
         myTLSAttributes->initTLSAttributes(myTLSJunction->getCurrentJunction());
         myTLSJunction->updateJunctionDescription();
-        myTLSJunction->getCurrentJunction()->selectTLS(true);
+        // only select TLS if getCurrentJunction exist
+        if (myTLSJunction->getCurrentJunction()) {
+            myTLSJunction->getCurrentJunction()->selectTLS(true);
+        }
         if (myTLSAttributes->getNumberOfTLSDefinitions() > 0) {
             for (NBNode* node : myTLSAttributes->getCurrentTLSDefinition()->getNodes()) {
                 myViewNet->getNet()->retrieveJunction(node->getID())->selectTLS(true);

@@ -109,8 +109,8 @@ NBTrafficLightDefinition::compute(OptionsCont& oc) {
     if (amInvalid()) {
         // make a copy of myControlledNodes because it will be modified;
         std::vector<NBNode*> nodes = myControlledNodes;
-        for (std::vector<NBNode*>::iterator it = nodes.begin(); it != nodes.end(); it++) {
-            (*it)->removeTrafficLight(this);
+        for (auto it : nodes) {
+            it->removeTrafficLight(this);
         }
         WRITE_WARNING("The traffic light '" + getID() + "' does not control any links; it will not be build.");
         return nullptr;
