@@ -902,7 +902,7 @@ GNEFrameAttributesModuls::AttributesEditorRow::AttributesEditorRow(GNEFrameAttri
     if (getParent()->id()) {
         // create AttributesEditorRow
         FXHorizontalFrame::create();
-        // start enabling all elements, depending if attribute is editable and enabled
+        // start enabling all elements, depending if attribute is enabled
         if (attributeEnabled == false) {
             myValueTextField->disable();
             myValueComboBoxChoices->disable();
@@ -928,13 +928,7 @@ GNEFrameAttributesModuls::AttributesEditorRow::AttributesEditorRow(GNEFrameAttri
             myAttributeCheckButton->setText(myACAttr.getAttrStr().c_str());
             myAttributeCheckButton->setCheck(FALSE);
             myAttributeCheckButton->show();
-            // enable or disable depending if is editable
-            if (attributeEnabled == false) {
-                myAttributeCheckButton->disable();
-            } else {
-                myAttributeCheckButton->enable();
-            }
-            // check if radio button has to be check
+            // Enable or disable attribute checkbutton depending of attributeEnabled
             if (attributeEnabled) {
                 myAttributeCheckButton->setCheck(TRUE);
             } else {
@@ -944,13 +938,7 @@ GNEFrameAttributesModuls::AttributesEditorRow::AttributesEditorRow(GNEFrameAttri
             myAttributeRadioButton->setTextColor(FXRGB(0, 0, 0));
             myAttributeRadioButton->setText(myACAttr.getAttrStr().c_str());
             myAttributeRadioButton->show();
-            // enable or disable depending if is editable
-            if (attributeEnabled == false) {
-                myAttributeRadioButton->disable();
-            } else {
-                myAttributeRadioButton->enable();
-            }
-            // check if radio button has to be check
+            // Enable or disable attribute radioButton depending of attributeEnabled
             if (attributeEnabled) {
                 myAttributeRadioButton->setCheck(TRUE);
             } else {
@@ -994,10 +982,6 @@ GNEFrameAttributesModuls::AttributesEditorRow::AttributesEditorRow(GNEFrameAttri
                 myValueTextField->setText(value.c_str());
                 myValueTextField->setTextColor(FXRGB(0, 0, 0));
                 myValueTextField->show();
-                // enable or disable depending if attribute is editable and is enabled (used by disjoint attributes)
-                if (attributeEnabled == false) {
-                    myValueTextField->disable();
-                }
             }
         } else if (myACAttr.isDiscrete()) {
             // Check if are combinable choices
@@ -1062,14 +1046,22 @@ GNEFrameAttributesModuls::AttributesEditorRow::destroy() {
 
 void
 GNEFrameAttributesModuls::AttributesEditorRow::refreshAttributesEditorRow(const std::string& value, bool forceRefresh, bool attributeEnabled) {
-    // start enabling all elements
-    myValueTextField->enable();
-    myValueComboBoxChoices->enable();
-    myValueCheckButton->enable();
-    myAttributeButtonCombinableChoices->enable();
-    myAttributeColorButton->enable();
-    myAttributeRadioButton->enable();
-    myAttributeCheckButton->enable();
+    // start enabling all elements, depending if attribute is enabled
+    if (attributeEnabled == false) {
+        myValueTextField->disable();
+        myValueComboBoxChoices->disable();
+        myValueCheckButton->disable();
+        myAttributeButtonCombinableChoices->disable();
+        myAttributeColorButton->disable();
+        myAttributeCheckButton->disable();
+    } else {
+        myValueTextField->enable();
+        myValueComboBoxChoices->enable();
+        myValueCheckButton->enable();
+        myAttributeButtonCombinableChoices->enable();
+        myAttributeColorButton->enable();
+        myAttributeCheckButton->enable();
+    }
     // set radio buton
     if (myAttributeRadioButton->shown()) {
         myAttributeRadioButton->setCheck(attributeEnabled);
@@ -1084,10 +1076,6 @@ GNEFrameAttributesModuls::AttributesEditorRow::refreshAttributesEditorRow(const 
             myValueTextField->setText(value.c_str());
             myValueTextField->setTextColor(FXRGB(0, 0, 0));
         }
-        // disable depending of disjointAttributeEnabled
-        if (attributeEnabled == false) {
-            myValueTextField->disable();
-        }
     } else if (myValueComboBoxChoices->shown()) {
         // fill comboBox again
         myValueComboBoxChoices->clearItems();
@@ -1099,19 +1087,11 @@ GNEFrameAttributesModuls::AttributesEditorRow::refreshAttributesEditorRow(const 
         myValueComboBoxChoices->setCurrentItem(myValueComboBoxChoices->findItem(value.c_str()));
         myValueComboBoxChoices->setTextColor(FXRGB(0, 0, 0));
         myValueComboBoxChoices->show();
-        // disable depending of disjointAttributeEnabled
-        if (attributeEnabled == false) {
-            myValueComboBoxChoices->disable();
-        }
     } else if (myValueCheckButton->shown()) {
         if (GNEAttributeCarrier::canParse<bool>(value)) {
             myValueCheckButton->setCheck(GNEAttributeCarrier::parse<bool>(value));
         } else {
             myValueCheckButton->setCheck(false);
-        }
-        // disable depending of disjointAttributeEnabled
-        if (attributeEnabled == false) {
-            myValueCheckButton->disable();
         }
     }
     // if Tag correspond to an network element but we're in demand mode (or vice versa), disable all elements
@@ -1430,11 +1410,14 @@ GNEFrameAttributesModuls::AttributesEditor::showAttributeEditorModul(const std::
                 }
                 oss << *it_val;
             }
+            // obtain value to be shown in row
             std::string value = oss.str();
-            // show AttributesEditor
-            show();
             // declare a flag for enabled attributes
             bool attributeEnabled = myEditedACs.front()->isAttributeEnabled(i.getAttr());
+            // overwritte value if attribute is disabled (used by LinkIndex)
+            if (attributeEnabled == false) {
+                value = myEditedACs.front()->getAlternativeValueForDisabledAttributes(i.getAttr());
+            }
             // extra check for Triggered and container Triggered
             if (myEditedACs.front()->getTagProperty().isStop() || myEditedACs.front()->getTagProperty().isPersonStop()) {
                 if((i.getAttr() == SUMO_ATTR_EXPECTED) && (myEditedACs.front()->isAttributeEnabled(SUMO_ATTR_TRIGGERED) == false)) {
@@ -1450,6 +1433,8 @@ GNEFrameAttributesModuls::AttributesEditor::showAttributeEditorModul(const std::
             // create attribute editor row
             myAttributesEditorRows[i.getPositionListed()] = new AttributesEditorRow(this, i, value, attributeEnabled);
         }
+        // show AttributesEditor
+        show();
     }
     // reparent help button (to place it at bottom)
     myHelpButton->reparent(this);
@@ -1487,8 +1472,18 @@ GNEFrameAttributesModuls::AttributesEditor::refreshAttributeEditor(bool forceRef
                 }
                 oss << *it_val;
             }
+            // obtain value to be shown in row
+            std::string value = oss.str();
             // declare a flag for enabled attributes
             bool attributeEnabled = myEditedACs.front()->isAttributeEnabled(i.getAttr());
+            // overwritte value if attribute is disabled (used by LinkIndex)
+            if (attributeEnabled == false) {
+                value = myEditedACs.front()->getAlternativeValueForDisabledAttributes(i.getAttr());
+            }
+            // overwritte value if attribute is disabled (used by LinkIndex)
+            if (attributeEnabled == false) {
+                value = myEditedACs.front()->getAlternativeValueForDisabledAttributes(i.getAttr());
+            }
             // extra check for Triggered and container Triggered
             if (myEditedACs.front()->getTagProperty().isStop() || myEditedACs.front()->getTagProperty().isPersonStop()) {
                 if((i.getAttr() == SUMO_ATTR_EXPECTED) && (myEditedACs.front()->isAttributeEnabled(SUMO_ATTR_TRIGGERED) == false)) {
@@ -1499,13 +1494,13 @@ GNEFrameAttributesModuls::AttributesEditor::refreshAttributeEditor(bool forceRef
             }
             // Check if refresh of Position or Shape has to be forced
             if ((i.getAttr()  == SUMO_ATTR_SHAPE) && forceRefreshShape) {
-                myAttributesEditorRows[i.getPositionListed()]->refreshAttributesEditorRow(oss.str(), true, attributeEnabled);
+                myAttributesEditorRows[i.getPositionListed()]->refreshAttributesEditorRow(value, true, attributeEnabled);
             } else if ((i.getAttr()  == SUMO_ATTR_POSITION) && forceRefreshPosition) {
                 // Refresh attributes maintain invalid values
-                myAttributesEditorRows[i.getPositionListed()]->refreshAttributesEditorRow(oss.str(), true, attributeEnabled);
+                myAttributesEditorRows[i.getPositionListed()]->refreshAttributesEditorRow(value, true, attributeEnabled);
             } else {
                 // Refresh attributes maintain invalid values
-                myAttributesEditorRows[i.getPositionListed()]->refreshAttributesEditorRow(oss.str(), false, attributeEnabled);
+                myAttributesEditorRows[i.getPositionListed()]->refreshAttributesEditorRow(value, false, attributeEnabled);
             }
         }
     }

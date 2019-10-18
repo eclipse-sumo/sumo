@@ -586,6 +586,11 @@ public:
     virtual std::string getHierarchyName() const = 0;
     /// @}
 
+    /* @brief method for return an alternative value for disabled attributes. Used only in GNEFrames
+     * @param[in] key The attribute key
+     */
+    std::string getAlternativeValueForDisabledAttributes(SumoXMLAttr key) const;
+
     /// @name Certain attributes and ACs (for example, connections) can be either loaded or guessed. The following static variables are used to remark it.
     /// @{
     /// @brief feature is still unchanged after being loaded (implies approval)

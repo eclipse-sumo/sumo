@@ -1152,6 +1152,68 @@ GNEAttributeCarrier::lanesConsecutives(const std::vector<GNELane*>& lanes) {
 }
 
 
+std::string 
+GNEAttributeCarrier::getAlternativeValueForDisabledAttributes(SumoXMLAttr key) const {
+    switch (key) {
+        case SUMO_ATTR_TLLINKINDEX:
+        case SUMO_ATTR_TLLINKINDEX2:
+            return "No TLS";
+        case SUMO_ATTR_DIR: {
+            // special case for connection directions
+            std::string direction = getAttribute(key);
+            if (direction == "s") {
+                return "Straight (s)"; 
+            } else if (direction ==  "t") {
+                return "Turn (t))"; 
+            } else if (direction ==  "l") {
+                return "Left (l)"; 
+            } else if (direction ==  "r") {
+                return "Right (r)";
+            } else if (direction ==  "L") {
+                return "Partially left (L)";
+            } else if (direction ==  "R") {
+                return "Partially right (R)";
+            } else if (direction ==  "invalid") {
+                return "No direction (Invalid))";
+            } else {
+                return "undefined";
+            }
+        }
+        case SUMO_ATTR_STATE: {
+            // special case for connection states
+            std::string state = getAttribute(key);
+            if (state == "-") {
+                return "Dead end (-)";
+            } else if (state == "=") {
+                return "equal (=)";
+            } else if (state == "m") {
+                return "Minor link (m)";
+            } else if (state == "M") {
+                return "Major link (M)";
+            } else if (state == "O") {
+                return "TLS controller off (O)";
+            } else if (state == "o") {
+                return "TLS yellow flashing (o)";
+            } else if (state == "y") {
+                return "TLS yellow minor link (y)";
+            } else if (state == "Y") {
+                return "TLS yellow major link (Y)";
+            } else if (state == "r") {
+                return "TLS red (r)";
+            } else if (state == "g") {
+                return "TLS green minor (g)";
+            } else if (state == "G") {
+                return "TLS green major (G)";
+            } else {
+                return "undefined";
+            }
+        }
+        default:
+            return getAttribute(key);
+    }
+}
+
+
 std::string
 GNEAttributeCarrier::getAttributeForSelection(SumoXMLAttr key) const {
     return getAttribute(key);
