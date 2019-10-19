@@ -287,7 +287,7 @@ GNEVaporizer::isValid(SumoXMLAttr key, const std::string& value) {
 
 
 bool 
-GNEVaporizer::isAttributeEnabled(SumoXMLAttr key) const {
+GNEVaporizer::isAttributeEnabled(SumoXMLAttr /* key */) const {
     // check if we're in supermode Network
     if (myViewNet->getEditModes().currentSupermode == GNE_SUPERMODE_NETWORK) {
         return true;

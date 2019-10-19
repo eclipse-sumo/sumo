@@ -255,7 +255,7 @@ public:
     void computeLanes2Lanes();
 
     /// @brief build the list of outgoing edges and lanes
-    void computeLogics(const NBEdgeCont& ec, OptionsCont& oc);
+    void computeLogics(const NBEdgeCont& ec);
 
     /// @brief compute right-of-way logic for all lane-to-lane connections
     void computeLogics2(const NBEdgeCont& ec, OptionsCont& oc);

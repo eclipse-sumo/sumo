@@ -338,7 +338,7 @@ GNEDetectorE1::isValid(SumoXMLAttr key, const std::string& value) {
 
 
 bool 
-GNEDetectorE1::isAttributeEnabled(SumoXMLAttr key) const {
+GNEDetectorE1::isAttributeEnabled(SumoXMLAttr /* key */) const {
     // check if we're in supermode Network
     if (myViewNet->getEditModes().currentSupermode == GNE_SUPERMODE_NETWORK) {
         return true;

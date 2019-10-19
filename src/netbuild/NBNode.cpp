@@ -904,8 +904,9 @@ NBNode::removeJoinedTrafficLights() {
     }
 }
 
+
 void
-NBNode::computeLogic(const NBEdgeCont& ec, OptionsCont& oc) {
+NBNode::computeLogic(const NBEdgeCont& ec) {
     delete myRequest; // possibly recomputation step
     myRequest = nullptr;
     if (myIncomingEdges.size() == 0 || myOutgoingEdges.size() == 0) {

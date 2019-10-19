@@ -1655,9 +1655,9 @@ NBNodeCont::computeLanes2Lanes() {
 
 // computes the "wheel" of incoming and outgoing edges for every node
 void
-NBNodeCont::computeLogics(const NBEdgeCont& ec, OptionsCont& oc) {
+NBNodeCont::computeLogics(const NBEdgeCont& ec) {
     for (NodeCont::iterator i = myNodes.begin(); i != myNodes.end(); i++) {
-        (*i).second->computeLogic(ec, oc);
+        (*i).second->computeLogic(ec);
     }
 }
 

@@ -512,7 +512,7 @@ NBNetBuilder::compute(OptionsCont& oc, const std::set<std::string>& explicitTurn
     //
     before = SysUtils::getCurrentMillis();
     PROGRESS_BEGIN_MESSAGE("Computing node logics");
-    myNodeCont.computeLogics(myEdgeCont, oc);
+    myNodeCont.computeLogics(myEdgeCont);
     PROGRESS_TIME_MESSAGE(before);
     //
     before = SysUtils::getCurrentMillis();

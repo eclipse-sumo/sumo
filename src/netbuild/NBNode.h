@@ -366,7 +366,7 @@ public:
     void computeLanes2Lanes();
 
     /// @brief computes the node's type, logic and traffic light
-    void computeLogic(const NBEdgeCont& ec, OptionsCont& oc);
+    void computeLogic(const NBEdgeCont& ec);
 
     /// @brief compute right-of-way logic for all lane-to-lane connections
     void computeLogic2(bool checkLaneFoes);

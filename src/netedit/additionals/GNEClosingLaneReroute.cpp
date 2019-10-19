@@ -162,7 +162,7 @@ GNEClosingLaneReroute::isValid(SumoXMLAttr key, const std::string& value) {
 
 
 bool 
-GNEClosingLaneReroute::isAttributeEnabled(SumoXMLAttr key) const {
+GNEClosingLaneReroute::isAttributeEnabled(SumoXMLAttr /* key */) const {
     // check if we're in supermode Network
     if (myViewNet->getEditModes().currentSupermode == GNE_SUPERMODE_NETWORK) {
         return true;
