@@ -1018,6 +1018,17 @@ GNEFrameAttributesModuls::AttributesEditorRow::AttributesEditorRow(GNEFrameAttri
             myValueTextField->setTextColor(FXRGB(0, 0, 0));
             myValueTextField->show();
         }
+        // if Tag correspond to an network element but we're in demand mode (or vice versa), disable all elements
+        if (((myAttributesEditorParent->getFrameParent()->myViewNet->getEditModes().currentSupermode == GNE_SUPERMODE_NETWORK) && myACAttr.getTagPropertyParent().isDemandElement()) ||
+            ((myAttributesEditorParent->getFrameParent()->myViewNet->getEditModes().currentSupermode == GNE_SUPERMODE_DEMAND) && !myACAttr.getTagPropertyParent().isDemandElement())) {
+            myAttributeColorButton->disable();
+            myAttributeRadioButton->disable();
+            myAttributeCheckButton->disable();
+            myValueTextField->disable();
+            myValueComboBoxChoices->disable();
+            myValueCheckButton->disable();
+            myAttributeButtonCombinableChoices->disable();
+        }
         // Show AttributesEditorRow
         show();
     }
@@ -1081,6 +1092,19 @@ GNEFrameAttributesModuls::AttributesEditorRow::refreshAttributesEditorRow(const 
             myValueCheckButton->setCheck(GNEAttributeCarrier::parse<bool>(value));
         } else {
             myValueCheckButton->setCheck(false);
+        }
+    }
+    // if Tag correspond to an network element but we're in demand mode (or vice versa), disable all elements
+    if (myACAttr.getAttr() != SUMO_ATTR_NOTHING) {
+        if (((myAttributesEditorParent->getFrameParent()->myViewNet->getEditModes().currentSupermode == GNE_SUPERMODE_NETWORK) && myACAttr.getTagPropertyParent().isDemandElement()) ||
+            ((myAttributesEditorParent->getFrameParent()->myViewNet->getEditModes().currentSupermode == GNE_SUPERMODE_DEMAND) && !myACAttr.getTagPropertyParent().isDemandElement())) {
+            myAttributeColorButton->disable();
+            myAttributeRadioButton->disable();
+            myAttributeCheckButton->disable();
+            myValueTextField->disable();
+            myValueComboBoxChoices->disable();
+            myValueCheckButton->disable();
+            myAttributeButtonCombinableChoices->disable();
         }
     }
 }
@@ -1392,7 +1416,7 @@ GNEFrameAttributesModuls::AttributesEditor::showAttributeEditorModul(const std::
             bool attributeEnabled = myEditedACs.front()->isAttributeEnabled(i.getAttr());
             // overwritte value if attribute is disabled (used by LinkIndex)
             if (attributeEnabled == false) {
-                value = myEditedACs.front()->getAlternativeValueForDisabledAttributes(i.getAttr(), myFrameParent->myViewNet->getEditModes().currentSupermode);
+                value = myEditedACs.front()->getAlternativeValueForDisabledAttributes(i.getAttr());
             }
             // extra check for Triggered and container Triggered
             if (myEditedACs.front()->getTagProperty().isStop() || myEditedACs.front()->getTagProperty().isPersonStop()) {
@@ -1454,7 +1478,11 @@ GNEFrameAttributesModuls::AttributesEditor::refreshAttributeEditor(bool forceRef
             bool attributeEnabled = myEditedACs.front()->isAttributeEnabled(i.getAttr());
             // overwritte value if attribute is disabled (used by LinkIndex)
             if (attributeEnabled == false) {
-                value = myEditedACs.front()->getAlternativeValueForDisabledAttributes(i.getAttr(), myFrameParent->myViewNet->getEditModes().currentSupermode);
+                value = myEditedACs.front()->getAlternativeValueForDisabledAttributes(i.getAttr());
+            }
+            // overwritte value if attribute is disabled (used by LinkIndex)
+            if (attributeEnabled == false) {
+                value = myEditedACs.front()->getAlternativeValueForDisabledAttributes(i.getAttr());
             }
             // extra check for Triggered and container Triggered
             if (myEditedACs.front()->getTagProperty().isStop() || myEditedACs.front()->getTagProperty().isPersonStop()) {
@@ -1657,6 +1685,15 @@ GNEFrameAttributesModuls::ParametersEditor::refreshParametersEditor() {
     if (myAC) {
         myTextFieldParameters->setText(myAC->getAttribute(GNE_ATTR_PARAMETERS).c_str());
         myTextFieldParameters->setTextColor(FXRGB(0, 0, 0));
+        // disable myTextFieldParameters if Tag correspond to an network element but we're in demand mode (or vice versa), disable all elements
+        if (((myFrameParent->myViewNet->getEditModes().currentSupermode == GNE_SUPERMODE_NETWORK) && myAC->getTagProperty().isDemandElement()) ||
+                ((myFrameParent->myViewNet->getEditModes().currentSupermode == GNE_SUPERMODE_DEMAND) && !myAC->getTagProperty().isDemandElement())) {
+            myTextFieldParameters->disable();
+            myButtonEditParameters->disable();
+        } else {
+            myTextFieldParameters->enable();
+            myButtonEditParameters->enable();
+        }
     } else if (myACs.size() > 0) {
         // check if parameters of all inspected ACs are different
         std::string parameters = myACs.front()->getAttribute(GNE_ATTR_PARAMETERS);
@@ -1667,6 +1704,15 @@ GNEFrameAttributesModuls::ParametersEditor::refreshParametersEditor() {
         }
         myTextFieldParameters->setText(parameters.c_str());
         myTextFieldParameters->setTextColor(FXRGB(0, 0, 0));
+        // disable myTextFieldParameters if we're in demand mode and inspected AC isn't a demand element (or viceversa)
+        if (((myFrameParent->myViewNet->getEditModes().currentSupermode == GNE_SUPERMODE_NETWORK) && myACs.front()->getTagProperty().isDemandElement()) ||
+                ((myFrameParent->myViewNet->getEditModes().currentSupermode == GNE_SUPERMODE_DEMAND) && !myACs.front()->getTagProperty().isDemandElement())) {
+            myTextFieldParameters->disable();
+            myButtonEditParameters->disable();
+        } else {
+            myTextFieldParameters->enable();
+            myButtonEditParameters->enable();
+        }
     }
 }
 

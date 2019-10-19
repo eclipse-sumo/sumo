@@ -29,7 +29,6 @@
 #include <utils/options/OptionsCont.h>
 
 #include "GNEAttributeCarrier.h"
-#include "GNEViewNetHelper.h"
 #include "GNENet.h"
 
 
@@ -1154,72 +1153,63 @@ GNEAttributeCarrier::lanesConsecutives(const std::vector<GNELane*>& lanes) {
 
 
 std::string 
-GNEAttributeCarrier::getAlternativeValueForDisabledAttributes(SumoXMLAttr key, const int currentSupermode) const {
-    // cast supermode
-    const Supermode supermode = static_cast<Supermode>(currentSupermode);
-    // first check if we're in the correct editing mode
-    if ((myTagProperty.isNetElement() || myTagProperty.isShape()) && (supermode == GNE_SUPERMODE_DEMAND)) {
-        return "Not editable in Demand mode";
-    } else if (myTagProperty.isDemandElement() && (supermode == GNE_SUPERMODE_NETWORK)) {
-        return "Not editable in Network mode";
-    } else {
-        switch (key) {
-            case SUMO_ATTR_TLLINKINDEX:
-            case SUMO_ATTR_TLLINKINDEX2:
-                return "No TLS";
-            case SUMO_ATTR_DIR: {
-                // special case for connection directions
-                std::string direction = getAttribute(key);
-                if (direction == "s") {
-                    return "Straight (s)"; 
-                } else if (direction == "t") {
-                    return "Turn (t))"; 
-                } else if (direction == "l") {
-                    return "Left (l)"; 
-                } else if (direction == "r") {
-                    return "Right (r)";
-                } else if (direction == "L") {
-                    return "Partially left (L)";
-                } else if (direction == "R") {
-                    return "Partially right (R)";
-                } else if (direction == "invalid") {
-                    return "No direction (Invalid))";
-                } else {
-                    return "undefined";
-                }
+GNEAttributeCarrier::getAlternativeValueForDisabledAttributes(SumoXMLAttr key) const {
+    switch (key) {
+        case SUMO_ATTR_TLLINKINDEX:
+        case SUMO_ATTR_TLLINKINDEX2:
+            return "No TLS";
+        case SUMO_ATTR_DIR: {
+            // special case for connection directions
+            std::string direction = getAttribute(key);
+            if (direction == "s") {
+                return "Straight (s)"; 
+            } else if (direction ==  "t") {
+                return "Turn (t))"; 
+            } else if (direction ==  "l") {
+                return "Left (l)"; 
+            } else if (direction ==  "r") {
+                return "Right (r)";
+            } else if (direction ==  "L") {
+                return "Partially left (L)";
+            } else if (direction ==  "R") {
+                return "Partially right (R)";
+            } else if (direction ==  "invalid") {
+                return "No direction (Invalid))";
+            } else {
+                return "undefined";
             }
-            case SUMO_ATTR_STATE: {
-                // special case for connection states
-                std::string state = getAttribute(key);
-                if (state == "-") {
-                    return "Dead end (-)";
-                } else if (state == "=") {
-                    return "equal (=)";
-                } else if (state == "m") {
-                    return "Minor link (m)";
-                } else if (state == "M") {
-                    return "Major link (M)";
-                } else if (state == "O") {
-                    return "TLS controller off (O)";
-                } else if (state == "o") {
-                    return "TLS yellow flashing (o)";
-                } else if (state == "y") {
-                    return "TLS yellow minor link (y)";
-                } else if (state == "Y") {
-                    return "TLS yellow major link (Y)";
-                } else if (state == "r") {
-                    return "TLS red (r)";
-                } else if (state == "g") {
-                    return "TLS green minor (g)";
-                } else if (state == "G") {
-                    return "TLS green major (G)";
-                } else {
-                    return "undefined";
-                }
-            }
-            default:
-                return getAttribute(key);
         }
+        case SUMO_ATTR_STATE: {
+            // special case for connection states
+            std::string state = getAttribute(key);
+            if (state == "-") {
+                return "Dead end (-)";
+            } else if (state == "=") {
+                return "equal (=)";
+            } else if (state == "m") {
+                return "Minor link (m)";
+            } else if (state == "M") {
+                return "Major link (M)";
+            } else if (state == "O") {
+                return "TLS controller off (O)";
+            } else if (state == "o") {
+                return "TLS yellow flashing (o)";
+            } else if (state == "y") {
+                return "TLS yellow minor link (y)";
+            } else if (state == "Y") {
+                return "TLS yellow major link (Y)";
+            } else if (state == "r") {
+                return "TLS red (r)";
+            } else if (state == "g") {
+                return "TLS green minor (g)";
+            } else if (state == "G") {
+                return "TLS green major (G)";
+            } else {
+                return "undefined";
+            }
+        }
+        default:
+            return getAttribute(key);
     }
 }
 
