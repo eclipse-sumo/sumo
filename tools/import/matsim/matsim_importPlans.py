@@ -46,7 +46,7 @@ def get_options(args=None):
         sys.exit()
 
     return options
-   
+
 
 def main(options):
     with open(options.outfile, 'w') as outf:
@@ -58,36 +58,38 @@ def main(options):
             # write vehicles
             vehicleslist = []
             untillist = []
-            for leg in plan.leg:                
+            for leg in plan.leg:
                 depart = leg.dep_time if options.carsOnly else "triggered"
                 idveh = "%s_%s" % (person.id, vehIndex)
                 if leg.route[0].distance == "NaN":
                     outf.write('   <trip id="%s" depart="%s" from="%s" to="%s"/>\n'
-                               % (idveh, depart, leg.route[0].start_link,leg.route[0].end_link))
+                               % (idveh, depart, leg.route[0].start_link, leg.route[0].end_link))
                 else:
                     outf.write('   <vehicle id="%s" depart="%s" >\n' % (idveh, depart))
                     outf.write('        <route edges="%s"/>\n' % (leg.route[0].getText()))
                     outf.write('   </vehicle>\n')
-                untillist.append (leg.dep_time)                   
-                vehicleslist.append (idveh)
-                vehIndex=vehIndex+1
-            untillist.append (plan.activity[-1].end_time)
+                untillist.append(leg.dep_time)
+                vehicleslist.append(idveh)
+                vehIndex = vehIndex+1
+            untillist.append(plan.activity[-1].end_time)
             # write person
             if not options.carsOnly:
                 vehIndex = 0
                 outf.write('   <person id="%s" depart="%s">\n' % (person.id, plan.activity[0].start_time))
                 for attr in attributes.attribute:
-                    outf.write('       <param key="%s" value="%s"/>\n' % (attr.attr_name, attr.getText()))                      
+                    outf.write('       <param key="%s" value="%s"/>\n' % (attr.attr_name, attr.getText()))
                 for item in plan.getChildList():
                     if item.name == "activity":
-                       outf.write('       <stop lane="%s_0" until="%s" actType="%s" />\n' %(item.link, untillist[vehIndex], item.type))
+                        outf.write('       <stop lane="%s_0" until="%s" actType="%s" />\n' %
+                                   (item.link, untillist[vehIndex], item.type))
                     elif item.name == "leg":
                         outf.write('       <ride lines="%s" to="%s"  />\n'
-                                   %(vehicleslist[vehIndex],item.route[0].end_link))
-                        vehIndex=vehIndex+1
+                                   % (vehicleslist[vehIndex], item.route[0].end_link))
+                        vehIndex = vehIndex+1
                 outf.write('   </person>\n')
         outf.write('</routes>\n')
     outf.close()
+
 
 if __name__ == "__main__":
     options = get_options(sys.argv)

@@ -126,8 +126,8 @@ def cutEdgeList(areaEdges, oldDepart, exitTimes, edges, orig_net, options, stats
     lastIndex = len(edges) - 1 - getFirstIndex(areaEdges, reversed(edges))
     # check for connectivity
     route_parts = [(firstIndex + i, firstIndex + j)
-                    for i, j in missingEdges(areaEdges, edges[firstIndex:(lastIndex + 1)],
-                                             stats.missingEdgeOccurences)]
+                   for i, j in missingEdges(areaEdges, edges[firstIndex:(lastIndex + 1)],
+                                            stats.missingEdgeOccurences)]
     if len(route_parts) > 1:
         stats.multiAffectedRoutes += 1
         if options.disconnected_action == 'discard':
@@ -143,9 +143,9 @@ def cutEdgeList(areaEdges, oldDepart, exitTimes, edges, orig_net, options, stats
             if orig_net is not None:
                 # extrapolate new departure using default speed
                 newDepart = (float(oldDepart) +
-                                sum([(orig_net.getEdge(e).getLength() /
-                                    (orig_net.getEdge(e).getSpeed() * options.speed_factor))
-                                    for e in edges[:fromIndex]]))
+                             sum([(orig_net.getEdge(e).getLength() /
+                                   (orig_net.getEdge(e).getSpeed() * options.speed_factor))
+                                  for e in edges[:fromIndex]]))
             else:
                 newDepart = float(oldDepart)
         else:
@@ -218,7 +218,7 @@ def cut_routes(aEdges, orig_net, options, busStopEdges=None):
                     routeRef = None
                 else:
                     newDepart = standaloneRoutesDepart.get(moving.route)
-                    if newDepart is 'discard':
+                    if newDepart == 'discard':
                         # route was already checked and discarded
                         continue
                     elif newDepart is not None:
@@ -235,10 +235,10 @@ def cut_routes(aEdges, orig_net, options, busStopEdges=None):
                     else:
                         old_route = routeRef = standaloneRoutes[moving.route]
                 routeParts = cutEdgeList(areaEdges, oldDepart, old_route.exitTimes,
-                                        old_route.edges.split(), orig_net, options, stats)
+                                         old_route.edges.split(), orig_net, options, stats)
                 if routeParts and old_route.exitTimes is None and orig_net is None:
                     print("Could not reconstruct new departure time for %s '%s'. Using old departure time." %
-                            (moving.name, moving.id))
+                          (moving.name, moving.id))
                 old_route.exitTimes = None
                 if routeRef and not routeParts:
                     standaloneRoutesDepart[moving.route] = 'discard'

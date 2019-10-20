@@ -34,7 +34,7 @@ netedit.rebuildNetwork()
 
 # wait for output
 time.sleep(10)
-		
+
 # save additionals
 netedit.saveAdditionals(referencePosition)
 

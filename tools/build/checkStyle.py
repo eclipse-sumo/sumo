@@ -28,6 +28,7 @@ try:
     import flake8  # noqa
     HAVE_FLAKE = True
 except ImportError:
+    print("Python flake not found. Python style checking is disabled.")
     HAVE_FLAKE = False
 try:
     import autopep8  # noqa
