@@ -124,8 +124,7 @@ public:
     static void clearPending(const std::string& routeID = "");
     static void saveState(const std::string& fileName);
 
-    LIBSUMO_SUBSCRIPTION_API
-    static void subscribe(const std::vector<int>& vars = std::vector<int>(), double beginTime = INVALID_DOUBLE_VALUE, double endTime = INVALID_DOUBLE_VALUE);
+    static void subscribe(const std::vector<int>& varIDs = std::vector<int>(), double begin = INVALID_DOUBLE_VALUE, double end = INVALID_DOUBLE_VALUE);
     static const TraCIResults getSubscriptionResults();
 
     static std::shared_ptr<VariableWrapper> makeWrapper();

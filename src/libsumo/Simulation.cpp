@@ -102,12 +102,9 @@ Simulation::close() {
 }
 
 
-LIBSUMO_SUBSCRIPTION_IMPLEMENTATION(Simulation, SIM)
-
-
 void
-Simulation::subscribe(const std::vector<int>& vars, double beginTime, double endTime) {
-    libsumo::Helper::subscribe(CMD_SUBSCRIBE_SIM_VARIABLE, "", vars, beginTime, endTime);
+Simulation::subscribe(const std::vector<int>& varIDs, double begin, double end) {
+    libsumo::Helper::subscribe(CMD_SUBSCRIBE_SIM_VARIABLE, "", varIDs, begin, end);
 }
 
 
