@@ -469,7 +469,7 @@ GNEWalk::disableAttribute(SumoXMLAttr /*key*/, GNEUndoList* /*undoList*/) {
 bool
 GNEWalk::isAttributeEnabled(SumoXMLAttr /*key*/) const {
     // check if we're in supermode demand
-    if (myViewNet->getEditModes().currentSupermode == GNE_SUPERMODE_DEMAND) {
+    if (true /*myViewNet->getEditModes().currentSupermode == GNE_SUPERMODE_DEMAND*/) {
         return true;
     } else {
         return false;

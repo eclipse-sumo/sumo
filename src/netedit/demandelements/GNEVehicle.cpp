@@ -1369,7 +1369,7 @@ GNEVehicle::disableAttribute(SumoXMLAttr /*key*/, GNEUndoList* /*undoList*/) {
 bool
 GNEVehicle::isAttributeEnabled(SumoXMLAttr key) const {
     // check if we're in supermode demand
-    if (myViewNet->getEditModes().currentSupermode == GNE_SUPERMODE_DEMAND) {
+    if (true /*myViewNet->getEditModes().currentSupermode == GNE_SUPERMODE_DEMAND*/) {
         switch (key) {
             case SUMO_ATTR_END:
                 return (parametersSet & VEHPARS_END_SET) != 0;

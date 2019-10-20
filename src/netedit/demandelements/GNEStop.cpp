@@ -851,7 +851,7 @@ GNEStop::disableAttribute(SumoXMLAttr key, GNEUndoList* undoList) {
 bool
 GNEStop::isAttributeEnabled(SumoXMLAttr key) const {
     // check if we're in supermode demand
-    if (myViewNet->getEditModes().currentSupermode == GNE_SUPERMODE_DEMAND) {
+    if (true /*myViewNet->getEditModes().currentSupermode == GNE_SUPERMODE_DEMAND*/) {
         switch (key) {
             // Currently stops parents cannot be edited
             case SUMO_ATTR_BUS_STOP:

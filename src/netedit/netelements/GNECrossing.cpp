@@ -283,15 +283,20 @@ GNECrossing::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList
 
 bool 
 GNECrossing::isAttributeEnabled(SumoXMLAttr key) const {
-    switch (key) {
-        case SUMO_ATTR_ID:
-            // id isn't editable
-            return false;
-        case SUMO_ATTR_TLLINKINDEX:
-        case SUMO_ATTR_TLLINKINDEX2:
-            return (myParentJunction->getNBNode()->getCrossing(myCrossingEdges)->tlID != "");
-        default:
-            return true;
+    // check if we're in supermode Network
+    if (true /*myNet->getViewNet()->getEditModes().currentSupermode == GNE_SUPERMODE_NETWORK*/) {
+        switch (key) {
+            case SUMO_ATTR_ID:
+                // id isn't editable
+                return false;
+            case SUMO_ATTR_TLLINKINDEX:
+            case SUMO_ATTR_TLLINKINDEX2:
+                return (myParentJunction->getNBNode()->getCrossing(myCrossingEdges)->tlID != "");
+            default:
+                return true;
+        }
+    } else {
+        return false;
     }
 }
 
@@ -351,14 +356,9 @@ GNECrossing::isValid(SumoXMLAttr key, const std::string& value) {
 
 bool
 GNECrossing::checkEdgeBelong(GNEEdge* edge) const {
-    // check if we're in supermode Network
-    if (myNet->getViewNet()->getEditModes().currentSupermode == GNE_SUPERMODE_NETWORK) {
-        auto crossing = myParentJunction->getNBNode()->getCrossing(myCrossingEdges);
-        if (std::find(crossing->edges.begin(), crossing->edges.end(), edge->getNBEdge()) !=  crossing->edges.end()) {
-            return true;
-        } else {
-            return false;
-        }
+    auto crossing = myParentJunction->getNBNode()->getCrossing(myCrossingEdges);
+    if (std::find(crossing->edges.begin(), crossing->edges.end(), edge->getNBEdge()) !=  crossing->edges.end()) {
+        return true;
     } else {
         return false;
     }

@@ -1134,7 +1134,7 @@ GNEEdge::isValid(SumoXMLAttr key, const std::string& value) {
 bool 
 GNEEdge::isAttributeEnabled(SumoXMLAttr key) const {
     // check if we're in supermode Network
-    if (myNet->getViewNet()->getEditModes().currentSupermode == GNE_SUPERMODE_NETWORK) {
+    if (true /*myNet->getViewNet()->getEditModes().currentSupermode == GNE_SUPERMODE_NETWORK*/) {
         switch (key) {
             case GNE_ATTR_BIDIR:
                 return false;
