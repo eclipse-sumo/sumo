@@ -1115,6 +1115,8 @@ SUMOVehicleParserHelper::getAllowedCFModelAttrs() {
         allParams.insert(wiedemannParams.begin(), wiedemannParams.end());
 
         std::set<SumoXMLAttr> w99Params;
+        w99Params.insert(SUMO_ATTR_DECEL); // used when patching speed during lane-changing
+        w99Params.insert(SUMO_ATTR_EMERGENCYDECEL);
         w99Params.insert(SUMO_ATTR_CF_W99_CC1);
         w99Params.insert(SUMO_ATTR_CF_W99_CC2);
         w99Params.insert(SUMO_ATTR_CF_W99_CC3);
