@@ -109,6 +109,16 @@ Error: Vehicle 'flowB.13' will not be able to depart using the given velocity (j
 Error: Vehicle 'flowB.13' will not be able to depart using the given velocity (junction too close)!
 Error: Vehicle 'flowB.13' will not be able to depart using the given velocity (junction too close)!
 Error: Vehicle 'flowB.13' will not be able to depart using the given velocity (junction too close)!
+Error: Vehicle 'flowB.14' will not be able to depart using the given velocity (junction too close)!
+Error: Vehicle 'flowB.14' will not be able to depart using the given velocity (junction too close)!
+Error: Vehicle 'flowB.14' will not be able to depart using the given velocity (junction too close)!
+Error: Vehicle 'flowB.14' will not be able to depart using the given velocity (junction too close)!
+Error: Vehicle 'flowB.14' will not be able to depart using the given velocity (junction too close)!
+Error: Vehicle 'flowB.14' will not be able to depart using the given velocity (junction too close)!
+Error: Vehicle 'flowB.14' will not be able to depart using the given velocity (junction too close)!
+Error: Vehicle 'flowB.14' will not be able to depart using the given velocity (junction too close)!
+Error: Vehicle 'flowB.14' will not be able to depart using the given velocity (junction too close)!
+Error: Vehicle 'flowB.14' will not be able to depart using the given velocity (junction too close)!
 Error: Vehicle 'flowB.15' will not be able to depart using the given velocity (junction too close)!
 Error: Vehicle 'flowB.15' will not be able to depart using the given velocity (junction too close)!
 Error: Vehicle 'flowB.15' will not be able to depart using the given velocity (junction too close)!
@@ -119,16 +129,16 @@ Error: Vehicle 'flowB.15' will not be able to depart using the given velocity (j
 Error: Vehicle 'flowB.15' will not be able to depart using the given velocity (junction too close)!
 Error: Vehicle 'flowB.15' will not be able to depart using the given velocity (junction too close)!
 Error: Vehicle 'flowB.15' will not be able to depart using the given velocity (junction too close)!
-Error: Vehicle 'flowB.16' will not be able to depart using the given velocity (junction too close)!
-Error: Vehicle 'flowB.16' will not be able to depart using the given velocity (junction too close)!
-Error: Vehicle 'flowB.16' will not be able to depart using the given velocity (junction too close)!
-Error: Vehicle 'flowB.16' will not be able to depart using the given velocity (junction too close)!
-Error: Vehicle 'flowB.16' will not be able to depart using the given velocity (junction too close)!
-Error: Vehicle 'flowB.16' will not be able to depart using the given velocity (junction too close)!
-Error: Vehicle 'flowB.16' will not be able to depart using the given velocity (junction too close)!
-Error: Vehicle 'flowB.16' will not be able to depart using the given velocity (junction too close)!
-Error: Vehicle 'flowB.16' will not be able to depart using the given velocity (junction too close)!
-Error: Vehicle 'flowB.16' will not be able to depart using the given velocity (junction too close)!
+Error: Vehicle 'flowB.17' will not be able to depart using the given velocity (junction too close)!
+Error: Vehicle 'flowB.17' will not be able to depart using the given velocity (junction too close)!
+Error: Vehicle 'flowB.17' will not be able to depart using the given velocity (junction too close)!
+Error: Vehicle 'flowB.17' will not be able to depart using the given velocity (junction too close)!
+Error: Vehicle 'flowB.17' will not be able to depart using the given velocity (junction too close)!
+Error: Vehicle 'flowB.17' will not be able to depart using the given velocity (junction too close)!
+Error: Vehicle 'flowB.17' will not be able to depart using the given velocity (junction too close)!
+Error: Vehicle 'flowB.17' will not be able to depart using the given velocity (junction too close)!
+Error: Vehicle 'flowB.17' will not be able to depart using the given velocity (junction too close)!
+Error: Vehicle 'flowB.17' will not be able to depart using the given velocity (junction too close)!
 Warning: Teleporting vehicle 'flowA.0'; waited too long (jam), lane=':gneJ5_2_0', time=306.00.
 Warning: Vehicle 'flowA.0' ends teleporting on edge 'gneE4', time 306.00.
 Warning: Teleporting vehicle 'flowA.1'; waited too long (jam), lane=':gneJ5_2_0', time=611.00.
@@ -151,5 +161,9 @@ Warning: Teleporting vehicle 'flowA.9'; waited too long (jam), lane=':gneJ5_2_0'
 Warning: Vehicle 'flowA.9' ends teleporting on edge 'gneE4', time 3053.00.
 Warning: Teleporting vehicle 'flowA.10'; waited too long (jam), lane=':gneJ5_2_0', time=3357.00.
 Warning: Vehicle 'flowA.10' ends teleporting on edge 'gneE4', time 3357.00.
-Warning: Teleporting vehicle 'flowA.13'; waited too long (jam), lane=':gneJ5_2_0', time=3663.00.
-Warning: Vehicle 'flowA.13' ends teleporting on edge 'gneE4', time 3663.00.
+Warning: Teleporting vehicle 'flowA.11'; waited too long (jam), lane=':gneJ5_2_0', time=3663.00.
+Warning: Vehicle 'flowA.11' ends teleporting on edge 'gneE4', time 3663.00.
+Warning: Teleporting vehicle 'flowA.12'; waited too long (jam), lane=':gneJ5_2_0', time=3969.00.
+Warning: Vehicle 'flowA.12' ends teleporting on edge 'gneE4', time 3969.00.
+Warning: Teleporting vehicle 'flowA.13'; waited too long (jam), lane=':gneJ5_2_0', time=4274.00.
+Warning: Vehicle 'flowA.13' ends teleporting on edge 'gneE4', time 4274.00.

@@ -47,7 +47,7 @@ netedit.modifyAttribute(0, "3 7 1", True)
 netedit.rebuildNetwork()
 
 # inspect crossing again after recomputing
-netedit.leftClick(referencePosition, 291, 225)
+netedit.leftClick(referencePosition, 280, 225)
 
 # Change Edges with the same edges as another crossing (Duplicate
 # crossings aren't allowed, see Ticket #4043
@@ -57,7 +57,7 @@ netedit.modifyAttribute(0, "4 8", True)
 netedit.rebuildNetwork()
 
 # inspect crossing again after recomputing
-netedit.leftClick(referencePosition, 291, 225)
+netedit.leftClick(referencePosition, 280, 225)
 
 # Change Edges to a single edge
 netedit.modifyAttribute(0, "3", True)

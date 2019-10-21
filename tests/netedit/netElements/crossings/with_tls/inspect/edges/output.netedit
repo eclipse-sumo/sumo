@@ -7,9 +7,9 @@ TestFunctions: 'reference.png' found. Position: 304 - 168
 TestFunctions: Clicked over position 554 - 393
 dummy Edges
 3 7 1
-TestFunctions: Clicked over position 595 - 393
+TestFunctions: Clicked over position 584 - 393
 4 8
-TestFunctions: Clicked over position 595 - 393
+TestFunctions: Clicked over position 584 - 393
 3
 TestFunctions: Clicked over position 304 - 168
 TestFunctions: Clicked over position 304 - 168
