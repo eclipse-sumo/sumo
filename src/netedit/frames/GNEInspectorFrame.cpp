@@ -661,9 +661,9 @@ GNEInspectorFrame::NeteditAttributesEditor::onCmdSetNeteditAttribute(FXObject* o
                     i->setAttribute(GNE_ATTR_PARENT, myTextFieldAdditionalParent->getText().text(), myInspectorFrameParent->myViewNet->getUndoList());
                 }
                 myTextFieldAdditionalParent->setTextColor(FXRGB(0, 0, 0));
+                myTextFieldAdditionalParent->killFocus();
             } else {
                 myTextFieldAdditionalParent->setTextColor(FXRGB(255, 0, 0));
-                myTextFieldAdditionalParent->killFocus();
             }
         }
         // finish change multiple attributes
@@ -817,17 +817,17 @@ GNEInspectorFrame::GEOAttributesEditor::onCmdSetGEOAttribute(FXObject* obj, FXSe
                 if (myInspectorFrameParent->myAttributesEditor->getEditedACs().front()->isValid(SUMO_ATTR_GEOPOSITION, myGEOAttributeTextField->getText().text())) {
                     myInspectorFrameParent->myAttributesEditor->getEditedACs().front()->setAttribute(SUMO_ATTR_GEOPOSITION, myGEOAttributeTextField->getText().text(), myInspectorFrameParent->myViewNet->getUndoList());
                     myGEOAttributeTextField->setTextColor(FXRGB(0, 0, 0));
+                    myGEOAttributeTextField->killFocus();
                 } else {
                     myGEOAttributeTextField->setTextColor(FXRGB(255, 0, 0));
-                    myGEOAttributeTextField->killFocus();
                 }
             } else if (tagProperty.hasGEOShape()) {
                 if (myInspectorFrameParent->myAttributesEditor->getEditedACs().front()->isValid(SUMO_ATTR_GEOSHAPE, myGEOAttributeTextField->getText().text())) {
                     myInspectorFrameParent->myAttributesEditor->getEditedACs().front()->setAttribute(SUMO_ATTR_GEOSHAPE, myGEOAttributeTextField->getText().text(), myInspectorFrameParent->myViewNet->getUndoList());
                     myGEOAttributeTextField->setTextColor(FXRGB(0, 0, 0));
+                    myGEOAttributeTextField->killFocus();
                 } else {
                     myGEOAttributeTextField->setTextColor(FXRGB(255, 0, 0));
-                    myGEOAttributeTextField->killFocus();
                 }
             } else {
                 throw ProcessError("myGEOAttributeTextField must be hidden becaurse there isn't GEO Attribute to edit");
