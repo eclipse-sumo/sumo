@@ -907,38 +907,52 @@ GNEFrameAttributesModuls::AttributesEditorRow::AttributesEditorRow(GNEFrameAttri
             myValueTextField->disable();
             myValueComboBoxChoices->disable();
             myValueCheckButton->disable();
-            myAttributeButtonCombinableChoices->disable();
-            myAttributeColorButton->disable();
-            myAttributeCheckButton->disable();
         } else {
             myValueTextField->enable();
             myValueComboBoxChoices->enable();
             myValueCheckButton->enable();
-            myAttributeButtonCombinableChoices->enable();
-            myAttributeColorButton->enable();
-            myAttributeCheckButton->enable();
+        }
+        // if Tag correspond to an network element but we're in demand mode (or vice versa), disable all elements
+        if (myACAttr.getAttr() != SUMO_ATTR_NOTHING) {
+            if (((myAttributesEditorParent->getFrameParent()->myViewNet->getEditModes().currentSupermode == GNE_SUPERMODE_NETWORK) && myACAttr.getTagPropertyParent().isDemandElement()) ||
+                ((myAttributesEditorParent->getFrameParent()->myViewNet->getEditModes().currentSupermode == GNE_SUPERMODE_DEMAND) && !myACAttr.getTagPropertyParent().isDemandElement())) {
+                myAttributeColorButton->disable();
+                myAttributeRadioButton->disable();
+                myAttributeCheckButton->disable();
+                myValueTextField->disable();
+                myValueComboBoxChoices->disable();
+                myValueCheckButton->disable();
+                myAttributeButtonCombinableChoices->disable();
+            } else {
+                myAttributeButtonCombinableChoices->enable();
+                myAttributeColorButton->enable();
+                myAttributeCheckButton->enable();
+                myAttributeRadioButton->enable();
+            }
         }
         // set left column
         if (myACAttr.isColor()) {
+            // show color button
             myAttributeColorButton->setTextColor(FXRGB(0, 0, 0));
             myAttributeColorButton->setText(myACAttr.getAttrStr().c_str());
             myAttributeColorButton->show();
         } else if (myACAttr.isOptional()) {
+            // show checkbox button
             myAttributeCheckButton->setTextColor(FXRGB(0, 0, 0));
             myAttributeCheckButton->setText(myACAttr.getAttrStr().c_str());
-            myAttributeCheckButton->setCheck(FALSE);
             myAttributeCheckButton->show();
-            // Enable or disable attribute checkbutton depending of attributeEnabled
+            // check or uncheck depending of attributeEnabled
             if (attributeEnabled) {
                 myAttributeCheckButton->setCheck(TRUE);
             } else {
                 myAttributeCheckButton->setCheck(FALSE);
             }
         } else if (myACAttr.isEnablitable()) {
+            // show radio button
             myAttributeRadioButton->setTextColor(FXRGB(0, 0, 0));
             myAttributeRadioButton->setText(myACAttr.getAttrStr().c_str());
             myAttributeRadioButton->show();
-            // Enable or disable attribute radioButton depending of attributeEnabled
+            // check or uncheck depending of attributeEnabled
             if (attributeEnabled) {
                 myAttributeRadioButton->setCheck(TRUE);
             } else {
@@ -1018,17 +1032,6 @@ GNEFrameAttributesModuls::AttributesEditorRow::AttributesEditorRow(GNEFrameAttri
             myValueTextField->setTextColor(FXRGB(0, 0, 0));
             myValueTextField->show();
         }
-        // if Tag correspond to an network element but we're in demand mode (or vice versa), disable all elements
-        if (((myAttributesEditorParent->getFrameParent()->myViewNet->getEditModes().currentSupermode == GNE_SUPERMODE_NETWORK) && myACAttr.getTagPropertyParent().isDemandElement()) ||
-            ((myAttributesEditorParent->getFrameParent()->myViewNet->getEditModes().currentSupermode == GNE_SUPERMODE_DEMAND) && !myACAttr.getTagPropertyParent().isDemandElement())) {
-            myAttributeColorButton->disable();
-            myAttributeRadioButton->disable();
-            myAttributeCheckButton->disable();
-            myValueTextField->disable();
-            myValueComboBoxChoices->disable();
-            myValueCheckButton->disable();
-            myAttributeButtonCombinableChoices->disable();
-        }
         // Show AttributesEditorRow
         show();
     }
@@ -1051,16 +1054,28 @@ GNEFrameAttributesModuls::AttributesEditorRow::refreshAttributesEditorRow(const 
         myValueTextField->disable();
         myValueComboBoxChoices->disable();
         myValueCheckButton->disable();
-        myAttributeButtonCombinableChoices->disable();
-        myAttributeColorButton->disable();
-        myAttributeCheckButton->disable();
     } else {
         myValueTextField->enable();
         myValueComboBoxChoices->enable();
         myValueCheckButton->enable();
-        myAttributeButtonCombinableChoices->enable();
-        myAttributeColorButton->enable();
-        myAttributeCheckButton->enable();
+    }
+    // if Tag correspond to an network element but we're in demand mode (or vice versa), disable all elements
+    if (myACAttr.getAttr() != SUMO_ATTR_NOTHING) {
+        if (((myAttributesEditorParent->getFrameParent()->myViewNet->getEditModes().currentSupermode == GNE_SUPERMODE_NETWORK) && myACAttr.getTagPropertyParent().isDemandElement()) ||
+            ((myAttributesEditorParent->getFrameParent()->myViewNet->getEditModes().currentSupermode == GNE_SUPERMODE_DEMAND) && !myACAttr.getTagPropertyParent().isDemandElement())) {
+            myAttributeColorButton->disable();
+            myAttributeRadioButton->disable();
+            myAttributeCheckButton->disable();
+            myValueTextField->disable();
+            myValueComboBoxChoices->disable();
+            myValueCheckButton->disable();
+            myAttributeButtonCombinableChoices->disable();
+        } else {
+            myAttributeButtonCombinableChoices->enable();
+            myAttributeColorButton->enable();
+            myAttributeCheckButton->enable();
+            myAttributeRadioButton->enable();
+        }
     }
     // set radio buton
     if (myAttributeRadioButton->shown()) {
@@ -1092,19 +1107,6 @@ GNEFrameAttributesModuls::AttributesEditorRow::refreshAttributesEditorRow(const 
             myValueCheckButton->setCheck(GNEAttributeCarrier::parse<bool>(value));
         } else {
             myValueCheckButton->setCheck(false);
-        }
-    }
-    // if Tag correspond to an network element but we're in demand mode (or vice versa), disable all elements
-    if (myACAttr.getAttr() != SUMO_ATTR_NOTHING) {
-        if (((myAttributesEditorParent->getFrameParent()->myViewNet->getEditModes().currentSupermode == GNE_SUPERMODE_NETWORK) && myACAttr.getTagPropertyParent().isDemandElement()) ||
-            ((myAttributesEditorParent->getFrameParent()->myViewNet->getEditModes().currentSupermode == GNE_SUPERMODE_DEMAND) && !myACAttr.getTagPropertyParent().isDemandElement())) {
-            myAttributeColorButton->disable();
-            myAttributeRadioButton->disable();
-            myAttributeCheckButton->disable();
-            myValueTextField->disable();
-            myValueComboBoxChoices->disable();
-            myValueCheckButton->disable();
-            myAttributeButtonCombinableChoices->disable();
         }
     }
 }
