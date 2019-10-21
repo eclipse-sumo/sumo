@@ -1,0 +1,2 @@
+Warning: Format of essential unique string attribute 'id' of busStop is invalid; ID contains invalid characters; busStop cannot be created
+Warning: There is another busStop with the same ID='busStop_gneE0_0_0'.
