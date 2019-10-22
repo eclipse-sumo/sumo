@@ -47,6 +47,11 @@ class SUMOTrafficObject;
  */
 class MSDevice_Tripinfo : public MSVehicleDevice {
 public:
+    /** @brief Inserts MSDevice_Tripinfo-options
+     * @param[filled] oc The options container to add the options to
+     */
+    static void insertOptions(OptionsCont& oc);
+
     /** @brief Build devices for the given vehicle, if needed
      *
      * The options are read and evaluated whether a tripinfo-device shall be built

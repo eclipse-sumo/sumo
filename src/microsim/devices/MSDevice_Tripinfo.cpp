@@ -72,8 +72,17 @@ SUMOTime MSDevice_Tripinfo::myTotalRideDuration(0);
 // static initialisation methods
 // ---------------------------------------------------------------------------
 void
+MSDevice_Tripinfo::insertOptions(OptionsCont& oc) {
+    oc.addOptionSubTopic("Tripinfo Device");
+    insertDefaultAssignmentOptions("tripinfo", "Tripinfo Device", oc);
+}
+
+
+void
 MSDevice_Tripinfo::buildVehicleDevices(SUMOVehicle& v, std::vector<MSVehicleDevice*>& into) {
-    if (OptionsCont::getOptions().isSet("tripinfo-output") || OptionsCont::getOptions().getBool("duration-log.statistics")) {
+    OptionsCont& oc = OptionsCont::getOptions();
+    const bool enableByOutputOption = oc.isSet("tripinfo-output") || oc.getBool("duration-log.statistics");
+    if (equippedByDefaultAssignmentOptions(oc, "tripinfo", v, enableByOutputOption)) {
         MSDevice_Tripinfo* device = new MSDevice_Tripinfo(v, "tripinfo_" + v.getID());
         into.push_back(device);
         myPendingOutput.insert(device);

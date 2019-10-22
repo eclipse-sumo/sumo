@@ -76,6 +76,7 @@ MSDevice::insertOptions(OptionsCont& oc) {
     MSDevice_DriverState::insertOptions(oc);
     MSDevice_Bluelight::insertOptions(oc);
     MSDevice_FCD::insertOptions(oc);
+    MSDevice_Tripinfo::insertOptions(oc);
 
     MSTransportableDevice_Routing::insertOptions(oc);
     MSTransportableDevice_FCD::insertOptions(oc);
