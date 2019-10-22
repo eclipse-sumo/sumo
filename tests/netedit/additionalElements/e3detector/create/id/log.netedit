@@ -1,0 +1,2 @@
+Warning: Format of essential unique string attribute 'id' of e3Detector is invalid; Detector ID contains invalid characters; e3Detector cannot be created
+Warning: Format of essential filename attribute 'file' of e3Detector is invalid; Filename contains invalid characters; e3Detector cannot be created

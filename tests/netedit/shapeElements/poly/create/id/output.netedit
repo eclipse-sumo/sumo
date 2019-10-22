@@ -1,0 +1,35 @@
+TestFunctions: Netedit opened successfully
+Finding reference
+TestFunctions: 'reference.png' found. Position: 304 - 168
+poly
+TestFunctions: Clicked over position 404 - 218
+TestFunctions: Clicked over position 404 - 168.0
+TestFunctions: Clicked over position 354.0 - 168.0
+TestFunctions: Clicked over position 354.0 - 218
+TestFunctions: Clicked over position 404 - 218
+TestFunctions: Clicked over position 504 - 218
+TestFunctions: Clicked over position 504 - 168.0
+TestFunctions: Clicked over position 454.0 - 168.0
+TestFunctions: Clicked over position 454.0 - 218
+TestFunctions: Clicked over position 504 - 218
+;;;;;;
+TestFunctions: Clicked over position 604 - 218
+TestFunctions: Clicked over position 604 - 168.0
+TestFunctions: Clicked over position 554.0 - 168.0
+TestFunctions: Clicked over position 554.0 - 218
+TestFunctions: Clicked over position 604 - 218
+poly_0
+TestFunctions: Clicked over position 604 - 218
+TestFunctions: Clicked over position 604 - 168.0
+TestFunctions: Clicked over position 554.0 - 168.0
+TestFunctions: Clicked over position 554.0 - 218
+TestFunctions: Clicked over position 604 - 218
+custom_ID
+TestFunctions: Clicked over position 604 - 218
+TestFunctions: Clicked over position 604 - 168.0
+TestFunctions: Clicked over position 554.0 - 168.0
+TestFunctions: Clicked over position 554.0 - 218
+TestFunctions: Clicked over position 604 - 218
+TestFunctions: Clicked over position 304 - 168
+TestFunctions: Clicked over position 304 - 168
+TestFunctions: Netedit closed successfully

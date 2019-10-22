@@ -129,16 +129,6 @@ Error: Vehicle 'flowB.15' will not be able to depart using the given velocity (j
 Error: Vehicle 'flowB.15' will not be able to depart using the given velocity (junction too close)!
 Error: Vehicle 'flowB.15' will not be able to depart using the given velocity (junction too close)!
 Error: Vehicle 'flowB.15' will not be able to depart using the given velocity (junction too close)!
-Error: Vehicle 'flowB.17' will not be able to depart using the given velocity (junction too close)!
-Error: Vehicle 'flowB.17' will not be able to depart using the given velocity (junction too close)!
-Error: Vehicle 'flowB.17' will not be able to depart using the given velocity (junction too close)!
-Error: Vehicle 'flowB.17' will not be able to depart using the given velocity (junction too close)!
-Error: Vehicle 'flowB.17' will not be able to depart using the given velocity (junction too close)!
-Error: Vehicle 'flowB.17' will not be able to depart using the given velocity (junction too close)!
-Error: Vehicle 'flowB.17' will not be able to depart using the given velocity (junction too close)!
-Error: Vehicle 'flowB.17' will not be able to depart using the given velocity (junction too close)!
-Error: Vehicle 'flowB.17' will not be able to depart using the given velocity (junction too close)!
-Error: Vehicle 'flowB.17' will not be able to depart using the given velocity (junction too close)!
 Warning: Teleporting vehicle 'flowA.0'; waited too long (jam), lane=':gneJ5_2_0', time=306.00.
 Warning: Vehicle 'flowA.0' ends teleporting on edge 'gneE4', time 306.00.
 Warning: Teleporting vehicle 'flowA.1'; waited too long (jam), lane=':gneJ5_2_0', time=611.00.
