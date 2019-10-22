@@ -1,0 +1,4 @@
+<additional>
+    <flow id="-2_-1.foobar" departSpeed="max" departPos="last" departLane="best" route="-2_-1.foobar" number="1000" begin="0" end="3600"/>
+    <flow id="1_2.foobar" departSpeed="max" departPos="last" departLane="best" route="1_2.foobar" number="1000" begin="0" end="3600"/>
+</additional>
