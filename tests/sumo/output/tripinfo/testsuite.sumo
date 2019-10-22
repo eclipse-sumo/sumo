@@ -37,5 +37,8 @@ depart_triggered
 # compute correct departDelay for triggered vehicle (insertion is delayed due to a blocking vehicle)
 depart_triggered_delayed
 
+# disable tripinfo output by default and enable it for selected vType
+enable_by_type
+
 # Testing error cases
 errors
