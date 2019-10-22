@@ -38,7 +38,7 @@ endif ()
 
 # compiler specific flags
 if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU" OR
-        "${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
+    "${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -pthread -Wall -pedantic -Wextra")
     set(ENABLED_FEATURES "${ENABLED_FEATURES} ${CMAKE_BUILD_TYPE}")
     if (PROFILING)
@@ -149,6 +149,12 @@ endif ()
 
 # check if SUMOLibraries was found (Only in Windows)
 if (SUMO_LIBRARIES AND WIN32)
+    # set option for install debug and release runtime dlls
+    option(INSTALL_DLL_RUNTIMES "Copy debug and release runtimes for MSVC" false)
+    # check if we need to force copy msvc runtimes
+    if ("${MSVC_VERSION}" STREQUAL "1800")
+        set (INSTALL_DLL_RUNTIMES true)
+    endif ()
     # Special option for MinGW32
     if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU" AND WIN32)
         if (USE_MINGW_64BITS)
@@ -212,6 +218,13 @@ if (SUMO_LIBRARIES AND WIN32)
                                  "${SUMO_LIBRARIES}${LIB_VERSION}/3rdPartyLibs/tiff-?.?.?/bin/*.dll"
                                  "${SUMO_LIBRARIES}${LIB_VERSION}/3rdPartyLibs/zlib-?.?.??/bin/*.dll"
                                  "${SUMO_LIBRARIES}${LIB_VERSION}/3rdPartyLibs/sqlite-?.?.?/*.dll")
+    # set MSVC dlls
+    if ("${MSVC_VERSION}" STREQUAL "1800")
+        file(GLOB MSVC_DLLS "${SUMO_LIBRARIES}/msvc12${LIB_VERSION}/runtimes/*.dll")
+    else()
+        file(GLOB MSVC_DLLS "${SUMO_LIBRARIES}${LIB_VERSION}/runtimes/*.dll")
+    endif ()
+    # set google test root
     file(GLOB GTEST_ROOT "${SUMO_LIBRARIES}/googletest-?.?.?/googletest")
     # set GoogleTest only if compiler isn't mingw32
     if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU" AND WIN32 AND NOT USE_MINGW_64BITS)
@@ -377,24 +390,36 @@ endif ()
 
 if (SUMO_LIBRARIES AND WIN32)
     string(REPLACE "${SUMO_LIBRARIES}" "" SUMO_LIBRARIES_DLL "${SUMO_LIBRARIES_DLL}")
-    add_custom_command(OUTPUT ${CMAKE_SOURCE_DIR}/bin/zlib.dll
+    # copy common dlls
+    set(COMMON_DLLS "and installing common dlls")
+    add_custom_command(OUTPUT ${COMMON_DLLS}
                        COMMAND ${PYTHON_EXECUTABLE} -c "import shutil;[shutil.copy('${SUMO_LIBRARIES}'+l, '${CMAKE_SOURCE_DIR}/bin') for l in '${SUMO_LIBRARIES_DLL}'.split(';')]"
                        DEPENDS ${SUMO_LIBRARIES})
+    # copy OSG dlls
     if (HAVE_OSG)
-        set(OSG_TARGET ${CMAKE_SOURCE_DIR}/bin/osg130-osg.dll)
-        add_custom_command(OUTPUT ${OSG_TARGET}
+        set(OSG_DLLS "and installing OSG dlls")
+        add_custom_command(OUTPUT ${OSG_DLLS}
                            COMMAND ${CMAKE_COMMAND} -E copy_directory ${OSG_PATH}/bin ${CMAKE_SOURCE_DIR}/bin
                            DEPENDS ${OSG_PATH})
     endif (HAVE_OSG)
-
+    # proj 6 needs to copy "share/proj" folder in SUMO_HOME/data
     if (PROJ_6)
-        # proj 6 needs to copy "share/proj" folder in SUMO_HOME/data
-        set(PROJ_DATA ${PROJ_PATH}/share/proj)
+        set(PROJ_DATA "and installing proj data")
         add_custom_command(OUTPUT ${PROJ_DATA}
                            COMMAND ${CMAKE_COMMAND} -E copy_directory ${PROJ_PATH}/share/proj ${CMAKE_SOURCE_DIR}/data/proj
                            DEPENDS ${PROJ_PATH})
     endif (PROJ_6)
-    add_custom_target(install_dll ALL DEPENDS ${CMAKE_SOURCE_DIR}/bin/zlib.dll ${OSG_TARGET} ${PROJ_DATA})
+    # check if MSVC dll runtimes has to be copied
+    if (INSTALL_DLL_RUNTIMES)
+        string(REPLACE "${SUMO_LIBRARIES}" "" MSVC_DLLS "${MSVC_DLLS}")
+        # copy MSVC140 dlls
+        set(MSVC_RUNTIMES "and installing MSVC dlls")
+        add_custom_command(OUTPUT ${MSVC_RUNTIMES}
+                           COMMAND ${PYTHON_EXECUTABLE} -c "import shutil;[shutil.copy('${SUMO_LIBRARIES}'+l, '${CMAKE_SOURCE_DIR}/bin') for l in '${MSVC_DLLS}'.split(';')]"
+                           DEPENDS ${SUMO_LIBRARIES})
+    endif(INSTALL_DLL_RUNTIMES)
+    # set install_dll target
+    add_custom_target(install_dll ALL DEPENDS ${COMMON_DLLS} ${OSG_DLLS} ${PROJ_DATA} ${MSVC_RUNTIMES})
     set_property(TARGET install_dll PROPERTY FOLDER "CMake")
 endif ()
 
