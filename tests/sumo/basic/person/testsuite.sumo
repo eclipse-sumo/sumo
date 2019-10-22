@@ -90,4 +90,7 @@ capacity
 
 # person uses lines="ANY", vehicle stops at a lane rather than a busStop
 ride_ANY_stopLane
+
+# successive stops on different edges should only raise an error
+stop_teleport_stop
 errors

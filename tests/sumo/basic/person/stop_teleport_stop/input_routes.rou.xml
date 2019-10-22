@@ -1,0 +1,8 @@
+<routes>
+    <person id="person0" depart="0" departPos="80">
+        <stop lane="SC_0" duratio="1"/>
+        <stop lane="CN_0" duratio="1"/>
+    </person>
+
+
+</routes>

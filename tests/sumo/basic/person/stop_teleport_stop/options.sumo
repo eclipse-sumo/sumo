@@ -1,0 +1,4 @@
+--net-file net3.net.xml --route-files input_routes.rou.xml
+--fcd-output fcd.xml
+--vehroute-output vehroutes.xml
+--no-step-log
