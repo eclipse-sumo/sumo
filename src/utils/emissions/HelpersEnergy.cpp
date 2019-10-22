@@ -121,6 +121,11 @@ HelpersEnergy::compute(const SUMOEmissionClass /* c */, const PollutantsInterfac
             // Power-based electric vehicle energy consumption model: Model
             // development and validation. Applied Energy. 168. 257-268.
             // 10.1016/j.apenergy.2016.01.097.
+            // 
+            // Insaf Sagaama, Amine Kchiche, Wassim Trojet, Farouk Kamoun
+            // Improving The Accuracy of The Energy Consumption Model for
+            // Electric Vehicle in SUMO Considering The Ambient Temperature
+            // Effects
             energyDiff *= (1 / exp(param->find(SUMO_ATTR_RECUPERATIONEFFICIENCY_BY_DECELERATION)->second / fabs(a)));
         }
     }
