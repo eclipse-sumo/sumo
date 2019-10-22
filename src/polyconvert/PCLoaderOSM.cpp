@@ -82,6 +82,7 @@ std::set<std::string> PCLoaderOSM::initMyKeysToInclude() {
     result.insert("polygon");
     result.insert("place");
     result.insert("population");
+    result.insert("barrier");
     result.insert("openGeoDB:population");
     result.insert("openGeoDB:name");
     return result;
