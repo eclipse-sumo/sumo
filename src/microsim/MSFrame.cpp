@@ -610,6 +610,10 @@ MSFrame::checkOptions() {
         WRITE_ERROR("the minimum step-length is 0.001");
         ok = false;
     }
+    const SUMOTime period = string2time(OptionsCont::getOptions().getString("device.fcd.period"));
+    if (period > 0) {
+        checkStepLengthMultiple(period, " for device.fcd.period");
+    }
 #ifdef _DEBUG
     if (oc.isSet("movereminder-output.vehicles") && !oc.isSet("movereminder-output")) {
         WRITE_ERROR("option movereminder-output.vehicles requires option movereminder-output to be set");

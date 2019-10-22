@@ -465,6 +465,9 @@ NLDetectorBuilder::createEdgeLaneMeanData(const std::string& id, SUMOTime freque
     if (end <= begin) {
         throw InvalidArgument("End before or at begin for meandata dump '" + id + "'.");
     }
+    checkStepLengthMultiple(begin, " for meandata dump '" + id + "'");
+    checkStepLengthMultiple(end, " for meandata dump '" + id + "'");
+    checkStepLengthMultiple(frequency, " for meandata dump '" + id + "'");
     MSMeanData* det = nullptr;
     if (type == "" || type == "performance" || type == "traffic") {
         det = new MSMeanData_Net(id, begin, end, useLanes, withEmpty,
@@ -528,8 +531,8 @@ NLDetectorBuilder::checkSampleInterval(SUMOTime splInterval, SumoXMLTag type, co
     if (splInterval == 0) {
         throw InvalidArgument("Sampling frequency must not be zero (in " + toString(type) + " '" + id + "').");
     }
+    checkStepLengthMultiple(splInterval, " (in " + toString(type) + " '" + id + "')");
 }
 
 
 /****************************************************************************/
-

@@ -68,9 +68,9 @@ extern SUMOTime DELTA_T;
 // ===========================================================================
 SUMOTime string2time(const std::string& r);
 std::string time2string(SUMOTime t);
-
+bool checkStepLengthMultiple(const SUMOTime t, const std::string& error="");
 
 #endif
 
-/****************************************************************************/
 
+/****************************************************************************/

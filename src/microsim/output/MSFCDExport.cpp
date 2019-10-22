@@ -52,7 +52,8 @@ MSFCDExport::write(OutputDevice& of, SUMOTime timestep, bool elevation) {
     const bool signals = OptionsCont::getOptions().getBool("fcd-output.signals");
     const bool writeDistance = OptionsCont::getOptions().getBool("fcd-output.distance");
     const SUMOTime period = string2time(OptionsCont::getOptions().getString("device.fcd.period"));
-    if (period > 0 && timestep % period != 0) {
+    const SUMOTime begin = string2time(OptionsCont::getOptions().getString("begin"));
+    if (period > 0 && (timestep - begin) % period != 0) {
         return;
     }
     of.openTag("timestep").writeAttr(SUMO_ATTR_TIME, time2string(timestep));
@@ -171,4 +172,6 @@ MSFCDExport::writeTransportable(OutputDevice& of, const MSEdge* e, MSTransportab
     of.writeAttr(SUMO_ATTR_SLOPE, e->getLanes()[0]->getShape().slopeDegreeAtOffset(p->getEdgePos()));
     of.closeTag();
 }
+
+
 /****************************************************************************/
