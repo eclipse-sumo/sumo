@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Oct 17 16:37:15 2019 by Eclipse SUMO Version v1_3_1+0627-87c998ba19
+<!-- generated on Tue Oct 22 11:15:01 2019 by Eclipse SUMO Version v1_3_1+0662-4405e9c
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -706,6 +706,18 @@
         <person-device.fcd.period value="0" type="STR"/>
 
     </fcd_device>
+
+    <tripinfo_device>
+        <!-- The probability for a vehicle to have a &apos;tripinfo&apos; device -->
+        <device.tripinfo.probability value="-1" type="FLOAT"/>
+
+        <!-- Assign a &apos;tripinfo&apos; device to named vehicles -->
+        <device.tripinfo.explicit value="" synonymes="device.tripinfo.knownveh" type="STR[]"/>
+
+        <!-- The &apos;tripinfo&apos; devices are set deterministic using a fraction of 1000 -->
+        <device.tripinfo.deterministic value="false" type="BOOL"/>
+
+    </tripinfo_device>
 
     <traci_server>
         <!-- Enables TraCI Server if set -->

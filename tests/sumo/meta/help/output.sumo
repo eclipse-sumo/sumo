@@ -1,4 +1,4 @@
-Eclipse SUMO Version v1_3_1+0627-87c998ba19
+Eclipse SUMO Version v1_3_1+0662-4405e9c
  Copyright (C) 2001-2019 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 A microscopic, multi-modal traffic simulation.
 
@@ -504,6 +504,14 @@ FCD Device Options:
   --person-device.fcd.deterministic    The 'fcd' devices are set deterministic
                                          using a fraction of 1000
   --person-device.fcd.period STR       Recording period for FCD-data
+
+Tripinfo Device Options:
+  --device.tripinfo.probability FLOAT  The probability for a vehicle to have a
+                                         'tripinfo' device
+  --device.tripinfo.explicit STR[]     Assign a 'tripinfo' device to named
+                                         vehicles
+  --device.tripinfo.deterministic      The 'tripinfo' devices are set
+                                         deterministic using a fraction of 1000
 
 TraCI Server Options:
   --remote-port INT                    Enables TraCI Server if set
