@@ -1341,6 +1341,11 @@ GNEAdditionalHandler::parseAndBuildPoly(const SUMOSAXAttributes& attrs) {
     double angle = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, polygonID, SUMO_TAG_POLY, SUMO_ATTR_ANGLE, abort);
     std::string imgFile = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, polygonID, SUMO_TAG_POLY, SUMO_ATTR_IMGFILE, abort);
     bool relativePath = GNEAttributeCarrier::parseAttributeFromXML<bool>(attrs, polygonID, SUMO_TAG_POLY, SUMO_ATTR_RELATIVEPATH, abort);
+    // check if ID is valid
+    if (SUMOXMLDefinitions::isValidTypeID(polygonID) == false) {
+        WRITE_WARNING("Invalid characters for polygon ID");
+        abort = true;
+    }
     // Continue if all parameters were sucesfully loaded
     if (!abort) {
         // check if shape must be loaded as geo attribute
@@ -2480,6 +2485,11 @@ GNEAdditionalHandler::parseAndBuildPOI(const SUMOSAXAttributes& attrs) {
     bool relativePath = GNEAttributeCarrier::parseAttributeFromXML<bool>(attrs, POIID, SUMO_TAG_POI, SUMO_ATTR_RELATIVEPATH, abort);
     double width = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, POIID, SUMO_TAG_POI, SUMO_ATTR_WIDTH, abort);
     double height = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, POIID, SUMO_TAG_POI, SUMO_ATTR_HEIGHT, abort);
+    // check if ID is valid
+    if (SUMOXMLDefinitions::isValidTypeID(POIID) == false) {
+        WRITE_WARNING("Invalid characters for POI ID");
+        abort = true;
+    }
     // Continue if all parameters were sucesfully loaded
     if (!abort) {
         // check if img file is absolute

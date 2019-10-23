@@ -475,6 +475,19 @@ GNEFrameAttributesModuls::AttributesCreatorRow::onCmdSetAttribute(FXObject* obj,
         if (!SUMOXMLDefinitions::isValidVehicleID(myValueTextField->getText().text())) {
             myInvalidValue = "invalid id used in " + myAttrProperties.getAttrStr();
         }
+    } else if (myAttrProperties.getAttr() == SUMO_ATTR_ID) {
+        // check ID depending of tag
+        if (myAttrProperties.getTagPropertyParent().isNetElement() && !SUMOXMLDefinitions::isValidNetID(myValueTextField->getText().text())) {
+            myInvalidValue = "invalid id used in " + myAttrProperties.getAttrStr();
+        } else if (myAttrProperties.getTagPropertyParent().isDetector() && !SUMOXMLDefinitions::isValidDetectorID(myValueTextField->getText().text())) {
+            myInvalidValue = "invalid id used in " + myAttrProperties.getAttrStr();
+        } else if (myAttrProperties.getTagPropertyParent().isAdditional() &&  !SUMOXMLDefinitions::isValidNetID(myValueTextField->getText().text())) {
+            myInvalidValue = "invalid id used in " + myAttrProperties.getAttrStr();
+        } else if (myAttrProperties.getTagPropertyParent().isShape() &&  !SUMOXMLDefinitions::isValidTypeID(myValueTextField->getText().text())) {
+            myInvalidValue = "invalid id used in " + myAttrProperties.getAttrStr();
+        } else if (myAttrProperties.getTagPropertyParent().isDemandElement() && !SUMOXMLDefinitions::isValidVehicleID(myValueTextField->getText().text())) {
+            myInvalidValue = "invalid id used in " + myAttrProperties.getAttrStr();
+        }
     }
     // change color of text field depending of myCurrentValueValid
     if (myInvalidValue.size() == 0) {
