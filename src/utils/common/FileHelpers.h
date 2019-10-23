@@ -49,6 +49,13 @@ public:
      * @return Whether the named file is readable
      */
     static bool isReadable(std::string path);
+
+    /** @brief Checks whether the given file is a directory
+     *
+     * @param[in] path The path to the file that shall be examined
+     * @return Whether the named file is a directory.
+     */
+    static bool isDirectory(std::string path);
     /// @}
 
     /// @name file path evaluating functions

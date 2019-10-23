@@ -101,6 +101,9 @@ SUMOSAXReader::parse(std::string systemID) {
         if (!FileHelpers::isReadable(systemID)) {
             throw ProcessError("Cannot read file '" + systemID + "'!");
         }
+        if (FileHelpers::isDirectory(systemID)) {
+            throw ProcessError("File '" + systemID + "' is a directory!");
+        }
 #ifdef HAVE_ZLIB
         zstr::ifstream istream(systemID.c_str(), std::fstream::in | std::fstream::binary);
         myXMLReader->parse(IStreamInputSource(istream));

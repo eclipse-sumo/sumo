@@ -32,6 +32,8 @@
 #include <unistd.h>
 #endif
 #include <fstream>
+#include <sys/stat.h>
+// #include <sys/types.h>
 #include "FileHelpers.h"
 #include "StringTokenizer.h"
 #include "MsgHandler.h"
@@ -57,6 +59,15 @@ FileHelpers::isReadable(std::string path) {
         return false;
     }
     return access(path.c_str(), R_OK) == 0;
+}
+
+bool
+FileHelpers::isDirectory(std::string path) {
+    struct stat fileInfo;
+    if (stat(path.c_str(), &fileInfo) != 0) {
+        throw ProcessError("Cannot get file attributes for file '" + path + "'!");
+    }
+    return (fileInfo.st_mode & S_IFMT) == S_IFDIR;
 }
 
 // ---------------------------------------------------------------------------
