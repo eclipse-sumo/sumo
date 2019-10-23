@@ -600,6 +600,7 @@ MSFrame::checkOptions() {
         WRITE_ERROR("The begin time should not be negative.");
         ok = false;
     }
+    checkStepLengthMultiple(begin, " for begin");
     if (end != string2time("-1")) {
         if (end < begin) {
             WRITE_ERROR("The end time should be after the begin time.");
@@ -610,9 +611,13 @@ MSFrame::checkOptions() {
         WRITE_ERROR("the minimum step-length is 0.001");
         ok = false;
     }
-    const SUMOTime period = string2time(OptionsCont::getOptions().getString("device.fcd.period"));
+    const SUMOTime period = string2time(oc.getString("device.fcd.period"));
     if (period > 0) {
         checkStepLengthMultiple(period, " for device.fcd.period");
+    }
+    const SUMOTime statePeriod = string2time(oc.getString("save-state.period"));
+    if (statePeriod > 0) {
+        checkStepLengthMultiple(period, " for save-state.period");
     }
 #ifdef _DEBUG
     if (oc.isSet("movereminder-output.vehicles") && !oc.isSet("movereminder-output")) {

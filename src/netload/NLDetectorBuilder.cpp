@@ -488,8 +488,9 @@ NLDetectorBuilder::createEdgeLaneMeanData(const std::string& id, SUMOTime freque
     if (det != nullptr) {
         if (frequency < 0) {
             frequency = end - begin;
+        } else {
+            checkStepLengthMultiple(frequency, " for meandata dump '" + id + "'");
         }
-        checkStepLengthMultiple(frequency, " for meandata dump '" + id + "'");
         MSNet::getInstance()->getDetectorControl().add(det, device, frequency, begin);
     }
 }
