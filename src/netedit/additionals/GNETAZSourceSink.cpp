@@ -182,16 +182,11 @@ GNETAZSourceSink::isValid(SumoXMLAttr key, const std::string& value) {
 
 bool
 GNETAZSourceSink::isAttributeEnabled(SumoXMLAttr key) const {
-    // check if we're in supermode Network
-    if (true /*myViewNet->getEditModes().currentSupermode == GNE_SUPERMODE_NETWORK*/) {
-        switch (key) {
-            case SUMO_ATTR_EDGE:
-                return false;
-            default:
-                return true;
-        }
-    } else {
-        return false;
+    switch (key) {
+        case SUMO_ATTR_EDGE:
+            return false;
+        default:
+            return true;
     }
 }
 

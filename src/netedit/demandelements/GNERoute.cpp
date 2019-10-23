@@ -79,10 +79,10 @@ GNERoute::GNERoutePopupMenu::onCmdApplyDistance(FXObject*, FXSelector, void*) {
 
 GNERoute::GNERoute(GNEViewNet* viewNet) :
     GNEDemandElement(viewNet->getNet()->generateDemandElementID("", SUMO_TAG_ROUTE), viewNet, GLO_ROUTE, SUMO_TAG_ROUTE,
-{}, {}, {}, {}, {}, {}, {}, {}, {}, {}),
-Parameterised(),
-myColor(RGBColor::YELLOW),
-myVClass(SVC_PASSENGER) {
+                     {}, {}, {}, {}, {}, {}, {}, {}, {}, {}),
+    Parameterised(),
+    myColor(RGBColor::YELLOW),
+    myVClass(SVC_PASSENGER) {
 }
 
 
@@ -493,12 +493,7 @@ GNERoute::disableAttribute(SumoXMLAttr /*key*/, GNEUndoList* /*undoList*/) {
 
 bool
 GNERoute::isAttributeEnabled(SumoXMLAttr /*key*/) const {
-    // check if we're in supermode demand
-    if (true /*myViewNet->getEditModes().currentSupermode == GNE_SUPERMODE_DEMAND*/) {
-        return true;
-    } else {
-        return false;
-    }
+    return true;
 }
 
 

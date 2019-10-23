@@ -1230,17 +1230,12 @@ GNEJunction::isValid(SumoXMLAttr key, const std::string& value) {
 
 bool 
 GNEJunction::isAttributeEnabled(SumoXMLAttr key) const {
-    // check if we're in supermode Network
-    if (true /*myNet->getViewNet()->getEditModes().currentSupermode == GNE_SUPERMODE_NETWORK*/) {
-        switch (key) {
-            case SUMO_ATTR_TLTYPE:
-            case SUMO_ATTR_TLID:
-                return myNBNode.isTLControlled();
-            default:
-                return true;
-        }
-    } else {
-        return false;
+    switch (key) {
+        case SUMO_ATTR_TLTYPE:
+        case SUMO_ATTR_TLID:
+            return myNBNode.isTLControlled();
+        default:
+            return true;
     }
 }
 
