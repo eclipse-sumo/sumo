@@ -1,0 +1,6 @@
+[Reported by erdm_ja at 05Jan15:27:13]
+search_string:time: 342.00
+trigger_on_absence:1
+search_file:output
+full_description:flow should be reduced
+brief_description:see #2622
