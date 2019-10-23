@@ -191,13 +191,15 @@ def cut_routes(aEdges, orig_net, options, busStopEdges=None, finalEdgeMap=None):
                                                   planItem.edges.split(), orig_net, options, stats, disco)
                         if busStopEdges.get(planItem.busStop) not in areaEdges:
                             planItem.busStop = None
+                        walkEdges = []
                         for depart, edges in routeParts:
                             if newDepart is None:
                                 newDepart = depart
-                            walk = copy.deepcopy(planItem)
-                            walk.edges = " ".join(edges)
-                            newPlan.append(walk)
-                            remaining.update(edges)
+                            walkEdges += edges
+                        if walkEdges:
+                            remaining.update(walkEdges)
+                            planItem.edges = " ".join(walkEdges)
+                            newPlan.append(planItem)
                     elif planItem.name == "ride":
                         keep = True
                         if busStopEdges.get(planItem.busStop) not in areaEdges:
@@ -211,6 +213,8 @@ def cut_routes(aEdges, orig_net, options, busStopEdges=None, finalEdgeMap=None):
                             planItem.lines = planItem.intended
                         if keep:
                             newPlan.append(planItem)
+                        if planItem.to:
+                            break
                     else:
                         newPlan.append(planItem)
                 moving.setChildList(newPlan)
