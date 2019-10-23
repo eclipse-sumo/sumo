@@ -466,8 +466,6 @@ NLDetectorBuilder::createEdgeLaneMeanData(const std::string& id, SUMOTime freque
         throw InvalidArgument("End before or at begin for meandata dump '" + id + "'.");
     }
     checkStepLengthMultiple(begin, " for meandata dump '" + id + "'");
-    checkStepLengthMultiple(end, " for meandata dump '" + id + "'");
-    checkStepLengthMultiple(frequency, " for meandata dump '" + id + "'");
     MSMeanData* det = nullptr;
     if (type == "" || type == "performance" || type == "traffic") {
         det = new MSMeanData_Net(id, begin, end, useLanes, withEmpty,
@@ -491,6 +489,7 @@ NLDetectorBuilder::createEdgeLaneMeanData(const std::string& id, SUMOTime freque
         if (frequency < 0) {
             frequency = end - begin;
         }
+        checkStepLengthMultiple(frequency, " for meandata dump '" + id + "'");
         MSNet::getInstance()->getDetectorControl().add(det, device, frequency, begin);
     }
 }

@@ -541,7 +541,7 @@ MSVehicle::Influencer::gapControlSpeed(SUMOTime currentTime, const SUMOVehicle* 
             }
             leaderInfo = std::make_pair(leader, dist - msVeh->getVehicleType().getMinGap());
         }
-        const double fakeDist = MAX2(0.0, leaderInfo.second - myGapControlState->addGapCurrent);
+        const double fakeDist = MAX2(leaderInfo.second - myGapControlState->tauCurrent * currentSpeed, leaderInfo.second - myGapControlState->addGapCurrent);
 #ifdef DEBUG_TRACI
         if DEBUG_COND2(veh) {
             const double desiredCurrentSpacing = myGapControlState->tauCurrent * currentSpeed;
@@ -569,8 +569,8 @@ MSVehicle::Influencer::gapControlSpeed(SUMOTime currentTime, const SUMOVehicle* 
             MSCFModel* cfm = (MSCFModel*) & (msVeh->getVehicleType().getCarFollowModel());
             const double origTau = cfm->getHeadwayTime();
             cfm->setHeadwayTime(myGapControlState->tauCurrent);
-            gapControlSpeed = MIN2(gapControlSpeed, cfm->followSpeed(msVeh, currentSpeed, fakeDist, leaderInfo.first->getSpeed(),
-                                   leaderInfo.first->getCurrentApparentDecel(), nullptr));
+            gapControlSpeed = MIN2(gapControlSpeed, 
+                                   cfm->followSpeed(msVeh, currentSpeed, fakeDist, leaderInfo.first->getSpeed(), leaderInfo.first->getCurrentApparentDecel(), leaderInfo.first));
             cfm->setHeadwayTime(origTau);
 #ifdef DEBUG_TRACI
             if DEBUG_COND2(veh) {

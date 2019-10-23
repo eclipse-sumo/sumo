@@ -68,40 +68,47 @@ time2string(SUMOTime t) {
     std::ostringstream oss;
     oss.setf(oss.fixed);
     oss.precision(gPrecision);
+    constexpr SUMOTime second = TIME2STEPS(1);
+    if (t < 0) {
+        oss << "-";
+    }
+    // needed for signed zero errors, see #5926
+    t = abs(t);
     if (gHumanReadableTime) {
+        constexpr SUMOTime minute = 60 * second;
+        constexpr SUMOTime hour = 60 * minute;
+        constexpr SUMOTime day = 24 * hour;
         // 123456 -> "00:00:12.34"
-        double s = STEPS2TIME(t);
-        if (s > 3600 * 24) {
-            // days
-            oss << (long long)(s / (3600 * 24)) << ":";
-            s = fmod(s, 3600 * 24);
+        if (t > day) {
+            oss << t / day << ":";
+            t %= day;
         }
         // hours, pad with zero
-        if (s / 3600 < 10 && s >= 0) {
+        if (t / hour < 10) {
             oss << "0";
         }
-        oss << (int)(s / 3600) << ":";
+        oss << t / hour << ":";
         // minutes, pad with zero
-        s = fmod(s, 3600);
-        if (s / 60 < 10 && s >= 0) {
+        t %= hour;
+        if (t / minute < 10) {
             oss << "0";
         }
-        oss << (int)(s / 60) << ":";
+        oss << t / minute << ":";
         // seconds, pad with zero
-        s = fmod(s, 60);
-        if (s < 10 && s >= 0) {
+        t %= minute;
+        if (t / second < 10) {
             oss << "0";
         }
-        if (fmod(s, 1) == 0 && TS == 1) {
-            oss << (int)s;
+        if (t % second != 0 || TS != 1.) {
+            oss << STEPS2TIME(t);
         } else {
-            oss << s;
+            oss << t / second;
         }
-    } else if (t == 0) {
-        // needed due #5926
-        oss << "0.00";
     } else {
-        // 123456 -> "12.34"
+        if (t >= TIME2STEPS(10)) {
+            oss << t / TIME2STEPS(10);
+            t %= TIME2STEPS(10);
+        }
         oss << STEPS2TIME(t);
     }
     return oss.str();
