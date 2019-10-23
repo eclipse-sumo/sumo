@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 22.10.2019 14:51:48 by Eclipse SUMO netedit Version v1_3_1+0669-095fb0adef
+<!-- generated on 23.10.2019 16:12:56 by Eclipse SUMO netedit Version v1_3_1+0676-fb4b913081
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.22Oct145118.15380\netedit.gui\shapeElements\poi\create\id\input_net.net.xml"/>
+        <sumo-net-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.23Oct161226.3136\netedit.gui\shapeElements\poi\create\id\input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.22Oct145118.15380\netedit.gui\shapeElements\poi\create\id\net.net.xml"/>
+        <output-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.23Oct161226.3136\netedit.gui\shapeElements\poi\create\id\net.net.xml"/>
     </output>
 
     <processing>
@@ -29,14 +29,14 @@
     </pedestrian>
 
     <netedit>
-        <additional-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.22Oct145118.15380\netedit.gui\shapeElements\poi\create\id\additionals.xml"/>
-        <additionals-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.22Oct145118.15380\netedit.gui\shapeElements\poi\create\id\additionals.xml"/>
-        <route-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.22Oct145118.15380\netedit.gui\shapeElements\poi\create\id\routes.xml"/>
-        <demandelements-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.22Oct145118.15380\netedit.gui\shapeElements\poi\create\id\routes.xml"/>
+        <additional-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.23Oct161226.3136\netedit.gui\shapeElements\poi\create\id\additionals.xml"/>
+        <additionals-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.23Oct161226.3136\netedit.gui\shapeElements\poi\create\id\additionals.xml"/>
+        <route-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.23Oct161226.3136\netedit.gui\shapeElements\poi\create\id\routes.xml"/>
+        <demandelements-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.23Oct161226.3136\netedit.gui\shapeElements\poi\create\id\routes.xml"/>
     </netedit>
 
     <visualisation>
-        <gui-settings-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.22Oct145118.15380\netedit.gui\shapeElements\poi\create\id\gui-settings.xml"/>
+        <gui-settings-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.23Oct161226.3136\netedit.gui\shapeElements\poi\create\id\gui-settings.xml"/>
         <window-size value="700,500"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
@@ -46,14 +46,13 @@
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.22Oct145118.15380\netedit.gui\shapeElements\poi\create\id\log.txt"/>
+        <error-log value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.23Oct161226.3136\netedit.gui\shapeElements\poi\create\id\log.txt"/>
     </report>
 
 </configuration>
 -->
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
-    <poi id=";;;;;;" color="red" layer="202.00" x="5.00" y="20.00"/>
     <poi id="POI_0" color="red" layer="202.00" x="1.00" y="20.00"/>
     <poi id="POI_1" color="red" layer="202.00" x="3.00" y="20.00"/>
     <poi id="customID" color="red" layer="202.00" x="10.00" y="20.00"/>

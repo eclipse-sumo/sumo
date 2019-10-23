@@ -18,8 +18,7 @@ Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0
 Debug: Adding poi 'POI_1' into viewNet
 GLDebug: 	Inserted poi:POI_1 into SUMORTree with boundary 0.00,17.00,6.00,23.00
 Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
-Debug: Adding poi ';;;;;;' into viewNet
-GLDebug: 	Inserted poi:;;;;;; into SUMORTree with boundary 2.00,17.00,8.00,23.00
+Debug: Invalid input parameter of poi: invalid id used in id
 Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 Debug: Adding poi 'customID' into viewNet
@@ -31,16 +30,13 @@ Debug: Removing poi 'customID' from viewNet
 GLDebug: 	Removed object poi:customID from SUMORTree with boundary 7.00,17.00,13.00,23.00
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Removing poi ';;;;;;' from viewNet
-GLDebug: 	Removed object poi:;;;;;; from SUMORTree with boundary 2.00,17.00,8.00,23.00
-Debug: Keys Ctrl+Z (Undo) pressed
-Debug: Calling GNEUndoList::undo()
 Debug: Removing poi 'POI_1' from viewNet
 GLDebug: 	Removed object poi:POI_1 from SUMORTree with boundary 0.00,17.00,6.00,23.00
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Removing poi 'POI_0' from viewNet
 GLDebug: 	Removed object poi:POI_0 from SUMORTree with boundary -2.00,17.00,4.00,23.00
+Debug: Keys Ctrl+Z (Undo) pressed
 Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
@@ -52,12 +48,9 @@ Debug: Adding poi 'POI_1' into viewNet
 GLDebug: 	Inserted poi:POI_1 into SUMORTree with boundary 0.00,17.00,6.00,23.00
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Adding poi ';;;;;;' into viewNet
-GLDebug: 	Inserted poi:;;;;;; into SUMORTree with boundary 2.00,17.00,8.00,23.00
-Debug: Keys Ctrl+Y (Redo) pressed
-Debug: Calling GNEUndoList::redo()
 Debug: Adding poi 'customID' into viewNet
 GLDebug: 	Inserted poi:customID into SUMORTree with boundary 7.00,17.00,13.00,23.00
+Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Additionals saved
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -12.00,-12.00,12.00,12.00
@@ -76,9 +69,6 @@ Debug: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
 Debug: Removing poi 'customID' from net in ~GNEChange_Shape()
 GLDebug: 	Removed object poi:customID from SUMORTree with boundary 7.00,17.00,13.00,23.00
 Debug: delete poi 'customID' in ~GNEChange_Shape()
-Debug: Removing poi ';;;;;;' from net in ~GNEChange_Shape()
-GLDebug: 	Removed object poi:;;;;;; from SUMORTree with boundary 2.00,17.00,8.00,23.00
-Debug: delete poi ';;;;;;' in ~GNEChange_Shape()
 Debug: Removing poi 'POI_1' from net in ~GNEChange_Shape()
 GLDebug: 	Removed object poi:POI_1 from SUMORTree with boundary 0.00,17.00,6.00,23.00
 Debug: delete poi 'POI_1' in ~GNEChange_Shape()
