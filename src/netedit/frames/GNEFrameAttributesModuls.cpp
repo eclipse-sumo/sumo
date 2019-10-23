@@ -1482,10 +1482,6 @@ GNEFrameAttributesModuls::AttributesEditor::refreshAttributeEditor(bool forceRef
             if (attributeEnabled == false) {
                 value = myEditedACs.front()->getAlternativeValueForDisabledAttributes(i.getAttr());
             }
-            // overwritte value if attribute is disabled (used by LinkIndex)
-            if (attributeEnabled == false) {
-                value = myEditedACs.front()->getAlternativeValueForDisabledAttributes(i.getAttr());
-            }
             // extra check for Triggered and container Triggered
             if (myEditedACs.front()->getTagProperty().isStop() || myEditedACs.front()->getTagProperty().isPersonStop()) {
                 if((i.getAttr() == SUMO_ATTR_EXPECTED) && (myEditedACs.front()->isAttributeEnabled(SUMO_ATTR_TRIGGERED) == false)) {
