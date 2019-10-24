@@ -523,6 +523,10 @@ MSFrame::fillOptions() {
     // gui testing - debug
     oc.doRegister("gui-testing-debug", new Option_Bool(false));
     oc.addDescription("gui-testing-debug", "GUI Only", "Enable output messages during GUI-Testing");
+
+    // gui testing - settings output
+    oc.doRegister("gui-testing.setting-output", new Option_FileName());
+    oc.addDescription("gui-testing.setting-output", "GUI Only", "Save gui settings in the given settingsoutput file");
 }
 
 

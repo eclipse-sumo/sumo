@@ -403,6 +403,12 @@ GNEViewNet::getEditModes() const {
 }
 
 
+const GNEViewNetHelper::TestingMode& 
+GNEViewNet::getTestingMode() const {
+    return myTestingMode;
+}
+
+
 const GNEViewNetHelper::CommonViewOptions&
 GNEViewNet::getCommonViewOptions() const {
     return myCommonViewOptions;

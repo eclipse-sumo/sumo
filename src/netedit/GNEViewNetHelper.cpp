@@ -1268,6 +1268,12 @@ GNEViewNetHelper::TestingMode::drawTestingElements(GUIMainWindow* mainWindow) {
     }
 }
 
+
+bool 
+GNEViewNetHelper::TestingMode::isTestingEnabled() const {
+    return myTestingEnabled;
+}
+
 // ---------------------------------------------------------------------------
 // GNEViewNetHelper::EditModes - methods
 // ---------------------------------------------------------------------------

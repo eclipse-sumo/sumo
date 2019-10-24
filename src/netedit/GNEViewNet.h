@@ -95,6 +95,9 @@ public:
 
     /// @brief get edit modes
     const GNEViewNetHelper::EditModes& getEditModes() const;
+    
+    /// @brief get testing mode
+    const GNEViewNetHelper::TestingMode& getTestingMode() const;
 
     /// @brief get Common view options
     const GNEViewNetHelper::CommonViewOptions& getCommonViewOptions() const;

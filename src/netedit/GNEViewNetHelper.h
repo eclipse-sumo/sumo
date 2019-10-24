@@ -692,6 +692,9 @@ struct GNEViewNetHelper {
         /// @brief draw testing element
         void drawTestingElements(GUIMainWindow* mainWindow);
 
+        /// @brief check if testing mode is enabled
+        bool isTestingEnabled() const;
+
     private:
         /// @brief pointer to viewNet
         GNEViewNet* myViewNet;

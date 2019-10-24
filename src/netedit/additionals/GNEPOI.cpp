@@ -30,6 +30,7 @@
 #include <netedit/GNENet.h>
 #include <netedit/GNEUndoList.h>
 #include <netedit/GNEViewNet.h>
+#include <netedit/GNEViewNetHelper.h>
 #include <netedit/netelements/GNELane.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/gui/globjects/GLIncludes.h>
@@ -226,7 +227,7 @@ GNEPOI::drawGL(const GUIVisualizationSettings& s) const {
             // draw inner polygon
             drawInnerPOI(s, drawUsingSelectColor());
             // draw an orange square mode if there is an image(see #4036)
-            if (!getShapeImgFile().empty() && OptionsCont::getOptions().getBool("gui-testing")) {
+            if (!getShapeImgFile().empty() && myNet->getViewNet()->getTestingMode().isTestingEnabled()) {
                 // Add a draw matrix for drawing logo
                 glPushMatrix();
                 glTranslated(x(), y(), getType() + 0.01);
@@ -432,7 +433,9 @@ GNEPOI::setAttribute(SumoXMLAttr key, const std::string& value) {
                 // set position
                 set(parse<Position>(value));
                 // set GEO Position
-                myGEOPosition = *this;
+                myGEOPosition.setx(this->x());
+                myGEOPosition.sety(this->y());
+                myGEOPosition.setz(this->z());
                 GeoConvHelper::getFinal().cartesian2geo(myGEOPosition);
                 // add object into grid again
                 myNet->addGLObjectIntoGrid(this);

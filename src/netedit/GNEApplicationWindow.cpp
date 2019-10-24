@@ -1677,6 +1677,12 @@ GNEApplicationWindow::getToolbarsGrip() {
 
 void
 GNEApplicationWindow::closeAllWindows() {
+    // first check if we have to save gui settings in a file (only used for testing purposes)
+    OptionsCont& oc = OptionsCont::getOptions();
+    if (oc.getString("gui-testing.setting-output").size() > 0) {
+        ;;
+    }
+    // lock tracker
     myTrackerLock.lock();
     // remove trackers and other external windows
     while (!myGLWindows.empty()) {
@@ -1692,6 +1698,7 @@ GNEApplicationWindow::closeAllWindows() {
     setTitle(myTitlePrefix);
     // add a separator to the log
     myMessageWindow->addSeparator();
+    // unlock tracker
     myTrackerLock.unlock();
     // remove coordinate information
     myGeoCoordinate->setText("N/A");
