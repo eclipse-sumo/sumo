@@ -126,7 +126,7 @@ value is also shown in the table.
 <tr class="even">
 <td><p>color (0x45)</p></td>
 <td><p>ubyte,ubyte,ubyte,ubyte</p></td>
-<td><p>Returns the vehicle's color (RGBA).</p></td>
+<td><p>Returns the vehicle's color (RGBA). This does not return the currently visible color in the GUI but the color value set in the XML file or via TraCI.</p></td>
 <td><p><a href="https://sumo.dlr.de/pydoc/traci._vehicle.html#VehicleDomain-getColor">getColor</a></p></td>
 </tr>
 <tr class="odd">
