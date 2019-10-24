@@ -68,16 +68,16 @@ time2string(SUMOTime t) {
     std::ostringstream oss;
     oss.setf(oss.fixed);
     oss.precision(gPrecision);
-    constexpr SUMOTime second = TIME2STEPS(1);
+    const SUMOTime second = TIME2STEPS(1);
     if (t < 0) {
         oss << "-";
     }
     // needed for signed zero errors, see #5926
     t = abs(t);
     if (gHumanReadableTime) {
-        constexpr SUMOTime minute = 60 * second;
-        constexpr SUMOTime hour = 60 * minute;
-        constexpr SUMOTime day = 24 * hour;
+        const SUMOTime minute = 60 * second;
+        const SUMOTime hour = 60 * minute;
+        const SUMOTime day = 24 * hour;
         // 123456 -> "00:00:12.34"
         if (t > day) {
             oss << t / day << ":";
