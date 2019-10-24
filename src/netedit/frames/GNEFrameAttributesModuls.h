@@ -151,7 +151,7 @@ public:
         /// @brief check button to enable/disable the value of boolean parameters
         FXCheckButton* myValueCheckButton = nullptr;
     };
-
+    
     // ===========================================================================
     // class AttributesCreator
     // ===========================================================================
@@ -218,6 +218,71 @@ public:
 
         /// @brief vector with the AttributesCreatorRow
         std::vector<AttributesCreatorRow*> myAttributesCreatorRows;
+
+        /// @brief help button
+        FXButton* myHelpButton = nullptr;
+    };
+
+    // ===========================================================================
+    // class AttributesFlowCreator
+    // ===========================================================================
+
+    class AttributesFlowCreator : public FXGroupBox {
+        /// @brief FOX-declaration
+        FXDECLARE(GNEFrameAttributesModuls::AttributesFlowCreator)
+
+    public:
+        /// @brief constructor
+        AttributesFlowCreator(GNEFrame* frameParent);
+
+        /// @brief destructor
+        ~AttributesFlowCreator();
+
+        /**@brief show AttributesFlowCreator modul
+         * @param tagProperties GNEAttributeCarrier::TagProperties which contain all attributes
+         * @param hiddenAttributes list of attributes contained in tagProperties but not shown
+         */
+        void showAttributesFlowCreatorModul(const GNEAttributeCarrier::TagProperties& tagProperties, const std::vector<SumoXMLAttr> &hiddenAttributes);
+
+        /// @brief hide group box
+        void hideAttributesFlowCreatorModul();
+
+        /// @brief return frame parent
+        GNEFrame* getFrameParent() const;
+
+        /// @brief get attributes and their values
+        std::map<SumoXMLAttr, std::string> getAttributesAndValues(bool includeAll) const;
+
+        /// @brief get current edited Tag Properties
+        GNEAttributeCarrier::TagProperties getCurrentTagProperties() const;
+
+        /// @brief check if parameters of attributes are valid
+        bool areValuesValid() const;
+
+        /// @brief show warning message with information about non-valid attributes
+        void showWarningMessage(std::string extra = "") const;
+
+        /// @name FOX-callbacks
+        /// @{
+        /// @brief Called when help button is pressed
+        long onCmdHelp(FXObject*, FXSelector, void*);
+        /// @}
+
+        /// @brief update disjoint attributes
+        void updateDisjointAttributes(AttributesCreatorRow* row);
+
+        /// @brief refresh rows (called after creating an element)
+        void refreshRows();
+
+    protected:
+        FOX_CONSTRUCTOR(AttributesFlowCreator);
+
+    private:
+        /// @brief pointer to Frame Parent
+        GNEFrame* myFrameParent = nullptr;
+
+        /// @brief current edited Tag Properties
+        GNEAttributeCarrier::TagProperties myTagProperties;
 
         /// @brief help button
         FXButton* myHelpButton = nullptr;
@@ -300,7 +365,7 @@ public:
         /// @brief pointer to menu check
         FXCheckButton* myValueCheckButton = nullptr;
     };
-
+    
     // ===========================================================================
     // class AttributesEditor
     // ===========================================================================
@@ -346,6 +411,59 @@ public:
 
         /// @brief list of Attribute editor rows
         std::vector<AttributesEditorRow*> myAttributesEditorRows;
+
+        /// @brief button for help
+        FXButton* myHelpButton = nullptr;
+
+        /// @brief the multi-selection currently being inspected
+        std::vector<GNEAttributeCarrier*> myEditedACs;
+
+        /// @brief flag used to mark if current edited ACs are bein edited including extended attribute
+        bool myIncludeExtended;
+    };
+
+    // ===========================================================================
+    // class AttributesEditorFlow
+    // ===========================================================================
+
+    class AttributesEditorFlow : public FXGroupBox {
+        /// @brief FOX-declaration
+        FXDECLARE(GNEFrameAttributesModuls::AttributesEditorFlow)
+
+    public:
+        /// @brief constructor
+        AttributesEditorFlow(GNEFrame* inspectorFrameParent);
+
+        /// @brief show attributes of multiple ACs
+        void showAttributeEditorFlowModul(const std::vector<GNEAttributeCarrier*>& ACs, bool includeExtended, bool forceAttributeEnabled);
+
+        /// @brief hide attribute EditorFlow
+        void hideAttributesEditorFlowModul();
+
+        /// @brief refresh attribute EditorFlow (only the valid values will be refresh)
+        void refreshAttributeEditorFlow(bool forceRefreshShape, bool forceRefreshPosition);
+
+        /// @brief pointer to GNEFrame parent
+        GNEFrame* getFrameParent() const;
+
+        /// @brief get current edited ACs
+        const std::vector<GNEAttributeCarrier*>& getEditedACs() const;
+
+        /// @brief remove edited ACs
+        void removeEditedAC(GNEAttributeCarrier* AC);
+
+        /// @name FOX-callbacks
+        /// @{
+        /// @brief Called when user press the help button
+        long onCmdAttributesEditorFlowHelp(FXObject*, FXSelector, void*);
+        /// @}
+
+    protected:
+		FOX_CONSTRUCTOR(AttributesEditorFlow)
+
+    private:
+        /// @brief pointer to GNEFrame parent
+        GNEFrame* myFrameParent = nullptr;
 
         /// @brief button for help
         FXButton* myHelpButton = nullptr;

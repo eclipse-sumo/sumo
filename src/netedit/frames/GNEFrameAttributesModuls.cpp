@@ -53,6 +53,10 @@ FXDEFMAP(GNEFrameAttributesModuls::AttributesCreator) AttributesCreatorMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_HELP,   GNEFrameAttributesModuls::AttributesCreator::onCmdHelp)
 };
 
+FXDEFMAP(GNEFrameAttributesModuls::AttributesFlowCreator) AttributesFlowCreatorMap[] = {
+    FXMAPFUNC(SEL_COMMAND,  MID_HELP,   GNEFrameAttributesModuls::AttributesFlowCreator::onCmdHelp)
+};
+
 FXDEFMAP(GNEFrameAttributesModuls::AttributesEditorRow) AttributesEditorRowMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE,              GNEFrameAttributesModuls::AttributesEditorRow::onCmdSetAttribute),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE_BOOL,         GNEFrameAttributesModuls::AttributesEditorRow::onCmdSelectCheckButton),
@@ -62,6 +66,10 @@ FXDEFMAP(GNEFrameAttributesModuls::AttributesEditorRow) AttributesEditorRowMap[]
 
 FXDEFMAP(GNEFrameAttributesModuls::AttributesEditor) AttributesEditorMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_HELP,   GNEFrameAttributesModuls::AttributesEditor::onCmdAttributesEditorHelp)
+};
+
+FXDEFMAP(GNEFrameAttributesModuls::AttributesEditorFlow) AttributesEditorFlowMap[] = {
+    FXMAPFUNC(SEL_COMMAND,  MID_HELP,   GNEFrameAttributesModuls::AttributesEditorFlow::onCmdAttributesEditorFlowHelp)
 };
 
 FXDEFMAP(GNEFrameAttributesModuls::AttributesEditorExtended) AttributesEditorExtendedMap[] = {
@@ -87,8 +95,10 @@ FXDEFMAP(GNEFrameAttributesModuls::NeteditAttributes) NeteditAttributesMap[] = {
 // Object implementation
 FXIMPLEMENT(GNEFrameAttributesModuls::AttributesCreatorRow,         FXHorizontalFrame,  RowCreatorMap,                  ARRAYNUMBER(RowCreatorMap))
 FXIMPLEMENT(GNEFrameAttributesModuls::AttributesCreator,            FXGroupBox,         AttributesCreatorMap,           ARRAYNUMBER(AttributesCreatorMap))
+FXIMPLEMENT(GNEFrameAttributesModuls::AttributesFlowCreator,        FXGroupBox,         AttributesFlowCreatorMap,       ARRAYNUMBER(AttributesFlowCreatorMap))
 FXIMPLEMENT(GNEFrameAttributesModuls::AttributesEditorRow,          FXHorizontalFrame,  AttributesEditorRowMap,         ARRAYNUMBER(AttributesEditorRowMap))
 FXIMPLEMENT(GNEFrameAttributesModuls::AttributesEditor,             FXGroupBox,         AttributesEditorMap,            ARRAYNUMBER(AttributesEditorMap))
+FXIMPLEMENT(GNEFrameAttributesModuls::AttributesEditorFlow,         FXGroupBox,         AttributesEditorFlowMap,        ARRAYNUMBER(AttributesEditorFlowMap))
 FXIMPLEMENT(GNEFrameAttributesModuls::AttributesEditorExtended,     FXGroupBox,         AttributesEditorExtendedMap,    ARRAYNUMBER(AttributesEditorExtendedMap))
 FXIMPLEMENT(GNEFrameAttributesModuls::ParametersEditor,             FXGroupBox,         ParametersEditorMap,            ARRAYNUMBER(ParametersEditorMap))
 FXIMPLEMENT(GNEFrameAttributesModuls::DrawingShape,                 FXGroupBox,         DrawingShapeMap,                ARRAYNUMBER(DrawingShapeMap))
@@ -879,6 +889,265 @@ GNEFrameAttributesModuls::AttributesCreator::onCmdHelp(FXObject*, FXSelector, vo
 }
 
 // ---------------------------------------------------------------------------
+// GNEFrameAttributesModuls::AttributesFlowCreator - methods
+// ---------------------------------------------------------------------------
+
+GNEFrameAttributesModuls::AttributesFlowCreator::AttributesFlowCreator(GNEFrame* frameParent) :
+    FXGroupBox(frameParent->myContentFrame, "Internal attributes", GUIDesignGroupBoxFrame),
+    myFrameParent(frameParent) {
+    // create help button
+    myHelpButton = new FXButton(this, "Help", nullptr, this, MID_HELP, GUIDesignButtonRectangular);
+}
+
+
+GNEFrameAttributesModuls::AttributesFlowCreator::~AttributesFlowCreator() {}
+
+
+void
+GNEFrameAttributesModuls::AttributesFlowCreator::showAttributesFlowCreatorModul(const GNEAttributeCarrier::TagProperties& tagProperties, const std::vector<SumoXMLAttr> &hiddenAttributes) {
+    /*
+    // set current tag Properties
+    myTagProperties = tagProperties;
+    // destroy all rows
+    for (int i = 0; i < (int)myAttributesCreatorRows.size(); i++) {
+        // destroy and delete all rows
+        if (myAttributesCreatorRows.at(i) != nullptr) {
+            myAttributesCreatorRows.at(i)->destroy();
+            delete myAttributesCreatorRows.at(i);
+            myAttributesCreatorRows.at(i) = nullptr;
+        }
+    }
+    // iterate over tag attributes and create a AttributesCreatorRow
+    for (const auto& i : myTagProperties) {
+        // declare falg to check conditions for show attribute
+        bool showAttribute = true;
+        // check that only non-unique attributes (except ID) are created (And depending of includeExtendedAttributes)
+        if (i.isUnique() && (i.getAttr() != SUMO_ATTR_ID)) {
+            showAttribute = false;
+        }
+        // check if attribute must stay hidden
+        if (std::find(hiddenAttributes.begin(), hiddenAttributes.end(), i.getAttr()) != hiddenAttributes.end()) {
+            showAttribute = false;
+        }
+        // check special case for vaporizer IDs
+        if ((i.getAttr() == SUMO_ATTR_ID) && (i.getTagPropertyParent().getTag() == SUMO_TAG_VAPORIZER)) {
+            showAttribute = false;
+        }
+        // show attribute depending of showAttribute flag
+        if (showAttribute) {
+            myAttributesCreatorRows.at(i.getPositionListed()) = new AttributesCreatorRow(this, i);
+        }
+    }
+    */
+    // update disjoint attributes
+    updateDisjointAttributes(nullptr);
+    // reparent help button (to place it at bottom)
+    myHelpButton->reparent(this);
+    // recalc
+    recalc();
+    // show
+    show();
+}
+
+
+void
+GNEFrameAttributesModuls::AttributesFlowCreator::hideAttributesFlowCreatorModul() {
+    hide();
+}
+
+
+GNEFrame* 
+GNEFrameAttributesModuls::AttributesFlowCreator::getFrameParent() const {
+    return myFrameParent;
+}
+
+
+std::map<SumoXMLAttr, std::string>
+GNEFrameAttributesModuls::AttributesFlowCreator::getAttributesAndValues(bool includeAll) const {
+    std::map<SumoXMLAttr, std::string> values;
+    /*
+    // get standard parameters
+    for (int i = 0; i < (int)myAttributesCreatorRows.size(); i++) {
+        if (myAttributesCreatorRows.at(i) && myAttributesCreatorRows.at(i)->getAttrProperties().getAttr() != SUMO_ATTR_NOTHING) {
+            // flag for row enabled
+            bool rowEnabled = myAttributesCreatorRows.at(i)->isAttributesCreatorRowEnabled();
+            // flag for default attributes
+            bool hasDefaultStaticValue = !myAttributesCreatorRows.at(i)->getAttrProperties().hasStaticDefaultValue() || (myAttributesCreatorRows.at(i)->getAttrProperties().getDefaultValue() != myAttributesCreatorRows.at(i)->getValue());
+            // flag for enablitables attributes
+            bool isEnablitableAttribute = myAttributesCreatorRows.at(i)->getAttrProperties().isEnablitable();
+            // flag for optional attributes
+            bool isOptionalAttribute = myAttributesCreatorRows.at(i)->getAttrProperties().isOptional() && myAttributesCreatorRows.at(i)->getAttributeCheckButtonCheck();
+            // check if flags configuration allow to include values
+            if (rowEnabled && (includeAll || hasDefaultStaticValue || isEnablitableAttribute || isOptionalAttribute)) {
+                values[myAttributesCreatorRows.at(i)->getAttrProperties().getAttr()] = myAttributesCreatorRows.at(i)->getValue();
+            }
+        }
+    }
+    */
+    return values;
+}
+
+
+GNEAttributeCarrier::TagProperties
+GNEFrameAttributesModuls::AttributesFlowCreator::getCurrentTagProperties() const {
+    return myTagProperties;
+}
+
+
+void
+GNEFrameAttributesModuls::AttributesFlowCreator::showWarningMessage(std::string extra) const {
+    std::string errorMessage;
+    /*
+    // iterate over standar parameters
+    for (const auto& i : myTagProperties) {
+        if (errorMessage.empty() && myAttributesCreatorRows.at(i.getPositionListed())) {
+            // Return string with the error if at least one of the parameter isn't valid
+            std::string attributeValue = myAttributesCreatorRows.at(i.getPositionListed())->isAttributeValid();
+            if (attributeValue.size() != 0) {
+                errorMessage = attributeValue;
+            }
+        }
+    }
+    // show warning box if input parameters aren't invalid
+    if (extra.size() == 0) {
+        errorMessage = "Invalid input parameter of " + myTagProperties.getTagStr() + ": " + errorMessage;
+    } else {
+        errorMessage = "Invalid input parameter of " + myTagProperties.getTagStr() + ": " + extra;
+    }
+    */
+    // set message in status bar
+    myFrameParent->myViewNet->setStatusBarText(errorMessage);
+    // Write Warning in console if we're in testing mode
+    WRITE_DEBUG(errorMessage);
+}
+
+
+bool
+GNEFrameAttributesModuls::AttributesFlowCreator::areValuesValid() const {
+    /*
+    // iterate over standar parameters
+    for (auto i : myTagProperties) {
+        // Return false if error message of attriuve isn't empty
+        if (myAttributesCreatorRows.at(i.getPositionListed()) && myAttributesCreatorRows.at(i.getPositionListed())->isAttributeValid().size() != 0) {
+            return false;
+        }
+    }
+    */
+    return true;
+}
+
+
+void
+GNEFrameAttributesModuls::AttributesFlowCreator::updateDisjointAttributes(AttributesCreatorRow* row) {
+    /*
+    // currently only Flows supports disjoint attributes
+    if ((myTagProperties.getTag() == SUMO_TAG_ROUTEFLOW) || (myTagProperties.getTag() == SUMO_TAG_FLOW) || (myTagProperties.getTag() == SUMO_TAG_PERSONFLOW)) {
+        // obtain all rows (to improve code legibility)
+        AttributesCreatorRow* endRow = myAttributesCreatorRows[myTagProperties.getAttributeProperties(SUMO_ATTR_END).getPositionListed()];
+        AttributesCreatorRow* numberRow = myAttributesCreatorRows[myTagProperties.getAttributeProperties(SUMO_ATTR_NUMBER).getPositionListed()];
+        AttributesCreatorRow* vehsperhourRow = myAttributesCreatorRows[myTagProperties.getAttributeProperties(SUMO_ATTR_VEHSPERHOUR).getPositionListed()];
+        AttributesCreatorRow* periodRow = myAttributesCreatorRows[myTagProperties.getAttributeProperties(SUMO_ATTR_PERIOD).getPositionListed()];
+        AttributesCreatorRow* probabilityRow = myAttributesCreatorRows[myTagProperties.getAttributeProperties(SUMO_ATTR_PROB).getPositionListed()];
+        if (row == nullptr) {
+            // by default routeFlows uses end and number
+            endRow->setAttributeRadioButtonCheck(true);
+            numberRow->setAttributeRadioButtonCheck(true);
+            vehsperhourRow->setAttributeRadioButtonCheck(false);
+            periodRow->setAttributeRadioButtonCheck(false);
+            probabilityRow->setAttributeRadioButtonCheck(false);
+        } else {
+            // check what row was clicked
+            switch (row->getAttrProperties().getAttr()) {
+                // end has more priority as number
+                case SUMO_ATTR_END:
+                    endRow->setAttributeRadioButtonCheck(true);
+                    // disable other combinations
+                    vehsperhourRow->setAttributeRadioButtonCheck(false);
+                    periodRow->setAttributeRadioButtonCheck(false);
+                    probabilityRow->setAttributeRadioButtonCheck(false);
+                    break;
+                case SUMO_ATTR_NUMBER:
+                    numberRow->setAttributeRadioButtonCheck(true);
+                    // disable number if begin and end are enabled because end has more priority as number
+                    if (endRow->getAttributeRadioButtonCheck()) {
+                        endRow->setAttributeRadioButtonCheck(false);
+                    } else {
+                        // disable other combinations
+                        vehsperhourRow->setAttributeRadioButtonCheck(false);
+                        periodRow->setAttributeRadioButtonCheck(false);
+                        probabilityRow->setAttributeRadioButtonCheck(false);
+                    }
+                    break;
+                case SUMO_ATTR_VEHSPERHOUR:
+                    // disable number if begin and end are enabled because end has more priority as number
+                    if (endRow->getAttributeRadioButtonCheck() && numberRow->getAttributeRadioButtonCheck()) {
+                        numberRow->setAttributeRadioButtonCheck(false);
+                    }
+                    // disable other combinations
+                    vehsperhourRow->setAttributeRadioButtonCheck(true);
+                    periodRow->setAttributeRadioButtonCheck(false);
+                    probabilityRow->setAttributeRadioButtonCheck(false);
+                    break;
+                case SUMO_ATTR_PERIOD:
+                    // disable number if begin and end are enabled because end has more priority as number
+                    if (endRow->getAttributeRadioButtonCheck() && numberRow->getAttributeRadioButtonCheck()) {
+                        numberRow->setAttributeRadioButtonCheck(false);
+                    }
+                    // disable other combinations
+                    vehsperhourRow->setAttributeRadioButtonCheck(false);
+                    periodRow->setAttributeRadioButtonCheck(true);
+                    probabilityRow->setAttributeRadioButtonCheck(false);
+                    break;
+                case SUMO_ATTR_PROB:
+                    // disable number if begin and end are enabled because end has more priority as number
+                    if (endRow->getAttributeRadioButtonCheck() && numberRow->getAttributeRadioButtonCheck()) {
+                        numberRow->setAttributeRadioButtonCheck(false);
+                    }
+                    // disable other combinations
+                    vehsperhourRow->setAttributeRadioButtonCheck(false);
+                    periodRow->setAttributeRadioButtonCheck(false);
+                    probabilityRow->setAttributeRadioButtonCheck(true);
+                    break;
+                default:
+                    break;
+            }
+        }
+    } else if (myTagProperties.isStop() || myTagProperties.isPersonStop()) {
+        // check if expected has to be enabled or disabled
+        if (myAttributesCreatorRows[myTagProperties.getAttributeProperties(SUMO_ATTR_TRIGGERED).getPositionListed()]->getValue() == "1") {
+            myAttributesCreatorRows[myTagProperties.getAttributeProperties(SUMO_ATTR_EXPECTED).getPositionListed()]->enableAttributesCreatorRow();
+        } else {
+            myAttributesCreatorRows[myTagProperties.getAttributeProperties(SUMO_ATTR_EXPECTED).getPositionListed()]->disableAttributesCreatorRow();
+        }
+        // check if expected contaienrs has to be enabled or disabled
+        if (myAttributesCreatorRows[myTagProperties.getAttributeProperties(SUMO_ATTR_CONTAINER_TRIGGERED).getPositionListed()]->getValue() == "1") {
+            myAttributesCreatorRows[myTagProperties.getAttributeProperties(SUMO_ATTR_EXPECTED_CONTAINERS).getPositionListed()]->enableAttributesCreatorRow();
+        } else {
+            myAttributesCreatorRows[myTagProperties.getAttributeProperties(SUMO_ATTR_EXPECTED_CONTAINERS).getPositionListed()]->disableAttributesCreatorRow();
+        }
+    }
+    */
+}
+
+
+ void 
+GNEFrameAttributesModuls::AttributesFlowCreator::refreshRows() {
+     /*
+     // currently only row with attribute ID must be refresh
+     if (myTagProperties.hasAttribute(SUMO_ATTR_ID) && (myTagProperties.getTag() != SUMO_TAG_VAPORIZER)) {
+         myAttributesCreatorRows[myTagProperties.getAttributeProperties(SUMO_ATTR_ID).getPositionListed()]->refreshRow();
+     }
+     */
+}
+
+long
+GNEFrameAttributesModuls::AttributesFlowCreator::onCmdHelp(FXObject*, FXSelector, void*) {
+    // open Help attributes dialog
+    myFrameParent->openHelpAttributesDialog(myTagProperties);
+    return 1;
+}
+
+// ---------------------------------------------------------------------------
 // GNEFrameAttributesModuls::AttributesEditorRow - methods
 // ---------------------------------------------------------------------------
 
@@ -1551,6 +1820,194 @@ GNEFrameAttributesModuls::AttributesEditor::removeEditedAC(GNEAttributeCarrier* 
 
 long
 GNEFrameAttributesModuls::AttributesEditor::onCmdAttributesEditorHelp(FXObject*, FXSelector, void*) {
+    // open Help attributes dialog if there is inspected ACs
+    if (myEditedACs.size() > 0) {
+        // open Help attributes dialog
+        myFrameParent->openHelpAttributesDialog(myEditedACs.front()->getTagProperty());
+    }
+    return 1;
+}
+
+// ---------------------------------------------------------------------------
+// GNEFrameAttributesModuls::AttributesEditorFlow - methods
+// ---------------------------------------------------------------------------
+
+GNEFrameAttributesModuls::AttributesEditorFlow::AttributesEditorFlow(GNEFrame* FrameParent) :
+    FXGroupBox(FrameParent->myContentFrame, "Internal attributes", GUIDesignGroupBoxFrame),
+    myFrameParent(FrameParent),
+    myIncludeExtended(true) {
+    // Create help button
+    myHelpButton = new FXButton(this, "Help", nullptr, this, MID_HELP, GUIDesignButtonRectangular);
+}
+
+
+void
+GNEFrameAttributesModuls::AttributesEditorFlow::showAttributeEditorFlowModul(const std::vector<GNEAttributeCarrier*>& ACs, bool includeExtended, bool forceAttributeEnabled) {
+    myEditedACs = ACs;
+    myIncludeExtended = includeExtended;
+    /*
+    // remove all rows
+    for (int i = 0; i < (int)myAttributesEditorFlowRows.size(); i++) {
+        // destroy and delete all rows
+        if (myAttributesEditorFlowRows.at(i) != nullptr) {
+            myAttributesEditorFlowRows.at(i)->destroy();
+            delete myAttributesEditorFlowRows.at(i);
+            myAttributesEditorFlowRows.at(i) = nullptr;
+        }
+    }
+    if (myEditedACs.size() > 0) {
+        // Iterate over attributes
+        for (const auto& i : myEditedACs.front()->getTagProperty()) {
+            // disable editing for unique attributes in case of multi-selection
+            if ((myEditedACs.size() > 1) && i.isUnique()) {
+                continue;
+            }
+            // disable editing of extended attributes if includeExtended isn't enabled
+            if (i.isExtended() && !includeExtended) {
+                continue;
+            }
+            // Declare a set of occuring values and insert attribute's values of item (note: We use a set to avoid repeated values)
+            std::set<std::string> occuringValues;
+            for (const auto& it_ac : myEditedACs) {
+                occuringValues.insert(it_ac->getAttribute(i.getAttr()));
+            }
+            // get current value
+            std::ostringstream oss;
+            for (auto it_val = occuringValues.begin(); it_val != occuringValues.end(); it_val++) {
+                if (it_val != occuringValues.begin()) {
+                    oss << " ";
+                }
+                oss << *it_val;
+            }
+            // obtain value to be shown in row
+            std::string value = oss.str();
+            // declare a flag for enabled attributes
+            bool attributeEnabled = myEditedACs.front()->isAttributeEnabled(i.getAttr());
+            // overwritte value if attribute is disabled (used by LinkIndex)
+            if (attributeEnabled == false) {
+                value = myEditedACs.front()->getAlternativeValueForDisabledAttributes(i.getAttr());
+            }
+            // extra check for Triggered and container Triggered
+            if (myEditedACs.front()->getTagProperty().isStop() || myEditedACs.front()->getTagProperty().isPersonStop()) {
+                if((i.getAttr() == SUMO_ATTR_EXPECTED) && (myEditedACs.front()->isAttributeEnabled(SUMO_ATTR_TRIGGERED) == false)) {
+                    attributeEnabled = false;
+                } else if ((i.getAttr() == SUMO_ATTR_EXPECTED_CONTAINERS) && (myEditedACs.front()->isAttributeEnabled(SUMO_ATTR_CONTAINER_TRIGGERED) == false)) {
+                    attributeEnabled = false;
+                }
+            }
+            // if forceEnablellAttribute is enable, force attributeEnabled (except for ID)
+            if (forceAttributeEnabled && (i.getAttr() != SUMO_ATTR_ID)) {
+                attributeEnabled = true;
+            }
+            // create attribute EditorFlow row
+            myAttributesEditorFlowRows[i.getPositionListed()] = new AttributesEditorFlowRow(this, i, value, attributeEnabled);
+        }
+        // show AttributesEditorFlow
+        show();
+    }
+    */
+    // reparent help button (to place it at bottom)
+    myHelpButton->reparent(this);
+}
+
+
+void
+GNEFrameAttributesModuls::AttributesEditorFlow::hideAttributesEditorFlowModul() {
+    // clear myEditedACs
+    myEditedACs.clear();
+    // hide also AttributesEditorFlow
+    hide();
+}
+
+
+void
+GNEFrameAttributesModuls::AttributesEditorFlow::refreshAttributeEditorFlow(bool forceRefreshShape, bool forceRefreshPosition) {
+    if (myEditedACs.size() > 0) {
+        // Iterate over attributes
+        for (const auto& i : myEditedACs.front()->getTagProperty()) {
+            // disable editing for unique attributes in case of multi-selection
+            if ((myEditedACs.size() > 1) && i.isUnique()) {
+                continue;
+            }
+            // Declare a set of occuring values and insert attribute's values of item
+            std::set<std::string> occuringValues;
+            for (const auto& it_ac : myEditedACs) {
+                occuringValues.insert(it_ac->getAttribute(i.getAttr()));
+            }
+            // get current value
+            std::ostringstream oss;
+            for (auto it_val = occuringValues.begin(); it_val != occuringValues.end(); it_val++) {
+                if (it_val != occuringValues.begin()) {
+                    oss << " ";
+                }
+                oss << *it_val;
+            }
+            // obtain value to be shown in row
+            std::string value = oss.str();
+            // declare a flag for enabled attributes
+            bool attributeEnabled = myEditedACs.front()->isAttributeEnabled(i.getAttr());
+            // overwritte value if attribute is disabled (used by LinkIndex)
+            if (attributeEnabled == false) {
+                value = myEditedACs.front()->getAlternativeValueForDisabledAttributes(i.getAttr());
+            }
+            // extra check for Triggered and container Triggered
+            if (myEditedACs.front()->getTagProperty().isStop() || myEditedACs.front()->getTagProperty().isPersonStop()) {
+                if((i.getAttr() == SUMO_ATTR_EXPECTED) && (myEditedACs.front()->isAttributeEnabled(SUMO_ATTR_TRIGGERED) == false)) {
+                    attributeEnabled = false;
+                } else if ((i.getAttr() == SUMO_ATTR_EXPECTED_CONTAINERS) && (myEditedACs.front()->isAttributeEnabled(SUMO_ATTR_CONTAINER_TRIGGERED) == false)) {
+                    attributeEnabled = false;
+                }
+            }
+            /*
+            // Check if refresh of Position or Shape has to be forced
+            if ((i.getAttr()  == SUMO_ATTR_SHAPE) && forceRefreshShape) {
+                myAttributesEditorFlowRows[i.getPositionListed()]->refreshAttributesEditorFlowRow(value, true, attributeEnabled);
+            } else if ((i.getAttr()  == SUMO_ATTR_POSITION) && forceRefreshPosition) {
+                // Refresh attributes maintain invalid values
+                myAttributesEditorFlowRows[i.getPositionListed()]->refreshAttributesEditorFlowRow(value, true, attributeEnabled);
+            } else {
+                // Refresh attributes maintain invalid values
+                myAttributesEditorFlowRows[i.getPositionListed()]->refreshAttributesEditorFlowRow(value, false, attributeEnabled);
+            }
+            */
+        }
+    }
+}
+
+
+GNEFrame*
+GNEFrameAttributesModuls::AttributesEditorFlow::getFrameParent() const {
+    return myFrameParent;
+}
+
+
+const std::vector<GNEAttributeCarrier*>&
+GNEFrameAttributesModuls::AttributesEditorFlow::getEditedACs() const {
+    return myEditedACs;
+}
+
+
+void
+GNEFrameAttributesModuls::AttributesEditorFlow::removeEditedAC(GNEAttributeCarrier* AC) {
+    // Only remove if there is inspected ACs
+    if (myEditedACs.size() > 0) {
+        // Try to find AC in myACs
+        auto i = std::find(myEditedACs.begin(), myEditedACs.end(), AC);
+        // if was found
+        if (i != myEditedACs.end()) {
+            // erase AC from inspected ACs
+            myEditedACs.erase(i);
+            // Write Warning in console if we're in testing mode
+            WRITE_DEBUG("Removed inspected element from Inspected ACs. " + toString(myEditedACs.size()) + " ACs remains.");
+            // Inspect multi selection again (To refresh Modul)
+            showAttributeEditorFlowModul(myEditedACs, myIncludeExtended, false);
+        }
+    }
+}
+
+
+long
+GNEFrameAttributesModuls::AttributesEditorFlow::onCmdAttributesEditorFlowHelp(FXObject*, FXSelector, void*) {
     // open Help attributes dialog if there is inspected ACs
     if (myEditedACs.size() > 0) {
         // open Help attributes dialog
