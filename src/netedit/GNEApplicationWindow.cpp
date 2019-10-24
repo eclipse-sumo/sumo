@@ -1677,10 +1677,9 @@ GNEApplicationWindow::getToolbarsGrip() {
 
 void
 GNEApplicationWindow::closeAllWindows() {
-    // first check if we have to save gui settings in a file (only used for testing purposes)
-    OptionsCont& oc = OptionsCont::getOptions();
-    if (oc.getString("gui-testing.setting-output").size() > 0) {
-        ;;
+    // check if view has to be saved
+    if (myViewNet) {
+        myViewNet->saveVisualizationSettings();
     }
     // lock tracker
     myTrackerLock.lock();

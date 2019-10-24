@@ -90,8 +90,11 @@ public:
     /// @brief return list of available edge parameters
     std::vector<std::string> getEdgeLaneParamKeys(bool edgeKeys) const;
 
-    //@brief open object dialog
+    /// @brief open object dialog
     void openObjectDialog();
+
+    // save visualization settings
+    void saveVisualizationSettings() const;
 
     /// @brief get edit modes
     const GNEViewNetHelper::EditModes& getEditModes() const;

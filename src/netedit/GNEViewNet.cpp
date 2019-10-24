@@ -397,6 +397,34 @@ GNEViewNet::openObjectDialog() {
 }
 
 
+void 
+GNEViewNet::saveVisualizationSettings() const {
+    // first check if we have to save gui settings in a file (only used for testing purposes)
+    OptionsCont& oc = OptionsCont::getOptions();
+    if (oc.getString("gui-testing.setting-output").size() > 0) {
+        try {
+            // open output device
+            OutputDevice& output = OutputDevice::getDevice(oc.getString("gui-testing.setting-output"));
+            // save view settings
+            output.openTag(SUMO_TAG_VIEWSETTINGS);
+            myVisualizationSettings->save(output);
+            // save viewport (zoom, X, Y and Z)
+            output.openTag(SUMO_TAG_VIEWPORT);
+            output.writeAttr(SUMO_ATTR_ZOOM, myChanger->getZoom());
+            output.writeAttr(SUMO_ATTR_X, myChanger->getXPos());
+            output.writeAttr(SUMO_ATTR_Y, myChanger->getYPos());
+            output.writeAttr(SUMO_ATTR_ANGLE, myChanger->getRotation());
+            output.closeTag();
+            output.closeTag();
+            // close output device
+            output.close();
+        } catch (...) {
+            WRITE_ERROR("GUI-Settings cannot be saved in " + oc.getString("gui-testing.setting-output"));
+        }
+    }
+}
+
+
 const GNEViewNetHelper::EditModes&
 GNEViewNet::getEditModes() const {
     return myEditModes;
