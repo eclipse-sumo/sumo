@@ -93,6 +93,10 @@ GNEAttributeCarrier::AttributeProperties::AttributeProperties(const SumoXMLAttr 
     if ((attributeProperty & ATTRPROPERTY_WRITEXMLOPTIONAL) && !((attributeProperty & ATTRPROPERTY_DEFAULTVALUESTATIC) || (attributeProperty & ATTRPROPERTY_DEFAULTVALUEMUTABLE))) {
         throw FormatException("Attribute '" + toString(attribute) + "' requires a either static or mutable default value");
     }
+    // Attributes cannot be flowdefinition and enabilitablet at the same time
+    if ((attributeProperty & ATTRPROPERTY_FLOWDEFINITION) && (attributeProperty & ATTRPROPERTY_ENABLITABLE)) {
+        throw FormatException("Attribute '" + toString(attribute) + "' cannot be flowdefinition and enabilitable at the same time");
+    }
 }
 
 
@@ -478,6 +482,12 @@ GNEAttributeCarrier::AttributeProperties::isComplex() const {
 bool
 GNEAttributeCarrier::AttributeProperties::isEnablitable() const {
     return (myAttributeProperty & ATTRPROPERTY_ENABLITABLE) != 0;
+}
+
+
+bool
+GNEAttributeCarrier::AttributeProperties::isFlowDefinition() const {
+    return (myAttributeProperty & ATTRPROPERTY_FLOWDEFINITION) != 0;
 }
 
 // ---------------------------------------------------------------------------
@@ -3967,31 +3977,31 @@ GNEAttributeCarrier::fillCommonFlowAttributes(SumoXMLTag currentTag) {
     myTagProperties[currentTag].addAttribute(attrProperty);
 
     attrProperty = AttributeProperties(SUMO_ATTR_END,
-                                       ATTRPROPERTY_SUMOTIME | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL | ATTRPROPERTY_ENABLITABLE,
+                                       ATTRPROPERTY_SUMOTIME | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL | ATTRPROPERTY_FLOWDEFINITION,
                                        "End of departure interval",
                                        "3600.00");
     myTagProperties[currentTag].addAttribute(attrProperty);
 
     attrProperty = AttributeProperties(SUMO_ATTR_NUMBER,
-                                       ATTRPROPERTY_INT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL | ATTRPROPERTY_ENABLITABLE,
+                                       ATTRPROPERTY_INT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL | ATTRPROPERTY_FLOWDEFINITION,
                                        "probability for emitting a " + toString(currentTag) + " each second (not together with vehsPerHour or period)",
                                        "1800");
     myTagProperties[currentTag].addAttribute(attrProperty);
 
     attrProperty = AttributeProperties(SUMO_ATTR_VEHSPERHOUR,
-                                       ATTRPROPERTY_STRING | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL | ATTRPROPERTY_ENABLITABLE,
+                                       ATTRPROPERTY_STRING | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL | ATTRPROPERTY_FLOWDEFINITION,
                                        "Number of " + toString(currentTag) + "s per hour, equally spaced (not together with period or probability)",
                                        "1800");
     myTagProperties[currentTag].addAttribute(attrProperty);
 
     attrProperty = AttributeProperties(SUMO_ATTR_PERIOD,
-                                       ATTRPROPERTY_STRING | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL | ATTRPROPERTY_ENABLITABLE,
+                                       ATTRPROPERTY_STRING | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL | ATTRPROPERTY_FLOWDEFINITION,
                                        "Insert equally spaced " + toString(currentTag) + "s at that period (not together with vehsPerHour or probability)",
                                        "2");
     myTagProperties[currentTag].addAttribute(attrProperty);
 
     attrProperty = AttributeProperties(SUMO_ATTR_PROB,
-                                       ATTRPROPERTY_STRING | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL | ATTRPROPERTY_ENABLITABLE,
+                                       ATTRPROPERTY_STRING | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL | ATTRPROPERTY_FLOWDEFINITION,
                                        "probability for emitting a " + toString(currentTag) + " each second (not together with vehsPerHour or period)",
                                        "0.5");
     myTagProperties[currentTag].addAttribute(attrProperty);

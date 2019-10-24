@@ -93,6 +93,7 @@ public:
         ATTRPROPERTY_OPTIONAL =            1 << 25,  // Attribute is optional, i.e. can be enabled/disabled using a checkbox in frame
         ATTRPROPERTY_COMPLEX =             1 << 26,  // Attribute is complex: Requiere a special function to check if their given value is valid
         ATTRPROPERTY_ENABLITABLE =         1 << 27,  // Attribute is enablitable: Can be enabled or disabled.
+        ATTRPROPERTY_FLOWDEFINITION =      1 << 28,  // Attribute is part of a flow definition (Number, vehsPerHour...)
     };
 
     /// @brief struct with the attribute Properties
@@ -242,6 +243,9 @@ public:
 
         /// @brief return true if atribute is enablitable
         bool isEnablitable() const;
+
+        /// @brief return true if atribute is part of a flow definition
+        bool isFlowDefinition() const;
 
     private:
         /// @brief XML Attribute
