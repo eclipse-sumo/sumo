@@ -165,7 +165,7 @@ NIImporter_ArcView::load() {
     int featureIndex = 0;
     bool warnNotUnique = true;
     std::string idPrefix = ""; // prefix for non-unique street-id values
-    int idIndex = 1; // running index to make street-id unique
+    std::map<std::string, int> idIndex; // running index to make street-id unique
     while ((poFeature = poLayer->GetNextFeature()) != NULL) {
         // read in edge attributes
         if (featureIndex == 0) {
@@ -305,16 +305,16 @@ NIImporter_ArcView::load() {
                     || (existingReverse != 0 && existingReverse->getGeometry() == shape.reverse())) {
                 WRITE_ERROR("Edge '" + duplicateID + " is not unique");
             } else {
-                if (id != idPrefix) {
-                    idPrefix = id;
-                    idIndex = 1;
+                if (idIndex.count(id) == 0) {
+                    idIndex[id] = 0;
                 }
-                id += "#" + toString(idIndex);
+                idIndex[id]++;
+                idPrefix = id;
+                id += "#" + toString(idIndex[id]);
                 if (warnNotUnique) {
                     WRITE_WARNING("street-id '" + idPrefix + "' is not unique. Renaming subsequent edge to '" + id + "'");
                     warnNotUnique = false;
                 }
-                idIndex++;
             }
         }
         // add positive direction if wanted
