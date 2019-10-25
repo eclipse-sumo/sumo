@@ -24,7 +24,7 @@
 #include <config.h>
 
 #include <string>
-#include "GUIPolygon.h"
+#include <utils/geom/GeomHelper.h>
 #include <utils/gui/images/GUITexturesHelper.h>
 #include <utils/gui/globjects/GUIGlObject.h>
 #include <utils/gui/div/GUIParameterTableWindow.h>
@@ -32,6 +32,7 @@
 #include <utils/gui/settings/GUIVisualizationSettings.h>
 #include <utils/gui/div/GUIGlobalSelection.h>
 #include <utils/gui/div/GLHelper.h>
+#include "GUIPolygon.h"
 
 //#define GUIPolygon_DEBUG_DRAW_VERTICES
 
@@ -92,12 +93,18 @@ GUIPolygon::GUIPolygon(const std::string& id, const std::string& type,
                        bool relativePath):
     SUMOPolygon(id, type, color, shape, geo, fill, lineWidth, layer, angle, imgFile, relativePath),
     GUIGlObject_AbstractAdd(GLO_POLYGON, id),
-    myDisplayList(0)
+    myDisplayList(0),
+    myRotatedShape(nullptr)
+{
+    if (angle != 0.) {
+        setShape(shape);
+    }
+}
 
-{}
 
-
-GUIPolygon::~GUIPolygon() {}
+GUIPolygon::~GUIPolygon() {
+    delete myRotatedShape;
+}
 
 
 
@@ -133,8 +140,9 @@ GUIPolygon::getParameterWindow(GUIMainWindow& app,
 
 Boundary
 GUIPolygon::getCenteringBoundary() const {
+    const PositionVector& shape = myRotatedShape != nullptr ? *myRotatedShape : myShape;
     Boundary b;
-    b.add(myShape.getBoxBoundary());
+    b.add(shape.getBoxBoundary());
     b.grow(2);
     return b;
 }
@@ -162,15 +170,29 @@ void
 GUIPolygon::setShape(const PositionVector& shape) {
     FXMutexLock locker(myLock);
     SUMOPolygon::setShape(shape);
+    if (getShapeNaviDegree() != 0.) {
+        if (myRotatedShape == nullptr) {
+            myRotatedShape = new PositionVector();
+        }
+        const Position& centroid = myShape.getCentroid();
+        *myRotatedShape = myShape;
+        myRotatedShape->sub(centroid);
+        myRotatedShape->rotate2D(-DEG2RAD(getShapeNaviDegree()));
+        myRotatedShape->add(centroid);
+    } else {
+        delete myRotatedShape;
+        myRotatedShape = nullptr;
+    }
     //storeTesselation(myLineWidth);
 }
 
 
 void
 GUIPolygon::performTesselation(double lineWidth) const {
+    const PositionVector& shape = myRotatedShape != nullptr ? *myRotatedShape : myShape;
     if (getFill()) {
         // draw the tesselated shape
-        double* points = new double[myShape.size() * 3];
+        double* points = new double[shape.size() * 3];
         GLUtesselator* tobj = gluNewTess();
         gluTessCallback(tobj, GLU_TESS_VERTEX, (GLvoid(APIENTRY*)()) &glVertex3dv);
         gluTessCallback(tobj, GLU_TESS_BEGIN, (GLvoid(APIENTRY*)()) &beginCallback);
@@ -180,9 +202,9 @@ GUIPolygon::performTesselation(double lineWidth) const {
         gluTessProperty(tobj, GLU_TESS_WINDING_RULE, GLU_TESS_WINDING_ODD);
         gluTessBeginPolygon(tobj, nullptr);
         gluTessBeginContour(tobj);
-        for (int i = 0; i != (int)myShape.size(); ++i) {
-            points[3 * i]  = myShape[(int) i].x();
-            points[3 * i + 1]  = myShape[(int) i].y();
+        for (int i = 0; i != (int)shape.size(); ++i) {
+            points[3 * i]  = shape[(int) i].x();
+            points[3 * i + 1]  = shape[(int) i].y();
             points[3 * i + 2]  = 0;
             gluTessVertex(tobj, points + 3 * i, points + 3 * i);
         }
@@ -193,8 +215,8 @@ GUIPolygon::performTesselation(double lineWidth) const {
         delete[] points;
 
     } else {
-        GLHelper::drawLine(myShape);
-        GLHelper::drawBoxLines(myShape, lineWidth);
+        GLHelper::drawLine(shape);
+        GLHelper::drawBoxLines(shape, lineWidth);
     }
     //std::cout << "OpenGL says: '" << gluErrorString(glGetError()) << "'\n";
 }
@@ -258,7 +280,6 @@ void
 GUIPolygon::drawInnerPolygon(const GUIVisualizationSettings& s, bool disableSelectionColor) const {
     glPushMatrix();
     glTranslated(0, 0, getShapeLayer());
-    glRotated(-getShapeNaviDegree(), 0, 0, 1);
     setColor(s, disableSelectionColor);
 
     int textureID = -1;
@@ -302,11 +323,12 @@ GUIPolygon::drawInnerPolygon(const GUIVisualizationSettings& s, bool disableSele
         glDisable(GL_TEXTURE_GEN_S);
         glDisable(GL_TEXTURE_GEN_T);
     }
+    const PositionVector& shape = myRotatedShape != nullptr ? *myRotatedShape : myShape;
 #ifdef GUIPolygon_DEBUG_DRAW_VERTICES
-    GLHelper::debugVertices(myShape, 80 / s.scale);
+    GLHelper::debugVertices(shape, 80 / s.scale);
 #endif
     glPopMatrix();
-    const Position namePos = myShape.getPolygonCenter();
+    const Position& namePos = shape.getPolygonCenter();
     drawName(namePos, s.scale, s.polyName, s.angle);
     if (s.polyType.show) {
         const Position p = namePos + Position(0, -0.6 * s.polyType.size / s.scale);

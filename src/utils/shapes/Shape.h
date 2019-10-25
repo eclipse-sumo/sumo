@@ -148,7 +148,7 @@ public:
     /** @brief Sets a new angle in navigational degrees
      * @param[in] layer The new angle to use
      */
-    inline void setShapeNaviDegree(const double angle) {
+    virtual void setShapeNaviDegree(const double angle) {
         myNaviDegreeAngle = angle;
     }
 

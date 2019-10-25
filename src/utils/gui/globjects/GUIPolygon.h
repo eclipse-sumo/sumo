@@ -106,6 +106,16 @@ public:
     /// @brief set a new shape and update the tesselation
     virtual void setShape(const PositionVector& shape);
 
+    /** @brief Sets a new angle in navigational degrees
+     * @param[in] layer The new angle to use
+     */
+    virtual void setShapeNaviDegree(const double angle) {
+        SUMOPolygon::setShapeNaviDegree(angle);
+        if (angle != 0.) {
+            setShape(myShape);
+        }
+    }
+
 protected:
     /// @brief set color
     void setColor(const GUIVisualizationSettings& s, bool disableSelectionColor) const;
@@ -122,6 +132,9 @@ private:
 
     /// @brief id of the display list for the cached tesselation
     mutable GLuint myDisplayList;
+
+    /// @brief shape rotated on the centroid, if rotation is needed, nullptr otherwise
+    PositionVector* myRotatedShape;
 
     /// @brief store the drawing commands in a display list
     void storeTesselation(double lineWidth) const;
