@@ -140,6 +140,16 @@ or set via [NETEDIT](../NETEDIT.md) after importing.
 Edges support the attribute *distance* to denote the distance at the
 start of the edge relative to some point of reference for a [linear
 referencing scheme](https://en.wikipedia.org/wiki/Linear_referencing).
+When the distance metric decreases along the forward direction of the edge, this is indicated by using a negative sign for the distance value.
+
+The distance value along an edge is computed as: 
+```
+  |edgeDistance + vehiclePos|
+```
+
+!!! note
+  Negative distance values are not currently supported (pending introduction of another attribute)
+
 
 # Modelling Trains
 
