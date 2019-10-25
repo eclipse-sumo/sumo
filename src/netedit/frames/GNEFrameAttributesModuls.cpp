@@ -53,8 +53,10 @@ FXDEFMAP(GNEFrameAttributesModuls::AttributesCreator) AttributesCreatorMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_HELP,   GNEFrameAttributesModuls::AttributesCreator::onCmdHelp)
 };
 
-FXDEFMAP(GNEFrameAttributesModuls::AttributesFlowCreator) AttributesFlowCreatorMap[] = {
-    FXMAPFUNC(SEL_COMMAND,  MID_HELP,   GNEFrameAttributesModuls::AttributesFlowCreator::onCmdHelp)
+FXDEFMAP(GNEFrameAttributesModuls::AttributesCreatorFlow) AttributesCreatorFlowMap[] = {
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE,          GNEFrameAttributesModuls::AttributesCreatorFlow::onCmdSetFlowAttribute),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE_BUTTON,   GNEFrameAttributesModuls::AttributesCreatorFlow::onCmdSelectFlowRadioButton),
+    FXMAPFUNC(SEL_COMMAND,  MID_HELP,                       GNEFrameAttributesModuls::AttributesCreatorFlow::onCmdHelp)
 };
 
 FXDEFMAP(GNEFrameAttributesModuls::AttributesEditorRow) AttributesEditorRowMap[] = {
@@ -69,7 +71,9 @@ FXDEFMAP(GNEFrameAttributesModuls::AttributesEditor) AttributesEditorMap[] = {
 };
 
 FXDEFMAP(GNEFrameAttributesModuls::AttributesEditorFlow) AttributesEditorFlowMap[] = {
-    FXMAPFUNC(SEL_COMMAND,  MID_HELP,   GNEFrameAttributesModuls::AttributesEditorFlow::onCmdAttributesEditorFlowHelp)
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE,          GNEFrameAttributesModuls::AttributesEditorFlow::onCmdSetFlowAttribute),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE_BUTTON,   GNEFrameAttributesModuls::AttributesEditorFlow::onCmdSelectFlowRadioButton),
+    FXMAPFUNC(SEL_COMMAND,  MID_HELP,                       GNEFrameAttributesModuls::AttributesEditorFlow::onCmdAttributesEditorFlowHelp)
 };
 
 FXDEFMAP(GNEFrameAttributesModuls::AttributesEditorExtended) AttributesEditorExtendedMap[] = {
@@ -95,7 +99,7 @@ FXDEFMAP(GNEFrameAttributesModuls::NeteditAttributes) NeteditAttributesMap[] = {
 // Object implementation
 FXIMPLEMENT(GNEFrameAttributesModuls::AttributesCreatorRow,         FXHorizontalFrame,  RowCreatorMap,                  ARRAYNUMBER(RowCreatorMap))
 FXIMPLEMENT(GNEFrameAttributesModuls::AttributesCreator,            FXGroupBox,         AttributesCreatorMap,           ARRAYNUMBER(AttributesCreatorMap))
-FXIMPLEMENT(GNEFrameAttributesModuls::AttributesFlowCreator,        FXGroupBox,         AttributesFlowCreatorMap,       ARRAYNUMBER(AttributesFlowCreatorMap))
+FXIMPLEMENT(GNEFrameAttributesModuls::AttributesCreatorFlow,        FXGroupBox,         AttributesCreatorFlowMap,       ARRAYNUMBER(AttributesCreatorFlowMap))
 FXIMPLEMENT(GNEFrameAttributesModuls::AttributesEditorRow,          FXHorizontalFrame,  AttributesEditorRowMap,         ARRAYNUMBER(AttributesEditorRowMap))
 FXIMPLEMENT(GNEFrameAttributesModuls::AttributesEditor,             FXGroupBox,         AttributesEditorMap,            ARRAYNUMBER(AttributesEditorMap))
 FXIMPLEMENT(GNEFrameAttributesModuls::AttributesEditorFlow,         FXGroupBox,         AttributesEditorFlowMap,        ARRAYNUMBER(AttributesEditorFlowMap))
@@ -647,6 +651,8 @@ GNEFrameAttributesModuls::AttributesCreator::AttributesCreator(GNEFrame* framePa
     myFrameParent(frameParent) {
     // resize myAttributesCreatorRows
     myAttributesCreatorRows.resize(GNEAttributeCarrier::MAXNUMBEROFATTRIBUTES, nullptr);
+    // create myAttributesCreatorFlow
+    myAttributesCreatorFlow = new AttributesCreatorFlow(this);
     // create help button
     myHelpButton = new FXButton(this, "Help", nullptr, this, MID_HELP, GUIDesignButtonRectangular);
 }
@@ -889,22 +895,46 @@ GNEFrameAttributesModuls::AttributesCreator::onCmdHelp(FXObject*, FXSelector, vo
 }
 
 // ---------------------------------------------------------------------------
-// GNEFrameAttributesModuls::AttributesFlowCreator - methods
+// GNEFrameAttributesModuls::AttributesCreatorFlow - methods
 // ---------------------------------------------------------------------------
 
-GNEFrameAttributesModuls::AttributesFlowCreator::AttributesFlowCreator(GNEFrame* frameParent) :
-    FXGroupBox(frameParent->myContentFrame, "Internal attributes", GUIDesignGroupBoxFrame),
-    myFrameParent(frameParent) {
+GNEFrameAttributesModuls::AttributesCreatorFlow::AttributesCreatorFlow(AttributesCreator* attributesCreatorParent) :
+    FXGroupBox(attributesCreatorParent->getFrameParent()->myContentFrame, "Flow attributes", GUIDesignGroupBoxFrame),
+    myAttributesCreatorParent(attributesCreatorParent) {
+    // declare auxiliar horizontal frame
+    FXHorizontalFrame* auxiliarHorizontalFrame = nullptr;
+    // create elements for end attribute
+    auxiliarHorizontalFrame = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
+    myAttributeEndRadioButton = new FXRadioButton(auxiliarHorizontalFrame, toString(SUMO_ATTR_END).c_str(), this, MID_GNE_SET_ATTRIBUTE_BUTTON, GUIDesignRadioButtonAttribute);
+    myValueEndTextField = new FXTextField(auxiliarHorizontalFrame, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
+    // create elements for number attribute
+    auxiliarHorizontalFrame = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
+    myAttributeNumberRadioButton = new FXRadioButton(auxiliarHorizontalFrame, toString(SUMO_ATTR_NUMBER).c_str(), this, MID_GNE_SET_ATTRIBUTE_BUTTON, GUIDesignRadioButtonAttribute);
+    myValueNumberTextField = new FXTextField(auxiliarHorizontalFrame, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
+    // create elements for vehsPerHour attribute
+    auxiliarHorizontalFrame = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
+    myAttributeVehsPerHourRadioButton = new FXRadioButton(auxiliarHorizontalFrame, toString(SUMO_ATTR_VEHSPERHOUR).c_str(), this, MID_GNE_SET_ATTRIBUTE_BUTTON, GUIDesignRadioButtonAttribute);
+    myValueEndVehsPerHourTextField = new FXTextField(auxiliarHorizontalFrame, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
+    // create elements for period attribute
+    auxiliarHorizontalFrame = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
+    myAttributePeriodRadioButton = new FXRadioButton(auxiliarHorizontalFrame, toString(SUMO_ATTR_PERIOD).c_str(), this, MID_GNE_SET_ATTRIBUTE_BUTTON, GUIDesignRadioButtonAttribute);
+    myValuePeriodTextField = new FXTextField(auxiliarHorizontalFrame, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
+    // create elements for Probability attribute
+    auxiliarHorizontalFrame = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
+    myAttributeProbabilityRadioButton = new FXRadioButton(auxiliarHorizontalFrame, toString(SUMO_ATTR_PROB).c_str(), this, MID_GNE_SET_ATTRIBUTE_BUTTON, GUIDesignRadioButtonAttribute);
+    myValueProbabilityTextField = new FXTextField(auxiliarHorizontalFrame, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
+    // Create help button
+    myHelpButton = new FXButton(this, "Help", nullptr, this, MID_HELP, GUIDesignButtonRectangular);
     // create help button
     myHelpButton = new FXButton(this, "Help", nullptr, this, MID_HELP, GUIDesignButtonRectangular);
 }
 
 
-GNEFrameAttributesModuls::AttributesFlowCreator::~AttributesFlowCreator() {}
+GNEFrameAttributesModuls::AttributesCreatorFlow::~AttributesCreatorFlow() {}
 
 
 void
-GNEFrameAttributesModuls::AttributesFlowCreator::showAttributesFlowCreatorModul(const GNEAttributeCarrier::TagProperties& tagProperties, const std::vector<SumoXMLAttr> &hiddenAttributes) {
+GNEFrameAttributesModuls::AttributesCreatorFlow::showAttributesCreatorFlowModul() {
     /*
     // set current tag Properties
     myTagProperties = tagProperties;
@@ -951,51 +981,19 @@ GNEFrameAttributesModuls::AttributesFlowCreator::showAttributesFlowCreatorModul(
 
 
 void
-GNEFrameAttributesModuls::AttributesFlowCreator::hideAttributesFlowCreatorModul() {
+GNEFrameAttributesModuls::AttributesCreatorFlow::hideAttributesCreatorFlowModul() {
     hide();
 }
 
 
-GNEFrame* 
-GNEFrameAttributesModuls::AttributesFlowCreator::getFrameParent() const {
-    return myFrameParent;
-}
+void 
+GNEFrameAttributesModuls::AttributesCreatorFlow::setFlowParameters(const std::vector<std::pair<std::string, std::string> > &parameters) {
 
-
-std::map<SumoXMLAttr, std::string>
-GNEFrameAttributesModuls::AttributesFlowCreator::getAttributesAndValues(bool includeAll) const {
-    std::map<SumoXMLAttr, std::string> values;
-    /*
-    // get standard parameters
-    for (int i = 0; i < (int)myAttributesCreatorRows.size(); i++) {
-        if (myAttributesCreatorRows.at(i) && myAttributesCreatorRows.at(i)->getAttrProperties().getAttr() != SUMO_ATTR_NOTHING) {
-            // flag for row enabled
-            bool rowEnabled = myAttributesCreatorRows.at(i)->isAttributesCreatorRowEnabled();
-            // flag for default attributes
-            bool hasDefaultStaticValue = !myAttributesCreatorRows.at(i)->getAttrProperties().hasStaticDefaultValue() || (myAttributesCreatorRows.at(i)->getAttrProperties().getDefaultValue() != myAttributesCreatorRows.at(i)->getValue());
-            // flag for enablitables attributes
-            bool isEnablitableAttribute = myAttributesCreatorRows.at(i)->getAttrProperties().isEnablitable();
-            // flag for optional attributes
-            bool isOptionalAttribute = myAttributesCreatorRows.at(i)->getAttrProperties().isOptional() && myAttributesCreatorRows.at(i)->getAttributeCheckButtonCheck();
-            // check if flags configuration allow to include values
-            if (rowEnabled && (includeAll || hasDefaultStaticValue || isEnablitableAttribute || isOptionalAttribute)) {
-                values[myAttributesCreatorRows.at(i)->getAttrProperties().getAttr()] = myAttributesCreatorRows.at(i)->getValue();
-            }
-        }
-    }
-    */
-    return values;
-}
-
-
-GNEAttributeCarrier::TagProperties
-GNEFrameAttributesModuls::AttributesFlowCreator::getCurrentTagProperties() const {
-    return myTagProperties;
 }
 
 
 void
-GNEFrameAttributesModuls::AttributesFlowCreator::showWarningMessage(std::string extra) const {
+GNEFrameAttributesModuls::AttributesCreatorFlow::showWarningMessage(std::string extra) const {
     std::string errorMessage;
     /*
     // iterate over standar parameters
@@ -1016,14 +1014,14 @@ GNEFrameAttributesModuls::AttributesFlowCreator::showWarningMessage(std::string 
     }
     */
     // set message in status bar
-    myFrameParent->myViewNet->setStatusBarText(errorMessage);
+    myAttributesCreatorParent->getFrameParent()->myViewNet->setStatusBarText(errorMessage);
     // Write Warning in console if we're in testing mode
     WRITE_DEBUG(errorMessage);
 }
 
 
 bool
-GNEFrameAttributesModuls::AttributesFlowCreator::areValuesValid() const {
+GNEFrameAttributesModuls::AttributesCreatorFlow::areValuesValid() const {
     /*
     // iterate over standar parameters
     for (auto i : myTagProperties) {
@@ -1038,7 +1036,7 @@ GNEFrameAttributesModuls::AttributesFlowCreator::areValuesValid() const {
 
 
 void
-GNEFrameAttributesModuls::AttributesFlowCreator::updateDisjointAttributes(AttributesCreatorRow* row) {
+GNEFrameAttributesModuls::AttributesCreatorFlow::updateDisjointAttributes(AttributesCreatorRow* row) {
     /*
     // currently only Flows supports disjoint attributes
     if ((myTagProperties.getTag() == SUMO_TAG_ROUTEFLOW) || (myTagProperties.getTag() == SUMO_TAG_FLOW) || (myTagProperties.getTag() == SUMO_TAG_PERSONFLOW)) {
@@ -1131,7 +1129,7 @@ GNEFrameAttributesModuls::AttributesFlowCreator::updateDisjointAttributes(Attrib
 
 
  void 
-GNEFrameAttributesModuls::AttributesFlowCreator::refreshRows() {
+GNEFrameAttributesModuls::AttributesCreatorFlow::refreshRows() {
      /*
      // currently only row with attribute ID must be refresh
      if (myTagProperties.hasAttribute(SUMO_ATTR_ID) && (myTagProperties.getTag() != SUMO_TAG_VAPORIZER)) {
@@ -1140,10 +1138,23 @@ GNEFrameAttributesModuls::AttributesFlowCreator::refreshRows() {
      */
 }
 
+
+long 
+GNEFrameAttributesModuls::AttributesCreatorFlow::onCmdSetFlowAttribute(FXObject*, FXSelector, void*) {
+    return 1;
+}
+
+
 long
-GNEFrameAttributesModuls::AttributesFlowCreator::onCmdHelp(FXObject*, FXSelector, void*) {
+GNEFrameAttributesModuls::AttributesCreatorFlow::onCmdSelectFlowRadioButton(FXObject*, FXSelector, void*) {
+    return 1;
+}
+
+
+long
+GNEFrameAttributesModuls::AttributesCreatorFlow::onCmdHelp(FXObject*, FXSelector, void*) {
     // open Help attributes dialog
-    myFrameParent->openHelpAttributesDialog(myTagProperties);
+    //myFrameParent->openHelpAttributesDialog(myTagProperties);
     return 1;
 }
 
@@ -1652,6 +1663,8 @@ GNEFrameAttributesModuls::AttributesEditor::AttributesEditor(GNEFrame* FramePare
     myIncludeExtended(true) {
     // resize myAttributesEditorRows
     myAttributesEditorRows.resize(GNEAttributeCarrier::MAXNUMBEROFATTRIBUTES, nullptr);
+    // create myAttributesFlowEditor
+    myAttributesEditorFlow = new AttributesEditorFlow(this);
     // Create help button
     myHelpButton = new FXButton(this, "Help", nullptr, this, MID_HELP, GUIDesignButtonRectangular);
 }
@@ -1832,19 +1845,38 @@ GNEFrameAttributesModuls::AttributesEditor::onCmdAttributesEditorHelp(FXObject*,
 // GNEFrameAttributesModuls::AttributesEditorFlow - methods
 // ---------------------------------------------------------------------------
 
-GNEFrameAttributesModuls::AttributesEditorFlow::AttributesEditorFlow(GNEFrame* FrameParent) :
-    FXGroupBox(FrameParent->myContentFrame, "Internal attributes", GUIDesignGroupBoxFrame),
-    myFrameParent(FrameParent),
-    myIncludeExtended(true) {
+GNEFrameAttributesModuls::AttributesEditorFlow::AttributesEditorFlow(AttributesEditor* attributesEditorParent) :
+    FXGroupBox(attributesEditorParent->getFrameParent()->myContentFrame, "Flow attributes", GUIDesignGroupBoxFrame),
+    myAttributesEditorParent(attributesEditorParent) {
+    // declare auxiliar horizontal frame
+    FXHorizontalFrame* auxiliarHorizontalFrame = nullptr;
+    // create elements for end attribute
+    auxiliarHorizontalFrame = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
+    myAttributeEndRadioButton = new FXRadioButton(auxiliarHorizontalFrame, toString(SUMO_ATTR_END).c_str(), this, MID_GNE_SET_ATTRIBUTE_BUTTON, GUIDesignRadioButtonAttribute);
+    myValueEndTextField = new FXTextField(auxiliarHorizontalFrame, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
+    // create elements for number attribute
+    auxiliarHorizontalFrame = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
+    myAttributeNumberRadioButton = new FXRadioButton(auxiliarHorizontalFrame, toString(SUMO_ATTR_NUMBER).c_str(), this, MID_GNE_SET_ATTRIBUTE_BUTTON, GUIDesignRadioButtonAttribute);
+    myValueNumberTextField = new FXTextField(auxiliarHorizontalFrame, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
+    // create elements for vehsPerHour attribute
+    auxiliarHorizontalFrame = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
+    myAttributeVehsPerHourRadioButton = new FXRadioButton(auxiliarHorizontalFrame, toString(SUMO_ATTR_VEHSPERHOUR).c_str(), this, MID_GNE_SET_ATTRIBUTE_BUTTON, GUIDesignRadioButtonAttribute);
+    myValueEndVehsPerHourTextField = new FXTextField(auxiliarHorizontalFrame, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
+    // create elements for period attribute
+    auxiliarHorizontalFrame = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
+    myAttributePeriodRadioButton = new FXRadioButton(auxiliarHorizontalFrame, toString(SUMO_ATTR_PERIOD).c_str(), this, MID_GNE_SET_ATTRIBUTE_BUTTON, GUIDesignRadioButtonAttribute);
+    myValuePeriodTextField = new FXTextField(auxiliarHorizontalFrame, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
+    // create elements for Probability attribute
+    auxiliarHorizontalFrame = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
+    myAttributeProbabilityRadioButton = new FXRadioButton(auxiliarHorizontalFrame, toString(SUMO_ATTR_PROB).c_str(), this, MID_GNE_SET_ATTRIBUTE_BUTTON, GUIDesignRadioButtonAttribute);
+    myValueProbabilityTextField = new FXTextField(auxiliarHorizontalFrame, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
     // Create help button
     myHelpButton = new FXButton(this, "Help", nullptr, this, MID_HELP, GUIDesignButtonRectangular);
 }
 
 
 void
-GNEFrameAttributesModuls::AttributesEditorFlow::showAttributeEditorFlowModul(const std::vector<GNEAttributeCarrier*>& ACs, bool includeExtended, bool forceAttributeEnabled) {
-    myEditedACs = ACs;
-    myIncludeExtended = includeExtended;
+GNEFrameAttributesModuls::AttributesEditorFlow::showAttributeEditorFlowModul() {
     /*
     // remove all rows
     for (int i = 0; i < (int)myAttributesEditorFlowRows.size(); i++) {
@@ -1913,15 +1945,14 @@ GNEFrameAttributesModuls::AttributesEditorFlow::showAttributeEditorFlowModul(con
 
 void
 GNEFrameAttributesModuls::AttributesEditorFlow::hideAttributesEditorFlowModul() {
-    // clear myEditedACs
-    myEditedACs.clear();
     // hide also AttributesEditorFlow
     hide();
 }
 
 
 void
-GNEFrameAttributesModuls::AttributesEditorFlow::refreshAttributeEditorFlow(bool forceRefreshShape, bool forceRefreshPosition) {
+GNEFrameAttributesModuls::AttributesEditorFlow::refreshAttributeEditorFlow() {
+    /*
     if (myEditedACs.size() > 0) {
         // Iterate over attributes
         for (const auto& i : myEditedACs.front()->getTagProperty()) {
@@ -1969,50 +2000,34 @@ GNEFrameAttributesModuls::AttributesEditorFlow::refreshAttributeEditorFlow(bool 
                 // Refresh attributes maintain invalid values
                 myAttributesEditorFlowRows[i.getPositionListed()]->refreshAttributesEditorFlowRow(value, false, attributeEnabled);
             }
-            */
+
         }
     }
+    */
 }
 
 
-GNEFrame*
-GNEFrameAttributesModuls::AttributesEditorFlow::getFrameParent() const {
-    return myFrameParent;
+long 
+GNEFrameAttributesModuls::AttributesEditorFlow::onCmdSetFlowAttribute(FXObject*, FXSelector, void*) {
+    return 1;
 }
 
 
-const std::vector<GNEAttributeCarrier*>&
-GNEFrameAttributesModuls::AttributesEditorFlow::getEditedACs() const {
-    return myEditedACs;
-}
-
-
-void
-GNEFrameAttributesModuls::AttributesEditorFlow::removeEditedAC(GNEAttributeCarrier* AC) {
-    // Only remove if there is inspected ACs
-    if (myEditedACs.size() > 0) {
-        // Try to find AC in myACs
-        auto i = std::find(myEditedACs.begin(), myEditedACs.end(), AC);
-        // if was found
-        if (i != myEditedACs.end()) {
-            // erase AC from inspected ACs
-            myEditedACs.erase(i);
-            // Write Warning in console if we're in testing mode
-            WRITE_DEBUG("Removed inspected element from Inspected ACs. " + toString(myEditedACs.size()) + " ACs remains.");
-            // Inspect multi selection again (To refresh Modul)
-            showAttributeEditorFlowModul(myEditedACs, myIncludeExtended, false);
-        }
-    }
+long
+GNEFrameAttributesModuls::AttributesEditorFlow::onCmdSelectFlowRadioButton(FXObject*, FXSelector, void*) {
+    return 1;
 }
 
 
 long
 GNEFrameAttributesModuls::AttributesEditorFlow::onCmdAttributesEditorFlowHelp(FXObject*, FXSelector, void*) {
+    /*
     // open Help attributes dialog if there is inspected ACs
     if (myEditedACs.size() > 0) {
         // open Help attributes dialog
         myFrameParent->openHelpAttributesDialog(myEditedACs.front()->getTagProperty());
     }
+    */
     return 1;
 }
 

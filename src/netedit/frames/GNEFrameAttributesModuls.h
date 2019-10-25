@@ -44,6 +44,8 @@ public:
 
     class AttributesCreator;
     class AttributesEditor;
+    class AttributesCreatorFlow;
+    class AttributesEditorFlow;
 
     // ===========================================================================
     // class AttributesCreatorRow
@@ -213,6 +215,9 @@ public:
         /// @brief pointer to Frame Parent
         GNEFrame* myFrameParent = nullptr;
 
+        /// @brief pointer to myAttributesCreatorFlow
+        AttributesCreatorFlow* myAttributesCreatorFlow = nullptr;
+
         /// @brief current edited Tag Properties
         GNEAttributeCarrier::TagProperties myTagProperties;
 
@@ -224,37 +229,28 @@ public:
     };
 
     // ===========================================================================
-    // class AttributesFlowCreator
+    // class AttributesCreatorFlow
     // ===========================================================================
 
-    class AttributesFlowCreator : public FXGroupBox {
+    class AttributesCreatorFlow : public FXGroupBox {
         /// @brief FOX-declaration
-        FXDECLARE(GNEFrameAttributesModuls::AttributesFlowCreator)
+        FXDECLARE(GNEFrameAttributesModuls::AttributesCreatorFlow)
 
     public:
         /// @brief constructor
-        AttributesFlowCreator(GNEFrame* frameParent);
+        AttributesCreatorFlow(AttributesCreator* attributesCreatorParent);
 
         /// @brief destructor
-        ~AttributesFlowCreator();
+        ~AttributesCreatorFlow();
 
-        /**@brief show AttributesFlowCreator modul
-         * @param tagProperties GNEAttributeCarrier::TagProperties which contain all attributes
-         * @param hiddenAttributes list of attributes contained in tagProperties but not shown
-         */
-        void showAttributesFlowCreatorModul(const GNEAttributeCarrier::TagProperties& tagProperties, const std::vector<SumoXMLAttr> &hiddenAttributes);
+        /// @brief show AttributesCreatorFlow modul
+        void showAttributesCreatorFlowModul();
 
         /// @brief hide group box
-        void hideAttributesFlowCreatorModul();
+        void hideAttributesCreatorFlowModul();
 
-        /// @brief return frame parent
-        GNEFrame* getFrameParent() const;
-
-        /// @brief get attributes and their values
-        std::map<SumoXMLAttr, std::string> getAttributesAndValues(bool includeAll) const;
-
-        /// @brief get current edited Tag Properties
-        GNEAttributeCarrier::TagProperties getCurrentTagProperties() const;
+        /// @brief set parameters
+        void setFlowParameters(const std::vector<std::pair<std::string, std::string> > &parameters);
 
         /// @brief check if parameters of attributes are valid
         bool areValuesValid() const;
@@ -264,6 +260,12 @@ public:
 
         /// @name FOX-callbacks
         /// @{
+        /// @brief called when user set the value of an attribute of type int/float/string/bool
+        long onCmdSetFlowAttribute(FXObject*, FXSelector, void*);
+
+        /// @brief called when user press a radio button
+        long onCmdSelectFlowRadioButton(FXObject*, FXSelector, void*);
+
         /// @brief Called when help button is pressed
         long onCmdHelp(FXObject*, FXSelector, void*);
         /// @}
@@ -275,14 +277,41 @@ public:
         void refreshRows();
 
     protected:
-        FOX_CONSTRUCTOR(AttributesFlowCreator);
+        FOX_CONSTRUCTOR(AttributesCreatorFlow);
 
     private:
-        /// @brief pointer to Frame Parent
-        GNEFrame* myFrameParent = nullptr;
+        /// @brief pointer to Attributes Creator Parent 
+        AttributesCreator* myAttributesCreatorParent;
 
-        /// @brief current edited Tag Properties
-        GNEAttributeCarrier::TagProperties myTagProperties;
+        /// @brief Radio button for 'end' attribute
+        FXRadioButton* myAttributeEndRadioButton = nullptr;
+
+        /// @brief textField for 'end' attribute
+        FXTextField* myValueEndTextField = nullptr;
+
+        /// @brief Radio button for 'number' attribute
+        FXRadioButton* myAttributeNumberRadioButton = nullptr;
+
+        /// @brief textField for 'number' attribute
+        FXTextField* myValueNumberTextField = nullptr;
+
+        /// @brief Radio button for 'VehsPerHour' attribute
+        FXRadioButton* myAttributeVehsPerHourRadioButton = nullptr;
+
+        /// @brief textField for 'VehsPerHour' attribute
+        FXTextField* myValueEndVehsPerHourTextField = nullptr;
+
+        /// @brief Radio button for 'period' attribute
+        FXRadioButton* myAttributePeriodRadioButton = nullptr;
+
+        /// @brief textField for 'period' attribute
+        FXTextField* myValuePeriodTextField = nullptr;
+
+        /// @brief Radio button for 'probability' attribute
+        FXRadioButton* myAttributeProbabilityRadioButton = nullptr;
+
+        /// @brief textField for 'probability' attribute
+        FXTextField* myValueProbabilityTextField = nullptr;
 
         /// @brief help button
         FXButton* myHelpButton = nullptr;
@@ -409,6 +438,9 @@ public:
         /// @brief pointer to GNEFrame parent
         GNEFrame* myFrameParent = nullptr;
 
+        /// @brief pointer to attributesEditorFlow
+        AttributesEditorFlow* myAttributesEditorFlow = nullptr;
+
         /// @brief list of Attribute editor rows
         std::vector<AttributesEditorRow*> myAttributesEditorRows;
 
@@ -432,28 +464,25 @@ public:
 
     public:
         /// @brief constructor
-        AttributesEditorFlow(GNEFrame* inspectorFrameParent);
+        AttributesEditorFlow(AttributesEditor* attributesEditorParent);
 
-        /// @brief show attributes of multiple ACs
-        void showAttributeEditorFlowModul(const std::vector<GNEAttributeCarrier*>& ACs, bool includeExtended, bool forceAttributeEnabled);
+        /// @brief show attributes editor Flow Modul
+        void showAttributeEditorFlowModul();
 
         /// @brief hide attribute EditorFlow
         void hideAttributesEditorFlowModul();
 
         /// @brief refresh attribute EditorFlow (only the valid values will be refresh)
-        void refreshAttributeEditorFlow(bool forceRefreshShape, bool forceRefreshPosition);
-
-        /// @brief pointer to GNEFrame parent
-        GNEFrame* getFrameParent() const;
-
-        /// @brief get current edited ACs
-        const std::vector<GNEAttributeCarrier*>& getEditedACs() const;
-
-        /// @brief remove edited ACs
-        void removeEditedAC(GNEAttributeCarrier* AC);
+        void refreshAttributeEditorFlow();
 
         /// @name FOX-callbacks
         /// @{
+        /// @brief called when user set the value of an attribute of type int/float/string/bool
+        long onCmdSetFlowAttribute(FXObject*, FXSelector, void*);
+
+        /// @brief called when user press a radio button
+        long onCmdSelectFlowRadioButton(FXObject*, FXSelector, void*);
+
         /// @brief Called when user press the help button
         long onCmdAttributesEditorFlowHelp(FXObject*, FXSelector, void*);
         /// @}
@@ -462,17 +491,41 @@ public:
 		FOX_CONSTRUCTOR(AttributesEditorFlow)
 
     private:
-        /// @brief pointer to GNEFrame parent
-        GNEFrame* myFrameParent = nullptr;
+        /// @brief pointer to AttributesEditor parent
+        AttributesEditor* myAttributesEditorParent = nullptr;
+
+        /// @brief Radio button for 'end' attribute
+        FXRadioButton* myAttributeEndRadioButton = nullptr;
+
+        /// @brief textField for 'end' attribute
+        FXTextField* myValueEndTextField = nullptr;
+
+        /// @brief Radio button for 'number' attribute
+        FXRadioButton* myAttributeNumberRadioButton = nullptr;
+
+        /// @brief textField for 'number' attribute
+        FXTextField* myValueNumberTextField = nullptr;
+
+        /// @brief Radio button for 'VehsPerHour' attribute
+        FXRadioButton* myAttributeVehsPerHourRadioButton = nullptr;
+
+        /// @brief textField for 'VehsPerHour' attribute
+        FXTextField* myValueEndVehsPerHourTextField = nullptr;
+
+        /// @brief Radio button for 'period' attribute
+        FXRadioButton* myAttributePeriodRadioButton = nullptr;
+
+        /// @brief textField for 'period' attribute
+        FXTextField* myValuePeriodTextField = nullptr;
+
+        /// @brief Radio button for 'probability' attribute
+        FXRadioButton* myAttributeProbabilityRadioButton = nullptr;
+
+        /// @brief textField for 'probability' attribute
+        FXTextField* myValueProbabilityTextField = nullptr;
 
         /// @brief button for help
         FXButton* myHelpButton = nullptr;
-
-        /// @brief the multi-selection currently being inspected
-        std::vector<GNEAttributeCarrier*> myEditedACs;
-
-        /// @brief flag used to mark if current edited ACs are bein edited including extended attribute
-        bool myIncludeExtended;
     };
 
     // ===========================================================================
