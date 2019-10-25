@@ -217,8 +217,8 @@ GNEAdditional::writeAdditional(OutputDevice& device) const {
         for (auto i : myTagProperty) {
             // obtain attribute
             std::string attributeValue = getAttribute(i.getAttr());
-            //  first check if attribute is optional but not combinable
-            if (i.isWriteXMLOptional() && !i.isCombinable()) {
+            //  first check if attribute is optional but not vehicle classes
+            if (i.isOptional() && !i.isVClasses()) {
                 // Only write attributes with default value if is different from original
                 if (i.getDefaultValue() != attributeValue) {
                     // check if attribute must be written using a synonim

@@ -162,7 +162,7 @@ GNEFrameAttributesModuls::AttributesCreatorRow::AttributesCreatorRow(AttributesC
                 myAttributeColorButton->setTextColor(FXRGB(0, 0, 0));
                 myAttributeColorButton->setText(myAttrProperties.getAttrStr().c_str());
                 myAttributeColorButton->show();
-            } else if (myAttrProperties.isOptional()) {
+            } else if (myAttrProperties.isActivatable()) {
                 myAttributeCheckButton->setText(myAttrProperties.getAttrStr().c_str());
                 myAttributeCheckButton->show();
                 // special case for attributes "Parking", "until" and "duration" (by default disabled)
@@ -680,11 +680,11 @@ GNEFrameAttributesModuls::AttributesCreator::getAttributesAndValues(bool include
             // flag for default attributes
             bool hasDefaultStaticValue = !myAttributesCreatorRows.at(i)->getAttrProperties().hasStaticDefaultValue() || (myAttributesCreatorRows.at(i)->getAttrProperties().getDefaultValue() != myAttributesCreatorRows.at(i)->getValue());
             // flag for enablitables attributes
-            bool isEnablitableAttribute = myAttributesCreatorRows.at(i)->getAttrProperties().isEnablitable();
+            bool isFlowDefinitionAttribute = myAttributesCreatorRows.at(i)->getAttrProperties().isFlowDefinition();
             // flag for optional attributes
-            bool isOptionalAttribute = myAttributesCreatorRows.at(i)->getAttrProperties().isOptional() && myAttributesCreatorRows.at(i)->getAttributeCheckButtonCheck();
+            bool isActivatableAttribute = myAttributesCreatorRows.at(i)->getAttrProperties().isActivatable() && myAttributesCreatorRows.at(i)->getAttributeCheckButtonCheck();
             // check if flags configuration allow to include values
-            if (rowEnabled && (includeAll || hasDefaultStaticValue || isEnablitableAttribute || isOptionalAttribute)) {
+            if (rowEnabled && (includeAll || hasDefaultStaticValue || isFlowDefinitionAttribute || isActivatableAttribute)) {
                 values[myAttributesCreatorRows.at(i)->getAttrProperties().getAttr()] = myAttributesCreatorRows.at(i)->getValue();
             }
         }
@@ -1092,7 +1092,7 @@ GNEFrameAttributesModuls::AttributesEditorRow::AttributesEditorRow(GNEFrameAttri
             myAttributeColorButton->setTextColor(FXRGB(0, 0, 0));
             myAttributeColorButton->setText(myACAttr.getAttrStr().c_str());
             myAttributeColorButton->show();
-        } else if (myACAttr.isOptional()) {
+        } else if (myACAttr.isActivatable()) {
             // show checkbox button
             myAttributeCheckButton->setTextColor(FXRGB(0, 0, 0));
             myAttributeCheckButton->setText(myACAttr.getAttrStr().c_str());
@@ -1143,8 +1143,8 @@ GNEFrameAttributesModuls::AttributesEditorRow::AttributesEditorRow(GNEFrameAttri
                 myValueTextField->show();
             }
         } else if (myACAttr.isDiscrete()) {
-            // Check if are combinable choices
-            if ((myACAttr.getDiscreteValues().size() > 0) && myACAttr.isCombinable()) {
+            // Check if are VClasses
+            if ((myACAttr.getDiscreteValues().size() > 0) && myACAttr.isVClasses()) {
                 // hide label
                 myAttributeLabel->hide();
                 // Show button combinable choices
@@ -1336,8 +1336,8 @@ GNEFrameAttributesModuls::AttributesEditorRow::onCmdSetAttribute(FXObject*, FXSe
             newVal = myValueTextField->getText().text();
         }
     } else if (myACAttr.isDiscrete()) {
-        // Check if are combinable choices (for example, Vehicle Types)
-        if ((myACAttr.getDiscreteValues().size() > 0) && myACAttr.isCombinable()) {
+        // Check if are VClasses
+        if ((myACAttr.getDiscreteValues().size() > 0) && myACAttr.isVClasses()) {
             // Get value obtained using AttributesEditor
             newVal = myValueTextField->getText().text();
         } else if (!myMultiple) {
@@ -1401,7 +1401,7 @@ GNEFrameAttributesModuls::AttributesEditorRow::onCmdSetAttribute(FXObject*, FXSe
             myAttributesEditorParent->getFrameParent()->myViewNet->getUndoList()->p_end();
         }
         // If previously value was incorrect, change font color to black
-        if (myACAttr.isCombinable()) {
+        if (myACAttr.isVClasses()) {
             myValueTextField->setTextColor(FXRGB(0, 0, 0));
             myValueTextField->killFocus();
             // in this case, we need to refresh the other values (For example, allow/Disallow objects)
@@ -1417,7 +1417,7 @@ GNEFrameAttributesModuls::AttributesEditorRow::onCmdSetAttribute(FXObject*, FXSe
         myAttributesEditorParent->getFrameParent()->attributeUpdated();
     } else {
         // If value of TextField isn't valid, change color to Red depending of type
-        if (myACAttr.isCombinable()) {
+        if (myACAttr.isVClasses()) {
             myValueTextField->setTextColor(FXRGB(255, 0, 0));
             myValueTextField->killFocus();
         } else if (myACAttr.isDiscrete()) {

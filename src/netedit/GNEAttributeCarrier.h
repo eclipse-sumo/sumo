@@ -67,33 +67,31 @@ public:
     enum AttrProperty {
         ATTRPROPERTY_INT =                 1 << 0,   // Attribute is an integer (Including Zero)
         ATTRPROPERTY_FLOAT =               1 << 1,   // Attribute is a float
-        ATTRPROPERTY_SUMOTIME =            1 << 2,  // Attribute is a SUMOTime
+        ATTRPROPERTY_SUMOTIME =            1 << 2,   // Attribute is a SUMOTime
         ATTRPROPERTY_BOOL =                1 << 3,   // Attribute is boolean (0/1, true/false)
         ATTRPROPERTY_STRING =              1 << 4,   // Attribute is a string
         ATTRPROPERTY_POSITION =            1 << 5,   // Attribute is a position defined by doubles (x,y or x,y,z)
         ATTRPROPERTY_COLOR =               1 << 6,   // Attribute is a color defined by a specifically word (Red, green) or by a special format (XXX,YYY,ZZZ)
         ATTRPROPERTY_VCLASS =              1 << 7,   // Attribute is a VClass (passenger, bus, motorcicle...)
         ATTRPROPERTY_POSITIVE =            1 << 8,   // Attribute is positive (Including Zero)
-        ATTRPROPERTY_NOTZERO =             1 << 9,   // Attribute cannot be 0 (only for numerical attributes)
-        ATTRPROPERTY_UNIQUE =              1 << 10,  // Attribute is unique (cannot be edited in a selection of similar elements (ID, Position...)
-        ATTRPROPERTY_FILENAME =            1 << 11,  // Attribute is a filename (string that cannot contains certain characters)
-        ATTRPROPERTY_DISCRETE =            1 << 12,  // Attribute is discrete (only certain values are allowed)
-        ATTRPROPERTY_PROBABILITY =         1 << 13,  // Attribute is probability (only allowed values between 0 and 1, including both)
-        ATTRPROPERTY_ANGLE =               1 << 14,  // Attribute is an angle (only takes values between 0 and 360, including both, another value will be automatically reduced
-        ATTRPROPERTY_LIST =                1 << 15,  // Attribute is a list of other elements separated by spaces
-        ATTRPROPERTY_SECUENCIAL =          1 << 16,  // Attribute is a special sequence of elements (for example: secuencial lanes in Multi Lane E2 detectors)
-        ATTRPROPERTY_WRITEXMLOPTIONAL =    1 << 17,  // Attribute will not be written in XML file if current value is the same of their default Static/Mutable value
-        ATTRPROPERTY_DEFAULTVALUESTATIC =  1 << 18,  // Attribute owns a static default value
-        ATTRPROPERTY_DEFAULTVALUEMUTABLE = 1 << 19,  // Attribute owns a mutable default value (Default value depends of value of other attribute)
-        ATTRPROPERTY_COMBINABLE =          1 << 20,  // Attribute is combinable with other attribute (example: Allow/disallow VClasses)
-        ATTRPROPERTY_SYNONYM =             1 << 21,  // Attribute will be written with a different name in der XML
-        ATTRPROPERTY_RANGE =               1 << 22,  // Attribute only accept a range of elements (example: Probability [0,1]
-        ATTRPROPERTY_EXTENDED =            1 << 23,  // Attribute is extended (in Frame will not be shown, see VType attributes)
-        ATTRPROPERTY_UPDATEGEOMETRY =      1 << 24,  // Attribute require update geometry at the end of function setAttribute(...)
-        ATTRPROPERTY_OPTIONAL =            1 << 25,  // Attribute is optional, i.e. can be enabled/disabled using a checkbox in frame
-        ATTRPROPERTY_COMPLEX =             1 << 26,  // Attribute is complex: Requiere a special function to check if their given value is valid
-        ATTRPROPERTY_ENABLITABLE =         1 << 27,  // Attribute is enablitable: Can be enabled or disabled.
-        ATTRPROPERTY_FLOWDEFINITION =      1 << 28,  // Attribute is part of a flow definition (Number, vehsPerHour...)
+        ATTRPROPERTY_UNIQUE =              1 << 9,   // Attribute is unique (cannot be edited in a selection of similar elements (ID, Position...)
+        ATTRPROPERTY_FILENAME =            1 << 10,  // Attribute is a filename (string that cannot contains certain characters)
+        ATTRPROPERTY_DISCRETE =            1 << 11,  // Attribute is discrete (only certain values are allowed)
+        ATTRPROPERTY_PROBABILITY =         1 << 12,  // Attribute is probability (only allowed values between 0 and 1, including both)
+        ATTRPROPERTY_ANGLE =               1 << 13,  // Attribute is an angle (only takes values between 0 and 360, including both, another value will be automatically reduced
+        ATTRPROPERTY_LIST =                1 << 14,  // Attribute is a list of other elements separated by spaces
+        ATTRPROPERTY_SECUENCIAL =          1 << 15,  // Attribute is a special sequence of elements (for example: secuencial lanes in Multi Lane E2 detectors)
+        ATTRPROPERTY_OPTIONAL =            1 << 16,  // Attribute will not be written in XML file if current value is the same of his default Static/Mutable value
+        ATTRPROPERTY_DEFAULTVALUESTATIC =  1 << 17,  // Attribute owns a static default value
+        ATTRPROPERTY_DEFAULTVALUEMUTABLE = 1 << 18,  // Attribute owns a mutable default value (Default value depends of value of other attribute)
+        ATTRPROPERTY_VCLASSES =            1 << 19,  // Attribute is a combination of VClasses (allow/disallow)
+        ATTRPROPERTY_SYNONYM =             1 << 20,  // Attribute will be written with a different name in der XML
+        ATTRPROPERTY_RANGE =               1 << 21,  // Attribute only accept a range of elements (example: Probability [0,1])
+        ATTRPROPERTY_EXTENDED =            1 << 22,  // Attribute is extended (in Frame will not be shown, but is editable in a Dialog, see VType attributes)
+        ATTRPROPERTY_UPDATEGEOMETRY =      1 << 23,  // Attribute require update geometry at the end of function setAttribute(...)
+        ATTRPROPERTY_ACTIVATABLE =         1 << 24,  // Attribute can be switch on/off using a checkbox in frame
+        ATTRPROPERTY_COMPLEX =             1 << 25,  // Attribute is complex: Requiere a special function to check if the given value is valid
+        ATTRPROPERTY_FLOWDEFINITION =      1 << 26,  // Attribute is part of a flow definition (Number, vehsPerHour...)
     };
 
     /// @brief struct with the attribute Properties
@@ -196,9 +194,6 @@ public:
         /// @brief return true if atribute is positive
         bool isPositive() const;
 
-        /// @brief return true if atribute cannot be zero
-        bool cannotBeZero() const;
-
         /// @brief return true if atribute is a color
         bool isColor() const;
 
@@ -220,14 +215,14 @@ public:
         /// @brief return true if atribute is unique
         bool isUnique() const;
 
-        /// @brief return true if atribute is write XML optional
-        bool isWriteXMLOptional() const;
+        /// @brief return true if atribute is optional (it will be written in XML only if his value is different of default value)
+        bool isOptional() const;
 
         /// @brief return true if atribute is discrete
         bool isDiscrete() const;
 
-        /// @brief return true if atribute is combinable with other Attribute
-        bool isCombinable() const;
+        /// @brief return true if atribute is a list of VClasses
+        bool isVClasses() const;
 
         /// @brief return true if atribute is extended
         bool isExtended() const;
@@ -235,14 +230,11 @@ public:
         /// @brief return true if atribute requires a update geometry in setAttribute(...)
         bool requireUpdateGeometry() const;
 
-        /// @brief return true if atribute is optional
-        bool isOptional() const;
+        /// @brief return true if atribute is activatable
+        bool isActivatable() const;
 
         /// @brief return true if atribute is complex
         bool isComplex() const;
-
-        /// @brief return true if atribute is enablitable
-        bool isEnablitable() const;
 
         /// @brief return true if atribute is part of a flow definition
         bool isFlowDefinition() const;
@@ -774,7 +766,7 @@ public:
             }
         } else {
             // if attribute is optional and has a default value, obtain it. In other case, abort.
-            if (attrProperties.isWriteXMLOptional()) {
+            if (attrProperties.isOptional()) {
                 parsedAttribute = attrProperties.getDefaultValue();
             } else {
                 WRITE_WARNING("Essential " + attrProperties.getDescription() + " attribute '" + toString(attribute) + "' of " +
