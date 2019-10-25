@@ -58,6 +58,8 @@ vehicles are automatically ignored and loading proceeds without errors.
 - The state of the random number generate is not saved. Thus,
   simulations will behave differently from the original after being
   reloaded from a state.
+- The internal state of the lanChangeModel is not saved
+- the internal state of the carFollowModel is not saved (not all models have this).
 - Persons are not saved
 
 # Older Versions of SUMO
