@@ -514,6 +514,9 @@ public:
     /// @brief Information whether the communication range shall be drawn
     bool showBTRange;
 
+    /// @brief Information whether the route index should be shown
+    bool showRouteIndex;
+
     // Setting bundles for controling the size of the drawn vehicles
     GUIVisualizationSizeSettings vehicleSize;
 

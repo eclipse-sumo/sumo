@@ -212,7 +212,7 @@ GUIMEVehicle::getColorValue(const GUIVisualizationSettings& /* s */, int activeS
 
 
 void
-GUIMEVehicle::drawRouteHelper(const GUIVisualizationSettings& s, const MSRoute& r, bool future) const {
+GUIMEVehicle::drawRouteHelper(const GUIVisualizationSettings& s, const MSRoute& r, bool future, const RGBColor& /*col*/) const {
     const double exaggeration = s.vehicleSize.getExaggeration(s, this);
     MSRouteIterator i = future ? myCurrEdge : r.begin();
     for (; i != r.end(); ++i) {

@@ -721,14 +721,15 @@ GUIBaseVehicle::removeActiveAddVisualisation(GUISUMOAbstractView* const parent, 
 
 void
 GUIBaseVehicle::drawRoute(const GUIVisualizationSettings& s, int routeNo, double darken, bool future) const {
-    GLHelper::setColor(setColor(s).changedBrightness((int)(darken * -255)));
+    RGBColor darker = setColor(s).changedBrightness((int)(darken * -255));
+    GLHelper::setColor(darker);
     if (routeNo == 0) {
-        drawRouteHelper(s, myVehicle.getRoute(), future);
+        drawRouteHelper(s, myVehicle.getRoute(), future, darker);
         return;
     }
     const MSRoute* route = myRoutes->getRoute(routeNo - 1); // only prior routes are stored
     if (route != nullptr) {
-        drawRouteHelper(s, *route, future);
+        drawRouteHelper(s, *route, future, darker);
     }
 }
 

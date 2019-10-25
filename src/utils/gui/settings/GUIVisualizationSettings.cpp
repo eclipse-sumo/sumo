@@ -332,7 +332,9 @@ GUIVisualizationSettings::GUIVisualizationSettings(bool _netedit) :
     drawLaneChangePreference(false),
     drawMinGap(false),
     drawBrakeGap(false),
-    showBTRange(false), vehicleSize(1),
+    showBTRange(false),
+    showRouteIndex(false),
+    vehicleSize(1),
     vehicleName(false, 60, RGBColor(204, 153, 0, 255)),
     vehicleValue(false, 80, RGBColor::CYAN),
     vehicleText(false, 80, RGBColor::RED),
@@ -1251,6 +1253,8 @@ GUIVisualizationSettings::save(OutputDevice& dev) const {
     dev.writeAttr("showBlinker", showBlinker);
     dev.writeAttr("drawMinGap", drawMinGap);
     dev.writeAttr("drawBrakeGap", drawBrakeGap);
+    dev.writeAttr("showBTRange", showBTRange);
+    dev.writeAttr("showRouteIndex", showRouteIndex);
     dev.lf();
     dev << "                 ";
     vehicleName.print(dev, "vehicleName");
@@ -1469,6 +1473,9 @@ GUIVisualizationSettings::operator==(const GUIVisualizationSettings& v2) {
         return false;
     }
     if (showBTRange != v2.showBTRange) {
+        return false;
+    }
+    if (showRouteIndex != v2.showRouteIndex) {
         return false;
     }
     if (vehicleName != v2.vehicleName) {
