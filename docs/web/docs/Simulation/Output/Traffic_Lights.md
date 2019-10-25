@@ -35,7 +35,7 @@ The output looks like this:
 </tlsStates>
 ```
 
-The state is saved in each simulation second. The state itself is coded
+The state is saved in each simulation step. The state itself is coded
 as a list of the characters 'G', 'Y', and 'R', standing for "green",
 "yellow", and "red", respectively, see [Simulation/Traffic
 Lights](../../Simulation/Traffic_Lights.md). Each character describes
