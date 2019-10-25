@@ -23,6 +23,7 @@
 
 #include <sstream>
 #include <iostream>
+#include <iomanip>
 #include "SUMOTime.h"
 #include "StringTokenizer.h"
 #include "StringUtils.h"
@@ -66,14 +67,16 @@ string2time(const std::string& r) {
 std::string
 time2string(SUMOTime t) {
     std::ostringstream oss;
-    oss.setf(oss.fixed);
-    oss.precision(gPrecision);
-    const SUMOTime second = TIME2STEPS(1);
     if (t < 0) {
         oss << "-";
     }
     // needed for signed zero errors, see #5926
     t = abs(t);
+    const SUMOTime scale = (SUMOTime)pow(10, MAX2(0, 3 - gPrecision));
+    if (scale > 1) {
+        t = (t + scale / 2) / scale;
+    }
+    const SUMOTime second = TIME2STEPS(1) / scale;
     if (gHumanReadableTime) {
         const SUMOTime minute = 60 * second;
         const SUMOTime hour = 60 * minute;
@@ -83,33 +86,21 @@ time2string(SUMOTime t) {
             oss << t / day << ":";
             t %= day;
         }
-        // hours, pad with zero
-        if (t / hour < 10) {
-            oss << "0";
-        }
+        oss << std::setfill('0') << std::setw(2);
         oss << t / hour << ":";
-        // minutes, pad with zero
         t %= hour;
-        if (t / minute < 10) {
-            oss << "0";
-        }
-        oss << t / minute << ":";
-        // seconds, pad with zero
+        oss << std::setw(2) << t / minute << ":";
         t %= minute;
-        if (t / second < 10) {
-            oss << "0";
-        }
-        if (t % second != 0 || TS != 1.) {
-            oss << STEPS2TIME(t);
-        } else {
-            oss << t / second;
+        oss << std::setw(2) << t / second;
+        t %= second;
+        if (t != 0 || TS != 1.) {
+            oss << std::setw(MIN2(3, gPrecision));
+            oss << "." << t;
         }
     } else {
-        if (t >= TIME2STEPS(10)) {
-            oss << t / TIME2STEPS(10);
-            t %= TIME2STEPS(10);
-        }
-        oss << STEPS2TIME(t);
+        oss << t / second << ".";
+        oss << std::setfill('0') << std::setw(MIN2(3, gPrecision));
+        oss << t % second;
     }
     return oss.str();
 }
