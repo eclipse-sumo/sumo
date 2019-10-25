@@ -235,7 +235,7 @@ public:
         void hideAttributesCreatorFlowModul();
 
         /// @brief set parameters
-        void setFlowParameters(const std::vector<std::pair<std::string, std::string> > &parameters);
+        void setFlowParameters(std::map<SumoXMLAttr, std::string> &parameters);
 
         /// @brief check if parameters of attributes are valid
         bool areValuesValid() const;

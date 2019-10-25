@@ -689,6 +689,9 @@ GNEFrameAttributesModuls::AttributesCreator::getAttributesAndValues(bool include
             }
         }
     }
+    // add extra flow attributes (only will updated if myAttributesCreatorFlow is shown)
+    myAttributesCreatorFlow->setFlowParameters(values);
+    // return values
     return values;
 }
 
@@ -845,8 +848,9 @@ GNEFrameAttributesModuls::AttributesCreatorFlow::hideAttributesCreatorFlowModul(
 
 
 void 
-GNEFrameAttributesModuls::AttributesCreatorFlow::setFlowParameters(const std::vector<std::pair<std::string, std::string> > &parameters) {
-
+GNEFrameAttributesModuls::AttributesCreatorFlow::setFlowParameters(std::map<SumoXMLAttr, std::string> &parameters) {
+    // temporal
+    parameters[SUMO_ATTR_VEHSPERHOUR] = "3600";
 }
 
 
