@@ -37,12 +37,15 @@ option **--num-clients** {{DT_INT}}, where 1 is the default. Please note that in
 scenarios you must explicity specify the execution order of the clients
 using the
 [*SetOrder*-command](TraCI/Control-related_commands.md#command_0x03_setorder).
-Each client must specify a unique (but otherwise arbitrar) integer value
+
+Each client must specify a unique (but otherwise arbitrary) integer value
 and the client commands will be handled in the order from the lowest to
-the highest value.
+the highest value within each simulation step.
+
+The clients are automatically synchronized after every simulation step. This means, the simulation does not advance to the next step until all clients have called the 'simulationStep'' command. Also, the simulationStep command only returns control to the client after the simulation has advanced.
 
 !!! caution
-    The simulation will only start once all clients have connected. To advance the simulation, all clients must sent the *simulationStep* command.
+    The simulation will only start once all clients have connected. 
 
 ### Protocol specification
 
