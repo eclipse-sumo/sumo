@@ -68,12 +68,6 @@ public:
         /// @brief return value
         std::string getValue() const;
 
-        /// @brief return status of radio button
-        bool getAttributeRadioButtonCheck() const;
-
-        /// @brief enable or disable radio button for disjoint attributes
-        void setAttributeRadioButtonCheck(bool value);
-
         /// @brief return status of label checkbox button
         bool getAttributeCheckButtonCheck() const;
 
@@ -108,9 +102,6 @@ public:
 
         /// @brief called when user press the "Color" button
         long onCmdSelectColorButton(FXObject*, FXSelector, void*);
-
-        /// @brief called when user press a radio button
-        long onCmdSelectRadioButton(FXObject*, FXSelector, void*);
         /// @}
 
     protected:
@@ -137,9 +128,6 @@ public:
 
         /// @brief Label with the name of the attribute
         FXLabel* myAttributeLabel = nullptr;
-
-        /// @brief Radio button for disjoint attributes
-        FXRadioButton* myAttributeRadioButton = nullptr;
 
         /// @brief check button to enable/disable Label attribute
         FXCheckButton* myAttributeCheckButton = nullptr;
@@ -201,9 +189,6 @@ public:
         /// @brief Called when help button is pressed
         long onCmdHelp(FXObject*, FXSelector, void*);
         /// @}
-
-        /// @brief update disjoint attributes
-        void updateDisjointAttributes(AttributesCreatorRow* row);
 
         /// @brief refresh rows (called after creating an element)
         void refreshRows();
@@ -347,9 +332,6 @@ public:
         /// @brief called when user press a check button
         long onCmdSelectCheckButton(FXObject*, FXSelector, void*);
 
-        /// @brief called when user press the radio button or the checkbox for enabling/disabling attributes
-        long onCmdEnableAttribute(FXObject* obj, FXSelector, void*);
-
         /// @brief open model dialog for more comfortable attribute editing
         long onCmdOpenAttributeDialog(FXObject*, FXSelector, void*);
         /// @}
@@ -372,9 +354,6 @@ public:
 
         /// @brief pointer to attribute label
         FXLabel* myAttributeLabel = nullptr;
-
-        /// @brief Radio button for disjoint attributes
-        FXRadioButton* myAttributeRadioButton = nullptr;
 
         /// @brief pointer to attribute  menu check
         FXCheckButton* myAttributeCheckButton = nullptr;
