@@ -216,7 +216,7 @@ if (SUMO_LIBRARIES AND WIN32)
                                  "${SUMO_LIBRARIES}${LIB_VERSION}/3rdPartyLibs/sqlite-?.?.?/*.dll")
     # set MSVC dlls
     if ("${MSVC_VERSION}" STREQUAL "1800")
-        file(GLOB MSVC_DLLS "${SUMO_LIBRARIES}/msvc12${LIB_VERSION}/runtimes/*.dll")
+        file(GLOB MSVC_DLLS "${SUMO_LIBRARIES}${LIB_VERSION}/runtimes/*.dll" "${SUMO_LIBRARIES}/msvc12${LIB_VERSION}/runtimes/*.dll")
     else()
         file(GLOB MSVC_DLLS "${SUMO_LIBRARIES}${LIB_VERSION}/runtimes/*.dll")
     endif ()
