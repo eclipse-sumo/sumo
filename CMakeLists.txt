@@ -150,11 +150,7 @@ endif ()
 # check if SUMOLibraries was found (Only in Windows)
 if (SUMO_LIBRARIES AND WIN32)
     # set option for install debug and release runtime dlls
-    option(INSTALL_DLL_RUNTIMES "Copy debug and release runtimes for MSVC" false)
-    # check if we need to force copy msvc runtimes
-    if ("${MSVC_VERSION}" STREQUAL "1800")
-        set (INSTALL_DLL_RUNTIMES true)
-    endif ()
+    option(INSTALL_DLL_RUNTIMES "Copy debug and release runtimes for MSVC" true)
     # Special option for MinGW32
     if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU" AND WIN32)
         if (USE_MINGW_64BITS)
