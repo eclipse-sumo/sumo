@@ -1,0 +1,7 @@
+Error: Connection from=gneE1 to=gneE3 fromLane=0 toLane=0 not found
+Error: Connection from=gneE1 to=gneE5 fromLane=0 toLane=0 not found
+Error: Connection from=gneE4 to=gneE5 fromLane=0 toLane=0 not found
+Error: Connection from=gneE4 to=gneE2 fromLane=0 toLane=0 not found
+Error: Connection from=gneE6 to=gneE2 fromLane=0 toLane=0 not found
+Error: Connection from=gneE6 to=gneE3 fromLane=0 toLane=0 not found
+Quitting (on error).

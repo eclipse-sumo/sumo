@@ -1,15 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 16.10.2019 15:56:35 by Eclipse SUMO netedit Version v1_3_1+0601-3c61f6969dd
+<!-- generated on Sun Oct 27 21:18:30 2019 by Eclipse SUMO netconvert Version v1_3_1+0715-74546f83166
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="D:\behr_mi\Projekte\sumo\git\tests\netconvert\import\XML\alter_tls_program\input_net.net.xml"/>
+        <sumo-net-file value="input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="D:\behr_mi\Projekte\sumo\git\tests\netconvert\import\XML\alter_tls_program\input_net.net.xml"/>
-        <plain-output-prefix value="D:\behr_mi\Projekte\sumo\git\tests\netconvert\import\XML\alter_tls_program\wrong_id\input_nodes"/>
+        <plain-output-prefix value="input_edges"/>
     </output>
 
     <processing>

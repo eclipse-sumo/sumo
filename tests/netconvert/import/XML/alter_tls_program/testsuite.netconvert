@@ -15,3 +15,6 @@ type_only
 
 # only modify the link indices for selected links
 linkIndex_only
+
+#trying to add an tll file to plain input without having connections
+no_plain_conns
