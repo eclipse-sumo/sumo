@@ -855,7 +855,7 @@ GNEFrameAttributesModuls::AttributesCreatorFlow::setFlowParameters(std::map<Sumo
 
 
 void
-GNEFrameAttributesModuls::AttributesCreatorFlow::showWarningMessage(std::string extra) const {
+GNEFrameAttributesModuls::AttributesCreatorFlow::showWarningMessage(std::string /* extra */) const {
     std::string errorMessage;
     /*
     // iterate over standar parameters
@@ -898,7 +898,7 @@ GNEFrameAttributesModuls::AttributesCreatorFlow::areValuesValid() const {
 
 
 void
-GNEFrameAttributesModuls::AttributesCreatorFlow::updateDisjointAttributes(AttributesCreatorRow* row) {
+GNEFrameAttributesModuls::AttributesCreatorFlow::updateDisjointAttributes(AttributesCreatorRow* /* row */) {
     /*
     // currently only Flows supports disjoint attributes
     if ((myTagProperties.getTag() == SUMO_TAG_ROUTEFLOW) || (myTagProperties.getTag() == SUMO_TAG_FLOW) || (myTagProperties.getTag() == SUMO_TAG_PERSONFLOW)) {
@@ -1850,7 +1850,7 @@ GNEFrameAttributesModuls::AttributesEditorFlow::refreshAttributeEditorFlow() {
                     attributeEnabled = false;
                 }
             }
-            /*
+
             // Check if refresh of Position or Shape has to be forced
             if ((i.getAttr()  == SUMO_ATTR_SHAPE) && forceRefreshShape) {
                 myAttributesEditorFlowRows[i.getPositionListed()]->refreshAttributesEditorFlowRow(value, true, attributeEnabled);

@@ -517,10 +517,11 @@ GNEConnection::isAttributeEnabled(SumoXMLAttr key) const {
             // this attributes cannot be edited
             return false;
         case SUMO_ATTR_TLLINKINDEX:
-            // iterate over Traffic Light definitions
-            for (NBTrafficLightDefinition* tlDef : getEdgeFrom()->getNBEdge()->getToNode()->getControllingTLS()) {
+            // get Traffic Light definitions
+            if (getEdgeFrom()->getNBEdge()->getToNode()->isTLControlled()) {
+                NBTrafficLightDefinition* tlDef = *getEdgeFrom()->getNBEdge()->getToNode()->getControllingTLS().begin();
                 NBLoadedSUMOTLDef* sumoDef = dynamic_cast<NBLoadedSUMOTLDef*>(tlDef);
-                NBTrafficLightLogic* tllogic = sumoDef ? sumoDef->getLogic() : tlDef->compute(OptionsCont::getOptions());
+                NBTrafficLightLogic* tllogic = sumoDef != nullptr ? sumoDef->getLogic() : tlDef->compute(OptionsCont::getOptions());
                 if (tllogic != nullptr) {
                     return true;
                 } else {
