@@ -1585,51 +1585,74 @@ GNEFrameAttributesModuls::AttributesEditor::hideAttributesEditorModul() {
 
 void
 GNEFrameAttributesModuls::AttributesEditor::refreshAttributeEditor(bool forceRefreshShape, bool forceRefreshPosition) {
+    // declare flag to check if flow editor has to be shown
+    bool showFlowEditor = false;
     if (myEditedACs.size() > 0) {
         // Iterate over attributes
-        for (const auto& i : myEditedACs.front()->getTagProperty()) {
+        for (const auto& tagProperty : myEditedACs.front()->getTagProperty()) {
+            // declare flag to show/hidde atribute
+            bool editAttribute = true;
             // disable editing for unique attributes in case of multi-selection
-            if ((myEditedACs.size() > 1) && i.isUnique()) {
-                continue;
+            if ((myEditedACs.size() > 1) && tagProperty.isUnique()) {
+                editAttribute = false;
             }
-            // Declare a set of occuring values and insert attribute's values of item
-            std::set<std::string> occuringValues;
-            for (const auto& it_ac : myEditedACs) {
-                occuringValues.insert(it_ac->getAttribute(i.getAttr()));
+            // disable editing of extended attributes if includeExtended isn't enabled
+            if (tagProperty.isExtended() && !myIncludeExtended) {
+                editAttribute = false;
             }
-            // get current value
-            std::ostringstream oss;
-            for (auto it_val = occuringValues.begin(); it_val != occuringValues.end(); it_val++) {
-                if (it_val != occuringValues.begin()) {
-                    oss << " ";
+            // disable editing of flow definition attributes, but enable flow editor
+            if (tagProperty.isFlowDefinition()) {
+                editAttribute = false;
+                showFlowEditor = true;
+            }
+            // continue if attribute is editable
+            if (editAttribute) {
+                // Declare a set of occuring values and insert attribute's values of item (note: We use a set to avoid repeated values)
+                std::set<std::string> occuringValues;
+                // iterate over edited attributes
+                for (const auto& it_ac : myEditedACs) {
+                    occuringValues.insert(it_ac->getAttribute(tagProperty.getAttr()));
                 }
-                oss << *it_val;
-            }
-            // obtain value to be shown in row
-            std::string value = oss.str();
-            // declare a flag for enabled attributes
-            bool attributeEnabled = myEditedACs.front()->isAttributeEnabled(i.getAttr());
-            // overwritte value if attribute is disabled (used by LinkIndex)
-            if (attributeEnabled == false) {
-                value = myEditedACs.front()->getAlternativeValueForDisabledAttributes(i.getAttr());
-            }
-            // extra check for Triggered and container Triggered
-            if (myEditedACs.front()->getTagProperty().isStop() || myEditedACs.front()->getTagProperty().isPersonStop()) {
-                if((i.getAttr() == SUMO_ATTR_EXPECTED) && (myEditedACs.front()->isAttributeEnabled(SUMO_ATTR_TRIGGERED) == false)) {
-                    attributeEnabled = false;
-                } else if ((i.getAttr() == SUMO_ATTR_EXPECTED_CONTAINERS) && (myEditedACs.front()->isAttributeEnabled(SUMO_ATTR_CONTAINER_TRIGGERED) == false)) {
-                    attributeEnabled = false;
+                // get current value
+                std::ostringstream oss;
+                for (auto values = occuringValues.begin(); values != occuringValues.end(); values++) {
+                    if (values != occuringValues.begin()) {
+                        oss << " ";
+                    }
+                    oss << *values;
                 }
-            }
-            // Check if refresh of Position or Shape has to be forced
-            if ((i.getAttr()  == SUMO_ATTR_SHAPE) && forceRefreshShape) {
-                myAttributesEditorRows[i.getPositionListed()]->refreshAttributesEditorRow(value, true, attributeEnabled);
-            } else if ((i.getAttr()  == SUMO_ATTR_POSITION) && forceRefreshPosition) {
-                // Refresh attributes maintain invalid values
-                myAttributesEditorRows[i.getPositionListed()]->refreshAttributesEditorRow(value, true, attributeEnabled);
-            } else {
-                // Refresh attributes maintain invalid values
-                myAttributesEditorRows[i.getPositionListed()]->refreshAttributesEditorRow(value, false, attributeEnabled);
+                // obtain value to be shown in row
+                std::string value = oss.str();
+                // declare a flag for enabled attributes
+                bool attributeEnabled = myEditedACs.front()->isAttributeEnabled(tagProperty.getAttr());
+                // overwritte value if attribute is disabled (used by LinkIndex)
+                if (attributeEnabled == false) {
+                    value = myEditedACs.front()->getAlternativeValueForDisabledAttributes(tagProperty.getAttr());
+                }
+                // extra check for Triggered and container Triggered
+                if (myEditedACs.front()->getTagProperty().isStop() || myEditedACs.front()->getTagProperty().isPersonStop()) {
+                    if((tagProperty.getAttr() == SUMO_ATTR_EXPECTED) && (myEditedACs.front()->isAttributeEnabled(SUMO_ATTR_TRIGGERED) == false)) {
+                        attributeEnabled = false;
+                    } else if ((tagProperty.getAttr() == SUMO_ATTR_EXPECTED_CONTAINERS) && (myEditedACs.front()->isAttributeEnabled(SUMO_ATTR_CONTAINER_TRIGGERED) == false)) {
+                        attributeEnabled = false;
+                    }
+                }
+                /*
+                // if forceEnablellAttribute is enable, force attributeEnabled (except for ID)
+                if (myForceAttributeEnabled && (tagProperty.getAttr() != SUMO_ATTR_ID)) {
+                    attributeEnabled = true;
+                }
+                */
+                // Check if Position or Shape refresh has to be forced
+                if ((tagProperty.getAttr() == SUMO_ATTR_SHAPE) && forceRefreshShape) {
+                    myAttributesEditorRows[tagProperty.getPositionListed()]->refreshAttributesEditorRow(value, true, attributeEnabled);
+                } else if ((tagProperty.getAttr()  == SUMO_ATTR_POSITION) && forceRefreshPosition) {
+                    // Refresh attributes maintain invalid values
+                    myAttributesEditorRows[tagProperty.getPositionListed()]->refreshAttributesEditorRow(value, true, attributeEnabled);
+                } else {
+                    // Refresh attributes maintain invalid values
+                    myAttributesEditorRows[tagProperty.getPositionListed()]->refreshAttributesEditorRow(value, false, attributeEnabled);
+                }
             }
         }
     }
