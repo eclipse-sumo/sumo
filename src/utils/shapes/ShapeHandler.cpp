@@ -225,17 +225,19 @@ ShapeHandler::addPoly(const SUMOSAXAttributes& attrs, const bool ignorePruning, 
             gch = &GeoConvHelper::getFinal();
         }
         // check if poly use geo coordinates
-        bool success = true;
-        for (int i = 0; i < (int)shape.size(); i++) {
-            if (useProcessing) {
-                success &= GeoConvHelper::getProcessing().x2cartesian(shape[i]);
-            } else {
-                success &= gch->x2cartesian_const(shape[i]);
+        if (geo || useProcessing) {
+            bool success = true;
+            for (int i = 0; i < (int)shape.size(); i++) {
+                if (useProcessing) {
+                    success &= GeoConvHelper::getProcessing().x2cartesian(shape[i]);
+                } else {
+                    success &= gch->x2cartesian_const(shape[i]);
+                }
             }
-        }
-        if (!success) {
-            WRITE_WARNING("Unable to project coordinates for polygon '" + id + "'.");
-            return;
+            if (!success) {
+                WRITE_WARNING("Unable to project coordinates for polygon '" + id + "'.");
+                return;
+            }
         }
         const double angle = attrs.getOpt<double>(SUMO_ATTR_ANGLE, id.c_str(), ok, Shape::DEFAULT_ANGLE);
         std::string imgFile = attrs.getOpt<std::string>(SUMO_ATTR_IMGFILE, id.c_str(), ok, Shape::DEFAULT_IMG_FILE);
