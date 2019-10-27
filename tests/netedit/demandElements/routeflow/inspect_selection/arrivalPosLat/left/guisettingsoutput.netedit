@@ -110,7 +110,7 @@
                 <entry color="1.00" name="uniform"/>
             </scalingScheme>
         </edges>
-        <vehicles vehicleMode="0" vehicleQuality="0" vehicle_minSize="1.00" vehicle_exaggeration="1.00" vehicle_constantSize="0" vehicle_constantSizeSelected="0" showBlinker="1" drawMinGap="0" drawBrakeGap="0"
+        <vehicles vehicleMode="0" vehicleQuality="0" vehicle_minSize="1.00" vehicle_exaggeration="1.00" vehicle_constantSize="0" vehicle_constantSizeSelected="0" showBlinker="1" drawMinGap="0" drawBrakeGap="0" showBTRange="0" showRouteIndex="0"
                   vehicleName_show="0" vehicleName_size="60.00" vehicleName_color="204,153,0" vehicleName_bgColor="128,0,0,0" vehicleName_constantSize="1"
                   vehicleValue_show="0" vehicleValue_size="80.00" vehicleValue_color="cyan" vehicleValue_bgColor="128,0,0,0" vehicleValue_constantSize="1"
                   vehicleText_show="0" vehicleText_size="80.00" vehicleText_color="red" vehicleText_bgColor="128,0,0,0" vehicleText_constantSize="1">

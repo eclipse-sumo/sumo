@@ -1,8 +1,8 @@
 <viewsettings>
-    <scheme name="standard">
+    <scheme name="testing">
         <opengl dither="0" fps="0" drawBoundaries="0" forceDrawSelecting="0"/>
-        <background backgroundColor="white" showGrid="0" gridXSize="100.00" gridYSize="100.00"/>
-        <edges laneEdgeMode="0" scaleMode="0" laneShowBorders="1" showBikeMarkings="1" showLinkDecals="1" showLinkRules="1" showRails="1" hideConnectors="0" widthExaggeration="1.00" minSize="0.00" showDirection="0" showSublanes="1" spreadSuperposed="0" edgeParam="EDGE_KEY" laneParam="LANE_KEY" vehicleParam="PARAM_NUMERICAL" vehicleTextParam="PARAM_TEXT" edgeData="speed"
+        <background backgroundColor="white" showGrid="1" gridXSize="1.00" gridYSize="1.00"/>
+        <edges laneEdgeMode="0" scaleMode="0" laneShowBorders="0" showBikeMarkings="1" showLinkDecals="1" showLinkRules="1" showRails="1" hideConnectors="0" widthExaggeration="1.00" minSize="0.00" showDirection="0" showSublanes="1" spreadSuperposed="0" edgeParam="EDGE_KEY" laneParam="LANE_KEY" vehicleParam="PARAM_NUMERICAL" vehicleTextParam="PARAM_TEXT" edgeData="speed"
                 edgeName_show="0" edgeName_size="60.00" edgeName_color="orange" edgeName_bgColor="128,0,0,0" edgeName_constantSize="1"
                 internalEdgeName_show="0" internalEdgeName_size="45.00" internalEdgeName_color="128,64,0" internalEdgeName_bgColor="128,0,0,0" internalEdgeName_constantSize="1"
                 cwaEdgeName_show="0" cwaEdgeName_size="60.00" cwaEdgeName_color="magenta" cwaEdgeName_bgColor="128,0,0,0" cwaEdgeName_constantSize="1"
@@ -199,5 +199,5 @@
         </polys>
         <legend showSizeLegend="1" showColorLegend="0"/>
     </scheme>
-    <viewport zoom="100.00" x="41.40" y="40.00" angle="0.00"/>
+    <viewport zoom="100.00" x="25.00" y="0.00" angle="0.00"/>
 </viewsettings>

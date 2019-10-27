@@ -1,20 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 14.08.2019 12:52:18 by Eclipse SUMO netedit Version v1_2_0+1572-82b725e2be
+<!-- generated on 10/27/2019 8:45:03 AM by Eclipse SUMO netedit Version v1_3_1+0712-b5fac1c722
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.14Aug123423.9400/netedit.gui/demandElements/routeflow/inspect/departPosLat/float\input_net.net.xml"/>
+        <sumo-net-file value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.1_from_26Oct155707.568\netedit.gui\demandElements\routeflow\inspect\departPosLat\float\input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.14Aug123423.9400/netedit.gui/demandElements/routeflow/inspect/departPosLat/float\net.net.xml"/>
+        <output-file value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.1_from_26Oct155707.568\netedit.gui\demandElements\routeflow\inspect\departPosLat\float\net.net.xml"/>
     </output>
 
     <processing>
         <geometry.max-grade.fix value="false"/>
         <offset.disable-normalization value="true"/>
-        <opposites.guess.fix-lengths value="true"/>
         <lefthand value="false"/>
     </processing>
 
@@ -30,23 +29,25 @@
     </pedestrian>
 
     <netedit>
-        <additional-files value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.14Aug123423.9400/netedit.gui/demandElements/routeflow/inspect/departPosLat/float\additionals.xml"/>
-        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.14Aug123423.9400/netedit.gui/demandElements/routeflow/inspect/departPosLat/float\additionals.xml"/>
-        <route-files value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.14Aug123423.9400/netedit.gui/demandElements/routeflow/inspect/departPosLat/float\routes.xml"/>
-        <demandelements-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.14Aug123423.9400/netedit.gui/demandElements/routeflow/inspect/departPosLat/float\routes.xml"/>
+        <additional-files value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.1_from_26Oct155707.568\netedit.gui\demandElements\routeflow\inspect\departPosLat\float\additionals.xml"/>
+        <additionals-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.1_from_26Oct155707.568\netedit.gui\demandElements\routeflow\inspect\departPosLat\float\additionals.xml"/>
+        <route-files value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.1_from_26Oct155707.568\netedit.gui\demandElements\routeflow\inspect\departPosLat\float\routes.xml"/>
+        <demandelements-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.1_from_26Oct155707.568\netedit.gui\demandElements\routeflow\inspect\departPosLat\float\routes.xml"/>
     </netedit>
 
     <visualisation>
+        <gui-settings-file value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.1_from_26Oct155707.568\netedit.gui\demandElements\routeflow\inspect\departPosLat\float\gui-settings.xml"/>
         <window-size value="700,500"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
         <gui-testing-debug value="true"/>
         <gui-testing-debug-gl value="true"/>
+        <gui-testing.setting-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.1_from_26Oct155707.568\netedit.gui\demandElements\routeflow\inspect\departPosLat\float\guisettingsoutput.xml"/>
     </visualisation>
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.14Aug123423.9400/netedit.gui/demandElements/routeflow/inspect/departPosLat/float\log.txt"/>
+        <error-log value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.1_from_26Oct155707.568\netedit.gui\demandElements\routeflow\inspect\departPosLat\float\log.txt"/>
     </report>
 
 </configuration>
@@ -54,5 +55,5 @@
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
     <route edges="gneE2 gneE4 gneE5" color="yellow" id="route_0"/>
-    <flow id="routeFlow_0" begin="0.00" departPosLat="0.00" route="route_0" end="3600.00" number="1800"/>
+    <flow id="routeFlow_0" begin="0.00" departPosLat="0.00" route="route_0" end="3600.00" vehsPerHour="3600.00"/>
 </routes>

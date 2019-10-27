@@ -1,20 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 15.08.2019 15:18:34 by Eclipse SUMO netedit Version v1_2_0+1609-dec6469ca7
+<!-- generated on 10/27/2019 11:00:59 AM by Eclipse SUMO netedit Version v1_3_1+0712-b5fac1c722
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.15Aug151721.7948/netedit.gui/demandElements/personFlow/create/default_walk/default_walk_fromto\input_net.net.xml"/>
+        <sumo-net-file value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.1_from_26Oct155707.568\netedit.gui\demandElements\personFlow\create\default_walk\default_walk_fromto\input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.15Aug151721.7948/netedit.gui/demandElements/personFlow/create/default_walk/default_walk_fromto\net.net.xml"/>
+        <output-file value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.1_from_26Oct155707.568\netedit.gui\demandElements\personFlow\create\default_walk\default_walk_fromto\net.net.xml"/>
     </output>
 
     <processing>
         <geometry.max-grade.fix value="false"/>
         <offset.disable-normalization value="true"/>
-        <opposites.guess.fix-lengths value="true"/>
         <lefthand value="false"/>
     </processing>
 
@@ -30,30 +29,32 @@
     </pedestrian>
 
     <netedit>
-        <additional-files value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.15Aug151721.7948/netedit.gui/demandElements/personFlow/create/default_walk/default_walk_fromto\additionals.xml"/>
-        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.15Aug151721.7948/netedit.gui/demandElements/personFlow/create/default_walk/default_walk_fromto\additionals.xml"/>
-        <route-files value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.15Aug151721.7948/netedit.gui/demandElements/personFlow/create/default_walk/default_walk_fromto\routes.xml"/>
-        <demandelements-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.15Aug151721.7948/netedit.gui/demandElements/personFlow/create/default_walk/default_walk_fromto\routes.xml"/>
+        <additional-files value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.1_from_26Oct155707.568\netedit.gui\demandElements\personFlow\create\default_walk\default_walk_fromto\additionals.xml"/>
+        <additionals-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.1_from_26Oct155707.568\netedit.gui\demandElements\personFlow\create\default_walk\default_walk_fromto\additionals.xml"/>
+        <route-files value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.1_from_26Oct155707.568\netedit.gui\demandElements\personFlow\create\default_walk\default_walk_fromto\routes.xml"/>
+        <demandelements-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.1_from_26Oct155707.568\netedit.gui\demandElements\personFlow\create\default_walk\default_walk_fromto\routes.xml"/>
     </netedit>
 
     <visualisation>
+        <gui-settings-file value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.1_from_26Oct155707.568\netedit.gui\demandElements\personFlow\create\default_walk\default_walk_fromto\gui-settings.xml"/>
         <window-size value="700,500"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
         <gui-testing-debug value="true"/>
         <gui-testing-debug-gl value="true"/>
+        <gui-testing.setting-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.1_from_26Oct155707.568\netedit.gui\demandElements\personFlow\create\default_walk\default_walk_fromto\guisettingsoutput.xml"/>
     </visualisation>
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.15Aug151721.7948/netedit.gui/demandElements/personFlow/create/default_walk/default_walk_fromto\log.txt"/>
+        <error-log value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.1_from_26Oct155707.568\netedit.gui\demandElements\personFlow\create\default_walk\default_walk_fromto\log.txt"/>
     </report>
 
 </configuration>
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-    <personFlow id="personFlow_0" begin="0.00" end="3600.00" number="1800">
-        <walk from="gneE2" to="gneE5"/>
+    <personFlow id="personFlow_0" begin="0.00" end="3600.00" vehsPerHour="3600.00">
+        <personTrip from="gneE2" to="gneE5"/>
     </personFlow>
 </routes>

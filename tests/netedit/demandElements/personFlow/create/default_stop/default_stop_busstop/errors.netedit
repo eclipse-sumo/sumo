@@ -75,28 +75,16 @@ Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
 Debug: Selected item 'personTripFromTo' in TagSelector
 Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
 Debug: Selected item 'personFlow' in TagSelector
-Debug: Selected item 'personStopBusStop' in TagTypeSelector
-Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
-Debug: Selected item 'personStopBusStop' in TagSelector
-Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
-Debug: Selected item 'personStopBusStop' in TagSelector
 Debug: ObjectsUnderCursor: GUIGlObjects: 2, AttributeCarriers: 2, NetElements: 1, Additionals: 1, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 1, Lanes: 1, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
-Debug: Adding personFlow 'personFlow_0' in GNEChange_DemandElement
-Debug: DemandElements has to be saved
-Debug: Current saving Status: net saved, additionals unsaved, demand elements unsaved
-Debug: Adding personStopBusStop 'personFlow_0personStopBusStop0' in GNEChange_DemandElement
 Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Removing personStopBusStop 'personFlow_0personStopBusStop0' in GNEChange_DemandElement
-Debug: Removing personFlow 'personFlow_0' in GNEChange_DemandElement
+Debug: Removing busStop 'busStop' in GNEChange_Additional
 Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Adding personFlow 'personFlow_0' in GNEChange_DemandElement
-Debug: Adding personStopBusStop 'personFlow_0personStopBusStop0' in GNEChange_DemandElement
+Debug: Adding busStop 'busStop' in GNEChange_Additional
 Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
-Debug: demand elements saved
 Debug: Additionals saved
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ4 from SUMORTree with boundary 0.00,6.80,20.00,33.20
@@ -134,13 +122,9 @@ GLDebug: 	Inserted edge:gneE6 into SUMORTree with boundary 0.00,48.40,80.00,70.0
 GLDebug: 	Inserted edge:gneE7 into SUMORTree with boundary 0.00,10.00,80.00,31.60
 GLDebug: 	Inserted edge:gneE8 into SUMORTree with boundary 0.00,28.40,50.00,50.00
 GLDebug: 	Inserted edge:gneE9 into SUMORTree with boundary 0.00,30.00,50.00,51.60
-Debug: Deleting unreferenced personStopBusStop 'personFlow_0personStopBusStop0'
-Debug: DemandElements has to be saved
-Debug: Current saving Status: net saved, additionals saved, demand elements unsaved
-Debug: Deleting unreferenced personFlow 'personFlow_0'
 Debug: Deleting unreferenced busStop 'busStop'
 Debug: Additionals has to be saved
-Debug: Current saving Status: net saved, additionals unsaved, demand elements unsaved
+Debug: Current saving Status: net saved, additionals unsaved, demand elements saved
 Debug: Deleting unreferenced edge 'gneE10' in GNENet destructor
 Debug: Deleting unreferenced lane 'gneE10_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'fromgneE10_0togneE8_0' in GNEEdge destructor
