@@ -284,6 +284,10 @@ def Popen(extraParameters, debugInformation):
     neteditCall += ['--demandelements-output',
                     os.path.join(_TEXTTEST_SANDBOX, "routes.xml")]
 
+    # set output for gui
+    neteditCall += ['--gui-testing.setting-output',
+                    os.path.join(_TEXTTEST_SANDBOX, "guisettingsoutput.xml")]
+
     # add extra parameters
     neteditCall += extraParameters
 

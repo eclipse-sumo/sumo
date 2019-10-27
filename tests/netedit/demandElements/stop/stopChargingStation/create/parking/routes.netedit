@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 26.09.2019 16:20:15 by Eclipse SUMO netedit Version v1_3_1+0461-7a12acbeea
+<!-- generated on 10/27/2019 2:38:35 AM by Eclipse SUMO netedit Version v1_3_1+0708-ddae29610d
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.25Sep145557.1772/netedit.gui/demandElements/stop/stopChargingStation/create/parking\input_net.net.xml"/>
+        <sumo-net-file value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.26Oct155707.6684\netedit.gui\demandElements\stop\stopChargingStation\create\parking\input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.25Sep145557.1772/netedit.gui/demandElements/stop/stopChargingStation/create/parking\net.net.xml"/>
+        <output-file value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.26Oct155707.6684\netedit.gui\demandElements\stop\stopChargingStation\create\parking\net.net.xml"/>
     </output>
 
     <processing>
@@ -29,24 +29,25 @@
     </pedestrian>
 
     <netedit>
-        <additional-files value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.25Sep145557.1772/netedit.gui/demandElements/stop/stopChargingStation/create/parking\additionals.xml"/>
-        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.25Sep145557.1772/netedit.gui/demandElements/stop/stopChargingStation/create/parking\additionals.xml"/>
-        <route-files value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.25Sep145557.1772/netedit.gui/demandElements/stop/stopChargingStation/create/parking\routes.xml"/>
-        <demandelements-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.25Sep145557.1772/netedit.gui/demandElements/stop/stopChargingStation/create/parking\routes.xml"/>
+        <additional-files value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.26Oct155707.6684\netedit.gui\demandElements\stop\stopChargingStation\create\parking\additionals.xml"/>
+        <additionals-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.26Oct155707.6684\netedit.gui\demandElements\stop\stopChargingStation\create\parking\additionals.xml"/>
+        <route-files value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.26Oct155707.6684\netedit.gui\demandElements\stop\stopChargingStation\create\parking\routes.xml"/>
+        <demandelements-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.26Oct155707.6684\netedit.gui\demandElements\stop\stopChargingStation\create\parking\routes.xml"/>
     </netedit>
 
     <visualisation>
-        <gui-settings-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.25Sep145557.1772/netedit.gui/demandElements/stop/stopChargingStation/create/parking\gui-settings.xml"/>
+        <gui-settings-file value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.26Oct155707.6684\netedit.gui\demandElements\stop\stopChargingStation\create\parking\gui-settings.xml"/>
         <window-size value="700,500"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
         <gui-testing-debug value="true"/>
         <gui-testing-debug-gl value="true"/>
+        <gui-testing.setting-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.26Oct155707.6684\netedit.gui\demandElements\stop\stopChargingStation\create\parking\guisettingsoutput.xml"/>
     </visualisation>
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.25Sep145557.1772/netedit.gui/demandElements/stop/stopChargingStation/create/parking\log.txt"/>
+        <error-log value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.26Oct155707.6684\netedit.gui\demandElements\stop\stopChargingStation\create\parking\log.txt"/>
     </report>
 
 </configuration>
@@ -55,7 +56,7 @@
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
     <flow id="flow" begin="0.00" from="gneE0" to="gneE1" end="36.00" number="18">
         <stop chargingStation="chargingStationB" duration="60.00"/>
-        <stop chargingStation="chargingStationB" duration="60.00" parking="0"/>
-        <stop chargingStation="chargingStationB" duration="60.00" parking="1"/>
+        <stop chargingStation="chargingStationB" duration="60.00" containerTriggered="1"/>
+        <stop chargingStation="chargingStationB" duration="60.00" containerTriggered="1" expectedContainers=""/>
     </flow>
 </routes>

@@ -30,6 +30,7 @@ netnod:net.nod.xml
 nettll:net.tll.xml
 additionals:additionals.xml
 routes:routes.xml
+guisettingsoutput:guisettingsoutput.xml
 cfg:config.cfg
 log:log.txt
 selection:selection.txt
@@ -42,9 +43,6 @@ additionals:\\{REPLACE /}
 routes:<!--{[->]}-->
 routes:{INTERNAL writedir}{REPLACE <TEXTTEST_SANDBOX>}
 routes:\\{REPLACE /}
-shapes:<!--{[->]}-->
-shapes:{INTERNAL writedir}{REPLACE <TEXTTEST_SANDBOX>}
-shapes:\\{REPLACE /}
 netcon:<!--{[->]}-->
 netedg:<!--{[->]}-->
 netnod:<!--{[->]}-->
@@ -73,3 +71,4 @@ net:0.0101
 output:0.0101
 errors:0.0101
 additionals:0.0101
+routes:0.0101
