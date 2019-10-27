@@ -46,7 +46,7 @@ netedit.changeDefaultValue(3, "instantInductionLoop_gneE0_0_0")
 # try to create E1 with invalid id
 netedit.leftClick(referencePosition, 180, 250)
 
-# set a invalid  id 
+# set a invalid  id
 netedit.changeDefaultValue(3, ";;;")
 
 # try to create E1 with invalid id

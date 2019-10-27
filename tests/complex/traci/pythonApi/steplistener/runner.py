@@ -26,13 +26,14 @@ sys.path.append(os.path.join(os.environ.get("SUMO_HOME", SUMO_HOME), "tools"))
 import traci  # noqa
 import sumolib  # noqa
 
+
 class ExampleListener(traci.StepListener):
     def step(self, t=0):
         # do something at every simulaton step
         print("ExampleListener called at time %s ms." % t)
         # indicate that the step listener should stay active in the next step
         return True
-       
+
 
 traci.start([sumolib.checkBinary('sumo'), "-c", "sumo.sumocfg", "--ignore-route-errors"])
 listener = ExampleListener()
