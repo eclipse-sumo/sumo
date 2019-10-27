@@ -34,9 +34,6 @@ trafficlight
 # Tests the simulation API
 simulation
 
-# Tests the simulation API
-simulation_copy
-
 # Tests the route API
 route
 
