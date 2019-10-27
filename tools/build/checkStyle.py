@@ -21,6 +21,7 @@ from __future__ import print_function
 
 import os
 import subprocess
+import multiprocessing
 import xml.sax
 import codecs
 from optparse import OptionParser
@@ -222,14 +223,15 @@ class PropertyReader(xml.sax.handler.ContentHandler):
                         subprocess.call(
                             ["svn", "ps", "svn:keywords", _KEYWORDS, self._file])
                 if name == 'target':
-                    self.checkFile()
+                    p = self.checkFile()
+                    if p is not None:
+                        p.wait()
             if ext in _VS_EXT:
                 if ((name == 'property' and self._property == "svn:eol-style" and self._value != "CRLF") or
                         (name == "target" and not self._hadEOL)):
                     print(self._file, "svn:eol-style", self._value)
                     if self._fix:
-                        subprocess.call(
-                            ["svn", "ps", "svn:eol-style", "CRLF", self._file])
+                        subprocess.call(["svn", "ps", "svn:eol-style", "CRLF", self._file])
         if name == 'property':
             self._value = ""
             self._property = None
@@ -249,17 +251,20 @@ class PropertyReader(xml.sax.handler.ContentHandler):
         if exclude:
             for x in exclude:
                 if x + "/" in self._file:
-                    return
-        if self._pep and ext == ".py":
-            if HAVE_FLAKE and os.path.getsize(self._file) < 1000000:  # flake hangs on very large files
-                subprocess.call(["flake8", "--max-line-length", "120", self._file])
-            if HAVE_AUTOPEP and self._fix:
-                subprocess.call(["autopep8", "--max-line-length", "120", "--in-place", self._file])
+                    return None
         if ext in (".cpp", ".h", ".java") and HAVE_ASTYLE and self._fix:
             subprocess.call(["astyle", "--style=java", "--unpad-paren", "--pad-header", "--pad-oper",
                              "--add-brackets", "--indent-switches", "--align-pointer=type",
                              "-n", os.path.abspath(self._file)])
             subprocess.call(["sed", "-i", "-e", '$a\\', self._file])
+        if self._pep and ext == ".py":
+            ret = 0
+            if HAVE_FLAKE and os.path.getsize(self._file) < 1000000:  # flake hangs on very large files
+                if not self._fix:
+                    return subprocess.Popen(["flake8", "--max-line-length", "120", self._file])
+                ret = subprocess.call(["flake8", "--max-line-length", "120", self._file])
+            if ret and HAVE_AUTOPEP and self._fix:
+                subprocess.call(["autopep8", "--max-line-length", "120", "--in-place", self._file])
 
 
 optParser = OptionParser()
@@ -281,12 +286,15 @@ elif options.directory:
     repoRoots = [os.path.join(sumoRoot, options.directory)]
 else:
     repoRoots = [sumoRoot]
+procs = []
 for repoRoot in repoRoots:
     if options.verbose:
         print("checking", repoRoot)
     propRead = PropertyReader(options.fix, not options.skip_pep)
     if os.path.isfile(repoRoot):
-        propRead.checkFile(repoRoot)
+        proc = propRead.checkFile(repoRoot)
+        if proc is not None:
+            procs.append(proc)
         continue
     try:
         oldDir = os.getcwd()
@@ -295,7 +303,11 @@ for repoRoot in repoRoots:
         for name in subprocess.check_output(["git", "ls-files"]).splitlines():
             ext = os.path.splitext(name)[1]
             if ext in _SOURCE_EXT:
-                propRead.checkFile(name, exclude)
+                proc = propRead.checkFile(name, exclude)
+                if proc is not None:
+                    procs.append(proc)
+                    if len(procs) == multiprocessing.cpu_count():
+                        [p.wait() for p in procs]
         os.chdir(oldDir)
         continue
     except (OSError, subprocess.CalledProcessError) as e:
@@ -333,3 +345,4 @@ for repoRoot in repoRoots:
         for ignoreDir in ['.svn', 'foreign', 'contributed', 'texttesttmp']:
             if ignoreDir in dirs:
                 dirs.remove(ignoreDir)
+[p.wait() for p in procs]
