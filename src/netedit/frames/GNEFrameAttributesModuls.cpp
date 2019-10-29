@@ -1585,8 +1585,6 @@ GNEFrameAttributesModuls::AttributesEditor::hideAttributesEditorModul() {
 
 void
 GNEFrameAttributesModuls::AttributesEditor::refreshAttributeEditor(bool forceRefreshShape, bool forceRefreshPosition) {
-    // declare flag to check if flow editor has to be shown
-    bool showFlowEditor = false;
     if (myEditedACs.size() > 0) {
         // Iterate over attributes
         for (const auto& tagProperty : myEditedACs.front()->getTagProperty()) {
@@ -1603,7 +1601,6 @@ GNEFrameAttributesModuls::AttributesEditor::refreshAttributeEditor(bool forceRef
             // disable editing of flow definition attributes, but enable flow editor
             if (tagProperty.isFlowDefinition()) {
                 editAttribute = false;
-                showFlowEditor = true;
             }
             // continue if attribute is editable
             if (editAttribute) {
