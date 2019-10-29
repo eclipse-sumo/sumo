@@ -777,7 +777,7 @@ GNEFrameAttributesModuls::AttributesCreatorFlow::AttributesCreatorFlow(Attribute
     // create elements for vehsPerHour attribute
     auxiliarHorizontalFrame = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
     myAttributeVehsPerHourRadioButton = new FXRadioButton(auxiliarHorizontalFrame, toString(SUMO_ATTR_VEHSPERHOUR).c_str(), this, MID_GNE_SET_ATTRIBUTE_BUTTON, GUIDesignRadioButtonAttribute);
-    myValueEndVehsPerHourTextField = new FXTextField(auxiliarHorizontalFrame, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
+    myValueVehsPerHourTextField = new FXTextField(auxiliarHorizontalFrame, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
     // create elements for period attribute
     auxiliarHorizontalFrame = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
     myAttributePeriodRadioButton = new FXRadioButton(auxiliarHorizontalFrame, toString(SUMO_ATTR_PERIOD).c_str(), this, MID_GNE_SET_ATTRIBUTE_BUTTON, GUIDesignRadioButtonAttribute);
@@ -1716,7 +1716,7 @@ GNEFrameAttributesModuls::AttributesEditorFlow::AttributesEditorFlow(AttributesE
     // create elements for vehsPerHour attribute
     auxiliarHorizontalFrame = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
     myAttributeVehsPerHourRadioButton = new FXRadioButton(auxiliarHorizontalFrame, toString(SUMO_ATTR_VEHSPERHOUR).c_str(), this, MID_GNE_SET_ATTRIBUTE_BUTTON, GUIDesignRadioButtonAttribute);
-    myValueEndVehsPerHourTextField = new FXTextField(auxiliarHorizontalFrame, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
+    myValueVehsPerHourTextField = new FXTextField(auxiliarHorizontalFrame, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
     // create elements for period attribute
     auxiliarHorizontalFrame = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
     myAttributePeriodRadioButton = new FXRadioButton(auxiliarHorizontalFrame, toString(SUMO_ATTR_PERIOD).c_str(), this, MID_GNE_SET_ATTRIBUTE_BUTTON, GUIDesignRadioButtonAttribute);
@@ -1732,71 +1732,14 @@ GNEFrameAttributesModuls::AttributesEditorFlow::AttributesEditorFlow(AttributesE
 
 void
 GNEFrameAttributesModuls::AttributesEditorFlow::showAttributeEditorFlowModul() {
-    /*
-    // remove all rows
-    for (int i = 0; i < (int)myAttributesEditorFlowRows.size(); i++) {
-        // destroy and delete all rows
-        if (myAttributesEditorFlowRows.at(i) != nullptr) {
-            myAttributesEditorFlowRows.at(i)->destroy();
-            delete myAttributesEditorFlowRows.at(i);
-            myAttributesEditorFlowRows.at(i) = nullptr;
-        }
-    }
-    if (myEditedACs.size() > 0) {
-        // Iterate over attributes
-        for (const auto& i : myEditedACs.front()->getTagProperty()) {
-            // disable editing for unique attributes in case of multi-selection
-            if ((myEditedACs.size() > 1) && i.isUnique()) {
-                continue;
-            }
-            // disable editing of extended attributes if includeExtended isn't enabled
-            if (i.isExtended() && !includeExtended) {
-                continue;
-            }
-            // Declare a set of occuring values and insert attribute's values of item (note: We use a set to avoid repeated values)
-            std::set<std::string> occuringValues;
-            for (const auto& it_ac : myEditedACs) {
-                occuringValues.insert(it_ac->getAttribute(i.getAttr()));
-            }
-            // get current value
-            std::ostringstream oss;
-            for (auto it_val = occuringValues.begin(); it_val != occuringValues.end(); it_val++) {
-                if (it_val != occuringValues.begin()) {
-                    oss << " ";
-                }
-                oss << *it_val;
-            }
-            // obtain value to be shown in row
-            std::string value = oss.str();
-            // declare a flag for enabled attributes
-            bool attributeEnabled = myEditedACs.front()->isAttributeEnabled(i.getAttr());
-            // overwritte value if attribute is disabled (used by LinkIndex)
-            if (attributeEnabled == false) {
-                value = myEditedACs.front()->getAlternativeValueForDisabledAttributes(i.getAttr());
-            }
-            // extra check for Triggered and container Triggered
-            if (myEditedACs.front()->getTagProperty().isStop() || myEditedACs.front()->getTagProperty().isPersonStop()) {
-                if((i.getAttr() == SUMO_ATTR_EXPECTED) && (myEditedACs.front()->isAttributeEnabled(SUMO_ATTR_TRIGGERED) == false)) {
-                    attributeEnabled = false;
-                } else if ((i.getAttr() == SUMO_ATTR_EXPECTED_CONTAINERS) && (myEditedACs.front()->isAttributeEnabled(SUMO_ATTR_CONTAINER_TRIGGERED) == false)) {
-                    attributeEnabled = false;
-                }
-            }
-            // if forceEnablellAttribute is enable, force attributeEnabled (except for ID)
-            if (forceAttributeEnabled && (i.getAttr() != SUMO_ATTR_ID)) {
-                attributeEnabled = true;
-            }
-            // create attribute EditorFlow row
-            myAttributesEditorFlowRows[i.getPositionListed()] = new AttributesEditorFlowRow(this, i, value, attributeEnabled);
-        }
-        // show AttributesEditorFlow
+    if (myAttributesEditorParent->getEditedACs().size() > 0) {
+        // refresh attributeEditorFlowModul
+        refreshAttributeEditorFlow();
+        // show flow
         show();
+    } else {
+        hide();
     }
-    */
-    // reparent help button (to place it at bottom)
-    myHelpButton->reparent(this);
-    // show flow
-    show();
 }
 
 
@@ -1809,60 +1752,14 @@ GNEFrameAttributesModuls::AttributesEditorFlow::hideAttributesEditorFlowModul() 
 
 void
 GNEFrameAttributesModuls::AttributesEditorFlow::refreshAttributeEditorFlow() {
-    /*
-    if (myEditedACs.size() > 0) {
-        // Iterate over attributes
-        for (const auto& i : myEditedACs.front()->getTagProperty()) {
-            // disable editing for unique attributes in case of multi-selection
-            if ((myEditedACs.size() > 1) && i.isUnique()) {
-                continue;
-            }
-            // Declare a set of occuring values and insert attribute's values of item
-            std::set<std::string> occuringValues;
-            for (const auto& it_ac : myEditedACs) {
-                occuringValues.insert(it_ac->getAttribute(i.getAttr()));
-            }
-            // get current value
-            std::ostringstream oss;
-            for (auto it_val = occuringValues.begin(); it_val != occuringValues.end(); it_val++) {
-                if (it_val != occuringValues.begin()) {
-                    oss << " ";
-                }
-                oss << *it_val;
-            }
-            // obtain value to be shown in row
-            std::string value = oss.str();
-            // declare a flag for enabled attributes
-            bool attributeEnabled = myEditedACs.front()->isAttributeEnabled(i.getAttr());
-            // overwritte value if attribute is disabled (used by LinkIndex)
-            if (attributeEnabled == false) {
-                value = myEditedACs.front()->getAlternativeValueForDisabledAttributes(i.getAttr());
-            }
-            // extra check for Triggered and container Triggered
-            if (myEditedACs.front()->getTagProperty().isStop() || myEditedACs.front()->getTagProperty().isPersonStop()) {
-                if((i.getAttr() == SUMO_ATTR_EXPECTED) && (myEditedACs.front()->isAttributeEnabled(SUMO_ATTR_TRIGGERED) == false)) {
-                    attributeEnabled = false;
-                } else if ((i.getAttr() == SUMO_ATTR_EXPECTED_CONTAINERS) && (myEditedACs.front()->isAttributeEnabled(SUMO_ATTR_CONTAINER_TRIGGERED) == false)) {
-                    attributeEnabled = false;
-                }
-            }
-
-            // Check if refresh of Position or Shape has to be forced
-            if ((i.getAttr()  == SUMO_ATTR_SHAPE) && forceRefreshShape) {
-                myAttributesEditorFlowRows[i.getPositionListed()]->refreshAttributesEditorFlowRow(value, true, attributeEnabled);
-            } else if ((i.getAttr()  == SUMO_ATTR_POSITION) && forceRefreshPosition) {
-                // Refresh attributes maintain invalid values
-                myAttributesEditorFlowRows[i.getPositionListed()]->refreshAttributesEditorFlowRow(value, true, attributeEnabled);
-            } else {
-                // Refresh attributes maintain invalid values
-                myAttributesEditorFlowRows[i.getPositionListed()]->refreshAttributesEditorFlowRow(value, false, attributeEnabled);
-            }
-
-        }
+    if (myAttributesEditorParent->getEditedACs().size() > 0) {
+        // simply refresh every flow attribute
+        refreshEnd();
+        refreshNumber();
+        refreshVehsPerHour();
+        refreshPeriod();
+        refreshProbability();
     }
-    */
-
-
 
     /*
         // currently only Flows supports disjoint attributes
@@ -2002,6 +1899,201 @@ GNEFrameAttributesModuls::AttributesEditorFlow::onCmdAttributesEditorFlowHelp(FX
     }
     */
     return 1;
+}
+
+
+void
+GNEFrameAttributesModuls::AttributesEditorFlow::refreshEnd() {
+    // first we need to check if all attributes are enabled or disabled
+    int allAttributesEnabledOrDisabled = 0;
+    for (const auto &i : myAttributesEditorParent->getEditedACs()) {
+        allAttributesEnabledOrDisabled += i->isAttributeEnabled(SUMO_ATTR_END);
+    }
+    if (allAttributesEnabledOrDisabled == myAttributesEditorParent->getEditedACs().size()) {
+        // Declare a set of occuring values and insert attribute's values of item
+        std::set<std::string> occuringValues;
+        for (const auto& values : myAttributesEditorParent->getEditedACs()) {
+            occuringValues.insert(values->getAttribute(SUMO_ATTR_END));
+        }
+        // get current value
+        std::ostringstream oss;
+        for (auto it_val = occuringValues.begin(); it_val != occuringValues.end(); it_val++) {
+            if (it_val != occuringValues.begin()) {
+                oss << " ";
+            }
+            oss << *it_val;
+        }
+        // set radio button and text field
+        myValueEndTextField->enable();
+        myValueEndTextField->setText(oss.str().c_str());
+        myAttributeEndRadioButton->enable();
+        myAttributeEndRadioButton->setCheck(TRUE);
+    } else {
+        // disable radio button and text field
+        myValueEndTextField->disable();
+        myValueEndTextField->setText("");
+        myAttributeEndRadioButton->setCheck(FALSE);
+        // check if we have to disable radio button
+        if (allAttributesEnabledOrDisabled == 0 && (myAttributesEditorParent->getEditedACs().size() > 1)) {
+            myAttributeEndRadioButton->disable();
+        }
+    }
+}
+
+
+void
+GNEFrameAttributesModuls::AttributesEditorFlow::refreshNumber() {
+    // first we need to check if all attributes are enabled or disabled
+    int allAttributesEnabledOrDisabled = 0;
+    for (const auto &i : myAttributesEditorParent->getEditedACs()) {
+        allAttributesEnabledOrDisabled += i->isAttributeEnabled(SUMO_ATTR_NUMBER);
+    }
+    if (allAttributesEnabledOrDisabled == myAttributesEditorParent->getEditedACs().size()) {
+        // Declare a set of occuring values and insert attribute's values of item
+        std::set<std::string> occuringValues;
+        for (const auto& values : myAttributesEditorParent->getEditedACs()) {
+            occuringValues.insert(values->getAttribute(SUMO_ATTR_NUMBER));
+        }
+        // get current value
+        std::ostringstream oss;
+        for (auto it_val = occuringValues.begin(); it_val != occuringValues.end(); it_val++) {
+            if (it_val != occuringValues.begin()) {
+                oss << " ";
+            }
+            oss << *it_val;
+        }
+        // set radio button and text field
+        myValueNumberTextField->enable();
+        myValueNumberTextField->setText(oss.str().c_str());
+        myAttributeNumberRadioButton->enable();
+        myAttributeNumberRadioButton->setCheck(TRUE);
+    } else {
+        // disable radio button and text field
+        myValueNumberTextField->disable();
+        myValueNumberTextField->setText("");
+        myAttributeNumberRadioButton->setCheck(FALSE);
+        // check if we have to disable radio button
+        if (allAttributesEnabledOrDisabled == 0 && (myAttributesEditorParent->getEditedACs().size() > 1)) {
+            myAttributeNumberRadioButton->disable();
+        }
+    }
+}
+
+
+void
+GNEFrameAttributesModuls::AttributesEditorFlow::refreshVehsPerHour() {
+    // first we need to check if all attributes are enabled or disabled
+    int allAttributesEnabledOrDisabled = 0;
+    for (const auto &i : myAttributesEditorParent->getEditedACs()) {
+        allAttributesEnabledOrDisabled += i->isAttributeEnabled(SUMO_ATTR_VEHSPERHOUR);
+    }
+    if (allAttributesEnabledOrDisabled == myAttributesEditorParent->getEditedACs().size()) {
+        // Declare a set of occuring values and insert attribute's values of item
+        std::set<std::string> occuringValues;
+        for (const auto& values : myAttributesEditorParent->getEditedACs()) {
+            occuringValues.insert(values->getAttribute(SUMO_ATTR_VEHSPERHOUR));
+        }
+        // get current value
+        std::ostringstream oss;
+        for (auto it_val = occuringValues.begin(); it_val != occuringValues.end(); it_val++) {
+            if (it_val != occuringValues.begin()) {
+                oss << " ";
+            }
+            oss << *it_val;
+        }
+        // set radio button and text field
+        myValueVehsPerHourTextField->enable();
+        myValueVehsPerHourTextField->setText(oss.str().c_str());
+        myAttributeVehsPerHourRadioButton->enable();
+        myAttributeVehsPerHourRadioButton->setCheck(TRUE);
+    } else {
+        // disable radio button and text field
+        myValueVehsPerHourTextField->disable();
+        myValueVehsPerHourTextField->setText("");
+        myAttributeVehsPerHourRadioButton->setCheck(FALSE);
+        // check if we have to disable radio button
+        if (allAttributesEnabledOrDisabled == 0 && (myAttributesEditorParent->getEditedACs().size() > 1)) {
+            myAttributeVehsPerHourRadioButton->disable();
+        }
+    }
+}
+
+
+void
+GNEFrameAttributesModuls::AttributesEditorFlow::refreshPeriod() {
+    // first we need to check if all attributes are enabled or disabled
+    int allAttributesEnabledOrDisabled = 0;
+    for (const auto &i : myAttributesEditorParent->getEditedACs()) {
+        allAttributesEnabledOrDisabled += i->isAttributeEnabled(SUMO_ATTR_PERIOD);
+    }
+    if (allAttributesEnabledOrDisabled == myAttributesEditorParent->getEditedACs().size()) {
+        // Declare a set of occuring values and insert attribute's values of item
+        std::set<std::string> occuringValues;
+        for (const auto& values : myAttributesEditorParent->getEditedACs()) {
+            occuringValues.insert(values->getAttribute(SUMO_ATTR_PERIOD));
+        }
+        // get current value
+        std::ostringstream oss;
+        for (auto it_val = occuringValues.begin(); it_val != occuringValues.end(); it_val++) {
+            if (it_val != occuringValues.begin()) {
+                oss << " ";
+            }
+            oss << *it_val;
+        }
+        // set radio button and text field
+        myValuePeriodTextField->enable();
+        myValuePeriodTextField->setText(oss.str().c_str());
+        myAttributePeriodRadioButton->enable();
+        myAttributePeriodRadioButton->setCheck(TRUE);
+    } else {
+        // disable radio button and text field
+        myValuePeriodTextField->disable();
+        myValuePeriodTextField->setText("");
+        myAttributePeriodRadioButton->setCheck(FALSE);
+        // check if we have to disable radio button
+        if (allAttributesEnabledOrDisabled == 0 && (myAttributesEditorParent->getEditedACs().size() > 1)) {
+            myAttributePeriodRadioButton->disable();
+        }
+    }
+}
+
+
+void
+GNEFrameAttributesModuls::AttributesEditorFlow::refreshProbability() {
+    // first we need to check if all attributes are enabled or disabled
+    int allAttributesEnabledOrDisabled = 0;
+    for (const auto &i : myAttributesEditorParent->getEditedACs()) {
+        allAttributesEnabledOrDisabled += i->isAttributeEnabled(SUMO_ATTR_PROB);
+    }
+    if (allAttributesEnabledOrDisabled == myAttributesEditorParent->getEditedACs().size()) {
+        // Declare a set of occuring values and insert attribute's values of item
+        std::set<std::string> occuringValues;
+        for (const auto& values : myAttributesEditorParent->getEditedACs()) {
+            occuringValues.insert(values->getAttribute(SUMO_ATTR_PROB));
+        }
+        // get current value
+        std::ostringstream oss;
+        for (auto it_val = occuringValues.begin(); it_val != occuringValues.end(); it_val++) {
+            if (it_val != occuringValues.begin()) {
+                oss << " ";
+            }
+            oss << *it_val;
+        }
+        // set radio button and text field
+        myValueProbabilityTextField->enable();
+        myValueProbabilityTextField->setText(oss.str().c_str());
+        myAttributeProbabilityRadioButton->enable();
+        myAttributeProbabilityRadioButton->setCheck(TRUE);
+    } else {
+        // disable radio button and text field
+        myValueProbabilityTextField->disable();
+        myValueProbabilityTextField->setText("");
+        myAttributeProbabilityRadioButton->setCheck(FALSE);
+        // check if we have to disable radio button
+        if (allAttributesEnabledOrDisabled == 0 && (myAttributesEditorParent->getEditedACs().size() > 1)) {
+            myAttributeProbabilityRadioButton->disable();
+        }
+    }
 }
 
 // ---------------------------------------------------------------------------

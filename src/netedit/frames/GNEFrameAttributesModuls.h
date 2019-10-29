@@ -284,7 +284,7 @@ public:
         FXRadioButton* myAttributeVehsPerHourRadioButton = nullptr;
 
         /// @brief textField for 'VehsPerHour' attribute
-        FXTextField* myValueEndVehsPerHourTextField = nullptr;
+        FXTextField* myValueVehsPerHourTextField = nullptr;
 
         /// @brief Radio button for 'period' attribute
         FXRadioButton* myAttributePeriodRadioButton = nullptr;
@@ -469,6 +469,21 @@ public:
     protected:
 		FOX_CONSTRUCTOR(AttributesEditorFlow)
 
+        /// @brief refresh end
+        void refreshEnd();
+
+        /// @brief refresh parameter number
+        void refreshNumber();
+
+        /// @brief refresh parameter VehsPerHour
+        void refreshVehsPerHour();
+
+        /// @brief refresh parameter Period
+        void refreshPeriod();
+
+        /// @brief refresh parameter Probability
+        void refreshProbability();
+
     private:
         /// @brief Radio button for 'end' attribute
         FXRadioButton* myAttributeEndRadioButton = nullptr;
@@ -486,7 +501,7 @@ public:
         FXRadioButton* myAttributeVehsPerHourRadioButton = nullptr;
 
         /// @brief textField for 'VehsPerHour' attribute
-        FXTextField* myValueEndVehsPerHourTextField = nullptr;
+        FXTextField* myValueVehsPerHourTextField = nullptr;
 
         /// @brief Radio button for 'period' attribute
         FXRadioButton* myAttributePeriodRadioButton = nullptr;
