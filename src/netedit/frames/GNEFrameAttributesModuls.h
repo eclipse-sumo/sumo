@@ -470,9 +470,6 @@ public:
 		FOX_CONSTRUCTOR(AttributesEditorFlow)
 
     private:
-        /// @brief pointer to AttributesEditor parent
-        AttributesEditor* myAttributesEditorParent = nullptr;
-
         /// @brief Radio button for 'end' attribute
         FXRadioButton* myAttributeEndRadioButton = nullptr;
 
