@@ -1,4 +1,4 @@
-Eclipse SUMO Version v1_3_1+0662-4405e9c
+Eclipse SUMO Version v1_3_1+0720-feddc330784
  Copyright (C) 2001-2019 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 A microscopic, multi-modal traffic simulation.
 
@@ -591,6 +591,8 @@ GUI Only Options:
   --gui-testing                        Enable ovelay for screen recognition
   --gui-testing-debug                  Enable output messages during
                                          GUI-Testing
+  --gui-testing.setting-output FILE    Save gui settings in the given
+                                         settingsoutput file
 
 
 Examples:
