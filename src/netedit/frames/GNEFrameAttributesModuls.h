@@ -437,7 +437,7 @@ public:
     // class AttributesEditorFlow
     // ===========================================================================
 
-    class AttributesEditorFlow : public FXGroupBox {
+    class AttributesEditorFlow : protected FXGroupBox {
         /// @brief FOX-declaration
         FXDECLARE(GNEFrameAttributesModuls::AttributesEditorFlow)
 
@@ -450,6 +450,9 @@ public:
 
         /// @brief hide attribute EditorFlow
         void hideAttributesEditorFlowModul();
+
+        /// @brief check if attribute editor flow modul is shown
+        bool isAttributesEditorFlowModulShown() const;
 
         /// @brief refresh attribute EditorFlow (only the valid values will be refresh)
         void refreshAttributeEditorFlow();

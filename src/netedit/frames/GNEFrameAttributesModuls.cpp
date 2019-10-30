@@ -1652,6 +1652,10 @@ GNEFrameAttributesModuls::AttributesEditor::refreshAttributeEditor(bool forceRef
                 }
             }
         }
+        // check if flow editor has to be update
+        if (myAttributesEditorFlow->isAttributesEditorFlowModulShown()) {
+            myAttributesEditorFlow->refreshAttributeEditorFlow();
+        }
     }
 }
 
@@ -1750,6 +1754,12 @@ GNEFrameAttributesModuls::AttributesEditorFlow::hideAttributesEditorFlowModul() 
 }
 
 
+bool 
+GNEFrameAttributesModuls::AttributesEditorFlow::isAttributesEditorFlowModulShown() const {
+    return shown();
+}
+
+
 void
 GNEFrameAttributesModuls::AttributesEditorFlow::refreshAttributeEditorFlow() {
     if (myAttributesEditorParent->getEditedACs().size() > 0) {
@@ -1760,131 +1770,89 @@ GNEFrameAttributesModuls::AttributesEditorFlow::refreshAttributeEditorFlow() {
         refreshPeriod();
         refreshProbability();
     }
-
-    /*
-        // currently only Flows supports disjoint attributes
-    if ((myTagProperties.getTag() == SUMO_TAG_ROUTEFLOW) || (myTagProperties.getTag() == SUMO_TAG_FLOW) || (myTagProperties.getTag() == SUMO_TAG_PERSONFLOW)) {
-        // obtain all rows (to improve code legibility)
-        AttributesCreatorRow* endRow = myAttributesCreatorRows[myTagProperties.getAttributeProperties(SUMO_ATTR_END).getPositionListed()];
-        AttributesCreatorRow* numberRow = myAttributesCreatorRows[myTagProperties.getAttributeProperties(SUMO_ATTR_NUMBER).getPositionListed()];
-        AttributesCreatorRow* vehsperhourRow = myAttributesCreatorRows[myTagProperties.getAttributeProperties(SUMO_ATTR_VEHSPERHOUR).getPositionListed()];
-        AttributesCreatorRow* periodRow = myAttributesCreatorRows[myTagProperties.getAttributeProperties(SUMO_ATTR_PERIOD).getPositionListed()];
-        AttributesCreatorRow* probabilityRow = myAttributesCreatorRows[myTagProperties.getAttributeProperties(SUMO_ATTR_PROB).getPositionListed()];
-        if (row == nullptr) {
-            // by default routeFlows uses end and number
-            endRow->setAttributeRadioButtonCheck(true);
-            numberRow->setAttributeRadioButtonCheck(true);
-            vehsperhourRow->setAttributeRadioButtonCheck(false);
-            periodRow->setAttributeRadioButtonCheck(false);
-            probabilityRow->setAttributeRadioButtonCheck(false);
-        } else {
-            // check what row was clicked
-            switch (row->getAttrProperties().getAttr()) {
-                // end has more priority as number
-                case SUMO_ATTR_END:
-                    endRow->setAttributeRadioButtonCheck(true);
-                    // disable other combinations
-                    vehsperhourRow->setAttributeRadioButtonCheck(false);
-                    periodRow->setAttributeRadioButtonCheck(false);
-                    probabilityRow->setAttributeRadioButtonCheck(false);
-                    break;
-                case SUMO_ATTR_NUMBER:
-                    numberRow->setAttributeRadioButtonCheck(true);
-                    // disable number if begin and end are enabled because end has more priority as number
-                    if (endRow->getAttributeRadioButtonCheck()) {
-                        endRow->setAttributeRadioButtonCheck(false);
-                    } else {
-                        // disable other combinations
-                        vehsperhourRow->setAttributeRadioButtonCheck(false);
-                        periodRow->setAttributeRadioButtonCheck(false);
-                        probabilityRow->setAttributeRadioButtonCheck(false);
-                    }
-                    break;
-                case SUMO_ATTR_VEHSPERHOUR:
-                    // disable number if begin and end are enabled because end has more priority as number
-                    if (endRow->getAttributeRadioButtonCheck() && numberRow->getAttributeRadioButtonCheck()) {
-                        numberRow->setAttributeRadioButtonCheck(false);
-                    }
-                    // disable other combinations
-                    vehsperhourRow->setAttributeRadioButtonCheck(true);
-                    periodRow->setAttributeRadioButtonCheck(false);
-                    probabilityRow->setAttributeRadioButtonCheck(false);
-                    break;
-                case SUMO_ATTR_PERIOD:
-                    // disable number if begin and end are enabled because end has more priority as number
-                    if (endRow->getAttributeRadioButtonCheck() && numberRow->getAttributeRadioButtonCheck()) {
-                        numberRow->setAttributeRadioButtonCheck(false);
-                    }
-                    // disable other combinations
-                    vehsperhourRow->setAttributeRadioButtonCheck(false);
-                    periodRow->setAttributeRadioButtonCheck(true);
-                    probabilityRow->setAttributeRadioButtonCheck(false);
-                    break;
-                case SUMO_ATTR_PROB:
-                    // disable number if begin and end are enabled because end has more priority as number
-                    if (endRow->getAttributeRadioButtonCheck() && numberRow->getAttributeRadioButtonCheck()) {
-                        numberRow->setAttributeRadioButtonCheck(false);
-                    }
-                    // disable other combinations
-                    vehsperhourRow->setAttributeRadioButtonCheck(false);
-                    periodRow->setAttributeRadioButtonCheck(false);
-                    probabilityRow->setAttributeRadioButtonCheck(true);
-                    break;
-                default:
-                    break;
-            }
-        }
-    } else if (myTagProperties.isStop() || myTagProperties.isPersonStop()) {
-        // check if expected has to be enabled or disabled
-        if (myAttributesCreatorRows[myTagProperties.getAttributeProperties(SUMO_ATTR_TRIGGERED).getPositionListed()]->getValue() == "1") {
-            myAttributesCreatorRows[myTagProperties.getAttributeProperties(SUMO_ATTR_EXPECTED).getPositionListed()]->enableAttributesCreatorRow();
-        } else {
-            myAttributesCreatorRows[myTagProperties.getAttributeProperties(SUMO_ATTR_EXPECTED).getPositionListed()]->disableAttributesCreatorRow();
-        }
-        // check if expected contaienrs has to be enabled or disabled
-        if (myAttributesCreatorRows[myTagProperties.getAttributeProperties(SUMO_ATTR_CONTAINER_TRIGGERED).getPositionListed()]->getValue() == "1") {
-            myAttributesCreatorRows[myTagProperties.getAttributeProperties(SUMO_ATTR_EXPECTED_CONTAINERS).getPositionListed()]->enableAttributesCreatorRow();
-        } else {
-            myAttributesCreatorRows[myTagProperties.getAttributeProperties(SUMO_ATTR_EXPECTED_CONTAINERS).getPositionListed()]->disableAttributesCreatorRow();
-        }
-    }
-    */
 }
 
 
 long 
-GNEFrameAttributesModuls::AttributesEditorFlow::onCmdSetFlowAttribute(FXObject*, FXSelector, void*) {
+GNEFrameAttributesModuls::AttributesEditorFlow::onCmdSetFlowAttribute(FXObject* obj, FXSelector, void*) {
+    // obtain undoList (To improve code legibly)
+    GNEUndoList* undoList = myAttributesEditorParent->getFrameParent()->myViewNet->getUndoList();
+    SumoXMLAttr attr = SUMO_ATTR_NOTHING;
+    std::string value;
+    // check what check button was pressed
+    if (obj == myValueEndTextField) {
+        attr = SUMO_ATTR_END;
+        value = myValueEndTextField->getText().text();
+    } else if (obj == myValueNumberTextField) {
+        attr = SUMO_ATTR_NUMBER;
+        value = myValueNumberTextField->getText().text();
+    } else if (obj == myValueVehsPerHourTextField) {
+        attr = SUMO_ATTR_VEHSPERHOUR;
+        value = myValueVehsPerHourTextField->getText().text();
+    } else if (obj == myValuePeriodTextField) {
+        attr = SUMO_ATTR_PERIOD;
+        value = myValuePeriodTextField->getText().text();
+    } else if (obj == myValueProbabilityTextField) {
+        attr = SUMO_ATTR_PROB;
+        value = myValueProbabilityTextField->getText().text();
+    } else {
+        throw ProcessError("Invalid text field");
+    }
+    // write debug (for Netedit tests)
+    WRITE_DEBUG("Selected checkBox for attribute '" + toString(attr) + "'");
+    // check if we're editing multiple attributes
+    if (myAttributesEditorParent->getEditedACs().size() > 1) {
+        undoList->p_begin("Change multiple " + toString(attr) + " attributes");
+    }
+    // enable attribute with undo/redo
+    for (const auto &i : myAttributesEditorParent->getEditedACs()) {
+        i->setAttribute(attr, value, undoList);
+    }
+    // check if we're editing multiple attributes
+    if (myAttributesEditorParent->getEditedACs().size() > 1) {
+        undoList->p_end();
+    }
+    // refresh Attributes edito parent
+    refreshAttributeEditorFlow();
     return 1;
 }
 
 
 long
-GNEFrameAttributesModuls::AttributesEditorFlow::onCmdSelectFlowRadioButton(FXObject*, FXSelector, void*) {
-    /*
-        // obtain undoList (To improve code legibly)
+GNEFrameAttributesModuls::AttributesEditorFlow::onCmdSelectFlowRadioButton(FXObject* obj, FXSelector, void*) {
+    // obtain undoList (To improve code legibly)
     GNEUndoList* undoList = myAttributesEditorParent->getFrameParent()->myViewNet->getUndoList();
-    // begin undoList
-    if (obj == myAttributeCheckButton) { 
-        // write debug (for Netedit tests)
-        WRITE_DEBUG("Selected checkBox for attribute '" + myACAttr.getAttrStr() + "'");
-        if (myAttributeCheckButton->getCheck() == TRUE) {
-            // begin undo list
-            undoList->p_begin("enable attribute '" + myACAttr.getAttrStr() + "'");
-            // enable attribute with undo/redo
-            myAttributesEditorParent->getEditedACs().front()->enableAttribute(myACAttr.getAttr(), undoList);
-        } else {
-            // begin undo list
-            undoList->p_begin("disable attribute '" + myACAttr.getAttrStr() + "'");
-            // disable attribute with undo/redo
-            myAttributesEditorParent->getEditedACs().front()->disableAttribute(myACAttr.getAttr(), undoList);
-        }
-        // end undoList
-        undoList->p_end();
+    SumoXMLAttr attr = SUMO_ATTR_NOTHING;
+    // check what check button was pressed
+    if (obj == myAttributeEndRadioButton) {
+        attr = SUMO_ATTR_END;
+    } else if (obj == myAttributeNumberRadioButton) {
+        attr = SUMO_ATTR_NUMBER;
+    } else if (obj == myAttributeVehsPerHourRadioButton) {
+        attr = SUMO_ATTR_VEHSPERHOUR;
+    } else if (obj == myAttributePeriodRadioButton) {
+        attr = SUMO_ATTR_PERIOD;
+    } else if (obj == myAttributeProbabilityRadioButton) {
+        attr = SUMO_ATTR_PROB;
+    } else {
+        throw ProcessError("Invalid Radio Button");
     }
+    // write debug (for Netedit tests)
+    WRITE_DEBUG("Selected checkBox for attribute '" + toString(attr) + "'");
+    // begin undo list
+    if (myAttributesEditorParent->getEditedACs().size() > 1) {
+        undoList->p_begin("enable multiple " + toString(attr) + " attributes");
+    } else {
+        undoList->p_begin("enable attribute '" + toString(attr) + "'");
+    }
+    // enable attribute with undo/redo
+    for (const auto &i : myAttributesEditorParent->getEditedACs()) {
+        i->enableAttribute(attr, undoList);
+    }
+    // end undoList
+    undoList->p_end();
     // refresh Attributes edito parent
-    myAttributesEditorParent->refreshAttributeEditor(false, false);
-    return 0;
-    */
+    refreshAttributeEditorFlow();
     return 1;
 }
 
@@ -1916,27 +1884,27 @@ GNEFrameAttributesModuls::AttributesEditorFlow::refreshEnd() {
             occuringValues.insert(values->getAttribute(SUMO_ATTR_END));
         }
         // get current value
-        std::ostringstream oss;
+        std::ostringstream endValue;
         for (auto it_val = occuringValues.begin(); it_val != occuringValues.end(); it_val++) {
             if (it_val != occuringValues.begin()) {
-                oss << " ";
+                endValue << " ";
             }
-            oss << *it_val;
+            endValue << *it_val;
         }
         // set radio button and text field
         myValueEndTextField->enable();
-        myValueEndTextField->setText(oss.str().c_str());
-        myAttributeEndRadioButton->enable();
+        myValueEndTextField->setText(endValue.str().c_str());
         myAttributeEndRadioButton->setCheck(TRUE);
     } else {
         // disable radio button and text field
         myValueEndTextField->disable();
-        myValueEndTextField->setText("");
-        myAttributeEndRadioButton->setCheck(FALSE);
-        // check if we have to disable radio button
-        if (allAttributesEnabledOrDisabled == 0 && (myAttributesEditorParent->getEditedACs().size() > 1)) {
-            myAttributeEndRadioButton->disable();
+        // check if we set an special value in textField
+        if ((allAttributesEnabledOrDisabled > 0) && (myAttributesEditorParent->getEditedACs().size() > 1)) {
+            myValueEndTextField->setText("Different flow attributes");
+        } else {
+            myValueEndTextField->setText("");
         }
+        myAttributeEndRadioButton->setCheck(FALSE);
     }
 }
 
@@ -1955,27 +1923,27 @@ GNEFrameAttributesModuls::AttributesEditorFlow::refreshNumber() {
             occuringValues.insert(values->getAttribute(SUMO_ATTR_NUMBER));
         }
         // get current value
-        std::ostringstream oss;
+        std::ostringstream numberValues;
         for (auto it_val = occuringValues.begin(); it_val != occuringValues.end(); it_val++) {
             if (it_val != occuringValues.begin()) {
-                oss << " ";
+                numberValues << " ";
             }
-            oss << *it_val;
+            numberValues << *it_val;
         }
         // set radio button and text field
         myValueNumberTextField->enable();
-        myValueNumberTextField->setText(oss.str().c_str());
-        myAttributeNumberRadioButton->enable();
+        myValueNumberTextField->setText(numberValues.str().c_str());
         myAttributeNumberRadioButton->setCheck(TRUE);
     } else {
-        // disable radio button and text field
+        // disable radio button
         myValueNumberTextField->disable();
-        myValueNumberTextField->setText("");
-        myAttributeNumberRadioButton->setCheck(FALSE);
-        // check if we have to disable radio button
-        if (allAttributesEnabledOrDisabled == 0 && (myAttributesEditorParent->getEditedACs().size() > 1)) {
-            myAttributeNumberRadioButton->disable();
+        // check if we set an special value in textField
+        if ((allAttributesEnabledOrDisabled > 0) && (myAttributesEditorParent->getEditedACs().size() > 1)) {
+            myValueNumberTextField->setText("Different flow attributes");
+        } else {
+            myValueNumberTextField->setText("");
         }
+        myAttributeNumberRadioButton->setCheck(FALSE);
     }
 }
 
@@ -1994,27 +1962,27 @@ GNEFrameAttributesModuls::AttributesEditorFlow::refreshVehsPerHour() {
             occuringValues.insert(values->getAttribute(SUMO_ATTR_VEHSPERHOUR));
         }
         // get current value
-        std::ostringstream oss;
+        std::ostringstream vehsPerHourValues;
         for (auto it_val = occuringValues.begin(); it_val != occuringValues.end(); it_val++) {
             if (it_val != occuringValues.begin()) {
-                oss << " ";
+                vehsPerHourValues << " ";
             }
-            oss << *it_val;
+            vehsPerHourValues << *it_val;
         }
         // set radio button and text field
         myValueVehsPerHourTextField->enable();
-        myValueVehsPerHourTextField->setText(oss.str().c_str());
-        myAttributeVehsPerHourRadioButton->enable();
+        myValueVehsPerHourTextField->setText(vehsPerHourValues.str().c_str());
         myAttributeVehsPerHourRadioButton->setCheck(TRUE);
     } else {
-        // disable radio button and text field
+        // disable radio button
         myValueVehsPerHourTextField->disable();
-        myValueVehsPerHourTextField->setText("");
-        myAttributeVehsPerHourRadioButton->setCheck(FALSE);
-        // check if we have to disable radio button
-        if (allAttributesEnabledOrDisabled == 0 && (myAttributesEditorParent->getEditedACs().size() > 1)) {
-            myAttributeVehsPerHourRadioButton->disable();
+        // check if we set an special value in textField
+        if ((allAttributesEnabledOrDisabled > 0) && (myAttributesEditorParent->getEditedACs().size() > 1)) {
+            myValueVehsPerHourTextField->setText("Different flow attributes");
+        } else {
+            myValueVehsPerHourTextField->setText("");
         }
+        myAttributeVehsPerHourRadioButton->setCheck(FALSE);
     }
 }
 
@@ -2033,27 +2001,27 @@ GNEFrameAttributesModuls::AttributesEditorFlow::refreshPeriod() {
             occuringValues.insert(values->getAttribute(SUMO_ATTR_PERIOD));
         }
         // get current value
-        std::ostringstream oss;
+        std::ostringstream periodValues;
         for (auto it_val = occuringValues.begin(); it_val != occuringValues.end(); it_val++) {
             if (it_val != occuringValues.begin()) {
-                oss << " ";
+                periodValues << " ";
             }
-            oss << *it_val;
+            periodValues << *it_val;
         }
         // set radio button and text field
         myValuePeriodTextField->enable();
-        myValuePeriodTextField->setText(oss.str().c_str());
-        myAttributePeriodRadioButton->enable();
+        myValuePeriodTextField->setText(periodValues.str().c_str());
         myAttributePeriodRadioButton->setCheck(TRUE);
     } else {
         // disable radio button and text field
         myValuePeriodTextField->disable();
-        myValuePeriodTextField->setText("");
-        myAttributePeriodRadioButton->setCheck(FALSE);
-        // check if we have to disable radio button
-        if (allAttributesEnabledOrDisabled == 0 && (myAttributesEditorParent->getEditedACs().size() > 1)) {
-            myAttributePeriodRadioButton->disable();
+        // check if we set an special value in textField
+        if ((allAttributesEnabledOrDisabled > 0) && (myAttributesEditorParent->getEditedACs().size() > 1)) {
+            myValuePeriodTextField->setText("Different flow attributes");
+        } else {
+            myValuePeriodTextField->setText("");
         }
+        myAttributePeriodRadioButton->setCheck(FALSE);
     }
 }
 
@@ -2072,27 +2040,28 @@ GNEFrameAttributesModuls::AttributesEditorFlow::refreshProbability() {
             occuringValues.insert(values->getAttribute(SUMO_ATTR_PROB));
         }
         // get current value
-        std::ostringstream oss;
+        std::ostringstream probabilityValues;
         for (auto it_val = occuringValues.begin(); it_val != occuringValues.end(); it_val++) {
             if (it_val != occuringValues.begin()) {
-                oss << " ";
+                probabilityValues << " ";
             }
-            oss << *it_val;
+            probabilityValues << *it_val;
         }
         // set radio button and text field
         myValueProbabilityTextField->enable();
-        myValueProbabilityTextField->setText(oss.str().c_str());
+        myValueProbabilityTextField->setText(probabilityValues.str().c_str());
         myAttributeProbabilityRadioButton->enable();
         myAttributeProbabilityRadioButton->setCheck(TRUE);
     } else {
         // disable radio button and text field
         myValueProbabilityTextField->disable();
-        myValueProbabilityTextField->setText("");
-        myAttributeProbabilityRadioButton->setCheck(FALSE);
-        // check if we have to disable radio button
-        if (allAttributesEnabledOrDisabled == 0 && (myAttributesEditorParent->getEditedACs().size() > 1)) {
-            myAttributeProbabilityRadioButton->disable();
+        // check if we set an special value in textField
+        if ((allAttributesEnabledOrDisabled > 0) && (myAttributesEditorParent->getEditedACs().size() > 1)) {
+            myValueProbabilityTextField->setText("Different flow attributes");
+        } else {
+            myValueProbabilityTextField->setText("");
         }
+        myAttributeProbabilityRadioButton->setCheck(FALSE);
     }
 }
 
