@@ -326,9 +326,6 @@ GNEVehicleFrame::edgePathCreated() {
         if (valuesMap[SUMO_ATTR_BEGIN].empty()) {
             valuesMap[SUMO_ATTR_BEGIN] = "0";
         }
-        if (valuesMap[SUMO_ATTR_END].empty()) {
-            valuesMap[SUMO_ATTR_END] = "3600";
-        }
         // declare SUMOSAXAttributesImpl_Cached to convert valuesMap into SUMOSAXAttributes
         SUMOSAXAttributesImpl_Cached SUMOSAXAttrs(valuesMap, getPredefinedTagsMML(), toString(vehicleTag));
         // obtain flow parameters

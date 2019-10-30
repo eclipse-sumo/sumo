@@ -1302,59 +1302,8 @@ void
 GNEVehicle::enableAttribute(SumoXMLAttr key, GNEUndoList* undoList) {
     // obtain a copy of parameter sets
     int newParametersSet = parametersSet;
-    // modify parametersSetCopy depending of attr
-    switch (key) {
-        case SUMO_ATTR_END: {
-            // give more priority to end
-            newParametersSet = VEHPARS_END_SET | VEHPARS_NUMBER_SET;
-            break;
-        }
-        case SUMO_ATTR_NUMBER:
-            newParametersSet ^= VEHPARS_END_SET;
-            newParametersSet |= VEHPARS_NUMBER_SET;
-            break;
-        case SUMO_ATTR_VEHSPERHOUR: {
-            // give more priority to end
-            if ((newParametersSet & VEHPARS_END_SET) && (newParametersSet & VEHPARS_NUMBER_SET)) {
-                newParametersSet = VEHPARS_END_SET;
-            } else if (newParametersSet & VEHPARS_END_SET) {
-                newParametersSet = VEHPARS_END_SET;
-            } else if (newParametersSet & VEHPARS_NUMBER_SET) {
-                newParametersSet = VEHPARS_NUMBER_SET;
-            }
-            // set VehsPerHour
-            newParametersSet |= VEHPARS_VPH_SET;
-            break;
-        }
-        case SUMO_ATTR_PERIOD: {
-            // give more priority to end
-            if ((newParametersSet & VEHPARS_END_SET) && (newParametersSet & VEHPARS_NUMBER_SET)) {
-                newParametersSet = VEHPARS_END_SET;
-            } else if (newParametersSet & VEHPARS_END_SET) {
-                newParametersSet = VEHPARS_END_SET;
-            } else if (newParametersSet & VEHPARS_NUMBER_SET) {
-                newParametersSet = VEHPARS_NUMBER_SET;
-            }
-            // set period
-            newParametersSet |= VEHPARS_PERIOD_SET;
-            break;
-        }
-        case SUMO_ATTR_PROB: {
-            // give more priority to end
-            if ((newParametersSet & VEHPARS_END_SET) && (newParametersSet & VEHPARS_NUMBER_SET)) {
-                newParametersSet = VEHPARS_END_SET;
-            } else if (newParametersSet & VEHPARS_END_SET) {
-                newParametersSet = VEHPARS_END_SET;
-            } else if (newParametersSet & VEHPARS_NUMBER_SET) {
-                newParametersSet = VEHPARS_NUMBER_SET;
-            }
-            // set probability
-            newParametersSet |= VEHPARS_PROB_SET;
-            break;
-        }
-        default:
-            break;
-    }
+    // modify newParametersSet
+    GNERouteHandler::setFlowParameters(key, newParametersSet);
     // add GNEChange_EnableAttribute
     undoList->add(new GNEChange_EnableAttribute(this, myViewNet->getNet(), parametersSet, newParametersSet), true);
 }

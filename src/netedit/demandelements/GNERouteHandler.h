@@ -183,6 +183,9 @@ public:
 
     /// @}
 
+    /// @brief configure flow parameters
+    static void setFlowParameters(const SumoXMLAttr attribute, int &parameters);
+
 protected:
     /// @brief embebbe route within a vehicle
     static void embebbeRoute(GNEVehicle* vehicle, GNEUndoList* undoList);

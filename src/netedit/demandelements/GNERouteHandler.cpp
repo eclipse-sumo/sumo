@@ -1101,6 +1101,64 @@ GNERouteHandler::transformToPersonFlow(GNEPerson* /*originalPerson*/) {
     //
 }
 
+
+void
+GNERouteHandler::setFlowParameters(const SumoXMLAttr attribute, int &parameters) {
+    // modify parametersSetCopy depending of given Flow attribute
+    switch (attribute) {
+        case SUMO_ATTR_END: {
+            // give more priority to end
+            parameters = VEHPARS_END_SET | VEHPARS_NUMBER_SET;
+            break;
+        }
+        case SUMO_ATTR_NUMBER:
+            parameters ^= VEHPARS_END_SET;
+            parameters |= VEHPARS_NUMBER_SET;
+            break;
+        case SUMO_ATTR_VEHSPERHOUR: {
+            // give more priority to end
+            if ((parameters & VEHPARS_END_SET) && (parameters & VEHPARS_NUMBER_SET)) {
+                parameters = VEHPARS_END_SET;
+            } else if (parameters & VEHPARS_END_SET) {
+                parameters = VEHPARS_END_SET;
+            } else if (parameters & VEHPARS_NUMBER_SET) {
+                parameters = VEHPARS_NUMBER_SET;
+            }
+            // set VehsPerHour
+            parameters |= VEHPARS_VPH_SET;
+            break;
+        }
+        case SUMO_ATTR_PERIOD: {
+            // give more priority to end
+            if ((parameters & VEHPARS_END_SET) && (parameters & VEHPARS_NUMBER_SET)) {
+                parameters = VEHPARS_END_SET;
+            } else if (parameters & VEHPARS_END_SET) {
+                parameters = VEHPARS_END_SET;
+            } else if (parameters & VEHPARS_NUMBER_SET) {
+                parameters = VEHPARS_NUMBER_SET;
+            }
+            // set period
+            parameters |= VEHPARS_PERIOD_SET;
+            break;
+        }
+        case SUMO_ATTR_PROB: {
+            // give more priority to end
+            if ((parameters & VEHPARS_END_SET) && (parameters & VEHPARS_NUMBER_SET)) {
+                parameters = VEHPARS_END_SET;
+            } else if (parameters & VEHPARS_END_SET) {
+                parameters = VEHPARS_END_SET;
+            } else if (parameters & VEHPARS_NUMBER_SET) {
+                parameters = VEHPARS_NUMBER_SET;
+            }
+            // set probability
+            parameters |= VEHPARS_PROB_SET;
+            break;
+        }
+        default:
+            break;
+    }
+}
+
 // ===========================================================================
 // protected
 // ===========================================================================

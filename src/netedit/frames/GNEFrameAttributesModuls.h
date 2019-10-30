@@ -234,6 +234,9 @@ public:
         /// @brief hide group box
         void hideAttributesCreatorFlowModul();
 
+        /// @brief refresh AttributesCreatorFlow
+        void refreshAttributesCreatorFlow();
+
         /// @brief set parameters
         void setFlowParameters(std::map<SumoXMLAttr, std::string> &parameters);
 
@@ -254,12 +257,6 @@ public:
         /// @brief Called when help button is pressed
         long onCmdHelp(FXObject*, FXSelector, void*);
         /// @}
-
-        /// @brief update disjoint attributes
-        void updateDisjointAttributes(AttributesCreatorRow* row);
-
-        /// @brief refresh rows (called after creating an element)
-        void refreshRows();
 
     protected:
         FOX_CONSTRUCTOR(AttributesCreatorFlow);
@@ -300,6 +297,9 @@ public:
 
         /// @brief help button
         FXButton* myHelpButton = nullptr;
+
+        /// @brief variable used to save current flow configuration
+        int myFlowParameters;
     };
 
     // ===========================================================================
