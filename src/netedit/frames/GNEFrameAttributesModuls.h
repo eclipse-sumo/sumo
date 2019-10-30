@@ -488,6 +488,9 @@ public:
         void refreshProbability();
 
     private:
+        /// @brief pointer to AttributesEditor parent
+        AttributesEditor* myAttributesEditorParent = nullptr;
+
         /// @brief Radio button for 'end' attribute
         FXRadioButton* myAttributeEndRadioButton = nullptr;
 
