@@ -344,7 +344,7 @@ MSEdge::rebuildAllowedTargets(const bool updateVehicles) {
                     for (MSLane* const lane : *myLanes) {
                         if (lane->allowsVehicleClass((SUMOVehicleClass)vclass)) {
                             for (const MSLink* const link : lane->getLinkCont()) {
-                                if (link->getLane()->allowsVehicleClass((SUMOVehicleClass)vclass) && &link->getLane()->getEdge() == target) {
+                                if (link->getLane()->allowsVehicleClass((SUMOVehicleClass)vclass) && &link->getLane()->getEdge() == target && (link->getViaLane() == nullptr || link->getViaLane()->allowsVehicleClass((SUMOVehicleClass)vclass))) {
                                     allowedLanes->push_back(lane);
                                 }
                             }
