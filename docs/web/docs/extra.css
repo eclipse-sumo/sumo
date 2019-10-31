@@ -15,6 +15,10 @@
     background-color: #1b6618;
 }
 
+.dropdown-menu {
+    background-color: rgb(171,221,139);
+}
+
 .bs-sidenav {
     padding-top: 0;
     padding-bottom: 0;
@@ -30,6 +34,10 @@ body {
 }
 
 a.nav-link {
+    font-size: small;
+}
+
+.dropdown-item {
     font-size: small;
 }
 
