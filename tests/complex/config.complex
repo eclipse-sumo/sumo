@@ -65,6 +65,7 @@ png2:out2.png
 detector:detector.xml
 tocs:tocs.xml
 stops:stops.xml
+ssm:ssm.xml
 
 [run_dependent_text]
 output:<!--{[->]}-->
@@ -90,6 +91,7 @@ tripinfo:<!--{[->]}-->
 rawdump:<!--{[->]}-->
 fcd:<!--{[->]}-->
 stops:<!--{[->]}-->
+ssm:<!--{[->]}-->
 lanechanges:<!--{[->]}-->
 state:<!--{[->]}-->
 tls_state:<!--{[->]}-->

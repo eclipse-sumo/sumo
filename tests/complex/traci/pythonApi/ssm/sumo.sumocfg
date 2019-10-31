@@ -1,0 +1,17 @@
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="input_net2.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+    </input>
+
+    <report>
+        <duration-log.disable value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+    <device.ssm.file value="ssm.xml"/>
+    <device.ssm.measures value="TTC DRAC PET BR SGAP TGAP"/>
+    <device.ssm.thresholds value="5 5 3 0 1 1"/>
+
+</configuration>
