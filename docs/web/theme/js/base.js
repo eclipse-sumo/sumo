@@ -24,7 +24,7 @@ $(document).ready(function() {
 
     // make sure search input gets autofocus everytime modal opens.
     $search_modal.on('shown.bs.modal', function () {
-        $search_modal.find('#mkdocs-search-query').focus();
+        $search_modal.find('#gsc-i-id1').focus();
     });
 
     // Close search modal when result is selected
@@ -50,7 +50,7 @@ $(document).ready(function() {
                 e.preventDefault();
                 $keyboard_modal.modal('hide');
                 $search_modal.modal('show');
-                $search_modal.find('#mkdocs-search-query').focus();
+                $search_modal.find('#gsc-i-id1').focus();
                 break;
             case shortcuts.edit:
                 page = $('.navbar a[rel="edit"]:first').prop('href');

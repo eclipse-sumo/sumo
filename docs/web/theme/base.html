@@ -118,10 +118,10 @@
 
                     <ul class="nav navbar-nav ml-auto">
                       {%- block search_button %}
-                        {%- if 'search' in config['plugins'] %}
+                      {%- if 'search' in config['plugins'] %}
                         <li class="nav-item">
                             <a href="#" class="nav-link" data-toggle="modal" data-target="#mkdocs_search_modal">
-                                <i class="fa fa-search"></i> Search
+                                <i class="fa fa-search"></i> <u>S</u>earch
                             </a>
                         </li>
                         {%- endif %}
@@ -132,13 +132,13 @@
                             <li class="nav-item">
                                 <a rel="edit" href="{{ page.edit_url }}" class="nav-link">
                                     {%- if config.repo_name == 'GitHub' -%}
-                                        <i class="fa fa-github"></i> Edit on {{ config.repo_name }}
+                                        <i class="fa fa-github"></i> <u>E</u>dit on {{ config.repo_name }}
                                     {%- elif config.repo_name == 'Bitbucket' -%}
-                                        <i class="fa fa-bitbucket"></i> Edit on {{ config.repo_name }}
+                                        <i class="fa fa-bitbucket"></i> <u>E</u>dit on {{ config.repo_name }}
                                     {%- elif config.repo_name == 'GitLab' -%}
-                                        <i class="fa fa-gitlab"></i> Edit on {{ config.repo_name }}
+                                        <i class="fa fa-gitlab"></i> <u>E</u>dit on {{ config.repo_name }}
                                     {%- else -%}
-                                    Edit on {{ config.repo_name }}
+                                    <u>E</u>dit on {{ config.repo_name }}
                                     {%- endif -%}
                                 </a>
                             </li>

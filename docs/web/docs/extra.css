@@ -50,9 +50,19 @@ a.no-arrow-link:after {
     margin-bottom: 0;
 }
 
+code {
+    background-color: #f8f9fa;
+    border: 1px solid #eaecf0;
+    border-radius: 2px;
+    padding: 1px 4px;
+    font-family: monospace,monospace;
+}
+
 .hljs {
     background: #eff0f1;
     border-radius: 3px;
+    border: 1px solid #ddd !important;
+    padding: 12px 8px;
 }
 
 h1, h2 {
@@ -68,21 +78,25 @@ h1 {
 
 h2 {
     font-size: 1.5em;
+    margin-top: 1em;
 }
 
 h3 {
     font-size: 1.2em;
     font-weight: bold;
+    margin-top: 0.3em;
 }
 
 h4 {
     font-size: 0.95em;
     font-weight: bold;
+    margin-top: 0.3em;
 }
 
 h5 {
     font-size: 0.94em;
     font-weight: bold;
+    margin-top: 0.3em;
 }
 
 hTitles {
