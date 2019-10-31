@@ -1,0 +1,22 @@
+Running 'Energy/zero'
+sums
+length:11041.9
+CO:0
+CO2:0
+HC:0
+NOx:0
+PMx:0
+fuel:0
+electricity:0
+Success.
+Running 'Energy/unknown'
+sums
+length:11041.9
+CO:0
+CO2:0
+HC:0
+NOx:0
+PMx:0
+fuel:0
+electricity:2642.41
+Success.
