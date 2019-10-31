@@ -925,7 +925,7 @@ MSDevice_SSM::estimateConflictTimes(EncounterApproachInfo& eInfo) {
 
 #ifdef DEBUG_SSM
     if (DEBUG_COND(e->ego))
-        std::cout << "    Conflict type: " << toString(type) << "\n"
+        std::cout << "    Conflict type: " << encounterToString(type) << "\n"
                   << "    egoConflictEntryTime=" << (eInfo.egoEstimatedConflictEntryTime == INVALID ? "INVALID" : ::toString(eInfo.egoEstimatedConflictEntryTime))
                   << ", foeConflictEntryTime=" << (eInfo.foeEstimatedConflictEntryTime == INVALID ? "INVALID" : ::toString(eInfo.foeEstimatedConflictEntryTime))
                   << std::endl;
@@ -1054,7 +1054,7 @@ MSDevice_SSM::determinePET(EncounterApproachInfo& eInfo) const {
 #ifdef DEBUG_SSM
     if (DEBUG_COND(myHolderMS))
         std::cout << SIMTIME << " determinePET() for encounter of vehicles '" << e->egoID << "' and '" << e->foeID << "'"
-                  << "(type: " << toString(static_cast<EncounterType>(e->typeSpan.back())) << ")" << std::endl;
+                  << "(type: " << encounterToString(static_cast<EncounterType>(e->typeSpan.back())) << ")" << std::endl;
 #endif
 
     if (type == ENCOUNTER_TYPE_FOLLOWING_FOLLOWER || type == ENCOUNTER_TYPE_FOLLOWING_LEADER) {
@@ -3609,6 +3609,60 @@ MSDevice_SSM::getMeasuresAndThresholds(const SUMOVehicle& v, std::string deviceI
 }
 
 
+std::string
+MSDevice_SSM::getParameter(const std::string& key) const {
+    if (key == "minTTC" && !myComputeTTC) {
+        throw InvalidArgument("Measure TTC is not tracked by ssm device");
+    }
+    if (key == "maxDRAC" && !myComputeDRAC) {
+        throw InvalidArgument("Measure DRAC is not tracked by ssm device");
+    }
+    if (key == "minPET" && !myComputePET) {
+        throw InvalidArgument("Measure PET is not tracked by ssm device");
+    }
+    if (key == "minTTC" || 
+            key == "maxDRAC" ||
+            key == "minPET") {
+        double value = INVALID_DOUBLE;
+        double minTTC = INVALID_DOUBLE;
+        double minPET = INVALID_DOUBLE;
+        double maxDRAC = -INVALID_DOUBLE;
+        for (Encounter* e : myActiveEncounters) {
+            minTTC = MIN2(minTTC, e->minTTC.value);
+            minPET = MIN2(minPET, e->PET.value);
+            maxDRAC = MAX2(maxDRAC, e->maxDRAC.value);
+        }
+        if (key == "minTTC") {
+            value = minTTC;
+        } else if (key == "maxDRAC") {
+            value = maxDRAC;
+        } else if (key == "minPET") {
+            value = minPET;
+        }
+        if (fabs(value) == INVALID_DOUBLE) {
+            return "";
+        } else {
+            return toString(value);
+        }
+    }
+    throw InvalidArgument("Parameter '" + key + "' is not supported for device of type '" + deviceName() + "'");
+}
+
+
+void
+MSDevice_SSM::setParameter(const std::string& key, const std::string& value) {
+    double doubleValue;
+    try {
+        doubleValue = StringUtils::toDouble(value);
+    } catch (NumberFormatException&) {
+        throw InvalidArgument("Setting parameter '" + key + "' requires a number for device of type '" + deviceName() + "'");
+    }
+    if (false || key == "foo") {
+        UNUSED_PARAMETER(doubleValue);
+    } else {
+        throw InvalidArgument("Setting parameter '" + key + "' is not supported for device of type '" + deviceName() + "'");
+    }
+}
 
 /****************************************************************************/
 

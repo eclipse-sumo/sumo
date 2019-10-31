@@ -118,7 +118,7 @@ public:
         ENCOUNTER_TYPE_COLLISION = 111 //!< ENCOUNTER_TYPE_COLLISION
     };
 
-    static std::string toString(EncounterType type) {
+    static std::string encounterToString(EncounterType type) {
         switch (type) {
             case (ENCOUNTER_TYPE_NOCONFLICT_AHEAD):
                 return ("NOCONFLICT_AHEAD");
@@ -385,6 +385,12 @@ public:
      *         to the output file.
      */
     void updateAndWriteOutput();
+
+    /// @brief try to retrieve the given parameter from this device. Throw exception for unsupported key
+    std::string getParameter(const std::string& key) const;
+
+    /// @brief try to set the given parameter for this device. Throw exception for unsupported key
+    void setParameter(const std::string& key, const std::string& value);
 
 private:
     void update();
