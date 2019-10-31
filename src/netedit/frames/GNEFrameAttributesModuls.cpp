@@ -1863,7 +1863,7 @@ GNEFrameAttributesModuls::AttributesEditorFlow::refreshEnd() {
     for (const auto &i : myAttributesEditorParent->getEditedACs()) {
         allAttributesEnabledOrDisabled += i->isAttributeEnabled(SUMO_ATTR_END);
     }
-    if (allAttributesEnabledOrDisabled == myAttributesEditorParent->getEditedACs().size()) {
+    if (allAttributesEnabledOrDisabled == (int)myAttributesEditorParent->getEditedACs().size()) {
         // Declare a set of occuring values and insert attribute's values of item
         std::set<std::string> occuringValues;
         for (const auto& values : myAttributesEditorParent->getEditedACs()) {
@@ -1902,7 +1902,7 @@ GNEFrameAttributesModuls::AttributesEditorFlow::refreshNumber() {
     for (const auto &i : myAttributesEditorParent->getEditedACs()) {
         allAttributesEnabledOrDisabled += i->isAttributeEnabled(SUMO_ATTR_NUMBER);
     }
-    if (allAttributesEnabledOrDisabled == myAttributesEditorParent->getEditedACs().size()) {
+    if (allAttributesEnabledOrDisabled == (int)myAttributesEditorParent->getEditedACs().size()) {
         // Declare a set of occuring values and insert attribute's values of item
         std::set<std::string> occuringValues;
         for (const auto& values : myAttributesEditorParent->getEditedACs()) {
@@ -1941,7 +1941,7 @@ GNEFrameAttributesModuls::AttributesEditorFlow::refreshVehsPerHour() {
     for (const auto &i : myAttributesEditorParent->getEditedACs()) {
         allAttributesEnabledOrDisabled += i->isAttributeEnabled(SUMO_ATTR_VEHSPERHOUR);
     }
-    if (allAttributesEnabledOrDisabled == myAttributesEditorParent->getEditedACs().size()) {
+    if (allAttributesEnabledOrDisabled == (int)myAttributesEditorParent->getEditedACs().size()) {
         // Declare a set of occuring values and insert attribute's values of item
         std::set<std::string> occuringValues;
         for (const auto& values : myAttributesEditorParent->getEditedACs()) {
@@ -1980,7 +1980,7 @@ GNEFrameAttributesModuls::AttributesEditorFlow::refreshPeriod() {
     for (const auto &i : myAttributesEditorParent->getEditedACs()) {
         allAttributesEnabledOrDisabled += i->isAttributeEnabled(SUMO_ATTR_PERIOD);
     }
-    if (allAttributesEnabledOrDisabled == myAttributesEditorParent->getEditedACs().size()) {
+    if (allAttributesEnabledOrDisabled == (int)myAttributesEditorParent->getEditedACs().size()) {
         // Declare a set of occuring values and insert attribute's values of item
         std::set<std::string> occuringValues;
         for (const auto& values : myAttributesEditorParent->getEditedACs()) {
@@ -2019,7 +2019,7 @@ GNEFrameAttributesModuls::AttributesEditorFlow::refreshProbability() {
     for (const auto &i : myAttributesEditorParent->getEditedACs()) {
         allAttributesEnabledOrDisabled += i->isAttributeEnabled(SUMO_ATTR_PROB);
     }
-    if (allAttributesEnabledOrDisabled == myAttributesEditorParent->getEditedACs().size()) {
+    if (allAttributesEnabledOrDisabled == (int)myAttributesEditorParent->getEditedACs().size()) {
         // Declare a set of occuring values and insert attribute's values of item
         std::set<std::string> occuringValues;
         for (const auto& values : myAttributesEditorParent->getEditedACs()) {
