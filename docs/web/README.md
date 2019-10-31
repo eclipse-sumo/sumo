@@ -21,7 +21,7 @@ pip install mkdocs-git-revision-date-plugin
 pip install mdx_truly_sane_lists
 ```
 
-Next step is to clone this repository:
+Next step is to clone this repository (if not already done):
 ```
 git clone https://github.com/eclipse/sumo.git
 ```
