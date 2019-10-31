@@ -373,7 +373,7 @@ ROEdge::getSuccessors(SUMOVehicleClass vClass) const {
     for (const ROLane* const lane : myLanes) {
         if ((lane->getPermissions() & vClass) != 0) {
             for (const auto& next : lane->getOutgoingViaLanes()) {
-                if ((next.first->getPermissions() & vClass) != 0) {
+                if ((next.first->getPermissions() & vClass) != 0 && (next.second == nullptr || (next.second->getPermissions() & vClass) != 0)) {
                     followers.insert(&next.first->getEdge());
                 }
             }
@@ -409,7 +409,7 @@ ROEdge::getViaSuccessors(SUMOVehicleClass vClass) const {
     for (const ROLane* const lane : myLanes) {
         if ((lane->getPermissions() & vClass) != 0) {
             for (const auto& next : lane->getOutgoingViaLanes()) {
-                if ((next.first->getPermissions() & vClass) != 0) {
+                if ((next.first->getPermissions() & vClass) != 0 && (next.second == nullptr || (next.second->getPermissions() & vClass) != 0)) {
                     followers.insert(std::make_pair(&next.first->getEdge(), next.second));
                 }
             }
