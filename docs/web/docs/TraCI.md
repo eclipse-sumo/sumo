@@ -227,18 +227,15 @@ communication](Topics/V2X.md). See
 ## References
 
 - Axel Wegener, Michal Piorkowski, Maxim Raya, Horst Hellbrück, Stefan
-  Fischer and Jean-Pierre Hubaux. TraCI: A Framework for Coupling Road
-  Traffic and Network Simulators. Proceedings of the [11th
-  Communications and Networking Simulation
-  Symposium](http://www.scs.org/confernc/springsim/springsim08/cfp/cns08.htm),
-  April 2008. [Available at ACM Digital
-  Library](http://portal.acm.org/citation.cfm?id=1400740)
+  Fischer and Jean-Pierre Hubaux. TraCI: An Interface for Coupling Road
+  Traffic and Network Simulators. Proceedings of the 11th
+  Communications and Networking Simulation Symposium, April 2008.
+  [Available at ACM Digital Library](https://doi.org/10.1145/1400713.1400740)
 - Axel Wegener, Horst Hellbrück, Christian Wewetzer and Andreas Lübke:
   VANET Simulation Environment with Feedback Loop and its Application
-  to Traffic Light Assistance. Proceedings of the [3rd IEEE Workshop
-  on Automotive Networking and
-  Applications](http://autonet2008.research.telcordia.com/), New
-  Orleans, LA, USA, 2008. Soon available at IEEEXplore
+  to Traffic Light Assistance. Proceedings of the 3rd IEEE Workshop
+  on Automotive Networking and Applications, New Orleans, LA, USA, 2008.
+  [Available at IEEEXplore](https://doi.org/10.1109/GLOCOMW.2008.ECP.67)
 
 ## Performance
 
