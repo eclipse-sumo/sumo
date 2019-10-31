@@ -33,8 +33,8 @@ documentation.
 
 iCS is the "iTETRIS Control System", a middleware developed in the
 [iTETRIS](http://www.ict-itetris.eu/) project to join SUMO, ns-3, and
-V2X application simulators. It is currently extended within the
-[COLOMBO](http://colombo-fp7.eu/) project.
+V2X application simulators. It is currently used and extended within the
+[TransAID](https://www.transaid.eu/) project.
 
 ### VSimRTI
 
