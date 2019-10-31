@@ -45,7 +45,7 @@ permalink: /ChangeLog/
 - TraCI
   - TraaS functions *Trafficlight.getControlledJunctions*, *Edge.setEffort*, *Edge.getEffort*, *Edge.adaptTraveltime*", *Edge.getAdaptedTraveltime* are now working. Issue #6019  
   - Vehicles being controlled by moveToXY are no longer ignored by cross-traffic while on an intersection. Issue #6140
-  - Traffic light programs of type 'actuated' and 'delay_based' can now be created. #Issue 4324
+  - Traffic light programs of type 'actuated' and 'delay_based' can now be created. Issue #4324
 
 
 ### Enhancements
