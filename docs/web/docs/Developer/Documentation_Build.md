@@ -3,95 +3,39 @@ title: Developer/Documentation Build
 permalink: /Developer/Documentation_Build/
 ---
 
-When accessing SUMO web space, you will find an index page, and several
-additional HTML pages. You will also find a link to a wiki and to the
-[GitHub presence](https://github.com/DLR-TS/sumo). In the following, it
-is described how these documentation parts are build, and mirrored.
+You can read the SUMO Documentation online at: <https://sumo.dlr.de/docs/>
 
-After some tries, we decided to work as following:
+The Documentation is continuously updated and always refers to the latest development version.
 
-- The documentation is "developed" within the wiki; the wiki refers to
-  the state of the package as-is within the current head of the master
-  branch of the main [Git repository](https://github.com/DLR-TS/sumo).
-- The HTML documentation is generated from the wiki
+In summary, the documentation works as follows:
+
+- The documentation is being "developed" or "written" as Markdown files, located in the [SUMO GitHub repository](https://github.com/eclipse/sumo/tree/master/docs/web)
+- The static HTML sites are being generated using MkDocs and certain MkDocs-plugins
 
 # Documentation Parts
 
-## Wiki
+## Source Files
 
-**scope**
+### Markdown files
 
-  The wiki should include the complete user documentation, as well as
-  finalized developer documents, and any kind of additional
-  documentation as long as it is in a state which can be presented.
-  Incomplete or outdated wiki documents should have the prefix
-  "Purgatory/" and should not be linked from any other documents.
+Each "Page" or "Article" corresponds to a Markdown file. This files are located in the [repository](https://github.com/eclipse/sumo/tree/master/docs/web/docs) under `/docs/web/docs/` where its location corresponds to the hierarchy in the documentation (there are directories that contain content-related pages). The Path observed in the URI corresponds to the Path in the Git Documentation directory.
 
-**rights**
+### Images
 
-  The rights to edit the wiki are given to known users on request.
+Images and other Media files that are included in the pages are located in the [repository](https://github.com/eclipse/sumo/tree/master/docs/web/docs/images) under `/docs/web/docs/images/`.
 
-**backup**
+### MkDocs related files
 
-  <font color="red">Redescribe</font>; Wiki-pages can be mirrored
-  using *tools/build/mirrorWiki.py*
+All MkDocs related files, necessary to build the static HTML pages, are located in the [repository](https://github.com/eclipse/sumo/tree/master/docs/web) under `/docs/web/`.
+The necessary files are as follows:
 
-There are currently two options for looking up information from wiki
-versions before 0.13.1
+- **The configuration file:** called "*mkdocs.yml*", it contains some building instructions for MkDocs including the Macros and some site options.
+- **The Theme:** all HTML, CSS and JS files located in the *theme* directory.
 
-- Use the wiki-history for an individual wiki page
-- Use the *sumo-user.pdf* included in older releases. This pdf was
-  compiled from the wiki at the time of the release and should contain
-  most of the wiki content.
+## Static HTML pages
 
-## HTML pages
+The HTML pages are being build using the Markdown files. The final pages are available to read at the [online Documentation](https://sumo.dlr.de/docs/). Altough the Documentation [Source files](#source_files) are included in the repository, the final Static HTML pages are not. In order to get a local copy of this pages, follow the [static HTML site generation](#static_html_site_generation) instructions.
 
-**scope**
+# Static HTML site generation
 
-  HTML pages contain all information stored in the wiki at the time of
-  the last release.
-
-**rights**
-
-  HTML pages are generated and uploaded by SUMO developers which have
-  access to the web space.
-
-**backup**
-
-  A HTML-backup of the wiki is created as part of the linux build. The
-  file  {{SUMO}}*/Makefile.am* defines the task *userdoc* which calls the
-  script *tools/build/buildHTMLDocs.py* to create an offline-browsable
-  mirror (excluding special pages such as history and discussion). The
-  backup is included in the regular release starting at version
-  0.13.1.
-
-# HTML pages generation
-
-The HTML documentation pages are built from the wiki. All scripts needed
-are located in {{SUMO}}/tools/build. `buildHTMLDocs.py` is used to retrieve the
-HTML-representation of wiki-pages. If started with a parameter, this
-parameter is assumed to be the name of the page to retrieve. If no
-parameter is given, `getWikiPages.py` retrieves the list of all pages,
-first, from Special::AllPages.
-
-Each of the pages to retrieve is read from the wiki and stripped so that
-it contains the article HTML only. Links are patched to match the depth
-of the folder the page is located in. `buildHTMLDocs.py` changes the
-links included in this result and retrieves the embedded images (only
-the "normal" version, no thumbnails) and saves the resulting HTML with
-no header/tail into a file located in "mirror" named using the articles'
-name. The folder "mirror" is generated.
-
-All images found in the read pages are retrieved and stored in
-"mirror/images".
-
-The HTML template is located in {{SUMO}}/docs/wiki as "index.html".
-`getWikiPages.py` reads the wiki-text of "SUMO User Documentation",
-extracts the content list, parses it into HTML, and embeds it into
-"index.html" between the comments `<!-- nav begins -->` and `<!-- nav ends -->`.
-
-Then, the pages to convert stored in "mirror" are read and their content
-is inserted into "index.html" between the comments `<!-- content begins -->` and `<!-- content ends -->`. The so obtained
-HTML-pages are stored into "docs".
-
-The images stored in "mirror/images" are copied to "docs/images".
+The static HTML site generation is explained here: <https://github.com/eclipse/sumo/blob/master/docs/web/README.md>
