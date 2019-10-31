@@ -31,6 +31,9 @@
 #include <microsim/pedestrians/MSPerson.h>
 #include <microsim/traffic_lights/MSTLLogicControl.h>
 #include <microsim/traffic_lights/MSSimpleTrafficLightLogic.h>
+#include <microsim/traffic_lights/MSActuatedTrafficLightLogic.h>
+#include <microsim/traffic_lights/MSDelayBasedTrafficLightLogic.h>
+#include <netload/NLDetectorBuilder.h>
 #include <libsumo/TraCIConstants.h>
 #include "TrafficLight.h"
 
@@ -262,8 +265,37 @@ TrafficLight::setCompleteRedYellowGreenDefinition(const std::string& tlsID, cons
         phases.push_back(new MSPhaseDefinition(TIME2STEPS(phase.duration), phase.state, TIME2STEPS(phase.minDur), TIME2STEPS(phase.maxDur), phase.next, phase.name));
     }
     if (vars.getLogic(logic.programID) == nullptr) {
-        MSTrafficLightLogic* mslogic = new MSSimpleTrafficLightLogic(MSNet::getInstance()->getTLSControl(), tlsID, logic.programID, TLTYPE_STATIC, phases, logic.currentPhaseIndex, 0, logic.subParameter);
-        vars.addLogic(logic.programID, mslogic, true, true);
+        MSTLLogicControl& tlc = MSNet::getInstance()->getTLSControl();
+        int step = logic.currentPhaseIndex;
+        const std::string basePath = "";
+        MSTrafficLightLogic* tlLogic = nullptr;
+        SUMOTime nextSwitch = MSNet::getInstance()->getCurrentTimeStep();
+        switch (logic.type) {
+            case TLTYPE_ACTUATED:
+                tlLogic = new MSActuatedTrafficLightLogic(tlc,
+                        tlsID, logic.programID,
+                        phases, step, nextSwitch,
+                        logic.subParameter, basePath);
+                break;
+            case TLTYPE_DELAYBASED:
+                tlLogic = new MSDelayBasedTrafficLightLogic(tlc,
+                        tlsID, logic.programID,
+                        phases, step, nextSwitch,
+                        logic.subParameter, basePath);
+                break;
+            case TLTYPE_STATIC:
+                tlLogic = new MSSimpleTrafficLightLogic(tlc,
+                        tlsID, logic.programID, TLTYPE_STATIC,
+                        phases, step, nextSwitch,
+                        logic.subParameter);
+                break;
+            default:
+                throw TraCIException("Unsupported traffic light type '" + toString(logic.type) + "'");
+        }
+        vars.addLogic(logic.programID, tlLogic, true, true);
+        // XXX pass GUIDetectorBuilder when running with gui
+        NLDetectorBuilder db(*MSNet::getInstance());
+        tlLogic->init(db);
     } else {
         static_cast<MSSimpleTrafficLightLogic*>(vars.getLogic(logic.programID))->setPhases(phases, logic.currentPhaseIndex);
     }
