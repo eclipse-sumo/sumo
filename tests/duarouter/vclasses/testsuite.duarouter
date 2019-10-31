@@ -68,3 +68,6 @@ no_vclass_test_alts_longer
 
 # the desired trip is connected for some vClasses but not for the given one
 no_valid_connection
+
+# normal lanse would allow the movement but the connection forbids it
+internal_lane_forbidden
