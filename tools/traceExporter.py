@@ -28,15 +28,7 @@ sys.path.append(os.path.join(os.environ.get(
 
 from sumolib.miscutils import getSocketStream  # noqa
 import sumolib.net  # noqa
-import sumolib.output.convert.phem as phem  # noqa
-import sumolib.output.convert.omnet as omnet  # noqa
-import sumolib.output.convert.shawn as shawn  # noqa
-import sumolib.output.convert.ns2 as ns2  # noqa
-import sumolib.output.convert.gpsdat as gpsdat  # noqa
-import sumolib.output.convert.kml as kml  # noqa
-import sumolib.output.convert.gpx as gpx  # noqa
-import sumolib.output.convert.poi as poi  # noqa
-import sumolib.output.convert.fcdfilter as fcdfilter  # noqa
+from sumolib.output.convert import phem, omnet, shawn, ns2, gpsdat, kml, gpx, poi, fcdfilter, keplerjson  # noqa
 
 
 class FCDTimeEntry:
@@ -203,6 +195,9 @@ output format. Optionally the output can be sampled, filtered and distorted.
     # FCD
     optParser.add_option("--fcd-filter", dest="fcdfilter", metavar="FILE",
                          help="Defines the name of the filter definition file")
+    # kepler.gl JSON
+    optParser.add_option("--keplerjson-output", dest="keplerjson", metavar="FILE",
+                         help="Defines the name of the kelper.gl JSON file to generate")
     optParser.add_option("--fcd-filter-comment", dest="fcdcomment",
                          help="Extra comments to include in fcd file")
     optParser.add_option("--fcd-filter-type", dest="fcdtype",
@@ -268,6 +263,11 @@ output format. Optionally the output can be sampled, filtered and distorted.
         runMethod(options.fcd, None, fcdfilter.fcdfilter, options,
                   {"filter": options.fcdfilter, "comment": options.fcdcomment, "type": options.fcdtype})
     # ----- FCD
+
+    # ----- kepler.gl JSON
+    if options.keplerjson:
+        runMethod(options.fcd, options.keplerjson, keplerjson.fcd2keplerjson, options)
+    # ----- kepler.gl JSON
 
     # ----- ns2
     if options.ns2mobility or options.ns2config or options.ns2activity:
