@@ -29,7 +29,6 @@ theme:
     edit: 69      # e
 
 plugins:
-  - search
   - git-revision-date
   - macros
 

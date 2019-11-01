@@ -118,13 +118,11 @@
 
                     <ul class="nav navbar-nav ml-auto">
                       {%- block search_button %}
-                      {%- if 'search' in config['plugins'] %}
                         <li class="nav-item">
                             <a href="#" class="nav-link" data-toggle="modal" data-target="#mkdocs_search_modal">
                                 <i class="fa fa-search"></i> <u>S</u>earch
                             </a>
                         </li>
-                        {%- endif %}
                       {%- endblock %}
 
                       {%- block repo %}
@@ -209,6 +207,7 @@
 
       {%- block scripts %}
 
+    {% include "search_modal.html" %}
       <script>
         window.onscroll = function() {scrollFunction()};
         
