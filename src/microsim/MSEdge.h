@@ -76,7 +76,7 @@ typedef std::vector<std::pair<const MSEdge*, const MSEdge*> > MSConstEdgePairVec
 class MSEdge : public Named, public Parameterised {
 private:
     /** @brief "Map" from vehicle class to allowed lanes */
-    typedef std::vector<std::pair<SVCPermissions, const std::vector<MSLane*>* > > AllowedLanesCont;
+    typedef std::vector<std::pair<SVCPermissions, std::shared_ptr<const std::vector<MSLane*> > > > AllowedLanesCont;
 
     /** @brief Succeeding edges (keys) and allowed lanes to reach these edges (values). */
     typedef std::map<const MSEdge*, AllowedLanesCont> AllowedLanesByTarget;
@@ -766,7 +766,7 @@ protected:
     const int myNumericalID;
 
     /// @brief Container for the edge's lane; should be sorted: (right-hand-traffic) the more left the lane, the higher the container-index
-    const std::vector<MSLane*>* myLanes;
+    std::shared_ptr<const std::vector<MSLane*> > myLanes;
 
     /// @brief This member will do the lane-change
     MSLaneChanger* myLaneChanger;
@@ -897,7 +897,7 @@ private:
 
     bool isSuperposable(const MSEdge* other);
 
-    void addToAllowed(const SVCPermissions permissions, const std::vector<MSLane*>* allowedLanes, AllowedLanesCont& laneCont) const;
+    void addToAllowed(const SVCPermissions permissions, std::shared_ptr<const std::vector<MSLane*> > allowedLanes, AllowedLanesCont& laneCont) const;
 };
 
 
