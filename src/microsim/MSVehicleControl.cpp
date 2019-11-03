@@ -93,7 +93,7 @@ MSVehicleControl::~MSVehicleControl() {
     myVTypeDistDict.clear();
     // delete vehicle types
     for (VTypeDictType::iterator i = myVTypeDict.begin(); i != myVTypeDict.end(); ++i) {
-        //delete(*i).second;
+        delete(*i).second;
     }
     myVTypeDict.clear();
 }
