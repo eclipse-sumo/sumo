@@ -210,7 +210,7 @@ enum SUMOVehicleClass {
     SVC_NON_ROAD = SVC_RAIL_CLASSES | SVC_SHIP
 };
 
-extern const int SUMOVehicleClass_MAX;
+extern const SUMOVehicleClass SUMOVehicleClass_MAX;
 extern StringBijection<SUMOVehicleClass> SumoVehicleClassStrings;
 extern std::set<std::string> deprecatedVehicleClassesSeen;
 extern StringBijection<SUMOVehicleShape> SumoVehicleShapeStrings;
