@@ -687,6 +687,9 @@ MSTransportable::~MSTransportable() {
         delete myPlan;
         myPlan = nullptr;
     }
+    for (MSTransportableDevice* dev : myDevices) {
+        delete dev;
+    }
     delete myParameter;
     if (myVType->isVehicleSpecific()) {
         MSNet::getInstance()->getVehicleControl().removeVType(myVType);
