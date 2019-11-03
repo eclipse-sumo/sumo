@@ -119,7 +119,7 @@ GNEAttributeCarrier::AttributeProperties::checkAttributeIntegrity() {
     }
     // check that ranges are valid
     if (hasAttrRange()) {
-        if ((myMinimumRange == myMaximumRange)) {
+        if (myMinimumRange == myMaximumRange) {
             throw FormatException("empty range");
         } else if ((myMinimumRange == 0) && (myMaximumRange == 0)) {
             throw FormatException("non-defined range");
@@ -160,7 +160,7 @@ GNEAttributeCarrier::AttributeProperties::setRange(const double minimum, const d
         myMinimumRange = minimum;
         myMaximumRange = maximum;
         // check that given range is valid
-        if ((myMinimumRange == myMaximumRange)) {
+        if (myMinimumRange == myMaximumRange) {
             throw FormatException("empty range");
         } else if ((myMinimumRange == 0) && (myMaximumRange == 0)) {
             throw FormatException("non-defined range");
