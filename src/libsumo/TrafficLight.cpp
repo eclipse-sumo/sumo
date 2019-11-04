@@ -269,7 +269,7 @@ TrafficLight::setCompleteRedYellowGreenDefinition(const std::string& tlsID, cons
         int step = logic.currentPhaseIndex;
         const std::string basePath = "";
         MSTrafficLightLogic* tlLogic = nullptr;
-        SUMOTime nextSwitch = MSNet::getInstance()->getCurrentTimeStep();
+        SUMOTime nextSwitch = 0; //MSNet::getInstance()->getCurrentTimeStep();
         switch (logic.type) {
             case TLTYPE_ACTUATED:
                 tlLogic = new MSActuatedTrafficLightLogic(tlc,
