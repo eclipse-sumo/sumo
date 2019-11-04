@@ -1167,9 +1167,11 @@ GNEAttributeCarrier::lanesConsecutives(const std::vector<GNELane*>& lanes) {
 std::string 
 GNEAttributeCarrier::getAlternativeValueForDisabledAttributes(SumoXMLAttr key) const {
     switch (key) {
+        // Crossings
         case SUMO_ATTR_TLLINKINDEX:
         case SUMO_ATTR_TLLINKINDEX2:
             return "No TLS";
+        // connections
         case SUMO_ATTR_DIR: {
             // special case for connection directions
             std::string direction = getAttribute(key);
@@ -1220,6 +1222,35 @@ GNEAttributeCarrier::getAlternativeValueForDisabledAttributes(SumoXMLAttr key) c
                 return "undefined";
             }
         }
+        // flows
+        case SUMO_ATTR_VEHSPERHOUR:
+        case SUMO_ATTR_PERIOD:
+        case SUMO_ATTR_PROB:
+        case SUMO_ATTR_END:
+        case SUMO_ATTR_NUMBER:
+            if (myTagProperty.hasAttribute(key) && myTagProperty.getAttributeProperties(key).isFlowDefinition()) {
+                if (isAttributeEnabled(SUMO_ATTR_VEHSPERHOUR)) {
+                    if (isAttributeEnabled(SUMO_ATTR_END)) {
+                        return "not together with number and period or probability";
+                    } else {
+                        return "not together with end and period or probability";
+                    }
+                } else if (isAttributeEnabled(SUMO_ATTR_PERIOD)) {
+                    if (isAttributeEnabled(SUMO_ATTR_END)) {
+                        return "not together with number and vehsPerHour or probability";
+                    } else {
+                        return "not together with end and vehsPerHour or probability";
+                    }
+                } else if (isAttributeEnabled(SUMO_ATTR_PROB)) {
+                    if (isAttributeEnabled(SUMO_ATTR_END)) {
+                        return "not together with number and vehsPerHour or period";
+                    } else {
+                        return "not together with end and vehsPerHour or period";
+                    }
+                } else if (isAttributeEnabled(SUMO_ATTR_END) && (isAttributeEnabled(SUMO_ATTR_NUMBER))) {
+                    return "not together with end and number";
+                }
+            }
         default:
             return getAttribute(key);
     }

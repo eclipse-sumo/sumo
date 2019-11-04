@@ -56,7 +56,6 @@ FXDEFMAP(GNEFrameAttributesModuls::AttributesCreator) AttributesCreatorMap[] = {
 FXDEFMAP(GNEFrameAttributesModuls::AttributesCreatorFlow) AttributesCreatorFlowMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE,          GNEFrameAttributesModuls::AttributesCreatorFlow::onCmdSetFlowAttribute),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE_BUTTON,   GNEFrameAttributesModuls::AttributesCreatorFlow::onCmdSelectFlowRadioButton),
-    FXMAPFUNC(SEL_COMMAND,  MID_HELP,                       GNEFrameAttributesModuls::AttributesCreatorFlow::onCmdHelp)
 };
 
 FXDEFMAP(GNEFrameAttributesModuls::AttributesEditorRow) AttributesEditorRowMap[] = {
@@ -72,7 +71,6 @@ FXDEFMAP(GNEFrameAttributesModuls::AttributesEditor) AttributesEditorMap[] = {
 FXDEFMAP(GNEFrameAttributesModuls::AttributesEditorFlow) AttributesEditorFlowMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE,          GNEFrameAttributesModuls::AttributesEditorFlow::onCmdSetFlowAttribute),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE_BUTTON,   GNEFrameAttributesModuls::AttributesEditorFlow::onCmdSelectFlowRadioButton),
-    FXMAPFUNC(SEL_COMMAND,  MID_HELP,                       GNEFrameAttributesModuls::AttributesEditorFlow::onCmdAttributesEditorFlowHelp)
 };
 
 FXDEFMAP(GNEFrameAttributesModuls::AttributesEditorExtended) AttributesEditorExtendedMap[] = {
@@ -788,8 +786,6 @@ GNEFrameAttributesModuls::AttributesCreatorFlow::AttributesCreatorFlow(Attribute
     auxiliarHorizontalFrame = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
     myAttributeProbabilityRadioButton = new FXRadioButton(auxiliarHorizontalFrame, toString(SUMO_ATTR_PROB).c_str(), this, MID_GNE_SET_ATTRIBUTE_BUTTON, GUIDesignRadioButtonAttribute);
     myValueProbabilityTextField = new FXTextField(auxiliarHorizontalFrame, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
-    // create help button
-    myHelpButton = new FXButton(this, "Help", nullptr, this, MID_HELP, GUIDesignButtonRectangular);
     // set default values
     myValueEndTextField->setText("3600");
     myValueNumberTextField->setText("1800");
@@ -1004,14 +1000,6 @@ GNEFrameAttributesModuls::AttributesCreatorFlow::onCmdSelectFlowRadioButton(FXOb
     }
     // refresh attributes
     refreshAttributesCreatorFlow();
-    return 1;
-}
-
-
-long
-GNEFrameAttributesModuls::AttributesCreatorFlow::onCmdHelp(FXObject*, FXSelector, void*) {
-    // open Help attributes dialog
-    //myFrameParent->openHelpAttributesDialog(myTagProperties);
     return 1;
 }
 
@@ -1563,6 +1551,8 @@ void
 GNEFrameAttributesModuls::AttributesEditor::hideAttributesEditorModul() {
     // clear myEditedACs
     myEditedACs.clear();
+    // hide AttributesEditorFlowModul
+    myAttributesEditorFlow->hideAttributesEditorFlowModul();
     // hide also AttributesEditor
     hide();
 }
@@ -1715,8 +1705,6 @@ GNEFrameAttributesModuls::AttributesEditorFlow::AttributesEditorFlow(AttributesE
     auxiliarHorizontalFrame = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
     myAttributeProbabilityRadioButton = new FXRadioButton(auxiliarHorizontalFrame, toString(SUMO_ATTR_PROB).c_str(), this, MID_GNE_SET_ATTRIBUTE_BUTTON, GUIDesignRadioButtonAttribute);
     myValueProbabilityTextField = new FXTextField(auxiliarHorizontalFrame, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
-    // Create help button
-    myHelpButton = new FXButton(this, "Help", nullptr, this, MID_HELP, GUIDesignButtonRectangular);
 }
 
 
@@ -1843,19 +1831,6 @@ GNEFrameAttributesModuls::AttributesEditorFlow::onCmdSelectFlowRadioButton(FXObj
 }
 
 
-long
-GNEFrameAttributesModuls::AttributesEditorFlow::onCmdAttributesEditorFlowHelp(FXObject*, FXSelector, void*) {
-    /*
-    // open Help attributes dialog if there is inspected ACs
-    if (myEditedACs.size() > 0) {
-        // open Help attributes dialog
-        myFrameParent->openHelpAttributesDialog(myEditedACs.front()->getTagProperty());
-    }
-    */
-    return 1;
-}
-
-
 void
 GNEFrameAttributesModuls::AttributesEditorFlow::refreshEnd() {
     // first we need to check if all attributes are enabled or disabled
@@ -1887,6 +1862,8 @@ GNEFrameAttributesModuls::AttributesEditorFlow::refreshEnd() {
         // check if we set an special value in textField
         if ((allAttributesEnabledOrDisabled > 0) && (myAttributesEditorParent->getEditedACs().size() > 1)) {
             myValueEndTextField->setText("Different flow attributes");
+        } else if (myAttributesEditorParent->getEditedACs().size() == 1) {
+            myValueEndTextField->setText(myAttributesEditorParent->getEditedACs().front()->getAlternativeValueForDisabledAttributes(SUMO_ATTR_END).c_str());
         } else {
             myValueEndTextField->setText("");
         }
@@ -1926,6 +1903,8 @@ GNEFrameAttributesModuls::AttributesEditorFlow::refreshNumber() {
         // check if we set an special value in textField
         if ((allAttributesEnabledOrDisabled > 0) && (myAttributesEditorParent->getEditedACs().size() > 1)) {
             myValueNumberTextField->setText("Different flow attributes");
+        } else if (myAttributesEditorParent->getEditedACs().size() == 1) {
+            myValueNumberTextField->setText(myAttributesEditorParent->getEditedACs().front()->getAlternativeValueForDisabledAttributes(SUMO_ATTR_NUMBER).c_str());
         } else {
             myValueNumberTextField->setText("");
         }
@@ -1965,6 +1944,8 @@ GNEFrameAttributesModuls::AttributesEditorFlow::refreshVehsPerHour() {
         // check if we set an special value in textField
         if ((allAttributesEnabledOrDisabled > 0) && (myAttributesEditorParent->getEditedACs().size() > 1)) {
             myValueVehsPerHourTextField->setText("Different flow attributes");
+        } else if (myAttributesEditorParent->getEditedACs().size() == 1) {
+            myValueVehsPerHourTextField->setText(myAttributesEditorParent->getEditedACs().front()->getAlternativeValueForDisabledAttributes(SUMO_ATTR_VEHSPERHOUR).c_str());
         } else {
             myValueVehsPerHourTextField->setText("");
         }
@@ -2004,6 +1985,8 @@ GNEFrameAttributesModuls::AttributesEditorFlow::refreshPeriod() {
         // check if we set an special value in textField
         if ((allAttributesEnabledOrDisabled > 0) && (myAttributesEditorParent->getEditedACs().size() > 1)) {
             myValuePeriodTextField->setText("Different flow attributes");
+        } else if (myAttributesEditorParent->getEditedACs().size() == 1) {
+            myValuePeriodTextField->setText(myAttributesEditorParent->getEditedACs().front()->getAlternativeValueForDisabledAttributes(SUMO_ATTR_PERIOD).c_str());
         } else {
             myValuePeriodTextField->setText("");
         }
@@ -2044,6 +2027,8 @@ GNEFrameAttributesModuls::AttributesEditorFlow::refreshProbability() {
         // check if we set an special value in textField
         if ((allAttributesEnabledOrDisabled > 0) && (myAttributesEditorParent->getEditedACs().size() > 1)) {
             myValueProbabilityTextField->setText("Different flow attributes");
+        } else if (myAttributesEditorParent->getEditedACs().size() == 1) {
+            myValueProbabilityTextField->setText(myAttributesEditorParent->getEditedACs().front()->getAlternativeValueForDisabledAttributes(SUMO_ATTR_PROB).c_str());
         } else {
             myValueProbabilityTextField->setText("");
         }

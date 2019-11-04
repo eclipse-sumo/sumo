@@ -253,9 +253,6 @@ public:
 
         /// @brief called when user press a radio button
         long onCmdSelectFlowRadioButton(FXObject*, FXSelector, void*);
-
-        /// @brief Called when help button is pressed
-        long onCmdHelp(FXObject*, FXSelector, void*);
         /// @}
 
     protected:
@@ -294,9 +291,6 @@ public:
 
         /// @brief textField for 'probability' attribute
         FXTextField* myValueProbabilityTextField = nullptr;
-
-        /// @brief help button
-        FXButton* myHelpButton = nullptr;
 
         /// @brief variable used to save current flow configuration
         int myFlowParameters;
@@ -464,9 +458,6 @@ public:
 
         /// @brief called when user press a radio button
         long onCmdSelectFlowRadioButton(FXObject*, FXSelector, void*);
-
-        /// @brief Called when user press the help button
-        long onCmdAttributesEditorFlowHelp(FXObject*, FXSelector, void*);
         /// @}
 
     protected:
@@ -520,9 +511,6 @@ public:
 
         /// @brief textField for 'probability' attribute
         FXTextField* myValueProbabilityTextField = nullptr;
-
-        /// @brief button for help
-        FXButton* myHelpButton = nullptr;
     };
 
     // ===========================================================================
