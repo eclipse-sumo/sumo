@@ -550,56 +550,8 @@ void
 GNEVehicle::updateGeometry() {
     // first check if geometry is deprecated
     if (myDemandElementSegmentGeometry.geometryDeprecated) {
-        // clear geometry
-        myDemandElementSegmentGeometry.clearDemandElementSegmentGeometry();
-        // calculate depending if both from and to edges are the same
-        if (getEdgeParents().size() == 1) {
-            // obtain first allowed lane
-            GNELane* lane = getEdgeParents().front()->getLaneByVClass(getVClass());
-            // if there isn't allowed lane, then use first lane
-            if (lane == nullptr) {
-                lane = getEdgeParents().front()->getLanes().front();
-            }
-            // add lane geometry
-            for (int i = 0; i < ((int)lane->getGeometry().shape.size() - 1); i++) {
-                myDemandElementSegmentGeometry.insertEdgeLengthRotSegment(this, getEdgeParents().at(0),
-                        lane->getGeometry().shape[i],
-                        lane->getGeometry().shapeLengths[i],
-                        lane->getGeometry().shapeRotations[i], true, true);
-            }
-        } else {
-            // obtain lanes
-            std::vector<GNELane*> lanes;
-            lanes.reserve(getEdgeParents().size());
-            for (const auto &i : getEdgeParents()) {
-                lanes.push_back(i->getLaneByVClass(getVClass()));
-            }
-            for (int i = 0; i < lanes.size(); i++) {
-                // get lane (only for code readability)
-                const GNELane *lane = lanes.at(i);
-                // first iterate over lane geometry
-                for (int j = 0; j < ((int)lane->getGeometry().shape.size() - 1); j++) {
-                    myDemandElementSegmentGeometry.insertEdgeLengthRotSegment(this, &lane->getParentEdge(),
-                        lane->getGeometry().shape[j], 
-                        lane->getGeometry().shapeLengths[j],
-                        lane->getGeometry().shapeRotations[j], 
-                        true, true);
-                }
-                // now continue with connection
-                if ((i+1) < lanes.size()) {
-                    const GNELane *nextLane = lanes.at(i+1);
-                    if (lane->getLane2laneConnections().shape.count(nextLane) > 0) {
-                        for (int j = 0; j < ((int)lane->getLane2laneConnections().shape.at(nextLane).size() - 1); j++) {
-                            myDemandElementSegmentGeometry.insertEdgeLengthRotSegment(this, &lane->getParentEdge(),
-                            lane->getLane2laneConnections().shape.at(nextLane)[j], 
-                            lane->getLane2laneConnections().shapeLengths.at(nextLane)[j],
-                            lane->getLane2laneConnections().shapeRotations.at(nextLane)[j], 
-                            true, true);
-                        }
-                    }
-                }
-            }
-        }
+        // calculate geometry path
+        calculateGeometricPath();
         // update demand element childrens
         for (const auto& i : getDemandElementChildren()) {
             i->updateGeometry();
@@ -1261,58 +1213,6 @@ GNEVehicle::getHierarchyName() const {
 // ===========================================================================
 // protected
 // ===========================================================================
-
-
-GNEVehicle::ConnectionGeometry::ConnectionGeometry(const NBEdge::Connection* _con, const GNELane* _laneFrom, const GNELane* _laneTo) :
-    con(_con),
-    laneFrom(_laneFrom),
-    laneTo(_laneTo) {
-}
-
-
-GNEVehicle::ConnectionGeometry::ConnectionGeometry(const GNELane* _laneFrom, const GNELane* _laneTo) :
-    con(nullptr),
-    laneFrom(_laneFrom),
-    laneTo(_laneTo) {
-}
-
-
-void
-GNEVehicle::ConnectionGeometry::calculateConnectionShape() {
-    // only calculate shape if connection is valid
-    if (con) {
-        // get NBEdge from
-        const NBEdge* NBEdgeFrom = laneFrom->getParentEdge().getNBEdge();
-        // save connection shape in connectionShapes
-        if (con->customShape.size() != 0) {
-            connectionShape = con->customShape;
-        } else if (NBEdgeFrom->getToNode()->getShape().area() > 4) {
-            if (con->shape.size() != 0) {
-                connectionShape = con->shape;
-                // only append via shape if it exists
-                if (con->haveVia) {
-                    connectionShape.append(con->viaShape);
-                }
-            } else {
-                // Calculate shape so something can be drawn immidiately
-                connectionShape = NBEdgeFrom->getToNode()->computeSmoothShape(
-                                      laneFrom->getGeometry().shape,
-                                      laneTo->getGeometry().shape,
-                                      5, NBEdgeFrom->getTurnDestination() == con->toEdge,
-                                      (double) 5. * (double) NBEdgeFrom->getNumLanes(),
-                                      (double) 5. * (double) con->toEdge->getNumLanes());
-            }
-        }
-    }
-}
-
-
-GNEVehicle::ConnectionGeometry::ConnectionGeometry() :
-    con(nullptr),
-    laneFrom(nullptr),
-    laneTo(nullptr) {
-}
-
 
 void
 GNEVehicle::setColor(const GUIVisualizationSettings& s) const {

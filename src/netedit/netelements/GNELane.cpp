@@ -76,7 +76,7 @@ GNELane::Lane2laneConnection::update() {
                 shape[outgoingLane] = NBEdgeFrom->getToNode()->computeSmoothShape(
                                         myOriginLane->getGeometry().shape,
                                         outgoingLane->getGeometry().shape,
-                                        5, false,
+                                        5, NBEdgeFrom->getTurnDestination() == NBEdgeTo,
                                         (double) 5. * (double) NBEdgeFrom->getNumLanes(),
                                         (double) 5. * (double) NBEdgeTo->getNumLanes());
             } else {

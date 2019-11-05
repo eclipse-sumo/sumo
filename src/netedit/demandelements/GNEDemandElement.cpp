@@ -25,6 +25,7 @@
 #include <netedit/GNENet.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/netelements/GNEEdge.h>
+#include <netedit/netelements/GNELane.h>
 #include <netedit/netelements/GNEJunction.h>
 #include <utils/gui/div/GUIParameterTableWindow.h>
 #include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
@@ -84,18 +85,6 @@ GNEDemandElement::DemandElementGeometry::calculateShapeRotationsAndLengths() {
 // GNEDemandElement::DemandElementSegmentGeometry::Segment - methods
 // ---------------------------------------------------------------------------
 
-GNEDemandElement::DemandElementSegmentGeometry::Segment::Segment(const GNEDemandElement* _element, const GNEEdge* _edge, const Position _pos, const bool _visible, const bool _valid) :
-    element(_element),
-    edge(_edge),
-    junction(nullptr),
-    pos(_pos),
-    visible(_visible),
-    valid(_valid),
-    length(-1),
-    rotation(0) {
-}
-
-
 GNEDemandElement::DemandElementSegmentGeometry::Segment::Segment(const GNEDemandElement* _element, const GNEEdge* _edge, const Position _pos, double _length, double _rotation, const bool _visible, const bool _valid) :
     element(_element),
     edge(_edge),
@@ -129,21 +118,14 @@ GNEDemandElement::DemandElementSegmentGeometry::DemandElementSegmentGeometry() :
 
 
 void
-GNEDemandElement::DemandElementSegmentGeometry::insertEdgeSegment(const GNEDemandElement* element, const GNEEdge* edge, const Position pos, const bool visible, const bool valid) {
-    // add segment in myShapeSegments
-    myShapeSegments.push_back(Segment(element, edge, pos, visible, valid));
-}
-
-
-void
-GNEDemandElement::DemandElementSegmentGeometry::insertEdgeLengthRotSegment(const GNEDemandElement* element, const GNEEdge* edge, const Position pos, double length, double rotation, const bool visible, const bool valid) {
+GNEDemandElement::DemandElementSegmentGeometry::insertEdgeSegment(const GNEDemandElement* element, const GNEEdge* edge, const Position pos, double length, double rotation, const bool visible, const bool valid) {
     // add segment in myShapeSegments
     myShapeSegments.push_back(Segment(element, edge, pos, length, rotation, visible, valid));
 }
 
 
 void
-GNEDemandElement::DemandElementSegmentGeometry::insertEdgeLengthRotSegment(const GNEDemandElement* element, const GNEJunction* junction, const Position pos, double length, double rotation, const bool visible, const bool valid) {
+GNEDemandElement::DemandElementSegmentGeometry::insertJunctionSegment(const GNEDemandElement* element, const GNEJunction* junction, const Position pos, double length, double rotation, const bool visible, const bool valid) {
     // add segment in myShapeSegments
     myShapeSegments.push_back(Segment(element, junction, pos, length, rotation, visible, valid));
 }
@@ -528,6 +510,73 @@ GNEDemandElement::changeDemandElementID(const std::string& newID) {
         setMicrosimID(newID);
         // update demand element ID in the container of net
         myViewNet->getNet()->updateDemandElementID(oldID, this);
+    }
+}
+
+
+void 
+GNEDemandElement::calculateGeometricPath() {
+    // clear geometry
+    myDemandElementSegmentGeometry.clearDemandElementSegmentGeometry();
+    // calculate depending if both from and to edges are the same
+    if (getEdgeParents().size() == 1) {
+        // obtain first allowed lane
+        GNELane* lane = getEdgeParents().front()->getLaneByVClass(getVClass());
+        // if there isn't allowed lane, then use first lane
+        if (lane == nullptr) {
+            lane = getEdgeParents().front()->getLanes().front();
+        }
+        // add lane geometry
+        for (int i = 0; i < ((int)lane->getGeometry().shape.size() - 1); i++) {
+            myDemandElementSegmentGeometry.insertEdgeSegment(this, getEdgeParents().at(0),
+                lane->getGeometry().shape[i],
+                lane->getGeometry().shapeLengths[i],
+                lane->getGeometry().shapeRotations[i], true, true);
+        }
+    } else {
+        // obtain lanes
+        std::vector<GNELane*> lanes;
+        // reserve space
+        lanes.reserve(getEdgeParents().size());
+        // obtain lanes by VClass
+        for (const auto &edgeParent : getEdgeParents()) {
+            // obtain first allowed lane
+            GNELane* allowedLane = edgeParent->getLaneByVClass(getVClass());
+            // if there isn't allowed lane, then use first lane
+            if (allowedLane == nullptr) {
+                allowedLane = edgeParent->getLanes().front();
+            }
+            // add it to lanes
+            lanes.push_back(allowedLane);
+        }
+        // iterate over obtained lanes
+        for (int i = 0; i < lanes.size(); i++) {
+            // get lane (only for code readability)
+            const GNELane *lane = lanes.at(i);
+            // first iterate over lane geometry
+            for (int j = 0; j < ((int)lane->getGeometry().shape.size() - 1); j++) {
+                myDemandElementSegmentGeometry.insertEdgeSegment(this, &lane->getParentEdge(),
+                    lane->getGeometry().shape[j], 
+                    lane->getGeometry().shapeLengths[j],
+                    lane->getGeometry().shapeRotations[j], 
+                    true, true);
+            }
+            // now continue with connection
+            if ((i+1) < lanes.size()) {
+                // obtain next lane
+                const GNELane *nextLane = lanes.at(i+1);
+                // check that next lane exist
+                if (lane->getLane2laneConnections().shape.count(nextLane) > 0) {
+                    for (int j = 0; j < ((int)lane->getLane2laneConnections().shape.at(nextLane).size() - 1); j++) {
+                        myDemandElementSegmentGeometry.insertEdgeSegment(this, &lane->getParentEdge(),
+                        lane->getLane2laneConnections().shape.at(nextLane)[j], 
+                        lane->getLane2laneConnections().shapeLengths.at(nextLane)[j],
+                        lane->getLane2laneConnections().shapeRotations.at(nextLane)[j], 
+                        true, true);
+                    }
+                }
+            }
+        }
     }
 }
 
