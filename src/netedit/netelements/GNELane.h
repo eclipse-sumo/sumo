@@ -49,6 +49,26 @@ class GNELane : public GNENetElement, public FXDelegator {
 
 public:
 
+    /// @brief lane2lane struct
+    struct Lane2laneConnection {
+
+        Lane2laneConnection(GNELane* originLane);
+
+        void update();
+
+        std::map<GNELane*, PositionVector> shape;
+
+        /// @brief The rotations of the single shape parts
+        std::map<GNELane*, std::vector<double> > shapeRotations;
+
+        /// @brief The lengths of the single shape parts
+        std::map<GNELane*, std::vector<double> > shapeLengths;
+
+    private:
+        const GNELane* myOriginLane = nullptr;
+
+    };
+
     /**@brief Constructor
      * @param[in] idStorage The storage of gl-ids to get the one for this lane representation from
      * @param[in] the edge this lane belongs to
@@ -152,6 +172,9 @@ public:
     /// @brief check if this lane is restricted
     bool isRestricted(SUMOVehicleClass vclass) const;
 
+    /// @brief get Lane2laneConnection struct
+    Lane2laneConnection getLane2laneConnections() const;
+
     /// @name inherited from GNEAttributeCarrier
     /// @{
     /* @brief method for getting the Attribute of an XML key
@@ -217,13 +240,16 @@ protected:
     /// @}
 
     /// @brief optional special color
-    const RGBColor* mySpecialColor;
+    const RGBColor* mySpecialColor = nullptr;
 
     /// @brief optional value that corresponds to which the special color corresponds
-    double mySpecialColorValue;
+    double mySpecialColorValue = -1;
 
     /// @brief The color of the shape parts (cached)
     mutable std::vector<RGBColor> myShapeColors;
+
+    /// @brief lane2lane connections
+    Lane2laneConnection myLane2laneConnections;
 
 private:
     /// @brief set attribute after validation

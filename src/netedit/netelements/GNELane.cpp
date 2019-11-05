@@ -55,18 +55,72 @@ FXIMPLEMENT(GNELane, FXDelegator, 0, 0)
 // method definitions
 // ===========================================================================
 
+
+GNELane::Lane2laneConnection::Lane2laneConnection(GNELane* originLane) :
+    myOriginLane(originLane) {
+
+}
+
+
+void 
+GNELane::Lane2laneConnection::update() {
+    shape.clear();
+    shapeRotations.clear();
+    shapeLengths.clear();
+    for (const auto &outgoingEdge : myOriginLane->getParentEdge().getGNEJunctionDestiny()->getGNEOutgoingEdges()) {
+        for (const auto &outgoingLane : outgoingEdge->getLanes()) {
+            // get NBEdges from and to
+            const NBEdge* NBEdgeFrom = myOriginLane->getParentEdge().getNBEdge();
+            const NBEdge* NBEdgeTo = outgoingLane->getParentEdge().getNBEdge();
+            if (NBEdgeFrom->getToNode()->getShape().area() > 4) {
+                // Calculate shape so something can be drawn immidiately
+                shape[outgoingLane] = NBEdgeFrom->getToNode()->computeSmoothShape(
+                                        myOriginLane->getGeometry().shape,
+                                        outgoingLane->getGeometry().shape,
+                                        5, false,
+                                        (double) 5. * (double) NBEdgeFrom->getNumLanes(),
+                                        (double) 5. * (double) NBEdgeTo->getNumLanes());
+            }
+            // Get number of parts of the shape
+            int numberOfSegments = (int)shape[outgoingLane].size() - 1;
+            // If number of segments is more than 0
+            if (numberOfSegments >= 0) {
+                // Reserve memory (To improve efficiency)
+                shapeRotations[outgoingLane].reserve(numberOfSegments);
+                shapeLengths[outgoingLane].reserve(numberOfSegments);
+                // For every part of the shape
+                for (int i = 0; i < numberOfSegments; ++i) {
+                    // Obtain first position
+                    const Position& f = shape[outgoingLane][i];
+                    // Obtain next position
+                    const Position& s = shape[outgoingLane][i + 1];
+                    // Save distance between position into myShapeLengths
+                    shapeLengths[outgoingLane].push_back(f.distanceTo(s));
+                    // Save rotation (angle) of the vector constructed by points f and s
+                    shapeRotations[outgoingLane].push_back((double)atan2((s.x() - f.x()), (f.y() - s.y())) * (double) 180.0 / (double)M_PI);
+                }
+            }
+        }
+    }
+}
+
+
 GNELane::GNELane(GNEEdge& edge, const int index) :
     GNENetElement(edge.getNet(), edge.getNBEdge()->getLaneID(index), GLO_LANE, SUMO_TAG_LANE),
     myParentEdge(edge),
     myIndex(index),
-    mySpecialColor(nullptr) {
+    mySpecialColor(nullptr),
+    mySpecialColorValue(-1),
+    myLane2laneConnections(this) {
 }
 
 GNELane::GNELane() :
     GNENetElement(nullptr, "dummyConstructorGNELane", GLO_LANE, SUMO_TAG_LANE),
     myParentEdge(GNEEdge::getDummyEdge()),
     myIndex(-1),
-    mySpecialColor(nullptr) {
+    mySpecialColor(nullptr),
+    mySpecialColorValue(-1),
+    myLane2laneConnections(this) {
 }
 
 
@@ -91,6 +145,8 @@ GNELane::updateGeometry() {
     // Obtain lane and shape rotations
     myGeometry.shape = myParentEdge.getNBEdge()->getLaneShape(myIndex);
     myGeometry.calculateShapeRotationsAndLengths();
+    // update connections
+    myLane2laneConnections.update();
     // update shapes parents associated with this lane
     for (auto i : getShapeParents()) {
         i->updateGeometry();
@@ -794,6 +850,12 @@ GNELane::isRestricted(SUMOVehicleClass vclass) const {
 }
 
 
+GNELane::Lane2laneConnection 
+GNELane::getLane2laneConnections() const {
+    return myLane2laneConnections;
+}
+
+
 std::string
 GNELane::getAttribute(SumoXMLAttr key) const {
     const NBEdge* edge = myParentEdge.getNBEdge();
@@ -1139,7 +1201,7 @@ GNELane::drawAsRailway(const GUIVisualizationSettings& s) const {
     return isRailway(myParentEdge.getNBEdge()->getPermissions(myIndex)) && s.showRails && (!s.drawForSelecting || s.spreadSuperposed);
 }
 
-
+ 
 bool
 GNELane::drawAsWaterway(const GUIVisualizationSettings& s) const {
     return isWaterway(myParentEdge.getNBEdge()->getPermissions(myIndex)) && s.showRails && !s.drawForSelecting; // reusing the showRails setting
