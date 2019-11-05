@@ -486,6 +486,12 @@ protected:
     /// @brief calculate route between edges
     void calculateGeometricPath();
 
+    /// @brief get first vehicle lane
+    GNELane* getFirstVehicleLane() const;
+
+    /// @brief get first vehicle lane
+    GNELane* getLastVehicleLane() const;
+
 private:
     /**@brief check restriction with the number of children
      * @throw ProcessError if itis called without be reimplemented in child class

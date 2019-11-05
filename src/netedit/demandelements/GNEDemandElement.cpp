@@ -518,65 +518,125 @@ void
 GNEDemandElement::calculateGeometricPath() {
     // clear geometry
     myDemandElementSegmentGeometry.clearDemandElementSegmentGeometry();
-    // calculate depending if both from and to edges are the same
-    if (getEdgeParents().size() == 1) {
-        // obtain first allowed lane
-        GNELane* lane = getEdgeParents().front()->getLaneByVClass(getVClass());
-        // if there isn't allowed lane, then use first lane
-        if (lane == nullptr) {
-            lane = getEdgeParents().front()->getLanes().front();
-        }
-        // add lane geometry
-        for (int i = 0; i < ((int)lane->getGeometry().shape.size() - 1); i++) {
-            myDemandElementSegmentGeometry.insertEdgeSegment(this, getEdgeParents().at(0),
-                lane->getGeometry().shape[i],
-                lane->getGeometry().shapeLengths[i],
-                lane->getGeometry().shapeRotations[i], true, true);
-        }
-    } else {
-        // obtain lanes
-        std::vector<GNELane*> lanes;
-        // reserve space
-        lanes.reserve(getEdgeParents().size());
-        // obtain lanes by VClass
-        for (const auto &edgeParent : getEdgeParents()) {
-            // obtain first allowed lane
-            GNELane* allowedLane = edgeParent->getLaneByVClass(getVClass());
-            // if there isn't allowed lane, then use first lane
-            if (allowedLane == nullptr) {
-                allowedLane = edgeParent->getLanes().front();
+    // first check that there is edge parents
+    if (getEdgeParents().size() > 0) {
+        // calculate depending if both from and to edges are the same
+        if (getEdgeParents().size() == 1) {
+            // obtain first (and single) Lane
+            GNELane* singleLane = getFirstVehicleLane();
+            // if obtained lane is null, then force to use first lane
+            if (singleLane == nullptr) {
+                singleLane = getEdgeParents().front()->getLanes().front();
             }
-            // add it to lanes
-            lanes.push_back(allowedLane);
-        }
-        // iterate over obtained lanes
-        for (int i = 0; i < lanes.size(); i++) {
-            // get lane (only for code readability)
-            const GNELane *lane = lanes.at(i);
-            // first iterate over lane geometry
-            for (int j = 0; j < ((int)lane->getGeometry().shape.size() - 1); j++) {
-                myDemandElementSegmentGeometry.insertEdgeSegment(this, &lane->getParentEdge(),
-                    lane->getGeometry().shape[j], 
-                    lane->getGeometry().shapeLengths[j],
-                    lane->getGeometry().shapeRotations[j], 
-                    true, true);
+            // add lane geometry
+            for (int i = 0; i < ((int)singleLane->getGeometry().shape.size() - 1); i++) {
+                myDemandElementSegmentGeometry.insertEdgeSegment(this, getEdgeParents().at(0),
+                    singleLane->getGeometry().shape[i],
+                    singleLane->getGeometry().shapeLengths[i],
+                    singleLane->getGeometry().shapeRotations[i], true, true);
             }
-            // now continue with connection
-            if ((i+1) < lanes.size()) {
-                // obtain next lane
-                const GNELane *nextLane = lanes.at(i+1);
-                // check that next lane exist
-                if (lane->getLane2laneConnections().shape.count(nextLane) > 0) {
-                    for (int j = 0; j < ((int)lane->getLane2laneConnections().shape.at(nextLane).size() - 1); j++) {
-                        myDemandElementSegmentGeometry.insertEdgeSegment(this, &lane->getParentEdge(),
-                        lane->getLane2laneConnections().shape.at(nextLane)[j], 
-                        lane->getLane2laneConnections().shapeLengths.at(nextLane)[j],
-                        lane->getLane2laneConnections().shapeRotations.at(nextLane)[j], 
+        } else {
+            // declare vector of lanes
+            std::vector<GNELane*> lanes;
+            // reserve space
+            lanes.reserve(getEdgeParents().size());
+            // obtain lanes by VClass
+            for (auto edgeParent = getEdgeParents().begin(); edgeParent != getEdgeParents().end(); edgeParent++) {
+                GNELane* allowedLane = nullptr;
+                if (edgeParent == getEdgeParents().begin()) {
+                    allowedLane = getFirstVehicleLane();
+                } else if (edgeParent == getEdgeParents().begin()) {
+                    allowedLane = getLastVehicleLane();
+                } else {
+                    // obtain first allowed lane
+                    allowedLane = (*edgeParent)->getLaneByVClass(getVClass());
+                }
+                // if there isn't allowed lane, then use first lane
+                if (allowedLane == nullptr) {
+                    allowedLane = (*edgeParent)->getLanes().front();
+                }
+                // add it to lanes
+                lanes.push_back(allowedLane);
+            }
+            // iterate over obtained lanes
+            for (int i = 0; i < lanes.size(); i++) {
+                // get lane (only for code readability)
+                const GNELane *lane = lanes.at(i);
+                // first iterate over lane geometry
+                for (int j = 0; j < ((int)lane->getGeometry().shape.size() - 1); j++) {
+                    myDemandElementSegmentGeometry.insertEdgeSegment(this, &lane->getParentEdge(),
+                        lane->getGeometry().shape[j], 
+                        lane->getGeometry().shapeLengths[j],
+                        lane->getGeometry().shapeRotations[j], 
                         true, true);
+                }
+                // now continue with connection
+                if ((i+1) < lanes.size()) {
+                    // obtain next lane
+                    const GNELane *nextLane = lanes.at(i+1);
+                    // check that next lane exist
+                    if (lane->getLane2laneConnections().shape.count(nextLane) > 0) {
+                        for (int j = 0; j < ((int)lane->getLane2laneConnections().shape.at(nextLane).size() - 1); j++) {
+                            myDemandElementSegmentGeometry.insertEdgeSegment(this, &lane->getParentEdge(),
+                            lane->getLane2laneConnections().shape.at(nextLane)[j], 
+                            lane->getLane2laneConnections().shapeLengths.at(nextLane)[j],
+                            lane->getLane2laneConnections().shapeRotations.at(nextLane)[j], 
+                            true, true);
+                        }
                     }
                 }
             }
         }
+    }
+}
+
+
+GNELane* 
+GNEDemandElement::getFirstVehicleLane() const {
+    // first check if current demand element has edge parents
+    if (getEdgeParents().size() > 0) {
+        // obtain Lane depending of attribute "departLane"
+        if (myTagProperty.hasAttribute(SUMO_ATTR_DEPARTLANE)) {
+            if (canParse<int>(getAttribute(SUMO_ATTR_DEPARTLANE))) {
+                // obtain index
+                const int departLane = parse<int>(getAttribute(SUMO_ATTR_DEPARTLANE));
+                // if index is correct, return lane. In other case, return nullptr;
+                if ((departLane >= 0) && (departLane < getEdgeParents().front()->getNBEdge()->getNumLanes())) {
+                    return getEdgeParents().front()->getLanes().at(departLane);
+                } else {
+                    return nullptr;
+                }
+            }
+        }
+        // in other case, always return the first allowed
+        return getEdgeParents().front()->getLaneByVClass(getVClass());
+    } else {
+        return nullptr;
+    }
+}
+
+
+GNELane* 
+GNEDemandElement::getLastVehicleLane() const {
+    // first check if current demand element has edge parents
+    if (getEdgeParents().size() > 0) {
+        // obtain Lane depending of attribute "arrivalLane"
+        if (myTagProperty.hasAttribute(SUMO_ATTR_ARRIVALLANE)) {
+            if (canParse<int>(getAttribute(SUMO_ATTR_ARRIVALLANE))) {
+                // obtain index
+                const int departLane = parse<int>(getAttribute(SUMO_ATTR_DEPARTLANE));
+                // if index is correct, return lane. In other case, return nullptr;
+                if ((departLane >= 0) && (departLane < getEdgeParents().back()->getNBEdge()->getNumLanes())) {
+                    return getEdgeParents().back()->getLanes().at(departLane);
+                } else {
+                    return nullptr;
+                }
+            }
+        }
+        // in other case, always return the first allowed
+        return getEdgeParents().back()->getLaneByVClass(getVClass());
+    } else {
+        return nullptr;
     }
 }
 

@@ -3932,13 +3932,13 @@ GNEAttributeCarrier::fillCommonVehicleAttributes(SumoXMLTag currentTag) {
     myTagProperties[currentTag].addAttribute(attrProperty);
 
     attrProperty = AttributeProperties(SUMO_ATTR_DEPARTLANE,
-                                       ATTRPROPERTY_COMPLEX | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_OPTIONAL,
+                                       ATTRPROPERTY_COMPLEX | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_OPTIONAL |  ATTRPROPERTY_UPDATEGEOMETRY,
                                        "The lane on which the " + toString(currentTag) + " shall be inserted",
                                        "first");
     myTagProperties[currentTag].addAttribute(attrProperty);
 
     attrProperty = AttributeProperties(SUMO_ATTR_DEPARTPOS,
-                                       ATTRPROPERTY_COMPLEX | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_OPTIONAL /* ATTRPROPERTY_MULTIDISCRETE (Currently disabled) */,
+                                       ATTRPROPERTY_COMPLEX | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_OPTIONAL |  ATTRPROPERTY_UPDATEGEOMETRY /* ATTRPROPERTY_MULTIDISCRETE (Currently disabled) */,
                                        "The position at which the " + toString(currentTag) + " shall enter the net",
                                        "base");
     myTagProperties[currentTag].addAttribute(attrProperty);
@@ -3950,13 +3950,13 @@ GNEAttributeCarrier::fillCommonVehicleAttributes(SumoXMLTag currentTag) {
     myTagProperties[currentTag].addAttribute(attrProperty);
 
     attrProperty = AttributeProperties(SUMO_ATTR_ARRIVALLANE,
-                                       ATTRPROPERTY_COMPLEX | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_OPTIONAL /* ATTRPROPERTY_MULTIDISCRETE (Currently disabled) */,
+                                       ATTRPROPERTY_COMPLEX | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_OPTIONAL |  ATTRPROPERTY_UPDATEGEOMETRY /* ATTRPROPERTY_MULTIDISCRETE (Currently disabled) */,
                                        "The lane at which the " + toString(currentTag) + " shall leave the network",
                                        "current");
     myTagProperties[currentTag].addAttribute(attrProperty);
 
     attrProperty = AttributeProperties(SUMO_ATTR_ARRIVALPOS,
-                                       ATTRPROPERTY_COMPLEX | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_OPTIONAL /* ATTRPROPERTY_MULTIDISCRETE (Currently disabled) */,
+                                       ATTRPROPERTY_COMPLEX | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_OPTIONAL |  ATTRPROPERTY_UPDATEGEOMETRY /* ATTRPROPERTY_MULTIDISCRETE (Currently disabled) */,
                                        "The position at which the " + toString(currentTag) + " shall leave the network",
                                        "max");
     myTagProperties[currentTag].addAttribute(attrProperty);
@@ -3985,13 +3985,13 @@ GNEAttributeCarrier::fillCommonVehicleAttributes(SumoXMLTag currentTag) {
     myTagProperties[currentTag].addAttribute(attrProperty);
 
     attrProperty = AttributeProperties(SUMO_ATTR_DEPARTPOS_LAT,
-                                       ATTRPROPERTY_COMPLEX | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_OPTIONAL,
+                                       ATTRPROPERTY_COMPLEX | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_OPTIONAL |  ATTRPROPERTY_UPDATEGEOMETRY,
                                        "The lateral position on the departure lane at which the " + toString(currentTag) + " shall enter the net",
                                        "center");
     myTagProperties[currentTag].addAttribute(attrProperty);
 
     attrProperty = AttributeProperties(SUMO_ATTR_ARRIVALPOS_LAT,
-                                       ATTRPROPERTY_COMPLEX | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_OPTIONAL,
+                                       ATTRPROPERTY_COMPLEX | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_OPTIONAL |  ATTRPROPERTY_UPDATEGEOMETRY,
                                        "The lateral position on the arrival lane at which the " + toString(currentTag) + " shall arrive",
                                        "center");
     myTagProperties[currentTag].addAttribute(attrProperty);
@@ -4401,7 +4401,7 @@ GNEAttributeCarrier::fillCommonPersonAttributes(SumoXMLTag currentTag) {
     myTagProperties[currentTag].addAttribute(attrProperty);
 
     attrProperty = AttributeProperties(SUMO_ATTR_DEPARTPOS,
-                                       ATTRPROPERTY_COMPLEX | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_OPTIONAL,
+                                       ATTRPROPERTY_COMPLEX | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_OPTIONAL |  ATTRPROPERTY_UPDATEGEOMETRY,
                                        "The position at which the " + toString(currentTag) + " shall enter the net",
                                        "base");
     myTagProperties[currentTag].addAttribute(attrProperty);

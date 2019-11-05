@@ -1570,6 +1570,10 @@ GNEVehicle::setAttribute(SumoXMLAttr key, const std::string& value) {
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
+    // check if geometry must be marked as deprecated
+    if (myTagProperty.getAttributeProperties(key).requireUpdateGeometry()) {
+        myDemandElementSegmentGeometry.geometryDeprecated = true;
+    }
 }
 
 
