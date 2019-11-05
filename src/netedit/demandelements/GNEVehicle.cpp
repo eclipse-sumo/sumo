@@ -511,7 +511,7 @@ GNEVehicle::compute() {
         // check if rute is valid
         if (route.size() > 0) {
             changeEdgeParents(this, route, true);
-        } else {
+        } else if (getEdgeParents().size() > 0) {
             changeEdgeParents(this, getEdgeParents().front()->getID() + " " + toString(via) + " " + getEdgeParents().back()->getID(), true);
         }
         // mark geometry as deprecated
@@ -1596,7 +1596,7 @@ GNEVehicle::computeWithoutReferences() {
         // check if rute is valid
         if (route.size() > 0) {
             changeEdgeParents(this, route, false);
-        } else {
+        } else if (getEdgeParents().size() > 0) {
             changeEdgeParents(this, getEdgeParents().front()->getID() + " " + toString(via) + " " + getEdgeParents().back()->getID(), false);
         }
         // mark geometry as deprecated
