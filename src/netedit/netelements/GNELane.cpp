@@ -58,7 +58,6 @@ FXIMPLEMENT(GNELane, FXDelegator, 0, 0)
 
 GNELane::Lane2laneConnection::Lane2laneConnection(GNELane* originLane) :
     myOriginLane(originLane) {
-
 }
 
 
@@ -80,6 +79,8 @@ GNELane::Lane2laneConnection::update() {
                                         5, false,
                                         (double) 5. * (double) NBEdgeFrom->getNumLanes(),
                                         (double) 5. * (double) NBEdgeTo->getNumLanes());
+            } else {
+                shape[outgoingLane] = {myOriginLane->getGeometry().shape.back(), outgoingLane->getGeometry().shape.front()};
             }
             // Get number of parts of the shape
             int numberOfSegments = (int)shape[outgoingLane].size() - 1;

@@ -498,7 +498,7 @@ GNEPerson::updateGeometry() {
                 }
             }
             // calculate entire shape, rotations and lengths
-            myDemandElementSegmentGeometry.calculatePartialShapeRotationsAndLengths();
+            // myDemandElementSegmentGeometry.calculatePartialShapeRotationsAndLengths();
         }
         // mark demand element geometry as non-deprecated
         myDemandElementSegmentGeometry.geometryDeprecated = false;
@@ -1070,7 +1070,7 @@ GNEPerson::calculateSmoothPersonPlanConnection(const GNEDemandElement* personPla
                                      (double) 5. * (double) edgeTo->getNBEdge()->getNumLanes());
     // add smootshape in personPlan shape
     for (const auto& i : smoothShape) {
-        myDemandElementSegmentGeometry.insertJunctionSegment(personPlanElement, edgeTo->getGNEJunctionSource(), i, true, true);
+        myDemandElementSegmentGeometry.insertEdgeLengthRotSegment(personPlanElement, edgeTo->getGNEJunctionSource(), i, true, true, true, true);
     }
 }
 

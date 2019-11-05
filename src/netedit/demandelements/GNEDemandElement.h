@@ -87,8 +87,8 @@ public:
             /// @brief parameter constructor for edges
             Segment(const GNEDemandElement* _element, const GNEEdge* _edge, const Position _pos, double _length, double _rotation, const bool _visible, const bool _valid);
 
-            /// @brief parameter constructor for junctions
-            Segment(const GNEDemandElement* _element, const GNEJunction* _junction, const Position _pos, const bool _visible, const bool _valid);
+            /// @brief parameter constructor for juncitons
+            Segment(const GNEDemandElement* _element, const GNEJunction* _junction, const Position _pos, double _length, double _rotation, const bool _visible, const bool _valid);
 
             /// @brief element
             const GNEDemandElement* element;
@@ -128,14 +128,14 @@ public:
         /// @brief insert edge segment with length and rotation (used to avoid unnecessary calculation in calculatePartialShapeRotationsAndLengths)
         void insertEdgeLengthRotSegment(const GNEDemandElement* element, const GNEEdge* edge, const Position pos, double length, double rotation, const bool visible, const bool valid);
 
-        /// @brief insert junction segment
-        void insertJunctionSegment(const GNEDemandElement* element, const GNEJunction* junction, const Position pos, const bool visible, const bool valid);
+         /// @brief insert junction segment with length and rotation (used to avoid unnecessary calculation in calculatePartialShapeRotationsAndLengths)
+        void insertEdgeLengthRotSegment(const GNEDemandElement* element, const GNEJunction* junction, const Position pos, double length, double rotation, const bool visible, const bool valid);
 
         /// @brief clear demand element geometry
         void clearDemandElementSegmentGeometry();
 
         /// @brief calculate partial shape, rotations and lengths
-        void calculatePartialShapeRotationsAndLengths();
+        // void calculatePartialShapeRotationsAndLengths();
 
         /// @brief begin iterator
         std::vector<Segment>::const_iterator begin() const;

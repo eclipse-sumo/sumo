@@ -48,25 +48,27 @@ class GNELane : public GNENetElement, public FXDelegator {
     FXDECLARE(GNELane)
 
 public:
-
     /// @brief lane2lane struct
     struct Lane2laneConnection {
 
+        /// @brief constructor
         Lane2laneConnection(GNELane* originLane);
 
+        /// @brief update
         void update();
 
-        std::map<GNELane*, PositionVector> shape;
+        /// @brief connection shape
+        std::map<const GNELane*, PositionVector> shape;
 
         /// @brief The rotations of the single shape parts
-        std::map<GNELane*, std::vector<double> > shapeRotations;
+        std::map<const GNELane*, std::vector<double> > shapeRotations;
 
         /// @brief The lengths of the single shape parts
-        std::map<GNELane*, std::vector<double> > shapeLengths;
+        std::map<const GNELane*, std::vector<double> > shapeLengths;
 
     private:
+        /// @brief origin lane
         const GNELane* myOriginLane = nullptr;
-
     };
 
     /**@brief Constructor

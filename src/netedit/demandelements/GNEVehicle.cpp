@@ -568,145 +568,38 @@ GNEVehicle::updateGeometry() {
                         lane->getGeometry().shapeRotations[i], true, true);
             }
         } else {
-            // declare a matrix to save found connections
-            std::vector<std::vector<ConnectionGeometry> > connectionGeometryMatrix;
-            // iterate over edge parents
-            for (int i = 0; i < ((int)getEdgeParents().size() - 1); i++) {
-                // add a new connection vector in matrix
-                connectionGeometryMatrix.push_back(std::vector<ConnectionGeometry>());
-                // obtain NBEdges from both edges
-                NBEdge* nbFrom = getEdgeParents().at(i)->getNBEdge();
-                NBEdge* nbTo = getEdgeParents().at(i + 1)->getNBEdge();
-                // iterate over all connections of NBFrom
-                for (NBEdge::Connection c : nbFrom->getConnectionsFromLane(-1, nbTo, -1)) {
-                    //check if given VClass is allowed for from and to lanes
-                    if ((nbFrom->getPermissions(c.fromLane) & nbTo->getPermissions(c.toLane) & getVClass()) == getVClass()) {
-                        // save connectionGeometry in Matrix
-                        connectionGeometryMatrix.at(i).push_back(ConnectionGeometry(&c,
-                                getEdgeParents().at(i)->getLanes().at(c.fromLane),
-                                getEdgeParents().at(i + 1)->getLanes().at(c.toLane)));
-                    }
-                }
+            // obtain lanes
+            std::vector<GNELane*> lanes;
+            lanes.reserve(getEdgeParents().size());
+            for (const auto &i : getEdgeParents()) {
+                lanes.push_back(i->getLaneByVClass(getVClass()));
             }
-            // now filter connection geometry matrix
-            std::vector<ConnectionGeometry> connectionGeometriesFiltered;
-            // iterate over connection geometry matrix
-            for (int i = 0; i < (int)connectionGeometryMatrix.size(); i++) {
-                // declare two "columns" (only to improve code legibility)
-                const auto& currentColumn = connectionGeometryMatrix.at(i);
-                const auto& nextColumn = ((i + 1) < (int)connectionGeometryMatrix.size()) ? connectionGeometryMatrix.at(i + 1) : std::vector<ConnectionGeometry>();
-                // obtain two from and to lanes
-                const GNELane* laneFrom = getEdgeParents().at(i)->getLaneByVClass(getVClass());
-                const GNELane* laneTo = getEdgeParents().at(i + 1)->getLaneByVClass(getVClass());
-                // check if current matrix column has a connection geometry
-                if (currentColumn.empty()) {
-                    // insert a connection Geometry without NBEdge::Connection
-                    connectionGeometriesFiltered.push_back(ConnectionGeometry(laneFrom, laneTo));
-                } else if (currentColumn.size() == 1) {
-                    // Nothing to filter
-                    connectionGeometriesFiltered.push_back(currentColumn.front());
-                } else {
-                    // declare a flag to stop loops
-                    bool stop = false;
-                    // iterate over  all connections and take the first connection that have the same from and to edge
-                    for (auto currentConnection = currentColumn.begin(); currentConnection != currentColumn.end() && !stop; currentConnection++) {
-                        // obtain previous and next lanes
-                        const GNELane* previousLane = (connectionGeometriesFiltered.size() > 0) ? connectionGeometriesFiltered.back().laneTo : nullptr;
-                        // check if previous lane exist
-                        if (previousLane) {
-                            // first case: exist a previous lane. Then try to find a connection between previousLane and next connection
-                            for (auto nextConnection = nextColumn.cbegin(); (nextConnection != nextColumn.cend()) && !stop; nextConnection++) {
-                                if ((previousLane == currentConnection->laneFrom)  && (currentConnection->laneTo == nextConnection->laneFrom)) {
-                                    connectionGeometriesFiltered.push_back(*currentConnection);
-                                    stop = true;
-                                }
-                            }
-                        } else {
-                            // first case: doesn't exist a previous lane. Then try to find a connection  with next connection with the same lane
-                            for (auto nextConnection = nextColumn.cbegin(); (nextConnection != nextColumn.cend()) && !stop; nextConnection++) {
-                                if (currentConnection->laneTo == nextConnection->laneFrom) {
-                                    connectionGeometriesFiltered.push_back(*currentConnection);
-                                    stop = true;
-                                }
-                            }
-                        }
-                    }
-                    // if none was found, insert a connection Geometry without NBEdge::Connection
-                    if (!stop) {
-                        connectionGeometriesFiltered.push_back(ConnectionGeometry(laneFrom, laneTo));
-                    }
+            for (int i = 0; i < lanes.size(); i++) {
+                // get lane (only for code readability)
+                const GNELane *lane = lanes.at(i);
+                // first iterate over lane geometry
+                for (int j = 0; j < ((int)lane->getGeometry().shape.size() - 1); j++) {
+                    myDemandElementSegmentGeometry.insertEdgeLengthRotSegment(this, &lane->getParentEdge(),
+                        lane->getGeometry().shape[j], 
+                        lane->getGeometry().shapeLengths[j],
+                        lane->getGeometry().shapeRotations[j], 
+                        true, true);
                 }
-            }
-            // now iterate over all filtered connections to calculate shape segments
-            for (auto connectionGeometry = connectionGeometriesFiltered.begin(); connectionGeometry != connectionGeometriesFiltered.end(); connectionGeometry++) {
-                // first calculate connection shape
-                connectionGeometry->calculateConnectionShape();
-                // check if this is the first geometry connection
-                if (connectionGeometry == connectionGeometriesFiltered.begin()) {
-                    // obtain lane geometry
-                    auto laneGeometry = (connectionGeometry->laneFrom) ? connectionGeometry->laneFrom->getGeometry() : getEdgeParents().at(0)->getLaneByVClass(getVClass())->getGeometry();
-                    // add lane shape in segments geometry
-                    for (int i = 0; i < (int)laneGeometry.shape.size(); i++) {
-                        if (i < (int)laneGeometry.shape.size() - 1) {
-                            myDemandElementSegmentGeometry.insertEdgeLengthRotSegment(this, getEdgeParents().at(0),
-                                    laneGeometry.shape[i],
-                                    laneGeometry.shapeLengths[i],
-                                    laneGeometry.shapeRotations[i], true, true);
-                        } else {
-                            myDemandElementSegmentGeometry.insertEdgeSegment(this, getEdgeParents().at(0),
-                                    laneGeometry.shape[i], true, true);
-                        }
-                    }
-                }
-                // check if connection exist
-                if (connectionGeometry->con) {
-                    // add connection shape in in segments geometry
-                    for (const auto& connectionShapePos : connectionGeometry->connectionShape) {
-                        myDemandElementSegmentGeometry.insertJunctionSegment(this, connectionGeometry->laneFrom->getParentEdge().getGNEJunctionDestiny(), connectionShapePos, true, true);
-                    }
-                    // add lane shape in segments geometry using laneTo of current correnction
-                    for (int i = 0; i < (int)connectionGeometry->laneTo->getGeometry().shape.size(); i++) {
-                        if (i < (int)connectionGeometry->laneTo->getGeometry().shape.size() - 1) {
-                            myDemandElementSegmentGeometry.insertEdgeLengthRotSegment(this, &connectionGeometry->laneTo->getParentEdge(),
-                                    connectionGeometry->laneTo->getGeometry().shape[i],
-                                    connectionGeometry->laneTo->getGeometry().shapeLengths[i],
-                                    connectionGeometry->laneTo->getGeometry().shapeRotations[i], true, true);
-                        } else {
-                            myDemandElementSegmentGeometry.insertEdgeSegment(this, &connectionGeometry->laneTo->getParentEdge(),
-                                    connectionGeometry->laneTo->getGeometry().shape[i], true, true);
-                        }
-                    }
-                } else if ((connectionGeometry + 1) != connectionGeometriesFiltered.end()) {
-                    // add lane shape in segments geometry using laneFrom of next connection
-                    for (int i = 0; i < (int)(connectionGeometry + 1)->laneFrom->getGeometry().shape.size(); i++) {
-                        if (i < (int)(connectionGeometry + 1)->laneFrom->getGeometry().shape.size() - 1) {
-                            myDemandElementSegmentGeometry.insertEdgeLengthRotSegment(this, &(connectionGeometry + 1)->laneFrom->getParentEdge(),
-                                    (connectionGeometry + 1)->laneFrom->getGeometry().shape[i],
-                                    (connectionGeometry + 1)->laneFrom->getGeometry().shapeLengths[i],
-                                    (connectionGeometry + 1)->laneFrom->getGeometry().shapeRotations[i], true, true);
-                        } else {
-                            myDemandElementSegmentGeometry.insertEdgeSegment(this, &(connectionGeometry + 1)->laneFrom->getParentEdge(),
-                                    (connectionGeometry + 1)->laneFrom->getGeometry().shape[i], true, true);
-                        }
-                    }
-                } else {
-                    // due this is the last shape, add lane shape in segments geometry using laneTo of current connection geometry
-                    for (int i = 0; i < (int)connectionGeometry->laneTo->getGeometry().shape.size(); i++) {
-                        if (i < (int)connectionGeometry->laneTo->getGeometry().shape.size() - 1) {
-                            myDemandElementSegmentGeometry.insertEdgeLengthRotSegment(this, &connectionGeometry->laneTo->getParentEdge(),
-                                    connectionGeometry->laneTo->getGeometry().shape[i],
-                                    connectionGeometry->laneTo->getGeometry().shapeLengths[i],
-                                    connectionGeometry->laneTo->getGeometry().shapeRotations[i], true, true);
-                        } else {
-                            myDemandElementSegmentGeometry.insertEdgeSegment(this, &connectionGeometry->laneTo->getParentEdge(),
-                                    connectionGeometry->laneTo->getGeometry().shape[i], true, true);
+                // now continue with connection
+                if ((i+1) < lanes.size()) {
+                    const GNELane *nextLane = lanes.at(i+1);
+                    if (lane->getLane2laneConnections().shape.count(nextLane) > 0) {
+                        for (int j = 0; j < ((int)lane->getLane2laneConnections().shape.at(nextLane).size() - 1); j++) {
+                            myDemandElementSegmentGeometry.insertEdgeLengthRotSegment(this, &lane->getParentEdge(),
+                            lane->getLane2laneConnections().shape.at(nextLane)[j], 
+                            lane->getLane2laneConnections().shapeLengths.at(nextLane)[j],
+                            lane->getLane2laneConnections().shapeRotations.at(nextLane)[j], 
+                            true, true);
                         }
                     }
                 }
             }
         }
-        // calculate entire shape, rotations and lengths
-        myDemandElementSegmentGeometry.calculatePartialShapeRotationsAndLengths();
         // update demand element childrens
         for (const auto& i : getDemandElementChildren()) {
             i->updateGeometry();

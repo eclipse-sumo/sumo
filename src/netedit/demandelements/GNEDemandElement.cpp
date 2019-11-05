@@ -108,17 +108,16 @@ GNEDemandElement::DemandElementSegmentGeometry::Segment::Segment(const GNEDemand
 }
 
 
-GNEDemandElement::DemandElementSegmentGeometry::Segment::Segment(const GNEDemandElement* _element, const GNEJunction* _junction, const Position _pos, const bool _visible, const bool _valid) :
+GNEDemandElement::DemandElementSegmentGeometry::Segment::Segment(const GNEDemandElement* _element, const GNEJunction* _junction, const Position _pos, double _length, double _rotation, const bool _visible, const bool _valid) :
     element(_element),
     edge(nullptr),
     junction(_junction),
     pos(_pos),
     visible(_visible),
     valid(_valid),
-    length(-1),
-    rotation(0) {
+    length(_length),
+    rotation(_rotation) {
 }
-
 
 // ---------------------------------------------------------------------------
 // GNEDemandElement::DemandElementGeometry - methods
@@ -144,9 +143,9 @@ GNEDemandElement::DemandElementSegmentGeometry::insertEdgeLengthRotSegment(const
 
 
 void
-GNEDemandElement::DemandElementSegmentGeometry::insertJunctionSegment(const GNEDemandElement* element, const GNEJunction* junction, const Position pos, const bool visible, const bool valid) {
+GNEDemandElement::DemandElementSegmentGeometry::insertEdgeLengthRotSegment(const GNEDemandElement* element, const GNEJunction* junction, const Position pos, double length, double rotation, const bool visible, const bool valid) {
     // add segment in myShapeSegments
-    myShapeSegments.push_back(Segment(element, junction, pos, visible, valid));
+    myShapeSegments.push_back(Segment(element, junction, pos, length, rotation, visible, valid));
 }
 
 
@@ -154,30 +153,6 @@ void
 GNEDemandElement::DemandElementSegmentGeometry::clearDemandElementSegmentGeometry() {
     // clear segments
     myShapeSegments.clear();
-}
-
-
-void
-GNEDemandElement::DemandElementSegmentGeometry::calculatePartialShapeRotationsAndLengths() {
-    // Get number of parts of the shapeSegments
-    int numberOfSegments = (int)myShapeSegments.size() - 1;
-    // If number of segments is more than 0
-    if (numberOfSegments >= 0) {
-        // Iterate over every segment
-        for (int i = 0; i < numberOfSegments; ++i) {
-            // check if length and rotation has to be calculated
-            if (myShapeSegments[i].length == -1) {
-                // Obtain first position
-                const Position& f = myShapeSegments[i].pos;
-                // Obtain next position
-                const Position& s = myShapeSegments[i + 1].pos;
-                // Save distance between position into myShapeLengths
-                myShapeSegments[i].length = f.distanceTo2D(s);
-                // Save rotation (angle) of the vector constructed by points f and s
-                myShapeSegments[i].rotation = ((double)atan2((s.x() - f.x()), (f.y() - s.y())) * (double) 180.0 / (double)M_PI);
-            }
-        }
-    }
 }
 
 
