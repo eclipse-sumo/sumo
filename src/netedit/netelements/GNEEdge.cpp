@@ -616,7 +616,10 @@ GNEEdge::drawGL(const GUIVisualizationSettings& s) const {
     if (myNet->getViewNet()->getDottedAC() == this) {
         const double myHalfLaneWidthFront = myNBEdge.getLaneWidth(myLanes.front()->getIndex()) / 2;
         const double myHalfLaneWidthBack = (s.spreadSuperposed && myLanes.back()->drawAsRailway(s) && myNBEdge.isBidiRail()) ? 0 : myNBEdge.getLaneWidth(myLanes.back()->getIndex()) / 2;
-        GLHelper::drawShapeDottedContourBetweenLanes(s, GLO_JUNCTION, myLanes.front()->getGeometry().shape, myHalfLaneWidthFront, myLanes.back()->getGeometry().shape, -1 * myHalfLaneWidthBack);
+        // obtain shapes from NBEdge
+        const PositionVector &frontShape = myLanes.front()->getParentEdge().getNBEdge()->getLaneShape(myLanes.front()->getIndex());
+        const PositionVector &backShape = myLanes.back()->getParentEdge().getNBEdge()->getLaneShape(myLanes.back()->getIndex());
+        GLHelper::drawShapeDottedContourBetweenLanes(s, GLO_JUNCTION, frontShape, myHalfLaneWidthFront, backShape, -1 * myHalfLaneWidthBack);
     }
 }
 

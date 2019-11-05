@@ -74,13 +74,13 @@ GNELane::Lane2laneConnection::update() {
             if (NBEdgeFrom->getToNode()->getShape().area() > 4) {
                 // Calculate shape so something can be drawn immidiately
                 shape[outgoingLane] = NBEdgeFrom->getToNode()->computeSmoothShape(
-                                        myOriginLane->getGeometry().shape,
-                                        outgoingLane->getGeometry().shape,
-                                        5, NBEdgeFrom->getTurnDestination() == NBEdgeTo,
-                                        (double) 5. * (double) NBEdgeFrom->getNumLanes(),
-                                        (double) 5. * (double) NBEdgeTo->getNumLanes());
+                    NBEdgeFrom->getLaneShape(myOriginLane->getIndex()),
+                    NBEdgeTo->getLaneShape(outgoingLane->getIndex()),
+                    5, NBEdgeFrom->getTurnDestination() == NBEdgeTo,
+                    (double) 5. * (double) NBEdgeFrom->getNumLanes(),
+                    (double) 5. * (double) NBEdgeTo->getNumLanes());
             } else {
-                shape[outgoingLane] = {myOriginLane->getGeometry().shape.back(), outgoingLane->getGeometry().shape.front()};
+                shape[outgoingLane] = {NBEdgeFrom->getLaneShape(myOriginLane->getIndex()).back(), NBEdgeTo->getLaneShape(outgoingLane->getIndex()).front()};
             }
             // Get number of parts of the shape
             int numberOfSegments = (int)shape[outgoingLane].size() - 1;
