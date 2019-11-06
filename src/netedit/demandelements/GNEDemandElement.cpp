@@ -559,9 +559,9 @@ GNEDemandElement::calculateGeometricPath() {
                 lanes.push_back(allowedLane);
             }
             // iterate over obtained lanes
-            for (int i = 0; i < lanes.size(); i++) {
+            for (int i = 0; i < (int)lanes.size(); i++) {
                 // get lane (only for code readability)
-                const GNELane *lane = lanes.at(i);
+                const GNELane* const lane = lanes.at(i);
                 // first iterate over lane geometry
                 for (int j = 0; j < ((int)lane->getLaneShape().size() - 1); j++) {
                     myDemandElementSegmentGeometry.insertEdgeSegment(this, &lane->getParentEdge(),
@@ -571,9 +571,9 @@ GNEDemandElement::calculateGeometricPath() {
                         true, true);
                 }
                 // now continue with connection
-                if ((i+1) < lanes.size()) {
+                if ((i+1) < (int)lanes.size()) {
                     // obtain next lane
-                    const GNELane *nextLane = lanes.at(i+1);
+                    const GNELane* const nextLane = lanes.at(i+1);
                     // check that next lane exist
                     if (lane->getLane2laneConnections().shape.count(nextLane) > 0) {
                         for (int j = 0; j < ((int)lane->getLane2laneConnections().shape.at(nextLane).size() - 1); j++) {
