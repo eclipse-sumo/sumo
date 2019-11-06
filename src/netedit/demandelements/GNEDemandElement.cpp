@@ -661,15 +661,19 @@ GNEDemandElement::getFirstVehicleLane() const {
     if (getEdgeParents().size() > 0) {
         // obtain Lane depending of attribute "departLane"
         if (myTagProperty.hasAttribute(SUMO_ATTR_DEPARTLANE)) {
-            if (canParse<int>(getAttribute(SUMO_ATTR_DEPARTLANE))) {
-                // obtain index
-                const int departLane = parse<int>(getAttribute(SUMO_ATTR_DEPARTLANE));
-                // if index is correct, return lane. In other case, return nullptr;
-                if ((departLane >= 0) && (departLane < getEdgeParents().front()->getNBEdge()->getNumLanes())) {
-                    return getEdgeParents().front()->getLanes().at(departLane);
-                } else {
-                    return nullptr;
-                }
+            // obtain depart lane
+            std::string departLane = getAttribute(SUMO_ATTR_DEPARTLANE);
+            //  check depart lane
+            if ((departLane == "random") || (departLane == "free") ||(departLane == "allowed") ||(departLane == "best") || (departLane == "first")) {
+                return nullptr;
+            }
+            // obtain index
+            const int departLaneIndex = parse<int>(getAttribute(SUMO_ATTR_DEPARTLANE));
+            // if index is correct, return lane. In other case, return nullptr;
+            if ((departLaneIndex >= 0) && (departLaneIndex < getEdgeParents().front()->getNBEdge()->getNumLanes())) {
+                return getEdgeParents().front()->getLanes().at(departLaneIndex);
+            } else {
+                return nullptr;
             }
         }
         // in other case, always return the first allowed
@@ -686,15 +690,19 @@ GNEDemandElement::getLastVehicleLane() const {
     if (getEdgeParents().size() > 0) {
         // obtain Lane depending of attribute "arrivalLane"
         if (myTagProperty.hasAttribute(SUMO_ATTR_ARRIVALLANE)) {
-            if (canParse<int>(getAttribute(SUMO_ATTR_ARRIVALLANE))) {
-                // obtain index
-                const int departLane = parse<int>(getAttribute(SUMO_ATTR_DEPARTLANE));
-                // if index is correct, return lane. In other case, return nullptr;
-                if ((departLane >= 0) && (departLane < getEdgeParents().back()->getNBEdge()->getNumLanes())) {
-                    return getEdgeParents().back()->getLanes().at(departLane);
-                } else {
-                    return nullptr;
-                }
+            // obtain arrival lane
+            std::string arrivalLane = getAttribute(SUMO_ATTR_ARRIVALLANE);
+            //  check depart lane
+            if (arrivalLane == "current") {
+                return nullptr;
+            }
+            // obtain index
+            const int arrivalLaneIndex = parse<int>(getAttribute(SUMO_ATTR_ARRIVALLANE));
+            // if index is correct, return lane. In other case, return nullptr;
+            if ((arrivalLaneIndex >= 0) && (arrivalLaneIndex < getEdgeParents().back()->getNBEdge()->getNumLanes())) {
+                return getEdgeParents().back()->getLanes().at(arrivalLaneIndex);
+            } else {
+                return nullptr;
             }
         }
         // in other case, always return the first allowed
@@ -706,7 +714,7 @@ GNEDemandElement::getLastVehicleLane() const {
 
 
 void 
-GNEDemandElement::adjustStartPosGeometricPath(double *startPos, const GNELane* startLane, double *endPos, const const GNELane* endLane) const {
+GNEDemandElement::adjustStartPosGeometricPath(double *startPos, const GNELane* startLane, double *endPos, const GNELane* endLane) const {
     // adjust startPos
     if (startPos && startLane) {
         if ((*startPos) < (2 * POSITION_EPS)) {
