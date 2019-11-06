@@ -259,6 +259,12 @@ h1:hover .headerlink, h2:hover .headerlink, h3:hover .headerlink, h4:hover .head
     border-color: #bce8f1;
 }
 
+.admonition.conference { /* csslint allow: adjoining-classes */
+    color: #000000;
+    background-color: rgb(171,221,139);
+    border-color: #338033;
+}
+
 .admonition.convention {
     color: #000000;
     background-color: #ccffcc; 

@@ -325,7 +325,7 @@ the python tools. The easiest (but somewhat cumbersome) method is to run
 the tool using its full path:
 
 ```
-C:\Users\yourname>D:\path_to_somo\tools\randomTrips.py  ... arguments ...
+C:\Users\yourname>D:\path_to_sumo\tools\randomTrips.py  ... arguments ...
 ```
 
 Alternatively, you can add the directory in which the tool lies to your

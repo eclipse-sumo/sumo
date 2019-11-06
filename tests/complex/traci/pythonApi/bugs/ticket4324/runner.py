@@ -44,7 +44,7 @@ for phase in program.getPhases():
         green_index += 1
     else:
         phase.name = "Transition"
-program.type = 3 # actuated
+program.type = 3  # actuated
 program.programID = "custom_actuated"
 traci.trafficlight.setCompleteRedYellowGreenDefinition(tlsID, program)
 
@@ -54,6 +54,6 @@ for program in traci.trafficlight.getCompleteRedYellowGreenDefinition(tlsID):
 for i in range(120):
     traci.simulationStep()
     print("step=%s phase=%s name=%s" % (i, traci.trafficlight.getPhase(tlsID),
-        traci.trafficlight.getPhaseName(tlsID)))
+                                        traci.trafficlight.getPhaseName(tlsID)))
 
 traci.close()
