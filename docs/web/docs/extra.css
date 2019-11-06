@@ -5,8 +5,8 @@
     border-bottom: 1px solid #1b6618;
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff589037',endColorstr='#ff217831',GradientType=0);
     filter: none;
-    -webkit-box-shadow: 0 1px 10px rgba(0,0,0,0.1);
-    box-shadow: 0 1px 10px rgba(0,0,0,0.1);
+    -webkit-box-shadow: 0 0 .2rem rgba(0,0,0,.1),0 .2rem .4rem rgba(0,0,0,.2);
+    box-shadow: 0 0 .2rem rgba(0,0,0,.1),0 .2rem .4rem rgba(0,0,0,.2);
     padding: 2px;
  }
 
@@ -115,6 +115,20 @@ hTitles {
     font-family: inherit;
     line-height: 1.2;
     margin-top: 10px;
+}
+
+.sumoLogo {
+pointer-events:none; 
+border:10px; 
+border-color: #aaaaaa; 
+border-radius:50%; 
+margin-bottom: 10px;
+border-radius: 50%;
+-webkit-border-radius: 50%;
+-moz-border-radius: 50%;
+box-shadow: 0 0 8px rgba(0, 0, 0, .4);
+-webkit-box-shadow: 0 0 8px rgba(0, 0, 0, .4);
+-moz-box-shadow: 0 0 8px rgba(0, 0, 0, .4);
 }
 
 ul {
