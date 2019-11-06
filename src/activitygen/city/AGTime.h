@@ -36,15 +36,14 @@
 // ===========================================================================
 class AGTime {
 public:
-    AGTime() {};
     AGTime(int seconds) :
-        sec(seconds) {};
+        mySeconds(seconds) {};
     AGTime(int hour, int minutes) :
-        sec(convert(0, hour, minutes, 0)) {};
+        mySeconds(convert(0, hour, minutes, 0)) {};
     AGTime(int day, int hour, int min) :
-        sec(convert(day, hour, min, 0)) {};
+        mySeconds(convert(day, hour, min, 0)) {};
     AGTime(int day, int hour, int min, int sec) :
-        sec(convert(day, hour, min, sec)) {};
+        mySeconds(convert(day, hour, min, sec)) {};
     AGTime(const AGTime& time);
     bool operator==(const AGTime& time);
     bool operator<(const AGTime& time);
@@ -127,7 +126,7 @@ private:
 
     // @brief: the seconds representing this date (day, hour, minute)
     // @brief: used for in/out
-    int sec;
+    int mySeconds;
 };
 
 #endif

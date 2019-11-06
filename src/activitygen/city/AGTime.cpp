@@ -33,13 +33,13 @@
 // method definitions
 // ===========================================================================
 AGTime::AGTime(const AGTime& time) {
-    sec = time.sec;
+    mySeconds = time.mySeconds;
 }
 
 int
 AGTime::convert(int days, int hours, int minutes, int seconds) {
-    sec = seconds + 60 * (minutes + 60 * (hours + 24 * (days)));
-    return sec;
+    mySeconds = seconds + 60 * (minutes + 60 * (hours + 24 * (days)));
+    return mySeconds;
 }
 
 int
@@ -49,7 +49,7 @@ AGTime::getSecondsOf(double minutes) {
 
 bool
 AGTime::operator==(const AGTime& time) {
-    if (this->sec == time.sec) {
+    if (this->mySeconds == time.mySeconds) {
         return true;
     } else {
         return false;
@@ -58,7 +58,7 @@ AGTime::operator==(const AGTime& time) {
 
 bool
 AGTime::operator<(const AGTime& time) {
-    if (this->sec < time.sec) {
+    if (this->mySeconds < time.mySeconds) {
         return true;
     } else {
         return false;
@@ -67,7 +67,7 @@ AGTime::operator<(const AGTime& time) {
 
 bool
 AGTime::operator<=(const AGTime& time) {
-    if (this->sec <= time.sec) {
+    if (this->mySeconds <= time.mySeconds) {
         return true;
     } else {
         return false;
@@ -76,110 +76,110 @@ AGTime::operator<=(const AGTime& time) {
 
 void
 AGTime::operator+=(const AGTime& time) {
-    this->sec += time.sec;
+    this->mySeconds += time.mySeconds;
 }
 
 void
 AGTime::operator+=(int seconds) {
-    this->sec += seconds;
+    this->mySeconds += seconds;
 }
 
 void
 AGTime::operator-=(const AGTime& time) {
-    this->sec -= time.sec;
+    this->mySeconds -= time.mySeconds;
 }
 
 AGTime
 AGTime::operator+(const AGTime& time) {
-    AGTime newtime(time.sec + this->sec);
+    AGTime newtime(time.mySeconds + this->mySeconds);
     return newtime;
 }
 
 int
 AGTime::getDay() {
-    return (sec / 86400);
+    return (mySeconds / 86400);
 }
 
 int
 AGTime::getHour() {
-    return ((sec / 3600) % 24);
+    return ((mySeconds / 3600) % 24);
 }
 
 int
 AGTime::getMinute() {
-    return ((sec / 60) % 60);
+    return ((mySeconds / 60) % 60);
 }
 
 int
 AGTime::getSecond() {
-    return (sec % 60);
+    return (mySeconds % 60);
 }
 
 int
 AGTime::getSecondsInCurrentDay() {
-    return (sec % 86400);
+    return (mySeconds % 86400);
 }
 
 int
 AGTime::getTime() {
-    return this->sec;
+    return this->mySeconds;
 }
 
 void
 AGTime::setDay(int d) {
     if (0 <= d) {
-        sec -= 86400 * getDay();
-        sec += 86400 * d;
+        mySeconds -= 86400 * getDay();
+        mySeconds += 86400 * d;
     }
 }
 
 void
 AGTime::setHour(int h) {
     if (0 <= h && h < 24) {
-        sec -= 3600 * getHour();
-        sec += 3600 * h;
+        mySeconds -= 3600 * getHour();
+        mySeconds += 3600 * h;
     }
 }
 
 void
 AGTime::setMinute(int m) {
     if (0 <= m && m < 60) {
-        sec -= 60 * getMinute();
-        sec += 60 * m;
+        mySeconds -= 60 * getMinute();
+        mySeconds += 60 * m;
     }
 }
 
 void
 AGTime::setSecond(int s) {
     if (0 <= s && s < 60) {
-        sec -= getSecond();
-        sec += s;
+        mySeconds -= getSecond();
+        mySeconds += s;
     }
 }
 
 void
-AGTime::setTime(int sec) {
-    this->sec = sec;
+AGTime::setTime(int mySeconds) {
+    this->mySeconds = mySeconds;
 }
 
 void
 AGTime::addDays(int d) {
-    sec += 86400 * d;
+    mySeconds += 86400 * d;
 }
 
 void
 AGTime::addHours(int h) {
-    sec += 3600 * h;
+    mySeconds += 3600 * h;
 }
 
 void
 AGTime::addMinutes(int m) {
-    sec += 60 * m;
+    mySeconds += 60 * m;
 }
 
 void
 AGTime::addSeconds(int s) {
-    sec += s;
+    mySeconds += s;
 }
 
 /****************************************************************************/
