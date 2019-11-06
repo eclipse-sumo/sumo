@@ -935,13 +935,15 @@ GUIApplicationWindow::onCmdOpenEdgeData(FXObject*, FXSelector, void*) {
 
 long
 GUIApplicationWindow::onCmdReload(FXObject*, FXSelector, void*) {
-    storeWindowSizeAndPos();
-    getApp()->beginWaitCursor();
-    myAmLoading = true;
-    closeAllWindows();
-    myLoadThread->start();
-    setStatusBarText("Reloading.");
-    update();
+    if (!myAmLoading) {
+        storeWindowSizeAndPos();
+        getApp()->beginWaitCursor();
+        myAmLoading = true;
+        closeAllWindows();
+        myLoadThread->start();
+        setStatusBarText("Reloading.");
+        update();
+    }
     return 1;
 }
 
@@ -1690,14 +1692,16 @@ GUIApplicationWindow::checkGamingEventsDRT() {
 
 void
 GUIApplicationWindow::loadConfigOrNet(const std::string& file, bool isNet) {
-    storeWindowSizeAndPos();
-    getApp()->beginWaitCursor();
-    myAmLoading = true;
-    closeAllWindows();
-    gSchemeStorage.saveViewport(0, 0, -1, 0); // recenter view
-    myLoadThread->loadConfigOrNet(file, isNet);
-    setStatusBarText("Loading '" + file + "'.");
-    update();
+    if (!myAmLoading) {
+        storeWindowSizeAndPos();
+        getApp()->beginWaitCursor();
+        myAmLoading = true;
+        closeAllWindows();
+        gSchemeStorage.saveViewport(0, 0, -1, 0); // recenter view
+        myLoadThread->loadConfigOrNet(file, isNet);
+        setStatusBarText("Loading '" + file + "'.");
+        update();
+    }
 }
 
 
