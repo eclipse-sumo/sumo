@@ -840,7 +840,7 @@ GNEStop::disableAttribute(SumoXMLAttr key, GNEUndoList* undoList) {
     // add GNEChange_EnableAttribute
     undoList->add(new GNEChange_EnableAttribute(this, myViewNet->getNet(), parametersSet, newParametersSet), true);
     // certain attributes requieres update geometry
-    if ((myTagProperty.hasAttribute(key)) && (myTagProperty.getAttributeProperties(key).requireUpdateGeometry())) {
+    if (myTagProperty.hasAttribute(key) && (myTagProperty.getAttributeProperties(key).requireUpdateGeometry())) {
         updateGeometry();
         // update view
         myViewNet->update();
@@ -1068,7 +1068,7 @@ GNEStop::setAttribute(SumoXMLAttr key, const std::string& value) {
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
     // check if geometry must be marked as deprecated
-    if ((myTagProperty.hasAttribute(key)) && (myTagProperty.getAttributeProperties(key).requireUpdateGeometry())) {
+    if (myTagProperty.hasAttribute(key) && (myTagProperty.getAttributeProperties(key).requireUpdateGeometry())) {
         myDemandElementSegmentGeometry.geometryDeprecated = true;
     }
 }

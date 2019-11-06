@@ -483,8 +483,11 @@ protected:
 
     /// @}
 
-    /// @brief calculate route between edges
-    void calculateGeometricPath();
+    /**@brief calculate route between edges
+     * @param startPos start position in the first lane (if null, then starts at the beginning of lane)
+     * @param endPos end position in the last lane (if null, then ends at the end of lane)
+     */
+    void calculateGeometricPath(double *startPos, double *endPos);
 
     /// @brief get first vehicle lane
     GNELane* getFirstVehicleLane() const;
@@ -493,6 +496,9 @@ protected:
     GNELane* getLastVehicleLane() const;
 
 private:
+    /// @brief adjust start and end positions in geometric path
+    void adjustStartPosGeometricPath(double *startPos, const GNELane* startLane, double *endPos, const GNELane* endLane) const;
+
     /**@brief check restriction with the number of children
      * @throw ProcessError if itis called without be reimplemented in child class
      */

@@ -516,7 +516,7 @@ GNEPersonTrip::setAttribute(SumoXMLAttr key, const std::string& value) {
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
     // check if geometry must be marked as deprecated
-    if ((myTagProperty.hasAttribute(key)) && (myTagProperty.getAttributeProperties(key).requireUpdateGeometry())) {
+    if (myTagProperty.hasAttribute(key) && (myTagProperty.getAttributeProperties(key).requireUpdateGeometry())) {
         myDemandElementSegmentGeometry.geometryDeprecated = true;
     }
 }
