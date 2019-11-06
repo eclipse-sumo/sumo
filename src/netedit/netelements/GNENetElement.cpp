@@ -91,12 +91,6 @@ myMovingGeometryBoundary() {
 GNENetElement::~GNENetElement() {}
 
 
-const GNENetElement::NetElementGeometry&
-GNENetElement::getGeometry() const {
-    return myGeometry;
-}
-
-
 std::string
 GNENetElement::generateChildID(SumoXMLTag /*childTag*/) {
     return "";

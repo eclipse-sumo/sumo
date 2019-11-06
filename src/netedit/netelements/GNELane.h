@@ -86,6 +86,15 @@ public:
 
     /// @name Functions related with geometry of element
     /// @{
+    /// @brief get elements shape
+    const PositionVector& getLaneShape() const;
+
+    /// @brief get rotations of the single shape parts
+    const std::vector<double> &getShapeRotations() const;
+
+    /// @brief get lengths of the single shape parts
+    const std::vector<double> &getShapeLengths() const;
+
     /// @brief update pre-computed geometry information
     void updateGeometry();
 
@@ -225,11 +234,11 @@ protected:
     /// @brief The Edge that to which this lane belongs
     GNEEdge& myParentEdge;
 
-    /// @brief boundary used during moving of elements
-    Boundary myMovingGeometryBoundary;
-
     /// @brief The index of this lane
     int myIndex;
+
+    /// @brief lane geometry
+    NetElementGeometry myLaneGeometry;
 
     /// @name computed only once (for performance) in updateGeometry()
     /// @{

@@ -430,7 +430,7 @@ GNEAdditional::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
         new FXMenuCommand(ret, ("Cursor position inner additional: " + toString(innerPos)).c_str(), nullptr, nullptr, 0);
         // If shape isn't empty, show menu command lane position
         if (myGeometry.shape.size() > 0) {
-            const double lanePos = lane->getGeometry().shape.nearest_offset_to_point2D(myGeometry.shape[0]);
+            const double lanePos = lane->getLaneShape().nearest_offset_to_point2D(myGeometry.shape[0]);
             new FXMenuCommand(ret, ("Cursor position over " + toString(SUMO_TAG_LANE) + ": " + toString(innerPos + lanePos)).c_str(), nullptr, nullptr, 0);
         }
     } else if (myTagProperty.hasAttribute(SUMO_ATTR_EDGE)) {
@@ -440,7 +440,7 @@ GNEAdditional::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
         new FXMenuCommand(ret, ("Cursor position inner additional: " + toString(innerPos)).c_str(), nullptr, nullptr, 0);
         // If shape isn't empty, show menu command edge position
         if (myGeometry.shape.size() > 0) {
-            const double edgePos = edge->getLanes().at(0)->getGeometry().shape.nearest_offset_to_point2D(myGeometry.shape[0]);
+            const double edgePos = edge->getLanes().at(0)->getLaneShape().nearest_offset_to_point2D(myGeometry.shape[0]);
             new FXMenuCommand(ret, ("Mouse position over " + toString(SUMO_TAG_EDGE) + ": " + toString(innerPos + edgePos)).c_str(), nullptr, nullptr, 0);
         }
     } else {
@@ -506,8 +506,8 @@ GNEAdditional::BlockIcon::setRotation(GNELane* additionalLane) {
         rotation = myAdditional->myGeometry.shape.rotationDegreeAtOffset((myAdditional->myGeometry.shape.length() / 2.)) - 90;
     } else if (additionalLane) {
         // If additional is over a lane, set rotation in the position over lane
-        double posOverLane = additionalLane->getGeometry().shape.nearest_offset_to_point2D(myAdditional->getPositionInView());
-        rotation = additionalLane->getGeometry().shape.rotationDegreeAtOffset(posOverLane) - 90;
+        double posOverLane = additionalLane->getLaneShape().nearest_offset_to_point2D(myAdditional->getPositionInView());
+        rotation = additionalLane->getLaneShape().rotationDegreeAtOffset(posOverLane) - 90;
     } else {
         // In other case, rotation is 0
         rotation = 0;

@@ -218,7 +218,7 @@ GNEAdditionalFrame::SelectorLaneParents::addSelectedLane(GNELane* lane, const Po
         }
     }
     // select lane and save the clicked position
-    mySelectedLanes.push_back(std::make_pair(lane, lane->getGeometry().shape.nearest_offset_to_point2D(clickedPosition) / lane->getLengthGeometryFactor()));
+    mySelectedLanes.push_back(std::make_pair(lane, lane->getLaneShape().nearest_offset_to_point2D(clickedPosition) / lane->getLengthGeometryFactor()));
     // change color of selected lane
     lane->setSpecialColor(&mySelectedLaneColor);
     // restore original color of candidates (except already selected)
@@ -887,7 +887,7 @@ GNEAdditionalFrame::buildAdditionalOverLane(std::map<SumoXMLAttr, std::string>& 
         return false;
     }
     // Obtain position of the mouse over lane (limited over grid)
-    double mousePositionOverLane = lane->getGeometry().shape.nearest_offset_to_point2D(myViewNet->snapToActiveGrid(myViewNet->getPositionInformation())) / lane->getLengthGeometryFactor();
+    double mousePositionOverLane = lane->getLaneShape().nearest_offset_to_point2D(myViewNet->snapToActiveGrid(myViewNet->getPositionInformation())) / lane->getLengthGeometryFactor();
     // set attribute position as mouse position over lane
     valuesMap[SUMO_ATTR_POSITION] = toString(mousePositionOverLane);
     // parse common attributes

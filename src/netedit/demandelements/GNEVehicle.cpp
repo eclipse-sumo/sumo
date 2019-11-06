@@ -567,11 +567,11 @@ GNEVehicle::getPositionInView() const {
     // obtain lane
     GNELane* lane = getFromEdge()->getLanes().front();
     // get position depending of lane's lenght
-    if (lane->getGeometry().shape.length() < 2.5) {
-        return lane->getGeometry().shape.front();
+    if (lane->getLaneShape().length() < 2.5) {
+        return lane->getLaneShape().front();
     } else {
-        Position A = lane->getGeometry().shape.positionAtOffset(2.5);
-        Position B = lane->getGeometry().shape.positionAtOffset(2.5);
+        Position A = lane->getLaneShape().positionAtOffset(2.5);
+        Position B = lane->getLaneShape().positionAtOffset(2.5);
         // return Middle point
         return Position((A.x() + B.x()) / 2, (A.y() + B.y()) / 2);
     }
@@ -614,7 +614,7 @@ GNEVehicle::getParentName() const {
 Boundary
 GNEVehicle::getCenteringBoundary() const {
     Boundary vehicleBoundary;
-    vehicleBoundary.add(getFromEdge()->getLanes().front()->getGeometry().shape.front());
+    vehicleBoundary.add(getFromEdge()->getLanes().front()->getLaneShape().front());
     vehicleBoundary.grow(20);
     return vehicleBoundary;
 }
@@ -1276,7 +1276,7 @@ GNEVehicle::setColor(const GUIVisualizationSettings& s) const {
                 break;
             }
             case 5: {
-                Position p = getDemandElementParents().at(1)->getEdgeParents().at(0)->getLanes().at(0)->getGeometry().shape[0];
+                Position p = getDemandElementParents().at(1)->getEdgeParents().at(0)->getLanes().at(0)->getLaneShape()[0];
                 const Boundary& b = myViewNet->getNet()->getBoundary();
                 Position center = b.getCenter();
                 double hue = 180. + atan2(center.x() - p.x(), center.y() - p.y()) * 180. / M_PI;
@@ -1285,7 +1285,7 @@ GNEVehicle::setColor(const GUIVisualizationSettings& s) const {
                 break;
             }
             case 6: {
-                Position p = getDemandElementParents().at(1)->getEdgeParents().back()->getLanes().at(0)->getGeometry().shape[-1];
+                Position p = getDemandElementParents().at(1)->getEdgeParents().back()->getLanes().at(0)->getLaneShape()[-1];
                 const Boundary& b = myViewNet->getNet()->getBoundary();
                 Position center = b.getCenter();
                 double hue = 180. + atan2(center.x() - p.x(), center.y() - p.y()) * 180. / M_PI;
@@ -1294,8 +1294,8 @@ GNEVehicle::setColor(const GUIVisualizationSettings& s) const {
                 break;
             }
             case 7: {
-                Position pb = getDemandElementParents().at(1)->getEdgeParents().at(0)->getLanes().at(0)->getGeometry().shape[0];
-                Position pe = getDemandElementParents().at(1)->getEdgeParents().back()->getLanes().at(0)->getGeometry().shape[-1];
+                Position pb = getDemandElementParents().at(1)->getEdgeParents().at(0)->getLanes().at(0)->getLaneShape()[0];
+                Position pe = getDemandElementParents().at(1)->getEdgeParents().back()->getLanes().at(0)->getLaneShape()[-1];
                 const Boundary& b = myViewNet->getNet()->getBoundary();
                 double hue = 180. + atan2(pb.x() - pe.x(), pb.y() - pe.y()) * 180. / M_PI;
                 Position minp(b.xmin(), b.ymin());
@@ -1571,7 +1571,7 @@ GNEVehicle::setAttribute(SumoXMLAttr key, const std::string& value) {
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
     // check if geometry must be marked as deprecated
-    if (myTagProperty.getAttributeProperties(key).requireUpdateGeometry()) {
+    if ((myTagProperty.hasAttribute(key)) && (myTagProperty.getAttributeProperties(key).requireUpdateGeometry())) {
         myDemandElementSegmentGeometry.geometryDeprecated = true;
     }
 }

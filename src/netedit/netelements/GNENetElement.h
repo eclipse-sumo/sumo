@@ -79,9 +79,6 @@ public:
 
     /// @name Functions related with geometry of element
     /// @{
-    /// @brief get NetElementGeometry
-    const NetElementGeometry& getGeometry() const;
-
     /// @brief update pre-computed geometry information
     virtual void updateGeometry() = 0;
 
@@ -187,9 +184,6 @@ public:
 protected:
     /// @brief the net to inform about updates
     GNENet* myNet;
-
-    /// @brief netElement geometry
-    NetElementGeometry myGeometry;
 
     /// @brief boundary used during moving of elements
     Boundary myMovingGeometryBoundary;

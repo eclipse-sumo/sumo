@@ -525,12 +525,12 @@ GNEHierarchicalElementChildren::ChildConnections::update() {
             Position pos;
             double rot;
             // set position and lenght depending of shape's lengt
-            if (j->getGeometry().shape.length() - 6 > 0) {
-                pos = j->getGeometry().shape.positionAtOffset(j->getGeometry().shape.length() - 6);
-                rot = j->getGeometry().shape.rotationDegreeAtOffset(j->getGeometry().shape.length() - 6);
+            if (j->getLaneShape().length() - 6 > 0) {
+                pos = j->getLaneShape().positionAtOffset(j->getLaneShape().length() - 6);
+                rot = j->getLaneShape().rotationDegreeAtOffset(j->getLaneShape().length() - 6);
             } else {
-                pos = j->getGeometry().shape.positionAtOffset(j->getGeometry().shape.length());
-                rot = j->getGeometry().shape.rotationDegreeAtOffset(j->getGeometry().shape.length());
+                pos = j->getLaneShape().positionAtOffset(j->getLaneShape().length());
+                rot = j->getLaneShape().rotationDegreeAtOffset(j->getLaneShape().length());
             }
             symbolsPositionAndRotation.push_back(ConnectionGeometry(j, pos, rot));
         }
@@ -540,12 +540,12 @@ GNEHierarchicalElementChildren::ChildConnections::update() {
         Position pos;
         double rot;
         // set position and lenght depending of shape's lengt
-        if (i->getGeometry().shape.length() - 6 > 0) {
-            pos = i->getGeometry().shape.positionAtOffset(i->getGeometry().shape.length() - 6);
-            rot = i->getGeometry().shape.rotationDegreeAtOffset(i->getGeometry().shape.length() - 6);
+        if (i->getLaneShape().length() - 6 > 0) {
+            pos = i->getLaneShape().positionAtOffset(i->getLaneShape().length() - 6);
+            rot = i->getLaneShape().rotationDegreeAtOffset(i->getLaneShape().length() - 6);
         } else {
-            pos = i->getGeometry().shape.positionAtOffset(i->getGeometry().shape.length());
-            rot = i->getGeometry().shape.rotationDegreeAtOffset(i->getGeometry().shape.length());
+            pos = i->getLaneShape().positionAtOffset(i->getLaneShape().length());
+            rot = i->getLaneShape().rotationDegreeAtOffset(i->getLaneShape().length());
         }
         symbolsPositionAndRotation.push_back(ConnectionGeometry(i, pos, rot));
     }

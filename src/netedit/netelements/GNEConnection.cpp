@@ -72,13 +72,23 @@ GNEConnection::generateChildID(SumoXMLTag /*childTag*/) {
 }
 
 
+const PositionVector&
+GNEConnection::getConnectionShape() const {
+    if (myConnectionGeometry.shape.size() > 0) {
+        return myConnectionGeometry.shape;
+    } else {
+        return getNBEdgeConnection().customShape;
+    }
+}
+
+
 void
 GNEConnection::updateGeometry() {
     // Get shape of from and to lanes
     NBEdge::Connection& nbCon = getNBEdgeConnection();
     if (myShapeDeprecated) {
         // Clear geometry
-        myGeometry.clearGeometry();
+        myConnectionGeometry.clearGeometry();
         // obtain lane shape from
         PositionVector laneShapeFrom;
         if ((int)getEdgeFrom()->getNBEdge()->getLanes().size() > nbCon.fromLane) {
@@ -96,17 +106,17 @@ GNEConnection::updateGeometry() {
         // Calculate shape of connection depending of the size of Junction shape
         // value obtanied from GNEJunction::drawgl
         if (nbCon.customShape.size() != 0) {
-            myGeometry.shape = nbCon.customShape;
+            myConnectionGeometry.shape = nbCon.customShape;
         } else if (getEdgeFrom()->getNBEdge()->getToNode()->getShape().area() > 4) {
             if (nbCon.shape.size() != 0) {
-                myGeometry.shape = nbCon.shape;
+                myConnectionGeometry.shape = nbCon.shape;
                 // only append via shape if it exists
                 if (nbCon.haveVia) {
-                    myGeometry.shape.append(nbCon.viaShape);
+                    myConnectionGeometry.shape.append(nbCon.viaShape);
                 }
             } else {
                 // Calculate shape so something can be drawn immidiately
-                myGeometry.shape = getEdgeFrom()->getNBEdge()->getToNode()->computeSmoothShape(
+                myConnectionGeometry.shape = getEdgeFrom()->getNBEdge()->getToNode()->computeSmoothShape(
                                        laneShapeFrom,
                                        laneShapeTo,
                                        NUM_POINTS, getEdgeFrom()->getNBEdge()->getTurnDestination() == nbCon.toEdge,
@@ -114,8 +124,8 @@ GNEConnection::updateGeometry() {
                                        (double) 5. * (double) nbCon.toEdge->getNumLanes());
             }
         } else {
-            myGeometry.shape.push_back(laneShapeFrom.positionAtOffset(MAX2(0.0, laneShapeFrom.length() - 1)));
-            myGeometry.shape.push_back(laneShapeTo.positionAtOffset(MIN2(1.0, laneShapeFrom.length())));
+            myConnectionGeometry.shape.push_back(laneShapeFrom.positionAtOffset(MAX2(0.0, laneShapeFrom.length() - 1)));
+            myConnectionGeometry.shape.push_back(laneShapeTo.positionAtOffset(MIN2(1.0, laneShapeFrom.length())));
         }
         // check if internal junction marker must be calculated
         if (nbCon.haveVia && (nbCon.shape.size() != 0)) {
@@ -130,7 +140,7 @@ GNEConnection::updateGeometry() {
             myInternalJunctionMarker.clear();
         }
         // Obtain lengths and shape rotations
-        myGeometry.calculateShapeRotationsAndLengths();
+        myConnectionGeometry.calculateShapeRotationsAndLengths();
         // mark connection as non-deprecated
         myShapeDeprecated = false;
     }
@@ -146,13 +156,13 @@ GNEConnection::getPositionInView() const {
 
 Boundary
 GNEConnection::getBoundary() const {
-    if (myGeometry.shape.size() == 0) {
+    if (myConnectionGeometry.shape.size() == 0) {
         // we need to use the center of junction parent as boundary if shape is empty
         Position junctionParentPosition = myFromLane->getParentEdge().getGNEJunctionDestiny()->getPositionInView();
         return Boundary(junctionParentPosition.x() - 0.1, junctionParentPosition.y() - 0.1,
                         junctionParentPosition.x() + 0.1, junctionParentPosition.x() + 0.1);
     } else {
-        return myGeometry.shape.getBoxBoundary();
+        return myConnectionGeometry.shape.getBoxBoundary();
     }
 }
 
@@ -216,16 +226,6 @@ GNEConnection::updateID() {
 LinkState
 GNEConnection::getLinkState() const {
     return myLinkState;
-}
-
-
-const PositionVector&
-GNEConnection::getShape() const {
-    if (myGeometry.shape.size() > 0) {
-        return myGeometry.shape;
-    } else {
-        return getNBEdgeConnection().customShape;
-    }
 }
 
 
@@ -317,15 +317,15 @@ GNEConnection::drawGL(const GUIVisualizationSettings& s) const {
         const double selectionScale = isAttributeCarrierSelected() ? s.selectionScale : 1;
         if ((s.scale * selectionScale < 5.) && !s.drawForSelecting) {
             // If it's small, draw a simple line
-            GLHelper::drawLine(myGeometry.shape);
+            GLHelper::drawLine(myConnectionGeometry.shape);
         } else {
             // draw a list of lines
             const bool spreadSuperposed = s.scale >= 1 && s.spreadSuperposed && myFromLane->drawAsRailway(s) && getEdgeFrom()->getNBEdge()->isBidiRail();
-            PositionVector shapeSuperposed = myGeometry.shape;
+            PositionVector shapeSuperposed = myConnectionGeometry.shape;
             if (spreadSuperposed) {
                 shapeSuperposed.move2side(0.5);
             }
-            GLHelper::drawBoxLines(shapeSuperposed, myGeometry.shapeRotations, myGeometry.shapeLengths, 0.2 * selectionScale);
+            GLHelper::drawBoxLines(shapeSuperposed, myConnectionGeometry.shapeRotations, myConnectionGeometry.shapeLengths, 0.2 * selectionScale);
             glTranslated(0, 0, 0.1);
             GLHelper::setColor(GLHelper::getColor().changedBrightness(51));
             // check if internal junction marker has to be drawn

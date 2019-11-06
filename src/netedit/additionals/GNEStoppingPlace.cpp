@@ -144,13 +144,13 @@ GNEStoppingPlace::getPositionInView() const {
     double endPos = fabs((myParametersSet & STOPPINGPLACE_ENDPOS_SET) ? myEndPosition : getLaneParents().front()->getParentEdge().getNBEdge()->getFinalLength());
     // obtain position in view depending if both positions are defined
     if (myParametersSet == 0) {
-        return getLaneParents().front()->getGeometry().shape.positionAtOffset(getLaneParents().front()->getGeometry().shape.length() / 2);
+        return getLaneParents().front()->getLaneShape().positionAtOffset(getLaneParents().front()->getLaneShape().length() / 2);
     } else if ((myParametersSet & STOPPINGPLACE_STARTPOS_SET) == 0) {
-        return getLaneParents().front()->getGeometry().shape.positionAtOffset(endPos);
+        return getLaneParents().front()->getLaneShape().positionAtOffset(endPos);
     } else if ((myParametersSet & STOPPINGPLACE_ENDPOS_SET) == 0) {
-        return getLaneParents().front()->getGeometry().shape.positionAtOffset(startPos);
+        return getLaneParents().front()->getLaneShape().positionAtOffset(startPos);
     } else {
-        return getLaneParents().front()->getGeometry().shape.positionAtOffset((startPos + endPos) / 2.0);
+        return getLaneParents().front()->getLaneShape().positionAtOffset((startPos + endPos) / 2.0);
     }
 }
 
@@ -164,7 +164,7 @@ GNEStoppingPlace::moveGeometry(const Position& offset) {
         newPosition.add(offset);
         // filtern position using snap to active grid
         newPosition = myViewNet->snapToActiveGrid(newPosition);
-        double offsetLane = getLaneParents().front()->getGeometry().shape.nearest_offset_to_point2D(newPosition, false) - getLaneParents().front()->getGeometry().shape.nearest_offset_to_point2D(myMove.originalViewPosition, false);
+        double offsetLane = getLaneParents().front()->getLaneShape().nearest_offset_to_point2D(newPosition, false) - getLaneParents().front()->getLaneShape().nearest_offset_to_point2D(myMove.originalViewPosition, false);
         // check if both position has to be moved
         if ((myParametersSet & STOPPINGPLACE_STARTPOS_SET) && (myParametersSet & STOPPINGPLACE_ENDPOS_SET)) {
             // calculate stoppingPlace lenght and lane lenght (After apply geometry factor)
@@ -270,7 +270,7 @@ GNEStoppingPlace::setStoppingPlaceGeometry(double movingToSide) {
     double offsetSign = OptionsCont::getOptions().getBool("lefthand") ? -1 : 1;
 
     // Get shape of lane parent
-    myGeometry.shape = getLaneParents().front()->getGeometry().shape;
+    myGeometry.shape = getLaneParents().front()->getLaneShape();
 
     // Move shape to side
     myGeometry.shape.move2side(movingToSide * offsetSign);

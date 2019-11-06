@@ -23,6 +23,7 @@
 // ===========================================================================
 
 #include "GNENetElement.h"
+
 #include <netbuild/NBEdge.h>
 
 // ===========================================================================
@@ -52,6 +53,9 @@ public:
 
     /// @name Functions related with geometry of element
     /// @{
+    /// @brief get connection shape
+    const PositionVector& getConnectionShape() const;
+
     /// @brief update pre-computed geometry information
     void updateGeometry();
 
@@ -89,9 +93,6 @@ public:
 
     /// @brief get LinkState
     LinkState getLinkState() const;
-
-    /// @brief get Position vector calculated in updateGeometry()
-    const PositionVector& getShape() const;
 
     /// @brief check that connection's Geometry has to be updated
     void markConnectionGeometryDeprecated();
@@ -171,6 +172,9 @@ protected:
 
     /// @brief optional special color
     const RGBColor* mySpecialColor;
+
+    /// @brief connection geometry
+    NetElementGeometry myConnectionGeometry;
 
     /// @brief flag to indicate that connection's shape has to be updated
     bool myShapeDeprecated;

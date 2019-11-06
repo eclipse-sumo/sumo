@@ -1549,11 +1549,11 @@ GNEViewNet::onCmdTransformPOI(FXObject*, FXSelector, void*) {
             } else {
                 // obtain nearest lane to POI
                 GNELane* nearestLane = lanes.front();
-                double minorPosOverLane = nearestLane->getGeometry().shape.nearest_offset_to_point2D(POI->getPositionInView());
-                double minorLateralOffset = nearestLane->getGeometry().shape.positionAtOffset(minorPosOverLane).distanceTo(POI->getPositionInView());
+                double minorPosOverLane = nearestLane->getLaneShape().nearest_offset_to_point2D(POI->getPositionInView());
+                double minorLateralOffset = nearestLane->getLaneShape().positionAtOffset(minorPosOverLane).distanceTo(POI->getPositionInView());
                 for (auto i : lanes) {
-                    double posOverLane = i->getGeometry().shape.nearest_offset_to_point2D(POI->getPositionInView());
-                    double lateralOffset = i->getGeometry().shape.positionAtOffset(posOverLane).distanceTo(POI->getPositionInView());
+                    double posOverLane = i->getLaneShape().nearest_offset_to_point2D(POI->getPositionInView());
+                    double lateralOffset = i->getLaneShape().positionAtOffset(posOverLane).distanceTo(POI->getPositionInView());
                     if (lateralOffset < minorLateralOffset) {
                         minorPosOverLane = posOverLane;
                         minorLateralOffset = lateralOffset;
@@ -2124,7 +2124,7 @@ GNEViewNet::onCmdEditConnectionShape(FXObject*, FXSelector, void*) {
     // Obtain connection under mouse
     GNEConnection* connection = getConnectionAtPopupPosition();
     if (connection) {
-        myEditShapes.startEditCustomShape(connection, connection->getGeometry().shape, false);
+        myEditShapes.startEditCustomShape(connection, connection->getConnectionShape(), false);
     }
     // destroy pop-up and update view Net
     destroyPopup();
@@ -2995,7 +2995,7 @@ GNEViewNet::drawLaneCandidates() const {
             // Push draw matrix
             glPushMatrix();
             // obtain first clicked point
-            const Position& firstLanePoint = myViewParent->getAdditionalFrame()->getConsecutiveLaneSelector()->getSelectedLanes().front().first->getGeometry().shape.positionAtOffset(
+            const Position& firstLanePoint = myViewParent->getAdditionalFrame()->getConsecutiveLaneSelector()->getSelectedLanes().front().first->getLaneShape().positionAtOffset(
                                                  myViewParent->getAdditionalFrame()->getConsecutiveLaneSelector()->getSelectedLanes().front().second);
             // must draw on top of other connections
             glTranslated(firstLanePoint.x(), firstLanePoint.y(), GLO_JUNCTION + 0.3);
@@ -3045,7 +3045,7 @@ GNEViewNet::drawLaneCandidates() const {
             // draw last point
             glPushMatrix();
             // obtain last clicked point
-            const Position& lastLanePoint = myViewParent->getAdditionalFrame()->getConsecutiveLaneSelector()->getSelectedLanes().back().first->getGeometry().shape.positionAtOffset(
+            const Position& lastLanePoint = myViewParent->getAdditionalFrame()->getConsecutiveLaneSelector()->getSelectedLanes().back().first->getLaneShape().positionAtOffset(
                                                 myViewParent->getAdditionalFrame()->getConsecutiveLaneSelector()->getSelectedLanes().back().second);
             // must draw on top of other connections
             glTranslated(lastLanePoint.x(), lastLanePoint.y(), GLO_JUNCTION + 0.3);

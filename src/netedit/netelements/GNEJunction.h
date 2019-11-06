@@ -70,6 +70,9 @@ public:
 
     /// @name Functions related with geometry of element
     /// @{
+    /// @brief get junction shape
+    const PositionVector& getJunctionShape() const;
+
     /// @brief update pre-computed geometry information (including crossings)
     void updateGeometry();
 

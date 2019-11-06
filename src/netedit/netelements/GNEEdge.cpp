@@ -1411,7 +1411,7 @@ GNEEdge::drawPartialPersonPlan(const GUIVisualizationSettings& s, const GNEDeman
                     arrivalPosLane = personPlan->getEdgeParents().back()->getLaneByVClass(vClassPersonPlan);
                 }
                 // obtain position or ArrivalPos
-                Position pos = arrivalPosLane->getGeometry().shape.positionAtOffset2D(arrivalPos);
+                Position pos = arrivalPosLane->getLaneShape().positionAtOffset2D(arrivalPos);
                 // obtain circle width
                 double circleWidth = (duplicateWidth ? SNAP_RADIUS : (SNAP_RADIUS / 2.0)) * MIN2((double)0.5, s.laneWidthExaggeration);
                 double circleWidthSquared = circleWidth * circleWidth;
@@ -2105,17 +2105,17 @@ GNEEdge::drawEdgeName(const GUIVisualizationSettings& s) const {
         glPushName(getGlID());
         GNELane* lane1 = myLanes[0];
         GNELane* lane2 = myLanes[myLanes.size() - 1];
-        Position p = lane1->getGeometry().shape.positionAtOffset(lane1->getGeometry().shape.length() / (double) 2.);
-        p.add(lane2->getGeometry().shape.positionAtOffset(lane2->getGeometry().shape.length() / (double) 2.));
+        Position p = lane1->getLaneShape().positionAtOffset(lane1->getLaneShape().length() / (double) 2.);
+        p.add(lane2->getLaneShape().positionAtOffset(lane2->getLaneShape().length() / (double) 2.));
         p.mul(.5);
         if (spreadSuperposed) {
             // move name to the right of the edge and towards its beginning
             const double dist = 0.6 * s.edgeName.scaledSize(s.scale);
-            const double shiftA = lane1->getGeometry().shape.rotationAtOffset(lane1->getGeometry().shape.length() / (double) 2.) - DEG2RAD(135);
+            const double shiftA = lane1->getLaneShape().rotationAtOffset(lane1->getLaneShape().length() / (double) 2.) - DEG2RAD(135);
             Position shift(dist * cos(shiftA), dist * sin(shiftA));
             p.add(shift);
         }
-        double angle = lane1->getGeometry().shape.rotationDegreeAtOffset(lane1->getGeometry().shape.length() / (double) 2.);
+        double angle = lane1->getLaneShape().rotationDegreeAtOffset(lane1->getLaneShape().length() / (double) 2.);
         angle += 90;
         if (angle > 90 && angle < 270) {
             angle -= 180;

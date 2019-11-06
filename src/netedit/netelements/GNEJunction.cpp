@@ -97,10 +97,17 @@ GNEJunction::generateChildID(SumoXMLTag childTag) {
 }
 
 
+const PositionVector&
+GNEJunction::getJunctionShape() const {
+    return myNBNode.getShape();
+}
+
+
 void
 GNEJunction::updateGeometry() {
     updateGeometryAfterNetbuild(true);
 }
+
 
 void
 GNEJunction::updateGeometryAfterNetbuild(bool rebuildNBNodeCrossings) {

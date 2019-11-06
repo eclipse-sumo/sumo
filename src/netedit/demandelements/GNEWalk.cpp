@@ -245,7 +245,7 @@ GNEWalk::moveGeometry(const Position& offset) {
         // filtern position using snap to active grid
         newPosition = myViewNet->snapToActiveGrid(newPosition);
         // obtain lane shape (to improve code legibility)
-        const PositionVector& laneShape = getEdgeParents().back()->getLanes().front()->getGeometry().shape;
+        const PositionVector& laneShape = getEdgeParents().back()->getLanes().front()->getLaneShape();
         // calculate offset lane
         double offsetLane = laneShape.nearest_offset_to_point2D(newPosition, false) - laneShape.nearest_offset_to_point2D(myWalkMove.originalViewPosition, false);
         std::cout << offsetLane << std::endl;
@@ -574,7 +574,7 @@ GNEWalk::setAttribute(SumoXMLAttr key, const std::string& value) {
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
     // check if geometry must be marked as deprecated
-    if (myTagProperty.getAttributeProperties(key).requireUpdateGeometry()) {
+    if ((myTagProperty.hasAttribute(key)) && (myTagProperty.getAttributeProperties(key).requireUpdateGeometry())) {
         myDemandElementSegmentGeometry.geometryDeprecated = true;
     }
 }

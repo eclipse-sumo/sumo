@@ -529,11 +529,11 @@ GNEDemandElement::calculateGeometricPath() {
                 singleLane = getEdgeParents().front()->getLanes().front();
             }
             // add lane geometry
-            for (int i = 0; i < ((int)singleLane->getGeometry().shape.size() - 1); i++) {
+            for (int i = 0; i < ((int)singleLane->getLaneShape().size() - 1); i++) {
                 myDemandElementSegmentGeometry.insertEdgeSegment(this, getEdgeParents().at(0),
-                    singleLane->getGeometry().shape[i],
-                    singleLane->getGeometry().shapeLengths[i],
-                    singleLane->getGeometry().shapeRotations[i], true, true);
+                    singleLane->getLaneShape()[i],
+                    singleLane->getShapeLengths()[i],
+                    singleLane->getShapeRotations()[i], true, true);
             }
         } else {
             // declare vector of lanes
@@ -563,11 +563,11 @@ GNEDemandElement::calculateGeometricPath() {
                 // get lane (only for code readability)
                 const GNELane *lane = lanes.at(i);
                 // first iterate over lane geometry
-                for (int j = 0; j < ((int)lane->getGeometry().shape.size() - 1); j++) {
+                for (int j = 0; j < ((int)lane->getLaneShape().size() - 1); j++) {
                     myDemandElementSegmentGeometry.insertEdgeSegment(this, &lane->getParentEdge(),
-                        lane->getGeometry().shape[j], 
-                        lane->getGeometry().shapeLengths[j],
-                        lane->getGeometry().shapeRotations[j], 
+                        lane->getLaneShape()[j], 
+                        lane->getShapeLengths()[j],
+                        lane->getShapeRotations()[j], 
                         true, true);
                 }
                 // now continue with connection

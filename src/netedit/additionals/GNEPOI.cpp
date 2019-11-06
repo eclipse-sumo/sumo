@@ -88,7 +88,7 @@ void
 GNEPOI::writeShape(OutputDevice& device) {
     if (getLaneParents().size() > 0) {
         // obtain fixed position over lane
-        double fixedPositionOverLane = myPosOverLane > getLaneParents().at(0)->getGeometry().shape.length() ? getLaneParents().at(0)->getGeometry().shape.length() : myPosOverLane < 0 ? 0 : myPosOverLane;
+        double fixedPositionOverLane = myPosOverLane > getLaneParents().at(0)->getLaneShape().length() ? getLaneParents().at(0)->getLaneShape().length() : myPosOverLane < 0 ? 0 : myPosOverLane;
         // write POILane using POI::writeXML
         writeXML(device, false, 0, getLaneParents().at(0)->getID(), fixedPositionOverLane, myPosLat);
     } else {
@@ -107,7 +107,7 @@ GNEPOI::moveGeometry(const Position& oldPos, const Position& offset) {
         newPosition = myNet->getViewNet()->snapToActiveGrid(newPosition);
         // set position depending of POI Type
         if (getLaneParents().size() > 0) {
-            myPosOverLane = getLaneParents().at(0)->getGeometry().shape.nearest_offset_to_point2D(newPosition, false);
+            myPosOverLane = getLaneParents().at(0)->getLaneShape().nearest_offset_to_point2D(newPosition, false);
         } else {
             set(newPosition);
         }
@@ -126,7 +126,7 @@ GNEPOI::commitGeometryMoving(const Position& oldPos, GNEUndoList* undoList) {
         // commit new position allowing undo/redo
         if (getLaneParents().size() > 0) {
             // restore old position before commit new position
-            double originalPosOverLane = getLaneParents().at(0)->getGeometry().shape.nearest_offset_to_point2D(oldPos, false);
+            double originalPosOverLane = getLaneParents().at(0)->getLaneShape().nearest_offset_to_point2D(oldPos, false);
             undoList->p_begin("position of " + getTagStr());
             undoList->p_add(new GNEChange_Attribute(this, myNet, SUMO_ATTR_POSITION, toString(myPosOverLane), true, toString(originalPosOverLane)));
             undoList->p_end();
@@ -145,7 +145,7 @@ GNEPOI::updateGeometry() {
         // obtain fixed position over lane
         double fixedPositionOverLane = myPosOverLane > getLaneParents().at(0)->getLaneShapeLength() ? getLaneParents().at(0)->getLaneShapeLength() : myPosOverLane < 0 ? 0 : myPosOverLane;
         // set new position regarding to lane
-        set(getLaneParents().at(0)->getGeometry().shape.positionAtOffset(fixedPositionOverLane * getLaneParents().at(0)->getLengthGeometryFactor(), -myPosLat));
+        set(getLaneParents().at(0)->getLaneShape().positionAtOffset(fixedPositionOverLane * getLaneParents().at(0)->getLengthGeometryFactor(), -myPosLat));
     }
 }
 

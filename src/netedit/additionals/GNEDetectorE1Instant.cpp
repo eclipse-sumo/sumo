@@ -91,7 +91,7 @@ GNEDetectorE1Instant::moveGeometry(const Position& offset) {
     // filtern position using snap to active grid
     newPosition = myViewNet->snapToActiveGrid(newPosition);
     const bool storeNegative = myPositionOverLane < 0;
-    myPositionOverLane = getLaneParents().front()->getGeometry().shape.nearest_offset_to_point2D(newPosition, false);
+    myPositionOverLane = getLaneParents().front()->getLaneShape().nearest_offset_to_point2D(newPosition, false);
     if (storeNegative) {
         myPositionOverLane -= getLaneParents().front()->getParentEdge().getNBEdge()->getFinalLength();
     }
@@ -125,7 +125,7 @@ GNEDetectorE1Instant::updateGeometry() {
     Position s = myGeometry.shape[0] + Position(1, 0);
 
     // Save rotation (angle) of the vector constructed by points f and s
-    myGeometry.shapeRotations.push_back(getLaneParents().front()->getGeometry().shape.rotationDegreeAtOffset(getGeometryPositionOverLane()) * -1);
+    myGeometry.shapeRotations.push_back(getLaneParents().front()->getLaneShape().rotationDegreeAtOffset(getGeometryPositionOverLane()) * -1);
 
     // Set block icon position
     myBlockIcon.position = myGeometry.shape.getLineCenter();
