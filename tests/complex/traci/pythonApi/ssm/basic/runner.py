@@ -28,12 +28,12 @@ import traci.constants as tc  # noqa
 import sumolib  # noqa
 
 
-
 traci.start([
-    sumolib.checkBinary('sumo'), 
+    sumolib.checkBinary('sumo'),
     "-c", "sumo.sumocfg",
     '--device.ssm.probability', '1',
-    ])
+])
+
 
 def checkSSM(vehID):
     print("  veh=%s minTTC=%s maxDRAC=%s minPET=%s" % (
@@ -41,7 +41,8 @@ def checkSSM(vehID):
         traci.vehicle.getParameter(vehID, "device.ssm.minTTC"),
         traci.vehicle.getParameter(vehID, "device.ssm.maxDRAC"),
         traci.vehicle.getParameter(vehID, "device.ssm.minPET"),
-        ))
+    ))
+
 
 for i in range(15):
     traci.simulationStep()
