@@ -82,13 +82,19 @@ public:
         /// @brief struct used for represent segments of demand element geometry
         struct Segment {
             /// @brief parameter constructor for edges
-            Segment(const GNEDemandElement* _element, const GNEEdge* _edge, const Position _pos, double _length, double _rotation, const bool _visible, const bool _valid);
+            Segment(const GNEDemandElement* _element, const GNEEdge* _edge, 
+                    const Position _pos, const double _rotation, const double _length, 
+                    const bool _visible, const bool _valid);
             
             /// @brief parameter constructor for lanes
-            Segment(const GNEDemandElement* _element, const GNELane* _lane, const PositionVector& _shape, const std::vector<double> &_shapeLengths, const std::vector<double> &_shapeRotations);
+            Segment(const GNEDemandElement* _element, const GNELane* _lane, 
+                    const PositionVector& _shape, const std::vector<double> &_shapeRotations, const std::vector<double> &_shapeLengths, 
+                    const bool _visible, const bool _valid);
 
             /// @brief parameter constructor for junctions
-            Segment(const GNEDemandElement* _element, const GNEJunction* _junction, const Position _pos, double _length, double _rotation, const bool _visible, const bool _valid);
+            Segment(const GNEDemandElement* _element, const GNEJunction* _junction, 
+                    const PositionVector& _shape, const std::vector<double> &_shapeRotations, const std::vector<double> &_shapeLengths, 
+                    const bool _visible, const bool _valid);
 
             /// @brief element
             const GNEDemandElement* element;
@@ -118,13 +124,13 @@ public:
             double rotation;
 
             /// @brief lane/lane2lane shape
-            const PositionVector& shape;
+            const PositionVector shape;
 
-            /// @brief lanelane2lane shape lenghts
-            const std::vector<double> &shapeLengths;
-
-            /// @brief lanelane2lane shape rotations
-            const std::vector<double> &shapeRotations;
+            /// @brief lane/lane2lane shape rotations
+            const std::vector<double> shapeRotations;
+            
+            /// @brief lane/lane2lane shape lenghts
+            const std::vector<double> shapeLengths;
 
         private:
             /// @brief Invalidated assignment operator
@@ -134,17 +140,29 @@ public:
         /// @brief constructor
         DemandElementSegmentGeometry();
 
-        /// @brief insert edge segment with length and rotation (used to avoid unnecessary calculation in calculatePartialShapeRotationsAndLengths)
-        void insertEdgeSegment(const GNEDemandElement* element, const GNEEdge* edge, const Position pos, double length, double rotation, const bool visible, const bool valid);
+        /// @brief insert edge segment with length and rotation
+        void insertEdgeSegment(const GNEDemandElement* element, const GNEEdge* edge, 
+                               const Position pos, double length, double rotation, 
+                               const bool visible, const bool valid);
 
         /// @brief insert entire lane segment (used to avoid unnecessary calculation in calculatePartialShapeRotationsAndLengths)
-        void insertEntireLaneSegment(const GNEDemandElement* element, const GNELane* lane, const PositionVector& laneShape, const std::vector<double> &laneShapeRotations, const std::vector<double> &laneShapeLengths);
+        void insertLaneSegment(const GNEDemandElement* element, const GNELane* lane, 
+                               const PositionVector& laneShape, const std::vector<double> &laneShapeRotations, const std::vector<double> &laneShapeLengths, 
+                               const bool visible, const bool valid);
 
-         /// @brief insert junction segment with length and rotation (used to avoid unnecessary calculation in calculatePartialShapeRotationsAndLengths)
-        void insertJunctionSegment(const GNEDemandElement* element, const GNEJunction* junction, const Position pos, double length, double rotation, const bool visible, const bool valid);
+         /// @brief insert entire lane2lane segment (used to avoid unnecessary calculation in calculatePartialShapeRotationsAndLengths)
+        void insertLane2LaneSegment(const GNEDemandElement* element, const GNEJunction* junction, 
+                                    const PositionVector& laneShape, const std::vector<double> &laneShapeRotations, const std::vector<double> &laneShapeLengths, 
+                                    const bool visible, const bool valid);
 
         /// @brief clear demand element geometry
         void clearDemandElementSegmentGeometry();
+
+        /// @brief get first position
+        const Position &getFirstPosition() const;
+
+        /// @brief get first rotation
+        const double getFirstRotation() const;
 
         /// @brief begin iterator
         std::vector<Segment>::const_iterator begin() const;
@@ -512,13 +530,6 @@ protected:
 
     /// @brief get first vehicle lane
     GNELane* getLastVehicleLane() const;
-
-
-    static PositionVector dummyShape;
-                
-    static std::vector<double> dummyShapeRotations;
-                
-    static std::vector<double> dummyShapeLengths;
 
 private:
     /// @brief adjust start and end positions in geometric path

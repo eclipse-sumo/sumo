@@ -1073,9 +1073,11 @@ GNEPerson::calculateSmoothPersonPlanConnection(const GNEDemandElement* personPla
                                      (double) 5. * (double) edgeFrom->getNBEdge()->getNumLanes(),
                                      (double) 5. * (double) edgeTo->getNBEdge()->getNumLanes());
     // add smootshape in personPlan shape
+    /*
     for (const auto& i : smoothShape) {
-        myDemandElementSegmentGeometry.insertJunctionSegment(personPlanElement, edgeTo->getGNEJunctionSource(), i, 0, 0, true, true);
+        myDemandElementSegmentGeometry.insertLane2LaneSegment(personPlanElement, edgeTo->getGNEJunctionSource(), i, 0, 0, true, true);
     }
+    */
 }
 
 
