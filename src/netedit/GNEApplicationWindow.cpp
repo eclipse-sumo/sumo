@@ -2072,11 +2072,11 @@ GNEApplicationWindow::onCmdOpenSUMOGUI(FXObject*, FXSelector, void*) {
         OptionsCont& oc = OptionsCont::getOptions();
         // if load additionals is enabled, add it to command
         if ((myEditMenuCommands.loadAdditionalsInSUMOGUI->getCheck() == TRUE) && (oc.getString("additional-files").size() > 0)) {
-            cmd+= " -a " + oc.getString("additional-files");
+            cmd+= " -a \"" + oc.getString("additional-files") + "\"";
         }
         // if load demand is enabled, add it to command
         if ((myEditMenuCommands.loadDemandInSUMOGUI->getCheck() == TRUE) && (oc.getString("route-files").size() > 0)) {
-            cmd+= " -r " + oc.getString("route-files");
+            cmd+= " -r \"" + oc.getString("route-files") + "\"";
         }
         // start in background
 #ifndef WIN32
