@@ -38,6 +38,9 @@
 // ===========================================================================
 
 GNEDemandElement::RouteCalculator* GNEDemandElement::myRouteCalculatorInstance = nullptr;
+PositionVector GNEDemandElement::dummyShape = {};
+std::vector<double> GNEDemandElement::dummyShapeRotations = {};
+std::vector<double> GNEDemandElement::dummyShapeLengths = {};
 
 // ===========================================================================
 // member method definitions
@@ -88,24 +91,48 @@ GNEDemandElement::DemandElementGeometry::calculateShapeRotationsAndLengths() {
 GNEDemandElement::DemandElementSegmentGeometry::Segment::Segment(const GNEDemandElement* _element, const GNEEdge* _edge, const Position _pos, double _length, double _rotation, const bool _visible, const bool _valid) :
     element(_element),
     edge(_edge),
+    lane(nullptr),
     junction(nullptr),
     pos(_pos),
     visible(_visible),
     valid(_valid),
     length(_length),
-    rotation(_rotation) {
+    rotation(_rotation),
+    shape(GNEDemandElement::dummyShape),
+    shapeLengths(GNEDemandElement::dummyShapeLengths),
+    shapeRotations(GNEDemandElement::dummyShapeRotations) {
+}
+
+
+GNEDemandElement::DemandElementSegmentGeometry::Segment::Segment(const GNEDemandElement* _element, const GNELane* _lane, const PositionVector& _shape, const std::vector<double> &_shapeLengths, const std::vector<double> &_shapeRotations) :
+    element(_element),
+    edge(nullptr),
+    lane(_lane),
+    junction(nullptr),
+    pos(Position::INVALID),
+    visible(/*_visible*/ true),
+    valid(/*_valid*/ true),
+    length(0),
+    rotation(0),
+    shape(_shape),
+    shapeLengths(_shapeLengths),
+    shapeRotations(_shapeRotations) {
 }
 
 
 GNEDemandElement::DemandElementSegmentGeometry::Segment::Segment(const GNEDemandElement* _element, const GNEJunction* _junction, const Position _pos, double _length, double _rotation, const bool _visible, const bool _valid) :
     element(_element),
     edge(nullptr),
+    lane(nullptr),
     junction(_junction),
     pos(_pos),
     visible(_visible),
     valid(_valid),
     length(_length),
-    rotation(_rotation) {
+    rotation(_rotation),
+    shape(GNEDemandElement::dummyShape),
+    shapeLengths(GNEDemandElement::dummyShapeLengths),
+    shapeRotations(GNEDemandElement::dummyShapeRotations) {
 }
 
 // ---------------------------------------------------------------------------
@@ -121,6 +148,13 @@ void
 GNEDemandElement::DemandElementSegmentGeometry::insertEdgeSegment(const GNEDemandElement* element, const GNEEdge* edge, const Position pos, double length, double rotation, const bool visible, const bool valid) {
     // add segment in myShapeSegments
     myShapeSegments.push_back(Segment(element, edge, pos, length, rotation, visible, valid));
+}
+
+
+void 
+GNEDemandElement::DemandElementSegmentGeometry::insertEntireLaneSegment(const GNEDemandElement* element, const GNELane* lane, const PositionVector& laneShape, const std::vector<double> &laneShapeRotations, const std::vector<double> &laneShapeLengths) {
+    // add segment in myShapeSegments
+    myShapeSegments.push_back(Segment(element, lane, laneShape, laneShapeRotations, laneShapeLengths));
 }
 
 
@@ -630,8 +664,8 @@ GNEDemandElement::calculateGeometricPath(double *startPos, double *endPos) {
                 } else {
                     // add lane geometry
                     for (int j = 0; j < ((int)lane->getLaneShape().size() - 1); j++) {
-                        myDemandElementSegmentGeometry.insertEdgeSegment(this, &lane->getParentEdge(),
-                            lane->getLaneShape()[j], lane->getShapeLengths()[j], lane->getShapeRotations()[j], true, true);
+                        myDemandElementSegmentGeometry.insertEntireLaneSegment(this, lane,
+                            lane->getLaneShape(), lane->getShapeLengths(), lane->getShapeRotations());
                     }
                 }
                 // now continue with connection
@@ -665,7 +699,7 @@ GNEDemandElement::getFirstVehicleLane() const {
             std::string departLane = getAttribute(SUMO_ATTR_DEPARTLANE);
             //  check depart lane
             if ((departLane == "random") || (departLane == "free") ||(departLane == "allowed") ||(departLane == "best") || (departLane == "first")) {
-                return nullptr;
+                return getEdgeParents().front()->getLaneByVClass(getVClass());
             }
             // obtain index
             const int departLaneIndex = parse<int>(getAttribute(SUMO_ATTR_DEPARTLANE));
@@ -675,9 +709,10 @@ GNEDemandElement::getFirstVehicleLane() const {
             } else {
                 return nullptr;
             }
+        } else {
+            // in other case, always return the first allowed
+            return getEdgeParents().front()->getLaneByVClass(getVClass());
         }
-        // in other case, always return the first allowed
-        return getEdgeParents().front()->getLaneByVClass(getVClass());
     } else {
         return nullptr;
     }
@@ -694,7 +729,7 @@ GNEDemandElement::getLastVehicleLane() const {
             std::string arrivalLane = getAttribute(SUMO_ATTR_ARRIVALLANE);
             //  check depart lane
             if (arrivalLane == "current") {
-                return nullptr;
+                return getEdgeParents().back()->getLaneByVClass(getVClass());;
             }
             // obtain index
             const int arrivalLaneIndex = parse<int>(getAttribute(SUMO_ATTR_ARRIVALLANE));
@@ -704,9 +739,10 @@ GNEDemandElement::getLastVehicleLane() const {
             } else {
                 return nullptr;
             }
+        } else {
+            // in other case, always return the first allowed
+            return getEdgeParents().back()->getLaneByVClass(getVClass());
         }
-        // in other case, always return the first allowed
-        return getEdgeParents().back()->getLaneByVClass(getVClass());
     } else {
         return nullptr;
     }

@@ -554,8 +554,8 @@ GNEEdge::drawGL(const GUIVisualizationSettings& s) const {
         for (const auto& i : getSortedDemandElementChildrenByType(SUMO_TAG_TRIP)) {
             // Start drawing adding an gl identificator
             glPushName(i->getGlID());
-            // draw partial trip only if is being inspected or selected
-            if ((myNet->getViewNet()->getDottedAC() == i) || i->isAttributeCarrierSelected()) {
+            // draw partial trip only if is being inspected or selected (and we aren't in draw for selecting mode)
+            if (!s.drawForSelecting && (myNet->getViewNet()->getDottedAC() == i) || i->isAttributeCarrierSelected()) {
                 drawPartialTripFromTo(s, i, nullptr);
             }
             // only draw trip in the first edge
@@ -568,8 +568,8 @@ GNEEdge::drawGL(const GUIVisualizationSettings& s) const {
         for (const auto& i : getSortedDemandElementChildrenByType(SUMO_TAG_FLOW)) {
             // Start drawing adding an gl identificator
             glPushName(i->getGlID());
-            // draw partial trip only if is being inspected or selected
-            if ((myNet->getViewNet()->getDottedAC() == i) || i->isAttributeCarrierSelected()) {
+            // draw partial trip only if is being inspected or selected (and we aren't in draw for selecting mode)
+            if (!s.drawForSelecting && (myNet->getViewNet()->getDottedAC() == i) || i->isAttributeCarrierSelected()) {
                 drawPartialTripFromTo(s, i, nullptr);
             }
             // only draw flow in the first edge
@@ -1222,14 +1222,25 @@ GNEEdge::drawPartialRoute(const GUIVisualizationSettings& s, const GNEDemandElem
         // iterate over segments
         for (auto segment = route->getDemandElementSegmentGeometry().begin(); segment != route->getDemandElementSegmentGeometry().end(); segment++) {
             // draw partial segment
-            if ((segment->edge == this) && (segment->element == route) && segment->visible) {
-                // Set route color (needed due drawShapeDottedContour)
-                GLHelper::setColor(routeColor);
-                // draw box line
-                GLHelper::drawBoxLine(segment->pos, segment->rotation, segment->length, routeWidth, 0);
-                // check if shape dotted contour has to be drawn
-                if ((myNet->getViewNet()->getDottedAC() == route) && ((segment + 1) != route->getDemandElementSegmentGeometry().end())) {
-                    GLHelper::drawShapeDottedContourPartialShapes(s, getType(), segment->pos, (segment + 1)->pos, routeWidth);
+            if ((segment->element == route) && segment->visible) {
+                if (segment->edge == this) {
+                    // Set route color (needed due drawShapeDottedContour)
+                    GLHelper::setColor(routeColor);
+                    // draw box line
+                    GLHelper::drawBoxLine(segment->pos, segment->rotation, segment->length, routeWidth, 0);
+                    // check if shape dotted contour has to be drawn
+                    if ((myNet->getViewNet()->getDottedAC() == route) && ((segment + 1) != route->getDemandElementSegmentGeometry().end())) {
+                        GLHelper::drawShapeDottedContourPartialShapes(s, getType(), segment->pos, (segment + 1)->pos, routeWidth);
+                    }
+                } else if ((segment->lane) && (&segment->lane->getParentEdge() == this)) { 
+                    // Set route color (needed due drawShapeDottedContour)
+                    GLHelper::setColor(routeColor);
+                    // draw box line
+                    GLHelper::drawBoxLines(segment->shape, segment->shapeRotations, segment->shapeLengths, routeWidth);
+                    // check if shape dotted contour has to be drawn
+                    if ((myNet->getViewNet()->getDottedAC() == route) && ((segment + 1) != route->getDemandElementSegmentGeometry().end())) {
+                        GLHelper::drawShapeDottedContourAroundShape(s, getType(), segment->shape, routeWidth);
+                    }
                 }
             }
         }
@@ -1285,8 +1296,12 @@ GNEEdge::drawPartialTripFromTo(const GUIVisualizationSettings& s, const GNEDeman
         // iterate over segments
         for (auto segment = tripOrFromTo->getDemandElementSegmentGeometry().begin(); segment != tripOrFromTo->getDemandElementSegmentGeometry().end(); segment++) {
             // draw partial segment
-            if ((segment->edge == this) && (segment->element == tripOrFromTo) && segment->visible) {
-                GLHelper::drawBoxLine(segment->pos, segment->rotation, segment->length, tripOrFromToWidth, 0);
+            if ((segment->element == tripOrFromTo) && segment->visible) {
+                if (segment->edge == this) {
+                    GLHelper::drawBoxLine(segment->pos, segment->rotation, segment->length, tripOrFromToWidth, 0);
+                } else if ((segment->lane) && (&segment->lane->getParentEdge() == this)) { 
+                    GLHelper::drawBoxLines(segment->shape, segment->shapeRotations, segment->shapeLengths, tripOrFromToWidth);
+                }
             }
         }
     }
