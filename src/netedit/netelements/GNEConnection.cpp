@@ -337,10 +337,23 @@ GNEConnection::drawGL(const GUIVisualizationSettings& s) const {
                 GLHelper::drawShapeDottedContourAroundShape(s, getType(), shapeSuperposed, 0.25);
             }
         }
-        // Pop name
-        glPopName();
         // Pop draw matrix 1
         glPopMatrix();
+
+        if (s.edgeValue.show) {
+            NBEdge::Connection& nbCon = getNBEdgeConnection();
+            std::string value = nbCon.getParameter(s.edgeParam, "");
+            if (value != "") {
+                int shapeIndex = myConnectionGeometry.shape.size() / 2;
+                Position p = (myConnectionGeometry.shape.size() == 2
+                        ? (myConnectionGeometry.shape.front() * 0.67 + myConnectionGeometry.shape.back() * 0.33)
+                        : myConnectionGeometry.shape[shapeIndex]);
+                GLHelper::drawTextSettings(s.edgeValue, value, p, s.scale, 0);
+            }
+        }
+
+        // Pop name
+        glPopName();
     }
 }
 

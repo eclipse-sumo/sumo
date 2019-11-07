@@ -569,11 +569,23 @@ GNEViewNet::getEdgeLaneParamKeys(bool edgeKeys) const {
             for (const auto& item : e->getParametersMap()) {
                 keys.insert(item.first);
             }
+            for (const auto con : e->getConnections()) {
+                for (const auto& item : con.getParametersMap()) {
+                    keys.insert(item.first);
+                }
+            }
         } else {
             for (const auto lane : e->getLanes()) {
+                int i = 0;
                 for (const auto& item : lane.getParametersMap()) {
                     keys.insert(item.first);
                 }
+                for (const auto con : e->getConnectionsFromLane(i)) {
+                    for (const auto& item : con.getParametersMap()) {
+                        keys.insert(item.first);
+                    }
+                }
+                i++;
             }
         }
     }
