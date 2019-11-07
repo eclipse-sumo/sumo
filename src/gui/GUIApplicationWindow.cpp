@@ -821,7 +821,7 @@ GUIApplicationWindow::onCmdNetedit(FXObject*, FXSelector, void*) {
             netedit = "\"" + newPath + "\"";
         }
     }
-    std::string cmd = netedit + " --registry-viewport -s "  + OptionsCont::getOptions().getString("net-file");
+    std::string cmd = netedit + " --registry-viewport -s " + "\"" + OptionsCont::getOptions().getString("net-file") + "\"";
     // start in background
 #ifndef WIN32
     cmd = cmd + " &";

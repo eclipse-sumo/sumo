@@ -2067,7 +2067,7 @@ GNEApplicationWindow::onCmdOpenSUMOGUI(FXObject*, FXSelector, void*) {
                 sumogui = "\"" + newPath + "\"";
             }
         }
-        std::string cmd = sumogui + " --registry-viewport" + " -n "  + OptionsCont::getOptions().getString("output-file");
+        std::string cmd = sumogui + " --registry-viewport" + " -n "  + "\"" + OptionsCont::getOptions().getString("output-file") + "\"";
         // obtainer options container
         OptionsCont& oc = OptionsCont::getOptions();
         // if load additionals is enabled, add it to command
