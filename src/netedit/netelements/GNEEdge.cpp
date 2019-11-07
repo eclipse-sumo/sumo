@@ -2127,8 +2127,12 @@ GNEEdge::drawEdgeName(const GUIVisualizationSettings& s) const {
             GLHelper::drawTextSettings(s.streetName, myNBEdge.getStreetName(), p, s.scale, angle);
         }
         if (s.edgeValue.show) {
-            double value = lane2->getColorValue(s, s.laneColorer.getActive());
-            GLHelper::drawTextSettings(s.edgeValue, toString(value), p, s.scale, angle);
+            std::string value = (s.laneColorer.getActive() == 13
+                    ? getNBEdge()->getLaneStruct(lane2->getIndex()).getParameter(s.laneParam, "")
+                    : getNBEdge()->getParameter(s.edgeParam, ""));
+            if (value != "") {
+                GLHelper::drawTextSettings(s.edgeValue, value, p, s.scale, angle);
+            }
         }
         glPopName();
     }
