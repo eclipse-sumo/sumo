@@ -719,15 +719,17 @@ GNEDemandElement::adjustStartPosGeometricPath(double *startPos, const GNELane* s
     if (startPos && startLane) {
         if ((*startPos) < (2 * POSITION_EPS)) {
             (*startPos) = (2 * POSITION_EPS);
-        } else if ((*startPos) > (startLane->getLaneShape().length() - (2 * POSITION_EPS))) {
+        }
+        if ((*startPos) > (startLane->getLaneShape().length() - (2 * POSITION_EPS))) {
             (*startPos) = (startLane->getLaneShape().length() - (2 * POSITION_EPS));
         }
     }
     // adjust endPos
-    if (endPos && startLane) {
+    if (endPos && endLane) {
         if ((*endPos) < (2 * POSITION_EPS)) {
             (*endPos) = (2 * POSITION_EPS);
-        } else if ((*endPos) > (endLane->getLaneShape().length() - (2 * POSITION_EPS))) {
+        }
+        if ((*endPos) > (endLane->getLaneShape().length() - (2 * POSITION_EPS))) {
             (*endPos) = (endLane->getLaneShape().length() - (2 * POSITION_EPS));
         }
     }
