@@ -461,7 +461,7 @@ GUIApplicationWindow::fillMenuBar() {
     new FXMenuSeparator(myEditMenu);
     new FXMenuCommand(myEditMenu,
                       "Open in Netedit\tCtrl+T\tOpens the netedit application with the current network.",
-                      nullptr, this, MID_NETEDIT);
+                      GUIIconSubSys::getIcon(ICON_NETEDIT_MINI), this, MID_NETEDIT);
 
     // build settings menu
     mySettingsMenu = new FXMenuPane(this);
