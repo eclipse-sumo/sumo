@@ -20,6 +20,7 @@ permalink: /ChangeLog/
   - Fixed invalid snap to grid when trying to move junction. Issue #6067
   - Coloring edges by generic parameter is now working. Issue #6062
   - "Open in SUMO-GUI" option now works correctly when there are spaces in the path. Issue #6227
+  - Fixed flickering problem in undo/redo buttons. Issue #6209
 
 - NETCONVERT
   - Fixed bugs in classification of roundabouts. Issue #6032
