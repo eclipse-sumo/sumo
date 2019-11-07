@@ -50,6 +50,26 @@ def get_options(args=None):
     return options
 
 
+def findFringe(edge, countParam, intermediateCounts=None):
+    if intermediateCounts:
+        # do not backtrack past edges that define turning counts (to avoid duplicate flows)
+        return None
+    if edge.is_fringe(edge._incoming):
+        return edge
+    elif len(edge.getIncoming()) == 1:
+        prev = edge.getIncoming().keys()[0]
+        return findFringe(prev, countParam, getCounts(prev, countParam))
+    return None
+
+def getCounts(edge, countParam):
+    counts = defaultdict(lambda : 0)
+    for toEdge, cons in edge.getOutgoing().items():
+        for con in cons:
+            value = con.getParam(countParam)
+            if value is not None:
+                counts[con.getTo().getID()] += float(value)
+    return counts
+
 def main(options):
     net = sumolib.net.readNet(options.net)
     with open(options.turnFile, 'w') as tf, open(options.flowFile, 'w') as ff:
@@ -57,22 +77,18 @@ def main(options):
         ff.write('<routes>\n')
         tf.write('    <interval begin="%s" end="%s">\n' % (options.begin, options.end))
         for edge in net.getEdges():
-            counts = defaultdict(lambda : 0)
-            for toEdge, cons in edge.getOutgoing().items():
-                for con in cons:
-                    value = con.getParam(options.countParam)
-                    if value is not None:
-                        counts[con.getTo().getID()] += float(value)
+            counts = getCounts(edge, options.countParam)
             if counts:
                 tf.write('        <fromEdge id="%s">\n' % (edge.getID()))
                 for toEdge, count in counts.items():
                     tf.write('            <toEdge id="%s" probability="%s"/>\n' % (toEdge, count))
                 tf.write('        </fromEdge>\n')
 
-                if edge.is_fringe(edge._incoming):
-                    totalCount = int(sum(counts.values()))
+                totalCount = int(sum(counts.values()))
+                fromEdge = findFringe(edge, options.countParam)
+                if fromEdge:
                     ff.write('    <flow id="%s" from="%s" begin="%s" end="%s" number="%s"/>\n' % (
-                        edge.getID(), edge.getID(), options.begin, options.end, totalCount))
+                        edge.getID(), fromEdge.getID(), options.begin, options.end, totalCount))
         tf.write('    </interval>\n')
         tf.write('</turns>\n')
         ff.write('</routes>\n')
