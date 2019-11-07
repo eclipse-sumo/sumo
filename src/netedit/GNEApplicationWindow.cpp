@@ -1617,7 +1617,7 @@ GNEApplicationWindow::fillMenuBar() {
         nullptr, this, MID_HOTKEY_F1_ONLINEDOCUMENTATION);
     new FXMenuCommand(myHelpMenu,
         "&About\tF2\tAbout netedit.",
-        nullptr, this, MID_HOTKEY_F2_ABOUT);
+        GUIIconSubSys::getIcon(ICON_NETEDIT_MINI), this, MID_HOTKEY_F2_ABOUT);
 }
 
 
