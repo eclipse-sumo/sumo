@@ -18,7 +18,8 @@ permalink: /ChangeLog/
   - Fixed crash transforming trips to flows. Issue #6050
   - Now blocked shapes can be moved again. Issue #6053
   - Fixed invalid snap to grid when trying to move junction. Issue #6067
-  - Coloring edges by generic parameter is now working. Issue #6062  
+  - Coloring edges by generic parameter is now working. Issue #6062
+  - "Open in SUMO-GUI" option now works correctly when there are spaces in the path. Issue #6227
 
 - NETCONVERT
   - Fixed bugs in classification of roundabouts. Issue #6032
@@ -37,6 +38,7 @@ permalink: /ChangeLog/
   - Sublane-borders are no longer drawn for railways and sidewalks (where the sublane model does not apply).
   - Fixed crash when using vehicle popup-menu after the vehicle has left the simulation. Issue #6107
   - Fixed crash after removing view with active vehicle visualization once the vehicle leaves the simulation. Issue #6112
+  - "Open in Netedit" option now works correctly when there are spaces in the path. Issue #6227
 
 - DUAROUTER
   - Fixed invalid mode change from car during intermodal routing. Issue #6070
