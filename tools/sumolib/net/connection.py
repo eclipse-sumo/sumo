@@ -37,6 +37,7 @@ class Connection:
         self._tlLink = tllink
         self._state = state
         self._via = viaLaneID
+        self._params = {}
 
     def __str__(self):
         return '<connection from="%s" to="%s" fromLane="%s" toLane="%s" %sdirection="%s">' % (
@@ -47,6 +48,15 @@ class Connection:
             ('' if self._tls == '' else 'tl="%s" linkIndex="%s" ' %
              (self._tls, self._tlLink)),
             self._direction)
+
+    def setParam(self, key, value):
+        self._params[key] = value
+
+    def getParam(self, key, default=None):
+        return self._params.get(key, default)
+
+    def getParams(self):
+        return self._params
 
     def getFrom(self):
         return self._fromLane.getEdge()

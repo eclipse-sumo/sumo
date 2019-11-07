@@ -235,6 +235,7 @@ class Net:
                     tllink, state, ''))
             except Exception:
                 pass
+        return conn
 
     def getEdges(self, withInternal=True):
         if not withInternal:
@@ -516,6 +517,7 @@ class NetReader(handler.ContentHandler):
         self._net = others.get('net', Net())
         self._currentEdge = None
         self._currentNode = None
+        self._currentConnection = None
         self._currentLane = None
         self._crossingID2edgeIDs = {}
         self._withPhases = others.get('withPrograms', False)
@@ -639,7 +641,7 @@ class NetReader(handler.ContentHandler):
                 except KeyError:
                     viaLaneID = ''
 
-                self._net.addConnection(
+                self._currentConnection = self._net.addConnection(
                     fromEdge, toEdge, fromLane, toLane, attrs['dir'], tl,
                     tllink, attrs['state'], viaLaneID)
 
@@ -675,6 +677,8 @@ class NetReader(handler.ContentHandler):
                 self._currentEdge.setParam(attrs['key'], attrs['value'])
             elif self._currentNode is not None:
                 self._currentNode.setParam(attrs['key'], attrs['value'])
+            elif self._currentConnection is not None:
+                self._currentConnection.setParam(attrs['key'], attrs['value'])
             elif self._withPhases and self._currentProgram is not None:
                 self._currentProgram.setParam(attrs['key'], attrs['value'])
 
@@ -685,6 +689,8 @@ class NetReader(handler.ContentHandler):
             self._currentEdge = None
         if name == 'junction':
             self._currentNode = None
+        if name == 'connection':
+            self._currentConnection = None
         # 'row-logic' is deprecated!!!
         if name == 'ROWLogic' or name == 'row-logic':
             self._haveROWLogic = False
