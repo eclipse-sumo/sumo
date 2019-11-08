@@ -24,3 +24,6 @@ depending_option
 
 # Tests check for detection of network input as single parameter
 implicit_network
+
+# limit output to 5 warnings per type
+aggregate_warnings

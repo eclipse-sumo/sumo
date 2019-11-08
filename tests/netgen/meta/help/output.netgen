@@ -1,4 +1,4 @@
-Eclipse SUMO netgenerate Version v1_3_1+0470-4a6b08f445
+Eclipse SUMO netgenerate Version v1_3_1+0801-355be15e4b
  Copyright (C) 2001-2019 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 Synthetic network generator for the microscopic, multi-modal traffic simulation
   SUMO.
@@ -370,6 +370,8 @@ Report Options:
                                          network inputs ("never", "auto" or
                                          "always")
   -W, --no-warnings                    Disables output of warnings
+  --aggregate-warnings INT             Aggregate warnings of the same type
+                                         whenever more than INT occur
   -l, --log FILE                       Writes all messages to FILE (implies
                                          verbose)
   --message-log FILE                   Writes all non-error messages to FILE

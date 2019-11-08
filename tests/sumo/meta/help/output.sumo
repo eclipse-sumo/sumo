@@ -1,4 +1,4 @@
-Eclipse SUMO Version v1_3_1+0720-feddc330784
+Eclipse SUMO Version v1_3_1+0801-355be15e4b
  Copyright (C) 2001-2019 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 A microscopic, multi-modal traffic simulation.
 
@@ -305,6 +305,8 @@ Report Options:
                                          network inputs ("never", "auto" or
                                          "always")
   -W, --no-warnings                    Disables output of warnings
+  --aggregate-warnings INT             Aggregate warnings of the same type
+                                         whenever more than INT occur
   -l, --log FILE                       Writes all messages to FILE (implies
                                          verbose)
   --message-log FILE                   Writes all non-error messages to FILE
@@ -586,8 +588,6 @@ GUI Only Options:
                                          position
   --tracker-interval FLOAT             The aggregation period for value tracker
                                          windows
-  --osg-view                           Start with an OpenSceneGraph view
-                                         instead of the regular 2D view
   --gui-testing                        Enable ovelay for screen recognition
   --gui-testing-debug                  Enable output messages during
                                          GUI-Testing

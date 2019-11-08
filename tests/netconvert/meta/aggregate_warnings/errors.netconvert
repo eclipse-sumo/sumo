@@ -1,0 +1,16 @@
+Warning: Discarding unusable type 'waterway.riverbank' (first occurence for edge '4616435').
+Warning: Discarding unknown compound 'cycleway.track' in type 'cycleway.track|highway.secondary' (first occurence for edge '24214694').
+Warning: Discarding unusable type 'waterway.canal' (first occurence for edge '31233332').
+Warning: Discarding unknown compound 'cycleway.track' in type 'cycleway.track|highway.tertiary' (first occurence for edge '46039050').
+Warning: No way found for reference '48858193' in relation '2439689'
+Warning: Ignoring restriction relation '2439689' with unknown from-way.
+Warning: Reducing junction cluster 1560224141,1560224152,1560224191,1560224195 (5 incoming edges)
+Warning: Found sharp turn with radius 4.30 at the end of edge '-133858467#1'.
+Warning: Found sharp turn with radius 7.22 at the start of edge '-133858467#2'.
+Warning: Found sharp turn with radius 4.30 at the start of edge '133858467#1'.
+Warning: Ignoring parking area on edge '142575693#3' due to insufficient space.
+Warning: Ignoring parking area on edge '142575693#4' due to insufficient space.
+Warning: 9 total messages of type: Discarding unknown compound '%' in type '%' (first occurence for edge '%').
+Warning: 4 total messages of type: Discarding unusable type '%' (first occurence for edge '%').
+Warning: 5 total messages of type: Found sharp turn with radius % at the start of edge '%'.
+Warning: 10 total messages of type: Ignoring parking area on edge '%' due to insufficient space.

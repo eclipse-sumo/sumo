@@ -1,0 +1,2 @@
+--osm-files osm.xml -v --tls.discard-simple --tls.guess-signals --output net.net.xml --geometry.remove --junctions.join --roundabouts.guess --no-internal-links --type-files $SUMO_HOME/data/typemap/osmNetconvert.typ.xml,input_types.typ.xml
+--parking-output additional.xml --aggregate-warnings 2
