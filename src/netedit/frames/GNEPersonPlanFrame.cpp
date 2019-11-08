@@ -600,12 +600,10 @@ GNEPersonPlanFrame::personPlanCreated(GNEAdditional* busStop, GNEDemandElement* 
                 std::vector<std::string> modes = GNEAttributeCarrier::parse<std::vector<std::string> >(valuesMap[SUMO_ATTR_MODES]);
                 double arrivalPos = GNEAttributeCarrier::parse<double>(valuesMap[SUMO_ATTR_ARRIVALPOS]);
                 // check if person trip fromto can be created
-                if (myPersonPlanCreator->getEdgePath().size() > 0) {
-                    GNERouteHandler::buildPersonTripFromTo(myViewNet, true, myPersonSelector->getCurrentDemandElement(), myPersonPlanCreator->getEdgePath(), types, modes, arrivalPos);
-                } else if ((myPersonPlanCreator->getClickedEdges().size() == 1) || (myPersonPlanCreator->getClickedEdges().size() == 2)) {
-                    GNERouteHandler::buildPersonTripFromTo(myViewNet, true, myPersonSelector->getCurrentDemandElement(), myPersonPlanCreator->getClickedEdges(), types, modes, arrivalPos);
+                if (myPersonPlanCreator->getEdgePath().size() > 1) {
+                    GNERouteHandler::buildPersonTripFromTo(myViewNet, true, myPersonSelector->getCurrentDemandElement(), myPersonPlanCreator->getEdgePath().front(), myPersonPlanCreator->getEdgePath().back(), arrivalPos, types, modes);
                 } else {
-                    myViewNet->setStatusBarText("A person trip with from-to attributes needs at least one edge.");
+                    myViewNet->setStatusBarText("A person trip with from-to attributes needs at least two edge.");
                     return false;
                 }
                 break;
@@ -621,9 +619,7 @@ GNEPersonPlanFrame::personPlanCreated(GNEAdditional* busStop, GNEDemandElement* 
                     // add busstop's edge to personPlan creator (To calculate a temporal route)
                     myPersonPlanCreator->addEdge(&busStop->getLaneParents().front()->getParentEdge());
                     if (myPersonPlanCreator->getEdgePath().size() > 0) {
-                        GNERouteHandler::buildPersonTripBusStop(myViewNet, true, myPersonSelector->getCurrentDemandElement(), myPersonPlanCreator->getEdgePath(), busStop, types, modes);
-                    } else if ((myPersonPlanCreator->getClickedEdges().size() == 1) || (myPersonPlanCreator->getClickedEdges().size() == 2)) {
-                        GNERouteHandler::buildPersonTripBusStop(myViewNet, true, myPersonSelector->getCurrentDemandElement(), myPersonPlanCreator->getClickedEdges(), busStop, types, modes);
+                        GNERouteHandler::buildPersonTripBusStop(myViewNet, true, myPersonSelector->getCurrentDemandElement(), myPersonPlanCreator->getEdgePath().front(), busStop, types, modes);
                     } else {
                         myViewNet->setStatusBarText("A person trip with from and busStop attributes needs one edge and one busStop");
                         return false;
@@ -686,12 +682,10 @@ GNEPersonPlanFrame::personPlanCreated(GNEAdditional* busStop, GNEDemandElement* 
                 std::vector<std::string> lines = GNEAttributeCarrier::parse<std::vector<std::string> >(valuesMap[SUMO_ATTR_LINES]);
                 double arrivalPos = GNEAttributeCarrier::parse<double>(valuesMap[SUMO_ATTR_ARRIVALPOS]);
                 // check if ride fromto can be created
-                if (myPersonPlanCreator->getEdgePath().size() > 0) {
-                    GNERouteHandler::buildRideFromTo(myViewNet, true, myPersonSelector->getCurrentDemandElement(), myPersonPlanCreator->getEdgePath(), lines, arrivalPos);
-                } else if ((myPersonPlanCreator->getClickedEdges().size() == 1) || (myPersonPlanCreator->getClickedEdges().size() == 2)) {
-                    GNERouteHandler::buildRideFromTo(myViewNet, true, myPersonSelector->getCurrentDemandElement(), myPersonPlanCreator->getClickedEdges(), lines, arrivalPos);
+                if (myPersonPlanCreator->getEdgePath().size() > 2) {
+                    GNERouteHandler::buildRideFromTo(myViewNet, true, myPersonSelector->getCurrentDemandElement(), myPersonPlanCreator->getEdgePath().front(), myPersonPlanCreator->getEdgePath().back(), lines, arrivalPos);
                 } else {
-                    myViewNet->setStatusBarText("A ride with from-to attributes needs at least one edge.");
+                    myViewNet->setStatusBarText("A ride with from-to attributes needs at least two edge.");
                     return false;
                 }
                 break;
@@ -705,9 +699,7 @@ GNEPersonPlanFrame::personPlanCreated(GNEAdditional* busStop, GNEDemandElement* 
                     // add busstop's edge to personPlan creator (To calculate a temporal route)
                     myPersonPlanCreator->addEdge(&busStop->getLaneParents().front()->getParentEdge());
                     if (myPersonPlanCreator->getEdgePath().size() > 0) {
-                        GNERouteHandler::buildRideBusStop(myViewNet, true, myPersonSelector->getCurrentDemandElement(), myPersonPlanCreator->getEdgePath(), busStop, lines);
-                    } else if ((myPersonPlanCreator->getClickedEdges().size() == 1) || (myPersonPlanCreator->getClickedEdges().size() == 2)) {
-                        GNERouteHandler::buildRideBusStop(myViewNet, true, myPersonSelector->getCurrentDemandElement(), myPersonPlanCreator->getClickedEdges(), busStop, lines);
+                        GNERouteHandler::buildRideBusStop(myViewNet, true, myPersonSelector->getCurrentDemandElement(), myPersonPlanCreator->getEdgePath().front(), busStop, lines);
                     } else {
                         myViewNet->setStatusBarText("A ride with from and busStop attributes needs one edge and one busStop");
                         return false;

@@ -577,73 +577,48 @@ GNERouteHandler::buildPersonFlow(GNEViewNet* viewNet, bool undoDemandElements, c
 
 
 void
-GNERouteHandler::buildPersonTripFromTo(GNEViewNet* viewNet, bool undoDemandElements, GNEDemandElement* personParent, const std::vector<GNEEdge*>& edges,
-                                       const std::vector<std::string>& types, const std::vector<std::string>& modes, double arrivalPos) {
-    // check that at least there is an edge
-    if (edges.size() == 0) {
-        WRITE_ERROR("A personTrip needs at least one edge. " + toString(SUMO_TAG_PERSONTRIP_FROMTO) + " within person with ID='" + personParent->getID() + "' cannot be created");
+GNERouteHandler::buildPersonTripFromTo(GNEViewNet* viewNet, bool undoDemandElements, GNEDemandElement* personParent, GNEEdge* fromEdge, GNEEdge* toEdge, double arrivalPos,
+                                       const std::vector<std::string>& types, const std::vector<std::string>& modes) {
+    // create personTripFromTo
+    GNEPersonTrip* personTripFromTo = new GNEPersonTrip(viewNet, personParent, fromEdge, toEdge, arrivalPos, types, modes);
+    // add element using undo list or directly, depending of undoDemandElements flag
+    if (undoDemandElements) {
+        viewNet->getUndoList()->p_begin("add " + toString(SUMO_TAG_PERSONTRIP_FROMTO) + " within person '" + personParent->getID() + "'");
+        viewNet->getUndoList()->add(new GNEChange_DemandElement(personTripFromTo, true), true);
+        viewNet->getUndoList()->p_end();
     } else {
-        // obtain path between edges
-        std::vector<GNEEdge*> pathEdges = GNEDemandElement::getRouteCalculatorInstance()->calculateDijkstraRoute(personParent->getVClass(), edges);
-        // check if obtained path is valid
-        if (pathEdges.size() == 0) {
-            pathEdges = edges;
-        }
-        // create personTripFromTo
-        GNEPersonTrip* personTripFromTo = new GNEPersonTrip(viewNet, personParent, pathEdges, types, modes, arrivalPos);
-        // add element using undo list or directly, depending of undoDemandElements flag
-        if (undoDemandElements) {
-            viewNet->getUndoList()->p_begin("add " + toString(SUMO_TAG_PERSONTRIP_FROMTO) + " within person '" + personParent->getID() + "'");
-            viewNet->getUndoList()->add(new GNEChange_DemandElement(personTripFromTo, true), true);
-            viewNet->getUndoList()->p_end();
-        } else {
-            // add vehicleOrPersonTripFlow in net and in their vehicle type parent
-            viewNet->getNet()->insertDemandElement(personTripFromTo);
-            personParent->addDemandElementChild(personTripFromTo);
-            personTripFromTo->incRef("buildPersonTripFromTo");
-        }
-        // mark geometry of person plan parent deprecated and update geometry
-        personParent->markSegmentGeometryDeprecated();
-        personParent->updateGeometry();
+        // add vehicleOrPersonTripFlow in net and in their vehicle type parent
+        viewNet->getNet()->insertDemandElement(personTripFromTo);
+        personParent->addDemandElementChild(personTripFromTo);
+        personTripFromTo->incRef("buildPersonTripFromTo");
     }
+    // mark geometry of person plan parent deprecated and update geometry
+    personParent->markSegmentGeometryDeprecated();
+    personParent->updateGeometry();
 }
 
 
 void
-GNERouteHandler::buildPersonTripBusStop(GNEViewNet* viewNet, bool undoDemandElements, GNEDemandElement* personParent, const std::vector<GNEEdge*>& edges,
-                                        GNEAdditional* busStop, const std::vector<std::string>& types, const std::vector<std::string>& modes) {
-    // check that at least there is an edge
-    if (edges.size() == 0) {
-        WRITE_ERROR("A personTrip needs at least one edge. " + toString(SUMO_TAG_PERSONTRIP_BUSSTOP) + " within person with ID='" + personParent->getID() + "' cannot be created");
+GNERouteHandler::buildPersonTripBusStop(GNEViewNet* viewNet, bool undoDemandElements, GNEDemandElement* personParent, GNEEdge* fromEdge, GNEAdditional* busStop, 
+                                        const std::vector<std::string>& types, const std::vector<std::string>& modes) {
+    // create personTripBusStop
+    GNEPersonTrip* personTripBusStop = new GNEPersonTrip(viewNet, personParent, fromEdge, busStop, types, modes);
+    // add element using undo list or directly, depending of undoDemandElements flag
+    if (undoDemandElements) {
+        viewNet->getUndoList()->p_begin("add " + toString(SUMO_TAG_PERSONTRIP_BUSSTOP) + " within person '" + personParent->getID() + "'");
+        viewNet->getUndoList()->add(new GNEChange_DemandElement(personTripBusStop, true), true);
+        viewNet->getUndoList()->p_end();
     } else {
-        // obtain path between edges
-        std::vector<GNEEdge*> pathEdges = GNEDemandElement::getRouteCalculatorInstance()->calculateDijkstraRoute(personParent->getVClass(), edges);
-        // check if obtained path is valid
-        if (pathEdges.size() == 0) {
-            pathEdges = edges;
-        }
-        // create personTripBusStop
-        GNEPersonTrip* personTripBusStop = new GNEPersonTrip(viewNet, personParent, pathEdges, busStop, types, modes);
-        // add element using undo list or directly, depending of undoDemandElements flag
-        if (undoDemandElements) {
-            viewNet->getUndoList()->p_begin("add " + toString(SUMO_TAG_PERSONTRIP_BUSSTOP) + " within person '" + personParent->getID() + "'");
-            viewNet->getUndoList()->add(new GNEChange_DemandElement(personTripBusStop, true), true);
-            viewNet->getUndoList()->p_end();
-        } else {
-            // add vehicleOrPersonTripFlow in net and in their vehicle type parent
-            viewNet->getNet()->insertDemandElement(personTripBusStop);
-            personParent->addDemandElementChild(personTripBusStop);
-            busStop->addDemandElementChild(personTripBusStop);
-            // add reference in all edges
-            for (const auto& i : edges) {
-                i->addDemandElementChild(personTripBusStop);
-            }
-            personTripBusStop->incRef("buildPersonTripBusStop");
-        }
-        // mark geometry of person plan parent deprecated and update geometry
-        personParent->markSegmentGeometryDeprecated();
-        personParent->updateGeometry();
+        // add vehicleOrPersonTripFlow in net and in their vehicle type parent
+        viewNet->getNet()->insertDemandElement(personTripBusStop);
+        personParent->addDemandElementChild(personTripBusStop);
+        busStop->addDemandElementChild(personTripBusStop);
+        fromEdge->addDemandElementChild(personTripBusStop);
+        personTripBusStop->incRef("buildPersonTripBusStop");
     }
+    // mark geometry of person plan parent deprecated and update geometry
+    personParent->markSegmentGeometryDeprecated();
+    personParent->updateGeometry();
 }
 
 
@@ -1370,12 +1345,12 @@ GNERouteHandler::closePerson() {
                     switch (i->tag) {
                         case SUMO_TAG_PERSONTRIP_FROMTO:
                             // check if "from" attribute was loaded, or it must be taked fron previous personPlan values
-                            if (i->from) {
-                                myViewNet->getUndoList()->add(new GNEChange_DemandElement(new GNEPersonTrip(myViewNet, person, i->calculateEdgePath(), i->vTypes, i->modes, i->arrivalPos), true), true);
-                            } else if (i != myPersonPlanValues.begin()) {
+                            if (i->from && i->to) {
+                                myViewNet->getUndoList()->add(new GNEChange_DemandElement(new GNEPersonTrip(myViewNet, person, i->from, i->to, i->arrivalPos, i->vTypes, i->modes), true), true);
+                            } else if ((i != myPersonPlanValues.begin()) && i->to) {
                                 // update 'from' edge using 'to' edge of last personPlan element
                                 i->from = (i - 1)->getLastEdge();
-                                myViewNet->getUndoList()->add(new GNEChange_DemandElement(new GNEPersonTrip(myViewNet, person, i->calculateEdgePath(), i->vTypes, i->modes, i->arrivalPos), true), true);
+                                myViewNet->getUndoList()->add(new GNEChange_DemandElement(new GNEPersonTrip(myViewNet, person, i->from, i->to, i->arrivalPos, i->vTypes, i->modes), true), true);
                             } else {
                                 WRITE_ERROR("The first person plan of type '" + toString(i->tag) + "' needs a from edge. Person cannot be created.");
                                 // abort last command group (to remove created person)
@@ -1387,11 +1362,11 @@ GNERouteHandler::closePerson() {
                         case SUMO_TAG_PERSONTRIP_BUSSTOP:
                             // check if "from" attribute was loaded, or it must be taked fron previous personPlan values
                             if (i->from) {
-                                myViewNet->getUndoList()->add(new GNEChange_DemandElement(new GNEPersonTrip(myViewNet, person, i->calculateEdgePath(), i->busStop, i->vTypes, i->modes), true), true);
+                                myViewNet->getUndoList()->add(new GNEChange_DemandElement(new GNEPersonTrip(myViewNet, person, i->from, i->busStop, i->vTypes, i->modes), true), true);
                             } else if (i != myPersonPlanValues.begin()) {
                                 // update 'from' edge using 'to' edge of last personPlan element
                                 i->from = (i - 1)->getLastEdge();
-                                myViewNet->getUndoList()->add(new GNEChange_DemandElement(new GNEPersonTrip(myViewNet, person, i->calculateEdgePath(), i->busStop, i->vTypes, i->modes), true), true);
+                                myViewNet->getUndoList()->add(new GNEChange_DemandElement(new GNEPersonTrip(myViewNet, person, i->from, i->busStop, i->vTypes, i->modes), true), true);
                             } else {
                                 WRITE_ERROR("The first person plan of type '" + toString(i->tag) + "' needs a from edge. Person cannot be created.");
                                 // abort last command group (to remove created person)

@@ -400,8 +400,6 @@ GNERide::getAttribute(SumoXMLAttr key) const {
             return getEdgeParents().back()->getID();
         case SUMO_ATTR_VIA:
             return toString(myVia);
-        case SUMO_ATTR_ROUTE:
-            return getDemandElementParents().at(1)->getID();
         case SUMO_ATTR_BUS_STOP:
             return getAdditionalParents().front()->getID();
         case SUMO_ATTR_LINES:
@@ -440,7 +438,6 @@ GNERide::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* un
         case SUMO_ATTR_FROM:
         case SUMO_ATTR_TO:
         case SUMO_ATTR_VIA:
-        case SUMO_ATTR_ROUTE:
         case SUMO_ATTR_BUS_STOP:
         case SUMO_ATTR_LINES:
         case SUMO_ATTR_ARRIVALPOS:
@@ -559,9 +556,6 @@ GNERide::setAttribute(SumoXMLAttr key, const std::string& value) {
             compute();
             break;
         }
-        case SUMO_ATTR_ROUTE:
-            changeDemandElementParent(this, value, 1);
-            break;
         case SUMO_ATTR_BUS_STOP:
             changeAdditionalParent(this, value, 0);
             break;

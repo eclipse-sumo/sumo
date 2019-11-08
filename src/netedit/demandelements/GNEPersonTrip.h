@@ -12,7 +12,7 @@
 /// @date    Jun 2019
 /// @version $Id$
 ///
-// A class for visualizing personTrips in Netedit
+// A class for visualizing person trips in Netedit
 /****************************************************************************/
 #ifndef GNEPersonTrip_h
 #define GNEPersonTrip_h
@@ -22,9 +22,8 @@
 // included modules
 // ===========================================================================
 
-#include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
-
 #include "GNEDemandElement.h"
+#include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
 
 // ===========================================================================
 // class declarations
@@ -40,27 +39,25 @@ class GNEVehicle;
 class GNEPersonTrip : public GNEDemandElement, public Parameterised {
 
 public:
-    /**@brief parameter constructor
+    /**@brief parameter constructor for person tripEdges
      * @param[in] viewNet view in which this PersonTrip is placed
      * @param[in] personParent person parent
-     * @param[in] edges list of consecutive edges of this personTrip
+     * @param[in] edges list of consecutive edges of this person trip
      * @param[in] arrivalPosition arrival position on the destination edge
      * @param[in] types list of possible vehicle types to take
      * @param[in] modes list of possible traffic modes
      */
-    GNEPersonTrip(GNEViewNet* viewNet, GNEDemandElement* personParent, const std::vector<GNEEdge*>& edges, const std::vector<std::string>& types,
-                  const std::vector<std::string>& modes, double arrivalPosition);
+    GNEPersonTrip(GNEViewNet* viewNet, GNEDemandElement* personParent, GNEEdge* fromEdge, GNEEdge* toEdge, double arrivalPosition, const std::vector<std::string>& types, const std::vector<std::string>& modes);
 
-    /**@brief parameter constructor
+    /**@brief parameter constructor for person tripBusStop
      * @param[in] viewNet view in which this PersonTrip is placed
      * @param[in] personParent person parent
-     * @param[in] edges list of consecutive edges of this personTrip
+     * @param[in] edges list of consecutive edges of this person trip
      * @param[in] busStop destination busStop
      * @param[in] types list of possible vehicle types to take
      * @param[in] modes list of possible traffic modes
      */
-    GNEPersonTrip(GNEViewNet* viewNet, GNEDemandElement* personParent, const std::vector<GNEEdge*>& edges, GNEAdditional* busStop,
-                  const std::vector<std::string>& types, const std::vector<std::string>& modes);
+    GNEPersonTrip(GNEViewNet* viewNet, GNEDemandElement* personParent, GNEEdge* fromEdge, GNEAdditional* busStop, const std::vector<std::string>& types, const std::vector<std::string>& modes);
 
     /// @brief destructor
     ~GNEPersonTrip();
@@ -226,10 +223,10 @@ protected:
     /// @brief from edge
     GNEEdge* myFromEdge;
 
-    /// @brief to edge
+    /// @brief to edge (used by person tripFromTo)
     GNEEdge* myToEdge;
 
-    /// @brief via edges  (used by walkFromTo)
+    /// @brief via edges  (used by person tripFromTo)
     std::vector<std::string> myVia;
 
     /// @brief arrival position
@@ -241,6 +238,9 @@ private:
 
     /// @brief method for enabling the attribute and nothing else (used in GNEChange_EnableAttribute)
     void setEnabledAttribute(const int enabledAttributes);
+
+    /// @brief compute demand element without updating references
+    void computeWithoutReferences();
 
     /// @brief Invalidated copy constructor.
     GNEPersonTrip(GNEPersonTrip*) = delete;

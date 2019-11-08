@@ -12,7 +12,7 @@
 /// @date    Jun 2019
 /// @version $Id$
 ///
-// A class for visualizing personTrips in Netedit
+// A class for visualizing person trips in Netedit
 /****************************************************************************/
 
 
@@ -21,18 +21,18 @@
 // ===========================================================================
 #include <config.h>
 
+#include <utils/gui/windows/GUIAppEnum.h>
+#include <netedit/additionals/GNEAdditional.h>
+#include <netedit/changes/GNEChange_Attribute.h>
 #include <netedit/GNENet.h>
 #include <netedit/GNEUndoList.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNEViewParent.h>
-#include <netedit/additionals/GNEAdditional.h>
-#include <netedit/changes/GNEChange_Attribute.h>
-#include <netedit/frames/GNESelectorFrame.h>
-#include <netedit/netelements/GNEEdge.h>
 #include <netedit/netelements/GNELane.h>
+#include <netedit/netelements/GNEEdge.h>
+#include <netedit/frames/GNESelectorFrame.h>
 #include <utils/common/StringTokenizer.h>
 #include <utils/gui/div/GUIGlobalSelection.h>
-#include <utils/gui/windows/GUIAppEnum.h>
 #include <utils/vehicle/SUMOVehicleParameter.h>
 
 #include "GNEPersonTrip.h"
@@ -42,25 +42,33 @@
 // method definitions
 // ===========================================================================
 
-GNEPersonTrip::GNEPersonTrip(GNEViewNet* viewNet, GNEDemandElement* personParent, const std::vector<GNEEdge*>& edges, const std::vector<std::string>& types,
-                             const std::vector<std::string>& modes, double arrivalPosition) :
-    GNEDemandElement(viewNet->getNet()->generateDemandElementID("", SUMO_TAG_PERSONTRIP_FROMTO), viewNet, GLO_PERSONTRIP, SUMO_TAG_PERSONTRIP_FROMTO,
-                     edges, {}, {}, {}, {personParent}, {}, {}, {}, {}, {}),
-                        Parameterised(),
-                        myVTypes(types),
-                        myModes(modes),
-myArrivalPosition(arrivalPosition) {
+GNEPersonTrip::GNEPersonTrip(GNEViewNet* viewNet, GNEDemandElement* personParent, GNEEdge* fromEdge, GNEEdge* toEdge, double arrivalPosition, 
+    const std::vector<std::string>& types, const std::vector<std::string>& modes) :
+    GNEDemandElement(viewNet->getNet()->generateDemandElementID("", SUMO_TAG_PERSONTRIP_FROMTO), viewNet, GLO_PERSONTRIP, SUMO_TAG_PERSONTRIP_FROMTO, 
+        {}, {}, {}, {}, {personParent}, {}, {}, {}, {}, {}),
+    Parameterised(),
+    myArrivalPosition(arrivalPosition),
+    myFromEdge(fromEdge),
+    myToEdge(toEdge),
+    myVTypes(types),
+    myModes(modes) {
+    // compute person trip without referencing edges
+    computeWithoutReferences();
 }
 
 
-GNEPersonTrip::GNEPersonTrip(GNEViewNet* viewNet, GNEDemandElement* personParent, const std::vector<GNEEdge*>& edges, GNEAdditional* busStop,
-                             const std::vector<std::string>& types, const std::vector<std::string>& modes) :
-    GNEDemandElement(viewNet->getNet()->generateDemandElementID("", SUMO_TAG_PERSONTRIP_BUSSTOP), viewNet, GLO_PERSONTRIP, SUMO_TAG_PERSONTRIP_BUSSTOP,
-                     edges, {}, {}, {busStop}, {personParent}, {}, {}, {}, {}, {}),
-Parameterised(),
-myVTypes(types),
-myModes(modes),
-myArrivalPosition(-1) {
+GNEPersonTrip::GNEPersonTrip(GNEViewNet* viewNet, GNEDemandElement* personParent, GNEEdge* fromEdge, GNEAdditional* busStop, 
+    const std::vector<std::string>& types, const std::vector<std::string>& modes) :
+    GNEDemandElement(viewNet->getNet()->generateDemandElementID("", SUMO_TAG_PERSONTRIP_BUSSTOP), viewNet, GLO_PERSONTRIP, SUMO_TAG_PERSONTRIP_BUSSTOP, 
+        {}, {}, {}, {busStop}, {personParent}, {}, {}, {}, {}, {}),
+    Parameterised(),
+    myArrivalPosition(-1),
+    myFromEdge(fromEdge),
+    myToEdge(nullptr),
+    myVTypes(types),
+    myModes(modes) {
+    // compute person trip without referencing edges
+    computeWithoutReferences();
 }
 
 
@@ -147,7 +155,7 @@ GNEPersonTrip::isDemandElementValid() const {
 std::string
 GNEPersonTrip::getDemandElementProblem() const {
     if (getEdgeParents().size() == 0) {
-        return ("A personTrip need at least one edge");
+        return ("A person trip need at least one edge");
     } else {
         // check if exist at least a connection between every edge
         for (int i = 1; i < (int)getEdgeParents().size(); i++) {
@@ -169,13 +177,23 @@ GNEPersonTrip::fixDemandElementProblem() {
 
 GNEEdge*
 GNEPersonTrip::getFromEdge() const {
-    return getEdgeParents().front();
+    if (getDemandElementParents().size() == 2) {
+        // obtain position and rotation of first edge route
+        return getDemandElementParents().at(1)->getFromEdge();
+    } else {
+        return getEdgeParents().front();
+    }
 }
 
 
 GNEEdge*
 GNEPersonTrip::getToEdge() const {
-    return getEdgeParents().back();
+    if (getDemandElementParents().size() == 2) {
+        // obtain position and rotation of first edge route
+        return getDemandElementParents().at(1)->getToEdge();
+    } else {
+        return getEdgeParents().back();
+    }
 }
 
 
@@ -193,8 +211,7 @@ GNEPersonTrip::getColor() const {
 
 void
 GNEPersonTrip::compute() {
-    // only recompute flows and trips
-    if (myFromEdge && myToEdge) {
+    if ((myTagProperty.getTag() == SUMO_TAG_PERSONTRIP_FROMTO) && myFromEdge && myToEdge) {
         // declare a from-via-to edges vector
         std::vector<std::string> FromViaToEdges;
         // add from edge
@@ -213,9 +230,28 @@ GNEPersonTrip::compute() {
         }
         // mark geometry as deprecated
         myDemandElementSegmentGeometry.geometryDeprecated = true;
-        // update geometry
-        updateGeometry();
+    } else if ((myTagProperty.getTag() == SUMO_TAG_PERSONTRIP_BUSSTOP) && myFromEdge && (getAdditionalParents().size() > 0)) {
+        // declare a from-via-busStop edges vector
+        std::vector<std::string> FromViaBusStopEdges;
+        // add from edge
+        FromViaBusStopEdges.push_back(myFromEdge->getID());
+        // add via edges
+        FromViaBusStopEdges.insert(FromViaBusStopEdges.end(), myVia.begin(), myVia.end());
+        // add busStop edge
+        FromViaBusStopEdges.push_back(getAdditionalParents().front()->getLaneParents().front()->getParentEdge().getID());
+        // calculate route
+        std::vector<GNEEdge*> route = getRouteCalculatorInstance()->calculateDijkstraRoute(myViewNet->getNet(), getDemandElementParents().at(0)->getVClass(), FromViaBusStopEdges);
+        // check if rute is valid
+        if (route.size() > 0) {
+            changeEdgeParents(this, route, true);
+        } else if (getEdgeParents().size() > 0) {
+            changeEdgeParents(this, getEdgeParents().front()->getID() + " " + toString(myVia) + " " + getEdgeParents().back()->getID(), true);
+        }
+        // mark geometry as deprecated
+        myDemandElementSegmentGeometry.geometryDeprecated = true;
     }
+    // update geometry
+    updateGeometry();
 }
 
 
@@ -255,7 +291,9 @@ GNEPersonTrip::moveGeometry(const Position& offset) {
         // obtain lane shape (to improve code legibility)
         const PositionVector& laneShape = getEdgeParents().back()->getLanes().front()->getLaneShape();
         // calculate offset lane
-        double offsetLane = laneShape.nearest_offset_to_point2D(newPosition, false) - laneShape.nearest_offset_to_point2D(myPersonTripMove.originalViewPosition, false);        // Update arrival Position
+        double offsetLane = laneShape.nearest_offset_to_point2D(newPosition, false) - laneShape.nearest_offset_to_point2D(myPersonTripMove.originalViewPosition, false);
+        std::cout << offsetLane << std::endl;
+        // Update arrival Position
         myArrivalPosition = parse<double>(myPersonTripMove.firstOriginalLanePosition) + offsetLane;
         // Update geometry
         updateGeometry();
@@ -273,31 +311,22 @@ GNEPersonTrip::commitGeometryMoving(GNEUndoList* undoList) {
     }
 }
 
+
 void
 GNEPersonTrip::updateGeometry() {
     // first check if geometry is deprecated
     if (myDemandElementSegmentGeometry.geometryDeprecated) {
         // declare two pointers for depart and arrival pos lanes
-        double* departPosLane = nullptr;
-        double* arrivalPosLane = nullptr;
-        /*
-        // check if depart and arrival pos lanes are defiend
-        if (departPosProcedure == DEPART_POS_GIVEN) {
-            departPosLane = new double(departPos);
+        double* departPosLane = new double(0);  // temporal
+        double* arrivalPosLane = new double(myArrivalPosition);
+        if ((myTagProperty.getTag() == SUMO_TAG_PERSONTRIP_BUSSTOP) && (getAdditionalParents().size() > 0)) {
+            *arrivalPosLane = 5; /*getAdditionalParents().front()->getAttribute(*/
         }
-        if (arrivalPosProcedure == ARRIVAL_POS_GIVEN) {
-            arrivalPosLane = new double(arrivalPos);
-        }
-        */
         // calculate geometry path
         calculateGeometricPath(departPosLane, arrivalPosLane);
         // delete positions 
-        if (departPosLane) {
-            delete departPosLane;
-        }
-        if (arrivalPosLane) {
-            delete arrivalPosLane;
-        }
+        delete departPosLane;
+        delete arrivalPosLane;
         // update demand element childrens
         for (const auto& i : getDemandElementChildren()) {
             i->updateGeometry();
@@ -382,6 +411,10 @@ GNEPersonTrip::getAttribute(SumoXMLAttr key) const {
             return getEdgeParents().front()->getID();
         case SUMO_ATTR_TO:
             return getEdgeParents().back()->getID();
+        case SUMO_ATTR_VIA:
+            return toString(myVia);
+        case SUMO_ATTR_EDGES:
+            return parseIDs(getEdgeParents());
         case SUMO_ATTR_BUS_STOP:
             return getAdditionalParents().front()->getID();
         case SUMO_ATTR_MODES:
@@ -421,6 +454,8 @@ GNEPersonTrip::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoLi
     switch (key) {
         case SUMO_ATTR_FROM:
         case SUMO_ATTR_TO:
+        case SUMO_ATTR_VIA:
+        case SUMO_ATTR_EDGES:
         case SUMO_ATTR_BUS_STOP:
         case SUMO_ATTR_MODES:
         case SUMO_ATTR_VTYPES:
@@ -441,6 +476,19 @@ GNEPersonTrip::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_FROM:
         case SUMO_ATTR_TO:
             return SUMOXMLDefinitions::isValidNetID(value) && (myViewNet->getNet()->retrieveEdge(value, false) != nullptr);
+        case SUMO_ATTR_VIA:
+            if (value.empty()) {
+                return true;
+            } else {
+                return canParse<std::vector<GNEEdge*> >(myViewNet->getNet(), value, false);
+            }
+        case SUMO_ATTR_EDGES:
+            if (canParse<std::vector<GNEEdge*> >(myViewNet->getNet(), value, false)) {
+                // all edges exist, then check if compounds a valid route
+                return GNEDemandElement::isRouteValid(parse<std::vector<GNEEdge*> >(myViewNet->getNet(), value), false);
+            } else {
+                return false;
+            }
         case SUMO_ATTR_BUS_STOP:
             return (myViewNet->getNet()->retrieveAdditional(SUMO_TAG_BUS_STOP, value, false) != nullptr);
         case SUMO_ATTR_MODES: {
@@ -483,6 +531,7 @@ GNEPersonTrip::disableAttribute(SumoXMLAttr /*key*/, GNEUndoList* /*undoList*/) 
     //
 }
 
+
 bool
 GNEPersonTrip::isAttributeEnabled(SumoXMLAttr /*key*/) const {
     return true;
@@ -511,32 +560,38 @@ GNEPersonTrip::getHierarchyName() const {
 void
 GNEPersonTrip::setAttribute(SumoXMLAttr key, const std::string& value) {
     switch (key) {
+                // Specific of Trips and flow
         case SUMO_ATTR_FROM: {
-            // declare a from-via-to edges vector
-            std::vector<std::string> FromViaToEdges;
-            // add from edge
-            FromViaToEdges.push_back(value);
-            // add to edge
-            FromViaToEdges.push_back(getEdgeParents().back()->getID());
-            // calculate route
-            std::vector<GNEEdge*> route = getRouteCalculatorInstance()->calculateDijkstraRoute(myViewNet->getNet(), getDemandElementParents().at(0)->getVClass(), FromViaToEdges);
-            // change edge parents
-            changeEdgeParents(this, toString(route), true);
+            // update myFrom edge
+            myFromEdge = myViewNet->getNet()->retrieveEdge(value);
+            // compute path
+            compute();
             break;
         }
         case SUMO_ATTR_TO: {
-            // declare a from-via-to edges vector
-            std::vector<std::string> FromViaToEdges;
-            // add from edge
-            FromViaToEdges.push_back(getEdgeParents().front()->getID());
-            // add to edge
-            FromViaToEdges.push_back(value);
-            // calculate route
-            std::vector<GNEEdge*> route = getRouteCalculatorInstance()->calculateDijkstraRoute(myViewNet->getNet(), getDemandElementParents().at(0)->getVClass(), FromViaToEdges);
-            // change edge parents
-            changeEdgeParents(this, toString(route), true);
+            // update myToEdge edge
+            myToEdge = myViewNet->getNet()->retrieveEdge(value);
+            // compute path
+            compute();
             break;
         }
+        case SUMO_ATTR_VIA: {
+            if (!value.empty()) {
+                // set new via edges
+                myVia = parse< std::vector<std::string> >(value);
+            } else {
+                // clear via
+                myVia.clear();
+            }
+            // compute path
+            compute();
+            break;
+        }
+        case SUMO_ATTR_EDGES:
+            changeEdgeParents(this, value, true);
+            // change flag for geometry deprecating
+            myDemandElementSegmentGeometry.geometryDeprecated = true;
+            break;
         case SUMO_ATTR_BUS_STOP:
             changeAdditionalParent(this, value, 0);
             break;
@@ -572,6 +627,52 @@ GNEPersonTrip::setAttribute(SumoXMLAttr key, const std::string& value) {
 void
 GNEPersonTrip::setEnabledAttribute(const int /*enabledAttributes*/) {
     //
+}
+
+
+void 
+GNEPersonTrip::computeWithoutReferences() {
+    if ((myTagProperty.getTag() == SUMO_TAG_PERSONTRIP_FROMTO) && myFromEdge && myToEdge) {
+        // declare a from-via-to edges vector
+        std::vector<std::string> FromViaToEdges;
+        // add from edge
+        FromViaToEdges.push_back(myFromEdge->getID());
+        // add via edges
+        FromViaToEdges.insert(FromViaToEdges.end(), myVia.begin(), myVia.end());
+        // add to edge
+        FromViaToEdges.push_back(myToEdge->getID());
+        // calculate route
+        std::vector<GNEEdge*> route = getRouteCalculatorInstance()->calculateDijkstraRoute(myViewNet->getNet(), getDemandElementParents().at(0)->getVClass(), FromViaToEdges);
+        // check if rute is valid
+        if (route.size() > 0) {
+            changeEdgeParents(this, route, false);
+        } else if (getEdgeParents().size() > 0) {
+            changeEdgeParents(this, getEdgeParents().front()->getID() + " " + toString(myVia) + " " + getEdgeParents().back()->getID(), false);
+        }
+        // mark geometry as deprecated
+        myDemandElementSegmentGeometry.geometryDeprecated = true;
+    } else if ((myTagProperty.getTag() == SUMO_TAG_PERSONTRIP_BUSSTOP) && myFromEdge && (getAdditionalParents().size() > 0)) {
+        // declare a from-via-busStop edges vector
+        std::vector<std::string> FromViaBusStopEdges;
+        // add from edge
+        FromViaBusStopEdges.push_back(myFromEdge->getID());
+        // add via edges
+        FromViaBusStopEdges.insert(FromViaBusStopEdges.end(), myVia.begin(), myVia.end());
+        // add busStop edge
+        FromViaBusStopEdges.push_back(getAdditionalParents().front()->getLaneParents().front()->getParentEdge().getID());
+        // calculate route
+        std::vector<GNEEdge*> route = getRouteCalculatorInstance()->calculateDijkstraRoute(myViewNet->getNet(), getDemandElementParents().at(0)->getVClass(), FromViaBusStopEdges);
+        // check if rute is valid
+        if (route.size() > 0) {
+            changeEdgeParents(this, route, false);
+        } else if (getEdgeParents().size() > 0) {
+            changeEdgeParents(this, getEdgeParents().front()->getID() + " " + toString(myVia) + " " + getEdgeParents().back()->getID(), false);
+        }
+        // mark geometry as deprecated
+        myDemandElementSegmentGeometry.geometryDeprecated = true;
+    }
+    // update geometry
+    updateGeometry();
 }
 
 /****************************************************************************/

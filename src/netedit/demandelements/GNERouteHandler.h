@@ -126,12 +126,12 @@ public:
     static void buildPersonFlow(GNEViewNet* viewNet, bool undoDemandElements, const SUMOVehicleParameter& personFlowParameters);
 
     /// @brief build trip using a from-to edges
-    static void buildPersonTripFromTo(GNEViewNet* viewNet, bool undoDemandElements, GNEDemandElement* personParent, const std::vector<GNEEdge*>& edges,
-                                      const std::vector<std::string>& types, const std::vector<std::string>& modes, double arrivalPos);
+    static void buildPersonTripFromTo(GNEViewNet* viewNet, bool undoDemandElements, GNEDemandElement* personParent, GNEEdge* fromEdge, GNEEdge* toEdge, double arrivalPos,
+                                      const std::vector<std::string>& types, const std::vector<std::string>& modes);
 
     /// @brief build trip using a from edge and a busStop
-    static void buildPersonTripBusStop(GNEViewNet* viewNet, bool undoDemandElements, GNEDemandElement* personParent, const std::vector<GNEEdge*>& edges,
-                                       GNEAdditional* busStop, const std::vector<std::string>& types, const std::vector<std::string>& modes);
+    static void buildPersonTripBusStop(GNEViewNet* viewNet, bool undoDemandElements, GNEDemandElement* personParent, GNEEdge* fromEdge, GNEAdditional* busStop, 
+                                       const std::vector<std::string>& types, const std::vector<std::string>& modes);
 
     /// @brief build walk using a list of consecutive edges
     static void buildWalkEdges(GNEViewNet* viewNet, bool undoDemandElements, GNEDemandElement* personParent, const std::vector<GNEEdge*>& edges, double arrivalPos);
