@@ -64,8 +64,7 @@ PCLoaderXML::loadIfSet(OptionsCont& oc, PCPolyContainer& toFill,
         if (!FileHelpers::isReadable(*file)) {
             throw ProcessError("Could not open xml-file '" + *file + "'.");
         }
-        const long before = SysUtils::getCurrentMillis();
-        PROGRESS_BEGIN_MESSAGE("Parsing XML from '" + *file + "'");
+        const long before = PROGRESS_BEGIN_TIME_MESSAGE("Parsing XML from '" + *file + "'");
         if (!XMLSubSys::runParser(handler, *file)) {
             throw ProcessError();
         }

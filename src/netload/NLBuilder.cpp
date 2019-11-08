@@ -182,9 +182,8 @@ NLBuilder::build() {
     }
     // load the previous state if wished
     if (myOptions.isSet("load-state")) {
-        long before = SysUtils::getCurrentMillis();
         const std::string& f = myOptions.getString("load-state");
-        PROGRESS_BEGIN_MESSAGE("Loading state from '" + f + "'");
+        long before = PROGRESS_BEGIN_TIME_MESSAGE("Loading state from '" + f + "'");
         MSStateHandler h(f, string2time(myOptions.getString("load-state.offset")));
         XMLSubSys::runParser(h, f);
         if (myOptions.isDefault("begin")) {
@@ -330,8 +329,7 @@ NLBuilder::load(const std::string& mmlWhat, const bool isNet) {
     }
     std::vector<std::string> files = myOptions.getStringVector(mmlWhat);
     for (std::vector<std::string>::const_iterator fileIt = files.begin(); fileIt != files.end(); ++fileIt) {
-        PROGRESS_BEGIN_MESSAGE("Loading " + mmlWhat + " from '" + *fileIt + "'");
-        long before = SysUtils::getCurrentMillis();
+        const long before = PROGRESS_BEGIN_TIME_MESSAGE("Loading " + mmlWhat + " from '" + *fileIt + "'");
         if (!XMLSubSys::runParser(myXMLHandler, *fileIt, isNet)) {
             WRITE_MESSAGE("Loading of " + mmlWhat + " failed.");
             return false;
