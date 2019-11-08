@@ -226,9 +226,6 @@ protected:
     /// @brief variable for move walks
     DemandElementMove myWalkMove;
 
-    /// @brief consecutive edges (used by walkEdges)
-    std::vector<GNEEdge*> myEdges;
-
     /// @brief from edge (used by walkFromTo)
     GNEEdge* myFromEdge;
 

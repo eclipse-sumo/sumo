@@ -22,10 +22,8 @@
 // included modules
 // ===========================================================================
 
-
-#include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
-
 #include "GNEDemandElement.h"
+#include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
 
 // ===========================================================================
 // class declarations
@@ -41,23 +39,21 @@ class GNEVehicle;
 class GNERide : public GNEDemandElement, public Parameterised {
 
 public:
-    /**@brief parameter constructor
+    /**@brief parameter constructor for rideEdges
      * @param[in] viewNet view in which this Ride is placed
      * @param[in] personParent person parent
      * @param[in] edges list of consecutive edges of this ride
      * @param[in] arrivalPosition arrival position on the destination edge
-     * @param[in] lines valid line or vehicle ids or ANY
      */
-    GNERide(GNEViewNet* viewNet, GNEDemandElement* personParent, const std::vector<GNEEdge*>& edges, double arrivalPosition, const std::vector<std::string>& lines);
+    GNERide(GNEViewNet* viewNet, GNEDemandElement* personParent, GNEEdge* fromEdge, GNEEdge* toEdge, double arrivalPosition, const std::vector<std::string>& lines);
 
-    /**@brief parameter constructor
+    /**@brief parameter constructor for rideBusStop
      * @param[in] viewNet view in which this Ride is placed
      * @param[in] personParent person parent
      * @param[in] edges list of consecutive edges of this ride
      * @param[in] busStop destination busStop
-     * @param[in] lines valid line or vehicle ids or ANY
      */
-    GNERide(GNEViewNet* viewNet, GNEDemandElement* personParent, const std::vector<GNEEdge*>& edges, GNEAdditional* busStop, const std::vector<std::string>& lines);
+    GNERide(GNEViewNet* viewNet, GNEDemandElement* personParent, GNEEdge* fromEdge, GNEAdditional* busStop, const std::vector<std::string>& lines);
 
     /// @brief destructor
     ~GNERide();
@@ -213,17 +209,17 @@ public:
 protected:
     /// @brief variable for move rides
     DemandElementMove myRideMove;
-
+    
     /// @brief valid line or vehicle ids or ANY
     std::vector<std::string> myLines;
 
-    /// @brief from edge
+    /// @brief from edge (used by rideFromTo)
     GNEEdge* myFromEdge;
 
-    /// @brief to edge
+    /// @brief to edge (used by rideFromTo)
     GNEEdge* myToEdge;
 
-    /// @brief via edges  (used by walkFromTo)
+    /// @brief via edges  (used by rideFromTo)
     std::vector<std::string> myVia;
 
     /// @brief arrival position
@@ -235,6 +231,9 @@ private:
 
     /// @brief method for enabling the attribute and nothing else (used in GNEChange_EnableAttribute)
     void setEnabledAttribute(const int enabledAttributes);
+
+    /// @brief compute demand element without updating references
+    void computeWithoutReferences();
 
     /// @brief Invalidated copy constructor.
     GNERide(GNERide*) = delete;
