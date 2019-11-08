@@ -87,6 +87,9 @@ SystemFrame::addReportOptions(OptionsCont& oc) {
     oc.addSynonyme("no-warnings", "suppress-warnings", true);
     oc.addDescription("no-warnings", "Report", "Disables output of warnings");
 
+    oc.doRegister("aggregate-warnings", new Option_Integer(-1));
+    oc.addDescription("aggregate-warnings", "Report", "Aggregate warnings of the same type whenever more than INT occur");
+
     oc.doRegister("log", 'l', new Option_FileName());
     oc.addSynonyme("log", "log-file");
     oc.addDescription("log", "Report", "Writes all messages to FILE (implies verbose)");
@@ -129,6 +132,8 @@ SystemFrame::checkOptions() {
 
 void
 SystemFrame::close() {
+    // flush aggregated warnings
+    MsgHandler::getWarningInstance()->clear();
     // close all output devices
     OutputDevice::closeAll();
     // close the xml-subsystem

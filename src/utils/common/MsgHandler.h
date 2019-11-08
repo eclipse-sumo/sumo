@@ -23,16 +23,11 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-
 #include <string>
 #include <vector>
+#include <map>
 #include <iostream>
-
-
-// ===========================================================================
-// class declarations
-// ===========================================================================
-class OutputDevice;
+#include <utils/iodevices/OutputDevice.h>
 
 
 // ===========================================================================
@@ -113,6 +108,19 @@ public:
     /// @brief adds a new error to the list
     virtual void inform(std::string msg, bool addType = true);
 
+    /// @brief adds a new formatted message
+    // variadic function
+    template<typename T, typename... Targs>
+    void informf(const std::string& format, T value, Targs... Fargs) {
+        if (myAggregationThreshold >= 0) {
+            if (myAggregationCount[format]++ >= myAggregationThreshold) {
+                return;
+            }
+        }
+        (*this) << build("", true);
+        _informf(format.c_str(), value, Fargs...);
+    }
+
     /** @brief Begins a process information
      *
      * When a longer action is started, this method should be used to inform the user about it.
@@ -146,8 +154,8 @@ public:
     template <class T>
     MsgHandler& operator<<(const T& t) {
         // inform all other receivers
-        for (auto i : myRetrievers) {
-            (*i) << t;
+        for (OutputDevice* o : myRetrievers) {
+            (*o) << t;
         }
         return *this;
     }
@@ -178,6 +186,27 @@ protected:
         return msg;
     }
 
+    void _informf(const char* format) {
+        inform(format, false);
+    }
+
+    /// @brief adds a new formatted message
+    // variadic function
+    template<typename T, typename... Targs>
+    void _informf(const char* format, T value, Targs... Fargs) {
+        for (; *format != '\0'; format++) {
+            if (*format == '%') {
+                (*this) << value;
+                _informf(format+1, Fargs...); // recursive call
+                return;
+            }
+            (*this) << *format;
+        }
+    }
+
+    void setAggregationThreshold(const int thresh) {
+        myAggregationThreshold = thresh;
+    }
 
     /// @brief standard constructor
     MsgHandler(MsgType type);
@@ -211,8 +240,14 @@ private:
     /// @brief The type of the instance
     MsgType myType;
 
-    /// @brief information wehther an error occurred at all
+    /// @brief information whether an output occurred at all
     bool myWasInformed;
+
+    /// @brief do not output more messages of the same type if the count exceeds this threshold
+    int myAggregationThreshold;
+
+    /// @brief count for messages of the same type
+    std::map<const std::string, int> myAggregationCount;
 
     /// @brief The list of retrievers that shall be informed about new messages or errors
     std::vector<OutputDevice*> myRetrievers;
@@ -237,12 +272,13 @@ private:
 // global definitions
 // ===========================================================================
 #define WRITE_WARNING(msg) MsgHandler::getWarningInstance()->inform(msg);
+#define WRITE_WARNINGF(...) MsgHandler::getWarningInstance()->informf(__VA_ARGS__);
 #define WRITE_MESSAGE(msg) MsgHandler::getMessageInstance()->inform(msg);
 #define PROGRESS_BEGIN_MESSAGE(msg) MsgHandler::getMessageInstance()->beginProcessMsg((msg) + std::string("..."));
 #define PROGRESS_DONE_MESSAGE() MsgHandler::getMessageInstance()->endProcessMsg("done.");
 #define PROGRESS_TIME_MESSAGE(before) MsgHandler::getMessageInstance()->endProcessMsg("done (" + toString(SysUtils::getCurrentMillis() - before) + "ms).");
 #define PROGRESS_FAILED_MESSAGE() MsgHandler::getMessageInstance()->endProcessMsg("failed.");
-#define WRITE_ERROR(msg)   MsgHandler::getErrorInstance()->inform(msg);
+#define WRITE_ERROR(msg) MsgHandler::getErrorInstance()->inform(msg);
 #define WRITE_DEBUG(msg) if(MsgHandler::writeDebugMessages()){MsgHandler::getDebugInstance()->inform(msg);};
 #define WRITE_GLDEBUG(msg) if(MsgHandler::writeDebugGLMessages()){MsgHandler::getGLDebugInstance()->inform(msg);};
 
