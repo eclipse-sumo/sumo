@@ -932,8 +932,8 @@ NBEdge::checkGeometry(const double maxAngle, const double minRadius, bool fix, b
                     checkGeometry(maxAngle, minRadius, fix, silent);
                     return;
                 } else if (!silent) {
-                    WRITE_WARNING("Found sharp turn with radius " + toString(r) + " at the " +
-                                  (start ? "start" : "end") + " of edge '" + getID() + "'.");
+                    WRITE_WARNINGF("Found sharp turn with radius % at the " +
+                                   toString(start ? "start" : "end") + " of edge '%'.", r, getID());
                 }
             }
         }

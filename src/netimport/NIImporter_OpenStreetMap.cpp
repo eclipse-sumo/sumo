@@ -212,8 +212,7 @@ NIImporter_OpenStreetMap::load(const OptionsCont& oc, NBNetBuilder& nb) {
         Edge* e = myEdge.second;
         assert(e->myCurrentIsRoad);
         if (e->myCurrentNodes.size() < 2) {
-            WRITE_WARNING("Discarding way '" + toString(e->id) + "' because it has only " +
-                          toString(e->myCurrentNodes.size()) + " node(s)");
+            WRITE_WARNINGF("Discarding way '%' because it has only % node(s)", e->id, e->myCurrentNodes.size());
             continue;
         }
         extendRailwayDistances(e, nb.getTypeCont());
@@ -327,7 +326,7 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
     if (from == to) {
         assert(passed.size() >= 2);
         if (passed.size() == 2) {
-            WRITE_WARNING("Discarding edge '" + id + "' which connects two identical nodes without geometry.");
+            WRITE_WARNINGF("Discarding edge '%' which connects two identical nodes without geometry.", id);
             return index;
         }
         // in the special case of a looped way split again using passed
@@ -416,7 +415,7 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
     }
     if (!e->myIsOneWay.empty() && e->myIsOneWay != "false" && e->myIsOneWay != "no" && e->myIsOneWay != "true"
             && e->myIsOneWay != "yes" && e->myIsOneWay != "-1" && e->myIsOneWay != "1" && e->myIsOneWay != "reverse") {
-        WRITE_WARNING("New value for oneway found: " + e->myIsOneWay);
+        WRITE_WARNINGF("New value for oneway found: %", e->myIsOneWay);
     }
     // if we had been able to extract the number of lanes, override the highway type default
     if (e->myNoLanes > 0) {
@@ -439,15 +438,15 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
             numLanesBackward = MAX2(1, numLanesBackward);
         }
     } else if (e->myNoLanes == 0) {
-        WRITE_WARNING("Skipping edge '" + id + "' because it has zero lanes.");
+        WRITE_WARNINGF("Skipping edge '%' because it has zero lanes.", id);
         ok = false;
     }
     // if we had been able to extract the maximum speed, override the type's default
     if (e->myMaxSpeed != MAXSPEED_UNGIVEN) {
-        speed = (double)(e->myMaxSpeed / 3.6);
+        speed = e->myMaxSpeed / 3.6;
     }
     if (speed <= 0) {
-        WRITE_WARNING("Skipping edge '" + id + "' because it has speed " + toString(speed));
+        WRITE_WARNINGF("Skipping edge '%' because it has speed %.", id, speed);
         ok = false;
     }
     // deal with cycleways that run in the opposite direction of a one-way street
@@ -1681,14 +1680,11 @@ NIImporter_OpenStreetMap::usableType(const std::string& type, const std::string&
                 types.push_back(t);
             }
         } else if (tok.size() > 1) {
-            WRITE_WARNING(
-                "Discarding unknown compound '" + t + "' in type '" + type + "' (first occurence for edge '"
-                + id
-                + "').");
+            WRITE_WARNINGF("Discarding unknown compound '%' in type '%' (first occurence for edge '%').", t, type, id);
         }
     }
     if (types.empty()) {
-        WRITE_WARNING("Discarding unusable type '" + type + "' (first occurence for edge '" + id + "').");
+        WRITE_WARNINGF("Discarding unusable type '%' (first occurence for edge '%').", type, id);
         myUnusableTypes.insert(type);
         return "";
     }
