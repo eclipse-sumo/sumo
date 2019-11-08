@@ -179,7 +179,7 @@ sudo mv  /usr/local/src/sumo-0.22.0/doc /usr/local/share/sumo-0.22.0/
 
 #### Ubuntu 18.04 (tested with SUMO 0.32.0)
 
-The rquired libraries are libxerces-c-dev, libgdal-dev, libproj-dev and
+The required libraries are libxerces-c-dev, libgdal-dev, libproj-dev and
 libfox-1.6-dev.
 
 #### Cygwin

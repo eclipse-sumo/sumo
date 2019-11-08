@@ -81,7 +81,7 @@ known:
 # Simulation input
 
 The input for a person consists of a sequence of *stages* of the 3 types
-give below.
+given below.
 
 !!! note
     Person plans can also be generated with [intermodal routing](../IntermodalRouting.md)

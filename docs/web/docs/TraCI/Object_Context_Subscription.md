@@ -89,7 +89,7 @@ Some notes:
 | :-------: | :------------: | :------------: | :-----------: | :-----------: | :--------------------------: | :------------------------------: | :------------------------------------------: | :-----------------------: | :-: | :--------------------------: | :------------------------------: | :------------------------------------------: | :-----------------------: | :-: | :-----------: | :--------------------------: | :------------------------------: | :------------------------------------------: | :-----------------------: | :-: | :--------------------------: | :------------------------------: | :------------------------------------------: | :-----------------------: |
 | Object ID | Context Domain | Variable Count | Objects Count | Object \#1 ID | Object \#1 / Variable \#1 Id | Object \#1 / Variable \#1 status | Object \#1 / Return type of the variable \#1 | Object \#1 / <VALUE\#1\> | ... | Object \#1 / Variable \#n Id | Object \#1 / Variable \#n status | Object \#1 / Return type of the variable \#n | Object \#1 / <VALUE\#n\> | ... | Object \#m ID | Object \#m / Variable \#1 Id | Object \#m / Variable \#1 status | Object \#m / Return type of the variable \#1 | Object \#m / <VALUE\#1\> | ... | Object \#m / Variable \#n Id | Object \#m / Variable \#n status | Object \#m / Return type of the variable \#n | Object \#m / <VALUE\#n\> |
 
-The respond to a **"Subscribe ... Variable"**.
+The response to a **"Subscribe ... Variable"**.
 
 The status is 0x00 (RTYPE_OK) if the variable could be retrieved
 successfully. If not, the status is 0xff (RTYPE_ERR). In the second
