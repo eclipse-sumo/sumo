@@ -1,4 +1,4 @@
-Warning: Intersecting left turns at junction 'C' from lane 'NC_3' and lane 'EC_3'. (increase junction radius to avoid this)
-Warning: Intersecting left turns at junction 'C' from lane 'SC_3' and lane 'EC_3'. (increase junction radius to avoid this)
-Warning: Intersecting left turns at junction 'C' from lane 'WC_3' and lane 'NC_3'. (increase junction radius to avoid this)
-Warning: Intersecting left turns at junction 'C' from lane 'WC_3' and lane 'SC_3'. (increase junction radius to avoid this)
+Warning: Intersecting left turns at junction 'C' from lane 'NC_3' and lane 'EC_3' (increase junction radius to avoid this).
+Warning: Intersecting left turns at junction 'C' from lane 'SC_3' and lane 'EC_3' (increase junction radius to avoid this).
+Warning: Intersecting left turns at junction 'C' from lane 'WC_3' and lane 'NC_3' (increase junction radius to avoid this).
+Warning: Intersecting left turns at junction 'C' from lane 'WC_3' and lane 'SC_3' (increase junction radius to avoid this).

@@ -1,4 +1,4 @@
-Warning: Intersecting left turns at junction '0' from lane '4fi_1' and lane '2fi_1'. (increase junction radius to avoid this)
-Warning: Intersecting left turns at junction '0' from lane '4fi_1' and lane '1fi_1'. (increase junction radius to avoid this)
-Warning: Intersecting left turns at junction '0' from lane '3fi_1' and lane '2fi_1'. (increase junction radius to avoid this)
-Warning: Intersecting left turns at junction '0' from lane '3fi_1' and lane '1fi_1'. (increase junction radius to avoid this)
+Warning: Intersecting left turns at junction '0' from lane '4fi_1' and lane '2fi_1' (increase junction radius to avoid this).
+Warning: Intersecting left turns at junction '0' from lane '4fi_1' and lane '1fi_1' (increase junction radius to avoid this).
+Warning: Intersecting left turns at junction '0' from lane '3fi_1' and lane '2fi_1' (increase junction radius to avoid this).
+Warning: Intersecting left turns at junction '0' from lane '3fi_1' and lane '1fi_1' (increase junction radius to avoid this).

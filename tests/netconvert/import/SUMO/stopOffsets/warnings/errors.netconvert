@@ -10,5 +10,5 @@ Warning: Duplicate definition of stopOffset for edge 3si.
 Ignoring duplicate specification.
 Warning: Duplicate definition of stopOffset for edge 3si.
 Ignoring duplicate specification.
-Warning: Ignoring invalid stopOffset for edge 2si (negative offset).
+Warning: Ignoring invalid stopOffset for edge '2si' (negative offset).
 Quitting (on error).

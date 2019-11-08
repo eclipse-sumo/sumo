@@ -3,4 +3,4 @@ Warning: Discarding unusable type 'waterway.canal' (first occurence for edge '24
 Warning: Discarding unusable type 'waterway.riverbank' (first occurence for edge '26818912').
 Warning: Ambiguous railway kilometrage direction for way '26927036' (assuming forward)
 Warning: Discarding unusable type 'railway.disused' (first occurence for edge '441828377').
-Warning: Connection '294730182_0->154203996_0' is only 0.00 short.
+Warning: Connection '294730182_0->154203996_0' is only 0.00m short.

@@ -16,7 +16,7 @@ Warning: No way found for reference '320741893' in relation '3422297'
 Warning: Ignoring restriction relation '3422297' with unknown to-way.
 Warning: Found sharp turn with radius 6.56 at the end of edge '415852869'.
 Warning: Found sharp turn with radius 6.56 at the start of edge '415852949'.
-Warning: Found angle of 138.43 degrees at edge '415852974', segment 5
+Warning: Found angle of 138.43 degrees at edge '415852974', segment 5.
 Warning: ambiguous zip code '12489;12345' for edge '415852866'. (using first value)
 Warning: ambiguous zip code '12489;12345' for edge '415852867'. (using first value)
 Warning: ambiguous zip code '12489;12345' for edge '415852941'. (using first value)
