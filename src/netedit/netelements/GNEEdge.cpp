@@ -1222,25 +1222,14 @@ GNEEdge::drawPartialRoute(const GUIVisualizationSettings& s, const GNEDemandElem
         // iterate over segments
         for (auto segment = route->getDemandElementSegmentGeometry().begin(); segment != route->getDemandElementSegmentGeometry().end(); segment++) {
             // draw partial segment
-            if ((segment->element == route) && segment->visible) {
-                if (segment->edge == this) {
-                    // Set route color (needed due drawShapeDottedContour)
-                    GLHelper::setColor(routeColor);
-                    // draw box lines
-                    GLHelper::drawBoxLine(segment->pos, segment->rotation, segment->length, routeWidth, 0);
-                    // check if shape dotted contour has to be drawn
-                    if (myNet->getViewNet()->getDottedAC() == route) {
-                        GLHelper::drawShapeDottedContourPartialShapes(s, getType(), segment->pos, (segment + 1)->pos, routeWidth);
-                    }
-                } else if ((segment->lane) && (&segment->lane->getParentEdge() == this)) { 
-                    // Set route color (needed due drawShapeDottedContour)
-                    GLHelper::setColor(routeColor);
-                    // draw box lines
-                    GLHelper::drawBoxLines(segment->shape, segment->shapeRotations, segment->shapeLengths, routeWidth);
-                    // check if shape dotted contour has to be drawn
-                    if (myNet->getViewNet()->getDottedAC() == route) {
-                        GLHelper::drawShapeDottedContourAroundShape(s, getType(), segment->shape, routeWidth);
-                    }
+            if ((segment->edge == this) && (segment->element == route) && segment->visible) {
+                // Set route color (needed due drawShapeDottedContour)
+                GLHelper::setColor(routeColor);
+                // draw box lines
+                GLHelper::drawBoxLines(segment->shape, segment->shapeRotations, segment->shapeLengths, routeWidth);
+                // check if shape dotted contour has to be drawn
+                if (myNet->getViewNet()->getDottedAC() == route) {
+                    GLHelper::drawShapeDottedContourAroundShape(s, getType(), segment->shape, routeWidth);
                 }
             }
         }
@@ -1294,12 +1283,8 @@ GNEEdge::drawPartialTripFromTo(const GUIVisualizationSettings& s, const GNEDeman
         // iterate over segments
         for (auto segment = tripOrFromTo->getDemandElementSegmentGeometry().begin(); segment != tripOrFromTo->getDemandElementSegmentGeometry().end(); segment++) {
             // draw partial segment
-            if ((segment->element == tripOrFromTo) && segment->visible) {
-                if (segment->edge == this) {
-                    GLHelper::drawBoxLine(segment->pos, segment->rotation, segment->length, tripOrFromToWidth, 0);
-                } else if ((segment->lane) && (&segment->lane->getParentEdge() == this)) { 
-                    GLHelper::drawBoxLines(segment->shape, segment->shapeRotations, segment->shapeLengths, tripOrFromToWidth);
-                }
+            if ((segment->edge == this) && (segment->element == tripOrFromTo) && segment->visible) {
+                GLHelper::drawBoxLines(segment->shape, segment->shapeRotations, segment->shapeLengths, tripOrFromToWidth);
             }
         }
     }
@@ -1375,10 +1360,10 @@ GNEEdge::drawPartialPersonPlan(const GUIVisualizationSettings& s, const GNEDeman
                     // Set person plan color (needed due drawShapeDottedContour)
                     GLHelper::setColor(personPlanColor);
                     // draw box line
-                    GLHelper::drawBoxLine(segment->pos, segment->rotation, segment->length, personPlanWidth, 0);
+                    GLHelper::drawBoxLines(segment->shape, segment->shapeRotations, segment->shapeLengths, personPlanWidth, 0);
                     // check if shape dotted contour has to be drawn
                     if ((myNet->getViewNet()->getDottedAC() == personPlan) && ((segment + 1) != personPlan->getDemandElementParents().front()->getDemandElementSegmentGeometry().end())) {
-                        GLHelper::drawShapeDottedContourPartialShapes(s, getType(), segment->pos, (segment + 1)->pos, personPlanWidth);
+                        GLHelper::drawBoxLines(segment->shape, segment->shapeRotations, segment->shapeLengths, personPlanWidth);
                     }
                 }
             }
@@ -1392,10 +1377,10 @@ GNEEdge::drawPartialPersonPlan(const GUIVisualizationSettings& s, const GNEDeman
                     // Set person plan color (needed due drawShapeDottedContour)
                     GLHelper::setColor(personPlanColor);
                     // draw box line
-                    GLHelper::drawBoxLine(segment->pos, segment->rotation, segment->length, personPlanWidth, 0);
+                    GLHelper::drawBoxLines(segment->shape, segment->shapeRotations, segment->shapeLengths, personPlanWidth, 0);
                     // check if shape dotted contour has to be drawn
                     if ((myNet->getViewNet()->getDottedAC() == personPlan) && ((segment + 1) != personPlan->getDemandElementParents().front()->getDemandElementSegmentGeometry().end())) {
-                        GLHelper::drawShapeDottedContourPartialShapes(s, getType(), segment->pos, (segment + 1)->pos, personPlanWidth);
+                        GLHelper::drawBoxLines(segment->shape, segment->shapeRotations, segment->shapeLengths, personPlanWidth);
                     }
                 }
             }
