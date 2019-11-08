@@ -152,7 +152,7 @@ public:
         const Position &getFirstPosition() const;
 
         /// @brief get first rotation
-        const double getFirstRotation() const;
+        double getFirstRotation() const;
 
         /// @brief begin iterator
         std::vector<Segment>::const_iterator begin() const;
