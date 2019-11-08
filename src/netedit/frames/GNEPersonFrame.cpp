@@ -461,14 +461,14 @@ GNEPersonFrame::edgePathCreated() {
             case SUMO_TAG_WALK_FROMTO: {
                 // obtain attributes
                 double arrivalPos = GNEAttributeCarrier::parse<double>(valuesMap[SUMO_ATTR_ARRIVALPOS]);
-                GNERouteHandler::buildWalkFromTo(myViewNet, true, createdPerson, myEdgePathCreator->getClickedEdges(), arrivalPos);
+                GNERouteHandler::buildWalkFromTo(myViewNet, true, createdPerson, myEdgePathCreator->getClickedEdges().front(), myEdgePathCreator->getClickedEdges().back(), arrivalPos);
                 // end undo-redo operation
                 myViewNet->getUndoList()->p_end();
                 break;
             }
             case SUMO_TAG_WALK_BUSSTOP: {
                 // obtain attributes
-                GNERouteHandler::buildWalkBusStop(myViewNet, true, createdPerson, myEdgePathCreator->getClickedEdges(), myEdgePathCreator->getClickedBusStop());
+                GNERouteHandler::buildWalkBusStop(myViewNet, true, createdPerson, myEdgePathCreator->getClickedEdges().front(), myEdgePathCreator->getClickedBusStop());
                 // end undo-redo operation
                 myViewNet->getUndoList()->p_end();
                 break;

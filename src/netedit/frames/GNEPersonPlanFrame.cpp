@@ -647,12 +647,10 @@ GNEPersonPlanFrame::personPlanCreated(GNEAdditional* busStop, GNEDemandElement* 
             case SUMO_TAG_WALK_FROMTO: {
                 double arrivalPos = GNEAttributeCarrier::parse<double>(valuesMap[SUMO_ATTR_ARRIVALPOS]);
                 // check if walk fromto can be created
-                if (myPersonPlanCreator->getEdgePath().size() > 0) {
-                    GNERouteHandler::buildWalkFromTo(myViewNet, true, myPersonSelector->getCurrentDemandElement(), myPersonPlanCreator->getEdgePath(), arrivalPos);
-                } else if ((myPersonPlanCreator->getClickedEdges().size() == 1) || (myPersonPlanCreator->getClickedEdges().size() == 2)) {
-                    GNERouteHandler::buildWalkFromTo(myViewNet, true, myPersonSelector->getCurrentDemandElement(), myPersonPlanCreator->getClickedEdges(), arrivalPos);
+                if (myPersonPlanCreator->getEdgePath().size() > 1) {
+                    GNERouteHandler::buildWalkFromTo(myViewNet, true, myPersonSelector->getCurrentDemandElement(), myPersonPlanCreator->getEdgePath().front(), myPersonPlanCreator->getEdgePath().back(), arrivalPos);
                 } else {
-                    myViewNet->setStatusBarText("A walk with from-to attributes needs at least one edge.");
+                    myViewNet->setStatusBarText("A walk with from-to attributes needs at least two edges.");
                     return false;
                 }
                 break;
@@ -665,9 +663,7 @@ GNEPersonPlanFrame::personPlanCreated(GNEAdditional* busStop, GNEDemandElement* 
                     // add busstop's edge to personPlan creator (To calculate a temporal route)
                     myPersonPlanCreator->addEdge(&busStop->getLaneParents().front()->getParentEdge());
                     if (myPersonPlanCreator->getEdgePath().size() > 0) {
-                        GNERouteHandler::buildWalkBusStop(myViewNet, true, myPersonSelector->getCurrentDemandElement(), myPersonPlanCreator->getEdgePath(), busStop);
-                    } else if ((myPersonPlanCreator->getClickedEdges().size() == 1) || (myPersonPlanCreator->getClickedEdges().size() == 2)) {
-                        GNERouteHandler::buildWalkBusStop(myViewNet, true, myPersonSelector->getCurrentDemandElement(), myPersonPlanCreator->getClickedEdges(), busStop);
+                        GNERouteHandler::buildWalkBusStop(myViewNet, true, myPersonSelector->getCurrentDemandElement(), myPersonPlanCreator->getEdgePath().front(), busStop);
                     } else {
                         myViewNet->setStatusBarText("A walk with from and busStop attributes needs one edge and one busStop");
                         return false;

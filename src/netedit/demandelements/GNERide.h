@@ -217,6 +217,15 @@ protected:
     /// @brief valid line or vehicle ids or ANY
     std::vector<std::string> myLines;
 
+    /// @brief from edge
+    GNEEdge* myFromEdge;
+
+    /// @brief to edge
+    GNEEdge* myToEdge;
+
+    /// @brief via edges  (used by walkFromTo)
+    std::vector<std::string> myVia;
+
     /// @brief arrival position
     double myArrivalPosition;
 

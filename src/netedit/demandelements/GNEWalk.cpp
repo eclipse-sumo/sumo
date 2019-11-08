@@ -41,27 +41,52 @@
 // method definitions
 // ===========================================================================
 
-GNEWalk::GNEWalk(GNEViewNet* viewNet, GNEDemandElement* personParent, SumoXMLTag walkTag, const std::vector<GNEEdge*>& edges, double arrivalPosition) :
-    GNEDemandElement(viewNet->getNet()->generateDemandElementID("", walkTag), viewNet, GLO_WALK, walkTag,
-                     edges, {}, {}, {}, {personParent}, {}, {}, {}, {}, {}),
-                        Parameterised(),
-myArrivalPosition(arrivalPosition) {
+GNEWalk::GNEWalk(GNEViewNet* viewNet, GNEDemandElement* personParent, const std::vector<GNEEdge*>& edges, double arrivalPosition) :
+    GNEDemandElement(viewNet->getNet()->generateDemandElementID("", SUMO_TAG_WALK_EDGES), viewNet, GLO_WALK, SUMO_TAG_WALK_EDGES, 
+        {}, {}, {}, {}, {personParent}, {}, {}, {}, {}, {}),
+    Parameterised(),
+    myArrivalPosition(arrivalPosition),
+    myEdges(edges),
+    myFromEdge(nullptr),
+    myToEdge(nullptr) {
+    // compute walk without referencing edges
+    computeWithoutReferences();
 }
 
 
-GNEWalk::GNEWalk(GNEViewNet* viewNet, GNEDemandElement* personParent, const std::vector<GNEEdge*>& edges, GNEAdditional* busStop) :
-    GNEDemandElement(viewNet->getNet()->generateDemandElementID("", SUMO_TAG_WALK_BUSSTOP), viewNet, GLO_WALK, SUMO_TAG_WALK_BUSSTOP,
-                     edges, {}, {}, {busStop}, {personParent}, {}, {}, {}, {}, {}),
-Parameterised(),
-myArrivalPosition(-1) {
+GNEWalk::GNEWalk(GNEViewNet* viewNet, GNEDemandElement* personParent, GNEEdge* fromEdge, GNEEdge* toEdge, double arrivalPosition) :
+    GNEDemandElement(viewNet->getNet()->generateDemandElementID("", SUMO_TAG_WALK_FROMTO), viewNet, GLO_WALK, SUMO_TAG_WALK_FROMTO, 
+        {}, {}, {}, {}, {personParent}, {}, {}, {}, {}, {}),
+    Parameterised(),
+    myArrivalPosition(arrivalPosition),
+    myFromEdge(fromEdge),
+    myToEdge(toEdge) {
+    // compute walk without referencing edges
+    computeWithoutReferences();
+}
+
+
+GNEWalk::GNEWalk(GNEViewNet* viewNet, GNEDemandElement* personParent, GNEEdge* fromEdge, GNEAdditional* busStop) :
+    GNEDemandElement(viewNet->getNet()->generateDemandElementID("", SUMO_TAG_WALK_BUSSTOP), viewNet, GLO_WALK, SUMO_TAG_WALK_BUSSTOP, 
+        {}, {}, {}, {busStop}, {personParent}, {}, {}, {}, {}, {}),
+    Parameterised(),
+    myArrivalPosition(-1),
+    myFromEdge(fromEdge),
+    myToEdge(nullptr) {
+    // compute walk without referencing edges
+    computeWithoutReferences();
 }
 
 
 GNEWalk::GNEWalk(GNEViewNet* viewNet, GNEDemandElement* personParent, GNEDemandElement* routeParent, double arrivalPosition) :
     GNEDemandElement(viewNet->getNet()->generateDemandElementID("", SUMO_TAG_WALK_ROUTE), viewNet, GLO_WALK, SUMO_TAG_WALK_ROUTE,
-{}, {}, {}, {}, {personParent, routeParent}, {}, {}, {}, {}, {}),
-Parameterised(),
-myArrivalPosition(arrivalPosition) {
+        {}, {}, {}, {}, {personParent, routeParent}, {}, {}, {}, {}, {}),
+    Parameterised(),
+    myArrivalPosition(arrivalPosition),
+    myFromEdge(nullptr),
+    myToEdge(nullptr) {
+    // compute walk without referencing edges
+    computeWithoutReferences();
 }
 
 
@@ -207,7 +232,58 @@ GNEWalk::getColor() const {
 
 void
 GNEWalk::compute() {
-    // Nothing to compute
+    if ((myTagProperty.getTag() == SUMO_TAG_WALK_EDGES)) {
+        // calculate route
+        std::vector<GNEEdge*> route = getRouteCalculatorInstance()->calculateDijkstraRoute(getDemandElementParents().at(0)->getVClass(), myEdges);
+        // check if rute is valid
+        if (route.size() > 0) {
+            changeEdgeParents(this, route, false);
+        } else if (getEdgeParents().size() > 0) {
+            changeEdgeParents(this, getEdgeParents().front()->getID() + " " + toString(myVia) + " " + getEdgeParents().back()->getID(), true);
+        }
+        // mark geometry as deprecated
+        myDemandElementSegmentGeometry.geometryDeprecated = true;
+    } else if ((myTagProperty.getTag() == SUMO_TAG_WALK_FROMTO) && myFromEdge && myToEdge) {
+        // declare a from-via-to edges vector
+        std::vector<std::string> FromViaToEdges;
+        // add from edge
+        FromViaToEdges.push_back(myFromEdge->getID());
+        // add via edges
+        FromViaToEdges.insert(FromViaToEdges.end(), myVia.begin(), myVia.end());
+        // add to edge
+        FromViaToEdges.push_back(myToEdge->getID());
+        // calculate route
+        std::vector<GNEEdge*> route = getRouteCalculatorInstance()->calculateDijkstraRoute(myViewNet->getNet(), getDemandElementParents().at(0)->getVClass(), FromViaToEdges);
+        // check if rute is valid
+        if (route.size() > 0) {
+            changeEdgeParents(this, route, false);
+        } else if (getEdgeParents().size() > 0) {
+            changeEdgeParents(this, getEdgeParents().front()->getID() + " " + toString(myVia) + " " + getEdgeParents().back()->getID(), true);
+        }
+        // mark geometry as deprecated
+        myDemandElementSegmentGeometry.geometryDeprecated = true;
+    } else if ((myTagProperty.getTag() == SUMO_TAG_WALK_BUSSTOP) && myFromEdge && (getAdditionalParents().size() > 0)) {
+        // declare a from-via-busStop edges vector
+        std::vector<std::string> FromViaBusStopEdges;
+        // add from edge
+        FromViaBusStopEdges.push_back(myFromEdge->getID());
+        // add via edges
+        FromViaBusStopEdges.insert(FromViaBusStopEdges.end(), myVia.begin(), myVia.end());
+        // add busStop edge
+        FromViaBusStopEdges.push_back(getAdditionalParents().front()->getLaneParents().front()->getParentEdge().getID());
+        // calculate route
+        std::vector<GNEEdge*> route = getRouteCalculatorInstance()->calculateDijkstraRoute(myViewNet->getNet(), getDemandElementParents().at(0)->getVClass(), FromViaBusStopEdges);
+        // check if rute is valid
+        if (route.size() > 0) {
+            changeEdgeParents(this, route, false);
+        } else if (getEdgeParents().size() > 0) {
+            changeEdgeParents(this, getEdgeParents().front()->getID() + " " + toString(myVia) + " " + getEdgeParents().back()->getID(), true);
+        }
+        // mark geometry as deprecated
+        myDemandElementSegmentGeometry.geometryDeprecated = true;
+    }
+    // update geometry
+    updateGeometry();
 }
 
 
@@ -270,11 +346,25 @@ GNEWalk::commitGeometryMoving(GNEUndoList* undoList) {
 
 void
 GNEWalk::updateGeometry() {
-    // update person parent
-    getDemandElementParents().front()->updateGeometry();
-    // update demand element childs
-    for (const auto& i : getDemandElementChildren()) {
-        i->updateGeometry();
+    // first check if geometry is deprecated
+    if (myDemandElementSegmentGeometry.geometryDeprecated) {
+        // declare two pointers for depart and arrival pos lanes
+        double* departPosLane = new double(0);  // temporal
+        double* arrivalPosLane = new double(myArrivalPosition);
+        if ((myTagProperty.getTag() == SUMO_TAG_WALK_BUSSTOP) && (getAdditionalParents().size() > 0)) {
+            *arrivalPosLane = 5; /*getAdditionalParents().front()->getAttribute(*/
+        }
+        // calculate geometry path
+        calculateGeometricPath(departPosLane, arrivalPosLane);
+        // delete positions 
+        delete departPosLane;
+        delete arrivalPosLane;
+        // update demand element childrens
+        for (const auto& i : getDemandElementChildren()) {
+            i->updateGeometry();
+        }
+        // set geometry as non-deprecated
+        myDemandElementSegmentGeometry.geometryDeprecated = false;
     }
 }
 
@@ -583,6 +673,63 @@ GNEWalk::setAttribute(SumoXMLAttr key, const std::string& value) {
 void
 GNEWalk::setEnabledAttribute(const int /*enabledAttributes*/) {
     //
+}
+
+
+void 
+GNEWalk::computeWithoutReferences() {
+    if ((myTagProperty.getTag() == SUMO_TAG_WALK_EDGES)) {
+        // calculate route
+        std::vector<GNEEdge*> route = getRouteCalculatorInstance()->calculateDijkstraRoute(getDemandElementParents().at(0)->getVClass(), myEdges);
+        // check if rute is valid
+        if (route.size() > 0) {
+            changeEdgeParents(this, route, false);
+        } else if (getEdgeParents().size() > 0) {
+            changeEdgeParents(this, getEdgeParents().front()->getID() + " " + toString(myVia) + " " + getEdgeParents().back()->getID(), false);
+        }
+        // mark geometry as deprecated
+        myDemandElementSegmentGeometry.geometryDeprecated = true;
+    } else if ((myTagProperty.getTag() == SUMO_TAG_WALK_FROMTO) && myFromEdge && myToEdge) {
+        // declare a from-via-to edges vector
+        std::vector<std::string> FromViaToEdges;
+        // add from edge
+        FromViaToEdges.push_back(myFromEdge->getID());
+        // add via edges
+        FromViaToEdges.insert(FromViaToEdges.end(), myVia.begin(), myVia.end());
+        // add to edge
+        FromViaToEdges.push_back(myToEdge->getID());
+        // calculate route
+        std::vector<GNEEdge*> route = getRouteCalculatorInstance()->calculateDijkstraRoute(myViewNet->getNet(), getDemandElementParents().at(0)->getVClass(), FromViaToEdges);
+        // check if rute is valid
+        if (route.size() > 0) {
+            changeEdgeParents(this, route, false);
+        } else if (getEdgeParents().size() > 0) {
+            changeEdgeParents(this, getEdgeParents().front()->getID() + " " + toString(myVia) + " " + getEdgeParents().back()->getID(), false);
+        }
+        // mark geometry as deprecated
+        myDemandElementSegmentGeometry.geometryDeprecated = true;
+    } else if ((myTagProperty.getTag() == SUMO_TAG_WALK_BUSSTOP) && myFromEdge && (getAdditionalParents().size() > 0)) {
+        // declare a from-via-busStop edges vector
+        std::vector<std::string> FromViaBusStopEdges;
+        // add from edge
+        FromViaBusStopEdges.push_back(myFromEdge->getID());
+        // add via edges
+        FromViaBusStopEdges.insert(FromViaBusStopEdges.end(), myVia.begin(), myVia.end());
+        // add busStop edge
+        FromViaBusStopEdges.push_back(getAdditionalParents().front()->getLaneParents().front()->getParentEdge().getID());
+        // calculate route
+        std::vector<GNEEdge*> route = getRouteCalculatorInstance()->calculateDijkstraRoute(myViewNet->getNet(), getDemandElementParents().at(0)->getVClass(), FromViaBusStopEdges);
+        // check if rute is valid
+        if (route.size() > 0) {
+            changeEdgeParents(this, route, false);
+        } else if (getEdgeParents().size() > 0) {
+            changeEdgeParents(this, getEdgeParents().front()->getID() + " " + toString(myVia) + " " + getEdgeParents().back()->getID(), false);
+        }
+        // mark geometry as deprecated
+        myDemandElementSegmentGeometry.geometryDeprecated = true;
+    }
+    // update geometry
+    updateGeometry();
 }
 
 /****************************************************************************/

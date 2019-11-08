@@ -223,6 +223,15 @@ protected:
     /// @brief valid line or modes
     std::vector<std::string> myModes;
 
+    /// @brief from edge
+    GNEEdge* myFromEdge;
+
+    /// @brief to edge
+    GNEEdge* myToEdge;
+
+    /// @brief via edges  (used by walkFromTo)
+    std::vector<std::string> myVia;
+
     /// @brief arrival position
     double myArrivalPosition;
 

@@ -39,24 +39,31 @@ class GNEVehicle;
 class GNEWalk : public GNEDemandElement, public Parameterised {
 
 public:
-    /**@brief parameter constructor
+    /**@brief parameter constructor for walkEdges
      * @param[in] viewNet view in which this Walk is placed
      * @param[in] personParent person parent
-     * @param[in] walkTag walk type tag (edges or from/to)
      * @param[in] edges list of consecutive edges of this walk
      * @param[in] arrivalPosition arrival position on the destination edge
      */
-    GNEWalk(GNEViewNet* viewNet, GNEDemandElement* personParent, SumoXMLTag walkTag, const std::vector<GNEEdge*>& edges, double arrivalPosition);
+    GNEWalk(GNEViewNet* viewNet, GNEDemandElement* personParent, const std::vector<GNEEdge*>& edges, double arrivalPosition);
 
-    /**@brief parameter constructor
+    /**@brief parameter constructor for walkEdges
+     * @param[in] viewNet view in which this Walk is placed
+     * @param[in] personParent person parent
+     * @param[in] edges list of consecutive edges of this walk
+     * @param[in] arrivalPosition arrival position on the destination edge
+     */
+    GNEWalk(GNEViewNet* viewNet, GNEDemandElement* personParent, GNEEdge* fromEdge, GNEEdge* toEdge, double arrivalPosition);
+
+    /**@brief parameter constructor for walkBusStop
      * @param[in] viewNet view in which this Walk is placed
      * @param[in] personParent person parent
      * @param[in] edges list of consecutive edges of this walk
      * @param[in] busStop destination busStop
      */
-    GNEWalk(GNEViewNet* viewNet, GNEDemandElement* personParent, const std::vector<GNEEdge*>& edges, GNEAdditional* busStop);
+    GNEWalk(GNEViewNet* viewNet, GNEDemandElement* personParent, GNEEdge* fromEdge, GNEAdditional* busStop);
 
-    /**@brief parameter constructor
+    /**@brief parameter constructor for walkRoute
      * @param[in] viewNet view in which this Walk is placed
      * @param[in] personParent person parent
      * @param[in] personParent route parent
@@ -219,7 +226,16 @@ protected:
     /// @brief variable for move walks
     DemandElementMove myWalkMove;
 
-    /// @brief List of the via-edges that Person must visit
+    /// @brief consecutive edges (used by walkEdges)
+    std::vector<GNEEdge*> myEdges;
+
+    /// @brief from edge (used by walkFromTo)
+    GNEEdge* myFromEdge;
+
+    /// @brief to edge (used by walkFromTo)
+    GNEEdge* myToEdge;
+
+    /// @brief via edges  (used by walkFromTo)
     std::vector<std::string> myVia;
 
     /// @brief arrival position
@@ -231,6 +247,9 @@ private:
 
     /// @brief method for enabling the attribute and nothing else (used in GNEChange_EnableAttribute)
     void setEnabledAttribute(const int enabledAttributes);
+
+    /// @brief compute demand element without updating references
+    void computeWithoutReferences();
 
     /// @brief Invalidated copy constructor.
     GNEWalk(GNEWalk*) = delete;

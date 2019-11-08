@@ -43,19 +43,19 @@
 
 GNERide::GNERide(GNEViewNet* viewNet, GNEDemandElement* personParent, const std::vector<GNEEdge*>& edges, double arrivalPosition, const std::vector<std::string>& lines) :
     GNEDemandElement(viewNet->getNet()->generateDemandElementID("", SUMO_TAG_RIDE_FROMTO), viewNet, GLO_RIDE, SUMO_TAG_RIDE_FROMTO,
-                     edges, {}, {}, {}, {personParent}, {}, {}, {}, {}, {}),
-                        Parameterised(),
-                        myLines(lines),
-myArrivalPosition(arrivalPosition) {
+        edges, {}, {}, {}, {personParent}, {}, {}, {}, {}, {}),
+    Parameterised(),
+    myLines(lines),
+    myArrivalPosition(arrivalPosition) {
 }
 
 
 GNERide::GNERide(GNEViewNet* viewNet, GNEDemandElement* personParent, const std::vector<GNEEdge*>& edges, GNEAdditional* busStop, const std::vector<std::string>& lines) :
     GNEDemandElement(viewNet->getNet()->generateDemandElementID("", SUMO_TAG_RIDE_BUSSTOP), viewNet, GLO_RIDE, SUMO_TAG_RIDE_BUSSTOP,
-                     edges, {}, {}, {busStop}, {personParent}, {}, {}, {}, {}, {}),
-Parameterised(),
-myLines(lines),
-myArrivalPosition(-1) {
+        edges, {}, {}, {busStop}, {personParent}, {}, {}, {}, {}, {}),
+    Parameterised(),
+    myLines(lines),
+    myArrivalPosition(-1) {
 }
 
 
@@ -182,7 +182,29 @@ GNERide::getColor() const {
 
 void
 GNERide::compute() {
-    // Nothing to compute
+    // only recompute flows and trips
+    if (myFromEdge && myToEdge) {
+        // declare a from-via-to edges vector
+        std::vector<std::string> FromViaToEdges;
+        // add from edge
+        FromViaToEdges.push_back(myFromEdge->getID());
+        // add via edges
+        FromViaToEdges.insert(FromViaToEdges.end(), myVia.begin(), myVia.end());
+        // add to edge
+        FromViaToEdges.push_back(myToEdge->getID());
+        // calculate route
+        std::vector<GNEEdge*> route = getRouteCalculatorInstance()->calculateDijkstraRoute(myViewNet->getNet(), getDemandElementParents().at(0)->getVClass(), FromViaToEdges);
+        // check if rute is valid
+        if (route.size() > 0) {
+            changeEdgeParents(this, route, true);
+        } else if (getEdgeParents().size() > 0) {
+            changeEdgeParents(this, getEdgeParents().front()->getID() + " " + toString(myVia) + " " + getEdgeParents().back()->getID(), true);
+        }
+        // mark geometry as deprecated
+        myDemandElementSegmentGeometry.geometryDeprecated = true;
+        // update geometry
+        updateGeometry();
+    }
 }
 
 
@@ -243,11 +265,35 @@ GNERide::commitGeometryMoving(GNEUndoList* undoList) {
 
 void
 GNERide::updateGeometry() {
-    // update person parent
-    getDemandElementParents().front()->updateGeometry();
-    // only update demand element childrens
-    for (const auto& i : getDemandElementChildren()) {
-        i->updateGeometry();
+    // first check if geometry is deprecated
+    if (myDemandElementSegmentGeometry.geometryDeprecated) {
+        // declare two pointers for depart and arrival pos lanes
+        double* departPosLane = nullptr;
+        double* arrivalPosLane = nullptr;
+        /*
+        // check if depart and arrival pos lanes are defiend
+        if (departPosProcedure == DEPART_POS_GIVEN) {
+            departPosLane = new double(departPos);
+        }
+        if (arrivalPosProcedure == ARRIVAL_POS_GIVEN) {
+            arrivalPosLane = new double(arrivalPos);
+        }
+        */
+        // calculate geometry path
+        calculateGeometricPath(departPosLane, arrivalPosLane);
+        // delete positions 
+        if (departPosLane) {
+            delete departPosLane;
+        }
+        if (arrivalPosLane) {
+            delete arrivalPosLane;
+        }
+        // update demand element childrens
+        for (const auto& i : getDemandElementChildren()) {
+            i->updateGeometry();
+        }
+        // set geometry as non-deprecated
+        myDemandElementSegmentGeometry.geometryDeprecated = false;
     }
 }
 

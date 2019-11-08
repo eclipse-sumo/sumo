@@ -328,6 +328,8 @@ GNEPerson::updateGeometry() {
         myDemandElementSegmentGeometry.clearDemandElementSegmentGeometry();
         // only calculate new shape if there is demand element childrens
         if (getDemandElementChildren().size() > 0) {
+
+            /*
             std::vector<personPlanSegment> personPlanSegments;
             // iterate over all demand element childrens
             for (const auto& personPlan : getDemandElementChildren()) {
@@ -496,7 +498,9 @@ GNEPerson::updateGeometry() {
                 if ((personPlanSegmentsIT + 1) != personPlanSegments.end()) {
                     calculateSmoothPersonPlanConnection((personPlanSegmentsIT + 1)->personPlan, personPlanSegmentsIT->edge, (personPlanSegmentsIT + 1)->edge);
                 }
+
             }
+            */
             // calculate entire shape, rotations and lengths
             // myDemandElementSegmentGeometry.calculatePartialShapeRotationsAndLengths();
         }

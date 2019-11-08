@@ -660,7 +660,7 @@ GNERouteHandler::buildWalkEdges(GNEViewNet* viewNet, bool undoDemandElements, GN
             pathEdges = edges;
         }
         // create walkEdges
-        GNEWalk* walkEdges = new GNEWalk(viewNet, personParent, SUMO_TAG_WALK_EDGES, pathEdges, arrivalPos);
+        GNEWalk* walkEdges = new GNEWalk(viewNet, personParent, pathEdges, arrivalPos);
         // add element using undo list or directly, depending of undoDemandElements flag
         if (undoDemandElements) {
             viewNet->getUndoList()->p_begin("add " + toString(SUMO_TAG_WALK_EDGES) + " within person '" + personParent->getID() + "'");
@@ -684,82 +684,56 @@ GNERouteHandler::buildWalkEdges(GNEViewNet* viewNet, bool undoDemandElements, GN
 
 
 void
-GNERouteHandler::buildWalkFromTo(GNEViewNet* viewNet, bool undoDemandElements, GNEDemandElement* personParent, const std::vector<GNEEdge*>& edges, double arrivalPos) {
-    // check that at least there is an edge
-    if (edges.size() == 0) {
-        WRITE_ERROR("A walk needs at least one edge. " + toString(SUMO_TAG_WALK_FROMTO) + " within person with ID='" + personParent->getID() + "' cannot be created");
+GNERouteHandler::buildWalkFromTo(GNEViewNet* viewNet, bool undoDemandElements, GNEDemandElement* personParent, GNEEdge* fromEdge, GNEEdge* toEdge, double arrivalPos) {
+    // create walkFromTo
+    GNEWalk* walkFromTo = new GNEWalk(viewNet, personParent, fromEdge, toEdge, arrivalPos);
+    // add element using undo list or directly, depending of undoDemandElements flag
+    if (undoDemandElements) {
+        viewNet->getUndoList()->p_begin("add " + toString(SUMO_TAG_WALK_FROMTO) + " within person '" + personParent->getID() + "'");
+        viewNet->getUndoList()->add(new GNEChange_DemandElement(walkFromTo, true), true);
+        viewNet->getUndoList()->p_end();
     } else {
-        // obtain path between edgespersonParent->markSegmentGeometryDeprecated();
-        std::vector<GNEEdge*> pathEdges = GNEDemandElement::getRouteCalculatorInstance()->calculateDijkstraRoute(personParent->getVClass(), edges);
-        // check if obtained path is valid
-        if (pathEdges.size() == 0) {
-            pathEdges = edges;
-        }
-        // create walkFromTo
-        GNEWalk* walkFromTo = new GNEWalk(viewNet, personParent, SUMO_TAG_WALK_FROMTO, pathEdges, arrivalPos);
-        // add element using undo list or directly, depending of undoDemandElements flag
-        if (undoDemandElements) {
-            viewNet->getUndoList()->p_begin("add " + toString(SUMO_TAG_WALK_FROMTO) + " within person '" + personParent->getID() + "'");
-            viewNet->getUndoList()->add(new GNEChange_DemandElement(walkFromTo, true), true);
-            viewNet->getUndoList()->p_end();
-        } else {
-            // add vehicleOrWalkFromToFlow in net and in their vehicle type parent
-            viewNet->getNet()->insertDemandElement(walkFromTo);
-            personParent->addDemandElementChild(walkFromTo);
-            // add reference in all edges
-            for (const auto& i : edges) {
-                i->addDemandElementChild(walkFromTo);
-            }
-            walkFromTo->incRef("buildWalkFromTo");
-        }
-        // mark geometry of person plan parent deprecated and update geometry
-        personParent->markSegmentGeometryDeprecated();
-        personParent->updateGeometry();
+        // add vehicleOrWalkFromToFlow in net and in their vehicle type parent
+        viewNet->getNet()->insertDemandElement(walkFromTo);
+        personParent->addDemandElementChild(walkFromTo);
+        // add reference in all edges
+        fromEdge->addDemandElementChild(walkFromTo);
+        toEdge->addDemandElementChild(walkFromTo);
+        walkFromTo->incRef("buildWalkFromTo");
     }
+    // mark geometry of person plan parent deprecated and update geometry
+    personParent->markSegmentGeometryDeprecated();
+    personParent->updateGeometry();
 }
 
 
 void
-GNERouteHandler::buildWalkBusStop(GNEViewNet* viewNet, bool undoDemandElements, GNEDemandElement* personParent, const std::vector<GNEEdge*>& edges, GNEAdditional* busStop) {
-    // check that at least there is an edge
-    if (edges.size() == 0) {
-        WRITE_ERROR("A walk needs at least one edge. " + toString(SUMO_TAG_WALK_BUSSTOP) + " within person with ID='" + personParent->getID() + "' cannot be created");
+GNERouteHandler::buildWalkBusStop(GNEViewNet* viewNet, bool undoDemandElements, GNEDemandElement* personParent, GNEEdge* fromEdge, GNEAdditional* busStop) {
+    // create walkBusStop
+    GNEWalk* walkBusStop = new GNEWalk(viewNet, personParent, fromEdge, busStop);
+    // add element using undo list or directly, depending of undoDemandElements flag
+    if (undoDemandElements) {
+        viewNet->getUndoList()->p_begin("add " + toString(SUMO_TAG_WALK_BUSSTOP) + " within person '" + personParent->getID() + "'");
+        viewNet->getUndoList()->add(new GNEChange_DemandElement(walkBusStop, true), true);
+        viewNet->getUndoList()->p_end();
     } else {
-        // obtain path between edges
-        std::vector<GNEEdge*> pathEdges = GNEDemandElement::getRouteCalculatorInstance()->calculateDijkstraRoute(personParent->getVClass(), edges);
-        // check if obtained path is valid
-        if (pathEdges.size() == 0) {
-            pathEdges = edges;
-        }
-        // create walkBusStop
-        GNEWalk* walkBusStop = new GNEWalk(viewNet, personParent, pathEdges, busStop);
-        // add element using undo list or directly, depending of undoDemandElements flag
-        if (undoDemandElements) {
-            viewNet->getUndoList()->p_begin("add " + toString(SUMO_TAG_WALK_BUSSTOP) + " within person '" + personParent->getID() + "'");
-            viewNet->getUndoList()->add(new GNEChange_DemandElement(walkBusStop, true), true);
-            viewNet->getUndoList()->p_end();
-        } else {
-            // add vehicleOrWalkBusStopFlow in net and in their vehicle type parent
-            viewNet->getNet()->insertDemandElement(walkBusStop);
-            personParent->addDemandElementChild(walkBusStop);
-            busStop->addDemandElementChild(walkBusStop);
-            // add reference in all edges
-            for (const auto& i : edges) {
-                i->addDemandElementChild(walkBusStop);
-            }
-            walkBusStop->incRef("buildWalkBusStop");
-        }
-        // mark geometry of person plan parent deprecated and update geometry
-        personParent->markSegmentGeometryDeprecated();
-        personParent->updateGeometry();
+        // add vehicleOrWalkBusStopFlow in net and in their vehicle type parent
+        viewNet->getNet()->insertDemandElement(walkBusStop);
+        personParent->addDemandElementChild(walkBusStop);
+        busStop->addDemandElementChild(walkBusStop);
+        fromEdge->addDemandElementChild(walkBusStop);
+        walkBusStop->incRef("buildWalkBusStop");
     }
+    // mark geometry of person plan parent deprecated and update geometry
+    personParent->markSegmentGeometryDeprecated();
+    personParent->updateGeometry();
 }
 
 
 void
-GNERouteHandler::buildWalkRoute(GNEViewNet* viewNet, bool undoDemandElements, GNEDemandElement* personParent, GNEDemandElement* routeParent, double arrivalPos) {
+GNERouteHandler::buildWalkRoute(GNEViewNet* viewNet, bool undoDemandElements, GNEDemandElement* personParent, GNEDemandElement* route, double arrivalPos) {
     // create walkRoute
-    GNEWalk* walkRoute = new GNEWalk(viewNet, personParent, routeParent, arrivalPos);
+    GNEWalk* walkRoute = new GNEWalk(viewNet, personParent, route, arrivalPos);
     // add element using undo list or directly, depending of undoDemandElements flag
     if (undoDemandElements) {
         viewNet->getUndoList()->p_begin("add " + toString(SUMO_TAG_WALK_ROUTE) + " within person '" + personParent->getID() + "'");
@@ -769,7 +743,7 @@ GNERouteHandler::buildWalkRoute(GNEViewNet* viewNet, bool undoDemandElements, GN
         // add vehicleOrWalkBusStopFlow in net and in their vehicle type parent
         viewNet->getNet()->insertDemandElement(walkRoute);
         personParent->addDemandElementChild(walkRoute);
-        routeParent->addDemandElementChild(walkRoute);
+        route->addDemandElementChild(walkRoute);
         walkRoute->incRef("buildWalkRoute");
     }
     // mark geometry of person plan parent deprecated and update geometry
@@ -1486,16 +1460,16 @@ GNERouteHandler::closePerson() {
                             }
                             break;
                         case SUMO_TAG_WALK_EDGES:
-                            myViewNet->getUndoList()->add(new GNEChange_DemandElement(new GNEWalk(myViewNet, person, SUMO_TAG_WALK_EDGES, i->edges, i->arrivalPos), true), true);
+                            myViewNet->getUndoList()->add(new GNEChange_DemandElement(new GNEWalk(myViewNet, person, i->edges, i->arrivalPos), true), true);
                             break;
                         case SUMO_TAG_WALK_FROMTO:
                             // check if "from" attribute was loaded, or it must be taked fron previous personPlan values
-                            if (i->from) {
-                                myViewNet->getUndoList()->add(new GNEChange_DemandElement(new GNEWalk(myViewNet, person, SUMO_TAG_WALK_FROMTO, i->calculateEdgePath(), i->arrivalPos), true), true);
-                            } else if (i != myPersonPlanValues.begin()) {
+                            if (i->from && i->to) {
+                                myViewNet->getUndoList()->add(new GNEChange_DemandElement(new GNEWalk(myViewNet, person, i->from, i->to, i->arrivalPos), true), true);
+                            } else if ((i != myPersonPlanValues.begin()) && i->to) {
                                 // update 'from' edge using 'to' edge of last personPlan element
                                 i->from = (i - 1)->getLastEdge();
-                                myViewNet->getUndoList()->add(new GNEChange_DemandElement(new GNEWalk(myViewNet, person, SUMO_TAG_WALK_FROMTO, i->calculateEdgePath(), i->arrivalPos), true), true);
+                                myViewNet->getUndoList()->add(new GNEChange_DemandElement(new GNEWalk(myViewNet, person, i->from, i->to, i->arrivalPos), true), true);
                             } else {
                                 WRITE_ERROR("The first person plan of type '" + toString(i->tag) + "' needs a from edge. Person cannot be created.");
                                 // abort last command group (to remove created person)
@@ -1507,11 +1481,11 @@ GNERouteHandler::closePerson() {
                         case SUMO_TAG_WALK_BUSSTOP:
                             // check if "from" attribute was loaded, or it must be taked fron previous personPlan values
                             if (i->from) {
-                                myViewNet->getUndoList()->add(new GNEChange_DemandElement(new GNEWalk(myViewNet, person, i->calculateEdgePath(), i->busStop), true), true);
+                                myViewNet->getUndoList()->add(new GNEChange_DemandElement(new GNEWalk(myViewNet, person, i->from, i->busStop), true), true);
                             } else if (i != myPersonPlanValues.begin()) {
                                 // update 'from' edge using 'to' edge of last personPlan element
                                 i->from = (i - 1)->getLastEdge();
-                                myViewNet->getUndoList()->add(new GNEChange_DemandElement(new GNEWalk(myViewNet, person, i->calculateEdgePath(), i->busStop), true), true);
+                                myViewNet->getUndoList()->add(new GNEChange_DemandElement(new GNEWalk(myViewNet, person, i->from, i->busStop), true), true);
                             } else {
                                 WRITE_ERROR("The first person plan of type '" + toString(i->tag) + "' needs a from edge. Person cannot be created.");
                                 // abort last command group (to remove created person)

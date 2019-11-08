@@ -193,7 +193,29 @@ GNEPersonTrip::getColor() const {
 
 void
 GNEPersonTrip::compute() {
-    // Nothing to compute
+    // only recompute flows and trips
+    if (myFromEdge && myToEdge) {
+        // declare a from-via-to edges vector
+        std::vector<std::string> FromViaToEdges;
+        // add from edge
+        FromViaToEdges.push_back(myFromEdge->getID());
+        // add via edges
+        FromViaToEdges.insert(FromViaToEdges.end(), myVia.begin(), myVia.end());
+        // add to edge
+        FromViaToEdges.push_back(myToEdge->getID());
+        // calculate route
+        std::vector<GNEEdge*> route = getRouteCalculatorInstance()->calculateDijkstraRoute(myViewNet->getNet(), getDemandElementParents().at(0)->getVClass(), FromViaToEdges);
+        // check if rute is valid
+        if (route.size() > 0) {
+            changeEdgeParents(this, route, true);
+        } else if (getEdgeParents().size() > 0) {
+            changeEdgeParents(this, getEdgeParents().front()->getID() + " " + toString(myVia) + " " + getEdgeParents().back()->getID(), true);
+        }
+        // mark geometry as deprecated
+        myDemandElementSegmentGeometry.geometryDeprecated = true;
+        // update geometry
+        updateGeometry();
+    }
 }
 
 
@@ -253,10 +275,35 @@ GNEPersonTrip::commitGeometryMoving(GNEUndoList* undoList) {
 
 void
 GNEPersonTrip::updateGeometry() {
-    getDemandElementParents().front()->updateGeometry();
-    // update demand element childs
-    for (const auto& i : getDemandElementChildren()) {
-        i->updateGeometry();
+    // first check if geometry is deprecated
+    if (myDemandElementSegmentGeometry.geometryDeprecated) {
+        // declare two pointers for depart and arrival pos lanes
+        double* departPosLane = nullptr;
+        double* arrivalPosLane = nullptr;
+        /*
+        // check if depart and arrival pos lanes are defiend
+        if (departPosProcedure == DEPART_POS_GIVEN) {
+            departPosLane = new double(departPos);
+        }
+        if (arrivalPosProcedure == ARRIVAL_POS_GIVEN) {
+            arrivalPosLane = new double(arrivalPos);
+        }
+        */
+        // calculate geometry path
+        calculateGeometricPath(departPosLane, arrivalPosLane);
+        // delete positions 
+        if (departPosLane) {
+            delete departPosLane;
+        }
+        if (arrivalPosLane) {
+            delete arrivalPosLane;
+        }
+        // update demand element childrens
+        for (const auto& i : getDemandElementChildren()) {
+            i->updateGeometry();
+        }
+        // set geometry as non-deprecated
+        myDemandElementSegmentGeometry.geometryDeprecated = false;
     }
 }
 
