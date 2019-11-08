@@ -195,7 +195,7 @@ GNEDemandElement::DemandElementSegmentGeometry::getFirstPosition() const {
 }
 
 
-const double 
+double 
 GNEDemandElement::DemandElementSegmentGeometry::getFirstRotation() const {
     if ((myShapeSegments.size() > 0) && (myShapeSegments.front().shapeRotations.size() > 0)) {
         return myShapeSegments.front().shapeRotations.front();
