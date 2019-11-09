@@ -1,4 +1,4 @@
-Loading configuration... done.
+Loading configuration ... done.
  Retrying in 1 seconds
 step=2 road=SC lane=SC_0 pos=0.00 dist=0.00 simDist=0.00 simDistToEnd=198.05 distToInt=105.75 distToEnd=198.05 simDist2DToInt=105.75 simDist2DToEnd=198.05
 step=3 road=SC lane=SC_0 pos=2.60 dist=2.60 simDist=2.60 simDistToEnd=195.45 distToInt=103.15 distToEnd=195.45 simDist2DToInt=103.15 simDist2DToEnd=195.45

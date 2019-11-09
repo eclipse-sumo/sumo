@@ -1,5 +1,5 @@
 Written configuration to 'net.netccfg'
-Loading configuration... done.
+Loading configuration ... done.
 Parsing types from '/home/kobo/dlr/sumo/data/typemap/osmNetconvert.typ.xml'... done.
 Parsing nodes from osm-file 'osm.xml'... done.
 Parsing edges from osm-file 'osm.xml'... done.

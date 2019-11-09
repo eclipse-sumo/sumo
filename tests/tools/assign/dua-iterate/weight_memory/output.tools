@@ -1,4 +1,4 @@
-Loading configuration... done.
+Loading configuration ... done.
 > Executing step 0
 >> Running router on input_trips.trips.xml
 >>> Begin time: 2017-08-12 22:29:38.086247
@@ -18,7 +18,7 @@ Loading configuration... done.
 < Step 0 ended (duration: 0:00:00.126148)
 ------------------
 
-Loading configuration... done.
+Loading configuration ... done.
 > Executing step 1
 >> Running router on input_trips_000.rou.alt.xml
 >>> Begin time: 2017-08-12 22:29:38.215332
@@ -38,7 +38,7 @@ Loading configuration... done.
 < Step 1 ended (duration: 0:00:00.132829)
 ------------------
 
-Loading configuration... done.
+Loading configuration ... done.
 > Executing step 2
 >> Running router on input_trips_001.rou.alt.xml
 >>> Begin time: 2017-08-12 22:29:38.350931
@@ -58,7 +58,7 @@ Loading configuration... done.
 < Step 2 ended (duration: 0:00:00.131955)
 ------------------
 
-Loading configuration... done.
+Loading configuration ... done.
 > Executing step 3
 >> Running router on input_trips_002.rou.alt.xml
 >>> Begin time: 2017-08-12 22:29:38.485651
@@ -78,7 +78,7 @@ Loading configuration... done.
 < Step 3 ended (duration: 0:00:00.141486)
 ------------------
 
-Loading configuration... done.
+Loading configuration ... done.
 > Executing step 4
 >> Running router on input_trips_003.rou.alt.xml
 >>> Begin time: 2017-08-12 22:29:38.630284

@@ -1,8 +1,8 @@
-Loading configuration... done.
-***Starting server on port 8873 ***
-Loading net-file from 'data/hello.net.xml'... done (2ms).
+Loading configuration ... done.
+***Starting server on port 40261 ***
+Loading net-file from 'data/hello.net.xml' ... done (1ms).
 Loading done.
-Simulation started with time: 0.00
+Simulation version v1_3_1+0814-be0565a24f started with time: 0.00
 Simulation ended at time: 162.00
 Reason: TraCI requested termination.
 Performance: 
@@ -14,3 +14,4 @@ Vehicles:
  Running: 1
  Waiting: 0
 
+ Retrying in 1 seconds

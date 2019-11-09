@@ -1,10 +1,10 @@
-Loading net... done.
-Loading precomputed net weights from 'input_weights.dump.xml'... done.
+Loading net ... done.
+Loading precomputed net weights from 'input_weights.dump.xml' ... done.
 Skipped until: 0.00
 DijkstraRouter answered 100 queries and explored 7.00 edges on average.
-DijkstraRouter spent 20ms answering queries (0.20ms on average).
+DijkstraRouter spent 0ms answering queries (0.00ms on average).
 DijkstraRouter answered 99 queries and explored 6.99 edges on average.
-DijkstraRouter spent 16ms answering queries (0.16ms on average).
+DijkstraRouter spent 1ms answering queries (0.01ms on average).
 DijkstraRouter answered 1 queries and explored 8.00 edges on average.
 DijkstraRouter spent 0ms answering queries (0.00ms on average).
 Success.

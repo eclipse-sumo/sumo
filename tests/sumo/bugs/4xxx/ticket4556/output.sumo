@@ -1,4 +1,4 @@
-Loading configuration... done.
+Loading configuration ... done.
 vehicle 'Pkw1.1' does not supply vehicle parameter 'device.ssm.thresholds'. Using default of ''
 vehicle 'Pkw1.1' does not supply vehicle parameter 'device.ssm.trajectories'. Using default of '0'
 vehicle 'Pkw1.1' does not supply vehicle parameter 'device.ssm.range'. Using default of '50.00'

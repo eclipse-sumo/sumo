@@ -1,16 +1,16 @@
  Testing client order dependence ...
 
 ###### Run 0 ######
-Loading configuration... done.
-***Starting server on port 43135 ***
+Loading configuration ... done.
+***Starting server on port 59019 ***
   waiting for 2 clients...
 Starting process 1 (order: 1) with steplength 1.0
   client connected
 Starting process 2 (order: 2) with steplength 1.0
   client connected
-Loading net-file from 'input_net.net.xml'... done (4ms).
+Loading net-file from 'input_net.net.xml' ... done (4ms).
 Loading done.
-Simulation version v1_2_0+1522-fd29d6db72 started with time: 0.00
+Simulation version v1_3_1+0814-be0565a24f started with time: 0.00
 Process 1:
    stepping (step 1)...
    Retrieving position for vehicle 'horiz' -> 5.1 on lane '2fi_0'
@@ -1480,23 +1480,23 @@ Reason: TraCI requested termination.
 Process 1:
    stepping (step 123)...
    breaking execution: traced vehicle 'horiz' left.
-Process 1 (order 1) ended at step 123
+Process 1 (order 1) ended at step 123.0
 Process 2:
    stepping (step 123)...
    breaking execution: traced vehicle 'horiz' left.
-Process 2 (order 2) ended at step 123
+Process 2 (order 2) ended at step 123.0
 
 ###### Run 1 ######
-Loading configuration... done.
-***Starting server on port 43135 ***
+Loading configuration ... done.
+***Starting server on port 59019 ***
   waiting for 2 clients...
 Starting process 1 (order: 9) with steplength 1.0
   client connected
 Starting process 2 (order: 8) with steplength 1.0
   client connected
-Loading net-file from 'input_net.net.xml'... done (4ms).
+Loading net-file from 'input_net.net.xml' ... done (2ms).
 Loading done.
-Simulation version v1_2_0+1522-fd29d6db72 started with time: 0.00
+Simulation version v1_3_1+0814-be0565a24f started with time: 0.00
 Process 2:
    stepping (step 1)...
    Retrieving position for vehicle 'horiz' -> 5.1 on lane '2fi_0'
@@ -4430,8 +4430,8 @@ Reason: TraCI requested termination.
 Process 1:
    stepping (step 245)...
    breaking execution: traced vehicle 'horiz' left.
-Process 1 (order 9) ended at step 245
+Process 1 (order 9) ended at step 245.0
 Process 2:
    stepping (step 245)...
    breaking execution: traced vehicle 'horiz' left.
-Process 2 (order 8) ended at step 245
+Process 2 (order 8) ended at step 245.0

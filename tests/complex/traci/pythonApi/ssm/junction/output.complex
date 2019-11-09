@@ -1,4 +1,4 @@
-Loading configuration... done.
+Loading configuration ... done.
 vehicle 'ego' does not supply vehicle parameter 'device.ssm.trajectories'. Using default of '0'
 vehicle 'ego' does not supply vehicle parameter 'device.ssm.range'. Using default of '50.00'
 vehicle 'ego' does not supply vehicle parameter 'device.ssm.extratime'. Using default of '5.00'

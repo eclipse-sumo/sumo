@@ -1,4 +1,4 @@
-Loading configuration... done.
+Loading configuration ... done.
 Parsing types from 'data/quickstart.typ.xml'... done.
 Parsing nodes from 'data/quickstart.nod.xml'... done.
 Parsing edges from 'data/quickstart.edg.xml'... done.
@@ -43,5 +43,5 @@ Summary:
 -----------------------------------------------------
 Success.
 >> Netbuilding closed with status 0
-Loading configuration... done.
+Loading configuration ... done.
 >> Simulation closed with status 0

@@ -1,16 +1,16 @@
-Loading net... done.
-Loading detector definitions from 'input_tri.det.xml'... done.
-Loading flows from 'input_tri_flows.txt'... done.
-Removing empty detectors... 
+Loading net ... done.
+Loading detector definitions from 'input_tri.det.xml' ... done.
+Loading flows from 'input_tri_flows.txt' ... done.
+Removing empty detectors ... 
 Removed detector 'MQ_L' because no flows for him exist.
 done.
-Computing detector types... done.
+Computing detector types ... done.
 Computed detector types:
  1 source detectors
  1 sink detectors
  6 in-between detectors
  0 invalid detectors
-Computing routes... done.
+Computing routes ... done.
 Detected PKW speed (27.778) higher than allowed speed (19.440) at 'MQ_1toL' on edge '1toL'.
 Detected PKW speed (27.778) higher than allowed speed (19.440) at 'MQ_1toR' on edge '1toR'.
 Detected PKW speed (27.778) higher than allowed speed (19.440) at 'MQ_Lto2' on edge 'Lto2'.
@@ -20,5 +20,5 @@ Detected PKW speed (27.778) higher than allowed speed (19.440) at 'MQ_beg' on ed
 Detected PKW speed (27.778) higher than allowed speed (19.440) at 'MQ_end' on edge 'end'.
 Detected PKW speed (27.778) higher than allowed speed (19.440) at 'MQ_middle' on edge 'middle'.
 Average speedFactor for PKW is 1.43 maximum speedFactor is 1.43.
-Writing emitters... done.
+Writing emitters ... done.
 Success.

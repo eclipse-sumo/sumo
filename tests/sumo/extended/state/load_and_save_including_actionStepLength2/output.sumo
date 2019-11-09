@@ -1,8 +1,8 @@
 Integration method was set to 'ballistic', since a default action step length was specified.
-Loading net-file from 'net.net.xml'... done (0ms).
-Loading state from 'input_state.xml'... 
-done (2ms).
+Loading net-file from 'net.net.xml' ... done (1ms).
+Loading state from 'input_state.xml' ... 
+done (3ms).
 Loading done.
-Simulation started with time: 1.00
+Simulation version v1_3_1+0814-be0565a24f started with time: 1.00
 Simulation ended at time: 45.00
 Reason: All vehicles have left the simulation.

@@ -1,5 +1,5 @@
 Written configuration to 'osm.netccfg'
-Loading configuration... done.
+Loading configuration ... done.
 Parsing types from '/scr1/sumo/data/typemap/osmNetconvert.typ.xml'... done.
 Parsing types from '/scr1/sumo/data/typemap/osmNetconvertUrbanDe.typ.xml'... done.
 Parsing types from '/scr1/sumo/data/typemap/osmNetconvertPedestrians.typ.xml'... done.
@@ -107,7 +107,7 @@ Summary:
 Writing network... done (835ms).
 Success.
 Written configuration to 'osm.polycfg'
-Loading configuration... done.
+Loading configuration ... done.
 Parsing network projection from 'osm.net.xml'... done (5ms).
 Parsing nodes from osm-file 'osm_bbox.osm.xml'... done (1157ms).
 Parsing relations from osm-file 'osm_bbox.osm.xml'... done (820ms).
@@ -121,7 +121,7 @@ Success.
 Success.
 Success.
 Written configuration to 'osm.sumocfg'
-Loading configuration... done.
+Loading configuration ... done.
 Loading net-file from '/scr2/texttest_tmp/dynamic_gui.11Oct130816.14723/tools/import/OSM/webWizard/test/osm.net.xml'... done (688ms).
 Loading additional-files from '/scr2/texttest_tmp/dynamic_gui.11Oct130816.14723/tools/import/OSM/webWizard/test/osm.poly.xml'... done (158ms).
 Loading additional-files from '/scr2/texttest_tmp/dynamic_gui.11Oct130816.14723/tools/import/OSM/webWizard/test/osm_stops.add.xml'... done (11ms).
