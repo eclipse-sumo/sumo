@@ -1,3 +1,4 @@
+#include "StringUtils.h"
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
 // Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
@@ -11,6 +12,7 @@
 /// @author  Daniel Krajzewicz
 /// @author  Laura Bieker
 /// @author  Michael Behrisch
+/// @author  Robert Hilbrich
 /// @date    unknown
 /// @version $Id$
 ///
@@ -31,6 +33,7 @@
 #include <xercesc/util/TranscodingException.hpp>
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/ToString.h>
+#include <regex>
 #include "StringUtils.h"
 
 
@@ -117,6 +120,38 @@ StringUtils::replace(std::string str, const char* what,
     return str;
 }
 
+
+std::string StringUtils::substituteEnvironment(std::string str)
+{
+    // Expression for an environment variables, e.g. ${NAME}
+    // Note: - R"(...)" is a raw string literal syntax to simplify a regex declaration
+    //       - .+? looks for the shortest match (non-greedy)
+    //       - (.+?) defines a "subgroup" which is already stripped of the $ and {, }  
+    std::regex envVarExpr(R"(\$\{(.+?)\})");
+    
+    // Are there any variables in this string?
+    std::smatch match;
+    std::string strIter = str;
+
+    // Loop over the entire value string and look for variable names
+    while (std::regex_search(strIter, match, envVarExpr)) {
+        std::string varName = match[1];
+
+        // Find the variable in the environment and its value
+        std::string varValue;
+        if (std::getenv(varName.c_str()) != nullptr) {
+            varValue = std::getenv(varName.c_str());
+        }
+
+        // Replace the variable placeholder with its value in the original string
+        str = std::regex_replace(str, std::regex("\\$\\{" + varName + "\\}"), varValue);
+
+        // Continue the loop with the remainder of the string
+        strIter = match.suffix();
+    }
+
+    return str;
+}
 
 std::string
 StringUtils::toTimeString(int time) {

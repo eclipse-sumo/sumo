@@ -58,7 +58,9 @@ void OptionsLoader::startElement(const XMLCh* const name,
             std::string key = StringUtils::transcode(attributes.getName(i));
             std::string value = StringUtils::transcode(attributes.getValue(i));
             if (key == "value" || key == "v") {
-                setValue(myItem, value);
+                // Substitute environment variables defined by ${NAME} with their value
+                std::string cleanValue = StringUtils::substituteEnvironment(value);
+                setValue(myItem, cleanValue);
             }
             // could give a hint here about unsupported attributes in configuration files
         }

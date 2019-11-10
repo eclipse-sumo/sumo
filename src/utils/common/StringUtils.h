@@ -11,6 +11,7 @@
 /// @author  Daniel Krajzewicz
 /// @author  Jakob Erdmann
 /// @author  Michael Behrisch
+/// @author  Robert Hilbrich
 /// @date    unknown
 /// @version $Id$
 ///
@@ -54,6 +55,10 @@ public:
         string within the first string */
     static std::string replace(std::string str, const char* what,
                                const char* by);
+
+    /** Replaces an environment variable with its value (similar to bash);
+        syntax for a variable is ${NAME} */
+    static std::string substituteEnvironment(std::string str);
 
     /// Builds a time string (hh:mm:ss) from the given seconds
     static std::string toTimeString(int time);
