@@ -245,7 +245,7 @@ Warning: Found sharp turn with radius 6.03 at the start of edge '122820534#0'.
 Warning: Found sharp turn with radius 8.49 at the start of edge '23852053#1'.
 Warning: Found sharp turn with radius 5.72 at the start of edge '285825377'.
 Warning: Found sharp turn with radius 6.39 at the end of edge '52348720#0'.
-Warning: Invalid pedestrian topology: crossing ':cluster_2010745295_2010745299_2045862310_2058568011_3754652237_4217234963_4603453643_4603453644_4603453647_c2' across '195411601#1 -4402228 4402228 165409971#1' has no target.
+Warning: Invalid pedestrian topology: crossing ':cluster_2010745295_2010745299_2045862310_2058568011_3754652237_4217234963_4603453643_4603453644_4603453647_c2' across [195411601#1 -4402228 4402228 165409971#1] has no target.
 Warning: The rail crossing '1157325170' does not have any roads.
 Warning: The rail crossing '4402536776' does not have any roads.
 Warning: The rail crossing '4567083492' does not have any roads.
@@ -279,10 +279,10 @@ Warning: The traffic light '4363312288' does not control any links; it will not 
 Warning: Could not build program '0' for traffic light '4363312288'
 Warning: The traffic light 'joinedS_1' cannot be adapted to a cycle time of 90.00.
 Warning: The traffic light 'joinedS_1' has a high cycle time of 189.00.
-Warning: Connection '101699692#1_0->101694131#0_0' is only 0.08 short.
-Warning: Connection '101699692#1_0->153522302#0_0' is only 0.08 short.
+Warning: Connection '101699692#1_0->101694131#0_0' is only 0.08m short.
+Warning: Connection '101699692#1_0->153522302#0_0' is only 0.08m short.
 Warning: Speed of straight connection '100405009#0_1->100405009#1_1' reduced by 6.39 due to turning radius of 10.21 (length=1.42 angle=23.19)
-Warning: Intersecting left turns at junction 'cluster_196741367_29221514_3837048403_3837048405_3837048407_3837048408_3837048410_5097270924' from lane '523630412_0' and lane '523630409_3'. (increase junction radius to avoid this)
+Warning: Intersecting left turns at junction 'cluster_196741367_29221514_3837048403_3837048405_3837048407_3837048408_3837048410_5097270924' from lane '523630412_0' and lane '523630409_3' (increase junction radius to avoid this).
 Warning: At actuated tlLogic 'cluster_21432801_2938442114_295705005_3139140896_3178759584_735967920_735967921_735967926_961816249_961816257', actuated phase 5 has no controlling detector
 Warning: At actuated tlLogic 'joinedS_0', linkIndex 16 has no controlling detector
 Warning: At actuated tlLogic 'joinedS_0', linkIndex 17 has no controlling detector
