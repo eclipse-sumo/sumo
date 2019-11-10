@@ -207,9 +207,12 @@ public:
 
     /** @brief Returns the time since the last vehicle left the detector
      *
-     * @return Timesteps from last leaving (detection) of the detector
+     * @return seconds from last leaving (detection) of the detector
      */
     double getTimeSinceLastDetection() const;
+
+    ///@brief return last time a vehicle was on the detector
+    SUMOTime getLastDetectionTime() const;
     //@}
 
 

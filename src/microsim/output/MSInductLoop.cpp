@@ -198,6 +198,15 @@ MSInductLoop::getTimeSinceLastDetection() const {
 }
 
 
+SUMOTime
+MSInductLoop::getLastDetectionTime() const {
+    if (myVehiclesOnDet.size() != 0) {
+        return MSNet::getInstance()->getCurrentTimeStep();
+    }
+    return TIME2STEPS(myLastLeaveTime);
+}
+
+
 void
 MSInductLoop::writeXMLDetectorProlog(OutputDevice& dev) const {
     dev.writeXMLHeader("detector", "det_e1_file.xsd");
