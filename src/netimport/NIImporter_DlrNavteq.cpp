@@ -87,7 +87,7 @@ NIImporter_DlrNavteq::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
     if (oc.getBool("output.street-names")) {
         file = oc.getString("dlr-navteq-prefix") + "_names.txt";
         if (lr.setFile(file)) {
-            PROGRESS_BEGIN_MESSAGE("Loading Street Names");
+            PROGRESS_BEGIN_MESSAGE("Loading street names");
             NamesHandler handler4(file, streetNames);
             lr.readAll(handler4);
             PROGRESS_DONE_MESSAGE();

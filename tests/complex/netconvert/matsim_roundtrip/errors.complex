@@ -1,9 +1,9 @@
-Warning: Connection '27441289_0->7727482_0' is only 0.04 short.
+Warning: Connection '27441289_0->7727482_0' is only 0.04m short.
 Warning: Ambiguity in turnarounds computation at junction '294168098'.
 Warning: Ambiguity in turnarounds computation at junction '294168710'.
 Warning: Ambiguity in turnarounds computation at junction '294830184'.
 Warning: Ambiguity in turnarounds computation at junction '294830189'.
 Warning: Ambiguity in turnarounds computation at junction '294831560'.
 Warning: Ambiguity in turnarounds computation at junction '294831563'.
-Warning: Intersecting left turns at junction '294830184' from lane '26843038#2_0' and lane '26843038#0_0'. (increase junction radius to avoid this)
-Warning: Intersecting left turns at junction '294831560' from lane '26843133#2_0' and lane '-26843133#1_0'. (increase junction radius to avoid this)
+Warning: Intersecting left turns at junction '294830184' from lane '26843038#2_0' and lane '26843038#0_0' (increase junction radius to avoid this).
+Warning: Intersecting left turns at junction '294831560' from lane '26843133#2_0' and lane '-26843133#1_0' (increase junction radius to avoid this).

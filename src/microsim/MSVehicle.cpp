@@ -5739,7 +5739,7 @@ MSVehicle::addTraciStopAtStoppingPlace(const std::string& stopId, const SUMOTime
                 stop = iter->parkingarea;
                 break;
             default:
-                throw ProcessError("Invalid Stopping place type '" + toString(stoppingPlaceType) + "'");
+                throw ProcessError("Invalid stopping place type '" + toString(stoppingPlaceType) + "'");
         }
         if (stop != nullptr && stop->getID() == stopId) {
             if (duration == 0 && !iter->reached) {
