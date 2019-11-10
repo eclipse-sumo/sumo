@@ -84,6 +84,16 @@ def procFCDStream(fcdstream, options):
     for q in fcdstream:
         pt = lt
         lt = float(q.time)
+        # use ISO 8601 Time with today's date
+        hours = int(lt // 3600)
+        lt %= 3600
+        minutes = int(lt // 60)
+        lt %= 60
+        seconds = int(lt)
+        humanReadableTime = datetime.datetime.now()
+        timeZone = humanReadableTime.astimezone().tzinfo
+        humanReadableTime = humanReadableTime.replace(hour=hours, minute=minutes, second=seconds, microsecond=0, tzinfo=timeZone)
+        humanReadableTime = humanReadableTime.isoformat()
         if options.begin and options.begin > lt:
             continue  # do not export steps before a set begin
         if options.end and options.end <= lt:
@@ -91,7 +101,7 @@ def procFCDStream(fcdstream, options):
         if lastExported >= 0 and (options.delta and options.delta + lastExported > lt):
             continue  # do not export between delta-t, if set
         lastExported = lt
-        e = FCDTimeEntry(lt)
+        e = FCDTimeEntry(humanReadableTime)
         if q.vehicle:
             e.vehicle += makeEntries(q.vehicle, chosen, options)
         if options.persons and q.person:
