@@ -110,11 +110,10 @@ git push
 - More info may be found at
   <https://wiki.eclipse.org/Development_Resources/Contributing_via_Git>
 
-### How do I contribute to the wiki?
+### How do I contribute to the documentation?
 
-- Alternatively: Send an email stating your preferred user name to
-  sumo@dlr.de
-- wait for our mail telling you that you have edit-permissions
+The documentation is part of the code repository so the same rules as in the previous question apply. 
+If you just want to have a simple typo fixed you can always drop us a line at sumo@dlr.de or at sumo-dev@eclipse.org.
 
 ### How do I cite SUMO
 
@@ -126,7 +125,7 @@ git push
 
 ### How do I unsubscribe from the mailing list?
 
-Go to <https://lists.sourceforge.net/lists/listinfo/sumo-user>. At the
+Go to <https://www.eclipse.org/mailman/listinfo/sumo-user>. At the
 bottom of the page you will find a form that allows you to enter your
 email address to unsubscribe it from the list.
 
