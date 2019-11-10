@@ -32,15 +32,11 @@ path. This is typically done with a stanza like this:
  import sumolib
  # parse the net
  net = sumolib.net.readNet('myNet.net.xml')
-```
 
-```
- # retrieve the coordinate of a node based on its ID
+# retrieve the coordinate of a node based on its ID
  print net.getNode('myNodeID').getCoord()
-```
 
-```
- # retrieve the successor node ID of an edge
+# retrieve the successor node ID of an edge
  nextNodeID = net.getEdge('myEdgeID').getToNode().getID()
 ```
 
@@ -93,22 +89,16 @@ path. This is typically done with a stanza like this:
 
 ```
  net = sumolib.net.readNet('myNet.net.xml')
-```
 
-```
- # network coordinates (lower left network corner is at x=0, y=0)
+# network coordinates (lower left network corner is at x=0, y=0)
  x, y = net.convertLonLat2XY(lon, lat)
  lon, lat = net.convertXY2LonLat(x, y)
-```
 
-```
- # raw UTM coordinates
+# raw UTM coordinates
  x, y = net.convertLonLat2XY(lon, lat, True)
  lon, lat = net.convertXY2LonLat(x, y, True)
-```
 
-```
- # lane/offset coordinates
+# lane/offset coordinates
  x,y = sumolib.geomhelper.positionAtShapeOffset(net.getLane(laneID).getShape(), lanePos)
  lane = net.getNeighboringLanes .... (see above)
  lanePos, dist = sumolib.geomhelper.polygonOffsetAndDistanceToPoint((x,y), lane.getShape())
