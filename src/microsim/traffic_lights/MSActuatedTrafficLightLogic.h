@@ -50,10 +50,6 @@ class NLDetectorBuilder;
  */
 class MSActuatedTrafficLightLogic : public MSSimpleTrafficLightLogic {
 public:
-    /// @brief Definition of a map from phases to induct loops controlling them
-    typedef std::vector<std::vector<MSInductLoop*> > InductLoopMap;
-
-public:
     /** @brief Constructor
      * @param[in] tlcontrol The tls control responsible for this tls
      * @param[in] id This tls' id
@@ -100,6 +96,15 @@ public:
     void setShowDetectors(bool show);
 
 protected:
+    struct InductLoopInfo {
+        InductLoopInfo(MSInductLoop* _loop): loop(_loop) {}
+        MSInductLoop* loop;
+        SUMOTime lastGreenTime = 0;
+    };
+
+    /// @brief Definition of a map from phases to induct loops controlling them
+    typedef std::vector<std::vector<InductLoopInfo*> > InductLoopMap;
+
     /// @name "actuated" algorithm methods
     /// @{
 
@@ -121,11 +126,23 @@ protected:
     bool hasMajor(const std::string& state, const LaneVector& lanes) const;
     /// @}
 
+    /// @brief select am candidate phases based on detector states
+    int decideNextPhase();
+
+    int getDetectorPriority(const InductLoopInfo& loopInfo) const;
+
+    /// @brief count the number of active detectors for the given step
+    int getPhasePriority(int step) const;
+
+    /// @brief get the green phase following step
+    int getTarget(int step);
 
 protected:
-    /// A map from phase to induction loops to be used for gap control
+    /// @brief A map from phase to induction loops to be used for gap control
     InductLoopMap myInductLoopsForPhase;
-    std::vector<MSInductLoop*> myInductLoops;
+
+    std::vector<InductLoopInfo> myInductLoops;
+
 
     /// The maximum gap to check in seconds
     double myMaxGap;
@@ -135,6 +152,9 @@ protected:
 
     /// The detector distance in seconds
     double myDetectorGap;
+
+    /// The time threshold to avoid starved phases
+    SUMOTime myInactiveThreshold;
 
     /// Whether the detectors shall be shown in the GUI
     bool myShowDetectors;
