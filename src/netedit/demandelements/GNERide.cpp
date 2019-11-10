@@ -45,9 +45,9 @@ GNERide::GNERide(GNEViewNet* viewNet, GNEDemandElement* personParent, GNEEdge* f
     GNEDemandElement(viewNet->getNet()->generateDemandElementID("", SUMO_TAG_RIDE_FROMTO), viewNet, GLO_RIDE, SUMO_TAG_RIDE_FROMTO, 
         {}, {}, {}, {}, {personParent}, {}, {}, {}, {}, {}),
     Parameterised(),
-    myArrivalPosition(arrivalPosition),
     myFromEdge(fromEdge),
     myToEdge(toEdge),
+    myArrivalPosition(arrivalPosition),
     myLines(lines) {
     // compute ride without referencing edges
     computeWithoutReferences();
@@ -58,9 +58,9 @@ GNERide::GNERide(GNEViewNet* viewNet, GNEDemandElement* personParent, GNEEdge* f
     GNEDemandElement(viewNet->getNet()->generateDemandElementID("", SUMO_TAG_RIDE_BUSSTOP), viewNet, GLO_RIDE, SUMO_TAG_RIDE_BUSSTOP, 
         {}, {}, {}, {busStop}, {personParent}, {}, {}, {}, {}, {}),
     Parameterised(),
-    myArrivalPosition(-1),
     myFromEdge(fromEdge),
     myToEdge(nullptr),
+    myArrivalPosition(-1),
     myLines(lines) {
     // compute ride without referencing edges
     computeWithoutReferences();

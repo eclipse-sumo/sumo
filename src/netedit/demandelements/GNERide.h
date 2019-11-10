@@ -210,9 +210,6 @@ protected:
     /// @brief variable for move rides
     DemandElementMove myRideMove;
     
-    /// @brief valid line or vehicle ids or ANY
-    std::vector<std::string> myLines;
-
     /// @brief from edge (used by rideFromTo)
     GNEEdge* myFromEdge;
 
@@ -224,6 +221,9 @@ protected:
 
     /// @brief arrival position
     double myArrivalPosition;
+
+    /// @brief valid line or vehicle ids or ANY
+    std::vector<std::string> myLines;
 
 private:
     /// @brief method for setting the attribute and nothing else

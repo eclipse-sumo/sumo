@@ -47,9 +47,9 @@ GNEPersonTrip::GNEPersonTrip(GNEViewNet* viewNet, GNEDemandElement* personParent
     GNEDemandElement(viewNet->getNet()->generateDemandElementID("", SUMO_TAG_PERSONTRIP_FROMTO), viewNet, GLO_PERSONTRIP, SUMO_TAG_PERSONTRIP_FROMTO, 
         {}, {}, {}, {}, {personParent}, {}, {}, {}, {}, {}),
     Parameterised(),
-    myArrivalPosition(arrivalPosition),
     myFromEdge(fromEdge),
     myToEdge(toEdge),
+    myArrivalPosition(arrivalPosition),
     myVTypes(types),
     myModes(modes) {
     // compute person trip without referencing edges
@@ -62,9 +62,9 @@ GNEPersonTrip::GNEPersonTrip(GNEViewNet* viewNet, GNEDemandElement* personParent
     GNEDemandElement(viewNet->getNet()->generateDemandElementID("", SUMO_TAG_PERSONTRIP_BUSSTOP), viewNet, GLO_PERSONTRIP, SUMO_TAG_PERSONTRIP_BUSSTOP, 
         {}, {}, {}, {busStop}, {personParent}, {}, {}, {}, {}, {}),
     Parameterised(),
-    myArrivalPosition(-1),
     myFromEdge(fromEdge),
     myToEdge(nullptr),
+    myArrivalPosition(-1),
     myVTypes(types),
     myModes(modes) {
     // compute person trip without referencing edges

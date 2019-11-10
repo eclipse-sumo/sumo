@@ -555,7 +555,7 @@ GNEEdge::drawGL(const GUIVisualizationSettings& s) const {
             // Start drawing adding an gl identificator
             glPushName(i->getGlID());
             // draw partial trip only if is being inspected or selected (and we aren't in draw for selecting mode)
-            if (!s.drawForSelecting && (myNet->getViewNet()->getDottedAC() == i) || i->isAttributeCarrierSelected()) {
+            if (!s.drawForSelecting && (myNet->getViewNet()->getDottedAC() == i || i->isAttributeCarrierSelected())) {
                 drawPartialTripFromTo(s, i, nullptr);
             }
             // only draw trip in the first edge
@@ -569,7 +569,7 @@ GNEEdge::drawGL(const GUIVisualizationSettings& s) const {
             // Start drawing adding an gl identificator
             glPushName(i->getGlID());
             // draw partial trip only if is being inspected or selected (and we aren't in draw for selecting mode)
-            if (!s.drawForSelecting && (myNet->getViewNet()->getDottedAC() == i) || i->isAttributeCarrierSelected()) {
+            if (!s.drawForSelecting && (myNet->getViewNet()->getDottedAC() == i || i->isAttributeCarrierSelected())) {
                 drawPartialTripFromTo(s, i, nullptr);
             }
             // only draw flow in the first edge

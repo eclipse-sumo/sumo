@@ -45,9 +45,9 @@ GNEWalk::GNEWalk(GNEViewNet* viewNet, GNEDemandElement* personParent, const std:
     GNEDemandElement(viewNet->getNet()->generateDemandElementID("", SUMO_TAG_WALK_EDGES), viewNet, GLO_WALK, SUMO_TAG_WALK_EDGES, 
         {edges}, {}, {}, {}, {personParent}, {}, {}, {}, {}, {}),
     Parameterised(),
-    myArrivalPosition(arrivalPosition),
     myFromEdge(nullptr),
-    myToEdge(nullptr) {
+    myToEdge(nullptr),
+    myArrivalPosition(arrivalPosition) {
     // compute walk without referencing edges
     computeWithoutReferences();
 }
@@ -57,9 +57,9 @@ GNEWalk::GNEWalk(GNEViewNet* viewNet, GNEDemandElement* personParent, GNEEdge* f
     GNEDemandElement(viewNet->getNet()->generateDemandElementID("", SUMO_TAG_WALK_FROMTO), viewNet, GLO_WALK, SUMO_TAG_WALK_FROMTO, 
         {}, {}, {}, {}, {personParent}, {}, {}, {}, {}, {}),
     Parameterised(),
-    myArrivalPosition(arrivalPosition),
     myFromEdge(fromEdge),
-    myToEdge(toEdge) {
+    myToEdge(toEdge),
+    myArrivalPosition(arrivalPosition) {
     // compute walk without referencing edges
     computeWithoutReferences();
 }
@@ -69,9 +69,9 @@ GNEWalk::GNEWalk(GNEViewNet* viewNet, GNEDemandElement* personParent, GNEEdge* f
     GNEDemandElement(viewNet->getNet()->generateDemandElementID("", SUMO_TAG_WALK_BUSSTOP), viewNet, GLO_WALK, SUMO_TAG_WALK_BUSSTOP, 
         {}, {}, {}, {busStop}, {personParent}, {}, {}, {}, {}, {}),
     Parameterised(),
-    myArrivalPosition(-1),
     myFromEdge(fromEdge),
-    myToEdge(nullptr) {
+    myToEdge(nullptr),
+    myArrivalPosition(-1) {
     // compute walk without referencing edges
     computeWithoutReferences();
 }
@@ -81,9 +81,9 @@ GNEWalk::GNEWalk(GNEViewNet* viewNet, GNEDemandElement* personParent, GNEDemandE
     GNEDemandElement(viewNet->getNet()->generateDemandElementID("", SUMO_TAG_WALK_ROUTE), viewNet, GLO_WALK, SUMO_TAG_WALK_ROUTE,
         {}, {}, {}, {}, {personParent, routeParent}, {}, {}, {}, {}, {}),
     Parameterised(),
-    myArrivalPosition(arrivalPosition),
     myFromEdge(nullptr),
-    myToEdge(nullptr) {
+    myToEdge(nullptr),
+    myArrivalPosition(arrivalPosition) {
     // compute walk without referencing edges
     computeWithoutReferences();
 }
