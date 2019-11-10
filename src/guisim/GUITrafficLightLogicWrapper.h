@@ -112,6 +112,15 @@ public:
         return myTLLogic;
     }
 
+    MSTrafficLightLogic* getActiveTLLogic() const;
+
+    int getCurrentPhase() const;
+    std::string getCurrentPhaseName() const;
+    int getCurrentDuration() const;
+    int getCurrentMinDur() const;
+    int getCurrentMaxDur() const;
+    int getRunningDuration() const;
+
 public:
     /**
      * @class GUITrafficLightLogicWrapperPopupMenu
