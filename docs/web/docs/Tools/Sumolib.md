@@ -6,8 +6,8 @@ permalink: /Tools/Sumolib/
 **sumolib** is a set of python modules for working with sumo networks,
 simulation output and other simulation artifacts. For a detailed list of
 available functions see the [pydoc generated
-documentation](http://sumo.dlr.de/daily/pydoc/sumolib.html). You can
-[browse the code here](https://github.com/DLR-TS/sumo/tree/master/tools/sumolib).
+documentation](http://sumo.dlr.de/pydoc/sumolib.html). You can
+[browse the code here](https://github.com/eclipse/sumo/tree/master/tools/sumolib).
 
 # importing **sumolib** in a script
 
