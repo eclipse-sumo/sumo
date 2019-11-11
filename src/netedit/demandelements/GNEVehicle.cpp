@@ -551,24 +551,17 @@ GNEVehicle::updateGeometry() {
     // first check if geometry is deprecated
     if (myDemandElementSegmentGeometry.geometryDeprecated) {
         // declare two pointers for depart and arrival pos lanes
-        double* departPosLane = nullptr;
-        double* arrivalPosLane = nullptr;
+        double departPosLane = -1;
+        double arrivalPosLane = -1;
         // check if depart and arrival pos lanes are defiend
         if (departPosProcedure == DEPART_POS_GIVEN) {
-            departPosLane = new double(departPos);
+            departPosLane = departPos;
         }
         if (arrivalPosProcedure == ARRIVAL_POS_GIVEN) {
-            arrivalPosLane = new double(arrivalPos);
+            arrivalPosLane = arrivalPos;
         }
         // calculate geometry path
-        calculateGeometricPath(departPosLane, arrivalPosLane, nullptr, nullptr);
-        // delete positions 
-        if (departPosLane) {
-            delete departPosLane;
-        }
-        if (arrivalPosLane) {
-            delete arrivalPosLane;
-        }
+        calculateGeometricPath(departPosLane, arrivalPosLane);
         // update demand element childrens
         for (const auto& i : getDemandElementChildren()) {
             i->updateGeometry();

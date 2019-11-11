@@ -583,7 +583,7 @@ GNEDemandElement::changeDemandElementID(const std::string& newID) {
 
 
 void 
-GNEDemandElement::calculateGeometricPath(double *startPos, double *endPos, GNEAdditional *startAdditional, GNEAdditional* endAdditional) {
+GNEDemandElement::calculateGeometricPath(double startPos, double endPos) {
     // clear geometry
     myDemandElementSegmentGeometry.clearDemandElementSegmentGeometry();
     // first check that there is edge parents
@@ -599,7 +599,7 @@ GNEDemandElement::calculateGeometricPath(double *startPos, double *endPos, GNEAd
             // filter start and end pos
             adjustStartPosGeometricPath(startPos, singleLane, endPos, singleLane);
             // set geometry depending of start and end positions
-            if ((startPos == nullptr) && (endPos == nullptr)) {
+            if ((startPos == -1) && (endPos == -1)) {
                 // add lane geometry
                 for (int i = 0; i < ((int)singleLane->getLaneShape().size() - 1); i++) {
                     myDemandElementSegmentGeometry.insertPartialEdgeSegment(this, getEdgeParents().at(0),
@@ -617,13 +617,13 @@ GNEDemandElement::calculateGeometricPath(double *startPos, double *endPos, GNEAd
                 if (subLane.shape.length() > (2*POSITION_EPS)) {
                     if (startPos && endPos) {
                         // split lane
-                        subLane.shape = subLane.shape.getSubpart(*startPos, *endPos);
+                        subLane.shape = subLane.shape.getSubpart(startPos, endPos);
                     } else if (startPos) {
                         // split lane
-                        subLane.shape = subLane.shape.splitAt(*startPos).second;
+                        subLane.shape = subLane.shape.splitAt(startPos).second;
                     } else if (endPos) {
                         // split lane
-                        subLane.shape = subLane.shape.splitAt(*endPos).first;
+                        subLane.shape = subLane.shape.splitAt(endPos).first;
                     }
                 }
                 // calculate shape rotations and lenghts
@@ -664,18 +664,18 @@ GNEDemandElement::calculateGeometricPath(double *startPos, double *endPos, GNEAd
             // iterate over obtained lanes
             for (int i = 0; i < (int)lanes.size(); i++) {
                 // get lane (only for code readability)
-                const GNELane* const lane = lanes.at(i);
+                const GNELane* lane = lanes.at(i);
                 // check if first or last lane must be splitted
-                if ((lane == lanes.front()) && startPos) {
+                if ((lane == lanes.front()) && (startPos != -1)) {
                     // filter start position
-                    adjustStartPosGeometricPath(startPos, lane, nullptr, nullptr);
+                    adjustStartPosGeometricPath(startPos, lane, endPos, nullptr);
                     // declare a Net Element Geometry
                     GNENetElement::NetElementGeometry subLane;
                     // set shape lane
                     subLane.shape = lane->getLaneShape();
                     // split lane
                     if (lane->getLaneShape().length() > (2*POSITION_EPS)) {
-                        subLane.shape = subLane.shape.splitAt(*startPos).second;
+                        subLane.shape = subLane.shape.splitAt(startPos).second;
                     }
                     // calculate shape rotations and lenghts
                     subLane.calculateShapeRotationsAndLengths();
@@ -688,16 +688,16 @@ GNEDemandElement::calculateGeometricPath(double *startPos, double *endPos, GNEAd
                     }
                     // close partial edge segment
                     myDemandElementSegmentGeometry.closePartialEdgeSegment();
-                } else if ((lane == lanes.back()) && endPos) {
+                } else if ((lane == lanes.back()) && (endPos != -1)) {
                     // filter end position
-                    adjustStartPosGeometricPath(nullptr, nullptr, endPos, lane);
+                    adjustStartPosGeometricPath(startPos, nullptr, endPos, lane);
                     // declare a Net Element Geometry
                     GNENetElement::NetElementGeometry subLane;
                     // set shape lane
                     subLane.shape = lane->getLaneShape();
                     // split lane
                     if (lane->getLaneShape().length() > (2*POSITION_EPS)) {
-                        subLane.shape = subLane.shape.splitAt(*endPos).first;
+                        subLane.shape = subLane.shape.splitAt(endPos).first;
                     }
                     // calculate shape rotations and lenghts
                     subLane.calculateShapeRotationsAndLengths();
@@ -799,29 +799,29 @@ GNEDemandElement::getLastVehicleLane() const {
 
 
 void 
-GNEDemandElement::adjustStartPosGeometricPath(double *startPos, const GNELane* startLane, double *endPos, const GNELane* endLane) const {
+GNEDemandElement::adjustStartPosGeometricPath(double &startPos, const GNELane* startLane, double &endPos, const GNELane* endLane) const {
     // adjust startPos
-    if (startPos && startLane) {
-        if ((*startPos) < (2 * POSITION_EPS)) {
-            (*startPos) = (2 * POSITION_EPS);
+    if ((startPos != -1) && startLane) {
+        if (startPos < (2 * POSITION_EPS)) {
+            startPos = (2 * POSITION_EPS);
         }
-        if ((*startPos) > (startLane->getLaneShape().length() - (2 * POSITION_EPS))) {
-            (*startPos) = (startLane->getLaneShape().length() - (2 * POSITION_EPS));
+        if (startPos > (startLane->getLaneShape().length() - (2 * POSITION_EPS))) {
+            startPos = (startLane->getLaneShape().length() - (2 * POSITION_EPS));
         }
     }
     // adjust endPos
-    if (endPos && endLane) {
-        if ((*endPos) < (2 * POSITION_EPS)) {
-            (*endPos) = (2 * POSITION_EPS);
+    if ((endPos != -1) && endLane) {
+        if (endPos < (2 * POSITION_EPS)) {
+            endPos = (2 * POSITION_EPS);
         }
-        if ((*endPos) > (endLane->getLaneShape().length() - (2 * POSITION_EPS))) {
-            (*endPos) = (endLane->getLaneShape().length() - (2 * POSITION_EPS));
+        if (endPos > (endLane->getLaneShape().length() - (2 * POSITION_EPS))) {
+            endPos = (endLane->getLaneShape().length() - (2 * POSITION_EPS));
         }
     }
     // adjust both, if start and end lane are the same
-    if (startLane && endLane && (startLane == endLane) && startPos && endPos) {
-        if ((*startPos) < (*endPos)) {
-            (*endPos) = (*startPos);
+    if (startLane && endLane && (startLane == endLane) && (startPos != -1) && (endPos != -1)) {
+        if (startPos < endPos) {
+            endPos = startPos;
         }
     }
 }

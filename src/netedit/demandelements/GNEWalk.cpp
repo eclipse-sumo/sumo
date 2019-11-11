@@ -337,8 +337,8 @@ GNEWalk::updateGeometry() {
     // first check if geometry is deprecated
     if (myDemandElementSegmentGeometry.geometryDeprecated) {
         // declare two pointers for depart and arrival pos lanes
-        double* departPosLane = new double(0);  // temporal
-        double* arrivalPosLane = new double(myArrivalPosition);
+        double departPosLane = -1;
+        double arrivalPosLane = -1;
         GNEAdditional* previousBusStop = nullptr;
         GNEAdditional* busStop = getAdditionalParents().size() > 0? getAdditionalParents().front() : nullptr;
         // obtain departlane throught previous element
@@ -351,10 +351,7 @@ GNEWalk::updateGeometry() {
             }
         }
         // calculate geometry path
-        calculateGeometricPath(departPosLane, arrivalPosLane, previousBusStop, busStop);
-        // delete positions 
-        delete departPosLane;
-        delete arrivalPosLane;
+        calculateGeometricPath(departPosLane, arrivalPosLane);
         // update demand element childrens
         for (const auto& i : getDemandElementChildren()) {
             i->updateGeometry();
