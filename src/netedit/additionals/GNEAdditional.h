@@ -158,16 +158,6 @@ public:
     /// @brief set special color
     void setSpecialColor(const RGBColor* color);
 
-    /**@brief get start position over lane
-     * @return start position over lane (if exist.if not, return -1)
-     */
-    const double getStartPositionOverLane() const;
-
-    /**@brief get end position over lane
-     * @return end position over lane (if exist.if not, return -1)
-     */
-    const double getEndPositionOverLane() const;
-
     /// @name members and functions relative to write additionals into XML
     /// @{
     /**@brief writte additional element into a xml file

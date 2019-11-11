@@ -316,20 +316,11 @@ void
 GNEPersonTrip::updateGeometry() {
     // first check if geometry is deprecated
     if (myDemandElementSegmentGeometry.geometryDeprecated) {
-        // declare two pointers for depart and arrival pos lanes
+        // declare depart and arrival pos lane
         double departPosLane = -1;
         double arrivalPosLane = -1;
-        GNEAdditional* previousBusStop = nullptr;
-        GNEAdditional* busStop = getAdditionalParents().size() > 0? getAdditionalParents().front() : nullptr;
-        // obtain departlane throught previous element
-        GNEDemandElement *previousPersonPlan = getDemandElementParents().at(0)->getPreviousemandElement(this);
-        if (previousPersonPlan) {
-            if ((previousPersonPlan->getTagProperty().getTag() == SUMO_TAG_WALK_BUSSTOP) && 
-                (previousPersonPlan->getTagProperty().getTag() == SUMO_TAG_RIDE_BUSSTOP) && 
-                (previousPersonPlan->getTagProperty().getTag() == SUMO_TAG_PERSONTRIP_BUSSTOP)) {
-            previousBusStop = previousPersonPlan->getAdditionalParents().front();
-            }
-        }
+        // calculate person plan start and end positions
+        calculatePersonPlanStartEndPos(departPosLane, arrivalPosLane);
         // calculate geometry path
         calculateGeometricPath(departPosLane, arrivalPosLane);
         // update demand element childrens

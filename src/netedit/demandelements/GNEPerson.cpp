@@ -519,7 +519,7 @@ GNEPerson::getPositionInView() const {
         } else {
             // obtain lane (special case for rides)
             SUMOVehicleClass vClassEdgeFrom = getDemandElementChildren().front()->getTagProperty().isRide() ? SVC_PASSENGER : SVC_PEDESTRIAN;
-            GNELane* lane = getDemandElementChildren().at(0)->getEdgeParents().at(0)->getLaneByVClass(vClassEdgeFrom);
+            GNELane* lane = getDemandElementChildren().at(0)->getEdgeParents().at(0)->getLaneByAllowedVClass(vClassEdgeFrom);
             // return position in view depending of lane
             if (lane->getLaneShape().length() < 2.5) {
                 return lane->getLaneShape().front();
@@ -1066,10 +1066,10 @@ void
 GNEPerson::calculateSmoothPersonPlanConnection(const GNEDemandElement* personPlanElement, const GNEEdge* edgeFrom, const GNEEdge* edgeTo) {
     // obtain lane from (special case due rides)
     SUMOVehicleClass vClassEdgeFrom = personPlanElement->getTagProperty().isRide() ? SVC_PASSENGER : SVC_PEDESTRIAN;
-    GNELane* laneFrom = edgeFrom->getLaneByVClass(vClassEdgeFrom);
+    GNELane* laneFrom = edgeFrom->getLaneByAllowedVClass(vClassEdgeFrom);
     // obtain lane to (special case due rides)
     SUMOVehicleClass vClassEdgeTo = personPlanElement->getTagProperty().isRide() ? SVC_PASSENGER : SVC_PEDESTRIAN;
-    GNELane* laneTo = edgeTo->getLaneByVClass(vClassEdgeTo);
+    GNELane* laneTo = edgeTo->getLaneByAllowedVClass(vClassEdgeTo);
     // calculate smooth shape
     PositionVector smoothShape = edgeFrom->getNBEdge()->getToNode()->computeSmoothShape(
                                      laneFrom->getLaneShape(), laneTo->getLaneShape(),

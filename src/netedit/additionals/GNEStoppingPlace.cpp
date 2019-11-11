@@ -317,9 +317,17 @@ double
 GNEStoppingPlace::getAttributeDouble(SumoXMLAttr key) const {
     switch (key) {
         case SUMO_ATTR_STARTPOS:
-            return myStartPosition;
+            if (myParametersSet & STOPPINGPLACE_STARTPOS_SET) {
+                return myStartPosition;
+            } else {
+                return -1;
+            }
         case SUMO_ATTR_ENDPOS:
-            return myEndPosition;
+            if (myParametersSet & STOPPINGPLACE_ENDPOS_SET) {
+                return myEndPosition;
+            } else {
+                return -1;
+            }
         default:
             throw InvalidArgument(getTagStr() + " doesn't have a double attribute of type '" + toString(key) + "'");
     }

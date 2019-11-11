@@ -517,6 +517,9 @@ protected:
      */
     void calculateGeometricPath(double startPos, double endPos);
 
+    /// @brief calculate personPlan start and end positions of PersonPlans
+    void calculatePersonPlanStartEndPos(double &startPos, double &endPos) const;
+
     /// @brief get first vehicle lane
     GNELane* getFirstVehicleLane() const;
 

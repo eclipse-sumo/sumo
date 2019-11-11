@@ -296,12 +296,7 @@ public:
     PositionVector smoothShape(const PositionVector& shape, bool forElevation);
 
     /// @brief return the first lane that allow a vehicle of type vClass (or the first lane, if none was found)
-    GNELane* getLaneByVClass(const SUMOVehicleClass vClass) const;
-
-    /**@brief return the first lane that allow a vehicle of type vClass (or the first lane, if none was found)
-     * @note flag "found" will be changed depending if lane was found
-     */
-    GNELane* getLaneByVClass(const SUMOVehicleClass vClass, bool& found) const;
+    GNELane* getLaneByAllowedVClass(const SUMOVehicleClass vClass) const;
 
     /// @brief draw partial route
     void drawPartialRoute(const GUIVisualizationSettings& s, const GNEDemandElement* route, const GNEJunction* junction) const;

@@ -1152,7 +1152,7 @@ GNEEdge::setResponsible(bool newVal) {
 
 
 GNELane*
-GNEEdge::getLaneByVClass(const SUMOVehicleClass vClass) const {
+GNEEdge::getLaneByAllowedVClass(const SUMOVehicleClass vClass) const {
     // iterate over all NBEdge lanes
     for (int i = 0; i < (int)myNBEdge.getLanes().size(); i++) {
         // if given VClass is in permissions, return lane
@@ -1161,25 +1161,6 @@ GNEEdge::getLaneByVClass(const SUMOVehicleClass vClass) const {
             return myLanes.at(i);
         }
     }
-    // return first lane
-    return myLanes.front();
-}
-
-
-GNELane*
-GNEEdge::getLaneByVClass(const SUMOVehicleClass vClass, bool& found) const {
-    // iterate over all NBEdge lanes
-    for (int i = 0; i < (int)myNBEdge.getLanes().size(); i++) {
-        // if given VClass is in permissions, return lane
-        if (myNBEdge.getLanes().at(i).permissions & vClass) {
-            // change found flag to true
-            found = true;
-            // return GNELane
-            return myLanes.at(i);
-        }
-    }
-    // change found flag to false
-    found = false;
     // return first lane
     return myLanes.front();
 }
@@ -1400,9 +1381,9 @@ GNEEdge::drawPartialPersonPlan(const GUIVisualizationSettings& s, const GNEDeman
                 GNELane* arrivalPosLane = nullptr;
                 // obtain arrivalPosLane depending if pesonPlan is a walk over a route
                 if (personPlan->getTagProperty().getTag() == SUMO_TAG_WALK_ROUTE) {
-                    arrivalPosLane = personPlan->getDemandElementParents().at(1)->getEdgeParents().back()->getLaneByVClass(vClassPersonPlan);
+                    arrivalPosLane = personPlan->getDemandElementParents().at(1)->getEdgeParents().back()->getLaneByAllowedVClass(vClassPersonPlan);
                 } else {
-                    arrivalPosLane = personPlan->getEdgeParents().back()->getLaneByVClass(vClassPersonPlan);
+                    arrivalPosLane = personPlan->getEdgeParents().back()->getLaneByAllowedVClass(vClassPersonPlan);
                 }
                 // obtain position or ArrivalPos
                 Position pos = arrivalPosLane->getLaneShape().positionAtOffset2D(arrivalPos);

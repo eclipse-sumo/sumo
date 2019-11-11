@@ -652,7 +652,7 @@ GNEDemandElement::calculateGeometricPath(double startPos, double endPos) {
                     allowedLane = getLastVehicleLane();
                 } else {
                     // obtain first allowed lane
-                    allowedLane = (*edgeParent)->getLaneByVClass(getVClass());
+                    allowedLane = (*edgeParent)->getLaneByAllowedVClass(getVClass());
                 }
                 // if there isn't allowed lane, then use first lane
                 if (allowedLane == nullptr) {
@@ -738,6 +738,48 @@ GNEDemandElement::calculateGeometricPath(double startPos, double endPos) {
 }
 
 
+void 
+GNEDemandElement::calculatePersonPlanStartEndPos(double &startPos, double &endPos) const {
+    // obtain pointer to current busStop
+    GNEAdditional* busStop = getAdditionalParents().size() > 0? getAdditionalParents().front() : nullptr;
+    // declare pointers for previous elements
+    GNEAdditional* previousBusStop = nullptr;
+    GNEDemandElement *previousPersonPlan = getDemandElementParents().at(0)->getPreviousemandElement(this);
+    // declare pointer to next person plan
+    GNEDemandElement *nextPersonPlan = getDemandElementParents().at(0)->getNextDemandElement(this);
+    // obtain departlane throught previous element
+    if (previousPersonPlan && 
+        ((previousPersonPlan->getTagProperty().getTag() == SUMO_TAG_WALK_BUSSTOP) || 
+         (previousPersonPlan->getTagProperty().getTag() == SUMO_TAG_RIDE_BUSSTOP) || 
+         (previousPersonPlan->getTagProperty().getTag() == SUMO_TAG_PERSONTRIP_BUSSTOP))) {
+        // set previous busStop
+        previousBusStop = previousPersonPlan->getAdditionalParents().front();
+    }
+    // adjust startPos depending of previous busStop
+    if (previousBusStop) {
+        startPos = previousBusStop->getAttributeDouble(SUMO_ATTR_ENDPOS);
+    } else if (previousPersonPlan) {
+        // check if previous element is a stop or another person plan (walk, ride, trip...)
+        if (previousPersonPlan->getTagProperty().isPersonStop()) {
+            startPos = previousPersonPlan->getAttributeDouble(SUMO_ATTR_ENDPOS);
+        } else {
+            startPos = previousPersonPlan->getAttributeDouble(SUMO_ATTR_ARRIVALPOS);
+        }
+    }
+    // adjust endPos depending of next busStop
+    if (busStop) {
+        endPos = busStop->getAttributeDouble(SUMO_ATTR_STARTPOS);
+    } else if (nextPersonPlan) {
+        // check if next element is a stop or another person plan (walk, ride, trip...)
+        if (nextPersonPlan->getTagProperty().isPersonStop()) {
+            endPos = nextPersonPlan->getAttributeDouble(SUMO_ATTR_STARTPOS);
+        } else {
+            endPos = nextPersonPlan->getAttributeDouble(SUMO_ATTR_ARRIVALPOS);
+        }
+    }
+}
+
+
 GNELane* 
 GNEDemandElement::getFirstVehicleLane() const {
     // first check if current demand element has edge parents
@@ -748,7 +790,7 @@ GNEDemandElement::getFirstVehicleLane() const {
             std::string departLane = getAttribute(SUMO_ATTR_DEPARTLANE);
             //  check depart lane
             if ((departLane == "random") || (departLane == "free") ||(departLane == "allowed") ||(departLane == "best") || (departLane == "first")) {
-                return getEdgeParents().front()->getLaneByVClass(getVClass());
+                return getEdgeParents().front()->getLaneByAllowedVClass(getVClass());
             }
             // obtain index
             const int departLaneIndex = parse<int>(getAttribute(SUMO_ATTR_DEPARTLANE));
@@ -760,7 +802,7 @@ GNEDemandElement::getFirstVehicleLane() const {
             }
         } else {
             // in other case, always return the first allowed
-            return getEdgeParents().front()->getLaneByVClass(getVClass());
+            return getEdgeParents().front()->getLaneByAllowedVClass(getVClass());
         }
     } else {
         return nullptr;
@@ -778,7 +820,7 @@ GNEDemandElement::getLastVehicleLane() const {
             std::string arrivalLane = getAttribute(SUMO_ATTR_ARRIVALLANE);
             //  check depart lane
             if (arrivalLane == "current") {
-                return getEdgeParents().back()->getLaneByVClass(getVClass());;
+                return getEdgeParents().back()->getLaneByAllowedVClass(getVClass());
             }
             // obtain index
             const int arrivalLaneIndex = parse<int>(getAttribute(SUMO_ATTR_ARRIVALLANE));
@@ -790,7 +832,7 @@ GNEDemandElement::getLastVehicleLane() const {
             }
         } else {
             // in other case, always return the first allowed
-            return getEdgeParents().back()->getLaneByVClass(getVClass());
+            return getEdgeParents().back()->getLaneByAllowedVClass(getVClass());
         }
     } else {
         return nullptr;
