@@ -7,6 +7,9 @@ without_maxDecel_fast
 # maxDecel given -> no difference between low and high changeRate in simple situation with constant leader speed (results should match with_low_maxDecel_slow).
 with_low_maxDecel_fast
 
+# like with_low_maxDecel_fast just using CACC
+with_low_maxDecel_fast_CACC
+
 # maxDecel given -> no difference between low and high changeRate in simple situation with constant leader speed (results should match with_low_maxDecel_fast).
 with_low_maxDecel_slow
 
