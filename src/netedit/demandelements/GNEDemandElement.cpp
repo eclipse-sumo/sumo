@@ -176,11 +176,27 @@ GNEDemandElement::DemandElementSegmentGeometry::clearDemandElementSegmentGeometr
 
 void 
 GNEDemandElement::DemandElementSegmentGeometry::closePartialEdgeSegment() {
+    // first check that there are shape segments
     if (myShapeSegments.size() > 0) {
+        // check that all containers have exactly the same size (because shape must be +1 greather than lenghts and rotations)
         if ((myShapeSegments.back().shape.size() > 0) &&
             (myShapeSegments.back().shape.size() == myShapeSegments.back().shapeRotations.size()) &&
             (myShapeSegments.back().shape.size() == myShapeSegments.back().shapeLengths.size())) {
+            // duplicate last position
             myShapeSegments.back().shape.push_back(myShapeSegments.back().shape.back());
+        }
+    }
+}
+
+
+void
+GNEDemandElement::DemandElementSegmentGeometry::connectFirstPositions() {
+    // first check that there is two or more segments
+    if (myShapeSegments.size() > 1) {
+        // iterate over segments (starting in second)
+        for (auto i = myShapeSegments.begin(); i != myShapeSegments.end(); i++) {
+            // const auto &previousShapeS
+            ;
         }
     }
 }
@@ -600,15 +616,11 @@ GNEDemandElement::calculateGeometricPath(double startPos, double endPos) {
             adjustStartPosGeometricPath(startPos, singleLane, endPos, singleLane);
             // set geometry depending of start and end positions
             if ((startPos == -1) && (endPos == -1)) {
-                // add lane geometry
-                for (int i = 0; i < ((int)singleLane->getLaneShape().size() - 1); i++) {
-                    myDemandElementSegmentGeometry.insertPartialEdgeSegment(this, getEdgeParents().at(0),
-                        singleLane->getLaneShape()[i], 
-                        singleLane->getShapeRotations()[i], 
-                        singleLane->getShapeLengths()[i], true, true);
-                }
-                // close partial edge segment
-                myDemandElementSegmentGeometry.closePartialEdgeSegment();
+                // add entire lane geometry geometry
+                myDemandElementSegmentGeometry.insertEdgeSegment(this, getEdgeParents().at(0),
+                    singleLane->getLaneShape(), 
+                    singleLane->getShapeRotations(), 
+                    singleLane->getShapeLengths(), true, true);
             } else {
                 // declare a Net Element Geometry
                 GNENetElement::NetElementGeometry subLane;
@@ -714,13 +726,11 @@ GNEDemandElement::calculateGeometricPath(double startPos, double endPos) {
                     // close partial edge segment
                     myDemandElementSegmentGeometry.closePartialEdgeSegment();
                 } else {
-                    // add lane geometry
-                    for (int j = 0; j < ((int)lane->getLaneShape().size() - 1); j++) {
-                        myDemandElementSegmentGeometry.insertEdgeSegment(this, &lane->getParentEdge(),
-                            lane->getLaneShape(), 
-                            lane->getShapeRotations(), 
-                            lane->getShapeLengths(), true, true);
-                    }
+                    // add entire lane geometry
+                    myDemandElementSegmentGeometry.insertEdgeSegment(this, &lane->getParentEdge(),
+                        lane->getLaneShape(), 
+                        lane->getShapeRotations(), 
+                        lane->getShapeLengths(), true, true);
                 }
                 // now continue with connection
                 if ((i+1) < (int)lanes.size()) {
@@ -737,6 +747,8 @@ GNEDemandElement::calculateGeometricPath(double startPos, double endPos) {
                 }
             }
         }
+        // connect all segments
+        myDemandElementSegmentGeometry.connectFirstPositions();
     }
 }
 
@@ -751,10 +763,7 @@ GNEDemandElement::calculatePersonPlanStartEndPos(double &startPos, double &endPo
     // declare pointer to next person plan
     GNEDemandElement *nextPersonPlan = getDemandElementParents().at(0)->getNextDemandElement(this);
     // obtain departlane throught previous element
-    if (previousPersonPlan && 
-        ((previousPersonPlan->getTagProperty().getTag() == SUMO_TAG_WALK_BUSSTOP) || 
-         (previousPersonPlan->getTagProperty().getTag() == SUMO_TAG_RIDE_BUSSTOP) || 
-         (previousPersonPlan->getTagProperty().getTag() == SUMO_TAG_PERSONTRIP_BUSSTOP))) {
+    if (previousPersonPlan && (previousPersonPlan->getAdditionalParents().size() > 0)) {
         // set previous busStop
         previousBusStop = previousPersonPlan->getAdditionalParents().front();
     }

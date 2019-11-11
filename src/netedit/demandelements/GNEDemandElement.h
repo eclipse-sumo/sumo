@@ -148,6 +148,9 @@ public:
         /// @brief clear demand element geometry
         void clearDemandElementSegmentGeometry();
 
+        /// @brief connect first positions with the last segment
+        void connectFirstPositions();
+
         /// @brief get first position
         const Position &getFirstPosition() const;
 
