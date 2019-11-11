@@ -4,6 +4,9 @@ output
 # Test whether parameter values specified in xml are parsed correctly
 spec
 
+# Test whether parameter values can be specified in the sumocfg
+spec_cfg
+
 # Test whether manual and automated type can be vehType distributions
 spec_vTypeDist
 
