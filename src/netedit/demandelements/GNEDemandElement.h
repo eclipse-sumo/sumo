@@ -520,11 +520,11 @@ protected:
     /// @brief calculate personPlan start and end positions of PersonPlans
     void calculatePersonPlanStartEndPos(double &startPos, double &endPos) const;
 
-    /// @brief get first vehicle lane
-    GNELane* getFirstVehicleLane() const;
+    /// @brief get first allowed vehicle lane
+    GNELane* getFirstAllowedVehicleLane() const;
 
-    /// @brief get first vehicle lane
-    GNELane* getLastVehicleLane() const;
+    /// @brief get first allowed vehicle lane
+    GNELane* getLastAllowedVehicleLane() const;
 
 private:
     /// @brief adjust start and end positions in geometric path

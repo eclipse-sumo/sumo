@@ -1166,6 +1166,21 @@ GNEEdge::getLaneByAllowedVClass(const SUMOVehicleClass vClass) const {
 }
 
 
+GNELane*
+GNEEdge::getLaneByDisallowedVClass(const SUMOVehicleClass vClass) const {
+    // iterate over all NBEdge lanes
+    for (int i = 0; i < (int)myNBEdge.getLanes().size(); i++) {
+        // if given VClass isn't in permissions, return lane
+        if (~(myNBEdge.getLanes().at(i).permissions) & vClass) {
+            // return GNELane
+            return myLanes.at(i);
+        }
+    }
+    // return first lane
+    return myLanes.front();
+}
+
+
 void
 GNEEdge::drawPartialRoute(const GUIVisualizationSettings& s, const GNEDemandElement* route, const GNEJunction* junction) const {
     // calculate route width

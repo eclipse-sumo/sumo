@@ -562,12 +562,12 @@ GNEVehicle::updateGeometry() {
         }
         // calculate geometry path
         calculateGeometricPath(departPosLane, arrivalPosLane);
-        // update demand element childrens
-        for (const auto& i : getDemandElementChildren()) {
-            i->updateGeometry();
-        }
         // set geometry as non-deprecated
         myDemandElementSegmentGeometry.geometryDeprecated = false;
+    }
+    // update demand element childrens
+    for (const auto& i : getDemandElementChildren()) {
+        i->updateGeometry();
     }
 }
 

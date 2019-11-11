@@ -591,7 +591,7 @@ GNEDemandElement::calculateGeometricPath(double startPos, double endPos) {
         // calculate depending if both from and to edges are the same
         if (getEdgeParents().size() == 1) {
             // obtain first (and single) Lane
-            GNELane* singleLane = getFirstVehicleLane();
+            GNELane* singleLane = getFirstAllowedVehicleLane();
             // if obtained lane is null, then force to use first lane
             if (singleLane == nullptr) {
                 singleLane = getEdgeParents().front()->getLanes().front();
@@ -647,9 +647,12 @@ GNEDemandElement::calculateGeometricPath(double startPos, double endPos) {
             for (auto edgeParent = getEdgeParents().begin(); edgeParent != getEdgeParents().end(); edgeParent++) {
                 GNELane* allowedLane = nullptr;
                 if (edgeParent == getEdgeParents().begin()) {
-                    allowedLane = getFirstVehicleLane();
-                } else if (edgeParent == getEdgeParents().begin()) {
-                    allowedLane = getLastVehicleLane();
+                    allowedLane = getFirstAllowedVehicleLane();
+                } else if (edgeParent == (getEdgeParents().end() - 1)) {
+                    allowedLane = getLastAllowedVehicleLane();
+                } else if (myTagProperty.isRide()) {
+                    // obtain first disallowed lane (special case for rides)
+                    allowedLane = (*edgeParent)->getLaneByDisallowedVClass(getVClass());
                 } else {
                     // obtain first allowed lane
                     allowedLane = (*edgeParent)->getLaneByAllowedVClass(getVClass());
@@ -774,14 +777,14 @@ GNEDemandElement::calculatePersonPlanStartEndPos(double &startPos, double &endPo
         if (nextPersonPlan->getTagProperty().isPersonStop()) {
             endPos = nextPersonPlan->getAttributeDouble(SUMO_ATTR_STARTPOS);
         } else {
-            endPos = nextPersonPlan->getAttributeDouble(SUMO_ATTR_ARRIVALPOS);
+            endPos = getAttributeDouble(SUMO_ATTR_ARRIVALPOS);
         }
     }
 }
 
 
 GNELane* 
-GNEDemandElement::getFirstVehicleLane() const {
+GNEDemandElement::getFirstAllowedVehicleLane() const {
     // first check if current demand element has edge parents
     if (getEdgeParents().size() > 0) {
         // obtain Lane depending of attribute "departLane"
@@ -800,6 +803,9 @@ GNEDemandElement::getFirstVehicleLane() const {
             } else {
                 return nullptr;
             }
+        } else if (myTagProperty.isRide()) {
+            // special case for rides
+            return getEdgeParents().front()->getLaneByDisallowedVClass(getVClass());
         } else {
             // in other case, always return the first allowed
             return getEdgeParents().front()->getLaneByAllowedVClass(getVClass());
@@ -811,7 +817,7 @@ GNEDemandElement::getFirstVehicleLane() const {
 
 
 GNELane* 
-GNEDemandElement::getLastVehicleLane() const {
+GNEDemandElement::getLastAllowedVehicleLane() const {
     // first check if current demand element has edge parents
     if (getEdgeParents().size() > 0) {
         // obtain Lane depending of attribute "arrivalLane"
@@ -830,6 +836,9 @@ GNEDemandElement::getLastVehicleLane() const {
             } else {
                 return nullptr;
             }
+        } else if (myTagProperty.isRide()) {
+            // special case for rides
+            return getEdgeParents().back()->getLaneByDisallowedVClass(getVClass());
         } else {
             // in other case, always return the first allowed
             return getEdgeParents().back()->getLaneByAllowedVClass(getVClass());
