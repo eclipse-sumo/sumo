@@ -224,8 +224,8 @@ MSDevice_ToC::getOpenGapParams(const SUMOVehicle& v, const OptionsCont& oc) {
     double spacing = getFloatParam(v, oc, "toc.ogNewSpaceHeadway", -1.0, false);
     double changeRate = getFloatParam(v, oc, "toc.ogChangeRate", -1.0, false);
     double maxDecel = getFloatParam(v, oc, "toc.ogMaxDecel", -1.0, false);
-
     bool specifiedAny = false;
+
     if (changeRate == -1.0) {
         changeRate = DEFAULT_OPENGAP_CHANGERATE;
     } else {
@@ -237,7 +237,7 @@ MSDevice_ToC::getOpenGapParams(const SUMOVehicle& v, const OptionsCont& oc) {
         specifiedAny = true;
     }
     if (specifiedAny && timegap == -1 && spacing == -1) {
-        WRITE_ERROR("If any openGap parameters for the ToC model are specified, then at least one of ogTimeGap and ogSpacing must be defined.")
+        WRITE_ERROR("If any openGap parameters for the ToC model are specified, then at least one of toc.ogNewTimeHeadway and toc.ogNewSpaceHeadway must be defined.")
     }
     if (timegap == -1) {
         timegap = DEFAULT_OPENGAP_TIMEGAP;
@@ -249,8 +249,6 @@ MSDevice_ToC::getOpenGapParams(const SUMOVehicle& v, const OptionsCont& oc) {
     } else {
         specifiedAny = true;
     }
-
-
 #ifdef DEBUG_TOC
     std::cout << "Parsed openGapParams: \n"
               << "  timegap=" << timegap
@@ -259,7 +257,6 @@ MSDevice_ToC::getOpenGapParams(const SUMOVehicle& v, const OptionsCont& oc) {
               << ", maxDecel=" << maxDecel
               << std::endl;
 #endif
-
     return OpenGapParams(timegap, spacing, changeRate, maxDecel, specifiedAny);
 }
 
@@ -873,6 +870,14 @@ MSDevice_ToC::getParameter(const std::string& key) const {
         return toString(STEPS2TIME(myMRMSafeSpotDuration));
     } else if (key == "maxPreparationAccel") {
         return toString(myMaxPreparationAccel);
+    } else if (key == "ogNewTimeHeadway") {
+        return toString(myOpenGapParams.newTimeHeadway);
+    } else if (key == "ogNewSpaceHeadway") {
+        return toString(myOpenGapParams.newSpaceHeadway);
+    } else if (key == "ogChangeRate") {
+        return toString(myOpenGapParams.changeRate);
+    } else if (key == "ogMaxDecel") {
+        return toString(myOpenGapParams.maxDecel);
     }
     throw InvalidArgument("Parameter '" + key + "' is not supported for device of type '" + deviceName() + "'");
 }
