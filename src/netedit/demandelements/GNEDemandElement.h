@@ -512,8 +512,10 @@ protected:
     /**@brief calculate route between edges
      * @param startPos start position in the first lane (if null, then starts at the beginning of lane)
      * @param endPos end position in the last lane (if null, then ends at the end of lane)
+     * @param startAdditional additional that marks the end position of geometric path
+     * @param endAdditional additional that marks the end position of geometric path
      */
-    void calculateGeometricPath(double *startPos, double *endPos);
+    void calculateGeometricPath(double *startPos, double *endPos, GNEAdditional *startAdditional, GNEAdditional* endAdditional);
 
     /// @brief get first vehicle lane
     GNELane* getFirstVehicleLane() const;

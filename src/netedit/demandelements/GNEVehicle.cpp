@@ -561,7 +561,7 @@ GNEVehicle::updateGeometry() {
             arrivalPosLane = new double(arrivalPos);
         }
         // calculate geometry path
-        calculateGeometricPath(departPosLane, arrivalPosLane);
+        calculateGeometricPath(departPosLane, arrivalPosLane, nullptr, nullptr);
         // delete positions 
         if (departPosLane) {
             delete departPosLane;

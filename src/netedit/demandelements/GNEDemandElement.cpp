@@ -24,6 +24,7 @@
 #include <netbuild/NBNetBuilder.h>
 #include <netedit/GNENet.h>
 #include <netedit/GNEViewNet.h>
+#include <netedit/additionals/GNEAdditional.h>
 #include <netedit/netelements/GNEEdge.h>
 #include <netedit/netelements/GNELane.h>
 #include <netedit/netelements/GNEJunction.h>
@@ -582,7 +583,7 @@ GNEDemandElement::changeDemandElementID(const std::string& newID) {
 
 
 void 
-GNEDemandElement::calculateGeometricPath(double *startPos, double *endPos) {
+GNEDemandElement::calculateGeometricPath(double *startPos, double *endPos, GNEAdditional *startAdditional, GNEAdditional* endAdditional) {
     // clear geometry
     myDemandElementSegmentGeometry.clearDemandElementSegmentGeometry();
     // first check that there is edge parents
@@ -818,7 +819,7 @@ GNEDemandElement::adjustStartPosGeometricPath(double *startPos, const GNELane* s
         }
     }
     // adjust both, if start and end lane are the same
-    if (startLane && endLane && (startLane && endLane) && startPos && endPos) {
+    if (startLane && endLane && (startLane == endLane) && startPos && endPos) {
         if ((*startPos) < (*endPos)) {
             (*endPos) = (*startPos);
         }

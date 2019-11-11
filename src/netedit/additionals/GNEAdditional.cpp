@@ -201,6 +201,27 @@ GNEAdditional::setSpecialColor(const RGBColor* color) {
 }
 
 
+
+const double 
+GNEAdditional::getStartPositionOverLane() const {
+    if (myTagProperty.hasAttribute(SUMO_ATTR_STARTPOS)) {
+        return getAttributeDouble(SUMO_ATTR_STARTPOS);
+    } else {
+        return -1;
+    }
+}
+
+
+const double 
+GNEAdditional::getEndPositionOverLane() const {
+    if (myTagProperty.hasAttribute(SUMO_ATTR_ENDPOS)) {
+        return getAttributeDouble(SUMO_ATTR_ENDPOS);
+    } else {
+        return -1;
+    }
+}
+
+
 void
 GNEAdditional::writeAdditional(OutputDevice& device) const {
     // first check if minimum number of children is correct

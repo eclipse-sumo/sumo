@@ -306,11 +306,19 @@ GNERide::updateGeometry() {
         // declare two pointers for depart and arrival pos lanes
         double* departPosLane = new double(0);  // temporal
         double* arrivalPosLane = new double(myArrivalPosition);
-        if ((myTagProperty.getTag() == SUMO_TAG_RIDE_BUSSTOP) && (getAdditionalParents().size() > 0)) {
-            *arrivalPosLane = 5; /*getAdditionalParents().front()->getAttribute(*/
+        GNEAdditional* previousBusStop = nullptr;
+        GNEAdditional* busStop = getAdditionalParents().size() > 0? getAdditionalParents().front() : nullptr;
+        // obtain departlane throught previous element
+        GNEDemandElement *previousPersonPlan = getDemandElementParents().at(0)->getPreviousemandElement(this);
+        if (previousPersonPlan) {
+            if ((previousPersonPlan->getTagProperty().getTag() == SUMO_TAG_WALK_BUSSTOP) && 
+                (previousPersonPlan->getTagProperty().getTag() == SUMO_TAG_RIDE_BUSSTOP) && 
+                (previousPersonPlan->getTagProperty().getTag() == SUMO_TAG_PERSONTRIP_BUSSTOP)) {
+            previousBusStop = previousPersonPlan->getAdditionalParents().front();
+            }
         }
         // calculate geometry path
-        calculateGeometricPath(departPosLane, arrivalPosLane);
+        calculateGeometricPath(departPosLane, arrivalPosLane, previousBusStop, busStop);
         // delete positions 
         delete departPosLane;
         delete arrivalPosLane;
