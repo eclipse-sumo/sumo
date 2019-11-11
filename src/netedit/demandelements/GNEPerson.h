@@ -305,18 +305,6 @@ private:
     /// @brief method for enabling the attribute and nothing else (used in GNEChange_EnableAttribute)
     void setEnabledAttribute(const int enabledAttributes);
 
-    /// @brief calculate smooth shape between personPlans
-    void calculateSmoothPersonPlanConnection(const GNEDemandElement* personPlanElement, const GNEEdge* edgeFrom, const GNEEdge* edgeTo);
-
-    /// @brief return two shapes used for calculate person plan conections between busStops
-    std::pair<PositionVector, PositionVector> calculatePersonPlanConnectionBusStop(GNELane* previousLane, GNEAdditional* busStop, GNELane* nextLane);
-
-    /// @brief return two shapes used for calculate person plan conections between stops
-    std::pair<PositionVector, PositionVector> calculatePersonPlanConnectionStop(GNELane* previousLane, GNEDemandElement* stop, GNELane* nextLane);
-
-    /// @brief return two shapes used for calculate person plan conections between arrival position
-    std::pair<PositionVector, PositionVector> calculatePersonPlanConnectionArrivalPos(GNELane* previousLane, double arrivalPosPersonPlan, GNELane* nextLane);
-
     /// @brief Invalidated copy constructor.
     GNEPerson(const GNEPerson&) = delete;
 
