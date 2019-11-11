@@ -141,12 +141,7 @@ GNEEdge::updateGeometry() {
     }
     // Mark geometry as deprecated for all demand elements vinculated with this edge
     for (auto i : getDemandElementChildren()) {
-        // if child is a person plan, mark the person parent
-        if (i->getTagProperty().isPersonPlan()) {
-            i->getDemandElementParents().front()->markSegmentGeometryDeprecated();
-        } else {
-            i->markSegmentGeometryDeprecated();
-        }
+        i->markSegmentGeometryDeprecated();
     }
     // Update geometry of demand elements children vinculated to this edge
     for (auto i : getDemandElementChildren()) {

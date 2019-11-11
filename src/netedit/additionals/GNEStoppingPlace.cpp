@@ -191,16 +191,13 @@ GNEStoppingPlace::moveGeometry(const Position& offset) {
                 myEndPosition = parse<double>(myMove.secondOriginalPosition) + offsetLane;
             }
         }
+        // mark demand element geometry deprecated
+        for (const auto& i : getDemandElementChildren()) {
+            i->markSegmentGeometryDeprecated();
+        }
         // update demand element children
         for (const auto& i : getDemandElementChildren()) {
-            // if child is a person plan, update geometry of their person parent
-            if (i->getTagProperty().isPersonPlan()) {
-                i->getDemandElementParents().front()->markSegmentGeometryDeprecated();
-                i->getDemandElementParents().front()->updateGeometry();
-            } else {
-                i->markSegmentGeometryDeprecated();
-                i->updateGeometry();
-            }
+            i->updateGeometry();
         }
         // Update geometry
         updateGeometry();
@@ -220,16 +217,13 @@ GNEStoppingPlace::commitGeometryMoving(GNEUndoList* undoList) {
             undoList->p_add(new GNEChange_Attribute(this, myViewNet->getNet(), SUMO_ATTR_ENDPOS, toString(myEndPosition), true, myMove.secondOriginalPosition));
         }
         undoList->p_end();
+        // mark demand element child geometry deprecated
+        for (const auto& i : getDemandElementChildren()) {
+            i->markSegmentGeometryDeprecated();
+        }
         // update demand element children
         for (const auto& i : getDemandElementChildren()) {
-            // if child is a person plan, update geometry of their person parent
-            if (i->getTagProperty().isPersonPlan()) {
-                i->getDemandElementParents().front()->markSegmentGeometryDeprecated();
-                i->getDemandElementParents().front()->updateGeometry();
-            } else {
-                i->markSegmentGeometryDeprecated();
-                i->updateGeometry();
-            }
+            i->updateGeometry();
         }
     }
 }
