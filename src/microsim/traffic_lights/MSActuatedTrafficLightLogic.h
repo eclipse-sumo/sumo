@@ -97,9 +97,13 @@ public:
 
 protected:
     struct InductLoopInfo {
-        InductLoopInfo(MSInductLoop* _loop): loop(_loop) {}
+        InductLoopInfo(MSInductLoop* _loop, int numPhases): 
+            loop(_loop),
+            servedPhase(numPhases, false)
+        {}
         MSInductLoop* loop;
         SUMOTime lastGreenTime = 0;
+        std::vector<bool> servedPhase;
     };
 
     /// @brief Definition of a map from phases to induct loops controlling them
