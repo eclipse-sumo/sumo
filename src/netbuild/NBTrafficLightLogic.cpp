@@ -144,7 +144,7 @@ NBTrafficLightLogic::getDuration() const {
 void
 NBTrafficLightLogic::closeBuilding(bool checkVarDurations) {
     for (int i = 0; i < (int)myPhases.size() - 1;) {
-        if (myPhases[i].state != myPhases[i + 1].state) {
+        if (myPhases[i].state != myPhases[i + 1].state || myPhases[i].next.size() > 0) {
             ++i;
             continue;
         }
