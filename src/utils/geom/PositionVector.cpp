@@ -1254,6 +1254,26 @@ PositionVector::distance2D(const Position& p, bool perpendicular) const {
 }
 
 
+void 
+PositionVector::push_front(const Position& p) {
+    if (empty()) {
+        push_back(p);
+    } else {
+        insert(begin(), p);
+    }
+}
+
+
+void 
+PositionVector::pop_front() {
+    if (empty()) {
+        throw ProcessError("PositionVector is empty");
+    } else {
+        erase(begin());
+    }
+}
+
+
 void
 PositionVector::push_back_noDoublePos(const Position& p) {
     if (size() == 0 || !p.almostSame(back())) {
@@ -1264,8 +1284,8 @@ PositionVector::push_back_noDoublePos(const Position& p) {
 
 void
 PositionVector::push_front_noDoublePos(const Position& p) {
-    if (size() == 0 || !p.almostSame(front())) {
-        insert(begin(), p);
+    if ((size() == 0) || !p.almostSame(front())) {
+        push_front(p);
     }
 }
 

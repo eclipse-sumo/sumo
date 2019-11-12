@@ -351,6 +351,12 @@ public:
     /// @brief closest 2D-distance to point p (or -1 if perpendicular is true and the point is beyond this vector)
     double distance2D(const Position& p, bool perpendicular = false) const;
 
+    /// @brief insert in front a Position
+    void push_front(const Position& p);
+
+    /// @brief pop first Position
+    void pop_front();
+
     /// @brief insert in back a non double position
     void push_back_noDoublePos(const Position& p);
 
