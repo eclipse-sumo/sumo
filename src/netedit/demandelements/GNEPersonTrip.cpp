@@ -319,10 +319,15 @@ GNEPersonTrip::updateGeometry() {
         // declare depart and arrival pos lane
         double departPosLane = -1;
         double arrivalPosLane = -1;
+        // declare start and end positions
+        Position startPos = Position::INVALID;
+        Position endPos = Position::INVALID;
+        // calculate person plan start and end lanepositions
+        calculatePersonPlanLaneStartEndPos(departPosLane, arrivalPosLane);
         // calculate person plan start and end positions
-        calculatePersonPlanStartEndPos(departPosLane, arrivalPosLane);
+        calculatePersonPlanPositionStartEndPos(startPos, endPos);
         // calculate geometry path
-        calculateGeometricPath(departPosLane, arrivalPosLane);
+        calculateGeometricPath(departPosLane, arrivalPosLane, startPos, endPos);
         // update demand element childrens
         for (const auto& i : getDemandElementChildren()) {
             i->updateGeometry();

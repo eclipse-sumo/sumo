@@ -561,7 +561,7 @@ GNEVehicle::updateGeometry() {
             arrivalPosLane = arrivalPos;
         }
         // calculate geometry path
-        calculateGeometricPath(departPosLane, arrivalPosLane);
+        calculateGeometricPath(departPosLane, arrivalPosLane, Position::INVALID, Position::INVALID);
         // set geometry as non-deprecated
         myDemandElementSegmentGeometry.geometryDeprecated = false;
     }

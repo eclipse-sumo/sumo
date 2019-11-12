@@ -74,6 +74,13 @@ public:
 
         /// @brief The lengths of the single shape parts
         std::vector<double> shapeLengths;
+
+    private:
+        /// @brief calculate shape rotation and add it into rotations container
+        void addRotation(const Position& first, const Position& second);
+
+         /// @brief calculate shape lenght and add it into lengths container
+        void addLenght(const Position& first, const Position& second);
     };
 
     /// @brief struct for pack all variables related with geometry of elemements divided in segments
@@ -143,18 +150,18 @@ public:
                                     const bool visible, const bool valid);
 
         /// @brief close partial edge segment
-        void closePartialEdgeSegment();
+        void closePartialEdgeSegment(const Position &lastPosition);
 
         /// @brief clear demand element geometry
         void clearDemandElementSegmentGeometry();
 
-        /// @brief connect first positions with the last segment
-        void connectFirstPositions();
-
-        /// @brief get first position
+        /// @brief get first position (or Invalid position if segments are empty)
         const Position &getFirstPosition() const;
 
-        /// @brief get first rotation
+        /// @brief get first position (or Invalid position if segments are empty)
+        const Position &getLastPosition() const;
+
+        /// @brief get first rotation (or Invalid position if segments are empty)
         double getFirstRotation() const;
 
         /// @brief begin iterator
@@ -162,6 +169,12 @@ public:
 
         /// @brief end iterator
         std::vector<Segment>::const_iterator end() const;
+
+        /// @brief front segment
+        const Segment &front() const;
+
+        /// @brief back segment
+        const Segment &back() const;
 
         /// @brief number of segments
         int size() const;
@@ -515,13 +528,16 @@ protected:
     /**@brief calculate route between edges
      * @param startPos start position in the first lane (if -1, then starts at the beginning of lane)
      * @param endPos end position in the last lane (if -1, then ends at the end of lane)
-     * @param startAdditional additional that marks the end position of geometric path
-     * @param endAdditional additional that marks the end position of geometric path
+     * @param extraFirstPosition extra first position (if is invalid, then it's ignored)
+     * @param extraLastPosition extra last position (if is invalid, then it's ignored)
      */
-    void calculateGeometricPath(double startPos, double endPos);
+    void calculateGeometricPath(double startPos, double endPos, const Position &extraFirstPosition, const Position &extraLastPosition);
 
-    /// @brief calculate personPlan start and end positions of PersonPlans
-    void calculatePersonPlanStartEndPos(double &startPos, double &endPos) const;
+    /// @brief calculate personPlan start and end positions over lanes
+    void calculatePersonPlanLaneStartEndPos(double &startPos, double &endPos) const;
+
+    /// @brief calculate personPlan start and end positions
+    void calculatePersonPlanPositionStartEndPos(Position &startPos, Position &endPos) const;
 
     /// @brief get first allowed vehicle lane
     GNELane* getFirstAllowedVehicleLane() const;

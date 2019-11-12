@@ -1196,31 +1196,31 @@ GNEEdge::drawPartialRoute(const GUIVisualizationSettings& s, const GNEDemandElem
     // draw route
     if (junction) {
         // iterate over segments
-        for (auto segment = route->getDemandElementSegmentGeometry().begin(); segment != route->getDemandElementSegmentGeometry().end(); segment++) {
+        for (const auto &segment : route->getDemandElementSegmentGeometry()) {
             // draw partial segment
-            if ((segment->junction == junction) && (segment->element == route) && segment->visible) {
+            if ((segment.junction == junction) && (segment.element == route) && segment.visible) {
                 // Set route color (needed due drawShapeDottedContour)
                 GLHelper::setColor(routeColor);
                 // draw box lines
-                GLHelper::drawBoxLines(segment->shape, segment->shapeRotations, segment->shapeLengths, routeWidth);
+                GLHelper::drawBoxLines(segment.shape, segment.shapeRotations, segment.shapeLengths, routeWidth);
                 // check if shape dotted contour has to be drawn
                 if (myNet->getViewNet()->getDottedAC() == route) {
-                    GLHelper::drawShapeDottedContourAroundShape(s, getType(), segment->shape, routeWidth);
+                    GLHelper::drawShapeDottedContourAroundShape(s, getType(), segment.shape, routeWidth);
                 }
             }
         }
     } else {
         // iterate over segments
-        for (auto segment = route->getDemandElementSegmentGeometry().begin(); segment != route->getDemandElementSegmentGeometry().end(); segment++) {
+        for (const auto &segment : route->getDemandElementSegmentGeometry()) {
             // draw partial segment
-            if ((segment->edge == this) && (segment->element == route) && segment->visible) {
+            if ((segment.edge == this) && (segment.element == route) && segment.visible) {
                 // Set route color (needed due drawShapeDottedContour)
                 GLHelper::setColor(routeColor);
                 // draw box lines
-                GLHelper::drawBoxLines(segment->shape, segment->shapeRotations, segment->shapeLengths, routeWidth);
+                GLHelper::drawBoxLines(segment.shape, segment.shapeRotations, segment.shapeLengths, routeWidth);
                 // check if shape dotted contour has to be drawn
                 if (myNet->getViewNet()->getDottedAC() == route) {
-                    GLHelper::drawShapeDottedContourAroundShape(s, getType(), segment->shape, routeWidth);
+                    GLHelper::drawShapeDottedContourAroundShape(s, getType(), segment.shape, routeWidth);
                 }
             }
         }
@@ -1266,16 +1266,16 @@ GNEEdge::drawPartialTripFromTo(const GUIVisualizationSettings& s, const GNEDeman
     // draw trip from to
     if (junction) {
         // iterate over segments
-        for (auto segment = tripOrFromTo->getDemandElementSegmentGeometry().begin(); segment != tripOrFromTo->getDemandElementSegmentGeometry().end(); segment++) {
+        for (const auto &segment : tripOrFromTo->getDemandElementSegmentGeometry()) {
             // draw partial segment
-            GLHelper::drawBoxLines(segment->shape, segment->shapeRotations, segment->shapeLengths, tripOrFromToWidth);
+            GLHelper::drawBoxLines(segment.shape, segment.shapeRotations, segment.shapeLengths, tripOrFromToWidth);
         }
     } else {
         // iterate over segments
-        for (auto segment = tripOrFromTo->getDemandElementSegmentGeometry().begin(); segment != tripOrFromTo->getDemandElementSegmentGeometry().end(); segment++) {
+        for (const auto &segment : tripOrFromTo->getDemandElementSegmentGeometry()) {
             // draw partial segment
-            if ((segment->edge == this) && (segment->element == tripOrFromTo) && segment->visible) {
-                GLHelper::drawBoxLines(segment->shape, segment->shapeRotations, segment->shapeLengths, tripOrFromToWidth);
+            if ((segment.edge == this) && (segment.element == tripOrFromTo) && segment.visible) {
+                GLHelper::drawBoxLines(segment.shape, segment.shapeRotations, segment.shapeLengths, tripOrFromToWidth);
             }
         }
     }
@@ -1343,31 +1343,31 @@ GNEEdge::drawPartialPersonPlan(const GUIVisualizationSettings& s, const GNEDeman
         // draw person plan
         if (junction) {
             // iterate over segments
-            for (auto segment = personPlan->getDemandElementSegmentGeometry().begin(); segment != personPlan->getDemandElementSegmentGeometry().end(); segment++) {
+            for (const auto &segment : personPlan->getDemandElementSegmentGeometry()) {
                 // draw partial segment
-                if ((segment->junction == junction) && (segment->element == personPlan) && segment->visible) {
+                if ((segment.junction == junction) && (segment.element == personPlan) && segment.visible) {
                     // Set person plan color (needed due drawShapeDottedContour)
                     GLHelper::setColor(personPlanColor);
                     // draw box line
-                    GLHelper::drawBoxLines(segment->shape, segment->shapeRotations, segment->shapeLengths, personPlanWidth, 0);
+                    GLHelper::drawBoxLines(segment.shape, segment.shapeRotations, segment.shapeLengths, personPlanWidth, 0);
                     // check if shape dotted contour has to be drawn
                     if (myNet->getViewNet()->getDottedAC() == personPlan) {
-                        GLHelper::drawBoxLines(segment->shape, segment->shapeRotations, segment->shapeLengths, personPlanWidth);
+                        GLHelper::drawBoxLines(segment.shape, segment.shapeRotations, segment.shapeLengths, personPlanWidth);
                     }
                 }
             }
         } else {
             // iterate over segments
-            for (auto segment = personPlan->getDemandElementSegmentGeometry().begin(); segment != personPlan->getDemandElementSegmentGeometry().end(); segment++) {
+            for (const auto &segment : personPlan->getDemandElementSegmentGeometry()) {
                 // draw partial segment
-                if ((segment->edge == this) && (segment->element == personPlan) && segment->visible) {
+                if ((segment.edge == this) && (segment.element == personPlan) && segment.visible) {
                     // Set person plan color (needed due drawShapeDottedContour)
                     GLHelper::setColor(personPlanColor);
                     // draw box line
-                    GLHelper::drawBoxLines(segment->shape, segment->shapeRotations, segment->shapeLengths, personPlanWidth, 0);
+                    GLHelper::drawBoxLines(segment.shape, segment.shapeRotations, segment.shapeLengths, personPlanWidth, 0);
                     // check if shape dotted contour has to be drawn
                     if (myNet->getViewNet()->getDottedAC() == personPlan) {
-                        GLHelper::drawBoxLines(segment->shape, segment->shapeRotations, segment->shapeLengths, personPlanWidth);
+                        GLHelper::drawBoxLines(segment.shape, segment.shapeRotations, segment.shapeLengths, personPlanWidth);
                     }
                 }
             }
@@ -1382,10 +1382,10 @@ GNEEdge::drawPartialPersonPlan(const GUIVisualizationSettings& s, const GNEDeman
         glPopName();
         // check if person plan ArrivalPos attribute
         if (personPlan->getTagProperty().hasAttribute(SUMO_ATTR_ARRIVALPOS)) {
-            // obtain arrival position
-            double arrivalPos = personPlan->getAttributeDouble(SUMO_ATTR_ARRIVALPOS);
+            // obtain arrival position using last segment
+            const Position &arrivalPos = personPlan->getDemandElementSegmentGeometry().getLastPosition();
             // only draw arrival position point if isn't -1
-            if (arrivalPos != -1) {
+            if (arrivalPos != Position::INVALID) {
                 // get lane in which arrival position will be drawn
                 SUMOVehicleClass vClassPersonPlan = personPlan->getTagProperty().isRide() ? SVC_PASSENGER : SVC_PEDESTRIAN;
                 GNELane* arrivalPosLane = nullptr;
@@ -1395,15 +1395,13 @@ GNEEdge::drawPartialPersonPlan(const GUIVisualizationSettings& s, const GNEDeman
                 } else {
                     arrivalPosLane = personPlan->getEdgeParents().back()->getLaneByAllowedVClass(vClassPersonPlan);
                 }
-                // obtain position or ArrivalPos
-                Position pos = arrivalPosLane->getLaneShape().positionAtOffset2D(arrivalPos);
                 // obtain circle width
-                double circleWidth = (duplicateWidth ? SNAP_RADIUS : (SNAP_RADIUS / 2.0)) * MIN2((double)0.5, s.laneWidthExaggeration);
-                double circleWidthSquared = circleWidth * circleWidth;
-                if (!s.drawForSelecting || (myNet->getViewNet()->getPositionInformation().distanceSquaredTo2D(pos) <= (circleWidthSquared + 2))) {
+                const double circleWidth = (duplicateWidth ? SNAP_RADIUS : (SNAP_RADIUS / 2.0)) * MIN2((double)0.5, s.laneWidthExaggeration);
+                const double circleWidthSquared = circleWidth * circleWidth;
+                if (!s.drawForSelecting || (myNet->getViewNet()->getPositionInformation().distanceSquaredTo2D(arrivalPos) <= (circleWidthSquared + 2))) {
                     glPushMatrix();
                     // translate to pos and move to upper using GLO_PERSONTRIP (to avoid overlapping)
-                    glTranslated(pos.x(), pos.y(), GLO_PERSONTRIP + 0.01);
+                    glTranslated(arrivalPos.x(), arrivalPos.y(), GLO_PERSONTRIP + 0.01);
                     // Set color depending of person plan type
                     if (personPlan->drawUsingSelectColor()) {
                         GLHelper::setColor(s.colorSettings.selectedPersonPlanColor);

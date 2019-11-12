@@ -266,7 +266,7 @@ GNERoute::updateGeometry() {
     // first check if geometry is deprecated
     if (myDemandElementSegmentGeometry.geometryDeprecated) {
         // calculate geometry path
-        calculateGeometricPath(-1, -1);
+        calculateGeometricPath(-1, -1, Position::INVALID, Position::INVALID);
         // update demand element childrens
         for (const auto& i : getDemandElementChildren()) {
             i->updateGeometry();
