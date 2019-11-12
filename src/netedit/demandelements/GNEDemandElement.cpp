@@ -70,24 +70,10 @@ GNEDemandElement::DemandElementGeometry::calculateShapeRotationsAndLengths() {
         shapeLengths.reserve(numberOfSegments);
         // Calculate lengths and rotations for every shape
         for (int i = 0; i < numberOfSegments; i++) {
-            addLenght(shape[i], shape[i + 1]);
-            addRotation(shape[i], shape[i + 1]);
+            shapeRotations.push_back(calculateRotation(shape[i], shape[i + 1]));
+            shapeLengths.push_back(calculateLength(shape[i], shape[i + 1]));
         }
     }
-}
-
-
-void 
-GNEDemandElement::DemandElementGeometry::addRotation(const Position& first, const Position& second) {
-    // Save rotation (angle) of the vector constructed by points first and second
-    shapeRotations.push_back((double)atan2((second.x() - first.x()), (first.y() - second.y())) * (double) 180.0 / (double)M_PI);
-}
-
-
-void 
-GNEDemandElement::DemandElementGeometry::addLenght(const Position& first, const Position& second) {
-    // Save distance between position into shapeLengths
-    shapeLengths.push_back(first.distanceTo(second));
 }
 
 // ---------------------------------------------------------------------------

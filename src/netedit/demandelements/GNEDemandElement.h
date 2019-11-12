@@ -74,13 +74,6 @@ public:
 
         /// @brief The lengths of the single shape parts
         std::vector<double> shapeLengths;
-
-    private:
-        /// @brief calculate shape rotation and add it into rotations container
-        void addRotation(const Position& first, const Position& second);
-
-         /// @brief calculate shape lenght and add it into lengths container
-        void addLenght(const Position& first, const Position& second);
     };
 
     /// @brief struct for pack all variables related with geometry of elemements divided in segments

@@ -62,14 +62,10 @@ GNENetElement::NetElementGeometry::calculateShapeRotationsAndLengths() {
         shapeLengths.reserve(numberOfSegments);
         // For every part of the shape
         for (int i = 0; i < numberOfSegments; ++i) {
-            // Obtain first position
-            const Position& f = shape[i];
-            // Obtain next position
-            const Position& s = shape[i + 1];
             // Save distance between position into myShapeLengths
-            shapeLengths.push_back(f.distanceTo(s));
+            shapeLengths.push_back(calculateLength(shape[i], shape[i + 1]));
             // Save rotation (angle) of the vector constructed by points f and s
-            shapeRotations.push_back((double)atan2((s.x() - f.x()), (f.y() - s.y())) * (double) 180.0 / (double)M_PI);
+            shapeRotations.push_back(calculateRotation(shape[i], shape[i + 1]));
         }
     }
 }

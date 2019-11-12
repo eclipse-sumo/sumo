@@ -1452,6 +1452,20 @@ GNEAttributeCarrier::allowedTagsByCategory(int tagPropertyCategory, bool onlyDra
     return allowedTags;
 }
 
+
+double 
+GNEAttributeCarrier::calculateRotation(const Position& first, const Position& second) {
+    // return rotation (angle) of the vector constructed by points first and second
+    return ((double)atan2((second.x() - first.x()), (first.y() - second.y())) * (double) 180.0 / (double)M_PI);
+}
+
+
+double 
+GNEAttributeCarrier::calculateLength(const Position& first, const Position& second) {
+    // return distance between two points
+    return first.distanceTo(second);
+}
+
 // ===========================================================================
 // private
 // ===========================================================================

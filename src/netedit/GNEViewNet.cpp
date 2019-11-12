@@ -3043,10 +3043,8 @@ GNEViewNet::drawLaneCandidates() const {
                     shapeRotations.reserve(segments);
                     shapeLengths.reserve(segments);
                     for (int j = 0; j < segments; j++) {
-                        const Position& f = shape[j];
-                        const Position& s = shape[j + 1];
-                        shapeLengths.push_back(f.distanceTo2D(s));
-                        shapeRotations.push_back((double) atan2((s.x() - f.x()), (f.y() - s.y())) * (double) 180.0 / (double)M_PI);
+                        shapeLengths.push_back(GNEAttributeCarrier::calculateLength(shape[j], shape[j + 1]));
+                        shapeRotations.push_back(GNEAttributeCarrier::calculateRotation(shape[j], shape[j + 1]));
                     }
                 }
                 // draw a list of lines

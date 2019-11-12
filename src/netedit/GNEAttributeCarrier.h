@@ -781,6 +781,13 @@ public:
         return parse<T>(parsedAttribute);
     }
 
+    
+    /// @brief return angle between two points (used in geometric calculations)
+    static double calculateRotation(const Position& first, const Position& second);
+
+    /// @brief return length between two points (used in geometric calculations)
+    static double calculateLength(const Position& first, const Position& second);
+
 protected:
     /// @brief the xml tag to which this attribute carrier corresponds
     const TagProperties& myTagProperty;
