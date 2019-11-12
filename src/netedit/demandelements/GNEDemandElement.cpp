@@ -601,18 +601,19 @@ GNEDemandElement::changeDemandElementID(const std::string& newID) {
 
 
 void 
-GNEDemandElement::calculateGeometricPath(double startPos, double endPos, const Position &extraFirstPosition, const Position &extraLastPosition) {
+GNEDemandElement::calculateGeometricPath(const std::vector<GNEEdge*> &edges, double startPos, double endPos, 
+    const Position &extraFirstPosition, const Position &extraLastPosition) {
     // clear geometry
     myDemandElementSegmentGeometry.clearDemandElementSegmentGeometry();
     // first check that there is edge parents
-    if (getEdgeParents().size() > 0) {
+    if (edges.size() > 0) {
         // calculate depending if both from and to edges are the same
-        if (getEdgeParents().size() == 1) {
+        if (edges.size() == 1) {
             // obtain first (and single) Lane
             GNELane* singleLane = getFirstAllowedVehicleLane();
             // if obtained lane is null, then force to use first lane
             if (singleLane == nullptr) {
-                singleLane = getEdgeParents().front()->getLanes().front();
+                singleLane = edges.front()->getLanes().front();
             }
             // filter start and end pos
             adjustStartPosGeometricPath(startPos, singleLane, endPos, singleLane);
@@ -621,7 +622,7 @@ GNEDemandElement::calculateGeometricPath(double startPos, double endPos, const P
                 // check if both extra positions are invalid
                 if ((extraFirstPosition == Position::INVALID) && (extraLastPosition == Position::INVALID)) {
                     // add entire lane geometry geometry
-                    myDemandElementSegmentGeometry.insertEdgeSegment(this, getEdgeParents().at(0),
+                    myDemandElementSegmentGeometry.insertEdgeSegment(this, edges.at(0),
                         singleLane->getLaneShape(), 
                         singleLane->getShapeRotations(), 
                         singleLane->getShapeLengths(), true, true);
@@ -642,7 +643,7 @@ GNEDemandElement::calculateGeometricPath(double startPos, double endPos, const P
                     subLane.calculateShapeRotationsAndLengths();
                     // add sublane geometry
                     for (int i = 0; i < ((int)subLane.shape.size() - 1); i++) {
-                        myDemandElementSegmentGeometry.insertPartialEdgeSegment(this, getEdgeParents().at(0),
+                        myDemandElementSegmentGeometry.insertPartialEdgeSegment(this, edges.at(0),
                             subLane.shape[i], 
                             subLane.shapeRotations[i], 
                             subLane.shapeLengths[i], true, true);
@@ -679,7 +680,7 @@ GNEDemandElement::calculateGeometricPath(double startPos, double endPos, const P
                 subLane.calculateShapeRotationsAndLengths();
                 // add sublane geometry
                 for (int i = 0; i < ((int)subLane.shape.size() - 1); i++) {
-                    myDemandElementSegmentGeometry.insertPartialEdgeSegment(this, getEdgeParents().at(0),
+                    myDemandElementSegmentGeometry.insertPartialEdgeSegment(this, edges.at(0),
                         subLane.shape[i], 
                         subLane.shapeRotations[i], 
                         subLane.shapeLengths[i], true, true);
@@ -691,13 +692,13 @@ GNEDemandElement::calculateGeometricPath(double startPos, double endPos, const P
             // declare vector of lanes
             std::vector<GNELane*> lanes;
             // reserve space
-            lanes.reserve(getEdgeParents().size());
+            lanes.reserve(edges.size());
             // obtain lanes by VClass
-            for (auto edgeParent = getEdgeParents().begin(); edgeParent != getEdgeParents().end(); edgeParent++) {
+            for (auto edgeParent = edges.begin(); edgeParent != edges.end(); edgeParent++) {
                 GNELane* allowedLane = nullptr;
-                if (edgeParent == getEdgeParents().begin()) {
+                if (edgeParent == edges.begin()) {
                     allowedLane = getFirstAllowedVehicleLane();
-                } else if (edgeParent == (getEdgeParents().end() - 1)) {
+                } else if (edgeParent == (edges.end() - 1)) {
                     allowedLane = getLastAllowedVehicleLane();
                 } else if (myTagProperty.isRide()) {
                     // obtain first disallowed lane (special case for rides)
@@ -823,6 +824,9 @@ GNEDemandElement::calculatePersonPlanLaneStartEndPos(double &startPos, double &e
         } else {
             startPos = previousPersonPlan->getAttributeDouble(SUMO_ATTR_ARRIVALPOS);
         }
+    } else {
+        // if this is the first person plan, use departPos of pedestrian
+        startPos = getDemandElementParents().front()->getAttributeDouble(SUMO_ATTR_DEPARTPOS);
     }
     // adjust endPos depending of next busStop
     if (busStop) {
@@ -832,8 +836,11 @@ GNEDemandElement::calculatePersonPlanLaneStartEndPos(double &startPos, double &e
         if (nextPersonPlan->getTagProperty().isPersonStop()) {
             endPos = nextPersonPlan->getAttributeDouble(SUMO_ATTR_STARTPOS);
         } else {
-            endPos = getAttributeDouble(SUMO_ATTR_ARRIVALPOS);
+            endPos = nextPersonPlan->getAttributeDouble(SUMO_ATTR_ARRIVALPOS);
         }
+    } else {
+        // if this is the last element, simply use arrival position
+        endPos = getAttributeDouble(SUMO_ATTR_ARRIVALPOS);
     }
 }
 

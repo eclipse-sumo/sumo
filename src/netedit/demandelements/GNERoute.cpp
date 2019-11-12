@@ -233,7 +233,10 @@ GNERoute::getColor() const {
 
 void
 GNERoute::compute() {
-    // Nothing to compute
+    // mark geometry as deprecated
+    myDemandElementSegmentGeometry.geometryDeprecated = true;
+    // update geometry
+    updateGeometry();
 }
 
 
@@ -266,13 +269,17 @@ GNERoute::updateGeometry() {
     // first check if geometry is deprecated
     if (myDemandElementSegmentGeometry.geometryDeprecated) {
         // calculate geometry path
-        calculateGeometricPath(-1, -1, Position::INVALID, Position::INVALID);
-        // update demand element childrens
-        for (const auto& i : getDemandElementChildren()) {
-            i->updateGeometry();
-        }
+        calculateGeometricPath(getEdgeParents());
         // set geometry as non-deprecated
         myDemandElementSegmentGeometry.geometryDeprecated = false;
+        // mark geometry of all childrens as deprecated
+        for (const auto& i : getDemandElementChildren()) {
+            i->markSegmentGeometryDeprecated();
+        }
+    }
+    // update demand element childrens
+    for (const auto& i : getDemandElementChildren()) {
+        i->updateGeometry();
     }
 }
 
@@ -451,8 +458,8 @@ GNERoute::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         case SUMO_ATTR_EDGES:
             changeEdgeParents(this, value, true);
-            // change flag for geometry deprecating
-            myDemandElementSegmentGeometry.geometryDeprecated = true;
+            // compute route
+            compute();
             break;
         case SUMO_ATTR_COLOR:
             myColor = parse<RGBColor>(value);
@@ -472,7 +479,7 @@ GNERoute::setAttribute(SumoXMLAttr key, const std::string& value) {
     }
     // check if geometry must be marked as deprecated
     if (myTagProperty.hasAttribute(key) && (myTagProperty.getAttributeProperties(key).requireUpdateGeometry())) {
-        myDemandElementSegmentGeometry.geometryDeprecated = true;
+        updateGeometry();
     }
 }
 

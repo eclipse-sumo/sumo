@@ -346,8 +346,13 @@ GNEWalk::updateGeometry() {
         calculatePersonPlanLaneStartEndPos(departPosLane, arrivalPosLane);
         // calculate person plan start and end positions
         calculatePersonPlanPositionStartEndPos(startPos, endPos);
-        // calculate geometry path
-        calculateGeometricPath(departPosLane, arrivalPosLane, startPos, endPos);
+        // calculate geometry path depending if is a Walk over route
+        if (myTagProperty.getTag() == SUMO_TAG_WALK_ROUTE) {
+            // use edges of route parent
+            calculateGeometricPath(getDemandElementParents().at(1)->getEdgeParents(), departPosLane, arrivalPosLane, startPos, endPos);
+        } else {
+            calculateGeometricPath(getEdgeParents(), departPosLane, arrivalPosLane, startPos, endPos);
+        }
         // update demand element childrens
         for (const auto& i : getDemandElementChildren()) {
             i->updateGeometry();
@@ -604,17 +609,19 @@ GNEWalk::setAttribute(SumoXMLAttr key, const std::string& value) {
         }
         case SUMO_ATTR_EDGES:
             changeEdgeParents(this, value, true);
-            // change flag for geometry deprecating
-            myDemandElementSegmentGeometry.geometryDeprecated = true;
+            compute();
             break;
         case SUMO_ATTR_ROUTE:
             changeDemandElementParent(this, value, 1);
+            compute();
             break;
         case SUMO_ATTR_BUS_STOP:
             changeAdditionalParent(this, value, 0);
+            compute();
             break;
         case SUMO_ATTR_ARRIVALPOS:
             myArrivalPosition = parse<double>(value);
+            compute();
             break;
         case GNE_ATTR_SELECTED:
             if (parse<bool>(value)) {
@@ -631,7 +638,7 @@ GNEWalk::setAttribute(SumoXMLAttr key, const std::string& value) {
     }
     // check if geometry must be marked as deprecated
     if (myTagProperty.hasAttribute(key) && (myTagProperty.getAttributeProperties(key).requireUpdateGeometry())) {
-        myDemandElementSegmentGeometry.geometryDeprecated = true;
+        updateGeometry();
     }
 }
 

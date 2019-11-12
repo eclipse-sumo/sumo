@@ -561,9 +561,13 @@ GNEVehicle::updateGeometry() {
             arrivalPosLane = arrivalPos;
         }
         // calculate geometry path
-        calculateGeometricPath(departPosLane, arrivalPosLane, Position::INVALID, Position::INVALID);
+        calculateGeometricPath(getEdgeParents(), departPosLane, arrivalPosLane);
         // set geometry as non-deprecated
         myDemandElementSegmentGeometry.geometryDeprecated = false;
+        // mark geometry of all childrens as deprecated
+        for (const auto& i : getDemandElementChildren()) {
+            i->markSegmentGeometryDeprecated();
+        }
     }
     // update demand element childrens
     for (const auto& i : getDemandElementChildren()) {
@@ -1382,6 +1386,7 @@ GNEVehicle::setAttribute(SumoXMLAttr key, const std::string& value) {
                 // unset parameter
                 parametersSet &= ~VEHPARS_DEPARTPOS_SET;
             }
+            compute();
             break;
         case SUMO_ATTR_DEPARTSPEED:
             if (!value.empty() && (value != myTagProperty.getDefaultValue(key))) {
@@ -1418,6 +1423,7 @@ GNEVehicle::setAttribute(SumoXMLAttr key, const std::string& value) {
                 // unset parameter
                 parametersSet &= ~VEHPARS_ARRIVALPOS_SET;
             }
+            compute();
             break;
         case SUMO_ATTR_ARRIVALSPEED:
             if (!value.empty() && (value != myTagProperty.getDefaultValue(key))) {
@@ -1512,6 +1518,7 @@ GNEVehicle::setAttribute(SumoXMLAttr key, const std::string& value) {
             if (getDemandElementParents().size() == 2) {
                 changeDemandElementParent(this, value, 1);
             }
+            compute();
             break;
         // Specific of Trips and flow
         case SUMO_ATTR_FROM: {
@@ -1582,7 +1589,7 @@ GNEVehicle::setAttribute(SumoXMLAttr key, const std::string& value) {
     }
     // check if geometry must be marked as deprecated
     if (myTagProperty.hasAttribute(key) && (myTagProperty.getAttributeProperties(key).requireUpdateGeometry())) {
-        myDemandElementSegmentGeometry.geometryDeprecated = true;
+        updateGeometry();
     }
 }
 

@@ -119,7 +119,12 @@ GNEVehicleType::getColor() const {
 
 void
 GNEVehicleType::compute() {
-    // Nothing to compute
+    // mark all vehicles as deprecated
+    for (const auto &i : getDemandElementChildren()) {
+        i->markSegmentGeometryDeprecated();
+    }
+    // update geometry
+    updateGeometry();
 }
 
 
@@ -149,7 +154,10 @@ GNEVehicleType::commitGeometryMoving(GNEUndoList*) {
 
 void
 GNEVehicleType::updateGeometry() {
-    // Currently this additional doesn't own a Geometry
+    // update geometry of all childrens
+    for (const auto &i : getDemandElementChildren()) {
+        i->updateGeometry();
+    }
 }
 
 
@@ -1645,7 +1653,7 @@ GNEVehicleType::setAttribute(SumoXMLAttr key, const std::string& value) {
     }
     // check if geometry must be marked as deprecated
     if (myTagProperty.hasAttribute(key) && (myTagProperty.getAttributeProperties(key).requireUpdateGeometry())) {
-        myDemandElementSegmentGeometry.geometryDeprecated = true;
+        updateGeometry();
     }
 }
 

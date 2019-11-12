@@ -187,7 +187,10 @@ GNEStop::getColor() const {
 
 void
 GNEStop::compute() {
-    // Nothing to compute
+    // mark geometry as deprecated
+    myDemandElementSegmentGeometry.geometryDeprecated = true;
+    // update geometry
+    updateGeometry();
 }
 
 
@@ -252,11 +255,8 @@ GNEStop::moveGeometry(const Position& offset) {
                 endPos = parse<double>(myStopMove.secondOriginalPosition) + offsetLane;
             }
         }
-        // update person or vehicle frame
-        getDemandElementParents().front()->markSegmentGeometryDeprecated();
-        getDemandElementParents().front()->updateGeometry();
-        // Update geometry
-        updateGeometry();
+        // compute
+        compute();
     }
 }
 
@@ -273,28 +273,43 @@ GNEStop::commitGeometryMoving(GNEUndoList* undoList) {
             undoList->p_add(new GNEChange_Attribute(this, myViewNet->getNet(), SUMO_ATTR_ENDPOS, toString(endPos), true, myStopMove.secondOriginalPosition));
         }
         undoList->p_end();
-        // update person or vehicle frame
-        getDemandElementParents().front()->markSegmentGeometryDeprecated();
-        getDemandElementParents().front()->updateGeometry();
     }
 }
 
 
 void
 GNEStop::updateGeometry() {
-    // Clear all containers
-    myDemandElementGeometry.clearGeometry();
-    //only update Stops over lanes, because other uses the geometry of stopping place parent
-    if (getLaneParents().size() > 0) {
-        // Cut shape using as delimitators fixed start position and fixed end position
-        myDemandElementGeometry.shape = getLaneParents().front()->getLaneShape().getSubpart(getStartGeometryPositionOverLane(), getEndGeometryPositionOverLane());
-        // Get calculate lengths and rotations
-        myDemandElementGeometry.calculateShapeRotationsAndLengths();
-    } else if (getAdditionalParents().size() > 0) {
-        // copy geometry of additional
-        myDemandElementGeometry.shape = getAdditionalParents().at(0)->getAdditionalGeometry().shape;
-        myDemandElementGeometry.shapeLengths = getAdditionalParents().at(0)->getAdditionalGeometry().shapeLengths;
-        myDemandElementGeometry.shapeRotations = getAdditionalParents().at(0)->getAdditionalGeometry().shapeRotations;
+    if (myDemandElementSegmentGeometry.geometryDeprecated) {
+        // Clear all containers
+        myDemandElementGeometry.clearGeometry();
+        //only update Stops over lanes, because other uses the geometry of stopping place parent
+        if (getLaneParents().size() > 0) {
+            // Cut shape using as delimitators fixed start position and fixed end position
+            myDemandElementGeometry.shape = getLaneParents().front()->getLaneShape().getSubpart(getStartGeometryPositionOverLane(), getEndGeometryPositionOverLane());
+            // Get calculate lengths and rotations
+            myDemandElementGeometry.calculateShapeRotationsAndLengths();
+        } else if (getAdditionalParents().size() > 0) {
+            // copy geometry of additional (busStop)
+            myDemandElementGeometry.shape = getAdditionalParents().at(0)->getAdditionalGeometry().shape;
+            myDemandElementGeometry.shapeLengths = getAdditionalParents().at(0)->getAdditionalGeometry().shapeLengths;
+            myDemandElementGeometry.shapeRotations = getAdditionalParents().at(0)->getAdditionalGeometry().shapeRotations;
+        }
+        // mark geometry as non deprecated
+        myDemandElementSegmentGeometry.geometryDeprecated = false;
+        // recompute geometry of all Demand elements related with this this stop
+        if (getDemandElementParents().front()->getTagProperty().isRoute()) {
+            getDemandElementParents().front()->compute();
+        } else if (getDemandElementParents().front()->getTagProperty().isPerson()) {
+            // compute previous and next person plan
+            GNEDemandElement *previousDemandElement = getDemandElementParents().front()->getPreviousemandElement(this);
+            if (previousDemandElement) {
+                previousDemandElement->compute();
+            }
+            GNEDemandElement *nextDemandElement = getDemandElementParents().front()->getNextDemandElement(this);
+            if (nextDemandElement) {
+                nextDemandElement->compute();
+            }
+        }
     }
 }
 
@@ -839,12 +854,6 @@ GNEStop::disableAttribute(SumoXMLAttr key, GNEUndoList* undoList) {
     }
     // add GNEChange_EnableAttribute
     undoList->add(new GNEChange_EnableAttribute(this, myViewNet->getNet(), parametersSet, newParametersSet), true);
-    // certain attributes requieres update geometry
-    if (myTagProperty.hasAttribute(key) && (myTagProperty.getAttributeProperties(key).requireUpdateGeometry())) {
-        updateGeometry();
-        // update view
-        myViewNet->update();
-    }
 }
 
 
@@ -1032,10 +1041,12 @@ GNEStop::setAttribute(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_CHARGING_STATION:
         case SUMO_ATTR_PARKING_AREA:
             changeAdditionalParent(this, value, 0);
+            compute();
             break;
         // specific of Stops over lanes
         case SUMO_ATTR_LANE:
             changeLaneParents(this, value);
+            compute();
             break;
         case SUMO_ATTR_STARTPOS:
             if (value.empty()) {
@@ -1044,6 +1055,7 @@ GNEStop::setAttribute(SumoXMLAttr key, const std::string& value) {
                 startPos = parse<double>(value);
                 parametersSet |= STOP_START_SET;
             }
+            compute();
             break;
         case SUMO_ATTR_ENDPOS:
             if (value.empty()) {
@@ -1052,6 +1064,7 @@ GNEStop::setAttribute(SumoXMLAttr key, const std::string& value) {
                 endPos = parse<double>(value);
                 parametersSet |= STOP_END_SET;
             }
+            compute();
             break;
         case SUMO_ATTR_FRIENDLY_POS:
             friendlyPos = parse<bool>(value);
@@ -1069,7 +1082,7 @@ GNEStop::setAttribute(SumoXMLAttr key, const std::string& value) {
     }
     // check if geometry must be marked as deprecated
     if (myTagProperty.hasAttribute(key) && (myTagProperty.getAttributeProperties(key).requireUpdateGeometry())) {
-        myDemandElementSegmentGeometry.geometryDeprecated = true;
+        updateGeometry();
     }
 }
 

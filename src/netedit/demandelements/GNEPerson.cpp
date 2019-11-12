@@ -292,7 +292,11 @@ GNEPerson::getColor() const {
 
 void
 GNEPerson::compute() {
-    // Nothing to compute
+    // mark geometry of first element deprecated and update
+    if (getDemandElementChildren().size() > 0) {
+        getDemandElementChildren().front()->markSegmentGeometryDeprecated();
+        updateGeometry();
+    }
 }
 
 
@@ -322,7 +326,7 @@ GNEPerson::commitGeometryMoving(GNEUndoList*) {
 
 void
 GNEPerson::updateGeometry() {
-    // simply update childs
+    // simply update childrens geometry. Only elements with deprecated geometry will be updated
     for (const auto& i : getDemandElementChildren()) {
         i->updateGeometry();
     }
@@ -400,12 +404,9 @@ GNEPerson::drawGL(const GUIVisualizationSettings& s) const {
         if (getDemandElementChildren().front()->getTagProperty().isPersonStop()) {
             // obtain position of stop center
             personPosition = getDemandElementChildren().front()->getPositionInView();
-        } else if (getDemandElementChildren().front()->getTagProperty().getTag() == SUMO_TAG_WALK_ROUTE) {
-            // obtain position of first route's edge
-            personPosition = getDemandElementChildren().front()->getDemandElementParents().at(1)->getEdgeParents().front()->getLanes().front()->getLaneShape().front();
         } else {
             // obtain position of first edge
-            personPosition = getDemandElementChildren().front()->getEdgeParents().front()->getLanes().front()->getLaneShape().front();
+            personPosition = getDemandElementChildren().front()->getDemandElementSegmentGeometry().getFirstPosition();
         }
         glTranslated(personPosition.x(), personPosition.y(), getType());
         glRotated(90, 0, 0, 1);
@@ -519,8 +520,17 @@ GNEPerson::getAttribute(SumoXMLAttr key) const {
 
 
 double
-GNEPerson::getAttributeDouble(SumoXMLAttr /*key*/) const {
-    return 0;
+GNEPerson::getAttributeDouble(SumoXMLAttr key) const {
+    switch (key) {
+        case SUMO_ATTR_DEPARTPOS:
+            if (departPosProcedure == DEPART_POS_GIVEN) {
+                return departPos;
+            } else {
+                return 0;
+            }
+        default:
+            throw InvalidArgument(getTagStr() + " doesn't have a double attribute of type '" + toString(key) + "'");
+    }
 }
 
 
@@ -824,6 +834,8 @@ GNEPerson::setAttribute(SumoXMLAttr key, const std::string& value) {
                 // unset parameter
                 parametersSet &= ~VEHPARS_DEPARTPOS_SET;
             }
+            // compute person
+            compute();
             break;
         // Specific of persons
         case SUMO_ATTR_DEPART: {
@@ -870,7 +882,7 @@ GNEPerson::setAttribute(SumoXMLAttr key, const std::string& value) {
     }
     // check if geometry must be marked as deprecated
     if (myTagProperty.hasAttribute(key) && (myTagProperty.getAttributeProperties(key).requireUpdateGeometry())) {
-        myDemandElementSegmentGeometry.geometryDeprecated = true;
+        updateGeometry();
     }
 }
 

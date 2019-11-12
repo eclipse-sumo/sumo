@@ -181,7 +181,15 @@ GNELane::updateGeometry() {
     }
     // update demand elements parents associated with this lane
     for (auto i : getDemandElementParents()) {
+        i->markSegmentGeometryDeprecated();
+    }
+    // update demand elements parents associated with this lane
+    for (auto i : getDemandElementParents()) {
         i->updateGeometry();
+    }
+    // update demand elements children associated with this lane
+    for (auto i : getDemandElementChildren()) {
+        i->markSegmentGeometryDeprecated();
     }
     // update demand elements children associated with this lane
     for (auto i : getDemandElementChildren()) {
