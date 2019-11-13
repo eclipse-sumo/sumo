@@ -298,7 +298,7 @@ GNEStop::updateGeometry() {
         myDemandElementSegmentGeometry.geometryDeprecated = false;
         // recompute geometry of all Demand elements related with this this stop
         if (getDemandElementParents().front()->getTagProperty().isRoute()) {
-            getDemandElementParents().front()->compute();
+            getDemandElementParents().front()->updateGeometry();
         } else if (getDemandElementParents().front()->getTagProperty().isPerson()) {
             // compute previous and next person plan
             GNEDemandElement *previousDemandElement = getDemandElementParents().front()->getPreviousemandElement(this);
