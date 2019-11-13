@@ -306,10 +306,6 @@ public:
 
     /// @brief get color
     virtual const RGBColor& getColor() const = 0;
-
-    /// @brief compute demand element (used by flows, trips, personPlans<from-to>,...)
-    virtual void compute() = 0;
-
     /// @}
 
     /// @name members and functions relative to write demand elements into XML
@@ -361,6 +357,9 @@ public:
 
     /// @brief update pre-computed geometry information
     virtual void updateGeometry() = 0;
+
+    /// @brief partial update pre-computed geometry information
+    virtual void updatePartialGeometry(const GNEEdge *edge) = 0;
 
     /// @brief Returns position of demand element in view
     virtual Position getPositionInView() const = 0;

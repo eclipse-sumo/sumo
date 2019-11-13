@@ -232,13 +232,6 @@ GNERoute::getColor() const {
 
 
 void
-GNERoute::compute() {
-    // update geometry
-    updateGeometry();
-}
-
-
-void
 GNERoute::startGeometryMoving() {
     // Routes cannot be moved
 }
@@ -270,6 +263,11 @@ GNERoute::updateGeometry() {
     for (const auto& i : getDemandElementChildren()) {
         i->updateGeometry();
     }
+}
+
+
+void 
+GNERoute::updatePartialGeometry(const GNEEdge* edge) {
 }
 
 
@@ -448,7 +446,7 @@ GNERoute::setAttribute(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_EDGES:
             changeEdgeParents(this, value, true);
             // compute route
-            compute();
+            updateGeometry();
             break;
         case SUMO_ATTR_COLOR:
             myColor = parse<RGBColor>(value);
@@ -465,10 +463,6 @@ GNERoute::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
-    }
-    // check if geometry must be marked as deprecated
-    if (myTagProperty.hasAttribute(key) && (myTagProperty.getAttributeProperties(key).requireUpdateGeometry())) {
-        updateGeometry();
     }
 }
 

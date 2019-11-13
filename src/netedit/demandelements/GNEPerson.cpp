@@ -291,15 +291,6 @@ GNEPerson::getColor() const {
 
 
 void
-GNEPerson::compute() {
-    // mark geometry of first element deprecated and update
-    if (getDemandElementChildren().size() > 0) {
-        updateGeometry();
-    }
-}
-
-
-void
 GNEPerson::startGeometryMoving() {
     // Persons cannot be moved
 }
@@ -329,6 +320,12 @@ GNEPerson::updateGeometry() {
     for (const auto& i : getDemandElementChildren()) {
         i->updateGeometry();
     }
+}
+
+
+void 
+GNEPerson::updatePartialGeometry(const GNEEdge* edge) {
+
 }
 
 
@@ -834,7 +831,7 @@ GNEPerson::setAttribute(SumoXMLAttr key, const std::string& value) {
                 parametersSet &= ~VEHPARS_DEPARTPOS_SET;
             }
             // compute person
-            compute();
+            updateGeometry();
             break;
         // Specific of persons
         case SUMO_ATTR_DEPART: {
@@ -878,10 +875,6 @@ GNEPerson::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
-    }
-    // check if geometry must be marked as deprecated
-    if (myTagProperty.hasAttribute(key) && (myTagProperty.getAttributeProperties(key).requireUpdateGeometry())) {
-        updateGeometry();
     }
 }
 

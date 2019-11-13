@@ -186,13 +186,6 @@ GNEStop::getColor() const {
 
 
 void
-GNEStop::compute() {
-    // update geometry
-    updateGeometry();
-}
-
-
-void
 GNEStop::startGeometryMoving() {
     // only start geometry moving if stop is placed over a lane
     if (getLaneParents().size() > 0) {
@@ -253,8 +246,8 @@ GNEStop::moveGeometry(const Position& offset) {
                 endPos = parse<double>(myStopMove.secondOriginalPosition) + offsetLane;
             }
         }
-        // compute
-        compute();
+        // update geometry
+        updateGeometry();
     }
 }
 
@@ -298,13 +291,19 @@ GNEStop::updateGeometry() {
         // compute previous and next person plan
         GNEDemandElement *previousDemandElement = getDemandElementParents().front()->getPreviousemandElement(this);
         if (previousDemandElement) {
-            previousDemandElement->compute();
+            previousDemandElement->updateGeometry();
         }
         GNEDemandElement *nextDemandElement = getDemandElementParents().front()->getNextDemandElement(this);
         if (nextDemandElement) {
-            nextDemandElement->compute();
+            nextDemandElement->updateGeometry();
         }
     }
+}
+
+
+void 
+GNEStop::updatePartialGeometry(const GNEEdge* edge) {
+
 }
 
 
@@ -1035,12 +1034,12 @@ GNEStop::setAttribute(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_CHARGING_STATION:
         case SUMO_ATTR_PARKING_AREA:
             changeAdditionalParent(this, value, 0);
-            compute();
+            updateGeometry();
             break;
         // specific of Stops over lanes
         case SUMO_ATTR_LANE:
             changeLaneParents(this, value);
-            compute();
+            updateGeometry();
             break;
         case SUMO_ATTR_STARTPOS:
             if (value.empty()) {
@@ -1049,7 +1048,7 @@ GNEStop::setAttribute(SumoXMLAttr key, const std::string& value) {
                 startPos = parse<double>(value);
                 parametersSet |= STOP_START_SET;
             }
-            compute();
+            updateGeometry();
             break;
         case SUMO_ATTR_ENDPOS:
             if (value.empty()) {
@@ -1058,7 +1057,7 @@ GNEStop::setAttribute(SumoXMLAttr key, const std::string& value) {
                 endPos = parse<double>(value);
                 parametersSet |= STOP_END_SET;
             }
-            compute();
+            updateGeometry();
             break;
         case SUMO_ATTR_FRIENDLY_POS:
             friendlyPos = parse<bool>(value);
@@ -1073,10 +1072,6 @@ GNEStop::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
-    }
-    // check if geometry must be marked as deprecated
-    if (myTagProperty.hasAttribute(key) && (myTagProperty.getAttributeProperties(key).requireUpdateGeometry())) {
-        updateGeometry();
     }
 }
 

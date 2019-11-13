@@ -230,48 +230,6 @@ GNEWalk::getColor() const {
 
 
 void
-GNEWalk::compute() {
-    if ((myTagProperty.getTag() == SUMO_TAG_WALK_FROMTO) && myFromEdge && myToEdge) {
-        // declare a from-via-to edges vector
-        std::vector<std::string> FromViaToEdges;
-        // add from edge
-        FromViaToEdges.push_back(myFromEdge->getID());
-        // add via edges
-        FromViaToEdges.insert(FromViaToEdges.end(), myVia.begin(), myVia.end());
-        // add to edge
-        FromViaToEdges.push_back(myToEdge->getID());
-        // calculate route
-        std::vector<GNEEdge*> route = getRouteCalculatorInstance()->calculateDijkstraRoute(myViewNet->getNet(), getDemandElementParents().at(0)->getVClass(), FromViaToEdges);
-        // check if rute is valid
-        if (route.size() > 0) {
-            changeEdgeParents(this, route, true);
-        } else if (getEdgeParents().size() > 0) {
-            changeEdgeParents(this, getEdgeParents().front()->getID() + " " + toString(myVia) + " " + getEdgeParents().back()->getID(), true);
-        }
-    } else if ((myTagProperty.getTag() == SUMO_TAG_WALK_BUSSTOP) && myFromEdge && (getAdditionalParents().size() > 0)) {
-        // declare a from-via-busStop edges vector
-        std::vector<std::string> FromViaBusStopEdges;
-        // add from edge
-        FromViaBusStopEdges.push_back(myFromEdge->getID());
-        // add via edges
-        FromViaBusStopEdges.insert(FromViaBusStopEdges.end(), myVia.begin(), myVia.end());
-        // add busStop edge
-        FromViaBusStopEdges.push_back(getAdditionalParents().front()->getLaneParents().front()->getParentEdge().getID());
-        // calculate route
-        std::vector<GNEEdge*> route = getRouteCalculatorInstance()->calculateDijkstraRoute(myViewNet->getNet(), getDemandElementParents().at(0)->getVClass(), FromViaBusStopEdges);
-        // check if rute is valid
-        if (route.size() > 0) {
-            changeEdgeParents(this, route, true);
-        } else if (getEdgeParents().size() > 0) {
-            changeEdgeParents(this, getEdgeParents().front()->getID() + " " + toString(myVia) + " " + getEdgeParents().back()->getID(), true);
-        }
-    }
-    // update geometry
-    updateGeometry();
-}
-
-
-void
 GNEWalk::startGeometryMoving() {
     // only start geometry moving if arrival position isn't -1
     if (myArrivalPosition != -1) {
@@ -351,6 +309,51 @@ GNEWalk::updateGeometry() {
     for (const auto& i : getDemandElementChildren()) {
         i->updateGeometry();
     }
+    /*
+    if ((myTagProperty.getTag() == SUMO_TAG_WALK_FROMTO) && myFromEdge && myToEdge) {
+        // declare a from-via-to edges vector
+        std::vector<std::string> FromViaToEdges;
+        // add from edge
+        FromViaToEdges.push_back(myFromEdge->getID());
+        // add via edges
+        FromViaToEdges.insert(FromViaToEdges.end(), myVia.begin(), myVia.end());
+        // add to edge
+        FromViaToEdges.push_back(myToEdge->getID());
+        // calculate route
+        std::vector<GNEEdge*> route = getRouteCalculatorInstance()->calculateDijkstraRoute(myViewNet->getNet(), getDemandElementParents().at(0)->getVClass(), FromViaToEdges);
+        // check if rute is valid
+        if (route.size() > 0) {
+            changeEdgeParents(this, route, true);
+        } else if (getEdgeParents().size() > 0) {
+            changeEdgeParents(this, getEdgeParents().front()->getID() + " " + toString(myVia) + " " + getEdgeParents().back()->getID(), true);
+        }
+    } else if ((myTagProperty.getTag() == SUMO_TAG_WALK_BUSSTOP) && myFromEdge && (getAdditionalParents().size() > 0)) {
+        // declare a from-via-busStop edges vector
+        std::vector<std::string> FromViaBusStopEdges;
+        // add from edge
+        FromViaBusStopEdges.push_back(myFromEdge->getID());
+        // add via edges
+        FromViaBusStopEdges.insert(FromViaBusStopEdges.end(), myVia.begin(), myVia.end());
+        // add busStop edge
+        FromViaBusStopEdges.push_back(getAdditionalParents().front()->getLaneParents().front()->getParentEdge().getID());
+        // calculate route
+        std::vector<GNEEdge*> route = getRouteCalculatorInstance()->calculateDijkstraRoute(myViewNet->getNet(), getDemandElementParents().at(0)->getVClass(), FromViaBusStopEdges);
+        // check if rute is valid
+        if (route.size() > 0) {
+            changeEdgeParents(this, route, true);
+        } else if (getEdgeParents().size() > 0) {
+            changeEdgeParents(this, getEdgeParents().front()->getID() + " " + toString(myVia) + " " + getEdgeParents().back()->getID(), true);
+        }
+    }
+    // update geometry
+    updateGeometry();
+    */
+}
+
+
+void 
+GNEWalk::updatePartialGeometry(const GNEEdge* edge) {
+
 }
 
 
@@ -576,14 +579,14 @@ GNEWalk::setAttribute(SumoXMLAttr key, const std::string& value) {
             // update myFrom edge
             myFromEdge = myViewNet->getNet()->retrieveEdge(value);
             // compute path
-            compute();
+            updateGeometry();
             break;
         }
         case SUMO_ATTR_TO: {
             // update myToEdge edge
             myToEdge = myViewNet->getNet()->retrieveEdge(value);
             // compute path
-            compute();
+            updateGeometry();
             break;
         }
         case SUMO_ATTR_VIA: {
@@ -595,24 +598,24 @@ GNEWalk::setAttribute(SumoXMLAttr key, const std::string& value) {
                 myVia.clear();
             }
             // compute path
-            compute();
+            updateGeometry();
             break;
         }
         case SUMO_ATTR_EDGES:
             changeEdgeParents(this, value, true);
-            compute();
+            updateGeometry();
             break;
         case SUMO_ATTR_ROUTE:
             changeDemandElementParent(this, value, 1);
-            compute();
+            updateGeometry();
             break;
         case SUMO_ATTR_BUS_STOP:
             changeAdditionalParent(this, value, 0);
-            compute();
+            updateGeometry();
             break;
         case SUMO_ATTR_ARRIVALPOS:
             myArrivalPosition = parse<double>(value);
-            compute();
+            updateGeometry();
             break;
         case GNE_ATTR_SELECTED:
             if (parse<bool>(value)) {
@@ -626,10 +629,6 @@ GNEWalk::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
-    }
-    // check if geometry must be marked as deprecated
-    if (myTagProperty.hasAttribute(key) && (myTagProperty.getAttributeProperties(key).requireUpdateGeometry())) {
-        updateGeometry();
     }
 }
 

@@ -1491,7 +1491,7 @@ GNENet::computeDemandElements(GNEApplicationWindow* window) {
     // iterate over all demand elements and compute
     for (const auto& i : myAttributeCarriers.demandElements) {
         for (const auto& j : i.second) {
-            j.second->compute();
+            j.second->updateGeometry();
         }
     }
     window->setStatusBarText("Finished computing demand elements.");

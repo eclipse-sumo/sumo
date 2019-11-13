@@ -118,13 +118,6 @@ GNEVehicleType::getColor() const {
 
 
 void
-GNEVehicleType::compute() {
-    // update geometry
-    updateGeometry();
-}
-
-
-void
 GNEVehicleType::startGeometryMoving() {
     // VTypes cannot be moved
 }
@@ -153,6 +146,15 @@ GNEVehicleType::updateGeometry() {
     // update geometry of all childrens
     for (const auto &i : getDemandElementChildren()) {
         i->updateGeometry();
+    }
+}
+
+
+void 
+GNEVehicleType::updatePartialGeometry(const GNEEdge* edge) {
+    // update geometry of all childrens
+    for (const auto &i : getDemandElementChildren()) {
+        i->updatePartialGeometry(edge);
     }
 }
 
