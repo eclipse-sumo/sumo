@@ -55,16 +55,16 @@ public:
         Lane2laneConnection(GNELane* originLane);
 
         /// @brief update
-        void update();
+        void updateLane2laneConnection();
 
         /// @brief connection shape
-        std::map<const GNELane*, PositionVector> shape;
+        std::map<const GNELane*, PositionVector> shapesMap;
 
         /// @brief The rotations of the single shape parts
-        std::map<const GNELane*, std::vector<double> > shapeRotations;
+        std::map<const GNELane*, std::vector<double> > shapeRotationsMap;
 
         /// @brief The lengths of the single shape parts
-        std::map<const GNELane*, std::vector<double> > shapeLengths;
+        std::map<const GNELane*, std::vector<double> > shapeLengthsMap;
 
     private:
         /// @brief origin lane
@@ -184,7 +184,7 @@ public:
     bool isRestricted(SUMOVehicleClass vclass) const;
 
     /// @brief get Lane2laneConnection struct
-    Lane2laneConnection getLane2laneConnections() const;
+    const Lane2laneConnection &getLane2laneConnections() const;
 
     /// @name inherited from GNEAttributeCarrier
     /// @{

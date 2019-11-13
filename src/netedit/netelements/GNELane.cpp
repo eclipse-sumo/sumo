@@ -62,39 +62,42 @@ GNELane::Lane2laneConnection::Lane2laneConnection(GNELane* originLane) :
 
 
 void 
-GNELane::Lane2laneConnection::update() {
-    shape.clear();
-    shapeRotations.clear();
-    shapeLengths.clear();
+GNELane::Lane2laneConnection::updateLane2laneConnection() {
+    // clear containers
+    shapesMap.clear();
+    shapeRotationsMap.clear();
+    shapeLengthsMap.clear();
+    // iterate over outgoingEdge's lanes
     for (const auto &outgoingEdge : myOriginLane->getParentEdge().getGNEJunctionDestiny()->getGNEOutgoingEdges()) {
         for (const auto &outgoingLane : outgoingEdge->getLanes()) {
             // get NBEdges from and to
             const NBEdge* NBEdgeFrom = myOriginLane->getParentEdge().getNBEdge();
             const NBEdge* NBEdgeTo = outgoingLane->getParentEdge().getNBEdge();
             if (NBEdgeFrom->getToNode()->getShape().area() > 4) {
-                // Calculate shape so something can be drawn immidiately
-                shape[outgoingLane] = NBEdgeFrom->getToNode()->computeSmoothShape(
+                // Calculate smooth shape
+                shapesMap[outgoingLane] = NBEdgeFrom->getToNode()->computeSmoothShape(
                     NBEdgeFrom->getLaneShape(myOriginLane->getIndex()),
                     NBEdgeTo->getLaneShape(outgoingLane->getIndex()),
                     5, NBEdgeFrom->getTurnDestination() == NBEdgeTo,
                     (double) 5. * (double) NBEdgeFrom->getNumLanes(),
                     (double) 5. * (double) NBEdgeTo->getNumLanes());
             } else {
-                shape[outgoingLane] = {NBEdgeFrom->getLaneShape(myOriginLane->getIndex()).back(), NBEdgeTo->getLaneShape(outgoingLane->getIndex()).front()};
+                // create a shape using shape extremes
+                shapesMap[outgoingLane] = {NBEdgeFrom->getLaneShape(myOriginLane->getIndex()).back(), NBEdgeTo->getLaneShape(outgoingLane->getIndex()).front()};
             }
             // Get number of parts of the shape
-            int numberOfSegments = (int)shape[outgoingLane].size() - 1;
+            const int numberOfSegments = (int)shapesMap[outgoingLane].size() - 1;
             // If number of segments is more than 0
             if (numberOfSegments >= 0) {
                 // Reserve memory (To improve efficiency)
-                shapeRotations[outgoingLane].reserve(numberOfSegments);
-                shapeLengths[outgoingLane].reserve(numberOfSegments);
+                shapeLengthsMap[outgoingLane].reserve(numberOfSegments);
+                shapeRotationsMap[outgoingLane].reserve(numberOfSegments);
                 // For every part of the shape
-                for (int i = 0; i < numberOfSegments; ++i) {
+                for (int i = 0; i < numberOfSegments; i++) {
                     // Save distance between position into myShapeLengths
-                    shapeLengths[outgoingLane].push_back(calculateLength(shape[outgoingLane][i], shape[outgoingLane][i + 1]));
+                    shapeLengthsMap[outgoingLane].push_back(calculateLength(shapesMap[outgoingLane][i], shapesMap[outgoingLane][i + 1]));
                     // Save rotation (angle) of the vector constructed by points f and s
-                    shapeRotations[outgoingLane].push_back(calculateRotation(shape[outgoingLane][i], shape[outgoingLane][i + 1]));
+                    shapeRotationsMap[outgoingLane].push_back(calculateRotation(shapesMap[outgoingLane][i], shapesMap[outgoingLane][i + 1]));
                 }
             }
         }
@@ -162,7 +165,7 @@ GNELane::updateGeometry() {
     // calculate rotations and lenghts
     myLaneGeometry.calculateShapeRotationsAndLengths();
     // update connections
-    myLane2laneConnections.update();
+    myLane2laneConnections.updateLane2laneConnection();
     // update shapes parents associated with this lane
     for (auto i : getShapeParents()) {
         i->updateGeometry();
@@ -171,21 +174,21 @@ GNELane::updateGeometry() {
     for (auto i : getShapeChildren()) {
         i->updateGeometry();
     }
-    // update additionals parents associated with this lane
-    for (auto i : getAdditionalChildren()) {
-        i->updateGeometry();
-    }
     // update additionals children associated with this lane
     for (auto i : getAdditionalParents()) {
         i->updateGeometry();
     }
-    // update demand elements parents associated with this lane
-    for (auto i : getDemandElementParents()) {
+    // update additionals parents associated with this lane
+    for (auto i : getAdditionalChildren()) {
         i->updateGeometry();
     }
-    // update demand elements children associated with this lane
+    // partial update demand elements parents associated with this lane
+    for (auto i : getDemandElementParents()) {
+        i->updatePartialGeometry(&getParentEdge());
+    }
+    // partial update demand elements children associated with this lane
     for (auto i : getDemandElementChildren()) {
-        i->updateGeometry();
+        i->updatePartialGeometry(&getParentEdge());
     }
     // In Move mode, connections aren't updated
     if (myNet->getViewNet() && myNet->getViewNet()->getEditModes().networkEditMode != GNE_NMODE_MOVE) {
@@ -866,7 +869,7 @@ GNELane::isRestricted(SUMOVehicleClass vclass) const {
 }
 
 
-GNELane::Lane2laneConnection 
+const GNELane::Lane2laneConnection &
 GNELane::getLane2laneConnections() const {
     return myLane2laneConnections;
 }
