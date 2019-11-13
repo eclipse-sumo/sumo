@@ -184,9 +184,6 @@ public:
         //@}
 
 
-        /// @brief Returns the detector itself
-        GUIInductLoop& getLoop();
-
         /// @brief set (outline) color for extra visualiaztion
         void setSpecialColor(const RGBColor* color) {
             mySpecialColor = color;

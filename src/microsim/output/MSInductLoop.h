@@ -160,7 +160,7 @@ public:
      *
      * @return The speed [m/s] of the vehicle if one is on the detector, -1 otherwise
      */
-    double getCurrentSpeed() const;
+    double getSpeed(const int offset) const;
 
 
     /** @brief Returns the length of the vehicle on the detector
@@ -170,7 +170,7 @@ public:
      *
      * @return The length [m] of the vehicle if one is on the detector, -1 otherwise
      */
-    double getCurrentLength() const;
+    double getVehicleLength(const int offset) const;
 
 
     /** @brief Returns the current occupancy
@@ -182,7 +182,7 @@ public:
      * @return This detector's current occupancy
      * @todo recheck (especially if more than one vehicle has passed)
      */
-    double getCurrentOccupancy() const;
+    double getOccupancy(const int offset) const;
 
 
     /** @brief Returns the number of vehicles that have passed the detector
@@ -194,7 +194,7 @@ public:
      * @return The number of vehicles that have passed the detector
      * @todo recheck (especially if more than one vehicle has passed)
      */
-    int getCurrentPassedNumber() const;
+    double getPassedNumber(const int offset) const;
 
 
     /** @brief Returns the ids of vehicles that have passed the detector
@@ -202,7 +202,7 @@ public:
      * @return The ids of vehicles that have passed the detector
      * @todo recheck (especially if more than one vehicle has passed)
      */
-    std::vector<std::string> getCurrentVehicleIDs() const;
+    std::vector<std::string> getVehicleIDs(const int offset) const;
 
 
     /** @brief Returns the time since the last vehicle left the detector

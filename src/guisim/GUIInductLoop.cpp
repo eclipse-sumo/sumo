@@ -29,6 +29,7 @@
 #include <utils/gui/div/GLHelper.h>
 #include <utils/gui/div/GUIParameterTableWindow.h>
 #include <microsim/logging/FunctionBinding.h>
+#include <microsim/logging/FuncBinding_IntParam.h>
 #include <microsim/MSLane.h>
 #include <microsim/output/MSInductLoop.h>
 #include "GUIEdge.h"
@@ -138,15 +139,15 @@ GUIInductLoop::MyWrapper::getParameterWindow(GUIMainWindow& app,
     ret->mkItem("lane", false, myDetector.getLane()->getID());
     // values
     ret->mkItem("passed vehicles [#]", true,
-                new FunctionBinding<GUIInductLoop, int>(&myDetector, &GUIInductLoop::getCurrentPassedNumber));
+                new FuncBinding_IntParam<GUIInductLoop, double>(&myDetector, &GUIInductLoop::getPassedNumber, 0));
     ret->mkItem("speed [m/s]", true,
-                new FunctionBinding<GUIInductLoop, double>(&myDetector, &GUIInductLoop::getCurrentSpeed));
+                new FuncBinding_IntParam<GUIInductLoop, double>(&myDetector, &GUIInductLoop::getSpeed, 0));
     ret->mkItem("occupancy [%]", true,
-                new FunctionBinding<GUIInductLoop, double>(&myDetector, &GUIInductLoop::getCurrentOccupancy));
+                new FuncBinding_IntParam<GUIInductLoop, double>(&myDetector, &GUIInductLoop::getOccupancy, 0));
     ret->mkItem("vehicle length [m]", true,
-                new FunctionBinding<GUIInductLoop, double>(&myDetector, &GUIInductLoop::getCurrentLength));
+                new FuncBinding_IntParam<GUIInductLoop, double>(&myDetector, &GUIInductLoop::getVehicleLength, 0));
     ret->mkItem("empty time [s]", true,
-                new FunctionBinding<GUIInductLoop, double>(&(getLoop()), &GUIInductLoop::getTimeSinceLastDetection));
+                new FunctionBinding<GUIInductLoop, double>(&myDetector, &GUIInductLoop::getTimeSinceLastDetection));
     // close building
     ret->closeBuilding();
     return ret;
@@ -213,12 +214,4 @@ GUIInductLoop::MyWrapper::drawGL(const GUIVisualizationSettings& s) const {
 }
 
 
-GUIInductLoop&
-GUIInductLoop::MyWrapper::getLoop() {
-    return myDetector;
-}
-
-
-
 /****************************************************************************/
-

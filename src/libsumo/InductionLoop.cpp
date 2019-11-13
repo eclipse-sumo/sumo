@@ -72,31 +72,31 @@ InductionLoop::getLaneID(const std::string& detID) {
 
 int
 InductionLoop::getLastStepVehicleNumber(const std::string& detID) {
-    return getDetector(detID)->getCurrentPassedNumber();
+    return getDetector(detID)->getPassedNumber(DELTA_T);
 }
 
 
 double
 InductionLoop::getLastStepMeanSpeed(const std::string& detID) {
-    return getDetector(detID)->getCurrentSpeed();
+    return getDetector(detID)->getSpeed(DELTA_T);
 }
 
 
 std::vector<std::string>
 InductionLoop::getLastStepVehicleIDs(const std::string& detID) {
-    return getDetector(detID)->getCurrentVehicleIDs();
+    return getDetector(detID)->getVehicleIDs(DELTA_T);
 }
 
 
 double
 InductionLoop::getLastStepOccupancy(const std::string& detID) {
-    return getDetector(detID)->getCurrentOccupancy();
+    return getDetector(detID)->getOccupancy(DELTA_T);
 }
 
 
 double
 InductionLoop::getLastStepMeanLength(const std::string& detID) {
-    return getDetector(detID)->getCurrentLength();
+    return getDetector(detID)->getVehicleLength(DELTA_T);
 }
 
 
@@ -108,7 +108,7 @@ InductionLoop::getTimeSinceDetection(const std::string& detID) {
 
 std::vector<libsumo::TraCIVehicleData>
 InductionLoop::getVehicleData(const std::string& detID) {
-    std::vector<MSInductLoop::VehicleData> vd = getDetector(detID)->collectVehiclesOnDet(MSNet::getInstance()->getCurrentTimeStep() - DELTA_T, true);
+    std::vector<MSInductLoop::VehicleData> vd = getDetector(detID)->collectVehiclesOnDet(SIMSTEP - DELTA_T, true);
     std::vector<libsumo::TraCIVehicleData> tvd;
     for (std::vector<MSInductLoop::VehicleData>::const_iterator vdi = vd.begin(); vdi != vd.end(); ++vdi) {
         tvd.push_back(libsumo::TraCIVehicleData());

@@ -145,54 +145,49 @@ MSInductLoop::notifyLeave(SUMOTrafficObject& veh, double lastPos, MSMoveReminder
 
 
 double
-MSInductLoop::getCurrentSpeed() const {
-    std::vector<VehicleData> d = collectVehiclesOnDet(MSNet::getInstance()->getCurrentTimeStep() - DELTA_T);
-    return d.size() != 0
-           ? std::accumulate(d.begin(), d.end(), (double) 0.0, speedSum) / (double) d.size()
-           : -1;
+MSInductLoop::getSpeed(const int offset) const {
+    const std::vector<VehicleData>& d = collectVehiclesOnDet(SIMSTEP - offset);
+    return d.empty() ? -1. : std::accumulate(d.begin(), d.end(), 0.0, speedSum) / (double) d.size();
 }
 
 
 double
-MSInductLoop::getCurrentLength() const {
-    std::vector<VehicleData> d = collectVehiclesOnDet(MSNet::getInstance()->getCurrentTimeStep() - DELTA_T);
-    return d.size() != 0
-           ? std::accumulate(d.begin(), d.end(), (double) 0.0, lengthSum) / (double) d.size()
-           : -1;
+MSInductLoop::getVehicleLength(const int offset) const {
+    const std::vector<VehicleData>& d = collectVehiclesOnDet(SIMSTEP - offset);
+    return d.empty() ? -1. : std::accumulate(d.begin(), d.end(), 0.0, lengthSum) / (double)d.size();
 }
 
 
 double
-MSInductLoop::getCurrentOccupancy() const {
-    SUMOTime tbeg = MSNet::getInstance()->getCurrentTimeStep() - DELTA_T;
-    std::vector<VehicleData> d = collectVehiclesOnDet(tbeg);
-    if (d.size() == 0) {
+MSInductLoop::getOccupancy(const int offset) const {
+    const SUMOTime tbeg = SIMSTEP - offset;
+    const std::vector<VehicleData>& d = collectVehiclesOnDet(tbeg);
+    if (d.empty()) {
         return -1;
     }
     double occupancy = 0;
-    double csecond = STEPS2TIME(MSNet::getInstance()->getCurrentTimeStep());
-    for (std::vector< VehicleData >::const_iterator i = d.begin(); i != d.end(); ++i) {
-        const double leaveTime = (*i).leaveTimeM == HAS_NOT_LEFT_DETECTOR ? csecond : (*i).leaveTimeM;
-        const double timeOnDetDuringInterval = leaveTime - MAX2(STEPS2TIME(tbeg), (*i).entryTimeM);
+    const double csecond = SIMTIME;
+    for (const VehicleData& i : d) {
+        const double leaveTime = i.leaveTimeM == HAS_NOT_LEFT_DETECTOR ? csecond : i.leaveTimeM;
+        const double timeOnDetDuringInterval = leaveTime - MAX2(STEPS2TIME(tbeg), i.entryTimeM);
         occupancy += MIN2(timeOnDetDuringInterval, TS);
     }
-    return occupancy / TS * (double) 100.;
+    return occupancy / TS * 100.;
 }
 
 
-int
-MSInductLoop::getCurrentPassedNumber() const {
-    std::vector<VehicleData> d = collectVehiclesOnDet(MSNet::getInstance()->getCurrentTimeStep() - DELTA_T);
-    return (int) d.size();
+double
+MSInductLoop::getPassedNumber(const int offset) const {
+    return (double)collectVehiclesOnDet(SIMSTEP - offset).size();
 }
 
 
 std::vector<std::string>
-MSInductLoop::getCurrentVehicleIDs() const {
-    std::vector<VehicleData> d = collectVehiclesOnDet(MSNet::getInstance()->getCurrentTimeStep() - DELTA_T);
+MSInductLoop::getVehicleIDs(const int offset) const {
+    const std::vector<VehicleData>& d = collectVehiclesOnDet(SIMSTEP - offset);
     std::vector<std::string> ret;
-    for (std::vector<VehicleData>::iterator i = d.begin(); i != d.end(); ++i) {
-        ret.push_back((*i).idM);
+    for (const VehicleData& i : d) {
+        ret.push_back(i.idM);
     }
     return ret;
 }
@@ -314,4 +309,3 @@ MSInductLoop::collectVehiclesOnDet(SUMOTime tMS, bool leaveTime) const {
 
 
 /****************************************************************************/
-
