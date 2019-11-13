@@ -486,7 +486,7 @@ NIImporter_DlrNavteq::TrafficlightsHandler::report(const std::string& result) {
     const std::string edgeID = st.get(5);
     NBEdge* edge = myEdgeCont.retrieve(edgeID);
     if (edge == nullptr) {
-        WRITE_WARNING("The traffic light edge '" + edgeID + "' could not be found");
+        WRITE_WARNING("The traffic light edge '%' could not be found.", edgeID);
     } else {
         NBNode* node = edge->getToNode();
         if (node->getType() != NODETYPE_TRAFFIC_LIGHT) {
@@ -733,7 +733,7 @@ NIImporter_DlrNavteq::ProhibitionHandler::report(const std::string& result) {
         const std::string throughTraffic = st.next();
         const std::string vehicleType = st.next();
         if (validityPeriod != UNDEFINED) {
-            WRITE_WARNING("Ignoring temporary prohibited manoeuvre (" + validityPeriod + ")");
+            WRITE_WARNINGF("Ignoring temporary prohibited manoeuvre (%).", validityPeriod);
             return true;
         }
     }
@@ -742,12 +742,12 @@ NIImporter_DlrNavteq::ProhibitionHandler::report(const std::string& result) {
 
     NBEdge* from = myEdgeCont.retrieve(startEdge);
     if (from == nullptr) {
-        WRITE_WARNING("Ignoring prohibition from unknown start edge '" + startEdge + "'");
+        WRITE_WARNINGF("Ignoring prohibition from unknown start edge '%'.", startEdge);
         return true;
     }
     NBEdge* to = myEdgeCont.retrieve(endEdge);
     if (to == nullptr) {
-        WRITE_WARNING("Ignoring prohibition from unknown end edge '" + endEdge + "'");
+        WRITE_WARNINGF("Ignoring prohibition from unknown end edge '%'.", endEdge);
         return true;
     }
     from->removeFromConnections(to, -1, -1, true);
@@ -787,27 +787,27 @@ NIImporter_DlrNavteq::ConnectedLanesHandler::report(const std::string& result) {
 
     NBEdge* from = myEdgeCont.retrieve(startEdge);
     if (from == nullptr) {
-        WRITE_WARNING("Ignoring prohibition from unknown start edge '" + startEdge + "'");
+        WRITE_WARNINGF("Ignoring prohibition from unknown start edge '%'.", startEdge);
         return true;
     }
     NBEdge* to = myEdgeCont.retrieve(endEdge);
     if (to == nullptr) {
-        WRITE_WARNING("Ignoring prohibition from unknown end edge '" + endEdge + "'");
+        WRITE_WARNINGF("Ignoring prohibition from unknown end edge '%'.", endEdge);
         return true;
     }
     int fromLane = StringUtils::toInt(fromLaneS) - 1; // one based
     if (fromLane < 0 || fromLane >= from->getNumLanes()) {
-        WRITE_WARNING("Ignoring invalid lane index '" + fromLaneS + "' in connection from edge '" + startEdge + "' with " + toString(from->getNumLanes()) + " lanes");
+        WRITE_WARNINGF("Ignoring invalid lane index '%' in connection from edge '%' with % lanes.", fromLaneS, startEdge, from->getNumLanes());
         return true;
     }
     int toLane = StringUtils::toInt(toLaneS) - 1; // one based
     if (toLane < 0 || toLane >= to->getNumLanes()) {
-        WRITE_WARNING("Ignoring invalid lane index '" + toLaneS + "' in connection to edge '" + endEdge + "' with " + toString(to->getNumLanes()) + " lanes");
+        WRITE_WARNINGF("Ignoring invalid lane index '%' in connection to edge '%' with % lanes", toLaneS, endEdge, to->getNumLanes());
         return true;
     }
     if (!from->addLane2LaneConnection(fromLane, to, toLane, NBEdge::L2L_USER, true)) {
         if (OptionsCont::getOptions().getBool("show-errors.connections-first-try")) {
-            WRITE_WARNING("Could not set loaded connection from '" + from->getLaneID(fromLane) + "' to '" + to->getLaneID(toLane) + "'.");
+            WRITE_WARNINGF("Could not set loaded connection from '%' to '%'.", from->getLaneID(fromLane), to->getLaneID(toLane));
         }
         // set as to be re-applied after network processing
         // if this connection runs across a node cluster it may not be possible to set this
@@ -821,5 +821,6 @@ NIImporter_DlrNavteq::ConnectedLanesHandler::report(const std::string& result) {
     from->getLaneStruct(fromLane).connectionsDone = true;
     return true;
 }
+
 
 /****************************************************************************/
