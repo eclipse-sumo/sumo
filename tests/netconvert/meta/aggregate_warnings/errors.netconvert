@@ -4,7 +4,7 @@ Warning: Discarding unusable type 'waterway.canal' (first occurence for edge '31
 Warning: Discarding unknown compound 'cycleway.track' in type 'cycleway.track|highway.tertiary' (first occurence for edge '46039050').
 Warning: No way found for reference '48858193' in relation '2439689'
 Warning: Ignoring restriction relation '2439689' with unknown from-way.
-Warning: Reducing junction cluster 1560224141,1560224152,1560224191,1560224195 (5 incoming edges)
+Warning: Reducing junction cluster 1560224141,1560224152,1560224191,1560224195 (5 incoming edges).
 Warning: Found sharp turn with radius 4.30 at the end of edge '-133858467#1'.
 Warning: Found sharp turn with radius 7.22 at the start of edge '-133858467#2'.
 Warning: Found sharp turn with radius 4.30 at the start of edge '133858467#1'.

@@ -14,4 +14,4 @@ Warning: Ignoring restriction relation '5974249' with unknown from-way.
 Warning: Ignoring restriction relation '5974249' with unknown to-way.
 Warning: Ignoring restriction relation '5974249' with unknown via.
 Warning: Connection '313088548_0->254150073#1_0' is only 0.09m short.
-Warning: Speed of turning connection '56392724_0->56392722#2_0' reduced by 41.59 due to turning radius of 1.48 (length=1.61 angle=170.23)
+Warning: Speed of turning connection '56392724_0->56392722#2_0' reduced by 41.59 due to turning radius of 1.48 (length=1.61, angle=170.23).
