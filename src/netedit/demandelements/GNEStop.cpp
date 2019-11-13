@@ -187,8 +187,6 @@ GNEStop::getColor() const {
 
 void
 GNEStop::compute() {
-    // mark geometry as deprecated
-    myDemandElementSegmentGeometry.geometryDeprecated = true;
     // update geometry
     updateGeometry();
 }
@@ -279,36 +277,32 @@ GNEStop::commitGeometryMoving(GNEUndoList* undoList) {
 
 void
 GNEStop::updateGeometry() {
-    if (myDemandElementSegmentGeometry.geometryDeprecated) {
-        // Clear all containers
-        myDemandElementGeometry.clearGeometry();
-        //only update Stops over lanes, because other uses the geometry of stopping place parent
-        if (getLaneParents().size() > 0) {
-            // Cut shape using as delimitators fixed start position and fixed end position
-            myDemandElementGeometry.shape = getLaneParents().front()->getLaneShape().getSubpart(getStartGeometryPositionOverLane(), getEndGeometryPositionOverLane());
-            // Get calculate lengths and rotations
-            myDemandElementGeometry.calculateShapeRotationsAndLengths();
-        } else if (getAdditionalParents().size() > 0) {
-            // copy geometry of additional (busStop)
-            myDemandElementGeometry.shape = getAdditionalParents().at(0)->getAdditionalGeometry().shape;
-            myDemandElementGeometry.shapeLengths = getAdditionalParents().at(0)->getAdditionalGeometry().shapeLengths;
-            myDemandElementGeometry.shapeRotations = getAdditionalParents().at(0)->getAdditionalGeometry().shapeRotations;
+    // Clear all containers
+    myDemandElementGeometry.clearGeometry();
+    //only update Stops over lanes, because other uses the geometry of stopping place parent
+    if (getLaneParents().size() > 0) {
+        // Cut shape using as delimitators fixed start position and fixed end position
+        myDemandElementGeometry.shape = getLaneParents().front()->getLaneShape().getSubpart(getStartGeometryPositionOverLane(), getEndGeometryPositionOverLane());
+        // Get calculate lengths and rotations
+        myDemandElementGeometry.calculateShapeRotationsAndLengths();
+    } else if (getAdditionalParents().size() > 0) {
+        // copy geometry of additional (busStop)
+        myDemandElementGeometry.shape = getAdditionalParents().at(0)->getAdditionalGeometry().shape;
+        myDemandElementGeometry.shapeLengths = getAdditionalParents().at(0)->getAdditionalGeometry().shapeLengths;
+        myDemandElementGeometry.shapeRotations = getAdditionalParents().at(0)->getAdditionalGeometry().shapeRotations;
+    }
+    // recompute geometry of all Demand elements related with this this stop
+    if (getDemandElementParents().front()->getTagProperty().isRoute()) {
+        getDemandElementParents().front()->updateGeometry();
+    } else if (getDemandElementParents().front()->getTagProperty().isPerson()) {
+        // compute previous and next person plan
+        GNEDemandElement *previousDemandElement = getDemandElementParents().front()->getPreviousemandElement(this);
+        if (previousDemandElement) {
+            previousDemandElement->compute();
         }
-        // mark geometry as non deprecated
-        myDemandElementSegmentGeometry.geometryDeprecated = false;
-        // recompute geometry of all Demand elements related with this this stop
-        if (getDemandElementParents().front()->getTagProperty().isRoute()) {
-            getDemandElementParents().front()->updateGeometry();
-        } else if (getDemandElementParents().front()->getTagProperty().isPerson()) {
-            // compute previous and next person plan
-            GNEDemandElement *previousDemandElement = getDemandElementParents().front()->getPreviousemandElement(this);
-            if (previousDemandElement) {
-                previousDemandElement->compute();
-            }
-            GNEDemandElement *nextDemandElement = getDemandElementParents().front()->getNextDemandElement(this);
-            if (nextDemandElement) {
-                nextDemandElement->compute();
-            }
+        GNEDemandElement *nextDemandElement = getDemandElementParents().front()->getNextDemandElement(this);
+        if (nextDemandElement) {
+            nextDemandElement->compute();
         }
     }
 }

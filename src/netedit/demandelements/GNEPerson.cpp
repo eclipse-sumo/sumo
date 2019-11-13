@@ -294,7 +294,6 @@ void
 GNEPerson::compute() {
     // mark geometry of first element deprecated and update
     if (getDemandElementChildren().size() > 0) {
-        getDemandElementChildren().front()->markSegmentGeometryDeprecated();
         updateGeometry();
     }
 }

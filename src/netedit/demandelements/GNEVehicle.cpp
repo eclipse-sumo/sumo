@@ -514,8 +514,6 @@ GNEVehicle::compute() {
         } else if (getEdgeParents().size() > 0) {
             changeEdgeParents(this, getEdgeParents().front()->getID() + " " + toString(via) + " " + getEdgeParents().back()->getID(), true);
         }
-        // mark geometry as deprecated
-        myDemandElementSegmentGeometry.geometryDeprecated = true;
         // update geometry
         updateGeometry();
     }
@@ -548,27 +546,18 @@ GNEVehicle::commitGeometryMoving(GNEUndoList*) {
 
 void
 GNEVehicle::updateGeometry() {
-    // first check if geometry is deprecated
-    if (myDemandElementSegmentGeometry.geometryDeprecated) {
-        // declare two pointers for depart and arrival pos lanes
-        double departPosLane = -1;
-        double arrivalPosLane = -1;
-        // check if depart and arrival pos lanes are defiend
-        if (departPosProcedure == DEPART_POS_GIVEN) {
-            departPosLane = departPos;
-        }
-        if (arrivalPosProcedure == ARRIVAL_POS_GIVEN) {
-            arrivalPosLane = arrivalPos;
-        }
-        // calculate geometry path
-        calculateGeometricPath(getEdgeParents(), departPosLane, arrivalPosLane);
-        // set geometry as non-deprecated
-        myDemandElementSegmentGeometry.geometryDeprecated = false;
-        // mark geometry of all childrens as deprecated
-        for (const auto& i : getDemandElementChildren()) {
-            i->markSegmentGeometryDeprecated();
-        }
+    // declare two pointers for depart and arrival pos lanes
+    double departPosLane = -1;
+    double arrivalPosLane = -1;
+    // check if depart and arrival pos lanes are defiend
+    if (departPosProcedure == DEPART_POS_GIVEN) {
+        departPosLane = departPos;
     }
+    if (arrivalPosProcedure == ARRIVAL_POS_GIVEN) {
+        arrivalPosLane = arrivalPos;
+    }
+    // calculate geometry path
+    calculateGeometricPath(getEdgeParents(), departPosLane, arrivalPosLane);
     // update demand element childrens
     for (const auto& i : getDemandElementChildren()) {
         i->updateGeometry();
@@ -1620,8 +1609,6 @@ GNEVehicle::computeWithoutReferences() {
         } else if (getEdgeParents().size() > 0) {
             changeEdgeParents(this, getEdgeParents().front()->getID() + " " + toString(via) + " " + getEdgeParents().back()->getID(), false);
         }
-        // mark geometry as deprecated
-        myDemandElementSegmentGeometry.geometryDeprecated = true;
         // update geometry
         updateGeometry();
     }

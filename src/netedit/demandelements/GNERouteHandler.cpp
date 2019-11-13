@@ -592,8 +592,7 @@ GNERouteHandler::buildPersonTripFromTo(GNEViewNet* viewNet, bool undoDemandEleme
         personParent->addDemandElementChild(personTripFromTo);
         personTripFromTo->incRef("buildPersonTripFromTo");
     }
-    // mark geometry of person plan parent deprecated and update geometry
-    personParent->markSegmentGeometryDeprecated();
+    // update geometry
     personParent->updateGeometry();
 }
 
@@ -616,8 +615,7 @@ GNERouteHandler::buildPersonTripBusStop(GNEViewNet* viewNet, bool undoDemandElem
         fromEdge->addDemandElementChild(personTripBusStop);
         personTripBusStop->incRef("buildPersonTripBusStop");
     }
-    // mark geometry of person plan parent deprecated and update geometry
-    personParent->markSegmentGeometryDeprecated();
+    // update geometry
     personParent->updateGeometry();
 }
 
@@ -651,8 +649,7 @@ GNERouteHandler::buildWalkEdges(GNEViewNet* viewNet, bool undoDemandElements, GN
             }
             walkEdges->incRef("buildWalkEdges");
         }
-        // mark geometry of person plan parent deprecated and update geometry
-        personParent->markSegmentGeometryDeprecated();
+        // update geometry
         personParent->updateGeometry();
     }
 }
@@ -676,8 +673,7 @@ GNERouteHandler::buildWalkFromTo(GNEViewNet* viewNet, bool undoDemandElements, G
         toEdge->addDemandElementChild(walkFromTo);
         walkFromTo->incRef("buildWalkFromTo");
     }
-    // mark geometry of person plan parent deprecated and update geometry
-    personParent->markSegmentGeometryDeprecated();
+    // update geometry
     personParent->updateGeometry();
 }
 
@@ -699,8 +695,7 @@ GNERouteHandler::buildWalkBusStop(GNEViewNet* viewNet, bool undoDemandElements, 
         fromEdge->addDemandElementChild(walkBusStop);
         walkBusStop->incRef("buildWalkBusStop");
     }
-    // mark geometry of person plan parent deprecated and update geometry
-    personParent->markSegmentGeometryDeprecated();
+    // update geometry
     personParent->updateGeometry();
 }
 
@@ -721,8 +716,7 @@ GNERouteHandler::buildWalkRoute(GNEViewNet* viewNet, bool undoDemandElements, GN
         route->addDemandElementChild(walkRoute);
         walkRoute->incRef("buildWalkRoute");
     }
-    // mark geometry of person plan parent deprecated and update geometry
-    personParent->markSegmentGeometryDeprecated();
+    // update geometry
     personParent->updateGeometry();
 }
 
@@ -745,8 +739,7 @@ GNERouteHandler::buildRideFromTo(GNEViewNet* viewNet, bool undoDemandElements, G
         toEdge->addDemandElementChild(rideFromTo);
         rideFromTo->incRef("buildRideFromTo");
     }
-    // mark geometry of person plan parent deprecated and update geometry
-    personParent->markSegmentGeometryDeprecated();
+    // update geometry
     personParent->updateGeometry();
 }
 
@@ -769,8 +762,7 @@ GNERouteHandler::buildRideBusStop(GNEViewNet* viewNet, bool undoDemandElements, 
         fromEdge->addDemandElementChild(rideBusStop);
         rideBusStop->incRef("buildRideBusStop");
     }
-    // mark geometry of person plan parent deprecated and update geometry
-    personParent->markSegmentGeometryDeprecated();
+    // update geometry
     personParent->updateGeometry();
 }
 

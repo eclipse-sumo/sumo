@@ -139,17 +139,9 @@ GNEEdge::updateGeometry() {
     for (auto i : getAdditionalParents()) {
         i->updateGeometry();
     }
-    // mark geometry of all demand elements parents as deprecated
-    for (auto i : getDemandElementParents()) {
-        i->markSegmentGeometryDeprecated();
-    }
     // Update geometry of demand elements parents that have this edge as parent
     for (auto i : getDemandElementParents()) {
         i->updateGeometry();
-    }
-    // mark geometry of all demand elements children as deprecated
-    for (auto i : getDemandElementChildren()) {
-        i->markSegmentGeometryDeprecated();
     }
     // Update geometry of demand elements children vinculated to this edge
     for (auto i : getDemandElementChildren()) {

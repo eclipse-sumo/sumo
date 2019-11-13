@@ -175,9 +175,6 @@ public:
         /// @brief number of segments
         int size() const;
 
-        /// @brief mark geometry as deprecated (used to avoid multiple updates)
-        bool geometryDeprecated;
-
     private:
         /// @brief vector of segments that constitutes the shape
         std::vector<Segment> myShapeSegments;
@@ -292,9 +289,6 @@ public:
 
     /// @brief get demand element segment geometry
     const DemandElementSegmentGeometry& getDemandElementSegmentGeometry() const;
-
-    /// @brief mark demand element segment geometry as deprecated
-    void markSegmentGeometryDeprecated();
 
     /// @brief gererate a new ID for an element child
     std::string generateChildID(SumoXMLTag childTag);

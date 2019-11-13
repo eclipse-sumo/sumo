@@ -73,23 +73,6 @@ GNEBusStop::updateGeometry() {
     // Set block icon rotation, and using their rotation for sign
     myBlockIcon.setRotation(getLaneParents().front());
 
-    // mark geometry of element childrens deprecated
-    for (const auto& i : getDemandElementChildren()) {
-        // special case for person trips
-        if (i->getTagProperty().isPersonTrip()) {
-            // mark geometry deprecated in previous and next person plan
-            GNEDemandElement *previousDemandElement = i->getDemandElementParents().front()->getPreviousemandElement(i);
-            if (previousDemandElement) {
-                previousDemandElement->markSegmentGeometryDeprecated();
-            }
-            GNEDemandElement *nextDemandElement = i->getDemandElementParents().front()->getNextDemandElement(i);
-            if (nextDemandElement) {
-                nextDemandElement->markSegmentGeometryDeprecated();
-            }
-        }
-        i->markSegmentGeometryDeprecated();
-    }
-
     // update demand element children geometry
     for (const auto& i : getDemandElementChildren()) {
         // special case for person trips

@@ -233,8 +233,6 @@ GNERoute::getColor() const {
 
 void
 GNERoute::compute() {
-    // mark geometry as deprecated
-    myDemandElementSegmentGeometry.geometryDeprecated = true;
     // update geometry
     updateGeometry();
 }
@@ -266,17 +264,8 @@ GNERoute::commitGeometryMoving(GNEUndoList*) {
 
 void
 GNERoute::updateGeometry() {
-    // first check if geometry is deprecated
-    if (myDemandElementSegmentGeometry.geometryDeprecated) {
-        // calculate geometry path
-        calculateGeometricPath(getEdgeParents());
-        // set geometry as non-deprecated
-        myDemandElementSegmentGeometry.geometryDeprecated = false;
-        // mark geometry of all childrens as deprecated
-        for (const auto& i : getDemandElementChildren()) {
-            i->markSegmentGeometryDeprecated();
-        }
-    }
+    // calculate geometry path
+    calculateGeometricPath(getEdgeParents());
     // update demand element childrens
     for (const auto& i : getDemandElementChildren()) {
         i->updateGeometry();

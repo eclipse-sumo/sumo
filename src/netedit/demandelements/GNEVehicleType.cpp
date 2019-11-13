@@ -119,10 +119,6 @@ GNEVehicleType::getColor() const {
 
 void
 GNEVehicleType::compute() {
-    // mark all vehicles as deprecated
-    for (const auto &i : getDemandElementChildren()) {
-        i->markSegmentGeometryDeprecated();
-    }
     // update geometry
     updateGeometry();
 }

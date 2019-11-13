@@ -228,8 +228,6 @@ GNEPersonTrip::compute() {
         } else if (getEdgeParents().size() > 0) {
             changeEdgeParents(this, getEdgeParents().front()->getID() + " " + toString(myVia) + " " + getEdgeParents().back()->getID(), true);
         }
-        // mark geometry as deprecated
-        myDemandElementSegmentGeometry.geometryDeprecated = true;
     } else if ((myTagProperty.getTag() == SUMO_TAG_PERSONTRIP_BUSSTOP) && myFromEdge && (getAdditionalParents().size() > 0)) {
         // declare a from-via-busStop edges vector
         std::vector<std::string> FromViaBusStopEdges;
@@ -247,8 +245,6 @@ GNEPersonTrip::compute() {
         } else if (getEdgeParents().size() > 0) {
             changeEdgeParents(this, getEdgeParents().front()->getID() + " " + toString(myVia) + " " + getEdgeParents().back()->getID(), true);
         }
-        // mark geometry as deprecated
-        myDemandElementSegmentGeometry.geometryDeprecated = true;
     }
     // update geometry
     updateGeometry();
@@ -314,26 +310,21 @@ GNEPersonTrip::commitGeometryMoving(GNEUndoList* undoList) {
 
 void
 GNEPersonTrip::updateGeometry() {
-    // first check if geometry is deprecated
-    if (myDemandElementSegmentGeometry.geometryDeprecated) {
-        // declare depart and arrival pos lane
-        double departPosLane = -1;
-        double arrivalPosLane = -1;
-        // declare start and end positions
-        Position startPos = Position::INVALID;
-        Position endPos = Position::INVALID;
-        // calculate person plan start and end lanepositions
-        calculatePersonPlanLaneStartEndPos(departPosLane, arrivalPosLane);
-        // calculate person plan start and end positions
-        calculatePersonPlanPositionStartEndPos(startPos, endPos);
-        // calculate geometry path
-        calculateGeometricPath(getEdgeParents(), departPosLane, arrivalPosLane, startPos, endPos);
-        // update demand element childrens
-        for (const auto& i : getDemandElementChildren()) {
-            i->updateGeometry();
-        }
-        // set geometry as non-deprecated
-        myDemandElementSegmentGeometry.geometryDeprecated = false;
+    // declare depart and arrival pos lane
+    double departPosLane = -1;
+    double arrivalPosLane = -1;
+    // declare start and end positions
+    Position startPos = Position::INVALID;
+    Position endPos = Position::INVALID;
+    // calculate person plan start and end lanepositions
+    calculatePersonPlanLaneStartEndPos(departPosLane, arrivalPosLane);
+    // calculate person plan start and end positions
+    calculatePersonPlanPositionStartEndPos(startPos, endPos);
+    // calculate geometry path
+    calculateGeometricPath(getEdgeParents(), departPosLane, arrivalPosLane, startPos, endPos);
+    // update demand element childrens
+    for (const auto& i : getDemandElementChildren()) {
+        i->updateGeometry();
     }
 }
 
@@ -651,8 +642,6 @@ GNEPersonTrip::computeWithoutReferences() {
         } else if (getEdgeParents().size() > 0) {
             changeEdgeParents(this, getEdgeParents().front()->getID() + " " + toString(myVia) + " " + getEdgeParents().back()->getID(), false);
         }
-        // mark geometry as deprecated
-        myDemandElementSegmentGeometry.geometryDeprecated = true;
     } else if ((myTagProperty.getTag() == SUMO_TAG_PERSONTRIP_BUSSTOP) && myFromEdge && (getAdditionalParents().size() > 0)) {
         // declare a from-via-busStop edges vector
         std::vector<std::string> FromViaBusStopEdges;
@@ -670,8 +659,6 @@ GNEPersonTrip::computeWithoutReferences() {
         } else if (getEdgeParents().size() > 0) {
             changeEdgeParents(this, getEdgeParents().front()->getID() + " " + toString(myVia) + " " + getEdgeParents().back()->getID(), false);
         }
-        // mark geometry as deprecated
-        myDemandElementSegmentGeometry.geometryDeprecated = true;
     }
     // update geometry
     updateGeometry();
