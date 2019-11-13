@@ -589,7 +589,7 @@ NBNodeCont::addCluster2Join(std::set<std::string> cluster, NBNode* node) {
             WRITE_WARNINGF("Ignoring join-cluster because junction '%' already occurred in another join-cluster.", nodeID);
             return;
         } else {
-            NBNode* node = retrieve(nodeID);
+            NBNode* const node = retrieve(nodeID);
             if (node != nullptr) {
                 validCluster.insert(nodeID);
             } else {
@@ -597,8 +597,7 @@ NBNodeCont::addCluster2Join(std::set<std::string> cluster, NBNode* node) {
                     // assume join directive came from a pre-processed network. try to use component IDs
                     std::set<std::string> subIDs;
                     for (std::string nID : StringTokenizer(nodeID.substr(8), "_").getVector()) {
-                        NBNode* node = retrieve(nID);
-                        if (node != nullptr) {
+                        if (retrieve(nID) != nullptr) {
                             validCluster.insert(nID);
                         } else {
                             WRITE_ERROR("Unknown junction '" + nodeID + "' in join-cluster (componentID).");
@@ -610,9 +609,7 @@ NBNodeCont::addCluster2Join(std::set<std::string> cluster, NBNode* node) {
             }
         }
     }
-    for (std::string nodeID : validCluster) {
-        myJoined.insert(nodeID);
-    }
+    myJoined.insert(validCluster.begin(), validCluster.end());
     myClusters2Join.push_back(std::make_pair(validCluster, node));
 }
 
@@ -1437,17 +1434,17 @@ NBNodeCont::guessTLs(OptionsCont& oc, NBTrafficLightLogicCont& tlc) {
                 }
                 // propagate signalOffset until the next real intersection
                 while (check.size() > 0) {
-                    NBEdge* edge = check.begin()->first;
+                    NBEdge* const edge = check.begin()->first;
                     const double offset = check.begin()->second;
                     check.erase(check.begin());
-                    NBNode* nextNode = edge->getToNode();
+                    NBNode* const nextNode = edge->getToNode();
                     if (nextNode->geometryLike() && !nextNode->isTLControlled()) {
-                        for (NBEdge* edge : nextNode->getOutgoingEdges()) {
-                            if (seen.count(edge) == 0) {
-                                double offset2 = offset + edge->getLength();
-                                edge->setSignalOffset(offset2, node);
-                                seen.insert(edge);
-                                check.insert(std::make_pair(edge, offset2));
+                        for (NBEdge* const outEdge : nextNode->getOutgoingEdges()) {
+                            if (seen.count(outEdge) == 0) {
+                                const double offset2 = offset + outEdge->getLength();
+                                outEdge->setSignalOffset(offset2, node);
+                                seen.insert(outEdge);
+                                check.insert(std::make_pair(outEdge, offset2));
                             }
                         }
                     }
