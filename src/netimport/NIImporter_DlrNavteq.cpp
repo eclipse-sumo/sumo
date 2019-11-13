@@ -486,7 +486,7 @@ NIImporter_DlrNavteq::TrafficlightsHandler::report(const std::string& result) {
     const std::string edgeID = st.get(5);
     NBEdge* edge = myEdgeCont.retrieve(edgeID);
     if (edge == nullptr) {
-        WRITE_WARNING("The traffic light edge '%' could not be found.", edgeID);
+        WRITE_WARNINGF("The traffic light edge '%' could not be found.", edgeID);
     } else {
         NBNode* node = edge->getToNode();
         if (node->getType() != NODETYPE_TRAFFIC_LIGHT) {
