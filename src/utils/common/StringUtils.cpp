@@ -1,4 +1,3 @@
-#include "StringUtils.h"
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
 // Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
@@ -29,11 +28,11 @@
 #include <iostream>
 #include <cstdio>
 #include <cstring>
+#include <regex>
 #include <xercesc/util/TransService.hpp>
 #include <xercesc/util/TranscodingException.hpp>
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/ToString.h>
-#include <regex>
 #include "StringUtils.h"
 
 
