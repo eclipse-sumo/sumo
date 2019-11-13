@@ -2823,6 +2823,13 @@ GNENet::initJunctionsAndEdges() {
         myGrid.add(Boundary(0, 0, 100, 100));
     }
 
+    // recalculate all lane2lane connections
+    for (const auto &i : myAttributeCarriers.edges) {
+        for (const auto&j : i.second->getLanes()) {
+            j->updateGeometry();
+        }
+    }
+
     // sort nodes edges so that arrows can be drawn correctly
     NBNodesEdgesSorter::sortNodesEdges(nodeContainer);
 }
