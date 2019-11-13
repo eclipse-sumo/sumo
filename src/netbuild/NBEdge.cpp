@@ -1687,7 +1687,7 @@ NBEdge::buildInnerEdges(const NBNode& n, int noInternalNoSplits, int& linkIndex,
                         if (atRoundabout) {
                             dirType = "roundabout";
                         }
-                        WRITE_WARNINGF("Speed of % connection '%' reduced by % due to turning radius of % (length=% angle=%)",
+                        WRITE_WARNINGF("Speed of % connection '%' reduced by % due to turning radius of % (length=%, angle=%).",
                                        dirType, con.getDescription(this), reduction, radius, length, RAD2DEG(angleRaw));
                     }
                     con.vmax = MIN2(con.vmax, limit);

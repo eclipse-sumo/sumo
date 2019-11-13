@@ -282,12 +282,12 @@ NBNodeCont::removeIsolatedRoads(NBDistrictCont& dc, NBEdgeCont& ec) {
             }
         } while (!hasJunction && eOld != e);
         if (!hasJunction) {
-            std::string warningString = "Removed a road without junctions: ";
+            std::string warningString;
             for (EdgeVector::iterator roadIt = road.begin(); roadIt != road.end(); ++roadIt) {
                 if (roadIt == road.begin()) {
                     warningString += (*roadIt)->getID();
                 } else {
-                    warningString += ", " + (*roadIt)->getID();
+                    warningString += "," + (*roadIt)->getID();
                 }
 
                 NBNode* fromNode = (*roadIt)->getFromNode();
@@ -302,7 +302,7 @@ NBNodeCont::removeIsolatedRoads(NBDistrictCont& dc, NBEdgeCont& ec) {
                     erase(toNode);
                 }
             }
-            WRITE_WARNING(warningString);
+            WRITE_WARNINGF("Removed a road without junctions: %.", warningString);
         }
     }
 }
@@ -567,9 +567,9 @@ NBNodeCont::addJoinExclusion(const std::vector<std::string>& ids, bool check) {
         // error handling has to take place here since joinExclusions could be
         // loaded from multiple files / command line
         if (myJoined.count(*it) > 0) {
-            WRITE_WARNING("Ignoring join exclusion for junction '" + *it +  "' since it already occurred in a list of nodes to be joined");
+            WRITE_WARNINGF("Ignoring join exclusion for junction '%' since it already occurred in a list of nodes to be joined.", *it);
         } else if (check && retrieve(*it) == nullptr) {
-            WRITE_WARNING("Ignoring join exclusion for unknown junction '" + *it + "'");
+            WRITE_WARNINGF("Ignoring join exclusion for unknown junction '%'.", *it);
         } else {
             myJoinExclusions.insert(*it);
         }
@@ -583,10 +583,10 @@ NBNodeCont::addCluster2Join(std::set<std::string> cluster, NBNode* node) {
     std::set<std::string> validCluster;
     for (std::string nodeID : cluster) {
         if (myJoinExclusions.count(nodeID) > 0) {
-            WRITE_WARNING("Ignoring join-cluster because junction '" + nodeID + "' was already excluded from joining");
+            WRITE_WARNINGF("Ignoring join-cluster because junction '%' was already excluded from joining.", nodeID);
             return;
         } else if (myJoined.count(nodeID) > 0) {
-            WRITE_WARNING("Ignoring join-cluster because junction '" + nodeID + "' already occurred in another join-cluster");
+            WRITE_WARNINGF("Ignoring join-cluster because junction '%' already occurred in another join-cluster.", nodeID);
             return;
         } else {
             NBNode* node = retrieve(nodeID);
@@ -601,11 +601,11 @@ NBNodeCont::addCluster2Join(std::set<std::string> cluster, NBNode* node) {
                         if (node != nullptr) {
                             validCluster.insert(nID);
                         } else {
-                            WRITE_ERROR("Unknown junction '" + nodeID + "' in join-cluster (componentID)");
+                            WRITE_ERROR("Unknown junction '" + nodeID + "' in join-cluster (componentID).");
                         }
                     }
                 } else {
-                    WRITE_ERROR("Unknown junction '" + nodeID + "' in join-cluster");
+                    WRITE_ERROR("Unknown junction '" + nodeID + "' in join-cluster.");
                 }
             }
         }
@@ -626,7 +626,7 @@ NBNodeCont::joinLoadedClusters(NBDistrictCont& dc, NBEdgeCont& ec, NBTrafficLigh
         for (std::string nodeID : item.first) {
             NBNode* node = retrieve(nodeID);
             if (node == nullptr) {
-                WRITE_ERROR("unknown junction '" + nodeID + "' while joining");
+                WRITE_ERROR("unknown junction '" + nodeID + "' while joining.");
             } else {
                 cluster.insert(node);
             }
@@ -692,7 +692,7 @@ NBNodeCont::joinJunctions(double maxDist, NBDistrictCont& dc, NBEdgeCont& ec, NB
                 pruneClusterFringe(cluster);
                 feasible = feasibleCluster(cluster, ec, sc, reason);
                 if (feasible) {
-                    WRITE_WARNING("Reducing junction cluster " + origCluster + " (" + reason + ")");
+                    WRITE_WARNINGF("Reducing junction cluster % (%).", origCluster, reason);
                 }
             }
         }
@@ -702,12 +702,12 @@ NBNodeCont::joinJunctions(double maxDist, NBDistrictCont& dc, NBEdgeCont& ec, NB
                 pruneClusterFringe(cluster);
                 feasible = feasibleCluster(cluster, ec, sc, reason);
                 if (feasible) {
-                    WRITE_WARNING("Reducing junction cluster " + origCluster + " (" + reason + ")");
+                    WRITE_WARNINGF("Reducing junction cluster % (%).", origCluster, reason);
                 }
             }
         }
         if (!feasible) {
-            WRITE_WARNING("Not joining junctions " + joinNamedToString(cluster, ',') + " (" + reason + ")");
+            WRITE_WARNINGF("Not joining junctions % (%).", joinNamedToString(cluster, ','), reason);
             continue;
         }
         // compute all connected components of this cluster
@@ -1104,7 +1104,7 @@ NBNodeCont::joinNodeCluster(NodeSet cluster, NBDistrictCont& dc, NBEdgeCont& ec,
     } else {
         if (!insert(id, pos)) {
             // should not fail
-            WRITE_WARNING("Could not join junctions " + id);
+            WRITE_WARNINGF("Could not join junctions %.", id);
             return;
         }
         newNode = retrieve(id);
@@ -1296,7 +1296,7 @@ NBNodeCont::analyzeCluster(NodeSet cluster, std::string& id, Position& pos,
             } else {
                 if ((nodeType != NODETYPE_PRIORITY && (nodeType != NODETYPE_NOJUNCTION || otherType != NODETYPE_PRIORITY))
                         || (otherType != NODETYPE_NOJUNCTION && otherType != NODETYPE_UNKNOWN && otherType != NODETYPE_PRIORITY)) {
-                    WRITE_WARNING("Ambiguous node type for node cluster '" + id + "' (" + toString(nodeType) + "," + toString(otherType) + ") set to '" + toString(NODETYPE_PRIORITY) + "'");
+                    WRITE_WARNINGF("Ambiguous node type for node cluster '%' (%,%), setting to '" + toString(NODETYPE_PRIORITY) + "'.", id, toString(nodeType), toString(otherType));
                 }
                 nodeType = NODETYPE_PRIORITY;
             }
@@ -1305,7 +1305,7 @@ NBNodeCont::analyzeCluster(NodeSet cluster, std::string& id, Position& pos,
     pos.mul(1.0 / cluster.size());
     if (ambiguousType) {
         type = SUMOXMLDefinitions::TrafficLightTypes.get(OptionsCont::getOptions().getString("tls.default-type"));
-        WRITE_WARNING("Ambiguous traffic light type for node cluster '" + id + "' set to '" + toString(type) + "'");
+        WRITE_WARNINGF("Ambiguous traffic light type for node cluster '%', setting to '%'.", id, toString(type));
     }
 }
 
@@ -1504,7 +1504,7 @@ NBNodeCont::guessTLs(OptionsCont& oc, NBTrafficLightLogicCont& tlc) {
                     // @todo patch endOffset for all incoming lanes according to the signal positions
                     if (!tlc.insert(tlDef)) {
                         // actually, nothing should fail here
-                        WRITE_WARNING("Could not build joined tls '" + node->getID() + "'.");
+                        WRITE_WARNINGF("Could not build joined tls '%'.", node->getID());
                         delete tlDef;
                         return;
                     }
@@ -1549,7 +1549,7 @@ NBNodeCont::guessTLs(OptionsCont& oc, NBTrafficLightLogicCont& tlc) {
             NBTrafficLightDefinition* tlDef = new NBOwnTLDef(id, nodes, 0, type);
             if (!tlc.insert(tlDef)) {
                 // actually, nothing should fail here
-                WRITE_WARNING("Could not build guessed, joined tls");
+                WRITE_WARNING("Could not build guessed, joined tls.");
                 delete tlDef;
                 return;
             }
@@ -1637,7 +1637,7 @@ NBNodeCont::setAsTLControlled(NBNode* node, NBTrafficLightLogicCont& tlc,
     NBTrafficLightDefinition* tlDef = new NBOwnTLDef(id, node, 0, type);
     if (!tlc.insert(tlDef)) {
         // actually, nothing should fail here
-        WRITE_WARNING("Building a tl-logic for junction '" + id + "' twice is not possible.");
+        WRITE_WARNINGF("Building a tl-logic for junction '%' twice is not possible.", id);
         delete tlDef;
         return;
     }

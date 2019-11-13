@@ -476,7 +476,7 @@ NWWriter_SUMO::writeLane(OutputDevice& into, const std::string& lID,
     writePreferences(into, preferred);
     // some further information
     if (speed == 0) {
-        WRITE_WARNING("Lane '" + lID + "' has a maximum allowed speed of 0.");
+        WRITE_WARNINGF("Lane '%' has a maximum allowed speed of 0.", lID);
     } else if (speed < 0) {
         throw ProcessError("Negative allowed speed (" + toString(speed) + ") on lane '" + lID + "', use --speed.minimum to prevent this.");
     }

@@ -311,7 +311,7 @@ public:
             buildPathFromMeeting(meeting, into);
         } else {
             if (!silent) {
-                this->myErrorMsgHandler->inform("No connection between edge '" + from->getID() + "' and edge '" + to->getID() + "' found.");
+                this->myErrorMsgHandler->informf("No connection between edge '%' and edge '%' found.", from->getID(), to->getID());
             }
             result = false;
         }
