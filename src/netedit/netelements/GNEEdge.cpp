@@ -139,13 +139,13 @@ GNEEdge::updateGeometry() {
     for (auto i : getAdditionalParents()) {
         i->updateGeometry();
     }
-    // Update geometry of demand elements parents that have this edge as parent
+    // Update partial geometry of demand elements parents that have this edge as parent
     for (auto i : getDemandElementParents()) {
-        i->updateGeometry();
+        i->updatePartialGeometry(this);
     }
-    // Update geometry of demand elements children vinculated to this edge
+    // Update partial geometry of demand elements children vinculated to this edge
     for (auto i : getDemandElementChildren()) {
-        i->updateGeometry();
+        i->updatePartialGeometry(this);
     }
 }
 

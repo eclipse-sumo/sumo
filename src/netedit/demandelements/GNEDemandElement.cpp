@@ -160,14 +160,14 @@ GNEDemandElement::DemandElementSegmentGeometry::insertLane2LaneSegment(const GNE
 
 void 
 GNEDemandElement::DemandElementSegmentGeometry::updatePartialEdgeSegment(const int segmentIndex, const int shapeIndex, const Position newPos, double newRotation, double newLength) {
-    if ((myShapeSegments.at(segmentIndex).shape.size() <= shapeIndex) || 
-        (myShapeSegments.at(segmentIndex).shapeRotations.size() <= shapeIndex) || 
-        (myShapeSegments.at(segmentIndex).shapeLengths.size() <= shapeIndex)) {
+    if (myShapeSegments.at(segmentIndex).shape.size() < shapeIndex) {
         throw ProcessError("Invalid index");
     } else {
         myShapeSegments.at(segmentIndex).shape[shapeIndex] = newPos;
-        myShapeSegments.at(segmentIndex).shapeRotations[shapeIndex] = newRotation;
-        myShapeSegments.at(segmentIndex).shapeLengths[shapeIndex] = newLength;
+        if ((myShapeSegments.at(segmentIndex).shapeRotations.size() > shapeIndex) && (myShapeSegments.at(segmentIndex).shapeLengths.size() > shapeIndex)) {
+            myShapeSegments.at(segmentIndex).shapeRotations[shapeIndex] = newRotation;
+            myShapeSegments.at(segmentIndex).shapeLengths[shapeIndex] = newLength;
+        }
     }
 }
 
@@ -803,14 +803,14 @@ GNEDemandElement::calculateGeometricPath(const std::vector<GNEEdge*> &edges, dou
                 // now continue with connection
                 if ((i+1) < (int)lanes.size()) {
                     // obtain next lane
-                    const GNELane* const nextLane = lanes.at(i+1);
+                    const GNELane* nextLane = lanes.at(i+1);
                     // check that next lane exist
-                    if (lane->getLane2laneConnections().shape.count(nextLane) > 0) {
+                    if (lane->getLane2laneConnections().shapesMap.count(nextLane) > 0) {
                         // add lane2laneConnection shape
-                        myDemandElementSegmentGeometry.insertLane2LaneSegment(this, lane->getParentEdge().getGNEJunctionDestiny(), lane,
-                            lane->getLane2laneConnections().shape.at(nextLane), 
-                            lane->getLane2laneConnections().shapeRotations.at(nextLane), 
-                            lane->getLane2laneConnections().shapeLengths.at(nextLane), true);
+                        myDemandElementSegmentGeometry.insertLane2LaneSegment(this, lane->getParentEdge().getGNEJunctionDestiny(), nextLane,
+                            lane->getLane2laneConnections().shapesMap.at(nextLane), 
+                            lane->getLane2laneConnections().shapeRotationsMap.at(nextLane), 
+                            lane->getLane2laneConnections().shapeLengthsMap.at(nextLane), true);
                     }
                 }
             }
@@ -909,8 +909,10 @@ GNEDemandElement::updateGeometricPath(const GNEEdge* edge, double startPos, doub
         for (auto segment = myDemandElementSegmentGeometry.begin(); segment != myDemandElementSegmentGeometry.end(); segment++) {
             if (segment->edge == edge) {
                 const int index = std::distance(myDemandElementSegmentGeometry.begin(), segment);
-                const GNELane* nextLane = ((segment + 1) != myDemandElementSegmentGeometry.end())? (segment + 1)->lane : nullptr;
-                segmentsToUpdate.push_back(std::make_tuple(index, segment->lane, nextLane));
+                segmentsToUpdate.push_back(std::make_tuple(index, segment->lane, nullptr));
+                if (((segment+1) != myDemandElementSegmentGeometry.end()) && (segment+1)->junction) {
+                    segmentsToUpdate.push_back(std::make_tuple(index, segment->lane, (segment+1)->lane));
+                }
             }
         }
         // iterate over segments to update
@@ -982,16 +984,13 @@ GNEDemandElement::updateGeometricPath(const GNEEdge* edge, double startPos, doub
                         lane->getShapeLengths());
                 }
             }
-            // now continue with connection
-            if (nextLane) {
-                // check that next lane exist
-                if (lane->getLane2laneConnections().shape.count(nextLane) > 0) {
-                    // add lane2laneConnection shape
-                    myDemandElementSegmentGeometry.updateSegment(index+1, 
-                        lane->getLane2laneConnections().shape.at(nextLane), 
-                        lane->getLane2laneConnections().shapeRotations.at(nextLane), 
-                        lane->getLane2laneConnections().shapeLengths.at(nextLane));
-                }
+            // check that next lane exist
+            if (lane->getLane2laneConnections().shapesMap.count(nextLane) > 0) {
+                // add lane2laneConnection shape
+                myDemandElementSegmentGeometry.updateSegment(index+1, 
+                    lane->getLane2laneConnections().shapesMap.at(nextLane), 
+                    lane->getLane2laneConnections().shapeRotationsMap.at(nextLane), 
+                    lane->getLane2laneConnections().shapeLengthsMap.at(nextLane));
             }
         }
     }

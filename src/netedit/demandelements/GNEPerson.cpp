@@ -316,7 +316,7 @@ GNEPerson::commitGeometryMoving(GNEUndoList*) {
 
 void
 GNEPerson::updateGeometry() {
-    // simply update childrens geometry. Only elements with deprecated geometry will be updated
+    // only update geometry of childrens
     for (const auto& i : getDemandElementChildren()) {
         i->updateGeometry();
     }
@@ -325,7 +325,10 @@ GNEPerson::updateGeometry() {
 
 void 
 GNEPerson::updatePartialGeometry(const GNEEdge* edge) {
-
+    // only update partial geometry of childrens
+    for (const auto& i : getDemandElementChildren()) {
+        i->updatePartialGeometry(edge);
+    }
 }
 
 

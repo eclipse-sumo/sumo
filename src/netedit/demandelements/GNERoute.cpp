@@ -268,6 +268,12 @@ GNERoute::updateGeometry() {
 
 void 
 GNERoute::updatePartialGeometry(const GNEEdge* edge) {
+    // calculate geometry path
+    updateGeometricPath(edge);
+    // update demand element childrens
+    for (const auto& i : getDemandElementChildren()) {
+        i->updatePartialGeometry(edge);
+    }
 }
 
 

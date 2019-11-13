@@ -72,6 +72,9 @@ GNEBusStop::updateGeometry() {
 
     // Set block icon rotation, and using their rotation for sign
     myBlockIcon.setRotation(getLaneParents().front());
+    
+    // obtain edge parent
+    const GNEEdge *edge = &getLaneParents().front()->getParentEdge();
 
     // update demand element children geometry
     for (const auto& i : getDemandElementChildren()) {
@@ -80,14 +83,14 @@ GNEBusStop::updateGeometry() {
             // update previous and next person plan
             GNEDemandElement *previousDemandElement = i->getDemandElementParents().front()->getPreviousemandElement(i);
             if (previousDemandElement) {
-                previousDemandElement->updateGeometry();
+                previousDemandElement->updatePartialGeometry(edge);
             }
             GNEDemandElement *nextDemandElement = i->getDemandElementParents().front()->getNextDemandElement(i);
             if (nextDemandElement) {
-                nextDemandElement->updateGeometry();
+                nextDemandElement->updatePartialGeometry(edge);
             }
         }
-        i->updateGeometry();
+        i->updatePartialGeometry(edge);
     }
 }
 

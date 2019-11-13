@@ -564,6 +564,22 @@ GNEVehicle::updateGeometry() {
 
 void 
 GNEVehicle::updatePartialGeometry(const GNEEdge* edge) {
+    // declare two pointers for depart and arrival pos lanes
+    double departPosLane = -1;
+    double arrivalPosLane = -1;
+    // check if depart and arrival pos lanes are defiend
+    if (departPosProcedure == DEPART_POS_GIVEN) {
+        departPosLane = departPos;
+    }
+    if (arrivalPosProcedure == ARRIVAL_POS_GIVEN) {
+        arrivalPosLane = arrivalPos;
+    }
+    // calculate geometry path
+    updateGeometricPath(edge, departPosLane, arrivalPosLane);
+    // update demand element childrens
+    for (const auto& i : getDemandElementChildren()) {
+        i->updatePartialGeometry(edge);
+    }
 }
 
 
