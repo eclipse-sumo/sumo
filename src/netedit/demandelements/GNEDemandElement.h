@@ -82,18 +82,15 @@ public:
         /// @brief struct used for represent segments of demand element geometry
         struct Segment {
             /// @brief parameter constructor for partial edge segments
-            Segment(const GNEDemandElement* _element, const GNEEdge* _edge, const Position& pos, const double rotation, const double length, 
-                    const bool _visible, const bool _valid);
+            Segment(const GNEDemandElement* _element, const GNEEdge* _edge, const Position& pos, const double rotation, const double length, const bool _valid);
 
             /// @brief parameter constructor for edge segments
             Segment(const GNEDemandElement* _element, const GNEEdge* _edge, 
-                    const PositionVector& _shape, const std::vector<double> &_shapeRotations, const std::vector<double> &_shapeLengths, 
-                    const bool _visible, const bool _valid);
+                    const PositionVector& _shape, const std::vector<double> &_shapeRotations, const std::vector<double> &_shapeLengths, const bool _valid);
 
             /// @brief parameter constructor for lane2lane connections
             Segment(const GNEDemandElement* _element, const GNEJunction* _junction, 
-                    const PositionVector& _shape, const std::vector<double> &_shapeRotations, const std::vector<double> &_shapeLengths, 
-                    const bool _visible, const bool _valid);
+                    const PositionVector& _shape, const std::vector<double> &_shapeRotations, const std::vector<double> &_shapeLengths, const bool _valid);
 
             /// @brief element
             const GNEDemandElement* element;
@@ -104,10 +101,7 @@ public:
             /// @brief junction
             const GNEJunction* junction;
 
-            /// @brief visible
-            const bool visible;
-
-            /// @brief invalid
+            /// @brief valid
             const bool valid;
 
             /// @brief lane/lane2lane shape
@@ -129,18 +123,24 @@ public:
 
         /// @brief insert edge segment with length and rotation
         void insertPartialEdgeSegment(const GNEDemandElement* element, const GNEEdge* edge, 
-                               const Position pos, double rotation, double length, 
-                               const bool visible, const bool valid);
+                               const Position pos, double rotation, double length, const bool valid);
 
         /// @brief insert entire lane segment (used to avoid unnecessary calculation in calculatePartialShapeRotationsAndLengths)
         void insertEdgeSegment(const GNEDemandElement* element, const GNEEdge* edge, 
-                               const PositionVector& laneShape, const std::vector<double> &laneShapeRotations, const std::vector<double> &laneShapeLengths, 
-                               const bool visible, const bool valid);
+                               const PositionVector& laneShape, const std::vector<double> &laneShapeRotations, const std::vector<double> &laneShapeLengths, const bool valid);
 
         /// @brief insert entire lane2lane segment (used to avoid unnecessary calculation in calculatePartialShapeRotationsAndLengths)
         void insertLane2LaneSegment(const GNEDemandElement* element, const GNEJunction* junction, 
-                                    const PositionVector& laneShape, const std::vector<double> &laneShapeRotations, const std::vector<double> &laneShapeLengths, 
-                                    const bool visible, const bool valid);
+                                    const PositionVector& laneShape, const std::vector<double> &laneShapeRotations, const std::vector<double> &laneShapeLengths, const bool valid);
+
+        /// @brief update edge segment with length and rotation
+        void updatePartialEdgeSegment(const std::vector<Segment>::iterator it, const int index, const Position newPos, double newRotation, double newLength);
+
+        /// @brief update edge segment with length and rotation
+        void updatelastPartialEdgeSegment(const std::vector<Segment>::iterator it, const Position newPos);
+
+        /// @brief update entire segment (used to avoid unnecessary calculation in calculatePartialShapeRotationsAndLengths)
+        void updateSegment(const std::vector<Segment>::iterator it, const PositionVector& newLaneShape, const std::vector<double> &newLaneShapeRotations, const std::vector<double> &newLaneShapeLengths);
 
         /// @brief close partial edge segment
         void closePartialEdgeSegment(const Position &lastPosition);

@@ -1202,7 +1202,7 @@ GNEEdge::drawPartialRoute(const GUIVisualizationSettings& s, const GNEDemandElem
         // iterate over segments
         for (const auto &segment : route->getDemandElementSegmentGeometry()) {
             // draw partial segment
-            if ((segment.junction == junction) && (segment.element == route) && segment.visible) {
+            if ((segment.junction == junction) && (segment.element == route)) {
                 // Set route color (needed due drawShapeDottedContour)
                 GLHelper::setColor(routeColor);
                 // draw box lines
@@ -1217,7 +1217,7 @@ GNEEdge::drawPartialRoute(const GUIVisualizationSettings& s, const GNEDemandElem
         // iterate over segments
         for (const auto &segment : route->getDemandElementSegmentGeometry()) {
             // draw partial segment
-            if ((segment.edge == this) && (segment.element == route) && segment.visible) {
+            if ((segment.edge == this) && (segment.element == route)) {
                 // Set route color (needed due drawShapeDottedContour)
                 GLHelper::setColor(routeColor);
                 // draw box lines
@@ -1278,7 +1278,7 @@ GNEEdge::drawPartialTripFromTo(const GUIVisualizationSettings& s, const GNEDeman
         // iterate over segments
         for (const auto &segment : tripOrFromTo->getDemandElementSegmentGeometry()) {
             // draw partial segment
-            if ((segment.edge == this) && (segment.element == tripOrFromTo) && segment.visible) {
+            if ((segment.edge == this) && (segment.element == tripOrFromTo)) {
                 GLHelper::drawBoxLines(segment.shape, segment.shapeRotations, segment.shapeLengths, tripOrFromToWidth);
             }
         }
@@ -1349,7 +1349,7 @@ GNEEdge::drawPartialPersonPlan(const GUIVisualizationSettings& s, const GNEDeman
             // iterate over segments
             for (const auto &segment : personPlan->getDemandElementSegmentGeometry()) {
                 // draw partial segment
-                if ((segment.junction == junction) && (segment.element == personPlan) && segment.visible) {
+                if ((segment.junction == junction) && (segment.element == personPlan)) {
                     // Set person plan color (needed due drawShapeDottedContour)
                     GLHelper::setColor(personPlanColor);
                     // draw box line
@@ -1364,7 +1364,7 @@ GNEEdge::drawPartialPersonPlan(const GUIVisualizationSettings& s, const GNEDeman
             // iterate over segments
             for (const auto &segment : personPlan->getDemandElementSegmentGeometry()) {
                 // draw partial segment
-                if ((segment.edge == this) && (segment.element == personPlan) && segment.visible) {
+                if ((segment.edge == this) && (segment.element == personPlan)) {
                     // Set person plan color (needed due drawShapeDottedContour)
                     GLHelper::setColor(personPlanColor);
                     // draw box line
