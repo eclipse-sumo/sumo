@@ -72,31 +72,31 @@ InductionLoop::getLaneID(const std::string& detID) {
 
 int
 InductionLoop::getLastStepVehicleNumber(const std::string& detID) {
-    return getDetector(detID)->getPassedNumber(DELTA_T);
+    return getDetector(detID)->getPassedNumber((int)DELTA_T);
 }
 
 
 double
 InductionLoop::getLastStepMeanSpeed(const std::string& detID) {
-    return getDetector(detID)->getSpeed(DELTA_T);
+    return getDetector(detID)->getSpeed((int)DELTA_T);
 }
 
 
 std::vector<std::string>
 InductionLoop::getLastStepVehicleIDs(const std::string& detID) {
-    return getDetector(detID)->getVehicleIDs(DELTA_T);
+    return getDetector(detID)->getVehicleIDs((int)DELTA_T);
 }
 
 
 double
 InductionLoop::getLastStepOccupancy(const std::string& detID) {
-    return getDetector(detID)->getOccupancy(DELTA_T);
+    return getDetector(detID)->getOccupancy((int)DELTA_T);
 }
 
 
 double
 InductionLoop::getLastStepMeanLength(const std::string& detID) {
-    return getDetector(detID)->getVehicleLength(DELTA_T);
+    return getDetector(detID)->getVehicleLength((int)DELTA_T);
 }
 
 

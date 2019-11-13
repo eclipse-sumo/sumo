@@ -341,12 +341,8 @@ protected:
     /// @brief Leave-time of the last vehicle detected [s]
     double myLastLeaveTime;
 
-    /// @brief Occupancy by the last vehicle detected.
-    double myLastOccupancy;
-
     /// @brief The number of entered vehicles
     int myEnteredVehicleNumber;
-
 
     /// @brief Type of myVehicleDataCont.
     typedef std::deque< VehicleData > VehicleDataCont;
@@ -357,13 +353,8 @@ protected:
     /// @brief Data of vehicles that have completely passed the detector in the last time interval
     VehicleDataCont myLastVehicleDataCont;
 
-
-    /// @brief Type of myVehiclesOnDet
-
-    typedef std::map< SUMOTrafficObject*, double > VehicleMap;
-
     /// @brief Data for vehicles that have entered the detector (vehicle -> enter time)
-    VehicleMap myVehiclesOnDet;
+    std::map<SUMOTrafficObject*, double> myVehiclesOnDet;
 
 private:
     /// @brief Invalidated copy constructor.

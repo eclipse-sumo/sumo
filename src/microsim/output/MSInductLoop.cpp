@@ -161,16 +161,11 @@ MSInductLoop::getVehicleLength(const int offset) const {
 double
 MSInductLoop::getOccupancy(const int offset) const {
     const SUMOTime tbeg = SIMSTEP - offset;
-    const std::vector<VehicleData>& d = collectVehiclesOnDet(tbeg);
-    if (d.empty()) {
-        return -1;
-    }
     double occupancy = 0;
-    const double csecond = SIMTIME;
-    for (const VehicleData& i : d) {
-        const double leaveTime = i.leaveTimeM == HAS_NOT_LEFT_DETECTOR ? csecond : i.leaveTimeM;
-        const double timeOnDetDuringInterval = leaveTime - MAX2(STEPS2TIME(tbeg), i.entryTimeM);
-        occupancy += MIN2(timeOnDetDuringInterval, TS);
+    const double csecond = STEPS2TIME(tbeg);
+    for (const VehicleData& i : collectVehiclesOnDet(tbeg)) {
+        const double leaveTime = i.leaveTimeM == HAS_NOT_LEFT_DETECTOR ? csecond : MIN2(i.leaveTimeM, csecond);
+        occupancy += MIN2(leaveTime - i.entryTimeM, TS);
     }
     return occupancy / TS * 100.;
 }
@@ -243,30 +238,20 @@ MSInductLoop::writeXMLOutput(OutputDevice& dev,
 
 
 void
-MSInductLoop::enterDetectorByMove(SUMOTrafficObject& veh,
-                                  double entryTimestep) {
-//    // Debug (Leo)
-//    std::cout << "enterDetectorByMove(), detector = '"<< myID <<"', veh = '" << veh.getID() << "'\n";
-
+MSInductLoop::enterDetectorByMove(SUMOTrafficObject& veh, double entryTimestep) {
     myVehiclesOnDet.insert(std::make_pair(&veh, entryTimestep));
     myEnteredVehicleNumber++;
 }
 
 
 void
-MSInductLoop::leaveDetectorByMove(SUMOTrafficObject& veh,
-                                  double leaveTimestep) {
-
-//    // Debug (Leo)
-//    std::cout << "leaveDetectorByMove(), detector = '"<< myID <<"', veh = '" << veh.getID() << "'\n";
-
-    VehicleMap::iterator it = myVehiclesOnDet.find(&veh);
+MSInductLoop::leaveDetectorByMove(SUMOTrafficObject& veh, double leaveTimestep) {
+    std::map<SUMOTrafficObject*, double>::iterator it = myVehiclesOnDet.find(&veh);
     if (it != myVehiclesOnDet.end()) {
-        double entryTimestep = it->second;
+        const double entryTimestep = it->second;
         myVehiclesOnDet.erase(it);
         assert(entryTimestep < leaveTimestep);
         myVehicleDataCont.push_back(VehicleData(veh.getID(), veh.getVehicleType().getLength(), entryTimestep, leaveTimestep, veh.getVehicleType().getID()));
-        myLastOccupancy = leaveTimestep - entryTimestep;
     }
     // XXX: why is this outside the conditional block? (Leo)
     myLastLeaveTime = leaveTimestep;
@@ -275,10 +260,6 @@ MSInductLoop::leaveDetectorByMove(SUMOTrafficObject& veh,
 
 void
 MSInductLoop::leaveDetectorByLaneChange(SUMOTrafficObject& veh, double /* lastPos */) {
-
-//    // Debug (Leo)
-//    std::cout << "leaveDetectorByLaneChange(), detector = '"<< myID <<"', veh = '" << veh.getID() << "'\n";
-
     // Discard entry data
     myVehiclesOnDet.erase(&veh);
 }
@@ -286,23 +267,25 @@ MSInductLoop::leaveDetectorByLaneChange(SUMOTrafficObject& veh, double /* lastPo
 
 std::vector<MSInductLoop::VehicleData>
 MSInductLoop::collectVehiclesOnDet(SUMOTime tMS, bool leaveTime) const {
-    double t = STEPS2TIME(tMS);
+    const double t = STEPS2TIME(tMS);
     std::vector<VehicleData> ret;
-    for (VehicleDataCont::const_iterator i = myVehicleDataCont.begin(); i != myVehicleDataCont.end(); ++i) {
-        if ((*i).entryTimeM >= t || (leaveTime && (*i).leaveTimeM >= t)) {
-            ret.push_back(*i);
+    for (const VehicleData& i : myVehicleDataCont) {
+        if (i.entryTimeM >= t || (leaveTime && i.leaveTimeM >= t)) {
+            ret.push_back(i);
         }
     }
-    for (VehicleDataCont::const_iterator i = myLastVehicleDataCont.begin(); i != myLastVehicleDataCont.end(); ++i) {
-        if ((*i).entryTimeM >= t || (leaveTime && (*i).leaveTimeM >= t)) {
-            ret.push_back(*i);
+    for (const VehicleData& i : myLastVehicleDataCont) {
+        if (i.entryTimeM >= t || (leaveTime && i.leaveTimeM >= t)) {
+            ret.push_back(i);
         }
     }
-    for (VehicleMap::const_iterator i = myVehiclesOnDet.begin(); i != myVehiclesOnDet.end(); ++i) {
-        SUMOTrafficObject* v = (*i).first;
-        VehicleData d(v->getID(), v->getVehicleType().getLength(), (*i).second, HAS_NOT_LEFT_DETECTOR, v->getVehicleType().getID());
-        d.speedM = v->getSpeed();
-        ret.push_back(d);
+    for (const auto& i : myVehiclesOnDet) {
+        if (i.second >= t || leaveTime) { // no need to check leave time, they are still on the detector
+            SUMOTrafficObject* const v = i.first;
+            VehicleData d(v->getID(), v->getVehicleType().getLength(), i.second, HAS_NOT_LEFT_DETECTOR, v->getVehicleType().getID());
+            d.speedM = v->getSpeed();
+            ret.push_back(d);
+        }
     }
     return ret;
 }
