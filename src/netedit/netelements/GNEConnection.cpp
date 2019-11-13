@@ -344,7 +344,7 @@ GNEConnection::drawGL(const GUIVisualizationSettings& s) const {
             NBEdge::Connection& nbCon = getNBEdgeConnection();
             std::string value = nbCon.getParameter(s.edgeParam, "");
             if (value != "") {
-                int shapeIndex = myConnectionGeometry.shape.size() / 2;
+                int shapeIndex = (int)myConnectionGeometry.shape.size() / 2;
                 Position p = (myConnectionGeometry.shape.size() == 2
                         ? (myConnectionGeometry.shape.front() * 0.67 + myConnectionGeometry.shape.back() * 0.33)
                         : myConnectionGeometry.shape[shapeIndex]);

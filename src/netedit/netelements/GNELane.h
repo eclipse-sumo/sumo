@@ -164,7 +164,7 @@ public:
     /// @brief returns the index of the lane
     int getIndex() const;
 
-    /// @nrief returns the current speed of lane
+    /// @brief returns the current speed of lane
     double getSpeed() const;
 
     /* @brief method for setting the index of the lane
