@@ -500,7 +500,9 @@ MSActuatedTrafficLightLogic::decideNextPhase() {
         // consider keeping the current phase until maxDur is reached
         // (only when there is still traffic in that phase)
         int currentPrio = getPhasePriority(myStep);
+#ifdef DEBUG_PHASE_SELECTION
         std::cout << SIMTIME << " p=" << myStep << " loops=" << myInductLoopsForPhase[myStep].size() << " currentPrio=" << currentPrio << "\n";
+#endif
         if (currentPrio > maxPrio) {
             result = myStep;
             maxPrio = currentPrio;
