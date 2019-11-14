@@ -36,3 +36,6 @@ unused_indices
 
 # test for moving detector upstream when the the lane that is incoming to the intersection is too short.
 short_lane
+
+# test for approximating a dual-ring controller by using the actuated branching logic
+dualring
