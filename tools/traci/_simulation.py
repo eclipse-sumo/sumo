@@ -529,6 +529,12 @@ class SimulationDomain(Domain):
         self._connection._packString(fileName)
         self._connection._sendExact()
 
+    def writeMessage(self, msg):
+        self._connection._beginMessage(tc.CMD_SET_SIM_VARIABLE, tc.CMD_MESSAGE, "",
+                                       1 + 4 + len(msg))
+        self._connection._packString(msg)
+        self._connection._sendExact()
+
     def subscribe(self, varIDs=(tc.VAR_DEPARTED_VEHICLES_IDS,), begin=0, end=2**31 - 1):
         """subscribe(list(integer), double, double) -> None
 

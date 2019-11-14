@@ -679,6 +679,11 @@ Simulation::saveState(const std::string& fileName) {
     MSStateHandler::saveState(fileName, MSNet::getInstance()->getCurrentTimeStep());
 }
 
+void
+Simulation::writeMessage(const std::string& msg) {
+    WRITE_MESSAGE(msg);
+}
+
 
 std::shared_ptr<VariableWrapper>
 Simulation::makeWrapper() {

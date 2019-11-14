@@ -297,7 +297,9 @@ TraCIServerAPI_Simulation::processSet(TraCIServer& server, tcpip::Storage& input
     // variable
     int variable = inputStorage.readUnsignedByte();
     if (variable != libsumo::CMD_CLEAR_PENDING_VEHICLES
-            && variable != libsumo::CMD_SAVE_SIMSTATE) {
+            && variable != libsumo::CMD_SAVE_SIMSTATE
+            && variable != libsumo::CMD_MESSAGE
+            ) {
         return server.writeErrorStatusCmd(libsumo::CMD_SET_SIM_VARIABLE, "Set Simulation Variable: unsupported variable " + toHex(variable, 2) + " specified", outputStorage);
     }
     // id
@@ -321,6 +323,14 @@ TraCIServerAPI_Simulation::processSet(TraCIServer& server, tcpip::Storage& input
                     return server.writeErrorStatusCmd(libsumo::CMD_SET_SIM_VARIABLE, "A string is needed for saving simulation state.", outputStorage);
                 }
                 libsumo::Simulation::saveState(file);
+            }
+            break;
+            case libsumo::CMD_MESSAGE: {
+                std::string msg;
+                if (!server.readTypeCheckingString(inputStorage, msg)) {
+                    return server.writeErrorStatusCmd(libsumo::CMD_SET_SIM_VARIABLE, "A string is needed for adding a log message.", outputStorage);
+                }
+                libsumo::Simulation::writeMessage(msg);
             }
             break;
             default:

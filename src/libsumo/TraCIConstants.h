@@ -834,6 +834,9 @@ TRACI_CONST int VAR_NEXT_STOPS = 0x73;
 // current acceleration (get: vehicle)
 TRACI_CONST int VAR_ACCELERATION = 0x72;
 
+// add log message (set: simulation)
+TRACI_CONST int CMD_MESSAGE = 0x65;
+
 // current time in seconds (get: simulation)
 TRACI_CONST int VAR_TIME = 0x66;
 
