@@ -284,47 +284,6 @@ GNEPersonTrip::updateGeometry() {
     for (const auto& i : getDemandElementChildren()) {
         i->updateGeometry();
     }
-
-    /*
-    
-    if ((myTagProperty.getTag() == SUMO_TAG_PERSONTRIP_FROMTO) && myFromEdge && myToEdge) {
-        // declare a from-via-to edges vector
-        std::vector<std::string> FromViaToEdges;
-        // add from edge
-        FromViaToEdges.push_back(myFromEdge->getID());
-        // add via edges
-        FromViaToEdges.insert(FromViaToEdges.end(), myVia.begin(), myVia.end());
-        // add to edge
-        FromViaToEdges.push_back(myToEdge->getID());
-        // calculate route
-        std::vector<GNEEdge*> route = getRouteCalculatorInstance()->calculateDijkstraRoute(myViewNet->getNet(), getDemandElementParents().at(0)->getVClass(), FromViaToEdges);
-        // check if rute is valid
-        if (route.size() > 0) {
-            changeEdgeParents(this, route, true);
-        } else if (getEdgeParents().size() > 0) {
-            changeEdgeParents(this, getEdgeParents().front()->getID() + " " + toString(myVia) + " " + getEdgeParents().back()->getID(), true);
-        }
-    } else if ((myTagProperty.getTag() == SUMO_TAG_PERSONTRIP_BUSSTOP) && myFromEdge && (getAdditionalParents().size() > 0)) {
-        // declare a from-via-busStop edges vector
-        std::vector<std::string> FromViaBusStopEdges;
-        // add from edge
-        FromViaBusStopEdges.push_back(myFromEdge->getID());
-        // add via edges
-        FromViaBusStopEdges.insert(FromViaBusStopEdges.end(), myVia.begin(), myVia.end());
-        // add busStop edge
-        FromViaBusStopEdges.push_back(getAdditionalParents().front()->getLaneParents().front()->getParentEdge().getID());
-        // calculate route
-        std::vector<GNEEdge*> route = getRouteCalculatorInstance()->calculateDijkstraRoute(myViewNet->getNet(), getDemandElementParents().at(0)->getVClass(), FromViaBusStopEdges);
-        // check if rute is valid
-        if (route.size() > 0) {
-            changeEdgeParents(this, route, true);
-        } else if (getEdgeParents().size() > 0) {
-            changeEdgeParents(this, getEdgeParents().front()->getID() + " " + toString(myVia) + " " + getEdgeParents().back()->getID(), true);
-        }
-    }
-    // update geometry
-    updateGeometry();
-    */
 }
 
 
