@@ -49,7 +49,7 @@ def main(options):
     with open(options.out, 'w') as outf:
         outf.write('<add>\n')
         for logic in sumolib.xml.parse(options.logic, 'tlLogic'):
-            tmp = ''
+            transitions = []
             phases = list(enumerate(logic.phase))
             index = len(phases)
             targets = defaultdict(lambda : [])
@@ -73,21 +73,27 @@ def main(options):
                             if options.redTime > 0:
                                 nextIndex = index + 1 # go to red phase
                             if p2.attr_name in nextName:
-                                tmp += '        <phase duration="%s" state="%s" next="%s" name="%s"/> <!-- %2i -->\n' % (
-                                        options.yellowTime,state, nextIndex, name, index)
+                                transitions.append((options.yellowTime, state, nextIndex, name))
                                 targets[i][iNext] = index
                                 index += 1
                                 if options.redTime > 0:
-                                    tmp += '        <phase duration="%s" state="%s" next="%s" name="%s"/> <!-- %2i -->\n' % (
-                                            options.redTime, "r" * len(state), i2, name, index)
+                                    transitions.append((options.redTime, state, i2, name))
                                     index += 1
                                 break
 
-            for i,p in phases:
-                next = ' '.join(map(str, targets[i]))
-                outf.write('        <phase duration="%s" state="%s" minDur="%s" maxDur="%s" next="%s" name="%s"/> <!-- %2i -->\n' % (
-                    p.duration, p.state, p.minDur, p.maxDur, next, p.attr_name, i))
-            outf.write(tmp)    
+            for i, phase in enumerate(logic.phase):
+                phase.next = ' '.join(map(str, targets[i]))
+
+            for duration, state, nextIndex, name in transitions:
+                logic.addChild('phase', {
+                    'duration': duration,
+                    'state' : state,
+                    'next' : nextIndex,
+                    'name': name})
+
+            outf.write(logic.toXML(" " * 4))    
+            outf.write('\n')
+
         outf.write('</add>\n')
 
 if __name__ == "__main__":
