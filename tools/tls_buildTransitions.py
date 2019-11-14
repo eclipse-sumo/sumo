@@ -13,8 +13,10 @@
 # @version $Id$
 
 """
-Define tlLogiic definings with branching signal plans based on a simplified
+Create tlLogiic definitions with branching signal plans based on a simplified
 input: named green phases and list of successor green phases names
+The corresponding yellow and red phases will be build and the 'next' attribute
+will be set to the appropriate transition phase.
 """
 
 from __future__ import absolute_import
