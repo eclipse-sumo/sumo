@@ -159,13 +159,14 @@ MSInductLoop::getVehicleLength(const int offset) const {
 
 
 double
-MSInductLoop::getOccupancy(const int offset) const {
-    const SUMOTime tbeg = SIMSTEP - offset;
+MSInductLoop::getOccupancy() const {
+    const SUMOTime tbeg = SIMSTEP - DELTA_T;
     double occupancy = 0;
-    const double csecond = STEPS2TIME(tbeg);
+    const double csecond = SIMTIME;
     for (const VehicleData& i : collectVehiclesOnDet(tbeg)) {
         const double leaveTime = i.leaveTimeM == HAS_NOT_LEFT_DETECTOR ? csecond : MIN2(i.leaveTimeM, csecond);
-        occupancy += MIN2(leaveTime - i.entryTimeM, TS);
+        const double entryTime = MAX2(i.entryTimeM, STEPS2TIME(tbeg));
+        occupancy += MIN2(leaveTime - entryTime, TS);
     }
     return occupancy / TS * 100.;
 }

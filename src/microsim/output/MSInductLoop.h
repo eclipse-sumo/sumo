@@ -182,7 +182,7 @@ public:
      * @return This detector's current occupancy
      * @todo recheck (especially if more than one vehicle has passed)
      */
-    double getOccupancy(const int offset) const;
+    double getOccupancy() const;
 
 
     /** @brief Returns the number of vehicles that have passed the detector

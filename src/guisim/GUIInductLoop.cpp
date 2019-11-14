@@ -143,7 +143,7 @@ GUIInductLoop::MyWrapper::getParameterWindow(GUIMainWindow& app,
     ret->mkItem("speed [m/s]", true,
                 new FuncBinding_IntParam<GUIInductLoop, double>(&myDetector, &GUIInductLoop::getSpeed, 0));
     ret->mkItem("occupancy [%]", true,
-                new FuncBinding_IntParam<GUIInductLoop, double>(&myDetector, &GUIInductLoop::getOccupancy, 0));
+                new FunctionBinding<GUIInductLoop, double>(&myDetector, &GUIInductLoop::getOccupancy));
     ret->mkItem("vehicle length [m]", true,
                 new FuncBinding_IntParam<GUIInductLoop, double>(&myDetector, &GUIInductLoop::getVehicleLength, 0));
     ret->mkItem("empty time [s]", true,

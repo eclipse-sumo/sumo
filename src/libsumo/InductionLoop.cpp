@@ -90,7 +90,7 @@ InductionLoop::getLastStepVehicleIDs(const std::string& detID) {
 
 double
 InductionLoop::getLastStepOccupancy(const std::string& detID) {
-    return getDetector(detID)->getOccupancy((int)DELTA_T);
+    return getDetector(detID)->getOccupancy();
 }
 
 
