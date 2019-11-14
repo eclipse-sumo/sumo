@@ -1,0 +1,13 @@
+<add>
+    <tlLogic id="C" type="actuated" programID="1" offset="0">
+        <!-- dualring code          447661883225  -->
+        <phase duration="99" state="rrrrrGrrrrrG" name="1+5" minDur="5" maxDur="60" next="2+6 1+6 2+5"/>              <!--  0 -->
+        <phase duration="99" state="rrrGGGrrrrrr" name="1+6" minDur="5" maxDur="60" next="2+6"/>                      <!--  1 -->
+        <phase duration="99" state="rrrrrrrrrGGG" name="2+5" minDur="5" maxDur="60" next="2+6"/>                      <!--  2 -->
+        <phase duration="99" state="rrrGGrrrrGGr" name="2+6" minDur="5" maxDur="60" next="3+7"/>                      <!--  3 -->
+        <phase duration="99" state="rrGrrrrrGrrr" name="3+7" minDur="5" maxDur="60" next="4+8 3+8 4+7"/>              <!--  4 -->
+        <phase duration="99" state="rrrrrrGGGrrr" name="3+8" minDur="5" maxDur="60" next="4+8"/>                      <!--  5 -->
+        <phase duration="99" state="GGGrrrrrrrrr" name="4+7" minDur="5" maxDur="60" next="4+8"/>                      <!--  6 -->
+        <phase duration="99" state="GGrrrrGGrrrr" name="4+8" minDur="5" maxDur="60" next="1+5"/>                      <!--  7 -->
+    </tlLogic>
+</add>
