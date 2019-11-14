@@ -393,11 +393,8 @@ GNEPerson::drawGL(const GUIVisualizationSettings& s) const {
         // obtain width and length
         const double length = getDemandElementParents().at(0)->getAttributeDouble(SUMO_ATTR_LENGTH);
         const double width = getDemandElementParents().at(0)->getAttributeDouble(SUMO_ATTR_WIDTH);
+        // obtain img file
         const std::string file = getDemandElementParents().at(0)->getAttribute(SUMO_ATTR_IMGFILE);
-        // push GL ID
-        glPushName(getGlID());
-        // push draw matrix
-        glPushMatrix();
         Position personPosition;
         // obtain position depending of first PersonPlan child
         if (getDemandElementChildren().front()->getTagProperty().isPersonStop()) {
@@ -407,34 +404,42 @@ GNEPerson::drawGL(const GUIVisualizationSettings& s) const {
             // obtain position of first edge
             personPosition = getDemandElementChildren().front()->getDemandElementSegmentGeometry().getFirstPosition();
         }
-        glTranslated(personPosition.x(), personPosition.y(), getType());
-        glRotated(90, 0, 0, 1);
-        // set person color
-        setColor(s);
-        // set scale
-        glScaled(exaggeration, exaggeration, 1);
-        // draw person depending of detail level
-        if (s.drawDetail(s.detailSettings.personShapes, exaggeration)) {
-            GUIBasePersonHelper::drawAction_drawAsImage(0, length, width, file, SVS_PEDESTRIAN, exaggeration);
-        } else if (s.drawDetail(s.detailSettings.personCircles, exaggeration)) {
-            GUIBasePersonHelper::drawAction_drawAsCircle(length, width);
-        } else if (s.drawDetail(s.detailSettings.personTriangles, exaggeration)) {
-            GUIBasePersonHelper::drawAction_drawAsTriangle(0, length, width);
+        // check that position is valid
+        if (personPosition != Position::INVALID) {
+            // push GL ID
+            glPushName(getGlID());
+            // push draw matrix
+            glPushMatrix();
+            // translate and rotate
+            glTranslated(personPosition.x(), personPosition.y(), getType());
+            glRotated(90, 0, 0, 1);
+            // set person color
+            setColor(s);
+            // set scale
+            glScaled(exaggeration, exaggeration, 1);
+            // draw person depending of detail level
+            if (s.drawDetail(s.detailSettings.personShapes, exaggeration)) {
+                GUIBasePersonHelper::drawAction_drawAsImage(0, length, width, file, SVS_PEDESTRIAN, exaggeration);
+            } else if (s.drawDetail(s.detailSettings.personCircles, exaggeration)) {
+                GUIBasePersonHelper::drawAction_drawAsCircle(length, width);
+            } else if (s.drawDetail(s.detailSettings.personTriangles, exaggeration)) {
+                GUIBasePersonHelper::drawAction_drawAsTriangle(0, length, width);
+            }
+            // pop matrix
+            glPopMatrix();
+            drawName(personPosition, s.scale, s.personName, s.angle);
+            if (s.personValue.show) {
+                Position personValuePosition = personPosition + Position(0, 0.6 * s.personName.scaledSize(s.scale));
+                const double value = getColorValue(s, s.personColorer.getActive());
+                GLHelper::drawTextSettings(s.personValue, toString(value), personValuePosition, s.scale, s.angle, GLO_MAX - getType());
+            }
+            // check if dotted contour has to be drawn
+            if (myViewNet->getDottedAC() == this) {
+                GLHelper::drawShapeDottedContourRectangle(s, getType(), personPosition, exaggeration, exaggeration);
+            }
+            // pop name
+            glPopName();
         }
-        // pop matrix
-        glPopMatrix();
-        drawName(personPosition, s.scale, s.personName, s.angle);
-        if (s.personValue.show) {
-            Position personValuePosition = personPosition + Position(0, 0.6 * s.personName.scaledSize(s.scale));
-            const double value = getColorValue(s, s.personColorer.getActive());
-            GLHelper::drawTextSettings(s.personValue, toString(value), personValuePosition, s.scale, s.angle, GLO_MAX - getType());
-        }
-        // check if dotted contour has to be drawn
-        if (myViewNet->getDottedAC() == this) {
-            GLHelper::drawShapeDottedContourRectangle(s, getType(), personPosition, exaggeration, exaggeration);
-        }
-        // pop name
-        glPopName();
     }
 }
 

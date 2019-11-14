@@ -645,105 +645,108 @@ GNEVehicle::drawGL(const GUIVisualizationSettings& s) const {
             vehiclePosition = getDemandElementChildren().at(0)->getDemandElementSegmentGeometry().getFirstPosition();
             vehicleRotation = getDemandElementChildren().at(0)->getDemandElementSegmentGeometry().getFirstRotation();
         }
-        // first check if if mouse is enought near to this vehicle to draw it
-        if (s.drawForSelecting && (myViewNet->getPositionInformation().distanceSquaredTo2D(vehiclePosition) >= (vehicleSizeSquared + 2))) {
-            // first push name
-            if (pushName) {
-                glPushName(getGlID());
-            }
-            // push draw matrix
-            glPushMatrix();
-            // translate to drawing position
-            glTranslated(vehiclePosition.x(), vehiclePosition.y(), GLO_ROUTE + getType() + 0.1);
-            glRotated(vehicleRotation, 0, 0, 1);
-            // extra translation needed to draw vehicle over edge (to avoid selecting problems)
-            glTranslated(0, (-1) * length, 0);
-            GLHelper::drawBoxLine(Position(0, 1), 0, 2, 1);
-            // Pop last matrix
-            glPopMatrix();
-            // pop name
-            if (pushName) {
-                glPopName();
-            }
-        } else {
-            SUMOVehicleShape shape = getVehicleShapeID(getDemandElementParents().at(0)->getAttribute(SUMO_ATTR_GUISHAPE));
-            // first push name
-            if (pushName) {
-                glPushName(getGlID());
-            }
-            // push draw matrix
-            glPushMatrix();
-            // translate to drawing position
-            glTranslated(vehiclePosition.x(), vehiclePosition.y(), GLO_ROUTE + getType() + 0.1);
-            glRotated(vehicleRotation, 0, 0, 1);
-            // extra translation needed to draw vehicle over edge (to avoid selecting problems)
-            glTranslated(0, (-1) * length, 0);
-            // set lane color
-            setColor(s);
-            double upscaleLength = exaggeration;
-            if ((exaggeration > 1) && (length > 5)) {
-                // reduce the length/width ratio because this is not usefull at high zoom
-                upscaleLength = MAX2(1.0, upscaleLength * (5 + sqrt(length - 5)) / length);
-            }
-            glScaled(exaggeration, upscaleLength, 1);
-            // check if we're drawing in selecting mode
-            if (s.drawForSelecting) {
-                // draw vehicle as a box and don't draw the rest of details
-                GUIBaseVehicleHelper::drawAction_drawVehicleAsBoxPlus(width, length);
+        // check that position is valid
+        if (vehiclePosition != Position::INVALID) {
+            // first check if if mouse is enought near to this vehicle to draw it
+            if (s.drawForSelecting && (myViewNet->getPositionInformation().distanceSquaredTo2D(vehiclePosition) >= (vehicleSizeSquared + 2))) {
+                // first push name
+                if (pushName) {
+                    glPushName(getGlID());
+                }
+                // push draw matrix
+                glPushMatrix();
+                // translate to drawing position
+                glTranslated(vehiclePosition.x(), vehiclePosition.y(), GLO_ROUTE + getType() + 0.1);
+                glRotated(vehicleRotation, 0, 0, 1);
+                // extra translation needed to draw vehicle over edge (to avoid selecting problems)
+                glTranslated(0, (-1) * length, 0);
+                GLHelper::drawBoxLine(Position(0, 1), 0, 2, 1);
+                // Pop last matrix
+                glPopMatrix();
+                // pop name
+                if (pushName) {
+                    glPopName();
+                }
             } else {
-                // draw the vehicle depending of detail level
-                if (s.drawDetail(s.detailSettings.vehicleShapes, exaggeration)) {
-                    GUIBaseVehicleHelper::drawAction_drawVehicleAsPoly(s, shape, width, length);
-                } else if (s.drawDetail(s.detailSettings.vehicleBoxes, exaggeration)) {
+                SUMOVehicleShape shape = getVehicleShapeID(getDemandElementParents().at(0)->getAttribute(SUMO_ATTR_GUISHAPE));
+                // first push name
+                if (pushName) {
+                    glPushName(getGlID());
+                }
+                // push draw matrix
+                glPushMatrix();
+                // translate to drawing position
+                glTranslated(vehiclePosition.x(), vehiclePosition.y(), GLO_ROUTE + getType() + 0.1);
+                glRotated(vehicleRotation, 0, 0, 1);
+                // extra translation needed to draw vehicle over edge (to avoid selecting problems)
+                glTranslated(0, (-1) * length, 0);
+                // set lane color
+                setColor(s);
+                double upscaleLength = exaggeration;
+                if ((exaggeration > 1) && (length > 5)) {
+                    // reduce the length/width ratio because this is not usefull at high zoom
+                    upscaleLength = MAX2(1.0, upscaleLength * (5 + sqrt(length - 5)) / length);
+                }
+                glScaled(exaggeration, upscaleLength, 1);
+                // check if we're drawing in selecting mode
+                if (s.drawForSelecting) {
+                    // draw vehicle as a box and don't draw the rest of details
                     GUIBaseVehicleHelper::drawAction_drawVehicleAsBoxPlus(width, length);
-                } else if (s.drawDetail(s.detailSettings.vehicleTriangles, exaggeration)) {
-                    GUIBaseVehicleHelper::drawAction_drawVehicleAsTrianglePlus(width, length);
-                }
-
-                /*
-                switch (s.vehicleQuality) {
-                    case 0:
-                        GUIBaseVehicleHelper::drawAction_drawVehicleAsTrianglePlus(width, length);
-                        break;
-                    case 1:
-                        GUIBaseVehicleHelper::drawAction_drawVehicleAsBoxPlus(width, length);
-                        break;
-                    default:
+                } else {
+                    // draw the vehicle depending of detail level
+                    if (s.drawDetail(s.detailSettings.vehicleShapes, exaggeration)) {
                         GUIBaseVehicleHelper::drawAction_drawVehicleAsPoly(s, shape, width, length);
-                        break;
+                    } else if (s.drawDetail(s.detailSettings.vehicleBoxes, exaggeration)) {
+                        GUIBaseVehicleHelper::drawAction_drawVehicleAsBoxPlus(width, length);
+                    } else if (s.drawDetail(s.detailSettings.vehicleTriangles, exaggeration)) {
+                        GUIBaseVehicleHelper::drawAction_drawVehicleAsTrianglePlus(width, length);
+                    }
+
+                    /*
+                    switch (s.vehicleQuality) {
+                        case 0:
+                            GUIBaseVehicleHelper::drawAction_drawVehicleAsTrianglePlus(width, length);
+                            break;
+                        case 1:
+                            GUIBaseVehicleHelper::drawAction_drawVehicleAsBoxPlus(width, length);
+                            break;
+                        default:
+                            GUIBaseVehicleHelper::drawAction_drawVehicleAsPoly(s, shape, width, length);
+                            break;
+                    }
+                    */
+                    // check if min gap has to be drawn
+                    if (s.drawMinGap) {
+                        const double minGap = -1 * getDemandElementParents().at(0)->getAttributeDouble(SUMO_ATTR_MINGAP);
+                        glColor3d(0., 1., 0.);
+                        glBegin(GL_LINES);
+                        glVertex2d(0., 0);
+                        glVertex2d(0., minGap);
+                        glVertex2d(-.5, minGap);
+                        glVertex2d(.5, minGap);
+                        glEnd();
+                    }
+                    // drawing name at GLO_MAX fails unless translating z
+                    glTranslated(0, MIN2(length / 2, double(5)), -getType());
+                    glScaled(1 / exaggeration, 1 / upscaleLength, 1);
+                    glRotated(-1 * vehicleRotation, 0, 0, 1);
+                    drawName(Position(0, 0), s.scale, getDemandElementParents().at(0)->getAttribute(SUMO_ATTR_GUISHAPE) == "pedestrian" ? s.personName : s.vehicleName, s.angle);
+                    // draw line
+                    if (s.vehicleName.show && line != "") {
+                        glTranslated(0, 0.6 * s.vehicleName.scaledSize(s.scale), 0);
+                        GLHelper::drawTextSettings(s.vehicleName, "line:" + line, Position(0, 0), s.scale, s.angle);
+                    }
                 }
-                */
-                // check if min gap has to be drawn
-                if (s.drawMinGap) {
-                    const double minGap = -1 * getDemandElementParents().at(0)->getAttributeDouble(SUMO_ATTR_MINGAP);
-                    glColor3d(0., 1., 0.);
-                    glBegin(GL_LINES);
-                    glVertex2d(0., 0);
-                    glVertex2d(0., minGap);
-                    glVertex2d(-.5, minGap);
-                    glVertex2d(.5, minGap);
-                    glEnd();
+                // pop draw matrix
+                glPopMatrix();
+                // check if dotted contour has to be drawn
+                if (myViewNet->getDottedAC() == this) {
+                    GLHelper::drawShapeDottedContourRectangle(s, getType(), vehiclePosition, width, length, vehicleRotation, 0, length / (-2));
                 }
-                // drawing name at GLO_MAX fails unless translating z
-                glTranslated(0, MIN2(length / 2, double(5)), -getType());
-                glScaled(1 / exaggeration, 1 / upscaleLength, 1);
-                glRotated(-1 * vehicleRotation, 0, 0, 1);
-                drawName(Position(0, 0), s.scale, getDemandElementParents().at(0)->getAttribute(SUMO_ATTR_GUISHAPE) == "pedestrian" ? s.personName : s.vehicleName, s.angle);
-                // draw line
-                if (s.vehicleName.show && line != "") {
-                    glTranslated(0, 0.6 * s.vehicleName.scaledSize(s.scale), 0);
-                    GLHelper::drawTextSettings(s.vehicleName, "line:" + line, Position(0, 0), s.scale, s.angle);
+                // pop name
+                if (pushName) {
+                    glPopName();
                 }
-            }
-            // pop draw matrix
-            glPopMatrix();
-            // check if dotted contour has to be drawn
-            if (myViewNet->getDottedAC() == this) {
-                GLHelper::drawShapeDottedContourRectangle(s, getType(), vehiclePosition, width, length, vehicleRotation, 0, length / (-2));
-            }
-            // pop name
-            if (pushName) {
-                glPopName();
             }
         }
     }
