@@ -274,7 +274,9 @@ GNERoute::updatePartialGeometry(const GNEEdge* edge) {
     updateGeometricPath(edge);
     // update demand element childrens
     for (const auto& i : getDemandElementChildren()) {
-        i->updatePartialGeometry(edge);
+        if (!i->getTagProperty().isPersonStop() && !i->getTagProperty().isStop()) {
+            i->updatePartialGeometry(edge);
+        }
     }
 }
 
