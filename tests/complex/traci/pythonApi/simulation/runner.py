@@ -58,7 +58,9 @@ def ppStages(comment, stages):
     print("%s\n  %s\n" % (comment, "\n  ".join(map(str, stages))))
 
 
-traci.start([sumolib.checkBinary('sumo'), "-c", "sumo.sumocfg", "--ignore-route-errors"])
+traci.start([sumolib.checkBinary('sumo'), "-c", "sumo.sumocfg",
+    "--ignore-route-errors",
+    "--log", "log.txt"])
 traci.simulation.subscribe(
     [traci.constants.VAR_LOADED_VEHICLES_IDS, traci.constants.VAR_DEPARTED_VEHICLES_IDS])
 print(traci.simulation.getSubscriptionResults())
@@ -177,5 +179,6 @@ for step in range(12):
     print(traci.simulation.getSubscriptionResults())
 
 print("check whether GUI is present", traci.hasGUI())
+traci.simulation.writeMessage("custom log message")
 traci.simulationStep()
 traci.close()
