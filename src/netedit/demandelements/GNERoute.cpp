@@ -261,7 +261,9 @@ GNERoute::updateGeometry() {
     calculateGeometricPath(getEdgeParents());
     // update demand element childrens
     for (const auto& i : getDemandElementChildren()) {
-        i->updateGeometry();
+        if (!i->getTagProperty().isPersonStop() && !i->getTagProperty().isStop()) {
+            i->updateGeometry();
+        }
     }
 }
 
