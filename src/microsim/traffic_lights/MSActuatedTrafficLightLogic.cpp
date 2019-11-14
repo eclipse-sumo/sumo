@@ -41,8 +41,8 @@
 #include <netload/NLDetectorBuilder.h>
 #include <utils/common/StringUtils.h>
 
-#define DEBUG_DETECTORS
-#define DEBUG_PHASE_SELECTION
+//#define DEBUG_DETECTORS
+//#define DEBUG_PHASE_SELECTION
 #define DEBUG_COND (getID()=="C")
 
 // ===========================================================================
@@ -52,6 +52,7 @@
 #define DEFAULT_PASSING_TIME "1.9"
 #define DEFAULT_DETECTOR_GAP "2.0"
 #define DEFAULT_INACTIVE_THRESHOLD "180"
+#define DEFAULT_CURRENT_PRIORITY 10
 
 #define DEFAULT_LENGTH_WITH_GAP 7.5
 
@@ -583,7 +584,7 @@ MSActuatedTrafficLightLogic::getDetectorPriority(const InductLoopInfo& loopInfo)
                 SUMOTime actDuration = MSNet::getInstance()->getCurrentTimeStep() - myPhases[myStep]->myLastSwitch;
                 const bool canExtend = actDuration < getCurrentPhaseDef().maxDuration;
                 if (canExtend) {
-                    return 10;
+                    return DEFAULT_CURRENT_PRIORITY;
                 } else {
                     return 0;
                 }
