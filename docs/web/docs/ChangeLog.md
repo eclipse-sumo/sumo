@@ -59,6 +59,7 @@ permalink: /ChangeLog/
   - when defining vehicle stops, the new attribute 'extension' can be used to limit delays when too many people are boarding or when expected persons do not show up. Issue #6072 #3635
   - Improved smoothness of acceleration / deceleration for carFollowModel 'IDM' when speed limits change and there is no leader vehicle. Issue #6080
   - Persons can now start their plan in a driving vehicle by setting `depart="triggered"`. Issue #4042
+  - Traffic light type 'actuated' now supports skipping phases by defining a list of alternative successor phases in phase attribute 'next'. Issue #5042
 
 - Meso
   - Vehicles that reach maximum impatience can now pass junctions from an unprioritized road regardless of foe traffic. The old behavior can be restored by disabling impatience growth via **--time-to-impatience 0**. Issue #5830
@@ -80,16 +81,18 @@ permalink: /ChangeLog/
   - The currently loaded options can now be saved to a configuration via the file menu. Issue #5707  
   - The object locator dialog now allows filtering the object list by matching all ids/names that include a given text string.
   - Added option for rendering the (relative) route index for each edge when drawing a vehicles route. Issue #6199
+  - Traffic light parameter dialog now includes more values describing the current phase (phase, phase name, duration, minDur, maxDur, running duration)
   
 - TraCI
   - Added function 'traci.trafficlight.getServedPersonCount' to return the number of pedestrians that would be served by all the crossings for a given phase index. Issue #6088
   - Can now access vehicle device parameters 'device.ssm.minTTC', 'device.ssm.maxDRAC', 'device.ssm.minPET'. Issue #4983
+  - Added function 'traci.simulation.writeMessage' to append a custom message to the log file (and sumo-gui message window). Issue #6249
   
 - Tools
   - When importing public transport traffic with osmWebWizard, vehicles from incomplete lines now start and end their routes at the network border instead of starting at the first stop. Issue #6025
   - Added new tool [analyzePersonPlans.py](Tools/Routes.md) to count the different types of plans in a route file. Issue #6083
   - Added new tool [matsim_importPlans.py](Tools/Import/MATSim.md) to import intermodal traffic plans from MATSim
-
+  
 ### Other
 
 - SUMO-GUI, NETEDIT
