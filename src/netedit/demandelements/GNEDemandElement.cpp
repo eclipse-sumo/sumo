@@ -80,23 +80,11 @@ GNEDemandElement::DemandElementGeometry::calculateShapeRotationsAndLengths() {
 // GNEDemandElement::DemandElementSegmentGeometry::Segment - methods
 // ---------------------------------------------------------------------------
 
-GNEDemandElement::DemandElementSegmentGeometry::Segment::Segment(const GNEDemandElement* _element, const GNEEdge* _edge, const GNELane* _lane,
-        const Position& pos, const double rotation, const double length, const bool _valid) :
-    element(_element),
-    edge(_edge),
-    lane(_lane),
-    junction(nullptr),
-    valid(_valid),
-    shape({pos}),
-    shapeRotations({rotation}),
-    shapeLengths({length}) {
-}
 
-
-GNEDemandElement::DemandElementSegmentGeometry::Segment::Segment(const GNEDemandElement* _element, const GNEEdge* _edge, const GNELane* _lane,
+GNEDemandElement::DemandElementSegmentGeometry::Segment::Segment(const GNEDemandElement* _element, const GNELane* _lane,
         const PositionVector& _shape, const std::vector<double> &_shapeRotations, const std::vector<double> &_shapeLengths, const bool _valid) :
     element(_element),
-    edge(_edge),
+    edge(&_lane->getParentEdge()),
     lane(_lane),
     junction(nullptr),
     valid(_valid),
@@ -125,27 +113,11 @@ GNEDemandElement::DemandElementSegmentGeometry::Segment::Segment(const GNEDemand
 GNEDemandElement::DemandElementSegmentGeometry::DemandElementSegmentGeometry() {}
 
 
-void
-GNEDemandElement::DemandElementSegmentGeometry::insertPartialEdgeSegment(const GNEDemandElement* element, const GNEEdge* edge, const GNELane* lane,
-    const Position pos, double rotation, double length, const bool valid) {
-    // check if we have to insert a new segment or update last inserted element
-    if (myShapeSegments.empty() || (myShapeSegments.back().edge != edge)) {
-        // add new segment
-        myShapeSegments.push_back(Segment(element, edge, lane, pos, rotation, length, valid));
-    } else {
-        // update last shape segment
-        myShapeSegments.back().shape.push_back(pos);
-        myShapeSegments.back().shapeRotations.push_back(rotation);
-        myShapeSegments.back().shapeLengths.push_back(length);
-    }
-}
-
-
 void 
-GNEDemandElement::DemandElementSegmentGeometry::insertEdgeSegment(const GNEDemandElement* element, const GNEEdge* edge, const GNELane* lane,
+GNEDemandElement::DemandElementSegmentGeometry::insertEdgeSegment(const GNEDemandElement* element, const GNELane* lane,
     const PositionVector& laneShape, const std::vector<double> &laneShapeRotations, const std::vector<double> &laneShapeLengths, const bool valid) {
     // add segment in myShapeSegments
-    myShapeSegments.push_back(Segment(element, edge, lane, laneShape, laneShapeRotations, laneShapeLengths, valid));
+    myShapeSegments.push_back(Segment(element, lane, laneShape, laneShapeRotations, laneShapeLengths, valid));
 }
 
 
@@ -154,27 +126,6 @@ GNEDemandElement::DemandElementSegmentGeometry::insertLane2LaneSegment(const GNE
     const PositionVector& laneShape, const std::vector<double> &laneShapeRotations, const std::vector<double> &laneShapeLengths, const bool valid) {
     // add segment in myShapeSegments
     myShapeSegments.push_back(Segment(element, junction, lane, laneShape, laneShapeRotations, laneShapeLengths, valid));
-}
-
-
-
-void 
-GNEDemandElement::DemandElementSegmentGeometry::updatePartialEdgeSegment(const int segmentIndex, const int shapeIndex, const Position newPos, double newRotation, double newLength) {
-    if (myShapeSegments.at(segmentIndex).shape.size() < shapeIndex) {
-        throw ProcessError("Invalid index");
-    } else {
-        myShapeSegments.at(segmentIndex).shape[shapeIndex] = newPos;
-        if ((myShapeSegments.at(segmentIndex).shapeRotations.size() > shapeIndex) && (myShapeSegments.at(segmentIndex).shapeLengths.size() > shapeIndex)) {
-            myShapeSegments.at(segmentIndex).shapeRotations[shapeIndex] = newRotation;
-            myShapeSegments.at(segmentIndex).shapeLengths[shapeIndex] = newLength;
-        }
-    }
-}
-
-
-void 
-GNEDemandElement::DemandElementSegmentGeometry::updateLastPartialEdgeSegment(const int segmentIndex, const Position newPos) {
-    myShapeSegments.at(segmentIndex).shape[myShapeSegments.at(segmentIndex).shape.size()-1] = newPos;
 }
 
 
@@ -190,21 +141,6 @@ void
 GNEDemandElement::DemandElementSegmentGeometry::clearDemandElementSegmentGeometry() {
     // clear segments
     myShapeSegments.clear();
-}
-
-
-void 
-GNEDemandElement::DemandElementSegmentGeometry::closePartialEdgeSegment(const Position &lastPosition) {
-    // first check that there are shape segments
-    if (myShapeSegments.size() > 0) {
-        // check that all containers have exactly the same size (because shape must be +1 greather than lenghts and rotations)
-        if ((myShapeSegments.back().shape.size() > 0) &&
-            (myShapeSegments.back().shape.size() == myShapeSegments.back().shapeRotations.size()) &&
-            (myShapeSegments.back().shape.size() == myShapeSegments.back().shapeLengths.size())) {
-            // add last position
-            myShapeSegments.back().shape.push_back(lastPosition);
-        }
-    }
 }
 
 
@@ -641,7 +577,7 @@ GNEDemandElement::calculateGeometricPath(const std::vector<GNEEdge*> &edges, dou
                 // check if both extra positions are invalid
                 if ((extraFirstPosition == Position::INVALID) && (extraLastPosition == Position::INVALID)) {
                     // add entire lane geometry geometry
-                    myDemandElementSegmentGeometry.insertEdgeSegment(this, edges.at(0), singleLane,
+                    myDemandElementSegmentGeometry.insertEdgeSegment(this, singleLane,
                         singleLane->getLaneShape(), 
                         singleLane->getShapeRotations(), 
                         singleLane->getShapeLengths(), true);
@@ -661,14 +597,10 @@ GNEDemandElement::calculateGeometricPath(const std::vector<GNEEdge*> &edges, dou
                     // calculate shape rotations and lenghts
                     subLane.calculateShapeRotationsAndLengths();
                     // add sublane geometry
-                    for (int i = 0; i < ((int)subLane.shape.size() - 1); i++) {
-                        myDemandElementSegmentGeometry.insertPartialEdgeSegment(this, edges.at(0), singleLane,
-                            subLane.shape[i], 
-                            subLane.shapeRotations[i], 
-                            subLane.shapeLengths[i], true);
-                    }
-                    // close partial edge segment
-                    myDemandElementSegmentGeometry.closePartialEdgeSegment(subLane.shape.back());
+                    myDemandElementSegmentGeometry.insertEdgeSegment(this, singleLane,
+                        subLane.shape, 
+                        subLane.shapeRotations, 
+                        subLane.shapeLengths, true);
                 }
             } else if (singleLane->getLaneShape().size() > 0) {
                 // declare a Net Element Geometry
@@ -698,14 +630,10 @@ GNEDemandElement::calculateGeometricPath(const std::vector<GNEEdge*> &edges, dou
                 // calculate shape rotations and lenghts
                 subLane.calculateShapeRotationsAndLengths();
                 // add sublane geometry
-                for (int i = 0; i < ((int)subLane.shape.size() - 1); i++) {
-                    myDemandElementSegmentGeometry.insertPartialEdgeSegment(this, edges.at(0), singleLane,
-                        subLane.shape[i], 
-                        subLane.shapeRotations[i], 
-                        subLane.shapeLengths[i], true);
-                }
-                // close partial edge segment
-                myDemandElementSegmentGeometry.closePartialEdgeSegment(subLane.shape.back());
+                myDemandElementSegmentGeometry.insertEdgeSegment(this, singleLane,
+                    subLane.shape, 
+                    subLane.shapeRotations, 
+                    subLane.shapeLengths, true);
             }
         } else {
             // declare vector of lanes
@@ -758,14 +686,10 @@ GNEDemandElement::calculateGeometricPath(const std::vector<GNEEdge*> &edges, dou
                         // calculate shape rotations and lenghts
                         subLane.calculateShapeRotationsAndLengths();
                         // add sublane geometry
-                        for (int j = 0; j < ((int)subLane.shape.size() - 1); j++) {
-                            myDemandElementSegmentGeometry.insertPartialEdgeSegment(this, &lanes.at(i)->getParentEdge(), lanes.at(i),
-                                subLane.shape[j], 
-                                subLane.shapeRotations[j], 
-                                subLane.shapeLengths[j], true);
-                        }
-                        // close partial edge segment
-                        myDemandElementSegmentGeometry.closePartialEdgeSegment(subLane.shape.back());
+                        myDemandElementSegmentGeometry.insertEdgeSegment(this, lane,
+                            subLane.shape, 
+                            subLane.shapeRotations, 
+                            subLane.shapeLengths, true);
                     } else if ((lane == lanes.back()) && (endPos != -1)) {
                         // filter end position
                         adjustStartPosGeometricPath(startPos, nullptr, endPos, lane);
@@ -784,17 +708,13 @@ GNEDemandElement::calculateGeometricPath(const std::vector<GNEEdge*> &edges, dou
                         // calculate shape rotations and lenghts
                         subLane.calculateShapeRotationsAndLengths();
                         // add sublane geometry
-                        for (int j = 0; j < ((int)subLane.shape.size() - 1); j++) {
-                            myDemandElementSegmentGeometry.insertPartialEdgeSegment(this, &lane->getParentEdge(), lanes.at(i),
-                                subLane.shape[j], 
-                                subLane.shapeRotations[j], 
-                                subLane.shapeLengths[j], true);
-                        }
-                        // close partial edge segment
-                        myDemandElementSegmentGeometry.closePartialEdgeSegment(subLane.shape.back());
+                        myDemandElementSegmentGeometry.insertEdgeSegment(this, lane,
+                            subLane.shape, 
+                            subLane.shapeRotations, 
+                            subLane.shapeLengths, true);
                     } else {
                         // add entire lane geometry
-                        myDemandElementSegmentGeometry.insertEdgeSegment(this, &lane->getParentEdge(), lanes.at(i),
+                        myDemandElementSegmentGeometry.insertEdgeSegment(this, lanes.at(i),
                             lane->getLaneShape(), 
                             lane->getShapeRotations(), 
                             lane->getShapeLengths(), true);
@@ -856,15 +776,11 @@ GNEDemandElement::updateGeometricPath(const GNEEdge* edge, double startPos, doub
                 }
                 // calculate shape rotations and lenghts
                 subLane.calculateShapeRotationsAndLengths();
-                // add sublane geometry
-                for (int i = 0; i < ((int)subLane.shape.size() - 1); i++) {
-                    myDemandElementSegmentGeometry.updatePartialEdgeSegment(0, i,
-                        subLane.shape[i], 
-                        subLane.shapeRotations[i], 
-                        subLane.shapeLengths[i]);
-                }
-                // close partial edge segment
-                myDemandElementSegmentGeometry.updateLastPartialEdgeSegment(0, subLane.shape.back());
+                // update segment
+                myDemandElementSegmentGeometry.updateSegment(0,
+                    subLane.shape, 
+                    subLane.shapeRotations, 
+                    subLane.shapeLengths);
             }
         } else if (singleLane->getLaneShape().size() > 0) {
             // declare a Net Element Geometry
@@ -893,22 +809,18 @@ GNEDemandElement::updateGeometricPath(const GNEEdge* edge, double startPos, doub
             }
             // calculate shape rotations and lenghts
             subLane.calculateShapeRotationsAndLengths();
-            // add sublane geometry
-            for (int i = 0; i < ((int)subLane.shape.size() - 1); i++) {
-                myDemandElementSegmentGeometry.updatePartialEdgeSegment(0, i,
-                    subLane.shape[i], 
-                    subLane.shapeRotations[i], 
-                    subLane.shapeLengths[i]);
-            }
-            // close partial edge segment
-            myDemandElementSegmentGeometry.updateLastPartialEdgeSegment(0, subLane.shape.back());
+            // update segment
+            myDemandElementSegmentGeometry.updateSegment(0,
+                subLane.shape, 
+                subLane.shapeRotations, 
+                subLane.shapeLengths);
         }
     } else {
         // obtain edges to be updated
         std::vector<std::tuple <const int, const GNELane*, const GNELane*> > segmentsToUpdate;
         for (auto segment = myDemandElementSegmentGeometry.begin(); segment != myDemandElementSegmentGeometry.end(); segment++) {
             if (segment->edge == edge) {
-                const int index = std::distance(myDemandElementSegmentGeometry.begin(), segment);
+                const int index = (int)std::distance(myDemandElementSegmentGeometry.begin(), segment);
                 segmentsToUpdate.push_back(std::make_tuple(index, segment->lane, nullptr));
                 if (((segment+1) != myDemandElementSegmentGeometry.end()) && (segment+1)->junction) {
                     segmentsToUpdate.push_back(std::make_tuple(index, segment->lane, (segment+1)->lane));
@@ -941,15 +853,11 @@ GNEDemandElement::updateGeometricPath(const GNEEdge* edge, double startPos, doub
                     }
                     // calculate shape rotations and lenghts
                     subLane.calculateShapeRotationsAndLengths();
-                    // add sublane geometry
-                    for (int j = 0; j < ((int)subLane.shape.size() - 1); j++) {
-                        myDemandElementSegmentGeometry.updatePartialEdgeSegment(index, j,
-                            subLane.shape[j], 
-                            subLane.shapeRotations[j], 
-                            subLane.shapeLengths[j]);
-                    }
-                    // close partial edge segment
-                    myDemandElementSegmentGeometry.updateLastPartialEdgeSegment(index, subLane.shape.back());
+                    // update segment
+                    myDemandElementSegmentGeometry.updateSegment(index,
+                        subLane.shape, 
+                        subLane.shapeRotations, 
+                        subLane.shapeLengths);
                 } else if ((index == (myDemandElementSegmentGeometry.size() -1)) && (endPos != -1)) {
                     // filter end position
                     adjustStartPosGeometricPath(startPos, nullptr, endPos, lane);
@@ -967,15 +875,11 @@ GNEDemandElement::updateGeometricPath(const GNEEdge* edge, double startPos, doub
                     }
                     // calculate shape rotations and lenghts
                     subLane.calculateShapeRotationsAndLengths();
-                    // add sublane geometry
-                    for (int j = 0; j < ((int)subLane.shape.size() - 1); j++) {
-                        myDemandElementSegmentGeometry.updatePartialEdgeSegment(index, j,
-                            subLane.shape[j], 
-                            subLane.shapeRotations[j], 
-                            subLane.shapeLengths[j]);
-                    }
-                    // close partial edge segment
-                    myDemandElementSegmentGeometry.updateLastPartialEdgeSegment(index, subLane.shape.back());
+                    // update segment
+                    myDemandElementSegmentGeometry.updateSegment(index,
+                        subLane.shape, 
+                        subLane.shapeRotations, 
+                        subLane.shapeLengths);
                 } else {
                     // add entire lane geometry
                     myDemandElementSegmentGeometry.updateSegment(index,
