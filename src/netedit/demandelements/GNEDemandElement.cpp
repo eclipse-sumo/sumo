@@ -646,17 +646,16 @@ GNEDemandElement::calculateGeometricPath(const std::vector<GNEEdge*> &edges, dou
                 GNENetElement::NetElementGeometry trimmedLane;
                 // set shape lane
                 trimmedLane.shape = commonLane->getLaneShape();
-                if (trimmedLane.shape.length() > (2*POSITION_EPS)) {
-                    if ((startPos != -1) && (endPos != -1)) {
-                        // split lane
-                        trimmedLane.shape = trimmedLane.shape.getSubpart(startPos, endPos);
-                    } else if (startPos != -1) {
-                        // split lane
-                        trimmedLane.shape = trimmedLane.shape.splitAt(startPos).second;
-                    } else if (endPos != -1) {
-                        // split lane
-                        trimmedLane.shape = trimmedLane.shape.splitAt(endPos).first;
-                    }
+                // split depending of startPos and endPos
+                if ((startPos != -1) && (endPos != -1)) {
+                    // split lane
+                    trimmedLane.shape = trimmedLane.shape.getSubpart(startPos, endPos);
+                } else if (startPos != -1) {
+                    // split lane
+                    trimmedLane.shape = trimmedLane.shape.splitAt(startPos).second;
+                } else if (endPos != -1) {
+                    // split lane
+                    trimmedLane.shape = trimmedLane.shape.splitAt(endPos).first;
                 }
                 // check if we have to add an extra first position
                 if (extraFirstPosition != Position::INVALID) {
@@ -718,7 +717,7 @@ GNEDemandElement::calculateGeometricPath(const std::vector<GNEEdge*> &edges, dou
                         // set shape lane
                         frontTrimmedLane.shape = lanes.at(i)->getLaneShape();
                         // split lane
-                        if (lanes.at(i)->getLaneShape().length() > (2*POSITION_EPS)) {
+                        if (startPos != -1) {
                             frontTrimmedLane.shape = frontTrimmedLane.shape.splitAt(startPos).second;
                         }
                         // check if we have to add an extra first position
@@ -740,7 +739,7 @@ GNEDemandElement::calculateGeometricPath(const std::vector<GNEEdge*> &edges, dou
                         // set shape lane
                         backTrimmedLane.shape = lane->getLaneShape();
                         // split lane
-                        if (lane->getLaneShape().length() > (2*POSITION_EPS)) {
+                        if (endPos != -1) {
                             backTrimmedLane.shape = backTrimmedLane.shape.splitAt(endPos).first;
                         }
                         // check if we have to add an extra last position
@@ -794,17 +793,16 @@ GNEDemandElement::updateGeometricPath(const GNEEdge* edge, double startPos, doub
             GNENetElement::NetElementGeometry trimmedLane;
             // set shape lane
             trimmedLane.shape = commonLane->getLaneShape();
-            if (trimmedLane.shape.length() > (2*POSITION_EPS)) {
-                if ((startPos != -1) && (endPos != -1)) {
-                    // split lane
-                    trimmedLane.shape = trimmedLane.shape.getSubpart(startPos, endPos);
-                } else if (startPos != -1) {
-                    // split lane
-                    trimmedLane.shape = trimmedLane.shape.splitAt(startPos).second;
-                } else if (endPos != -1) {
-                    // split lane
-                    trimmedLane.shape = trimmedLane.shape.splitAt(endPos).first;
-                }
+            // split depending of startPos and endPos
+            if ((startPos != -1) && (endPos != -1)) {
+                // split lane
+                trimmedLane.shape = trimmedLane.shape.getSubpart(startPos, endPos);
+            } else if (startPos != -1) {
+                // split lane
+                trimmedLane.shape = trimmedLane.shape.splitAt(startPos).second;
+            } else if (endPos != -1) {
+                // split lane
+                trimmedLane.shape = trimmedLane.shape.splitAt(endPos).first;
             }
             // check if we have to add an extra first position
             if (extraFirstPosition != Position::INVALID) {
@@ -851,7 +849,7 @@ GNEDemandElement::updateGeometricPath(const GNEEdge* edge, double startPos, doub
                     // set shape lane
                     frontTrimmedLane.shape = segmentToUpdate.lane->getLaneShape();
                     // split lane
-                    if (frontTrimmedLane.shape.length() > (2*POSITION_EPS)) {
+                    if (startPos != -1) {
                         frontTrimmedLane.shape = frontTrimmedLane.shape.splitAt(startPos).second;
                     }
                     // check if we have to add an extra first position
@@ -873,7 +871,7 @@ GNEDemandElement::updateGeometricPath(const GNEEdge* edge, double startPos, doub
                     // set shape lane
                     backTrimmedLane.shape = segmentToUpdate.lane->getLaneShape();
                     // split lane
-                    if (backTrimmedLane.shape.length() > (2*POSITION_EPS)) {
+                    if (endPos != -1) {
                         backTrimmedLane.shape = backTrimmedLane.shape.splitAt(endPos).first;
                     }
                     // check if we have to add an extra last position
@@ -930,13 +928,8 @@ GNEDemandElement::calculatePersonPlanLaneStartEndPos(double &startPos, double &e
     // adjust endPos depending of next busStop
     if (busStop) {
         endPos = busStop->getAttributeDouble(SUMO_ATTR_STARTPOS);
-    } else if (nextPersonPlan) {
-        // check if next element is a stop or another person plan (walk, ride, trip...)
-        if (nextPersonPlan->getTagProperty().isPersonStop()) {
-            endPos = nextPersonPlan->getAttributeDouble(SUMO_ATTR_STARTPOS);
-        } else {
-            endPos = nextPersonPlan->getAttributeDouble(SUMO_ATTR_ARRIVALPOS);
-        }
+    } else if (nextPersonPlan && nextPersonPlan->getTagProperty().isPersonStop()) {
+        endPos = nextPersonPlan->getAttributeDouble(SUMO_ATTR_STARTPOS);
     } else {
         // if this is the last element, simply use arrival position
         endPos = getAttributeDouble(SUMO_ATTR_ARRIVALPOS);
@@ -1048,32 +1041,28 @@ GNEDemandElement::getLastAllowedVehicleLane() const {
 
 void 
 GNEDemandElement::adjustStartPosGeometricPath(double &startPos, const GNELane* startLane, double &endPos, const GNELane* endLane) const {
+    // adjust both, if start and end lane are the same
+    if (startLane && endLane && (startLane == endLane) && (startPos != -1) && (endPos != -1)) {
+        if (startPos >= endPos) {
+            endPos = (startPos + POSITION_EPS);
+        }
+    }
     // adjust startPos
     if ((startPos != -1) && startLane) {
-        if (startPos < (2 * POSITION_EPS)) {
-            startPos = (2 * POSITION_EPS);
-        }
-        if (startPos > (startLane->getLaneShape().length() - (2 * POSITION_EPS))) {
-            startPos = (startLane->getLaneShape().length() - (2 * POSITION_EPS));
+        if (startPos <= POSITION_EPS) {
+            startPos = -1;
+        } 
+        if (startPos >= (startLane->getLaneShape().length() - POSITION_EPS)) {
+            startPos = -1;
         }
     }
     // adjust endPos
     if ((endPos != -1) && endLane) {
-        if (endPos < (2 * POSITION_EPS)) {
-            endPos = (2 * POSITION_EPS);
+        if (endPos <= POSITION_EPS) {
+            endPos = -1;
         }
-        if (endPos > (endLane->getLaneShape().length() - (2 * POSITION_EPS))) {
-            endPos = (endLane->getLaneShape().length() - (2 * POSITION_EPS));
-        }
-    }
-    // adjust both, if start and end lane are the same
-    if (startLane && endLane && (startLane == endLane) && (startPos != -1) && (endPos != -1)) {
-        if (startPos > endPos) {
-            endPos = (startPos + POSITION_EPS);
-            if (endPos > (startLane->getLaneShape().length() - POSITION_EPS)) {
-                startPos = endLane->getLaneShape().length() - (2 * POSITION_EPS);
-                endPos = (startLane->getLaneShape().length() - POSITION_EPS);
-            }
+        if (endPos >= (endLane->getLaneShape().length() - POSITION_EPS)) {
+            endPos = -1;
         }
     }
 }
