@@ -135,6 +135,22 @@ public:
             Segment& operator=(const Segment& other) = delete;
         };
 
+        /// @brief struct used for represent segments that must be updated
+        struct SegmentToUpdate {
+
+            /// @brief constructor
+            SegmentToUpdate(const int _index, const GNELane* _lane, const GNELane* _nextLane);
+
+            /// @brief segment index
+            const int index;
+
+            // @brief lane segment
+            const GNELane* lane;
+
+            /// @brief lane segment (used for updating lane2lane segments)
+            const GNELane* nextLane;
+        };
+
         /// @brief constructor
         DemandElementSegmentGeometry();
 
