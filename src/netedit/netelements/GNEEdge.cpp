@@ -1382,15 +1382,6 @@ GNEEdge::drawPartialPersonPlan(const GUIVisualizationSettings& s, const GNEDeman
             const Position &arrivalPos = personPlan->getDemandElementSegmentGeometry().getLastPosition();
             // only draw arrival position point if isn't -1
             if (arrivalPos != Position::INVALID) {
-                // get lane in which arrival position will be drawn
-                SUMOVehicleClass vClassPersonPlan = personPlan->getTagProperty().isRide() ? SVC_PASSENGER : SVC_PEDESTRIAN;
-                GNELane* arrivalPosLane = nullptr;
-                // obtain arrivalPosLane depending if pesonPlan is a walk over a route
-                if (personPlan->getTagProperty().getTag() == SUMO_TAG_WALK_ROUTE) {
-                    arrivalPosLane = personPlan->getDemandElementParents().at(1)->getEdgeParents().back()->getLaneByAllowedVClass(vClassPersonPlan);
-                } else {
-                    arrivalPosLane = personPlan->getEdgeParents().back()->getLaneByAllowedVClass(vClassPersonPlan);
-                }
                 // obtain circle width
                 const double circleWidth = (duplicateWidth ? SNAP_RADIUS : (SNAP_RADIUS / 2.0)) * MIN2((double)0.5, s.laneWidthExaggeration);
                 const double circleWidthSquared = circleWidth * circleWidth;
