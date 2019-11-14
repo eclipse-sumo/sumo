@@ -1,0 +1,94 @@
+<add>
+        <phase duration="99" state="rrrGGrrrrGGr" minDur="5" maxDur="50" next="8 14 16 10 12 18 20" name="2+6"/> <!--  0 -->
+        <phase duration="99" state="rrrrrGrrrrrG" minDur="5" maxDur="50" next="22 24 26 28" name="1+5"/> <!--  1 -->
+        <phase duration="99" state="GGrrrrGGrrrr" minDur="5" maxDur="50" next="34 40 42 30 32 36 38" name="4+8"/> <!--  2 -->
+        <phase duration="99" state="rrGrrrrrGrrr" minDur="5" maxDur="50" next="44 46 48 50" name="3+7"/> <!--  3 -->
+        <phase duration="99" state="rrrrrrrrrGGG" minDur="5" maxDur="50" next="52 54 56 58 60" name="2+5"/> <!--  4 -->
+        <phase duration="99" state="rrrGGGrrrrrr" minDur="5" maxDur="50" next="62 64 66 68 70" name="1+6"/> <!--  5 -->
+        <phase duration="99" state="rrrrrrGGGrrr" minDur="5" maxDur="50" next="76 72 74 78 80" name="3+8"/> <!--  6 -->
+        <phase duration="99" state="GGGrrrrrrrrr" minDur="5" maxDur="50" next="86 82 84 88 90" name="4+7"/> <!--  7 -->
+        <phase duration="4" state="rrryyrrrryyr" next="9" name="2+6-1+5"/> <!--  8 -->
+        <phase duration="1" state="rrrrrrrrrrrr" next="1" name="2+6-1+5"/> <!--  9 -->
+        <phase duration="4" state="rrryyrrrryyr" next="11" name="2+6-4+8"/> <!-- 10 -->
+        <phase duration="1" state="rrrrrrrrrrrr" next="2" name="2+6-4+8"/> <!-- 11 -->
+        <phase duration="4" state="rrryyrrrryyr" next="13" name="2+6-3+7"/> <!-- 12 -->
+        <phase duration="1" state="rrrrrrrrrrrr" next="3" name="2+6-3+7"/> <!-- 13 -->
+        <phase duration="4" state="rrryyrrrrGGr" next="15" name="2+6-2+5"/> <!-- 14 -->
+        <phase duration="1" state="rrrrrrrrrrrr" next="4" name="2+6-2+5"/> <!-- 15 -->
+        <phase duration="4" state="rrrGGrrrryyr" next="17" name="2+6-1+6"/> <!-- 16 -->
+        <phase duration="1" state="rrrrrrrrrrrr" next="5" name="2+6-1+6"/> <!-- 17 -->
+        <phase duration="4" state="rrryyrrrryyr" next="19" name="2+6-3+8"/> <!-- 18 -->
+        <phase duration="1" state="rrrrrrrrrrrr" next="6" name="2+6-3+8"/> <!-- 19 -->
+        <phase duration="4" state="rrryyrrrryyr" next="21" name="2+6-4+7"/> <!-- 20 -->
+        <phase duration="1" state="rrrrrrrrrrrr" next="7" name="2+6-4+7"/> <!-- 21 -->
+        <phase duration="4" state="rrrrryrrrrry" next="23" name="1+5-4+8"/> <!-- 22 -->
+        <phase duration="1" state="rrrrrrrrrrrr" next="2" name="1+5-4+8"/> <!-- 23 -->
+        <phase duration="4" state="rrrrryrrrrry" next="25" name="1+5-3+7"/> <!-- 24 -->
+        <phase duration="1" state="rrrrrrrrrrrr" next="3" name="1+5-3+7"/> <!-- 25 -->
+        <phase duration="4" state="rrrrryrrrrry" next="27" name="1+5-3+8"/> <!-- 26 -->
+        <phase duration="1" state="rrrrrrrrrrrr" next="6" name="1+5-3+8"/> <!-- 27 -->
+        <phase duration="4" state="rrrrryrrrrry" next="29" name="1+5-4+7"/> <!-- 28 -->
+        <phase duration="1" state="rrrrrrrrrrrr" next="7" name="1+5-4+7"/> <!-- 29 -->
+        <phase duration="4" state="yyrrrryyrrrr" next="31" name="4+8-2+6"/> <!-- 30 -->
+        <phase duration="1" state="rrrrrrrrrrrr" next="0" name="4+8-2+6"/> <!-- 31 -->
+        <phase duration="4" state="yyrrrryyrrrr" next="33" name="4+8-1+5"/> <!-- 32 -->
+        <phase duration="1" state="rrrrrrrrrrrr" next="1" name="4+8-1+5"/> <!-- 33 -->
+        <phase duration="4" state="yyrrrryyrrrr" next="35" name="4+8-3+7"/> <!-- 34 -->
+        <phase duration="1" state="rrrrrrrrrrrr" next="3" name="4+8-3+7"/> <!-- 35 -->
+        <phase duration="4" state="yyrrrryyrrrr" next="37" name="4+8-2+5"/> <!-- 36 -->
+        <phase duration="1" state="rrrrrrrrrrrr" next="4" name="4+8-2+5"/> <!-- 37 -->
+        <phase duration="4" state="yyrrrryyrrrr" next="39" name="4+8-1+6"/> <!-- 38 -->
+        <phase duration="1" state="rrrrrrrrrrrr" next="5" name="4+8-1+6"/> <!-- 39 -->
+        <phase duration="4" state="yyrrrrGGrrrr" next="41" name="4+8-3+8"/> <!-- 40 -->
+        <phase duration="1" state="rrrrrrrrrrrr" next="6" name="4+8-3+8"/> <!-- 41 -->
+        <phase duration="4" state="GGrrrryyrrrr" next="43" name="4+8-4+7"/> <!-- 42 -->
+        <phase duration="1" state="rrrrrrrrrrrr" next="7" name="4+8-4+7"/> <!-- 43 -->
+        <phase duration="4" state="rryrrrrryrrr" next="45" name="3+7-2+6"/> <!-- 44 -->
+        <phase duration="1" state="rrrrrrrrrrrr" next="0" name="3+7-2+6"/> <!-- 45 -->
+        <phase duration="4" state="rryrrrrryrrr" next="47" name="3+7-1+5"/> <!-- 46 -->
+        <phase duration="1" state="rrrrrrrrrrrr" next="1" name="3+7-1+5"/> <!-- 47 -->
+        <phase duration="4" state="rryrrrrryrrr" next="49" name="3+7-2+5"/> <!-- 48 -->
+        <phase duration="1" state="rrrrrrrrrrrr" next="4" name="3+7-2+5"/> <!-- 49 -->
+        <phase duration="4" state="rryrrrrryrrr" next="51" name="3+7-1+6"/> <!-- 50 -->
+        <phase duration="1" state="rrrrrrrrrrrr" next="5" name="3+7-1+6"/> <!-- 51 -->
+        <phase duration="4" state="rrrrrrrrryyG" next="53" name="2+5-1+5"/> <!-- 52 -->
+        <phase duration="1" state="rrrrrrrrrrrr" next="1" name="2+5-1+5"/> <!-- 53 -->
+        <phase duration="4" state="rrrrrrrrryyy" next="55" name="2+5-4+8"/> <!-- 54 -->
+        <phase duration="1" state="rrrrrrrrrrrr" next="2" name="2+5-4+8"/> <!-- 55 -->
+        <phase duration="4" state="rrrrrrrrryyy" next="57" name="2+5-3+7"/> <!-- 56 -->
+        <phase duration="1" state="rrrrrrrrrrrr" next="3" name="2+5-3+7"/> <!-- 57 -->
+        <phase duration="4" state="rrrrrrrrryyy" next="59" name="2+5-3+8"/> <!-- 58 -->
+        <phase duration="1" state="rrrrrrrrrrrr" next="6" name="2+5-3+8"/> <!-- 59 -->
+        <phase duration="4" state="rrrrrrrrryyy" next="61" name="2+5-4+7"/> <!-- 60 -->
+        <phase duration="1" state="rrrrrrrrrrrr" next="7" name="2+5-4+7"/> <!-- 61 -->
+        <phase duration="4" state="rrryyGrrrrrr" next="63" name="1+6-1+5"/> <!-- 62 -->
+        <phase duration="1" state="rrrrrrrrrrrr" next="1" name="1+6-1+5"/> <!-- 63 -->
+        <phase duration="4" state="rrryyyrrrrrr" next="65" name="1+6-4+8"/> <!-- 64 -->
+        <phase duration="1" state="rrrrrrrrrrrr" next="2" name="1+6-4+8"/> <!-- 65 -->
+        <phase duration="4" state="rrryyyrrrrrr" next="67" name="1+6-3+7"/> <!-- 66 -->
+        <phase duration="1" state="rrrrrrrrrrrr" next="3" name="1+6-3+7"/> <!-- 67 -->
+        <phase duration="4" state="rrryyyrrrrrr" next="69" name="1+6-3+8"/> <!-- 68 -->
+        <phase duration="1" state="rrrrrrrrrrrr" next="6" name="1+6-3+8"/> <!-- 69 -->
+        <phase duration="4" state="rrryyyrrrrrr" next="71" name="1+6-4+7"/> <!-- 70 -->
+        <phase duration="1" state="rrrrrrrrrrrr" next="7" name="1+6-4+7"/> <!-- 71 -->
+        <phase duration="4" state="rrrrrryyyrrr" next="73" name="3+8-2+6"/> <!-- 72 -->
+        <phase duration="1" state="rrrrrrrrrrrr" next="0" name="3+8-2+6"/> <!-- 73 -->
+        <phase duration="4" state="rrrrrryyyrrr" next="75" name="3+8-1+5"/> <!-- 74 -->
+        <phase duration="1" state="rrrrrrrrrrrr" next="1" name="3+8-1+5"/> <!-- 75 -->
+        <phase duration="4" state="rrrrrryyGrrr" next="77" name="3+8-3+7"/> <!-- 76 -->
+        <phase duration="1" state="rrrrrrrrrrrr" next="3" name="3+8-3+7"/> <!-- 77 -->
+        <phase duration="4" state="rrrrrryyyrrr" next="79" name="3+8-2+5"/> <!-- 78 -->
+        <phase duration="1" state="rrrrrrrrrrrr" next="4" name="3+8-2+5"/> <!-- 79 -->
+        <phase duration="4" state="rrrrrryyyrrr" next="81" name="3+8-1+6"/> <!-- 80 -->
+        <phase duration="1" state="rrrrrrrrrrrr" next="5" name="3+8-1+6"/> <!-- 81 -->
+        <phase duration="4" state="yyyrrrrrrrrr" next="83" name="4+7-2+6"/> <!-- 82 -->
+        <phase duration="1" state="rrrrrrrrrrrr" next="0" name="4+7-2+6"/> <!-- 83 -->
+        <phase duration="4" state="yyyrrrrrrrrr" next="85" name="4+7-1+5"/> <!-- 84 -->
+        <phase duration="1" state="rrrrrrrrrrrr" next="1" name="4+7-1+5"/> <!-- 85 -->
+        <phase duration="4" state="yyGrrrrrrrrr" next="87" name="4+7-3+7"/> <!-- 86 -->
+        <phase duration="1" state="rrrrrrrrrrrr" next="3" name="4+7-3+7"/> <!-- 87 -->
+        <phase duration="4" state="yyyrrrrrrrrr" next="89" name="4+7-2+5"/> <!-- 88 -->
+        <phase duration="1" state="rrrrrrrrrrrr" next="4" name="4+7-2+5"/> <!-- 89 -->
+        <phase duration="4" state="yyyrrrrrrrrr" next="91" name="4+7-1+6"/> <!-- 90 -->
+        <phase duration="1" state="rrrrrrrrrrrr" next="5" name="4+7-1+6"/> <!-- 91 -->
+</add>

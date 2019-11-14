@@ -10,3 +10,4 @@ tlsCoordinator
 # Tests the script for optimizing the cycle length and the green time splits
 tlsAdaptation
 tls_csvSignalGroups
+buildTransitions
