@@ -22,6 +22,7 @@ vehroutes:vehroutes.xml
 tripinfos:tripinfos.xml
 fcd:fcd.xml
 lanechanges:lanechanges.xml
+log:log.txt
 
 [run_dependent_text]
 testclient_out:Date
@@ -38,6 +39,8 @@ simstate:<!--{[->]}-->
 simstate:<snapshot (.*) version="[^"]*"{REPLACE <snapshot \1 version="<version>"}
 output:port
 errors:Socket
+log:Starting server on port [0-9]*{REPLACE Starting server on port <PORT>}
+log:^Performance:{->}^Vehicles:
 
 [floating_point_tolerance]
 testclient_out:0.0101

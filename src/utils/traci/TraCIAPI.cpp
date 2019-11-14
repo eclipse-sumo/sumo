@@ -1859,6 +1859,15 @@ TraCIAPI::SimulationScope::findRoute(const std::string& fromEdge, const std::str
 }
 
 
+void
+TraCIAPI::SimulationScope::writeMessage(const std::string msg) {
+    tcpip::Storage content;
+    content.writeUnsignedByte(libsumo::TYPE_STRING);
+    content.writeString(msg);
+    myParent.createCommand(libsumo::CMD_SET_SIM_VARIABLE, libsumo::CMD_MESSAGE, "", &content);
+    myParent.processSet(libsumo::CMD_SET_SIM_VARIABLE);
+}
+
 // ---------------------------------------------------------------------------
 // TraCIAPI::TrafficLightScope-methods
 // ---------------------------------------------------------------------------

@@ -881,6 +881,7 @@ TraCITestClient::testAPI() {
     answerLog << "    parkingArea param: " << simulation.getParameter("park1", "parkingArea.capacity") << "\n";
     answerLog << "    busStopWaiting: " << simulation.getBusStopWaiting("bs1") << "\n";
     answerLog << "    busStopWaitingIDs: " << joinToString(simulation.getBusStopWaitingIDList("bs1"), " ") << "\n";
+    simulation.writeMessage("custom message test");
     answerLog << "    subscribe to road and pos of vehicle '1':\n";
     answerLog << "    findRoute: " << joinToString(simulation.findRoute("e_m5", "e_m4").edges, " ") << "\n";
     std::vector<int> vars;
