@@ -252,6 +252,17 @@ values are equal or only `duration` is given, that phase will have constant
 duration). Additional parameters may be used to configure the control
 algorithm further. These may be given within the `<tlLogic>`-Element as follows:
 
+#### Detectors
+The time gaps which determine the phase extensions are collected by induction loop detectors.
+These detectors are placed automatically at a configurable distance (see below). If the incoming lanes are too short and there is a sequence of unique predecessor lanes, the detector will be placed on a predecessor lane at the computed distance instead.
+
+Each lane incoming to the traffic light will receive a detector. However, not all detectors can be used in all phases.
+In the current implementation, detectors for actuation are only used if all connections from the detector lane gets the unconditional green light ('G') in a particular phase.
+This is done to prevent useless phase extensions when the first vehicle on a given lane is not allowed to drive.
+Sumo will issue a warning a phase or link index does not have usable detectors.
+
+#### Example
+
 ```
 <tlLogic id="0" programID="my_program" offset="0" type="actuated">
   <param key="max-gap" value="3.0"/>
@@ -264,6 +275,7 @@ algorithm further. These may be given within the `<tlLogic>`-Element as follows:
   ...
 </tlLogic>
 ```
+#### Parameters
 
 The value of **max-gap** describes the maximum time gap between
 successive vehicle that will cause the current phase to be prolonged
@@ -276,10 +288,16 @@ induction loop
 detectors](../Simulation/Output/Induction_Loops_Detectors_(E1).md).
 The examples values are the default values for these parameters.
 
+#### Visualization
 By setting the sumo option **--tls.actuated.show-detectors** the default visibility of detectors can be
 set. Also, in [SUMO-GUI](../SUMO-GUI.md) detectors can be
 shown/hidden by right-clicking on an actuated traffic light and
 selecting the corresponding menu entry.
+
+The detectors used by an actuated traffic light will be colored to indicate their status:
+- green color indiciates that the detector is used to determine the length of the current phase
+- white color indicates that the detector is not used in the current phase
+- red color indicates that a vehicle was detected since the last time at which the controlled links at that lane had a green light (only if these links are currently red)
 
 ### Based on Time Loss
 
