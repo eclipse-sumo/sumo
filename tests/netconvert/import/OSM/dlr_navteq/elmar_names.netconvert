@@ -61,8 +61,22 @@
 # </configuration>
 # 
 #
-#No driving allowed from ID1 to ID2 or the complete chain from ID1 to IDn
-#RELATREC_ID	PERMANENT_ID_INFO	VALIDITY_PERIOD	THROUGH_TRAFFIC	VEHICLE_TYPE	NAVTEQ_LINK_ID1	[NAVTEQ_LINK_ID2 ...]
-415852976	1	-1	1	100000000000	415852958	415852955
-415852977	1	-1	1	100000000000	224769559	415852919
-415852978	1	-1	1	100000000000	180239847	16942869
+# NAME_ID	PERMANENT_ID_INFO	Name
+# [elements] 17
+10	0	A 113
+8	0	Albert-Einstein-Straße
+3	0	Am Glinigk
+11	0	Bendemannstraße
+9	0	Berliner Mauerweg
+1	0	Eisenhutweg
+4	0	Ernst-Ruska-Ufer
+12	0	Friedrich-Wöhler-Straße
+0	0	Hermann-Dorner-Allee
+6	0	Iselersteig
+13	0	James-Franck-Straße
+2	0	L 1081
+14	0	North-Willys-Straße
+16	0	Rudower Chaussee
+7	0	Schwarzschildstraße
+5	0	Wegedornstraße
+15	0	Zur Rothen Laake

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Oct 11 13:08:33 2019 by Eclipse SUMO netconvert Version v1_3_1+0580-e6dd46c
+<!-- generated on Fri Nov 15 14:38:15 2019 by Eclipse SUMO netconvert Version v1_3_1+0893-7aca76e
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -17,6 +17,7 @@ SPDX-License-Identifier: EPL-2.0
         <output-file value="net.net.xml"/>
         <dlr-navteq-output value="elmar_output"/>
         <dlr-navteq.precision value="2"/>
+        <output.street-names value="true"/>
         <output.original-names value="true"/>
     </output>
 
@@ -2070,19 +2071,20 @@ SPDX-License-Identifier: EPL-2.0
             <param key="origId" value="115227682 26816553"/>
         </lane>
     </edge>
-    <edge id="-135777011" from="2165987556" to="456893959" priority="10" type="highway.tertiary" shape="984.09,591.98 977.39,630.75 976.50,635.63 965.31,696.14 963.66,705.89 961.74,716.40 944.21,812.39 936.60,854.05">
+    <edge id="-135777011" from="2165987556" to="456893959" name="Hermann-Dorner-Allee" priority="10" type="highway.tertiary" shape="984.09,591.98 977.39,630.75 976.50,635.63 965.31,696.14 963.66,705.89 961.74,716.40 944.21,812.39 936.60,854.05">
         <lane id="-135777011_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="262.43" shape="984.99,596.12 978.97,631.02 978.07,635.92 966.89,696.42 965.24,706.17 963.32,716.69 945.78,812.68 938.17,854.34">
             <param key="origId" value="135777011"/>
         </lane>
         <param key="postal_code" value="12489"/>
     </edge>
-    <edge id="-141968853" from="301292499" to="473482356" priority="10" type="highway.tertiary" shape="900.17,544.14 787.65,578.63 722.36,598.64 712.29,601.73 659.57,617.65 615.07,631.53">
+    <edge id="-141968853" from="301292499" to="473482356" name="Eisenhutweg" priority="10" type="highway.tertiary" shape="900.17,544.14 787.65,578.63 722.36,598.64 712.29,601.73 659.57,617.65 615.07,631.53">
         <lane id="-141968853_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="294.01" shape="896.64,546.89 788.12,580.16 722.83,600.17 712.76,603.26 660.04,619.18 615.54,633.06">
             <param key="origId" value="141968853"/>
         </lane>
         <param key="postal_code" value="12487"/>
+        <param key="ref" value="L 1081"/>
     </edge>
-    <edge id="-143308484" from="1568241276" to="1568241303" priority="3" type="highway.residential">
+    <edge id="-143308484" from="1568241276" to="1568241303" name="Am Glinigk" priority="3" type="highway.residential">
         <lane id="-143308484_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="8.33" length="44.68" shape="1274.30,151.61 1278.93,196.05">
             <param key="origId" value="143308484"/>
         </lane>
@@ -2094,7 +2096,7 @@ SPDX-License-Identifier: EPL-2.0
         </lane>
         <param key="origTo" value="283018648"/>
     </edge>
-    <edge id="-180239842" from="1906766930" to="1906766909" priority="12" type="highway.primary" shape="611.88,426.51 645.00,414.99 721.50,398.43 811.13,381.21 900.03,367.08 925.04,364.73">
+    <edge id="-180239842" from="1906766930" to="1906766909" name="Ernst-Ruska-Ufer" priority="12" type="highway.primary" shape="611.88,426.51 645.00,414.99 721.50,398.43 811.13,381.21 900.03,367.08 925.04,364.73">
         <lane id="-180239842_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="316.27" shape="610.30,421.97 643.70,410.36 720.54,393.73 810.30,376.48 899.43,362.32 920.36,360.35">
             <param key="origId" value="180239842"/>
         </lane>
@@ -2103,7 +2105,7 @@ SPDX-License-Identifier: EPL-2.0
         </lane>
         <param key="postal_code" value="12487"/>
     </edge>
-    <edge id="-190083616" from="3246050909" to="280095054" priority="10" type="highway.tertiary" shape="1463.51,193.89 1459.28,151.33 1456.66,120.46 1454.23,99.85">
+    <edge id="-190083616" from="3246050909" to="280095054" name="Wegedornstraße" priority="10" type="highway.tertiary" shape="1463.51,193.89 1459.28,151.33 1456.66,120.46 1454.23,99.85">
         <lane id="-190083616_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="92.94" shape="1461.76,192.52 1457.69,151.47 1455.07,120.62 1452.64,100.03">
             <param key="origId" value="190083616"/>
         </lane>
@@ -2114,7 +2116,7 @@ SPDX-License-Identifier: EPL-2.0
             <param key="origId" value="190083622"/>
         </lane>
     </edge>
-    <edge id="-206579061" from="2165987550" to="2007005083" priority="10" type="highway.tertiary">
+    <edge id="-206579061" from="2165987550" to="2007005083" name="Hermann-Dorner-Allee" priority="10" type="highway.tertiary">
         <lane id="-206579061_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="17.76" shape="1007.53,454.05 1010.75,436.58">
             <param key="origId" value="206579061"/>
         </lane>
@@ -2146,14 +2148,14 @@ SPDX-License-Identifier: EPL-2.0
             <param key="origId" value="26843133"/>
         </lane>
     </edge>
-    <edge id="-283317455" from="4167993265" to="3246050909" priority="10" type="highway.tertiary" shape="1472.08,293.27 1471.71,286.56 1467.18,241.08 1463.51,193.89">
+    <edge id="-283317455" from="4167993265" to="3246050909" name="Wegedornstraße" priority="10" type="highway.tertiary" shape="1472.08,293.27 1471.71,286.56 1467.18,241.08 1463.51,193.89">
         <lane id="-283317455_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="90.58" shape="1470.21,288.53 1470.11,286.69 1465.59,241.22 1462.25,198.31">
             <param key="origId" value="283317455 143308570 318210395"/>
         </lane>
         <param key="origFrom" value="2335739502"/>
         <param key="postal_code" value="12489"/>
     </edge>
-    <edge id="-334170244" from="1568241285" to="3412579225" priority="3" type="highway.residential">
+    <edge id="-334170244" from="1568241285" to="3412579225" name="Iselersteig" priority="3" type="highway.residential">
         <lane id="-334170244_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="8.33" length="68.44" shape="1383.37,185.25 1376.74,117.13">
             <param key="origId" value="334170244"/>
         </lane>
@@ -2179,7 +2181,7 @@ SPDX-License-Identifier: EPL-2.0
             <param key="origId" value="69923147"/>
         </lane>
     </edge>
-    <edge id="-71595976" from="851572712" to="1560223615" priority="1" type="highway.service" shape="1309.55,390.51 1304.93,453.42 1304.62,459.07">
+    <edge id="-71595976" from="851572712" to="1560223615" name="Schwarzschildstraße" priority="1" type="highway.service" shape="1309.55,390.51 1304.93,453.42 1304.62,459.07">
         <lane id="-71595976_0" index="0" allow="pedestrian delivery bicycle" speed="5.56" length="61.26" shape="1311.13,390.78 1306.64,451.87">
             <param key="origId" value="71595976"/>
         </lane>
@@ -2195,34 +2197,35 @@ SPDX-License-Identifier: EPL-2.0
             <param key="origId" value="71960748"/>
         </lane>
     </edge>
-    <edge id="114024900" from="4167993264" to="1292264836" priority="1" type="highway.service" shape="1483.10,434.74 1496.26,433.14 1546.34,427.02">
+    <edge id="114024900" from="4167993264" to="1292264836" name="Albert-Einstein-Straße" priority="1" type="highway.service" shape="1483.10,434.74 1496.26,433.14 1546.34,427.02">
         <lane id="114024900_0" index="0" allow="pedestrian delivery bicycle" speed="8.33" length="54.24" shape="1487.66,432.57 1496.07,431.55 1541.49,426.00">
             <param key="origId" value="114024900 114949101"/>
         </lane>
     </edge>
-    <edge id="114024901" from="1292264836" to="1292264851" priority="1" type="highway.service" shape="1546.34,427.02 1536.23,340.75 1539.05,334.82 1544.63,330.71 1588.41,325.04">
+    <edge id="114024901" from="1292264836" to="1292264851" name="Albert-Einstein-Straße" priority="1" type="highway.service" shape="1546.34,427.02 1536.23,340.75 1539.05,334.82 1544.63,330.71 1588.41,325.04">
         <lane id="114024901_0" index="0" allow="pedestrian delivery bicycle" speed="8.33" length="142.34" shape="1544.20,422.52 1534.58,340.48 1537.78,333.77 1544.02,329.18 1588.21,323.46">
             <param key="origId" value="114024901"/>
         </lane>
     </edge>
-    <edge id="135777011" from="456893959" to="2165987556" priority="10" type="highway.tertiary" shape="936.60,854.05 944.21,812.39 961.74,716.40 963.66,705.89 965.31,696.14 976.50,635.63 977.39,630.75 984.09,591.98">
+    <edge id="135777011" from="456893959" to="2165987556" name="Hermann-Dorner-Allee" priority="10" type="highway.tertiary" shape="936.60,854.05 944.21,812.39 961.74,716.40 963.66,705.89 965.31,696.14 976.50,635.63 977.39,630.75 984.09,591.98">
         <lane id="135777011_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="262.40" shape="935.02,853.77 942.64,812.11 960.17,716.11 962.09,705.61 963.74,695.86 974.92,635.34 975.82,630.47 981.84,595.58">
             <param key="origId" value="135777011"/>
         </lane>
         <param key="postal_code" value="12489"/>
     </edge>
-    <edge id="141968853" from="473482356" to="301292499" priority="10" type="highway.tertiary" shape="615.07,631.53 659.57,617.65 712.29,601.73 722.36,598.64 787.65,578.63 900.17,544.14">
+    <edge id="141968853" from="473482356" to="301292499" name="Eisenhutweg" priority="10" type="highway.tertiary" shape="615.07,631.53 659.57,617.65 712.29,601.73 722.36,598.64 787.65,578.63 900.17,544.14">
         <lane id="141968853_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="294.03" shape="614.59,630.00 659.10,616.12 711.83,600.20 721.89,597.11 787.18,577.10 895.70,543.83">
             <param key="origId" value="141968853"/>
         </lane>
         <param key="postal_code" value="12487"/>
+        <param key="ref" value="L 1081"/>
     </edge>
     <edge id="142575745" from="1560223575" to="851572317" priority="1" type="highway.path" spreadType="center" shape="1458.47,424.02 1456.09,429.66 1453.39,440.10 1453.28,444.84 1455.97,451.81 1459.56,457.84 1462.20,462.13">
         <lane id="142575745_0" index="0" allow="pedestrian bicycle" speed="2.78" length="34.25" width="2.00" shape="1457.36,426.64 1456.09,429.66 1453.39,440.10 1453.28,444.84 1455.97,451.81 1459.56,457.84 1460.06,458.65">
             <param key="origId" value="142575745"/>
         </lane>
     </edge>
-    <edge id="143308484" from="1568241303" to="1568241276" priority="3" type="highway.residential">
+    <edge id="143308484" from="1568241303" to="1568241276" name="Am Glinigk" priority="3" type="highway.residential">
         <lane id="143308484_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="8.33" length="44.68" shape="1275.74,196.38 1271.12,151.94">
             <param key="origId" value="143308484"/>
         </lane>
@@ -2236,7 +2239,7 @@ SPDX-License-Identifier: EPL-2.0
             <param key="origId" value="146511467"/>
         </lane>
     </edge>
-    <edge id="16942869" from="1906766909" to="4167993266" priority="12" type="highway.primary" spreadType="center" shape="924.18,360.01 963.61,357.66 1006.85,350.08">
+    <edge id="16942869" from="1906766909" to="4167993266" name="Ernst-Ruska-Ufer" priority="12" type="highway.primary" spreadType="center" shape="924.18,360.01 963.61,357.66 1006.85,350.08">
         <lane id="16942869_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="69.24" shape="928.58,356.54 963.23,354.47 997.11,348.54">
             <param key="origId" value="16942869 322724391"/>
         </lane>
@@ -2260,7 +2263,7 @@ SPDX-License-Identifier: EPL-2.0
             <param key="origId" value="180239835"/>
         </lane>
     </edge>
-    <edge id="180239842" from="1906766909" to="1906766930" priority="12" type="highway.primary" shape="925.04,364.73 900.03,367.08 811.13,381.21 721.50,398.43 645.00,414.99 611.88,426.51">
+    <edge id="180239842" from="1906766909" to="1906766930" name="Ernst-Ruska-Ufer" priority="12" type="highway.primary" shape="925.04,364.73 900.03,367.08 811.13,381.21 721.50,398.43 645.00,414.99 611.88,426.51">
         <lane id="180239842_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="314.73" shape="921.26,369.91 900.63,371.85 811.96,385.94 722.46,403.13 646.30,419.62 613.45,431.04">
             <param key="origId" value="180239842"/>
         </lane>
@@ -2269,7 +2272,7 @@ SPDX-License-Identifier: EPL-2.0
         </lane>
         <param key="postal_code" value="12487"/>
     </edge>
-    <edge id="180239847" from="4167993266" to="1906766909" priority="12" type="highway.primary" spreadType="center" shape="1006.26,359.80 925.24,367.93">
+    <edge id="180239847" from="4167993266" to="1906766909" name="Ernst-Ruska-Ufer" priority="12" type="highway.primary" spreadType="center" shape="1006.26,359.80 925.24,367.93">
         <lane id="180239847_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="69.42" shape="998.46,362.19 929.33,369.12">
             <param key="origId" value="180239847"/>
         </lane>
@@ -2279,7 +2282,7 @@ SPDX-License-Identifier: EPL-2.0
         <param key="origFrom" value="1906766908"/>
         <param key="postal_code" value="12487"/>
     </edge>
-    <edge id="183076346" from="175649033" to="175648134" priority="1" type="highway.path" spreadType="center" shape="597.14,417.55 762.86,380.52 887.15,359.94 959.88,347.91 989.19,338.94 1006.79,336.84">
+    <edge id="183076346" from="175649033" to="175648134" name="Berliner Mauerweg" priority="1" type="highway.path" spreadType="center" shape="597.14,417.55 762.86,380.52 887.15,359.94 959.88,347.91 989.19,338.94 1006.79,336.84">
         <lane id="183076346_0" index="0" allow="pedestrian bicycle" speed="2.78" length="415.26" width="2.00" shape="597.14,417.55 762.86,380.52 887.15,359.94 959.88,347.91 989.19,338.94 1004.18,337.15">
             <param key="origId" value="183076346"/>
         </lane>
@@ -2290,7 +2293,7 @@ SPDX-License-Identifier: EPL-2.0
             <param key="origId" value="183156389"/>
         </lane>
     </edge>
-    <edge id="190083616" from="280095054" to="3246050909" priority="10" type="highway.tertiary" shape="1454.23,99.85 1456.66,120.46 1459.28,151.33 1463.51,193.89">
+    <edge id="190083616" from="280095054" to="3246050909" name="Wegedornstraße" priority="10" type="highway.tertiary" shape="1454.23,99.85 1456.66,120.46 1459.28,151.33 1463.51,193.89">
         <lane id="190083616_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="93.00" shape="1455.82,99.66 1458.25,120.30 1460.87,151.18 1464.95,192.20">
             <param key="origId" value="190083616"/>
         </lane>
@@ -2301,7 +2304,7 @@ SPDX-License-Identifier: EPL-2.0
             <param key="origId" value="190083622"/>
         </lane>
     </edge>
-    <edge id="206579057" from="2165987554" to="4167993273" priority="10" type="highway.tertiary" spreadType="center" shape="925.09,532.70 943.28,524.77 980.16,514.38 997.39,513.05">
+    <edge id="206579057" from="2165987554" to="4167993273" name="Eisenhutweg" priority="10" type="highway.tertiary" spreadType="center" shape="925.09,532.70 943.28,524.77 980.16,514.38 997.39,513.05">
         <lane id="206579057_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="56.33" shape="927.26,528.26 942.20,521.75 979.59,511.22 981.69,511.05">
             <param key="origId" value="206579057 206579058 206579058"/>
         </lane>
@@ -2313,8 +2316,9 @@ SPDX-License-Identifier: EPL-2.0
         </lane>
         <param key="origTo" value="492462300"/>
         <param key="postal_code" value="12487"/>
+        <param key="ref" value="L 1081"/>
     </edge>
-    <edge id="206579061" from="2007005083" to="2165987550" priority="10" type="highway.tertiary">
+    <edge id="206579061" from="2007005083" to="2165987550" name="Hermann-Dorner-Allee" priority="10" type="highway.tertiary">
         <lane id="206579061_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="17.76" shape="1013.89,437.16 1010.68,454.62">
             <param key="origId" value="206579061"/>
         </lane>
@@ -2341,7 +2345,7 @@ SPDX-License-Identifier: EPL-2.0
             <param key="origId" value="213883661"/>
         </lane>
     </edge>
-    <edge id="224769559" from="4167993266" to="1906766898" priority="12" type="highway.primary" spreadType="center" shape="1040.17,346.45 1106.33,337.91">
+    <edge id="224769559" from="4167993266" to="1906766898" name="Ernst-Ruska-Ufer" priority="12" type="highway.primary" spreadType="center" shape="1040.17,346.45 1106.33,337.91">
         <lane id="224769559_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="60.78" shape="1045.08,344.20 1105.27,336.43">
             <param key="origId" value="224769559"/>
         </lane>
@@ -2378,6 +2382,7 @@ SPDX-License-Identifier: EPL-2.0
         <lane id="22762377_4" index="4" allow="private emergency authority army vip passenger hov taxi bus coach delivery truck trailer motorcycle evehicle custom1 custom2" speed="22.22" length="81.47" shape="963.81,389.45 950.39,400.96 922.60,421.77 898.84,436.89">
             <param key="origId" value="22762377"/>
         </lane>
+        <param key="ref" value="A 113"/>
     </edge>
     <edge id="25382187" from="32266901" to="267282985" priority="14" type="highway.motorway" spreadType="center" shape="1147.77,2.02 1141.44,66.70 1134.97,105.25 1125.07,144.11 1114.08,178.89 1095.53,226.14 1069.81,275.09 1057.34,294.71 1053.13,300.91 1042.37,316.22 1009.01,353.89 969.93,390.52">
         <lane id="25382187_0" index="0" allow="private emergency authority army vip passenger hov taxi bus coach delivery truck trailer motorcycle evehicle custom1 custom2" speed="22.22" length="436.12" shape="1150.95,2.33 1144.62,67.12 1138.11,105.91 1128.15,144.99 1117.10,179.96 1098.45,227.47 1072.59,276.70 1060.01,296.46 1055.76,302.73 1044.89,318.21 1011.30,356.12 974.98,390.17">
@@ -2389,6 +2394,7 @@ SPDX-License-Identifier: EPL-2.0
         <lane id="25382187_2" index="2" allow="private emergency authority army vip passenger hov taxi bus coach delivery truck trailer motorcycle evehicle custom1 custom2" speed="22.22" length="436.12" shape="1144.58,1.71 1138.27,66.28 1131.84,104.59 1122.00,143.23 1111.06,177.83 1092.62,224.81 1067.04,273.48 1054.67,292.95 1050.49,299.09 1039.86,314.23 1006.71,351.66 970.60,385.50">
             <param key="origId" value="25382187 144909695"/>
         </lane>
+        <param key="ref" value="A 113"/>
     </edge>
     <edge id="257131031" from="2627346865" to="2627346864" priority="1" type="highway.service">
         <lane id="257131031_0" index="0" allow="pedestrian delivery bicycle" speed="5.56" length="31.26" shape="1108.07,467.52 1110.25,436.34">
@@ -2421,6 +2427,7 @@ SPDX-License-Identifier: EPL-2.0
         <lane id="292525973_2" index="2" allow="private emergency authority army vip passenger hov taxi bus coach delivery truck trailer motorcycle evehicle custom1 custom2" speed="22.22" length="464.27" shape="930.86,405.78 938.47,399.90 950.77,390.91 971.01,375.76 997.99,349.63 1023.82,320.79 1053.99,279.05 1078.13,235.97 1081.84,227.89 1100.67,186.82 1114.09,144.01 1124.54,100.86 1132.61,60.39 1137.30,5.57">
             <param key="origId" value="292525973 22762378 152466382"/>
         </lane>
+        <param key="ref" value="A 113"/>
     </edge>
     <edge id="292525975" from="1597984543" to="2960840891" priority="14" type="highway.motorway" spreadType="center" shape="819.06,460.69 880.91,432.71 915.29,413.06 925.77,405.66">
         <lane id="292525975_0" index="0" allow="private emergency authority army vip passenger hov taxi bus coach delivery truck trailer motorcycle evehicle custom1 custom2" speed="22.22" length="116.36" shape="817.08,456.32 878.73,428.43 912.71,409.00 919.78,404.02">
@@ -2435,6 +2442,7 @@ SPDX-License-Identifier: EPL-2.0
         <lane id="292525975_3" index="3" allow="private emergency authority army vip passenger hov taxi bus coach delivery truck trailer motorcycle evehicle custom1 custom2" speed="22.22" length="116.36" shape="821.04,465.07 883.10,436.99 917.87,417.11 925.31,411.87">
             <param key="origId" value="292525975"/>
         </lane>
+        <param key="ref" value="A 113"/>
     </edge>
     <edge id="292525978" from="260479469" to="32266926" priority="14" type="highway.motorway" spreadType="center" shape="898.24,442.97 854.58,462.18 799.90,483.90 758.44,497.32 671.88,517.67 584.60,532.02">
         <lane id="292525978_0" index="0" allow="private emergency authority army vip passenger hov taxi bus coach delivery truck trailer motorcycle evehicle custom1 custom2" speed="22.22" length="324.25" shape="896.68,447.15 855.82,465.13 800.98,486.91 759.30,500.41 672.51,520.81 585.12,535.17">
@@ -2446,8 +2454,9 @@ SPDX-License-Identifier: EPL-2.0
         <lane id="292525978_2" index="2" allow="private emergency authority army vip passenger hov taxi bus coach delivery truck trailer motorcycle evehicle custom1 custom2" speed="22.22" length="324.25" shape="893.88,441.39 853.35,459.23 798.81,480.89 757.58,494.24 671.26,514.53 584.08,528.86">
             <param key="origId" value="292525978"/>
         </lane>
+        <param key="ref" value="A 113"/>
     </edge>
-    <edge id="318210395" from="3246050909" to="4167993265" priority="10" type="highway.tertiary" shape="1463.51,193.89 1467.18,241.08 1471.71,286.56 1472.08,293.27">
+    <edge id="318210395" from="3246050909" to="4167993265" name="Wegedornstraße" priority="10" type="highway.tertiary" shape="1463.51,193.89 1467.18,241.08 1471.71,286.56 1472.08,293.27">
         <lane id="318210395_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="90.65" shape="1465.44,198.06 1468.78,240.94 1473.31,286.44 1473.41,288.35">
             <param key="origId" value="318210395 143308570 283317455"/>
         </lane>
@@ -2459,7 +2468,7 @@ SPDX-License-Identifier: EPL-2.0
             <param key="origId" value="319580807"/>
         </lane>
     </edge>
-    <edge id="334170244" from="3412579225" to="1568241285" priority="3" type="highway.residential">
+    <edge id="334170244" from="3412579225" to="1568241285" name="Iselersteig" priority="3" type="highway.residential">
         <lane id="334170244_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="8.33" length="68.44" shape="1379.92,116.82 1386.56,184.94">
             <param key="origId" value="334170244"/>
         </lane>
@@ -2490,102 +2499,102 @@ SPDX-License-Identifier: EPL-2.0
             <param key="origId" value="415852813"/>
         </lane>
     </edge>
-    <edge id="415852814" from="1292264851" to="1292264836" priority="1" type="highway.service" shape="1588.41,325.04 1544.63,330.71 1539.05,334.82 1536.23,340.75 1546.34,427.02">
+    <edge id="415852814" from="1292264851" to="1292264836" name="Albert-Einstein-Straße" priority="1" type="highway.service" shape="1588.41,325.04 1544.63,330.71 1539.05,334.82 1536.23,340.75 1546.34,427.02">
         <lane id="415852814_0" index="0" allow="pedestrian delivery bicycle" speed="8.33" length="137.24" shape="1588.62,326.63 1545.25,332.24 1540.32,335.87 1537.87,341.02 1547.38,422.15">
             <param key="origId" value="-114024901"/>
         </lane>
     </edge>
-    <edge id="415852815" from="1292264836" to="4167993264" priority="1" type="highway.service" shape="1546.34,427.02 1496.26,433.14 1483.10,434.74">
+    <edge id="415852815" from="1292264836" to="4167993264" name="Albert-Einstein-Straße" priority="1" type="highway.service" shape="1546.34,427.02 1496.26,433.14 1483.10,434.74">
         <lane id="415852815_0" index="0" allow="pedestrian delivery bicycle" speed="8.33" length="54.24" shape="1541.88,429.18 1496.45,434.73 1488.04,435.75">
             <param key="origId" value="-114949101#0"/>
         </lane>
     </edge>
-    <edge id="415852816" from="1292264842" to="1292264836" priority="1" type="highway.service" shape="1627.09,372.13 1590.54,415.45 1581.05,422.78 1546.34,427.02">
+    <edge id="415852816" from="1292264842" to="1292264836" name="Albert-Einstein-Straße" priority="1" type="highway.service" shape="1627.09,372.13 1590.54,415.45 1581.05,422.78 1546.34,427.02">
         <lane id="415852816_0" index="0" allow="pedestrian delivery bicycle" speed="8.33" length="100.14" shape="1628.31,373.17 1591.66,416.61 1581.68,424.31 1551.21,428.04">
             <param key="origId" value="-114949101#1"/>
         </lane>
     </edge>
-    <edge id="415852817" from="1560223615" to="1560223591" priority="4" type="highway.unclassified">
+    <edge id="415852817" from="1560223615" to="1560223591" name="Bendemannstraße" priority="4" type="highway.unclassified">
         <lane id="415852817_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="99.36" shape="1297.22,460.06 1198.20,451.81">
             <param key="origId" value="-142575658#0"/>
         </lane>
         <param key="postal_code" value="12489"/>
     </edge>
-    <edge id="415852818" from="851572284" to="1560223615" priority="4" type="highway.unclassified">
+    <edge id="415852818" from="851572284" to="1560223615" name="Bendemannstraße" priority="4" type="highway.unclassified">
         <lane id="415852818_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="121.67" shape="1433.05,470.23 1311.71,461.20">
             <param key="origId" value="-142575658#1"/>
         </lane>
         <param key="postal_code" value="12489"/>
     </edge>
-    <edge id="415852819" from="4167993267" to="851572284" priority="4" type="highway.unclassified" shape="1486.72,472.28 1435.44,468.80">
+    <edge id="415852819" from="4167993267" to="851572284" name="Bendemannstraße" priority="4" type="highway.unclassified" shape="1486.72,472.28 1435.44,468.80">
         <lane id="415852819_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="40.88" shape="1478.86,473.35 1438.07,470.59">
             <param key="origId" value="-142575658#2"/>
         </lane>
         <param key="origFrom" value="1560223635"/>
         <param key="postal_code" value="12489"/>
     </edge>
-    <edge id="415852820" from="607601623" to="1560223905" priority="4" type="highway.unclassified">
+    <edge id="415852820" from="607601623" to="1560223905" name="Friedrich-Wöhler-Straße" priority="4" type="highway.unclassified">
         <lane id="415852820_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="48.42" shape="1234.47,624.84 1186.18,621.31">
             <param key="origId" value="-142575673#0"/>
         </lane>
         <param key="postal_code" value="12489"/>
     </edge>
-    <edge id="415852821" from="1560223943" to="607601623" priority="4" type="highway.unclassified" shape="1293.14,629.02 1284.22,627.28 1239.30,623.59">
+    <edge id="415852821" from="1560223943" to="607601623" name="Friedrich-Wöhler-Straße" priority="4" type="highway.unclassified" shape="1293.14,629.02 1284.22,627.28 1239.30,623.59">
         <lane id="415852821_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="41.66" shape="1285.35,629.13 1284.00,628.86 1243.86,625.57">
             <param key="origId" value="-142575673#1"/>
         </lane>
         <param key="postal_code" value="12489"/>
     </edge>
-    <edge id="415852822" from="1560224080" to="1560224322" priority="4" type="highway.unclassified" shape="1171.28,707.38 1170.59,716.60 1169.83,726.44 1169.02,736.81 1167.34,758.39 1161.76,842.53">
+    <edge id="415852822" from="1560224080" to="1560224322" name="James-Franck-Straße" priority="4" type="highway.unclassified" shape="1171.28,707.38 1170.59,716.60 1169.83,726.44 1169.02,736.81 1167.34,758.39 1161.76,842.53">
         <lane id="415852822_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="130.88" shape="1172.53,712.09 1172.19,716.72 1171.43,726.56 1170.62,736.94 1168.94,758.51 1163.36,842.64">
             <param key="origId" value="-142575679#0"/>
         </lane>
         <param key="postal_code" value="12489"/>
     </edge>
-    <edge id="415852823" from="1560223905" to="1560224080" priority="4" type="highway.unclassified" shape="1179.14,619.19 1176.70,646.27 1171.95,699.02 1171.28,707.38">
+    <edge id="415852823" from="1560223905" to="1560224080" name="James-Franck-Straße" priority="4" type="highway.unclassified" shape="1179.14,619.19 1176.70,646.27 1171.95,699.02 1171.28,707.38">
         <lane id="415852823_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="76.61" shape="1180.09,626.44 1178.29,646.42 1173.54,699.16 1173.25,702.74">
             <param key="origId" value="-142575679#1"/>
         </lane>
         <param key="postal_code" value="12489"/>
     </edge>
-    <edge id="415852824" from="1599958752" to="1560223905" priority="4" type="highway.unclassified">
+    <edge id="415852824" from="1599958752" to="1560223905" name="James-Franck-Straße" priority="4" type="highway.unclassified">
         <lane id="415852824_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="0.30" shape="1181.24,612.14 1181.22,612.44">
             <param key="origId" value="-142575679#2"/>
         </lane>
         <param key="postal_code" value="12489"/>
     </edge>
-    <edge id="415852825" from="1560223834" to="1599958752" priority="4" type="highway.unclassified">
+    <edge id="415852825" from="1560223834" to="1599958752" name="James-Franck-Straße" priority="4" type="highway.unclassified">
         <lane id="415852825_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="23.16" shape="1183.14,584.33 1181.56,607.44">
             <param key="origId" value="-142575679#3"/>
         </lane>
         <param key="postal_code" value="12489"/>
     </edge>
-    <edge id="415852826" from="4167993268" to="1560223834" priority="4" type="highway.unclassified" shape="1184.73,534.91 1184.05,544.98 1181.86,579.55">
+    <edge id="415852826" from="4167993268" to="1560223834" name="James-Franck-Straße" priority="4" type="highway.unclassified" shape="1184.73,534.91 1184.05,544.98 1181.86,579.55">
         <lane id="415852826_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="32.66" shape="1185.83,542.34 1185.65,545.08 1183.76,574.93">
             <param key="origId" value="-142575679#4"/>
         </lane>
         <param key="origFrom" value="1560223744"/>
         <param key="postal_code" value="12489"/>
     </edge>
-    <edge id="415852827" from="2007005081" to="1560223484" priority="3" type="highway.residential">
+    <edge id="415852827" from="2007005081" to="1560223484" name="North-Willys-Straße" priority="3" type="highway.residential">
         <lane id="415852827_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="75.81" shape="1191.24,419.47 1197.19,343.90">
             <param key="origId" value="-142575699#0"/>
         </lane>
         <param key="postal_code" value="12489"/>
     </edge>
-    <edge id="415852828" from="1560223591" to="2007005081" priority="3" type="highway.residential">
+    <edge id="415852828" from="1560223591" to="2007005081" name="North-Willys-Straße" priority="3" type="highway.residential">
         <lane id="415852828_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="13.64" shape="1189.92,442.44 1190.63,428.81">
             <param key="origId" value="-142575699#1"/>
         </lane>
         <param key="postal_code" value="12489"/>
     </edge>
-    <edge id="415852829" from="2007005091" to="1560223591" priority="3" type="highway.residential">
+    <edge id="415852829" from="2007005091" to="1560223591" name="North-Willys-Straße" priority="3" type="highway.residential">
         <lane id="415852829_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="17.57" shape="1187.53,474.17 1188.97,456.66">
             <param key="origId" value="-142575699#2"/>
         </lane>
         <param key="postal_code" value="12489"/>
     </edge>
-    <edge id="415852830" from="4167993268" to="2007005091" priority="3" type="highway.residential" shape="1185.43,525.48 1186.20,515.33 1188.75,478.99">
+    <edge id="415852830" from="4167993268" to="2007005091" name="North-Willys-Straße" priority="3" type="highway.residential" shape="1185.43,525.48 1186.20,515.33 1188.75,478.99">
         <lane id="415852830_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="34.63" shape="1184.39,518.07 1184.60,515.21 1186.82,483.53">
             <param key="origId" value="-142575699#3"/>
         </lane>
@@ -2617,39 +2626,39 @@ SPDX-License-Identifier: EPL-2.0
             <param key="origId" value="-142575725#2"/>
         </lane>
     </edge>
-    <edge id="415852836" from="1560223943" to="664166095" priority="4" type="highway.unclassified" shape="1293.14,629.02 1284.53,749.09 1282.46,767.46 1276.93,835.11">
+    <edge id="415852836" from="1560223943" to="664166095" name="Schwarzschildstraße" priority="4" type="highway.unclassified" shape="1293.14,629.02 1284.53,749.09 1282.46,767.46 1276.93,835.11">
         <lane id="415852836_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="199.92" shape="1294.25,635.95 1286.13,749.23 1284.05,767.62 1278.53,835.24">
             <param key="origId" value="-143308562#0"/>
         </lane>
         <param key="postal_code" value="12489"/>
     </edge>
-    <edge id="415852837" from="4167993269" to="1560223943" priority="4" type="highway.unclassified" shape="1299.13,543.02 1293.14,629.02">
+    <edge id="415852837" from="4167993269" to="1560223943" name="Schwarzschildstraße" priority="4" type="highway.unclassified" shape="1299.13,543.02 1293.14,629.02">
         <lane id="415852837_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="71.32" shape="1300.22,550.38 1295.27,621.53">
             <param key="origId" value="-143308562#1"/>
         </lane>
         <param key="origFrom" value="671564302"/>
         <param key="postal_code" value="12489"/>
     </edge>
-    <edge id="415852838" from="1560223615" to="4167993269" priority="4" type="highway.unclassified" shape="1304.62,459.07 1299.78,533.73">
+    <edge id="415852838" from="1560223615" to="4167993269" name="Schwarzschildstraße" priority="4" type="highway.unclassified" shape="1304.62,459.07 1299.78,533.73">
         <lane id="415852838_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="60.32" shape="1305.75,466.39 1301.85,526.58">
             <param key="origId" value="-143308562#3"/>
         </lane>
         <param key="origTo" value="1560223745"/>
         <param key="postal_code" value="12489"/>
     </edge>
-    <edge id="415852839" from="1568241285" to="1568241281" priority="3" type="highway.residential">
+    <edge id="415852839" from="1568241285" to="1568241281" name="Zur Rothen Laake" priority="3" type="highway.residential">
         <lane id="415852839_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="8.33" length="50.95" shape="1392.68,189.95 1443.37,184.76">
             <param key="origId" value="-143308601#0"/>
         </lane>
         <param key="postal_code" value="12524"/>
     </edge>
-    <edge id="415852840" from="1568241303" to="1568241285" priority="3" type="highway.residential">
+    <edge id="415852840" from="1568241303" to="1568241285" name="Zur Rothen Laake" priority="3" type="highway.residential">
         <lane id="415852840_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="8.33" length="93.78" shape="1285.07,201.04 1378.36,191.42">
             <param key="origId" value="-143308601#1"/>
         </lane>
         <param key="postal_code" value="12524"/>
     </edge>
-    <edge id="415852841" from="260702833" to="1568241303" priority="3" type="highway.residential">
+    <edge id="415852841" from="260702833" to="1568241303" name="Zur Rothen Laake" priority="3" type="highway.residential">
         <lane id="415852841_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="8.33" length="22.59" shape="1248.48,205.97 1270.85,202.78">
             <param key="origId" value="-143308601#2"/>
         </lane>
@@ -2675,7 +2684,7 @@ SPDX-License-Identifier: EPL-2.0
             <param key="origId" value="-146738852#1"/>
         </lane>
     </edge>
-    <edge id="415852846" from="1560223484" to="1906766898" priority="12" type="highway.primary">
+    <edge id="415852846" from="1560223484" to="1906766898" name="Ernst-Ruska-Ufer" priority="12" type="highway.primary">
         <lane id="415852846_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="84.87" shape="1191.78,338.54 1107.23,345.86">
             <param key="origId" value="-190083610#0"/>
         </lane>
@@ -2684,7 +2693,7 @@ SPDX-License-Identifier: EPL-2.0
         </lane>
         <param key="postal_code" value="12489"/>
     </edge>
-    <edge id="415852847" from="1560223468" to="1560223484" priority="12" type="highway.primary" shape="1387.92,311.95 1354.23,315.44 1199.64,333.04">
+    <edge id="415852847" from="1560223468" to="1560223484" name="Ernst-Ruska-Ufer" priority="12" type="highway.primary" shape="1387.92,311.95 1354.23,315.44 1199.64,333.04">
         <lane id="415852847_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="179.28" shape="1384.31,317.15 1354.75,320.21 1206.17,337.13">
             <param key="origId" value="-190083610#1"/>
         </lane>
@@ -2693,7 +2702,7 @@ SPDX-License-Identifier: EPL-2.0
         </lane>
         <param key="postal_code" value="12489"/>
     </edge>
-    <edge id="415852848" from="4167993265" to="59992997" priority="11" type="highway.secondary" shape="1473.33,313.48 1473.93,324.19 1474.08,329.29 1477.43,375.85">
+    <edge id="415852848" from="4167993265" to="59992997" name="Wegedornstraße" priority="11" type="highway.secondary" shape="1473.33,313.48 1473.93,324.19 1474.08,329.29 1477.43,375.85">
         <lane id="415852848_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="50.03" shape="1475.40,321.84 1475.52,324.12 1475.68,329.20 1478.74,371.76">
             <param key="origId" value="-190083618#2"/>
         </lane>
@@ -2725,26 +2734,26 @@ SPDX-License-Identifier: EPL-2.0
             <param key="origId" value="-190083625#1"/>
         </lane>
     </edge>
-    <edge id="415852854" from="2007005087" to="2165987550" priority="10" type="highway.tertiary">
+    <edge id="415852854" from="2007005087" to="2165987550" name="Hermann-Dorner-Allee" priority="10" type="highway.tertiary">
         <lane id="415852854_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="0.20" shape="1006.31,460.71 1006.35,460.51">
             <param key="origId" value="-206579062#0"/>
         </lane>
         <param key="postal_code" value="12489"/>
     </edge>
-    <edge id="415852855" from="4167993273" to="2007005087" priority="10" type="highway.tertiary" shape="997.39,513.05 999.93,501.36 1007.13,465.15">
+    <edge id="415852855" from="4167993273" to="2007005087" name="Hermann-Dorner-Allee" priority="10" type="highway.tertiary" shape="997.39,513.05 999.93,501.36 1007.13,465.15">
         <lane id="415852855_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="36.62" shape="997.63,504.39 998.36,501.03 1004.84,468.48">
             <param key="origId" value="-206579062#2"/>
         </lane>
         <param key="origFrom" value="492462300"/>
         <param key="postal_code" value="12489"/>
     </edge>
-    <edge id="415852856" from="1560223789" to="2165987556" priority="10" type="highway.tertiary">
+    <edge id="415852856" from="1560223789" to="2165987556" name="Hermann-Dorner-Allee" priority="10" type="highway.tertiary">
         <lane id="415852856_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="21.87" shape="991.05,567.05 986.48,588.44">
             <param key="origId" value="-206579063#0"/>
         </lane>
         <param key="postal_code" value="12489"/>
     </edge>
-    <edge id="415852857" from="3260077364" to="4167993266" priority="10" type="highway.tertiary" shape="1016.46,412.47 1024.12,369.30 1024.18,366.64 1024.90,357.81">
+    <edge id="415852857" from="3260077364" to="4167993266" name="Hermann-Dorner-Allee" priority="10" type="highway.tertiary" shape="1016.46,412.47 1024.12,369.30 1024.18,366.64 1024.90,357.81">
         <lane id="415852857_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="38.87" shape="1013.40,402.24 1019.33,368.82 1019.38,366.39 1019.57,364.06">
             <param key="origId" value="-206579064#1"/>
         </lane>
@@ -2754,7 +2763,7 @@ SPDX-License-Identifier: EPL-2.0
         <param key="origTo" value="1906766907"/>
         <param key="postal_code" value="12489"/>
     </edge>
-    <edge id="415852858" from="2007005083" to="3260077364" priority="10" type="highway.tertiary">
+    <edge id="415852858" from="2007005083" to="3260077364" name="Hermann-Dorner-Allee" priority="10" type="highway.tertiary">
         <lane id="415852858_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="14.18" shape="1010.04,421.92 1012.34,407.93">
             <param key="origId" value="-206579064#2"/>
         </lane>
@@ -2801,14 +2810,14 @@ SPDX-License-Identifier: EPL-2.0
         </lane>
         <param key="origFrom" value="2223009466"/>
     </edge>
-    <edge id="415852866" from="4167993264" to="4167993267" priority="11" type="highway.secondary" shape="1483.10,434.74 1486.00,464.73 1486.72,472.28">
+    <edge id="415852866" from="4167993264" to="4167993267" name="Wegedornstraße" priority="11" type="highway.secondary" shape="1483.10,434.74 1486.00,464.73 1486.72,472.28">
         <lane id="415852866_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="25.32" shape="1485.14,439.19 1487.57,464.39">
             <param key="origId" value="-24214694#2"/>
         </lane>
         <param key="origTo" value="1560223635"/>
         <param key="postal_code" value="12489;12345"/>
     </edge>
-    <edge id="415852867" from="59992997" to="4167993264" priority="11" type="highway.secondary">
+    <edge id="415852867" from="59992997" to="4167993264" name="Wegedornstraße" priority="11" type="highway.secondary">
         <lane id="415852867_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="50.43" shape="1479.40,379.63 1484.24,429.83">
             <param key="origId" value="-24214694#3"/>
         </lane>
@@ -2852,7 +2861,7 @@ SPDX-License-Identifier: EPL-2.0
         </lane>
         <param key="origFrom" value="294169342"/>
     </edge>
-    <edge id="415852875" from="4167993273" to="1560223789" priority="10" type="highway.tertiary" shape="995.08,526.59 992.89,546.76 991.19,557.28 990.42,562.35">
+    <edge id="415852875" from="4167993273" to="1560223789" name="Hermann-Dorner-Allee" priority="10" type="highway.tertiary" shape="995.08,526.59 992.89,546.76 991.19,557.28 990.42,562.35">
         <lane id="415852875_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="22.57" shape="995.72,535.53 994.48,546.97 992.77,557.54 992.72,557.89">
             <param key="origId" value="-318210380#1"/>
         </lane>
@@ -2870,92 +2879,92 @@ SPDX-License-Identifier: EPL-2.0
         </lane>
         <param key="origFrom" value="4057899371"/>
     </edge>
-    <edge id="415852878" from="1292264836" to="1292264842" priority="1" type="highway.service" shape="1546.34,427.02 1581.05,422.78 1590.54,415.45 1627.09,372.13">
+    <edge id="415852878" from="1292264836" to="1292264842" name="Albert-Einstein-Straße" priority="1" type="highway.service" shape="1546.34,427.02 1581.05,422.78 1590.54,415.45 1627.09,372.13">
         <lane id="415852878_0" index="0" allow="pedestrian delivery bicycle" speed="8.33" length="97.70" shape="1550.82,424.86 1580.42,421.24 1589.43,414.29 1625.86,371.10">
             <param key="origId" value="114949101#1"/>
         </lane>
     </edge>
-    <edge id="415852879" from="1560223591" to="1560223615" priority="4" type="highway.unclassified">
+    <edge id="415852879" from="1560223591" to="1560223615" name="Bendemannstraße" priority="4" type="highway.unclassified">
         <lane id="415852879_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="99.36" shape="1198.46,448.62 1297.48,456.87">
             <param key="origId" value="142575658#0"/>
         </lane>
         <param key="postal_code" value="12489"/>
     </edge>
-    <edge id="415852880" from="1560223615" to="851572284" priority="4" type="highway.unclassified">
+    <edge id="415852880" from="1560223615" to="851572284" name="Bendemannstraße" priority="4" type="highway.unclassified">
         <lane id="415852880_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="121.67" shape="1311.95,458.01 1433.29,467.04">
             <param key="origId" value="142575658#1"/>
         </lane>
         <param key="postal_code" value="12489"/>
     </edge>
-    <edge id="415852881" from="851572284" to="4167993267" priority="4" type="highway.unclassified" shape="1435.44,468.80 1486.72,472.28">
+    <edge id="415852881" from="851572284" to="4167993267" name="Bendemannstraße" priority="4" type="highway.unclassified" shape="1435.44,468.80 1486.72,472.28">
         <lane id="415852881_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="40.88" shape="1438.29,467.39 1479.08,470.15">
             <param key="origId" value="142575658#2"/>
         </lane>
         <param key="origTo" value="1560223635"/>
         <param key="postal_code" value="12489"/>
     </edge>
-    <edge id="415852882" from="1560223905" to="607601623" priority="4" type="highway.unclassified">
+    <edge id="415852882" from="1560223905" to="607601623" name="Friedrich-Wöhler-Straße" priority="4" type="highway.unclassified">
         <lane id="415852882_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="48.42" shape="1186.42,618.11 1234.70,621.65">
             <param key="origId" value="142575673#0"/>
         </lane>
         <param key="postal_code" value="12489"/>
     </edge>
-    <edge id="415852883" from="607601623" to="1560223943" priority="4" type="highway.unclassified" shape="1239.30,623.59 1284.22,627.28 1293.14,629.02">
+    <edge id="415852883" from="607601623" to="1560223943" name="Friedrich-Wöhler-Straße" priority="4" type="highway.unclassified" shape="1239.30,623.59 1284.22,627.28 1293.14,629.02">
         <lane id="415852883_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="42.01" shape="1244.12,622.38 1284.44,625.69 1285.97,625.99">
             <param key="origId" value="142575673#1"/>
         </lane>
         <param key="postal_code" value="12489"/>
     </edge>
-    <edge id="415852884" from="1560224322" to="1560224080" priority="4" type="highway.unclassified" shape="1161.76,842.53 1167.34,758.39 1169.02,736.81 1169.83,726.44 1170.59,716.60 1171.28,707.38">
+    <edge id="415852884" from="1560224322" to="1560224080" name="James-Franck-Straße" priority="4" type="highway.unclassified" shape="1161.76,842.53 1167.34,758.39 1169.02,736.81 1169.83,726.44 1170.59,716.60 1171.28,707.38">
         <lane id="415852884_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="130.90" shape="1160.17,842.43 1165.75,758.28 1167.43,736.69 1168.23,726.31 1169.00,716.48 1169.34,711.85">
             <param key="origId" value="142575679#0"/>
         </lane>
         <param key="postal_code" value="12489"/>
     </edge>
-    <edge id="415852885" from="1560224080" to="1560223905" priority="4" type="highway.unclassified" shape="1171.28,707.38 1171.95,699.02 1176.70,646.27 1179.14,619.19">
+    <edge id="415852885" from="1560224080" to="1560223905" name="James-Franck-Straße" priority="4" type="highway.unclassified" shape="1171.28,707.38 1171.95,699.02 1176.70,646.27 1179.14,619.19">
         <lane id="415852885_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="76.64" shape="1170.07,702.49 1170.35,698.89 1175.11,646.13 1176.90,626.15">
             <param key="origId" value="142575679#1"/>
         </lane>
         <param key="postal_code" value="12489"/>
     </edge>
-    <edge id="415852886" from="1560223905" to="1599958752" priority="4" type="highway.unclassified">
+    <edge id="415852886" from="1560223905" to="1599958752" name="James-Franck-Straße" priority="4" type="highway.unclassified">
         <lane id="415852886_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="0.30" shape="1178.03,612.21 1178.05,611.91">
             <param key="origId" value="142575679#2"/>
         </lane>
         <param key="postal_code" value="12489"/>
     </edge>
-    <edge id="415852887" from="1599958752" to="1560223834" priority="4" type="highway.unclassified">
+    <edge id="415852887" from="1599958752" to="1560223834" name="James-Franck-Straße" priority="4" type="highway.unclassified">
         <lane id="415852887_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="23.16" shape="1178.37,607.22 1179.95,584.11">
             <param key="origId" value="142575679#3"/>
         </lane>
         <param key="postal_code" value="12489"/>
     </edge>
-    <edge id="415852888" from="1560223834" to="4167993268" priority="4" type="highway.unclassified" shape="1181.86,579.55 1184.05,544.98 1184.73,534.91">
+    <edge id="415852888" from="1560223834" to="4167993268" name="James-Franck-Straße" priority="4" type="highway.unclassified" shape="1181.86,579.55 1184.05,544.98 1184.73,534.91">
         <lane id="415852888_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="32.67" shape="1180.57,574.73 1182.46,544.88 1182.64,542.12">
             <param key="origId" value="142575679#4"/>
         </lane>
         <param key="origTo" value="1560223744"/>
         <param key="postal_code" value="12489"/>
     </edge>
-    <edge id="415852889" from="1560223484" to="2007005081" priority="3" type="highway.residential">
+    <edge id="415852889" from="1560223484" to="2007005081" name="North-Willys-Straße" priority="3" type="highway.residential">
         <lane id="415852889_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="75.81" shape="1200.38,344.15 1194.43,419.73">
             <param key="origId" value="142575699#0"/>
         </lane>
         <param key="postal_code" value="12489"/>
     </edge>
-    <edge id="415852890" from="2007005081" to="1560223591" priority="3" type="highway.residential">
+    <edge id="415852890" from="2007005081" to="1560223591" name="North-Willys-Straße" priority="3" type="highway.residential">
         <lane id="415852890_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="13.64" shape="1193.83,428.98 1193.12,442.60">
             <param key="origId" value="142575699#1"/>
         </lane>
         <param key="postal_code" value="12489"/>
     </edge>
-    <edge id="415852891" from="1560223591" to="2007005091" priority="3" type="highway.residential">
+    <edge id="415852891" from="1560223591" to="2007005091" name="North-Willys-Straße" priority="3" type="highway.residential">
         <lane id="415852891_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="17.57" shape="1192.16,456.92 1190.72,474.43">
             <param key="origId" value="142575699#2"/>
         </lane>
         <param key="postal_code" value="12489"/>
     </edge>
-    <edge id="415852892" from="2007005091" to="4167993268" priority="3" type="highway.residential" shape="1188.75,478.99 1186.20,515.33 1185.43,525.48">
+    <edge id="415852892" from="2007005091" to="4167993268" name="North-Willys-Straße" priority="3" type="highway.residential" shape="1188.75,478.99 1186.20,515.33 1185.43,525.48">
         <lane id="415852892_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="34.64" shape="1190.02,483.75 1187.79,515.44 1187.58,518.31">
             <param key="origId" value="142575699#3"/>
         </lane>
@@ -2987,7 +2996,7 @@ SPDX-License-Identifier: EPL-2.0
             <param key="origId" value="142575725#2"/>
         </lane>
     </edge>
-    <edge id="415852898" from="4167993270" to="1392924660" priority="10" type="highway.tertiary" spreadType="center" shape="1480.09,576.02 1463.90,572.29 1436.10,564.68">
+    <edge id="415852898" from="4167993270" to="1392924660" name="Rudower Chaussee" priority="10" type="highway.tertiary" spreadType="center" shape="1480.09,576.02 1463.90,572.29 1436.10,564.68">
         <lane id="415852898_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="35.41" shape="1472.01,575.80 1463.51,573.84 1437.71,566.78">
             <param key="origId" value="143308532#0"/>
         </lane>
@@ -2996,8 +3005,9 @@ SPDX-License-Identifier: EPL-2.0
         </lane>
         <param key="origFrom" value="1560223847"/>
         <param key="postal_code" value="12489"/>
+        <param key="ref" value="L 1081"/>
     </edge>
-    <edge id="415852899" from="1392924660" to="4167993269" priority="10" type="highway.tertiary" spreadType="center" shape="1436.10,564.68 1430.33,563.08 1394.10,555.00 1356.51,548.18 1308.10,543.83">
+    <edge id="415852899" from="1392924660" to="4167993269" name="Rudower Chaussee" priority="10" type="highway.tertiary" spreadType="center" shape="1436.10,564.68 1430.33,563.08 1394.10,555.00 1356.51,548.18 1308.10,543.83">
         <lane id="415852899_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="126.72" shape="1432.88,565.45 1429.94,564.64 1393.78,556.57 1356.30,549.77 1308.27,545.45">
             <param key="origId" value="143308532#2"/>
         </lane>
@@ -3006,8 +3016,9 @@ SPDX-License-Identifier: EPL-2.0
         </lane>
         <param key="origTo" value="1568241369"/>
         <param key="postal_code" value="12489"/>
+        <param key="ref" value="L 1081"/>
     </edge>
-    <edge id="415852900" from="4167993269" to="4167993268" priority="10" type="highway.tertiary" spreadType="center" shape="1288.40,542.25 1195.35,535.54">
+    <edge id="415852900" from="4167993269" to="4167993268" name="Rudower Chaussee" priority="10" type="highway.tertiary" spreadType="center" shape="1288.40,542.25 1195.35,535.54">
         <lane id="415852900_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="93.08" shape="1288.28,543.84 1195.46,537.15">
             <param key="origId" value="143308532#5"/>
         </lane>
@@ -3017,8 +3028,9 @@ SPDX-License-Identifier: EPL-2.0
         <param key="origFrom" value="1568241362"/>
         <param key="origTo" value="851572934"/>
         <param key="postal_code" value="12489"/>
+        <param key="ref" value="L 1081"/>
     </edge>
-    <edge id="415852901" from="4167993268" to="4167993273" priority="10" type="highway.tertiary" spreadType="center" shape="1174.43,534.31 1139.99,531.75 1058.41,526.05 1037.56,525.21 1014.11,525.25 995.08,526.59">
+    <edge id="415852901" from="4167993268" to="4167993273" name="Rudower Chaussee" priority="10" type="highway.tertiary" spreadType="center" shape="1174.43,534.31 1139.99,531.75 1058.41,526.05 1037.56,525.21 1014.11,525.25 995.08,526.59">
         <lane id="415852901_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="166.50" shape="1174.31,535.90 1139.87,533.35 1058.32,527.65 1037.53,526.81 1014.17,526.85 1008.22,527.27">
             <param key="origId" value="143308532#8"/>
         </lane>
@@ -3028,8 +3040,9 @@ SPDX-License-Identifier: EPL-2.0
         <param key="origFrom" value="851573004"/>
         <param key="origTo" value="671564296"/>
         <param key="postal_code" value="12489"/>
+        <param key="ref" value="L 1081"/>
     </edge>
-    <edge id="415852902" from="4167993270" to="57343487" priority="11" type="highway.secondary" spreadType="center" shape="1491.58,567.89 1502.45,570.52 1538.16,579.94 1568.88,587.67 1596.85,595.96 1608.25,600.13 1635.96,610.98 1655.55,619.28 1677.49,630.18 1697.79,641.88 1713.49,652.06 1731.19,664.60 1764.72,689.57 1770.79,693.90 1814.91,726.44 1836.57,739.81 1884.31,766.21 1898.10,773.83 1908.12,779.70 1923.77,788.85 1940.21,800.56 1959.25,818.41 1992.41,851.53 1996.47,855.44 2028.95,887.64 2046.83,905.37 2052.94,911.42 2067.09,925.46 2075.68,933.97">
+    <edge id="415852902" from="4167993270" to="57343487" name="Rudower Chaussee" priority="11" type="highway.secondary" spreadType="center" shape="1491.58,567.89 1502.45,570.52 1538.16,579.94 1568.88,587.67 1596.85,595.96 1608.25,600.13 1635.96,610.98 1655.55,619.28 1677.49,630.18 1697.79,641.88 1713.49,652.06 1731.19,664.60 1764.72,689.57 1770.79,693.90 1814.91,726.44 1836.57,739.81 1884.31,766.21 1898.10,773.83 1908.12,779.70 1923.77,788.85 1940.21,800.56 1959.25,818.41 1992.41,851.53 1996.47,855.44 2028.95,887.64 2046.83,905.37 2052.94,911.42 2067.09,925.46 2075.68,933.97">
         <lane id="415852902_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="693.39" shape="1498.76,567.98 1502.84,568.96 1538.56,578.39 1569.30,586.12 1597.35,594.44 1608.81,598.63 1636.56,609.50 1656.22,617.83 1678.24,628.77 1698.62,640.51 1714.39,650.74 1732.13,663.30 1765.66,688.28 1771.73,692.61 1815.81,725.11 1837.38,738.43 1885.08,764.81 1898.89,772.44 1908.93,778.32 1924.64,787.51 1941.22,799.32 1960.36,817.26 1993.54,850.40 1997.59,854.30 2030.08,886.50 2047.96,904.23 2054.06,910.29 2068.22,924.32 2076.81,932.83">
             <param key="origId" value="143308542#0"/>
         </lane>
@@ -3038,8 +3051,9 @@ SPDX-License-Identifier: EPL-2.0
         </lane>
         <param key="origFrom" value="56231397"/>
         <param key="postal_code" value="12489"/>
+        <param key="ref" value="L 1081"/>
     </edge>
-    <edge id="415852903" from="38918157" to="846231372" priority="11" type="highway.secondary" spreadType="center" shape="2061.71,948.77 2053.08,940.44 2038.49,925.11 2031.52,918.41 2025.00,911.68 2014.32,901.31 1974.60,862.39 1968.66,856.25 1948.47,835.70 1933.47,821.05 1920.63,809.37 1907.44,799.80 1896.02,792.82 1886.43,786.96 1876.30,780.89 1851.90,766.27 1794.85,731.77 1777.03,720.23 1753.59,702.79 1715.82,674.95 1702.98,665.77 1681.79,650.31 1675.23,645.45 1672.09,642.81 1655.78,631.56 1649.30,627.34 1645.72,625.69 1632.83,619.72 1605.33,609.20 1593.96,605.67 1574.85,600.18 1546.97,593.18">
+    <edge id="415852903" from="38918157" to="846231372" name="Rudower Chaussee" priority="11" type="highway.secondary" spreadType="center" shape="2061.71,948.77 2053.08,940.44 2038.49,925.11 2031.52,918.41 2025.00,911.68 2014.32,901.31 1974.60,862.39 1968.66,856.25 1948.47,835.70 1933.47,821.05 1920.63,809.37 1907.44,799.80 1896.02,792.82 1886.43,786.96 1876.30,780.89 1851.90,766.27 1794.85,731.77 1777.03,720.23 1753.59,702.79 1715.82,674.95 1702.98,665.77 1681.79,650.31 1675.23,645.45 1672.09,642.81 1655.78,631.56 1649.30,627.34 1645.72,625.69 1632.83,619.72 1605.33,609.20 1593.96,605.67 1574.85,600.18 1546.97,593.18">
         <lane id="415852903_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="627.63" shape="2060.59,949.92 2051.95,941.56 2037.36,926.24 2030.39,919.54 2023.87,912.81 2013.20,902.46 1973.46,863.52 1967.51,857.37 1947.34,836.83 1932.37,822.21 1919.62,810.61 1906.55,801.13 1895.18,794.19 1885.60,788.33 1875.48,782.27 1851.08,767.64 1794.01,733.12 1776.12,721.55 1752.63,704.07 1714.88,676.24 1702.04,667.07 1680.85,651.61 1674.23,646.71 1671.12,644.09 1654.89,632.89 1648.52,628.75 1645.05,627.14 1632.21,621.20 1604.81,610.71 1593.50,607.20 1574.43,601.73 1552.31,596.17">
             <param key="origId" value="143308546#0"/>
         </lane>
@@ -3047,8 +3061,9 @@ SPDX-License-Identifier: EPL-2.0
             <param key="origId" value="143308546#0"/>
         </lane>
         <param key="postal_code" value="12489"/>
+        <param key="ref" value="L 1081"/>
     </edge>
-    <edge id="415852904" from="846231372" to="4167993270" priority="11" type="highway.secondary" spreadType="center" shape="1546.97,593.18 1498.80,580.95 1488.91,578.32">
+    <edge id="415852904" from="846231372" to="4167993270" name="Rudower Chaussee" priority="11" type="highway.secondary" spreadType="center" shape="1546.97,593.18 1498.80,580.95 1488.91,578.32">
         <lane id="415852904_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="52.95" shape="1546.74,594.76 1498.40,582.50 1495.44,581.71">
             <param key="origId" value="143308546#5"/>
         </lane>
@@ -3057,28 +3072,29 @@ SPDX-License-Identifier: EPL-2.0
         </lane>
         <param key="origTo" value="301292612"/>
         <param key="postal_code" value="12489"/>
+        <param key="ref" value="L 1081"/>
     </edge>
-    <edge id="415852905" from="664166095" to="1560223943" priority="4" type="highway.unclassified" shape="1276.93,835.11 1282.46,767.46 1284.53,749.09 1293.14,629.02">
+    <edge id="415852905" from="664166095" to="1560223943" name="Schwarzschildstraße" priority="4" type="highway.unclassified" shape="1276.93,835.11 1282.46,767.46 1284.53,749.09 1293.14,629.02">
         <lane id="415852905_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="199.89" shape="1275.34,834.98 1280.87,767.31 1282.94,748.94 1291.06,635.72">
             <param key="origId" value="143308562#0"/>
         </lane>
         <param key="postal_code" value="12489"/>
     </edge>
-    <edge id="415852906" from="1560223943" to="4167993269" priority="4" type="highway.unclassified" shape="1293.14,629.02 1299.13,543.02">
+    <edge id="415852906" from="1560223943" to="4167993269" name="Schwarzschildstraße" priority="4" type="highway.unclassified" shape="1293.14,629.02 1299.13,543.02">
         <lane id="415852906_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="71.32" shape="1292.07,621.30 1297.03,550.16">
             <param key="origId" value="143308562#1"/>
         </lane>
         <param key="origTo" value="671564302"/>
         <param key="postal_code" value="12489"/>
     </edge>
-    <edge id="415852907" from="4167993269" to="1560223615" priority="4" type="highway.unclassified" shape="1299.78,533.73 1304.62,459.07">
+    <edge id="415852907" from="4167993269" to="1560223615" name="Schwarzschildstraße" priority="4" type="highway.unclassified" shape="1299.78,533.73 1304.62,459.07">
         <lane id="415852907_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="60.32" shape="1298.65,526.37 1302.56,466.18">
             <param key="origId" value="143308562#3"/>
         </lane>
         <param key="origFrom" value="1560223745"/>
         <param key="postal_code" value="12489"/>
     </edge>
-    <edge id="415852908" from="4167993270" to="4167993267" priority="11" type="highway.secondary" spreadType="center" shape="1481.99,565.29 1483.77,555.37 1486.53,516.06 1489.36,499.55">
+    <edge id="415852908" from="4167993270" to="4167993267" name="Wegedornstraße" priority="11" type="highway.secondary" spreadType="center" shape="1481.99,565.29 1483.77,555.37 1486.53,516.06 1489.36,499.55">
         <lane id="415852908_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="37.48" shape="1481.72,557.74 1482.18,555.18 1484.62,520.40">
             <param key="origId" value="143308587#0"/>
         </lane>
@@ -3089,7 +3105,7 @@ SPDX-License-Identifier: EPL-2.0
         <param key="origTo" value="1560223686"/>
         <param key="postal_code" value="12489"/>
     </edge>
-    <edge id="415852909" from="4167993267" to="4167993270" priority="11" type="highway.secondary" spreadType="center" shape="1489.36,499.55 1493.18,518.53 1493.96,542.40 1493.52,556.79 1491.58,567.89">
+    <edge id="415852909" from="4167993267" to="4167993270" name="Wegedornstraße" priority="11" type="highway.secondary" spreadType="center" shape="1489.36,499.55 1493.18,518.53 1493.96,542.40 1493.52,556.79 1491.58,567.89">
         <lane id="415852909_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="39.28" shape="1494.84,520.23 1495.56,542.40 1495.12,556.95 1494.58,560.05">
             <param key="origId" value="143308590#0"/>
         </lane>
@@ -3100,19 +3116,19 @@ SPDX-License-Identifier: EPL-2.0
         <param key="origTo" value="56231397"/>
         <param key="postal_code" value="12489"/>
     </edge>
-    <edge id="415852910" from="1568241281" to="1568241285" priority="3" type="highway.residential">
+    <edge id="415852910" from="1568241281" to="1568241285" name="Zur Rothen Laake" priority="3" type="highway.residential">
         <lane id="415852910_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="8.33" length="50.95" shape="1443.70,187.94 1393.01,193.13">
             <param key="origId" value="143308601#0"/>
         </lane>
         <param key="postal_code" value="12524"/>
     </edge>
-    <edge id="415852911" from="1568241285" to="1568241303" priority="3" type="highway.residential">
+    <edge id="415852911" from="1568241285" to="1568241303" name="Zur Rothen Laake" priority="3" type="highway.residential">
         <lane id="415852911_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="8.33" length="93.78" shape="1378.69,194.60 1285.40,204.22">
             <param key="origId" value="143308601#1"/>
         </lane>
         <param key="postal_code" value="12524"/>
     </edge>
-    <edge id="415852912" from="1568241303" to="260702833" priority="3" type="highway.residential">
+    <edge id="415852912" from="1568241303" to="260702833" name="Zur Rothen Laake" priority="3" type="highway.residential">
         <lane id="415852912_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="8.33" length="22.59" shape="1271.30,205.95 1248.93,209.14">
             <param key="origId" value="143308601#2"/>
         </lane>
@@ -3148,7 +3164,7 @@ SPDX-License-Identifier: EPL-2.0
             <param key="origId" value="146738852#1"/>
         </lane>
     </edge>
-    <edge id="415852919" from="1906766898" to="4167993266" priority="12" type="highway.primary" spreadType="center" shape="1107.42,344.19 1066.53,351.99 1041.35,355.57">
+    <edge id="415852919" from="1906766898" to="4167993266" name="Ernst-Ruska-Ufer" priority="12" type="highway.primary" spreadType="center" shape="1107.42,344.19 1066.53,351.99 1041.35,355.57">
         <lane id="415852919_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="61.25" shape="1107.07,345.88 1066.79,353.57 1046.66,356.43">
             <param key="origId" value="180239858#0"/>
         </lane>
@@ -3158,7 +3174,7 @@ SPDX-License-Identifier: EPL-2.0
         <param key="origTo" value="1906766906"/>
         <param key="postal_code" value="12489"/>
     </edge>
-    <edge id="415852920" from="1906766898" to="1560223484" priority="12" type="highway.primary">
+    <edge id="415852920" from="1906766898" to="1560223484" name="Ernst-Ruska-Ufer" priority="12" type="highway.primary">
         <lane id="415852920_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="84.87" shape="1106.40,336.30 1190.95,328.98">
             <param key="origId" value="190083610#0"/>
         </lane>
@@ -3167,7 +3183,7 @@ SPDX-License-Identifier: EPL-2.0
         </lane>
         <param key="postal_code" value="12489"/>
     </edge>
-    <edge id="415852921" from="1560223484" to="1560223468" priority="12" type="highway.primary" shape="1199.64,333.04 1354.23,315.44 1387.92,311.95">
+    <edge id="415852921" from="1560223484" to="1560223468" name="Ernst-Ruska-Ufer" priority="12" type="highway.primary" shape="1199.64,333.04 1354.23,315.44 1387.92,311.95">
         <lane id="415852921_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="179.34" shape="1205.08,327.59 1353.71,310.67 1383.32,307.60">
             <param key="origId" value="190083610#1"/>
         </lane>
@@ -3176,7 +3192,7 @@ SPDX-License-Identifier: EPL-2.0
         </lane>
         <param key="postal_code" value="12489"/>
     </edge>
-    <edge id="415852922" from="59992997" to="4167993265" priority="11" type="highway.secondary" shape="1477.43,375.85 1474.08,329.29 1473.93,324.19 1473.33,313.48">
+    <edge id="415852922" from="59992997" to="4167993265" name="Wegedornstraße" priority="11" type="highway.secondary" shape="1477.43,375.85 1474.08,329.29 1473.93,324.19 1473.33,313.48">
         <lane id="415852922_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="50.14" shape="1469.16,372.45 1466.09,329.70 1465.93,324.54 1465.81,322.37">
             <param key="origId" value="190083618#0"/>
         </lane>
@@ -3214,7 +3230,7 @@ SPDX-License-Identifier: EPL-2.0
             <param key="origId" value="190083625#1"/>
         </lane>
     </edge>
-    <edge id="415852928" from="2165987550" to="2007005087" priority="10" type="highway.tertiary">
+    <edge id="415852928" from="2165987550" to="2007005087" name="Hermann-Dorner-Allee" priority="10" type="highway.tertiary">
         <lane id="415852928_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="0.20" shape="1012.64,461.66 1012.61,461.86">
             <param key="origId" value="206579062#0"/>
         </lane>
@@ -3223,7 +3239,7 @@ SPDX-License-Identifier: EPL-2.0
         </lane>
         <param key="postal_code" value="12489"/>
     </edge>
-    <edge id="415852929" from="2007005087" to="4167993273" priority="10" type="highway.tertiary" shape="1007.13,465.15 999.93,501.36 997.39,513.05">
+    <edge id="415852929" from="2007005087" to="4167993273" name="Hermann-Dorner-Allee" priority="10" type="highway.tertiary" shape="1007.13,465.15 999.93,501.36 997.39,513.05">
         <lane id="415852929_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="36.71" shape="1011.11,469.73 1004.63,502.34 1003.89,505.74">
             <param key="origId" value="206579062#1"/>
         </lane>
@@ -3233,7 +3249,7 @@ SPDX-License-Identifier: EPL-2.0
         <param key="origTo" value="492462300"/>
         <param key="postal_code" value="12489"/>
     </edge>
-    <edge id="415852930" from="2165987556" to="1560223789" priority="10" type="highway.tertiary">
+    <edge id="415852930" from="2165987556" to="1560223789" name="Hermann-Dorner-Allee" priority="10" type="highway.tertiary">
         <lane id="415852930_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="21.87" shape="980.22,587.10 984.79,565.72">
             <param key="origId" value="206579063#0"/>
         </lane>
@@ -3242,7 +3258,7 @@ SPDX-License-Identifier: EPL-2.0
         </lane>
         <param key="postal_code" value="12489"/>
     </edge>
-    <edge id="415852931" from="1560223789" to="4167993273" priority="10" type="highway.tertiary" shape="990.42,562.35 991.19,557.28 992.89,546.76 995.08,526.59">
+    <edge id="415852931" from="1560223789" to="4167993273" name="Hermann-Dorner-Allee" priority="10" type="highway.tertiary" shape="990.42,562.35 991.19,557.28 992.89,546.76 995.08,526.59">
         <lane id="415852931_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="22.36" shape="986.39,556.93 986.45,556.53 988.13,546.11 989.36,534.84">
             <param key="origId" value="206579063#1"/>
         </lane>
@@ -3252,14 +3268,14 @@ SPDX-License-Identifier: EPL-2.0
         <param key="origTo" value="671564296"/>
         <param key="postal_code" value="12489"/>
     </edge>
-    <edge id="415852932" from="4167993266" to="3260077364" priority="10" type="highway.tertiary" shape="1024.90,357.81 1024.18,366.64 1024.12,369.30 1016.46,412.47">
+    <edge id="415852932" from="4167993266" to="3260077364" name="Hermann-Dorner-Allee" priority="10" type="highway.tertiary" shape="1024.90,357.81 1024.18,366.64 1024.12,369.30 1016.46,412.47">
         <lane id="415852932_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="39.32" shape="1025.95,364.58 1025.78,366.72 1025.71,369.46 1019.70,403.36">
             <param key="origId" value="206579064#0"/>
         </lane>
         <param key="origFrom" value="1906766907"/>
         <param key="postal_code" value="12489"/>
     </edge>
-    <edge id="415852933" from="3260077364" to="2007005083" priority="10" type="highway.tertiary">
+    <edge id="415852933" from="3260077364" to="2007005083" name="Hermann-Dorner-Allee" priority="10" type="highway.tertiary">
         <lane id="415852933_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="14.18" shape="1018.65,408.97 1016.36,422.96">
             <param key="origId" value="206579064#2"/>
         </lane>
@@ -3303,14 +3319,14 @@ SPDX-License-Identifier: EPL-2.0
         </lane>
         <param key="origTo" value="2223009466"/>
     </edge>
-    <edge id="415852941" from="4167993267" to="4167993264" priority="11" type="highway.secondary" shape="1486.72,472.28 1486.00,464.73 1483.10,434.74">
+    <edge id="415852941" from="4167993267" to="4167993264" name="Wegedornstraße" priority="11" type="highway.secondary" shape="1486.72,472.28 1486.00,464.73 1483.10,434.74">
         <lane id="415852941_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="25.32" shape="1484.39,464.69 1481.95,439.49">
             <param key="origId" value="24214694#2"/>
         </lane>
         <param key="origFrom" value="1560223635"/>
         <param key="postal_code" value="12489;12345"/>
     </edge>
-    <edge id="415852942" from="4167993264" to="59992997" priority="11" type="highway.secondary">
+    <edge id="415852942" from="4167993264" to="59992997" name="Wegedornstraße" priority="11" type="highway.secondary">
         <lane id="415852942_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="50.43" shape="1481.05,430.13 1476.21,379.93">
             <param key="origId" value="24214694#3"/>
         </lane>
@@ -3381,7 +3397,7 @@ SPDX-License-Identifier: EPL-2.0
         </lane>
         <param key="origTo" value="294169342"/>
     </edge>
-    <edge id="415852955" from="1560223468" to="4167993265" priority="12" type="highway.primary" spreadType="center" shape="1387.05,307.23 1411.25,307.66 1449.92,304.83 1457.59,303.65 1472.79,301.73">
+    <edge id="415852955" from="1560223468" to="4167993265" name="Ernst-Ruska-Ufer" priority="12" type="highway.primary" spreadType="center" shape="1387.05,307.23 1411.25,307.66 1449.92,304.83 1457.59,303.65 1472.79,301.73">
         <lane id="415852955_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="67.43" shape="1391.80,304.11 1411.16,304.46 1449.56,301.65 1457.15,300.48 1458.75,300.28">
             <param key="origId" value="318210363#0"/>
         </lane>
@@ -3394,7 +3410,7 @@ SPDX-License-Identifier: EPL-2.0
         <param key="origTo" value="1560223404"/>
         <param key="postal_code" value="12489"/>
     </edge>
-    <edge id="415852956" from="4167993265" to="3273797696" priority="12" type="highway.primary" spreadType="center" shape="1472.79,301.73 1487.18,300.78 1536.94,296.39 1597.23,291.62">
+    <edge id="415852956" from="4167993265" to="3273797696" name="Ernst-Ruska-Ufer" priority="12" type="highway.primary" spreadType="center" shape="1472.79,301.73 1487.18,300.78 1536.94,296.39 1597.23,291.62">
         <lane id="415852956_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="117.71" shape="1479.65,299.67 1487.06,299.18 1536.80,294.80 1596.94,290.04">
             <param key="origId" value="320741894#0"/>
         </lane>
@@ -3404,7 +3420,7 @@ SPDX-License-Identifier: EPL-2.0
         <param key="origFrom" value="1560223404"/>
         <param key="postal_code" value="12489"/>
     </edge>
-    <edge id="415852957" from="3273797696" to="4167993265" priority="12" type="highway.primary" spreadType="center" shape="1598.07,299.56 1515.00,307.89 1491.52,310.53 1487.26,311.10 1473.33,313.48">
+    <edge id="415852957" from="3273797696" to="4167993265" name="Ernst-Ruska-Ufer" priority="12" type="highway.primary" spreadType="center" shape="1598.07,299.56 1515.00,307.89 1491.52,310.53 1487.26,311.10 1473.33,313.48">
         <lane id="415852957_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="118.04" shape="1598.12,302.77 1515.33,311.07 1491.89,313.71 1487.75,314.27 1480.67,315.48">
             <param key="origId" value="320741895#0"/>
         </lane>
@@ -3417,7 +3433,7 @@ SPDX-License-Identifier: EPL-2.0
         <param key="origTo" value="3273797701"/>
         <param key="postal_code" value="12489"/>
     </edge>
-    <edge id="415852958" from="4167993265" to="1560223468" priority="12" type="highway.primary" spreadType="center" shape="1473.33,313.48 1457.86,314.55 1452.71,314.90 1417.38,314.30 1387.66,315.14">
+    <edge id="415852958" from="4167993265" to="1560223468" name="Ernst-Ruska-Ufer" priority="12" type="highway.primary" spreadType="center" shape="1473.33,313.48 1457.86,314.55 1452.71,314.90 1417.38,314.30 1387.66,315.14">
         <lane id="415852958_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="68.15" shape="1459.83,316.02 1457.97,316.15 1452.75,316.50 1417.39,315.90 1391.57,316.63">
             <param key="origId" value="326994261#0"/>
         </lane>
@@ -3448,7 +3464,7 @@ SPDX-License-Identifier: EPL-2.0
             <param key="origId" value="415693099#1"/>
         </lane>
     </edge>
-    <edge id="415852963" from="4167993273" to="4167993268" priority="10" type="highway.tertiary" spreadType="center" shape="997.39,513.05 1012.57,513.35 1175.27,524.64">
+    <edge id="415852963" from="4167993273" to="4167993268" name="Rudower Chaussee" priority="10" type="highway.tertiary" spreadType="center" shape="997.39,513.05 1012.57,513.35 1175.27,524.64">
         <lane id="415852963_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="167.01" shape="1008.57,511.67 1012.64,511.75 1175.27,523.04">
             <param key="origId" value="46039050#0"/>
         </lane>
@@ -3458,8 +3474,9 @@ SPDX-License-Identifier: EPL-2.0
         <param key="origFrom" value="492462300"/>
         <param key="origTo" value="851572267"/>
         <param key="postal_code" value="12489;12345;67890"/>
+        <param key="ref" value="L 1081"/>
     </edge>
-    <edge id="415852964" from="4167993268" to="4167993269" priority="10" type="highway.tertiary" spreadType="center" shape="1196.14,526.36 1230.89,528.57 1289.25,532.91">
+    <edge id="415852964" from="4167993268" to="4167993269" name="Rudower Chaussee" priority="10" type="highway.tertiary" spreadType="center" shape="1196.14,526.36 1230.89,528.57 1289.25,532.91">
         <lane id="415852964_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="93.16" shape="1196.24,524.77 1231.00,526.97 1289.19,531.30">
             <param key="origId" value="46039050#4"/>
         </lane>
@@ -3469,8 +3486,9 @@ SPDX-License-Identifier: EPL-2.0
         <param key="origFrom" value="851572547"/>
         <param key="origTo" value="1568241351"/>
         <param key="postal_code" value="12489;12345;67890"/>
+        <param key="ref" value="L 1081"/>
     </edge>
-    <edge id="415852965" from="4167993269" to="4167993270" priority="10" type="highway.tertiary" spreadType="center" shape="1309.11,534.35 1342.04,536.82 1387.50,543.70 1466.58,561.64 1481.99,565.29">
+    <edge id="415852965" from="4167993269" to="4167993270" name="Rudower Chaussee" priority="10" type="highway.tertiary" spreadType="center" shape="1309.11,534.35 1342.04,536.82 1387.50,543.70 1466.58,561.64 1481.99,565.29">
         <lane id="415852965_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="168.56" shape="1309.23,532.75 1342.22,535.23 1387.80,542.12 1466.94,560.09 1475.18,562.04">
             <param key="origId" value="46039050#7"/>
         </lane>
@@ -3480,8 +3498,9 @@ SPDX-License-Identifier: EPL-2.0
         <param key="origFrom" value="1568241357"/>
         <param key="origTo" value="1560223815"/>
         <param key="postal_code" value="12489;12345;67890"/>
+        <param key="ref" value="L 1081"/>
     </edge>
-    <edge id="415852966" from="4167993273" to="301292499" priority="10" type="highway.tertiary" spreadType="center" shape="995.08,526.59 981.88,528.27 960.57,530.13 900.89,547.26">
+    <edge id="415852966" from="4167993273" to="301292499" name="Eisenhutweg" priority="10" type="highway.tertiary" spreadType="center" shape="995.08,526.59 981.88,528.27 960.57,530.13 900.89,547.26">
         <lane id="415852966_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="81.34" shape="984.03,529.61 982.05,529.86 960.86,531.71 905.32,547.65">
             <param key="origId" value="46039051#0"/>
         </lane>
@@ -3490,6 +3509,7 @@ SPDX-License-Identifier: EPL-2.0
         </lane>
         <param key="origFrom" value="671564296"/>
         <param key="postal_code" value="12487; 12345"/>
+        <param key="ref" value="L 1081"/>
     </edge>
     <edge id="415852967" from="385208394" to="737286282" priority="1" type="highway.path" spreadType="center" shape="1159.48,112.01 1163.70,116.37 1181.17,171.24">
         <lane id="415852967_0" index="0" allow="pedestrian bicycle" speed="2.78" length="61.16" width="2.00" shape="1159.48,112.01 1163.70,116.37 1180.41,168.86">
@@ -3536,7 +3556,7 @@ SPDX-License-Identifier: EPL-2.0
             <param key="origId" value="71960638#1"/>
         </lane>
     </edge>
-    <edge id="46150483" from="301292499" to="2165987554" priority="10" type="highway.tertiary" spreadType="center" shape="898.83,541.23 925.09,532.70">
+    <edge id="46150483" from="301292499" to="2165987554" name="Eisenhutweg" priority="10" type="highway.tertiary" spreadType="center" shape="898.83,541.23 925.09,532.70">
         <lane id="46150483_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="19.65" shape="902.33,538.41 921.02,532.34">
             <param key="origId" value="46150483"/>
         </lane>
@@ -3544,6 +3564,7 @@ SPDX-License-Identifier: EPL-2.0
             <param key="origId" value="46150483"/>
         </lane>
         <param key="postal_code" value="12487"/>
+        <param key="ref" value="L 1081"/>
     </edge>
     <edge id="47765615" from="607601623" to="607601659" priority="1" type="highway.service" shape="1239.30,623.59 1232.78,704.46 1239.14,704.97 1234.71,764.33">
         <lane id="47765615_0" index="0" allow="pedestrian delivery bicycle" speed="5.56" length="142.29" shape="1240.51,628.42 1234.51,702.99 1240.85,703.51 1236.31,764.45">
@@ -3570,7 +3591,7 @@ SPDX-License-Identifier: EPL-2.0
             <param key="origId" value="70139065"/>
         </lane>
     </edge>
-    <edge id="71595976" from="1560223615" to="851572712" priority="1" type="highway.service" shape="1304.62,459.07 1304.93,453.42 1309.55,390.51">
+    <edge id="71595976" from="1560223615" to="851572712" name="Schwarzschildstraße" priority="1" type="highway.service" shape="1304.62,459.07 1304.93,453.42 1309.55,390.51">
         <lane id="71595976_0" index="0" allow="pedestrian delivery bicycle" speed="5.56" length="61.32" shape="1303.45,451.70 1307.94,390.55">
             <param key="origId" value="71595976"/>
         </lane>

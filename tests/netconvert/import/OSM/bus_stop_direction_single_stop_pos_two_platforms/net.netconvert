@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Apr 26 23:30:11 2019 by Eclipse SUMO netconvert Version v1_2_0+0022-5179cc2293
+<!-- generated on Fri Nov 15 14:27:34 2019 by Eclipse SUMO netconvert Version v1_3_1+0893-7aca76e
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -260,12 +260,15 @@ SPDX-License-Identifier: EPL-2.0
     </edge>
     <edge id="-412820207" from="18916104" to="1182713938" priority="9" type="highway.primary" shape="169.76,65.17 148.96,65.07 120.85,64.94">
         <lane id="-412820207_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="41.45" shape="162.30,66.73 148.95,66.67 120.84,66.54"/>
+        <param key="ref" value="K 9659"/>
     </edge>
     <edge id="-412820208#0" from="1182713755" to="18916104" priority="9" type="highway.primary">
         <lane id="-412820208#0_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="1.03" shape="178.08,66.60 177.05,66.62"/>
+        <param key="ref" value="K 9659"/>
     </edge>
     <edge id="-412820208#1" from="286475457" to="1182713755" priority="9" type="highway.primary">
         <lane id="-412820208#1_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="59.03" shape="243.52,65.86 184.49,66.50"/>
+        <param key="ref" value="K 9659"/>
     </edge>
     <edge id="102414454#0" from="1182713934" to="1182713755" priority="1" type="highway.footway" spreadType="center">
         <lane id="102414454#0_0" index="0" allow="pedestrian" speed="8.33" length="1.28" shape="181.39,58.90 181.36,60.18"/>
@@ -324,12 +327,15 @@ SPDX-License-Identifier: EPL-2.0
     <edge id="412820207" from="1182713938" to="18916104" priority="9" type="highway.primary" shape="120.85,64.94 148.96,65.07 169.76,65.17">
         <lane id="412820207_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="41.45" shape="120.87,60.14 148.98,60.27 162.33,60.34"/>
         <lane id="412820207_1" index="1" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="41.45" shape="120.86,63.34 148.96,63.47 162.31,63.53"/>
+        <param key="ref" value="K 9659"/>
     </edge>
     <edge id="412820208#0" from="18916104" to="1182713755" priority="9" type="highway.primary">
         <lane id="412820208#0_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="1.03" shape="176.98,63.42 178.02,63.40"/>
+        <param key="ref" value="K 9659"/>
     </edge>
     <edge id="412820208#1" from="1182713755" to="286475457" priority="9" type="highway.primary">
         <lane id="412820208#1_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="59.03" shape="184.45,63.30 243.48,62.66"/>
+        <param key="ref" value="K 9659"/>
     </edge>
 
     <tlLogic id="1182713755" type="static" programID="0" offset="0">
