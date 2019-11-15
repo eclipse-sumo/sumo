@@ -205,13 +205,21 @@ NWWriter_DlrNavteq::writeLinksUnsplitted(const OptionsCont& oc, NBEdgeCont& ec, 
         const int kph = speedInKph(e->getSpeed());
         const std::string& betweenNodeID = (e->getGeometry().size() > 2) ? internalNodes[e] : UNDEFINED;
         std::string nameID = UNDEFINED;
+        std::string nameIDRegional = UNDEFINED;
         if (oc.getBool("output.street-names")) {
-            const std::string& name = i->second->getStreetName();
+            const std::string& name = e->getStreetName();
             if (name != "") {
                 if (nameIDs.count(name) == 0) {
                     nameIDs[name] = toString(nameIDs.size());
                 }
                 nameID = nameIDs[name];
+            }
+            const std::string& name2 = e->getParameter("ref", "");
+            if (name2 != "") {
+                if (nameIDs.count(name2) == 0) {
+                    nameIDs[name2] = toString(nameIDs.size());
+                }
+                nameIDRegional = nameIDs[name2];
             }
         }
         device << e->getID() << "\t"
@@ -227,7 +235,7 @@ NWWriter_DlrNavteq::writeLinksUnsplitted(const OptionsCont& oc, NBEdgeCont& ec, 
                << getNavteqLaneCode(e->getNumLanes()) << "\t"
                << getSpeedCategoryUpperBound(kph) << "\t"
                << kph << "\t"
-               << UNDEFINED << "\t" // NAME_ID1_REGIONAL XXX
+               << nameIDRegional << "\t" 
                << nameID << "\t" // NAME_ID2_LOCAL
                << UNDEFINED << "\t" // housenumbers_right
                << UNDEFINED << "\t" // housenumbers_left

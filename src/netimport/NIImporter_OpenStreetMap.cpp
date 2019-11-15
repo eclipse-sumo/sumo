@@ -396,6 +396,9 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
     SVCPermissions forwardPermissions = permissions;
     SVCPermissions backwardPermissions = permissions;
     const std::string streetName = isRailway(forwardPermissions) && e->ref != "" ? e->ref : e->streetName;
+    if (streetName == e->ref) {
+        e->unsetParameter("ref"); // avoid superfluous param for railways
+    }
     double forwardWidth = tc.getWidth(type);
     double backwardWidth = tc.getWidth(type);
     const bool addSidewalk = (tc.getSidewalkWidth(type) != NBEdge::UNSPECIFIED_WIDTH);
@@ -982,6 +985,7 @@ NIImporter_OpenStreetMap::EdgesHandler::myStartElement(int element,
             myCurrentEdge->streetName = value;
         } else if (key == "ref") {
             myCurrentEdge->ref = value;
+            myCurrentEdge->setParameter("ref", value);
         } else if (key == "layer") {
             if (myAllAttributes) {
                 myCurrentEdge->setParameter(key, value);
