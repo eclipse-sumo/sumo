@@ -531,7 +531,7 @@ GNEVehicle::updateGeometry() {
         arrivalPosLane = arrivalPos;
     }
     // calculate geometry path
-    calculateGeometricPath(getEdgeParents(), departPosLane, arrivalPosLane);
+    GNEGeometry::calculateGeometricPath(this, myDemandElementSegmentGeometry,getEdgeParents(), getFirstAllowedVehicleLane(), getLastAllowedVehicleLane(), departPosLane, arrivalPosLane);
     // update demand element childrens
     for (const auto& i : getDemandElementChildren()) {
         i->updateGeometry();
@@ -552,7 +552,7 @@ GNEVehicle::updatePartialGeometry(const GNEEdge* edge) {
         arrivalPosLane = arrivalPos;
     }
     // calculate geometry path
-    updateGeometricPath(edge, departPosLane, arrivalPosLane);
+    GNEGeometry::updateGeometricPath(this, myDemandElementSegmentGeometry, edge, getFirstAllowedVehicleLane(), getLastAllowedVehicleLane(), departPosLane, arrivalPosLane);
     // update demand element childrens
     for (const auto& i : getDemandElementChildren()) {
         i->updatePartialGeometry(edge);

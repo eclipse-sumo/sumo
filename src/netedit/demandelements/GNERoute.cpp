@@ -258,7 +258,7 @@ GNERoute::commitGeometryMoving(GNEUndoList*) {
 void
 GNERoute::updateGeometry() {
     // calculate geometry path
-    calculateGeometricPath(getEdgeParents());
+    GNEGeometry::calculateGeometricPath(this, myDemandElementSegmentGeometry, getEdgeParents(), getFirstAllowedVehicleLane(), getLastAllowedVehicleLane());
     // update demand element childrens
     for (const auto& i : getDemandElementChildren()) {
         if (!i->getTagProperty().isPersonStop() && !i->getTagProperty().isStop()) {
@@ -271,7 +271,7 @@ GNERoute::updateGeometry() {
 void 
 GNERoute::updatePartialGeometry(const GNEEdge* edge) {
     // calculate geometry path
-    updateGeometricPath(edge);
+    GNEGeometry::updateGeometricPath(this, myDemandElementSegmentGeometry, edge, getFirstAllowedVehicleLane(), getLastAllowedVehicleLane());
     // update demand element childrens
     for (const auto& i : getDemandElementChildren()) {
         if (!i->getTagProperty().isPersonStop() && !i->getTagProperty().isStop()) {

@@ -42,6 +42,7 @@
 class GNELane;
 class GNEEdge;
 class GNEJunction;
+class GNEDemandElement;
 
 // ===========================================================================
 // class definitions
@@ -99,7 +100,7 @@ struct GNEGeometry {
             const std::vector<double> &getShapeLengths() const;
 
             /// @brief element
-            const GNEDemandElement* element;
+            const GNEAttributeCarrier* element;
 
             /// @brief edge
             const GNEEdge* edge;
@@ -202,6 +203,32 @@ struct GNEGeometry {
 
     /// @brief return length between two points (used in geometric calculations)
     static double calculateLength(const Position& first, const Position& second);
+
+    /// @brief adjust start and end positions in geometric path
+    static void adjustStartPosGeometricPath(double &startPos, const GNELane* startLane, double &endPos, const GNELane* endLane);
+
+    /**@brief calculate route between edges
+     * @brief edges list of edges
+     * @param startPos start position in the first lane (if -1, then starts at the beginning of lane)
+     * @param endPos end position in the last lane (if -1, then ends at the end of lane)
+     * @param extraFirstPosition extra first position (if is Position::INVALID, then it's ignored)
+     * @param extraLastPosition extra last position (if is Position::INVALID, then it's ignored)
+     */
+    static void calculateGeometricPath(GNEDemandElement* demandElement, GNEGeometry::DemandElementSegmentGeometry &segmentGeometry, const std::vector<GNEEdge*> &edges, 
+                                GNELane *fromLane, GNELane *toLane, double startPos = -1, double endPos = -1, 
+                                const Position &extraFirstPosition = Position::INVALID, const Position &extraLastPosition = Position::INVALID);
+
+    /**@brief calculate route between edges
+     * @brief edges list of edges
+     * @param startPos start position in the first lane (if -1, then starts at the beginning of lane)
+     * @param endPos end position in the last lane (if -1, then ends at the end of lane)
+     * @param extraFirstPosition extra first position (if is Position::INVALID, then it's ignored)
+     * @param extraLastPosition extra last position (if is Position::INVALID, then it's ignored)
+     */
+    static void updateGeometricPath(GNEDemandElement* demandElement, GNEGeometry::DemandElementSegmentGeometry &segmentGeometry, const GNEEdge* edge, 
+                            GNELane *fromLane, GNELane *toLane, double startPos = -1, double endPos = -1, 
+                            const Position &extraFirstPosition = Position::INVALID, const Position &extraLastPosition = Position::INVALID);
+
 };
 
 #endif

@@ -389,27 +389,6 @@ protected:
 
     /// @}
 
-    /**@brief calculate route between edges
-     * @brief edges list of edges
-     * @param startPos start position in the first lane (if -1, then starts at the beginning of lane)
-     * @param endPos end position in the last lane (if -1, then ends at the end of lane)
-     * @param extraFirstPosition extra first position (if is Position::INVALID, then it's ignored)
-     * @param extraLastPosition extra last position (if is Position::INVALID, then it's ignored)
-     */
-    void calculateGeometricPath(const std::vector<GNEEdge*> &edges, 
-                                double startPos = -1, double endPos = -1, 
-                                const Position &extraFirstPosition = Position::INVALID, const Position &extraLastPosition = Position::INVALID);
-
-    /**@brief calculate route between edges
-     * @brief edges list of edges
-     * @param startPos start position in the first lane (if -1, then starts at the beginning of lane)
-     * @param endPos end position in the last lane (if -1, then ends at the end of lane)
-     * @param extraFirstPosition extra first position (if is Position::INVALID, then it's ignored)
-     * @param extraLastPosition extra last position (if is Position::INVALID, then it's ignored)
-     */
-    void updateGeometricPath(const GNEEdge* edge, double startPos = -1, double endPos = -1, 
-                            const Position &extraFirstPosition = Position::INVALID, const Position &extraLastPosition = Position::INVALID);
-
     /// @brief calculate personPlan start and end positions over lanes
     void calculatePersonPlanLaneStartEndPos(double &startPos, double &endPos) const;
 
@@ -423,9 +402,6 @@ protected:
     GNELane* getLastAllowedVehicleLane() const;
 
 private:
-    /// @brief adjust start and end positions in geometric path
-    void adjustStartPosGeometricPath(double &startPos, const GNELane* startLane, double &endPos, const GNELane* endLane) const;
-
     /**@brief check restriction with the number of children
      * @throw ProcessError if itis called without be reimplemented in child class
      */

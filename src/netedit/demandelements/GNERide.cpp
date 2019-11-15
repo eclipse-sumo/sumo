@@ -266,7 +266,7 @@ GNERide::updateGeometry() {
     // calculate person plan start and end positions
     calculatePersonPlanPositionStartEndPos(startPos, endPos);
     // calculate geometry path
-    calculateGeometricPath(getEdgeParents(), departPosLane, arrivalPosLane, startPos, endPos);
+    GNEGeometry::calculateGeometricPath(this, myDemandElementSegmentGeometry, getEdgeParents(), getFirstAllowedVehicleLane(), getLastAllowedVehicleLane(), departPosLane, arrivalPosLane, startPos, endPos);
     // update demand element childrens
     for (const auto& i : getDemandElementChildren()) {
         i->updateGeometry();
@@ -287,7 +287,7 @@ GNERide::updatePartialGeometry(const GNEEdge* edge) {
     // calculate person plan start and end positions
     calculatePersonPlanPositionStartEndPos(startPos, endPos);
     // calculate geometry path
-    updateGeometricPath(edge, departPosLane, arrivalPosLane, startPos, endPos);
+    GNEGeometry::updateGeometricPath(this, myDemandElementSegmentGeometry, edge, getFirstAllowedVehicleLane(), getLastAllowedVehicleLane(), departPosLane, arrivalPosLane, startPos, endPos);
     // update demand element childrens
     for (const auto& i : getDemandElementChildren()) {
         i->updatePartialGeometry(edge);
