@@ -98,6 +98,8 @@ permalink: /ChangeLog/
 
 - SUMO-GUI, NETEDIT
   - Zooming now centers on the mouse-position by default instead of on the screen center. As before, the behavior can be toggled using the icon in the view menu bar and persists across application restarts. Issue #5992
+- NETCONVERT
+  - The default number of lanes when importing 'highway.secondary' from OSM was changed from 2 to 1. Issue #5690
 - Documentation moved from MediaWiki to MkDocs
 
 ## Version 1.3.1 (27.08.2019)
