@@ -1165,7 +1165,6 @@ GUILane::getColorValue(const GUIVisualizationSettings& s, int activeScheme) cons
                 try {
                     return StringUtils::toBool(myEdge->getParameter(s.edgeParam, "0"));
                 } catch (BoolFormatException&) {
-                    WRITE_WARNING("Edge parameter '" + myEdge->getParameter(s.edgeParam, "0") + "' key '" + s.edgeParam + "' is not a number for edge '" + myEdge->getID() + "'");
                     return -1;
                 }
             }
@@ -1178,7 +1177,6 @@ GUILane::getColorValue(const GUIVisualizationSettings& s, int activeScheme) cons
                 try {
                     return StringUtils::toBool(getParameter(s.laneParam, "0"));
                 } catch (BoolFormatException&) {
-                    WRITE_WARNING("Lane parameter '" + getParameter(s.laneParam, "0") + "' key '" + s.laneParam + "' is not a number for lane '" + getID() + "'");
                     return -1;
                 }
             }

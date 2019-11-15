@@ -264,13 +264,23 @@ GUIEdge::drawGL(const GUIVisualizationSettings& s) const {
             }
             if (drawEdgeValue) {
                 const int activeScheme = s.getLaneEdgeMode();
-                // use value of leftmost lane to hopefully avoid sidewalks, bikelanes etc
-                double value = (MSGlobals::gUseMesoSim
-                                ? getColorValue(s, activeScheme)
-                                : lane2->getColorValue(s, activeScheme));
-                const RGBColor color = (MSGlobals::gUseMesoSim ? s.edgeColorer : s.laneColorer).getScheme().getColor(value);
-                if (color.alpha() != 0) {
-                    GLHelper::drawTextSettings(s.edgeValue, toString(value), p, s.scale, angle);
+                std::string value;
+                if (activeScheme == 31) {
+                    // edge param, could be non-numerical
+                    value = getParameter(s.edgeParam, "");
+                } else if (activeScheme == 32) {
+                    // lane param, could be non-numerical
+                    value = lane2->getParameter(s.laneParam, "");
+                } else {
+                    // use numerical value value of leftmost lane to hopefully avoid sidewalks, bikelanes etc
+                    const double doubleValue = (MSGlobals::gUseMesoSim
+                            ? getColorValue(s, activeScheme)
+                            : lane2->getColorValue(s, activeScheme));
+                    const RGBColor color = (MSGlobals::gUseMesoSim ? s.edgeColorer : s.laneColorer).getScheme().getColor(doubleValue);
+                    value = color.alpha() == 0 ? "" : toString(doubleValue);
+                }
+                if (value != "") {
+                    GLHelper::drawTextSettings(s.edgeValue, value, p, s.scale, angle);
                 }
             }
         }
