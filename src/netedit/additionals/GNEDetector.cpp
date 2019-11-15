@@ -77,11 +77,15 @@ GNEDetector::getPositionInView() const {
 
 Boundary
 GNEDetector::getCenteringBoundary() const {
+    /*
     if (myGeometry.multiShapeUnified.size() > 0) {
         return myGeometry.multiShapeUnified.getBoxBoundary().grow(10);
     } else {
+    */
         return myGeometry.shape.getBoxBoundary().grow(10);
+        /*
     }
+    */
 }
 
 

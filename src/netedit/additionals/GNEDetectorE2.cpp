@@ -284,6 +284,7 @@ GNEDetectorE2::updateGeometry() {
         myBlockIcon.position = myGeometry.shape.getLineCenter();
 
     } else if (getLaneParents().size() > 1) {
+        /*
         // start with the first lane shape
         myGeometry.multiShape.push_back(getLaneParents().front()->getLaneShape());
 
@@ -349,6 +350,7 @@ GNEDetectorE2::updateGeometry() {
 
         // check integrity
         checkE2MultilaneIntegrity();
+        */
     }
 
     // Set offset of the block icon
@@ -414,6 +416,7 @@ GNEDetectorE2::drawGL(const GUIVisualizationSettings& s) const {
             // Draw the area using shape, shapeRotations, shapeLengths and value of exaggeration
             GLHelper::drawBoxLines(myGeometry.shape, myGeometry.shapeRotations, myGeometry.shapeLengths, exaggeration);
         } else {
+            /*
             // iterate over multishapes
             for (int i = 0; i < (int)myGeometry.multiShape.size(); i++) {
                 // don't draw shapes over connections if "show connections" is enabled
@@ -421,6 +424,7 @@ GNEDetectorE2::drawGL(const GUIVisualizationSettings& s) const {
                     GLHelper::drawBoxLines(myGeometry.multiShape.at(i), myGeometry.multiShapeRotations.at(i), myGeometry.multiShapeLengths.at(i), exaggeration);
                 }
             }
+            */
         }
         // Pop last matrix
         glPopMatrix();
@@ -485,7 +489,9 @@ GNEDetectorE2::drawGL(const GUIVisualizationSettings& s) const {
             if (myGeometry.shape.size() > 0) {
                 GLHelper::drawShapeDottedContourAroundShape(s, getType(), myGeometry.shape, exaggeration);
             } else {
+                /*
                 GLHelper::drawShapeDottedContourAroundShape(s, getType(), myGeometry.multiShapeUnified, exaggeration);
+                */
             }
         }
         // Pop name

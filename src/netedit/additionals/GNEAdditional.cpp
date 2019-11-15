@@ -42,84 +42,6 @@
 // member method definitions
 // ===========================================================================
 
-// ---------------------------------------------------------------------------
-// GNEAdditional::AdditionalGeometry - methods
-// ---------------------------------------------------------------------------
-
-GNEAdditional::AdditionalGeometry::AdditionalGeometry() {}
-
-
-void
-GNEAdditional::AdditionalGeometry::clearGeometry() {
-    shape.clear();
-    multiShape.clear();
-    shapeRotations.clear();
-    shapeLengths.clear();
-    multiShapeRotations.clear();
-    multiShapeLengths.clear();
-    multiShapeUnified.clear();
-}
-
-
-void
-GNEAdditional::AdditionalGeometry::calculateMultiShapeUnified() {
-    // merge all multishape parts in a single shape
-    for (auto i : multiShape) {
-        multiShapeUnified.append(i);
-    }
-}
-
-
-void
-GNEAdditional::AdditionalGeometry::calculateShapeRotationsAndLengths() {
-    // Get number of parts of the shape
-    int numberOfSegments = (int)shape.size() - 1;
-    // If number of segments is more than 0
-    if (numberOfSegments >= 0) {
-        // Reserve memory (To improve efficiency)
-        shapeRotations.reserve(numberOfSegments);
-        shapeLengths.reserve(numberOfSegments);
-        // For every part of the shape
-        for (int i = 0; i < numberOfSegments; ++i) {
-            // Save distance between position into myShapeLengths
-            shapeLengths.push_back(GNEGeometry::calculateLength(shape[i], shape[i + 1]));
-            // Save rotation (angle) of the vector constructed by points f and s
-            shapeRotations.push_back(GNEGeometry::calculateRotation(shape[i], shape[i + 1]));
-        }
-    }
-}
-
-
-void
-GNEAdditional::AdditionalGeometry::calculateMultiShapeRotationsAndLengths() {
-    // Get number of parts of the shape for every part shape
-    std::vector<int> numberOfSegments;
-    for (auto i : multiShape) {
-        // numseg cannot be 0
-        int numSeg = (int)i.size() - 1;
-        numberOfSegments.push_back((numSeg >= 0) ? numSeg : 0);
-        multiShapeRotations.push_back(std::vector<double>());
-        multiShapeLengths.push_back(std::vector<double>());
-    }
-    // If number of segments is more than 0
-    for (int i = 0; i < (int)multiShape.size(); i++) {
-        // Reserve size for every part
-        multiShapeRotations.back().reserve(numberOfSegments.at(i));
-        multiShapeLengths.back().reserve(numberOfSegments.at(i));
-        // iterate over each segment
-        for (int j = 0; j < numberOfSegments.at(i); j++) {
-            // Save distance between position into myShapeLengths
-            multiShapeLengths.at(i).push_back(GNEGeometry::calculateLength(multiShape[i][j], multiShape[i][j + 1]));
-            // Save rotation (angle) of the vector constructed by points f and s
-            multiShapeRotations.at(i).push_back(GNEGeometry::calculateRotation(multiShape[i][j], multiShape[i][j + 1]));
-        }
-    }
-}
-
-// ---------------------------------------------------------------------------
-// GNEAdditional - methods
-// ---------------------------------------------------------------------------
-
 GNEAdditional::GNEAdditional(const std::string& id, GNEViewNet* viewNet, GUIGlObjectType type, SumoXMLTag tag, std::string additionalName, bool blockMovement,
         const std::vector<GNEEdge*>& edgeParents,
         const std::vector<GNELane*>& laneParents,
@@ -181,7 +103,7 @@ GNEAdditional::generateChildID(SumoXMLTag childTag) {
 }
 
 
-const GNEAdditional::AdditionalGeometry&
+const GNEGeometry::Geometry&
 GNEAdditional::getAdditionalGeometry() const {
     return myGeometry;
 }

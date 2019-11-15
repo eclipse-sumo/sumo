@@ -48,45 +48,6 @@ class GUIGLObjectPopupMenu;
 class GNEAdditional : public GUIGlObject, public GNEAttributeCarrier, public Parameterised, public GNEHierarchicalElementParents, public GNEHierarchicalElementChildren  {
 
 public:
-    /// @brief struct for pack all variables related with geometry of elemement
-    struct AdditionalGeometry {
-        /// @brief constructor
-        AdditionalGeometry();
-
-        /// @brief reset geometry
-        void clearGeometry();
-
-        /// @brief calculate multi shape unified
-        void calculateMultiShapeUnified();
-
-        /// @brief calculate shape rotations and lenghts
-        void calculateShapeRotationsAndLengths();
-
-        /// @brief calculate multi shape rotations and lenghts
-        void calculateMultiShapeRotationsAndLengths();
-
-        /// @brief The shape of the additional element
-        PositionVector shape;
-
-        /// @brief The multi-shape of the additional element (used by certain additionals)
-        std::vector<PositionVector> multiShape;
-
-        /// @brief The rotations of the single shape parts
-        std::vector<double> shapeRotations;
-
-        /// @brief The lengths of the single shape parts
-        std::vector<double> shapeLengths;
-
-        /// @brief The rotations of the multi-shape parts
-        std::vector<std::vector<double> > multiShapeRotations;
-
-        /// @brief The lengths of the multi-shape shape parts
-        std::vector<std::vector<double> > multiShapeLengths;
-
-        /// @brief multi shape unified
-        PositionVector multiShapeUnified;
-    };
-
     /**@brief Constructor
      * @param[in] id Gl-id of the additional element (Must be unique)
      * @param[in] viewNet pointer to GNEViewNet of this additional element belongs
@@ -154,7 +115,7 @@ public:
     std::string generateChildID(SumoXMLTag childTag);
 
     /// @brief obtain AdditionalGeometry
-    const AdditionalGeometry& getAdditionalGeometry() const;
+    const GNEGeometry::Geometry& getAdditionalGeometry() const;
 
     /// @brief set special color
     void setSpecialColor(const RGBColor* color);
@@ -365,7 +326,7 @@ protected:
     GNEViewNet* myViewNet;
 
     /// @brief geometry to be precomputed in updateGeometry(...)
-    AdditionalGeometry myGeometry;
+    GNEGeometry::Geometry myGeometry;
 
     /// @brief variable AdditionalMove
     AdditionalMove myMove;
