@@ -71,6 +71,9 @@ permalink: /ChangeLog/
   - When importing public transport lines (**--ptline-output**), edge permissions are now adapted to allow the respective public transport vehicle. Issue #3437
   - When importing public transport lines from OSM, stops that are not part of the road network are now mapped to the nearest line edge (previously, these stops were discarded). Issue #6114
 
+- Netconvert
+  - Regional road names (A9, I-95) are now exported as edge params. They are also exported as Regional Name ID in dlr-navteq-output. Issue #6256
+
 - Netedit
   - Now additionals and routes can optionally be loaded using option "Open in SUMO-GUI"). Issue #6049
   - Added shortcuts (Shift F1,F2,F3) for edge templates. Issue #6033
