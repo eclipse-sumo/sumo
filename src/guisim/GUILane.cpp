@@ -851,11 +851,11 @@ GUILane::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     new FXMenuSeparator(ret);
     // reachability menu
     FXMenuPane* reachableByClass = new FXMenuPane(ret);
-    std::vector<std::string> vehicleClasses = SumoVehicleClassStrings.getStrings();
-    for (auto i : vehicleClasses) {
+    ret->insertMenuPaneChild(reachableByClass);
+    new FXMenuCascade(ret, "Select reachable", GUIIconSubSys::getIcon(ICON_FLAG), reachableByClass);
+    for (auto i : SumoVehicleClassStrings.getStrings()) {
         new FXMenuCommand(reachableByClass, i.c_str(), nullptr, &parent, MID_REACHABILITY);
     }
-    new FXMenuCascade(ret, "Select reachable", GUIIconSubSys::getIcon(ICON_FLAG), reachableByClass);
     return ret;
 }
 
