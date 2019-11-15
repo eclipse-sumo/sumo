@@ -23,7 +23,6 @@
 #include <netedit/netelements/GNEEdge.h>
 #include <netedit/netelements/GNEJunction.h>
 #include <netedit/netelements/GNELane.h>
-#include <netedit/demandelements/GNEDemandElement.h>
 #include <utils/common/StringTokenizer.h>
 #include <utils/emissions/PollutantsInterface.h>
 #include <utils/geom/GeomConvHelper.h>
@@ -44,14 +43,14 @@
 
 
 // ---------------------------------------------------------------------------
-// GNEGeometry::DemandElementGeometry - methods
+// GNEGeometry::Geometry - methods
 // ---------------------------------------------------------------------------
 
-GNEGeometry::DemandElementGeometry::DemandElementGeometry() {}
+GNEGeometry::Geometry::Geometry() {}
 
 
 void
-GNEGeometry::DemandElementGeometry::clearGeometry() {
+GNEGeometry::Geometry::clearGeometry() {
     shape.clear();
     shapeRotations.clear();
     shapeLengths.clear();
@@ -59,7 +58,7 @@ GNEGeometry::DemandElementGeometry::clearGeometry() {
 
 
 void
-GNEGeometry::DemandElementGeometry::calculateShapeRotationsAndLengths() {
+GNEGeometry::Geometry::calculateShapeRotationsAndLengths() {
     // Get number of parts of the shape
     int numberOfSegments = (int)shape.size() - 1;
     // If number of segments is more than 0
@@ -76,10 +75,10 @@ GNEGeometry::DemandElementGeometry::calculateShapeRotationsAndLengths() {
 }
 
 // ---------------------------------------------------------------------------
-// GNEGeometry::DemandElementSegmentGeometry::Segment - methods
+// GNEGeometry::SegmentGeometry::Segment - methods
 // ---------------------------------------------------------------------------
 
-GNEGeometry::DemandElementSegmentGeometry::Segment::Segment(const GNEAttributeCarrier* _AC, const GNELane* _lane, const bool _valid) :
+GNEGeometry::SegmentGeometry::Segment::Segment(const GNEAttributeCarrier* _AC, const GNELane* _lane, const bool _valid) :
     AC(_AC),
     edge(&_lane->getParentEdge()),
     lane(_lane),
@@ -89,7 +88,7 @@ GNEGeometry::DemandElementSegmentGeometry::Segment::Segment(const GNEAttributeCa
 }
 
 
-GNEGeometry::DemandElementSegmentGeometry::Segment::Segment(const GNEAttributeCarrier* _AC, const GNELane* _lane,
+GNEGeometry::SegmentGeometry::Segment::Segment(const GNEAttributeCarrier* _AC, const GNELane* _lane,
         const PositionVector& shape, const std::vector<double> &shapeRotations, const std::vector<double> &shapeLengths, const bool _valid) :
     AC(_AC),
     edge(&_lane->getParentEdge()),
@@ -99,11 +98,10 @@ GNEGeometry::DemandElementSegmentGeometry::Segment::Segment(const GNEAttributeCa
     myUseLaneShape(false),
     mySegmentShape(shape),
     mySegmentRotations(shapeRotations),
-    mySegmentLengths(shapeLengths) {
-}
+    mySegmentLengths(shapeLengths) {}
 
 
-GNEGeometry::DemandElementSegmentGeometry::Segment::Segment(const GNEAttributeCarrier* _AC, const GNELane* currentLane, const GNELane* nextLane, const bool _valid) :
+GNEGeometry::SegmentGeometry::Segment::Segment(const GNEAttributeCarrier* _AC, const GNELane* currentLane, const GNELane* nextLane, const bool _valid) :
     AC(_AC),
     edge(nullptr),
     lane(nextLane),
@@ -117,14 +115,14 @@ GNEGeometry::DemandElementSegmentGeometry::Segment::Segment(const GNEAttributeCa
 
 
 void 
-GNEGeometry::DemandElementSegmentGeometry::Segment::update(const PositionVector& shape, const std::vector<double> &shapeRotations, const std::vector<double> &shapeLengths) {
+GNEGeometry::SegmentGeometry::Segment::update(const PositionVector& shape, const std::vector<double> &shapeRotations, const std::vector<double> &shapeLengths) {
     mySegmentShape = shape;
     mySegmentRotations = shapeRotations;
     mySegmentLengths = shapeLengths;
 }
 
 
-GNEGeometry::DemandElementSegmentGeometry::SegmentToUpdate::SegmentToUpdate(const int _index, const GNELane* _lane, const GNELane* _nextLane) :
+GNEGeometry::SegmentGeometry::SegmentToUpdate::SegmentToUpdate(const int _index, const GNELane* _lane, const GNELane* _nextLane) :
     index(_index),
     lane(_lane),
     nextLane(_nextLane) {
@@ -132,7 +130,7 @@ GNEGeometry::DemandElementSegmentGeometry::SegmentToUpdate::SegmentToUpdate(cons
 
 
 const PositionVector&
-GNEGeometry::DemandElementSegmentGeometry::Segment::getShape() const {
+GNEGeometry::SegmentGeometry::Segment::getShape() const {
     if (myUseLaneShape) {
         return lane->getLaneShape();
     } else {
@@ -142,7 +140,7 @@ GNEGeometry::DemandElementSegmentGeometry::Segment::getShape() const {
 
 
 const std::vector<double>&
-GNEGeometry::DemandElementSegmentGeometry::Segment::getShapeRotations() const {
+GNEGeometry::SegmentGeometry::Segment::getShapeRotations() const {
     if (myUseLaneShape) {
         return lane->getShapeRotations();
     } else {
@@ -152,7 +150,7 @@ GNEGeometry::DemandElementSegmentGeometry::Segment::getShapeRotations() const {
             
 
 const std::vector<double>&
-GNEGeometry::DemandElementSegmentGeometry::Segment::getShapeLengths() const {
+GNEGeometry::SegmentGeometry::Segment::getShapeLengths() const {
     if (myUseLaneShape) {
         return lane->getShapeLengths();
     } else {
@@ -161,21 +159,21 @@ GNEGeometry::DemandElementSegmentGeometry::Segment::getShapeLengths() const {
 }
 
 // ---------------------------------------------------------------------------
-// GNEGeometry::DemandElementGeometry - methods
+// GNEGeometry::Geometry - methods
 // ---------------------------------------------------------------------------
 
-GNEGeometry::DemandElementSegmentGeometry::DemandElementSegmentGeometry() {}
+GNEGeometry::SegmentGeometry::SegmentGeometry() {}
 
 
 void 
-GNEGeometry::DemandElementSegmentGeometry::insertLaneSegment(const GNEAttributeCarrier* AC, const GNELane* lane, const bool valid) {
+GNEGeometry::SegmentGeometry::insertLaneSegment(const GNEAttributeCarrier* AC, const GNELane* lane, const bool valid) {
     // add segment in myShapeSegments
     myShapeSegments.push_back(Segment(AC, lane, valid));
 }
 
 
 void 
-GNEGeometry::DemandElementSegmentGeometry::insertCustomSegment(const GNEAttributeCarrier* AC, const GNELane* lane,
+GNEGeometry::SegmentGeometry::insertCustomSegment(const GNEAttributeCarrier* AC, const GNELane* lane,
     const PositionVector& laneShape, const std::vector<double> &laneShapeRotations, const std::vector<double> &laneShapeLengths, const bool valid) {
     // add segment in myShapeSegments
     myShapeSegments.push_back(Segment(AC, lane, laneShape, laneShapeRotations, laneShapeLengths, valid));
@@ -183,20 +181,20 @@ GNEGeometry::DemandElementSegmentGeometry::insertCustomSegment(const GNEAttribut
 
 
 void
-GNEGeometry::DemandElementSegmentGeometry::insertLane2LaneSegment(const GNEAttributeCarrier* AC, const GNELane* currentLane, const GNELane* nextLane, const bool valid) {
+GNEGeometry::SegmentGeometry::insertLane2LaneSegment(const GNEAttributeCarrier* AC, const GNELane* currentLane, const GNELane* nextLane, const bool valid) {
     // add segment in myShapeSegments
     myShapeSegments.push_back(Segment(AC, currentLane, nextLane, valid));
 }
 
 
 void 
-GNEGeometry::DemandElementSegmentGeometry::updateCustomSegment(const int segmentIndex, const PositionVector& newLaneShape, const std::vector<double> &newLaneShapeRotations, const std::vector<double> &newLaneShapeLengths) {
+GNEGeometry::SegmentGeometry::updateCustomSegment(const int segmentIndex, const PositionVector& newLaneShape, const std::vector<double> &newLaneShapeRotations, const std::vector<double> &newLaneShapeLengths) {
     myShapeSegments.at(segmentIndex).update(newLaneShape, newLaneShapeRotations, newLaneShapeLengths);
 }
 
 
 void 
-GNEGeometry::DemandElementSegmentGeometry::updateLane2LaneSegment(const int segmentIndex, const GNELane* lane, const GNELane* nextLane) {
+GNEGeometry::SegmentGeometry::updateLane2LaneSegment(const int segmentIndex, const GNELane* lane, const GNELane* nextLane) {
     myShapeSegments.at(segmentIndex+1).update(
         lane->getLane2laneConnections().shapesMap.at(nextLane), 
         lane->getLane2laneConnections().shapeRotationsMap.at(nextLane), 
@@ -205,14 +203,14 @@ GNEGeometry::DemandElementSegmentGeometry::updateLane2LaneSegment(const int segm
 
 
 void
-GNEGeometry::DemandElementSegmentGeometry::clearDemandElementSegmentGeometry() {
+GNEGeometry::SegmentGeometry::clearSegmentGeometry() {
     // clear segments
     myShapeSegments.clear();
 }
 
 
 const Position &
-GNEGeometry::DemandElementSegmentGeometry::getFirstPosition() const {
+GNEGeometry::SegmentGeometry::getFirstPosition() const {
     if ((myShapeSegments.size() > 0) && (myShapeSegments.front().getShape().size() > 0)) {
         return myShapeSegments.front().getShape().front();
     } else {
@@ -221,7 +219,7 @@ GNEGeometry::DemandElementSegmentGeometry::getFirstPosition() const {
 }
 
 const Position &
-GNEGeometry::DemandElementSegmentGeometry::getLastPosition() const {
+GNEGeometry::SegmentGeometry::getLastPosition() const {
     if ((myShapeSegments.size() > 0) && (myShapeSegments.back().getShape().size() > 0)) {
         return myShapeSegments.back().getShape().back();
     } else {
@@ -231,7 +229,7 @@ GNEGeometry::DemandElementSegmentGeometry::getLastPosition() const {
 
 
 double 
-GNEGeometry::DemandElementSegmentGeometry::getFirstRotation() const {
+GNEGeometry::SegmentGeometry::getFirstRotation() const {
     if ((myShapeSegments.size() > 0) && (myShapeSegments.front().getShapeRotations().size() > 0)) {
         return myShapeSegments.front().getShapeRotations().front();
     } else {
@@ -240,32 +238,32 @@ GNEGeometry::DemandElementSegmentGeometry::getFirstRotation() const {
 }
 
 
-std::vector<GNEGeometry::DemandElementSegmentGeometry::Segment>::const_iterator
-GNEGeometry::DemandElementSegmentGeometry::begin() const {
+std::vector<GNEGeometry::SegmentGeometry::Segment>::const_iterator
+GNEGeometry::SegmentGeometry::begin() const {
     return myShapeSegments.cbegin();
 }
 
 
-std::vector<GNEGeometry::DemandElementSegmentGeometry::Segment>::const_iterator
-GNEGeometry::DemandElementSegmentGeometry::end() const {
+std::vector<GNEGeometry::SegmentGeometry::Segment>::const_iterator
+GNEGeometry::SegmentGeometry::end() const {
     return myShapeSegments.cend();
 }
 
 
-const GNEGeometry::DemandElementSegmentGeometry::Segment&
-GNEGeometry::DemandElementSegmentGeometry::front() const {
+const GNEGeometry::SegmentGeometry::Segment&
+GNEGeometry::SegmentGeometry::front() const {
     return myShapeSegments.front();
 }
 
 
-const GNEGeometry::DemandElementSegmentGeometry::Segment&
-GNEGeometry::DemandElementSegmentGeometry::back() const {
+const GNEGeometry::SegmentGeometry::Segment&
+GNEGeometry::SegmentGeometry::back() const {
     return myShapeSegments.back();
 }
 
 
 int 
-GNEGeometry::DemandElementSegmentGeometry::size() const {
+GNEGeometry::SegmentGeometry::size() const {
     return (int)myShapeSegments.size();
 }
 
@@ -314,11 +312,11 @@ GNEGeometry::adjustStartPosGeometricPath(double &startPos, const GNELane* startL
 
 
 void 
-GNEGeometry::calculateGeometricPath(const GNEAttributeCarrier* AC, GNEGeometry::DemandElementSegmentGeometry &segmentGeometry, 
+GNEGeometry::calculateGeometricPath(const GNEAttributeCarrier* AC, GNEGeometry::SegmentGeometry &segmentGeometry, 
         const std::vector<GNEEdge*> &edges, const SUMOVehicleClass vClass, GNELane *fromLane, GNELane *toLane, double startPos, double endPos, 
     const Position &extraFirstPosition, const Position &extraLastPosition) {
     // clear geometry
-    segmentGeometry.clearDemandElementSegmentGeometry();
+    segmentGeometry.clearSegmentGeometry();
     // first check that there is edge parents
     if (edges.size() > 0) {
         // calculate depending if both from and to edges are the same
@@ -464,7 +462,7 @@ GNEGeometry::calculateGeometricPath(const GNEAttributeCarrier* AC, GNEGeometry::
 
 
 void 
-GNEGeometry::updateGeometricPath(GNEGeometry::DemandElementSegmentGeometry &segmentGeometry, const GNEEdge* edge, double startPos, double endPos, 
+GNEGeometry::updateGeometricPath(GNEGeometry::SegmentGeometry &segmentGeometry, const GNEEdge* edge, double startPos, double endPos, 
     const Position &extraFirstPosition, const Position &extraLastPosition) {
     // calculate depending if both from and to edges are the same
     if ((segmentGeometry.size() == 1) && (segmentGeometry.front().edge == edge)) {
@@ -505,17 +503,17 @@ GNEGeometry::updateGeometricPath(GNEGeometry::DemandElementSegmentGeometry &segm
         }
     } else {
         // declare a vector to save segments to update
-        std::vector<GNEGeometry::DemandElementSegmentGeometry::SegmentToUpdate> segmentsToUpdate;
+        std::vector<GNEGeometry::SegmentGeometry::SegmentToUpdate> segmentsToUpdate;
         // iterate over all segments
         for (auto segment = segmentGeometry.begin(); segment != segmentGeometry.end(); segment++) {
             if (segment->edge == edge) {
                 // obtain segment index
                 const int index = (int)(segment - segmentGeometry.begin());
                 // add SegmentToUpdate in vector
-                segmentsToUpdate.push_back(GNEGeometry::DemandElementSegmentGeometry::SegmentToUpdate(index, segment->lane, nullptr));
+                segmentsToUpdate.push_back(GNEGeometry::SegmentGeometry::SegmentToUpdate(index, segment->lane, nullptr));
                 // check if we have to add the next segment (it correspond to a lane2lane
                 if (((segment+1) != segmentGeometry.end()) && (segment+1)->junction) {
-                    segmentsToUpdate.push_back(GNEGeometry::DemandElementSegmentGeometry::SegmentToUpdate(index, segment->lane, (segment+1)->lane));
+                    segmentsToUpdate.push_back(GNEGeometry::SegmentGeometry::SegmentToUpdate(index, segment->lane, (segment+1)->lane));
                 }
             }
         }

@@ -208,13 +208,13 @@ GNEDemandElement::generateChildID(SumoXMLTag childTag) {
 GNEDemandElement::~GNEDemandElement() {}
 
 
-const GNEGeometry::DemandElementGeometry&
+const GNEGeometry::Geometry&
 GNEDemandElement::getDemandElementGeometry() const {
     return myDemandElementGeometry;
 }
 
 
-const GNEGeometry::DemandElementSegmentGeometry&
+const GNEGeometry::SegmentGeometry&
 GNEDemandElement::getDemandElementSegmentGeometry() const {
     return myDemandElementSegmentGeometry;
 }

@@ -160,10 +160,10 @@ public:
     ~GNEDemandElement();
 
     /// @brief get demand element geometry
-    const GNEGeometry::DemandElementGeometry& getDemandElementGeometry() const;
+    const GNEGeometry::Geometry& getDemandElementGeometry() const;
 
     /// @brief get demand element segment geometry
-    const GNEGeometry::DemandElementSegmentGeometry& getDemandElementSegmentGeometry() const;
+    const GNEGeometry::SegmentGeometry& getDemandElementSegmentGeometry() const;
 
     /// @brief gererate a new ID for an element child
     std::string generateChildID(SumoXMLTag childTag);
@@ -367,10 +367,10 @@ protected:
     GNEViewNet* myViewNet;
 
     /// @brief demand element geometry
-    GNEGeometry::DemandElementGeometry myDemandElementGeometry;
+    GNEGeometry::Geometry myDemandElementGeometry;
 
     /// @brief demand element segment geometry
-    GNEGeometry::DemandElementSegmentGeometry myDemandElementSegmentGeometry;
+    GNEGeometry::SegmentGeometry myDemandElementSegmentGeometry;
 
     /// @name Functions relative to change values in setAttribute(...)
     /// @{
