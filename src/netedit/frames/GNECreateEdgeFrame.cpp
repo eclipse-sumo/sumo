@@ -64,36 +64,52 @@ GNECreateEdgeFrame::~GNECreateEdgeFrame() {}
 
 
 void
-GNECreateEdgeFrame::processClick(const Position& clickedPosition, GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor, bool opossiteEdge, bool chainEdge) {
+GNECreateEdgeFrame::processClick(const Position& clickedPosition, GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor, 
+        GNEViewNetHelper::ObjectsUnderCursor& objectsUnderGrippedCursor, const bool oppositeEdge, const bool chainEdge) {
+    // obtain junction depending of gridEnabled
+    GNEJunction* junction = nullptr;
+    if (objectsUnderCursor.getJunctionFront()) {
+        junction = objectsUnderCursor.getJunctionFront();
+    } else if (objectsUnderGrippedCursor.getJunctionFront()) {
+        junction = objectsUnderGrippedCursor.getJunctionFront();
+    }
+    // begin undo list
     if (!myViewNet->getUndoList()->hasCommandGroup()) {
         myViewNet->getUndoList()->p_begin("create new " + toString(SUMO_TAG_EDGE));
     }
-    if (!objectsUnderCursor.getJunctionFront()) {
-        objectsUnderCursor.setCreatedJunction(myViewNet->getNet()->createJunction(myViewNet->snapToActiveGrid(clickedPosition), myViewNet->getUndoList()));
+    // if we didn't clicked over another junction, then create a new
+    if (junction == nullptr) {
+        junction = myViewNet->getNet()->createJunction(myViewNet->snapToActiveGrid(clickedPosition), myViewNet->getUndoList());
     }
+    // now check if we have to create a new edge
     if (myCreateEdgeSource == nullptr) {
-        myCreateEdgeSource = objectsUnderCursor.getJunctionFront();
+        myCreateEdgeSource = junction;
         myCreateEdgeSource->markAsCreateEdgeSource();
         update();
     } else {
-        if (myCreateEdgeSource != objectsUnderCursor.getJunctionFront()) {
+        // make sure that junctions source and destiny are different
+        if (myCreateEdgeSource != junction) {
             // may fail to prevent double edges
-            GNEEdge* newEdge = myViewNet->getNet()->createEdge(
-                                   myCreateEdgeSource, objectsUnderCursor.getJunctionFront(), myViewNet->getViewParent()->getInspectorFrame()->getTemplateEditor()->getEdgeTemplate(), myViewNet->getUndoList());
+            GNEEdge* newEdge = myViewNet->getNet()->createEdge(myCreateEdgeSource, junction, 
+                myViewNet->getViewParent()->getInspectorFrame()->getTemplateEditor()->getEdgeTemplate(), myViewNet->getUndoList());
+            // check if edge was sucesfully created
             if (newEdge) {
                 // create another edge, if create opposite edge is enabled
-                if (opossiteEdge) {
-                    myViewNet->getNet()->createEdge(objectsUnderCursor.getJunctionFront(), myCreateEdgeSource, myViewNet->getViewParent()->getInspectorFrame()->getTemplateEditor()->getEdgeTemplate(), myViewNet->getUndoList(), "-" + newEdge->getNBEdge()->getID());
+                if (oppositeEdge) {
+                    myViewNet->getNet()->createEdge(junction, myCreateEdgeSource, myViewNet->getViewParent()->getInspectorFrame()->getTemplateEditor()->getEdgeTemplate(), 
+                        myViewNet->getUndoList(), "-" + newEdge->getNBEdge()->getID());
                 }
+                // edge created, then unmark as create edge source
                 myCreateEdgeSource->unMarkAsCreateEdgeSource();
-
+                // end undo list
                 if (myViewNet->getUndoList()->hasCommandGroup()) {
                     myViewNet->getUndoList()->p_end();
                 } else {
                     std::cout << "edge created without an open CommandGroup )-:\n";
                 }
+                // if we're creating edges in chain mode, mark junction as junction edge source
                 if (chainEdge) {
-                    myCreateEdgeSource = objectsUnderCursor.getJunctionFront();
+                    myCreateEdgeSource = junction;
                     myCreateEdgeSource->markAsCreateEdgeSource();
                     myViewNet->getUndoList()->p_begin("create new " + toString(SUMO_TAG_EDGE));
                 } else {

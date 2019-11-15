@@ -185,16 +185,6 @@ GNEViewNetHelper::ObjectsUnderCursor::swapLane2Edge() {
 }
 
 
-void
-GNEViewNetHelper::ObjectsUnderCursor::setCreatedJunction(GNEJunction* junction) {
-    if (myJunctions.size() > 0) {
-        myJunctions.front() = junction;
-    } else {
-        myJunctions.push_back(junction);
-    }
-}
-
-
 GUIGlID
 GNEViewNetHelper::ObjectsUnderCursor::getGlIDFront() const {
     if (myGUIGlObjects.size() > 0) {

@@ -157,9 +157,6 @@ struct GNEViewNetHelper {
         /// @brief swap lane to edge
         void swapLane2Edge();
 
-        /// @brief set created junction
-        void setCreatedJunction(GNEJunction* junction);
-
         /// @brief get front GUI GL ID (or a pointer to nullptr if there isn't)
         GUIGlID getGlIDFront() const;
 

@@ -695,6 +695,10 @@ GNEViewNet::onLeftBtnPress(FXObject*, FXSelector, void* eventData) {
     if (makeCurrent()) {
         // fill objects under cursor
         myObjectsUnderCursor.updateObjectUnderCursor(getGUIGlObjectsUnderCursor(), myEditShapes.editedShapePoly);
+        // if grid is enabled, fill objects under gripped cursor
+        if (myVisualizationSettings->showGrid) {
+            myObjectsUnderGrippedCursor.updateObjectUnderCursor(getGUIGlObjectsUnderGrippedCursor(), myEditShapes.editedShapePoly);
+        }
         // process left button press function depending of supermode
         if (myEditModes.currentSupermode == GNE_SUPERMODE_NETWORK) {
             processLeftButtonPressNetwork(eventData);
@@ -3175,9 +3179,10 @@ GNEViewNet::processLeftButtonPressNetwork(void* eventData) {
             // make sure that Control key isn't pressed
             if (!myKeyPressed.controlKeyPressed()) {
                 // process left click in create edge frame Frame
-                myViewParent->getCreateEdgeFrame()->processClick(getPositionInformation(), myObjectsUnderCursor,
-                        myNetworkViewOptions.menuCheckAutoOppositeEdge->getCheck() == TRUE,
-                        myNetworkViewOptions.menuCheckChainEdges->getCheck() == TRUE);
+                myViewParent->getCreateEdgeFrame()->processClick(getPositionInformation(), 
+                    myObjectsUnderCursor, myObjectsUnderGrippedCursor,
+                    (myNetworkViewOptions.menuCheckAutoOppositeEdge->getCheck() == TRUE),
+                    (myNetworkViewOptions.menuCheckChainEdges->getCheck() == TRUE));
             }
             // process click
             processClick(eventData);

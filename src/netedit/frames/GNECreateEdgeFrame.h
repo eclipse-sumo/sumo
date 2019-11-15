@@ -47,10 +47,12 @@ public:
     /**@brief handle processClick and set the relative colouring
      * @param[in] clickedPosition clicked position over ViewNet
      * @param objectsUnderCursor collection of objects under cursor after click over view (note: in this case use non-constant reference due setCreatedJunction)
+     * @param objectsUnderGrippedCursor collection of objects under gripped cursor after click over view (note: in this case use non-constant reference due setCreatedJunction)
      * @param oppositeEdge automatically create an opposite edge
      * @param chainEdge create edges in chain mode
      */
-    void processClick(const Position& clickedPosition, GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor, bool oppositeEdge, bool chainEdge);
+    void processClick(const Position& clickedPosition, GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor, 
+        GNEViewNetHelper::ObjectsUnderCursor& objectsUnderGrippedCursor, const bool oppositeEdge, const bool chainEdge);
 
     /// @brief abort current edge creation
     void abortEdgeCreation();

@@ -333,9 +333,18 @@ GUISUMOAbstractView::getObjectUnderCursor() {
 
 
 std::vector<GUIGlID>
-GUISUMOAbstractView::getObjectstUnderCursor() {
-
+GUISUMOAbstractView::getObjectsUnderCursor() {
     return getObjectsAtPosition(getPositionInformation(), SENSITIVITY);
+}
+
+
+std::vector<GUIGlObject*>
+GUISUMOAbstractView::getGUIGlObjectsUnderGrippedCursor() {
+    if (myVisualizationSettings->showGrid) {
+        return getGUIGlObjectsAtPosition(snapToActiveGrid(getPositionInformation()), SENSITIVITY);
+    } else {
+        return getGUIGlObjectsAtPosition(getPositionInformation(), SENSITIVITY);
+    }
 }
 
 

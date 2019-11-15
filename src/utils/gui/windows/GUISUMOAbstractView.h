@@ -406,10 +406,13 @@ protected:
     GUIGlID getObjectUnderCursor();
 
     /// @brief returns the id of the objects under the cursor using GL_SELECT (including overlapped objects)
-    std::vector<GUIGlID> getObjectstUnderCursor();
+    std::vector<GUIGlID> getObjectsUnderCursor();
 
     /// @brief returns the GUIGlObject under the cursor using GL_SELECT (including overlapped objects)
     std::vector<GUIGlObject*> getGUIGlObjectsUnderCursor();
+
+    /// @brief returns the GUIGlObject under the gripped cursor using GL_SELECT (including overlapped objects)
+    std::vector<GUIGlObject*> getGUIGlObjectsUnderGrippedCursor();
 
     /// @brief returns the id of the object at position using GL_SELECT
     GUIGlID getObjectAtPosition(Position pos);
