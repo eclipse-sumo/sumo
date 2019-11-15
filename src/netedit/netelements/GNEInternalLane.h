@@ -114,17 +114,8 @@ protected:
     GNEInternalLane();
 
 private:
-    /// @brief the shape of the edge
-    const PositionVector myShape;
-
-    /// @name computed only once (for performance) in updateGeometry()
-    /// @{
-    /// The rotations of the shape parts
-    std::vector<double> myShapeRotations;
-
-    /// The lengths of the shape parts
-    std::vector<double> myShapeLengths;
-    /// @}
+    /// @brief internal lane geometry
+    GNEGeometry::Geometry myInternalLaneGeometry;
 
     /// @brief the state of the link (used for visualization)
     FXuint myState;

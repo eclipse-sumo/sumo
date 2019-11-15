@@ -36,44 +36,6 @@
 // method definitions
 // ===========================================================================
 
-// ---------------------------------------------------------------------------
-// GNENetElement::NetElementGeometry - methods
-// ---------------------------------------------------------------------------
-
-GNENetElement::NetElementGeometry::NetElementGeometry() {}
-
-
-void
-GNENetElement::NetElementGeometry::clearGeometry() {
-    shape.clear();
-    shapeRotations.clear();
-    shapeLengths.clear();
-}
-
-
-void
-GNENetElement::NetElementGeometry::calculateShapeRotationsAndLengths() {
-    // Get number of parts of the shape
-    int numberOfSegments = (int)shape.size() - 1;
-    // If number of segments is more than 0
-    if (numberOfSegments >= 0) {
-        // Reserve memory (To improve efficiency)
-        shapeRotations.reserve(numberOfSegments);
-        shapeLengths.reserve(numberOfSegments);
-        // For every part of the shape
-        for (int i = 0; i < numberOfSegments; ++i) {
-            // Save distance between position into myShapeLengths
-            shapeLengths.push_back(GNEGeometry::calculateLength(shape[i], shape[i + 1]));
-            // Save rotation (angle) of the vector constructed by points f and s
-            shapeRotations.push_back(GNEGeometry::calculateRotation(shape[i], shape[i + 1]));
-        }
-    }
-}
-
-// ---------------------------------------------------------------------------
-// GNENetElement - methods
-// ---------------------------------------------------------------------------
-
 GNENetElement::GNENetElement(GNENet* net, const std::string& id, GUIGlObjectType type, SumoXMLTag tag) :
     GUIGlObject(type, id),
     GNEAttributeCarrier(tag),

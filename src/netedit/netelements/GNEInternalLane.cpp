@@ -68,21 +68,14 @@ const StringBijection<FXuint> GNEInternalLane::LinkStateNames(
 // ===========================================================================
 GNEInternalLane::GNEInternalLane(GNETLSEditorFrame* editor, const std::string& id, const PositionVector& shape, int tlIndex, LinkState state) :
     GUIGlObject(editor == nullptr ? GLO_JUNCTION : GLO_TLLOGIC, id),
-    myShape(shape),
     myState(state),
     myStateTarget(myState),
     myEditor(editor),
     myTlIndex(tlIndex),
     myPopup(nullptr) {
-    int segments = (int) myShape.size() - 1;
-    if (segments >= 0) {
-        myShapeRotations.reserve(segments);
-        myShapeLengths.reserve(segments);
-        for (int i = 0; i < segments; ++i) {
-            myShapeLengths.push_back(GNEGeometry::calculateLength(myShape[i], myShape[i + 1]));
-            myShapeRotations.push_back(GNEGeometry::calculateRotation(myShape[i], myShape[i + 1]));
-        }
-    }
+    // calculate internal lane geometry
+    myInternalLaneGeometry.shape = shape;
+    myInternalLaneGeometry.calculateShapeRotationsAndLengths();
 }
 
 
@@ -124,9 +117,9 @@ GNEInternalLane::drawGL(const GUIVisualizationSettings& s) const {
     // draw lane
     // check whether it is not too small
     if (s.scale < 1.) {
-        GLHelper::drawLine(myShape);
+        GLHelper::drawLine(myInternalLaneGeometry.shape);
     } else {
-        GLHelper::drawBoxLines(myShape, myShapeRotations, myShapeLengths, 0.2);
+        GLHelper::drawBoxLines(myInternalLaneGeometry.shape, myInternalLaneGeometry.shapeRotations, myInternalLaneGeometry.shapeLengths, 0.2);
     }
     glPopName();
     glPopMatrix();
@@ -182,7 +175,7 @@ GNEInternalLane::getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView&) {
 
 Boundary
 GNEInternalLane::getCenteringBoundary() const {
-    Boundary b = myShape.getBoxBoundary();
+    Boundary b = myInternalLaneGeometry.shape.getBoxBoundary();
     b.grow(10);
     return b;
 }

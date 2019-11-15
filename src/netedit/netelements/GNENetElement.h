@@ -44,27 +44,6 @@ class GNEDemandElement;
 class GNENetElement : public GUIGlObject, public GNEAttributeCarrier, public GNEHierarchicalElementParents, public GNEHierarchicalElementChildren {
 
 public:
-    /// @brief struct for pack all variables related with geometry of elemement
-    struct NetElementGeometry {
-        /// @brief constructor
-        NetElementGeometry();
-
-        /// @brief reset geometry
-        void clearGeometry();
-
-        /// @brief calculate shape rotations and lengths
-        void calculateShapeRotationsAndLengths();
-
-        /// @brief The shape of the netElement element
-        PositionVector shape;
-
-        /// @brief The rotations of the single shape parts
-        std::vector<double> shapeRotations;
-
-        /// @brief The lengths of the single shape parts
-        std::vector<double> shapeLengths;
-    };
-
     /**@brief Constructor.
      * @param[in] net The net to inform about gui updates
      * @param[in] id of the element

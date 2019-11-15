@@ -145,7 +145,7 @@ protected:
     std::vector<NBEdge*> myCrossingEdges;
 
     /// @brief crossing geometry
-    NetElementGeometry myCrossingGeometry;
+    GNEGeometry::Geometry myCrossingGeometry;
 
 private:
     /// @brief method for setting the attribute and nothing else (used in GNEChange_Attribute)

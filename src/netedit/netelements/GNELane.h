@@ -215,7 +215,7 @@ protected:
     int myIndex;
 
     /// @brief lane geometry
-    NetElementGeometry myLaneGeometry;
+    GNEGeometry::Geometry myLaneGeometry;
 
     /// @name computed only once (for performance) in updateGeometry()
     /// @{

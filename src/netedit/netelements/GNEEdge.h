@@ -23,8 +23,10 @@
 // included modules
 // ===========================================================================
 
-#include "GNENetElement.h"
 #include <netbuild/NBEdge.h>
+
+#include "GNENetElement.h"
+
 
 // ===========================================================================
 // class declarations

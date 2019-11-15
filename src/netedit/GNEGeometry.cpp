@@ -381,7 +381,7 @@ GNEGeometry::calculateGeometricPath(const GNEAttributeCarrier* AC, GNEGeometry::
             // check if we have to define a new custom Segment, or we can use the commonLane shape
             if ((startPos != -1) || (endPos != -1) || (extraFirstPosition != Position::INVALID) || (extraLastPosition != Position::INVALID)) {
                 // declare a lane to be trimmed
-                GNENetElement::NetElementGeometry trimmedLane;
+                Geometry trimmedLane;
                 // set shape lane
                 trimmedLane.shape = fromLane->getLaneShape();
                 // split depending of startPos and endPos
@@ -451,7 +451,7 @@ GNEGeometry::calculateGeometricPath(const GNEAttributeCarrier* AC, GNEGeometry::
                         // filter start position
                         adjustStartPosGeometricPath(startPos, lanes.at(i), endPos, nullptr);
                         // declare a lane to be trimmed
-                        GNENetElement::NetElementGeometry frontTrimmedLane;
+                        Geometry frontTrimmedLane;
                         // set shape lane
                         frontTrimmedLane.shape = lanes.at(i)->getLaneShape();
                         // split lane
@@ -473,7 +473,7 @@ GNEGeometry::calculateGeometricPath(const GNEAttributeCarrier* AC, GNEGeometry::
                         // filter end position
                         adjustStartPosGeometricPath(startPos, nullptr, endPos, lane);
                         // declare a lane to be trimmed
-                        GNENetElement::NetElementGeometry backTrimmedLane;
+                        Geometry backTrimmedLane;
                         // set shape lane
                         backTrimmedLane.shape = lane->getLaneShape();
                         // split lane
@@ -522,7 +522,7 @@ GNEGeometry::updateGeometricPath(GNEGeometry::SegmentGeometry &segmentGeometry, 
         // check if we have to define a new custom Segment, or we can use the commonLane shape
         if ((startPos != -1) || (endPos != -1) || (extraFirstPosition != Position::INVALID) || (extraLastPosition != Position::INVALID)) {
             // declare a lane to be trimmed
-            GNENetElement::NetElementGeometry trimmedLane;
+            Geometry trimmedLane;
             // set shape lane
             trimmedLane.shape = segmentGeometry.front().lane->getLaneShape();
             // split depending of startPos and endPos
@@ -577,7 +577,7 @@ GNEGeometry::updateGeometricPath(GNEGeometry::SegmentGeometry &segmentGeometry, 
                     // filter start position
                     adjustStartPosGeometricPath(startPos, segmentToUpdate.lane, endPos, nullptr);
                     // declare a lane to be trimmed
-                    GNENetElement::NetElementGeometry frontTrimmedLane;
+                    Geometry frontTrimmedLane;
                     // set shape lane
                     frontTrimmedLane.shape = segmentToUpdate.lane->getLaneShape();
                     // split lane
@@ -599,7 +599,7 @@ GNEGeometry::updateGeometricPath(GNEGeometry::SegmentGeometry &segmentGeometry, 
                     // filter end position
                     adjustStartPosGeometricPath(startPos, nullptr, endPos, segmentToUpdate.lane);
                     // declare a lane to be trimmed
-                    GNENetElement::NetElementGeometry backTrimmedLane;
+                    Geometry backTrimmedLane;
                     // set shape lane
                     backTrimmedLane.shape = segmentToUpdate.lane->getLaneShape();
                     // split lane
