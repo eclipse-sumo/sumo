@@ -25,6 +25,7 @@
 
 #include <netedit/GNEHierarchicalElementParents.h>
 #include <netedit/GNEHierarchicalElementChildren.h>
+#include <netedit/GNEGeometry.h>
 #include <utils/common/Parameterised.h>
 #include <utils/geom/PositionVector.h>
 #include <utils/gui/globjects/GUIGlObject.h>
@@ -54,154 +55,6 @@ class GNEJunction;
 class GNEDemandElement : public GUIGlObject, public GNEAttributeCarrier, public GNEHierarchicalElementParents, public GNEHierarchicalElementChildren {
 
 public:
-    /// @brief struct for pack all variables related with geometry of stop
-    struct DemandElementGeometry {
-
-        /// @brief constructor
-        DemandElementGeometry();
-
-        /// @brief reset geometry
-        void clearGeometry();
-
-        /// @brief calculate shape rotations and lengths
-        void calculateShapeRotationsAndLengths();
-
-        /// @brief The shape of the additional element
-        PositionVector shape;
-
-        /// @brief The rotations of the single shape parts
-        std::vector<double> shapeRotations;
-
-        /// @brief The lengths of the single shape parts
-        std::vector<double> shapeLengths;
-    };
-
-    /// @brief struct for pack all variables related with geometry of elemements divided in segments
-    struct DemandElementSegmentGeometry {
-
-        /// @brief struct used for represent segments of demand element geometry
-        struct Segment {
-            /// @brief parameter constructor for lanes (geometry will be taked from lane)
-            Segment(const GNEDemandElement* _element, const GNELane* lane, const bool _valid);
-
-            /// @brief parameter constructor for segments which geometry will be storaged in segment
-            Segment(const GNEDemandElement* _element, const GNELane* lane,
-                    const PositionVector& shape, const std::vector<double> &shapeRotations, const std::vector<double> &shapeLengths, const bool _valid);
-
-            /// @brief parameter constructor for lane2lane connections
-            Segment(const GNEDemandElement* _element, const GNELane* currentLane, const GNELane* nextLane, const bool _valid);
-
-            /// @brief update segment
-            void update(const PositionVector& shape, const std::vector<double> &shapeRotations, const std::vector<double> &shapeLengths);
-
-            /// @brief get lane/lane2lane shape
-            const PositionVector &getShape() const;
-
-            /// @brief get lane/lane2lane shape rotations
-            const std::vector<double> &getShapeRotations() const;
-            
-            /// @brief get lane/lane2lane shape lenghts
-            const std::vector<double> &getShapeLengths() const;
-
-            /// @brief element
-            const GNEDemandElement* element;
-
-            /// @brief edge
-            const GNEEdge* edge;
-
-            /// @brief junction
-            const GNEJunction* junction;
-
-            /// @brief valid
-            const bool valid;
-
-        public:
-            /// @brief lane
-            const GNELane* myLane;
-        private:
-            /// @brief flag to check if use lane shape or segment containers
-            bool myUseLaneShape;
-
-            /// @brief segment shape
-            PositionVector mySegmentShape;
-
-            /// @brief segment rotation
-            std::vector<double> mySegmentRotations;
-            
-            /// @brief segment lenghts
-            std::vector<double> mySegmentLengths;
-
-            /// @brief Invalidated assignment operator
-            Segment& operator=(const Segment& other) = delete;
-        };
-
-        /// @brief struct used for represent segments that must be updated
-        struct SegmentToUpdate {
-
-            /// @brief constructor
-            SegmentToUpdate(const int _index, const GNELane* _lane, const GNELane* _nextLane);
-
-            /// @brief segment index
-            const int index;
-
-            // @brief lane segment
-            const GNELane* lane;
-
-            /// @brief lane segment (used for updating lane2lane segments)
-            const GNELane* nextLane;
-        };
-
-        /// @brief constructor
-        DemandElementSegmentGeometry();
-
-        /// @brief insert entire lane segment (used to avoid unnecessary calculation in calculatePartialShapeRotationsAndLengths)
-        void insertLaneSegment(const GNEDemandElement* element, const GNELane* lane, const bool valid);
-
-        /// @brief insert custom segment 
-        void insertCustomSegment(const GNEDemandElement* element, const GNELane* lane,
-                                 const PositionVector& laneShape, const std::vector<double> &laneShapeRotations, const std::vector<double> &laneShapeLengths, const bool valid);
-
-        /// @brief insert entire lane2lane segment (used to avoid unnecessary calculation in calculatePartialShapeRotationsAndLengths)
-        void insertLane2LaneSegment(const GNEDemandElement* element, const GNELane* currentLane, const GNELane* nextLane, const bool valid);
-
-        /// @brief update custom segment
-        void updateCustomSegment(const int segmentIndex, const PositionVector& newLaneShape, const std::vector<double> &newLaneShapeRotations, const std::vector<double> &newLaneShapeLengths);
-
-        /// @brief update lane2Lane segment (used to avoid unnecessary calculation in calculatePartialShapeRotationsAndLengths)
-        void updateLane2LaneSegment(const int segmentIndex, const GNELane* lane, const GNELane* nextLane);
-
-        /// @brief clear demand element geometry
-        void clearDemandElementSegmentGeometry();
-
-        /// @brief get first position (or Invalid position if segments are empty)
-        const Position &getFirstPosition() const;
-
-        /// @brief get first position (or Invalid position if segments are empty)
-        const Position &getLastPosition() const;
-
-        /// @brief get first rotation (or Invalid position if segments are empty)
-        double getFirstRotation() const;
-
-        /// @brief begin iterator
-        std::vector<Segment>::const_iterator begin() const;
-
-        /// @brief end iterator
-        std::vector<Segment>::const_iterator end() const;
-
-        /// @brief front segment
-        const Segment &front() const;
-
-        /// @brief back segment
-        const Segment &back() const;
-
-        /// @brief number of segments
-        int size() const;
-
-    private:
-        /// @brief vector of segments that constitutes the shape
-        std::vector<Segment> myShapeSegments;
-    };
-
     /// @brief struct for pack all variables related with Demand Element moving
     struct DemandElementMove {
         /// @brief boundary used during moving of elements (to avoid insertion in RTREE)
@@ -307,10 +160,10 @@ public:
     ~GNEDemandElement();
 
     /// @brief get demand element geometry
-    const DemandElementGeometry& getDemandElementGeometry() const;
+    const GNEGeometry::DemandElementGeometry& getDemandElementGeometry() const;
 
     /// @brief get demand element segment geometry
-    const DemandElementSegmentGeometry& getDemandElementSegmentGeometry() const;
+    const GNEGeometry::DemandElementSegmentGeometry& getDemandElementSegmentGeometry() const;
 
     /// @brief gererate a new ID for an element child
     std::string generateChildID(SumoXMLTag childTag);
@@ -514,10 +367,10 @@ protected:
     GNEViewNet* myViewNet;
 
     /// @brief demand element geometry
-    DemandElementGeometry myDemandElementGeometry;
+    GNEGeometry::DemandElementGeometry myDemandElementGeometry;
 
     /// @brief demand element segment geometry
-    DemandElementSegmentGeometry myDemandElementSegmentGeometry;
+    GNEGeometry::DemandElementSegmentGeometry myDemandElementSegmentGeometry;
 
     /// @name Functions relative to change values in setAttribute(...)
     /// @{

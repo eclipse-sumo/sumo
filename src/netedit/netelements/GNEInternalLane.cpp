@@ -79,8 +79,8 @@ GNEInternalLane::GNEInternalLane(GNETLSEditorFrame* editor, const std::string& i
         myShapeRotations.reserve(segments);
         myShapeLengths.reserve(segments);
         for (int i = 0; i < segments; ++i) {
-            myShapeLengths.push_back(GNEAttributeCarrier::calculateLength(myShape[i], myShape[i + 1]));
-            myShapeRotations.push_back(GNEAttributeCarrier::calculateRotation(myShape[i], myShape[i + 1]));
+            myShapeLengths.push_back(GNEGeometry::calculateLength(myShape[i], myShape[i + 1]));
+            myShapeRotations.push_back(GNEGeometry::calculateRotation(myShape[i], myShape[i + 1]));
         }
     }
 }

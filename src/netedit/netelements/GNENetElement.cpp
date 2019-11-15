@@ -63,9 +63,9 @@ GNENetElement::NetElementGeometry::calculateShapeRotationsAndLengths() {
         // For every part of the shape
         for (int i = 0; i < numberOfSegments; ++i) {
             // Save distance between position into myShapeLengths
-            shapeLengths.push_back(calculateLength(shape[i], shape[i + 1]));
+            shapeLengths.push_back(GNEGeometry::calculateLength(shape[i], shape[i + 1]));
             // Save rotation (angle) of the vector constructed by points f and s
-            shapeRotations.push_back(calculateRotation(shape[i], shape[i + 1]));
+            shapeRotations.push_back(GNEGeometry::calculateRotation(shape[i], shape[i + 1]));
         }
     }
 }

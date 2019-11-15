@@ -95,9 +95,9 @@ GNELane::Lane2laneConnection::updateLane2laneConnection() {
                 // For every part of the shape
                 for (int i = 0; i < numberOfSegments; i++) {
                     // Save distance between position into myShapeLengths
-                    shapeLengthsMap[outgoingLane].push_back(calculateLength(shapesMap[outgoingLane][i], shapesMap[outgoingLane][i + 1]));
+                    shapeLengthsMap[outgoingLane].push_back(GNEGeometry::calculateLength(shapesMap[outgoingLane][i], shapesMap[outgoingLane][i + 1]));
                     // Save rotation (angle) of the vector constructed by points f and s
-                    shapeRotationsMap[outgoingLane].push_back(calculateRotation(shapesMap[outgoingLane][i], shapesMap[outgoingLane][i + 1]));
+                    shapeRotationsMap[outgoingLane].push_back(GNEGeometry::calculateRotation(shapesMap[outgoingLane][i], shapesMap[outgoingLane][i + 1]));
                 }
             }
         }
@@ -277,9 +277,9 @@ GNELane::drawLinkRules(const GUIVisualizationSettings& /*s*/) const {
 
 void
 GNELane::drawArrows(const GUIVisualizationSettings& s) const {
+    const Position& begin = myLaneGeometry.shape[-2];
     const Position& end = myLaneGeometry.shape.back();
-    const Position& f = myLaneGeometry.shape[-2];
-    double rot = calculateRotation(f, end);
+    const double rot = GNEGeometry::calculateRotation(begin, end);
     glPushMatrix();
     glPushName(0);
     glTranslated(0, 0, GLO_JUNCTION + .1); // must draw on top of junction shape

@@ -3047,8 +3047,8 @@ GNEViewNet::drawLaneCandidates() const {
                     shapeRotations.reserve(segments);
                     shapeLengths.reserve(segments);
                     for (int j = 0; j < segments; j++) {
-                        shapeLengths.push_back(GNEAttributeCarrier::calculateLength(shape[j], shape[j + 1]));
-                        shapeRotations.push_back(GNEAttributeCarrier::calculateRotation(shape[j], shape[j + 1]));
+                        shapeLengths.push_back(GNEGeometry::calculateLength(shape[j], shape[j + 1]));
+                        shapeRotations.push_back(GNEGeometry::calculateRotation(shape[j], shape[j + 1]));
                     }
                 }
                 // draw a list of lines

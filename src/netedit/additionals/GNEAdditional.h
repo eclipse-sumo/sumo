@@ -25,6 +25,7 @@
 
 #include <netedit/GNEHierarchicalElementParents.h>
 #include <netedit/GNEHierarchicalElementChildren.h>
+#include <netedit/GNEGeometry.h>
 #include <utils/common/Parameterised.h>
 #include <utils/geom/PositionVector.h>
 #include <utils/gui/globjects/GUIGlObject.h>

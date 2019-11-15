@@ -82,9 +82,9 @@ GNEAdditional::AdditionalGeometry::calculateShapeRotationsAndLengths() {
         // For every part of the shape
         for (int i = 0; i < numberOfSegments; ++i) {
             // Save distance between position into myShapeLengths
-            shapeLengths.push_back(calculateLength(shape[i], shape[i + 1]));
+            shapeLengths.push_back(GNEGeometry::calculateLength(shape[i], shape[i + 1]));
             // Save rotation (angle) of the vector constructed by points f and s
-            shapeRotations.push_back(calculateRotation(shape[i], shape[i + 1]));
+            shapeRotations.push_back(GNEGeometry::calculateRotation(shape[i], shape[i + 1]));
         }
     }
 }
@@ -109,9 +109,9 @@ GNEAdditional::AdditionalGeometry::calculateMultiShapeRotationsAndLengths() {
         // iterate over each segment
         for (int j = 0; j < numberOfSegments.at(i); j++) {
             // Save distance between position into myShapeLengths
-            multiShapeLengths.at(i).push_back(GNEAttributeCarrier::calculateLength(multiShape[i][j], multiShape[i][j + 1]));
+            multiShapeLengths.at(i).push_back(GNEGeometry::calculateLength(multiShape[i][j], multiShape[i][j + 1]));
             // Save rotation (angle) of the vector constructed by points f and s
-            multiShapeRotations.at(i).push_back(GNEAttributeCarrier::calculateRotation(multiShape[i][j], multiShape[i][j + 1]));
+            multiShapeRotations.at(i).push_back(GNEGeometry::calculateRotation(multiShape[i][j], multiShape[i][j + 1]));
         }
     }
 }

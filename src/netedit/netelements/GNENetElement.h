@@ -25,8 +25,10 @@
 
 #include <netedit/GNEHierarchicalElementParents.h>
 #include <netedit/GNEHierarchicalElementChildren.h>
+#include <netedit/GNEGeometry.h>
 #include <utils/gui/globjects/GUIGlObject.h>
 #include <utils/geom/PositionVector.h>
+
 
 // ===========================================================================
 // class declarations
