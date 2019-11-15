@@ -325,7 +325,7 @@ GNEPoly::drawGL(const GUIVisualizationSettings& s) const {
                             glPushMatrix();
                             glTranslated(i.x(), i.y(), GLO_POLYGON + 0.02);
                             // Change color of vertex and flag mouseOverVertex if mouse is over vertex
-                            if (modeMove && (i.distanceTo(mousePosition) < circleWidth)) {
+                            if (modeMove && (i.distanceTo2D(mousePosition) < circleWidth)) {
                                 mouseOverVertex = true;
                                 GLHelper::setColor(invertedColor);
                             } else {

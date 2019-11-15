@@ -1463,7 +1463,7 @@ GNEAttributeCarrier::calculateRotation(const Position& first, const Position& se
 double 
 GNEAttributeCarrier::calculateLength(const Position& first, const Position& second) {
     // return distance between two points
-    return first.distanceTo(second);
+    return first.distanceTo2D(second);
 }
 
 // ===========================================================================

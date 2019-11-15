@@ -390,10 +390,10 @@ GNEEdge::commitShapeChange(const PositionVector& oldShape, GNEUndoList* undoList
     PositionVector innerShapeToCommit = myNBEdge.getInnerGeometry();
     // first check if second and penultimate isn't in Junction's buubles
     double buubleRadius = GNEJunction::BUBBLE_RADIUS * myNet->getViewNet()->getVisualisationSettings()->junctionSize.exaggeration;
-    if (myNBEdge.getGeometry().size() > 2 && myNBEdge.getGeometry()[0].distanceTo(myNBEdge.getGeometry()[1]) < buubleRadius) {
+    if (myNBEdge.getGeometry().size() > 2 && myNBEdge.getGeometry()[0].distanceTo2D(myNBEdge.getGeometry()[1]) < buubleRadius) {
         innerShapeToCommit.removeClosest(innerShapeToCommit[0]);
     }
-    if (myNBEdge.getGeometry().size() > 2 && myNBEdge.getGeometry()[(int)myNBEdge.getGeometry().size() - 2].distanceTo(myNBEdge.getGeometry()[(int)myNBEdge.getGeometry().size() - 1]) < buubleRadius) {
+    if (myNBEdge.getGeometry().size() > 2 && myNBEdge.getGeometry()[(int)myNBEdge.getGeometry().size() - 2].distanceTo2D(myNBEdge.getGeometry()[(int)myNBEdge.getGeometry().size() - 1]) < buubleRadius) {
         innerShapeToCommit.removeClosest(innerShapeToCommit[(int)innerShapeToCommit.size() - 1]);
     }
     // second check if double points has to be removed
@@ -625,7 +625,7 @@ Position
 GNEEdge::getSplitPos(const Position& clickPos) {
     const PositionVector& geom = myNBEdge.getGeometry();
     int index = geom.indexOfClosest(clickPos);
-    if (geom[index].distanceTo(clickPos) < SNAP_RADIUS) {
+    if (geom[index].distanceTo2D(clickPos) < SNAP_RADIUS) {
         // split at existing geometry point
         return geom[index];
     } else {
@@ -637,11 +637,11 @@ GNEEdge::getSplitPos(const Position& clickPos) {
 
 void
 GNEEdge::editEndpoint(Position pos, GNEUndoList* undoList) {
-    if ((myNBEdge.getGeometry().front() != myGNEJunctionSource->getPositionInView()) && (myNBEdge.getGeometry().front().distanceTo(pos) < SNAP_RADIUS)) {
+    if ((myNBEdge.getGeometry().front() != myGNEJunctionSource->getPositionInView()) && (myNBEdge.getGeometry().front().distanceTo2D(pos) < SNAP_RADIUS)) {
         undoList->p_begin("remove endpoint");
         setAttribute(GNE_ATTR_SHAPE_START, "", undoList);
         undoList->p_end();
-    } else if ((myNBEdge.getGeometry().back() != myGNEJunctionDestiny->getPositionInView()) && (myNBEdge.getGeometry().back().distanceTo(pos) < SNAP_RADIUS)) {
+    } else if ((myNBEdge.getGeometry().back() != myGNEJunctionDestiny->getPositionInView()) && (myNBEdge.getGeometry().back().distanceTo2D(pos) < SNAP_RADIUS)) {
         undoList->p_begin("remove endpoint");
         setAttribute(GNE_ATTR_SHAPE_END, "", undoList);
         undoList->p_end();
@@ -657,7 +657,7 @@ GNEEdge::editEndpoint(Position pos, GNEUndoList* undoList) {
             undoList->p_begin("set endpoint");
             int index = geom.indexOfClosest(pos);
             // check if snap to existing geometry
-            if (geom[index].distanceTo(pos) < SNAP_RADIUS) {
+            if (geom[index].distanceTo2D(pos) < SNAP_RADIUS) {
                 pos = geom[index];
             }
             Position destPos = myGNEJunctionDestiny->getNBNode()->getPosition();
