@@ -70,6 +70,10 @@ struct GNEGeometry {
 
         /// @brief The lengths of the single shape parts
         std::vector<double> shapeLengths;
+
+    private:
+        /// @brief Invalidated assignment operator
+        DemandElementGeometry& operator=(const DemandElementGeometry& other) = delete;
     };
 
     /// @brief struct for pack all variables related with geometry of elemements divided in segments
@@ -78,14 +82,14 @@ struct GNEGeometry {
         /// @brief struct used for represent segments of demand element geometry
         struct Segment {
             /// @brief parameter constructor for lanes (geometry will be taked from lane)
-            Segment(const GNEDemandElement* _element, const GNELane* lane, const bool _valid);
+            Segment(const GNEAttributeCarrier* _AC, const GNELane* _lane, const bool _valid);
 
             /// @brief parameter constructor for segments which geometry will be storaged in segment
-            Segment(const GNEDemandElement* _element, const GNELane* lane,
+            Segment(const GNEAttributeCarrier* _AC, const GNELane* _lane,
                     const PositionVector& shape, const std::vector<double> &shapeRotations, const std::vector<double> &shapeLengths, const bool _valid);
 
             /// @brief parameter constructor for lane2lane connections
-            Segment(const GNEDemandElement* _element, const GNELane* currentLane, const GNELane* nextLane, const bool _valid);
+            Segment(const GNEAttributeCarrier* _AC, const GNELane* currentLane, const GNELane* nextLane, const bool _valid);
 
             /// @brief update segment
             void update(const PositionVector& shape, const std::vector<double> &shapeRotations, const std::vector<double> &shapeLengths);
@@ -100,10 +104,13 @@ struct GNEGeometry {
             const std::vector<double> &getShapeLengths() const;
 
             /// @brief element
-            const GNEAttributeCarrier* element;
+            const GNEAttributeCarrier* AC;
 
             /// @brief edge
             const GNEEdge* edge;
+
+            /// @brief lane
+            const GNELane* lane;
 
             /// @brief junction
             const GNEJunction* junction;
@@ -111,9 +118,6 @@ struct GNEGeometry {
             /// @brief valid
             const bool valid;
 
-        public:
-            /// @brief lane
-            const GNELane* myLane;
         private:
             /// @brief flag to check if use lane shape or segment containers
             bool myUseLaneShape;
@@ -151,14 +155,14 @@ struct GNEGeometry {
         DemandElementSegmentGeometry();
 
         /// @brief insert entire lane segment (used to avoid unnecessary calculation in calculatePartialShapeRotationsAndLengths)
-        void insertLaneSegment(const GNEDemandElement* element, const GNELane* lane, const bool valid);
+        void insertLaneSegment(const GNEAttributeCarrier* AC, const GNELane* lane, const bool valid);
 
         /// @brief insert custom segment 
-        void insertCustomSegment(const GNEDemandElement* element, const GNELane* lane,
+        void insertCustomSegment(const GNEAttributeCarrier* AC, const GNELane* lane,
                                  const PositionVector& laneShape, const std::vector<double> &laneShapeRotations, const std::vector<double> &laneShapeLengths, const bool valid);
 
         /// @brief insert entire lane2lane segment (used to avoid unnecessary calculation in calculatePartialShapeRotationsAndLengths)
-        void insertLane2LaneSegment(const GNEDemandElement* element, const GNELane* currentLane, const GNELane* nextLane, const bool valid);
+        void insertLane2LaneSegment(const GNEAttributeCarrier* AC, const GNELane* currentLane, const GNELane* nextLane, const bool valid);
 
         /// @brief update custom segment
         void updateCustomSegment(const int segmentIndex, const PositionVector& newLaneShape, const std::vector<double> &newLaneShapeRotations, const std::vector<double> &newLaneShapeLengths);
@@ -196,6 +200,9 @@ struct GNEGeometry {
     private:
         /// @brief vector of segments that constitutes the shape
         std::vector<Segment> myShapeSegments;
+
+        /// @brief Invalidated assignment operator
+        DemandElementSegmentGeometry& operator=(const DemandElementSegmentGeometry& other) = delete;
     };
 
     /// @brief return angle between two points (used in geometric calculations)
@@ -214,8 +221,8 @@ struct GNEGeometry {
      * @param extraFirstPosition extra first position (if is Position::INVALID, then it's ignored)
      * @param extraLastPosition extra last position (if is Position::INVALID, then it's ignored)
      */
-    static void calculateGeometricPath(GNEDemandElement* demandElement, GNEGeometry::DemandElementSegmentGeometry &segmentGeometry, const std::vector<GNEEdge*> &edges, 
-                                GNELane *fromLane, GNELane *toLane, double startPos = -1, double endPos = -1, 
+    static void calculateGeometricPath(const GNEAttributeCarrier* AC, GNEGeometry::DemandElementSegmentGeometry &segmentGeometry, const std::vector<GNEEdge*> &edges, 
+                                const SUMOVehicleClass vClass, GNELane *fromLane, GNELane *toLane, double startPos = -1, double endPos = -1, 
                                 const Position &extraFirstPosition = Position::INVALID, const Position &extraLastPosition = Position::INVALID);
 
     /**@brief calculate route between edges
@@ -225,10 +232,9 @@ struct GNEGeometry {
      * @param extraFirstPosition extra first position (if is Position::INVALID, then it's ignored)
      * @param extraLastPosition extra last position (if is Position::INVALID, then it's ignored)
      */
-    static void updateGeometricPath(GNEDemandElement* demandElement, GNEGeometry::DemandElementSegmentGeometry &segmentGeometry, const GNEEdge* edge, 
-                            GNELane *fromLane, GNELane *toLane, double startPos = -1, double endPos = -1, 
+    static void updateGeometricPath(GNEGeometry::DemandElementSegmentGeometry &segmentGeometry, const GNEEdge* edge, 
+                            double startPos = -1, double endPos = -1, 
                             const Position &extraFirstPosition = Position::INVALID, const Position &extraLastPosition = Position::INVALID);
-
 };
 
 #endif

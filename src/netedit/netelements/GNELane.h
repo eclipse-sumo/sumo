@@ -69,6 +69,9 @@ public:
     private:
         /// @brief origin lane
         const GNELane* myOriginLane = nullptr;
+        
+        /// @brief Invalidated assignment operator
+        Lane2laneConnection& operator=(const Lane2laneConnection& other) = delete;
     };
 
     /**@brief Constructor
