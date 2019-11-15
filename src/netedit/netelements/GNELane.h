@@ -48,32 +48,6 @@ class GNELane : public GNENetElement, public FXDelegator {
     FXDECLARE(GNELane)
 
 public:
-    /// @brief lane2lane struct
-    struct Lane2laneConnection {
-
-        /// @brief constructor
-        Lane2laneConnection(GNELane* originLane);
-
-        /// @brief update
-        void updateLane2laneConnection();
-
-        /// @brief connection shape
-        std::map<const GNELane*, PositionVector> shapesMap;
-
-        /// @brief The rotations of the single shape parts
-        std::map<const GNELane*, std::vector<double> > shapeRotationsMap;
-
-        /// @brief The lengths of the single shape parts
-        std::map<const GNELane*, std::vector<double> > shapeLengthsMap;
-
-    private:
-        /// @brief origin lane
-        const GNELane* myOriginLane = nullptr;
-        
-        /// @brief Invalidated assignment operator
-        Lane2laneConnection& operator=(const Lane2laneConnection& other) = delete;
-    };
-
     /**@brief Constructor
      * @param[in] idStorage The storage of gl-ids to get the one for this lane representation from
      * @param[in] the edge this lane belongs to
@@ -187,7 +161,7 @@ public:
     bool isRestricted(SUMOVehicleClass vclass) const;
 
     /// @brief get Lane2laneConnection struct
-    const Lane2laneConnection &getLane2laneConnections() const;
+    const GNEGeometry::Lane2laneConnection &getLane2laneConnections() const;
 
     /// @name inherited from GNEAttributeCarrier
     /// @{
@@ -263,7 +237,7 @@ protected:
     mutable std::vector<RGBColor> myShapeColors;
 
     /// @brief lane2lane connections
-    Lane2laneConnection myLane2laneConnections;
+    GNEGeometry::Lane2laneConnection myLane2laneConnections;
 
 private:
     /// @brief set attribute after validation

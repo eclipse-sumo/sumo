@@ -55,56 +55,6 @@ FXIMPLEMENT(GNELane, FXDelegator, 0, 0)
 // method definitions
 // ===========================================================================
 
-
-GNELane::Lane2laneConnection::Lane2laneConnection(GNELane* originLane) :
-    myOriginLane(originLane) {
-}
-
-
-void 
-GNELane::Lane2laneConnection::updateLane2laneConnection() {
-    // clear containers
-    shapesMap.clear();
-    shapeRotationsMap.clear();
-    shapeLengthsMap.clear();
-    // iterate over outgoingEdge's lanes
-    for (const auto &outgoingEdge : myOriginLane->getParentEdge().getGNEJunctionDestiny()->getGNEOutgoingEdges()) {
-        for (const auto &outgoingLane : outgoingEdge->getLanes()) {
-            // get NBEdges from and to
-            const NBEdge* NBEdgeFrom = myOriginLane->getParentEdge().getNBEdge();
-            const NBEdge* NBEdgeTo = outgoingLane->getParentEdge().getNBEdge();
-            if (NBEdgeFrom->getToNode()->getShape().area() > 4) {
-                // Calculate smooth shape
-                shapesMap[outgoingLane] = NBEdgeFrom->getToNode()->computeSmoothShape(
-                    NBEdgeFrom->getLaneShape(myOriginLane->getIndex()),
-                    NBEdgeTo->getLaneShape(outgoingLane->getIndex()),
-                    5, NBEdgeFrom->getTurnDestination() == NBEdgeTo,
-                    (double) 5. * (double) NBEdgeFrom->getNumLanes(),
-                    (double) 5. * (double) NBEdgeTo->getNumLanes());
-            } else {
-                // create a shape using shape extremes
-                shapesMap[outgoingLane] = {NBEdgeFrom->getLaneShape(myOriginLane->getIndex()).back(), NBEdgeTo->getLaneShape(outgoingLane->getIndex()).front()};
-            }
-            // Get number of parts of the shape
-            const int numberOfSegments = (int)shapesMap[outgoingLane].size() - 1;
-            // If number of segments is more than 0
-            if (numberOfSegments >= 0) {
-                // Reserve memory (To improve efficiency)
-                shapeLengthsMap[outgoingLane].reserve(numberOfSegments);
-                shapeRotationsMap[outgoingLane].reserve(numberOfSegments);
-                // For every part of the shape
-                for (int i = 0; i < numberOfSegments; i++) {
-                    // Save distance between position into myShapeLengths
-                    shapeLengthsMap[outgoingLane].push_back(GNEGeometry::calculateLength(shapesMap[outgoingLane][i], shapesMap[outgoingLane][i + 1]));
-                    // Save rotation (angle) of the vector constructed by points f and s
-                    shapeRotationsMap[outgoingLane].push_back(GNEGeometry::calculateRotation(shapesMap[outgoingLane][i], shapesMap[outgoingLane][i + 1]));
-                }
-            }
-        }
-    }
-}
-
-
 GNELane::GNELane(GNEEdge& edge, const int index) :
     GNENetElement(edge.getNet(), edge.getNBEdge()->getLaneID(index), GLO_LANE, SUMO_TAG_LANE),
     myParentEdge(edge),
@@ -869,7 +819,7 @@ GNELane::isRestricted(SUMOVehicleClass vclass) const {
 }
 
 
-const GNELane::Lane2laneConnection &
+const GNEGeometry::Lane2laneConnection &
 GNELane::getLane2laneConnections() const {
     return myLane2laneConnections;
 }

@@ -118,8 +118,11 @@ struct GNEGeometry {
             const bool valid;
 
         private:
-            /// @brief flag to check if use lane shape or segment containers
+            /// @brief flag to use lane shape
             bool myUseLaneShape;
+
+            /// @brief flag to use lane2lane connection
+            bool myUseLane2LaneShape;
 
             /// @brief segment shape
             PositionVector mySegmentShape;
@@ -202,6 +205,26 @@ struct GNEGeometry {
 
         /// @brief Invalidated assignment operator
         SegmentGeometry& operator=(const SegmentGeometry& other) = delete;
+    };
+
+    /// @brief lane2lane struct
+    struct Lane2laneConnection {
+
+        /// @brief constructor
+        Lane2laneConnection(const GNELane* originLane);
+
+        /// @brief update
+        void updateLane2laneConnection();
+
+        /// @brief connection shape
+        std::map<const GNELane*, Geometry> connectionsMap;
+
+    private:
+        /// @brief origin lane
+        const GNELane* myOriginLane = nullptr;
+        
+        /// @brief Invalidated assignment operator
+        Lane2laneConnection& operator=(const Lane2laneConnection& other) = delete;
     };
 
     /// @brief return angle between two points (used in geometric calculations)
