@@ -79,7 +79,7 @@ def main(options):
                                 targets[i][iNext] = index
                                 index += 1
                                 if options.redTime > 0:
-                                    transitions.append((options.redTime, state, i2, name))
+                                    transitions.append((options.redTime, 'r' * len(state), i2, name))
                                     index += 1
                                 break
 
