@@ -2097,9 +2097,20 @@ GNEEdge::drawEdgeName(const GUIVisualizationSettings& s) const {
             GLHelper::drawTextSettings(s.streetName, myNBEdge.getStreetName(), p, s.scale, angle);
         }
         if (s.edgeValue.show) {
-            std::string value = (s.laneColorer.getActive() == 13
-                    ? getNBEdge()->getLaneStruct(lane2->getIndex()).getParameter(s.laneParam, "")
-                    : getNBEdge()->getParameter(s.edgeParam, ""));
+            const int activeScheme = s.laneColorer.getActive();
+            std::string value;
+            if (activeScheme == 12) {
+                // edge param, could be non-numerical
+                value = getNBEdge()->getParameter(s.edgeParam, "");
+            } else if (activeScheme == 13) {
+                // lane param, could be non-numerical
+                value = getNBEdge()->getLaneStruct(lane2->getIndex()).getParameter(s.laneParam, "");
+            } else {
+                // use numerical value value of leftmost lane to hopefully avoid sidewalks, bikelanes etc
+                const double doubleValue = lane2->getColorValue(s, activeScheme);
+                const RGBColor color = s.laneColorer.getScheme().getColor(doubleValue);
+                value = color.alpha() == 0 ? "" : toString(doubleValue);
+            }
             if (value != "") {
                 GLHelper::drawTextSettings(s.edgeValue, value, p, s.scale, angle);
             }
