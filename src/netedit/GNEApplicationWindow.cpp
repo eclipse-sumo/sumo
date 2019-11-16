@@ -2714,7 +2714,7 @@ long
 GNEApplicationWindow::onCmdSaveNetwork(FXObject*, FXSelector, void*) {
     OptionsCont& oc = OptionsCont::getOptions();
     // function onCmdSaveAsNetwork must be executed if this is the first save
-    if ((oc.getString("output-file") == "") || (oc.getString("output-file") == "net.net.xml")) {
+    if (oc.getString("output-file") == "" || oc.isDefault("output-file")) {
         return onCmdSaveAsNetwork(nullptr, 0, nullptr);
     } else {
         getApp()->beginWaitCursor();
