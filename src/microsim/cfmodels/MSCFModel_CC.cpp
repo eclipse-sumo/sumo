@@ -177,8 +177,7 @@ MSCFModel_CC::finalizeSpeed(MSVehicle* const veh, double vPos) const {
 
     //check whether the vehicle has collided and set the flag in case
     if (!vars->crashed) {
-        std::list<MSVehicle::Stop> stops = veh->getMyStops();
-        for (auto s : stops)
+        for (const MSVehicle::Stop& s : veh->getMyStops())
             if (s.collision) {
                 vars->crashed = true;
             }
