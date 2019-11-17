@@ -50,6 +50,9 @@ sumonet_customTLIndex2
 # 4 arm junction with 1 crossing (with custom shape)
 4_arm_1_customshape
 
+# 4 arm junction with 1 crossing (with custom shape), shifted by normalization
+4_arm_1_customshape_normalized
+
 # reimport .net.xml and keep the crossings with its custom shape
 sumonet_customshape
 
