@@ -696,7 +696,15 @@ GNEEdge::resetEndpoint(const Position& pos, GNEUndoList* undoList) {
 void
 GNEEdge::setGeometry(PositionVector geom, bool inner) {
     // set new geometry
+    const bool lefthand = OptionsCont::getOptions().getBool("lefthand");
+    if (lefthand) {
+        geom.mirrorX();
+        myNBEdge.mirrorX();
+    }
     myNBEdge.setGeometry(geom, inner);
+    if (lefthand) {
+        myNBEdge.mirrorX();
+    }
     updateGeometry();
     myGNEJunctionSource->invalidateShape();
     myGNEJunctionDestiny->invalidateShape();
