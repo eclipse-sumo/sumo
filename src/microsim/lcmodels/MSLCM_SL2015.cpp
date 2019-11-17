@@ -1246,7 +1246,7 @@ MSLCM_SL2015::_wantsChangeSublane(
         }
         std::vector<CLeaderDist> collectLeadBlockers;
         std::vector<CLeaderDist> collectFollowBlockers;
-        int blockedFully = 0;
+        int blockedFully = 0; // wether execution of the full maneuver is blocked
 
         const double gapFactor = computeGapFactor(LCA_STRATEGIC);
         blocked = checkBlocking(neighLane, latDist, maneuverDist, laneOffset,
@@ -2753,6 +2753,7 @@ MSLCM_SL2015::keepLatGap(int state,
     double gapFactor = computeGapFactor(state);
     const bool stayInLane = laneOffset == 0 || ((state & LCA_STRATEGIC) != 0 && (state & LCA_STAY) != 0);
     const double oldLatDist = latDist;
+    const double oldManeuverDist = maneuverDist;
 
     // compute gaps after maneuver
     const double halfWidth = getWidth() * 0.5;
@@ -2767,6 +2768,7 @@ MSLCM_SL2015::keepLatGap(int state,
     if (gDebugFlag2) {
         std::cout << "\n  " << SIMTIME << " keepLatGap() laneOffset=" << laneOffset
                   << " latDist=" << latDist
+                  << " maneuverDist=" << maneuverDist
                   << " state=" << toString((LaneChangeAction)state)
                   << " blocked=" << toString((LaneChangeAction)blocked)
                   << " gapFactor=" << gapFactor
@@ -2850,6 +2852,11 @@ MSLCM_SL2015::keepLatGap(int state,
         // sufficient space. move as far as the gaps permit
         latDist = MAX2(MIN2(latDist, surplusGapLeft), -surplusGapRight);
         maneuverDist = MAX2(MIN2(maneuverDist, surplusGapLeft), -surplusGapRight);
+        if ((state & LCA_KEEPRIGHT) != 0 && maneuverDist != oldManeuverDist) {
+            // don't start keepRight unless it can be completed
+            latDist = oldLatDist;
+            maneuverDist = oldManeuverDist;
+        }
 #ifdef DEBUG_KEEP_LATGAP
         if (gDebugFlag2) {
             std::cout << "     adapted latDist=" << latDist << " maneuverDist=" << maneuverDist << " (old=" << oldLatDist << ")\n";
