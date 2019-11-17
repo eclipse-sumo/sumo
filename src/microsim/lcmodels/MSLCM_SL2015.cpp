@@ -2323,14 +2323,17 @@ MSLCM_SL2015::checkBlockingVehicles(
                         result |= blockType;
                         if (collectBlockers == nullptr) {
                             return result;
-                        } else {
-                            collectBlockers->push_back(vehDist);
                         }
 #ifdef DEBUG_BLOCKING
                     } else if (gDebugFlag2 && expectedGap < expectedSecureGap) {
                         std::cout << "    ignore blocker " << vehDist.first->getID() << " gap=" << vehDist.second << " expectedGap=" << expectedGap
                                   << " expectedSecureGap=" << expectedSecureGap << " secGap2=" << secureGap2 << " safetyFactor=" << getSafetyFactor() << "\n";
 #endif
+                    }
+                    if (collectBlockers != nullptr) {
+                        // collect non-blocking followers as well to make sure
+                        // they remain non-blocking
+                        collectBlockers->push_back(vehDist);
                     }
                 }
             }
