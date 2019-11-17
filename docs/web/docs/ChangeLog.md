@@ -12,6 +12,7 @@ permalink: /ChangeLog/
   - Avoiding unnecessary rerouting while trips and flows are delayed from insertion. Issue #6013
   - Lanechange reason is now written in lanechange-output when using the [simple continuous lanechange model](Simulation/SublaneModel.md#simple_continous_lane-change_model). Issue #6014
   - Fixed invalid mode change from car during intermodal routing. Issue #6070
+  - Fixed invalid cooperative speed adjustment in sublane model. Issues #6266, #6267
 
 - NETEDIT
   - Fixed crash when defining walks between disconnected locations. Issue #5369
@@ -21,6 +22,8 @@ permalink: /ChangeLog/
   - Coloring edges by generic parameter is now working. Issue #6062
   - "Open in SUMO-GUI" option now works correctly when there are spaces in the path. Issue #6227
   - Fixed bug where multiple junctions could mistakenly be created in the same place. Issue #6228
+  - Fixed invalid lane shapes while moving edge geometry in a lefthand network. Issue #6234
+  - Fixed invalid edge shape when using 'replace junction' ahead of junction with custom shape. Issue #5777
 
 - NETCONVERT
   - Fixed bugs in classification of roundabouts. Issue #6032
@@ -30,10 +33,12 @@ permalink: /ChangeLog/
   - Fixed invalid junction and connection shapes in plain-xml-output when using option **--proj.plain-geo** Issue #6066
   - Fixed invalid geometry when using option **--geometry.max-segment-length** Issue #6074
   - Fixed invalid network when using option **--geometry.split** Issue #6075
+  - Fixed invalid handling of custom crossing shape when network coordinates are shifted. Issue #4621
   
 - Meso
   - device.emissions now collects data. Issue #6086
-  - fixed crash when using device.btsender or device.btreceiver. Issue #6087
+  - Fixed crash when using device.btsender or device.btreceiver. Issue #6087
+  - Fixed crash when loading network with internal lanes that have neighbor ('neigh') data. Issue #6205
 
 - SUMO-GUI
   - Sublane-borders are no longer drawn for railways and sidewalks (where the sublane model does not apply).
