@@ -93,6 +93,7 @@ Simulation::step(const double time) {
 
 void
 Simulation::close() {
+    Helper::clearSubscriptions();
     if (MSNet::hasInstance()) {
         MSNet::getInstance()->closeSimulation(0);
         delete MSNet::getInstance();

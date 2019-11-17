@@ -120,12 +120,24 @@ std::map<std::string, MSPerson*> Helper::myRemoteControlledPersons;
 void
 Helper::subscribe(const int commandId, const std::string& id, const std::vector<int>& variables,
                   const double beginTime, const double endTime, const int contextDomain, const double range) {
+    if (variables.empty()) {
+        for (std::vector<libsumo::Subscription>::iterator j = mySubscriptions.begin(); j != mySubscriptions.end();) {
+            if (j->id == id && j->commandId == commandId && (contextDomain < 0 || j->contextDomain == contextDomain)) {
+                j = mySubscriptions.erase(j);
+            } else {
+                ++j;
+            }
+        }
+    }
     std::vector<std::vector<unsigned char> > parameters;
     const SUMOTime begin = beginTime == INVALID_DOUBLE_VALUE ? 0 : TIME2STEPS(beginTime);
     const SUMOTime end = endTime == INVALID_DOUBLE_VALUE || endTime > STEPS2TIME(SUMOTime_MAX) ? SUMOTime_MAX : TIME2STEPS(endTime);
     libsumo::Subscription s(commandId, id, variables, parameters, begin, end, contextDomain, range);
-    mySubscriptions.push_back(s);
     handleSingleSubscription(s);
+    libsumo::Subscription* modifiedSubscription = nullptr;
+    if (needNewSubscription(s, mySubscriptions, modifiedSubscription)) {
+        mySubscriptions.push_back(s);
+    }
 }
 
 
@@ -135,11 +147,39 @@ Helper::handleSubscriptions(const SUMOTime t) {
         wrapper.second->clear();
     }
     for (const libsumo::Subscription& s : mySubscriptions) {
-        if (s.beginTime > t) {
-            continue;
+        if (s.beginTime <= t) {
+            handleSingleSubscription(s);
         }
-        handleSingleSubscription(s);
     }
+}
+
+
+bool
+Helper::needNewSubscription(libsumo::Subscription& s, std::vector<Subscription>& subscriptions, libsumo::Subscription*& modifiedSubscription) {
+    for (libsumo::Subscription& o : subscriptions) {
+        if (s.commandId == o.commandId && s.id == o.id &&
+                s.beginTime == o.beginTime && s.endTime == o.endTime &&
+                s.contextDomain == o.contextDomain && s.range == o.range) {
+            std::vector<std::vector<unsigned char> >::const_iterator k = s.parameters.begin();
+            for (const int v : s.variables) {
+                const int offset = (int)(std::find(o.variables.begin(), o.variables.end(), v) - o.variables.begin());
+                if (offset == (int)o.variables.size() || o.parameters[offset] != *k) {
+                    o.variables.push_back(v);
+                    o.parameters.push_back(*k);
+                }
+                ++k;
+            }
+            modifiedSubscription = &o;
+            return false;
+        }
+    }
+    return true;
+}
+
+
+void
+Helper::clearSubscriptions() {
+    mySubscriptions.clear();
 }
 
 

@@ -110,6 +110,10 @@ public:
 
     static void handleSubscriptions(const SUMOTime t);
 
+    static bool needNewSubscription(libsumo::Subscription& s, std::vector<Subscription>& subscriptions, libsumo::Subscription*& modifiedSubscription);
+
+    static void clearSubscriptions();
+
     /// @brief helper functions
     static TraCIPositionVector makeTraCIPositionVector(const PositionVector& positionVector);
     static TraCIPosition makeTraCIPosition(const Position& position, const bool includeZ = false);

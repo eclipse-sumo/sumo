@@ -995,25 +995,7 @@ TraCIServer::initialiseSubscription(libsumo::Subscription& s) {
         if (s.endTime < MSNet::getInstance()->getCurrentTimeStep()) {
             writeStatusCmd(s.commandId, libsumo::RTYPE_ERR, "Subscription has ended.");
         } else {
-            bool needNewSubscription = true;
-            for (libsumo::Subscription& o : mySubscriptions) {
-                if (s.commandId == o.commandId && s.id == o.id &&
-                        s.beginTime == o.beginTime && s.endTime == o.endTime &&
-                        s.contextDomain == o.contextDomain && s.range == o.range) {
-                    std::vector<std::vector<unsigned char> >::const_iterator k = s.parameters.begin();
-                    for (std::vector<int>::const_iterator j = s.variables.begin(); j != s.variables.end(); ++j, ++k) {
-                        const int offset = (int)(std::find(o.variables.begin(), o.variables.end(), *j) - o.variables.begin());
-                        if (offset == (int)o.variables.size() || o.parameters[offset] != *k) {
-                            o.variables.push_back(*j);
-                            o.parameters.push_back(*k);
-                        }
-                    }
-                    needNewSubscription = false;
-                    modifiedSubscription = &o;
-                    break;
-                }
-            }
-            if (needNewSubscription) {
+            if (libsumo::Helper::needNewSubscription(s, mySubscriptions, modifiedSubscription)) {
                 mySubscriptions.push_back(s);
                 modifiedSubscription = &mySubscriptions.back();
                 // Add new subscription to subscription cache (note: seems a bit inefficient)
