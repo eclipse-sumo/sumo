@@ -96,7 +96,9 @@ NLHandler::myStartElement(int element,
                 addLane(attrs);
                 break;
             case SUMO_TAG_NEIGH:
-                myEdgeControlBuilder.addNeigh(attrs.getString(SUMO_ATTR_LANE));
+                if (!myCurrentIsInternalToSkip) {
+                    myEdgeControlBuilder.addNeigh(attrs.getString(SUMO_ATTR_LANE));
+                }
                 myHaveSeenNeighs = true;
                 break;
             case SUMO_TAG_JUNCTION:
