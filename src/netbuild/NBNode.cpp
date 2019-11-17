@@ -333,6 +333,9 @@ NBNode::reshiftPosition(double xoff, double yoff) {
     for (auto& wacs : myWalkingAreaCustomShapes) {
         wacs.shape.add(xoff, yoff, 0);
     }
+    for (auto& c : myCrossings) {
+        c->customShape.add(xoff, yoff, 0);
+    }
 }
 
 
