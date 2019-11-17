@@ -154,6 +154,7 @@ NIXMLTrafficLightsHandler::initTrafficLightLogic(const SUMOSAXAttributes& attrs,
             // case 2
             NBTrafficLightDefinition* newDef = dynamic_cast<NBOwnTLDef*>(myTLLCont.getDefinition(
                                                    id, NBTrafficLightDefinition::DefaultProgramID));
+            bool deleteDefault = false;
             if (newDef == nullptr) {
                 // the default program may have already been replaced with a loaded program
                 newDef = dynamic_cast<NBLoadedSUMOTLDef*>(myTLLCont.getDefinition(
@@ -162,6 +163,8 @@ NIXMLTrafficLightsHandler::initTrafficLightLogic(const SUMOSAXAttributes& attrs,
                     WRITE_ERROR("Cannot load traffic light program for unknown id '" + id + "', programID '" + programID + "'.");
                     return nullptr;
                 }
+            } else {
+                deleteDefault = true;
             }
             assert(newDef != 0);
             loadedDef = new NBLoadedSUMOTLDef(id, programID, offset, type);
@@ -171,7 +174,7 @@ NIXMLTrafficLightsHandler::initTrafficLightLogic(const SUMOSAXAttributes& attrs,
                 loadedDef->addNode(*it);
             }
             loadedDef->addControlledInnerEdges(newDef->getControlledInnerEdges());
-            if (programID == NBTrafficLightDefinition::DefaultProgramID) {
+            if (deleteDefault) {
                 // replace default Program
                 std::vector<NBNode*> nodes = newDef->getNodes();
                 for (std::vector<NBNode*>::iterator it = nodes.begin(); it != nodes.end(); it++) {
