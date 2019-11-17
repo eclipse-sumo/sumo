@@ -18,12 +18,6 @@
 -->
 
 <tlLogics version="1.3">
-    <connection from="gneE1" to="gneE3" fromLane="0" toLane="0" tl="gneJ3" linkIndex="1"/>
-    <connection from="gneE1" to="gneE5" fromLane="0" toLane="0" tl="gneJ3" linkIndex="1"/>
-    <connection from="gneE4" to="gneE5" fromLane="0" toLane="0" tl="gneJ3" linkIndex="1"/>
-    <connection from="gneE4" to="gneE2" fromLane="0" toLane="0" tl="gneJ3" linkIndex="1"/>
-    <connection from="gneE6" to="gneE2" fromLane="0" toLane="0" tl="gneJ3" linkIndex="0"/>
-    <connection from="gneE6" to="gneE3" fromLane="0" toLane="0" tl="gneJ3" linkIndex="0"/>
     <tlLogic id="gneJ3" type="static" programID="test" offset="0">
         <phase duration="31" state="GG"/>
         <phase duration="4"  state="GG"/>
@@ -32,4 +26,10 @@
         <phase duration="31" state="GG"/>
         <phase duration="4"  state="GG"/>
     </tlLogic>
+    <connection from="gneE1" to="gneE3" fromLane="0" toLane="0" tl="gneJ3" linkIndex="1"/>
+    <connection from="gneE1" to="gneE5" fromLane="0" toLane="0" tl="gneJ3" linkIndex="1"/>
+    <connection from="gneE4" to="gneE5" fromLane="0" toLane="0" tl="gneJ3" linkIndex="1"/>
+    <connection from="gneE4" to="gneE2" fromLane="0" toLane="0" tl="gneJ3" linkIndex="1"/>
+    <connection from="gneE6" to="gneE2" fromLane="0" toLane="0" tl="gneJ3" linkIndex="0"/>
+    <connection from="gneE6" to="gneE3" fromLane="0" toLane="0" tl="gneJ3" linkIndex="0"/>
 </tlLogics>
