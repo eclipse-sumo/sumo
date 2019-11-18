@@ -835,8 +835,8 @@ Helper::applySubscriptionFilters(const Subscription& s, std::set<std::string>& o
 
 void
 Helper::applySubscriptionFilterFieldOfVision(const Subscription& s, std::set<std::string>& objIDs) {
-    if (s.filterFieldOfVisionOpeningAngle < 0. || s.filterFieldOfVisionOpeningAngle > 360.) {
-        WRITE_WARNINGF("Field of vision opening angle ('%') should be within interval [0, 360], ignoring filter...", s.filterFieldOfVisionOpeningAngle);
+    if (s.filterFieldOfVisionOpeningAngle <= 0. || s.filterFieldOfVisionOpeningAngle >= 360.) {
+        WRITE_WARNINGF("Field of vision opening angle ('%') should be within interval (0, 360), ignoring filter...", s.filterFieldOfVisionOpeningAngle);
         return;
     }
 
