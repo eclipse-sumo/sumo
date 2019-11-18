@@ -202,7 +202,7 @@ GeoConvHelper::init(OptionsCont& oc) {
     std::string proj = "!"; // the default
     double scale = oc.getFloat("proj.scale");
     double rot = oc.getFloat("proj.rotate");
-    Position offset = Position(oc.getFloat("offset.x"), oc.getFloat("offset.y"));
+    Position offset = Position(oc.getFloat("offset.x"), oc.getFloat("offset.y"), oc.getFloat("offset.z"));
     bool inverse = oc.exists("proj.inverse") && oc.getBool("proj.inverse");
     bool flatten = oc.exists("flatten") && oc.getBool("flatten");
 
@@ -421,7 +421,7 @@ GeoConvHelper::x2cartesian_const(Position& from) const {
     double x = x2 * myCos - y2 * mySin;
     double y = x2 * mySin + y2 * myCos;
     if (myProjectionMethod == NONE) {
-        from.add(myOffset);
+        // do nothing
     } else if (myUseInverseProjection) {
         cartesian2geo(from);
     } else {

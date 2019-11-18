@@ -222,6 +222,9 @@ NBFrame::fillOptions(bool forNetgen) {
     oc.addSynonyme("offset.y", "y-offset-to-apply", true);
     oc.addDescription("offset.y", "Processing", "Adds FLOAT to net y-positions");
 
+    oc.doRegister("offset.z", new Option_Float(0));
+    oc.addDescription("offset.z", "Processing", "Adds FLOAT to net z-positions");
+
     oc.doRegister("flip-y-axis", new Option_Bool(false));
     oc.addSynonyme("flip-y-axis", "flip-y");
     oc.addDescription("flip-y-axis", "Processing", "Flips the y-coordinate along zero");
