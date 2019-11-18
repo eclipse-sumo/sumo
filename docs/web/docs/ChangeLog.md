@@ -34,6 +34,7 @@ permalink: /ChangeLog/
   - Fixed invalid geometry when using option **--geometry.max-segment-length** Issue #6074
   - Fixed invalid network when using option **--geometry.split** Issue #6075
   - Fixed invalid handling of custom crossing shape when network coordinates are shifted. Issue #4621
+  - Fixed invalid error message when loading .tll-file with tlLogid-programID other than '0'. Issue #6160
   
 - Meso
   - device.emissions now collects data. Issue #6086
