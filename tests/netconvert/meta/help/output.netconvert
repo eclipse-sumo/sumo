@@ -1,4 +1,4 @@
-Eclipse SUMO netconvert Version v1_3_1+0930-95c7b56
+Eclipse SUMO netconvert Version v1_3_1+0940-f979064346
  Copyright (C) 2001-2019 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 Network importer / builder for the microscopic, multi-modal traffic simulation
   SUMO.
@@ -236,6 +236,10 @@ TLS Building Options:
                                          within a joined traffic light. This may
                                          cause collisions but allows old traffic
                                          light plans to be used
+  --tls.ignore-internal-junction-jam   Do not build mutually conflicting
+                                         response matrix, potentially ignoring
+                                         vehicles that are stuck at an internal
+                                         junction when their phase has ended
   --tls.guess-signals                  Interprets tls nodes surrounding an
                                          intersection as signal positions for a
                                          larger TLS. This is typical pattern for

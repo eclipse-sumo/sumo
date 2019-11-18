@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Nov 18 16:09:56 2019 by Eclipse SUMO netconvert Version v1_3_1+0930-95c7b56
+<!-- generated on Mon Nov 18 21:21:29 2019 by Eclipse SUMO netconvert Version v1_3_1+0940-f979064346
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -383,6 +383,9 @@
 
         <!-- Do not control edges that lie fully within a joined traffic light. This may cause collisions but allows old traffic light plans to be used -->
         <tls.uncontrolled-within value="false" type="BOOL"/>
+
+        <!-- Do not build mutually conflicting response matrix, potentially ignoring vehicles that are stuck at an internal junction when their phase has ended -->
+        <tls.ignore-internal-junction-jam value="false" type="BOOL"/>
 
         <!-- Interprets tls nodes surrounding an intersection as signal positions for a larger TLS. This is typical pattern for OSM-derived networks -->
         <tls.guess-signals value="false" type="BOOL"/>

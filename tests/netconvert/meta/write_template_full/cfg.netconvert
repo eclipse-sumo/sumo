@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Nov 18 16:09:56 2019 by Eclipse SUMO netconvert Version v1_3_1+0930-95c7b56
+<!-- generated on Mon Nov 18 21:21:28 2019 by Eclipse SUMO netconvert Version v1_3_1+0940-f979064346
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -144,6 +144,7 @@
         <tls.join value="false" synonymes="try-join-tls" type="BOOL" help="Tries to cluster tls-controlled nodes"/>
         <tls.join-dist value="20" type="FLOAT" help="Determines the maximal distance for joining traffic lights (defaults to 20)"/>
         <tls.uncontrolled-within value="false" type="BOOL" help="Do not control edges that lie fully within a joined traffic light. This may cause collisions but allows old traffic light plans to be used"/>
+        <tls.ignore-internal-junction-jam value="false" type="BOOL" help="Do not build mutually conflicting response matrix, potentially ignoring vehicles that are stuck at an internal junction when their phase has ended"/>
         <tls.guess-signals value="false" type="BOOL" help="Interprets tls nodes surrounding an intersection as signal positions for a larger TLS. This is typical pattern for OSM-derived networks"/>
         <tls.guess-signals.dist value="25" type="FLOAT" help="Distance for interpreting nodes as signal locations"/>
         <tls.cycle.time value="90" type="INT" help="Use INT as cycle duration"/>
