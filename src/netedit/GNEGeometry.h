@@ -183,6 +183,9 @@ struct GNEGeometry {
 
         /// @brief get first rotation (or Invalid position if segments are empty)
         double getFirstRotation() const;
+        
+        /// @brief Returns a boundary enclosing all segments
+        Boundary getBoxBoundary() const;
 
         /// @brief begin iterator
         std::vector<Segment>::const_iterator begin() const;
@@ -243,9 +246,20 @@ struct GNEGeometry {
      * @param extraFirstPosition extra first position (if is Position::INVALID, then it's ignored)
      * @param extraLastPosition extra last position (if is Position::INVALID, then it's ignored)
      */
-    static void calculateGeometricPath(const GNEAttributeCarrier* AC, GNEGeometry::SegmentGeometry &segmentGeometry, const std::vector<GNEEdge*> &edges, 
-                                const SUMOVehicleClass vClass, GNELane *fromLane, GNELane *toLane, double startPos = -1, double endPos = -1, 
-                                const Position &extraFirstPosition = Position::INVALID, const Position &extraLastPosition = Position::INVALID);
+    static void calculateEdgeGeometricPath(const GNEAttributeCarrier* AC, GNEGeometry::SegmentGeometry &segmentGeometry, const std::vector<GNEEdge*> &edges, 
+                                           const SUMOVehicleClass vClass, GNELane *fromLane, GNELane *toLane, double startPos = -1, double endPos = -1, 
+                                           const Position &extraFirstPosition = Position::INVALID, const Position &extraLastPosition = Position::INVALID);
+
+    /**@brief calculate route between lanes
+     * @brief lanes list of lanes
+     * @param startPos start position in the first lane (if -1, then starts at the beginning of lane)
+     * @param endPos end position in the last lane (if -1, then ends at the end of lane)
+     * @param extraFirstPosition extra first position (if is Position::INVALID, then it's ignored)
+     * @param extraLastPosition extra last position (if is Position::INVALID, then it's ignored)
+     */
+    static void calculateLaneGeometricPath(const GNEAttributeCarrier* AC, GNEGeometry::SegmentGeometry &segmentGeometry, const std::vector<GNELane*> &lanes, 
+                                           double startPos = -1, double endPos = -1, const Position &extraFirstPosition = Position::INVALID, 
+                                           const Position &extraLastPosition = Position::INVALID);
 
     /**@brief calculate route between edges
      * @brief edges list of edges
@@ -254,9 +268,8 @@ struct GNEGeometry {
      * @param extraFirstPosition extra first position (if is Position::INVALID, then it's ignored)
      * @param extraLastPosition extra last position (if is Position::INVALID, then it's ignored)
      */
-    static void updateGeometricPath(GNEGeometry::SegmentGeometry &segmentGeometry, const GNEEdge* edge, 
-                            double startPos = -1, double endPos = -1, 
-                            const Position &extraFirstPosition = Position::INVALID, const Position &extraLastPosition = Position::INVALID);
+    static void updateGeometricPath(GNEGeometry::SegmentGeometry &segmentGeometry, const GNEEdge* edge, double startPos = -1, double endPos = -1, 
+                                    const Position &extraFirstPosition = Position::INVALID, const Position &extraLastPosition = Position::INVALID);
 };
 
 #endif

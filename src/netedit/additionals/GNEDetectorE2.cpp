@@ -247,6 +247,7 @@ void
 GNEDetectorE2::updateGeometry() {
     // Clear all containers
     myGeometry.clearGeometry();
+    myE2MultilaneGeometry.clearSegmentGeometry();
 
     // declare variables for start and end positions
     double startPosFixed, endPosFixed;
@@ -284,67 +285,8 @@ GNEDetectorE2::updateGeometry() {
         myBlockIcon.position = myGeometry.shape.getLineCenter();
 
     } else if (getLaneParents().size() > 1) {
+        GNEGeometry::calculateLaneGeometricPath(this, myE2MultilaneGeometry, getLaneParents(), myPositionOverLane, myEndPositionOverLane);
         /*
-        // start with the first lane shape
-        myGeometry.multiShape.push_back(getLaneParents().front()->getLaneShape());
-
-        // set start position
-        if (myPositionOverLane < 0) {
-            startPosFixed = 0;
-        } else if (myPositionOverLane > getLaneParents().front()->getParentEdge().getNBEdge()->getFinalLength()) {
-            startPosFixed = getLaneParents().front()->getParentEdge().getNBEdge()->getFinalLength();
-        } else {
-            startPosFixed = myPositionOverLane;
-        }
-        // Cut shape using as delimitators fixed start position and fixed end position
-        myGeometry.multiShape[0] = myGeometry.multiShape[0].getSubpart(startPosFixed * getLaneParents().front()->getLengthGeometryFactor(), getLaneParents().front()->getParentEdge().getNBEdge()->getFinalLength());
-
-        // declare last shape
-        PositionVector lastShape = getLaneParents().back()->getLaneShape();
-
-        // set end position
-        if (myEndPositionOverLane < 0) {
-            endPosFixed = 0;
-        } else if (myEndPositionOverLane > getLaneParents().back()->getParentEdge().getNBEdge()->getFinalLength()) {
-            endPosFixed = getLaneParents().back()->getParentEdge().getNBEdge()->getFinalLength();
-        } else {
-            endPosFixed = myEndPositionOverLane;
-        }
-
-        // Cut shape using as delimitators fixed start position and fixed end position
-        lastShape = lastShape.getSubpart(0, endPosFixed * getLaneParents().back()->getLengthGeometryFactor());
-
-        // add first shape connection (if exist, in other case leave it empty)
-        myGeometry.multiShape.push_back(PositionVector{getLaneParents().at(0)->getLaneShape().back(), getLaneParents().at(1)->getLaneShape().front()});
-        for (auto j : getLaneParents().at(0)->getParentEdge().getGNEConnections()) {
-            if (j->getLaneTo() == getLaneParents().at(1)) {
-                myGeometry.multiShape.back() = j->getConnectionShape();
-            }
-        }
-
-        // append shapes of intermediate lanes AND connections (if exist)
-        for (int i = 1; i < ((int)getLaneParents().size() - 1); i++) {
-            // add lane shape
-            myGeometry.multiShape.push_back(getLaneParents().at(i)->getLaneShape());
-            // add empty shape for connection
-            myGeometry.multiShape.push_back(PositionVector{getLaneParents().at(i)->getLaneShape().back(), getLaneParents().at(i + 1)->getLaneShape().front()});
-            // set connection shape (if exist). In other case, insert an empty shape
-            for (auto j : getLaneParents().at(i)->getParentEdge().getGNEConnections()) {
-                if (j->getLaneTo() == getLaneParents().at(i + 1)) {
-                    myGeometry.multiShape.back() = j->getConnectionShape();
-                }
-            }
-        }
-
-        // append last shape
-        myGeometry.multiShape.push_back(lastShape);
-
-        // calculate multi shape rotation and lengths
-        myGeometry.calculateMultiShapeRotationsAndLengths();
-
-        // calculate unified shape
-        myGeometry.calculateMultiShapeUnified();
-
         // Set block icon position
         myBlockIcon.position = myGeometry.multiShape.front().getLineCenter();
 

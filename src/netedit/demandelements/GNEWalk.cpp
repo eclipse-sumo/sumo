@@ -301,10 +301,10 @@ GNEWalk::updateGeometry() {
     // calculate geometry path depending if is a Walk over route
     if (myTagProperty.getTag() == SUMO_TAG_WALK_ROUTE) {
         // use edges of route parent
-        GNEGeometry::calculateGeometricPath(this, myDemandElementSegmentGeometry, getDemandElementParents().at(1)->getEdgeParents(), getVClass(), 
+        GNEGeometry::calculateEdgeGeometricPath(this, myDemandElementSegmentGeometry, getDemandElementParents().at(1)->getEdgeParents(), getVClass(), 
             getFirstAllowedVehicleLane(), getLastAllowedVehicleLane(), departPosLane, arrivalPosLane, startPos, endPos);
     } else {
-        GNEGeometry::calculateGeometricPath(this, myDemandElementSegmentGeometry,getEdgeParents(), getVClass(), 
+        GNEGeometry::calculateEdgeGeometricPath(this, myDemandElementSegmentGeometry,getEdgeParents(), getVClass(), 
             getFirstAllowedVehicleLane(), getLastAllowedVehicleLane(), departPosLane, arrivalPosLane, startPos, endPos);
     }
     // update demand element childrens

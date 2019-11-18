@@ -151,6 +151,9 @@ protected:
     /// @brief E2 detector length
     double myLength;
 
+    /// @brief E2 Multilane segment geometry
+    GNEGeometry::SegmentGeometry myE2MultilaneGeometry;
+
     /// @brief end position over lane (only for Multilane E2 detectors)
     double myEndPositionOverLane;
 
