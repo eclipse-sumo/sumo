@@ -1257,6 +1257,12 @@ TraCIServer::addSubscriptionFilter() {
             addSubscriptionFilterVType(vTypesSet);
         }
         break;
+        case libsumo::FILTER_TYPE_FIELD_OF_VISION: {
+            myInputStorage.readByte();  // read type double
+            double angle = myInputStorage.readDouble();
+            addSubscriptionFilterFieldOfVision(angle);
+        }
+        break;
         default:
             writeStatusCmd(filterType, libsumo::RTYPE_NOTIMPLEMENTED, "'" + toString(filterType) + "' is no valid filter type code.");
             success  = false;
@@ -1346,6 +1352,15 @@ TraCIServer::addSubscriptionFilterVType(std::set<std::string> vTypes) {
 #endif
     myLastContextSubscription->activeFilters = myLastContextSubscription->activeFilters | libsumo::SUBS_FILTER_VTYPE;
     myLastContextSubscription->filterVTypes = vTypes;
+}
+
+void
+TraCIServer::addSubscriptionFilterFieldOfVision(double openingAngle) {
+#ifdef DEBUG_SUBSCRIPTION_FILTERS
+    std::cout << "Adding FieldOfVision filter (openingAngle=" << toString(openingAngle) << ")" << std::endl;
+#endif
+    myLastContextSubscription->activeFilters = myLastContextSubscription->activeFilters | libsumo::SUBS_FILTER_FIELD_OF_VISION;
+    myLastContextSubscription->filterFieldOfVisionOpeningAngle = openingAngle;
 }
 
 void

@@ -142,6 +142,8 @@ public:
     /// @note Currently this assumes that the objects are vehicles.
     static void applySubscriptionFilters(const Subscription& s, std::set<std::string>& objIDs);
 
+    static void applySubscriptionFilterFieldOfVision(const Subscription& s, std::set<std::string>& objIDs);
+
     static void setRemoteControlled(MSVehicle* v, Position xyPos, MSLane* l, double pos, double posLat, double angle,
                                     int edgeOffset, ConstMSEdgeVector route, SUMOTime t);
 

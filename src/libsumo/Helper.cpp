@@ -529,7 +529,7 @@ Helper::collectObjectsInRange(int domain, const PositionVector& shape, double ra
 void
 Helper::applySubscriptionFilters(const Subscription& s, std::set<std::string>& objIDs) {
 #ifdef DEBUG_SURROUNDING
-    MSVehicle* _veh = libsumo::Vehicle::getVehicle(s.id);
+    MSVehicle* _veh = getVehicle(s.id);
     std::cout << SIMTIME << " applySubscriptionFilters for vehicle '" << _veh->getID() << "' on lane '" << _veh->getLane()->getID() << "'"
               << "\n       on edge '" << _veh->getLane()->getEdge().getID() << "' (" << toString(_veh->getLane()->getEdge().getLanes()) << ")\n"
               << "objIDs = " << toString(objIDs) << std::endl;
@@ -541,12 +541,15 @@ Helper::applySubscriptionFilters(const Subscription& s, std::set<std::string>& o
     }
 
     // Whether vehicles on opposite lanes shall be taken into account
-    const bool disregardOppositeDirection = (s.activeFilters & SUBS_FILTER_NOOPPOSITE) != 0;
+    const bool disregardOppositeDirection = (s.activeFilters & SUBS_FILTER_NOOPPOSITE);
 
     // Check filter specification consistency
     // TODO: Warn only once
     if (disregardOppositeDirection && (s.activeFilters & SUBS_FILTER_NO_RTREE) == 0) {
         WRITE_WARNING("Ignoring no-opposite subscription filter for geographic range object collection. Consider using the 'lanes' filter.")
+    }
+    if ((s.activeFilters & SUBS_FILTER_FIELD_OF_VISION) && (s.activeFilters & SUBS_FILTER_NO_RTREE)) {
+        WRITE_WARNING("Ignoring field of vision subscription filter due to incompatibility with other filter(s).")
     }
 
     // TODO: Treat case, where ego vehicle is currently on opposite lane
@@ -798,8 +801,7 @@ Helper::applySubscriptionFilters(const Subscription& s, std::set<std::string>& o
                 objIDs.insert(objIDs.end(), veh->getID());
             }
         }
-    } else {
-        // filter vehicles in vehs by class and/or type if requested
+    } else { // apply rTree-based filters
         if (s.activeFilters & SUBS_FILTER_VCLASS) {
             // Only return vehicles of the given vClass in context subscription result
             auto i = objIDs.begin();
@@ -823,6 +825,48 @@ Helper::applySubscriptionFilters(const Subscription& s, std::set<std::string>& o
                     ++i;
                 }
             }
+        }
+        if (s.activeFilters & SUBS_FILTER_FIELD_OF_VISION) {
+            // Only return vehicles within field of vision in context subscription result
+            applySubscriptionFilterFieldOfVision(s, objIDs);
+        }
+    }
+}
+
+void
+Helper::applySubscriptionFilterFieldOfVision(const Subscription& s, std::set<std::string>& objIDs) {
+    if (s.filterFieldOfVisionOpeningAngle < 0. || s.filterFieldOfVisionOpeningAngle > 360.) {
+        WRITE_WARNINGF("Field of vision opening angle ('%') should be within interval [0, 360], ignoring filter...", s.filterFieldOfVisionOpeningAngle);
+        return;
+    }
+
+    MSVehicle* egoVehicle = getVehicle(s.id);
+    Position egoPosition = egoVehicle->getPosition();
+    double openingAngle = DEG2RAD(s.filterFieldOfVisionOpeningAngle);
+
+#ifdef DEBUG_SURROUNDING
+    std::cout << "FOVFILTER: ego direction = " << toString(RAD2DEG(egoVehicle->getAngle())) << " (deg)" << std::endl;
+#endif
+
+    auto i = objIDs.begin();
+    while (i != objIDs.end()) {
+        if (s.id.compare(*i) == 0) { // skip if this is the ego vehicle
+            ++i;
+            continue;
+        }
+        MSVehicle* veh = getVehicle(*i);
+        double angleEgoToVeh = egoPosition.angleTo2D(veh->getPosition());
+        double alpha = GeomHelper::angleDiff(egoVehicle->getAngle(), angleEgoToVeh);
+
+#ifdef DEBUG_SURROUNDING
+        std::cout << "FOVFILTER: veh '" << *i << "' dist  = " << toString(egoPosition.distanceTo2D(veh->getPosition())) << std::endl;
+        std::cout << "FOVFILTER: veh '" << *i << "' alpha = " << toString(RAD2DEG(alpha)) << " (deg)" << std::endl;
+#endif
+
+        if (abs(alpha) > openingAngle * 0.5) {
+            i = objIDs.erase(i);
+        } else {
+            ++i;
         }
     }
 }

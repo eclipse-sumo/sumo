@@ -417,6 +417,11 @@ private:
     void addSubscriptionFilterTurn();
     void addSubscriptionFilterVClass(SVCPermissions vClasses);
     void addSubscriptionFilterVType(std::set<std::string> vTypes);
+    /** @brief Filter only vehicles within field of vision
+     *
+     * @param[in] openingAngle The opening angle of the circle sector
+     */
+    void addSubscriptionFilterFieldOfVision(double openingAngle);
     bool isVehicleToVehicleContextSubscription(const libsumo::Subscription& s);
 
     bool findObjectShape(int domain, const std::string& id, PositionVector& shape);

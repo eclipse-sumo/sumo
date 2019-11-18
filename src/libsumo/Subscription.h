@@ -51,6 +51,9 @@ enum SubscriptionFilterType {
     SUBS_FILTER_VCLASS = 1 << 7,
     // Only return vehicles of the given vType in context subscription result
     SUBS_FILTER_VTYPE = 1 << 8,
+    // Only return vehicles within field of vision in context subscription result
+    // NOTE: relies on rTree, therefore incompatible with SUBS_FILTER_NO_RTREE
+    SUBS_FILTER_FIELD_OF_VISION = 1 << 9,
     // Filter category for measuring distances along the road network instead of using the usual rtree query
     SUBS_FILTER_NO_RTREE = SUBS_FILTER_DOWNSTREAM_DIST | SUBS_FILTER_UPSTREAM_DIST | SUBS_FILTER_LANES | SUBS_FILTER_TURN | SUBS_FILTER_LEAD_FOLLOW,
     // Filter category for maneuver filters
@@ -74,11 +77,25 @@ public:
     * @param[in] rangeArg The range of the context
     */
     Subscription(int commandIdArg, const std::string& idArg,
-                 const std::vector<int>& variablesArg, const std::vector<std::vector<unsigned char> >& paramsArg,
-                 SUMOTime beginTimeArg, SUMOTime endTimeArg, int contextDomainArg, double rangeArg)
-        : commandId(commandIdArg), id(idArg), variables(variablesArg), parameters(paramsArg), beginTime(beginTimeArg), endTime(endTimeArg),
-          contextDomain(contextDomainArg), range(rangeArg), activeFilters(SUBS_FILTER_NONE),
-          filterLanes(), filterDownstreamDist(-1), filterUpstreamDist(-1), filterVTypes(), filterVClasses(0) {}
+                 const std::vector<int>& variablesArg,
+                 const std::vector<std::vector<unsigned char>>& paramsArg,
+                 SUMOTime beginTimeArg, SUMOTime endTimeArg,
+                 int contextDomainArg, double rangeArg)
+        : commandId(commandIdArg),
+          id(idArg),
+          variables(variablesArg),
+          parameters(paramsArg),
+          beginTime(beginTimeArg),
+          endTime(endTimeArg),
+          contextDomain(contextDomainArg),
+          range(rangeArg),
+          activeFilters(SUBS_FILTER_NONE),
+          filterLanes(),
+          filterDownstreamDist(-1),
+          filterUpstreamDist(-1),
+          filterVTypes(),
+          filterVClasses(0),
+          filterFieldOfVisionOpeningAngle(-1) {}
 
     /// @brief commandIdArg The command id of the subscription
     int commandId;
@@ -109,6 +126,8 @@ public:
     std::set<std::string> filterVTypes;
     /// @brief vClasses specified by the vClasses filter, @see SVCPermissions
     int filterVClasses;
+    /// @brief Opening angle (in deg) specified by the field of vision filter
+    double filterFieldOfVisionOpeningAngle;
 };
 
 class VariableWrapper {

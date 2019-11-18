@@ -489,6 +489,9 @@ TRACI_CONST int FILTER_TYPE_VCLASS = 0x08;
 // Only return vehicles of the given vType in context subscription result
 TRACI_CONST int FILTER_TYPE_VTYPE = 0x09;
 
+// Only return vehicles within field of vision in context subscription result
+TRACI_CONST int FILTER_TYPE_FIELD_OF_VISION = 0x0A;
+
 // ****************************************
 // VARIABLE TYPES (for CMD_GET_*_VARIABLE)
 // ****************************************
