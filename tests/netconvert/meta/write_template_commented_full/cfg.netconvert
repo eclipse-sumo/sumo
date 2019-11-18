@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Nov  8 13:07:40 2019 by Eclipse SUMO netconvert Version v1_3_1+0801-355be15e4b
+<!-- generated on Mon Nov 18 16:09:56 2019 by Eclipse SUMO netconvert Version v1_3_1+0930-95c7b56
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -281,6 +281,9 @@
 
         <!-- Adds FLOAT to net y-positions -->
         <offset.y value="0" synonymes="y-offset-to-apply" type="FLOAT"/>
+
+        <!-- Adds FLOAT to net z-positions -->
+        <offset.z value="0" type="FLOAT"/>
 
         <!-- Flips the y-coordinate along zero -->
         <flip-y-axis value="false" synonymes="flip-y" type="BOOL"/>
