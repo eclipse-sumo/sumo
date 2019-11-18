@@ -33,7 +33,12 @@
 template<class T, class Container = std::list<T> >
 class FXSynchQue {
 public:
-    FXSynchQue(const bool condition = true): myCondition(condition) {}
+    FXSynchQue(const bool condition = true): 
+#ifdef HAVE_FOX
+        myMutex(true),
+#endif
+        myCondition(condition) 
+        {}
 
     T top() {
         assert(myItems.size() != 0);
