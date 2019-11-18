@@ -2830,8 +2830,15 @@ MSLane::VehPosition::operator()(const MSVehicle* cmp, double pos) const {
 
 int
 MSLane::vehicle_position_sorter::operator()(MSVehicle* v1, MSVehicle* v2) const {
-    return v1->getBackPositionOnLane(myLane) > v2->getBackPositionOnLane(myLane);
+    const double pos1 = v1->getBackPositionOnLane(myLane);
+    const double pos2 = v2->getBackPositionOnLane(myLane);
+    if (pos1 != pos2) {
+        return pos1 < pos2;
+    } else {
+        return v1->getNumericalID() > v2->getNumericalID();
+    }
 }
+
 
 int
 MSLane::vehicle_natural_position_sorter::operator()(MSVehicle* v1, MSVehicle* v2) const {
@@ -2843,6 +2850,7 @@ MSLane::vehicle_natural_position_sorter::operator()(MSVehicle* v1, MSVehicle* v2
         return v1->getLateralPositionOnLane() < v2->getLateralPositionOnLane();
     }
 }
+
 
 MSLane::by_connections_to_sorter::by_connections_to_sorter(const MSEdge* const e) :
     myEdge(e),
