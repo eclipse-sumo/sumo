@@ -32,7 +32,8 @@
 // ===========================================================================
 MSMoveReminder::MSMoveReminder(const std::string& description, MSLane* const lane, const bool doAdd) :
     myLane(lane),
-    myDescription(description) {
+    myDescription(description),
+    myNotificationMutex(true) {
     if (myLane != nullptr && doAdd) {
         // add reminder to lane
         myLane->addMoveReminder(this);
@@ -86,5 +87,6 @@ void
 MSMoveReminder::removeFromVehicleUpdateValues(SUMOTrafficObject& veh) {
     myLastVehicleUpdateValues.erase(&veh);
 }
-/****************************************************************************/
 
+
+/****************************************************************************/
