@@ -79,6 +79,7 @@ permalink: /ChangeLog/
 
 - Netconvert
   - Regional road names (A9, I-95) are now exported as edge params. They are also exported as Regional Name ID in dlr-navteq-output. Issue #6256
+  - Added option **--offset.z** to apply a constant z-offset to a simulation network. Issue #6274
 
 - Netedit
   - Now additionals and routes can optionally be loaded using option "Open in SUMO-GUI"). Issue #6049
