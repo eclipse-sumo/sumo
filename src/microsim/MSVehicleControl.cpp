@@ -119,20 +119,23 @@ MSVehicleControl::buildVehicle(SUMOVehicleParameter* defs,
 void
 MSVehicleControl::scheduleVehicleRemoval(SUMOVehicle* veh, bool checkDuplicate) {
     assert(myRunningVehNo > 0);
-    if (!checkDuplicate ||
-#ifdef HAVE_FOX
-            std::find(myPendingRemovals.getContainer().begin(), myPendingRemovals.getContainer().end(), veh) == myPendingRemovals.getContainer().end()
-#else
-            std::find(myPendingRemovals.begin(), myPendingRemovals.end(), veh) == myPendingRemovals.end()
-#endif
-       ) {
+    if (!checkDuplicate || !isPendingRemoval(veh)) {
         myPendingRemovals.push_back(veh);
     }
-#ifdef HAVE_FOX
-    myPendingRemovals.unlock();
-#endif
 }
 
+
+bool
+MSVehicleControl::isPendingRemoval(SUMOVehicle* veh) {
+#ifdef HAVE_FOX
+    auto& container = myPendingRemovals.getContainer();
+    const bool result = std::find(container.begin(), container.end(), veh) != container.end();
+    myPendingRemovals.unlock();
+    return result;
+#else
+    return std::find(myPendingRemovals.begin(), myPendingRemovals.end(), veh) == myPendingRemovals.end();
+#endif
+}
 
 void
 MSVehicleControl::removePending() {

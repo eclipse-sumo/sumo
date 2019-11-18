@@ -525,6 +525,9 @@ private:
      */
     bool checkVType(const std::string& id);
 
+    /// @brief whether the given vehicle is scheduled for removal
+    bool isPendingRemoval(SUMOVehicle* veh);
+
 protected:
     /// @name Vehicle statistics (always accessible)
     /// @{
