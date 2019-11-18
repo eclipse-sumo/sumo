@@ -26,6 +26,8 @@
 #include <utils/common/StringTokenizer.h>
 #include <utils/emissions/PollutantsInterface.h>
 #include <utils/geom/GeomConvHelper.h>
+#include <utils/gui/div/GLHelper.h>
+#include <utils/gui/globjects/GLIncludes.h>
 #include <utils/options/OptionsCont.h>
 
 #include "GNEGeometry.h"
@@ -654,6 +656,36 @@ GNEGeometry::updateGeometricPath(GNEGeometry::SegmentGeometry &segmentGeometry, 
                 segmentGeometry.updateLane2LaneSegment(segmentToUpdate.index, segmentToUpdate.lane, segmentToUpdate.nextLane); 
             }
         }
+    }
+}
+
+
+void 
+GNEGeometry::drawGeometry(const GUIVisualizationSettings& /*s*/, const Position /*mousePosition*/, const Geometry& geometry, const double width) {
+    GLHelper::drawBoxLines(geometry.shape, geometry.shapeRotations, geometry.shapeLengths, width);
+}
+
+
+void
+GNEGeometry::drawSegmentGeometry(const GUIVisualizationSettings& s, const Position mousePosition, const SegmentGeometry::Segment& segment, const double width) {
+    // first check if we're in draw for selecting mode
+    if (s.drawForSelecting) {
+        // obtain position over lane relative to mouse position
+        const Position posOverLane = segment.getShape().positionAtOffset2D(segment.getShape().nearest_offset_to_point2D(mousePosition));
+        // if mouse is over segment
+        if (posOverLane.distanceSquaredTo2D(mousePosition) <= (width*width)) {
+            // push matrix
+            glPushMatrix();
+            // translate to position over lane
+            glTranslated(posOverLane.x(), posOverLane.y(), 0);
+            // Draw circle
+            GLHelper::drawFilledCircle(width, s.getCircleResolution());
+            // pop draw matrix
+            glPopMatrix();
+        }
+    } else {
+        // draw a boxline as usual
+        GLHelper::drawBoxLines(segment.getShape(), segment.getShapeRotations(), segment.getShapeLengths(), width);
     }
 }
 

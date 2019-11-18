@@ -26,6 +26,7 @@
 #include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
 #include <utils/gui/div/GLHelper.h>
 #include <netedit/frames/GNETLSEditorFrame.h>
+#include <netedit/GNEViewNet.h>
 #include <utils/gui/globjects/GLIncludes.h>
 
 #include "GNEInternalLane.h"
@@ -119,7 +120,7 @@ GNEInternalLane::drawGL(const GUIVisualizationSettings& s) const {
     if (s.scale < 1.) {
         GLHelper::drawLine(myInternalLaneGeometry.shape);
     } else {
-        GLHelper::drawBoxLines(myInternalLaneGeometry.shape, myInternalLaneGeometry.shapeRotations, myInternalLaneGeometry.shapeLengths, 0.2);
+        GNEGeometry::drawGeometry(s, myEditor->getViewNet()->getPositionInformation(), myInternalLaneGeometry, 0.2);
     }
     glPopName();
     glPopMatrix();

@@ -244,7 +244,10 @@ struct GNEGeometry {
     static void adjustStartPosGeometricPath(double &startPos, const GNELane* startLane, double &endPos, const GNELane* endLane);
 
     /**@brief calculate route between edges
+     * @brief AC attribute carrier's segment
+     * @brief segmentGeometry segment geometry to be updated
      * @brief edges list of edges
+     * 
      * @param startPos start position in the first lane (if -1, then starts at the beginning of lane)
      * @param endPos end position in the last lane (if -1, then ends at the end of lane)
      * @param extraFirstPosition extra first position (if is Position::INVALID, then it's ignored)
@@ -255,6 +258,8 @@ struct GNEGeometry {
                                            const Position &extraFirstPosition = Position::INVALID, const Position &extraLastPosition = Position::INVALID);
 
     /**@brief calculate route between lanes
+     * @brief AC attribute carrier's segment
+     * @brief segmentGeometry segment geometry to be updated
      * @brief lanes list of lanes
      * @param startPos start position in the first lane (if -1, then starts at the beginning of lane)
      * @param endPos end position in the last lane (if -1, then ends at the end of lane)
@@ -266,7 +271,8 @@ struct GNEGeometry {
                                            const Position &extraLastPosition = Position::INVALID);
 
     /**@brief calculate route between edges
-     * @brief edges list of edges
+     * @brief segmentGeometry segment geometry to be updated
+     * @brief edge called edge
      * @param startPos start position in the first lane (if -1, then starts at the beginning of lane)
      * @param endPos end position in the last lane (if -1, then ends at the end of lane)
      * @param extraFirstPosition extra first position (if is Position::INVALID, then it's ignored)
@@ -274,6 +280,12 @@ struct GNEGeometry {
      */
     static void updateGeometricPath(GNEGeometry::SegmentGeometry &segmentGeometry, const GNEEdge* edge, double startPos = -1, double endPos = -1, 
                                     const Position &extraFirstPosition = Position::INVALID, const Position &extraLastPosition = Position::INVALID);
+
+    /// @brief draw segment
+    static void drawGeometry(const GUIVisualizationSettings& s, const Position mousePosition, const Geometry& geometry, const double width);
+
+    /// @brief draw segment
+    static void drawSegmentGeometry(const GUIVisualizationSettings& s, const Position mousePosition, const SegmentGeometry::Segment& segment, const double width);
 };
 
 #endif

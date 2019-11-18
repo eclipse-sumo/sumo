@@ -125,7 +125,7 @@ GNEParkingArea::drawGL(const GUIVisualizationSettings& s) const {
             GLHelper::setColor(s.colorSettings.parkingArea);
         }
         // Draw base
-        GLHelper::drawBoxLines(myGeometry.shape, myGeometry.shapeRotations, myGeometry.shapeLengths, myWidth * exaggeration);
+        GNEGeometry::drawGeometry(s, myViewNet->getPositionInformation(), myGeometry, myWidth * exaggeration);
         // Check if the distance is enought to draw details and if is being drawn for selecting
         if (s.drawForSelecting) {
             // only draw circle depending of distance between sign and mouse cursor

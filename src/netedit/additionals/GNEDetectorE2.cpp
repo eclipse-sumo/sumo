@@ -356,7 +356,7 @@ GNEDetectorE2::drawGL(const GUIVisualizationSettings& s) const {
         // check if we have to drawn a E2 single lane or a E2 multiLane
         if (myGeometry.shape.size() > 0) {
             // Draw the area using shape, shapeRotations, shapeLengths and value of exaggeration
-            GLHelper::drawBoxLines(myGeometry.shape, myGeometry.shapeRotations, myGeometry.shapeLengths, exaggeration);
+            GNEGeometry::drawGeometry(s, myViewNet->getPositionInformation(), myGeometry, exaggeration);
         } else {
             /*
             // iterate over multishapes

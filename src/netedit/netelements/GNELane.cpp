@@ -587,11 +587,7 @@ GNELane::drawMarkings(const GUIVisualizationSettings& s, double scale) const {
     }
     // draw white boundings and white markings
     glColor3d(1, 1, 1);
-    GLHelper::drawBoxLines(
-        myLaneGeometry.shape,
-        myLaneGeometry.shapeRotations,
-        myLaneGeometry.shapeLengths,
-        (myHalfLaneWidth + SUMO_const_laneMarkWidth) * scale);
+    GNEGeometry::drawGeometry(s, myNet->getViewNet()->getPositionInformation(), myLaneGeometry, (myHalfLaneWidth + SUMO_const_laneMarkWidth) * scale);
     glPopMatrix();
 }
 
@@ -977,7 +973,7 @@ GNELane::drawPartialE2DetectorPlan(const GUIVisualizationSettings& s, const GNEA
                 // Set E2Detector color (needed due drawShapeDottedContour)
                 GLHelper::setColor(E2DetectorColor);
                 // draw box lines
-                GLHelper::drawBoxLines(segment.getShape(), segment.getShapeRotations(), segment.getShapeLengths(), E2DetectorWidth);
+                GNEGeometry::drawSegmentGeometry(s, myNet->getViewNet()->getPositionInformation(), segment, E2DetectorWidth);
                 // check if shape dotted contour has to be drawn
                 if (myNet->getViewNet()->getDottedAC() == E2Detector) {
                     GLHelper::drawShapeDottedContourAroundShape(s, getType(), segment.getShape(), E2DetectorWidth);

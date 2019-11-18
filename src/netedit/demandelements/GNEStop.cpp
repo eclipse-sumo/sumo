@@ -485,7 +485,7 @@ GNEStop::drawGL(const GUIVisualizationSettings& s) const {
             }
         } else {
             // Draw the area using shape, shapeRotations, shapeLengths and value of exaggeration
-            GLHelper::drawBoxLines(myDemandElementGeometry.shape, myDemandElementGeometry.shapeRotations, myDemandElementGeometry.shapeLengths, exaggeration * 0.8);
+            GNEGeometry::drawGeometry(s, myViewNet->getPositionInformation(), myDemandElementGeometry, exaggeration * 0.8);
             // pop draw matrix
             glPopMatrix();
         }
