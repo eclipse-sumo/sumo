@@ -51,5 +51,8 @@ future_braking
 # test usage of a rescue lane. see also #5783
 rescueLane
 
+# vehicle behavior on a single edge with cars and mopeds
+lane_discipline
+
 # tests for various tickets
 bugs
