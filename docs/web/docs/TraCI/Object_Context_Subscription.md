@@ -109,12 +109,12 @@ Count).
 | :---------: | :------------: | :--------------------------------: |
 | filter type | parameter type |          parameter value           |
 
-For the parameter different value types are possible depending on the
+For the parameter, different value types are possible depending on the
 filter type. The lanes filter (FILTER_TYPE_LANES) takes a list of
 bytes, vType (FILTER_TYPE_VTYPE) and vClass filter
 (FILTER_TYPE_VCLASS) take a list of strings, the upstream/downstream
-filters take doubles (FILTER_TYPE_DOWNSTREAM_DIST,
-FILTER_TYPE_UPSTREAM_DIST), and no parameters are expected for the
+filters, as well as the field of vision filter take a double (FILTER_TYPE_DOWNSTREAM_DIST,
+FILTER_TYPE_UPSTREAM_DIST, FILTER_TYPE_FIELD_OF_VISION), and no parameters are expected for the
 no-opposite filter (FILTER_TYPE_NOOPPOSITE), the lead/follow filter
 (FILTER_TYPE_LEAD_FOLLOW), and the turn filter (FILTER_TYPE_TURN).
 
