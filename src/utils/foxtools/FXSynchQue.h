@@ -30,6 +30,13 @@
 #include <list>
 #include <cassert>
 
+//#define DEBUG_LOCKING
+
+#ifdef DEBUG_LOCKING
+#include <iostream>
+#include "FXWorkerThread.h"
+#endif
+
 template<class T, class Container = std::list<T> >
 class FXSynchQue {
 public:
@@ -82,6 +89,12 @@ public:
             myMutex.lock();
         }
 #endif
+#ifdef DEBUG_LOCKING
+        if (debugflag) {
+            std::cout << " FXSynchQue::getContainer thread=" << FXWorkerThread::current() << "\n";
+        }
+        myOwningThread = FXWorkerThread::current();
+#endif
         return myItems;
     }
 
@@ -90,6 +103,12 @@ public:
         if (myCondition) {
             myMutex.unlock();
         }
+#endif
+#ifdef DEBUG_LOCKING
+        if (debugflag) {
+            std::cout << " FXSynchQue::unlock       thread=" << FXWorkerThread::current() << "\n";
+        }
+        myOwningThread = 0;
 #endif
     }
 
@@ -151,12 +170,23 @@ public:
         return res;
     }
 
+    bool isLocked() const {
+        return myMutex.locked();
+    }
+
 private:
 #ifdef HAVE_FOX
     mutable FXMutex myMutex;
 #endif
     Container myItems;
     bool myCondition;
+
+#ifdef DEBUG_LOCKING
+    mutable long long int myOwningThread = 0;
+public:
+    mutable bool debugflag = false;
+#endif
+
 };
 
 
