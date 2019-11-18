@@ -184,6 +184,7 @@ GNEConnectorFrame::ConnectionOperations::~ConnectionOperations() {}
 
 long
 GNEConnectorFrame::ConnectionOperations::onCmdSelectDeadEnds(FXObject*, FXSelector, void*) {
+    // select all lanes that have no successor lane
     std::vector<GNEAttributeCarrier*> deadEnds;
     // every edge knows its outgoing connections so we can look at each edge in isolation
     const std::vector<GNEEdge*> edges = myConnectorFrameParent->getViewNet()->getNet()->retrieveEdges();
@@ -201,26 +202,29 @@ GNEConnectorFrame::ConnectionOperations::onCmdSelectDeadEnds(FXObject*, FXSelect
 
 long
 GNEConnectorFrame::ConnectionOperations::onCmdSelectDeadStarts(FXObject*, FXSelector, void*) {
-    std::vector<GNEAttributeCarrier*> deadStarts;
+    // select all lanes that have no predecessor lane
+    std::set<GNEAttributeCarrier*> deadStarts;
+    GNENet* net = myConnectorFrameParent->getViewNet()->getNet();
     // every edge knows only its outgoing connections so we look at whole junctions
     const std::vector<GNEJunction*> junctions = myConnectorFrameParent->getViewNet()->getNet()->retrieveJunctions();
     for (auto i : junctions) {
         // first collect all outgoing lanes
         for (auto j : i->getNBNode()->getOutgoingEdges()) {
-            GNEEdge* edge = myConnectorFrameParent->getViewNet()->getNet()->retrieveEdge(j->getID());
+            GNEEdge* edge = net->retrieveEdge(j->getID());
             for (auto k : edge->getLanes()) {
-                deadStarts.push_back(k);
+                deadStarts.insert(k);
             }
         }
         // then remove all approached lanes
         for (auto j : i->getNBNode()->getIncomingEdges()) {
-            GNEEdge* edge = myConnectorFrameParent->getViewNet()->getNet()->retrieveEdge(j->getID());
+            GNEEdge* edge = net->retrieveEdge(j->getID());
             for (auto k : edge->getNBEdge()->getConnections()) {
-                deadStarts.push_back(myConnectorFrameParent->getViewNet()->getNet()->retrieveEdge(k.toEdge->getID())->getLanes()[k.toLane]);
+                deadStarts.erase(net->retrieveEdge(k.toEdge->getID())->getLanes()[k.toLane]);
             }
         }
     }
-    myConnectorFrameParent->getViewNet()->getViewParent()->getSelectorFrame()->handleIDs(deadStarts, GNESelectorFrame::ModificationMode::SET_REPLACE);
+    std::vector<GNEAttributeCarrier*> selectObjects(deadStarts.begin(), deadStarts.end());
+    myConnectorFrameParent->getViewNet()->getViewParent()->getSelectorFrame()->handleIDs(selectObjects, GNESelectorFrame::ModificationMode::SET_REPLACE);
     return 1;
 }
 
