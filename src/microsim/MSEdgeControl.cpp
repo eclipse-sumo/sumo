@@ -35,7 +35,7 @@
 #include "MSVehicle.h"
 
 #define PARALLEL_PLAN_MOVE
-//#define PARALLEL_EXEC_MOVE
+#define PARALLEL_EXEC_MOVE
 //#define PARALLEL_CHANGE_LANES
 //#define LOAD_BALANCING
 
