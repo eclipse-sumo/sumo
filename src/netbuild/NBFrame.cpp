@@ -408,6 +408,10 @@ NBFrame::fillOptions(bool forNetgen) {
     oc.addDescription("tls.uncontrolled-within", "TLS Building",
                       "Do not control edges that lie fully within a joined traffic light. This may cause collisions but allows old traffic light plans to be used");
 
+    oc.doRegister("tls.ignore-internal-junction-jam", new Option_Bool(false));
+    oc.addDescription("tls.ignore-internal-junction-jam", "TLS Building",
+                      "Do not build mutually conflicting response matrix, potentially ignoring vehicles that are stuck at an internal junction when their phase has ended");
+
     if (!forNetgen) {
         oc.doRegister("tls.guess-signals", new Option_Bool(false));
         oc.addDescription("tls.guess-signals", "TLS Building", "Interprets tls nodes surrounding an intersection as signal positions for a larger TLS. This is typical pattern for OSM-derived networks");
