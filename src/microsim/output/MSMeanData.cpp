@@ -246,6 +246,9 @@ MSMeanData::MeanDataValues::notifyMove(SUMOTrafficObject& veh, double oldPos, do
 //    const double travelledDistanceFrontOnLane = frontOnLane*newSpeed;
 //    const double travelledDistanceVehicleOnLane = timeOnLane*newSpeed;
 
+#ifdef HAVE_FOX
+    FXConditionalLock lock(myNotificationMutex, MSGlobals::gNumSimThreads > 1);
+#endif
     notifyMoveInternal(veh, frontOnLane, timeOnLane, (enterSpeed + leaveSpeedFront) / 2., (enterSpeed + leaveSpeed) / 2., travelledDistanceFrontOnLane, travelledDistanceVehicleOnLane, meanLengthOnLane);
     return ret;
 }
