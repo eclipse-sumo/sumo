@@ -30,3 +30,6 @@ uncontrolled_links
 
 # traffic light with one uncontrolled connection at a joined tls
 uncontrolled_links_joinedTls
+
+# test option
+static_ignore-internal-junction-jam
