@@ -24,6 +24,7 @@ permalink: /ChangeLog/
   - Fixed bug where multiple junctions could mistakenly be created in the same place. Issue #6228
   - Fixed invalid lane shapes while moving edge geometry in a lefthand network. Issue #6234
   - Fixed invalid edge shape when using 'replace junction' ahead of junction with custom shape. Issue #5777
+  - Connection mode function 'select dead starts' now correctly selects lanes without predecessor (regression in 1.0.0). Issue #6278
 
 - NETCONVERT
   - Fixed bugs in classification of roundabouts. Issue #6032
@@ -80,6 +81,7 @@ permalink: /ChangeLog/
 - Netconvert
   - Regional road names (A9, I-95) are now exported as edge params. They are also exported as Regional Name ID in dlr-navteq-output. Issue #6256
   - Added option **--offset.z** to apply a constant z-offset to a simulation network. Issue #6274
+  - Added option **--tls.ignore-internal-junction-jam** to force building traffic light right-of-way rules without mutual response flags. Issue #6269
 
 - Netedit
   - Now additionals and routes can optionally be loaded using option "Open in SUMO-GUI"). Issue #6049
