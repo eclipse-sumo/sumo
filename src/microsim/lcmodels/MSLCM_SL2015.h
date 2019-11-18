@@ -405,6 +405,8 @@ protected:
     double myLookaheadLeft;
     // @brief the factor by which the speedGain-threshold for the leftdiffers from the threshold for the right
     double mySpeedGainRight;
+    // @brief lane discipline factor
+    double myLaneDiscipline;
     //@}
 
     /// @name derived parameters

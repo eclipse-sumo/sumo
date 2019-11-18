@@ -1236,6 +1236,7 @@ SUMOVehicleParserHelper::parseLCParams(SUMOVTypeParameter& into, LaneChangeModel
         sl2015Params.insert(SUMO_ATTR_LCA_TIME_TO_IMPATIENCE);
         sl2015Params.insert(SUMO_ATTR_LCA_ACCEL_LAT);
         sl2015Params.insert(SUMO_ATTR_LCA_TURN_ALIGNMENT_DISTANCE);
+        sl2015Params.insert(SUMO_ATTR_LCA_LANE_DISCIPLINE);
         allowedLCModelAttrs[LCM_SL2015] = sl2015Params;
 
         std::set<SumoXMLAttr> noParams;
@@ -1277,6 +1278,7 @@ SUMOVehicleParserHelper::parseLCParams(SUMOVTypeParameter& into, LaneChangeModel
                     case SUMO_ATTR_LCA_SPEEDGAINRIGHT:
                     case SUMO_ATTR_LCA_TURN_ALIGNMENT_DISTANCE:
                     case SUMO_ATTR_LCA_TIME_TO_IMPATIENCE:
+                    case SUMO_ATTR_LCA_LANE_DISCIPLINE:
                         if (LCMAttribute < 0) {
                             ok = false;
                             if (hardFail) {
