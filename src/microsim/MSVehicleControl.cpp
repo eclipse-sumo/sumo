@@ -128,6 +128,9 @@ MSVehicleControl::scheduleVehicleRemoval(SUMOVehicle* veh, bool checkDuplicate) 
        ) {
         myPendingRemovals.push_back(veh);
     }
+#ifdef HAVE_FOX
+    myPendingRemovals.unlock();
+#endif
 }
 
 
