@@ -18,6 +18,9 @@ depart_random_last
 
 # vehicle behavior on a single edge with cars and mopeds
 1edge_2lanes_compact_mixed
+
+# vehicle behavior on a single edge with cars and mopeds
+1edge_3lanes_mixed
 1edge_2lanes_compact_mixed_maxSpeedLatStanding
 
 # vehicle behavior on a single edge with cars and mopeds (all pushy)
