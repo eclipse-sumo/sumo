@@ -1694,7 +1694,7 @@ public:
             return myTraciLaneChangePriority == LCP_ALWAYS;
         }
 
-        SUMOAbstractRouter<MSEdge, SUMOVehicle>& getRouterTT() const;
+        SUMOAbstractRouter<MSEdge, SUMOVehicle>& getRouterTT(const int rngIndex) const;
 
     private:
         /// @brief The velocity time line to apply

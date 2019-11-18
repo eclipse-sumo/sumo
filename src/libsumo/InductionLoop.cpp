@@ -72,7 +72,7 @@ InductionLoop::getLaneID(const std::string& detID) {
 
 int
 InductionLoop::getLastStepVehicleNumber(const std::string& detID) {
-    return getDetector(detID)->getPassedNumber((int)DELTA_T);
+    return (int)getDetector(detID)->getPassedNumber((int)DELTA_T);
 }
 
 

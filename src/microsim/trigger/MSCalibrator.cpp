@@ -502,7 +502,9 @@ MSCalibrator::updateMeanData() {
     }
 }
 
-bool MSCalibrator::VehicleRemover::notifyEnter(SUMOTrafficObject& veh, Notification /* reason */, const MSLane* /* enteredLane */) {
+
+bool
+MSCalibrator::VehicleRemover::notifyEnter(SUMOTrafficObject& veh, Notification /* reason */, const MSLane* /* enteredLane */) {
     if (myParent == nullptr) {
         return false;
     }
@@ -540,6 +542,7 @@ bool MSCalibrator::VehicleRemover::notifyEnter(SUMOTrafficObject& veh, Notificat
     }
     return true;
 }
+
 
 void
 MSCalibrator::writeXMLOutput(OutputDevice& dev, SUMOTime startTime, SUMOTime stopTime) {

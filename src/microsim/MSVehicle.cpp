@@ -899,11 +899,11 @@ MSVehicle::Influencer::implicitDeltaPosRemote(const MSVehicle* veh) {
 
 
 SUMOAbstractRouter<MSEdge, SUMOVehicle>&
-MSVehicle::Influencer::getRouterTT() const {
+MSVehicle::Influencer::getRouterTT(const int rngIndex) const {
     if (myRoutingMode == 1) {
         return MSRoutingEngine::getRouterTT();
     } else {
-        return MSNet::getInstance()->getRouterTT();
+        return MSNet::getInstance()->getRouterTT(rngIndex);
     }
 }
 
@@ -5617,7 +5617,7 @@ MSVehicle::rerouteParkingArea(const std::string& parkingAreaID, std::string& err
     }
 
     const MSEdge* newEdge = &(newParkingArea->getLane().getEdge());
-    SUMOAbstractRouter<MSEdge, SUMOVehicle>& router = getInfluencer().getRouterTT();
+    SUMOAbstractRouter<MSEdge, SUMOVehicle>& router = getInfluencer().getRouterTT(getRNGIndex());
 
     // Compute the route from the current edge to the parking area edge
     ConstMSEdgeVector edgesToPark;

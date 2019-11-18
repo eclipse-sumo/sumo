@@ -314,6 +314,9 @@ public:
     /// @brief whether this vehicle is selected in the GUI
     virtual bool isSelected() const = 0;
 
+    /// @brief @return The index of the vehicle's associated RNG
+    virtual int getRNGIndex() const = 0;
+
     /** @brief Returns the associated RNG for this vehicle
     * @return The vehicle's associated RNG
     */

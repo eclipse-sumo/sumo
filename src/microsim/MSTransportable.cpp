@@ -264,7 +264,7 @@ MSTransportable::Stage_Trip::setArrived(MSNet* net, MSTransportable* transportab
         bool carUsed = false;
         std::vector<MSNet::MSIntermodalRouter::TripItem> result;
         int stageIndex = 1;
-        if (net->getIntermodalRouter().compute(myOrigin, myDestination, previous->getArrivalPos(), myArrivalPos, myDestinationStop == nullptr ? "" : myDestinationStop->getID(),
+        if (net->getIntermodalRouter(0).compute(myOrigin, myDestination, previous->getArrivalPos(), myArrivalPos, myDestinationStop == nullptr ? "" : myDestinationStop->getID(),
                                                transportable->getMaxSpeed() * myWalkFactor, vehicle, myModeSet, time, result)) {
             for (std::vector<MSNet::MSIntermodalRouter::TripItem>::iterator it = result.begin(); it != result.end(); ++it) {
                 if (!it->edges.empty()) {

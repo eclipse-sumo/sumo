@@ -397,6 +397,9 @@ MSTriggeredRerouter::notifyEnter(SUMOTrafficObject& tObject, MSMoveReminder::Not
 #endif
 
     if (rerouteDef->parkProbs.getOverallProb() > 0) {
+#ifdef HAVE_FOX
+        FXConditionalLock lock(myNotificationMutex, MSGlobals::gNumSimThreads > 1);
+#endif
         bool newDestination = false;
         ConstMSEdgeVector newRoute;
         MSParkingArea* newParkingArea = rerouteParkingArea(rerouteDef, veh, newDestination, newRoute);
@@ -417,7 +420,7 @@ MSTriggeredRerouter::notifyEnter(SUMOTrafficObject& tObject, MSMoveReminder::Not
 
             SUMOAbstractRouter<MSEdge, SUMOVehicle>& router = hasReroutingDevice
                     ? MSRoutingEngine::getRouterTT(rerouteDef->closed)
-                    : MSNet::getInstance()->getRouterTT(rerouteDef->closed);
+                    : MSNet::getInstance()->getRouterTT(veh.getRNGIndex(), rerouteDef->closed);
             const double routeCost = router.recomputeCosts(newRoute, &veh, MSNet::getInstance()->getCurrentTimeStep());
             ConstMSEdgeVector prevEdges(veh.getCurrentRouteEdge(), veh.getRoute().end());
             const double previousCost = router.recomputeCosts(prevEdges, &veh, MSNet::getInstance()->getCurrentTimeStep());
@@ -488,10 +491,9 @@ MSTriggeredRerouter::notifyEnter(SUMOTrafficObject& tObject, MSMoveReminder::Not
     if (rerouteDef->closed.size() == 0 || destUnreachable || veh.getRoute().containsAnyOf(rerouteDef->closed)) {
         ConstMSEdgeVector edges;
         SUMOAbstractRouter<MSEdge, SUMOVehicle>& router = hasReroutingDevice
-                ? MSRoutingEngine::getRouterTT(rerouteDef->closed)
-                : MSNet::getInstance()->getRouterTT(rerouteDef->closed);
-        router.compute(
-            veh.getEdge(), newEdge, &veh, MSNet::getInstance()->getCurrentTimeStep(), edges);
+            ? MSRoutingEngine::getRouterTT(rerouteDef->closed)
+            : MSNet::getInstance()->getRouterTT(veh.getRNGIndex(), rerouteDef->closed);
+        router.compute(veh.getEdge(), newEdge, &veh, MSNet::getInstance()->getCurrentTimeStep(), edges);
         if (edges.size() == 0 && !keepDestination && rerouteDef->edgeProbs.getOverallProb() > 0) {
             // destination unreachable due to closed intermediate edges. pick among alternative targets
             RandomDistributor<MSEdge*> edgeProbs2 = rerouteDef->edgeProbs;
@@ -678,7 +680,7 @@ MSTriggeredRerouter::rerouteParkingArea(const MSTriggeredRerouter::RerouteInterv
         // a map stores elegible parking areas
         MSParkingAreaMap_t parkAreas;
 
-        SUMOAbstractRouter<MSEdge, SUMOVehicle>& router = MSNet::getInstance()->getRouterTT(rerouteDef->closed);
+        SUMOAbstractRouter<MSEdge, SUMOVehicle>& router = MSNet::getInstance()->getRouterTT(veh.getRNGIndex(), rerouteDef->closed);
 
         const std::vector<double>& probs = rerouteDef->parkProbs.getProbs();
 

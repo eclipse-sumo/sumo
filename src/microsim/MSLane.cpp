@@ -1278,7 +1278,7 @@ MSLane::detectCollisions(SUMOTime timestep, const std::string& stage) {
     }
 
     std::set<const MSVehicle*, ComparatorNumericalIdLess> toRemove;
-    std::set<const MSVehicle*> toTeleport;
+    std::set<const MSVehicle*, ComparatorNumericalIdLess> toTeleport;
     if (mustCheckJunctionCollisions()) {
         myNeedsCollisionCheck = true; // always check
 #ifdef DEBUG_JUNCTION_COLLISIONS
@@ -1506,7 +1506,7 @@ MSLane::detectPedestrianJunctionCollision(const MSVehicle* collider, const Posit
 bool
 MSLane::detectCollisionBetween(SUMOTime timestep, const std::string& stage, MSVehicle* collider, MSVehicle* victim,
                                std::set<const MSVehicle*, ComparatorNumericalIdLess>& toRemove,
-                               std::set<const MSVehicle*>& toTeleport) const {
+                               std::set<const MSVehicle*, ComparatorNumericalIdLess>& toTeleport) const {
     if (myCollisionAction == COLLISION_ACTION_TELEPORT && ((victim->hasInfluencer() && victim->getInfluencer().isRemoteAffected(timestep)) ||
             (collider->hasInfluencer() && collider->getInfluencer().isRemoteAffected(timestep)))) {
         return false;
@@ -1577,7 +1577,7 @@ MSLane::detectCollisionBetween(SUMOTime timestep, const std::string& stage, MSVe
 void
 MSLane::handleCollisionBetween(SUMOTime timestep, const std::string& stage, MSVehicle* collider, MSVehicle* victim,
                                double gap, double latGap, std::set<const MSVehicle*, ComparatorNumericalIdLess>& toRemove,
-                               std::set<const MSVehicle*>& toTeleport) const {
+                               std::set<const MSVehicle*, ComparatorNumericalIdLess>& toTeleport) const {
     std::string collisionType = ((collider->getLaneChangeModel().isOpposite() != victim->getLaneChangeModel().isOpposite()
                                   || (&collider->getLane()->getEdge() == victim->getLane()->getEdge().getBidiEdge()))
                                  ?  "frontal collision" : "collision");
@@ -3668,6 +3668,7 @@ MSLane::checkForPedestrians(const MSVehicle* aVehicle, double& speed, double& di
     return true;
 }
 
+
 void
 MSLane::initRNGs(const OptionsCont& oc) {
     myRNGs.clear();
@@ -3679,6 +3680,7 @@ MSLane::initRNGs(const OptionsCont& oc) {
         RandHelper::initRand(&myRNGs.back(), random, seed++);
     }
 }
+
 
 MSLane*
 MSLane::getBidiLane() const {
@@ -3692,9 +3694,11 @@ MSLane::getBidiLane() const {
     }
 }
 
+
 bool
 MSLane::mustCheckJunctionCollisions() const {
     return myCheckJunctionCollisions && myEdge->isInternal() && myLinks.front()->getFoeLanes().size() > 0;
 }
-/****************************************************************************/
 
+
+/****************************************************************************/

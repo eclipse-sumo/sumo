@@ -1232,13 +1232,13 @@ protected:
     /// @brief detect whether there is a collision between the two vehicles
     bool detectCollisionBetween(SUMOTime timestep, const std::string& stage, MSVehicle* collider, MSVehicle* victim,
                                 std::set<const MSVehicle*, ComparatorNumericalIdLess>& toRemove,
-                                std::set<const MSVehicle*>& toTeleport) const;
+                                std::set<const MSVehicle*, ComparatorNumericalIdLess>& toTeleport) const;
 
     /// @brief take action upon collision
     void handleCollisionBetween(SUMOTime timestep, const std::string& stage, MSVehicle* collider, MSVehicle* victim,
                                 double gap, double latGap,
                                 std::set<const MSVehicle*, ComparatorNumericalIdLess>& toRemove,
-                                std::set<const MSVehicle*>& toTeleport) const;
+                                std::set<const MSVehicle*, ComparatorNumericalIdLess>& toTeleport) const;
 
     /// @brief compute maximum braking distance on this lane
     double getMaximumBrakeDist() const;
