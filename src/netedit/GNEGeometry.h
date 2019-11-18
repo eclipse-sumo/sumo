@@ -151,6 +151,10 @@ struct GNEGeometry {
 
             /// @brief lane segment (used for updating lane2lane segments)
             const GNELane* nextLane;
+
+        private:
+            /// @brief Invalidated assignment operator
+            SegmentToUpdate& operator=(const SegmentToUpdate& other) = delete;
         };
 
         /// @brief constructor

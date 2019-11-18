@@ -282,6 +282,9 @@ private:
     /// @brief whether this junction is selected in tls-mode
     bool myAmTLSSelected;
 
+    /// @brief draw TLS icon
+    void drawTLSIcon(const GUIVisualizationSettings& s) const;
+
     /// @brief method for setting the attribute and nothing else (used in GNEChange_Attribute)
     void setAttribute(SumoXMLAttr key, const std::string& value);
 

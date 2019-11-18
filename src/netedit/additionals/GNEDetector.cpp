@@ -78,10 +78,7 @@ GNEDetector::getPositionInView() const {
 Boundary
 GNEDetector::getCenteringBoundary() const {
     if (getLaneParents().size() > 1) {
-        /*
-        return myE2MultilaneGeometry.getBoxBoundary().grow(10);
-        */
-        return Boundary();
+        return mySegmentGeometry.getBoxBoundary().grow(10);
     } else {
         return myGeometry.shape.getBoxBoundary().grow(10);
     }

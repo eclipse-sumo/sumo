@@ -74,8 +74,7 @@ GNELane::GNELane() :
 }
 
 
-GNELane::~GNELane() {
-}
+GNELane::~GNELane() {}
 
 std::string
 GNELane::generateChildID(SumoXMLTag /*childTag*/) {
@@ -387,10 +386,13 @@ GNELane::drawGL(const GUIVisualizationSettings& s) const {
             i->drawGL(s);
         }
         // draw additional children
-        for (const auto& i : getAdditionalChildren()) {
-            // check that ParkingAreas aren't draw two times
-            if (!i->getTagProperty().isPlacedInRTree()) {
-                i->drawGL(s);
+        for (const auto& additional : getAdditionalChildren()) {
+            //draw partial E2 detectors
+            if (additional->getTagProperty().getTag() == SUMO_TAG_E2DETECTOR_MULTILANE) {
+                drawPartialE2DetectorPlan(s, additional, nullptr);
+            } else if (!additional->getTagProperty().isPlacedInRTree()) {
+                // check that ParkingAreas aren't draw two times
+                additional->drawGL(s);
             }
         }
         // draw demand element children
@@ -534,10 +536,13 @@ GNELane::drawGL(const GUIVisualizationSettings& s) const {
             i->drawGL(s);
         }
         // draw additional children
-        for (const auto& i : getAdditionalChildren()) {
-            // check that ParkingAreas aren't draw two times
-            if (!i->getTagProperty().isPlacedInRTree()) {
-                i->drawGL(s);
+        for (const auto& additional : getAdditionalChildren()) {
+            //draw partial E2 detectors
+            if (additional->getTagProperty().getTag() == SUMO_TAG_E2DETECTOR_MULTILANE) {
+                drawPartialE2DetectorPlan(s, additional, nullptr);
+            } else if (!additional->getTagProperty().isPlacedInRTree()) {
+                // check that ParkingAreas aren't draw two times
+                additional->drawGL(s);
             }
         }
         // draw demand element children
@@ -942,6 +947,67 @@ void
 GNELane::setSpecialColor(const RGBColor* color, double colorValue) {
     mySpecialColor = color;
     mySpecialColorValue = colorValue;
+}
+
+
+void 
+GNELane::drawPartialE2DetectorPlan(const GUIVisualizationSettings& s, const GNEAdditional* E2Detector, const GNEJunction* junction) const {
+    // calculate E2Detector width
+    //double E2DetectorWidth = s.addSize.getExaggeration(s, this) * s.widthSettings.E2Detector;
+    double E2DetectorWidth = s.addSize.getExaggeration(s, E2Detector);
+    // obtain color
+    RGBColor E2DetectorColor;
+    if (E2Detector->drawUsingSelectColor()) {
+        E2DetectorColor = s.colorSettings.selectedRouteColor;
+    } else {
+        E2DetectorColor = s.colorSettings.E2;
+    }
+    // Start drawing adding an gl identificator
+    glPushName(E2Detector->getGlID());
+    // Add a draw matrix
+    glPushMatrix();
+    // Start with the drawing of the area traslating matrix to origin
+    glTranslated(0, 0, E2Detector->getType());
+    // draw E2Detector
+    if (junction) {
+        // iterate over segments
+        for (const auto &segment : E2Detector->getAdditionalSegmentGeometry()) {
+            // draw partial segment
+            if ((segment.junction == junction) && (segment.AC == E2Detector)) {
+                // Set E2Detector color (needed due drawShapeDottedContour)
+                GLHelper::setColor(E2DetectorColor);
+                // draw box lines
+                GLHelper::drawBoxLines(segment.getShape(), segment.getShapeRotations(), segment.getShapeLengths(), E2DetectorWidth);
+                // check if shape dotted contour has to be drawn
+                if (myNet->getViewNet()->getDottedAC() == E2Detector) {
+                    GLHelper::drawShapeDottedContourAroundShape(s, getType(), segment.getShape(), E2DetectorWidth);
+                }
+            }
+        }
+    } else {
+        // iterate over segments
+        for (const auto &segment : E2Detector->getAdditionalSegmentGeometry()) {
+            // draw partial segment
+            if ((segment.lane == this) && (segment.AC == E2Detector)) {
+                // Set E2Detector color (needed due drawShapeDottedContour)
+                GLHelper::setColor(E2DetectorColor);
+                // draw box lines
+                GLHelper::drawBoxLines(segment.getShape(), segment.getShapeRotations(), segment.getShapeLengths(), E2DetectorWidth);
+                // check if shape dotted contour has to be drawn
+                if (myNet->getViewNet()->getDottedAC() == E2Detector) {
+                    GLHelper::drawShapeDottedContourAroundShape(s, getType(), segment.getShape(), E2DetectorWidth);
+                }
+            }
+        }
+    }
+    // Pop last matrix
+    glPopMatrix();
+    // Draw name if isn't being drawn for selecting
+    if (!s.drawForSelecting) {
+        drawName(getCenteringBoundary().getCenter(), s.scale, s.addName);
+    }
+    // Pop name
+    glPopName();
 }
 
 // ===========================================================================

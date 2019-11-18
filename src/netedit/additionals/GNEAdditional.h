@@ -114,8 +114,11 @@ public:
     /// @brief gererate a new ID for an element child
     std::string generateChildID(SumoXMLTag childTag);
 
-    /// @brief obtain AdditionalGeometry
+    /// @brief obtain additional geometry
     const GNEGeometry::Geometry& getAdditionalGeometry() const;
+
+    /// @brief obtain additional segment geometry
+    const GNEGeometry::SegmentGeometry& getAdditionalSegmentGeometry() const;
 
     /// @brief set special color
     void setSpecialColor(const RGBColor* color);
@@ -202,9 +205,7 @@ public:
     GUIParameterTableWindow* getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView& parent);
 
     /// @brief Returns the additional name
-    const std::string getOptionalName() const {
-        return myAdditionalName;
-    }
+    const std::string &getOptionalAdditionalName() const;
 
     /**@brief Draws the object
      * @param[in] s The settings for the current view (may influence drawing)
@@ -294,6 +295,11 @@ protected:
 
         /// @brief value for saving second original position over lane before moving
         std::string secondOriginalPosition;
+    
+    private:
+        /// @brief Invalidated assignment operator
+        AdditionalMove& operator=(const AdditionalMove& other) = delete;
+
     };
 
     /// @brief struct for pack all variables and functions related with Block Icon
@@ -320,6 +326,9 @@ protected:
     private:
         /// @brief pointer to additional parent
         GNEAdditional* myAdditional;
+
+        /// @brief Invalidated assignment operator
+        BlockIcon& operator=(const BlockIcon& other) = delete;
     };
 
     /// @brief The GNEViewNet this additional element belongs
@@ -327,6 +336,9 @@ protected:
 
     /// @brief geometry to be precomputed in updateGeometry(...)
     GNEGeometry::Geometry myGeometry;
+
+    /// @brief segment geometry to be precomputed in updateGeometry(...) (used by E2Multilane)
+    GNEGeometry::SegmentGeometry mySegmentGeometry;
 
     /// @brief variable AdditionalMove
     AdditionalMove myMove;

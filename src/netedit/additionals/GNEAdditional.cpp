@@ -109,6 +109,12 @@ GNEAdditional::getAdditionalGeometry() const {
 }
 
 
+const GNEGeometry::SegmentGeometry&
+GNEAdditional::getAdditionalSegmentGeometry() const {
+    return mySegmentGeometry;
+}
+
+
 void
 GNEAdditional::setSpecialColor(const RGBColor* color) {
     mySpecialColor = color;
@@ -382,28 +388,12 @@ GNEAdditional::getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView&) {
     return ret;
 }
 
-/*
-Boundary
-GNEAdditional::getCenteringBoundary() const {
-    // Return Boundary depending if myMovingGeometryBoundary is initialised (important for move geometry)
-    if (myMove.movingGeometryBoundary.isInitialised()) {
-        return myMove.movingGeometryBoundary;
-    } else if (myGeometry.shape.size() > 0) {
-        Boundary b = myGeometry.shape.getBoxBoundary();
-        b.grow(20);
-        return b;
-    } else if (myGeometry.multiShape.size() > 0) {
-        // obtain boundary of multishape fixed
-        Boundary b = myGeometry.multiShapeUnified.getBoxBoundary();
-        b.grow(20);
-        return b;
-    } else if (getAdditionalParents().size() > 0) {
-        return getAdditionalParents().at(0)->getCenteringBoundary();
-    } else {
-        return Boundary(-0.1, -0.1, 0.1, 0.1);
-    }
+
+const std::string &
+GNEAdditional::getOptionalAdditionalName() const {
+    return myAdditionalName;
 }
-*/
+
 // ---------------------------------------------------------------------------
 // GNEAdditional::BlockIcon - methods
 // ---------------------------------------------------------------------------

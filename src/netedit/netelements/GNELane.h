@@ -202,7 +202,9 @@ public:
 
     /// @brief whether to draw this lane as a railway
     bool drawAsRailway(const GUIVisualizationSettings& s) const;
-
+    
+    /// @brief draw partial E2 detector plan
+    void drawPartialE2DetectorPlan(const GUIVisualizationSettings& s, const GNEAdditional* E2Detector, const GNEJunction* junction) const;
 
 protected:
     /// @brief FOX needs this

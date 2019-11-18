@@ -247,7 +247,7 @@ void
 GNEDetectorE2::updateGeometry() {
     // Clear all containers
     myGeometry.clearGeometry();
-    myE2MultilaneGeometry.clearSegmentGeometry();
+    mySegmentGeometry.clearSegmentGeometry();
 
     // declare variables for start and end positions
     double startPosFixed, endPosFixed;
@@ -285,7 +285,7 @@ GNEDetectorE2::updateGeometry() {
         myBlockIcon.position = myGeometry.shape.getLineCenter();
 
     } else if (getLaneParents().size() > 1) {
-        GNEGeometry::calculateLaneGeometricPath(this, myE2MultilaneGeometry, getLaneParents(), myPositionOverLane, myEndPositionOverLane);
+        GNEGeometry::calculateLaneGeometricPath(this, mySegmentGeometry, getLaneParents(), myPositionOverLane, myEndPositionOverLane);
         /*
         // Set block icon position
         myBlockIcon.position = myGeometry.multiShape.front().getLineCenter();

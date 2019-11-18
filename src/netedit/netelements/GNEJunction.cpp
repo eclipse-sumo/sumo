@@ -33,6 +33,7 @@
 #include <netedit/changes/GNEChange_Connection.h>
 #include <netedit/changes/GNEChange_TLS.h>
 #include <netedit/demandelements/GNEDemandElement.h>
+#include <netedit/additionals/GNEAdditional.h>
 #include <utils/common/StringTokenizer.h>
 #include <utils/gui/div/GLHelper.h>
 #include <utils/gui/globjects/GLIncludes.h>
@@ -42,6 +43,7 @@
 #include <utils/options/OptionsCont.h>
 
 #include "GNEEdge.h"
+#include "GNELane.h"
 #include "GNEConnection.h"
 #include "GNEJunction.h"
 #include "GNECrossing.h"
@@ -340,18 +342,8 @@ GNEJunction::drawGL(const GUIVisualizationSettings& s) const {
                 glPopMatrix();
             }
         }
-        // draw TLS icon if isn't being drawn for selecting
-        if ((myNet->getViewNet()->getEditModes().networkEditMode == GNE_NMODE_TLS) &&
-                (myNBNode.isTLControlled()) && !myAmTLSSelected && !s.drawForSelecting) {
-            glPushMatrix();
-            Position pos = myNBNode.getPosition();
-            glTranslated(pos.x(), pos.y(), getType() + 0.1);
-            glColor3d(1, 1, 1);
-            const double halfWidth = 32 / s.scale;
-            const double halfHeight = 64 / s.scale;
-            GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(GNETEXTURE_TLS), -halfWidth, -halfHeight, halfWidth, halfHeight);
-            glPopMatrix();
-        }
+        // draw TLS
+        drawTLSIcon(s);
         // (optional) draw name @todo expose this setting if isn't drawed if isn't being drawn for selecting
         if (!s.drawForSelecting) {
             drawName(myNBNode.getPosition(), s.scale, s.junctionName);
@@ -376,8 +368,16 @@ GNEJunction::drawGL(const GUIVisualizationSettings& s) const {
         // draw connections and route elements connections (Only for incoming edges)
         for (const auto& i : myGNEIncomingEdges) {
             // first draw connections
-            for (const auto& j : i->getGNEConnections()) {
-                j->drawGL(s);
+            for (const auto& connection : i->getGNEConnections()) {
+                connection->drawGL(s);
+            }
+            // then draw E2 multilane detectors
+            for (const auto& lane : i->getLanes()) {
+                for (const auto& additional : lane->getAdditionalChildren()) {
+                    if (additional->getTagProperty().getTag() == SUMO_TAG_E2DETECTOR_MULTILANE) {
+                        lane->drawPartialE2DetectorPlan(s, additional, this);
+                    }
+                }
             }
             // first check if Demand elements can be shown
             if (myNet->getViewNet()->getNetworkViewOptions().showDemandElements()) {
@@ -1259,6 +1259,23 @@ GNEJunction::setResponsible(bool newVal) {
 // ===========================================================================
 // private
 // ===========================================================================
+
+void 
+GNEJunction::drawTLSIcon(const GUIVisualizationSettings& s) const {
+    // draw TLS icon if isn't being drawn for selecting
+    if ((myNet->getViewNet()->getEditModes().networkEditMode == GNE_NMODE_TLS) &&
+        (myNBNode.isTLControlled()) && !myAmTLSSelected && !s.drawForSelecting) {
+        glPushMatrix();
+        Position pos = myNBNode.getPosition();
+        glTranslated(pos.x(), pos.y(), getType() + 0.1);
+        glColor3d(1, 1, 1);
+        const double halfWidth = 32 / s.scale;
+        const double halfHeight = 64 / s.scale;
+        GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(GNETEXTURE_TLS), -halfWidth, -halfHeight, halfWidth, halfHeight);
+        glPopMatrix();
+    }
+}
+
 
 void
 GNEJunction::setAttribute(SumoXMLAttr key, const std::string& value) {
