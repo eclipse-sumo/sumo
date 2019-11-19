@@ -128,10 +128,7 @@ MSVehicleControl::scheduleVehicleRemoval(SUMOVehicle* veh, bool checkDuplicate) 
 bool
 MSVehicleControl::isPendingRemoval(SUMOVehicle* veh) {
 #ifdef HAVE_FOX
-    auto& container = myPendingRemovals.getContainer();
-    const bool result = std::find(container.begin(), container.end(), veh) != container.end();
-    myPendingRemovals.unlock();
-    return result;
+    return myPendingRemovals.contains(veh);
 #else
     return std::find(myPendingRemovals.begin(), myPendingRemovals.end(), veh) == myPendingRemovals.end();
 #endif

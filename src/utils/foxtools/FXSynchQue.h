@@ -29,6 +29,7 @@
 #endif
 #include <list>
 #include <cassert>
+#include <algorithm>
 
 //#define DEBUG_LOCKING
 
@@ -169,6 +170,22 @@ public:
 #endif
         return res;
     }
+
+    bool contains(const T& item) const {
+#ifdef HAVE_FOX
+        if (myCondition) {
+            myMutex.lock();
+        }
+#endif
+        bool res = std::find(myItems.begin(), myItems.end(), item) != myItems.end();
+#ifdef HAVE_FOX
+        if (myCondition) {
+            myMutex.unlock();
+        }
+#endif
+        return res;
+    }
+
 
     bool isLocked() const {
         return myMutex.locked();
