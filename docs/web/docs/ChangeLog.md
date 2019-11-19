@@ -62,7 +62,8 @@ permalink: /ChangeLog/
 
 
 ### Enhancements
-
+- All Applications
+  - Environment variables can now be referenced in configuration files using a shell-like syntax: `<net-file value="${NETFILENAME}.net.xml"/>`. Issue #1901
 - Simulation
   - Simulation of parking vehicles now optionally takes into account [maneuvering times](Simulation/ParkingArea.md#modelling_maneuvering_times_when_entering_and_leaving_the_parking_space). Issue #5956
   - Vehicle stop elements now support attribute 'speed'. This can be used to force a vehicle to drive with a fixed speed on a particular stretch of lane. Issue #1020
