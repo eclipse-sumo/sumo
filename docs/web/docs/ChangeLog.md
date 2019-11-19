@@ -25,6 +25,7 @@ permalink: /ChangeLog/
   - Fixed invalid lane shapes while moving edge geometry in a lefthand network. Issue #6234
   - Fixed invalid edge shape when using 'replace junction' ahead of junction with custom shape. Issue #5777
   - Connection mode function 'select dead starts' now correctly selects lanes without predecessor (regression in 1.0.0). Issue #6278
+  - Fixed slowdown clicking over edges with high concentration of routes. Issue #6276
 
 - NETCONVERT
   - Fixed bugs in classification of roundabouts. Issue #6032
