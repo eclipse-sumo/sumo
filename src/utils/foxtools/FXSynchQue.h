@@ -186,9 +186,12 @@ public:
         return res;
     }
 
-
     bool isLocked() const {
+#ifdef HAVE_FOX
         return myMutex.locked();
+#else
+        return false;
+#endif
     }
 
 private:
