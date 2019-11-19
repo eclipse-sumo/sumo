@@ -53,7 +53,12 @@ public:
     }
 
     /// @brief adds a new error to the list
-    void inform(std::string msg, bool addType = true);
+    void inform(std::string msg, bool addType = true) {
+#ifdef HAVE_FOX
+        FXMutexLock locker(myLock);
+#endif
+        MsgHandler::inform(msg, addType);
+    }
 
     /** @brief Begins a process information
      *
@@ -62,29 +67,57 @@ public:
      *  a process message has been begun. If an error occurs, a newline will be printed.
      * After the action has been performed, use endProcessMsg to inform the user about it.
      */
-    void beginProcessMsg(std::string msg, bool addType = true);
+    void beginProcessMsg(std::string msg, bool addType = true) {
+#ifdef HAVE_FOX
+        FXMutexLock locker(myLock);
+#endif
+        MsgHandler::beginProcessMsg(msg, addType);
+    }
 
     /// @brief Ends a process information
-    void endProcessMsg(std::string msg);
+    void endProcessMsg(std::string msg) {
+#ifdef HAVE_FOX
+        FXMutexLock locker(myLock);
+#endif
+        MsgHandler::endProcessMsg(msg);
+    }
 
     /// @brief Clears information whether an error occurred previously
-    void clear();
+    void clear() {
+#ifdef HAVE_FOX
+        FXMutexLock locker(myLock);
+#endif
+        MsgHandler::clear();
+    }
 
     /// @brief Adds a further retriever to the instance responsible for a certain msg type
-    void addRetriever(OutputDevice* retriever);
+    void addRetriever(OutputDevice* retriever) {
+#ifdef HAVE_FOX
+        FXMutexLock locker(myLock);
+#endif
+        MsgHandler::addRetriever(retriever);
+    }
 
     /// @brief Removes the retriever from the handler
-    void removeRetriever(OutputDevice* retriever);
+    void removeRetriever(OutputDevice* retriever) {
+#ifdef HAVE_FOX
+        FXMutexLock locker(myLock);
+#endif
+        MsgHandler::removeRetriever(retriever);
+    }
 
 private:
     /// @brief standard constructor
-    MsgHandlerSynchronized(MsgType type);
+    MsgHandlerSynchronized(MsgType type) :
+        MsgHandler(type) {
+    }
 
     /// @brief destructor
-    ~MsgHandlerSynchronized();
+    ~MsgHandlerSynchronized() {
+    }
 
     /// @brief The lock for synchronizing all outputs using handlers of this class
-    static FXMutex myLock;
+    FXMutex myLock;
 
 private:
     /// @brief invalid copy constructor

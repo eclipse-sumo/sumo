@@ -42,6 +42,9 @@
 #include <utils/vehicle/SUMORouteLoaderControl.h>
 #include <utils/vehicle/SUMORouteLoader.h>
 #include <utils/xml/XMLSubSys.h>
+#ifdef HAVE_FOX
+#include <utils/foxtools/MsgHandlerSynchronized.h>
+#endif
 #include <mesosim/MEVehicleControl.h>
 #include <microsim/MSVehicleControl.h>
 #include <microsim/MSVehicleTransfer.h>
@@ -229,6 +232,12 @@ NLBuilder::init() {
     if (!MSFrame::checkOptions()) {
         throw ProcessError();
     }
+#ifdef HAVE_FOX
+    if (oc.getInt("threads") > 1) {
+        // make the output aware of threading
+        MsgHandler::setFactory(&MsgHandlerSynchronized::create);
+    }
+#endif
     MsgHandler::initOutputOptions();
     initRandomness();
     MSFrame::setMSGlobals(oc);

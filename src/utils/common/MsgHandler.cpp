@@ -27,9 +27,6 @@
 #include <vector>
 #include <algorithm>
 #include <iostream>
-#ifdef HAVE_FOX
-#include <fx.h>
-#endif
 #include <utils/options/OptionsCont.h>
 #include <utils/iodevices/OutputDevice.h>
 #include <utils/common/UtilExceptions.h>
@@ -71,7 +68,11 @@ MsgHandler::getMessageInstance() {
 MsgHandler*
 MsgHandler::getWarningInstance() {
     if (myWarningInstance == nullptr) {
-        myWarningInstance = new MsgHandler(MT_WARNING);
+        if (myFactory == nullptr) {
+            myWarningInstance = new MsgHandler(MT_WARNING);
+        } else {
+            myWarningInstance = myFactory(MT_WARNING);
+        }
     }
     return myWarningInstance;
 }
