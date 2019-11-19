@@ -355,6 +355,9 @@ NBEdge::NBEdge(const std::string& id, NBNode* from, NBNode* to, const NBEdge* tp
             setStopOffsets(i, tpl->myLanes[tplIndex].stopOffsets);
         }
     }
+    if (tpl->myLoadedLength > 0 && to == tpl->getFromNode() && from == tpl->getToNode() && geom == tpl->getGeometry().reverse()) {
+        myLoadedLength = tpl->myLoadedLength;
+    }
     updateParameters(tpl->getParametersMap());
 }
 
@@ -3653,6 +3656,16 @@ NBEdge::shiftPositionAtNode(NBNode* node, NBEdge* other) {
                 WRITE_WARNINGF("Could not avoid overlapping shape at node '%' for edge '%'.", node->getID(), getID());
             }
         }
+    }
+}
+
+
+Position
+NBEdge::geometryPositionAtOffset(double offset) const {
+    if (myLoadedLength > 0) {
+        return myGeom.positionAtOffset(offset * myLength / myLoadedLength);
+    } else {
+        return myGeom.positionAtOffset(offset);
     }
 }
 

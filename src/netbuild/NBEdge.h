@@ -733,6 +733,9 @@ public:
     /// @brief shift geometry at the given node to avoid overlap
     void shiftPositionAtNode(NBNode* node, NBEdge* opposite);
 
+    /// @brief return position taking into account loaded length
+    Position geometryPositionAtOffset(double offset) const;
+
     /** @brief Recomputeds the lane shapes to terminate at the node shape
      * For every lane the intersection with the fromNode and toNode is
      * calculated and the lane shorted accordingly. The edge length is then set
