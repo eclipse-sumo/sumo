@@ -71,25 +71,20 @@ GNECalibrator::commitGeometryMoving(GNEUndoList*) {
 
 void
 GNECalibrator::updateGeometry() {
-    // Clear all containers
-    myAdditionalGeometry.clearGeometry();
     // get shape depending of we have a edge or a lane
     if (getLaneParents().size() > 0) {
         // update geometry
         myAdditionalGeometry.updateGeometry(getLaneParents().front()->getLaneShape(), myPositionOverLane);
     } else if (getEdgeParents().size() > 0) {
-        for (auto i : getEdgeParents().front()->getLanes()) {
+        // clear geometry
+        myAdditionalGeometry.clearGeometry();
+        // iterate over every lane and get point
+        for (const auto &i : getEdgeParents().front()->getLanes()) {
             // update geometry
-            myAdditionalGeometry.updateGeometry(i, myPositionOverLane);
-            /*
-            // Get shape of lane parent
-            myAdditionalGeometry.getShape().push_back(i->getLaneShape().positionAtOffset(myPositionOverLane));
-            // Save rotation (angle) of the vector constructed by points f and s
-            myAdditionalGeometry.getShapeRotations().push_back(getEdgeParents().front()->getLanes().at(0)->getLaneShape().rotationDegreeAtOffset(myPositionOverLane) * -1);
-            */
+            myAdditionalGeometry.updateGeometry(i, myPositionOverLane, false);
         }
     } else {
-        throw ProcessError("Both myEdge and myLane aren't defined");
+        throw ProcessError("Both edges and lanes aren't defined");
     }
 }
 
@@ -136,7 +131,7 @@ GNECalibrator::drawGL(const GUIVisualizationSettings& s) const {
         glPushName(getGlID());
         glLineWidth(1.0);
         // iterate over every Calibrator symbol
-        for (int i = 0; i < (int)myAdditionalGeometry.getShape().size(); ++i) {
+        for (int i = 0; i < (int)myAdditionalGeometry.getShape().size(); i++) {
             const Position& pos = myAdditionalGeometry.getShape()[i];
             double rot = myAdditionalGeometry.getShapeRotations().size() > i? myAdditionalGeometry.getShapeRotations()[i] : 0;
             glPushMatrix();

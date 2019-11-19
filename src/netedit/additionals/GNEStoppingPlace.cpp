@@ -241,9 +241,6 @@ GNEStoppingPlace::getParentName() const {
 
 void
 GNEStoppingPlace::setStoppingPlaceGeometry(double movingToSide) {
-    // Clear all containers
-    myAdditionalGeometry.clearGeometry();
-
     // Get value of option "lefthand"
     double offsetSign = OptionsCont::getOptions().getBool("lefthand") ? -1 : 1;
 

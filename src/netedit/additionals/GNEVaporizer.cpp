@@ -49,9 +49,6 @@ GNEVaporizer::~GNEVaporizer() {
 
 void
 GNEVaporizer::updateGeometry() {
-    // Clear all containers
-    myAdditionalGeometry.clearGeometry();
-
     // get lanes of edge
     GNELane* firstLane = getEdgeParents().front()->getLanes().at(0);
 

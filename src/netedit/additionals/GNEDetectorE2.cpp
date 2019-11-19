@@ -245,15 +245,12 @@ GNEDetectorE2::commitGeometryMoving(GNEUndoList* undoList) {
 
 void
 GNEDetectorE2::updateGeometry() {
-    // Clear all containers
-    myAdditionalGeometry.clearGeometry();
-    mySegmentGeometry.clearSegmentGeometry();
-
     // declare variables for start and end positions
     double startPosFixed, endPosFixed;
 
     // calculate start and end positions dependin of number of lanes
     if (getLaneParents().size() == 1) {
+
         // set start position
         if (myPositionOverLane < 0) {
             startPosFixed = 0;

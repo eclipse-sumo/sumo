@@ -74,9 +74,6 @@ GNEAccess::commitGeometryMoving(GNEUndoList* undoList) {
 
 void
 GNEAccess::updateGeometry() {
-    // Clear all containers
-    myAdditionalGeometry.clearGeometry();
-
     // set start position
     double fixedPositionOverLane;
     if (!canParse<double>(myPositionOverLane)) {
@@ -90,13 +87,10 @@ GNEAccess::updateGeometry() {
     }
     // update geometry
     myAdditionalGeometry.updateGeometry(getLaneParents().front(), fixedPositionOverLane * getLaneParents().front()->getLengthGeometryFactor());
-
     // Set block icon position
     myBlockIcon.position = myAdditionalGeometry.getShape().getLineCenter();
-
     // Set offset of the block icon
     myBlockIcon.offset = Position(-1, 0);
-
     // Set block icon rotation, and using their rotation for logo
     myBlockIcon.setRotation(getLaneParents().front());
 }

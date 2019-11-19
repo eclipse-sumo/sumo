@@ -111,9 +111,6 @@ GNEDetectorE1::commitGeometryMoving(GNEUndoList* undoList) {
 
 void
 GNEDetectorE1::updateGeometry() {
-    // Clear all containers
-    myAdditionalGeometry.clearGeometry();
-
     // update geometry
     myAdditionalGeometry.updateGeometry(getLaneParents().front(), getGeometryPositionOverLane());
 

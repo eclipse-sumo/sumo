@@ -87,12 +87,24 @@ GNEGeometry::Geometry::updateGeometry(const GNEAdditional *additional) {
 
 
 void 
-GNEGeometry::Geometry::updateGeometry(const GNELane *lane, const double posOverLane) {
-    // first clear geometry
-    clearGeometry();
+GNEGeometry::Geometry::updateGeometry(const GNELane *lane, const double posOverLane, bool clearContainer) {
+    // first check if geometry must be clear
+    if (clearContainer) {
+        clearGeometry();
+    }
+    // get lane lenght
+    const double laneLength = posOverLane > lane->getLaneShape().length();
     // calculate position and rotation
-    myShape.push_back(lane->getLaneShape().positionAtOffset(posOverLane));
-    myShapeRotations.push_back(lane->getLaneShape().rotationDegreeAtOffset(posOverLane) * -1);
+    if (posOverLane < 0) {
+        myShape.push_back(lane->getLaneShape().positionAtOffset(0));
+        myShapeRotations.push_back(lane->getLaneShape().rotationDegreeAtOffset(0) * -1);
+    } else if (posOverLane > laneLength) {
+        myShape.push_back(lane->getLaneShape().positionAtOffset(laneLength));
+        myShapeRotations.push_back(lane->getLaneShape().rotationDegreeAtOffset(laneLength) * -1);
+    } else {
+        myShape.push_back(lane->getLaneShape().positionAtOffset(posOverLane));
+        myShapeRotations.push_back(lane->getLaneShape().rotationDegreeAtOffset(posOverLane) * -1);
+    }
 }
 
 

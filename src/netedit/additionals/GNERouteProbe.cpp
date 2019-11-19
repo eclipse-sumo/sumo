@@ -52,9 +52,6 @@ GNERouteProbe::~GNERouteProbe() {
 
 void
 GNERouteProbe::updateGeometry() {
-    // Clear all containers
-    myAdditionalGeometry.clearGeometry();
-
     // obtain relative position of routeProbe in edge
     myRelativePositionY = 2 * getEdgeParents().front()->getRouteProbeRelativePosition(this);
 

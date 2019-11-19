@@ -63,7 +63,7 @@ struct GNEGeometry {
         void updateGeometry(const GNEAdditional *additional);
 
         /// @brief update geometry (using a lane and their position over lane)
-        void updateGeometry(const GNELane *lane, const double posOverLane);
+        void updateGeometry(const GNELane *lane, const double posOverLane, bool clearContainer = true);
 
         /// @brief The shape of the additional element
         const PositionVector &getShape() const;
@@ -73,7 +73,7 @@ struct GNEGeometry {
 
         /// @brief The lengths of the single shape parts
         const std::vector<double> &getShapeLengths() const;
-
+                
         /// @brief clear geometry containers
         void clearGeometry();
 
