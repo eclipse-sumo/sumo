@@ -281,10 +281,14 @@ struct GNEGeometry {
     static void updateGeometricPath(GNEGeometry::SegmentGeometry &segmentGeometry, const GNEEdge* edge, double startPos = -1, double endPos = -1, 
                                     const Position &extraFirstPosition = Position::INVALID, const Position &extraLastPosition = Position::INVALID);
 
-    /// @brief draw segment
+    /// @brief draw lane geometry (use their own function due colors)
+    static void drawLaneGeometry(const GUIVisualizationSettings& s, const Position mousePosition, const PositionVector& shape, const std::vector<double>& rotations, 
+                                 const std::vector<double>& lengths, const std::vector<RGBColor>& colors, double width);
+
+     /// @brief draw geometry
     static void drawGeometry(const GUIVisualizationSettings& s, const Position mousePosition, const Geometry& geometry, const double width);
 
-    /// @brief draw segment
+    /// @brief draw geometry segment
     static void drawSegmentGeometry(const GUIVisualizationSettings& s, const Position mousePosition, const SegmentGeometry::Segment& segment, const double width);
 };
 

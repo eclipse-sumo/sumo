@@ -425,34 +425,26 @@ GNELane::drawGL(const GUIVisualizationSettings& s) const {
             const double halfInnerFeetWidth = halfGauge - 0.039 * exaggeration;
             const double halfRailWidth = halfInnerFeetWidth + 0.15 * exaggeration;
             const double halfCrossTieWidth = halfGauge * 1.81;
-            // Draw box depending of myShapeColors
-            if (myShapeColors.size() > 0) {
-                GLHelper::drawBoxLines(shape, myLaneGeometry.shapeRotations, myLaneGeometry.shapeLengths, myShapeColors, halfRailWidth);
-            } else {
-                GLHelper::drawBoxLines(shape, myLaneGeometry.shapeRotations, myLaneGeometry.shapeLengths, halfRailWidth);
-            }
+            // Draw lane geometry
+            GNEGeometry::drawLaneGeometry(s, myNet->getViewNet()->getPositionInformation(), shape, myLaneGeometry.shapeRotations, myLaneGeometry.shapeLengths, myShapeColors, halfRailWidth);
             // Save current color
             RGBColor current = GLHelper::getColor();
             // Draw gray on top with reduced width (the area between the two tracks)
             glColor3d(0.8, 0.8, 0.8);
             glTranslated(0, 0, .1);
-            GLHelper::drawBoxLines(shape, myLaneGeometry.shapeRotations, myLaneGeometry.shapeLengths, halfInnerFeetWidth);
+            GNEGeometry::drawLaneGeometry(s, myNet->getViewNet()->getPositionInformation(), shape, myLaneGeometry.shapeRotations, myLaneGeometry.shapeLengths, {}, halfInnerFeetWidth);
             // Set current color back
             GLHelper::setColor(current);
             // Draw crossties
             GLHelper::drawCrossTies(shape, myLaneGeometry.shapeRotations, myLaneGeometry.shapeLengths, 0.26 * exaggeration, 0.6 * exaggeration, halfCrossTieWidth, s.drawForSelecting);
         } else {
-            if (myShapeColors.size() > 0) {
-                GLHelper::drawBoxLines(myLaneGeometry.shape, myLaneGeometry.shapeRotations, myLaneGeometry.shapeLengths, myShapeColors, halfWidth);
-            } else {
-                GLHelper::drawBoxLines(myLaneGeometry.shape, myLaneGeometry.shapeRotations, myLaneGeometry.shapeLengths, halfWidth);
-            }
+            GNEGeometry::drawLaneGeometry(s, myNet->getViewNet()->getPositionInformation(), myLaneGeometry.shape, myLaneGeometry.shapeRotations, myLaneGeometry.shapeLengths, myShapeColors, halfWidth);
         }
         if (halfWidth != halfWidth2 && !spreadSuperposed) {
             // draw again to show the selected edge
             GLHelper::setColor(s.colorSettings.selectedEdgeColor);
             glTranslated(0, 0, -.1);
-            GLHelper::drawBoxLines(myLaneGeometry.shape, myLaneGeometry.shapeRotations, myLaneGeometry.shapeLengths, halfWidth2);
+            GNEGeometry::drawLaneGeometry(s, myNet->getViewNet()->getPositionInformation(), myLaneGeometry.shape, myLaneGeometry.shapeRotations, myLaneGeometry.shapeLengths, {}, halfWidth2);
         }
         // check if dotted contour has to be drawn
         if (myNet->getViewNet()->getDottedAC() == this) {

@@ -666,6 +666,34 @@ GNEGeometry::drawGeometry(const GUIVisualizationSettings& /*s*/, const Position 
 }
 
 
+void 
+GNEGeometry::drawLaneGeometry(const GUIVisualizationSettings& s, const Position mousePosition, const PositionVector& shape, const std::vector<double>& rotations, 
+    const std::vector<double>& lengths, const std::vector<RGBColor>& colors, double width) {
+    // first check if we're in draw for selecting mode
+    if (s.drawForSelecting) {
+        // obtain position over lane relative to mouse position
+        const Position posOverLane = shape.positionAtOffset2D(shape.nearest_offset_to_point2D(mousePosition));
+        // if mouse is over segment
+        if (posOverLane.distanceSquaredTo2D(mousePosition) <= (width*width)) {
+            // push matrix
+            glPushMatrix();
+            // translate to position over lane
+            glTranslated(posOverLane.x(), posOverLane.y(), 0);
+            // Draw circle
+            GLHelper::drawFilledCircle(width, s.getCircleResolution());
+            // pop draw matrix
+            glPopMatrix();
+        }
+    } else if (colors.size() > 0) {
+        // draw box lines with own colors
+        GLHelper::drawBoxLines(shape, rotations, lengths, colors, width);
+    } else {
+        // draw box lines with current color
+        GLHelper::drawBoxLines(shape, rotations, lengths, width);
+    }
+}
+
+
 void
 GNEGeometry::drawSegmentGeometry(const GUIVisualizationSettings& s, const Position mousePosition, const SegmentGeometry::Segment& segment, const double width) {
     // first check if we're in draw for selecting mode
