@@ -117,7 +117,7 @@ GNEAdditionalHandler::myEndElement(int element) {
         case SUMO_TAG_TAZ: {
             GNETAZ* TAZ = dynamic_cast<GNETAZ*>(myHierarchyInsertedAdditionals.getLastInsertedAdditional());
             if (TAZ != nullptr) {
-                if (TAZ->getShape().size() == 0) {
+                if (TAZ->getTAZShape().size() == 0) {
                     Boundary b;
                     if (TAZ->getAdditionalChildren().size() > 0) {
                         for (const auto& i : TAZ->getAdditionalChildren()) {

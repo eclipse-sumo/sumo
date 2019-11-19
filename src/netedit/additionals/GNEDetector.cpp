@@ -80,7 +80,7 @@ GNEDetector::getCenteringBoundary() const {
     if (getLaneParents().size() > 1) {
         return mySegmentGeometry.getBoxBoundary().grow(10);
     } else {
-        return myGeometry.shape.getBoxBoundary().grow(10);
+        return myAdditionalGeometry.getShape().getBoxBoundary().grow(10);
     }
 }
 

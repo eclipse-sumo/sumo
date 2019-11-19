@@ -75,10 +75,7 @@ GNEAccess::commitGeometryMoving(GNEUndoList* undoList) {
 void
 GNEAccess::updateGeometry() {
     // Clear all containers
-    myGeometry.clearGeometry();
-
-    // Get shape of lane parent
-    myGeometry.shape = getLaneParents().front()->getLaneShape();
+    myAdditionalGeometry.clearGeometry();
 
     // set start position
     double fixedPositionOverLane;
@@ -91,14 +88,11 @@ GNEAccess::updateGeometry() {
     } else {
         fixedPositionOverLane = parse<double>(myPositionOverLane);
     }
-    // obtain position
-    myGeometry.shape[0] = getLaneParents().front()->getLaneShape().positionAtOffset(fixedPositionOverLane * getLaneParents().front()->getLengthGeometryFactor());
-
-    // Save rotation (angle) of the vector constructed by points f and s
-    myGeometry.shapeRotations.push_back(getLaneParents().front()->getLaneShape().rotationDegreeAtOffset(fixedPositionOverLane) * -1);
+    // update geometry
+    myAdditionalGeometry.updateGeometry(getLaneParents().front(), fixedPositionOverLane * getLaneParents().front()->getLengthGeometryFactor());
 
     // Set block icon position
-    myBlockIcon.position = myGeometry.shape.getLineCenter();
+    myBlockIcon.position = myAdditionalGeometry.getShape().getLineCenter();
 
     // Set offset of the block icon
     myBlockIcon.offset = Position(-1, 0);
@@ -127,7 +121,7 @@ GNEAccess::getPositionInView() const {
 
 Boundary
 GNEAccess::getCenteringBoundary() const {
-    return myGeometry.shape.getBoxBoundary().grow(10);
+    return myAdditionalGeometry.getShape().getBoxBoundary().grow(10);
 }
 
 
@@ -174,7 +168,7 @@ GNEAccess::drawGL(const GUIVisualizationSettings& s) const {
         } else {
             GLHelper::setColor(s.colorSettings.busStop);
         }
-        glTranslated(myGeometry.shape[0].x(), myGeometry.shape[0].y(), GLO_ACCESS);
+        glTranslated(myAdditionalGeometry.getShape()[0].x(), myAdditionalGeometry.getShape()[0].y(), GLO_ACCESS);
         // draw circle
         if (s.drawForSelecting) {
             GLHelper::drawFilledCircle((double) 0.5 * exaggeration, 8);

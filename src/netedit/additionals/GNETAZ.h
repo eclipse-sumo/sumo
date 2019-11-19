@@ -45,6 +45,9 @@ public:
     /// @brief GNETAZ Destructor
     ~GNETAZ();
 
+    /// @brief get TAZ shape
+    const PositionVector &getTAZShape() const;
+
     /// @name Functions related with geometry of element
     /// @{
     /**@brief change the position of the element geometry without saving in undoList
@@ -162,6 +165,9 @@ public:
 protected:
     /// @brief TAZ Color
     RGBColor myColor;
+
+    /// @brief TAZ shape
+    PositionVector myTAZShape;
 
     /// @brief flag for block shape
     bool myBlockShape;

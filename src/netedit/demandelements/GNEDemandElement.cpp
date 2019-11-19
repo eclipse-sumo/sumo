@@ -444,12 +444,12 @@ GNEDemandElement::calculatePersonPlanPositionStartEndPos(Position &startPos, Pos
     if (previousDemandElmement) {
         // update startPos
         if ((previousDemandElmement->getAdditionalParents().size() > 0) && 
-            (previousDemandElmement->getAdditionalParents().front()->getAdditionalGeometry().shape.size() > 0)) {
+            (previousDemandElmement->getAdditionalParents().front()->getAdditionalGeometry().getShape().size() > 0)) {
             // Previous demand element ends in an busStop
-            startPos = previousDemandElmement->getAdditionalParents().front()->getAdditionalGeometry().shape.back();
-        } else if (previousDemandElmement->getTagProperty().isPersonStop() && (previousDemandElmement->getDemandElementGeometry().shape.size() > 0)) {
+            startPos = previousDemandElmement->getAdditionalParents().front()->getAdditionalGeometry().getShape().back();
+        } else if (previousDemandElmement->getTagProperty().isPersonStop() && (previousDemandElmement->getDemandElementGeometry().getShape().size() > 0)) {
             // Previous demand element ends in an Stop
-            startPos = previousDemandElmement->getDemandElementGeometry().shape.back();
+            startPos = previousDemandElmement->getDemandElementGeometry().getShape().back();
         } else if ((previousDemandElmement->getDemandElementSegmentGeometry().size() > 0) && 
                    (previousDemandElmement->getDemandElementSegmentGeometry().back().getShape().size() > 0)) {
             // add last shape segment of previous segment geometry
@@ -457,16 +457,16 @@ GNEDemandElement::calculatePersonPlanPositionStartEndPos(Position &startPos, Pos
         }
     }
     // check if demand element ends in an busStop
-    if ((getAdditionalParents().size() > 0) && (getAdditionalParents().front()->getAdditionalGeometry().shape.size() > 0)) {
-        endPos = getAdditionalParents().front()->getAdditionalGeometry().shape.front();
+    if ((getAdditionalParents().size() > 0) && (getAdditionalParents().front()->getAdditionalGeometry().getShape().size() > 0)) {
+        endPos = getAdditionalParents().front()->getAdditionalGeometry().getShape().front();
     } else {
         // obtain next demand element
         GNEDemandElement *nextDemandElmement = getDemandElementParents().front()->getNextDemandElement(this);
         if (nextDemandElmement) {
             // update end pos
-            if (nextDemandElmement->getTagProperty().isPersonStop() && (nextDemandElmement->getDemandElementGeometry().shape.size() > 0)) {
+            if (nextDemandElmement->getTagProperty().isPersonStop() && (nextDemandElmement->getDemandElementGeometry().getShape().size() > 0)) {
                 // previous demand element ends in an Stop
-                endPos = nextDemandElmement->getDemandElementGeometry().shape.front();
+                endPos = nextDemandElmement->getDemandElementGeometry().getShape().front();
             }
         }
     }

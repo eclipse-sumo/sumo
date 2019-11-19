@@ -335,7 +335,7 @@ protected:
     GNEViewNet* myViewNet;
 
     /// @brief geometry to be precomputed in updateGeometry(...)
-    GNEGeometry::Geometry myGeometry;
+    GNEGeometry::Geometry myAdditionalGeometry;
 
     /// @brief segment geometry to be precomputed in updateGeometry(...) (used by E2Multilane)
     GNEGeometry::SegmentGeometry mySegmentGeometry;

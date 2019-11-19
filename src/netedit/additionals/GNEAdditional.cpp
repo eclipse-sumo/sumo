@@ -105,7 +105,7 @@ GNEAdditional::generateChildID(SumoXMLTag childTag) {
 
 const GNEGeometry::Geometry&
 GNEAdditional::getAdditionalGeometry() const {
-    return myGeometry;
+    return myAdditionalGeometry;
 }
 
 
@@ -312,7 +312,7 @@ GNEAdditional::getViewNet() const {
 
 PositionVector
 GNEAdditional::getShape() const {
-    return myGeometry.shape;
+    return myAdditionalGeometry.getShape();
 }
 
 
@@ -346,21 +346,21 @@ GNEAdditional::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     if (myTagProperty.hasAttribute(SUMO_ATTR_LANE)) {
         GNELane* lane = myViewNet->getNet()->retrieveLane(getAttribute(SUMO_ATTR_LANE));
         // Show menu command inner position
-        const double innerPos = myGeometry.shape.nearest_offset_to_point2D(parent.getPositionInformation());
+        const double innerPos = myAdditionalGeometry.getShape().nearest_offset_to_point2D(parent.getPositionInformation());
         new FXMenuCommand(ret, ("Cursor position inner additional: " + toString(innerPos)).c_str(), nullptr, nullptr, 0);
         // If shape isn't empty, show menu command lane position
-        if (myGeometry.shape.size() > 0) {
-            const double lanePos = lane->getLaneShape().nearest_offset_to_point2D(myGeometry.shape[0]);
+        if (myAdditionalGeometry.getShape().size() > 0) {
+            const double lanePos = lane->getLaneShape().nearest_offset_to_point2D(myAdditionalGeometry.getShape()[0]);
             new FXMenuCommand(ret, ("Cursor position over " + toString(SUMO_TAG_LANE) + ": " + toString(innerPos + lanePos)).c_str(), nullptr, nullptr, 0);
         }
     } else if (myTagProperty.hasAttribute(SUMO_ATTR_EDGE)) {
         GNEEdge* edge = myViewNet->getNet()->retrieveEdge(getAttribute(SUMO_ATTR_EDGE));
         // Show menu command inner position
-        const double innerPos = myGeometry.shape.nearest_offset_to_point2D(parent.getPositionInformation());
+        const double innerPos = myAdditionalGeometry.getShape().nearest_offset_to_point2D(parent.getPositionInformation());
         new FXMenuCommand(ret, ("Cursor position inner additional: " + toString(innerPos)).c_str(), nullptr, nullptr, 0);
         // If shape isn't empty, show menu command edge position
-        if (myGeometry.shape.size() > 0) {
-            const double edgePos = edge->getLanes().at(0)->getLaneShape().nearest_offset_to_point2D(myGeometry.shape[0]);
+        if (myAdditionalGeometry.getShape().size() > 0) {
+            const double edgePos = edge->getLanes().at(0)->getLaneShape().nearest_offset_to_point2D(myAdditionalGeometry.getShape()[0]);
             new FXMenuCommand(ret, ("Mouse position over " + toString(SUMO_TAG_EDGE) + ": " + toString(innerPos + edgePos)).c_str(), nullptr, nullptr, 0);
         }
     } else {
@@ -405,9 +405,9 @@ GNEAdditional::BlockIcon::BlockIcon(GNEAdditional* additional) :
 
 void
 GNEAdditional::BlockIcon::setRotation(GNELane* additionalLane) {
-    if (myAdditional->myGeometry.shape.size() > 0 && myAdditional->myGeometry.shape.length() != 0) {
+    if (myAdditional->myAdditionalGeometry.getShape().size() > 0 && myAdditional->myAdditionalGeometry.getShape().length() != 0) {
         // If length of the shape is distint to 0, Obtain rotation of center of shape
-        rotation = myAdditional->myGeometry.shape.rotationDegreeAtOffset((myAdditional->myGeometry.shape.length() / 2.)) - 90;
+        rotation = myAdditional->myAdditionalGeometry.getShape().rotationDegreeAtOffset((myAdditional->myAdditionalGeometry.getShape().length() / 2.)) - 90;
     } else if (additionalLane) {
         // If additional is over a lane, set rotation in the position over lane
         double posOverLane = additionalLane->getLaneShape().nearest_offset_to_point2D(myAdditional->getPositionInView());

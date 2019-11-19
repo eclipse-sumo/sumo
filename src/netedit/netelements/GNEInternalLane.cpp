@@ -75,8 +75,7 @@ GNEInternalLane::GNEInternalLane(GNETLSEditorFrame* editor, const std::string& i
     myTlIndex(tlIndex),
     myPopup(nullptr) {
     // calculate internal lane geometry
-    myInternalLaneGeometry.shape = shape;
-    myInternalLaneGeometry.calculateShapeRotationsAndLengths();
+    myInternalLaneGeometry.updateGeometry(shape);
 }
 
 
@@ -118,7 +117,7 @@ GNEInternalLane::drawGL(const GUIVisualizationSettings& s) const {
     // draw lane
     // check whether it is not too small
     if (s.scale < 1.) {
-        GLHelper::drawLine(myInternalLaneGeometry.shape);
+        GLHelper::drawLine(myInternalLaneGeometry.getShape());
     } else {
         GNEGeometry::drawGeometry(s, myEditor->getViewNet()->getPositionInformation(), myInternalLaneGeometry, 0.2);
     }
@@ -176,7 +175,7 @@ GNEInternalLane::getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView&) {
 
 Boundary
 GNEInternalLane::getCenteringBoundary() const {
-    Boundary b = myInternalLaneGeometry.shape.getBoxBoundary();
+    Boundary b = myInternalLaneGeometry.getShape().getBoxBoundary();
     b.grow(10);
     return b;
 }

@@ -242,22 +242,19 @@ GNEStoppingPlace::getParentName() const {
 void
 GNEStoppingPlace::setStoppingPlaceGeometry(double movingToSide) {
     // Clear all containers
-    myGeometry.clearGeometry();
+    myAdditionalGeometry.clearGeometry();
 
     // Get value of option "lefthand"
     double offsetSign = OptionsCont::getOptions().getBool("lefthand") ? -1 : 1;
 
-    // Get shape of lane parent
-    myGeometry.shape = getLaneParents().front()->getLaneShape();
+    // obtain laneShape
+    PositionVector laneShape = getLaneParents().front()->getLaneShape();
 
     // Move shape to side
-    myGeometry.shape.move2side(movingToSide * offsetSign);
+    laneShape.move2side(movingToSide * offsetSign);
 
     // Cut shape using as delimitators fixed start position and fixed end position
-    myGeometry.shape = myGeometry.shape.getSubpart(getStartGeometryPositionOverLane(), getEndGeometryPositionOverLane());
-
-    // Get calculate lenghts and rotations
-    myGeometry.calculateShapeRotationsAndLengths();
+    myAdditionalGeometry.updateGeometry(laneShape, getStartGeometryPositionOverLane(), getEndGeometryPositionOverLane());
 }
 
 

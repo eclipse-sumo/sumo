@@ -723,7 +723,7 @@ GNEFrameModuls::EdgePathCreator::drawTemporalRoute() const {
             // draw a line to center of selected bus
             if (mySelectedBusStop) {
                 GLHelper::drawLine(myClickedEdges.back()->getNBEdge()->getLanes().front().shape.back(),
-                                   mySelectedBusStop->getAdditionalGeometry().shape.getLineCenter());
+                                   mySelectedBusStop->getAdditionalGeometry().getShape().getLineCenter());
             }
         } else {
             // draw first line
@@ -739,7 +739,7 @@ GNEFrameModuls::EdgePathCreator::drawTemporalRoute() const {
             // draw a line to center of selected bus
             if (mySelectedBusStop) {
                 GLHelper::drawLine(myTemporalRoute.back()->getNBEdge()->getLanes().front().shape.back(),
-                                   mySelectedBusStop->getAdditionalGeometry().shape.getLineCenter());
+                                   mySelectedBusStop->getAdditionalGeometry().getShape().getLineCenter());
             }
         }
         // Pop last matrix

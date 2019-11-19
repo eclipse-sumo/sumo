@@ -60,7 +60,7 @@ GNEChargingStation::updateGeometry() {
     setStoppingPlaceGeometry(0);
 
     // Obtain a copy of the shape
-    PositionVector tmpShape = myGeometry.shape;
+    PositionVector tmpShape = myAdditionalGeometry.getShape();
 
     // Move shape to side
     tmpShape.move2side(1.5 * offsetSign);
@@ -69,7 +69,7 @@ GNEChargingStation::updateGeometry() {
     mySignPos = tmpShape.getLineCenter();
 
     // Set block icon position
-    myBlockIcon.position = myGeometry.shape.getLineCenter();
+    myBlockIcon.position = myAdditionalGeometry.getShape().getLineCenter();
 
     // Set block icon rotation, and using their rotation for sign
     myBlockIcon.setRotation(getLaneParents().front());
@@ -78,7 +78,7 @@ GNEChargingStation::updateGeometry() {
 
 Boundary
 GNEChargingStation::getCenteringBoundary() const {
-    return myGeometry.shape.getBoxBoundary().grow(10);
+    return myAdditionalGeometry.getShape().getBoxBoundary().grow(10);
 }
 
 
@@ -101,7 +101,7 @@ GNEChargingStation::drawGL(const GUIVisualizationSettings& s) const {
             GLHelper::setColor(s.colorSettings.chargingStation);
         }
         // Draw base
-        GNEGeometry::drawGeometry(s, myViewNet->getPositionInformation(), myGeometry, exaggeration);
+        GNEGeometry::drawGeometry(s, myViewNet->getPositionInformation(), myAdditionalGeometry, exaggeration);
         // Check if the distance is enought to draw details and if is being drawn for selecting
         if (s.drawForSelecting) {
             // only draw circle depending of distance between sign and mouse cursor
@@ -179,7 +179,7 @@ GNEChargingStation::drawGL(const GUIVisualizationSettings& s) const {
         }
         // check if dotted contour has to be drawn
         if (myViewNet->getDottedAC() == this) {
-            GLHelper::drawShapeDottedContourAroundShape(s, getType(), myGeometry.shape, exaggeration);
+            GLHelper::drawShapeDottedContourAroundShape(s, getType(), myAdditionalGeometry.getShape(), exaggeration);
         }
         // Pop name matrix
         glPopName();

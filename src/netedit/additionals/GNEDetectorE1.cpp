@@ -112,22 +112,13 @@ GNEDetectorE1::commitGeometryMoving(GNEUndoList* undoList) {
 void
 GNEDetectorE1::updateGeometry() {
     // Clear all containers
-    myGeometry.clearGeometry();
+    myAdditionalGeometry.clearGeometry();
 
-    // obtain position over lane
-    myGeometry.shape.push_back(getPositionInView());
-
-    // Obtain first position
-    Position f = myGeometry.shape[0] - Position(1, 0);
-
-    // Obtain next position
-    Position s = myGeometry.shape[0] + Position(1, 0);
-
-    // Save rotation (angle) of the vector constructed by points f and s
-    myGeometry.shapeRotations.push_back(getLaneParents().front()->getLaneShape().rotationDegreeAtOffset(getGeometryPositionOverLane()) * -1);
+    // update geometry
+    myAdditionalGeometry.updateGeometry(getLaneParents().front(), getGeometryPositionOverLane());
 
     // Set block icon position
-    myBlockIcon.position = myGeometry.shape.getLineCenter();
+    myBlockIcon.position = myAdditionalGeometry.getShape().getLineCenter();
 
     // Set offset of the block icon
     myBlockIcon.offset = Position(-1, 0);
@@ -157,8 +148,8 @@ GNEDetectorE1::drawGL(const GUIVisualizationSettings& s) const {
         // draw shape
         glPushMatrix();
         glTranslated(0, 0, getType());
-        glTranslated(myGeometry.shape[0].x(), myGeometry.shape[0].y(), 0);
-        glRotated(myGeometry.shapeRotations[0], 0, 0, 1);
+        glTranslated(myAdditionalGeometry.getShape()[0].x(), myAdditionalGeometry.getShape()[0].y(), 0);
+        glRotated(myAdditionalGeometry.getShapeRotations()[0], 0, 0, 1);
         glScaled(exaggeration, exaggeration, 1);
         glBegin(GL_QUADS);
         glVertex2d(-1.0,  2);
@@ -209,7 +200,7 @@ GNEDetectorE1::drawGL(const GUIVisualizationSettings& s) const {
             // Push matrix
             glPushMatrix();
             // Traslate to center of detector
-            glTranslated(myGeometry.shape.getLineCenter().x(), myGeometry.shape.getLineCenter().y(), getType() + 0.1);
+            glTranslated(myAdditionalGeometry.getShape().getLineCenter().x(), myAdditionalGeometry.getShape().getLineCenter().y(), getType() + 0.1);
             // Rotate depending of myBlockIcon.rotation
             glRotated(myBlockIcon.rotation, 0, 0, -1);
             //move to logo position
@@ -233,7 +224,7 @@ GNEDetectorE1::drawGL(const GUIVisualizationSettings& s) const {
         }
         // check if dotted contour has to be drawn
         if (myViewNet->getDottedAC() == this) {
-            GLHelper::drawShapeDottedContourRectangle(s, getType(), myGeometry.shape[0], 2, 4, myGeometry.shapeRotations[0]);
+            GLHelper::drawShapeDottedContourRectangle(s, getType(), myAdditionalGeometry.getShape()[0], 2, 4, myAdditionalGeometry.getShapeRotations()[0]);
         }
         // pop name
         glPopName();

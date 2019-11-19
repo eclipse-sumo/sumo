@@ -337,7 +337,7 @@ GNEPerson::getPositionInView() const {
     // Position in view depend of first child element
     if (getDemandElementChildren().size() > 0) {
         if (getDemandElementChildren().at(0)->getTagProperty().isPersonStop()) {
-            return getDemandElementChildren().at(0)->getDemandElementGeometry().shape.getLineCenter();
+            return getDemandElementChildren().at(0)->getDemandElementGeometry().getShape().getLineCenter();
         } else {
             // obtain lane (special case for rides)
             SUMOVehicleClass vClassEdgeFrom = getDemandElementChildren().front()->getTagProperty().isRide() ? SVC_PASSENGER : SVC_PEDESTRIAN;

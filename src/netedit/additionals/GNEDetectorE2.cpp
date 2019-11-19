@@ -246,7 +246,7 @@ GNEDetectorE2::commitGeometryMoving(GNEUndoList* undoList) {
 void
 GNEDetectorE2::updateGeometry() {
     // Clear all containers
-    myGeometry.clearGeometry();
+    myAdditionalGeometry.clearGeometry();
     mySegmentGeometry.clearSegmentGeometry();
 
     // declare variables for start and end positions
@@ -254,9 +254,6 @@ GNEDetectorE2::updateGeometry() {
 
     // calculate start and end positions dependin of number of lanes
     if (getLaneParents().size() == 1) {
-        // set shape lane as detector shape
-        myGeometry.shape = getLaneParents().front()->getLaneShape();
-
         // set start position
         if (myPositionOverLane < 0) {
             startPosFixed = 0;
@@ -276,19 +273,16 @@ GNEDetectorE2::updateGeometry() {
         }
 
         // Cut shape using as delimitators fixed start position and fixed end position
-        myGeometry.shape = myGeometry.shape.getSubpart(startPosFixed * getLaneParents().front()->getLengthGeometryFactor(), endPosFixed * getLaneParents().back()->getLengthGeometryFactor());
-
-        // Get calculate lenghts and rotations
-        myGeometry.calculateShapeRotationsAndLengths();
+        myAdditionalGeometry.updateGeometry(getLaneParents().front()->getLaneShape(), startPosFixed * getLaneParents().front()->getLengthGeometryFactor(), endPosFixed * getLaneParents().back()->getLengthGeometryFactor());
 
         // Set block icon position
-        myBlockIcon.position = myGeometry.shape.getLineCenter();
+        myBlockIcon.position = myAdditionalGeometry.getShape().getLineCenter();
 
     } else if (getLaneParents().size() > 1) {
         GNEGeometry::calculateLaneGeometricPath(this, mySegmentGeometry, getLaneParents(), myPositionOverLane, myEndPositionOverLane);
         /*
         // Set block icon position
-        myBlockIcon.position = myGeometry.multiShape.front().getLineCenter();
+        myBlockIcon.position = myAdditionalGeometry.multiShape.front().getLineCenter();
 
         // check integrity
         checkE2MultilaneIntegrity();
@@ -354,16 +348,16 @@ GNEDetectorE2::drawGL(const GUIVisualizationSettings& s) const {
             }
         }
         // check if we have to drawn a E2 single lane or a E2 multiLane
-        if (myGeometry.shape.size() > 0) {
+        if (myAdditionalGeometry.getShape().size() > 0) {
             // Draw the area using shape, shapeRotations, shapeLengths and value of exaggeration
-            GNEGeometry::drawGeometry(s, myViewNet->getPositionInformation(), myGeometry, exaggeration);
+            GNEGeometry::drawGeometry(s, myViewNet->getPositionInformation(), myAdditionalGeometry, exaggeration);
         } else {
             /*
             // iterate over multishapes
-            for (int i = 0; i < (int)myGeometry.multiShape.size(); i++) {
+            for (int i = 0; i < (int)myAdditionalGeometry.multiShape.size(); i++) {
                 // don't draw shapes over connections if "show connections" is enabled
                 if (!myViewNet->getNetworkViewOptions().showConnections() || (i % 2 == 0)) {
-                    GLHelper::drawBoxLines(myGeometry.multiShape.at(i), myGeometry.multiShapeRotations.at(i), myGeometry.multiShapeLengths.at(i), exaggeration);
+                    GLHelper::drawBoxLines(myAdditionalGeometry.multiShape.at(i), myAdditionalGeometry.multiShapeRotations.at(i), myAdditionalGeometry.multiShapeLengths.at(i), exaggeration);
                 }
             }
             */
@@ -377,7 +371,7 @@ GNEDetectorE2::drawGL(const GUIVisualizationSettings& s) const {
                 // Push matrix
                 glPushMatrix();
                 // Traslate to center of detector
-                glTranslated(myGeometry.shape.getLineCenter().x(), myGeometry.shape.getLineCenter().y(), getType() + 0.1);
+                glTranslated(myAdditionalGeometry.getShape().getLineCenter().x(), myAdditionalGeometry.getShape().getLineCenter().y(), getType() + 0.1);
                 // Rotate depending of myBlockIcon.rotation
                 glRotated(myBlockIcon.rotation, 0, 0, -1);
                 // move to logo position
@@ -428,11 +422,11 @@ GNEDetectorE2::drawGL(const GUIVisualizationSettings& s) const {
         }
         // check if dotted contour has to be drawn
         if (myViewNet->getDottedAC() == this) {
-            if (myGeometry.shape.size() > 0) {
-                GLHelper::drawShapeDottedContourAroundShape(s, getType(), myGeometry.shape, exaggeration);
+            if (myAdditionalGeometry.getShape().size() > 0) {
+                GLHelper::drawShapeDottedContourAroundShape(s, getType(), myAdditionalGeometry.getShape(), exaggeration);
             } else {
                 /*
-                GLHelper::drawShapeDottedContourAroundShape(s, getType(), myGeometry.multiShapeUnified, exaggeration);
+                GLHelper::drawShapeDottedContourAroundShape(s, getType(), myAdditionalGeometry.multiShapeUnified, exaggeration);
                 */
             }
         }

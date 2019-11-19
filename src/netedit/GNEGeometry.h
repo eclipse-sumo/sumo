@@ -51,26 +51,45 @@ struct GNEGeometry {
 
     /// @brief struct for pack all variables related with geometry of stop
     struct Geometry {
-
         /// @brief constructor
         Geometry();
 
-        /// @brief reset geometry
+        /// @brief update geometry
+        void updateGeometry(const PositionVector &shape, double startPos = -1, double endPos = -1, 
+                            const Position &extraFirstPosition = Position::INVALID, 
+                            const Position &extraLastPosition = Position::INVALID);
+
+        /// @brief update geometry (using geometry of another additional)
+        void updateGeometry(const GNEAdditional *additional);
+
+        /// @brief update geometry (using a lane and their position over lane)
+        void updateGeometry(const GNELane *lane, const double posOverLane);
+
+        /// @brief The shape of the additional element
+        const PositionVector &getShape() const;
+
+        /// @brief The rotations of the single shape parts
+        const std::vector<double> &getShapeRotations() const;
+
+        /// @brief The lengths of the single shape parts
+        const std::vector<double> &getShapeLengths() const;
+
+        /// @brief clear geometry containers
         void clearGeometry();
 
+    private:
         /// @brief calculate shape rotations and lengths
         void calculateShapeRotationsAndLengths();
 
         /// @brief The shape of the additional element
-        PositionVector shape;
+        PositionVector myShape;
 
         /// @brief The rotations of the single shape parts
-        std::vector<double> shapeRotations;
+        std::vector<double> myShapeRotations;
 
         /// @brief The lengths of the single shape parts
-        std::vector<double> shapeLengths;
+        std::vector<double> myShapeLengths;
 
-    private:
         /// @brief Invalidated assignment operator
         Geometry& operator=(const Geometry& other) = delete;
     };

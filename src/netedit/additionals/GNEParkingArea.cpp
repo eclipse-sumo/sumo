@@ -66,7 +66,7 @@ GNEParkingArea::updateGeometry() {
     setStoppingPlaceGeometry(getLaneParents().front()->getParentEdge().getNBEdge()->getLaneWidth(getLaneParents().front()->getIndex()) / 2 + myWidth);
 
     // Obtain a copy of the shape
-    PositionVector tmpShape = myGeometry.shape;
+    PositionVector tmpShape = myAdditionalGeometry.getShape();
 
     // Move shape to side
     tmpShape.move2side(1.5 * offsetSign);
@@ -75,7 +75,7 @@ GNEParkingArea::updateGeometry() {
     mySignPos = tmpShape.getLineCenter();
 
     // Set block icon position
-    myBlockIcon.position = myGeometry.shape.getLineCenter();
+    myBlockIcon.position = myAdditionalGeometry.getShape().getLineCenter();
 
     // Set block icon rotation, and using their rotation for sign
     myBlockIcon.setRotation(getLaneParents().front());
@@ -92,8 +92,8 @@ GNEParkingArea::getCenteringBoundary() const {
     // Return Boundary depending if myMovingGeometryBoundary is initialised (important for move geometry)
     if (myMove.movingGeometryBoundary.isInitialised()) {
         return myMove.movingGeometryBoundary;
-    } else if (myGeometry.shape.size() > 0) {
-        Boundary b = myGeometry.shape.getBoxBoundary();
+    } else if (myAdditionalGeometry.getShape().size() > 0) {
+        Boundary b = myAdditionalGeometry.getShape().getBoxBoundary();
         b.grow(myWidth + 1);
         return b;
     } else {
@@ -125,7 +125,7 @@ GNEParkingArea::drawGL(const GUIVisualizationSettings& s) const {
             GLHelper::setColor(s.colorSettings.parkingArea);
         }
         // Draw base
-        GNEGeometry::drawGeometry(s, myViewNet->getPositionInformation(), myGeometry, myWidth * exaggeration);
+        GNEGeometry::drawGeometry(s, myViewNet->getPositionInformation(), myAdditionalGeometry, myWidth * exaggeration);
         // Check if the distance is enought to draw details and if is being drawn for selecting
         if (s.drawForSelecting) {
             // only draw circle depending of distance between sign and mouse cursor
@@ -190,7 +190,7 @@ GNEParkingArea::drawGL(const GUIVisualizationSettings& s) const {
         }
         // check if dotted contour has to be drawn
         if (myViewNet->getDottedAC() == this) {
-            GLHelper::drawShapeDottedContourAroundShape(s, getType(), myGeometry.shape, myWidth * exaggeration);
+            GLHelper::drawShapeDottedContourAroundShape(s, getType(), myAdditionalGeometry.getShape(), myWidth * exaggeration);
         }
         // Pop name matrix
         glPopName();

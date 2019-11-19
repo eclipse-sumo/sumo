@@ -44,6 +44,7 @@ const double GNETAZ::myHintSizeSquared = 0.64;
 GNETAZ::GNETAZ(const std::string& id, GNEViewNet* viewNet, PositionVector shape, RGBColor color, bool blockMovement) :
     GNEAdditional(id, viewNet, GLO_TAZ, SUMO_TAG_TAZ, "", blockMovement, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}),
     myColor(color),
+    myTAZShape(shape),
     myBlockShape(false),
     myCurrentMovingVertexIndex(-1),
     myMaxWeightSource(0),
@@ -52,12 +53,16 @@ GNETAZ::GNETAZ(const std::string& id, GNEViewNet* viewNet, PositionVector shape,
     myMaxWeightSink(0),
     myMinWeightSink(0),
     myAverageWeightSink(0) {
-    // set TAZ shape
-    myGeometry.shape = shape;
 }
 
 
 GNETAZ::~GNETAZ() {}
+
+
+const PositionVector&
+GNETAZ::getTAZShape() const {
+    return myTAZShape;
+}
 
 
 void
@@ -68,7 +73,7 @@ GNETAZ::updateGeometry() {
 
 Position
 GNETAZ::getPositionInView() const {
-    return myGeometry.shape.getCentroid();
+    return myTAZShape.getCentroid();
 }
 
 
@@ -77,8 +82,8 @@ GNETAZ::getCenteringBoundary() const {
     // Return Boundary depending if myMovingGeometryBoundary is initialised (important for move geometry)
     if (myMove.movingGeometryBoundary.isInitialised()) {
         return myMove.movingGeometryBoundary;
-    } else if (myGeometry.shape.size() > 0) {
-        Boundary b = myGeometry.shape.getBoxBoundary();
+    } else if (myTAZShape.size() > 0) {
+        Boundary b = myTAZShape.getBoxBoundary();
         b.grow(20);
         return b;
     } else {
@@ -90,11 +95,10 @@ GNETAZ::getCenteringBoundary() const {
 void
 GNETAZ::moveGeometry(const Position& offset) {
     // restore old position, apply offset and update Geometry
-    myGeometry.shape[0] = myMove.originalViewPosition;
-    myGeometry.shape[0].add(offset);
+    myTAZShape[0] = myMove.originalViewPosition;
+    myTAZShape[0].add(offset);
     // filtern position using snap to active grid
-    myGeometry.shape[0] = myViewNet->snapToActiveGrid(myGeometry.shape[0]);
-    updateGeometry();
+    myTAZShape[0] = myViewNet->snapToActiveGrid(myTAZShape[0]);
 }
 
 
@@ -102,7 +106,7 @@ void
 GNETAZ::commitGeometryMoving(GNEUndoList* undoList) {
     // commit new position allowing undo/redo
     undoList->p_begin("position of " + getTagStr());
-    undoList->p_add(new GNEChange_Attribute(this, myViewNet->getNet(), SUMO_ATTR_SHAPE, toString(myGeometry.shape[0]), true, toString(myMove.originalViewPosition)));
+    undoList->p_add(new GNEChange_Attribute(this, myViewNet->getNet(), SUMO_ATTR_SHAPE, toString(myTAZShape[0]), true, toString(myMove.originalViewPosition)));
     undoList->p_end();
 }
 
@@ -112,24 +116,24 @@ GNETAZ::moveVertexShape(const int index, const Position& oldPos, const Position&
     // only move shape if block movement block shape are disabled
     if (!myBlockMovement && !myBlockShape && (index != -1)) {
         // check that index is correct before change position
-        if (index < (int)myGeometry.shape.size()) {
+        if (index < (int)myTAZShape.size()) {
             // save current moving Geometry Point
             myCurrentMovingVertexIndex = index;
             // if closed shape and cliked is first or last, move both giving more priority to first always
-            if ((index == 0 || index == (int)myGeometry.shape.size() - 1)) {
+            if ((index == 0 || index == (int)myTAZShape.size() - 1)) {
                 // Change position of first shape Geometry Point and filtern position using snap to active grid
-                myGeometry.shape.front() = oldPos;
-                myGeometry.shape.front().add(offset);
-                myGeometry.shape.front() = myViewNet->snapToActiveGrid(myGeometry.shape.front());
+                myTAZShape.front() = oldPos;
+                myTAZShape.front().add(offset);
+                myTAZShape.front() = myViewNet->snapToActiveGrid(myTAZShape.front());
                 // Change position of last shape Geometry Point and filtern position using snap to active grid
-                myGeometry.shape.back() = oldPos;
-                myGeometry.shape.back().add(offset);
-                myGeometry.shape.back() = myViewNet->snapToActiveGrid(myGeometry.shape.back());
+                myTAZShape.back() = oldPos;
+                myTAZShape.back().add(offset);
+                myTAZShape.back() = myViewNet->snapToActiveGrid(myTAZShape.back());
             } else {
                 // change position of Geometry Point and filtern position using snap to active grid
-                myGeometry.shape[index] = oldPos;
-                myGeometry.shape[index].add(offset);
-                myGeometry.shape[index] = myViewNet->snapToActiveGrid(myGeometry.shape[index]);
+                myTAZShape[index] = oldPos;
+                myTAZShape[index].add(offset);
+                myTAZShape[index] = myViewNet->snapToActiveGrid(myTAZShape[index]);
             }
             // return index of moved Geometry Point
             return index;
@@ -147,13 +151,11 @@ GNETAZ::moveEntireShape(const PositionVector& oldShape, const Position& offset) 
     // only move shape if block movement is disabled and block shape is enabled
     if (!myBlockMovement && myBlockShape) {
         // restore original shape
-        myGeometry.shape = oldShape;
+        myTAZShape = oldShape;
         // change all points of the shape shape using offset
-        for (auto& i : myGeometry.shape) {
+        for (auto& i : myTAZShape) {
             i.add(offset);
         }
-        // update Geometry after moving
-        updateGeometry();
     }
 }
 
@@ -164,12 +166,12 @@ GNETAZ::commitShapeChange(const PositionVector& oldShape, GNEUndoList* undoList)
         // disable current moving vertex
         myCurrentMovingVertexIndex = -1;
         // restore original shape into shapeToCommit
-        PositionVector shapeToCommit = myGeometry.shape;
+        PositionVector shapeToCommit = myTAZShape;
         // restore old shape in polygon (to avoid problems with RTree)
-        myGeometry.shape = oldShape;
+        myTAZShape = oldShape;
         // first check if double points has to be removed
         shapeToCommit.removeDoublePoints(myHintSize);
-        if (shapeToCommit.size() != myGeometry.shape.size()) {
+        if (shapeToCommit.size() != myTAZShape.size()) {
             WRITE_WARNING("Merged shape's point")
         }
         // check if polygon has to be closed
@@ -192,14 +194,14 @@ GNETAZ::getVertexIndex(Position pos, bool createIfNoExist, bool snapToGrid) {
         pos = myViewNet->snapToActiveGrid(pos);
     }
     // first check if vertex already exists
-    for (auto i : myGeometry.shape) {
+    for (auto i : myTAZShape) {
         if (i.distanceTo2D(pos) < myHintSize) {
-            return myGeometry.shape.indexOfClosest(i);
+            return myTAZShape.indexOfClosest(i);
         }
     }
     // if vertex doesn't exist, insert it
     if (createIfNoExist) {
-        return myGeometry.shape.insertAtClosest(pos);
+        return myTAZShape.insertAtClosest(pos);
     } else {
         return -1;
     }
@@ -208,9 +210,9 @@ GNETAZ::getVertexIndex(Position pos, bool createIfNoExist, bool snapToGrid) {
 
 void
 GNETAZ::deleteGeometryPoint(const Position& pos, bool allowUndo) {
-    if (myGeometry.shape.size() > 2) {
+    if (myTAZShape.size() > 2) {
         // obtain index
-        PositionVector modifiedShape = myGeometry.shape;
+        PositionVector modifiedShape = myTAZShape;
         int index = modifiedShape.indexOfClosest(pos);
         // remove point dependending of
         if ((index == 0 || index == (int)modifiedShape.size() - 1)) {
@@ -229,7 +231,7 @@ GNETAZ::deleteGeometryPoint(const Position& pos, bool allowUndo) {
             // first remove object from grid due shape is used for boundary
             myViewNet->getNet()->removeGLObjectFromGrid(this);
             // set new shape
-            myGeometry.shape = modifiedShape;
+            myTAZShape = modifiedShape;
             // add object into grid again
             myViewNet->getNet()->addGLObjectIntoGrid(this);
         }
@@ -260,12 +262,12 @@ GNETAZ::drawGL(const GUIVisualizationSettings& s) const {
     if (s.polySize.getExaggeration(s, this) == 0) {
         return;
     }
-    Boundary boundary = myGeometry.shape.getBoxBoundary();
+    Boundary boundary = myTAZShape.getBoxBoundary();
     if (s.scale * MAX2(boundary.getWidth(), boundary.getHeight()) < s.polySize.minSize) {
         return;
     }
     glPushName(getGlID());
-    if (myGeometry.shape.size() > 1) {
+    if (myTAZShape.size() > 1) {
         glPushMatrix();
         glTranslated(0, 0, 128);
         if (drawUsingSelectColor()) {
@@ -273,10 +275,10 @@ GNETAZ::drawGL(const GUIVisualizationSettings& s) const {
         } else {
             GLHelper::setColor(myColor);
         }
-        GLHelper::drawLine(myGeometry.shape);
-        GLHelper::drawBoxLines(myGeometry.shape, s.polySize.getExaggeration(s, this));
+        GLHelper::drawLine(myTAZShape);
+        GLHelper::drawBoxLines(myTAZShape, s.polySize.getExaggeration(s, this));
         glPopMatrix();
-        const Position namePos = myGeometry.shape.getPolygonCenter();
+        const Position namePos = myTAZShape.getPolygonCenter();
         drawName(namePos, s.scale, s.polyName, s.angle);
     }
     // draw geometry details hints if is not too small and isn't in selecting mode
@@ -285,7 +287,7 @@ GNETAZ::drawGL(const GUIVisualizationSettings& s) const {
         bool mouseOverVertex = false;
         bool modeMove = myViewNet->getEditModes().networkEditMode == GNE_NMODE_MOVE;
         Position mousePosition = myViewNet->getPositionInformation();
-        double distanceToShape = myGeometry.shape.distance2D(mousePosition);
+        double distanceToShape = myTAZShape.distance2D(mousePosition);
         // set colors
         RGBColor invertedColor, darkerColor;
         if (drawUsingSelectColor()) {
@@ -301,11 +303,11 @@ GNETAZ::drawGL(const GUIVisualizationSettings& s) const {
             glPushMatrix();
             glTranslated(0, 0, GLO_POLYGON + 0.01);
             GLHelper::setColor(darkerColor);
-            GLHelper::drawBoxLines(myGeometry.shape, (myHintSize / 4) * s.polySize.getExaggeration(s, this));
+            GLHelper::drawBoxLines(myTAZShape, (myHintSize / 4) * s.polySize.getExaggeration(s, this));
             glPopMatrix();
             // draw shape points only in Network supemode
             if (myViewNet->getEditModes().currentSupermode != GNE_SUPERMODE_DEMAND) {
-                for (auto i : myGeometry.shape) {
+                for (auto i : myTAZShape) {
                     if (!s.drawForSelecting || (myViewNet->getPositionInformation().distanceSquaredTo2D(i) <= (myHintSizeSquared + 2))) {
                         glPushMatrix();
                         glTranslated(i.x(), i.y(), GLO_POLYGON + 0.02);
@@ -324,7 +326,7 @@ GNETAZ::drawGL(const GUIVisualizationSettings& s) const {
                 if (modeMove && (mouseOverVertex == false) && (myBlockMovement == false) && (distanceToShape < myHintSize)) {
                     // push matrix
                     glPushMatrix();
-                    Position hintPos = myGeometry.shape.size() > 1 ? myGeometry.shape.positionAtOffset2D(myGeometry.shape.nearest_offset_to_point2D(mousePosition)) : myGeometry.shape[0];
+                    Position hintPos = myTAZShape.size() > 1 ? myTAZShape.positionAtOffset2D(myTAZShape.nearest_offset_to_point2D(mousePosition)) : myTAZShape[0];
                     glTranslated(hintPos.x(), hintPos.y(), GLO_POLYGON + 0.04);
                     GLHelper::setColor(invertedColor);
                     GLHelper:: drawFilledCircle(myHintSize, s.getCircleResolution());
@@ -348,7 +350,7 @@ GNETAZ::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_ID:
             return getAdditionalID();
         case SUMO_ATTR_SHAPE:
-            return toString(myGeometry.shape);
+            return toString(myTAZShape);
         case SUMO_ATTR_COLOR:
             return toString(myColor);
         case SUMO_ATTR_EDGES: {
@@ -535,7 +537,7 @@ GNETAZ::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         case SUMO_ATTR_SHAPE:
             myViewNet->getNet()->removeGLObjectFromGrid(this);
-            myGeometry.shape = parse<PositionVector>(value);
+            myTAZShape = parse<PositionVector>(value);
             myViewNet->getNet()->addGLObjectIntoGrid(this);
             break;
         case SUMO_ATTR_COLOR:
