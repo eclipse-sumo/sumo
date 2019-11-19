@@ -1,0 +1,6 @@
+-s input_net.net.xml --railway.topology.output topology.xml -v
+--railway.topology.all-bidi
+--ptstop-files input_ptstops.xml
+--ptstop-output additional.xml
+
+
