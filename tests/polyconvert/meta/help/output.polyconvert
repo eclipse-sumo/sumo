@@ -1,4 +1,4 @@
-Eclipse SUMO polyconvert Version v1_3_1+0801-355be15e4b
+Eclipse SUMO polyconvert Version v1_3_1+0935-6627874
  Copyright (C) 2001-2019 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 Importer of polygons and POIs for the microscopic, multi-modal traffic
   simulation SUMO.
@@ -90,6 +90,7 @@ Pruning Options:
 Processing Options:
   --offset.x FLOAT                  Adds FLOAT to net x-positions
   --offset.y FLOAT                  Adds FLOAT to net y-positions
+  --offset.z FLOAT                  Adds FLOAT to net z-positions
   --all-attributes                  Imports all attributes as key/value pairs
   --ignore-errors                   Continue on broken input
   --poi-layer-offset FLOAT          Adds FLOAT to the layer value for each poi

@@ -1,4 +1,4 @@
-Eclipse SUMO netgenerate Version v1_3_1+0801-355be15e4b
+Eclipse SUMO netgenerate Version v1_3_1+0935-6627874
  Copyright (C) 2001-2019 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 Synthetic network generator for the microscopic, multi-modal traffic simulation
   SUMO.
@@ -144,6 +144,7 @@ Processing Options:
   --offset.disable-normalization       Turn off normalizing node positions
   --offset.x FLOAT                     Adds FLOAT to net x-positions
   --offset.y FLOAT                     Adds FLOAT to net y-positions
+  --offset.z FLOAT                     Adds FLOAT to net z-positions
   --flip-y-axis                        Flips the y-coordinate along zero
   --roundabouts.guess                  Enable roundabout-guessing
   --opposites.guess                    Enable guessing of opposite direction
