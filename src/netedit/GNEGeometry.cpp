@@ -661,8 +661,25 @@ GNEGeometry::updateGeometricPath(GNEGeometry::SegmentGeometry &segmentGeometry, 
 
 
 void 
-GNEGeometry::drawGeometry(const GUIVisualizationSettings& /*s*/, const Position /*mousePosition*/, const Geometry& geometry, const double width) {
-    GLHelper::drawBoxLines(geometry.shape, geometry.shapeRotations, geometry.shapeLengths, width);
+GNEGeometry::drawGeometry(const GUIVisualizationSettings& s, const Position mousePosition, const Geometry& geometry, const double width) {
+    // first check if we're in draw for selecting mode
+    if (s.drawForSelecting) {
+        // obtain position over lane relative to mouse position
+        const Position posOverLane = geometry.shape.positionAtOffset2D(geometry.shape.nearest_offset_to_point2D(mousePosition));
+        // if mouse is over segment
+        if (posOverLane.distanceSquaredTo2D(mousePosition) <= (width*width)) {
+            // push matrix
+            glPushMatrix();
+            // translate to position over lane
+            glTranslated(posOverLane.x(), posOverLane.y(), 0);
+            // Draw circle
+            GLHelper::drawFilledCircle(width, s.getCircleResolution());
+            // pop draw matrix
+            glPopMatrix();
+        }
+    } else {
+        GLHelper::drawBoxLines(geometry.shape, geometry.shapeRotations, geometry.shapeLengths, width);
+    }
 }
 
 
