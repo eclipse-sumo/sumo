@@ -13,6 +13,7 @@ permalink: /ChangeLog/
   - Lanechange reason is now written in lanechange-output when using the [simple continuous lanechange model](Simulation/SublaneModel.md#simple_continous_lane-change_model). Issue #6014
   - Fixed invalid mode change from car during intermodal routing. Issue #6070
   - Fixed invalid cooperative speed adjustment in sublane model. Issues #6266, #6267
+  - Fixed crash related to parkingAreaReroute. Issue #6283
 
 - NETEDIT
   - Fixed crash when defining walks between disconnected locations. Issue #5369
@@ -32,6 +33,7 @@ permalink: /ChangeLog/
   - Preventing invalid double tracks when using typemap [osmNetconvertRailUsage.typ.xml]({{Source}}data/typemap/osmNetconvertRailUsage.typ.xml). Issue #6056
   - Disabling invalid handling of railway track count in OSM input. Issue #6057
   - Missing track numbers in bidirectional railway edges. Issue #6058
+  - Corrected handling of user-specified edge length when adding bidirectional railway edges. Issue #6280
   - Fixed invalid junction and connection shapes in plain-xml-output when using option **--proj.plain-geo** Issue #6066
   - Fixed invalid geometry when using option **--geometry.max-segment-length** Issue #6074
   - Fixed invalid network when using option **--geometry.split** Issue #6075
