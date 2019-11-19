@@ -177,9 +177,6 @@ public:
     /// @brief Returns a pointer to GNEViewNet in which additional element is located
     GNEViewNet* getViewNet() const;
 
-    /// @brief Returns additional element's shape
-    PositionVector getShape() const;
-
     /// @brief Check if additional item is currently blocked (i.e. cannot be moved with mouse)
     bool isAdditionalBlocked() const;
 

@@ -716,7 +716,7 @@ GNEViewNetHelper::MoveSingleElementValues::calculateTAZValues() {
     // set TAZ to move
     myTAZToMove = myViewNet->myObjectsUnderCursor.getTAZFront();
     // save original shape (needed for commit change)
-    myViewNet->myMoveSingleElementValues.originalShapeBeforeMoving = myTAZToMove->getShape();
+    myViewNet->myMoveSingleElementValues.originalShapeBeforeMoving = myTAZToMove->getTAZShape();
     // save clicked position as moving original position
     myViewNet->myMoveSingleElementValues.originalPositionInView = myViewNet->getPositionInformation();
     // obtain index of vertex to move if shape isn't blocked

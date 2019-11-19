@@ -143,7 +143,8 @@ GNEBusStop::drawGL(const GUIVisualizationSettings& s) const {
         } else if (s.drawDetail(s.detailSettings.stoppingPlaceDetails, exaggeration)) {
             // draw lines between BusStops and Acces
             for (auto i : getAdditionalChildren()) {
-                GLHelper::drawBoxLine(i->getShape()[0], RAD2DEG(mySignPos.angleTo2D(i->getShape()[0])) - 90, mySignPos.distanceTo2D(i->getShape()[0]), .05);
+                GLHelper::drawBoxLine(i->getAdditionalGeometry().getShape()[0], 
+                    RAD2DEG(mySignPos.angleTo2D(i->getAdditionalGeometry().getShape()[0])) - 90, mySignPos.distanceTo2D(i->getAdditionalGeometry().getShape()[0]), .05);
             }
             // Add a draw matrix for details
             glPushMatrix();

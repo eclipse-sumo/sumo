@@ -310,12 +310,6 @@ GNEAdditional::getViewNet() const {
 }
 
 
-PositionVector
-GNEAdditional::getShape() const {
-    return myAdditionalGeometry.getShape();
-}
-
-
 bool
 GNEAdditional::isAdditionalBlocked() const {
     return myBlockMovement;
