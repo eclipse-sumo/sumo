@@ -122,7 +122,7 @@ GNEGeometry::Geometry::getPosition() const {
 }
 
 
-const double
+double
 GNEGeometry::Geometry::getRotation() const {
     if (myPosition == Position::INVALID) {
         throw ProcessError("invalid single rotation");

@@ -75,7 +75,7 @@ struct GNEGeometry {
         const Position &getPosition() const;
 
         /// @brief get rotation
-        const double getRotation() const;
+        double getRotation() const;
 
         /// @brief The shape of the additional element
         const PositionVector &getShape() const;
