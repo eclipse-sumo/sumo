@@ -7,3 +7,5 @@ turn_left_from_north
 turn_left_from_south
 turn_left_from_east
 turn_left_from_west
+turn_left_all
+turn_left_opposite
