@@ -948,7 +948,7 @@ PositionVector::indexOfClosest(const Position& p) const {
 
 
 int
-PositionVector::insertAtClosest(const Position& p, bool adjustZ) {
+PositionVector::insertAtClosest(const Position& p, bool interpolateZ) {
     if (size() == 0) {
         return -1;
     }
@@ -964,7 +964,7 @@ PositionVector::insertAtClosest(const Position& p, bool adjustZ) {
         }
     }
     // check if we have to adjust Position Z
-    if (adjustZ) {
+    if (interpolateZ) {
         // obtain previous and next Z
         const double previousZ = (begin() + (insertionIndex-1))->z();
         const double nextZ = (begin() + insertionIndex)->z();
