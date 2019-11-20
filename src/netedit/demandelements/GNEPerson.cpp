@@ -375,7 +375,7 @@ Boundary
 GNEPerson::getCenteringBoundary() const {
     Boundary personBoundary;
     if (getDemandElementChildren().size() > 0) {
-        personBoundary.add(getDemandElementChildren().at(1)->getEdgeParents().at(0)->getLanes().front()->getLaneShape().front());
+        personBoundary.add(getDemandElementChildren().front()->getCenteringBoundary());
     } else {
         personBoundary = Boundary(-0.1, -0.1, 0.1, 0.1);
     }

@@ -176,6 +176,8 @@ FXDEFMAP(GNEApplicationWindow) GNEApplicationWindowMap[] = {
     FXMAPFUNC(SEL_UPDATE,   MID_LOCATEEDGE,         GNEApplicationWindow::onUpdNeedsNetwork),
     FXMAPFUNC(SEL_COMMAND,  MID_LOCATEVEHICLE,      GNEApplicationWindow::onCmdLocate),
     FXMAPFUNC(SEL_UPDATE,   MID_LOCATEVEHICLE,      GNEApplicationWindow::onUpdNeedsNetwork),
+    FXMAPFUNC(SEL_COMMAND,  MID_LOCATEPERSON,       GNEApplicationWindow::onCmdLocate),
+    FXMAPFUNC(SEL_UPDATE,   MID_LOCATEPERSON,       GNEApplicationWindow::onUpdNeedsNetwork),
     FXMAPFUNC(SEL_COMMAND,  MID_LOCATEROUTE,        GNEApplicationWindow::onCmdLocate),
     FXMAPFUNC(SEL_UPDATE,   MID_LOCATEROUTE,        GNEApplicationWindow::onUpdNeedsNetwork),
     FXMAPFUNC(SEL_COMMAND,  MID_LOCATESTOP,         GNEApplicationWindow::onCmdLocate),
@@ -1491,6 +1493,9 @@ GNEApplicationWindow::LocateMenuCommands::buildLocateMenuCommands(FXMenuPane* lo
     new FXMenuCommand(locateMenu,
         "Locate &Vehicles\tShift+V\tOpen a dialog for locating a Vehicle.",
         GUIIconSubSys::getIcon(ICON_LOCATEVEHICLE), myGNEApp, MID_LOCATEVEHICLE);
+    new FXMenuCommand(locateMenu,
+        "Locate &Person\tShift+P\tOpen a dialog for locating a Person.",
+        GUIIconSubSys::getIcon(ICON_LOCATEPERSON), myGNEApp, MID_LOCATEPERSON);
     new FXMenuCommand(locateMenu,
         "Locate &Route\tShift+R\tOpen a dialog for locating a Route.",
         GUIIconSubSys::getIcon(ICON_LOCATEROUTE), myGNEApp, MID_LOCATEROUTE);
