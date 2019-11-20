@@ -2,6 +2,7 @@ tls
 tls_right_on_red
 priority_junction
 priority_stop
+right_before_left
 zipper
 
 # test dynamics at rail crossing

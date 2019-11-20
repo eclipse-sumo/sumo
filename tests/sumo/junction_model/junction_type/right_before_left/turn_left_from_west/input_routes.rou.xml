@@ -1,0 +1,11 @@
+<routes>
+    <vType id="DEFAULT_VEHTYPE" sigma="0"/>
+
+    <route id="NS" edges="NC CS"/>
+    <route id="EW" edges="EC CW"/>
+    <route id="WN" edges="WC CN"/>
+
+    <vehicle id="NS" route="NS" depart="0" departSpeed="max"/>
+    <vehicle id="EW" route="EW" depart="0" departSpeed="max"/>
+    <vehicle id="WN" route="WN" depart="0" departSpeed="max"/>
+</routes>
