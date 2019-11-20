@@ -606,7 +606,7 @@ MSE2Collector::notifyMove(SUMOTrafficObject& tObject, double oldPos,
     }
     SUMOVehicle& veh = static_cast<SUMOVehicle&>(tObject);
 #ifdef HAVE_FOX
-    FXConditionalLock lock(myNotificationMutex, MSGlobals::gNumSimThreads > 1 && myLanes.size() > 1);
+    FXConditionalLock lock(myNotificationMutex, MSGlobals::gNumSimThreads > 1);
 #endif
     VehicleInfoMap::iterator vi = myVehicleInfos.find(veh.getID());
     assert(vi != myVehicleInfos.end()); // all vehicles calling notifyMove() should have called notifyEnter() before
