@@ -402,7 +402,7 @@ MSActuatedTrafficLightLogic::trySwitch() {
         }
     }
     assert(myStep <= (int)myPhases.size());
-    assert(myStep > 0);
+    assert(myStep >= 0);
     if (myStep == (int)myPhases.size()) {
         myStep = 0;
     }
