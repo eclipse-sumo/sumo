@@ -3683,6 +3683,7 @@ MSLane::initRNGs(const OptionsCont& oc) {
     const int numRNGs = oc.getInt("thread-rngs");
     const bool random = oc.getBool("random");
     int seed = oc.getInt("seed");
+    myRNGs.reserve(numRNGs); // this is needed for stable pointers on debugging
     for (int i = 0; i < numRNGs; i++) {
         myRNGs.push_back(std::mt19937());
         RandHelper::initRand(&myRNGs.back(), random, seed++);
