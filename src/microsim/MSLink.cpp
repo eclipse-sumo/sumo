@@ -713,6 +713,26 @@ MSLink::hasApproachingFoe(SUMOTime arrivalTime, SUMOTime leaveTime, double speed
 }
 
 
+std::pair<const SUMOVehicle*, const MSLink*>
+MSLink::getFirstApproachingFoe() const {
+    double closetDist = std::numeric_limits<double>::max();
+    const SUMOVehicle* closest = nullptr;
+    const MSLink* foeLink = nullptr;
+    for (MSLink* link : myFoeLinks) {
+        for (const auto& it : link->myApproachingVehicles) {
+            if (it.second.dist < closetDist) {
+                closetDist = it.second.dist;
+                if (it.second.willPass) {
+                    closest = it.first;
+                    foeLink = link;
+                }
+            }
+        }
+    }
+    return std::make_pair(closest, foeLink);
+}
+
+
 LinkDirection
 MSLink::getDirection() const {
     return myDirection;

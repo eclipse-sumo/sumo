@@ -262,6 +262,9 @@ public:
      */
     bool hasApproachingFoe(SUMOTime arrivalTime, SUMOTime leaveTime, double speed, double decel) const;
 
+    /// @brief get the foe vehicle that is closest to the intersection or nullptr along with the foe link
+    std::pair<const SUMOVehicle*, const MSLink*>  getFirstApproachingFoe() const;
+
     MSJunction* getJunction() const {
         return myJunction;
     }

@@ -2626,6 +2626,23 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
                 std::cout << "   slowedDownForMinor maxSpeedAtVisDist=" << maxSpeedAtVisibilityDist << " maxArrivalSpeed=" << maxArrivalSpeed << " arrivalSpeed=" << arrivalSpeed << "\n";
             }
 #endif
+        } else if ((*link)->getState() == LINKSTATE_EQUAL && myWaitingTime > 0) {
+            // check for deadlock (circular yielding)
+            //std::cout << SIMTIME << " veh=" << getID() << " check rbl-deadlock\n";
+            std::pair<const SUMOVehicle*, const MSLink*> blocker = (*link)->getFirstApproachingFoe();
+            //std::cout << "   blocker=" << Named::getIDSecure(blocker.first) << "\n";
+            while (blocker.second != nullptr && blocker.second != *link) {
+                blocker = blocker.second->getFirstApproachingFoe();
+                //std::cout << "   blocker=" << Named::getIDSecure(blocker.first) << "\n";
+            }
+            //std::cout << "   blockerLink=" << blocker.second << " link=" << *link << "\n";
+            if (blocker.second == *link) {
+                const double threshold = (*link)->getDirection() == LINKDIR_STRAIGHT ? 0.25 : 0.75;
+                if (RandHelper::rand(getRNG()) < threshold) {
+                    //std::cout << "   abort request, threshold=" << threshold << "\n";
+                    setRequest = false;
+                }
+            }
         }
 
         SUMOTime arrivalTime;
@@ -3028,7 +3045,6 @@ MSVehicle::processLinkApproaches(double& vSafe, double& vSafeMin, double& vSafeM
                     std::cout << SIMTIME << " veh=" << getID() << " haveToWait (yellow)\n";
                 }
 #endif
-                link->removeApproaching(this);
                 break;
             }
             const bool influencerPrio = (myInfluencer != nullptr && !myInfluencer->getRespectJunctionPriority());
@@ -3088,9 +3104,6 @@ MSVehicle::processLinkApproaches(double& vSafe, double& vSafeMin, double& vSafeM
                         std::cout << SIMTIME << " veh=" << getID() << " haveToWait (minor)\n";
                     }
 #endif
-                    if (ls == LINKSTATE_EQUAL) {
-                        link->removeApproaching(this);
-                    }
                     break;
                 } else {
                     // past the point of no return. we need to drive fast enough
@@ -3141,9 +3154,6 @@ MSVehicle::processLinkApproaches(double& vSafe, double& vSafeMin, double& vSafeM
                     std::cout << SIMTIME << " veh=" << getID() << " haveToWait (closed)\n";
                 }
 #endif
-                if (ls == LINKSTATE_EQUAL) {
-                    link->removeApproaching(this);
-                }
 #ifdef DEBUG_EXEC_MOVE
                 if (DEBUG_COND) {
                     std::cout << SIMTIME << " braking for closed link=" << link->getViaLaneOrLane()->getID() << "\n";
