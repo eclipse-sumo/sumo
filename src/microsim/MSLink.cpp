@@ -682,22 +682,6 @@ MSLink::blockedByFoe(const SUMOVehicle* veh, const ApproachingVehicleInformation
 
 
 bool
-MSLink::maybeOccupied(MSLane* lane) {
-    MSVehicle* veh = lane->getLastAnyVehicle();
-    double distLeft = 0;
-    if (veh == nullptr) {
-        return false;
-    } else {
-        distLeft = lane->getLength() - veh->getBackPositionOnLane(lane);
-        assert(distLeft > 0);
-        // can we be sure that the vehicle leaves this lane in the next step?
-        bool result = distLeft > (veh->getSpeed() - veh->getCarFollowModel().getMaxDecel());
-        return result;
-    }
-}
-
-
-bool
 MSLink::hasApproachingFoe(SUMOTime arrivalTime, SUMOTime leaveTime, double speed, double decel) const {
     for (std::vector<MSLink*>::const_iterator i = myFoeLinks.begin(); i != myFoeLinks.end(); ++i) {
         if ((*i)->blockedAtTime(arrivalTime, leaveTime, speed, speed, myLane == (*i)->getLane(), 0, decel, 0)) {

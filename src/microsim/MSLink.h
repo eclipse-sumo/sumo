@@ -539,10 +539,7 @@ private:
         return (leaderSpeed * leaderSpeed / leaderDecel) <= (followerSpeed * followerSpeed / followerDecel);
     }
 
-    /// @brief returns whether the given lane may still be occupied by a vehicle currently on it
-    static bool maybeOccupied(MSLane* lane);
-
-    /// @brief whether fllower could stay behind leader (possibly by braking)
+    /// @brief whether follower could stay behind leader (possibly by braking)
     static bool couldBrakeForLeader(double followDist, double leaderDist, const MSVehicle* follow, const MSVehicle* leader);
 
     MSLink* computeParallelLink(int direction);
