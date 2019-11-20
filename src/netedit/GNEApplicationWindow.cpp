@@ -2110,6 +2110,11 @@ GNEApplicationWindow::onCmdAbort(FXObject*, FXSelector, void*) {
             WRITE_DEBUG("Cleaning current selected edges");
             // clear current selection
             myViewNet->getViewParent()->getTAZFrame()->getTAZSelectionStatisticsModul()->clearSelectedEdges();
+        } else if (myViewNet->getViewParent()->getInspectorFrame()->shown()) {
+            // show extra information for tests
+            WRITE_DEBUG("Cleaning inspected elements");
+            // clear inspected elements
+            myViewNet->getViewParent()->getInspectorFrame()->inspectSingleElement(nullptr);
         } else {
             // abort current operation
             myViewNet->abortOperation();
