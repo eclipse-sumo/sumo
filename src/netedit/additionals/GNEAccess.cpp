@@ -86,7 +86,7 @@ GNEAccess::updateGeometry() {
         fixedPositionOverLane = parse<double>(myPositionOverLane);
     }
     // update geometry
-    myAdditionalGeometry.updateGeometry(getLaneParents().front(), fixedPositionOverLane * getLaneParents().front()->getLengthGeometryFactor());
+    myAdditionalGeometry.updateGeometryPosition(getLaneParents().front(), fixedPositionOverLane * getLaneParents().front()->getLengthGeometryFactor());
     // Set block icon position
     myBlockIcon.position = myAdditionalGeometry.getShape().getLineCenter();
     // Set offset of the block icon
@@ -162,7 +162,7 @@ GNEAccess::drawGL(const GUIVisualizationSettings& s) const {
         } else {
             GLHelper::setColor(s.colorSettings.busStop);
         }
-        glTranslated(myAdditionalGeometry.getShape()[0].x(), myAdditionalGeometry.getShape()[0].y(), GLO_ACCESS);
+        glTranslated(myAdditionalGeometry.getPosition().x(), myAdditionalGeometry.getPosition().y(), GLO_ACCESS);
         // draw circle
         if (s.drawForSelecting) {
             GLHelper::drawFilledCircle((double) 0.5 * exaggeration, 8);

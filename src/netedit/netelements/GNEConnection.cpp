@@ -104,7 +104,7 @@ GNEConnection::updateGeometry() {
         // Calculate shape of connection depending of the size of Junction shape
         // value obtanied from GNEJunction::drawgl
         if (nbCon.customShape.size() != 0) {
-            myConnectionGeometry.updateGeometry(nbCon.customShape);
+            myConnectionGeometry.updateGeometryShape(nbCon.customShape);
         } else if (getEdgeFrom()->getNBEdge()->getToNode()->getShape().area() > 4) {
             if (nbCon.shape.size() != 0) {
                 PositionVector connectionShape = nbCon.shape;
@@ -112,18 +112,18 @@ GNEConnection::updateGeometry() {
                 if (nbCon.haveVia) {
                     connectionShape.append(nbCon.viaShape);
                 }
-                myConnectionGeometry.updateGeometry(connectionShape);
+                myConnectionGeometry.updateGeometryShape(connectionShape);
             } else {
                 // Calculate shape so something can be drawn immidiately
-                myConnectionGeometry.updateGeometry(getEdgeFrom()->getNBEdge()->getToNode()->computeSmoothShape(
+                myConnectionGeometry.updateGeometryShape(getEdgeFrom()->getNBEdge()->getToNode()->computeSmoothShape(
                     laneShapeFrom, laneShapeTo, NUM_POINTS, 
                     getEdgeFrom()->getNBEdge()->getTurnDestination() == nbCon.toEdge,
                     (double) 5. * (double) getEdgeFrom()->getNBEdge()->getNumLanes(),
                     (double) 5. * (double) nbCon.toEdge->getNumLanes()));
             }
         } else {
-            myConnectionGeometry.updateGeometry({laneShapeFrom.positionAtOffset(MAX2(0.0, laneShapeFrom.length() - 1)),
-                                                 laneShapeTo.positionAtOffset(MIN2(1.0, laneShapeFrom.length()))});
+            myConnectionGeometry.updateGeometryShape({laneShapeFrom.positionAtOffset(MAX2(0.0, laneShapeFrom.length() - 1)),
+                                                      laneShapeTo.positionAtOffset(MIN2(1.0, laneShapeFrom.length()))});
         }
         // check if internal junction marker must be calculated
         if (nbCon.haveVia && (nbCon.shape.size() != 0)) {

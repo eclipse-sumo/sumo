@@ -251,7 +251,7 @@ GNEStoppingPlace::setStoppingPlaceGeometry(double movingToSide) {
     laneShape.move2side(movingToSide * offsetSign);
 
     // Cut shape using as delimitators fixed start position and fixed end position
-    myAdditionalGeometry.updateGeometry(laneShape, getStartGeometryPositionOverLane(), getEndGeometryPositionOverLane());
+    myAdditionalGeometry.updateGeometryShape(laneShape, getStartGeometryPositionOverLane(), getEndGeometryPositionOverLane());
 }
 
 

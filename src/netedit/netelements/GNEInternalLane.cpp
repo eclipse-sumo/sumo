@@ -75,7 +75,7 @@ GNEInternalLane::GNEInternalLane(GNETLSEditorFrame* editor, const std::string& i
     myTlIndex(tlIndex),
     myPopup(nullptr) {
     // calculate internal lane geometry
-    myInternalLaneGeometry.updateGeometry(shape);
+    myInternalLaneGeometry.updateGeometryShape(shape);
 }
 
 

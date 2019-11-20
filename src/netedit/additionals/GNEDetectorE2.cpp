@@ -270,7 +270,7 @@ GNEDetectorE2::updateGeometry() {
         }
 
         // Cut shape using as delimitators fixed start position and fixed end position
-        myAdditionalGeometry.updateGeometry(getLaneParents().front()->getLaneShape(), startPosFixed * getLaneParents().front()->getLengthGeometryFactor(), endPosFixed * getLaneParents().back()->getLengthGeometryFactor());
+        myAdditionalGeometry.updateGeometryShape(getLaneParents().front()->getLaneShape(), startPosFixed * getLaneParents().front()->getLengthGeometryFactor(), endPosFixed * getLaneParents().back()->getLengthGeometryFactor());
 
         // Set block icon position
         myBlockIcon.position = myAdditionalGeometry.getShape().getLineCenter();

@@ -273,7 +273,7 @@ GNEStop::updateGeometry() {
     //only update Stops over lanes, because other uses the geometry of stopping place parent
     if (getLaneParents().size() > 0) {
         // Cut shape using as delimitators fixed start position and fixed end position
-        myDemandElementGeometry.updateGeometry(getLaneParents().front()->getLaneShape(), getStartGeometryPositionOverLane(), getEndGeometryPositionOverLane());
+        myDemandElementGeometry.updateGeometryShape(getLaneParents().front()->getLaneShape(), getStartGeometryPositionOverLane(), getEndGeometryPositionOverLane());
     } else if (getAdditionalParents().size() > 0) {
         // use geometry of additional (busStop)
         myDemandElementGeometry.updateGeometry(getAdditionalParents().at(0));
@@ -300,7 +300,7 @@ GNEStop::updatePartialGeometry(const GNEEdge* edge) {
     //only update Stops over lanes, because other uses the geometry of stopping place parent
     if (getLaneParents().size() > 0) {
         // Cut shape using as delimitators fixed start position and fixed end position
-        myDemandElementGeometry.updateGeometry(getLaneParents().front()->getLaneShape(), getStartGeometryPositionOverLane(), getEndGeometryPositionOverLane());
+        myDemandElementGeometry.updateGeometryShape(getLaneParents().front()->getLaneShape(), getStartGeometryPositionOverLane(), getEndGeometryPositionOverLane());
     } else if (getAdditionalParents().size() > 0) {
         // use geometry of additional (busStop)
         myDemandElementGeometry.updateGeometry(getAdditionalParents().at(0));

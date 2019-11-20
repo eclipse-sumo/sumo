@@ -112,7 +112,7 @@ GNEDetectorE1::commitGeometryMoving(GNEUndoList* undoList) {
 void
 GNEDetectorE1::updateGeometry() {
     // update geometry
-    myAdditionalGeometry.updateGeometry(getLaneParents().front(), getGeometryPositionOverLane());
+    myAdditionalGeometry.updateGeometryPosition(getLaneParents().front(), getGeometryPositionOverLane());
 
     // Set block icon position
     myBlockIcon.position = myAdditionalGeometry.getShape().getLineCenter();
@@ -145,8 +145,8 @@ GNEDetectorE1::drawGL(const GUIVisualizationSettings& s) const {
         // draw shape
         glPushMatrix();
         glTranslated(0, 0, getType());
-        glTranslated(myAdditionalGeometry.getShape()[0].x(), myAdditionalGeometry.getShape()[0].y(), 0);
-        glRotated(myAdditionalGeometry.getShapeRotations()[0], 0, 0, 1);
+        glTranslated(myAdditionalGeometry.getPosition().x(), myAdditionalGeometry.getPosition().y(), 0);
+        glRotated(myAdditionalGeometry.getRotation(), 0, 0, 1);
         glScaled(exaggeration, exaggeration, 1);
         glBegin(GL_QUADS);
         glVertex2d(-1.0,  2);
@@ -221,7 +221,7 @@ GNEDetectorE1::drawGL(const GUIVisualizationSettings& s) const {
         }
         // check if dotted contour has to be drawn
         if (myViewNet->getDottedAC() == this) {
-            GLHelper::drawShapeDottedContourRectangle(s, getType(), myAdditionalGeometry.getShape()[0], 2, 4, myAdditionalGeometry.getShapeRotations()[0]);
+            GLHelper::drawShapeDottedContourRectangle(s, getType(), myAdditionalGeometry.getPosition(), 2, 4, myAdditionalGeometry.getRotation());
         }
         // pop name
         glPopName();

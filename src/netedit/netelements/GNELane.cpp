@@ -109,7 +109,7 @@ GNELane::updateGeometry() {
     //double length = myParentEdge.getLength(); // @todo see ticket #448
     // may be different from length
     // Obtain lane shape of NBEdge
-    myLaneGeometry.updateGeometry(myParentEdge.getNBEdge()->getLaneShape(myIndex));
+    myLaneGeometry.updateGeometryShape(myParentEdge.getNBEdge()->getLaneShape(myIndex));
     // update connections
     myLane2laneConnections.updateLane2laneConnection();
     // update shapes parents associated with this lane

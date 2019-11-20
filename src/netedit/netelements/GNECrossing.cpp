@@ -72,7 +72,7 @@ GNECrossing::updateGeometry() {
     // rebuild crossing and walking areas form node parent
     auto crossing = myParentJunction->getNBNode()->getCrossing(myCrossingEdges);
     // obtain shape
-    myCrossingGeometry.updateGeometry(crossing->customShape.size() > 0 ?  crossing->customShape : crossing->shape);
+    myCrossingGeometry.updateGeometryShape(crossing->customShape.size() > 0 ?  crossing->customShape : crossing->shape);
     /*
     // only rebuild shape if junction's shape isn't in Buuble mode
     if (myParentJunction->getNBNode()->getShape().size() > 0) {

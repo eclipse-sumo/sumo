@@ -74,14 +74,18 @@ GNECalibrator::updateGeometry() {
     // get shape depending of we have a edge or a lane
     if (getLaneParents().size() > 0) {
         // update geometry
-        myAdditionalGeometry.updateGeometry(getLaneParents().front()->getLaneShape(), myPositionOverLane);
+        myAdditionalGeometry.updateGeometryPosition(getLaneParents().front(), myPositionOverLane);
     } else if (getEdgeParents().size() > 0) {
-        // clear geometry
-        myAdditionalGeometry.clearGeometry();
+        // update geometry of first edge
+        myAdditionalGeometry.updateGeometryPosition(getEdgeParents().front()->getLanes().front(), myPositionOverLane);
+        // clear extra geometries
+        myEdgeCalibratorGeometries.clear();
         // iterate over every lane and get point
-        for (const auto &i : getEdgeParents().front()->getLanes()) {
-            // update geometry
-            myAdditionalGeometry.updateGeometry(i, myPositionOverLane, false);
+        for (int i = 1; i < (int)getEdgeParents().front()->getLanes().size(); i++) {
+            // add new calibrator geometry
+            GNEGeometry::Geometry calibratorGeometry;
+            calibratorGeometry.updateGeometryPosition(getEdgeParents().front()->getLanes().at(i), myPositionOverLane);
+            myEdgeCalibratorGeometries.push_back(calibratorGeometry);
         }
     } else {
         throw ProcessError("Both edges and lanes aren't defined");
@@ -130,51 +134,11 @@ GNECalibrator::drawGL(const GUIVisualizationSettings& s) const {
         // begin draw
         glPushName(getGlID());
         glLineWidth(1.0);
-        // iterate over every Calibrator symbol
-        for (int i = 0; i < (int)myAdditionalGeometry.getShape().size(); i++) {
-            const Position& pos = myAdditionalGeometry.getShape()[i];
-            double rot = myAdditionalGeometry.getShapeRotations().size() > i? myAdditionalGeometry.getShapeRotations()[i] : 0;
-            glPushMatrix();
-            glTranslated(pos.x(), pos.y(), getType());
-            glRotated(rot, 0, 0, 1);
-            glTranslated(0, 0, getType());
-            glScaled(exaggeration, exaggeration, 1);
-            glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-            // set color
-            if (drawUsingSelectColor()) {
-                GLHelper::setColor(s.colorSettings.selectedAdditionalColor);
-            } else {
-                GLHelper::setColor(s.colorSettings.calibrator);
-            }
-            // base
-            glBegin(GL_TRIANGLES);
-            glVertex2d(0 - 1.4, 0);
-            glVertex2d(0 - 1.4, 6);
-            glVertex2d(0 + 1.4, 6);
-            glVertex2d(0 + 1.4, 0);
-            glVertex2d(0 - 1.4, 0);
-            glVertex2d(0 + 1.4, 6);
-            glEnd();
-            // draw text if isn't being drawn for selecting
-            if (!s.drawForSelecting && s.drawDetail(s.detailSettings.calibratorText, exaggeration)) {
-                // set color depending of selection status
-                RGBColor textColor = drawUsingSelectColor() ? s.colorSettings.selectionColor : RGBColor::BLACK;
-                // draw "C"
-                GLHelper::drawText("C", Position(0, 1.5), 0.1, 3, textColor, 180);
-                // draw "edge" or "lane "
-                if (getLaneParents().size() > 0) {
-                    GLHelper::drawText("lane", Position(0, 3), .1, 1, textColor, 180);
-                } else if (getEdgeParents().size() > 0) {
-                    GLHelper::drawText("edge", Position(0, 3), .1, 1, textColor, 180);
-                } else {
-                    throw ProcessError("Both myEdge and myLane aren't defined");
-                }
-            }
-            glPopMatrix();
-            // check if dotted contour has to be drawn
-            if (myViewNet->getDottedAC() == this) {
-                GLHelper::drawShapeDottedContourRectangle(s, getType(), pos, 2.8, 6, rot, 0, 3);
-            }
+        // draw first symbol
+        drawCalibratorSymbol(s, exaggeration, myAdditionalGeometry.getPosition(), myAdditionalGeometry.getRotation());
+        // continue with the other symbols
+        for (const auto & edgeCalibratorGeometry : myEdgeCalibratorGeometries) {
+            drawCalibratorSymbol(s, exaggeration, edgeCalibratorGeometry.getPosition(), edgeCalibratorGeometry.getRotation());
         }
         // draw name
         drawName(getPositionInView(), s.scale, s.addName);
@@ -319,6 +283,50 @@ GNECalibrator::getHierarchyName() const {
 // ===========================================================================
 // private
 // ===========================================================================
+
+void GNECalibrator::drawCalibratorSymbol(const GUIVisualizationSettings& s, const double exaggeration, const Position& pos, const double rot) const {
+    glPushMatrix();
+    glTranslated(pos.x(), pos.y(), getType());
+    glRotated(rot, 0, 0, 1);
+    glTranslated(0, 0, getType());
+    glScaled(exaggeration, exaggeration, 1);
+    glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+    // set color
+    if (drawUsingSelectColor()) {
+        GLHelper::setColor(s.colorSettings.selectedAdditionalColor);
+    } else {
+        GLHelper::setColor(s.colorSettings.calibrator);
+    }
+    // base
+    glBegin(GL_TRIANGLES);
+    glVertex2d(0 - 1.4, 0);
+    glVertex2d(0 - 1.4, 6);
+    glVertex2d(0 + 1.4, 6);
+    glVertex2d(0 + 1.4, 0);
+    glVertex2d(0 - 1.4, 0);
+    glVertex2d(0 + 1.4, 6);
+    glEnd();
+    // draw text if isn't being drawn for selecting
+    if (!s.drawForSelecting && s.drawDetail(s.detailSettings.calibratorText, exaggeration)) {
+        // set color depending of selection status
+        RGBColor textColor = drawUsingSelectColor() ? s.colorSettings.selectionColor : RGBColor::BLACK;
+        // draw "C"
+        GLHelper::drawText("C", Position(0, 1.5), 0.1, 3, textColor, 180);
+        // draw "edge" or "lane "
+        if (getLaneParents().size() > 0) {
+            GLHelper::drawText("lane", Position(0, 3), .1, 1, textColor, 180);
+        } else if (getEdgeParents().size() > 0) {
+            GLHelper::drawText("edge", Position(0, 3), .1, 1, textColor, 180);
+        } else {
+            throw ProcessError("Both myEdge and myLane aren't defined");
+        }
+    }
+    glPopMatrix();
+    // check if dotted contour has to be drawn
+    if (myViewNet->getDottedAC() == this) {
+        GLHelper::drawShapeDottedContourRectangle(s, getType(), pos, 2.8, 6, rot, 0, 3);
+    }
+}
 
 void
 GNECalibrator::setAttribute(SumoXMLAttr key, const std::string& value) {

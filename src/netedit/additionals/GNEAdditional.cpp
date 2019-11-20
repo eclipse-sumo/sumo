@@ -344,7 +344,7 @@ GNEAdditional::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
         new FXMenuCommand(ret, ("Cursor position inner additional: " + toString(innerPos)).c_str(), nullptr, nullptr, 0);
         // If shape isn't empty, show menu command lane position
         if (myAdditionalGeometry.getShape().size() > 0) {
-            const double lanePos = lane->getLaneShape().nearest_offset_to_point2D(myAdditionalGeometry.getShape()[0]);
+            const double lanePos = lane->getLaneShape().nearest_offset_to_point2D(myAdditionalGeometry.getPosition());
             new FXMenuCommand(ret, ("Cursor position over " + toString(SUMO_TAG_LANE) + ": " + toString(innerPos + lanePos)).c_str(), nullptr, nullptr, 0);
         }
     } else if (myTagProperty.hasAttribute(SUMO_ATTR_EDGE)) {
@@ -354,7 +354,7 @@ GNEAdditional::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
         new FXMenuCommand(ret, ("Cursor position inner additional: " + toString(innerPos)).c_str(), nullptr, nullptr, 0);
         // If shape isn't empty, show menu command edge position
         if (myAdditionalGeometry.getShape().size() > 0) {
-            const double edgePos = edge->getLanes().at(0)->getLaneShape().nearest_offset_to_point2D(myAdditionalGeometry.getShape()[0]);
+            const double edgePos = edge->getLanes().at(0)->getLaneShape().nearest_offset_to_point2D(myAdditionalGeometry.getPosition());
             new FXMenuCommand(ret, ("Mouse position over " + toString(SUMO_TAG_EDGE) + ": " + toString(innerPos + edgePos)).c_str(), nullptr, nullptr, 0);
         }
     } else {

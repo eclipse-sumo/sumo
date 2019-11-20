@@ -54,16 +54,28 @@ struct GNEGeometry {
         /// @brief constructor
         Geometry();
 
-        /// @brief update geometry
-        void updateGeometry(const PositionVector &shape, double startPos = -1, double endPos = -1, 
+        /**@brief update geometry shape
+         * @param startPos if is different of -1, then shape will be cut in these first position
+         * @param endPos if is different of -1, then shape will be cut in these last position
+         * @param extraFirstPosition if is different of Position::INVALID, add it in shape front position (after cut)
+         * @param extraLastPosition if is different of Position::INVALID, add it in shape last position (after cut)
+         * @note lengths and rotations wil be updated
+         */
+        void updateGeometryShape(const PositionVector &shape, double startPos = -1, double endPos = -1, 
                             const Position &extraFirstPosition = Position::INVALID, 
                             const Position &extraLastPosition = Position::INVALID);
+
+        /// @brief update position and rotation
+        void updateGeometryPosition(const GNELane *lane, const double posOverLane);
 
         /// @brief update geometry (using geometry of another additional)
         void updateGeometry(const GNEAdditional *additional);
 
-        /// @brief update geometry (using a lane and their position over lane)
-        void updateGeometry(const GNELane *lane, const double posOverLane, bool clearContainer = true);
+        /// @brief get Position
+        const Position &getPosition() const;
+
+        /// @brief get rotation
+        const double getRotation() const;
 
         /// @brief The shape of the additional element
         const PositionVector &getShape() const;
@@ -73,21 +85,24 @@ struct GNEGeometry {
 
         /// @brief The lengths of the single shape parts
         const std::vector<double> &getShapeLengths() const;
-                
-        /// @brief clear geometry containers
-        void clearGeometry();
-
-    private:
+    
+    private:   
         /// @brief calculate shape rotations and lengths
         void calculateShapeRotationsAndLengths();
 
-        /// @brief The shape of the additional element
+        /// @brief get single position
+        Position myPosition;
+
+        /// @brief get single rotation
+        double myRotation;
+
+        /// @brief element shape
         PositionVector myShape;
 
-        /// @brief The rotations of the single shape parts
+        /// @brief The rotations of the shape (note: Always size = myShape.size()-1)
         std::vector<double> myShapeRotations;
 
-        /// @brief The lengths of the single shape parts
+        /// @brief The lengths of the shape (note: Always size = myShape.size()-1)
         std::vector<double> myShapeLengths;
 
         /// @brief Invalidated assignment operator

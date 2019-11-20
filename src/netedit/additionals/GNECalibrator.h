@@ -166,7 +166,13 @@ protected:
     /// @brief ID to current RouteProbe
     std::string myRouteProbe;
 
+    /// @brief extra calibrator geometries 
+    std::vector<GNEGeometry::Geometry> myEdgeCalibratorGeometries;
+
 private:
+    /// @brief draw calibrator symbol
+    void drawCalibratorSymbol(const GUIVisualizationSettings& s, const double exaggeration, const Position& pos, const double rot) const;
+
     /// @brief set attribute after validation
     void setAttribute(SumoXMLAttr key, const std::string& value);
 
