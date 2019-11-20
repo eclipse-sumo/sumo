@@ -1242,7 +1242,7 @@ NIImporter_OpenDrive::computeShapes(std::map<std::string, OpenDriveEdge*>& edges
                 int iS = e.geom.indexOfClosest(pS);
                 // prevent close spacing to reduce impact of rounding errors in z-axis
                 if (pS.distanceTo2D(e.geom[iS]) > POSITION_EPS) {
-                    e.geom.insertAtClosest(pS);
+                    e.geom.insertAtClosest(pS, false);
                     //std::cout << " edge=" << e.id << " inserting pos=" << pS << " s=" << el.s << " iS=" << iS << " dist=" << pS.distanceTo2D(e.geom[iS]) << "\n";
                 }
             }

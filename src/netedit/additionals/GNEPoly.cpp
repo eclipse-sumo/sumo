@@ -395,7 +395,7 @@ GNEPoly::getVertexIndex(Position pos, bool createIfNoExist, bool snapToGrid) {
     }
     // if vertex doesn't exist, insert it
     if (createIfNoExist) {
-        return myShape.insertAtClosest(pos);
+        return myShape.insertAtClosest(pos, true);
     } else {
         return -1;
     }

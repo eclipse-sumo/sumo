@@ -948,7 +948,7 @@ PositionVector::indexOfClosest(const Position& p) const {
 
 
 int
-PositionVector::insertAtClosest(const Position& p) {
+PositionVector::insertAtClosest(const Position& p, bool adjustZ) {
     if (size() == 0) {
         return -1;
     }
@@ -963,7 +963,16 @@ PositionVector::insertAtClosest(const Position& p) {
             minDist = dist;
         }
     }
-    insert(begin() + insertionIndex, p);
+    // check if we have to adjust Position Z
+    if (adjustZ) {
+        // obtain previous and next Z
+        const double previousZ = (begin() + (insertionIndex-1))->z();
+        const double nextZ = (begin() + insertionIndex)->z();
+        // insert new position using x and y of p, and the new z
+        insert(begin() + insertionIndex, Position(p.x(), p.y(), ((previousZ + nextZ) / 2.0)));
+    } else {
+        insert(begin() + insertionIndex, p);
+    }
     return insertionIndex;
 }
 
@@ -1572,7 +1581,7 @@ PositionVector::smoothedZFront(double dist) const {
         int iLast = indexOfClosest(pDist);
         // prevent close spacing to reduce impact of rounding errors in z-axis
         if (pDist.distanceTo2D((*this)[iLast]) > POSITION_EPS * 20) {
-            iLast = result.insertAtClosest(pDist);
+            iLast = result.insertAtClosest(pDist, false);
         }
         double dist2 = result.offsetAtIndex2D(iLast);
         const double dz2 = result[iLast].z() - z0;

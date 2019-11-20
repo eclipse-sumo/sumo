@@ -201,7 +201,7 @@ GNETAZ::getVertexIndex(Position pos, bool createIfNoExist, bool snapToGrid) {
     }
     // if vertex doesn't exist, insert it
     if (createIfNoExist) {
-        return myTAZShape.insertAtClosest(pos);
+        return myTAZShape.insertAtClosest(pos, true);
     } else {
         return -1;
     }

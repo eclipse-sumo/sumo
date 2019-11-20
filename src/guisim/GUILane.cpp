@@ -1327,7 +1327,7 @@ GUILane::splitAtSegments(const PositionVector& shape) {
         Position pos = shape.positionAtOffset(offset);
         int index = result.indexOfClosest(pos);
         if (pos.distanceTo(result[index]) > POSITION_EPS) {
-            index = result.insertAtClosest(pos);
+            index = result.insertAtClosest(pos, false);
         }
         while ((int)myShapeSegments.size() < index) {
             myShapeSegments.push_back(i);

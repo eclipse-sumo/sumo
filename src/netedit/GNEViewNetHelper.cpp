@@ -628,6 +628,8 @@ GNEViewNetHelper::MoveSingleElementValues::calculatePolyValues() {
                     // create new geometry point
                     myViewNet->myMoveSingleElementValues.movingIndexShape = myPolyToMove->getVertexIndex(myViewNet->myMoveSingleElementValues.originalPositionInView, true, true);
                 }
+                // set Z value
+                myViewNet->myMoveSingleElementValues.originalPositionInView.setz(myPolyToMove->getShape()[myViewNet->myMoveSingleElementValues.movingIndexShape].z());
                 // poly values sucesfully calculated, then return true
                 return true;
             }

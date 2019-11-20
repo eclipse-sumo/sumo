@@ -329,7 +329,7 @@ GNEEdge::getVertexIndex(Position pos, bool createIfNoExist, bool snapToGrid) {
             newPos = myNet->getViewNet()->snapToActiveGrid(newPos);
         }
         startGeometryMoving();
-        int index = entireGeometry.insertAtClosest(myNet->getViewNet()->snapToActiveGrid(newPos));
+        int index = entireGeometry.insertAtClosest(myNet->getViewNet()->snapToActiveGrid(newPos), true);
         setGeometry(entireGeometry, false);
         endGeometryMoving();
         // index refers to inner geometry

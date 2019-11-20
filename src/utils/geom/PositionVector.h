@@ -280,8 +280,12 @@ public:
     /// @brief get angle  in certain position of position vector
     double angleAt2D(int pos) const;
 
-    /// @brief inserts p between the two closest positions and returns the insertion index
-    int insertAtClosest(const Position& p);
+    /**@brief inserts p between the two closest positions
+     * @param p position to be inserted
+     * @param interpolateZ flag to enable/disable interpolation of Z Value between the two closest positions
+     * @return the insertion index
+     */
+    int insertAtClosest(const Position& p, bool interpolateZ);
 
     /// @brief removes the point closest to p and return the removal index
     int removeClosest(const Position& p);
