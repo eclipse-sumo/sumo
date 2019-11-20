@@ -102,7 +102,8 @@ public:
                                       const SUMOTime _arrivalTimeBraking,
                                       const double _arrivalSpeedBraking,
                                       const SUMOTime _waitingTime,
-                                      const double _dist
+                                      const double _dist,
+                                      const double _speed
                                      ) :
             arrivalTime(_arrivalTime), leavingTime(_leavingTime),
             arrivalSpeed(_arrivalSpeed), leaveSpeed(_leaveSpeed),
@@ -110,7 +111,8 @@ public:
             arrivalTimeBraking(_arrivalTimeBraking),
             arrivalSpeedBraking(_arrivalSpeedBraking),
             waitingTime(_waitingTime),
-            dist(_dist) {
+            dist(_dist),
+            speed(_speed) {
         }
 
         /// @brief The time the vehicle's front arrives at the link
@@ -131,6 +133,8 @@ public:
         const SUMOTime waitingTime;
         /// @brief The distance up to the current link
         const double dist;
+        /// @brief The current speed
+        const double speed;
 
     private:
         /// invalidated assignment operator
