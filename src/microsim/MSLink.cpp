@@ -575,10 +575,12 @@ MSLink::blockedAtTime(SUMOTime arrivalTime, SUMOTime leaveTime, double arrivalSp
             if (ego != 0
                     && ego->getVehicleType().getParameter().getJMParam(SUMO_ATTR_JM_IGNORE_FOE_SPEED, 0) >= it.first->getSpeed()
                     && ego->getVehicleType().getParameter().getJMParam(SUMO_ATTR_JM_IGNORE_FOE_PROB, 0) > 0) {
-                std::cout << "    foe link=" << getViaLaneOrLane()->getID()
+                std::stringstream stream; // to reduce output interleaving from different threads
+                stream << SIMTIME << " " << myApproachingVehicles.size() << "   foe link=" << getViaLaneOrLane()->getID()
                           << " foeVeh=" << it.first->getID() << " (below ignore speed)"
                           << " ignoreFoeProb=" << ego->getVehicleType().getParameter().getJMParam(SUMO_ATTR_JM_IGNORE_FOE_PROB, 0)
                           << "\n";
+                std::cout << stream.str();
             }
         }
 #endif
@@ -607,12 +609,14 @@ MSLink::blockedByFoe(const SUMOVehicle* veh, const ApproachingVehicleInformation
                      const SUMOVehicle* ego) const {
 #ifdef MSLink_DEBUG_OPENED
     if (gDebugFlag1) {
-        std::cout << "    foe link=" << getViaLaneOrLane()->getID()
+        std::stringstream stream; // to reduce output interleaving from different threads
+        stream << "    foe link=" << getViaLaneOrLane()->getID()
                   << " foeVeh=" << veh->getID()
                   << " req=" << avi.willPass
                   << " aT=" << avi.arrivalTime
                   << " lT=" << avi.leavingTime
                   << "\n";
+        std::cout << stream.str();
     }
 #endif
     if (!avi.willPass) {
@@ -636,7 +640,9 @@ MSLink::blockedByFoe(const SUMOVehicle* veh, const ApproachingVehicleInformation
     //if (ego != 0) std::cout << SIMTIME << " ego=" << ego->getID() << " jmTimegapMinor=" << ego->getVehicleType().getParameter().getJMParam(SUMO_ATTR_JM_TIMEGAP_MINOR, -1) << " lookAhead=" << lookAhead << "\n";
 #ifdef MSLink_DEBUG_OPENED
     if (gDebugFlag1) {
-        std::cout << "       imp=" << impatience << " fATb=" << avi.arrivalTimeBraking << " fAT2=" << foeArrivalTime << " lA=" << lookAhead << " egoAT=" << arrivalTime << " egoLT=" << leaveTime << "\n";
+        std::stringstream stream; // to reduce output interleaving from different threads
+        stream << "       imp=" << impatience << " fATb=" << avi.arrivalTimeBraking << " fAT2=" << foeArrivalTime << " lA=" << lookAhead << " egoAT=" << arrivalTime << " egoLT=" << leaveTime << "\n";
+        std::cout << stream.str();
     }
 #endif
     if (avi.leavingTime < arrivalTime) {
