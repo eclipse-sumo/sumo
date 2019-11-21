@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Nov 19 08:47:13 2019 by Eclipse SUMO netgenerate Version v1_3_1+0935-6627874
+<!-- generated on Thu Nov 21 22:13:52 2019 by Eclipse SUMO netgenerate Version v1_3_1+0985-d8cef81c9e
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netgenerateConfiguration.xsd">
@@ -121,6 +121,12 @@
         <rand.grid value="false" type="BOOL"/>
 
     </random_network>
+
+    <input>
+        <!-- Read edge-type defs from FILE -->
+        <type-files value="" synonymes="t" type="FILE"/>
+
+    </input>
 
     <output>
         <!-- Include license info into every output file -->
@@ -255,6 +261,9 @@
         <!-- The default priority of an edge -->
         <default.priority value="-1" synonymes="P priority" type="INT"/>
 
+        <!-- The default edge type -->
+        <default.type value="" type="STR"/>
+
         <!-- The default width of added sidewalks -->
         <default.sidewalk-width value="2" type="FLOAT"/>
 
@@ -305,6 +314,9 @@
 
         <!-- Do not control edges that lie fully within a joined traffic light. This may cause collisions but allows old traffic light plans to be used -->
         <tls.uncontrolled-within value="false" type="BOOL"/>
+
+        <!-- Do not build mutually conflicting response matrix, potentially ignoring vehicles that are stuck at an internal junction when their phase has ended -->
+        <tls.ignore-internal-junction-jam value="false" type="BOOL"/>
 
         <!-- Use INT as cycle duration -->
         <tls.cycle.time value="90" type="INT"/>

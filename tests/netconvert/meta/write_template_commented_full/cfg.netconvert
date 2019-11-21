@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Nov 18 21:21:29 2019 by Eclipse SUMO netconvert Version v1_3_1+0940-f979064346
+<!-- generated on Thu Nov 21 22:13:58 2019 by Eclipse SUMO netconvert Version v1_3_1+0985-d8cef81c9e
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -326,6 +326,9 @@
 
         <!-- The default priority of an edge -->
         <default.priority value="-1" synonymes="P priority" type="INT"/>
+
+        <!-- The default edge type -->
+        <default.type value="" type="STR"/>
 
         <!-- The default width of added sidewalks -->
         <default.sidewalk-width value="2" type="FLOAT"/>

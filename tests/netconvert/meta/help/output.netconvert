@@ -1,4 +1,4 @@
-Eclipse SUMO netconvert Version v1_3_1+0940-f979064346
+Eclipse SUMO netconvert Version v1_3_1+0985-d8cef81c9e
  Copyright (C) 2001-2019 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 Network importer / builder for the microscopic, multi-modal traffic simulation
   SUMO.
@@ -199,6 +199,7 @@ Building Defaults Options:
   --default.lanewidth FLOAT            The default width of lanes
   -S, --default.speed FLOAT            The default speed on an edge (in m/s)
   -P, --default.priority INT           The default priority of an edge
+  --default.type STR                   The default edge type
   --default.sidewalk-width FLOAT       The default width of added sidewalks
   --default.bikelane-width FLOAT       The default width of added bike lanes
   --default.crossing-width FLOAT       The default width of a pedestrian

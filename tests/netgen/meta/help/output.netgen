@@ -1,4 +1,4 @@
-Eclipse SUMO netgenerate Version v1_3_1+0935-6627874
+Eclipse SUMO netgenerate Version v1_3_1+0985-d8cef81c9e
  Copyright (C) 2001-2019 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 Synthetic network generator for the microscopic, multi-modal traffic simulation
   SUMO.
@@ -73,6 +73,9 @@ Random Network Options:
                                          [1,default.priority]
   --rand.grid                          Place nodes on a regular grid with
                                          spacing rand.min-distance
+
+Input Options:
+  -t, --type-files FILE                Read edge-type defs from FILE
 
 Output Options:
   --write-license                      Include license info into every output
@@ -161,6 +164,7 @@ Building Defaults Options:
   --default.lanewidth FLOAT            The default width of lanes
   -S, --default.speed FLOAT            The default speed on an edge (in m/s)
   -P, --default.priority INT           The default priority of an edge
+  --default.type STR                   The default edge type
   --default.sidewalk-width FLOAT       The default width of added sidewalks
   --default.bikelane-width FLOAT       The default width of added bike lanes
   --default.crossing-width FLOAT       The default width of a pedestrian
@@ -192,6 +196,10 @@ TLS Building Options:
                                          within a joined traffic light. This may
                                          cause collisions but allows old traffic
                                          light plans to be used
+  --tls.ignore-internal-junction-jam   Do not build mutually conflicting
+                                         response matrix, potentially ignoring
+                                         vehicles that are stuck at an internal
+                                         junction when their phase has ended
   --tls.cycle.time INT                 Use INT as cycle duration
   --tls.green.time INT                 Use INT as green phase duration
   -D, --tls.yellow.min-decel FLOAT     Defines smallest vehicle deceleration
