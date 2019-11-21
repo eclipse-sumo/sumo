@@ -1250,18 +1250,18 @@ MSLink::getZipperSpeed(const MSVehicle* ego, const double dist, double vSafe,
     const double secondsToArrival = STEPS2TIME(arrivalTime - now);
     if (secondsToArrival > ZIPPER_ADAPT_TIME && dist > ZIPPER_ADAPT_DIST) {
 #ifdef DEBUG_ZIPPER
-        if (DEBUG_COND_ZIPPER) std::cout << SIMTIME << " getZipperSpeed ego=" << ego->getID()
-                                             << " dist=" << dist << " ignoring foes (arrival in " << STEPS2TIME(arrivalTime - now) << ")\n";
+        if (DEBUG_COND_ZIPPER) DEBUGOUT(SIMTIME << " getZipperSpeed ego=" << ego->getID()
+                << " dist=" << dist << " ignoring foes (arrival in " << STEPS2TIME(arrivalTime - now) << ")\n")
 #endif
         return vSafe;
     }
 #ifdef DEBUG_ZIPPER
-    if (DEBUG_COND_ZIPPER) std::cout << SIMTIME << " getZipperSpeed ego=" << ego->getID()
+    if (DEBUG_COND_ZIPPER) DEBUGOUT(SIMTIME << " getZipperSpeed ego=" << ego->getID()
                                          << " egoAT=" << arrivalTime
                                          << " dist=" << dist
                                          << " vSafe=" << vSafe
                                          << " numFoes=" << collectFoes->size()
-                                         << "\n";
+                                         << "\n")
 #endif
     MSLink* foeLink = myFoeLinks[0];
     for (std::vector<const SUMOVehicle*>::const_iterator i = collectFoes->begin(); i != collectFoes->end(); ++i) {
