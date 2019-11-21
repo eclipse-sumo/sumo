@@ -692,7 +692,7 @@ MSE2Collector::notifyLeave(SUMOTrafficObject& tObject, double /* lastPos */, MSM
 #endif
 
 #ifdef HAVE_FOX
-    FXConditionalLock lock(myNotificationMutex, MSGlobals::gNumSimThreads > 1 && myLanes.size() > 1);
+    FXConditionalLock lock(myNotificationMutex, MSGlobals::gNumSimThreads > 1);
 #endif
     if (reason == MSMoveReminder::NOTIFICATION_JUNCTION) {
         // vehicle left lane via junction, unsubscription and registering in myLeftVehicles when
@@ -785,7 +785,7 @@ MSE2Collector::notifyEnter(SUMOTrafficObject& tObject, MSMoveReminder::Notificat
 #endif
 
 #ifdef HAVE_FOX
-    FXConditionalLock lock(myNotificationMutex, MSGlobals::gNumSimThreads > 1 && myLanes.size() > 1);
+    FXConditionalLock lock(myNotificationMutex, MSGlobals::gNumSimThreads > 1);
 #endif
     const std::string& vehID = veh.getID();
     VehicleInfoMap::iterator vi = myVehicleInfos.find(vehID);
