@@ -756,11 +756,14 @@ GNENet::splitEdge(GNEEdge* edge, const Position& pos, GNEUndoList* undoList, GNE
     if (newJunction == nullptr) {
         newJunction = createJunction(pos, undoList);
     }
-    // split geometry in two new geometries
-    const PositionVector& oldGeom = edge->getNBEdge()->getGeometry();
-    const double oldGeometryLength = edge->getNBEdge()->getGeometry().length();
-    const double linePos = oldGeom.nearest_offset_to_point2D(pos, false);
-    std::pair<PositionVector, PositionVector> newGeoms = oldGeom.splitAt(linePos);
+    // obtain edge geometry and split position
+    const PositionVector& oldEdgeGeometry = edge->getNBEdge()->getGeometry();
+    const double edgeSplitPosition = oldEdgeGeometry.nearest_offset_to_point2D(pos, false);
+   // obtain lane geometry and split position
+    const PositionVector& oldLaneGeometry = edge->getLanes().front()->getLaneShape();
+    const double laneSplitPosition = oldLaneGeometry.nearest_offset_to_point2D(pos, false);
+    // split edge geometry in two new geometries
+    std::pair<PositionVector, PositionVector> newGeoms = oldEdgeGeometry.splitAt(edgeSplitPosition);
     // get shape end
     const std::string shapeEnd = edge->getAttribute(GNE_ATTR_SHAPE_END);
     // figure out the new name
@@ -781,7 +784,7 @@ GNENet::splitEdge(GNEEdge* edge, const Position& pos, GNEUndoList* undoList, GNE
     baseName += '.';
     // create a new edge from the new junction to the previous destination
     GNEEdge* secondPart = createEdge(newJunction, edge->getGNEJunctionDestiny(), edge,
-                                     undoList, baseName + toString(posBase + (int)linePos), true, false, false);
+                                     undoList, baseName + toString(posBase + (int)edgeSplitPosition), true, false, false);
     // fix connections from the split edge (must happen before changing SUMO_ATTR_TO)
     edge->getGNEJunctionDestiny()->replaceIncomingConnections(edge, secondPart, undoList);
     // remove affected crossings from junction (must happen before changing SUMO_ATTR_TO)
@@ -824,22 +827,22 @@ GNENet::splitEdge(GNEEdge* edge, const Position& pos, GNEUndoList* undoList, GNE
     }
     // Split geometry of all additional children
     for (const auto &additional : edge->getAdditionalChildren()) {
-        additional->splitEdgeGeometry(oldGeometryLength, linePos, edge, secondPart, undoList);
+        additional->splitEdgeGeometry(oldEdgeGeometry.length(), edgeSplitPosition, edge, secondPart, undoList);
     }
     // Split geometry of all lane additional children
     for (int i = 0; i < (int)edge->getLanes().size(); i++) {
         for (const auto &additional : edge->getLanes().at(i)->getAdditionalChildren()) {
-            additional->splitEdgeGeometry(oldGeometryLength, linePos, edge->getLanes().at(i), secondPart->getLanes().at(i), undoList);
+            additional->splitEdgeGeometry(oldLaneGeometry.length(), laneSplitPosition, edge->getLanes().at(i), secondPart->getLanes().at(i), undoList);
         }
     }
     // Split geometry of all demand element children
     for (const auto &demandElement : edge->getDemandElementChildren()) {
-        demandElement->splitEdgeGeometry(oldGeometryLength, linePos, edge, secondPart, undoList);
+        demandElement->splitEdgeGeometry(oldEdgeGeometry.length(), edgeSplitPosition, edge, secondPart, undoList);
     }
     // Split geometry of all lane demand element children
     for (int i = 0; i < (int)edge->getLanes().size(); i++) {
         for (const auto &demandElement : edge->getLanes().at(i)->getDemandElementChildren()) {
-            demandElement->splitEdgeGeometry(oldGeometryLength, linePos, edge->getLanes().at(i), secondPart->getLanes().at(i), undoList);
+            demandElement->splitEdgeGeometry(oldLaneGeometry.length(), laneSplitPosition, edge->getLanes().at(i), secondPart->getLanes().at(i), undoList);
         }
     }
     // finish undo list

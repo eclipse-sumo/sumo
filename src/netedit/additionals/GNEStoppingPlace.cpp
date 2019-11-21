@@ -161,18 +161,30 @@ GNEStoppingPlace::splitEdgeGeometry(const double oldShapeLength, const double sp
     if ((originalElement->getTagProperty().getTag() == SUMO_TAG_LANE) && 
         (originalElement->getTagProperty().getTag() == SUMO_TAG_LANE) &&
         (getLaneParents().front() == originalElement)) {
-
-
-
         // check if we have to change additional lane depending of split position
         if (isAttributeEnabled(SUMO_ATTR_STARTPOS) && isAttributeEnabled(SUMO_ATTR_ENDPOS)) {
+            // calculate middle position
             const double middlePosition = ((myEndPosition - myStartPosition) / 2.0) + myStartPosition;
-            if (middlePosition < splitPosition) {
+            //  four cases:
+            if (splitPosition < myStartPosition) {
+                // change lane
                 setAttribute(SUMO_ATTR_LANE, newElement->getID(), undoList);
+                // now adjust start and end position
+                setAttribute(SUMO_ATTR_STARTPOS, toString(myStartPosition - splitPosition), undoList);
+                setAttribute(SUMO_ATTR_ENDPOS, toString(myEndPosition - splitPosition), undoList);
+            } else if ((splitPosition > myStartPosition) && (splitPosition < middlePosition)) {
+                // change lane
+                setAttribute(SUMO_ATTR_LANE, newElement->getID(), undoList);
+                // now adjust start and end position
+                setAttribute(SUMO_ATTR_STARTPOS, "0", undoList);
+                setAttribute(SUMO_ATTR_ENDPOS, toString(myEndPosition - splitPosition), undoList);
+            } else if ((splitPosition > middlePosition) && (splitPosition < myEndPosition)) {
+                // only adjust end position
+                setAttribute(SUMO_ATTR_ENDPOS, toString(splitPosition), undoList);
+            } else if ((splitPosition > myEndPosition)) {
+                // nothing to do
             }
         }
-
-
     }
 }
 
