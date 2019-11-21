@@ -142,6 +142,7 @@ public:
 
     };
 
+    typedef std::map<const SUMOVehicle*, const ApproachingVehicleInformation, ComparatorNumericalIdLess> ApproachInfos;
 
     /** @brief Constructor for simulation which uses internal lanes
      *
@@ -210,7 +211,7 @@ public:
     ApproachingVehicleInformation getApproaching(const SUMOVehicle* veh) const;
 
     /// @brief return all approaching vehicles
-    const std::map<const SUMOVehicle*, const ApproachingVehicleInformation, ComparatorNumericalIdLess>& getApproaching() const {
+    const ApproachInfos& getApproaching() const {
         return myApproachingVehicles;
     }
 
@@ -562,7 +563,7 @@ private:
     /// @brief The lane approaching this link
     MSLane* myLaneBefore;
 
-    std::map<const SUMOVehicle*, const ApproachingVehicleInformation, ComparatorNumericalIdLess> myApproachingVehicles;
+    ApproachInfos myApproachingVehicles;
     std::set<MSLink*> myBlockedFoeLinks;
 
     /// @brief The position within this respond
