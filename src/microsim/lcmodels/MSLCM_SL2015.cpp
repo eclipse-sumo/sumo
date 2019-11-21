@@ -1156,7 +1156,7 @@ MSLCM_SL2015::_wantsChangeSublane(
     if (bestLaneOffset == 0 && leaders.hasStoppedVehicle()) {
         // value is doubled for the check since we change back and forth
         // laDist = 0.5 * (myVehicle.getVehicleType().getLengthWithGap() + leader.first->getVehicleType().getLengthWithGap());
-        // XXX determine lenght of longest stopped vehicle
+        // XXX determine length of longest stopped vehicle
         laDist = myVehicle.getVehicleType().getLengthWithGap();
     }
 

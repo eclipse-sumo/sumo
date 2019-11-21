@@ -280,8 +280,8 @@ public:
         /// @brief VTypeAttributeRow for MaxSpeedLat
         VTypeAttributeRow* myMaxSpeedLat;
 
-        /// @brief VTypeAttributeRow for ActionStepLenght
-        VTypeAttributeRow* myActionStepLenght;
+        /// @brief VTypeAttributeRow for ActionStepLength
+        VTypeAttributeRow* myActionStepLength;
 
         /// @brief VTypeAttributeRow for HasDriveState
         VTypeAttributeRow* myHasDriveState;

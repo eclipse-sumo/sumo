@@ -524,7 +524,7 @@ GNEHierarchicalElementChildren::ChildConnections::update() {
         for (auto j : i->getLanes()) {
             Position pos;
             double rot;
-            // set position and lenght depending of shape's lengt
+            // set position and length depending of shape's lengt
             if (j->getLaneShape().length() - 6 > 0) {
                 pos = j->getLaneShape().positionAtOffset(j->getLaneShape().length() - 6);
                 rot = j->getLaneShape().rotationDegreeAtOffset(j->getLaneShape().length() - 6);
@@ -539,7 +539,7 @@ GNEHierarchicalElementChildren::ChildConnections::update() {
     for (const auto& i : myHierarchicalElement->myLaneChildren) {
         Position pos;
         double rot;
-        // set position and lenght depending of shape's lengt
+        // set position and length depending of shape's lengt
         if (i->getLaneShape().length() - 6 > 0) {
             pos = i->getLaneShape().positionAtOffset(i->getLaneShape().length() - 6);
             rot = i->getLaneShape().rotationDegreeAtOffset(i->getLaneShape().length() - 6);

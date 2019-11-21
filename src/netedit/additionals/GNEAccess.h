@@ -142,7 +142,7 @@ protected:
     /// @brief position over lane
     std::string myPositionOverLane;
 
-    /// @brief Acces lenght
+    /// @brief Acces length
     std::string myLength;
 
     /// @brief flag to check if friendly position is enabled

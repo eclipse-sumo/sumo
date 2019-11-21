@@ -115,7 +115,7 @@ protected:
     /// @brief width of Parking Area
     double myWidth;
 
-    /// @brief Lenght of Parking Area (by default (endPos - startPos) / roadsideCapacity
+    /// @brief Length of Parking Area (by default (endPos - startPos) / roadsideCapacity
     std::string myLength;
 
     /// @brief Angle of Parking Area

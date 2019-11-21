@@ -509,7 +509,7 @@ public:
     /** @brief Returns an estimate of the number of vehicles currently on the detector */
     int getEstimatedCurrentVehicleNumber(double speedThreshold) const;
 
-    /** @brief Returns an estimate of the lenght of the queue of vehicles currently stopped on the detector */
+    /** @brief Returns an estimate of the length of the queue of vehicles currently stopped on the detector */
     double getEstimateQueueLength() const;
     /// @}
 

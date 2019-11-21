@@ -481,17 +481,17 @@ void
 GNERouteFrame::ConsecutiveEdges::updateInfoRouteLabel() {
     if (myRouteEdges.size() > 0) {
         // declare variables for route info
-        double lenght = 0;
+        double length = 0;
         double speed = 0;
         for (const auto& i : myRouteEdges) {
-            lenght += i->getNBEdge()->getLength();
+            length += i->getNBEdge()->getLength();
             speed += i->getNBEdge()->getSpeed();
         }
         // declare ostringstream for label and fill it
         std::ostringstream information;
         information
                 << "- Number of Edges: " << toString(myRouteEdges.size()) << "\n"
-                << "- Lenght: " << toString(lenght) << "\n"
+                << "- Length: " << toString(length) << "\n"
                 << "- Average speed: " << toString(speed / myRouteEdges.size());
         // set new label
         myInfoRouteLabel->setText(information.str().c_str());
@@ -701,17 +701,17 @@ void
 GNERouteFrame::NonConsecutiveEdges::updateInfoRouteLabel() {
     if (myTemporalRoute.size() > 0) {
         // declare variables for route info
-        double lenght = 0;
+        double length = 0;
         double speed = 0;
         for (const auto& i : myTemporalRoute) {
-            lenght += i->getNBEdge()->getLength();
+            length += i->getNBEdge()->getLength();
             speed += i->getNBEdge()->getSpeed();
         }
         // declare ostringstream for label and fill it
         std::ostringstream information;
         information
                 << "- Number of Edges: " << toString(myTemporalRoute.size()) << "\n"
-                << "- Lenght: " << toString(lenght) << "\n"
+                << "- Length: " << toString(length) << "\n"
                 << "- Average speed: " << toString(speed / myTemporalRoute.size());
         // set new label
         myInfoRouteLabel->setText(information.str().c_str());

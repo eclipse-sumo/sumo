@@ -305,7 +305,7 @@ public:
         TAGPROPERTY_SYNONYM =               1 << 10,    // Element will be written with a different name in der XML
         TAGPROPERTY_AUTOMATICSORTING =      1 << 11,    // Element sort automatic their Children (used by Additionals)
         TAGPROPERTY_SELECTABLE =            1 << 12,    // Element is selectable
-        TAGPROPERTY_MASKSTARTENDPOS =       1 << 13,    // Element mask attributes StartPos and EndPos as "lenght" (Only used in the appropiate GNEFrame)
+        TAGPROPERTY_MASKSTARTENDPOS =       1 << 13,    // Element mask attributes StartPos and EndPos as "length" (Only used in the appropiate GNEFrame)
         TAGPROPERTY_MASKXYZPOSITION =       1 << 14,    // Element mask attributes X, Y and Z as "Position"
         TAGPROPERTY_WRITECHILDRENSEPARATE = 1 << 15,    // Element writes their children in a separated filename
         TAGPROPERTY_NOPARAMETERS =          1 << 16,    // Element doesn't accept parameters "key1=value1|key2=value2|...|keyN=valueN" (by default all tags supports parameters)
@@ -470,7 +470,7 @@ public:
         /// @brief return true if tag correspond to an element that can sort their children automatic
         bool canWriteChildrenSeparate() const;
 
-        /// @brief return true if tag correspond to an element that can mask the attributes "start" and "end" position as attribute "lenght"
+        /// @brief return true if tag correspond to an element that can mask the attributes "start" and "end" position as attribute "length"
         bool canMaskStartEndPos() const;
 
         /// @brief return true if tag correspond to an element that can mask the attributes "X", "Y" and "Z" position as attribute "Position"

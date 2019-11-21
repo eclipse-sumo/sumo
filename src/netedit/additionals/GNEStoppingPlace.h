@@ -159,7 +159,7 @@ protected:
     /// @brief The relative start position this stopping place is located at (optional, if empty takes 0)
     double myStartPosition;
 
-    /// @brief The  position this stopping place is located at (optional, if empty takes the lane lenght)
+    /// @brief The  position this stopping place is located at (optional, if empty takes the lane length)
     double myEndPosition;
 
     /// @brief Variable used for set/unset start/endPositions

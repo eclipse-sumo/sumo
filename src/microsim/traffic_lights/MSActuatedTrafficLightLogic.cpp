@@ -447,7 +447,7 @@ MSActuatedTrafficLightLogic::duration(const double detectionGap) const {
 
 double
 MSActuatedTrafficLightLogic::gapControl() {
-    //intergreen times should not be lenghtend
+    //intergreen times should not be lengthend
     assert((int)myPhases.size() > myStep);
     double result = std::numeric_limits<double>::max();
     if (MSGlobals::gUseMesoSim) {

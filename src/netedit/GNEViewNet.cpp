@@ -3034,7 +3034,7 @@ GNEViewNet::drawLaneCandidates() const {
             for (int i = 0; i < (int)myViewParent->getAdditionalFrame()->getConsecutiveLaneSelector()->getSelectedLanes().size() - 1; i++) {
                 // declare position vector for shape
                 PositionVector shape;
-                // declare vectors for shape rotation and lenghts
+                // declare vectors for shape rotation and lengths
                 std::vector<double> shapeRotations, shapeLengths;
                 // obtain GNELanes
                 GNELane* from = myViewParent->getAdditionalFrame()->getConsecutiveLaneSelector()->getSelectedLanes().at(i).first;

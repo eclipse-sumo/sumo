@@ -33,10 +33,10 @@
 // ===========================================================================
 
 void
-GUIBasePersonHelper::drawAction_drawAsTriangle(const double angle, const double lenght, const double width) {
+GUIBasePersonHelper::drawAction_drawAsTriangle(const double angle, const double length, const double width) {
     // draw triangle pointing forward
     glRotated(RAD2DEG(angle + M_PI / 2.), 0, 0, 1);
-    glScaled(lenght, width, 1);
+    glScaled(length, width, 1);
     glBegin(GL_TRIANGLES);
     glVertex2d(0., 0.);
     glVertex2d(1, -0.5);
@@ -55,17 +55,17 @@ GUIBasePersonHelper::drawAction_drawAsTriangle(const double angle, const double 
 
 
 void
-GUIBasePersonHelper::drawAction_drawAsCircle(const double lenght, const double width) {
-    glScaled(lenght, width, 1);
+GUIBasePersonHelper::drawAction_drawAsCircle(const double length, const double width) {
+    glScaled(length, width, 1);
     GLHelper::drawFilledCircle(0.8);
 }
 
 
 void
-GUIBasePersonHelper::drawAction_drawAsPoly(const double angle, const double lenght, const double width) {
+GUIBasePersonHelper::drawAction_drawAsPoly(const double angle, const double length, const double width) {
     // draw pedestrian shape
     glRotated(GeomHelper::naviDegree(angle) - 180, 0, 0, -1);
-    glScaled(lenght, width, 1);
+    glScaled(length, width, 1);
     RGBColor lighter = GLHelper::getColor().changedBrightness(51);
     glTranslated(0, 0, .045);
     // head
@@ -88,7 +88,7 @@ GUIBasePersonHelper::drawAction_drawAsPoly(const double angle, const double leng
 
 
 void
-GUIBasePersonHelper::drawAction_drawAsImage(const double angle, const double lenght, const double width, const std::string& file,
+GUIBasePersonHelper::drawAction_drawAsImage(const double angle, const double length, const double width, const std::string& file,
         const SUMOVehicleShape guiShape, const double exaggeration) {
     // first check if filename isn't empty
     if (file != "") {
@@ -97,13 +97,13 @@ GUIBasePersonHelper::drawAction_drawAsImage(const double angle, const double len
         }
         int textureID = GUITexturesHelper::getTextureID(file);
         if (textureID > 0) {
-            const double halfLength = lenght / 2.0 * exaggeration;
+            const double halfLength = length / 2.0 * exaggeration;
             const double halfWidth = width / 2.0 * exaggeration;
             GUITexturesHelper::drawTexturedBox(textureID, -halfWidth, -halfLength, halfWidth, halfLength);
         }
     } else {
         // fallback if no image is defined
-        drawAction_drawAsPoly(angle, lenght, width);
+        drawAction_drawAsPoly(angle, length, width);
     }
 }
 

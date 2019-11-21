@@ -138,7 +138,7 @@ protected:
     /// @brief width of Parking Space
     double myWidth;
 
-    /// @brief Lenght of Parking Space
+    /// @brief Length of Parking Space
     double myLength;
 
     /// @brief Angle of Parking Space

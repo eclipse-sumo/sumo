@@ -80,14 +80,14 @@ GNEGeometry::Geometry::updateGeometryShape(const PositionVector &shape, double s
     if (extraLastPosition != Position::INVALID) {
         myShape.push_back(extraLastPosition);
     }
-    // calculate shape rotation and lenghts
+    // calculate shape rotation and lengths
     calculateShapeRotationsAndLengths();
 }
 
 
 void 
 GNEGeometry::Geometry::updateGeometryPosition(const GNELane *lane, const double posOverLane) {
-    // get lane lenght
+    // get lane length
     const double laneLength = lane->getLaneShape().length();
     // calculate position and rotation
     if (posOverLane < 0) {

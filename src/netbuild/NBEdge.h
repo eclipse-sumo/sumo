@@ -739,7 +739,7 @@ public:
     /** @brief Recomputeds the lane shapes to terminate at the node shape
      * For every lane the intersection with the fromNode and toNode is
      * calculated and the lane shorted accordingly. The edge length is then set
-     * to the average of all lane lenghts (which may differ). This average length is used as the lane
+     * to the average of all lane lengths (which may differ). This average length is used as the lane
      * length when writing the network.
      * @note All lanes of an edge in a sumo net must have the same nominal length
      *  but may differ in actual geomtric length.
@@ -1047,7 +1047,7 @@ public:
      */
     int getJunctionPriority(const NBNode* const node) const;
 
-    /// @brief set loaded lenght
+    /// @brief set loaded length
     void setLoadedLength(double val);
 
     /// @brief patch average lane length in regard to the opposite edge

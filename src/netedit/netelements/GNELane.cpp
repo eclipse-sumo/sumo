@@ -788,11 +788,11 @@ GNELane::getSpeed() const {
 
 double
 GNELane::getLaneParametricLength() const  {
-    double laneParametricLenght = myParentEdge.getNBEdge()->getLoadedLength();
-    if (laneParametricLenght > 0) {
-        return laneParametricLenght;
+    double laneParametricLength = myParentEdge.getNBEdge()->getLoadedLength();
+    if (laneParametricLength > 0) {
+        return laneParametricLength;
     } else {
-        throw ProcessError("Lane Parametric Lenght cannot be never 0");
+        throw ProcessError("Lane Parametric Length cannot be never 0");
     }
 }
 

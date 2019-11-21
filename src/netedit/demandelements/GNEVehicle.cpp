@@ -565,7 +565,7 @@ Position
 GNEVehicle::getPositionInView() const {
     // obtain lane
     GNELane* lane = getFromEdge()->getLanes().front();
-    // get position depending of lane's lenght
+    // get position depending of lane's length
     if (lane->getLaneShape().length() < 2.5) {
         return lane->getLaneShape().front();
     } else {

@@ -394,7 +394,7 @@ private:
 
         inline void debugWitness(const CHConnection& aInfo, const CHConnection& fInfo) {
             const double viaCost = aInfo.cost + fInfo.cost;
-            std::cout << "found witness with lenght " << fInfo.target->traveltime << " against via " << edge->getID() << " (length " << viaCost << ") for " << aInfo.target->edge->getID() << ", " << fInfo.target->edge->getID() << "\n";
+            std::cout << "found witness with length " << fInfo.target->traveltime << " against via " << edge->getID() << " (length " << viaCost << ") for " << aInfo.target->edge->getID() << ", " << fInfo.target->edge->getID() << "\n";
         }
 
     };

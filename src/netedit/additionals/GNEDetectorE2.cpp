@@ -139,10 +139,10 @@ GNEDetectorE2::getAdditionalProblem() const {
 void
 GNEDetectorE2::fixAdditionalProblem() {
     if (getLaneParents().size() == 1) {
-        // obtain position and lenght
+        // obtain position and length
         double newPositionOverLane = myPositionOverLane;
         double newLength = myLength;
-        // fix pos and lenght using fixE2DetectorPosition
+        // fix pos and length using fixE2DetectorPosition
         GNEAdditionalHandler::fixE2DetectorPosition(newPositionOverLane, newLength, getLaneParents().at(0)->getParentEdge().getNBEdge()->getFinalLength(), true);
         // set new position and length
         setAttribute(SUMO_ATTR_POSITION, toString(newPositionOverLane), myViewNet->getUndoList());
@@ -175,13 +175,13 @@ GNEDetectorE2::fixAdditionalProblem() {
         } else {
             // declare new position
             double newPositionOverLane = myPositionOverLane;
-            // fix pos and lenght  checkAndFixDetectorPosition
+            // fix pos and length  checkAndFixDetectorPosition
             GNEAdditionalHandler::checkAndFixDetectorPosition(newPositionOverLane, getLaneParents().front()->getParentEdge().getNBEdge()->getFinalLength(), true);
             // set new position
             setAttribute(SUMO_ATTR_POSITION, toString(newPositionOverLane), myViewNet->getUndoList());
             // declare new end position
             double newEndPositionOverLane = myEndPositionOverLane;
-            // fix pos and lenght  checkAndFixDetectorPosition
+            // fix pos and length  checkAndFixDetectorPosition
             GNEAdditionalHandler::checkAndFixDetectorPosition(newEndPositionOverLane, getLaneParents().back()->getParentEdge().getNBEdge()->getFinalLength(), true);
             // set new position
             setAttribute(SUMO_ATTR_ENDPOS, toString(newEndPositionOverLane), myViewNet->getUndoList());
@@ -203,11 +203,11 @@ GNEDetectorE2::moveGeometry(const Position& offset) {
         // calculate new position over lane
         double newPositionOverLane = parse<double>(myMove.firstOriginalLanePosition) + offsetLane;
         // obtain lane length
-        double laneLenght = getLaneParents().front()->getParentEdge().getNBEdge()->getFinalLength() * getLane()->getLengthGeometryFactor();
+        double laneLength = getLaneParents().front()->getParentEdge().getNBEdge()->getFinalLength() * getLane()->getLengthGeometryFactor();
         if (newPositionOverLane < 0) {
             myPositionOverLane = 0;
-        } else if (newPositionOverLane + myLength > laneLenght) {
-            myPositionOverLane = laneLenght - myLength;
+        } else if (newPositionOverLane + myLength > laneLength) {
+            myPositionOverLane = laneLength - myLength;
         } else {
             myPositionOverLane = newPositionOverLane;
         }

@@ -133,7 +133,7 @@ struct GNEGeometry {
             /// @brief get lane/lane2lane shape rotations
             const std::vector<double> &getShapeRotations() const;
             
-            /// @brief get lane/lane2lane shape lenghts
+            /// @brief get lane/lane2lane shape lengths
             const std::vector<double> &getShapeLengths() const;
 
             /// @brief element
@@ -164,7 +164,7 @@ struct GNEGeometry {
             /// @brief segment rotation
             std::vector<double> mySegmentRotations;
             
-            /// @brief segment lenghts
+            /// @brief segment lengths
             std::vector<double> mySegmentLengths;
 
             /// @brief Invalidated assignment operator

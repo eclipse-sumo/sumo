@@ -829,8 +829,8 @@ GNEVehicleTypeDialog::VTypeAtributes::buildAttributesB(FXVerticalFrame* column) 
     // 09 create VTypeAttributeRow and Label for MaxSpeedLat
     myMaxSpeedLat = new VTypeAttributeRow(this, column, SUMO_ATTR_MAXSPEED_LAT, VTypeAttributeRow::RowAttrType::ROWTYPE_STRING);
 
-    // 10 create VTypeAttributeRow and Label for ActionStepLenght
-    myActionStepLenght = new VTypeAttributeRow(this, column, SUMO_ATTR_ACTIONSTEPLENGTH, VTypeAttributeRow::RowAttrType::ROWTYPE_STRING);
+    // 10 create VTypeAttributeRow and Label for ActionStepLength
+    myActionStepLength = new VTypeAttributeRow(this, column, SUMO_ATTR_ACTIONSTEPLENGTH, VTypeAttributeRow::RowAttrType::ROWTYPE_STRING);
 
     // 11 create VTypeAttributeRow and Label for HasDriveStateu
     myHasDriveState = new VTypeAttributeRow(this, column, SUMO_ATTR_HASDRIVERSTATE, VTypeAttributeRow::RowAttrType::ROWTYPE_STRING);
@@ -974,7 +974,7 @@ GNEVehicleTypeDialog::VTypeAtributes::updateValues() {
     myLoadingDuration->updateValue();
     myMinGapLat->updateValue();
     myMaxSpeedLat->updateValue();
-    myActionStepLenght->updateValue();
+    myActionStepLength->updateValue();
     myHasDriveState->updateValue();
     myProbability->updateValue();
     myCarriageGap->updateValue();
@@ -1065,7 +1065,7 @@ GNEVehicleTypeDialog::VTypeAtributes::onCmdSetAttribute(FXObject*, FXSelector, v
     myLoadingDuration->setVariable();
     myMinGapLat->setVariable();
     myMaxSpeedLat->setVariable();
-    myActionStepLenght->setVariable();
+    myActionStepLength->setVariable();
     myHasDriveState->setVariable();
     myProbability->setVariable();
     myCarriageGap->setVariable();

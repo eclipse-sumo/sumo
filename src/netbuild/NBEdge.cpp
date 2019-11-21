@@ -802,7 +802,7 @@ NBEdge::computeEdgeShape(double smoothElevationThreshold) {
     for (int i = 0; i < (int)myLanes.size(); i++) {
         myLanes[i].shape = cutAtIntersection(myLanes[i].shape);
     }
-    // recompute edge's length as the average of lane lenghts
+    // recompute edge's length as the average of lane lengths
     double avgLength = 0;
     for (int i = 0; i < (int)myLanes.size(); i++) {
         avgLength += myLanes[i].shape.length();

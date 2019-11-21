@@ -43,10 +43,10 @@ class GUIGlObject;
 class GUIBasePersonHelper {
 public:
 
-    static void drawAction_drawAsTriangle(const double angle, const double lenght, const double width);
-    static void drawAction_drawAsCircle(const double lenght, const double width);
-    static void drawAction_drawAsPoly(const double angle, const double lenght, const double width);
-    static void drawAction_drawAsImage(const double angle, const double lenght, const double width, const std::string& file,
+    static void drawAction_drawAsTriangle(const double angle, const double length, const double width);
+    static void drawAction_drawAsCircle(const double length, const double width);
+    static void drawAction_drawAsPoly(const double angle, const double length, const double width);
+    static void drawAction_drawAsImage(const double angle, const double length, const double width, const std::string& file,
                                        const SUMOVehicleShape guiShape, const double exaggeration);
 };
 

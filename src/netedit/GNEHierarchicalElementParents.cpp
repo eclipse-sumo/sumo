@@ -265,7 +265,7 @@ GNEHierarchicalElementParents::ParentConnections::update() {
     for (auto i : myHierarchicalElement->myEdgeParents) {
         for (auto j : i->getLanes()) {
             std::pair<Position, double> posRot;
-            // set position and lenght depending of shape's lengt
+            // set position and length depending of shape's lengt
             if (j->getLaneShape().length() - 6 > 0) {
                 posRot.first = j->getLaneShape().positionAtOffset(j->getLaneShape().length() - 6);
                 posRot.second = j->getLaneShape().rotationDegreeAtOffset(j->getLaneShape().length() - 6);
@@ -280,7 +280,7 @@ GNEHierarchicalElementParents::ParentConnections::update() {
     // calculate position and rotation of every symbol for every lane
     for (auto i : myHierarchicalElement->myLaneParents) {
         std::pair<Position, double> posRot;
-        // set position and lenght depending of shape's lengt
+        // set position and length depending of shape's lengt
         if (i->getLaneShape().length() - 6 > 0) {
             posRot.first = i->getLaneShape().positionAtOffset(i->getLaneShape().length() - 6);
             posRot.second = i->getLaneShape().rotationDegreeAtOffset(i->getLaneShape().length() - 6);

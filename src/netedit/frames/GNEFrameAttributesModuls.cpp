@@ -2538,7 +2538,7 @@ void
 GNEFrameAttributesModuls::NeteditAttributes::showNeteditAttributesModul(const GNEAttributeCarrier::TagProperties& tagProperty) {
     // we assume that frame will not be show
     bool showFrame = false;
-    // check if lenght text field has to be showed
+    // check if length text field has to be showed
     if (tagProperty.canMaskStartEndPos()) {
         myLengthFrame->show();
         myReferencePointMatchBox->show();
@@ -2609,11 +2609,11 @@ GNEFrameAttributesModuls::NeteditAttributes::getNeteditAttributesAndValues(std::
                 WRITE_DEBUG(errorMessage);
                 return false;
             } else {
-                // obtain lenght
-                double lenght = GNEAttributeCarrier::parse<double>(myLengthTextField->getText().text());
+                // obtain length
+                double length = GNEAttributeCarrier::parse<double>(myLengthTextField->getText().text());
                 // set start and end position
-                valuesMap[SUMO_ATTR_STARTPOS] = toString(setStartPosition(mousePositionOverLane, lenght));
-                valuesMap[SUMO_ATTR_ENDPOS] = toString(setEndPosition(mousePositionOverLane, lenght));
+                valuesMap[SUMO_ATTR_STARTPOS] = toString(setStartPosition(mousePositionOverLane, length));
+                valuesMap[SUMO_ATTR_ENDPOS] = toString(setEndPosition(mousePositionOverLane, length));
             }
         } else {
             return false;
