@@ -311,8 +311,8 @@ GNERoute::getCenteringBoundary() const {
 
 
 void 
-GNERoute::splitEdgeGeometry(const double /*position*/, const GNENetElement* originalElement, const GNENetElement* newElement, GNEUndoList* undoList) {
-    // only split geometry of E2 multilane detectors
+GNERoute::splitEdgeGeometry(const double /*oldShapeLength*/, const double /*splitPosition*/, const GNENetElement* originalElement, const GNENetElement* newElement, GNEUndoList* undoList) {
+    // check that both net elementes are edges
     if ((originalElement->getTagProperty().getTag() == SUMO_TAG_EDGE) && 
         (originalElement->getTagProperty().getTag() == SUMO_TAG_EDGE)) {
         // obtain new list of route edges

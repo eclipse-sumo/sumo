@@ -175,7 +175,7 @@ public:
     virtual Boundary getCenteringBoundary() const = 0;
 
     /// @brief split geometry
-    virtual void splitEdgeGeometry(const double position, const GNENetElement* originalElement, const GNENetElement* newElement, GNEUndoList* undoList) = 0;
+    virtual void splitEdgeGeometry(const double oldShapeLength, const double splitPosition, const GNENetElement* originalElement, const GNENetElement* newElement, GNEUndoList* undoList) = 0;
     /// @}
 
     /// @brief Returns a pointer to GNEViewNet in which additional element is located

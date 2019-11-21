@@ -83,7 +83,7 @@ GNEDestProbReroute::getCenteringBoundary() const {
 
 
 void 
-GNEDestProbReroute::splitEdgeGeometry(const double /*position*/, const GNENetElement* /*originalElement*/, const GNENetElement* /*newElement*/, GNEUndoList* /*undoList*/) {
+GNEDestProbReroute::splitEdgeGeometry(const double /*oldShapeLength*/, const double /*splitPosition*/, const GNENetElement* /*originalElement*/, const GNENetElement* /*newElement*/, GNEUndoList* /*undoList*/) {
     // geometry of this element cannot be splitted
 }
 

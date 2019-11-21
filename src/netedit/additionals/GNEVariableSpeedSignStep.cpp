@@ -94,7 +94,7 @@ GNEVariableSpeedSignStep::getCenteringBoundary() const {
 
 
 void 
-GNEVariableSpeedSignStep::splitEdgeGeometry(const double /*position*/, const GNENetElement* /*originalElement*/, const GNENetElement* /*newElement*/, GNEUndoList* /*undoList*/) {
+GNEVariableSpeedSignStep::splitEdgeGeometry(const double /*oldShapeLength*/, const double /*splitPosition*/, const GNENetElement* /*originalElement*/, const GNENetElement* /*newElement*/, GNEUndoList* /*undoList*/) {
     // geometry of this element cannot be splitted
 }
 

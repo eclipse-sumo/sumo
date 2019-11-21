@@ -86,7 +86,7 @@ GNEDetector::getCenteringBoundary() const {
 
 
 void 
-GNEDetector::splitEdgeGeometry(const double /*position*/, const GNENetElement* originalElement, const GNENetElement* newElement, GNEUndoList* undoList) {
+GNEDetector::splitEdgeGeometry(const double /*oldShapeLength*/, const double /*splitPosition*/, const GNENetElement* originalElement, const GNENetElement* newElement, GNEUndoList* undoList) {
     // only split geometry of E2 multilane detectors
     if ((myTagProperty.getTag() == SUMO_TAG_E2DETECTOR_MULTILANE) && 
         (originalElement->getTagProperty().getTag() == SUMO_TAG_LANE) && 

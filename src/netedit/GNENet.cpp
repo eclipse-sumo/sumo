@@ -758,6 +758,7 @@ GNENet::splitEdge(GNEEdge* edge, const Position& pos, GNEUndoList* undoList, GNE
     }
     // split geometry in two new geometries
     const PositionVector& oldGeom = edge->getNBEdge()->getGeometry();
+    const double oldGeometryLength = edge->getNBEdge()->getGeometry().length();
     const double linePos = oldGeom.nearest_offset_to_point2D(pos, false);
     std::pair<PositionVector, PositionVector> newGeoms = oldGeom.splitAt(linePos);
     // get shape end
@@ -823,22 +824,22 @@ GNENet::splitEdge(GNEEdge* edge, const Position& pos, GNEUndoList* undoList, GNE
     }
     // Split geometry of all additional children
     for (const auto &additional : edge->getAdditionalChildren()) {
-        additional->splitEdgeGeometry(linePos, edge, secondPart, undoList);
+        additional->splitEdgeGeometry(oldGeometryLength, linePos, edge, secondPart, undoList);
     }
     // Split geometry of all lane additional children
     for (int i = 0; i < (int)edge->getLanes().size(); i++) {
         for (const auto &additional : edge->getLanes().at(i)->getAdditionalChildren()) {
-            additional->splitEdgeGeometry(linePos, edge->getLanes().at(i), secondPart->getLanes().at(i), undoList);
+            additional->splitEdgeGeometry(oldGeometryLength, linePos, edge->getLanes().at(i), secondPart->getLanes().at(i), undoList);
         }
     }
     // Split geometry of all demand element children
     for (const auto &demandElement : edge->getDemandElementChildren()) {
-        demandElement->splitEdgeGeometry(linePos, edge, secondPart, undoList);
+        demandElement->splitEdgeGeometry(oldGeometryLength, linePos, edge, secondPart, undoList);
     }
     // Split geometry of all lane demand element children
     for (int i = 0; i < (int)edge->getLanes().size(); i++) {
         for (const auto &demandElement : edge->getLanes().at(i)->getDemandElementChildren()) {
-            demandElement->splitEdgeGeometry(linePos, edge->getLanes().at(i), secondPart->getLanes().at(i), undoList);
+            demandElement->splitEdgeGeometry(oldGeometryLength, linePos, edge->getLanes().at(i), secondPart->getLanes().at(i), undoList);
         }
     }
     // finish undo list

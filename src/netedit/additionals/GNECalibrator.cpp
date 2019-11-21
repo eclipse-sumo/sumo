@@ -113,7 +113,7 @@ GNECalibrator::getCenteringBoundary() const {
 
 
 void 
-GNECalibrator::splitEdgeGeometry(const double /*position*/, const GNENetElement* /*originalElement*/, const GNENetElement* /*newElement*/, GNEUndoList* /*undoList*/) {
+GNECalibrator::splitEdgeGeometry(const double /*oldShapeLength*/, const double /*splitPosition*/, const GNENetElement* /*originalElement*/, const GNENetElement* /*newElement*/, GNEUndoList* /*undoList*/) {
     // geometry of this element cannot be splitted
 }
 

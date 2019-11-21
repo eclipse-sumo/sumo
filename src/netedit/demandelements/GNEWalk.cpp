@@ -364,8 +364,18 @@ GNEWalk::getCenteringBoundary() const {
 
 
 void 
-GNEWalk::splitEdgeGeometry(const double /*position*/, const GNENetElement* /*originalElement*/, const GNENetElement* /*newElement*/, GNEUndoList* /*undoList*/) {
-    // geometry of this element cannot be splitted
+GNEWalk::splitEdgeGeometry(const double /*oldShapeLength*/, const double /*splitPosition*/, const GNENetElement* originalElement, const GNENetElement* newElement, GNEUndoList* undoList) {
+    // only split geometry of WalkEdges
+    if ((myTagProperty.getTag() == SUMO_TAG_WALK_EDGES) &&
+        (originalElement->getTagProperty().getTag() == SUMO_TAG_EDGE) && 
+        (originalElement->getTagProperty().getTag() == SUMO_TAG_EDGE)) {
+        // obtain new list of walk edges
+        std::string newWalkEdges = getNewListOfParents(originalElement, newElement);
+        // update walk edges
+        if (newWalkEdges.size() > 0) {
+            setAttribute(SUMO_ATTR_EDGES, newWalkEdges, undoList);
+        }
+    }
 }
 
 

@@ -156,8 +156,24 @@ GNEStoppingPlace::getPositionInView() const {
 
 
 void 
-GNEStoppingPlace::splitEdgeGeometry(const double /*position*/, const GNENetElement* /*originalElement*/, const GNENetElement* /*newElement*/, GNEUndoList* /*undoList*/) {
-    // geometry of this element cannot be splitted
+GNEStoppingPlace::splitEdgeGeometry(const double oldShapeLength, const double splitPosition, const GNENetElement* originalElement, const GNENetElement* newElement, GNEUndoList* undoList) {
+    // first check tat both net elements are lanes and originalElement is the stoppingPlace lane
+    if ((originalElement->getTagProperty().getTag() == SUMO_TAG_LANE) && 
+        (originalElement->getTagProperty().getTag() == SUMO_TAG_LANE) &&
+        (getLaneParents().front() == originalElement)) {
+
+
+
+        // check if we have to change additional lane depending of split position
+        if (isAttributeEnabled(SUMO_ATTR_STARTPOS) && isAttributeEnabled(SUMO_ATTR_ENDPOS)) {
+            const double middlePosition = ((myEndPosition - myStartPosition) / 2.0) + myStartPosition;
+            if (middlePosition < splitPosition) {
+                setAttribute(SUMO_ATTR_LANE, newElement->getID(), undoList);
+            }
+        }
+
+
+    }
 }
 
 
