@@ -117,6 +117,38 @@ GNEHierarchicalElementParents::getDemandElementParents() const {
 }
 
 
+std::string 
+GNEHierarchicalElementParents::getNewListOfParents(const GNENetElement *currentElement, const GNENetElement *newNextElement) const {
+    std::vector<std::string> solution;
+    if ((currentElement->getTagProperty().getTag() == SUMO_TAG_EDGE) && (newNextElement->getTagProperty().getTag() == SUMO_TAG_EDGE)) {
+        // reserve solution
+        solution.reserve(myEdgeParents.size());
+        // iterate over edges
+        for (const auto &edge: myEdgeParents) {
+            // add edge ID
+            solution.push_back(edge->getID());
+            // if current edge is the current element, then insert newNextElement ID
+            if (edge == currentElement) {
+                solution.push_back(newNextElement->getID());
+            }
+        }
+    } else if ((currentElement->getTagProperty().getTag() == SUMO_TAG_LANE) && (newNextElement->getTagProperty().getTag() == SUMO_TAG_LANE)) {
+        // reserve solution
+        solution.reserve(myLaneParents.size());
+        // iterate over lanes
+        for (const auto &lane: myLaneParents) {
+            // add lane ID
+            solution.push_back(lane->getID());
+            // if current lane is the current element, then insert newNextElement ID
+            if (lane == currentElement) {
+                solution.push_back(newNextElement->getID());
+            }
+        }
+    }
+    return toString(solution);
+}
+
+
 void
 GNEHierarchicalElementParents::addEdgeParent(GNEEdge* edge) {
     // Check that edge is valid and doesn't exist previously

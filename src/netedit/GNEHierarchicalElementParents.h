@@ -33,6 +33,7 @@
 // ===========================================================================
 
 class GNEAdditional;
+class GNENetElement;
 class GNEDemandElement;
 class GNEShape;
 class GNEConnection;
@@ -143,6 +144,9 @@ public:
     const std::vector<GNEDemandElement*>& getDemandElementParents() const;
 
     /// @}
+
+    /// @brief if use edge/lane parents as a list of consecutive elements, obtain a list of IDs of elements after insert a new element
+    std::string getNewListOfParents(const GNENetElement *currentElement, const GNENetElement *newNextElement) const;
 
 protected:
     /// @brief struct for pack all variables and functions relative to connections between hierarchical element and their children
