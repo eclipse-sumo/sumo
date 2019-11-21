@@ -414,7 +414,7 @@ ODMatrix::readTime(LineReader& lr) {
         SUMOTime begin = parseSingleTime(st.next());
         SUMOTime end = parseSingleTime(st.next());
         if (begin >= end) {
-            throw ProcessError("Begin time is larger than end time.");
+            throw ProcessError("Matrix begin time " + time2string(begin) + " is larger than end time " + time2string(end) + ".");
         }
         return std::make_pair(begin, end);
     } catch (OutOfBoundsException&) {
