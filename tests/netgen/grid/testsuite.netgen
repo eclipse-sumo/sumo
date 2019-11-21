@@ -41,5 +41,8 @@ turnlanes_lefthand
 # perturb coordinates in grid
 perturb
 
+# option --default.type
+default_type
+
 # Tests processing of errors in input
 errors

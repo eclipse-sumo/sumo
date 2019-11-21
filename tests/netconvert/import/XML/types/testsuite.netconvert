@@ -20,6 +20,9 @@ cross_usingtypes_v
 
 # Simple cross disallowing ships
 cross_default_disallow
+
+# Simple cross using types for edge definition
+cross_default_type
 ignore_unknown_type
 
 # Simple cross using types for edge definition and overwriting allowed
