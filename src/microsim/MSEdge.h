@@ -31,6 +31,9 @@
 #include <map>
 #include <string>
 #include <iostream>
+#ifdef HAVE_FOX
+#include <fx.h>
+#endif
 #include <utils/common/Named.h>
 #include <utils/common/Parameterised.h>
 #include <utils/common/SUMOTime.h>
@@ -679,6 +682,18 @@ public:
     /// @brief release exclusive access to the mesoscopic state
     virtual void unlock() const {};
 
+    /// @brief Adds a vehicle to the list of waiting vehicles
+    void addWaiting(SUMOVehicle* vehicle) const;
+
+    /// @brief Removes a vehicle from the list of waiting vehicles
+    void removeWaiting(const SUMOVehicle* vehicle) const;
+
+    /* @brief returns a vehicle that is waiting for a for a person or a container at this edge at the given position
+     * @param[in] transportable The person or container that wants to ride
+     * @param[in] position The vehicle shall be positioned in the interval [position - t, position + t], where t is some tolerance
+     */
+    SUMOVehicle* getWaitingVehicle(MSTransportable* transportable, const double position) const;
+
     /** @brief Inserts edge into the static dictionary
         Returns true if the key id isn't already in the dictionary. Otherwise
         returns false. */
@@ -884,16 +899,24 @@ protected:
     /// @brief The bounding rectangle of end nodes incoming or outgoing edges for taz connectors or of my own start and end node for normal edges
     Boundary myBoundary;
 
+    /// @brief List of waiting vehicles
+    mutable std::vector<SUMOVehicle*> myWaiting;
+
+#ifdef HAVE_FOX
+    /// @brief Mutex for accessing waiting vehicles
+    mutable FXMutex myWaitingMutex;
+#endif
+
 private:
 
-    /// @brief the oppositing superposble edge
+    /// @brief the oppositing superposable edge
     const MSEdge* myBidiEdge;
 
     /// @brief Invalidated copy constructor.
     MSEdge(const MSEdge&);
 
     /// @brief assignment operator.
-    MSEdge& operator=(const MSEdge&);
+    MSEdge& operator=(const MSEdge&) = delete;
 
     bool isSuperposable(const MSEdge* other);
 

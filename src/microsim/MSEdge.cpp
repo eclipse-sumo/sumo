@@ -1078,7 +1078,8 @@ MSEdge::hasMinorLink() const {
 }
 
 
-void MSEdge::checkAndRegisterBiDirEdge(const std::string& bidiID) {
+void
+MSEdge::checkAndRegisterBiDirEdge(const std::string& bidiID) {
     if (bidiID != "") {
         myBidiEdge = dictionary(bidiID);
         if (myBidiEdge == nullptr) {
@@ -1102,7 +1103,8 @@ void MSEdge::checkAndRegisterBiDirEdge(const std::string& bidiID) {
 }
 
 
-bool MSEdge::isSuperposable(const MSEdge* other) {
+bool
+MSEdge::isSuperposable(const MSEdge* other) {
     if (other == nullptr || other->getLanes().size() != myLanes->size()) {
         return false;
     }
@@ -1117,6 +1119,43 @@ bool MSEdge::isSuperposable(const MSEdge* other) {
     } while (it1 != myLanes->end());
 
     return true;
+}
+
+
+void
+MSEdge::addWaiting(SUMOVehicle* vehicle) const {
+    FXConditionalLock lock(myWaitingMutex, MSGlobals::gNumSimThreads > 1);
+    myWaiting.push_back(vehicle);
+}
+
+
+void
+MSEdge::removeWaiting(const SUMOVehicle* vehicle) const {
+    FXConditionalLock lock(myWaitingMutex, MSGlobals::gNumSimThreads > 1);
+    std::vector<SUMOVehicle*>::iterator it = std::find(myWaiting.begin(), myWaiting.end(), vehicle);
+    if (it != myWaiting.end()) {
+        myWaiting.erase(it);
+    }
+}
+
+
+SUMOVehicle*
+MSEdge::getWaitingVehicle(MSTransportable* transportable, const double position) const {
+    FXConditionalLock lock(myWaitingMutex, MSGlobals::gNumSimThreads > 1);
+    for (SUMOVehicle* const vehicle : myWaiting) {
+        if (transportable->isWaitingFor(vehicle)) {
+            if (vehicle->isStoppedInRange(position, MSGlobals::gStopTolerance) ||
+                (!vehicle->hasDeparted() &&
+                (vehicle->getParameter().departProcedure == DEPART_TRIGGERED ||
+                    vehicle->getParameter().departProcedure == DEPART_CONTAINER_TRIGGERED))) {
+                return vehicle;
+            }
+            // !!! this gives false warnings when there are two stops on the same edge
+            WRITE_WARNING(transportable->getID() + " at edge '" + getID() + "' position " + toString(position) + " cannot use waiting vehicle '"
+                + vehicle->getID() + "' at position " + toString(vehicle->getPositionOnLane()) + " because it is too far away.");
+        }
+    }
+    return nullptr;
 }
 
 

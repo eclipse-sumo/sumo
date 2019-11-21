@@ -537,7 +537,7 @@ public:
         Stage_Driving(const Stage_Driving&);
 
         /// @brief Invalidated assignment operator.
-        Stage_Driving& operator=(const Stage_Driving&);
+        Stage_Driving& operator=(const Stage_Driving&) = delete;
 
     };
 

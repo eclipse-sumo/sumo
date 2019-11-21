@@ -765,6 +765,8 @@ MSFrame::setMSGlobals(OptionsCont& oc) {
 
     MSGlobals::gModelParkingManoeuver = oc.getBool("parking.maneuver");
 
+    MSGlobals::gStopTolerance = oc.getFloat("ride.stop-tolerance");
+
 #ifdef _DEBUG
     if (oc.isSet("movereminder-output")) {
         MSBaseVehicle::initMoveReminderOutput(oc);

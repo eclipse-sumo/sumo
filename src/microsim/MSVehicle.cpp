@@ -1986,7 +1986,7 @@ MSVehicle::processNextStop(double currentVelocity) {
                 if (MSStopOut::active()) {
                     MSStopOut::getInstance()->stopStarted(this, getPersonNumber(), getContainerNumber(), time);
                 }
-                MSNet::getInstance()->getVehicleControl().addWaiting(&myLane->getEdge(), this);
+                myLane->getEdge().addWaiting(this);
                 MSNet::getInstance()->informVehicleStateListener(this, MSNet::VEHICLE_STATE_STARTING_STOP);
                 // compute stopping time
                 if (stop.pars.until >= 0) {
@@ -5835,7 +5835,7 @@ MSVehicle::resumeFromStopping() {
             myStops.front().parkingarea->leaveFrom(this);
         }
         // the current stop is no longer valid
-        MSNet::getInstance()->getVehicleControl().removeWaiting(&myLane->getEdge(), this);
+        myLane->getEdge().removeWaiting(this);
         MSDevice_Vehroutes* vehroutes = static_cast<MSDevice_Vehroutes*>(getDevice(typeid(MSDevice_Vehroutes)));
         if (vehroutes != nullptr) {
             vehroutes->stopEnded(myStops.front().pars);
