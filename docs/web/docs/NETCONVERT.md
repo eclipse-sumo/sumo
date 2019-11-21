@@ -105,15 +105,15 @@ The following list ouf output is explained in more detail at
 
 - [Public transport
   stops](Simulation/Public_Transport.md#bus_stops). Currently,
-  this can only be iported from
+  this can only be imported from
   [OSM](Tutorials/PT_from_OpenStreetMap.md#initial_network_and_public_transit_information_extraction)
-- [public transport
+- [Public transport
   lines](Tutorials/PT_from_OpenStreetMap.md#initial_network_and_public_transit_information_extraction)
 - Information on joined junctions
 - Street Signs (as POIs)
 - Street Names (embedded within the *.net.xml* output
 - [Parking Areas](Simulation/ParkingArea.md) (currently, only
-  road-side parking can be imported from OSM\]\]
+  road-side parking can be imported from OSM)
 - Railway topology output: A file for analyzing the topology of
   railway networks in regard to bi-directional track usage
 
