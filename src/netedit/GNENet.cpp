@@ -827,7 +827,7 @@ GNENet::splitEdge(GNEEdge* edge, const Position& pos, GNEUndoList* undoList, GNE
     }
     // Split geometry of all lane additional children
     for (int i = 0; i < (int)edge->getLanes().size(); i++) {
-        for (const auto &additional : edge->getAdditionalChildren()) {
+        for (const auto &additional : edge->getLanes().at(i)->getAdditionalChildren()) {
             additional->splitEdgeGeometry(linePos, edge->getLanes().at(i), secondPart->getLanes().at(i), undoList);
         }
     }
@@ -837,7 +837,7 @@ GNENet::splitEdge(GNEEdge* edge, const Position& pos, GNEUndoList* undoList, GNE
     }
     // Split geometry of all lane demand element children
     for (int i = 0; i < (int)edge->getLanes().size(); i++) {
-        for (const auto &demandElement : edge->getDemandElementChildren()) {
+        for (const auto &demandElement : edge->getLanes().at(i)->getDemandElementChildren()) {
             demandElement->splitEdgeGeometry(linePos, edge->getLanes().at(i), secondPart->getLanes().at(i), undoList);
         }
     }

@@ -91,7 +91,7 @@ GNEDetector::splitEdgeGeometry(const double /*position*/, const GNENetElement* o
     if ((myTagProperty.getTag() == SUMO_TAG_E2DETECTOR_MULTILANE) && 
         (originalElement->getTagProperty().getTag() == SUMO_TAG_LANE) && 
         (originalElement->getTagProperty().getTag() == SUMO_TAG_LANE)) {
-        // obtain new E2 list of lanes
+        // obtain new list of E2 lanes
         std::string newE2Lanes = getNewListOfParents(originalElement, newElement);
         // update E2 Lanes
         if (newE2Lanes.size() > 0) {
