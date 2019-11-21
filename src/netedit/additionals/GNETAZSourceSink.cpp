@@ -81,7 +81,7 @@ GNETAZSourceSink::getCenteringBoundary() const {
 }
 
 
-void GNETAZSourceSink::splitEdgeGeometry(const GNEEdge* /*oldFirstPartEdge*/, const GNEEdge* /*newSecondPartEdge*/, GNEUndoList* /*undoList*/) {
+void GNETAZSourceSink::splitEdgeGeometry(const double /*position*/, const GNENetElement* /*originalElement*/, const GNENetElement* /*newElement*/, GNEUndoList* /*undoList*/) {
 }
 
 

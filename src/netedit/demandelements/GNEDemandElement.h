@@ -38,10 +38,11 @@
 // ===========================================================================
 
 class GNEViewNet;
-class GNEEdge;
-class GNELane;
 class GNEAdditional;
 class GNEDemandElement;
+class GNENetElement;
+class GNEEdge;
+class GNELane;
 class GNEJunction;
 
 // ===========================================================================
@@ -240,7 +241,7 @@ public:
     virtual Position getPositionInView() const = 0;
 
     /// @brief split geometry
-    virtual void splitEdgeGeometry(const GNEEdge* oldFirstPartEdge, const GNEEdge* newSecondPartEdge, GNEUndoList* undoList) = 0;
+    virtual void splitEdgeGeometry(const double position, const GNENetElement* originalElement, const GNENetElement* newElement, GNEUndoList* undoList) = 0;
     /// @}
 
     /// @brief Returns a pointer to GNEViewNet in which demand element element is located

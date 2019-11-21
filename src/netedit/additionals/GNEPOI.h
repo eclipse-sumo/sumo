@@ -121,9 +121,6 @@ public:
     /// @brief Returns the boundary to which the view shall be centered in order to show the object
     Boundary getCenteringBoundary() const;
 
-    /// @brief split geometry
-    void splitEdgeGeometry(const GNEEdge* oldFirstPartEdge, const GNEEdge* newSecondPartEdge, GNEUndoList* undoList);
-
     /**@brief writte shape element into a xml file
     * @param[in] device device in which write parameters of additional element
     */

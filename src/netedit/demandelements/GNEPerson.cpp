@@ -384,7 +384,7 @@ GNEPerson::getCenteringBoundary() const {
 }
 
 
-void GNEPerson::splitEdgeGeometry(const GNEEdge* /*oldFirstPartEdge*/, const GNEEdge* /*newSecondPartEdge*/, GNEUndoList* /*undoList*/) {
+void GNEPerson::splitEdgeGeometry(const double /*position*/, const GNENetElement* /*originalElement*/, const GNENetElement* /*newElement*/, GNEUndoList* /*undoList*/) {
 }
 
 

@@ -79,7 +79,7 @@ GNERerouterInterval::getCenteringBoundary() const {
 }
 
 
-void GNERerouterInterval::splitEdgeGeometry(const GNEEdge* /*oldFirstPartEdge*/, const GNEEdge* /*newSecondPartEdge*/, GNEUndoList* /*undoList*/) {
+void GNERerouterInterval::splitEdgeGeometry(const double /*position*/, const GNENetElement* /*originalElement*/, const GNENetElement* /*newElement*/, GNEUndoList* /*undoList*/) {
 }
 
 

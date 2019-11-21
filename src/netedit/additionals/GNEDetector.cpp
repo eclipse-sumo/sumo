@@ -85,7 +85,7 @@ GNEDetector::getCenteringBoundary() const {
 }
 
 
-void GNEDetector::splitEdgeGeometry(const GNEEdge* /*oldFirstPartEdge*/, const GNEEdge* /*newSecondPartEdge*/, GNEUndoList* /*undoList*/) {
+void GNEDetector::splitEdgeGeometry(const double /*position*/, const GNENetElement* /*originalElement*/, const GNENetElement* /*newElement*/, GNEUndoList* /*undoList*/) {
 }
 
 

@@ -89,7 +89,7 @@ GNEVaporizer::getCenteringBoundary() const {
 }
 
 
-void GNEVaporizer::splitEdgeGeometry(const GNEEdge* /*oldFirstPartEdge*/, const GNEEdge* /*newSecondPartEdge*/, GNEUndoList* /*undoList*/) {
+void GNEVaporizer::splitEdgeGeometry(const double /*position*/, const GNENetElement* /*originalElement*/, const GNENetElement* /*newElement*/, GNEUndoList* /*undoList*/) {
 }
 
 

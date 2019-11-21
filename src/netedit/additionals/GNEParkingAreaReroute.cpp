@@ -81,7 +81,7 @@ GNEParkingAreaReroute::getCenteringBoundary() const {
 }
 
 
-void GNEParkingAreaReroute::splitEdgeGeometry(const GNEEdge* /*oldFirstPartEdge*/, const GNEEdge* /*newSecondPartEdge*/, GNEUndoList* /*undoList*/) {
+void GNEParkingAreaReroute::splitEdgeGeometry(const double /*position*/, const GNENetElement* /*originalElement*/, const GNENetElement* /*newElement*/, GNEUndoList* /*undoList*/) {
 }
 
 

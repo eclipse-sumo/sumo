@@ -99,7 +99,7 @@ public:
     virtual Boundary getCenteringBoundary() const = 0;
 
     /// @brief split geometry
-    void splitEdgeGeometry(const GNEEdge* oldFirstPartEdge, const GNEEdge* newSecondPartEdge, GNEUndoList* undoList);
+    void splitEdgeGeometry(const double position, const GNENetElement* originalElement, const GNENetElement* newElement, GNEUndoList* undoList);
     /// @}
 
     /// @name inherited from GNEAdditional

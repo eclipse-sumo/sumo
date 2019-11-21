@@ -103,7 +103,7 @@ GNECalibratorFlow::getCenteringBoundary() const {
 }
 
 
-void GNECalibratorFlow::splitEdgeGeometry(const GNEEdge* /*oldFirstPartEdge*/, const GNEEdge* /*newSecondPartEdge*/, GNEUndoList* /*undoList*/) {
+void GNECalibratorFlow::splitEdgeGeometry(const double /*position*/, const GNENetElement* /*originalElement*/, const GNENetElement* /*newElement*/, GNEUndoList* /*undoList*/) {
 }
 
 

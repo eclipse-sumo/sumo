@@ -72,7 +72,7 @@ public:
     Boundary getCenteringBoundary() const;
 
     /// @brief split geometry
-    void splitEdgeGeometry(const GNEEdge* oldFirstPartEdge, const GNEEdge* newSecondPartEdge, GNEUndoList* undoList);
+    void splitEdgeGeometry(const double position, const GNENetElement* originalElement, const GNENetElement* newElement, GNEUndoList* undoList);
     /// @}
 
     /// @name inherited from GUIGlObject

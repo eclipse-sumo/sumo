@@ -82,7 +82,7 @@ GNEVariableSpeedSign::getCenteringBoundary() const {
 }
 
 
-void GNEVariableSpeedSign::splitEdgeGeometry(const GNEEdge* /*oldFirstPartEdge*/, const GNEEdge* /*newSecondPartEdge*/, GNEUndoList* /*undoList*/) {
+void GNEVariableSpeedSign::splitEdgeGeometry(const double /*position*/, const GNENetElement* /*originalElement*/, const GNENetElement* /*newElement*/, GNEUndoList* /*undoList*/) {
 }
 
 

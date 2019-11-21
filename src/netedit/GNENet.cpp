@@ -803,12 +803,12 @@ GNENet::splitEdge(GNEEdge* edge, const Position& pos, GNEUndoList* undoList, GNE
     }
     // modify the edge so that it ends at the new junction (and all incoming connections are preserved
     undoList->p_add(new GNEChange_Attribute(edge, this, SUMO_ATTR_TO, newJunction->getID()));
-    // fix first part of geometry
+    // set first part of geometry
     newGeoms.first.pop_back();
     newGeoms.first.erase(newGeoms.first.begin());
     edge->setAttribute(GNE_ATTR_SHAPE_END, "", undoList);
     edge->setAttribute(SUMO_ATTR_SHAPE, toString(newGeoms.first), undoList);
-    // fix second part of geometry
+    // set second part of geometry
     secondPart->setAttribute(GNE_ATTR_SHAPE_END, shapeEnd, undoList);
     newGeoms.second.pop_back();
     newGeoms.second.erase(newGeoms.second.begin());
@@ -823,13 +823,27 @@ GNENet::splitEdge(GNEEdge* edge, const Position& pos, GNEUndoList* undoList, GNE
     }
     // Split geometry of all additional children
     for (const auto &additional : edge->getAdditionalChildren()) {
-        additional->splitEdgeGeometry(edge, secondPart, undoList);
+        additional->splitEdgeGeometry(linePos, edge, secondPart, undoList);
+    }
+    // Split geometry of all lane additional children
+    for (int i = 0; i < (int)edge->getLanes().size(); i++) {
+        for (const auto &additional : edge->getAdditionalChildren()) {
+            additional->splitEdgeGeometry(linePos, edge->getLanes().at(i), secondPart->getLanes().at(i), undoList);
+        }
     }
     // Split geometry of all demand element children
     for (const auto &demandElement : edge->getDemandElementChildren()) {
-        demandElement->splitEdgeGeometry(edge, secondPart, undoList);
+        demandElement->splitEdgeGeometry(linePos, edge, secondPart, undoList);
     }
+    // Split geometry of all lane demand element children
+    for (int i = 0; i < (int)edge->getLanes().size(); i++) {
+        for (const auto &demandElement : edge->getDemandElementChildren()) {
+            demandElement->splitEdgeGeometry(linePos, edge->getLanes().at(i), secondPart->getLanes().at(i), undoList);
+        }
+    }
+    // finish undo list
     undoList->p_end();
+    // return new junction
     return newJunction;
 }
 
