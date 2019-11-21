@@ -35,9 +35,6 @@
 #include <utils/common/ToString.h>
 #include <utils/common/StringUtils.h>
 #include <utils/geom/GeoConvHelper.h>
-#include <utils/xml/SUMOSAXHandler.h>
-#include <utils/xml/SUMOSAXReader.h>
-#include <utils/xml/XMLSubSys.h>
 #include <netbuild/NBTypeCont.h>
 #include <netbuild/NBNodeCont.h>
 #include <netbuild/NBEdgeCont.h>
@@ -62,6 +59,7 @@
 #include <netimport/NIImporter_ITSUMO.h>
 #include <netimport/typemap.h>
 #include "NILoader.h"
+#include "NITypeLoader.h"
 
 // ===========================================================================
 // method definitions
@@ -84,9 +82,9 @@ NILoader::load(OptionsCont& oc) {
         if (oc.isSet("opendrive-files")) {
             files.push_back(opendriveTypemap);
         }
-        loadXMLType(handler, files, "types", true);
+        NITypeLoader::load(handler, files, "types", true);
     } else {
-        loadXMLType(handler, oc.getStringVector("type-files"), "types");
+        NITypeLoader::load(handler, oc.getStringVector("type-files"), "types");
     }
     // try to load height data so it is ready for use by other importers
     NBHeightMapper::loadIfSet(oc);
@@ -150,11 +148,11 @@ NILoader::load(OptionsCont& oc) {
 void
 NILoader::loadXML(OptionsCont& oc) {
     // load nodes
-    loadXMLType(new NIXMLNodesHandler(myNetBuilder.getNodeCont(), myNetBuilder.getEdgeCont(),
+    NITypeLoader::load(new NIXMLNodesHandler(myNetBuilder.getNodeCont(), myNetBuilder.getEdgeCont(),
                                       myNetBuilder.getTLLogicCont(), oc),
                 oc.getStringVector("node-files"), "nodes");
     // load the edges
-    loadXMLType(new NIXMLEdgesHandler(myNetBuilder.getNodeCont(),
+    NITypeLoader::load(new NIXMLEdgesHandler(myNetBuilder.getNodeCont(),
                                       myNetBuilder.getEdgeCont(),
                                       myNetBuilder.getTypeCont(),
                                       myNetBuilder.getDistrictCont(),
@@ -165,18 +163,18 @@ NILoader::loadXML(OptionsCont& oc) {
         WRITE_WARNING("Deprecated vehicle class(es) '" + toString(deprecatedVehicleClassesSeen) + "' in input edge files.");
     }
     // load the connections
-    loadXMLType(new NIXMLConnectionsHandler(myNetBuilder.getEdgeCont(),
+    NITypeLoader::load(new NIXMLConnectionsHandler(myNetBuilder.getEdgeCont(),
                                             myNetBuilder.getNodeCont(),
                                             myNetBuilder.getTLLogicCont()),
                 oc.getStringVector("connection-files"), "connections");
     // load traffic lights (needs to come last, references loaded edges and connections)
-    loadXMLType(new NIXMLTrafficLightsHandler(
+    NITypeLoader::load(new NIXMLTrafficLightsHandler(
                     myNetBuilder.getTLLogicCont(), myNetBuilder.getEdgeCont()),
                 oc.getStringVector("tllogic-files"), "traffic lights");
 
     // load public transport stops (used for restricting edge removal and as input when repairing railroad topology)
     if (oc.exists("ptstop-files")) {
-        loadXMLType(new NIXMLPTHandler(
+        NITypeLoader::load(new NIXMLPTHandler(
                         myNetBuilder.getEdgeCont(),
                         myNetBuilder.getPTStopCont(),
                         myNetBuilder.getPTLineCont()),
@@ -185,7 +183,7 @@ NILoader::loadXML(OptionsCont& oc) {
 
     // load public transport lines (used as input when repairing railroad topology)
     if (oc.exists("ptline-files")) {
-        loadXMLType(new NIXMLPTHandler(
+        NITypeLoader::load(new NIXMLPTHandler(
                         myNetBuilder.getEdgeCont(),
                         myNetBuilder.getPTStopCont(),
                         myNetBuilder.getPTLineCont()),
@@ -194,49 +192,10 @@ NILoader::loadXML(OptionsCont& oc) {
 
     // load shapes for output formats that embed shape data
     if (oc.exists("polygon-files")) {
-        loadXMLType(new NIXMLShapeHandler(
+        NITypeLoader::load(new NIXMLShapeHandler(
                         myNetBuilder.getShapeCont(),
                         myNetBuilder.getEdgeCont()),
                     oc.getStringVector("polygon-files"), "polygon data");
-    }
-}
-
-void
-NILoader::loadXMLType(SUMOSAXHandler* handler, const std::vector<std::string>& files,
-                      const std::string& type, const bool stringParse) {
-    // build parser
-    std::string exceptMsg = "";
-    // start the parsing
-    try {
-        for (std::vector<std::string>::const_iterator file = files.begin(); file != files.end(); ++file) {
-            if (stringParse) {
-                handler->setFileName("built in type map");
-                SUMOSAXReader* reader = XMLSubSys::getSAXReader(*handler);
-                reader->parseString(*file);
-                delete reader;
-                continue;
-            }
-            if (!FileHelpers::isReadable(*file)) {
-                WRITE_ERROR("Could not open " + type + "-file '" + *file + "'.");
-                exceptMsg = "Process Error";
-                continue;
-            }
-            PROGRESS_BEGIN_MESSAGE("Parsing " + type + " from '" + *file + "'");
-            XMLSubSys::runParser(*handler, *file);
-            PROGRESS_DONE_MESSAGE();
-        }
-    } catch (const XERCES_CPP_NAMESPACE::XMLException& toCatch) {
-        exceptMsg = StringUtils::transcode(toCatch.getMessage())
-                    + "\n  The " + type + " could not be loaded from '" + handler->getFileName() + "'.";
-    } catch (const ProcessError& toCatch) {
-        exceptMsg =
-            std::string(toCatch.what()) + "\n  The " + type + " could not be loaded from '" + handler->getFileName() + "'.";
-    } catch (...) {
-        exceptMsg = "The " + type + " could not be loaded from '" + handler->getFileName() + "'.";
-    }
-    delete handler;
-    if (exceptMsg != "") {
-        throw ProcessError(exceptMsg);
     }
 }
 

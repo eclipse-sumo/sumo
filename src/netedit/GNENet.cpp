@@ -355,7 +355,7 @@ GNENet::createEdge(
         // default if no template is given
         const OptionsCont& oc = OptionsCont::getOptions();
         double defaultSpeed = oc.getFloat("default.speed");
-        std::string defaultType = "";
+        std::string defaultType = oc.getString("default.type");
         int defaultNrLanes = oc.getInt("default.lanenumber");
         int defaultPriority = oc.getInt("default.priority");
         double defaultWidth = NBEdge::UNSPECIFIED_WIDTH;

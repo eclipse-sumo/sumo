@@ -5,6 +5,8 @@ set(netimport_STAT_SRCS
    NIFrame.h
    NILoader.cpp
    NILoader.h
+   NITypeLoader.cpp
+   NITypeLoader.h
    NIImporter_ArcView.cpp
    NIImporter_ArcView.h
    NIImporter_DlrNavteq.cpp

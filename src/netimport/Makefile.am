@@ -2,6 +2,7 @@ noinst_LIBRARIES = libnetimport.a
 
 libnetimport_a_SOURCES = NIFrame.cpp NIFrame.h \
 NILoader.cpp NILoader.h \
+NITypeLoader.cpp NITypeLoader.h \
 NIImporter_ArcView.cpp NIImporter_ArcView.h \
 NIImporter_DlrNavteq.cpp NIImporter_DlrNavteq.h \
 NIImporter_ITSUMO.cpp NIImporter_ITSUMO.h \
