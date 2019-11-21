@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Jan 30 08:03:20 2019 by Eclipse SUMO Version v1_0_1+0645-93703db
+<!-- generated on Thu Nov 21 13:31:57 2019 by Eclipse SUMO Version v1_3_1+0965-2f8bbc6
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -20,6 +20,7 @@ SPDX-License-Identifier: EPL-2.0
     </output>
 
     <processing>
+        <threads value="4"/>
         <default.speeddev value="0"/>
     </processing>
 
@@ -42,11 +43,11 @@ SPDX-License-Identifier: EPL-2.0
         <route edges="beg end"/>
     </vehicle>
 
-    <vehicle id="right.1" depart="3.00" departLane="0" departSpeed="13.89" color="red" arrival="117.00">
+    <vehicle id="right.1" depart="3.00" departLane="0" departSpeed="13.89" color="red" arrival="118.00">
         <route edges="beg end"/>
     </vehicle>
 
-    <vehicle id="left.1" depart="4.00" departLane="1" departSpeed="13.89" color="blue" arrival="119.00">
+    <vehicle id="left.1" depart="4.00" departLane="1" departSpeed="13.89" color="blue" arrival="120.00">
         <route edges="beg end"/>
     </vehicle>
 
@@ -66,11 +67,11 @@ SPDX-License-Identifier: EPL-2.0
         <route edges="beg end"/>
     </vehicle>
 
-    <vehicle id="right.4" depart="12.00" departLane="0" departSpeed="13.89" color="red" arrival="128.00">
+    <vehicle id="right.4" depart="12.00" departLane="0" departSpeed="13.89" color="red" arrival="129.00">
         <route edges="beg end"/>
     </vehicle>
 
-    <vehicle id="left.4" depart="13.00" departLane="1" departSpeed="13.89" color="blue" arrival="130.00">
+    <vehicle id="left.4" depart="13.00" departLane="1" departSpeed="13.89" color="blue" arrival="131.00">
         <route edges="beg end"/>
     </vehicle>
 
@@ -122,7 +123,7 @@ SPDX-License-Identifier: EPL-2.0
         <route edges="beg end"/>
     </vehicle>
 
-    <vehicle id="right.11" depart="33.00" departLane="0" departSpeed="13.89" color="red" arrival="154.00">
+    <vehicle id="right.11" depart="33.00" departLane="0" departSpeed="13.89" color="red" arrival="155.00">
         <route edges="beg end"/>
     </vehicle>
 
@@ -130,175 +131,175 @@ SPDX-License-Identifier: EPL-2.0
         <route edges="beg end"/>
     </vehicle>
 
-    <vehicle id="right.12" depart="36.00" departLane="0" departSpeed="13.89" color="red" arrival="158.00">
+    <vehicle id="right.12" depart="36.00" departLane="0" departSpeed="13.89" color="red" arrival="159.00">
         <route edges="beg end"/>
     </vehicle>
 
-    <vehicle id="left.12" depart="37.00" departLane="1" departSpeed="13.89" color="blue" arrival="159.00">
+    <vehicle id="left.12" depart="37.00" departLane="1" departSpeed="13.89" color="blue" arrival="161.00">
         <route edges="beg end"/>
     </vehicle>
 
-    <vehicle id="right.13" depart="39.00" departLane="0" departSpeed="13.89" color="red" arrival="161.00">
+    <vehicle id="right.13" depart="39.00" departLane="0" departSpeed="13.89" color="red" arrival="163.00">
         <route edges="beg end"/>
     </vehicle>
 
-    <vehicle id="left.13" depart="40.00" departLane="1" departSpeed="13.89" color="blue" arrival="163.00">
+    <vehicle id="left.13" depart="40.00" departLane="1" departSpeed="13.89" color="blue" arrival="165.00">
         <route edges="beg end"/>
     </vehicle>
 
-    <vehicle id="right.14" depart="42.00" departLane="0" departSpeed="13.89" color="red" arrival="165.00">
+    <vehicle id="right.14" depart="42.00" departLane="0" departSpeed="13.89" color="red" arrival="168.00">
         <route edges="beg end"/>
     </vehicle>
 
-    <vehicle id="left.14" depart="43.00" departLane="1" departSpeed="13.89" color="blue" arrival="167.00">
+    <vehicle id="left.14" depart="43.00" departLane="1" departSpeed="13.89" color="blue" arrival="170.00">
         <route edges="beg end"/>
     </vehicle>
 
-    <vehicle id="right.15" depart="45.00" departLane="0" departSpeed="13.89" color="red" arrival="168.00">
+    <vehicle id="right.15" depart="45.00" departLane="0" departSpeed="13.89" color="red" arrival="172.00">
         <route edges="beg end"/>
     </vehicle>
 
-    <vehicle id="left.15" depart="46.00" departLane="1" departSpeed="13.89" color="blue" arrival="170.00">
+    <vehicle id="left.15" depart="46.00" departLane="1" departSpeed="13.89" color="blue" arrival="175.00">
         <route edges="beg end"/>
     </vehicle>
 
-    <vehicle id="right.16" depart="48.00" departLane="0" departSpeed="13.89" color="red" arrival="172.00">
+    <vehicle id="left.16" depart="49.00" departLane="1" departSpeed="13.89" color="blue" arrival="177.00">
         <route edges="beg end"/>
     </vehicle>
 
-    <vehicle id="left.16" depart="49.00" departLane="1" departSpeed="13.89" color="blue" arrival="174.00">
+    <vehicle id="right.16" depart="48.00" departLane="0" departSpeed="13.89" color="red" arrival="179.00">
         <route edges="beg end"/>
     </vehicle>
 
-    <vehicle id="right.17" depart="51.00" departLane="0" departSpeed="13.89" color="red" arrival="176.00">
+    <vehicle id="left.17" depart="52.00" departLane="1" departSpeed="13.89" color="blue" arrival="181.00">
         <route edges="beg end"/>
     </vehicle>
 
-    <vehicle id="left.17" depart="52.00" departLane="1" departSpeed="13.89" color="blue" arrival="178.00">
+    <vehicle id="right.17" depart="51.00" departLane="0" departSpeed="13.89" color="red" arrival="183.00">
         <route edges="beg end"/>
     </vehicle>
 
-    <vehicle id="right.18" depart="54.00" departLane="0" departSpeed="13.89" color="red" arrival="180.00">
+    <vehicle id="left.18" depart="55.00" departLane="1" departSpeed="13.89" color="blue" arrival="185.00">
         <route edges="beg end"/>
     </vehicle>
 
-    <vehicle id="left.18" depart="55.00" departLane="1" departSpeed="13.89" color="blue" arrival="182.00">
+    <vehicle id="right.18" depart="54.00" departLane="0" departSpeed="13.89" color="red" arrival="187.00">
         <route edges="beg end"/>
     </vehicle>
 
-    <vehicle id="right.19" depart="57.00" departLane="0" departSpeed="13.89" color="red" arrival="184.00">
+    <vehicle id="left.19" depart="58.00" departLane="1" departSpeed="13.89" color="blue" arrival="189.00">
         <route edges="beg end"/>
     </vehicle>
 
-    <vehicle id="left.19" depart="58.00" departLane="1" departSpeed="13.89" color="blue" arrival="186.00">
+    <vehicle id="right.19" depart="57.00" departLane="0" departSpeed="13.89" color="red" arrival="191.00">
         <route edges="beg end"/>
     </vehicle>
 
-    <vehicle id="right.20" depart="60.00" departLane="0" departSpeed="13.89" color="red" arrival="187.00">
+    <vehicle id="left.20" depart="61.00" departLane="1" departSpeed="13.89" color="blue" arrival="193.00">
         <route edges="beg end"/>
     </vehicle>
 
-    <vehicle id="left.20" depart="61.00" departLane="1" departSpeed="13.89" color="blue" arrival="189.00">
+    <vehicle id="right.20" depart="60.00" departLane="0" departSpeed="13.89" color="red" arrival="195.00">
         <route edges="beg end"/>
     </vehicle>
 
-    <vehicle id="right.21" depart="63.00" departLane="0" departSpeed="13.89" color="red" arrival="191.00">
+    <vehicle id="left.21" depart="64.00" departLane="1" departSpeed="13.89" color="blue" arrival="197.00">
         <route edges="beg end"/>
     </vehicle>
 
-    <vehicle id="left.21" depart="64.00" departLane="1" departSpeed="13.89" color="blue" arrival="193.00">
+    <vehicle id="right.21" depart="63.00" departLane="0" departSpeed="13.89" color="red" arrival="199.00">
         <route edges="beg end"/>
     </vehicle>
 
-    <vehicle id="right.22" depart="66.00" departLane="0" departSpeed="13.89" color="red" arrival="195.00">
+    <vehicle id="left.22" depart="67.00" departLane="1" departSpeed="13.89" color="blue" arrival="201.00">
         <route edges="beg end"/>
     </vehicle>
 
-    <vehicle id="left.22" depart="67.00" departLane="1" departSpeed="13.89" color="blue" arrival="197.00">
+    <vehicle id="right.22" depart="66.00" departLane="0" departSpeed="13.89" color="red" arrival="203.00">
         <route edges="beg end"/>
     </vehicle>
 
-    <vehicle id="left.23" depart="70.00" departLane="1" departSpeed="13.89" color="blue" arrival="198.00">
+    <vehicle id="left.23" depart="70.00" departLane="1" departSpeed="13.89" color="blue" arrival="205.00">
         <route edges="beg end"/>
     </vehicle>
 
-    <vehicle id="right.23" depart="69.00" departLane="0" departSpeed="13.89" color="red" arrival="200.00">
+    <vehicle id="right.23" depart="69.00" departLane="0" departSpeed="13.89" color="red" arrival="207.00">
         <route edges="beg end"/>
     </vehicle>
 
-    <vehicle id="left.24" depart="73.00" departLane="1" departSpeed="13.89" color="blue" arrival="202.00">
+    <vehicle id="left.24" depart="73.00" departLane="1" departSpeed="13.89" color="blue" arrival="209.00">
         <route edges="beg end"/>
     </vehicle>
 
-    <vehicle id="right.24" depart="72.00" departLane="0" departSpeed="13.89" color="red" arrival="204.00">
+    <vehicle id="right.24" depart="72.00" departLane="0" departSpeed="13.89" color="red" arrival="211.00">
         <route edges="beg end"/>
     </vehicle>
 
-    <vehicle id="left.25" depart="76.00" departLane="1" departSpeed="13.89" color="blue" arrival="206.00">
+    <vehicle id="left.25" depart="76.00" departLane="1" departSpeed="13.89" color="blue" arrival="213.00">
         <route edges="beg end"/>
     </vehicle>
 
-    <vehicle id="right.25" depart="75.00" departLane="0" departSpeed="13.89" color="red" arrival="208.00">
+    <vehicle id="right.25" depart="75.00" departLane="0" departSpeed="13.89" color="red" arrival="215.00">
         <route edges="beg end"/>
     </vehicle>
 
-    <vehicle id="left.26" depart="79.00" departLane="1" departSpeed="13.89" color="blue" arrival="209.00">
+    <vehicle id="left.26" depart="79.00" departLane="1" departSpeed="13.89" color="blue" arrival="217.00">
         <route edges="beg end"/>
     </vehicle>
 
-    <vehicle id="right.26" depart="78.00" departLane="0" departSpeed="13.89" color="red" arrival="211.00">
+    <vehicle id="right.26" depart="78.00" departLane="0" departSpeed="13.89" color="red" arrival="219.00">
         <route edges="beg end"/>
     </vehicle>
 
-    <vehicle id="left.27" depart="82.00" departLane="1" departSpeed="13.89" color="blue" arrival="213.00">
+    <vehicle id="left.27" depart="82.00" departLane="1" departSpeed="13.89" color="blue" arrival="221.00">
         <route edges="beg end"/>
     </vehicle>
 
-    <vehicle id="right.27" depart="81.00" departLane="0" departSpeed="13.89" color="red" arrival="215.00">
+    <vehicle id="right.27" depart="81.00" departLane="0" departSpeed="13.89" color="red" arrival="223.00">
         <route edges="beg end"/>
     </vehicle>
 
-    <vehicle id="left.28" depart="85.00" departLane="1" departSpeed="13.89" color="blue" arrival="217.00">
+    <vehicle id="left.28" depart="85.00" departLane="1" departSpeed="13.89" color="blue" arrival="225.00">
         <route edges="beg end"/>
     </vehicle>
 
-    <vehicle id="right.28" depart="84.00" departLane="0" departSpeed="13.89" color="red" arrival="220.00">
+    <vehicle id="right.28" depart="84.00" departLane="0" departSpeed="13.89" color="red" arrival="226.00">
         <route edges="beg end"/>
     </vehicle>
 
-    <vehicle id="right.29" depart="87.00" departLane="0" departSpeed="13.89" color="red" arrival="222.00">
+    <vehicle id="left.29" depart="88.00" departLane="1" departSpeed="13.89" color="blue" arrival="228.00">
         <route edges="beg end"/>
     </vehicle>
 
-    <vehicle id="left.29" depart="88.00" departLane="1" departSpeed="13.89" color="blue" arrival="223.00">
+    <vehicle id="right.29" depart="87.00" departLane="0" departSpeed="13.89" color="red" arrival="230.00">
         <route edges="beg end"/>
     </vehicle>
 
-    <vehicle id="right.30" depart="90.00" departLane="0" departSpeed="13.89" color="red" arrival="225.00">
+    <vehicle id="left.30" depart="91.00" departLane="1" departSpeed="13.89" color="blue" arrival="233.00">
         <route edges="beg end"/>
     </vehicle>
 
-    <vehicle id="left.30" depart="91.00" departLane="1" departSpeed="13.89" color="blue" arrival="227.00">
+    <vehicle id="right.30" depart="90.00" departLane="0" departSpeed="13.89" color="red" arrival="235.00">
         <route edges="beg end"/>
     </vehicle>
 
-    <vehicle id="right.31" depart="93.00" departLane="0" departSpeed="13.89" color="red" arrival="229.00">
+    <vehicle id="left.31" depart="94.00" departLane="1" departSpeed="13.89" color="blue" arrival="237.00">
         <route edges="beg end"/>
     </vehicle>
 
-    <vehicle id="left.31" depart="94.00" departLane="1" departSpeed="13.89" color="blue" arrival="231.00">
+    <vehicle id="right.31" depart="93.00" departLane="0" departSpeed="13.89" color="red" arrival="239.00">
         <route edges="beg end"/>
     </vehicle>
 
-    <vehicle id="right.32" depart="96.00" departLane="0" departSpeed="13.89" color="red" arrival="233.00">
+    <vehicle id="left.32" depart="97.00" departLane="1" departSpeed="13.89" color="blue" arrival="241.00">
         <route edges="beg end"/>
     </vehicle>
 
-    <vehicle id="left.32" depart="97.00" departLane="1" departSpeed="13.89" color="blue" arrival="235.00">
+    <vehicle id="right.32" depart="96.00" departLane="0" departSpeed="13.89" color="red" arrival="243.00">
         <route edges="beg end"/>
     </vehicle>
 
-    <vehicle id="right.33" depart="99.00" departLane="0" departSpeed="13.89" color="red" arrival="237.00">
+    <vehicle id="right.33" depart="99.00" departLane="0" departSpeed="13.89" color="red" arrival="244.00">
         <route edges="beg end"/>
     </vehicle>
 
