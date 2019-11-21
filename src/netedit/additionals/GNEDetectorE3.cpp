@@ -84,6 +84,10 @@ GNEDetectorE3::getCenteringBoundary() const {
 }
 
 
+void GNEDetectorE3::splitEdgeGeometry(const GNEEdge* /*oldFirstPartEdge*/, const GNEEdge* /*newSecondPartEdge*/, GNEUndoList* /*undoList*/) {
+}
+
+
 void
 GNEDetectorE3::moveGeometry(const Position& offset) {
     // restore old position, apply offset and update Geometry

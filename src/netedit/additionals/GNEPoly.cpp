@@ -212,6 +212,10 @@ GNEPoly::getCenteringBoundary() const {
 }
 
 
+void GNEPoly::splitEdgeGeometry(const GNEEdge* /*oldFirstPartEdge*/, const GNEEdge* /*newSecondPartEdge*/, GNEUndoList* /*undoList*/) {
+}
+
+
 GUIGlID
 GNEPoly::getGlID() const {
     return GUIPolygon::getGlID();

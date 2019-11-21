@@ -750,26 +750,30 @@ GNENet::removeRestrictedLane(SUMOVehicleClass vclass, GNEEdge& edge, GNEUndoList
 
 GNEJunction*
 GNENet::splitEdge(GNEEdge* edge, const Position& pos, GNEUndoList* undoList, GNEJunction* newJunction) {
+    // begin undo list
     undoList->p_begin("split " + toString(SUMO_TAG_EDGE));
+    // check if we have to create a new edge
     if (newJunction == nullptr) {
         newJunction = createJunction(pos, undoList);
     }
-    // compute geometry
+    // split geometry in two new geometries
     const PositionVector& oldGeom = edge->getNBEdge()->getGeometry();
     const double linePos = oldGeom.nearest_offset_to_point2D(pos, false);
     std::pair<PositionVector, PositionVector> newGeoms = oldGeom.splitAt(linePos);
+    // get shape end
     const std::string shapeEnd = edge->getAttribute(GNE_ATTR_SHAPE_END);
     // figure out the new name
     int posBase = 0;
+    // set baseName
     std::string baseName = edge->getMicrosimID();
     if (edge->wasSplit()) {
         const std::string::size_type sep_index = baseName.rfind('.');
-        if (sep_index != std::string::npos) { // edge may have been renamed in between
+        // edge may have been renamed in between
+        if (sep_index != std::string::npos) { 
             std::string posString = baseName.substr(sep_index + 1);
-            try {
+            if (GNEAttributeCarrier::canParse<int>(posString.c_str())) {;
                 posBase = GNEAttributeCarrier::parse<int>(posString.c_str());
                 baseName = baseName.substr(0, sep_index); // includes the .
-            } catch (NumberFormatException&) {
             }
         }
     }
@@ -816,6 +820,14 @@ GNENet::splitEdge(GNEEdge* edge, const Position& pos, GNEUndoList* undoList, GNE
     // re-add modified crossings
     for (const auto& nbC : affectedCrossings) {
         undoList->add(new GNEChange_Crossing(secondPart->getGNEJunctionDestiny(), nbC, true), true);
+    }
+    // Split geometry of all additional children
+    for (const auto &additional : edge->getAdditionalChildren()) {
+        additional->splitEdgeGeometry(edge, secondPart, undoList);
+    }
+    // Split geometry of all demand element children
+    for (const auto &demandElement : edge->getDemandElementChildren()) {
+        demandElement->splitEdgeGeometry(edge, secondPart, undoList);
     }
     undoList->p_end();
     return newJunction;

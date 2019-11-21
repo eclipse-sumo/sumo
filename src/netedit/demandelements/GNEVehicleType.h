@@ -110,6 +110,9 @@ public:
      */
     Boundary getCenteringBoundary() const;
 
+    /// @brief split geometry
+    void splitEdgeGeometry(const GNEEdge* oldFirstPartEdge, const GNEEdge* newSecondPartEdge, GNEUndoList* undoList);
+
     /**@brief Draws the object
      * @param[in] s The settings for the current view (may influence drawing)
      * @see GUIGlObject::drawGL

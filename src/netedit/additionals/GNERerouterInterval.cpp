@@ -79,6 +79,10 @@ GNERerouterInterval::getCenteringBoundary() const {
 }
 
 
+void GNERerouterInterval::splitEdgeGeometry(const GNEEdge* /*oldFirstPartEdge*/, const GNEEdge* /*newSecondPartEdge*/, GNEUndoList* /*undoList*/) {
+}
+
+
 std::string
 GNERerouterInterval::getParentName() const {
     return getAdditionalParents().at(0)->getID();

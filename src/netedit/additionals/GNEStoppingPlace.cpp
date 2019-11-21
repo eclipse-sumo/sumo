@@ -155,6 +155,10 @@ GNEStoppingPlace::getPositionInView() const {
 }
 
 
+void GNEStoppingPlace::splitEdgeGeometry(const GNEEdge* /*oldFirstPartEdge*/, const GNEEdge* /*newSecondPartEdge*/, GNEUndoList* /*undoList*/) {
+}
+
+
 void
 GNEStoppingPlace::moveGeometry(const Position& offset) {
     // only move if at leats start or end positions is defined

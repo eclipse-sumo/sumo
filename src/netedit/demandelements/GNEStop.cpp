@@ -377,6 +377,10 @@ GNEStop::getCenteringBoundary() const {
 }
 
 
+void GNEStop::splitEdgeGeometry(const GNEEdge* /*oldFirstPartEdge*/, const GNEEdge* /*newSecondPartEdge*/, GNEUndoList* /*undoList*/) {
+}
+
+
 void
 GNEStop::drawGL(const GUIVisualizationSettings& s) const {
     // declare flag to enable or disable draw person plan

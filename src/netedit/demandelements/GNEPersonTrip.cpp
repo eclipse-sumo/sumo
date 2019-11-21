@@ -337,6 +337,10 @@ GNEPersonTrip::getCenteringBoundary() const {
 }
 
 
+void GNEPersonTrip::splitEdgeGeometry(const GNEEdge* /*oldFirstPartEdge*/, const GNEEdge* /*newSecondPartEdge*/, GNEUndoList* /*undoList*/) {
+}
+
+
 void
 GNEPersonTrip::drawGL(const GUIVisualizationSettings& /*s*/) const {
     // PersonTrips are drawn in GNEEdges

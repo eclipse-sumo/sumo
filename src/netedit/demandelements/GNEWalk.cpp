@@ -363,6 +363,10 @@ GNEWalk::getCenteringBoundary() const {
 }
 
 
+void GNEWalk::splitEdgeGeometry(const GNEEdge* /*oldFirstPartEdge*/, const GNEEdge* /*newSecondPartEdge*/, GNEUndoList* /*undoList*/) {
+}
+
+
 void
 GNEWalk::drawGL(const GUIVisualizationSettings& /*s*/) const {
     // Walks are drawn in GNEEdges

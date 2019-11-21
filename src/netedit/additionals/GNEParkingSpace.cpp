@@ -100,6 +100,10 @@ GNEParkingSpace::getCenteringBoundary() const {
 }
 
 
+void GNEParkingSpace::splitEdgeGeometry(const GNEEdge* /*oldFirstPartEdge*/, const GNEEdge* /*newSecondPartEdge*/, GNEUndoList* /*undoList*/) {
+}
+
+
 std::string
 GNEParkingSpace::getParentName() const {
     return getAdditionalParents().at(0)->getMicrosimID();

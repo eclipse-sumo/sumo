@@ -112,6 +112,10 @@ GNECalibrator::getCenteringBoundary() const {
 }
 
 
+void GNECalibrator::splitEdgeGeometry(const GNEEdge* /*oldFirstPartEdge*/, const GNEEdge* /*newSecondPartEdge*/, GNEUndoList* /*undoList*/) {
+}
+
+
 std::string
 GNECalibrator::getParentName() const {
     // get parent name depending of we have a edge or a lane

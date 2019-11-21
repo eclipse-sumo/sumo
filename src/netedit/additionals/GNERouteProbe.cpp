@@ -94,6 +94,10 @@ GNERouteProbe::getCenteringBoundary() const {
 }
 
 
+void GNERouteProbe::splitEdgeGeometry(const GNEEdge* /*oldFirstPartEdge*/, const GNEEdge* /*newSecondPartEdge*/, GNEUndoList* /*undoList*/) {
+}
+
+
 void
 GNERouteProbe::moveGeometry(const Position&) {
     // This additional cannot be moved

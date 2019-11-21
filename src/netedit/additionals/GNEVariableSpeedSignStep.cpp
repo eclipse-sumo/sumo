@@ -93,6 +93,10 @@ GNEVariableSpeedSignStep::getCenteringBoundary() const {
 }
 
 
+void GNEVariableSpeedSignStep::splitEdgeGeometry(const GNEEdge* /*oldFirstPartEdge*/, const GNEEdge* /*newSecondPartEdge*/, GNEUndoList* /*undoList*/) {
+}
+
+
 std::string
 GNEVariableSpeedSignStep::getParentName() const {
     return getAdditionalParents().at(0)->getID();

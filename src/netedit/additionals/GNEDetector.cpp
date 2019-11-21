@@ -85,6 +85,10 @@ GNEDetector::getCenteringBoundary() const {
 }
 
 
+void GNEDetector::splitEdgeGeometry(const GNEEdge* /*oldFirstPartEdge*/, const GNEEdge* /*newSecondPartEdge*/, GNEUndoList* /*undoList*/) {
+}
+
+
 double
 GNEDetector::getGeometryPositionOverLane() const {
     double fixedPos = myPositionOverLane;

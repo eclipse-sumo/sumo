@@ -119,6 +119,10 @@ GNEAccess::getCenteringBoundary() const {
 }
 
 
+void GNEAccess::splitEdgeGeometry(const GNEEdge* /*oldFirstPartEdge*/, const GNEEdge* /*newSecondPartEdge*/, GNEUndoList* /*undoList*/) {
+}
+
+
 bool
 GNEAccess::isAccessPositionFixed() const {
     // with friendly position enabled position are "always fixed"

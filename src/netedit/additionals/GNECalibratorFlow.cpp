@@ -103,6 +103,10 @@ GNECalibratorFlow::getCenteringBoundary() const {
 }
 
 
+void GNECalibratorFlow::splitEdgeGeometry(const GNEEdge* /*oldFirstPartEdge*/, const GNEEdge* /*newSecondPartEdge*/, GNEUndoList* /*undoList*/) {
+}
+
+
 std::string
 GNECalibratorFlow::getParentName() const {
     return getAdditionalParents().at(0)->getID();

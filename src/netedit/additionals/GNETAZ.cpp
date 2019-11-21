@@ -92,6 +92,10 @@ GNETAZ::getCenteringBoundary() const {
 }
 
 
+void GNETAZ::splitEdgeGeometry(const GNEEdge* /*oldFirstPartEdge*/, const GNEEdge* /*newSecondPartEdge*/, GNEUndoList* /*undoList*/) {
+}
+
+
 void
 GNETAZ::moveGeometry(const Position& offset) {
     // restore old position, apply offset and update Geometry

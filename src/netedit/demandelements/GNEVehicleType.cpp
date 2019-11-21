@@ -178,6 +178,10 @@ GNEVehicleType::getCenteringBoundary() const {
 }
 
 
+void GNEVehicleType::splitEdgeGeometry(const GNEEdge* /*oldFirstPartEdge*/, const GNEEdge* /*newSecondPartEdge*/, GNEUndoList* /*undoList*/) {
+}
+
+
 void
 GNEVehicleType::drawGL(const GUIVisualizationSettings&) const {
     // Vehicle Types aren't draw

@@ -167,6 +167,10 @@ GNEPOI::getCenteringBoundary() const {
 }
 
 
+void GNEPOI::splitEdgeGeometry(const GNEEdge* /*oldFirstPartEdge*/, const GNEEdge* /*newSecondPartEdge*/, GNEUndoList* /*undoList*/) {
+}
+
+
 GUIGlID
 GNEPOI::getGlID() const {
     return GUIPointOfInterest::getGlID();

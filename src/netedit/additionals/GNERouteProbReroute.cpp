@@ -85,6 +85,10 @@ GNERouteProbReroute::getCenteringBoundary() const {
 }
 
 
+void GNERouteProbReroute::splitEdgeGeometry(const GNEEdge* /*oldFirstPartEdge*/, const GNEEdge* /*newSecondPartEdge*/, GNEUndoList* /*undoList*/) {
+}
+
+
 std::string
 GNERouteProbReroute::getParentName() const {
     return getAdditionalParents().at(0)->getID();

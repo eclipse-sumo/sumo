@@ -86,6 +86,10 @@ GNERerouter::getCenteringBoundary() const {
 }
 
 
+void GNERerouter::splitEdgeGeometry(const GNEEdge* /*oldFirstPartEdge*/, const GNEEdge* /*newSecondPartEdge*/, GNEUndoList* /*undoList*/) {
+}
+
+
 void
 GNERerouter::openAdditionalDialog() {
     // Open rerouter dialog

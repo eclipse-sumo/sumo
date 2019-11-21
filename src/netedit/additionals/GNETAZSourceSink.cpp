@@ -81,6 +81,10 @@ GNETAZSourceSink::getCenteringBoundary() const {
 }
 
 
+void GNETAZSourceSink::splitEdgeGeometry(const GNEEdge* /*oldFirstPartEdge*/, const GNEEdge* /*newSecondPartEdge*/, GNEUndoList* /*undoList*/) {
+}
+
+
 std::string
 GNETAZSourceSink::getParentName() const {
     return getAdditionalParents().at(0)->getID();

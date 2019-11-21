@@ -89,6 +89,10 @@ GNEVaporizer::getCenteringBoundary() const {
 }
 
 
+void GNEVaporizer::splitEdgeGeometry(const GNEEdge* /*oldFirstPartEdge*/, const GNEEdge* /*newSecondPartEdge*/, GNEUndoList* /*undoList*/) {
+}
+
+
 void
 GNEVaporizer::moveGeometry(const Position&) {
     // This additional cannot be moved

@@ -81,6 +81,10 @@ GNEParkingAreaReroute::getCenteringBoundary() const {
 }
 
 
+void GNEParkingAreaReroute::splitEdgeGeometry(const GNEEdge* /*oldFirstPartEdge*/, const GNEEdge* /*newSecondPartEdge*/, GNEUndoList* /*undoList*/) {
+}
+
+
 std::string
 GNEParkingAreaReroute::getParentName() const {
     return getAdditionalParents().at(0)->getID();

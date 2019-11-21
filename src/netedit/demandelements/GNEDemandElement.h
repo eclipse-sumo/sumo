@@ -238,6 +238,9 @@ public:
 
     /// @brief Returns position of demand element in view
     virtual Position getPositionInView() const = 0;
+
+    /// @brief split geometry
+    virtual void splitEdgeGeometry(const GNEEdge* oldFirstPartEdge, const GNEEdge* newSecondPartEdge, GNEUndoList* undoList) = 0;
     /// @}
 
     /// @brief Returns a pointer to GNEViewNet in which demand element element is located

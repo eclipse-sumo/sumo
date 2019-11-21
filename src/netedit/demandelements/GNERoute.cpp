@@ -310,6 +310,10 @@ GNERoute::getCenteringBoundary() const {
 }
 
 
+void GNERoute::splitEdgeGeometry(const GNEEdge* /*oldFirstPartEdge*/, const GNEEdge* /*newSecondPartEdge*/, GNEUndoList* /*undoList*/) {
+}
+
+
 void
 GNERoute::drawGL(const GUIVisualizationSettings& /*s*/) const {
     // Routes are drawn in GNEEdges

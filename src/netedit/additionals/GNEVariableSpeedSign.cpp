@@ -82,6 +82,10 @@ GNEVariableSpeedSign::getCenteringBoundary() const {
 }
 
 
+void GNEVariableSpeedSign::splitEdgeGeometry(const GNEEdge* /*oldFirstPartEdge*/, const GNEEdge* /*newSecondPartEdge*/, GNEUndoList* /*undoList*/) {
+}
+
+
 void
 GNEVariableSpeedSign::openAdditionalDialog() {
     // Open VSS dialog

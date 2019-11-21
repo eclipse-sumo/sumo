@@ -324,6 +324,10 @@ GNERide::getCenteringBoundary() const {
 }
 
 
+void GNERide::splitEdgeGeometry(const GNEEdge* /*oldFirstPartEdge*/, const GNEEdge* /*newSecondPartEdge*/, GNEUndoList* /*undoList*/) {
+}
+
+
 void
 GNERide::drawGL(const GUIVisualizationSettings& /*s*/) const {
     // Rides are drawn in GNEEdges

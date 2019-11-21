@@ -85,6 +85,10 @@ GNEClosingLaneReroute::getCenteringBoundary() const {
 }
 
 
+void GNEClosingLaneReroute::splitEdgeGeometry(const GNEEdge* /*oldFirstPartEdge*/, const GNEEdge* /*newSecondPartEdge*/, GNEUndoList* /*undoList*/) {
+}
+
+
 std::string
 GNEClosingLaneReroute::getParentName() const {
     return getAdditionalParents().at(0)->getID();
