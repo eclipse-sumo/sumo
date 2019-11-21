@@ -23,9 +23,11 @@
 #include <config.h>
 
 #include <cassert>
+#include <utils/common/WrappingCommand.h>
 #include <utils/vehicle/SUMOVehicle.h>
 #include <utils/geom/Position.h>
 #include <utils/geom/GeomHelper.h>
+#include <microsim/MSEventControl.h>
 #include <microsim/MSNet.h>
 #include <microsim/MSVehicleType.h>
 #include "MSLane.h"
@@ -58,7 +60,9 @@ MSParkingArea::MSParkingArea(const std::string& id,
     myReservationTime(-1),
     myReservations(0),
     myReservationMaxLength(0),
-    myNumAlternatives(0) {
+    myNumAlternatives(0),
+    myLastStepOccupancy(0),
+    myUpdateEvent(nullptr) {
     // initialize unspecified defaults
     if (myWidth == 0) {
         myWidth = SUMO_const_laneWidth;
@@ -198,6 +202,10 @@ void
 MSParkingArea::enter(SUMOVehicle* what, double beg, double end) {
     assert(myLastFreePos >= 0);
     assert(myLastFreeLot < (int)mySpaceOccupancies.size());
+    if (myUpdateEvent == nullptr) {
+        myUpdateEvent = new WrappingCommand<MSParkingArea>(this, &MSParkingArea::updateOccupancy);
+        MSNet::getInstance()->getEndOfTimestepEvents()->addEvent(myUpdateEvent);
+    }
     mySpaceOccupancies[myLastFreeLot].vehicle = what;
     myEndPositions[what] = std::pair<double, double>(beg, end);
     computeLastFreePos();
@@ -207,6 +215,10 @@ MSParkingArea::enter(SUMOVehicle* what, double beg, double end) {
 void
 MSParkingArea::leaveFrom(SUMOVehicle* what) {
     assert(myEndPositions.find(what) != myEndPositions.end());
+    if (myUpdateEvent == nullptr) {
+        myUpdateEvent = new WrappingCommand<MSParkingArea>(this, &MSParkingArea::updateOccupancy);
+        MSNet::getInstance()->getEndOfTimestepEvents()->addEvent(myUpdateEvent);
+    }
     for (auto& lsd : mySpaceOccupancies) {
         if (lsd.vehicle == what) {
             lsd.vehicle = nullptr;
@@ -215,6 +227,14 @@ MSParkingArea::leaveFrom(SUMOVehicle* what) {
     }
     myEndPositions.erase(myEndPositions.find(what));
     computeLastFreePos();
+}
+
+
+SUMOTime
+MSParkingArea::updateOccupancy(SUMOTime /* currentTime */) {
+    myLastStepOccupancy = getOccupancy();
+    myUpdateEvent = nullptr;
+    return 0;
 }
 
 

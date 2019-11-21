@@ -39,6 +39,7 @@ class MSLane;
 class SUMOVehicle;
 class MSTransportable;
 class Position;
+class Command;
 
 
 // ===========================================================================
@@ -108,6 +109,14 @@ public:
      */
     int getOccupancyIncludingBlocked() const;
 
+    /** @brief Returns the area occupancy at the end of the last simulation step
+     *
+     * @return The occupancy computed as number of vehicles in myEndPositions
+     */
+    int getLastStepOccupancy() const {
+        return myLastStepOccupancy;
+    }
+
 
     /** @brief Called if a vehicle enters this stop
      *
@@ -115,9 +124,9 @@ public:
      *
      * Recomputes the free space using "computeLastFreePos" then.
      *
-     * @param[in] what The vehicle that enters the bus stop
+     * @param[in] what The vehicle that enters the parking area
      * @param[in] beg The begin halting position of the vehicle
-     * @param[in] what The end halting position of the vehicle
+     * @param[in] end The end halting position of the vehicle
      * @see computeLastFreePos
      */
     void enter(SUMOVehicle* what, double beg, double end);
@@ -129,10 +138,20 @@ public:
      *
      * Recomputes the free space using "computeLastFreePos" then.
      *
-     * @param[in] what The vehicle that leaves the bus stop
+     * @param[in] what The vehicle that leaves the parking area
      * @see computeLastFreePos
      */
     void leaveFrom(SUMOVehicle* what);
+
+
+    /** @brief Called at the end of the time step
+     *
+     * Stores the current occupancy.
+     *
+     * @param[in] currentTime The current simulation time (unused)
+     * @return Always 0 (the event is not rescheduled)
+     */
+    SUMOTime updateOccupancy(SUMOTime currentTime);
 
 
     /** @brief Returns the last free position on this stop
@@ -290,6 +309,12 @@ protected:
 
     /// @brief the number of alternative parkingAreas that are assigned to parkingAreaRerouter
     int myNumAlternatives;
+
+    /// @brief Changes to the occupancy in the current time step
+    int myLastStepOccupancy;
+
+    /// @brief Event for updating the occupancy
+    Command* myUpdateEvent;
 
 private:
 
