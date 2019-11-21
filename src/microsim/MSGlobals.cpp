@@ -73,5 +73,7 @@ double MSGlobals::gEmergencyDecelWarningThreshold(1);
 double MSGlobals::gMinorPenalty(0);
 
 bool MSGlobals::gModelParkingManoeuver;
+
+bool MSGlobals::gSublane(false);
 /****************************************************************************/
 

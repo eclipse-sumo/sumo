@@ -1587,6 +1587,8 @@ private:
     mutable FXMutex myLeaderInfoMutex;
     /// @brief Mutex for access to the cached follower info value
     mutable FXMutex myFollowerInfoMutex;
+    /// @brief Mutex for access to the cached follower info value
+    mutable FXMutex myPartialOccupatorMutex;
 #endif
 private:
     /// @brief invalidated copy constructor

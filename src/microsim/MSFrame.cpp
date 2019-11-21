@@ -721,6 +721,7 @@ MSFrame::setMSGlobals(OptionsCont& oc) {
     MSGlobals::gCheckRoutes = !oc.getBool("ignore-route-errors");
     MSGlobals::gLaneChangeDuration = string2time(oc.getString("lanechange.duration"));
     MSGlobals::gLateralResolution = oc.getFloat("lateral-resolution");
+    MSGlobals::gSublane = (MSGlobals::gLaneChangeDuration > 0 || MSGlobals::gLateralResolution > 0);
     MSGlobals::gStateLoaded = oc.isSet("load-state");
     MSGlobals::gUseMesoSim = oc.getBool("mesosim");
     MSGlobals::gMesoLimitedJunctionControl = oc.getBool("meso-junction-control.limited");

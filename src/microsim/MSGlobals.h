@@ -131,6 +131,9 @@ public:
 
     /// whether parking simulation includes manoeuver time and any associated lane blocking
     static bool gModelParkingManoeuver;
+
+    /// whether sublane simulation is enabled (sublane model or continuous lanechanging)
+    static bool gSublane;
 };
 
 
