@@ -375,8 +375,8 @@ MSTriggeredRerouter::notifyEnter(SUMOTrafficObject& tObject, MSMoveReminder::Not
     if (rerouteDef == nullptr) {
         return true; // an active interval could appear later
     }
-    double prob = myAmInUserMode ? myUserProbability : myProbability;
-    if (RandHelper::rand() > prob) {
+    const double prob = myAmInUserMode ? myUserProbability : myProbability;
+    if (prob < 1 && RandHelper::rand(veh.getRNG()) > prob) {
         return false; // XXX another interval could appear later but we would have to track whether the current interval was already tried
     }
     if (myTimeThreshold > 0 && MAX2(veh.getWaitingTime(), veh.getAccumulatedWaitingTime()) < myTimeThreshold) {
@@ -618,7 +618,7 @@ MSTriggeredRerouter::rerouteParkingArea(const MSTriggeredRerouter::RerouteInterv
         // cannot determine destination occupancy
         return nullptr;
     }
-    if (destParkArea->getOccupancy() == destParkArea->getCapacity()) {
+    if (destParkArea->getLastStepOccupancy() == destParkArea->getCapacity()) {
         // if the current route ends at the parking area, the new route will
         // also and at the new area
         newDestination = (&destParkArea->getLane().getEdge() == route.getLastEdge()
