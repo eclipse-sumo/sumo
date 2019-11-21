@@ -20,7 +20,7 @@ permalink: /Other/Links/
 
 ### Documentation
 
-- [Doxygen](http://www.stack.nl/~dimitri/doxygen/) A class
+- [Doxygen](http://www.doxygen.nl/) A class
   documentation utility.
 - [XMLMind XML Editor](http://www.xmlmind.com/xmleditor/) An editor
   supporting DocBook.

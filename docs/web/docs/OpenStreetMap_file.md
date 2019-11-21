@@ -77,5 +77,5 @@ Typically you do this with **[NETCONVERT](NETCONVERT.md)** (see
 also [Tutorials/Import from
 OpenStreetMap](Tutorials/Import_from_OpenStreetMap.md) and
 [Networks/Import/OpenStreetMap](Networks/Import/OpenStreetMap.md)).
-You could also use **[eWorld](http://eworld.sourceforge.net)** to
+You could also use **eWorld** to
 manipulate a OpenStreetMap file and convert it in a SUMO network file.

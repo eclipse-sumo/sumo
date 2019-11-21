@@ -44,7 +44,7 @@ element:
 | **id**         | id (string)   | The id of the calibrator                                                                                        |
 | edge           | id (string)   | The id of an edge for measuring and calibrating flow. (Either *edge* or *lane* must be specified)               |
 | lane           | id (string)   | The id of a lane for measuring and calibrating flow (Either *edge* or *lane* must be specified)                 |
-| **pos**        | float         | The position of the calibrator on the specified lane (currently ignored, see [\[1\]](http://sumo-sim.org/trac.wsgi/ticket/1331)   |
+| **pos**        | float         | The position of the calibrator on the specified lane (currently ignored, see [\[1\]](https://github.com/eclipse/sumo/issues/1331)   |
 | freq           | float         | The aggregation interval in which to calibrate the flows. default is step-length                                |
 | routeProbe     | float         | The id of the [routeProbe](../Simulation/Output/RouteProbe.md) element from which to determine the route distribution for generated vehicles.|
 | output         | file (string) | The output file for writing calibrator information or *NULL*                                                    |

@@ -422,7 +422,7 @@ and simply type `git pull`.
 ### What does the following error mean?
 
   Warning: No types defined, using defaults... Error: An exception
-  occurred\! Type:RuntimeException, <Message:The\> primary document
+  occurred\! Type:RuntimeException, Message:The primary document
   entity could not be opened. Id=<PATH\> Error: (At line/column 1/0).
   Error: Quitting (conversion failed).
   Answer: Simply that the file you try to use (<PATH\>) does not exist.
@@ -986,7 +986,7 @@ mechanism
 
 Drivers of [DisplayLink](http://www.DisplayLink.com) devices are
 incompatibles with Fox Library. If SUMO or netEdit presents graphics
-problem like [this](http://sumo.dlr.de/wiki/File:DisplayLinkError.png)
+problem like [this](http://sumo.dlr.de/docs/images/DisplayLinkError.png)
 during the execution, DisplayLink drivers must be uninstalled.
 
 ## Upgrading

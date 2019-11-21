@@ -230,7 +230,7 @@ communication](Topics/V2X.md). See
   Fischer and Jean-Pierre Hubaux. TraCI: An Interface for Coupling Road
   Traffic and Network Simulators. Proceedings of the 11th
   Communications and Networking Simulation Symposium, April 2008.
-  [Available at ACM Digital Library](https://doi.org/10.1145/1400713.1400740)
+  [Available at ACM Digital Library](https://dl.acm.org/citation.cfm?doid=1400713.1400740)
 - Axel Wegener, Horst Hellbrück, Christian Wewetzer and Andreas Lübke:
   VANET Simulation Environment with Feedback Loop and its Application
   to Traffic Light Assistance. Proceedings of the 3rd IEEE Workshop

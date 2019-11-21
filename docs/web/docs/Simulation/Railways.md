@@ -114,7 +114,7 @@ directions.
 
 ## Rail Signals
 
-The [node type](../Networks/PlainXML#Node_Descriptions.md)
+The [node type](../Networks/PlainXML.md#node_descriptions)
 `rail_signal` may be used to define signals which implement [Automatic Block
 Signaling](https://en.wikipedia.org/wiki/Automatic_block_signaling).
 

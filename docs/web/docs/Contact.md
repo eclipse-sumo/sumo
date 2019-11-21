@@ -30,14 +30,14 @@ There are three lists available:
   releases or documents.
   Post to the list if you have to announce something by yourself.
   Frequency: few mails per year
-  Archive: [Eclipse Archive](https://dev.eclipse.org/mhonarc/lists/sumo-dev/), [Mail Archive](https://www.mail-archive.com/sumo-dev@eclipse.org/), [SF Archive](https://sourceforge.net/p/sumo/mailman/sumo-devel/)
+  Archive: [Eclipse Archive](https://dev.eclipse.org/mhonarc/lists/sumo-dev/), [Mail Archive](https://www.mail-archive.com/sumo-dev@eclipse.org/), [SF Archive](https://sourceforge.net/p/sumo/mailman/sumo-announce/)
 
 - [sumo-dev](https://dev.eclipse.org/mailman/listinfo/sumo-dev)<br>
   This list is for topics related to sumo development. If you want to
   contribute code or ask a question in regard to extending SUMO, this
   is the right place.
   Frequency: few mails per month
-  Archive: [Eclipse Archive](https://dev.eclipse.org/mhonarc/lists/sumo-dev/), [Mail Archive](https://www.mail-archive.com/sumo-dev@eclipse.org/), [SF Archive](https://sourceforge.net/p/sumo/mailman/sumo-dev/)
+  Archive: [Eclipse Archive](https://dev.eclipse.org/mhonarc/lists/sumo-dev/), [Mail Archive](https://www.mail-archive.com/sumo-dev@eclipse.org/), [SF Archive](https://sourceforge.net/p/sumo/mailman/sumo-devel/)
 
 To **unsubscribe**, please visit the same link(s) as given above for
 subscription. You will find a field there that allows you to

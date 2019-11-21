@@ -5,7 +5,7 @@ permalink: /Simulation/Output/Amitran_Traffic_Measures/
 
 The edge based Amitran output writes aggregated speed and flow values
 using the format defined in
-<http://sumo-sim.org/xsd/amitran/linkdata.xsd>.
+<https://sumo.dlr.de/xsd/amitran/linkdata.xsd>.
 
 ## Instantiating within the Simulation
 
@@ -30,7 +30,7 @@ file="<OUTPUT_FILE>" \[vTypes="<LIST>"\] \[excludeEmpty="true"\]/\>
 ## Generated Output
 
 ```
-<linkData xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/amitran/linkdata.xsd">
+<linkData xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://sumo.dlr.de/xsd/amitran/linkdata.xsd">
    <timeSlice startTime="0" duration="60000"/>
    <timeSlice startTime="60000" duration="60000">
        <link id="32" amount="2" averageSpeed="888"/>
