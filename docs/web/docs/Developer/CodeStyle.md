@@ -216,7 +216,7 @@ core.autocrlf settings of git) using [{{SUMO}}/.gitattributes](https://github.co
 - CRLF for Windows only files (".bat", ".props", ".vcxproj",
   ".filters", ...)
 
-Git has no equivalent to the <svn:keywords> property. We use a custom
+Git has no equivalent to the svn:keywords property. We use a custom
 script to handle the $Id$ keyword like before but it has to be enabled
 manually by adding the following lines to your global .gitconfig
 (usually in your home directory)

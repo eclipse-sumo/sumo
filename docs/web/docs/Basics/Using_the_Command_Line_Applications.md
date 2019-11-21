@@ -192,7 +192,7 @@ option **--save-configuration** {{DT_FILE}}.
 Last but not least one can generate an [XML schema](https://en.wikipedia.org/wiki/XML_Schema_%28W3C%29) (using the
 option **--save-schema** {{DT_FILE}}) to validate configuration files against. For the SUMO
 application this schema should be equivalent to the one found at
-<http://sumo-sim.org/xsd/sumoConfiguration.xsd> (respectively for the
+<https://sumo.dlr.de/xsd/sumoConfiguration.xsd> (respectively for the
 other executables). Please note that the schema is more strict than the
 SUMO options parser since it only validates the verbose version given
 above.

@@ -18,7 +18,7 @@ single vehicles moves through a given road network. The Application
 suite consists of tool for preparing the road network, computing route
 choices and managing various simulation outputs. Thus, a large set of
 traffic management topics can be adressed [(see our one-page
-overview)](http://sumo.sourceforge.net/doc/current/docs/userdoc/Sumo_at_a_Glance).
+overview)](https://sumo.dlr.de/docs/Sumo_at_a_Glance.html).
 
 Designed to be easy to use, yet powerful and flexible, GnuCash allows
 you to track bank accounts, stocks, income and expenses. As quick and
@@ -52,7 +52,7 @@ GNU GPLv3
 
 The main development mailing list is
 \[sumo-devel@lists.sourceforge.net\] For details see [our contact
-page](http://sumo.sourceforge.net/doc/current/docs/userdoc/Contact.html)
+page](https://sumo.dlr.de/docs/Contact.html)
 
 ## What is the main IRC channel for your organization?
 

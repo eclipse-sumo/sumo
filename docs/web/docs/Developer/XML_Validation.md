@@ -6,13 +6,13 @@ permalink: /Developer/XML_Validation/
 # Status Quo (2018-10-12)
 
 - The current build scripts for windows and linux execute
-[schemaCheck.py](http://sumo-sim.org/trac/sumo/browser/trunk/sumo/tools/xml/schemaCheck.py)
+[schemaCheck.py]({{Source}}tools/xml/schemaCheck.py)
 as part of the regular tool tests with results visible on the [daily
-build page](http://sumo-sim.org/daily/) (see for instance the schema
+build page](https://sumo.dlr.de/daily/) (see for instance the schema
 check tests on the very end of the [64bit linux tool tests
-page](http://sumo-sim.org/daily/gcc4_64report/tools/test_default.html)).
+page](https://sumo.dlr.de/daily/gcc4_64report/tools/test_default.html)).
 - This script uses
-[lxml](http://codespeak.net/lxml/validation.html#xmlschema) (if
+lxml (if
 available) or
 [Sax2Count](http://xerces.apache.org/xerces-c/sax2count-3.html) (on
 windows only). The latter comes together with the binary xerces

@@ -46,9 +46,9 @@ Unix-like environments. Documentation can be found in the
 - [GNU autoconf pages](http://www.gnu.org/software/autoconf/),
 - [Manual for autoconf](http://www.gnu.org/software/autoconf/manual/),
 - [Manual for
-  automake](http://sources.redhat.com/automake/automake.html),
+  automake](https://www.gnu.org/software/automake/),
 - [Manual for
-  libtool](http://www.gnu.org/software/libtool/manual.html), and
+  libtool](https://www.gnu.org/software/libtool/manual/libtool.html), and
 - the
   [Autobook](http://sources.redhat.com/autobook/autobook/autobook_toc.html).
 
@@ -94,7 +94,7 @@ cd proj-4.6.0
   recent SuSE). If so, please first try to install it from there and
   do not forget to install the developer package as well.
 - The [Xerces
-  build](http://xml.apache.org/xerces-c/build-winunix.html#UNIX) is
+  build](http://xerces.apache.org/xerces-c/build-3.html) is
   somewhat more involved:
 
 ```

@@ -2,7 +2,7 @@
 title: Help on editing Articles
 ---
 
-This documentation is written using Markdown syntax. Every page or "article" is a Markdown (.md) file located [here]({{Source}}/docs/web/docs) in the official SUMO GitHub repository.
+This documentation is written using Markdown syntax. Every page or "article" is a Markdown (.md) file located [here]({{Source}}docs/web/docs) in the official SUMO GitHub repository.
 The static html pages are then generated using [Mkdocs](https://www.mkdocs.org/).
 
 !!! note
