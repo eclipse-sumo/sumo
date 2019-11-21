@@ -161,6 +161,12 @@ a {
     max-width: 350px;
 }
 
+@media (max-width: 768px) {
+    .col-md-3 {
+        max-width: 800px;
+    }
+    }
+
 .gsc-above-wrapper-area-container {
     border: none !important;
 }
