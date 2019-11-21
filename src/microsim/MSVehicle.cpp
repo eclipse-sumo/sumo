@@ -3048,7 +3048,7 @@ MSVehicle::processLinkApproaches(double& vSafe, double& vSafeMin, double& vSafeM
                 break;
             }
             const bool influencerPrio = (myInfluencer != nullptr && !myInfluencer->getRespectJunctionPriority());
-            std::vector<const SUMOVehicle*> collectFoes;
+            MSLink::BlockingFoes collectFoes;
             bool opened = (yellow || influencerPrio
                            || link->opened(dpi.myArrivalTime, dpi.myArrivalSpeed, dpi.getLeaveSpeed(),
                                            getVehicleType().getLength(),

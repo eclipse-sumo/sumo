@@ -734,7 +734,7 @@ GUIVehicle::selectBlockingFoes() const {
             /// XXX if the vehicle intends to stop on an intersection, there could be a relevant exitLink (see #4299)
             continue;
         }
-        std::vector<const SUMOVehicle*> blockingFoes;
+        MSLink::BlockingFoes blockingFoes;
         std::vector<const MSPerson*> blockingPersons;
 #ifdef DEBUG_FOES
         std::cout << "   foeLink=" << dpi.myLink->getViaLaneOrLane()->getID() << "\n";
@@ -745,8 +745,8 @@ GUIVehicle::selectBlockingFoes() const {
 #ifdef DEBUG_FOES
         if (!isOpen) {
             std::cout << "     closed due to:\n";
-            for (std::vector<const SUMOVehicle*>::const_iterator it = blockingFoes.begin(); it != blockingFoes.end(); ++it) {
-                std::cout << "   " << (*it)->getID() << "\n";
+            for (const auto& item : blockingFoes) {
+                std::cout << "   " << item->getID() << "\n";
             }
         }
 #endif
@@ -765,15 +765,15 @@ GUIVehicle::selectBlockingFoes() const {
 #ifdef DEBUG_FOES
                 if (!isShadowOpen) {
                     std::cout <<  "    foes at shadow link=" << parallelLink->getViaLaneOrLane()->getID() << ":\n";
-                    for (std::vector<const SUMOVehicle*>::const_iterator it = blockingFoes.begin(); it != blockingFoes.end(); ++it) {
-                        std::cout << "   " << (*it)->getID() << "\n";
+                    for (const auto& item : blockingFoes) {
+                        std::cout << "   " << item->getID() << "\n";
                     }
                 }
 #endif
             }
         }
-        for (std::vector<const SUMOVehicle*>::const_iterator it = blockingFoes.begin(); it != blockingFoes.end(); ++it) {
-            gSelected.select(static_cast<const GUIVehicle*>(*it)->getGlID());
+        for (const auto& item : blockingFoes) {
+            gSelected.select(static_cast<const GUIVehicle*>(item)->getGlID());
         }
 #ifdef DEBUG_FOES
         gDebugFlag1 = true;

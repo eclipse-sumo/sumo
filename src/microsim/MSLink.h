@@ -143,6 +143,7 @@ public:
     };
 
     typedef std::map<const SUMOVehicle*, const ApproachingVehicleInformation, ComparatorNumericalIdLess> ApproachInfos;
+    typedef std::vector<const SUMOVehicle*> BlockingFoes;
 
     /** @brief Constructor for simulation which uses internal lanes
      *
@@ -225,7 +226,7 @@ public:
     bool opened(SUMOTime arrivalTime, double arrivalSpeed, double leaveSpeed, double vehicleLength,
                 double impatience, double decel, SUMOTime waitingTime,
                 double posLat = 0,
-                std::vector<const SUMOVehicle*>* collectFoes = nullptr,
+                BlockingFoes* collectFoes = nullptr,
                 bool ignoreRed = false,
                 const SUMOVehicle* ego = nullptr) const;
 
@@ -245,7 +246,7 @@ public:
      **/
     bool blockedAtTime(SUMOTime arrivalTime, SUMOTime leaveTime, double arrivalSpeed, double leaveSpeed,
                        bool sameTargetLane, double impatience, double decel, SUMOTime waitingTime,
-                       std::vector<const SUMOVehicle*>* collectFoes = nullptr, const SUMOVehicle* ego = nullptr) const;
+                       BlockingFoes* collectFoes = nullptr, const SUMOVehicle* ego = nullptr) const;
 
 
     bool isBlockingAnyone() const {
@@ -449,7 +450,7 @@ public:
     /// @brief return the speed at which ego vehicle must approach the zipper link
     double getZipperSpeed(const MSVehicle* ego, const double dist, double vSafe,
                           SUMOTime arrivalTime,
-                          std::vector<const SUMOVehicle*>* collectFoes) const;
+                          BlockingFoes* collectFoes) const;
 
     /// @brief return the via lane if it exists and the lane otherwise
     MSLane* getViaLaneOrLane() const;
