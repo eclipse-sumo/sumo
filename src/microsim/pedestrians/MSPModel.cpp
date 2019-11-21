@@ -27,6 +27,7 @@
 #include <microsim/MSEdge.h>
 #include <microsim/MSJunction.h>
 #include <microsim/MSLane.h>
+#include <microsim/MSGlobals.h>
 #include "MSPModel_Striping.h"
 #include "MSPModel_NonInteracting.h"
 #include "MSPModel.h"
@@ -50,6 +51,10 @@ const double MSPModel::SAFETY_GAP(1.0);
 
 const double MSPModel::SIDEWALK_OFFSET(3);
 
+#ifdef HAVE_FOX
+FXMutex MSPModel::myInitializationMutex(true);
+#endif
+
 // ===========================================================================
 // MSPModel method definitions
 // ===========================================================================
@@ -57,6 +62,9 @@ const double MSPModel::SIDEWALK_OFFSET(3);
 
 MSPModel*
 MSPModel::getModel() {
+#ifdef HAVE_FOX
+    FXConditionalLock lock(myInitializationMutex, MSGlobals::gNumSimThreads > 1);
+#endif
     if (myModel == nullptr) {
         const OptionsCont& oc = OptionsCont::getOptions();
         MSNet* net = MSNet::getInstance();
