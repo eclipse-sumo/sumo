@@ -97,6 +97,9 @@ MSInductLoop::notifyMove(SUMOTrafficObject& veh, double oldPos,
         // detector not reached yet
         return true;
     }
+#ifdef HAVE_FOX
+    FXConditionalLock lock(myNotificationMutex, MSGlobals::gNumSimThreads > 1);
+#endif
     const double oldSpeed = veh.getPreviousSpeed();
     if (newPos >= myPosition && oldPos < myPosition) {
         // entered the detector by move

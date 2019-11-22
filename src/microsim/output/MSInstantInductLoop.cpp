@@ -68,6 +68,9 @@ MSInstantInductLoop::notifyMove(SUMOTrafficObject& veh, double oldPos,
         // detector not reached yet
         return true;
     }
+#ifdef HAVE_FOX
+    FXConditionalLock lock(myNotificationMutex, MSGlobals::gNumSimThreads > 1);
+#endif
 
     const double oldSpeed = veh.getPreviousSpeed();
     double enterSpeed = MSGlobals::gSemiImplicitEulerUpdate ? newSpeed : oldSpeed; // NOTE: For the euler update, the vehicle is assumed to travel at constant speed for the whole time step
