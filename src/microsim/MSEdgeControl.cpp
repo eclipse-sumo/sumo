@@ -194,6 +194,9 @@ MSEdgeControl::executeMovements(SUMOTime t) {
     MSNet::getInstance()->getVehicleControl().removePending();
     std::vector<MSLane*>& toIntegrate = myWithVehicles2Integrate.getContainer();
     std::sort(toIntegrate.begin(), toIntegrate.end(), ComparatorIdLess());
+    /// @todo: sorting only needed to account for lane-ordering dependencies.
+    //This should disappear when parallelization is working. Until then it would
+    //be better to use ComparatorNumericalIdLess instead of ComparatorIdLess
     myWithVehicles2Integrate.unlock();
     for (MSLane* const lane : toIntegrate) {
         const bool wasInactive = lane->getVehicleNumber() == 0;
