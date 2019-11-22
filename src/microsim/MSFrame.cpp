@@ -681,6 +681,12 @@ MSFrame::checkOptions() {
             ok = false;
         }
     };
+#ifndef HAVE_FOX
+    if (oc.getInt("threads") > 1) {
+        WRITE_ERROR("Parallel simulation is only possible when compiled with Fox.");
+        ok = false;
+    }
+#endif
     if (oc.getInt("threads") > oc.getInt("thread-rngs")) {
         WRITE_WARNING("Number of threads exceeds number of thread-rngs. Simulation runs with the same seed may produce different results");
     }
@@ -758,7 +764,8 @@ MSFrame::setMSGlobals(OptionsCont& oc) {
         // value already checked in checkOptions()
         MSGlobals::gDefaultEmergencyDecel = StringUtils::toDouble(defaultEmergencyDecelOption);
     }
-    MSGlobals::gNumSimThreads = OptionsCont::getOptions().getInt("threads");
+    MSGlobals::gNumSimThreads = oc.getInt("threads");
+    MSGlobals::gNumThreads = MAX2(MSGlobals::gNumSimThreads, oc.getInt("device.rerouting.threads"));
 
     MSGlobals::gEmergencyDecelWarningThreshold = oc.getFloat("emergencydecel.warning-threshold");
     MSGlobals::gMinorPenalty = oc.getFloat("weights.minor-penalty");

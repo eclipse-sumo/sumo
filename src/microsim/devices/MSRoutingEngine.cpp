@@ -59,9 +59,7 @@ SUMOAbstractRouter<MSEdge, SUMOVehicle>* MSRoutingEngine::myRouter = nullptr;
 AStarRouter<MSEdge, SUMOVehicle, SUMOAbstractRouterPermissions<MSEdge, SUMOVehicle> >* MSRoutingEngine::myRouterWithProhibited = nullptr;
 std::map<std::pair<const MSEdge*, const MSEdge*>, const MSRoute*> MSRoutingEngine::myCachedRoutes;
 SUMOAbstractRouter<MSEdge, SUMOVehicle>::Operation MSRoutingEngine::myEffortFunc = &MSRoutingEngine::getEffort;
-#ifdef HAVE_FOX
-FXWorkerThread::Pool MSRoutingEngine::myThreadPool;
-#endif
+FXMutex MSRoutingEngine::myRouteCacheMutex;
 
 
 // ===========================================================================
@@ -223,12 +221,7 @@ MSRoutingEngine::getCachedRoute(const std::pair<const MSEdge*, const MSEdge*>& k
 
 void
 MSRoutingEngine::reroute(SUMOVehicle& vehicle, const SUMOTime currentTime, const bool onInit) {
-#ifdef HAVE_FOX
-    const bool needThread = (myRouter == nullptr && myThreadPool.isFull());
-#else
-    const bool needThread = true;
-#endif
-    if (needThread && myRouter == nullptr) {
+    if (myRouter == nullptr) {
         OptionsCont& oc = OptionsCont::getOptions();
         const std::string routingAlgorithm = oc.getString("routing-algorithm");
         const bool mayHaveRestrictions = MSNet::getInstance()->hasPermissions() || oc.getInt("remote-port") != 0;
@@ -296,17 +289,15 @@ MSRoutingEngine::reroute(SUMOVehicle& vehicle, const SUMOTime currentTime, const
         }
     }
 #ifdef HAVE_FOX
-    if (needThread) {
-        const int numThreads = OptionsCont::getOptions().getInt("device.rerouting.threads");
-        if (myThreadPool.size() < numThreads) {
-            new WorkerThread(myThreadPool, myRouter);
+    FXWorkerThread::Pool& threadPool = MSNet::getInstance()->getEdgeControl().getThreadPool();
+    if (threadPool.size() > 0) {
+        const std::vector<FXWorkerThread*>& threads = threadPool.getWorkers();
+        if (static_cast<MSEdgeControl::WorkerThread*>(threads.front())->setRouter(myRouter)) {
+            for (std::vector<FXWorkerThread*>::const_iterator t = threads.begin() + 1; t != threads.end(); ++t) {
+                static_cast<MSEdgeControl::WorkerThread*>(*t)->setRouter(myRouter->clone());
+            }
         }
-        if (myThreadPool.size() < numThreads) {
-            myRouter = nullptr;
-        }
-    }
-    if (myThreadPool.size() > 0) {
-        myThreadPool.add(new RoutingTask(vehicle, currentTime, onInit));
+        threadPool.add(new RoutingTask(vehicle, currentTime, onInit));
         return;
     }
 #endif
@@ -350,10 +341,7 @@ MSRoutingEngine::cleanup() {
     myCachedRoutes.clear();
     myAdaptationStepsIndex = 0;
 #ifdef HAVE_FOX
-    if (myThreadPool.size() > 0) {
-        // we cannot wait for the static destructor to do the cleanup
-        // because the output devices are gone by then
-        myThreadPool.clear();
+    if (MSGlobals::gNumThreads > 1) {
         // router deletion is done in thread destructor
         myRouter = nullptr;
         return;
@@ -367,8 +355,9 @@ MSRoutingEngine::cleanup() {
 #ifdef HAVE_FOX
 void
 MSRoutingEngine::waitForAll() {
-    if (myThreadPool.size() > 0) {
-        myThreadPool.waitAll();
+    FXWorkerThread::Pool& threadPool = MSNet::getInstance()->getEdgeControl().getThreadPool();
+    if (threadPool.size() > 0) {
+        threadPool.waitAll();
     }
 }
 
@@ -378,17 +367,16 @@ MSRoutingEngine::waitForAll() {
 // ---------------------------------------------------------------------------
 void
 MSRoutingEngine::RoutingTask::run(FXWorkerThread* context) {
-    myVehicle.reroute(myTime, "device.rerouting", static_cast<WorkerThread*>(context)->getRouter(), myOnInit, myWithTaz);
+    myVehicle.reroute(myTime, "device.rerouting", static_cast<MSEdgeControl::WorkerThread*>(context)->getRouter(), myOnInit, myWithTaz);
     const MSEdge* source = *myVehicle.getRoute().begin();
     const MSEdge* dest = myVehicle.getRoute().getLastEdge();
     if (source->isTazConnector() && dest->isTazConnector()) {
         const std::pair<const MSEdge*, const MSEdge*> key = std::make_pair(source, dest);
-        lock();
+        FXMutexLock lock(myRouteCacheMutex);
         if (MSRoutingEngine::myCachedRoutes.find(key) == MSRoutingEngine::myCachedRoutes.end()) {
             MSRoutingEngine::myCachedRoutes[key] = &myVehicle.getRoute();
             myVehicle.getRoute().addReference();
         }
-        unlock();
     }
 }
 #endif

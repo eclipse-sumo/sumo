@@ -37,7 +37,6 @@
 #include <utils/common/UtilExceptions.h>
 #include "NLBuilder.h"
 #include "NLEdgeControlBuilder.h"
-#include <utils/options/OptionsCont.h>
 #include <utils/iodevices/OutputDevice.h>
 
 

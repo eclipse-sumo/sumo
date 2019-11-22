@@ -255,6 +255,9 @@ public:
             myPoolMutex.unlock();
         }
 
+        const std::vector<FXWorkerThread*>& getWorkers() {
+            return myWorkers;
+        }
     private:
         /// @brief the current worker threads
         std::vector<FXWorkerThread*> myWorkers;

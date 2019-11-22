@@ -65,10 +65,18 @@ MSEdgeControl::MSEdgeControl(const std::vector< MSEdge* >& edges)
             myLastLaneChange[(*i)->getNumericalID()] = -1;
         }
     }
+#ifdef HAVE_FOX
+    if (MSGlobals::gNumThreads > 1) {
+        while (myThreadPool.size() < MSGlobals::gNumThreads) {
+            new WorkerThread(myThreadPool);
+        }
+    }
+#endif
 }
 
 
 MSEdgeControl::~MSEdgeControl() {
+    myThreadPool.clear();
 }
 
 
@@ -93,13 +101,6 @@ MSEdgeControl::patchActiveLanes() {
 
 void
 MSEdgeControl::planMovements(SUMOTime t) {
-#ifdef HAVE_FOX
-    if (MSGlobals::gNumSimThreads > 1) {
-        while (myThreadPool.size() < MSGlobals::gNumSimThreads) {
-            new FXWorkerThread(myThreadPool);
-        }
-    }
-#endif
 #ifdef LOAD_BALANCING
     myRNGLoad = std::priority_queue<std::pair<int, int> >();
     for (int i = 0; i < MSLane::getNumRNGs(); i++) {

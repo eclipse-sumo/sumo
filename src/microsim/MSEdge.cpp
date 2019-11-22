@@ -962,9 +962,7 @@ MSEdge::getSuccessors(SUMOVehicleClass vClass) const {
         return mySuccessors;
     }
 #ifdef HAVE_FOX
-    if (MSRoutingEngine::isParallel()) {
-        MSRoutingEngine::lock();
-    }
+    FXConditionalLock lock(mySuccessorMutex, MSGlobals::gNumThreads > 1);
 #endif
     std::map<SUMOVehicleClass, MSEdgeVector>::iterator i = myClassesSuccessorMap.find(vClass);
     if (i == myClassesSuccessorMap.end()) {
@@ -984,11 +982,6 @@ MSEdge::getSuccessors(SUMOVehicleClass vClass) const {
         }
     }
     // can use cached value
-#ifdef HAVE_FOX
-    if (MSRoutingEngine::isParallel()) {
-        MSRoutingEngine::unlock();
-    }
-#endif
     return i->second;
 }
 
@@ -999,18 +992,11 @@ MSEdge::getViaSuccessors(SUMOVehicleClass vClass) const {
         return myViaSuccessors;
     }
 #ifdef HAVE_FOX
-    if (MSRoutingEngine::isParallel()) {
-        MSRoutingEngine::lock();
-    }
+    FXConditionalLock lock(mySuccessorMutex, MSGlobals::gNumThreads > 1);
 #endif
     auto i = myClassesViaSuccessorMap.find(vClass);
     if (i != myClassesViaSuccessorMap.end()) {
         // can use cached value
-#ifdef HAVE_FOX
-        if (MSRoutingEngine::isParallel()) {
-            MSRoutingEngine::unlock();
-        }
-#endif
         return i->second;
     }
     // instantiate vector
@@ -1026,11 +1012,6 @@ MSEdge::getViaSuccessors(SUMOVehicleClass vClass) const {
             }
         }
     }
-#ifdef HAVE_FOX
-    if (MSRoutingEngine::isParallel()) {
-        MSRoutingEngine::unlock();
-    }
-#endif
     return result;
 }
 

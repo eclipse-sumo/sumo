@@ -892,7 +892,7 @@ MSNet::removeVehicleStateListener(VehicleStateListener* listener) {
 void
 MSNet::informVehicleStateListener(const SUMOVehicle* const vehicle, VehicleState to, const std::string& info) {
 #ifdef HAVE_FOX
-    FXConditionalLock lock(myStateListenerMutex, MSRoutingEngine::isParallel() || MSGlobals::gNumSimThreads > 1);
+    FXConditionalLock lock(myStateListenerMutex, MSGlobals::gNumThreads > 1);
 #endif
     for (VehicleStateListener* const listener : myVehicleStateListeners) {
         listener->vehicleStateChanged(vehicle, to, info);

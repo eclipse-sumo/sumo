@@ -905,6 +905,9 @@ protected:
 #ifdef HAVE_FOX
     /// @brief Mutex for accessing waiting vehicles
     mutable FXMutex myWaitingMutex;
+
+    /// @brief Mutex for accessing successor edges
+    mutable FXMutex mySuccessorMutex;
 #endif
 
 private:
