@@ -424,7 +424,7 @@ protected:
     std::vector<GUIGlObject*> getGUIGlObjectsAtPosition(Position pos, double radius);
 
     /// @brief returns the ids of all objects in the given boundary
-    std::vector<GUIGlID> getObjectsInBoundary(Boundary bound);
+    std::vector<GUIGlID> getObjectsInBoundary(Boundary bound, bool enableDrawForSelecting = true);
 
     /// @brief invokes the tooltip for the given object
     void showToolTipFor(const GUIGlID id);

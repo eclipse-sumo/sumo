@@ -42,6 +42,7 @@
 class GNELane;
 class GNEEdge;
 class GNEJunction;
+class GNEViewNet;
 
 // ===========================================================================
 // class definitions
@@ -316,14 +317,14 @@ struct GNEGeometry {
                                     const Position &extraFirstPosition = Position::INVALID, const Position &extraLastPosition = Position::INVALID);
 
     /// @brief draw lane geometry (use their own function due colors)
-    static void drawLaneGeometry(const GUIVisualizationSettings& s, const Position mousePosition, const PositionVector& shape, const std::vector<double>& rotations, 
+    static void drawLaneGeometry(const GNEViewNet *viewNet, const PositionVector& shape, const std::vector<double>& rotations, 
                                  const std::vector<double>& lengths, const std::vector<RGBColor>& colors, double width);
 
      /// @brief draw geometry
-    static void drawGeometry(const GUIVisualizationSettings& s, const Position mousePosition, const Geometry& geometry, const double width);
+    static void drawGeometry(const GNEViewNet *viewNet, const Geometry& geometry, const double width);
 
     /// @brief draw geometry segment
-    static void drawSegmentGeometry(const GUIVisualizationSettings& s, const Position mousePosition, const SegmentGeometry::Segment& segment, const double width);
+    static void drawSegmentGeometry(const GNEViewNet *viewNet, const SegmentGeometry::Segment& segment, const double width);
 };
 
 #endif

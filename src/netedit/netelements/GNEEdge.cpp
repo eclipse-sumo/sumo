@@ -1206,7 +1206,7 @@ GNEEdge::drawPartialRoute(const GUIVisualizationSettings& s, const GNEDemandElem
                 // Set route color (needed due drawShapeDottedContour)
                 GLHelper::setColor(routeColor);
                 // draw box lines
-                GNEGeometry::drawSegmentGeometry(s, myNet->getViewNet()->getPositionInformation(), segment, routeWidth);
+                GNEGeometry::drawSegmentGeometry(myNet->getViewNet(), segment, routeWidth);
                 // check if shape dotted contour has to be drawn
                 if (myNet->getViewNet()->getDottedAC() == route) {
                     GLHelper::drawShapeDottedContourAroundShape(s, getType(), segment.getShape(), routeWidth);
@@ -1221,7 +1221,7 @@ GNEEdge::drawPartialRoute(const GUIVisualizationSettings& s, const GNEDemandElem
                 // Set route color (needed due drawShapeDottedContour)
                 GLHelper::setColor(routeColor);
                 // draw box lines
-                GNEGeometry::drawSegmentGeometry(s, myNet->getViewNet()->getPositionInformation(), segment, routeWidth);
+                GNEGeometry::drawSegmentGeometry(myNet->getViewNet(), segment, routeWidth);
                 // check if shape dotted contour has to be drawn
                 if (myNet->getViewNet()->getDottedAC() == route) {
                     GLHelper::drawShapeDottedContourAroundShape(s, getType(), segment.getShape(), routeWidth);
@@ -1272,14 +1272,14 @@ GNEEdge::drawPartialTripFromTo(const GUIVisualizationSettings& s, const GNEDeman
         // iterate over segments
         for (const auto &segment : tripOrFromTo->getDemandElementSegmentGeometry()) {
             // draw partial segment
-            GNEGeometry::drawSegmentGeometry(s, myNet->getViewNet()->getPositionInformation(), segment, tripOrFromToWidth);
+            GNEGeometry::drawSegmentGeometry(myNet->getViewNet(), segment, tripOrFromToWidth);
         }
     } else {
         // iterate over segments
         for (const auto &segment : tripOrFromTo->getDemandElementSegmentGeometry()) {
             // draw partial segment
             if ((segment.edge == this) && (segment.AC == tripOrFromTo)) {
-                GNEGeometry::drawSegmentGeometry(s, myNet->getViewNet()->getPositionInformation(), segment, tripOrFromToWidth);
+                GNEGeometry::drawSegmentGeometry(myNet->getViewNet(), segment, tripOrFromToWidth);
             }
         }
     }
@@ -1353,10 +1353,10 @@ GNEEdge::drawPartialPersonPlan(const GUIVisualizationSettings& s, const GNEDeman
                     // Set person plan color (needed due drawShapeDottedContour)
                     GLHelper::setColor(personPlanColor);
                     // draw box line
-                    GNEGeometry::drawSegmentGeometry(s, myNet->getViewNet()->getPositionInformation(), segment, personPlanWidth);
+                    GNEGeometry::drawSegmentGeometry(myNet->getViewNet(), segment, personPlanWidth);
                     // check if shape dotted contour has to be drawn
                     if (myNet->getViewNet()->getDottedAC() == personPlan) {
-                        GNEGeometry::drawSegmentGeometry(s, myNet->getViewNet()->getPositionInformation(), segment, personPlanWidth);
+                        GNEGeometry::drawSegmentGeometry(myNet->getViewNet(), segment, personPlanWidth);
                     }
                 }
             }
@@ -1368,10 +1368,10 @@ GNEEdge::drawPartialPersonPlan(const GUIVisualizationSettings& s, const GNEDeman
                     // Set person plan color (needed due drawShapeDottedContour)
                     GLHelper::setColor(personPlanColor);
                     // draw box line
-                    GNEGeometry::drawSegmentGeometry(s, myNet->getViewNet()->getPositionInformation(), segment, personPlanWidth);
+                    GNEGeometry::drawSegmentGeometry(myNet->getViewNet(), segment, personPlanWidth);
                     // check if shape dotted contour has to be drawn
                     if (myNet->getViewNet()->getDottedAC() == personPlan) {
-                        GNEGeometry::drawSegmentGeometry(s, myNet->getViewNet()->getPositionInformation(), segment, personPlanWidth);
+                        GNEGeometry::drawSegmentGeometry(myNet->getViewNet(), segment, personPlanWidth);
                     }
                 }
             }

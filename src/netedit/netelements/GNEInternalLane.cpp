@@ -119,7 +119,7 @@ GNEInternalLane::drawGL(const GUIVisualizationSettings& s) const {
     if (s.scale < 1.) {
         GLHelper::drawLine(myInternalLaneGeometry.getShape());
     } else {
-        GNEGeometry::drawGeometry(s, myEditor->getViewNet()->getPositionInformation(), myInternalLaneGeometry, 0.2);
+        GNEGeometry::drawGeometry(myEditor->getViewNet(), myInternalLaneGeometry, 0.2);
     }
     glPopName();
     glPopMatrix();

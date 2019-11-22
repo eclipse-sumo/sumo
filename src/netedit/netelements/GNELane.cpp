@@ -423,25 +423,25 @@ GNELane::drawGL(const GUIVisualizationSettings& s) const {
             const double halfRailWidth = halfInnerFeetWidth + 0.15 * exaggeration;
             const double halfCrossTieWidth = halfGauge * 1.81;
             // Draw lane geometry
-            GNEGeometry::drawLaneGeometry(s, myNet->getViewNet()->getPositionInformation(), shape, myLaneGeometry.getShapeRotations(), myLaneGeometry.getShapeLengths(), myShapeColors, halfRailWidth);
+            GNEGeometry::drawLaneGeometry(myNet->getViewNet(), shape, myLaneGeometry.getShapeRotations(), myLaneGeometry.getShapeLengths(), myShapeColors, halfRailWidth);
             // Save current color
             RGBColor current = GLHelper::getColor();
             // Draw gray on top with reduced width (the area between the two tracks)
             glColor3d(0.8, 0.8, 0.8);
             glTranslated(0, 0, .1);
-            GNEGeometry::drawLaneGeometry(s, myNet->getViewNet()->getPositionInformation(), shape, myLaneGeometry.getShapeRotations(), myLaneGeometry.getShapeLengths(), {}, halfInnerFeetWidth);
+            GNEGeometry::drawLaneGeometry(myNet->getViewNet(), shape, myLaneGeometry.getShapeRotations(), myLaneGeometry.getShapeLengths(), {}, halfInnerFeetWidth);
             // Set current color back
             GLHelper::setColor(current);
             // Draw crossties
             GLHelper::drawCrossTies(shape, myLaneGeometry.getShapeRotations(), myLaneGeometry.getShapeLengths(), 0.26 * exaggeration, 0.6 * exaggeration, halfCrossTieWidth, s.drawForSelecting);
         } else {
-            GNEGeometry::drawLaneGeometry(s, myNet->getViewNet()->getPositionInformation(), myLaneGeometry.getShape(), myLaneGeometry.getShapeRotations(), myLaneGeometry.getShapeLengths(), myShapeColors, halfWidth);
+            GNEGeometry::drawLaneGeometry(myNet->getViewNet(), myLaneGeometry.getShape(), myLaneGeometry.getShapeRotations(), myLaneGeometry.getShapeLengths(), myShapeColors, halfWidth);
         }
         if (halfWidth != halfWidth2 && !spreadSuperposed) {
             // draw again to show the selected edge
             GLHelper::setColor(s.colorSettings.selectedEdgeColor);
             glTranslated(0, 0, -.1);
-            GNEGeometry::drawLaneGeometry(s, myNet->getViewNet()->getPositionInformation(), myLaneGeometry.getShape(), myLaneGeometry.getShapeRotations(), myLaneGeometry.getShapeLengths(), {}, halfWidth2);
+            GNEGeometry::drawLaneGeometry(myNet->getViewNet(), myLaneGeometry.getShape(), myLaneGeometry.getShapeRotations(), myLaneGeometry.getShapeLengths(), {}, halfWidth2);
         }
         // check if dotted contour has to be drawn
         if (myNet->getViewNet()->getDottedAC() == this) {
@@ -576,7 +576,7 @@ GNELane::drawMarkings(const GUIVisualizationSettings& s, double scale) const {
     }
     // draw white boundings and white markings
     glColor3d(1, 1, 1);
-    GNEGeometry::drawGeometry(s, myNet->getViewNet()->getPositionInformation(), myLaneGeometry, (myHalfLaneWidth + SUMO_const_laneMarkWidth) * scale);
+    GNEGeometry::drawGeometry(myNet->getViewNet(), myLaneGeometry, (myHalfLaneWidth + SUMO_const_laneMarkWidth) * scale);
     glPopMatrix();
 }
 
@@ -965,7 +965,7 @@ GNELane::drawPartialE2DetectorPlan(const GUIVisualizationSettings& s, const GNEA
                 // Set E2Detector color (needed due drawShapeDottedContour)
                 GLHelper::setColor(E2DetectorColor);
                 // draw box lines
-                GNEGeometry::drawSegmentGeometry(s, myNet->getViewNet()->getPositionInformation(), segment, E2DetectorWidth);
+                GNEGeometry::drawSegmentGeometry(myNet->getViewNet(), segment, E2DetectorWidth);
                 // check if shape dotted contour has to be drawn
                 if (myNet->getViewNet()->getDottedAC() == E2Detector) {
                     GLHelper::drawShapeDottedContourAroundShape(s, getType(), segment.getShape(), E2DetectorWidth);

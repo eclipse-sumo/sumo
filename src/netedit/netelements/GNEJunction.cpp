@@ -314,7 +314,17 @@ GNEJunction::drawGL(const GUIVisualizationSettings& s) const {
                 if (exaggeration > 1) {
                     shape.scaleRelative(exaggeration);
                 }
-                if ((s.drawForSelecting) || (s.scale * exaggeration * myMaxSize < 40.)) {
+
+                // first check if inner polygon can be drawn
+                if (s.drawForSelecting) {
+                    if (shape.around(myNet->getViewNet()->getPositionInformation())) {
+                        // push matrix
+                        glPushMatrix();
+                        glTranslated(myNet->getViewNet()->getPositionInformation().x(), myNet->getViewNet()->getPositionInformation().y(), GLO_POLYGON + 0.04);
+                        GLHelper:: drawFilledCircle(circleWidth, s.getCircleResolution());
+                        glPopMatrix();
+                    }
+                } else if (s.scale * exaggeration * myMaxSize < 40.) {
                     GLHelper::drawFilledPoly(shape, true);
                 } else {
                     GLHelper::drawFilledPolyTesselated(shape, true);

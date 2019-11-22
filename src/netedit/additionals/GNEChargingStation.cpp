@@ -101,7 +101,7 @@ GNEChargingStation::drawGL(const GUIVisualizationSettings& s) const {
             GLHelper::setColor(s.colorSettings.chargingStation);
         }
         // Draw base
-        GNEGeometry::drawGeometry(s, myViewNet->getPositionInformation(), myAdditionalGeometry, exaggeration);
+        GNEGeometry::drawGeometry(myViewNet, myAdditionalGeometry, exaggeration);
         // Check if the distance is enought to draw details and if is being drawn for selecting
         if (s.drawForSelecting) {
             // only draw circle depending of distance between sign and mouse cursor

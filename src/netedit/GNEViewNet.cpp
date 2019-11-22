@@ -310,8 +310,8 @@ GNEViewNet::getAttributeCarriersInBoundary(const Boundary& boundary, bool forceS
     std::set<std::pair<std::string, GNEAttributeCarrier*> > result;
     // firstm make OpenGL context current prior to performing OpenGL commands
     if (makeCurrent()) {
-        // obtain GUIGLIds of all objects in the given boundary
-        std::vector<GUIGlID> ids = getObjectsInBoundary(boundary);
+        // obtain GUIGLIds of all objects in the given boundary (disabling drawForSelecting)
+        std::vector<GUIGlID> ids = getObjectsInBoundary(boundary, false);
         //  finish make OpenGL context current
         makeNonCurrent();
         // iterate over GUIGlIDs

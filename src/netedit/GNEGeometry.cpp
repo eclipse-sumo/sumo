@@ -33,6 +33,7 @@
 
 #include "GNEGeometry.h"
 #include "GNENet.h"
+#include "GNEViewNet.h"
 
 
 // ===========================================================================
@@ -665,9 +666,11 @@ GNEGeometry::updateGeometricPath(GNEGeometry::SegmentGeometry &segmentGeometry, 
 
 
 void 
-GNEGeometry::drawGeometry(const GUIVisualizationSettings& s, const Position mousePosition, const Geometry& geometry, const double width) {
+GNEGeometry::drawGeometry(const GNEViewNet *viewNet, const Geometry& geometry, const double width) {
     // first check if we're in draw for selecting mode
-    if (s.drawForSelecting) {
+    if (viewNet->getVisualisationSettings()->drawForSelecting) {
+        // obtain mouse Position
+        const Position mousePosition = viewNet->getPositionInformation();
         // obtain position over lane relative to mouse position
         const Position posOverLane = geometry.getShape().positionAtOffset2D(geometry.getShape().nearest_offset_to_point2D(mousePosition));
         // if mouse is over segment
@@ -677,7 +680,7 @@ GNEGeometry::drawGeometry(const GUIVisualizationSettings& s, const Position mous
             // translate to position over lane
             glTranslated(posOverLane.x(), posOverLane.y(), 0);
             // Draw circle
-            GLHelper::drawFilledCircle(width, s.getCircleResolution());
+            GLHelper::drawFilledCircle(width, viewNet->getVisualisationSettings()->getCircleResolution());
             // pop draw matrix
             glPopMatrix();
         }
@@ -688,10 +691,12 @@ GNEGeometry::drawGeometry(const GUIVisualizationSettings& s, const Position mous
 
 
 void 
-GNEGeometry::drawLaneGeometry(const GUIVisualizationSettings& s, const Position mousePosition, const PositionVector& shape, const std::vector<double>& rotations, 
+GNEGeometry::drawLaneGeometry(const GNEViewNet *viewNet, const PositionVector& shape, const std::vector<double>& rotations, 
     const std::vector<double>& lengths, const std::vector<RGBColor>& colors, double width) {
     // first check if we're in draw for selecting mode
-    if (s.drawForSelecting) {
+    if (viewNet->getVisualisationSettings()->drawForSelecting) {
+        // obtain mouse Position
+        const Position mousePosition = viewNet->getPositionInformation();
         // obtain position over lane relative to mouse position
         const Position posOverLane = shape.positionAtOffset2D(shape.nearest_offset_to_point2D(mousePosition));
         // if mouse is over segment
@@ -701,7 +706,7 @@ GNEGeometry::drawLaneGeometry(const GUIVisualizationSettings& s, const Position 
             // translate to position over lane
             glTranslated(posOverLane.x(), posOverLane.y(), 0);
             // Draw circle
-            GLHelper::drawFilledCircle(width, s.getCircleResolution());
+            GLHelper::drawFilledCircle(width, viewNet->getVisualisationSettings()->getCircleResolution());
             // pop draw matrix
             glPopMatrix();
         }
@@ -716,9 +721,11 @@ GNEGeometry::drawLaneGeometry(const GUIVisualizationSettings& s, const Position 
 
 
 void
-GNEGeometry::drawSegmentGeometry(const GUIVisualizationSettings& s, const Position mousePosition, const SegmentGeometry::Segment& segment, const double width) {
+GNEGeometry::drawSegmentGeometry(const GNEViewNet *viewNet, const SegmentGeometry::Segment& segment, const double width) {
     // first check if we're in draw for selecting mode
-    if (s.drawForSelecting) {
+    if (viewNet->getVisualisationSettings()->drawForSelecting) {
+        // obtain mouse Position
+        const Position mousePosition = viewNet->getPositionInformation();
         // obtain position over lane relative to mouse position
         const Position posOverLane = segment.getShape().positionAtOffset2D(segment.getShape().nearest_offset_to_point2D(mousePosition));
         // if mouse is over segment
@@ -728,7 +735,7 @@ GNEGeometry::drawSegmentGeometry(const GUIVisualizationSettings& s, const Positi
             // translate to position over lane
             glTranslated(posOverLane.x(), posOverLane.y(), 0);
             // Draw circle
-            GLHelper::drawFilledCircle(width, s.getCircleResolution());
+            GLHelper::drawFilledCircle(width, viewNet->getVisualisationSettings()->getCircleResolution());
             // pop draw matrix
             glPopMatrix();
         }

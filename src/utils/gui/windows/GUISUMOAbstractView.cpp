@@ -469,7 +469,7 @@ GUISUMOAbstractView::getGUIGlObjectsAtPosition(Position pos, double radius) {
 
 
 std::vector<GUIGlID>
-GUISUMOAbstractView::getObjectsInBoundary(Boundary bound) {
+GUISUMOAbstractView::getObjectsInBoundary(Boundary bound, bool enableDrawForSelecting) {
     const int NB_HITS_MAX = 1024 * 1024;
     // Prepare the selection mode
     static GUIGlID hits[NB_HITS_MAX];
@@ -482,8 +482,10 @@ GUISUMOAbstractView::getObjectsInBoundary(Boundary bound) {
     myChanger->setViewport(bound);
     bound = applyGLTransform(false);
 
-    // paint in select mode
-    myVisualizationSettings->drawForSelecting = true;
+    // paint in select mode (depending of enableDrawForSelecting. It's only false if we're selecting using a rectangle)
+    if (enableDrawForSelecting) {
+        myVisualizationSettings->drawForSelecting = true;
+    }
     int hits2 = doPaintGL(GL_SELECT, bound);
     myVisualizationSettings->drawForSelecting = false;
     // Get the results

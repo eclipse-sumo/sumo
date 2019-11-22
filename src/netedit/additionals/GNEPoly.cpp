@@ -278,6 +278,11 @@ void
 GNEPoly::drawGL(const GUIVisualizationSettings& s) const {
     // first check if poly can be drawn
     if (myNet->getViewNet()->getDemandViewOptions().showShapes()) {
+        // draw details of Netedit
+        // Obtain constants
+        const double exaggeration = s.addSize.getExaggeration(s, this);
+        const double circleWidth = myHintSize * MIN2((double)1, s.polySize.getExaggeration(s, this));
+        const double circleWidthSquared = circleWidth * circleWidth;
         // check if boundary has to be drawn
         if (s.drawBoundaries) {
             GLHelper::drawBoundary(getCenteringBoundary());
@@ -285,15 +290,19 @@ GNEPoly::drawGL(const GUIVisualizationSettings& s) const {
         // push name (needed for getGUIGlObjectsUnderCursor(...)
         glPushName(getGlID());
         // first check if inner polygon can be drawn
-        if (checkDraw(s)) {
+        if (s.drawForSelecting && getFill()) {
+            if (myShape.around(myNet->getViewNet()->getPositionInformation())) {
+                // push matrix
+                glPushMatrix();
+                glTranslated(myNet->getViewNet()->getPositionInformation().x(), myNet->getViewNet()->getPositionInformation().y(), GLO_POLYGON + 0.04);
+                setColor(s, false);
+                GLHelper:: drawFilledCircle(circleWidth, s.getCircleResolution());
+                glPopMatrix();
+            }
+        } else if (checkDraw(s)) {
             // draw inner polygon
             drawInnerPolygon(s, drawUsingSelectColor());
         }
-        // draw details of Netedit
-        double circleWidth = myHintSize * MIN2((double)1, s.polySize.getExaggeration(s, this));
-        double circleWidthSquared = circleWidth * circleWidth;
-        // Obtain exaggeration of the draw
-        const double exaggeration = s.addSize.getExaggeration(s, this);
         // draw geometry details hints if is not too small and isn't in selecting mode
         if (s.scale * circleWidth > 1.) {
             // set values relative to mouse position regarding to shape
