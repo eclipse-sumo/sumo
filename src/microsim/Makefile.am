@@ -34,5 +34,5 @@ MSTransportable.h MSTransportable.cpp \
 MSTransportableControl.h MSTransportableControl.cpp \
 MSDynamicShapeUpdater.h MSDynamicShapeUpdater.cpp
 
-SUBDIRS = actions cfmodels devices engine lcmodels logging output pedestrians \
+SUBDIRS = actions engine cfmodels devices lcmodels logging output pedestrians \
 traffic_lights trigger

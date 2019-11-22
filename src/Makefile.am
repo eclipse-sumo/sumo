@@ -95,7 +95,7 @@ endif
 
 
 SUBDIRS = foreign utils microsim router od marouter mesosim \
-netbuild netwrite netgen netimport netload \
+netbuild netwrite netimport netgen netload \
 polyconvert dfrouter duarouter jtrrouter activitygen tools \
 libsumo traci-server traci_testclient $(GUI_DIRS)
 

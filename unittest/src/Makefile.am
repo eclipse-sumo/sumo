@@ -41,6 +41,7 @@ $(GUI_TESTS) \
 ../../src/microsim/devices/libmicrosimdevs.a \
 ../../src/microsim/trigger/libmicrosimtrigger.a \
 ../../src/microsim/cfmodels/libmicrosimcfmodels.a \
+../../src/microsim/engine/libmicrosimengine.a \
 ../../src/microsim/lcmodels/libmicrosimlcmodels.a \
 ../../src/microsim/pedestrians/libmicrosimpeds.a \
 ../../src/microsim/output/libmicrosimoutput.a \
