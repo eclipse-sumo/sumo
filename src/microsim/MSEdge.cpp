@@ -1124,14 +1124,18 @@ MSEdge::isSuperposable(const MSEdge* other) {
 
 void
 MSEdge::addWaiting(SUMOVehicle* vehicle) const {
+#ifdef HAVE_FOX
     FXConditionalLock lock(myWaitingMutex, MSGlobals::gNumSimThreads > 1);
+#endif
     myWaiting.push_back(vehicle);
 }
 
 
 void
 MSEdge::removeWaiting(const SUMOVehicle* vehicle) const {
+#ifdef HAVE_FOX
     FXConditionalLock lock(myWaitingMutex, MSGlobals::gNumSimThreads > 1);
+#endif
     std::vector<SUMOVehicle*>::iterator it = std::find(myWaiting.begin(), myWaiting.end(), vehicle);
     if (it != myWaiting.end()) {
         myWaiting.erase(it);
@@ -1141,7 +1145,9 @@ MSEdge::removeWaiting(const SUMOVehicle* vehicle) const {
 
 SUMOVehicle*
 MSEdge::getWaitingVehicle(MSTransportable* transportable, const double position) const {
+#ifdef HAVE_FOX
     FXConditionalLock lock(myWaitingMutex, MSGlobals::gNumSimThreads > 1);
+#endif
     for (SUMOVehicle* const vehicle : myWaiting) {
         if (transportable->isWaitingFor(vehicle)) {
             if (vehicle->isStoppedInRange(position, MSGlobals::gStopTolerance) ||
