@@ -149,7 +149,7 @@ GUIGLObjectPopupMenu*
 GNEInternalLane::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     myPopup = new GUIGLObjectPopupMenu(app, parent, *this);
     buildPopupHeader(myPopup, app);
-    if (myEditor != nullptr) {
+    if ((myEditor != nullptr) && (myEditor->getViewNet()->getEditModes().currentSupermode == GNE_SUPERMODE_NETWORK)) {
         const std::vector<std::string> names = LinkStateNames.getStrings();
         for (std::vector<std::string>::const_iterator it = names.begin(); it != names.end(); it++) {
             FXuint state = LinkStateNames.get(*it);

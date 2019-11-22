@@ -217,13 +217,15 @@ GNECrossing::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     buildShowParamsPopupEntry(ret);
     // build position copy entry
     buildPositionCopyEntry(ret, false);
-    // create menu commands
-    FXMenuCommand* mcCustomShape = new FXMenuCommand(ret, "Set custom crossing shape", nullptr, &parent, MID_GNE_CROSSING_EDIT_SHAPE);
-    // check if menu commands has to be disabled
-    NetworkEditMode editMode = myNet->getViewNet()->getEditModes().networkEditMode;
-    const bool wrongMode = (editMode == GNE_NMODE_CONNECT || editMode == GNE_NMODE_TLS || editMode == GNE_NMODE_CREATE_EDGE);
-    if (wrongMode) {
-        mcCustomShape->disable();
+    // check if we're in supermode network
+    if (myNet->getViewNet()->getEditModes().currentSupermode == GNE_SUPERMODE_NETWORK) {
+        // create menu commands
+        FXMenuCommand* mcCustomShape = new FXMenuCommand(ret, "Set custom crossing shape", nullptr, &parent, MID_GNE_CROSSING_EDIT_SHAPE);
+        // check if menu commands has to be disabled
+        NetworkEditMode editMode = myNet->getViewNet()->getEditModes().networkEditMode;
+        if ((editMode == GNE_NMODE_CONNECT) || (editMode == GNE_NMODE_TLS) || (editMode == GNE_NMODE_CREATE_EDGE)) {
+            mcCustomShape->disable();
+        }
     }
     return ret;
 }

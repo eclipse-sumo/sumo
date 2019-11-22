@@ -192,55 +192,58 @@ GNEJunction::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     myNet->getViewNet()->buildSelectionACPopupEntry(ret, this);
     buildShowParamsPopupEntry(ret);
     buildPositionCopyEntry(ret, false);
-    //if (parent.getVisualisationSettings()->editMode != GNE_MODE_CONNECT) {
-    //    // XXX if joinable
-    //    new FXMenuCommand(ret, "Join adjacent edges", 0, &parent, MID_GNE_JOIN_EDGES);
-    //}
-    const int numEndpoints = (int)myNBNode.getEndPoints().size();
-    // check if we're handling a selection
-    bool handlingSelection = isAttributeCarrierSelected() && (myNet->retrieveJunctions(true).size() > 1);
-    // check if menu commands has to be disabled
-    const bool wrongMode = (myNet->getViewNet()->getEditModes().networkEditMode == GNE_NMODE_CONNECT) ||
-                           (myNet->getViewNet()->getEditModes().networkEditMode == GNE_NMODE_TLS) ||
-                           (myNet->getViewNet()->getEditModes().networkEditMode == GNE_NMODE_CREATE_EDGE);
-    // create menu commands
-    FXMenuCommand* mcCustomShape = new FXMenuCommand(ret, "Set custom junction shape", nullptr, &parent, MID_GNE_JUNCTION_EDIT_SHAPE);
-    FXMenuCommand* mcResetCustomShape = new FXMenuCommand(ret, "Reset junction shape", nullptr, &parent, MID_GNE_JUNCTION_RESET_SHAPE);
-    FXMenuCommand* mcReplace = new FXMenuCommand(ret, "Replace junction by geometry point", nullptr, &parent, MID_GNE_JUNCTION_REPLACE);
-    FXMenuCommand* mcSplit = new FXMenuCommand(ret, ("Split junction (" + toString(numEndpoints) + " end points)").c_str(), nullptr, &parent, MID_GNE_JUNCTION_SPLIT);
-    FXMenuCommand* mcSplitReconnect = new FXMenuCommand(ret, "Split junction and reconnect", nullptr, &parent, MID_GNE_JUNCTION_SPLIT_RECONNECT);
-    FXMenuCommand* mcClearConnections = new FXMenuCommand(ret, "Clear connections", nullptr, &parent, MID_GNE_JUNCTION_CLEAR_CONNECTIONS);
-    FXMenuCommand* mcResetConnections = new FXMenuCommand(ret, "Reset connections", nullptr, &parent, MID_GNE_JUNCTION_RESET_CONNECTIONS);
-    // check if current mode  is correct
-    if (wrongMode) {
-        mcCustomShape->disable();
-        mcClearConnections->disable();
-        mcResetConnections->disable();
-    }
-    // check if we're handling a selection
-    if (handlingSelection) {
-        mcResetCustomShape->setText("Reset junction shapes");
-    }
-    // disable mcClearConnections if juction hasn't connections
-    if (getGNEConnections().empty()) {
-        mcClearConnections->disable();
-    }
-    // disable mcResetCustomShape if junction doesn't have a custom shape
-    if (myNBNode.getShape().size() == 0) {
-        mcResetCustomShape->disable();
-    }
-    // checkIsRemovable requiers turnarounds to be computed. This is ugly
-    if ((myNBNode.getIncomingEdges().size() == 2) && (myNBNode.getOutgoingEdges().size() == 2)) {
-        NBTurningDirectionsComputer::computeTurnDirectionsForNode(&myNBNode, false);
-    }
-    std::string reason = "wrong edit mode";
-    if (wrongMode || !myNBNode.checkIsRemovableReporting(reason)) {
-        mcReplace->setText(mcReplace->getText() + " (" + reason.c_str() + ")");
-        mcReplace->disable();
-    }
-    if (numEndpoints == 1) {
-        mcSplit->disable();
-        mcSplitReconnect->disable();
+    // check if we're in supermode network
+    if (myNet->getViewNet()->getEditModes().currentSupermode == GNE_SUPERMODE_NETWORK) {
+        //if (parent.getVisualisationSettings()->editMode != GNE_MODE_CONNECT) {
+        //    // XXX if joinable
+        //    new FXMenuCommand(ret, "Join adjacent edges", 0, &parent, MID_GNE_JOIN_EDGES);
+        //}
+        const int numEndpoints = (int)myNBNode.getEndPoints().size();
+        // check if we're handling a selection
+        bool handlingSelection = isAttributeCarrierSelected() && (myNet->retrieveJunctions(true).size() > 1);
+        // check if menu commands has to be disabled
+        const bool wrongMode = (myNet->getViewNet()->getEditModes().networkEditMode == GNE_NMODE_CONNECT) ||
+                               (myNet->getViewNet()->getEditModes().networkEditMode == GNE_NMODE_TLS) ||
+                               (myNet->getViewNet()->getEditModes().networkEditMode == GNE_NMODE_CREATE_EDGE);
+        // create menu commands
+        FXMenuCommand* mcCustomShape = new FXMenuCommand(ret, "Set custom junction shape", nullptr, &parent, MID_GNE_JUNCTION_EDIT_SHAPE);
+        FXMenuCommand* mcResetCustomShape = new FXMenuCommand(ret, "Reset junction shape", nullptr, &parent, MID_GNE_JUNCTION_RESET_SHAPE);
+        FXMenuCommand* mcReplace = new FXMenuCommand(ret, "Replace junction by geometry point", nullptr, &parent, MID_GNE_JUNCTION_REPLACE);
+        FXMenuCommand* mcSplit = new FXMenuCommand(ret, ("Split junction (" + toString(numEndpoints) + " end points)").c_str(), nullptr, &parent, MID_GNE_JUNCTION_SPLIT);
+        FXMenuCommand* mcSplitReconnect = new FXMenuCommand(ret, "Split junction and reconnect", nullptr, &parent, MID_GNE_JUNCTION_SPLIT_RECONNECT);
+        FXMenuCommand* mcClearConnections = new FXMenuCommand(ret, "Clear connections", nullptr, &parent, MID_GNE_JUNCTION_CLEAR_CONNECTIONS);
+        FXMenuCommand* mcResetConnections = new FXMenuCommand(ret, "Reset connections", nullptr, &parent, MID_GNE_JUNCTION_RESET_CONNECTIONS);
+        // check if current mode  is correct
+        if (wrongMode) {
+            mcCustomShape->disable();
+            mcClearConnections->disable();
+            mcResetConnections->disable();
+        }
+        // check if we're handling a selection
+        if (handlingSelection) {
+            mcResetCustomShape->setText("Reset junction shapes");
+        }
+        // disable mcClearConnections if juction hasn't connections
+        if (getGNEConnections().empty()) {
+            mcClearConnections->disable();
+        }
+        // disable mcResetCustomShape if junction doesn't have a custom shape
+        if (myNBNode.getShape().size() == 0) {
+            mcResetCustomShape->disable();
+        }
+        // checkIsRemovable requiers turnarounds to be computed. This is ugly
+        if ((myNBNode.getIncomingEdges().size() == 2) && (myNBNode.getOutgoingEdges().size() == 2)) {
+            NBTurningDirectionsComputer::computeTurnDirectionsForNode(&myNBNode, false);
+        }
+        std::string reason = "wrong edit mode";
+        if (wrongMode || !myNBNode.checkIsRemovableReporting(reason)) {
+            mcReplace->setText(mcReplace->getText() + " (" + reason.c_str() + ")");
+            mcReplace->disable();
+        }
+        if (numEndpoints == 1) {
+            mcSplit->disable();
+            mcSplitReconnect->disable();
+        }
     }
     return ret;
 }
