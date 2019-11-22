@@ -727,7 +727,7 @@ elements to the configuration:
 
 # Multiple Views
 
-Using the (![Image:newView.gif](images/NewView.gif
+Using the (![Image:NewView.gif](images/NewView.gif
 "Image:newView.gif"))-button, multple viewing windows onto the same
 simulation can be opened. The visualization settings can be set
 independently for each view. The viewing windows can be managed using
@@ -740,7 +740,7 @@ viewing window is opened for each file at the start of the simulation.
 
 When SUMO-GUI was compiled with [OSG
 (OpenSceneGraph)](http://www.openscenegraph.org/) support an additional
-(![Image:newView.gif](images/NewView.gif "Image:newView.gif"))-button is
+(![Image:NewView3D.png](images/NewView3D.png))-button is
 present which can be used to open a 3D-View.
 
 !!! caution
