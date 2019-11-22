@@ -49,7 +49,7 @@ public:
      * @param[in] friendlyPos enable or disable friendly positions
      * @param[in] block movement enable or disable additional movement
      */
-    GNEAccess(GNEAdditional* busStop, GNELane* lane, GNEViewNet* viewNet, const std::string& pos, const std::string& length, bool friendlyPos, bool blockMovement);
+    GNEAccess(GNEAdditional* busStop, GNELane* lane, GNEViewNet* viewNet, double pos, const std::string& length, bool friendlyPos, bool blockMovement);
 
     /// @brief Destructor
     ~GNEAccess();
@@ -140,7 +140,7 @@ public:
 
 protected:
     /// @brief position over lane
-    std::string myPositionOverLane;
+    double myPositionOverLane;
 
     /// @brief Acces length
     std::string myLength;

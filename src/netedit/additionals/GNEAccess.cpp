@@ -36,7 +36,7 @@
 // member method definitions
 // ===========================================================================
 
-GNEAccess::GNEAccess(GNEAdditional* busStop, GNELane* lane, GNEViewNet* viewNet, const std::string& pos, const std::string& length, bool friendlyPos, bool blockMovement) :
+GNEAccess::GNEAccess(GNEAdditional* busStop, GNELane* lane, GNEViewNet* viewNet, double pos, const std::string& length, bool friendlyPos, bool blockMovement) :
     GNEAdditional(busStop, viewNet, GLO_ACCESS, SUMO_TAG_ACCESS, "", blockMovement, {}, {lane}, {}, {busStop}, {}, {}, {}, {}, {}, {}),
     myPositionOverLane(pos),
     myLength(length),
@@ -55,7 +55,7 @@ GNEAccess::moveGeometry(const Position& offset) {
     newPosition.add(offset);
     // filtern position using snap to active grid
     newPosition = myViewNet->snapToActiveGrid(newPosition);
-    myPositionOverLane = toString(getLaneParents().front()->getLaneShape().nearest_offset_to_point2D(newPosition, false));
+    myPositionOverLane = getLaneParents().front()->getLaneShape().nearest_offset_to_point2D(newPosition, false);
     // Update geometry
     updateGeometry();
 }
@@ -66,7 +66,7 @@ GNEAccess::commitGeometryMoving(GNEUndoList* undoList) {
     if (!myBlockMovement) {
         // commit new position allowing undo/redo
         undoList->p_begin("position of " + getTagStr());
-        undoList->p_add(new GNEChange_Attribute(this, myViewNet->getNet(), SUMO_ATTR_POSITION, myPositionOverLane, true, myMove.firstOriginalLanePosition));
+        undoList->p_add(new GNEChange_Attribute(this, myViewNet->getNet(), SUMO_ATTR_POSITION, toString(myPositionOverLane), true, myMove.firstOriginalLanePosition));
         undoList->p_end();
     }
 }
@@ -76,14 +76,14 @@ void
 GNEAccess::updateGeometry() {
     // set start position
     double fixedPositionOverLane;
-    if (!canParse<double>(myPositionOverLane)) {
+    if (myPositionOverLane == -1) {
         fixedPositionOverLane = getLaneParents().front()->getParentEdge().getNBEdge()->getFinalLength();
-    } else if (parse<double>(myPositionOverLane) < 0) {
+    } else if (myPositionOverLane < 0) {
         fixedPositionOverLane = 0;
-    } else if (parse<double>(myPositionOverLane) > getLaneParents().front()->getParentEdge().getNBEdge()->getFinalLength()) {
+    } else if (myPositionOverLane > getLaneParents().front()->getParentEdge().getNBEdge()->getFinalLength()) {
         fixedPositionOverLane = getLaneParents().front()->getParentEdge().getNBEdge()->getFinalLength();
     } else {
-        fixedPositionOverLane = parse<double>(myPositionOverLane);
+        fixedPositionOverLane = myPositionOverLane;
     }
     // update geometry
     myAdditionalGeometry.updateGeometryPosition(getLaneParents().front(), fixedPositionOverLane * getLaneParents().front()->getLengthGeometryFactor());
@@ -98,16 +98,15 @@ GNEAccess::updateGeometry() {
 
 Position
 GNEAccess::getPositionInView() const {
-    if (!canParse<double>(myPositionOverLane)) {
+    if (myPositionOverLane == -1) {
         return getLaneParents().front()->getLaneShape().front();
     } else {
-        double posOverLane = parse<double>(myPositionOverLane);
-        if (posOverLane < 0) {
+        if (myPositionOverLane < 0) {
             return getLaneParents().front()->getLaneShape().front();
-        } else if (posOverLane > getLaneParents().front()->getLaneShape().length()) {
+        } else if (myPositionOverLane > getLaneParents().front()->getLaneShape().length()) {
             return getLaneParents().front()->getLaneShape().back();
         } else {
-            return getLaneParents().front()->getLaneShape().positionAtOffset(posOverLane);
+            return getLaneParents().front()->getLaneShape().positionAtOffset(myPositionOverLane);
         }
     }
 }
@@ -120,8 +119,13 @@ GNEAccess::getCenteringBoundary() const {
 
 
 void 
-GNEAccess::splitEdgeGeometry(const double /*splitPosition*/, const GNENetElement* /*originalElement*/, const GNENetElement* /*newElement*/, GNEUndoList* /*undoList*/) {
-    // geometry of this element cannot be splitted
+GNEAccess::splitEdgeGeometry(const double splitPosition, const GNENetElement* /*originalElement*/, const GNENetElement* newElement, GNEUndoList* undoList) {
+    if (splitPosition < myPositionOverLane) {
+        // change lane
+        setAttribute(SUMO_ATTR_LANE, newElement->getID(), undoList);
+        // now adjust start position
+        setAttribute(SUMO_ATTR_POSITION, toString(myPositionOverLane - splitPosition), undoList);
+    }
 }
 
 
@@ -131,8 +135,8 @@ GNEAccess::isAccessPositionFixed() const {
     if (myFriendlyPosition) {
         return true;
     } else {
-        if (canParse<double>(myPositionOverLane)) {
-            return (parse<double>(myPositionOverLane) >= 0) && ((parse<double>(myPositionOverLane)) <= getLaneParents().front()->getParentEdge().getNBEdge()->getFinalLength());
+        if (myPositionOverLane != -1) {
+            return (myPositionOverLane >= 0) && (myPositionOverLane <= getLaneParents().front()->getParentEdge().getNBEdge()->getFinalLength());
         } else {
             return false;
         }
@@ -316,7 +320,7 @@ GNEAccess::setAttribute(SumoXMLAttr key, const std::string& value) {
             changeLaneParents(this, value);
             break;
         case SUMO_ATTR_POSITION:
-            myPositionOverLane = value;
+            myPositionOverLane = parse<double>(value);
             break;
         case SUMO_ATTR_LENGTH:
             myLength = value;

@@ -86,17 +86,23 @@ GNEDetector::getCenteringBoundary() const {
 
 
 void 
-GNEDetector::splitEdgeGeometry(const double /*splitPosition*/, const GNENetElement* originalElement, const GNENetElement* newElement, GNEUndoList* undoList) {
+GNEDetector::splitEdgeGeometry(const double splitPosition, const GNENetElement* originalElement, const GNENetElement* newElement, GNEUndoList* undoList) {
     // only split geometry of E2 multilane detectors
-    if ((myTagProperty.getTag() == SUMO_TAG_E2DETECTOR_MULTILANE) && 
-        (originalElement->getTagProperty().getTag() == SUMO_TAG_LANE) && 
-        (originalElement->getTagProperty().getTag() == SUMO_TAG_LANE)) {
-        // obtain new list of E2 lanes
-        std::string newE2Lanes = getNewListOfParents(originalElement, newElement);
-        // update E2 Lanes
-        if (newE2Lanes.size() > 0) {
-            setAttribute(SUMO_ATTR_LANES, newE2Lanes, undoList);
+    if (myTagProperty.getTag() == SUMO_TAG_E2DETECTOR_MULTILANE) {
+        if ((originalElement->getTagProperty().getTag() == SUMO_TAG_LANE) && 
+            (originalElement->getTagProperty().getTag() == SUMO_TAG_LANE)) {
+            // obtain new list of E2 lanes
+            std::string newE2Lanes = getNewListOfParents(originalElement, newElement);
+            // update E2 Lanes
+            if (newE2Lanes.size() > 0) {
+                setAttribute(SUMO_ATTR_LANES, newE2Lanes, undoList);
+            }
         }
+    } else if (splitPosition < myPositionOverLane) {
+        // change lane
+        setAttribute(SUMO_ATTR_LANE, newElement->getID(), undoList);
+        // now adjust start position
+        setAttribute(SUMO_ATTR_POSITION, toString(myPositionOverLane - splitPosition), undoList);
     }
 }
 

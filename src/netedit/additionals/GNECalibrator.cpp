@@ -113,8 +113,17 @@ GNECalibrator::getCenteringBoundary() const {
 
 
 void 
-GNECalibrator::splitEdgeGeometry(const double /*splitPosition*/, const GNENetElement* /*originalElement*/, const GNENetElement* /*newElement*/, GNEUndoList* /*undoList*/) {
-    // geometry of this element cannot be splitted
+GNECalibrator::splitEdgeGeometry(const double splitPosition, const GNENetElement* /*originalElement*/, const GNENetElement* newElement, GNEUndoList* undoList) {
+    if (splitPosition < myPositionOverLane) {
+        // change lane or edge
+        if (newElement->getTagProperty().getTag() == SUMO_TAG_LANE) {
+            setAttribute(SUMO_ATTR_LANE, newElement->getID(), undoList);
+        } else {
+            setAttribute(SUMO_ATTR_EDGE, newElement->getID(), undoList);
+        }
+        // now adjust start position
+        setAttribute(SUMO_ATTR_POSITION, toString(myPositionOverLane - splitPosition), undoList);
+    }
 }
 
 

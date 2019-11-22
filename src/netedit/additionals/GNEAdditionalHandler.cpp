@@ -259,7 +259,7 @@ GNEAdditionalHandler::buildBusStop(GNEViewNet* viewNet, bool allowUndoRedo, cons
 
 
 GNEAdditional*
-GNEAdditionalHandler::buildAccess(GNEViewNet* viewNet, bool allowUndoRedo, GNEAdditional* busStop, GNELane* lane, const std::string& pos, const std::string& length, bool friendlyPos, bool blockMovement) {
+GNEAdditionalHandler::buildAccess(GNEViewNet* viewNet, bool allowUndoRedo, GNEAdditional* busStop, GNELane* lane, double pos, const std::string& length, bool friendlyPos, bool blockMovement) {
     // Check if busStop parent and lane is correct
     if (lane == nullptr) {
         throw ProcessError("Could not build " + toString(SUMO_TAG_ACCESS) + " in netedit; " +  toString(SUMO_TAG_LANE) + " doesn't exist.");
@@ -1893,7 +1893,7 @@ GNEAdditionalHandler::parseAndBuildAccess(GNEViewNet* viewNet, bool allowUndoRed
             WRITE_WARNING("Edge '" + lane->getParentEdge().getID() + "' already has an Access for busStop '" + busStop->getID() + "'");
         } else {
             // save ID of last created element
-            GNEAdditional* additionalCreated = buildAccess(viewNet, allowUndoRedo, busStop, lane, toString(posDouble), length, friendlyPos, blockMovement);
+            GNEAdditional* additionalCreated = buildAccess(viewNet, allowUndoRedo, busStop, lane, posDouble, length, friendlyPos, blockMovement);
             // check if insertion has to be commited
             if (insertedAdditionals) {
                 insertedAdditionals->commitElementInsertion(additionalCreated);
