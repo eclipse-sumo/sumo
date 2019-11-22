@@ -230,7 +230,7 @@ MSLane::initRestrictions() {
 
 void
 MSLane::checkBufferType() {
-    if (MSGlobals::gNumSimThreads <= 1 || myIncomingLanes.size() <= 1) {
+    if (MSGlobals::gNumSimThreads <= 1) {
         myVehBuffer.unsetCondition();
     }
 }
