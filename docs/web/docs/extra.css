@@ -15,6 +15,10 @@
     background-color: #1b6618;
 }
 
+.navbar-toggler {
+    font-size: 1rem !important;
+}
+
 .dropdown-menu {
     background-color: rgb(171,221,139);
 }
