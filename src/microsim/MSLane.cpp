@@ -267,7 +267,7 @@ MSLane::addMoveReminder(MSMoveReminder* rem) {
 double
 MSLane::setPartialOccupation(MSVehicle* v) {
 #ifdef HAVE_FOX
-    FXConditionalLock lock(myPartialOccupatorMutex, MSGlobals::gNumSimThreads > 1 && MSGlobals::gSublane);
+    FXConditionalLock lock(myPartialOccupatorMutex, MSGlobals::gNumSimThreads > 1);
 #endif
     myNeedsCollisionCheck = true; // always check
 #ifdef DEBUG_CONTEXT
@@ -284,7 +284,7 @@ MSLane::setPartialOccupation(MSVehicle* v) {
 void
 MSLane::resetPartialOccupation(MSVehicle* v) {
 #ifdef HAVE_FOX
-    FXConditionalLock lock(myPartialOccupatorMutex, MSGlobals::gNumSimThreads > 1 && MSGlobals::gSublane);
+    FXConditionalLock lock(myPartialOccupatorMutex, MSGlobals::gNumSimThreads > 1);
 #endif
 #ifdef DEBUG_CONTEXT
     if (DEBUG_COND2(v)) {
