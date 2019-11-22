@@ -275,12 +275,14 @@ GNEJunction::drawGL(const GUIVisualizationSettings& s) const {
     if (s.drawBoundaries) {
         GLHelper::drawBoundary(getCenteringBoundary());
     }
-    // declare variables
+    // declare variable for exaggeration
     double exaggeration = isAttributeCarrierSelected() ? s.selectionScale : 1;
     exaggeration *= s.junctionSize.getExaggeration(s, this, 4);
     // declare values for circles
-    double circleWidth = BUBBLE_RADIUS * exaggeration;
-    double circleWidthSquared = circleWidth * circleWidth;
+    const double circleWidth = BUBBLE_RADIUS * exaggeration;
+    const double circleWidthSquared = circleWidth * circleWidth;
+    // declare variable for mouse position
+    const Position mousePosition = myNet->getViewNet()->getPositionInformation();
     // push name
     if (s.scale * exaggeration * myMaxSize < 1.) {
         // draw something simple so that selection still works
@@ -304,53 +306,58 @@ GNEJunction::drawGL(const GUIVisualizationSettings& s) const {
         }
         // check if shape has to be drawn
         if (drawShape) {
-            RGBColor color = setColor(s, false);
+            // set shape color
+            RGBColor junctionShapeColor = setColor(s, false);
             // recognize full transparency and simply don't draw
-            if (color.alpha() != 0) {
+            if (junctionShapeColor.alpha() != 0) {
                 glPushMatrix();
                 glTranslated(0, 0, getType());
-                PositionVector shape = myNBNode.getShape();
-                shape.closePolygon();
+                // obtain junction Shape
+                PositionVector junctionShape = myNBNode.getShape();
+                // close junction shape
+                junctionShape.closePolygon();
+                // adjust shape to exaggeration
                 if (exaggeration > 1) {
-                    shape.scaleRelative(exaggeration);
+                    junctionShape.scaleRelative(exaggeration);
                 }
-
                 // first check if inner polygon can be drawn
                 if (s.drawForSelecting) {
-                    if (shape.around(myNet->getViewNet()->getPositionInformation())) {
+                    // only draw a point if mouse is around shape
+                    if (junctionShape.around(mousePosition)) {
                         // push matrix
                         glPushMatrix();
-                        glTranslated(myNet->getViewNet()->getPositionInformation().x(), myNet->getViewNet()->getPositionInformation().y(), GLO_POLYGON + 0.04);
-                        GLHelper:: drawFilledCircle(circleWidth, s.getCircleResolution());
+                        glTranslated(mousePosition.x(), mousePosition.y(), GLO_JUNCTION);
+                        GLHelper:: drawFilledCircle(1, s.getCircleResolution());
                         glPopMatrix();
                     }
-                } else if (s.scale * exaggeration * myMaxSize < 40.) {
-                    GLHelper::drawFilledPoly(shape, true);
+                } else if ((s.scale * exaggeration * myMaxSize) < 40.) {
+                    GLHelper::drawFilledPoly(junctionShape, true);
                 } else {
-                    GLHelper::drawFilledPolyTesselated(shape, true);
+                    GLHelper::drawFilledPolyTesselated(junctionShape, true);
                 }
                 // check if dotted contour has to be drawn
                 if ((myNet->getViewNet()->getDottedAC() == this) && !drawBubble) {
-                    GLHelper::drawShapeDottedContourAroundClosedShape(s, getType(), shape);
+                    GLHelper::drawShapeDottedContourAroundClosedShape(s, getType(), junctionShape);
                 }
                 glPopMatrix();
             }
         }
         // check if bubble has to be drawn
         if (drawBubble) {
-            RGBColor color = setColor(s, true);
+            // set bubble color
+            RGBColor bubbleColor = setColor(s, true);
             // recognize full transparency and simply don't draw
-            if (color.alpha() != 0) {
+            if (bubbleColor.alpha() != 0) {
                 glPushMatrix();
+                // move matrix to 
                 glTranslated(myNBNode.getPosition().x(), myNBNode.getPosition().y(), getType() + 0.05);
-                if (!s.drawForSelecting || (myNet->getViewNet()->getPositionInformation().distanceSquaredTo2D(myNBNode.getPosition()) <= (circleWidthSquared + 2))) {
+                // only draw filled circle if we aren't in draw for selecting mode, or if distance to center is enough)
+                if (!s.drawForSelecting || (mousePosition.distanceSquaredTo2D(myNBNode.getPosition()) <= (circleWidthSquared + 2))) {
                     std::vector<Position> vertices = GLHelper::drawFilledCircleReturnVertices(circleWidth, s.getCircleResolution());
                     // check if dotted contour has to be drawn
                     if (myNet->getViewNet()->getDottedAC() == this) {
                         GLHelper::drawShapeDottedContourAroundClosedShape(s, getType(), vertices);
                     }
-                } else {
-                    GLHelper::drawBoxLine(Position(0, 1), 0, 2, 1);
                 }
                 glPopMatrix();
             }
@@ -378,92 +385,8 @@ GNEJunction::drawGL(const GUIVisualizationSettings& s) const {
                 i->drawGL(s);
             }
         }
-        // draw connections and route elements connections (Only for incoming edges)
-        for (const auto& i : myGNEIncomingEdges) {
-            // first draw connections
-            for (const auto& connection : i->getGNEConnections()) {
-                connection->drawGL(s);
-            }
-            // then draw E2 multilane detectors
-            for (const auto& lane : i->getLanes()) {
-                for (const auto& additional : lane->getAdditionalChildren()) {
-                    if (additional->getTagProperty().getTag() == SUMO_TAG_E2DETECTOR_MULTILANE) {
-                        lane->drawPartialE2DetectorPlan(s, additional, this);
-                    }
-                }
-            }
-            // first check if Demand elements can be shown
-            if (myNet->getViewNet()->getNetworkViewOptions().showDemandElements()) {
-                // certain demand elements children can contain loops (for example, routes) and it causes overlapping problems. It's needed to filter it before drawing
-                for (const auto& j : i->getSortedDemandElementChildrenByType(SUMO_TAG_ROUTE)) {
-                    // first check if route can be drawn
-                    if (myNet->getViewNet()->getDemandViewOptions().showNonInspectedDemandElements(j)) {
-                        // draw partial route
-                        i->drawPartialRoute(s, j, this);
-                    }
-                }
-                for (const auto& j : i->getSortedDemandElementChildrenByType(SUMO_TAG_EMBEDDEDROUTE)) {
-                    // first check if embedded route can be drawn
-                    if (myNet->getViewNet()->getDemandViewOptions().showNonInspectedDemandElements(j)) {
-                        // draw partial route
-                        i->drawPartialRoute(s, j, this);
-                    }
-                }
-                for (const auto& j : i->getSortedDemandElementChildrenByType(SUMO_TAG_TRIP)) {
-                    // Start drawing adding an gl identificator
-                    glPushName(j->getGlID());
-                    // draw partial trip only if is being inspected or selected
-                    if ((myNet->getViewNet()->getDottedAC() == j) || j->isAttributeCarrierSelected()) {
-                        i->drawPartialTripFromTo(s, j, this);
-                    }
-                    // only draw trip in the first edge
-                    if (j->getAttribute(SUMO_ATTR_FROM) == getID()) {
-                        j->drawGL(s);
-                    }
-                    // Pop name
-                    glPopName();
-                }
-                for (const auto& j : i->getSortedDemandElementChildrenByType(SUMO_TAG_FLOW)) {
-                    // Start drawing adding an gl identificator
-                    glPushName(j->getGlID());
-                    // draw partial trip only if is being inspected or selected
-                    if ((myNet->getViewNet()->getDottedAC() == j) || j->isAttributeCarrierSelected()) {
-                        i->drawPartialTripFromTo(s, j, this);
-                    }
-                    // only draw flow in the first edge
-                    if (j->getAttribute(SUMO_ATTR_FROM) == getID()) {
-                        j->drawGL(s);
-                    }
-                    // Pop name
-                    glPopName();
-                }
-                // draw partial person plan elements
-                for (const auto& j : i->getSortedDemandElementChildrenByType(SUMO_TAG_PERSONTRIP_FROMTO)) {
-                    i->drawPartialPersonPlan(s, j, this);
-                }
-                for (const auto& j : i->getSortedDemandElementChildrenByType(SUMO_TAG_PERSONTRIP_BUSSTOP)) {
-                    i->drawPartialPersonPlan(s, j, this);
-                }
-                for (const auto& j : i->getSortedDemandElementChildrenByType(SUMO_TAG_WALK_EDGES)) {
-                    i->drawPartialPersonPlan(s, j, this);
-                }
-                for (const auto& j : i->getSortedDemandElementChildrenByType(SUMO_TAG_WALK_FROMTO)) {
-                    i->drawPartialPersonPlan(s, j, this);
-                }
-                for (const auto& j : i->getSortedDemandElementChildrenByType(SUMO_TAG_WALK_BUSSTOP)) {
-                    i->drawPartialPersonPlan(s, j, this);
-                }
-                for (const auto& j : i->getSortedDemandElementChildrenByType(SUMO_TAG_WALK_ROUTE)) {
-                    i->drawPartialPersonPlan(s, j, this);
-                }
-                for (const auto& j : i->getSortedDemandElementChildrenByType(SUMO_TAG_RIDE_FROMTO)) {
-                    i->drawPartialPersonPlan(s, j, this);
-                }
-                for (const auto& j : i->getSortedDemandElementChildrenByType(SUMO_TAG_RIDE_BUSSTOP)) {
-                    i->drawPartialPersonPlan(s, j, this);
-                }
-            }
-        }
+        // draw Junction childs
+        drawJunctionChilds(s);
     }
 }
 
@@ -1286,6 +1209,97 @@ GNEJunction::drawTLSIcon(const GUIVisualizationSettings& s) const {
         const double halfHeight = 64 / s.scale;
         GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(GNETEXTURE_TLS), -halfWidth, -halfHeight, halfWidth, halfHeight);
         glPopMatrix();
+    }
+}
+
+
+void 
+GNEJunction::drawJunctionChilds(const GUIVisualizationSettings& s) const {
+    // draw connections and route elements connections (Only for incoming edges)
+    for (const auto& incomingEdge : myGNEIncomingEdges) {
+        // first draw connections
+        for (const auto& connection : incomingEdge->getGNEConnections()) {
+            connection->drawGL(s);
+        }
+        // then draw E2 multilane detectors
+        for (const auto& lane : incomingEdge->getLanes()) {
+            for (const auto& additional : lane->getAdditionalChildren()) {
+                if (additional->getTagProperty().getTag() == SUMO_TAG_E2DETECTOR_MULTILANE) {
+                    lane->drawPartialE2DetectorPlan(s, additional, this);
+                }
+            }
+        }
+        // first check if Demand elements can be shown
+        if (myNet->getViewNet()->getNetworkViewOptions().showDemandElements()) {
+            // certain demand elements children can contain loops (for example, routes) and it causes overlapping problems. It's needed to filter it before drawing
+            for (const auto& route : incomingEdge->getSortedDemandElementChildrenByType(SUMO_TAG_ROUTE)) {
+                // first check if route can be drawn
+                if (myNet->getViewNet()->getDemandViewOptions().showNonInspectedDemandElements(route)) {
+                    // draw partial route
+                    incomingEdge->drawPartialRoute(s, route, this);
+                }
+            }
+            for (const auto& embeddedRoute : incomingEdge->getSortedDemandElementChildrenByType(SUMO_TAG_EMBEDDEDROUTE)) {
+                // first check if embedded route can be drawn
+                if (myNet->getViewNet()->getDemandViewOptions().showNonInspectedDemandElements(embeddedRoute)) {
+                    // draw partial route
+                    incomingEdge->drawPartialRoute(s, embeddedRoute, this);
+                }
+            }
+            for (const auto& trip : incomingEdge->getSortedDemandElementChildrenByType(SUMO_TAG_TRIP)) {
+                // Start drawing adding an gl identificator
+                glPushName(trip->getGlID());
+                // draw partial trip only if is being inspected or selected
+                if ((myNet->getViewNet()->getDottedAC() == trip) || trip->isAttributeCarrierSelected()) {
+                    incomingEdge->drawPartialTripFromTo(s, trip, this);
+                }
+                // only draw trip in the first edge
+                if (trip->getAttribute(SUMO_ATTR_FROM) == getID()) {
+                    trip->drawGL(s);
+                }
+                // Pop name
+                glPopName();
+            }
+            for (const auto& flow : incomingEdge->getSortedDemandElementChildrenByType(SUMO_TAG_FLOW)) {
+                // Start drawing adding an gl identificator
+                glPushName(flow->getGlID());
+                // draw partial trip only if is being inspected or selected
+                if ((myNet->getViewNet()->getDottedAC() == flow) || flow->isAttributeCarrierSelected()) {
+                    incomingEdge->drawPartialTripFromTo(s, flow, this);
+                }
+                // only draw flow in the first edge
+                if (flow->getAttribute(SUMO_ATTR_FROM) == getID()) {
+                    flow->drawGL(s);
+                }
+                // Pop name
+                glPopName();
+            }
+            // draw partial person plan elements
+            for (const auto& personTripFromTo : incomingEdge->getSortedDemandElementChildrenByType(SUMO_TAG_PERSONTRIP_FROMTO)) {
+                incomingEdge->drawPartialPersonPlan(s, personTripFromTo, this);
+            }
+            for (const auto& personTripBusStop : incomingEdge->getSortedDemandElementChildrenByType(SUMO_TAG_PERSONTRIP_BUSSTOP)) {
+                incomingEdge->drawPartialPersonPlan(s, personTripBusStop, this);
+            }
+            for (const auto& walkEdges : incomingEdge->getSortedDemandElementChildrenByType(SUMO_TAG_WALK_EDGES)) {
+                incomingEdge->drawPartialPersonPlan(s, walkEdges, this);
+            }
+            for (const auto& walkFromTo : incomingEdge->getSortedDemandElementChildrenByType(SUMO_TAG_WALK_FROMTO)) {
+                incomingEdge->drawPartialPersonPlan(s, walkFromTo, this);
+            }
+            for (const auto& walkBusStop : incomingEdge->getSortedDemandElementChildrenByType(SUMO_TAG_WALK_BUSSTOP)) {
+                incomingEdge->drawPartialPersonPlan(s, walkBusStop, this);
+            }
+            for (const auto& walkRoute : incomingEdge->getSortedDemandElementChildrenByType(SUMO_TAG_WALK_ROUTE)) {
+                incomingEdge->drawPartialPersonPlan(s, walkRoute, this);
+            }
+            for (const auto& rideFromTo : incomingEdge->getSortedDemandElementChildrenByType(SUMO_TAG_RIDE_FROMTO)) {
+                incomingEdge->drawPartialPersonPlan(s, rideFromTo, this);
+            }
+            for (const auto& rideBusStop : incomingEdge->getSortedDemandElementChildrenByType(SUMO_TAG_RIDE_BUSSTOP)) {
+                incomingEdge->drawPartialPersonPlan(s, rideBusStop, this);
+            }
+        }
     }
 }
 

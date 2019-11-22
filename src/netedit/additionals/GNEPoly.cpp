@@ -296,7 +296,7 @@ GNEPoly::drawGL(const GUIVisualizationSettings& s) const {
                 glPushMatrix();
                 glTranslated(myNet->getViewNet()->getPositionInformation().x(), myNet->getViewNet()->getPositionInformation().y(), GLO_POLYGON + 0.04);
                 setColor(s, false);
-                GLHelper:: drawFilledCircle(circleWidth, s.getCircleResolution());
+                GLHelper:: drawFilledCircle(1, s.getCircleResolution());
                 glPopMatrix();
             }
         } else if (checkDraw(s)) {
