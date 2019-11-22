@@ -747,7 +747,7 @@ present which can be used to open a 3D-View.
     The 3D-Visualization is highly experimental
 
 An pre-compiled windows version for testing is available
-[here](http://sumo.dlr.de/daily/sumo-msvc12extrax64-git.zip).
+[here](https://sumo.dlr.de/daily/sumo-win64extra-git.zip).
 
 # Visualizing edge-related data
 
