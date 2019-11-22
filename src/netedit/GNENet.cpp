@@ -759,10 +759,10 @@ GNENet::splitEdge(GNEEdge* edge, const Position& pos, GNEUndoList* undoList, GNE
     // obtain edge geometry and split position
     const PositionVector& oldEdgeGeometry = edge->getNBEdge()->getGeometry();
     const double edgeSplitPosition = oldEdgeGeometry.nearest_offset_to_point2D(pos, false);
-   // obtain lane geometry and split position
+   // obtain lane geometry and split position (needed for adjust additional and demand childs)
     const PositionVector& oldLaneGeometry = edge->getLanes().front()->getLaneShape();
     const double laneSplitPosition = oldLaneGeometry.nearest_offset_to_point2D(pos, false);
-    // split edge geometry in two new geometries
+    // split edge geometry in two new geometries using edgeSplitPosition
     std::pair<PositionVector, PositionVector> newGeoms = oldEdgeGeometry.splitAt(edgeSplitPosition);
     // get shape end
     const std::string shapeEnd = edge->getAttribute(GNE_ATTR_SHAPE_END);
@@ -827,22 +827,22 @@ GNENet::splitEdge(GNEEdge* edge, const Position& pos, GNEUndoList* undoList, GNE
     }
     // Split geometry of all additional children
     for (const auto &additional : edge->getAdditionalChildren()) {
-        additional->splitEdgeGeometry(oldEdgeGeometry.length(), edgeSplitPosition, edge, secondPart, undoList);
+        additional->splitEdgeGeometry(edgeSplitPosition, edge, secondPart, undoList);
     }
     // Split geometry of all lane additional children
     for (int i = 0; i < (int)edge->getLanes().size(); i++) {
         for (const auto &additional : edge->getLanes().at(i)->getAdditionalChildren()) {
-            additional->splitEdgeGeometry(oldLaneGeometry.length(), laneSplitPosition, edge->getLanes().at(i), secondPart->getLanes().at(i), undoList);
+            additional->splitEdgeGeometry(laneSplitPosition, edge->getLanes().at(i), secondPart->getLanes().at(i), undoList);
         }
     }
     // Split geometry of all demand element children
     for (const auto &demandElement : edge->getDemandElementChildren()) {
-        demandElement->splitEdgeGeometry(oldEdgeGeometry.length(), edgeSplitPosition, edge, secondPart, undoList);
+        demandElement->splitEdgeGeometry(edgeSplitPosition, edge, secondPart, undoList);
     }
     // Split geometry of all lane demand element children
     for (int i = 0; i < (int)edge->getLanes().size(); i++) {
         for (const auto &demandElement : edge->getLanes().at(i)->getDemandElementChildren()) {
-            demandElement->splitEdgeGeometry(oldLaneGeometry.length(), laneSplitPosition, edge->getLanes().at(i), secondPart->getLanes().at(i), undoList);
+            demandElement->splitEdgeGeometry(laneSplitPosition, edge->getLanes().at(i), secondPart->getLanes().at(i), undoList);
         }
     }
     // finish undo list

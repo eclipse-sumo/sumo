@@ -156,13 +156,13 @@ GNEStoppingPlace::getPositionInView() const {
 
 
 void 
-GNEStoppingPlace::splitEdgeGeometry(const double oldShapeLength, const double splitPosition, const GNENetElement* originalElement, const GNENetElement* newElement, GNEUndoList* undoList) {
-    // first check tat both net elements are lanes and originalElement is the stoppingPlace lane
+GNEStoppingPlace::splitEdgeGeometry(const double splitPosition, const GNENetElement* originalElement, const GNENetElement* newElement, GNEUndoList* undoList) {
+    // first check tat both net elements are lanes and originalElement correspond to stoppingPlace lane
     if ((originalElement->getTagProperty().getTag() == SUMO_TAG_LANE) && 
         (originalElement->getTagProperty().getTag() == SUMO_TAG_LANE) &&
         (getLaneParents().front() == originalElement)) {
         // check if we have to change additional lane depending of split position
-        if (isAttributeEnabled(SUMO_ATTR_STARTPOS) && isAttributeEnabled(SUMO_ATTR_ENDPOS)) {
+        if ((myParametersSet & STOPPINGPLACE_STARTPOS_SET) && (myParametersSet & STOPPINGPLACE_ENDPOS_SET)) {
             // calculate middle position
             const double middlePosition = ((myEndPosition - myStartPosition) / 2.0) + myStartPosition;
             //  four cases:
@@ -184,6 +184,16 @@ GNEStoppingPlace::splitEdgeGeometry(const double oldShapeLength, const double sp
             } else if ((splitPosition > myEndPosition)) {
                 // nothing to do
             }
+        } else if ((myParametersSet & STOPPINGPLACE_STARTPOS_SET) && (splitPosition < myStartPosition)) {
+            // change lane
+            setAttribute(SUMO_ATTR_LANE, newElement->getID(), undoList);
+            // now adjust start position
+            setAttribute(SUMO_ATTR_STARTPOS, toString(myStartPosition - splitPosition), undoList);
+        } else if ((myParametersSet & STOPPINGPLACE_ENDPOS_SET) && (splitPosition < myEndPosition)) {
+            // change lane
+            setAttribute(SUMO_ATTR_LANE, newElement->getID(), undoList);
+            // now adjust end position
+            setAttribute(SUMO_ATTR_ENDPOS, toString(myEndPosition - splitPosition), undoList);
         }
     }
 }
@@ -337,6 +347,13 @@ GNEStoppingPlace::getAttributeDouble(SumoXMLAttr key) const {
         default:
             throw InvalidArgument(getTagStr() + " doesn't have a double attribute of type '" + toString(key) + "'");
     }
+}
+
+
+bool 
+GNEStoppingPlace::isAttributeEnabled(SumoXMLAttr /*key*/) const {
+    // all stopping place attributes are always enabled
+    return true;
 }
 
 

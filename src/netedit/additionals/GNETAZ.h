@@ -70,7 +70,7 @@ public:
     Boundary getCenteringBoundary() const;
 
     /// @brief split geometry
-    void splitEdgeGeometry(const double oldShapeLength, const double splitPosition, const GNENetElement* originalElement, const GNENetElement* newElement, GNEUndoList* undoList);
+    void splitEdgeGeometry(const double splitPosition, const GNENetElement* originalElement, const GNENetElement* newElement, GNEUndoList* undoList);
     /// @}
 
     /// @name Functions related with shape of element

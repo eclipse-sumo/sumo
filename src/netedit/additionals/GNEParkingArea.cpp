@@ -103,7 +103,7 @@ GNEParkingArea::getCenteringBoundary() const {
 
 
 void 
-GNEParkingArea::splitEdgeGeometry(const double /*oldShapeLength*/, const double /*splitPosition*/, const GNENetElement* /*originalElement*/, const GNENetElement* /*newElement*/, GNEUndoList* /*undoList*/) {
+GNEParkingArea::splitEdgeGeometry(const double /*splitPosition*/, const GNENetElement* /*originalElement*/, const GNENetElement* /*newElement*/, GNEUndoList* /*undoList*/) {
     // geometry of this element cannot be splitted
 }
 
@@ -345,12 +345,6 @@ GNEParkingArea::isValid(SumoXMLAttr key, const std::string& value) {
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
-}
-
-
-bool 
-GNEParkingArea::isAttributeEnabled(SumoXMLAttr /* key */) const {
-    return true;
 }
 
 // ===========================================================================

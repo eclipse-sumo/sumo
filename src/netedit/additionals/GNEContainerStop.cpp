@@ -297,11 +297,6 @@ GNEContainerStop::isValid(SumoXMLAttr key, const std::string& value) {
     }
 }
 
-bool 
-GNEContainerStop::isAttributeEnabled(SumoXMLAttr /* key */) const {
-    return true;
-}
-
 // ===========================================================================
 // private
 // ===========================================================================
