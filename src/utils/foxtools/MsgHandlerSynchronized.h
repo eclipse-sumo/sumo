@@ -54,9 +54,7 @@ public:
 
     /// @brief adds a new error to the list
     void inform(std::string msg, bool addType = true) {
-#ifdef HAVE_FOX
         FXMutexLock locker(myLock);
-#endif
         MsgHandler::inform(msg, addType);
     }
 
@@ -68,48 +66,38 @@ public:
      * After the action has been performed, use endProcessMsg to inform the user about it.
      */
     void beginProcessMsg(std::string msg, bool addType = true) {
-#ifdef HAVE_FOX
         FXMutexLock locker(myLock);
-#endif
         MsgHandler::beginProcessMsg(msg, addType);
     }
 
     /// @brief Ends a process information
     void endProcessMsg(std::string msg) {
-#ifdef HAVE_FOX
         FXMutexLock locker(myLock);
-#endif
         MsgHandler::endProcessMsg(msg);
     }
 
     /// @brief Clears information whether an error occurred previously
     void clear() {
-#ifdef HAVE_FOX
         FXMutexLock locker(myLock);
-#endif
         MsgHandler::clear();
     }
 
     /// @brief Adds a further retriever to the instance responsible for a certain msg type
     void addRetriever(OutputDevice* retriever) {
-#ifdef HAVE_FOX
         FXMutexLock locker(myLock);
-#endif
         MsgHandler::addRetriever(retriever);
     }
 
     /// @brief Removes the retriever from the handler
     void removeRetriever(OutputDevice* retriever) {
-#ifdef HAVE_FOX
         FXMutexLock locker(myLock);
-#endif
         MsgHandler::removeRetriever(retriever);
     }
 
 private:
     /// @brief standard constructor
     MsgHandlerSynchronized(MsgType type) :
-        MsgHandler(type) {
+        MsgHandler(type), myLock(true) {
     }
 
     /// @brief destructor
