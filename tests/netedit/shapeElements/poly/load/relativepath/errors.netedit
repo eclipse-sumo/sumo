@@ -7,16 +7,16 @@ Debug: Selected item 'DEFAULT_VEHTYPE' in DemandElementSelector
 Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
 Debug: Format of optional optional boolean attribute 'relativePath' of poly with ID 'poly_0' is invalid; Cannot be parsed to boolean; Default value will be used.
 Debug: Adding poly 'poly_0' into viewNet
-GLDebug: 	Inserted polygon:poly_0 into SUMORTree with boundary 48.00,-52.00,62.00,-38.00
+GLDebug: 	Inserted polygon:poly_0 into SUMORTree with boundary 46.17,-53.83,63.83,-36.17
 Debug: Additionals has to be saved
 Debug: Current saving Status: net saved, additionals unsaved, demand elements saved
 Debug: Format of optional optional boolean attribute 'relativePath' of poly with ID 'poly_1' is invalid; Cannot be parsed to boolean; Default value will be used.
 Debug: Adding poly 'poly_1' into viewNet
-GLDebug: 	Inserted polygon:poly_1 into SUMORTree with boundary 48.00,-52.00,62.00,-38.00
+GLDebug: 	Inserted polygon:poly_1 into SUMORTree with boundary 46.17,-53.83,63.83,-36.17
 Debug: Adding poly 'poly_2' into viewNet
-GLDebug: 	Inserted polygon:poly_2 into SUMORTree with boundary 48.00,-52.00,62.00,-38.00
+GLDebug: 	Inserted polygon:poly_2 into SUMORTree with boundary 46.17,-53.83,63.83,-36.17
 Debug: Adding poly 'poly_3' into viewNet
-GLDebug: 	Inserted polygon:poly_3 into SUMORTree with boundary 48.00,-52.00,62.00,-38.00
+GLDebug: 	Inserted polygon:poly_3 into SUMORTree with boundary 46.17,-53.83,63.83,-36.17
 Debug: net has to be saved
 Debug: Current saving Status: net unsaved, additionals unsaved, demand elements saved
 Debug: Additionals saved
@@ -35,16 +35,16 @@ GLDebug: 	Inserted edge:gneE1 into SUMORTree with boundary -10.00,-10.00,60.00,1
 Debug: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
 Debug: Removing poly 'poly_3' from net in ~GNEChange_Shape()
-GLDebug: 	Removed object polygon:poly_3 from SUMORTree with boundary 48.00,-52.00,62.00,-38.00
+GLDebug: 	Removed object polygon:poly_3 from SUMORTree with boundary 46.17,-53.83,63.83,-36.17
 Debug: delete poly 'poly_3' in ~GNEChange_Shape()
 Debug: Removing poly 'poly_2' from net in ~GNEChange_Shape()
-GLDebug: 	Removed object polygon:poly_2 from SUMORTree with boundary 48.00,-52.00,62.00,-38.00
+GLDebug: 	Removed object polygon:poly_2 from SUMORTree with boundary 46.17,-53.83,63.83,-36.17
 Debug: delete poly 'poly_2' in ~GNEChange_Shape()
 Debug: Removing poly 'poly_1' from net in ~GNEChange_Shape()
-GLDebug: 	Removed object polygon:poly_1 from SUMORTree with boundary 48.00,-52.00,62.00,-38.00
+GLDebug: 	Removed object polygon:poly_1 from SUMORTree with boundary 46.17,-53.83,63.83,-36.17
 Debug: delete poly 'poly_1' in ~GNEChange_Shape()
 Debug: Removing poly 'poly_0' from net in ~GNEChange_Shape()
-GLDebug: 	Removed object polygon:poly_0 from SUMORTree with boundary 48.00,-52.00,62.00,-38.00
+GLDebug: 	Removed object polygon:poly_0 from SUMORTree with boundary 46.17,-53.83,63.83,-36.17
 Debug: delete poly 'poly_0' in ~GNEChange_Shape()
 Debug: Deleting unreferenced edge 'gneE0' in GNENet destructor
 Debug: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor

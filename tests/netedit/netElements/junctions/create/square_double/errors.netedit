@@ -6,10 +6,12 @@ Debug: Current saving Status: net unsaved, additionals saved, demand elements sa
 Debug: Enabled auto opposite edge throught alt + 4
 Debug: Enabled chain edges throught alt + 3
 Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
+Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 Debug: Adding junction 'gneJ0' into net
 GLDebug: 	Inserted junction:gneJ0 into SUMORTree with boundary -12.00,55.00,12.00,79.00
 Debug: net has to be saved
 Debug: Current saving Status: net unsaved, additionals saved, demand elements saved
+Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 Debug: Adding junction 'gneJ1' into net
 GLDebug: 	Inserted junction:gneJ1 into SUMORTree with boundary 7.00,55.00,31.00,79.00
@@ -27,6 +29,7 @@ Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into jun
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '-gneE0'
 Debug: invalidating (removing) connections of edge '-gneE0' due it were guessed
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ0'
+Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 Debug: Adding junction 'gneJ2' into net
 GLDebug: 	Inserted junction:gneJ2 into SUMORTree with boundary 7.00,36.00,31.00,60.00
@@ -49,6 +52,7 @@ Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edg
 Debug: invalidating (removing) connections of edge '-gneE1' due it were guessed
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ1'
 Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
+Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 Debug: Adding junction 'gneJ3' into net
 GLDebug: 	Inserted junction:gneJ3 into SUMORTree with boundary -12.00,36.00,12.00,60.00
 Debug: Adding edge 'gneE2' from net
@@ -69,7 +73,8 @@ Debug: invalidating (removing) connections of edge 'gneE1' due it were guessed
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '-gneE2'
 Debug: invalidating (removing) connections of edge '-gneE2' due it were guessed
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ2'
-Debug: ObjectsUnderCursor: GUIGlObjects: 2, AttributeCarriers: 2, NetElements: 2, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 1, Edges: 1, Lanes: 1, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
+Debug: ObjectsUnderCursor: GUIGlObjects: 1, AttributeCarriers: 1, NetElements: 1, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 1, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
+Debug: ObjectsUnderCursor: GUIGlObjects: 1, AttributeCarriers: 1, NetElements: 1, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 1, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 Debug: Adding edge 'gneE3' from net
 GLDebug: 	Inserted edge:gneE3 into SUMORTree with boundary -10.00,38.00,11.60,77.00
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE2'
@@ -130,6 +135,7 @@ Debug: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE1_0togneE2_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE2_0togneE3_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE3_0togneE0_0' in retrieveGNEConnection()
+Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
@@ -227,6 +233,7 @@ Debug: Removing junction 'gneJ1' from net
 GLDebug: 	Removed object junction:gneJ1 from SUMORTree with boundary 5.80,53.80,32.20,80.20
 Debug: Removing junction 'gneJ0' from net
 GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -13.20,53.80,13.20,80.20
+Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()

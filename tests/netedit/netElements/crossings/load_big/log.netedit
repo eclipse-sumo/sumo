@@ -6,19 +6,19 @@ Warning: Ambiguity in turnarounds computation at junction '2739143296'.
 Warning: Ambiguity in turnarounds computation at junction '2739143307'.
 Warning: Ambiguity in turnarounds computation at junction '2739143323'.
 Warning: Ambiguity in turnarounds computation at junction '740379739'.
-Warning: Found angle of 121.15 degrees at edge '-194073678#1', segment 0
+Warning: Found angle of 121.15 degrees at edge '-194073678#1', segment 0.
 Warning: Found sharp turn with radius 7.15 at the end of edge '-194167259#1'.
 Warning: Found sharp turn with radius 3.53 at the start of edge '-195071823'.
 Warning: Found sharp turn with radius 6.37 at the start of edge '-52348720#0'.
 Warning: Found sharp turn with radius 8.52 at the start of edge '122820534#0'.
-Warning: Found angle of 121.15 degrees at edge '194073678#1', segment 0
+Warning: Found angle of 121.15 degrees at edge '194073678#1', segment 0.
 Warning: Found sharp turn with radius 7.15 at the start of edge '194167259#1'.
 Warning: Found sharp turn with radius 3.53 at the end of edge '195071823'.
 Warning: Found sharp turn with radius 8.32 at the end of edge '202162471'.
 Warning: Found sharp turn with radius 8.48 at the start of edge '23852053#1'.
 Warning: Found sharp turn with radius 5.32 at the start of edge '310315479#1'.
 Warning: Found sharp turn with radius 6.37 at the end of edge '52348720#0'.
-Warning: Found angle of 142.82 degrees at edge '6227654#2', segment 0
+Warning: Found angle of 142.82 degrees at edge '6227654#2', segment 0.
 Warning: Found sharp turn with radius 1.19 at the start of edge '6227654#2'.
 Warning: Lane '-24992424#0_6' is not connected from any incoming edge at junction '2882261426'.
 Warning: Lane '-24992424#1_6' is not connected from any incoming edge at junction 'cluster_2086246926_28373974'.
@@ -189,12 +189,12 @@ Warning: The rail crossing '1864428534' does not have any roads.
 Warning: The rail crossing '506357654' does not have any roads.
 Warning: The rail crossing '506357655' does not have any roads.
 Warning: The rail crossing '997027037' does not have any roads.
-Warning: Connection '25302636#1_1->170855334_0' is only 0.10 short.
-Warning: Connection '199425792_0->199425790#2_0' is only 0.06 short.
-Warning: Connection '199425793_0->321754182#1_0' is only 0.10 short.
-Warning: Speed of turning connection '272760867#0_0->27079979#0_0' reduced by 24.99 due to turning radius of 1.41 (length=1.47 angle=172.60)
-Warning: Speed of turning connection '27080261_0->177195505#2_0' reduced by 24.97 due to turning radius of 1.44 (length=1.54 angle=172.53)
-Warning: Speed of turning connection '199425798_0->252254904#36_0' reduced by 24.95 due to turning radius of 1.46 (length=1.55 angle=169.47)
+Warning: Connection '25302636#1_1->170855334_0' is only 0.10m short.
+Warning: Connection '199425792_0->199425790#2_0' is only 0.06m short.
+Warning: Connection '199425793_0->321754182#1_0' is only 0.10m short.
+Warning: Speed of turning connection '272760867#0_0->27079979#0_0' reduced by 24.99 due to turning radius of 1.41 (length=1.47, angle=172.60).
+Warning: Speed of turning connection '27080261_0->177195505#2_0' reduced by 24.97 due to turning radius of 1.44 (length=1.54, angle=172.53).
+Warning: Speed of turning connection '199425798_0->252254904#36_0' reduced by 24.95 due to turning radius of 1.46 (length=1.55, angle=169.47).
 Warning: Ambiguity in turnarounds computation at junction '1130114721'.
 Warning: Ambiguity in turnarounds computation at junction '1206481791'.
 Warning: Ambiguity in turnarounds computation at junction '1206481808'.
@@ -203,19 +203,19 @@ Warning: Ambiguity in turnarounds computation at junction '2739143296'.
 Warning: Ambiguity in turnarounds computation at junction '2739143307'.
 Warning: Ambiguity in turnarounds computation at junction '2739143323'.
 Warning: Ambiguity in turnarounds computation at junction '740379739'.
-Warning: Found angle of 121.15 degrees at edge '-194073678#1', segment 0
+Warning: Found angle of 121.15 degrees at edge '-194073678#1', segment 0.
 Warning: Found sharp turn with radius 7.15 at the end of edge '-194167259#1'.
 Warning: Found sharp turn with radius 3.53 at the start of edge '-195071823'.
 Warning: Found sharp turn with radius 6.37 at the start of edge '-52348720#0'.
 Warning: Found sharp turn with radius 8.52 at the start of edge '122820534#0'.
-Warning: Found angle of 121.15 degrees at edge '194073678#1', segment 0
+Warning: Found angle of 121.15 degrees at edge '194073678#1', segment 0.
 Warning: Found sharp turn with radius 7.15 at the start of edge '194167259#1'.
 Warning: Found sharp turn with radius 3.53 at the end of edge '195071823'.
 Warning: Found sharp turn with radius 8.32 at the end of edge '202162471'.
 Warning: Found sharp turn with radius 8.48 at the start of edge '23852053#1'.
 Warning: Found sharp turn with radius 5.32 at the start of edge '310315479#1'.
 Warning: Found sharp turn with radius 6.37 at the end of edge '52348720#0'.
-Warning: Found angle of 142.82 degrees at edge '6227654#2', segment 0
+Warning: Found angle of 142.82 degrees at edge '6227654#2', segment 0.
 Warning: Found sharp turn with radius 1.19 at the start of edge '6227654#2'.
 Warning: Lane '-24992424#0_6' is not connected from any incoming edge at junction '2882261426'.
 Warning: Lane '-24992424#1_6' is not connected from any incoming edge at junction 'cluster_2086246926_28373974'.
@@ -386,9 +386,9 @@ Warning: The rail crossing '1864428534' does not have any roads.
 Warning: The rail crossing '506357654' does not have any roads.
 Warning: The rail crossing '506357655' does not have any roads.
 Warning: The rail crossing '997027037' does not have any roads.
-Warning: Connection '25302636#1_1->170855334_0' is only 0.10 short.
-Warning: Connection '199425792_0->199425790#2_0' is only 0.06 short.
-Warning: Connection '199425793_0->321754182#1_0' is only 0.10 short.
-Warning: Speed of turning connection '272760867#0_0->27079979#0_0' reduced by 24.99 due to turning radius of 1.41 (length=1.47 angle=172.60)
-Warning: Speed of turning connection '27080261_0->177195505#2_0' reduced by 24.97 due to turning radius of 1.44 (length=1.54 angle=172.53)
-Warning: Speed of turning connection '199425798_0->252254904#36_0' reduced by 24.95 due to turning radius of 1.46 (length=1.55 angle=169.47)
+Warning: Connection '25302636#1_1->170855334_0' is only 0.10m short.
+Warning: Connection '199425792_0->199425790#2_0' is only 0.06m short.
+Warning: Connection '199425793_0->321754182#1_0' is only 0.10m short.
+Warning: Speed of turning connection '272760867#0_0->27079979#0_0' reduced by 24.99 due to turning radius of 1.41 (length=1.47, angle=172.60).
+Warning: Speed of turning connection '27080261_0->177195505#2_0' reduced by 24.97 due to turning radius of 1.44 (length=1.54, angle=172.53).
+Warning: Speed of turning connection '199425798_0->252254904#36_0' reduced by 24.95 due to turning radius of 1.46 (length=1.55, angle=169.47).

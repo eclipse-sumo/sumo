@@ -29,6 +29,9 @@ Debug: Current Viewport values: 50.00, 50.00, 50.00. Zoom = '248.00'
 Debug: ObjectsUnderCursor: GUIGlObjects: 2, AttributeCarriers: 2, NetElements: 2, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 1, Edges: 0, Lanes: 0, Crossings: 1, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 Debug: ObjectsUnderCursor: GUIGlObjects: 2, AttributeCarriers: 2, NetElements: 2, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 1, Edges: 0, Lanes: 0, Crossings: 1, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 Debug: ObjectsUnderCursor: GUIGlObjects: 2, AttributeCarriers: 2, NetElements: 2, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 1, Edges: 0, Lanes: 0, Crossings: 1, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
+Debug: ObjectsUnderCursor: GUIGlObjects: 2, AttributeCarriers: 2, NetElements: 2, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 1, Edges: 0, Lanes: 0, Crossings: 1, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
+Debug: ObjectsUnderCursor: GUIGlObjects: 2, AttributeCarriers: 2, NetElements: 2, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 1, Edges: 0, Lanes: 0, Crossings: 1, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
+Debug: ObjectsUnderCursor: GUIGlObjects: 2, AttributeCarriers: 2, NetElements: 2, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 1, Edges: 0, Lanes: 0, Crossings: 1, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 Debug: Setting new attribute genericParameter 'key1=value1|key2=value2|key3=value3' into crossing ':Center_c0'
 Debug: net has to be saved
 Debug: Current saving Status: net unsaved, additionals saved, demand elements saved
@@ -45,6 +48,7 @@ Debug: Setting new attribute genericParameter 'key1=valueInvalid%;%$<>$$%|key2=v
 Debug: Setting new attribute genericParameter 'key1=valueInvalid%;%$<>$$%|key2=value2|key3=value3' into crossing ':Center_c1'
 Debug: Setting new attribute genericParameter 'keyFinal1=value1|keyFinal2=value2|keyFinal3=value3' into crossing ':Center_c0'
 Debug: Setting new attribute genericParameter 'keyFinal1=value1|keyFinal2=value2|keyFinal3=value3' into crossing ':Center_c1'
+Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
@@ -75,6 +79,7 @@ Debug: Calling GNEUndoList::undo()
 Debug: Setting previous attribute genericParameter '' into crossing ':Center_c1'
 Debug: Setting previous attribute genericParameter '' into crossing ':Center_c0'
 Debug: Keys Ctrl+Z (Undo) pressed
+Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()

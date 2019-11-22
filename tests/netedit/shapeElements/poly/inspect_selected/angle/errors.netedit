@@ -6,15 +6,18 @@ GLDebug: 	Inserted edge:gneE1 into SUMORTree with boundary -10.00,-10.00,60.00,1
 Debug: Selected item 'DEFAULT_VEHTYPE' in DemandElementSelector
 Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
 Debug: Adding poly 'poly_0' into viewNet
-GLDebug: 	Inserted polygon:poly_0 into SUMORTree with boundary 0.00,6.00,14.00,20.00
+GLDebug: 	Inserted polygon:poly_0 into SUMORTree with boundary -0.09,5.91,14.09,20.09
 Debug: Additionals has to be saved
 Debug: Current saving Status: net saved, additionals unsaved, demand elements saved
 Debug: Adding poly 'poly_1' into viewNet
-GLDebug: 	Inserted polygon:poly_1 into SUMORTree with boundary 20.00,6.00,34.00,20.00
+GLDebug: 	Inserted polygon:poly_1 into SUMORTree with boundary 19.83,5.83,34.17,20.17
 Debug: net has to be saved
 Debug: Current saving Status: net unsaved, additionals unsaved, demand elements saved
 Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
+Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
+Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
+Debug: ObjectsUnderCursor: GUIGlObjects: 1, AttributeCarriers: 1, NetElements: 0, Additionals: 0, DemandElements: 0, Shapes: 1, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 1
 Debug: ObjectsUnderCursor: GUIGlObjects: 1, AttributeCarriers: 1, NetElements: 0, Additionals: 0, DemandElements: 0, Shapes: 1, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 1
 Error: Could not load 'dummyAngle'.
 Unknown file extension '' for image 'dummyAngle'!
@@ -32,23 +35,25 @@ Error: Could not load '10i'.
 Unknown file extension '' for image '10i'!
 Debug: Value '10i' for attribute imgFile of poly isn't valid
 Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
+Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Removing poly 'poly_1' from viewNet
-GLDebug: 	Removed object polygon:poly_1 from SUMORTree with boundary 20.00,6.00,34.00,20.00
+GLDebug: 	Removed object polygon:poly_1 from SUMORTree with boundary 19.83,5.83,34.17,20.17
 Debug: Removing poly 'poly_0' from viewNet
 Debug: Removed inspected element from Inspected ACs. 0 ACs remains.
-GLDebug: 	Removed object polygon:poly_0 from SUMORTree with boundary 0.00,6.00,14.00,20.00
+GLDebug: 	Removed object polygon:poly_0 from SUMORTree with boundary -0.09,5.91,14.09,20.09
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
+Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Adding poly 'poly_0' into viewNet
-GLDebug: 	Inserted polygon:poly_0 into SUMORTree with boundary 0.00,6.00,14.00,20.00
+GLDebug: 	Inserted polygon:poly_0 into SUMORTree with boundary -0.09,5.91,14.09,20.09
 Debug: Adding poly 'poly_1' into viewNet
-GLDebug: 	Inserted polygon:poly_1 into SUMORTree with boundary 20.00,6.00,34.00,20.00
+GLDebug: 	Inserted polygon:poly_1 into SUMORTree with boundary 19.83,5.83,34.17,20.17
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Keys Ctrl+Y (Redo) pressed
@@ -68,10 +73,10 @@ GLDebug: 	Inserted edge:gneE1 into SUMORTree with boundary -10.00,-10.00,60.00,1
 Debug: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
 Debug: Removing poly 'poly_1' from net in ~GNEChange_Shape()
-GLDebug: 	Removed object polygon:poly_1 from SUMORTree with boundary 20.00,6.00,34.00,20.00
+GLDebug: 	Removed object polygon:poly_1 from SUMORTree with boundary 19.83,5.83,34.17,20.17
 Debug: delete poly 'poly_1' in ~GNEChange_Shape()
 Debug: Removing poly 'poly_0' from net in ~GNEChange_Shape()
-GLDebug: 	Removed object polygon:poly_0 from SUMORTree with boundary 0.00,6.00,14.00,20.00
+GLDebug: 	Removed object polygon:poly_0 from SUMORTree with boundary -0.09,5.91,14.09,20.09
 Debug: delete poly 'poly_0' in ~GNEChange_Shape()
 Debug: Deleting unreferenced edge 'gneE0' in GNENet destructor
 Debug: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor

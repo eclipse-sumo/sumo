@@ -11,11 +11,11 @@ GLDebug: 	Inserted polygon:poly_0 into SUMORTree with boundary 48.00,-12.00,62.0
 Debug: Additionals has to be saved
 Debug: Current saving Status: net saved, additionals unsaved, demand elements saved
 Debug: Adding poly 'poly_1' into viewNet
-GLDebug: 	Inserted polygon:poly_1 into SUMORTree with boundary 48.00,-32.00,62.00,-18.00
+GLDebug: 	Inserted polygon:poly_1 into SUMORTree with boundary 45.96,-34.04,64.04,-15.96
 Debug: Adding poly 'poly_2' into viewNet
-GLDebug: 	Inserted polygon:poly_2 into SUMORTree with boundary 48.00,-52.00,62.00,-38.00
+GLDebug: 	Inserted polygon:poly_2 into SUMORTree with boundary 46.17,-53.83,63.83,-36.17
 Debug: Adding poly 'poly_3' into viewNet
-GLDebug: 	Inserted polygon:poly_3 into SUMORTree with boundary 48.00,-52.00,62.00,-38.00
+GLDebug: 	Inserted polygon:poly_3 into SUMORTree with boundary 47.07,-52.93,62.93,-37.07
 Debug: net has to be saved
 Debug: Current saving Status: net unsaved, additionals unsaved, demand elements saved
 Debug: Additionals saved
@@ -34,13 +34,13 @@ GLDebug: 	Inserted edge:gneE1 into SUMORTree with boundary -10.00,-10.00,60.00,1
 Debug: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
 Debug: Removing poly 'poly_3' from net in ~GNEChange_Shape()
-GLDebug: 	Removed object polygon:poly_3 from SUMORTree with boundary 48.00,-52.00,62.00,-38.00
+GLDebug: 	Removed object polygon:poly_3 from SUMORTree with boundary 47.07,-52.93,62.93,-37.07
 Debug: delete poly 'poly_3' in ~GNEChange_Shape()
 Debug: Removing poly 'poly_2' from net in ~GNEChange_Shape()
-GLDebug: 	Removed object polygon:poly_2 from SUMORTree with boundary 48.00,-52.00,62.00,-38.00
+GLDebug: 	Removed object polygon:poly_2 from SUMORTree with boundary 46.17,-53.83,63.83,-36.17
 Debug: delete poly 'poly_2' in ~GNEChange_Shape()
 Debug: Removing poly 'poly_1' from net in ~GNEChange_Shape()
-GLDebug: 	Removed object polygon:poly_1 from SUMORTree with boundary 48.00,-32.00,62.00,-18.00
+GLDebug: 	Removed object polygon:poly_1 from SUMORTree with boundary 45.96,-34.04,64.04,-15.96
 Debug: delete poly 'poly_1' in ~GNEChange_Shape()
 Debug: Removing poly 'poly_0' from net in ~GNEChange_Shape()
 GLDebug: 	Removed object polygon:poly_0 from SUMORTree with boundary 48.00,-12.00,62.00,2.00

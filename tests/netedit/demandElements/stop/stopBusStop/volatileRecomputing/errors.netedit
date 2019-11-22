@@ -100,6 +100,7 @@ Debug: Adding busStop 'busStopF' in GNEChange_Additional
 Debug: Adding busStop 'busStopG' in GNEChange_Additional
 Debug: Adding busStop 'busStopH' in GNEChange_Additional
 Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
+Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 Debug: demand elements saved
 Debug: Additionals saved
 GLDebug: Removing junctions during recomputing
