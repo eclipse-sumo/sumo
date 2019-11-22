@@ -186,4 +186,4 @@ permalink: /Z/Changes_from_Version_0.19.0_to_Version_0.20.0/
     option **--xml-validation** {{DT_STR}} but applies only to sumo networks (default *never* since
     network validation is computationally expensive).
   - Most of the input and output files have an XML schema now, see
-    <http://www.sumo-sim.org/trac.wsgi/browser/trunk/sumo/data/xsd>
+    <{{Source}}data/xsd>

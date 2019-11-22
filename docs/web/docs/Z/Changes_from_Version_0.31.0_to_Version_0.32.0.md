@@ -123,7 +123,7 @@ permalink: /Z/Changes_from_Version_0.31.0_to_Version_0.32.0/
       stop
   - emissionsDrivingCycle now uses the slope values from the correct
     time step when forward calculation of acceleration is enabled
-  - [generateTurnDefs.py](../Tools/Misc#generateTurnDefs.py.md)
+  - [generateTurnDefs.py](../Tools/Misc.md#generateturndefspy)
     now writes interval information. Thanks to Srishti Dhamija for
     the patch. #3712
 

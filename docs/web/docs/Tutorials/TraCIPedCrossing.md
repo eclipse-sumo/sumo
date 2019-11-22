@@ -55,7 +55,7 @@ documentation](http://sumo.dlr.de/daily/pydoc/traci.html).
 
 The traffic light follows a fixed cycle of phases of as defined below.
 The definition below is taken from
-[pedcrossing.tll.xml](http://sumo.dlr.de/trac.wsgi/browser/trunk/sumo/tests/complex/tutorial/traci_pedestrian_crossing/data/pedcrossing.tll.xml)
+[pedcrossing.tll.xml]({{Source}}tests/complex/tutorial/traci_pedestrian_crossing/data/pedcrossing.tll.xml)
 
 ```
 <tlLogic id="C" type="static" programID="custom" offset="0">

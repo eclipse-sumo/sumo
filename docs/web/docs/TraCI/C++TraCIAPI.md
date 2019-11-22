@@ -46,7 +46,7 @@ The file **ws2_32.lib** must be added to the linker files in the
 project properties (it contains the windows socket calls) to avoid
 linker errors.
 
-## [TraCI-Testclient](http://sumo.dlr.de/trac.wsgi/browser/trunk/sumo/src/traci_testclient)
+## [TraCI-Testclient]({{Source}}src/traci_testclient)
 
 The TraCI-Testclient is an application for testing the server side of
 the TRaCI-API. When using it as the basis for your own control script

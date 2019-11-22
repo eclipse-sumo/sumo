@@ -30,10 +30,10 @@ permalink: /Z/Changes_from_Version_0.10.3_to_Version_0.11.0/
     - Removed unused/undescribed lane-change options **--lanechange.min-sight** and **--lanechange.min-sight-edges**
   - Outputs
     - patched problems with the intervals of detector outputs
-      (including [defect 73: false end step information in detectors output](http://apps.sourceforge.net/trac/sumo/ticket/73))
+      (including [defect 73: false end step information in detectors output](https://github.com/eclipse/sumo/issues/73))
   - removed TrafficOnline classes; new approaches will be
     described/discussed at
-    TrafficOnline; was: [enhancement 57: remove TrafficOnline classes from simulation core](http://apps.sourceforge.net/trac/sumo/ticket/57)
+    TrafficOnline; was: [enhancement 57: remove TrafficOnline classes from simulation core](https://github.com/eclipse/sumo/issues/57)
     - [edgelane traffic](../Simulation/Output/Lane-_or_Edge-based_Traffic_Measures.md),
       [edgelane hbefa](../Simulation/Output/Lane-_or_Edge-based_Emissions_Measures.md),
       and [edgelane harmonoise]../(Simulation/Output/Lane-_or_Edge-based_Noise_Measures.md)
@@ -71,7 +71,7 @@ permalink: /Z/Changes_from_Version_0.10.3_to_Version_0.11.0/
   - Type descriptions allow a certain edge type to be discarded from
     being imported using the `discard="x"` attribute.
   - NETCONVERT can guess roundabouts; force using **--guess-roundabouts**
-  - corrected usage of the `spread_type` attribute in edges; was: [defect 111 correct usage of the spread_type attribute](http://apps.sourceforge.net/trac/sumo/ticket/111)
+  - corrected usage of the `spread_type` attribute in edges; was: [defect 111 correct usage of the spread_type attribute](https://github.com/eclipse/sumo/issues/111)
   - patching problems with RoboCup Rescue League import
 
 - OD2TRIPS
@@ -79,7 +79,7 @@ permalink: /Z/Changes_from_Version_0.10.3_to_Version_0.11.0/
     command line, now. The following options were introduced for
     this purpose: **--departlane**, **--departpos**, **--departspeed**, **--arrivallane**, **--arrivalpos**, **--arrivalspeed**. See also
     [Specification](../Specification.md)
-  - solved [defect 67: false interpretation of the second time field (OD2TRIPS)](http://apps.sourceforge.net/trac/sumo/ticket/67)
+  - solved [defect 67: false interpretation of the second time field (OD2TRIPS)](https://github.com/eclipse/sumo/issues/67)
 
 - DUAROUTER
   - The default departure/arrival behaviour can be controlled on the
@@ -97,7 +97,7 @@ permalink: /Z/Changes_from_Version_0.10.3_to_Version_0.11.0/
   - changed name of "areal detectors" to "multi-entry/multi-exit
     detectors"
   - fixed crashes occuring when using the distance command
-    ([defect 70: TraCI does not recognize edges with'\['...](http://apps.sourceforge.net/trac/sumo/ticket/70))
+    ([defect 70: TraCI does not recognize edges with'\['...](https://github.com/eclipse/sumo/issues/70))
   - added [APIs for getting information about vehicles, vehicle types, lanes, routes, polygons, PoIs, and junctions](../TraCI.md).
   - added the possibility to change the phase and retrieve the
     current phase and complete definition of a tls using the new

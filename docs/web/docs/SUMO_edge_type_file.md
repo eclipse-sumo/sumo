@@ -101,7 +101,7 @@ the following attributes:
 
   [Key:maxspeed](http://wiki.openstreetmap.org/wiki/Key:maxspeed),
   [OSM tags for
-  routing/Maxspeed](http://wiki.openstreetmap.org/wiki/OSM_tags_for_routing/Maxspeed),
+  routing/Maxspeed](https://wiki.openstreetmap.org/wiki/OSM_tags_for_routing#Max_speed),
   [Key:source:maxspeed](http://wiki.openstreetmap.org/wiki/Key:source:maxspeed)
   and
   [Key:traffic_sign](http://wiki.openstreetmap.org/wiki/Key:traffic_sign).

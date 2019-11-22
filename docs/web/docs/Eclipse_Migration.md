@@ -43,7 +43,7 @@ set**
 
 Things that stay the same:
 
-- Wiki remains at [sumo.dlr.de/wiki](http://sumo.dlr.de/wiki)
+- Documentation remains at [sumo.dlr.de/docs](https://sumo.dlr.de/docs)
 
 !!! note
     This page will be continuously updated with the state of the migration.

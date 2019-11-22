@@ -16,7 +16,7 @@ roundabout can be found at 44.494554,11.314393. These scenarios were
 developed as part of the [iTETRIS project](http://www.ict-itetris.eu). A
 [publication](http://elib.dlr.de/89354) on these scenarios was presented
 at [SUMO
-Conference 2014](http://sumo-sim.org/wiki/Publications#SUMO_2014): L.
+Conference 2014](https://sumo.dlr.de/docs/Publications.html#SUMO_2014): L.
 Bieker, D. Krajzewicz, A. Morra, C. Michelacci and F. Cartolano,
 "Traffic simulation for all: a real world traffic scenario from the city
 of Bologna", SUMO2014, p 19-26

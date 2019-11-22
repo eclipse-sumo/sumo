@@ -232,7 +232,7 @@ permalink: /Z/Changes_from_Version_0.22.0_to_Version_0.23.0/
     the ride instead of the green verge. #1583
   - Added option **--sidewalks.guess.from-permissions** {{DT_BOOL}}. This adds sidewalks for edges that allow
     pedestrians on any of their lanes regardless of speed. #1588
-  - Can now import waterways from OSM ([needs a custom type-map](http://sumo.dlr.de/trac.wsgi/browser/trunk/sumo/data/typemap/osmNetconvertShips.typ.xml)).
+  - Can now import waterways from OSM ([needs a custom type-map]({{Source}}data/typemap/osmNetconvertShips.typ.xml)).
   - The junction size can now be customized [using the new `<node>`-attribute `radius`](../Networks/PlainXML.md#node_descriptions) #1605
   - Added option **--junctions.corner-detail** {{DT_INT}} which can be used to generate rounded intersection
     corners. #1606

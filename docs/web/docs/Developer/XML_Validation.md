@@ -41,7 +41,7 @@ configurations (command line option **--save-schema** {{DT_FILE}})
 28.10.2009: I made a small search on possible tools for validating XML
 files which are using Python. It seems as two are majorly used:
 
-- [lxml](http://codespeak.net/lxml/validation.html#xmlschema)
+- [lxml](https://lxml.de/validation.html)
 - [XSV](http://www.ltg.ed.ac.uk/~ht/xsv-status.html)
 
 further candidates:

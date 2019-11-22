@@ -116,14 +116,14 @@ sensors and from the simulation are compared.
   Lieferbedingungen für Streckenstationen. Bundesministerium für
   Verkehr, Bau-, und Wohnungswesen. Wirtschaftsverlag NW
 - \[3\]
-  <http://sumo.sourceforge.net/doc/current/docs/userdoc/Simulation/Variable_Speed_Signs.html>,
+  <https://sumo.dlr.de/docs/Simulation/Variable_Speed_Signs.html>,
   last visited 21 February 2012
 - \[4\]
-  <http://sumo.sourceforge.net/doc/current/docs/userdoc/DFROUTER.html>,
+  <https://sumo.dlr.de/docs/DFROUTER.html>,
   last visited 21 February 2012
 - \[5\]
-  <http://sumo.sourceforge.net/doc/current/docs/userdoc/Definition_of_Vehicles,_Vehicle_Types,_and_Routes.html>,
+  <https://sumo.dlr.de/docs/Definition_of_Vehicles,_Vehicle_Types,_and_Routes.html>,
   last visited 21 February 2012
 - \[6\]
-  <http://sumo.sourceforge.net/doc/current/docs/userdoc/Simulation/Output/Induction_Loops_Detectors_(E1).html>,
+  <https://sumo.dlr.de/docs/Simulation/Output/Induction_Loops_Detectors_(E1).html>,
   last visited 21 February 2012

@@ -8,7 +8,7 @@ before reading this.
 
 # OpenStreetMap-project
 
-- *URL*: <http://www.openstreetmap.org/>
+- *URL*: <https://www.openstreetmap.org/>
 - *Area*: the complete world :-)
 - *Demand data*: not available
 - *Extraction*:

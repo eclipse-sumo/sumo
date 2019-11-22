@@ -458,7 +458,7 @@ and simply type `git pull`.
   schema information. The schema files which are needed for checking
   are retrieved from the local sumo installation if [the environment variable **SUMO_HOME** is set](Basics/Basic_Computer_Skills.md#additional_environment_variables).
   Otherwise the files will be retrieved from
-  [sumo.dlr.de](http://www.sumo.dlr.de) which is slower. Validation
+  [sumo.dlr.de](https://sumo.dlr.de) which is slower. Validation
   can be disabled by using the option **--xml-validation never** or by deleting the schema
   information at the top of the XML input file(s).
 
