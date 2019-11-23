@@ -35,10 +35,8 @@ permalink: /FAQ/
   The main page for getting an overview over the various topics is the
   outline
   [SUMO_User_Documentation](SUMO_User_Documentation.md). If
-  you do not find the topic of interest listed there it is often
-  useful to use google for searching the wiki (it tends to be a lot
-  smarter than the wiki-internal search). Add **sumo** and **wiki** to
-  your search terms and it will generally find the relevant pages.
+  you do not find the topic of interest listed there use the site search.
+  Alterantively, use a general purpose search engine as this will also include the mailing list archives.
 
 ### How can I contribute to SUMO?
 
@@ -207,6 +205,10 @@ you may appear to be lazy).
 in a hurry and cannot get an answer, try to change your question
 according to the above suggestions.
 - Be polite
+- Good Example questions:
+  - How can I get data X out of SUMO?
+  - How can I influence aspect Y of a simulation?
+  - My simulation does Z though I do not expect it to. How do I fix that?
 
 ### I asked a question on the mailing list and did not get an answer within X days. Why?
 
