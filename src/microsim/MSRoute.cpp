@@ -263,12 +263,14 @@ MSRoute::dict_saveState(OutputDevice& out) {
         out.writeAttr(SUMO_ATTR_STATE, (*it).second->myAmPermanent);
         out.writeAttr(SUMO_ATTR_EDGES, (*it).second->myEdges).closeTag();
     }
-    for (RouteDistDict::iterator it = myDistDict.begin(); it != myDistDict.end(); ++it) {
-        out.openTag(SUMO_TAG_ROUTE_DISTRIBUTION).writeAttr(SUMO_ATTR_ID, (*it).first);
-        out.writeAttr(SUMO_ATTR_STATE, (*it).second.second);
-        out.writeAttr(SUMO_ATTR_ROUTES, (*it).second.first->getVals());
-        out.writeAttr(SUMO_ATTR_PROBS, (*it).second.first->getProbs());
-        out.closeTag();
+    for (const auto& item : myDistDict) {
+        if (item.second.first->getVals().size() > 0) {
+            out.openTag(SUMO_TAG_ROUTE_DISTRIBUTION).writeAttr(SUMO_ATTR_ID, item.first);
+            out.writeAttr(SUMO_ATTR_STATE, item.second.second);
+            out.writeAttr(SUMO_ATTR_ROUTES, item.second.first->getVals());
+            out.writeAttr(SUMO_ATTR_PROBS, item.second.first->getProbs());
+            out.closeTag();
+        }
     }
 }
 
