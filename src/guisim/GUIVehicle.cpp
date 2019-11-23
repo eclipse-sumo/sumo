@@ -306,10 +306,10 @@ GUIVehicle::drawAction_drawCarriageClass(const GUIVisualizationSettings& s, bool
     const int seatsPerCarriage = (int)ceil(totalSeats / (numCarriages - firstPassengerCarriage));
     // lane on which the carriage front is situated
     MSLane* lane = myLane;
-    int routeIndex = getRoutePosition();
+    int furtherIndex = 0;
     // lane on which the carriage back is situated
     MSLane* backLane = myLane;
-    int backRouteIndex = routeIndex;
+    int backFurtherIndex = furtherIndex;
     // offsets of front and back
     double carriageOffset = myState.pos();
     double carriageBackOffset = myState.pos() - firstCarriageLength;
@@ -328,7 +328,7 @@ GUIVehicle::drawAction_drawCarriageClass(const GUIVisualizationSettings& s, bool
             curCLength = carriageLength;
         }
         while (carriageOffset < 0) {
-            MSLane* prev = getPreviousLane(lane, routeIndex);
+            MSLane* prev = getPreviousLane(lane, furtherIndex);
             if (prev != lane) {
                 carriageOffset += prev->getLength();
             } else {
@@ -338,7 +338,7 @@ GUIVehicle::drawAction_drawCarriageClass(const GUIVisualizationSettings& s, bool
             lane = prev;
         }
         while (carriageBackOffset < 0) {
-            MSLane* prev = getPreviousLane(backLane, backRouteIndex);
+            MSLane* prev = getPreviousLane(backLane, backFurtherIndex);
             if (prev != backLane) {
                 carriageBackOffset += prev->getLength();
             } else {
@@ -666,24 +666,9 @@ GUIVehicle::drawRouteHelper(const GUIVisualizationSettings& s, const MSRoute& r,
 
 
 MSLane*
-GUIVehicle::getPreviousLane(MSLane* current, int& routeIndex) const {
-    if (current->isInternal()) {
-        return current->getIncomingLanes().front().lane;
-    }
-    if (routeIndex > 0) {
-        routeIndex--;
-        const MSEdge* prevNormal = myRoute->getEdges()[routeIndex];
-        for (MSLane* cand : prevNormal->getLanes()) {
-            for (MSLink* link : cand->getLinkCont()) {
-                if (link->getLane() == current) {
-                    if (link->getViaLane() != nullptr) {
-                        return link->getViaLane();
-                    } else {
-                        return const_cast<MSLane*>(link->getLaneBefore());
-                    }
-                }
-            }
-        }
+GUIVehicle::getPreviousLane(MSLane* current, int& furtherIndex) const {
+    if (furtherIndex < (int)myFurtherLanes.size()) {
+        return myFurtherLanes[furtherIndex++];
     }
     return current;
 }
