@@ -891,7 +891,7 @@ GUISUMOAbstractView::onLeftBtnPress(FXObject*, FXSelector, void* data) {
     FXEvent* e = (FXEvent*) data;
     // check whether the selection-mode is activated
     if ((e->state & CONTROLMASK) != 0) {
-        // try to get the object-id if so
+        // toggle selection of object under cursor
         if (makeCurrent()) {
             int id = getObjectUnderCursor();
             if (id != 0) {
@@ -903,6 +903,19 @@ GUISUMOAbstractView::onLeftBtnPress(FXObject*, FXSelector, void* data) {
                 //  so we should update the screen again...
                 update();
             }
+        }
+    }
+    if ((e->state & SHIFTMASK) != 0) {
+        // track vehicle or person under cursor
+        if (makeCurrent()) {
+            int id = getObjectUnderCursor();
+            if (id != 0) {
+                GUIGlObject* o = GUIGlObjectStorage::gIDStorage.getObjectBlocking(id);
+                if (o != nullptr && (o->getType() == GLO_VEHICLE || o->getType() == GLO_PERSON)) {
+                    startTrack(id);
+                }
+            }
+            makeNonCurrent();
         }
     }
     myChanger->onLeftBtnPress(data);
