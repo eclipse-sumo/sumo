@@ -1,0 +1,6 @@
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+
+   <routeProbe id="middle" edge="middle" freq="10" file="detector.xml"/>
+   <routeProbe id="end" edge="end" freq="10" file="detector.xml"/>
+
+</additional>
