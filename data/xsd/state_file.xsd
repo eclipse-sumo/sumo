@@ -36,7 +36,7 @@
         <xsd:attribute name="number" type="xsd:int" use="required"/>
         <xsd:attribute name="begin" type="xsd:int" use="required"/>
         <xsd:attribute name="end" type="xsd:int" use="required"/>
-        <xsd:attribute name="depart" type="nonNegativeFloatType" use="required"/>
+        <xsd:attribute name="depart" type="xsd:float" use="required"/>
         <xsd:attribute name="time" type="nonNegativeFloatType" use="required"/>
     </xsd:complexType>
 
