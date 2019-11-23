@@ -125,10 +125,17 @@ public:
                                     GUISUMOAbstractView& parent);
 
 public:
+
+    enum RerouterEdgeType {
+        REROUTER_TRIGGER_EDGE,
+        REROUTER_CLOSED_EDGE,
+        REROUTER_SWITCH_EDGE
+    };
+
     class GUITriggeredRerouterEdge : public GUIGlObject {
 
     public:
-        GUITriggeredRerouterEdge(GUIEdge* edge, GUITriggeredRerouter* parent, bool closed);
+        GUITriggeredRerouterEdge(GUIEdge* edge, GUITriggeredRerouter* parent, RerouterEdgeType edgeType, int distIndex=-1);
 
         virtual ~GUITriggeredRerouterEdge();
 
@@ -187,7 +194,7 @@ public:
         MSEdge* myEdge;
 
         /// whether this edge instance visualizes a closed edge
-        const bool myAmClosedEdge;
+        const RerouterEdgeType myEdgeType;
 
         /// The positions in full-geometry mode
         PosCont myFGPositions;
@@ -197,6 +204,9 @@ public:
 
         /// The boundary of this rerouter
         Boundary myBoundary;
+
+        /// @brief the index for this in edge in routeProbs
+        int myDistIndex;
     };
 
 public:

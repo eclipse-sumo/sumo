@@ -33,6 +33,7 @@
 #include <microsim/MSNet.h>
 #include <microsim/MSLane.h>
 #include <microsim/MSEdge.h>
+#include <microsim/MSRoute.h>
 #include <guisim/GUINet.h>
 #include <guisim/GUIEdge.h>
 #include "GUITriggeredRerouter.h"
@@ -220,7 +221,7 @@ GUITriggeredRerouter::GUITriggeredRerouter(const std::string& id, const MSEdgeVe
     GUIGlObject_AbstractAdd(GLO_REROUTER, id) {
     // add visualisation objects for edges which trigger the rerouter
     for (MSEdgeVector::const_iterator it = edges.begin(); it != edges.end(); ++it) {
-        myEdgeVisualizations.push_back(new GUITriggeredRerouterEdge(dynamic_cast<GUIEdge*>(*it), this, false));
+        myEdgeVisualizations.push_back(new GUITriggeredRerouterEdge(dynamic_cast<GUIEdge*>(*it), this, REROUTER_TRIGGER_EDGE));
         rtree.addAdditionalGLObject(myEdgeVisualizations.back());
         myBoundary.add(myEdgeVisualizations.back()->getCenteringBoundary());
     }
@@ -242,9 +243,42 @@ GUITriggeredRerouter::myEndElement(int element) {
         // add visualisation objects for closed edges
         const RerouteInterval& ri = myIntervals.back();
         for (MSEdgeVector::const_iterator it = ri.closed.begin(); it != ri.closed.end(); ++it) {
-            myEdgeVisualizations.push_back(new GUITriggeredRerouterEdge(dynamic_cast<GUIEdge*>(*it), this, true));
+            myEdgeVisualizations.push_back(new GUITriggeredRerouterEdge(dynamic_cast<GUIEdge*>(*it), this, REROUTER_CLOSED_EDGE));
             dynamic_cast<GUINet*>(GUINet::getInstance())->getVisualisationSpeedUp().addAdditionalGLObject(myEdgeVisualizations.back());
             myBoundary.add(myEdgeVisualizations.back()->getCenteringBoundary());
+        }
+        // add visualisation objects for switches
+        if (ri.routeProbs.getProbs().size() > 1) {
+            // find last common edge of all routes
+            const MSRoute* route0 = ri.routeProbs.getVals()[0];
+            const MSEdge* lastEdge = nullptr;
+            int nextIndex = 0;
+            for (int i = 0; i < (int)route0->getEdges().size(); i++) {
+                const MSEdge* cand = route0->getEdges()[i];
+                for (const MSRoute* route : ri.routeProbs.getVals()) {
+                    const MSEdge* nextEdge = i < (int)route->getEdges().size() ? route->getEdges()[i] : nullptr;
+                    if (nextEdge != cand) {
+                        cand = nullptr;
+                    }
+                }
+                if (cand != nullptr) {
+                    lastEdge = cand;
+                } else {
+                    nextIndex = i;
+                    break;
+                }
+            }
+            if (lastEdge != nullptr) {
+                for (int i = 0; i < (int)ri.routeProbs.getVals().size(); i++) {
+                    const ConstMSEdgeVector& edges = ri.routeProbs.getVals()[i]->getEdges();
+                    if (nextIndex < (int)edges.size()) {
+                        GUIEdge* edge = dynamic_cast<GUIEdge*>(const_cast<MSEdge*>(edges[nextIndex]));
+                        myEdgeVisualizations.push_back(new GUITriggeredRerouterEdge(edge, this, REROUTER_SWITCH_EDGE, i));
+                        dynamic_cast<GUINet*>(GUINet::getInstance())->getVisualisationSpeedUp().addAdditionalGLObject(myEdgeVisualizations.back());
+                        myBoundary.add(myEdgeVisualizations.back()->getCenteringBoundary());
+                    }
+                }
+            }
         }
     }
 }
@@ -300,17 +334,19 @@ GUITriggeredRerouter::openManipulator(GUIMainWindow& app,
 /* -------------------------------------------------------------------------
  * GUITriggeredRerouterEdge - methods
  * ----------------------------------------------------------------------- */
-GUITriggeredRerouter::GUITriggeredRerouterEdge::GUITriggeredRerouterEdge(GUIEdge* edge, GUITriggeredRerouter* parent, bool closed) :
+GUITriggeredRerouter::GUITriggeredRerouterEdge::GUITriggeredRerouterEdge(GUIEdge* edge, GUITriggeredRerouter* parent, RerouterEdgeType edgeType, int distIndex) :
     GUIGlObject(GLO_REROUTER_EDGE, parent->getID() + ":" + edge->getID()),
     myParent(parent),
     myEdge(edge),
-    myAmClosedEdge(closed) {
+    myEdgeType(edgeType),
+    myDistIndex(distIndex)
+{
     const std::vector<MSLane*>& lanes = edge->getLanes();
     myFGPositions.reserve(lanes.size());
     myFGRotations.reserve(lanes.size());
     for (std::vector<MSLane*>::const_iterator i = lanes.begin(); i != lanes.end(); ++i) {
         const PositionVector& v = (*i)->getShape();
-        const double pos = closed ? 3 : v.length() - (double) 6.;
+        const double pos = edgeType == REROUTER_TRIGGER_EDGE ? v.length() - (double) 6. : 3;
         myFGPositions.push_back((*i)->geometryPositionAtOffset(pos));
         myFGRotations.push_back(-v.rotationDegreeAtOffset(pos));
         myBoundary.add(myFGPositions.back());
@@ -341,7 +377,7 @@ GUITriggeredRerouter::GUITriggeredRerouterEdge::drawGL(const GUIVisualizationSet
     if (s.scale * exaggeration >= 3) {
         glPushName(getGlID());
         const double prob = myParent->getProbability();
-        if (myAmClosedEdge) {
+        if (myEdgeType == REROUTER_CLOSED_EDGE) {
             // draw closing symbol onto all lanes
             const RerouteInterval* const ri =
                 myParent->getCurrentReroute(MSNet::getInstance()->getCurrentTimeStep());
@@ -386,7 +422,7 @@ GUITriggeredRerouter::GUITriggeredRerouterEdge::drawGL(const GUIVisualizationSet
                 }
             }
 
-        } else {
+        } else if (myEdgeType == REROUTER_TRIGGER_EDGE) {
             // draw rerouter symbol onto all lanes
             for (int i = 0; i < (int)myFGPositions.size(); ++i) {
                 const Position& pos = myFGPositions[i];
@@ -416,6 +452,40 @@ GUITriggeredRerouter::GUITriggeredRerouterEdge::drawGL(const GUIVisualizationSet
                 GLHelper::drawText((toString((int)(prob * 100)) + "%").c_str(), Position(0, 4), .1, 0.7, RGBColor::BLACK, 180);
 
                 glPopMatrix();
+            }
+        } else if (myEdgeType == REROUTER_SWITCH_EDGE) {
+            const RerouteInterval* const ri =
+                myParent->getCurrentReroute(MSNet::getInstance()->getCurrentTimeStep());
+            const double routeProb = ri->routeProbs.getProbs()[myDistIndex] / ri->routeProbs.getOverallProb();
+            if (routeProb > 0) {
+                for (int i = 0; i < (int)myFGPositions.size(); ++i) {
+                    const Position& pos = myFGPositions[i];
+                    double rot = myFGRotations[i];
+                    glPushMatrix();
+                    glTranslated(pos.x(), pos.y(), 0);
+                    glRotated(rot, 0, 0, 1);
+                    glTranslated(0, 0, getType());
+                    glScaled(exaggeration, exaggeration, 1);
+                    glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+
+                    glBegin(GL_TRIANGLES);
+                    glColor3d(1, 0, 0);
+                    // base
+                    glVertex2d(0 - 0.0, 0);
+                    glVertex2d(0 - 1.4, 6);
+                    glVertex2d(0 + 1.4, 6);
+                    glVertex2d(0 + 0.0, 0);
+                    glVertex2d(0 + 1.4, 6);
+                    glEnd();
+
+                    // draw "P"
+                    GLHelper::drawText("P", Position(0, 3.5), .1, 2, RGBColor::BLACK, 180);
+
+                    // draw Probability for this target edge
+                    GLHelper::drawText((toString((int)(routeProb * 100)) + "%").c_str(), Position(0, 5), .1, 0.7, RGBColor::BLACK, 180);
+
+                    glPopMatrix();
+                }
             }
         }
         glPopName();
