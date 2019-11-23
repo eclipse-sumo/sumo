@@ -109,6 +109,10 @@ public:
     /// @brief  locator-callback
     long onCmdLocate(FXObject*, FXSelector, void*);
 
+    /// @brief  speedFactor-callback
+    long onCmdSpeedFactor(FXObject*, FXSelector, void*);
+    long onUpdSpeedFactor(FXObject*, FXSelector, void*);
+
     /// @brief handle keys
     long onKeyPress(FXObject* o, FXSelector sel, void* data);
     long onKeyRelease(FXObject* o, FXSelector sel, void* data);
@@ -118,6 +122,14 @@ public:
 
     /// @notify about toggled gaming status
     void setToolBarVisibility(const bool value);
+
+protected:
+    void buildSpeedControlToolbar();
+
+    FXToolBarShell* myToolBarDragSpeed = nullptr;
+    FXToolBar* myToolBarSpeed = nullptr;
+    FXSlider* mySpeedFactorSlider = nullptr;
+
 
 protected:
     FOX_CONSTRUCTOR(GUISUMOViewParent)

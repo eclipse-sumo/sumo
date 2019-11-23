@@ -41,6 +41,7 @@
 #include <utils/gui/images/GUIIconSubSys.h>
 #include <utils/gui/div/GUIGlobalSelection.h>
 #include <utils/gui/div/GUIIOGlobals.h>
+#include <utils/gui/div/GUIDesigns.h>
 #include <utils/gui/windows/GUIAppEnum.h>
 #include <utils/gui/windows/GUIDialog_GLObjChooser.h>
 #include <guisim/GUIVehicle.h>
@@ -63,6 +64,7 @@
 #include <osgview/GUIOSGView.h>
 #endif
 
+#define SPEEDFACTOR_SCALE 100.0
 
 // ===========================================================================
 // FOX callback mapping
@@ -78,6 +80,8 @@ FXDEFMAP(GUISUMOViewParent) GUISUMOViewParentMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_LOCATEADD,      GUISUMOViewParent::onCmdLocate),
     FXMAPFUNC(SEL_COMMAND,  MID_LOCATEPOI,      GUISUMOViewParent::onCmdLocate),
     FXMAPFUNC(SEL_COMMAND,  MID_LOCATEPOLY,     GUISUMOViewParent::onCmdLocate),
+    FXMAPFUNC(SEL_UPDATE,   MID_SPEEDFACTOR,    GUISUMOViewParent::onUpdSpeedFactor),
+    FXMAPFUNC(SEL_COMMAND,  MID_SPEEDFACTOR,    GUISUMOViewParent::onCmdSpeedFactor),
     FXMAPFUNC(SEL_COMMAND,  MID_SIMSTEP,        GUISUMOViewParent::onSimStep),
 
 };
@@ -94,7 +98,9 @@ GUISUMOViewParent::GUISUMOViewParent(FXMDIClient* p, FXMDIMenu* mdimenu,
                                      GUIMainWindow* parentWindow,
                                      FXIcon* ic, FXuint opts,
                                      FXint x, FXint y, FXint w, FXint h) :
-    GUIGlChildWindow(p, parentWindow, mdimenu, name, nullptr, ic, opts, x, y, w, h) {
+    GUIGlChildWindow(p, parentWindow, mdimenu, name, nullptr, ic, opts, x, y, w, h)
+{
+    buildSpeedControlToolbar();
     myParent->addGLChild(this);
 }
 
@@ -288,5 +294,66 @@ GUISUMOViewParent::onKeyRelease(FXObject* o, FXSelector sel, void* ptr) {
     return 0;
 }
 
+
+void
+GUISUMOViewParent::buildSpeedControlToolbar() {
+    auto toolbar = myGripNavigationToolbar ? myGripNavigationToolbar : myStaticNavigationToolBar;
+    new FXVerticalSeparator(toolbar, GUIDesignVerticalSeparator);
+
+    //myToolBarDragSpeed = new FXToolBarShell(this, GUIDesignToolBar);
+    //myToolBarSpeed = new FXToolBar(toolbar, myToolBarDragSpeed, GUIDesignToolBarRaisedSameTop);
+    //mySpeedFactorSlider = new FXSlider(myToolBarSpeed, this, MID_SPEEDFACTOR, LAYOUT_FIX_WIDTH | SLIDER_ARROW_UP | SLIDER_TICKS_TOP, 0, 0, 300, 10, 0, 0, 5, 0);
+    mySpeedFactorSlider = new FXSlider(toolbar, this, MID_SPEEDFACTOR, LAYOUT_FIX_WIDTH | SLIDER_ARROW_UP | SLIDER_TICKS_TOP, 0, 0, 200, 10, 0, 0, 5, 0);
+    mySpeedFactorSlider->setRange(0, 200);
+    mySpeedFactorSlider->setHeadSize(10);
+    mySpeedFactorSlider->setIncrement(1);
+    mySpeedFactorSlider->setTickDelta(100);
+    mySpeedFactorSlider->setValue(100);
+    mySpeedFactorSlider->setHelpText("Control speedFactor of tracked object");
+    //mySpeedFactorSlider->hide();
+}
+
+long
+GUISUMOViewParent::onCmdSpeedFactor(FXObject*, FXSelector, void*) {
+    if (myView != nullptr && myView->getTrackedID() != GUIGlObject::INVALID_ID) {
+        GUIGlObject* o = GUIGlObjectStorage::gIDStorage.getObjectBlocking(myView->getTrackedID());
+        if (o != nullptr) {
+            const double speedFactor = mySpeedFactorSlider->getValue() / SPEEDFACTOR_SCALE;
+            if (o->getType() == GLO_VEHICLE) {
+                MSBaseVehicle* veh = dynamic_cast<MSBaseVehicle*>(o);
+                veh->setChosenSpeedFactor(speedFactor);
+            } else if (o->getType() == GLO_PERSON) {
+                //MSPerson* person = dynamic_cast<MSPerson*>(o);
+                //person->setChosenSpeedFactor(speedFactor);
+            }
+            mySpeedFactorSlider->setTipText(toString(speedFactor).c_str());
+        }
+
+    }
+    return 1;
+}
+
+long
+GUISUMOViewParent::onUpdSpeedFactor(FXObject* sender, FXSelector, void* ptr) {
+    bool disable = myView == nullptr || myView->getTrackedID() == GUIGlObject::INVALID_ID;
+    sender->handle(this, FXSEL(SEL_COMMAND, disable ? ID_DISABLE : ID_ENABLE), ptr);
+    if (disable) {
+        mySpeedFactorSlider->hide();
+    } else {
+        GUIGlObject* o = GUIGlObjectStorage::gIDStorage.getObjectBlocking(myView->getTrackedID());
+        if (o != nullptr) {
+            if (o->getType() == GLO_VEHICLE) {
+                MSBaseVehicle* veh = dynamic_cast<MSBaseVehicle*>(o);
+                mySpeedFactorSlider->setValue(veh->getChosenSpeedFactor() * SPEEDFACTOR_SCALE);
+            } else if (o->getType() == GLO_PERSON) {
+                MSPerson* person = dynamic_cast<MSPerson*>(o);
+                mySpeedFactorSlider->setValue(person->getChosenSpeedFactor() * SPEEDFACTOR_SCALE);
+            }
+        }
+
+        mySpeedFactorSlider->show();
+    }
+    return 1;
+}
 
 /****************************************************************************/

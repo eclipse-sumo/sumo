@@ -351,6 +351,8 @@ enum {
     MID_DELAY_TOOGLE,
     /// @brief scale traffic
     MID_DEMAND_SCALE,
+    /// @brief scale vehicle speed
+    MID_SPEEDFACTOR,
     /// @}
 
     /// @name Common view IDs
