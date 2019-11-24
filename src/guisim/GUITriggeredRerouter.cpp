@@ -456,7 +456,7 @@ GUITriggeredRerouter::GUITriggeredRerouterEdge::drawGL(const GUIVisualizationSet
         } else if (myEdgeType == REROUTER_SWITCH_EDGE) {
             const RerouteInterval* const ri =
                 myParent->getCurrentReroute(MSNet::getInstance()->getCurrentTimeStep());
-            const double routeProb = ri->routeProbs.getProbs()[myDistIndex] / ri->routeProbs.getOverallProb();
+            const double routeProb = ri != nullptr && prob > 0 ?  ri->routeProbs.getProbs()[myDistIndex] / ri->routeProbs.getOverallProb() : 0;
             if (routeProb > 0) {
                 for (int i = 0; i < (int)myFGPositions.size(); ++i) {
                     const Position& pos = myFGPositions[i];
