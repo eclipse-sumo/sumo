@@ -67,6 +67,7 @@ const int VEHPARS_CONTAINER_NUMBER_SET = 2 << 19;
 const int VEHPARS_DEPARTPOSLAT_SET = 2 << 20;
 const int VEHPARS_ARRIVALPOSLAT_SET = 2 << 21;
 const int VEHPARS_VIA_SET = 2 << 22;
+const int VEHPARS_SPEEDFACTOR_SET = 2 << 23;
 
 const int STOP_INDEX_END = -1;
 const int STOP_INDEX_FIT = -2;
@@ -661,6 +662,9 @@ public:
 
     /// @brief The static number of containers in the vehicle when it departs
     int containerNumber;
+
+    /// @brief individual speedFactor (overriding distribution from vType)
+    double speedFactor;
 
     /// @brief Information for the router which parameter were set, TraCI may modify this (whe changing color)
     mutable int parametersSet;

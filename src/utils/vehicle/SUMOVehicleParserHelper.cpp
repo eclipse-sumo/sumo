@@ -476,7 +476,17 @@ SUMOVehicleParserHelper::parseCommonAttributes(const SUMOSAXAttributes& attrs, c
             ret->parametersSet |= VEHPARS_CONTAINER_NUMBER_SET;
             ret->containerNumber = containerNumber;
         } else {
-            handleError(hardFail, abortCreation, toString(SUMO_ATTR_PERSON_NUMBER) + " cannot be negative");
+            handleError(hardFail, abortCreation, toString(SUMO_ATTR_CONTAINER_NUMBER) + " cannot be negative");
+        }
+    }
+    // parse individual speedFactor
+    if (attrs.hasAttribute(SUMO_ATTR_SPEEDFACTOR)) {
+        double speedFactor = attrs.get<double>(SUMO_ATTR_SPEEDFACTOR, ret->id.c_str(), ok);
+        if (speedFactor > 0) {
+            ret->parametersSet |= VEHPARS_SPEEDFACTOR_SET;
+            ret->speedFactor = speedFactor;
+        } else {
+            handleError(hardFail, abortCreation, toString(SUMO_ATTR_SPEEDFACTOR) + " must be positive");
         }
     }
     /*/ parse via

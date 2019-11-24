@@ -48,8 +48,10 @@ SUMOVehicleParameter::SUMOVehicleParameter()
       arrivalPosLat(0), arrivalPosLatProcedure(ARRIVAL_POSLAT_DEFAULT),
       arrivalSpeed(-1), arrivalSpeedProcedure(ARRIVAL_SPEED_DEFAULT),
       repetitionNumber(-1), repetitionsDone(-1), repetitionOffset(-1), repetitionProbability(-1), repetitionEnd(-1),
-      line(), fromTaz(), toTaz(), personNumber(0), containerNumber(0), parametersSet(0) {
-}
+      line(), fromTaz(), toTaz(), personNumber(0), containerNumber(0),
+      speedFactor(-1),
+      parametersSet(0)
+{ }
 
 
 SUMOVehicleParameter::~SUMOVehicleParameter() {
@@ -148,6 +150,10 @@ SUMOVehicleParameter::write(OutputDevice& dev, const OptionsCont& oc, const Sumo
     if (wasSet(VEHPARS_CONTAINER_NUMBER_SET)) {
         dev.writeAttr(SUMO_ATTR_CONTAINER_NUMBER, containerNumber);
     }
+    // individual speedFactor
+    if (wasSet(VEHPARS_SPEEDFACTOR_SET)) {
+        dev.writeAttr(SUMO_ATTR_SPEEDFACTOR, speedFactor);
+    }
 }
 
 
@@ -162,7 +168,7 @@ SUMOVehicleParameter::Stop::Stop() :
     containerTriggered(false),
     parking(false),
     friendlyPos(false),
-    speed(0) { 
+    speed(0) {
 }
 
 

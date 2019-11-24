@@ -76,7 +76,7 @@ MSBaseVehicle::MSBaseVehicle(SUMOVehicleParameter* pars, const MSRoute* route,
     myRoute(route),
     myType(type),
     myCurrEdge(route->begin()),
-    myChosenSpeedFactor(speedFactor),
+    myChosenSpeedFactor(pars->speedFactor < 0 ? speedFactor : pars->speedFactor),
     myMoveReminders(0),
     myPersonDevice(nullptr),
     myContainerDevice(nullptr),
@@ -562,7 +562,9 @@ MSBaseVehicle::saveState(OutputDevice& out) {
     myParameter->write(out, OptionsCont::getOptions(), SUMO_TAG_VEHICLE, getVehicleType().getID());
     // params and stops must be written in child classes since they may wish to add additional attributes first
     out.writeAttr(SUMO_ATTR_ROUTE, myRoute->getID());
-    out.writeAttr(SUMO_ATTR_SPEEDFACTOR, myChosenSpeedFactor);
+    if (!myParameter->wasSet(VEHPARS_SPEEDFACTOR_SET)) {
+        out.writeAttr(SUMO_ATTR_SPEEDFACTOR, myChosenSpeedFactor);
+    }
     if (myParameter->wasSet(VEHPARS_FORCE_REROUTE) && !hasDeparted()) {
         out.writeAttr(SUMO_ATTR_REROUTE, true);
     }
