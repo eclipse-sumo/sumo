@@ -102,13 +102,13 @@ public:
         myErrorMsgHandler(unbuildIsWarning ? MsgHandler::getWarningInstance() : MsgHandler::getErrorInstance()),
         myOperation(operation), myTTOperation(ttOperation),
         myBulkMode(false),
+        myHavePermissions(havePermissions),
+        myHaveRestrictions(haveRestrictions),
         myType(type),
         myQueryVisits(0),
         myNumQueries(0),
         myQueryStartTime(0),
-        myQueryTimeSum(0),
-        myHavePermissions(havePermissions),
-        myHaveRestrictions(haveRestrictions) {
+        myQueryTimeSum(0) {
     }
 
     /// Destructor

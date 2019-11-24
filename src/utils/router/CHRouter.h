@@ -62,11 +62,8 @@ template<class E, class V>
 class CHRouter: public SUMOAbstractRouter<E, V> {
 
 public:
-    /// Type of the function that is used to retrieve the edge effort.
-    typedef double(* Operation)(const E* const, const V* const, double);
-
     /// A meeting point of the two search scopes
-    typedef std::pair<const typename EdgeInfo*, const typename EdgeInfo*> Meeting;
+    typedef std::pair<const typename SUMOAbstractRouter<E, V>::EdgeInfo*, const typename SUMOAbstractRouter<E, V>::EdgeInfo*> Meeting;
 
     /**
      * @class Unidirectional
@@ -79,7 +76,7 @@ public:
             myAmForward(forward),
             myVehicle(0) {
             for (const E* const e : edges) {
-                myEdgeInfos.push_back(typename EdgeInfo(e));
+                myEdgeInfos.push_back(typename SUMOAbstractRouter<E, V>::EdgeInfo(e));
             }
         }
 
@@ -87,11 +84,11 @@ public:
             return myFound.count(edge) > 0;
         }
 
-        inline typename EdgeInfo* getEdgeInfo(const E* const edge) {
+        inline typename SUMOAbstractRouter<E, V>::EdgeInfo* getEdgeInfo(const E* const edge) {
             return &(myEdgeInfos[edge->getNumericalID()]);
         }
 
-        inline const typename EdgeInfo* getEdgeInfo(const E* const edge) const {
+        inline const typename SUMOAbstractRouter<E, V>::EdgeInfo* getEdgeInfo(const E* const edge) const {
             return &(myEdgeInfos[edge->getNumericalID()]);
         }
 
@@ -102,7 +99,7 @@ public:
         class EdgeInfoByTTComparator {
         public:
             /// Comparing method
-            bool operator()(const typename EdgeInfo* nod1, const typename EdgeInfo* nod2) const {
+            bool operator()(const typename SUMOAbstractRouter<E, V>::EdgeInfo* nod1, const typename SUMOAbstractRouter<E, V>::EdgeInfo* nod2) const {
                 if (nod1->effort == nod2->effort) {
                     return nod1->edge->getNumericalID() > nod2->edge->getNumericalID();
                 }
@@ -204,11 +201,11 @@ public:
         /// @brief the role of this search
         bool myAmForward;
         /// @brief the min edge heap
-        std::vector<typename EdgeInfo*> myFrontier;
+        std::vector<typename SUMOAbstractRouter<E, V>::EdgeInfo*> myFrontier;
         /// @brief the set of visited (settled) Edges
         std::set<const E*> myFound;
         /// @brief The container of edge information
-        std::vector<typename EdgeInfo> myEdgeInfos;
+        std::vector<typename SUMOAbstractRouter<E, V>::EdgeInfo> myEdgeInfos;
 
         EdgeInfoByTTComparator myComparator;
 
@@ -221,7 +218,7 @@ public:
      *            If set to false, the net is pruned in synchronize() and the
      *            hierarchy is tailored to the svc
      */
-    CHRouter(const std::vector<E*>& edges, bool unbuildIsWarning, typename Operation operation,
+    CHRouter(const std::vector<E*>& edges, bool unbuildIsWarning, typename SUMOAbstractRouter<E, V>::Operation operation,
              const SUMOVehicleClass svc,
              SUMOTime weightPeriod,
              const bool havePermissions, const bool haveRestrictions):
@@ -238,7 +235,7 @@ public:
 
     /** @brief Cloning constructor
      */
-    CHRouter(const std::vector<E*>& edges, bool unbuildIsWarning, typename Operation operation,
+    CHRouter(const std::vector<E*>& edges, bool unbuildIsWarning, typename SUMOAbstractRouter<E, V>::Operation operation,
              const SUMOVehicleClass svc,
              SUMOTime weightPeriod,
              const typename CHBuilder<E, V>::Hierarchy* hierarchy,

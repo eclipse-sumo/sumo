@@ -68,7 +68,7 @@ public:
     class EdgeInfoByEffortComparator {
     public:
         /// Comparing method
-        bool operator()(const typename EdgeInfo* nod1, const typename EdgeInfo* nod2) const {
+        bool operator()(const typename SUMOAbstractRouter<E, V>::EdgeInfo* nod1, const typename SUMOAbstractRouter<E, V>::EdgeInfo* nod2) const {
             if (nod1->effort == nod2->effort) {
                 return nod1->edge->getNumericalID() > nod2->edge->getNumericalID();
             }
@@ -78,13 +78,13 @@ public:
 
 
     /// Constructor
-    DijkstraRouter(const std::vector<E*>& edges, bool unbuildIsWarning, typename Operation effortOperation,
-                   typename Operation ttOperation = nullptr, bool silent = false, EffortCalculator* calc = nullptr,
+    DijkstraRouter(const std::vector<E*>& edges, bool unbuildIsWarning, typename SUMOAbstractRouter<E, V>::Operation effortOperation,
+                   typename SUMOAbstractRouter<E, V>::Operation ttOperation = nullptr, bool silent = false, EffortCalculator* calc = nullptr,
                    const bool havePermissions = false, const bool haveRestrictions = false) :
         SUMOAbstractRouter<E, V>("DijkstraRouter", unbuildIsWarning, effortOperation, ttOperation, havePermissions, haveRestrictions),
         mySilent(silent), myExternalEffort(calc) {
         for (typename std::vector<E*>::const_iterator i = edges.begin(); i != edges.end(); ++i) {
-            myEdgeInfos.push_back(typename EdgeInfo(*i));
+            myEdgeInfos.push_back(typename SUMOAbstractRouter<E, V>::EdgeInfo(*i));
         }
     }
 
@@ -239,7 +239,7 @@ public:
 
 
     /// Builds the path from marked edges
-    void buildPathFrom(const typename EdgeInfo* rbegin, std::vector<const E*>& edges) {
+    void buildPathFrom(const typename SUMOAbstractRouter<E, V>::EdgeInfo* rbegin, std::vector<const E*>& edges) {
         std::vector<const E*> tmp;
         while (rbegin != 0) {
             tmp.push_back(rbegin->edge);
@@ -248,19 +248,19 @@ public:
         std::copy(tmp.rbegin(), tmp.rend(), std::back_inserter(edges));
     }
 
-    const typename EdgeInfo& getEdgeInfo(int index) const {
+    const typename SUMOAbstractRouter<E, V>::EdgeInfo& getEdgeInfo(int index) const {
         return myEdgeInfos[index];
     }
 
 private:
-    DijkstraRouter(const std::vector<typename EdgeInfo>& edgeInfos, bool unbuildIsWarning,
-                   typename Operation effortOperation, typename Operation ttOperation, bool silent, EffortCalculator* calc,
+    DijkstraRouter(const std::vector<typename SUMOAbstractRouter<E, V>::EdgeInfo>& edgeInfos, bool unbuildIsWarning,
+                   typename SUMOAbstractRouter<E, V>::Operation effortOperation, typename SUMOAbstractRouter<E, V>::Operation ttOperation, bool silent, EffortCalculator* calc,
                    const bool havePermissions, const bool haveRestrictions) :
         SUMOAbstractRouter<E, V>("DijkstraRouter", unbuildIsWarning, effortOperation, ttOperation, havePermissions, haveRestrictions),
         mySilent(silent),
         myExternalEffort(calc) {
         for (const auto& edgeInfo : edgeInfos) {
-            myEdgeInfos.push_back(typename EdgeInfo(edgeInfo.edge));
+            myEdgeInfos.push_back(typename SUMOAbstractRouter<E, V>::EdgeInfo(edgeInfo.edge));
         }
     }
 
@@ -271,12 +271,12 @@ private:
     EffortCalculator* const myExternalEffort;
 
     /// The container of edge information
-    std::vector<typename EdgeInfo> myEdgeInfos;
+    std::vector<typename SUMOAbstractRouter<E, V>::EdgeInfo> myEdgeInfos;
 
     /// A container for reusage of the min edge heap
-    std::vector<typename EdgeInfo*> myFrontierList;
+    std::vector<typename SUMOAbstractRouter<E, V>::EdgeInfo*> myFrontierList;
     /// @brief list of visited Edges (for resetting)
-    std::vector<typename EdgeInfo*> myFound;
+    std::vector<typename SUMOAbstractRouter<E, V>::EdgeInfo*> myFound;
 
     EdgeInfoByEffortComparator myComparator;
 };

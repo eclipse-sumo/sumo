@@ -64,12 +64,9 @@ template<class E, class V>
 class CHRouterWrapper: public SUMOAbstractRouter<E, V> {
 
 public:
-    /// Type of the function that is used to retrieve the edge effort.
-    typedef double(* Operation)(const E* const, const V* const, double);
-
     /** @brief Constructor
      */
-    CHRouterWrapper(const std::vector<E*>& edges, const bool ignoreErrors, typename Operation operation,
+    CHRouterWrapper(const std::vector<E*>& edges, const bool ignoreErrors, typename SUMOAbstractRouter<E, V>::Operation operation,
                     const SUMOTime begin, const SUMOTime end, const SUMOTime weightPeriod, const int numThreads) :
         SUMOAbstractRouter<E, V>("CHRouterWrapper", ignoreErrors, operation, nullptr, false, false),
         myEdges(edges),

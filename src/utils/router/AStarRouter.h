@@ -88,7 +88,7 @@ public:
     class EdgeInfoComparator {
     public:
         /// Comparing method
-        bool operator()(const typename EdgeInfo* nod1, const typename EdgeInfo* nod2) const {
+        bool operator()(const typename SUMOAbstractRouter<E, V>::EdgeInfo* nod1, const typename SUMOAbstractRouter<E, V>::EdgeInfo* nod2) const {
             if (nod1->heuristicEffort == nod2->heuristicEffort) {
                 return nod1->edge->getNumericalID() > nod2->edge->getNumericalID();
             }
@@ -97,24 +97,24 @@ public:
     };
 
     /// Constructor
-    AStarRouter(const std::vector<E*>& edges, bool unbuildIsWarning, typename Operation operation, const std::shared_ptr<const LookupTable> lookup = nullptr,
+    AStarRouter(const std::vector<E*>& edges, bool unbuildIsWarning, typename SUMOAbstractRouter<E, V>::Operation operation, const std::shared_ptr<const LookupTable> lookup = nullptr,
         const bool havePermissions = false, const bool haveRestrictions = false) :
         SUMOAbstractRouter<E, V>("AStarRouter", unbuildIsWarning, operation, nullptr, havePermissions, haveRestrictions),
         myLookupTable(lookup),
         myMaxSpeed(NUMERICAL_EPS) {
         for (const E* const edge : edges) {
-            myEdgeInfos.push_back(typename EdgeInfo(edge));
+            myEdgeInfos.push_back(typename SUMOAbstractRouter<E, V>::EdgeInfo(edge));
             myMaxSpeed = MAX2(myMaxSpeed, edge->getSpeedLimit() * MAX2(1.0, edge->getLengthGeometryFactor()));
         }
     }
 
-    AStarRouter(const std::vector<typename EdgeInfo>& edgeInfos, bool unbuildIsWarning, typename Operation operation, const std::shared_ptr<const LookupTable> lookup = nullptr,
+    AStarRouter(const std::vector<typename SUMOAbstractRouter<E, V>::EdgeInfo>& edgeInfos, bool unbuildIsWarning, typename SUMOAbstractRouter<E, V>::Operation operation, const std::shared_ptr<const LookupTable> lookup = nullptr,
         const bool havePermissions = false, const bool haveRestrictions = false) :
         SUMOAbstractRouter<E, V>("AStarRouter", unbuildIsWarning, operation, nullptr, havePermissions, haveRestrictions),
         myLookupTable(lookup),
         myMaxSpeed(NUMERICAL_EPS) {
         for (const auto& edgeInfo : edgeInfos) {
-            myEdgeInfos.push_back(typename EdgeInfo(edgeInfo.edge));
+            myEdgeInfos.push_back(typename SUMOAbstractRouter<E, V>::EdgeInfo(edgeInfo.edge));
             myMaxSpeed = MAX2(myMaxSpeed, edgeInfo.edge->getSpeedLimit() * edgeInfo.edge->getLengthGeometryFactor());
         }
     }
@@ -295,7 +295,7 @@ public:
 
 
     /// Builds the path from marked edges
-    void buildPathFrom(const typename EdgeInfo* rbegin, std::vector<const E*>& edges) {
+    void buildPathFrom(const typename SUMOAbstractRouter<E, V>::EdgeInfo* rbegin, std::vector<const E*>& edges) {
         std::vector<const E*> tmp;
         while (rbegin != 0) {
             tmp.push_back(rbegin->edge);
@@ -306,12 +306,12 @@ public:
 
 protected:
     /// The container of edge information
-    std::vector<typename EdgeInfo> myEdgeInfos;
+    std::vector<typename SUMOAbstractRouter<E, V>::EdgeInfo> myEdgeInfos;
 
     /// A container for reusage of the min edge heap
-    std::vector<typename EdgeInfo*> myFrontierList;
+    std::vector<typename SUMOAbstractRouter<E, V>::EdgeInfo*> myFrontierList;
     /// @brief list of visited Edges (for resetting)
-    std::vector<typename EdgeInfo*> myFound;
+    std::vector<typename SUMOAbstractRouter<E, V>::EdgeInfo*> myFound;
 
     EdgeInfoComparator myComparator;
 
