@@ -376,7 +376,7 @@ MSLink::setApproaching(const SUMOVehicle* approaching, const SUMOTime arrivalTim
 #endif
     myApproachingVehicles.emplace(approaching,
                                   ApproachingVehicleInformation(arrivalTime, leaveTime, arrivalSpeed, leaveSpeed, setRequest,
-                                          arrivalTimeBraking, arrivalSpeedBraking, waitingTime, dist));
+                                          arrivalTimeBraking, arrivalSpeedBraking, waitingTime, dist, approaching->getSpeed()));
 }
 
 
@@ -435,7 +435,7 @@ MSLink::getApproaching(const SUMOVehicle* veh) const {
     if (i != myApproachingVehicles.end()) {
         return i->second;
     } else {
-        return ApproachingVehicleInformation(-1000, -1000, 0, 0, false, -1000, 0, 0, 0);
+        return ApproachingVehicleInformation(-1000, -1000, 0, 0, false, -1000, 0, 0, 0, 0);
     }
 }
 
@@ -450,7 +450,7 @@ MSLink::getLeaveTime(const SUMOTime arrivalTime, const double arrivalSpeed,
 bool
 MSLink::opened(SUMOTime arrivalTime, double arrivalSpeed, double leaveSpeed, double vehicleLength,
                double impatience, double decel, SUMOTime waitingTime, double posLat,
-               std::vector<const SUMOVehicle*>* collectFoes, bool ignoreRed, const SUMOVehicle* ego) const {
+               BlockingFoes* collectFoes, bool ignoreRed, const SUMOVehicle* ego) const {
     if (haveRed() && !ignoreRed) {
         return false;
     }
@@ -462,7 +462,7 @@ MSLink::opened(SUMOTime arrivalTime, double arrivalSpeed, double leaveSpeed, dou
         // check for foes on the same lane with the same target edge
         for (const MSLink* foeLink : mySublaneFoeLinks) {
             assert(myLane != foeLink->getLane());
-            for (auto& it : foeLink->myApproachingVehicles) {
+            for (const auto& it : foeLink->myApproachingVehicles) {
                 const SUMOVehicle* foe = it.first;
                 if (
                     // there only is a conflict if the paths cross
@@ -488,7 +488,7 @@ MSLink::opened(SUMOTime arrivalTime, double arrivalSpeed, double leaveSpeed, dou
 #endif
                             return false;
                         } else {
-                            collectFoes->push_back(foe);
+                            collectFoes->push_back(it.first);
                         }
                     }
                 }
@@ -499,7 +499,7 @@ MSLink::opened(SUMOTime arrivalTime, double arrivalSpeed, double leaveSpeed, dou
         const int lhSign = MSNet::getInstance()->lefthand() ? -1 : 1;
         for (const MSLink* foeLink : mySublaneFoeLinks2) {
             assert(myDirection != LINKDIR_STRAIGHT);
-            for (auto& it : foeLink->myApproachingVehicles) {
+            for (const auto& it : foeLink->myApproachingVehicles) {
                 const SUMOVehicle* foe = it.first;
                 // there only is a conflict if the paths cross
                 if (((myDirection == LINKDIR_RIGHT || myDirection == LINKDIR_PARTRIGHT)
@@ -516,7 +516,7 @@ MSLink::opened(SUMOTime arrivalTime, double arrivalSpeed, double leaveSpeed, dou
                         if (collectFoes == nullptr) {
                             return false;
                         } else {
-                            collectFoes->push_back(foe);
+                            collectFoes->push_back(it.first);
                         }
                     }
                 }
@@ -568,24 +568,26 @@ MSLink::opened(SUMOTime arrivalTime, double arrivalSpeed, double leaveSpeed, dou
 bool
 MSLink::blockedAtTime(SUMOTime arrivalTime, SUMOTime leaveTime, double arrivalSpeed, double leaveSpeed,
                       bool sameTargetLane, double impatience, double decel, SUMOTime waitingTime,
-                      std::vector<const SUMOVehicle*>* collectFoes, const SUMOVehicle* ego) const {
-    for (auto it : myApproachingVehicles) {
+                      BlockingFoes* collectFoes, const SUMOVehicle* ego) const {
+    for (const auto& it : myApproachingVehicles) {
 #ifdef MSLink_DEBUG_OPENED
         if (gDebugFlag1) {
-            if (ego != 0
-                    && ego->getVehicleType().getParameter().getJMParam(SUMO_ATTR_JM_IGNORE_FOE_SPEED, 0) >= it.first->getSpeed()
+            if (ego != nullptr
+                    && ego->getVehicleType().getParameter().getJMParam(SUMO_ATTR_JM_IGNORE_FOE_SPEED, 0) >= it.second.speed
                     && ego->getVehicleType().getParameter().getJMParam(SUMO_ATTR_JM_IGNORE_FOE_PROB, 0) > 0) {
-                std::cout << "    foe link=" << getViaLaneOrLane()->getID()
+                std::stringstream stream; // to reduce output interleaving from different threads
+                stream << SIMTIME << " " << myApproachingVehicles.size() << "   foe link=" << getViaLaneOrLane()->getID()
                           << " foeVeh=" << it.first->getID() << " (below ignore speed)"
                           << " ignoreFoeProb=" << ego->getVehicleType().getParameter().getJMParam(SUMO_ATTR_JM_IGNORE_FOE_PROB, 0)
                           << "\n";
+                std::cout << stream.str();
             }
         }
 #endif
         if (it.first != ego
                 && (ego == nullptr
                     || ego->getVehicleType().getParameter().getJMParam(SUMO_ATTR_JM_IGNORE_FOE_PROB, 0) == 0
-                    || ego->getVehicleType().getParameter().getJMParam(SUMO_ATTR_JM_IGNORE_FOE_SPEED, 0) < it.first->getSpeed()
+                    || ego->getVehicleType().getParameter().getJMParam(SUMO_ATTR_JM_IGNORE_FOE_SPEED, 0) < it.second.speed
                     || ego->getVehicleType().getParameter().getJMParam(SUMO_ATTR_JM_IGNORE_FOE_PROB, 0) < RandHelper::rand(ego->getRNG()))
                 && blockedByFoe(it.first, it.second, arrivalTime, leaveTime, arrivalSpeed, leaveSpeed, sameTargetLane,
                                 impatience, decel, waitingTime, ego)) {
@@ -607,12 +609,14 @@ MSLink::blockedByFoe(const SUMOVehicle* veh, const ApproachingVehicleInformation
                      const SUMOVehicle* ego) const {
 #ifdef MSLink_DEBUG_OPENED
     if (gDebugFlag1) {
-        std::cout << "    foe link=" << getViaLaneOrLane()->getID()
+        std::stringstream stream; // to reduce output interleaving from different threads
+        stream << "    foe link=" << getViaLaneOrLane()->getID()
                   << " foeVeh=" << veh->getID()
                   << " req=" << avi.willPass
                   << " aT=" << avi.arrivalTime
                   << " lT=" << avi.leavingTime
                   << "\n";
+        std::cout << stream.str();
     }
 #endif
     if (!avi.willPass) {
@@ -636,7 +640,9 @@ MSLink::blockedByFoe(const SUMOVehicle* veh, const ApproachingVehicleInformation
     //if (ego != 0) std::cout << SIMTIME << " ego=" << ego->getID() << " jmTimegapMinor=" << ego->getVehicleType().getParameter().getJMParam(SUMO_ATTR_JM_TIMEGAP_MINOR, -1) << " lookAhead=" << lookAhead << "\n";
 #ifdef MSLink_DEBUG_OPENED
     if (gDebugFlag1) {
-        std::cout << "       imp=" << impatience << " fATb=" << avi.arrivalTimeBraking << " fAT2=" << foeArrivalTime << " lA=" << lookAhead << " egoAT=" << arrivalTime << " egoLT=" << leaveTime << "\n";
+        std::stringstream stream; // to reduce output interleaving from different threads
+        stream << "       imp=" << impatience << " fATb=" << avi.arrivalTimeBraking << " fAT2=" << foeArrivalTime << " lA=" << lookAhead << " egoAT=" << arrivalTime << " egoLT=" << leaveTime << "\n";
+        std::cout << stream.str();
     }
 #endif
     if (avi.leavingTime < arrivalTime) {
@@ -676,22 +682,6 @@ MSLink::blockedByFoe(const SUMOVehicle* veh, const ApproachingVehicleInformation
 
 
 bool
-MSLink::maybeOccupied(MSLane* lane) {
-    MSVehicle* veh = lane->getLastAnyVehicle();
-    double distLeft = 0;
-    if (veh == nullptr) {
-        return false;
-    } else {
-        distLeft = lane->getLength() - veh->getBackPositionOnLane(lane);
-        assert(distLeft > 0);
-        // can we be sure that the vehicle leaves this lane in the next step?
-        bool result = distLeft > (veh->getSpeed() - veh->getCarFollowModel().getMaxDecel());
-        return result;
-    }
-}
-
-
-bool
 MSLink::hasApproachingFoe(SUMOTime arrivalTime, SUMOTime leaveTime, double speed, double decel) const {
     for (std::vector<MSLink*>::const_iterator i = myFoeLinks.begin(); i != myFoeLinks.end(); ++i) {
         if ((*i)->blockedAtTime(arrivalTime, leaveTime, speed, speed, myLane == (*i)->getLane(), 0, decel, 0)) {
@@ -704,6 +694,26 @@ MSLink::hasApproachingFoe(SUMOTime arrivalTime, SUMOTime leaveTime, double speed
         }
     }
     return false;
+}
+
+
+std::pair<const SUMOVehicle*, const MSLink*>
+MSLink::getFirstApproachingFoe() const {
+    double closetDist = std::numeric_limits<double>::max();
+    const SUMOVehicle* closest = nullptr;
+    const MSLink* foeLink = nullptr;
+    for (MSLink* link : myFoeLinks) {
+        for (const auto& it : link->myApproachingVehicles) {
+            if (it.second.dist < closetDist) {
+                closetDist = it.second.dist;
+                if (it.second.willPass) {
+                    closest = it.first;
+                    foeLink = link;
+                }
+            }
+        }
+    }
+    return std::make_pair(closest, foeLink);
 }
 
 
@@ -1227,7 +1237,7 @@ MSLink::getInternalLaneBefore() const {
 double
 MSLink::getZipperSpeed(const MSVehicle* ego, const double dist, double vSafe,
                        SUMOTime arrivalTime,
-                       std::vector<const SUMOVehicle*>* collectFoes) const {
+                       BlockingFoes* collectFoes) const {
     if (myFoeLinks.size() == 0) {
         // link should have LINKSTATE_MAJOR in this case
         assert(false);
@@ -1240,26 +1250,26 @@ MSLink::getZipperSpeed(const MSVehicle* ego, const double dist, double vSafe,
     const double secondsToArrival = STEPS2TIME(arrivalTime - now);
     if (secondsToArrival > ZIPPER_ADAPT_TIME && dist > ZIPPER_ADAPT_DIST) {
 #ifdef DEBUG_ZIPPER
-        if (DEBUG_COND_ZIPPER) std::cout << SIMTIME << " getZipperSpeed ego=" << ego->getID()
-                                             << " dist=" << dist << " ignoring foes (arrival in " << STEPS2TIME(arrivalTime - now) << ")\n";
+        if (DEBUG_COND_ZIPPER) DEBUGOUT(SIMTIME << " getZipperSpeed ego=" << ego->getID()
+                << " dist=" << dist << " ignoring foes (arrival in " << STEPS2TIME(arrivalTime - now) << ")\n")
 #endif
         return vSafe;
     }
 #ifdef DEBUG_ZIPPER
-    if (DEBUG_COND_ZIPPER) std::cout << SIMTIME << " getZipperSpeed ego=" << ego->getID()
+    if (DEBUG_COND_ZIPPER) DEBUGOUT(SIMTIME << " getZipperSpeed ego=" << ego->getID()
                                          << " egoAT=" << arrivalTime
                                          << " dist=" << dist
                                          << " vSafe=" << vSafe
                                          << " numFoes=" << collectFoes->size()
-                                         << "\n";
+                                         << "\n")
 #endif
     MSLink* foeLink = myFoeLinks[0];
-    for (std::vector<const SUMOVehicle*>::const_iterator i = collectFoes->begin(); i != collectFoes->end(); ++i) {
-        const MSVehicle* foe = dynamic_cast<const MSVehicle*>(*i);
+    for (const auto& item : *collectFoes) {
+        const MSVehicle* foe = dynamic_cast<const MSVehicle*>(item);
         assert(foe != 0);
         const ApproachingVehicleInformation& avi = foeLink->getApproaching(foe);
         const double foeDist = (foe->isActive() ? avi.dist : MAX2(0.0, avi.dist -
-                                STEPS2TIME(MSNet::getInstance()->getCurrentTimeStep() - foe->getLastActionTime()) * foe->getSpeed()));
+                                STEPS2TIME(MSNet::getInstance()->getCurrentTimeStep() - foe->getLastActionTime()) * avi.speed));
 
         if (    // ignore vehicles that arrive after us (unless they are ahead and we could easily brake for them)
             ((avi.arrivalTime > arrivalTime) && !couldBrakeForLeader(dist, foeDist, ego, foe)) ||
@@ -1273,10 +1283,10 @@ MSLink::getZipperSpeed(const MSVehicle* ego, const double dist, double vSafe,
                         << " foeAT=" << avi.arrivalTime
                         << " foeDist=" << avi.dist
                         << " foeDist2=" << foeDist
-                        << " foeSpeed=" << foe->getSpeed()
+                        << " foeSpeed=" << avi.speed
                         << " egoSpeed=" << ego->getSpeed()
                         << " deltaDist=" << foeDist - dist
-                        << " delteSpeed=" << foe->getSpeed() - foe->getCarFollowModel().getMaxDecel() - ego->getSpeed()
+                        << " delteSpeed=" << avi.speed - foe->getCarFollowModel().getMaxDecel() - ego->getSpeed()
                         << " egoCouldBrake=" << couldBrakeForLeader(dist, foeDist, ego, foe)
                         << " foeCouldBrake=" << couldBrakeForLeader(foeDist, dist, foe, ego)
                         << "\n";
@@ -1297,9 +1307,9 @@ MSLink::getZipperSpeed(const MSVehicle* ego, const double dist, double vSafe,
         // we cannot trust avi.arrivalSpeed if the foe has leader vehicles that are accelerating
         // lets try to extrapolate
         const double uMax = foe->getLane()->getVehicleMaxSpeed(foe);
-        const double uAccel = foe->getCarFollowModel().estimateSpeedAfterDistance(foeDist, foe->getSpeed(), foe->getCarFollowModel().getMaxAccel());
+        const double uAccel = foe->getCarFollowModel().estimateSpeedAfterDistance(foeDist, avi.speed, foe->getCarFollowModel().getMaxAccel());
         const double uEnd = MIN2(uMax, uAccel);
-        const double uAvg = (foe->getSpeed() + uEnd) / 2;
+        const double uAvg = (avi.speed + uEnd) / 2;
         const double tf0 = foeDist / MAX2(NUMERICAL_EPS, uAvg);
         const double tf = MAX2(1.0, ceil((tf0) / TS) * TS);
 
@@ -1319,7 +1329,7 @@ MSLink::getZipperSpeed(const MSVehicle* ego, const double dist, double vSafe,
         const double a = 2 * deltaGap / (tf * tf);
         const double vSafeGap = ego->getSpeed() + ACCEL2SPEED(a);
         const double vFollow = ego->getCarFollowModel().followSpeed(
-                                   ego, ego->getSpeed(), gap, foe->getSpeed(), foe->getCarFollowModel().getMaxDecel(), foe);
+                                   ego, ego->getSpeed(), gap, avi.speed, foe->getCarFollowModel().getMaxDecel(), foe);
 
         // scale behavior based on ego time to link (te)
         const double w = MIN2(1.0, te / 10);
@@ -1330,7 +1340,7 @@ MSLink::getZipperSpeed(const MSVehicle* ego, const double dist, double vSafe,
 #ifdef DEBUG_ZIPPER
         if (DEBUG_COND_ZIPPER) std::cout << "    adapting to foe=" << foe->getID()
                                              << " foeDist=" << foeDist
-                                             << " foeSpeed=" << foe->getSpeed()
+                                             << " foeSpeed=" << avi.speed
                                              << " foeAS=" << avi.arrivalSpeed
                                              << " egoSpeed=" << ego->getSpeed()
                                              << " uMax=" << uMax

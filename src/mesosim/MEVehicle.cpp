@@ -336,7 +336,7 @@ MEVehicle::processStop() {
         }
         it = stops.erase(it);
     }
-    MSNet::getInstance()->getVehicleControl().removeWaiting(&mySegment->getEdge(), this);
+    mySegment->getEdge().removeWaiting(this);
     // clean up stops
     if (stops.size() == 0) {
         myStops.erase(segStopsIt);

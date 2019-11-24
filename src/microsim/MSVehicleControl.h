@@ -412,20 +412,6 @@ public:
 
     /// @}
 
-    /// @brief Adds a vehicle to the list of waiting vehicles for the given edge
-    void addWaiting(const MSEdge* const edge, SUMOVehicle* vehicle);
-
-    /// @brief Removes a vehicle from the list of waiting vehicles for the given edge
-    void removeWaiting(const MSEdge* const edge, const SUMOVehicle* vehicle);
-
-    /* @brief returns a vehicle of the given lines that is waiting for a for a person or a container at this edge at the given positions
-     * @param[in] edge The edge at which the vehicle is positioned.
-     * @param[in] lines The set of lines from which at least one must correspond to the line of the vehicle
-     * @param[in] position The vehicle shall be positioned in the interval [position - t, position + t], where t is some tolerance
-     * @param[in] ridingID The id of the person or container that wants to ride
-     */
-    SUMOVehicle* getWaitingVehicle(MSTransportable* transportable, const MSEdge* const edge, const double position);
-
     /** @brief increases the count of vehicles waiting for a transport to allow recognition of person / container related deadlocks
      */
     void registerOneWaiting(const bool isPerson) {
@@ -525,6 +511,9 @@ private:
      */
     bool checkVType(const std::string& id);
 
+    /// @brief whether the given vehicle is scheduled for removal
+    bool isPendingRemoval(SUMOVehicle* veh);
+
 protected:
     /// @name Vehicle statistics (always accessible)
     /// @{
@@ -608,9 +597,6 @@ private:
     /// @brief Whether the default bicycle type was already used or can still be replaced
     bool myDefaultBikeTypeMayBeDeleted;
 
-    /// the lists of waiting vehicles to a given edge
-    std::map<const MSEdge* const, std::vector<SUMOVehicle*> > myWaiting;
-
     /// the number of vehicles wainting for persons contained in myWaiting which can only continue by being triggered
     int myWaitingForPerson;
 
@@ -628,9 +614,6 @@ private:
 
     /// @brief List of vehicles which belong to public transport
     std::vector<SUMOVehicle*> myPTVehicles;
-
-    /// @brief The tolerance to apply when matching waiting persons and vehicles
-    double myStopTolerance;
 
     /// @brief List of vehicles which are going to be removed
 #ifdef HAVE_FOX

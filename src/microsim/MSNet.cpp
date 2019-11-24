@@ -200,9 +200,6 @@ MSNet::MSNet(MSVehicleControl* vc, MSEventControl* beginOfTimestepEvents,
     myHasPedestrianNetwork(false),
     myHasBidiEdges(false),
     myEdgeDataEndTime(-1),
-    myRouterTT(nullptr),
-    myRouterEffort(nullptr),
-    myPedestrianRouter(nullptr),
     myDynamicShapeUpdater(nullptr) {
     if (myInstance != nullptr) {
         throw ProcessError("A network was already constructed.");
@@ -299,9 +296,18 @@ MSNet::~MSNet() {
     myInsertionEvents = nullptr;
     delete myShapeContainer;
     delete myEdgeWeights;
-    delete myRouterTT;
-    delete myRouterEffort;
-    delete myPedestrianRouter;
+    for (auto& router : myRouterTT) {
+        delete router.second;
+    }
+    myRouterTT.clear();
+    for (auto& router : myRouterEffort) {
+        delete router.second;
+    }
+    myRouterEffort.clear();
+    for (auto& router : myPedestrianRouter) {
+        delete router.second;
+    }
+    myPedestrianRouter.clear();
     for (auto& router : myIntermodalRouter) {
         delete router.second;
     }
@@ -886,10 +892,10 @@ MSNet::removeVehicleStateListener(VehicleStateListener* listener) {
 void
 MSNet::informVehicleStateListener(const SUMOVehicle* const vehicle, VehicleState to, const std::string& info) {
 #ifdef HAVE_FOX
-    FXConditionalLock lock(myStateListenerMutex, MSRoutingEngine::isParallel());
+    FXConditionalLock lock(myStateListenerMutex, MSGlobals::gNumThreads > 1);
 #endif
-    for (std::vector<VehicleStateListener*>::iterator i = myVehicleStateListeners.begin(); i != myVehicleStateListeners.end(); ++i) {
-        (*i)->vehicleStateChanged(vehicle, to, info);
+    for (VehicleStateListener* const listener : myVehicleStateListeners) {
+        listener->vehicleStateChanged(vehicle, to, info);
     }
 }
 
@@ -933,6 +939,7 @@ MSNet::getStoppingPlaces(SumoXMLTag category) const {
     }
 }
 
+
 void
 MSNet::writeChargingStationOutput() const {
     if (myStoppingPlaces.count(SUMO_TAG_CHARGING_STATION) > 0) {
@@ -942,6 +949,7 @@ MSNet::writeChargingStationOutput() const {
         }
     }
 }
+
 
 void
 MSNet::writeRailSignalBlocks() const {
@@ -956,51 +964,50 @@ MSNet::writeRailSignalBlocks() const {
 
 
 SUMOAbstractRouter<MSEdge, SUMOVehicle>&
-MSNet::getRouterTT(const MSEdgeVector& prohibited) const {
-    if (myRouterTT == nullptr) {
+MSNet::getRouterTT(const int rngIndex, const MSEdgeVector& prohibited) const {
+    if (myRouterTT.count(rngIndex) == 0) {
         const std::string routingAlgorithm = OptionsCont::getOptions().getString("routing-algorithm");
         if (routingAlgorithm == "dijkstra") {
-            myRouterTT = new DijkstraRouter<MSEdge, SUMOVehicle, SUMOAbstractRouterPermissions<MSEdge, SUMOVehicle> >(
-                MSEdge::getAllEdges(), true, &MSNet::getTravelTime);
+            myRouterTT[rngIndex] = new DijkstraRouter<MSEdge, SUMOVehicle>(MSEdge::getAllEdges(), true, &MSNet::getTravelTime, nullptr, false, nullptr, true);
         } else {
             if (routingAlgorithm != "astar") {
                 WRITE_WARNING("TraCI and Triggers cannot use routing algorithm '" + routingAlgorithm + "'. using 'astar' instead.");
             }
-            myRouterTT = new AStarRouter<MSEdge, SUMOVehicle, SUMOAbstractRouterPermissions<MSEdge, SUMOVehicle> >(
-                MSEdge::getAllEdges(), true, &MSNet::getTravelTime);
+            myRouterTT[rngIndex] = new AStarRouter<MSEdge, SUMOVehicle>(MSEdge::getAllEdges(), true, &MSNet::getTravelTime, nullptr, true);
         }
     }
-    dynamic_cast<SUMOAbstractRouterPermissions<MSEdge, SUMOVehicle>*>(myRouterTT)->prohibit(prohibited);
-    return *myRouterTT;
+    myRouterTT[rngIndex]->prohibit(prohibited);
+    return *myRouterTT[rngIndex];
 }
 
 
 SUMOAbstractRouter<MSEdge, SUMOVehicle>&
-MSNet::getRouterEffort(const MSEdgeVector& prohibited) const {
-    if (myRouterEffort == nullptr) {
-        myRouterEffort = new DijkstraRouter<MSEdge, SUMOVehicle, SUMOAbstractRouterPermissions<MSEdge, SUMOVehicle> >(
-            MSEdge::getAllEdges(), true, &MSNet::getEffort, &MSNet::getTravelTime);
+MSNet::getRouterEffort(const int rngIndex, const MSEdgeVector& prohibited) const {
+    if (myRouterEffort.count(rngIndex) == 0) {
+        myRouterEffort[rngIndex] = new DijkstraRouter<MSEdge, SUMOVehicle>(MSEdge::getAllEdges(), true, &MSNet::getEffort, &MSNet::getTravelTime, false, nullptr, true);
     }
-    dynamic_cast<SUMOAbstractRouterPermissions<MSEdge, SUMOVehicle>*>(myRouterEffort)->prohibit(prohibited);
-    return *myRouterEffort;
+    myRouterEffort[rngIndex]->prohibit(prohibited);
+    return *myRouterEffort[rngIndex];
 }
 
 
 MSNet::MSPedestrianRouter&
-MSNet::getPedestrianRouter(const MSEdgeVector& prohibited) const {
-    if (myPedestrianRouter == nullptr) {
-        myPedestrianRouter = new MSPedestrianRouter();
+MSNet::getPedestrianRouter(const int rngIndex, const MSEdgeVector& prohibited) const {
+    if (myPedestrianRouter.count(rngIndex) == 0) {
+        myPedestrianRouter[rngIndex] = new MSPedestrianRouter();
     }
-    myPedestrianRouter->prohibit(prohibited);
-    return *myPedestrianRouter;
+    myPedestrianRouter[rngIndex]->prohibit(prohibited);
+    return *myPedestrianRouter[rngIndex];
 }
 
 
 MSNet::MSIntermodalRouter&
-MSNet::getIntermodalRouter(const int routingMode, const MSEdgeVector& prohibited) const {
-    if (myIntermodalRouter.count(routingMode) == 0) {
+MSNet::getIntermodalRouter(const int rngIndex, const int routingMode, const MSEdgeVector& prohibited) const {
+    const OptionsCont& oc = OptionsCont::getOptions();
+    const int key = rngIndex * oc.getInt("thread-rngs") + routingMode;
+    if (myIntermodalRouter.count(key) == 0) {
         int carWalk = 0;
-        for (const std::string& opt : OptionsCont::getOptions().getStringVector("persontrip.transfer.car-walk")) {
+        for (const std::string& opt : oc.getStringVector("persontrip.transfer.car-walk")) {
             if (opt == "parkingAreas") {
                 carWalk |= MSIntermodalRouter::Network::PARKING_AREAS;
             } else if (opt == "ptStops") {
@@ -1011,13 +1018,13 @@ MSNet::getIntermodalRouter(const int routingMode, const MSEdgeVector& prohibited
         }
         const std::string routingAlgorithm = OptionsCont::getOptions().getString("routing-algorithm");
         if (routingMode == libsumo::ROUTING_MODE_COMBINED) {
-            myIntermodalRouter[routingMode] = new MSIntermodalRouter(MSNet::adaptIntermodalRouter, carWalk, routingAlgorithm, routingMode, new FareModul());
+            myIntermodalRouter[key] = new MSIntermodalRouter(MSNet::adaptIntermodalRouter, carWalk, routingAlgorithm, routingMode, new FareModul());
         } else {
-            myIntermodalRouter[routingMode] = new MSIntermodalRouter(MSNet::adaptIntermodalRouter, carWalk, routingAlgorithm, routingMode);
+            myIntermodalRouter[key] = new MSIntermodalRouter(MSNet::adaptIntermodalRouter, carWalk, routingAlgorithm, routingMode);
         }
     }
-    myIntermodalRouter[routingMode]->prohibit(prohibited);
-    return *myIntermodalRouter[routingMode];
+    myIntermodalRouter[key]->prohibit(prohibited);
+    return *myIntermodalRouter[key];
 }
 
 

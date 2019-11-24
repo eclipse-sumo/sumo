@@ -62,6 +62,8 @@ private:
 public:
     /// @brief Sets the factory function to use for new MsgHandlers
     static void setFactory(Factory func) {
+        // clean old instances
+        cleanupOnEnd();
         myFactory = func;
     }
 

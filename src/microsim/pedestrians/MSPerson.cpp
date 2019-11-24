@@ -440,12 +440,12 @@ MSPerson::MSPersonStage_Driving::proceed(MSNet* net, MSTransportable* person, SU
         myStopWaitPos = Position::INVALID;
         myWaitingPos = previous->getEdgePos(now);
     }
-    SUMOVehicle* availableVehicle = net->getVehicleControl().getWaitingVehicle(person, myWaitingEdge, myWaitingPos);
+    SUMOVehicle* availableVehicle = myWaitingEdge->getWaitingVehicle(person, myWaitingPos);
     if (availableVehicle != nullptr && availableVehicle->getParameter().departProcedure == DEPART_TRIGGERED && !availableVehicle->hasDeparted()) {
         setVehicle(availableVehicle);
         myVehicle->addPerson(person);
         net->getInsertionControl().add(myVehicle);
-        net->getVehicleControl().removeWaiting(myWaitingEdge, myVehicle);
+        myWaitingEdge->removeWaiting(myVehicle);
         net->getVehicleControl().unregisterOneWaiting(true);
     } else {
         net->getPersonControl().addWaiting(myWaitingEdge, person);

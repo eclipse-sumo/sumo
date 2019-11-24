@@ -23,20 +23,14 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-
 #include <cassert>
 #include <vector>
+#include <map>
 #include <random>
 #include <sstream>
 #include <iostream>
 
 //#define DEBUG_RANDCALLS
-
-// ===========================================================================
-// class declarations
-// ===========================================================================
-class OptionsCont;
-
 
 // ===========================================================================
 // class definitions
@@ -63,11 +57,13 @@ public:
         }
         const double res = double((*rng)() / 4294967296.0);
 #ifdef DEBUG_RANDCALLS
-        myCallCount++;
-        if (myCallCount == myDebugIndex) {
+        myCallCount[rng]++;
+        if (myCallCount[rng] == myDebugIndex) {
             std::cout << "DEBUG\n"; // for setting breakpoint
         }
-        std::cout << " rand call=" << myCallCount << " val=" << res << "\n";
+        std::stringstream stream; // to reduce output interleaving from different threads
+        stream << " rng" << myRngId.find(rng)->second << " rand call=" << myCallCount[rng] << " val=" << res << "\n";
+        std::cout << stream.str();
 #endif
         return res;
     }
@@ -180,9 +176,11 @@ protected:
     /// @brief the random number generator to use
     static std::mt19937 myRandomNumberGenerator;
 
-    /// @brief only used for debugging;
-    static int myCallCount;
+#ifdef DEBUG_RANDCALLS
+    static std::map<std::mt19937*, int> myCallCount;
+    static std::map<std::mt19937*, int> myRngId;
     static int myDebugIndex;
+#endif
 
 };
 

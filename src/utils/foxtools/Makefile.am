@@ -12,7 +12,7 @@ FXSevenSegment.cpp FXSevenSegment.h \
 FXSingleEventThread.cpp FXSingleEventThread.h \
 FXThreadEvent.cpp FXThreadEvent.h \
 FXSynchQue.h FXWorkerThread.h \
-MsgHandlerSynchronized.h MsgHandlerSynchronized.cpp \
+MsgHandlerSynchronized.h \
 MFXCheckableButton.cpp MFXCheckableButton.h \
 MFXInterThreadEventClient.h \
 MFXAddEditTypedTable.cpp MFXAddEditTypedTable.h \

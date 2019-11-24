@@ -934,7 +934,7 @@ Vehicle::changeTarget(const std::string& vehicleID, const std::string& edgeID) {
     // build a new route between the vehicle's current edge and destination edge
     ConstMSEdgeVector newRoute;
     const MSEdge* currentEdge = veh->getRerouteOrigin();
-    veh->getInfluencer().getRouterTT().compute(
+    veh->getInfluencer().getRouterTT(veh->getRNGIndex()).compute(
         currentEdge, destEdge, (const MSVehicle * const)veh, MSNet::getInstance()->getCurrentTimeStep(), newRoute);
     // replace the vehicle's route by the new one (cost is updated by call to reroute())
     if (!veh->replaceRouteEdges(newRoute, -1, 0, "traci:changeTarget", onInit)) {
@@ -942,7 +942,7 @@ Vehicle::changeTarget(const std::string& vehicleID, const std::string& edgeID) {
     }
     // route again to ensure usage of via/stops
     try {
-        veh->reroute(MSNet::getInstance()->getCurrentTimeStep(), "traci:changeTarget", veh->getInfluencer().getRouterTT(), onInit);
+        veh->reroute(MSNet::getInstance()->getCurrentTimeStep(), "traci:changeTarget", veh->getInfluencer().getRouterTT(veh->getRNGIndex()), onInit);
     } catch (ProcessError& e) {
         throw TraCIException(e.what());
     }
@@ -1369,7 +1369,7 @@ Vehicle::rerouteTraveltime(const std::string& vehicleID, const bool currentTrave
     UNUSED_PARAMETER(currentTravelTimes); // !!! see #5943
     MSVehicle* veh = Helper::getVehicle(vehicleID);
     veh->reroute(MSNet::getInstance()->getCurrentTimeStep(), "traci:rerouteTraveltime",
-                 veh->getInfluencer().getRouterTT(), isOnInit(vehicleID));
+                 veh->getInfluencer().getRouterTT(veh->getRNGIndex()), isOnInit(vehicleID));
 }
 
 
@@ -1377,7 +1377,7 @@ void
 Vehicle::rerouteEffort(const std::string& vehicleID) {
     MSVehicle* veh = Helper::getVehicle(vehicleID);
     veh->reroute(MSNet::getInstance()->getCurrentTimeStep(), "traci:rerouteEffort",
-                 MSNet::getInstance()->getRouterEffort(), isOnInit(vehicleID));
+                 MSNet::getInstance()->getRouterEffort(veh->getRNGIndex()), isOnInit(vehicleID));
 }
 
 

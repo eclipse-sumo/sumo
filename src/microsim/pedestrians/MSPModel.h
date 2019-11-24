@@ -29,6 +29,9 @@
 #include <utils/common/MsgHandler.h>
 #include <utils/geom/GeomHelper.h>
 #include <microsim/pedestrians/MSPerson.h>
+#ifdef HAVE_FOX
+#include <fx.h>
+#endif
 
 // ===========================================================================
 // class declarations
@@ -117,6 +120,13 @@ public:
 
     /// @brief whether movements on intersections are modelled
     virtual bool usingInternalLanes() = 0;
+
+protected:
+#ifdef HAVE_FOX
+    /// @brief the mutex for model initialization
+    static FXMutex myInitializationMutex;
+#endif
+
 
 private:
     static MSPModel* myModel;

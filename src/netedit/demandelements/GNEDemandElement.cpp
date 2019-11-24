@@ -50,7 +50,7 @@ GNEDemandElement::RouteCalculator* GNEDemandElement::myRouteCalculatorInstance =
 
 GNEDemandElement::RouteCalculator::RouteCalculator(GNENet* net) :
     myNet(net) {
-    myDijkstraRouter = new DijkstraRouter<NBRouterEdge, NBVehicle, SUMOAbstractRouter<NBRouterEdge, NBVehicle> >(
+    myDijkstraRouter = new DijkstraRouter<NBRouterEdge, NBVehicle>(
         myNet->getNetBuilder()->getEdgeCont().getAllRouterEdges(),
         true, &NBRouterEdge::getTravelTimeStatic, nullptr, true);
 }
@@ -67,7 +67,7 @@ GNEDemandElement::RouteCalculator::updateDijkstraRouter() {
     if (myDijkstraRouter) {
         delete myDijkstraRouter;
     }
-    myDijkstraRouter = new DijkstraRouter<NBRouterEdge, NBVehicle, SUMOAbstractRouter<NBRouterEdge, NBVehicle> >(
+    myDijkstraRouter = new DijkstraRouter<NBRouterEdge, NBVehicle>(
         myNet->getNetBuilder()->getEdgeCont().getAllRouterEdges(),
         true, &NBRouterEdge::getTravelTimeStatic, nullptr, true);
 }

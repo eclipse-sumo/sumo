@@ -67,11 +67,17 @@ bool MSGlobals::gUnitTests(false);
 bool MSGlobals::gComputeLC;
 
 int MSGlobals::gNumSimThreads;
+int MSGlobals::gNumThreads;
 
 double MSGlobals::gEmergencyDecelWarningThreshold(1);
 
 double MSGlobals::gMinorPenalty(0);
 
 bool MSGlobals::gModelParkingManoeuver;
+
+bool MSGlobals::gSublane(false);
+
+double MSGlobals::gStopTolerance;
+
 /****************************************************************************/
 

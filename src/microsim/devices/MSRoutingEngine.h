@@ -82,6 +82,8 @@ public:
     /// @brief return the cached route or nullptr on miss
     static const MSRoute* getCachedRoute(const std::pair<const MSEdge*, const MSEdge*>& key);
 
+    static void initRouter(SUMOVehicle* vehicle=nullptr);
+
     /// @brief initiate the rerouting, create router / thread pool on first use
     static void reroute(SUMOVehicle& vehicle, const SUMOTime currentTime, const bool onInit);
 
@@ -97,7 +99,7 @@ public:
     }
 
     /// @brief return the router instance
-    static SUMOAbstractRouter<MSEdge, SUMOVehicle>& getRouterTT(
+    static SUMOAbstractRouter<MSEdge, SUMOVehicle>& getRouterTT(const int rngIndex,
         const MSEdgeVector& prohibited = MSEdgeVector());
 
     /** @brief Returns the effort to pass an edge
@@ -123,40 +125,11 @@ public:
 
 #ifdef HAVE_FOX
     static void waitForAll();
-    static void lock() {
-        myThreadPool.lock();
-    }
-    static void unlock() {
-        myThreadPool.unlock();
-    }
-    static bool isParallel() {
-        return myThreadPool.size() > 0;
-    }
 #endif
 
 
 private:
 #ifdef HAVE_FOX
-    /**
-     * @class WorkerThread
-     * @brief the thread which provides the router instance as context
-     */
-    class WorkerThread : public FXWorkerThread {
-    public:
-        WorkerThread(FXWorkerThread::Pool& pool,
-                     SUMOAbstractRouter<MSEdge, SUMOVehicle>* router)
-            : FXWorkerThread(pool), myRouter(router) {}
-        SUMOAbstractRouter<MSEdge, SUMOVehicle>& getRouter() const {
-            return *myRouter;
-        }
-        virtual ~WorkerThread() {
-            stop();
-            delete myRouter;
-        }
-    private:
-        SUMOAbstractRouter<MSEdge, SUMOVehicle>* myRouter;
-    };
-
     /**
      * @class RoutingTask
      * @brief the routing task which mainly calls reroute of the vehicle
@@ -172,7 +145,7 @@ private:
         const bool myOnInit;
     private:
         /// @brief Invalidated assignment operator.
-        RoutingTask& operator=(const RoutingTask&);
+        RoutingTask& operator=(const RoutingTask&) = delete;
     };
 #endif
 
@@ -225,14 +198,12 @@ private:
     /// @brief The router to use
     static SUMOAbstractRouter<MSEdge, SUMOVehicle>* myRouter;
 
-    /// @brief The router to use by rerouter elements
-    static AStarRouter<MSEdge, SUMOVehicle, SUMOAbstractRouterPermissions<MSEdge, SUMOVehicle> >* myRouterWithProhibited;
-
     /// @brief The container of pre-calculated routes
     static std::map<std::pair<const MSEdge*, const MSEdge*>, const MSRoute*> myCachedRoutes;
 
 #ifdef HAVE_FOX
-    static FXWorkerThread::Pool myThreadPool;
+    /// @brief Mutex for accessing the route cache
+    static FXMutex myRouteCacheMutex;
 #endif
 
 private:

@@ -132,6 +132,9 @@ extern bool gDebugFlag2;
 extern bool gDebugFlag3;
 extern bool gDebugFlag4;
 
+// synchronized output to stdout with << (i.e. DEBUGOUT(SIMTIME << " var=" << var << "\n")
+#define DEBUGOUT(msg) {std::ostringstream oss; oss << msg; std::cout << oss.str();}
+
 /// @brief discrds mantissa bits beyond the given number
 double truncate(double x, int fractionBits);
 

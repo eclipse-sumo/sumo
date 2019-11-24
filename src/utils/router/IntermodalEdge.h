@@ -104,6 +104,10 @@ public:
         return false;
     }
 
+    virtual bool restricts(const IntermodalTrip<E, N, V>* const /* trip */) const {
+        return false;
+    }
+
     virtual double getTravelTime(const IntermodalTrip<E, N, V>* const /* trip */, double /* time */) const {
         return 0.;
     }

@@ -57,7 +57,7 @@ public:
         EdgeInfo(const E* const e)
             : edge(e), effort(std::numeric_limits<double>::max()),
               heuristicEffort(std::numeric_limits<double>::max()),
-              leaveTime(0.), prev(nullptr), visited(false) {}
+              leaveTime(0.), prev(nullptr), visited(false), prohibited(false) {}
 
         /// The current edge
         const E* const edge;
@@ -75,8 +75,11 @@ public:
         /// The previous edge
         const EdgeInfo* prev;
 
-        /// The previous edge
+        /// whether the edge was already evaluated
         bool visited;
+
+        /// whether the edge is currently not allowed
+        bool prohibited;
 
         inline void reset() {
             effort = std::numeric_limits<double>::max();
@@ -94,10 +97,13 @@ public:
     typedef double(* Operation)(const E* const, const V* const, double);
 
     /// Constructor
-    SUMOAbstractRouter(const std::string& type, bool unbuildIsWarning, Operation operation = nullptr, Operation ttOperation = nullptr) :
+    SUMOAbstractRouter(const std::string& type, bool unbuildIsWarning, Operation operation, Operation ttOperation,
+                       const bool havePermissions, const bool haveRestrictions) :
         myErrorMsgHandler(unbuildIsWarning ? MsgHandler::getWarningInstance() : MsgHandler::getErrorInstance()),
         myOperation(operation), myTTOperation(ttOperation),
         myBulkMode(false),
+        myHavePermissions(havePermissions),
+        myHaveRestrictions(haveRestrictions),
         myType(type),
         myQueryVisits(0),
         myNumQueries(0),
@@ -122,7 +128,7 @@ public:
 
     /** @brief Builds the route between the given edges using the minimum effort at the given time
      * if from == to, return the shortest looped route */
-    bool computeLooped(const E* from, const E* to, const V* const vehicle,
+    inline bool computeLooped(const E* from, const E* to, const V* const vehicle,
                        SUMOTime msTime, std::vector<const E*>& into, bool silent = false) {
         if (from != to) {
             return compute(from, to, vehicle, msTime, into, silent);
@@ -151,10 +157,11 @@ public:
         return false;
     }
 
-    virtual bool isProhibited(const E* const /* edge */, const V* const /* vehicle */) const  {
-        return false;
+    inline bool isProhibited(const E* const edge, const V* const vehicle) const {
+        return (myHavePermissions && edge->prohibits(vehicle)) || (myHaveRestrictions && edge->restricts(vehicle));
     }
 
+    virtual void prohibit(const std::vector<E*>& /* toProhibit */) {}
 
     inline double getTravelTime(const E* const e, const V* const v, const double t, const double effort) const {
         return myTTOperation == nullptr ? effort : (*myTTOperation)(e, v, t);
@@ -221,7 +228,7 @@ public:
         myQueryTimeSum += (SysUtils::getCurrentMillis() - myQueryStartTime);
     }
 
-    void setBulkMode(const bool mode) {
+    inline void setBulkMode(const bool mode) {
         myBulkMode = mode;
     }
 
@@ -238,6 +245,14 @@ protected:
     /// @brief whether we are currently operating several route queries in a bulk
     bool myBulkMode;
 
+    /// @brief whether edge permissions need to be considered
+    const bool myHavePermissions;
+
+    /// @brief whether edge restrictions need to be considered
+    const bool myHaveRestrictions;
+
+    std::vector<E*> myProhibited;
+
 private:
     /// @brief the type of this router
     const std::string myType;
@@ -251,69 +266,6 @@ private:
 private:
     /// @brief Invalidated assignment operator
     SUMOAbstractRouter& operator=(const SUMOAbstractRouter& s);
-};
-
-
-template<class E, class V>
-class SUMOAbstractRouterPermissions : public SUMOAbstractRouter<E, V> {
-public:
-    /// Constructor
-    SUMOAbstractRouterPermissions(const std::string& type, bool unbuildIsWarning,
-        typename SUMOAbstractRouter<E, V>::Operation operation = nullptr, typename SUMOAbstractRouter<E, V>::Operation ttOperation = nullptr) :
-        SUMOAbstractRouter<E, V>(type, unbuildIsWarning, operation, ttOperation) {
-    }
-
-    /// Destructor
-    virtual ~SUMOAbstractRouterPermissions() {
-    }
-
-    bool isProhibited(const E* const edge, const V* const vehicle) const {
-        if (std::find(myProhibited.begin(), myProhibited.end(), edge) != myProhibited.end()) {
-            return true;
-        }
-        return edge->prohibits(vehicle);
-    }
-
-    void prohibit(const std::vector<E*>& toProhibit) {
-        myProhibited = toProhibit;
-    }
-
-protected:
-    std::vector<E*> myProhibited;
-
-};
-
-
-template<class E, class V>
-class SUMOAbstractRouterRestrictions : public SUMOAbstractRouter<E, V> {
-public:
-    /// Constructor
-    SUMOAbstractRouterRestrictions(const std::string& type, bool unbuildIsWarning,
-        typename SUMOAbstractRouter<E, V>::Operation operation = nullptr, typename SUMOAbstractRouter<E, V>::Operation ttOperation = nullptr) :
-        SUMOAbstractRouter<E, V>(type, unbuildIsWarning, operation, ttOperation) {
-    }
-
-    /// Destructor
-    virtual ~SUMOAbstractRouterRestrictions() {
-    }
-
-    bool isProhibited(const E* const edge, const V* const vehicle) const {
-        if (std::find(myProhibited.begin(), myProhibited.end(), edge) != myProhibited.end()) {
-            return true;
-        }
-        if (edge->prohibits(vehicle)) {
-            return true;
-        }
-        return edge->restricts(vehicle);
-    }
-
-    void prohibit(const std::vector<E*>& toProhibit) {
-        myProhibited = toProhibit;
-    }
-
-protected:
-    std::vector<E*> myProhibited;
-
 };
 
 

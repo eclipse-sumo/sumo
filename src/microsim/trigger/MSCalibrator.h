@@ -301,6 +301,9 @@ protected:
     /// @brief whether the calibrator was active when last checking
     bool myAmActive;
 
+    /// @brief whether the calibrator has registered an invalid jam in the last execution step
+    bool myHaveInvalidJam;
+
     /* @brief objects which need to live longer than the MSCalibrator
      * instance which created them */
     static std::vector<MSMoveReminder*> LeftoverReminders;

@@ -1194,6 +1194,9 @@ GUILane::getColorValue(const GUIVisualizationSettings& s, int activeScheme) cons
         case 36: {
             return myReachability;
         }
+        case 37: {
+            return myRNGIndex % MSGlobals::gNumSimThreads;
+        }
     }
     return 0;
 }

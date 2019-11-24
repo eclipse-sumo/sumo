@@ -123,6 +123,9 @@ public:
     /// how many threads to use for simulation
     static int gNumSimThreads;
 
+    /// how many threads to use
+    static int gNumThreads;
+
     /// treshold for warning about strong deceleration
     static double gEmergencyDecelWarningThreshold;
 
@@ -131,6 +134,12 @@ public:
 
     /// whether parking simulation includes manoeuver time and any associated lane blocking
     static bool gModelParkingManoeuver;
+
+    /// whether sublane simulation is enabled (sublane model or continuous lanechanging)
+    static bool gSublane;
+
+    /// @brief The tolerance to apply when matching waiting persons and vehicles
+    static double gStopTolerance;
 };
 
 

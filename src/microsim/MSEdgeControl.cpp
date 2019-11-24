@@ -35,7 +35,7 @@
 #include "MSVehicle.h"
 
 #define PARALLEL_PLAN_MOVE
-//#define PARALLEL_EXEC_MOVE
+#define PARALLEL_EXEC_MOVE
 //#define PARALLEL_CHANGE_LANES
 //#define LOAD_BALANCING
 
@@ -65,10 +65,18 @@ MSEdgeControl::MSEdgeControl(const std::vector< MSEdge* >& edges)
             myLastLaneChange[(*i)->getNumericalID()] = -1;
         }
     }
+#ifdef HAVE_FOX
+    if (MSGlobals::gNumThreads > 1) {
+        while (myThreadPool.size() < MSGlobals::gNumThreads) {
+            new WorkerThread(myThreadPool);
+        }
+    }
+#endif
 }
 
 
 MSEdgeControl::~MSEdgeControl() {
+    myThreadPool.clear();
 }
 
 
@@ -93,13 +101,6 @@ MSEdgeControl::patchActiveLanes() {
 
 void
 MSEdgeControl::planMovements(SUMOTime t) {
-#ifdef HAVE_FOX
-    if (MSGlobals::gNumSimThreads > 1) {
-        while (myThreadPool.size() < MSGlobals::gNumSimThreads) {
-            new FXWorkerThread(myThreadPool);
-        }
-    }
-#endif
 #ifdef LOAD_BALANCING
     myRNGLoad = std::priority_queue<std::pair<int, int> >();
     for (int i = 0; i < MSLane::getNumRNGs(); i++) {
@@ -194,6 +195,9 @@ MSEdgeControl::executeMovements(SUMOTime t) {
     MSNet::getInstance()->getVehicleControl().removePending();
     std::vector<MSLane*>& toIntegrate = myWithVehicles2Integrate.getContainer();
     std::sort(toIntegrate.begin(), toIntegrate.end(), ComparatorIdLess());
+    /// @todo: sorting only needed to account for lane-ordering dependencies.
+    //This should disappear when parallelization is working. Until then it would
+    //be better to use ComparatorNumericalIdLess instead of ComparatorIdLess
     myWithVehicles2Integrate.unlock();
     for (MSLane* const lane : toIntegrate) {
         const bool wasInactive = lane->getVehicleNumber() == 0;

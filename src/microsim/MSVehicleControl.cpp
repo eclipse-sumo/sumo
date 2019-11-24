@@ -74,9 +74,7 @@ MSVehicleControl::MSVehicleControl() :
     SUMOVTypeParameter defBikeType(DEFAULT_BIKETYPE_ID, SVC_BICYCLE);
     defBikeType.parametersSet |= VTYPEPARS_VEHICLECLASS_SET;
     myVTypeDict[DEFAULT_BIKETYPE_ID] = MSVehicleType::build(defBikeType);
-    OptionsCont& oc = OptionsCont::getOptions();
-    myScale = oc.getFloat("scale");
-    myStopTolerance = oc.getFloat("ride.stop-tolerance");
+    myScale = OptionsCont::getOptions().getFloat("scale");
 }
 
 
@@ -119,17 +117,20 @@ MSVehicleControl::buildVehicle(SUMOVehicleParameter* defs,
 void
 MSVehicleControl::scheduleVehicleRemoval(SUMOVehicle* veh, bool checkDuplicate) {
     assert(myRunningVehNo > 0);
-    if (!checkDuplicate ||
-#ifdef HAVE_FOX
-            std::find(myPendingRemovals.getContainer().begin(), myPendingRemovals.getContainer().end(), veh) == myPendingRemovals.getContainer().end()
-#else
-            std::find(myPendingRemovals.begin(), myPendingRemovals.end(), veh) == myPendingRemovals.end()
-#endif
-       ) {
+    if (!checkDuplicate || !isPendingRemoval(veh)) {
         myPendingRemovals.push_back(veh);
     }
 }
 
+
+bool
+MSVehicleControl::isPendingRemoval(SUMOVehicle* veh) {
+#ifdef HAVE_FOX
+    return myPendingRemovals.contains(veh);
+#else
+    return std::find(myPendingRemovals.begin(), myPendingRemovals.end(), veh) == myPendingRemovals.end();
+#endif
+}
 
 void
 MSVehicleControl::removePending() {
@@ -224,7 +225,7 @@ MSVehicleControl::addVehicle(const std::string& id, SUMOVehicle* v) {
                 // position will be checked against person position later
                 static_cast<MSVehicle*>(v)->setTentativeLaneAndPosition(firstEdge->getLanes()[0], v->getParameter().departPos);
             }
-            addWaiting(v->getRoute().getEdges().front(), v);
+            firstEdge->addWaiting(v);
             registerOneWaiting(pars.departProcedure == DEPART_TRIGGERED);
         }
         if (pars.line != "" && pars.repetitionNumber < 0) {
@@ -391,47 +392,6 @@ MSVehicleControl::getVTypeDistributionMembership(const std::string& id) const {
 
 
 void
-MSVehicleControl::addWaiting(const MSEdge* const edge, SUMOVehicle* vehicle) {
-    if (myWaiting.find(edge) == myWaiting.end()) {
-        myWaiting[edge] = std::vector<SUMOVehicle*>();
-    }
-    myWaiting[edge].push_back(vehicle);
-}
-
-
-void
-MSVehicleControl::removeWaiting(const MSEdge* const edge, const SUMOVehicle* vehicle) {
-    if (myWaiting.find(edge) != myWaiting.end()) {
-        std::vector<SUMOVehicle*>::iterator it = std::find(myWaiting[edge].begin(), myWaiting[edge].end(), vehicle);
-        if (it != myWaiting[edge].end()) {
-            myWaiting[edge].erase(it);
-        }
-    }
-}
-
-
-SUMOVehicle*
-MSVehicleControl::getWaitingVehicle(MSTransportable* transportable, const MSEdge* const edge, const double position) {
-    if (myWaiting.find(edge) != myWaiting.end()) {
-        for (SUMOVehicle* const vehicle : myWaiting[edge]) {
-            if (transportable->isWaitingFor(vehicle)) {
-                if (vehicle->isStoppedInRange(position, myStopTolerance) ||
-                        (!vehicle->hasDeparted() &&
-                         (vehicle->getParameter().departProcedure == DEPART_TRIGGERED ||
-                          vehicle->getParameter().departProcedure == DEPART_CONTAINER_TRIGGERED))) {
-                    return vehicle;
-                }
-                // !!! this gives false warnings when there are two stops on the same edge
-                WRITE_WARNING(transportable->getID() + " at edge '" + edge->getID() + "' position " + toString(position) + " cannot use waiting vehicle '"
-                              + vehicle->getID() + "' at position " + toString(vehicle->getPositionOnLane()) + " because it is too far away.");
-            }
-        }
-    }
-    return nullptr;
-}
-
-
-void
 MSVehicleControl::abortWaiting() {
     for (VehicleDictType::iterator i = myVehicleDict.begin(); i != myVehicleDict.end(); ++i) {
         WRITE_WARNING("Vehicle " + i->first + " aborted waiting for a person or a container that will never come.");
@@ -509,4 +469,3 @@ MSVehicleControl::adaptIntermodalRouter(MSNet::MSIntermodalRouter& router) const
 
 
 /****************************************************************************/
-

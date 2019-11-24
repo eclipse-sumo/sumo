@@ -79,7 +79,9 @@ MSCalibrator::MSCalibrator(const std::string& id,
     mySpeedIsDefault(true), myDidSpeedAdaption(false), myDidInit(false),
     myDefaultSpeed(myLane == nullptr ? myEdge->getSpeedLimit() : myLane->getSpeedLimit()),
     myHaveWarnedAboutClearingJam(false),
-    myAmActive(false) {
+    myAmActive(false),
+    myHaveInvalidJam(false)
+{
     if (outputFilename != "") {
         myOutput = &OutputDevice::getDevice(outputFilename);
         writeXMLDetectorProlog(*myOutput);
@@ -286,6 +288,7 @@ MSCalibrator::removePending() {
 SUMOTime
 MSCalibrator::execute(SUMOTime currentTime) {
     // get current simulation values (valid for the last simulation second)
+    myHaveInvalidJam = invalidJam(myLane == 0 ? -1 : myLane->getIndex());
     // XXX could we miss vehicle movements if this is called less often than every DELTA_T (default) ?
     updateMeanData();
     const bool hadRemovals = removePending();
@@ -330,7 +333,7 @@ MSCalibrator::execute(SUMOTime currentTime) {
               << " q=" << myCurrentStateInterval->q
               << " totalWished=" << totalWishedNum
               << " adapted=" << adaptedNum
-              << " jam=" << invalidJam(myLane == 0 ? -1 : myLane->getIndex())
+              << " jam=" << myHaveInvalidJam
               << " entered=" << myEdgeMeanData.nVehEntered
               << " departed=" << myEdgeMeanData.nVehDeparted
               << " arrived=" << myEdgeMeanData.nVehArrived
@@ -470,11 +473,12 @@ MSCalibrator::remainingVehicleCapacity(int laneIndex) const {
     const SUMOVehicleParameter* pars = myCurrentStateInterval->vehicleParameter;
     const MSVehicleType* vtype = MSNet::getInstance()->getVehicleControl().getVType(pars->vtypeid);
     const double spacePerVehicle = vtype->getLengthWithGap() + myEdge->getSpeedLimit() * vtype->getCarFollowModel().getHeadwayTime();
-    if (last == nullptr) {
-        // ensure vehicles can be inserted on short edges
-        return MAX2(1, (int)(myEdge->getLength() / spacePerVehicle));
+    int overallSpaceLeft = ceil(lane->getLength() / spacePerVehicle) - lane->getVehicleNumber();
+    if (last != nullptr) {
+        int entrySpaceLeft = last->getPositionOnLane() / spacePerVehicle;
+        return MAX2(overallSpaceLeft, entrySpaceLeft);
     } else {
-        return (int)(last->getPositionOnLane() / spacePerVehicle);
+        return overallSpaceLeft;
     }
 }
 
@@ -502,7 +506,9 @@ MSCalibrator::updateMeanData() {
     }
 }
 
-bool MSCalibrator::VehicleRemover::notifyEnter(SUMOTrafficObject& veh, Notification /* reason */, const MSLane* /* enteredLane */) {
+
+bool
+MSCalibrator::VehicleRemover::notifyEnter(SUMOTrafficObject& veh, Notification /* reason */, const MSLane* /* enteredLane */) {
     if (myParent == nullptr) {
         return false;
     }
@@ -523,7 +529,7 @@ bool MSCalibrator::VehicleRemover::notifyEnter(SUMOTrafficObject& veh, Notificat
             if (myParent->scheduleRemoval(vehicle)) {
                 myParent->myRemoved++;
             }
-        } else if (myParent->invalidJam(myLaneIndex)) {
+        } else if (myParent->myHaveInvalidJam) {
 #ifdef MSCalibrator_DEBUG
             std::cout << time2string(MSNet::getInstance()->getCurrentTimeStep()) << " " << myParent->getID()
                       << " vaporizing " << vehicle->getID() << " to clear jam\n";
@@ -540,6 +546,7 @@ bool MSCalibrator::VehicleRemover::notifyEnter(SUMOTrafficObject& veh, Notificat
     }
     return true;
 }
+
 
 void
 MSCalibrator::writeXMLOutput(OutputDevice& dev, SUMOTime startTime, SUMOTime stopTime) {

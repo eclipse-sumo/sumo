@@ -528,7 +528,7 @@ MESegment::receive(MEVehicle* veh, SUMOTime time, bool isDepart, bool afterTelep
     MEVehicle* newLeader = nullptr; // first vehicle in the current queue
     SUMOTime tleave = MAX2(veh->getStoptime(this, time) + TIME2STEPS(myLength / uspeed) + getLinkPenalty(veh), myBlockTimes[nextQueIndex]);
     if (veh->isStopped()) {
-        MSNet::getInstance()->getVehicleControl().addWaiting(&myEdge, veh);
+        myEdge.addWaiting(veh);
     }
     myEdge.lock();
     if (cars.empty()) {

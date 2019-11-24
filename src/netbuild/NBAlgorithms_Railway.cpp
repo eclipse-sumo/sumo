@@ -872,8 +872,7 @@ NBRailwayTopologyAnalyzer::addBidiEdgesForStops(NBNetBuilder& nb) {
     }
     */
 
-    SUMOAbstractRouter<Track, NBVehicle>* router;
-    router = new DijkstraRouter<Track, NBVehicle, SUMOAbstractRouter<Track, NBVehicle> >(
+    SUMOAbstractRouter<Track, NBVehicle>* const router = new DijkstraRouter<Track, NBVehicle>(
         tracks, true, &NBRailwayTopologyAnalyzer::getTravelTimeStatic, nullptr, true);
 
     int added = 0;

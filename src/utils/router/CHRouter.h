@@ -52,22 +52,18 @@
  * The template parameters are:
  * @param E The edge class to use (MSEdge/ROEdge)
  * @param V The vehicle class to use (MSVehicle/ROVehicle)
- * @param PF The prohibition function to use (prohibited_withPermissions/noProhibitions)
  *
  * The router is edge-based. It must know the number of edges for internal reasons
  *  and whether a missing connection between two given edges (unbuild route) shall
  *  be reported as an error or as a warning.
  *
  */
-template<class E, class V, class BASE>
-class CHRouter: public BASE {
+template<class E, class V>
+class CHRouter: public SUMOAbstractRouter<E, V> {
 
 public:
-    /// Type of the function that is used to retrieve the edge effort.
-    typedef double(* Operation)(const E* const, const V* const, double);
-
     /// A meeting point of the two search scopes
-    typedef std::pair<const typename BASE::EdgeInfo*, const typename BASE::EdgeInfo*> Meeting;
+    typedef std::pair<const typename SUMOAbstractRouter<E, V>::EdgeInfo*, const typename SUMOAbstractRouter<E, V>::EdgeInfo*> Meeting;
 
     /**
      * @class Unidirectional
@@ -80,7 +76,7 @@ public:
             myAmForward(forward),
             myVehicle(0) {
             for (const E* const e : edges) {
-                myEdgeInfos.push_back(typename BASE::EdgeInfo(e));
+                myEdgeInfos.push_back(typename SUMOAbstractRouter<E, V>::EdgeInfo(e));
             }
         }
 
@@ -88,11 +84,11 @@ public:
             return myFound.count(edge) > 0;
         }
 
-        inline typename BASE::EdgeInfo* getEdgeInfo(const E* const edge) {
+        inline typename SUMOAbstractRouter<E, V>::EdgeInfo* getEdgeInfo(const E* const edge) {
             return &(myEdgeInfos[edge->getNumericalID()]);
         }
 
-        inline const typename BASE::EdgeInfo* getEdgeInfo(const E* const edge) const {
+        inline const typename SUMOAbstractRouter<E, V>::EdgeInfo* getEdgeInfo(const E* const edge) const {
             return &(myEdgeInfos[edge->getNumericalID()]);
         }
 
@@ -103,7 +99,7 @@ public:
         class EdgeInfoByTTComparator {
         public:
             /// Comparing method
-            bool operator()(const typename BASE::EdgeInfo* nod1, const typename BASE::EdgeInfo* nod2) const {
+            bool operator()(const typename SUMOAbstractRouter<E, V>::EdgeInfo* nod1, const typename SUMOAbstractRouter<E, V>::EdgeInfo* nod2) const {
                 if (nod1->effort == nod2->effort) {
                     return nod1->edge->getNumericalID() > nod2->edge->getNumericalID();
                 }
@@ -205,11 +201,11 @@ public:
         /// @brief the role of this search
         bool myAmForward;
         /// @brief the min edge heap
-        std::vector<typename BASE::EdgeInfo*> myFrontier;
+        std::vector<typename SUMOAbstractRouter<E, V>::EdgeInfo*> myFrontier;
         /// @brief the set of visited (settled) Edges
         std::set<const E*> myFound;
         /// @brief The container of edge information
-        std::vector<typename BASE::EdgeInfo> myEdgeInfos;
+        std::vector<typename SUMOAbstractRouter<E, V>::EdgeInfo> myEdgeInfos;
 
         EdgeInfoByTTComparator myComparator;
 
@@ -222,15 +218,15 @@ public:
      *            If set to false, the net is pruned in synchronize() and the
      *            hierarchy is tailored to the svc
      */
-    CHRouter(const std::vector<E*>& edges, bool unbuildIsWarning, typename BASE::Operation operation,
+    CHRouter(const std::vector<E*>& edges, bool unbuildIsWarning, typename SUMOAbstractRouter<E, V>::Operation operation,
              const SUMOVehicleClass svc,
              SUMOTime weightPeriod,
-             bool validatePermissions):
-        BASE("CHRouter", unbuildIsWarning, operation),
+             const bool havePermissions, const bool haveRestrictions):
+        SUMOAbstractRouter<E, V>("CHRouter", unbuildIsWarning, operation, nullptr, havePermissions, haveRestrictions),
         myEdges(edges),
         myForwardSearch(edges, true),
         myBackwardSearch(edges, false),
-        myHierarchyBuilder(new CHBuilder<E, V>(edges, unbuildIsWarning, svc, validatePermissions)),
+        myHierarchyBuilder(new CHBuilder<E, V>(edges, unbuildIsWarning, svc, havePermissions)),
         myHierarchy(0),
         myWeightPeriod(weightPeriod),
         myValidUntil(0),
@@ -239,11 +235,12 @@ public:
 
     /** @brief Cloning constructor
      */
-    CHRouter(const std::vector<E*>& edges, bool unbuildIsWarning, typename BASE::Operation operation,
+    CHRouter(const std::vector<E*>& edges, bool unbuildIsWarning, typename SUMOAbstractRouter<E, V>::Operation operation,
              const SUMOVehicleClass svc,
              SUMOTime weightPeriod,
-             const typename CHBuilder<E, V>::Hierarchy* hierarchy) :
-        BASE("CHRouterClone", unbuildIsWarning, operation),
+             const typename CHBuilder<E, V>::Hierarchy* hierarchy,
+             const bool havePermissions, const bool haveRestrictions) :
+        SUMOAbstractRouter<E, V>("CHRouterClone", unbuildIsWarning, operation, nullptr, havePermissions, haveRestrictions),
         myEdges(edges),
         myForwardSearch(edges, true),
         myBackwardSearch(edges, false),
@@ -265,8 +262,8 @@ public:
 
     virtual SUMOAbstractRouter<E, V>* clone() {
         WRITE_MESSAGE("Cloning Contraction Hierarchy for " + SumoVehicleClassStrings.getString(mySVC) + " and time " + time2string(myValidUntil) + ".");
-        CHRouter<E, V, BASE>* clone = new CHRouter<E, V, BASE>(myEdges, this->myErrorMsgHandler == MsgHandler::getWarningInstance(), this->myOperation,
-                mySVC, myWeightPeriod, myHierarchy);
+        CHRouter<E, V>* clone = new CHRouter<E, V>(myEdges, this->myErrorMsgHandler == MsgHandler::getWarningInstance(), this->myOperation,
+                mySVC, myWeightPeriod, myHierarchy, this->myHavePermissions, this->myHaveRestrictions);
         clone->myValidUntil = myValidUntil;
         return clone;
     }

@@ -681,6 +681,12 @@ MSFrame::checkOptions() {
             ok = false;
         }
     };
+#ifndef HAVE_FOX
+    if (oc.getInt("threads") > 1) {
+        WRITE_ERROR("Parallel simulation is only possible when compiled with Fox.");
+        ok = false;
+    }
+#endif
     if (oc.getInt("threads") > oc.getInt("thread-rngs")) {
         WRITE_WARNING("Number of threads exceeds number of thread-rngs. Simulation runs with the same seed may produce different results");
     }
@@ -721,6 +727,7 @@ MSFrame::setMSGlobals(OptionsCont& oc) {
     MSGlobals::gCheckRoutes = !oc.getBool("ignore-route-errors");
     MSGlobals::gLaneChangeDuration = string2time(oc.getString("lanechange.duration"));
     MSGlobals::gLateralResolution = oc.getFloat("lateral-resolution");
+    MSGlobals::gSublane = (MSGlobals::gLaneChangeDuration > 0 || MSGlobals::gLateralResolution > 0);
     MSGlobals::gStateLoaded = oc.isSet("load-state");
     MSGlobals::gUseMesoSim = oc.getBool("mesosim");
     MSGlobals::gMesoLimitedJunctionControl = oc.getBool("meso-junction-control.limited");
@@ -757,12 +764,15 @@ MSFrame::setMSGlobals(OptionsCont& oc) {
         // value already checked in checkOptions()
         MSGlobals::gDefaultEmergencyDecel = StringUtils::toDouble(defaultEmergencyDecelOption);
     }
-    MSGlobals::gNumSimThreads = OptionsCont::getOptions().getInt("threads");
+    MSGlobals::gNumSimThreads = oc.getInt("threads");
+    MSGlobals::gNumThreads = MAX2(MSGlobals::gNumSimThreads, oc.getInt("device.rerouting.threads"));
 
     MSGlobals::gEmergencyDecelWarningThreshold = oc.getFloat("emergencydecel.warning-threshold");
     MSGlobals::gMinorPenalty = oc.getFloat("weights.minor-penalty");
 
     MSGlobals::gModelParkingManoeuver = oc.getBool("parking.maneuver");
+
+    MSGlobals::gStopTolerance = oc.getFloat("ride.stop-tolerance");
 
 #ifdef _DEBUG
     if (oc.isSet("movereminder-output")) {

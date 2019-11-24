@@ -39,11 +39,14 @@
 
 #include <cassert>
 #include <algorithm>
-#include "MSE2Collector.h"
+#ifdef HAVE_FOX
+#include <utils/foxtools/FXConditionalLock.h>
+#endif
 #include <microsim/MSLane.h>
 #include <microsim/MSNet.h>
 #include <microsim/MSVehicle.h>
 #include <microsim/MSVehicleType.h>
+#include "MSE2Collector.h"
 
 //#define DEBUG_E2_CONSTRUCTOR
 //#define DEBUG_E2_NOTIFY_ENTER_AND_LEAVE
@@ -602,6 +605,9 @@ MSE2Collector::notifyMove(SUMOTrafficObject& tObject, double oldPos,
         return false;
     }
     SUMOVehicle& veh = static_cast<SUMOVehicle&>(tObject);
+#ifdef HAVE_FOX
+    FXConditionalLock lock(myNotificationMutex, MSGlobals::gNumSimThreads > 1);
+#endif
     VehicleInfoMap::iterator vi = myVehicleInfos.find(veh.getID());
     assert(vi != myVehicleInfos.end()); // all vehicles calling notifyMove() should have called notifyEnter() before
 
@@ -685,6 +691,9 @@ MSE2Collector::notifyLeave(SUMOTrafficObject& tObject, double /* lastPos */, MSM
     }
 #endif
 
+#ifdef HAVE_FOX
+    FXConditionalLock lock(myNotificationMutex, MSGlobals::gNumSimThreads > 1);
+#endif
     if (reason == MSMoveReminder::NOTIFICATION_JUNCTION) {
         // vehicle left lane via junction, unsubscription and registering in myLeftVehicles when
         // moving beyond the detector end is controlled in notifyMove.
@@ -775,6 +784,9 @@ MSE2Collector::notifyEnter(SUMOTrafficObject& tObject, MSMoveReminder::Notificat
     }
 #endif
 
+#ifdef HAVE_FOX
+    FXConditionalLock lock(myNotificationMutex, MSGlobals::gNumSimThreads > 1);
+#endif
     const std::string& vehID = veh.getID();
     VehicleInfoMap::iterator vi = myVehicleInfos.find(vehID);
     if (vi != myVehicleInfos.end()) {
@@ -811,6 +823,7 @@ MSE2Collector::notifyEnter(SUMOTrafficObject& tObject, MSMoveReminder::Notificat
     // Subscribe to vehicle's movement notifications
     return true;
 }
+
 
 MSE2Collector::VehicleInfo*
 MSE2Collector::makeVehicleInfo(const SUMOVehicle& veh, const MSLane* enteredLane) const {

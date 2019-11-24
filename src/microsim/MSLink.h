@@ -102,7 +102,8 @@ public:
                                       const SUMOTime _arrivalTimeBraking,
                                       const double _arrivalSpeedBraking,
                                       const SUMOTime _waitingTime,
-                                      const double _dist
+                                      const double _dist,
+                                      const double _speed
                                      ) :
             arrivalTime(_arrivalTime), leavingTime(_leavingTime),
             arrivalSpeed(_arrivalSpeed), leaveSpeed(_leaveSpeed),
@@ -110,7 +111,8 @@ public:
             arrivalTimeBraking(_arrivalTimeBraking),
             arrivalSpeedBraking(_arrivalSpeedBraking),
             waitingTime(_waitingTime),
-            dist(_dist) {
+            dist(_dist),
+            speed(_speed) {
         }
 
         /// @brief The time the vehicle's front arrives at the link
@@ -131,6 +133,8 @@ public:
         const SUMOTime waitingTime;
         /// @brief The distance up to the current link
         const double dist;
+        /// @brief The current speed
+        const double speed;
 
     private:
         /// invalidated assignment operator
@@ -138,6 +142,8 @@ public:
 
     };
 
+    typedef std::map<const SUMOVehicle*, const ApproachingVehicleInformation, ComparatorNumericalIdLess> ApproachInfos;
+    typedef std::vector<const SUMOVehicle*> BlockingFoes;
 
     /** @brief Constructor for simulation which uses internal lanes
      *
@@ -206,7 +212,7 @@ public:
     ApproachingVehicleInformation getApproaching(const SUMOVehicle* veh) const;
 
     /// @brief return all approaching vehicles
-    const std::map<const SUMOVehicle*, const ApproachingVehicleInformation, ComparatorNumericalIdLess>& getApproaching() const {
+    const ApproachInfos& getApproaching() const {
         return myApproachingVehicles;
     }
 
@@ -220,9 +226,9 @@ public:
     bool opened(SUMOTime arrivalTime, double arrivalSpeed, double leaveSpeed, double vehicleLength,
                 double impatience, double decel, SUMOTime waitingTime,
                 double posLat = 0,
-                std::vector<const SUMOVehicle*>* collectFoes = 0,
+                BlockingFoes* collectFoes = nullptr,
                 bool ignoreRed = false,
-                const SUMOVehicle* ego = 0) const;
+                const SUMOVehicle* ego = nullptr) const;
 
     /** @brief Returns the information whether this link is blocked
      * Valid after the vehicles have set their requests
@@ -240,7 +246,7 @@ public:
      **/
     bool blockedAtTime(SUMOTime arrivalTime, SUMOTime leaveTime, double arrivalSpeed, double leaveSpeed,
                        bool sameTargetLane, double impatience, double decel, SUMOTime waitingTime,
-                       std::vector<const SUMOVehicle*>* collectFoes = 0, const SUMOVehicle* ego = 0) const;
+                       BlockingFoes* collectFoes = nullptr, const SUMOVehicle* ego = nullptr) const;
 
 
     bool isBlockingAnyone() const {
@@ -261,6 +267,9 @@ public:
      * @return Whether a foe of this link is approaching
      */
     bool hasApproachingFoe(SUMOTime arrivalTime, SUMOTime leaveTime, double speed, double decel) const;
+
+    /// @brief get the foe vehicle that is closest to the intersection or nullptr along with the foe link
+    std::pair<const SUMOVehicle*, const MSLink*>  getFirstApproachingFoe() const;
 
     MSJunction* getJunction() const {
         return myJunction;
@@ -441,7 +450,7 @@ public:
     /// @brief return the speed at which ego vehicle must approach the zipper link
     double getZipperSpeed(const MSVehicle* ego, const double dist, double vSafe,
                           SUMOTime arrivalTime,
-                          std::vector<const SUMOVehicle*>* collectFoes) const;
+                          BlockingFoes* collectFoes) const;
 
     /// @brief return the via lane if it exists and the lane otherwise
     MSLane* getViaLaneOrLane() const;
@@ -532,10 +541,7 @@ private:
         return (leaderSpeed * leaderSpeed / leaderDecel) <= (followerSpeed * followerSpeed / followerDecel);
     }
 
-    /// @brief returns whether the given lane may still be occupied by a vehicle currently on it
-    static bool maybeOccupied(MSLane* lane);
-
-    /// @brief whether fllower could stay behind leader (possibly by braking)
+    /// @brief whether follower could stay behind leader (possibly by braking)
     static bool couldBrakeForLeader(double followDist, double leaderDist, const MSVehicle* follow, const MSVehicle* leader);
 
     MSLink* computeParallelLink(int direction);
@@ -558,7 +564,7 @@ private:
     /// @brief The lane approaching this link
     MSLane* myLaneBefore;
 
-    std::map<const SUMOVehicle*, const ApproachingVehicleInformation, ComparatorNumericalIdLess> myApproachingVehicles;
+    ApproachInfos myApproachingVehicles;
     std::set<MSLink*> myBlockedFoeLinks;
 
     /// @brief The position within this respond

@@ -899,11 +899,11 @@ MSVehicle::Influencer::implicitDeltaPosRemote(const MSVehicle* veh) {
 
 
 SUMOAbstractRouter<MSEdge, SUMOVehicle>&
-MSVehicle::Influencer::getRouterTT() const {
+MSVehicle::Influencer::getRouterTT(const int rngIndex) const {
     if (myRoutingMode == 1) {
-        return MSRoutingEngine::getRouterTT();
+        return MSRoutingEngine::getRouterTT(rngIndex);
     } else {
-        return MSNet::getInstance()->getRouterTT();
+        return MSNet::getInstance()->getRouterTT(rngIndex);
     }
 }
 
@@ -1986,7 +1986,7 @@ MSVehicle::processNextStop(double currentVelocity) {
                 if (MSStopOut::active()) {
                     MSStopOut::getInstance()->stopStarted(this, getPersonNumber(), getContainerNumber(), time);
                 }
-                MSNet::getInstance()->getVehicleControl().addWaiting(&myLane->getEdge(), this);
+                myLane->getEdge().addWaiting(this);
                 MSNet::getInstance()->informVehicleStateListener(this, MSNet::VEHICLE_STATE_STARTING_STOP);
                 // compute stopping time
                 if (stop.pars.until >= 0) {
@@ -2626,6 +2626,23 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
                 std::cout << "   slowedDownForMinor maxSpeedAtVisDist=" << maxSpeedAtVisibilityDist << " maxArrivalSpeed=" << maxArrivalSpeed << " arrivalSpeed=" << arrivalSpeed << "\n";
             }
 #endif
+        } else if ((*link)->getState() == LINKSTATE_EQUAL && myWaitingTime > 0) {
+            // check for deadlock (circular yielding)
+            //std::cout << SIMTIME << " veh=" << getID() << " check rbl-deadlock\n";
+            std::pair<const SUMOVehicle*, const MSLink*> blocker = (*link)->getFirstApproachingFoe();
+            //std::cout << "   blocker=" << Named::getIDSecure(blocker.first) << "\n";
+            while (blocker.second != nullptr && blocker.second != *link) {
+                blocker = blocker.second->getFirstApproachingFoe();
+                //std::cout << "   blocker=" << Named::getIDSecure(blocker.first) << "\n";
+            }
+            //std::cout << "   blockerLink=" << blocker.second << " link=" << *link << "\n";
+            if (blocker.second == *link) {
+                const double threshold = (*link)->getDirection() == LINKDIR_STRAIGHT ? 0.25 : 0.75;
+                if (RandHelper::rand(getRNG()) < threshold) {
+                    //std::cout << "   abort request, threshold=" << threshold << "\n";
+                    setRequest = false;
+                }
+            }
         }
 
         SUMOTime arrivalTime;
@@ -3028,11 +3045,10 @@ MSVehicle::processLinkApproaches(double& vSafe, double& vSafeMin, double& vSafeM
                     std::cout << SIMTIME << " veh=" << getID() << " haveToWait (yellow)\n";
                 }
 #endif
-                link->removeApproaching(this);
                 break;
             }
             const bool influencerPrio = (myInfluencer != nullptr && !myInfluencer->getRespectJunctionPriority());
-            std::vector<const SUMOVehicle*> collectFoes;
+            MSLink::BlockingFoes collectFoes;
             bool opened = (yellow || influencerPrio
                            || link->opened(dpi.myArrivalTime, dpi.myArrivalSpeed, dpi.getLeaveSpeed(),
                                            getVehicleType().getLength(),
@@ -3088,9 +3104,6 @@ MSVehicle::processLinkApproaches(double& vSafe, double& vSafeMin, double& vSafeM
                         std::cout << SIMTIME << " veh=" << getID() << " haveToWait (minor)\n";
                     }
 #endif
-                    if (ls == LINKSTATE_EQUAL) {
-                        link->removeApproaching(this);
-                    }
                     break;
                 } else {
                     // past the point of no return. we need to drive fast enough
@@ -3141,9 +3154,6 @@ MSVehicle::processLinkApproaches(double& vSafe, double& vSafeMin, double& vSafeM
                     std::cout << SIMTIME << " veh=" << getID() << " haveToWait (closed)\n";
                 }
 #endif
-                if (ls == LINKSTATE_EQUAL) {
-                    link->removeApproaching(this);
-                }
 #ifdef DEBUG_EXEC_MOVE
                 if (DEBUG_COND) {
                     std::cout << SIMTIME << " braking for closed link=" << link->getViaLaneOrLane()->getID() << "\n";
@@ -5617,7 +5627,7 @@ MSVehicle::rerouteParkingArea(const std::string& parkingAreaID, std::string& err
     }
 
     const MSEdge* newEdge = &(newParkingArea->getLane().getEdge());
-    SUMOAbstractRouter<MSEdge, SUMOVehicle>& router = getInfluencer().getRouterTT();
+    SUMOAbstractRouter<MSEdge, SUMOVehicle>& router = getInfluencer().getRouterTT(getRNGIndex());
 
     // Compute the route from the current edge to the parking area edge
     ConstMSEdgeVector edgesToPark;
@@ -5825,7 +5835,7 @@ MSVehicle::resumeFromStopping() {
             myStops.front().parkingarea->leaveFrom(this);
         }
         // the current stop is no longer valid
-        MSNet::getInstance()->getVehicleControl().removeWaiting(&myLane->getEdge(), this);
+        myLane->getEdge().removeWaiting(this);
         MSDevice_Vehroutes* vehroutes = static_cast<MSDevice_Vehroutes*>(getDevice(typeid(MSDevice_Vehroutes)));
         if (vehroutes != nullptr) {
             vehroutes->stopEnded(myStops.front().pars);

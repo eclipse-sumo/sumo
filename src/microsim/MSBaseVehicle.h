@@ -471,6 +471,9 @@ public:
         return false;
     }
 
+    /// @brief @return The index of the vehicle's associated RNG
+    int getRNGIndex() const;
+
     /// @brief @return The vehicle's associated RNG
     std::mt19937* getRNG() const;
 

@@ -44,6 +44,7 @@
 // ===========================================================================
 // class declarations
 // ===========================================================================
+class OptionsCont;
 class OutputDevice;
 class SUMOSAXHandler;
 
@@ -432,7 +433,7 @@ private:
     ODMatrix(const ODMatrix& s);
 
     /** @brief invalid assignment operator */
-    ODMatrix& operator=(const ODMatrix& s);
+    ODMatrix& operator=(const ODMatrix& s) = delete;
 
 };
 

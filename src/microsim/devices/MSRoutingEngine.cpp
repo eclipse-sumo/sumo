@@ -56,12 +56,9 @@ SUMOTime MSRoutingEngine::myAdaptationInterval = -1;
 SUMOTime MSRoutingEngine::myLastAdaptation = -1;
 bool MSRoutingEngine::myWithTaz;
 SUMOAbstractRouter<MSEdge, SUMOVehicle>* MSRoutingEngine::myRouter = nullptr;
-AStarRouter<MSEdge, SUMOVehicle, SUMOAbstractRouterPermissions<MSEdge, SUMOVehicle> >* MSRoutingEngine::myRouterWithProhibited = nullptr;
 std::map<std::pair<const MSEdge*, const MSEdge*>, const MSRoute*> MSRoutingEngine::myCachedRoutes;
 SUMOAbstractRouter<MSEdge, SUMOVehicle>::Operation MSRoutingEngine::myEffortFunc = &MSRoutingEngine::getEffort;
-#ifdef HAVE_FOX
-FXWorkerThread::Pool MSRoutingEngine::myThreadPool;
-#endif
+FXMutex MSRoutingEngine::myRouteCacheMutex;
 
 
 // ===========================================================================
@@ -222,91 +219,65 @@ MSRoutingEngine::getCachedRoute(const std::pair<const MSEdge*, const MSEdge*>& k
 
 
 void
-MSRoutingEngine::reroute(SUMOVehicle& vehicle, const SUMOTime currentTime, const bool onInit) {
+MSRoutingEngine::initRouter(SUMOVehicle* vehicle) {
+    OptionsCont& oc = OptionsCont::getOptions();
+    const std::string routingAlgorithm = oc.getString("routing-algorithm");
+    myEffortFunc = (gWeightsRandomFactor != 1 || MSNet::getInstance()->hasBidiEdges()
+        ? &MSRoutingEngine::getEffortExtra
+        : &MSRoutingEngine::getEffort);
+    if (routingAlgorithm == "dijkstra") {
+        myRouter = new DijkstraRouter<MSEdge, SUMOVehicle>(MSEdge::getAllEdges(), true, myEffortFunc, nullptr, false, nullptr, true);
+    } else if (routingAlgorithm == "astar") {
+        typedef AStarRouter<MSEdge, SUMOVehicle> AStar;
+        std::shared_ptr<const AStar::LookupTable> lookup = nullptr;
+        if (oc.isSet("astar.all-distances")) {
+            lookup = std::make_shared<const AStar::FLT>(oc.getString("astar.all-distances"), (int)MSEdge::getAllEdges().size());
+        } else if (oc.isSet("astar.landmark-distances") && vehicle != nullptr) {
+            const double speedFactor = vehicle->getChosenSpeedFactor();
+            // we need an exemplary vehicle with speedFactor 1
+            vehicle->setChosenSpeedFactor(1);
+            CHRouterWrapper<MSEdge, SUMOVehicle> router(
+                MSEdge::getAllEdges(), true, &MSNet::getTravelTime,
+                string2time(oc.getString("begin")), string2time(oc.getString("end")), std::numeric_limits<int>::max(), 1);
+            lookup = std::make_shared<const AStar::LMLT>(oc.getString("astar.landmark-distances"), MSEdge::getAllEdges(), &router, vehicle, "", oc.getInt("device.rerouting.threads"));
+            vehicle->setChosenSpeedFactor(speedFactor);
+        }
+        myRouter = new AStar(MSEdge::getAllEdges(), true, myEffortFunc, lookup, true);
+    } else if (routingAlgorithm == "CH") {
+        const SUMOTime weightPeriod = myAdaptationInterval > 0 ? myAdaptationInterval : std::numeric_limits<int>::max();
+        myRouter = new CHRouter<MSEdge, SUMOVehicle>(
+            MSEdge::getAllEdges(), true, myEffortFunc, vehicle->getVClass(), weightPeriod, true, false);
+    } else if (routingAlgorithm == "CHWrapper") {
+        const SUMOTime weightPeriod = myAdaptationInterval > 0 ? myAdaptationInterval : std::numeric_limits<int>::max();
+        myRouter = new CHRouterWrapper<MSEdge, SUMOVehicle>(
+            MSEdge::getAllEdges(), true, myEffortFunc,
+            string2time(oc.getString("begin")), string2time(oc.getString("end")), weightPeriod, oc.getInt("device.rerouting.threads"));
+    } else {
+        throw ProcessError("Unknown routing algorithm '" + routingAlgorithm + "'!");
+    }
 #ifdef HAVE_FOX
-    const bool needThread = (myRouter == nullptr && myThreadPool.isFull());
-#else
-    const bool needThread = true;
+    FXWorkerThread::Pool& threadPool = MSNet::getInstance()->getEdgeControl().getThreadPool();
+    if (threadPool.size() > 0) {
+        const std::vector<FXWorkerThread*>& threads = threadPool.getWorkers();
+        if (static_cast<MSEdgeControl::WorkerThread*>(threads.front())->setRouter(myRouter)) {
+            for (std::vector<FXWorkerThread*>::const_iterator t = threads.begin() + 1; t != threads.end(); ++t) {
+                static_cast<MSEdgeControl::WorkerThread*>(*t)->setRouter(myRouter->clone());
+            }
+        }
+    }
 #endif
-    if (needThread && myRouter == nullptr) {
-        OptionsCont& oc = OptionsCont::getOptions();
-        const std::string routingAlgorithm = oc.getString("routing-algorithm");
-        const bool mayHaveRestrictions = MSNet::getInstance()->hasPermissions() || oc.getInt("remote-port") != 0;
-        myEffortFunc = (gWeightsRandomFactor != 1 || MSNet::getInstance()->hasBidiEdges()
-                        ? &MSRoutingEngine::getEffortExtra
-                        : &MSRoutingEngine::getEffort);
-        if (routingAlgorithm == "dijkstra") {
-            if (mayHaveRestrictions) {
-                myRouter = new DijkstraRouter<MSEdge, SUMOVehicle, SUMOAbstractRouterPermissions<MSEdge, SUMOVehicle> >(
-                    MSEdge::getAllEdges(), true, myEffortFunc);
-            } else {
-                myRouter = new DijkstraRouter<MSEdge, SUMOVehicle, SUMOAbstractRouter<MSEdge, SUMOVehicle> >(
-                    MSEdge::getAllEdges(), true, myEffortFunc);
-            }
-        } else if (routingAlgorithm == "astar") {
-            if (mayHaveRestrictions) {
-                typedef AStarRouter<MSEdge, SUMOVehicle, SUMOAbstractRouterPermissions<MSEdge, SUMOVehicle> > AStar;
-                std::shared_ptr<const AStar::LookupTable> lookup;
-                if (oc.isSet("astar.all-distances")) {
-                    lookup = std::make_shared<const AStar::FLT>(oc.getString("astar.all-distances"), (int)MSEdge::getAllEdges().size());
-                } else if (oc.isSet("astar.landmark-distances")) {
-                    const double speedFactor = vehicle.getChosenSpeedFactor();
-                    // we need an exemplary vehicle with speedFactor 1
-                    vehicle.setChosenSpeedFactor(1);
-                    CHRouterWrapper<MSEdge, SUMOVehicle, SUMOAbstractRouterPermissions<MSEdge, SUMOVehicle> > router(
-                        MSEdge::getAllEdges(), true, &MSNet::getTravelTime,
-                        string2time(oc.getString("begin")), string2time(oc.getString("end")), std::numeric_limits<int>::max(), 1);
-                    lookup = std::make_shared<const AStar::LMLT>(oc.getString("astar.landmark-distances"), MSEdge::getAllEdges(), &router, &vehicle, "", oc.getInt("device.rerouting.threads"));
-                    vehicle.setChosenSpeedFactor(speedFactor);
-                }
-                myRouter = new AStar(MSEdge::getAllEdges(), true, myEffortFunc, lookup);
-            } else {
-                typedef AStarRouter<MSEdge, SUMOVehicle, SUMOAbstractRouter<MSEdge, SUMOVehicle> > AStar;
-                std::shared_ptr<const AStar::LookupTable> lookup;
-                if (oc.isSet("astar.all-distances")) {
-                    lookup = std::shared_ptr<const AStar::LookupTable> (new AStar::FLT(oc.getString("astar.all-distances"), (int)MSEdge::getAllEdges().size()));
-                } else if (oc.isSet("astar.landmark-distances")) {
-                    const double speedFactor = vehicle.getChosenSpeedFactor();
-                    // we need an exemplary vehicle with speedFactor 1
-                    vehicle.setChosenSpeedFactor(1);
-                    CHRouterWrapper<MSEdge, SUMOVehicle, SUMOAbstractRouter<MSEdge, SUMOVehicle> > router(
-                        MSEdge::getAllEdges(), true, &MSNet::getTravelTime,
-                        string2time(oc.getString("begin")), string2time(oc.getString("end")), std::numeric_limits<int>::max(), 1);
-                    lookup = std::make_shared<const AStar::LMLT>(oc.getString("astar.landmark-distances"), MSEdge::getAllEdges(), &router, &vehicle, "", oc.getInt("device.rerouting.threads"));
-                    vehicle.setChosenSpeedFactor(speedFactor);
-                }
-                myRouter = new AStar(MSEdge::getAllEdges(), true, myEffortFunc, lookup);
-            }
-        } else if (routingAlgorithm == "CH") {
-            const SUMOTime weightPeriod = myAdaptationInterval > 0 ? myAdaptationInterval : std::numeric_limits<int>::max();
-            if (mayHaveRestrictions) {
-                myRouter = new CHRouter<MSEdge, SUMOVehicle, SUMOAbstractRouterPermissions<MSEdge, SUMOVehicle> >(
-                    MSEdge::getAllEdges(), true, myEffortFunc, vehicle.getVClass(), weightPeriod, true);
-            } else {
-                myRouter = new CHRouter<MSEdge, SUMOVehicle, SUMOAbstractRouter<MSEdge, SUMOVehicle> >(
-                    MSEdge::getAllEdges(), true, myEffortFunc, vehicle.getVClass(), weightPeriod, false);
-            }
-        } else if (routingAlgorithm == "CHWrapper") {
-            const SUMOTime weightPeriod = myAdaptationInterval > 0 ? myAdaptationInterval : std::numeric_limits<int>::max();
-            myRouter = new CHRouterWrapper<MSEdge, SUMOVehicle, SUMOAbstractRouterPermissions<MSEdge, SUMOVehicle> >(
-                MSEdge::getAllEdges(), true, myEffortFunc,
-                string2time(oc.getString("begin")), string2time(oc.getString("end")), weightPeriod, oc.getInt("device.rerouting.threads"));
-        } else {
-            throw ProcessError("Unknown routing algorithm '" + routingAlgorithm + "'!");
-        }
+}
+
+
+void
+MSRoutingEngine::reroute(SUMOVehicle& vehicle, const SUMOTime currentTime, const bool onInit) {
+    if (myRouter == nullptr) {
+        initRouter(&vehicle);
     }
 #ifdef HAVE_FOX
-    if (needThread) {
-        const int numThreads = OptionsCont::getOptions().getInt("device.rerouting.threads");
-        if (myThreadPool.size() < numThreads) {
-            new WorkerThread(myThreadPool, myRouter);
-        }
-        if (myThreadPool.size() < numThreads) {
-            myRouter = nullptr;
-        }
-    }
-    if (myThreadPool.size() > 0) {
-        myThreadPool.add(new RoutingTask(vehicle, currentTime, onInit));
+    FXWorkerThread::Pool& threadPool = MSNet::getInstance()->getEdgeControl().getThreadPool();
+    if (threadPool.size() > 0) {
+        threadPool.add(new RoutingTask(vehicle, currentTime, onInit));
         return;
     }
 #endif
@@ -321,25 +292,27 @@ MSRoutingEngine::setEdgeTravelTime(const MSEdge* const edge, const double travel
 
 
 SUMOAbstractRouter<MSEdge, SUMOVehicle>&
-MSRoutingEngine::getRouterTT(const MSEdgeVector& prohibited) {
-    if (myRouterWithProhibited == nullptr) {
+MSRoutingEngine::getRouterTT(const int rngIndex, const MSEdgeVector& prohibited) {
+    if (myRouter == nullptr) {
         initWeightUpdate();
         initEdgeWeights();
-        myEffortFunc = (gWeightsRandomFactor != 1 || MSNet::getInstance()->hasBidiEdges()
-                        ? &MSRoutingEngine::getEffortExtra
-                        : &MSRoutingEngine::getEffort);
-        myRouterWithProhibited = new AStarRouter<MSEdge, SUMOVehicle, SUMOAbstractRouterPermissions<MSEdge, SUMOVehicle> >(
-            MSEdge::getAllEdges(), true, myEffortFunc);
+        initRouter();
     }
-    myRouterWithProhibited->prohibit(prohibited);
-    return *myRouterWithProhibited;
+#ifdef HAVE_FOX
+    FXWorkerThread::Pool& threadPool = MSNet::getInstance()->getEdgeControl().getThreadPool();
+    if (threadPool.size() > 0) {
+        auto& router = static_cast<MSEdgeControl::WorkerThread*>(threadPool.getWorkers()[rngIndex % MSGlobals::gNumThreads])->getRouter();
+        router.prohibit(prohibited);
+        return router;
+    }
+#endif
+    myRouter->prohibit(prohibited);
+    return *myRouter;
 }
 
 
 void
 MSRoutingEngine::cleanup() {
-    delete myRouterWithProhibited;
-    myRouterWithProhibited = nullptr;
     myAdaptationInterval = -1; // responsible for triggering initEdgeWeights
     myPastEdgeSpeeds.clear();
     myEdgeSpeeds.clear();
@@ -350,10 +323,7 @@ MSRoutingEngine::cleanup() {
     myCachedRoutes.clear();
     myAdaptationStepsIndex = 0;
 #ifdef HAVE_FOX
-    if (myThreadPool.size() > 0) {
-        // we cannot wait for the static destructor to do the cleanup
-        // because the output devices are gone by then
-        myThreadPool.clear();
+    if (MSGlobals::gNumThreads > 1) {
         // router deletion is done in thread destructor
         myRouter = nullptr;
         return;
@@ -367,8 +337,9 @@ MSRoutingEngine::cleanup() {
 #ifdef HAVE_FOX
 void
 MSRoutingEngine::waitForAll() {
-    if (myThreadPool.size() > 0) {
-        myThreadPool.waitAll();
+    FXWorkerThread::Pool& threadPool = MSNet::getInstance()->getEdgeControl().getThreadPool();
+    if (threadPool.size() > 0) {
+        threadPool.waitAll();
     }
 }
 
@@ -378,21 +349,19 @@ MSRoutingEngine::waitForAll() {
 // ---------------------------------------------------------------------------
 void
 MSRoutingEngine::RoutingTask::run(FXWorkerThread* context) {
-    myVehicle.reroute(myTime, "device.rerouting", static_cast<WorkerThread*>(context)->getRouter(), myOnInit, myWithTaz);
+    myVehicle.reroute(myTime, "device.rerouting", static_cast<MSEdgeControl::WorkerThread*>(context)->getRouter(), myOnInit, myWithTaz);
     const MSEdge* source = *myVehicle.getRoute().begin();
     const MSEdge* dest = myVehicle.getRoute().getLastEdge();
     if (source->isTazConnector() && dest->isTazConnector()) {
         const std::pair<const MSEdge*, const MSEdge*> key = std::make_pair(source, dest);
-        lock();
+        FXMutexLock lock(myRouteCacheMutex);
         if (MSRoutingEngine::myCachedRoutes.find(key) == MSRoutingEngine::myCachedRoutes.end()) {
             MSRoutingEngine::myCachedRoutes[key] = &myVehicle.getRoute();
             myVehicle.getRoute().addReference();
         }
-        unlock();
     }
 }
 #endif
 
 
 /****************************************************************************/
-

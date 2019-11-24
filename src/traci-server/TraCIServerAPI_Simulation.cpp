@@ -602,7 +602,7 @@ TraCIServerAPI_Simulation::commandDistanceRequest(TraCIServer& server, tcpip::St
                 roadPos2.first = roadPos2.first->getLogicalPredecessorLane();
                 roadPos2.second = roadPos2.first->getLength();
             }
-            MSNet::getInstance()->getRouterTT().compute(
+            MSNet::getInstance()->getRouterTT(0).compute(
                 &roadPos1.first->getEdge(), &roadPos2.first->getEdge(), nullptr, MSNet::getInstance()->getCurrentTimeStep(), newRoute, true);
             if (newRoute.size() == 0) {
                 distance = libsumo::INVALID_DOUBLE_VALUE;

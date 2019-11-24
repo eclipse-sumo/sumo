@@ -230,7 +230,7 @@ MSLane::initRestrictions() {
 
 void
 MSLane::checkBufferType() {
-    if (MSGlobals::gNumSimThreads <= 1 || myIncomingLanes.size() <= 1) {
+    if (MSGlobals::gNumSimThreads <= 1) {
         myVehBuffer.unsetCondition();
     }
 }
@@ -266,6 +266,9 @@ MSLane::addMoveReminder(MSMoveReminder* rem) {
 
 double
 MSLane::setPartialOccupation(MSVehicle* v) {
+#ifdef HAVE_FOX
+    FXConditionalLock lock(myPartialOccupatorMutex, MSGlobals::gNumSimThreads > 1);
+#endif
     myNeedsCollisionCheck = true; // always check
 #ifdef DEBUG_CONTEXT
     if (DEBUG_COND2(v)) {
@@ -280,6 +283,9 @@ MSLane::setPartialOccupation(MSVehicle* v) {
 
 void
 MSLane::resetPartialOccupation(MSVehicle* v) {
+#ifdef HAVE_FOX
+    FXConditionalLock lock(myPartialOccupatorMutex, MSGlobals::gNumSimThreads > 1);
+#endif
 #ifdef DEBUG_CONTEXT
     if (DEBUG_COND2(v)) {
         std::cout << SIMTIME << " resetPartialOccupation. lane=" << getID() << " veh=" << v->getID() << "\n";
@@ -1278,7 +1284,7 @@ MSLane::detectCollisions(SUMOTime timestep, const std::string& stage) {
     }
 
     std::set<const MSVehicle*, ComparatorNumericalIdLess> toRemove;
-    std::set<const MSVehicle*> toTeleport;
+    std::set<const MSVehicle*, ComparatorNumericalIdLess> toTeleport;
     if (mustCheckJunctionCollisions()) {
         myNeedsCollisionCheck = true; // always check
 #ifdef DEBUG_JUNCTION_COLLISIONS
@@ -1506,7 +1512,7 @@ MSLane::detectPedestrianJunctionCollision(const MSVehicle* collider, const Posit
 bool
 MSLane::detectCollisionBetween(SUMOTime timestep, const std::string& stage, MSVehicle* collider, MSVehicle* victim,
                                std::set<const MSVehicle*, ComparatorNumericalIdLess>& toRemove,
-                               std::set<const MSVehicle*>& toTeleport) const {
+                               std::set<const MSVehicle*, ComparatorNumericalIdLess>& toTeleport) const {
     if (myCollisionAction == COLLISION_ACTION_TELEPORT && ((victim->hasInfluencer() && victim->getInfluencer().isRemoteAffected(timestep)) ||
             (collider->hasInfluencer() && collider->getInfluencer().isRemoteAffected(timestep)))) {
         return false;
@@ -1577,7 +1583,7 @@ MSLane::detectCollisionBetween(SUMOTime timestep, const std::string& stage, MSVe
 void
 MSLane::handleCollisionBetween(SUMOTime timestep, const std::string& stage, MSVehicle* collider, MSVehicle* victim,
                                double gap, double latGap, std::set<const MSVehicle*, ComparatorNumericalIdLess>& toRemove,
-                               std::set<const MSVehicle*>& toTeleport) const {
+                               std::set<const MSVehicle*, ComparatorNumericalIdLess>& toTeleport) const {
     std::string collisionType = ((collider->getLaneChangeModel().isOpposite() != victim->getLaneChangeModel().isOpposite()
                                   || (&collider->getLane()->getEdge() == victim->getLane()->getEdge().getBidiEdge()))
                                  ?  "frontal collision" : "collision");
@@ -2830,8 +2836,15 @@ MSLane::VehPosition::operator()(const MSVehicle* cmp, double pos) const {
 
 int
 MSLane::vehicle_position_sorter::operator()(MSVehicle* v1, MSVehicle* v2) const {
-    return v1->getBackPositionOnLane(myLane) > v2->getBackPositionOnLane(myLane);
+    const double pos1 = v1->getBackPositionOnLane(myLane);
+    const double pos2 = v2->getBackPositionOnLane(myLane);
+    if (pos1 != pos2) {
+        return pos1 > pos2;
+    } else {
+        return v1->getNumericalID() > v2->getNumericalID();
+    }
 }
+
 
 int
 MSLane::vehicle_natural_position_sorter::operator()(MSVehicle* v1, MSVehicle* v2) const {
@@ -2843,6 +2856,7 @@ MSLane::vehicle_natural_position_sorter::operator()(MSVehicle* v1, MSVehicle* v2
         return v1->getLateralPositionOnLane() < v2->getLateralPositionOnLane();
     }
 }
+
 
 MSLane::by_connections_to_sorter::by_connections_to_sorter(const MSEdge* const e) :
     myEdge(e),
@@ -3668,17 +3682,20 @@ MSLane::checkForPedestrians(const MSVehicle* aVehicle, double& speed, double& di
     return true;
 }
 
+
 void
 MSLane::initRNGs(const OptionsCont& oc) {
     myRNGs.clear();
     const int numRNGs = oc.getInt("thread-rngs");
     const bool random = oc.getBool("random");
     int seed = oc.getInt("seed");
+    myRNGs.reserve(numRNGs); // this is needed for stable pointers on debugging
     for (int i = 0; i < numRNGs; i++) {
         myRNGs.push_back(std::mt19937());
         RandHelper::initRand(&myRNGs.back(), random, seed++);
     }
 }
+
 
 MSLane*
 MSLane::getBidiLane() const {
@@ -3692,9 +3709,11 @@ MSLane::getBidiLane() const {
     }
 }
 
+
 bool
 MSLane::mustCheckJunctionCollisions() const {
     return myCheckJunctionCollisions && myEdge->isInternal() && myLinks.front()->getFoeLanes().size() > 0;
 }
-/****************************************************************************/
 
+
+/****************************************************************************/

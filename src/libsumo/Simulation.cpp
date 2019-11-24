@@ -395,7 +395,7 @@ Simulation::getDistance2D(double x1, double y1, double x2, double y2, bool isGeo
                 roadPos2.first = roadPos2.first->getLogicalPredecessorLane();
                 roadPos2.second = roadPos2.first->getLength();
             }
-            MSNet::getInstance()->getRouterTT().compute(
+            MSNet::getInstance()->getRouterTT(0).compute(
                 &roadPos1.first->getEdge(), &roadPos2.first->getEdge(), nullptr, MSNet::getInstance()->getCurrentTimeStep(), newRoute);
             MSRoute route("", newRoute, false, nullptr, std::vector<SUMOVehicleParameter::Stop>());
             return distance + route.getDistanceBetween(roadPos1.second, roadPos2.second, &roadPos1.first->getEdge(), &roadPos2.first->getEdge());
@@ -422,7 +422,7 @@ Simulation::getDistanceRoad(const std::string& edgeID1, double pos1, const std::
                 roadPos2.first = roadPos2.first->getLogicalPredecessorLane();
                 roadPos2.second = roadPos2.first->getLength();
             }
-            MSNet::getInstance()->getRouterTT().compute(
+            MSNet::getInstance()->getRouterTT(0).compute(
                 &roadPos1.first->getEdge(), &roadPos2.first->getEdge(), nullptr, MSNet::getInstance()->getCurrentTimeStep(), newRoute);
             MSRoute route("", newRoute, false, nullptr, std::vector<SUMOVehicleParameter::Stop>());
             return distance + route.getDistanceBetween(roadPos1.second, roadPos2.second, &roadPos1.first->getEdge(), &roadPos2.first->getEdge());
@@ -464,7 +464,7 @@ Simulation::findRoute(const std::string& from, const std::string& to, const std:
     }
     ConstMSEdgeVector edges;
     const SUMOTime dep = depart < 0 ? MSNet::getInstance()->getCurrentTimeStep() : TIME2STEPS(depart);
-    SUMOAbstractRouter<MSEdge, SUMOVehicle>& router = routingMode == ROUTING_MODE_AGGREGATED ? MSRoutingEngine::getRouterTT() : MSNet::getInstance()->getRouterTT();
+    SUMOAbstractRouter<MSEdge, SUMOVehicle>& router = routingMode == ROUTING_MODE_AGGREGATED ? MSRoutingEngine::getRouterTT(0) : MSNet::getInstance()->getRouterTT(0);
     router.compute(fromEdge, toEdge, vehicle, dep, edges);
     for (const MSEdge* e : edges) {
         result.edges.push_back(e->getID());
@@ -553,7 +553,7 @@ Simulation::findIntermodalRoute(const std::string& from, const std::string& to,
         throw TraCIException("Invalid arrival position " + toString(arrivalPos) + " for edge '" + to + "'.");
     }
     double minCost = std::numeric_limits<double>::max();
-    MSNet::MSIntermodalRouter& router = MSNet::getInstance()->getIntermodalRouter(routingMode);
+    MSNet::MSIntermodalRouter& router = MSNet::getInstance()->getIntermodalRouter(0, routingMode);
     for (SUMOVehicleParameter* vehPar : pars) {
         std::vector<TraCIStage> resultCand;
         SUMOVehicle* vehicle = nullptr;

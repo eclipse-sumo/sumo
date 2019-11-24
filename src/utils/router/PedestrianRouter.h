@@ -50,19 +50,19 @@ private:
     typedef IntermodalEdge<E, L, N, V> _IntermodalEdge;
     typedef IntermodalNetwork<E, L, N, V> _IntermodalNetwork;
     typedef IntermodalTrip<E, N, V> _IntermodalTrip;
-    typedef DijkstraRouter<_IntermodalEdge, _IntermodalTrip, SUMOAbstractRouterPermissions<_IntermodalEdge, _IntermodalTrip > > _InternalRouter;
+    typedef DijkstraRouter<_IntermodalEdge, _IntermodalTrip> _InternalRouter;
 
 public:
     /// Constructor
     PedestrianRouter():
-        SUMOAbstractRouter<E, _IntermodalTrip>("PedestrianRouter", true), myAmClone(false) {
+        SUMOAbstractRouter<E, _IntermodalTrip>("PedestrianRouter", true, nullptr, nullptr, false, false), myAmClone(false) {
         myPedNet = new _IntermodalNetwork(E::getAllEdges(), true);
         myInternalRouter = new _InternalRouter(myPedNet->getAllEdges(), true,
                                                gWeightsRandomFactor > 1 ? &_IntermodalEdge::getTravelTimeStaticRandomized : &_IntermodalEdge::getTravelTimeStatic);
     }
 
     PedestrianRouter(_IntermodalNetwork* net):
-        SUMOAbstractRouter<E, _IntermodalTrip>("PedestrianRouterClone", true), myAmClone(true) {
+        SUMOAbstractRouter<E, _IntermodalTrip>("PedestrianRouterClone", true, nullptr, nullptr, false, false), myAmClone(true) {
         myPedNet = net;
         myInternalRouter = new _InternalRouter(myPedNet->getAllEdges(), true,
                                                gWeightsRandomFactor > 1 ? &_IntermodalEdge::getTravelTimeStaticRandomized : &_IntermodalEdge::getTravelTimeStatic);

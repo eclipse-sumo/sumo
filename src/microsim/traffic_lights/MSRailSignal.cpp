@@ -461,7 +461,7 @@ MSRailSignal::LinkInfo::reroute(SUMOVehicle* veh, const MSEdgeVector& occupied) 
         myLastRerouteVehicle = veh;
         myLastRerouteTime = now;
 
-        SUMOAbstractRouter<MSEdge, SUMOVehicle>& router = MSRoutingEngine::getRouterTT(occupied);
+        SUMOAbstractRouter<MSEdge, SUMOVehicle>& router = MSRoutingEngine::getRouterTT(veh->getRNGIndex(), occupied);
 #ifdef DEBUG_REROUTE
         ConstMSEdgeVector oldRoute = veh->getRoute().getEdges();
         if (DEBUG_COND_LINKINFO) {
@@ -486,6 +486,7 @@ MSRailSignal::LinkInfo::reroute(SUMOVehicle* veh, const MSEdgeVector& occupied) 
             UNUSED_PARAMETER(error);
 #endif
         }
+        MSRoutingEngine::getRouterTT(veh->getRNGIndex()); // reset forbidden edges
     }
 }
 
