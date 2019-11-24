@@ -162,6 +162,9 @@ public:
     /// @brief remove additional user-griggered visualisations
     virtual void removeActiveAddVisualisation(GUISUMOAbstractView* const /*parent*/, int /*which*/) {}
 
+    /// @brief notify object about left click
+    virtual void onLeftBtnPress(void* /*data*/) {}
+
 #ifdef HAVE_OSG
     /// @brief get OSG Node
     osg::Node* getNode() const;

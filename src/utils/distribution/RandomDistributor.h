@@ -69,15 +69,18 @@ public:
      * @return true if a new value was added, false if just the probability of an existing one was updated
      */
     bool add(T val, double prob, bool checkDuplicates = true) {
-        assert(prob >= 0);
         myProb += prob;
+        assert(myProb >= 0);
         if (checkDuplicates) {
             for (int i = 0; i < (int)myVals.size(); i++) {
                 if (val == myVals[i]) {
                     myProbs[i] += prob;
+                    assert(myProbs[i] >= 0);
                     return false;
                 }
             }
+        } else {
+            assert(prob >= 0);
         }
         myVals.push_back(val);
         myProbs.push_back(prob);

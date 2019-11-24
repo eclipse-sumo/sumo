@@ -124,6 +124,9 @@ public:
     GUIManipulator* openManipulator(GUIMainWindow& app,
                                     GUISUMOAbstractView& parent);
 
+    /// @brief shit route probabilities
+    void shiftProbs();
+
 public:
 
     enum RerouterEdgeType {
@@ -177,6 +180,9 @@ public:
          * @see GUIGlObject::drawGL
          */
         void drawGL(const GUIVisualizationSettings& s) const;
+
+        void onLeftBtnPress(void* data);
+
         //@}
 
     private:
@@ -236,6 +242,7 @@ public:
             MID_PRE_DEF,
             MID_OPTION,
             MID_CLOSE,
+            MID_SHIFT_PROBS,
             ID_LAST
         };
         /// Constructor
@@ -251,6 +258,7 @@ public:
         long onCmdUserDef(FXObject*, FXSelector, void*);
         long onUpdUserDef(FXObject*, FXSelector, void*);
         long onCmdChangeOption(FXObject*, FXSelector, void*);
+        long onCmdShiftProbs(FXObject*, FXSelector, void*);
 
     private:
         GUIMainWindow* myParent;
@@ -279,6 +287,7 @@ private:
 
     std::vector<GUITriggeredRerouterEdge*> myEdgeVisualizations;
 
+    int myShiftProbDistIndex;
 };
 
 

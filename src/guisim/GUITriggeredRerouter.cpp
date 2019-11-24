@@ -70,6 +70,7 @@ FXDEFMAP(GUITriggeredRerouter::GUIManip_TriggeredRerouter) GUIManip_TriggeredRer
     FXMAPFUNC(SEL_COMMAND,  GUITriggeredRerouter::GUIManip_TriggeredRerouter::MID_USER_DEF, GUITriggeredRerouter::GUIManip_TriggeredRerouter::onCmdUserDef),
     FXMAPFUNC(SEL_UPDATE,   GUITriggeredRerouter::GUIManip_TriggeredRerouter::MID_USER_DEF, GUITriggeredRerouter::GUIManip_TriggeredRerouter::onUpdUserDef),
     FXMAPFUNC(SEL_COMMAND,  GUITriggeredRerouter::GUIManip_TriggeredRerouter::MID_OPTION,   GUITriggeredRerouter::GUIManip_TriggeredRerouter::onCmdChangeOption),
+    FXMAPFUNC(SEL_COMMAND,  GUITriggeredRerouter::GUIManip_TriggeredRerouter::MID_SHIFT_PROBS,  GUITriggeredRerouter::GUIManip_TriggeredRerouter::onCmdShiftProbs),
     FXMAPFUNC(SEL_COMMAND,  GUITriggeredRerouter::GUIManip_TriggeredRerouter::MID_CLOSE,    GUITriggeredRerouter::GUIManip_TriggeredRerouter::onCmdClose),
 };
 
@@ -94,7 +95,7 @@ GUITriggeredRerouter::GUIManip_TriggeredRerouter::GUIManip_TriggeredRerouter(
     FXVerticalFrame* f1 =
         new FXVerticalFrame(this, LAYOUT_FILL_X | LAYOUT_FILL_Y, 0, 0, 0, 0, 0, 0, 0, 0);
 
-    FXGroupBox* gp = new FXGroupBox(f1, "Change Probability",
+    FXGroupBox* gp = new FXGroupBox(f1, "Change Trigger Probability",
                                     GROUPBOX_TITLE_LEFT | FRAME_SUNKEN | FRAME_RIDGE,
                                     0, 0, 0, 0,  4, 4, 1, 1, 2, 0);
     {
@@ -133,8 +134,16 @@ GUITriggeredRerouter::GUIManip_TriggeredRerouter::GUIManip_TriggeredRerouter(
                     ? myObject->getUserProbability() > 0
                     ? 1 : 2
                     : 0;
+
+    FXGroupBox* gp2 = new FXGroupBox(f1, "Change Route Probability",
+                                    GROUPBOX_TITLE_LEFT | FRAME_SUNKEN | FRAME_RIDGE,
+                                    0, 0, 0, 0,  4, 4, 1, 1, 2, 0);
+    new FXButton(gp2, "Shift", nullptr, this, MID_SHIFT_PROBS,
+                 BUTTON_INITIAL | BUTTON_DEFAULT | FRAME_RAISED | FRAME_THICK | LAYOUT_TOP | LAYOUT_LEFT | LAYOUT_CENTER_X, 0, 0, 0, 0, 30, 30, 4, 4);
+
     new FXButton(f1, "Close", nullptr, this, MID_CLOSE,
                  BUTTON_INITIAL | BUTTON_DEFAULT | FRAME_RAISED | FRAME_THICK | LAYOUT_TOP | LAYOUT_LEFT | LAYOUT_CENTER_X, 0, 0, 0, 0, 30, 30, 4, 4);
+
 }
 
 
@@ -189,6 +198,14 @@ GUITriggeredRerouter::GUIManip_TriggeredRerouter::onCmdChangeOption(FXObject*, F
     return 1;
 }
 
+long
+GUITriggeredRerouter::GUIManip_TriggeredRerouter::onCmdShiftProbs(FXObject*, FXSelector, void*) {
+    static_cast<GUITriggeredRerouter*>(myObject)->shiftProbs();
+    myParent->updateChildren();
+    return 1;
+}
+
+
 
 /* -------------------------------------------------------------------------
  * GUITriggeredRerouter::GUITriggeredRerouterPopupMenu - methods
@@ -218,7 +235,9 @@ GUITriggeredRerouter::GUITriggeredRerouterPopupMenu::onCmdOpenManip(FXObject*,
 GUITriggeredRerouter::GUITriggeredRerouter(const std::string& id, const MSEdgeVector& edges, double prob,
         const std::string& aXMLFilename, bool off, SUMOTime timeThreshold, const std::string& vTypes, SUMORTree& rtree) :
     MSTriggeredRerouter(id, edges, prob, aXMLFilename, off, timeThreshold, vTypes),
-    GUIGlObject_AbstractAdd(GLO_REROUTER, id) {
+    GUIGlObject_AbstractAdd(GLO_REROUTER, id),
+    myShiftProbDistIndex(0)
+{
     // add visualisation objects for edges which trigger the rerouter
     for (MSEdgeVector::const_iterator it = edges.begin(); it != edges.end(); ++it) {
         myEdgeVisualizations.push_back(new GUITriggeredRerouterEdge(dynamic_cast<GUIEdge*>(*it), this, REROUTER_TRIGGER_EDGE));
@@ -328,6 +347,20 @@ GUITriggeredRerouter::openManipulator(GUIMainWindow& app,
     gui->create();
     gui->show();
     return gui;
+}
+
+
+void
+GUITriggeredRerouter::shiftProbs() {
+    const RerouteInterval* const ri = getCurrentReroute(MSNet::getInstance()->getCurrentTimeStep());
+    if (ri != nullptr && ri->routeProbs.getProbs().size() > 1) {
+        auto& rp = const_cast<RandomDistributor<const MSRoute*>&>(ri->routeProbs);
+        myShiftProbDistIndex = myShiftProbDistIndex % rp.getProbs().size();
+        double prob = rp.getProbs()[myShiftProbDistIndex];
+        rp.add(rp.getVals()[myShiftProbDistIndex], -prob);
+        myShiftProbDistIndex = (myShiftProbDistIndex + 1) % rp.getProbs().size();
+        rp.add(rp.getVals()[myShiftProbDistIndex], prob);
+    }
 }
 
 
@@ -469,7 +502,7 @@ GUITriggeredRerouter::GUITriggeredRerouterEdge::drawGL(const GUIVisualizationSet
                     glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 
                     glBegin(GL_TRIANGLES);
-                    glColor3d(1, 0, 0);
+                    glColor3d(0, 1, 1);
                     // base
                     glVertex2d(0 - 0.0, 0);
                     glVertex2d(0 - 1.4, 6);
@@ -498,6 +531,12 @@ GUITriggeredRerouter::GUITriggeredRerouterEdge::getCenteringBoundary() const {
     Boundary b(myBoundary);
     b.grow(20);
     return b;
+}
+
+
+void
+GUITriggeredRerouter::GUITriggeredRerouterEdge::onLeftBtnPress(void* /*data*/) {
+    myParent->shiftProbs();
 }
 
 
