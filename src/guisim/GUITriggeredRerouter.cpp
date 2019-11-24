@@ -34,6 +34,7 @@
 #include <microsim/MSLane.h>
 #include <microsim/MSEdge.h>
 #include <microsim/MSRoute.h>
+#include <microsim/MSVehicle.h>
 #include <guisim/GUINet.h>
 #include <guisim/GUIEdge.h>
 #include "GUITriggeredRerouter.h"
@@ -360,6 +361,19 @@ GUITriggeredRerouter::shiftProbs() {
         rp.add(rp.getVals()[myShiftProbDistIndex], -prob);
         myShiftProbDistIndex = (myShiftProbDistIndex + 1) % rp.getProbs().size();
         rp.add(rp.getVals()[myShiftProbDistIndex], prob);
+        // notify vehicles currently on a trigger edge
+        for (auto rrEdge : myEdgeVisualizations) {
+            if (rrEdge->getRerouterEdgeType() == REROUTER_TRIGGER_EDGE) {
+                if (!MSGlobals::gUseMesoSim) {
+                    for (MSLane* lane : rrEdge->getEdge()->getLanes()) {
+                        for (const MSVehicle* veh : lane->getVehiclesSecure()) {
+                            const_cast<MSVehicle*>(veh)->addReminder(this);
+                        }
+                        lane->releaseVehicles();
+                    }
+                }
+            }
+        }
     }
 }
 

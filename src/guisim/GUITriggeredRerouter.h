@@ -183,6 +183,13 @@ public:
 
         void onLeftBtnPress(void* data);
 
+        RerouterEdgeType getRerouterEdgeType() const {
+            return myEdgeType;
+        }
+
+        const MSEdge* getEdge() const {
+            return myEdge;
+        }
         //@}
 
     private:

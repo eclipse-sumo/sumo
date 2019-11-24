@@ -916,6 +916,7 @@ GUISUMOAbstractView::onLeftBtnPress(FXObject*, FXSelector, void* data) {
                         startTrack(id);
                     } else if (o->getType() == GLO_REROUTER_EDGE) {
                         o->onLeftBtnPress(data);
+                        update();
                     }
                 }
             }
