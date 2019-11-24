@@ -425,6 +425,9 @@ MSTriggeredRerouter::notifyEnter(SUMOTrafficObject& tObject, MSMoveReminder::Not
             ConstMSEdgeVector prevEdges(veh.getCurrentRouteEdge(), veh.getRoute().end());
             const double previousCost = router.recomputeCosts(prevEdges, &veh, MSNet::getInstance()->getCurrentTimeStep());
             const double savings = previousCost - routeCost;
+            hasReroutingDevice
+                ? MSRoutingEngine::getRouterTT(veh.getRNGIndex())
+                : MSNet::getInstance()->getRouterTT(veh.getRNGIndex()); // reset closed edges
             //if (getID() == "ego") std::cout << SIMTIME << " pCost=" << previousCost << " cost=" << routeCost
             //        << " prevEdges=" << toString(prevEdges)
             //        << " newEdges=" << toString(edges)
@@ -515,6 +518,9 @@ MSTriggeredRerouter::notifyEnter(SUMOTrafficObject& tObject, MSMoveReminder::Not
 
         }
         const double routeCost = router.recomputeCosts(edges, &veh, MSNet::getInstance()->getCurrentTimeStep());
+        hasReroutingDevice
+            ? MSRoutingEngine::getRouterTT(veh.getRNGIndex())
+            : MSNet::getInstance()->getRouterTT(veh.getRNGIndex()); // reset closed edges
         const bool useNewRoute = veh.replaceRouteEdges(edges, routeCost, 0, getID());
 #ifdef DEBUG_REROUTER
         if (DEBUGCOND) std::cout << "   rerouting:  newDest=" << newEdge->getID()
@@ -821,6 +827,7 @@ MSTriggeredRerouter::rerouteParkingArea(const MSTriggeredRerouter::RerouteInterv
                 }
             }
         }
+        MSNet::getInstance()->getRouterTT(veh.getRNGIndex()); // reset closed edges
 
 #ifdef DEBUG_PARKING
         if (DEBUGCOND) {

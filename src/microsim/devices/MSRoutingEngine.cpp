@@ -255,6 +255,17 @@ MSRoutingEngine::initRouter(SUMOVehicle* vehicle) {
     } else {
         throw ProcessError("Unknown routing algorithm '" + routingAlgorithm + "'!");
     }
+#ifdef HAVE_FOX
+    FXWorkerThread::Pool& threadPool = MSNet::getInstance()->getEdgeControl().getThreadPool();
+    if (threadPool.size() > 0) {
+        const std::vector<FXWorkerThread*>& threads = threadPool.getWorkers();
+        if (static_cast<MSEdgeControl::WorkerThread*>(threads.front())->setRouter(myRouter)) {
+            for (std::vector<FXWorkerThread*>::const_iterator t = threads.begin() + 1; t != threads.end(); ++t) {
+                static_cast<MSEdgeControl::WorkerThread*>(*t)->setRouter(myRouter->clone());
+            }
+        }
+    }
+#endif
 }
 
 
@@ -266,12 +277,6 @@ MSRoutingEngine::reroute(SUMOVehicle& vehicle, const SUMOTime currentTime, const
 #ifdef HAVE_FOX
     FXWorkerThread::Pool& threadPool = MSNet::getInstance()->getEdgeControl().getThreadPool();
     if (threadPool.size() > 0) {
-        const std::vector<FXWorkerThread*>& threads = threadPool.getWorkers();
-        if (static_cast<MSEdgeControl::WorkerThread*>(threads.front())->setRouter(myRouter)) {
-            for (std::vector<FXWorkerThread*>::const_iterator t = threads.begin() + 1; t != threads.end(); ++t) {
-                static_cast<MSEdgeControl::WorkerThread*>(*t)->setRouter(myRouter->clone());
-            }
-        }
         threadPool.add(new RoutingTask(vehicle, currentTime, onInit));
         return;
     }
@@ -293,6 +298,14 @@ MSRoutingEngine::getRouterTT(const int rngIndex, const MSEdgeVector& prohibited)
         initEdgeWeights();
         initRouter();
     }
+#ifdef HAVE_FOX
+    FXWorkerThread::Pool& threadPool = MSNet::getInstance()->getEdgeControl().getThreadPool();
+    if (threadPool.size() > 0) {
+        auto& router = static_cast<MSEdgeControl::WorkerThread*>(threadPool.getWorkers()[rngIndex % MSGlobals::gNumThreads])->getRouter();
+        router.prohibit(prohibited);
+        return router;
+    }
+#endif
     myRouter->prohibit(prohibited);
     return *myRouter;
 }
@@ -352,4 +365,3 @@ MSRoutingEngine::RoutingTask::run(FXWorkerThread* context) {
 
 
 /****************************************************************************/
-
