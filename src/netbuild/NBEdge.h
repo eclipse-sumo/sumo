@@ -72,6 +72,12 @@ public:
     virtual bool isInternal() const {
         return false;
     }
+    inline bool prohibits(const NBVehicle* const /*veh*/) const {
+        return false;
+    }
+    inline bool restricts(const NBVehicle* const /*veh*/) const {
+        return false;
+    }
 
     static inline double getTravelTimeStatic(const NBRouterEdge* const edge, const NBVehicle* const /*veh*/, double /*time*/) {
         return edge->getLength() / edge->getSpeed();

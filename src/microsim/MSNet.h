@@ -826,8 +826,8 @@ protected:
      * @note we provide one member for every switchable router type
      * because the class structure makes it inconvenient to use a superclass
      */
-    mutable std::map<int, SUMOAbstractRouterPermissions<MSEdge, SUMOVehicle>*> myRouterTT;
-    mutable std::map<int, SUMOAbstractRouterPermissions<MSEdge, SUMOVehicle>*> myRouterEffort;
+    mutable std::map<int, SUMOAbstractRouter<MSEdge, SUMOVehicle>*> myRouterTT;
+    mutable std::map<int, SUMOAbstractRouter<MSEdge, SUMOVehicle>*> myRouterEffort;
     mutable std::map<int, MSPedestrianRouter*> myPedestrianRouter;
     mutable std::map<int, MSIntermodalRouter*> myIntermodalRouter;
 

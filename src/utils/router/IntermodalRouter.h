@@ -60,9 +60,9 @@ private:
     typedef void(*CreateNetCallback)(IntermodalRouter <E, L, N, V>&);
     typedef IntermodalEdge<E, L, N, V> _IntermodalEdge;
     typedef IntermodalTrip<E, N, V> _IntermodalTrip;
-    typedef SUMOAbstractRouterPermissions<_IntermodalEdge, _IntermodalTrip> _InternalRouter;
-    typedef DijkstraRouter<_IntermodalEdge, _IntermodalTrip, _InternalRouter> _InternalDijkstra;
-    typedef AStarRouter<_IntermodalEdge, _IntermodalTrip, _InternalRouter> _InternalAStar;
+    typedef SUMOAbstractRouter<_IntermodalEdge, _IntermodalTrip> _InternalRouter;
+    typedef DijkstraRouter<_IntermodalEdge, _IntermodalTrip> _InternalDijkstra;
+    typedef AStarRouter<_IntermodalEdge, _IntermodalTrip> _InternalAStar;
 
 public:
     struct TripItem {
@@ -85,7 +85,7 @@ public:
     /// Constructor
     IntermodalRouter(CreateNetCallback callback, const int carWalkTransfer, const std::string& routingAlgorithm,
                      const int routingMode = 0, EffortCalculator* calc = nullptr) :
-        SUMOAbstractRouter<E, _IntermodalTrip>("IntermodalRouter", true),
+        SUMOAbstractRouter<E, _IntermodalTrip>("IntermodalRouter", true, nullptr, nullptr, false, false),
         myAmClone(false), myInternalRouter(nullptr), myIntermodalNet(nullptr),
         myCallback(callback), myCarWalkTransfer(carWalkTransfer), myRoutingAlgorithm(routingAlgorithm),
         myRoutingMode(routingMode), myExternalEffort(calc) {
@@ -243,7 +243,7 @@ public:
 private:
     IntermodalRouter(Network* net, const int carWalkTransfer, const std::string& routingAlgorithm,
                      const int routingMode, EffortCalculator* calc) :
-        SUMOAbstractRouter<E, _IntermodalTrip>("IntermodalRouterClone", true), myAmClone(true),
+        SUMOAbstractRouter<E, _IntermodalTrip>("IntermodalRouterClone", true, nullptr, nullptr, false, false), myAmClone(true),
         myInternalRouter(new _InternalDijkstra(net->getAllEdges(), true,
                                                gWeightsRandomFactor > 1 ? & _IntermodalEdge::getTravelTimeStaticRandomized : & _IntermodalEdge::getTravelTimeStatic)),
         myIntermodalNet(net), myCarWalkTransfer(carWalkTransfer), myRoutingAlgorithm(routingAlgorithm), myRoutingMode(routingMode), myExternalEffort(calc) {}
@@ -265,17 +265,17 @@ private:
                 case 0:
                     if (myRoutingAlgorithm == "astar") {
                         myInternalRouter = new _InternalAStar(myIntermodalNet->getAllEdges(), true,
-                                                              gWeightsRandomFactor > 1 ? &_IntermodalEdge::getTravelTimeStaticRandomized : &_IntermodalEdge::getTravelTimeStatic);
+                                                              gWeightsRandomFactor > 1 ? &_IntermodalEdge::getTravelTimeStaticRandomized : &_IntermodalEdge::getTravelTimeStatic, nullptr, true);
                     } else {
                         myInternalRouter = new _InternalDijkstra(myIntermodalNet->getAllEdges(), true,
-                                gWeightsRandomFactor > 1 ? &_IntermodalEdge::getTravelTimeStaticRandomized : &_IntermodalEdge::getTravelTimeStatic);
+                                gWeightsRandomFactor > 1 ? &_IntermodalEdge::getTravelTimeStaticRandomized : &_IntermodalEdge::getTravelTimeStatic, nullptr, false, nullptr, true);
                     }
                     break;
                 case 1:
-                    myInternalRouter = new _InternalDijkstra(myIntermodalNet->getAllEdges(), true, &getEffortAggregated, &_IntermodalEdge::getTravelTimeStatic);
+                    myInternalRouter = new _InternalDijkstra(myIntermodalNet->getAllEdges(), true, &getEffortAggregated, &_IntermodalEdge::getTravelTimeStatic, false, nullptr, true);
                     break;
                 case 2:
-                    myInternalRouter = new _InternalDijkstra(myIntermodalNet->getAllEdges(), true, &_IntermodalEdge::getEffortStatic, &_IntermodalEdge::getTravelTimeStatic);
+                    myInternalRouter = new _InternalDijkstra(myIntermodalNet->getAllEdges(), true, &_IntermodalEdge::getEffortStatic, &_IntermodalEdge::getTravelTimeStatic, false, nullptr, true);
                     break;
                 case 3:
                     if (myExternalEffort != nullptr) {
@@ -285,7 +285,7 @@ private:
                         }
                         myExternalEffort->init(edgeLines);
                     }
-                    myInternalRouter = new _InternalDijkstra(myIntermodalNet->getAllEdges(), true, &getCombined, &_IntermodalEdge::getTravelTimeStatic, false, myExternalEffort);
+                    myInternalRouter = new _InternalDijkstra(myIntermodalNet->getAllEdges(), true, &getCombined, &_IntermodalEdge::getTravelTimeStatic, false, myExternalEffort, true);
                     break;
             }
         }

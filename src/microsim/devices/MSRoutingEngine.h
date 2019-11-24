@@ -82,6 +82,8 @@ public:
     /// @brief return the cached route or nullptr on miss
     static const MSRoute* getCachedRoute(const std::pair<const MSEdge*, const MSEdge*>& key);
 
+    static void initRouter(SUMOVehicle* vehicle=nullptr);
+
     /// @brief initiate the rerouting, create router / thread pool on first use
     static void reroute(SUMOVehicle& vehicle, const SUMOTime currentTime, const bool onInit);
 
@@ -97,7 +99,7 @@ public:
     }
 
     /// @brief return the router instance
-    static SUMOAbstractRouter<MSEdge, SUMOVehicle>& getRouterTT(
+    static SUMOAbstractRouter<MSEdge, SUMOVehicle>& getRouterTT(const int rngIndex,
         const MSEdgeVector& prohibited = MSEdgeVector());
 
     /** @brief Returns the effort to pass an edge
@@ -195,9 +197,6 @@ private:
 
     /// @brief The router to use
     static SUMOAbstractRouter<MSEdge, SUMOVehicle>* myRouter;
-
-    /// @brief The router to use by rerouter elements
-    static AStarRouter<MSEdge, SUMOVehicle, SUMOAbstractRouterPermissions<MSEdge, SUMOVehicle> >* myRouterWithProhibited;
 
     /// @brief The container of pre-calculated routes
     static std::map<std::pair<const MSEdge*, const MSEdge*>, const MSRoute*> myCachedRoutes;

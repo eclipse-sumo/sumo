@@ -117,7 +117,6 @@ MSDevice_Routing::checkOptions(OptionsCont& oc) {
 #endif
     if (oc.getInt("threads") > 1 && oc.getInt("device.rerouting.threads") > 1 && oc.getInt("threads") != oc.getInt("device.rerouting.threads")) {
         WRITE_WARNING("Adapting number of routing threads to number of simulation threads.");
-        oc.set("device.rerouting.threads", toString(oc.getInt("threads")));
     }
     return ok;
 }

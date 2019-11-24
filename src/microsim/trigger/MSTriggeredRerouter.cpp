@@ -419,7 +419,7 @@ MSTriggeredRerouter::notifyEnter(SUMOTrafficObject& tObject, MSMoveReminder::Not
             }
 
             SUMOAbstractRouter<MSEdge, SUMOVehicle>& router = hasReroutingDevice
-                    ? MSRoutingEngine::getRouterTT(rerouteDef->closed)
+                    ? MSRoutingEngine::getRouterTT(veh.getRNGIndex(), rerouteDef->closed)
                     : MSNet::getInstance()->getRouterTT(veh.getRNGIndex(), rerouteDef->closed);
             const double routeCost = router.recomputeCosts(newRoute, &veh, MSNet::getInstance()->getCurrentTimeStep());
             ConstMSEdgeVector prevEdges(veh.getCurrentRouteEdge(), veh.getRoute().end());
@@ -491,7 +491,7 @@ MSTriggeredRerouter::notifyEnter(SUMOTrafficObject& tObject, MSMoveReminder::Not
     if (rerouteDef->closed.size() == 0 || destUnreachable || veh.getRoute().containsAnyOf(rerouteDef->closed)) {
         ConstMSEdgeVector edges;
         SUMOAbstractRouter<MSEdge, SUMOVehicle>& router = hasReroutingDevice
-            ? MSRoutingEngine::getRouterTT(rerouteDef->closed)
+            ? MSRoutingEngine::getRouterTT(veh.getRNGIndex(), rerouteDef->closed)
             : MSNet::getInstance()->getRouterTT(veh.getRNGIndex(), rerouteDef->closed);
         router.compute(veh.getEdge(), newEdge, &veh, MSNet::getInstance()->getCurrentTimeStep(), edges);
         if (edges.size() == 0 && !keepDestination && rerouteDef->edgeProbs.getOverallProb() > 0) {

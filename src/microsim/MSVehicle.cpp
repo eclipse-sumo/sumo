@@ -901,7 +901,7 @@ MSVehicle::Influencer::implicitDeltaPosRemote(const MSVehicle* veh) {
 SUMOAbstractRouter<MSEdge, SUMOVehicle>&
 MSVehicle::Influencer::getRouterTT(const int rngIndex) const {
     if (myRoutingMode == 1) {
-        return MSRoutingEngine::getRouterTT();
+        return MSRoutingEngine::getRouterTT(rngIndex);
     } else {
         return MSNet::getInstance()->getRouterTT(rngIndex);
     }

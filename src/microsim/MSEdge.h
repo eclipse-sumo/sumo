@@ -546,6 +546,11 @@ public:
         return (myCombinedPermissions & svc) != svc;
     }
 
+    /// @brief Returns whether the vehicle (class) is not allowed on the edge
+    inline bool restricts(const SUMOVehicle* const /* vehicle */) const {
+        return false;
+    }
+
     inline SVCPermissions getPermissions() const {
         return myCombinedPermissions;
     }

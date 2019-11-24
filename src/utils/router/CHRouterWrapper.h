@@ -54,15 +54,14 @@
  * The template parameters are:
  * @param E The edge class to use (MSEdge/ROEdge)
  * @param V The vehicle class to use (MSVehicle/ROVehicle)
- * @param PF The prohibition function to use (prohibited_withPermissions/noProhibitions)
  *
  * The router is edge-based. It must know the number of edges for internal reasons
  *  and whether a missing connection between two given edges (unbuild route) shall
  *  be reported as an error or as a warning.
  *
  */
-template<class E, class V, class BASE>
-class CHRouterWrapper: public BASE {
+template<class E, class V>
+class CHRouterWrapper: public SUMOAbstractRouter<E, V> {
 
 public:
     /// Type of the function that is used to retrieve the edge effort.
@@ -70,9 +69,9 @@ public:
 
     /** @brief Constructor
      */
-    CHRouterWrapper(const std::vector<E*>& edges, const bool ignoreErrors, typename BASE::Operation operation,
+    CHRouterWrapper(const std::vector<E*>& edges, const bool ignoreErrors, typename Operation operation,
                     const SUMOTime begin, const SUMOTime end, const SUMOTime weightPeriod, const int numThreads) :
-        BASE("CHRouterWrapper", ignoreErrors, operation),
+        SUMOAbstractRouter<E, V>("CHRouterWrapper", ignoreErrors, operation, nullptr, false, false),
         myEdges(edges),
         myIgnoreErrors(ignoreErrors),
         myBegin(begin),
@@ -91,7 +90,7 @@ public:
 
 
     virtual SUMOAbstractRouter<E, V>* clone() {
-        CHRouterWrapper<E, V, BASE>* clone = new CHRouterWrapper<E, V, BASE>(myEdges, myIgnoreErrors, this->myOperation, myBegin, myEnd, myWeightPeriod, myMaxNumInstances);
+        CHRouterWrapper<E, V>* clone = new CHRouterWrapper<E, V>(myEdges, myIgnoreErrors, this->myOperation, myBegin, myEnd, myWeightPeriod, myMaxNumInstances);
         for (typename RouterMap::iterator i = myRouters.begin(); i != myRouters.end(); ++i) {
             for (typename std::vector<CHRouterType*>::iterator j = i->second.begin(); j != i->second.end(); ++j) {
                 clone->myRouters[i->first].push_back(static_cast<CHRouterType*>((*j)->clone()));
@@ -125,7 +124,7 @@ public:
             // XXX a new router may also be needed if vehicles differ in speed factor
             for (int i = 0; i < numIntervals; i++) {
                 myRouters[svc].push_back(new CHRouterType(
-                                             myEdges, myIgnoreErrors, &E::getTravelTimeStatic, svc.first, myWeightPeriod, false));
+                                             myEdges, myIgnoreErrors, &E::getTravelTimeStatic, svc.first, myWeightPeriod, false, false));
 #ifdef HAVE_FOX
                 if (myThreadPool.size() > 0) {
                     myThreadPool.add(new ComputeHierarchyTask(myRouters[svc].back(), vehicle, myBegin + i * myWeightPeriod));
@@ -143,7 +142,7 @@ public:
 
 
 private:
-    typedef CHRouter<E, V, SUMOAbstractRouter<E, V> > CHRouterType;
+    typedef CHRouter<E, V> CHRouterType;
 
 #ifdef HAVE_FOX
 private:

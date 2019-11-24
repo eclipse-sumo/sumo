@@ -81,6 +81,12 @@ public:
         bool isInternal() const {
             return false;
         }
+        inline bool prohibits(const NBVehicle* const /*veh*/) const {
+            return false;
+        }
+        inline bool restricts(const NBVehicle* const /*veh*/) const {
+            return false;
+        }
 
         NBEdge* edge;
 
