@@ -13,7 +13,7 @@
 # @author  Michael Behrisch
 # @author  Evamarie Wiessner
 # @date    2013-01-15
-# @version $Id$
+# @version $Id$  # noqa
 
 
 from __future__ import print_function

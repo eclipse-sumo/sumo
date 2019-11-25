@@ -34,15 +34,15 @@ def get_options(args=None):
     parser = ArgumentParser(description="Analyze person plans")
     parser.add_argument("-n", "--net-file", dest="net", help="Input net file")
     parser.add_argument("-o", "--output-file", dest="out", default="out.rou.xml",
-            help="Output route file")
+                        help="Output route file")
     parser.add_argument("--turn-file", dest="turnFile", default="turns.xml",
-            help="Intermediate turn-ration-file")
+                        help="Intermediate turn-ration-file")
     parser.add_argument("--flow-file", dest="flowFile", default="flows.xml",
-            help="Intermediate flow file")
+                        help="Intermediate flow file")
     parser.add_argument("-b", "--begin",  default=0, help="begin time")
     parser.add_argument("-e", "--end",  default=3600, help="end time (default 3600)")
-    parser.add_argument("-p", "--count-param", dest="countParam", default="count", 
-            help="the connection parameter to use as count")
+    parser.add_argument("-p", "--count-param", dest="countParam", default="count",
+                        help="the connection parameter to use as count")
     options = parser.parse_args(args=args)
     if options.net is None:
         parser.print_help()
@@ -61,14 +61,16 @@ def findFringe(edge, countParam, intermediateCounts=None):
         return findFringe(prev, countParam, getCounts(prev, countParam))
     return None
 
+
 def getCounts(edge, countParam):
-    counts = defaultdict(lambda : 0)
+    counts = defaultdict(lambda: 0)
     for toEdge, cons in edge.getOutgoing().items():
         for con in cons:
             value = con.getParam(countParam)
             if value is not None:
                 counts[con.getTo().getID()] += float(value)
     return counts
+
 
 def main(options):
     net = sumolib.net.readNet(options.net)
@@ -94,12 +96,12 @@ def main(options):
         ff.write('</routes>\n')
 
     JTRROUTER = sumolib.checkBinary('jtrrouter')
-    subprocess.call([JTRROUTER, 
-        '-n', options.net,
-        '--turn-ratio-files', options.turnFile,
-        '--route-files', options.flowFile,
-        '--accept-all-destinations',
-        '-o', options.out])
+    subprocess.call([JTRROUTER,
+                     '-n', options.net,
+                     '--turn-ratio-files', options.turnFile,
+                     '--route-files', options.flowFile,
+                     '--accept-all-destinations',
+                     '-o', options.out])
 
 
 if __name__ == "__main__":

@@ -20,11 +20,6 @@ from __future__ import print_function
 from __future__ import absolute_import
 import os
 import sys
-import random
-import bisect
-import subprocess
-from collections import defaultdict
-import math
 import optparse
 
 if 'SUMO_HOME' in os.environ:
@@ -33,14 +28,15 @@ import sumolib  # noqa
 from sumolib.miscutils import euclidean  # noqa
 from sumolib.geomhelper import naviDegree, minAngleDegreeDiff  # noqa
 
+
 def get_options(args=None):
     parser = optparse.OptionParser()
     parser.add_option("-n", "--net-file", dest="netfile",
-                         help="define the net file (mandatory)")
+                      help="define the net file (mandatory)")
     parser.add_option("-o", "--output-file", dest="outfile", default="rerouters.xml",
-            help="define the output rerouter filename")
+                      help="define the output rerouter filename")
     parser.add_option("-T", "--turn-defaults", dest="turnDefaults", default="30,50,20",
-            help="Use STR[] as default turn probabilities [right,straight,left[,turn]]");
+                      help="Use STR[] as default turn probabilities [right,straight,left[,turn]]")
     parser.add_option("-b", "--begin",  default=0, help="begin time")
     parser.add_option("-e", "--end",  default=3600, help="end time (default 3600)")
     (options, args) = parser.parse_args(args=args)
@@ -52,9 +48,10 @@ def get_options(args=None):
     if len(options.turnDefaults) not in [3, 4]:
         sys.exit("turn-defaults must be defined as 3 or 4  numbers")
     if len(options.turnDefaults) == 3:
-        options.turnDefaults.append(0) # turn with 0 probability
+        options.turnDefaults.append(0)  # turn with 0 probability
 
     return options
+
 
 def getEdgesToIntersection(edge):
     result = [edge]
@@ -63,23 +60,25 @@ def getEdgesToIntersection(edge):
         result.append(edge)
     return result
 
+
 def getTurnIndex(fromEdge, toEdge):
     cons = fromEdge.getOutgoing()[toEdge]
     con = cons[0]
     dir = con.getDirection()
-    if dir == con.LINKDIR_RIGHT or dir == con.LINKDIR_PARTRIGHT: 
+    if dir == con.LINKDIR_RIGHT or dir == con.LINKDIR_PARTRIGHT:
         return 0
     elif dir == con.LINKDIR_STRAIGHT:
         return 1
-    elif dir == con.LINKDIR_LEFT or dir == con.LINKDIR_PARTLEFT: 
+    elif dir == con.LINKDIR_LEFT or dir == con.LINKDIR_PARTLEFT:
         return 2
     else:
         return 3
 
+
 def main(options):
     net = sumolib.net.readNet(options.netfile)
     with open(options.outfile, 'w') as outf:
-        outf.write('<additional>\n');
+        outf.write('<additional>\n')
         for junction in net.getNodes():
             if len(junction.getOutgoing()) > 1:
                 routes = []
@@ -101,7 +100,8 @@ def main(options):
                             outf.write('            <routeProbReroute id="%s" probability="%s"/>\n' % (routeID, prob))
                         outf.write('        </interval>\n')
                         outf.write('    </rerouter>\n')
-        outf.write('</additional>\n');
+        outf.write('</additional>\n')
+
 
 if __name__ == "__main__":
     if not main(get_options()):
