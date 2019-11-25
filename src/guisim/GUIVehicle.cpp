@@ -669,6 +669,51 @@ MSLane*
 GUIVehicle::getPreviousLane(MSLane* current, int& furtherIndex) const {
     if (furtherIndex < (int)myFurtherLanes.size()) {
         return myFurtherLanes[furtherIndex++];
+    } else {
+        // try to use route information
+        int routeIndex = getRoutePosition();
+        bool resultInternal;
+        if (MSGlobals::gUsingInternalLanes && MSNet::getInstance()->hasInternalLinks()) {
+            if (myLane->isInternal()) {
+                if (furtherIndex % 2 == 0) {
+                    routeIndex -= (furtherIndex + 0) / 2;
+                    resultInternal = false;
+                } else {
+                    routeIndex -= (furtherIndex + 1) / 2;
+                    resultInternal = false;
+                }
+            } else {
+                if (furtherIndex % 2 != 0) {
+                    routeIndex -= (furtherIndex + 1) / 2;
+                    resultInternal = false;
+                } else {
+                    routeIndex -= (furtherIndex + 2) / 2;
+                    resultInternal = true;
+                }
+            }
+        } else {
+            routeIndex -= furtherIndex;
+            resultInternal = false;
+        }
+        furtherIndex++;
+        if (routeIndex >= 0) {
+            if (resultInternal) {
+                const MSEdge* prevNormal = myRoute->getEdges()[routeIndex];
+                for (MSLane* cand : prevNormal->getLanes()) {
+                    for (MSLink* link : cand->getLinkCont()) {
+                        if (link->getLane() == current) {
+                            if (link->getViaLane() != nullptr) {
+                                return link->getViaLane();
+                            } else {
+                                return const_cast<MSLane*>(link->getLaneBefore());
+                            }
+                        }
+                    }
+                }
+            } else {
+                return myRoute->getEdges()[routeIndex]->getLanes()[0];
+            }
+        }
     }
     return current;
 }
