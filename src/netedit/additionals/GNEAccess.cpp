@@ -174,7 +174,7 @@ GNEAccess::drawGL(const GUIVisualizationSettings& s) const {
         }
         glTranslated(myAdditionalGeometry.getPosition().x(), myAdditionalGeometry.getPosition().y(), GLO_ACCESS);
         // draw circle
-        if (s.drawForSelecting) {
+        if (s.drawForRectangleSelection) {
             GLHelper::drawFilledCircle((double) 0.5 * exaggeration, 8);
         } else {
             std::vector<Position> vertices = GLHelper::drawFilledCircleReturnVertices((double) 0.5 * exaggeration, 16);

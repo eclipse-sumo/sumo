@@ -497,7 +497,7 @@ GUILane::drawGL(const GUIVisualizationSettings& s) const {
     }
     const bool hasRailSignal = myEdge->getToJunction()->getType() == NODETYPE_RAIL_SIGNAL;
     const bool detailZoom = s.scale * exaggeration > 5;
-    const bool drawDetails = (detailZoom || s.junctionSize.minSize == 0 || hasRailSignal) && !s.drawForSelecting;
+    const bool drawDetails = (detailZoom || s.junctionSize.minSize == 0 || hasRailSignal) && !s.drawForRectangleSelection;
     const bool drawRails = drawAsRailway(s);
     if (isCrossing || isWalkingArea) {
         // draw internal lanes on top of junctions
@@ -572,12 +572,12 @@ GUILane::drawGL(const GUIVisualizationSettings& s) const {
                     glTranslated(0, 0, .1);
                     GLHelper::drawBoxLines(shape, myShapeRotations, myShapeLengths, halfInnerFeetWidth);
                     setColor(s);
-                    GLHelper::drawCrossTies(shape, myShapeRotations, myShapeLengths, 0.26 * exaggeration, 0.6 * exaggeration, halfCrossTieWidth, s.drawForSelecting);
+                    GLHelper::drawCrossTies(shape, myShapeRotations, myShapeLengths, 0.26 * exaggeration, 0.6 * exaggeration, halfCrossTieWidth, s.drawForRectangleSelection);
                 }
             } else if (isCrossing) {
                 if (s.drawCrossingsAndWalkingareas && (s.scale > 3.0 || s.junctionSize.minSize == 0)) {
                     glTranslated(0, 0, .2);
-                    GLHelper::drawCrossTies(myShape, myShapeRotations, myShapeLengths, 0.5, 1.0, getWidth() * 0.5, s.drawForSelecting);
+                    GLHelper::drawCrossTies(myShape, myShapeRotations, myShapeLengths, 0.5, 1.0, getWidth() * 0.5, s.drawForRectangleSelection);
                     glTranslated(0, 0, -.2);
                 }
             } else if (isWalkingArea) {
@@ -617,7 +617,7 @@ GUILane::drawGL(const GUIVisualizationSettings& s) const {
 #endif
             glPopMatrix();
             // draw details
-            if ((!isInternal || isCrossing || !s.drawJunctionShape) && (drawDetails || s.drawForSelecting || junctionExaggeration > 1)) {
+            if ((!isInternal || isCrossing || !s.drawJunctionShape) && (drawDetails || s.drawForRectangleSelection || junctionExaggeration > 1)) {
                 glPushMatrix();
                 glTranslated(0, 0, GLO_JUNCTION); // must draw on top of junction shape
                 glTranslated(0, 0, .5);
@@ -657,7 +657,7 @@ GUILane::drawGL(const GUIVisualizationSettings& s) const {
                     glTranslated(0, 0, .1);
                 }
                 // make sure link rules are drawn so tls can be selected via right-click
-                if (s.showLinkRules && (drawDetails || s.drawForSelecting)
+                if (s.showLinkRules && (drawDetails || s.drawForRectangleSelection)
                         && !isWalkingArea
                         && (!myEdge->isInternal() || getLinkCont()[0]->isInternalJunctionLink())) {
                     drawLinkRules(s, *net);
@@ -1274,13 +1274,13 @@ GUILane::getScaleValue(int activeScheme) const {
 
 bool
 GUILane::drawAsRailway(const GUIVisualizationSettings& s) const {
-    return isRailway(myPermissions) && s.showRails && (!s.drawForSelecting || s.spreadSuperposed);
+    return isRailway(myPermissions) && s.showRails && (!s.drawForRectangleSelection || s.spreadSuperposed);
 }
 
 
 bool
 GUILane::drawAsWaterway(const GUIVisualizationSettings& s) const {
-    return isWaterway(myPermissions) && s.showRails && !s.drawForSelecting; // reusing the showRails setting
+    return isWaterway(myPermissions) && s.showRails && !s.drawForRectangleSelection; // reusing the showRails setting
 }
 
 

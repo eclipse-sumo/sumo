@@ -416,7 +416,7 @@ GNEAdditional::BlockIcon::setRotation(GNELane* additionalLane) {
 void
 GNEAdditional::BlockIcon::drawIcon(const GUIVisualizationSettings& s, const double exaggeration, const double size) const {
     // check if block icon can be draw
-    if (!s.drawForSelecting && s.drawDetail(s.detailSettings.lockIcon, exaggeration) && myAdditional->myViewNet->showLockIcon()) {
+    if (!s.drawForRectangleSelection && s.drawDetail(s.detailSettings.lockIcon, exaggeration) && myAdditional->myViewNet->showLockIcon()) {
         // Start pushing matrix
         glPushMatrix();
         // Traslate to middle of shape

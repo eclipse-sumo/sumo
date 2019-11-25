@@ -356,7 +356,8 @@ private:
     FXCheckButton* myDither;
     FXCheckButton* myFPS;
     FXCheckButton* myDrawBoundaries;
-    FXCheckButton* myForceDrawForSelecting;
+    FXCheckButton* myForceDrawForPositionSelection;
+    FXCheckButton* myForceDrawForRectangleSelection;
     FXCheckButton* myShowSizeLegend;
     FXCheckButton* myShowColorLegend;
 

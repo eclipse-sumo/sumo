@@ -139,7 +139,7 @@ GNEVariableSpeedSign::drawGL(const GUIVisualizationSettings& s) const {
         // scale
         glScaled(exaggeration, exaggeration, 1);
         // Draw icon depending of variable speed sign is or if isn't being drawn for selecting
-        if (!s.drawForSelecting && s.drawDetail(s.detailSettings.laneTextures, exaggeration)) {
+        if (!s.drawForRectangleSelection && s.drawDetail(s.detailSettings.laneTextures, exaggeration)) {
             glColor3d(1, 1, 1);
             glRotated(180, 0, 0, 1);
             if (drawUsingSelectColor()) {
@@ -159,7 +159,7 @@ GNEVariableSpeedSign::drawGL(const GUIVisualizationSettings& s) const {
         // Draw child connections
         drawChildConnections(s, getType());
         // Draw name if isn't being drawn for selecting
-        if (!s.drawForSelecting) {
+        if (!s.drawForRectangleSelection) {
             drawName(getPositionInView(), s.scale, s.addName);
         }
         // check if dotted contour has to be drawn

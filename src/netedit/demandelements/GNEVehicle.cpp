@@ -655,7 +655,7 @@ GNEVehicle::drawGL(const GUIVisualizationSettings& s) const {
         // check that position is valid
         if (vehiclePosition != Position::INVALID) {
             // first check if if mouse is enought near to this vehicle to draw it
-            if (s.drawForSelecting && (myViewNet->getPositionInformation().distanceSquaredTo2D(vehiclePosition) >= (vehicleSizeSquared + 2))) {
+            if (s.drawForRectangleSelection && (myViewNet->getPositionInformation().distanceSquaredTo2D(vehiclePosition) >= (vehicleSizeSquared + 2))) {
                 // first push name
                 if (pushName) {
                     glPushName(getGlID());
@@ -696,7 +696,7 @@ GNEVehicle::drawGL(const GUIVisualizationSettings& s) const {
                 }
                 glScaled(exaggeration, upscaleLength, 1);
                 // check if we're drawing in selecting mode
-                if (s.drawForSelecting) {
+                if (s.drawForRectangleSelection) {
                     // draw vehicle as a box and don't draw the rest of details
                     GUIBaseVehicleHelper::drawAction_drawVehicleAsBoxPlus(width, length);
                 } else {

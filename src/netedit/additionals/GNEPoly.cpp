@@ -290,7 +290,7 @@ GNEPoly::drawGL(const GUIVisualizationSettings& s) const {
         // push name (needed for getGUIGlObjectsUnderCursor(...)
         glPushName(getGlID());
         // first check if inner polygon can be drawn
-        if (s.drawForSelectingClicking && getFill()) {
+        if (s.drawForPositionSelection && getFill()) {
             if (myShape.around(myNet->getViewNet()->getPositionInformation())) {
                 // push matrix
                 glPushMatrix();
@@ -330,7 +330,7 @@ GNEPoly::drawGL(const GUIVisualizationSettings& s) const {
                 // draw shape points only in Network supemode
                 if (myNet->getViewNet()->getEditModes().currentSupermode != GNE_SUPERMODE_DEMAND) {
                     for (auto i : myShape) {
-                        if (!s.drawForSelecting || (myNet->getViewNet()->getPositionInformation().distanceSquaredTo2D(i) <= (circleWidthSquared + 2))) {
+                        if (!s.drawForRectangleSelection || (myNet->getViewNet()->getPositionInformation().distanceSquaredTo2D(i) <= (circleWidthSquared + 2))) {
                             glPushMatrix();
                             glTranslated(i.x(), i.y(), GLO_POLYGON + 0.02);
                             // Change color of vertex and flag mouseOverVertex if mouse is over vertex
@@ -343,7 +343,7 @@ GNEPoly::drawGL(const GUIVisualizationSettings& s) const {
                             GLHelper::drawFilledCircle(circleWidth, s.getCircleResolution());
                             glPopMatrix();
                             // draw elevation or special symbols (Start, End and Block)
-                            if (!s.drawForSelecting && myNet->getViewNet()->getNetworkViewOptions().editingElevation()) {
+                            if (!s.drawForRectangleSelection && myNet->getViewNet()->getNetworkViewOptions().editingElevation()) {
                                 // Push matrix
                                 glPushMatrix();
                                 // Traslate to center of detector
@@ -352,13 +352,13 @@ GNEPoly::drawGL(const GUIVisualizationSettings& s) const {
                                 GLHelper::drawText(toString(i.z()), Position(), .1, 0.7, RGBColor::BLUE);
                                 // pop matrix
                                 glPopMatrix();
-                            } else if ((i == myShape.front()) && !s.drawForSelecting && s.drawDetail(s.detailSettings.geometryPointsText, exaggeration)) {
+                            } else if ((i == myShape.front()) && !s.drawForRectangleSelection && s.drawDetail(s.detailSettings.geometryPointsText, exaggeration)) {
                                 // draw a "s" over first point
                                 glPushMatrix();
                                 glTranslated(i.x(), i.y(), GLO_POLYGON + 0.03);
                                 GLHelper::drawText("S", Position(), .1, 2 * circleWidth, invertedColor);
                                 glPopMatrix();
-                            } else if ((i == myShape.back()) && (myClosedShape == false) && !s.drawForSelecting && s.drawDetail(s.detailSettings.geometryPointsText, exaggeration)) {
+                            } else if ((i == myShape.back()) && (myClosedShape == false) && !s.drawForRectangleSelection && s.drawDetail(s.detailSettings.geometryPointsText, exaggeration)) {
                                 // draw a "e" over last point if polygon isn't closed
                                 glPushMatrix();
                                 glTranslated(i.x(), i.y(), GLO_POLYGON + 0.03);

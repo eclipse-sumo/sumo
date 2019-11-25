@@ -668,7 +668,7 @@ GNEGeometry::updateGeometricPath(GNEGeometry::SegmentGeometry &segmentGeometry, 
 void 
 GNEGeometry::drawGeometry(const GNEViewNet *viewNet, const Geometry& geometry, const double width) {
     // first check if we're in draw for selecting cliking mode
-    if (viewNet->getVisualisationSettings()->drawForSelectingClicking) {
+    if (viewNet->getVisualisationSettings()->drawForPositionSelection) {
         // obtain mouse Position
         const Position mousePosition = viewNet->getPositionInformation();
         // obtain position over lane relative to mouse position
@@ -694,7 +694,7 @@ void
 GNEGeometry::drawLaneGeometry(const GNEViewNet *viewNet, const PositionVector& shape, const std::vector<double>& rotations, 
     const std::vector<double>& lengths, const std::vector<RGBColor>& colors, double width) {
     // first check if we're in draw for selecting cliking mode
-    if (viewNet->getVisualisationSettings()->drawForSelectingClicking) {
+    if (viewNet->getVisualisationSettings()->drawForPositionSelection) {
         // obtain mouse Position
         const Position mousePosition = viewNet->getPositionInformation();
         // obtain position over lane relative to mouse position
@@ -723,7 +723,7 @@ GNEGeometry::drawLaneGeometry(const GNEViewNet *viewNet, const PositionVector& s
 void
 GNEGeometry::drawSegmentGeometry(const GNEViewNet *viewNet, const SegmentGeometry::Segment& segment, const double width) {
     // first check if we're in draw for selecting mode
-    if (viewNet->getVisualisationSettings()->drawForSelecting) {
+    if (viewNet->getVisualisationSettings()->drawForRectangleSelection) {
         // obtain mouse Position
         const Position mousePosition = viewNet->getPositionInformation();
         // obtain position over lane relative to mouse position

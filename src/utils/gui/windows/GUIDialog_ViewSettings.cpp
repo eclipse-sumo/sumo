@@ -539,8 +539,11 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(GUISUMOAbstractView* parent, GUIV
         myDrawBoundaries = new FXCheckButton(m84, "Draw boundaries", this, MID_SIMPLE_VIEW_COLORCHANGE);
         myDrawBoundaries->setCheck(mySettings->drawBoundaries);
         FXMatrix* m85 = new FXMatrix(frame8, 1, GUIDesignMatrixViewSettings);
-        myForceDrawForSelecting = new FXCheckButton(m85, "Force draw for selecting", this, MID_SIMPLE_VIEW_COLORCHANGE);
-        myForceDrawForSelecting->setCheck(mySettings->forceDrawForSelecting);
+        myForceDrawForPositionSelection = new FXCheckButton(m85, "Force draw for position selection", this, MID_SIMPLE_VIEW_COLORCHANGE);
+        myForceDrawForPositionSelection->setCheck(mySettings->forceDrawForPositionSelection);
+        FXMatrix* m86 = new FXMatrix(frame8, 1, GUIDesignMatrixViewSettings);
+        myForceDrawForRectangleSelection = new FXCheckButton(m86, "Force draw for rectangle selection", this, MID_SIMPLE_VIEW_COLORCHANGE);
+        myForceDrawForRectangleSelection->setCheck(mySettings->forceDrawForRectangleSelection);
     }
     FXHorizontalFrame* f2 = new FXHorizontalFrame(contentFrame, GUIDesignViewSettingsHorizontalFrame2);
     FXButton* initial = new FXButton(f2, "&OK", nullptr, this, MID_SETTINGS_OK, GUIDesignViewSettingsButton2);
@@ -723,7 +726,8 @@ GUIDialog_ViewSettings::onCmdNameChange(FXObject*, FXSelector, void* data) {
     myDither->setCheck(mySettings->dither);
     myFPS->setCheck(mySettings->fps);
     myDrawBoundaries->setCheck(mySettings->drawBoundaries);
-    myForceDrawForSelecting->setCheck(mySettings->forceDrawForSelecting);
+    myForceDrawForPositionSelection->setCheck(mySettings->forceDrawForPositionSelection);
+    myForceDrawForRectangleSelection->setCheck(mySettings->forceDrawForRectangleSelection);
     myShowSizeLegend->setCheck(mySettings->showSizeLegend);
     myShowColorLegend->setCheck(mySettings->showColorLegend);
 
@@ -968,7 +972,8 @@ GUIDialog_ViewSettings::onCmdColorChange(FXObject* sender, FXSelector, void* /*v
     tmpSettings.dither = (myDither->getCheck() != FALSE);
     tmpSettings.fps = (myFPS->getCheck() != FALSE);
     tmpSettings.drawBoundaries = (myDrawBoundaries->getCheck() != FALSE);
-    tmpSettings.forceDrawForSelecting = (myForceDrawForSelecting->getCheck() != FALSE);
+    tmpSettings.forceDrawForPositionSelection = (myForceDrawForPositionSelection->getCheck() != FALSE);
+    tmpSettings.forceDrawForRectangleSelection = (myForceDrawForRectangleSelection->getCheck() != FALSE);
     tmpSettings.showSizeLegend = (myShowSizeLegend->getCheck() != FALSE);
     tmpSettings.showColorLegend = (myShowColorLegend->getCheck() != FALSE);
 

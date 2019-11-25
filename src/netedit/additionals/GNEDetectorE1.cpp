@@ -160,7 +160,7 @@ GNEDetectorE1::drawGL(const GUIVisualizationSettings& s) const {
         glVertex2d(0, -2 + .1);
         glEnd();
         // outline if isn't being drawn for selecting
-        if ((width * exaggeration > 1) && !s.drawForSelecting) {
+        if ((width * exaggeration > 1) && !s.drawForRectangleSelection) {
             // set color
             if (drawUsingSelectColor()) {
                 GLHelper::setColor(s.colorSettings.selectionColor);
@@ -177,7 +177,7 @@ GNEDetectorE1::drawGL(const GUIVisualizationSettings& s) const {
             glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
         }
         // position indicator if isn't being drawn for selecting
-        if ((width * exaggeration > 1) && !s.drawForSelecting) {
+        if ((width * exaggeration > 1) && !s.drawForRectangleSelection) {
             // set color
             if (drawUsingSelectColor()) {
                 GLHelper::setColor(s.colorSettings.selectionColor);
@@ -193,7 +193,7 @@ GNEDetectorE1::drawGL(const GUIVisualizationSettings& s) const {
         // Pop shape matrix
         glPopMatrix();
         // Check if the distance is enought to draw details and isn't being drawn for selecting
-        if ((s.drawDetail(s.detailSettings.detectorDetails, exaggeration)) && !s.drawForSelecting) {
+        if ((s.drawDetail(s.detailSettings.detectorDetails, exaggeration)) && !s.drawForRectangleSelection) {
             // Push matrix
             glPushMatrix();
             // Traslate to center of detector
@@ -216,7 +216,7 @@ GNEDetectorE1::drawGL(const GUIVisualizationSettings& s) const {
             myBlockIcon.drawIcon(s, exaggeration);
         }
         // Finish draw if isn't being drawn for selecting
-        if (!s.drawForSelecting) {
+        if (!s.drawForRectangleSelection) {
             drawName(getPositionInView(), s.scale, s.addName);
         }
         // check if dotted contour has to be drawn

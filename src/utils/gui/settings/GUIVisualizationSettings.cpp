@@ -367,9 +367,10 @@ GUIVisualizationSettings::GUIVisualizationSettings(bool _netedit) :
     gaming(false),
     drawBoundaries(false),
     selectionScale(1.),
-    drawForSelecting(false),
-    drawForSelectingClicking(false),
-    forceDrawForSelecting(false),
+    drawForPositionSelection(false),
+    drawForRectangleSelection(false),
+    forceDrawForPositionSelection(false),
+    forceDrawForRectangleSelection(false),
     lefthand(false),
     disableLaneIcons(false) {
 
@@ -1201,7 +1202,8 @@ GUIVisualizationSettings::save(OutputDevice& dev) const {
     dev.writeAttr("dither", dither);
     dev.writeAttr("fps", fps);
     dev.writeAttr("drawBoundaries", drawBoundaries);
-    dev.writeAttr("forceDrawSelecting", forceDrawForSelecting);
+    dev.writeAttr("forceDrawPositionSelection", forceDrawForPositionSelection);
+    dev.writeAttr("forceDrawRectangleSelection", forceDrawForRectangleSelection);
     dev.closeTag();
     dev.openTag(SUMO_TAG_VIEWSETTINGS_BACKGROUND);
     dev.writeAttr("backgroundColor", backgroundColor);
@@ -1361,7 +1363,10 @@ GUIVisualizationSettings::operator==(const GUIVisualizationSettings& v2) {
     if (drawBoundaries != v2.drawBoundaries) {
         return false;
     }
-    if (forceDrawForSelecting != v2.forceDrawForSelecting) {
+    if (forceDrawForPositionSelection != v2.forceDrawForPositionSelection) {
+        return false;
+    }
+    if (forceDrawForRectangleSelection != v2.forceDrawForRectangleSelection) {
         return false;
     }
     if (backgroundColor != v2.backgroundColor) {
@@ -1673,7 +1678,7 @@ GUIVisualizationSettings::drawDetail(const double detail, const double exaggerat
 
 int
 GUIVisualizationSettings::getCircleResolution() const {
-    if (drawForSelecting || drawForSelectingClicking) {
+    if (drawForPositionSelection || drawForRectangleSelection) {
         return 8;
     } else if (scale >= 10) {
         return 32;

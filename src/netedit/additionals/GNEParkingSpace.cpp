@@ -129,7 +129,7 @@ GNEParkingSpace::drawGL(const GUIVisualizationSettings& s) const {
         glTranslated(myPosition.x(), myPosition.y(), getType() + 0.1);
         glRotated(myAngle, 0, 0, 1);
         // only drawn small box if isn't being drawn for selecting
-        if (!s.drawForSelecting) {
+        if (!s.drawForRectangleSelection) {
             // Set Color depending of selection
             if (drawUsingSelectColor()) {
                 GLHelper::setColor(s.colorSettings.selectedAdditionalColor);

@@ -314,7 +314,7 @@ GNEConnection::drawGL(const GUIVisualizationSettings& s) const {
         }
         // draw connection checking whether it is not too small if isn't being drawn for selecting
         const double selectionScale = isAttributeCarrierSelected() ? s.selectionScale : 1;
-        if ((s.scale * selectionScale < 5.) && !s.drawForSelecting) {
+        if ((s.scale * selectionScale < 5.) && !s.drawForRectangleSelection) {
             // If it's small, draw a simple line
             GLHelper::drawLine(myConnectionGeometry.getShape());
         } else {

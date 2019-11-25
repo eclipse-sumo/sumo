@@ -407,7 +407,7 @@ GNELane::drawGL(const GUIVisualizationSettings& s) const {
         const double halfWidth =  drawUsingSelectColor() ? halfWidth2 - exaggeration * 0.3 : halfWidth2;
         const bool spreadSuperposed = s.spreadSuperposed && drawAsRailway(s) && myParentEdge.getNBEdge()->isBidiRail();
         // Check if lane has to be draw as railway and if isn't being drawn for selecting
-        if (drawAsRailway(s) && (!s.drawForSelecting || spreadSuperposed)) {
+        if (drawAsRailway(s) && (!s.drawForRectangleSelection || spreadSuperposed)) {
             PositionVector shape = myLaneGeometry.getShape();
             const double width = myParentEdge.getNBEdge()->getLaneWidth(myIndex);
             // draw as railway: assume standard gauge of 1435mm when lane width is not set
@@ -433,7 +433,7 @@ GNELane::drawGL(const GUIVisualizationSettings& s) const {
             // Set current color back
             GLHelper::setColor(current);
             // Draw crossties
-            GLHelper::drawCrossTies(shape, myLaneGeometry.getShapeRotations(), myLaneGeometry.getShapeLengths(), 0.26 * exaggeration, 0.6 * exaggeration, halfCrossTieWidth, s.drawForSelecting);
+            GLHelper::drawCrossTies(shape, myLaneGeometry.getShapeRotations(), myLaneGeometry.getShapeLengths(), 0.26 * exaggeration, 0.6 * exaggeration, halfCrossTieWidth, s.drawForRectangleSelection);
         } else {
             GNEGeometry::drawLaneGeometry(myNet->getViewNet(), myLaneGeometry.getShape(), myLaneGeometry.getShapeRotations(), myLaneGeometry.getShapeLengths(), myShapeColors, halfWidth);
         }
@@ -450,7 +450,7 @@ GNELane::drawGL(const GUIVisualizationSettings& s) const {
         // Pop draw matrix 1
         glPopMatrix();
         // only draw details depending of the scale and if isn't being drawn for selecting
-        if ((s.scale >= 10) && !s.drawForSelecting) {
+        if ((s.scale >= 10) && !s.drawForRectangleSelection) {
             // if exaggeration is 1, draw drawMarkings
             if (s.laneShowBorders && exaggeration == 1 && !drawAsRailway(s)) {
                 drawMarkings(s, exaggeration);
@@ -477,7 +477,7 @@ GNELane::drawGL(const GUIVisualizationSettings& s) const {
             }
         }
         // If there are texture of restricted lanes to draw, check if icons can be drawn
-        if (!s.drawForSelecting && !s.disableLaneIcons && (myLaneRestrictedTexturePositions.size() > 0) && s.drawDetail(s.detailSettings.laneTextures, exaggeration)) {
+        if (!s.drawForRectangleSelection && !s.disableLaneIcons && (myLaneRestrictedTexturePositions.size() > 0) && s.drawDetail(s.detailSettings.laneTextures, exaggeration)) {
             // Declare default width of icon (3)
             double iconWidth = 1;
             // Obtain width of icon, if width of lane is different
@@ -508,7 +508,7 @@ GNELane::drawGL(const GUIVisualizationSettings& s) const {
             }
         }
         // draw a Start/endPoints if lane has a custom shape
-        if (!s.drawForSelecting && (myParentEdge.getNBEdge()->getLaneStruct(myIndex).customShape.size() > 1)) {
+        if (!s.drawForRectangleSelection && (myParentEdge.getNBEdge()->getLaneStruct(myIndex).customShape.size() > 1)) {
             drawStartEndShapePoints(s);
         }
         // Pop Lane Name
@@ -991,7 +991,7 @@ GNELane::drawPartialE2DetectorPlan(const GUIVisualizationSettings& s, const GNEA
     // Pop last matrix
     glPopMatrix();
     // Draw name if isn't being drawn for selecting
-    if (!s.drawForSelecting) {
+    if (!s.drawForRectangleSelection) {
         drawName(getCenteringBoundary().getCenter(), s.scale, s.addName);
     }
     // Pop name
@@ -1221,13 +1221,13 @@ GNELane::getColorValue(const GUIVisualizationSettings& s, int activeScheme) cons
 
 bool
 GNELane::drawAsRailway(const GUIVisualizationSettings& s) const {
-    return isRailway(myParentEdge.getNBEdge()->getPermissions(myIndex)) && s.showRails && (!s.drawForSelecting || s.spreadSuperposed);
+    return isRailway(myParentEdge.getNBEdge()->getPermissions(myIndex)) && s.showRails && (!s.drawForRectangleSelection || s.spreadSuperposed);
 }
 
  
 bool
 GNELane::drawAsWaterway(const GUIVisualizationSettings& s) const {
-    return isWaterway(myParentEdge.getNBEdge()->getPermissions(myIndex)) && s.showRails && !s.drawForSelecting; // reusing the showRails setting
+    return isWaterway(myParentEdge.getNBEdge()->getPermissions(myIndex)) && s.showRails && !s.drawForRectangleSelection; // reusing the showRails setting
 }
 
 
@@ -1284,7 +1284,7 @@ GNELane::drawVSSSymbol(const GUIVisualizationSettings& s, GNEAdditional* vss) co
         }
         glColor3d(1, 0, 0);
         GLHelper::drawFilledCircle((double) 1.3, noPoints);
-        if (!s.drawForSelecting && (s.scale >= 5)) {
+        if (!s.drawForRectangleSelection && (s.scale >= 5)) {
             glTranslated(0, 0, .1);
             glColor3d(0, 0, 0);
             GLHelper::drawFilledCircle((double) 1.1, noPoints);

@@ -103,7 +103,7 @@ GNEChargingStation::drawGL(const GUIVisualizationSettings& s) const {
         // Draw base
         GNEGeometry::drawGeometry(myViewNet, myAdditionalGeometry, exaggeration);
         // Check if the distance is enought to draw details and if is being drawn for selecting
-        if (s.drawForSelecting) {
+        if (s.drawForRectangleSelection) {
             // only draw circle depending of distance between sign and mouse cursor
             if (myViewNet->getPositionInformation().distanceSquaredTo2D(mySignPos) <= (myCircleWidthSquared + 2)) {
                 // Add a draw matrix for details
@@ -174,7 +174,7 @@ GNEChargingStation::drawGL(const GUIVisualizationSettings& s) const {
         glPopMatrix();
         // Draw name if isn't being drawn for selecting
         drawName(getPositionInView(), s.scale, s.addName);
-        if (s.addFullName.show && (myAdditionalName != "") && !s.drawForSelecting) {
+        if (s.addFullName.show && (myAdditionalName != "") && !s.drawForRectangleSelection) {
             GLHelper::drawText(myAdditionalName, mySignPos, GLO_MAX - getType(), s.addFullName.scaledSize(s.scale), s.addFullName.color, myBlockIcon.rotation);
         }
         // check if dotted contour has to be drawn

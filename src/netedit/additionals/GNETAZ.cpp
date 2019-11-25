@@ -314,7 +314,7 @@ GNETAZ::drawGL(const GUIVisualizationSettings& s) const {
             // draw shape points only in Network supemode
             if (myViewNet->getEditModes().currentSupermode != GNE_SUPERMODE_DEMAND) {
                 for (auto i : myTAZShape) {
-                    if (!s.drawForSelecting || (myViewNet->getPositionInformation().distanceSquaredTo2D(i) <= (myHintSizeSquared + 2))) {
+                    if (!s.drawForRectangleSelection || (myViewNet->getPositionInformation().distanceSquaredTo2D(i) <= (myHintSizeSquared + 2))) {
                         glPushMatrix();
                         glTranslated(i.x(), i.y(), GLO_POLYGON + 0.02);
                         // Change color of vertex and flag mouseOverVertex if mouse is over vertex

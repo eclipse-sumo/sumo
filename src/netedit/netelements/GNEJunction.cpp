@@ -321,7 +321,7 @@ GNEJunction::drawGL(const GUIVisualizationSettings& s) const {
                     junctionShape.scaleRelative(exaggeration);
                 }
                 // first check if inner junction polygon can be drawn
-                if (s.drawForSelectingClicking) {
+                if (s.drawForPositionSelection) {
                     // only draw a point if mouse is around shape
                     if (junctionShape.around(mousePosition)) {
                         // push matrix
@@ -352,7 +352,7 @@ GNEJunction::drawGL(const GUIVisualizationSettings& s) const {
                 // move matrix to 
                 glTranslated(myNBNode.getPosition().x(), myNBNode.getPosition().y(), getType() + 0.05);
                 // only draw filled circle if we aren't in draw for selecting mode, or if distance to center is enough)
-                if (!s.drawForSelectingClicking || (mousePosition.distanceSquaredTo2D(myNBNode.getPosition()) <= (circleWidthSquared + 2))) {
+                if (!s.drawForPositionSelection || (mousePosition.distanceSquaredTo2D(myNBNode.getPosition()) <= (circleWidthSquared + 2))) {
                     std::vector<Position> vertices = GLHelper::drawFilledCircleReturnVertices(circleWidth, s.getCircleResolution());
                     // check if dotted contour has to be drawn
                     if (myNet->getViewNet()->getDottedAC() == this) {
@@ -365,11 +365,11 @@ GNEJunction::drawGL(const GUIVisualizationSettings& s) const {
         // draw TLS
         drawTLSIcon(s);
         // (optional) draw name @todo expose this setting if isn't drawed if isn't being drawn for selecting
-        if (!s.drawForSelecting) {
+        if (!s.drawForRectangleSelection) {
             drawName(myNBNode.getPosition(), s.scale, s.junctionName);
         }
         // draw elevation
-        if (!s.drawForSelecting && myNet->getViewNet()->getNetworkViewOptions().editingElevation()) {
+        if (!s.drawForRectangleSelection && myNet->getViewNet()->getNetworkViewOptions().editingElevation()) {
             glPushMatrix();
             // Translate to center of junction
             glTranslated(myNBNode.getPosition().x(), myNBNode.getPosition().y(), getType() + 1);
@@ -1200,7 +1200,7 @@ void
 GNEJunction::drawTLSIcon(const GUIVisualizationSettings& s) const {
     // draw TLS icon if isn't being drawn for selecting
     if ((myNet->getViewNet()->getEditModes().networkEditMode == GNE_NMODE_TLS) &&
-        (myNBNode.isTLControlled()) && !myAmTLSSelected && !s.drawForSelecting) {
+        (myNBNode.isTLControlled()) && !myAmTLSSelected && !s.drawForRectangleSelection) {
         glPushMatrix();
         Position pos = myNBNode.getPosition();
         glTranslated(pos.x(), pos.y(), getType() + 0.1);

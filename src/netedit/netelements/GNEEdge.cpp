@@ -546,7 +546,7 @@ GNEEdge::drawGL(const GUIVisualizationSettings& s) const {
             // Start drawing adding an gl identificator
             glPushName(i->getGlID());
             // draw partial trip only if is being inspected or selected (and we aren't in draw for selecting mode)
-            if (!s.drawForSelecting && (myNet->getViewNet()->getDottedAC() == i || i->isAttributeCarrierSelected())) {
+            if (!s.drawForRectangleSelection && (myNet->getViewNet()->getDottedAC() == i || i->isAttributeCarrierSelected())) {
                 drawPartialTripFromTo(s, i, nullptr);
             }
             // only draw trip in the first edge
@@ -560,7 +560,7 @@ GNEEdge::drawGL(const GUIVisualizationSettings& s) const {
             // Start drawing adding an gl identificator
             glPushName(i->getGlID());
             // draw partial trip only if is being inspected or selected (and we aren't in draw for selecting mode)
-            if (!s.drawForSelecting && (myNet->getViewNet()->getDottedAC() == i || i->isAttributeCarrierSelected())) {
+            if (!s.drawForRectangleSelection && (myNet->getViewNet()->getDottedAC() == i || i->isAttributeCarrierSelected())) {
                 drawPartialTripFromTo(s, i, nullptr);
             }
             // only draw flow in the first edge
@@ -600,7 +600,7 @@ GNEEdge::drawGL(const GUIVisualizationSettings& s) const {
         drawGeometryPoints(s);
     }
     // draw name if isn't being drawn for selecting
-    if (!s.drawForSelecting) {
+    if (!s.drawForRectangleSelection) {
         drawEdgeName(s);
     }
     // draw dotted contor around the first and last lane if isn't being drawn for selecting
@@ -1232,7 +1232,7 @@ GNEEdge::drawPartialRoute(const GUIVisualizationSettings& s, const GNEDemandElem
     // Pop last matrix
     glPopMatrix();
     // Draw name if isn't being drawn for selecting
-    if (!s.drawForSelecting) {
+    if (!s.drawForRectangleSelection) {
         drawName(getCenteringBoundary().getCenter(), s.scale, s.addName);
     }
     // Pop name
@@ -1286,7 +1286,7 @@ GNEEdge::drawPartialTripFromTo(const GUIVisualizationSettings& s, const GNEDeman
     // Pop last matrix
     glPopMatrix();
     // Draw name if isn't being drawn for selecting
-    if (!s.drawForSelecting) {
+    if (!s.drawForRectangleSelection) {
         drawName(getCenteringBoundary().getCenter(), s.scale, s.addName);
     }
     // Pop name
@@ -1379,7 +1379,7 @@ GNEEdge::drawPartialPersonPlan(const GUIVisualizationSettings& s, const GNEDeman
         // Pop last matrix
         glPopMatrix();
         // Draw name if isn't being drawn for selecting
-        if (!s.drawForSelecting) {
+        if (!s.drawForRectangleSelection) {
             drawName(getCenteringBoundary().getCenter(), s.scale, s.addName);
         }
         // Pop name
@@ -1393,7 +1393,7 @@ GNEEdge::drawPartialPersonPlan(const GUIVisualizationSettings& s, const GNEDeman
                 // obtain circle width
                 const double circleWidth = (duplicateWidth ? SNAP_RADIUS : (SNAP_RADIUS / 2.0)) * MIN2((double)0.5, s.laneWidthExaggeration);
                 const double circleWidthSquared = circleWidth * circleWidth;
-                if (!s.drawForSelecting || (myNet->getViewNet()->getPositionInformation().distanceSquaredTo2D(arrivalPos) <= (circleWidthSquared + 2))) {
+                if (!s.drawForRectangleSelection || (myNet->getViewNet()->getPositionInformation().distanceSquaredTo2D(arrivalPos) <= (circleWidthSquared + 2))) {
                     glPushMatrix();
                     // translate to pos and move to upper using GLO_PERSONTRIP (to avoid overlapping)
                     glTranslated(arrivalPos.x(), arrivalPos.y(), GLO_PERSONTRIP + 0.01);
@@ -2002,14 +2002,14 @@ GNEEdge::drawGeometryPoints(const GUIVisualizationSettings& s) const {
         // draw geometry points expect initial and final
         for (int i = 1; i < (int)myNBEdge.getGeometry().size() - 1; i++) {
             Position pos = myNBEdge.getGeometry()[i];
-            if (!s.drawForSelecting || (myNet->getViewNet()->getPositionInformation().distanceSquaredTo2D(pos) <= (circleWidthSquared + 2))) {
+            if (!s.drawForRectangleSelection || (myNet->getViewNet()->getPositionInformation().distanceSquaredTo2D(pos) <= (circleWidthSquared + 2))) {
                 glPushMatrix();
                 glTranslated(pos.x(), pos.y(), GLO_JUNCTION - 0.01);
                 // resolution of drawn circle depending of the zoom (To improve smothness)
                 GLHelper::drawFilledCircle(circleWidth, s.getCircleResolution());
                 glPopMatrix();
                 // draw elevation or special symbols (Start, End and Block)
-                if (!s.drawForSelecting && myNet->getViewNet()->getNetworkViewOptions().editingElevation()) {
+                if (!s.drawForRectangleSelection && myNet->getViewNet()->getNetworkViewOptions().editingElevation()) {
                     glPushMatrix();
                     // Translate to geometry point
                     glTranslated(pos.x(), pos.y(), GLO_JUNCTION);
@@ -2019,17 +2019,17 @@ GNEEdge::drawGeometryPoints(const GUIVisualizationSettings& s) const {
                 }
             }
         }
-        // draw line geometry, start and end points if shapeStart or shape end is edited, and depending of drawForSelecting
+        // draw line geometry, start and end points if shapeStart or shape end is edited, and depending of drawForRectangleSelection
         if (myNet->getViewNet()->getEditModes().networkEditMode == GNE_NMODE_MOVE) {
             if ((myNBEdge.getGeometry().front() != myGNEJunctionSource->getPositionInView()) &&
-                    (!s.drawForSelecting || (myNet->getViewNet()->getPositionInformation().distanceSquaredTo2D(myNBEdge.getGeometry().front()) <= (circleWidthSquared + 2)))) {
+                    (!s.drawForRectangleSelection || (myNet->getViewNet()->getPositionInformation().distanceSquaredTo2D(myNBEdge.getGeometry().front()) <= (circleWidthSquared + 2)))) {
                 glPushMatrix();
                 glTranslated(myNBEdge.getGeometry().front().x(), myNBEdge.getGeometry().front().y(), GLO_JUNCTION + 0.01);
                 // resolution of drawn circle depending of the zoom (To improve smothness)
                 GLHelper::drawFilledCircle(circleWidth, s.getCircleResolution());
                 glPopMatrix();
-                // draw a "s" over last point depending of drawForSelecting
-                if (!s.drawForSelecting && s.drawDetail(s.detailSettings.geometryPointsText, exaggeration)) {
+                // draw a "s" over last point depending of drawForRectangleSelection
+                if (!s.drawForRectangleSelection && s.drawDetail(s.detailSettings.geometryPointsText, exaggeration)) {
                     glPushMatrix();
                     glTranslated(myNBEdge.getGeometry().front().x(), myNBEdge.getGeometry().front().y(), GLO_JUNCTION + 0.02);
                     GLHelper::drawText("S", Position(), 0, circleWidth, RGBColor::WHITE);
@@ -2045,14 +2045,14 @@ GNEEdge::drawGeometryPoints(const GUIVisualizationSettings& s) const {
                 }
             }
             if ((myNBEdge.getGeometry().back() != myGNEJunctionDestiny->getPositionInView()) &&
-                    (!s.drawForSelecting || (myNet->getViewNet()->getPositionInformation().distanceSquaredTo2D(myNBEdge.getGeometry().back()) <= (circleWidthSquared + 2)))) {
+                    (!s.drawForRectangleSelection || (myNet->getViewNet()->getPositionInformation().distanceSquaredTo2D(myNBEdge.getGeometry().back()) <= (circleWidthSquared + 2)))) {
                 glPushMatrix();
                 glTranslated(myNBEdge.getGeometry().back().x(), myNBEdge.getGeometry().back().y(), GLO_JUNCTION + 0.01);
                 // resolution of drawn circle depending of the zoom (To improve smothness)
                 GLHelper::drawFilledCircle(circleWidth, s.getCircleResolution());
                 glPopMatrix();
-                // draw a "e" over last point depending of drawForSelecting
-                if (!s.drawForSelecting && s.drawDetail(s.detailSettings.geometryPointsText, exaggeration)) {
+                // draw a "e" over last point depending of drawForRectangleSelection
+                if (!s.drawForRectangleSelection && s.drawDetail(s.detailSettings.geometryPointsText, exaggeration)) {
                     glPushMatrix();
                     glTranslated(myNBEdge.getGeometry().back().x(), myNBEdge.getGeometry().back().y(), GLO_JUNCTION + 0.02);
                     GLHelper::drawText("E", Position(), 0, circleWidth, RGBColor::WHITE);
@@ -2158,7 +2158,7 @@ GNEEdge::drawRerouterSymbol(const GUIVisualizationSettings& s, GNEAdditional* re
             glVertex2d(0 + 1.4, 6);
             glEnd();
             // draw "U"
-            if (!s.drawForSelecting) {
+            if (!s.drawForRectangleSelection) {
                 GLHelper::drawText("U", Position(0, 2), .1, 3, RGBColor::BLACK, 180);
                 double probability = parse<double>(rerouter->getAttribute(SUMO_ATTR_PROB)) * 100;
                 // draw Probability

@@ -641,14 +641,17 @@ public:
     /// @brief the current selection scaling in NETEDIT (temporary)
     double selectionScale;
 
-    /// @brief whether drawing is performed for the purpose of selecting objects using a rectangle
-    bool drawForSelecting;
-
     /// @brief whether drawing is performed for the purpose of selecting objects with a single click
-    bool drawForSelectingClicking;
+    bool drawForPositionSelection;
 
-    /// @brief flag to force draw to selecting (see drawForSelecting)
-    bool forceDrawForSelecting;
+    /// @brief whether drawing is performed for the purpose of selecting objects using a rectangle
+    bool drawForRectangleSelection;
+
+    /// @brief flag to force draw for position selection (see drawForPositionSelection)
+    bool forceDrawForPositionSelection;
+
+    /// @brief flag to force draw for rectangle selection (see drawForRectangleSelection)
+    bool forceDrawForRectangleSelection;
 
     /**@brief whether drawing is performed in left-hand networks
      * @note used to avoid calls to OptionsCont::getOptions() in every drawgl(...) function, and

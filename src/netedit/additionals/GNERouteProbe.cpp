@@ -155,7 +155,7 @@ GNERouteProbe::drawGL(const GUIVisualizationSettings& s) const {
         glVertex2d(0, -0.25 + .1);
         glEnd();
         // position indicator (White)
-        if ((width * exaggeration > 1) && !s.drawForSelecting) {
+        if ((width * exaggeration > 1) && !s.drawForRectangleSelection) {
             if (drawUsingSelectColor()) {
                 GLHelper::setColor(s.colorSettings.selectionColor);
             } else {
@@ -175,7 +175,7 @@ GNERouteProbe::drawGL(const GUIVisualizationSettings& s) const {
         glRotated(myAdditionalGeometry.getRotation(), 0, 0, 1);
         glTranslated((-2.56) - myRelativePositionY, (-1.6), 0);
         // Draw icon depending of Route Probe is selected and if isn't being drawn for selecting
-        if (!s.drawForSelecting && s.drawDetail(s.detailSettings.laneTextures, exaggeration)) {
+        if (!s.drawForRectangleSelection && s.drawDetail(s.detailSettings.laneTextures, exaggeration)) {
             glColor3d(1, 1, 1);
             glRotated(-90, 0, 0, 1);
             if (drawUsingSelectColor()) {

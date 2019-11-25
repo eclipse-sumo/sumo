@@ -149,7 +149,7 @@ GNECrossing::drawGL(const GUIVisualizationSettings& s) const {
                 glTranslated(myCrossingGeometry.getShape()[i].x(), myCrossingGeometry.getShape()[i].y(), 0.0);
                 glRotated(myCrossingGeometry.getShapeRotations()[i], 0, 0, 1);
                 // draw crossing depending if isn't being drawn for selecting
-                if (!s.drawForSelecting) {
+                if (!s.drawForRectangleSelection) {
                     for (double t = 0; t < myCrossingGeometry.getShapeLengths()[i]; t += spacing) {
                         glBegin(GL_QUADS);
                         glVertex2d(-halfWidth, -t);
@@ -180,7 +180,7 @@ GNECrossing::drawGL(const GUIVisualizationSettings& s) const {
             glPopMatrix();
         }
         // link indices must be drawn in all edit modes if isn't being drawn for selecting
-        if (s.drawLinkTLIndex.show && !s.drawForSelecting) {
+        if (s.drawLinkTLIndex.show && !s.drawForRectangleSelection) {
             drawTLSLinkNo(s);
         }
         // check if dotted contour has to be drawn

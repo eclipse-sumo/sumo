@@ -159,7 +159,7 @@ GNEDetectorEntryExit::drawGL(const GUIVisualizationSettings& s) const {
         glRotated(myAdditionalGeometry.getRotation(), 0, 0, 1);
         glScaled(exaggeration, exaggeration, 1);
         // draw details if isn't being drawn for selecting
-        if (!s.drawForSelecting) {
+        if (!s.drawForRectangleSelection) {
             // Draw polygon
             glBegin(GL_LINES);
             glVertex2d(1.7, 0);
@@ -193,7 +193,7 @@ GNEDetectorEntryExit::drawGL(const GUIVisualizationSettings& s) const {
         // Pop detector matrix
         glPopMatrix();
         // Check if the distance is enought to draw details
-        if (!s.drawForSelecting && s.drawDetail(s.detailSettings.detectorDetails, exaggeration)) {
+        if (!s.drawForRectangleSelection && s.drawDetail(s.detailSettings.detectorDetails, exaggeration)) {
             // Push matrix
             glPushMatrix();
             // Traslate to center of detector
@@ -205,7 +205,7 @@ GNEDetectorEntryExit::drawGL(const GUIVisualizationSettings& s) const {
             // scale
             glScaled(exaggeration, exaggeration, 1);
             // draw Entry or Exit logo if isn't being drawn for selecting
-            if (s.drawForSelecting) {
+            if (s.drawForRectangleSelection) {
                 GLHelper::setColor(s.colorSettings.E3Entry);
                 GLHelper::drawBoxLine(Position(0, 1), 0, 2, 1);
             } else if (drawUsingSelectColor()) {
@@ -220,7 +220,7 @@ GNEDetectorEntryExit::drawGL(const GUIVisualizationSettings& s) const {
             // Rotate depending of myBlockIcon.rotation
             glRotated(90, 0, 0, 1);
             // draw Entry or Exit text if isn't being drawn for selecting
-            if (s.drawForSelecting) {
+            if (s.drawForRectangleSelection) {
                 GLHelper::setColor(s.colorSettings.E3Entry);
                 GLHelper::drawBoxLine(Position(0, 1), 0, 2, 1);
             } else if (drawUsingSelectColor()) {
@@ -242,7 +242,7 @@ GNEDetectorEntryExit::drawGL(const GUIVisualizationSettings& s) const {
             myBlockIcon.drawIcon(s, exaggeration, 0.4);
         }
         // Draw name if isn't being drawn for selecting
-        if (!s.drawForSelecting) {
+        if (!s.drawForRectangleSelection) {
             drawName(getPositionInView(), s.scale, s.addName);
         }
         // check if dotted contour has to be drawn

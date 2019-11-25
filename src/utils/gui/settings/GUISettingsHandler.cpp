@@ -116,7 +116,8 @@ GUISettingsHandler::myStartElement(int element,
             mySettings.dither = StringUtils::toBool(attrs.getStringSecure("dither", toString(mySettings.dither)));
             mySettings.fps = StringUtils::toBool(attrs.getStringSecure("fps", toString(mySettings.fps)));
             mySettings.drawBoundaries = StringUtils::toBool(attrs.getStringSecure("drawBoundaries", toString(mySettings.drawBoundaries)));
-            mySettings.forceDrawForSelecting = StringUtils::toBool(attrs.getStringSecure("forceDrawForSelecting", toString(mySettings.forceDrawForSelecting)));
+            mySettings.forceDrawForRectangleSelection = StringUtils::toBool(attrs.getStringSecure("forceDrawRectangleSelection", toString(mySettings.forceDrawForRectangleSelection)));
+            mySettings.forceDrawForPositionSelection = StringUtils::toBool(attrs.getStringSecure("forceDrawPositionSelection", toString(mySettings.forceDrawForPositionSelection)));
             break;
         case SUMO_TAG_VIEWSETTINGS_BACKGROUND: {
             mySettings.backgroundColor = RGBColor::parseColorReporting(attrs.getStringSecure("backgroundColor", toString(mySettings.backgroundColor)), "background", nullptr, true, ok);

@@ -143,7 +143,7 @@ GNERerouter::drawGL(const GUIVisualizationSettings& s) const {
         // scale
         glScaled(exaggeration, exaggeration, 1);
         // Draw icon depending of detector is selected and if isn't being drawn for selecting
-        if (!s.drawForSelecting && s.drawDetail(s.detailSettings.laneTextures, exaggeration)) {
+        if (!s.drawForRectangleSelection && s.drawDetail(s.detailSettings.laneTextures, exaggeration)) {
             glColor3d(1, 1, 1);
             glRotated(180, 0, 0, 1);
             if (drawUsingSelectColor()) {

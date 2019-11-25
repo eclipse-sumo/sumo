@@ -310,7 +310,7 @@ GNEViewNet::getAttributeCarriersInBoundary(const Boundary& boundary, bool forceS
     std::set<std::pair<std::string, GNEAttributeCarrier*> > result;
     // firstm make OpenGL context current prior to performing OpenGL commands
     if (makeCurrent()) {
-        // obtain GUIGLIds of all objects in the given boundary (disabling drawForSelecting)
+        // obtain GUIGLIds of all objects in the given boundary (disabling drawForRectangleSelection)
         std::vector<GUIGlID> ids = getObjectsInBoundary(boundary, false);
         //  finish make OpenGL context current
         makeNonCurrent();
@@ -603,8 +603,12 @@ GNEViewNet::getEdgeLaneParamKeys(bool edgeKeys) const {
 int
 GNEViewNet::doPaintGL(int mode, const Boundary& bound) {
     // init view settings
-    if (!myVisualizationSettings->drawForSelecting && myVisualizationSettings->forceDrawForSelecting) {
-        myVisualizationSettings->drawForSelecting = true;
+    if (!myVisualizationSettings->drawForPositionSelection && myVisualizationSettings->forceDrawForPositionSelection) {
+        myVisualizationSettings->drawForPositionSelection = true;
+        myVisualizationSettings->drawForRectangleSelection = true;
+    }
+    if (!myVisualizationSettings->drawForRectangleSelection && myVisualizationSettings->forceDrawForRectangleSelection) {
+        myVisualizationSettings->drawForRectangleSelection = true;
     }
     // set lefthand and laneIcons
     myVisualizationSettings->lefthand = OptionsCont::getOptions().getBool("lefthand");
@@ -625,7 +629,7 @@ GNEViewNet::doPaintGL(int mode, const Boundary& bound) {
     // compute lane width
     double lw = m2p(SUMO_const_laneWidth);
     // draw decals (if not in grabbing mode)
-    if (!myUseToolTips && !myVisualizationSettings->drawForSelecting) {
+    if (!myUseToolTips && !myVisualizationSettings->drawForRectangleSelection) {
         drawDecals();
         // depending of the visualizationSettings, enable or disable check box show grid
         if (myVisualizationSettings->showGrid) {
@@ -637,7 +641,7 @@ GNEViewNet::doPaintGL(int mode, const Boundary& bound) {
         myNetworkViewOptions.menuCheckShowConnections->setCheck(myVisualizationSettings->showLane2Lane);
     }
     // draw temporal elements
-    if (!myVisualizationSettings->drawForSelecting) {
+    if (!myVisualizationSettings->drawForRectangleSelection) {
         drawTemporalDrawShape();
         drawLaneCandidates();
         // draw testing elements

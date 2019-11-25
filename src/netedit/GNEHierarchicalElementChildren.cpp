@@ -604,7 +604,7 @@ GNEHierarchicalElementChildren::ChildConnections::update() {
 void
 GNEHierarchicalElementChildren::ChildConnections::draw(const GUIVisualizationSettings& s, const GUIGlObjectType parentType) const {
     // first check if connections can be drawn
-    if (!s.drawForSelecting) {
+    if (!s.drawForRectangleSelection) {
         // Iterate over myConnectionPositions
         for (const auto& i : connectionPositions) {
             // Add a draw matrix

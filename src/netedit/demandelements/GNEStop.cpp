@@ -453,7 +453,7 @@ GNEStop::drawGL(const GUIVisualizationSettings& s) const {
             // move to "S" position
             glTranslated(0, 1, 0);
             // only draw text if isn't being drawn for selecting
-            if (s.drawForSelecting) {
+            if (s.drawForRectangleSelection) {
                 GLHelper::setColor(stopColor);
                 GLHelper::drawBoxLine(Position(0, 1), 0, 2, 1);
             } else if (s.drawDetail(s.detailSettings.stopsText, exaggeration)) {

@@ -322,7 +322,7 @@ void GNECalibrator::drawCalibratorSymbol(const GUIVisualizationSettings& s, cons
     glVertex2d(0 + 1.4, 6);
     glEnd();
     // draw text if isn't being drawn for selecting
-    if (!s.drawForSelecting && s.drawDetail(s.detailSettings.calibratorText, exaggeration)) {
+    if (!s.drawForRectangleSelection && s.drawDetail(s.detailSettings.calibratorText, exaggeration)) {
         // set color depending of selection status
         RGBColor textColor = drawUsingSelectColor() ? s.colorSettings.selectionColor : RGBColor::BLACK;
         // draw "C"
