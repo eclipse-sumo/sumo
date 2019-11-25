@@ -20,8 +20,8 @@ be directly uploaded to real controllers or tested with SUMO (using
 LiSuM) and VISSIM, a proprietary microscopic 3D traffic simulator.
 
 LiSuM was built on Java technology and thus can be run on any operating
-system. LiSuM is licensed under the
-[GPL](http://www.gnu.org/licenses/gpl.html) and its current version is
+system. LiSuM is licensed (just like SUMO) under the
+[EPLv2](http://www.eclipse.org/legal/epl-v20.html) and its current version is
 the 1.0.0.
 
 ![flowws.png](../images/Flowws.png "flowws.png")
@@ -227,3 +227,14 @@ show (red, yellow, green) as well as a right-turning arrow sign that can
 show (red, green) and the arrow takes precedence, than the signal group
 for the right-turning arrow must be declared before the signal group of
 the overhead sign.
+
+## Compiling LiSuM
+
+If you want to contribute to the source or want to build for another reason
+make sure you have maven and a compatible JDK (8 or above) on your system.
+The cmake configuration step will create a "lisum-core" and a "lisum-gui" target
+(as well as a "lisum" target to build them both). Just run this target either
+using make (in a Linux or MacOS like environment) or by runnning the target from
+your IDE (e.g. Visual Studio on Windows). If you are using JDK8 and want the GUI
+you need to make sure that you have openjfx8 installed, since there is no openjfx
+for JDK8 on maven.
