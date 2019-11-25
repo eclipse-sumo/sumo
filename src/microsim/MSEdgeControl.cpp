@@ -76,7 +76,9 @@ MSEdgeControl::MSEdgeControl(const std::vector< MSEdge* >& edges)
 
 
 MSEdgeControl::~MSEdgeControl() {
+#ifdef HAVE_FOX
     myThreadPool.clear();
+#endif
 }
 
 
