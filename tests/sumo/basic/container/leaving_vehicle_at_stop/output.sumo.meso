@@ -1,5 +1,5 @@
-Loading net-file from 'net.net.xml'... done (20ms).
-Loading additional-files from 'input_additional.add.xml'... done (0ms).
+Loading net-file from 'net.net.xml' ... done (20ms).
+Loading additional-files from 'input_additional.add.xml' ... done (0ms).
 Loading done.
 Simulation version v1_0_1+0645-93703db started with time: 0.00
 Simulation ended at time: 198.00
