@@ -392,13 +392,24 @@ GNEPerson::splitEdgeGeometry(const double /*splitPosition*/, const GNENetElement
 
 void
 GNEPerson::drawGL(const GUIVisualizationSettings& s) const {
-    // only drawn in super mode demand
-    if (myViewNet->getNetworkViewOptions().showDemandElements() && myViewNet->getDemandViewOptions().showNonInspectedDemandElements(this) && (getDemandElementChildren().size() > 0)) {
+    bool drawPerson = true;
+    // check if person can be drawn
+    if (!myViewNet->getNetworkViewOptions().showDemandElements()) {
+        drawPerson = false;
+    } else if (!myViewNet->getDemandViewOptions().showNonInspectedDemandElements(this)) {
+        drawPerson = false;
+    } else if (getDemandElementChildren().empty()) {
+        drawPerson = false;
+    }
+    // continue if person can be drawn
+    if (drawPerson) {
         // obtain exaggeration (and add the special personExaggeration)
         const double exaggeration = s.personSize.getExaggeration(s, this, 80) + s.detailSettings.personExaggeration;
         // obtain width and length
         const double length = getDemandElementParents().at(0)->getAttributeDouble(SUMO_ATTR_LENGTH);
         const double width = getDemandElementParents().at(0)->getAttributeDouble(SUMO_ATTR_WIDTH);
+        // obtain diameter around person (used to calculate distance bewteen cursor and person)
+        const double distanceSquared = pow(exaggeration*std::max(length, width), 2);
         // obtain img file
         const std::string file = getDemandElementParents().at(0)->getAttribute(SUMO_ATTR_IMGFILE);
         Position personPosition;
@@ -410,8 +421,9 @@ GNEPerson::drawGL(const GUIVisualizationSettings& s) const {
             // obtain position of first edge
             personPosition = getDemandElementChildren().front()->getDemandElementSegmentGeometry().getFirstPosition();
         }
-        // check that position is valid
-        if (personPosition != Position::INVALID) {
+        // check that position is valid and person can be drawn
+        if ((personPosition != Position::INVALID) && 
+            !(s.drawForPositionSelection && (personPosition.distanceSquaredTo(myViewNet->getPositionInformation()) > distanceSquared))) {
             // push GL ID
             glPushName(getGlID());
             // push draw matrix
