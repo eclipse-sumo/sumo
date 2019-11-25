@@ -1,6 +1,6 @@
 <viewsettings>
     <scheme name="testing">
-        <opengl dither="0" fps="0" drawBoundaries="0" forceDrawSelecting="0"/>
+        <opengl dither="0" fps="0" drawBoundaries="0" forceDrawPositionSelection="0" forceDrawRectangleSelection="0"/>
         <background backgroundColor="white" showGrid="1" gridXSize="20.00" gridYSize="20.00"/>
         <edges laneEdgeMode="0" scaleMode="0" laneShowBorders="0" showBikeMarkings="1" showLinkDecals="1" showLinkRules="1" showRails="1" hideConnectors="0" widthExaggeration="1.00" minSize="0.00" showDirection="0" showSublanes="1" spreadSuperposed="0" edgeParam="EDGE_KEY" laneParam="LANE_KEY" vehicleParam="PARAM_NUMERICAL" vehicleTextParam="PARAM_TEXT" edgeData="speed"
                 edgeName_show="0" edgeName_size="60.00" edgeName_color="orange" edgeName_bgColor="128,0,0,0" edgeName_constantSize="1"
