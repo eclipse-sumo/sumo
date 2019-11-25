@@ -337,7 +337,7 @@ GNEPoly::drawGL(const GUIVisualizationSettings& s) const {
                         // pop draw matrix
                         glPopMatrix();
                     }
-                } else {
+                } else if (!s.drawForPositionSelection){
                     GLHelper::drawBoxLines(myShape, (myHintSize / 4) * s.polySize.getExaggeration(s, this));
                 }
                 glPopMatrix();

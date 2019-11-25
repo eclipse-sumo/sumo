@@ -355,12 +355,12 @@ GNELane::drawGL(const GUIVisualizationSettings& s) const {
     // XXX apply usefull scale values
     //exaggeration *= s.laneScaler.getScheme().getColor(getScaleValue(s.laneScaler.getActive()));
     // recognize full transparency and simply don't draw
-    if (color.alpha() == 0 || (s.scale * exaggeration < s.laneMinSize)) {
+    if ((color.alpha() == 0) || ((s.scale * exaggeration) < s.laneMinSize)) {
         // Pop draw matrix 1
         glPopMatrix();
         // Pop Lane Name
         glPopName();
-    } else if (s.scale * exaggeration < 1.) {
+    } else if ((s.scale * exaggeration) < 1.) {
         // draw as lines, depending of myShapeColors
         if (myShapeColors.size() > 0) {
             GLHelper::drawLine(myLaneGeometry.getShape(), myShapeColors);
