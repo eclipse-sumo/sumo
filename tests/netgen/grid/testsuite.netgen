@@ -44,5 +44,8 @@ perturb
 # option --default.type
 default_type
 
+# option --default.type
+default_type2
+
 # Tests processing of errors in input
 errors
