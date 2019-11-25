@@ -47,7 +47,8 @@ if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU" OR
         set(BINARY_SUFFIX "${BINARY_SUFFIX}P")
     endif ()
     if (COVERAGE)
-        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fprofile-arcs -ftest-coverage -O0")
+        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} --coverage -O0")
+        set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} --coverage")
         set(ENABLED_FEATURES "${ENABLED_FEATURES} Coverage")
     endif ()
 elseif (MSVC)
@@ -521,7 +522,8 @@ if (COVERAGE)
         add_custom_target(lcov
             COMMAND rm -rf docs/lcov
             COMMAND mkdir docs/lcov
-            COMMAND ${LCOV_EXECUTABLE} -d . -c --no-external --output-file docs/lcov/lcov.info
+            COMMAND ${LCOV_EXECUTABLE} -d . --capture --output-file docs/lcov/lcov.info
+            COMMAND ${LCOV_EXECUTABLE} --remove docs/lcov/lcov.info '/usr/*' --output-file docs/lcov/lcov.info
             COMMAND genhtml -o docs/lcov/html docs/lcov/lcov.info
             WORKING_DIRECTORY ${CMAKE_SOURCE_DIR})
         add_custom_target(lcov-reset
