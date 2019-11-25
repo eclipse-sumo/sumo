@@ -1558,7 +1558,7 @@ GNEViewNet::onCmdTransformPOI(FXObject*, FXSelector, void*) {
         // check what type of POI will be transformed
         if (POI->getTagProperty().getTag() == SUMO_TAG_POI) {
             // obtain lanes around POI boundary
-            std::vector<GUIGlID> GLIDs = getObjectsInBoundary(POI->getCenteringBoundary());
+            std::vector<GUIGlID> GLIDs = getObjectsInBoundary(POI->getCenteringBoundary(), false);
             std::vector<GNELane*> lanes;
             for (auto i : GLIDs) {
                 GNELane* lane = dynamic_cast<GNELane*>(GUIGlObjectStorage::gIDStorage.getObjectBlocking(i));
@@ -2938,7 +2938,7 @@ GNEViewNet::mergeJunctions(GNEJunction* moved, const Position& oldPos) {
         Boundary selection;
         selection.add(newPos);
         selection.grow(0.1);
-        const std::vector<GUIGlID> ids = getObjectsInBoundary(selection);
+        const std::vector<GUIGlID> ids = getObjectsInBoundary(selection, false);
         GUIGlObject* object = nullptr;
         for (auto it_ids : ids) {
             if (it_ids == 0) {

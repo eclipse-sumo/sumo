@@ -356,10 +356,11 @@ GUISUMOAbstractView::getGUIGlObjectsUnderCursor() {
 
 GUIGlID
 GUISUMOAbstractView::getObjectAtPosition(Position pos) {
-    Boundary selection;
-    selection.add(pos);
-    selection.grow(SENSITIVITY);
-    const std::vector<GUIGlID> ids = getObjectsInBoundary(selection);
+    // calculate a boundary for the given position
+    Boundary positionBoundary;
+    positionBoundary.add(pos);
+    positionBoundary.grow(SENSITIVITY);
+    const std::vector<GUIGlID> ids = getObjectsInBoundary(positionBoundary, true);
     // Interpret results
     int idMax = 0;
     double maxLayer = -std::numeric_limits<double>::max();
@@ -412,7 +413,7 @@ GUISUMOAbstractView::getObjectsAtPosition(Position pos, double radius) {
     selection.add(pos);
     selection.grow(radius);
     // obtain GUIGlID of objects in boundary
-    const std::vector<GUIGlID> ids = getObjectsInBoundary(selection);
+    const std::vector<GUIGlID> ids = getObjectsInBoundary(selection, true);
     // iterate over obtained GUIGlIDs
     for (const auto& i : ids) {
         // obtain GUIGlObject
@@ -447,7 +448,7 @@ GUISUMOAbstractView::getGUIGlObjectsAtPosition(Position pos, double radius) {
     selection.add(pos);
     selection.grow(radius);
     // obtain GUIGlID of objects in boundary
-    const std::vector<GUIGlID> ids = getObjectsInBoundary(selection);
+    const std::vector<GUIGlID> ids = getObjectsInBoundary(selection, true);
     // iterate over obtained GUIGlIDs
     for (const auto& i : ids) {
         // obtain GUIGlObject
@@ -469,7 +470,7 @@ GUISUMOAbstractView::getGUIGlObjectsAtPosition(Position pos, double radius) {
 
 
 std::vector<GUIGlID>
-GUISUMOAbstractView::getObjectsInBoundary(Boundary bound, bool enableDrawForSelecting) {
+GUISUMOAbstractView::getObjectsInBoundary(Boundary bound, bool singlePosition) {
     const int NB_HITS_MAX = 1024 * 1024;
     // Prepare the selection mode
     static GUIGlID hits[NB_HITS_MAX];
@@ -481,12 +482,10 @@ GUISUMOAbstractView::getObjectsInBoundary(Boundary bound, bool enableDrawForSele
     Boundary oldViewPort = myChanger->getViewport(false); // backup the actual viewPort
     myChanger->setViewport(bound);
     bound = applyGLTransform(false);
-
-    // paint in select mode (depending of enableDrawForSelecting. It's only false if we're selecting using a rectangle)
-    if (enableDrawForSelecting) {
-        myVisualizationSettings->drawForSelecting = true;
-    }
+    // enable draw for selecting (to draw objects with less details)
+    myVisualizationSettings->drawForSelecting = true;
     int hits2 = doPaintGL(GL_SELECT, bound);
+    // disable draw for selecting (to draw objects with less details)
     myVisualizationSettings->drawForSelecting = false;
     // Get the results
     nb_hits = glRenderMode(GL_RENDER);

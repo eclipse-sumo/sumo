@@ -82,22 +82,25 @@ PositionVector::around(const Position& p, double offset) const {
         return tmp.around(p);
     }
     double angle = 0;
-    for (const_iterator i = begin(); i != end() - 1; i++) {
+    // iterate over all points, and obtain angle between current and next
+    for (const_iterator i = begin(); i != (end() - 1); i++) {
         Position p1(
-            (*i).x() - p.x(),
-            (*i).y() - p.y());
+            i->x() - p.x(),
+            i->y() - p.y());
         Position p2(
-            (*(i + 1)).x() - p.x(),
-            (*(i + 1)).y() - p.y());
+            (i + 1)->x() - p.x(),
+            (i + 1)->y() - p.y());
         angle += GeomHelper::angle2D(p1, p2);
     }
+    // add angle between last and first point
     Position p1(
-        (*(end() - 1)).x() - p.x(),
-        (*(end() - 1)).y() - p.y());
+        (end() - 1)->x() - p.x(),
+        (end() - 1)->y() - p.y());
     Position p2(
-        (*(begin())).x() - p.x(),
-        (*(begin())).y() - p.y());
+        begin()->x() - p.x(),
+        begin()->y() - p.y());
     angle += GeomHelper::angle2D(p1, p2);
+    // if angle is less than PI, then point lying in Polygon
     return (!(fabs(angle) < M_PI));
 }
 

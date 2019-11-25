@@ -368,6 +368,7 @@ GUIVisualizationSettings::GUIVisualizationSettings(bool _netedit) :
     drawBoundaries(false),
     selectionScale(1.),
     drawForSelecting(false),
+    drawForSelectingClicking(false),
     forceDrawForSelecting(false),
     lefthand(false),
     disableLaneIcons(false) {
@@ -1672,7 +1673,7 @@ GUIVisualizationSettings::drawDetail(const double detail, const double exaggerat
 
 int
 GUIVisualizationSettings::getCircleResolution() const {
-    if (drawForSelecting) {
+    if (drawForSelecting || drawForSelectingClicking) {
         return 8;
     } else if (scale >= 10) {
         return 32;

@@ -290,7 +290,7 @@ GNEPoly::drawGL(const GUIVisualizationSettings& s) const {
         // push name (needed for getGUIGlObjectsUnderCursor(...)
         glPushName(getGlID());
         // first check if inner polygon can be drawn
-        if (s.drawForSelecting && getFill()) {
+        if (s.drawForSelectingClicking && getFill()) {
             if (myShape.around(myNet->getViewNet()->getPositionInformation())) {
                 // push matrix
                 glPushMatrix();

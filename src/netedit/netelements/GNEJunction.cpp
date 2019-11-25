@@ -320,14 +320,14 @@ GNEJunction::drawGL(const GUIVisualizationSettings& s) const {
                 if (exaggeration > 1) {
                     junctionShape.scaleRelative(exaggeration);
                 }
-                // first check if inner polygon can be drawn
-                if (s.drawForSelecting) {
+                // first check if inner junction polygon can be drawn
+                if (s.drawForSelectingClicking) {
                     // only draw a point if mouse is around shape
                     if (junctionShape.around(mousePosition)) {
                         // push matrix
                         glPushMatrix();
                         glTranslated(mousePosition.x(), mousePosition.y(), GLO_JUNCTION);
-                        GLHelper:: drawFilledCircle(1, s.getCircleResolution());
+                        GLHelper::drawFilledCircle(1, s.getCircleResolution());
                         glPopMatrix();
                     }
                 } else if ((s.scale * exaggeration * myMaxSize) < 40.) {
@@ -352,7 +352,7 @@ GNEJunction::drawGL(const GUIVisualizationSettings& s) const {
                 // move matrix to 
                 glTranslated(myNBNode.getPosition().x(), myNBNode.getPosition().y(), getType() + 0.05);
                 // only draw filled circle if we aren't in draw for selecting mode, or if distance to center is enough)
-                if (!s.drawForSelecting || (mousePosition.distanceSquaredTo2D(myNBNode.getPosition()) <= (circleWidthSquared + 2))) {
+                if (!s.drawForSelectingClicking || (mousePosition.distanceSquaredTo2D(myNBNode.getPosition()) <= (circleWidthSquared + 2))) {
                     std::vector<Position> vertices = GLHelper::drawFilledCircleReturnVertices(circleWidth, s.getCircleResolution());
                     // check if dotted contour has to be drawn
                     if (myNet->getViewNet()->getDottedAC() == this) {
