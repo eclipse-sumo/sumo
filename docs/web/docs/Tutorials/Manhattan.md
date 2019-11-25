@@ -78,3 +78,7 @@ The number of vehicles in the first few simulation seconds is limited by
 available road space for vehicle insertions. If the number of vehicles
 is large with respect to the network size, it may take a few simulation
 steps before all vehicles have entered the network.
+
+## Making vehicles run forever
+
+Using JTRRouter, routes of arbitrary length can be generated. However, vehicles will eventually reach the end of their route and exit the simulation. To avoid this, the tool [generateContinuousRerouters.py](../Tools/Misc.md#generatecontinuousrerouterspy) can be used. 
