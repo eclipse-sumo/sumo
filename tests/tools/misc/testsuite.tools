@@ -3,3 +3,4 @@
 createVehTypeDistribution
 generateParkingLots
 generateParkingAreaRerouters
+generateContinuousRerouters
