@@ -327,7 +327,7 @@ GNEDetectorE2::drawGL(const GUIVisualizationSettings& s) const {
     // Obtain exaggeration of the draw
     const double exaggeration = s.addSize.getExaggeration(s, this);
     // first check if additional has to be drawn
-    if (s.drawAdditionals(exaggeration)) {
+    if ((myTagProperty.getTag() == SUMO_TAG_E2DETECTOR) && s.drawAdditionals(exaggeration)) {
         // Start drawing adding an gl identificator
         glPushName(getGlID());
         // Add a draw matrix

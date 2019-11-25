@@ -723,7 +723,7 @@ GNEGeometry::drawLaneGeometry(const GNEViewNet *viewNet, const PositionVector& s
 void
 GNEGeometry::drawSegmentGeometry(const GNEViewNet *viewNet, const SegmentGeometry::Segment& segment, const double width) {
     // first check if we're in draw for selecting mode
-    if (viewNet->getVisualisationSettings()->drawForRectangleSelection) {
+    if (viewNet->getVisualisationSettings()->drawForPositionSelection) {
         // obtain mouse Position
         const Position mousePosition = viewNet->getPositionInformation();
         // obtain position over lane relative to mouse position

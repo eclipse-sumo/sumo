@@ -980,7 +980,7 @@ GNELane::drawPartialE2DetectorPlan(const GUIVisualizationSettings& s, const GNEA
                 // Set E2Detector color (needed due drawShapeDottedContour)
                 GLHelper::setColor(E2DetectorColor);
                 // draw box lines
-                GLHelper::drawBoxLines(segment.getShape(), segment.getShapeRotations(), segment.getShapeLengths(), E2DetectorWidth);
+                GNEGeometry::drawSegmentGeometry(myNet->getViewNet(), segment, E2DetectorWidth);
                 // check if shape dotted contour has to be drawn
                 if (myNet->getViewNet()->getDottedAC() == E2Detector) {
                     GLHelper::drawShapeDottedContourAroundShape(s, getType(), segment.getShape(), E2DetectorWidth);
