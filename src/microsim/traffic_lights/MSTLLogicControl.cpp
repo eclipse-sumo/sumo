@@ -108,7 +108,11 @@ MSTLLogicControl::TLSLogicVariants::addLogic(const std::string& programID,
     }
     // add to the list of active
     if (myVariants.size() == 0 || isNewDefault) {
+        if (myCurrentProgram != nullptr) {
+            myCurrentProgram->deactivateProgram();
+        }
         myCurrentProgram = logic;
+        myCurrentProgram->activateProgram();
     }
     // add to the list of logic
     myVariants[programID] = logic;
@@ -202,7 +206,9 @@ MSTLLogicControl::TLSLogicVariants::getActive() const {
 void
 MSTLLogicControl::TLSLogicVariants::switchTo(MSTLLogicControl& tlc, const std::string& programID) {
     // set the found wished sub-program as this tls' current one
+    myCurrentProgram->deactivateProgram();
     myCurrentProgram = getLogicInstantiatingOff(tlc, programID);
+    myCurrentProgram->activateProgram();
     myCurrentProgram->setTrafficLightSignals(MSNet::getInstance()->getCurrentTimeStep());
     executeOnSwitchActions();
 }

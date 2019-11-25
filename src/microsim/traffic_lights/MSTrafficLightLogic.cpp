@@ -105,7 +105,9 @@ MSTrafficLightLogic::MSTrafficLightLogic(MSTLLogicControl& tlcontrol, const std:
     myProgramID(programID),
     myLogicType(logicType),
     myCurrentDurationIncrement(-1),
-    myDefaultCycleTime(0) {
+    myDefaultCycleTime(0),
+    myAmActive(true)
+{
     mySwitchCommand = new SwitchCommand(tlcontrol, this, delay);
     MSNet::getInstance()->getBeginOfTimestepEvents()->addEvent(mySwitchCommand, delay);
 }
@@ -373,5 +375,16 @@ MSTrafficLightLogic::isSelected() const {
     return MSNet::getInstance()->isSelected(this);
 }
 
+
+void
+MSTrafficLightLogic::activateProgram() {
+    myAmActive = true;
+}
+
+
+void
+MSTrafficLightLogic::deactivateProgram() {
+    myAmActive = false;
+}
 /****************************************************************************/
 

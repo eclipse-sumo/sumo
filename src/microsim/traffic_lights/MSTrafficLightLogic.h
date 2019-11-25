@@ -151,6 +151,9 @@ public:
      */
     virtual SUMOTime trySwitch() = 0;
 
+    /// @brief called when switching programs
+    virtual void activateProgram();
+    virtual void deactivateProgram(); 
 
     /** @brief Applies the current signal states to controlled links
      * @param[in] t The current time
@@ -434,6 +437,9 @@ protected:
 
     /// @brief list of indices that are ignored in mesoscopic simulatino
     std::set<int> myIgnoredIndices;
+
+    /// @brief whether the current program is active
+    bool myAmActive;
 
 private:
     /// @brief initialize optional meso penalties

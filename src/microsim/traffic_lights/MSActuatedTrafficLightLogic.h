@@ -89,6 +89,10 @@ public:
     SUMOTime trySwitch();
     /// @}
 
+    /// @brief called when switching programs
+    void activateProgram();
+    void deactivateProgram(); 
+
     bool showDetectors() const {
         return myShowDetectors;
     }

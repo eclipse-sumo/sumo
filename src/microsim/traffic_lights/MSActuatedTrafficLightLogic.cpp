@@ -373,6 +373,23 @@ MSActuatedTrafficLightLogic::hasMajor(const std::string& state, const LaneVector
 
 
 // ------------ Switching and setting current rows
+void
+MSActuatedTrafficLightLogic::activateProgram() {
+    MSTrafficLightLogic::activateProgram();
+    for (InductLoopInfo& loopInfo : myInductLoops) {
+        loopInfo.loop->setVisible(true);
+    }
+}
+
+
+void
+MSActuatedTrafficLightLogic::deactivateProgram() {
+    MSTrafficLightLogic::deactivateProgram();
+    for (InductLoopInfo& loopInfo : myInductLoops) {
+        loopInfo.loop->setVisible(false);
+    }
+}
+
 SUMOTime
 MSActuatedTrafficLightLogic::trySwitch() {
     // checks if the actual phase should be continued
