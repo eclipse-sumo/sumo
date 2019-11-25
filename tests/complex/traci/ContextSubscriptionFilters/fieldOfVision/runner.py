@@ -48,7 +48,8 @@ def runSingle(traciEndTime, range, openingAngle, testWithIncompatibleFilter):
 
         if not subscribed:
             print("Subscribing to context of vehicle '%s' (range=%s)" % (egoID, range))
-            traci.vehicle.subscribeContext(egoID, traci.constants.CMD_GET_VEHICLE_VARIABLE, range, [traci.constants.VAR_POSITION])
+            traci.vehicle.subscribeContext(egoID, traci.constants.CMD_GET_VEHICLE_VARIABLE,
+                                           range, [traci.constants.VAR_POSITION])
             print("Adding field of vision subscription filter ... (openingAngle=%s)" % (openingAngle))
             sys.stdout.flush()
             if testWithIncompatibleFilter:

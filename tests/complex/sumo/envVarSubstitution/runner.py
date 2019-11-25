@@ -29,4 +29,3 @@ os.environ["NETFILENAME"] = "input_net"
 
 # file output direct
 subprocess.call([sumoBinary, "-c", "sumo.sumocfg"])
-

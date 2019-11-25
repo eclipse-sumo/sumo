@@ -59,8 +59,8 @@ def ppStages(comment, stages):
 
 
 traci.start([sumolib.checkBinary('sumo'), "-c", "sumo.sumocfg",
-    "--ignore-route-errors",
-    "--log", "log.txt"])
+             "--ignore-route-errors",
+             "--log", "log.txt"])
 traci.simulation.subscribe(
     [traci.constants.VAR_LOADED_VEHICLES_IDS, traci.constants.VAR_DEPARTED_VEHICLES_IDS])
 print(traci.simulation.getSubscriptionResults())
