@@ -58,15 +58,14 @@ bool MSRoutingEngine::myWithTaz;
 SUMOAbstractRouter<MSEdge, SUMOVehicle>* MSRoutingEngine::myRouter = nullptr;
 std::map<std::pair<const MSEdge*, const MSEdge*>, const MSRoute*> MSRoutingEngine::myCachedRoutes;
 SUMOAbstractRouter<MSEdge, SUMOVehicle>::Operation MSRoutingEngine::myEffortFunc = &MSRoutingEngine::getEffort;
+#ifdef HAVE_FOX
 FXMutex MSRoutingEngine::myRouteCacheMutex;
+#endif
 
 
 // ===========================================================================
 // method definitions
 // ===========================================================================
-// ---------------------------------------------------------------------------
-// static initialisation methods
-// ---------------------------------------------------------------------------
 void
 MSRoutingEngine::initWeightUpdate() {
     if (myAdaptationInterval == -1) {
@@ -90,9 +89,7 @@ MSRoutingEngine::initWeightUpdate() {
     }
 }
 
-// ---------------------------------------------------------------------------
-// MSRoutingEngine-methods
-// ---------------------------------------------------------------------------
+
 void
 MSRoutingEngine::initEdgeWeights() {
     if (myEdgeSpeeds.empty()) {
@@ -270,18 +267,35 @@ MSRoutingEngine::initRouter(SUMOVehicle* vehicle) {
 
 
 void
-MSRoutingEngine::reroute(SUMOVehicle& vehicle, const SUMOTime currentTime, const bool onInit) {
+MSRoutingEngine::reroute(SUMOVehicle& vehicle, const SUMOTime currentTime, const std::string& info,
+                         const bool onInit, const bool silent, const MSEdgeVector& prohibited) {
     if (myRouter == nullptr) {
         initRouter(&vehicle);
     }
 #ifdef HAVE_FOX
     FXWorkerThread::Pool& threadPool = MSNet::getInstance()->getEdgeControl().getThreadPool();
     if (threadPool.size() > 0) {
-        threadPool.add(new RoutingTask(vehicle, currentTime, onInit));
+        threadPool.add(new RoutingTask(vehicle, currentTime, info, onInit, silent, prohibited));
         return;
     }
 #endif
-    vehicle.reroute(currentTime, "device.rerouting", *myRouter, onInit, myWithTaz);
+    if (!prohibited.empty()) {
+        myRouter->prohibit(prohibited);
+    }
+    try {
+        vehicle.reroute(currentTime, info, *myRouter, onInit, myWithTaz, silent);
+    }
+    catch (ProcessError&) {
+        if (!silent) {
+            if (!prohibited.empty()) {
+                myRouter->prohibit(MSEdgeVector());
+            }
+            throw;
+        }
+    }
+    if (!prohibited.empty()) {
+        myRouter->prohibit(MSEdgeVector());
+    }
 }
 
 
@@ -349,7 +363,24 @@ MSRoutingEngine::waitForAll() {
 // ---------------------------------------------------------------------------
 void
 MSRoutingEngine::RoutingTask::run(FXWorkerThread* context) {
-    myVehicle.reroute(myTime, "device.rerouting", static_cast<MSEdgeControl::WorkerThread*>(context)->getRouter(), myOnInit, myWithTaz);
+    SUMOAbstractRouter<MSEdge, SUMOVehicle>& router = static_cast<MSEdgeControl::WorkerThread*>(context)->getRouter();
+    if (!myProhibited.empty()) {
+        router.prohibit(myProhibited);
+    }
+    try {
+        myVehicle.reroute(myTime, myInfo, router, myOnInit, myWithTaz, mySilent);
+    }
+    catch (ProcessError&) {
+        if (!mySilent) {
+            if (!myProhibited.empty()) {
+                router.prohibit(MSEdgeVector());
+            }
+            throw;
+        }
+    }
+    if (!myProhibited.empty()) {
+        router.prohibit(MSEdgeVector());
+    }
     const MSEdge* source = *myVehicle.getRoute().begin();
     const MSEdge* dest = myVehicle.getRoute().getLastEdge();
     if (source->isTazConnector() && dest->isTazConnector()) {

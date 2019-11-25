@@ -85,7 +85,8 @@ public:
     static void initRouter(SUMOVehicle* vehicle=nullptr);
 
     /// @brief initiate the rerouting, create router / thread pool on first use
-    static void reroute(SUMOVehicle& vehicle, const SUMOTime currentTime, const bool onInit);
+    static void reroute(SUMOVehicle& vehicle, const SUMOTime currentTime, const std::string& info,
+                        const bool onInit = false, const bool silent = false, const MSEdgeVector& prohibited = MSEdgeVector());
 
     /// @brief adapt the known travel time for an edge
     static void setEdgeTravelTime(const MSEdge* const edge, const double travelTime);
@@ -136,13 +137,17 @@ private:
      */
     class RoutingTask : public FXWorkerThread::Task {
     public:
-        RoutingTask(SUMOVehicle& v, const SUMOTime time, const bool onInit)
-            : myVehicle(v), myTime(time), myOnInit(onInit) {}
+        RoutingTask(SUMOVehicle& v, const SUMOTime time, const std::string& info,
+                    const bool onInit, const bool silent, const MSEdgeVector& prohibited)
+            : myVehicle(v), myTime(time), myInfo(info), myOnInit(onInit), mySilent(silent), myProhibited(prohibited) {}
         void run(FXWorkerThread* context);
     private:
         SUMOVehicle& myVehicle;
         const SUMOTime myTime;
+        const std::string myInfo;
         const bool myOnInit;
+        const bool mySilent;
+        const MSEdgeVector myProhibited;
     private:
         /// @brief Invalidated assignment operator.
         RoutingTask& operator=(const RoutingTask&) = delete;

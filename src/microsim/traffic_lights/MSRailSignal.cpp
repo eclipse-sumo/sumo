@@ -26,10 +26,14 @@
 #include <utility>
 #include <vector>
 #include <bitset>
+#ifdef HAVE_FOX
+#include <utils/foxtools/FXWorkerThread.h>
+#endif
 #include <utils/iodevices/OutputDevice_COUT.h>
 #include <microsim/MSEventControl.h>
 #include <microsim/MSNet.h>
 #include <microsim/MSEdge.h>
+#include <microsim/MSEdgeControl.h>
 #include <microsim/MSLane.h>
 #include <microsim/MSLink.h>
 #include <microsim/MSJunctionLogic.h>
@@ -452,7 +456,7 @@ MSRailSignal::LinkInfo::buildDriveWay(MSRouteIterator first, MSRouteIterator end
 void
 MSRailSignal::LinkInfo::reroute(SUMOVehicle* veh, const MSEdgeVector& occupied) {
     MSDevice_Routing* rDev = static_cast<MSDevice_Routing*>(veh->getDevice(typeid(MSDevice_Routing)));
-    SUMOTime now = MSNet::getInstance()->getCurrentTimeStep();
+    const SUMOTime now = MSNet::getInstance()->getCurrentTimeStep();
     if (rDev != nullptr &&
             (myLastRerouteVehicle != veh
              // reroute each vehicle only once if no periodic routing is allowed,
@@ -461,32 +465,21 @@ MSRailSignal::LinkInfo::reroute(SUMOVehicle* veh, const MSEdgeVector& occupied) 
         myLastRerouteVehicle = veh;
         myLastRerouteTime = now;
 
-        SUMOAbstractRouter<MSEdge, SUMOVehicle>& router = MSRoutingEngine::getRouterTT(veh->getRNGIndex(), occupied);
 #ifdef DEBUG_REROUTE
         ConstMSEdgeVector oldRoute = veh->getRoute().getEdges();
         if (DEBUG_COND_LINKINFO) {
             std::cout << SIMTIME << " reroute veh=" << veh->getID() << " rs=" << getID() << " occupied=" << toString(occupied) << "\n";
         }
 #endif
-        try {
-            veh->reroute(now, "railSignal:" + getID(), router, false, false, true); // silent
+        MSRoutingEngine::reroute(*veh, now, "railSignal:" + getID(), false, true, occupied);
 #ifdef DEBUG_REROUTE
-            if (DEBUG_COND_LINKINFO) {
-                if (veh->getRoute().getEdges() != oldRoute) {
-                    std::cout << "    rerouting successful\n";
-                }
+        // attention this works only if we are not parallel!
+        if (DEBUG_COND_LINKINFO) {
+            if (veh->getRoute().getEdges() != oldRoute) {
+                std::cout << "    rerouting successful\n";
             }
-#endif
-        } catch (ProcessError& error) {
-#ifdef DEBUG_REROUTE
-            if (DEBUG_COND_LINKINFO) {
-                std::cout << " rerouting failed: " << error.what() << "\n";
-            }
-#else
-            UNUSED_PARAMETER(error);
-#endif
         }
-        MSRoutingEngine::getRouterTT(veh->getRNGIndex()); // reset forbidden edges
+#endif
     }
 }
 

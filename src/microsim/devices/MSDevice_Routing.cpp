@@ -238,7 +238,7 @@ MSDevice_Routing::reroute(const SUMOTime currentTime, const bool onInit) {
         return;
     }
     myLastRouting = currentTime;
-    MSRoutingEngine::reroute(myHolder, currentTime, onInit);
+    MSRoutingEngine::reroute(myHolder, currentTime, "device.rerouting", onInit);
 }
 
 
