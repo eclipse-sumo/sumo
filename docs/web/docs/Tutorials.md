@@ -7,6 +7,7 @@ permalink: /Tutorials/
     These tutorials assume minor computer skills. If you run into any questions please read the page [Basics/Basic Computer Skills](Basics/Basic_Computer_Skills.md).
 
 # Beginner Tutorials
+* [Tutorials/Hello Sumo](Tutorials/Hello_Sumo.md) - the simplest net and a single car set up "by hand"
 * [Tutorials/OSMWebWizard](Tutorials/OSMWebWizard.md) - setting up your first scenario with only some clicks using osmWebWizard.py
 * [Tutorials/quick start](Tutorials/quick_start.md) - a more complex tutorial with [NETEDIT](NETEDIT.md); first steps in SUMO
 * [Tutorials/Driving in Circles](Tutorials/Driving_in_Circles.md) - Work with netedit; define a flow; let vehicles drive in circles using rerouters
@@ -15,7 +16,6 @@ permalink: /Tutorials/
 * [Tutorials/Manhattan](Tutorials/Manhattan.md) - Build a [Manhattan mobility model](https://en.wikipedia.org/wiki/Manhattan_mobility_model)
 
 # Advanced Tutorials
-* [Tutorials/Hello Sumo](Tutorials/Hello_Sumo.md) - the simplest net and a single car set up "by hand"
 * [Tutorials/ScenarioGuide](Tutorials/ScenarioGuide.md) - High level outline of the steps needed to build a simulation scenario
 * [Tutorials/HighwayDetector](Tutorials/HighwayDetector.md) - how to create a highway scenario based on induction loop data
 * [Tutorials/FundamentalDiagram](Tutorials/FundamentalDiagram.md) - how to compute a fundamental diagram with SUMO
