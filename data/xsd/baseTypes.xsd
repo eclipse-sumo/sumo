@@ -131,7 +131,7 @@
         <xsd:attribute name="netOffset">
             <xsd:simpleType>
                 <xsd:restriction base="xsd:string">
-                    <xsd:pattern value="&FloatPattern;,&FloatPattern;"/>
+                    <xsd:pattern value="&FloatPattern;,&FloatPattern;(,&FloatPattern;)?"/>
                 </xsd:restriction>
             </xsd:simpleType>
         </xsd:attribute>
