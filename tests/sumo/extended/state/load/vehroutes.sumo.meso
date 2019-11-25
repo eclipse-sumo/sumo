@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon May 28 14:42:02 2018 by Eclipse SUMO Version 445149f
+<!-- generated on Mon Nov 25 14:29:10 2019 by Eclipse SUMO Version v1_3_1+1083-5d228cb4f4
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -24,6 +24,7 @@ SPDX-License-Identifier: EPL-2.0
     </time>
 
     <processing>
+        <default.speeddev value="0"/>
         <pedestrian.model value="nonInteracting"/>
     </processing>
 
@@ -42,13 +43,13 @@ SPDX-License-Identifier: EPL-2.0
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-    <vehicle id="v0" type="type1" depart="0.00" line="line1" arrival="29.00">
+    <vehicle id="v0" type="type1" depart="0.00" line="line1" speedFactor="1.00" arrival="29.00">
         <route edges="beg middle end"/>
         <stop lane="middle_0" duration="0.00"/>
         <param key="has.rerouting.device" value="false"/>
     </vehicle>
 
-    <vehicle id="v1" type="type2" depart="7.00" arrival="36.00">
+    <vehicle id="v1" type="type2" depart="7.00" speedFactor="1.00" arrival="36.00">
         <route edges="beg middle end"/>
     </vehicle>
 
