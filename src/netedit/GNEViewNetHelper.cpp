@@ -624,9 +624,13 @@ GNEViewNetHelper::MoveSingleElementValues::calculatePolyValues() {
             } else {
                 // obtain index of vertex to move and moving reference
                 myViewNet->myMoveSingleElementValues.movingIndexShape = myPolyToMove->getVertexIndex(myViewNet->myMoveSingleElementValues.originalPositionInView, false, false);
-                if (myViewNet->myMoveSingleElementValues.movingIndexShape == -1) {
+                // check if a new Vertex must be created
+                if ((myViewNet->myMoveSingleElementValues.movingIndexShape == -1) && 
+                    (myPolyToMove->getShape().distance2D(myViewNet->myMoveSingleElementValues.originalPositionInView) <= 0.8)) {
                     // create new geometry point
                     myViewNet->myMoveSingleElementValues.movingIndexShape = myPolyToMove->getVertexIndex(myViewNet->myMoveSingleElementValues.originalPositionInView, true, true);
+                } else {
+                    return false;
                 }
                 // set Z value
                 myViewNet->myMoveSingleElementValues.originalPositionInView.setz(myPolyToMove->getShape()[myViewNet->myMoveSingleElementValues.movingIndexShape].z());
