@@ -824,7 +824,7 @@ MSDevice_ToC::notifyMove(SUMOTrafficObject& /*veh*/,
         // Abort dynamic ToC, FIXME: This could abort an externally requested ToC in rare occasions... (needs test)
         // Record event
         if (generatesOutput()) {
-            myEvents.push(std::make_pair(SIMSTEP, "~DYNTOR"));
+            myEvents.push(std::make_pair(SIMSTEP, "DYNTOR"));
 			myEventLanes.push(std::make_pair(myHolder.getLane()->getID(), myHolder.getPositionOnLane())); // add lane and lanepos
         }
         // NOTE: This should not occur if lane changing is prevented during ToC preparation...
