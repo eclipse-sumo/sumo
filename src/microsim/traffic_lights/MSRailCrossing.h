@@ -45,7 +45,7 @@ public:
      * @param[in] parameters This tls' parameters
      */
     MSRailCrossing(MSTLLogicControl& tlcontrol,
-                   const std::string& id, const std::string& programID,
+                   const std::string& id, const std::string& programID, SUMOTime delay,
                    const std::map<std::string, std::string>& parameters);
 
 

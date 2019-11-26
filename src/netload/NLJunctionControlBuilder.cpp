@@ -300,12 +300,12 @@ NLJunctionControlBuilder::closeTrafficLightLogic(const std::string& basePath) {
             break;
         case TLTYPE_RAIL_SIGNAL:
             tlLogic = new MSRailSignal(getTLLogicControlToUse(),
-                                       myActiveKey, myActiveProgram,
+                                       myActiveKey, myActiveProgram, myNet.getCurrentTimeStep(),
                                        myAdditionalParameter);
             break;
         case TLTYPE_RAIL_CROSSING:
             tlLogic = new MSRailCrossing(getTLLogicControlToUse(),
-                                         myActiveKey, myActiveProgram,
+                                         myActiveKey, myActiveProgram, myNet.getCurrentTimeStep(),
                                          myAdditionalParameter);
             break;
         case TLTYPE_OFF:

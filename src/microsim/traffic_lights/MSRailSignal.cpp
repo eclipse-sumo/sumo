@@ -78,9 +78,9 @@ int MSRailSignal::myNumWarnings(0);
 // method definitions
 // ===========================================================================
 MSRailSignal::MSRailSignal(MSTLLogicControl& tlcontrol,
-                           const std::string& id, const std::string& programID,
+                           const std::string& id, const std::string& programID, SUMOTime delay,
                            const std::map<std::string, std::string>& parameters) :
-    MSTrafficLightLogic(tlcontrol, id, programID, TLTYPE_RAIL_SIGNAL, DELTA_T, parameters),
+    MSTrafficLightLogic(tlcontrol, id, programID, TLTYPE_RAIL_SIGNAL, delay, parameters),
     myCurrentPhase(DELTA_T, std::string(SUMO_MAX_CONNECTIONS, 'X'), -1), // dummy phase
     myPhaseIndex(0) {
     myDefaultCycleTime = DELTA_T;
