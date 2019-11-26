@@ -303,19 +303,17 @@ GNEHierarchicalElementParents::changeEdgeParents(GNEAdditional* elementChild, co
 
 
 void
-GNEHierarchicalElementParents::changeEdgeParents(GNEDemandElement* elementChild, const std::string& newEdgeIDs, bool updateReferences) {
-    if (updateReferences) {
-        // remove demandElement of edge parents
-        for (const auto& i : myEdgeParents) {
-            i->removeDemandElementChild(elementChild);
-        }
+GNEHierarchicalElementParents::changeEdgeParents(GNEDemandElement* elementChild, const std::string& newEdgeIDs) {
+    // remove demandElement of edge parents
+    for (const auto& i : myEdgeParents) {
+        i->removeDemandElementChild(elementChild);
     }
     // obtain new parent edges
     myEdgeParents = GNEAttributeCarrier::parse<std::vector<GNEEdge*> >(elementChild->getViewNet()->getNet(), newEdgeIDs);
     // check that lane parets aren't empty
     if (myEdgeParents.empty()) {
         throw InvalidArgument("New list of edge parents cannot be empty");
-    } else if (updateReferences) {
+    } else {
         // add demandElement into edge parents
         for (const auto& i : myEdgeParents) {
             i->addDemandElementChild(elementChild);
@@ -325,23 +323,78 @@ GNEHierarchicalElementParents::changeEdgeParents(GNEDemandElement* elementChild,
 
 
 void
-GNEHierarchicalElementParents::changeEdgeParents(GNEDemandElement* elementChild, const std::vector<GNEEdge*>& newEdges, bool updateReferences) {
-    if (updateReferences) {
-        // remove demandElement of edge parents
-        for (const auto& i : myEdgeParents) {
-            i->removeDemandElementChild(elementChild);
-        }
+GNEHierarchicalElementParents::changeEdgeParents(GNEDemandElement* elementChild, const std::vector<GNEEdge*>& newEdges) {
+    // remove demandElement of edge parents
+    for (const auto& i : myEdgeParents) {
+        i->removeDemandElementChild(elementChild);
     }
     // set new edges
     myEdgeParents = newEdges;
     // check that lane parets aren't empty
     if (myEdgeParents.empty()) {
         throw InvalidArgument("New list of edge parents cannot be empty");
-    } else if (updateReferences) {
+    } else {
         // add demandElement into edge parents
         for (const auto& i : myEdgeParents) {
             i->addDemandElementChild(elementChild);
         }
+    }
+}
+
+
+void 
+GNEHierarchicalElementParents::changeFirstEdgeParent(GNEDemandElement* elementChild, GNEEdge* newFirstEdge) {
+    // first check that at least there is two edges
+    if (myEdgeParents.size() < 2) {
+        throw InvalidArgument("Invalid minimum number of edges");
+    } else {
+        // remove demandElement of edge parents
+        myEdgeParents.front()->removeDemandElementChild(elementChild);
+        // replace first edge 
+        myEdgeParents[0] = newFirstEdge;
+        // add demandElement into edge parents
+        myEdgeParents.front()->addDemandElementChild(elementChild);
+    }
+}
+
+
+void 
+GNEHierarchicalElementParents::changeMiddleEdgeParents(GNEDemandElement* elementChild, const std::vector<GNEEdge*>& newMiddleEdges) {
+    // first check that at least there is two edges
+    if (myEdgeParents.size() < 2) {
+        throw InvalidArgument("Invalid minimum number of edges");
+    } else {
+        // declare a vector for new parent edges
+        std::vector<GNEEdge*> newEdges;
+        // resize newEdges
+        newEdges.resize(newMiddleEdges.size() + 2);
+        // add first edge
+        newEdges.push_back(myEdgeParents.front());
+        // add newMiddleEdges
+        for (const auto &edge : newMiddleEdges) {
+            newEdges.push_back(edge);
+        }
+        // add last edge
+        newEdges.push_back(myEdgeParents.back());
+        // change all edge parents
+        changeEdgeParents(elementChild, newEdges);
+    }
+}
+
+
+void 
+GNEHierarchicalElementParents::changeLastEdgeParent(GNEDemandElement* elementChild, GNEEdge* newLastEdge) {
+    // first check that at least there is two edges
+    if (myEdgeParents.size() < 2) {
+        throw InvalidArgument("Invalid minimum number of edges");
+    } else {
+        // remove demandElement of edge parents
+        myEdgeParents.front()->removeDemandElementChild(elementChild);
+        // replace last edge 
+        myEdgeParents.pop_back();
+        myEdgeParents.push_back(newLastEdge);
+        // add demandElement into edge parents
+        myEdgeParents.front()->addDemandElementChild(elementChild);
     }
 }
 

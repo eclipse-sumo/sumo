@@ -172,10 +172,19 @@ protected:
     void changeEdgeParents(GNEAdditional* elementChild, const std::string& newEdgeIDs);
 
     /// @brief change edge parents of a demandElement
-    void changeEdgeParents(GNEDemandElement* elementChild, const std::string& newEdgeIDs, bool updateReferences);
+    void changeEdgeParents(GNEDemandElement* elementChild, const std::string& newEdgeIDs);
 
     /// @brief change edge parents of a demandElement (GNEEdge version)
-    void changeEdgeParents(GNEDemandElement* elementChild, const std::vector<GNEEdge*>& newEdges, bool updateReferences);
+    void changeEdgeParents(GNEDemandElement* elementChild, const std::vector<GNEEdge*>& newEdges);
+
+    /// @brief change first edge parent (used by demand elements)
+    void changeFirstEdgeParent(GNEDemandElement* elementChild, GNEEdge* newFirstEdge);
+
+    /// @brief change middle (via) edge parents
+    void changeMiddleEdgeParents(GNEDemandElement* elementChild, const std::vector<GNEEdge*>& newMiddleEdges);
+
+    /// @brief change last edge parent (used by demand elements)
+    void changeLastEdgeParent(GNEDemandElement* elementChild, GNEEdge* newLastEdge);
 
     /// @brief change edge parents of a shape
     void changeLaneParents(GNEShape* elementChild, const std::string& newLaneIDs);
